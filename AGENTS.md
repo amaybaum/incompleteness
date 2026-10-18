@@ -454,6 +454,12 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   invariant with no checkpoint is either given one or not asserted. A named hazard whose mitigation
   is cheap carries the mitigation as a frozen precondition or checkpoint; naming it is not enough.
 
+- **§A.43 Issues for planning; draft PRs for active work.** Unstarted and inactive plans
+  belong in open Issues; active research, implementations and native V3 rounds have one
+  guiding draft PR with continuously pushed safe checkpoints. Migrate planning-only PRs
+  to cross-linked Issues and close without merge or branch deletion. The §A.39 pre-F
+  control-plane chain, candidate-F/E holds and separate launch approvals remain intact.
+
 ---
 
 ## Lessons register (why the rules exist — one line each)
@@ -952,3 +958,79 @@ Adopted 2026-10-16, after an audit of `main` at `fc5abade` found:
 
 Rounds landed, or frozen at `F`, before this section keep their records unchanged. Their evidence
 is retained by the archive under 3, or listed there as not yet retained.
+
+---
+
+## §A.43 Issues for plans; PR-first publication for active work
+
+**Planning-only, inactive and not-yet-started threads use open GitHub Issues**, not
+placeholder pull requests. An Issue states the question, scope, next action, dependencies
+and activation condition; it is not evidence or a governed native-round control plane.
+**Active research, formalization, native V3 round drafting, audits, extractors and repairs
+use one guiding draft pull request**, opened after the first scoped active commit.
+A research-only thread currently producing or independently reviewing substantive
+calculations is active even if no result is adopted or merge is planned; historical
+results on a paused thread do not alone keep its PR active. The PR tracks pushed work in progress; a
+local checkout, agent scratchpad or private worktree is not the authoritative tracker.
+Reuse a thread's guiding PR; reviewers and checkpoints do not each need separate PRs.
+A draft PR is neither approval nor certification nor the durable evidence on `main`
+required by §A.42.
+
+1. **Make the work visible at the right stage.** Open an Issue for a proposal or backlog
+   item. When substantive work starts, open or reuse its guiding draft PR after the first
+   scoped active commit and link Issue ↔ PR, before extended work or independent review.
+   Identify the objective, base or drafting snapshot `D`, authority limits, dependencies
+   and next check. For native rounds, opening and drafting the control plane from `D`
+   is already active work requiring the §A.39 one-PR-from-`D` lifecycle; an Issue cannot
+   replace that PR. Before `F`, the round PR branch may receive only single-parent commits
+   changing that round's permitted preregistration/control-plane files. Every other
+   checkpoint must go to a linked research or staging branch; push its safe commits and
+   link their exact SHAs from the guiding PR. Do not leave substantive work only locally.
+2. **Publish checkpoints continuously.** Run the applicable cheap local checks (§A.40),
+   then commit and push each meaningful milestone promptly to its workstream branch,
+   rather than holding it until independent review, F designation or merge approval.
+   Incomplete or failing work may be published as clearly labelled `WIP / UNVERIFIED`,
+   with the failing checks and limitations stated. Keep the guiding PR's head, description
+   and checkpoint comments aligned with the actual current work and its exact SHAs.
+   Reviewers inspect pushed immutable SHAs and record verdicts and outstanding findings
+   on the guiding PR. A reviewer's local-only results are not a substitute for a pushed
+   author checkpoint.
+3. **Keep history and freezes intact.** Do not silently amend, force-push away or delete
+   prior reviewed candidates or evidence. If the next candidate must be re-cut from an
+   incompatible `D`, preserve the old head under a named remote ref before a separately
+   authorized, lease-checked head update, or open a linked successor draft PR; any
+   re-cut must still satisfy §A.39's single-parent, control-plane-only path from `D`.
+   From the start of a candidate `F` or `E` exact-head hold until owner designation or
+   explicit release of that hold, the round's branch must not move. After `F` is
+   designated, §A.39's linear `F`→`E` execution and reconciliation rules govern it.
+4. **Do not confuse publication with authorization.** A normal WIP branch push or draft
+   PR update is allowed by default. It does **not** authorize `workflow_dispatch`, a
+   special workflow launch, F/E designation, acceptance, merge to `main`, destructive
+   ref movement, branch deletion or evidence-retention promotion. Before pushing, inspect
+   all `push`-triggered workflows, including path-filtered workflows whose triggers depend
+   on the diff or branch history (especially a non-fast-forward update). A push to a
+   special trigger branch that starts a governed launch is itself a launch and still
+   needs separate owner authorization. Ordinary automatic draft-PR CI is not an
+   exact-head F/E attestation (§A.39, §A.40).
+5. **Exceptions are narrow and explicit.** An owner-imposed hold on pushing must name
+   its affected ref or artifact, reason and release condition and be recorded on the
+   guiding PR where safe. Never infer a blanket `no push` rule from `no merge`,
+   `no dispatch`, `no F/E designation`, or a hold on a special launch branch. §A.28's
+   permanent-repository burden remains decisive for what lands on `main`; the following
+   public-branch exclusions apply to *every* push, including WIP. Do not publish secrets,
+   unredacted sensitive logs, prohibited artifacts or bulky temporary repositories;
+   follow §A.28 and §A.42 and publish safe source, structured evidence, digests and
+   traceable omission notes instead.
+6. **Retire inactive planning PRs without losing work.** When a PR is only a plan or
+   backlog placeholder, first open an Issue carrying its open work, decisions and links
+   to the original PR, branch, immutable commit SHAs and source/evidence paths. Cross-link
+   the Issue from the PR and close that PR **without merging**; preserve its branch,
+   commits, discussion and research artifacts. Do not delete refs, rewrite evidence or
+   imply that unlanded claims are adopted. Link any subsequent active draft PR to the
+   Issue, checking its actual base and existing evidence anew. A PR merely waiting for
+   CI, review or a governed authorization is still an active PR, not a planning-only PR;
+   do not close it to satisfy a count. A native V3 round with no designated `F` may be
+   retired to an Issue only after any candidate-`F` exact-head hold is explicitly
+   released; resumption requires a new guiding PR from a current `D`, citing the closed
+   PR's control plane and immutable commits as provenance. Native V3 rounds otherwise
+   retain §A.39's protocol throughout.

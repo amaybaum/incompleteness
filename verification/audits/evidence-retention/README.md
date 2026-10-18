@@ -96,6 +96,59 @@ off-`main` heads and blob. Objects that a host branch or pull ref still holds ar
 - **TRB-1's reference head** `7de2d549` (preregistration `:110`, `:207`) was held only in a local clone. It is
   retained here as a `raw:tree` commit whose parent `6027be54` is named.
 
+### Archive tranche 4: four off-main heads that records not yet on `main` cite
+
+By the owner's instructions of 2026-10-17, `objects/` also retains, in tranche 2's form, four commits that `main` does not reach:
+- #831's research sources `e684897d` and `febfe5e2`, the commits of the two research builds above, as `raw:partial-tree` commits;
+- #829's KTOKEN-MAXCONE-1 design-run heads `1ab0fd9d` (`dev-equivalence/ktoken-maxcone`) and `6959ced4` (`dev-equivalence/ktoken-maxcone-r2`), as `raw:tree` commits.
+
+Each is stored with every tree and blob that `main` lacks at the tranche's own base, `b96662e6` (`tranche_bases`). Its off-`main` parent is named and not retained. That is 66 entries: 4 commits, 37 trees, 23 blobs and 2 withheld blobs, in 64 files of 263,931 bytes. The branches that held the heads on 2026-10-17 are recorded and were not touched. #829's two heads hold no captured raw output: their off-`main` blobs are a workflow, the census registry, Lean sources, Python and a preregistration.
+
+**Their citations are pending.** Each commit records `awaiting_citation`: the pull request, the round, the record that is to cite it and the run whose head or source the record names it as. The run is required, since without it any mention of the id in the record would do. O10 judges a pending citation against the tree under check, never against a pull request:
+- while the record is not in the tree, the entry is pending. It passes and counts as not cited, and a pull request that never lands leaves it so;
+- once the record is in the tree, cites the id (in full, or as a hex prefix of seven or more digits), cites the run free-standing at least once, and every line naming the run obeys the citation rule below, the entry is eligible for promotion;
+- an eligible entry passes, so the commit that lands the record need not change this manifest, and the check prints its qualifying lines: the id's lines and the run's free-standing citations;
+- a later archive commit replaces `awaiting_citation` with citations of exactly those lines. O7 verifies them by the same rule: no location mapped twice, every qualifying line mapped, each run citation a free-standing citation stating the id as head. It fails if the record later leaves the tree. The rule applies to every commit outside tranche 2's pinned membership. Tranche 2's entries map frozen records that name several heads beside one run, and keep O7's token rule;
+- the check fails if the record is in the tree and does not cite the id, cites it on other lines or in other forms than the entry records, does not cite the recorded run free-standing, or a line naming the run breaks the rule; if a recorded run is retained under `ci/` with another head, or its `run.json` is not readable JSON naming a head; or if an entry carries `cited` and `awaiting_citation` together, or neither.
+
+**The citation rule** (`run_citations` in `check_objects.py`; R13 loads the same code). A run is matched as a number with no digit beside it.
+- An occurrence is embedded when it is part of one identifier or file name: an ASCII letter stands beside it, or a joiner (`-`, `_` or `.`) that is itself beside an ASCII letter or digit, as in `evidence/run1-39043849411.json`.
+- Any other occurrence is free-standing: a word, a link text, or a `/runs/` URL.
+- A line with a free-standing occurrence is a citation of the run, and must state the head. On it and on the line either side, every hex id word is a form of the id, and the full id is among them.
+- A line naming the run only embedded is not a citation. It is never mapped, and no other head may stand on it or the line either side.
+- Hex words are read case-folded. A word of 7 to 40 digits names another head unless it is a form of the id. A word of 41 to 63 digits always does.
+- A hex word of 64 digits or more is an opaque value. It names no head, never states the id, and never makes a mention a citation.
+
+Limitation: because such a word is opaque, another commit's id written as part of one is not read as a head. The self-tests record that case with its passing verdict.
+
+**Tranche membership is pinned by id** in `check_objects.py`: tranche 2's 920 entries and tranche 4's 66, each set checked against its count and sha256. O3 requires every label to be an exact int; each pinned entry to carry its pinned tranche; and any other entry to carry a later tranche that has a base. O7 decides which commits the citation rule applies to by id against the same pin, never by the label.
+
+Archive integrity and citation are separate: O1–O9 and H1–H7 verify these objects whatever the state of their citation.
+
+The self-test builds its own fixture in its copy, so its lifecycle cases run whatever the live entries' states are: it makes two pinned tranche-4 commits pending on a stand-in record that no tree holds. Any named case that does not run fails the self-test. It runs the sequence on the stand-in record:
+- absent: pending;
+- landed with the manifest unchanged: eligible;
+- one entry promoted, then both: cited;
+- landed citing another commit: fails;
+- removed under promoted entries: fails.
+
+It also runs the citation rule's cases, the tranche relabels `3`, `"4"`, `2`, `True` and `4.0`, and the digest boundary. It also runs, pending and promoted, the three wrong-head records an independent review measured on the real record: the two full ids swapped with their eight-digit forms kept, the full id mistyped after digit 10, and the run line stating another head.
+
+**Two outputs are withheld,** approved by the owner on 2026-10-17 for exactly these paths in exactly these two commits. The approval in `check_objects.py` binds each one to its commits as well as its mechanism and path. O9 refuses a withheld blob that a third commit's tree names, an instance not recorded with its commit, path, size, id, sha256 and reason, and any other `.txt` (the self-test tries `SOURCE-BLOBS.txt` under `1f19a347`).
+
+| path, in both `e684897d` and `febfe5e2` | bytes | blob | sha256 |
+| --- | --- | --- | --- |
+| `…/preservation-induction-design/exact-output.txt` | 196 | `c697b82b8a7d6719d78dfc74bc8183c85fa12255` | `937839edc3194a099217474bc831f68c8c55b06e095849b003a3664182017de2` |
+| `…/preservation-induction-design/independent-output.txt` | 175 | `8cdf3a83f78059d81a701c2e4951e54f3a2b06bd` | `b48342789486da727d8bb8d3571d9a1546d595898759fafa21c9c3faf51a08e9` |
+
+What they carry is kept in each withheld entry's `carries`, read from the bytes:
+- the primary check: sample manifest sha256 `a1f82e289ba07a4c60dd6b56396dcdf7c0c217b2ff49a8d779f1c4e923842ea9`, 107 exact controls, 7 mutations rejected, "finite constructor examples and named countercontrols only";
+- the independent check: the same manifest digest, 43 independent controls, "rational Kraus-path calculation, finite examples only".
+
+The recipe beside each entry regenerates the output byte for byte: run the commit's `exact_check.py` (with sympy 1.14.0) or `independent_check.py` with `python3 -I -B`, and compare the output's sha256. Both scripts did so at both commits when the tranche was cut.
+
+**History mode per tranche.** H1 requires each tranche's base to be an ancestor of HEAD. H7 checks each entry against its own tranche's base. H3 and H4 count as on `main` whatever the latest base reaches.
+
 **Not adopted as code.** The retained objects are evidence of what off-`main` heads contained:
 - nothing under `objects/` is a path that a build, the release gate or CI picks up;
 - the checker hashes and parses the objects but never executes them;
@@ -115,6 +168,70 @@ off-`main` heads and blob. Objects that a host branch or pull ref still holds ar
 **Excerpts.** None of the 194 bridge-log excerpts of R1's drafting branches is stored, named by a stored tree, or
 reachable from `HEAD`. The manifest lists the sha256 digests of their ids, never the ids themselves.
 
+## Tranche 3: cited runs that no receipt attests
+
+Frozen records also cite CI runs that no receipt or certificate attests: push runs that certified a base, pull-request runs at a candidate merge, and the runs whose output a precondition table quotes. Tranche 3 retains them in the tranche-1 form, an expected result with a recipe, earliest log expiry first.
+
+**The cited set.** At `main` `b96662e6` the tracked text outside this archive cites 487 runs. The count takes every 11-digit run id and 12-digit job id on a line that says run, job or `actions/` (the audit's rule R), the same id shapes on other lines when they name a run of this repository, and the inner runs of the corpus's one cited range (act 40's `preregistration.md:744`); a job id counts for its run. The set equals the 487 runs of the inventory accepted on 2026-10-17. Tranche 1 holds 99 of them: the 96 `ci-` entries and BG-3's three further runs. That leaves 388. This tranche retains the 22 whose 90-day expiry falls on 2026-12-17 or 2026-12-18. The manifest's `tranche3.remaining` lists the other 366 with their creation dates and expiries (2026-12-19 to 2027-01-14), in order of creation. No cited run's log had expired when this tranche was cut. The expiry is creation plus 90 days, GitHub's default for a public repository; the repository's own setting could not be read.
+
+| path | what | kind |
+| --- | --- | --- |
+| `runs/<run>/run.json` | the run's identity and outcome, selected fields of the runs API's answer | `derived`; `source_sha256` is the answer's digest |
+| `runs/<run>/jobs.json` | every job, with its attempt, conclusion and steps, from the jobs API's answer | `derived`, likewise |
+| `runs/<run>/expected.json` | for the 15 runs whose citing claims rest on what a job printed, that output, extracted by `job_outputs.py` from the served job log: the commit it holds at, the recipe that regenerates it, and the served text's line counts and digest | `derived` from the served log, whose digest is `source_sha256` |
+| `job_outputs.py`, `build_tranche3.py` | the extractor, reproduction tool and comparator for these outputs, and the script that cut the tranche | `complete`, hash-pinned |
+
+**Two outputs are retained.**
+- **The control-plane base check** (8 runs). These are its PASS, SKIP and FAIL lines, its header and its summary, such as `OK (mode B, 16 row(s), no failure)`. The header's REF is masked and kept beside the output as provenance. A push run's REF is its head. A pull-request run's REF is GitHub's synthetic merge, a commit not reachable from `main`. The expected result therefore records the merge's base and head, as the run's checkout reported them ("HEAD is now at 28ed5c98 Merge c6d94dda… into d08b932d…"). A reproduction rebuilds the merge from those two commits, both on `main`, under a new id.
+- **The guard,** `edge_rigidity_probe.py` in the probes job (7 runs). For each check it records the status, the tag and the sha256 of the message, with the counts and the verdict, and quotes in full only the lines a claim rests on (`R7-OGS … PASS (ARCHIVED; …)`).
+
+The other 7 runs are cited for their identity, outcome and jobs alone, which `run.json` and `jobs.json` carry.
+
+**What the served logs were.** They were read on 2026-10-17 through the session's job-log tool, which returns at most the last 5000 lines of a log, or fewer when asked. The seven probes logs were served whole (2181 to 2369 lines). Of the eight base-check logs, two were served whole, and six as their last 80 to 160 lines, which hold the base check's output and, for a pull-request run, the checkout's merge line. Each output records `original_lines`, `served_lines` and the served text's sha256. That digest identifies the text the result was read from. It is provenance of the extraction, not a copy of GitHub's log archive, and no served text is retained (§A.42 item 1).
+
+**Claims.** Tranche 3 annotates 94 claims at 46 citing locations: 83 retained and 11 not retained. Ten of the 11 are statements that `_SI2_LEGACY_RE` finds no assignment statement in the guard file, which is a reading of the file's text and not an output of the run; it is reproducible from the tree at that commit. The eleventh is SI-3's "local run at `L`", which was not a CI run. One count needed reading: SI-3's "92 tags" is the guard's 92 checks, R1 to R9 and 83 `R7-*` tags. Acts 21 to 25 count `R7-*` tags alone.
+
+**Reproduction.** `job_outputs.py reproduce --run <run> --work <dir>` runs each recorded command at its commit from a full-history clone. The guard needs numpy and scipy, as the probes job installs them. It compares every line, check, digest, summary, verdict and quoted line, and the exit code, but not timestamps, durations, REF's id or the order of the guard's checks. It fails closed and writes `verdict.json` on every exit. All 15 outputs were reproduced this way in a local clone before commit; that is evidence for the preparer, not an attestation. The `reproduce evidence` workflow runs `reproduce.py`, which handles bridge results only; it does not yet run these.
+
+**Not adopted as attestations.** None of these runs is a `check-run` attestation, and retention changes no verdict or claim.
+
+## Research builds retained ahead of their citing record
+
+By the owner's instruction of 2026-10-17 the archive retains two research builds before the record that cites them reaches `main`. They are runs 38450187534 (job 115478781754, source `e684897d`) and 38454439833 (job 115493410133, source `febfe5e2`). Both are pushes to `research/preservation-induction-design-20261013` on `.github/workflows/preservation-induction-design.yml`, which `main` does not carry. PRESERVE-INDUCT-1's control-plane draft (#831, `round-preserve-induct-1/preregistration.md` lines 69 and 127 at `65b85147`) cites them. Each entry, `research-<run>`, records that pending citation in `awaiting_citation`: the pull request, the round (PRESERVE-INDUCT-1), the record's path, the line and the record's head. It carries no citation of its own. R13 gives these entries the states O10 gives a pending commit, judged against the tree under check:
+- while the record is not in the tree, the entry is pending. It passes and counts as not cited, and no other file outside this archive may cite the run;
+- once the record is in the tree, every line outside this archive that names the run is in it, the recorded line is a free-standing citation of it, and every line naming it obeys O10's citation rule for the run's head (`run.json`'s `head_sha`), the entry is eligible for promotion. It passes, is printed apart and counts as not cited, so the commit that lands the record need not change this manifest. R13 and O10 apply the same rule, from `check_objects.py`;
+- a later archive commit replaces `awaiting_citation` with the citations (R3 and R7 check them). Every free-standing citation of the run must be one of them, every mapped line must be one, no line may be mapped twice, and no file outside the mapped ones may name the run;
+- the check fails if another file names the run while it is pending; if the record is in the tree and does not cite the run, cites it on another line than recorded or only inside an identifier there, or a line naming it breaks the rule; if a citation is left unmapped or mapped twice; or if the run's metadata is missing, not JSON or names no head commit, in which case no state is judged.
+
+The two checkers differ in two recorded ways.
+- **Matching a run.** Both now match a run with no digit beside it. O7's token check on tranche 2's frozen citations keeps its letter-bounded match.
+- **Other files.** While an entry is pending, R13 fails on any other file of the tree that names its run, in any form, even a file name in a result note. O10 has no such rule for a commit's id. A round whose research builds are retained ahead of their record therefore names those runs only in the record until the promotion maps them.
+
+The self-test builds its own fixture in its copy, so its lifecycle cases run in every live state. Every research-build entry is made pending on a stand-in record, and the copied records that only their citations needed are removed. A fixture that cannot be built, or a named case that does not run, fails the self-test.
+
+It runs the sequence:
+- absent: pending;
+- landed with the manifest unchanged: eligible;
+- one entry mapped, then every entry: cited;
+- landed naming another head or another run: fails;
+- removed under a mapped entry: fails.
+
+It also runs the citation rule's cases and the digest boundary.
+
+Each run has `ci/<run>/run.json` and `jobs.json`, from the runs and jobs APIs, and `ci/<run>/results.json` of kind `research-build`. The results were read by `main`'s `extract_result.py` (blob `05c41bce`), unchanged, from the served job log. That log was served whole: 3256 and 3692 lines, equal to the logs' `original_length`. Each result names its commit, run, job, recipe and the served text's sha256. It establishes what that run logged at that source, and nothing about any later tree.
+
+What they carry:
+- the build succeeded (3114 and 3121 jobs) with no failure marker;
+- the reports of the build targets the workflow names: `OIBridge/ImplementationLocality.lean` in both runs, and `OIBridge/StructuralClosure.lean` (complete, 35 of 35) in the second;
+- every extracted axiom is `propext`, `Classical.choice` or `Quot.sound`.
+
+What they do not carry, each a recorded gap, not inferred:
+- **Six `ImplementationLocality` reports per run.** Their declarations end in a prime (`sum_comp'`, …). The report lines stand in the served text, but `extract_result.py`'s report pattern does not match a name that contains an apostrophe. The module is recorded `partial`, 75 of 81.
+- **The design files' own axiom reports** (4 in the first run, 10 in the second). `lean`, run directly on the design files, prints them without the `file:line` prefix of a lake build, and the extractor reads only prefixed reports. These are the reports #831's preregistration describes at lines 66 to 70 ("Its five named theorems compiled … The four headline/corollary axiom reports contain only `propext`, …").
+- **The release gate.** The workflow runs none. Its final records check (`legacy_records_check.py`, `v3_verifier.py --receipts`, `artifact_placement_check.py`) and its exact-control replay print output the extractor does not read; `jobs.json` records each step's conclusion.
+
+Both source commits, which `main` does not reach, are retained under `objects/` in archive tranche 4 (below), without their two withheld captured outputs. The recipe writes them into a clone with `check_objects.py --materialize` and checks them out sparsely without those two paths. `compare_result.py` and `reproduce.py` require a release gate, so the recipe's comparison is manual. The prime defect bears on any future result whose modules declare primed names; no tranche-1 module record has a primed `#print axioms` line.
+
 ## Checking
 
 From the repository root:
@@ -133,12 +250,14 @@ python3 -I verification/audits/evidence-retention/check_objects.py              
 python3 -I verification/audits/evidence-retention/check_objects.py --reconstitute  # history mode
 python3 -I verification/audits/evidence-retention/check_objects.py --self-test
 python3 -I verification/audits/evidence-retention/check_objects.py --materialize   # adds the objects to the clone's object store; no refs
+python3 -I verification/audits/evidence-retention/job_outputs.py --self-test
+python3 -I verification/audits/evidence-retention/job_outputs.py reproduce --run <run_id> --work <dir>   # tranche 3; needs history, numpy and scipy
 ```
 
 `check_retention.py` leaves the files under `objects/` to `check_objects.py`, whose manifest it pins, and `--gate`
-also runs `check_objects.py --reconstitute` and `--self-test`.
+also runs `check_objects.py --reconstitute` and `--self-test`, and `job_outputs.py --self-test`.
 
-The check uses the tree alone: no git history, network or third-party package. Its rules (R1–R9, in its docstring) verify:
+The check uses the tree alone: no git history, network or third-party package. Its rules (R1–R9, R12 and R13, in its docstring) verify:
 - every archived file's size and sha256, and the digest match of each `complete-as-cited` file;
 - that each citing file has its recorded blob id, the cited line still holds its tokens, and each claim's text stands verbatim where it says;
 - that every expected result is well formed and names its commit, job and recipe, with module statuses consistent with their reports;
@@ -146,10 +265,12 @@ The check uses the tree alone: no git history, network or third-party package. I
 - that no unlisted file sits in the archive;
 - the manifest's form, and that each entry's files agree with each other and with the gap list, a CI entry's expected result being a bridge result;
 - coverage, recomputed from the tree: every receipt under `verification/receipts/`, and every certificate attestation that cites runs, is covered by this tranche or named in the manifest's `coverage.later`; each of their check-run attestations and cited runs has an entry that matches it.
+- for tranche 3 (R12): that each `run-` entry's files agree: the run, its head commit and attempt, its jobs, each output's job, commit, recipe, source and expectation, and its expiry, creation plus 90 days. It also checks that no retained or remaining run is attested or already retained by tranche 1, that `tranche3.remaining` lists each run once in order of creation, that no retained run expires after a remaining one, and that the counts agree.
+- for the research builds (R13): that each `research-` entry is pending, eligible or cited as above; that its three files name one run, head commit, attempt and job; that the result is of kind `research-build` and records no gate (R4); and that every item it does not carry is a recorded gap.
 
 At `fc5abade` every receipt is covered and `coverage.later` is empty. A receipt that lands after this tranche keeps its own evidence in its record directory (§A.42), and the plain check fails on it until `coverage.later` names it with that directory; a path named there may be neither covered nor cited by this tranche. The tree cannot order commits, so `--later-provenance` (R10) checks against git history that the tranche base is an ancestor of HEAD and that no path named as later existed at the base.
 
-`--module-sets` (R11) re-derives each expected result's module table from git history rather than from the archive. The receipts and certificate attestations at `fc5abade`, read from git and not from the manifest, fix the runs to check, the rounds that attest each run, and the commit each attests, which must be the expected result's. The runs with a checked bridge result must be exactly the runs they attest, whatever the archive classifies its results as; a run with several bridge results has each checked and counts once, and a CI entry's expected result must be a bridge result. At that commit, each round's control-plane files must have the blobs its receipt pins, their `v3-governed-paths` block, its opener and closer recognized as `G10` states and its entries hashed as `S7` states, must hash to the receipt's `governed_paths_digest`, and its `.lean` paths under `verification/lean-mathlib/` are the governed modules. `S7`'s validity rules are not applied here: the digest ties the entries to the receipt, whose block the V3 verifier validated. CV-1's three runs have no `v3-governed-paths` block: for them the certificate, `verification/certificates/CV1.json`, is read at the run's commit at the blob its attestation pins, and its contributions name no Lean module. The table must equal the union over the run's rounds. It checks 97 expected results, the 96 runs' own and BG-3's `E` tail, a second result of one of those runs, with 165 module records. Three results, all of runs no attestation names, are listed as outside its scope, each with its reason: BG-3's design diagnostic, which records no module table, and its two design-tree results, at commits off `main`. A result of another kind whose run an attestation names fails the check, and so does a bridge result of an unattested run at a commit on `main`. **It is a consistency check, not an independent derivation.** `build_archive.py` took the module sets from the same governed-paths blocks, read at the tranche base with its own parser, so R11 shows that the archive applied those blocks faithfully, as they stand at each run's commit and as the receipts' digests commit to them. It cannot show that the governed paths name the right modules.
+`--module-sets` (R11) re-derives each expected result's module table from git history rather than from the archive. The receipts and certificate attestations at `fc5abade`, read from git and not from the manifest, fix the runs to check, the rounds that attest each run, and the commit each attests, which must be the expected result's. The runs with a checked bridge result must be exactly the runs they attest, whatever the archive classifies its results as; a run with several bridge results has each checked and counts once, and a CI entry's expected result must be a bridge result. At that commit, each round's control-plane files must have the blobs its receipt pins, their `v3-governed-paths` block, its opener and closer recognized as `G10` states and its entries hashed as `S7` states, must hash to the receipt's `governed_paths_digest`, and its `.lean` paths under `verification/lean-mathlib/` are the governed modules. `S7`'s validity rules are not applied here: the digest ties the entries to the receipt, whose block the V3 verifier validated. CV-1's three runs have no `v3-governed-paths` block: for them the certificate, `verification/certificates/CV1.json`, is read at the run's commit at the blob its attestation pins, and its contributions name no Lean module. The table must equal the union over the run's rounds. It checks 97 expected results, the 96 runs' own and BG-3's `E` tail, a second result of one of those runs, with 165 module records. Five results, all of runs no attestation names, are listed as outside its scope, each with its reason: BG-3's design diagnostic, which records no module table, its two design-tree results, at commits off `main`, and the two research builds, whose module tables are their workflow's build targets. A result of another kind whose run an attestation names fails the check, and so does a bridge result of an unattested run at a commit on `main`. **It is a consistency check, not an independent derivation.** `build_archive.py` took the module sets from the same governed-paths blocks, read at the tranche base with its own parser, so R11 shows that the archive applied those blocks faithfully, as they stand at each run's commit and as the receipts' digests commit to them. It cannot show that the governed paths name the right modules.
 
 `--gate` is the release gate's `evidence-retention` step. It runs the check in history mode, where R9's scope is read from git rather than from the tree: every receipt, and every certificate attestation citing runs, that existed at `fc5abade` must be covered, nothing else may be, and a receipt landed later needs no declaration. It runs R10 and R11, printing the results outside R11's scope, then the self-test, whose R10 and R11 cases need that history and fail without it, and, after the retained objects' check, `extract_result.py --self-test`, which reads BG-3's sources at `E` from git. The Mathlib bridge job, which runs the gate, checks out the full history. The gate does not rebuild anything; reproduction is the separate workflow above.
 
@@ -172,7 +293,7 @@ Every file here was scanned before commit for token and key patterns, key-file h
 Recorded here so the gap is visible, not resolved. Counts are from `audit/offmain_audit-output.txt`:
 - **Commits not reachable from `main`:** 107, cited at 236 locations in native-round records and one in a mutable script. Host refs held all 107 when they were listed on 2026-10-17. Tranche 2 retains 6 of them: the R3 pair, BG-3's three heads, and `19985424`, the parent of a retained connected commit. The other 101 are not retained yet.
 - **Blobs and trees not reachable from `main`:** 75, all held by host refs when listed. Tranche 2 retains 14 of them. Of the other 61, four are CONSC-2's build PDFs (its preregistration `:516`–`:517`), which as build outputs are to be named, not retained.
-- **Other CI evidence:** 842 citations of 438 run ids and 173 job ids. This tranche covers 96 runs and BG-3's four logs.
+- **Other CI evidence:** 842 citations of 438 run ids and 173 job ids by the audit's rule R. The full cited set is 487 runs (tranche 3 above). Tranche 1 covers 96 runs and BG-3's four logs, whose entries name three more runs. Tranche 3 covers 22. The other 366 are listed with their expiries in `tranche3.remaining`, the earliest on 2026-12-19.
 - **Act-26's scratchpad computation** (`result.md:931`), which the audit found saved nowhere.
 
 Each needs a documented resolution in a later tranche: an expected result with a recipe, or a recorded gap.

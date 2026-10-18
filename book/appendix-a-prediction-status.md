@@ -165,7 +165,7 @@ The framework's empirical content in biology and medicine is concentrated in the
 
 ## A.5 Forward predictions and falsification targets
 
-Beyond the predictions with current empirical match, the framework makes specific forward-looking predictions that are testable but not yet tested. These provide the framework's empirical exposure for the next several years of experimental research.
+Beyond the predictions with current empirical match, the framework makes specific forward-looking predictions that are testable but not yet tested. The table also lists one conditional prospect, F7, a proposed mechanism whose observable response is not yet specified and which carries no quantitative prediction until it is. These provide the framework's empirical exposure for the next several years of experimental research.
 
 **Quantum engineering.**
 
@@ -182,7 +182,7 @@ Beyond the predictions with current empirical match, the framework makes specifi
 |---|-----------|---------------------|-------------|---------|
 | F5 | Gravitational wave echoes | $\Delta t = (r_+/c)\ln(r_+/\epsilon)$, $\epsilon = 2\sqrt{\sigma}\,l_p$ | LIGO/Virgo/KAGRA next observing runs | Ch 18 §18.5 |
 | F6 | Running vacuum DESI test | $w(z) \neq -1$ in specific form | DESI Year 5 (2-3 years) | Ch 7 §7.7 |
-| F7 | Born rule transient violations (conditional prospect: initial deviation, relaxation history and observable map not fixed) | CMB non-Gaussianity signatures | LiteBIRD, future CMB-S4, once the amplitude is fixed | Ch 18 §18.2 |
+| F7 | Born rule transient violations (conditional prospect: source dynamics, initial-deviation family and observable map not fixed) | primordial power spectrum or non-Gaussianity; form not derived | LiteBIRD, future CMB-S4, once the response is derived | Ch 18 §18.2 |
 | F8 | Cosmic recurrence | $\sim e^{e^{10^{122}}}$ timescale | Logically falsifiable only | Ch 18 §18.7 |
 
 **Biology and medicine.**

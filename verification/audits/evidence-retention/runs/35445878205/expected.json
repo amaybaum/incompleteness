@@ -1,0 +1,98 @@
+{
+ "outputs": [
+  {
+   "at": {
+    "commit": "64214bfb0ae41b9f0a4fb11159089fff32d4dd85",
+    "ref_as_served": "64214bfb0ae41b9f0a4fb11159089fff32d4dd85"
+   },
+   "expected": {
+    "lines": [
+     "  SKIP  verification/programmes/oi-qm/track-b/act-22-orbit-law-naturality-factorization/preregistration.md :: unchanged since the first parent 59c1b7efe36d; historical control plane, certified by the change that brought it in",
+     "control_plane_base_check: mode B, REF=<REF>, 1 control-plane file(s)",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: frozen-blob verification/lean-mathlib/OIBridge/OrbitLawRigidityTwisted.lean  -- 860daac4eb20",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: frozen-blob verification/lean-mathlib/OIBridge/OrbitLawNaturalityFactorization.lean  -- d41b157a3f38",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: frozen-blob verification/programmes/oi-qm/track-b/act-21-orbit-law-rigidity-twisted/preregistration.md  -- 316d635a31f9",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: frozen-blob verification/programmes/oi-qm/track-b/act-21-orbit-law-rigidity-twisted/amendments/amendment-1.md  -- d140978e6f00",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: frozen-blob verification/programmes/oi-qm/track-b/act-21-orbit-law-rigidity-twisted/result.md  -- bb02ef41eb22",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: frozen-blob verification/programmes/oi-qm/track-b/act-22-orbit-law-naturality-factorization/preregistration.md  -- cc83ddb9ecbc",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: frozen-blob verification/programmes/oi-qm/track-b/act-22-orbit-law-naturality-factorization/result.md  -- b0f9ae48dbb2",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: frozen-blob verification/seals/OLT.json  -- 8ed0ef539141",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: frozen-blob verification/seals/OLN.json  -- 1552065eeae2",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: frozen-blob verification/lean-mathlib/OIBridge/RepresentativeNaturality.lean  -- 4c1137f35600",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: frozen-blob verification/lean-mathlib/OIBridge/TwoSidedGauge.lean  -- 4bba2040c334",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: frozen-blob verification/lean-mathlib/OIBridge/IntermediateCrossTimeStructure.lean  -- cb14c43b0bec",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: frozen-blob verification/lean-mathlib/OIBridge/GramTrajectorySelection.lean  -- afc22cfc93b2",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: row d1-tag-free  -- D=59c1b7efe36d is an ancestor of REF; drafting-time fact not re-measured",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: row d1-stem-free  -- D=59c1b7efe36d is an ancestor of REF; drafting-time fact not re-measured",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: row d1-bare-free  -- D=59c1b7efe36d is an ancestor of REF; drafting-time fact not re-measured",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: row d1-module-free  -- D=59c1b7efe36d is an ancestor of REF; drafting-time fact not re-measured",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: row d1-dir-free  -- D=59c1b7efe36d is an ancestor of REF; drafting-time fact not re-measured",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: row d1-act-free  -- D=59c1b7efe36d is an ancestor of REF; drafting-time fact not re-measured",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: row d2-seals-tree  -- D=59c1b7efe36d is an ancestor of REF; drafting-time fact not re-measured",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: row db4-ancestor  -- scope D->B, expect exit0, exit 0, 0 byte(s) of output",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: row b6-guard-clean  -- scope B, expect empty, exit 1, 0 byte(s) of output",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: row b6-no-record  -- scope B, expect empty, exit 1, 0 byte(s) of output",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: row b6-no-module  -- scope B, expect empty, exit 1, 0 byte(s) of output",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: row b6-dir-control-plane-only  -- scope B, expect empty, exit 1, 0 byte(s) of output",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: row b7-no-prospective  -- scope B, expect nonempty, exit 0, 27 byte(s) of output",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: row b8-olt-sealed  -- scope B, expect nonempty, exit 0, 190 byte(s) of output",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: row b8-oln-sealed  -- scope B, expect nonempty, exit 0, 190 byte(s) of output",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: row b8-olt-guard  -- scope B, expect nonempty, exit 0, 24 byte(s) of output",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: row b8-oln-guard  -- scope B, expect nonempty, exit 0, 24 byte(s) of output",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: row b9-import-olt  -- scope B, expect nonempty, exit 0, 40 byte(s) of output",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: row b9-import-oln  -- scope B, expect nonempty, exit 0, 48 byte(s) of output",
+     "  PASS  verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md :: row b10-self-present  -- scope B, expect exit0, exit 0, 0 byte(s) of output",
+     "control_plane_base_check: OK (mode B, 20 row(s), no failure)"
+    ],
+    "summary": "control_plane_base_check: OK (mode B, 20 row(s), no failure)"
+   },
+   "job_id": "105904588663",
+   "job_name": "Control-plane base check",
+   "kind": "base-check",
+   "recipe": {
+    "argv": [
+     "python3",
+     "tools/control_plane_base_check.py",
+     "--mode",
+     "B",
+     "--ref",
+     "64214bfb0ae41b9f0a4fb11159089fff32d4dd85"
+    ],
+    "cwd": ".",
+    "env": {},
+    "exit": 0,
+    "requires": "a full-history clone: ancestry rows read it"
+   },
+   "source": {
+    "extractor": "verification/audits/evidence-retention/job_outputs.py",
+    "kind": "GitHub Actions job log, read on 2026-10-17 through the session's job-log tool, which returns at most the last 5000 lines, or the last tail_lines lines when fewer were asked for",
+    "note": "the digest identifies the text this result was read from: it is provenance of the extraction, not independent proof of the result, which reproduction at the commit supplies; the text is not a byte copy of GitHub's log archive",
+    "original_lines": 422,
+    "served_lines": 80,
+    "served_sha256": "260aed9fb4cf76c279d72d4f97c56e1b2b074512bdaf2251d06e487f1e877aba"
+   },
+   "step": "Preconditions at B (merge commit on main)"
+  }
+ ],
+ "reproduce": {
+  "compared": "base check: every SKIP, PASS and FAIL line, the header with REF masked, and the summary; guard: every check's status, tag and message digest, the verdict, and the quoted lines; the exit code",
+  "manual": [
+   "from the root of a full-history clone at a commit that carries this archive; <dir> is a new directory",
+   "git worktree add --detach <dir> <at.commit, or at.base>",
+   "for a pull-request run: (cd <dir> && git merge --no-ff --no-edit <at.head>)",
+   "(cd <dir>/<recipe.cwd> && env <recipe.env> <recipe.argv>) > <log>",
+   "python3 -I verification/audits/evidence-retention/job_outputs.py extract <kind> <log>, and compare it with expected as job_outputs.py compare() does"
+  ],
+  "not_compared": "timestamps, durations, REF's id, the order of the guard's checks",
+  "tool": "python3 -I verification/audits/evidence-retention/job_outputs.py reproduce --run 35445878205 --work <dir>"
+ },
+ "run": {
+  "attempt": 1,
+  "event": "push",
+  "head_sha": "64214bfb0ae41b9f0a4fb11159089fff32d4dd85",
+  "id": "35445878205",
+  "workflow": "verify.yml"
+ },
+ "schema": "oi-evidence-job-outputs",
+ "version": 1
+}

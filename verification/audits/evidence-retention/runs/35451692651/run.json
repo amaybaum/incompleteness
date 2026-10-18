@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-09-19T15:24:01Z",
+ "display_title": "Track B act 23 execution: the gaps of act 21's ladder bundled \u2014 L1-RE\u2026",
+ "event": "push",
+ "head_branch": "main",
+ "head_sha": "9907d3acefb2bd5e2cc66c007400cc0e194d36ec",
+ "id": 35451692651,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "35451692651",
+ "run_number": 969,
+ "source": "GitHub Actions runs API, GET runs/<run_id>, read 2026-10-17; selected fields",
+ "status": "completed",
+ "updated_at": "2026-09-19T15:33:15Z"
+}

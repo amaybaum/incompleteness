@@ -1,0 +1,12 @@
+CONTROLS: 197 exact controls passed; required mutations rejected
+Bell native table: Matrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, -1, 0], [0, 0, 0, 1]])
+depth 1 separating value -1/4
+depth 2 separating value -11/32
+depth 3 separating value -97/256
+depth 4 separating value -803/2048
+depth 5 separating value -6505/16384
+depth 6 separating value -52283/131072
+depth 7 separating value -418993/1048576
+depth 8 separating value -3354131/8388608
+EXPLORATORY RESULT: literal InstAvail premises do not imply preservation of every eligible pair cone.
+SCOPE: exact algebra at the stated interface; not a physical model, a native receipt or new kernel certification.

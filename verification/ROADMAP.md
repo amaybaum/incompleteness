@@ -1224,12 +1224,15 @@ maximal-entropy measure; book Chapter 18 §18.2 reads the Born rule as a dynamic
 route is open only on the dynamical reading. Required output:
 
 1. a decision between the posited and the dynamical measure, with the consequence of each stated;
-2. on the dynamical reading, a derivation of the relaxation law with the epoch-local correlation time
-   `τ_B(t) ~ H(t)⁻¹`, whose accumulated relaxation `∫ H dt = ln(a/a_i)` leaves a residual decaying as
-   `a_i/a`;
+2. on the dynamical reading, a derivation of the projected relaxation law with the epoch-local
+   correlation time `τ_B(t) ~ H(t)⁻¹`: whether the observed deviation obeys a closed law at all,
+   which a Hubble-order timescale does not supply, and if it does, its rate coefficient `λ`, giving a
+   residual decaying as `(a_i/a)^λ`;
 3. the residual's dependence on scale across the inflationary window, including whether relaxation
-   continues after horizon exit — with `H` constant during inflation the residual at exit scales as
-   `k_i/k`, largest on the largest observable scales;
+   continues after horizon exit — with `H` constant during inflation, a closed law and
+   scale-independent initial deviations, the residual scales as `(k_i/k)^λ`, largest on the largest
+   observable scales, if relaxation freezes at exit, and is `k`-independent if relaxation continues
+   to a common later epoch; scale-dependent initial deviations can cancel or mimic either trend;
 4. an amplitude for a stated initial deviation, to compare with the Planck 2018 non-Gaussianity
    bounds and with large-scale CMB power;
 5. whether Valentini's signal-locality theorem (arXiv:quant-ph/0106098: deterministic

@@ -62,9 +62,14 @@ another. Each exists because a real defect shipped past the others:
                        rounds' governed paths at the run's commit or, for
                        CV-1's runs, from the contributions of
                        verification/certificates/CV1.json (R11, a consistency
-                       check), and its self-test; then the checker of the
-                       retained off-main objects (objects/) in history mode,
-                       and its self-test; then the extractor's self-test
+                       check), the tranche-3 run entries and the list of
+                       cited runs not yet retained (R12), the research builds
+                       retained ahead of their citing record (R13), and its
+                       self-test;
+                       then the checker of the retained off-main objects
+                       (objects/) in history mode, and its self-test; then
+                       the self-test of tranche 3's job-output comparator;
+                       then the extractor's self-test
                        (extract_result.py --self-test).
                        A record that pinned content by digest was once held to
                        be retained when its evidence sat only in a session's

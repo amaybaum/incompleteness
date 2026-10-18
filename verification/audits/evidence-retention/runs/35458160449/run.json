@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-09-19T17:27:43Z",
+ "display_title": "Track B act 24 control plane: orbit-geometry selector audit, preregis\u2026",
+ "event": "push",
+ "head_branch": "main",
+ "head_sha": "d0fcdbc03c4b828d630f677253cf0914f451b63d",
+ "id": 35458160449,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "35458160449",
+ "run_number": 972,
+ "source": "GitHub Actions runs API, GET runs/<run_id>, read 2026-10-17; selected fields",
+ "status": "completed",
+ "updated_at": "2026-09-19T17:37:19Z"
+}

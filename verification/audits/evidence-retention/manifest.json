@@ -12565,22 +12565,2142 @@
      "sha256": "8190c9187e17ac9a9761761ae8d9da23b6d7d0151f26adc870dc84a6a73a16ed"
     },
     {
-     "bytes": 64682,
+     "bytes": 169963,
      "kind": "complete",
      "path": "check_objects.py",
-     "sha256": "8c8cd29e0c64ca87862e4e640d569c81d2df69159e33c4dc73d95db337589c2a"
+     "sha256": "8df2f9bcab7e98e1b5eb562a9b37f7d1c77a89fb1efe3fe37851deb48549d216"
     },
     {
-     "bytes": 657200,
+     "bytes": 704563,
      "kind": "complete",
      "path": "objects/manifest.json",
-     "sha256": "dae8043f4334b2b2e447a56094550a66cc176c6328e7617e36e70bf3ef0f7b77"
+     "sha256": "bf36b0d7d912a5db1c2c75acf97066800c37a9edcebb64dfcb2e693cb46d9651"
     }
    ],
    "id": "tranche-record",
    "kind": "complete",
    "provenance": {
     "source": "written for this archive: tranche 1's build script, extractor, comparator and reproduction tool and the off-main audit it acts on; tranche 2's object manifest, which pins every file under objects/, and its checker"
+   }
+  },
+  {
+   "citations": [
+    {
+     "blob": "bfcd43831d887c006eab64c9a4b8b5f35ff41c9a",
+     "claims": [
+      {
+       "in": [
+        "runs/35317349625/run.json"
+       ],
+       "line": 11,
+       "note": "run.json head_sha 66eea646…",
+       "status": "retained",
+       "text": "`66eea646fcbf242df89b168bcce3336ff1b77802`"
+      },
+      {
+       "in": [
+        "runs/35317349625/run.json",
+        "runs/35317349625/jobs.json"
+       ],
+       "line": 12,
+       "note": "run.json: event push, conclusion success; jobs.json: three jobs, each success",
+       "status": "retained",
+       "text": "certified by push run 35317349625"
+      }
+     ],
+     "line": 12,
+     "path": "verification/infrastructure/round-si-2-authority-cutover/preregistration.md",
+     "tokens": [
+      "35317349625"
+     ]
+    }
+   ],
+   "expires": "2026-12-17",
+   "files": [
+    {
+     "bytes": 544,
+     "kind": "derived",
+     "path": "runs/35317349625/run.json",
+     "sha256": "d16c190f2211f8ffd4cc2c4d985f2b916a9973c5b0532dbb5a94171af0fad601",
+     "source_sha256": "062227e583763a86d4d0b8f43249ae47f08c14508c1b39685d3106c684c9fffd"
+    },
+    {
+     "bytes": 3607,
+     "kind": "derived",
+     "path": "runs/35317349625/jobs.json",
+     "sha256": "85887232af1e5b818aa2da8254f5455e1f8cd948f490614f49e69272b4626c3b",
+     "source_sha256": "8dba6ab3928c31ff9133e6509707515221a263c41957b00d6184439ba26de1e0"
+    }
+   ],
+   "id": "run-35317349625",
+   "kind": "derived",
+   "run_id": "35317349625",
+   "tranche": 3
+  },
+  {
+   "citations": [
+    {
+     "blob": "9d05509d8fb84d9007c73b40a062bbdb7b6c36ea",
+     "claims": [
+      {
+       "in": [
+        "runs/35321848352/run.json"
+       ],
+       "line": 12,
+       "note": "run.json head_sha da9d69d6…",
+       "status": "retained",
+       "text": "`da9d69d60b19482abfeb27b16af5aaebebba0e83`, certified by"
+      },
+      {
+       "in": [
+        "runs/35321848352/run.json",
+        "runs/35321848352/jobs.json"
+       ],
+       "line": 13,
+       "note": "run.json: event push, conclusion success; jobs.json: three jobs, each success",
+       "status": "retained",
+       "text": "push run 35321848352"
+      }
+     ],
+     "line": 13,
+     "path": "verification/infrastructure/round-si-2-authority-cutover/amendments/amendment-1.md",
+     "tokens": [
+      "35321848352"
+     ]
+    },
+    {
+     "blob": "c57d1dc9a3b370c86a91fcb01f7209ef5da782d5",
+     "claims": [
+      {
+       "in": [
+        "runs/35321848352/run.json",
+        "runs/35321848352/jobs.json"
+       ],
+       "line": 13,
+       "note": "run.json: head_sha da9d69d6…, event push, conclusion success; jobs.json: three jobs, each success",
+       "status": "retained",
+       "text": "`da9d69d60b19482abfeb27b16af5aaebebba0e83`, certified by push run 35321848352"
+      }
+     ],
+     "line": 13,
+     "path": "verification/infrastructure/round-si-2-authority-cutover/amendments/amendment-2.md",
+     "tokens": [
+      "35321848352"
+     ]
+    }
+   ],
+   "expires": "2026-12-17",
+   "files": [
+    {
+     "bytes": 544,
+     "kind": "derived",
+     "path": "runs/35321848352/run.json",
+     "sha256": "4df82b0deed32dd5d4470c022b3cdd320f6724bb2aa5035326fd46b06c1f49f1",
+     "source_sha256": "f6c0cf18fdac701ee8c79a537c2c871a88a04eb05ccb7fe37b27c219e35fe240"
+    },
+    {
+     "bytes": 3607,
+     "kind": "derived",
+     "path": "runs/35321848352/jobs.json",
+     "sha256": "6011a2977f97aeb7bb59d4fadd598bad35b48de466521ee5066e70626c8ba82a",
+     "source_sha256": "0db46dc6c61faa065d8a9685a10efc6399700f7c0c224fde597b139a33992e30"
+    }
+   ],
+   "id": "run-35321848352",
+   "kind": "derived",
+   "run_id": "35321848352",
+   "tranche": 3
+  },
+  {
+   "citations": [
+    {
+     "blob": "c57d1dc9a3b370c86a91fcb01f7209ef5da782d5",
+     "claims": [
+      {
+       "in": [
+        "runs/35340667434/run.json",
+        "runs/35340667434/jobs.json"
+       ],
+       "line": 16,
+       "note": "run.json: head_sha 9ca82958…, event push, conclusion success; jobs.json: three jobs, each success",
+       "status": "retained",
+       "text": "`9ca82958cfaa3ff926d8a80baf2ee22eb468a917`, certified by push run 35340667434"
+      }
+     ],
+     "line": 16,
+     "path": "verification/infrastructure/round-si-2-authority-cutover/amendments/amendment-2.md",
+     "tokens": [
+      "35340667434"
+     ]
+    }
+   ],
+   "expires": "2026-12-17",
+   "files": [
+    {
+     "bytes": 544,
+     "kind": "derived",
+     "path": "runs/35340667434/run.json",
+     "sha256": "60b7a3437f31a34900a75dfd19c0f49a735f8d04e1d669f69c87464a28997dff",
+     "source_sha256": "ef83771ae61736cca986e80d82db552176a7025f00d18593e3014f7419eec842"
+    },
+    {
+     "bytes": 3607,
+     "kind": "derived",
+     "path": "runs/35340667434/jobs.json",
+     "sha256": "7f4d9a4183c91fa0d38932393a3899c5511240bcca2db31a71b88c91880d7ccc",
+     "source_sha256": "cc6095145874dc051e5100098852e71813ffddf54f543d0c12fbb0cb11151786"
+    }
+   ],
+   "id": "run-35340667434",
+   "kind": "derived",
+   "run_id": "35340667434",
+   "tranche": 3
+  },
+  {
+   "citations": [
+    {
+     "blob": "9b42ff9b2cfc47b66136e0513eb8bff756566db4",
+     "claims": [
+      {
+       "in": [
+        "runs/35351379664/run.json",
+        "runs/35351379664/jobs.json"
+       ],
+       "line": 3,
+       "note": "run.json: head_sha df54b99d…, conclusion success; jobs.json: three jobs, each success",
+       "status": "retained",
+       "text": "`df54b99dba99dc043b11752163d8d348c9e54472`, the certified"
+      },
+      {
+       "in": [
+        "runs/35351379664/run.json"
+       ],
+       "line": 4,
+       "note": "run.json: event push",
+       "status": "retained",
+       "text": "push run 35351379664"
+      }
+     ],
+     "line": 4,
+     "path": "verification/infrastructure/round-si-2-authority-cutover/result.md",
+     "tokens": [
+      "35351379664"
+     ]
+    }
+   ],
+   "expires": "2026-12-17",
+   "files": [
+    {
+     "bytes": 544,
+     "kind": "derived",
+     "path": "runs/35351379664/run.json",
+     "sha256": "a45e37b08598bc8265256a7685e15aa20e30ced8eaa6f0fbee266db44733fbeb",
+     "source_sha256": "4033e219be92ab05f7e8cdf56820ce7c909cbb72de35baf88cb060e7b292bf70"
+    },
+    {
+     "bytes": 3607,
+     "kind": "derived",
+     "path": "runs/35351379664/jobs.json",
+     "sha256": "a4f552aa7e23614ae5b038558a19e824c09079a1ea07006a2bb380be092157d8",
+     "source_sha256": "b81a75889a4a835eef786ac9e341f717c03b253fedffd5d9eaabcbb5374a5aba"
+    }
+   ],
+   "id": "run-35351379664",
+   "kind": "derived",
+   "run_id": "35351379664",
+   "tranche": 3
+  },
+  {
+   "citations": [
+    {
+     "blob": "e8e9be66de3a63963418a40189accfbb2c046a92",
+     "claims": [
+      {
+       "in": [
+        "runs/35371369465/run.json"
+       ],
+       "line": 11,
+       "note": "run.json head_sha d89fff8a…, the commit `B0`; the line names its second parent `E` (df2fab57…)",
+       "status": "retained",
+       "text": "`d89fff8abb20e2c63a33949b79947650bf47df6a`"
+      },
+      {
+       "in": [
+        "runs/35371369465/run.json",
+        "runs/35371369465/jobs.json"
+       ],
+       "line": 13,
+       "note": "run.json: event push, conclusion success, at `B0`; jobs.json: three jobs, each success",
+       "status": "retained",
+       "text": "certified as the state of `main` by push run"
+      }
+     ],
+     "line": 14,
+     "path": "verification/infrastructure/round-si-3-legacy-seal-retirement/preregistration.md",
+     "tokens": [
+      "35371369465"
+     ]
+    },
+    {
+     "blob": "e8e9be66de3a63963418a40189accfbb2c046a92",
+     "claims": [
+      {
+       "in": [
+        "runs/35371369465/expected.json"
+       ],
+       "line": 471,
+       "note": "expected.json: the guard's 92 check lines (R1 to R9 and 83 `R7-*` tags), every one PASS, verdict ALL CHECKS PASS",
+       "status": "retained",
+       "text": "92 tags, all `PASS`"
+      },
+      {
+       "in": [
+        "runs/35371369465/expected.json"
+       ],
+       "line": 471,
+       "note": "expected.json: R7-SI1 and R7-SI2 are among the checks, both PASS",
+       "status": "retained",
+       "text": "`R7-SI1` and `R7-SI2` included"
+      },
+      {
+       "in": [
+        "runs/35371369465/run.json"
+       ],
+       "line": 472,
+       "note": "run.json: event push, at `B0`",
+       "status": "retained",
+       "text": "push run 35371369465"
+      },
+      {
+       "line": 472,
+       "note": "a local run, not a CI run: no output of it is held",
+       "status": "not retained",
+       "text": "a local run at `L`"
+      }
+     ],
+     "line": 472,
+     "path": "verification/infrastructure/round-si-3-legacy-seal-retirement/preregistration.md",
+     "tokens": [
+      "35371369465"
+     ]
+    }
+   ],
+   "expires": "2026-12-17",
+   "files": [
+    {
+     "bytes": 534,
+     "kind": "derived",
+     "path": "runs/35371369465/run.json",
+     "sha256": "ec819eba8994a12cdc5ff062fef0dae0c55a800bb206017994fc2390ec67ee93",
+     "source_sha256": "12853f4eddb46a6c62d8b493871ce4eb9eddd79273c60e0a86c7d47f03460d70"
+    },
+    {
+     "bytes": 3607,
+     "kind": "derived",
+     "path": "runs/35371369465/jobs.json",
+     "sha256": "5aa72ce99d4d41699c6066b4f4a1e9799abb1e500e6120fe9089c8a8ca8a6cc0",
+     "source_sha256": "d4dd8b1a678be753785fbe542915703b1e780b3aeafc08bbda419e6db2dd8ab7"
+    },
+    {
+     "bytes": 16550,
+     "kind": "derived",
+     "path": "runs/35371369465/expected.json",
+     "sha256": "3b58080dcd9ca795f5bcf8ab89d48860db86510f61ab0d9c4fffdc146369e062",
+     "source_sha256": "0ae799d9190c162808558738c973410e8abd846b2087de664ffddddedd4af813"
+    }
+   ],
+   "id": "run-35371369465",
+   "kind": "derived",
+   "run_id": "35371369465",
+   "tranche": 3
+  },
+  {
+   "citations": [
+    {
+     "blob": "0087dceddc2c8d7f497c38937d659e78de59a1f6",
+     "claims": [
+      {
+       "in": [
+        "runs/35377254073/run.json",
+        "runs/35377254073/jobs.json"
+       ],
+       "line": 14,
+       "note": "run.json: head_sha 220827b8…, event push, conclusion success; jobs.json: three jobs, each success",
+       "status": "retained",
+       "text": "`220827b89c038d98dbe643a53c72a8fd00ed8480`, certified by push run 35377254073"
+      }
+     ],
+     "line": 14,
+     "path": "verification/infrastructure/round-si-3-legacy-seal-retirement/amendments/amendment-1.md",
+     "tokens": [
+      "35377254073"
+     ]
+    }
+   ],
+   "expires": "2026-12-17",
+   "files": [
+    {
+     "bytes": 544,
+     "kind": "derived",
+     "path": "runs/35377254073/run.json",
+     "sha256": "e81deb1636094bb24ada47f38d2cbc7a3ad464dc35819e69bb3e6c70f2530450",
+     "source_sha256": "c529ebd2e64102e520e9d48b8d84ab44a574e51ccb9b54826bbf42330a8a8c42"
+    },
+    {
+     "bytes": 3607,
+     "kind": "derived",
+     "path": "runs/35377254073/jobs.json",
+     "sha256": "99cb6f0ed7de9189959cb35918e0f31fe9bd775cdfb0a754cb906af88bed1898",
+     "source_sha256": "fd4f4173e932ff6f5de49288b3cd9b6d41096991a685bc4cb261588b9c4a17b1"
+    }
+   ],
+   "id": "run-35377254073",
+   "kind": "derived",
+   "run_id": "35377254073",
+   "tranche": 3
+  },
+  {
+   "citations": [
+    {
+     "blob": "c2c8719083b637719031d8e330c9039064fb6d03",
+     "claims": [
+      {
+       "in": [
+        "runs/35407019610/run.json",
+        "runs/35407019610/jobs.json"
+       ],
+       "line": 3,
+       "note": "run.json: head_sha b0ee87ba…, conclusion success; jobs.json: three jobs, each success",
+       "status": "retained",
+       "text": "`b0ee87bae34c6f8dcd3a4a75d958bb4e8a1cbca5`, the certified"
+      },
+      {
+       "in": [
+        "runs/35407019610/run.json"
+       ],
+       "line": 4,
+       "note": "run.json: event push",
+       "status": "retained",
+       "text": "push run 35407019610"
+      }
+     ],
+     "line": 4,
+     "path": "verification/infrastructure/round-si-3-legacy-seal-retirement/result.md",
+     "tokens": [
+      "35407019610"
+     ]
+    }
+   ],
+   "expires": "2026-12-17",
+   "files": [
+    {
+     "bytes": 544,
+     "kind": "derived",
+     "path": "runs/35407019610/run.json",
+     "sha256": "6727487d52e2e38e7514267f382e7362bad7383351dc5d22b256eb3b000f8d0c",
+     "source_sha256": "d894432451e874eb6751b37bbb042d095825fe03b0002e42734f3787172d2820"
+    },
+    {
+     "bytes": 3607,
+     "kind": "derived",
+     "path": "runs/35407019610/jobs.json",
+     "sha256": "9cb63800473acee50d0b4d0fabca6384a6878ed128c99c3d632a6be308b0b7e1",
+     "source_sha256": "f40a185ab240aa2edb212fe36a9dea795a5fd0671104bcf0a1d03f3fa2cbece0"
+    }
+   ],
+   "id": "run-35407019610",
+   "kind": "derived",
+   "run_id": "35407019610",
+   "tranche": 3
+  },
+  {
+   "citations": [
+    {
+     "blob": "d140978e6f0031063e7aa4b9bbe3e960d9b7f8e1",
+     "claims": [
+      {
+       "in": [
+        "runs/35412319426/run.json"
+       ],
+       "line": 21,
+       "note": "run.json head_sha 63d8ca08…",
+       "status": "retained",
+       "text": "`63d8ca08cbea2e05e4f9fdc5a9b36006b9f104ed`"
+      },
+      {
+       "in": [
+        "runs/35412319426/run.json",
+        "runs/35412319426/jobs.json"
+       ],
+       "line": 22,
+       "note": "run.json: event push, conclusion success; jobs.json: three jobs, each success",
+       "status": "retained",
+       "text": "certified by main-push run 35412319426"
+      }
+     ],
+     "line": 22,
+     "path": "verification/programmes/oi-qm/track-b/act-21-orbit-law-rigidity-twisted/amendments/amendment-1.md",
+     "tokens": [
+      "35412319426"
+     ]
+    },
+    {
+     "blob": "316d635a31f91faebeeebef7688b30002d24b4ca",
+     "claims": [
+      {
+       "in": [
+        "runs/35412319426/run.json"
+       ],
+       "line": 84,
+       "note": "run.json head_sha 63d8ca08…",
+       "status": "retained",
+       "text": "`63d8ca08cbea2e05e4f9fdc5a9b36006b9f104ed`"
+      },
+      {
+       "in": [
+        "runs/35412319426/run.json",
+        "runs/35412319426/jobs.json"
+       ],
+       "line": 85,
+       "note": "run.json: event push, conclusion success; jobs.json: three jobs, each success",
+       "status": "retained",
+       "text": "certified by main-push run 35412319426"
+      }
+     ],
+     "line": 85,
+     "path": "verification/programmes/oi-qm/track-b/act-21-orbit-law-rigidity-twisted/preregistration.md",
+     "tokens": [
+      "35412319426"
+     ]
+    },
+    {
+     "blob": "316d635a31f91faebeeebef7688b30002d24b4ca",
+     "claims": [
+      {
+       "in": [
+        "runs/35412319426/expected.json",
+        "runs/35412319426/run.json"
+       ],
+       "line": 2337,
+       "note": "expected.json: 84 `R7-*` check lines among 93, every one PASS; the run is at 63d8ca08…, the snapshot the freeze was measured at",
+       "status": "retained",
+       "text": "prints eighty-four `R7-*` tags, all `PASS`, on main-push run 35412319426"
+      },
+      {
+       "line": 2337,
+       "note": "a measurement of the guard file's text, not an output of the run; no retained file carries it, and it is reproducible from the tree at that commit",
+       "status": "not retained",
+       "text": "`_SI2_LEGACY_RE` finds zero assignment statements in it"
+      }
+     ],
+     "line": 2337,
+     "path": "verification/programmes/oi-qm/track-b/act-21-orbit-law-rigidity-twisted/preregistration.md",
+     "tokens": [
+      "35412319426"
+     ]
+    }
+   ],
+   "expires": "2026-12-18",
+   "files": [
+    {
+     "bytes": 549,
+     "kind": "derived",
+     "path": "runs/35412319426/run.json",
+     "sha256": "ad89acbd0ec96f5f22c03969d84cc85e7198facda0399ab54aedd2ca3c75346e",
+     "source_sha256": "e19d26c1455e4cb5af24ed7dc2bb58127d0e89aff1bd3c55ae310f5c35b77283"
+    },
+    {
+     "bytes": 3607,
+     "kind": "derived",
+     "path": "runs/35412319426/jobs.json",
+     "sha256": "2dd901ac5013a38d4384bd45f033a75a6d8bccc181da2a4f04bcfec3d95d8866",
+     "source_sha256": "221147b55b38962d885915813b37768ff0eee5fb5a504ac53c0579bbd96e2bf0"
+    },
+    {
+     "bytes": 16703,
+     "kind": "derived",
+     "path": "runs/35412319426/expected.json",
+     "sha256": "7ba0be921e0ae824a07cc5df3bf97b50a594e4225c9e309eabd1c6fb4942020c",
+     "source_sha256": "b065ce6ed28e74eda65fb24e96c41de5410e0328bb281b374999922ef22d9b12"
+    }
+   ],
+   "id": "run-35412319426",
+   "kind": "derived",
+   "run_id": "35412319426",
+   "tranche": 3
+  },
+  {
+   "citations": [
+    {
+     "blob": "d140978e6f0031063e7aa4b9bbe3e960d9b7f8e1",
+     "claims": [
+      {
+       "in": [
+        "runs/35418734887/run.json"
+       ],
+       "line": 18,
+       "note": "run.json head_sha aeb0b91d…",
+       "status": "retained",
+       "text": "`aeb0b91d20b4e307c293c06afda9db64fe2a3b09`"
+      },
+      {
+       "in": [
+        "runs/35418734887/run.json"
+       ],
+       "line": 19,
+       "note": "run.json: event push, conclusion success",
+       "status": "retained",
+       "text": "certified by main-push run"
+      },
+      {
+       "in": [
+        "runs/35418734887/jobs.json"
+       ],
+       "line": 20,
+       "note": "jobs.json: three jobs, each success",
+       "status": "retained",
+       "text": "35418734887 with all three jobs green"
+      }
+     ],
+     "line": 20,
+     "path": "verification/programmes/oi-qm/track-b/act-21-orbit-law-rigidity-twisted/amendments/amendment-1.md",
+     "tokens": [
+      "35418734887"
+     ]
+    }
+   ],
+   "expires": "2026-12-18",
+   "files": [
+    {
+     "bytes": 544,
+     "kind": "derived",
+     "path": "runs/35418734887/run.json",
+     "sha256": "5f77dd39fe12f059c8749a8c54e5697f8da57ffe71fc849767f6020293055e38",
+     "source_sha256": "b9b831207b9a9cc7fb7b210c09bae13492f6432328736f7ff1b2181348c7b1d5"
+    },
+    {
+     "bytes": 3607,
+     "kind": "derived",
+     "path": "runs/35418734887/jobs.json",
+     "sha256": "705a364f2825eb7bcc1cd104be43918dfb0b7e6dcf092416d2463293c68b4197",
+     "source_sha256": "baf2f17c2023807295e7077efd4413b31142cb0055e5db19d08dc92e8a5cb931"
+    }
+   ],
+   "id": "run-35418734887",
+   "kind": "derived",
+   "run_id": "35418734887",
+   "tranche": 3
+  },
+  {
+   "citations": [
+    {
+     "blob": "bb02ef41eb221696ffa45c9281b69553c8279cbb",
+     "claims": [
+      {
+       "in": [
+        "runs/35419924625/expected.json",
+        "runs/35419924625/run.json"
+       ],
+       "line": 921,
+       "note": "expected.json: 84 `R7-*` check lines among 93, every one PASS; run.json: event push at 10d1041b…",
+       "status": "retained",
+       "text": "it prints eighty-four `R7-*` tags, all `PASS`, on `B`'s own main-push run 35419924625"
+      },
+      {
+       "line": 921,
+       "note": "a measurement of the guard file's text, not an output of the run; no retained file carries it, and it is reproducible from the tree at that commit",
+       "status": "not retained",
+       "text": "`_SI2_LEGACY_RE` finds zero assignment statements"
+      }
+     ],
+     "line": 921,
+     "path": "verification/programmes/oi-qm/track-b/act-21-orbit-law-rigidity-twisted/result.md",
+     "tokens": [
+      "35419924625"
+     ]
+    }
+   ],
+   "expires": "2026-12-18",
+   "files": [
+    {
+     "bytes": 544,
+     "kind": "derived",
+     "path": "runs/35419924625/run.json",
+     "sha256": "68af50b97d98d79c1ecf1d5746692f5de021b73acee1932a2f3843a828bef5ba",
+     "source_sha256": "37dce3799fdfa2acc250afd6a3bbe2a9b4ff99f69b1348983349af98089032d1"
+    },
+    {
+     "bytes": 3607,
+     "kind": "derived",
+     "path": "runs/35419924625/jobs.json",
+     "sha256": "aacb45079c2544e6fac5fcd6cf8e819957ea7a1ef76c58a0d734cc6da7b21606",
+     "source_sha256": "e5eabe11cccf989d1bff7417bea9197cf6cc4edfdd2de3546e9d8b3e743c314d"
+    },
+    {
+     "bytes": 16703,
+     "kind": "derived",
+     "path": "runs/35419924625/expected.json",
+     "sha256": "fd4e0e5ea2e009034945c8e2bd903e47cdceaae55b9f3b26b4c7d8fbfe7cffbf",
+     "source_sha256": "a38193398f1f356c4e77f359666a239226165b92375cbbae8d9a74a54dfe788d"
+    }
+   ],
+   "id": "run-35419924625",
+   "kind": "derived",
+   "run_id": "35419924625",
+   "tranche": 3
+  },
+  {
+   "citations": [
+    {
+     "blob": "cc83ddb9ecbc2c8e884d160d1d3ffeba2575baea",
+     "claims": [
+      {
+       "in": [
+        "runs/35433619877/run.json"
+       ],
+       "line": 25,
+       "note": "run.json head_sha d08b932d…",
+       "status": "retained",
+       "text": "`d08b932da492891bdadaa5b867fd337250859b99`"
+      },
+      {
+       "in": [
+        "runs/35433619877/run.json",
+        "runs/35433619877/jobs.json"
+       ],
+       "line": 26,
+       "note": "run.json: event push, conclusion success; jobs.json: four jobs, each success",
+       "status": "retained",
+       "text": "whose main-push run 35433619877 is fully green"
+      },
+      {
+       "in": [
+        "runs/35433619877/jobs.json"
+       ],
+       "line": 27,
+       "note": "jobs.json: the Control-plane base check job ran its step at B, which succeeded, and skipped its step at M",
+       "status": "retained",
+       "text": "the control-plane base check in mode `B`"
+      }
+     ],
+     "line": 26,
+     "path": "verification/programmes/oi-qm/track-b/act-22-orbit-law-naturality-factorization/preregistration.md",
+     "tokens": [
+      "35433619877"
+     ]
+    },
+    {
+     "blob": "cc83ddb9ecbc2c8e884d160d1d3ffeba2575baea",
+     "claims": [
+      {
+       "in": [
+        "runs/35433619877/expected.json",
+        "runs/35433619877/run.json"
+       ],
+       "line": 1206,
+       "note": "expected.json: 85 `R7-*` check lines among 94, every one PASS",
+       "status": "retained",
+       "text": "eighty-five `R7-*` tags, all `PASS`, on main-push run 35433619877"
+      },
+      {
+       "line": 1206,
+       "note": "a measurement of the guard file's text, not an output of the run; no retained file carries it, and it is reproducible from the tree at that commit",
+       "status": "not retained",
+       "text": "`_SI2_LEGACY_RE` finds zero assignment statements"
+      }
+     ],
+     "line": 1206,
+     "path": "verification/programmes/oi-qm/track-b/act-22-orbit-law-naturality-factorization/preregistration.md",
+     "tokens": [
+      "35433619877"
+     ]
+    },
+    {
+     "blob": "b0f9ae48dbb2044de353efe1a0f5a1fab4f88c9e",
+     "claims": [
+      {
+       "in": [
+        "runs/35433619877/expected.json"
+       ],
+       "line": 519,
+       "note": "expected.json: 85 `R7-*` check lines, every one PASS",
+       "status": "retained",
+       "text": "eighty-five tags on run 35433619877"
+      },
+      {
+       "line": 519,
+       "note": "a measurement of the guard file's text, not an output of the run; no retained file carries it, and it is reproducible from the tree at that commit",
+       "status": "not retained",
+       "text": "zero legacy statements"
+      }
+     ],
+     "line": 519,
+     "path": "verification/programmes/oi-qm/track-b/act-22-orbit-law-naturality-factorization/result.md",
+     "tokens": [
+      "35433619877"
+     ]
+    }
+   ],
+   "expires": "2026-12-18",
+   "files": [
+    {
+     "bytes": 549,
+     "kind": "derived",
+     "path": "runs/35433619877/run.json",
+     "sha256": "5e30e97c3886a9fcb3b9fa5f3f473b336f5b504da9dc8ed05ce3a0ec1ff15976",
+     "source_sha256": "3f1737e101a35f1187407547bb9a89832d703a2eb114e91cf1ce5dabab43b88e"
+    },
+    {
+     "bytes": 4884,
+     "kind": "derived",
+     "path": "runs/35433619877/jobs.json",
+     "sha256": "96edf9344660642c3270c5c72c599a40a4b2969bd88d15b3a737b637cbf9951a",
+     "source_sha256": "600dfd4e525f758d23985da2e73f79efc14d2b4da8985cc9b79531ac4e39d0c8"
+    },
+    {
+     "bytes": 16856,
+     "kind": "derived",
+     "path": "runs/35433619877/expected.json",
+     "sha256": "5614e581970181071245f9e704f4c78c74ff8df95a83ef75c397ae2c233f6fff",
+     "source_sha256": "6d98e8ff092b0494404269daaad6514e2a8facb3331cb980cebb34859fa7f20c"
+    }
+   ],
+   "id": "run-35433619877",
+   "kind": "derived",
+   "run_id": "35433619877",
+   "tranche": 3
+  },
+  {
+   "citations": [
+    {
+     "blob": "b0f9ae48dbb2044de353efe1a0f5a1fab4f88c9e",
+     "claims": [
+      {
+       "in": [
+        "runs/35436171509/expected.json",
+        "runs/35436171509/run.json"
+       ],
+       "line": 48,
+       "note": "expected.json: the base check in mode M, its 16 rows and 9 frozen-blob lines PASS; run.json: event pull_request",
+       "status": "retained",
+       "text": "the base check verified at `M` (run 35436171509)"
+      }
+     ],
+     "line": 48,
+     "path": "verification/programmes/oi-qm/track-b/act-22-orbit-law-naturality-factorization/result.md",
+     "tokens": [
+      "35436171509"
+     ]
+    },
+    {
+     "blob": "b0f9ae48dbb2044de353efe1a0f5a1fab4f88c9e",
+     "claims": [
+      {
+       "in": [
+        "runs/35436171509/expected.json"
+       ],
+       "line": 512,
+       "note": "expected.json summary line",
+       "status": "retained",
+       "text": "`OK (mode M, 16 row(s), no failure)`"
+      },
+      {
+       "in": [
+        "runs/35436171509/expected.json"
+       ],
+       "line": 512,
+       "note": "expected.json: REF 28ed5c98…, the merge of c6d94dda… into d08b932d…, as the run's checkout reports",
+       "status": "retained",
+       "text": "at the candidate merge `28ed5c98…` on run 35436171509"
+      }
+     ],
+     "line": 512,
+     "path": "verification/programmes/oi-qm/track-b/act-22-orbit-law-naturality-factorization/result.md",
+     "tokens": [
+      "35436171509"
+     ]
+    }
+   ],
+   "expires": "2026-12-18",
+   "files": [
+    {
+     "bytes": 631,
+     "kind": "derived",
+     "path": "runs/35436171509/run.json",
+     "sha256": "027fac0f51af64b2e24b5be5ace9e95a146dcab6d0bb3279cac14a49f2d82e37",
+     "source_sha256": "aa7054e5800aab117e904fb2f9c6f3be05174180e4475f0eb2459ffe525dfec8"
+    },
+    {
+     "bytes": 4976,
+     "kind": "derived",
+     "path": "runs/35436171509/jobs.json",
+     "sha256": "0322c4b0111294a14731818dac23af6b270dd46fbcedeb62177f04bfe0b4d7b8",
+     "source_sha256": "a8ba5c59a14ad73aa0c9833ca82ff9a78160104551f96ec5361c9f8d6e9e3ef7"
+    },
+    {
+     "bytes": 8102,
+     "kind": "derived",
+     "path": "runs/35436171509/expected.json",
+     "sha256": "56f8d91ea759fca4cd9f8cf50ea454c63f746788f19f31a45cfcb18ff2331be6",
+     "source_sha256": "b83b1cccf22187aeb95c07191ae19a1f0e3f3f5652bc7d3e7a72a3d04bcb8c66"
+    }
+   ],
+   "id": "run-35436171509",
+   "kind": "derived",
+   "run_id": "35436171509",
+   "tranche": 3
+  },
+  {
+   "citations": [
+    {
+     "blob": "b0f9ae48dbb2044de353efe1a0f5a1fab4f88c9e",
+     "claims": [
+      {
+       "in": [
+        "runs/35436608551/run.json"
+       ],
+       "line": 4,
+       "note": "run.json head_sha ccd5704f…",
+       "status": "retained",
+       "text": "`ccd5704fd157348903cbdea746d24cf5d5498b78`"
+      },
+      {
+       "in": [
+        "runs/35436608551/run.json",
+        "runs/35436608551/jobs.json"
+       ],
+       "line": 6,
+       "note": "run.json: event push, conclusion success; jobs.json: four jobs, each success",
+       "status": "retained",
+       "text": "by main-push run 35436608551 with all four jobs green"
+      },
+      {
+       "in": [
+        "runs/35436608551/expected.json",
+        "runs/35436608551/jobs.json"
+       ],
+       "line": 6,
+       "note": "expected.json: the base check in mode B",
+       "status": "retained",
+       "text": "the control-plane base check in mode `B`"
+      },
+      {
+       "in": [
+        "runs/35436608551/expected.json"
+       ],
+       "line": 7,
+       "note": "expected.json summary: OK (mode B, 16 row(s), no failure)",
+       "status": "retained",
+       "text": "reporting sixteen rows and no failure"
+      }
+     ],
+     "line": 6,
+     "path": "verification/programmes/oi-qm/track-b/act-22-orbit-law-naturality-factorization/result.md",
+     "tokens": [
+      "35436608551"
+     ]
+    },
+    {
+     "blob": "b0f9ae48dbb2044de353efe1a0f5a1fab4f88c9e",
+     "claims": [
+      {
+       "in": [
+        "runs/35436608551/expected.json"
+       ],
+       "line": 48,
+       "note": "expected.json: the base check in mode B at ccd5704f…, every line PASS",
+       "status": "retained",
+       "text": "and at `B` (run"
+      }
+     ],
+     "line": 49,
+     "path": "verification/programmes/oi-qm/track-b/act-22-orbit-law-naturality-factorization/result.md",
+     "tokens": [
+      "35436608551"
+     ]
+    },
+    {
+     "blob": "b0f9ae48dbb2044de353efe1a0f5a1fab4f88c9e",
+     "claims": [
+      {
+       "in": [
+        "runs/35436608551/expected.json",
+        "runs/35436608551/run.json"
+       ],
+       "line": 513,
+       "note": "expected.json summary line",
+       "status": "retained",
+       "text": "`OK (mode B, 16 row(s), no failure)` at `B` on run 35436608551"
+      }
+     ],
+     "line": 513,
+     "path": "verification/programmes/oi-qm/track-b/act-22-orbit-law-naturality-factorization/result.md",
+     "tokens": [
+      "35436608551"
+     ]
+    }
+   ],
+   "expires": "2026-12-18",
+   "files": [
+    {
+     "bytes": 544,
+     "kind": "derived",
+     "path": "runs/35436608551/run.json",
+     "sha256": "922ba970e04e6acf7a858b9f5456863cce9af9a8901873dbcd652ec8d4b6e27e",
+     "source_sha256": "b4c77a0868dac4a4580d8028a9167c27413c2ff12a42ac3af967ed92481cd723"
+    },
+    {
+     "bytes": 4884,
+     "kind": "derived",
+     "path": "runs/35436608551/jobs.json",
+     "sha256": "bc8afbee2bbccb02814bc589bc5827b53bf7737898a0380a9a67ccf205ba06a8",
+     "source_sha256": "b09e61e658e6bc32ae80c9517bcef22016b94149442aecaecb773c2311095940"
+    },
+    {
+     "bytes": 7845,
+     "kind": "derived",
+     "path": "runs/35436608551/expected.json",
+     "sha256": "b1973adb3a11978ea181361a3ee1fb174df28ffe77e0092ad5a55209a8fcfbed",
+     "source_sha256": "a298f2c6ccd6b8698e49e11e797a7832cbcbdc44ddad16cc7d29bc74a1493ec8"
+    }
+   ],
+   "id": "run-35436608551",
+   "kind": "derived",
+   "run_id": "35436608551",
+   "tranche": 3
+  },
+  {
+   "citations": [
+    {
+     "blob": "93c06674792fa3565f6f94e5e954e484dca33cf2",
+     "claims": [
+      {
+       "in": [
+        "runs/35441377788/run.json"
+       ],
+       "line": 27,
+       "note": "run.json head_sha 59c1b7ef…",
+       "status": "retained",
+       "text": "`59c1b7efe36d7768cf53120997ff201e32c8e458`"
+      },
+      {
+       "in": [
+        "runs/35441377788/run.json",
+        "runs/35441377788/jobs.json"
+       ],
+       "line": 28,
+       "note": "run.json: event push, conclusion success; jobs.json: four jobs, each success",
+       "status": "retained",
+       "text": "whose main-push run 35441377788 is fully green"
+      },
+      {
+       "in": [
+        "runs/35441377788/jobs.json"
+       ],
+       "line": 29,
+       "note": "jobs.json: the Control-plane base check job ran its step at B, which succeeded, and skipped its step at M",
+       "status": "retained",
+       "text": "control-plane base check in mode `B`"
+      }
+     ],
+     "line": 28,
+     "path": "verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md",
+     "tokens": [
+      "35441377788"
+     ]
+    },
+    {
+     "blob": "93c06674792fa3565f6f94e5e954e484dca33cf2",
+     "claims": [
+      {
+       "in": [
+        "runs/35441377788/expected.json",
+        "runs/35441377788/run.json"
+       ],
+       "line": 1493,
+       "note": "expected.json: 86 `R7-*` check lines among 95, every one PASS",
+       "status": "retained",
+       "text": "eighty-six `R7-*` tags, all `PASS`, on main-push run 35441377788"
+      },
+      {
+       "line": 1493,
+       "note": "a measurement of the guard file's text, not an output of the run; no retained file carries it, and it is reproducible from the tree at that commit",
+       "status": "not retained",
+       "text": "`_SI2_LEGACY_RE` finds zero assignment statements"
+      }
+     ],
+     "line": 1493,
+     "path": "verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md",
+     "tokens": [
+      "35441377788"
+     ]
+    },
+    {
+     "blob": "174e790d2cc5c663f9f54ae7daaeca90b51f96e1",
+     "claims": [
+      {
+       "in": [
+        "runs/35441377788/expected.json"
+       ],
+       "line": 773,
+       "note": "expected.json: 86 `R7-*` check lines, every one PASS",
+       "status": "retained",
+       "text": "eighty-six tags on run 35441377788"
+      },
+      {
+       "line": 773,
+       "note": "a measurement of the guard file's text, not an output of the run; no retained file carries it, and it is reproducible from the tree at that commit",
+       "status": "not retained",
+       "text": "zero legacy statements"
+      }
+     ],
+     "line": 773,
+     "path": "verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/result.md",
+     "tokens": [
+      "35441377788"
+     ]
+    }
+   ],
+   "expires": "2026-12-18",
+   "files": [
+    {
+     "bytes": 549,
+     "kind": "derived",
+     "path": "runs/35441377788/run.json",
+     "sha256": "5c171b114a53ff8a1ea84cd140fc27503df529d74c6872ed8d4ca33d713abdd5",
+     "source_sha256": "c4bdff3cfc3d1ec7c7ddfd1d32dbe3505b78ebce81c1a53c7f4fa7161682c4b9"
+    },
+    {
+     "bytes": 4884,
+     "kind": "derived",
+     "path": "runs/35441377788/jobs.json",
+     "sha256": "ff47299000a8fe4c47c5d9d1594a9ad4d34ea495ceb01ffa02cca1a118fe1922",
+     "source_sha256": "5b2e840241f9a4f15eacd9c0360420ce3a579cb0d9d207915a6ba7bf27270475"
+    },
+    {
+     "bytes": 17009,
+     "kind": "derived",
+     "path": "runs/35441377788/expected.json",
+     "sha256": "4848bb4de97c87026a8c6e1738f6db5fd55ce81a80b67f57392b6e0618808ac1",
+     "source_sha256": "e19fadca6bbb576a3fdb239c80131ad3011a553337d200bdb0e0f207a86257d2"
+    }
+   ],
+   "id": "run-35441377788",
+   "kind": "derived",
+   "run_id": "35441377788",
+   "tranche": 3
+  },
+  {
+   "citations": [
+    {
+     "blob": "174e790d2cc5c663f9f54ae7daaeca90b51f96e1",
+     "claims": [
+      {
+       "in": [
+        "runs/35445184572/expected.json",
+        "runs/35445184572/run.json"
+       ],
+       "line": 71,
+       "note": "expected.json: the base check in mode M, its 20 rows and 13 frozen-blob lines PASS; run.json: event pull_request",
+       "status": "retained",
+       "text": "the base check verified at `M` (run 35445184572, at the candidate"
+      },
+      {
+       "in": [
+        "runs/35445184572/expected.json"
+       ],
+       "line": 72,
+       "note": "expected.json: REF 370fb34d…, pull/686/merge, the merge of feaa0891… into 59c1b7ef…, as the run's checkout reports",
+       "status": "retained",
+       "text": "merge of pull request #686)"
+      }
+     ],
+     "line": 71,
+     "path": "verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/result.md",
+     "tokens": [
+      "35445184572"
+     ]
+    },
+    {
+     "blob": "174e790d2cc5c663f9f54ae7daaeca90b51f96e1",
+     "claims": [
+      {
+       "in": [
+        "runs/35445184572/expected.json"
+       ],
+       "line": 766,
+       "note": "expected.json summary line; REF is pull/686/merge",
+       "status": "retained",
+       "text": "`OK (mode M, 20 row(s), no failure)` at the candidate merge of pull request #686 on run"
+      },
+      {
+       "in": [
+        "runs/35445184572/run.json"
+       ],
+       "line": 767,
+       "note": "run.json id",
+       "status": "retained",
+       "text": "35445184572 and"
+      }
+     ],
+     "line": 767,
+     "path": "verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/result.md",
+     "tokens": [
+      "35445184572"
+     ]
+    }
+   ],
+   "expires": "2026-12-18",
+   "files": [
+    {
+     "bytes": 676,
+     "kind": "derived",
+     "path": "runs/35445184572/run.json",
+     "sha256": "178a49f7ddf9fb46b22b61d5bfcef02f9c12d0286a581b8610a42bc8ce064c02",
+     "source_sha256": "6b7f53459afcc311321e79962871fb43a0860de4bf43f3d6890ea956925727eb"
+    },
+    {
+     "bytes": 4976,
+     "kind": "derived",
+     "path": "runs/35445184572/jobs.json",
+     "sha256": "15d2c216613fd1d62336000914b7ed62d00609a1887d211d3b5f676431e8a036",
+     "source_sha256": "3a3887a67d72f80477dbe084f95df43a096128872017c0d64ea546792488d4c5"
+    },
+    {
+     "bytes": 9353,
+     "kind": "derived",
+     "path": "runs/35445184572/expected.json",
+     "sha256": "f9727119ea0c7a3a1e9ef0559b4c46f3a2f13b05abdb6c8d31b199bfc8804a90",
+     "source_sha256": "a652191b60b79ceb9d5a63e1a6aeefb90c5cb8fa27836701fbfccd4a7ec0c49f"
+    }
+   ],
+   "id": "run-35445184572",
+   "kind": "derived",
+   "run_id": "35445184572",
+   "tranche": 3
+  },
+  {
+   "citations": [
+    {
+     "blob": "174e790d2cc5c663f9f54ae7daaeca90b51f96e1",
+     "claims": [
+      {
+       "in": [
+        "runs/35445878205/run.json"
+       ],
+       "line": 4,
+       "note": "run.json head_sha 64214bfb…",
+       "status": "retained",
+       "text": "`64214bfb0ae41b9f0a4fb11159089fff32d4dd85`"
+      },
+      {
+       "in": [
+        "runs/35445878205/run.json",
+        "runs/35445878205/jobs.json"
+       ],
+       "line": 6,
+       "note": "run.json: event push, conclusion success; jobs.json: four jobs, each success",
+       "status": "retained",
+       "text": "by main-push run 35445878205 with all four jobs green"
+      },
+      {
+       "in": [
+        "runs/35445878205/expected.json",
+        "runs/35445878205/jobs.json"
+       ],
+       "line": 6,
+       "note": "expected.json: the base check in mode B",
+       "status": "retained",
+       "text": "the control-plane base check in mode `B`"
+      },
+      {
+       "in": [
+        "runs/35445878205/expected.json"
+       ],
+       "line": 7,
+       "note": "expected.json summary: OK (mode B, 20 row(s), no failure)",
+       "status": "retained",
+       "text": "reporting twenty rows and no failure"
+      }
+     ],
+     "line": 6,
+     "path": "verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/result.md",
+     "tokens": [
+      "35445878205"
+     ]
+    },
+    {
+     "blob": "174e790d2cc5c663f9f54ae7daaeca90b51f96e1",
+     "claims": [
+      {
+       "in": [
+        "runs/35445878205/expected.json",
+        "runs/35445878205/run.json"
+       ],
+       "line": 72,
+       "note": "expected.json: the base check in mode B at 64214bfb…, every line PASS or SKIP",
+       "status": "retained",
+       "text": "and at `B` (run 35445878205)"
+      }
+     ],
+     "line": 72,
+     "path": "verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/result.md",
+     "tokens": [
+      "35445878205"
+     ]
+    },
+    {
+     "blob": "174e790d2cc5c663f9f54ae7daaeca90b51f96e1",
+     "claims": [
+      {
+       "in": [
+        "runs/35445878205/expected.json",
+        "runs/35445878205/run.json"
+       ],
+       "line": 767,
+       "note": "expected.json summary line",
+       "status": "retained",
+       "text": "`OK (mode B, 20 row(s), no failure)` at `B` on run 35445878205"
+      }
+     ],
+     "line": 767,
+     "path": "verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/result.md",
+     "tokens": [
+      "35445878205"
+     ]
+    }
+   ],
+   "expires": "2026-12-18",
+   "files": [
+    {
+     "bytes": 549,
+     "kind": "derived",
+     "path": "runs/35445878205/run.json",
+     "sha256": "4689cf8a8bc50a17422f1ab7beea7ea06c7ea22593e7ab21f6a8e6d6f2c8f60e",
+     "source_sha256": "46197a29b5fea04a74944dfa247743afc3b8fe64c678a099a5b03cf5911a1d91"
+    },
+    {
+     "bytes": 4884,
+     "kind": "derived",
+     "path": "runs/35445878205/jobs.json",
+     "sha256": "c1ec36785e9780fc8271ed47c3bded0043f0f7659bb856b929b2ed46a5afe68d",
+     "source_sha256": "fb9160b21746adc11bc9147545f4193d683324505ae03f7ae01ac1751a8c323c"
+    },
+    {
+     "bytes": 9095,
+     "kind": "derived",
+     "path": "runs/35445878205/expected.json",
+     "sha256": "51c9c13b9f6e690cde0029e75a785bdeb69f672f4baa545c7736f047dadd552e",
+     "source_sha256": "260aed9fb4cf76c279d72d4f97c56e1b2b074512bdaf2251d06e487f1e877aba"
+    }
+   ],
+   "id": "run-35445878205",
+   "kind": "derived",
+   "run_id": "35445878205",
+   "tranche": 3
+  },
+  {
+   "citations": [
+    {
+     "blob": "3b61d6c90fe3f05bbf5e791f74d7106e9be2f94a",
+     "claims": [
+      {
+       "in": [
+        "runs/35451692651/run.json"
+       ],
+       "line": 27,
+       "note": "run.json head_sha 9907d3ac…",
+       "status": "retained",
+       "text": "`9907d3acefb2bd5e2cc66c007400cc0e194d36ec`"
+      },
+      {
+       "in": [
+        "runs/35451692651/run.json",
+        "runs/35451692651/jobs.json"
+       ],
+       "line": 28,
+       "note": "run.json: event push, conclusion success; jobs.json: four jobs, each success",
+       "status": "retained",
+       "text": "whose main-push run 35451692651 is fully green"
+      },
+      {
+       "in": [
+        "runs/35451692651/jobs.json"
+       ],
+       "line": 29,
+       "note": "jobs.json: the Control-plane base check job ran its step at B, which succeeded, and skipped its step at M",
+       "status": "retained",
+       "text": "control-plane base check in mode `B`"
+      }
+     ],
+     "line": 28,
+     "path": "verification/programmes/oi-qm/track-b/act-24-orbit-geometry-selector/preregistration.md",
+     "tokens": [
+      "35451692651"
+     ]
+    },
+    {
+     "blob": "3b61d6c90fe3f05bbf5e791f74d7106e9be2f94a",
+     "claims": [
+      {
+       "in": [
+        "runs/35451692651/expected.json",
+        "runs/35451692651/run.json"
+       ],
+       "line": 1780,
+       "note": "expected.json: 87 `R7-*` check lines among 96, every one PASS",
+       "status": "retained",
+       "text": "eighty-seven `R7-*` tags, all `PASS`, on main-push run 35451692651"
+      },
+      {
+       "line": 1780,
+       "note": "a measurement of the guard file's text, not an output of the run; no retained file carries it, and it is reproducible from the tree at that commit",
+       "status": "not retained",
+       "text": "`_SI2_LEGACY_RE` finds zero assignment statements"
+      }
+     ],
+     "line": 1780,
+     "path": "verification/programmes/oi-qm/track-b/act-24-orbit-geometry-selector/preregistration.md",
+     "tokens": [
+      "35451692651"
+     ]
+    },
+    {
+     "blob": "a2719d5f63c4ce517590ec7fbe8e61bafe04c3a7",
+     "claims": [
+      {
+       "in": [
+        "runs/35451692651/expected.json"
+       ],
+       "line": 903,
+       "note": "expected.json: 87 `R7-*` check lines, every one PASS",
+       "status": "retained",
+       "text": "eighty-seven tags on run 35451692651"
+      },
+      {
+       "line": 903,
+       "note": "a measurement of the guard file's text, not an output of the run; no retained file carries it, and it is reproducible from the tree at that commit",
+       "status": "not retained",
+       "text": "zero legacy statements"
+      }
+     ],
+     "line": 903,
+     "path": "verification/programmes/oi-qm/track-b/act-24-orbit-geometry-selector/result.md",
+     "tokens": [
+      "35451692651"
+     ]
+    }
+   ],
+   "expires": "2026-12-18",
+   "files": [
+    {
+     "bytes": 549,
+     "kind": "derived",
+     "path": "runs/35451692651/run.json",
+     "sha256": "39448168574a4badc2ae40d7970dbd60a9eb06b8ce659f28b39ad7b0fb541153",
+     "source_sha256": "9ef98cb29969fb37c88dff7f3404df3d507d42d521af8d25f6a3d82cee20fb72"
+    },
+    {
+     "bytes": 4884,
+     "kind": "derived",
+     "path": "runs/35451692651/jobs.json",
+     "sha256": "23406afa7a0365f2405204c3978df39fb490b734be199c9c44eb69f69b3720a3",
+     "source_sha256": "7865c3223fcdd80ce20adb1eb12fb765d39bc1477302a1c6f4c22489816c5c99"
+    },
+    {
+     "bytes": 17162,
+     "kind": "derived",
+     "path": "runs/35451692651/expected.json",
+     "sha256": "c4ba90de82fc653fcb3acd8ed5f704696dbff3049a068c2d0813b74604980552",
+     "source_sha256": "d17a869de540c5f6467ee1aa7da711e00a2e29dbd357fd07e1f0286338fd9379"
+    }
+   ],
+   "id": "run-35451692651",
+   "kind": "derived",
+   "run_id": "35451692651",
+   "tranche": 3
+  },
+  {
+   "citations": [
+    {
+     "blob": "a2719d5f63c4ce517590ec7fbe8e61bafe04c3a7",
+     "claims": [
+      {
+       "in": [
+        "runs/35457437686/expected.json",
+        "runs/35457437686/run.json"
+       ],
+       "line": 71,
+       "note": "expected.json: the base check in mode M at pull/689/merge (REF a1dcf0e9…, the merge of 98b56757… into 9907d3ac…), its 25 rows and 23 frozen-blob lines PASS; run.json: event pull_request",
+       "status": "retained",
+       "text": "the base check verified at `M` (run 35457437686, at the candidate merge of pull request #689)"
+      }
+     ],
+     "line": 71,
+     "path": "verification/programmes/oi-qm/track-b/act-24-orbit-geometry-selector/result.md",
+     "tokens": [
+      "35457437686"
+     ]
+    },
+    {
+     "blob": "a2719d5f63c4ce517590ec7fbe8e61bafe04c3a7",
+     "claims": [
+      {
+       "in": [
+        "runs/35457437686/expected.json"
+       ],
+       "line": 896,
+       "note": "expected.json summary line",
+       "status": "retained",
+       "text": "`OK (mode M, 25 row(s), no failure)` at the candidate merge of pull request"
+      },
+      {
+       "in": [
+        "runs/35457437686/expected.json",
+        "runs/35457437686/run.json"
+       ],
+       "line": 897,
+       "note": "expected.json: REF is pull/689/merge",
+       "status": "retained",
+       "text": "#689 on run 35457437686"
+      }
+     ],
+     "line": 897,
+     "path": "verification/programmes/oi-qm/track-b/act-24-orbit-geometry-selector/result.md",
+     "tokens": [
+      "35457437686"
+     ]
+    }
+   ],
+   "expires": "2026-12-18",
+   "files": [
+    {
+     "bytes": 594,
+     "kind": "derived",
+     "path": "runs/35457437686/run.json",
+     "sha256": "98bd101b18cc82ff642110c3beb91ddf418fe3650b4d27d32a8b5590f1ea62fb",
+     "source_sha256": "5f87ec4f9def34f158c748d8a98975f3eedb7b9973673ed2864bbd3418919e0e"
+    },
+    {
+     "bytes": 4976,
+     "kind": "derived",
+     "path": "runs/35457437686/jobs.json",
+     "sha256": "8d467d2304b7bd5b207864b66e6931734c73f7ecc4fc12f682f146bdbdcad909",
+     "source_sha256": "20c4da6c7adf333086c5be0b626dd2105e8902ac4f8ced7aa12ce37f2ebfe7d3"
+    },
+    {
+     "bytes": 12813,
+     "kind": "derived",
+     "path": "runs/35457437686/expected.json",
+     "sha256": "2a336c8123385cae2441a1a36c90bc98beb2351a7da8efa61d7a5a81a2289839",
+     "source_sha256": "f7ea6ba6cc2ac77d3316193e496dac985f2c2a7d7d9ab0714ccb4aec3ef575b1"
+    }
+   ],
+   "id": "run-35457437686",
+   "kind": "derived",
+   "run_id": "35457437686",
+   "tranche": 3
+  },
+  {
+   "citations": [
+    {
+     "blob": "a2719d5f63c4ce517590ec7fbe8e61bafe04c3a7",
+     "claims": [
+      {
+       "in": [
+        "runs/35458160449/run.json"
+       ],
+       "line": 4,
+       "note": "run.json head_sha d0fcdbc0…",
+       "status": "retained",
+       "text": "`d0fcdbc03c4b828d630f677253cf0914f451b63d`"
+      },
+      {
+       "in": [
+        "runs/35458160449/run.json",
+        "runs/35458160449/jobs.json"
+       ],
+       "line": 6,
+       "note": "run.json: event push, conclusion success; jobs.json: four jobs, each success",
+       "status": "retained",
+       "text": "by main-push run 35458160449 with all four jobs green"
+      },
+      {
+       "in": [
+        "runs/35458160449/expected.json",
+        "runs/35458160449/jobs.json"
+       ],
+       "line": 6,
+       "note": "expected.json: the base check in mode B",
+       "status": "retained",
+       "text": "the control-plane base check in mode `B`"
+      },
+      {
+       "in": [
+        "runs/35458160449/expected.json"
+       ],
+       "line": 7,
+       "note": "expected.json summary: OK (mode B, 25 row(s), no failure)",
+       "status": "retained",
+       "text": "reporting twenty-five rows and no failure"
+      }
+     ],
+     "line": 6,
+     "path": "verification/programmes/oi-qm/track-b/act-24-orbit-geometry-selector/result.md",
+     "tokens": [
+      "35458160449"
+     ]
+    },
+    {
+     "blob": "a2719d5f63c4ce517590ec7fbe8e61bafe04c3a7",
+     "claims": [
+      {
+       "in": [
+        "runs/35458160449/expected.json",
+        "runs/35458160449/run.json"
+       ],
+       "line": 72,
+       "note": "expected.json: the base check in mode B at d0fcdbc0…, every line PASS or SKIP",
+       "status": "retained",
+       "text": "and at `B` (run 35458160449)"
+      }
+     ],
+     "line": 72,
+     "path": "verification/programmes/oi-qm/track-b/act-24-orbit-geometry-selector/result.md",
+     "tokens": [
+      "35458160449"
+     ]
+    },
+    {
+     "blob": "a2719d5f63c4ce517590ec7fbe8e61bafe04c3a7",
+     "claims": [
+      {
+       "in": [
+        "runs/35458160449/expected.json",
+        "runs/35458160449/run.json"
+       ],
+       "line": 897,
+       "note": "expected.json summary line",
+       "status": "retained",
+       "text": "`OK (mode B, 25 row(s), no failure)` at `B` on run 35458160449"
+      }
+     ],
+     "line": 897,
+     "path": "verification/programmes/oi-qm/track-b/act-24-orbit-geometry-selector/result.md",
+     "tokens": [
+      "35458160449"
+     ]
+    }
+   ],
+   "expires": "2026-12-18",
+   "files": [
+    {
+     "bytes": 544,
+     "kind": "derived",
+     "path": "runs/35458160449/run.json",
+     "sha256": "e5cd4959d5af4e75eb2f56f2ee26762ba21d3035d9286f24412c45149ced9691",
+     "source_sha256": "1833dd73417f7522bcbf9636d5cf26fed6efb064da0c2b8f27d0f7f18ab94a91"
+    },
+    {
+     "bytes": 4884,
+     "kind": "derived",
+     "path": "runs/35458160449/jobs.json",
+     "sha256": "f729a74e2c204800e942247cd8ead8f73a7d6b6387259bfaa1a8569d222496e4",
+     "source_sha256": "991ebc30ab8252041e663bf8c5010edbe555857a3e2caa5465cfd6d5c1f33757"
+    },
+    {
+     "bytes": 12555,
+     "kind": "derived",
+     "path": "runs/35458160449/expected.json",
+     "sha256": "40512cb9f16652b7fa06ccc2624ce1c17a06049dbda02bd5c166bde2e3206059",
+     "source_sha256": "1077ddd8db2181e56ca58531a2e10d2263121c58afdb42531f0d2177ed434cc2"
+    }
+   ],
+   "id": "run-35458160449",
+   "kind": "derived",
+   "run_id": "35458160449",
+   "tranche": 3
+  },
+  {
+   "citations": [
+    {
+     "blob": "f4892f64e1667244fc262a01fb46b27f9b1ba1ba",
+     "claims": [
+      {
+       "in": [
+        "runs/35467053564/run.json"
+       ],
+       "line": 32,
+       "note": "run.json head_sha 17272da2…",
+       "status": "retained",
+       "text": "`17272da24e8d65a8d0e2417c6a451a1af3461258`"
+      },
+      {
+       "in": [
+        "runs/35467053564/run.json",
+        "runs/35467053564/jobs.json",
+        "runs/35467053564/expected.json"
+       ],
+       "line": 33,
+       "note": "run.json: event push, conclusion success; jobs.json: four jobs, each success; expected.json: R7-OGS PASS",
+       "status": "retained",
+       "text": "whose main-push run 35467053564 is fully green with `R7-OGS` in"
+      },
+      {
+       "in": [
+        "runs/35467053564/expected.json"
+       ],
+       "line": 34,
+       "note": "expected.json quotes the guard's line \"R7-OGS authority: … PASS (ARCHIVED; …)\"",
+       "status": "retained",
+       "text": "`ARCHIVED` state"
+      },
+      {
+       "in": [
+        "runs/35467053564/jobs.json"
+       ],
+       "line": 34,
+       "note": "jobs.json: the Control-plane base check job ran its step at B, which succeeded, and skipped its step at M",
+       "status": "retained",
+       "text": "the control-plane base check in mode `B`"
+      }
+     ],
+     "line": 33,
+     "path": "verification/programmes/oi-qm/track-b/act-25-orbit-geometry-isometries/preregistration.md",
+     "tokens": [
+      "35467053564"
+     ]
+    },
+    {
+     "blob": "f4892f64e1667244fc262a01fb46b27f9b1ba1ba",
+     "claims": [
+      {
+       "in": [
+        "runs/35467053564/expected.json",
+        "runs/35467053564/run.json"
+       ],
+       "line": 1871,
+       "note": "expected.json: 88 `R7-*` check lines among 97, every one PASS",
+       "status": "retained",
+       "text": "eighty-eight `R7-*` tags, all `PASS`, on main-push run 35467053564"
+      },
+      {
+       "line": 1871,
+       "note": "a measurement of the guard file's text, not an output of the run; no retained file carries it, and it is reproducible from the tree at that commit",
+       "status": "not retained",
+       "text": "`_SI2_LEGACY_RE` finds zero assignment statements"
+      }
+     ],
+     "line": 1871,
+     "path": "verification/programmes/oi-qm/track-b/act-25-orbit-geometry-isometries/preregistration.md",
+     "tokens": [
+      "35467053564"
+     ]
+    },
+    {
+     "blob": "e4441e9a6f121f96089dc2c9e0ca2e2b9a7a33d9",
+     "claims": [
+      {
+       "in": [
+        "runs/35467053564/expected.json"
+       ],
+       "line": 811,
+       "note": "expected.json: 88 `R7-*` check lines, every one PASS",
+       "status": "retained",
+       "text": "eighty-eight tags on run 35467053564"
+      },
+      {
+       "line": 811,
+       "note": "a measurement of the guard file's text, not an output of the run; no retained file carries it, and it is reproducible from the tree at that commit",
+       "status": "not retained",
+       "text": "zero legacy statements"
+      }
+     ],
+     "line": 811,
+     "path": "verification/programmes/oi-qm/track-b/act-25-orbit-geometry-isometries/result.md",
+     "tokens": [
+      "35467053564"
+     ]
+    }
+   ],
+   "expires": "2026-12-18",
+   "files": [
+    {
+     "bytes": 549,
+     "kind": "derived",
+     "path": "runs/35467053564/run.json",
+     "sha256": "043466782b231b32c0d2061b2e19b21ccbdde47407f29af92ccc18acb20092ac",
+     "source_sha256": "24d693979fe9a8511dd6bfc69d169b5214e26130920b2646780514d8edd5a7a1"
+    },
+    {
+     "bytes": 4884,
+     "kind": "derived",
+     "path": "runs/35467053564/jobs.json",
+     "sha256": "a2b2c960d5036c086d2c8edbdb43df3c55d5f3dd4d169d23b76ec66f3e0b3a2c",
+     "source_sha256": "7eca64cf07e94fa80442a53c374dc78edd068dc77f00ea7c975d1ae1e6c19659"
+    },
+    {
+     "bytes": 17532,
+     "kind": "derived",
+     "path": "runs/35467053564/expected.json",
+     "sha256": "7ef4581a106ec8f8dc851b9a14962c7f0953b4e0b299bc18bd52ed862c94894d",
+     "source_sha256": "ad4b95b4c54a39a8b59f98377a1480d7266b54c2835212cd90b93fef0b7f2247"
+    }
+   ],
+   "id": "run-35467053564",
+   "kind": "derived",
+   "run_id": "35467053564",
+   "tranche": 3
+  },
+  {
+   "citations": [
+    {
+     "blob": "e4441e9a6f121f96089dc2c9e0ca2e2b9a7a33d9",
+     "claims": [
+      {
+       "in": [
+        "runs/35470058510/expected.json",
+        "runs/35470058510/run.json"
+       ],
+       "line": 75,
+       "note": "expected.json: the base check in mode M at pull/691/merge (REF af1f20c3…, the merge of a6cb0c41… into 17272da2…), its 21 rows and 26 frozen-blob lines PASS; run.json: event pull_request",
+       "status": "retained",
+       "text": "the base check verified at `M` (run 35470058510, at the candidate merge of pull request #691)"
+      }
+     ],
+     "line": 75,
+     "path": "verification/programmes/oi-qm/track-b/act-25-orbit-geometry-isometries/result.md",
+     "tokens": [
+      "35470058510"
+     ]
+    },
+    {
+     "blob": "e4441e9a6f121f96089dc2c9e0ca2e2b9a7a33d9",
+     "claims": [
+      {
+       "in": [
+        "runs/35470058510/expected.json"
+       ],
+       "line": 804,
+       "note": "expected.json summary line",
+       "status": "retained",
+       "text": "`OK (mode M, 21 row(s), no failure)` at the candidate merge of pull request"
+      },
+      {
+       "in": [
+        "runs/35470058510/expected.json",
+        "runs/35470058510/run.json"
+       ],
+       "line": 805,
+       "note": "expected.json: REF is pull/691/merge",
+       "status": "retained",
+       "text": "#691 on run 35470058510"
+      }
+     ],
+     "line": 805,
+     "path": "verification/programmes/oi-qm/track-b/act-25-orbit-geometry-isometries/result.md",
+     "tokens": [
+      "35470058510"
+     ]
+    }
+   ],
+   "expires": "2026-12-18",
+   "files": [
+    {
+     "bytes": 594,
+     "kind": "derived",
+     "path": "runs/35470058510/run.json",
+     "sha256": "d318596ff45b6ee4698ae93d28283bdbe55a5b63cf981fbd795f88edfe896747",
+     "source_sha256": "4e3aa0d5edd3c58690e973611142a01a79973044ec38d1a53837cbadfc7fc85c"
+    },
+    {
+     "bytes": 4976,
+     "kind": "derived",
+     "path": "runs/35470058510/jobs.json",
+     "sha256": "d75c120b0dc883ade6dfa1d1b8261741ef52219237039ab870e2b170d6977d05",
+     "source_sha256": "9f9f087ca178dfe5dad86a394b5c0598c3031711d5d7e72cca77823567aad2b3"
+    },
+    {
+     "bytes": 12998,
+     "kind": "derived",
+     "path": "runs/35470058510/expected.json",
+     "sha256": "0e8a87389ce1b0c8ec5f7a571ceecd570f914b48c21bca2495ae2392504e5eff",
+     "source_sha256": "eb03e9f13c3053eae584a2c0ec078bee236d5dafa91580b106192c01b5bcfbb3"
+    }
+   ],
+   "id": "run-35470058510",
+   "kind": "derived",
+   "run_id": "35470058510",
+   "tranche": 3
+  },
+  {
+   "citations": [
+    {
+     "blob": "e4441e9a6f121f96089dc2c9e0ca2e2b9a7a33d9",
+     "claims": [
+      {
+       "in": [
+        "runs/35470951442/run.json"
+       ],
+       "line": 4,
+       "note": "run.json head_sha dd3bd2e7…",
+       "status": "retained",
+       "text": "`dd3bd2e726e0fb3bccd96df9c46a532119a9ee97`"
+      },
+      {
+       "in": [
+        "runs/35470951442/run.json",
+        "runs/35470951442/jobs.json"
+       ],
+       "line": 6,
+       "note": "run.json: event push, conclusion success; jobs.json: four jobs, each success",
+       "status": "retained",
+       "text": "by main-push run 35470951442 with all four jobs green"
+      },
+      {
+       "in": [
+        "runs/35470951442/expected.json",
+        "runs/35470951442/jobs.json"
+       ],
+       "line": 6,
+       "note": "expected.json: the base check in mode B",
+       "status": "retained",
+       "text": "the control-plane base check in mode `B`"
+      },
+      {
+       "in": [
+        "runs/35470951442/expected.json"
+       ],
+       "line": 7,
+       "note": "expected.json summary: OK (mode B, 21 row(s), no failure)",
+       "status": "retained",
+       "text": "reporting twenty-one rows and no failure"
+      }
+     ],
+     "line": 6,
+     "path": "verification/programmes/oi-qm/track-b/act-25-orbit-geometry-isometries/result.md",
+     "tokens": [
+      "35470951442"
+     ]
+    },
+    {
+     "blob": "e4441e9a6f121f96089dc2c9e0ca2e2b9a7a33d9",
+     "claims": [
+      {
+       "in": [
+        "runs/35470951442/expected.json",
+        "runs/35470951442/run.json"
+       ],
+       "line": 76,
+       "note": "expected.json: the base check in mode B at dd3bd2e7…, every line PASS or SKIP",
+       "status": "retained",
+       "text": "and at `B` (run 35470951442)"
+      }
+     ],
+     "line": 76,
+     "path": "verification/programmes/oi-qm/track-b/act-25-orbit-geometry-isometries/result.md",
+     "tokens": [
+      "35470951442"
+     ]
+    },
+    {
+     "blob": "e4441e9a6f121f96089dc2c9e0ca2e2b9a7a33d9",
+     "claims": [
+      {
+       "in": [
+        "runs/35470951442/expected.json",
+        "runs/35470951442/run.json"
+       ],
+       "line": 805,
+       "note": "expected.json summary line",
+       "status": "retained",
+       "text": "`OK (mode B, 21 row(s), no failure)` at `B` on run 35470951442"
+      }
+     ],
+     "line": 805,
+     "path": "verification/programmes/oi-qm/track-b/act-25-orbit-geometry-isometries/result.md",
+     "tokens": [
+      "35470951442"
+     ]
+    }
+   ],
+   "expires": "2026-12-18",
+   "files": [
+    {
+     "bytes": 544,
+     "kind": "derived",
+     "path": "runs/35470951442/run.json",
+     "sha256": "d98f164b63ef012f1bcaceb595d1399263e82876d08cd274aa0efdea6465877e",
+     "source_sha256": "d289acbcc0d5cca57f1236cfb6cc2a0b04f562cd7c39b37c4348d85c4d2bc21a"
+    },
+    {
+     "bytes": 4884,
+     "kind": "derived",
+     "path": "runs/35470951442/jobs.json",
+     "sha256": "2ee1d5a2d507f6e8c4090a45e33ae5bb8df14d197e6e1ee17ddb69b65707525d",
+     "source_sha256": "4713cb2cbd759fee8ceb4277e6f2cfe05674ed00e05885126fe3d9032d068aed"
+    },
+    {
+     "bytes": 12740,
+     "kind": "derived",
+     "path": "runs/35470951442/expected.json",
+     "sha256": "494edc2e0d94eba8911415961dea0e5cd809702d0a459b818f6f0af61b3d4b69",
+     "source_sha256": "cc2ebab8e227caa20df082976361e1cd19e7df02b622f0aaf78794ed43c0e973"
+    }
+   ],
+   "id": "run-35470951442",
+   "kind": "derived",
+   "run_id": "35470951442",
+   "tranche": 3
+  },
+  {
+   "citations": [],
+   "files": [
+    {
+     "bytes": 16179,
+     "kind": "complete",
+     "path": "job_outputs.py",
+     "sha256": "04a5a826e085cdc6761078433637f7c0c219eee1c08bab338e008122f61f867b"
+    },
+    {
+     "bytes": 32767,
+     "kind": "complete",
+     "path": "build_tranche3.py",
+     "sha256": "be30ae0cacd148eadffd97c2177fda488c2943c25a9063a0b9d276728e59f649"
+    }
+   ],
+   "id": "tranche3-record",
+   "kind": "complete",
+   "provenance": {
+    "source": "written for this archive: tranche 3's extractor, reproduction tool and comparator, and the script that cut the tranche"
+   }
+  },
+  {
+   "awaiting_citation": {
+    "head": "65b85147f85aa01770e0e60551152bc5f1d9ef29",
+    "line": 69,
+    "note": "retained ahead of its citing record by the owner's instruction of 2026-10-17; no tracked file outside this archive cites the run",
+    "pull_request": 831,
+    "record": "verification/programmes/oi-qm/reconstruction/round-preserve-induct-1/preregistration.md",
+    "round": "PRESERVE-INDUCT-1"
+   },
+   "citations": [],
+   "files": [
+    {
+     "bytes": 608,
+     "kind": "derived",
+     "path": "ci/38450187534/run.json",
+     "sha256": "6005d6703d83187a4387c330a6cbc232864adba3a06642aa2cc2907de4a2d82e",
+     "source_sha256": "b7eeecf410db9bf77efe5f431c752983ec7d2f1851835494e6d48be249ced09c"
+    },
+    {
+     "bytes": 1821,
+     "kind": "derived",
+     "path": "ci/38450187534/jobs.json",
+     "sha256": "92a7ad6de5c823186cf4c6d6756b090a84afc6d590c00bd07630081903c27693",
+     "source_sha256": "2a6cf2a8f5a6a04e000a41b8290cf00cb036d12417bbbe1a4f249b7441dcf2f8"
+    },
+    {
+     "bytes": 23519,
+     "kind": "derived",
+     "path": "ci/38450187534/results.json",
+     "sha256": "8dfbeb2b950d3474e239c3398cd3cb76fc75aae22ef1b7c8942729883f41bba1",
+     "source_sha256": "814d820bb2ea2cd8726979e7881b4bc5a6734ae286913960bb8aec2fcbdfab5f"
+    }
+   ],
+   "id": "research-38450187534",
+   "kind": "derived",
+   "notes": [
+    "the result establishes what this run logged at e684897da41b, nothing about later trees"
+   ],
+   "roles": [
+    {
+     "branch": "research/preservation-induction-design-20261013",
+     "commit": "e684897da41b1c3d066b880194c9beb87a19b7ad",
+     "kind": "research build",
+     "workflow": ".github/workflows/preservation-induction-design.yml"
+    }
+   ],
+   "run_id": "38450187534"
+  },
+  {
+   "awaiting_citation": {
+    "head": "65b85147f85aa01770e0e60551152bc5f1d9ef29",
+    "line": 127,
+    "note": "retained ahead of its citing record by the owner's instruction of 2026-10-17; no tracked file outside this archive cites the run",
+    "pull_request": 831,
+    "record": "verification/programmes/oi-qm/reconstruction/round-preserve-induct-1/preregistration.md",
+    "round": "PRESERVE-INDUCT-1"
+   },
+   "citations": [],
+   "files": [
+    {
+     "bytes": 601,
+     "kind": "derived",
+     "path": "ci/38454439833/run.json",
+     "sha256": "e03c712fe769561428f9b01e80549bc55ae2d98b6ce718c3a58de27fee7d90e3",
+     "source_sha256": "64db179a526fa3335d888b96b19b99a74afddafd21b07cbf779bef50ae671864"
+    },
+    {
+     "bytes": 1821,
+     "kind": "derived",
+     "path": "ci/38454439833/jobs.json",
+     "sha256": "88e862da8cd2d37fdf2479e3f7b0f7e24fa5a42e6aeff385bafef6efd3b0137f",
+     "source_sha256": "40cca2324dba6c22598352217f2754e01d8667a067b4688ec05da1ff72205e43"
+    },
+    {
+     "bytes": 32918,
+     "kind": "derived",
+     "path": "ci/38454439833/results.json",
+     "sha256": "647c69f0cadc7dd89e77d0b189eeabeab28e63ee77837818a8ec18d0c16b27e0",
+     "source_sha256": "b8fde0612483687da594460dde87c6f86115a5c5a8f68b0d4ca0ad75491caf14"
+    }
+   ],
+   "id": "research-38454439833",
+   "kind": "derived",
+   "notes": [
+    "the result establishes what this run logged at febfe5e2668d, nothing about later trees"
+   ],
+   "roles": [
+    {
+     "branch": "research/preservation-induction-design-20261013",
+     "commit": "febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+     "kind": "research build",
+     "workflow": ".github/workflows/preservation-induction-design.yml"
+    }
+   ],
+   "run_id": "38454439833"
+  },
+  {
+   "citations": [],
+   "files": [
+    {
+     "bytes": 14649,
+     "kind": "complete",
+     "path": "build_research_runs.py",
+     "sha256": "42a553257362aa1f2ea7ae3324f4846d9746f5c83e20107840e1bcc992ba1d47"
+    }
+   ],
+   "id": "research-runs-record",
+   "kind": "complete",
+   "provenance": {
+    "source": "written for this archive: the script that cut the research-build entries"
+   }
+  },
+  {
+   "citations": [],
+   "files": [
+    {
+     "bytes": 11156,
+     "kind": "complete",
+     "path": "build_tranche4_objects.py",
+     "sha256": "c2b45ee9f5f80080a6d976de123273ca874e5f3ac1c3b5d2e213c301b2e0225e"
+    }
+   ],
+   "id": "tranche4-record",
+   "kind": "complete",
+   "provenance": {
+    "source": "written for this archive: the script that cut archive tranche 4 of the retained off-main objects (objects/manifest.json, which tranche-record pins, holds the objects)"
    }
   }
  ],
@@ -13147,6 +15267,54 @@
    "run_id": "38854027737",
    "what": "axiom reports of OIBridge/TurnpikeScopeTransfer.lean",
    "why": "0 of the module's 7 #print axioms reports are in the served lines; the served text is the last 5000 of the log's 38634 lines; reproduction at the commit reports all 7"
+  },
+  {
+   "id": "research-38450187534",
+   "run_id": "38450187534",
+   "what": "axiom reports of OIBridge/ImplementationLocality.lean",
+   "why": "6 of the module's 81 #print axioms lines have no extracted report. The log was served whole (3256 lines); each of the 6 names a declaration ending in a prime, its report stands in the served text (served lines 3078, 3079, 3096, 3101, 3102, 3105), and extract_result.py's report pattern does not match a name that contains an apostrophe, so the report is not extracted"
+  },
+  {
+   "id": "research-38450187534",
+   "run_id": "38450187534",
+   "what": "release gate",
+   "why": "the workflow runs no release gate, and the served log holds no gate block; its last step, Check retained records and artifact placement, runs legacy_records_check.py, v3_verifier.py --receipts and artifact_placement_check.py, whose output extract_result.py does not read; jobs.json records the step's conclusion"
+  },
+  {
+   "id": "research-38450187534",
+   "run_id": "38450187534",
+   "what": "axiom reports of the research design (PreservationInduction.lean)",
+   "why": "`lean` run on the design files prints its 4 reports without the file:line prefix of a lake build (served lines 3164 to 3171); extract_result.py reads only prefixed reports, so none is extracted, and they are not inferred here"
+  },
+  {
+   "id": "research-38450187534",
+   "run_id": "38450187534",
+   "what": "exact-control replay output",
+   "why": "the step Replay independent exact controls compares the design's two scripts with their saved outputs and prints them; extract_result.py does not read that output; jobs.json records the step's conclusion"
+  },
+  {
+   "id": "research-38454439833",
+   "run_id": "38454439833",
+   "what": "axiom reports of OIBridge/ImplementationLocality.lean",
+   "why": "6 of the module's 81 #print axioms lines have no extracted report. The log was served whole (3692 lines); each of the 6 names a declaration ending in a prime, its report stands in the served text (served lines 3086, 3087, 3104, 3109, 3110, 3113), and extract_result.py's report pattern does not match a name that contains an apostrophe, so the report is not extracted"
+  },
+  {
+   "id": "research-38454439833",
+   "run_id": "38454439833",
+   "what": "release gate",
+   "why": "the workflow runs no release gate, and the served log holds no gate block; its last step, Check retained records and artifact placement, runs legacy_records_check.py, v3_verifier.py --receipts and artifact_placement_check.py, whose output extract_result.py does not read; jobs.json records the step's conclusion"
+  },
+  {
+   "id": "research-38454439833",
+   "run_id": "38454439833",
+   "what": "axiom reports of the research design (PreservationInduction.lean, ResearchInstances.lean)",
+   "why": "`lean` run on the design files prints its 10 reports without the file:line prefix of a lake build (served lines 3592 to 3607); extract_result.py reads only prefixed reports, so none is extracted, and they are not inferred here"
+  },
+  {
+   "id": "research-38454439833",
+   "run_id": "38454439833",
+   "what": "exact-control replay output",
+   "why": "the step Replay independent exact controls compares the design's two scripts with their saved outputs and prints them; extract_result.py does not read that output; jobs.json records the step's conclusion"
   }
  ],
  "reproduction": {
@@ -13160,5 +15328,2945 @@
  },
  "schema": "oi-evidence-retention",
  "tranche": 1,
+ "tranche3": {
+  "base": "b96662e6be4f537502c772db369ea32a35b213a8",
+  "cited_runs": 487,
+  "covered_before": 99,
+  "cut": "earliest log expiry first: the runs whose 90-day expiry falls on 2026-12-17 or 2026-12-18",
+  "expiry_rule": "created_at plus 90 days, GitHub's default for a public repository; the repository's own setting was not readable",
+  "how_cited": "every CI run id in main's tracked text at the base outside this archive: 11-digit run ids and 12-digit job ids on lines that say run, job or actions/ (the audit's rule R), the same id shapes on other lines when they name a run of the repository, and the inner runs of the one cited range (act 40, preregistration.md:744); job ids count for their runs. It equals the 487 runs of the inventory accepted on 2026-10-17.",
+  "remaining": [
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-20T04:32:59Z",
+    "event": "push",
+    "expires": "2026-12-19",
+    "run_id": "35489421697",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-20T05:54:46Z",
+    "event": "push",
+    "expires": "2026-12-19",
+    "run_id": "35492863856",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-20T07:15:42Z",
+    "event": "pull_request",
+    "expires": "2026-12-19",
+    "run_id": "35496392690",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-20T08:21:07Z",
+    "event": "push",
+    "expires": "2026-12-19",
+    "run_id": "35499317330",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-20T11:29:27Z",
+    "event": "push",
+    "expires": "2026-12-19",
+    "run_id": "35507975235",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-20T13:12:41Z",
+    "event": "push",
+    "expires": "2026-12-19",
+    "run_id": "35512832681",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-20T16:26:58Z",
+    "event": "push",
+    "expires": "2026-12-19",
+    "run_id": "35522742666",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-21T05:56:00Z",
+    "event": "push",
+    "expires": "2026-12-20",
+    "run_id": "35566401811",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-21T18:12:58Z",
+    "event": "pull_request",
+    "expires": "2026-12-20",
+    "run_id": "35636948285",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-22T06:00:26Z",
+    "event": "push",
+    "expires": "2026-12-21",
+    "run_id": "35692941357",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-22T06:17:54Z",
+    "event": "pull_request",
+    "expires": "2026-12-21",
+    "run_id": "35694203310",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-22T07:58:48Z",
+    "event": "push",
+    "expires": "2026-12-21",
+    "run_id": "35702332294",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-22T10:05:25Z",
+    "event": "pull_request",
+    "expires": "2026-12-21",
+    "run_id": "35714047608",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-22T11:05:09Z",
+    "event": "push",
+    "expires": "2026-12-21",
+    "run_id": "35719492395",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-22T14:28:08Z",
+    "event": "pull_request",
+    "expires": "2026-12-21",
+    "run_id": "35740517543",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-22T15:03:53Z",
+    "event": "pull_request",
+    "expires": "2026-12-21",
+    "run_id": "35744698210",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-22T15:24:15Z",
+    "event": "push",
+    "expires": "2026-12-21",
+    "run_id": "35747091969",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-22T17:08:56Z",
+    "event": "push",
+    "expires": "2026-12-21",
+    "run_id": "35758779718",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-23T00:20:49Z",
+    "event": "push",
+    "expires": "2026-12-22",
+    "run_id": "35801649542",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-23T11:01:15Z",
+    "event": "push",
+    "expires": "2026-12-22",
+    "run_id": "35852106002",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-23T14:08:48Z",
+    "event": "push",
+    "expires": "2026-12-22",
+    "run_id": "35872041341",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-23T17:52:02Z",
+    "event": "push",
+    "expires": "2026-12-22",
+    "run_id": "35898543975",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-23T19:22:52Z",
+    "event": "push",
+    "expires": "2026-12-22",
+    "run_id": "35908925726",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-23T22:38:36Z",
+    "event": "push",
+    "expires": "2026-12-22",
+    "run_id": "35929458646",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-24T03:30:28Z",
+    "event": "pull_request",
+    "expires": "2026-12-23",
+    "run_id": "35951729916",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-24T03:53:48Z",
+    "event": "pull_request",
+    "expires": "2026-12-23",
+    "run_id": "35953350133",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-24T05:30:09Z",
+    "event": "push",
+    "expires": "2026-12-23",
+    "run_id": "35960220324",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-24T07:57:00Z",
+    "event": "push",
+    "expires": "2026-12-23",
+    "run_id": "35972419116",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-24T09:24:38Z",
+    "event": "push",
+    "expires": "2026-12-23",
+    "run_id": "35981053491",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-24T10:27:06Z",
+    "event": "push",
+    "expires": "2026-12-23",
+    "run_id": "35987289037",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-24T11:48:47Z",
+    "event": "push",
+    "expires": "2026-12-23",
+    "run_id": "35995216658",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-24T13:31:33Z",
+    "event": "push",
+    "expires": "2026-12-23",
+    "run_id": "36006252324",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-24T14:45:42Z",
+    "event": "push",
+    "expires": "2026-12-23",
+    "run_id": "36015136495",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-24T16:30:08Z",
+    "event": "push",
+    "expires": "2026-12-23",
+    "run_id": "36027800996",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-24T18:21:15Z",
+    "event": "push",
+    "expires": "2026-12-23",
+    "run_id": "36040631789",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-24T20:48:25Z",
+    "event": "push",
+    "expires": "2026-12-23",
+    "run_id": "36057340925",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-24T21:55:28Z",
+    "event": "push",
+    "expires": "2026-12-23",
+    "run_id": "36064453524",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-25T03:56:43Z",
+    "event": "push",
+    "expires": "2026-12-24",
+    "run_id": "36092411567",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-25T05:41:18Z",
+    "event": "push",
+    "expires": "2026-12-24",
+    "run_id": "36099602123",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-25T07:48:36Z",
+    "event": "push",
+    "expires": "2026-12-24",
+    "run_id": "36109549145",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-25T10:39:09Z",
+    "event": "push",
+    "expires": "2026-12-24",
+    "run_id": "36125130929",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-25T14:47:07Z",
+    "event": "push",
+    "expires": "2026-12-24",
+    "run_id": "36149801375",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-25T17:38:33Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-24",
+    "run_id": "36168400287",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-25T23:39:01Z",
+    "event": "push",
+    "expires": "2026-12-24",
+    "run_id": "36201832097",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T00:15:09Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36204136039",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T00:15:17Z",
+    "event": "pull_request",
+    "expires": "2026-12-25",
+    "run_id": "36204145655",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T00:38:30Z",
+    "event": "pull_request",
+    "expires": "2026-12-25",
+    "run_id": "36205589538",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T00:38:35Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36205594484",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T00:50:22Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36206306449",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T00:50:26Z",
+    "event": "pull_request",
+    "expires": "2026-12-25",
+    "run_id": "36206310842",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T01:10:48Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36207538183",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T01:10:52Z",
+    "event": "pull_request",
+    "expires": "2026-12-25",
+    "run_id": "36207541526",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T01:18:27Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36207977022",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T01:18:32Z",
+    "event": "pull_request",
+    "expires": "2026-12-25",
+    "run_id": "36207981531",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T03:37:25Z",
+    "event": "pull_request",
+    "expires": "2026-12-25",
+    "run_id": "36215375425",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T04:40:09Z",
+    "event": "push",
+    "expires": "2026-12-25",
+    "run_id": "36218508975",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T05:51:07Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36222012214",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T05:57:55Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36222326658",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T05:58:08Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36222335508",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T05:58:23Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36222347638",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T08:38:54Z",
+    "event": "push",
+    "expires": "2026-12-25",
+    "run_id": "36230402641",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T10:25:30Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36235746157",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T10:25:32Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36235747207",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T10:30:34Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36236002553",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T10:30:46Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36236013813",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T12:22:37Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36241719499",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T12:50:33Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36243196377",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T12:50:34Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36243198088",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T13:11:42Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36244347747",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T13:15:42Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36244571105",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T13:19:23Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36244774129",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T13:19:24Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36244775311",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T14:05:27Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36247320536",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T14:15:36Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36247897586",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T14:21:41Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36248241812",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T15:18:43Z",
+    "event": "push",
+    "expires": "2026-12-25",
+    "run_id": "36251492248",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T16:58:08Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36257341185",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T17:03:30Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36257659584",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T17:11:40Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36258147032",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T17:15:44Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36258396274",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T17:43:20Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36260031181",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T17:48:48Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36260347617",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T17:52:41Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36260577722",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T18:02:47Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36261156494",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T18:17:48Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36262031899",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T18:34:58Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36263052349",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T18:47:35Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36263793447",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T19:05:21Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36264819945",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T19:16:38Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36265488073",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T19:30:36Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36266295674",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T19:35:01Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36266554482",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T19:47:45Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36267279783",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T20:10:42Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36268604860",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T20:27:34Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36269594164",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T20:38:48Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36270236955",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T20:50:36Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36270907147",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T21:02:15Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36271548391",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T21:14:35Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36272252074",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T21:31:34Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36273233977",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-26T21:44:35Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36273967096",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T21:56:09Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36274601997",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-26T22:10:08Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-25",
+    "run_id": "36275377264",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-27T03:57:45Z",
+    "event": "push",
+    "expires": "2026-12-26",
+    "run_id": "36292921173",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-27T04:27:57Z",
+    "event": "push",
+    "expires": "2026-12-26",
+    "run_id": "36294382443",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-27T05:19:18Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36296861494",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-27T05:26:13Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36297196513",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-27T05:26:51Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36297226027",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-27T06:12:07Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36299395269",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-27T06:22:01Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36299880442",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-27T06:34:04Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36300473449",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-27T06:40:43Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36300803198",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-27T06:48:53Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36301205489",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-27T07:35:04Z",
+    "event": "push",
+    "expires": "2026-12-26",
+    "run_id": "36303549800",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-27T09:02:13Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36308085118",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-27T09:14:59Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36308759834",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-27T09:22:24Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36309156707",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-27T09:53:14Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36310787113",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-27T10:23:22Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36312374265",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-27T10:32:18Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36312854482",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-27T10:37:40Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36313140818",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-27T12:14:15Z",
+    "event": "push",
+    "expires": "2026-12-26",
+    "run_id": "36318313840",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-27T15:36:32Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36330185755",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-27T15:41:41Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36330499550",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-27T15:51:59Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36331117696",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-27T16:00:41Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36331629574",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-27T16:04:38Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36331881958",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-27T16:31:26Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36333554801",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-27T17:32:53Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36337348555",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-27T17:38:42Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36337705347",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-27T17:43:58Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36338026254",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-27T17:44:51Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36338078890",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-27T17:48:44Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36338320980",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-27T17:49:32Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-26",
+    "run_id": "36338368274",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-28T03:27:42Z",
+    "event": "push",
+    "expires": "2026-12-27",
+    "run_id": "36373806246",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-28T04:20:47Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36377310857",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T04:26:18Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36377702851",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-28T04:32:02Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36378121576",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T04:37:36Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36378520807",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-28T04:37:43Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36378528259",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T04:54:58Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36379680840",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T04:55:48Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36379736607",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-28T04:56:31Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36379784064",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-28T06:41:40Z",
+    "event": "push",
+    "expires": "2026-12-27",
+    "run_id": "36387732790",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-28T08:00:12Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36394779889",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T08:00:14Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36394783617",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T08:12:48Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36396014114",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-28T08:26:52Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36397409142",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-28T08:40:03Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36398722159",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T08:40:27Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36398762851",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T08:58:48Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36400614526",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T09:00:13Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36400756752",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T09:09:15Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36401680413",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-28T09:19:39Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36402777894",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-28T10:50:56Z",
+    "event": "push",
+    "expires": "2026-12-27",
+    "run_id": "36412115126",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-28T11:00:05Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36413005685",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-28T11:00:11Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36413016990",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-28T11:09:51Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36413991352",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T11:10:13Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36414030731",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T11:35:16Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36416531599",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T11:44:34Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36417464997",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-28T11:52:34Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36418280236",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-28T12:38:03Z",
+    "event": "push",
+    "expires": "2026-12-27",
+    "run_id": "36423085812",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T13:45:14Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36430858292",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T13:52:05Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36431692617",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T14:55:28Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36439639584",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T14:58:28Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36440020816",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T15:07:10Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36441143645",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T15:16:03Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36442265583",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T15:27:51Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36443771320",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T15:42:09Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36445577768",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T15:57:37Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36447516037",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T16:08:44Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36448890710",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T16:22:21Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36450535104",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T16:24:08Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36450749717",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-28T16:32:15Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36451750208",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T16:37:18Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36452360434",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-28T16:44:58Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36453264799",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-28T16:46:09Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36453414586",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-28T19:07:56Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36470083819",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T19:46:16Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36474528405",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-28T20:05:43Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36476760295",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-28T20:17:36Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-27",
+    "run_id": "36478152302",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-28T20:59:26Z",
+    "event": "push",
+    "expires": "2026-12-27",
+    "run_id": "36483043836",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-29T08:20:59Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-28",
+    "run_id": "36542154102",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-29T09:49:38Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-28",
+    "run_id": "36551661625",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-29T10:05:48Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-28",
+    "run_id": "36553406842",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-29T13:09:00Z",
+    "event": "push",
+    "expires": "2026-12-28",
+    "run_id": "36573013258",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-29T16:09:47Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-28",
+    "run_id": "36595682134",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-29T16:14:42Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-28",
+    "run_id": "36596287670",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-29T16:36:01Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-28",
+    "run_id": "36598896118",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-29T16:42:55Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-28",
+    "run_id": "36599732472",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-29T18:01:07Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-28",
+    "run_id": "36609040917",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-29T18:33:31Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-28",
+    "run_id": "36612901341",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-29T19:25:42Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-28",
+    "run_id": "36619165282",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-29T19:26:12Z",
+    "event": "pull_request",
+    "expires": "2026-12-28",
+    "run_id": "36619224682",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-29T19:27:47Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-28",
+    "run_id": "36619408800",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-29T20:49:19Z",
+    "event": "push",
+    "expires": "2026-12-28",
+    "run_id": "36629048484",
+    "tier": "B"
+   },
+   {
+    "conclusion": "cancelled",
+    "created_at": "2026-09-29T21:45:41Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-28",
+    "run_id": "36635398265",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-29T21:47:44Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-28",
+    "run_id": "36635614122",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-30T03:21:14Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-29",
+    "run_id": "36664005768",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-30T03:21:16Z",
+    "event": "pull_request",
+    "expires": "2026-12-29",
+    "run_id": "36664007382",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-30T05:34:30Z",
+    "event": "push",
+    "expires": "2026-12-29",
+    "run_id": "36674034894",
+    "tier": "B"
+   },
+   {
+    "conclusion": "cancelled",
+    "created_at": "2026-09-30T11:23:50Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-29",
+    "run_id": "36708282201",
+    "tier": "B"
+   },
+   {
+    "conclusion": "cancelled",
+    "created_at": "2026-09-30T11:27:22Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-29",
+    "run_id": "36708644229",
+    "tier": "B"
+   },
+   {
+    "conclusion": "cancelled",
+    "created_at": "2026-09-30T11:31:45Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-29",
+    "run_id": "36709099600",
+    "tier": "B"
+   },
+   {
+    "conclusion": "cancelled",
+    "created_at": "2026-09-30T11:35:47Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-29",
+    "run_id": "36709510536",
+    "tier": "B"
+   },
+   {
+    "conclusion": "cancelled",
+    "created_at": "2026-09-30T11:39:09Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-29",
+    "run_id": "36709850033",
+    "tier": "B"
+   },
+   {
+    "conclusion": "cancelled",
+    "created_at": "2026-09-30T11:47:12Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-29",
+    "run_id": "36710673482",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-30T15:25:20Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-29",
+    "run_id": "36736601202",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-30T15:56:00Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-29",
+    "run_id": "36740471750",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-30T16:23:14Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-29",
+    "run_id": "36743809499",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-30T17:54:59Z",
+    "event": "push",
+    "expires": "2026-12-29",
+    "run_id": "36754815367",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-09-30T19:34:36Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-29",
+    "run_id": "36766630415",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-30T19:39:46Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-29",
+    "run_id": "36767218862",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-30T19:45:50Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-29",
+    "run_id": "36767922023",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-09-30T21:10:13Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-29",
+    "run_id": "36777659398",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-01T07:31:55Z",
+    "event": "push",
+    "expires": "2026-12-30",
+    "run_id": "36830862465",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-01T07:46:53Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-30",
+    "run_id": "36832326177",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-01T07:50:34Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-30",
+    "run_id": "36832691716",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-01T08:05:39Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-30",
+    "run_id": "36834204549",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-01T08:13:30Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-30",
+    "run_id": "36834982921",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-01T08:15:54Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-30",
+    "run_id": "36835228403",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-01T10:40:03Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-30",
+    "run_id": "36850555101",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-01T11:25:27Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-30",
+    "run_id": "36855272075",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-01T11:51:24Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-30",
+    "run_id": "36857990743",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-01T17:06:52Z",
+    "event": "push",
+    "expires": "2026-12-30",
+    "run_id": "36896981080",
+    "tier": "A"
+   },
+   {
+    "conclusion": "cancelled",
+    "created_at": "2026-10-02T00:25:27Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-31",
+    "run_id": "36945912933",
+    "tier": "B"
+   },
+   {
+    "conclusion": "cancelled",
+    "created_at": "2026-10-02T03:45:31Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-31",
+    "run_id": "36961561241",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-02T03:54:54Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-31",
+    "run_id": "36962242718",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-02T03:59:11Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-31",
+    "run_id": "36962546092",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-02T04:52:14Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-31",
+    "run_id": "36966428820",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-02T06:31:05Z",
+    "event": "push",
+    "expires": "2026-12-31",
+    "run_id": "36973928206",
+    "tier": "A"
+   },
+   {
+    "conclusion": "cancelled",
+    "created_at": "2026-10-02T06:55:54Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-31",
+    "run_id": "36975944833",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-02T07:00:58Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-31",
+    "run_id": "36976365427",
+    "tier": "A"
+   },
+   {
+    "conclusion": "cancelled",
+    "created_at": "2026-10-02T07:04:48Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-31",
+    "run_id": "36976697797",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-02T07:11:16Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-31",
+    "run_id": "36977252772",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-02T07:23:02Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-31",
+    "run_id": "36978262990",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-02T07:23:03Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-31",
+    "run_id": "36978265025",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-02T07:51:14Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-31",
+    "run_id": "36980768233",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-02T07:51:18Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-31",
+    "run_id": "36980774530",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-02T09:02:10Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-31",
+    "run_id": "36987452281",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-02T09:02:12Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-31",
+    "run_id": "36987454767",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-02T12:14:58Z",
+    "event": "push",
+    "expires": "2026-12-31",
+    "run_id": "37005559751",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-02T13:10:34Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-31",
+    "run_id": "37011255825",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-02T13:16:00Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-31",
+    "run_id": "37011853989",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-02T13:19:40Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-31",
+    "run_id": "37012251866",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-02T13:29:42Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-31",
+    "run_id": "37013353037",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-02T14:17:52Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-31",
+    "run_id": "37018873171",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-02T15:01:25Z",
+    "event": "workflow_dispatch",
+    "expires": "2026-12-31",
+    "run_id": "37024002953",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-02T16:38:47Z",
+    "event": "push",
+    "expires": "2026-12-31",
+    "run_id": "37035333423",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-03T17:30:08Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-01",
+    "run_id": "37140734308",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-03T18:14:49Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-01",
+    "run_id": "37143464345",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-03T19:20:48Z",
+    "event": "push",
+    "expires": "2027-01-01",
+    "run_id": "37147553791",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-03T20:56:37Z",
+    "event": "push",
+    "expires": "2027-01-01",
+    "run_id": "37153338826",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-04T16:18:29Z",
+    "event": "push",
+    "expires": "2027-01-02",
+    "run_id": "37216282113",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-04T17:16:11Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-02",
+    "run_id": "37219863930",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-04T17:26:33Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-02",
+    "run_id": "37220522515",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-04T17:31:53Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-02",
+    "run_id": "37220860270",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-04T17:42:37Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-02",
+    "run_id": "37221543291",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-04T17:46:08Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-02",
+    "run_id": "37221769686",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-04T18:06:56Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-02",
+    "run_id": "37223131863",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-04T18:14:17Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-02",
+    "run_id": "37223640106",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-04T18:52:21Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-02",
+    "run_id": "37226093756",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-04T18:55:01Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-02",
+    "run_id": "37226256441",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-04T18:55:16Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-02",
+    "run_id": "37226273423",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-04T20:19:02Z",
+    "event": "push",
+    "expires": "2027-01-02",
+    "run_id": "37231625458",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-04T20:27:20Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-02",
+    "run_id": "37232152756",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-04T20:32:36Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-02",
+    "run_id": "37232501743",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-04T21:05:30Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-02",
+    "run_id": "37234667174",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-04T21:13:18Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-02",
+    "run_id": "37235206086",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-04T21:16:10Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-02",
+    "run_id": "37235405513",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-04T21:30:29Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-02",
+    "run_id": "37236372977",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-05T00:16:50Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-03",
+    "run_id": "37246891509",
+    "tier": "J"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-05T03:42:26Z",
+    "event": "push",
+    "expires": "2027-01-03",
+    "run_id": "37260494801",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-05T03:52:31Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-03",
+    "run_id": "37261154814",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-05T04:11:04Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-03",
+    "run_id": "37262395333",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-05T05:07:49Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-03",
+    "run_id": "37266404572",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-05T06:13:28Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-03",
+    "run_id": "37271337107",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-05T06:16:57Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-03",
+    "run_id": "37271632718",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-05T06:53:16Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-03",
+    "run_id": "37274703967",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-05T07:31:59Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-03",
+    "run_id": "37278262616",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-05T08:33:32Z",
+    "event": "push",
+    "expires": "2027-01-03",
+    "run_id": "37284375182",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-05T08:43:01Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-03",
+    "run_id": "37285358151",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-05T08:58:30Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-03",
+    "run_id": "37287001071",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-05T10:52:33Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-03",
+    "run_id": "37299337191",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-05T13:32:39Z",
+    "event": "push",
+    "expires": "2027-01-03",
+    "run_id": "37317617636",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-05T15:41:41Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-03",
+    "run_id": "37334884651",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-05T16:23:33Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-03",
+    "run_id": "37340470069",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-05T19:02:52Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-03",
+    "run_id": "37360536874",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-05T19:08:06Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-03",
+    "run_id": "37361193865",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-06T03:57:00Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-04",
+    "run_id": "37411380245",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-06T04:12:33Z",
+    "event": "push",
+    "expires": "2027-01-04",
+    "run_id": "37412609474",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-06T04:23:08Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-04",
+    "run_id": "37413453969",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-06T04:43:07Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-04",
+    "run_id": "37415025699",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-06T05:21:52Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-04",
+    "run_id": "37418155161",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-06T07:14:46Z",
+    "event": "push",
+    "expires": "2027-01-04",
+    "run_id": "37428463888",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-06T08:09:21Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-04",
+    "run_id": "37434227020",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-06T08:14:18Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-04",
+    "run_id": "37434770553",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-06T08:38:16Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-04",
+    "run_id": "37437438347",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-06T09:53:52Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-04",
+    "run_id": "37446110629",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-06T11:40:09Z",
+    "event": "push",
+    "expires": "2027-01-04",
+    "run_id": "37457928970",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-06T13:02:16Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-04",
+    "run_id": "37467680750",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-06T13:07:13Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-04",
+    "run_id": "37468315829",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-06T13:31:25Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-04",
+    "run_id": "37471469288",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-06T13:47:24Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-04",
+    "run_id": "37473592066",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-06T14:33:02Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-04",
+    "run_id": "37479897974",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-06T16:03:44Z",
+    "event": "push",
+    "expires": "2027-01-04",
+    "run_id": "37492686024",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-06T16:05:38Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-04",
+    "run_id": "37492945459",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-06T16:19:27Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-04",
+    "run_id": "37494787556",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-06T16:50:45Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-04",
+    "run_id": "37498896443",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-06T17:09:11Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-04",
+    "run_id": "37501311098",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-06T18:11:40Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-04",
+    "run_id": "37509405217",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-06T19:18:18Z",
+    "event": "push",
+    "expires": "2027-01-04",
+    "run_id": "37517953987",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-07T00:14:54Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-05",
+    "run_id": "37550951482",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-07T00:31:10Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-05",
+    "run_id": "37552392804",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-07T00:46:29Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-05",
+    "run_id": "37553717564",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-07T01:05:04Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-05",
+    "run_id": "37555310752",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-07T03:57:37Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-05",
+    "run_id": "37569163013",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-07T05:20:06Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-05",
+    "run_id": "37575788187",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-07T06:56:49Z",
+    "event": "push",
+    "expires": "2027-01-05",
+    "run_id": "37584359361",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-07T08:32:03Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-05",
+    "run_id": "37594392508",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-07T08:42:32Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-05",
+    "run_id": "37595568691",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-07T10:39:51Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-05",
+    "run_id": "37608886234",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-07T12:15:15Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-05",
+    "run_id": "37619679678",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-07T13:47:59Z",
+    "event": "push",
+    "expires": "2027-01-05",
+    "run_id": "37631392533",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-07T15:21:06Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-05",
+    "run_id": "37643178804",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-07T15:42:38Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-05",
+    "run_id": "37646141082",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-07T16:00:39Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-05",
+    "run_id": "37648623767",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-07T16:38:05Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-05",
+    "run_id": "37653582697",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-07T17:26:41Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-05",
+    "run_id": "37659104049",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-07T19:41:54Z",
+    "event": "push",
+    "expires": "2027-01-05",
+    "run_id": "37676443882",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-07T22:00:39Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-05",
+    "run_id": "37693331995",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-07T22:05:51Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-05",
+    "run_id": "37693929094",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-07T22:18:52Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-05",
+    "run_id": "37695369269",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-08T02:37:46Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-06",
+    "run_id": "37718803221",
+    "tier": "B"
+   },
+   {
+    "conclusion": "cancelled",
+    "created_at": "2026-10-08T03:07:45Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-06",
+    "run_id": "37721238035",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-08T03:12:00Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-06",
+    "run_id": "37721579646",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-08T05:27:45Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-06",
+    "run_id": "37732488729",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-08T09:16:51Z",
+    "event": "push",
+    "expires": "2027-01-06",
+    "run_id": "37755552123",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-09T15:00:15Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-07",
+    "run_id": "37948419430",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-09T16:23:00Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-07",
+    "run_id": "37958712227",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-09T18:15:26Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-07",
+    "run_id": "37972004827",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-09T19:21:17Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-07",
+    "run_id": "37979649705",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-11T11:04:40Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-09",
+    "run_id": "38134245361",
+    "tier": "B"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-11T18:07:42Z",
+    "event": "pull_request",
+    "expires": "2027-01-09",
+    "run_id": "38162504147",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-11T19:19:56Z",
+    "event": "pull_request",
+    "expires": "2027-01-09",
+    "run_id": "38167557092",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-12T04:45:32Z",
+    "event": "pull_request",
+    "expires": "2027-01-10",
+    "run_id": "38205087980",
+    "tier": "A"
+   },
+   {
+    "conclusion": "failure",
+    "created_at": "2026-10-12T04:55:38Z",
+    "event": "pull_request",
+    "expires": "2027-01-10",
+    "run_id": "38205760341",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-12T05:27:57Z",
+    "event": "pull_request",
+    "expires": "2027-01-10",
+    "run_id": "38208044012",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-12T09:07:06Z",
+    "event": "pull_request",
+    "expires": "2027-01-10",
+    "run_id": "38227812539",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-12T12:39:01Z",
+    "event": "pull_request",
+    "expires": "2027-01-10",
+    "run_id": "38250344438",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-12T12:39:35Z",
+    "event": "pull_request",
+    "expires": "2027-01-10",
+    "run_id": "38250404107",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-14T08:24:42Z",
+    "event": "push",
+    "expires": "2027-01-12",
+    "run_id": "38534906783",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-14T13:32:18Z",
+    "event": "push",
+    "expires": "2027-01-12",
+    "run_id": "38572607301",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-15T06:50:47Z",
+    "event": "push",
+    "expires": "2027-01-13",
+    "run_id": "38694888962",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-15T12:19:41Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-13",
+    "run_id": "38733789118",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-15T14:32:21Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-13",
+    "run_id": "38752296936",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-15T14:32:22Z",
+    "event": "pull_request",
+    "expires": "2027-01-13",
+    "run_id": "38752298075",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-15T18:05:05Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-13",
+    "run_id": "38782670851",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-15T20:13:04Z",
+    "event": "push",
+    "expires": "2027-01-13",
+    "run_id": "38800143579",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-15T21:18:54Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-13",
+    "run_id": "38808914622",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-15T21:18:56Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-13",
+    "run_id": "38808918711",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-15T21:19:22Z",
+    "event": "pull_request",
+    "expires": "2027-01-13",
+    "run_id": "38808971016",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-15T22:40:14Z",
+    "event": "pull_request",
+    "expires": "2027-01-13",
+    "run_id": "38818676319",
+    "tier": "A"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-16T04:23:14Z",
+    "event": "workflow_dispatch",
+    "expires": "2027-01-14",
+    "run_id": "38850349827",
+    "tier": "B"
+   },
+   {
+    "conclusion": "success",
+    "created_at": "2026-10-16T04:28:05Z",
+    "event": "pull_request",
+    "expires": "2027-01-14",
+    "run_id": "38850767708",
+    "tier": "A"
+   }
+  ],
+  "retained": 22,
+  "uncovered": 388
+ },
  "version": 3
 }

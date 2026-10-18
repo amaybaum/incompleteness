@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-09-19T13:28:41Z",
+ "display_title": "Track B act 23 control plane: the gaps of act 21's ladder bundled \u2014 L\u2026",
+ "event": "push",
+ "head_branch": "main",
+ "head_sha": "64214bfb0ae41b9f0a4fb11159089fff32d4dd85",
+ "id": 35445878205,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "35445878205",
+ "run_number": 966,
+ "source": "GitHub Actions runs API, GET runs/<run_id>, read 2026-10-17; selected fields",
+ "status": "completed",
+ "updated_at": "2026-09-19T13:37:59Z"
+}
