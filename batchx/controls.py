@@ -8,7 +8,9 @@
    collected block byte-identical to the block assemble.py printed. Served as a tail, it must be refused. This ties
    the collector to the assembler's real output rather than to the collector's own synthetic writer.
 2. Mutations. Each entry changes one decisive line (or a few) of assemble.py, host.py or collect.py in a copy of
-   batchx/; the copy's self-test must then fail (the mutant is killed). The unmutated copy's self-tests must pass
+   batchx/; the copy's self-test must then fail (the mutant is killed). A mutant runs only the suites that can read
+   its file (SUITES): collect.py's suite for a collect.py mutant, assemble.py's for an assemble.py mutant, and both
+   for a host.py mutant. The unmutated copy's self-tests must pass
    first, so a kill is not an artefact of the copy. A mutation whose text is not found exactly once is itself a
    failure. An entry that names expected tests is killed only when every one of them fails by name and no suite
    stopped with a traceback, so the catch is shown to be that regression test's, not only an unrelated one's; the
@@ -153,10 +155,10 @@ MUTANTS = [
     ('collect.py', (('    if len(vs) != 1:\n', '    vs = [x for x in vs if span is None or span[0] < x[0] < span[1]]\n    if len(vs) != 1:\n'), ), None,
      'R3 (reviewer M3b): only verdict lines inside the span are counted',
      ['two verdict lines', '[R3g] a verdict-like line before the start, with a real verdict inside is refused', '[R3h] a verdict-like line before the start, with no verdict inside is refused', '[R3i] a verdict-like line after the end, with a real verdict inside is refused', '[R3j] a verdict-like line after the end, with no verdict inside is refused']),
-    ('collect.py', (('                   "launched_commit": head,\n', ''), ), None,
+    ('collect.py', (('              "launched_commit": head,\n', ''), ), None,
      'R4: collected.json does not record the launched commit',
      ['[R4a] collected.json records the full 40-hex launched commit, the --head value the job index required']),
-    ('collect.py', (('                   "launched_commit": head,\n', '                   "launched_commit": head and head[:12],\n'), ), None,
+    ('collect.py', (('              "launched_commit": head,\n', '              "launched_commit": head and head[:12],\n'), ), None,
      'R4 (reviewer M4): only a 12-hex prefix of the launched commit is recorded',
      ['[R4a] collected.json records the full 40-hex launched commit, the --head value the job index required']),
     ('collect.py', (('    return {"path": rel, "commit": commit,', '    return {"path": rel, "commit": None,'), ), None,
@@ -171,13 +173,13 @@ MUTANTS = [
     ('collect.py', (('            quarantine.append({"kind": "missing", "shard": k, "job_id": job_index.get(k),\n', '            ({"kind": "missing", "shard": k, "job_id": job_index.get(k),\n'), ), None,
      'I/completeness: a shard whose expected answer was not served is ignored',
      ["[I5] one shard's answer missing quarantines the whole collection, recorded by its expected name: zero runs eligible or usable, read back from disk", 'a shard missing quarantines the whole collection']),
-    ('collect.py', (('            failed.append({"file": name, "sha256": dig, "shard": k, "problems": probs})  # traceability\n', ''), ), None,
+    ('collect.py', (('            failed.append({"file": name, "sha256": dig, "sha256s": digests, "shard": k, "problems": probs})  # traceability\n', ''), ), None,
      'I/traceability: a file that fails validation is not recorded',
      ['[I6] a file that fails validation is recorded by name and digest, read back from disk']),
-    ('collect.py', (('            quarantine.append({"kind": "unattributable", "file": os.path.basename(path), "sha256": hashlib.sha256(data).hexdigest(),\n', '            ({"kind": "unattributable", "file": os.path.basename(path), "sha256": hashlib.sha256(data).hexdigest(),\n'), ), None,
+    ('collect.py', (('            quarantine.append({"kind": "unattributable", "file": e["name"], "sha256": e["sha256"], "size": e["size"],\n', '            ({"kind": "unattributable", "file": e["name"], "sha256": e["sha256"], "size": e["size"],\n'), ), None,
      'I: an unattributable file is dropped silently (no quarantine)',
      ['[I1] an unreadable (compressed) served file with no recoverable shard identifier quarantines the whole collection: no run eligible or usable', '[I1] the quarantined file is recorded by name and digest', "[G1a] shard 3's job saving shard 1's log cut off halfway (not JSON) quarantines the whole collection: no run eligible or usable", "[G1b] shard 3's job saving shard 1's log with its job_id written as a string quarantines the whole collection: no run eligible or usable", "[G1c] shard 3's job saving shard 1's log wrapped in a tool envelope quarantines the whole collection: no run eligible or usable", "[G1d] shard 3's job saving shard 1's log with a byte that is not UTF-8 quarantines the whole collection: no run eligible or usable"]),
-    ('collect.py', (('            quarantine.append({"kind": "unattributable", "file": os.path.basename(path), "sha256": hashlib.sha256(data).hexdigest(),\n', '            [voided.setdefault(s_, set()).add("named by an unparseable file") for s_ in raw]\n            bad = True\n            ({"kind": "unattributable", "file": os.path.basename(path), "sha256": hashlib.sha256(data).hexdigest(),\n'), ), None,
+    ('collect.py', (('            quarantine.append({"kind": "unattributable", "file": e["name"], "sha256": e["sha256"], "size": e["size"],\n', '            [voided.setdefault(s_, set()).add("named by an unparseable file") for s_ in (e["names_shards"] or [])]\n            bad = True\n            ({"kind": "unattributable", "file": e["name"], "sha256": e["sha256"], "size": e["size"],\n'), ), None,
      'I/G1: an unattributable file voids only the shards it names (the previous design), no quarantine',
      ['[I1] an unreadable (compressed) served file with no recoverable shard identifier quarantines the whole collection: no run eligible or usable', "[G1a] shard 3's job saving shard 1's log cut off halfway (not JSON) quarantines the whole collection: no run eligible or usable", "[G1b] shard 3's job saving shard 1's log with its job_id written as a string quarantines the whole collection: no run eligible or usable", "[G1c] shard 3's job saving shard 1's log wrapped in a tool envelope quarantines the whole collection: no run eligible or usable", "[G1d] shard 3's job saving shard 1's log with a byte that is not UTF-8 quarantines the whole collection: no run eligible or usable"]),
     ('collect.py', (('        if job not in inv and not named:\n', '        if False:\n'), ), None,
@@ -232,16 +234,87 @@ MUTANTS = [
      'RP (reviewer D1): the permuted fixture drops its verdicts again',
      ['[RP] permutation: contradicting copies of shard 2 gives exit 2 and 4 eligible runs, none usable unless it holds, under all 6 shard numberings and 4 orders and name pairings of the answers', '[RP] permutation: a conflicting copy of shard 1 after a clean one gives exit 2 and 4 eligible runs, none usable unless it holds, under all 6 shard numberings and 4 orders and name pairings of the answers']),
     ("collect.py", 'if res.get(rid) != "HOLDS":', "if False:", "a block of a run that does not hold is taken"),
+    # TRUST-BOUNDARY.md 6: the old behaviours the trust boundary removes (L1-L20 and L2j), each with the tests it
+    # must fail by exact name.
+    ('collect.py', (('    return _served_answer(data)\n', '    try:\n        obj = json.loads(data.decode("utf-8"))\n    except ValueError:\n        return None, "not a job-log answer"\n    if not (isinstance(obj, dict) and isinstance(obj.get("logs_content"), str)\n            and isinstance(obj.get("original_length"), int) and not isinstance(obj.get("original_length"), bool)\n            and isinstance(obj.get("job_id"), int) and not isinstance(obj.get("job_id"), bool)):\n        return None, "not a job-log answer"\n    return obj, None\n'),), None,
+     "L1: lenient parsing inside the new interface (09d439d0's json.loads and three isinstance checks)",
+     ["[TB-D5] two logs_content keys in shard 1's only file are refused in either order, shard 1 missing with the file as its candidate", "[TB-D1] a duplicated job_id (a foreign id or another shard's first) or an earlier logs_content holding shard 3's log is refused (D1, D2, D3)", "[TB-D1b] a foreign job's answer with a trailing job_id 77001 is refused, as shard 1's only file and beside genuine shard 1 (D1b, D1c)", '[TB-D4] an earlier logs_content naming no shard is refused', "[TB-X3] a message other than the tool's success message is refused: a contradicting log (X3), a RUNSET line (X1), 'm' beside genuine S1 (C4), one character, case, a trailing space, a non-string", '[TB-KEY] unknown keys are refused: an extra key (X2), Message, a tool envelope (G1c), the failed-jobs answer']),
+    ('collect.py', (('SERVED_DECODER = json.JSONDecoder(strict=True, object_pairs_hook=_no_duplicates,', 'SERVED_DECODER = json.JSONDecoder(strict=True, object_pairs_hook=dict,'),), None,
+     "L2: SERVED_DECODER's object_pairs_hook replaced by dict (last-wins)",
+     ["[TB-D5] two logs_content keys in shard 1's only file are refused in either order, shard 1 missing with the file as its candidate", "[TB-D1] a duplicated job_id (a foreign id or another shard's first) or an earlier logs_content holding shard 3's log is refused (D1, D2, D3)", "[TB-D1b] a foreign job's answer with a trailing job_id 77001 is refused, as shard 1's only file and beside genuine shard 1 (D1b, D1c)", '[TB-D4] an earlier logs_content naming no shard is refused', '[TB-DEEP2a] a duplicate key inside a nested value is refused as a duplicate, before any type check']),
+    ('collect.py', (('JOBS_DECODER = json.JSONDecoder(strict=True, object_pairs_hook=_no_duplicates,', 'JOBS_DECODER = json.JSONDecoder(strict=True, object_pairs_hook=dict,'),), None,
+     "L2j: JOBS_DECODER's object_pairs_hook replaced by dict (last-wins in the jobs list and runs.json)",
+     ['[TB-DEEP2b] a jobs list with a duplicated id inside a job object is refused, through main and read from disk']),
+    ('collect.py', (('SERVED_DECODER = json.JSONDecoder(strict=True, object_pairs_hook=_no_duplicates,', 'SERVED_DECODER = json.JSONDecoder(strict=True, object_pairs_hook=lambda p: dict(reversed(p)),'),), None,
+     "L3: SERVED_DECODER's hook keeps the first value of a duplicated key (first-wins)",
+     ["[TB-D5] two logs_content keys in shard 1's only file are refused in either order, shard 1 missing with the file as its candidate", "[TB-D1b] a foreign job's answer with a trailing job_id 77001 is refused, as shard 1's only file and beside genuine shard 1 (D1b, D1c)"]),
+    ('collect.py', (('    if keys != REQUIRED_KEYS and keys != REQUIRED_KEYS | {"message"}:\n', '    if not REQUIRED_KEYS <= keys:\n'),), None,
+     'L4: the key-set check relaxed to required <= keys (extra keys allowed)',
+     ['[TB-KEY] unknown keys are refused: an extra key (X2), Message, a tool envelope (G1c), the failed-jobs answer']),
+    ('collect.py', (('    if "message" in obj and obj["message"] != SUCCESS_MESSAGE:\n', '    if False:\n'),), None,
+     'L5: the message value is not checked',
+     ["[TB-X3] a message other than the tool's success message is refused: a contradicting log (X3), a RUNSET line (X1), 'm' beside genuine S1 (C4), one character, case, a trailing space, a non-string"]),
+    ('collect.py', (('BLOCK_DECODER = json.JSONDecoder(strict=True, object_pairs_hook=_no_duplicates, parse_constant=_no_constant)', 'BLOCK_DECODER = json.JSONDecoder(strict=True, object_pairs_hook=_no_duplicates)'),), None,
+     "L6: BLOCK_DECODER's parse_constant removed",
+     ['[TB-NAN] NaN, Infinity and -Infinity are refused in a served file and in a result block (B1)']),
+    ('collect.py', (('    if data[:3] == b"\\xef\\xbb\\xbf":\n        return None, "byte-order mark before the object"\n', ''), ('        text = data.decode("utf-8")\n', '        text = data.decode("utf-8-sig")\n')), None,
+     'L7: the BOM check of 2.2 step 2 removed and the bytes decoded as utf-8-sig',
+     ['[TB-BOM] a byte-order mark before the object is refused (E7)']),
+    ('collect.py', (('    if end != len(text) and (served or text[end:].strip(" \\t\\n\\r")):\n        return None, "data after the object"\n', ''),), None,
+     'L8: the end == len(text) check removed (data after the object allowed)',
+     ['[TB-TRAIL] exactly one object and nothing before or after it: E8, a trailing payload, a trailing newline, a leading space']),
+    ('collect.py', (('        target = staging\n', '        target = out\n        os.makedirs(out, exist_ok=True)\n'), ('        os.rename(staging, out)  # the commit point: out appears whole, or not at all\n', '        pass\n')), None,
+     'L9: no staging: the collection is written directly into --out and the rename is skipped',
+     ['[TB-O5] a failed rename after a complete staging is ABORTED (exit 4), --out absent, no COLLECT PUBLISHED line', '[TB-O6] a failed result write is ABORTED (exit 4), --out absent, and the COLLECT FILE lines trace every served file']),
+    ('collect.py', (('        if os.path.lexists(out):\n', '        if False:\n'),), None,
+     'L10: the S1 existence check removed',
+     ['[TB-O1] a collection into an existing --out holding a stale ci/800/results.json is refused (exit 3), the stale file untouched', '[TB-O2] a collection into an existing --out holding a stale HOLDS collected.json is refused (exit 3), untouched', '[TB-O3] an --out that is an empty directory, a file, a symbolic link or a dangling link is refused (exit 3), untouched']),
+    ('collect.py', (('    return run_collection(lambda: load_inputs(a.runs, a.run_jobs, a.head), a.served, a.out, head=a.head, durable=durable)\n', '    pre = load_inputs(a.runs, a.run_jobs, a.head)\n    if pre[5]:\n        emit(sys.stdout, "COLLECT FAILS")\n        return 1\n    return run_collection(lambda: pre, a.served, a.out, head=a.head, durable=durable)\n'),), None,
+     'L11: the early S3 and S4 failures return before publishing (the 09d439d0 main)',
+     ['[TB-RUNS] a runs.json other than the pinned file is published quarantined (exit 1), its digest recorded with pinned false, every served file recorded', '[TB-JOBS] a jobs list omitting shard 32, not JSON, not UTF-8 or with a BOM is published quarantined (exit 1), recorded by digest, every expected answer undetermined']),
+    ('collect.py', (("        digests = sorted({c[2] for c in copies})   # every copy's digest (N3)\n", '        digests = [dig]\n'),), None,
+     "L12: only the first copy's digest is recorded (N3)",
+     ["[TB-N3] byte-distinct copies with one identity (C3, C4s) hold, and every copy's name and digest is recorded"]),
+    ('collect.py', (('        raw = raw if raw is None else raw | raw_named(obj["logs_content"].encode("utf-8"), doc, inv)  # the decoded scan\n', '        pass\n'),), None,
+     'L13: the decoded scan removed',
+     ['[TB-ESC] a trailer line naming shard 1 in genuine S3 voids shards 1 and 3, spelled plainly or with a JSON escape (E-esc)']),
+    ('collect.py', (('        if len(set(index.values())) != len(index):   # one id under two shard names (TRUST-BOUNDARY.md 1, J1)\n', '        if False:\n'),), None,
+     "L14: the jobs list's shard job ids are not required distinct",
+     ['[TB-JOBID] one job id under two shard names is refused, through main and read from disk']),
+    ('collect.py', (('    raw = text.split("\\n")   # a whole answer: original_length == count("\\n") + 1, no trailing "\\n" (2.4)\n', '    raw = text.split("\\n")\n    if raw and raw[-1] == "":\n        raw.pop()\n'),), None,
+     'L15: the trailing-newline tolerance restored',
+     ['[TB-NL] a whole answer ending in a newline is refused as not whole']),
+    ('collect.py', (('            ok = ok and isinstance(r.get("expected"), dict) and isinstance(r["expected"].get("outcome"), str)\n', ''),), None,
+     'L16: the expected.outcome check removed',
+     ['[TB-K1] a canonical block whose expected is null is a validation failure, recorded with its digest']),
+    ('collect.py', (('SCAN_ERRORS = (ValueError,)', 'SCAN_ERRORS = ()'),), None,
+     "L17: the per-file catch removed (a scan's ValueError reaches S10's internal quarantine)",
+     ["[TB-SCAN] a scan's conversion error (a 5,000-digit job_id, shard number, escaped job_id digits, or EXTRACT SHARD number) rejects only that file, with all 4 files recorded and the collection published quarantined"]),
+    ('collect.py', (('SCAN_ERRORS = (ValueError,)', 'SCAN_ERRORS = (Exception,)'),), None,
+     'L18: the per-file catch widened from ValueError to Exception',
+     ["[TB-SCANX] a host failure at intake (MemoryError, ENOSPC or EIO in the byte scan, EIO or MemoryError in the read, an interrupt) is ABORTED (exit 4), nothing published, never a file's rejection"]),
+    ('collect.py', (('    except (MemoryError, OSError):   # a host failure is never an internal quarantine: ABORTED (2.5)\n        raise\n', ''),), None,
+     'L19: S10 catches a host failure (MemoryError, OSError) as an internal quarantine and publishes it',
+     ["[TB-SCANX] a host failure at intake (MemoryError, ENOSPC or EIO in the byte scan, EIO or MemoryError in the read, an interrupt) is ABORTED (exit 4), nothing published, never a file's rejection"]),
+    ('collect.py', (('        if e.errno not in OWN_ACCESS:   # the read: EIO and every other host failure propagate (2.5)\n            raise\n', '        if False:\n            raise\n'),), None,
+     "L20: step 1 records every OSError of a read as the file's unreadable kind, EIO included",
+     ["[TB-SCANX] a host failure at intake (MemoryError, ENOSPC or EIO in the byte scan, EIO or MemoryError in the read, an interrupt) is ABORTED (exit 4), nothing published, never a file's rejection"]),
 ]
 
 
 FAILED_CASE = re.compile(r"^  FAIL  (.*?)(?: -> .*)?$")
 
 
-def selftests(d, extractor, work, outputs=None):
-    cmds = [[sys.executable, "-I", "-B", os.path.join(d, "assemble.py"), "--self-test", "--extractor", extractor, "--work", work],
-            [sys.executable, "-I", "-B", os.path.join(d, "host.py"), "--self-test", "--work", work],
-            [sys.executable, "-I", "-B", os.path.join(d, "collect.py"), "--self-test", "--work", work]]
+# The suites a mutant of each file can change (TRUST-BOUNDARY.md 6, the runtime budget): no suite reads collect.py
+# but its own; assemble.py's self-test reads host.py (assemble.py:1294). The unmutated copy runs all three.
+SUITES = {"assemble.py": ("assemble",), "host.py": ("assemble", "host"), "collect.py": ("collect",)}
+
+
+def selftests(d, extractor, work, outputs=None, only=None):
+    cmds = [("assemble", [sys.executable, "-I", "-B", os.path.join(d, "assemble.py"), "--self-test", "--extractor", extractor, "--work", work]),
+            ("host", [sys.executable, "-I", "-B", os.path.join(d, "host.py"), "--self-test", "--work", work]),
+            ("collect", [sys.executable, "-I", "-B", os.path.join(d, "collect.py"), "--self-test", "--work", work])]
+    cmds = [c for nm, c in cmds if only is None or nm in only]
     rcs = []
     for c in cmds:
         p = subprocess.run(c, capture_output=True, text=True, timeout=900)
@@ -301,11 +374,17 @@ def end_to_end(extractor, work):
             return code, dict(A._blocks(out)), doc, text, len(lines)
 
         code, printed, doc, text, nl = serve({}, False)
-        k, probs, res = K.read_shard({"job_id": 1, "logs_content": text, "original_length": nl}, doc, {1: 1})
+        # the full intake in the job-log tool's real byte format (TRUST-BOUNDARY.md 2.1): the strict grammar, then
+        # read_shard; U+FEFF first, the success message, compact, sorted keys, HTML escapes
+        real = K._tool_json({"job_id": 1, "logs_content": chr(0xfeff) + text, "message": K.SUCCESS_MESSAGE,
+                             "original_length": nl}).encode("utf-8")
+        obj, why = K.parse_served(real)
+        k, probs, res = K.read_shard(obj, doc, {1: 1}) if obj is not None else (None, [why], {})
         ok = code == 0 and k == 1 and not probs and sorted(res) == ["901", "902", "903"] and all(
             v == "HOLDS" and body == printed[rid] for rid, (v, body) in res.items())
-        print("  %s  assemble.py's real output, served whole with 26 runner lines after it, is collected: 3 runs, "
-              "blocks byte-identical, the pinned blobs named%s" % ("ok  " if ok else "FAIL", "" if ok else " -- %s %s" % (code, probs[:3])))
+        print("  %s  assemble.py's real output, served whole with 26 runner lines after it in the job-log tool's byte "
+              "format, passes the strict grammar and is collected: 3 runs, blocks byte-identical, the pinned blobs named%s"
+              % ("ok  " if ok else "FAIL", "" if ok else " -- %s %s" % (code, probs[:3])))
         k2, probs2, _ = K.read_shard({"job_id": 1, "logs_content": "\n".join(text.split("\n")[5:]), "original_length": nl},
                                      doc, {1: 1})
         ok2 = k2 is None and probs2 and "not whole" in probs2[0]
@@ -319,9 +398,14 @@ def end_to_end(extractor, work):
         inv = {1: 1}
         names = [K.raw_named(json.dumps({"job_id": 1, "logs_content": t_, "original_length": n_}).encode(), d_, inv)
                  for t_, n_, d_ in ((text, nl, doc), (text3, nl3, doc3))]
-        ok4 = names == [{1}, {1}]
+        # the decoded scan (TRUST-BOUNDARY.md 2.5 step 5), compared with the byte scan on the same basis: the answer's
+        # own job_id envelope excluded
+        decoded = [K.raw_named(t_.encode("utf-8"), d_, inv) for t_, d_ in ((text, doc), (text3, doc3))]
+        no_env = [K.raw_named(json.dumps({"logs_content": t_}).encode(), d_, inv) for t_, d_ in ((text, doc), (text3, doc3))]
+        ok4 = names == [{1}, {1}] and decoded == [{1}, {1}] and no_env == decoded
         print("  %s  [N1] the assembler's real output, host.py's own lines and the runner's lines name only their own "
-              "shard (green and red shard)%s" % ("ok  " if ok4 else "FAIL", "" if ok4 else " -- %s" % names))
+              "shard (green and red shard), in the byte scan and in the decoded scan, which agree without the job_id "
+              "envelope%s" % ("ok  " if ok4 else "FAIL", "" if ok4 else " -- %s %s %s" % (names, decoded, no_env)))
         return int(not ok) + int(not ok2) + int(not ok3) + int(not ok4)
     finally:
         shutil.rmtree(base, ignore_errors=True)
@@ -512,7 +596,7 @@ def main(argv=None):
             with open(p, "w", encoding="utf-8") as f:
                 f.write(src)
             outs = []
-            rc = selftests(d, extractor, work, outs)
+            rc = selftests(d, extractor, work, outs, only=SUITES[fname])
             names, crashed = failing_cases(outs)
             k = any(rc)
             missing = [e for e in (expect or []) if e not in names]   # exact names, never substrings
