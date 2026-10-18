@@ -1,0 +1,45 @@
+name: LOC-1 arithmetic controls
+
+# Synthetic controls of the LOC-1 Q(zeta_16) layer (K-arith-16) and the replay arithmetic; research branch only.
+# Evaluates no LOC-1 target object.  Not a check-run attestation of any round commit.
+
+on:
+  push:
+    branches:
+      - 'research/loc-1-arith-20261018'
+    paths:
+      - 'verification/programmes/oi-qm/track-b/research-planning/loc-1-arith/**'
+      - '.github/workflows/loc1-arith-controls.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: loc1-arith-controls-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  controls:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    defaults:
+      run:
+        working-directory: verification/programmes/oi-qm/track-b/research-planning/loc-1-arith
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Frozen engine copy is byte-identical to the pinned engine
+        run: echo "28a6a538245a250f7e4aa80957f9e420d191a38461e3cfc02955f5da7f5dd6fc  c21_engine.py" | sha256sum -c -
+      - name: Fast suite, twice, byte-identical
+        run: |
+          set -o pipefail
+          python3 -I -B run_controls.py | tee "$RUNNER_TEMP/fast1.out"
+          python3 -I -B run_controls.py > "$RUNNER_TEMP/fast2.out"
+          cmp "$RUNNER_TEMP/fast1.out" "$RUNNER_TEMP/fast2.out"
+      - name: Full suite
+        run: |
+          set -o pipefail
+          python3 -I -B run_controls.py --full | tee "$RUNNER_TEMP/full.out"
+          sha256sum "$RUNNER_TEMP/full.out"
