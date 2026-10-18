@@ -1,0 +1,412 @@
+{
+ "expected": {
+  "build_errors": [
+   "error: OIBridge/EqvOmega4.lean:157:16: Type mismatch",
+   "error: OIBridge/EqvOmega4.lean:215:16: Type mismatch"
+  ],
+  "build_success": false,
+  "gate": null,
+  "markers": {
+   "Lean.ofReduceBool": 0,
+   "declaration uses 'sorry'": 0,
+   "error:": 4,
+   "sorryAx": 7
+  },
+  "modules": {
+   "OIBridge/EqvOmega4.lean": {
+    "print_lines": [
+     [
+      524,
+      538
+     ]
+    ],
+    "prints": 15,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 524,
+      "name": "OIBridge.EqvOmega4.omega4_isCompact"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 525,
+      "name": "OIBridge.EqvOmega4.conv_core"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 526,
+      "name": "OIBridge.EqvOmega4.omega4_convex"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 527,
+      "name": "OIBridge.EqvOmega4.abstract_strict"
+     },
+     {
+      "axioms": [
+       "propext",
+       "sorryAx",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 528,
+      "name": "OIBridge.EqvOmega4.omega4_strictConvex"
+     },
+     {
+      "axioms": [
+       "propext",
+       "sorryAx",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 529,
+      "name": "OIBridge.EqvOmega4.relStrictConvex_omega4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "sorryAx",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 530,
+      "name": "OIBridge.EqvOmega4.singletonFaces_omega4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "sorryAx",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 531,
+      "name": "OIBridge.EqvOmega4.omega4_interior_nonempty"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 532,
+      "name": "OIBridge.EqvOmega4.omega4_centrallySymmetric"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 533,
+      "name": "OIBridge.EqvOmega4.sharpSeed_omega4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 534,
+      "name": "OIBridge.EqvOmega4.omega4_drivable"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 535,
+      "name": "OIBridge.EqvOmega4.not_affine_eball_omega4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "sorryAx",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 536,
+      "name": "OIBridge.EqvOmega4.not_boundaryTransitive_omega4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "sorryAx",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 537,
+      "name": "OIBridge.EqvOmega4.not_denseBoundaryOrbit_omega4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "sorryAx",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 538,
+      "name": "OIBridge.EqvOmega4.kinfTrans_separation"
+     }
+    ],
+    "status": "complete"
+   }
+  },
+  "permitted_axioms": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ]
+ },
+ "jobs": [
+  {
+   "conclusion": "success",
+   "name": "Lean kernel check"
+  },
+  {
+   "conclusion": "failure",
+   "name": "Mathlib bridge"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A36 hierarchy"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A38 escape"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A40 locus"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A41 hulls"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A41 independent"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A41 production"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 census01"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (cubes:0)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (cubes:1)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (cubes:2)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (dfs:0)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (dfs:1)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (dfs:2)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (dfs:3)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (dfs:4)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (dfs:5)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (n18:0)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (n18:1)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (n18:2)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (paths)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (r5)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (sathr)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 witness"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A45 ancilla"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / KINF-2 foundations"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / KT4-PREM-1 premise audit"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / NB-1 native-gate ball"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / core A"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / core B"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / foundations"
+  }
+ ],
+ "kind": "design-build",
+ "observed": {
+  "build_line": null,
+  "gate_served_lines": null,
+  "report_served_lines": {
+   "OIBridge.EqvOmega4.abstract_strict": 4968,
+   "OIBridge.EqvOmega4.conv_core": 4966,
+   "OIBridge.EqvOmega4.kinfTrans_separation": 4979,
+   "OIBridge.EqvOmega4.not_affine_eball_omega4": 4976,
+   "OIBridge.EqvOmega4.not_boundaryTransitive_omega4": 4977,
+   "OIBridge.EqvOmega4.not_denseBoundaryOrbit_omega4": 4978,
+   "OIBridge.EqvOmega4.omega4_centrallySymmetric": 4973,
+   "OIBridge.EqvOmega4.omega4_convex": 4967,
+   "OIBridge.EqvOmega4.omega4_drivable": 4975,
+   "OIBridge.EqvOmega4.omega4_interior_nonempty": 4972,
+   "OIBridge.EqvOmega4.omega4_isCompact": 4965,
+   "OIBridge.EqvOmega4.omega4_strictConvex": 4969,
+   "OIBridge.EqvOmega4.relStrictConvex_omega4": 4970,
+   "OIBridge.EqvOmega4.sharpSeed_omega4": 4974,
+   "OIBridge.EqvOmega4.singletonFaces_omega4": 4971
+  }
+ },
+ "reading": "the Build step failed at two terms (the two build errors); the Release gate step was skipped; seven of the fifteen reports carry sorryAx from error recovery at those terms",
+ "reproduce": {
+  "compared": "build success; the gate's steps and verdict; the module's reports and axioms; the build errors",
+  "not_compared": "timestamps, durations, cache behaviour, job counts, output order; markers outside the served text",
+  "recipe": [
+   "run from the root of a full-history clone at a commit that carries this record (the verifier); <dir> is a new directory and <log> a file outside it",
+   "make 195dfbeeca73fea4a7f7b529f8b7375a38e73869 present in the clone: git fetch origin preserve/ktrans-sep-824-design-195dfbee while that ref exists (the commit is not yet retained under the evidence-retention archive)",
+   "git worktree add --detach <dir> 195dfbeeca73fea4a7f7b529f8b7375a38e73869",
+   "(cd <dir>/verification/lean-mathlib && lean --version && lake exe cache get && lake --rehash build) > <log> 2>&1",
+   "the release gate step was skipped after the failed build; run none",
+   "python3 -I verification/audits/evidence-retention/extract_result.py <log> > reproduced.json",
+   "compare by hand: build success, the OIBridge/EqvOmega4.lean reports and their axioms, and the build errors; compare_result.py requires a passing release gate, which this run did not have"
+  ],
+  "tool": null
+ },
+ "run": {
+  "attempt": 1,
+  "conclusion": "failure",
+  "event": "workflow_dispatch",
+  "head_branch": "dev-equivalence/omega4",
+  "head_sha": "195dfbeeca73fea4a7f7b529f8b7375a38e73869",
+  "id": "38090924005",
+  "job_conclusion": "failure",
+  "job_id": "114327010280",
+  "job_name": "Mathlib bridge",
+  "job_steps": [
+   {
+    "conclusion": "success",
+    "name": "Set up job"
+   },
+   {
+    "conclusion": "success",
+    "name": "Run actions/checkout@v4"
+   },
+   {
+    "conclusion": "success",
+    "name": "Install elan"
+   },
+   {
+    "conclusion": "success",
+    "name": "Restore the OIBridge build cache"
+   },
+   {
+    "conclusion": "failure",
+    "name": "Build"
+   },
+   {
+    "conclusion": "skipped",
+    "name": "Release gate"
+   },
+   {
+    "conclusion": "skipped",
+    "name": "Post Restore the OIBridge build cache"
+   },
+   {
+    "conclusion": "success",
+    "name": "Post Run actions/checkout@v4"
+   },
+   {
+    "conclusion": "success",
+    "name": "Complete job"
+   }
+  ],
+  "workflow": "verify.yml"
+ },
+ "schema": "oi-evidence-result",
+ "scope": "what this design run logged at its head commit, which main does not reach; nothing about any later tree",
+ "source": {
+  "extractor": "verification/audits/evidence-retention/extract_result.py",
+  "extractor_blob": "05c41bce610b8d02ccbaca8e69377b771bef4a35",
+  "kind": "GitHub Actions job log, read on 2026-10-18 through the session's job-log tool, which returns at most the last 5000 lines",
+  "markers_scope": "the failure markers are counted over the served text only",
+  "note": "the digest identifies the text this result was read from: it is provenance of the extraction, not independent proof of the result, which reproduction at the commit supplies; the text is not retained",
+  "original_lines": 37335,
+  "run_and_jobs": "GitHub Actions runs and jobs APIs, read 2026-10-18; selected fields",
+  "served_lines": 5000,
+  "served_sha256": "de808501c642838d7cd1524483ac1f4fde12357ab7d293fdbd63cd0007954680"
+ },
+ "version": 1
+}
