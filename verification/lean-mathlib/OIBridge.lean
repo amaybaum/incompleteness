@@ -266,6 +266,7 @@ import OIBridge.RelcSelectBlock
 import OIBridge.RelcSelectSqueeze
 import OIBridge.RelcSelectC5
 import OIBridge.EqvK2MaxCone
+import OIBridge.KnDescent
 
 namespace OIBridge
 
