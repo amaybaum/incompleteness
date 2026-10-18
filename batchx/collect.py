@@ -15,11 +15,25 @@ Run in the session, after the launch, never in CI. Nothing here downloads anythi
 From --run-jobs it builds the job index: exactly one job named "Extract shard K" for each shard K, every job of
 one run, at --head, on the launch branch, of this workflow.
 
+Governing invariant. A run may be marked usable only when the complete collection succeeds (COLLECT HOLDS) and every
+relevant served file has been identified, validated and reconciled. Under any other verdict collected.json marks no
+run usable and no result file is written; this is decided in one place, write_collection(). Each run's own result is
+recorded as `eligible`, which is diagnostic only and licenses nothing.
+
+The raw scan. Before any parsing, the bytes of every served file are scanned for every shard they name, unanchored
+and independent of timestamps, ANSI codes, whitespace, case, JSON escapes and line position (see raw_named). A file
+that cannot be attributed reliably (it does not parse as a job-log answer: truncated, compressed, corrupt, enveloped,
+mistyped; or it is an answer of a job outside the run that names no shard) quarantines the whole collection: no run
+is eligible or usable, the verdict is FAILS, and the file is recorded by name and sha256. So does a missing file:
+every shard of the plan must have its expected answer, the log of job "Extract shard K" in the extraction run's jobs
+list, among the served files, and a missing one is recorded by its expected name. A file that fails validation
+makes the collection FAILS and is recorded by name and sha256 in failed_files.
+
 Identity. An answer belongs to the shard the job index gives its job id: trusted collection metadata (the tool's
 job id and the extraction run's jobs list), never the log's own text. Every file is read before anything is decided,
 and the answers are grouped by that trusted job id. For each job the shards it is involved with are its trusted
-shard and every shard its answers' logs name anywhere: every RUNSET line, the assembler banner, the end-of-output
-marker, the verdict line, and the runs.json shard of every RESULT line and block. A job involved with two or more
+shard and every shard its answers name anywhere: every RUNSET line, the assembler banner, the end-of-output marker,
+the verdict line, the runs.json shard of every RESULT line and block, and everything the raw scan finds. A job involved with two or more
 shards voids every one of them; a job whose answers differ, or with an answer that has no single readable RUNSET
 banner, voids its shard (UNVERIFIED, none of its runs usable); an answer of a job outside the run FAILS and voids
 every shard its log names. Byte-identical copies are taken once. So neither file order, nor shard numbering, nor
@@ -43,11 +57,12 @@ For the one answer of each surviving shard it checks, fail closed:
     and that verdict is the one the RESULT lines imply.
 A file that fails any check contributes no result, and the collection FAILS.
 
-A run is usable when its RESULT is HOLDS and its shard passed every check. Its block is written to
-DIR/ci/<run>/results.json and listed in DIR/collected.json with its digest, shard, source job id and served-text
-sha256. Every other run is listed with its verdict and the reason it is not usable. The last line is COLLECT HOLDS
-(exit 0) when every run of runs.json is usable, COLLECT FAILS (exit 1) when a run FAILS or a file fails a check,
-and COLLECT UNVERIFIED (exit 2) otherwise. Python 3 stdlib.
+A run is eligible when its RESULT is HOLDS and its shard passed every check. The verdict is COLLECT HOLDS (exit 0)
+when every run of runs.json is eligible and nothing failed, COLLECT FAILS (exit 1) when a run FAILS, a file fails a
+check or the collection is quarantined, and COLLECT UNVERIFIED (exit 2) otherwise. Only under HOLDS are the runs
+usable: each block is then written to DIR/ci/<run>/results.json and listed in DIR/collected.json with its digest,
+shard, source job id and served-text sha256. collected.json always records the verdict, the quarantine, each run's
+eligibility and the reason it is not usable. Python 3 stdlib.
 """
 import argparse
 import hashlib
@@ -161,6 +176,38 @@ def shards_named(obj, doc):
         if m and (m.group(1) or m.group(2)) in shard_of_run:
             named.add(shard_of_run[m.group(1) or m.group(2)])
     return named  # every shard the log names
+
+
+# The raw scan. It reads the bytes of a served file as they are, before and independent of any parsing, so a file
+# that does not parse, or parses into something else, still names what it names. ANSI escape sequences (raw, or
+# JSON-escaped as \u001b) are removed first; separators may be any whitespace or a JSON-escaped one; case is ignored;
+# nothing is anchored to a line start or a timestamp. Shard names: "BATCH SHARD K/", "ci-batch-extract shard K/",
+# "BATCH END shard K/", "EXTRACT SHARD K/". Run and job ids: a runs.json run id or bridge job id written after
+# "ci/", "RESULT", "CHECK", "run", "job" or as the value of an "id", "job_id" or "run_id" key, or written anywhere as
+# a bare number of 9 or more digits (every id in runs.json has 11 or 12); each names its run's shard. And the value
+# of any "job_id" key that the job index knows names that job's shard.
+ANSI = re.compile(r"(?:\x1b|\\u001[bB]|\\x1[bB]|\\033|\\e)\[[0-9;?]*[ -/]*[@-~]")
+_SP = r"(?:\s|\\[ntr]|\\u0020|\\u00[aA]0)+"
+RAW_SHARD = re.compile(r"(?:BATCH{0}SHARD|ci-batch-extract{0}shard|BATCH{0}END{0}shard|EXTRACT{0}SHARD){0}(\d+)"
+                       r"(?:\s|\\[ntr])*/".format(_SP), re.I)
+RAW_ID = re.compile(r"(?:ci/|RESULT{0}|CHECK{0}|run{0}|job{0}|\\*\"(?:id|job_id|run_id)\\*\"\s*:\s*\\*\"?\s*)"
+                    r"(\d+)(?!\d)".format(_SP), re.I)
+RAW_LONG = re.compile(r"(?<!\d)(\d{9,})(?!\d)")
+RAW_JOB = re.compile(r"\\*\"job_id\\*\"\s*:\s*\\*\"?\s*(\d+)", re.I)
+
+
+def raw_named(data, doc, inv):
+    """Every shard the raw bytes of a served file name (see above). Only ever widens what a file is involved with."""
+    text = ANSI.sub("", data.decode("utf-8", "replace"))
+    shard_of_id = {}
+    for r in doc["runs"]:
+        shard_of_id[str(r["run_id"])] = r["shard"]
+        shard_of_id[str(r["bridge_job_id"])] = r["shard"]
+    named = {int(m.group(1)) for m in RAW_SHARD.finditer(text)}
+    for rx in (RAW_ID, RAW_LONG):
+        named |= {shard_of_id[m.group(1)] for m in rx.finditer(text) if m.group(1) in shard_of_id}
+    named |= {inv[int(m.group(1))] for m in RAW_JOB.finditer(text) if int(m.group(1)) in inv}
+    return named  # the raw scan
 
 
 def read_shard(obj, doc, job_index, shard=None):
@@ -310,33 +357,84 @@ def collector_identity(path=None):
             "executed_matches_committed_blob": committed is not None and committed == executed}
 
 
+def write_collection(out, table, verdict, quarantine, shards, run_id, head, failed=(), voids=()):
+    """The one place collected.json and the result files are written, and the one place a run becomes usable: it is
+    usable only when it is eligible and the whole collection's verdict is HOLDS. Under any other verdict no run is
+    usable and no result file is written. Returns the number of usable runs."""
+    os.makedirs(out, exist_ok=True)
+    n = 0
+    for e in table:
+        e["usable"] = bool(e["eligible"] and verdict == "HOLDS")
+        body = e.pop("_body", None)
+        if e["usable"]:
+            d = os.path.join(out, "ci", e["run_id"])
+            os.makedirs(d, exist_ok=True)
+            with open(os.path.join(d, "results.json"), "x", encoding="ascii") as f:
+                f.write(body)
+            n += 1
+    with open(os.path.join(out, "collected.json"), "x", encoding="utf-8") as f:
+        json.dump({"runs_sha256": RUNS_SHA256, "extraction_run": run_id, "verdict": verdict,
+                   "usable_rule": "a run is usable only when it is eligible and the whole collection's verdict is HOLDS",
+                   "quarantine": quarantine,
+                   "failed_files": list(failed), "voided_shards": list(voids),
+                   # what was launched: the --head commit, which the job index required of every job of the run
+                   "launched_commit": head,
+                   "launched_commit_check": "every job of extraction_run's jobs list is at launched_commit, on %s, of "
+                                            "workflow %r" % (BRANCH, WORKFLOW_NAME),
+                   # what collected it: this file as executed and as committed, and the values it pins
+                   "collector": dict(collector_identity(), pins={"assembler_blob": ASSEMBLER_BLOB, "host_reader_blob": HOST_BLOB,
+                                          "extractor_blob": EXTRACT_RESULT_BLOB, "extractor_commit": MAIN_COMMIT,
+                                          "runs_sha256": RUNS_SHA256}),
+                   "shards": {str(k): (v and {"file": v["file"], "files": v["files"], "served_sha256": v["served_sha256"],
+                                              "job_id": v["job_id"], "copies": v["copies"]})
+                              for k, v in sorted(shards.items())}, "runs": table},
+                  f, indent=1, sort_keys=True)
+        f.write("\n")
+    return n
+
+
 def collect(doc, served_files, out, job_index, run_id=None, outp=None, head=None):
     outp = outp or sys.stdout
     P = lambda s: print(s, file=outp)  # noqa: E731
     inv = {j: k for k, j in job_index.items()}
     bad, answers = False, []
     # Every file is read before anything is decided; the decisions below depend only on the set of answers.
+    voided, quarantine, failed = {}, [], []
     for path in sorted(served_files, key=os.path.basename):
-        with open(path, encoding="utf-8") as f:
-            served = f.read()
-        obj = parse_served(served)
+        with open(path, "rb") as f:
+            data = f.read()
+        raw = raw_named(data, doc, inv)          # before any parsing
+        try:
+            served = data.decode("utf-8")
+        except UnicodeDecodeError:
+            served = None
+        obj = parse_served(served) if served is not None else None
         if obj is None:
-            P("COLLECT FAIL %s: the served file is not a job-log answer" % os.path.basename(path))
-            bad = True
+            # It cannot be attributed reliably, so the whole collection is quarantined, whatever it seems to name.
+            quarantine.append({"kind": "unattributable", "file": os.path.basename(path), "sha256": hashlib.sha256(data).hexdigest(),
+                               "reason": "not a job-log answer (unparseable, truncated, compressed or corrupt)",
+                               "names_shards": sorted(raw)})
             continue
         answers.append((os.path.basename(path), obj, hashlib.sha256(served.encode("utf-8")).hexdigest(), shard_of(obj),
-                        shards_named(obj, doc)))
+                        shards_named(obj, doc), raw))
     # The job rule. An answer belongs to the shard the job index gives its job id: trusted metadata (the extraction
     # run's jobs list and the tool's job id), never the log's own banner. A banner can only add a shard to the
     # shards a job is involved with, never choose one. A job involved with two or more shards voids every one of
     # them; a job whose answers differ, or one of whose answers has no readable banner, voids its shard; an answer
     # of a job outside the run voids the shard its banner names.
-    voided, by_job = {}, {}
+    by_job = {}
     for a in answers:
         by_job.setdefault(a[1]["job_id"], []).append(a)
     for job in sorted(by_job):
         ans = by_job[job]
         named = set().union(*(a[4] for a in ans))
+        named |= set().union(*(a[5] for a in ans))  # the raw scan of every answer
+        if job not in inv and not named:
+            for a in ans:   # no trusted job and no recoverable shard identifier: it cannot be attributed
+                quarantine.append({"kind": "unattributable", "file": a[0], "sha256": a[2],
+                                   "reason": "job %s is no job of the run and the file "
+                                   "names no shard" % job, "names_shards": []})
+            continue
         if job not in inv:
             P("COLLECT FAIL job %s (%s) is no job of the extraction run; shard %s is void"
               % (job, ", ".join(sorted(a[0] for a in ans)), sorted(named)))
@@ -372,62 +470,61 @@ def collect(doc, served_files, out, job_index, run_id=None, outp=None, head=None
             P("COLLECT FAIL %s: %s" % (name, p))
         if probs:
             bad = True
+            failed.append({"file": name, "sha256": dig, "shard": k, "problems": probs})  # traceability
             shards[k], why[k] = None, "failed a check"
             continue
         shards[k] = {"file": name, "files": sorted(c[0] for c in copies), "served_sha256": dig,
                      "job_id": obj["job_id"], "copies": len(copies), "runs": res}
         for rid in res:
             runs_seen.setdefault(rid, []).append(k)
-    table, usable = [], 0
-    os.makedirs(out, exist_ok=True)
+    for k in range(1, doc["shards"] + 1):
+        if job_index.get(k) not in by_job:   # the expected answer of shard k was not served
+            quarantine.append({"kind": "missing", "shard": k, "job_id": job_index.get(k),
+                               "expected": "the job-log answer of job %s (%s)" % (job_index.get(k), JOB_NAME % k)})
+    for q in quarantine:
+        if q["kind"] == "missing":
+            P("COLLECT FAIL missing: %s; the whole collection is quarantined" % q["expected"])
+        else:
+            P("COLLECT FAIL %s (sha256 %s): %s; the whole collection is quarantined" % (q["file"], q["sha256"], q["reason"]))
+    # Each run's own result: eligible when its shard passed every check and its RESULT is HOLDS. This is diagnostic
+    # only. Whether any run is usable is decided once, below, from the verdict of the whole collection.
+    table = []
     for cfg in doc["runs"]:
         rid, k = cfg["run_id"], cfg["shard"]
         sh = shards.get(k)
-        entry = {"run_id": rid, "shard": k, "expires": cfg["expires"]}
-        if sh is None:
-            entry.update(verdict=None, usable=False, reason="shard %d %s" % (k, why.get(k, "not collected")))
+        entry = {"run_id": rid, "shard": k, "expires": cfg["expires"], "eligible": False}
+        if quarantine:
+            entry.update(verdict=None, reason="the collection is quarantined (%s)" % ", ".join(
+                q.get("file") or "missing shard %d" % q["shard"] for q in quarantine))
+        elif sh is None:
+            entry.update(verdict=None, reason="shard %d %s" % (k, why.get(k, "not collected")))
         elif len(runs_seen.get(rid, [])) != 1:
-            entry.update(verdict=None, usable=False, reason="run seen in shards %s" % runs_seen.get(rid))
+            entry.update(verdict=None, reason="run seen in shards %s" % runs_seen.get(rid))
         else:
-            v, body = sh["runs"][rid]
-            entry.update(verdict=v, served_sha256=sh["served_sha256"], file=sh["file"], job_id=sh["job_id"])
-            if v == "HOLDS":
-                d = os.path.join(out, "ci", rid)
-                os.makedirs(d, exist_ok=True)
-                with open(os.path.join(d, "results.json"), "x", encoding="ascii") as f:
-                    f.write(body)
-                entry.update(usable=True, sha256=hashlib.sha256(body.encode()).hexdigest(),
-                             outcome=json.loads(body)["expected"]["outcome"])
-                usable += 1
+            v_, body = sh["runs"][rid]
+            entry.update(verdict=v_, served_sha256=sh["served_sha256"], file=sh["file"], job_id=sh["job_id"])
+            if v_ == "HOLDS":
+                entry.update(eligible=True, sha256=hashlib.sha256(body.encode()).hexdigest(),
+                             outcome=json.loads(body)["expected"]["outcome"], _body=body)
             else:
-                entry.update(usable=False, reason="the run's verdict is %s" % v)
+                entry.update(reason="the run's verdict is %s" % v_)
         table.append(entry)
-        P("RUN %s shard %d expires %s %s%s" % (rid, k, cfg["expires"], entry.get("verdict"),
-                                               (" " + entry.get("outcome", "")) if entry["usable"] else
-                                               " not usable: " + entry["reason"]))
     extra = sorted(set(runs_seen) - {r["run_id"] for r in doc["runs"]})
     for rid in extra:
         P("COLLECT FAIL run %s is not in runs.json" % rid)
     missing = sorted(set(range(1, doc["shards"] + 1)) - set(shards))
-    if missing:
+    if missing and not quarantine:
         P("COLLECT UNVERIFIED shards not collected: %s" % missing)
-    with open(os.path.join(out, "collected.json"), "x", encoding="utf-8") as f:
-        json.dump({"runs_sha256": RUNS_SHA256, "extraction_run": run_id,
-                   # what was launched: the --head commit, which the job index required of every job of the run
-                   "launched_commit": head,
-                   "launched_commit_check": "every job of extraction_run's jobs list is at launched_commit, on %s, of "
-                                            "workflow %r" % (BRANCH, WORKFLOW_NAME),
-                   # what collected it: this file as executed and as committed, and the values it pins
-                   "collector": dict(collector_identity(), pins={"assembler_blob": ASSEMBLER_BLOB, "host_reader_blob": HOST_BLOB,
-                                          "extractor_blob": EXTRACT_RESULT_BLOB, "extractor_commit": MAIN_COMMIT,
-                                          "runs_sha256": RUNS_SHA256}),
-                   "shards": {str(k): (v and {"file": v["file"], "files": v["files"], "served_sha256": v["served_sha256"],
-                                              "job_id": v["job_id"], "copies": v["copies"]})
-                              for k, v in sorted(shards.items())}, "runs": table},
-                  f, indent=1, sort_keys=True)
-        f.write("\n")
-    fails = bad or extra or any(e.get("verdict") == "FAILS" for e in table)
-    v = "FAILS" if fails else "HOLDS" if usable == len(doc["runs"]) and not missing else "UNVERIFIED"
+    eligible = sum(1 for e in table if e["eligible"])
+    fails = bad or extra or quarantine or any(e.get("verdict") == "FAILS" for e in table)
+    v = "FAILS" if fails else "HOLDS" if eligible == len(doc["runs"]) and not missing else "UNVERIFIED"
+    voids = [{"shard": k_, "reasons": sorted(r_)} for k_, r_ in sorted(voided.items())]
+    usable = write_collection(out, table, v, quarantine, shards, run_id, head, failed, voids)
+    for e in table:
+        P("RUN %s shard %d expires %s %s%s" % (e["run_id"], e["shard"], e["expires"], e.get("verdict"),
+                                               (" " + e.get("outcome", "")) if e["usable"] else
+                                               " not usable: " + (e.get("reason") or "the collection's verdict is %s" % v)))
+    P("COLLECT %d of %d runs passed every check of their shard" % (eligible, len(doc["runs"])))
     P("COLLECT %d of %d runs usable" % (usable, len(doc["runs"])))
     P("COLLECT %s" % v)
     return {"HOLDS": 0, "FAILS": 1, "UNVERIFIED": 2}[v]
@@ -466,6 +563,7 @@ def _shard_text(doc, k, verdicts=None, mut=None):
         if r["run_id"] in mut.get("drop_result", []):
             continue
         L.append("RESULT %s %s gate-verdict (15 checks, 0 failed, 0 unverified)" % (r["run_id"], verdicts.get(r["run_id"], "HOLDS")))
+    L += mut.get("extra_lines", [])
     vs = [verdicts.get(r["run_id"], "HOLDS") for r in exp]
     v = mut.get("verdict") or ("FAILS" if "FAILS" in vs else "HOLDS" if all(x == "HOLDS" for x in vs) else "UNVERIFIED")
     vline = "EXTRACT SHARD %d/%d %s" % (k, doc["shards"], v)
@@ -502,7 +600,7 @@ def _shard_text(doc, k, verdicts=None, mut=None):
     if mut.get("verdict_after_end"):
         L.append(vline0)
     L += ["##[error]Process completed with exit code 1."] if v != "HOLDS" or mut.get("died") else []
-    L += ["Post job cleanup."] + (["EXTRACT SHARD %d/%d %s" % (k, doc["shards"], v)] if mut.get("verdict_in_trailer") else []) \
+    L += ["Post job cleanup."] + mut.get("extra_trailer", []) + (["EXTRACT SHARD %d/%d %s" % (k, doc["shards"], v)] if mut.get("verdict_in_trailer") else []) \
         + ["[command]/usr/bin/git config --local --unset-all x"] * mut.get("trailer", 2) + ["Cleaning up orphan processes"]
     if mut.get("pad_to"):
         L += ["##[warning]padding"] * (mut["pad_to"] - len(L))
@@ -523,7 +621,7 @@ def self_test(work=None):
     HEAD = "c" * 40
     print("collect self-test (synthetic served shard logs, no network):")
     try:
-        def case(name, texts, want, needle=None, usable=None, absent=None):
+        def case(name, texts, want, needle=None, usable=None, absent=None, bytes_=False):
             nonlocal fails, n
             n += 1
             d = os.path.join(base, "c%03d" % n)
@@ -531,18 +629,24 @@ def self_test(work=None):
             files = []
             for i, t in enumerate(texts):
                 p = os.path.join(d, "served-%d.json" % i)
-                with open(p, "w", encoding="utf-8") as f:
-                    f.write(t)
+                with open(p, "wb") as f:
+                    f.write(t.encode("latin-1") if bytes_ and i == len(texts) - 1 else t.encode("utf-8"))
                 files.append(p)
             buf = io.StringIO()
             code = collect(doc, files, os.path.join(d, "out"), index, 42, buf, head=HEAD)
             t = buf.getvalue()
             ok = t.rstrip("\n").split("\n")[-1] == "COLLECT " + want and code == {"HOLDS": 0, "FAILS": 1, "UNVERIFIED": 2}[want]
             ok = ok and (needle is None or needle in t) and (absent is None or absent not in t)
+            # usable= is the number of runs that pass their own shard's checks (eligible); the governing invariant,
+            # checked in every case: runs are usable, and result files written, only under a HOLDS verdict
             if usable is not None:
-                ok = ok and ("COLLECT %d of 6 runs usable" % usable) in t
-                written = sorted(os.listdir(os.path.join(d, "out", "ci"))) if os.path.isdir(os.path.join(d, "out", "ci")) else []
-                ok = ok and len(written) == usable
+                ok = ok and ("COLLECT %d of 6 runs passed every check of their shard" % usable) in t
+            cj_ = json.load(open(os.path.join(d, "out", "collected.json")))
+            n_use = sum(1 for e in cj_["runs"] if e["usable"])
+            n_elig = sum(1 for e in cj_["runs"] if e["eligible"])
+            written = sorted(os.listdir(os.path.join(d, "out", "ci"))) if os.path.isdir(os.path.join(d, "out", "ci")) else []
+            ok = ok and cj_["verdict"] == want and n_use == (n_elig if want == "HOLDS" else 0) == len(written) \
+                and ("COLLECT %d of 6 runs usable" % n_use) in t
             print("  %s  %s -> COLLECT %s" % ("ok  " if ok else "FAIL", name, t.rstrip("\n").split("\n")[-1].split()[-1]))
             if not ok:
                 fails += 1
@@ -557,7 +661,8 @@ def self_test(work=None):
 
         S = lambda k, verdicts=None, **mut: _shard_text(doc, k, verdicts, mut)  # noqa: E731
         d, _ = case("three whole shards, every run holding", [S(1), S(2), S(3)], "HOLDS", usable=6)
-        got = open(os.path.join(d, "out", "ci", "800", "results.json")).read()
+        f800 = os.path.join(d, "out", "ci", "800", "results.json")
+        got = open(f800).read() if os.path.exists(f800) else None
         chk("the written file is byte-identical to the canonical block",
             got == json.dumps(_result(runs[0]), indent=1, sort_keys=True) + "\n")
         cj = json.load(open(os.path.join(d, "out", "collected.json")))
@@ -623,7 +728,8 @@ def self_test(work=None):
         case("a shard served as a tail is refused", [S(1, tail=2), S(2), S(3)], "FAILS", "not whole", usable=4)
         case("a served line count other than original_length is refused", [S(1, orig_delta=1), S(2), S(3)], "FAILS",
              "not whole", usable=4)
-        case("a shard missing", [S(1), S(2)], "UNVERIFIED", "shards not collected: [3]", usable=4)
+        case("a shard missing quarantines the whole collection", [S(1), S(2)], "FAILS",
+             "missing: the job-log answer of job 77003 (Extract shard 3)", usable=0)
         case("a RUNSET digest other than runs.json's", [S(1, runset="0" * 64), S(2), S(3)], "FAILS", "banner does not match",
              usable=4)
         case("a run's RESULT line missing", [S(1, drop_result=["800"]), S(2), S(3)], "FAILS", "RESULT lines for", usable=4)
@@ -637,12 +743,12 @@ def self_test(work=None):
              "not a canonical result of that run", usable=4)
         case("a verdict line at odds with the RESULT lines", [S(1, verdict="HOLDS", verdicts={"800": "FAILS"}), S(2), S(3)],
              "FAILS", "not the one its RESULT lines imply", usable=4)
-        case("one run UNVERIFIED: the others are usable, the batch is not", [S(1, verdicts={"801": "UNVERIFIED"}), S(2), S(3)],
+        case("one run UNVERIFIED: the others are eligible, none usable", [S(1, verdicts={"801": "UNVERIFIED"}), S(2), S(3)],
              "UNVERIFIED", "RUN 801 shard 1 expires 2026-12-20 UNVERIFIED not usable", usable=5)
-        case("one run FAILS: the batch FAILS, the others are usable", [S(1, verdicts={"801": "FAILS"}), S(2), S(3)],
+        case("one run FAILS: the batch FAILS, the others are eligible, none usable", [S(1, verdicts={"801": "FAILS"}), S(2), S(3)],
              "FAILS", "RUN 801 shard 1 expires 2026-12-20 FAILS not usable", usable=5)
-        case("a file that is not a job-log answer", ["not json", S(1), S(2), S(3)], "FAILS", "not a job-log answer",
-             usable=6)
+        case("a file that is not a job-log answer quarantines the whole collection", ["not json", S(1), S(2), S(3)], "FAILS",
+             "the whole collection is quarantined", usable=0)
         # N1: the verdict line
         case("a verdict line followed by 40 runner lines is found", [S(1, trailer=40), S(2, trailer=40), S(3)], "HOLDS",
              usable=6)
@@ -665,8 +771,9 @@ def self_test(work=None):
              [S(1, tamper=["801"]), S(1), S(2), S(3)], "UNVERIFIED", "answers that differ", usable=4)
         # N3: provenance and pins
         case("a log from another job (another push of this branch) is refused and voids the shard it names",
-             [S(1, job_id=99999), S(2), S(3)], "FAILS", "job 99999 (served-0.json) is no job of the extraction run", usable=4)
-        case("one job serving two shards is refused", [S(1), S(2, job_id=77001), S(3)], "FAILS", "usable", usable=2)
+             [S(1), S(1, job_id=99999), S(2), S(3)], "FAILS", "job 99999 (served-1.json) is no job of the extraction run", usable=4)
+        case("one job serving two shards is refused", [S(1), S(2), S(2, job_id=77001), S(3)], "FAILS",
+             "job 77001 answers for shards [1, 2]", usable=2)
         # R1: a job id under two shards voids every shard involved, whatever the shard numbers
         case("[R1a] shard 3's job serving shard 1's content, beside genuine shards 1 and 3, voids both",
              [S(1), S(2), S(3), S(1, job_id=77003)], "FAILS", "job 77003 answers for shards [1, 3]: every one of them is void",
@@ -690,8 +797,125 @@ def self_test(work=None):
                 ("F1c", "with its RUNSET line deleted", drop_runset(S(1, job_id=77003))),
                 ("F1d", "as shard 3's log followed by shard 1's in one answer", answer(77003, s3, s1)),
                 ("F1e", "as shard 1's log followed by shard 3's in one answer", answer(77003, s1, s3))):
-            case("[%s] shard 3's job serving shard 1's log %s voids shards 1 and 3, no run usable but shard 2's"
+            case("[%s] shard 3's job serving shard 1's log %s voids shards 1 and 3, only shard 2's runs eligible, none usable"
                  % (tag, nm), [S(1), S(2), S(3), copy], "FAILS", "job 77003 answers for shards [1, 3]", usable=2)
+        # G1/G2: the raw scan, before any parsing. Shard 3's job saves shard 1's log, damaged in each way below,
+        # beside genuine shards 1, 2 and 3: both shards void, only shard 2's runs usable.
+        mis = S(1, job_id=77003)
+
+        def lines_edit(js, f):
+            o = json.loads(js)
+            L_ = f(o["logs_content"].split("\n"))
+            return json.dumps({"job_id": o["job_id"], "logs_content": "\n".join(L_), "original_length": len(L_)})
+        TSRE = re.compile(r"^(\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d)\.\d+Z ")
+        only = lambda line: lines_edit(mis, lambda L: [L[0], "2026-12-01T10:00:01.0000000Z " + line, L[-1]])  # noqa: E731
+        o_ = json.loads(mis)
+        G = (
+            ("G1a", "cut off halfway (not JSON)", mis[: len(mis) // 2]),
+            ("G1b", "with its job_id written as a string", json.dumps(dict(o_, job_id="77003"))),
+            ("G1c", "wrapped in a tool envelope", json.dumps({"result": o_})),
+            ("G1d", "with a byte that is not UTF-8", None),
+            ("G2a", "with timestamps without fractional seconds", lines_edit(mis, lambda L: [TSRE.sub(r"\1Z ", l) for l in L])),
+            ("G2b", "with an ANSI code after each timestamp",
+             lines_edit(mis, lambda L: [TSRE.sub(lambda m: m.group(0) + "\x1b[0m", l) for l in L])),
+            ("G2c", "with each line indented by one space", lines_edit(mis, lambda L: [TSRE.sub(lambda m: m.group(0) + " ", l) for l in L])),
+            ("G2d", "reduced to its block bodies, END and SHA256 lines",
+             lines_edit(mis, lambda L: [l for l in L if not re.search(r"Z (BATCH|RESULT|EXTRACT|===== BEGIN)", l)])),
+            ("G2e", "reduced to one RUNSET line with an ANSI code inside the name",
+             only("BATCH\x1b[0m SHARD 1/3 RUNSET %s RUNS 2" % ("0" * 64))),
+            ("G2f", "reduced to one RUNSET line with a tab and doubled spaces", only("BATCH\tSHARD  1 /3 RUNSET x RUNS 2")),
+            ("G2g", "reduced to one RUNSET line in lower case", only("batch shard 1/3 runset x runs 2")),
+        )
+        for tag, nm, copy in G:
+            if copy is None:
+                copy = mis.replace('"logs_content": "', '"logs_content": "\udcff', 1)
+                copy = copy.encode("utf-8", "surrogateescape").decode("latin-1")   # one raw 0xff byte
+            if tag.startswith("G1"):
+                case("[%s] shard 3's job saving shard 1's log %s quarantines the whole collection: no run eligible or usable"
+                     % (tag, nm), [S(1), S(2), S(3), copy], "FAILS", "the whole collection is quarantined", usable=0,
+                     bytes_=(tag == "G1d"))
+            else:
+                case("[%s] shard 3's job saving shard 1's log %s voids shards 1 and 3, only shard 2's runs eligible, none usable" % (tag, nm),
+                     [S(1), S(2), S(3), copy], "FAILS", "every one of them", usable=2)
+        doc_long = {"runs": [{"run_id": "38808914622", "bridge_job_id": "116676857951", "shard": 3}]}
+        chk("[G2h] a bare 11-digit run id or 12-digit bridge job id anywhere names its shard",
+            raw_named(b"x" + b"a38808914622b", doc_long, {}) == {3} and raw_named(b"=116676857951;", doc_long, {}) == {3}
+            and raw_named(b"388089146221", doc_long, {}) == set())
+        case("[G2i] a job_id of another shard's job written inside an answer's log voids both shards",
+             [S(1, extra_trailer=['{"job_id": 77002}']), S(2), S(3)], "FAILS", "job 77001 answers for shards [1, 2]", usable=2)
+        # The governing invariant: a run is usable only when the whole collection succeeds
+        import gzip
+        gz = gzip.compress(b"opaque bytes with no shard identifier").decode("latin-1")
+        d_, _ = case("[I1] an unreadable (compressed) served file with no recoverable shard identifier quarantines the whole "
+                     "collection: no run eligible or usable", [S(1), S(2), S(3), gz], "FAILS",
+                     "the whole collection is quarantined", usable=0, bytes_=True)
+        cjq = json.load(open(os.path.join(d_, "out", "collected.json")))
+        chk("[I1] the quarantined file is recorded by name and digest",
+            cjq["quarantine"] == [{"kind": "unattributable", "file": "served-3.json",
+                                   "sha256": hashlib.sha256(gz.encode("latin-1")).hexdigest(),
+                                   "reason": "not a job-log answer (unparseable, truncated, compressed or corrupt)",
+                                   "names_shards": []}])
+        d_, _ = case("[I4] an answer of a job outside the run that names no shard quarantines the whole collection",
+                     [json.dumps({"job_id": 99999, "logs_content": "x", "original_length": 1}), S(1), S(2), S(3)], "FAILS",
+                     "is no job of the run and the file names no shard", usable=0)
+
+        def outcome_of(texts, bytes_last=False):
+            dd = tempfile.mkdtemp(dir=base)
+            fs = []
+            for i, t_ in enumerate(texts):
+                p_ = os.path.join(dd, "served-%d.json" % i)
+                with open(p_, "wb") as f:
+                    f.write(t_.encode("latin-1") if bytes_last and i == len(texts) - 1 else t_.encode("utf-8"))
+                fs.append(p_)
+            code_ = collect(doc, fs, os.path.join(dd, "out"), index, 42, io.StringIO(), head=HEAD)
+            cj_ = json.load(open(os.path.join(dd, "out", "collected.json")))
+            ci = os.path.join(dd, "out", "ci")
+            return code_, cj_, sorted(os.listdir(ci)) if os.path.isdir(ci) else []
+        c2, cj2, w2 = outcome_of([S(1), S(2), S(3), mis[: len(mis) // 2]])
+        c2x, cj2x, w2x = outcome_of([S(1), S(2), S(3), lines_edit(mis, lambda L: [TSRE.sub(r"\1Z ", l) for l in L])])
+        chk("[I2] a COLLECT FAILS outcome marks zero runs usable and writes no result file, read back from disk: a "
+            "truncated mislabelled copy (quarantined) and a reformatted one (two runs still eligible)",
+            c2 == 1 and cj2["verdict"] == "FAILS" and not any(e["usable"] for e in cj2["runs"]) and w2 == []
+            and c2x == 1 and cj2x["verdict"] == "FAILS" and not any(e["usable"] for e in cj2x["runs"]) and w2x == []
+            and sum(e["eligible"] for e in cj2x["runs"]) == 2)
+        c2b, cj2b, w2b = outcome_of([S(1, verdicts={"801": "UNVERIFIED"}), S(2), S(3)])
+        chk("[I2b] an UNVERIFIED outcome (one run UNVERIFIED) marks zero runs usable and writes no result file, though "
+            "five runs are eligible", c2b == 2 and cj2b["verdict"] == "UNVERIFIED" and not any(e["usable"] for e in cj2b["runs"])
+            and sum(e["eligible"] for e in cj2b["runs"]) == 5 and w2b == [])
+        c5, cj5, w5 = outcome_of([S(1), S(3)])
+        chk("[I5] one shard's answer missing quarantines the whole collection, recorded by its expected name: zero runs "
+            "eligible or usable, read back from disk",
+            c5 == 1 and cj5["verdict"] == "FAILS" and w5 == [] and not any(e["usable"] or e["eligible"] for e in cj5["runs"])
+            and cj5["quarantine"] == [{"kind": "missing", "shard": 2, "job_id": 77002,
+                                        "expected": "the job-log answer of job 77002 (Extract shard 2)"}])
+        tam = S(1, tamper=["801"])
+        c6, cj6, w6 = outcome_of([tam, S(2), S(3)])
+        chk("[I6] a file that fails validation is recorded by name and digest, read back from disk",
+            c6 == 1 and w6 == [] and [(f_["file"], f_["sha256"], f_["shard"]) for f_ in cj6["failed_files"]]
+            == [("served-0.json", hashlib.sha256(tam.encode()).hexdigest(), 1)] and cj6["failed_files"][0]["problems"])
+        c3, cj3, w3 = outcome_of([S(1), S(2), S(3)])
+        chk("[I3] positive control: a clean collection marks all six runs usable and writes all six result files",
+            c3 == 0 and cj3["verdict"] == "HOLDS" and all(e["usable"] and e["eligible"] for e in cj3["runs"])
+            and w3 == ["800", "801", "802", "803", "804", "805"])
+        # N1: a genuine log's own lines name no other shard; a crafted line would (fail closed, by design)
+        runner = ["Current runner version: '2.337.0'", "Complete job name: Extract shard 1", "env:", "  SHARD: 1",
+                  "  GH_TOKEN: ***", "##[group]Run python3 -I batchx/host.py --runs batchx/runs.json --shard \"$SHARD\" --out x",
+                  "##[group]Run python3 -I batchx/assemble.py \\", "##[endgroup]", "##[error]Process completed with exit code 2.",
+                  "Post job cleanup.", "[command]/usr/bin/git version", "Cleaning up orphan processes",
+                  "##[warning]Node.js 20 is deprecated.", "Terminate orphan process: pid (2899) (python3)"]
+        chk("[N1a] the runner's own line shapes name no shard",
+            raw_named(json.dumps({"job_id": 0, "logs_content": "\n".join(runner)}).encode(), doc,
+                      {j: k for k, j in index.items()}) == set())
+        case("[N1b] a crafted 'EXTRACT SHARD 2/3' runner line in genuine shard 1's log voids shards 1 and 2 (fail closed)",
+             [S(1, extra_trailer=["EXTRACT SHARD 2/3 x"]), S(2), S(3)], "FAILS", "job 77001 answers for shards [1, 2]",
+             usable=2)
+        # N2: a RESULT line for a run outside runs.json
+        case("[N2] a RESULT line for a run outside runs.json is refused",
+             [S(1, extra_lines=["RESULT 999 UNVERIFIED - (1 checks, 0 failed, 1 unverified)"], verdict="UNVERIFIED"),
+              S(2), S(3)], "FAILS", "RESULT lines for", usable=4)
+        # N3: a job outside the run with a damaged banner
+        case("[N3] a job outside the run saving shard 1's log with its RUNSET line deleted voids shard 1",
+             [S(1), S(2), S(3), drop_runset(S(1, job_id=99999))], "FAILS", "is no job of the extraction run", usable=4)
         # F2: the assembler's own CHECK all line inside its output voids the shard
         case("[F2] a 'CHECK all UNVERIFIED stopped' line inside the assembler's output voids the shard",
              [S(1, verdicts={"801": "UNVERIFIED"}, stopped=True), S(2), S(3)], "FAILS", "reported a CHECK all line",
@@ -771,8 +995,10 @@ def self_test(work=None):
             buf = io.StringIO()
             code = collect(pd, files, os.path.join(d, "out"), pix, 42, buf, head=HEAD)
             cjp = json.load(open(os.path.join(d, "out", "collected.json")))
-            return code, frozenset((e["run_id"], e["usable"], e["verdict"]) for e in cjp["runs"]), \
-                sum(1 for e in cjp["runs"] if e["usable"])
+            n_use = sum(1 for e in cjp["runs"] if e["usable"])
+            n_el = sum(1 for e in cjp["runs"] if e["eligible"])
+            return code, frozenset((e["run_id"], e["eligible"], e["usable"], e["verdict"]) for e in cjp["runs"]), \
+                n_el, n_use == (n_el if code == 0 else 0)
 
         def bl(PS):
             t_ = json.loads(PS(1, trailer=40))
@@ -781,8 +1007,8 @@ def self_test(work=None):
         # each scenario: (name, answers, the exit code and the number of usable runs it must give everywhere)
         scenarios = [
             ("clean", lambda PS: [PS(1), PS(2), PS(3)], 0, 6),
-            ("shard 3's job with shard 1's content", lambda PS: [PS(1, job_of=3), PS(2), PS(3)], 1, 2),
-            ("shard 1's job with shard 3's content", lambda PS: [PS(1), PS(2), PS(3, job_of=1)], 1, 2),
+            ("shard 3's job with shard 1's content", lambda PS: [PS(1), PS(1, job_of=3), PS(2), PS(3)], 1, 2),
+            ("shard 1's job with shard 3's content", lambda PS: [PS(1), PS(2), PS(3), PS(3, job_of=1)], 1, 2),
             ("shard 2's job with shard 1's content, shard 1 also whole", lambda PS: [PS(1), PS(1, job_of=2), PS(2), PS(3)],
              1, 2),
             ("a bannerless copy of shard 1's job", lambda PS: [PS(1, trailer=40), bl(PS), PS(2), PS(3)], 2, 4),
@@ -791,15 +1017,15 @@ def self_test(work=None):
             ("a malformed-banner duplicate of shard 2", lambda PS: [PS(1), PS(2), PS(2, malformed_banner=True), PS(3)], 2, 4),
             ("a conflicting copy of shard 1 after a clean one",
              lambda PS: [PS(1), PS(2), PS(3), PS(1, verdicts={"801": "FAILS"})], 2, 4),
-            ("shard 2 missing", lambda PS: [PS(1), PS(3)], 2, 4),
+            ("shard 2 missing", lambda PS: [PS(1), PS(3)], 1, 0),
         ]
         for nm, sc, want_code, want_usable in scenarios:
             res_ = {(perm, order): outcome(perm, order, sc)
                     for perm in itertools.permutations((1, 2, 3)) for order in ((0, 1, 2, 3), (3, 2, 1, 0), (2, 0, 3, 1), (1, 3, 0, 2))}
             outs = set(res_.values())
-            chk("[RP] permutation: %s gives exit %d and %d usable runs under all 6 shard numberings and 4 orders and name "
-                "pairings of the answers" % (nm, want_code, want_usable),
-                len(outs) == 1 and all(o[0] == want_code and o[2] == want_usable for o in outs))
+            chk("[RP] permutation: %s gives exit %d and %d eligible runs, none usable unless it holds, under all 6 shard "
+                "numberings and 4 orders and name pairings of the answers" % (nm, want_code, want_usable),
+                len(outs) == 1 and all(o[0] == want_code and o[2] == want_usable and o[3] for o in outs))
         for key, val in (("assembler_blob", "0" * 40), ("host_reader_blob", "0" * 40), ("extractor_blob", "0" * 40),
                          ("extractor_commit", "0" * 40), ("runs_sha256", "0" * 64)):
             case("a block naming another %s is refused" % key, [S(1, edit_source={"800": {key: val}}), S(2), S(3)], "FAILS",

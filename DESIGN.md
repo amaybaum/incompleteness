@@ -118,18 +118,28 @@ consistently.
   FAILS makes it FAILS, and anything else UNVERIFIED. The banner `BATCH SHARD K/32 RUNSET <sha256 of the sorted
   ids> RUNS n` names the set.
 - **Global, in the session.** `collect.py` requires:
+  - every served file to be attributable. Before any parsing, the raw bytes of every served file are scanned for
+    every shard they name (see the raw scan below). A file that does not parse as a job-log answer (truncated,
+    compressed, corrupt, enveloped, a mistyped job id), or an answer of a job outside the run that names no shard,
+    quarantines the whole collection: no run is eligible or usable, the verdict is FAILS, and the file is recorded
+    in `collected.json` by name and sha256;
+  - every expected served file to be present. Each shard's expected answer is the log of job "Extract shard K" in
+    the extraction run's jobs list, for every shard of the plan in `runs.json`. If any is absent, the collection is
+    quarantined in the same way, and the missing shard is recorded by its expected name (job id and job name);
   - every served log to be whole and under 5,000 lines;
   - an answer to belong to the shard the job index gives its job id. Identity comes from trusted collection
     metadata (the tool's job id and the extraction run's jobs list, every job at the launched 40-hex commit, on
     the launch branch, of this workflow), never from the log's own text. The log can only add shards to those a job
     is involved with, and every place it names one counts: every RUNSET line, the assembler banner, the end-of-output
-    marker, the verdict line, and the `runs.json` shard of every RESULT line and block. A damaged, missing or
-    reordered banner therefore cannot hide a mislabelled copy;
+    marker, the verdict line, the `runs.json` shard of every RESULT line and block, and everything the raw scan
+    finds in the file's bytes. A damaged, missing, reordered or reformatted banner therefore cannot hide a
+    mislabelled copy;
   - the job rule, decided after every file is read, so neither file order nor shard numbering can change it:
     - a job involved with two or more shards voids every one of them;
     - a job whose answers differ, or with an answer whose banner is missing or malformed, voids its shard
       (UNVERIFIED, none of its runs usable);
-    - an answer of a job outside the run fails and voids the shard its banner names;
+    - an answer of a job outside the run fails and voids every shard it names (and quarantines the collection if
+      it names none);
     - byte-identical copies are taken once;
   - each banner and RESULT set to match `runs.json`, and the assembler banner to name the pinned assembler,
     host-reader and extractor blobs, the extractor's commit and `runs.json`'s digest;
@@ -145,6 +155,11 @@ consistently.
   - the runs collected to be exactly the 223, each once.
 
   `collected.json` records, in separate fields:
+  - `verdict`, and `quarantine`: every unattributable file by name and sha256, and every missing answer by its
+    expected name;
+  - `failed_files`: every file that failed validation, by name and sha256, with its problems; and `voided_shards`,
+    every shard the job rule voided, with its reasons;
+  - for each run: `eligible` (diagnostic) and `usable`;
   - `launched_commit`: the full 40-hex `--head`, which the job index required of every job;
   - `collector`: the commit the collector was run from, the committed blob of `batchx/collect.py`, the git blob and
     sha256 of the bytes actually executed, whether they match the committed blob, and the values it pins;
@@ -153,10 +168,42 @@ consistently.
   It prints one `RUN` line per run with its expiry and verdict, and ends `COLLECT HOLDS` only when all 223 are
   usable.
 
-**One bad run cannot hide in a batch HOLDS**, because the shard and the batch hold only on explicit per-run HOLDS.
-**One bad run does not block the others either.** A run is usable when its RESULT line is HOLDS and its shard passed
-every check, whatever the other runs' verdicts. This is a change from #829, where a block was accepted only under a
-final `EXTRACT HOLDS` (open question 2).
+**The governing invariant.** A run may be marked usable only when the complete evidence collection succeeds
+(`COLLECT HOLDS`) and every relevant served file has been identified, validated and reconciled.
+- `collect.py` records each run's own result as `eligible`: its RESULT is HOLDS and its shard passed every check.
+  This is diagnostic only and licenses nothing.
+- Any unresolved attribution failure (an unattributable file, or a missing expected answer) quarantines the whole
+  collection: no run is eligible or usable. Any validation failure makes the collection FAILS, so no run is usable;
+  the failing file is recorded by name and digest.
+- Usability is decided in one place, where `collected.json` and the result files are written (`write_collection`):
+  a run is usable only when it is eligible and the collection's verdict is HOLDS. Under any other verdict no run is
+  usable and no result file is written, whatever the runs' own results.
+- So one bad run cannot hide in a batch HOLDS (the shard and the batch hold only on explicit per-run HOLDS), and a
+  failed collection cannot lend its eligible runs any standing.
+
+**The raw scan, and why no variant of a mislabelled copy can escape it.** The invariant it gives: no byte sequence in
+any served file can leave a shard usable if that file names the shard and is not a clean, consistent copy of it.
+- **What it reads.** The bytes of every served file, before and independent of any parsing. ANSI escape sequences
+  (raw or JSON-escaped) are removed; separators may be any whitespace or a JSON-escaped one; case is ignored; nothing
+  is anchored to a line start or a timestamp. It finds:
+  - the shard names `BATCH SHARD K/`, `ci-batch-extract shard K/`, `BATCH END shard K/` and `EXTRACT SHARD K/`;
+  - every `runs.json` run id or bridge job id written after `ci/`, `RESULT`, `CHECK`, `run` or `job`, or as the value
+    of an `id`, `job_id` or `run_id` key, or written anywhere as a bare number of 9 or more digits (every id in
+    `runs.json` has 11 or 12), each naming its run's shard;
+  - the value of any `job_id` key that the job index knows, naming that job's shard.
+- **Why parsing can no longer hide a name.** Every form in which the assembler writes a shard's identity (its
+  banner, RUNSET line, RESULT lines, blocks with their run and job ids, END and SHA256 lines, verdict and end
+  marker) contains one of these byte sequences, and the scan reads them wherever they sit and whatever parse they
+  are part of. A file the parser cannot read is not trusted to name only what it seems to name: it quarantines the
+  whole collection. A file the parser can read is an answer of a trusted job, and every shard the scan finds in it
+  joins that job's involved shards, so any shard it names other than its own voids both. The remaining way to hide
+  a shard's identity would be to write none of these forms, and then the file carries none of that shard's content
+  either: no RESULT, no block, no run id.
+- **The cost, accepted as fail-closed.** A genuine log that contains a shard-name-shaped line, or another shard's
+  run id, voids that shard and its own. No current runner line, `host.py` line or `assemble.py` line has such a
+  shape: controls.py's `[N1]` check scans the assembler's real output with `host.py`'s own line formats and the
+  runner's lines around it, and finds only the shard's own name; `collect.py`'s `[N1a]` checks the runner's line
+  shapes alone.
 
 ## 5. What a result records, and classification (question 4)
 
@@ -234,8 +281,8 @@ All run in the `selftest` job with no token, before any shard reads anything. Al
 |---|---|---|
 | `host.py --self-test` | 51 | 28 allow-list cases (6 allowed, 22 refused shapes); runs-file pin; a clean shard against local servers; the token only as Bearer to the API, never to storage; no leak of link, path, query or token; HTTP 410/404 recorded; rate-limit reserve stops JSON and log reads mid-shard; second redirect; non-https link; JSON redirect refused; no-redirect log; cap; short body; deadline; no token; job-count mismatch |
 | `assemble.py --self-test` | 75 | clean shard (green dispatch, green PR, red build), variant invariance, canonical/SHA256, no run-varying content; red gate, cancelled, not-built recorded and held; each fail-closed rule above as a mutation case with its expected verdict and reason; primed name under the pinned blob and under a simulated repair; malformed records; the run-set rule (missing, extra, duplicate, none) and the verdict table; line budget; CROSSCHECK never decisive; blob pin; interface pin; scan; host.py's digest pin |
-| `collect.py --self-test` | 85 | whole shards in any order; byte-identical output; a tail or a wrong `original_length` refused; missing and duplicate shard; RUNSET mismatch; missing or extra RESULT; tampered block; a block for a non-holding run; a block naming another head; a verdict line at odds with the RESULT lines; one UNVERIFIED or FAILS run among holders |
-| `controls.py` | 71 | the plan and pins, with 16 negative controls. The pins are cross-validated: collect.py's pins of the assemble.py and host.py blobs against the files' blobs; collect.py's `EXTRACT_RESULT_BLOB` and `MAIN_COMMIT` against assemble.py's; and the workflow's two `extract_result.py` checkout refs against `MAIN_COMMIT` (each must be caught); end to end: assemble.py's real output, served whole with a real-shaped runner trailer, is collected byte-identical, a red shard's output is read with its FAILS run named, and a tail is refused; the unmutated copy passes; **50 code mutants across the three scripts, all killed**, including the third review's own M1, M1b, M2, M3, M3b, M4 and M6. Each mutant for a review fix must fail every one of its named regression tests, matched by exact name; a table lists every test each one fails. The `[RP]` tests vary the real order of the answers and the name each is paired with, and pin each scenario's exit code and usable-run count |
+| `collect.py --self-test` | 110 | whole shards in any order; byte-identical output; a tail or a wrong `original_length` refused; missing and duplicate shard; RUNSET mismatch; missing or extra RESULT; tampered block; a block for a non-holding run; a block naming another head; a verdict line at odds with the RESULT lines; one UNVERIFIED or FAILS run among holders |
+| `controls.py` | 94 | the plan and pins, with 17 negative controls (including a `ref:` moved off the main-src checkout). The pins are cross-validated: collect.py's pins of the assemble.py and host.py blobs against the files' blobs; collect.py's `EXTRACT_RESULT_BLOB` and `MAIN_COMMIT` against assemble.py's; and the workflow's two `extract_result.py` checkout refs against `MAIN_COMMIT` (each must be caught); end to end: assemble.py's real output, served whole with a real-shaped runner trailer, is collected byte-identical, a red shard's output is read with its FAILS run named, and a tail is refused; the unmutated copy passes; **71 code mutants across the three scripts, all killed**, including the reviews' own M1, M1b, M2, M3, M3b, M4, M6, A7, B1–B3, C1 and D1; mutants for the raw scan, the quarantine, the completeness rule, the failed-file record and the governing invariant (both the withdrawn per-run rule and a vacuous never-usable variant); and an `[N1]` end-to-end check that the assembler's real output, `host.py`'s own lines and the runner's lines name only their own shard. Each mutant for a review fix must fail every one of its named regression tests, matched by exact name; a table lists every test each one fails. The `[RP]` tests vary the real order of the answers and the name each is paired with, and pin each scenario's exit code and usable-run count |
 
 CROSSCHECK lines compare each downloaded log with a session observation in `batchx/crosscheck.json`, sha256-pinned.
 The observation is `original_length` plus the sha256 of the last 40 served lines, recorded for five jobs that
@@ -272,12 +319,17 @@ tree holds no other workflow.
 2. Save the extraction run's jobs list from the JSON endpoint
    `repos/amaybaum/incompleteness/actions/runs/<run>/jobs?per_page=100`. Then run `python3 -I batchx/collect.py
    --runs batchx/runs.json --run-jobs <jobs list> --head <launched commit> --served <each saved answer> --out <dir>`.
-3. Commit only blocks that `collect.py` marks usable, in the archive's own tranche change. That change is reviewed
-   separately; this branch is never merged.
+3. Commit blocks only from a collection whose verdict is `COLLECT HOLDS`. `collect.py` then marks every run usable
+   and writes every block; under any other verdict it marks none usable and writes none. The earlier rule, which
+   committed blocks marked usable whatever the batch verdict, is withdrawn. The commit goes into the archive's own
+   tranche change, reviewed separately; this branch is never merged.
 
-**One launch covers all 223 runs.** A run left UNVERIFIED (budget, reserve, transient read failure) needs a second
-launch with a `runs.json` restricted to those runs: a new commit, a new review and a new authorization. Launching by
-about 2026-11-30 leaves three weeks for that before the first expiry on 2026-12-21.
+**One launch covers all 223 runs.** Under the governing invariant a single run left UNVERIFIED (budget, reserve,
+transient read failure) leaves the whole collection without a usable run. The remedy is a second launch (a new
+commit, a new review and a new authorization) whose own collection must hold: re-covering all 223 runs, about 669
+counted API calls again, or a smaller `runs.json` the owner defines for it, of which only its own runs can become
+usable (open question 2). Launching by about 2026-11-30 leaves three weeks for that before the first expiry on
+2026-12-21.
 
 ## 9. Open questions for the owner
 
@@ -288,8 +340,9 @@ about 2026-11-30 leaves three weeks for that before the first expiry on 2026-12-
 
    The tranche that lands these results needs a rule and a comparator for the new kind. Should that be designed now
    or after extraction?
-2. **Per-run use.** Should a holding run's block be usable when its shard or the batch is not HOLDS (this design),
-   or only under a batch HOLDS (the #829 rule)?
+2. **A second launch.** Per-run use is settled by the governing invariant: no run is usable unless the whole
+   collection holds. If the first collection does not hold, should the second launch re-cover all 223 runs, or a
+   run set the owner defines for it in advance?
 3. **"Class (a)".** Is the meaning in section 5 the intended one? If the owner's classification differs, the result
    content may still suffice, since it is claim-agnostic; only the gap naming would change.
 4. **Extractor.** Keep `05c41bce` for this launch (recommended; gaps named), or wait for the repair and repin?
