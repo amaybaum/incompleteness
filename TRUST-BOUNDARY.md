@@ -1,13 +1,14 @@
 # Batch collector: trust boundary for served-file parsing and output publication
 
-**Status: design only.** The independent design review of `3c0e1d72` approved it with required amendments A1 to A7.
-This text includes them, together with the review's D1 recommendation and the owner's decisions on PR #862
+**Status: design only.** The independent design review of `3c0e1d72` approved it with required amendments A1 to
+A7. This text includes them, together with the review's D1 recommendation and the owner's decisions on PR #862
 (comments 6247145466 and 6247194704): a per-file catch of a scan's conversion error (`ValueError`), and a boundary
-by stage and error kind that sends host failures to ABORTED. The table at the end shows where each one landed. Nothing here is implemented. The design was written against commit `09d439d0`, and every
-"now" statement below describes the code at that commit. Each one cites `batchx/collect.py` as `collect.py:N`, or
-names the other file it is in. After design review, one bounded
-implementation (section 8) follows, and then a fresh exact-SHA acceptance review. If that review finds a fail-open
-escape, the work returns to the owner. It is not patched again.
+by stage and error kind that sends host failures to ABORTED. The table at the end shows where each one landed.
+
+Nothing here is implemented. The design was written against commit `09d439d0`, and every "now" statement below
+describes the code at that commit. Each one cites `batchx/collect.py` as `collect.py:N`, or names the other file it
+is in. After design review, one bounded implementation (section 8) follows, and then a fresh exact-SHA acceptance
+review. If that review finds a fail-open escape, the work returns to the owner. It is not patched again.
 
 The owner's binding invariants (PR #862, comment 6246308787) are restated where they are enforced, so each one
 can be checked against a mechanism:
@@ -88,8 +89,10 @@ it. Every case is rejected and quarantines the collection unless the line says o
 
 - **Not a regular file (S5).** A directory (review E12), a missing path (E13), a FIFO or a device: rejected
   without reading. A symbolic link: rejected and never parsed. The regular file it points to is hashed for the
-  record only. A file whose own access is refused (`EACCES`, `EPERM`) is rejected as `unreadable`. Any other
-  `OSError` while reading is a host failure, which gives ABORTED (2.5, the boundary).
+  record only. A path that names nothing is rejected as `missing`: `lstat` gives `ENOENT`, or, for a mistyped
+  or mangled path, `ENOTDIR` (a component is not a directory) or `ENAMETOOLONG`. A file whose own access is refused
+  (`EACCES`, `EPERM`) is rejected as `unreadable`. Any other `OSError` while reading is a host failure, which gives
+  ABORTED (2.5, the boundary).
 - **Too large (S5).** Over `MAX_SERVED_BYTES = 16 MiB`. The largest saved answer seen is 812 KB. The file is
   hashed by streaming and never parsed.
 - **Encoding (S5).**
@@ -363,7 +366,7 @@ list in S4.
 
 | Class | Conditions | Stage | Outcome |
 |---|---|---|---|
-| **File-specific condition** (an attributed rejection, existing S5 rules) | the path is missing (`lstat` gives `ENOENT`); it is a directory, a symbolic link, a FIFO, a device or another non-regular kind; it is over the cap; the file's own access is refused (`EACCES` or `EPERM` from `lstat`, `open` or `read`), or it became a link between `lstat` and `open` (`ELOOP`); every grammar rejection of 2.2 | step 1 (the kinds `missing`, `directory`, `symlink`, `other`, `unreadable`) and step 4 | the file is rejected with its kind and reason, recorded with what steps 1 and 2 established, and the collection is quarantined. The intake continues |
+| **File-specific condition** (an attributed rejection, existing S5 rules) | the path names nothing (`lstat` gives `ENOENT`, `ENOTDIR` or `ENAMETOOLONG`; kind `missing`); it is a directory, a symbolic link, a FIFO, a device or another non-regular kind; it is over the cap; the file's own access is refused (`EACCES` or `EPERM` from `lstat`, `open` or `read`), or it became a link between `lstat` and `open` (`ELOOP`); every grammar rejection of 2.2 | step 1 (the kinds `missing`, `directory`, `symlink`, `other`, `unreadable`) and step 4 | the file is rejected with its kind and reason, recorded with what steps 1 and 2 established, and the collection is quarantined. The intake continues |
 | **Recoverable scan or conversion error** (the per-file catch above) | `ValueError`, with its subclasses, raised by the byte scan, the decoded scan or the parsed readings | steps 3 and 5 | the file is rejected with `byte scan failed`, `decoded scan failed` or `parsed scan failed`, and `names_shards` is null. The collection is quarantined, and the intake continues |
 | **Host failure** (the infrastructure route) | `MemoryError`; any `OSError` that is not one of the file-specific errors above, for example `EIO`, `ENOSPC`, `ENOMEM`, `EMFILE` or `ENFILE`, at any step; an interrupt, or any `BaseException` that is not an `Exception` | any step of S3, S4 or S5, and any later state | ABORTED, exit 4. The stdout lines and the existing guarantees apply: no `COLLECT PUBLISHED` line, and `--out` not created by this invocation. The `COLLECT FILE` lines of the files already taken in are printed before the `COLLECT ABORTED` line. Nothing is published, so a host failure is never recorded as a file's rejection, never counted as an evidence failure, and never leaves a current HOLDS |
 
@@ -483,7 +486,8 @@ collected.json sha256 <hex>`. The last line is `COLLECT <verdict>`, as now.
   - an unforeseen exception, reached through S10.
 
   Only the REFUSED and ABORTED outcomes publish nothing. REFUSED has read nothing. ABORTED is a failure of the
-  writer itself, and its `COLLECT FILE` lines still trace every served file on stdout.
+  writer or of the host. After S5, its `COLLECT FILE` lines trace every served file; a host failure that ends S5
+  early traces the files taken in before it (2.5).
 
 **S5 always runs.** Every served argument is hashed and grammar-checked even when S3 or S4 failed. A scan's
 `ValueError` on one file rejects that file and does not stop the intake (the per-file catch of 2.5). A collection
@@ -701,7 +705,7 @@ so is `[I5]`'s if its dict changes. Both keep their names, so the existing mutan
 | Test | Case | Proves |
 |---|---|---|
 | `[TB-DIR]` | E12, a served directory | `kind: "directory"`, no digest, published QUARANTINED |
-| `[TB-MISS]` | E13, a missing path | `kind: "missing"`, told apart from a missing *expected* answer |
+| `[TB-MISS]` | E13, a missing path; a path through a regular file (`served-0.json/x`, so `lstat` gives `ENOTDIR`); a path whose last component is longer than the filesystem allows (`ENAMETOOLONG`) | each one `kind: "missing"`, rejected as `not a regular file (missing)` and never a host failure: published QUARANTINED, exit 1; told apart from a missing *expected* answer |
 | `[TB-LINK]` | a symbolic link to genuine S1, as shard 1's only file | refused; the target's digest is recorded |
 | `[TB-FIFO]` | a FIFO | refused without blocking |
 | `[TB-SAME]` | C2, the same path twice; and a hard link | HOLDS with 6 usable; both arguments recorded; `same_file_as` set |
@@ -948,3 +952,4 @@ section 5 adopts.
 | `[TB-INJ]` on-disk assertions (confirmation pass at `e5cbf62e`) | `[TB-INJ]` asserts the quarantine from `collected.json` on disk (FAILS, `quarantined`, no usable run, no `ci/`, the rejected file under its embedded-newline name) and the PUBLISHED line's digest against the file on disk; harness rule 7 captures stderr and asserts it is empty, since collection mode writes nothing there | 6 (harness rule 7, the in-process `main` note, `[TB-INJ]`) |
 | Per-file catch for intake-step failures (owner's option 2, after the implementation halted at `1f0b3abe`) | the unchanged `raw_named` raises `ValueError` on more than 4,300 digits after a `"job_id"` key or a shard name, before the grammar; any exception in a per-file intake step now rejects that file with its reason, records it, and lets the intake continue, so S5 still traces every argument; `[TB-SCAN]` and mutant L17 test it; the 5,000-digit `job_id` moves from `[TB-TYPE]` to `[TB-SCAN]` | 1 (malformations); 2.2 (rejection order, the reasons); 2.5 (the per-file catch); 3 ("Every path gets a code", S5, "S5 always runs"); 6 (`[TB-TYPE]`, `[TB-SCAN]`, L17, the mutant count); 8 (`evaluate`, `raw_named`, `MUTANTS`, the acceptance list); the status line |
 | Per-file catch narrowed; the boundary by stage and error kind (confirmation pass at `08b1ac45`; the owner's comments 6247145466 and 6247194704) | the catch covers only `ValueError` (with its subclasses) from the byte scan, the decoded scan and the parsed readings `shard_of` and `shards_named`, which now run in the intake; the catch-all `intake failed` reason removed; a three-class boundary: file-specific conditions (missing, non-regular, over the cap, the file's own `EACCES`/`EPERM`/`ELOOP`, grammar rejections) stay attributed rejections, recoverable scan errors are per-file rejections, and host failures (`MemoryError`, any other `OSError` such as `EIO` or `ENOSPC`, interrupts) at any step are ABORTED (exit 4), never published and never a file's rejection; S10 no longer catches host failures; other exceptions keep S10's `internal` quarantine; `names_shards` null whenever a scan raised; `candidates` qualified; the huge-integer case stated as a scan conversion failure with no fall-through; `[TB-SCAN]` gains case (d) and the `[TB-INJ]` stdout checks; `[TB-SCANX]` injects `MemoryError`, `ENOSPC` and `EIO` at the scan and at the read; mutants L18-L20; the §1 bullet moved after X3 | status line; 1 (malformations, not a regular file); 2.2 (rejection order, the reasons); 2.5 (the parsed readings, the per-file catch, the boundary table); 3 ("Every path gets a code", S5, S10, "S5 always runs"); 5 (`names_shards`, `candidates`); 6 (`[TB-SCAN]`, `[TB-SCANX]`, L17-L20, the mutant count); 8 (`evaluate`, `raw_named`, `MUTANTS`, the acceptance list) |
+| N2 wording and path errnos (confirmation pass at `3db007b3`) | §3's N2 note made consistent with 2.5: an ABORTED after S5 traces every served file, and one that a host failure ends during S5 traces the files taken in before it; a mistyped or mangled `--served` path (`ENOTDIR`, `ENAMETOOLONG` from `lstat`) is a file-specific `missing` condition, not a host failure; `[TB-MISS]` gains both cases; the status paragraph rewrapped | status paragraph; 1 (not a regular file); 2.5 (the boundary table); 3 (the N2 note); 6 (`[TB-MISS]`) |
