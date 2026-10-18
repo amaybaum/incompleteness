@@ -970,7 +970,7 @@ and activation condition; it is not evidence or a governed native-round control 
 use one guiding draft pull request**, opened by the first substantive working checkpoint.
 A research-only thread currently producing or independently reviewing substantive
 calculations is active even if no result is adopted or merge is planned; historical
-results on a paused thread do not alone keep its PR active. The PR tracks pushed work
+results on a paused thread do not alone keep its PR active. The PR tracks pushed work in progress; a
 local checkout, agent scratchpad or private worktree is not the authoritative tracker.
 Reuse a thread's guiding PR; reviewers and checkpoints do not each need separate PRs.
 A draft PR is neither approval nor certification nor the durable evidence on `main`
