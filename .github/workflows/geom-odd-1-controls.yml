@@ -1,0 +1,69 @@
+name: GEOM-ODD-1 controls preflight
+
+# Dispatch only. This workflow has no push, pull_request, schedule, workflow_run or repository_dispatch trigger:
+# it runs only when someone dispatches it, on the ref they name. It runs the two controls of the GEOM-ODD-1 design
+# (eball 3 with the kernel's cnot; E16b's Omega_h with its gate), each in its own job, each capped at 1200 s of wall
+# clock by run_control.py, with timeout(1) and the job's timeout-minutes as backstops. No search body is run.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: geom-odd-1-controls-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  control:
+    name: GEOM-ODD-1 controls / ${{ matrix.control }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        control: ['eball3', 'omegah']
+    env:
+      PREFLIGHT: verification/programmes/oi-qm/reconstruction/round-geom-odd-1/preflight
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install the generator's dependencies
+        run: pip install numpy==2.4.6 scipy==1.17.1
+
+      - name: Exact verifier self-test (standard library only)
+        run: python3 -I "$PREFLIGHT/controls_verify.py" --self-test
+
+      - name: Control ${{ matrix.control }}, capped at 1200 s
+        run: |
+          mkdir -p out
+          timeout --signal=KILL 1260 python3 -I "$PREFLIGHT/run_control.py" '${{ matrix.control }}' 1200 \
+            "out/result-${{ matrix.control }}.json"
+
+      - name: Result
+        if: always()
+        run: |
+          for f in out/result-*.json out/verify-*.json; do [ -f "$f" ] && { echo "== $f"; cat "$f"; echo; sha256sum "$f"; }; done
+          [ -f out/candidate-${{ matrix.control }}.json ] && sha256sum out/candidate-${{ matrix.control }}.json || true
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: geom-odd-1-controls-${{ matrix.control }}
+          path: out/
+          if-no-files-found: warn
+
+  controls:
+    name: GEOM-ODD-1 controls (both)
+    needs: control
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Both controls passed
+        env:
+          RESULT: ${{ needs.control.result }}
+        run: test "$RESULT" = success
