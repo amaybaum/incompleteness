@@ -12,9 +12,10 @@ additional, independently sourced compatibility premises, or that the example
 is a complete physical OI model.
 
 Here [W] means a written universal argument, [X] exact computation, [K] an
-existing adopted Lean theorem, [A] a cited audited historical record, and [D]
-design validation. The computations supplement the universal arguments;
-sampling never establishes a cone-wide statement.
+existing adopted Lean theorem, [H] a stage-6 historical record whose written
+proof is not retained on main and which enters only as a stated condition,
+and [D] design validation. The computations supplement the universal
+arguments; sampling never establishes a cone-wide statement.
 
 Under AGENTS §A.31 this audit is **CONFIRMING**: availability's premises do
 not mention the given cone, and the physical compatibility gap was already
@@ -163,7 +164,7 @@ conclusion of this audit.
 
 The research-only [availability_example.lean](availability_example.lean)
 contains an anonymous example of the same specialization at every k. The
-branch workflow compiles it separately against the adopted module; it is not
+research workflow compiles it separately against the adopted module; it is not
 imported into OIBridge or claimed as a new adopted reconstruction theorem.
 
 ## Retained and excluded pair premises
@@ -180,10 +181,10 @@ a countermodel for a stronger premise set:
 
 | Clause | K_B | K(Z_F) |
 |---|---|---|
-| Ball products, closed convex cone, maxCone | Satisfied [W] | Satisfied in stage 6, R6 N5 and REASSESSMENT §4 [A] |
+| Ball products, closed convex cone, maxCone | Satisfied [W] | Ball products and maxCone [W] below; closedness recorded in stage 6 [H] |
 | Every finite-protocol inventory premise | Satisfied with fullClass as above | Same inventory specialization; independent of the cone |
-| Self-duality (stage-6 H3) | Fails: W is in K_B's dual but has a negative eigenvalue and cannot belong to K_B | Satisfied in stage 6 [A] |
-| CNOT preservation | Fails, explicit product witness below [X] | Satisfied in stage 6 [A] |
+| Self-duality (stage-6 H3) | Fails: W is in K_B's dual but has a negative eigenvalue and cannot belong to K_B | Recorded in stage 6 [H] |
+| CNOT preservation | Fails, explicit product witness below [X] | Recorded in stage 6 [H] |
 | Full-flow and cyclic preservation | Fails; the displayed stopped-channel witness prevents the target drive preserving K_B | Fails in stage 6; a fresh depth-one witness is below |
 | Embedded-observer physical realization | Not supplied | Not supplied by stage 6; no obstruction established there |
 
@@ -192,8 +193,8 @@ For the CNOT failure, take the product projector onto
 Therefore K_B cannot be used as a counterexample while retaining CNOT
 preservation or H3. The successor must test the new compatibility premise on
 K_B in the common domain before adding such stronger assumptions. Its separate
-stronger stage-6 lane uses K(Z_F). No claim is made that K_B meets every item in
-the 199-item historical inventory.
+stronger stage-6 lane uses K(Z_F), conditional on its [H] clauses. No claim is
+made that K_B meets every item in the 199-item historical inventory.
 
 ## Historical K(Z_F): an explicit finite witness
 
@@ -206,9 +207,9 @@ The historical definition is
 Products lie in Q3 intersect Z_F*: the product pairing with a defect is
 `(1+s a1 c3+t a2 c2-s t a3 c1)/16 >= 0` on the two unit balls, by
 Cauchy–Schwarz for the signed permutation of c. Each defect also has
-nonnegative product pairings, so the sum cone satisfies maxCone [W]. The
-historical closedness, self-duality and CNOT invariance are cited [A], not
-newly established by a finite generator sample.
+nonnegative product pairings, so the sum cone satisfies maxCone [W]. Its
+closedness, self-duality and CNOT invariance are stage-6 records [H]; they are
+not established here or by a finite generator sample.
 
 Use the generator e_(-1,+1) (index 1 in lexicographic sign order) and the
 positive projector `T=uu†`, with `u=(1,-i,1,i)/2`. Its pairings with the four
@@ -227,10 +228,22 @@ displayed channel formula. The historical defect has trace 1/4; these values
 use that exact scaling. Multiplying the generator by four normalizes its
 trace and multiplies the three pairings by four.
 
-Historical references, frozen at `e7d380fcb9881e3063243aaa149e85be3cd0a914`:
+Historical references, at the off-main commit
+`e7d380fcb9881e3063243aaa149e85be3cd0a914`:
 [R6 NOTES N2/N5](https://github.com/amaybaum/incompleteness/blob/e7d380fcb9881e3063243aaa149e85be3cd0a914/research/archive/pt/R6/NOTES.md),
 [R6 REASSESSMENT §4](https://github.com/amaybaum/incompleteness/blob/e7d380fcb9881e3063243aaa149e85be3cd0a914/research/archive/pt/R6/REASSESSMENT.md),
 and [stage-6 integration §5, disguise test](https://github.com/amaybaum/incompleteness/blob/e7d380fcb9881e3063243aaa149e85be3cd0a914/research/archive/pt/INTEGRATION-NOTE-STAGE6.md).
+The links are provenance. Of these files, main retains only `R6/NOTES.md`
+(blob `62cdd79871c0fd78215be69f4d4ea630e178273d`), in
+`verification/audits/evidence-retention/objects/`; its N2 and N5 entries list
+the alternatives and record that the stage-6 certificates passed.
+`R6/REASSESSMENT.md` (blob `04e35df63bade710994d57b317bc0a599551277c`) and
+`INTEGRATION-NOTE-STAGE6.md` (blob `22261d7c8f5963b45bdabefab8badae30a23d250`),
+which record the closedness, CNOT and H3 self-duality results for K(Z_F),
+are not retained on main; nor is the complete written H3 proof they rely on,
+`pt/T6/TEST.md` §3.3 at that commit (blob
+`335cdc08701306d77670b6836e8081e244068de4`). Every [H] clause rests on
+these files.
 The adopted `round-oi-channel-1-audit/result.md` separately preserves the
 historical inventory's 118 satisfied, 13 failed-hypothesis and 68 unreached rows.
 Those historical counts and evidence statuses remain unchanged.
@@ -268,14 +281,16 @@ state–operation compatibility. Restricted rank-one consistency holds throughou
 SEP ⊆ C ⊆ maxCone; general available one-token preservation asserts the target
 directly; complete dual-test closure restates preservation; product-test
 saturation admits the classical comparison but rejects quantum PSD and grants
-Q3 inclusion before any derivation. These are CONFIRMING written arguments,
-with corrected, pinned exact design controls. No independent physical source
-is obtained. The proposed native round in #819 is withdrawn before F; the
-assessment stays research-only and adds no main CI job or receipt.
+Q3 inclusion before any derivation. These are CONFIRMING written arguments.
+No independent physical source is obtained. The proposed native round in #819
+was withdrawn before F; the assessment stays research-only and adds no
+receipt or CI job of its own.
 
 The later [spectrality screen](../physical-state-operation-compatibility/spectrality.md)
 examines a different, externally motivated state/test postulate. It excludes
-both fixtures by written arguments and passes quantum and classical comparisons;
+K_B by a written argument, excludes K(Z_F) by a written argument conditional
+on that fixture's trace self-duality [H], and passes quantum and classical
+comparisons;
 its physical source and its implication to preservation remain UNRESOLVED.
 This candidate screen does not upgrade the four-reading assessment or the
 stage-6 statuses.
@@ -292,18 +307,25 @@ python3 -I -B verification/programmes/oi-qm/reconstruction/bridge-compatibility-
 The second command requires SymPy (validated with 1.14.0); the first uses only
 the Python standard library. Both fail before a verdict if a control fails.
 
-The branch's `bridge compatibility research` workflow repeats both calculations,
-compares the saved outputs and checks the digest manifest. It is a research
-replay and separate Lean design compilation, not a native F/E attestation.
+The `bridge compatibility research` workflow runs on every push and pull
+request touching this directory, the spectrality screen's directory,
+`BridgeFiniteProtocol.lean` or the workflow file. It repeats the four
+calculations, compares each with its expected result, checks the digest
+manifest and compiles availability_example.lean against the adopted module.
+It is a research replay and design compilation, not a native F/E attestation.
 
 - [probe.py](probe.py): 197 exact controls, rederived corrected Kraus blocks,
   stopped recurrence, Pauli round trips, trace normalization, density checks
-  and reset/correction/identity/phase countercontrols. Its only change from the
-  originally saved source is replacing the absolute ROOT assignment by
-  repository discovery. Reversing that one line recovers SHA256
+  and reset/correction/identity/phase countercontrols. It differs from the
+  originally saved source in two places: repository discovery replaces the
+  absolute ROOT assignment, and two unused imports are removed. Restoring
+  `import hashlib` and `import json` after the `pathlib` import and the
+  original ROOT line recovers SHA256
   `e60d4cafac9d1a72cc9635fd49198f33863d39043844d9fdbfc1de930478f431`.
-  The original line, verbatim, is `ROOT = Path('/workspace/pr817-review')`;
-  its published replacement is `ROOT = Path(__file__).resolve().parents[5]`.
+  The original line, verbatim, is `ROOT = Path('/workspace/pr817-review')`,
+  a session working directory; its published replacement is
+  `ROOT = Path(__file__).resolve().parents[5]`. Its expected result is
+  [probe-output.txt](probe-output.txt).
 - [independent_check.py](independent_check.py): 53 exact controls, rational
   pairs and sparse matrices, gate-composed circuit, explicit uniform
   attachment, reset/readout, feed-forward and partial-trace simulation on
@@ -311,16 +333,21 @@ replay and separate Lean design compilation, not a native F/E attestation.
   branch extraction or stopped recurrence. It checks both cone witnesses.
   This is a separately implemented checker by the same assistant, not a claim
   of independent authorship or external review.
-- [original-plan.txt](original-plan.txt), [original-output.txt](original-output.txt)
-  and [original-replay.txt](original-replay.txt) preserve the earlier locally
-  saved evidence byte for byte. The plan is a historical exploratory decision
-  rule, not a native preregistration. The new checker and ZF supplement are
-  post-result verification and are not represented as prospectively frozen.
-- [independent-output.txt](independent-output.txt) records the separate run.
+- [original-plan.txt](original-plan.txt) and [original-output.txt](original-output.txt)
+  are kept byte for byte as provenance, not as evidence: the exploratory
+  decision rule, and the transcript of the original probe's run in that
+  session directory. The transcript's claims are carried by the expected
+  result [probe-output.txt](probe-output.txt), whose body is byte-identical
+  to it. The plan is a historical exploratory decision rule, not a native
+  preregistration. The new checker and ZF supplement are post-result verification and are not represented as prospectively frozen.
+- [probe-output.txt](probe-output.txt), [independent-output.txt](independent-output.txt)
+  and the spectrality screen's two outputs are expected results. Each header
+  states the form (complete), the recipe, the commit it holds at, and the
+  script and input digests; the rest is the recipe's exact stdout.
   Replay equality checks determinism; the different implementation checks the
   calculation. Neither replay alone proves the model.
-- [SHA256SUMS](SHA256SUMS) pins the saved record and scripts. New source changes
-  should be recorded as revisions, not silently treated as the old audit.
+- [SHA256SUMS](SHA256SUMS) pins the record files, scripts, expected results
+  and the workflow. New source changes should be recorded as revisions, not silently treated as the old audit.
 
 No full physical independence conclusion follows. The missing question is why
 an independently identified physical state cone must be compatible with the

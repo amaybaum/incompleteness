@@ -3,7 +3,7 @@
 **Status: CONFIRMING research, not a native execution.** This assessment
 replaces the proposed native round in [draft PR #819](https://github.com/amaybaum/incompleteness/pull/819),
 withdrawn before any owner designation of F. It supplies no new physical
-compatibility principle, adopted theorem, main CI job or receipt.
+compatibility principle, adopted theorem or receipt.
 
 The independently given preparation cone C is closed and convex, with
 SEP ⊆ C ⊆ maxCone. The inventory retains the explicit finite-protocol
@@ -69,45 +69,42 @@ Excluding the fixtures this way supplies no new selection of quantum states.
 ## Classical comparisons bearing on the actual claims
 
 Conjugation by diagonal I tensor D fixes every diagonal matrix, so the actual
-Phi_1 fixes the entire classical diagonal cone. Exact checks on the four
-diagonal matrix units extend by linearity to the whole cone. Native coordinate
+Phi_1 fixes the entire classical diagonal cone: D is diagonal and unitary, so
+each diagonal matrix unit is fixed, and linearity extends this to the whole
+cone. Native coordinate
 filters preserve it; Phi_1's dual pullback fixes every coordinate test and
 its nonnegative span.
 
 For diag(d_0,...,d_3), the four diagonal product tests return exactly those
 coordinates. Their positivity is equivalent to membership in the nonnegative
 diagonal cone. PS therefore **admits classical theory and rejects quantum PSD
-theory**. These controls test the protocol, filters, dual closure and saturation;
-the unrelated bit-flip comparison has been removed. The classical comparison
+theory**. These comparisons bear on the protocol, filters, dual closure and
+saturation. The classical comparison
 does not claim ball tokens or availability of the balanced circuit: the
 restriction of the actual map is its identity operation.
 
 ## Evidence and disposition
 
 The universal conclusions above are written arguments, not finite-sample
-claims or new Lean theorems. Exact design evidence is pinned at
-[`b65c538a`](https://github.com/amaybaum/incompleteness/tree/b65c538a9a081881863a9c52cc89d1dea7d21383/verification/programmes/oi-qm/reconstruction/round-oi-state-operation-source-1).
-Its argument, probe, independently implemented fixture checker and design
-controls remain on that research commit. The drafting snapshot was main at
+claims or new Lean theorems, and that is their evidence level. The
+separators −1/4 and −1/16 they use are the bridge audit's exact results,
+replayed with its expected results. The drafting snapshot was main at
 `dee3b5ae` after #818; the bridge audit's baseline remains `d69acffa`. The
 cited Lean sources are unchanged between those snapshots.
 
-The corrected self-test passes 1,181 exact controls (640 readout and 320
-filter cases), the separate 53-control fixture check, and rejects all 14
-mutations (four construction and ten policy mutations).
-[Design CI run 38392163169](https://github.com/amaybaum/incompleteness/actions/runs/38392163169)
-passed at the pinned commit. This is disclosed post-review design validation,
-not a native F/E attestation. Original bridge scripts and saved evidence
-remain unchanged; the bridge workflow continues their separate replay.
-
-The prospective native workflow selects the PR head SHA rather than GitHub's
-synthetic merge HEAD. That corrected prototype remains research-only; no
-additional job is adopted on main. No F was designated, so the abandoned
-draft has no execution or halted receipt.
+The withdrawn draft's argument, probe, fixture checker and design controls
+were developed at the research commit
+[`b65c538a`](https://github.com/amaybaum/incompleteness/tree/b65c538a9a081881863a9c52cc89d1dea7d21383/verification/programmes/oi-qm/reconstruction/round-oi-state-operation-source-1)
+and run by
+[design CI run 38392163169](https://github.com/amaybaum/incompleteness/actions/runs/38392163169)
+at that commit. Neither the commit nor the run's log is retained on main, so
+they are provenance only and no conclusion here rests on them. The draft's
+prototype workflow is not adopted. No F was designated, so the draft has no
+execution or halted receipt.
 
 LC is too weak, LO asserts the target, DT is its dual restatement, and PS
 grants unearned quantum inclusion. None yields an independently sourced
 physical principle. This closes only these four readings, not all possible
 physical compatibility principles. A future candidate must satisfy the
-[research criteria](../physical-state-operation-compatibility/preregistration.md)
+[research criteria](../physical-state-operation-compatibility/criteria.md)
 with a new independent source. Existing stage-6 and P0 statuses are unchanged.

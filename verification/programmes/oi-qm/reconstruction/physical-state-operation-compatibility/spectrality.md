@@ -1,8 +1,8 @@
 # Spectrality: an externally motivated candidate, not a compatibility derivation
 
-**Status: research candidate for review; source and preservation implication
-UNRESOLVED.** No native control plane, F designation, adopted axiom or receipt.
-This exploratory screen follows the [research criteria](preregistration.md)
+**Status: research candidate for review; the K(Z_F) exclusion is conditional
+on H3; source and preservation implication UNRESOLVED.** No native control plane, F designation, adopted axiom or receipt.
+This exploratory screen follows the [research criteria](criteria.md)
 and the [four-reading assessment](../bridge-compatibility-audit/source-assessment.md).
 The arguments were constructed before the scripts were run; computations
 check disclosed certificates, not blind predictions. Classification under
@@ -49,15 +49,24 @@ assumption.
 | Closed convex C, ball products, C⊆maxCone, trace normalization | Common domain, as in the bridge audit |
 | Full finite-protocol availability premises | Retained at their original status; no extra operation used |
 | K_B=SEP+R+ B | Same explicit fixture; no CNOT or self-duality assumption |
-| K(Z_F)=(Q3∩Z_F*)+cone Z_F | Same explicit fixture and historical certificates |
-| Trace self-duality of K(Z_F) | Historical written proof [A+W], used for its maximal effects; not a new kernel theorem |
+| K(Z_F)=(Q3∩Z_F*)+cone Z_F | Same explicit fixture; product and maxCone clauses proved in the bridge audit |
+| Trace self-duality (H3) of K(Z_F) | Condition of the K(Z_F) exclusion; its stage-6 written proof is not retained on main and not verified here |
 | SP on the physical pair | External postulate; not derived from existing OI premises |
 | SP ⇒ guaranteed stopped-map preservation | UNRESOLVED |
 | SP with extra H3/CNOT premises | Stronger-lane implication and input gate UNRESOLVED; not used as a baseline |
 
-Stage-6 provenance:
+Stage-6 provenance, at the off-main commit
+`e7d380fcb9881e3063243aaa149e85be3cd0a914`:
 [integration §§2–4](https://github.com/amaybaum/incompleteness/blob/e7d380fcb9881e3063243aaa149e85be3cd0a914/research/archive/pt/INTEGRATION-NOTE-STAGE6.md)
-and [R6 reassessment](https://github.com/amaybaum/incompleteness/blob/e7d380fcb9881e3063243aaa149e85be3cd0a914/research/archive/pt/R6/REASSESSMENT.md).
+(blob `22261d7c8f5963b45bdabefab8badae30a23d250`) and
+[R6 reassessment](https://github.com/amaybaum/incompleteness/blob/e7d380fcb9881e3063243aaa149e85be3cd0a914/research/archive/pt/R6/REASSESSMENT.md)
+(blob `04e35df63bade710994d57b317bc0a599551277c`). These two files record H3
+for K(Z_F); the complete written proof they rely on is `pt/T6/TEST.md` §3.3
+at that commit (blob `335cdc08701306d77670b6836e8081e244068de4`). None of
+the three is retained on main. From that commit, main's
+`verification/audits/evidence-retention/objects/` retains the R6 tree and `R6/NOTES.md` (blob `62cdd79871c0fd78215be69f4d4ea630e178273d`),
+whose N5 entry records that the stage-6 H3 certificates passed but does not
+contain the proof.
 Current availability is the existing `finite_protocol_spectator`, and the
 coordinate representation is the adopted Pauli dictionary; neither derives SP.
 
@@ -85,7 +94,7 @@ effects. The nontrivial mixture X_B has no frame decomposition: K_B fails SP.
 This also proves SP's failure for SEP itself; the Bell exclusion step is then
 unnecessary. This is a universal effect bound, not a sample of measurements.
 
-## K(Z_F) violates SP: a face containing no distinguishable pair
+## K(Z_F) violates SP if it is trace self-dual
 
 Rescale the historical defects as z_i=4e_i, so Tr z_i=1. Set
 P_i=I/2−z_i. These are four orthogonal rank-one Bell-type projectors summing
@@ -111,8 +120,8 @@ exactly the disk of two-by-two PSD matrices, in the v,w basis, with diagonals
 (2/3,1/3). The other cuts are automatic since r_j<1/2 for j>1. Its pure
 points are rank-one vectors a with |a_1|²=2/3, |a_2|²=1/3; X_Z is not pure.
 
-Suppose two pure points a,b in this disk were perfectly distinguishable.
-By the fixture's historical trace self-duality, a binary effect E and I−E
+Assume H3, trace self-duality of K(Z_F). Suppose two pure points a,b in
+this disk were perfectly distinguishable. By H3, a binary effect E and I−E
 belong to K(Z_F). Compress their PSD-plus-defect decompositions to S.
 All z_j with j>1 compress to PSD matrices, because their eigenvalues are
 1/2 and 1/2−r_j. The exceptional compression is
@@ -130,9 +139,10 @@ phases,
 
 This contradiction rules out every distinguishable pair in the exposed face,
 even using all dual effects. A frame of size at least two would contain such
-a pair; a singleton cannot decompose its mixed center. Thus X_Z has no SP
-decomposition. This proof relies on the historical self-duality certificate
-at its written evidence level, not on finite checks proving self-duality.
+a pair; a singleton cannot decompose its mixed center. Thus, under H3, X_Z
+has no SP decomposition and K(Z_F) fails SP. The exclusion is conditional on
+H3, whose stage-6 written proof is not retained on main and is not
+re-verified here; the finite checks below do not establish self-duality.
 
 ## Positive comparisons and the input/disguise gates
 
@@ -149,8 +159,9 @@ projectors give SP decompositions and distinguishing tests. C_co contains
 all PSD products and lies in maxCone: its pairing with a product equals a
 PSD pairing with the transposed local factor. Yet B is absent because Γ(B)
 has eigenvalue −1/2. This is an input-gate witness, not a stronger-lane model:
-C_co fails the native CNOT requirement. Adding H3/CNOT/extra reconstruction
-postulates needs a separate implication and gate audit; none is silently added.
+C_co fails the native CNOT requirement. The product state |+⟩⊗|0⟩ is fixed
+by Γ and so lies in C_co; CNOT maps it to B, which lies outside C_co.
+Adding H3/CNOT/extra reconstruction postulates needs a separate implication and gate audit; none is silently added.
 
 The target third-axis flow does not imply SP: SEP is invariant under all
 local unitary flows and all stopped maps, but the X_B argument excludes its
@@ -162,28 +173,38 @@ cones cannot substitute for proving any of those implications.
 
 ## Evidence, reproduction and limits
 
-[spectrality_check.py](spectrality_check.py) checks 77 exact certificates and
+[spectrality_check.py](spectrality_check.py) checks 79 exact certificates and
 rejects four mutations: distinguishable product inputs, the wrong defect,
 the wrong cap and an indefinite quantum comparison.
 [spectrality_independent.py](spectrality_independent.py) uses a separately
-written standard-library rational complex matrix implementation: 57 controls,
-no import of SymPy or the first checker. Both reproduce the same key fractions
-from the actual Pauli defects. They verify certificates supporting the written
-proofs; they do not computationally establish all effects, all decompositions
+written standard-library rational complex matrix implementation: 76 controls,
+no import of SymPy or the first checker. From the actual Pauli defects, both
+compute the Bell support gap 144/313, the K_B effect bound 10/13 (the
+independent checker as the sum of the two local Helstrom gaps), the
+projection weights, the cut pairings and the K(Z_F) overlap bound (1+t)/3
+(the independent checker from the compressed defect and the face diagonal,
+on 0≤t≤2), and both check the CNOT witness for C_co. They verify
+certificates supporting the written proofs; they do not computationally establish all effects, all decompositions
 or a source implication. Same assistant, distinct implementations, no claim
 of independent authorship.
 
 Run each from the repository root with `python3 -I -B` (the first requires
-SymPy 1.14.0). The existing bridge research workflow replays their saved
-outputs alongside the original bridge checks. No main CI job is added.
+SymPy 1.14.0). Their expected results,
+[spectrality-output.txt](spectrality-output.txt) and
+[spectrality-independent-output.txt](spectrality-independent-output.txt),
+name their recipe, form and script digest in a header. The
+`bridge compatibility research` workflow replays both beside the bridge
+checks on every push and pull request touching these two record
+directories, `BridgeFiniteProtocol.lean` or the workflow itself. It is a
+research replay, not a native F/E attestation.
 The first matrix self-test rejected its wrong-defect mutation at rank/trace,
 while the harness initially expected idempotence to fail: the wrong matrix
 is a rank-three projector. Correcting that expected failure label yielded
 the green rerun; no verdict was printed by the failed harness.
 
-**Outcome:** SP is an externally motivated candidate that excludes both
-fixtures by a different, static state/test clause and passes the two positive
-comparisons. It is not yet a physical compatibility principle established
-from OI, and no preservation theorem is supplied. The next obligation is the
+**Outcome:** SP is an externally motivated candidate that excludes K_B, and
+K(Z_F) conditionally on H3, by a different, static state/test clause, and
+passes the two positive comparisons. It is not yet a physical compatibility
+principle established from OI, and no preservation theorem is supplied. The next obligation is the
 source/implication question, not a native execution of these exclusion checks.
 Existing K2, K3, arbitrary-carrier and P0 classifications remain unchanged.

@@ -128,11 +128,21 @@ def calculate(mutation):
 
     classical = s.diag(R(1, 2), R(1, 3), R(1, 6), 0)
     coordinates = [s.diag(*(1 if k == j else 0 for k in range(4))) for j in range(4)]
-    check('classical spectral preparation', sum((classical[j, j]*e for j, e in enumerate(coordinates)), s.zeros(4)) == classical)
+    weights = [classical[j, j] for j in range(4)]
+    check('classical spectral preparation', classical.is_diagonal() and all(c >= 0 for c in weights) and
+          sum(weights) == 1 and sum((c*e for c, e in zip(weights, coordinates)), s.zeros(4)) == classical)
     check('classical distinguishing measurement', all(pairing(e, f) == int(j == k)
           for j, e in enumerate(coordinates) for k, f in enumerate(coordinates)))
-    check('co-quantum involution', partial_transpose(partial_transpose(B)) == B)
+    y_plus = s.Matrix([1, s.I])*s.Matrix([1, s.I]).H
+    check('co-quantum transpose acts on the second token only',
+          partial_transpose(s.kronecker_product(y_plus, y_plus)) == s.kronecker_product(y_plus, y_plus.T))
     check('co-quantum excludes quantum Bell state', partial_transpose(B).eigenvals().get(R(-1, 2)) == 1)
+    plus_zero = s.kronecker_product(s.Matrix([1, 1])/s.sqrt(2), zero)
+    plus_zero = plus_zero*plus_zero.H
+    cnot = s.Matrix(4, 4, lambda i, j: int(i == (j ^ 1 if j >= 2 else j)))
+    check('co-quantum CNOT input', partial_transpose(plus_zero) == plus_zero and
+          all(r >= 0 for r in plus_zero.eigenvals()))
+    check('co-quantum CNOT image is the Bell state', clean(cnot*plus_zero*cnot.H) == clean(B))
     check('co-quantum spectral measurement pairing', pairing(partial_transpose(plus), partial_transpose(minus)) == 0)
     check('co-quantum spectral decomposition', clean((1+overlap)/2*partial_transpose(plus)+
           (1-overlap)/2*partial_transpose(minus)) == partial_transpose(xkb))

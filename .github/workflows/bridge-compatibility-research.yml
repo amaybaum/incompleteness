@@ -1,9 +1,22 @@
 name: bridge compatibility research
 
-# Exploratory replay and Lean design check; no native designation or receipt.
+# Research replay of the bridge-compatibility audit and the spectrality screen, and a separate
+# compilation of the research-only Lean example against BridgeFiniteProtocol. It makes no native
+# designation, attestation or receipt, and it never pushes or dispatches. Artifact placement,
+# legacy records and receipts are checked by the release gate in verify.yml, not repeated here.
 on:
   push:
-    branches: [research/bridge-compatibility-20261013]
+    paths:
+      - 'verification/programmes/oi-qm/reconstruction/bridge-compatibility-audit/**'
+      - 'verification/programmes/oi-qm/reconstruction/physical-state-operation-compatibility/**'
+      - 'verification/lean-mathlib/OIBridge/BridgeFiniteProtocol.lean'
+      - '.github/workflows/bridge-compatibility-research.yml'
+  pull_request:
+    paths:
+      - 'verification/programmes/oi-qm/reconstruction/bridge-compatibility-audit/**'
+      - 'verification/programmes/oi-qm/reconstruction/physical-state-operation-compatibility/**'
+      - 'verification/lean-mathlib/OIBridge/BridgeFiniteProtocol.lean'
+      - '.github/workflows/bridge-compatibility-research.yml'
   workflow_dispatch:
 
 permissions:
@@ -12,6 +25,7 @@ permissions:
 jobs:
   exact-replay:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -21,37 +35,57 @@ jobs:
         run: python -m pip install sympy==1.14.0
       - name: Verify saved record digests
         run: sha256sum -c verification/programmes/oi-qm/reconstruction/bridge-compatibility-audit/SHA256SUMS
-      - name: Replay bridge implementations and spectrality certificates
+      - name: Replay the four checkers against their expected results
         run: |
-          python - <<'PY'
+          python3 -I -B - <<'PY'
           from pathlib import Path
+          import hashlib
           import subprocess
           import sys
-          p = Path('verification/programmes/oi-qm/reconstruction/bridge-compatibility-audit')
-          q = Path('verification/programmes/oi-qm/reconstruction/physical-state-operation-compatibility')
-          replays = [(p, 'independent_check.py', 'independent-output.txt'),
-                     (p, 'probe.py', 'original-output.txt'),
-                     (q, 'spectrality_check.py', 'spectrality-output.txt'),
-                     (q, 'spectrality_independent.py', 'spectrality-independent-output.txt')]
+
+          base = Path('verification/programmes/oi-qm/reconstruction')
+          replays = [('bridge-compatibility-audit', 'independent_check.py', 'independent-output.txt'),
+                     ('bridge-compatibility-audit', 'probe.py', 'probe-output.txt'),
+                     ('physical-state-operation-compatibility', 'spectrality_check.py', 'spectrality-output.txt'),
+                     ('physical-state-operation-compatibility', 'spectrality_independent.py',
+                      'spectrality-independent-output.txt')]
+
+          def digest(path):
+              return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
           for directory, script, saved in replays:
-              result = subprocess.run([sys.executable, '-I', '-B', str(directory / script)], check=True, capture_output=True)
-              if result.stderr or result.stdout != (directory / saved).read_bytes():
-                  raise SystemExit(f'Failed saved-output comparison: {script}')
+              path = base / directory / script
+              lines = (base / directory / saved).read_bytes().decode().splitlines(keepends=True)
+              n = 0
+              while n < len(lines) and lines[n].startswith('# '):
+                  n += 1
+              header, expected = lines[:n], ''.join(lines[n:]).encode()
+              fields = [line[2:].rstrip('\n').split(': ', 1) for line in header]
+              keys = [key for key, _ in fields]
+              values = dict(fields)
+              if (values.get('form') != 'complete' or values.get('recipe') != f'python3 -I -B {path}'
+                      or values.get('script-sha256') != digest(path) or keys.count('script-sha256') != 1):
+                  raise SystemExit(f'Expected-result header mismatch: {saved}')
+              for key, value in fields:
+                  if key == 'input-sha256':
+                      hexdigest, source = value.split('  ', 1)
+                      if digest(source) != hexdigest:
+                          raise SystemExit(f'Input digest mismatch: {saved}: {source}')
+              result = subprocess.run([sys.executable, '-I', '-B', str(path)], capture_output=True)
+              if result.returncode or result.stderr or result.stdout != expected:
+                  raise SystemExit(f'Failed expected-result comparison: {script}')
               print(result.stdout.decode(), end='')
           PY
-      - name: Check artifact placement
-        run: python tools/artifact_placement_check.py
 
   lean-instantiation:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - name: Install elan
         run: |
-          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o elan-init.sh
-          sh elan-init.sh -y --default-toolchain none
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o "$RUNNER_TEMP/elan-init.sh"
+          sh "$RUNNER_TEMP/elan-init.sh" -y --default-toolchain none
           echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
       - name: Restore adopted library build cache
         uses: actions/cache/restore@v4
@@ -65,8 +99,3 @@ jobs:
           lake exe cache get
           lake --rehash build OIBridge.BridgeFiniteProtocol
           lake env lean ../programmes/oi-qm/reconstruction/bridge-compatibility-audit/availability_example.lean
-      - name: Verify retained historical records
-        run: |
-          research_revision=$(git rev-parse HEAD)
-          python3 tools/legacy_records_check.py "$research_revision"
-          python3 tools/v3_verifier.py --receipts "$research_revision"

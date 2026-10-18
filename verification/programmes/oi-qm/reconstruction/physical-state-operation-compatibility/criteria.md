@@ -10,7 +10,8 @@ withdrawn before F. These criteria remain requirements for a future
 independently sourced candidate; they do not schedule or authorize a new freeze.
 
 The [spectrality screen](spectrality.md) supplies a subsequent externally
-motivated candidate and written exclusions of both fixtures, with positive
+motivated candidate, a written exclusion of K_B, a written exclusion of
+K(Z_F) conditional on that fixture's trace self-duality, and positive
 comparisons. Its OI source and preservation implication remain UNRESOLVED;
 it is not a selected native successor or a source derivation.
 
@@ -49,11 +50,13 @@ preservation. Any added premise gets a named, sourced ledger row.
    one, matrix trace −1/4. K_B fails CNOT preservation and self-duality. Test a
    proposed new premise here in the common domain; rejection by either of
    those additional assumptions does not count as the new premise's success.
-2. **Stage-6 K(Z_F) with the same availability grant.** Its product, maxCone,
-   closedness, self-duality and CNOT premises have historical certificates;
-   preserve those evidence levels. The fresh exact depth-one witness is −1/16
-   at the historical generator scaling. Test every new premise here as well.
-   In a separate stronger lane, retain stage-6 H3 and CNOT and recheck the
+2. **Stage-6 K(Z_F) with the same availability grant.** Its product and
+   maxCone premises are proved in the bridge audit. Its closedness, trace
+   self-duality (H3) and CNOT premises are stage-6 records whose written
+   proofs are not retained on main; they enter only as stated conditions,
+   and a result using them is conditional on them. The fresh exact
+   depth-one witness is −1/16 at the historical generator scaling. Test
+   every new premise here as well. In a separate stronger lane, retain stage-6 H3 and CNOT and recheck the
    actual applicable inventory, including the unreached bridges. Do not infer
    a full physical realization from either cone-level fixture.
 

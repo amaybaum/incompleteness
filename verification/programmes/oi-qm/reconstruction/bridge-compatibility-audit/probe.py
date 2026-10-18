@@ -4,8 +4,6 @@ Uses the actual BridgeFiniteProtocol circuit/reset/correction definitions.
 Does not certify a physical cone, a native round, or a new Lean theorem.
 """
 from pathlib import Path
-import hashlib
-import json
 import sympy as s
 
 ROOT = Path(__file__).resolve().parents[5]
