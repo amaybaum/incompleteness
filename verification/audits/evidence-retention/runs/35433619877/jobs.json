@@ -1,0 +1,232 @@
+{
+ "jobs": [
+  {
+   "completed_at": "2026-09-19T09:03:02Z",
+   "conclusion": "success",
+   "head_branch": "main",
+   "head_sha": "d08b932da492891bdadaa5b867fd337250859b99",
+   "id": 105872461279,
+   "name": "Control-plane base check",
+   "run_attempt": 1,
+   "started_at": "2026-09-19T09:02:46Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Self-test",
+     "number": 4
+    },
+    {
+     "conclusion": "skipped",
+     "name": "Preconditions at M (candidate merge)",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Preconditions at B (merge commit on main)",
+     "number": 6
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 11
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 12
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 13
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-09-19T09:03:28Z",
+   "conclusion": "success",
+   "head_branch": "main",
+   "head_sha": "d08b932da492891bdadaa5b867fd337250859b99",
+   "id": 105872461356,
+   "name": "Lean kernel check",
+   "run_attempt": 1,
+   "started_at": "2026-09-19T09:02:46Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Install Lean",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Report toolchain",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "Kernel check",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-09-19T09:11:47Z",
+   "conclusion": "success",
+   "head_branch": "main",
+   "head_sha": "d08b932da492891bdadaa5b867fd337250859b99",
+   "id": 105872461384,
+   "name": "Numerical probes",
+   "run_attempt": 1,
+   "started_at": "2026-09-19T09:02:46Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install dependencies",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "Probes",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Foundations probes",
+     "number": 6
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 11
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 12
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 13
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-09-19T09:04:52Z",
+   "conclusion": "success",
+   "head_branch": "main",
+   "head_sha": "d08b932da492891bdadaa5b867fd337250859b99",
+   "id": 105872461485,
+   "name": "Mathlib bridge",
+   "run_attempt": 1,
+   "started_at": "2026-09-19T09:02:46Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Install elan",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Restore the OIBridge build cache",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "Build",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Release gate",
+     "number": 6
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Restore the OIBridge build cache",
+     "number": 11
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 12
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 13
+    }
+   ],
+   "workflow_name": "verify"
+  }
+ ],
+ "run_id": "35433619877",
+ "source": "GitHub Actions jobs API, GET runs/<run_id>/jobs?filter=all, read 2026-10-17; selected fields"
+}

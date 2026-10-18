@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-09-18T17:56:20Z",
+ "display_title": "Freeze the control plane for seal infrastructure round SI-3: the lega\u2026",
+ "event": "push",
+ "head_branch": "main",
+ "head_sha": "220827b89c038d98dbe643a53c72a8fd00ed8480",
+ "id": 35377254073,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "35377254073",
+ "run_number": 937,
+ "source": "GitHub Actions runs API, GET runs/<run_id>, read 2026-10-17; selected fields",
+ "status": "completed",
+ "updated_at": "2026-09-18T18:04:43Z"
+}

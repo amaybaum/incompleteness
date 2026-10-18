@@ -1,0 +1,80 @@
+{
+ "jobs": [
+  {
+   "completed_at": "2026-10-13T18:55:16Z",
+   "conclusion": "success",
+   "head_branch": "research/preservation-induction-design-20261013",
+   "head_sha": "e684897da41b1c3d066b880194c9beb87a19b7ad",
+   "id": 115478781754,
+   "name": "design-build",
+   "run_attempt": 1,
+   "started_at": "2026-10-13T18:51:48Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install exact arithmetic dependency",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "Replay independent exact controls",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Install elan",
+     "number": 6
+    },
+    {
+     "conclusion": "success",
+     "name": "Restore adopted library cache",
+     "number": 7
+    },
+    {
+     "conclusion": "success",
+     "name": "Compile the research-only design",
+     "number": 8
+    },
+    {
+     "conclusion": "success",
+     "name": "Check retained records and artifact placement",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 17
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 18
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 19
+    }
+   ],
+   "workflow_name": "preservation induction research design"
+  }
+ ],
+ "run_id": "38450187534",
+ "source": "GitHub Actions jobs API, GET runs/<run_id>/jobs?filter=all, read 2026-10-17; selected fields"
+}

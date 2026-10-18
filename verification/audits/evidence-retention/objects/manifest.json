@@ -251,7 +251,7 @@
   "raw:proof-path": "a tree on an inclusion path: its entries off the path are named, not retained",
   "raw:tree": "commit with every tree and blob main lacks; parents_not_retained are named, not retained",
   "withheld:build-pdf": "a build output whose bytes no record freezes: named by id and size, not retained",
-  "withheld:raw-log": "a raw log or transcript (AGENTS \u00a7A.42 item 1), including captured .out and .err output (owner decision of 2026-10-17): named by id and size, not retained",
+  "withheld:raw-log": "a raw log or transcript (AGENTS §A.42 item 1), including captured .out and .err output (owner decision of 2026-10-17): named by id and size, not retained",
   "withheld:raw-output": "a small raw output of a computation, written beside its logs and withheld like them by the owner decision of 2026-10-17: named by id and size, not retained"
  },
  "missing": [
@@ -21379,6 +21379,1379 @@
    "sha256": "fbc2da33e2fd9bdb2af8fc195d9307e4c5dfac84b7dfef35216386b2b9e89704",
    "tranche": 2,
    "type": "blob"
+  },
+  {
+   "bytes": 63,
+   "content_bytes": 46,
+   "content_sha256": "ccc3a34c4cf1800847aeb78c31422f33b1c228f99349f7e00a85b9e2933f2439",
+   "file": "loose/00/26dcc86cdce39c5ec7f1777656f75c22853591",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "e684897da41b1c3d066b880194c9beb87a19b7ad",
+     "path": "verification/programmes/oi-qm/reconstruction/round-preserve-induct-1/"
+    },
+    {
+     "object": "febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+     "path": "verification/programmes/oi-qm/reconstruction/round-preserve-induct-1/"
+    }
+   ],
+   "oid": "0026dcc86cdce39c5ec7f1777656f75c22853591",
+   "sha256": "546b9aede841847f67131bcc8340362e89e2a3b37a91566eb97d20cf9847acd9",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 163,
+   "content_bytes": 156,
+   "content_sha256": "25236d1703ed251ba9179ff27bae3f0537c7db534f0fdaa8d8c5d295dc3d7e86",
+   "file": "loose/01/c9f247f18a9f88065dd9cbc73e6e8464679dc2",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "6959ced4c327ebb800cf6d463a049e4066e37288",
+     "path": "verification/programmes/"
+    }
+   ],
+   "oid": "01c9f247f18a9f88065dd9cbc73e6e8464679dc2",
+   "sha256": "7021371b5ee75ec6ddf4465078302b59d8bc2e014ce2a7b41e182aa2a0227f76",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 5593,
+   "content_bytes": 15962,
+   "content_sha256": "42b548972ccd8c131658f56e231540512f848e2d90510918b8c464f2552f5859",
+   "file": "loose/04/580c5104eaa4cf7eaa5fc32614582442f538e1",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "1ab0fd9dd2c6701197f2e0ab18401cafb76a090d",
+     "path": "verification/lean/ktoken_maxcone1_probe.py"
+    },
+    {
+     "object": "6959ced4c327ebb800cf6d463a049e4066e37288",
+     "path": "verification/lean/ktoken_maxcone1_probe.py"
+    }
+   ],
+   "oid": "04580c5104eaa4cf7eaa5fc32614582442f538e1",
+   "sha256": "db12523f6d3075dc3def0e8542f2e1a2d08602815fc3494d8e843e3e49c50b3d",
+   "tranche": 4,
+   "type": "blob"
+  },
+  {
+   "bytes": 163,
+   "content_bytes": 156,
+   "content_sha256": "7bda9e7bd56ad0fc933e1894f5974d63acf58e1bb864860c50a295e087e3d9e3",
+   "file": "loose/0e/f6c2591da8a89186d066b3387c09343fdeb374",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "e684897da41b1c3d066b880194c9beb87a19b7ad",
+     "path": "verification/programmes/"
+    }
+   ],
+   "oid": "0ef6c2591da8a89186d066b3387c09343fdeb374",
+   "sha256": "2dd1b1048bd725af64de3e0ecca77036cc2e1e244a063a5214149a1468137fb9",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 51,
+   "content_bytes": 36,
+   "content_sha256": "f1b08e31b3f631fc76453e69830696ed0de8960995a7c8cb6801145f26913f42",
+   "file": "loose/10/53a9575c61ce162e8965326c29a6c73c53928f",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "e684897da41b1c3d066b880194c9beb87a19b7ad",
+     "path": ".github/"
+    }
+   ],
+   "oid": "1053a9575c61ce162e8965326c29a6c73c53928f",
+   "sha256": "b0c7ae511bc3e44865ca933ecdc7ac996490c8555a339b8e63284b37f2e760ca",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 28893,
+   "content_bytes": 129208,
+   "content_sha256": "5d06d8ae5f85f0642f649d7e39bd7b323c0cd47ea591413e09426d4552db9013",
+   "file": "loose/14/bb9fc07bf65e59e3f412ac7270ffb734a30069",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "1ab0fd9dd2c6701197f2e0ab18401cafb76a090d",
+     "path": "verification/lean-mathlib/OIBridge/KTokenMaxCone.lean"
+    },
+    {
+     "object": "6959ced4c327ebb800cf6d463a049e4066e37288",
+     "path": "verification/lean-mathlib/OIBridge/KTokenMaxCone.lean"
+    }
+   ],
+   "oid": "14bb9fc07bf65e59e3f412ac7270ffb734a30069",
+   "sha256": "78360d49739be43eb1bf0f1d3a7fc6c68b2a923c5d5850b9ef036e28ae926e34",
+   "tranche": 4,
+   "type": "blob"
+  },
+  {
+   "bytes": 595,
+   "content_bytes": 678,
+   "content_sha256": "0625dd19880f367eb90b00ad78b19ac580eacb789c32e2cc9d9169e095abbb89",
+   "file": "loose/1a/32cbe7191d1d353801a6827ee3cefef1c001c4",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+     "path": "verification/"
+    }
+   ],
+   "oid": "1a32cbe7191d1d353801a6827ee3cefef1c001c4",
+   "sha256": "0ce53e24d3fe51aa4f857ab11b96945d931fda681e788f089e39e9b4a130beb3",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 105,
+   "content_bytes": 99,
+   "content_sha256": "22b5b08712f8dde0d61aff5308a2fd3e01ec8e0d85e54c7c7b8e86de7aaf8eb6",
+   "file": "loose/1a/927660cf7a4c0c12eaad4a3409f6fe131909d9",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "e684897da41b1c3d066b880194c9beb87a19b7ad",
+     "path": ".github/workflows/"
+    }
+   ],
+   "oid": "1a927660cf7a4c0c12eaad4a3409f6fe131909d9",
+   "sha256": "2ba661a08814356831912742d159bc7252ee7e6c399efe70740513a3513f7e47",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "awaiting_citation": {
+    "note": "the head of KTOKEN-MAXCONE-1's design run 1, run 39043849411, which the record is to cite beside the run",
+    "pull_request": 829,
+    "record": "verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/preregistration.md",
+    "round": "KTOKEN-MAXCONE-1",
+    "run": "39043849411"
+   },
+   "bytes": 1144,
+   "content_bytes": 1144,
+   "content_sha256": "2f01a80ca521487763fdbc4449858bba60ae9016822eb5ce23a164454944acb0",
+   "file": "commit/1a/1ab0fd9dd2c6701197f2e0ab18401cafb76a090d",
+   "form": "raw",
+   "held_by": {
+    "branch": "dev-equivalence/ktoken-maxcone",
+    "listed_at": "2026-10-17"
+   },
+   "mechanism": "raw:tree",
+   "oid": "1ab0fd9dd2c6701197f2e0ab18401cafb76a090d",
+   "parents": [
+    "fd6d4c66df5849bb7fccf8510444572396ba285e"
+   ],
+   "parents_not_retained": [
+    "fd6d4c66df5849bb7fccf8510444572396ba285e"
+   ],
+   "sha256": "2f01a80ca521487763fdbc4449858bba60ae9016822eb5ce23a164454944acb0",
+   "tranche": 4,
+   "type": "commit"
+  },
+  {
+   "bytes": 6942,
+   "content_bytes": 11031,
+   "content_sha256": "9312c24e6a91127fd465df22100545616baa8bc49fac9baa6a9e9b73bcccb0b8",
+   "file": "loose/1c/b44de4a0ec25b69266e644e7c562c4fdf49655",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "1ab0fd9dd2c6701197f2e0ab18401cafb76a090d",
+     "path": "verification/lean-mathlib/OIBridge/"
+    },
+    {
+     "object": "6959ced4c327ebb800cf6d463a049e4066e37288",
+     "path": "verification/lean-mathlib/OIBridge/"
+    }
+   ],
+   "oid": "1cb44de4a0ec25b69266e644e7c562c4fdf49655",
+   "sha256": "7e0439b8c792e9be532809158a9ebe4820fd96480e642cf0add8f9565617f86b",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 48,
+   "content_bytes": 33,
+   "content_sha256": "7ce3a30db87267450a205f997c73acfe7dfc915ac118073a8462cec606e1ed27",
+   "file": "loose/1d/b810b428d4cb3c571da8e776bc3d5dab477e6a",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "1ab0fd9dd2c6701197f2e0ab18401cafb76a090d",
+     "path": "verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/"
+    }
+   ],
+   "oid": "1db810b428d4cb3c571da8e776bc3d5dab477e6a",
+   "sha256": "321eb0ad79fcea52b7ac5312eb226c05a1a01354fff068a8debbfab42c45f5ec",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 4966,
+   "content_bytes": 11903,
+   "content_sha256": "1318a4966f9df9a36a1373de1767f975b4ede5192b09376994e7bdc30bce9b38",
+   "file": "loose/27/5e6040a14480b8538a8afdc9366be2a135d347",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "e684897da41b1c3d066b880194c9beb87a19b7ad",
+     "path": "verification/programmes/oi-qm/reconstruction/round-preserve-induct-1/preregistration.md"
+    },
+    {
+     "object": "febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+     "path": "verification/programmes/oi-qm/reconstruction/round-preserve-induct-1/preregistration.md"
+    }
+   ],
+   "oid": "275e6040a14480b8538a8afdc9366be2a135d347",
+   "sha256": "53f7702c4f59e8ab25e9ecc4b66b45fba4519a838fcf6d7ae3aeb40fec1e43d2",
+   "tranche": 4,
+   "type": "blob"
+  },
+  {
+   "bytes": 2572,
+   "content_bytes": 3942,
+   "content_sha256": "518a72fb95202bd3c5df0557d8550227ad7045cc35e736c6968425225642cb2d",
+   "file": "loose/30/70898ea830425c84026a77b81099ff014e6c56",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "1ab0fd9dd2c6701197f2e0ab18401cafb76a090d",
+     "path": "verification/lean/"
+    },
+    {
+     "object": "6959ced4c327ebb800cf6d463a049e4066e37288",
+     "path": "verification/lean/"
+    }
+   ],
+   "oid": "3070898ea830425c84026a77b81099ff014e6c56",
+   "sha256": "2e12bb6ec2e4c12b59fa5d2520916313f5d6117fda19e3139eff1758f78a9d43",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 372,
+   "content_bytes": 392,
+   "content_sha256": "8228c52d6c68a352c85793c9871a6e798b5f1287101ddd5b727db0a446750273",
+   "file": "loose/32/4863d5ddf4a1f830c2d1ed8f49a8399f5a8b3e",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+     "path": "/"
+    }
+   ],
+   "oid": "324863d5ddf4a1f830c2d1ed8f49a8399f5a8b3e",
+   "sha256": "1f58a30ac723576360303e11d9bcd2ce16445cdb7ed70bc9f02adf7ac0621682",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 2770,
+   "content_bytes": 8274,
+   "content_sha256": "cc2c29a3c77ea80db9eeaf220cb22c065f7c8f3474eb9325544d92473b2d5466",
+   "file": "loose/35/4bd7ce18119da451883ab5189010a5113ffa16",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "1ab0fd9dd2c6701197f2e0ab18401cafb76a090d",
+     "path": "verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/checks/KTokenPairCheck.lean"
+    },
+    {
+     "object": "6959ced4c327ebb800cf6d463a049e4066e37288",
+     "path": "verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/checks/KTokenPairCheck.lean"
+    }
+   ],
+   "oid": "354bd7ce18119da451883ab5189010a5113ffa16",
+   "sha256": "65d7e55422632e4af50fd9163a712bdc71685e4fcfae412b2a2ed252c3194b6e",
+   "tranche": 4,
+   "type": "blob"
+  },
+  {
+   "bytes": 249,
+   "content_bytes": 255,
+   "content_sha256": "d420233b27a3be8fa84d62ffa071de2b0fd7b5c85b0c1edda2a598eb95e5f5e4",
+   "file": "loose/37/831abfdea676d6de5dfd13a104501e028450eb",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "e684897da41b1c3d066b880194c9beb87a19b7ad",
+     "path": "verification/programmes/oi-qm/"
+    }
+   ],
+   "oid": "37831abfdea676d6de5dfd13a104501e028450eb",
+   "sha256": "aab0d96805463d901f171a23aed7f4e71998011577555f1eed35031307505f02",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 2642,
+   "content_bytes": 6665,
+   "content_sha256": "d5071c6d02946854ceab75f510914590caef1003be2b95fb835f63fd76d31ef1",
+   "file": "loose/38/73ba62324e7d72397f9f9ade9ec18f84e75475",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "e684897da41b1c3d066b880194c9beb87a19b7ad",
+     "path": "verification/programmes/oi-qm/reconstruction/preservation-induction-design/exact_check.py"
+    },
+    {
+     "object": "febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+     "path": "verification/programmes/oi-qm/reconstruction/preservation-induction-design/exact_check.py"
+    }
+   ],
+   "oid": "3873ba62324e7d72397f9f9ade9ec18f84e75475",
+   "sha256": "ef4f17e53a9ca9062c3a88db1ea2a096e22698cdb0d9aa056ce1125f2abfa74d",
+   "tranche": 4,
+   "type": "blob"
+  },
+  {
+   "bytes": 118921,
+   "content_bytes": 400817,
+   "content_sha256": "f7702d2373cc990d1ed41c86ce401648f00a5d45a76e40ee77c6aa0ee5968232",
+   "file": "loose/3b/9fe1e90e9edae47a5bf400a8914f13273354fd",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "1ab0fd9dd2c6701197f2e0ab18401cafb76a090d",
+     "path": "verification/lean-manuscript-census.json"
+    },
+    {
+     "object": "6959ced4c327ebb800cf6d463a049e4066e37288",
+     "path": "verification/lean-manuscript-census.json"
+    }
+   ],
+   "oid": "3b9fe1e90e9edae47a5bf400a8914f13273354fd",
+   "sha256": "8e5f74d0c2f8fa5ef40d89c9e045ab8a1ab4fdf46d435734cca8a6df6ff0069a",
+   "tranche": 4,
+   "type": "blob"
+  },
+  {
+   "bytes": 2399,
+   "content_bytes": 8013,
+   "content_sha256": "54b1451e1788fe6b71ca28eb81d2e9031abf1f78ee92d471bfddd73256044c65",
+   "file": "loose/3f/4e02f983e5b9e8db8136f4777cc6e8c20eab44",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+     "path": "verification/programmes/oi-qm/reconstruction/preservation-induction-design/ResearchInstances.lean"
+    }
+   ],
+   "oid": "3f4e02f983e5b9e8db8136f4777cc6e8c20eab44",
+   "sha256": "746939b1cdec122b2a247ddfa9a1c1c99fbf1da3182a7194aabefc98b597ecee",
+   "tranche": 4,
+   "type": "blob"
+  },
+  {
+   "bytes": 162,
+   "content_bytes": 156,
+   "content_sha256": "f058277352402c63cac786ed880d23e832c01bb79ad71ca8fa886566d698a02f",
+   "file": "loose/3f/a2a3a0fd08be5f797d16f43ae4e3e3162265f2",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+     "path": "verification/programmes/"
+    }
+   ],
+   "oid": "3fa2a3a0fd08be5f797d16f43ae4e3e3162265f2",
+   "sha256": "86eacc721cfb8ff78cff9298bfc0368959eead5711e253c18ac43b6a66726653",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 100,
+   "content_bytes": 89,
+   "content_sha256": "2c40dbe29d850f1f9a0272eed4d6a2363930ebd5f260fb6fd0b550f72c048908",
+   "file": "loose/43/6e8c21ae6c2a4f84f71e2aad3e0ee7d0b9da2b",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "1ab0fd9dd2c6701197f2e0ab18401cafb76a090d",
+     "path": "verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/checks/"
+    },
+    {
+     "object": "6959ced4c327ebb800cf6d463a049e4066e37288",
+     "path": "verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/checks/"
+    }
+   ],
+   "oid": "436e8c21ae6c2a4f84f71e2aad3e0ee7d0b9da2b",
+   "sha256": "cd0a222b0106df37bc7a81286a25db06654b70672c3d1fe80a0d93ae4f43298f",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 4875,
+   "content_bytes": 11428,
+   "content_sha256": "5febe590fa8013853b3487a2442010833b1c72c3380f82845a0517009baa9484",
+   "file": "loose/46/7c0b4cb23e8f06784d87dd17b5eb2a33cb3f7b",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+     "path": "verification/programmes/oi-qm/reconstruction/preservation-induction-design/result.md"
+    }
+   ],
+   "oid": "467c0b4cb23e8f06784d87dd17b5eb2a33cb3f7b",
+   "sha256": "cd1dde033da2f1181b9570c28cf895f37cf27e8961443260311bbe291b9f5116",
+   "tranche": 4,
+   "type": "blob"
+  },
+  {
+   "bytes": 315,
+   "content_bytes": 368,
+   "content_sha256": "0f6d4cf6ca66875df20890dff7501883f27a658a419bac083526843e12d205e7",
+   "file": "loose/49/246652408b787d94947f0829ae1c24fcfac5e9",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "e684897da41b1c3d066b880194c9beb87a19b7ad",
+     "path": "verification/programmes/oi-qm/reconstruction/preservation-induction-design/"
+    }
+   ],
+   "oid": "49246652408b787d94947f0829ae1c24fcfac5e9",
+   "sha256": "a0d43566ee865b073a8f09f1bc817b5bd571465d59d0cfad087fa29418db6147",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 51,
+   "content_bytes": 36,
+   "content_sha256": "02ebe2595ea1c754f4746c29ce6f7896027ef94b1fab387203a81af84ce8ece3",
+   "file": "loose/4d/15b09700186f6ffd9e16379e87c71c326bbc11",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "6959ced4c327ebb800cf6d463a049e4066e37288",
+     "path": ".github/"
+    }
+   ],
+   "oid": "4d15b09700186f6ffd9e16379e87c71c326bbc11",
+   "sha256": "6f0db4d3f950514f7ecdd66b9c7a9eb9a4a41e79b21ad4856fb2d71d44159b04",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 594,
+   "content_bytes": 678,
+   "content_sha256": "0e204e8e6052b1fbbc3f9051d93ccb4b4cf67e2ec1abd3d25440c913b6fa5c93",
+   "file": "loose/57/6af944d2e6c638bb5f9c760552fa5a4ce4574d",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "e684897da41b1c3d066b880194c9beb87a19b7ad",
+     "path": "verification/"
+    }
+   ],
+   "oid": "576af944d2e6c638bb5f9c760552fa5a4ce4574d",
+   "sha256": "f80447533e8924b083be708e133800ade16b95cfa13b8e45ae3a28202f2ae714",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 348,
+   "content_bytes": 527,
+   "content_sha256": "2b5d05e63d41c04dc7a20d23a319f4cab3aa4488678f66f359091d4cdd591a83",
+   "file": "loose/5a/ec2b905f782b7772c11c8e05f93f8b489c4c9a",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "e684897da41b1c3d066b880194c9beb87a19b7ad",
+     "path": "verification/programmes/oi-qm/reconstruction/preservation-induction-design/SHA256SUMS"
+    }
+   ],
+   "oid": "5aec2b905f782b7772c11c8e05f93f8b489c4c9a",
+   "sha256": "0ed95253a51cee448eee9e2fbed9f97de7ba661bc02721ecaa75113401200b14",
+   "tranche": 4,
+   "type": "blob"
+  },
+  {
+   "bytes": 1009,
+   "content_bytes": 1380,
+   "content_sha256": "a62a15370771e2e0107b42012b1f03a56879679c70ffc404139e999f47b7a747",
+   "file": "loose/62/b606b41ce89251c12bb2556af2a41eafda99ce",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "e684897da41b1c3d066b880194c9beb87a19b7ad",
+     "path": "verification/programmes/oi-qm/reconstruction/"
+    }
+   ],
+   "oid": "62b606b41ce89251c12bb2556af2a41eafda99ce",
+   "sha256": "6a022800bb0fdda0c3588aa6723e1a71a8ad824a40454a2695dbec158344fcb5",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 371,
+   "content_bytes": 392,
+   "content_sha256": "c19a0e988338cd3f6389e20d7c71827c7c97ad437d56085beb06483ce92e4f54",
+   "file": "loose/65/c3950876df1ff078f337cd986f499871a71572",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "1ab0fd9dd2c6701197f2e0ab18401cafb76a090d",
+     "path": "/"
+    }
+   ],
+   "oid": "65c3950876df1ff078f337cd986f499871a71572",
+   "sha256": "3ac4ffb3df9d2a9e27aed034712afbfd726a6aa8653aef497393e5def8c7cc28",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 594,
+   "content_bytes": 678,
+   "content_sha256": "411dd30b0d7043c68ef958eab17dd64ad82e5570f422aafc87b59834c92f6847",
+   "file": "loose/67/fcd3eb36f11fefad4e1f56deb8d1c5a3e3fb84",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "6959ced4c327ebb800cf6d463a049e4066e37288",
+     "path": "verification/"
+    }
+   ],
+   "oid": "67fcd3eb36f11fefad4e1f56deb8d1c5a3e3fb84",
+   "sha256": "99e8c6c1a69569df7e7950ccbab642a8ea463c2ccca0d3a64bdd63129b9ac757",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "awaiting_citation": {
+    "note": "the head of KTOKEN-MAXCONE-1's design run 2, run 39056982958, which the record is to cite beside the run",
+    "pull_request": 829,
+    "record": "verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/preregistration.md",
+    "round": "KTOKEN-MAXCONE-1",
+    "run": "39056982958"
+   },
+   "bytes": 1014,
+   "content_bytes": 1014,
+   "content_sha256": "f512b52889be6f88fab44f32bc21b063e64942df94e96ffdc590babf763d1497",
+   "file": "commit/69/6959ced4c327ebb800cf6d463a049e4066e37288",
+   "form": "raw",
+   "held_by": {
+    "branch": "dev-equivalence/ktoken-maxcone-r2",
+    "listed_at": "2026-10-17"
+   },
+   "mechanism": "raw:tree",
+   "oid": "6959ced4c327ebb800cf6d463a049e4066e37288",
+   "parents": [
+    "ea6a8ea36ceb5ba64414401e39cf82013ef17901"
+   ],
+   "parents_not_retained": [
+    "ea6a8ea36ceb5ba64414401e39cf82013ef17901"
+   ],
+   "sha256": "f512b52889be6f88fab44f32bc21b063e64942df94e96ffdc590babf763d1497",
+   "tranche": 4,
+   "type": "commit"
+  },
+  {
+   "bytes": 395,
+   "content_bytes": 609,
+   "content_sha256": "3c69f1063f90743cfbd5973c2a9a9799b499867c1413e61691b2710d7b05f4eb",
+   "file": "loose/6a/3eedb936eca546902471e216712b7cd883e8b3",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+     "path": "verification/programmes/oi-qm/reconstruction/preservation-induction-design/SHA256SUMS"
+    }
+   ],
+   "oid": "6a3eedb936eca546902471e216712b7cd883e8b3",
+   "sha256": "d45ffc06670eabe2dcbd6b8e0ecaffb12d822a637b495b1cd23f4ab6b5ca0962",
+   "tranche": 4,
+   "type": "blob"
+  },
+  {
+   "bytes": 51,
+   "content_bytes": 36,
+   "content_sha256": "8fb1c8cdd8299b846c42175d129fbcb5ad6cddbfa8af5919e936ad3e8ca91cee",
+   "file": "loose/6a/9b117d89a186161abd7460bcfba02ed650514a",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+     "path": ".github/"
+    }
+   ],
+   "oid": "6a9b117d89a186161abd7460bcfba02ed650514a",
+   "sha256": "03654d254b57b659762150a8f4ed5d97fec0e23687760adbb53e4e19e5e12b0b",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 6183,
+   "content_bytes": 25533,
+   "content_sha256": "0fad38d257cc0e685292792f561924f86847e8a17739f0611e0f89d8b2eaa3e5",
+   "file": "loose/72/d698f3749d126baec7eb7ccac00054462373f4",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "6959ced4c327ebb800cf6d463a049e4066e37288",
+     "path": ".github/workflows/verify.yml"
+    }
+   ],
+   "oid": "72d698f3749d126baec7eb7ccac00054462373f4",
+   "sha256": "87cfa9c6870d662bbc127c52bc6be339756ba8005370f5c4b39ad0a067e250cb",
+   "tranche": 4,
+   "type": "blob"
+  },
+  {
+   "bytes": 147,
+   "content_bytes": 142,
+   "content_sha256": "279c9425ef43aef9163b73451ccf41bb15eff1fe4f16d2b927030b546b13817b",
+   "file": "loose/73/9bdbbfd0419b499056670c59b221b4147ac295",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "1ab0fd9dd2c6701197f2e0ab18401cafb76a090d",
+     "path": ".github/workflows/"
+    }
+   ],
+   "oid": "739bdbbfd0419b499056670c59b221b4147ac295",
+   "sha256": "9818beb451dd72f404d145eca754e378a4b41f8f7d1cf92badd89d31fa7bee70",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 895,
+   "content_bytes": 1551,
+   "content_sha256": "5a0a476b169a3c1a93412f205ea2e138c47eacda2061ce7e4c567fedd4c7cf28",
+   "file": "loose/73/da3bda7e21b464a7bbacb0843dcc2bcd221211",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+     "path": "verification/programmes/oi-qm/reconstruction/preservation-induction-design/build-status.md"
+    }
+   ],
+   "oid": "73da3bda7e21b464a7bbacb0843dcc2bcd221211",
+   "sha256": "a3e54351ff82eebb446ba8f7ba531f6c752f87951243c99fe9c1e1afafc23ad8",
+   "tranche": 4,
+   "type": "blob"
+  },
+  {
+   "bytes": 2018,
+   "content_bytes": 5069,
+   "content_sha256": "af83e2464cb9d371031ab3d4922c607bdeb3675e49df0d771d62529ca817c1a0",
+   "file": "loose/7e/886e50d645b1f094e3e7f66e5a97ac9d1fb92d",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "e684897da41b1c3d066b880194c9beb87a19b7ad",
+     "path": "verification/programmes/oi-qm/reconstruction/preservation-induction-design/independent_check.py"
+    },
+    {
+     "object": "febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+     "path": "verification/programmes/oi-qm/reconstruction/preservation-induction-design/independent_check.py"
+    }
+   ],
+   "oid": "7e886e50d645b1f094e3e7f66e5a97ac9d1fb92d",
+   "sha256": "8232a592849bea7218b3137c045176881af097a0198317aa3c9164c513e9a064",
+   "tranche": 4,
+   "type": "blob"
+  },
+  {
+   "bytes": 1082,
+   "content_bytes": 1501,
+   "content_sha256": "6d6bbd0d841a56402d76ea590bc4bd0dab921a1760968b06e6add916c2ade402",
+   "file": "loose/82/4e55d0b185c7d1ff2e6e1f7832eac961355733",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "1ab0fd9dd2c6701197f2e0ab18401cafb76a090d",
+     "path": "verification/programmes/oi-qm/reconstruction/"
+    }
+   ],
+   "oid": "824e55d0b185c7d1ff2e6e1f7832eac961355733",
+   "sha256": "6311a8985d095065ac58616f554ae137ae4764b3b3e2ab852ccb2375449cac0c",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 14566,
+   "content_bytes": 46874,
+   "content_sha256": "19c5839a38a9237c30e866a1b014e2497db7243e6f58c1cd13e5f286496bf865",
+   "file": "loose/8c/8eb522623ee4c5da1d4ab9e40e10c20fd0bf69",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "6959ced4c327ebb800cf6d463a049e4066e37288",
+     "path": "verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/controls.py"
+    }
+   ],
+   "oid": "8c8eb522623ee4c5da1d4ab9e40e10c20fd0bf69",
+   "sha256": "52f4372079cb32a8475cb1d69f39dbb3c11b76c8033269cbca7f37e8e3efe344",
+   "tranche": 4,
+   "type": "blob"
+  },
+  {
+   "bytes": 175,
+   "carries": {
+    "checked": "rational Kraus-path calculation, finite examples only",
+    "independent_controls": 43,
+    "sample_manifest_sha256": "a1f82e289ba07a4c60dd6b56396dcdf7c0c217b2ff49a8d779f1c4e923842ea9"
+   },
+   "content_sha256": "b48342789486da727d8bb8d3571d9a1546d595898759fafa21c9c3faf51a08e9",
+   "instances": [
+    {
+     "blob": "8cdf3a83f78059d81a701c2e4951e54f3a2b06bd",
+     "bytes": 175,
+     "commit": "e684897da41b1c3d066b880194c9beb87a19b7ad",
+     "path": "verification/programmes/oi-qm/reconstruction/preservation-induction-design/independent-output.txt",
+     "reason": "a non-empty captured raw output of a computation (AGENTS §A.42 item 1); its withholding at exactly this path in these two commits was approved by the owner on 2026-10-17",
+     "sha256": "b48342789486da727d8bb8d3571d9a1546d595898759fafa21c9c3faf51a08e9"
+    },
+    {
+     "blob": "8cdf3a83f78059d81a701c2e4951e54f3a2b06bd",
+     "bytes": 175,
+     "commit": "febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+     "path": "verification/programmes/oi-qm/reconstruction/preservation-induction-design/independent-output.txt",
+     "reason": "a non-empty captured raw output of a computation (AGENTS §A.42 item 1); its withholding at exactly this path in these two commits was approved by the owner on 2026-10-17",
+     "sha256": "b48342789486da727d8bb8d3571d9a1546d595898759fafa21c9c3faf51a08e9"
+    }
+   ],
+   "mechanism": "withheld:raw-output",
+   "needed_by": [
+    {
+     "object": "e684897da41b1c3d066b880194c9beb87a19b7ad",
+     "path": "verification/programmes/oi-qm/reconstruction/preservation-induction-design/independent-output.txt"
+    },
+    {
+     "object": "febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+     "path": "verification/programmes/oi-qm/reconstruction/preservation-induction-design/independent-output.txt"
+    }
+   ],
+   "oid": "8cdf3a83f78059d81a701c2e4951e54f3a2b06bd",
+   "paths": [
+    "verification/programmes/oi-qm/reconstruction/preservation-induction-design/independent-output.txt"
+   ],
+   "reproduce": {
+    "note": "carries holds the values the output states, read from its bytes; the recipe regenerates the output byte for byte",
+    "recipe": [
+     "git show <commit>:verification/programmes/oi-qm/reconstruction/preservation-induction-design/independent_check.py > <dir>/check.py (the commit is retained here; check_objects.py --materialize writes it into a clone)",
+     "python3 -I -B <dir>/check.py > <out>; requires the standard library",
+     "the exit code is 0, nothing is written to stderr, and the sha256 of <out> is content_sha256"
+    ]
+   },
+   "tranche": 4,
+   "type": "blob"
+  },
+  {
+   "bytes": 106,
+   "content_bytes": 99,
+   "content_sha256": "6f3d343bf001ce7b61ccf47d6924117a4ef45e5361d9ecb8cf90c5a7ad81af00",
+   "file": "loose/8d/6fa9e61772a05b43161ff970762fc818a60b59",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+     "path": ".github/workflows/"
+    }
+   ],
+   "oid": "8d6fa9e61772a05b43161ff970762fc818a60b59",
+   "sha256": "9e94ce165282e2549e9bce73fa1bea1e20872f089c6331e5050044770a750d88",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 131,
+   "content_bytes": 118,
+   "content_sha256": "214be1a02377ca79beb0ef3ea4c0392bc3b586c1fbaed58473629df2889d1dcb",
+   "file": "loose/8e/fa6158547fb0e5d7cc483ef38c0badbce67e1e",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "6959ced4c327ebb800cf6d463a049e4066e37288",
+     "path": "verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/"
+    }
+   ],
+   "oid": "8efa6158547fb0e5d7cc483ef38c0badbce67e1e",
+   "sha256": "e19b20ec17eae6f10d2abc604989e40372d37b9c109c681d779787d3575b21c9",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 13134,
+   "content_bytes": 42854,
+   "content_sha256": "16c909498e09b6b7237cc1c7d5cb36b8c89d2900c2b9fadd924b76b306cd9a43",
+   "file": "loose/93/c89b366d421a5d4c5488a9bb8bced800fe6b6a",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "1ab0fd9dd2c6701197f2e0ab18401cafb76a090d",
+     "path": "verification/lean-mathlib/OIBridge.lean"
+    },
+    {
+     "object": "6959ced4c327ebb800cf6d463a049e4066e37288",
+     "path": "verification/lean-mathlib/OIBridge.lean"
+    }
+   ],
+   "oid": "93c89b366d421a5d4c5488a9bb8bced800fe6b6a",
+   "sha256": "d35e551b366a6b832d49c40ba88a353297e2872dc42516cc0778ab378497f9a8",
+   "tranche": 4,
+   "type": "blob"
+  },
+  {
+   "bytes": 1526,
+   "content_bytes": 5573,
+   "content_sha256": "f7a92732416f0d403ae68e8cc682f51ca8a0bf73742f6c83c92eb04d15571e51",
+   "file": "loose/95/2ef0b56201051bec8198ef4795d28a66eb923b",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "e684897da41b1c3d066b880194c9beb87a19b7ad",
+     "path": "verification/programmes/oi-qm/reconstruction/preservation-induction-design/PreservationInduction.lean"
+    },
+    {
+     "object": "febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+     "path": "verification/programmes/oi-qm/reconstruction/preservation-induction-design/PreservationInduction.lean"
+    }
+   ],
+   "oid": "952ef0b56201051bec8198ef4795d28a66eb923b",
+   "sha256": "e4ce15cb519c1845308a109f097d7369c6d96006916f981646eb2b686db0a134",
+   "tranche": 4,
+   "type": "blob"
+  },
+  {
+   "bytes": 4800,
+   "content_bytes": 11223,
+   "content_sha256": "cfe21d3a6671af521b6c76314b56226fc39f2f345aa7e20f358d2bf719733627",
+   "file": "loose/9f/c229f8779dff80ebcc891d72fb208c08d99fb5",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "e684897da41b1c3d066b880194c9beb87a19b7ad",
+     "path": "verification/programmes/oi-qm/reconstruction/preservation-induction-design/result.md"
+    }
+   ],
+   "oid": "9fc229f8779dff80ebcc891d72fb208c08d99fb5",
+   "sha256": "cd92c4f8dd8d5001e68d7638be58fa1e42a824bfe706a8d0d5ef5b0ffc70dd22",
+   "tranche": 4,
+   "type": "blob"
+  },
+  {
+   "bytes": 371,
+   "content_bytes": 392,
+   "content_sha256": "a67320d6647059babca6a0f7d5593058c3d08aaeb461e0fcd4414af4a2d1ea98",
+   "file": "loose/a0/2b3cc158c2875d620d81d51ab075b20e020009",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "6959ced4c327ebb800cf6d463a049e4066e37288",
+     "path": "/"
+    }
+   ],
+   "oid": "a02b3cc158c2875d620d81d51ab075b20e020009",
+   "sha256": "7408be4fda7ad7e79ac403f0f5e51b75913c82abb3f6775365ad5fe0ab984f04",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 1009,
+   "content_bytes": 1380,
+   "content_sha256": "2c25858e9901f450b99962cdd92f9f133edbf3b6f228715144ce498ea679f874",
+   "file": "loose/aa/ecdece5184723fe66e0514a971befd15e9aa65",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+     "path": "verification/programmes/oi-qm/reconstruction/"
+    }
+   ],
+   "oid": "aaecdece5184723fe66e0514a971befd15e9aa65",
+   "sha256": "e3aed87c32fcaa3ad22b8e737c6b326ef148d353ccc58ec892bcf4fd8e480f84",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 250,
+   "content_bytes": 255,
+   "content_sha256": "c7860cb139f544a95a974619bb0859c492e25b7de8be6fa46979ada9ee853844",
+   "file": "loose/ac/3174ce0d156b215466955bb3fd0e9dc8d03461",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "6959ced4c327ebb800cf6d463a049e4066e37288",
+     "path": "verification/programmes/oi-qm/"
+    }
+   ],
+   "oid": "ac3174ce0d156b215466955bb3fd0e9dc8d03461",
+   "sha256": "fcb1f5990cd6e278d89a56ddd8be59eaa35a6bbbf50a967faff18e0ccf265902",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 11871,
+   "content_bytes": 32603,
+   "content_sha256": "2d73b4232237a105a12da9f7dc8f7f21bb015a96a04a8fea82fd1f5e914de4cf",
+   "file": "loose/b0/d646c176108319e33aa4870c0db7541dc2c59e",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "6959ced4c327ebb800cf6d463a049e4066e37288",
+     "path": "verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/preregistration.md"
+    }
+   ],
+   "oid": "b0d646c176108319e33aa4870c0db7541dc2c59e",
+   "sha256": "3294f57ded3262cd244949d31d6ddb6387183de3a83ac97753a379e45ea71c6a",
+   "tranche": 4,
+   "type": "blob"
+  },
+  {
+   "bytes": 146,
+   "content_bytes": 142,
+   "content_sha256": "9a6cf241fa5b2460d56d367a3cf42ff93beb9163f9b7633c42b4e9cb2f9299d1",
+   "file": "loose/b4/1736d4375cca5dfa934c38f057bc979910df22",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "6959ced4c327ebb800cf6d463a049e4066e37288",
+     "path": ".github/workflows/"
+    }
+   ],
+   "oid": "b41736d4375cca5dfa934c38f057bc979910df22",
+   "sha256": "ae8c60374fbbaefa982ad8dbbef714e485c04ea3bbebb5e36a1f80fa4e381f70",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 1073,
+   "content_bytes": 2159,
+   "content_sha256": "9c52bb290bda2b6bac6852dfd4d29b6a12a9ec0c0d68fd0d9f2e9f15211edbd9",
+   "file": "loose/c0/3a59557e763834731a41b84f012ca374bc6b22",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "e684897da41b1c3d066b880194c9beb87a19b7ad",
+     "path": "verification/programmes/oi-qm/reconstruction/preservation-induction-design/affine-respect-interface.md"
+    },
+    {
+     "object": "febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+     "path": "verification/programmes/oi-qm/reconstruction/preservation-induction-design/affine-respect-interface.md"
+    }
+   ],
+   "oid": "c03a59557e763834731a41b84f012ca374bc6b22",
+   "sha256": "4779a36f614f19f15ee4d578df78b45b233dbbde8c7afb8394312c96ab7bae7e",
+   "tranche": 4,
+   "type": "blob"
+  },
+  {
+   "bytes": 1080,
+   "content_bytes": 1501,
+   "content_sha256": "68b2df6840b61b729ffc5676eca5762bf7af022a9c4267890da752c0199cd8d9",
+   "file": "loose/c1/3f556a418ba1d9067598fb16e0d4a494538af3",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "6959ced4c327ebb800cf6d463a049e4066e37288",
+     "path": "verification/programmes/oi-qm/reconstruction/"
+    }
+   ],
+   "oid": "c13f556a418ba1d9067598fb16e0d4a494538af3",
+   "sha256": "947a9c5d197bae7c306903095fe89b60847ff2b13e70aa579f30f39014ea4bf7",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 196,
+   "carries": {
+    "checked": "finite constructor examples and named countercontrols only",
+    "exact_controls": 107,
+    "mutations_rejected": 7,
+    "sample_manifest_sha256": "a1f82e289ba07a4c60dd6b56396dcdf7c0c217b2ff49a8d779f1c4e923842ea9"
+   },
+   "content_sha256": "937839edc3194a099217474bc831f68c8c55b06e095849b003a3664182017de2",
+   "instances": [
+    {
+     "blob": "c697b82b8a7d6719d78dfc74bc8183c85fa12255",
+     "bytes": 196,
+     "commit": "e684897da41b1c3d066b880194c9beb87a19b7ad",
+     "path": "verification/programmes/oi-qm/reconstruction/preservation-induction-design/exact-output.txt",
+     "reason": "a non-empty captured raw output of a computation (AGENTS §A.42 item 1); its withholding at exactly this path in these two commits was approved by the owner on 2026-10-17",
+     "sha256": "937839edc3194a099217474bc831f68c8c55b06e095849b003a3664182017de2"
+    },
+    {
+     "blob": "c697b82b8a7d6719d78dfc74bc8183c85fa12255",
+     "bytes": 196,
+     "commit": "febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+     "path": "verification/programmes/oi-qm/reconstruction/preservation-induction-design/exact-output.txt",
+     "reason": "a non-empty captured raw output of a computation (AGENTS §A.42 item 1); its withholding at exactly this path in these two commits was approved by the owner on 2026-10-17",
+     "sha256": "937839edc3194a099217474bc831f68c8c55b06e095849b003a3664182017de2"
+    }
+   ],
+   "mechanism": "withheld:raw-output",
+   "needed_by": [
+    {
+     "object": "e684897da41b1c3d066b880194c9beb87a19b7ad",
+     "path": "verification/programmes/oi-qm/reconstruction/preservation-induction-design/exact-output.txt"
+    },
+    {
+     "object": "febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+     "path": "verification/programmes/oi-qm/reconstruction/preservation-induction-design/exact-output.txt"
+    }
+   ],
+   "oid": "c697b82b8a7d6719d78dfc74bc8183c85fa12255",
+   "paths": [
+    "verification/programmes/oi-qm/reconstruction/preservation-induction-design/exact-output.txt"
+   ],
+   "reproduce": {
+    "note": "carries holds the values the output states, read from its bytes; the recipe regenerates the output byte for byte",
+    "recipe": [
+     "git show <commit>:verification/programmes/oi-qm/reconstruction/preservation-induction-design/exact_check.py > <dir>/check.py (the commit is retained here; check_objects.py --materialize writes it into a clone)",
+     "python3 -I -B <dir>/check.py > <out>; requires sympy 1.14.0, which the workflow installs",
+     "the exit code is 0, nothing is written to stderr, and the sha256 of <out> is content_sha256"
+    ]
+   },
+   "tranche": 4,
+   "type": "blob"
+  },
+  {
+   "bytes": 372,
+   "content_bytes": 392,
+   "content_sha256": "02b476c9389c3d3625f4fe51bac5f7579f0e96ece055639605449f1f1ff32fe3",
+   "file": "loose/cb/ef6d1a265caf59a269e05f79763925c609d17c",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "e684897da41b1c3d066b880194c9beb87a19b7ad",
+     "path": "/"
+    }
+   ],
+   "oid": "cbef6d1a265caf59a269e05f79763925c609d17c",
+   "sha256": "602a05387c1004288a74c248cd750b94201a8d76f643bd9d636f9139d94d4d6f",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 249,
+   "content_bytes": 255,
+   "content_sha256": "c6e2208e59c8379fb680245ad8d116876a839a6f3890123060af4dee420ea831",
+   "file": "loose/cf/8f6b77103ae28f998075d9f6b2bdaa7b1d5024",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "1ab0fd9dd2c6701197f2e0ab18401cafb76a090d",
+     "path": "verification/programmes/oi-qm/"
+    }
+   ],
+   "oid": "cf8f6b77103ae28f998075d9f6b2bdaa7b1d5024",
+   "sha256": "ed909752e5ee283696142136205b008ffa0699bcd3c686998bbe9539be3f456b",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 3515,
+   "content_bytes": 10171,
+   "content_sha256": "4df6aa079e6791db8489afceb781e37df2ceda9843140ad3a6c7b96649aa2974",
+   "file": "loose/dc/6c77d1f4b8326fcea095103c5cb98295f4fad7",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "1ab0fd9dd2c6701197f2e0ab18401cafb76a090d",
+     "path": "verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/checks/run_checks.py"
+    },
+    {
+     "object": "6959ced4c327ebb800cf6d463a049e4066e37288",
+     "path": "verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/checks/run_checks.py"
+    }
+   ],
+   "oid": "dc6c77d1f4b8326fcea095103c5cb98295f4fad7",
+   "sha256": "ae98432f86b764224ad9bf9d50b15d19f26696b813e144031977b7fb80716739",
+   "tranche": 4,
+   "type": "blob"
+  },
+  {
+   "bytes": 6172,
+   "content_bytes": 25369,
+   "content_sha256": "7ad714ed0de1d19753f3f00c4b1eeeeb230d201425d097e1b38fbac9283f3f8c",
+   "file": "loose/df/74d4701ed3e8f9edf8b158779623943de0aceb",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "1ab0fd9dd2c6701197f2e0ab18401cafb76a090d",
+     "path": ".github/workflows/verify.yml"
+    }
+   ],
+   "oid": "df74d4701ed3e8f9edf8b158779623943de0aceb",
+   "sha256": "5a956dac816548c88bf2e38a9a11c6a77e6e2c49ba339ba0242960630edaca3f",
+   "tranche": 4,
+   "type": "blob"
+  },
+  {
+   "awaiting_citation": {
+    "note": "the source commit of research run 38450187534, which the record is to cite beside the run",
+    "pull_request": 831,
+    "record": "verification/programmes/oi-qm/reconstruction/round-preserve-induct-1/preregistration.md",
+    "round": "PRESERVE-INDUCT-1",
+    "run": "38450187534"
+   },
+   "bytes": 309,
+   "content_bytes": 309,
+   "content_sha256": "e680e16922f35d0605bcecdff704a0c5937017c3418c6fce235f0320a222af4b",
+   "file": "commit/e6/e684897da41b1c3d066b880194c9beb87a19b7ad",
+   "form": "raw",
+   "held_by": {
+    "branch": "research/preservation-induction-design-20261013",
+    "listed_at": "2026-10-17"
+   },
+   "mechanism": "raw:partial-tree",
+   "oid": "e684897da41b1c3d066b880194c9beb87a19b7ad",
+   "parents": [
+    "476651fed70017543345bd784de95ead9f193ccf"
+   ],
+   "parents_not_retained": [
+    "476651fed70017543345bd784de95ead9f193ccf"
+   ],
+   "sha256": "e680e16922f35d0605bcecdff704a0c5937017c3418c6fce235f0320a222af4b",
+   "tranche": 4,
+   "type": "commit",
+   "withheld_blobs": [
+    "8cdf3a83f78059d81a701c2e4951e54f3a2b06bd",
+    "c697b82b8a7d6719d78dfc74bc8183c85fa12255"
+   ]
+  },
+  {
+   "bytes": 1294,
+   "content_bytes": 3441,
+   "content_sha256": "7c74a23fb430b67fb914696d657f96c3bd0b0be29430daac3868f8b0bf5d4c34",
+   "file": "loose/e8/fc508c75e1fc079ef401517cdf0bf5fd6273a7",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+     "path": ".github/workflows/preservation-induction-design.yml"
+    }
+   ],
+   "oid": "e8fc508c75e1fc079ef401517cdf0bf5fd6273a7",
+   "sha256": "3f5c7005c260c4cb4780dba8af6f030c3ce06013a82c139a1f12aa0a017e705f",
+   "tranche": 4,
+   "type": "blob"
+  },
+  {
+   "bytes": 595,
+   "content_bytes": 678,
+   "content_sha256": "3028011080b36121070fb687968ae41c14659e5d2f26ef759d705cdde9e412cb",
+   "file": "loose/e9/d77b4d665a1cc110aeff38e4ecba74d0bf501b",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "1ab0fd9dd2c6701197f2e0ab18401cafb76a090d",
+     "path": "verification/"
+    }
+   ],
+   "oid": "e9d77b4d665a1cc110aeff38e4ecba74d0bf501b",
+   "sha256": "9d1f6b476aae40c8c35c44cc34b69eac3f3221ee45672cef2a14fb71bb3b7bdb",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 159,
+   "content_bytes": 159,
+   "content_sha256": "4c7b5ebd8883859e624d7aed0ba6d3ed35dd95c82b5e41073a83336d3ce89e51",
+   "file": "loose/ee/e518d465ac2002491e6186a146c8f1267ea038",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "1ab0fd9dd2c6701197f2e0ab18401cafb76a090d",
+     "path": "verification/lean-mathlib/"
+    },
+    {
+     "object": "6959ced4c327ebb800cf6d463a049e4066e37288",
+     "path": "verification/lean-mathlib/"
+    }
+   ],
+   "oid": "eee518d465ac2002491e6186a146c8f1267ea038",
+   "sha256": "d171befe853e65ec671193abaffd1bebd34d6d6c763d889676ec343c2d2f5c42",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 1188,
+   "content_bytes": 2943,
+   "content_sha256": "3d60a40572b675987d47902bb5fedce107db7b2257f26175d325df64dafa4dff",
+   "file": "loose/f4/501a2d2a2267998f9608ffd7b40e7e34080815",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "e684897da41b1c3d066b880194c9beb87a19b7ad",
+     "path": ".github/workflows/preservation-induction-design.yml"
+    }
+   ],
+   "oid": "f4501a2d2a2267998f9608ffd7b40e7e34080815",
+   "sha256": "3eae0c15f66230b69ab109fb8b837e5e2956a70c34af69d55c93480e5f54c7c2",
+   "tranche": 4,
+   "type": "blob"
+  },
+  {
+   "bytes": 51,
+   "content_bytes": 36,
+   "content_sha256": "197d0552d73302287c6023656fb28c937c0faee3334b80410c77b0d09d60467c",
+   "file": "loose/f6/1e6a1ed03c20d81ea374cfb39353af0cb53990",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "1ab0fd9dd2c6701197f2e0ab18401cafb76a090d",
+     "path": ".github/"
+    }
+   ],
+   "oid": "f61e6a1ed03c20d81ea374cfb39353af0cb53990",
+   "sha256": "297f3897725d7a8882874626fb55c9875e122620aaed8039ac9cb2fca4b045a7",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 393,
+   "content_bytes": 461,
+   "content_sha256": "0106935fb27da5579c5a02936a57b354661d48bddef62d4841e37a0cc63ee4e5",
+   "file": "loose/f6/73d3cee0cc7d46fa056da5973f2060f399774a",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+     "path": "verification/programmes/oi-qm/reconstruction/preservation-induction-design/"
+    }
+   ],
+   "oid": "f673d3cee0cc7d46fa056da5973f2060f399774a",
+   "sha256": "5bc0892c444539ec281371f6080552f80880b58e4e90220b7377956082d5a903",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 163,
+   "content_bytes": 156,
+   "content_sha256": "4404b5f9f97d5e4b8dc97521fc79d43fb65749b38b5c40fc36d192364084f2c8",
+   "file": "loose/f7/7f9011d268fde7956eea23a8b43752b5f96778",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "1ab0fd9dd2c6701197f2e0ab18401cafb76a090d",
+     "path": "verification/programmes/"
+    }
+   ],
+   "oid": "f77f9011d268fde7956eea23a8b43752b5f96778",
+   "sha256": "31b8982cc56292650d6a7c4078c7c716c5d33cefa45801b0038ff589732e64d5",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "bytes": 249,
+   "content_bytes": 255,
+   "content_sha256": "c9fdc731121ae4d3ba97913c661770f20feedec828a7edd73a3a58684536fcf5",
+   "file": "loose/f8/3b96d33b07b0d3c680e4176a310ddf5f9c5558",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+     "path": "verification/programmes/oi-qm/"
+    }
+   ],
+   "oid": "f83b96d33b07b0d3c680e4176a310ddf5f9c5558",
+   "sha256": "4a971348f9009282d7d27d970a01c885503f3594202d440eba8211ab1d55d348",
+   "tranche": 4,
+   "type": "tree"
+  },
+  {
+   "awaiting_citation": {
+    "note": "the source commit of research run 38454439833, which the record is to cite beside the run",
+    "pull_request": 831,
+    "record": "verification/programmes/oi-qm/reconstruction/round-preserve-induct-1/preregistration.md",
+    "round": "PRESERVE-INDUCT-1",
+    "run": "38454439833"
+   },
+   "bytes": 304,
+   "content_bytes": 304,
+   "content_sha256": "103d04676c2c791f13cc2d21c498d139253404920959941880527668b1cf4f7a",
+   "file": "commit/fe/febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+   "form": "raw",
+   "held_by": {
+    "branch": "research/preservation-induction-design-20261013",
+    "listed_at": "2026-10-17"
+   },
+   "mechanism": "raw:partial-tree",
+   "oid": "febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+   "parents": [
+    "f1fc73a50b91cf0824611b2082445363ddec2e8d"
+   ],
+   "parents_not_retained": [
+    "f1fc73a50b91cf0824611b2082445363ddec2e8d"
+   ],
+   "sha256": "103d04676c2c791f13cc2d21c498d139253404920959941880527668b1cf4f7a",
+   "tranche": 4,
+   "type": "commit",
+   "withheld_blobs": [
+    "8cdf3a83f78059d81a701c2e4951e54f3a2b06bd",
+    "c697b82b8a7d6719d78dfc74bc8183c85fa12255"
+   ]
   }
  ],
  "scan_exemptions": [
@@ -21388,5 +22761,20 @@
  ],
  "schema": "oi-evidence-objects",
  "scope": "archive tranche 2: cited objects that no host ref held on 2026-10-17 (host-unreferenced or held only in a local clone), the R3 pair, BG-3's off-main heads and blob, the retained parents of connected commits, and every tree and blob these need that main lacks; branch- and pull-ref-held objects follow in later archive tranches",
+ "tranche4": {
+  "base": "b96662e6be4f537502c772db369ea32a35b213a8",
+  "host_state": {
+   "branches": {
+    "dev-equivalence/ktoken-maxcone": "1ab0fd9dd2c6701197f2e0ab18401cafb76a090d",
+    "dev-equivalence/ktoken-maxcone-r2": "6959ced4c327ebb800cf6d463a049e4066e37288",
+    "research/preservation-induction-design-20261013": "468e0f79cabb01c215a252721ee65a1ad1301a2f"
+   },
+   "listed_at": "2026-10-17"
+  },
+  "scope": "archive tranche 4: #831's research sources e684897d and febfe5e2 and #829's KTOKEN-MAXCONE-1 design-run heads 1ab0fd9d and 6959ced4, which records not yet on main cite or are to cite; each commit with every tree and blob main lacks at this base, its off-main parent named, not retained; two captured outputs withheld as approved"
+ },
+ "tranche_bases": {
+  "4": "b96662e6be4f537502c772db369ea32a35b213a8"
+ },
  "version": 1
 }

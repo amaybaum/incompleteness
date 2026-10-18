@@ -1,0 +1,22 @@
+tree 65c3950876df1ff078f337cd986f499871a71572
+parent fd6d4c66df5849bb7fccf8510444572396ba285e
+author Claude <noreply@anthropic.com> 1792249434 +0000
+committer Claude <noreply@anthropic.com> 1792249434 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQFY3cvVD
+ hjdhbpwWtp21P+gFVcKZwbwDikKuRzhI9HMP6Kf16oTp8YKVmDcQLFc+qg+weYxIVzkvgVJxh6Ff
+ ugQ=
+ -----END SSH SIGNATURE-----
+
+Run-1 design tree: wire check A3 into the Mathlib bridge job (W1)
+
+Adds one bridge-job step after the release gate that runs, under lake env,
+checks/run_checks.py: it generates twelve mutation-harness cases from
+KTokenPairCheck.lean, compiles the positive file and every case with lean,
+and fails unless the positive file and the harness control compile with
+their markers and each mutation fails with its expected codes. The step
+runs unless the job is cancelled, so a gate failure does not hide it.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1
