@@ -33,8 +33,12 @@ Tree mode (no git, no network):
       an e-mail address, outside the declared exemptions (commit identity lines and Co-Authored-By trailers whose
       address digest is listed; a commit's gpgsig block; reserved example domains);
   O7  every citation's file exists and its cited line holds one of the recorded tokens; a recorded run is on the
-      line as a whole number, and a recorded hex token (7 to 40 digits, not all decimal) is a prefix of the entry's
-      own id; every recorded id discrepancy
+      line as a whole word, and a recorded hex token (7 to 40 digits, not all decimal) is a prefix of the entry's
+      own id. A commit of archive tranche 4 or later, the tranches that carry the pending lifecycle (O10), is held
+      to O10's rule once cited: it has a run citation; each hex token is a word on its line that is a form of the
+      id; a token citation's line names no other id; each run citation states the id as the run's head (the head
+      rule below), and a run retained under ci/ has the id as its head. Earlier tranches map frozen records that
+      name several heads beside one run, and keep the token rule. Every recorded id discrepancy
       (a cited full id that names no object, mapped to the retained head of the cited run) holds the cited id on
       its line, maps to a stored object with the same eight-digit prefix, and that object carries the run; and
       the provenance-errata entry it names records the same location, cited id, real head and run;
@@ -48,21 +52,26 @@ Tree mode (no git, no network):
       tranche 4) is also bound to them: the commits whose retained trees name the blob are exactly those, and the
       entry records each instance with its commit, path, size, blob id, sha256 and reason;
   O10 the citation lifecycle. A commit carries recorded citations (`cited`, which O7 verifies) or a pending one
-      (`awaiting_citation`: pull request, round, the record's path outside this archive, and optionally the run the
-      record names beside it, the record's citing lines and the forms of the id it uses), never both and never
-      neither; any other entry may carry a pending citation, which is checked alike. A pending citation is judged
-      against the tree under check, never against a pull request:
+      (`awaiting_citation`: pull request, round, the record's path outside this archive, the run the record names
+      the id as the head of, and optionally the record's citing lines and the forms of the id it uses), never both
+      and never neither; any other entry may carry a pending citation, which is checked alike. The run is
+      required: without it any mention of the id anywhere in the record would make the entry eligible, and every
+      entry the lifecycle serves is a run's head or source. A pending citation is judged against the tree under
+      check, never against a pull request:
         pending   the named record is not in the tree. This passes, and the entry counts as not cited, however
                   long it stays so: a pull request that never lands leaves it pending, never cited;
         eligible  the named record is in the tree and cites the id (the full id, or a hex word of 7 or more digits
                   that is a prefix of it), on exactly the recorded lines and with the recorded forms when the entry
-                  names them, with the recorded run as a whole number on a citing line or a line next to one. This
-                  passes and is printed as eligible for promotion: the commit that lands the record need not touch
-                  this manifest, and a later archive commit replaces awaiting_citation with the citations, which
-                  O7 then verifies;
+                  names them; the recorded run is a whole word on a citing line or a line next to one; and every
+                  such run line obeys the head rule: on it and on the line either side, every 40-digit hex word is
+                  the id, every shorter hex word (not all decimal) is a prefix of it, and the full id is among
+                  them. This passes and is printed as eligible for promotion: the commit that lands the record need
+                  not touch this manifest, and a later archive commit replaces awaiting_citation with the
+                  citations, which O7 then verifies by the same rule;
         failing   the record is in the tree and does not cite the id, cites it on other lines or in other forms
-                  than recorded, or does not name the recorded run beside it; or the recorded run is retained
-                  under ci/ with another head commit.
+                  than recorded, does not name the recorded run beside it, or names another head beside the run;
+                  or the recorded run is retained under ci/ with another head commit, or its run.json is not
+                  readable JSON with a head commit.
       No other rule reads a commit's citation state: its object checks (O1-O9, H1-H7) are the same whether it is
       pending, eligible or cited.
 History mode (--reconstitute) adds, in a temporary repository that borrows this repository's objects (H0: a git
@@ -329,12 +338,52 @@ ARCHIVE_REL = os.path.relpath(HERE, ROOT).replace(os.sep, '/')
 HEXWORD = re.compile(r'(?<![0-9A-Fa-f])[0-9a-f]{7,40}(?![0-9A-Fa-f])')
 RUNLIKE = re.compile(r'(?<![0-9])[0-9]{9,20}(?![0-9])')
 PENDING_KEYS = {'pull_request', 'round', 'record', 'note', 'run', 'lines', 'tokens'}
+# the first archive tranche whose entries carry the pending lifecycle; O7 holds its cited entries to O10's rule
+LIFECYCLE_TRANCHE = 4
 
 
 def id_forms(oid, line):
     """The forms of oid that line holds: hex words of 7 to 40 digits that are prefixes of oid (a word of decimal
     digits alone counts only at 40, so a run number is never read as an abbreviated id)."""
     return [w for w in HEXWORD.findall(line) if oid.startswith(w) and (len(w) == 40 or not w.isdigit())]
+
+
+def other_ids(oid, line):
+    """The hex words of line that name another commit: a 40-digit word that is not oid, or a shorter one, not all
+    decimal, that is not a prefix of it."""
+    return [w for w in HEXWORD.findall(line) if (w != oid if len(w) == 40 else not w.isdigit() and not oid.startswith(w))]
+
+
+def run_word(run):
+    """run as a whole word: no digit or letter beside it, so it never matches inside a longer number or hex word."""
+    return re.compile(r'(?<![0-9A-Za-z])%s(?![0-9A-Za-z])' % re.escape(run))
+
+
+def head_rule(oid, L, n):
+    """None if lines n-1..n+1 of L state oid as the head of the run on line n: every hex id word on them is a form
+    of oid and the full id is among them; otherwise the reason."""
+    win = [L[k - 1] for k in (n - 1, n, n + 1) if 1 <= k <= len(L)]
+    bad = sorted({w for l in win for w in other_ids(oid, l)})
+    if bad:
+        return 'names another head beside the run on line %d (%s)' % (n, ', '.join(bad))
+    if not any(oid in HEXWORD.findall(l) for l in win):
+        return 'does not state the full id beside the run on line %d' % n
+    return None
+
+
+def ci_head(root, run):
+    """(ok, head): the head commit of run as retained under ci/<run>/run.json; (True, None) when the run is not
+    retained there; (False, reason) when the file exists and is not readable JSON naming a head commit."""
+    p = os.path.join(root, ARCHIVE_REL, 'ci', run, 'run.json')
+    if not os.path.lexists(p):
+        return True, None
+    try:
+        h = json.load(open(p, encoding='utf-8')).get('head_sha')
+    except (OSError, ValueError, AttributeError):
+        return False, 'ci/%s/run.json is not readable JSON' % run
+    if not isinstance(h, str) or not re.fullmatch(r'[0-9a-f]{40}', h):
+        return False, 'ci/%s/run.json names no head commit' % run
+    return True, h
 
 
 def pending_citation(oid, a, root, F):
@@ -347,7 +396,7 @@ def pending_citation(oid, a, root, F):
             not isinstance(a.get('round'), str) or not a['round'] or not isinstance(rec, str) or \
             not rec.endswith('.md') or rec.startswith('/') or '..' in rec.split('/') or \
             (rec + '/').startswith(ARCHIVE_REL + '/') or \
-            not (run is None or isinstance(run, str) and re.fullmatch(r'[0-9]{1,20}', run)) or \
+            not (isinstance(run, str) and re.fullmatch(r'[0-9]{1,20}', run)) or \
             not (lines is None or isinstance(lines, list) and lines and len(set(lines)) == len(lines) and
                  all(type(n) is int and n > 0 for n in lines)) or \
             not (toks is None or isinstance(toks, list) and toks and
@@ -355,15 +404,14 @@ def pending_citation(oid, a, root, F):
         F('O10 %s: its pending citation is malformed (pull request, round, a record outside the archive, run, lines '
           'or id forms)' % oid[:12])
         return None
-    if run is not None:
-        try:
-            rhead = json.load(open(os.path.join(root, ARCHIVE_REL, 'ci', run, 'run.json'), encoding='utf-8')).get('head_sha')
-        except (OSError, ValueError, AttributeError):
-            rhead = oid
-        if rhead != oid:
-            F('O10 %s: its pending citation names run %s, whose head in ci/%s/run.json is %s'
-              % (oid[:12], run, run, str(rhead)[:12]))
-            return None
+    ok, rhead = ci_head(root, run)
+    if not ok:
+        F('O10 %s: its pending citation names run %s, and %s' % (oid[:12], run, rhead))
+        return None
+    if rhead not in (None, oid):
+        F('O10 %s: its pending citation names run %s, whose head in ci/%s/run.json is %s'
+          % (oid[:12], run, run, rhead[:12]))
+        return None
     path = os.path.join(root, rec)
     if not os.path.isfile(path):
         return 'pending', None
@@ -383,17 +431,43 @@ def pending_citation(oid, a, root, F):
         bad.append('cites it on line(s) %s, not on the recorded %s' % (sorted(at), sorted(lines)))
     if toks is not None and not set(toks) <= {w for f in at.values() for w in f}:
         bad.append('does not cite it as %s' % ', '.join(sorted(set(toks) - {w for f in at.values() for w in f})))
-    runat = []
-    if run is not None:
-        rx = re.compile(r'(?<![0-9])%s(?![0-9])' % run)
-        runat = [n for n, l in enumerate(L, 1) if rx.search(l) and {n - 1, n, n + 1} & set(at)]
-        if not runat:
-            near = sorted({x for n in at for m in (n - 1, n, n + 1) if 1 <= m <= len(L) for x in RUNLIKE.findall(L[m - 1])})
-            bad.append('does not name run %s beside it%s' % (run, ' (beside it: %s)' % ', '.join(near) if near else ''))
+    rx = run_word(run)
+    runat = [n for n, l in enumerate(L, 1) if rx.search(l) and {n - 1, n, n + 1} & set(at)]
+    if not runat:
+        near = sorted({x for n in at for m in (n - 1, n, n + 1) if 1 <= m <= len(L) for x in RUNLIKE.findall(L[m - 1])})
+        bad.append('does not name run %s beside it%s' % (run, ' (beside it: %s)' % ', '.join(near) if near else ''))
+    # the head rule, on every run line beside a citing line
+    bad += [r for r in (head_rule(oid, L, n) for n in runat) if r][:1]
     if bad:
         F('O10 %s: its record %s is in the tree and %s' % (oid[:12], rec, '; '.join(bad)))
         return None
     return 'eligible', (sorted(at), runat)
+
+
+def lifecycle(e):
+    """Whether an entry is a commit of a tranche that carries the pending lifecycle, so O7 holds it to O10's rule."""
+    return e.get('type') == 'commit' and type(e.get('tranche')) is int and e['tranche'] >= LIFECYCLE_TRANCHE
+
+
+def cited_by_rule(oid, c, L, n, root):
+    """O7 for a citation of a lifecycle entry, at line n of L: None, or the reason it fails O10's rule."""
+    line = L[n - 1]
+    hexes = [t for t in c.get('tokens') or [] if isinstance(t, str) and re.fullmatch(r'[0-9a-f]{7,40}', t) and
+             not t.isdigit()]
+    if any(t not in id_forms(oid, line) for t in hexes):
+        return 'does not hold its token as a word that is a form of its id'
+    if not c.get('run') and other_ids(oid, line):
+        return 'names another id (%s)' % ', '.join(sorted(set(other_ids(oid, line))))
+    if c.get('run'):
+        r = head_rule(oid, L, n)
+        if r:
+            return r
+        ok, h = ci_head(root, str(c['run']))
+        if not ok:
+            return h
+        if h not in (None, oid):
+            return 'cites run %s, whose head in ci/%s/run.json is %s' % (c['run'], c['run'], h[:12])
+    return None
 
 
 def check(objdir, root):
@@ -585,11 +659,17 @@ def check(objdir, root):
                 F('O7 %s: citing location %s does not exist' % (oid[:12], c.get('location')))
             elif not toks or not any(t in lines[int(ln) - 1] for t in toks):
                 F('O7 %s: %s does not hold its token' % (oid[:12], c.get('location')))
-            elif c.get('run') and not re.search(r'(?<![0-9])%s(?![0-9])' % re.escape(str(c['run'])), lines[int(ln) - 1]):
+            elif c.get('run') and not run_word(str(c['run'])).search(lines[int(ln) - 1]):
                 F('O7 %s: %s does not hold its run %s' % (oid[:12], c.get('location'), c['run']))
             elif any(isinstance(t, str) and re.fullmatch(r'[0-9a-f]{7,40}', t) and not t.isdigit() and
                      not oid.startswith(t) for t in toks):
                 F('O7 %s: %s records a hex token that is not a prefix of its id' % (oid[:12], c.get('location')))
+            elif lifecycle(e):
+                r = cited_by_rule(oid, c, lines, int(ln), root)
+                if r:
+                    F('O7 %s: %s %s' % (oid[:12], c.get('location'), r))
+        if lifecycle(e) and e.get('cited') and not any(c.get('run') for c in e['cited']):
+            F('O7 %s: a commit of tranche %d or later is cited without a run citation' % (oid[:12], LIFECYCLE_TRANCHE))
     for x in man.get('id_discrepancies', []):
         f, _, ln = x.get('location', '').rpartition(':')
         try:
@@ -1116,7 +1196,8 @@ def self_test(root):
             # uncited, so it names a record to cite it (O10), and only git's format check (H2) can refuse it
             man['objects'].append({'oid': oid, 'type': 'commit', 'mechanism': 'identity-anchor', 'form': 'raw',
                                    'file': rel, 'bytes': len(data), 'sha256': sha256(data), 'parents': [],
-                                   'awaiting_citation': {'pull_request': 1, 'round': 'SELF-TEST', 'record': 'x.md'},
+                                   'awaiting_citation': {'pull_request': 1, 'round': 'SELF-TEST', 'record': 'x.md',
+                                                         'run': '1'},
                                    'tranche': 2})
             save(d, man)
         expect('a commit git refuses as malformed', malformed_commit, 'H2', history=True)
@@ -1339,9 +1420,10 @@ def self_test(root):
                 save(d, man)
             expect('an object its own tranche\'s base already reaches', on_tranche_base, 'H7', history=True)
 
-        # O10, the citation lifecycle, on a stand-in for a pending entry's record. Each case checks a copy against a
-        # root that shows this repository through symlinks except along the record's directory, where the stand-in
-        # is written or left out; nothing is written to this repository.
+        # O10, the citation lifecycle, on a stand-in for a pending entry's record, laid out as KTOKEN-MAXCONE-1's
+        # design evidence is: each head in full on one line, and its run with the head's eight-digit form on the
+        # next. Each case checks a copy against a root that shows this repository through symlinks except along the
+        # paths the case writes; nothing is written to this repository.
         pend = next((e for e in man0['objects'] if (e.get('awaiting_citation') or {}).get('run')), None)
         if pend is None:
             results.append(('the citation-lifecycle cases need a pending entry that names its run', '-', 'NOT DETECTED',
@@ -1350,57 +1432,81 @@ def self_test(root):
             oid, aw = pend['oid'], pend['awaiting_citation']
             rec, rid = aw['record'], aw['run']
             other = hashlib.sha1(b'another commit ' + oid.encode()).hexdigest()
-            # the stand-in also cites every other entry pending on the same record, as the landed record must
-            siblings = ''.join('- `%s`: another head, run %s.\n' % (x['oid'], x['awaiting_citation'].get('run', ''))
-                               for x in man0['objects'] if x['oid'] != oid and
-                               (x.get('awaiting_citation') or {}).get('record') == aw['record'])
-            stand_in = lambda c, r: ('# a stand-in for the record of %s as it lands on main\n\n'
-                                     '- `%s`: the design-run head.\n'
-                                     '- The workflow was dispatched on exactly that head: run %s, `head_sha` `%s…`.\n'
-                                     % (aw['round'], c, r, c[:8])) + siblings
-            good = stand_in(oid, rid)
-            n1, n2 = 3, 4
+            # every other entry pending on the same record is cited too, as the landed record must cite it; then a
+            # commit no entry names
+            heads = [(oid, rid)] + [(x['oid'], x['awaiting_citation']['run']) for x in man0['objects'] if x['oid'] != oid
+                                    and (x.get('awaiting_citation') or {}).get('record') == rec] + [(other, '9' * 11)]
 
-            def overlay(text, extra=None):
+            def record(hs, eight=None):
+                """Block i: its head in full on line 3+3i, its run and the head's eight-digit form (or eight[i]) on
+                line 4+3i, a blank line."""
+                out = '# a stand-in for the record of %s as it lands on main\n\n' % aw['round']
+                for i, (h, r) in enumerate(hs):
+                    out += ('- `%s`: the head of a design run.\n- The workflow was dispatched on exactly that head: run '
+                            '%s, `head_sha` `%s…`.\n\n' % (h, r, (eight or {}).get(i, h[:8])))
+                return out
+            good = record(heads)
+            n1, n2 = 3, 4
+            # the three mutations of the real record that review a239728f F1 measured, on the stand-in: the full ids
+            # of the first two heads swapped, their eight-digit forms kept; the full id mistyped after digit 10; the
+            # run line stating another head
+            sib = heads[1]
+            swapped = record([(sib[0], rid), (oid, sib[1])] + heads[2:], eight={0: oid[:8], 1: sib[0][:8]})
+            typo_id = oid[:10] + ''.join('1' if ch == '0' else '0' for ch in oid[10:18]) + oid[18:]
+            typo = record([(typo_id, rid)] + heads[1:], eight={0: oid[:8]})
+            wrong_head = record(heads, eight={0: other[:8]})
+            ci_run = '%s/ci/%s/run.json' % (ARCHIVE_REL, rid)
+
+            def overlay(files):
                 t = os.path.join(tmp, 'root')
                 if os.path.isdir(t):
                     shutil.rmtree(t)
                 os.makedirs(t)
-                src, dst = root, t
-                for part in rec.split('/'):
-                    for nm in (os.listdir(src) if os.path.isdir(src) else []):
-                        if nm != part:
-                            os.symlink(os.path.join(src, nm), os.path.join(dst, nm))
-                    if part == rec.split('/')[-1]:
-                        break
-                    src, dst = os.path.join(src, part), os.path.join(dst, part)
-                    os.makedirs(dst)
-                if text is not None:
-                    open(os.path.join(t, rec), 'w', encoding='utf-8').write(text)
-                for rel, body in (extra or {}).items():
-                    open(os.path.join(t, rel), 'w', encoding='utf-8').write(body)
+                for nm in os.listdir(root):
+                    os.symlink(os.path.join(root, nm), os.path.join(t, nm))
+                for rel, body in files.items():
+                    src, dst = root, t
+                    for part in rel.split('/')[:-1]:
+                        src, dst = os.path.join(src, part), os.path.join(dst, part)
+                        if os.path.islink(dst):
+                            os.unlink(dst)
+                            os.makedirs(dst)
+                            for nm in os.listdir(src):
+                                os.symlink(os.path.join(src, nm), os.path.join(dst, nm))
+                        elif not os.path.isdir(dst):
+                            os.makedirs(dst)
+                    if os.path.lexists(os.path.join(t, rel)):
+                        os.unlink(os.path.join(t, rel))
+                    if body is not None:
+                        open(os.path.join(t, rel), 'w', encoding='utf-8').write(body)
                 return t
 
-            def promoted(m, toks=None, run=None):
-                x = next(y for y in m['objects'] if y['oid'] == oid)
-                x.pop('awaiting_citation')
-                x['cited'] = [{'class': 'native-record', 'location': '%s:%d' % (rec, n1), 'role': 'other:design-run',
-                               'tokens': toks or [oid], 'via': 'token'},
-                              {'class': 'native-record', 'location': '%s:%d' % (rec, n2), 'role': 'run-head',
-                               'run': run or rid, 'tokens': [oid[:8]], 'via': 'run'}]
+            def promoted(cites=None):
+                """The entry promoted to citations (line, tokens, run or None); by default the stand-in's two lines."""
+                def fn(m):
+                    x = next(y for y in m['objects'] if y['oid'] == oid)
+                    x.pop('awaiting_citation')
+                    x['cited'] = [dict({'class': 'native-record', 'location': '%s:%d' % (rec, n), 'tokens': toks},
+                                       **({'role': 'run-head', 'run': run, 'via': 'run'} if run else
+                                          {'role': 'other:design-run', 'via': 'token'}))
+                                  for n, toks, run in cites or [(n1, [oid], None), (n2, [oid[:8]], rid)]]
+                return fn
 
             def pending_edit(**kw):
                 def fn(m):
-                    next(y for y in m['objects'] if y['oid'] == oid)['awaiting_citation'].update(kw)
+                    a = next(y for y in m['objects'] if y['oid'] == oid)['awaiting_citation']
+                    a.update(kw)
+                    for k in [k for k, v in kw.items() if v is None]:
+                        a.pop(k)
                 return fn
 
-            def expect_cite(name, text, edit_man, rule, state=None, extra=None, msg=''):
+            def expect_cite(name, files, edit_man, rule, state=None, msg=''):
                 d = fresh()
                 if edit_man:
                     m = json.load(open(os.path.join(d, 'manifest.json')))
                     edit_man(m)
                     save(d, m)
-                fails, info = check(d, overlay(text, extra))
+                fails, info = check(d, overlay(files))
                 got = (info.get('citation_states') or {}).get(oid, ('failing',))[0]
                 if rule is None:
                     ok = not fails and got == state
@@ -1413,14 +1519,14 @@ def self_test(root):
 
             # (a)-(e): the record absent, then landed with the manifest unchanged, then the entry promoted; a record
             # that cites another commit; the record removed under a promoted entry
-            expect_cite('lifecycle (a): the record not in the tree, the entry pending', None, None, None, 'pending')
+            expect_cite('lifecycle (a): the record not in the tree, the entry pending', {rec: None}, None, None, 'pending')
             info_b = expect_cite('lifecycle (b): the record lands citing the id and run, the manifest unchanged (eligible)',
-                                 good, None, None, 'eligible')
-            expect_cite('lifecycle (c): the entry promoted to the record\'s two lines, which O7 verifies', good,
-                        promoted, None, 'cited')
-            expect_cite('lifecycle (d): the record lands citing another commit id', stand_in(other, rid), None, 'O10',
-                        msg='does not cite it')
-            expect_cite('lifecycle (e): the record removed while the entry is cited', None, promoted, 'O7',
+                                 {rec: good}, None, None, 'eligible')
+            expect_cite('lifecycle (c): the entry promoted to the record\'s two lines, which O7 verifies', {rec: good},
+                        promoted(), None, 'cited')
+            expect_cite('lifecycle (d): the record lands citing another commit id', {rec: record([(other, rid)] + heads[1:])},
+                        None, 'O10', msg='does not cite it')
+            expect_cite('lifecycle (e): the record removed while the entry is cited', {rec: None}, promoted(), 'O7',
                         msg='does not exist')
             # the object checks do not read the citation's state: history mode passes with the citation eligible
             hf = Fails()
@@ -1428,45 +1534,60 @@ def self_test(root):
                 history_checks(root, info_b, hf)
             results.append(('history mode with the record landed and the citation still pending (eligible)', '-',
                             'PASSES as required' if not hf and info_b.get('citation_states') else 'FAILS', hf[:1]))
+            # a wrong head beside the run (review a239728f F1), pending and promoted
+            expect_cite('F1 O10: the record swaps the two full ids, keeping their eight-digit forms', {rec: swapped},
+                        None, 'O10', msg='names another head')
+            expect_cite('F1 O10: the record mistypes the full id after digit 10', {rec: typo}, None, 'O10',
+                        msg='names another head')
+            expect_cite('F1 O10: the run line states another head', {rec: wrong_head}, None, 'O10',
+                        msg='names another head')
+            expect_cite('F1 O7: promoted to the swapped full id and the run line beside the other', {rec: swapped},
+                        promoted([(n1 + 3, [oid], None), (n2, [oid[:8]], rid)]), 'O7', msg='names another head')
+            expect_cite('F1 O7: promoted to the mistyped full id\'s line and the run line', {rec: typo},
+                        promoted([(n1, [oid[:8]], None), (n2, [oid[:8]], rid)]), 'O7', msg='names another head')
+            expect_cite('F1 O7: promoted to the run line that states another head', {rec: wrong_head},
+                        promoted([(n1, [oid], None), (n2, [rid], rid)]), 'O7', msg='names another head')
+            expect_cite('a promoted lifecycle entry without a run citation', {rec: good},
+                        promoted([(n1, [oid], None)]), 'O7', msg='without a run citation')
             # a pull request is never evidence: the id cited in a file that is not the named record leaves it pending
-            expect_cite('the id cited in another file than the named record: still pending', None, None, None, 'pending',
-                        extra={os.path.dirname(rec) + '/ZZ-OTHER.md': good})
-            expect_cite('a pending entry that also carries cited', good,
+            expect_cite('the id cited in another file than the named record: still pending',
+                        {rec: None, os.path.dirname(rec) + '/ZZ-OTHER.md': good}, None, None, 'pending')
+            expect_cite('a pending entry that also carries cited', {rec: good},
                         lambda m: next(y for y in m['objects'] if y['oid'] == oid).__setitem__(
                             'cited', [{'location': '%s:%d' % (rec, n1), 'tokens': [oid]}]), 'O10', msg='together')
-            expect_cite('a pending entry that carries an empty cited list', None,
+            expect_cite('a pending entry that carries an empty cited list', {rec: None},
                         lambda m: next(y for y in m['objects'] if y['oid'] == oid).__setitem__('cited', []), 'O10',
                         msg='together')
-            expect_cite('the record lands citing the id beside another run', stand_in(oid, '1' + rid), None, 'O10',
-                        msg='does not name run %s' % rid)
-            expect_cite('the record lands on other lines than the entry records', good, pending_edit(lines=[n1 + 10]),
+            expect_cite('a pending entry that records no run (N5)', {rec: good}, pending_edit(run=None), 'O10',
+                        msg='malformed')
+            expect_cite('the record lands citing the id beside another run', {rec: record([(oid, '1' + rid)] + heads[1:])},
+                        None, 'O10', msg='does not name run %s' % rid)
+            expect_cite('the record holds the run only inside a hex word', {rec: good.replace(
+                'run %s,' % rid, 'run a%sbc,' % rid, 1)}, None, 'O10', msg='does not name run %s' % rid)
+            expect_cite('the record lands on other lines than the entry records', {rec: good}, pending_edit(lines=[n1 + 10]),
                         'O10', msg='not on the recorded')
-            expect_cite('the record lands on exactly the lines the entry records', good, pending_edit(lines=[n1, n2]),
-                        None, 'eligible')
-            expect_cite('the record lands without the id form the entry records', good,
+            expect_cite('the record lands on exactly the lines the entry records', {rec: good},
+                        pending_edit(lines=[n1, n2]), None, 'eligible')
+            expect_cite('the record lands without the id form the entry records', {rec: good},
                         pending_edit(tokens=[oid[:12]]), 'O10', msg='does not cite it as')
-            expect_cite('a pending entry that records another commit\'s id as its form', None,
+            expect_cite('a pending entry that records another commit\'s id as its form', {rec: None},
                         pending_edit(tokens=[other[:8]]), 'O10', msg='malformed')
-            ci_other = None
-            for r in sorted(os.listdir(os.path.join(HERE, 'ci'))) if os.path.isdir(os.path.join(HERE, 'ci')) else []:
-                p = os.path.join(HERE, 'ci', r, 'run.json')
-                if os.path.isfile(p) and json.load(open(p, encoding='utf-8')).get('head_sha') not in (None, oid):
-                    ci_other = r
-                    break
-            if ci_other is None:
-                results.append(('a pending entry that names a retained run of another head needs such a run', '-',
-                                'NOT DETECTED', []))
-            else:
-                expect_cite('a pending entry that names a retained run of another head', None, pending_edit(run=ci_other),
-                            'O10', msg='whose head')
-            expect_cite('a pending record inside the archive', None,
+            expect_cite('a pending entry whose run is retained with a run.json that is not JSON (N4)',
+                        {rec: None, ci_run: '{not json\n'}, None, 'O10', msg='not readable JSON')
+            expect_cite('a pending entry whose run is retained with a run.json naming no head (N4)',
+                        {rec: None, ci_run: json.dumps({'id': int(rid)})}, None, 'O10', msg='names no head commit')
+            expect_cite('a pending entry whose run is retained with another head', {rec: None,
+                        ci_run: json.dumps({'head_sha': other})}, None, 'O10', msg='whose head')
+            expect_cite('a promoted run citation whose run is retained with another head', {rec: good,
+                        ci_run: json.dumps({'head_sha': other})}, promoted(), 'O7', msg='whose head')
+            expect_cite('a pending record inside the archive', {rec: None},
                         pending_edit(record=ARCHIVE_REL + '/x.md'), 'O10', msg='malformed')
             # after promotion, O7: a recorded run not on the line, a hex token of another commit on the line
-            expect_cite('a promoted citation that records another run', good, lambda m: promoted(m, run='1' + rid),
-                        'O7', msg='does not hold its run')
+            expect_cite('a promoted citation that records another run', {rec: good},
+                        promoted([(n1, [oid], None), (n2, [oid[:8]], '1' + rid)]), 'O7', msg='does not hold its run')
             expect_cite('a promoted citation that records another commit\'s id the line also holds',
-                        good.replace('the design-run head', 'the design-run head, not `%s`' % other),
-                        lambda m: promoted(m, toks=[other]), 'O7', msg='not a prefix of its id')
+                        {rec: good.replace('the head of a design run', 'the head of a design run, not `%s`' % other, 1)},
+                        promoted([(n1, [other], None), (n2, [oid[:8]], rid)]), 'O7', msg='not a prefix of its id')
     finally:
         _SCAN_MEMO = _HISTORY_MEMO = None
         shutil.rmtree(tmp, ignore_errors=True)
