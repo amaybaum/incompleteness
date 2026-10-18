@@ -1,0 +1,37 @@
+{
+ "bridge_job": "117781736738",
+ "commit": "e12c1573dc1605baf6ed299f9fe11cdb31ef56ee",
+ "files": [
+  {
+   "bytes": 507,
+   "form": "derived",
+   "path": "run.json",
+   "sha256": "88ef9d7834b77511529334e51657956d8db5b93b292a0439ebda36c6e287ed6b",
+   "source_sha256": "7933f20b1fe46c9585eee4abc170d3174c6e0bf9beef3e70a9e6c83247da030c"
+  },
+  {
+   "bytes": 43140,
+   "form": "derived",
+   "path": "jobs.json",
+   "sha256": "e97e111f9d6e1d98bb3b9b3e13a48f6b36db75c17ff5f31153f1b6fb8d658c14",
+   "source_sha256": "9fd2315a8c37702eb7a7795ae97978d9b008f8b77226260fb6b451724798d9d0"
+  },
+  {
+   "bytes": 1781,
+   "form": "derived",
+   "path": "designation.json",
+   "sha256": "e82c69a55535cc58378aa5d278efe1373438120a6a82a1470706761a6722c519",
+   "source_sha256": "b4844877c41971674c466cccc52769d0bf8b64c6d8bcd55fb8968094505cc8da"
+  }
+ ],
+ "missing": [
+  {
+   "item": "the Mathlib bridge job log digest, release-gate block and #print axioms reports (results.json)",
+   "why": "the job log is served from a storage host this session cannot reach; no extraction has run"
+  }
+ ],
+ "round": "KTOKEN-MAXCONE-1",
+ "run": "39163559807",
+ "schema": "oi-f-run-record",
+ "version": 1
+}
