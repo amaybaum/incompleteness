@@ -586,7 +586,7 @@ def _self_test(base):
          ok and logs == ["9101.log", "9102.log"] and sorted(rec["runs"]) == ["9001", "9002"]
          and all(not r["path"].startswith("/repos/%s/actions/runs/9003" % REPO) for r in a["requests"]))
     case("each log's bytes, sha256 and line count are recorded",
-         all(rec["runs"][x]["log"]["sha256"] == hashlib.sha256(body).hexdigest() and rec["runs"][x]["log"]["lines"] == 300
+         all(rec["runs"][x]["log"].get("sha256") == hashlib.sha256(body).hexdigest() and rec["runs"][x]["log"].get("lines") == 300
              for x in ("9001", "9002")))
     case("the token reaches the API server only, as Bearer",
          all(r["headers"].get("authorization") == "Bearer " + token for r in a["requests"])

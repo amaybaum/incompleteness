@@ -74,8 +74,8 @@ HEAD_LOG = "[command]/usr/bin/git log -1 --format=%H"
 PERMITTED = ["propext", "Classical.choice", "Quot.sound"]
 MARKER_KEYS = ("sorryAx", "Lean.ofReduceBool", "declaration uses 'sorry'", "error:")
 STEP_CONCLUSIONS = ("success", "failure", "cancelled", "skipped")
-LINE_BUDGET = 4200      # lines this script may print per shard; the runner adds about 300 around it
-TRAILER = 4             # the run-set line, the verdict line and slack
+LINE_BUDGET = 4200      # lines this script may print per shard; the runner adds about 270 around it
+TRAILER = 5             # the run-set line, the verdict line, the end-of-output marker and slack
 
 HEX40 = re.compile(r"^[0-9a-f]{40}$")
 HEAD_NOW_PR = re.compile(r"^HEAD is now at ([0-9a-f]{7,40}) Merge ([0-9a-f]{40}) into ([0-9a-f]{40})$")
@@ -94,6 +94,8 @@ SECRET = re.compile(
     r'|blob\.core\.windows\.net|actions\.githubusercontent\.com'
     r'|(?<![\w.])(?:\d{1,3}\.){3}\d{1,3}(?![\w.])|[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}', re.I)
 
+# The last line this script prints, after the verdict line: collect.py accepts the verdict only as the line before it.
+END_OF_OUTPUT = "BATCH END shard %d/%s: assembler %s"
 BEGIN = "===== BEGIN EXPECTED RESULT %s ====="
 END = "===== END EXPECTED RESULT %s ====="
 
@@ -772,6 +774,7 @@ def assemble_shard(ex, doc, shard, inputs, xc, out=None, budget=LINE_BUDGET, run
         P("CHECK all UNVERIFIED the run set: %s" % problem)
     v = overall(verdicts, runs, expected_ids)
     P("EXTRACT SHARD %d/%s %s" % (shard, nsh, v))
+    P(END_OF_OUTPUT % (shard, nsh, own_blob("assemble.py")[:12]))
     return {"HOLDS": 0, "FAILS": 1, "UNVERIFIED": 2}[v]
 
 
@@ -781,7 +784,9 @@ def run_all(ex, doc, shard, inputs, xc, out=None, **kw):
         return assemble_shard(ex, doc, shard, inputs, xc, out, **kw)
     except Exception as e:  # noqa: BLE001
         print("CHECK all UNVERIFIED stopped: %s: %s" % (type(e).__name__, redact(str(e))[:200]), file=out)
-        print("EXTRACT SHARD %d/%s UNVERIFIED" % (shard, doc.get("shards") if isinstance(doc, dict) else "?"), file=out)
+        nsh = doc.get("shards") if isinstance(doc, dict) else "?"
+        print("EXTRACT SHARD %d/%s UNVERIFIED" % (shard, nsh), file=out)
+        print(END_OF_OUTPUT % (shard, nsh, own_blob("assemble.py")[:12]), file=out)
         return 2
 
 
@@ -985,8 +990,13 @@ def self_test(extractor_path, work=None, pinned=True):
             buf = io.StringIO()
             code = run_all(ex, doc, 1, inputs, xc, out=buf, budget=budget, **kw)
             text = buf.getvalue()
-            last = text.rstrip("\n").split("\n")[-1]
+            tl = text.rstrip("\n").split("\n")
+            last = tl[-2] if len(tl) > 1 else ""
             ok = last == "EXTRACT SHARD 1/2 " + want_shard and code == {"HOLDS": 0, "FAILS": 1, "UNVERIFIED": 2}[want_shard]
+            # the verdict is the second-to-last line, the end-of-output marker the last, each once
+            ok = ok and tl[-1] == END_OF_OUTPUT % (1, 2, own_blob("assemble.py")[:12]) \
+                and sum(1 for l in tl if l.startswith("BATCH END ")) == 1 \
+                and sum(1 for l in tl if l.startswith("EXTRACT SHARD ")) == 1
             for rid, v in (want_runs or {}).items():
                 ok = ok and re.search(r"^RESULT %s %s " % (rid, v), text, re.M) is not None
             ok = ok and (needle is None or needle in text)
@@ -1233,6 +1243,23 @@ def self_test(extractor_path, work=None, pinned=True):
         print("  %s  a differing or absent session observation is printed and does not change the verdict"
               % ("ok  " if ok else "FAIL"))
         fails += not ok
+        # --- the end-of-output marker on the exception path
+        n += 1
+        real_shard = globals()["assemble_shard"]
+
+        def raising(*a_, **k_):
+            raise RuntimeError("fixture stop")
+        globals()["assemble_shard"] = raising
+        try:
+            buf = io.StringIO()
+            code = run_all(ex, {"shards": 2, "runs": []}, 1, {}, {}, out=buf)
+        finally:
+            globals()["assemble_shard"] = real_shard
+        tl = buf.getvalue().rstrip("\n").split("\n")
+        ok = code == 2 and tl[-2] == "EXTRACT SHARD 1/2 UNVERIFIED" and tl[-1] == END_OF_OUTPUT % (1, 2, own_blob("assemble.py")[:12])
+        print("  %s  an assembly that raises still ends with its UNVERIFIED verdict and the end-of-output marker"
+              % ("ok  " if ok else "FAIL"))
+        fails += not ok
         # --- pins
         n += 1
         bad = os.path.join(base, "extract_result.py")
@@ -1306,6 +1333,7 @@ def main(argv=None):
     except (Unverified, ValueError) as e:
         print("CHECK all UNVERIFIED %s" % e)
         print("EXTRACT SHARD %d/? UNVERIFIED" % shard)
+        print(END_OF_OUTPUT % (shard, "?", own_blob("assemble.py")[:12]))
         return 2
     inputs = {"host": a.host, "fetch_record": os.path.join(a.host, "fetch-record.json")}
     return run_all(ex, doc, shard, inputs, xc)

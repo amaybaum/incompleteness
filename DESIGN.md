@@ -60,13 +60,14 @@ second launch and breaks the template's no-writes property.
 - **Size of a shard log:**
   - A worst-case result is 522 lines: a cold build printing all 222 modules, a 25-step gate and 37 jobs (measured on
     a fixture of that shape).
-  - Seven of those, with banner, CROSSCHECK, RESULT and verdict lines, come to 3,671 lines (measured on a seven-run
+  - Seven of those, with banner, CROSSCHECK, RESULT, verdict and end-of-output lines, come to 3,672 lines (measured on a seven-run
     fixture shard of that shape).
   - `assemble.py` prints at most `LINE_BUDGET = 4200` lines, after every CHECK and RESULT line is counted.
   - The runner adds about 270 lines: 218 for set-up and two checkouts, about 16 for the host step, 9 for the assemble
     step's header and 26 after the verdict. These were measured on the #829 extractor's own log: 4,036 lines, of which
     the assembler printed 3,399.
-  - A worst-case shard log is therefore about 3,940 lines, and the budget bounds any shard log at about 4,470.
+  - A worst-case shard log is therefore 3,941 lines (measured with those runner lines around the fixture's output,
+    and read whole by `collect.py`), and the budget bounds any shard log at 4,469.
     `collect.py` refuses any log of 5,000 lines or more, and any log not served whole.
   - A block that would pass the budget is withheld. Its run becomes UNVERIFIED with the reason named, and its earlier
     blocks still print.
@@ -118,21 +119,32 @@ consistently.
   ids> RUNS n` names the set.
 - **Global, in the session.** `collect.py` requires:
   - every served log to be whole and under 5,000 lines;
-  - each served answer's job id to be the extraction run's job "Extract shard K" for the shard its banner names.
-    The job index comes from that run's jobs list, every job at the launched commit, on the launch branch, of this
-    workflow;
-  - each shard 1..32 collected once. Copies are grouped by shard before anything is decided, so argument order
-    never matters. Byte-identical copies are taken once; copies that differ make the shard UNVERIFIED and none of
-    its runs usable;
+  - an answer to belong to the shard the job index gives its job id. Identity comes from trusted collection
+    metadata (the tool's job id and the extraction run's jobs list, every job at the launched 40-hex commit, on
+    the launch branch, of this workflow), never from the log's own banner, which can only add a shard to those a
+    job is involved with;
+  - the job rule, decided after every file is read, so neither file order nor shard numbering can change it:
+    - a job involved with two or more shards voids every one of them;
+    - a job whose answers differ, or with an answer whose banner is missing or malformed, voids its shard
+      (UNVERIFIED, none of its runs usable);
+    - an answer of a job outside the run fails and voids the shard its banner names;
+    - byte-identical copies are taken once;
   - each banner and RESULT set to match `runs.json`, and the assembler banner to name the pinned assembler,
     host-reader and extractor blobs, the extractor's commit and `runs.json`'s digest;
   - a block exactly for each HOLDS run, matching its SHA256 line, canonical, naming that run's job and head, and
     naming in `source` the same pinned blobs and digest;
-  - exactly one verdict line in the whole log, after the last RESULT line and block, and the one the RESULT lines
-    imply;
+  - exactly one start marker (the assembler banner) and exactly one end-of-output marker, in that order, the end
+    marker naming that shard and the pinned assembler; every RESULT line and block between them;
+  - exactly one verdict line in the whole log: the line just before the end-of-output marker, and the one the
+    RESULT lines imply. A verdict-shaped line outside the pair, or an assembler that never printed its end marker,
+    refuses the shard;
   - the runs collected to be exactly the 223, each once.
 
-  It records each shard's job id, the extraction run and the pins in `collected.json`.
+  `collected.json` records, in separate fields:
+  - `launched_commit`: the full 40-hex `--head`, which the job index required of every job;
+  - `collector`: the commit the collector was run from, the committed blob of `batchx/collect.py`, the git blob and
+    sha256 of the bytes actually executed, whether they match the committed blob, and the values it pins;
+  - each shard's job id and the extraction run.
 
   It prints one `RUN` line per run with its expiry and verdict, and ends `COLLECT HOLDS` only when all 223 are
   usable.
@@ -217,9 +229,9 @@ All run in the `selftest` job with no token, before any shard reads anything. Al
 | Suite | Cases | What it covers |
 |---|---|---|
 | `host.py --self-test` | 51 | 28 allow-list cases (6 allowed, 22 refused shapes); runs-file pin; a clean shard against local servers; the token only as Bearer to the API, never to storage; no leak of link, path, query or token; HTTP 410/404 recorded; rate-limit reserve stops JSON and log reads mid-shard; second redirect; non-https link; JSON redirect refused; no-redirect log; cap; short body; deadline; no token; job-count mismatch |
-| `assemble.py --self-test` | 74 | clean shard (green dispatch, green PR, red build), variant invariance, canonical/SHA256, no run-varying content; red gate, cancelled, not-built recorded and held; each fail-closed rule above as a mutation case with its expected verdict and reason; primed name under the pinned blob and under a simulated repair; malformed records; the run-set rule (missing, extra, duplicate, none) and the verdict table; line budget; CROSSCHECK never decisive; blob pin; interface pin; scan; host.py's digest pin |
-| `collect.py --self-test` | 38 | whole shards in any order; byte-identical output; a tail or a wrong `original_length` refused; missing and duplicate shard; RUNSET mismatch; missing or extra RESULT; tampered block; a block for a non-holding run; a block naming another head; a verdict line at odds with the RESULT lines; one UNVERIFIED or FAILS run among holders |
-| `controls.py` | 49 | the plan and pins (including collect.py's pins of the assemble.py and host.py blobs), with 13 negative controls (each must be caught); end to end: assemble.py's real output, served whole with a real-shaped runner trailer, is collected byte-identical, a red shard's output is read with its FAILS run named, and a tail is refused; the unmutated copy passes; **31 code mutants across the three scripts, all killed**, one or more for each of the seven review fixes |
+| `assemble.py --self-test` | 75 | clean shard (green dispatch, green PR, red build), variant invariance, canonical/SHA256, no run-varying content; red gate, cancelled, not-built recorded and held; each fail-closed rule above as a mutation case with its expected verdict and reason; primed name under the pinned blob and under a simulated repair; malformed records; the run-set rule (missing, extra, duplicate, none) and the verdict table; line budget; CROSSCHECK never decisive; blob pin; interface pin; scan; host.py's digest pin |
+| `collect.py --self-test` | 78 | whole shards in any order; byte-identical output; a tail or a wrong `original_length` refused; missing and duplicate shard; RUNSET mismatch; missing or extra RESULT; tampered block; a block for a non-holding run; a block naming another head; a verdict line at odds with the RESULT lines; one UNVERIFIED or FAILS run among holders |
+| `controls.py` | 59 | the plan and pins (including collect.py's pins of the assemble.py and host.py blobs), with 13 negative controls (each must be caught); end to end: assemble.py's real output, served whole with a real-shaped runner trailer, is collected byte-identical, a red shard's output is read with its FAILS run named, and a tail is refused; the unmutated copy passes; **41 code mutants across the three scripts, all killed**; each mutant for a fix of the two reviews must fail its named regression tests, and a table lists every test each one fails |
 
 CROSSCHECK lines compare each downloaded log with a session observation in `batchx/crosscheck.json`, sha256-pinned.
 The observation is `original_length` plus the sha256 of the last 40 served lines, recorded for five jobs that
@@ -245,7 +257,9 @@ tree holds no other workflow.
    - every failed or unverified check;
    - one RESULT line per run;
    - each holding run's block and SHA256 line;
-   - `EXTRACT SHARD K/32 HOLDS|FAILS|UNVERIFIED`, with exit 0, 1 or 2.
+   - `EXTRACT SHARD K/32 HOLDS|FAILS|UNVERIFIED`, with exit 0, 1 or 2;
+   - the end-of-output marker `BATCH END shard K/32: assembler <blob prefix>`, its last line, also on its
+     exception path.
 4. **What is written:** nothing. No artifact, cache, commit, ref, tag, release, step summary or output, and no
    self-retrigger.
 

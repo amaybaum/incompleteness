@@ -7,9 +7,12 @@
    wrapped as the job-log tool serves a log, and collect.py's reader must accept it whole: every run usable, each
    collected block byte-identical to the block assemble.py printed. Served as a tail, it must be refused. This ties
    the collector to the assembler's real output rather than to the collector's own synthetic writer.
-2. Mutations. Each entry changes one decisive line of assemble.py, host.py or collect.py in a copy of batchx/; the
-   copy's self-test must then fail (the mutant is killed). The unmutated copy's self-tests must pass first, so a
-   kill is not an artefact of the copy. A mutation whose text is not found exactly once is itself a failure.
+2. Mutations. Each entry changes one decisive line (or a few) of assemble.py, host.py or collect.py in a copy of
+   batchx/; the copy's self-test must then fail (the mutant is killed). The unmutated copy's self-tests must pass
+   first, so a kill is not an artefact of the copy. A mutation whose text is not found exactly once is itself a
+   failure. An entry that names expected tests is killed only when every one of them fails by name and no suite
+   stopped with a traceback, so the catch is shown to be that regression test's, not only an unrelated one's; the
+   table printed at the end lists, for each such mutant, every test it fails.
 3. Plan and pins (with --plan WORKFLOW). runs.json is the 223 runs, each once, in expiry order, in contiguous
    shards of at most shard_size; the three scripts pin its sha256 and assemble.py pins crosscheck.json's; the
    workflow's matrix lists exactly shards 1..N; it triggers only on a push to its own branch; its permissions are
@@ -71,31 +74,86 @@ MUTANTS = [
     ("collect.py", "    if len(raw) != orig:", "    if False:", "a served tail is accepted"),
     ("collect.py", 'sm.group(2) != hashlib.sha256(body.encode("utf-8")).hexdigest()', "False",
      "a block's digest is not checked"),
-    ("collect.py", "if len({identity(o) for _, o, _ in copies}) > 1:", "if False:",
-     "note 2: copies that differ are not detected, and the first by name is taken"),
-    ("collect.py", "enumerate(L)) if m]\n    want", "enumerate(L) if i >= len(L) - 30) if m]\n    want",
-     "note 1: the verdict line is looked for only in the last 30 lines"),
-    ("collect.py", "    if len(vs) != 1:\n", "    if not vs:\n", "note 1: a second verdict line is allowed"),
-    ("collect.py", "    elif vs[0][0] <= last:\n", "    elif False:\n", "note 1: a verdict line before the last block is allowed"),
-    ("collect.py", "    if job_index.get(k) != job:\n", "    if False:\n", "note 3: the served job id is not checked"),
-    ("collect.py", "        elif not pins:\n", "        elif False:\n", "note 3: the blobs a result names are not checked"),
-    ("collect.py", "if len(ab) != 1 or ab[0].groups() != (str(k)", "if len(ab) > 1 and ab[0].groups() != (str(k)",
-     "note 3: the banner's blobs are not checked"),
-    ("collect.py", "    if orig >= MAX_LINES:\n", "    if False:\n", "note 4: a log of 5,000 lines or more is accepted"),
-    ("assemble.py", "    if nblocks > 1:\n", "    if False:\n", "note 5: of two gate blocks the last is taken"),
-    ("assemble.py", 'run["conclusion"] == cfg.get("run_conclusion"), str(run["conclusion"]))',
-     'True, str(run["conclusion"]))', "note 6: the pinned run conclusion is not compared"),
-    ("host.py", "        write_record(rec_path, record)  # every read is on disk as soon as it is done\n", "        pass\n",
-     "note 7: the fetch record is not written after each read"),
+    # Each entry from here: (file, edits, None, what, expected tests). edits is (old, new) pairs; the mutant must fail
+    # every expected test by name, so the catch is shown to be that regression test's, not only an unrelated one's.
+    ("collect.py", (("        elif len({identity(a[1]) for a in ans}) > 1:\n", "        elif False:\n"),), None,
+     "N2: a job's copies that differ are not detected", ["[R2d]", "contradicting content", "tampered block"]),
+    ("collect.py", (("enumerate(L)) if m]\n    want", "enumerate(L) if i >= len(L) - 30) if m]\n    want"),), None,
+     "N1: the verdict line is looked for only in the last 30 lines", ["a verdict line followed by 40 runner lines"]),
+    ("collect.py", (("    if len(vs) != 1:\n", "    if not vs:\n"),), None, "N1/R3: a second verdict line is allowed",
+     ["two verdict lines", "[R3f]", "[R3g]", "[R3i]"]),
+    ("collect.py", (("    elif span is not None and vs[0][0] != span[1] - 1:\n", "    elif False:\n"),), None,
+     "N1/R3: a verdict line other than the assembler's last line before its end marker is allowed",
+     ["[R3h]", "[R3j]", "a verdict line before the last block"]),
+    ("collect.py", (("            bad = True  # an answer of a job outside the run\n", ""),
+                    ('                voided.setdefault(s_, set()).add("an answer of job %s, which is no job of the run, '
+                     'names it" % job)\n', "                pass\n")), None,
+     "N3: an answer of a job outside the run is not refused", ["a log from another job"]),
+    ("collect.py", (("        elif not pins:\n", "        elif False:\n"),), None, "N3: the blobs a result names are not checked",
+     ["a block naming another"]),
+    ("collect.py", (("    if not ab or any(m.groups() != (", "    if not ab or False and any(m.groups() != ("),), None,
+     "N3: the banner's blobs are not checked", ["a banner naming another host-reader blob"]),
+    ("collect.py", (("    if orig >= MAX_LINES:\n", "    if False:\n"),), None, "N9: a log of 5,000 lines or more is accepted",
+     ["a whole answer of 5,000 lines is refused"]),
+    ("assemble.py", (("    if nblocks > 1:\n", "    if False:\n"),), None, "N5: of two gate blocks the last is taken",
+     ["two gate blocks in one gate section"]),
+    ("assemble.py", (('run["conclusion"] == cfg.get("run_conclusion"), str(run["conclusion"]))',
+                      'True, str(run["conclusion"]))'),), None, "N6: the pinned run conclusion is not compared",
+     ["attempt-1 conclusion other than the pinned one", "a pinned conclusion of another value"]),
+    ("host.py", (("        write_record(rec_path, record)  # every read is on disk as soon as it is done\n", "        pass\n"),),
+     None, "N8: the fetch record is not written after each read", ["a step stopped during run 9002's log"]),
+    ("collect.py", (("            for s_ in sorted(involved):  # every shard involved\n",
+                     "            for s_ in sorted(involved)[-1:]:  # every shard involved\n"),), None,
+     "R1: a job under two shards voids only the later one, so shard numbering decides",
+     ["[R1b]", "[RP] permutation: shard 1's job with shard 3's content"]),
+    ("collect.py", (("        ans = by_job[job]\n", "        ans = [a for a in by_job[job] if a[3] is not None]\n"),), None,
+     "R2: copies grouped by banner, so a bannerless or malformed-banner duplicate escapes",
+     ["[R2a]", "[R2b]", "[R2c]", "[R2e]"]),
+    ("collect.py", (("    if len(ends) != 1:\n", "    if False:\n"),), None,
+     "R3: no single end-of-output marker is required (the pre-fix acceptance)", ["[R3a]", "[R3b]", "[R3d]"]),
+    ("collect.py", (("    if len(starts) != 1:\n", "    if False:\n"),), None, "R3: two start markers are allowed",
+     ["[R3c]"]),
+    ("collect.py", (("        if span[1] < span[0]:\n", "        if False:\n"),), None,
+     "R3: an end marker before the start marker is allowed", ["[R3e]"]),
+    ("collect.py", (("        elif AEND.match(L[span[1]]).groups() != (str(k), str(nsh), ASSEMBLER_BLOB[:12]):\n",
+                     "        elif False:\n"),), None, "R3: the end marker's shard and assembler are not checked",
+     ["[R3k]", "[R3l]"]),
+    ("collect.py", (('                   "launched_commit": head,\n', ""),), None,
+     "R4: collected.json does not record the launched commit", ["[R4a]"]),
+    ("collect.py", (('    return {"path": rel, "commit": commit,', '    return {"path": rel, "commit": None,'),), None,
+     "R4: the collector's commit is not recorded", ["[R4c]"]),
+    ("collect.py", (('            "executed_matches_committed_blob": committed is not None and committed == executed}',
+                     '            "executed_matches_committed_blob": True}'),), None,
+     "R4: uncommitted collector changes are not marked", ["[R4c]"]),
+    ("collect.py", (('    if not re.fullmatch(r"[0-9a-f]{40}", str(head)):\n', "    if False:\n"),), None,
+     "R4: a launched commit that is not a full sha is accepted", ["[R4d]"]),
     ("collect.py", 'if res.get(rid) != "HOLDS":', "if False:", "a block of a run that does not hold is taken"),
 ]
 
 
-def selftests(d, extractor, work):
-    cmds = [[sys.executable, "-I", os.path.join(d, "assemble.py"), "--self-test", "--extractor", extractor, "--work", work],
-            [sys.executable, "-I", os.path.join(d, "host.py"), "--self-test", "--work", work],
-            [sys.executable, "-I", os.path.join(d, "collect.py"), "--self-test", "--work", work]]
-    return [subprocess.run(c, capture_output=True, text=True, timeout=900).returncode for c in cmds]
+FAILED_CASE = re.compile(r"^  FAIL  (.*?)(?: -> .*)?$")
+
+
+def selftests(d, extractor, work, outputs=None):
+    cmds = [[sys.executable, "-I", "-B", os.path.join(d, "assemble.py"), "--self-test", "--extractor", extractor, "--work", work],
+            [sys.executable, "-I", "-B", os.path.join(d, "host.py"), "--self-test", "--work", work],
+            [sys.executable, "-I", "-B", os.path.join(d, "collect.py"), "--self-test", "--work", work]]
+    rcs = []
+    for c in cmds:
+        p = subprocess.run(c, capture_output=True, text=True, timeout=900)
+        rcs.append(p.returncode)
+        if outputs is not None:
+            outputs.append(p.stdout + p.stderr)
+    return rcs
+
+
+def failing_cases(outputs):
+    """The names of the self-test cases that failed, and whether a suite stopped with a traceback."""
+    names, crashed = [], False
+    for out in outputs:
+        crashed = crashed or "Traceback (most recent call last)" in out
+        names += [m.group(1).strip() for m in (FAILED_CASE.match(l) for l in out.split("\n")) if m]
+    return names, crashed
 
 
 def load(path, name):
@@ -281,24 +339,42 @@ def main(argv=None):
         print("  %s  the unmutated copy's three self-tests pass (exit codes %s)" % ("ok  " if ok else "FAIL", rc))
         fails += not ok
         killed = 0
-        for i, (fname, old, new, what) in enumerate(MUTANTS):
+        table = []
+        for i, entry in enumerate(MUTANTS):
+            fname, old, new, what = entry[:4]
+            expect = entry[4] if len(entry) > 4 else None
             d = os.path.join(work, "m%02d" % i)
             shutil.copytree(base, d)
             p = os.path.join(d, fname)
             src = open(p, encoding="utf-8").read()
-            if src.count(old) != 1:
-                print("  FAIL  mutant %02d (%s): its text occurs %d times" % (i, what, src.count(old)))
+            pairs = old if isinstance(old, tuple) else ((old, new),)
+            counts = [src.count(o) for o, _ in pairs]
+            if counts != [1] * len(pairs):
+                print("  FAIL  mutant %02d (%s): its text occurs %s times" % (i, what, counts))
                 fails += 1
                 continue
+            for o, nw in pairs:
+                src = src.replace(o, nw)
             with open(p, "w", encoding="utf-8") as f:
-                f.write(src.replace(old, new))
-            rc = selftests(d, extractor, work)
+                f.write(src)
+            outs = []
+            rc = selftests(d, extractor, work, outs)
+            names, crashed = failing_cases(outs)
             k = any(rc)
-            killed += k
-            print("  %s  mutant %02d %s: %s (exit codes %s)" % ("ok  " if k else "FAIL", i, fname, what, rc))
-            fails += not k
+            missing = [e for e in (expect or []) if not any(e in nm for nm in names)]
+            specific = expect is None or (not missing and not crashed)
+            killed += k and specific
+            print("  %s  mutant %02d %s: %s (exit codes %s)%s" % (
+                "ok  " if k and specific else "FAIL", i, fname, what, rc,
+                "" if specific else " -- expected tests not failing: %s%s" % (missing, " (a suite crashed)" if crashed else "")))
+            fails += not (k and specific)
+            if expect is not None:
+                table.append((i, what, expect, names))
             shutil.rmtree(d, ignore_errors=True)
         print("controls: %d of %d mutants killed" % (killed, len(MUTANTS)))
+        print("mutant -> the tests it fails (each expected regression test must be among them):")
+        for i, what, expect, names in table:
+            print("  TABLE %02d | %s | expected %s | failing (%d): %s" % (i, what, expect, len(names), "; ".join(names)))
     finally:
         shutil.rmtree(work, ignore_errors=True)
     print("controls: %s" % ("OK" if not fails else "%d failure(s)" % fails))
