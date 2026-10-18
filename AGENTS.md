@@ -967,7 +967,7 @@ is retained by the archive under 3, or listed there as not yet retained.
 placeholder pull requests. An Issue states the question, scope, next action, dependencies
 and activation condition; it is not evidence or a governed native-round control plane.
 **Active research, formalization, native V3 round drafting, audits, extractors and repairs
-use one guiding draft pull request**, opened by the first substantive working checkpoint.
+use one guiding draft pull request**, opened after the first scoped active commit.
 A research-only thread currently producing or independently reviewing substantive
 calculations is active even if no result is adopted or merge is planned; historical
 results on a paused thread do not alone keep its PR active. The PR tracks pushed work in progress; a
@@ -1029,4 +1029,8 @@ required by §A.42.
    imply that unlanded claims are adopted. Link any subsequent active draft PR to the
    Issue, checking its actual base and existing evidence anew. A PR merely waiting for
    CI, review or a governed authorization is still an active PR, not a planning-only PR;
-   do not close it to satisfy a count. Native V3 rounds keep §A.39's protocol throughout.
+   do not close it to satisfy a count. A native V3 round with no designated `F` may be
+   retired to an Issue only after any candidate-`F` exact-head hold is explicitly
+   released; resumption requires a new guiding PR from a current `D`, citing the closed
+   PR's control plane and immutable commits as provenance. Native V3 rounds otherwise
+   retain §A.39's protocol throughout.
