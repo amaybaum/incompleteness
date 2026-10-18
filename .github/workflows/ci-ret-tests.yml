@@ -1,0 +1,133 @@
+# Disposable CI for PR #860's test-only retention correction. It lives only on branch ci/ret-tests-20261018 and runs
+# only on a push to it. It checks out the correction commit (TARGET) unchanged and with full history, separately from
+# this harness, so the tested tree is exactly that commit. It reads the repository and uploads logs; it pushes,
+# dispatches and writes nothing, and touches no other workflow.
+name: ci-ret-tests (disposable, PR 860)
+on:
+  push:
+    branches: [ci/ret-tests-20261018]
+permissions:
+  contents: read
+concurrency:
+  group: ci-ret-tests-20261018
+  cancel-in-progress: false
+env:
+  TARGET: 4e7aec449fb9cbf4d57a0c3bb3646a7f6039bb56
+  BASE: 7c5f97d99f12adb32441da37218729f3504fff48
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.p.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: harness
+          sparse-checkout: .ci-ret-tests
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - id: p
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -I -B harness/.ci-ret-tests/plan.py | tee -a "$GITHUB_OUTPUT"
+  run:
+    needs: plan
+    name: ${{ matrix.id }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: harness
+          sparse-checkout: .ci-ret-tests
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TARGET }}
+          path: target
+          fetch-depth: 0          # history mode reads the tranche bases (49ba3297, b96662e6); a shallow clone fails H1
+      - uses: actions/checkout@v4
+        if: matrix.kind == 'regression42'
+        with:
+          ref: ${{ env.BASE }}
+          path: base
+      - name: the #829 and #831 record commits (regression42 only)
+        if: matrix.kind == 'regression42'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git -C target fetch --no-tags origin e12c1573dc1605baf6ed299f9fe11cdb31ef56ee 65b85147f85aa01770e0e60551152bc5f1d9ef29
+          git -C target cat-file -e e12c1573dc1605baf6ed299f9fe11cdb31ef56ee^{commit}
+          git -C target cat-file -e 65b85147f85aa01770e0e60551152bc5f1d9ef29^{commit}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: ${{ matrix.kind }} ${{ matrix.name }}
+        shell: bash
+        env:
+          KIND: ${{ matrix.kind }}
+          NAME: ${{ matrix.name }}
+          HISTORY: '1'
+        run: |
+          set -euo pipefail
+          test "$(git -C target rev-parse HEAD)" = "$TARGET"
+          test -z "$(git -C target status --porcelain)"
+          mkdir -p out
+          python3 -I -B harness/.ci-ret-tests/job.py "$PWD/target" "$KIND" "$NAME" "$PWD/out" "$PWD/base" 2>&1 | tee out/job-stdout.txt
+      - name: the target tree is unchanged
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C target rev-parse HEAD)" = "$TARGET"
+          test -z "$(git -C target status --porcelain)"
+      - name: report the log tail as annotations
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          tail -n 60 out/job-stdout.txt > out/tail.txt || echo '(no job output)' > out/tail.txt
+          python3 -I -B harness/.ci-ret-tests/annotate.py out/tail.txt "${{ matrix.id }}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: log-${{ matrix.id }}
+          path: out/
+  summary:
+    needs: [plan, run]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: harness
+          sparse-checkout: .ci-ret-tests
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: log-*
+          path: logs
+          merge-multiple: false
+      - name: verdict table; fails unless every gate is clean
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -I -B harness/.ci-ret-tests/summarize.py logs | tee SUMMARY.txt
+      - name: report the summary as annotations
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -I -B harness/.ci-ret-tests/annotate.py SUMMARY.txt summary
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: summary
+          path: SUMMARY.txt
