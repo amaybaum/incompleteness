@@ -2118,12 +2118,22 @@ def self_test(root):
             expect('an entry the pin does not hold, labelled tranche 2', closed(2), 'O3')
             expect('an entry the pin does not hold, labelled tranche 4', closed(4), 'O3')
             expect('an entry labelled a later tranche that has no base', closed(6), 'O3')
+            # the pin's own count and digest: each edit must fail with that message itself, never only with the
+            # per-entry label failures an edit may also cause
+            pinmsg = 'O3 the checker\'s pinned tranche-2 membership is not its recorded count and sha256'
             pinned2 = TRANCHE_MEMBERS[2]
-            try:
-                TRANCHE_MEMBERS[2] = pinned2 - {t2raw['oid']}
-                expect('the checker\'s tranche-2 pin edited without its count and digest', lambda d: None, 'O3')
-            finally:
-                TRANCHE_MEMBERS[2] = pinned2
+
+            def expect_pin(name, members):
+                try:
+                    TRANCHE_MEMBERS[2] = frozenset(members)
+                    fails, _ = check_with(fresh(), root, False, Fails())
+                finally:
+                    TRANCHE_MEMBERS[2] = pinned2
+                results.append((name, 'O3', 'FAILS as required' if pinmsg in fails else 'NOT DETECTED', fails[:1]))
+            expect_pin('the checker\'s tranche-2 pin edited without its count and digest', pinned2 - {t2raw['oid']})
+            expect_pin('the checker\'s tranche-2 pin with a pinned tranche-4 commit added', pinned2 | {stand[0]})
+            expect_pin('the checker\'s tranche-2 pin with one id swapped for a tranche-4 commit, its count kept',
+                       (pinned2 - {t2raw['oid']}) | {stand[0]})
 
         # O10 and O7, the citation lifecycle, on the fixture above. The stand-in record is laid out as
         # KTOKEN-MAXCONE-1's design evidence is: each head in full on one line, and its run with the head's
@@ -2171,6 +2181,13 @@ def self_test(root):
             'N2: a seven-digit form of another head beside the run',
             'N2: the head stated beside the run only as its eight-digit form',
             'N2: the summary counts an eligible entry apart, never as cited',
+            'the checker\'s tranche-2 pin edited without its count and digest',
+            'the checker\'s tranche-2 pin with a pinned tranche-4 commit added',
+            'the checker\'s tranche-2 pin with one id swapped for a tranche-4 commit, its count kept',
+            'a tranche-2 run citation whose line holds its run as a whole word (cited)',
+            'a tranche-2 run citation whose line holds its run only attached to a letter',
+            'a lifecycle run citation whose line holds its run only attached to a letter',
+            'N1: an all-decimal 45-digit word beside the run\'s file name',
             'boundary (a): a genuine 64-digit digest beside the citation and the file name passes',
             'boundary (b): a file name with a digest never establishes the citation',
             'boundary (b): a 64-digit hex word never states the head',
@@ -2283,9 +2300,12 @@ def self_test(root):
                         a.pop(k)
                 return fn
 
-            def expect_cite(name, files, edit_man, rule, state=None, msg='', states=None, also=None):
+            def expect_cite(name, files, edit_man, rule, state=None, msg='', states=None, also=None, who=None):
                 """rule None: no failure, the stand-ins in the named states, and also(info) when given; otherwise
-                rule (a rule, or a list of (rule, message) pairs, each required) with msg in its failure."""
+                rule (a rule, or a list of (rule, message) pairs, each required) with msg in its failure. A rule
+                given alone must fail for the entry the case is about (who, the first stand-in by default): its
+                message starts with the rule and that entry's id, so another entry's failure never satisfies it.
+                A case whose own condition raises fails; it never stops the self-test."""
                 d = fresh()
                 m = json.load(open(os.path.join(d, 'manifest.json')))
                 pend_all(m)
@@ -2297,13 +2317,18 @@ def self_test(root):
                 if rule is None:
                     want = states or {oid: state}
                     off = {o: cs.get(o, ('failing',))[0] for o in want if cs.get(o, ('failing',))[0] != want[o]}
-                    extra = also is None or also(info)
+                    try:
+                        extra = also is None or bool(also(info))
+                        raised = None
+                    except Exception as exc:                # reported as this case's failure, not a crash
+                        extra, raised = False, exc
                     ok = not fails and not off and extra
                     why = fails[:1] or (['O10 states %s, not %s' % (off, want)] if off else
-                                        [] if extra else ['the case\'s own condition does not hold'])
+                                        [] if extra else ['the case\'s own condition does not hold' +
+                                                          (' (%r)' % raised if raised else '')])
                     results.append((name, '-', 'PASSES as required' if ok else 'FAILS', why if not ok else []))
                 else:
-                    rules = rule if isinstance(rule, list) else [(rule, msg)]
+                    rules = rule if isinstance(rule, list) else [('%s %s:' % (rule, (who or oid)[:12]), msg)]
                     ok = all(any(f.startswith(r) and mm in f for f in fails) for r, mm in rules)
                     results.append((name, '/'.join(r for r, _ in rules), 'FAILS as required' if ok else 'NOT DETECTED',
                                     fails[:1]))
@@ -2359,7 +2384,7 @@ def self_test(root):
             expect_cite('CN-3 f5: a second correct citation in the record left unmapped', {rec: good + again}, promoted(),
                         'O7', msg='which no citation maps')
             expect_cite('CN-3 f5: a second correct citation in the record (eligible, both qualifying)', {rec: good + again},
-                        None, None, 'eligible', also=lambda info: info['citation_states'][oid][1][0] ==
+                        None, None, 'eligible', also=lambda info: (info['citation_states'].get(oid) or ('', ([],)))[1][0] ==
                         [n1, n2, end, end + 1])
             expect_cite('CN-3 f6: the id cited again in the record, unmapped', {rec: good + 'The commit is `%s`.\n' % oid},
                         promoted(), 'O7', msg='which no citation maps')
@@ -2376,7 +2401,7 @@ def self_test(root):
                         {rec: good + '- `%s`: a head.\n- Run %s, `head_sha` `%s…`.\n' % (other, rid, other[:8])}, None,
                         'O10', msg='names another head')
             expect_cite('CN-3: the run named inside an evidence file name with its digest (eligible)', {rec: good + evrow},
-                        None, None, 'eligible', also=lambda info: info['citation_states'][oid][1][2] == [end + 2])
+                        None, None, 'eligible', also=lambda info: (info['citation_states'].get(oid) or ('', ([], [], [])))[1][2] == [end + 2])
             expect_cite('CN-3: the same, promoted to the citations alone (cited)', {rec: good + evrow}, promoted(), None,
                         'cited')
             expect_cite('CN-3: an embedded mention beside a different full head',
@@ -2405,6 +2430,28 @@ def self_test(root):
                         'eligible', also=lambda info: citation_summary(
                             {'a': ('cited', None), 'b': ('eligible', None), 'c': ('pending', None)}) ==
                         'citations (O10): 1 cited, 1 pending (record not in the tree), 1 eligible for promotion')
+            # a run is held as a whole word: a run attached to a letter is not the run, on the token-rule path O7
+            # keeps for tranche 2's pinned commits as on the lifecycle path (its first condition, before the rule)
+            leg = next(e for e in man0['objects'] if e['oid'] in TRANCHE_MEMBERS[2] and e['type'] == 'commit' and
+                       any(c.get('run') for c in e.get('cited', [])))
+            lrun = next(c['run'] for c in leg['cited'] if c.get('run'))
+            lrec = 'verification/ZZ-SELF-TEST/o7-legacy-stand-in.md'
+
+            def legacy_cite(m):
+                next(y for y in m['objects'] if y['oid'] == leg['oid'])['cited'] = [
+                    {'class': 'native-record', 'location': '%s:2' % lrec, 'tokens': [lrun], 'run': lrun, 'via': 'run'}]
+            expect_cite('a tranche-2 run citation whose line holds its run as a whole word (cited)',
+                        {lrec: '# a legacy stand-in\n- The run %s passed at that head.\n' % lrun}, legacy_cite, None,
+                        states={oid: 'pending'})
+            expect_cite('a tranche-2 run citation whose line holds its run only attached to a letter',
+                        {lrec: '# a legacy stand-in\n- The run%s passed at that head.\n' % lrun}, legacy_cite, 'O7',
+                        msg='does not hold its run', who=leg['oid'])
+            expect_cite('a lifecycle run citation whose line holds its run only attached to a letter',
+                        {rec: good.replace('run %s,' % rid, 'run%s,' % rid, 1)}, promoted(), 'O7',
+                        msg='does not hold its run')
+            expect_cite('N1: an all-decimal 45-digit word beside the run\'s file name',
+                        {rec: good + '| `evidence/run1-%s.json` | `%s` |\n' % (rid, '9' * 45)}, None, 'O10',
+                        msg='names another head')
             # the digest boundary: a hex word of 64 digits or more is opaque. A genuine digest passes; a file name with
             # a digest never establishes a citation, and such a word never states the head; a conflicting head beside
             # the citation fails even beside a digest. Another head written as part of such a word is not read: the

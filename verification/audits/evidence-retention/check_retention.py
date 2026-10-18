@@ -1415,32 +1415,36 @@ def r13_cases(man, ents, rs, troot, tarch, expect, edit, back, json_edit, file_e
     expect('lifecycle (c): the entry maps the record\'s citing line (cited)', land_and_map(good, [at]), unmap,
            state=(eid, 'cited'))
     expect('lifecycle (d): the intended record lands naming another head beside the run', land(record(h=other)), unland,
-           'R13', 'names another run head beside the run')
+           'R13', 'names another run head beside the run', who=eid)
     expect('lifecycle (d): the intended record lands citing another run', land(record(r='1' + rid)), unland, 'R13',
-           'is in the tree and does not cite run %s' % rid)
+           'is in the tree and does not cite run %s' % rid, who=eid)
     expect('lifecycle (e): the record removed while the entry maps it', edit(mapped(good, [at])), back, 'R3',
            'citing file %s missing' % rec)
     expect('the intended record lands citing the run without its head', land(
         good.replace('The design compiled at `%s`, workflow run' % head, 'The design compiled at the source, workflow run')),
-           unland, 'R13', 'does not state the full id beside the run')
+           unland, 'R13', 'does not state the full id beside the run', who=eid)
     expect('the intended record lands with the head mistyped after digit 10', land(record(
         h=head[:10] + ''.join('1' if c == '0' else '0' for c in head[10:18]) + head[18:])), unland, 'R13',
-           'names another run head beside the run')
+           'names another run head beside the run', who=eid)
     expect('the intended record lands citing the run on another line than recorded', land('\n' + good), unland, 'R13',
-           'not on the recorded line %d' % at)
+           'not on the recorded line %d' % at, who=eid)
     expect('the intended record lands, and another file also cites the run', lambda: (land(good)(), open(
         os.path.join(troot, 'verification', 'ZZ-CITES.md'), 'w').write('run %s\n' % rid)),
            lambda: (unland(), os.remove(os.path.join(troot, 'verification', 'ZZ-CITES.md'))), 'R13',
-           'is now cited at verification/ZZ-CITES.md')
+           'is now cited at verification/ZZ-CITES.md', who=eid)
     expect('a mapped citation whose line names another head', land_and_map(record(h=other), [at]), unmap, 'R13',
-           'names another run head beside the run')
+           'names another run head beside the run', who=eid)
     expect('the record cites the run on two lines and the entry maps one', land_and_map(good + 'Run %s again.\n' % rid, [at]),
-           unmap, 'R13', 'is now cited at %s:%d' % (rec, good.count('\n') + 1))
+           unmap, 'R13', 'is now cited at %s:%d' % (rec, good.count('\n') + 1), who=eid)
     expect('a research run.json that names no head commit', *json_edit(P('run.json'), lambda d: d.pop('head_sha')),
-           rule='R13', msg='another run, head commit or attempt')
+           rule='R13', msg='another run, head commit or attempt', who=eid)
+    expect('a research run.json that names no head commit leaves no citation state',
+           *json_edit(P('run.json'), lambda d: d.pop('head_sha')), rule='R13', msg='another run, head commit or attempt',
+           who=eid, also=lambda: eid not in R13_STATES and r13_summary() == 'citations (R13): 0 cited, %d pending (record '
+           'not in the tree), 0 eligible for promotion (not cited)' % (len(rs) - 1))
     expect('a research entry without run.json', edit(lambda m: m['entries'][i].__setitem__(
         'files', [f for f in m['entries'][i]['files'] if not f['path'].endswith('/run.json')])), back, 'R13',
-           'no run.json, jobs.json or results.json')
+           'no run.json, jobs.json or results.json', who=eid)
     # partial and full promotion of the entries pending on one record
     j = rs[1]
     eid2, at2 = ents[j]['id'], ents[j]['awaiting_citation']['line']
@@ -1465,25 +1469,30 @@ def r13_cases(man, ents, rs, troot, tarch, expect, edit, back, json_edit, file_e
         L[n - 1] = new
         return '\n'.join(L)
     expect('CN-3 d-far: a far line of the record cites the run beside another head',
-           land(good + 'Run %s was dispatched on `%s…`.\n' % (rid, other[:8])), unland, 'R13', 'names another run head')
+           land(good + '\n' + 'Run %s was dispatched on `%s…`.\n' % (rid, other[:8])), unland, 'R13', 'names another run head',
+           who=eid)
     expect('CN-3 d-far-nohead: a far line of the record cites the run without its head', land(good + 'Run %s passed.\n' % rid),
-           unland, 'R13', 'does not state the full id')
+           unland, 'R13', 'does not state the full id', who=eid)
     expect('CN-3: a duplicate free-standing citation with a conflicting full head', land(
-        good + 'Compiled again at `%s`, workflow run\n[%s](runs/%s).\n' % (other, rid, rid)), unland, 'R13',
-           'names another run head')
+        good + '\n' + 'Compiled again at `%s`, workflow run\n[%s](runs/%s).\n' % (other, rid, rid)), unland, 'R13',
+           'names another run head', who=eid)
     expect('CN-3: the run named inside an evidence file name with its digest (eligible)', land(good + evrow), unland,
            state=(eid, 'eligible'))
     expect('CN-3: the same, mapped to the citation alone (cited)', land_and_map(good + evrow, [at]), unmap,
            state=(eid, 'cited'))
     expect('CN-3: an embedded mention beside a different full head',
-           land(good + '| `evidence/run1-%s.json` | head `%s` |\n' % (rid, other)), unland, 'R13', 'names another run head')
+           land(good + '\n' + '| `evidence/run1-%s.json` | head `%s` |\n' % (rid, other)), unland, 'R13',
+           'names another run head', who=eid)
+    expect('N1: an all-decimal 45-digit word beside the run\'s file name',
+           land(good + '\n' + '| `evidence/run1-%s.json` | `%s` |\n' % (rid, '9' * 45)), unland, 'R13',
+           'names another run head', who=eid)
     expect('CN-3: the recorded line names the run only inside an identifier',
-           land(line(good, at, '`evidence/run1-%s.json`.' % rid)), unland, 'R13', 'only inside an identifier')
+           land(line(good, at, '`evidence/run1-%s.json`.' % rid)), unland, 'R13', 'only inside an identifier', who=eid)
     expect('CN-3: a mapped line that names the run only inside an identifier', land_and_map(good + evrow, [at, end]),
-           unmap, 'R13', 'only inside an identifier')
-    expect('CN-3: a citation mapped twice', land_and_map(good, [at, at]), unmap, 'R13', 'twice')
+           unmap, 'R13', 'only inside an identifier', who=eid)
+    expect('CN-3: a citation mapped twice', land_and_map(good, [at, at]), unmap, 'R13', 'twice', who=eid)
     expect('N1: another head in uppercase beside the run', land(record(h=other.upper())), unland, 'R13',
-           'names another run head')
+           'names another run head', who=eid)
     expect('N2: the summary counts an eligible entry apart, never as cited', land(good), unland, state=(eid, 'eligible'),
            also=lambda: r13_summary() == 'citations (R13): 0 cited, 0 pending (record not in the tree), %d eligible for '
            'promotion (not cited)' % len(rs))
@@ -1495,12 +1504,12 @@ def r13_cases(man, ents, rs, troot, tarch, expect, edit, back, json_edit, file_e
         good, at, runl + ' Log `evidence/run1-%s.json`, sha256 `%s`.' % (rid, digest))), unland, state=(eid, 'eligible'))
     expect('boundary (b): a file name with a digest never establishes the citation', land(line(
         good, at, '`evidence/run1-%s.json` sha256 `%s%s`.' % (rid, '0' * 24, head))), unland, 'R13',
-           'only inside an identifier')
+           'only inside an identifier', who=eid)
     expect('boundary (b): a 64-digit hex word never states the head', land(line(line(
         good, at - 1, 'The design compiled at the source, workflow run'), at, runl + ' Digest `%s%s`.' % ('0' * 24, head))),
-           unland, 'R13', 'does not state the full id')
+           unland, 'R13', 'does not state the full id', who=eid)
     expect('boundary (c): a conflicting head beside the citation fails, even beside a digest', land(line(
-        record(h=other), at, runl + ' sha256 `%s`.' % digest)), unland, 'R13', 'names another run head')
+        record(h=other), at, runl + ' sha256 `%s`.' % digest)), unland, 'R13', 'names another run head', who=eid)
     expect('documented limitation: another head as the last 40 digits of a 64-digit word beside a file name passes',
            land(good + '| `evidence/run1-%s.json` | `%s%s` |\n' % (rid, '0' * 24, other)), unland, state=(eid, 'eligible'))
 
@@ -1539,6 +1548,8 @@ R13_CASES = (
     'a mapped citation whose line names another head',
     'the record cites the run on two lines and the entry maps one',
     'a research run.json that names no head commit',
+    'a research run.json that names no head commit leaves no citation state',
+    'N1: an all-decimal 45-digit word beside the run\'s file name',
     'CN-3 d-far: a far line of the record cites the run beside another head',
     'CN-3 d-far-nohead: a far line of the record cites the run without its head',
     'CN-3: a duplicate free-standing citation with a conflicting full head',
@@ -1610,14 +1621,21 @@ def self_test(archive, root):
 
         ran = []
 
-        def expect(name, mutate, restore, rule=None, msg='', state=None, states=(), also=None):
+        def expect(name, mutate, restore, rule=None, msg='', state=None, states=(), also=None, who=None):
+            """who: the entry the case is about; its failure must be that entry's (the message starts with the rule
+            and its id), so another entry's failure never satisfies the case. A case whose own condition raises
+            fails; it never stops the self-test."""
             nonlocal ok
             ran.append(name)
             mutate()
             fails, _ = check(tarch, troot)
-            extra = also is None or also()
+            try:
+                extra = also is None or bool(also())
+            except Exception:
+                extra = False
             restore()
-            good = (not fails) if rule is None else any(f.startswith(rule + ' ') and msg in f for f in fails)
+            head_ = rule + ' ' + ('%s:' % who if who else '') if rule is not None else None
+            good = (not fails) if rule is None else any(f.startswith(head_) and msg in f for f in fails)
             # (entry id, state) pairs: each entry's R13 citation state after the check
             for eid_, st_ in ([state] if state is not None else []) + list(states):
                 got_ = R13_STATES.get(eid_, ('none',))[0]
