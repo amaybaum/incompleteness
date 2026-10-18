@@ -169,11 +169,12 @@ At an EXCLUDES-ALL configuration (`CCC`, `CENT`), a `σ` with `Γ^σ` a non-prod
 
 ### 3.4 Invariance classes of a recorded exclusion `e = (C, b, x)` over a scope `S`
 
-**A proven invariance and an observed one are different tokens.**
+**An invariance established over the whole scope and one observed on the identifications examined are different
+tokens.**
 
 | class | definition |
 | --- | --- |
-| **INV** | SEP-PHYS(σ) for **every** `σ ∈ S`, established by exhaustive enumeration of `S`, by the complete search S16 terminating (W-SEP), or by a written statement checked by its control. For an EXCLUDES-ALL `e`, it means `S = ∅` |
+| **INV** | SEP-PHYS(σ) for **every** `σ ∈ S`, by one of three routes, which the result note names beside the class: exhaustive enumeration of `S`, an exact computation; S16 terminating with NONE, which covers `S` only as far as W-SEP does, a written argument [W] and not a kernel proof, and at `C21` only through a `ℚ(ζ₁₆)` layer that passes K-arith-16; or a written statement checked by its control. A reading of an INV reached by S16 states that scope. For an EXCLUDES-ALL `e`, it means `S = ∅` |
 | **INV-SAMPLED(N)** | SEP-PHYS(σ) for each of the `N` identifications examined (stratified samples and targeted identifications, §5), where `S` was not covered. **This is an observation, not an invariance**, and no reading states it as one |
 | **REL** | some `σ ∈ S` gives ADMITTED(σ), or SEP-REP(σ) when `x = 1`; for an EXCLUDES-ALL `e`, some `σ ∈ S` gives the frozen lift ADMITTED, or SEP-REP on `𝒪₁`. One witness establishes it, sampled or not |
 | **REL-PROD** | `x ∈ {2, 3}`, not REL, and PROD(σ) for some `σ ∈ S` |
@@ -221,7 +222,8 @@ Each is evaluated in every scope it belongs to and reported by name beside the e
 ## 6. Written statements [W]
 
 Proofs go in the result note, except W-SEP's, which is `design/S16-completeness.md` (§9). Each is checked where §8
-says.
+says. Each equivalence below, W-CYC, W-EQ1u, W-PB and W-OBS (a) and (d), is two preregistered questions, one per
+direction, listed in §6.1 with their own status; the result note proves each direction separately (AGENTS §A.34).
 
 - **W-REL.** Post-composition with `S_m × S_n` (and the swap when `m = n`) preserves every product test, every carrier
   value up to the same relabelling, and regional independence. Scalars and order do the same for linear
@@ -282,6 +284,27 @@ says.
     `A(M)` has 0, 1 and 3 elements.
 - **W-I1C.** If the `r` registers are linearly independent and pairwise non-proportional functionals on `F_qⁿ`, then
   `|I1(M)| = ∏_{i=r}^{n−1} (qⁿ − qⁱ) / ((q − 1)^{n−r} · (n − r)!)`, whatever `M` is.
+
+### 6.1 Directional questions (§A.34)
+
+Each row is a separate question, and the result note gives each its own proof and status, proved or open. An
+extension, uniqueness, density or characterization theorem is not a converse. Where one direction stays open, the
+result note states the proved direction alone, not the equivalence. A token or control whose decision uses an open
+direction prints its OPEN, UNDETERMINED or UNRESOLVED form, with that reason; a computed result that does not use the
+open direction stands without the citation.
+
+| question | statement | used by |
+| --- | --- | --- |
+| W-CYC ⇒ | if `σπσ⁻¹ = π₁ × π₂`, the deterministic law of `π` is a product under `σ` | no decision rule; the converse half of the equivalence |
+| W-CYC ⇐ | if the deterministic law of `π` is a product under `σ`, then `σπσ⁻¹ = π₁ × π₂` for permutations `π₁`, `π₂` | SC-I0 at `CENT`; K-C21 with W-CYC-16 |
+| W-EQ1u ⇒ | if the unitary is a product up to phase, the unitary channel is a product channel | T-I0 at `C21`, `𝒪₃`: reading a FOUND witness as a product value |
+| W-EQ1u ⇐ | if the unitary channel is a product channel, the unitary is a product up to phase | T-I0 at `C21`, `𝒪₃`: reading NONE as SEP-PHYS for every `σ` |
+| W-PB ⇒ | if `M` is monomial, the φ-pullback is the natural factorization | the citation in K-same |
+| W-PB ⇐ | if the φ-pullback is the natural factorization, `M` is monomial | the citation in K-same |
+| W-OBS (a) ⇒ | every regional assignment is an `M`-invariant splitting with `Z_k ⊆ Y_k` | S-I2 routes 1–3: readings of NONE and of uniqueness |
+| W-OBS (a) ⇐ | every such splitting is a regional assignment | S-I2 routes 2–3: readings of existence |
+| W-OBS (d) ⇒ | with a proper sum, every assignment gives a splitting of `Q` and, for each `k`, an invariant subspace with `Y_k ∩ S = Z_k` over `Q_k` | CL-Q |
+| W-OBS (d) ⇐ | every such splitting and pair of subspaces gives an assignment, and the two maps are mutually inverse | CL-Q |
 
 ## 7. Cells and decision rules
 
@@ -384,7 +407,8 @@ measurement decides; they fix no expected number.
 The reading separates three statements and prints only the one the tokens earn, with its scope named:
 
 1. **Uniqueness within a class justified without the dynamics' answer** (I0 or I1): the identification is unique in
-   that class on the configurations examined. Printed only from exhaustive or terminated-search cells.
+   that class on the configurations examined. Printed only from exhaustive or terminated-search cells; a
+   terminated-search cell carries W-SEP's scope (§3.4).
 2. **Uniqueness only within I2:** the identification is unique given the added regional-independence assumption,
    stated as an assumption beside the token.
 3. **Non-uniqueness or relativity:** the verdicts depend on an identification the stated class does not fix.
@@ -519,8 +543,8 @@ varies between runs, is not retained, and freezes nothing.
   - Proxy runs in existence mode, at the frozen rules and order: 114 terminated, 48 FOUND and 66 NONE. They covered
     planted products in four families, joint pairs, random and near-product matrices, strongly regular graphs, and
     permutation matrices of 23 cycle types, the W-CYC-16 transposition among them (NONE at 64,079 tested nodes). They
-    needed between 16 and 1,397,548 tested nodes. The script's median, the 58th of the 114 sorted counts, is 203; the
-    57th is 200. P0's `P` is FOUND at 16 tested nodes.
+    needed between 16 and 1,397,548 tested nodes. Sorted, the 57th and 58th of the 114 counts are 200 and 203, so the
+    median is 201.5; the expected result records both order statistics. P0's `P` is FOUND at 16 tested nodes.
   - Three further existence runs, each in a configuration other than the frozen one (the natural order, or the partner
     rule removed, or both), exhausted a cap of 2 × 10⁶ tested nodes on the near-identity matrix `I + E₁₄,₁₅`, which the
     frozen order and rules decide NONE at 63,987 tested nodes. Seeded Knuth estimates put the natural-order tree at
@@ -548,7 +572,7 @@ varies between runs, is not retained, and freezes nothing.
   - Any failure is VOID. There is no sampled fallback.
 - **`C21`, per (lift, carrier) target set.** S16 runs in existence mode, with the frozen order and rules, under a budget
   of 10⁸ tested nodes. The budget rests on the deterministic counts above: it is more than 71 times the largest
-  terminated proxy run (1,397,548 tested nodes) and about 4.9 × 10⁵ times the median (203), and it lies below the
+  terminated proxy run (1,397,548 tested nodes) and about 5.0 × 10⁵ times the median (201.5), and it lies below the
   3.1 × 10¹⁰ estimate for the adversarial order, so exhaustion is not excluded. No duration enters the rule.
   - **FOUND:** the witness goes to the independent replay, and the verdict is the replayed one.
   - **NONE within the budget:** certifies that no class exists (W-SEP, within its scope).
@@ -618,6 +642,7 @@ working file pinned here; K-design checks every copy against its row.
 | the scopes nest and each can discriminate | SC-nest; SC-I0; SC-I1; SC-I2 |
 | I2's content for recorded exclusions is fixed in advance | W-I2T; SC-W-I2T |
 | SEP-REP is certified, not inferred | K-rep; W-REP |
+| each direction of each equivalence of §6 has its own proof and status | §6.1, the result note at stage 3 (§12); a reading that uses an open direction is not printed as decided |
 | both INV and REL are reachable | K-C21; SC-I0 |
 | the search is complete when it terminates | W-SEP, argued in `design/S16-completeness.md`; K-search; K-engine; node counts reported |
 | at `C21` the search's arithmetic meets E1–E4 of that argument | K-arith-16; K-engine on the extended engine |
@@ -644,7 +669,8 @@ working file pinned here; K-design checks every copy against its row.
 - No identification, locality principle or factorization criterion is adopted.
 - **Visible identifications are set-level.** Visible configurations are registered values (Lemma 1), so unitary
   re-identifications of `V` are out of scope; hidden unitaries fixing the anchor ray change no carrier value (W-HID).
-- **P0's factor shapes are kept.** Other shapes could only turn OPEN into REL, never undo an INV verdict.
+- **P0's factor shapes are kept.** Every class is a statement about identifications at those shapes; nothing is
+  claimed about identifications at other factor shapes.
 - **Leg S is linear.** Nonlinear decompositions and rules are out of scope.
 - Coupled-cut locality within a factor (`L-disc`, `L-cont`), Bell preparations and H-Bell are out of scope.
 - **Every class is a statement about the frozen configurations and recorded exclusions.** No universal claim is made,
@@ -668,7 +694,8 @@ working file pinned here; K-design checks every copy against its row.
   (below). After stage 1 every file the round cites is in its record directory or on `main`; nothing it relies on is a
   scratch file or a branch other than `main`.
 - **Stage 2:** the run, twice, byte-identical; the replay; the outputs and the witness list as record files.
-- **Stage 3:** the result note, its tokens printed from the outputs, with the proofs of §6.
+- **Stage 3:** the result note, its tokens printed from the outputs, with the proofs of §6 and, for each question of
+  §6.1, its own proof and status.
 - **`E`:** the exact-head run at `E` is dispatched before `E` is designated. Then `E`'s evidence-retention pull request
   (below), reconciliation on a base that contains it, the receipt `Q` and `tools/v3_verifier.py --verify-round Q`.
 
