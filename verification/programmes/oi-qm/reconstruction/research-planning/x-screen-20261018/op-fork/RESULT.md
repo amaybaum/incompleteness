@@ -15,15 +15,54 @@ Three exact domain cones other than Q3 and Γ(Q3) satisfy existence and relation
 
 OP-weak ⇒ OP-strong is therefore false on the domain SEP ⊆ K ⊆ maxCone.
 
-**Scope of the verdict.** This wording follows the owner's scope clarification (PR #864, comment 6247198574). It
-arrived before PREREG.md was written and is recorded there; it changes no test and no rule.
+**Provenance of the excerpt.** Its last sentence is a fixed string of `probes/replay.py` (line 68), printed whenever
+the RETIRE branch fires; it is not conditioned on the recorded U-strong values. The separate checker
+`check_verdict.py` imports nothing from the replay or the probes. It authenticates the records in `runs/` against
+their digests, re-applies the frozen rule to the recorded labels, and derives the OP-weak ⇒ OP-strong assertion from
+the recorded `ustrong` values and their exact witness lines. On the records it prints `CHECK CONSISTENT`
+(`runs-check/check_verdict.out`). Its mutation controls (`runs-check/check_verdict.selftest.out`) show the derived
+assertion is not fixed: with U-strong recorded PASS for the three cones it becomes "not refuted" and the check rejects
+`runs/verdict.out`, and with the witness line removed the label is rejected as unsupported. The checker establishes
+consistency between records and verdict text. It does not re-derive the written arguments behind the GREEN labels.
+
+**What the rule decides.** The RETIRE and KEEP branches are not mutually exclusive. maxCone ∉ {Q3, Γ(Q3)} satisfies E
+and U-weak at every marginal (N1 with Størmer–Woronowicz, and N2) [WA + L], so maxCone already meets the RETIRE
+condition under the stated rule, independently of N3–N5. The informative result is the U-strong failure of K(Z_F),
+L and K_Γ, whose witnesses were reproduced by independent exact code (`audit-931d5eda/AUDIT.md`, F1(c)) [EC],
+together with the PC and 24-permutation invariance of K(Z_F) and L. The rule does not require these failures. They
+refute KEEP's first disjunct (OP-weak ⇒ OP-strong), and the three cones refute its second (OP-weak ⇒ K ∈ {Q3, Γ(Q3)}),
+so the outcome is unambiguous.
+
+**Scope of the verdict.** This wording follows the owner's scope clarification (PR #864, comment 6247198574), which
+was posted before the fork's commit and is recorded in PREREG.md; it changes no test and no rule.
 
 - OP-weak is **insufficient alone as a standalone cone-selection condition under the tested premises**.
 - This is not a global rejection of purification as a component of a later, independently sourced X.
-- The G2, G3 and G6 concerns are unchanged and stay open. Nothing here addresses them.
+- The G2, G3 and G6 concerns for OP-strong and for any purification-based X, and the sourcing of OP-strong, stay open.
+  Nothing here addresses them.
 
 Research only: no round, no F, no merge, no promotion of X, no status change. This is consistency-axis work (§A.23).
 Tags are as in `../REPORT.md`: [AT], [EC], [WA], [MP], [L], [UP].
+
+## Gates G1–G8 and M1 for OP-weak
+
+Memo @ `acfef447` §2.3, §3.2, §3.3, applied to OP-weak as written; the table is the independent audit's
+(`audit-931d5eda/AUDIT.md`). OP-strong stays as `../REPORT.md` S1 has it.
+
+| gate | OP-weak | evidence |
+|---|---|---|
+| G1 | BORDERLINE | The uniqueness clause relates states by ball symmetries that PREREG §2 says are not operational resources [WA] |
+| G2 | FAIL | No consequence beyond compatibility. Sourcing is only the quotient-level ingredient of Main.md:600, with no formal map [WA, UP] |
+| G3 | FAIL | Γ(Q3) satisfies OP-weak, and OP-strong (C1; Γ-covariance) [WA + EC] |
+| G4 | OPEN | OP-weak adds no operation. REPORT S1's conditional G4 pass rests on the automorphism clause (\|+⟩ ↦ \|+i⟩ as a K-automorphism), which OP-weak lacks, so it does not carry over [WA] |
+| G5 | FAIL | X must exclude K_B, K(Z_F) and Γ(Q3) (§3.3). OP-weak excludes K_B (E fails), but K(Z_F) [EC + WA, N3; audit F1] and Γ(Q3) survive the stated controls |
+| G6 | OPEN | No prediction |
+| G7 | PASS | R = O(3) was fixed before testing; the SO(3) variant is record-only, and L satisfies U-weak-SO, so the verdict does not depend on the choice [EC + WA] |
+| G8 | PASS | A1/B1 fixed (memo, 2026-10-17) |
+| M1 | NOT TESTED | No operation or protocol is added and the retained readout is untouched [WA]. The fork runs no M1 computation; REPORT P5 is the instance |
+
+G5 is the gate-level content of "insufficient alone". G2, G3 and G6 for OP-strong and for any purification-based X,
+and the sourcing of OP-strong, remain open.
 
 ## What the counterexamples carry
 
@@ -31,11 +70,12 @@ This is record-only side information; it does not enter the rule.
 
 **L and K(Z_F).**
 - Both are invariant under all 24 native permutations, including CNOT (PC) and SWAP (token symmetry) [EC].
-- Both satisfy MI [WA, using the exact product-pairing certificate].
-- Both satisfy the two tested trivial-system readings [WA].
+- Both satisfy MI. On the domain this follows from PC for every cone: ρ⊗P₀ ∈ SEP ⊆ K, so a CNOT-invariant K contains
+  CNOT(ρ⊗P₀)CNOT [WA; EC instance in audit F7]. Adding MI to PC therefore gives no further discrimination.
+- Both satisfy the two tested trivial-system readings, as every domain cone does (q3 A3) [WA].
 
-So the composite OP-weak ⊕ PC ⊕ MI ⊕ native-permutation invariance still admits two cones other than Q3. In S3 of
-`../REPORT.md`, OP cannot be weakened to its relation-only part.
+So OP-weak ⊕ PC ⊕ native-permutation invariance still admits two cones other than Q3, and adding MI changes nothing.
+In S3 of `../REPORT.md`, OP must be OP-strong; it cannot be weakened to its relation-only part.
 
 **L alone.** L also passes U-weak-SO, the variant whose relating maps are proper rotations (local unitary
 conjugations) only. The verdict therefore holds whether R is O(3) or SO(3).
@@ -58,8 +98,8 @@ conjugations) only. The verdict therefore holds whether R is O(3) or SO(3).
 - *Inputs*:
   - Uhlmann [L];
   - the relating set R = O(3) acts on tables as Ad_{I⊗u} or Γ∘Ad_{I⊗u} [EC, q1 C5; q3 A2].
-- *Consequence*: on this domain, the relational content of purification uniqueness comes for free with that
-  extreme-ray type.
+- *Consequence*: by N1 the hypothesis is Ext K ⊆ Ext(maxCone), so U-weak holds automatically for every domain cone in
+  that class. Outside it U-weak can fail (K_mut, C3).
 
 **N3. K(Z_F). GREEN** [EC, q2, plus WA].
 - *Defects*: each z_k = I/2 − P_{m_k}, where {m_k} = (1, ±1, ±1, ±1)/2 is an orthonormal, maximally entangled basis
@@ -77,7 +117,7 @@ conjugations) only. The verdict therefore holds whether R is O(3) or SO(3).
 - *U-weak at every marginal*: by N2.
 - *U-strong fails* [EC witness]. At I/2, the only map relating Φ⁺ to (I⊗diag(1,i))Φ⁺ is Ad_{diag(1,i)}. That map
   sends x = (1, −i, −1, −i)/2 ∈ L to m_{(1,1)} ∉ K(Z_F).
-- This closes the "remaining" items the report named (`../REPORT.md`:136).
+- This closes the "remaining" items the report named (`../REPORT.md`, "Recommended next investigation").
 
 **N4. L = Q3 ∩ Z_F\*. GREEN.**
 - The same certificates as N3.
@@ -90,13 +130,15 @@ conjugations) only. The verdict therefore holds whether R is O(3) or SO(3).
   Γ(χ_ab χ_abᵀ) as a(a − b) < 0.
 
 **N6. maxCone. Record-only.**
-- It satisfies E and U-strong.
-- It satisfies TS-a (a pure state with a pure marginal is a product) and TS-b (products are pure) [EC + WA + L].
+- It satisfies E, U-weak and U-strong: its relating maps Ad_u and Γ∘Ad_u preserve it.
+- It satisfies TS-a (a pure state with a pure marginal is a product) and TS-b (products are pure) [EC + WA + L]. Both
+  readings hold for every domain cone (q3 A3) [WA], so neither can exclude any cone.
 - It fails PC [EC].
-- So OP-strong itself, on the stated clauses, does not reduce the domain to {Q3, Γ(Q3)}. `../REPORT.md`:70 places
-  maxCone's exclusion in a "trivial-system clause". No definition of that clause was found on this branch or on the
-  research branches searched, so that exclusion is [UP]. S3's sufficiency argument is unaffected, because maxCone
-  fails PC.
+- So OP-strong itself, on the stated clauses, does not reduce the domain to {Q3, Γ(Q3)}, and maxCone meets the RETIRE
+  condition (see "What the rule decides"). `../REPORT.md` S1 places maxCone's exclusion in a "trivial-system clause".
+  No definition of that clause beyond the two tested readings was found on this branch or on the research branches
+  searched, so an exclusion of maxCone by it is [UP]. S3's sufficiency argument is unaffected, because maxCone fails
+  PC.
 
 **N7. Side properties. Recorded** (above).
 
@@ -117,6 +159,29 @@ conjugations) only. The verdict therefore holds whether R is O(3) or SO(3).
   and byte-identical stdout.
 - `runs/SHA256SUMS` was identical across the two invocations.
 - No harness-error runs occurred, and no disk failures.
+- `check_verdict.py` was run twice in each mode under `python3 -I -B`, rc 0, byte-identical; digests in
+  `runs-check/SHA256SUMS`.
+
+## Record provenance and evidence levels
+
+- **Chronology.** PREREG.md, the probes, their outputs, `replay.py` and this file first entered the repository
+  together, in commit `931d5eda`. The KEEP/RETIRE core of the rule was committed earlier, in `../REPORT.md` at
+  `fb55f654`. PREREG.md's statement that it was written before any probe ran, and that the §4 cones were chosen
+  before computation, cannot be verified from the record [UP]. No evidence of post-result changes to tests or rule
+  was found (audit F6).
+- **Evidence levels of the RESULT keys.** In the probe records, `pure_classification`, `existence_all_marginals` and
+  `uweak_all_marginals` are GREEN labels on written-argument conclusions drawn from exact inputs, not exact
+  computations; in q3 a single certificate bucket, `cert('N5')`, feeds all five N5 keys (`ustrong` included) and C6.
+  The levels are:
+  - domain inclusions [EC + WA];
+  - pure-state classification [WA on EC inputs];
+  - existence: [EC identity + WA] for K(Z_F) and L, [EC instance + WA] for K_Γ;
+  - U-weak [WA, N2];
+  - distinctness [EC];
+  - U-strong failure [EC witness + WA for the uniqueness of the relating map].
+
+  `check_verdict.py` prints these levels beside each label. Its own output is a derived consistency check, a level
+  distinct from both the exact certificates and the written arguments.
 
 ## Scope and what remains open
 
@@ -126,31 +191,37 @@ conjugations) only. The verdict therefore holds whether R is O(3) or SO(3).
   - The 96-pair check is instance coverage only.
   - N1's extremality is certified exactly at five elements; it reaches all rank-one tables by a written transport
     argument.
-- **Unchanged.** G2, G3 and G6 are not affected. Γ(Q3) satisfies OP-weak, so OP-weak does not bear on G3.
+- **Not addressed.** G2, G3 and G6 for OP-strong and for any purification-based X. For OP-weak itself, Γ(Q3)
+  satisfies it, so OP-weak fails G3 (gate table).
 - **Not triggered.** The KEEP branch did not fire. The substratum lift (Main.md:602) with `fiber_freedom` as the kill
   test was not undertaken.
 
-  A written remark, with no formal substratum-to-operational map: Main.md:600's uniqueness holds only at the level of
-  the predictive quotient, and `fiber_freedom` [MP] refutes whole-completion uniqueness up to relabelling. So a lift
-  of it could at best supply a relation-level statement, and this fork shows a relation-level statement selects
-  nothing on this domain.
+  A written remark: Main.md:600's uniqueness holds only at the level of the predictive quotient, and `fiber_freedom`
+  [MP] refutes whole-completion uniqueness up to relabelling. No map from that quotient-level uniqueness to OP's
+  clauses is supplied, so the inference that a lift of it could supply at most a relation-level statement such as
+  OP-weak is [UP]. On this domain OP-weak excludes SEP and K_B (E fails) and K_mut (U-weak fails, C3); it does not
+  select Q3 or exclude K(Z_F).
 - **Open.**
   - A full classification of OP-strong survivors (beyond Q3, Γ(Q3) and maxCone) was not attempted.
-  - The report's trivial-system clause remains undefined [UP].
+  - The report's trivial-system clause remains undefined beyond the two tested readings, which exclude no domain cone
+    [UP].
   - The availability side of A1 is untouched.
 
 ## Assumption-watch markers
 
-- **AW-OP1 (NEW).** On SEP ⊆ K ⊆ maxCone, the relational content of purification uniqueness is inherited for free. It
-  holds for:
-  - every cone whose pure states are rank-one PSD or Γ-images of them (N2);
-  - in particular, every cut of Q3 by an orthonormal family of Γ(maximally entangled) half-spaces;
+- **AW-OP1 (ELABORATING).** For every domain cone with Ext K ⊆ Ext(maxCone), that is, whose pure states are rank-one
+  PSD tables or their Γ-images (N1, N2), U-weak holds automatically, and OP-weak selects among such cones by E alone.
+  The class includes:
+  - every cut of Q3 by an orthonormal family of Γ(maximally entangled) half-spaces;
   - every enlargement of Q3 by Γ-images of pure states.
 
-  OP's cone-selecting power therefore lies entirely in its automorphism clause. That clause, at pure marginals,
-  forces token-2 SO(3) invariance of K: the continuous local symmetry (hA-type) resource. Bears on S1/S3 and on any
-  purification-based X.
-- **AW-OP2 (NEW).** The exclusion of maxCone under OP rests on a clause that is defined nowhere in the repository. On
-  the stated clauses, maxCone satisfies OP-strong. Bears on `../REPORT.md` S1 and its countercontrol list.
+  Outside the class U-weak can fail: K_mut (C3) fails it, and E excludes SEP and K_B. At pure marginals OP-strong's
+  automorphism clause forces token-2 SO(3) invariance of K, the continuous local symmetry (hA-type) resource; this is
+  REPORT S3 steps 2–3, and REPORT P3 places OP's exclusion power on K(Z_F) in that clause. The marker's content is the
+  extension to the class Ext K ⊆ Ext(maxCone). Bears on S1/S3 and on any purification-based X.
+- **AW-OP2 (NEW).** The trivial-system clause named in `../REPORT.md` S1 is defined nowhere in the repository. Both
+  tested readings, TS-a and TS-b, hold for every domain cone (q3 A3) [WA], so neither can exclude any cone. maxCone
+  satisfies E, U-weak and U-strong and fails PC, so on the stated clauses OP-strong does not exclude it. Bears on
+  `../REPORT.md` S1 and its countercontrol list.
 - **AW-OP3 (POSITIVE).** The verdict does not depend on R = O(3) versus R = SO(3). It survives every discrete native
-  structure tested: all 24 native permutations, PC and MI.
+  structure tested: all 24 native permutations and PC (hence MI).

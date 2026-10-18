@@ -1,6 +1,6 @@
 # Extension-X candidate screen against F2-reg gates G1–G8
 
-Research only: no X adopted, no F, no status/theorem/branch change (consistency axis, §A.23). Saved by the coordinator from the screening agent's final report (the agent could not write files); text as delivered.
+Research only: no X adopted, no F, no status/theorem/branch change (consistency axis, §A.23). Saved by the coordinator from the screening agent's final report (the agent could not write files); text as delivered, except where S1–S3 and the source-claims list cite `op-fork/`, the OP-weak vs OP-strong fork and its independent audit.
 
 Base main `b96662e6`; memo #859 `acfef447`; #832 `f48b11fd`, #833 `9fc5ec2e`, #836 `0e0b3ddc`, #820 `1d4606b2`, #831 `65b85147`; F2 threads H/I `804843f1`. Criteria: the memo's adopted A1 exact, B1 qubit-power registers (F2-reg), G1–G8 (§2.3), M1, applied as written. Tags: [AT] kernel on main (grep-checked), [CD] compiled design, [WA] written argument, [EC] exact computation in this screen, [EC-up] upstream exact replayed, [MP] manuscript exhaustive Python probe, [L] literature, [UP] unsourced.
 
@@ -43,14 +43,14 @@ Screened C1–C15:
 
 ### S1 — OP: operational purification (Chiribella–D'Ariano–Perinotti in OI terms)
 
-Premise: every token state is the marginal of a pure joint description with an unobserved partner; any two such descriptions with the same marginal are related by a reversible procedure on the partner that is an automorphism of the joint cone; trivial-system clause. Motivation: OI's own thesis, that the observer's mixedness comes from incompleteness; the existence half has an in-house ingredient (Main.md:600 [MP]).
+Premise: every token state is the marginal of a pure joint description with an unobserved partner; any two such descriptions with the same marginal are related by a reversible procedure on the partner that is an automorphism of the joint cone; trivial-system clause. In the terms of `op-fork/PREREG.md` §2 this is OP-strong; the relation-only reading OP-weak drops the automorphism requirement and is insufficient alone as a standalone cone-selection condition under the tested premises (`op-fork/RESULT.md`). Motivation: OI's own thesis, that the observer's mixedness comes from incompleteness; the existence half has an in-house ingredient (Main.md:600 [MP]).
 
 | Gate | Verdict | Evidence |
 |---|---|---|
 | G1 | PASS | stated without listing matrices |
 | G2 | FAIL (strict) | uniqueness unsourced, and `fiber_freedom` [MP] refutes its substratum analogue; the automorphism clause is compatibility by definition, and P3 shows it alone excludes K(Z_F) |
 | G3 | FAIL | Γ(Q3) satisfies OP via the native map Ad_{I⊗S̄} [EC P1] |
-| G4 | PASS, conditional [WA] | transitivity on the token sphere forces a map \|+⟩ ↦ \|+i⟩, breaking NonnegBounded, the uniform ray and reality; whether OP contradicts `fiber_freedom` is OPEN |
+| G4 | PASS, conditional [WA] | transitivity on the token sphere forces a map \|+⟩ ↦ \|+i⟩, breaking NonnegBounded, the uniform ray and reality; whether OP contradicts `fiber_freedom` is OPEN. The pass rests on the automorphism clause and does not carry over to OP-weak (G4 OPEN, `op-fork/RESULT.md` gate table) |
 | G5 | PASS | controls designed here |
 | G6 | OPEN | no novel empirical confrontation |
 | G7 | PASS | no branch, alphabet or prior parameter |
@@ -66,8 +66,8 @@ Five distinctions:
 Countercontrols:
 - Q3 passes; Γ(Q3) passes.
 - K_B fails existence: its pure states are products and B. The QM purification of diag(1/4, 3/4) is excluded by W = Γ(singlet + |00⟩⟨00|), pairing 1/4 − √3/4 [EC].
-- K(Z_F) fails uniqueness. Each defect z has eigenvalues {½³, −½} and det −1/16. χ_ab = a|00⟩ + b|11⟩ lies in Q3 ∩ Z_F* for all a, b > 0, with an extremality certificate. Γ(χ_ab) has eigenvalue −ab, so a local congruence would have to map a continuum of PSD extreme rays onto at most 4 non-PSD ones [WA + EC].
-- maxCone fails only the trivial-system clause [L].
+- K(Z_F) fails OP-strong uniqueness, the automorphism requirement; it satisfies relation-only uniqueness (U-weak) at every marginal (`op-fork/RESULT.md` N3). Each defect z has eigenvalues {½³, −½} and det −1/16. χ_ab = a|00⟩ + b|11⟩ lies in Q3 ∩ Z_F* for all a, b > 0, with an extremality certificate. Γ(χ_ab) has eigenvalue −ab, so a local congruence would have to map a continuum of PSD extreme rays onto at most 4 non-PSD ones [WA + EC].
+- maxCone is not excluded by the stated clauses: it satisfies existence and both relation-only and automorphism uniqueness, and the trivial-system clause is not defined in the repository; its two tested readings hold for every domain cone, so neither excludes any cone [WA] (`op-fork/RESULT.md` N6, AW-OP2). maxCone fails PC [EC].
 - SEP and the classical cone fail existence.
 
 ### S2 — MI: measurement as interaction
@@ -92,15 +92,15 @@ Five distinctions:
 - M1: PASS (conservative extension) [WA, EC P5].
 - Drive: none.
 
-Insufficient alone: K(Z_F) and maxCone both satisfy MI [EC] (CNOT permutes K(Z_F)'s four defects exactly).
+Insufficient alone: K(Z_F) and maxCone both satisfy MI [EC] (CNOT permutes K(Z_F)'s four defects exactly). On the domain SEP ⊆ K ⊆ maxCone, PC implies MI for every cone, since ρ ⊗ |0⟩⟨0| ∈ SEP ⊆ K [WA; EC instance in `op-fork/audit-931d5eda/AUDIT.md` F7]; maxCone satisfies MI and fails PC, so MI is strictly weaker than PC there, and adding MI to PC gives no further discrimination.
 
-### S3 — OP ⊕ PC: the strongest composite
+### S3 — OP-strong ⊕ PC: the strongest composite
 
-PC: the native CNOT preserves the pair cone.
+PC: the native CNOT preserves the pair cone. OP is read as OP-strong throughout S3: L = Q3 ∩ Z_F\* and K(Z_F) satisfy OP-weak ⊕ PC (and MI, which PC implies on the domain) and are not Q3 [EC + WA, `op-fork/`].
 
 Sufficiency [WA, unformalized]:
 1. On K ⊆ maxCone, every pure product is extreme.
-2. OP-uniqueness on pure-marginal purifications makes the closed local automorphism group transitive on the token sphere.
+2. OP-strong uniqueness on pure-marginal purifications makes the closed local automorphism group transitive on the token sphere.
 3. By the closed-subgroup classification (Montgomery–Samelson), that group contains SO(3), giving hA: the `rotLin` flow and `cycEquiv`.
 4. PC gives hH2.
 5. The adopted `pairCone_eq_Q3_of_drive_maxCone` (EqvK2MaxCone.lean:153 [AT]) then gives K = Q3. This is an implication, not an iff.
@@ -109,9 +109,10 @@ Gates: G1, G3, G5, G7, G8 PASS; G4 PASS (conditional); G6 OPEN; G2 FAIL (two com
 
 Drop-one controls, both exact:
 - Drop PC: Γ(Q3) remains [EC].
-- Drop OP: K(Z_F) remains. It satisfies PC [EC] but fails OP-uniqueness [WA + EC] and the flow (#820's −1/16 witness).
+- Drop OP: K(Z_F) remains. It satisfies PC [EC] but fails OP-strong uniqueness [WA + EC] and the flow (#820's −1/16 witness).
+- Weaken OP to OP-weak: L and K(Z_F) remain [EC + WA, `op-fork/`].
 
-What it establishes: at most CONDITIONAL(OP, PC). The availability side of A1 is still OPEN.
+What it establishes: at most CONDITIONAL(OP-strong, PC); compatibility stays unsourced (G2 FAIL). The availability side of A1 is still OPEN.
 
 Pressure test (§A.31): the favourable reading "OP sources hA" reduces to "transitive local maps + LO for them"; downgraded accordingly.
 
@@ -158,7 +159,7 @@ First node already computed: K(Z_F) satisfies OP-weak at its I/2 pair [EC]. Rema
 - [EC-up]/[WA], not re-run: the #820 witnesses; the #832 results.
 - [UP]: #833, #836 (planning only).
 - [MP]: Main.md:600, `fiber_freedom`.
-- This screen's new arguments: OP⊕PC ⇒ Q3, OP ⇒ local SO(3), and the fixture failures are [WA] with [EC] certificates; none is formalized.
+- This screen's new arguments: OP-strong ⊕ PC ⇒ Q3, OP-strong ⇒ local SO(3), and the fixture failures are [WA] with [EC] certificates; none is formalized.
 
 ## Boundaries
 
