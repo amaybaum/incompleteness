@@ -450,16 +450,27 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   campaigns, large enumerations, full probe suites, Lean kernel/Mathlib builds and the release
   gate run in CI; shard independent cases with a matrix where useful. If a local task becomes
   heavy, stop and publish the partial state and proposed CI plan instead of running for hours.
-  Exact-head host runs at `F` and `E` alone supply certification (§A.39); local runs never
-  become `check-run` attestations. Any special dispatch or launch still requires owner approval
-  (§A.43).
+  The exact-head host runs dispatched on exactly `F` and `E` are the `check-run` attestations
+  a receipt records: verification evidence, not protocol validity, which remains
+  `tools/v3_verifier.py --verify-round Q` printing `VERDICT  HOLDS` (§A.39). A local run is
+  evidence for the executor and is never recorded as a `check-run` attestation. Any special
+  dispatch or launch still requires owner approval (§A.43).
   **Keep local checkouts small.** Prefer repository APIs and reuse of an existing worktree,
   sparse checkout or partial clone over repeated full clones and duplicate object stores.
   Full-history gates and isolated, no-alternates recovery tests belong in CI with the complete
-  required objects; a shallow or shared-store test is not equivalent. Check available space
-  before allocating a checkout, respect the job's established free-space floor, and never delete
-  unapproved evidence to make room. RAM-backed scratch is disposable: preserve substantive
-  work and review evidence durably before it can be lost.
+  required objects; a shallow or shared-store test is not equivalent. Never delete unapproved
+  evidence to make room. RAM-backed scratch is disposable: preserve substantive work and review
+  evidence durably before it can be lost.
+  **Disk thresholds.** Measure free space on the filesystem that holds session and agent
+  transcripts before starting an agent or allocating a checkout. Below 500 MB free, start no
+  additional agents; below 250 MB free, suspend nonessential work and preserve its progress.
+  Measure actual consumption and apply stricter limits when it warrants them.
+  **Shared object stores.** A store that other clones borrow objects from (`--shared`,
+  alternates, linked worktrees) has a named owner and a recorded list of its dependents. While
+  any dependent exists, nobody, its owner included, deletes, replaces, reinitializes, prunes or
+  garbage-collects it; it is retired only by coordinated retirement, after every dependent has
+  been made independent or itself retired. Prefer independently recoverable clones that can
+  refetch every object from the GitHub repository whenever practical.
 - **§A.41 Every stated invariant is measured.** A preregistration carries an invariant→checkpoint
   table: every property it asserts of its execution names the checkpoint that measures it, and an
   invariant with no checkpoint is either given one or not asserted. A named hazard whose mitigation
@@ -520,6 +531,13 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   expire, and four logs held only in a session scratchpad. Pinning such content by SHA had been
   treated as retaining it. Hence §A.42: evidence for an enduring claim is retained on `main`, with a
   manifest for records already frozen.
+- One agent deleted and reinitialized a shared base clone in RAM scratch while six other
+  agents' clones borrowed objects from it. Five lost the objects their trees referenced mid-task,
+  and every result read from them after the deletion was void until each clone was repaired and
+  the checks re-run; a successful refetch alone did not revalidate earlier results. Hence §A.40's
+  shared-object-store rule: no deletion, replacement, reinitialization, prune or garbage
+  collection while dependents exist, with a named owner, tracked dependents and coordinated
+  retirement.
 
 ---
 
@@ -1005,12 +1023,7 @@ required by §A.42.
    and checkpoint comments aligned with the actual current work and its exact SHAs.
    Reviewers inspect pushed immutable SHAs and record verdicts and outstanding findings
    on the guiding PR. A reviewer's local-only results are not a substitute for a pushed
-   author checkpoint. Publish safe source and structured-evidence WIP after bounded local
-   smoke checks, without waiting for full CI or independent review; mark those results
-   pending or failing until checked at the published SHA. For code outside a native
-   control-plane-only path or an F/E hold, use a linked research or validation branch
-   and cross-link its immutable SHA from the guiding PR (§A.39); never move the frozen
-   round branch to publish such work.
+   author checkpoint.
 3. **Keep history and freezes intact.** Do not silently amend, force-push away or delete
    prior reviewed candidates or evidence. If the next candidate must be re-cut from an
    incompatible `D`, preserve the old head under a named remote ref before a separately
