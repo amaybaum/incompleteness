@@ -1,0 +1,35 @@
+PASS W1  each I/2 - z_k is a rank-one projector P_{m_k}
+PASS W1  sum_k P_{m_k} = I (orthonormal basis)
+PASS W1  each m_k is maximally entangled (sqrt2 x coefficient matrix unitary)
+     m_k (unit vectors): {(1, 1): [1/2, 1/2, -1/2, 1/2], (1, -1): [1/2, -1/2, -1/2, -1/2], (-1, 1): [1/2, -1/2, 1/2, 1/2], (-1, -1): [1/2, 1/2, 1/2, -1/2]}
+PASS W2  Tr(X z_k) = Tr X/2 - <m_k|X|m_k> for symbolic Hermitian X (all k)
+PASS W2  sum_k <m_k|X|m_k> = Tr X for symbolic X (=> at most two active cuts on PSD X)
+PASS DOM SEP <= Z_F*: 16 Tr((rho_a(x)rho_b) e_k) = 1 + a.M_k b with M_k orthogonal (|a.M_k b| <= 1 on the ball) [EC+WA]
+PASS DOM L <= Q3 <= maxCone and cone(Z_F) <= maxCone (z_k = Gamma of a rank-one projector)
+PASS NEQ Phi+ in L: |<m_k|Phi+>|^2 <= 1/2 for all k  (values [0, 1/2])
+PASS NEQ Phi+ not in Gamma(Q3) (Gamma(B) has eigenvalue -1/2)  => L != Gamma(Q3), K(Z_F) != Gamma(Q3)
+PASS NEQ m_k in Q3 but Tr(P_{m_k} z_k) = -1/2 < 0  => m_k not in L, L != Q3
+PASS NEQ z_k not in Q3 (eigenvalue -1/2)  => K(Z_F) != Q3
+     [WA] m_k not in K(Z_F): m_k is extreme in maxCone, so m_k in L + cone(Z_F) forces m_k on a ray of L or of some z_j; neither holds.
+PASS W4  m1(psi_rho psi_rho^dag) = sqrt(rho)^2 (canonical purification has token-1 marginal rho)
+PASS W4  identity: 1/2 - |<m|psi_rho>|^2 = (1-4b^2)(1/2-c0^2) + 2b^2(1-c0^2-(n~.c)^2) for every max-ent m = (I(x)w)Phi+, given a^2+b^2 = 1/2, |n| = 1, c0^2+|c|^2 = 1
+PASS W4  c0^2 = |<m|Phi+>|^2 for m = (I(x)w)Phi+ (the lemma premise is the Phi+ cut condition)
+     [WA] with alpha >= |beta| and alpha^2+beta^2 = 1/2, beta^2 <= 1/4; Cauchy-Schwarz gives (n~.c)^2 <= |c|^2; so the right side is >= 0 whenever |<m|Phi+>|^2 <= 1/2.  sqrt(rho) = alpha I + beta n.sigma covers every token state rho (alpha, beta from the square roots of its eigenvalues).  Hence psi_rho in L for every rho.
+PASS W4  instance countercheck: 96 (marginal, defect) pairs, 24 marginals incl. non-diagonal, direct psi_rho in Z_F*
+     min Tr(psi psi^dag z_k) over instances = 0
+PASS C2  mutated cut z' = I/2 - P_Phi+: canonical purification of I/2 (= Phi+) violates it: Tr(B z') = -1/2 (existence routine reports FAIL)
+PASS US  psi2 = (I(x)diag(1,i))Phi+ is a pure state of L (|<m_k|psi2>|^2 <= 1/2)
+PASS US  witness x = (I(x)v^dag) m_k lies in L while Ad_{I(x)v} x = P_{m_k} lies outside L and outside K(Z_F)
+     witness defect index (1, 1) x = [1/2, -I/2, -1/2, -I/2]
+     [WA] Phi+ and psi2 are pure states of L and of K(Z_F) with marginal I/2.  The relating maps g in O(3): improper g send Phi+ to Gamma(max-ent), which is not PSD, so not psi2; proper g = Ad_u need (I(x)u)Phi+ = e^{i f}(I(x)v)Phi+, i.e. u = e^{i f} v.  The only relating map is Ad_v, which is not an automorphism (witness).  U-strong FAILS for L and for K(Z_F).
+PASS USO K(Z_F) fails U-weak-SO: Phi+ (PSD) and z_k (eigenvalue -1/2) are pure at I/2; Ad_u preserves PSD
+     [WA] L passes U-weak-SO: all its pure states are rank-one PSD, related by Ad_u (Uhlmann [L]).
+PASS N7  all 24 native permutations permute the defect set (=> preserve Z_F*, Q3, L and K(Z_F))
+PASS N7  PC: CNOT among them;  token symmetry: SWAP among them
+     [WA] MI for L and K(Z_F): CNOT(rho(x)P0)CNOT is PSD and pairs with e_k as (rho(x)P0) with CNOT e_k CNOT, a defect, which is >= 0 on products (DOM line).
+SUMMARY checks=21 failed=0
+RESULT N3_KZF domain=GREEN pure_classification=GREEN existence_all_marginals=GREEN uweak_all_marginals=GREEN distinct=GREEN ustrong=FAIL
+RESULT N4_L domain=GREEN pure_classification=GREEN existence_all_marginals=GREEN uweak_all_marginals=GREEN distinct=GREEN ustrong=FAIL uweakSO=PASS
+RESULT N7 native_perm_invariant=24/24 PC=True
+RESULT C2_mutated_cut=GREEN
+VERDICT N3/N4-GREEN: K(Z_F) and L = Q3 n Z_F* are domain cones other than Q3 and Gamma(Q3) whose pure states are classified exactly (rank-one, plus the four defects for K(Z_F)); existence holds at every marginal (symbolic) and U-weak at every marginal [WA on EC inputs]; U-strong fails for both (exact witness); both are invariant under all 24 native permutations

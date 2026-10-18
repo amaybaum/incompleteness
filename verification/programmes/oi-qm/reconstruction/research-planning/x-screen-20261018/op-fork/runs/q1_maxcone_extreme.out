@@ -1,0 +1,22 @@
+PASS N1  B = Phi+Phi+^dag: zero-set nullspace dim = 1 and spanned by B (extreme in maxCone)
+     dims: nullspace=1 constraint-rank=15 zeros=10
+PASS N1  every sampled (a, b) is a zero of B (checked exactly)
+PASS N1  Gamma(B) = SWAP/2
+PASS N1  Gamma(B) = SWAP/2: zero-set nullspace dim = 1 and spanned by Gamma(B) (extreme; direct check, independent of Gamma-transport)
+     dims: nullspace=1 constraint-rank=15 zeros=10
+PASS N1  P00 = |00><00|: zero-set nullspace dim = 1 and spanned by P00 (products extreme in maxCone)
+     dims: nullspace=1 constraint-rank=15 zeros=18
+PASS N1  chi = 3/5|00> + 4/5|11>: nullspace dim = 1, spanned by chi chi^dag (direct instance)
+PASS N1  Gamma(chi chi^dag): nullspace dim = 1, spanned by it (direct instance)
+PASS C4  countercontrol: non-extreme (B + P_Psi+)/2 gives nullspace dim >= 2 (routine can report non-extreme)
+     dims: nullspace=6
+PASS C4  countercontrol: a single zero of B leaves dim >= 2 (dimension 1 is earned by the zero set, not forced)
+PASS C5  Gamma acts on token-2 Pauli coefficients as diag(1,-1,1) (y-reflection, det -1)
+PASS C5  Gamma fixes token 1 and every token-2 coefficient except y (all 16 Pauli products)
+PASS C5  Ad_{I(x)u} acts by SO(3) on token-2 coefficients (4 exact u)
+PASS C5  Gamma o Ad_{I(x)u} acts by an improper orthogonal matrix (det -1)
+SUMMARY checks=13 failed=0
+RESULT N1_maxcone_ext_rank1_and_gamma=GREEN
+RESULT C4=GREEN
+RESULT C5=GREEN
+VERDICT N1-GREEN: B, Gamma(B), P00 and a non-maximal chi (and its Gamma-image) are extreme in maxCone by exact zero-set nullspaces of dimension 1; countercontrols report non-extreme where required
