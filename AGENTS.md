@@ -454,6 +454,12 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   invariant with no checkpoint is either given one or not asserted. A named hazard whose mitigation
   is cheap carries the mitigation as a frozen precondition or checkpoint; naming it is not enough.
 
+- **§A.43 Issues for planning; draft PRs for active work.** Unstarted and inactive plans
+  belong in open Issues; active research, implementations and native V3 rounds have one
+  guiding draft PR with continuously pushed safe checkpoints. Migrate planning-only PRs
+  to cross-linked Issues and close without merge or branch deletion. The §A.39 pre-F
+  control-plane chain, candidate-F/E holds and separate launch approvals remain intact.
+
 ---
 
 ## Lessons register (why the rules exist — one line each)
@@ -498,6 +504,11 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   three in the successor round's run before its freeze. Reproducing a frozen blob shows the plan
   was executed faithfully, not that the plan was valid. Hence §A.39's rule for destructive
   transformations and §A.41.
+
+- An audit of `main` found frozen records citing design trees on disposable branches, CI logs that
+  expire, and four logs held only in a session scratchpad. Pinning such content by SHA had been
+  treated as retaining it. Hence §A.42: evidence for an enduring claim is retained on `main`, with a
+  manifest for records already frozen.
 
 ---
 
@@ -822,3 +833,204 @@ carries:
 - **the execution evidence** — the workflow run, on a disposable branch, on exactly the predicted
   execution tree less the result note, and in every event mode used to certify `E`. The runs are
   design evidence recorded in the preregistration, not `check-run` attestations.
+
+---
+
+## §A.42 Durable evidence and self-contained verification
+
+Every enduring research result, certification claim or governed decision rests on evidence an
+independent reviewer can reproduce from `main`: the commit the claim is about, the result it
+expects, and the recipe that regenerates that result, with the regeneration compared to the
+expectation as item 7 states. A log records one observation of a result; a rebuild tests the
+claim. Scratchpads, `/tmp`, local worktrees, disposable and research branches, external CI logs,
+host comments and reviews, and commits not reachable from `main` are working material and
+provenance. None of them is the sole source of an enduring claim, and an object id or digest that
+names such content neither retains nor establishes it.
+
+1. **What is retained, and in what form.** For every computational claim a record relies on — a
+   verdict, a check run, an axiom report, a measured hazard, a design result — the expected
+   result, as a small structured file: the deterministic outputs the claim rests on (for a
+   bridge build: build success, the release gate's steps and verdict, each governed module's
+   `#print axioms` reports, and the failure markers), and nothing that varies between runs
+   (timestamps, durations, cache behaviour, output order).
+   - Each expected result names the commit it holds at, the recipe that regenerates it, and its
+     provenance: the run, job and the digest of the text it was read from. The digest is
+     provenance of the extraction, not independent proof.
+   - Its form is stated: **complete** (a file of the record's own), **derived** (read from a
+     named source, with that source's digest), or **complete-as-cited** (byte-identical to an
+     artifact a frozen record names by digest).
+   - A raw log or transcript is not committed as evidence. The one exception is an artifact a
+     frozen record pins by digest, whose line positions and digest that record asserts: it is
+     kept byte for byte, labelled as such, and its substantive claims are recorded as an expected
+     result as well.
+   - §A.28 bounds the amount; it does not send such evidence to the off-repo log.
+2. **When.** Before the citing record lands.
+   - **A native round's design evidence, drafting-time measurements and `F`'s exact-head run**
+     are committed to its record directory, outside `amendments/`, by its first execution
+     commit. In a halted round without one, the commit in `W`'s place carries them.
+     - The preregistration pins the pre-`F` items by hash.
+     - Drafting commits change only control-plane files (`S2`).
+   - **`E`'s exact-head run cannot be carried by any later commit of the round** (`S9`
+     condition 2, `S10`).
+     - An evidence-retention commit, landed on `main` through its own pull request, adds it
+       under the record directory, outside its control-plane files.
+     - The round's reconciliation takes a base containing that commit.
+     - The receipt's candidate entry for `E` names each retained file's digest.
+     - Nothing writes to the record directory after `Q` is built. A later write fails `G13` at
+       the landing, and the round builds again (`S10`).
+3. **Where.**
+   - For a round before its receipt commit: its record directory.
+   - For an audit: its own directory.
+   - For a paper: beside its code and data, never as a `.md` under `papers/`.
+   - For frozen records: `verification/audits/evidence-retention/`, whose manifest maps each
+     citing `file:line` to its retained copy and states which claims made there the copy carries.
+4. **Forward only.**
+   - A frozen record is never edited to point at retained evidence. That covers a native
+     round's record under `G13`, a receipt, and a legacy record. The archive's manifest maps
+     frozen records only.
+   - A mutable file citing such content is corrected in place to cite the retained copy
+     (§A.27, §A.30).
+   - Retention never strengthens a claim, never repairs a failed check by changing its evidence,
+     and never presents a re-cut or redacted copy as the original. A copy that is not
+     byte-identical to its cited digest carries its own digest and says so.
+   - Evidence that cannot be recovered is recorded as missing. A claim resting only on missing
+     evidence is corrected in its mutable dependents (§A.30), and in a frozen record only by a
+     new native round (`G13`).
+5. **Public repository.**
+   - Before a log is committed, it is scanned for secrets and sensitive operational data:
+     tokens, keys, signed URLs, IP and e-mail addresses.
+   - A redaction is recorded, with what was removed and where, and the redacted copy gets its own
+     digest.
+6. **V3 host attestations.** §A.42 adds retention, not verification.
+   - Receipts record host attestations as §A.39 and the specification define them, and
+     `tools/v3_verifier.py`'s verdict is unchanged: no predicate reads them.
+   - A retained copy is evidence of an attestation, not the attestation (`S5`). The receipt's
+     `record` still names the host object, and no retained or local output is recorded as a
+     `check-run` attestation (§A.40).
+   - From the attested host run itself, whatever the round's records cite is retained, including
+     the job conclusions, the release-gate block and the cited axiom reports.
+   - An owner designation is retained as its text, its author and its time.
+7. **Checking and reproduction.**
+   - `verification/audits/evidence-retention/check_retention.py` verifies the archive from the
+     repository tree alone:
+     - archived bytes match their hashes;
+     - every mapped citation still reads as recorded, in a file whose blob id is unchanged;
+     - every recorded claim stands verbatim in its citing file and names the retained files that
+       carry it, so a reviewer can read those files to check it;
+     - every expected result is well formed and names its commit, job and recipe;
+     - the manifest's gaps and the claims no retained file carries are printed.
+   - As the release gate's `evidence-retention` step it also runs in history mode, reading git:
+     - R9's scope is the receipts and certificate attestations at the archive's base;
+     - R10 checks that the base is an ancestor and that no path named as later existed there;
+     - R11 re-derives the module table of each expected result whose run a receipt or
+       certificate attestation at the base names: from the attesting rounds'
+       `v3-governed-paths` blocks, read at the run's commit at the blobs and digest the receipts
+       pin, or, for CV-1's runs, which no such block governs, from the contributions of
+       `verification/certificates/CV1.json` at the blob its attestation pins. The runs it checks
+       must be exactly the runs those attestations name. R11 is a consistency check: it shows the
+       archive applied those blocks faithfully, not that they name the right modules.
+   - `verification/audits/evidence-retention/reproduce.py`, run by the `reproduce evidence`
+     workflow, regenerates an expected result at its commit and compares it with
+     `compare_result.py`, which fails closed: a missing report, an unexpected axiom, an absent
+     gate step, an extraction failure or any mismatch fails it. The verifier is the checkout
+     the workflow runs on; the historical commit supplies only its sources and its own gate.
+     It writes `verdict.json` on every exit once its work directory is writable, an exception
+     included, and the verdict holds only on a clean exit.
+   - For a round, each hash pin of item 2 is a row of its invariant→checkpoint table (§A.41).
+
+Enforcement:
+- `check_retention.py` and its self-test run locally before any push that touches the archive
+  (§A.40).
+- The release gate's `evidence-retention` step runs it in history mode. That mode reads from git
+  the receipts and certificate attestations at the archive's base, requires each to be covered,
+  and treats a receipt landed after the base as outside the archive's scope. It also runs R10
+  and R11 (item 7), and `check_objects.py --reconstitute` and `--self-test` on the retained
+  off-main objects under `objects/`.
+- Reviewers check that `E`'s evidence reached `main` through its own pull request before the
+  round's reconciliation.
+- Reviewers check that each hash pin of item 2 resolves to retained content.
+
+Adopted 2026-10-16, after an audit of `main` at `fc5abade` found:
+- 107 commits and 75 objects not reachable from `main`, cited in frozen records and, once, in a
+  mutable script;
+- 842 citations of CI runs and jobs, whose logs expire;
+- four cited logs held only in a session scratchpad.
+
+Rounds landed, or frozen at `F`, before this section keep their records unchanged. Their evidence
+is retained by the archive under 3, or listed there as not yet retained.
+
+---
+
+## §A.43 Issues for plans; PR-first publication for active work
+
+**Planning-only, inactive and not-yet-started threads use open GitHub Issues**, not
+placeholder pull requests. An Issue states the question, scope, next action, dependencies
+and activation condition; it is not evidence or a governed native-round control plane.
+**Active research, formalization, native V3 round drafting, audits, extractors and repairs
+use one guiding draft pull request**, opened after the first scoped active commit.
+A research-only thread currently producing or independently reviewing substantive
+calculations is active even if no result is adopted or merge is planned; historical
+results on a paused thread do not alone keep its PR active. The PR tracks pushed work in progress; a
+local checkout, agent scratchpad or private worktree is not the authoritative tracker.
+Reuse a thread's guiding PR; reviewers and checkpoints do not each need separate PRs.
+A draft PR is neither approval nor certification nor the durable evidence on `main`
+required by §A.42.
+
+1. **Make the work visible at the right stage.** Open an Issue for a proposal or backlog
+   item. When substantive work starts, open or reuse its guiding draft PR after the first
+   scoped active commit and link Issue ↔ PR, before extended work or independent review.
+   Identify the objective, base or drafting snapshot `D`, authority limits, dependencies
+   and next check. For native rounds, opening and drafting the control plane from `D`
+   is already active work requiring the §A.39 one-PR-from-`D` lifecycle; an Issue cannot
+   replace that PR. Before `F`, the round PR branch may receive only single-parent commits
+   changing that round's permitted preregistration/control-plane files. Every other
+   checkpoint must go to a linked research or staging branch; push its safe commits and
+   link their exact SHAs from the guiding PR. Do not leave substantive work only locally.
+2. **Publish checkpoints continuously.** Run the applicable cheap local checks (§A.40),
+   then commit and push each meaningful milestone promptly to its workstream branch,
+   rather than holding it until independent review, F designation or merge approval.
+   Incomplete or failing work may be published as clearly labelled `WIP / UNVERIFIED`,
+   with the failing checks and limitations stated. Keep the guiding PR's head, description
+   and checkpoint comments aligned with the actual current work and its exact SHAs.
+   Reviewers inspect pushed immutable SHAs and record verdicts and outstanding findings
+   on the guiding PR. A reviewer's local-only results are not a substitute for a pushed
+   author checkpoint.
+3. **Keep history and freezes intact.** Do not silently amend, force-push away or delete
+   prior reviewed candidates or evidence. If the next candidate must be re-cut from an
+   incompatible `D`, preserve the old head under a named remote ref before a separately
+   authorized, lease-checked head update, or open a linked successor draft PR; any
+   re-cut must still satisfy §A.39's single-parent, control-plane-only path from `D`.
+   From the start of a candidate `F` or `E` exact-head hold until owner designation or
+   explicit release of that hold, the round's branch must not move. After `F` is
+   designated, §A.39's linear `F`→`E` execution and reconciliation rules govern it.
+4. **Do not confuse publication with authorization.** A normal WIP branch push or draft
+   PR update is allowed by default. It does **not** authorize `workflow_dispatch`, a
+   special workflow launch, F/E designation, acceptance, merge to `main`, destructive
+   ref movement, branch deletion or evidence-retention promotion. Before pushing, inspect
+   all `push`-triggered workflows, including path-filtered workflows whose triggers depend
+   on the diff or branch history (especially a non-fast-forward update). A push to a
+   special trigger branch that starts a governed launch is itself a launch and still
+   needs separate owner authorization. Ordinary automatic draft-PR CI is not an
+   exact-head F/E attestation (§A.39, §A.40).
+5. **Exceptions are narrow and explicit.** An owner-imposed hold on pushing must name
+   its affected ref or artifact, reason and release condition and be recorded on the
+   guiding PR where safe. Never infer a blanket `no push` rule from `no merge`,
+   `no dispatch`, `no F/E designation`, or a hold on a special launch branch. §A.28's
+   permanent-repository burden remains decisive for what lands on `main`; the following
+   public-branch exclusions apply to *every* push, including WIP. Do not publish secrets,
+   unredacted sensitive logs, prohibited artifacts or bulky temporary repositories;
+   follow §A.28 and §A.42 and publish safe source, structured evidence, digests and
+   traceable omission notes instead.
+6. **Retire inactive planning PRs without losing work.** When a PR is only a plan or
+   backlog placeholder, first open an Issue carrying its open work, decisions and links
+   to the original PR, branch, immutable commit SHAs and source/evidence paths. Cross-link
+   the Issue from the PR and close that PR **without merging**; preserve its branch,
+   commits, discussion and research artifacts. Do not delete refs, rewrite evidence or
+   imply that unlanded claims are adopted. Link any subsequent active draft PR to the
+   Issue, checking its actual base and existing evidence anew. A PR merely waiting for
+   CI, review or a governed authorization is still an active PR, not a planning-only PR;
+   do not close it to satisfy a count. A native V3 round with no designated `F` may be
+   retired to an Issue only after any candidate-`F` exact-head hold is explicitly
+   released; resumption requires a new guiding PR from a current `D`, citing the closed
+   PR's control plane and immutable commits as provenance. Native V3 rounds otherwise
+   retain §A.39's protocol throughout.

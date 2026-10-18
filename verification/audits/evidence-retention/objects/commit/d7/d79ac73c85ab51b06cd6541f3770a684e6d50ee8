@@ -1,0 +1,15 @@
+tree f8e29331c181ad8039e26312fdb4f7e2b18a1080
+parent 52ef3fb2dc4be0bc5fcaf3207b103e3096c676f7
+author Alex Maybaum <alex.maybaum@gmail.com> 1790569915 +0000
+committer Alex Maybaum <alex.maybaum@gmail.com> 1790569915 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQG3T1IWY
+ 7SsK4nZ+XmFtFF8j7F36TsE9W92Fth1jRHGlLXZ/YAgsVsIQtdB5sp3d4OdK826YlTLgZXId67Sg
+ igI=
+ -----END SSH SIGNATURE-----
+
+A37 design: second proof pass (symmetry lemma form, base control by table lemmas) (disposable)
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

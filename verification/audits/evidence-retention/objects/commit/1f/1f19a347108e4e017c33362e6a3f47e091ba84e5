@@ -1,0 +1,15 @@
+tree 44b2bf9bcc6f8eac64dc59c00119574d90d482d0
+parent 859f32cd37a26aa4c927e7d7bff8eb4d25400518
+author Claude <noreply@anthropic.com> 1790704955 +0000
+committer Claude <noreply@anthropic.com> 1790704955 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQNNke50r
+ UXPa2RHezWv5CW+kG8DwUqulHYQoQR8SL2IrfK+zTDwjXeFHTsCqFwSeBizdFN+XGKw2ASelO3Ys
+ 5gM=
+ -----END SSH SIGNATURE-----
+
+A42 revalidation: result note (R1-R5 verdicts, R4 rerun table, controls C0-C6)
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

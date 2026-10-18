@@ -1,0 +1,45 @@
+tree 0f50fe8f84ee8d874381f4ad8b9194aa5b68cf40
+parent 9f30f01acb14ea9caf77720581f6150b8ffd2ba8
+author Claude <noreply@anthropic.com> 1789630321 +0000
+committer Claude <noreply@anthropic.com> 1789630321 +0000
+
+act 19: the result note, the R7-OLR guard clause, the ROADMAP propagation and the census
+
+The round's reporting surface. No Lean is touched.
+
+verification/programmes/oi-qm/track-b/act-19-orbit-law-rigidity/result.md --
+the result note, carrying the ordering obligation's FIVE RECORDS in full, the
+quotient record, the bounded search for OL0 with a per-term result over 229
+files and twenty-seven terms, OL1 in both parts, the eight rung statuses, the
+seven-candidate census, the discriminating test with t* = 1 and the
+earlier-agreement conjunct discharged, the headline L-WIDE (L0-L4) with the
+record that the headline over the full ladder is undecided, the L5 test as it
+stood, the scope boundary, the non-adoption clause at two mentions, the frozen
+P0 sentence, the definition count, the chronology certification, the axiom
+table and SIX DISCREPANCIES recorded and not repaired. It also carries the
+agent attestation the repository record cannot supply: no commit rewritten,
+nothing run before the ladder commit that was intended to reveal survivor
+status, no compiler feedback that revealed it incidentally, and the untracked
+scratch file disclosed in full and absent at the certified head.
+
+verification/lean/edge_rigidity_probe.py -- the R7-OLR clause ADDED and no
+existing seal constant altered. _OLR_BASE is the mandated base; _OLR_SEALED_-
+HEAD and _OLR_MERGE are present and UNSET, to be set by the mandatory pin
+commit P after the landing merge L. Nineteen named contracts, forty-six
+mutation controls, eighteen seal controls and a freeze-pin drift control.
+Chronology clause 9 is honoured BY EXCLUSION: _olr_prior_seals names acts 13's
+through 18's triples and has ZERO EXECUTABLE REFERENCES to this round's own
+constants, with the exclusion explained in its docstring. Verified empirically
+in three configurations and reported as measurements: True unmutated, False on
+each of eighteen single-field fabrications, and True with this round's own pins
+set -- the third being the configuration an earlier round in this programme
+failed.
+
+verification/ROADMAP.md -- the P0 row's frozen Case A sentence appended
+verbatim, followed by the freeze's own L5 fallback record. The row's label is
+unchanged, it stays OPEN and two-part, and its ledger cell is untouched.
+
+verification/lean-manuscript-census.json -- the family note for this round's
+module filled out.
+
+lake build clean, release gate 17/17, edge_rigidity_probe ALL CHECKS PASS.

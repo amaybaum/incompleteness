@@ -1,0 +1,93 @@
+{
+  "arithmetic": "integer coefficient vectors; polynomial identities",
+  "countercontrols": {
+    "corrupted_correspondence": [
+      0,
+      0
+    ],
+    "reflection_congruent_family": [
+      0,
+      0
+    ],
+    "translated_family": [
+      0,
+      0
+    ]
+  },
+  "factorizations_match": true,
+  "orientation_table": [
+    {
+      "identity_counts": [
+        3,
+        0
+      ],
+      "source_reflected": false,
+      "swapped": false,
+      "target_reflected": false
+    },
+    {
+      "identity_counts": [
+        0,
+        3
+      ],
+      "source_reflected": false,
+      "swapped": false,
+      "target_reflected": true
+    },
+    {
+      "identity_counts": [
+        0,
+        3
+      ],
+      "source_reflected": true,
+      "swapped": false,
+      "target_reflected": false
+    },
+    {
+      "identity_counts": [
+        3,
+        0
+      ],
+      "source_reflected": true,
+      "swapped": false,
+      "target_reflected": true
+    },
+    {
+      "identity_counts": [
+        3,
+        0
+      ],
+      "source_reflected": false,
+      "swapped": true,
+      "target_reflected": false
+    },
+    {
+      "identity_counts": [
+        0,
+        3
+      ],
+      "source_reflected": false,
+      "swapped": true,
+      "target_reflected": true
+    },
+    {
+      "identity_counts": [
+        0,
+        3
+      ],
+      "source_reflected": true,
+      "swapped": true,
+      "target_reflected": false
+    },
+    {
+      "identity_counts": [
+        3,
+        0
+      ],
+      "source_reflected": true,
+      "swapped": true,
+      "target_reflected": true
+    }
+  ],
+  "scope": "recorded quoted family and its orientation/order variants; no statement that every exceptional pair belongs to it"
+}

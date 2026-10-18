@@ -1,0 +1,15 @@
+tree c42e0904c54e9aaf40c6f581026b9f92867bf344
+parent 1ffe2d6fb839066479a6d9819a6ce17b87db7d65
+author Claude <noreply@anthropic.com> 1790451294 +0000
+committer Claude <noreply@anthropic.com> 1790451294 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQGJ6a2//
+ PsO64jBTKoN0bk5s9pgN/wHqpczt1HpQ1ib2ORcGovP+oS/TuMylzHw4UDn6o/0kTYJEQM5tQUuL
+ hgQ=
+ -----END SSH SIGNATURE-----
+
+a33 dev: phase 10 (act-25 family theorems, conjugation and A32 controls) - full frozen set
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

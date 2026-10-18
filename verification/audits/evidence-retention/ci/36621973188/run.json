@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-09-29T19:49:35Z",
+ "display_title": "verify",
+ "event": "workflow_dispatch",
+ "head_branch": "claude/a45-fixed-basis-image",
+ "head_sha": "a5696e37aad5368a2348a5ffeff79197d00ba2c5",
+ "id": 36621973188,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "36621973188",
+ "run_number": 1443,
+ "source": "GitHub Actions runs API listing, selected fields",
+ "status": "completed",
+ "updated_at": "2026-09-29T20:07:50Z"
+}

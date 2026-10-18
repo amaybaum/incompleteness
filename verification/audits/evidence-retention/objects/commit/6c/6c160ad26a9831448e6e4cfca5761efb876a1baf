@@ -1,0 +1,20 @@
+tree 6e2c587fe61c2db84ea5a30c02a8d85ba1d6706d
+parent f33b2fa255ba361b2b46e388091f721186a58c70
+author Claude <noreply@anthropic.com> 1792103983 +0000
+committer Claude <noreply@anthropic.com> 1792103983 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQMcrfs/G
+ JSICSAgX1RBrx0Hg9afZz4slSOoLIx4NczmjMMpMkXmkczl3bWFYwoS6MYx0Fi1WzfsZ0TB9ikKf
+ Ago=
+ -----END SSH SIGNATURE-----
+
+BG-3 reduced predicted execution tree (design testing only)
+
+The reduced predicted execution tree less the result note: controls.py
+and the edit ledger, and TurnpikeScopeTransfer.lean and the ROADMAP as
+the ledger applied to D. For exact-SHA design runs on a disposable
+branch; not an execution commit.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01MiBmxebut1gBiZcsSnTSA3

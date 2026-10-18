@@ -1,0 +1,72 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "BG-3",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "e3ad5d7a71910ce5413ef6dacd25bf5a63d5a1e0",
+ "f": "777ddf8dcada759b5f3bcab26a4ff3833ba720bf",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-bg-3-scope-transfer-correction/preregistration.md",
+   "blob": "0eed851b670d3c913c37ae022a864fa920a0ffc0"
+  }
+ ],
+ "governed_paths_digest": "20df7625f9337da95084afeb2c9289b55788451cab16de24858ea1831e985fc4",
+ "e": "194eb3fd0c0a58ee843a574d93d4a0fa94f6cb79",
+ "tree_e": "231785cdc71aff240678dbd9c929e7b5fc45570c",
+ "execution_delta_digest": "7c4f2de5926397e85ad476682fa1e9be0d51d0a006bb2bd9bf8cec9a8843830f",
+ "candidates": [
+  {
+   "commit": "c5c3abb9166260ebdacedfd62d366c0e26f21ece",
+   "tree": "2e4022f2d2c87dc5933e1e5b8301d5318fe06481",
+   "measured": "Stage 1, committed 2026-10-16T05:23:05Z, after the host record of the F designation (05:22:52Z): controls.py (blob 52b52095) and edit-ledger.json (blob 1e82e5a6) at their frozen blobs. Pushed together with stages 2 and 3, as the frozen preregistration requires, so it has no exact-head run of its own. Local: controls.py --self-test passes 31 cases; 303 legacy records intact. Not designated."
+  },
+  {
+   "commit": "409acead450c8a390111d4233b414b473db16ae8",
+   "tree": "7a3064a03350cf8f6e221c1dbea4e77045a6ed48",
+   "measured": "Stage 2, committed 2026-10-16T05:23:19Z: TurnpikeScopeTransfer.lean (blob 6c2e3e33) and ROADMAP.md (blob 3209f8b0), the frozen edit ledger applied to D. Pushed together with stages 1 and 3; no exact-head run of its own. Local frozen check at this commit against F passes C1, C2, L0, L, P, R, S and G over 5 paths; 303 legacy records intact. Not designated."
+  },
+  {
+   "commit": "194eb3fd0c0a58ee843a574d93d4a0fa94f6cb79",
+   "tree": "231785cdc71aff240678dbd9c929e7b5fc45570c",
+   "measured": "Stage 3, adding result.md alone (blob 6ce1bd93), committed 2026-10-16T05:23:33Z and pushed with stages 1 and 2. Exact-head workflow_dispatch 38855576525, attempt 1, dispatched 05:24:04Z, all 37 jobs successful. Mathlib bridge job 116826161407 missed on its own cache key, which it saved afterwards (log line 4984); the branch held no cache of its own to restore (C-FRESH: its earlier runs were three pull-request runs in the merge-ref scope and F's check run, which saved none). It rebuilt only TurnpikeScopeTransfer, TurnpikePremiseOrientation and the root, and printed Build completed successfully; the release gate passed every step (lean-axioms 5989, D's 5988 and the new lemma, no sorry; 303 legacy records; 47 receipts). The last 4999 lines of its log (sha256 84de2bc0e2b2a2f6b34d27d25e5abad9037c5c42a8c12cdf7c1ce7ccc0acf649), saved before any other dispatch (C-ORDER), carry the module's eight axiom reports, each within propext, Classical.choice and Quot.sound, with no sorryAx and no Lean.ofReduceBool. Over them the frozen verdict, controls.py verdict at E against F, exits 0 and prints BG-3-REDUCTION-FACTORED, BG-3-STATEMENTS-PRESERVED, BG-3-DOCSTRINGS-CORRECTED and BG-3-KERNEL-CLEAN with the earned reading. Local frozen check at E against F passes C1, C2, L0, L, P, R, S and G over 6 paths. After the verify run concluded, bg2-orientation-design workflow_dispatch 38857340321 at E succeeded (C-DES): the exact orientation checks passed, both design files compiled against the changed module, and the 10 axiom reports matched axiom-reports.txt (log sha256 bf1ab94553e857faf1b684fbaee5b538270e78dac35a5c13df370c6c234f5bf7). Mathematical: TurnpikeScopeTransfer.lean states the real-to-integer reduction once, as real_to_integer_surrogate, and its docstrings describe BGIntegerClassification as refuted; no statement of the module changes. The round establishes no sign-aware classification and closes no reconstruction hypothesis."
+  }
+ ],
+ "landing": {
+  "base": "b6695f6f2e3cce4f1554c7f832961844fbffa2cf",
+  "object": "709c6d747093f114af3f683e2432fee53af6790c",
+  "reconciliations": [
+   "709c6d747093f114af3f683e2432fee53af6790c"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "904ab53f839f255fb65e7324dbec10c4dbdded43729cd65302dd762ea9581a75"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "777ddf8dcada759b5f3bcab26a4ff3833ba720bf",
+   "record": "https://github.com/amaybaum/incompleteness/pull/849#issuecomment-6208713192 (the owner's designation of F, given in the working session on 2026-10-16 before check run 38854027737 was dispatched, and posted 2026-10-16T05:22:52Z by the executor at the owner's request, after that run concluded at 05:22:15Z and before any execution commit; stage 1 was committed at 05:23:05Z)"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "777ddf8dcada759b5f3bcab26a4ff3833ba720bf",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/38854027737/attempts/1"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "194eb3fd0c0a58ee843a574d93d4a0fa94f6cb79",
+   "record": "https://github.com/amaybaum/incompleteness/pull/849#issuecomment-6209481207 (the owner's designation of E, given in the working session on 2026-10-16 and posted 2026-10-16T06:24:23Z by the executor at the owner's request)"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "194eb3fd0c0a58ee843a574d93d4a0fa94f6cb79",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/38855576525/attempts/1"
+  }
+ ]
+}

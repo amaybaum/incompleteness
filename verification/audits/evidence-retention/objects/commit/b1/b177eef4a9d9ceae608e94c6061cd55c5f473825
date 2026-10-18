@@ -1,0 +1,15 @@
+tree 17e3cf4bcee471ab7adb6ee5bc7a5489606b0360
+parent 51bec3d5060c73b8afd5f3664b29ffb3b8838c96
+author Claude <noreply@anthropic.com> 1790718457 +0000
+committer Claude <noreply@anthropic.com> 1790718457 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQIKQ2fXj
+ 960JrwFBNxuMtV3ZfewC84kzA/3DwmA5j+QQGoe/xvx0svWRAntABlV08ca0QU0OQDAWvLXIAtWO
+ Mw0=
+ -----END SSH SIGNATURE-----
+
+A42 predicted tree: the DFS part sets the argv its imported tool reads (design evidence, disposable)
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

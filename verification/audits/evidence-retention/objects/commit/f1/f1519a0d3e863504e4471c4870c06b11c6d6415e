@@ -1,0 +1,15 @@
+tree e86fbfa0dd3b3c4e85af0c83b0d0b62866e32730
+parent 304f89e4eb79123e5311f2ef2ff502121b8d6232
+author Claude <noreply@anthropic.com> 1790531084 +0000
+committer Claude <noreply@anthropic.com> 1790531084 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQOBdaL1f
+ nLRdyArCdfYjKlL1pqprmzPselG0XnUP75OskutF7rrZipH5DQGbSrCYAU9yT6E6KkibEvpPJ+t5
+ RAE=
+ -----END SSH SIGNATURE-----
+
+a36 dev: the verdict theorem and the corollary (disposable)
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

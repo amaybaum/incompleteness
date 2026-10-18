@@ -1,0 +1,15 @@
+tree 11cace6333bc96bcfe19bad0ebd59af038ef8d22
+parent 1c29812c19f47d39e75a5ca2983823047f2ec5a7
+author Claude <noreply@anthropic.com> 1790447691 +0000
+committer Claude <noreply@anthropic.com> 1790447691 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQPYTtCtD
+ 9kuvLZe/7Pt1FUkpHygUrLf/rIJjpQhtw85A4lEQgXTC8RQ1QqpBUHSQjidiscNn//Gz2Ll8qMgg
+ AgY=
+ -----END SSH SIGNATURE-----
+
+a33 dev: phases 1-5 (phase-4 fixes; B2 normal form, B3 endpoint signs)
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

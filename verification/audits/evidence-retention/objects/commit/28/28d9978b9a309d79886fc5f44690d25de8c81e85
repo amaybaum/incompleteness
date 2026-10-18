@@ -1,0 +1,19 @@
+tree 3e0e0ebe462a6bff8d841aa86dad3bcb81283e38
+parent 54324ade409c63067542846f7d5495f08b4477e1
+author Claude <noreply@anthropic.com> 1790500940 +0000
+committer Claude <noreply@anthropic.com> 1790500940 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQDSpwo1C
+ TFYbbRk2MKGuF9uIwGVe8luL47kIqnXdtNf4No/0QsvwQPXyG4jIfhCHrt+vyWkyqFRzApWKBZqG
+ Gwo=
+ -----END SSH SIGNATURE-----
+
+a35-dev: the corrected exact-computation probe (disposable branch)
+
+The four-row profile symmetrized over the conjugated pair and paired with the transpose's; the
+phase-direction null-space check on the solution side; the grid separation bound at 1/5; the
+census regenerated pairwise distinct under the corrected invariant.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

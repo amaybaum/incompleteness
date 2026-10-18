@@ -12,7 +12,7 @@ the book.]*
 
 **Alex Maybaum — March 2026**
 
----
+***
 
 ## The Worst Prediction in Physics
 
@@ -28,7 +28,7 @@ This paper argues the opposite. Neither calculation is wrong. They disagree beca
 
 The argument is built from a chain of mathematical proofs, each feeding into the next. This document explains what the paper claims, walks through the logic of every major proof, and shows how they connect.
 
----
+***
 
 ## The Starting Point: Observation Exists
 
@@ -46,7 +46,7 @@ This single sentence contains no physics. It is weaker than classical mechanics 
 
 *A note on "exactly one."* The framework's foundational work has since looked harder at what "observation occurs" actually assumes, and found it is most honestly stated as **two** axioms rather than one. The first — that a distinction occurs, that there is some this-rather-than-that — genuinely cannot be doubted. The second — that the distinction *recurs*, that there is more than one moment — is a real further assumption: a single frozen instant, however full of difference, contains no time, and time cannot be squeezed out of difference alone. The framework assumes both, and a no-go result shows the second does not follow from the first. This is a strength rather than a hedge: the foundation can point to exactly which single ingredient is assumed rather than indubitable. A further question is genuinely open: whether the observer's status as a *proper part* of a larger whole — its embeddedness — is itself a third such assumption, or instead follows from the first axiom. This turns on a subtle point about what "a distinction occurs" means, it is under review, and — importantly — it changes no prediction the framework makes: it bears only on how the foundation's assumptions are counted and described. The companion paper *Physics Modulo Gauge* develops the foundational structure in full, as its Part I; for the purposes of this overview, "observation occurs" can be read as that two-part (possibly three-part) foundation, and nothing below depends on the refinement.
 
-**Lemma 1** (Finiteness). *The observer has finitely many distinguishable internal states, so the visible configuration space $\mathcal{C}_V$ is finite, with a discreteness scale $\epsilon$ providing a finite minimal cell volume.* There's a smallest meaningful size ε — you can't resolve anything smaller. This means the configuration space is finite, not continuous. This matters because finite systems have a property infinite systems don't — they must eventually return to their starting state (Poincaré recurrence). In Part I, ε is left unspecified. In Part II, self-consistency forces ε = 2 l_p (twice the Planck length).
+**Lemma 1** (Finiteness). *The observer has finitely many distinguishable internal states, so the visible configuration space $\mathcal{C}_V$ is finite, with a discreteness scale $\epsilon$ providing a finite minimal cell volume.* There's a smallest meaningful size ε — you can't resolve anything smaller. This means the configuration space is finite, not continuous. This matters because finite systems have a property infinite systems don't — they must eventually return to their starting state (Poincaré recurrence). In Part I, ε is left unspecified. In Part II, self-consistency forces ε = 2√σ l_p, where σ is the entropy carried by one boundary mode — twice the Planck length at σ = 1, one nat per boundary mode.
 
 **Lemma 2** (Causal partition). *An observer is a proper subsystem $V \subsetneq S$. The complement $H = S \setminus V$ is the hidden sector.* The total phase space splits into two pieces:
 
@@ -70,7 +70,7 @@ That's it. The precise claim is layered. At the finite observable-law level, the
 
 The definition sets the stage. The conditions determine what kind of show plays on it. The next section explains why the cosmological horizon satisfies all three.
 
----
+***
 
 ## The Observer's Blind Spot
 
@@ -88,11 +88,11 @@ But the hidden sector beyond the cosmological horizon is not like that. It diffe
 
 **It's slow.** The hidden sector's correlation time is set by the Hubble timescale — roughly $10^{17}$ seconds, the age of the universe. Any laboratory experiment operates on timescales of $10^{-15}$ seconds or shorter. The ratio is $10^{-32}$. The hidden sector cannot "reset" between your measurements. Every correlation it picks up from one experiment is still there when the next one begins. This is the *opposite* of the standard Markovian regime, where the environment decorrelates fast. Here, it never decorrelates at all. (Condition C2.)
 
-**It's vast.** The hidden sector has roughly $10^{122}$ independent degrees of freedom — the Bekenstein-Hawking entropy of the cosmological horizon. No experiment you could ever perform would appreciably disturb its state. Its memory never saturates. (Condition C3.)
+**It's vast.** The hidden sector has roughly $10^{122}$ independent degrees of freedom at one nat each — the Bekenstein-Hawking entropy of the cosmological horizon. No experiment you could ever perform would appreciably disturb its state. Its memory never saturates. (Condition C3.)
 
 A fast environment with vast capacity would wash out correlations (Markovian noise). A slow environment with limited capacity would eventually fill up and stop recording. What the observer needs is an environment that couples to it, retains the record long enough to be read, has the capacity to hold it, and feeds it back — and it is the feedback (C4) that does the work, the other three following from it or supporting it. Such an environment sustains the persistent, non-decomposable correlations the paper calls *P-indivisibility* — a technical term meaning the system's transition probabilities at different times cannot be broken into independent steps.
 
----
+***
 
 ## Partition-Relativity (§1.4)
 
@@ -119,7 +119,7 @@ Unpacking each symbol:
 
 **Why the Liouville measure is unique:** The observer needs a "prior" — a way to weight the hidden states. Liouville measure is the unique measure on phase space that is absolutely continuous (no point masses) and invariant under Hamiltonian flow. **Not a distinctive prediction (removed from Tier 1).** The expansion below is correct but universal: for any smooth $f(H)$, setting $g(X)=f(\sqrt X)$ with $X=H^2$ gives $f=g(X_0)+g'(X_0)(H^2-H_0^2)+O((H^2-H_0^2)^2)$ around any $H_0>0$. Every smooth dark-energy model has that local form, and the counterfamily $\rho_\Lambda=\rho_0+A(H^2-H_0^2)+B(H^2-H_0^2)^2$ with arbitrary $B$ satisfies the same boundary $H$-dependence with matter conserved and the Bianchi relation carried by running $G$. Nothing in the architectural commitments forces $B=0$, and the running-vacuum literature carries even powers of $H$, $H^4$ in other regimes, and $\dot H$ terms. So: if "Type II form" means the first local Taylor term it is non-predictive; if it means a global $c_0+\nu H^2$ law, it is not derived here. The defensible statement is that boundary architecture requires SOME state dependence on cosmological geometry, whose smooth late-time normal form contains an $H^2-H_0^2$ term. With that said: any smooth initial distribution evolves toward it. Singular measures are excluded by Lemma 3's requirement of standard probability theory. The observer has no choice.
 
----
+***
 
 ## Emergent Stochasticity and the Slow-Bath Regime (§§2.1–2.2)
 
@@ -133,7 +133,7 @@ C2 inverts this — the condition itself is persistence, the record surviving to
 
 This is non-Markovian dynamics. It's the key ingredient that separates quantum mechanics from classical stochastic processes.
 
----
+***
 
 ## The P-Indivisibility Theorem (§2.3)
 
@@ -173,7 +173,7 @@ The inequality is strict because the distributions overlap. Distinguishability h
 
 The proof uses almost nothing — just that the dynamics is a bijection on a finite set (the definition and Lemma 1) and that the coupling is non-trivial (C1). It is purely combinatorial.
 
----
+***
 
 ## The Accessible-Timescale Lemma (§2.3 continued)
 
@@ -199,7 +199,7 @@ For the cosmological case: τ_S ~ 10^{-15} s, τ_B ~ 10^{17} s. Even after k = 1
 
 **The role of C3:** The hidden sector's memory capacity is log_2(|C_H|) bits. If k bits of history are written but the capacity is only m < k bits, old data gets overwritten. C3 ensures m is large enough that the memory never saturates on observable timescales.
 
----
+***
 
 ## The Coin-and-Die Model (§2.4)
 
@@ -270,7 +270,7 @@ The entries −1 are negative. No valid stochastic matrix exists. **This is P-in
 
 **The mechanism in detail.** The die works as a memory register. At step 1, if the coin was at 0 and the die was at 1, the coin flips to 1 but the die stays at 1. The die value 1 now encodes the information "the coin was at 0 and I flipped it." At step 2, σ sees (1, 1) and flips it back to (0, 1). The die read its own memory and reversed the flip. C1 (coupling) allows writing to the memory. C2 (memory persistence) ensures it isn't erased between reads. C3 (sufficient capacity) ensures there's enough room. C4 (history readback): at step 2 the unchanged die register controls the reverse flip — the dynamics reads back the record written at step 1. In this toy, C1 through C4 explain the memory mechanism — the information backflow; the explicit negative-propagator calculation above independently establishes the stronger P-indivisibility witness, and the process is thereby, via the stochastic-quantum correspondence, the carrier of a nontrivial quantum representation in compressed form under (T).
 
----
+***
 
 ### Why conditions C2 and C3 matter physically
 
@@ -278,7 +278,7 @@ The P-indivisibility theorem needs only coupling (C1) and finiteness. So why doe
 
 Because P-indivisibility without C2 and C3 might only show up at absurd timescales or might self-destruct. C2 ensures the memory persists on timescales accessible to actual experiments, not just at cosmic recurrence times. C3 ensures the hidden sector never runs out of room to store information — if it saturates, later imprints overwrite earlier ones, and the process becomes effectively memoryless. Together with C4's readback — the load-bearing condition (`review4_probes.py`: storage and capacity without readback do not suffice) — C2 and C3 make the accessible memory strong, persistent, and observationally relevant; the P-indivisibility witness is the stronger diagnostic that readback makes measurable.
 
----
+***
 
 ## The Stochastic-Quantum Correspondence (§3.1 and Appendix A)
 
@@ -304,13 +304,13 @@ The in-house route, given in Appendix A, uses Stinespring's dilation theorem (19
 
 - **Bell correlations.** Bare non-factorization is not enough to select the quantum correlation set. The stochastic causal-local indivisible construction has a Tsirelson bound, but the framework's response-complete deterministic layer is more restrictive: pointwise graph locality plus a measurement-independent pre-setting ensemble gives a Bell-local model with $|S_{\rm CHSH}|\le2$. The framework therefore takes the ontic-parameter-dependent branch for Bell-violating substrata while retaining operational no-signaling (Main §3.3). Unrestricted/global composites remain a post-quantum negative control, so neither hidden memory nor indivisibility is a selector of the quantum Bell set.
 
----
+***
 
 ## The Phase-Locking Lemma (§3.1 continued)
 
 A potential objection: the relation T_ij = |U_ij|² throws away phase information. Different unitaries could give the same transition probabilities. Does this make the quantum description ambiguous?
 
-The phase-locking lemma shows: no.
+The complete two-branch answer requires the sign-aware classification hypothesis H-BG ([GR §3.3]); Fourier extraction alone does not classify the unlabelled mode correspondences.
 
 **Setup:** The transition probability at time t is:
 
@@ -320,7 +320,7 @@ where V_ik = ⟨i|k⟩ are the overlaps between the configuration basis and the 
 
 $$T_{ij}(t) = \sum_{k,l} V_{ik}\, V_{jk}^*\, V_{jl}\, V_{il}^*\; e^{-i(E_k - E_l)t}$$
 
-**The Fourier trick:** This is a sum of oscillating terms at frequencies ω_kl = E_k - E_l. If all these frequencies are distinct (condition G2: non-degenerate energy gaps), you can extract each coefficient by Fourier transform:
+**The Fourier trick:** Once a mode correspondence has been fixed, this is a sum of oscillating terms at frequencies ω_kl = E_k - E_l. If all these frequencies are distinct (condition G2: non-degenerate energy gaps), you can extract each coefficient by Fourier transform:
 
 $$a_{ij}^{kl} = V_{ik}\, V_{jk}^*\, V_{jl}\, V_{il}^*$$
 
@@ -332,9 +332,9 @@ $$\arg(a_{ij}^{kl}) = (\varphi_{ik} - \varphi_{il}) - (\varphi_{jk} - \varphi_{j
 
 The only transformation preserving all double differences is φ_ik → φ_ik + α_i + β_k — just relabeling (choosing a different phase convention for the basis states). Once you fix these conventions, all remaining phases are determined up to one further discrete ambiguity: the complex-conjugate Hamiltonian H → −H*, an antiunitary twin producing identical transition probabilities at every time.
 
-**Bottom line:** Continuous-time transition probability data determines the Hamiltonian up to relabeling conventions and the antiunitary conjugate H → −H* (ancilla-case completeness open beyond tested generic cases); i.e. up to physically irrelevant relabeling.
+**Conditional conclusion:** Under H-BG and the gap/overlap hypotheses on both Hamiltonians, continuous-time transition data determine the Hamiltonian up to an energy shift, diagonal rephasing and the antiunitary conjugate H → −H*. The last ambiguity is a global orientation alternative. General ancilla-case completeness remains open beyond the tested generic cases.
 
----
+***
 
 ## Bell Inequality Violations (§3.2)
 
@@ -346,7 +346,7 @@ This is the question everyone asks: isn't this ruled out by Bell's theorem?
 
 **The stochastic Tsirelson result is a different layer.** Barandes–Hasan–Kagan bound a weaker class of causally local indivisible *stochastic* processes by $2\sqrt2$. Their causal-independence condition is weaker than Bell factorization, so that theorem does not turn the response-complete deterministic completion into a local quantum hidden-variable model. Jarrett/Fine diagnostics remain useful; at the deterministic layer the Bell mechanism is ontic parameter dependence, while stochastic causal locality belongs to the weaker reduced-law description.
 
----
+***
 
 ## The Characterization Theorem (§3.3)
 
@@ -389,7 +389,7 @@ Each step uses a standard information-theoretic inequality. The result: if you w
 
 *The uncertainty principle.* The uncertainty relations of quantum theory — Robertson's preparation inequality $\sigma_A\sigma_B \geq \tfrac{1}{2}|\langle[A,B]\rangle|$ and the error–disturbance relations — are inequalities in the commutator, and the passive-observation statement is a qualitative finite-dimensional consequence of the same non-commutativity: an instrument that leaves every state unchanged on average learns only about the center of the observable algebra. Like passive incompleteness, the preparation inequality holds in every finite operational theory, with or without the OI core. Observational incompleteness in the sense of the OI core is a different statement, about the hidden sector of an embedded observer: under C4 it is present already for a single fixed readout, where no choice between measurements arises, and the visible laws of fixed-readout processes are exactly the finite stochastic laws, which no uncertainty relation constrains. The relations bind only where non-commuting observables are operationally available, and that availability belongs to the completion question: the non-commutative operational structure follows from the completion principles of OI⁺, with the OI-core clause redundant once reversible control is present, and whether embedded observation selects it is open (Main §3.4).
 
----
+***
 
 ## The Cosmological Application (§4)
 
@@ -401,7 +401,7 @@ $$A = \frac{4\pi c^2}{H^2}$$
 
 where H is the Hubble parameter. This implements Lemma 2 naturally: Γ_V = everything inside the horizon, Γ_H = everything beyond.
 
-**Why ℏ is the same for all observers:** Different observers have slightly different horizons. But the gap equation ℏ = c³ε²/(4G) depends only on local geometric quantities (c, G, ε) — not on the horizon area or the observer's worldline. So all observers derive the same ℏ.
+**Why ℏ is the same for all observers:** Different observers have slightly different horizons. But the gap equation ℏ = c³ε²/(4Gσ) depends only on local quantities (c, G, ε, and the entropy σ of one boundary mode) — not on the horizon area or the observer's worldline. So all observers derive the same ℏ.
 
 ### 4.2 Verification of the Conditions
 
@@ -409,13 +409,13 @@ where H is the Hubble parameter. This implements Lemma 2 naturally: Γ_V = every
 
 **C2 (memory persistence).** τ_B ~ 1/H ~ 10¹⁷ seconds (the Hubble time). τ_S ~ 10⁻¹⁵ seconds (a typical atomic process). The ratio: τ_S/τ_B ~ 10⁻³².
 
-**C3 (sufficient capacity).** The hidden sector has A/ε² ~ 10¹²² modes (the de Sitter entropy). The visible sector has ~ 10⁸⁰ baryons. No experiment comes close to saturating the hidden sector.
+**C3 (sufficient capacity).** The hidden sector has A/ε² = S_dS/σ ~ 10¹²² modes at σ = 1 (S_dS the de Sitter entropy). The visible sector has ~ 10⁸⁰ baryons. No experiment comes close to saturating the hidden sector.
 
 ### 4.3 Application
 
 With the cosmological horizon satisfying the definition and all conditions, the characterization theorem applies. The observer's reduced description is non-Markovian — P-indivisible in the recurrence regimes — and admits a unitarily evolving quantum representation ([Main §3.4]). The value of ℏ is determined by the partition geometry — which is what Section 5 derives.
 
----
+***
 
 ## Where Planck's Constant Comes From (§5)
 
@@ -429,13 +429,13 @@ $$dE = \frac{c^2 \kappa}{8\pi G} \, dA$$
 
 where κ is the surface gravity and dA is the change in horizon area. This is a classical gravitational identity — no quantum mechanics involved.
 
-The entropy density is η = 1/ε² — one coupled mode per minimal cell of area ε². This is not an assumption about the number of states per cell: ε is defined as the minimal distinguishable scale (Lemma 1), so each cell of area ε² contributes exactly one boundary mode that couples across the partition. The number of internal states per mode (the alphabet size q) is a gauge freedom with no observable consequences [SM §2.7]. So dS = dA/ε². From dE = TdS:
+The entropy density is η = σ/ε² — one coupled mode per minimal cell of area ε², each carrying an entropy σ. ε is defined as the minimal distinguishable scale (Lemma 1), so each cell of area ε² contributes exactly one boundary mode that couples across the partition. The entropy σ of a mode is a pure number, in nats: the number of internal states per mode (the alphabet size q) bounds it, σ ≤ ln q, and the alphabet-size hypothesis [SM §2.7] does not fix it. The Bekenstein-Hawking coefficient does not depend on σ, which cancels from the entropy law and enters only the discreteness scale, ε = 2√σ l_p [GR §3.1, §4]. So dS = σ dA/ε². From dE = TdS:
 
-$$k_B T_{\text{cl}} = \frac{c^2 \epsilon^2 \kappa}{8\pi G}$$
+$$k_B T_{\text{cl}} = \frac{c^2 \epsilon^2 \kappa}{8\pi G \sigma}$$
 
 For the de Sitter horizon, κ = cH:
 
-$$k_B T_{\text{cl}} = \frac{c^3 \epsilon^2 H}{8\pi G}$$
+$$k_B T_{\text{cl}} = \frac{c^3 \epsilon^2 H}{8\pi G \sigma}$$
 
 **Critical point: no ℏ appears anywhere.** This temperature is computed from purely classical quantities.
 
@@ -453,7 +453,7 @@ $$T_{ij}(t) = \underbrace{\frac{1}{|\mathcal{C}_B|} \sum_{b} \delta_{x_j}[\pi_V(
 
 The transition probabilities depend only on boundary dynamics. Since ℏ is determined by transition probabilities, ℏ depends only on boundary quantities: c, G, and ε. This excludes dependence on H — if ℏ depended on H, observers at different cosmic epochs would have different quantum mechanics.
 
-**Step 3 (Dimensional analysis).** Step 2 excludes volumetric (deep-sector) quantities, leaving boundary quantities. The boundary carries both *local* geometric data (ε, κ, and the constants c, G) and a *global* quantity: the total area A, which forms the dimensionless ratio A/ε² = S_dS. If ℏ depended on S_dS, it would be observer-dependent — different observers have different horizon areas — contradicting the universality of the emergent action scale. This excludes A. The surface gravity κ is excluded by two independent arguments: (i) κ differs between horizon types (cosmological vs. black hole), but ℏ is universal — a laboratory experiment measures the same ℏ regardless of which horizon defines the partition; (ii) for the cosmological horizon, κ = cH is time-dependent (Ḣ ≠ 0), but ℏ is observed to be constant on laboratory timescales. The unique combination of c, G, and ε with dimensions of action:
+**Step 3 (Dimensional analysis).** Step 2 excludes volumetric (deep-sector) quantities, leaving boundary quantities. The boundary carries both *local* geometric data (ε, κ, and the constants c, G) and a *global* quantity: the total area A, which forms the dimensionless ratio A/ε² = S_dS/σ. If ℏ depended on S_dS, it would be observer-dependent — different observers have different horizon areas — contradicting the universality of the emergent action scale. This excludes A. The surface gravity κ is excluded by two independent arguments: (i) κ differs between horizon types (cosmological vs. black hole), but ℏ is universal — a laboratory experiment measures the same ℏ regardless of which horizon defines the partition; (ii) for the cosmological horizon, κ = cH is time-dependent (Ḣ ≠ 0), but ℏ is observed to be constant on laboratory timescales. The unique combination of c, G, and ε with dimensions of action:
 
 $$[\hbar] = \frac{[c]^3 \, [\epsilon]^2}{[G]} = \text{kg·m}^2/\text{s} \quad \checkmark$$
 
@@ -461,7 +461,7 @@ So ℏ = β c³ε²/G, where β is a dimensionless constant that dimensional ana
 
 **Step 4 (Thermal self-consistency).** We have two independent descriptions of the horizon temperature:
 
-*Classical:* T_cl = c²ε²κ/(8πGk_B) — computed from the geometric substratum, no ℏ.
+*Classical:* T_cl = c²ε²κ/(8πGk_Bσ) — computed from the geometric substratum, no ℏ.
 
 *Quantum:* The emergent QFT lives on a spacetime with a bifurcate Killing horizon. Standard QFT on curved spacetime gives a KMS thermal state at temperature:
 
@@ -469,19 +469,19 @@ $$T_Q = \frac{\hbar \kappa}{2\pi c k_B}$$
 
 The two temperatures are computed independently — $T_{\text{cl}}$ from the classical substratum alone (no QM), $T_Q$ from the emergent QFT alone (no classical substratum details) — but they describe the same physical degrees of freedom: the boundary modes across which the partition is defined. Since the quantum description is derived from the classical one (Part I), and the derivation is exact at the boundary, the two descriptions cannot assign contradictory temperatures. Consistency requires $T_{\text{cl}} = T_Q$:
 
-$$\frac{c^2 \epsilon^2 \kappa}{8\pi G} = \frac{\hbar \kappa}{2\pi c}$$
+$$\frac{c^2 \epsilon^2 \kappa}{8\pi G \sigma} = \frac{\hbar \kappa}{2\pi c}$$
 
 The surface gravity κ cancels from both sides. Solving:
 
-$$\boxed{\hbar = \frac{c^3 \epsilon^2}{4G}}$$
+$$\boxed{\hbar = \frac{c^3 \epsilon^2}{4G\sigma}}$$
 
-This fixes β = 1/4.
+This fixes β = 1/(4σ).
 
 **Why this is not circular.** The KMS temperature T_Q contains ℏ as an *unknown*. The classical temperature T_cl contains no ℏ at all. The non-circularity is structural: Part I establishes that a QFT emerges with *some* action scale ℏ; §5 determines *which* ℏ, using the independent classical temperature that Part I neither requires nor produces. If T_cl had depended on the deep hidden-sector volume (it doesn't — the boundary-only lemma excludes it), or if T_Q had been state-dependent (it isn't — the KMS temperature is kinematic in its parameter, conditional on H-balance in its class), the matching wouldn't work. That neither pathology obtains makes the gap equation a genuine determination.
 
-**Predictive content.** The gap equation relates one free parameter (ε) to one output (ℏ), but the derivation has genuine content because it picks out the specific relationship ℏ = c³ε²/(4G) — rather than any other function of c, G, ε — as the one that produces the Bekenstein-Hawking factor 1/4 (§6), the CC dissolution (§7.3), and the Type II RVM dark-energy form (§8.1) simultaneously. Any alternative ℏ(ε) would fail at least one check. See Appendix item 1 for the detailed discussion.
+**Predictive content.** The gap equation relates one free geometric parameter (ε), at given σ, to one output (ℏ), but the derivation has genuine content because it picks out the specific relationship ℏ = c³ε²/(4Gσ) — rather than any other function of c, G, ε — as the one that produces the Bekenstein-Hawking factor 1/4 (§6), the CC dissolution (§7.3), and the Type II RVM dark-energy form (§8.1) simultaneously. Any alternative ℏ(ε) would fail at least one check. See Appendix item 1 for the detailed discussion.
 
----
+***
 
 ## Frequencies and the D-Gauge Question (§5.3)
 
@@ -489,7 +489,7 @@ This fixes β = 1/4.
 
 **What is proved (Bohr-frequency completeness).** The transition probabilities determine the full set of energy differences E_k − E_l. Each return probability expands as |U_ii(t)|² = Σ |V_ik|²|V_il|² e^{−i(E_k−E_l)t}, in which every gap carries a strictly positive coefficient — degenerate gaps merge coefficients but cannot cancel them — and distinct frequencies give linearly independent characters, so equal probability families have equal gap sets.
 
-**What is proved (two-branch reconstruction).** Under the genericity conditions G1–G3 — non-degenerate spectrum, non-degenerate energy gaps, non-vanishing overlaps — matching probabilities force H' = DHD† + E₀ or H' = −DH̄D† + E₀: basis rephasing, an energy origin, and an antiunitary reflection, nothing else ([GR §3.3]). Each listed ambiguity is exactly invisible (the reflection satisfies e^{−i(−H̄)t} = conj(e^{−iHt}) entrywise), and each relaxation fails on an explicit example — dropping the gap condition fails on the C₄ ring of [SM] Proposition 20. The discrete inverse problem at the proof's core — the raw difference set does not determine a spectrum, since non-congruent homometric Golomb rulers exist — is resolved on the coefficient-labelled frequency data, with one classical input: the completed Piccard classification of integer rulers with equal difference sets (Bekir–Golomb 2007), whose extension from integer to real spectra is proved internally. The double-difference condition
+**Conditional two-branch reconstruction.** In dimension at least three, under G1–G3 for both Hamiltonians and the global sign-aware integer classification H-BG of [GR §3.3], matching probabilities imply H' = DHD† + E₀ or H' = −DH̄D† + E₀. H-BG allows the exceptional six-mark correspondence or its global reversal; its complete derivation from the published classification remains open. The unsigned formal premise `BGIntegerClassification` is refuted by reflecting one of the homometric six-mark rulers. Each displayed ambiguity is exactly invisible, and dropping the gap condition fails on the C₄ ring of [SM] Proposition 20. Bohr-frequency completeness, the real-to-integer realization transfer, congruent reconstruction and the positive six-mode obstruction are established independently; they do not by themselves prove the complete classification. The double-difference condition
 
 $$\delta_{ik} - \delta_{il} - \delta_{jk} + \delta_{jl} = 0 \pmod{2\pi}$$
 
@@ -497,51 +497,47 @@ with general solution δ_ik = α_i + β_k then closes the rephasing factor once 
 
 **The dimensional obstruction.** The unitary U(t) is dimensionless. The Hamiltonian Ĥ = iℏ ∂_tU · U† contains ℏ, which is dimensionful. No amount of dimensionless data can fix a dimensionful constant. This is why Step 4 (thermal matching) is not just a convenient check but the *mathematically obligatory* step: it's the only place where dimensionful physical input enters the framework.
 
----
+***
 
 ## The Discreteness Scale (§6)
 
-### What ε = 2 l_p means
+### What ε = 2√σ l_p means
 
-Rearranging the gap equation ℏ = c³ε²/(4G):
+Rearranging the gap equation ℏ = c³ε²/(4Gσ):
 
-$$\epsilon^2 = \frac{4\hbar G}{c^3} = 4 \, l_p^2$$
+$$\epsilon^2 = \frac{4\sigma\hbar G}{c^3} = 4\sigma \, l_p^2$$
 
-where l_p = √(ℏG/c³) is the Planck length. Therefore ε = 2 l_p.
+where l_p = √(ℏG/c³) is the Planck length. Therefore ε = 2√σ l_p, which is ε = 2 l_p at σ = 1 (one nat per boundary mode).
 
-**What this is:** The framework has one free geometric parameter — the discreteness scale ε. The gap equation fixes its relationship to ℏ. Given the measured value of ℏ, the discreteness scale is determined: ε = 2 l_p ≈ 3.2 × 10⁻³⁵ meters.
+**What this is:** The framework has one free geometric parameter — the discreteness scale ε. The gap equation fixes its relationship to ℏ. Given the measured value of ℏ and the entropy σ per mode, the discreteness scale is determined: ε = 2√σ l_p, which at σ = 1 is 2 l_p ≈ 3.2 × 10⁻³⁵ meters.
 
-**What this is NOT:** This is not an independent prediction of ε. The framework contains one free parameter and one equation relating it to known constants. The self-consistency condition pins ε to the Planck regime but doesn't predict a number that wasn't already implicitly known.
+**What this is NOT:** This is not an independent prediction of ε. The framework contains one free geometric parameter and one equation relating it to known constants and σ. The self-consistency condition fixes the ratio ε/√σ = 2 l_p, which puts ε in the Planck regime only if σ is of order one, and doesn't predict a number that wasn't already implicitly known.
 
 ### The Bekenstein-Hawking Entropy — Where the 1/4 factor comes from
 
 The number of independent modes on the cosmological horizon is:
 
-$$N_{\text{modes}} = \frac{A}{\epsilon^2} = \frac{A}{4 \, l_p^2}$$
+$$N_{\text{modes}} = \frac{A}{\epsilon^2} = \frac{A}{4\sigma \, l_p^2}$$
 
-This is the Bekenstein-Hawking entropy:
+Each mode carries the entropy σ, so the total entropy is the Bekenstein-Hawking entropy:
 
-$$S_{\text{BH}} = \frac{A}{4 \, l_p^2}$$
+$$S_{\text{BH}} = \sigma N_{\text{modes}} = \frac{A}{4 \, l_p^2}$$
 
-The factor of 1/4 — which Bekenstein and Hawking introduced as a proportionality constant in 1973 — is here fixed by the cell size: each minimal cell of area ε² = 4 l_p² contributes one unit of entropy, and the 4 in the denominator comes from ε = 2 l_p, which the gap equation supplies under one named condition on the horizon reservoir (H-slope, the infrared detailed-balance condition of [GR §3.2]) together with the horizon and frame conditions of [GR §2, §8.5].
+The factor of 1/4 — which Bekenstein and Hawking introduced as a proportionality constant in 1973 — is here fixed by the cell size: each minimal cell of area ε² = 4σ l_p² contributes the entropy σ of one boundary mode, σ cancels, and the 4 in the denominator comes from ε² = 4σ l_p², which the gap equation supplies under one named condition on the horizon reservoir (H-slope, the infrared detailed-balance condition of [GR §3.2]) together with the horizon and frame conditions of [GR §2, §8.5].
 
-**Why this is significant:** The 1/4 factor has been a mystery for 50 years. Most frameworks either assume it or derive it within constructions specifically designed to produce it. Here it follows from the gap equation with no fitted input, under the named horizon conditions; the mode count itself, S = A/ε², needs none of them.
+**Why this is significant:** The 1/4 factor has been a mystery for 50 years. Most frameworks either assume it or derive it within constructions specifically designed to produce it. Here it follows from the gap equation with no fitted input, under the named horizon conditions; the counting itself, S = σA/ε², needs none of them.
 
-### Self-consistency bounds on ε
+### What self-consistency does not bound
 
-**If ε² ≪ l_p²:** Sub-Planckian cells would need further subdivision, creating a second trace-out within the first. This would make ℏ multi-valued — contradicting the observed universality of ℏ.
+The gap equation fixes ε/√σ = 2 l_p, not ε by itself. ε sits at the Planck scale only if σ is of order one. The count caps σ at ln q for a mode with q states but does not bound it from below: σ = 10⁻¹² would give ε = 2 × 10⁻⁶ l_p. The gap equation does not exclude scales far from l_p; whether they are excluded on independent grounds is open.
 
-**If ε² ≫ l_p²:** Super-Planckian cells would be too coarse. The emergent quantum description would assign distinct quantum states to configurations that are physically identical.
-
-The self-consistency condition ε = 2 l_p is the unique value where neither pathology occurs.
-
----
+***
 
 ## The Two Levels
 
 Now the cosmological constant problem dissolves. But first, a crucial link: how does finite-dimensional quantum mechanics become quantum *field* theory — with independent modes, each carrying zero-point energy?
 
-The answer is spatial locality. The classical substratum has it — neighboring cells interact, distant cells don't. The paper proves that the emergent quantum description inherits it. The argument is direct: the Barandes correspondence maps each classical configuration $(x_1, x_2, \ldots, x_N)$ to a quantum basis state $|x_1, x_2, \ldots, x_N\rangle$. That's already a tensor product. The only question is whether the emergent Hamiltonian respects the structure. And it must, because if two configurations differ only at sites that aren't neighbors, the classical dynamics can't connect them in an infinitesimal time step — so the transition probability between them is zero — so the corresponding quantum Hamiltonian matrix element is zero. The emergent Hamiltonian couples only neighboring cells, exactly like the classical one. You get a lattice quantum field theory with a built-in ultraviolet cutoff at $\epsilon = 2\,l_p$.
+The answer is spatial locality. The classical substratum has it — neighboring cells interact, distant cells don't. The paper proves that the emergent quantum description inherits it. The argument is direct: the Barandes correspondence maps each classical configuration $(x_1, x_2, \ldots, x_N)$ to a quantum basis state $|x_1, x_2, \ldots, x_N\rangle$. That's already a tensor product. The only question is whether the emergent Hamiltonian respects the structure. And it must, because if two configurations differ only at sites that aren't neighbors, the classical dynamics can't connect them in an infinitesimal time step — so the transition probability between them is zero — so the corresponding quantum Hamiltonian matrix element is zero. The emergent Hamiltonian couples only neighboring cells, exactly like the classical one. You get a lattice quantum field theory with a built-in ultraviolet cutoff at $\epsilon = 2\sqrt{\sigma}\,l_p$.
 
 This is what makes the CC dissolution work. The QFT has independent modes. Each mode gets a zero-point energy. The sum diverges. And the "worst prediction in physics" follows — but only within the emergent description.
 
@@ -553,13 +549,13 @@ The critical insight is that general relativity and quantum field theory are not
 
 This ordering is not a choice but is forced by three independent requirements. First, the partition must be definite — not in superposition — for the trace-out to be well-defined; a partition in superposition would yield an incoherent mixture of inequivalent quantum theories. Second, the partition is defined by the causal structure, which is determined by null geodesics of the metric; if the metric were derived from QM, the derivation would be circular (QM → metric → causal structure → partition → QM). Third, $\hbar$ is determined by the boundary geometry; if the geometry were itself quantum-mechanical, $\hbar$ would depend on a quantum state, contradicting its observed universality.
 
-The $10^{122}$ ratio between the two answers is not a discrepancy. It equals $S_{\text{dS}}$ — the Bekenstein-Hawking entropy of the cosmological horizon — which is the number of hidden-sector degrees of freedom the trace-out compresses into the emergent quantum state. The "worst prediction in physics" is the information compression ratio of the observer's blind spot. A category error, not a fine-tuning failure.
+The $10^{122}$ ratio between the two answers is not a discrepancy. It equals $S_{\text{dS}}$ — the Bekenstein-Hawking entropy of the cosmological horizon — which is the entropy of the hidden-sector degrees of freedom the trace-out compresses into the emergent quantum state. The "worst prediction in physics" is the information compression ratio of the observer's blind spot. A category error, not a fine-tuning failure.
 
 This is not a prediction awaiting future data. The observed vacuum energy has been measured since 1998, and it sits exactly at the classical geometric scale — the value the framework expects. Meanwhile, every attempt to search for a cancellation mechanism within quantum-first frameworks have found nothing. The framework explains why: there is nothing to cancel.
 
 This track record is itself evidence for the ordering. The question of whether geometry is prior to quantum mechanics or quantum mechanics is prior to geometry is usually treated as a philosophical preference. But it has an empirical signature sitting in plain sight: one ordering produces the worst prediction in physics and has no solution; the other predicts the observed value and explains the discrepancy as a derived quantity. That doesn't prove the ordering is correct, but it's existing evidence, not a future hope. (Note the division of labor with the non-adjudicability result in the gravity paper: two descriptions that fit the same observations equally well can never be ranked from inside — that is the factoring argument — but the two *programs* here are not in that situation. One predicts the observed vacuum energy and one misses it by $10^{122}$; predictive asymmetry on accessible data is exactly the kind of criterion the factoring argument leaves open.)
 
----
+***
 
 ## What Quantum Weirdness Looks Like From Here
 
@@ -577,7 +573,7 @@ If quantum mechanics is an emergent description forced on embedded observers, th
 
 The common thread across the three readings is that what looked like irreducible quantum mystery is the partition's reflection of substratum dynamics. You're embedded in the universe; you don't get the view from nowhere; the description you arrive at is constrained by what marginal access permits. Feynman taught his students that the rules of QM "had to just be accepted." The framework's claim is that the rules don't have to be accepted — they have to be derived, and the derivation makes contact with the fact of embedding. Whether the derivation is correct is a separate question; the empirical predictions that distinguish it from competing accounts are listed below.
 
----
+***
 
 ## Predictions
 
@@ -585,23 +581,23 @@ The framework is not just a reinterpretation. It makes specific, falsifiable pre
 
 **Dark energy evolution.** Because the hidden sector's dimensionality changes as the Hubble parameter $H$ evolves (the horizon area is $A = 4\pi c^2/H^2$), the emergent vacuum energy inherits a dependence on $H$. The resulting form matches the Running Vacuum Model: $\Lambda_{\text{eff}} = \Lambda_0 + \nu H^2$. The framework's *structural* commitments — boundary entropy depends on $H$, matter is conserved in the trace-out, and Bianchi consistency then forces $G(H)$ to run in tandem with $\rho_\Lambda(H)$ — select the Type II channel, a structural reading rather than a derived law; the functional form itself is the local expansion shared by every smooth dark-energy model ([GR §7.1]), so the content is the reading and the magnitude. The magnitude of $\nu$ is bounded by the emergent-QFT calculation (conditional on the [GR §7.3] split, not established at theorem level): applying standard curved-spacetime running to the Standard Model fields at their physical masses on the derived classical background yields $|\nu_{\rm QFT}| \sim (M_{\rm SM}/M_{\rm Pl})^2 \sim 10^{-32}$ — observationally indistinguishable from zero. A potential additional contribution from the substratum mode count is constrained by the boundary architecture: modes are catalogued by spatial location alone (one mode per cell of area $\epsilon^2$, no inherent frequency assignment), so a natural 2D distribution concentrates them near the UV cutoff and contributes well below $|\nu_{\rm QFT}|$. Absent additional substratum structure giving a log-uniform boundary-mode distribution at the cosmological horizon, the framework's expectation reduces to $|\nu| \approx |\nu_{\rm QFT}|$. A direct test is provided by Bertini, Novaes, von Marttens, and Shapiro (arXiv:2509.24026), who fit a renormalization-group-corrected $\Lambda$CDM model — structurally equivalent to Type II RVM at leading order, with both $G(\mu)$ and $\Lambda(\mu)$ running and matter conserved — against Planck 2018 + DESI DR2 + DES-Y5, reporting $\nu = -(2.5 \pm 1.3) \times 10^{-4}$, consistent with zero at $2\sigma$ and consistent with that expectation. The structural content — the smooth geometry-dependent bookkeeping read in the Type II channel — is a framework commitment at the level of a reading, not a derived law. DESI Year 5 ($\sim 1\%$ precision on $\nu$) is the decisive test of that reading: a null at that precision supports it; a high-significance detection of $|\nu|$ at the $10^{-4}$ level would require additional substratum structure beyond what the present boundary-entropy construction supplies — structure a direct computation of the boundary spectral measure from the substratum dynamics now shows the linear map does not generate (the measure is power-law local, never log-uniform), so such a detection would also demand its correlated Lorentz-violation co-signature.
 
-**The dark sector as corroboration.** The trace-out that produces the memory-bearing dynamics quantum mechanics represents has a gravitational consequence that the paper did not set out to find. The boundary entropy — the $S_{\text{dS}}$ modes traced out to produce the quantum description — has thermal energy that, distributed over the Hubble volume, equals the critical density exactly. A crucial subtlety: this thermal energy is computed entirely from pre-trace-out (classical) quantities — the number of boundary modes, the classical horizon temperature, and the Hubble volume — with no reference to $\hbar$ or the emergent quantum description. This is what distinguishes the boundary entropy's gravitational contribution from the QFT zero-point energy ($\rho_{\text{QFT}} \sim 10^{113}$ J/m³), which exists only *after* the trace-out and is an artifact of the emergent description. The framework denies that the zero-point energy gravitates (this is the CC dissolution of Part II); the boundary entropy's classical thermal energy *does* gravitate, at the scale $\rho_{\text{crit}} \sim 10^{-9}$ J/m³.
+**The dark sector as corroboration.** The trace-out that produces the memory-bearing dynamics quantum mechanics represents has a gravitational consequence that the paper did not set out to find. The boundary entropy — the entropy $S_{\text{dS}}$ of the $A/\epsilon^2$ modes traced out to produce the quantum description — has thermal energy that, distributed over the Hubble volume, equals the critical density exactly. A crucial subtlety: this thermal energy is computed entirely from pre-trace-out (classical) quantities — the boundary entropy, the classical horizon temperature, and the Hubble volume — with no reference to $\hbar$ or the emergent quantum description. This is what distinguishes the boundary entropy's gravitational contribution from the QFT zero-point energy ($\rho_{\text{QFT}} \sim 10^{113}$ J/m³), which exists only *after* the trace-out and is an artifact of the emergent description. The framework denies that the zero-point energy gravitates (this is the CC dissolution of Part II); the boundary entropy's classical thermal energy *does* gravitate, at the scale $\rho_{\text{crit}} \sim 10^{-9}$ J/m³.
 
 The paper proves that this entropy has no operator in the emergent QFT. The baryonic sector — what QFT can account for — is ~5% of $\rho_{\text{crit}}$. The remaining ~95% is the boundary entropy: gravitationally active, invisible to the emergent description, and persistent through P-indivisibility (condition C2). This matches the observed composition of the universe, in which ~95% of the gravitational content has no source in particle physics. The uniform component corresponds to dark energy (handled by Part II's CC dissolution). The structured component — dark matter — arises from matter-induced entropy displacement: baryonic matter displaces boundary entropy via the Clausius relation, the Jacobson mechanism converts the entropy gradient into curvature, yielding the MOND acceleration scale $a_0 = cH/6 \approx 1.1 \times 10^{-10}$ m/s² and the baryonic Tully-Fisher relation $v^4 = GM_B \cdot cH/6$ — both parameter-free once the dimensional factor $1/6$ is imported from Verlinde's analysis (GR, §7.3). That a definition designed to formalize observation also account for the dark sector's total budget and internal structure is independent corroboration that observational incompleteness is capturing real structure.
 
-**High-redshift dark matter.** Because $a_0(z) = cH(z)/6$ and $H(z)$ increases with redshift, the dark matter phenomenology evolves: $a_0$ is $1.8\times$ larger at $z = 1$, $3.0\times$ at $z = 2$, and $4.6\times$ at $z = 3$. This shrinks the MOND crossover radius, making galaxies more baryon-dominated at high redshift — their rotation curves should decline beyond a smaller radius. Genzel et al. (Nature, 2017) report exactly this: stacked rotation curves at $z = 0.9$–$2.4$ show declining outer velocities at $> 3\sigma$ significance relative to local spirals. The cleanest local test is even more striking: Jiao et al. (*A&A* 678, A208, 2023) detect for the first time a Keplerian decline in the Milky Way's own rotation curve from $\sim 19$ to $\sim 26.5$ kpc using Gaia DR3 kinematics, with the flat rotation curve hypothesis rejected at $3\sigma$. Our own galaxy is now the strongest single piece of evidence for the $H(z)$-dependent crossover prediction at $z = 0$ — the framework predicts the crossover at $r_M \sim 17$ kpc for the Milky Way's baryonic mass, essentially where Jiao et al. observe the transition. The baryonic Tully-Fisher relation also evolves: $v_{\text{flat}} \propto H(z)^{1/4}$, predicting 32% higher velocities at $z = 2$ at fixed baryonic mass. McGaugh et al. (2024) report no evolution in the *stellar* mass TF to $z \sim 2.5$ — but this is actually *predicted* by the framework, because gas fractions at high $z$ are large ($f_{\text{gas}} \sim 50$–$70\%$) and the gas mass omitted from $M_*$ almost exactly compensates the dynamical shift (the cancellation gas fractions — 44% at $z = 1$, 67% at $z = 2$ — match observations). The definitive test is the *baryonic* TF at $z > 1$ with reliable ALMA gas masses. Particle dark matter (NFW halos) predicts flat rotation curves at all redshifts — the observed decline is unexpected in ΛCDM but natural in the OI framework. Direct dark matter searches continue to return null results (LZ Collaboration's 417-day analysis presented December 2025 is the most sensitive WIMP search ever conducted, finding nothing), consistent with the framework's prediction that no particle dark matter exists.
+**High-redshift dark matter.** Because $a_0(z) = cH(z)/6$ and $H(z)$ increases with redshift, the dark matter phenomenology evolves: $a_0$ is $1.8\times$ larger at $z = 1$, $3.0\times$ at $z = 2$, and $4.6\times$ at $z = 3$. This shrinks the MOND crossover radius, so at a fixed baryonic mass profile a galaxy at high redshift is less baryon-dominated and its rotation curve reaches the flat deep-MOND form at smaller radii. Two observations run against this. Genzel et al. (Nature, 2017) report stacked rotation curves at $z = 0.9$–$2.4$ with outer velocities declining at $> 3\sigma$ significance relative to local spirals. In the Milky Way, Jiao et al. (*A&A* 678, A208, 2023) detect a Keplerian decline from $\sim 19$ to $\sim 26.5$ kpc using Gaia DR3 kinematics, with the flat rotation curve hypothesis rejected at $3\sigma$; that range lies beyond the crossover ($r_M \approx 9$–$16$ kpc, depending on the baryon budget), where the law gives a nearly flat curve. Both are in tension with the law; a quantitative comparison needs the baryon models, at high redshift the galaxies' own baryon profiles and pressure support, and the observers' own velocity analyses ([GR §7.3]). The baryonic Tully-Fisher relation also evolves: $v_{\text{flat}} \propto H(z)^{1/4}$, predicting 32% higher velocities at $z = 2$ at fixed baryonic mass. McGaugh et al. (2024) find no clear evolution in the *baryonic* TF to $z \sim 2.5$, with unresolved differences between samples in baryonic-mass definitions and velocity measurements. The law predicts a baryonic-mass offset of $-0.48$ dex at fixed velocity at $z = 2$, so this result too is a tension with $v^4 \propto H(z)$, not yet a statistically quantified one. The definitive test is the *baryonic* TF at $z > 1$ with reliable ALMA gas masses. Direct dark matter searches continue to return null results (LZ Collaboration's 417-day analysis presented December 2025 is the most sensitive WIMP search ever conducted, finding nothing), consistent with the framework's prediction that no particle dark matter exists.
 
 **Cluster scales and the Bullet Cluster.** Galaxy clusters — the hardest test for any MOND-like theory — are addressed by the interpolation between the Newtonian and deep-MOND regimes. The simple interpolation function $g_{\text{total}} = g_B \cdot \nu(g_B/a_0)$ with $\nu(y) = (1 + \sqrt{1+4/y})/2$ matches the Coma cluster to $< 1\%$ in velocity (1260 vs 1270 km/s) and reduces the standard MOND mass shortfall from a factor $\sim 2$ to $\sim 1.0$–$1.5$ for other rich clusters — with the residual attributable to undetected warm-hot intergalactic medium (WHIM). This interpolation is indistinguishable from the deep-MOND limit at galaxy scales (differences $< 0.07$ dex, well within the observed RAR scatter). The Bullet Cluster — where gravitational lensing peaks at the galaxy positions rather than the dominant X-ray gas — is explained by the non-local character of entropy displacement: the boundary entropy relaxation time is $\sim H^{-1} \approx 14$ Gyr, while the collision crossing time is $\sim 0.15$ Gyr. The dark gravity is frozen at the pre-collision configuration (centered on the galaxies, which defined the potential wells for gigayears), not tracking the recently displaced gas. This reproduces the observed lensing morphology and makes a testable prediction: very old post-collision systems should show gradual relaxation of the dark gravity toward the gas distribution (GR, §7.3). The same thermodynamic averaging explains why the entropy displacement reproduces the CMB acoustic peak pattern: oscillating perturbations have zero net entropy displacement per cycle (the Clausius relation involves *net* heat transfer), so only the growing mode is tracked — providing non-oscillating potential wells identical to CDM in the linear regime.
 
 **Neutrino predictions and the JUNO + DESI record.** The framework predicts Majorana neutrinos with normal mass ordering and a hierarchical spectrum, with $\Sigma m_\nu$ near the oscillation minimum of 0.059 eV. The DESI DR2 + CMB analysis (Elbers et al., March 2025) reports $\Sigma m_\nu < 0.0642$ eV (95% CL), prefers normal ordering, and bounds the lightest neutrino mass at $m_l < 0.023$ eV — every directly comparable measurement matches the OI prediction. The same analysis finds a $3\sigma$ tension with the lower oscillation limit assuming $\Lambda$CDM, interpreted as "a hint of new physics not necessarily related to neutrinos" — exactly the structural mismatch that the OI dark energy resolves. JUNO first results (November 2025) deliver world-leading precision on $\sin^2\theta_{12} = 0.3092 \pm 0.0087$, matching the OI prediction $1/3 - 1/(4\pi^2) = 0.3080$ at $0.14\sigma$ against the JUNO direct measurement. The post-JUNO global fit of Capozzi et al. (2025) tightens the world average to $0.3085 \pm 0.0073$, against which the OI prediction matches at $0.07\sigma$. JUNO's measurement also confirms the persistent solar/reactor 1.5$\sigma$ tension. The neutrino sector and the dark energy sector are coupled in the framework — both follow from the same lattice structure — so the joint observational support is not independent confirmation of separate effects but a single empirical pattern consistent with the framework's central mechanism.
 
-**Gauge coupling prediction.** The companion paper [SM §6] extends the derivation chain to the gauge coupling strengths. The fermion-induced coupling gives $1/\alpha_0 = 23.25$ at the Planck scale — a universal value determined by the lattice structure ($N_f = 6$ flavors, $T(R) = 1/2$), not by the specific bijection $\varphi$. Combined with non-perturbative gauge self-energy corrections (from pure-gauge Monte Carlo at the induced coupling) and Standard Model renormalization group running, this reproduces all three SM gauge couplings at $M_Z$: $1/\alpha_1 = 59.00$, $1/\alpha_2 = 29.57$, $1/\alpha_3 = 8.47$ — matching the observed values to $< 0.1\%$.
+**Gauge coupling prediction.** The companion paper [SM §6] extends the derivation chain to the gauge coupling strengths. The fermion-induced coupling gives $1/\alpha_0 = 23.25$ at the matching scale $\mu = M_{\text{Pl}}$ — a universal value determined by the lattice structure ($N_f = 6$ flavors, $T(R) = 1/2$), not by the specific bijection $\varphi$. Combined with non-perturbative gauge self-energy corrections (from pure-gauge Monte Carlo at the induced coupling) and Standard Model renormalization group running, this reproduces all three SM gauge couplings at $M_Z$: $1/\alpha_1 = 59.00$, $1/\alpha_2 = 29.57$, $1/\alpha_3 = 8.47$ — matching the observed values to $< 0.1\%$.
 
 **Independent corroboration of the trace-out mechanism.** The framework's central technical move — that integrating out hidden degrees of freedom from a deterministic substrate produces well-defined non-Markovian visible dynamics, which under the Barandes correspondence becomes quantum mechanics — is now established at theorem level in the open systems literature. Brandner (*Phys. Rev. Lett.* **134**, 037101 and companion *Phys. Rev. E* **111**, 014137, January 2025) proves that for autonomous linear evolution equations, integrating out inaccessible degrees of freedom yields well-defined non-Markovian visible dynamics in a controlled weak-memory regime, with explicit error bounds and a convergent perturbation scheme — derived independently for general open systems with no stake in OI being right. Direct experimental demonstrations exist in controlled physical systems: Mehl et al. (PRL 108, 220601, 2012) showed that hidden slow degrees of freedom in a colloidal system produce non-Markovian visible dynamics violating naive Markovian fluctuation theorems; Gröblacher et al. (Nature Communications 6, 7606, 2015) observed non-Markovian Brownian motion in a macroscopic micromechanical oscillator. On the quantum side, Kim (April 2025) shows that monitored quantum systems are formally quantum hidden Markov models with a rigorous correspondence to classical hidden Markov models — the same formal structure as the stochastic-quantum bridge, developed independently in the monitored quantum systems literature. The framework's central technical move is therefore not speculative; it is the standard way physicists now think about open systems with hidden structure, and the mathematical apparatus has been published in the standard literature within the past 12 months.
 
 No competing framework produces all of these from a single definition. The parallel with the cosmological constant dissolution is exact: the $10^{122}$ discrepancy is the *information compression ratio* of the trace-out, and the ~95% dark sector is the *gravitational occlusion fraction*. Together, they account for the two largest anomalies in modern cosmology as two aspects of a single phenomenon: the cost of observing the universe from within.
 
----
+***
 
 ## Philosophical Lineage
 
@@ -663,7 +659,7 @@ The paper's philosophical lineage is not a single line of descent but a mosaic. 
 
 What is genuinely new is the *combination*: accepting Bohr's complementarity while insisting on Einstein's realism, grounding Kantian limits in physical structure while claiming knowledge of noumenal character, embracing Cusanian learned ignorance while grounding it in a concrete physical mechanism — the Gödel → Wolpert → causal partition chain described above. The traditions reveal that this combination creates a productive philosophical tension — the paper claims to know the character of what it proves unknowable. Whether this tension is a contradiction (as Hegel would insist), a residual Platonism (as Nietzsche would charge), or a legitimate achievement of learned ignorance (as Cusa would celebrate) may be the framework's deepest philosophical question.
 
----
+***
 
 ## Frequently Asked Questions
 
@@ -705,9 +701,9 @@ This is probably the strongest objection to the framework's ordering — classic
 
 The framework offers an alternative reading. If the quantum description is produced by tracing out over a geometric boundary, then *of course* its entanglement entropy is proportional to the boundary's area — the information content of the trace-out is set by the number of modes crossing the boundary, which scales with area. The Ryu-Takayanagi formula, on this account, isn't a hint that entanglement builds geometry; it's a consequence of the fact that geometry built the entanglement. The Bekenstein-Hawking entropy $S = A/(4\,l_p^2)$, which the paper derives, is exactly this statement.
 
-The correlation between entanglement and geometry is real either way. The question is which direction the arrow of explanation points. The two orderings make different empirical predictions: if geometry emerges from entanglement, spacetime structure should break down at high energy; if quantum mechanics emerges from geometry, the quantum description should break down near the discreteness scale while the geometric substratum persists. The cumulative case for the geometry-first ordering is already substantial: it produces the observed vacuum energy, the Bekenstein-Hawking $1/4$ factor, the value of $\hbar$, the dark-sector concordance, the smooth geometry-dependent dark-energy bookkeeping read in the Type II channel ($\nu \approx 0$, observationally $\approx \Lambda$CDM), the MOND acceleration scale $a_0 = cH/6$, the baryonic Tully-Fisher relation, the SM gauge group with its coupling strengths, the declining rotation curves at high redshift, the Coma cluster mass, and the Bullet Cluster lensing morphology — eleven independent consequences matching observation. The quantum-first ordering produces the $10^{122}$ discrepancy, treats $\hbar$ and the $1/4$ factor as unexplained inputs, and has no natural account of the dark sector.
+The correlation between entanglement and geometry is real either way. The question is which direction the arrow of explanation points. The two orderings make different empirical predictions: if geometry emerges from entanglement, spacetime structure should break down at high energy; if quantum mechanics emerges from geometry, the quantum description should break down near the discreteness scale while the geometric substratum persists. The cumulative case for the geometry-first ordering is already substantial: it produces the observed vacuum energy, the Bekenstein-Hawking $1/4$ factor, the value of $\hbar$, the dark-sector concordance, the smooth geometry-dependent dark-energy bookkeeping read in the Type II channel ($\nu \approx 0$, observationally $\approx \Lambda$CDM), the MOND acceleration scale $a_0 = cH/6$, the baryonic Tully-Fisher relation, the SM gauge group with its coupling strengths, the Coma cluster mass, and the Bullet Cluster lensing morphology — ten consequences matching observation, seven of them mutually independent ([GR §6.2]). The quantum-first ordering produces the $10^{122}$ discrepancy, treats $\hbar$ and the $1/4$ factor as unexplained inputs, and has no natural account of the dark sector.
 
----
+***
 
 ## The Decompression Algorithm
 
@@ -753,7 +749,7 @@ Quantum mechanics is the reconstruction. The $10^{122}$ discarded bits (the hidd
 
 The difference from ordinary compression: with JPEG, you can access the original file. With the universe, you cannot. The reconstruction is all we will ever have. Its artifacts are our physics. And the characterization theorem proves that no other reconstruction is possible — this is the unique algorithm, and its artifacts are the unique artifacts. Quantum mechanics is not one possible decompression of incomplete cosmological data. It is the only one.
 
----
+***
 
 ## What This Means
 
@@ -763,7 +759,7 @@ The apparent conflict between QM and GR, the $10^{122}$ vacuum energy discrepanc
 
 The universe is not broken. We are observing it from within.
 
----
+***
 
 ## Corroboration: The Rigidity Test
 
@@ -775,13 +771,13 @@ It does, on both counts.
 
 **The dynamics is unique.** Among all second-order reversible nearest-neighbor dynamics on a lattice, the requirements of center independence (necessary for emergent QM), spatial isotropy, and linearity select exactly one: the discrete wave equation. This holds for any alphabet size and any dimension. Center independence is necessary because center-dependent rules allow the visible sector to partially predict itself, suppressing the information backflow that produces the quantum phenomenology — an effect proven analytically on the full lattice via an information-screening mechanism. Linearity is selected by three independent criteria: it gives maximum propagation speed, it uniquely maximizes P-indivisibility among linear rules, and it is the only choice for which horizons are in thermal equilibrium (nonlinear dispersion breaks the Unruh effect).
 
-**The dynamics passes seven independent checks.** The wave equation — selected solely by the QM requirement plus symmetry — turns out to produce: (1) non-Markovian reduced dynamics (emergent QM), (2) a causal structure with the correct spacetime dimension, (3) the gap equation for ℏ, (4) entanglement entropy proportional to boundary area, (5) a Lorentz-invariant dispersion relation at leading order, with linear Lorentz-invariance violation forbidden at the substrate level (the cubic-lattice dispersion admits no $\mathcal{O}(k^3)$ term) and the leading correction fixed at $\omega^2 = k^2[1 - (4/45)(E/M_{\text{Pl}})^2 + \ldots]$ — subluminal, with the $4/45$ coefficient a specific prediction, not a free parameter, (6) the correct Unruh temperature at horizons, and (7) all inputs to Jacobson's thermodynamic derivation of Einstein's field equations. Each of these is an independent check that could have come out wrong — the entropy could have scaled with volume, the dispersion could have been non-relativistic or admitted linear LIV, the horizon state could have been non-thermal. None of these failures occurs.
+**The dynamics passes seven independent checks.** The wave equation — selected solely by the QM requirement plus symmetry — turns out to produce: (1) non-Markovian reduced dynamics (emergent QM), (2) a causal structure with the correct spacetime dimension, (3) the gap equation for ℏ, (4) entanglement entropy proportional to boundary area, (5) a Lorentz-invariant dispersion relation at leading order, with linear Lorentz-invariance violation forbidden at the substrate level (the cubic-lattice dispersion admits no $\mathcal{O}(k^3)$ term) and the leading correction fixed at $\omega^2 = k^2[1 - (4\sigma/45)(E/M_{\text{Pl}})^2 + \ldots]$, a coefficient $4/45$ at one nat of entropy per boundary mode — subluminal, with the lattice coefficient $1/45$ of $(k\epsilon)^2$ a specific prediction, not a free parameter, while the amplitude $4\sigma/45$ carries the undetermined $\sigma$, so a measurement of it would constrain $\sigma$, (6) the correct Unruh temperature at horizons, and (7) all inputs to Jacobson's thermodynamic derivation of Einstein's field equations. Each of these is an independent check that could have come out wrong — the entropy could have scaled with volume, the dispersion could have been non-relativistic or admitted linear LIV, the horizon state could have been non-thermal. None of these failures occurs.
 
 **No free parameters.** The wave equation is selected, not chosen. The lattice spacing is fixed by the gap equation. The entropy coefficient is determined by thermal matching. The dispersion relation is an algebraic identity. There is nothing to tune.
 
 This is what rigidity looks like. A framework that produces the quantum description from one set of arguments and then, without modification, produces the inputs for GR from a completely different set of arguments — lattice dynamics, dispersion relations, entanglement Hamiltonians — is making a structural claim that goes well beyond the original derivation. Each passed check is a point where the framework could have been falsified and wasn't. Seven passed checks with no free parameters is not proof, but it is the kind of evidence that distinguishes a framework describing something real from one that was engineered to fit.
 
----
+***
 
 ## What Is the Lattice?
 
@@ -789,13 +785,13 @@ The rigidity test proves that the wave equation on a lattice produces both QM an
 
 The companion papers [`Substratum`](Substratum.md) and [`SM`](SM.md) address these questions head-on — and also derive the Standard Model's structure from the lattice dynamics. Their answer to the ontology question: the lattice is not a physical object. It is the *coupling structure* of the dynamics — the pattern of which degrees of freedom affect which others.
 
-**The minimal structure.** The paper audits every assumption in the framework and identifies which are necessary for the theorems and which are artifacts of the particular construction. The result: six structural properties carry the emergent-QM, dimensional, and gravitational content — deterministic bijectivity, finite boundary entropy, bounded coupling degree, statistical isotropy, non-trivial partition coupling, and slow-bath capacity. For *that* content the specific alphabet size q and the wave equation are derived or irrelevant. The *Standard Model gauge group and the quantitative predictions* are the exception: they additionally require the simple-cubic Bravais structure (the multiplicities (3,2,1) come from the octahedral point group), which is an empirically-selected input forced by the observed SU(3) factor, not derivable from statistical isotropy alone. For the emergent-QM core the minimal object is not a lattice; for the Standard Model it is the cubic lattice specifically. It is a triple: a finite set S, a bijection φ, and a partition V.
+**The minimal structure.** The paper audits the assumptions its theorems consume and identifies which are necessary for the theorems and which are artifacts of the particular construction. The result: on a state space identified with a product of local degrees of freedom — site factorization, itself an input that the dynamics has not been shown to select — six structural properties carry the emergent-QM, dimensional, and gravitational content: deterministic bijectivity, finite boundary entropy, bounded coupling degree, statistical isotropy, non-trivial partition coupling, and slow-bath capacity. That content does not use the specific alphabet size q or the wave equation; the wave equation's form rests on further assumptions, center independence, linearity and the nearest-neighbour range. The *Standard Model gauge group and the quantitative predictions* are the exception: they additionally require the simple-cubic Bravais structure (the multiplicities (3,2,1) come from the octahedral point group), which is an empirically-selected input forced by the observed SU(3) factor, not derivable from statistical isotropy alone. For the emergent-QM core the minimal object is not a lattice; for the Standard Model it is the cubic lattice specifically. It is a triple: a finite set S, a bijection φ, and a partition V.
 
 **Space as coupling graph.** Given any bijection on a finite set, you can ask: which components of the state affect which others? The answer defines a graph — sites are vertices, and two sites are connected if the dynamics couples them. This graph is not drawn on a pre-existing space. It IS space, at the fundamental level. Distance means "how many coupling steps apart." Area means "how many edges cross the boundary." The area law, the dispersion relation, the Myrheim-Meyer dimension — every spatial property used in the derivation chain is a property of this coupling graph.
 
 This dissolves the container problem. The lattice doesn't sit in anything. There is no ambient manifold. The coupling graph is an abstract mathematical structure — like a number or a group — and any spatial embedding we draw is a representation for our convenience, not a physical fact. Asking "what does the lattice sit in?" is like asking what the number 7 sits in. It's a category error.
 
-**The alphabet is a gauge freedom.** The companion papers prove every result for any alphabet size q ≥ 2. The gap equation contains no q. The Bekenstein-Hawking formula contains no q. The dispersion relation is valid for any q. No experiment could measure q, even in principle. This makes q a gauge freedom — a choice of mathematical description, like choosing a coordinate system or a gauge for the electromagnetic potential. The physical content is the coupling structure, not the microscopic state space.
+**The alphabet size.** Several results hold for every alphabet size q ≥ 2 and contain no q: P-indivisibility, center independence, the boundary scaling of the area law, and the dispersion relation of the observer-level operator. Others carry q: the period of the wave map, the coefficient of the area law, the capacity count of the hidden sector. In the gravitational sector q could enter only through the entropy assigned to one boundary cell, which cancels from the Bekenstein-Hawking formula. That no observable depends on q at all is a hypothesis, the alphabet-size hypothesis [SM §2.7]. Under it q is a gauge freedom — a choice of mathematical description, like choosing a coordinate system or a gauge for the electromagnetic potential — and the physical content is the coupling structure, not the microscopic state space.
 
 **Connection to causal set theory.** The bijection's coupling graph, extended in time, generates a causal partial order: event A precedes event B if B is within A's future coupling light cone. This partial order is a causal set in the sense of Bombelli, Lee, Meyer, and Sorkin — the starting point of causal set theory, one of the established approaches to quantum gravity. Causal set theory has always had a specific gap: it postulates a causal order but lacks a deterministic dynamics yielding the quantum and gravitational descriptions. The OI framework provides exactly this. Sorkin's slogan is "Order + Number = Geometry." The OI version is "Bijection + Locality = QM + GR."
 
@@ -816,7 +812,7 @@ None of these are independent substances. They are the same structure viewed at 
 
 But the central claim stands: the fundamental object is (S, φ) — a finite set and a bijection. The observer, the dimension, and the laws of physics are all emergent.
 
----
+***
 
 ## Why These Particles?
 
@@ -838,7 +834,7 @@ Numerically, the singlet and triplet are not just distinguished by symmetry — 
 
 This matrix $M$ determines everything about the gauge structure. Its eigenvalue multiplicities give the gauge group — the group of transformations that leave $M$ invariant (technically, its commutant in U(K)). Its eigenvalues give the mass spectrum. The gauge group and the mass spectrum are dual descriptions of the same matrix. This is a theorem, not an approximation.
 
-**Why K = 6.** In three dimensions, each lattice site has 6 nearest neighbors (±x, ±y, ±z). If the internal components correspond to these link directions — the natural choice from the factorization principle, which says to decompose the per-site state space into its independent dynamical channels — then $K = 2d = 6$.
+**Why K = 6.** In three dimensions, each lattice site has 6 nearest neighbors (±x, ±y, ±z). If the internal components correspond to these link directions — the hypothesis H-link, which coupling-degree minimization does not establish — then $K = 2d = 6$.
 
 These 6 link directions form a representation of the cubic rotation group $O$. Standard character theory decomposes this representation into irreducibles:
 
@@ -870,7 +866,7 @@ What the OI framework contributes is a statement of what time-reversal symmetry 
 
 Combined with the earlier papers' predictions — dark energy in the Type II running-vacuum channel (the functional form is the local expansion shared by every smooth model, [GR §7.1]; the content is the channel — a structural reading, not a derived law — and the magnitude $|\nu| \approx |\nu_{\rm QFT}| \sim 10^{-32}$, consistent with Bertini 2025's value-consistent-with-zero measurement at $2\sigma$), dark matter from galaxies through clusters to the Bullet Cluster, gauge couplings at $M_Z$ — and [SM §7]'s twenty-two zero-parameter quantitative predictions (including $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ matching the JUNO-era global fit at $0.07\sigma$ — a retrodiction), the framework makes a suite of falsifiable predictions that no competing theory makes jointly.
 
----
+***
 
 ## The Full Picture
 
@@ -881,7 +877,7 @@ The framework now covers the three pillars of modern physics and their consequen
 | **Quantum mechanics** | Emerges from embedded observation | Main |
 | **General relativity** | Emerges from lattice dynamics passing 7 checks | GR + Substratum |
 | **Standard Model structure** | SU(3) × SU(2) × U(1), 3 generations, Higgs, chiral coupling | SM |
-| **Structural foundations** | $d = 3$, coupling graph ontology, $q$-gauge, background independence (state-dependent geometry) | Substratum |
+| **Structural foundations** | $d = 3$, coupling graph ontology, alphabet-size hypothesis, background independence (state-dependent geometry) | Substratum |
 | **Chemistry → life** | Orbitals, periodic table, carbon, water, chirality, autocatalysis, origin of life, evolution | Complexity |
 
 The starting point for all of it: a finite set, a bijection, and a partition.
@@ -890,7 +886,7 @@ The starting point for all of it: a finite set, a bijection, and a partition.
 
 The framework does not claim to be a complete theory of everything. It does not determine the 18+ parameters of the Standard Model — these depend on the specific bijection φ, just as the mass distribution of the universe depends on initial conditions, not on Einstein's equations. What it does claim — and what the derivation chain supports — is that the *structure* of the known laws of physics is not arbitrary. It is what mathematical consistency looks like when a finite deterministic system is observed from within. The fundamental object is (S, φ): a finite set and a bijection. Everything else — the observer, the dimension, quantum mechanics, general relativity, and the Standard Model — is emergent.
 
----
+***
 
 ## What Is (S, φ)?
 
@@ -952,7 +948,7 @@ This places the framework in a family of results where self-reference under fini
 
 The precise OI analog of the halting problem is: *can the observer determine the hidden-sector state h?* The hidden state has a definite value at every moment — the total system is deterministic. Different hidden states send the same visible state to different futures (the particle goes left or right, the spin is measured up or down). But the observer provably cannot determine h: multiple hidden states are compatible with any visible-sector history, and transition probabilities are averages over h. The structural consequence is quantum mechanics — just as the structural consequence of the halting problem is the architecture of computability theory.
 
-The framework also identifies a distinct class of inaccessible quantities: the alphabet size q and the deep-sector cardinality |C_D|. These are not undecidable — they are *gauge*. Different values produce identical observables, so there is no fact of the matter to be inaccessible. The hidden state h is undecidable: it has a real answer the observer cannot reach. The cardinality |C_D| is gauge: there is nothing there to reach.
+The framework also identifies a distinct class of inaccessible quantities: the deep-sector cardinality |C_D| and, under the alphabet-size hypothesis [SM §2.7], the alphabet size q. These are not undecidable — they are *gauge*. Different values of |C_D| produce the same transition data at leading order on accessible timescales, and under the hypothesis different values of q produce identical observables, so within those data there is no fact of the matter to be inaccessible. The hidden state h is undecidable: it has a real answer the observer cannot reach. The cardinality |C_D| is gauge: in the accessible-timescale data there is nothing there to reach.
 
 The common thread: a system with finite resources tries to completely model something it's part of, and the structural impossibility of doing so determines the *form* of what it produces instead. The limitation and the law are the same object viewed from two sides. The Turing connection is direct: the observer is the head of a reversible computation; the halting problem (the head cannot determine the tape's global state) and the QM emergence theorem (the head's read-write statistics are necessarily non-Markovian, and quantum-mechanical for processes in the correspondence's class under (T)) are two consequences of the same structural constraint — finite self-referential access to a lossless computation.
 
@@ -980,9 +976,9 @@ There is also a converse result, but it is scoped. Starting from the observed ph
 
 The forward direction: start from (S, φ) and derive physics. That's the program's main result. The converse: start from the observed physics and reconstruct (S, φ). And the pieces are already in hand.
 
-If you observe quantum mechanics with Bell violations on a finite system, the characterization theorem forces you into some (S, φ, V) — there must be a deterministic system with a partition. If your physics includes Einstein gravity via the thermodynamic route, the dynamics selection theorem pins the wave equation — it's the unique dynamics consistent with QM emergence, isotropy, and linearity. If you see SU(3) × SU(2) × U(1) with three generations, the gauge structure pins K = 6 with multiplicities (3, 2, 1) — the cubic group decomposition is unique. If the visible transition counts are reciprocal, the substratum dynamics is T-invariant. If ℏ has the specific value c³ε²/(4G), the gap equation pins ε = 2l_p. And d = 3 is the unique self-consistent dimension.
+If you observe quantum mechanics with Bell violations on a finite system, the characterization theorem forces you into some (S, φ, V) — there must be a deterministic system with a partition. If your physics includes Einstein gravity via the thermodynamic route, the dynamics selection theorem pins the wave equation — it's the unique dynamics consistent with QM emergence, isotropy, and linearity. If you see SU(3) × SU(2) × U(1) with three generations, the gauge structure pins K = 6 with multiplicities (3, 2, 1) — the cubic group decomposition is unique. If the visible transition counts are reciprocal, the substratum dynamics is T-invariant. If ℏ has the specific value c³ε²/(4Gσ), the gap equation pins ε = 2√σ l_p. And d = 3 is the unique self-consistent dimension.
 
-Chain the local reconstruction steps together and the observed inputs determine a unique **local-sector equivalence class** — the lattice/gauge data pinned up to the substratum gauge group $\mathcal{G}_{\text{sub}}$ [Substratum §4]. The Bell preparation rule is extra composite data: H-Bell conditions its compatibility/existence, and its uniqueness is open. This gauge group has four generators: state relabeling (permuting the elements of S while conjugating φ), alphabet change (replacing ℤ/qℤ with any ℤ/q'ℤ), deep-sector enlargement (the cardinality of the deep hidden sector beyond the boundary layer is unobservable — it may even be infinite), and graph isomorphism up to statistical isotropy (any bounded-degree graph with d = 3 polynomial growth and statistical isotropy is gauge-equivalent to ℤ³ *for the emergent-QM, dimensional, and gravitational content*; for the Standard Model gauge group this generator is restricted to isomorphisms preserving the cubic octahedral structure, since the (3,2,1) decomposition requires it — see [Substratum §4, Theorem 24(iv)]). The reconstruction theorem establishes this list for the state-channel content via Stinespring uniqueness; the graph generator carries the cubic-structure qualification just noted.
+Chain the local reconstruction steps together and the observed inputs determine a unique **local-sector equivalence class** — the lattice/gauge data pinned up to the substratum gauge group $\mathcal{G}_{\text{sub}}$ [Substratum §4]. The Bell preparation rule is extra composite data: H-Bell conditions its compatibility/existence, and its uniqueness is open. This gauge group has four generators: state relabeling (permuting the elements of S while conjugating φ), alphabet change (replacing ℤ/qℤ with any ℤ/q'ℤ; a generator under the alphabet-size hypothesis [SM §2.7]), deep-sector enlargement (the cardinality of a deep hidden sector that no dynamics couples to the boundary layer is unobservable — it may even be infinite), and graph isomorphism up to statistical isotropy (any bounded-degree graph with d = 3 polynomial growth and statistical isotropy is gauge-equivalent to ℤ³ *for the emergent-QM, dimensional, and gravitational content*; for the Standard Model gauge group this generator is restricted to isomorphisms preserving the cubic octahedral structure, since the (3,2,1) decomposition requires it — see [Substratum §4, Theorem 24(iv)]). The reconstruction theorem establishes this list for the state-channel content via Stinespring uniqueness; the graph generator carries the cubic-structure qualification just noted.
 
 This is exactly how physics always works. In general relativity, measurements determine an equivalence class of spacetime metrics modulo diffeomorphisms — not a unique coordinate system. In gauge theory, experiments determine an equivalence class of connections modulo gauge transformations — not a unique field configuration. Here, the local reconstruction determines its lattice/gauge residue modulo the OI gauge freedoms — not a unique representative and not a unique Bell-inclusive completion.
 
@@ -996,11 +992,11 @@ Under this definition, Wigner's puzzle dissolves *for physics* to the point of t
 
 And the incompleteness family extends one step further: Gödel showed that proof can't capture all truth. Turing showed that computation can't predict all behavior. The OI framework shows that observation can't capture all dynamics. In each case, what *can't* be captured has rigid mathematical structure, and what *is* captured is determined by the incompleteness itself. Physics — all of it, from quantum mechanics to the Standard Model — is the rigid structure of what embedded observation captures. Mathematics is larger. Physics is the view from inside.
 
----
+***
 
 *This is a companion overview to the framework's five core papers: "The Incompleteness of Observation" (Maybaum, [Main]), which presents the foundational embedded-observation theorems with detailed derivations; "The Standard Model from a Cubic Lattice" (Maybaum, [SM]), which derives the Standard Model's gauge group, matter content, and chiral structure from lattice dynamics; "The Gravitational Sector from the Cosmological Horizon" (Maybaum, [GR]), which derives ℏ, the Bekenstein-Hawking area law, and dark-sector phenomenology; "The Substratum: Reconstruction Theorem and Gauge Group" (Maybaum, [Substratum]), which addresses the ontological status of the lattice and proves the framework's reconstruction theorem; and "Hierarchical Structural Realism and Universality Classes of Embedded Observers" (Maybaum, [Structure]), which articulates the framework's two-dimensional hierarchical structure and develops its relationship to other unification programs. The philosophical lineage section draws on a systematic analysis mapping the framework's claims against the major traditions in Western, Eastern, and contemporary philosophy of science.*
 
----
+***
 
 ## Appendix: Mathematical Summary Tables
 
@@ -1022,42 +1018,42 @@ And the incompleteness family extends one step further: Gödel showed that proof
 | Step | What it establishes | Key equation |
 |---|---|---|
 | §3.1: Stochastic-quantum correspondence | compressed (≤ n³) representation for the correspondence's class; existence is internal and universal ($S \iff D \iff Q_{\mathrm{fb}}$, [Main §3.4]) | T_ij = ancilla-marginal Born rule (T = \|U\|² in the trivial-ancilla case) |
-| §3.1: Phase-locking | Hamiltonian fixed up to shift, rephasing, and the antiunitary conjugate | Fourier analysis of T_ij(t) |
+| §3.1: Phase-locking | Under H-BG and the stated genericity hypotheses, Hamiltonian fixed up to shift, rephasing, and the antiunitary conjugate | Conditional classification and Fourier analysis |
 | §3.2: Bell analysis | Deterministic screened graph-local completion is Bell-local; quantum CHSH therefore requires ontic parameter dependence with operational no-signaling | local deterministic completion $\Rightarrow S_{\rm CHSH}\le 2$; stochastic causal-local class has the separate Tsirelson bound; bare/global OI has PR negative control |
 | §3.3: Necessity of C1 | Accessible memory requires coupling | No coupling → permutation → P-divisible |
 | §3.3: Necessity of C2 | Physical memory requires record persistence — slow bath one mechanism, conditional on mixing | Fast-mixing bath → Markov → P-divisible |
 | §3.3: Necessity of C3 | Accessible memory requires capacity | I ≤ log₂ m bounds memory |
 | §3.4: Characterization theorem | non-Markovianity ⟺ C1, C3, C4 per horizon (C2 separate, conditional); representation equivalence $S \iff D \iff Q_{\mathrm{fb}}$ — internal, universal; universal hidden-memory theorem | Biconditional + internal permutation unitary (compressed form imported under (T)) |
 | §4: Cosmological horizon | The universe satisfies the definition | C1 ✓, C2 ✓, C3 ✓, C4 ✓ |
-| §5.1: Classical temperature | T_cl = c²ε²κ/(8πGk_B) | No ℏ |
+| §5.1: Classical temperature | T_cl = c²ε²κ/(8πGk_Bσ) | No ℏ |
 | §5.2 Step 1: Uniqueness | ℏ is determined, not free | Partition-relativity |
 | §5.2 Step 2: Boundary-only | ℏ depends only on c, G, ε | Deep sector frozen |
 | §5.2 Step 3: Dimensional analysis | ℏ = β c³ε²/G | Unique combination |
-| §5.2 Step 4: Thermal matching | T_cl = T_Q fixes β = 1/4 | ℏ = c³ε²/(4G) |
+| §5.2 Step 4: Thermal matching | T_cl = T_Q fixes β = 1/(4σ) | ℏ = c³ε²/(4Gσ) |
 | §5.3: Bohr-frequency completeness | Frequencies determined, ℏ not | Dimensional obstruction |
-| §6: Self-consistency | ε = 2 l_p, S_BH = A/(4l_p²) | ε² = 4ℏG/c³ |
+| §6: Self-consistency | ε = 2√σ l_p, S_BH = A/(4l_p²) | ε² = 4σℏG/c³ |
 
 The chain from definition to ℏ:
 
-Definition → universal $Q_{\mathrm{fb}}$ representation (P-indivisibility marking the memory sector) → Hamiltonian with unknown ℏ → thermal matching at the horizon → ℏ = c³ε²/(4G) → ε = 2 l_p → S_BH = A/(4 l_p²)
+Definition → universal $Q_{\mathrm{fb}}$ representation (P-indivisibility marking the memory sector) → Hamiltonian with unknown ℏ → thermal matching at the horizon → ℏ = c³ε²/(4Gσ) → ε = 2√σ l_p → S_BH = A/(4 l_p²)
 
 Every link is either a proof or a calculation. No link requires quantum mechanics as input — QM appears as output at step 3 and its parameters are determined by steps 4–6.
 
----
+***
 
 ## Appendix: Key Mathematical Subtleties
 
 **1. The gap equation is a gap equation, not a derivation from nothing.**
 
-The framework has one free parameter (ε). The gap equation relates ε to ℏ. You need to know one to determine the other. The predictive content lies not in the gap equation alone but in its consequences: the specific relationship ℏ = c³ε²/(4G) — rather than any other function of c, G, ε — produces the Bekenstein-Hawking formula with the exact factor 1/4 (§6), the CC dissolution with S_dS as the compression ratio (§7.3), and the Type II running-vacuum form of the dark energy (§8.1). Any alternative ℏ(ε) would fail at least one of these checks. The situation is analogous to deriving the Schwarzschild metric with M as a free parameter: the derivation has genuine content (the functional form) even though one input is not determined from within.
+The framework has one free geometric parameter (ε). The gap equation relates ε to ℏ at given σ. You need to know one to determine the other. The predictive content lies not in the gap equation alone but in its consequences: the specific relationship ℏ = c³ε²/(4Gσ) — rather than any other function of c, G, ε — produces the Bekenstein-Hawking formula with the exact factor 1/4 (§6), the CC dissolution with S_dS as the compression ratio (§7.3), and the Type II running-vacuum form of the dark energy (§8.1). Any alternative ℏ(ε) would fail at least one of these checks. The situation is analogous to deriving the Schwarzschild metric with M as a free parameter: the derivation has genuine content (the functional form) even though one input is not determined from within.
 
 **2. The KMS condition on the lattice.**
 
-The thermal matching in Step 4 uses the KMS condition, which is proved for continuum QFT on curved spacetime. The emergent QFT from Part I is lattice-regularized with cutoff ε. Thermal periodicity on a lattice has corrections of order (εκ/c)². For the cosmological horizon: εκ/c = εH/c ~ 10⁻⁶¹, so corrections are ~ 10⁻¹²². Negligible, but a lattice-native proof of the KMS condition would strengthen the argument.
+The thermal matching in Step 4 uses the KMS condition, which is proved for continuum QFT on curved spacetime. The emergent QFT from Part I is lattice-regularized with cutoff ε. Thermal periodicity on a lattice has corrections of order (εκ/c²)². For the cosmological horizon at σ = 1: εκ/c² = εH/c ~ 10⁻⁶¹, so corrections are ~ 10⁻¹²². Negligible, but a lattice-native proof of the KMS condition would strengthen the argument.
 
 **3. The D-gauge reconstruction requires genericity, and is stated as a claim.**
 
-The phase-locking argument and the two-branch reconstruction theorem assume non-degenerate spectrum, non-degenerate energy gaps, and non-vanishing overlaps (conditions G1–G3); Bohr-frequency completeness itself needs only the spectrum and overlap conditions. These fail on a measure-zero set of Hamiltonians. For the cosmological realization, a stronger argument applies to G1 specifically: the genericity conditions concern the *effective* visible-sector Hamiltonian $\hat{H}_{\text{eff}}$ (after the trace-out), not the total Hamiltonian $H_{\text{tot}}$. The relevant distinction is whether a symmetry of $H_{\text{tot}}$ preserves the visible/hidden factorization. The spatial symmetries an observer-centered partition breaks — translation, rotation about distant points, boost — are *factorization-breaking* (they map boundary visible sites to hidden sites across the cosmological horizon), so they have no action on the visible factor alone and the degeneracies they protect are lifted in $\hat{H}_{\text{eff}}$. Factorization-preserving symmetries $S_V\otimes S_H$, by contrast, descend to a visible symmetry $S_V$ of $\hat{H}_{\text{eff}}$ (the uniform-bath trace-out is invariant under any unitary on the hidden factor); the visible-internal ones among these are the gauge symmetries of the emergent QFT, which correspond to physically equivalent states and don't affect the phase-locking argument. G2 (non-degenerate gaps) is not symmetry-protected and rests on genericity directly; it holds for generic $\hat{H}_{\text{eff}}$ and can fail only on a measure-zero set, with no known structural feature of the substratum forcing systematic failure (single-cycle hidden dynamics in particular does not, since the Hermitian $\hat{H}_{\text{eff}}$ — unlike the unitary cycle operator's equally-spaced phases — has unequally-spaced real eigenvalues and retains non-degenerate gaps after the trace-out).
+The phase-locking argument assumes non-degenerate spectrum, non-degenerate energy gaps, and non-vanishing overlaps (conditions G1–G3); the conditional two-branch reconstruction also requires H-BG and these conditions for both Hamiltonians; Bohr-frequency completeness itself needs only the spectrum and overlap conditions. These fail on a measure-zero set of Hamiltonians. For the cosmological realization, a stronger argument applies to G1 specifically: the genericity conditions concern the *effective* visible-sector Hamiltonian $\hat{H}_{\text{eff}}$ (after the trace-out), not the total Hamiltonian $H_{\text{tot}}$. The relevant distinction is whether a symmetry of $H_{\text{tot}}$ preserves the visible/hidden factorization. The spatial symmetries an observer-centered partition breaks — translation, rotation about distant points, boost — are *factorization-breaking* (they map boundary visible sites to hidden sites across the cosmological horizon), so they have no action on the visible factor alone and the degeneracies they protect are lifted in $\hat{H}_{\text{eff}}$. Factorization-preserving symmetries $S_V\otimes S_H$, by contrast, descend to a visible symmetry $S_V$ of $\hat{H}_{\text{eff}}$ (the uniform-bath trace-out is invariant under any unitary on the hidden factor); the visible-internal ones among these are the gauge symmetries of the emergent QFT, which correspond to physically equivalent states and don't affect the phase-locking argument. G2 (non-degenerate gaps) is not symmetry-protected and rests on genericity directly; it holds for generic $\hat{H}_{\text{eff}}$ and can fail only on a measure-zero set, with no known structural feature of the substratum forcing systematic failure (single-cycle hidden dynamics in particular does not, since the Hermitian $\hat{H}_{\text{eff}}$ — unlike the unitary cycle operator's equally-spaced phases — has unequally-spaced real eigenvalues and retains non-degenerate gaps after the trace-out).
 
 **4. Why doesn't the deep sector matter?**
 

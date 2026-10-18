@@ -1,0 +1,15 @@
+tree f4ec2fc8763c98757a5d7e07d5b464ce3e0ba2e4
+parent 1775ad474f452b4842eef68399b87bd9317861b1
+author Claude <noreply@anthropic.com> 1790698182 +0000
+committer Claude <noreply@anthropic.com> 1790698182 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQCRKXw1+
+ 22hMM6aheFNuChXlEOm9CvYIBHF0uEKJelFJZ8oIZsVSxtoHYgsEkfSoA8YIDsZI1AWA2FYCoiOw
+ MgE=
+ -----END SSH SIGNATURE-----
+
+A45 bridge dev build (disposable, never landed)
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

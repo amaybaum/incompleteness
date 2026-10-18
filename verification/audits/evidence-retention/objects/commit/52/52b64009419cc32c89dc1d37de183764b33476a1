@@ -1,0 +1,36 @@
+tree 07941868099a6b1d01832228a0a8de8112d61fb2
+parent ae983580a38dd416e8fb6a95795f1976eecabe62
+author Claude <noreply@anthropic.com> 1789627301 +0000
+committer Claude <noreply@anthropic.com> 1789627301 +0000
+
+act 19: state L4n in the freeze's own wording, before any discriminating result
+
+The L4n conjunct of LadderConds as first committed named matrix
+multiplication on dilations: it required the representative-level lift to
+satisfy Psi (L * U) = L * Psi U and Psi (U * K) = Psi U * K.
+
+The freeze names two different objects. Its wording is that the transition
+"commutes with the merged transformation laws on FibreGram", and it names
+those two laws exactly: act 12's fibreGram_left_mul, under which an in-fibre
+left move is invisible to the Gram data, and act 12's
+fibreGram_mul_weak_apply, under which a right gauge at the anchor acts on the
+Gram data by the anchored phases. Commuting with those laws is the demand
+that an in-fibre left move on the lift's input produce an in-fibre left move
+on its output, and a right gauge at the anchor on its input produce a right
+gauge at the anchor on its output -- so that the invisible gauge cannot see
+the transition's action beyond the class. That is what the rung now states,
+and it is what the freeze's own sentence "naturality says it comes from a
+move on representatives that the invisible gauge cannot see" says.
+
+This is a fidelity correction of the rung's wording toward the control-plane
+blob, and it is made before any discriminating result exists on this branch.
+The ordering obligation forbids altering a rung's statement from the moment
+the first discriminating result enters the branch; no such result has entered
+it. The correction is recorded in the result note rather than concealed, and
+both this SHA and the SHA of the first ladder commit are reported.
+
+NO DISCRIMINATING RESULT IS PRESENT AT THIS COMMIT. The module still contains
+no theorem: every declaration is a definition. Nothing here establishes that
+any candidate satisfies or fails any rung.
+
+lake build clean.

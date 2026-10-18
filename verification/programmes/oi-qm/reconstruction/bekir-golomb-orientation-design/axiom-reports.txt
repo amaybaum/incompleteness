@@ -1,0 +1,15 @@
+Compiled at c3a3fe9ec00b64802dda5878c5ffcd9f69584e13
+Actions run 38534906783; job 115755317698
+Lean/Mathlib pins: verification/lean-mathlib/lean-toolchain and lake-manifest.json
+Explicit classification hypotheses in the statements are not discharged by axiom reports.
+
+'OIBridge.PremiseOrientationDesign.hyps_r1_r2refl' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OIBridge.PremiseOrientationDesign.source_difference_cases' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OIBridge.PremiseOrientationDesign.reflected_difference_obstruction' depends on axioms: [propext]
+'OIBridge.PremiseOrientationDesign.not_muForm_r1_r2refl' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OIBridge.PremiseOrientationDesign.not_BGIntegerClassification' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OIBridge.PremiseOrientationDesign.muForm_r1_r2' depends on axioms: [propext, Quot.sound]
+'OIBridge.PremiseOrientationDesign.revMuForm_r1_r2refl' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OIBridge.ScopeTransferSigned.spectral_classification_of_BGSigned' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OIBridge.ScopeTransferSigned.reversed_exceptional_impossible' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OIBridge.ScopeTransferSigned.twoBranch_of_BGSignedClassification' depends on axioms: [propext, Classical.choice, Quot.sound]

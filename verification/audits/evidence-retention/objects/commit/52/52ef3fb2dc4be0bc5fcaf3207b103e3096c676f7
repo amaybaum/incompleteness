@@ -1,0 +1,15 @@
+tree 79e18c46e4fa1ecf67ac9683ad315909e963b698
+parent 10781e7560210e9625076d9cc47d8f2c295317b0
+author Alex Maybaum <alex.maybaum@gmail.com> 1790569571 +0000
+committer Alex Maybaum <alex.maybaum@gmail.com> 1790569571 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQHLJjC76
+ Y7OVY4T2iSOV7RhAsbNKaRlEbtJ8eFa6EFrDz5ROqiST4WKpoFvQRfy+Vn9k1FoHDwDMJ5aKyJ1C
+ 5AE=
+ -----END SSH SIGNATURE-----
+
+A37 design: first proof pass of the module with the verdict (disposable)
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

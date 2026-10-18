@@ -1,0 +1,15 @@
+tree 885b293bfa31b2c11cb4fbcdf51a8aa5924a4720
+parent 9f947d4bd41c16a8d67b654e8334201cdfa5f7f0
+author Claude <noreply@anthropic.com> 1790448448 +0000
+committer Claude <noreply@anthropic.com> 1790448448 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQAIxcl5L
+ m85uZXRFAS47Ufa01fenFkR760byBdYhUzhndszIRmAhf0zIrp2HiPdmihu1LD/6lN3tIx/F3Uxb
+ 6AU=
+ -----END SSH SIGNATURE-----
+
+a33 dev: phases 1-5, into restructured on opaque coefficients
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

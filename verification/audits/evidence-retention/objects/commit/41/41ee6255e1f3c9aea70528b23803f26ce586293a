@@ -1,0 +1,15 @@
+tree b7508085eb4d8aabe1d8f114bb85e5665cf91cb2
+parent a3405193ff12b068bf396b5d3f9a09484b305194
+author Claude <noreply@anthropic.com> 1790584800 +0000
+committer Claude <noreply@anthropic.com> 1790584800 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQB4a0SVT
+ 3gTLHCHCSlx6/r0pF2HR1k0JgwfXsrvKrDC6564Bvx6q5GzaGIn+qLGsVPgm4VPGLmPsjieT36ZQ
+ oA0=
+ -----END SSH SIGNATURE-----
+
+A38 design: the probe in its own shard (design run)
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

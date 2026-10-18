@@ -1,0 +1,1608 @@
+{
+ "expected": {
+  "build_success": true,
+  "gate": {
+   "steps": [
+    {
+     "name": "toolchain",
+     "status": "PASS",
+     "summary": "toolchain_check: OK (build entry present, unicode-fix.tex co"
+    },
+    {
+     "name": "staleness",
+     "status": "PASS",
+     "summary": "staleness_check: OK (13 matched, 0 unstamped)"
+    },
+    {
+     "name": "baseline-label",
+     "status": "PASS",
+     "summary": "baseline_label_check: OK (no baseline archives named)"
+    },
+    {
+     "name": "voice",
+     "status": "PASS",
+     "summary": "voice_check: OK (no manuscript-voice history narration; 40 m"
+    },
+    {
+     "name": "voice-scope",
+     "status": "PASS",
+     "summary": "voice_scope_test: OK (6 scope case(s); the checker scans the"
+    },
+    {
+     "name": "ci-gate-presence",
+     "status": "PASS",
+     "summary": "ci_gate_presence_test: OK (CI runs the real release gate)"
+    },
+    {
+     "name": "artifact-placement",
+     "status": "PASS",
+     "summary": "artifact_placement_check: OK (no unaccounted root artifact;"
+    },
+    {
+     "name": "manifest-drift",
+     "status": "PASS",
+     "summary": "build_migration_manifest --check: OK (91 artifacts; both gen"
+    },
+    {
+     "name": "claims",
+     "status": "PASS",
+     "summary": "claims_check: OK (no withdrawn result asserted unconditional"
+    },
+    {
+     "name": "duplicate",
+     "status": "PASS",
+     "summary": "duplicate_check: OK (no paragraph repeated within a file)"
+    },
+    {
+     "name": "mirror",
+     "status": "PASS",
+     "summary": "mirror_check: 0 chapter line(s) absent from FULL.md"
+    },
+    {
+     "name": "citation",
+     "status": "PASS",
+     "summary": "citation_check: 112 citation(s), 0 broken, 0 duplicate bib n"
+    },
+    {
+     "name": "architecture",
+     "status": "PASS",
+     "summary": "architecture_check: 259 invariant(s), 0 violation(s), 0 self"
+    },
+    {
+     "name": "dependency-label",
+     "status": "PASS",
+     "summary": "dependency_label_check: OK (no stale dependency label, 41 fi"
+    },
+    {
+     "name": "coverage",
+     "status": "PASS",
+     "summary": "coverage_check: OK (130 canonical statements, 19 unattached"
+    },
+    {
+     "name": "lean-axioms",
+     "status": "PASS",
+     "summary": "lean_axiom_check: OK (5052 named result(s) reported, no sorr"
+    },
+    {
+     "name": "lean-manuscript",
+     "status": "PASS",
+     "summary": "lean_manuscript_census: OK (every cited identifier and path"
+    },
+    {
+     "name": "legacy-records",
+     "status": "PASS",
+     "summary": "LEGACY  303 record(s) in 75 closed namespace(s), all intact"
+    },
+    {
+     "name": "v3-self-test",
+     "status": "PASS",
+     "summary": "v3_verifier: self-test OK"
+    },
+    {
+     "name": "v3-corpus",
+     "status": "PASS",
+     "summary": "CORPUS  140 vector(s), exact and as expected"
+    },
+    {
+     "name": "v3-receipts",
+     "status": "PASS",
+     "summary": "RECEIPTS  14 receipt(s), all hold"
+    }
+   ],
+   "steps_pass": 21,
+   "steps_total": 21,
+   "verdict": "PASS  (note: --label bNNN not given, so the baseline check ran in relative mode only)"
+  },
+  "markers": {
+   "Lean.ofReduceBool": 0,
+   "declaration uses 'sorry'": 0,
+   "error:": 0,
+   "sorryAx": 0
+  },
+  "modules": {
+   "OIBridge.lean": {
+    "print_lines": [
+     [
+      829,
+      847
+     ]
+    ],
+    "prints": 19,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 829,
+      "name": "OIBridge.LinkJoin.char_two_subset_ne_link"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 830,
+      "name": "OIBridge.LinkJoin.char_multiset_collision"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 831,
+      "name": "OIBridge.LinkJoin.sum_sq_collision"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 832,
+      "name": "OIBridge.LinkJoin.sum_cube_collision"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 833,
+      "name": "OIBridge.LinkJoin.faceEquivLink_op"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 834,
+      "name": "OIBridge.LinkJoin.act_op"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 835,
+      "name": "OIBridge.LinkJoin.sym_linkHom"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 836,
+      "name": "OIBridge.LinkJoin.act_injective"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 837,
+      "name": "OIBridge.LinkJoin.linkHom_injective"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 838,
+      "name": "OIBridge.LinkJoin.character_rhoLink"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 839,
+      "name": "OIBridge.LinkJoin.rhoLink_comm_PT"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 840,
+      "name": "OIBridge.LinkJoin.character_restrict_PT"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 841,
+      "name": "OIBridge.LinkJoin.character_PA_eq_one"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 842,
+      "name": "OIBridge.LinkJoin.character_sum"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 843,
+      "name": "OIBridge.LinkJoin.character_rhoT"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 844,
+      "name": "OIBridge.LinkJoin.character_rhoE"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 845,
+      "name": "OIBridge.LinkJoin.character_rhoA"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 846,
+      "name": "OIBridge.LinkJoin.character_rhoA_eq_one"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 847,
+      "name": "OIBridge.LinkJoin.character_rhoLink_eq_sum"
+     }
+    ],
+    "status": "complete"
+   },
+   "OIBridge/DitaTorus.lean": {
+    "print_lines": [
+     [
+      32,
+      32
+     ],
+     [
+      41,
+      41
+     ],
+     [
+      49,
+      49
+     ],
+     [
+      58,
+      58
+     ],
+     [
+      64,
+      64
+     ],
+     [
+      71,
+      71
+     ],
+     [
+      92,
+      92
+     ],
+     [
+      113,
+      113
+     ],
+     [
+      134,
+      134
+     ],
+     [
+      155,
+      155
+     ],
+     [
+      166,
+      166
+     ],
+     [
+      187,
+      187
+     ],
+     [
+      208,
+      208
+     ],
+     [
+      229,
+      229
+     ],
+     [
+      250,
+      250
+     ],
+     [
+      261,
+      261
+     ],
+     [
+      282,
+      282
+     ],
+     [
+      303,
+      303
+     ],
+     [
+      324,
+      324
+     ],
+     [
+      345,
+      345
+     ],
+     [
+      356,
+      356
+     ],
+     [
+      377,
+      377
+     ],
+     [
+      398,
+      398
+     ],
+     [
+      419,
+      419
+     ],
+     [
+      440,
+      440
+     ],
+     [
+      451,
+      451
+     ],
+     [
+      472,
+      472
+     ],
+     [
+      493,
+      493
+     ],
+     [
+      514,
+      514
+     ],
+     [
+      535,
+      535
+     ],
+     [
+      546,
+      546
+     ],
+     [
+      567,
+      567
+     ],
+     [
+      588,
+      588
+     ],
+     [
+      609,
+      609
+     ],
+     [
+      630,
+      630
+     ],
+     [
+      641,
+      641
+     ],
+     [
+      662,
+      662
+     ],
+     [
+      683,
+      683
+     ],
+     [
+      704,
+      704
+     ],
+     [
+      725,
+      725
+     ],
+     [
+      736,
+      736
+     ],
+     [
+      757,
+      757
+     ],
+     [
+      778,
+      778
+     ],
+     [
+      799,
+      799
+     ],
+     [
+      820,
+      820
+     ],
+     [
+      831,
+      831
+     ],
+     [
+      852,
+      852
+     ],
+     [
+      873,
+      873
+     ],
+     [
+      894,
+      894
+     ],
+     [
+      915,
+      915
+     ],
+     [
+      926,
+      926
+     ],
+     [
+      947,
+      947
+     ],
+     [
+      968,
+      968
+     ],
+     [
+      989,
+      989
+     ],
+     [
+      1010,
+      1010
+     ],
+     [
+      1021,
+      1021
+     ],
+     [
+      1042,
+      1042
+     ],
+     [
+      1063,
+      1063
+     ],
+     [
+      1084,
+      1084
+     ],
+     [
+      1105,
+      1105
+     ],
+     [
+      1116,
+      1116
+     ],
+     [
+      1137,
+      1137
+     ],
+     [
+      1158,
+      1158
+     ],
+     [
+      1179,
+      1179
+     ],
+     [
+      1200,
+      1200
+     ],
+     [
+      1211,
+      1211
+     ],
+     [
+      1232,
+      1232
+     ],
+     [
+      1253,
+      1253
+     ],
+     [
+      1274,
+      1274
+     ],
+     [
+      1295,
+      1295
+     ],
+     [
+      1306,
+      1306
+     ],
+     [
+      1327,
+      1327
+     ],
+     [
+      1348,
+      1348
+     ],
+     [
+      1369,
+      1369
+     ],
+     [
+      1390,
+      1390
+     ],
+     [
+      1401,
+      1401
+     ],
+     [
+      1422,
+      1422
+     ],
+     [
+      1443,
+      1443
+     ],
+     [
+      1464,
+      1464
+     ],
+     [
+      1485,
+      1485
+     ],
+     [
+      1496,
+      1496
+     ],
+     [
+      1517,
+      1517
+     ],
+     [
+      1538,
+      1538
+     ],
+     [
+      1559,
+      1559
+     ],
+     [
+      1580,
+      1580
+     ],
+     [
+      1591,
+      1591
+     ],
+     [
+      1601,
+      1601
+     ],
+     [
+      1611,
+      1611
+     ],
+     [
+      1621,
+      1621
+     ],
+     [
+      1631,
+      1631
+     ],
+     [
+      1642,
+      1642
+     ],
+     [
+      1652,
+      1652
+     ],
+     [
+      1662,
+      1662
+     ],
+     [
+      1671,
+      1671
+     ],
+     [
+      1677,
+      1677
+     ],
+     [
+      1686,
+      1686
+     ],
+     [
+      1764,
+      1764
+     ],
+     [
+      1839,
+      1839
+     ],
+     [
+      1914,
+      1914
+     ],
+     [
+      1991,
+      1991
+     ],
+     [
+      2140,
+      2140
+     ]
+    ],
+    "prints": 101,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 630,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_11_3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 641,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_11"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 662,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_12_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 683,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_12_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 704,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_12_2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 725,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_12_3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 736,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_12"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 757,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_13_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 778,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_13_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 799,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_13_2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 820,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_13_3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 831,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_13"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 852,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_20_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 873,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_20_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 894,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_20_2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 915,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_20_3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 926,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_20"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 947,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_21_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 968,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_21_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 989,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_21_2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1010,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_21_3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1021,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_21"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1042,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_22_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1063,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_22_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1084,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_22_2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1105,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_22_3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1116,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_22"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1137,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_23_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1158,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_23_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1179,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_23_2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1200,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_23_3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1211,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_23"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1232,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_30_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1253,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_30_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1274,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_30_2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1295,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_30_3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1306,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_30"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1327,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_31_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1348,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_31_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1369,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_31_2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1390,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_31_3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1401,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_31"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1422,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_32_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1443,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_32_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1464,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_32_2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1485,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_32_3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1496,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_32"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1517,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_33_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1538,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_33_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1559,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_33_2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1580,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_33_3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1591,
+      "name": "OIBridge.DitaTorus.a39_shared_row_core_33"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1601,
+      "name": "OIBridge.DitaTorus.a39_shared_rowblock_core_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1611,
+      "name": "OIBridge.DitaTorus.a39_shared_rowblock_core_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1621,
+      "name": "OIBridge.DitaTorus.a39_shared_rowblock_core_2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1631,
+      "name": "OIBridge.DitaTorus.a39_shared_rowblock_core_3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1642,
+      "name": "OIBridge.DitaTorus.a39_shared_rows_core"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1652,
+      "name": "OIBridge.DitaTorus.a39_shared_unitary_core"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1662,
+      "name": "OIBridge.DitaTorus.a39_shared_flat_core"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1671,
+      "name": "OIBridge.DitaTorus.a39_shared_real_core"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1677,
+      "name": "OIBridge.DitaTorus.a39_shared_base_core"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1686,
+      "name": "OIBridge.DitaTorus.a39_shared_diag_core"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1764,
+      "name": "OIBridge.DitaTorus.a39_shared_realizable"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1839,
+      "name": "OIBridge.DitaTorus.a39_control_base"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1914,
+      "name": "OIBridge.DitaTorus.a39_control_diagonal"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1991,
+      "name": "OIBridge.DitaTorus.a39_realizable"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2140,
+      "name": "OIBridge.DitaTorus.a39_c_exclusive"
+     }
+    ],
+    "status": "partial",
+    "unreported_print_lines": [
+     [
+      32,
+      32
+     ],
+     [
+      41,
+      41
+     ],
+     [
+      49,
+      49
+     ],
+     [
+      58,
+      58
+     ],
+     [
+      64,
+      64
+     ],
+     [
+      71,
+      71
+     ],
+     [
+      92,
+      92
+     ],
+     [
+      113,
+      113
+     ],
+     [
+      134,
+      134
+     ],
+     [
+      155,
+      155
+     ],
+     [
+      166,
+      166
+     ],
+     [
+      187,
+      187
+     ],
+     [
+      208,
+      208
+     ],
+     [
+      229,
+      229
+     ],
+     [
+      250,
+      250
+     ],
+     [
+      261,
+      261
+     ],
+     [
+      282,
+      282
+     ],
+     [
+      303,
+      303
+     ],
+     [
+      324,
+      324
+     ],
+     [
+      345,
+      345
+     ],
+     [
+      356,
+      356
+     ],
+     [
+      377,
+      377
+     ],
+     [
+      398,
+      398
+     ],
+     [
+      419,
+      419
+     ],
+     [
+      440,
+      440
+     ],
+     [
+      451,
+      451
+     ],
+     [
+      472,
+      472
+     ],
+     [
+      493,
+      493
+     ],
+     [
+      514,
+      514
+     ],
+     [
+      535,
+      535
+     ],
+     [
+      546,
+      546
+     ],
+     [
+      567,
+      567
+     ],
+     [
+      588,
+      588
+     ],
+     [
+      609,
+      609
+     ]
+    ]
+   }
+  },
+  "permitted_axioms": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ]
+ },
+ "kind": "bridge",
+ "observed": {
+  "build_line": "Build completed successfully (3608 jobs).",
+  "built": [],
+  "cache": [
+   {
+    "served_line": 4982,
+    "text": "Cache hit occurred on the primary key oibridge-Linux-324962b2357195e1544c06a1936656a7dafa7cf303e07c9c08c1e5a3b289622d-4151026b7f5e24c25593764163d5020824e05aa745396ced364c38fd1a9f2b8d, not saving cache."
+   }
+  ],
+  "gate_served_lines": {
+   "start": 4956,
+   "verdict": 4980
+  },
+  "report_served_lines": {
+   "OIBridge.lean": {
+    "OIBridge.LinkJoin.act_injective": 4937,
+    "OIBridge.LinkJoin.act_op": 4935,
+    "OIBridge.LinkJoin.char_multiset_collision": 4931,
+    "OIBridge.LinkJoin.char_two_subset_ne_link": 4930,
+    "OIBridge.LinkJoin.character_PA_eq_one": 4942,
+    "OIBridge.LinkJoin.character_restrict_PT": 4941,
+    "OIBridge.LinkJoin.character_rhoA": 4946,
+    "OIBridge.LinkJoin.character_rhoA_eq_one": 4947,
+    "OIBridge.LinkJoin.character_rhoE": 4945,
+    "OIBridge.LinkJoin.character_rhoLink": 4939,
+    "OIBridge.LinkJoin.character_rhoLink_eq_sum": 4948,
+    "OIBridge.LinkJoin.character_rhoT": 4944,
+    "OIBridge.LinkJoin.character_sum": 4943,
+    "OIBridge.LinkJoin.faceEquivLink_op": 4934,
+    "OIBridge.LinkJoin.linkHom_injective": 4938,
+    "OIBridge.LinkJoin.rhoLink_comm_PT": 4940,
+    "OIBridge.LinkJoin.sum_cube_collision": 4933,
+    "OIBridge.LinkJoin.sum_sq_collision": 4932,
+    "OIBridge.LinkJoin.sym_linkHom": 4936
+   },
+   "OIBridge/DitaTorus.lean": {
+    "OIBridge.DitaTorus.a39_c_exclusive": 4874,
+    "OIBridge.DitaTorus.a39_control_base": 4367,
+    "OIBridge.DitaTorus.a39_control_diagonal": 4494,
+    "OIBridge.DitaTorus.a39_realizable": 4621,
+    "OIBridge.DitaTorus.a39_shared_base_core": 4106,
+    "OIBridge.DitaTorus.a39_shared_diag_core": 4107,
+    "OIBridge.DitaTorus.a39_shared_flat_core": 4104,
+    "OIBridge.DitaTorus.a39_shared_real_core": 4105,
+    "OIBridge.DitaTorus.a39_shared_realizable": 4234,
+    "OIBridge.DitaTorus.a39_shared_row_core_11": 57,
+    "OIBridge.DitaTorus.a39_shared_row_core_11_3": 56,
+    "OIBridge.DitaTorus.a39_shared_row_core_12": 461,
+    "OIBridge.DitaTorus.a39_shared_row_core_12_0": 169,
+    "OIBridge.DitaTorus.a39_shared_row_core_12_1": 263,
+    "OIBridge.DitaTorus.a39_shared_row_core_12_2": 366,
+    "OIBridge.DitaTorus.a39_shared_row_core_12_3": 460,
+    "OIBridge.DitaTorus.a39_shared_row_core_13": 865,
+    "OIBridge.DitaTorus.a39_shared_row_core_13_0": 573,
+    "OIBridge.DitaTorus.a39_shared_row_core_13_1": 667,
+    "OIBridge.DitaTorus.a39_shared_row_core_13_2": 770,
+    "OIBridge.DitaTorus.a39_shared_row_core_13_3": 864,
+    "OIBridge.DitaTorus.a39_shared_row_core_20": 1269,
+    "OIBridge.DitaTorus.a39_shared_row_core_20_0": 977,
+    "OIBridge.DitaTorus.a39_shared_row_core_20_1": 1071,
+    "OIBridge.DitaTorus.a39_shared_row_core_20_2": 1174,
+    "OIBridge.DitaTorus.a39_shared_row_core_20_3": 1268,
+    "OIBridge.DitaTorus.a39_shared_row_core_21": 1673,
+    "OIBridge.DitaTorus.a39_shared_row_core_21_0": 1381,
+    "OIBridge.DitaTorus.a39_shared_row_core_21_1": 1475,
+    "OIBridge.DitaTorus.a39_shared_row_core_21_2": 1578,
+    "OIBridge.DitaTorus.a39_shared_row_core_21_3": 1672,
+    "OIBridge.DitaTorus.a39_shared_row_core_22": 2077,
+    "OIBridge.DitaTorus.a39_shared_row_core_22_0": 1785,
+    "OIBridge.DitaTorus.a39_shared_row_core_22_1": 1879,
+    "OIBridge.DitaTorus.a39_shared_row_core_22_2": 1982,
+    "OIBridge.DitaTorus.a39_shared_row_core_22_3": 2076,
+    "OIBridge.DitaTorus.a39_shared_row_core_23": 2481,
+    "OIBridge.DitaTorus.a39_shared_row_core_23_0": 2189,
+    "OIBridge.DitaTorus.a39_shared_row_core_23_1": 2283,
+    "OIBridge.DitaTorus.a39_shared_row_core_23_2": 2386,
+    "OIBridge.DitaTorus.a39_shared_row_core_23_3": 2480,
+    "OIBridge.DitaTorus.a39_shared_row_core_30": 2885,
+    "OIBridge.DitaTorus.a39_shared_row_core_30_0": 2593,
+    "OIBridge.DitaTorus.a39_shared_row_core_30_1": 2687,
+    "OIBridge.DitaTorus.a39_shared_row_core_30_2": 2790,
+    "OIBridge.DitaTorus.a39_shared_row_core_30_3": 2884,
+    "OIBridge.DitaTorus.a39_shared_row_core_31": 3289,
+    "OIBridge.DitaTorus.a39_shared_row_core_31_0": 2997,
+    "OIBridge.DitaTorus.a39_shared_row_core_31_1": 3091,
+    "OIBridge.DitaTorus.a39_shared_row_core_31_2": 3194,
+    "OIBridge.DitaTorus.a39_shared_row_core_31_3": 3288,
+    "OIBridge.DitaTorus.a39_shared_row_core_32": 3693,
+    "OIBridge.DitaTorus.a39_shared_row_core_32_0": 3401,
+    "OIBridge.DitaTorus.a39_shared_row_core_32_1": 3495,
+    "OIBridge.DitaTorus.a39_shared_row_core_32_2": 3598,
+    "OIBridge.DitaTorus.a39_shared_row_core_32_3": 3692,
+    "OIBridge.DitaTorus.a39_shared_row_core_33": 4097,
+    "OIBridge.DitaTorus.a39_shared_row_core_33_0": 3805,
+    "OIBridge.DitaTorus.a39_shared_row_core_33_1": 3899,
+    "OIBridge.DitaTorus.a39_shared_row_core_33_2": 4002,
+    "OIBridge.DitaTorus.a39_shared_row_core_33_3": 4096,
+    "OIBridge.DitaTorus.a39_shared_rowblock_core_0": 4098,
+    "OIBridge.DitaTorus.a39_shared_rowblock_core_1": 4099,
+    "OIBridge.DitaTorus.a39_shared_rowblock_core_2": 4100,
+    "OIBridge.DitaTorus.a39_shared_rowblock_core_3": 4101,
+    "OIBridge.DitaTorus.a39_shared_rows_core": 4102,
+    "OIBridge.DitaTorus.a39_shared_unitary_core": 4103
+   }
+  },
+  "reports_in_served_text": 123
+ },
+ "reproduce": {
+  "compared": "build success; the gate's steps and verdict; each governed module's reports and axioms; the markers",
+  "not_compared": "timestamps, durations, cache behaviour, job counts, output order",
+  "recipe": [
+   "run from the root of a full-history clone at a commit that carries this archive (the verifier), never inside <head_sha>, which predates these tools; <dir> is a new directory and <log> a file outside it",
+   "git worktree add --detach <dir> <head_sha>",
+   "(cd <dir>/verification/lean-mathlib && lean --version && lake exe cache get && lake --rehash build) > <log> 2>&1",
+   "(cd <dir> && python3 tools/release_gate.py) >> <log> 2>&1",
+   "python3 -I verification/audits/evidence-retention/extract_result.py <log> > reproduced.json",
+   "python3 -I verification/audits/evidence-retention/compare_result.py <this results.json> reproduced.json --tree <dir>"
+  ],
+  "tool": "python3 -I verification/audits/evidence-retention/reproduce.py --run 36419265546 --work <dir>",
+  "workflow": ".github/workflows/reproduce-evidence.yml"
+ },
+ "run": {
+  "attempt": 1,
+  "conclusion": "success",
+  "event": "workflow_dispatch",
+  "head_sha": "ec528f882ee048e52c5db61aa94fdae76e8e9c12",
+  "id": "36419265546",
+  "job_id": "108917780098",
+  "job_name": "Mathlib bridge",
+  "workflow": "verify.yml"
+ },
+ "schema": "oi-evidence-result",
+ "source": {
+  "extractor": "verification/audits/evidence-retention/extract_result.py",
+  "kind": "GitHub Actions job log, read through the session's job-log tool, which returns at most the last 5000 lines",
+  "note": "the digest identifies the text this result was read from: it is provenance of the extraction, not independent proof of the result, which reproduction at the commit supplies",
+  "original_lines": 27844,
+  "served_lines": 5000,
+  "served_sha256": "0359803f834656e7d41e3dca402915a0013e2d2ac4e180436739850d5d59286d"
+ },
+ "version": 1
+}

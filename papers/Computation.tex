@@ -56,6 +56,10 @@
 % Included via: pandoc ... --include-in-header=unicode-fix.tex
 \usepackage{newunicodechar}
 \usepackage{pifont}
+\usepackage{graphicx} % unicode-math's smallsetminus uses rotatebox
+% Use the Computer Modern-compatible set-difference construction; the large
+% Unicode glyph selected by TeX Live 2022 is absent from Latin Modern Math.
+\AtBeginDocument{\let\setminus\smallsetminus}
 % --- Greek letters -> math (Latin Modern Math; consistent with CM body text) ---
 \newunicodechar{α}{\ensuremath{\alpha}}
 \newunicodechar{β}{\ensuremath{\beta}}
@@ -1273,7 +1277,8 @@ reductions}\label{gauge-equivalence-and-complexity-theoretic-reductions}}
 
 The framework's substratum gauge group \(\mathcal{G}_{\text{sub}}\)
 partitions the space of bijections into equivalence classes; the gauge
-group includes state relabeling, alphabet change, deep-sector
+group includes state relabeling, alphabet change (under the
+alphabet-size hypothesis; {[}5, §4, Theorem 24(ii){]}), deep-sector
 enlargement, and graph isomorphism up to statistical isotropy
 (cubic-structure-preserving for the gauge sector; {[}5, §4, Theorem
 24(iv){]}). A natural question is whether \(\mathcal{G}_{\text{sub}}\)
@@ -1433,4 +1438,4 @@ dihedral hidden subgroup problem,'' \emph{SIAM J. Comput.} \textbf{35},
 170 (2005); arXiv:quant-ph/0302112.
 
 \end{document}
-% source-sha256: c9114ead76d8ba5dc4297ebfdd177e91df901a50b5487206d1dc7d1bb152afd9
+% source-sha256: 44c0d06594ab453bc763922325208eef5d1041a61c16ddfa6662dae72f934d6d

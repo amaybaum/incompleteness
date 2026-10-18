@@ -1,0 +1,15 @@
+tree 14f8dd8f443207c84f0d6093c3b049beb39f8aac
+parent 2e8357b90fff68ecb7bd807d7b1857151e0219a6
+author Claude <noreply@anthropic.com> 1790490115 +0000
+committer Claude <noreply@anthropic.com> 1790490115 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQElyajHM
+ 4LyD3G5QOsdRaRBeQkcjpiMPPtXoaTCXiFkzwt/cQy2ScuvPwXje08yvA30enSgmyLFlZZo2J9/s
+ fw8=
+ -----END SSH SIGNATURE-----
+
+a34-dev: proof module p2 (disposable branch from F, never landed)
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

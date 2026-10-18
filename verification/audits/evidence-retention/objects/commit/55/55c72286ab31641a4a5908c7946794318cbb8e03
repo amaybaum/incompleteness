@@ -1,0 +1,15 @@
+tree 05ec5592a4900971a11266b5663b508a789d844b
+parent ea8f9edd73ca9fc8076c0978983babcd94969961
+author Claude <noreply@anthropic.com> 1790428753 +0000
+committer Claude <noreply@anthropic.com> 1790428753 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQACxQtdl
+ VDE2nN856fsyoYlSsdsORiodHrcCDy9rKFY5GIrLgWE95DLF8N2NnAeg3OCLpheXnAiCH2GkCfa4
+ Kgc=
+ -----END SSH SIGNATURE-----
+
+A32 pre-freeze rehearsal: the retired guard and the A32-NOTRIGID P0 cell (disposable)
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

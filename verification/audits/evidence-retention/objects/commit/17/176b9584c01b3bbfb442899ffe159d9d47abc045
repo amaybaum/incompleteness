@@ -1,0 +1,15 @@
+tree 4099a62d26987adeac80506fba4fb9ef91c04cee
+parent 3e6434100e6ecbc114e38b1b1ceffc04cb6f2d58
+author Claude <noreply@anthropic.com> 1790583163 +0000
+committer Claude <noreply@anthropic.com> 1790583163 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQNikokon
+ Gm0DlULvh3m8w91FJlZn3eqRiq4cJRZOCOknHchmLOrEup6LnaosyqfMx4VNjUX/lQ/gRDNJzB0t
+ zAo=
+ -----END SSH SIGNATURE-----
+
+A38 design: second proof pass (row cores, unitary core by bullets, witness positions, Cayley unit)
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

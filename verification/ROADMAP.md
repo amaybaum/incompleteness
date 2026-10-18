@@ -66,9 +66,10 @@ quantum mechanics.
 | **P1** | Physical C4 discharge at the cosmological and lattice cuts | Physical realization | **OPEN**, and now EXACT: round C4-1 put the manuscripts' realization clause in the kernel as `RoutedReadback`, bounded what a discharge would need and what it would buy, and made the residual exact **per cut** — at the cosmological cut the finite realization datum itself, which the manuscripts describe and do not supply, and then a routed witness within the window; at the lattice cut `[SM]` Theorem 22's readback genericity lemma in the form `LatticeCutReadback` over admissible regions at the return window | the actual physical realization |
 | **P1** | H-Bell — composite and Bell closure | OI→QM / Bell | **OPEN** | Bell-inclusive completion |
 | **P1** | K — pre-quantum kinematics: from field-neutral operational premises to the complex matrix kinematics the finite characterization assumes | OI→QM / Reconstruction | **OPEN** — K3 **CONDITIONAL** on reaching complex matrix kinematics (`genTheory_qm_of_quantumArchitecture`, `typed_determined_iff`); K1 **CONDITIONAL** (rounds NB-1, DIM-1 and K1-BRIDGE-1: two identical balls on the coordinate carrier `W d`, the native-gate hypotheses stated on the cone of the available tests, which is `maxCone (eball d)` for `0 < d` from effect soundness, body preservation, K∞-Seed, K∞-Trans and K∞-V4 (`maxConeOf_avail_eq`), one common NOT and those hypotheses give `d ∈ {1, 3}`, and `d = 3` with an entangling gate); K2 **OPEN** (OI-PAIR-MAXCONE-1 conditional pair-cone theorem; physical pair sourcing remains open); K∞ **OPEN** — eight unsourced obligations: K∞-Stage (SC∞, elementary scope, finite rank), K∞-Act (reversible operation data), K∞-Drive (drivability), K∞-Trans (boundary transitivity, not implied by K∞-Drive), K∞-Seed (sharp seed), K∞-V4 (seed-orbit availability), K∞-Copy (identical-copy covariance) and K∞-Geom (the elementary-scoped geometric input); Kₙ **OPEN** — no theorem lifts the elementary `d = 3` system to the complex matrix carriers of every finite size, with their operational repertoire, that the K3 interfaces take as given | complex quantum kinematics in the conclusion rather than the premises |
+| **P1** | F2 — a named extension of OI that sources the nonclassical operational resource, proved sufficient for finite operational QM | OI→QM / Reconstruction | **OPEN** — the present architecture is settled negatively (`INDEPENDENT` rows below); no extension principle is adopted | the active programme endpoint |
 | **P1** | Stochastic observer interface — source `(Obs, μ)` from the stated architecture | Foundations / physical realization | **OPEN**, with the present architecture bounded negatively: `StochasticInterface` proves the invariant ensemble is not uniquely determined on the wave substratum under its stated hypotheses (`ensemble_underdetermined`, `waveSubstratum_stochastic_interface_gap`), while the observation-map leg is not supplied on `Substratum.Conf`. The remaining obligation is to supply independently motivated structure selecting the physical observation map and ensemble, or prove that the claims consuming an induced stochastic law are invariant under that residual choice. This is distinct from C4: C4 asks whether hidden history is routed back; this row asks which `(Obs, μ)` defines the observed stochastic law in the first place. | a fully sourced physical stochastic law `(φ, Obs, μ)` |
 | **P1** | H-∞ — finite operational theory → continuum / infinite-dimensional completion | OI→QM / continuum | **OPEN** — the exact operational-completion theorems and the Track-B equivalence programme are finite-carrier results. `RegionLimit`, `CoherentContinuumSource` and the quasilocal audits establish selected continuum/local-algebra facts, but no theorem upgrades the full finite OI→QM characterization to arbitrary infinite-dimensional or QFT systems. Infinite-support instruments are a separate, deliberately unprioritized question below and do not close this obligation. | a scope-correct OI→QM statement beyond finite carriers |
-| **P2** | Bekir–Golomb integer classification | Reconstruction | **EXTERNAL** | removes the last reconstruction premise |
+| **P2** | Sign-aware integer classification | Reconstruction | **OPEN** | repair the premise and justify the classification |
 | **P2** | H-link — physical-carrier identification | Standard Model | **CONDITIONAL** | the physical `K = 6` carrier |
 | **P2** | H-state / H-frame / H-slope | Gravity | **CONDITIONAL** | the `ℏ` and `1/4` calibration |
 | **P2** | Covariant matter→boundary coupling (the G3 map) | Gravity | **OPEN** | the MOND / dark-sector chain |
@@ -1113,12 +1114,33 @@ unique quantum history.
 → [`TypedCompletion.lean`](lean-mathlib/OIBridge/TypedCompletion.lean)
 → [`RegionLimit.lean`](lean-mathlib/OIBridge/RegionLimit.lean)
 
-### P2 — Bekir–Golomb integer classification
+### P1 — F2: an extension principle and its sufficiency theorem
 
-`TurnpikeScopeTransfer.lean` consumes `BGIntegerClassification` as a cited premise. Everything around
-it is kernel-proved — the integer-to-real passage and the final assembly included — and the probe's
-own scope block names it the sole remaining K3 backlog item. Formalizing the 2007 classification is
-an excellent independent job and can run in parallel with everything above it.
+The programme's active endpoint ([PROGRAMME §1 and §5, Arc F](programmes/oi-qm/PROGRAMME.md)). The
+presently stated architecture does not source the phase structure or dense unitary control (the
+`INDEPENDENT` rows below), so finite operational quantum mechanics is reached, if at all, from OI
+together with explicitly named additional physical principles. The row has three parts, each with
+its own status.
+
+- **The extension. OPEN.** A principle, stated in OI's own terms, that places into availability the
+  nonclassical operations, the valid measurements and the compatible state transformations the
+  present interface does not supply, with its own sourcing argument and at least one consequence
+  beyond the resource it is introduced to supply (AGENTS.md §A.29). Assuming the resource as a
+  premise states it and does not source it.
+- **Sufficiency. OPEN.** The conditional reconstruction from that extension to finite operational
+  quantum mechanics: normalized probabilities, available tests tied to the stage data, and
+  arbitrary finite composites. The `K` row's chain is the assembly route.
+- **Necessity. OPEN.** Whether each added principle is necessary, assessed separately; minimality is
+  a target of that assessment, not an established property.
+
+→ [frozen-sourcing audit](programmes/substratum/frozen-sourcing-audit.md)
+→ [PROGRAMME §5, Arc F](programmes/oi-qm/PROGRAMME.md)
+
+### P2 — Sign-aware integer classification
+
+The unsigned `BGIntegerClassification` consumed by `TurnpikeScopeTransfer.lean` is refuted by the singly reflected six-mark pair. Its conditional consumers do not establish the physical two-branch conclusion. The design package [`programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/`](programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/), landed with #842, proves the refutation and compiles candidate consumers of a global sign-aware replacement, including exclusion of the reversed exceptional physical branch. It is design evidence; native certification of the refutation is round BG-2, whose control plane is drafted on #826. The replacement classification remains a hypothesis: complete source-to-proposition comparison and a general proof are open. Independent Fourier, realization-transfer, congruent-reconstruction and six-mode obstruction results remain valid. This is a mathematical premise-repair obligation, not solely a K3 formalization backlog.
+
+The adopted `TurnpikeScopeTransfer.lean` defines the refuted premise and states `spectral_classification_of_BG` and `twoBranch_of_BGClassification` as implications from it, which its docstrings record; the real-to-integer reduction is the adopted lemma `real_to_integer_surrogate`, through which `spectral_classification_of_BG` factors. The docstrings of `CongruentReconstruction.lean` describe the three-way classification hypothesis of `twoBranch_of_spectral_classification` as what the turnpike classification supplies. The theorem is a valid conditional, but the derivation of its hypothesis from the cited classification is not established, and the hypothesis omits the reversed exceptional branch; correcting those docstrings is a separate round. The design package and its workflow `bg2-orientation-design.yml` are retired only after an adopted replacement covers both the refutation and the conditional signed-repair results the package carries, passes the required validation, and replaces the citations to it; certifying the refutation alone does not retire the package.
 
 → [`lean-mathlib/OIBridge/TurnpikeScopeTransfer.lean`](lean-mathlib/OIBridge/TurnpikeScopeTransfer.lean)
 
@@ -1375,7 +1397,7 @@ circles or two triplets. Any such interpretation requires a separate theorem con
 mathematical geometry to the physical/operational structure. The research signal preserved here is
 narrower: a continuous normalized state geometry organizes itself as a `3 × 3` bipartite relational
 system, with binary edge freedom and vertex-level compatibility, and the programme tests whether
-that organization survives the steps required for the OI→QM equivalence.
+that organization survives the steps required for the OI→QM reconstruction.
 
 
 ### The residual deformation space at the product stratum
@@ -1512,6 +1534,10 @@ dense finite quantum instruments. The remaining fixed nonclassical gate/control 
 therefore an **independent empirical datum relative to the present architecture**, not an unproved
 lemma. This does not say an extended architecture cannot source it.
 
+Under the programme's retirement rule ([PROGRAMME §5, Arc F](programmes/oi-qm/PROGRAMME.md)) this
+verdict retires the equivalence endpoint F1 for the present architecture; the active endpoint is F2,
+the `P1 — F2` row above.
+
 → [`PHASE-SOURCE-AUDIT.md`](audits/foundations/phase-source-audit.md),
 [`FLOW-ENDPOINT-AUDIT.md`](audits/foundations/flow-endpoint-audit.md),
 [`LIFT-AUDIT.md`](audits/foundations/lift-audit.md), [`LIFT-SOURCE-AUDIT.md`](audits/foundations/lift-source-audit.md),
@@ -1542,7 +1568,7 @@ Five candidates that a reader might expect here, with the reason each is absent:
   probability, phase, realizability and quotient machinery that such a benchmark would consume, but
   there is no dedicated kernel theorem packaged as “OI conditions X imply the textbook double-slit
   interference formula.” This is a publication-facing validation target rather than a dependency
-  gap in the present equivalence chain; it returns to the queue if a central claim begins to depend
+  gap in the present reconstruction chain; it returns to the queue if a central claim begins to depend
   on that explicit packaging.
 
 Absent means *adjudicated and set aside with a reason*, not overlooked. Any of the five returns to
