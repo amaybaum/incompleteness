@@ -443,12 +443,34 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   not omitting. Before committing a file: it must be needed by a reader of the manuscripts or the
   code, be maintained, and not leak process. Process artifacts are cheap to add and expensive to
   retire.
-- **§A.40 Where verification runs.** Cheap deterministic checks run locally before a push: a
-  tool's self-test, the V3 verifier's self-test and corpus, `legacy_records_check.py`, a round's
-  own scripts, compilation and static checks of changed Python. The Lean kernel, the Mathlib
-  bridge, the release gate and the full probe suite run in CI. The exact-head host runs, dispatched
-  on exactly `F` and `E`, are the source of certification (§A.39); a local run is evidence for the
-  executor and is never recorded as a `check-run` attestation.
+- **§A.40 Where verification runs; CI-first resource discipline.** Run bounded, deterministic
+  smoke checks locally before a push: one tool self-test, the V3 verifier's self-test and corpus,
+  `legacy_records_check.py`, cheap round controls, and Python compilation/static checks.
+  **Classify work by total cost, not the cost of one iteration.** Repeated self-tests, mutation
+  campaigns, large enumerations, full probe suites, Lean kernel/Mathlib builds and the release
+  gate run in CI; shard independent cases with a matrix where useful. If a local task becomes
+  heavy, stop and publish the partial state and proposed CI plan instead of running for hours.
+  The exact-head host runs dispatched on exactly `F` and `E` are the `check-run` attestations
+  a receipt records: verification evidence, not protocol validity, which remains
+  `tools/v3_verifier.py --verify-round Q` printing `VERDICT  HOLDS` (§A.39). A local run is
+  evidence for the executor and is never recorded as a `check-run` attestation. Any special
+  dispatch or launch still requires owner approval (§A.43).
+  **Keep local checkouts small.** Prefer repository APIs and reuse of an existing worktree,
+  sparse checkout or partial clone over repeated full clones and duplicate object stores.
+  Full-history gates and isolated, no-alternates recovery tests belong in CI with the complete
+  required objects; a shallow or shared-store test is not equivalent. Never delete unapproved
+  evidence to make room. RAM-backed scratch is disposable: preserve substantive work and review
+  evidence durably before it can be lost.
+  **Disk thresholds.** Measure free space on the filesystem that holds session and agent
+  transcripts before starting an agent or allocating a checkout. Below 500 MB free, start no
+  additional agents; below 250 MB free, suspend nonessential work and preserve its progress.
+  Measure actual consumption and apply stricter limits when it warrants them.
+  **Shared object stores.** A store that other clones borrow objects from (`--shared`,
+  alternates, linked worktrees) has a named owner and a recorded list of its dependents. While
+  any dependent exists, nobody, its owner included, deletes, replaces, reinitializes, prunes or
+  garbage-collects it; it is retired only by coordinated retirement, after every dependent has
+  been made independent or itself retired. Prefer independently recoverable clones that can
+  refetch every object from the GitHub repository whenever practical.
 - **§A.41 Every stated invariant is measured.** A preregistration carries an invariant→checkpoint
   table: every property it asserts of its execution names the checkpoint that measures it, and an
   invariant with no checkpoint is either given one or not asserted. A named hazard whose mitigation
@@ -509,6 +531,13 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   expire, and four logs held only in a session scratchpad. Pinning such content by SHA had been
   treated as retaining it. Hence §A.42: evidence for an enduring claim is retained on `main`, with a
   manifest for records already frozen.
+- One agent deleted and reinitialized a shared base clone in RAM scratch while six other
+  agents' clones borrowed objects from it. Five lost the objects their trees referenced mid-task,
+  and every result read from them after the deletion was void until each clone was repaired and
+  the checks re-run; a successful refetch alone did not revalidate earlier results. Hence §A.40's
+  shared-object-store rule: no deletion, replacement, reinitialization, prune or garbage
+  collection while dependents exist, with a named owner, tracked dependents and coordinated
+  retirement.
 
 ---
 
