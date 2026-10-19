@@ -69,14 +69,19 @@ Rules:
       jobs or what one job printed) is well formed and its files agree: run.json names the run and its head commit,
       and the entry's expiry is its creation plus 90 days; every job in jobs.json is at that commit and attempt,
       with its steps; expected.json, when present, names the same run, head commit, event and attempt, and each
-      output names a job of jobs.json, a known kind (base-check, guard), the commit it holds at (the run's head for
-      a push; for a pull request the recorded base and the run's head, whose synthetic merge is the REF the log
-      reports), a recipe, a source with its digest and line counts and job_outputs.py as extractor, and a well
-      formed expectation, a guard's counts agreeing with its checks; the file's source_sha256 is its output's
-      served digest. The tranche3 section lists every uncovered run not retained here, once, with its creation
-      and expiry, in order of creation; no retained or remaining run is attested or already retained by
-      tranches 1-2; no retained run expires after a remaining one (earliest expiry first); and its counts agree.
-      R12 does not re-derive an expected result: job_outputs.py reproduce does, at the commit.
+      output names a job of jobs.json, a known kind (base-check, guard, gate), the commit it holds at (the run's
+      head for a push; for a pull request the recorded base and the run's head, whose synthetic merge is the REF
+      the log reports), a recipe whose `before` steps, if any, are each a command and a directory, a source with
+      its digest and line counts and job_outputs.py as extractor, and a well formed expectation, a guard's counts
+      agreeing with its checks and a gate's steps each with a status, a distinct name and a summary, its counts
+      the ones its summaries state; the file's source_sha256 is its output's served digest. The tranche3 section
+      lists every uncovered run not retained here, once, with its creation and expiry, in order of creation; no
+      retained or remaining run is attested or already retained by tranches 1-2; no retained run expires after a
+      remaining one (earliest expiry first), except a run of PRIORITY_ALLOWLIST, hardcoded below, whose
+      owner-approved record the section's `priority` list carries unchanged. A priority record outside the
+      allowlist fails, as does an allowlisted run whose record is absent or altered, or whose pinned entry,
+      files, citing record or recorded discrepancy is removed, substituted or relabelled. The section's counts
+      agree. R12 does not re-derive an expected result: job_outputs.py reproduce does, at the commit.
   R13 each entry retained ahead of its citing record (research-<run_id>, a research build of a workflow not on main)
       records where it is to be cited (pull request, record, line, head) and carries no citation, and no file of
       the tree outside the archive cites the run (once one does, the entry must carry that citation); its run.json,
@@ -403,8 +408,106 @@ def check_entry_files(e, files, man, F):
 
 HEX40 = re.compile(r'[0-9a-f]{40}')
 HEX64 = re.compile(r'[0-9a-f]{64}')
-JOB_KINDS = ('base-check', 'guard')
+JOB_KINDS = ('base-check', 'guard', 'gate')
 EXTRACTOR3 = 'verification/audits/evidence-retention/job_outputs.py'
+# the counts a gate's summaries state (job_outputs.py's GATE_COUNTS): a gate output records them, and they must agree
+GATE_COUNT_RX = {'lean-axioms': re.compile(r'\((\d+) named result'), 'v3-receipts': re.compile(r'RECEIPTS\s+(\d+) receipt'),
+                 'legacy-records': re.compile(r'LEGACY\s+(\d+) record')}
+# R12's priority exception: the tranche-3 runs retained ahead of the earliest-expiry order, each named here by the
+# owner's authorization and nothing else. A manifest's tranche3.priority list must carry exactly each tuple's
+# `record`, and a record outside this tuple set fails: a manifest entry cannot authorize its own exception. Each
+# tuple pins the run's entry (id, tranche, kind, expiry), its files (size, sha256 and, for the expected result,
+# the served digest it derives from), the citing record it serves (path and git blob) and the recorded discrepancy
+# there, so that removing, substituting or relabelling the entry fails. Adding or changing a tuple needs the
+# owner's authorization; the self-test pins the tuples' canonical digest.
+A37_PREREG = 'verification/programmes/oi-qm/track-b/act-37-arc-exclusivity/preregistration.md'
+PRIORITY_ALLOWLIST = (
+    {'record': {'run_id': '36373806246',
+                'why': 'act 37\'s preregistration states at lines 63-64 a lean-axioms count for this run that differs from '
+                       'the count its release gate printed; the run is retained so that the difference rests on retained '
+                       'evidence',
+                'authorization': 'the owner\'s decision of 2026-10-19 on act 37: "Retain run 36373806246 first: preserve '
+                                 'the required structured evidence, run/job metadata, provenance and reproduction recipe"; '
+                                 'the priority exception approved for this run alone, the same day',
+                'claim': {'path': A37_PREREG, 'lines': [63, 64]}},
+     'entry': {'id': 'run-36373806246', 'tranche': 3, 'kind': 'derived', 'expires': '2026-12-27'},
+     'head': 'd014bafef404b991b4544e6d2041edcfab1ac765',
+     'files': {'runs/36373806246/run.json':
+               (531, 'fd81073041266d500b497f1a357e857298c2ee7676bc8dbd10e5f6c42928ec1a', None),
+               'runs/36373806246/jobs.json':
+               (7624, '33d7b5eab314fb22ecb0d479fe3489f5720b19fd021c4bf8abd73ad1074aee93', None),
+               'runs/36373806246/expected.json':
+               (5824, '373391acdca8456cbcc3ba6e03f3625b1ab3a097d7c90659509594e2c185b883',
+                'bb153d18187f9c95b709c045b2051cc46d9da3e233d21a3a360d28e77f14047b')},
+     'claim_blob': '1e9e67701c3bb38e0290d13ab2ec4cbf7b733283',
+     'discrepancy': {'line': 64, 'text': '`lean-axioms` at 4829 named results', 'status': 'differs'}},
+)
+
+
+def gate_counts_of(steps):
+    """{step name: the count its summary states} for the steps of GATE_COUNT_RX, as job_outputs.py reads them."""
+    out = {}
+    for s in steps:
+        rx = GATE_COUNT_RX.get(s.get('name'))
+        m = rx.search(str(s.get('summary'))) if rx else None
+        if m:
+            out[s['name']] = int(m.group(1))
+    return out
+
+
+def check_priority(man, t3, held, read_tree, F):
+    """R12's priority exception: the runs exempt from the earliest-expiry order, which are exactly the allowlisted
+    runs whose record the manifest carries unchanged; every other record fails, and so does any allowlisted run whose
+    record is absent or whose pinned entry, files, citing record or recorded discrepancy is removed, substituted or
+    relabelled. Returns the exempt run ids."""
+    pri = man['tranche3'].get('priority', [])
+    approved = {a['record']['run_id']: a for a in PRIORITY_ALLOWLIST}
+    if not isinstance(pri, list) or not all(isinstance(p, dict) for p in pri):
+        F('R12 tranche3: the priority list is malformed')
+        pri = []
+    listed = {}
+    for p in pri:
+        rid = str(p.get('run_id'))
+        if rid not in approved:
+            F('R12 tranche3: priority run %s is not in the owner-approved allowlist' % rid)
+        elif rid in listed:
+            F('R12 tranche3: priority run %s is listed twice' % rid)
+        elif p != approved[rid]['record']:
+            F('R12 tranche3: the priority record of run %s differs from the owner-approved record' % rid)
+        else:
+            listed[rid] = p
+    exempt = set()
+    for rid, a in sorted(approved.items()):
+        if rid not in listed:
+            F('R12 tranche3: owner-approved priority run %s is not listed' % rid)
+            continue
+        ents = [e for e in man['entries'] if e.get('id') == a['entry']['id'] or str(e.get('run_id')) == rid]
+        if len(ents) != 1 or rid not in held:
+            F('R12 %s: the owner-approved priority entry is missing, substituted or repeated' % a['entry']['id'])
+            continue
+        e = ents[0]
+        if {k: e.get(k) for k in a['entry']} != a['entry'] or str(e.get('run_id')) != rid:
+            F('R12 %s: the owner-approved priority entry is relabelled' % a['entry']['id'])
+            continue
+        files = {f.get('path'): (f.get('bytes'), f.get('sha256'), f.get('source_sha256')
+                                 if f.get('path', '').endswith('/expected.json') else None) for f in e.get('files', [])}
+        if files != a['files']:
+            F('R12 %s: its files are not the pinned files' % a['entry']['id'])
+            continue
+        cl = a['record']['claim']
+        cites = [c for c in e.get('citations', []) if c.get('path') == cl['path']]
+        data = read_tree(cl['path'])
+        if not cites or any(c.get('blob') != a['claim_blob'] for c in cites) or data is None or \
+                blob_id(data) != a['claim_blob']:
+            F('R12 %s: its citing record %s is not the pinned record' % (a['entry']['id'], cl['path']))
+            continue
+        d = a['discrepancy']
+        if [k for c in cites for k in c.get('claims', []) if k.get('line') == d['line'] and k.get('text') == d['text']
+                and k.get('status') == d['status']] == []:
+            F('R12 %s: the recorded discrepancy at %s:%d is missing or altered' % (a['entry']['id'], cl['path'], d['line']))
+            continue
+        exempt.add(rid)
+    return exempt
 
 
 def expiry_of(created):
@@ -475,9 +578,11 @@ def check_run_entry(e, files, F):
         if not good:
             F('R12 %s: output %d is not at the run\'s commit' % (eid, n))
         rc = o.get('recipe') or {}
-        if not isinstance(rc.get('argv'), list) or not rc['argv'] or not all(isinstance(x, str) and x for x in rc['argv']) \
-                or not inside(rc.get('cwd') if rc.get('cwd') != '.' else 'x') or not isinstance(rc.get('env'), dict) \
-                or not isinstance(rc.get('exit'), int):
+        command = lambda r: isinstance(r, dict) and isinstance(r.get('argv'), list) and r['argv'] and \
+            all(isinstance(x, str) and x for x in r['argv']) and inside(r.get('cwd') if r.get('cwd') != '.' else 'x')
+        before = rc.get('before', [])
+        if not command(rc) or not isinstance(rc.get('env'), dict) or not isinstance(rc.get('exit'), int) or \
+                not isinstance(before, list) or not all(command(b) for b in before):
             F('R12 %s: output %d has a malformed recipe' % (eid, n))
         src = o.get('source') or {}
         if not HEX64.fullmatch(str(src.get('served_sha256'))) or src.get('extractor') != EXTRACTOR3 or \
@@ -490,6 +595,14 @@ def check_run_entry(e, files, F):
             good = isinstance(ls, list) and ls and x.get('summary') == ls[-1] and \
                 str(x.get('summary')).startswith('control_plane_base_check: ') and \
                 sum(1 for l in ls if str(l).startswith('control_plane_base_check: mode ') and 'REF=<REF>,' in str(l)) == 1
+        elif o['kind'] == 'gate':
+            ss = x.get('steps')
+            good = isinstance(ss, list) and ss and str(x.get('verdict')).startswith('release gate: ') and \
+                all(isinstance(s, dict) and s.get('status') in ('PASS', 'FAIL', 'SKIP') and isinstance(s.get('name'), str)
+                    and s['name'] and isinstance(s.get('summary'), str) for s in ss) and \
+                len({s['name'] for s in ss}) == len(ss)
+            if good and x.get('counts') != gate_counts_of(ss):
+                F('R12 %s: the gate counts of output %d are not the counts its steps state' % (eid, n))
         else:
             cs = x.get('checks')
             good = isinstance(cs, list) and cs and isinstance(x.get('quoted'), list) and \
@@ -747,8 +860,10 @@ def check_tranche3(man, read_tree, F):
         if prev is not None and key < prev:
             F('R12 tranche3: the remaining runs are not in order of creation')
         prev = key
-    if t3 and sec['remaining']:
-        if max(str(e.get('expires')) for e in t3) > min(str(r.get('expires')) for r in sec['remaining']):
+    exempt = check_priority(man, t3, held, read_tree, F)
+    ordered = [e for e in t3 if str(e.get('run_id')) not in exempt]
+    if ordered and sec['remaining']:
+        if max(str(e.get('expires')) for e in ordered) > min(str(r.get('expires')) for r in sec['remaining']):
             F('R12 tranche3: a retained run expires after a remaining one')
     if sec.get('retained') != len(t3) or sec.get('uncovered') != len(t3) + len(sec['remaining']) or \
             sec.get('cited_runs') != sec.get('covered_before', -1) + sec.get('uncovered', -1):
@@ -1291,6 +1406,112 @@ def r12_cases(man, ents, t3, tarch, expect, edit, back, json_edit, file_edit):
     expect('a retained run that expires after a remaining one',
            edit(lambda m: m['entries'][plain].__setitem__('expires', '2099-01-01')), back, 'R12', 'expires after a remaining one')
     expect('tranche-3 counts that disagree', edit(lambda m: m['tranche3'].__setitem__('retained', 0)), back, 'R12', 'counts disagree')
+    priority_cases(man, ents, t3, tarch, expect, edit, back, json_edit, file_edit)
+
+
+PRIORITY_ALLOWLIST_SHA256 = 'c6942d37b7de06a5fe0365a3bfbd839e23cc73be13b33ebfd4de9eb3963ff8de'
+
+
+def priority_cases(man, ents, t3, tarch, expect, edit, back, json_edit, file_edit):
+    """The self-test's gate-kind and priority-exception cases (R12), each a mutation of a copy requiring its own
+    message, and the pin of PRIORITY_ALLOWLIST's canonical digest."""
+    troot = os.path.dirname(tarch)
+    canon = hashlib.sha256(json.dumps(PRIORITY_ALLOWLIST, sort_keys=True).encode('utf-8')).hexdigest()
+    expect('the priority allowlist is the pinned one (%s)' % canon[:12], lambda: None, lambda: None,
+           also=lambda: canon == PRIORITY_ALLOWLIST_SHA256)
+    a = PRIORITY_ALLOWLIST[0]
+    rid, eid = a['record']['run_id'], a['entry']['id']
+    gi = next((i for i, e in enumerate(ents) if e.get('id') == eid), None)
+    plain = next((i for i in t3 if not any(f['path'].endswith('/expected.json') for f in ents[i]['files'])), None)
+    if gi is None or plain is None:
+        expect('the priority cases need the allowlisted entry and a plain tranche-3 entry', lambda: None, lambda: None,
+               'R12', 'an impossible message')
+        return
+    P = lambda n: os.path.join(tarch, 'runs', rid, n)
+    O = lambda d: d['outputs'][0]
+    pi = lambda m: next(i for i, p in enumerate(m['tranche3']['priority']) if p.get('run_id') == rid)
+    fi = lambda m, n: next(f for f in m['entries'][gi]['files'] if f['path'].endswith('/' + n))
+    # the gate kind
+    expect('a gate expectation without steps', *json_edit(P('expected.json'), lambda d: O(d)['expected'].__setitem__('steps', [])),
+           rule='R12', msg='malformed expectation')
+    expect('a gate step without a summary', *json_edit(P('expected.json'), lambda d: O(d)['expected']['steps'][0].pop('summary')),
+           rule='R12', msg='malformed expectation')
+    expect('a gate step named twice', *json_edit(P('expected.json'), lambda d: O(d)['expected']['steps'].append(
+        dict(O(d)['expected']['steps'][0]))), rule='R12', msg='malformed expectation')
+    expect('a gate verdict that is not the gate\'s', *json_edit(P('expected.json'),
+                                                              lambda d: O(d)['expected'].__setitem__('verdict', 'PASS')),
+           rule='R12', msg='malformed expectation')
+    expect('gate counts that are not the counts its steps state (4803 recorded as 4829)',
+           *json_edit(P('expected.json'), lambda d: O(d)['expected']['counts'].__setitem__('lean-axioms', 4829)),
+           rule='R12', msg='are not the counts its steps state')
+
+    def as_4829(d):
+        s = next(x for x in O(d)['expected']['steps'] if x['name'] == 'lean-axioms')
+        s['summary'] = s['summary'].replace('(4803 named', '(4829 named')
+        O(d)['expected']['counts']['lean-axioms'] = 4829
+    expect('the archived gate rewritten to 4829, its counts and the manifest following it',
+           *json_edit(P('expected.json'), as_4829), rule='R12', msg='its files are not the pinned files')
+    expect('a before step with an empty command', *json_edit(P('expected.json'),
+                                                            lambda d: O(d)['recipe']['before'][0].__setitem__('argv', [])),
+           rule='R12', msg='malformed recipe')
+    expect('a before step outside the tree', *json_edit(P('expected.json'),
+                                                       lambda d: O(d)['recipe']['before'][0].__setitem__('cwd', '../x')),
+           rule='R12', msg='malformed recipe')
+    # the exception: a manifest cannot authorize its own
+    def foreign(m):
+        r = json.loads(json.dumps(a['record']))
+        r['run_id'] = m['entries'][plain]['run_id']
+        m['tranche3']['priority'].append(r)
+    expect('an unauthorized priority record (in the manifest, not the allowlist)', edit(foreign), back, 'R12',
+           'not in the owner-approved allowlist')
+
+    def skip(m):
+        foreign(m)
+        m['entries'][plain]['expires'] = '2099-01-01'
+    expect('a non-exempt run listing itself to skip the order', edit(skip), back, 'R12', 'expires after a remaining one')
+    expect('a non-exempt run skipping the order unlisted', edit(lambda m: m['entries'][plain].__setitem__('expires', '2099-01-01')),
+           back, 'R12', 'expires after a remaining one')
+    expect('the allowlisted run\'s priority record missing', edit(lambda m: m['tranche3']['priority'].pop(pi(m))), back, 'R12',
+           'is not listed')
+    expect('the same: the run then falls under the order', edit(lambda m: m['tranche3']['priority'].pop(pi(m))), back, 'R12',
+           'expires after a remaining one')
+    expect('the priority record listed twice', edit(lambda m: m['tranche3']['priority'].append(dict(m['tranche3']['priority'][pi(m)]))),
+           back, 'R12', 'listed twice')
+    expect('a priority list that is not a list', edit(lambda m: m['tranche3'].__setitem__('priority', {})), back, 'R12',
+           'priority list is malformed')
+    for field, value, name in (('why', 'another reason', 'its reason'), ('authorization', 'the manifest', 'its authorization'),
+                               ('claim', {'path': A37_PREREG, 'lines': [63]}, 'the claim it serves')):
+        expect('the priority record with %s changed' % name,
+               edit(lambda m, f=field, v=value: m['tranche3']['priority'][pi(m)].__setitem__(f, v)), back, 'R12',
+               'differs from the owner-approved record')
+    # removal, substitution and relabelling of the pinned entry
+    expect('the allowlisted entry removed', edit(lambda m: m['entries'].pop(gi)), back, 'R12', 'is missing, substituted')
+    expect('the allowlisted entry\'s run id substituted', edit(lambda m: m['entries'][gi].__setitem__('run_id', '1' + rid[1:])),
+           back, 'R12', 'is missing, substituted')
+    expect('a second entry for the allowlisted run', edit(lambda m: m['entries'].append(dict(m['entries'][gi], id='run-x'))),
+           back, 'R12', 'is missing, substituted')
+    expect('the allowlisted entry relabelled to another tranche', edit(lambda m: m['entries'][gi].__setitem__('tranche', 4)),
+           back, 'R12', 'is relabelled')
+    expect('the allowlisted entry\'s expiry relabelled', edit(lambda m: m['entries'][gi].__setitem__('expires', '2026-12-18')),
+           back, 'R12', 'is relabelled')
+    expect('a substituted run.json, the manifest following it', *json_edit(P('run.json'), lambda d: d.__setitem__('x', 1)),
+           rule='R12', msg='its files are not the pinned files')
+    expect('a substituted served digest', edit(lambda m: fi(m, 'expected.json').__setitem__('source_sha256', '0' * 64)), back,
+           'R12', 'its files are not the pinned files')
+    expect('a file dropped from the allowlisted entry', edit(lambda m: m['entries'][gi]['files'].pop()), back, 'R12',
+           'its files are not the pinned files')
+    cp = os.path.join(troot, A37_PREREG)
+    expect('the citing record changed', *file_edit(cp, lambda b: b + b'\n'), rule='R12', msg='is not the pinned record')
+    expect('the citation\'s recorded blob substituted',
+           edit(lambda m: next(c for c in m['entries'][gi]['citations'] if c['path'] == A37_PREREG).__setitem__('blob', '0' * 40)),
+           back, 'R12', 'is not the pinned record')
+
+    def undiffer(m):
+        for c in m['entries'][gi]['citations']:
+            for k in c['claims']:
+                if k['line'] == a['discrepancy']['line'] and k['text'] == a['discrepancy']['text']:
+                    k['status'] = 'retained'
+    expect('the recorded discrepancy relabelled retained', edit(undiffer), back, 'R12', 'recorded discrepancy')
 
 
 def r13_cases(man, ents, rs, troot, tarch, expect, edit, back, json_edit, file_edit):

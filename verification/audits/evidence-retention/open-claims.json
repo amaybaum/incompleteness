@@ -1,0 +1,390 @@
+{
+ "claims": [
+  {
+   "citing": {
+    "blob": "6a09bd59bf422afd5e150311e8dbb8164b50dd7c",
+    "lines": [
+     206
+    ],
+    "path": "verification/programmes/oi-qm/track-b/act-38-local-escape/result.md",
+    "run_named_at": [
+     206
+    ]
+   },
+   "fragment": "every one of the module's one hundred and twenty-two theorems within `propext`, `Classical.choice` and `Quot.sound`",
+   "id": "OC-1",
+   "item": "the axiom reports of the module, one per theorem",
+   "limitation": "window",
+   "log_expires": "2026-12-27",
+   "observed": "95 of the 122 report lines stand in the served lines; the other 27 precede them",
+   "reassess": "when the run is retained, or reproduced at its commit",
+   "run": {
+    "head_sha": "f5640a453b16bfcb9d3eff3722702aa5f6b791a4",
+    "id": "36402777894"
+   },
+   "source": {
+    "job_id": "108864326776",
+    "original_lines": 20510,
+    "read": "2026-10-19",
+    "retained": false,
+    "served_lines": [
+     15511,
+     20510
+    ],
+    "served_sha256": "205424a408e1d6aac0b6ce209580d63907251738769b7f6acf481c3dac1d8c9e",
+    "through": "the session's job-log tool, which returns the last tail_lines lines of a log, at most 5000",
+    "transcribed": false
+   },
+   "status": "unresolved"
+  },
+  {
+   "citing": {
+    "blob": "eeb0db00281bbf33f907a23de68f62287d7b164b",
+    "lines": [
+     142
+    ],
+    "path": "verification/programmes/oi-qm/track-b/act-39-realizable-torus/result.md",
+    "run_named_at": [
+     142
+    ]
+   },
+   "fragment": "the `Mathlib bridge` build compiles the module's ninety-nine theorems",
+   "id": "OC-2",
+   "item": "the axiom reports of the module, one per theorem",
+   "limitation": "window",
+   "log_expires": "2026-12-27",
+   "observed": "70 of the 99 report lines stand in the served lines; the other 29 precede them",
+   "reassess": "when the run is retained, or reproduced at its commit",
+   "run": {
+    "head_sha": "3a16021639a49a5eb32bd8c5466cdf458f4e3ee6",
+    "id": "36416531599"
+   },
+   "source": {
+    "job_id": "108908894101",
+    "original_lines": 27530,
+    "read": "2026-10-19",
+    "retained": false,
+    "served_lines": [
+     22531,
+     27530
+    ],
+    "served_sha256": "349c71d53069861f7e959d5fb85442c881b9323f5243ea66fee2d9290cc84437",
+    "through": "the session's job-log tool, which returns the last tail_lines lines of a log, at most 5000",
+    "transcribed": false
+   },
+   "status": "unresolved"
+  },
+  {
+   "citing": {
+    "blob": "eeb0db00281bbf33f907a23de68f62287d7b164b",
+    "lines": [
+     143
+    ],
+    "path": "verification/programmes/oi-qm/track-b/act-39-realizable-torus/result.md",
+    "run_named_at": [
+     143
+    ]
+   },
+   "fragment": "with the one hundred and one theorems compiled",
+   "id": "OC-3",
+   "item": "the axiom reports of the module, one per theorem",
+   "limitation": "window",
+   "log_expires": "2026-12-27",
+   "observed": "68 of the 101 report lines stand in the served lines; the other 33 precede them",
+   "reassess": "when the run is retained, or reproduced at its commit",
+   "run": {
+    "head_sha": "e37cad3bf990b23f1e1615e2862a2ca57503b567",
+    "id": "36417464997"
+   },
+   "source": {
+    "job_id": "108911936407",
+    "original_lines": 27840,
+    "read": "2026-10-19",
+    "retained": false,
+    "served_lines": [
+     22841,
+     27840
+    ],
+    "served_sha256": "89ca66f93be7fb7dcfbb8203f2c9c1fa9f536494560147e7553597b0e083b5c6",
+    "through": "the session's job-log tool, which returns the last tail_lines lines of a log, at most 5000",
+    "transcribed": false
+   },
+   "status": "unresolved"
+  },
+  {
+   "citing": {
+    "blob": "f87a801f504b8ccb4ac68e03831d31440be89f80",
+    "lines": [
+     164
+    ],
+    "path": "verification/programmes/oi-qm/track-b/act-40-dita-locus/result.md",
+    "run_named_at": [
+     164
+    ]
+   },
+   "fragment": "the `Mathlib bridge` build compiles the module's one hundred and ninety-seven theorems",
+   "id": "OC-4",
+   "item": "the axiom reports of the module, one per theorem",
+   "limitation": "window",
+   "log_expires": "2026-12-27",
+   "observed": "155 of the 197 report lines stand in the served lines; the other 42 precede them",
+   "reassess": "when the run is retained, or reproduced at its commit",
+   "run": {
+    "head_sha": "c3096556865edc526dc3f315993c6de9b064f945",
+    "id": "36474528405"
+   },
+   "source": {
+    "job_id": "109104785346",
+    "original_lines": 36092,
+    "read": "2026-10-19",
+    "retained": false,
+    "served_lines": [
+     31093,
+     36092
+    ],
+    "served_sha256": "280841b2e43f45096c9dafec2de9868a01b5ccedab23bc5fc7801a82978dddee",
+    "through": "the session's job-log tool, which returns the last tail_lines lines of a log, at most 5000",
+    "transcribed": false
+   },
+   "status": "unresolved"
+  },
+  {
+   "citing": {
+    "blob": "f87a801f504b8ccb4ac68e03831d31440be89f80",
+    "lines": [
+     165
+    ],
+    "path": "verification/programmes/oi-qm/track-b/act-40-dita-locus/result.md",
+    "run_named_at": [
+     165
+    ]
+   },
+   "fragment": "with the one hundred and ninety-nine theorems compiled",
+   "id": "OC-5",
+   "item": "the axiom reports of the module, one per theorem",
+   "limitation": "window",
+   "log_expires": "2026-12-27",
+   "observed": "115 of the 199 report lines stand in the served lines; the other 84 precede them",
+   "reassess": "when the run is retained, or reproduced at its commit",
+   "run": {
+    "head_sha": "d9d5227d436a14f8f3d97f4f50672dd90cce3ac0",
+    "id": "36476760295"
+   },
+   "source": {
+    "job_id": "109112293225",
+    "original_lines": 36369,
+    "read": "2026-10-19",
+    "retained": false,
+    "served_lines": [
+     31370,
+     36369
+    ],
+    "served_sha256": "2e8f879d991c7cec14b7e219785a6710160e118b479e5fd589154b68d0b46644",
+    "through": "the session's job-log tool, which returns the last tail_lines lines of a log, at most 5000",
+    "transcribed": false
+   },
+   "status": "unresolved"
+  },
+  {
+   "citing": {
+    "blob": "6a09bd59bf422afd5e150311e8dbb8164b50dd7c",
+    "lines": [
+     206
+    ],
+    "path": "verification/programmes/oi-qm/track-b/act-38-local-escape/result.md",
+    "run_named_at": [
+     206
+    ]
+   },
+   "fragment": "the probe reports 44 `PASS` and no `FAIL` in 349 seconds",
+   "id": "OC-6",
+   "item": "the probe's PASS and FAIL lines",
+   "limitation": "capture",
+   "log_expires": "2026-12-27",
+   "observed": "the served response was read inline and its lines 156-216 were counted (44 PASS, 0 FAIL); they were not captured byte for byte, so no digest of them exists",
+   "reassess": "when the run is retained, or reproduced at its commit",
+   "run": {
+    "head_sha": "f5640a453b16bfcb9d3eff3722702aa5f6b791a4",
+    "id": "36402777894"
+   },
+   "source": {
+    "job_id": "108864326508",
+    "original_lines": 238,
+    "read": "2026-10-19",
+    "retained": false,
+    "served_lines": [
+     139,
+     238
+    ],
+    "served_sha256": null,
+    "through": "the session's job-log tool, which returns the last tail_lines lines of a log, at most 5000",
+    "transcribed": true
+   },
+   "status": "unresolved"
+  },
+  {
+   "citing": {
+    "blob": "2e08e0d6f0e3267b308a0f0b2c2f52d61deefb08",
+    "lines": [
+     1112,
+     1113
+    ],
+    "path": "verification/audits/manuscript/round-cc-2-corpus-correction/preregistration.md",
+    "run_named_at": [
+     73,
+     1111
+    ]
+   },
+   "fragment": "four findings: the stale corollary fingerprint, the area-law",
+   "id": "OC-7",
+   "item": "the four findings of the release gate's coverage step",
+   "limitation": "printed-detail",
+   "log_expires": "2027-01-01",
+   "observed": "the gate prints the coverage step as \"- STALE entry SUBSTRATUM:C-effective-finiteness-gauge-clas\", its first finding cut at the gate's column width, then \"(rerun the individual check for file/line detail)\"; it prints no other finding",
+   "reassess": "when the run is retained, or reproduced at its commit",
+   "run": {
+    "head_sha": "342fb68f0196a77c9085ac981f01266fd86eb869",
+    "id": "37143464345"
+   },
+   "source": {
+    "job_id": "111262526787",
+    "original_lines": 36660,
+    "read": "2026-10-19",
+    "retained": false,
+    "served_lines": [
+     31661,
+     36660
+    ],
+    "served_sha256": "4b3c144c584ea3b62a635f2ceac880633d8324e45cf92c0bf3e5f62ef0e74283",
+    "through": "the session's job-log tool, which returns the last tail_lines lines of a log, at most 5000",
+    "transcribed": false
+   },
+   "status": "unresolved"
+  },
+  {
+   "citing": {
+    "blob": "9d5d310ad0131780b88a61f8080b7ba589690116",
+    "lines": [
+     39,
+     40
+    ],
+    "path": "verification/audits/manuscript/round-cc-1-corpus-correction/result.md",
+    "run_named_at": [
+     35
+    ]
+   },
+   "fragment": "SUBSTRATUM:C-effective-finiteness-gauge-class-transfer: the manuscript statement has changed",
+   "id": "OC-8",
+   "item": "the coverage step's finding, in full",
+   "limitation": "printed-detail",
+   "log_expires": "2027-01-01",
+   "observed": "the gate prints the finding cut at its column width: \"- STALE entry SUBSTRATUM:C-effective-finiteness-gauge-clas\"",
+   "reassess": "when the run is retained, or reproduced at its commit",
+   "run": {
+    "head_sha": "342fb68f0196a77c9085ac981f01266fd86eb869",
+    "id": "37143464345"
+   },
+   "source": {
+    "job_id": "111262526787",
+    "original_lines": 36660,
+    "read": "2026-10-19",
+    "retained": false,
+    "served_lines": [
+     31661,
+     36660
+    ],
+    "served_sha256": "4b3c144c584ea3b62a635f2ceac880633d8324e45cf92c0bf3e5f62ef0e74283",
+    "through": "the session's job-log tool, which returns the last tail_lines lines of a log, at most 5000",
+    "transcribed": false
+   },
+   "status": "unresolved"
+  },
+  {
+   "citing": {
+    "blob": "9d5d310ad0131780b88a61f8080b7ba589690116",
+    "lines": [
+     17,
+     18
+    ],
+    "path": "verification/audits/manuscript/round-cc-1-corpus-correction/result.md",
+    "run_named_at": [
+     17
+    ]
+   },
+   "fragment": "the preregistration's own chapter/`FULL.md` mirror blocks",
+   "id": "OC-9",
+   "item": "the files on which the duplicate step failed",
+   "limitation": "printed-detail",
+   "log_expires": "2027-01-01",
+   "observed": "the gate prints \"FAIL  duplicate        duplicate_check: FAILED (13 paragraph(s) repeated within a s\", cut at its column width, and names no file; every other step is PASS",
+   "reassess": "when the run is retained, or reproduced at its commit",
+   "run": {
+    "head_sha": "cb66db6291b6e2e0b006693dbd1461484fac8cdd",
+    "id": "37140734308"
+   },
+   "source": {
+    "job_id": "111254469382",
+    "original_lines": 36678,
+    "read": "2026-10-19",
+    "retained": false,
+    "served_lines": [
+     31679,
+     36678
+    ],
+    "served_sha256": "648456ebd4269a206b0fb7e9de1bb05ce16af6d98ba6e5d63c06db88a24ea1e1",
+    "through": "the session's job-log tool, which returns the last tail_lines lines of a log, at most 5000",
+    "transcribed": false
+   },
+   "status": "unresolved"
+  },
+  {
+   "citing": {
+    "blob": "2e08e0d6f0e3267b308a0f0b2c2f52d61deefb08",
+    "lines": [
+     1114
+    ],
+    "path": "verification/audits/manuscript/round-cc-2-corpus-correction/preregistration.md",
+    "run_named_at": [
+     73,
+     1111
+    ]
+   },
+   "fragment": "(the delimiter alone; every pinned passage present)",
+   "id": "OC-10",
+   "item": "which check inside guard R7-A6P failed",
+   "limitation": "printed-detail",
+   "log_expires": "2027-01-01",
+   "observed": "the guard prints \"FAIL  R7-A6P\" with the tag's description, and not which of its checks failed",
+   "reassess": "when the run is retained, or reproduced at its commit",
+   "run": {
+    "head_sha": "342fb68f0196a77c9085ac981f01266fd86eb869",
+    "id": "37143464345"
+   },
+   "source": {
+    "job_id": "111262526835",
+    "original_lines": 968,
+    "read": "2026-10-19",
+    "retained": false,
+    "served_lines": [
+     1,
+     968
+    ],
+    "served_sha256": "670195f9e7798fcd5693df61d7cd11f9a71ae8f5d078d91f373b0a3c712eb36f",
+    "through": "the session's job-log tool, which returns the last tail_lines lines of a log, at most 5000",
+    "transcribed": false
+   },
+   "status": "unresolved"
+  }
+ ],
+ "limitations": {
+  "capture": "the lines were read in an inline response and not captured byte for byte",
+  "printed-detail": "the job prints less detail than the claim states, so no window of its log carries it",
+  "window": "the claim's lines precede the last 5000 served lines of the log"
+ },
+ "schema": "oi-evidence-open-claims",
+ "statuses": {
+  "unresolved": "not established and not contradicted by what was read"
+ },
+ "version": 1,
+ "what": "citing claims about runs not yet retained, whose read of the run's served log covers them only in part. Each stays unresolved: it is neither retained nor differing, and the lines outside the read are no evidence either way. Each is reassessed when its run is retained or reproduced; a claim that neither settles stays a recorded gap."
+}

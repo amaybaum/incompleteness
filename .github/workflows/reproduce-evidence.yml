@@ -10,7 +10,13 @@ name: reproduce evidence
 # depends on what a previous run left behind. A cache miss costs time, never correctness.
 #
 # The inputs reach the shell only as environment variables, and are validated before use: run_id as a decimal
-# run id, override_sha as a full 40-hex commit id. reproduce.py validates them again.
+# run id, override_sha as a full 40-hex commit id, kind as one of its two values. reproduce.py validates them again.
+#
+# kind selects the tool. bridge (the default) reproduces a tranche-1 entry ci-<run_id> with reproduce.py.
+# job-output reproduces a tranche-3 entry run-<run_id> with job_outputs.py reproduce: the archive is checked first
+# (check_retention.py, which holds R12's pins), job_outputs.py validates the expectation against the manifest before
+# running the recorded recipe at the run's commit, and its comparator self-test runs after. Negative controls are for
+# bridge entries only.
 
 on:
   workflow_dispatch:
@@ -26,6 +32,14 @@ on:
         description: 'NEGATIVE CONTROL ONLY: text one of the comparison failures must contain'
         required: false
         default: ''
+      kind:
+        description: 'bridge: a tranche-1 entry ci-<run_id> (reproduce.py); job-output: a tranche-3 entry run-<run_id> (job_outputs.py reproduce)'
+        required: false
+        type: choice
+        options:
+          - bridge
+          - job-output
+        default: bridge
 
 permissions:
   contents: read
@@ -48,6 +62,7 @@ jobs:
           echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
 
       - name: Reproduce the expected result
+        if: inputs.kind != 'job-output'
         env:
           RUN_ID: ${{ inputs.run_id }}
           OVERRIDE_SHA: ${{ inputs.override_sha }}
@@ -66,8 +81,28 @@ jobs:
           python3 -I verification/audits/evidence-retention/reproduce.py "${args[@]}"
 
       - name: Comparator self-test (negative controls)
-        if: always()
+        if: always() && inputs.kind != 'job-output'
         run: python3 -I verification/audits/evidence-retention/compare_result.py --self-test
+
+      - name: Check the archive before reproducing a job output
+        if: inputs.kind == 'job-output'
+        run: python3 -I verification/audits/evidence-retention/check_retention.py
+
+      - name: Reproduce the job output
+        if: inputs.kind == 'job-output'
+        env:
+          RUN_ID: ${{ inputs.run_id }}
+          OVERRIDE_SHA: ${{ inputs.override_sha }}
+          EXPECT_FAILURE: ${{ inputs.expect_failure }}
+        run: |
+          set -eu
+          [[ "$RUN_ID" =~ ^[0-9]{1,20}$ ]] || { echo "run_id must be a decimal run id"; exit 1; }
+          if [ -n "$OVERRIDE_SHA$EXPECT_FAILURE" ]; then echo "negative controls are for bridge entries only"; exit 1; fi
+          python3 -I verification/audits/evidence-retention/job_outputs.py reproduce --run "$RUN_ID" --work "$RUNNER_TEMP/reproduce"
+
+      - name: Job-output comparator self-test
+        if: always() && inputs.kind == 'job-output'
+        run: python3 -I verification/audits/evidence-retention/job_outputs.py --self-test
 
       - name: Keep the reproduction's log, extraction and verdict
         if: always()
@@ -79,4 +114,6 @@ jobs:
             ${{ runner.temp }}/reproduce/reproduced.json
             ${{ runner.temp }}/reproduce/verdict.json
             ${{ runner.temp }}/reproduce/verdict.txt
+            ${{ runner.temp }}/reproduce/output-*.txt
+            ${{ runner.temp }}/reproduce/before-*.txt
           if-no-files-found: ignore
