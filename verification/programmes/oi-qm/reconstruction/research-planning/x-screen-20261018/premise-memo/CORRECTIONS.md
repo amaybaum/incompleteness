@@ -2,28 +2,34 @@
 
 This change note maps each finding of the three independent reviews to the edits in `PREMISE-MEMO.md`: the first
 pass answers the review of the original memo, the second pass answers the review of the first-pass correction, and the
-third pass answers the review of the second-pass correction.
+third pass answers the review of the second-pass correction. The last section records evidence corrections, which
+answer no review finding.
 
 **Provenance.**
 - The original memo is PR #864 comment 6254405090, kept byte-identical here as `PREMISE-MEMO.original.md` (sha256
   `78057ac60820fb4f776bda4fb3293d7969e403777c7e76bc522b3d8865f7849e`).
 - The review of the original memo is PR #864 comment 6254408285. The review of the first-pass correction (commit
   `11562acebd30d3ae61a099f3484631c3f7dd8fc5`) is PR #864 comment 6254747204. The review of the second-pass correction
-  (commit `6df43b2c08907c9572408c6ef627da5ec9071e81`) is PR #864 comment 6254962113.
-- The third pass applies the owner's authorization of 2026-10-19 to correct the equivalence the MEV row stated
-  between MEV and OV-LU (finding 1 of comment 6254962113), with the low-priority items of the same review. It
-  changes no class or status.
+  (commit `6df43b2c08907c9572408c6ef627da5ec9071e81`) is PR #864 comment 6254962113. The three reviews are kept
+  verbatim in `reviews/`, with their digests and provenance in `reviews/PROVENANCE.md`.
+- On 2026-10-19 the owner authorized factual and evidence corrections to this memo and this record, and only those;
+  no premise is adopted and no class or status changes under the authorization. The third pass applies it to correct
+  the equivalence the MEV row stated between MEV and OV-LU (finding 1 of comment 6254962113), with the low-priority
+  items of the same review. The evidence corrections apply it as well.
 - `dc_premise.py` and `dc.out` are byte-identical to the originals. The script reads no file, so the memo's text is
   not an input to it. A replay under `python3 -I -B` gives rc 0, 27 PASS and 0 FAIL, byte-identical to `dc.out`.
 
-**Scope.** This is a correction only. It adds no probe, premise, result or status change, and it adopts nothing.
-The arguments it cites from the reviews are tagged [W, rev] and the reviews' exact checks [NR, rev] (scripts not
-retained); none is replayed in the repository. Where a pass ran its own scratch computation, its section says so;
-such a computation is not committed and is not retained evidence. The third-pass correction awaits independent review.
+**Scope.** This is a correction only. It adds no premise, result or status change and no probe of any screen, and it
+adopts nothing. The arguments it cites from the reviews are tagged [W, rev] and the reviews' exact checks [NR, rev]
+(scripts not retained); none is replayed in the repository. [EC, v] marks the memo's own exact check of the witness
+the reviews report. Where a pass ran its own scratch computation, its section says so; such a computation is not
+committed and is not retained evidence. The three passes were reviewed independently, and the third was accepted with
+nits (summarized in PR #864 comment 6257588156). The evidence corrections are not yet independently reviewed.
 
 **Line references.** "o" gives lines in `PREMISE-MEMO.original.md`. "c" gives lines in `PREMISE-MEMO.md` at commit
 `11562ace`, the first-pass correction. "n" gives lines in `PREMISE-MEMO.md` at commit `6df43b2c`, the second-pass
-correction. "t" gives lines in `PREMISE-MEMO.md` after the third pass.
+correction. "t" gives lines in `PREMISE-MEMO.md` after the third pass. "e" gives lines in `PREMISE-MEMO.md` after the
+evidence corrections.
 
 ## First pass (review comment 6254408285)
 
@@ -95,20 +101,26 @@ maximally entangled projectors is 15/136 and over product vectors 1/850, and the
 the witness convention of fix 2 were rechecked. No probe was added and no file other than `PREMISE-MEMO.md` and this
 record changed.
 
-## Evidence classes (no review finding)
+## Evidence corrections (no review finding)
 
+These corrections answer no review finding; the owner's authorization of 2026-10-19 covers them (provenance above).
 The three reviews report their exact checks by result only. The scripts were not posted with comments 6254408285,
-6254747204 and 6254962113 and are not retained, so those checks cannot be replayed from the repository. This
-correction re-tags them and changes no claim, class, label or status. It changes no line count in `PREMISE-MEMO.md`,
-so its lines are given as t.
+6254747204 and 6254962113 and are not retained, so those checks cannot be replayed from the repository. The
+corrections re-tag them, keep the reviews verbatim and add an exact check of the witness written for this memo. They
+change no claim, class, label or status.
 
 | fix | lines changed | what changed |
 |---|---|---|
-| tag definition | t32–33 | [W, rev] is defined for the reviews' written arguments alone. [NR, rev] replaces [EC, rev] for the reviews' exact checks: the result is reported, the script is not retained, and the check is not replayed |
-| witness | t168–175 | That the native UPD conditionals of the four defects are PSD is tagged [EC, dc]: `dc.out` lines "defects: even block PSD" and "defects: odd block PSD (K(Z_F) satisfies UPD)", with "cond(X,0) = even(X)" and "cond(X,1) = odd block". The six 2-subset compressions, the eigenvalue −½ at outcome 0 under each transcription and the mutation V = I are tagged [NR, rev]; the mutation line carried no tag |
-| downstream tags | t213 (§3.2 row), t223 (§3.3 row), t305 (§4 UPD row, K(Z_F) cell), t366 (§5 UPD row, G5 cell) | [EC, rev] becomes [NR, rev] on the witness. Each [W, rev] tag, including UPD ≡ K ⊆ Q3, is unchanged |
-| this file | :19–22 (scope paragraph) | The paragraph names the two tags and states that the reviewers' scripts are not retained |
+| tag definitions | t32–33 → e31, e33–35 | [W, rev] is defined for the reviews' written arguments alone and points to `reviews/`. [NR, rev] replaces [EC, rev] for the reviews' exact checks: the result is reported, the script is not retained, and the check is not replayed. [EC, v] is defined for the witness check |
+| witness check | e48–55; new files `witness_check.py`, `witness_check.out` | A new exact check of the §2 witness, not a reproduction of the reviews' checks, written from the memo's definitions and the construction in `dc_premise.py`. Its claims: W1, −½ at outcome 0 for all four defects with C_ij = ⟨ji\|m⟩; W2, −½ at outcome 0 exactly for the d = −1 defects with C_ij = ⟨ij\|m⟩; W3, UPD excludes all four either way; W4, no violation under V = I. Its controls K1–K4 include the countercontrol K4, the PSD perturbations I/2 − P_m/4 |
+| witness | t168–175 → e179–186 | That the native UPD conditionals of the four defects are PSD is tagged [EC, dc] (`dc.out`: "defects: even block PSD", "defects: odd block PSD (K(Z_F) satisfies UPD)", "cond(X,0) = even(X)", "cond(X,1) = odd block"). The six 2-subset compressions carry [NR, rev] only. The convention-specific eigenvalues and the mutation V = I carry [NR, rev] for what the reviews report and [EC, v] for the witness check; "UPD excludes all four either way" carries [EC, v] |
+| downstream tags | t213 → e224 (§3.2 row), t223 → e234 (§3.3 row), t305 → e316 (§4 UPD row, K(Z_F) cell), t366 → e377 (§5 UPD row, G5 cell) | The witness carries [NR, rev]; [EC, v] in place of [EC, rev]. Each [W, rev] tag, including UPD ≡ K ⊆ Q3, is unchanged |
+| reviews | new directory `reviews/` | Comments 6254408285, 6254747204 and 6254962113 are kept byte-exact, with `SHA256SUMS` and `PROVENANCE.md` (id, author, timestamps, URL, digest, fetch method and time) |
+| this file | :5–6 (introduction), :13–18 (provenance), :22–27 (scope), :31–32 (line references) | The introduction names this section; the provenance names `reviews/` and the owner's authorization and its scope; the scope paragraph names the three tags and the review status; "e" is defined |
+| `../REPORT.md` | :7 | The first replay attempt's outputs, cited at a path outside the repository, are stated not to be retained |
 
-**Checks for this correction.** `PREMISE-MEMO.original.md`, `dc_premise.py` and `dc.out` are byte-identical to
-commit `641ae161`. The replay under `python3 -I -B` gives rc 0, 27 PASS and 0 FAIL, byte-identical to `dc.out`. No
-probe was added and no file other than `PREMISE-MEMO.md`, this record and `../REPORT.md` changed.
+**Checks for these corrections.** `PREMISE-MEMO.original.md`, `dc_premise.py` and `dc.out` are byte-identical to
+commit `641ae161`. The replay under `python3 -I -B` gives rc 0, 27 PASS and 0 FAIL, byte-identical to `dc.out`.
+`witness_check.py` was run twice under `python3 -I -B`: rc 0, 8 PASS and 0 FAIL, byte-identical outputs, every
+control green and W1–W4 holding. No probe of any screen was added, and no file outside this directory other than
+`../REPORT.md` changed.

@@ -28,8 +28,10 @@ retained in the repository. D =
 - [EC]: exact computation.
   - [EC, rec] is recorded in the cited screen.
   - [EC, dc] is this memo's design-evidence check (below). It is not a probe of any screen and certifies no verdict.
+  - [EC, v] is this memo's witness check (below), independent of the reviews' checks; it certifies no verdict.
 - [W]: written argument. "[W, new]" marks an argument first made here and not yet reviewed.
-- [W, rev]: a written argument from the independent reviews (PR #864 comments 6254408285, 6254747204, 6254962113).
+- [W, rev]: a written argument from the independent reviews (PR #864 comments 6254408285, 6254747204, 6254962113),
+  kept verbatim in `reviews/`.
 - [NR, rev]: the result of an exact check those reviews report; its script is not retained and it is not replayed.
 - [U]: unresolved.
 - [I]: imported (literature or an external postulate).
@@ -42,6 +44,15 @@ retained in the repository. D =
 - An earlier run had one FAIL, caused by a wrong expected formula: a spurious transpose in the pairing identity.
   Its output and script are in a working directory, `run1-wrong-expected/`, that is not retained in the repository
   (output sha256 `8908337e…800ef`). The corrected check includes the wrong form as a mutation that must fail.
+
+**Witness check (record only).**
+- Script: `witness_check.py`, sha256 `0a4b255422576fd59555e48f3025da41761c87c0b2c8e91adcd71693d6a2a192`.
+- Output: `witness_check.out`, sha256 `9cb0ba16e94a10078c19fb7494b7d4dd45e2e060b6624fd54627414e6aa068d0`.
+- Runs: twice under `python3 -I -B` (SymPy, exact), rc 0, byte-identical. 8 PASS, 0 FAIL. It checks the witness of
+  §2 for the four defects under both coefficient conventions and the mutation V = I, with a countercontrol on which
+  the witness must not fire: the PSD perturbations I/2 − P_m/4.
+- It is written from this memo's definitions and the construction in `dc_premise.py`, which it does not import. It
+  does not reproduce the reviews' checks, whose scripts are not retained.
 
 ## 1. Question and scope
 
@@ -169,10 +180,10 @@ protocol class is therefore equivalent to K ⊆ Q3.
   configuration 2-subset compressions [NR, rev]. The convention: |ij⟩ = |i⟩⊗|j⟩ with token 1 first; m is the
   defect's maximally entangled vector, m = (|00⟩ + b|01⟩ − bd|10⟩ + d|11⟩)/2 with b, d = ±1 (as in `dc_premise.py`);
   C is its coefficient matrix with C_ij = ⟨ji|m⟩; V = √2·Cᵀ; and I⊗V acts by z ↦ (I⊗V) z (I⊗V)†. With that
-  convention the outcome-0 conditional has eigenvalue −½ for all four defects (comment 6254962113) [NR, rev].
-  Transcribed with C_ij = ⟨ij|m⟩, the same formula puts −½ at outcome 0 only for the d = −1 defects (comments
-  6254747204 and 6254962113) [NR, rev]; UPD excludes all four either way.
-- Mutation control: V = I gives no violation [NR, rev].
+  convention the outcome-0 conditional has eigenvalue −½ for all four defects (comment 6254962113) [NR, rev];
+  [EC, v]. Transcribed with C_ij = ⟨ij|m⟩, the same formula puts −½ at outcome 0 only for the d = −1 defects
+  (comments 6254747204 and 6254962113) [NR, rev]; [EC, v]. UPD excludes all four either way [EC, v].
+- Mutation control: V = I gives no violation [NR, rev]; [EC, v].
 
 **What UPD does contain.** UPD is not vacuous: on native operations it excludes Γ(Q3), K_Γ and maxCone [EC, dc].
 On native operations alone it does not imply K ⊆ Q3, since K(Z_F) satisfies it [EC, dc]. That separation rests on
@@ -210,7 +221,7 @@ satisfies the rest and is not Q3.
 | | outcome 1 (UPD → OVr) | K_Γ satisfies OVr and fails UPD: even(Γ(B)) = I/2, odd(Γ(B)) has eigenvalue −½ | [EC, dc] |
 | | the coupling (local filters only) | reduces to `hmax`: holds on every domain cone | [W] |
 | | the restriction to CN (all 24 native pair permutations, either readout token) | no change: the conditional after σ and a readout is a compression to a 2-subset of configurations. The product 2-subsets are PSD on every domain cone by LC, and the two entangled 2-subsets are the CN parity blocks, so UPD-24 ≡ UPD-CN | [W, new] |
-| | the native-protocol restriction (admit local unitaries before the coupling) | no non-Q3 survivor: UPD becomes K ⊆ Q3 (Schmidt form). K(Z_F) is excluded: V = √2·Cᵀ (convention of §2) gives an outcome-0 eigenvalue −½, and the mutation V = I gives none | [W, rev]; [NR, rev] |
+| | the native-protocol restriction (admit local unitaries before the coupling) | no non-Q3 survivor: UPD becomes K ⊆ Q3 (Schmidt form). K(Z_F) is excluded: V = √2·Cᵀ (convention of §2) gives an outcome-0 eigenvalue −½, and the mutation V = I gives none | [W, rev]; [NR, rev]; [EC, v] |
 | MI | non-configuration inputs (ρ diagonal only) | vacuous: the outputs are diagonal, hence in SEP | [W] |
 | | the coupling | reduces to `hH1` | [W] |
 | CH | cross-token identification (relabel token-2 tests f ↦ fᵀ) | Γ(Q3) satisfies it | [W] F-β |
@@ -220,7 +231,7 @@ satisfies the rest and is not Q3.
 | candidate | drop | witness | evidence |
 |---|---|---|---|
 | SP⊕UPD | UPD | Γ(Q3), which satisfies SP; whether K_Γ also survives is [U] (SP on K_Γ undecided) | [W + EC, rec] #820 |
-| | SP | K_B, K(Z_F), SEP and L all satisfy UPD on native protocols; K(Z_F) fails it once local unitaries precede the coupling (§3.2) | [W]; [EC, dc] for the defects; [NR, rev] |
+| | SP | K_B, K(Z_F), SEP and L all satisfy UPD on native protocols; K(Z_F) fails it once local unitaries precede the coupling (§3.2) | [W]; [EC, dc] for the defects; [NR, rev]; [EC, v] |
 | SP⊕CH | CH | Γ(Q3) | [W + EC, rec] |
 | | SP | K_B, L, SEP (subcones of Q3 satisfy CH) | [W] |
 | CH⊕MI or MEV⊕MI | — | **L** survives the composite: L ⊆ Q3 satisfies CH and MEV, and L satisfies MI | [EC, rec] op-fork "Both satisfy MI"; [W]. Not sufficient |
@@ -302,7 +313,7 @@ concern a cone's fixed membership, not an import.
 | SWP | pass | surv [EC, rec P2: local/swap subgroup] | surv [W] | surv [EC, rec] | surv | pass | — |
 | NST | pass | surv [W] F-α | surv | surv | surv | pass | vacuous [W, rec] |
 | SD | pass | surv [W] | excl: K_B\* ⊋ Q3 ⊋ K_B [W] | surv (historical) [W] | excl: SEP\* = maxCone [W] | pass | — |
-| **UPD** | pass [W] | **excl** [EC, dc]: Γ(P_singlet) has even block eigenvalues ±½ | surv [W] | surv on native protocols [EC, dc defects + W]; excl once local unitaries precede the coupling (witness [NR, rev]), where UPD ≡ K ⊆ Q3 [W, rev] | surv [W] | pass [W] | K_Γ excl, maxCone excl [EC, dc]; L surv [W] |
+| **UPD** | pass [W] | **excl** [EC, dc]: Γ(P_singlet) has even block eigenvalues ±½ | surv [W] | surv on native protocols [EC, dc defects + W]; excl once local unitaries precede the coupling (witness [NR, rev]; [EC, v]), where UPD ≡ K ⊆ Q3 [W, rev] | surv [W] | pass [W] | K_Γ excl, maxCone excl [EC, dc]; L surv [W] |
 | OVr | pass | excl [EC, dc] | surv | surv on native protocols [EC, dc]; with local unitaries admitted before the coupling, OVr also reduces to K ⊆ Q3 [W, rev] | surv | pass | K_Γ surv [EC, dc] |
 | OVc | pass | excl [EC, rec] | surv [W] | surv: PC [EC, rec] and K(Z_F) ⊆ maxCone | surv | pass | maxCone excl [EC, rec] |
 | OVn (C11) | pass [AT `cp_of_instAvail` + W] | excl [EC, rec] | surv [W] | [U]: Δ2 unrun | surv | pass | — |
@@ -363,7 +374,7 @@ A premise that is only named does not pass G2.
 | SWP | PASS | sourced/non-discriminating | FAIL | FAIL | FAIL | OPEN | PASS | PASS | PASS |
 | NST | PASS | vacuous | FAIL | FAIL | FAIL | OPEN | PASS | PASS | PASS |
 | SD | PASS | [I] → FAIL | FAIL | FAIL | FAIL | OPEN | PASS | PASS | PASS |
-| **UPD** | PASS: readout, coupling, conditional state | transfer clause on the state-side reading, class (iii) [W, rev] (U3) / [U]: the coherent update is not sourced (Main.md:632) / none → FAIL | PASS [EC, dc] | FAIL (adds no operation) | FAIL standalone on native protocols (K_B, K(Z_F) survive); with local unitaries admitted K(Z_F) is excluded (witness [NR, rev]) and UPD ≡ K ⊆ Q3 [W, rev] | OPEN | not a pass: outcomes and orientation are fixed, but either the restriction to native protocols is a knob, or, lifted, UPD collapses to K ⊆ Q3 [W, rev] | PASS | PASS [W]: uses the retained readout; retained protocols unchanged |
+| **UPD** | PASS: readout, coupling, conditional state | transfer clause on the state-side reading, class (iii) [W, rev] (U3) / [U]: the coherent update is not sourced (Main.md:632) / none → FAIL | PASS [EC, dc] | FAIL (adds no operation) | FAIL standalone on native protocols (K_B, K(Z_F) survive); with local unitaries admitted K(Z_F) is excluded (witness [NR, rev]; [EC, v]) and UPD ≡ K ⊆ Q3 [W, rev] | OPEN | not a pass: outcomes and orientation are fixed, but either the restriction to native protocols is a knob, or, lifted, UPD collapses to K ⊆ Q3 [W, rev] | PASS | PASS [W]: uses the retained readout; retained protocols unchanged |
 | OVr | PASS | as UPD → FAIL | PASS | FAIL | FAIL | OPEN | FAIL (outcome knob) | PASS | PASS |
 | OVc / OVn | PASS | yes/[U] S13/none → FAIL | PASS | FAIL | FAIL | OPEN | PASS | PASS | PASS [W] |
 | MEV | BORDERLINE: lists test matrices; its operational form (§2) is the fixed product test \|+⟩⟨+\|⊗P_0 after every local unitary and the coupling | yes/[U]/none → FAIL | PASS | FAIL (posits non-native local unitaries) | FAIL (K_B) | OPEN | PASS | PASS | PASS [W] |
