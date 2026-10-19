@@ -440,7 +440,10 @@ def self_test():
     case('run 38450187534: primed names read with their module, line and axioms',
          [(r['line'], r['name'], r['axioms']) for r in xa['reports']['OIBridge/ImplementationLocality.lean'][:2]],
          [(1102, "OIBridge.InterventionLocality.sum_comp'", list(PERMITTED)), (1103, "OIBridge.InterventionLocality.comp_sum'", list(PERMITTED))])
-    case('run 38450187534: a wrapped prefixed list joined', xa['reports']['OIBridge/ImplementationLocality.lean'][2]['axioms'], list(PERMITTED))
+    il = xa['reports'].get('OIBridge/ImplementationLocality.lean', [])
+    case('run 38450187534: a wrapped prefixed list joined',
+         il[2]['axioms'] if len(il) > 2 else 'no third report: %d of OIBridge/ImplementationLocality.lean read' % len(il),
+         list(PERMITTED))
     case('run 38450187534: the 4 design reports, attributed to the step\'s one file, with their axioms',
          [(b['step_line'], b['file'], b['gap'], [(r['name'].rsplit('.', 1)[1], r['axioms'], r['served_line']) for r in b['reports']]) for b in xa['direct']],
          [(1, DESIGN_A, None, [('instAvail_preserves', list(PERMITTED), 13), ('instAvail_sum_preserves', list(PERMITTED), 14),
