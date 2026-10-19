@@ -1,0 +1,18 @@
+PASS min eig X_c = 1/2-53/100 = -3/100
+PASS <psi|P_v|psi> = (25 a1^2 + 9 a2^2)/34
+PASS 25a1^2+9a2^2 <= 25(a1^2+a2^2) identically (difference = 16 a2^2 >= 0)
+PASS min over ME projectors = 15/136
+PASS attained at W=I: <phi|X_c|phi> = 15/136
+PASS coefficient matrix of (I(x)W)phi = W^T/sqrt2
+PASS Schmidt coefficients^2 of v = {16/17, 1/17}
+PASS min over product vectors = 1/2 - 53/100*16/17 = 1/850
+PASS CN(e_v (x) P0)CN = P_v
+PASS Tr[(e_v (x) P0) CN X_c CN] = 1/2-53/100 = -3/100
+PASS e_v is a pure token effect (rank-one projector, Bloch vector (8/17,0,15/17))
+PASS even block of X_c has eigenvalue -3/100
+PASS B = CN(|+><+|(x)P0)CN = |phi+><phi+|
+PASS Tr(P_psi X) = product test |+><+|(x)P0 after LU (I(x)W^dag) and CN (identity in X, W)
+PASS countercontrol: PSD Q passes product test e_v(x)P0 after CN
+PASS mutation: c=1/2 gives value 0 (no violation)
+PASS float sampling: min ME value >= 15/136 - 1e-12 (got 0.110380; 15/136=0.110294)
+TOTAL 17 PASS 0 FAIL
