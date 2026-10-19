@@ -1,0 +1,126 @@
+unmutated copy (tree mode)
+unmutated copy (history mode)
+a corrupted byte in a raw blob
+a corrupted byte in a raw commit
+a corrupted byte in a zlib tree
+a corrupted byte in a zlib blob
+a missing object file (entry kept)
+a missing object (file and entry removed)
+an unlisted file
+an object already on main, stored here
+an injected excerpt: a stored blob whose id is deny-listed
+an injected excerpt: a retained tree that names a deny-listed id
+an injected excerpt: a new stored blob on the deny-list
+an injected excerpt: a deny-listed blob reachable from HEAD
+a secret pattern in a stored blob
+an e-mail address in a stored blob
+a commit identity whose digest is not listed
+a listed identity absent from main's history
+a raw:tree commit relabelled raw:connected
+a withheld blob dropped from its commit's list
+a citation whose line lacks its token
+an id discrepancy mapped to another commit
+an id discrepancy that names another erratum
+a missing id whose citing line does not hold it
+a missing id that is retained here
+a commit entry with a blob's mechanism
+an identity digest that is not a sha256 digest
+a base this repository does not hold
+a commit git refuses as malformed
+a required stored object dropped from the archive
+a required object missing from the archive but held by this clone
+a partial tree whose withheld list omits one of its blobs
+a withheld blob that this clone holds
+a blob under an inclusion path dropped and relabelled withheld
+a withheld entry that no retained tree names
+a withheld entry whose recorded path is not where it is named
+a stored blob relabelled a raw log, with its commit's list edited to match
+a stored log-type blob withheld, with the manifest and lists edited to match
+a raw log relabelled a build output
+a git command that fails while staging objects
+an inclusion path that does not resolve
+an inclusion proof whose withheld list omits one of its blobs
+a missing id that names an object on main
+a third, unlisted .txt withheld, with the manifest and its commit's list edited to match
+an approved .txt withheld in a commit its approval does not name
+a withheld instance whose sha256 is not the recorded one
+a withheld instance not recorded
+an uncited commit that names no record to cite it
+a pending citation without its round
+a tranche base that is not a commit id
+a tranche base that is not an ancestor of HEAD
+an object its own tranche's base already reaches
+a pinned tranche-2 entry relabelled tranche 4
+an entry the pin does not hold, labelled tranche 2
+an entry the pin does not hold, labelled tranche 4
+an entry labelled a later tranche that has no base
+the checker's tranche-2 pin edited without its count and digest
+the checker's tranche-2 pin with a pinned tranche-4 commit added
+the checker's tranche-2 pin with one id swapped for a tranche-4 commit, its count kept
+lifecycle (a): the record not in the tree, the entry pending
+lifecycle (b): the record lands citing the id and run, the manifest unchanged (eligible)
+lifecycle (c): the entry promoted to the record's two lines, which O7 verifies
+lifecycle (c-partial): one entry promoted, the other on the same record still awaiting (eligible)
+lifecycle (c-full): both entries on the record promoted (cited)
+lifecycle (d): the record lands citing another commit id
+lifecycle (e): the record removed while the entry is cited
+lifecycle (e-full): the record removed while both entries are cited
+history mode with the record landed and the citation still pending (eligible)
+F1 O10: the record swaps the two full ids, keeping their eight-digit forms
+F1 O10: the record mistypes the full id after digit 10
+F1 O10: the run line states another head
+F1 O7: promoted to the swapped full id and the run line beside the other
+F1 O7: promoted to the mistyped full id's line and the run line
+F1 O7: promoted to the run line that states another head
+CN-1: the near-miss head promoted with the token rule and tranche 3
+CN-1: the near-miss head promoted with the token rule and tranche '4'
+CN-1: the near-miss head promoted with the token rule and tranche 2
+CN-1: the near-miss head promoted with the token rule and tranche True
+CN-1: the near-miss head promoted with the token rule and tranche 4.0
+CN-3 f1: a promotion that maps the run line only
+CN-3 f5: a second correct citation in the record left unmapped
+CN-3 f5: a second correct citation in the record (eligible, both qualifying)
+CN-3 f6: the id cited again in the record, unmapped
+CN-3: a location mapped twice
+CN-3 d-far: a far line cites the run beside another head
+CN-3 d-far-nohead: a far line cites the run without its head
+CN-3 d-far, promoted: the far line names another head
+CN-3: a duplicate free-standing citation with a conflicting full head
+CN-3: the run named inside an evidence file name with its digest (eligible)
+CN-3: the same, promoted to the citations alone (cited)
+CN-3: an embedded mention beside a different full head
+CN-3: the run named only inside an identifier
+CN-3: an embedded mention mapped as a run citation
+N1: the run line states another head in uppercase
+N1: another head glued into a file name beside the run (a 52-digit hex word)
+N1: an uppercase 64-digit digest beside the file name (eligible)
+N2: a seven-digit form of another head beside the run
+N2: the head stated beside the run only as its eight-digit form
+N2: the summary counts an eligible entry apart, never as cited
+a tranche-2 run citation whose line holds its run as a whole word (cited)
+a tranche-2 run citation whose line holds its run only attached to a letter
+a lifecycle run citation whose line holds its run only attached to a letter
+N1: an all-decimal 45-digit word beside the run's file name
+boundary (a): a genuine 64-digit digest beside the citation and the file name passes
+boundary (b): a file name with a digest never establishes the citation
+boundary (b): a 64-digit hex word never states the head
+boundary (c): a conflicting head beside the citation fails, even beside a digest
+documented limitation: another head as the last 40 digits of a 64-digit word beside a file name passes
+a promoted lifecycle entry without a run citation
+the id cited in another file than the named record: still pending
+a pending entry that also carries cited
+a pending entry that carries an empty cited list
+a pending entry that records no run (N5)
+the record lands citing the id beside another run
+the record holds the run only inside a hex word
+the record lands on other lines than the entry records
+the record lands on exactly the lines the entry records
+the record lands without the id form the entry records
+a pending entry that records another commit's id as its form
+a pending entry whose run is retained with a run.json that is not JSON (N4)
+a pending entry whose run is retained with a run.json naming no head (N4)
+a pending entry whose run is retained with another head
+a promoted run citation whose run is retained with another head
+a pending record inside the archive
+a promoted citation that records another run
+a promoted citation that records another commit's id the line also holds
