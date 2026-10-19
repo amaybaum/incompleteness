@@ -220,6 +220,36 @@ R14 checks the record against `OPEN_CLAIMS_PIN`, hardcoded in `check_retention.p
 
 Any change to a claim needs a reviewed change to that table.
 
+## Act 37's count at its drafting snapshot
+
+`verification/programmes/oi-qm/track-b/act-37-arc-exclusivity/preregistration.md`, act 37's control plane, is frozen: its blob is the one `verification/receipts/A37.json` pins, and `G13` keeps it. Lines 62–66 describe the run that certifies its drafting snapshot `D`.
+
+The snapshot is `D` = `d014bafef404b991b4544e6d2041edcfab1ac765`, and lines 62–66, joined, read:
+> It is certified by push run 36373806246: all seven jobs green in 3 minutes, the release gate passing with twelve receipts holding, the `Mathlib bridge` build green with `lean-axioms` at 4829 named results and no sorry, the guard 91 PASS and 0 FAIL, act 36's probe reporting its `OK` line in 50 seconds and act 35's in 45. Every measurement here was taken at `D`.
+
+**The count.** Entry `run-36373806246` retains the run's release-gate output in its `expected.json`, which records the count as `lean-axioms` 4803; R12 pins that file by its sha256. In the Mathlib bridge job, 108775417498, log line 12656 of 12683 reads:
+
+```
+  PASS  lean-axioms      lean_axiom_check: OK (4803 named result(s) reported, no sorr
+```
+
+The count at `D` is 4803. The claim "`lean-axioms` at 4829 named results" at line 64 is marked `differs`, and line 66's "Every measurement here was taken at `D`" does not hold for the count. The sha256 of the gate block, log lines 12630–12665 as served, is `6bf7b3936308a56eed5fb6ccbf39a82092244a04bb87dff4e151a40e69db79ca`.
+- 4829 is the count with act 37's module `verification/lean-mathlib/OIBridge/DitaArcExclusivity.lean`, whose twenty-six `#print axioms` lines it adds to 4803. The preregistration gives it for its second design proof pass (line 1339), and act 37's `result.md` for stages 2 and 3 (lines 170–171).
+- 4803 is also the count that the archive holds for act 37's `F` check run 36379070237, of `8104323300a5d159cd16317d2fed3c43d44b4970` (`ci/36379070237/results.json`). `F` differs from `D` by the preregistration alone.
+
+**The durations.** Line 65 gives 50 seconds for act 36's probe, and line 66 gives 45 seconds for act 35's. A probe prints its own duration inside its job's output, which an expected result does not record (AGENTS §A.42 item 1), and no file of the entry records it, so both claims are marked `not retained`, not `differs`. The run's three minutes, by contrast, are the host's run and job timestamps, which `run.json` and `jobs.json` record; that claim is retained. The served logs print the probes' cumulative timers as 85 seconds (job 108775417433, line 224) and 37 seconds (job 108775417269, line 1273). Those timers are observations, read on 2026-10-19 and not retained. They are recorded in the claims' notes as observations.
+
+**What holds.** The run's other statements are retained as written:
+- the run is a push at `D` and concludes `success`;
+- its seven jobs each conclude `success`, within three minutes of the run's creation;
+- the release gate passes all 21 steps with twelve receipts holding;
+- the guard reports 91 `PASS` and 0 `FAIL`, which the entry's guard output carries;
+- the `Mathlib bridge` build is green, and `lean-axioms` passes, which excludes `sorryAx`.
+
+Act 36's probe and its `OK` line, and the two probe durations, are printed in job output that the entry does not retain; the success of the jobs that print them is retained. `D`'s certification by this run holds. Act 37's outcome, `A37-EXCLUSIVITY-PROVED`, does not read `D`'s count: its kernel checkpoint `C8` (preregistration line 1694) is the release gate's `lean-axioms` step passing at `E`, and no control of act 37 reads the count or a duration. Its receipt holds.
+
+**Affected citations.** Lines 62–66 of act 37's preregistration, and no other. Outside this archive, no other tracked file names the run, attributes 4829 to act 37's `D`, or gives the durations 50 or 45 seconds. Act 38's preregistration gives 4829 at line 63 for a different commit, act 38's own `D`, the head of `main` after act 37's landing.
+
 ## Research builds retained ahead of their citing record
 
 By the owner's instruction of 2026-10-17 the archive retains two research builds before the record that cites them reaches `main`. They are runs 38450187534 (job 115478781754, source `e684897d`) and 38454439833 (job 115493410133, source `febfe5e2`). Both are pushes to `research/preservation-induction-design-20261013` on `.github/workflows/preservation-induction-design.yml`, which `main` does not carry. PRESERVE-INDUCT-1's control-plane draft (#831, `round-preserve-induct-1/preregistration.md` lines 69 and 127 at `65b85147`) cites them. Each entry, `research-<run>`, records that pending citation in `awaiting_citation`: the pull request, the round (PRESERVE-INDUCT-1), the record's path, the line and the record's head. It carries no citation of its own. R13 gives these entries the states O10 gives a pending commit, judged against the tree under check:
