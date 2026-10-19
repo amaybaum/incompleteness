@@ -22,8 +22,10 @@ Tree mode (no git, no network):
       (withheld_blobs only on raw:partial-tree and inclusion-proof commits); every entry's tranche is an exact
       int, and tranche membership is pinned by id in this checker (TRANCHE_MEMBERS: tranche 2's 920 entries and
       tranche 4's 66, each set checked against its count and sha256): a pinned entry carries its pinned tranche,
-      and any other entry a later tranche that has a base in tranche_bases. Which commits O7 holds to the citation
-      rule is decided by id against the same pin, never by the label;
+      and any other entry a later tranche that has a base in tranche_bases. Tranche 2's base is the manifest's
+      base; tranche_bases holds a base for exactly the other tranches that entries carry, so a carried tranche
+      after 2 without one fails, and so does a base for tranche 2 or for a tranche no entry carries. Which
+      commits O7 holds to the citation rule is decided by id against the same pin, never by the label;
   O4  closure: every id a stored commit or fully retained tree names is stored, withheld, or outside the retained
       set (expected on main, which history mode checks); a path tree (raw:proof-path) names its entries off the
       inclusion path without retaining them, and never lies under a fully retained tree; an inclusion path walks
@@ -95,7 +97,10 @@ Tree mode (no git, no network):
       pending, eligible or cited.
 History mode (--reconstitute) adds, in a temporary repository that borrows this repository's objects (H0: a git
 command that fails fails the check, rather than leaving a rule to read empty output):
-  H1  the base, and each later tranche's base in tranche_bases, is in the repository and an ancestor of HEAD;
+  H1  every entry's tranche has its own base, never the first base in its place; every tranche's base, the
+      manifest's base for tranche 2 and tranche_bases for a later one, is the one pinned in this checker
+      (TRANCHE_BASE_PINS), and a tranche without a pin fails; the base, and each later tranche's base in
+      tranche_bases, is in the repository and an ancestor of HEAD;
   H2  every stored object, written with git, gets exactly its recorded id;
   H3  every id the retained objects name that is not retained or withheld is reachable from the base;
   H4  connectivity, relative to the archive and the base, never to what else this clone holds: with a ref at
@@ -708,6 +713,12 @@ f83b96d33b07b0d3c680e4176a310ddf5f9c5558 febfe5e2668d3c000ec1d4ce7e4041f4feabd3c
 TRANCHE_MEMBERS = {2: frozenset(_TRANCHE2.split()), 4: frozenset(_TRANCHE4.split())}
 TRANCHE_PINS = {2: (920, '3e1800891ab153d53046f742f2e5557f36c2febfd1508c7039baa67b22cf937f'),
                 4: (66, 'e05c857702a55756c8d6dbc8fed29c4d2ac94b010bba745c1e23172fbd4add47')}
+# the base of every tranche, pinned here and not read from the manifest: the manifest's base is tranche 2's, and
+# tranche_bases holds each later one's. A tranche's pin lands in a reviewed change to this checker, apart from the
+# manifest edit that adds its entries; H1 fails any tranche without a pin.
+TRANCHE_BASE_PINS = {2: '49ba3297111acaf4d70cf3b932f44b3cc2129a2c',
+                     4: 'b96662e6be4f537502c772db369ea32a35b213a8',
+                     5: 'ec36234cb98a30ecb4681e118ff9ccb82e19aa6d'}
 ERRATA = 'verification/audits/provenance-errata/errata.json'
 TOKENS = re.compile(r'gh[pousr]_[A-Za-z0-9]{20,}|github_pat[_]|AKIA[0-9A-Z]{16}|-{5}BEGIN|bearer [a-z0-9]'
                     r'|x-access-toke[n]|[?&](sig|signature|sv|se|token)=|passw(or)?d\s*[:=]|api[_-]?key\s*[:=]'
@@ -1045,6 +1056,12 @@ def tranche_failures(ents, tbases):
         s = sorted(TRANCHE_MEMBERS[t])
         if len(s) != n or sha256(''.join(o + '\n' for o in s).encode()) != d:
             out.append('O3 the checker\'s pinned tranche-%d membership is not its recorded count and sha256' % t)
+    carried = {e.get('tranche') for e in ents.values() if type(e.get('tranche')) is int}
+    for t in sorted(t for t in carried if t != 2 and str(t) not in tbases):
+        out.append('O3 tranche %d has entries but no base in tranche_bases' % t)
+    for k in sorted(k for k in tbases if k == '2' or not re.fullmatch(r'[1-9][0-9]*', k) or int(k) not in carried):
+        out.append('O3 tranche_bases names tranche %s, %s' % (k, 'whose base is the manifest\'s base' if k == '2' else
+                                                               'which no entry carries'))
     pinned = {o: t for t, s in TRANCHE_MEMBERS.items() for o in s}
     later = {int(k) for k in tbases if re.fullmatch(r'[1-9][0-9]*', str(k)) and int(k) > max(TRANCHE_PINS)}
     for oid, e in sorted(ents.items()):
@@ -1487,7 +1504,22 @@ def _history_checks(root, info, fails, clone_extra):
     base = man['base']
     # each archive tranche has its base: the manifest's for tranche 2, tranche_bases for a later one
     tbases = {str(k): v for k, v in (man.get('tranche_bases') or {}).items()}
-    base_of = lambda e: tbases.get(str(e.get('tranche')), base)
+    base_of = lambda e: base if e['tranche'] == 2 else tbases[str(e['tranche'])]
+    # every tranche has its own explicit base, never the first base in its place, and that base is its pin
+    nobase = sorted({e.get('tranche') for e in ents.values() if e.get('tranche') != 2 and
+                     (type(e.get('tranche')) is not int or str(e['tranche']) not in tbases)}, key=str)
+    if nobase:
+        F('H1 tranche %s has entries but no base' % nobase[0])
+        return
+    recorded = {int(k): v for k, v in tbases.items()}
+    recorded[2] = base
+    for t in sorted(set(recorded) | {e['tranche'] for e in ents.values()}):
+        if t not in TRANCHE_BASE_PINS:
+            F('H1 tranche %d\'s base %s has no pin in this checker' % (t, recorded[t][:12]))
+            return
+        if recorded[t] != TRANCHE_BASE_PINS[t]:
+            F('H1 tranche %d\'s base %s is not its pinned base %s' % (t, recorded[t][:12], TRANCHE_BASE_PINS[t][:12]))
+            return
     for b in [base] + sorted(set(tbases.values())):
         if git(['cat-file', '-e', b + '^{commit}'], root).returncode or \
                 git(['merge-base', '--is-ancestor', b, 'HEAD'], root).returncode:
@@ -1663,11 +1695,11 @@ def self_test(root):
         def pick(pred):
             return next(e for e in man0['objects'] if pred(e))
 
-        def expect(name, mutate, rule, history=False):
+        def expect(name, mutate, rule, history=False, msg=''):
             d = fresh()
             mutate(d)
             fails, _ = check_with(d, root, history, Fails())
-            ok = any(f.startswith(rule) for f in fails)
+            ok = any(f.startswith(rule) and msg in f for f in fails)
             results.append((name, rule, 'FAILS as required' if ok else 'NOT DETECTED', fails[:1]))
 
         def flip(d, rel):
@@ -1677,8 +1709,8 @@ def self_test(root):
             open(p, 'wb').write(bytes(b))
 
         def later_tranche(man):
-            """The tranche of an object a case adds: later than the pinned ones, with the latest pinned base."""
-            man.setdefault('tranche_bases', {})['5'] = man['tranche_bases'].get('4', man['base'])
+            """The tranche of an object a case adds: later than the pinned members, with its pinned base."""
+            man.setdefault('tranche_bases', {})['5'] = TRANCHE_BASE_PINS[5]
             return 5
 
         def new_blob(d, man, data, cited=None):
@@ -2108,8 +2140,16 @@ def self_test(root):
             # archive does not hold (this clone does; the commit names it as a parent not retained).
             tb0 = {str(k): v for k, v in man0['tranche_bases'].items()}
             latest = tb0[max(tb0, key=int)]
-            newt = max([int(k) for k in tb0] + [e['tranche'] for e in man0['objects']
-                                                if type(e.get('tranche')) is int]) + 1
+            newt = max([int(k) for k in tb0] + list(TRANCHE_BASE_PINS) + [e['tranche'] for e in man0['objects']
+                                                                         if type(e.get('tranche')) is int]) + 1
+
+            def pinned(b, run):
+                # the case's own tranche newt pinned to b while it runs: a tranche's pin is part of this checker
+                TRANCHE_BASE_PINS[newt] = b
+                try:
+                    run()
+                finally:
+                    TRANCHE_BASE_PINS.pop(newt, None)
             ctree = gitok(['rev-parse', latest + '^{tree}'], root).stdout.decode().strip()
 
             def connected_on(parent, what):
@@ -2131,14 +2171,89 @@ def self_test(root):
                     return {'commit': [mid_data]} if named else None
                 return go
             leaves = ': raw:connected, but its history leaves main through '
-            expect_history('a raw:connected commit of a new tranche on the latest tranche base, its own base',
-                           add_connected(on_latest, on_latest_data, latest), None)
-            expect_history('the same commit with the first base recorded as its tranche\'s base',
-                           add_connected(on_latest, on_latest_data, man0['base']), 'H4',
-                           msg=on_latest[:12] + leaves + latest[:12])
-            expect_history('a raw:connected commit whose history reaches its base through a commit the archive '
-                           'does not hold', add_connected(on_mid, on_mid_data, latest, named=(mid,)), 'H4',
-                           msg=on_mid[:12] + leaves + mid[:12])
+            pinned(latest, lambda: expect_history(
+                'a raw:connected commit of a new tranche on the latest tranche base, its own base',
+                add_connected(on_latest, on_latest_data, latest), None))
+            pinned(man0['base'], lambda: expect_history(
+                'the same commit with the first base recorded as its tranche\'s base',
+                add_connected(on_latest, on_latest_data, man0['base']), 'H4', msg=on_latest[:12] + leaves + latest[:12]))
+            pinned(latest, lambda: expect_history(
+                'a raw:connected commit whose history reaches its base through a commit the archive does not hold',
+                add_connected(on_mid, on_mid_data, latest, named=(mid,)), 'H4', msg=on_mid[:12] + leaves + mid[:12]))
+
+            # each tranche has its own explicit base (O3, H1), never the first base in its place: each edit below
+            # changes one base and keeps every other
+            def t4_base(v):
+                def go(d):
+                    man = json.load(open(os.path.join(d, 'manifest.json')))
+                    man['tranche_bases'] = {k: x for k, x in man['tranche_bases'].items() if k != '4'}
+                    if v is not None:
+                        man['tranche_bases']['4'] = v
+                    save(d, man)
+                return go
+            nobody = '0123456789abcdef' * 2 + '01234567'
+            expect('tranche 4\'s base missing', t4_base(None), 'O3', msg='tranche 4 has entries but no base')
+            expect('tranche 4\'s base empty', t4_base(''), 'O3', msg='not a map of tranche numbers to commit ids')
+            expect('tranche 4\'s base malformed (upper-case hex)', t4_base(TRANCHE_BASE_PINS[4].upper()), 'O3',
+                   msg='not a map of tranche numbers to commit ids')
+            expect('tranche 4\'s base a commit id no repository holds', t4_base(nobody), 'H1', history=True)
+            expect('tranche 4\'s base another commit on main, not its pinned base', t4_base(man0['base']), 'H1',
+                   history=True, msg='is not its pinned base')
+            expect('tranche 4\'s base tranche 5\'s pinned base, not its own', t4_base(TRANCHE_BASE_PINS[5]), 'H1',
+                   history=True, msg='is not its pinned base')
+
+            def first_base(v):
+                def go(d):
+                    man = json.load(open(os.path.join(d, 'manifest.json')))
+                    man['base'] = v
+                    save(d, man)
+                return go
+            expect('the manifest\'s base another commit on main, not tranche 2\'s pinned base',
+                   first_base(TRANCHE_BASE_PINS[4]), 'H1', history=True, msg='tranche 2\'s base')
+
+            def later_base(v):
+                # an entry of a tranche after every carried one, with base v (None: no base); the others kept
+                def go(d):
+                    man = json.load(open(os.path.join(d, 'manifest.json')))
+                    keep = dict(man['tranche_bases'])
+                    o = new_blob(d, man, b'an entry of a later tranche\n')
+                    next(x for x in man['objects'] if x['oid'] == o)['tranche'] = newt
+                    man['tranche_bases'] = dict(keep, **({str(newt): v} if v is not None else {}))
+                    save(d, man)
+                return go
+
+            def passes(name, mutate):
+                d = fresh()
+                mutate(d)
+                fails, _ = check_with(d, root, True, Fails())
+                results.append((name, '-', 'PASSES as required' if not fails else 'FAILS', fails[:3]))
+            pinned(latest, lambda: passes('an entry of a later tranche with its own base, which is its pin',
+                                          later_base(latest)))
+            expect('an entry of a later tranche with no base', later_base(None), 'O3',
+                   msg='tranche %d has entries but no base' % newt)
+            expect('an entry of a later tranche whose base has no pin in this checker', later_base(latest), 'H1',
+                   history=True, msg='has no pin in this checker')
+            pinned(latest, lambda: expect('a later tranche\'s base another commit on main, not its pin',
+                                          later_base(man0['base']), 'H1', history=True, msg='is not its pinned base'))
+            pinned(nobody, lambda: expect('a later tranche\'s base, its pin, a commit id no repository holds',
+                                          later_base(nobody), 'H1', history=True, msg='is not an ancestor of HEAD'))
+
+            def extra_base(k, v):
+                def go(d):
+                    man = json.load(open(os.path.join(d, 'manifest.json')))
+                    man['tranche_bases'] = dict(man['tranche_bases'], **{k: v})
+                    save(d, man)
+                return go
+            expect('a base in tranche_bases for tranche 2, equal to the manifest\'s base', extra_base('2', man0['base']),
+                   'O3', msg='names tranche 2')
+            expect('a base in tranche_bases for a tranche no entry carries', extra_base(str(newt), latest), 'O3',
+                   msg='which no entry carries')
+
+            def no_base_history(info):
+                info['man'] = dict(info['man'], tranche_bases={k: x for k, x in info['man']['tranche_bases'].items()
+                                                               if k != '4'})
+            expect_history('tranche 4\'s base missing once tree mode has passed', no_base_history, 'H1',
+                           msg='tranche 4 has entries but no base')
             # the tranche pin: a label is an exact int, a pinned entry keeps its pinned tranche, and an entry the pin
             # does not hold carries a later tranche that has a base; the pin itself matches its count and digest
             expect('a pinned tranche-2 entry relabelled tranche 4', fixture_edit(
