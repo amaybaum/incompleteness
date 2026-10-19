@@ -22752,6 +22752,176 @@
     "8cdf3a83f78059d81a701c2e4951e54f3a2b06bd",
     "c697b82b8a7d6719d78dfc74bc8183c85fa12255"
    ]
+  },
+  {
+   "bytes": 13113,
+   "content_bytes": 42798,
+   "content_sha256": "2788bdc60077912e0e6e706fa4ead3d9c45663a8b3f8ff68d9aacd7942409269",
+   "file": "loose/3d/ae5cadd2ef2aca6c5ae2fadd7381a8e44e430d",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "8c92343e3a7d21b41a97090271285e0bff591eef",
+     "path": "verification/lean-mathlib/OIBridge.lean"
+    }
+   ],
+   "oid": "3dae5cadd2ef2aca6c5ae2fadd7381a8e44e430d",
+   "sha256": "2204b95a5358020dab8d5d20792c1091feca1774b38b428b80597997cf1dfe4e",
+   "tranche": "TBD-825",
+   "type": "blob"
+  },
+  {
+   "bytes": 6730,
+   "content_bytes": 10682,
+   "content_sha256": "1741914561912344ab4820c64da8818ec7cc25c906bd861255a03b55b7446b0a",
+   "file": "loose/43/a9f1ff74793c5f37cda261795dd6652fb1c875",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "8c92343e3a7d21b41a97090271285e0bff591eef",
+     "path": "verification/lean-mathlib/OIBridge/"
+    }
+   ],
+   "oid": "43a9f1ff74793c5f37cda261795dd6652fb1c875",
+   "sha256": "eeeff4768d86ee6421bec85c517a77fafe747e001fa6115fbdc67ae9d9f2aa0b",
+   "tranche": "TBD-825",
+   "type": "tree"
+  },
+  {
+   "bytes": 595,
+   "content_bytes": 678,
+   "content_sha256": "cdaa88f6d8e04b0585e0b4bbb2c36630a580bba4c63173fc82ca53ec84bd1eb0",
+   "file": "loose/4a/ca76d6a953609b84256a95b432de09b9f6f917",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "8c92343e3a7d21b41a97090271285e0bff591eef",
+     "path": "verification/"
+    }
+   ],
+   "oid": "4aca76d6a953609b84256a95b432de09b9f6f917",
+   "sha256": "724b1f17cec1822d45990f1091cc923576465c6bd9a8c5580eeaa204b73b629a",
+   "tranche": "TBD-825",
+   "type": "tree"
+  },
+  {
+   "bytes": 159,
+   "content_bytes": 159,
+   "content_sha256": "6b6c5947d65d41e62ae0347359de06634c76714352c8c2850295b0757a0f7498",
+   "file": "loose/5f/a47f7e66b710825dd851a58017d5292a58f628",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "8c92343e3a7d21b41a97090271285e0bff591eef",
+     "path": "verification/lean-mathlib/"
+    }
+   ],
+   "oid": "5fa47f7e66b710825dd851a58017d5292a58f628",
+   "sha256": "47866c9dec95172974db37bbfc08e446c017199be82bf19ccce49325d46585fb",
+   "tranche": "TBD-825",
+   "type": "tree"
+  },
+  {
+   "awaiting_citation": {
+    "note": "the head of the design run 38091534622 (job 114328799399) that built EqvLevel3, which the record cites beside the run as provenance",
+    "pull_request": 825,
+    "record": "verification/programmes/oi-qm/reconstruction/round-l3-conv-1/preregistration.md",
+    "round": "L3-CONV-1",
+    "run": "38091534622"
+   },
+   "bytes": 1537,
+   "content_bytes": 1537,
+   "content_sha256": "8ad6638eac27040a9f6ac647cd38fb598d78275f6b8fb7ee3573804f29e04e87",
+   "file": "commit/8c/8c92343e3a7d21b41a97090271285e0bff591eef",
+   "form": "raw",
+   "held_by": {
+    "branch": "dev-equivalence/split-l3",
+    "listed_at": "2026-10-19"
+   },
+   "mechanism": "raw:connected",
+   "oid": "8c92343e3a7d21b41a97090271285e0bff591eef",
+   "parents": [
+    "9f9f8257a980a1819fbbc1dc0019917cf8678626"
+   ],
+   "sha256": "8ad6638eac27040a9f6ac647cd38fb598d78275f6b8fb7ee3573804f29e04e87",
+   "tranche": "TBD-825",
+   "type": "commit"
+  },
+  {
+   "bytes": 372,
+   "content_bytes": 392,
+   "content_sha256": "05b52701649c2084b7c7eeab40a897d9ad60039192776c19cd10e0cca2e71cde",
+   "file": "loose/b2/f2434d3236199dfc83a94731b8b8aa2b2de47b",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "8c92343e3a7d21b41a97090271285e0bff591eef",
+     "path": "/"
+    }
+   ],
+   "oid": "b2f2434d3236199dfc83a94731b8b8aa2b2de47b",
+   "sha256": "8cd3d40afb250e1a39e016732668347e8b187761aaacc31d1754a69adf6d180b",
+   "tranche": "TBD-825",
+   "type": "tree"
+  },
+  {
+   "bytes": 1299,
+   "content_bytes": 3583,
+   "content_sha256": "c895a6b2bdf4a583eca22d99d519a53760dd4e3b8fca25598a162f46fbf82e3d",
+   "file": "loose/b6/3691530db65a97c3e78195cb49b78039e596c2",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "8c92343e3a7d21b41a97090271285e0bff591eef",
+     "path": "verification/lean-mathlib/OIBridge/StageSeed.lean"
+    }
+   ],
+   "oid": "b63691530db65a97c3e78195cb49b78039e596c2",
+   "sha256": "635dc9b0ac9c7b18f5ce3ef6a0c07ab7e8ac4db5326de34ad604969df94b66be",
+   "tranche": "TBD-825",
+   "type": "blob"
+  },
+  {
+   "bytes": 2410,
+   "content_bytes": 5875,
+   "content_sha256": "802aa4329fe1c056239586250f8b11aa5af216f936642e8c6cf6264c8803f148",
+   "file": "loose/dc/89d73524412e8f409aeceac4619a948ea19e69",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "8c92343e3a7d21b41a97090271285e0bff591eef",
+     "path": "verification/lean-mathlib/OIBridge/EqvLevel3.lean"
+    }
+   ],
+   "oid": "dc89d73524412e8f409aeceac4619a948ea19e69",
+   "sha256": "3781fff4dc96c4b731e618e46776ae0a8c7d602899e7086073c4aad199ac29ae",
+   "tranche": "TBD-825",
+   "type": "blob"
+  },
+  {
+   "bytes": 4583,
+   "content_bytes": 18245,
+   "content_sha256": "a885a391e352012f94b4a199dec319023746a70dd4c244adbef7538ca5a3a769",
+   "file": "loose/fb/9c73fe804cc96d09c450a9036e11612e151ea2",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "8c92343e3a7d21b41a97090271285e0bff591eef",
+     "path": "verification/lean-mathlib/OIBridge/CopyCovariance.lean"
+    }
+   ],
+   "oid": "fb9c73fe804cc96d09c450a9036e11612e151ea2",
+   "sha256": "bbe1368dffe19460fdf91ddd4bda9eac02283c861a939ed201a35c426bb06d43",
+   "tranche": "TBD-825",
+   "type": "blob"
   }
  ],
  "scan_exemptions": [
@@ -22773,8 +22943,19 @@
   },
   "scope": "archive tranche 4: #831's research sources e684897d and febfe5e2 and #829's KTOKEN-MAXCONE-1 design-run heads 1ab0fd9d and 6959ced4, which records not yet on main cite or are to cite; each commit with every tree and blob main lacks at this base, its off-main parent named, not retained; two captured outputs withheld as approved"
  },
+ "trancheTBD-825": {
+  "base": "ec36234cb98a30ecb4681e118ff9ccb82e19aa6d",
+  "host_state": {
+   "branches": {
+    "dev-equivalence/split-l3": "8c92343e3a7d21b41a97090271285e0bff591eef"
+   },
+   "listed_at": "2026-10-19"
+  },
+  "scope": "archive tranche TBD-825: #825's design-run head 8c92343e (run 38091534622, dev-equivalence/split-l3), which L3-CONV-1's preregistration, not yet on main, cites beside its run; raw:connected, with every tree and blob main lacks at this base; nothing withheld"
+ },
  "tranche_bases": {
-  "4": "b96662e6be4f537502c772db369ea32a35b213a8"
+  "4": "b96662e6be4f537502c772db369ea32a35b213a8",
+  "TBD-825": "ec36234cb98a30ecb4681e118ff9ccb82e19aa6d"
  },
  "version": 1
 }

@@ -1,0 +1,28 @@
+tree b2f2434d3236199dfc83a94731b8b8aa2b2de47b
+parent 9f9f8257a980a1819fbbc1dc0019917cf8678626
+author Claude (research equivalence) <noreply@anthropic.com> 1791671285 +0000
+committer Claude (research equivalence) <noreply@anthropic.com> 1791671285 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQJXMcKRf
+ hQYzp9LCO3RqAq0hlbM69avdUT45XPvcv1h9pANbpicl3BgdFAErpodCNnVcxHxBnc8QOZVplvD+
+ ZQk=
+ -----END SSH SIGNATURE-----
+
+dev-equivalence/split-l3: StageSeed, CopyCovariance (S1, S2) and EqvLevel3 (E9); not for merge
+
+Disposable design branch of research/equivalence, based on L = 9f9f8257
+directly. Adds three design modules and their import lines:
+- StageSeed.lean: EqvSeams §A (run 38083519826) as the predicted module of
+  draft S1 (KINF-SEED-1); no statement changed, import DenseOrbit;
+- CopyCovariance.lean: EqvSeams §B-§D and EqvSeamsControl as the predicted
+  module of draft S2 (KINF-COPY-1); no statement changed;
+- EqvLevel3.lean (node E9): the naive dynamical converse of Level III is
+  false (phase_not_oiInduced, not_naiveConverseDyn), every member of the
+  target class is noncommutative (not_comm_of_system), and Kraus
+  normalization transfers along any member's stage map
+  (kraus_iff_of_member).
+Design evidence only; not certified, not a round.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

@@ -168,6 +168,14 @@ The recipe beside each entry regenerates the output byte for byte: run the commi
 **Excerpts.** None of the 194 bridge-log excerpts of R1's drafting branches is stored, named by a stored tree, or
 reachable from `HEAD`. The manifest lists the sha256 digests of their ids, never the ids themselves.
 
+### Archive tranche TBD-825: #825's L3-CONV-1 design-run head
+
+By the owner's decision on #825, `objects/` also retains, in tranche 2's form, one commit that `main` does not reach: `8c92343e`, the head of `dev-equivalence/split-l3` at run 38091534622 (job 114328799399), the design run that built `EqvLevel3`. L3-CONV-1's draft preregistration, not yet on `main`, cites it beside that run as provenance.
+
+It is a `raw:connected` commit, stored with every tree and blob that `main` lacks at the tranche's own base, `ec36234c` (`tranche_bases`); its parent `9f9f8257` is on `main`. That is 9 entries: 1 commit, 4 trees and 4 blobs, in 9 files of 30,798 bytes. Nothing is withheld: no tree holds a log or captured output. The branch that held the head on 2026-10-19 is recorded in the tranche's `host_state` and was not touched.
+
+The commit records `awaiting_citation`: pull request 825, round L3-CONV-1, the round's preregistration and run 38091534622. O10 judges it as it does tranche 4's.
+
 ## Tranche 3: cited runs that no receipt attests
 
 Frozen records also cite CI runs that no receipt or certificate attests: push runs that certified a base, pull-request runs at a candidate merge, and the runs whose output a precondition table quotes. Tranche 3 retains them in the tranche-1 form, an expected result with a recipe, earliest log expiry first.

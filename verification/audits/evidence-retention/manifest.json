@@ -12555,10 +12555,10 @@
      "sha256": "8df2f9bcab7e98e1b5eb562a9b37f7d1c77a89fb1efe3fe37851deb48549d216"
     },
     {
-     "bytes": 704563,
+     "bytes": 710641,
      "kind": "complete",
      "path": "objects/manifest.json",
-     "sha256": "bf36b0d7d912a5db1c2c75acf97066800c37a9edcebb64dfcb2e693cb46d9651"
+     "sha256": "e41a13bd0a35a994447dddd0e13ce9c5b7926b130509f7e94754a1be390e0b4c"
     }
    ],
    "id": "tranche-record",
