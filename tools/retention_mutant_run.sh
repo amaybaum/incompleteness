@@ -37,4 +37,4 @@ if [ "$#" -ne 4 ]; then
   echo "INVALID  a classified run needs CLASSIFIER" >&2
   exit 2
 fi
-python3 -B "$4" "$check" "$rc" "$expect" "$log"
+python3 -I -B "$4" "$check" "$rc" "$expect" "$log"

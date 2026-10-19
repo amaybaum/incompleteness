@@ -29,12 +29,16 @@ name: retention tests
 # case exactly (self-test checks) or a fragment of the targeted failure message (the other checks).
 #
 # Limits enforced here: refs refs/heads/{claude,staging,retention,review,wip}/... only (never main, round
-# branches or special launch branches); this file, the runner and the classifier identical to main's;
-# one run at a time per ref; at most 4 jobs of a matrix at once; at most 12 mutants; 30 minutes per check
+# branches or special launch branches); one run at a time per ref; at most 4 jobs of a matrix at once; at most 12 mutants; 30 minutes per check
 # or mutant job, each check bounded by a 27-minute timeout. Worst case for one attempt:
 # 5 + 10 + 3 x 30 + 12 x 30 = 465 runner-minutes. Measured locally, the gate takes 17 to 19 minutes and
 # the self-tests 9 to 11. Not enforced here, and part of the dispatch policy: how many refs run at once,
 # and re-running a failed job at most once and only for an infrastructure failure.
+#
+# The comparison with main's workflow, runner and classifier catches a branch carrying stale copies. It
+# cannot bind a branch that edits them on purpose, since the branch's own copy of this file runs; that is
+# caught by the owner's approval of the dispatch (§A.43 item 4). The classifier and the mutant-list
+# validator run with `python3 -I`, so a module added to the branch cannot shadow one they import.
 #
 # Limit of the mutant isolation: the runner and classifier are copied aside before the patch is applied,
 # but the patched check then runs as code in the same job and could in principle overwrite them. The
@@ -97,7 +101,7 @@ jobs:
           python-version: '3.11'
 
       - name: Classifier self-test
-        run: python3 -B tools/mutant_verdict.py --self-test
+        run: python3 -I -B tools/mutant_verdict.py --self-test
 
       # The input reaches the script only as an environment variable and is validated before use.
       - name: Validate the mutant list
@@ -105,10 +109,12 @@ jobs:
         env:
           MUTANTS: ${{ inputs.mutants }}
         run: |
-          python3 -B - <<'EOF'
-          import json, os, posixpath, re, sys
-          sys.path.insert(0, 'tools')
-          from mutant_verdict import expect_problem
+          python3 -I -B - <<'EOF'
+          import importlib.util, json, os, posixpath, re, sys
+          spec = importlib.util.spec_from_file_location('mutant_verdict', 'tools/mutant_verdict.py')
+          mv = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(mv)
+          expect_problem = mv.expect_problem
           SAFE = re.compile(r'^[A-Za-z0-9._/-]+$')
           path = os.environ.get('MUTANTS', '')
           out = open(os.environ['GITHUB_OUTPUT'], 'a')

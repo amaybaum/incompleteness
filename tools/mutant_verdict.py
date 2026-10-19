@@ -12,14 +12,16 @@ A mutant counts as caught only when its check failed *cleanly* and *on its targe
                 verdict line; and a failing case matches EXPECT under CHECK's rule (below).
   SURVIVED      rc is 0: the check passed on the mutant.
   INFRA         rc is a timeout or signal status (124 and above, or negative): the run did not finish.
-  CRASHED       anything else that failed: a traceback anywhere in the output (including one printed by a
-                subprocess the check runs, such as the gate's), an exit status other than 1, or a last line
-                that is not CHECK's failing verdict.
+  CRASHED       anything else that failed: a traceback anywhere in the output, or any Python stack-frame or
+                syntax-error location line (`File "...", line N`), including one printed by a subprocess the
+                check runs, such as the gate's, whose header may have been truncated away; an exit status
+                other than 1; or a last line that is not CHECK's failing verdict.
   NOT-TARGETED  the check failed cleanly, but no failing case matches EXPECT.
 
 Matching EXPECT, by check:
   retention-self-test, tools-self-test   EXPECT is the exact name of a failing case: a `FAIL self: NAME`
-                                         line, with or without its trailing rule tag such as ` (C2)`.
+                                         line, with its trailing rule tag such as ` (C2)`, or without it when
+                                         every case of that name in the run carries the same tag.
   objects-self-test                      EXPECT is the exact name of a case-table row whose verdict is not
                                          `FAILS as required` or `PASSES as required`.
   gate, retention, objects,              these report failures as messages (`FAIL  ...`, and the gate's
@@ -34,6 +36,10 @@ import re
 import sys
 
 TRACEBACK = 'Traceback (most recent call last):'
+# A Python stack frame or syntax-error location line. The gate prints a failed subprocess's stderr cut to its
+# last 2000 characters, which can drop the Traceback header, and a SyntaxError has no header at all; both
+# still carry these lines.
+_FRAME = re.compile(r'^\s*File "[^"]*", line \d+')
 REQUIRED = ('FAILS as required', 'PASSES as required')
 VERDICT = {
     'gate': r'^EVIDENCE-RETENTION  FAILS\b',
@@ -69,14 +75,30 @@ def expect_problem(check, expect):
     return None
 
 
+def _case(line):
+    """(full, bare, tag) of a `PASS self:` or `FAIL self:` line, else None."""
+    for prefix in ('PASS self: ', 'FAIL self: '):
+        if line.startswith(prefix):
+            full = line[len(prefix):]
+            m = _RULE_TAG.search(full)
+            return full, (full[:m.start()] if m else full), (m.group(0) if m else '')
+    return None
+
+
 def _hits(check, expect, lines):
     fam = FAMILY[check]
     if fam == 'case':
+        tags = {}
+        for l in lines:
+            c = _case(l)
+            if c:
+                tags.setdefault(c[1], set()).add(c[2])
         out = []
         for l in lines:
             if l.startswith('FAIL self: '):
-                full = l[len('FAIL self: '):]
-                if expect in (full, _RULE_TAG.sub('', full)):
+                full, bare, _ = _case(l)
+                # The bare name identifies the case only when no two cases share it under different tags.
+                if expect == full or (expect == bare and len(tags.get(bare, ())) == 1):
                     out.append(l)
         return out
     if fam == 'table':
@@ -104,8 +126,8 @@ def classify(check, rc, expect, text):
     if rc < 0 or rc >= 124:
         return 'INFRA', '%s did not finish (status %d)' % (check, rc)
     lines = [l for l in text.splitlines() if l.strip()]
-    if any(l.startswith(TRACEBACK) for l in lines):
-        return 'CRASHED', '%s printed a Python traceback (the check or a subprocess crashed)' % check
+    if any(l.startswith(TRACEBACK) or _FRAME.match(l) for l in lines):
+        return 'CRASHED', '%s printed a Python traceback or stack frame (the check or a subprocess crashed)' % check
     last = lines[-1] if lines else ''
     if rc != 1 or not re.search(VERDICT[check], last):
         return 'CRASHED', '%s exited %d without its failing verdict line; last line: %s' % (check, rc, last[:160])
@@ -138,6 +160,17 @@ def self_test():
          'FAIL  %s\nTraceback (most recent call last):\n  File "check_objects.py", line 9\nKeyError: oid\n%s' % (M, gate_end),
          'CRASHED'),
         ('a syntax error is CRASHED', 'tools-self-test', 1, T, '  File "x", line 3\nSyntaxError: invalid syntax\n', 'CRASHED'),
+        ('a subprocess traceback truncated past its header, inside a cleanly failing gate, is CRASHED', 'gate', 1, M,
+         'FAIL  %s\n    verification/audits/evidence-retention/check_objects.py", line 812, in walk\n'
+         '  File "/home/runner/work/x/verification/audits/evidence-retention/check_objects.py", line 830, in walk\n'
+         '    raise KeyError(oid)\nKeyError: oid\n%s' % (M, gate_end), 'CRASHED'),
+        ('a subprocess syntax error inside a cleanly failing gate is CRASHED', 'gate', 1, M,
+         'FAIL  %s\n  File "/home/runner/work/x/job_outputs.py", line 4\n    def (\n        ^\nSyntaxError: invalid syntax\n%s'
+         % (M, gate_end), 'CRASHED'),
+        ('a bare name shared by cases under two tags does not identify the target', 'retention-self-test', 1, T,
+         'PASS self: %s (R12)\nFAIL self: %s (R8)\nself-test: FAILED\n' % (T, T), 'NOT-TARGETED'),
+        ('the tagged name still identifies a case whose bare name is shared', 'retention-self-test', 1, T + ' (R8)',
+         'PASS self: %s (R12)\nFAIL self: %s (R8)\nself-test: FAILED\n' % (T, T), 'KILLED'),
         ('an unrelated failing case is NOT-TARGETED', 'retention-self-test', 1, T,
          'FAIL self: some other case (C1)\nself-test: FAILED\n', 'NOT-TARGETED'),
         ('a target named only on a passing line is NOT-TARGETED', 'retention-self-test', 1, T,
