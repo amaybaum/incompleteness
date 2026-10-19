@@ -12,20 +12,28 @@ answer no review finding.
   `11562acebd30d3ae61a099f3484631c3f7dd8fc5`) is PR #864 comment 6254747204. The review of the second-pass correction
   (commit `6df43b2c08907c9572408c6ef627da5ec9071e81`) is PR #864 comment 6254962113. The three reviews are kept
   verbatim in `reviews/`, with their digests and provenance in `reviews/PROVENANCE.md`.
+- The third pass was reviewed independently. That review (verdict ACCEPT-WITH-NITS) is kept verbatim in
+  `reviews/third-pass/`: `REVIEW.md`, with the reviewer's exact script `rv_mev.py` and its output `rv_mev.out`. PR #864
+  comment 6257588156, kept in `reviews/`, is the corrector's checkpoint for the third pass, not a review; it reports
+  that verdict.
 - The third pass applies the owner's authorization of 2026-10-19 to correct the equivalence the MEV row stated
   between MEV and OV-LU (finding 1 of comment 6254962113), with the low-priority items of the same review. It
   changes no class or status.
-- The evidence corrections apply the owner's authorization of 2026-10-19 of factual and evidence corrections, whose
-  scope is those corrections only: under it no premise is adopted and no class or status changes.
+- The evidence corrections are covered by the owner's decision recorded in PR #864 comment 6266864478
+  (2026-10-19T12:09:47Z), kept verbatim in `decisions/`. It authorizes the exact-arithmetic repair of the witness
+  checker, the associated factual and provenance corrections, the bounded extension to the six compressions and
+  retention of the referenced review records. It keeps the MEV/OV-LU authorization a separate decision, and it
+  authorizes no physical premise, scientific conclusion, class, status, F/E designation, dispatch or merge.
 - `dc_premise.py` and `dc.out` are byte-identical to the originals. The script reads no file, so the memo's text is
   not an input to it. A replay under `python3 -I -B` gives rc 0, 27 PASS and 0 FAIL, byte-identical to `dc.out`.
 
 **Scope.** This is a correction only. It adds no premise, result or status change and no probe of any screen, and it
 adopts nothing. The arguments it cites from the reviews are tagged [W, rev] and the reviews' exact checks [NR, rev]
-(scripts not retained); none is replayed in the repository. [EC, v] marks the memo's own exact check of the witness
-the reviews report. Where a pass ran its own scratch computation, its section says so; such a computation is not
-committed and is not retained evidence. The three passes were reviewed independently, and the third was accepted with
-nits (summarized in PR #864 comment 6257588156). The evidence corrections are not yet independently reviewed.
+(scripts not retained); none is replayed in the repository. [EC, v] marks the memo's own exact checks of the witness
+and the compressions the reviews report. Where a pass ran its own scratch computation, its section says so; such a
+computation is not committed and is not retained evidence. Each of the three passes was reviewed independently, and
+the third-pass review (`reviews/third-pass/REVIEW.md`) accepted that pass with nits. The evidence corrections are not
+yet independently accepted.
 
 **Line references.** "o" gives lines in `PREMISE-MEMO.original.md`. "c" gives lines in `PREMISE-MEMO.md` at commit
 `11562ace`, the first-pass correction. "n" gives lines in `PREMISE-MEMO.md` at commit `6df43b2c`, the second-pass
@@ -104,24 +112,28 @@ record changed.
 
 ## Evidence corrections (no review finding)
 
-These corrections answer no review finding; the owner's authorization of 2026-10-19 covers them (provenance above).
+These corrections answer no review finding; the owner's decision in comment 6266864478 covers them (provenance above).
 The three reviews report their exact checks by result only. The scripts were not posted with comments 6254408285,
 6254747204 and 6254962113 and are not retained, so those checks cannot be replayed from the repository. The
-corrections re-tag them, keep the reviews verbatim and add an exact check of the witness written for this memo. They
-change no claim, class, label or status.
+corrections re-tag them, keep the review records verbatim and add exact checks of the witness and the compressions,
+written for this memo. They change no claim, class, label or status.
 
 | fix | lines changed | what changed |
 |---|---|---|
-| tag definitions | t32–33 → e31–32, e34–36 | [W, rev] is defined for the reviews' written arguments alone and points to `reviews/`. [NR, rev] replaces [EC, rev] for the reviews' exact checks: the result is reported, the script is not retained, and the check is not replayed. [EC, v] is defined for the witness check |
-| witness check | e49–57; new files `witness_check.py`, `witness_check.out` | A new exact check of the §2 witness, not a reproduction of the reviews' checks, written from the memo's definitions and the construction in `dc_premise.py`. Its claims: W1, −½ at outcome 0 for all four defects with C_ij = ⟨ji\|m⟩; W2, −½ at outcome 0 exactly for the d = −1 defects with C_ij = ⟨ij\|m⟩; W3, UPD excludes all four either way; W4, no violation under V = I. Its controls K1–K4 include the countercontrol K4, the PSD perturbations I/2 − P_m/4. Each eigenvalue must be an exact `Rational` after `sympy.simplify`, with no numerical identification, and the script exits non-zero on any FAIL line or a VOID verdict; its VERDICT line reports W1–W4 and decides no premise, class or status |
-| witness | t168–175 → e181–188 | That the native UPD conditionals of the four defects are PSD is tagged [EC, dc] (`dc.out`: "defects: even block PSD", "defects: odd block PSD (K(Z_F) satisfies UPD)", "cond(X,0) = even(X)", "cond(X,1) = odd block (configs 01,10, ordered by control)"). The six 2-subset compressions carry [NR, rev] only. The convention-specific eigenvalues and the mutation V = I carry [NR, rev] for what the reviews report and [EC, v] for the witness check; "UPD excludes all four either way" carries [EC, v] |
-| downstream tags | t213 → e226 (§3.2 row), t223 → e236 (§3.3 row), t305 → e318 (§4 UPD row, K(Z_F) cell), t366 → e379 (§5 UPD row, G5 cell) | The witness carries [NR, rev]; [EC, v] in place of [EC, rev]. Each [W, rev] tag, including UPD ≡ K ⊆ Q3, is unchanged |
-| reviews | new directory `reviews/` | Comments 6254408285, 6254747204 and 6254962113 are kept byte-exact, with `SHA256SUMS` and `PROVENANCE.md` (id, author, timestamps, URL, digest, fetch method and time) |
-| this file | :5–6 (introduction), :13–14 and :18–19 (provenance), :23–28 (scope), :32–33 (line references) | The introduction names this section; the provenance names `reviews/` and states the evidence corrections' authorization and its scope apart from the third pass's; the scope paragraph names the three tags and the review status; "e" is defined |
+| tag definitions | t32–33 → e31–32, e34–36 | [W, rev] is defined for the reviews' written arguments alone and points to `reviews/`. [NR, rev] replaces [EC, rev] for the reviews' exact checks: the result is reported, the script is not retained, and the check is not replayed. [EC, v] is defined for the witness and compression checks |
+| witness check | e49–55, e62–63; new files `witness_check.py`, `witness_check.out` | A new exact check of the §2 witness, not a reproduction of the reviews' checks, written from the memo's definitions and the construction in `dc_premise.py`. Its claims: W1, −½ at outcome 0 for all four defects with C_ij = ⟨ji\|m⟩; W2, −½ at outcome 0 exactly for the d = −1 defects with C_ij = ⟨ij\|m⟩; W3, UPD excludes all four either way; W4, no violation under V = I. Its controls K1–K4 include the countercontrol K4, the PSD perturbations I/2 − P_m/4. Each eigenvalue must be an exact `Rational` after `sympy.simplify`, with no numerical identification, and the script exits non-zero on any FAIL line or a VOID verdict; its VERDICT line reports W1–W4 and decides no premise, class or status |
+| compression check | e56–61; new files `compression_check.py`, `compression_check.out` | A new exact check of the six configuration 2-subset compressions of the four defects (24 cases), each the principal submatrix of z on span{\|a⟩, \|b⟩}, proved PSD through all principal minors in exact `Fraction` arithmetic, with no eigenvalues, floating point or tolerance. Its claim: E1, all 24 compressions PSD. Its controls: K1, the objects; K2, the PSD predicate rejects non-PSD and non-symmetric matrices, one with positive determinant; K3, the perturbed defects I/2 − (3/2)P_m rejected in all 24 cases; K4, a non-principal subset map rejected; K5, coverage of the six subsets. It exits non-zero on any FAIL line or a VOID verdict, and its VERDICT line decides no premise, class or status |
+| witness | t168–175 → e187–194 | That the native UPD conditionals of the four defects are PSD is tagged [EC, dc] (`dc.out`: "defects: even block PSD", "defects: odd block PSD (K(Z_F) satisfies UPD)", "cond(X,0) = even(X)", "cond(X,1) = odd block (configs 01,10, ordered by control)"). The six 2-subset compressions (e188) carry [NR, rev] for what the reviews report and [EC, v] for the compression check; the §3.2 row on the restriction to CN (e231) states compressions on every domain cone, not on the defects, and keeps [W, new]. The convention-specific eigenvalues and the mutation V = I carry [NR, rev] for what the reviews report and [EC, v] for the witness check; "UPD excludes all four either way" carries [EC, v] |
+| downstream tags | t213 → e232 (§3.2 row), t223 → e242 (§3.3 row), t305 → e324 (§4 UPD row, K(Z_F) cell), t366 → e385 (§5 UPD row, G5 cell) | The witness carries [NR, rev]; [EC, v] in place of [EC, rev]. Each [W, rev] tag, including UPD ≡ K ⊆ Q3, is unchanged |
+| reviews | new directory `reviews/` | Comments 6254408285, 6254747204 and 6254962113 (the reviews) and 6257588156 (the corrector's checkpoint, labelled as such) are kept byte-exact, and the third-pass review in `reviews/third-pass/` (`REVIEW.md`, `rv_mev.py`, `rv_mev.out`), with `SHA256SUMS` and `PROVENANCE.md` (id, kind, author, timestamps, URL, digest, fetch method and time, local-file provenance, and what `rv_mev.py` checks) |
+| decisions | new directory `decisions/` | The owner decision of comment 6266864478 is kept byte-exact, with `SHA256SUMS` and `PROVENANCE.md` |
+| this file | :5–6 (introduction), :13–14, :15–18 and :22–26 (provenance), :30–36 (scope), :40–41 (line references) | The introduction names this section; the provenance names `reviews/`, the third-pass review and the corrector's checkpoint, and states the evidence corrections' authorization from comment 6266864478 apart from the third pass's; the scope paragraph names the three tags and the review status; "e" is defined |
 | `../REPORT.md` | :7 | The first replay attempt's outputs, cited at a path outside the repository, are stated not to be retained |
 
 **Checks for these corrections.** `PREMISE-MEMO.original.md`, `dc_premise.py` and `dc.out` are byte-identical to
 commit `af68eb9f`. The replay under `python3 -I -B` gives rc 0, 27 PASS and 0 FAIL, byte-identical to `dc.out`.
 `witness_check.py` was run twice under `python3 -I -B`: rc 0, 8 PASS and 0 FAIL, byte-identical outputs, every
-control green and W1–W4 holding. No probe of any screen was added, and no file outside this directory other than
-`../REPORT.md` changed.
+control green and W1–W4 holding. `compression_check.py` was run twice under `python3 -I -B`: rc 0, 6 PASS and 0 FAIL,
+byte-identical outputs, every control green and E1 holding. `reviews/third-pass/rv_mev.py` replays to `rv_mev.out`
+byte-identically. No probe of any screen was added, and no file outside this directory other than `../REPORT.md`
+changed.

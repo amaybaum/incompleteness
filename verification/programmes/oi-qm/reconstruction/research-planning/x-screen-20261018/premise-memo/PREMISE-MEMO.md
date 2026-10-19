@@ -28,8 +28,8 @@ retained in the repository. D =
 - [EC]: exact computation.
   - [EC, rec] is recorded in the cited screen.
   - [EC, dc] is this memo's design-evidence check (below). It is not a probe of any screen and certifies no verdict.
-  - [EC, v] is this memo's witness check (below), independent of the reviews' checks. It establishes the stated
-    spectra only; its VERDICT line reports them and decides no premise, class or status.
+  - [EC, v] marks this memo's witness and compression checks (below), independent of the reviews' checks. They
+    establish the stated spectra and compressions only; their VERDICT lines decide no premise, class or status.
 - [W]: written argument. "[W, new]" marks an argument first made here and not yet reviewed.
 - [W, rev]: a written argument from the independent reviews (PR #864 comments 6254408285, 6254747204, 6254962113),
   kept verbatim in `reviews/`.
@@ -46,15 +46,21 @@ retained in the repository. D =
   Its output and script are in a working directory, `run1-wrong-expected/`, that is not retained in the repository
   (output sha256 `8908337e…800ef`). The corrected check includes the wrong form as a mutation that must fail.
 
-**Witness check (record only).**
+**Witness and compression checks (record only).**
 - Script: `witness_check.py`, sha256 `0a0717fd8a48955ab67a8ba97788d5213ddc3c5c8e3fb2aa582d822cef0ca831`.
 - Output: `witness_check.out`, sha256 `9cb0ba16e94a10078c19fb7494b7d4dd45e2e060b6624fd54627414e6aa068d0`.
 - Runs: twice under `python3 -I -B` (SymPy, exact), rc 0, byte-identical. 8 PASS, 0 FAIL. It checks the witness of
   §2 for the four defects under both coefficient conventions and the mutation V = I, with a countercontrol on which
   the witness must not fire: the PSD perturbations I/2 − P_m/4. Each eigenvalue must be an exact rational, and the
   script exits non-zero on any FAIL.
-- It is written from this memo's definitions and the construction in `dc_premise.py`, which it does not import. It
-  does not reproduce the reviews' checks, whose scripts are not retained.
+- Script: `compression_check.py`, sha256 `84dd265caa004c3147505b0208f0d757a9d2ddd9ecb262466ddc5afec9077cbd`.
+- Output: `compression_check.out`, sha256 `63cf75a786cddc5fd79114ec3221475681286a750040395e8ffcd906966123f0`.
+- Runs: twice under `python3 -I -B` (exact `Fraction` arithmetic, no floating point), rc 0, byte-identical. 6 PASS,
+  0 FAIL. It checks the six configuration 2-subset compressions of each of the four defects (24 cases) for PSD
+  through all principal minors, with countercontrols it must reject: the perturbed defects I/2 − (3/2)P_m and a
+  non-principal subset map. It exits non-zero on any FAIL.
+- Both are written from this memo's definitions and the construction in `dc_premise.py`, which they do not import.
+  They do not reproduce the reviews' checks, whose scripts are not retained.
 
 ## 1. Question and scope
 
@@ -179,7 +185,7 @@ compression of the rotated X, so requiring it to be a token state for every loca
 vector. Under the continuous local rotations the target needs (A1, F2 Fact A, §5 G4), UPD applied uniformly to that
 protocol class is therefore equivalent to K ⊆ Q3.
 - Exact witness: on the K(Z_F) defects z = I/2 − P_m, the native UPD conditionals are PSD [EC, dc], as are all six
-  configuration 2-subset compressions [NR, rev]. The convention: |ij⟩ = |i⟩⊗|j⟩ with token 1 first; m is the
+  configuration 2-subset compressions [NR, rev]; [EC, v]. The convention: |ij⟩ = |i⟩⊗|j⟩ with token 1 first; m is the
   defect's maximally entangled vector, m = (|00⟩ + b|01⟩ − bd|10⟩ + d|11⟩)/2 with b, d = ±1 (as in `dc_premise.py`);
   C is its coefficient matrix with C_ij = ⟨ji|m⟩; V = √2·Cᵀ; and I⊗V acts by z ↦ (I⊗V) z (I⊗V)†. With that
   convention the outcome-0 conditional has eigenvalue −½ for all four defects (comment 6254962113) [NR, rev];
