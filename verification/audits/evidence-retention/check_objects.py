@@ -2110,11 +2110,11 @@ def self_test(root):
             latest = tb0[max(tb0, key=int)]
             newt = max([int(k) for k in tb0] + [e['tranche'] for e in man0['objects']
                                                 if type(e.get('tranche')) is int]) + 1
+            ctree = gitok(['rev-parse', latest + '^{tree}'], root).stdout.decode().strip()
 
             def connected_on(parent, what):
-                tree = gitok(['rev-parse', parent + '^{tree}'], root).stdout.decode().strip()
                 data = ('tree %s\nparent %s\nauthor A <a> 1 +0000\ncommitter A <a> 1 +0000\n\n%s\n'
-                        % (tree, parent, what)).encode()
+                        % (ctree, parent, what)).encode()
                 return git_id('commit', data), data
             mid, mid_data = connected_on(latest, 'an off-main commit the archive does not hold')
             on_latest, on_latest_data = connected_on(latest, 'a raw:connected commit on the latest tranche base')
