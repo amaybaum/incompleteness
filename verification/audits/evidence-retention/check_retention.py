@@ -114,12 +114,15 @@ Rules:
       own provenance. It is admitted only when it equals a tuple of VERBATIM_ALLOWLIST, hardcoded below, which
       holds exactly one owner-approved tuple; any other entry, run, path, line, blob, source or citation context
       fails, and a further exception needs a reviewed change to that allowlist. The check hashes the copy's
-      complete bytes itself (git blob id) and never trusts the manifest's blob; the copy must be present, its
+      complete bytes itself, as a git blob id (SHA-1) and as SHA-256, and compares each with the approved value on
+      its own; it never trusts the manifest's digests. The copy must be present, its
       approved line must name the run exactly once, and no other line of it may name the run. The approved line is
       then left out of the lines that name the run, and every other rule of R13 applies unchanged to the rest. A
       verbatim mention is never a citation: it is not counted as one, it does not satisfy awaiting_citation, it
       makes no entry eligible or cited, it may not be mapped by a citation or be the pending record, and it carries
-      no claim. It supports no scientific claim; it records why a pinned copy names the run.
+      no claim. It supports no scientific claim; it records why a pinned copy names the run. The self-test checks
+      the same code path with stand-in tuples through a seam that is open only while the self-test runs; report()
+      and gate() fail if it is open, and no flag, environment variable or manifest field reaches it.
 The self-test mutates a copy once per failure message of these checks and requires that message; its R10 and R11
 cases read the repository's history, and the self-test fails, with a FAIL line, when that history or a commit
 the cases read is absent.
@@ -144,12 +147,15 @@ R13_STATES = {}
 _OBJECTS_RULES = None
 # R13's verbatim mentions: the owner-approved tuples, and nothing else (2026-10-19, PR #864's pinned copy of F2
 # thread I). Each tuple fixes the entry, its run and the run's head, the copy's path, the line naming the run and
-# the copy's git blob id, the source the copy reproduces, and the entry's citation context: its pending citation,
-# or, once promoted, the record lines its citations map. Adding or changing a tuple needs the owner's authorization.
+# the copy's git blob id (SHA-1) and the SHA-256 of its raw bytes, each checked on its own, the source the copy
+# reproduces, and the entry's citation context: its pending citation, or, once promoted, the record lines its
+# citations map. Adding or changing a tuple needs the owner's authorization. Both digests were read from the source
+# blob at copy_of, fetched from origin, not from the copy.
 VERBATIM_ALLOWLIST = (
     {'entry': 'research-38450187534', 'run': '38450187534', 'head': 'e684897da41b1c3d066b880194c9beb87a19b7ad',
      'path': 'verification/programmes/oi-qm/reconstruction/research-planning/x-screen-20261018/src/I.md',
      'line': 378, 'blob': 'f20411d6583a28298aa8647ae456ce787083e31c',
+     'sha256': 'ebfa6cdb2c8cfca2c63f8bb608d87627f4d4eded278bcb863385568d9973f2e9',
      'copy_of': {'commit': '804843f16b67061ac258ce00cefa2425d1b688c2',
                  'path': 'verification/programmes/oi-qm/reconstruction/f2-research-threads/I-f2-sufficiency-target.md'},
      'awaiting': {'pull_request': 831, 'round': 'PRESERVE-INDUCT-1',
@@ -157,17 +163,29 @@ VERBATIM_ALLOWLIST = (
                   'line': 69, 'head': '65b85147f85aa01770e0e60551152bc5f1d9ef29'},
      'cited_lines': [69]},
 )
-VERBATIM_KEYS = {'path', 'line', 'blob', 'copy_of', 'note'}
+VERBATIM_KEYS = {'path', 'line', 'blob', 'sha256', 'copy_of', 'note'}
 AWAITING_KEYS = ('pull_request', 'round', 'record', 'line', 'head')
-# the self-test's seam: it substitutes a stand-in tuple while its verbatim cases run, and restores None after; no
-# argument, environment variable or manifest field sets it
+# the self-test's seam: while its verbatim cases run, it substitutes a stand-in tuple, which then goes through the
+# same verbatim_filter as the approved one. The substitute is honoured only while _IN_SELF_TEST holds, which
+# self_test() alone sets, restoring both in a finally clause. No argument, environment variable or manifest field
+# reaches either; report() and gate() fail if either is set outside the self-test.
 _VERBATIM_OVERRIDE = None
+_IN_SELF_TEST = False
 # the verbatim mentions admitted by the last check(): eid -> (path, line)
 VERBATIM_STATES = {}
 
 
 def verbatim_allowlist():
-    return VERBATIM_ALLOWLIST if _VERBATIM_OVERRIDE is None else _VERBATIM_OVERRIDE
+    """The tuples verbatim_filter admits: the hardcoded allowlist, or the self-test's substitute while the
+    self-test runs, and never otherwise."""
+    return _VERBATIM_OVERRIDE if _IN_SELF_TEST and _VERBATIM_OVERRIDE is not None else VERBATIM_ALLOWLIST
+
+
+def verbatim_seam_leak():
+    """A failure message when the self-test's substitute or flag is set outside the self-test, else None."""
+    if _VERBATIM_OVERRIDE is not None or _IN_SELF_TEST:
+        return 'R13 the verbatim self-test substitute is set outside the self-test'
+    return None
 
 
 def objects_rules():
@@ -748,10 +766,11 @@ def verbatim_filter(e, eid, rid, head, aw, root, cl, F):
     v = vm[0] if isinstance(vm, list) and len(vm) == 1 and isinstance(vm[0], dict) else None
     if v is None or set(v) != VERBATIM_KEYS or not isinstance(v.get('copy_of'), dict) or \
             set(v['copy_of']) != {'commit', 'path'} or not isinstance(v.get('note'), str) or not v['note'].strip():
-        F('R13 %s: verbatim_mentions is malformed (exactly one mention: path, line, blob, copy_of {commit, path} and '
-          'a note, and nothing else)' % eid)
+        F('R13 %s: verbatim_mentions is malformed (exactly one mention: path, line, blob, sha256, copy_of {commit, '
+          'path} and a note, and nothing else)' % eid)
         return None
-    if (v['path'], v['line'], v['blob'], v['copy_of']) != (a['path'], a['line'], a['blob'], a['copy_of']):
+    if (v['path'], v['line'], v['blob'], v['sha256'], v['copy_of']) != \
+            (a['path'], a['line'], a['blob'], a['sha256'], a['copy_of']):
         F('R13 %s: verbatim mention %s:%s is not the owner-approved tuple' % (eid, v['path'], v['line']))
         return None
     if head != a['head']:
@@ -774,9 +793,15 @@ def verbatim_filter(e, eid, rid, head, aw, root, cl, F):
         F('R13 %s: verbatim mention %s is absent' % (eid, a['path']))
         return None
     data = open(p, 'rb').read()
+    # two digests of the complete bytes, computed here, each against the approved value on its own
     got = blob_id(data)
     if got != a['blob']:
         F('R13 %s: verbatim mention %s is not the approved blob (%s, approved %s)' % (eid, a['path'], got, a['blob']))
+        return None
+    got256 = hashlib.sha256(data).hexdigest()
+    if got256 != a['sha256']:
+        F('R13 %s: verbatim mention %s is not the approved sha256 (%s, approved %s)' % (eid, a['path'], got256,
+                                                                                       a['sha256']))
         return None
     rx = re.compile(r'(?<![0-9])%s(?![0-9])' % re.escape(rid))
     L = data.decode('utf-8', 'replace').split('\n')
@@ -1265,7 +1290,13 @@ def job_outputs_gate(archive, root):
 
 def gate(archive, root):
     """The release-gate step: the check in history mode (R1-R13), then the self-test, then the retained objects'
-    check and self-test, then tranche 3's comparator self-test."""
+    check and self-test, then tranche 3's comparator self-test. It fails at once if the self-test's verbatim
+    substitute is set before it starts, and fails if the self-test leaves it set."""
+    leak = verbatim_seam_leak()
+    if leak:
+        print('FAIL  %s' % leak)
+        print('EVIDENCE-RETENTION  FAILS (%s)' % leak)
+        return 1
     man = json.load(open(os.path.join(archive, 'manifest.json'), encoding='utf-8'))
     fails, st11 = history_mode(archive, root, man)
     print_unscoped(st11)
@@ -1273,6 +1304,10 @@ def gate(archive, root):
     for f in fails:
         print('FAIL  %s' % f)
     st = self_test(archive, root)
+    leak = verbatim_seam_leak()
+    if leak:
+        fails.append(leak)
+        print('FAIL  %s' % leak)
     ran, obj_ok = objects_gate(archive, root)
     jran, job_ok = job_outputs_gate(archive, root)
     good = not fails and st == 0 and obj_ok and job_ok
@@ -1284,6 +1319,11 @@ def gate(archive, root):
 
 
 def report(archive, root):
+    leak = verbatim_seam_leak()
+    if leak:
+        print('FAIL  %s' % leak)
+        print('RETENTION  FAILS (%s)' % leak)
+        return 1
     fails, gaps = check(archive, root)
     man = json.load(open(os.path.join(archive, 'manifest.json'), encoding='utf-8'))
     nfiles = sum(len(e.get('files', [])) for e in man['entries'])
@@ -1623,7 +1663,10 @@ def r13_cases(man, ents, rs, troot, tarch, expect, edit, back, json_edit, file_e
 
 
 def _set_verbatim_override(t):
+    """The self-test's seam. Refuses outside the self-test."""
     global _VERBATIM_OVERRIDE
+    if not _IN_SELF_TEST:
+        raise RuntimeError('the verbatim substitute is set only by the self-test')
     _VERBATIM_OVERRIDE = t
 
 
@@ -1644,15 +1687,16 @@ def verbatim_cases(ents, rs, i, e, rid, eid, head, other, aw, at, good, troot, c
                 rid + (' (run %s)' % rid if twice else ''))
         return ('\n'.join(L) + '\n').encode('utf-8')
     gc = copy_text()
+    H = lambda b: hashlib.sha256(b).hexdigest()
 
     def tup(**kw):
-        t = {'entry': eid, 'run': rid, 'head': head, 'path': TP, 'line': 3, 'blob': blob_id(gc),
+        t = {'entry': eid, 'run': rid, 'head': head, 'path': TP, 'line': 3, 'blob': blob_id(gc), 'sha256': H(gc),
              'copy_of': dict(A['copy_of']), 'awaiting': {k: aw[k] for k in AWAITING_KEYS}, 'cited_lines': [at]}
         t.update(kw)
         return t
 
     def field(t, **kw):
-        f = {'path': t['path'], 'line': t['line'], 'blob': t['blob'], 'copy_of': dict(t['copy_of']),
+        f = {'path': t['path'], 'line': t['line'], 'blob': t['blob'], 'sha256': t['sha256'], 'copy_of': dict(t['copy_of']),
              'note': 'a pinned verbatim copy names the run as its source\'s provenance; not a citation'}
         f.update(kw)
         return f
@@ -1714,6 +1758,11 @@ def verbatim_cases(ents, rs, i, e, rid, eid, head, other, aw, at, good, troot, c
     R('verbatim: the copy changed by one byte, the manifest unchanged', 'is not the approved blob', copy=gc + b' ')
     R('verbatim: the manifest asserts the changed copy\'s blob', 'is not the owner-approved tuple', copy=gc + b' ',
       fld=[field(tup(), blob=blob_id(gc + b' '))])
+    R('verbatim: the manifest asserts another sha256', 'is not the owner-approved tuple',
+      fld=[field(tup(), sha256=H(gc + b' '))])
+    # each digest on its own: a constructed tuple whose one digest is right and the other wrong
+    R('verbatim: SHA-1 matches and SHA-256 does not', 'is not the approved sha256', t=tup(sha256=H(gc + b' ')))
+    R('verbatim: SHA-256 matches and SHA-1 does not', 'is not the approved blob', t=tup(blob=blob_id(gc + b' ')))
     R('verbatim: the copy at another path, the manifest following it', 'is not the owner-approved tuple', at_path=TP2,
       fld=[field(tup(), path=TP2)])
     R('verbatim: the copy moved, the manifest unchanged', 'is absent', at_path=TP2)
@@ -1721,12 +1770,13 @@ def verbatim_cases(ents, rs, i, e, rid, eid, head, other, aw, at, good, troot, c
     R('verbatim: the line changed in the manifest', 'is not the owner-approved tuple', fld=[field(tup(), line=4)])
     moved = copy_text((5,))
     R('verbatim: the mention moved to another line of the copy', 'does not name run %s exactly once' % rid, copy=moved,
-      t=tup(blob=blob_id(moved)))
+      t=tup(blob=blob_id(moved), sha256=H(moved)))
     twice = copy_text(twice=True)
     R('verbatim: the run named twice on the approved line', 'does not name run %s exactly once' % rid, copy=twice,
-      t=tup(blob=blob_id(twice)))
+      t=tup(blob=blob_id(twice), sha256=H(twice)))
     second = copy_text((3, 5))
-    R('verbatim: a second line of the copy names the run', 'on another line (5)', copy=second, t=tup(blob=blob_id(second)))
+    R('verbatim: a second line of the copy names the run', 'on another line (5)', copy=second,
+      t=tup(blob=blob_id(second), sha256=H(second)))
     R('verbatim: another file also names the run', 'is now cited at verification/ZZ-CITES.md',
       extra=lambda: open(cites, 'w').write('run %s\n' % rid))
     R('verbatim: the approved run differs from the entry\'s run', 'not the approved run', t=tup(run='1' + rid))
@@ -1763,12 +1813,14 @@ def verbatim_cases(ents, rs, i, e, rid, eid, head, other, aw, at, good, troot, c
 
 # the canonical form of VERBATIM_ALLOWLIST, pinned: a change to the allowlist changes this digest in the same
 # reviewed diff
-VERBATIM_ALLOWLIST_SHA256 = 'fb2c710c93bb858d1ad04d5379636163123c972ecb46a2adf20ddc55b32732c0'
+VERBATIM_ALLOWLIST_SHA256 = '9608ae67e75fbb6e1335d977f2995458fe2b86b260fa8205cd9be7bb4c794734'
 
 
-def verbatim_live_cases(ents, troot, expect, edit, back):
+def verbatim_live_cases(ents, troot, tarch, root, expect, edit, back):
     """The live tuple's cases, on the copy before the R13 fixture moves any entry: the allowlist is the one approved
-    tuple, and listing that tuple fails closed without its copy or with other bytes at its path."""
+    tuple; listing it fails closed without its copy or with other bytes at its path; the real entry's lifecycle
+    (pending, eligible, cited) when the tree holds the approved copy, or, when it does not, no entry lists a verbatim
+    mention; and the seam: closed outside the self-test, reachable by no flag, environment variable or manifest field."""
     A = VERBATIM_ALLOWLIST[0]
     canon = json.dumps(VERBATIM_ALLOWLIST, sort_keys=True, separators=(',', ':')).encode('utf-8')
     expect('verbatim (live): the hardcoded allowlist is exactly the one owner-approved tuple', lambda: None,
@@ -1779,21 +1831,32 @@ def verbatim_live_cases(ents, troot, expect, edit, back):
         expect('verbatim (live): the approved entry is in the manifest', lambda: None, lambda: None, 'R13',
                'an impossible message')
         return
-    fld = {'path': A['path'], 'line': A['line'], 'blob': A['blob'], 'copy_of': dict(A['copy_of']),
+    fld = {'path': A['path'], 'line': A['line'], 'blob': A['blob'], 'sha256': A['sha256'], 'copy_of': dict(A['copy_of']),
            'note': 'a pinned verbatim copy of F2 thread I names the run as its source\'s provenance; not a citation'}
     lp = os.path.join(troot, A['path'])
 
-    def live(text):
+    def live(text, mfn=None, rec_text=None):
         saved = open(lp, 'rb').read() if os.path.isfile(lp) else None
+        rp = os.path.join(troot, A['awaiting']['record'])
+        rsaved = open(rp, 'rb').read() if os.path.isfile(rp) else None
 
         def go():
-            edit(lambda m: m['entries'][k].__setitem__('verbatim_mentions', [fld]))()
+            def fn(m):
+                m['entries'][k]['verbatim_mentions'] = [fld]
+                if mfn:
+                    mfn(m)
+            edit(fn)()
             if text is None:
                 if os.path.isfile(lp):
                     os.remove(lp)
-            else:
+            elif text is not True:
                 os.makedirs(os.path.dirname(lp), exist_ok=True)
                 open(lp, 'wb').write(text)
+            if os.path.isfile(rp):
+                os.remove(rp)
+            if rec_text is not None:
+                os.makedirs(os.path.dirname(rp), exist_ok=True)
+                open(rp, 'w', encoding='utf-8').write(rec_text)
 
         def undo():
             back()
@@ -1802,11 +1865,174 @@ def verbatim_live_cases(ents, troot, expect, edit, back):
                     os.remove(lp)
             else:
                 open(lp, 'wb').write(saved)
+            if rsaved is None:
+                if os.path.isfile(rp):
+                    os.remove(rp)
+            else:
+                open(rp, 'wb').write(rsaved)
         return go, undo
     expect('verbatim (live): the approved tuple listed without its copy fails closed', *live(None), rule='R13',
            msg='is absent', who=A['entry'])
     expect('verbatim (live): other bytes at the approved path fail', *live(
         ('| HC6 | run %s |\n' % A['run']).encode('utf-8')), rule='R13', msg='is not the approved blob', who=A['entry'])
+    # the real entry's lifecycle, through the approved tuple and no substitute, when this tree holds the copy
+    eid = A['entry']
+    if os.path.isfile(os.path.join(root, A['path'])):
+        rec = A['awaiting']['record']
+        on = [(str(x['run_id']), x['awaiting_citation']['line']) for x in ents
+              if (x.get('awaiting_citation') or {}).get('record') == rec and x.get('id') != eid]
+        on.append((A['run'], A['awaiting']['line']))
+        hd = {r: json.load(open(os.path.join(tarch, 'ci', r, 'run.json'), encoding='utf-8'))['head_sha'] for r, _ in on}
+        L = ['# a stand-in for %s as it lands on main' % A['awaiting']['round']] + [''] * (max(n for _, n in on) - 1)
+        for r, n in on:
+            L[n - 2] = 'The design compiled at `%s`, workflow run' % hd[r]
+            L[n - 1] = '[%s](https://github.com/amaybaum/incompleteness/actions/runs/%s).' % (r, r)
+        rtext = '\n'.join(L) + '\n'
+
+        def pending(m):
+            x = m['entries'][k]
+            x.pop('citations', None)
+            x['awaiting_citation'] = dict(x.get('awaiting_citation') or {}, **A['awaiting'])
+
+        def cited(m):
+            x = m['entries'][k]
+            x.pop('awaiting_citation', None)
+            x['citations'] = [{'path': rec, 'line': n, 'blob': blob_id(rtext.encode('utf-8')), 'tokens': [A['run']],
+                               'claims': [{'line': n, 'text': A['run'], 'status': 'retained',
+                                           'in': ['ci/%s/results.json' % A['run']], 'note': 'results.json names the run'}]}
+                              for n in A['cited_lines']]
+        adm = lambda: VERBATIM_STATES.get(eid) == (A['path'], A['line'])
+        expect(LIVE_PRESENT_CASES[0], *live(True, mfn=pending), state=(eid, 'pending'), also=adm)
+        expect(LIVE_PRESENT_CASES[1], *live(True, mfn=pending, rec_text=rtext), state=(eid, 'eligible'),
+               also=lambda: adm() and R13_STATES[eid][1] == [A['awaiting']['line']])
+        expect(LIVE_PRESENT_CASES[2], *live(True, mfn=cited, rec_text=rtext), state=(eid, 'cited'), also=adm)
+    else:
+        expect(LIVE_ABSENT_CASES[0], lambda: None, lambda: None, also=lambda: not any(
+            'verbatim_mentions' in x for x in json.load(open(os.path.join(tarch, 'manifest.json'),
+                                                             encoding='utf-8'))['entries']))
+    # the seam, closed outside the self-test
+    verbatim_seam_cases(k, eid, troot, tarch, root, expect, edit, back)
+
+
+def verbatim_seam_cases(k, eid, troot, tarch, root, expect, edit, back):
+    """The self-test's substitute cannot be activated outside the self-test: no code but the self-test opens the
+    seam (static); no flag reaches it; plain mode ignores the environment; and a substitute leaked into a fresh
+    process is inert in check(), refused by the seam's setter, and failed by report() and gate()."""
+    A = VERBATIM_ALLOWLIST[0]
+    me = os.path.join(HERE, 'check_retention.py')
+    src = open(me, encoding='utf-8').read()
+
+    def static():
+        import ast
+        t = ast.parse(src)
+        top = {}
+        for f in t.body:
+            if isinstance(f, ast.FunctionDef):
+                for x in ast.walk(f):
+                    top[id(x)] = f.name
+        fn_of = lambda n: top.get(id(n), '<module>')
+        seam = {'_VERBATIM_OVERRIDE', '_IN_SELF_TEST'}
+        bad = []
+        for n in ast.walk(t):
+            if isinstance(n, (ast.Assign, ast.AugAssign, ast.AnnAssign)):
+                tg = n.targets if isinstance(n, ast.Assign) else [n.target]
+                names = {x.id for g in tg for x in ast.walk(g) if isinstance(x, ast.Name)}
+                if names & seam:
+                    f = fn_of(n)
+                    if f == '<module>':
+                        if not (isinstance(n.value, ast.Constant) and n.value.value in (None, False)):
+                            bad.append('module-level %s' % names)
+                    elif f not in ('_set_verbatim_override', 'self_test'):
+                        bad.append('%s assigns %s' % (f, names))
+            if isinstance(n, ast.Call) and isinstance(n.func, ast.Name) and n.func.id == '_set_verbatim_override' \
+                    and fn_of(n) != 'verbatim_cases':
+                bad.append('%s calls the setter' % fn_of(n))
+            if isinstance(n, (ast.Name, ast.Attribute)) and getattr(n, 'id', getattr(n, 'attr', '')) in ('environ', 'getenv'):
+                bad.append('%s reads the environment' % fn_of(n))
+        hook = [p for p in sorted(set(re.findall(r"sys\.argv\[1:\] == \[([^\]]*)\]", src)))]
+        if hook != ["'--gate'", "'--later-provenance'", "'--module-sets'", "'--self-test'"]:
+            bad.append('the CLI modes are %s' % hook)
+        return not bad
+    expect('verbatim (seam): only the self-test opens the seam, and nothing reads the environment', lambda: None,
+           lambda: None, also=static)
+
+    def no_flags():
+        for argv in (['--verbatim-override', '[]'], ['--allowlist', '[]'], ['--self-test', '--verbatim-override'],
+                     ['--gate', '--verbatim-override']):
+            p = subprocess.run([sys.executable, '-I', me] + argv, cwd=root, capture_output=True, text=True)
+            if p.returncode != 2:
+                return False
+        return True
+    expect('verbatim (seam): no command-line flag reaches the substitute', lambda: None, lambda: None, also=no_flags)
+
+    def env_inert():
+        st = json.dumps([dict(A, path='verification/ZZ-SELF-TEST/verbatim-copy.md')])
+        base = subprocess.run([sys.executable, '-I', me], cwd=root, capture_output=True, text=True, env={})
+        lit = subprocess.run([sys.executable, '-I', me], cwd=root, capture_output=True, text=True, env={
+            'VERBATIM_OVERRIDE': st, '_VERBATIM_OVERRIDE': st, 'VERBATIM_ALLOWLIST': st,
+            'CHECK_RETENTION_VERBATIM': st, '_IN_SELF_TEST': '1'})
+        return (base.returncode, base.stdout) == (lit.returncode, lit.stdout)
+    expect('verbatim (seam): plain mode ignores the environment', lambda: None, lambda: None, also=env_inert)
+    # a substitute leaked into a fresh process, with the copy and field it would admit in the tree
+    TP = 'verification/ZZ-SELF-TEST/verbatim-copy.md'
+    run = A['run']
+    copy = ('# a stand-in copy\n\n| HC6 | [run %s per B:260-264] |\n' % run).encode('utf-8')
+    t = dict(A, path=TP, line=3, blob=blob_id(copy), sha256=hashlib.sha256(copy).hexdigest())
+    fld = {'path': TP, 'line': 3, 'blob': t['blob'], 'sha256': t['sha256'], 'copy_of': dict(A['copy_of']),
+           'note': 'a stand-in that only a substitute would admit'}
+    tp = os.path.join(troot, TP)
+    lp = os.path.join(troot, A['path'])
+    saved = {}
+
+    def go():
+        saved['l'] = open(lp, 'rb').read() if os.path.isfile(lp) else None
+        if saved['l'] is not None:
+            os.remove(lp)
+        os.makedirs(os.path.dirname(tp), exist_ok=True)
+        open(tp, 'wb').write(copy)
+        edit(lambda m: m['entries'][k].__setitem__('verbatim_mentions', [fld]))()
+
+    def undo():
+        back()
+        if os.path.exists(tp):
+            os.remove(tp)
+        if saved.get('l') is not None:
+            open(lp, 'wb').write(saved['l'])
+    probe = r"""
+import io, json, sys, types, contextlib
+me, tarch, troot, t, eid = sys.argv[1], sys.argv[2], sys.argv[3], json.loads(sys.argv[4]), sys.argv[5]
+m = types.ModuleType('check_retention_probe'); m.__file__ = me
+exec(compile(open(me, encoding='utf-8').read(), me, 'exec'), m.__dict__)
+assert m._VERBATIM_OVERRIDE is None and m._IN_SELF_TEST is False, 'seam open at import'
+try:
+    m._set_verbatim_override((t,)); raise SystemExit('the setter accepted a substitute outside the self-test')
+except RuntimeError:
+    pass
+m._VERBATIM_OVERRIDE = (t,)
+assert m.verbatim_allowlist() is m.VERBATIM_ALLOWLIST, 'a leaked substitute is honoured'
+fails, _ = m.check(tarch, troot)
+assert any(f.startswith('R13 %s:' % eid) and 'not the owner-approved tuple' in f for f in fails), fails[:3]
+assert eid not in m.VERBATIM_STATES, 'a leaked substitute admitted the stand-in'
+for name, call in (('report', lambda: m.report(tarch, troot)), ('gate', lambda: m.gate(tarch, troot))):
+    m.self_test = m.objects_gate = m.job_outputs_gate = None
+    out = io.StringIO()
+    with contextlib.redirect_stdout(out):
+        rc = call()
+    assert rc == 1 and 'set outside the self-test' in out.getvalue(), (name, rc, out.getvalue()[-300:])
+m._VERBATIM_OVERRIDE, m._IN_SELF_TEST = None, True
+out = io.StringIO()
+with contextlib.redirect_stdout(out):
+    rc = m.report(tarch, troot)
+assert rc == 1 and 'set outside the self-test' in out.getvalue(), 'the flag alone is not refused'
+print('PROBE-OK')
+"""
+
+    def leaked():
+        p = subprocess.run([sys.executable, '-I', '-c', probe, me, tarch, troot, json.dumps(t), eid], cwd=troot,
+                           capture_output=True, text=True)
+        return p.returncode == 0 and p.stdout.strip().endswith('PROBE-OK')
+    expect('verbatim (seam): a substitute leaked into a fresh process is inert, and report and gate refuse it', go,
+           undo, 'R13', 'not the owner-approved tuple', who=eid, also=leaked)
 
 
 # the R13 cases the self-test must run (its fixture makes them run in every lifecycle state)
@@ -1861,8 +2087,23 @@ R13_CASES = (
     'boundary (b): a 64-digit hex word never states the head',
     'boundary (c): a conflicting head beside the citation fails, even beside a digest',
     'documented limitation: another head as the last 40 digits of a 64-digit word beside a file name passes')
+# the real entry's lifecycle cases: the first set runs on a tree that holds the approved copy, the second on one that
+# does not; the self-test requires one set, in full
+LIVE_PRESENT_CASES = (
+    'verbatim (live lifecycle): the real entry pending, its approved copy admitted',
+    "verbatim (live lifecycle): the real entry eligible on its record's line alone",
+    "verbatim (live lifecycle): the real entry cited on its record's line alone")
+LIVE_ABSENT_CASES = (
+    'verbatim (live lifecycle): this tree holds no approved copy, and no entry lists a verbatim mention',)
 # the verbatim-mention cases the self-test must run
 VERBATIM_CASES = (
+    'verbatim (live): the hardcoded allowlist is exactly the one owner-approved tuple',
+    'verbatim (live): the approved tuple listed without its copy fails closed',
+    'verbatim (live): other bytes at the approved path fail',
+    'verbatim (seam): only the self-test opens the seam, and nothing reads the environment',
+    'verbatim (seam): no command-line flag reaches the substitute',
+    'verbatim (seam): plain mode ignores the environment',
+    'verbatim (seam): a substitute leaked into a fresh process is inert, and report and gate refuse it',
     'verbatim: the approved mention of a pinned copy passes, and the entry stays pending',
     "verbatim: the record lands, and the entry is eligible on the record's line alone",
     "verbatim: promoted on the record's line alone, the entry is cited",
@@ -1871,6 +2112,9 @@ VERBATIM_CASES = (
     'verbatim: the copy named as the pending record',
     'verbatim: the copy changed by one byte, the manifest unchanged',
     "verbatim: the manifest asserts the changed copy's blob",
+    'verbatim: the manifest asserts another sha256',
+    'verbatim: SHA-1 matches and SHA-256 does not',
+    'verbatim: SHA-256 matches and SHA-1 does not',
     'verbatim: the copy at another path, the manifest following it',
     'verbatim: the copy moved, the manifest unchanged',
     'verbatim: the copy absent',
@@ -1894,9 +2138,6 @@ VERBATIM_CASES = (
     'verbatim: an empty note',
     'verbatim: the source changed',
     'verbatim: the seam is unset after the verbatim cases',
-    'verbatim (live): the hardcoded allowlist is exactly the one owner-approved tuple',
-    'verbatim (live): the approved tuple listed without its copy fails closed',
-    'verbatim (live): other bytes at the approved path fail',
 )
 
 
@@ -1939,6 +2180,22 @@ def r13_fixture(m, tarch, troot, need):
 
 
 def self_test(archive, root):
+    """The self-test, with the verbatim seam open only for its duration: _IN_SELF_TEST is set here, and the flag
+    and any substitute are restored in a finally clause, whatever the self-test does. A seam already open when it
+    starts fails it."""
+    global _IN_SELF_TEST, _VERBATIM_OVERRIDE
+    if verbatim_seam_leak():
+        print('FAIL self: %s' % verbatim_seam_leak())
+        print('self-test: FAILED')
+        return 1
+    _IN_SELF_TEST = True
+    try:
+        return _self_test(archive, root)
+    finally:
+        _IN_SELF_TEST, _VERBATIM_OVERRIDE = False, None
+
+
+def _self_test(archive, root):
     """Each mutation must be reported by the check it targets, identified by that check's own message; the
     unmutated copy must pass. Every failure message of check() has a mutation here."""
     man = json.load(open(os.path.join(archive, 'manifest.json'), encoding='utf-8'))
@@ -2487,7 +2744,7 @@ def self_test(archive, root):
         if 'tranche3' in man or t3:
             r12_cases(man, ents, t3, tarch, expect, edit, back, json_edit, file_edit)
         # R13's verbatim mentions: the live tuple, before the fixture moves any entry off its citation context
-        verbatim_live_cases(ents, troot, expect, edit, back)
+        verbatim_live_cases(ents, troot, tarch, root, expect, edit, back)
         # R13's lifecycle, on a fixture built in the copy so that its cases run in every live state (pending,
         # eligible, partly or fully cited): every research-build entry pending on a stand-in record that no tree
         # holds, and the copied records that only their citations needed removed. A fixture that cannot be built,
@@ -2504,6 +2761,9 @@ def self_test(archive, root):
         for n in missing:
             ok = False
             print('FAIL self: %s (R13) did not run' % n)
+        if not (all(n in ran for n in LIVE_PRESENT_CASES) or all(n in ran for n in LIVE_ABSENT_CASES)):
+            ok = False
+            print('FAIL self: neither set of the real entry\'s lifecycle cases ran in full')
     print('self-test: %s' % ('OK' if ok else 'FAILED'))
     return 0 if ok else 1
 
