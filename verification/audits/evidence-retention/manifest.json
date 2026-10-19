@@ -14605,7 +14605,20 @@
      "workflow": ".github/workflows/preservation-induction-design.yml"
     }
    ],
-   "run_id": "38450187534"
+   "run_id": "38450187534",
+   "verbatim_mentions": [
+    {
+     "path": "verification/programmes/oi-qm/reconstruction/research-planning/x-screen-20261018/src/I.md",
+     "line": 378,
+     "blob": "f20411d6583a28298aa8647ae456ce787083e31c",
+     "sha256": "ebfa6cdb2c8cfca2c63f8bb608d87627f4d4eded278bcb863385568d9973f2e9",
+     "copy_of": {
+      "commit": "804843f16b67061ac258ce00cefa2425d1b688c2",
+      "path": "verification/programmes/oi-qm/reconstruction/f2-research-threads/I-f2-sufficiency-target.md"
+     },
+     "note": "PR #864 lands a byte-identical copy of F2 thread I, pinned by x-screen-20261018/runs/SHA256SUMS; its line 378 names this run as thread I's own provenance for HC6. Provenance metadata, not a citation: it maps no citing location and carries no claim."
+    }
+   ]
   },
   {
    "awaiting_citation": {

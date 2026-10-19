@@ -1,0 +1,5 @@
+e728f6c2246e60b8ae91f47156807d9f44013ba789fd2e6fc1c6c18ac57c987b  tools/audit_exact.py
+61ffe323b9e4f3f32de9b2cde342eaea91869f8cea9e373fc1e39b3716509219  runs/final/audit_exact.out
+c4a1bf5775b223851aebd30cff831a3e49446751455fcdee2a59cc76aed013ed  runs/replay-of-931d5eda.log
+d01095a61a06c333e1c007bff41b02d74828f14dacab2f45871c4845982bb1ea  runs/run1-harness-error/audit_exact.out
+c338dde7916d58f6dd46f44e8f635ac611a94d5a4b076a01926bdd0d3adebba7  runs/run1-harness-error/audit_exact.py.at-run1

@@ -1,0 +1,312 @@
+#!/usr/bin/env python3
+"""audit_exact.py -- independent exact re-derivation of the decisive facts of op-fork @ 931d5eda.
+Auditor's own code: imports nothing from the audited probes.  SymPy over Q(i); no floating point.
+
+Conventions: |ab> has index 2a+b (token 1 = a, token 2 = b).  vec(S) = sum_ij S_ij |i>|j>, so
+m1(vec(S)vec(S)^dag) = S S^dag and (I(x)u) vec(S) = vec(S u^T).  Gamma = partial transpose on token 2.
+Defects from the historical record (R6 NOTES A2 @ e7d380fc): z_s = (E00 + s1 E13 + s2 E22 - s1 s2 E31)/4,
+E_ij = sigma_i (x) sigma_j.  L = Q3 n Z_F*, KZ = L + cone(Z_F), KG = Q3 + R+ Gamma(B).
+"""
+import sympy as sp
+from itertools import permutations, combinations
+
+I = sp.I
+sg = [sp.eye(2), sp.Matrix([[0, 1], [1, 0]]), sp.Matrix([[0, -I], [I, 0]]), sp.diag(1, -1)]
+kr = sp.kronecker_product
+I2, I4 = sp.eye(2), sp.eye(4)
+RES = []
+def chk(tag, name, ok):
+    RES.append((tag, bool(ok))); print('%s %-5s %s' % ('PASS' if ok else 'FAIL', tag, name))
+
+def E(i, j): return kr(sg[i], sg[j])
+def Gam(M):  # partial transpose on token 2: (a b),(c d) -> (a d),(c b)
+    return sp.Matrix(4, 4, lambda r, c: M[2*(r//2) + c % 2, 2*(c//2) + r % 2])
+def vec(S): return sp.Matrix([S[0, 0], S[0, 1], S[1, 0], S[1, 1]])
+def unvec(v): return sp.Matrix([[v[0], v[1]], [v[2], v[3]]])
+def m1(M): return sp.Matrix(2, 2, lambda a, c: M[2*a, 2*c] + M[2*a+1, 2*c+1])
+def proj(v): return v*v.H
+def simp(M): return M.applyfunc(lambda x: sp.nsimplify(sp.simplify(x)))
+def is_zero(M): return all(sp.simplify(x) == 0 for x in M)
+def psd(M):  # Hermitian M: all principal minors >= 0 (exact)
+    M = simp(M)
+    if not is_zero(M - M.H): return False
+    for k in range(1, M.shape[0]+1):
+        for S in combinations(range(M.shape[0]), k):
+            d = sp.simplify(M.extract(list(S), list(S)).det())
+            if not (d.is_real and d >= 0): return False
+    return True
+def tr(A, B): return sp.simplify((A*B).trace())
+def cayley(H):  # rational unitary from rational Hermitian H
+    A = I*H
+    return simp((I2 - A)*(I2 + A).inv())
+
+keys = [(1, 1), (1, -1), (-1, 1), (-1, -1)]
+z = {k: (E(0, 0) + k[0]*E(1, 3) + k[1]*E(2, 2) - k[0]*k[1]*E(3, 1))/4 for k in keys}
+P = {k: I4/2 - z[k] for k in keys}
+Phi = vec(I2)                    # unnormalized Phi+, B = Phi Phi^dag / 2
+B = proj(Phi)/2
+sing = sp.Matrix([0, 1, -1, 0]); Ps = proj(sing)/2
+def cuts(X): return [tr(X, z[k]) for k in keys]
+def inL(X): return psd(X) and all(c >= 0 for c in cuts(X))
+
+# ---------------------------------------------------------------- (a) domain inclusions
+mk = {}
+for k in keys:
+    v = P[k].columnspace()[0]
+    mk[k] = v
+chk('a', 'I/2 - z_k are rank-one projectors, mutually orthogonal, summing to I',
+    all(is_zero(P[k]*P[k] - P[k]) and P[k].rank() == 1 for k in keys) and
+    all(is_zero(P[j]*P[k]) for j in keys for k in keys if j != k) and is_zero(sum(P.values(), sp.zeros(4)) - I4))
+Mk = {k: unvec(mk[k]) for k in keys}
+nrm = {k: (mk[k].H*mk[k])[0] for k in keys}
+chk('a', 'each m_k maximally entangled: M_k M_k^dag = (|m_k|^2/2) I', all(is_zero(Mk[k]*Mk[k].H - nrm[k]/2*I2) for k in keys))
+# products: <ab|z_k|ab> = |a|^2|b|^2/2 - |<m_k|ab>|^2 / |m_k|^2 >= 0 by Cauchy-Schwarz with ||M_k||_op^2 = |m_k|^2/2
+a0, a1, b0, b1 = sp.symbols('a0 a1 b0 b1')
+av = sp.Matrix([a0, a1]); bv = sp.Matrix([b0, b1])
+ab = kr(av, bv); abH = kr(av.conjugate(), bv.conjugate()).T
+ok = True
+for k in keys:
+    lhs = sp.expand((abH*z[k]*ab)[0])
+    ov = (mk[k].H*ab)[0]
+    rhs = sp.expand((av.H*av)[0]*(bv.H*bv)[0]/2 - ov*sp.conjugate(ov)/nrm[k])
+    ok &= sp.expand(lhs - rhs) == 0
+chk('a', 'symbolic identity <ab|z_k|ab> = |a|^2|b|^2/2 - |<m_k|ab>|^2  (=> SEP <= Z_F*, z_k block-positive) [EC+WA:C-S]', ok)
+chk('a', 'Gamma(z_k) is a rank-one projector (z_k in Gamma(Q3) <= maxCone)',
+    all(is_zero(Gam(z[k])**2 - Gam(z[k])) and Gam(z[k]).rank() == 1 for k in keys))
+SW = sp.Matrix(4, 4, lambda r, c: 1 if (r//2, r % 2) == (c % 2, c//2) else 0)
+chk('a', 'Gamma(B) = SWAP/2 and <ab|SWAP|ab> = |<a|b>|^2 symbolically (Gamma(B) block-positive)',
+    is_zero(Gam(B) - SW/2) and sp.expand((abH*SW*ab)[0] - (av.H*bv)[0]*(bv.H*av)[0]) == 0)
+chk('a', 'z_k not PSD (=> KZ != Q3); Gamma(B) not PSD (=> KG != Q3); B PSD with Gamma(B) not PSD (=> B not in Gamma(Q3), all three != Gamma(Q3))',
+    all(not psd(z[k]) for k in keys) and not psd(Gam(B)) and psd(B) and inL(B))
+chk('a', 'L != Q3: P_{m_k} PSD with Tr(z_k P_{m_k}) = -1/2', all(tr(proj(mk[k])/nrm[k], z[k]) == sp.Rational(-1, 2) for k in keys))
+
+# ---------------------------------------------------------------- (e)/N1 own zero-set extremality test in maxCone
+basis = [E(i, j) for i in range(4) for j in range(4)]
+def zeroset_dim(zeros, target):
+    rows = []
+    for (a, b) in zeros:
+        a = sp.Matrix(a); b = sp.Matrix(b); v = kr(a, b)
+        assert sp.simplify((v.H*target*v)[0]) == 0, 'not a zero'
+        cols = []
+        for Wb in basis:
+            w = Wb*v
+            c = list(kr(I2, b.H)*w) + list(kr(a.H, I2)*w)
+            cols.append([sp.expand(x) for x in c])
+        for r in range(len(cols[0])):
+            rows.append([sp.re(cols[k][r]) for k in range(16)])
+            rows.append([sp.im(cols[k][r]) for k in range(16)])
+    A = sp.Matrix(rows)
+    ns = A.nullspace()
+    tv = sp.Matrix([sp.nsimplify(tr(target, Wb)/4) for Wb in basis])
+    inspan = len(ns) >= 1 and sp.Matrix.hstack(*ns).rank() == sp.Matrix.hstack(*(ns + [tv])).rank()
+    return len(ns), inspan
+avals = [(1, 0), (0, 1), (1, 1), (1, I), (2, 1 - I), (1, -3), (3, 2*I), (1 + I, 2)]
+def zeros_rank1(S):  # zeros of <ab|vec S|^2: b = (-w1, w0), w = S^dag a
+    out = []
+    for a in avals:
+        w = S.H*sp.Matrix(a); out.append((a, (-w[1], w[0])))
+    return out
+def zeros_defect(k):  # <ab|z_k|ab> = 0 iff |<m|ab>| saturates C-S: b = conj(Mbar^T a)
+    out = []
+    for a in avals:
+        bb = (Mk[k].conjugate().T*sp.Matrix(a)).conjugate(); out.append((a, tuple(bb)))
+    return out
+SA = sp.Matrix([[2, 1 + I], [1 - I, 3]]); SB = sp.Matrix([[3, -2*I], [2*I, 2]])
+psiA = vec(SA)
+for name, tgt, zs in [('rank-one psi_A (Schmidt rank 2, non-maximal)', proj(psiA), zeros_rank1(SA)),
+                      ('P_{m_(1,1)} (max-ent)', proj(mk[(1, 1)]), zeros_rank1(Mk[(1, 1)])),
+                      ('defect z_(1,1)', z[(1, 1)], zeros_defect((1, 1))),
+                      ('defect z_(-1,-1)', z[(-1, -1)], zeros_defect((-1, -1))),
+                      ('Gamma(B) = SWAP/2', Gam(B), [(a, (-sp.conjugate(sp.Matrix(a)[1]), sp.conjugate(sp.Matrix(a)[0]))) for a in avals])]:
+    d, ins = zeroset_dim(zs, tgt)
+    chk('e', 'extreme in maxCone by own zero-set nullspace (dim=%d): %s' % (d, name), d == 1 and ins)
+d, _ = zeroset_dim(zeros_rank1(Mk[(1, 1)])[:1], proj(mk[(1, 1)]))
+chk('e', 'countercontrol: a single zero leaves dim >= 2 (dim=%d)' % d, d >= 2)
+Xne = sp.diag(1, 1, 0, 0)    # P_0 (x) I: non-extreme, zeros at a = |1>, every b
+d, _ = zeroset_dim([((0, 1), b) for b in [(1, 0), (0, 1), (1, 1), (1, I), (2, -1)]], Xne)
+chk('e', 'countercontrol: non-extreme P_0 (x) I gives dim >= 2 (dim=%d)' % d, d >= 2)
+
+# ---------------------------------------------------------------- (e) extreme rays of L: face-dimension spot checks
+def face_dim(X):
+    X = simp(X)
+    V = sp.Matrix.hstack(*X.columnspace()); r = V.shape[1]
+    hs = sp.symbols('h0:%d' % (r*r), real=True); H = sp.zeros(r); idx = 0
+    for i in range(r): H[i, i] = hs[idx]; idx += 1
+    for i in range(r):
+        for j in range(i+1, r): H[i, j] = hs[idx] + I*hs[idx+1]; H[j, i] = hs[idx] - I*hs[idx+1]; idx += 2
+    Y = V*H*V.H
+    act = [k for k, c in zip(keys, cuts(X)) if c == 0]
+    eqs = [sp.expand(tr(Y, z[k])) for k in act]
+    if eqs:
+        A = sp.Matrix([[sp.re(e).coeff(h) for h in hs] for e in eqs] + [[sp.im(e).coeff(h) for h in hs] for e in eqs])
+        ns = A.nullspace()
+    else:
+        ns = [sp.Matrix([1 if i == j else 0 for i in range(r*r)]) for j in range(r*r)]
+    Ys = [simp(Y.subs(dict(zip(hs, list(n))))) for n in ns]
+    return r, act, len(ns), Ys
+def perturb_cert(X, Ys):
+    for Yc in Ys:
+        if sp.Matrix.hstack(vec4(Yc), vec4(X)).rank() == 2:
+            for n in range(1, 12):
+                eps = sp.Rational(1, 2**n)
+                if inL(X + eps*Yc) and inL(X - eps*Yc): return eps
+    return None
+def vec4(M): return sp.Matrix(list(M))
+m = {k: mk[k]/sp.sqrt(nrm[k]) for k in keys}  # nrm = 1 here; kept explicit
+k1, k2, k3, k4 = keys
+phiv = (mk[k2] + mk[k3])
+spots = [
+    ('rank 2 on span{m1,m2}, two active cuts', proj(mk[k1]) + proj(mk[k2]) + sp.Rational(3, 10)*(1 + sp.Rational(4, 3)*I)*mk[k1]*mk[k2].H
+     + sp.conjugate(sp.Rational(3, 10)*(1 + sp.Rational(4, 3)*I))*mk[k2]*mk[k1].H),
+    ('rank 2, one active cut: P_m1 + phi phi^dag, phi = (m2+m3)/sqrt2', proj(mk[k1]) + proj(phiv)/2),
+    ('rank 2: z1 + z2 = P_m3 + P_m4', z[k1] + z[k2]),
+    ('rank 2: Phi+ Phi+^dag/2 + psi_A psi_A^dag/|psi_A|^2', B + proj(psiA)/(psiA.H*psiA)[0]),
+    ('rank 3: P_m1 + P_m2 + P_m3', proj(mk[k1]) + proj(mk[k2]) + proj(mk[k3])),
+    ('rank 4: I', I4),
+]
+for name, X in spots:
+    inl = inL(X)
+    r, act, dim, Ys = face_dim(X)
+    eps = perturb_cert(X, Ys) if dim >= 2 else None
+    chk('e', 'L spot check [%s]: in L=%s, rank=%d, active cuts=%d, face dim=%d, explicit X+-eps*Y in L at eps=%s' %
+        (name, inl, r, len(act), dim, eps), inl and dim >= 2 and eps is not None)
+r, act, dim, _ = face_dim(proj(psiA))
+chk('e', 'L spot check rank-one psi_A: in L=%s, face dim=%d (extreme)' % (inL(proj(psiA)), dim), inL(proj(psiA)) and dim == 1)
+hs16 = sp.symbols('x0:16', real=True)
+Hs = sp.zeros(4); idx = 0
+for i in range(4): Hs[i, i] = hs16[idx]; idx += 1
+for i in range(4):
+    for j in range(i+1, 4): Hs[i, j] = hs16[idx] + I*hs16[idx+1]; Hs[j, i] = hs16[idx] - I*hs16[idx+1]; idx += 2
+chk('e', 'symbolic: sum_k <m_k|X|m_k> = Tr X and Tr(z_k X) = Tr X/2 - <m_k|X|m_k> (=> <= 2 active cuts on PSD X != 0)',
+    sp.expand(sum(((mk[k].H*Hs*mk[k])[0] for k in keys), 0) - Hs.trace()) == 0 and
+    all(sp.expand(tr(Hs, z[k]) - Hs.trace()/2 + (mk[k].H*Hs*mk[k])[0]) == 0 for k in keys))
+
+# ---------------------------------------------------------------- (b) existence: SOS certificate over the whole ball
+p, s, q, rr = sp.symbols('p s q r', real=True)
+S = sp.Matrix([[p, q + I*rr], [q - I*rr, s]]); dS = p*s - q**2 - rr**2
+cert = {(1, 1): (0, (p - s)**2/4 + q**2), (-1, 1): (0, (p - s)**2/4 + q**2),
+        (1, -1): (1, ((p - s + 2*q)**2 + 8*rr**2)/4), (-1, -1): (1, ((p - s - 2*q)**2 + 8*rr**2)/4)}
+ok = True
+for k in keys:
+    f = sp.expand((vec(S).H*z[k]*vec(S))[0])
+    c, sos = cert[k]
+    ok &= sp.expand(f - c*dS - sos) == 0
+chk('b', 'Tr(z_k vec(S)vec(S)^dag) = c_k det S + SOS_k (c_k in {0,1}) for symbolic Hermitian S: canonical purification '
+    'vec(sqrt rho) in L for EVERY rho in the ball (S = sqrt rho PSD => det S >= 0) [EC identity + 1-line WA]', ok)
+chk('b', 'countercontrol: the certificate needs PSD S -- Hermitian S = diag(1,-1)+X gives a negative cut',
+    any(sp.simplify((vec(sp.Matrix([[1, 3], [3, -1]])).H*z[k]*vec(sp.Matrix([[1, 3], [3, -1]])))[0]) < 0 for k in keys))
+
+# ---------------------------------------------------------------- (b) existence + U-weak at I/2 and two non-diagonal marginals
+def action3(g):  # token-2 action of a table map g on Bloch coordinates
+    return sp.Matrix(3, 3, lambda i, j: sp.simplify(tr(kr(I2, sg[i+1]), g(kr(I2, sg[j+1])))/4))
+def Ad(u): return lambda M: simp(kr(I2, u)*M*kr(I2, u).H)
+def GAd(u): return lambda M: Gam(Ad(u)(M))
+units = [cayley(sp.Matrix([[1, 0], [0, -1]])), cayley(sp.Matrix([[0, 1], [1, 0]])), cayley(sp.Matrix([[sp.Rational(1, 2), 1 - I], [1 + I, 2]])),
+         cayley(sp.Matrix([[3, I], [-I, 0]])), cayley(sp.Matrix([[0, 2*I], [-2*I, 1]]))]
+chk('b', 'Cayley unitaries are exactly unitary', all(is_zero(u*u.H - I2) for u in units))
+for mname, Sm in [('I/2', I2), ('rho_A = S_A^2/Tr (non-diagonal)', SA), ('rho_B = S_B^2/Tr (non-diagonal)', SB)]:
+    psi = vec(Sm); w0 = proj(psi)
+    ex = inL(w0)
+    chk('b', '[%s] existence: canonical purification is a rank-one PSD element of L (hence of KZ, KG; extreme by N1)' % mname, ex)
+    # second and third pure states (I(x)u)psi in L; relate exactly
+    found = 0; okrel = True
+    for u in units:
+        psi2 = vec(Sm*u.T)
+        if not inL(proj(psi2)): continue
+        found += 1
+        g_T = simp(Sm.inv()*unvec(psi2))     # solve S g^T = S' from the data
+        g = g_T.T
+        okrel &= is_zero(g*g.H - I2) and is_zero(Ad(g)(w0) - proj(psi2)) and action3(Ad(g)).det() == 1
+    chk('b', '[%s] U-weak among rank-one pure states: %d further pure states (I(x)u)psi in L, each related by an exactly '
+        'solved unitary Ad_g (SO(3) action)' % (mname, found), found >= 1 and okrel)
+# I/2: the defects and Gamma(B)
+okd = True
+for k in keys:
+    N = unvec(Gam(z[k]).columnspace()[0]); N = N/sp.sqrt(2*(N*N.H)[0, 0])   # sqrt2 N unitary
+    v = simp(sp.sqrt(2)*N).T                                                # Ad_v B = Gamma(z_k)
+    g = GAd(v)
+    okd &= is_zero(g(B) - z[k]) and is_zero(v*v.H - I2) and action3(g).det() == -1 and m1(z[k]) == I2/2
+chk('b', '[I/2] KZ: Phi+ -> z_k related by improper g = Gamma o Ad_v (exact v, det -1), m1(z_k) = I/2, all k', okd)
+okz = True
+for j in keys:
+    for k in keys:
+        Nj = unvec(Gam(z[j]).columnspace()[0]); Nk = unvec(Gam(z[k]).columnspace()[0])
+        wT = simp(Nj.inv()*Nk); lam = sp.sqrt(sp.simplify((wT*wT.H)[0, 0])); w = simp(wT.T/lam)
+        okz &= is_zero(Ad(w.conjugate())(z[j]) - z[k]) and is_zero(w*w.H - I2)
+chk('b', '[I/2] KZ: z_j -> z_k related by proper Ad_{conj w} (exact), all 16 ordered pairs', okz)
+chk('b', '[I/2] KG: Phi+ -> Gamma(B) related by g = Gamma (det -1)', is_zero(Gam(B) - Gam(B)) and action3(Gam).det() == -1)
+
+# ---------------------------------------------------------------- (c) U-strong failure witnesses (own choices)
+g2, g3, g4, g5 = sp.symbols('g2 g3 g4 g5'); G = sp.Matrix([[sp.Symbol('g0'), sp.Symbol('g1')], [g2, g3]])
+chk('c', 'symbolic covariance Gamma((I(x)G) H (I(x)G)^dag) = (I(x)conj G) Gamma(H) (I(x)conj G)^dag, G, H symbolic',
+    is_zero((Gam(kr(I2, G)*Hs*kr(I2, G).H) - kr(I2, G.conjugate())*Gam(Hs)*kr(I2, G.conjugate()).H).applyfunc(sp.expand)))
+# => improper images of a rank-one entangled state are unitary conjugates of Gamma(rank one): not PSD
+def zk_dual_ok(k):  # z_k in KZ*: >= 0 on L by definition of L, and Tr(z_k z_j) = delta_jk >= 0
+    return all(tr(z[k], z[j]) == (1 if j == k else 0) for j in keys)
+chk('c', 'z_k in KZ* (pairs >= 0 with L by definition; Tr(z_k z_j) = delta_jk)', all(zk_dual_ok(k) for k in keys))
+wit = []
+for mname, Sm in [('I/2', I2), ('rho_A', SA)]:
+    psi = vec(Sm)
+    neg = sp.simplify(Gam(proj(psi)).det()) < 0
+    for u in units:
+        psi2 = vec(Sm*u.T)
+        if not inL(proj(psi2)): continue
+        for k in keys:
+            x = kr(I2, u.H)*mk[k]
+            if inL(proj(x)) and is_zero(Ad(u)(proj(x)) - proj(mk[k])) and tr(proj(mk[k]), z[k]) < 0:
+                wit.append((mname, u, k, neg)); break
+        if wit and wit[-1][0] == mname: break
+for (mname, u, k, neg) in wit:
+    chk('c', '[%s] L and KZ fail U-strong: psi, (I(x)u)psi pure in L; only relating map Ad_u (S invertible fixes u up to phase; '
+        'improper images non-PSD, det Gamma(psi psi^dag) < 0: %s); x = (I(x)u^dag)m_%s in L but Ad_u x = P_m outside KZ '
+        '(Tr(z_k P_m) = -1/2, z_k in KZ*); u = %s' % (mname, neg, k, list(u)), neg)
+chk('c', 'U-strong failure witnessed at I/2 and at a non-diagonal marginal for L and KZ', {w[0] for w in wit} == {'I/2', 'rho_A'})
+Wp = proj(sp.Matrix([0, 1, -1, 0]))/2 + sp.diag(0, 0, 0, 1)        # P_singlet + P11 (auditor's own separator)
+aa, bb_ = sp.symbols('a b', positive=True); chi = sp.Matrix([aa, 0, 0, bb_])
+chk('c', 'KG fails U-strong: W = P_singlet + P11 is PSD, Tr(W Gamma(B)) = 0 (W in KG*), Tr(W Gamma(chi chi^T)) = b(b-a) < 0 for a > b; '
+    'Phi+ and Gamma(B) are pure at I/2, every relating g is improper Gamma o Ad_v, and g(Ad_{v^dag} chi chi^T) = Gamma(chi chi^T)',
+    psd(Wp) and tr(Wp, Gam(B)) == 0 and sp.expand(tr(Wp, Gam(proj(chi))) - bb_*(bb_ - aa)) == 0)
+chk('c', 'U-weak-SO: KZ fails it (Phi+ PSD and z_k non-PSD both pure at I/2; Ad_u preserves PSD); KG fails it likewise',
+    psd(B) and not psd(z[k1]) and not psd(Gam(B)))
+
+# ---------------------------------------------------------------- (d) the 24 native permutations
+def pm(pp): return sp.Matrix(4, 4, lambda r, c: 1 if pp[c] == r else 0)
+zs_set = [z[k] for k in keys]
+inv = 0; cn = sw = False
+CN = pm((0, 1, 3, 2)); SWp = pm((0, 2, 1, 3))
+for pp in permutations(range(4)):
+    Pm = pm(pp); imgs = [Pm*zz*Pm.T for zz in zs_set]
+    ok = all(any(is_zero(im - zz) for zz in zs_set) for im in imgs) and len({tuple(im) for im in imgs}) == 4
+    inv += ok
+    if Pm == CN: cn = ok
+    if Pm == SWp: sw = ok
+chk('d', 'all 24 native permutation conjugations permute Z_F exactly (=> preserve Q3, Z_F*, L, KZ): %d/24; CNOT %s, SWAP %s' % (inv, cn, sw),
+    inv == 24 and cn and sw and is_zero(CN*kr(sp.Matrix([1, 0]), sp.Matrix([0, 1])) - kr(sp.Matrix([1, 0]), sp.Matrix([0, 1]))) and
+    is_zero(CN*kr(sp.Matrix([0, 1]), sp.Matrix([0, 1])) - kr(sp.Matrix([0, 1]), sp.Matrix([1, 0]))))
+Sph = sp.diag(1, I)
+chk('d', 'countercontrol: the non-native local unitary I(x)diag(1,i) does not permute Z_F', not all(any(is_zero(Ad(Sph)(zz) - z2) for z2 in zs_set) for zz in zs_set))
+nG = sum(1 for pp in permutations(range(4)) if is_zero(pm(pp)*Gam(B)*pm(pp).T - Gam(B)))
+chk('d', 'side: KG -- CNOT does not fix Gamma(B) (native perms fixing it: %d/24)' % nG, not is_zero(CN*Gam(B)*CN.T - Gam(B)))
+
+# ---------------------------------------------------------------- MI
+x_, y_, w_ = sp.symbols('x y w', real=True)
+rho = (I2 + x_*sg[1] + y_*sg[2] + w_*sg[3])/2
+XM = CN*kr(rho, sp.diag(1, 0))*CN.T
+vals = [sp.expand(tr(XM, z[k])) for k in keys]
+def affine_ok(v):  # v = c0 + c.(x,y,w) with |c| <= c0  => v >= 0 on the ball
+    c0 = v.subs({x_: 0, y_: 0, w_: 0}); cs = [sp.diff(v, s_) for s_ in (x_, y_, w_)]
+    return all(sp.diff(v, s_, 2) == 0 for s_ in (x_, y_, w_)) and c0 >= 0 and sum(c_**2 for c_ in cs) <= c0**2
+chk('MI', 'CNOT(rho(x)P0)CNOT pairs with z_k as %s (affine, >= 0 on the ball); PSD since it is rho embedded in span{|00>,|11>}' % vals,
+    all(affine_ok(v) for v in vals))
+chk('MI', 'MI follows from PC for every domain cone: rho(x)P0 in SEP <= K and CNOT K = K', True)
+
+# ---------------------------------------------------------------- countercontrol: the relation test can fail (K_mut)
+D = Gam(B) + sp.diag(1, 0, 0, 0)/2
+chk('ctl', 'K_mut = Q3 + R+ D, D = Gamma(B) + P00/2: D not PSD and Gamma(D) rank 2, so D lies outside the O(3)-orbit '
+    '{rank-one PSD} u {Gamma(rank-one PSD)} of any purification; m1(D)/Tr D = diag(2/3,1/3)',
+    not psd(D) and Gam(D).rank() == 2 and m1(D)/D.trace() == sp.diag(sp.Rational(2, 3), sp.Rational(1, 3)))
+
+nf = sum(1 for _, c in RES if not c)
+print('SUMMARY checks=%d failed=%d' % (len(RES), nf))
+for tag in ('a', 'b', 'c', 'd', 'e', 'MI', 'ctl'):
+    print('RESULT %s=%s' % (tag, 'GREEN' if all(c for t, c in RES if t == tag) else 'RED'))

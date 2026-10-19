@@ -1,0 +1,5 @@
+native-permutation principal-log algebra: real dimension 9 of 16; every element ones-fixing: True
+POS with the native-local phase generator: dimension 16 of 16; ones-fixing: False
+KNOB: branch logs differ: True; both ones-fixing: True
+KNOB: other-branch algebra dimension 9; ones-fixing: True
+VERDICT E4-SCREEN: the stroboscopic-time algebra of the 24 native pair bijections has dimension 9 and is ones-fixing (uniform-ray invariant held: G4 fails); the positive control reaches dimension 16.

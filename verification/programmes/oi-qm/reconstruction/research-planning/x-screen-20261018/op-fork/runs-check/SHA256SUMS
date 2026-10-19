@@ -1,0 +1,3 @@
+c71b4b773d837f8d197037bdb17ddb8bb5109963586f10ff77756b550b597660  check_verdict.py
+8225a63a1f43ecec87bda726668c2554426ac6c72c3f1c91a47b8090613cc50a  runs-check/check_verdict.out
+a23bd86e8cae443b8bad9a134cc96592bd03a8a1f651bf06e6c6e291198d34f5  runs-check/check_verdict.selftest.out

@@ -1,0 +1,30 @@
+PASS ZF  CNOT permutes the four defects (=> CNOT preserves Z_F*, cone Z_F, Q3, hence K(Z_F)) [PC holds]
+PASS ZF  each normalized defect z has eigenvalues {1/2:3, -1/2:1}
+PASS ZF  each defect has both marginals I/2
+PASS ZF  det z = -1/16 (so every congruence image Ad_{I(x)M} z has det |det M|^4 det z < 0: not PSD)
+PASS ZF  Gamma(z) is a rank-one PSD projector (defects are Gamma-images of entangled pure states)
+PASS ZF  chi_ab = a|00>+b|11> pairs with e_{s,t} as (a - t b)^2/16 >= 0: chi_ab in Q3 n Z_F*, all a,b>0
+PASS ZF  extremality certificate F=(a^2+b^2)I-chi chi^T: F chi = 0
+PASS ZF  F PSD (eigenvalues 0, a^2+b^2 x3)
+PASS ZF  Tr(F z_{s,t}) = (a^2+b^2)/2 + (a+tb)^2/4 > 0 (F in K(Z_F)*, strictly positive on defects)
+PASS ZF  Gamma(chi chi^T) has eigenvalue -ab (entangled for all a,b>0)
+PASS ZF  marginal of chi_ab on token 1 is diag(a^2,b^2) [OP-ex witness family]
+PASS ZF  Phi+ (a=b) is a pure state of K(Z_F) with marginals I/2
+PASS WEAK Gamma(z_{1,1}) is a rank-one projector onto a maximally entangled psi (M unitary)
+PASS WEAK OP-un relation holds in K(Z_F) at the I/2 pair: (id (x) Ad_u T) z_{1,1} = Phi+ exactly
+PASS WEAK the relating map is not an automorphism: it sends chi_ab (in K(Z_F)) to a matrix with det < 0
+PASS WEAK det(Gamma(chi_ab)) = -(ab)^4 is the full inertia certificate (one negative eigenvalue -ab)
+PASS KB  Bell generator B has marginals I/2 (the only non-product extreme ray)
+PASS KB  W = Gamma(singlet + |00><00|) is block-positive by construction and Tr(W B) = 0
+PASS KB  Tr(W chi chi^T) = 1/4 - sqrt(3)/4 < 0 for the QM purification of diag(1/4,3/4): excluded from K_B
+PASS KB  PC fails: CNOT((|0>+i|1>)|0>) pairs with the #820 separator W as -1/2
+PASS MC  Gamma(Phi+) = SWAP/2 (a maxCone element outside Q3)
+PASS MC  PC fails: CNOT Gamma(Phi+) CNOT has a negative product pairing (exact witness)
+     witness product (ket indices, pairing): (3, 1, -1/2)
+PASS MC  MI holds: CNOT(rho(x)|0><0|) is PSD for the |+i> input (Q3 <= maxCone)
+PASS Q3  POS OP-un instance: chi and (I(x)u)chi have equal token-1 marginals, related by local Ad_u
+PASS Q3  POS PC and MI (unitary conjugation preserves PSD; CNOT|+0> = Phi+ PSD)
+PASS GQ  Gamma(Q3) fails MI: CNOT(|+><+|(x)|0><0|) = B and Gamma(B) not PSD
+PASS MUT a PSD sign pattern (+st) has det >= 0, so the inertia test can fail
+SUMMARY checks=27 failed=0
+VERDICT CERTIFICATES-GREEN (see REPORT for the written arguments they support)
