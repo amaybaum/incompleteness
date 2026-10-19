@@ -443,12 +443,34 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   not omitting. Before committing a file: it must be needed by a reader of the manuscripts or the
   code, be maintained, and not leak process. Process artifacts are cheap to add and expensive to
   retire.
-- **§A.40 Where verification runs.** Cheap deterministic checks run locally before a push: a
-  tool's self-test, the V3 verifier's self-test and corpus, `legacy_records_check.py`, a round's
-  own scripts, compilation and static checks of changed Python. The Lean kernel, the Mathlib
-  bridge, the release gate and the full probe suite run in CI. The exact-head host runs, dispatched
-  on exactly `F` and `E`, are the source of certification (§A.39); a local run is evidence for the
-  executor and is never recorded as a `check-run` attestation.
+- **§A.40 Where verification runs; CI-first resource discipline.** Run bounded, deterministic
+  smoke checks locally before a push: one tool self-test, the V3 verifier's self-test and corpus,
+  `legacy_records_check.py`, cheap round controls, and Python compilation/static checks.
+  **Classify work by total cost, not the cost of one iteration.** Repeated self-tests, mutation
+  campaigns, large enumerations, full probe suites, Lean kernel/Mathlib builds and the release
+  gate run in CI; shard independent cases with a matrix where useful. If a local task becomes
+  heavy, stop and publish the partial state and proposed CI plan instead of running for hours.
+  The exact-head host runs dispatched on exactly `F` and `E` are the `check-run` attestations
+  a receipt records: verification evidence, not protocol validity, which remains
+  `tools/v3_verifier.py --verify-round Q` printing `VERDICT  HOLDS` (§A.39). A local run is
+  evidence for the executor and is never recorded as a `check-run` attestation. Any special
+  dispatch or launch still requires owner approval (§A.43).
+  **Keep local checkouts small.** Prefer repository APIs and reuse of an existing worktree,
+  sparse checkout or partial clone over repeated full clones and duplicate object stores.
+  Full-history gates and isolated, no-alternates recovery tests belong in CI with the complete
+  required objects; a shallow or shared-store test is not equivalent. Never delete unapproved
+  evidence to make room. RAM-backed scratch is disposable: preserve substantive work and review
+  evidence durably before it can be lost.
+  **Disk thresholds.** Measure free space on the filesystem that holds session and agent
+  transcripts before starting an agent or allocating a checkout. Below 500 MB free, start no
+  additional agents; below 250 MB free, suspend nonessential work and preserve its progress.
+  Measure actual consumption and apply stricter limits when it warrants them.
+  **Shared object stores.** A store that other clones borrow objects from (`--shared`,
+  alternates, linked worktrees) has a named owner and a recorded list of its dependents. While
+  any dependent exists, nobody, its owner included, deletes, replaces, reinitializes, prunes or
+  garbage-collects it; it is retired only by coordinated retirement, after every dependent has
+  been made independent or itself retired. Prefer independently recoverable clones that can
+  refetch every object from the GitHub repository whenever practical.
 - **§A.41 Every stated invariant is measured.** A preregistration carries an invariant→checkpoint
   table: every property it asserts of its execution names the checkpoint that measures it, and an
   invariant with no checkpoint is either given one or not asserted. A named hazard whose mitigation
@@ -509,6 +531,17 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   expire, and four logs held only in a session scratchpad. Pinning such content by SHA had been
   treated as retaining it. Hence §A.42: evidence for an enduring claim is retained on `main`, with a
   manifest for records already frozen.
+- One agent deleted and reinitialized a shared base clone in RAM scratch while six other
+  agents' clones borrowed objects from it. Five lost the objects their trees referenced mid-task,
+  and every result read from them after the deletion was void until each clone was repaired and
+  the checks re-run; a successful refetch alone did not revalidate earlier results. Hence §A.40's
+  shared-object-store rule: no deletion, replacement, reinitialization, prune or garbage
+  collection while dependents exist, with a named owner, tracked dependents and coordinated
+  retirement.
+- A preservation plan once proposed archiving every historical run head in an inventory and
+  extracting every expiring log, because their refs and logs were at risk. It did so before asking
+  which surviving claims needed them. Hence §A.42 item 8: retention follows necessity, not
+  exposure.
 
 ---
 
@@ -937,6 +970,52 @@ names such content neither retains nor establishes it.
      It writes `verdict.json` on every exit once its work directory is writable, an exception
      included, and the verdict holds only on a clean exit.
    - For a round, each hash pin of item 2 is a row of its invariant→checkpoint table (§A.41).
+8. **Necessity, not exposure.** Retention serves surviving claims, not the history of the work.
+   Items 1–6 state what must be retained. This item limits retention beyond them; it never waives
+   any of it, and it governs only what is newly retained. Beyond items 1–6, content is retained
+   only when both of the following hold, and only the smallest set that meets them is retained:
+   - a claim depends on it, where the claim has landed on `main`, is frozen in a governed
+     record, or belongs to a native round between the designation of its `F` and the landing of
+     its receipt; and
+   - it has not been shown redundant.
+
+   Further:
+   - Imminent loss is not a reason to retain. That covers an expiring log, a ref that may be
+     deleted, and a commit reachable only from a temporary branch. Membership in a run inventory
+     or a list of historical heads is not a reason either, and a temporary branch has no value of
+     its own.
+   - Superseded experiments, exploratory runs and failed runs used only for debugging are not
+     retained unless a surviving claim cites them. A failed run that a conclusion explicitly rests
+     on is evidence like any other.
+   - Before any bulk retention, log extraction or batch of protective refs, a necessity audit
+     classifies each candidate:
+     - **required**, **redundant** (regenerated and matched, as below), **optional** (useful, but
+       no surviving claim needs it; not retained) or **undetermined**;
+     - naming the claim it serves (`file:line`) for a required or redundant item, and how
+       reconstruction was checked.
+   - An item is redundant only when it has actually been regenerated and compared with the
+     original:
+     - regenerated from `main` or from content already retained;
+     - compared byte-identical, or, for a candidate expected result not yet retained, identical
+       under `compare_result.py`;
+     - with the recipe, the commit and the comparison recorded in the audit.
+
+     A similar source file, an unrun recipe or a repeatable experiment does not make an item
+     redundant. An item whose original is no longer available for comparison is undetermined.
+     An expected result of item 1 is never redundant: regenerating it is item 7's check against
+     it, not a substitute for it.
+   - A later run does not reconstruct a specific run, even a green run at the same commit.
+     Evidence of an `F` or `E` `check-run` attestation, or of any run a record cites, is never
+     redundant while the citing claim stands.
+   - Only required items are retained. An undetermined item is investigated and resolved before
+     it is retained. Nothing that holds it is deleted or released until then. CI time spent
+     extracting historical evidence meets the same test.
+   - A temporary protective ref is not retention; it holds an object while the audit decides.
+     - This item never authorizes deleting a ref, branch, archive entry, retained file or record,
+       and it does not affect §A.26 quarantine.
+     - Any such removal needs the owner's separate authorization (§A.43 items 3–4).
+     - Retained and frozen content stays forward-only (item 4, §A.39).
+     - A ref that §A.43 requires is not a protective ref and needs no audit.
 
 Enforcement:
 - `check_retention.py` and its self-test run locally before any push that touches the archive
