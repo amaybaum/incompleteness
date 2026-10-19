@@ -19,9 +19,9 @@ A mutant counts as caught only when its check failed *cleanly* and *on its targe
   NOT-TARGETED  the check failed cleanly, but no failing case matches EXPECT.
 
 Matching EXPECT, by check:
-  retention-self-test, tools-self-test   EXPECT is the exact name of a failing case: a `FAIL self: NAME`
-                                         line, with its trailing rule tag such as ` (C2)`, or without it when
-                                         every case of that name in the run carries the same tag.
+  retention-self-test, tools-self-test   EXPECT is the exact name of a failing case as printed on its
+                                         `FAIL self: NAME` line, with its trailing rule tag such as ` (C2)`
+                                         when the case prints one.
   objects-self-test                      EXPECT is the exact name of a case-table row whose verdict is not
                                          `FAILS as required` or `PASSES as required`.
   gate, retention, objects,              these report failures as messages (`FAIL  ...`, and the gate's
@@ -55,7 +55,6 @@ FAMILY = {
     'objects-self-test': 'table',
     'gate': 'message', 'retention': 'message', 'objects': 'message', 'objects-reconstitute': 'message',
 }
-_RULE_TAG = re.compile(r' \([A-Z][A-Za-z0-9]{0,5}(/[A-Z][A-Za-z0-9]{0,5})*\)$')
 _TABLE_ROW = re.compile(r'^  (.+?)\s{2,}(\S.*?)\s{2,}(FAILS as required|PASSES as required|NOT DETECTED|FAILS)(  \[.*)?\s*$')
 MIN_CASE, MIN_MESSAGE = 8, 12
 
@@ -75,32 +74,12 @@ def expect_problem(check, expect):
     return None
 
 
-def _case(line):
-    """(full, bare, tag) of a `PASS self:` or `FAIL self:` line, else None."""
-    for prefix in ('PASS self: ', 'FAIL self: '):
-        if line.startswith(prefix):
-            full = line[len(prefix):]
-            m = _RULE_TAG.search(full)
-            return full, (full[:m.start()] if m else full), (m.group(0) if m else '')
-    return None
-
-
 def _hits(check, expect, lines):
     fam = FAMILY[check]
     if fam == 'case':
-        tags = {}
-        for l in lines:
-            c = _case(l)
-            if c:
-                tags.setdefault(c[1], set()).add(c[2])
-        out = []
-        for l in lines:
-            if l.startswith('FAIL self: '):
-                full, bare, _ = _case(l)
-                # The bare name identifies the case only when no two cases share it under different tags.
-                if expect == full or (expect == bare and len(tags.get(bare, ())) == 1):
-                    out.append(l)
-        return out
+        # The whole printed name, rule tag included: some names recur under two tags, and which tags a run prints
+        # can itself depend on the mutant.
+        return [l for l in lines if l.startswith('FAIL self: ') and l[len('FAIL self: '):] == expect]
     if fam == 'table':
         out = []
         for l in lines:
@@ -143,10 +122,14 @@ def self_test():
     gate_end = 'EVIDENCE-RETENTION  FAILS (history mode: 1 failure(s); self-test OK; retained objects FAILED)\n'
     cases = [
         # (name, check, rc, expect, output, verdict)
-        ('a targeted self-test failure is KILLED', 'retention-self-test', 1, T,
+        ('a targeted self-test failure is KILLED', 'retention-self-test', 1, T + ' (C2)',
          'PASS self: x\nFAIL self: %s (C2)\nself-test: FAILED\n' % T, 'KILLED'),
-        ('the target named with its rule tag is KILLED', 'retention-self-test', 1, T + ' (C2)',
-         'FAIL self: %s (C2)\nself-test: FAILED\n' % T, 'KILLED'),
+        ('an untagged case is named without a tag', 'retention-self-test', 1, T,
+         'PASS self: x\nFAIL self: %s\nself-test: FAILED\n' % T, 'KILLED'),
+        ('a tagged case named without its tag is NOT-TARGETED', 'retention-self-test', 1, T,
+         'FAIL self: %s (C2)\nself-test: FAILED\n' % T, 'NOT-TARGETED'),
+        ('a case named with another tag is NOT-TARGETED', 'retention-self-test', 1, T + ' (R12)',
+         'FAIL self: %s (R8)\nself-test: FAILED\n' % T, 'NOT-TARGETED'),
         ('a longer case that only begins with the target is NOT-TARGETED', 'retention-self-test', 1, T,
          'PASS self: %s\nFAIL self: %s, twice (C2)\nself-test: FAILED\n' % (T, T), 'NOT-TARGETED'),
         ('a fragment of a case name is NOT-TARGETED', 'tools-self-test', 1, 'step whose status',
@@ -195,7 +178,7 @@ def self_test():
          'KILLED'),
         ('a row whose name extends the target is NOT-TARGETED', 'objects-self-test', 1, T,
          '  %s in tranche 2  O7   NOT DETECTED\nself-test: FAILED (1 cases)\n' % T, 'NOT-TARGETED'),
-        ('the comparator verdict line counts for tools-self-test', 'tools-self-test', 1, T,
+        ('the comparator verdict line counts for tools-self-test', 'tools-self-test', 1, T + ' (C2)',
          'FAIL self: %s (C2)\nself-test: FAILED\ncomparator self-test: FAILED (4 expected result(s))\n' % T, 'KILLED'),
         ('another check\'s verdict line is CRASHED', 'objects', 1, M, 'FAIL  %s\nRETENTION  FAILS (1)\n' % M, 'CRASHED'),
         ('an empty expect is INVALID', 'gate', 1, '', 'FAIL  x\n' + gate_end, 'INVALID'),

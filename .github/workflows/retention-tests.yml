@@ -22,15 +22,17 @@ name: retention tests
 #             KILLED. See tools/mutant_verdict.py for the verdicts and how `expect` is matched.
 #
 # The mutant list is a JSON file on the dispatched ref, at the path given as the `mutants` input:
-#   {"mutants": [{"id": "drop-symlink-guard", "patch": "drop-symlink-guard.patch",
-#                 "check": "retention-self-test", "expect": "a symbolic link at the copy's path"}]}
+#   {"mutants": [{"id": "no-build-check", "patch": "no-build-check.patch", "check": "tools-self-test",
+#                 "expect": "an expected result recording no successful build (C1)"}]}
 # `patch` is relative to the JSON file's directory. `check` is one of gate, retention, retention-self-test,
 # objects, objects-reconstitute, objects-self-test, tools-self-test. `expect` names the targeted failing
-# case exactly (self-test checks) or a fragment of the targeted failure message (the other checks).
+# case exactly as printed, rule tag included (self-test checks), or a fragment of the targeted failure
+# message (the other checks).
 #
 # Limits enforced here: refs refs/heads/{claude,staging,retention,review,wip}/... only (never main, round
-# branches or special launch branches); one run at a time per ref; at most 4 jobs of a matrix at once; at most 12 mutants; 30 minutes per check
-# or mutant job, each check bounded by a 27-minute timeout. Worst case for one attempt:
+# branches or special launch branches); one run at a time per ref; at most 4 jobs of a matrix at once;
+# at most 12 mutants; 30 minutes per check or mutant job, each check bounded by a 27-minute timeout.
+# Worst case for one attempt:
 # 5 + 10 + 3 x 30 + 12 x 30 = 465 runner-minutes. Measured locally, the gate takes 17 to 19 minutes and
 # the self-tests 9 to 11. Not enforced here, and part of the dispatch policy: how many refs run at once,
 # and re-running a failed job at most once and only for an infrastructure failure.
@@ -176,8 +178,8 @@ jobs:
           set +e
           d=verification/audits/evidence-retention
           log="$RUNNER_TEMP/control.log"
-          target='an expected result recording no successful build'
-          other='a reproduction whose build failed'
+          target='an expected result recording no successful build (C1)'
+          other='a reproduction whose build failed (C1)'
           want() {  # want VERDICT CHECK EXPECT
             got=$(bash tools/retention_mutant_run.sh "$2" "$3" "$log" tools/mutant_verdict.py | tail -n 1 | cut -d' ' -f1)
             if [ "$got" = "$1" ]; then echo "control OK: $2 -> $1"; else echo "control FAILED: $2 wanted $1, got $got"; tail -n 20 "$log"; exit 1; fi
