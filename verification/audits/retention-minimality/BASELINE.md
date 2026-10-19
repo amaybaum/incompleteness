@@ -52,7 +52,7 @@ runs = [x for x in entries if x["id"].startswith("run-")]
 print("ci", sum(x["id"].startswith("ci-") for x in entries),
       "runs", len(runs),
       "metadata-only", sum(
-          not any(f.endswith("/expected.json") for f in x["files"]) for x in runs))
+          not any(f["path"].endswith("/expected.json") for f in x["files"]) for x in runs))
 ```
 
 Expected census: `2 920 892 10000160 165 0 755`; `4 66 64 263931 0 4 62`; `5 37 37 261310 0 3 34`; `ci 96 runs 22 metadata-only 7`. This reproduces the manifest's accounting only; it does **not** run the independent restoration tests.
