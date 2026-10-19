@@ -2,46 +2,179 @@ name: retention tests
 
 # Dispatch-only. Runs the evidence-retention archive's checks and self-tests
 # (verification/audits/evidence-retention/, AGENTS §A.42) on the dispatched ref as parallel jobs, and
-# optionally a mutation campaign against them. It exists so that these batteries, which take ten to
+# optionally a bounded mutation campaign against them, so that these batteries, which take ten to
 # twenty minutes each and are repeated on every revision, run in CI instead of on a session's disk
-# (AGENTS §A.40).
+# (AGENTS §A.40). Dispatching it is governed by §A.40 and §A.43 item 4.
 #
-# Jobs:
-#   checks   one job per check below, on the unmodified ref. `gate` is the release-gate step itself
-#            (check_retention.py --gate); the others are its parts, run in parallel for speed.
-#   plan     validates the optional mutant list and turns it into a matrix.
-#   mutants  one job per mutant: apply its patch to a fresh checkout, run its named check, and pass
-#            only if that check FAILS (and, when `expect` is given, its output contains that text).
-#            Mutants run only after every unmodified check has passed: a kill over a red control
-#            proves nothing.
+# Jobs, in order:
+#   plan      refuses a ref outside the allow-list below; validates the optional mutant list; runs
+#             the mutant classifier's self-test (tools/mutant_verdict.py).
+#   controls  four live controls of the classifier on real comparator output (seconds): the
+#             unmodified tool must be SURVIVED, a targeted mutation KILLED, the same mutation with an
+#             unrelated target NOT-TARGETED, and an injected crash CRASHED.
+#   checks    one job per check below, on the unmodified ref. `gate` is the release-gate step itself
+#             (check_retention.py --gate); the others are its parts, run in parallel for speed.
+#   mutants   one job per mutant, only after plan, controls and every unmodified check have passed:
+#             apply its patch to a fresh checkout, run its named check, and classify the result with
+#             tools/mutant_verdict.py. The job passes only for KILLED: the check failed cleanly (exit 1,
+#             its own failing verdict line last) on a failing-case line naming the mutant's `expect`.
+#             A crash, a timeout, an unrelated failure or a passing check fails the job.
 #
 # The mutant list is a JSON file on the dispatched ref, at the path given as the `mutants` input:
 #   {"mutants": [{"id": "drop-symlink-guard", "patch": "drop-symlink-guard.patch",
 #                 "check": "retention-self-test", "expect": "a symbolic link at the copy's path"}]}
 # `patch` is relative to the JSON file's directory; `check` is one of the check names below; `expect`
-# is optional. At most 20 mutants per run.
+# is required: the name of the failing case the mutant targets, at least 8 characters.
 #
-# A run of this workflow is design evidence for the executor. It is not an F/E `check-run`
-# attestation (AGENTS §A.39), which only `verify` dispatched on exactly F or E provides.
+# Limits: refs refs/heads/{claude,staging,retention,review,wip}/... only (never main, round branches or
+# special launch branches); one run at a time per ref; at most 4 jobs of a matrix at once; at most 12
+# mutants; 30 minutes per check or mutant job. Worst case: 7 x 30 + 12 x 30 + 15 = 585 runner-minutes
+# per dispatch. Measured locally, the longest check (the gate) takes 17 to 19 minutes and the
+# self-tests 9 to 11. A failed job is re-run at most once, and only for an infrastructure failure (a runner loss or
+# timeout); a second failure is real.
+#
+# A run of this workflow is evidence for the executor. It is not an F/E `check-run` attestation
+# (AGENTS §A.39), which only `verify` dispatched on exactly F or E provides.
 
 on:
   workflow_dispatch:
     inputs:
       mutants:
-        description: 'optional: path on the dispatched ref of a mutants JSON file (at most 20 mutants)'
+        description: 'optional: path on the dispatched ref of a mutants JSON file (at most 12 mutants)'
         required: false
         default: ''
 
 permissions:
   contents: read
 
+concurrency:
+  group: retention-tests-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
+  plan:
+    name: Plan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      count: ${{ steps.plan.outputs.count }}
+      matrix: ${{ steps.plan.outputs.matrix }}
+    steps:
+      - name: Refuse a ref outside the allow-list
+        env:
+          REF: ${{ github.ref }}
+        run: |
+          case "$REF" in
+            refs/heads/claude/*|refs/heads/staging/*|refs/heads/retention/*|refs/heads/review/*|refs/heads/wip/*) ;;
+            *) echo "retention-tests runs only on development and review branches, not on $REF"; exit 1 ;;
+          esac
+          echo "ref $REF allowed"
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Classifier self-test
+        run: python3 -B tools/mutant_verdict.py --self-test
+
+      # The input reaches the script only as an environment variable and is validated before use.
+      - name: Validate the mutant list
+        id: plan
+        env:
+          MUTANTS: ${{ inputs.mutants }}
+        run: |
+          python3 - <<'EOF'
+          import json, os, posixpath, re, sys
+          CHECKS = {'gate', 'retention', 'retention-self-test', 'objects', 'objects-reconstitute',
+                    'objects-self-test', 'tools-self-test'}
+          SAFE = re.compile(r'^[A-Za-z0-9._/-]+$')
+          path = os.environ.get('MUTANTS', '')
+          out = open(os.environ['GITHUB_OUTPUT'], 'a')
+          def fail(msg):
+              print('mutant list rejected: ' + msg)
+              sys.exit(1)
+          def safe(p):
+              return bool(SAFE.match(p)) and not p.startswith('/') and '..' not in p.split('/')
+          if not path:
+              out.write('count=0\nmatrix={"include":[]}\n')
+              print('no mutants: checks and controls only')
+              sys.exit(0)
+          if not safe(path) or not path.endswith('.json') or not os.path.isfile(path):
+              fail('%r is not a repository-relative .json file on this ref' % path)
+          with open(path, encoding='utf-8') as f:
+              data = json.load(f)
+          ms = data.get('mutants') if isinstance(data, dict) else None
+          if not isinstance(ms, list) or not 1 <= len(ms) <= 12:
+              fail('"mutants" must be a list of 1 to 12 entries')
+          base, seen, rows = posixpath.dirname(path), set(), []
+          for m in ms:
+              if not isinstance(m, dict) or set(m) != {'id', 'patch', 'check', 'expect'}:
+                  fail('each mutant is an object with exactly the keys id, patch, check and expect')
+              mid, patch, check, expect = m['id'], m['patch'], m['check'], m['expect']
+              if not isinstance(mid, str) or not re.match(r'^[A-Za-z0-9._-]{1,64}$', mid) or mid in seen:
+                  fail('bad or duplicate id %r' % (mid,))
+              seen.add(mid)
+              if not isinstance(check, str) or check not in CHECKS:
+                  fail('%s: unknown check %r' % (mid, check))
+              if not isinstance(expect, str) or '\n' in expect or len(expect.strip()) < 8:
+                  fail('%s: expect must name the targeted failing case (one line, at least 8 characters)' % mid)
+              full = posixpath.normpath(posixpath.join(base, patch)) if isinstance(patch, str) else ''
+              if not isinstance(patch, str) or not safe(patch) or not safe(full) or not os.path.isfile(full):
+                  fail('%s: patch %r is not a file next to the mutant list' % (mid, patch))
+              rows.append({'id': mid, 'patch': full, 'check': check, 'expect': expect})
+          out.write('count=%d\nmatrix=%s\n' % (len(rows), json.dumps({'include': rows})))
+          print('%d mutant(s) planned' % len(rows))
+          EOF
+
+  controls:
+    name: Classifier controls
+    needs: plan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # Each control runs the comparator and job-output self-tests (tools-self-test) and requires the
+      # classifier's exact verdict. The targeted mutation renames one comparator message, which fails
+      # exactly the self-test case that looks for it.
+      - name: Live controls
+        run: |
+          set -u
+          set +e
+          d=verification/audits/evidence-retention
+          log="$RUNNER_TEMP/control.log"
+          target='an expected result recording no successful build'
+          other='a reproduction whose build failed'
+          run() { ( python3 -B "$d/compare_result.py" --self-test && python3 -B "$d/job_outputs.py" --self-test ) > "$log" 2>&1; echo $?; }
+          want() {  # want VERDICT RC EXPECT
+            got=$(python3 -B tools/mutant_verdict.py tools-self-test "$2" "$3" "$log" | cut -d' ' -f1)
+            if [ "$got" = "$1" ]; then echo "control OK: $1"; else echo "control FAILED: wanted $1, got $got"; tail -n 20 "$log"; exit 1; fi
+          }
+          rc=$(run); want SURVIVED "$rc" "$target"
+          grep -q 'does not record a successful build' "$d/compare_result.py" || { echo "control mutation site missing"; exit 1; }
+          sed -i "s/F('C1 the expected result does not record a successful build')/F('C1 the expected result does not record a build')/" "$d/compare_result.py"
+          git diff --quiet && { echo "control mutation changed nothing"; exit 1; }
+          rc=$(run); want KILLED "$rc" "$target"
+          want NOT-TARGETED "$rc" "$other"
+          git checkout -- "$d/compare_result.py"
+          sed -i "1i raise RuntimeError('mutant control: crash')" "$d/compare_result.py"
+          rc=$(run); want CRASHED "$rc" "$target"
+          git checkout -- "$d/compare_result.py"
+
   checks:
     name: ${{ matrix.check }}
+    needs: plan
     runs-on: ubuntu-24.04
-    timeout-minutes: 45
+    timeout-minutes: 30
     strategy:
       fail-fast: false
+      max-parallel: 4
       matrix:
         check: [gate, retention, retention-self-test, objects, objects-reconstitute, objects-self-test,
                 tools-self-test]
@@ -73,73 +206,15 @@ jobs:
             *) echo "unknown check: $CHECK"; exit 2 ;;
           esac
 
-  plan:
-    name: Plan mutants
-    runs-on: ubuntu-24.04
-    timeout-minutes: 5
-    outputs:
-      count: ${{ steps.plan.outputs.count }}
-      matrix: ${{ steps.plan.outputs.matrix }}
-    steps:
-      - uses: actions/checkout@v4
-
-      # The input reaches the script only as an environment variable and is validated before use.
-      - name: Validate the mutant list
-        id: plan
-        env:
-          MUTANTS: ${{ inputs.mutants }}
-        run: |
-          python3 - <<'EOF'
-          import json, os, posixpath, re, sys
-          CHECKS = {'gate', 'retention', 'retention-self-test', 'objects', 'objects-reconstitute',
-                    'objects-self-test', 'tools-self-test'}
-          SAFE = re.compile(r'^[A-Za-z0-9._/-]+$')
-          path = os.environ.get('MUTANTS', '')
-          out = open(os.environ['GITHUB_OUTPUT'], 'a')
-          def fail(msg):
-              print('mutant list rejected: ' + msg)
-              sys.exit(1)
-          def safe(p):
-              return bool(SAFE.match(p)) and not p.startswith('/') and '..' not in p.split('/')
-          if not path:
-              out.write('count=0\nmatrix={"include":[]}\n')
-              sys.exit(0)
-          if not safe(path) or not path.endswith('.json') or not os.path.isfile(path):
-              fail('%r is not a repository-relative .json file on this ref' % path)
-          with open(path, encoding='utf-8') as f:
-              data = json.load(f)
-          ms = data.get('mutants') if isinstance(data, dict) else None
-          if not isinstance(ms, list) or not 1 <= len(ms) <= 20:
-              fail('"mutants" must be a list of 1 to 20 entries')
-          base, seen, rows = posixpath.dirname(path), set(), []
-          for m in ms:
-              if not isinstance(m, dict) or set(m) - {'id', 'patch', 'check', 'expect'}:
-                  fail('each mutant is an object with keys id, patch, check and optional expect')
-              mid, patch, check = m.get('id'), m.get('patch'), m.get('check')
-              expect = m.get('expect', '')
-              if not isinstance(mid, str) or not re.match(r'^[A-Za-z0-9._-]{1,64}$', mid) or mid in seen:
-                  fail('bad or duplicate id %r' % (mid,))
-              seen.add(mid)
-              if check not in CHECKS:
-                  fail('%s: unknown check %r' % (mid, check))
-              if not isinstance(expect, str) or '\n' in expect:
-                  fail('%s: expect must be a one-line string' % mid)
-              full = posixpath.normpath(posixpath.join(base, patch)) if isinstance(patch, str) else ''
-              if not isinstance(patch, str) or not safe(patch) or not safe(full) or not os.path.isfile(full):
-                  fail('%s: patch %r is not a file next to the mutant list' % (mid, patch))
-              rows.append({'id': mid, 'patch': full, 'check': check, 'expect': expect})
-          out.write('count=%d\nmatrix=%s\n' % (len(rows), json.dumps({'include': rows})))
-          print('%d mutant(s) planned' % len(rows))
-          EOF
-
   mutants:
     name: mutant ${{ matrix.id }}
-    needs: [checks, plan]
+    needs: [plan, controls, checks]
     if: needs.plan.outputs.count != '0'
     runs-on: ubuntu-24.04
-    timeout-minutes: 45
+    timeout-minutes: 30
     strategy:
       fail-fast: false
+      max-parallel: 4
       matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
     steps:
       - uses: actions/checkout@v4
@@ -150,41 +225,39 @@ jobs:
         with:
           python-version: '3.11'
 
+      # The classifier is copied out before the patch is applied, so a mutant cannot alter its own judge.
       - name: Apply the mutant
         env:
           PATCH: ${{ matrix.patch }}
         run: |
           set -eu
+          cp -- tools/mutant_verdict.py "$RUNNER_TEMP/mutant_verdict.py"
           cp -- "$PATCH" "$RUNNER_TEMP/mutant.patch"
           git apply --check "$RUNNER_TEMP/mutant.patch"
           git apply "$RUNNER_TEMP/mutant.patch"
           if git diff --quiet; then echo "the patch changed nothing"; exit 1; fi
           git diff --stat
 
-      - name: Run ${{ matrix.check }}; it must fail
+      - name: Run ${{ matrix.check }} and classify
         env:
           CHECK: ${{ matrix.check }}
           EXPECT: ${{ matrix.expect }}
         run: |
           set -u
-          set +e   # the check is expected to fail; its status is read below
+          set +e   # the check is expected to fail; the classifier reads its status
           d=verification/audits/evidence-retention
           log="$RUNNER_TEMP/check.log"
           case "$CHECK" in
-            gate)                 python3 -B "$d/check_retention.py" --gate ;;
-            retention)            python3 -B "$d/check_retention.py" ;;
-            retention-self-test)  python3 -B "$d/check_retention.py" --self-test ;;
-            objects)              python3 -B "$d/check_objects.py" ;;
-            objects-reconstitute) python3 -B "$d/check_objects.py" --reconstitute ;;
-            objects-self-test)    python3 -B "$d/check_objects.py" --self-test ;;
-            tools-self-test)      python3 -B "$d/compare_result.py" --self-test \
-                                    && python3 -B "$d/job_outputs.py" --self-test ;;
+            gate)                 timeout 28m python3 -B "$d/check_retention.py" --gate ;;
+            retention)            timeout 28m python3 -B "$d/check_retention.py" ;;
+            retention-self-test)  timeout 28m python3 -B "$d/check_retention.py" --self-test ;;
+            objects)              timeout 28m python3 -B "$d/check_objects.py" ;;
+            objects-reconstitute) timeout 28m python3 -B "$d/check_objects.py" --reconstitute ;;
+            objects-self-test)    timeout 28m python3 -B "$d/check_objects.py" --self-test ;;
+            tools-self-test)      timeout 28m python3 -B "$d/compare_result.py" --self-test \
+                                    && timeout 28m python3 -B "$d/job_outputs.py" --self-test ;;
             *) echo "unknown check: $CHECK"; exit 2 ;;
           esac > "$log" 2>&1
           rc=$?
           tail -n 60 "$log"
-          if [ "$rc" -eq 0 ]; then echo "SURVIVED: $CHECK passed on the mutant"; exit 1; fi
-          if [ -n "$EXPECT" ] && ! grep -qF -- "$EXPECT" "$log"; then
-            echo "NOT TARGETED: $CHECK failed (rc $rc) but its output lacks: $EXPECT"; exit 1
-          fi
-          echo "KILLED: $CHECK failed (rc $rc)"
+          python3 -B "$RUNNER_TEMP/mutant_verdict.py" "$CHECK" "$rc" "$EXPECT" "$log"

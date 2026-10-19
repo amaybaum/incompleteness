@@ -455,15 +455,18 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   `tools/v3_verifier.py --verify-round Q` printing `VERDICT  HOLDS` (§A.39). A local run is
   evidence for the executor and is never recorded as a `check-run` attestation. Any special
   dispatch or launch still requires owner approval (§A.43).
-  **Evidence-retention batteries run in CI.** The checks and self-tests of
+  **Evidence-retention batteries run in CI.** Repeated runs of the checks and self-tests of
   `verification/audits/evidence-retention/` (`check_retention.py`, its `--gate`,
   `check_objects.py`) and mutation campaigns against them run through the dispatch-only
-  `retention-tests` workflow, as parallel jobs on a pushed branch head; mutants run only after
-  every unmodified check has passed. Dispatching that workflow on a branch other than `main`,
-  within its own limits (its fixed checks and at most 20 mutants), is routine verification and
-  needs no separate owner approval; every other dispatch remains under §A.43 item 4. Its runs are
-  evidence for the executor, never `check-run` attestations. Locally, run only the one smoke
-  check that guards a push.
+  `retention-tests` workflow on a pushed development or review branch head, not on a session's
+  disk. The bounded pre-push checks named above still run locally before every push; only these
+  repeated batteries and mutant runs move to CI. A mutant names the failing case it targets and
+  counts as caught only when its check fails cleanly on that case (`tools/mutant_verdict.py`);
+  mutants run only after the classifier's live controls and every unmodified check have passed.
+  Dispatching the workflow requires owner approval under §A.43 item 4. A standing exemption for
+  routine dispatches within the workflow's stated limits may be recorded here only after an
+  owner-approved first run on `main` and an independent review of its results. Its runs are
+  evidence for the executor, never `check-run` attestations.
   **Keep local checkouts small.** Prefer repository APIs and reuse of an existing worktree,
   sparse checkout or partial clone over repeated full clones and duplicate object stores.
   Full-history gates and isolated, no-alternates recovery tests belong in CI with the complete
