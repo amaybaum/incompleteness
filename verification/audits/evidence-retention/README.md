@@ -168,6 +168,16 @@ The recipe beside each entry regenerates the output byte for byte: run the commi
 **Excerpts.** None of the 194 bridge-log excerpts of R1's drafting branches is stored, named by a stored tree, or
 reachable from `HEAD`. The manifest lists the sha256 digests of their ids, never the ids themselves.
 
+### Archive tranche 5: #824's three KTRANS-SEP-1 commits
+
+By the owner's decision of 2026-10-19 (#824), `objects/` also retains, in tranche 2's form, three commits that `main` does not reach:
+- KTRANS-SEP-1's design-run heads `195dfbee` (run 38090924005) and `95beab2b` (run 38096511360);
+- its predicted execution tree `bd579bf8` (run 39173554213).
+
+Each is a `raw:connected` commit, stored with every tree and blob that `main` lacks at the tranche's own base, `ec36234c` (`tranche_bases`). `195dfbee`'s parent is on `main`, `95beab2b`'s is `195dfbee`, and `bd579bf8`'s is the base itself. That is 37 entries: 3 commits, 20 trees and 14 blobs, in 37 files of 261,310 bytes. Nothing is withheld: no tree holds a log or captured output. The `preserve/` branches that held the heads on 2026-10-19 are recorded in `tranche5.host_state` and were not touched.
+
+Each commit records `awaiting_citation`: pull request 824, round KTRANS-SEP-1, the round's preregistration, which is not yet on `main`, and the run whose head it names the commit as. O10 judges these entries as it does tranche 4's. Tranche 5 is not pinned in `TRANCHE_MEMBERS`: O3 admits it as a later tranche with a base.
+
 ## Tranche 3: cited runs that no receipt attests
 
 Frozen records also cite CI runs that no receipt or certificate attests: push runs that certified a base, pull-request runs at a candidate merge, and the runs whose output a precondition table quotes. Tranche 3 retains them in the tranche-1 form, an expected result with a recipe, earliest log expiry first.
