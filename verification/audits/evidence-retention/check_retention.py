@@ -109,6 +109,17 @@ Rules:
                   such an entry is never eligible).
       The rule's limitation (check_objects.py's docstring): a hex word of 64 digits or more is opaque, so another
       commit's id written as part of one is not read as a head.
+      Verbatim mentions (provenance metadata, not a citation mapping). A research entry may carry
+      verbatim_mentions: a line of a byte-identical copy of an off-main source that names the run as that source's
+      own provenance. It is admitted only when it equals a tuple of VERBATIM_ALLOWLIST, hardcoded below, which
+      holds exactly one owner-approved tuple; any other entry, run, path, line, blob, source or citation context
+      fails, and a further exception needs a reviewed change to that allowlist. The check hashes the copy's
+      complete bytes itself (git blob id) and never trusts the manifest's blob; the copy must be present, its
+      approved line must name the run exactly once, and no other line of it may name the run. The approved line is
+      then left out of the lines that name the run, and every other rule of R13 applies unchanged to the rest. A
+      verbatim mention is never a citation: it is not counted as one, it does not satisfy awaiting_citation, it
+      makes no entry eligible or cited, it may not be mapped by a citation or be the pending record, and it carries
+      no claim. It supports no scientific claim; it records why a pinned copy names the run.
 The self-test mutates a copy once per failure message of these checks and requires that message; its R10 and R11
 cases read the repository's history, and the self-test fails, with a FAIL line, when that history or a commit
 the cases read is absent.
@@ -131,6 +142,32 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 # R13's citation state of each research-build entry at the last check(): eid -> (pending | eligible | cited, lines)
 R13_STATES = {}
 _OBJECTS_RULES = None
+# R13's verbatim mentions: the owner-approved tuples, and nothing else (2026-10-19, PR #864's pinned copy of F2
+# thread I). Each tuple fixes the entry, its run and the run's head, the copy's path, the line naming the run and
+# the copy's git blob id, the source the copy reproduces, and the entry's citation context: its pending citation,
+# or, once promoted, the record lines its citations map. Adding or changing a tuple needs the owner's authorization.
+VERBATIM_ALLOWLIST = (
+    {'entry': 'research-38450187534', 'run': '38450187534', 'head': 'e684897da41b1c3d066b880194c9beb87a19b7ad',
+     'path': 'verification/programmes/oi-qm/reconstruction/research-planning/x-screen-20261018/src/I.md',
+     'line': 378, 'blob': 'f20411d6583a28298aa8647ae456ce787083e31c',
+     'copy_of': {'commit': '804843f16b67061ac258ce00cefa2425d1b688c2',
+                 'path': 'verification/programmes/oi-qm/reconstruction/f2-research-threads/I-f2-sufficiency-target.md'},
+     'awaiting': {'pull_request': 831, 'round': 'PRESERVE-INDUCT-1',
+                  'record': 'verification/programmes/oi-qm/reconstruction/round-preserve-induct-1/preregistration.md',
+                  'line': 69, 'head': '65b85147f85aa01770e0e60551152bc5f1d9ef29'},
+     'cited_lines': [69]},
+)
+VERBATIM_KEYS = {'path', 'line', 'blob', 'copy_of', 'note'}
+AWAITING_KEYS = ('pull_request', 'round', 'record', 'line', 'head')
+# the self-test's seam: it substitutes a stand-in tuple while its verbatim cases run, and restores None after; no
+# argument, environment variable or manifest field sets it
+_VERBATIM_OVERRIDE = None
+# the verbatim mentions admitted by the last check(): eid -> (path, line)
+VERBATIM_STATES = {}
+
+
+def verbatim_allowlist():
+    return VERBATIM_ALLOWLIST if _VERBATIM_OVERRIDE is None else _VERBATIM_OVERRIDE
 
 
 def objects_rules():
@@ -167,6 +204,7 @@ def check(archive, root, scope=None):
     fails = []
     F = fails.append
     R13_STATES.clear()
+    VERBATIM_STATES.clear()
     try:
         man = json.load(open(os.path.join(archive, 'manifest.json'), encoding='utf-8'))
     except (OSError, ValueError) as exc:
@@ -273,6 +311,8 @@ def check(archive, root, scope=None):
             check_entry_files(e, files, man, F)
         if str(eid).startswith('run-') or e.get('tranche') == 3:
             check_run_entry(e, files, F)
+        if 'verbatim_mentions' in e and eid not in {a['entry'] for a in verbatim_allowlist()}:
+            F('R13 %s: verbatim_mentions on an entry outside the owner-approved allowlist' % eid)
         if str(eid).startswith('research-') and eid != 'research-runs-record' or 'awaiting_citation' in e:
             check_research_entry(e, files, man, archive, root, F)
     for g in man.get('missing', []):
@@ -607,6 +647,10 @@ def research_lifecycle(e, eid, rid, head, aw, shaped, archive, root, F):
     run.json's head_sha, or None when the run's metadata names none (a failure already reported), and then no state
     is judged."""
     cl = citing_lines(root, rid, archive)
+    if 'verbatim_mentions' in e:
+        cl = verbatim_filter(e, eid, rid, head, aw, root, cl, F)
+        if cl is None:
+            return
     rules = objects_rules()
     if e.get('citations'):
         # cited: no line mapped twice; nothing outside the mapped files names the run; in them, every free-standing
@@ -688,6 +732,66 @@ def research_lifecycle(e, eid, rid, head, aw, shaped, archive, root, F):
     R13_STATES[eid] = ('eligible', free)
 
 
+def verbatim_filter(e, eid, rid, head, aw, root, cl, F):
+    """R13's verbatim mentions: cl, the lines naming the run, less the one line an owner-approved tuple admits, or
+    None after recording a failure. Fails closed on anything but the exact tuple: the entry, run and head; the
+    mention's form, path, line, blob and source; the citation context; the copy present, hashed here from its
+    bytes, naming the run exactly once on the approved line and on no other. Admits no citation."""
+    allowed = [a for a in verbatim_allowlist() if a['entry'] == eid]
+    if len(allowed) != 1:
+        return None                                    # reported by check(): an entry outside the allowlist
+    a = allowed[0]
+    if a['run'] != rid:
+        F('R13 %s: verbatim mention names run %s, not the approved run %s' % (eid, rid, a['run']))
+        return None
+    vm = e.get('verbatim_mentions')
+    v = vm[0] if isinstance(vm, list) and len(vm) == 1 and isinstance(vm[0], dict) else None
+    if v is None or set(v) != VERBATIM_KEYS or not isinstance(v.get('copy_of'), dict) or \
+            set(v['copy_of']) != {'commit', 'path'} or not isinstance(v.get('note'), str) or not v['note'].strip():
+        F('R13 %s: verbatim_mentions is malformed (exactly one mention: path, line, blob, copy_of {commit, path} and '
+          'a note, and nothing else)' % eid)
+        return None
+    if (v['path'], v['line'], v['blob'], v['copy_of']) != (a['path'], a['line'], a['blob'], a['copy_of']):
+        F('R13 %s: verbatim mention %s:%s is not the owner-approved tuple' % (eid, v['path'], v['line']))
+        return None
+    if head != a['head']:
+        F('R13 %s: verbatim mention: run %s has head %s, not the approved head %s' % (eid, rid, head, a['head']))
+        return None
+    if e.get('citations'):
+        ctx = sorted({(c.get('path'), c.get('line')) for c in e['citations']}, key=str)
+        if any(p == a['path'] for p, _ in ctx):
+            F('R13 %s: a verbatim mention is not a citation, and the entry maps %s' % (eid, a['path']))
+            return None
+        if ctx != [(a['awaiting']['record'], n) for n in a['cited_lines']]:
+            F('R13 %s: verbatim mention: the entry\'s citations are not the approved citation context' % eid)
+            return None
+    elif not isinstance(aw, dict) or tuple(aw.get(k) for k in AWAITING_KEYS) != \
+            tuple(a['awaiting'][k] for k in AWAITING_KEYS):
+        F('R13 %s: verbatim mention: the pending citation is not the approved citation context' % eid)
+        return None
+    p = os.path.join(root, a['path'])
+    if not inside(a['path']) or not os.path.isfile(p):
+        F('R13 %s: verbatim mention %s is absent' % (eid, a['path']))
+        return None
+    data = open(p, 'rb').read()
+    got = blob_id(data)
+    if got != a['blob']:
+        F('R13 %s: verbatim mention %s is not the approved blob (%s, approved %s)' % (eid, a['path'], got, a['blob']))
+        return None
+    rx = re.compile(r'(?<![0-9])%s(?![0-9])' % re.escape(rid))
+    L = data.decode('utf-8', 'replace').split('\n')
+    if not (0 < a['line'] <= len(L)) or len(rx.findall(L[a['line'] - 1])) != 1:
+        F('R13 %s: line %d of %s does not name run %s exactly once' % (eid, a['line'], a['path'], rid))
+        return None
+    other = [n for n, l in enumerate(L, 1) if n != a['line'] and rx.search(l)]
+    if other:
+        F('R13 %s: verbatim mention %s names run %s on another line (%s)' % (eid, a['path'], rid,
+                                                                            ','.join(map(str, other))))
+        return None
+    VERBATIM_STATES[eid] = (a['path'], a['line'])
+    return [x for x in cl if x != (a['path'], a['line'])]
+
+
 def r13_summary():
     """The printed count of R13's states: an eligible entry is counted apart, never as cited."""
     n = lambda s: sum(1 for v in R13_STATES.values() if v[0] == s)
@@ -703,6 +807,8 @@ def print_r13_states():
     for eid, (s, lines) in sorted(R13_STATES.items()):
         if s != 'cited':
             print('  %-9s %s%s' % (s, eid, '  at line(s) %s' % ','.join(map(str, lines)) if lines else ''))
+    for eid, (path, line) in sorted(VERBATIM_STATES.items()):
+        print('  verbatim  %s  %s:%d (approved provenance metadata, not a citation)' % (eid, path, line))
 
 
 def check_tranche3(man, read_tree, F):
@@ -1512,6 +1618,195 @@ def r13_cases(man, ents, rs, troot, tarch, expect, edit, back, json_edit, file_e
         record(h=other), at, runl + ' sha256 `%s`.' % digest)), unland, 'R13', 'names another run head', who=eid)
     expect('documented limitation: another head as the last 40 digits of a 64-digit word beside a file name passes',
            land(good + '| `evidence/run1-%s.json` | `%s%s` |\n' % (rid, '0' * 24, other)), unland, state=(eid, 'eligible'))
+    verbatim_cases(ents, rs, i, e, rid, eid, head, other, aw, at, good, troot, ci, expect, edit, back, land, unland,
+                   mapped, line)
+
+
+def _set_verbatim_override(t):
+    global _VERBATIM_OVERRIDE
+    _VERBATIM_OVERRIDE = t
+
+
+def verbatim_cases(ents, rs, i, e, rid, eid, head, other, aw, at, good, troot, ci, expect, edit, back, land, unland,
+                   mapped, line):
+    """The self-test's verbatim-mention cases on the R13 fixture, through the seam: a stand-in tuple for entry i,
+    whose copy is a stand-in file naming the run once on line 3. Each fail-closed case changes one thing; the
+    citation cases show that a verbatim mention is never a citation."""
+    A = VERBATIM_ALLOWLIST[0]
+    TP, TP2 = 'verification/ZZ-SELF-TEST/verbatim-copy.md', 'verification/ZZ-SELF-TEST/verbatim-moved.md'
+    cites = os.path.join(troot, 'verification', 'ZZ-CITES.md')
+
+    def copy_text(at_lines=(3,), twice=False):
+        L = ['# a stand-in for a pinned verbatim copy', '', '| HC6 | conditional, not re-verified |', '',
+             '| HC7 | as H27 |', '']
+        for n in at_lines:
+            L[n - 1] = '| HC6 | conditional [D #831, run %s per B:260-264, not re-verified] |' % (
+                rid + (' (run %s)' % rid if twice else ''))
+        return ('\n'.join(L) + '\n').encode('utf-8')
+    gc = copy_text()
+
+    def tup(**kw):
+        t = {'entry': eid, 'run': rid, 'head': head, 'path': TP, 'line': 3, 'blob': blob_id(gc),
+             'copy_of': dict(A['copy_of']), 'awaiting': {k: aw[k] for k in AWAITING_KEYS}, 'cited_lines': [at]}
+        t.update(kw)
+        return t
+
+    def field(t, **kw):
+        f = {'path': t['path'], 'line': t['line'], 'blob': t['blob'], 'copy_of': dict(t['copy_of']),
+             'note': 'a pinned verbatim copy names the run as its source\'s provenance; not a citation'}
+        f.update(kw)
+        return f
+
+    def seam(t=None, copy=gc, at_path=TP, fld=None, mfn=None, rec_text=None, override=True, extra=None):
+        t = t or tup()
+
+        def go():
+            if copy is not None:
+                p = os.path.join(troot, at_path)
+                os.makedirs(os.path.dirname(p), exist_ok=True)
+                open(p, 'wb').write(copy)
+            if override:
+                _set_verbatim_override((t,))
+
+            def fn(m):
+                m['entries'][i]['verbatim_mentions'] = fld if fld is not None else [field(t)]
+                if mfn:
+                    mfn(m)
+            edit(fn)()
+            if rec_text is not None:
+                land(rec_text)()
+            if extra:
+                extra()
+
+        def undo():
+            _set_verbatim_override(None)
+            for p in (TP, TP2):
+                if os.path.exists(os.path.join(troot, p)):
+                    os.remove(os.path.join(troot, p))
+            if os.path.exists(cites):
+                os.remove(cites)
+            unland()
+            back()
+        return go, undo
+    R = lambda name, msg, who=eid, **kw: expect(name, *seam(**kw), rule='R13', msg=msg, who=who)
+    pend = 'citations (R13): 0 cited, %d pending (record not in the tree), 0 eligible for promotion (not cited)' % len(rs)
+    # admitted, and never a citation
+    expect('verbatim: the approved mention of a pinned copy passes, and the entry stays pending', *seam(),
+           state=(eid, 'pending'), also=lambda: VERBATIM_STATES.get(eid) == (TP, 3) and R13_STATES[eid][1] is None
+           and r13_summary() == pend)
+    expect('verbatim: the record lands, and the entry is eligible on the record\'s line alone', *seam(rec_text=good),
+           state=(eid, 'eligible'), also=lambda: R13_STATES[eid][1] == [at])
+    expect('verbatim: promoted on the record\'s line alone, the entry is cited', *seam(mfn=mapped(good, [at]),
+                                                                                       rec_text=good),
+           state=(eid, 'cited'))
+    R('verbatim: the mention does not satisfy the pending citation (the record lands without citing the run)',
+      'is in the tree and does not cite run %s' % rid, rec_text=line(line(good, at, ''), at - 1, ''))
+
+    def cite_copy(m):
+        mapped(good, [at])(m)
+        m['entries'][i]['citations'].append({'path': TP, 'line': 3, 'blob': blob_id(gc), 'tokens': [rid], 'claims': [
+            {'line': 3, 'text': rid, 'status': 'retained', 'in': ['ci/%s/results.json' % rid], 'note': 'x'}]})
+    R('verbatim: the copy\'s line mapped as a citation', 'a verbatim mention is not a citation', mfn=cite_copy,
+      rec_text=good)
+    R('verbatim: the copy named as the pending record', 'pending citation is not the approved citation context',
+      mfn=lambda m: m['entries'][i]['awaiting_citation'].__setitem__('record', TP))
+    # fail closed: the bytes, path, line and run
+    R('verbatim: the copy changed by one byte, the manifest unchanged', 'is not the approved blob', copy=gc + b' ')
+    R('verbatim: the manifest asserts the changed copy\'s blob', 'is not the owner-approved tuple', copy=gc + b' ',
+      fld=[field(tup(), blob=blob_id(gc + b' '))])
+    R('verbatim: the copy at another path, the manifest following it', 'is not the owner-approved tuple', at_path=TP2,
+      fld=[field(tup(), path=TP2)])
+    R('verbatim: the copy moved, the manifest unchanged', 'is absent', at_path=TP2)
+    R('verbatim: the copy absent', 'is absent', copy=None)
+    R('verbatim: the line changed in the manifest', 'is not the owner-approved tuple', fld=[field(tup(), line=4)])
+    moved = copy_text((5,))
+    R('verbatim: the mention moved to another line of the copy', 'does not name run %s exactly once' % rid, copy=moved,
+      t=tup(blob=blob_id(moved)))
+    twice = copy_text(twice=True)
+    R('verbatim: the run named twice on the approved line', 'does not name run %s exactly once' % rid, copy=twice,
+      t=tup(blob=blob_id(twice)))
+    second = copy_text((3, 5))
+    R('verbatim: a second line of the copy names the run', 'on another line (5)', copy=second, t=tup(blob=blob_id(second)))
+    R('verbatim: another file also names the run', 'is now cited at verification/ZZ-CITES.md',
+      extra=lambda: open(cites, 'w').write('run %s\n' % rid))
+    R('verbatim: the approved run differs from the entry\'s run', 'not the approved run', t=tup(run='1' + rid))
+    R('verbatim: the approved head differs from the run\'s head', 'not the approved head', t=tup(head=other))
+    j = rs[1]
+    eid2 = ents[j]['id']
+
+    def move(m):
+        m['entries'][j]['verbatim_mentions'] = m['entries'][i].pop('verbatim_mentions')
+    R('verbatim: the mention listed on another research entry', 'outside the owner-approved allowlist', who=eid2, mfn=move)
+    # fail closed: the citation context
+    R('verbatim: the pending record changed', 'pending citation is not the approved citation context',
+      mfn=lambda m: m['entries'][i]['awaiting_citation'].__setitem__('record', 'verification/ZZ-SELF-TEST/other.md'))
+    R('verbatim: the pending line changed', 'pending citation is not the approved citation context',
+      mfn=lambda m: m['entries'][i]['awaiting_citation'].__setitem__('line', at + 1))
+    R('verbatim: the pending citation\'s head changed', 'pending citation is not the approved citation context',
+      mfn=lambda m: m['entries'][i]['awaiting_citation'].__setitem__('head', other))
+    R('verbatim: promoted on other record lines than approved', 'citations are not the approved citation context',
+      t=tup(cited_lines=[at + 1]), mfn=mapped(good, [at]), rec_text=good)
+    # the allowlist and the field's form
+    R('verbatim: a tuple outside the hardcoded allowlist', 'is not the owner-approved tuple' if eid == A['entry']
+      else 'outside the owner-approved allowlist', override=False)
+    R('verbatim: the field on a CI entry', 'outside the owner-approved allowlist', who=ents[ci]['id'],
+      mfn=lambda m: m['entries'][ci].__setitem__('verbatim_mentions', [field(tup())]))
+    R('verbatim: two mentions', 'is malformed', fld=[field(tup()), field(tup())])
+    R('verbatim: the field is not a list', 'is malformed', fld=field(tup()))
+    R('verbatim: a claim annotation on the mention', 'is malformed', fld=[field(tup(), claims=[{'line': 3}])])
+    R('verbatim: an empty note', 'is malformed', fld=[field(tup(), note=' ')])
+    R('verbatim: the source changed', 'is not the owner-approved tuple',
+      fld=[field(tup(), copy_of={'commit': other, 'path': A['copy_of']['path']})])
+    expect('verbatim: the seam is unset after the verbatim cases', lambda: None, lambda: None,
+           also=lambda: _VERBATIM_OVERRIDE is None)
+
+
+# the canonical form of VERBATIM_ALLOWLIST, pinned: a change to the allowlist changes this digest in the same
+# reviewed diff
+VERBATIM_ALLOWLIST_SHA256 = 'fb2c710c93bb858d1ad04d5379636163123c972ecb46a2adf20ddc55b32732c0'
+
+
+def verbatim_live_cases(ents, troot, expect, edit, back):
+    """The live tuple's cases, on the copy before the R13 fixture moves any entry: the allowlist is the one approved
+    tuple, and listing that tuple fails closed without its copy or with other bytes at its path."""
+    A = VERBATIM_ALLOWLIST[0]
+    canon = json.dumps(VERBATIM_ALLOWLIST, sort_keys=True, separators=(',', ':')).encode('utf-8')
+    expect('verbatim (live): the hardcoded allowlist is exactly the one owner-approved tuple', lambda: None,
+           lambda: None, also=lambda: len(VERBATIM_ALLOWLIST) == 1 and _VERBATIM_OVERRIDE is None and
+           hashlib.sha256(canon).hexdigest() == VERBATIM_ALLOWLIST_SHA256)
+    k = next((n for n, x in enumerate(ents) if x.get('id') == A['entry']), None)
+    if k is None:
+        expect('verbatim (live): the approved entry is in the manifest', lambda: None, lambda: None, 'R13',
+               'an impossible message')
+        return
+    fld = {'path': A['path'], 'line': A['line'], 'blob': A['blob'], 'copy_of': dict(A['copy_of']),
+           'note': 'a pinned verbatim copy of F2 thread I names the run as its source\'s provenance; not a citation'}
+    lp = os.path.join(troot, A['path'])
+
+    def live(text):
+        saved = open(lp, 'rb').read() if os.path.isfile(lp) else None
+
+        def go():
+            edit(lambda m: m['entries'][k].__setitem__('verbatim_mentions', [fld]))()
+            if text is None:
+                if os.path.isfile(lp):
+                    os.remove(lp)
+            else:
+                os.makedirs(os.path.dirname(lp), exist_ok=True)
+                open(lp, 'wb').write(text)
+
+        def undo():
+            back()
+            if saved is None:
+                if os.path.isfile(lp):
+                    os.remove(lp)
+            else:
+                open(lp, 'wb').write(saved)
+        return go, undo
+    expect('verbatim (live): the approved tuple listed without its copy fails closed', *live(None), rule='R13',
+           msg='is absent', who=A['entry'])
+    expect('verbatim (live): other bytes at the approved path fail', *live(
+        ('| HC6 | run %s |\n' % A['run']).encode('utf-8')), rule='R13', msg='is not the approved blob', who=A['entry'])
 
 
 # the R13 cases the self-test must run (its fixture makes them run in every lifecycle state)
@@ -1566,6 +1861,45 @@ R13_CASES = (
     'boundary (b): a 64-digit hex word never states the head',
     'boundary (c): a conflicting head beside the citation fails, even beside a digest',
     'documented limitation: another head as the last 40 digits of a 64-digit word beside a file name passes')
+# the verbatim-mention cases the self-test must run
+VERBATIM_CASES = (
+    'verbatim: the approved mention of a pinned copy passes, and the entry stays pending',
+    "verbatim: the record lands, and the entry is eligible on the record's line alone",
+    "verbatim: promoted on the record's line alone, the entry is cited",
+    'verbatim: the mention does not satisfy the pending citation (the record lands without citing the run)',
+    "verbatim: the copy's line mapped as a citation",
+    'verbatim: the copy named as the pending record',
+    'verbatim: the copy changed by one byte, the manifest unchanged',
+    "verbatim: the manifest asserts the changed copy's blob",
+    'verbatim: the copy at another path, the manifest following it',
+    'verbatim: the copy moved, the manifest unchanged',
+    'verbatim: the copy absent',
+    'verbatim: the line changed in the manifest',
+    'verbatim: the mention moved to another line of the copy',
+    'verbatim: the run named twice on the approved line',
+    'verbatim: a second line of the copy names the run',
+    'verbatim: another file also names the run',
+    "verbatim: the approved run differs from the entry's run",
+    "verbatim: the approved head differs from the run's head",
+    'verbatim: the mention listed on another research entry',
+    'verbatim: the pending record changed',
+    'verbatim: the pending line changed',
+    "verbatim: the pending citation's head changed",
+    'verbatim: promoted on other record lines than approved',
+    'verbatim: a tuple outside the hardcoded allowlist',
+    'verbatim: the field on a CI entry',
+    'verbatim: two mentions',
+    'verbatim: the field is not a list',
+    'verbatim: a claim annotation on the mention',
+    'verbatim: an empty note',
+    'verbatim: the source changed',
+    'verbatim: the seam is unset after the verbatim cases',
+    'verbatim (live): the hardcoded allowlist is exactly the one owner-approved tuple',
+    'verbatim (live): the approved tuple listed without its copy fails closed',
+    'verbatim (live): other bytes at the approved path fail',
+)
+
+
 R13_STAND_IN = 'verification/ZZ-SELF-TEST/r13-stand-in.md'
 
 
@@ -1587,6 +1921,9 @@ def r13_fixture(m, tarch, troot, need):
         except (OSError, ValueError, KeyError, TypeError):
             return None, '%s has no readable run.json head' % e.get('id')
         e.pop('citations', None)
+        # a verbatim mention is bound to its real citation context; the fixture moves the entry off it, so the
+        # mention and its copy leave the fixture (the verbatim cases build their own)
+        e.pop('verbatim_mentions', None)
         e['awaiting_citation'] = {'pull_request': 1, 'round': 'R13-SELF-TEST', 'record': R13_STAND_IN,
                                   'line': 3 + 3 * k, 'head': head}
     still = {c['path'] for e in m['entries'] for c in e.get('citations', [])} | \
@@ -1612,6 +1949,10 @@ def self_test(archive, root):
         shutil.copytree(archive, tarch, ignore=shutil.ignore_patterns('__pycache__'))
         need = {c['path'] for e in man['entries'] for c in e.get('citations', [])} | \
             {c['path'] for c in man['coverage']['files']}
+        # the copies a listed verbatim mention names, when the tree holds them (an absent copy fails the check)
+        need |= {v.get('path') for e in man['entries'] if isinstance(e.get('verbatim_mentions'), list)
+                 for v in e['verbatim_mentions'] if isinstance(v, dict) and inside(v.get('path'))
+                 and os.path.isfile(os.path.join(root, v['path']))}
         for rel in need:
             dst = os.path.join(troot, rel)
             os.makedirs(os.path.dirname(dst), exist_ok=True)
@@ -2145,6 +2486,8 @@ def self_test(archive, root):
         t3 = [i for i, e in enumerate(ents) if str(e.get('id', '')).startswith('run-')]
         if 'tranche3' in man or t3:
             r12_cases(man, ents, t3, tarch, expect, edit, back, json_edit, file_edit)
+        # R13's verbatim mentions: the live tuple, before the fixture moves any entry off its citation context
+        verbatim_live_cases(ents, troot, expect, edit, back)
         # R13's lifecycle, on a fixture built in the copy so that its cases run in every live state (pending,
         # eligible, partly or fully cited): every research-build entry pending on a stand-in record that no tree
         # holds, and the copied records that only their citations needed removed. A fixture that cannot be built,
@@ -2157,7 +2500,7 @@ def self_test(archive, root):
             morig = json.dumps(fx[0]).encode('utf-8')
             back()
             r13_cases(fx[0], fx[0]['entries'], fx[1], troot, tarch, expect, edit, back, json_edit, file_edit)
-        missing = [n for n in R13_CASES if n not in ran]
+        missing = [n for n in R13_CASES + VERBATIM_CASES if n not in ran]
         for n in missing:
             ok = False
             print('FAIL self: %s (R13) did not run' % n)

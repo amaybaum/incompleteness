@@ -207,6 +207,12 @@ The two checkers differ in two recorded ways.
 - **Matching a run.** Both now match a run with no digit beside it. O7's token check on tranche 2's frozen citations keeps its letter-bounded match.
 - **Other files.** While an entry is pending, R13 fails on any other file of the tree that names its run, in any form, even a file name in a result note. O10 has no such rule for a commit's id. A round whose research builds are retained ahead of their record therefore names those runs only in the record until the promotion maps them.
 
+**One verbatim mention (`verbatim_mentions`): provenance metadata, not a citation.** By the owner's approval of 2026-10-19, a research entry may carry `verbatim_mentions`, a list of one object with exactly the keys `path`, `line`, `blob`, `copy_of` (`commit`, `path`) and `note`. It records that a byte-identical copy of an off-`main` source, pinned where it lands, names the run as that source's own provenance. It is not a citation mapping in the sense of §A.42 item 4: it maps no citing location, carries no claim, and records no evidence the copy relies on.
+- **Exactly one tuple is admitted.** `check_retention.py`'s `VERBATIM_ALLOWLIST` holds it: entry `research-38450187534`, run 38450187534 with head `e684897da41b1c3d066b880194c9beb87a19b7ad`, the copy `verification/programmes/oi-qm/reconstruction/research-planning/x-screen-20261018/src/I.md`, line 378, blob `f20411d6583a28298aa8647ae456ce787083e31c`, reproducing `verification/programmes/oi-qm/reconstruction/f2-research-threads/I-f2-sufficiency-target.md` at `804843f16b67061ac258ce00cefa2425d1b688c2`, with the entry's pending citation as recorded (#831, PRESERVE-INDUCT-1, its preregistration line 69, head `65b85147`) or, once promoted, citations of that line alone. A field on any other entry, or with any other value, fails; another exception needs the owner's authorization and a reviewed change to the allowlist, whose canonical digest the self-test pins.
+- **The check hashes the copy itself.** It computes the copy's git blob id from its bytes and never trusts the manifest's `blob`. The copy must be present; its approved line must name the run exactly once; no other line of it may name the run. Only then is that one line left out of the lines that name the run, and every other rule of R13 applies unchanged: any other mention anywhere fails.
+- **It is never a citation.** It is not counted as one, it does not satisfy `awaiting_citation`, it makes no entry eligible or cited, a citation may not map the copy, the copy may not be the pending record, and it supports no scientific claim.
+- **Fail-closed while the copy is absent.** A listed mention whose copy is not in the tree fails, so the field lands in the same commit as the copy.
+
 The self-test builds its own fixture in its copy, so its lifecycle cases run in every live state. Every research-build entry is made pending on a stand-in record, and the copied records that only their citations needed are removed. A fixture that cannot be built, or a named case that does not run, fails the self-test.
 
 It runs the sequence:
@@ -216,7 +222,7 @@ It runs the sequence:
 - landed naming another head or another run: fails;
 - removed under a mapped entry: fails.
 
-It also runs the citation rule's cases and the digest boundary.
+It also runs the citation rule's cases and the digest boundary, and the verbatim-mention cases: the live tuple (the allowlist pinned, the copy absent, other bytes at its path) and, on the fixture through a stand-in tuple, a change to each of the bytes, path, line, run, head, source, pending citation and promoted citations, a second mention in the copy or elsewhere, the field on another entry or outside the allowlist, a malformed field, and the three ways it could be taken for a citation.
 
 Each run has `ci/<run>/run.json` and `jobs.json`, from the runs and jobs APIs, and `ci/<run>/results.json` of kind `research-build`. The results were read by `main`'s `extract_result.py` (blob `05c41bce`), unchanged, from the served job log. That log was served whole: 3256 and 3692 lines, equal to the logs' `original_length`. Each result names its commit, run, job, recipe and the served text's sha256. It establishes what that run logged at that source, and nothing about any later tree.
 
