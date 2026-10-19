@@ -538,6 +538,10 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   shared-object-store rule: no deletion, replacement, reinitialization, prune or garbage
   collection while dependents exist, with a named owner, tracked dependents and coordinated
   retirement.
+- A preservation plan once proposed archiving every historical run head in an inventory and
+  extracting every expiring log, because their refs and logs were at risk. It did so before asking
+  which surviving claims needed them. Hence §A.42 item 8: retention follows necessity, not
+  exposure.
 
 ---
 
@@ -966,6 +970,30 @@ names such content neither retains nor establishes it.
      It writes `verdict.json` on every exit once its work directory is writable, an exception
      included, and the verdict holds only on a clean exit.
    - For a round, each hash pin of item 2 is a row of its invariant→checkpoint table (§A.41).
+8. **Necessity, not exposure.** Retention serves surviving claims, not the history of the work.
+   Content is retained only when both of the following hold, and only the smallest set that meets
+   them is retained:
+   - a claim that has landed on `main`, is frozen in a governed record, or is approved for
+     imminent certification depends on it; and
+   - it cannot be reconstructed from `main` or from content already retained.
+
+   Further:
+   - Imminent loss is not a reason to retain. That covers an expiring log, a ref that may be
+     deleted, and a commit reachable only from a temporary branch. Membership in a run inventory
+     or a list of historical heads is not a reason either, and a temporary branch has no value of
+     its own.
+   - Superseded experiments, exploratory runs and failed runs used only for debugging are not
+     retained unless a surviving claim cites them. A failed run that a conclusion explicitly rests
+     on is evidence like any other.
+   - Before any bulk retention, log extraction or batch of protective refs, a necessity audit
+     classifies each candidate:
+     - **required**, **redundant** (reconstructible), **optional** or **undetermined**;
+     - naming the claim it serves (`file:line`) and how reconstruction was checked.
+   - Only required items are retained. An undetermined item is resolved before it is retained,
+     not retained as a precaution. CI time spent extracting historical evidence meets the same
+     test.
+   - A temporary protective ref is not retention. It holds an object only while the audit decides
+     its fate, and no ref is deleted during the audit.
 
 Enforcement:
 - `check_retention.py` and its self-test run locally before any push that touches the archive
