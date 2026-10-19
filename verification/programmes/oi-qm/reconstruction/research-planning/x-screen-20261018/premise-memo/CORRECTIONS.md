@@ -1,22 +1,29 @@
 # Corrections to the minimal-premise memo
 
-This change note maps each finding of the two independent reviews to the edits in `PREMISE-MEMO.md`: the first pass
-answers the review of the original memo, and the second pass answers the review of the first-pass correction.
+This change note maps each finding of the three independent reviews to the edits in `PREMISE-MEMO.md`: the first
+pass answers the review of the original memo, the second pass answers the review of the first-pass correction, and the
+third pass answers the review of the second-pass correction.
 
 **Provenance.**
 - The original memo is PR #864 comment 6254405090, kept byte-identical here as `PREMISE-MEMO.original.md` (sha256
   `78057ac60820fb4f776bda4fb3293d7969e403777c7e76bc522b3d8865f7849e`).
 - The review of the original memo is PR #864 comment 6254408285. The review of the first-pass correction (commit
-  `11562acebd30d3ae61a099f3484631c3f7dd8fc5`) is PR #864 comment 6254747204.
+  `11562acebd30d3ae61a099f3484631c3f7dd8fc5`) is PR #864 comment 6254747204. The review of the second-pass correction
+  (commit `6df43b2c08907c9572408c6ef627da5ec9071e81`) is PR #864 comment 6254962113.
+- The third pass applies the owner's authorization of 2026-10-19 to correct the equivalence the MEV row stated
+  between MEV and OV-LU (finding 1 of comment 6254962113), with the low-priority items of the same review. It
+  changes no class or status.
 - `dc_premise.py` and `dc.out` are byte-identical to the originals. The script reads no file, so the memo's text is
   not an input to it. A replay under `python3 -I -B` gives rc 0, 27 PASS and 0 FAIL, byte-identical to `dc.out`.
 
 **Scope.** This is a correction only. It adds no probe, premise, result or status change, and it adopts nothing.
-The arguments and checks it cites from the reviews are tagged [W, rev] and [EC, rev] and are not replayed. The
-corrected memo awaits independent review.
+The arguments and checks it cites from the reviews are tagged [W, rev] and [EC, rev]; they are not replayed in the
+repository. Where a pass ran its own scratch computation, its section says so; such a computation is not committed
+and is not retained evidence. The third-pass correction awaits independent review.
 
 **Line references.** "o" gives lines in `PREMISE-MEMO.original.md`. "c" gives lines in `PREMISE-MEMO.md` at commit
-`11562ace`, the first-pass correction. "n" gives lines in `PREMISE-MEMO.md` after the second pass.
+`11562ace`, the first-pass correction. "n" gives lines in `PREMISE-MEMO.md` at commit `6df43b2c`, the second-pass
+correction. "t" gives lines in `PREMISE-MEMO.md` after the third pass.
 
 ## First pass (review comment 6254408285)
 
@@ -43,9 +50,9 @@ G2) and asked for the corrections below; its item numbers are given in the last 
 | 1: DT basis | c100–102 → n103–106; c104–105 → n108–109; c129 → n133; c150–155 → n154–161; c347 → n363 (G2 cell); c373–374 → n391–393; c446 → n468–469 | Class (iii) covers a bare transfer clause and F2's DT, complete dual-test closure (SA:48–59); "or its dual, closure of a test family under pullback" is removed, and closure of a smaller family is stated not to be F2's DT (SA:57–59). "Both readings above have that form" is removed: UPD is (iii) on its state-side reading only, and the test-side reading is described as DT-type closure restricted to product tests, not F2's DT. MI+ D3 is removed as a G2 ground; the PSD use and the equivalence to K ⊆ Q3 under local rotations are stated not to be G2 grounds (Fact A) | item 1: the widened definition went beyond F2's DT and would also have placed OVc, OVn and MEV in (iii); Fact A does not make equivalence to K ⊆ Q3 a G2 ground |
 | 2: PSD list | c258–263 → n267–279 | MEV is added, with its negative rank-one compression Tr(P_m z) = −½. A check of every row of §4 found two further entries of the same kind: OVn, whose recorded exclusion CN Γ(B) CN ∉ maxCone is the product-test evaluation after the coupling that OVc uses, and SP⊕UPD, which inherits UPD's. The CPK row, which records exclusion only by importing PSD, is named. With these, the sentence "Apart from these rows, no entry uses PSD or CP of a competing cone's elements" holds and is kept | item 2: the sentence was false for MEV |
 | 3: criterion | c368–369 → n384–387; c373–374 → n391–393; c385 → n404–406; c387 → n408 | "No PSD import" is restored as a §6 criterion, worded as in the original memo (o333). UPD, OVr, OVc and MEV are stated not to meet it, and OVn's exclusions are stated to be of the same kind. Each §6 item states whether it meets the criterion: UPD, OVr and OVc (item 1), MEV (item 2) and SP⊕UPD (item 3) do not; CH's exclusions use no PSD evaluation | item 3: dropping the criterion was outside the authorized scope (§A.29) |
-| 4: witness convention | c163–164 → n169–174; c203 → n212 | The convention is stated: \|ij⟩ = \|i⟩⊗\|j⟩ with token 1 first, m = (\|00⟩ + b\|01⟩ − bd\|10⟩ + d\|11⟩)/2 as in `dc_premise.py`, C_ij = ⟨ji\|m⟩, V = √2·Cᵀ, conjugation z ↦ (I⊗V) z (I⊗V)†. Under it the outcome-0 conditional has eigenvalue −½ for all four defects. The review's observation is recorded: with C_ij = ⟨ij\|m⟩ the same formula puts −½ at outcome 0 only for the d = −1 defects, and UPD excludes all four either way. The §3.2 row points to the convention. That the stated convention puts −½ at outcome 0 for all four defects was checked in exact arithmetic during this pass by a scratch computation that is not committed and is not retained evidence; the review's witness check is the cited source | item 4: the convention was not fixed, and "outcome 0" depends on it |
+| 4: witness convention | c163–164 → n169–173; c203 → n212 | The convention is stated: \|ij⟩ = \|i⟩⊗\|j⟩ with token 1 first, m = (\|00⟩ + b\|01⟩ − bd\|10⟩ + d\|11⟩)/2 as in `dc_premise.py`, C_ij = ⟨ji\|m⟩, V = √2·Cᵀ, conjugation z ↦ (I⊗V) z (I⊗V)†. Under it the outcome-0 conditional has eigenvalue −½ for all four defects. The review's observation is recorded: with C_ij = ⟨ij\|m⟩ the same formula puts −½ at outcome 0 only for the d = −1 defects, and UPD excludes all four either way. The §3.2 row points to the convention. That the stated convention puts −½ at outcome 0 for all four defects was checked in exact arithmetic during this pass by a scratch computation that is not committed and is not retained evidence; the review's witness check is the cited source | item 4: the convention was not fixed, and "outcome 0" depends on it |
 | 5: evidence tag | c286 → n302 | "UPD ≡ K ⊆ Q3" is tagged [W, rev]; [EC, rev] stays on the witness only | item 5 |
-| 6: stale sentence | c397–399 → n418–421 | "through validity of the update or test, not through membership" becomes "by a route that is neither membership nor a transfer clause (F2 G2), for example test validity", with the statement that update validity in UPD's form is a transfer clause under the present F2 rules | item 6: the old wording required the form now classed (iii) |
+| 6: stale sentence | c399 → n420–421 | "through validity of the update or test, not through membership" becomes "by a route that is neither membership nor a transfer clause (F2 G2), for example test validity", with the statement that update validity in UPD's form is a transfer clause under the present F2 rules | item 6: the old wording required the form now classed (iii) |
 | 7: OVr caveat | c287 → n303 | The OVr K(Z_F) cell is restricted to native protocols, and states that with local unitaries admitted before the coupling OVr also reduces to K ⊆ Q3 [W, rev] | item 7 |
 | 8: self-description and §A.42 | c4–6 → n4–7; c8 → n9–10; c17 → n19–20; c35 → n38; c40–41 → n43–44 | "It makes no commit, push, probe or repository edit" becomes a description of the memo as a research record in this directory that runs no probe and edits no other repository file. The base worktree, the `s1018/…` search files and `run1-wrong-expected/` are stated not to be retained in the repository. The script is cited as the committed `dc_premise.py` | item 8: c4 was stale; the references point outside the repository |
 | — (tag scope) | c29–30 → n32–33 | The [W, rev] and [EC, rev] tags cover both reviews, since fixes 4 and 7 cite the second | consequence of fixes 4 and 7 |
@@ -54,13 +61,36 @@ G2) and asked for the corrections below; its item numbers are given in the last 
 **Consistency of the judgment calls the review accepted.** After fix 1, class (iii) rests on the state-side form
 "named operations preserve physical states" and on complete dual-test closure.
 - OVc, OVn and MEV are test-validity clauses over restricted families: product tests after the coupling, product tests
-  after native protocols, and maximally entangled projectors. None is complete dual-test closure, and their state-side
-  forms conclude membership in maxCone, the fixed product-test window, not in the physical state space. Leaving them
-  unreclassified, with their reading against the transfer-clause form open under U3, is consistent with the narrowed
-  definition.
+  after native protocols, and maximally entangled projectors. None is complete dual-test closure. The state-side forms
+  of OVc and OVn conclude membership in maxCone, the fixed product-test window; MEV's concludes membership in the dual
+  of the maximally entangled projectors, also a fixed cone. None concludes membership in the physical state space.
+  Leaving them unreclassified, with their reading against the transfer-clause form open under U3, is consistent with
+  the narrowed definition.
 - OVr's state-side reading is UPD's restricted to outcome 0. Marking it unresolved under U3, rather than (iii), asserts
   no class that conflicts with fix 1.
 
 **Checks for the second pass.** `PREMISE-MEMO.original.md`, `dc_premise.py` and `dc.out` are byte-identical to
 commit `11562ace`. The replay under `python3 -I -B` gives rc 0, 27 PASS and 0 FAIL, byte-identical to `dc.out`. No
 probe was added and no file other than `PREMISE-MEMO.md` and this record changed.
+
+## Third pass (review comment 6254962113)
+
+The review accepted the second pass with notes. Its finding 1, present since the original memo (o127), needed owner
+authorization; the owner authorized its correction together with the low-priority items, with no class or status
+change. Item numbers of the review are given in the last column.
+
+| fix | lines changed | what changed | reason |
+|---|---|---|---|
+| 1: MEV and OV-LU | n137 → t137; new §3.4 row at t244; n244–246 → t246–249; n366 → t369 (G1 cell); n402–406 → t405–410; this file, consistency paragraph (second-pass :56–60) | The MEV row states MEV's own content: Tr(P_ψX) ≥ 0 for every physical X and every maximally entangled ψ. Its operational form is the product test \|+⟩⟨+\|⊗P_0 after a local unitary and the coupling (B = CN(\|+⟩⟨+\|⊗P_0)CN [EC, dc]; every maximally entangled vector is a local-unitary image of (\|00⟩ + \|11⟩)/√2 [W]). OV-LU, validity of every product test after a local unitary and the coupling, implies MEV; MEV implies neither OV-LU nor OVc, by X_c: Tr(P_v X_c) = ½ − 53/100 < 0 with P_v = CN(e_v⊗P_0)CN [EC, dc]. §3.4 gains the row "OV-LU ⇒ MEV; MEV ⇏ OVc, hence MEV ⇏ OV-LU", and the X_c note states that X_c fails OVc. The G1 cell keeps BORDERLINE and drops "unless stated as OV-LU", since OV-LU is a different, stronger premise; it names MEV's operational form instead. §6 item 2 states MEV as validity of the maximally entangled projectors, with its operational form and the two non-implications. In this file, MEV's state-side form concludes membership in the dual of the maximally entangled projectors, not in maxCone. MEV keeps class (i) and every cell of its §4 and §5 rows other than G1's wording | finding 1: X_c is ME-valid and fails a product test after the coupling, so the stated equivalence was false; with OVc ⇒ UPD and the collapse under local rotations it would also have made MEV imply K ⊆ Q3, against the row's own entry |
+| 2: tags | n168–173 → t168–174; n363 → t366 (G5 cell); n33 → t33 | The witness's PSD claims keep [EC, rev]. The convention-specific claim (−½ at outcome 0 for all four defects with C_ij = ⟨ji\|m⟩) cites comment 6254962113, and the d = −1 observation cites comments 6254747204 and 6254962113. The G5 cell's combined "[W + EC, rev]" is split: the witness is [EC, rev] and UPD ≡ K ⊆ Q3 is [W, rev]. The tag definition lists the third review | item 2 |
+| 3: D3 wording | n103–106 → t103–106; n133 → t133 | Class (iii)'s D3 entry reads "a premise that posits PSD or CP on K by definition (D3, as in row CPK)". The UPD row says UPD evaluates PSD of compressions but posits no PSD or CP on K, which is the case the D3 entry covers, in place of "MI+ D3 is not among them" | item 3: the two sentences read as conflicting |
+| 4: PSD definition | n267–268 → t270–271 | The rows "evaluate positivity on competing-cone elements in an order other than the competing cone's own: PSD-type compressions to planes or vectors that are not product" | item 4: read literally, the old wording also covered PC's maxCone exclusion, which uses maxCone's own order |
+| 5: F2 classes in §6 | n402 → t405; n408 → t412–413 | Item 2 states that CH and MEV are class (i); item 3 states that SP⊕UPD is class (iii) by the composite rule. Both classes are those of §2 | item 5: §6 says each item states its F2 class |
+| 6: cosmetic | n108–109 → t109–110; this file, second-pass rows 4 and 6; this file :14–16 | The class paragraph is re-wrapped. Fix 4's range becomes c163–164 → n169–173, and fix 6's becomes c399 → n420–421. The scope paragraph states that review checks are not replayed in the repository and that a pass's own scratch computation is disclosed in its section and not retained | item 6 |
+
+**Checks for the third pass.** `PREMISE-MEMO.original.md`, `dc_premise.py` and `dc.out` are byte-identical to
+commit `6df43b2c`. The counterexample was checked in exact arithmetic during this pass by a scratch computation that
+is not committed and is not retained evidence: X_c's product-test value after the coupling is −3/100, its minimum over
+maximally entangled projectors is 15/136 and over product vectors 1/850, and the identity B = CN(|+⟩⟨+|⊗P_0)CN and
+the witness convention of fix 2 were rechecked. No probe was added and no file other than `PREMISE-MEMO.md` and this
+record changed.
