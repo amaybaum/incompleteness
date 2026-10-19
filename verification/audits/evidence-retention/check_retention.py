@@ -69,14 +69,28 @@ Rules:
       jobs or what one job printed) is well formed and its files agree: run.json names the run and its head commit,
       and the entry's expiry is its creation plus 90 days; every job in jobs.json is at that commit and attempt,
       with its steps; expected.json, when present, names the same run, head commit, event and attempt, and each
-      output names a job of jobs.json, a known kind (base-check, guard), the commit it holds at (the run's head for
-      a push; for a pull request the recorded base and the run's head, whose synthetic merge is the REF the log
-      reports), a recipe, a source with its digest and line counts and job_outputs.py as extractor, and a well
-      formed expectation, a guard's counts agreeing with its checks; the file's source_sha256 is its output's
-      served digest. The tranche3 section lists every uncovered run not retained here, once, with its creation
-      and expiry, in order of creation; no retained or remaining run is attested or already retained by
-      tranches 1-2; no retained run expires after a remaining one (earliest expiry first); and its counts agree.
-      R12 does not re-derive an expected result: job_outputs.py reproduce does, at the commit.
+      output names a job of jobs.json, a known kind (base-check, guard, gate), the commit it holds at (the run's
+      head for a push; for a pull request the recorded base and the run's head, whose synthetic merge is the REF
+      the log reports), a recipe whose `before` steps, if any, are each a command and a directory and whose
+      recorded `environment`, if any, names a Python version and package versions, a source with its digest and
+      line counts and job_outputs.py as extractor, and a well formed expectation, a guard's counts agreeing with
+      its checks and a gate's steps each with a status, a distinct name and a summary, its counts the ones its
+      summaries state; the file's source_sha256 is its output's served digest, or, for several outputs, the
+      list of their served digests in order. The tranche3 section
+      lists every uncovered run not retained here, once, with its creation and expiry, in order of creation; no
+      retained or remaining run is attested or already retained by tranches 1-2; no retained run expires after a
+      remaining one (earliest expiry first), except a run of PRIORITY_ALLOWLIST, hardcoded below, whose
+      owner-approved record the section's `priority` list carries unchanged. A priority record outside the
+      allowlist fails, as does an allowlisted run whose record is absent or altered, or whose pinned entry
+      (its tranche an int), files, citations (every claim's line, text, status, files and note, by canonical
+      digest), citing record, recorded discrepancy or authorizing decision record is removed, substituted or
+      relabelled. The section's counts agree. R12 does not re-derive an expected result: job_outputs.py reproduce
+      does, at the commit.
+  R14 (stated beside R12, whose tranche it serves) open-claims.json, the record of citing claims about runs not yet
+      retained whose read covers them only in part, is listed and holds exactly the claims of OPEN_CLAIMS_PIN,
+      hardcoded below: no claim missing, repeated or added; each `unresolved`, the record's status vocabulary that
+      alone; each with its pinned run and head, citing path, lines and git blob, and fragment; each citing file
+      hashed here to that blob, and the fragment verbatim on those lines.
   R13 each entry retained ahead of its citing record (research-<run_id>, a research build of a workflow not on main)
       records where it is to be cited (pull request, record, line, head) and carries no citation, and no file of
       the tree outside the archive cites the run (once one does, the entry must carry that citation); its run.json,
@@ -280,6 +294,7 @@ def check(archive, root, scope=None):
             F('R7 gap %r names no entry, or has no what/why' % g)
     check_coverage(man, archive, root, read_tree, F, scope)
     check_tranche3(man, read_tree, F)
+    check_open_claims(man, texts, read_tree, F)
     for dirpath, _, names in os.walk(archive):
         for fn in names:
             rel = os.path.relpath(os.path.join(dirpath, fn), archive).replace(os.sep, '/')
@@ -403,8 +418,218 @@ def check_entry_files(e, files, man, F):
 
 HEX40 = re.compile(r'[0-9a-f]{40}')
 HEX64 = re.compile(r'[0-9a-f]{64}')
-JOB_KINDS = ('base-check', 'guard')
+JOB_KINDS = ('base-check', 'guard', 'gate')
 EXTRACTOR3 = 'verification/audits/evidence-retention/job_outputs.py'
+# the counts a gate's summaries state (job_outputs.py's GATE_COUNTS): a gate output records them, and they must agree
+GATE_COUNT_RX = {'lean-axioms': re.compile(r'\((\d+) named result'), 'v3-receipts': re.compile(r'RECEIPTS\s+(\d+) receipt'),
+                 'legacy-records': re.compile(r'LEGACY\s+(\d+) record')}
+# R12's priority exception: the tranche-3 runs retained ahead of the earliest-expiry order, each named here by the
+# owner's authorization and nothing else. A manifest's tranche3.priority list must carry exactly each tuple's
+# `record`, and a record outside this tuple set fails: a manifest entry cannot authorize its own exception. Each
+# tuple pins the run's entry (id, tranche, kind, expiry), its files (size, sha256 and, for the expected result,
+# the served digest it derives from), the citing record it serves (path and git blob) and the recorded discrepancy
+# there, so that removing, substituting or relabelling the entry fails. Adding or changing a tuple needs the
+# owner's authorization; the self-test pins the tuples' canonical digest. The authorization is the owner's dated
+# decision comment, cited by id, URL and posting time; the archive holds its body verbatim (`decision`: path, size
+# and sha256, pinned here), so the citation is checkable offline.
+A37_PREREG = 'verification/programmes/oi-qm/track-b/act-37-arc-exclusivity/preregistration.md'
+PRIORITY_ALLOWLIST = (
+    {'record': {'run_id': '36373806246',
+                'why': 'act 37\'s preregistration states at lines 63-64 a lean-axioms count for this run that differs from '
+                       'the count its release gate printed; the run is retained so that the difference rests on retained '
+                       'evidence',
+                'authorization': {'comment': '6270971164', 'posted': '2026-10-19T15:31:28Z',
+                                  'url': 'https://github.com/amaybaum/incompleteness/pull/862#issuecomment-6270971164',
+                                  'record': 'decisions/pr862-comment-6270971164.json'},
+                'supplement': {'comment': '6272650041', 'posted': '2026-10-19T17:01:20Z',
+                               'url': 'https://github.com/amaybaum/incompleteness/pull/862#issuecomment-6272650041',
+                               'record': 'decisions/pr862-comment-6272650041.json',
+                               'authorizes': 'the guard output retained, and the pinned reproduction environment'},
+                'claim': {'path': A37_PREREG, 'lines': [63, 64]}},
+     'decisions': (('decisions/pr862-comment-6272650041.json', 2700,
+                    '97cb3d4d2ec976051db90f89e37b457ef58e94322afac7d5d570667d6f742e48'),
+                   ('decisions/pr862-comment-6270971164.json', 4258,
+                    '5e9193e4519ae355b83f44897087d5342fa0e5b2b9428d62a587efb0902f15d9')),
+     'entry': {'id': 'run-36373806246', 'tranche': 3, 'kind': 'derived', 'expires': '2026-12-27'},
+     'head': 'd014bafef404b991b4544e6d2041edcfab1ac765',
+     'files': {'runs/36373806246/run.json':
+               (531, 'fd81073041266d500b497f1a357e857298c2ee7676bc8dbd10e5f6c42928ec1a', None),
+               'runs/36373806246/jobs.json':
+               (7624, '33d7b5eab314fb22ecb0d479fe3489f5720b19fd021c4bf8abd73ad1074aee93', None),
+               'runs/36373806246/expected.json':
+               (21477, '4d1617bab83dd3c4c9e378c4d8a0afd07fe13425e9accadac8815f689979361e',
+                ['bb153d18187f9c95b709c045b2051cc46d9da3e233d21a3a360d28e77f14047b',
+                 '5c62853854d7ac5f07bc1ba37f8d3e8a7d3dde8695edcdf9d474ca78e1170f8a'])},
+     'claim_blob': '1e9e67701c3bb38e0290d13ab2ec4cbf7b733283',
+     'citations_sha256': 'c802518d3242cd66eb44b545346dabf49353f93f79c968c571c1f795c27fe808',
+     'discrepancy': {'line': 64, 'text': '`lean-axioms` at 4829 named results', 'status': 'differs'}},
+)
+
+
+def gate_counts_of(steps):
+    """{step name: the count its summary states} for the steps of GATE_COUNT_RX, as job_outputs.py reads them."""
+    out = {}
+    for s in steps:
+        rx = GATE_COUNT_RX.get(s.get('name'))
+        m = rx.search(str(s.get('summary'))) if rx else None
+        if m:
+            out[s['name']] = int(m.group(1))
+    return out
+
+
+def citations_digest(cites):
+    """The canonical sha256 of an entry's citations: every citing location with its blob and tokens, and every
+    claim's line, text, status, files and note."""
+    return hashlib.sha256(json.dumps(cites, sort_keys=True, ensure_ascii=False).encode('utf-8')).hexdigest()
+
+
+def check_priority(man, t3, held, read_tree, F):
+    """R12's priority exception: the runs exempt from the earliest-expiry order, which are exactly the allowlisted
+    runs whose record the manifest carries unchanged; every other record fails, and so does any allowlisted run whose
+    record is absent or whose pinned entry, files, citing record or recorded discrepancy is removed, substituted or
+    relabelled. Returns the exempt run ids."""
+    pri = man['tranche3'].get('priority', [])
+    approved = {a['record']['run_id']: a for a in PRIORITY_ALLOWLIST}
+    if not isinstance(pri, list) or not all(isinstance(p, dict) for p in pri):
+        F('R12 tranche3: the priority list is malformed')
+        pri = []
+    listed = {}
+    for p in pri:
+        rid = str(p.get('run_id'))
+        if rid not in approved:
+            F('R12 tranche3: priority run %s is not in the owner-approved allowlist' % rid)
+        elif rid in listed:
+            F('R12 tranche3: priority run %s is listed twice' % rid)
+        elif p != approved[rid]['record']:
+            F('R12 tranche3: the priority record of run %s differs from the owner-approved record' % rid)
+        else:
+            listed[rid] = p
+    exempt = set()
+    for rid, a in sorted(approved.items()):
+        if rid not in listed:
+            F('R12 tranche3: owner-approved priority run %s is not listed' % rid)
+            continue
+        ents = [e for e in man['entries'] if e.get('id') == a['entry']['id'] or str(e.get('run_id')) == rid]
+        if len(ents) != 1 or rid not in held:
+            F('R12 %s: the owner-approved priority entry is missing, substituted or repeated' % a['entry']['id'])
+            continue
+        e = ents[0]
+        if {k: e.get(k) for k in a['entry']} != a['entry'] or str(e.get('run_id')) != rid or \
+                any(type(e.get(k)) is not type(v) for k, v in a['entry'].items()):
+            F('R12 %s: the owner-approved priority entry is relabelled' % a['entry']['id'])
+            continue
+        files = {f.get('path'): (f.get('bytes'), f.get('sha256'), f.get('source_sha256')
+                                 if f.get('path', '').endswith('/expected.json') else None) for f in e.get('files', [])}
+        if files != a['files']:
+            F('R12 %s: its files are not the pinned files' % a['entry']['id'])
+            continue
+        if citations_digest(e.get('citations')) != a['citations_sha256']:
+            F('R12 %s: its citations (each claim\'s line, text, status, files and note) are not the pinned ones'
+              % a['entry']['id'])
+            continue
+        cl = a['record']['claim']
+        cites = [c for c in e.get('citations', []) if c.get('path') == cl['path']]
+        data = read_tree(cl['path'])
+        if not cites or any(c.get('blob') != a['claim_blob'] for c in cites) or data is None or \
+                blob_id(data) != a['claim_blob']:
+            F('R12 %s: its citing record %s is not the pinned record' % (a['entry']['id'], cl['path']))
+            continue
+        d = a['discrepancy']
+        if [k for c in cites for k in c.get('claims', []) if k.get('line') == d['line'] and k.get('text') == d['text']
+                and k.get('status') == d['status']] == []:
+            F('R12 %s: the recorded discrepancy at %s:%d is missing or altered' % (a['entry']['id'], cl['path'], d['line']))
+            continue
+        cited = {a['record']['authorization']['record'], a['record']['supplement']['record']}
+        bad = [dp for dp, db, ds in a['decisions']
+               if [(f.get('bytes'), f.get('sha256')) for x in man['entries'] for f in x.get('files', [])
+                   if f.get('path') == dp] != [(db, ds)]]
+        if bad or {dp for dp, _, _ in a['decisions']} != cited:
+            F('R12 %s: the decision record %s that authorizes it is missing or not the pinned file'
+              % (a['entry']['id'], ', '.join(bad) or 'set'))
+            continue
+        exempt.add(rid)
+    return exempt
+
+
+# R14: the open-claims record. Each claim of open-claims.json, by id: its run and head, the citing file, the lines
+# and the git blob it cites, and the fragment that stands verbatim there. The record must hold exactly these claims,
+# each `unresolved`; adding, removing or changing one needs a reviewed change to this table.
+OPEN_CLAIMS_FILE = 'open-claims.json'
+OPEN_CLAIMS_STATUS = 'unresolved'
+_TB, _CC1 = 'verification/programmes/oi-qm/track-b/', 'verification/audits/manuscript/round-cc-1-corpus-correction/result.md'
+_CC2 = 'verification/audits/manuscript/round-cc-2-corpus-correction/preregistration.md'
+OPEN_CLAIMS_PIN = {
+    'OC-1': ('36402777894', 'f5640a453b16bfcb9d3eff3722702aa5f6b791a4', _TB + 'act-38-local-escape/result.md', (206,),
+             '6a09bd59bf422afd5e150311e8dbb8164b50dd7c',
+             "every one of the module's one hundred and twenty-two theorems within `propext`, `Classical.choice` and `Quot.sound`"),
+    'OC-2': ('36416531599', '3a16021639a49a5eb32bd8c5466cdf458f4e3ee6', _TB + 'act-39-realizable-torus/result.md', (142,),
+             'eeb0db00281bbf33f907a23de68f62287d7b164b', "the `Mathlib bridge` build compiles the module's ninety-nine theorems"),
+    'OC-3': ('36417464997', 'e37cad3bf990b23f1e1615e2862a2ca57503b567', _TB + 'act-39-realizable-torus/result.md', (143,),
+             'eeb0db00281bbf33f907a23de68f62287d7b164b', 'with the one hundred and one theorems compiled'),
+    'OC-4': ('36474528405', 'c3096556865edc526dc3f315993c6de9b064f945', _TB + 'act-40-dita-locus/result.md', (164,),
+             'f87a801f504b8ccb4ac68e03831d31440be89f80',
+             "the `Mathlib bridge` build compiles the module's one hundred and ninety-seven theorems"),
+    'OC-5': ('36476760295', 'd9d5227d436a14f8f3d97f4f50672dd90cce3ac0', _TB + 'act-40-dita-locus/result.md', (165,),
+             'f87a801f504b8ccb4ac68e03831d31440be89f80', 'with the one hundred and ninety-nine theorems compiled'),
+    'OC-6': ('36402777894', 'f5640a453b16bfcb9d3eff3722702aa5f6b791a4', _TB + 'act-38-local-escape/result.md', (206,),
+             '6a09bd59bf422afd5e150311e8dbb8164b50dd7c', 'the probe reports 44 `PASS` and no `FAIL` in 349 seconds'),
+    'OC-7': ('37143464345', '342fb68f0196a77c9085ac981f01266fd86eb869', _CC2, (1112, 1113),
+             '2e08e0d6f0e3267b308a0f0b2c2f52d61deefb08', 'four findings: the stale corollary fingerprint, the area-law'),
+    'OC-8': ('37143464345', '342fb68f0196a77c9085ac981f01266fd86eb869', _CC1, (39, 40),
+             '9d5d310ad0131780b88a61f8080b7ba589690116',
+             'SUBSTRATUM:C-effective-finiteness-gauge-class-transfer: the manuscript statement has changed'),
+    'OC-9': ('37140734308', 'cb66db6291b6e2e0b006693dbd1461484fac8cdd', _CC1, (17, 18),
+             '9d5d310ad0131780b88a61f8080b7ba589690116', "the preregistration's own chapter/`FULL.md` mirror blocks"),
+    'OC-10': ('37143464345', '342fb68f0196a77c9085ac981f01266fd86eb869', _CC2, (1114,),
+              '2e08e0d6f0e3267b308a0f0b2c2f52d61deefb08', '(the delimiter alone; every pinned passage present)'),
+}
+
+
+def check_open_claims(man, texts, read_tree, F):
+    """R14: open-claims.json holds exactly the pinned claims, each unresolved and naming no other status, each with
+    its pinned run and head, citing location (path, lines, blob) and fragment; each citing file still has that blob
+    (hashed here from its bytes), and the fragment stands verbatim on those lines, joined."""
+    if not any(f.get('path') == OPEN_CLAIMS_FILE for e in man['entries'] for f in e.get('files', [])):
+        F('R14 %s is not listed in the manifest' % OPEN_CLAIMS_FILE)
+        return
+    try:
+        doc = json.loads(texts.get(OPEN_CLAIMS_FILE) or '')
+        claims = doc['claims']
+        assert isinstance(claims, list) and all(isinstance(c, dict) for c in claims)
+    except (ValueError, KeyError, TypeError, AssertionError):
+        F('R14 %s is not a readable open-claims record' % OPEN_CLAIMS_FILE)
+        return
+    if doc.get('schema') != 'oi-evidence-open-claims' or doc.get('version') != 1 or \
+            set(doc.get('statuses') or {}) != {OPEN_CLAIMS_STATUS}:
+        F('R14 %s: schema, version or status vocabulary is not the pinned one' % OPEN_CLAIMS_FILE)
+    ids = [c.get('id') for c in claims]
+    for i in sorted({i for i in ids if ids.count(i) > 1}, key=str):
+        F('R14 claim %s is repeated' % i)
+    for i in sorted(set(OPEN_CLAIMS_PIN) - set(ids)):
+        F('R14 claim %s is missing' % i)
+    for i in sorted(set(ids) - set(OPEN_CLAIMS_PIN), key=str):
+        F('R14 claim %s is not in the pinned set' % i)
+    for c in claims:
+        i = c.get('id')
+        if i not in OPEN_CLAIMS_PIN or ids.count(i) > 1:
+            continue
+        run, head, path, lines, blob, frag = OPEN_CLAIMS_PIN[i]
+        ci = c.get('citing') or {}
+        if c.get('status') != OPEN_CLAIMS_STATUS:
+            F('R14 %s: status %r, not %s' % (i, c.get('status'), OPEN_CLAIMS_STATUS))
+        if c.get('run') != {'id': run, 'head_sha': head}:
+            F('R14 %s: its run or head is not the pinned one' % i)
+        if (ci.get('path'), tuple(ci.get('lines') or ()), ci.get('blob')) != (path, lines, blob):
+            F('R14 %s: its citing location (path, lines, blob) is not the pinned one' % i)
+        if c.get('fragment') != frag:
+            F('R14 %s: its fragment is not the pinned one' % i)
+        data = read_tree(path)
+        if data is None or blob_id(data) != blob:
+            F('R14 %s: the citing file %s is absent or changed' % (i, path))
+            continue
+        L = data.decode('utf-8', 'replace').split('\n')
+        if not all(0 < n <= len(L) for n in lines) or frag not in ' '.join(L[n - 1].strip() for n in lines):
+            F('R14 %s: the fragment is not verbatim at %s:%s' % (i, path, ','.join(map(str, lines))))
 
 
 def expiry_of(created):
@@ -420,7 +645,8 @@ def check_run_entry(e, files, F):
     """R12: a tranche-3 entry's files agree with each other: run.json, jobs.json and, when a claim rests on what a
     job printed, expected.json."""
     eid, rid = e.get('id'), str(e.get('run_id'))
-    if e.get('tranche') != 3 or eid != 'run-' + rid or not re.fullmatch(r'[0-9]{1,20}', rid):
+    if type(e.get('tranche')) is not int or e.get('tranche') != 3 or eid != 'run-' + rid or \
+            not re.fullmatch(r'[0-9]{1,20}', rid):
         F('R12 %s: not an entry of tranche 3' % eid)
         return
     run, jobs, exp = (files.get('runs/%s/%s' % (rid, n)) for n in ('run.json', 'jobs.json', 'expected.json'))
@@ -475,9 +701,14 @@ def check_run_entry(e, files, F):
         if not good:
             F('R12 %s: output %d is not at the run\'s commit' % (eid, n))
         rc = o.get('recipe') or {}
-        if not isinstance(rc.get('argv'), list) or not rc['argv'] or not all(isinstance(x, str) and x for x in rc['argv']) \
-                or not inside(rc.get('cwd') if rc.get('cwd') != '.' else 'x') or not isinstance(rc.get('env'), dict) \
-                or not isinstance(rc.get('exit'), int):
+        command = lambda r: isinstance(r, dict) and isinstance(r.get('argv'), list) and r['argv'] and \
+            all(isinstance(x, str) and x for x in r['argv']) and inside(r.get('cwd') if r.get('cwd') != '.' else 'x')
+        before, envr = rc.get('before', []), rc.get('environment', {})
+        envr_ok = isinstance(envr, dict) and set(envr) <= {'python', 'modules'} and \
+            isinstance(envr.get('python', ''), str) and isinstance(envr.get('modules', {}), dict) and \
+            all(isinstance(k, str) and k and isinstance(v, str) and v for k, v in envr.get('modules', {}).items())
+        if not command(rc) or not isinstance(rc.get('env'), dict) or not isinstance(rc.get('exit'), int) or \
+                not isinstance(before, list) or not all(command(b) for b in before) or not envr_ok:
             F('R12 %s: output %d has a malformed recipe' % (eid, n))
         src = o.get('source') or {}
         if not HEX64.fullmatch(str(src.get('served_sha256'))) or src.get('extractor') != EXTRACTOR3 or \
@@ -490,6 +721,14 @@ def check_run_entry(e, files, F):
             good = isinstance(ls, list) and ls and x.get('summary') == ls[-1] and \
                 str(x.get('summary')).startswith('control_plane_base_check: ') and \
                 sum(1 for l in ls if str(l).startswith('control_plane_base_check: mode ') and 'REF=<REF>,' in str(l)) == 1
+        elif o['kind'] == 'gate':
+            ss = x.get('steps')
+            good = isinstance(ss, list) and ss and str(x.get('verdict')).startswith('release gate: ') and \
+                all(isinstance(s, dict) and s.get('status') in ('PASS', 'FAIL', 'SKIP') and isinstance(s.get('name'), str)
+                    and s['name'] and isinstance(s.get('summary'), str) for s in ss) and \
+                len({s['name'] for s in ss}) == len(ss)
+            if good and x.get('counts') != gate_counts_of(ss):
+                F('R12 %s: the gate counts of output %d are not the counts its steps state' % (eid, n))
         else:
             cs = x.get('checks')
             good = isinstance(cs, list) and cs and isinstance(x.get('quoted'), list) and \
@@ -504,8 +743,10 @@ def check_run_entry(e, files, F):
         if not good:
             F('R12 %s: output %d has a malformed expectation' % (eid, n))
     fr = next((f for f in e.get('files', []) if f.get('path') == 'runs/%s/expected.json' % rid), {})
-    if len(outs) != 1 or fr.get('source_sha256') != (outs[0].get('source') or {}).get('served_sha256'):
-        F('R12 %s: expected.json does not derive from its one output\'s served log' % eid)
+    served = [(o.get('source') or {}).get('served_sha256') for o in outs]
+    if fr.get('source_sha256') != (served[0] if len(served) == 1 else served):
+        F('R12 %s: expected.json does not derive from its outputs\' served logs (one digest, or one per output in '
+          'order)' % eid)
 
 
 SKIP_DIRS = {'.git', '.lake', 'node_modules', '__pycache__'}
@@ -747,8 +988,10 @@ def check_tranche3(man, read_tree, F):
         if prev is not None and key < prev:
             F('R12 tranche3: the remaining runs are not in order of creation')
         prev = key
-    if t3 and sec['remaining']:
-        if max(str(e.get('expires')) for e in t3) > min(str(r.get('expires')) for r in sec['remaining']):
+    exempt = check_priority(man, t3, held, read_tree, F)
+    ordered = [e for e in t3 if str(e.get('run_id')) not in exempt]
+    if ordered and sec['remaining']:
+        if max(str(e.get('expires')) for e in ordered) > min(str(r.get('expires')) for r in sec['remaining']):
             F('R12 tranche3: a retained run expires after a remaining one')
     if sec.get('retained') != len(t3) or sec.get('uncovered') != len(t3) + len(sec['remaining']) or \
             sec.get('cited_runs') != sec.get('covered_before', -1) + sec.get('uncovered', -1):
@@ -1291,6 +1534,240 @@ def r12_cases(man, ents, t3, tarch, expect, edit, back, json_edit, file_edit):
     expect('a retained run that expires after a remaining one',
            edit(lambda m: m['entries'][plain].__setitem__('expires', '2099-01-01')), back, 'R12', 'expires after a remaining one')
     expect('tranche-3 counts that disagree', edit(lambda m: m['tranche3'].__setitem__('retained', 0)), back, 'R12', 'counts disagree')
+    priority_cases(man, ents, t3, tarch, expect, edit, back, json_edit, file_edit)
+    open_claims_cases(tarch, expect, edit, back, json_edit, file_edit)
+
+
+PRIORITY_ALLOWLIST_SHA256 = '34ee07a10b448e5bd6347fb919b531d726c4e1ba6b7a7082f4cfc1a1142e3f25'
+
+
+def priority_cases(man, ents, t3, tarch, expect, edit, back, json_edit, file_edit):
+    """The self-test's gate-kind and priority-exception cases (R12), each a mutation of a copy requiring its own
+    message, and the pin of PRIORITY_ALLOWLIST's canonical digest."""
+    troot = os.path.dirname(tarch)
+    canon = hashlib.sha256(json.dumps(PRIORITY_ALLOWLIST, sort_keys=True).encode('utf-8')).hexdigest()
+    expect('the priority allowlist is the pinned one (%s)' % canon[:12], lambda: None, lambda: None,
+           also=lambda: canon == PRIORITY_ALLOWLIST_SHA256)
+    a = PRIORITY_ALLOWLIST[0]
+    rid, eid = a['record']['run_id'], a['entry']['id']
+    gi = next((i for i, e in enumerate(ents) if e.get('id') == eid), None)
+    plain = next((i for i in t3 if not any(f['path'].endswith('/expected.json') for f in ents[i]['files'])), None)
+    if gi is None or plain is None:
+        expect('the priority cases need the allowlisted entry and a plain tranche-3 entry', lambda: None, lambda: None,
+               'R12', 'an impossible message')
+        return
+    P = lambda n: os.path.join(tarch, 'runs', rid, n)
+    O = lambda d: d['outputs'][0]
+    pi = lambda m: next(i for i, p in enumerate(m['tranche3']['priority']) if p.get('run_id') == rid)
+    fi = lambda m, n: next(f for f in m['entries'][gi]['files'] if f['path'].endswith('/' + n))
+    # the gate kind
+    expect('a gate expectation without steps', *json_edit(P('expected.json'), lambda d: O(d)['expected'].__setitem__('steps', [])),
+           rule='R12', msg='malformed expectation')
+    expect('a gate step without a summary', *json_edit(P('expected.json'), lambda d: O(d)['expected']['steps'][0].pop('summary')),
+           rule='R12', msg='malformed expectation')
+    expect('a gate step named twice', *json_edit(P('expected.json'), lambda d: O(d)['expected']['steps'].append(
+        dict(O(d)['expected']['steps'][0]))), rule='R12', msg='malformed expectation')
+    expect('a gate verdict that is not the gate\'s', *json_edit(P('expected.json'),
+                                                              lambda d: O(d)['expected'].__setitem__('verdict', 'PASS')),
+           rule='R12', msg='malformed expectation')
+    expect('gate counts that are not the counts its steps state (4803 recorded as 4829)',
+           *json_edit(P('expected.json'), lambda d: O(d)['expected']['counts'].__setitem__('lean-axioms', 4829)),
+           rule='R12', msg='are not the counts its steps state')
+
+    def as_4829(d):
+        s = next(x for x in O(d)['expected']['steps'] if x['name'] == 'lean-axioms')
+        s['summary'] = s['summary'].replace('(4803 named', '(4829 named')
+        O(d)['expected']['counts']['lean-axioms'] = 4829
+    expect('the archived gate rewritten to 4829, its counts and the manifest following it',
+           *json_edit(P('expected.json'), as_4829), rule='R12', msg='its files are not the pinned files')
+    expect('a before step with an empty command', *json_edit(P('expected.json'),
+                                                            lambda d: O(d)['recipe']['before'][0].__setitem__('argv', [])),
+           rule='R12', msg='malformed recipe')
+    expect('a before step outside the tree', *json_edit(P('expected.json'),
+                                                       lambda d: O(d)['recipe']['before'][0].__setitem__('cwd', '../x')),
+           rule='R12', msg='malformed recipe')
+    # the exception: a manifest cannot authorize its own
+    def foreign(m):
+        r = json.loads(json.dumps(a['record']))
+        r['run_id'] = m['entries'][plain]['run_id']
+        m['tranche3']['priority'].append(r)
+    expect('an unauthorized priority record (in the manifest, not the allowlist)', edit(foreign), back, 'R12',
+           'not in the owner-approved allowlist')
+
+    def skip(m):
+        foreign(m)
+        m['entries'][plain]['expires'] = '2099-01-01'
+    expect('a non-exempt run listing itself to skip the order', edit(skip), back, 'R12', 'expires after a remaining one')
+    expect('a non-exempt run skipping the order unlisted', edit(lambda m: m['entries'][plain].__setitem__('expires', '2099-01-01')),
+           back, 'R12', 'expires after a remaining one')
+    expect('the allowlisted run\'s priority record missing', edit(lambda m: m['tranche3']['priority'].pop(pi(m))), back, 'R12',
+           'is not listed')
+    expect('the same: the run then falls under the order', edit(lambda m: m['tranche3']['priority'].pop(pi(m))), back, 'R12',
+           'expires after a remaining one')
+    expect('the priority record listed twice', edit(lambda m: m['tranche3']['priority'].append(dict(m['tranche3']['priority'][pi(m)]))),
+           back, 'R12', 'listed twice')
+    expect('a priority list that is not a list', edit(lambda m: m['tranche3'].__setitem__('priority', {})), back, 'R12',
+           'priority list is malformed')
+    for field, value, name in (('why', 'another reason', 'its reason'), ('authorization', 'the manifest', 'its authorization'),
+                               ('claim', {'path': A37_PREREG, 'lines': [63]}, 'the claim it serves')):
+        expect('the priority record with %s changed' % name,
+               edit(lambda m, f=field, v=value: m['tranche3']['priority'][pi(m)].__setitem__(f, v)), back, 'R12',
+               'differs from the owner-approved record')
+    # removal, substitution and relabelling of the pinned entry
+    expect('the allowlisted entry removed', edit(lambda m: m['entries'].pop(gi)), back, 'R12', 'is missing, substituted')
+    expect('the allowlisted entry\'s run id substituted', edit(lambda m: m['entries'][gi].__setitem__('run_id', '1' + rid[1:])),
+           back, 'R12', 'is missing, substituted')
+    expect('a second entry for the allowlisted run', edit(lambda m: m['entries'].append(dict(m['entries'][gi], id='run-x'))),
+           back, 'R12', 'is missing, substituted')
+    expect('the allowlisted entry relabelled to another tranche', edit(lambda m: m['entries'][gi].__setitem__('tranche', 4)),
+           back, 'R12', 'is relabelled')
+    expect('the allowlisted entry\'s expiry relabelled', edit(lambda m: m['entries'][gi].__setitem__('expires', '2026-12-18')),
+           back, 'R12', 'is relabelled')
+    expect('a substituted run.json, the manifest following it', *json_edit(P('run.json'), lambda d: d.__setitem__('x', 1)),
+           rule='R12', msg='its files are not the pinned files')
+    expect('a substituted served digest', edit(lambda m: fi(m, 'expected.json').__setitem__('source_sha256', '0' * 64)), back,
+           'R12', 'its files are not the pinned files')
+    expect('a file dropped from the allowlisted entry', edit(lambda m: m['entries'][gi]['files'].pop()), back, 'R12',
+           'its files are not the pinned files')
+    cp = os.path.join(troot, A37_PREREG)
+    expect('the citing record changed', *file_edit(cp, lambda b: b + b'\n'), rule='R12', msg='is not the pinned record')
+    expect('the citation\'s recorded blob substituted',
+           edit(lambda m: next(c for c in m['entries'][gi]['citations'] if c['path'] == A37_PREREG).__setitem__('blob', '0' * 40)),
+           back, 'R12', 'its citations')
+
+    def undiffer(m):
+        for c in m['entries'][gi]['citations']:
+            for k in c['claims']:
+                if k['line'] == a['discrepancy']['line'] and k['text'] == a['discrepancy']['text']:
+                    k['status'] = 'retained'
+    expect('the recorded discrepancy relabelled retained', edit(undiffer), back, 'R12', 'its citations')
+    # every claim of the entry is pinned, not only the discrepancy (relabelling while passing)
+    def claim(m, text):
+        return next(k for c in m['entries'][gi]['citations'] for k in c['claims'] if k['text'] == text)
+
+    def relabel(text, status, files=None, note=None):
+        def f(m):
+            k = claim(m, text)
+            k['status'] = status
+            if files is not None:
+                k['in'] = files
+            if note is not None:
+                k['note'] = note
+        return f
+    jobs = 'runs/%s/jobs.json' % rid
+    for name, fn in (
+            ('"all seven jobs green" relabelled differs', relabel('all seven jobs green', 'differs', note='x')),
+            ('"the release gate passing" relabelled differs', relabel('the release gate passing with twelve', 'differs', note='x')),
+            ('the guard claim relabelled not retained', relabel('the guard 91 PASS and 0 FAIL', 'not retained', files=[])),
+            ('"in 50 seconds" relabelled retained', relabel('in 50 seconds', 'retained', files=[jobs])),
+            ('every claim but the discrepancy deleted',
+             lambda m: [c.__setitem__('claims', [k for k in c['claims'] if k['status'] == 'differs'])
+                        for c in m['entries'][gi]['citations']]),
+            ('a duplicate of the 4829 claim added as retained',
+             lambda m: m['entries'][gi]['citations'][0]['claims'].append(
+                 dict(claim(m, a['discrepancy']['text']), status='retained'))),
+            ('the discrepancy\'s note rewritten to say 4829',
+             lambda m: claim(m, a['discrepancy']['text']).__setitem__('note', 'expected.json shows 4829'))):
+        expect('the allowlisted entry: %s' % name, edit(fn), back, 'R12', 'its citations')
+    expect('the allowlisted entry\'s tranche relabelled 3.0', edit(lambda m: m['entries'][gi].__setitem__('tranche', 3.0)),
+           back, 'R12', 'is relabelled')
+    expect('a tranche-3 entry with tranche 3.0', edit(lambda m: m['entries'][plain].__setitem__('tranche', 3.0)), back,
+           'R12', 'not an entry of tranche 3')
+    # the decision record that authorizes the exception
+    dp = a['record']['authorization']['record']
+    sp = a['record']['supplement']['record']
+    expect('the authorizing decision record dropped from the manifest',
+           edit(lambda m: [x.__setitem__('files', [f for f in x['files'] if f['path'] != dp]) for x in m['entries']]),
+           back, 'R12', 'decision record')
+    expect('the authorizing decision record substituted, the manifest following it',
+           *json_edit(os.path.join(tarch, dp), lambda d: d.__setitem__('body', d['body'] + ' ')), rule='R12',
+           msg='decision record')
+    expect('the priority record citing another comment',
+           edit(lambda m: m['tranche3']['priority'][pi(m)]['authorization'].__setitem__('comment', '1')), back, 'R12',
+           'differs from the owner-approved record')
+    expect('the supplement record dropped from the manifest',
+           edit(lambda m: [x.__setitem__('files', [f for f in x['files'] if f['path'] != sp]) for x in m['entries']]),
+           back, 'R12', 'decision record')
+    expect('the supplement record substituted, the manifest following it',
+           *json_edit(os.path.join(tarch, sp), lambda d: d.__setitem__('body', d['body'][:-1])), rule='R12',
+           msg='decision record')
+    expect('the priority record citing another supplement',
+           edit(lambda m: m['tranche3']['priority'][pi(m)]['supplement'].__setitem__('comment', '1')), back, 'R12',
+           'differs from the owner-approved record')
+    # the guard output beside the gate output
+    G = lambda d: next(o for o in d['outputs'] if o['kind'] == 'guard')
+    expect('guard counts that disagree with its checks',
+           *json_edit(P('expected.json'), lambda d: G(d)['expected']['counts'].__setitem__('PASS', 90)), rule='R12',
+           msg='guard counts')
+    expect('a guard check turned FAIL, its counts and the manifest following it',
+           *json_edit(P('expected.json'), lambda d: (G(d)['expected']['checks'][0].__setitem__('status', 'FAIL'),
+                                                     G(d)['expected']['counts'].__setitem__('PASS', 90))),
+           rule='R12', msg='its files are not the pinned files')
+    expect('a recorded environment that is not a version map',
+           *json_edit(P('expected.json'), lambda d: G(d)['recipe']['environment'].__setitem__('modules', ['numpy'])),
+           rule='R12', msg='malformed recipe')
+    expect('a recorded environment with an empty version',
+           *json_edit(P('expected.json'), lambda d: G(d)['recipe']['environment']['modules'].__setitem__('numpy', '')),
+           rule='R12', msg='malformed recipe')
+    expect('the outputs\' served digests out of order',
+           edit(lambda m: fi(m, 'expected.json').__setitem__('source_sha256', fi(m, 'expected.json')['source_sha256'][::-1])),
+           back, 'R12', 'does not derive from its outputs')
+
+
+def open_claims_cases(tarch, expect, edit, back, json_edit, file_edit):
+    """The self-test's R14 cases: each mutation of open-claims.json (its manifest record following it, so that R1
+    passes) or of a citing file must fail with its own message."""
+    troot = os.path.dirname(tarch)
+    P = os.path.join(tarch, OPEN_CLAIMS_FILE)
+    C = lambda d, i: next(c for c in d['claims'] if c['id'] == i)
+
+    def add(d):
+        x = json.loads(json.dumps(C(d, 'OC-1')))
+        x['id'] = 'OC-11'
+        d['claims'].append(x)
+    expect('an added open claim', *json_edit(P, add), rule='R14', msg='OC-11 is not in the pinned set')
+    expect('a removed open claim', *json_edit(P, lambda d: d['claims'].remove(C(d, 'OC-4'))), rule='R14',
+           msg='OC-4 is missing')
+    expect('a duplicated open claim', *json_edit(P, lambda d: d['claims'].append(json.loads(json.dumps(C(d, 'OC-2'))))),
+           rule='R14', msg='OC-2 is repeated')
+    expect('an edited fragment', *json_edit(P, lambda d: C(d, 'OC-3').__setitem__('fragment', 'with the one hundred theorems')),
+           rule='R14', msg='OC-3: its fragment')
+    for st in ('retained', 'differs'):
+        expect('an open claim relabelled %s' % st, *json_edit(P, lambda d, s=st: C(d, 'OC-5').__setitem__('status', s)),
+               rule='R14', msg='OC-5: status')
+    expect('a status vocabulary that admits retained',
+           *json_edit(P, lambda d: d['statuses'].__setitem__('retained', 'x')), rule='R14', msg='status vocabulary')
+    expect('a substituted citing blob', *json_edit(P, lambda d: C(d, 'OC-6')['citing'].__setitem__('blob', '0' * 40)),
+           rule='R14', msg='OC-6: its citing location')
+    expect('a moved line', *json_edit(P, lambda d: C(d, 'OC-1')['citing'].__setitem__('lines', [207])), rule='R14',
+           msg='OC-1: its citing location')
+    expect('a substituted run head', *json_edit(P, lambda d: C(d, 'OC-9')['run'].__setitem__('head_sha', '0' * 40)),
+           rule='R14', msg='OC-9: its run or head')
+    expect('a substituted run id', *json_edit(P, lambda d: C(d, 'OC-10')['run'].__setitem__('id', '1')), rule='R14',
+           msg='OC-10: its run or head')
+    expect('a changed citing file', *file_edit(os.path.join(troot, OPEN_CLAIMS_PIN['OC-7'][2]), lambda b: b + b'\n'),
+           rule='R14', msg='OC-7: the citing file')
+    expect('an unreadable open-claims record', *json_edit(P, lambda d: d.__setitem__('claims', {})), rule='R14',
+           msg='not a readable open-claims record')
+    def delete_both():
+        os.rename(P, P + '.x')
+        m = json.loads(open(os.path.join(tarch, 'manifest.json'), 'rb').read())
+        m['entries'] = [x for x in m['entries'] if not any(f['path'] == OPEN_CLAIMS_FILE for f in x.get('files', []))]
+        open(os.path.join(tarch, 'manifest.json'), 'w', encoding='utf-8').write(json.dumps(m))
+    expect('the open-claims record and its entry both deleted', delete_both, lambda: (os.rename(P + '.x', P), back()),
+           'R14', 'is not listed')
+    expect('the open-claims record dropped from the manifest',
+           edit(lambda m: [x.__setitem__('files', [f for f in x['files'] if f['path'] != OPEN_CLAIMS_FILE]) for x in m['entries']]),
+           back, 'R14', 'is not listed')
+    # the pinned table itself: a fragment the citing file does not hold, pinned and recorded alike
+    pin = OPEN_CLAIMS_PIN['OC-8']
+    bad = 'a fragment that line 40 does not hold'
+
+    def seam_on():
+        OPEN_CLAIMS_PIN['OC-8'] = pin[:5] + (bad,)
+    go, undo = json_edit(P, lambda d: C(d, 'OC-8').__setitem__('fragment', bad))
+    expect('a pinned fragment that is not verbatim at its line', lambda: (seam_on(), go()),
+           lambda: (OPEN_CLAIMS_PIN.__setitem__('OC-8', pin), undo()), 'R14', 'OC-8: the fragment is not verbatim')
 
 
 def r13_cases(man, ents, rs, troot, tarch, expect, edit, back, json_edit, file_edit):
@@ -1616,6 +2093,10 @@ def self_test(archive, root):
             dst = os.path.join(troot, rel)
             os.makedirs(os.path.dirname(dst), exist_ok=True)
             shutil.copyfile(os.path.join(root, rel), dst)
+        for rel in sorted({v[2] for v in OPEN_CLAIMS_PIN.values()} - need):   # R14's citing files, when present
+            if os.path.isfile(os.path.join(root, rel)):
+                os.makedirs(os.path.dirname(os.path.join(troot, rel)), exist_ok=True)
+                shutil.copyfile(os.path.join(root, rel), os.path.join(troot, rel))
         mp = os.path.join(tarch, 'manifest.json')
         morig = open(mp, 'rb').read()
 
