@@ -1,0 +1,27 @@
+PASS CN(a(x)P0)CN = sum a_ij |ii><jj|
+PASS Tr[G X] = Tr[a even(X)]
+PASS mutation: transposed form is NOT the identity
+PASS B = CN(|+><+| (x) P0)CN
+PASS even(Gamma(Ps)) eigenvalues {1/2,-1/2}
+PASS Tr(B Gamma(Ps)) = -1/2
+PASS Gamma(B) has eigenvalue -1/2 (B not in Gamma(Q3))
+PASS defects: even block PSD
+PASS defects: Tr(P_m z) = -1/2 (ME-valid excludes K(Z_F))
+PASS defects: T(m) det -1, T(z) orthogonal with det +1
+PASS T(B)=diag(1,-1,1)
+PASS T(Gamma(B))=I (det +1)
+PASS T(singlet)=-I (det -1)
+PASS even(Gamma(B)) = I/2
+PASS X not PSD (min eig 1/2-c<0)
+PASS product bound 1/2-c*16/17 > 0 (block positivity via Schmidt [W])
+PASS ME bound 1/2-c*25/34 > 0 (ME-validity via Schmidt [W])
+PASS ME maximizer: |<Phi+|v>|^2 = 25/34
+PASS Tr(P_v X) < 0 with P_v in G (fails OV-ready)
+PASS even block of B PSD
+PASS countercontrol: identity map in place of Gamma gives no witness
+PASS cond(X,0) = even(X)
+PASS cond(X,1) = odd block (configs 01,10, ordered by control)
+PASS defects: odd block PSD (K(Z_F) satisfies UPD)
+PASS Gamma(B) odd block eigenvalues {1/2,-1/2} (UPD excludes K_Gamma)
+PASS X_c even block min eigenvalue 1/2-c < 0
+PASS Tr_2[(I x P_k)Gamma(Y)] = Tr_2[(I x P_k)Y]
