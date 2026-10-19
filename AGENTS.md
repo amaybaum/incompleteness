@@ -971,11 +971,13 @@ names such content neither retains nor establishes it.
      included, and the verdict holds only on a clean exit.
    - For a round, each hash pin of item 2 is a row of its invariant→checkpoint table (§A.41).
 8. **Necessity, not exposure.** Retention serves surviving claims, not the history of the work.
-   Content is retained only when both of the following hold, and only the smallest set that meets
-   them is retained:
-   - a claim that has landed on `main`, is frozen in a governed record, or is approved for
-     imminent certification depends on it; and
-   - it cannot be reconstructed from `main` or from content already retained.
+   Items 1–6 state what must be retained. This item limits retention beyond them; it never waives
+   any of it, and it governs only what is newly retained. Beyond items 1–6, content is retained
+   only when both of the following hold, and only the smallest set that meets them is retained:
+   - a claim depends on it, where the claim has landed on `main`, is frozen in a governed
+     record, or belongs to a native round between the designation of its `F` and the landing of
+     its receipt; and
+   - it has not been shown redundant.
 
    Further:
    - Imminent loss is not a reason to retain. That covers an expiring log, a ref that may be
@@ -987,13 +989,32 @@ names such content neither retains nor establishes it.
      on is evidence like any other.
    - Before any bulk retention, log extraction or batch of protective refs, a necessity audit
      classifies each candidate:
-     - **required**, **redundant** (reconstructible), **optional** or **undetermined**;
-     - naming the claim it serves (`file:line`) and how reconstruction was checked.
-   - Only required items are retained. An undetermined item is resolved before it is retained,
-     not retained as a precaution. CI time spent extracting historical evidence meets the same
-     test.
-   - A temporary protective ref is not retention. It holds an object only while the audit decides
-     its fate, and no ref is deleted during the audit.
+     - **required**, **redundant** (reconstructible), **optional** (useful, but no surviving claim
+       needs it; not retained) or **undetermined**;
+     - naming the claim it serves (`file:line`) for a required or redundant item, and how
+       reconstruction was checked.
+   - An item is redundant only when it has actually been regenerated and compared with the
+     original:
+     - regenerated from `main` or from content already retained;
+     - compared byte-identical, or, for an expected result, identical under `compare_result.py`;
+     - with the recipe, the commit and the comparison recorded in the audit.
+
+     A similar source file, an unrun recipe or a repeatable experiment does not make an item
+     redundant. An item whose original is no longer available for comparison is undetermined.
+     An expected result of item 1 is never redundant: regenerating it is item 7's check against
+     it, not a substitute for it.
+   - A later run does not reconstruct a specific run, even a green run at the same commit.
+     Evidence of an `F` or `E` `check-run` attestation, or of any run a record cites, is never
+     redundant while the citing claim stands.
+   - Only required items are retained. An undetermined item is investigated and resolved before
+     it is retained. Nothing that holds it is deleted or released until then. CI time spent
+     extracting historical evidence meets the same test.
+   - A temporary protective ref is not retention; it holds an object while the audit decides.
+     - This item never authorizes deleting a ref, branch, archive entry, retained file or record,
+       and it does not affect §A.26 quarantine.
+     - Any such removal needs the owner's separate authorization (§A.43 items 3–4).
+     - Retained and frozen content stays forward-only (item 4, §A.39).
+     - A ref that §A.43 requires is not a protective ref and needs no audit.
 
 Enforcement:
 - `check_retention.py` and its self-test run locally before any push that touches the archive
