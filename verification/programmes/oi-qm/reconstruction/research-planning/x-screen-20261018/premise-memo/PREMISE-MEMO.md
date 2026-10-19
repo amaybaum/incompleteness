@@ -134,7 +134,7 @@ assigned against the membership and PSD forms; their reading against the transfe
 | OVr | UPD at outcome 0 only (equivalently G ⊆ K\*) | unresolved | as UPD; open under U3 | [U]; carries a knob (which outcome) |
 | OVc | OV-CNOT: CN(K) ⊆ maxCone (every product test after the coupling is valid) | (i) | not flagged by D2 | [U]; non-native tests (MI+ review, A4) |
 | OVn | OV-nat (MI+ C11): Π(K) ⊆ maxCone for every native protocol Π | (i) | MI+ D2 must-not-flag control (§5.2) | S13 [U] (MI+ RESULT C11) |
-| MEV | **ME-validity.** Every maximally entangled projector is a valid test: Tr(P_ψX) ≥ 0 for every physical pair state X and every maximally entangled ψ. Operationally, the product test \|+⟩⟨+\|⊗P_0 after a local unitary and the coupling is valid, since B = CN(\|+⟩⟨+\|⊗P_0)CN is the projector onto (\|00⟩ + \|11⟩)/√2 [EC, dc] and every maximally entangled vector is its image under some I⊗W with W unitary [W]. OV-LU, validity of every product test after a local unitary and the coupling, implies MEV. MEV implies neither OV-LU nor OVc: X_c (§3.4) is ME-valid and fails a product test after the coupling alone, Tr(P_v X_c) = ½ − 53/100 < 0 [EC, dc] | (i) | test validity; does not imply K ⊆ Q3 (countermodel in §3) [W + EC, dc] | [U]; needs non-native local unitaries |
+| MEV | **ME-validity.** Every maximally entangled projector is a valid test: Tr(P_ψX) ≥ 0 for every physical pair state X and every maximally entangled ψ. Operationally, the fixed product test \|+⟩⟨+\|⊗P_0 after every local unitary and the coupling is valid, since B = CN(\|+⟩⟨+\|⊗P_0)CN is the projector onto (\|00⟩ + \|11⟩)/√2 [EC, dc] and every maximally entangled vector is its image under some I⊗W with W unitary [W]. OV-LU, validity of every product test after a local unitary and the coupling, implies MEV. MEV implies neither OV-LU nor OVc: X_c (§3.4) is ME-valid and fails a product test after the coupling alone, Tr(P_v X_c) = ½ − 53/100 < 0 [EC, dc] | (i) | test validity; does not imply K ⊆ Q3 (countermodel in §3) [W + EC, dc] | [U]; needs non-native local unitaries |
 | CH | **Correlation chirality.** No physical pair state has a perfect co-oriented correlation: T_X orthogonal ⇒ det T_X = −1, read from fixed product tests whose cross-token identification is native SWAP transport | (i) | uses no operation; on the domain it is equivalent to K ∩ Γ(ME) = ∅ [W, new], where ME is the maximally entangled pure states | [U]; no OI source; constructed knowing the target |
 | TH | **Joint passive state.** A positive-temperature equilibrium state of a fixed interacting pair generator (e.g. the Heisenberg pair) is a physical state | (iii) | D2(a): the shadow "Gibbs ∈ maxCone" holds on every cone while the clause excludes fixtures | the global analogue exists: GR.md:188–190, one passive state fixes the global orientation; `counting_passive` ThermalOrientation.lean:256 [AT] gives the classical layer. The relative (pair) version and the generator are [U] |
 | SET | set-level correlation bounds over all product tests (Tsirelson- or IC-type) | (i) | [I] | [U]; Γ-invariant by F-β |
@@ -241,7 +241,7 @@ satisfies the rest and is not Q3.
 | MEV ⇒ CH | — | [W] |
 | CH ⇏ MEV | cone(SEP ∪ {Γ(B)/2 + I/8}) | [W] |
 | MEV ⇏ K ⊆ Q3 | X_c | [EC, dc] + [W] |
-| OV-LU ⇒ MEV; MEV ⇏ OVc, hence MEV ⇏ OV-LU | X_c fails the product test e_v⊗P_0 after the coupling | [W]; [EC, dc] |
+| OV-LU ⇒ MEV; MEV ⇏ OVc, hence MEV ⇏ OV-LU (OV-LU ⇒ OVc, taking the identity unitary) | X_c fails the product test e_v⊗P_0 after the coupling | [W]; [EC, dc] |
 
 Here X_c = I/2 − (53/100)P_v with v ∝ 4|00⟩ + |11⟩: block-positive, ME-valid, not PSD, and failing UPD and OVc.
 P_v = CN(e_v⊗P_0)CN, where e_v is the token projector onto (4|0⟩ + |1⟩)/√17, so Tr(P_v X_c) = ½ − 53/100 < 0 is
@@ -366,7 +366,7 @@ A premise that is only named does not pass G2.
 | **UPD** | PASS: readout, coupling, conditional state | transfer clause on the state-side reading, class (iii) [W, rev] (U3) / [U]: the coherent update is not sourced (Main.md:632) / none → FAIL | PASS [EC, dc] | FAIL (adds no operation) | FAIL standalone on native protocols (K_B, K(Z_F) survive); with local unitaries admitted K(Z_F) is excluded (witness [EC, rev]) and UPD ≡ K ⊆ Q3 [W, rev] | OPEN | not a pass: outcomes and orientation are fixed, but either the restriction to native protocols is a knob, or, lifted, UPD collapses to K ⊆ Q3 [W, rev] | PASS | PASS [W]: uses the retained readout; retained protocols unchanged |
 | OVr | PASS | as UPD → FAIL | PASS | FAIL | FAIL | OPEN | FAIL (outcome knob) | PASS | PASS |
 | OVc / OVn | PASS | yes/[U] S13/none → FAIL | PASS | FAIL | FAIL | OPEN | PASS | PASS | PASS [W] |
-| MEV | BORDERLINE: lists test matrices; its operational form (§2) is one product test after a local unitary and the coupling | yes/[U]/none → FAIL | PASS | FAIL (posits non-native local unitaries) | FAIL (K_B) | OPEN | PASS | PASS | PASS [W] |
+| MEV | BORDERLINE: lists test matrices; its operational form (§2) is the fixed product test \|+⟩⟨+\|⊗P_0 after every local unitary and the coupling | yes/[U]/none → FAIL | PASS | FAIL (posits non-native local unitaries) | FAIL (K_B) | OPEN | PASS | PASS | PASS [W] |
 | CH | BORDERLINE: equivalent to excluding the named family Γ(ME) [W, new] | [U]/[U]/none → FAIL | PASS | FAIL | FAIL (K_B) | OPEN | PASS | PASS | PASS [W] |
 | TH | PASS | membership (D2(a)) → FAIL; partial route GR.md:188–190 | PASS [W] | conditional (needs a continuous generator) | [U] (K(Z_F)) | OPEN | β, generator: knobs unless fixed [U] | PASS | [U] (added dynamics) |
 | SP⊕UPD | PASS | FAIL: both components unsourced | PASS | FAIL | exclusion met conditionally [W + EC]: K(Z_F) via SP rests on the historical certificate (U6), and UPD's class is U3; controls unprepared | OPEN | as UPD: not a pass | PASS | PASS [W] |
@@ -405,7 +405,7 @@ The weakest premises form an antichain, not a single premise.
 2. **Γ(Q3) and K(Z_F) together in one premise: CH, or its convex form MEV.** Both are class (i) (§2). CH is the
    weaker of the two (MEV ⇒ CH, CH ⇏ MEV [W]). Both are incomparable with native UPD (§3.4). CH is G1-borderline: on
    the domain it is equivalent to excluding a named matrix family [W, new]. MEV is validity of the maximally entangled
-   projectors; stated operationally it is one product test after a non-native local unitary and the coupling (§2),
+   projectors; stated operationally it is the fixed product test |+⟩⟨+|⊗P_0 after every non-native local unitary and the coupling (§2),
    and it implies neither OVc nor OV-LU (X_c, §3.4). It does not meet the no-PSD-import criterion (its exclusion of
    K(Z_F) is Tr(P_m z) = −½, §4). CH's exclusions use no PSD evaluation (§4).
 3. **All named alternatives (K_B, K(Z_F), Γ(Q3), SEP, L, maxCone) excluded without a membership clause: SP⊕UPD,
