@@ -101,10 +101,10 @@ command that fails fails the check, rather than leaving a rule to read empty out
   H4  connectivity, relative to the archive and the base, never to what else this clone holds: with a ref at
       every raw:connected and raw:tree commit and every complete cited tree, every raw:tree commit a shallow
       boundary, git fsck --connectivity-only passes and every object the refs reach is retained or reachable from
-      the base; each raw:connected commit's history reaches the base only through retained raw:connected commits;
-      what a raw:partial-tree commit's tree, or an inclusion-proof commit's inclusion paths, names beyond the
-      archive and the base is exactly its withheld blobs; every inclusion path resolves to a retained or withheld
-      object;
+      the base; each raw:connected commit's history reaches its own tranche's base only through retained
+      raw:connected commits; what a raw:partial-tree commit's tree, or an inclusion-proof commit's inclusion
+      paths, names beyond the archive and the base is exactly its withheld blobs; every inclusion path resolves to
+      a retained or withheld object;
   H5  every listed identity digest is the digest of an address in the base's history;
   H6  no deny-listed id is reachable from HEAD of this repository, or from any reconstituted object;
   H7  no entry, stored or withheld, is reachable from its own tranche's base, and no id recorded as missing is
@@ -1588,7 +1588,7 @@ def _history_checks(root, info, fails, clone_extra):
             break
         for o, e in sorted(ents.items()):
             if e['mechanism'] == 'raw:connected':
-                out = gitok(['rev-list', o, '--not', base], tmp, env=env).stdout.decode().split()
+                out = gitok(['rev-list', o, '--not', base_of(e)], tmp, env=env).stdout.decode().split()
                 stray = [x for x in out if x not in ents or ents[x]['mechanism'] != 'raw:connected']
                 if stray:
                     F('H4 %s: raw:connected, but its history leaves main through %s' % (o[:12], stray[0][:12]))
@@ -1872,7 +1872,7 @@ def self_test(root):
         # H4 re-derives connectivity with git. Tree mode (O4) already rejects these states, so each case changes
         # the checked state after tree mode passes, and shows H4 rejects it on its own. clone_extra writes objects
         # into the temporary repository as if this clone held them beside the archive.
-        def expect_history(name, mutate, rule):
+        def expect_history(name, mutate, rule, msg=''):
             fails, info = check(base, root)
             if fails:
                 results.append((name, rule or '-', 'FAILS in tree mode', fails[:1]))
@@ -1883,7 +1883,7 @@ def self_test(root):
             if rule is None:
                 results.append((name, '-', 'PASSES as required' if not hf else 'FAILS', hf[:3]))
             else:
-                ok = any(f.startswith(rule) for f in hf)
+                ok = any(f.startswith(rule) and msg in f for f in hf)
                 results.append((name, rule, 'FAILS as required' if ok else 'NOT DETECTED', hf[:1]))
 
         part = next(e for e in man0['objects'] if e['mechanism'] == 'raw:partial-tree')
@@ -2086,13 +2086,13 @@ def self_test(root):
 
             def bad_bases(d):
                 man = json.load(open(os.path.join(d, 'manifest.json')))
-                man['tranche_bases'] = {'4': 'main'}
+                man['tranche_bases'] = dict(man['tranche_bases'], **{'4': 'main'})
                 save(d, man)
             expect('a tranche base that is not a commit id', bad_bases, 'O3')
 
             def base_off_head(d):
                 man = json.load(open(os.path.join(d, 'manifest.json')))
-                man['tranche_bases'] = {'4': stand[0]}
+                man['tranche_bases'] = dict(man['tranche_bases'], **{'4': stand[0]})
                 save(d, man)
             expect('a tranche base that is not an ancestor of HEAD', base_off_head, 'H1', history=True)
 
@@ -2101,6 +2101,44 @@ def self_test(root):
                 # once tree mode has passed (tree mode refuses the label itself: the next case)
                 info['ents'][t2raw['oid']] = dict(info['ents'][t2raw['oid']], tranche=4)
             expect_history('an object its own tranche\'s base already reaches', on_tranche_base, 'H7')
+
+            # H4 walks a raw:connected commit's history back to its own tranche's base. A commit of a new tranche
+            # whose parent is the latest tranche base, which the first base does not reach, passes; the same commit
+            # recorded against the first base fails, and so does one whose parent is an off-main commit that the
+            # archive does not hold (this clone does; the commit names it as a parent not retained).
+            tb0 = {str(k): v for k, v in man0['tranche_bases'].items()}
+            latest = tb0[max(tb0, key=int)]
+            newt = max([int(k) for k in tb0] + [e['tranche'] for e in man0['objects']
+                                                if type(e.get('tranche')) is int]) + 1
+
+            def connected_on(parent, what):
+                tree = gitok(['rev-parse', parent + '^{tree}'], root).stdout.decode().strip()
+                data = ('tree %s\nparent %s\nauthor A <a> 1 +0000\ncommitter A <a> 1 +0000\n\n%s\n'
+                        % (tree, parent, what)).encode()
+                return git_id('commit', data), data
+            mid, mid_data = connected_on(latest, 'an off-main commit the archive does not hold')
+            on_latest, on_latest_data = connected_on(latest, 'a raw:connected commit on the latest tranche base')
+            on_mid, on_mid_data = connected_on(mid, 'a raw:connected commit on an off-main commit')
+
+            def add_connected(oid, data, tbase, named=()):
+                def go(info):
+                    info['content'][oid] = data
+                    info['ents'][oid] = {'oid': oid, 'type': 'commit', 'mechanism': 'raw:connected', 'tranche': newt}
+                    if named:
+                        info['ents'][oid]['parents_not_retained'] = list(named)
+                    info['man'] = dict(info['man'], tranche_bases=dict(info['man']['tranche_bases'],
+                                                                       **{str(newt): tbase}))
+                    return {'commit': [mid_data]} if named else None
+                return go
+            leaves = ': raw:connected, but its history leaves main through '
+            expect_history('a raw:connected commit of a new tranche on the latest tranche base, its own base',
+                           add_connected(on_latest, on_latest_data, latest), None)
+            expect_history('the same commit with the first base recorded as its tranche\'s base',
+                           add_connected(on_latest, on_latest_data, man0['base']), 'H4',
+                           msg=on_latest[:12] + leaves + latest[:12])
+            expect_history('a raw:connected commit whose history reaches its base through a commit the archive '
+                           'does not hold', add_connected(on_mid, on_mid_data, latest, named=(mid,)), 'H4',
+                           msg=on_mid[:12] + leaves + mid[:12])
             # the tranche pin: a label is an exact int, a pinned entry keeps its pinned tranche, and an entry the pin
             # does not hold carries a later tranche that has a base; the pin itself matches its count and digest
             expect('a pinned tranche-2 entry relabelled tranche 4', fixture_edit(
