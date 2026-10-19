@@ -121,7 +121,7 @@ Each is stored with every tree and blob that `main` lacks at the tranche's own b
 
 Limitation: because such a word is opaque, another commit's id written as part of one is not read as a head. The self-tests record that case with its passing verdict.
 
-**Tranche membership is pinned by id** in `check_objects.py`: tranche 2's 920 entries and tranche 4's 66, each set checked against its count and sha256. O3 requires every label to be an exact int; each pinned entry to carry its pinned tranche; and any other entry to carry a later tranche that has a base. O7 decides which commits the citation rule applies to by id against the same pin, never by the label.
+**Tranche membership is pinned by id** in `check_objects.py`: tranche 2's 920 entries, tranche 4's 66, and tranche 5's 37, which are the KTRANS-SEP-1 commits `195dfbee`, `95beab2b` and `bd579bf8` with every tree and blob `main` lacks at tranche 5's pinned base `ec36234c`; each set is checked against its count and sha256. O3 requires every label to be an exact int; each pinned entry to carry its pinned tranche; any other entry to carry a later tranche that has a base; and, from tranche 5 on, every pinned id to have its entry. O7 decides which commits the citation rule applies to by id against the same pin, never by the label.
 
 Archive integrity and citation are separate: O1–O9 and H1–H7 verify these objects whatever the state of their citation.
 

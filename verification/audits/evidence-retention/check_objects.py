@@ -20,9 +20,10 @@ Tree mode (no git, no network):
   O3  the manifest is well formed: known schema, mechanisms and forms, unique 40-hex ids, stored entries with a
       file and withheld entries without one, a commit's mechanism consistent with its parent and withheld lists
       (withheld_blobs only on raw:partial-tree and inclusion-proof commits); every entry's tranche is an exact
-      int, and tranche membership is pinned by id in this checker (TRANCHE_MEMBERS: tranche 2's 920 entries and
-      tranche 4's 66, each set checked against its count and sha256): a pinned entry carries its pinned tranche,
-      and any other entry a later tranche that has a base in tranche_bases. Tranche 2's base is the manifest's
+      int, and tranche membership is pinned by id in this checker (TRANCHE_MEMBERS: tranche 2's 920 entries,
+      tranche 4's 66 and tranche 5's 37, each set checked against its count and sha256): a pinned entry carries its
+      pinned tranche, any other entry a later tranche that has a base in tranche_bases, and from tranche 5 on
+      (EXACT_FROM) every pinned id has its entry. Tranche 2's base is the manifest's
       base; tranche_bases holds a base for exactly the other tranches that entries carry, so a carried tranche
       after 2 without one fails, and so does a base for tranche 2 or for a tranche no entry carries. Every
       tranche an entry carries or tranche_bases names has a base pinned in this checker (TRANCHE_BASE_PINS),
@@ -211,11 +212,11 @@ APPROVED_WITHHELD = {
         ['verification/programmes/oi-qm/reconstruction/preservation-induction-design/independent-output.txt'],
         ['e684897da41b1c3d066b880194c9beb87a19b7ad', 'febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3']),
 }
-# Tranche membership, pinned by id (CN-1): the 920 entries of tranche 2 and the 66 of tranche 4, as the archive
-# holds them. A tranche label is the manifest's and can be edited; this pin is the checker's. O3 requires each
-# pinned entry to carry its pinned tranche and every other entry a later tranche, and O7's lifecycle rule applies
-# to every commit outside tranche 2's pinned set, whatever its label. Each set is checked against its count and
-# sha256 (of the sorted ids, one per line). Changing a tranche's membership changes this checker.
+# Tranche membership, pinned by id (CN-1): the 920 entries of tranche 2, the 66 of tranche 4 and the 37 of tranche 5,
+# as the archive holds them. A tranche label is the manifest's and can be edited; this pin is the checker's. O3
+# requires each pinned entry to carry its pinned tranche and every other entry a later tranche, and O7's lifecycle
+# rule applies to every commit outside tranche 2's pinned set, whatever its label. Each set is checked against its
+# count and sha256 (of the sorted ids, one per line). Changing a tranche's membership changes this checker.
 _TRANCHE2 = """
 0004afc9360117ba61523b72854de1aaf63705f0 0034ddb593bd3d1d2709db1ad8d0f43b5d7882bb
 00b4874af2f7dbe00560c645320e60bb6401c7d3 00e3b897d47de24529058e6c80d9d6679f1c45ad
@@ -713,15 +714,42 @@ f4501a2d2a2267998f9608ffd7b40e7e34080815 f61e6a1ed03c20d81ea374cfb39353af0cb5399
 f673d3cee0cc7d46fa056da5973f2060f399774a f77f9011d268fde7956eea23a8b43752b5f96778
 f83b96d33b07b0d3c680e4176a310ddf5f9c5558 febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3
 """
-TRANCHE_MEMBERS = {2: frozenset(_TRANCHE2.split()), 4: frozenset(_TRANCHE4.split())}
+_TRANCHE5 = """
+09721d34011cc850d592e1969c7e01a0753cd6b8 0e88741075aeabf3fb261612adc4bab149e27256
+0f8a47a6ba35c9536cd8b7a2f354ea18f8360d91 195dfbeeca73fea4a7f7b529f8b7375a38e73869
+19e19f28fa7644de0bcc3089a354317310de3e41 21a71a8f00b160cb0c79174fe715e5f05148edc3
+258c450532a119aa4e42544ca7a91896fce2bf34 26d9afef44132e4675418c9397788585662a1266
+31c90eb09a59436f09c6bff1c508d27d1d50f36e 3b30ced43df0bb7aa0c0a994bf7184837c0445ad
+412802eb11e74200734e4ae6511dcbef4d76613e 458358eb6c6283230d10a0ab5c277c203e808f75
+4af6eea33cb1b47c104c7379075eb06473642dcd 4b690932976d1fc627dd604315a86cc90254a833
+5a914412b80f6287181dbe33be9c89ad0de7329d 60dc4a89b5d909e7b1dc432c3849dfd24d547cc7
+7896ee7182999d5c17dcdb61403c49134aef92f5 7dd26d82ddf9304a1eeb7bc48f5b4cff7e433e69
+856a9a4e78e5f5ae9dadf30ecc87fdd0df4fca7e 859faabcd052f6eb8ecb906046bdabd9e1c1c2b3
+87684e208d99d34c46578625dfa1c6952d3547d1 9030f47158fc3f9f1ab23ddcf85072b3661aabe2
+952be2b011eaa21f58f98150cbb6066bd5809712 95beab2b48ab9a07dac820e1df7d0850828f5bec
+ba7431915e7ab6e8f7bdfb6ab980f16067e9331b bd579bf8db6065f6667511ee0a02fa31effc1f5b
+c5d6b1157c6bafd0716b40ed369be6f126fb2f86 cb36ffd4260ee7febd99548e5a413a7492172193
+cd5e66d4075723b2bb5b131d585e1023dabb4106 d2c3ddb29571bbc4894206a014bc6767c4f61070
+ee0298491f43c391dad00e202d895f988d12017d ee87064907c1fbc0ed7b5a705b20041bb5ec5247
+efdb93318d07153034d087b34b03a1993443e57f f72fef3ec7c0df9bdf4429cdb3479d121ebb2879
+fe16c92e33bfb49ad3d75dc304e7e2526015a6a2 ff1ce52ac8b1d57e25dd273dac7e57493b0d9e78
+ffff5cdeb7ab2c3cfff48099165aeb2b1acbc4c9
+"""
+TRANCHE_MEMBERS = {2: frozenset(_TRANCHE2.split()), 4: frozenset(_TRANCHE4.split()),
+                   5: frozenset(_TRANCHE5.split())}
 TRANCHE_PINS = {2: (920, '3e1800891ab153d53046f742f2e5557f36c2febfd1508c7039baa67b22cf937f'),
-                4: (66, 'e05c857702a55756c8d6dbc8fed29c4d2ac94b010bba745c1e23172fbd4add47')}
+                4: (66, 'e05c857702a55756c8d6dbc8fed29c4d2ac94b010bba745c1e23172fbd4add47'),
+                5: (37, 'b5aa2f06dbef57b923277b65a3cc442d524e4bf44a3c24dc87e823127a9d62db')}
+# from this tranche on a pinned membership is exact: every pinned id has its entry (O3), so an entry removed or
+# replaced fails as one added or relabelled does. Tranches 2 and 4 keep the rule they were cut under.
+EXACT_FROM = 5
 # the base of every tranche, pinned here and not read from the manifest: the manifest's base is tranche 2's, and
 # tranche_bases holds each later one's. A tranche's pin is added here by that tranche's own reviewed archival change;
 # a manifest never establishes a base by declaring it, so O3 and H1 fail any tranche without a pin, and O3 fails a
 # pin for a tranche no entry carries.
 TRANCHE_BASE_PINS = {2: '49ba3297111acaf4d70cf3b932f44b3cc2129a2c',
-                     4: 'b96662e6be4f537502c772db369ea32a35b213a8'}
+                     4: 'b96662e6be4f537502c772db369ea32a35b213a8',
+                     5: 'ec36234cb98a30ecb4681e118ff9ccb82e19aa6d'}
 ERRATA = 'verification/audits/provenance-errata/errata.json'
 TOKENS = re.compile(r'gh[pousr]_[A-Za-z0-9]{20,}|github_pat[_]|AKIA[0-9A-Z]{16}|-{5}BEGIN|bearer [a-z0-9]'
                     r'|x-access-toke[n]|[?&](sig|signature|sv|se|token)=|passw(or)?d\s*[:=]|api[_-]?key\s*[:=]'
@@ -1052,10 +1080,10 @@ def lifecycle(e):
 
 def tranche_failures(ents, tbases, base):
     """O3 for the tranche labels: each an exact int; a pinned entry's its pinned tranche; any other entry's a
-    tranche later than the pinned ones with a base in tranche_bases. Every tranche carried or named in tbases has a
-    pinned base (TRANCHE_BASE_PINS) equal to its recorded one, base for tranche 2, and every pinned base a tranche
-    that entries carry. Also checks each pinned set against its count and sha256, so an edit to the pin itself fails
-    here."""
+    tranche later than the pinned ones with a base in tranche_bases; from EXACT_FROM on, every pinned id an entry.
+    Every tranche carried or named in tbases has a pinned base (TRANCHE_BASE_PINS) equal to its recorded one, base
+    for tranche 2, and every pinned base a tranche that entries carry. Also checks each pinned set against its count
+    and sha256, so an edit to the pin itself fails here."""
     out = []
     for t, (n, d) in sorted(TRANCHE_PINS.items()):
         s = sorted(TRANCHE_MEMBERS[t])
@@ -1092,6 +1120,10 @@ def tranche_failures(ents, tbases, base):
             out.append('O3 %s: labelled tranche %d, %s' % (oid[:12], t, 'whose pinned membership does not include it'
                                                            if t in TRANCHE_PINS else
                                                            'which is neither pinned nor a later tranche with a base'))
+    for t, s in sorted(TRANCHE_MEMBERS.items()):
+        if t >= EXACT_FROM:
+            for o in sorted(s - set(ents)):
+                out.append('O3 %s: pinned in tranche %d, has no entry' % (o[:12], t))
     return out
 
 
@@ -2407,6 +2439,68 @@ def self_test(root):
             expect_pin('the checker\'s tranche-2 pin with a pinned tranche-4 commit added', pinned2 | {stand[0]})
             expect_pin('the checker\'s tranche-2 pin with one id swapped for a tranche-4 commit, its count kept',
                        (pinned2 - {t2raw['oid']}) | {stand[0]})
+
+            # tranche 5's pin: its membership is exact (EXACT_FROM), so an entry added, relabelled, removed or
+            # replaced fails, each by name, and a later retention needs a tranche of its own
+            pinmsg5 = 'O3 the checker\'s pinned tranche-5 membership is not its recorded count and sha256'
+            pinned5 = TRANCHE_MEMBERS[5]
+            t5 = sorted((x for x in man0['objects'] if x['oid'] in pinned5), key=lambda x: x['oid'])
+            b5 = next(x for x in t5 if x['type'] == 'blob' and x.get('file'))
+            b4 = sorted(x['oid'] for x in man0['objects'] if x['oid'] in TRANCHE_MEMBERS[4] and x['type'] == 'blob')[0]
+            heads5 = [x['oid'] for x in t5 if x['type'] == 'commit' and
+                      not any(x['oid'] in y.get('parents', []) for y in t5)]
+            c5 = heads5[0]
+            only5 = [x for x in t5 if x['oid'] == c5 or {n['object'] for n in x.get('needed_by', [])} == {c5}]
+
+            def expect_pin5(name, members):
+                try:
+                    TRANCHE_MEMBERS[5] = frozenset(members)
+                    fails, _ = check_with(fresh(), root, False, Fails())
+                finally:
+                    TRANCHE_MEMBERS[5] = pinned5
+                results.append((name, 'O3', 'FAILS as required' if pinmsg5 in fails else 'NOT DETECTED', fails[:1]))
+            expect_pin5('the checker\'s tranche-5 pin edited without its count and digest', pinned5 - {b5['oid']})
+            expect_pin5('the checker\'s tranche-5 pin with a pinned tranche-4 commit added', pinned5 | {stand[0]})
+            expect_pin5('the checker\'s tranche-5 pin with one id swapped for a tranche-4 commit, its count kept',
+                        (pinned5 - {b5['oid']}) | {stand[0]})
+
+            def t5_edit(relabel=(), drop=()):
+                # relabel: (id, tranche) pairs; drop: entries removed with their files
+                def go(d):
+                    man = json.load(open(os.path.join(d, 'manifest.json')))
+                    for o, t in relabel:
+                        next(x for x in man['objects'] if x['oid'] == o)['tranche'] = t
+                    gone = {x['oid'] for x in drop}
+                    man['objects'] = [x for x in man['objects'] if x['oid'] not in gone]
+                    for x in drop:
+                        if x.get('file'):
+                            os.remove(os.path.join(d, x['file']))
+                    save(d, man)
+                return go
+            expect('a pinned tranche-5 entry relabelled tranche 4', t5_edit(relabel=[(b5['oid'], 4)]), 'O3',
+                   msg='%s: labelled tranche 4, but this checker pins it in tranche 5' % b5['oid'][:12])
+            swap = t5_edit(relabel=[(b4, 5)], drop=[b5])
+            expect('a pinned tranche-4 entry relabelled tranche 5, a pinned tranche-5 entry removed, the count kept '
+                   '(the relabel)', swap, 'O3', msg='%s: labelled tranche 5, but this checker pins it in tranche 4'
+                   % b4[:12])
+            expect('a pinned tranche-4 entry relabelled tranche 5, a pinned tranche-5 entry removed, the count kept '
+                   '(the removal)', swap, 'O3', msg='%s: pinned in tranche 5, has no entry' % b5['oid'][:12])
+            expect('a pinned tranche-5 entry removed with its file', t5_edit(drop=[b5]), 'O3',
+                   msg='%s: pinned in tranche 5, has no entry' % b5['oid'][:12])
+            expect('a pinned tranche-5 entry removed, its file kept', t5_edit(drop=[dict(b5, file=None)]), 'O3',
+                   msg='%s: pinned in tranche 5, has no entry' % b5['oid'][:12])
+
+            def t5_swap(d):
+                # a pinned tranche-5 entry's id replaced by another retained object's, tranche 5's count kept
+                man = json.load(open(os.path.join(d, 'manifest.json')))
+                next(x for x in man['objects'] if x['oid'] == b5['oid'])['oid'] = b4
+                save(d, man)
+            expect('a pinned tranche-5 entry\'s id swapped for another retained object\'s, the count kept', t5_swap,
+                   'O3', msg='%s: pinned in tranche 5, has no entry' % b5['oid'][:12])
+            expect('a pinned tranche-5 commit removed with every object only it needs', t5_edit(drop=only5), 'O3',
+                   msg='%s: pinned in tranche 5, has no entry' % c5[:12])
+            expect('an entry the pin does not hold, labelled tranche 5 (a later retention in tranche 5)', closed(5),
+                   'O3', msg='labelled tranche 5, whose pinned membership does not include it')
 
         # O10 and O7, the citation lifecycle, on the fixture above. The stand-in record is laid out as
         # KTOKEN-MAXCONE-1's design evidence is: each head in full on one line, and its run with the head's
