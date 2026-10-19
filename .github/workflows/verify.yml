@@ -149,6 +149,20 @@ jobs:
       - name: Release gate
         run: python3 tools/release_gate.py
 
+      # PRESERVE-INDUCT-1: the round's ten axiom reports again, at the end of the job log. The step
+      # fails unless each of the ten is reported exactly once, within propext, Classical.choice and
+      # Quot.sound, and the output carries no sorryAx, Lean.ofReduceBool or Lean.trustCompiler.
+      - name: PRESERVE-INDUCT-1 axiom reports
+        working-directory: verification/lean-mathlib
+        run: |
+          set -euo pipefail
+          head=$(git rev-parse HEAD)
+          echo "preserve_induct1 axioms: step at ${head}"
+          log="$RUNNER_TEMP/preserve-induct1-axioms.log"
+          lake env lean OIBridge/PreservationInduction.lean 2>&1 | tee "$log"
+          lake env lean OIBridge/PreservationInductionInstances.lean 2>&1 | tee -a "$log"
+          python3 -I -B ../programmes/oi-qm/reconstruction/round-preserve-induct-1/controls.py axioms "$log"
+
   # Probe shards run independently so the required Numerical probes check is bounded by
   # the slowest shard rather than by their sum. The final `probes` job below keeps the
   # historical required-check name and fails unless every shard succeeded.
@@ -459,6 +473,37 @@ jobs:
       - name: BG-2 control mutation tests
         run: python3 -I -B verification/programmes/oi-qm/reconstruction/round-bg-2-premise-orientation/controls.py --self-test
 
+  probes_preserveinduct1:
+    name: Numerical probes / PRESERVE-INDUCT-1 preservation induction
+    runs-on: ubuntu-latest
+    steps:
+      # fetch-depth: 0 is load-bearing: the control self-test reads its historical fixture at D
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install the exact-algebra dependency
+        run: pip install sympy==1.14.0
+
+      - name: PRESERVE-INDUCT-1 exact probe
+        working-directory: verification/lean
+        run: |
+          echo "=== preserve_induct1_probe.py ==="
+          python3 -I -B preserve_induct1_probe.py
+
+      - name: PRESERVE-INDUCT-1 independent exact check
+        working-directory: verification/lean
+        run: |
+          echo "=== preserve_induct1_indep_check.py ==="
+          python3 -I -B preserve_induct1_indep_check.py
+
+      - name: PRESERVE-INDUCT-1 control mutation tests
+        run: python3 -I -B verification/programmes/oi-qm/reconstruction/round-preserve-induct-1/controls.py --self-test
+
   # Act 42. Two shards run on every event; the exclusion shards, about six CPU-hours between them,
   # run only on workflow_dispatch, which is how the exact-head attestations are taken (section A.39).
   # On any other event the matrix job is skipped and the aggregate below requires exactly that.
@@ -554,7 +599,7 @@ jobs:
 
   probes:
     name: Numerical probes
-    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_a40, probes_a41_production, probes_a41_independent, probes_a41_hulls, probes_a45, probes_nb1, probes_kinf2, probes_kt4prem1, probes_oichannel1, probes_oifiniteprotocol1, probes_oimaxcone, probes_bg2, probes_a42_witness, probes_a42_census01, probes_a42_exclusion, probes_foundations]
+    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_a40, probes_a41_production, probes_a41_independent, probes_a41_hulls, probes_a45, probes_nb1, probes_kinf2, probes_kt4prem1, probes_oichannel1, probes_oifiniteprotocol1, probes_oimaxcone, probes_bg2, probes_preserveinduct1, probes_a42_witness, probes_a42_census01, probes_a42_exclusion, probes_foundations]
     if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
@@ -575,6 +620,7 @@ jobs:
           OICHANNEL1_RESULT: ${{ needs.probes_oichannel1.result }}
           OIMAXCONE_RESULT: ${{ needs.probes_oimaxcone.result }}
           BG2_RESULT: ${{ needs.probes_bg2.result }}
+          PRESERVEINDUCT1_RESULT: ${{ needs.probes_preserveinduct1.result }}
           OIFINITEPROTOCOL1_RESULT: ${{ needs.probes_oifiniteprotocol1.result }}
           A42W_RESULT: ${{ needs.probes_a42_witness.result }}
           A42C_RESULT: ${{ needs.probes_a42_census01.result }}
@@ -596,6 +642,7 @@ jobs:
           echo "oichannel1=${OICHANNEL1_RESULT}"
           echo "oimaxcone=${OIMAXCONE_RESULT}"
           echo "bg2=${BG2_RESULT}"
+          echo "preserveinduct1=${PRESERVEINDUCT1_RESULT}"
           echo "oifiniteprotocol1=${OIFINITEPROTOCOL1_RESULT}"
           echo "a42_witness=${A42W_RESULT}"
           echo "a42_census01=${A42C_RESULT}"
@@ -616,6 +663,7 @@ jobs:
           test "${OICHANNEL1_RESULT}" = success
           test "${OIMAXCONE_RESULT}" = success
           test "${BG2_RESULT}" = success
+          test "${PRESERVEINDUCT1_RESULT}" = success
           test "${OIFINITEPROTOCOL1_RESULT}" = success
           test "${A42W_RESULT}" = success
           test "${A42C_RESULT}" = success
