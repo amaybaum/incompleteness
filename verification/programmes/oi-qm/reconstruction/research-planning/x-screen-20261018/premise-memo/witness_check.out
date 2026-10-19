@@ -1,0 +1,25 @@
+# controls
+PASS K1 objects: m unit, P_m projector, z has eigenvalue -1/2, CN^2 = I, V unitary (both conventions)
+PASS K2 cond_0(Y) = even block {00,11} and cond_1(Y) = odd block {01,10} of Y (symbolic Y)
+PASS K3 predicates: diag(1/2,-1/2) flagged, diag(1/2,1/2) and diag(1,0) not flagged
+PASS K4 countercontrol: perturbed defects I/2 - P_m/4 give no negative eigenvalue (W1-W3 fail on them)
+# measured spectra of the outcome-0 and outcome-1 conditionals
+b=+1 d=+1 ji   outcome0 [-1/2, 1/2] outcome1 [1/2, 1/2]
+b=+1 d=+1 ij   outcome0 [1/2, 1/2] outcome1 [-1/2, 1/2]
+b=+1 d=+1 V=I  outcome0 [0, 1/2] outcome1 [0, 1/2]
+b=+1 d=-1 ji   outcome0 [-1/2, 1/2] outcome1 [1/2, 1/2]
+b=+1 d=-1 ij   outcome0 [-1/2, 1/2] outcome1 [1/2, 1/2]
+b=+1 d=-1 V=I  outcome0 [0, 1/2] outcome1 [0, 1/2]
+b=-1 d=+1 ji   outcome0 [-1/2, 1/2] outcome1 [1/2, 1/2]
+b=-1 d=+1 ij   outcome0 [1/2, 1/2] outcome1 [-1/2, 1/2]
+b=-1 d=+1 V=I  outcome0 [0, 1/2] outcome1 [0, 1/2]
+b=-1 d=-1 ji   outcome0 [-1/2, 1/2] outcome1 [1/2, 1/2]
+b=-1 d=-1 ij   outcome0 [-1/2, 1/2] outcome1 [1/2, 1/2]
+b=-1 d=-1 V=I  outcome0 [0, 1/2] outcome1 [0, 1/2]
+# claims
+PASS W1 convention ji: eigenvalue -1/2 at outcome 0 for all four defects
+PASS W2 convention ij: eigenvalue -1/2 at outcome 0 exactly for the d = -1 defects
+PASS W3 either convention: a negative eigenvalue at some outcome for all four defects (UPD excludes)
+PASS W4 mutation V = I: no negative eigenvalue at either outcome for any defect
+TOTAL 8 PASS 0 FAIL
+VERDICT W1 HOLDS; W2 HOLDS; W3 HOLDS; W4 HOLDS
