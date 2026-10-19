@@ -1,0 +1,39 @@
+bridge tail 116826161407 reproduces bg3/results-116826161407.json
+bridge tail 116805436638 reproduces bg3/results-116805436638.json
+bridge tail 116761232088 reproduces bg3/results-116761232088.json
+E tail: the governed module holds against its source at E
+E tail, a report line removed: missing report
+E tail, a report line repeated: duplicate report
+E tail, a report at a line with no command: extra report
+E tail, a declaration renamed at its own line: name mismatch
+E tail, an axiom outside the permitted three
+E tail, a report on sorryAx
+E tail, an error line: failure marker
+E tail, the governed module absent from the source
+E tail, a source with no #print axioms
+E tail, no file named
+an empty text
+E tail, the second report cut to its first line: truncated, and the next report still read
+design log: two blocks, attributed to their files, 7 and 3 reports, wrapped lists joined
+design log: both files hold against their sources at E
+design log, the second step with a lean command naming no file: unattributed
+design log, the second step with a lean command naming two files: unattributed
+design log, the second step with no lean command: unattributed
+run 38450187534: primed names read with their module, line and axioms
+run 38450187534: a wrapped prefixed list joined
+run 38450187534: the 4 design reports, attributed to the step's one file, with their axioms
+run 38450187534: the design file holds against its commands
+run 38450187534, the last design report removed with its wrapped lines: missing report
+run 38450187534, the first design report removed: missing report, and the rest out of step
+run 38450187534, a design report repeated: extra report
+run 38450187534, the tail cut inside the last wrapped list: truncated
+run 38450187534, the tail cut after the last report's first line: truncated
+run 38450187534, a design report on an unpermitted axiom
+run 38450187534, a design report on sorryAx
+run 38450187534, a primed prefixed report on sorryAx
+run 38450187534, a design report renamed: name mismatch
+run 38450187534, the design reports without their step: unattributed
+run 38450187534, lean run directly on a module lake also reports: mixed forms
+run 38454439833: all 10 design reports read with their axioms
+run 38454439833: both lean commands read, the block unattributed
+run 38454439833: the check records the gap

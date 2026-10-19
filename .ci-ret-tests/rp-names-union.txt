@@ -1,0 +1,10 @@
+each of the 96 CI expected results loads the extractor blob it names
+ci-35716484185 names 05c41bce610b, not the checkout's fdf3ec80cdaa, and its reproduction runs the named one
+ci-38855576525's named extractor reads its retained log as the expected result records it
+reproduce() for ci-38855576525, its build stubbed with the retained tail, records and runs blob 05c41bce610b
+a result naming no extractor blob fails closed
+a result naming one blob in its file and another in extractor_blobs fails closed
+a result naming a malformed blob fails closed
+a named blob absent from the repository fails closed
+a named blob that is not Python (the README) fails closed
+a named blob that defines no extract() (the comparator) fails closed
