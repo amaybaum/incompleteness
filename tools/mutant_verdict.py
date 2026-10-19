@@ -2,94 +2,177 @@
 """Classify one mutant run of an evidence-retention check (the `retention-tests` workflow).
 
     mutant_verdict.py CHECK RC EXPECT LOG      print the verdict; exit 0 only for KILLED
-    mutant_verdict.py --self-test              run the classifier against synthetic outputs
+    mutant_verdict.py --check-expect CHECK EXPECT
+                                               exit 0 if EXPECT is acceptable for CHECK, else print why
+    mutant_verdict.py --self-test              run the classifier against fixtures shaped like the tools' output
 
-A mutant counts as caught only when the check failed *cleanly* and *on its target*:
+A mutant counts as caught only when its check failed *cleanly* and *on its target*:
 
-  KILLED        rc is 1, the output ends in CHECK's own failing verdict line, and some failing-case line
-                of CHECK's format contains EXPECT (the named case the mutant was written to break).
+  KILLED        rc is 1; the output contains no Python traceback; its last line is CHECK's own failing
+                verdict line; and a failing case matches EXPECT under CHECK's rule (below).
   SURVIVED      rc is 0: the check passed on the mutant.
   INFRA         rc is a timeout or signal status (124 and above, or negative): the run did not finish.
-  CRASHED       rc is nonzero but the output does not end in CHECK's failing verdict line: an import or
-                syntax error, an uncaught exception, or an unrelated tool failure.
-  NOT-TARGETED  the check failed cleanly, but no failing-case line names EXPECT: it failed on something
-                other than the mutant's target.
+  CRASHED       anything else that failed: a traceback anywhere in the output (including one printed by a
+                subprocess the check runs, such as the gate's), an exit status other than 1, or a last line
+                that is not CHECK's failing verdict.
+  NOT-TARGETED  the check failed cleanly, but no failing case matches EXPECT.
 
-EXPECT must be a non-empty line of at least 8 characters, so that it names a case rather than matching any
-line by accident. Only KILLED exits 0; every other verdict exits 1, so a crash, a timeout or an unrelated
-failure can never be reported as a regression caught.
+Matching EXPECT, by check:
+  retention-self-test, tools-self-test   EXPECT is the exact name of a failing case: a `FAIL self: NAME`
+                                         line, with or without its trailing rule tag such as ` (C2)`.
+  objects-self-test                      EXPECT is the exact name of a case-table row whose verdict is not
+                                         `FAILS as required` or `PASSES as required`.
+  gate, retention, objects,              these report failures as messages (`FAIL  ...`, and the gate's
+  objects-reconstitute                   embedded `FAIL self: ...`). EXPECT is a substring of a failing
+                                         line's text after its `FAIL` prefix, at least 12 characters, and
+                                         may not itself begin with `FAIL` or `self:`.
+
+Only KILLED exits 0, so a crash, a timeout, an unrelated failure or a passing check is never reported as a
+regression caught.
 """
 import re
 import sys
 
-# Per check: the regular expression for its final failing verdict line, and a predicate for a failing-case line.
-_FAIL_PREFIX = lambda line: line.startswith('FAIL')
-_OBJECTS_CASE = lambda line: line.startswith('  ') and ' as required' not in line and not line.startswith('  pending')
-CHECKS = {
-    'gate': (r'^EVIDENCE-RETENTION  FAILS\b', _FAIL_PREFIX),
-    'retention': (r'^RETENTION  FAILS\b', _FAIL_PREFIX),
-    'retention-self-test': (r'^self-test: FAILED$', _FAIL_PREFIX),
-    'objects': (r'^check_objects: FAILED\b', _FAIL_PREFIX),
-    'objects-reconstitute': (r'^check_objects: FAILED\b', _FAIL_PREFIX),
-    'objects-self-test': (r'^self-test: FAILED \(\d+ cases\)$', _OBJECTS_CASE),
-    'tools-self-test': (r'^(comparator )?self-test: FAILED\b', _FAIL_PREFIX),
+TRACEBACK = 'Traceback (most recent call last):'
+REQUIRED = ('FAILS as required', 'PASSES as required')
+VERDICT = {
+    'gate': r'^EVIDENCE-RETENTION  FAILS\b',
+    'retention': r'^RETENTION  FAILS\b',
+    'retention-self-test': r'^self-test: FAILED$',
+    'objects': r'^check_objects: FAILED\b',
+    'objects-reconstitute': r'^check_objects: FAILED\b',
+    'objects-self-test': r'^self-test: FAILED \(\d+ cases\)$',
+    'tools-self-test': r'^(comparator )?self-test: FAILED\b',
 }
-MIN_EXPECT = 8
+FAMILY = {
+    'retention-self-test': 'case', 'tools-self-test': 'case',
+    'objects-self-test': 'table',
+    'gate': 'message', 'retention': 'message', 'objects': 'message', 'objects-reconstitute': 'message',
+}
+_RULE_TAG = re.compile(r' \([A-Z][A-Za-z0-9]{0,5}(/[A-Z][A-Za-z0-9]{0,5})*\)$')
+_TABLE_ROW = re.compile(r'^  (.+?)\s{2,}(\S.*?)\s{2,}(FAILS as required|PASSES as required|NOT DETECTED|FAILS)(  \[.*)?\s*$')
+MIN_CASE, MIN_MESSAGE = 8, 12
+
+
+def expect_problem(check, expect):
+    """None if EXPECT is acceptable for CHECK, else the reason it is not."""
+    if not isinstance(check, str) or check not in VERDICT:
+        return 'unknown check %r' % (check,)
+    if not isinstance(expect, str) or '\n' in expect or expect != expect.strip():
+        return 'expect must be one line with no surrounding spaces'
+    if FAMILY[check] == 'message':
+        if len(expect) < MIN_MESSAGE or expect.startswith(('FAIL', 'self:')):
+            return ('for %s, expect is a failure message fragment of at least %d characters that does not begin '
+                    'with FAIL or self:' % (check, MIN_MESSAGE))
+    elif len(expect) < MIN_CASE:
+        return 'for %s, expect is the exact name of the targeted case (at least %d characters)' % (check, MIN_CASE)
+    return None
+
+
+def _hits(check, expect, lines):
+    fam = FAMILY[check]
+    if fam == 'case':
+        out = []
+        for l in lines:
+            if l.startswith('FAIL self: '):
+                full = l[len('FAIL self: '):]
+                if expect in (full, _RULE_TAG.sub('', full)):
+                    out.append(l)
+        return out
+    if fam == 'table':
+        out = []
+        for l in lines:
+            m = _TABLE_ROW.match(l)
+            if m and m.group(1).rstrip() == expect and m.group(3) not in REQUIRED:
+                out.append(l)
+        return out
+    out = []
+    for l in lines:
+        for prefix in ('FAIL self: ', 'FAIL  '):
+            if l.startswith(prefix) and expect in l[len(prefix):]:
+                out.append(l)
+                break
+    return out
 
 
 def classify(check, rc, expect, text):
-    if not isinstance(check, str) or check not in CHECKS:
-        return 'INVALID', 'unknown check %r' % (check,)
-    if not isinstance(expect, str) or '\n' in expect or len(expect.strip()) < MIN_EXPECT:
-        return 'INVALID', 'expect must name the targeted case (one line, at least %d characters)' % MIN_EXPECT
+    why = expect_problem(check, expect)
+    if why:
+        return 'INVALID', why
     if rc == 0:
         return 'SURVIVED', '%s passed on the mutant' % check
     if rc < 0 or rc >= 124:
         return 'INFRA', '%s did not finish (status %d)' % (check, rc)
-    verdict_re, is_case = CHECKS[check]
     lines = [l for l in text.splitlines() if l.strip()]
+    if any(l.startswith(TRACEBACK) for l in lines):
+        return 'CRASHED', '%s printed a Python traceback (the check or a subprocess crashed)' % check
     last = lines[-1] if lines else ''
-    if rc != 1 or not re.search(verdict_re, last):
+    if rc != 1 or not re.search(VERDICT[check], last):
         return 'CRASHED', '%s exited %d without its failing verdict line; last line: %s' % (check, rc, last[:160])
-    hits = [l for l in lines if is_case(l) and expect in l]
+    hits = _hits(check, expect, lines)
     if not hits:
-        return 'NOT-TARGETED', '%s failed, but no failing case names %r' % (check, expect)
+        return 'NOT-TARGETED', '%s failed, but no failing case matches %r' % (check, expect)
     return 'KILLED', '%s failed on the target: %s' % (check, hits[0].strip()[:160])
 
 
 def self_test():
     T = 'a gate step whose status differs'
+    M = 'the receipt of round X is not covered'
+    gate_end = 'EVIDENCE-RETENTION  FAILS (history mode: 1 failure(s); self-test OK; retained objects FAILED)\n'
     cases = [
         # (name, check, rc, expect, output, verdict)
         ('a targeted self-test failure is KILLED', 'retention-self-test', 1, T,
          'PASS self: x\nFAIL self: %s (C2)\nself-test: FAILED\n' % T, 'KILLED'),
+        ('the target named with its rule tag is KILLED', 'retention-self-test', 1, T + ' (C2)',
+         'FAIL self: %s (C2)\nself-test: FAILED\n' % T, 'KILLED'),
+        ('a longer case that only begins with the target is NOT-TARGETED', 'retention-self-test', 1, T,
+         'PASS self: %s\nFAIL self: %s, twice (C2)\nself-test: FAILED\n' % (T, T), 'NOT-TARGETED'),
+        ('a fragment of a case name is NOT-TARGETED', 'tools-self-test', 1, 'step whose status',
+         'FAIL self: %s (C2)\nself-test: FAILED\ncomparator self-test: FAILED (4 expected result(s))\n' % T, 'NOT-TARGETED'),
         ('a passing check is SURVIVED', 'retention-self-test', 0, T, 'PASS self: x\nself-test: OK\n', 'SURVIVED'),
         ('an import error is CRASHED, not KILLED', 'retention-self-test', 1, T,
          'Traceback (most recent call last):\n  File "x", line 1\nModuleNotFoundError: No module named y\n', 'CRASHED'),
         ('a crash after a failing case is CRASHED, not KILLED', 'retention-self-test', 1, T,
          'FAIL self: %s (C2)\nTraceback (most recent call last):\nKeyError: z\n' % T, 'CRASHED'),
+        ('a subprocess crash inside a cleanly failing gate is CRASHED', 'gate', 1, M,
+         'FAIL  %s\nTraceback (most recent call last):\n  File "check_objects.py", line 9\nKeyError: oid\n%s' % (M, gate_end),
+         'CRASHED'),
         ('a syntax error is CRASHED', 'tools-self-test', 1, T, '  File "x", line 3\nSyntaxError: invalid syntax\n', 'CRASHED'),
         ('an unrelated failing case is NOT-TARGETED', 'retention-self-test', 1, T,
          'FAIL self: some other case (C1)\nself-test: FAILED\n', 'NOT-TARGETED'),
         ('a target named only on a passing line is NOT-TARGETED', 'retention-self-test', 1, T,
          'PASS self: %s (C2)\nFAIL self: other (C1)\nself-test: FAILED\n' % T, 'NOT-TARGETED'),
-        ('a timeout is INFRA', 'gate', 124, T, 'FAIL  %s\n' % T, 'INFRA'),
-        ('a signal is INFRA', 'gate', -9, T, '', 'INFRA'),
-        ('exit 2 with a verdict line is CRASHED', 'retention', 2, T, 'FAIL  %s\nRETENTION  FAILS (1 failure(s))\n' % T, 'CRASHED'),
-        ('a targeted gate failure is KILLED', 'gate', 1, T,
-         'FAIL  %s\nEVIDENCE-RETENTION  FAILS (history mode: 1 failure(s); self-test OK)\n' % T, 'KILLED'),
-        ('a targeted objects failure is KILLED', 'objects', 1, T, 'FAIL  %s\ncheck_objects: FAILED (1)\n' % T, 'KILLED'),
-        ('an objects self-test case not as required is KILLED', 'objects-self-test', 1, T,
-         '  %s  O7  PASSES (should fail)\n  other  O1  FAILS as required\nself-test: FAILED (2 cases)\n' % T, 'KILLED'),
-        ('an objects self-test case as required is NOT-TARGETED', 'objects-self-test', 1, T,
-         '  %s  O7  FAILS as required\n  other  O1  NOT DETECTED\nself-test: FAILED (2 cases)\n' % T, 'NOT-TARGETED'),
+        ('a timeout is INFRA', 'gate', 124, M, 'FAIL  %s\n' % M, 'INFRA'),
+        ('a SIGKILL after timeout is INFRA', 'gate', 137, M, '', 'INFRA'),
+        ('a signal is INFRA', 'gate', -9, M, '', 'INFRA'),
+        ('exit 2 with a verdict line is CRASHED', 'retention', 2, M, 'FAIL  %s\nRETENTION  FAILS (1 failure(s))\n' % M, 'CRASHED'),
+        ('a targeted gate failure is KILLED', 'gate', 1, M, 'FAIL  %s\n%s' % (M, gate_end), 'KILLED'),
+        ('a targeted objects failure is KILLED', 'objects', 1, M, 'FAIL  %s\ncheck_objects: FAILED (1)\n' % M, 'KILLED'),
+        ('an objects table row NOT DETECTED is KILLED', 'objects-self-test', 1, T,
+         '  %s  O7   NOT DETECTED\n  other case    O1   FAILS as required  [x]\nself-test: FAILED (2 cases)\n' % T, 'KILLED'),
+        ('an objects table row FAILS (should pass) is KILLED', 'objects-self-test', 1, T,
+         '  %s  -    FAILS  [unexpected]\nself-test: FAILED (1 cases)\n' % T, 'KILLED'),
+        ('an objects row as required is NOT-TARGETED', 'objects-self-test', 1, T,
+         '  %s  O7   FAILS as required\n  other case    O1   NOT DETECTED\nself-test: FAILED (2 cases)\n' % T, 'NOT-TARGETED'),
+        ('the target inside another row\'s error text is NOT-TARGETED', 'objects-self-test', 1, T,
+         '  %s  O7   FAILS as required\n  other case    O1   NOT DETECTED  [%s]\nself-test: FAILED (2 cases)\n' % (T, T),
+         'NOT-TARGETED'),
+        ('a rule column holding an object id is parsed', 'objects-self-test', 1, T,
+         '  %s  O10 1ab0fd9dd2c6:  NOT DETECTED\n  other case    O3 1ab0/O7 1ab0  FAILS as required\nself-test: FAILED (2 cases)\n' % T,
+         'KILLED'),
+        ('a row whose name extends the target is NOT-TARGETED', 'objects-self-test', 1, T,
+         '  %s in tranche 2  O7   NOT DETECTED\nself-test: FAILED (1 cases)\n' % T, 'NOT-TARGETED'),
         ('the comparator verdict line counts for tools-self-test', 'tools-self-test', 1, T,
          'FAIL self: %s (C2)\nself-test: FAILED\ncomparator self-test: FAILED (4 expected result(s))\n' % T, 'KILLED'),
-        ('another check\'s verdict line is CRASHED', 'objects', 1, T, 'FAIL  %s\nRETENTION  FAILS (1)\n' % T, 'CRASHED'),
-        ('an empty expect is INVALID', 'gate', 1, '', 'FAIL  x\nEVIDENCE-RETENTION  FAILS (x)\n', 'INVALID'),
-        ('a short expect is INVALID', 'gate', 1, 'FAIL', 'FAIL  x\nEVIDENCE-RETENTION  FAILS (x)\n', 'INVALID'),
+        ('another check\'s verdict line is CRASHED', 'objects', 1, M, 'FAIL  %s\nRETENTION  FAILS (1)\n' % M, 'CRASHED'),
+        ('an empty expect is INVALID', 'gate', 1, '', 'FAIL  x\n' + gate_end, 'INVALID'),
+        ('a short case expect is INVALID', 'retention-self-test', 1, 'a case', '', 'INVALID'),
+        ('a message expect that is a bare prefix is INVALID', 'gate', 1, 'FAIL self: the', '', 'INVALID'),
+        ('a short message expect is INVALID', 'gate', 1, 'not covered', '', 'INVALID'),
+        ('an expect with surrounding spaces is INVALID', 'retention-self-test', 1, ' ' + T, '', 'INVALID'),
         ('an unknown check is INVALID', 'rm -rf', 1, T, '', 'INVALID'),
         ('a non-string check is INVALID', ['gate'], 1, T, '', 'INVALID'),
+        ('a non-string expect is INVALID', 'gate', 1, 12345678901234, '', 'INVALID'),
     ]
     bad = 0
     for name, check, rc, expect, out, want in cases:
@@ -107,6 +190,11 @@ def self_test():
 def main(argv):
     if argv[1:] == ['--self-test']:
         return self_test()
+    if len(argv) == 4 and argv[1] == '--check-expect':
+        why = expect_problem(argv[2], argv[3])
+        if why:
+            print(why)
+        return 1 if why else 0
     if len(argv) != 5:
         print(__doc__)
         return 2

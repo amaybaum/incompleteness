@@ -463,10 +463,12 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   repeated batteries and mutant runs move to CI. A mutant names the failing case it targets and
   counts as caught only when its check fails cleanly on that case (`tools/mutant_verdict.py`);
   mutants run only after the classifier's live controls and every unmodified check have passed.
-  Dispatching the workflow requires owner approval under §A.43 item 4. A standing exemption for
-  routine dispatches within the workflow's stated limits may be recorded here only after an
-  owner-approved first run on `main` and an independent review of its results. Its runs are
-  evidence for the executor, never `check-run` attestations.
+  Dispatching the workflow requires owner approval under §A.43 item 4, and the dispatched branch
+  must carry `main`'s copy of the workflow, runner and classifier. A standing exemption for routine
+  dispatches within the workflow's stated limits may be recorded here only after the workflow has
+  landed, an owner-approved first run on an allow-listed branch has covered a run without mutants,
+  a targeted kill and an unrelated-failure negative case, and an independent review of that run has
+  passed. Its runs are evidence for the executor, never `check-run` attestations.
   **Keep local checkouts small.** Prefer repository APIs and reuse of an existing worktree,
   sparse checkout or partial clone over repeated full clones and duplicate object stores.
   Full-history gates and isolated, no-alternates recovery tests belong in CI with the complete
@@ -1030,8 +1032,8 @@ names such content neither retains nor establishes it.
      - A ref that §A.43 requires is not a protective ref and needs no audit.
 
 Enforcement:
-- `check_retention.py` and its self-test run locally before any push that touches the archive
-  (§A.40).
+- `check_retention.py` and its self-test run locally once before any push that touches the archive
+  (§A.40); repeated runs and mutation campaigns go to the `retention-tests` workflow (§A.40).
 - The release gate's `evidence-retention` step runs it in history mode. That mode reads from git
   the receipts and certificate attestations at the archive's base, requires each to be covered,
   and treats a receipt landed after the base as outside the archive's scope. It also runs R10
