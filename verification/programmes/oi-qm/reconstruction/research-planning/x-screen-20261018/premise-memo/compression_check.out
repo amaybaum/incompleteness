@@ -1,0 +1,35 @@
+# controls
+PASS K1 objects: m unit and maximally entangled, P_m projector, z symmetric and exact, Tr(P_m z) = -1/2
+PASS K2 predicate: 4 non-PSD or non-symmetric matrices rejected (one with det > 0), 2 boundary PSD matrices accepted
+PASS K3 countercontrol: perturbed defects I/2 - (3/2)P_m rejected in all 24 cases (accepted: 0)
+PASS K4 countercontrol: wrong subset map rejected on at least one subset per defect (rejected per defect: 3, 3, 3, 3)
+PASS K5 coverage: the six 2-subsets of {00,01,10,11}, each once
+# compressions: b d subset kind | z_aa z_bb det | PSD
+b=+1 d=+1 {00,01} product | 1/4 1/4 0 | True
+b=+1 d=+1 {00,10} product | 1/4 1/4 0 | True
+b=+1 d=+1 {00,11} parity  | 1/4 1/4 0 | True
+b=+1 d=+1 {01,10} parity  | 1/4 1/4 0 | True
+b=+1 d=+1 {01,11} product | 1/4 1/4 0 | True
+b=+1 d=+1 {10,11} product | 1/4 1/4 0 | True
+b=+1 d=-1 {00,01} product | 1/4 1/4 0 | True
+b=+1 d=-1 {00,10} product | 1/4 1/4 0 | True
+b=+1 d=-1 {00,11} parity  | 1/4 1/4 0 | True
+b=+1 d=-1 {01,10} parity  | 1/4 1/4 0 | True
+b=+1 d=-1 {01,11} product | 1/4 1/4 0 | True
+b=+1 d=-1 {10,11} product | 1/4 1/4 0 | True
+b=-1 d=+1 {00,01} product | 1/4 1/4 0 | True
+b=-1 d=+1 {00,10} product | 1/4 1/4 0 | True
+b=-1 d=+1 {00,11} parity  | 1/4 1/4 0 | True
+b=-1 d=+1 {01,10} parity  | 1/4 1/4 0 | True
+b=-1 d=+1 {01,11} product | 1/4 1/4 0 | True
+b=-1 d=+1 {10,11} product | 1/4 1/4 0 | True
+b=-1 d=-1 {00,01} product | 1/4 1/4 0 | True
+b=-1 d=-1 {00,10} product | 1/4 1/4 0 | True
+b=-1 d=-1 {00,11} parity  | 1/4 1/4 0 | True
+b=-1 d=-1 {01,10} parity  | 1/4 1/4 0 | True
+b=-1 d=-1 {01,11} product | 1/4 1/4 0 | True
+b=-1 d=-1 {10,11} product | 1/4 1/4 0 | True
+# claims
+PASS E1 all six compressions PSD (all principal minors >= 0) for all four defects: 24 of 24 cases
+TOTAL 6 PASS 0 FAIL
+VERDICT E1 HOLDS
