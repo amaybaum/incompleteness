@@ -1,0 +1,64 @@
+{
+ "bridge_job": "117781736738",
+ "commit": "e12c1573dc1605baf6ed299f9fe11cdb31ef56ee",
+ "differs": [
+  {
+   "captured_text_sha256": "628c56d8261bc3e4f4b38102e121130f494b76bb61353ad007b059ad48ad508f",
+   "captured_updated_at": "2026-10-18T21:16:05Z",
+   "current_api_sha256": "0a00ce7746b1e92309354b93b746dc9c73a010fe27cd2fa3777b1e5cdb5354a9",
+   "current_body_sha256": "14251a17cfedecce93d7ccb9005ecdd3d1c73ed35879d29dbee2eee4e675f594",
+   "current_source": "GitHub issues API, GET issues/comments/6255241760, read 2026-10-19",
+   "current_text": "| Release gate | 22/22 PASS (corrected from \"23/23\", a counting error in the verification record) |",
+   "edited_at": "2026-10-18T21:33:30Z",
+   "in": "designation.json",
+   "note": "designation.json holds the comment as captured before the edit. The owner edited the comment at 2026-10-18T21:33:30Z; the edit changed one line, the release-gate row, from 23/23 to 22/22. The served log lists 22 gate steps, all PASS (results.json), and the attestation comment 6254986073 states 22.",
+   "text": "| Release gate | 23/23 PASS |"
+  }
+ ],
+ "files": [
+  {
+   "bytes": 507,
+   "form": "derived",
+   "path": "run.json",
+   "sha256": "88ef9d7834b77511529334e51657956d8db5b93b292a0439ebda36c6e287ed6b",
+   "source_sha256": "7933f20b1fe46c9585eee4abc170d3174c6e0bf9beef3e70a9e6c83247da030c"
+  },
+  {
+   "bytes": 43140,
+   "form": "derived",
+   "path": "jobs.json",
+   "sha256": "e97e111f9d6e1d98bb3b9b3e13a48f6b36db75c17ff5f31153f1b6fb8d658c14",
+   "source_sha256": "9fd2315a8c37702eb7a7795ae97978d9b008f8b77226260fb6b451724798d9d0"
+  },
+  {
+   "bytes": 1781,
+   "form": "derived",
+   "path": "designation.json",
+   "sha256": "e82c69a55535cc58378aa5d278efe1373438120a6a82a1470706761a6722c519",
+   "source_note": "source_sha256 is the digest of the API answer read before the comment was edited (updated_at 2026-10-18T21:16:05Z); GitHub serves only the edited comment, so it can no longer be re-derived there",
+   "source_sha256": "b4844877c41971674c466cccc52769d0bf8b64c6d8bcd55fb8968094505cc8da"
+  },
+  {
+   "bytes": 15457,
+   "form": "derived",
+   "path": "results.json",
+   "sha256": "2a9fef3f9735f35a31a2a8379d6d629562c45f86b62f418d8da2caf02875b757",
+   "source_note": "source_sha256 is the digest of the partial served window of the job log, not of the whole log; partial: original lines 33628-38627 of 38627 were served and read; original lines 1-33627 were not served and are not inspected",
+   "source_sha256": "898a87c7f8f3d6f4848e07f85114fe0f6555f6e43686a2c5bd6fcf11b517401c"
+  }
+ ],
+ "missing": [
+  {
+   "item": "#print axioms reports in original lines 1-33627 of 38627 of the bridge log, before the partial served window",
+   "why": "the job-log tool serves at most the last 5000 lines; results.json records the window and the gap"
+  },
+  {
+   "item": "failure markers in original lines 1-33627 of 38627 of the bridge log, before the partial served window",
+   "why": "the job-log tool serves at most the last 5000 lines; results.json records the window and the gap"
+  }
+ ],
+ "round": "KTOKEN-MAXCONE-1",
+ "run": "39163559807",
+ "schema": "oi-f-run-record",
+ "version": 1
+}
