@@ -1,0 +1,190 @@
+name: retention tests
+
+# Dispatch-only. Runs the evidence-retention archive's checks and self-tests
+# (verification/audits/evidence-retention/, AGENTS §A.42) on the dispatched ref as parallel jobs, and
+# optionally a mutation campaign against them. It exists so that these batteries, which take ten to
+# twenty minutes each and are repeated on every revision, run in CI instead of on a session's disk
+# (AGENTS §A.40).
+#
+# Jobs:
+#   checks   one job per check below, on the unmodified ref. `gate` is the release-gate step itself
+#            (check_retention.py --gate); the others are its parts, run in parallel for speed.
+#   plan     validates the optional mutant list and turns it into a matrix.
+#   mutants  one job per mutant: apply its patch to a fresh checkout, run its named check, and pass
+#            only if that check FAILS (and, when `expect` is given, its output contains that text).
+#            Mutants run only after every unmodified check has passed: a kill over a red control
+#            proves nothing.
+#
+# The mutant list is a JSON file on the dispatched ref, at the path given as the `mutants` input:
+#   {"mutants": [{"id": "drop-symlink-guard", "patch": "drop-symlink-guard.patch",
+#                 "check": "retention-self-test", "expect": "a symbolic link at the copy's path"}]}
+# `patch` is relative to the JSON file's directory; `check` is one of the check names below; `expect`
+# is optional. At most 20 mutants per run.
+#
+# A run of this workflow is design evidence for the executor. It is not an F/E `check-run`
+# attestation (AGENTS §A.39), which only `verify` dispatched on exactly F or E provides.
+
+on:
+  workflow_dispatch:
+    inputs:
+      mutants:
+        description: 'optional: path on the dispatched ref of a mutants JSON file (at most 20 mutants)'
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: ${{ matrix.check }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        check: [gate, retention, retention-self-test, objects, objects-reconstitute, objects-self-test,
+                tools-self-test]
+    steps:
+      # Full history: the gate's history mode and the objects' reconstitution read git history.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run ${{ matrix.check }}
+        env:
+          CHECK: ${{ matrix.check }}
+        run: |
+          set -u
+          d=verification/audits/evidence-retention
+          case "$CHECK" in
+            gate)                 python3 -B "$d/check_retention.py" --gate ;;
+            retention)            python3 -B "$d/check_retention.py" ;;
+            retention-self-test)  python3 -B "$d/check_retention.py" --self-test ;;
+            objects)              python3 -B "$d/check_objects.py" ;;
+            objects-reconstitute) python3 -B "$d/check_objects.py" --reconstitute ;;
+            objects-self-test)    python3 -B "$d/check_objects.py" --self-test ;;
+            tools-self-test)      python3 -B "$d/compare_result.py" --self-test \
+                                    && python3 -B "$d/job_outputs.py" --self-test ;;
+            *) echo "unknown check: $CHECK"; exit 2 ;;
+          esac
+
+  plan:
+    name: Plan mutants
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      count: ${{ steps.plan.outputs.count }}
+      matrix: ${{ steps.plan.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # The input reaches the script only as an environment variable and is validated before use.
+      - name: Validate the mutant list
+        id: plan
+        env:
+          MUTANTS: ${{ inputs.mutants }}
+        run: |
+          python3 - <<'EOF'
+          import json, os, posixpath, re, sys
+          CHECKS = {'gate', 'retention', 'retention-self-test', 'objects', 'objects-reconstitute',
+                    'objects-self-test', 'tools-self-test'}
+          SAFE = re.compile(r'^[A-Za-z0-9._/-]+$')
+          path = os.environ.get('MUTANTS', '')
+          out = open(os.environ['GITHUB_OUTPUT'], 'a')
+          def fail(msg):
+              print('mutant list rejected: ' + msg)
+              sys.exit(1)
+          def safe(p):
+              return bool(SAFE.match(p)) and not p.startswith('/') and '..' not in p.split('/')
+          if not path:
+              out.write('count=0\nmatrix={"include":[]}\n')
+              sys.exit(0)
+          if not safe(path) or not path.endswith('.json') or not os.path.isfile(path):
+              fail('%r is not a repository-relative .json file on this ref' % path)
+          with open(path, encoding='utf-8') as f:
+              data = json.load(f)
+          ms = data.get('mutants') if isinstance(data, dict) else None
+          if not isinstance(ms, list) or not 1 <= len(ms) <= 20:
+              fail('"mutants" must be a list of 1 to 20 entries')
+          base, seen, rows = posixpath.dirname(path), set(), []
+          for m in ms:
+              if not isinstance(m, dict) or set(m) - {'id', 'patch', 'check', 'expect'}:
+                  fail('each mutant is an object with keys id, patch, check and optional expect')
+              mid, patch, check = m.get('id'), m.get('patch'), m.get('check')
+              expect = m.get('expect', '')
+              if not isinstance(mid, str) or not re.match(r'^[A-Za-z0-9._-]{1,64}$', mid) or mid in seen:
+                  fail('bad or duplicate id %r' % (mid,))
+              seen.add(mid)
+              if check not in CHECKS:
+                  fail('%s: unknown check %r' % (mid, check))
+              if not isinstance(expect, str) or '\n' in expect:
+                  fail('%s: expect must be a one-line string' % mid)
+              full = posixpath.normpath(posixpath.join(base, patch)) if isinstance(patch, str) else ''
+              if not isinstance(patch, str) or not safe(patch) or not safe(full) or not os.path.isfile(full):
+                  fail('%s: patch %r is not a file next to the mutant list' % (mid, patch))
+              rows.append({'id': mid, 'patch': full, 'check': check, 'expect': expect})
+          out.write('count=%d\nmatrix=%s\n' % (len(rows), json.dumps({'include': rows})))
+          print('%d mutant(s) planned' % len(rows))
+          EOF
+
+  mutants:
+    name: mutant ${{ matrix.id }}
+    needs: [checks, plan]
+    if: needs.plan.outputs.count != '0'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Apply the mutant
+        env:
+          PATCH: ${{ matrix.patch }}
+        run: |
+          set -eu
+          cp -- "$PATCH" "$RUNNER_TEMP/mutant.patch"
+          git apply --check "$RUNNER_TEMP/mutant.patch"
+          git apply "$RUNNER_TEMP/mutant.patch"
+          if git diff --quiet; then echo "the patch changed nothing"; exit 1; fi
+          git diff --stat
+
+      - name: Run ${{ matrix.check }}; it must fail
+        env:
+          CHECK: ${{ matrix.check }}
+          EXPECT: ${{ matrix.expect }}
+        run: |
+          set -u
+          set +e   # the check is expected to fail; its status is read below
+          d=verification/audits/evidence-retention
+          log="$RUNNER_TEMP/check.log"
+          case "$CHECK" in
+            gate)                 python3 -B "$d/check_retention.py" --gate ;;
+            retention)            python3 -B "$d/check_retention.py" ;;
+            retention-self-test)  python3 -B "$d/check_retention.py" --self-test ;;
+            objects)              python3 -B "$d/check_objects.py" ;;
+            objects-reconstitute) python3 -B "$d/check_objects.py" --reconstitute ;;
+            objects-self-test)    python3 -B "$d/check_objects.py" --self-test ;;
+            tools-self-test)      python3 -B "$d/compare_result.py" --self-test \
+                                    && python3 -B "$d/job_outputs.py" --self-test ;;
+            *) echo "unknown check: $CHECK"; exit 2 ;;
+          esac > "$log" 2>&1
+          rc=$?
+          tail -n 60 "$log"
+          if [ "$rc" -eq 0 ]; then echo "SURVIVED: $CHECK passed on the mutant"; exit 1; fi
+          if [ -n "$EXPECT" ] && ! grep -qF -- "$EXPECT" "$log"; then
+            echo "NOT TARGETED: $CHECK failed (rc $rc) but its output lacks: $EXPECT"; exit 1
+          fi
+          echo "KILLED: $CHECK failed (rc $rc)"

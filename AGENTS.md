@@ -455,6 +455,15 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   `tools/v3_verifier.py --verify-round Q` printing `VERDICT  HOLDS` (§A.39). A local run is
   evidence for the executor and is never recorded as a `check-run` attestation. Any special
   dispatch or launch still requires owner approval (§A.43).
+  **Evidence-retention batteries run in CI.** The checks and self-tests of
+  `verification/audits/evidence-retention/` (`check_retention.py`, its `--gate`,
+  `check_objects.py`) and mutation campaigns against them run through the dispatch-only
+  `retention-tests` workflow, as parallel jobs on a pushed branch head; mutants run only after
+  every unmodified check has passed. Dispatching that workflow on a branch other than `main`,
+  within its own limits (its fixed checks and at most 20 mutants), is routine verification and
+  needs no separate owner approval; every other dispatch remains under §A.43 item 4. Its runs are
+  evidence for the executor, never `check-run` attestations. Locally, run only the one smoke
+  check that guards a push.
   **Keep local checkouts small.** Prefer repository APIs and reuse of an existing worktree,
   sparse checkout or partial clone over repeated full clones and duplicate object stores.
   Full-history gates and isolated, no-alternates recovery tests belong in CI with the complete
