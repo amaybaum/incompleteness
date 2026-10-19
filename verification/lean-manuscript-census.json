@@ -1489,6 +1489,24 @@
       ],
       "status": "kernel-only",
       "manuscript": []
+    },
+    {
+      "name": "conditional preservation of an independently given carrier cone family by every InstAvail derivation (round PRESERVE-INDUCT-1, reconstruction)",
+      "modules": [
+        "PreservationInduction"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "instAvail_preserves: AdditiveClosure (zero and addition only), PrimitivePreservation (separate op and readout fields), UniformAttachPreservation and AncillaDiscardPreservation imply that every branch of every InstAvail family preserves C S; one induction over op, readout, coarse, bind and discard. The sum, spectator and transport corollaries display their extra hypotheses; transport concerns the destination carrier's cone and does not identify it with a reindexing. The four premises are hypotheses: the family supplies no physical source for them, no compatibility principle and no part of the P1 — F2 extension. This family is carried by no manuscript. Record: verification/programmes/oi-qm/reconstruction/round-preserve-induct-1/."
+    },
+    {
+      "name": "positive semidefinite and nonnegative diagonal instances of the preservation induction (round PRESERVE-INDUCT-1, reconstruction)",
+      "modules": [
+        "PreservationInductionInstances"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "quantumCone (positive semidefinite) satisfies every premise for every implementation class (quantum_instAvail, quantum_fullClass); classicalCone (positive semidefinite and diagonal) satisfies them for the monomial class substratumClass (classical_instAvail), which admits every reindexed native register readout (classical_readProj, classical_native_readout). Comparisons for the conditional theorem only: no physical preparation family is shown to satisfy the premises, and no claim that every classical stochastic instrument is available. This family is carried by no manuscript. Record: verification/programmes/oi-qm/reconstruction/round-preserve-induct-1/."
     }
   ]
 }
