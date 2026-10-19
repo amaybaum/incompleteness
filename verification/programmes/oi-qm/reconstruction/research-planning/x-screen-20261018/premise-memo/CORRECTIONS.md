@@ -17,9 +17,9 @@ third pass answers the review of the second-pass correction.
   not an input to it. A replay under `python3 -I -B` gives rc 0, 27 PASS and 0 FAIL, byte-identical to `dc.out`.
 
 **Scope.** This is a correction only. It adds no probe, premise, result or status change, and it adopts nothing.
-The arguments and checks it cites from the reviews are tagged [W, rev] and [EC, rev]; they are not replayed in the
-repository. Where a pass ran its own scratch computation, its section says so; such a computation is not committed
-and is not retained evidence. The third-pass correction awaits independent review.
+The arguments it cites from the reviews are tagged [W, rev] and the reviews' exact checks [NR, rev] (scripts not
+retained); none is replayed in the repository. Where a pass ran its own scratch computation, its section says so;
+such a computation is not committed and is not retained evidence. The third-pass correction awaits independent review.
 
 **Line references.** "o" gives lines in `PREMISE-MEMO.original.md`. "c" gives lines in `PREMISE-MEMO.md` at commit
 `11562ace`, the first-pass correction. "n" gives lines in `PREMISE-MEMO.md` at commit `6df43b2c`, the second-pass
@@ -94,3 +94,21 @@ is not committed and is not retained evidence: X_c's product-test value after th
 maximally entangled projectors is 15/136 and over product vectors 1/850, and the identity B = CN(|+⟩⟨+|⊗P_0)CN and
 the witness convention of fix 2 were rechecked. No probe was added and no file other than `PREMISE-MEMO.md` and this
 record changed.
+
+## Evidence classes (no review finding)
+
+The three reviews report their exact checks by result only. The scripts were not posted with comments 6254408285,
+6254747204 and 6254962113 and are not retained, so those checks cannot be replayed from the repository. This
+correction re-tags them and changes no claim, class, label or status. It changes no line count in `PREMISE-MEMO.md`,
+so its lines are given as t.
+
+| fix | lines changed | what changed |
+|---|---|---|
+| tag definition | t32–33 | [W, rev] is defined for the reviews' written arguments alone. [NR, rev] replaces [EC, rev] for the reviews' exact checks: the result is reported, the script is not retained, and the check is not replayed |
+| witness | t168–175 | That the native UPD conditionals of the four defects are PSD is tagged [EC, dc]: `dc.out` lines "defects: even block PSD" and "defects: odd block PSD (K(Z_F) satisfies UPD)", with "cond(X,0) = even(X)" and "cond(X,1) = odd block". The six 2-subset compressions, the eigenvalue −½ at outcome 0 under each transcription and the mutation V = I are tagged [NR, rev]; the mutation line carried no tag |
+| downstream tags | t213 (§3.2 row), t223 (§3.3 row), t305 (§4 UPD row, K(Z_F) cell), t366 (§5 UPD row, G5 cell) | [EC, rev] becomes [NR, rev] on the witness. Each [W, rev] tag, including UPD ≡ K ⊆ Q3, is unchanged |
+| this file | :19–22 (scope paragraph) | The paragraph names the two tags and states that the reviewers' scripts are not retained |
+
+**Checks for this correction.** `PREMISE-MEMO.original.md`, `dc_premise.py` and `dc.out` are byte-identical to
+commit `641ae161`. The replay under `python3 -I -B` gives rc 0, 27 PASS and 0 FAIL, byte-identical to `dc.out`. No
+probe was added and no file other than `PREMISE-MEMO.md`, this record and `../REPORT.md` changed.

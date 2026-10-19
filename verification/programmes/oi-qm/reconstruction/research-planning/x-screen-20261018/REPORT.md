@@ -4,7 +4,7 @@ Research only: no X adopted, no F, no status/theorem/branch change (consistency 
 
 Base main `b96662e6`; memo #859 `acfef447`; #832 `f48b11fd`, #833 `9fc5ec2e`, #836 `0e0b3ddc`, #820 `1d4606b2`, #831 `65b85147`; F2 threads H/I `804843f1`. Criteria: the memo's adopted A1 exact, B1 qubit-power registers (F2-reg), G1–G8 (§2.3), M1, applied as written. Tags: [AT] kernel on main (grep-checked), [CD] compiled design, [WA] written argument, [EC] exact computation in this screen, [EC-up] upstream exact replayed, [MP] manuscript exhaustive Python probe, [L] literature, [UP] unsourced. G5 for a standalone candidate carries both obligations of the memo: its controls are separately specified and fixed in advance (§2.3), and the candidate itself excludes K_B, K(Z_F) and Γ(Q3) (§3.3). The headline G5 verdict requires both; control preparation is reported as a separately labelled §2.3 subfinding and is never a G5 PASS on its own.
 
-Coordinator replay (2026-10-18): all five probes re-run with `python3 -I -B probes/<p>.py`, rc 0, outputs byte-identical to `runs/SHA256SUMS`. A first replay attempt used the wrong path (rc 2, file not found); its outputs are kept in `../xscreen-replay/run1-harness-error/`.
+Coordinator replay (2026-10-18): all five probes re-run with `python3 -I -B probes/<p>.py`, rc 0, outputs byte-identical to `runs/SHA256SUMS`. A first replay attempt used the wrong path (rc 2, file not found); its outputs are not retained.
 
 ## Result: no candidate survives all eight gates
 
