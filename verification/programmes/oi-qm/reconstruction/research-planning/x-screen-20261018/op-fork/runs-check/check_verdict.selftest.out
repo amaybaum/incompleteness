@@ -1,0 +1,49 @@
+PASS T0 unmutated records
+     expected status=CONSISTENT branch=RETIRE cones=3 witnesses=3
+     got      status=CONSISTENT branch=RETIRE cones=3 witnesses=3
+     derived: OP-weak => OP-strong: false on the domain; 3 of 3 such cones record U-strong FAIL with an exact witness line
+PASS T1 U-strong PASS recorded for all three cones
+     expected status=INCONSISTENT branch=RETIRE cones=3 witnesses=0
+     got      status=INCONSISTENT branch=RETIRE cones=3 witnesses=0
+     derived: OP-weak => OP-strong: not refuted by these records
+     problem: N3_KZF ustrong: PASS label while its failure witness line is present
+     problem: N4_L ustrong: PASS label while its failure witness line is present
+     problem: N5_KGamma ustrong: PASS label while its failure witness line is present
+     problem: N3_KZF: fork record U-strong=PASS conflicts with the independent audit's failure witness
+     problem: N4_L: fork record U-strong=PASS conflicts with the independent audit's failure witness
+     problem: N5_KGamma: fork record U-strong=PASS conflicts with the independent audit's failure witness
+     problem: verdict.out U-strong values differs from the records (listed values vs records)
+     problem: verdict.out OP-weak => OP-strong sentence differs from the records (sentence present; derived not refuted)
+PASS T2 coherent counterfactual: U-strong PASS, witnesses, audit and sentence removed
+     expected status=CONSISTENT branch=RETIRE cones=3 witnesses=0
+     got      status=CONSISTENT branch=RETIRE cones=3 witnesses=0
+     derived: OP-weak => OP-strong: not refuted by these records
+PASS T3 U-strong PASS recorded for K_Gamma only
+     expected status=INCONSISTENT branch=RETIRE cones=3 witnesses=2
+     got      status=INCONSISTENT branch=RETIRE cones=3 witnesses=2
+     derived: OP-weak => OP-strong: false on the domain; 2 of 3 such cones record U-strong FAIL with an exact witness line
+     problem: N5_KGamma ustrong: PASS label while its failure witness line is present
+     problem: N5_KGamma: fork record U-strong=PASS conflicts with the independent audit's failure witness
+     problem: verdict.out U-strong values differs from the records (listed values vs records)
+PASS T4 K(Z_F)/L U-strong witness line removed
+     expected status=INCONSISTENT branch=RETIRE cones=3 witnesses=1
+     got      status=INCONSISTENT branch=RETIRE cones=3 witnesses=1
+     derived: OP-weak => OP-strong: false on the domain; 1 of 3 such cones record U-strong FAIL with an exact witness line
+     problem: N3_KZF ustrong: FAIL label without its exact witness line
+     problem: N4_L ustrong: FAIL label without its exact witness line
+PASS T5 control C6 recorded RED
+     expected status=VOID branch=VOID cones=0 witnesses=0
+     got      status=VOID branch=VOID cones=0 witnesses=0
+     derived: OP-weak => OP-strong: no assertion (a control is RED; no verdict is rendered)
+     problem: verdict.out branch differs from the records (RETIRE vs derived VOID)
+     problem: verdict.out cone list differs from the records (3 listed vs 0 derived)
+     problem: verdict.out OP-weak => OP-strong sentence differs from the records (sentence present; derived no assertion)
+PASS T6 existence recorded FAIL for all three cones
+     expected status=INCONSISTENT branch=UNDECIDED cones=0 witnesses=0
+     got      status=INCONSISTENT branch=UNDECIDED cones=0 witnesses=0
+     derived: OP-weak => OP-strong: not refuted by these records
+     problem: verdict.out branch differs from the records (RETIRE vs derived UNDECIDED)
+     problem: verdict.out cone list differs from the records (3 listed vs 0 derived)
+     problem: verdict.out OP-weak => OP-strong sentence differs from the records (sentence present; derived not refuted)
+PASS T7 one byte of runs/q2_zf_cones.out changed: digest gate rejects (runs/q2_zf_cones.out: digest does not match runs/SHA256SUMS)
+SELFTEST GREEN

@@ -1,0 +1,16 @@
+p1_gamma_static      deterministic=True rc=0 sha256=c9239aee5ef13b91581639557818f9e64467e19f3ff2358e4b892c90e47a811f
+     VERDICT GAMMA-INVISIBLE-STATIC: SP, self-duality, HS isometry (LT/homogeneity), local covariance, purification and a continuous interacting group all transport to Gamma(Q3); the native CNOT separates 
+p2_perm_scan         deterministic=True rc=0 sha256=4badff335f4c6019aeec170d3daecf6bbff9111d6bd27b3c216216ee2b24a53c
+     VERDICT PC-SCAN: 8 of 24 native permutations preserve Gamma(Q3) (equal to the local/swap subgroup of order 8); 16 refute it with rank-one witnesses (CNOT among them: True). MI separates Q3 from Gamma(
+p3_fixtures_op       deterministic=True rc=0 sha256=7d1d1db99ad26054f0e6b7a4960cd39ce95151d0f5765bad6b05caed81e538e1
+     VERDICT CERTIFICATES-GREEN (see REPORT for the written arguments they support)
+p4_ones_fixing_lie   deterministic=True rc=0 sha256=72a7f1595a3f1029690a5e67ebfd670fc5b8893a19d11c4496eb9d82c7ee3e3a
+     VERDICT E4-SCREEN: the stroboscopic-time algebra of the 24 native pair bijections has dimension 9 and is ones-fixing (uniform-ray invariant held: G4 fails); the positive control reaches dimension 16.
+p5_m1_retained_law   deterministic=True rc=0 sha256=ad2e371cfeb37691cb49657107b82534dcebf59c58dfc321e6e51464a0097906
+     VERDICT M1-CONS: retained-protocol monitored law REPRODUCED entrywise under the conservative extension at q = 3 (diagonal and coherent starts); the RR readout and a new inserted operation each change 
+replay_factB         deterministic=True rc=0 sha256=f26edf83b7f4c41c806535766a6de50cf0f02948f77489f02acb12aa6aee1e3f
+     Gamma(product) is a PSD product: True
+replay_checkB        deterministic=True rc=0 sha256=634e1639637e9e803f9d6a65786023cba47f2f9362aec358118d53f48ffdac5d
+     CHECK-B PASS : E1 registration reproduces the rooted law but not OI's monitored trajectory law; the readback dependence of x2 on x0 given x1 is present in OI and absent under E1
+check B stdout matches upstream recorded digest: True
+REPLAY GREEN

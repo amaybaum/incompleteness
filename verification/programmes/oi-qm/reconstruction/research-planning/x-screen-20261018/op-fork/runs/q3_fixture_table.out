@@ -1,0 +1,32 @@
+PASS A3  m1(Gamma(H)) = m1(H) for symbolic Hermitian H (Gamma preserves the token-1 marginal)
+PASS A2  Gamma(Ad_{I(x)u} H) = Ad_{I(x)conj(u)} Gamma(H) (symbolic H, exact u): improper maps are Gamma o Ad
+PASS C1  Q3: canonical purification of a non-diagonal rho is a rank-one PSD state with m1 = rho
+PASS C1  Q3: a second purification (I(x)u)psi has the same marginal; the relating Ad_u preserves Q3 (U-strong positive instance)
+PASS C1  Gamma(Q3): Gamma(psi psi^dag) has m1 = rho; relating maps Ad_{conj u} are automorphisms of Gamma(Q3) (A2 covariance)
+     [WA] Q3: Ext = rank-one PSD; E by canonical purification; U-weak by Uhlmann; U-strong since Ad_{I(x)u} preserves Q3.  Gamma(Q3): the Gamma-image of all of this.  Both PASS E, U-weak, U-strong.
+PASS N5  Gamma(B) in maxCone (= SWAP/2, <ab|SWAP|ab> = |<a|b>|^2 >= 0) and not in -Q3 (=> K_Gamma closed, in domain)
+PASS N5  Gamma(B) not PSD (=> K_Gamma != Q3) and Phi+ not in Gamma(Q3) (=> K_Gamma != Gamma(Q3))
+PASS N5  m1(Gamma(B)) = I/2
+     [WA] Ext(K_Gamma) = {rank-one PSD} u {Gamma(B)} (A1 + q1 N1).  E: canonical purifications.  U-weak by A2: at rho != I/2 only purifications; at I/2 max-ent states and Gamma(B) = (id(x)T)B.
+PASS N5  W = P_singlet + P00 is PSD and Tr(W Gamma(B)) = 0 (W in K_Gamma*)
+PASS N5  Tr(W Gamma(chi_ab chi_ab^T)) = a(a-b) < 0 for a < b: Gamma(chi_ab) not in K_Gamma
+     [WA] U-strong FAILS for K_Gamma: at I/2, Phi+ and Gamma(B) are pure; Ad_u preserves PSD, so only improper g = T o Ad_u relate them; (id(x)g)(Ad_{I(x)u^dag} chi chi^T) = Gamma(chi chi^T) is outside K_Gamma for every u.
+PASS N5  side: CNOT does not preserve K_Gamma (CNOT Gamma(B) CNOT has a negative product pairing)
+     side: native permutations fixing Gamma(B): 4 of 24 (SWAP among them: True)
+     [WA] maxCone = Q3 + Gamma(Q3) [L, Stormer-Woronowicz]; Ext = rank-one PSD u Gamma(rank-one PSD) (A1 + q1 N1); E (Q3 <= maxCone); U-weak by A2; U-strong: every relating g is Ad_u or Gamma o Ad_u, and both preserve Q3 + Gamma(Q3) (A2 covariance; Gamma involutive).  TS-a, TS-b by A3.
+PASS N6  maxCone is Gamma-invariant and Ad-invariant on generators (Gamma(Gamma(B)) = B; Ad_{I(x)u} Gamma(B) = Gamma(Ad_{I(x)conj u} B))
+PASS N6  maxCone fails PC (upstream p3 MC line replayed: CNOT Gamma(B) CNOT negative on a product)
+PASS C2  K_B = SEP + R+ B: Ext <= products u {B}; m1(B) = I/2, so the mixed marginal diag(1/4,3/4) has no pure state (E FAILS)
+     [WA] SEP: Ext = pure products, whose marginals are pure; E FAILS at I/2.
+PASS C3  D = Gamma(B) + P00/2 lies in maxCone and outside Q3 (eigenvalue -1/2 on the singlet)
+PASS C3  Gamma(D) = B + P00/2 has rank 2, so D is not Gamma(rank-one); D is not PSD, so not rank-one PSD
+PASS C3  marginal of D/Tr D is diag(2/3, 1/3) (mixed; Q3 purifications of it exist and are extreme by N1)
+     [WA] D spans an extreme ray of K_mut = Q3 + R+ D (D = X + tD with X in Q3 forces t = 1).  At rho_D both a rank-one purification and D/Tr D are pure; D is outside the O(3)-orbit (A2).  U-weak FAILS for K_mut.
+SUMMARY checks=17 failed=0
+RESULT C1=GREEN
+RESULT N5_KGamma domain=GREEN existence_all_marginals=GREEN uweak_all_marginals=GREEN distinct=GREEN ustrong=FAIL
+RESULT N6_maxCone ustrong=PASS TS_a=PASS TS_b=PASS PC=FAIL
+RESULT C2_existence_fails=GREEN
+RESULT C3_uweak_fails=GREEN
+RESULT C6 ustrong_fail_KGamma=GREEN ustrong_pass_Q3_GQ3=GREEN
+VERDICT N5/N6-GREEN: K_Gamma satisfies E and U-weak at every marginal and fails U-strong; maxCone satisfies E, U-strong and both TS readings and fails PC; positive controls pass, negative controls fail where required

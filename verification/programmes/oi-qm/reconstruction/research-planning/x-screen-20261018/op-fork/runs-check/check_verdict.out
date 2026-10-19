@@ -1,0 +1,57 @@
+AUTHENTICATION (pinned digests; runs/SHA256SUMS; audit manifest)
+  all records match
+CONTROLS (read from the records)
+  C1 positive (Q3, Gamma(Q3))            GREEN
+  C2 existence can fail                  GREEN
+  C3 U-weak can fail (K_mut)             GREEN
+  C4 nullspace countercontrol            GREEN
+  C5 identification of R = O(3)          GREEN
+  C6 U-strong can fail / can pass        GREEN
+  C7 upstream p3 = ../runs/SHA256SUMS    GREEN
+  determinism (runs/replay.log)          GREEN
+  N1 maxCone extreme rays (input)        GREEN
+RETIRE CONDITION PER CONE (PREREG section 3; label / supporting line / evidence level)
+  K(Z_F) = (Q3 n Z_F*) + cone(Z_F)
+    (i) domain inclusions                  GREEN, supported                         [EC + WA]
+    (ii) pure-state classification         GREEN, supported                         [WA on EC inputs]
+    (iii) existence E at every marginal    GREEN, supported                         [EC identity + WA]
+    (iv) U-weak at every marginal          GREEN, supported                         [WA: N2, Uhlmann L]
+    (v) K != Q3, K != Gamma(Q3)            GREEN, supported                         [EC]
+    U-strong (not part of the rule)        FAIL, witness present                    [EC witness + WA: uniqueness of the relating map]
+    meets RETIRE condition                 yes
+  L = Q3 n Z_F*
+    (i) domain inclusions                  GREEN, supported                         [EC + WA]
+    (ii) pure-state classification         GREEN, supported                         [WA on EC inputs]
+    (iii) existence E at every marginal    GREEN, supported                         [EC identity + WA]
+    (iv) U-weak at every marginal          GREEN, supported                         [WA: N2, Uhlmann L]
+    (v) K != Q3, K != Gamma(Q3)            GREEN, supported                         [EC]
+    U-strong (not part of the rule)        FAIL, witness present                    [EC witness + WA: uniqueness of the relating map]
+    meets RETIRE condition                 yes
+  K_Gamma = Q3 + R+ Gamma(B)
+    (i) domain inclusions                  GREEN, supported                         [EC + WA]
+    (ii) pure-state classification         no RESULT key; written line present      [WA on N1 EC inputs]
+    (iii) existence E at every marginal    GREEN, supported                         [EC instance + WA: Q3 canonical purification]
+    (iv) U-weak at every marginal          GREEN, supported                         [WA: N2, Uhlmann L]
+    (v) K != Q3, K != Gamma(Q3)            GREEN, supported                         [EC]
+    U-strong (not part of the rule)        FAIL, witness present                    [EC witness + WA: uniqueness of the relating map]
+    meets RETIRE condition                 yes
+DERIVED
+  branch of the frozen rule: RETIRE
+  cones meeting the RETIRE condition: 3 (K(Z_F) = (Q3 n Z_F*) + cone(Z_F), L = Q3 n Z_F*, K_Gamma = Q3 + R+ Gamma(B))
+  OP-weak => OP-strong: false on the domain; 3 of 3 such cones record U-strong FAIL with an exact witness line
+    (K(Z_F) = (Q3 n Z_F*) + cone(Z_F), L = Q3 n Z_F*, K_Gamma = Q3 + R+ Gamma(B))
+  KEEP disjunct "OP-weak => K in {Q3, Gamma(Q3)}": refuted
+  KEEP disjunct "OP-weak => OP-strong": refuted
+  N6 record: maxCone U-strong=PASS, PC=FAIL.  maxCone is not Q3 or Gamma(Q3) and satisfies E and U-weak
+    [WA + L: N1, Stormer-Woronowicz, N2], so it meets the RETIRE condition without N3-N5; the branches are
+    not exclusive.  It satisfies U-strong, so it does not bear on OP-weak => OP-strong.  Not counted above.
+CORROBORATION (audit-931d5eda, independent exact code; not part of the rule)
+  K(Z_F) = (Q3 n Z_F*) + cone(Z_F)       audit U-strong FAIL witness: present
+  L = Q3 n Z_F*                          audit U-strong FAIL witness: present
+  K_Gamma = Q3 + R+ Gamma(B)             audit U-strong FAIL witness: present
+COMPARISON WITH runs/verdict.out
+  branch                                 agrees RETIRE vs derived RETIRE
+  cone list                              agrees 3 listed vs 3 derived
+  U-strong values                        agrees listed values vs records
+  OP-weak => OP-strong sentence          agrees sentence present; derived refuted
+CHECK CONSISTENT

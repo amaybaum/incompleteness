@@ -1,0 +1,24 @@
+PASS G1 involution on 16 units
+PASS G1 trace preserving on 16 units
+PASS G1 HS isometry on 256 pairs
+PASS G1 self-adjoint on 256 pairs
+PASS G2 Gamma fixes the 4 diagonal units
+PASS G3 local covariance identity, symbolic A,B, 16 units
+PASS G4 Gamma(Bell frame) trace-orthonormal
+PASS G4 Gamma(Bell frame) sums to I
+PASS G5 equal token-1 marginals I/2
+PASS G5 native local Ad_{I(x)conj S} maps Gamma(Phi+) to Gamma((I(x)S)Phi+)
+PASS G5 mutation (S instead of conj S) fails as required
+PASS G6 U unitary
+PASS G6 input Gamma(|++><++|) is a product
+PASS G6 Gamma Ad_U Gamma output is not a product (interacting)
+PASS G6 output lies in Gamma(Q3) (preimage PSD)
+PASS G6 mutation (local Z(x)I) stays product, i.e. the entangling test can fail
+PASS G7 Bell in Q3
+PASS G7 Bell not in Gamma(Q3) (Gamma(B) not PSD)
+PASS G7 Gamma(CNOT Gamma(B) CNOT) eigenvalues {1/2:3,-1/2:1}
+PASS POS Q3: Bell contained (identity frame)
+PASS POS Q3: CNOT preserves the Bell state
+PASS MUT full transpose keeps Bell (exclusion test reports no separation)
+SUMMARY checks=22 failed=0
+VERDICT GAMMA-INVISIBLE-STATIC: SP, self-duality, HS isometry (LT/homogeneity), local covariance, purification and a continuous interacting group all transport to Gamma(Q3); the native CNOT separates (which other native permutations separate: p2)
