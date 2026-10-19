@@ -989,14 +989,15 @@ names such content neither retains nor establishes it.
      on is evidence like any other.
    - Before any bulk retention, log extraction or batch of protective refs, a necessity audit
      classifies each candidate:
-     - **required**, **redundant** (reconstructible), **optional** (useful, but no surviving claim
-       needs it; not retained) or **undetermined**;
+     - **required**, **redundant** (regenerated and matched, as below), **optional** (useful, but
+       no surviving claim needs it; not retained) or **undetermined**;
      - naming the claim it serves (`file:line`) for a required or redundant item, and how
        reconstruction was checked.
    - An item is redundant only when it has actually been regenerated and compared with the
      original:
      - regenerated from `main` or from content already retained;
-     - compared byte-identical, or, for an expected result, identical under `compare_result.py`;
+     - compared byte-identical, or, for a candidate expected result not yet retained, identical
+       under `compare_result.py`;
      - with the recipe, the commit and the comparison recorded in the audit.
 
      A similar source file, an unrun recipe or a repeatable experiment does not make an item
