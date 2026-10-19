@@ -22752,6 +22752,700 @@
     "8cdf3a83f78059d81a701c2e4951e54f3a2b06bd",
     "c697b82b8a7d6719d78dfc74bc8183c85fa12255"
    ]
+  },
+  {
+   "bytes": 157,
+   "content_bytes": 159,
+   "content_sha256": "030625a1b767b2f6ac9030f3fdee4ec99419485dad4b071305a3d4e4b3cc2931",
+   "file": "loose/09/721d34011cc850d592e1969c7e01a0753cd6b8",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "95beab2b48ab9a07dac820e1df7d0850828f5bec",
+     "path": "verification/lean-mathlib/"
+    }
+   ],
+   "oid": "09721d34011cc850d592e1969c7e01a0753cd6b8",
+   "sha256": "9974108dae2a8ea988914892fb31391050470340651fed1446f0ac275a3dd025",
+   "tranche": 5,
+   "type": "tree"
+  },
+  {
+   "bytes": 3237,
+   "content_bytes": 13559,
+   "content_sha256": "32045681fb4749a5ec95a49db5cb95c852b0652021b38b072da55001413c4a03",
+   "file": "loose/0e/88741075aeabf3fb261612adc4bab149e27256",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+     "path": "verification/programmes/oi-qm/reconstruction/round-ktrans-sep-1-omega4/evidence/design-run-2.json"
+    }
+   ],
+   "oid": "0e88741075aeabf3fb261612adc4bab149e27256",
+   "sha256": "a2bd13e13a773bb2712dbb9fc89cf9a72d0c0965017d3f08247907a42fd1a559",
+   "tranche": 5,
+   "type": "blob"
+  },
+  {
+   "bytes": 6675,
+   "content_bytes": 10593,
+   "content_sha256": "7b2f956a3947a23012c21b3c760251d1c2ebf49ee7bb0dbaebff654dd7690c9c",
+   "file": "loose/0f/8a47a6ba35c9536cd8b7a2f354ea18f8360d91",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "195dfbeeca73fea4a7f7b529f8b7375a38e73869",
+     "path": "verification/lean-mathlib/OIBridge/"
+    }
+   ],
+   "oid": "0f8a47a6ba35c9536cd8b7a2f354ea18f8360d91",
+   "sha256": "cefa754d3fd2514946b5b11dbf2eb4ca99671cebe858de3b8ce23875d873b459",
+   "tranche": 5,
+   "type": "tree"
+  },
+  {
+   "awaiting_citation": {
+    "note": "the head of KTRANS-SEP-1's design run 1, run 38090924005, which the record cites beside the run",
+    "pull_request": 824,
+    "record": "verification/programmes/oi-qm/reconstruction/round-ktrans-sep-1-omega4/preregistration.md",
+    "round": "KTRANS-SEP-1",
+    "run": "38090924005"
+   },
+   "bytes": 1287,
+   "content_bytes": 1287,
+   "content_sha256": "e129cb2fb6fd12645b3569db9f55b3e1e125a07080290f27c25960e452042e2b",
+   "file": "commit/19/195dfbeeca73fea4a7f7b529f8b7375a38e73869",
+   "form": "raw",
+   "held_by": {
+    "branch": "preserve/ktrans-sep-824-design-195dfbee",
+    "listed_at": "2026-10-19"
+   },
+   "mechanism": "raw:connected",
+   "oid": "195dfbeeca73fea4a7f7b529f8b7375a38e73869",
+   "parents": [
+    "9f9f8257a980a1819fbbc1dc0019917cf8678626"
+   ],
+   "sha256": "e129cb2fb6fd12645b3569db9f55b3e1e125a07080290f27c25960e452042e2b",
+   "tranche": 5,
+   "type": "commit"
+  },
+  {
+   "bytes": 6095,
+   "content_bytes": 15300,
+   "content_sha256": "f4376958b2eb44a658be9469ec92fef3733cf1347399f4e8394780b975db5008",
+   "file": "loose/19/e19f28fa7644de0bcc3089a354317310de3e41",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+     "path": "verification/lean/ktrans_sep1_probe.py"
+    }
+   ],
+   "oid": "19e19f28fa7644de0bcc3089a354317310de3e41",
+   "sha256": "795c406a2a1648a743f26f7003e383af3756b6318e32b58952889584eb864f45",
+   "tranche": 5,
+   "type": "blob"
+  },
+  {
+   "bytes": 159,
+   "content_bytes": 159,
+   "content_sha256": "40992848ce21653d5055518d1b3475ebd2d776a27d90bff1c3c62666d1b09ba4",
+   "file": "loose/21/a71a8f00b160cb0c79174fe715e5f05148edc3",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+     "path": "verification/lean-mathlib/"
+    }
+   ],
+   "oid": "21a71a8f00b160cb0c79174fe715e5f05148edc3",
+   "sha256": "ca42d7e8ec89b73902a62fe5a00ada372ee2f61b79105ae6250205b932f464d1",
+   "tranche": 5,
+   "type": "tree"
+  },
+  {
+   "bytes": 595,
+   "content_bytes": 678,
+   "content_sha256": "f297a5e065b1b51bef6263f7535b382cb90b4b7c8da319a6bd176c7a7ecae3bf",
+   "file": "loose/25/8c450532a119aa4e42544ca7a91896fce2bf34",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "195dfbeeca73fea4a7f7b529f8b7375a38e73869",
+     "path": "verification/"
+    }
+   ],
+   "oid": "258c450532a119aa4e42544ca7a91896fce2bf34",
+   "sha256": "7cac8ad8fccf7664cc74c2b32b70b8c27f905c97bf257f53b7ed27ee36c5dbcf",
+   "tranche": 5,
+   "type": "tree"
+  },
+  {
+   "bytes": 158,
+   "content_bytes": 159,
+   "content_sha256": "d7426d2097abf9385112b048a60708d8449c40b9abf810fbd10fb93f1cd7da0d",
+   "file": "loose/26/d9afef44132e4675418c9397788585662a1266",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "195dfbeeca73fea4a7f7b529f8b7375a38e73869",
+     "path": "verification/lean-mathlib/"
+    }
+   ],
+   "oid": "26d9afef44132e4675418c9397788585662a1266",
+   "sha256": "4505f7a32a119de47e3f58bb6057c9597e7298d068b878760709a762ce2c6bc5",
+   "tranche": 5,
+   "type": "tree"
+  },
+  {
+   "bytes": 250,
+   "content_bytes": 255,
+   "content_sha256": "73d71eb68c925b68226bd05d9daba3a373a8a959057365732df4657a544276d7",
+   "file": "loose/31/c90eb09a59436f09c6bff1c508d27d1d50f36e",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+     "path": "verification/programmes/oi-qm/"
+    }
+   ],
+   "oid": "31c90eb09a59436f09c6bff1c508d27d1d50f36e",
+   "sha256": "814c410146e2d9f21f0af2d71ccea1cd48709103f506690ce089dad2f3865900",
+   "tranche": 5,
+   "type": "tree"
+  },
+  {
+   "bytes": 6204,
+   "content_bytes": 25720,
+   "content_sha256": "05079466a9d0a3ebb999fb98d20323efe21e70ef196e5f358ccaf0858c27a67d",
+   "file": "loose/3b/30ced43df0bb7aa0c0a994bf7184837c0445ad",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+     "path": ".github/workflows/verify.yml"
+    }
+   ],
+   "oid": "3b30ced43df0bb7aa0c0a994bf7184837c0445ad",
+   "sha256": "45f7fbe19b701f58987473e51deb4327fe3273782ee63001eeb0520cdc47028f",
+   "tranche": 5,
+   "type": "blob"
+  },
+  {
+   "bytes": 28617,
+   "content_bytes": 98349,
+   "content_sha256": "a371508e29e1f9b6afac5eb489b9610f52887d63034b4b2cfcb19498fee4bb4e",
+   "file": "loose/41/2802eb11e74200734e4ae6511dcbef4d76613e",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+     "path": "verification/programmes/oi-qm/reconstruction/round-ktrans-sep-1-omega4/controls.py"
+    }
+   ],
+   "oid": "412802eb11e74200734e4ae6511dcbef4d76613e",
+   "sha256": "4cc7180dc57ba1953610851fee9a45bad81ad89522fe524711f05f96604f4b24",
+   "tranche": 5,
+   "type": "blob"
+  },
+  {
+   "bytes": 13100,
+   "content_bytes": 42741,
+   "content_sha256": "1d3137a0d6d14a1f43b38baf06356a07a331dca66ec8f7cf1c454692ba962f47",
+   "file": "loose/45/8358eb6c6283230d10a0ab5c277c203e808f75",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "195dfbeeca73fea4a7f7b529f8b7375a38e73869",
+     "path": "verification/lean-mathlib/OIBridge.lean"
+    },
+    {
+     "object": "95beab2b48ab9a07dac820e1df7d0850828f5bec",
+     "path": "verification/lean-mathlib/OIBridge.lean"
+    }
+   ],
+   "oid": "458358eb6c6283230d10a0ab5c277c203e808f75",
+   "sha256": "340f002b18e40957551ff1409200b4a2151f8fa5c4d1ce46ce272f7309974534",
+   "tranche": 5,
+   "type": "blob"
+  },
+  {
+   "bytes": 373,
+   "content_bytes": 392,
+   "content_sha256": "7df04cedfd31af06ffb33dd408a8082855b374ad15577fc418aefac9e50a96f1",
+   "file": "loose/4a/f6eea33cb1b47c104c7379075eb06473642dcd",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "95beab2b48ab9a07dac820e1df7d0850828f5bec",
+     "path": "/"
+    }
+   ],
+   "oid": "4af6eea33cb1b47c104c7379075eb06473642dcd",
+   "sha256": "0f973d04c7944aa99258d363aa82b102dfe03a0b466f9a2aa05c98348e42a293",
+   "tranche": 5,
+   "type": "tree"
+  },
+  {
+   "bytes": 2573,
+   "content_bytes": 3938,
+   "content_sha256": "b01329eac93727d44f253e3888edcb467ec1863581753bc820abcd1ec36b9c0e",
+   "file": "loose/4b/690932976d1fc627dd604315a86cc90254a833",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+     "path": "verification/lean/"
+    }
+   ],
+   "oid": "4b690932976d1fc627dd604315a86cc90254a833",
+   "sha256": "7d59ed6c9df8e6a29a406ba21f92d33c685501e67a1dc611af7d12f933587e0d",
+   "tranche": 5,
+   "type": "tree"
+  },
+  {
+   "bytes": 118780,
+   "content_bytes": 400010,
+   "content_sha256": "01812bc90d9e725d8970df38d8d17e552af6e85fb609a4d16332c7914419113b",
+   "file": "loose/5a/914412b80f6287181dbe33be9c89ad0de7329d",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+     "path": "verification/lean-manuscript-census.json"
+    }
+   ],
+   "oid": "5a914412b80f6287181dbe33be9c89ad0de7329d",
+   "sha256": "2f3594113b92700df223f5d35b6b849030f1029150f978cb1da1754f99878098",
+   "tranche": 5,
+   "type": "blob"
+  },
+  {
+   "bytes": 2197,
+   "content_bytes": 4684,
+   "content_sha256": "fb39717a497e9a5fc1e3e38079c79962ae9a18def1b8fb38bb1b81a5323ecf3c",
+   "file": "loose/60/dc4a89b5d909e7b1dc432c3849dfd24d547cc7",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+     "path": "verification/programmes/oi-qm/reconstruction/round-ktrans-sep-1-omega4/evidence/exact-replay.json"
+    }
+   ],
+   "oid": "60dc4a89b5d909e7b1dc432c3849dfd24d547cc7",
+   "sha256": "252b9bf65cff32d7622d509f7ed2efeda7920457c13c51a80a219540758074ea",
+   "tranche": 5,
+   "type": "blob"
+  },
+  {
+   "bytes": 52,
+   "content_bytes": 36,
+   "content_sha256": "1a18f07b8c420f20b88f9df89d7ebd8f58e74738b638590075e537cebd0956e0",
+   "file": "loose/78/96ee7182999d5c17dcdb61403c49134aef92f5",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+     "path": ".github/"
+    }
+   ],
+   "oid": "7896ee7182999d5c17dcdb61403c49134aef92f5",
+   "sha256": "344c01c5ebea4f4075910d4a3664d8f0743faee73da8db7bdd3bad2672972465",
+   "tranche": 5,
+   "type": "tree"
+  },
+  {
+   "bytes": 594,
+   "content_bytes": 678,
+   "content_sha256": "3c67bac1dbf3424ee60073b0fcf2bf9b4585bf18c4029a64037502a07be45ff9",
+   "file": "loose/7d/d26d82ddf9304a1eeb7bc48f5b4cff7e433e69",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+     "path": "verification/"
+    }
+   ],
+   "oid": "7dd26d82ddf9304a1eeb7bc48f5b4cff7e433e69",
+   "sha256": "69c1abce3cbcbb04dbab5d84410837afbef0814398ff9acff7b5f65c6cc53728",
+   "tranche": 5,
+   "type": "tree"
+  },
+  {
+   "bytes": 372,
+   "content_bytes": 392,
+   "content_sha256": "746f2c46e5fb2c0360598a5985964b3d9b1660ae714ef1f5f51e167d46ea8963",
+   "file": "loose/85/6a9a4e78e5f5ae9dadf30ecc87fdd0df4fca7e",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "195dfbeeca73fea4a7f7b529f8b7375a38e73869",
+     "path": "/"
+    }
+   ],
+   "oid": "856a9a4e78e5f5ae9dadf30ecc87fdd0df4fca7e",
+   "sha256": "c97092fd5ce1cc9ffe82ae63daa3a098e1270318389de1586f9d5955abc7722e",
+   "tranche": 5,
+   "type": "tree"
+  },
+  {
+   "bytes": 596,
+   "content_bytes": 678,
+   "content_sha256": "51006d88edadc65cb592893956fd6fb41474781e49c6cb90a13223e07948f6fd",
+   "file": "loose/85/9faabcd052f6eb8ecb906046bdabd9e1c1c2b3",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "95beab2b48ab9a07dac820e1df7d0850828f5bec",
+     "path": "verification/"
+    }
+   ],
+   "oid": "859faabcd052f6eb8ecb906046bdabd9e1c1c2b3",
+   "sha256": "26723273e8c599bc087fd2ca1203f39e1c21684b9e168089457aebdf3bc386c8",
+   "tranche": 5,
+   "type": "tree"
+  },
+  {
+   "bytes": 158,
+   "content_bytes": 178,
+   "content_sha256": "2957db9b31fd3203c67e9e4f8ef82dda2df794f724a121d49b43d31694796121",
+   "file": "loose/87/684e208d99d34c46578625dfa1c6952d3547d1",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+     "path": "verification/programmes/oi-qm/reconstruction/round-ktrans-sep-1-omega4/evidence/"
+    }
+   ],
+   "oid": "87684e208d99d34c46578625dfa1c6952d3547d1",
+   "sha256": "d63a823c7888ee0637351f25410ecbc4270e64e1dd044864c91b34bceabe58ed",
+   "tranche": 5,
+   "type": "tree"
+  },
+  {
+   "bytes": 6372,
+   "content_bytes": 26902,
+   "content_sha256": "505a07849623ba454a6daad921786edb6ca811cb298dc3a89096885a205530cf",
+   "file": "loose/90/30f47158fc3f9f1ab23ddcf85072b3661aabe2",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "95beab2b48ab9a07dac820e1df7d0850828f5bec",
+     "path": "verification/lean-mathlib/OIBridge/EqvOmega4.lean"
+    }
+   ],
+   "oid": "9030f47158fc3f9f1ab23ddcf85072b3661aabe2",
+   "sha256": "d0593335b72cbf482d45b1bf130af52f2f58ce102bfe6ac2487e74cca23e2bb7",
+   "tranche": 5,
+   "type": "blob"
+  },
+  {
+   "bytes": 15078,
+   "content_bytes": 42730,
+   "content_sha256": "f0d5fb41a9178ade8a2f37f8ad2bd22d93c6506c654581a5e2666c799c9bdcb1",
+   "file": "loose/95/2be2b011eaa21f58f98150cbb6066bd5809712",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+     "path": "verification/programmes/oi-qm/reconstruction/round-ktrans-sep-1-omega4/preregistration.md"
+    }
+   ],
+   "oid": "952be2b011eaa21f58f98150cbb6066bd5809712",
+   "sha256": "18bdbd0376156803dfb67c08db42319a4f7b1ceb6cd704de1b3e3a8bc4b8b638",
+   "tranche": 5,
+   "type": "blob"
+  },
+  {
+   "awaiting_citation": {
+    "note": "the head of KTRANS-SEP-1's design run 2, run 38096511360, which the record cites beside the run",
+    "pull_request": 824,
+    "record": "verification/programmes/oi-qm/reconstruction/round-ktrans-sep-1-omega4/preregistration.md",
+    "round": "KTRANS-SEP-1",
+    "run": "38096511360"
+   },
+   "bytes": 1559,
+   "content_bytes": 1559,
+   "content_sha256": "4d0c4dbbe5446fed774e5852bcc6bb14e8286d2bdf5ddbbd145ccfebac55a1d9",
+   "file": "commit/95/95beab2b48ab9a07dac820e1df7d0850828f5bec",
+   "form": "raw",
+   "held_by": {
+    "branch": "preserve/ktrans-sep-824-design-95beab2b",
+    "listed_at": "2026-10-19"
+   },
+   "mechanism": "raw:connected",
+   "oid": "95beab2b48ab9a07dac820e1df7d0850828f5bec",
+   "parents": [
+    "195dfbeeca73fea4a7f7b529f8b7375a38e73869"
+   ],
+   "sha256": "4d0c4dbbe5446fed774e5852bcc6bb14e8286d2bdf5ddbbd145ccfebac55a1d9",
+   "tranche": 5,
+   "type": "commit"
+  },
+  {
+   "bytes": 6373,
+   "content_bytes": 27204,
+   "content_sha256": "09f0e6b85265d57ad4adc280ceeff04f0325b62c77426394ccd13cf6adb9dc41",
+   "file": "loose/ba/7431915e7ab6e8f7bdfb6ab980f16067e9331b",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+     "path": "verification/lean-mathlib/OIBridge/TransSeparation.lean"
+    }
+   ],
+   "oid": "ba7431915e7ab6e8f7bdfb6ab980f16067e9331b",
+   "sha256": "053f9bf1741d8e40b21618068632fe423a6ace405f4632993a5352f3c460d796",
+   "tranche": 5,
+   "type": "blob"
+  },
+  {
+   "awaiting_citation": {
+    "note": "the predicted execution tree of KTRANS-SEP-1, head of its design run 39173554213, which the record cites beside the run",
+    "pull_request": 824,
+    "record": "verification/programmes/oi-qm/reconstruction/round-ktrans-sep-1-omega4/preregistration.md",
+    "round": "KTRANS-SEP-1",
+    "run": "39173554213"
+   },
+   "bytes": 1098,
+   "content_bytes": 1098,
+   "content_sha256": "3ee450dc938b5cb29e9d484aa59390156597aaf4fbe2536e916fba99afd6b5b1",
+   "file": "commit/bd/bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+   "form": "raw",
+   "held_by": {
+    "branch": "preserve/ktrans-sep-824-predicted-bd579bf8",
+    "listed_at": "2026-10-19"
+   },
+   "mechanism": "raw:connected",
+   "oid": "bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+   "parents": [
+    "ec36234cb98a30ecb4681e118ff9ccb82e19aa6d"
+   ],
+   "sha256": "3ee450dc938b5cb29e9d484aa59390156597aaf4fbe2536e916fba99afd6b5b1",
+   "tranche": 5,
+   "type": "commit"
+  },
+  {
+   "bytes": 133,
+   "content_bytes": 120,
+   "content_sha256": "d43b4d29fd7d51c13f2e0e84bd54dcb7618bc111d35f5441baf9e6e3cf1e0783",
+   "file": "loose/c5/d6b1157c6bafd0716b40ed369be6f126fb2f86",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+     "path": "verification/programmes/oi-qm/reconstruction/round-ktrans-sep-1-omega4/"
+    }
+   ],
+   "oid": "c5d6b1157c6bafd0716b40ed369be6f126fb2f86",
+   "sha256": "9a18b361728833fc3a04244a698f22937bd9e0ae881ec3e3249d4644ab18957a",
+   "tranche": 5,
+   "type": "tree"
+  },
+  {
+   "bytes": 163,
+   "content_bytes": 156,
+   "content_sha256": "06c3ecaf7f70205c2700bfea950ad7e3fbb54d7ec70442ca2060a07b4848ea22",
+   "file": "loose/cb/36ffd4260ee7febd99548e5a413a7492172193",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+     "path": "verification/programmes/"
+    }
+   ],
+   "oid": "cb36ffd4260ee7febd99548e5a413a7492172193",
+   "sha256": "c9efa5d9a9497a434dc8728cef44ae5a9d6c6e99b78164e585f4163849308a71",
+   "tranche": 5,
+   "type": "tree"
+  },
+  {
+   "bytes": 6673,
+   "content_bytes": 10593,
+   "content_sha256": "943589b6ddee77fd81a831995ae5b043769865b21d484f7e49200b9515f60a9f",
+   "file": "loose/cd/5e66d4075723b2bb5b131d585e1023dabb4106",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "95beab2b48ab9a07dac820e1df7d0850828f5bec",
+     "path": "verification/lean-mathlib/OIBridge/"
+    }
+   ],
+   "oid": "cd5e66d4075723b2bb5b131d585e1023dabb4106",
+   "sha256": "98138836d5e79486ea432befae568beccd8cfd204f4b1bd91f03775ab59f1a1c",
+   "tranche": 5,
+   "type": "tree"
+  },
+  {
+   "bytes": 240,
+   "content_bytes": 255,
+   "content_sha256": "5d154800dbd1e5cc222350397ff13ff6363b818e3a3664d32f3ed8575b8794c8",
+   "file": "loose/d2/c3ddb29571bbc4894206a014bc6767c4f61070",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+     "path": ".github/workflows/"
+    }
+   ],
+   "oid": "d2c3ddb29571bbc4894206a014bc6767c4f61070",
+   "sha256": "cafde755dfc0cdfb752a5b212c591ad053fd6da52beb5b74095b257f18af6622",
+   "tranche": 5,
+   "type": "tree"
+  },
+  {
+   "bytes": 371,
+   "content_bytes": 392,
+   "content_sha256": "382beeed5015b9635e5c5fb54955d69545045c35402385a4446f035508a8a681",
+   "file": "loose/ee/0298491f43c391dad00e202d895f988d12017d",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+     "path": "/"
+    }
+   ],
+   "oid": "ee0298491f43c391dad00e202d895f988d12017d",
+   "sha256": "717e5ef43fb4c91bc8f764de5fe71870787271edb23535c9252ad15cfdcd9c83",
+   "tranche": 5,
+   "type": "tree"
+  },
+  {
+   "bytes": 6358,
+   "content_bytes": 26760,
+   "content_sha256": "d194f0e279316c3410fbc3381707feedc15484d627bdf0b2233121600d5e2ca3",
+   "file": "loose/ee/87064907c1fbc0ed7b5a705b20041bb5ec5247",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "195dfbeeca73fea4a7f7b529f8b7375a38e73869",
+     "path": "verification/lean-mathlib/OIBridge/EqvOmega4.lean"
+    }
+   ],
+   "oid": "ee87064907c1fbc0ed7b5a705b20041bb5ec5247",
+   "sha256": "25f0c3670ce83d706c956b1e0beb3de549a1c9a93abd3473056b8af8c02b82da",
+   "tranche": 5,
+   "type": "blob"
+  },
+  {
+   "bytes": 2450,
+   "content_bytes": 10681,
+   "content_sha256": "2a9f30ca1a85d3bc5e728a98edfc047d6d8bbde3c1c5d387c2043038f9962d49",
+   "file": "loose/ef/db93318d07153034d087b34b03a1993443e57f",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+     "path": "verification/programmes/oi-qm/reconstruction/round-ktrans-sep-1-omega4/evidence/design-run-1.json"
+    }
+   ],
+   "oid": "efdb93318d07153034d087b34b03a1993443e57f",
+   "sha256": "557b1c5d629bb1b234717cbf970c936f4714250823248ff9e0a7bdefcd0b6a66",
+   "tranche": 5,
+   "type": "blob"
+  },
+  {
+   "bytes": 979,
+   "content_bytes": 3522,
+   "content_sha256": "9add5756f4261af61ac219e9fba798de49f2005fe1b4a2d1f1e57c8f82105beb",
+   "file": "loose/f7/2fef3ec7c0df9bdf4429cdb3479d121ebb2879",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+     "path": "verification/programmes/oi-qm/reconstruction/round-ktrans-sep-1-omega4/evidence/d-push-run.json"
+    }
+   ],
+   "oid": "f72fef3ec7c0df9bdf4429cdb3479d121ebb2879",
+   "sha256": "0482d5aa7f4202c2b87b1a51741f3363a189433db7d075fd37a6d98c746acf54",
+   "tranche": 5,
+   "type": "blob"
+  },
+  {
+   "bytes": 6941,
+   "content_bytes": 11033,
+   "content_sha256": "74506c4c5c4f126a1c940bfeccd07ab84d452870676f69ca0db7f21fedb7c4f1",
+   "file": "loose/fe/16c92e33bfb49ad3d75dc304e7e2526015a6a2",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+     "path": "verification/lean-mathlib/OIBridge/"
+    }
+   ],
+   "oid": "fe16c92e33bfb49ad3d75dc304e7e2526015a6a2",
+   "sha256": "fd80fee3c5988bbeb9a113719b8c01e53cc91150ef77c38647f41550967e11f3",
+   "tranche": 5,
+   "type": "tree"
+  },
+  {
+   "bytes": 1160,
+   "content_bytes": 1622,
+   "content_sha256": "4ddef065670583a0b4188fa4f1e745c4da432eb3c6829c44f0038f1250249e80",
+   "file": "loose/ff/1ce52ac8b1d57e25dd273dac7e57493b0d9e78",
+   "form": "zlib",
+   "mechanism": "raw",
+   "needed_by": [
+    {
+     "object": "bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+     "path": "verification/programmes/oi-qm/reconstruction/"
+    }
+   ],
+   "oid": "ff1ce52ac8b1d57e25dd273dac7e57493b0d9e78",
+   "sha256": "eb255e26e1e146c417cc89c12fc74198a832a31b288acbcf8aa42e3a06af4b1c",
+   "tranche": 5,
+   "type": "tree"
+  },
+  {
+   "bytes": 13133,
+   "content_bytes": 42856,
+   "content_sha256": "e287c35162769eefab01065c9a64ad2b2312cd9b4f7d95c95277114c30a85a93",
+   "file": "loose/ff/ff5cdeb7ab2c3cfff48099165aeb2b1acbc4c9",
+   "form": "zlib",
+   "mechanism": "byte-copy",
+   "needed_by": [
+    {
+     "object": "bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+     "path": "verification/lean-mathlib/OIBridge.lean"
+    }
+   ],
+   "oid": "ffff5cdeb7ab2c3cfff48099165aeb2b1acbc4c9",
+   "sha256": "52314eaa20a0f131e093541fd71d3e6ff0bfc50fe314328c7676db15b953a762",
+   "tranche": 5,
+   "type": "blob"
   }
  ],
  "scan_exemptions": [
@@ -22773,8 +23467,21 @@
   },
   "scope": "archive tranche 4: #831's research sources e684897d and febfe5e2 and #829's KTOKEN-MAXCONE-1 design-run heads 1ab0fd9d and 6959ced4, which records not yet on main cite or are to cite; each commit with every tree and blob main lacks at this base, its off-main parent named, not retained; two captured outputs withheld as approved"
  },
+ "tranche5": {
+  "base": "ec36234cb98a30ecb4681e118ff9ccb82e19aa6d",
+  "host_state": {
+   "branches": {
+    "preserve/ktrans-sep-824-design-195dfbee": "195dfbeeca73fea4a7f7b529f8b7375a38e73869",
+    "preserve/ktrans-sep-824-design-95beab2b": "95beab2b48ab9a07dac820e1df7d0850828f5bec",
+    "preserve/ktrans-sep-824-predicted-bd579bf8": "bd579bf8db6065f6667511ee0a02fa31effc1f5b"
+   },
+   "listed_at": "2026-10-19"
+  },
+  "scope": "archive tranche 5: #824's KTRANS-SEP-1 design-run heads 195dfbee and 95beab2b and its predicted execution tree bd579bf8, which the round's preregistration, not yet on main, cites beside their runs; each commit raw:connected, with every tree and blob main lacks at this base; nothing withheld"
+ },
  "tranche_bases": {
-  "4": "b96662e6be4f537502c772db369ea32a35b213a8"
+  "4": "b96662e6be4f537502c772db369ea32a35b213a8",
+  "5": "ec36234cb98a30ecb4681e118ff9ccb82e19aa6d"
  },
  "version": 1
 }
