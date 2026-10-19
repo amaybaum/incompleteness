@@ -28,7 +28,8 @@ retained in the repository. D =
 - [EC]: exact computation.
   - [EC, rec] is recorded in the cited screen.
   - [EC, dc] is this memo's design-evidence check (below). It is not a probe of any screen and certifies no verdict.
-  - [EC, v] is this memo's witness check (below), independent of the reviews' checks; it certifies no verdict.
+  - [EC, v] is this memo's witness check (below), independent of the reviews' checks. It establishes the stated
+    spectra only; its VERDICT line reports them and decides no premise, class or status.
 - [W]: written argument. "[W, new]" marks an argument first made here and not yet reviewed.
 - [W, rev]: a written argument from the independent reviews (PR #864 comments 6254408285, 6254747204, 6254962113),
   kept verbatim in `reviews/`.
@@ -46,11 +47,12 @@ retained in the repository. D =
   (output sha256 `8908337e…800ef`). The corrected check includes the wrong form as a mutation that must fail.
 
 **Witness check (record only).**
-- Script: `witness_check.py`, sha256 `0a4b255422576fd59555e48f3025da41761c87c0b2c8e91adcd71693d6a2a192`.
+- Script: `witness_check.py`, sha256 `0a0717fd8a48955ab67a8ba97788d5213ddc3c5c8e3fb2aa582d822cef0ca831`.
 - Output: `witness_check.out`, sha256 `9cb0ba16e94a10078c19fb7494b7d4dd45e2e060b6624fd54627414e6aa068d0`.
 - Runs: twice under `python3 -I -B` (SymPy, exact), rc 0, byte-identical. 8 PASS, 0 FAIL. It checks the witness of
   §2 for the four defects under both coefficient conventions and the mutation V = I, with a countercontrol on which
-  the witness must not fire: the PSD perturbations I/2 − P_m/4.
+  the witness must not fire: the PSD perturbations I/2 − P_m/4. Each eigenvalue must be an exact rational, and the
+  script exits non-zero on any FAIL.
 - It is written from this memo's definitions and the construction in `dc_premise.py`, which it does not import. It
   does not reproduce the reviews' checks, whose scripts are not retained.
 

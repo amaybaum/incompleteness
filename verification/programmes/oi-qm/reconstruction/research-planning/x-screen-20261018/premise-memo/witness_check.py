@@ -17,7 +17,9 @@
 #   W3  either convention: some outcome's conditional has a negative eigenvalue for all four defects (UPD excludes).
 #   W4  mutation V = I: no outcome's conditional has a negative eigenvalue for any defect.
 # Decision rule: each claim HOLDS iff its predicate is true on the measured eigenvalues; the verdict is printed only
-# if every control K1-K4 passes, otherwise VOID.
+# if every control K1-K4 passes, otherwise VOID. Every eigenvalue must be an exact Rational after simplification
+# (no numerical identification). Exit status 0 iff every control and claim line is PASS.
+import sys
 import sympy as sp
 from sympy import Matrix, Rational as R, eye, sqrt, zeros
 
@@ -43,8 +45,8 @@ def cond(Y, k): return tr2(kron(eye(2), [P0, P1][k]) * CN * Y * CN.H)
 def spectrum(M):
     ev = []
     for v, mult in M.eigenvals().items():
-        v = sp.nsimplify(sp.simplify(v)); ev += [v] * mult
-    if not all(v.is_rational for v in ev): raise SystemExit("non-rational eigenvalue: %r" % (ev,))
+        v = sp.simplify(v); ev += [v] * mult
+    if not all(v.is_Rational for v in ev): raise SystemExit("non-rational eigenvalue: %r" % (ev,))
     return sorted(ev)
 def rotated(z, V): L = kron(eye(2), V); return L * z * L.H
 def spectra(z, V): Y = rotated(z, V); return spectrum(cond(Y, 0)), spectrum(cond(Y, 1))
@@ -100,3 +102,4 @@ if all(controls):
                                  for n, v in (("W1", w1), ("W2", w2), ("W3", w3), ("W4", w4))))
 else:
     print("VERDICT VOID: a control failed")
+sys.exit(0 if all(res) else 1)
