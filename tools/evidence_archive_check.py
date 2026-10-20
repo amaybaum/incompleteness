@@ -16,7 +16,7 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ARCHIVE = 'verification/audits/evidence-retention'
-PIN = '85379acd076b47d95e81318f926d7ba6b2a433e1'
+PIN = '480065e1dd778ccc4f6277d2074f2d5f1e2f1011'
 
 
 def git(*args):
@@ -81,7 +81,7 @@ def main(argv):
         return 1
     for x in p:
         print('FAIL  %s' % x)
-    print('evidence-archive: %s (tree %s)' % ('FAIL' if p else 'OK', PIN[:12]))
+    print('evidence-archive: %s (pinned tree %s)' % ('FAIL' if p else 'OK', PIN[:12]))
     return 1 if p else 0
 
 

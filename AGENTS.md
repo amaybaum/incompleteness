@@ -889,11 +889,12 @@ by an independent reviewer from `main` alone.
    support of an enduring claim, and naming such content by id or digest neither retains nor
    establishes it. Content a claim needs from an off-`main` commit lands on `main` no later than
    the claim.
-3. **Resolvable identifiers.** Every full commit or blob id added to a governed record resolves
-   to an object reachable from `main` when the record lands.
+3. **Resolvable identifiers.** Every full commit or blob id added to a governed record names an
+   object that exists in the repository when the record lands, and an id offered as a claim's
+   support names one reachable from `main`.
 4. **Exact bytes.** A claim about an artifact's exact bytes, such as its digest or a line
-   position in it, is made only when that artifact is small and committed beside the record.
-   Raw logs and transcripts are otherwise not committed. Anything committed is first scanned for
+   position in it, is made only when that artifact is small and on `main`. Raw logs and
+   transcripts are otherwise not committed. Anything committed is first scanned for
    secrets and sensitive data (tokens, keys, signed URLs, IP and e-mail addresses); a redaction is
    recorded, and the redacted copy carries its own digest.
 5. **Necessity, not exposure.** Only what a surviving claim needs is retained. An expiring log, a
@@ -906,7 +907,7 @@ by an independent reviewer from `main` alone.
    failed check by changing its evidence.
 7. **Native rounds.** Receipts record host attestations as §A.39 defines them; this section adds
    no verification, and no retained or local output is a `check-run` attestation. `E` is on `main`
-   once the round lands, so the release gate at `E` re-establishes the round's computational
+   once the round lands, so the round's workflow run at `E` re-establishes its computational
    claims, and no separate retention pull request is needed. An owner designation a record relies
    on is quoted in that record with its author and time.
 8. **The archive.** `verification/audits/evidence-retention/` is frozen: it is neither extended
@@ -917,7 +918,10 @@ by an independent reviewer from `main` alone.
 
 Records frozen under this section's earlier form, and rounds frozen at `F` under it, keep the form
 under which they were frozen; a preregistration is not reinterpreted. That form is `AGENTS.md` at
-`df9e601ebe2a4e5af2a82f2d06ca2797c3a10f88`.
+`df9e601ebe2a4e5af2a82f2d06ca2797c3a10f88`. Such a round still owes the separate pull request that
+form requires for `E`'s evidence. A checkpoint its record names that the release gate no longer
+runs, such as the former `evidence-retention` step, is met by running the named check directly:
+`python3 verification/audits/evidence-retention/check_retention.py --gate`.
 
 Enforcement: reviewers check items 1–6 on every record that lands; the `evidence-archive` step fails
 on any change to the frozen archive.

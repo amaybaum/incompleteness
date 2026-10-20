@@ -335,4 +335,5 @@ as committed; the release gate's `evidence-archive` step pins this directory's t
 above describe as pending, queued or to be retained is the archive's state when it was frozen, not work
 to be done. The release gate no longer runs `check_retention.py` or `check_objects.py`. The tools still
 regenerate an archived expected result at its commit: `reproduce.py`, `job_outputs.py reproduce`, and the
-dispatch-only `reproduce evidence` workflow.
+dispatch-only `reproduce evidence` workflow. That workflow first runs `check_retention.py`, which checks the whole tree;
+once a later record names a run the archive lists as pending, that step fails, and the tools are then run directly.
