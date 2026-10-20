@@ -171,11 +171,13 @@ def self_test():
         print("  %s  %s %s" % ("ok  " if ok else "FAIL", name, "loads" if want else "is refused"))
     try:
         real = load()
-        ok = [t["run_id"] for t in real["targets"]] == ["39163559807"] and real["targets"][0]["commit"].startswith("e12c1573")
+        ts = real["targets"]
+        ok = (ts[0]["label"] == "F" and ts[0]["run_id"] == "39163559807" and ts[0]["commit"].startswith("e12c1573")
+              and [t["label"] for t in ts[1:]] in ([], ["E"]))
     except TargetsError:
         ok = False
     fails += not ok
-    print("  %s  the committed targets.json loads and lists exactly F's run 39163559807" % ("ok  " if ok else "FAIL"))
+    print("  %s  the committed targets.json loads, lists F's run 39163559807 first, and at most E besides" % ("ok  " if ok else "FAIL"))
     print("targets self-test: %d of %d cases ok" % (len(cases) + 1 - fails, len(cases) + 1))
     return fails
 
