@@ -103,8 +103,27 @@ Each node has been independently reviewed, and its review outcome is applied in 
   - No OI posit or derivation found supplies the test bases, operational completion or O-B. Purification with
     uniqueness would cover all three, but only as a posit. G6 stays open.
 
-**Form the missing component must take, as these two nodes have narrowed it:**
-- It is non-supervenient, or it enlarges the substratum.
+- **`mc-node3/`, classical enlargement and the observer's choice of test: ELABORATING, one NEW (narrow) item, [W].**
+  - Cone lemma: in the pointwise hidden model, with κ1 read as mixed priors, κ2 (processes are configuration
+    bijections), κ3 (the G3 identification), κ4 (configuration readouts with feed-forward) and measurable dynamics,
+    every available outcome map lies in the finitely generated, closed cone of nonnegative combinations of Ad_P, P a
+    0/1 partial permutation. This holds at any substratum cardinality, in discrete or continuous time, with any real
+    couplings and with observer settings of any origin. So `NonnegBounded` and `OnesNormal` hold, effects and reachable
+    states are diagonal, and level-one conjugations lie in six rays: no (a), (b) or (c), and limits or almost-sure
+    termination do not escape.
+  - The new item: the classical-enlargement escape in the countable-realization conclusion is empty. Enlarging a
+    classical substratum's size or time model adds nothing.
+  - A coherent (Koopman–von Neumann) reading of the hidden prior leaves the cone, though not `NonnegBounded`, so the
+    mixed reading of κ1 is load-bearing.
+  - Each dropped κ leaves the cone, but none reaches A1 on its own, and for non-classical candidates the
+    countable-realization premises remain load-bearing (`fixedGateTheory_not_qm`).
+  - The global antiunitary gives no deterministic phase. The reconstruction principles each need a non-classical
+    primitive. G6: none.
+
+**Form the missing component must take under A1, as the reviewed nodes have narrowed it:**
+- It contains a primitive of non-classical kind (κ1 read as mixed priors, κ2, or κ4 dropped; κ3 is barred by G3), and,
+  for (a) at A1, it is non-supervenient or rests on an infinite substratum of non-classical kind. Enlarging a classical
+  substratum's cardinality or time model adds nothing (`mc-node3`).
 - It includes a primitive outside `OnesNormal`, such as a phase-type isometry or a deterministic preparation of |−⟩, or
   else a rule admitting almost-surely terminating protocols. This is needed for a deterministic phase at A1 exactness;
   heralded phase branches need neither.

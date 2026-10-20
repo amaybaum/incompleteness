@@ -1,0 +1,33 @@
+PASS  A1  720 bijections x 3 hidden points: Ad_U + partial trace == partial-permutation Kraus form
+PASS  A2  every induced Kraus operator is a 0/1 partial permutation of V
+PASS  A3  every induced effect K^dag K is diagonal
+PASS  A4  every induced map sends matrix units to entrywise-nonnegative matrices
+PASS  A5  distinct nonzero Kraus shapes seen: 6 (partial perms of Fin 2: 6 nonzero)
+PASS  A6  two-step protocols with readout + feed-forward: Kraus stay 0/1 partial permutations
+PASS  A7  with a nonuniform prior the channel is sum_P w_P Ad_P over finitely many P, trace preserving
+PASS  B1a  weight of Kraus X in T_theta at theta=3/10 by exact integration
+PASS  B1b  T_theta channel: Choi rank 2 inside (0,1), rank 1 only at theta in {0,1}
+PASS  B1c  distinct theta give distinct channels: uncountably many available maps, finitely many unitary ones
+PASS  B2a  prior density normalized
+PASS  B2b  flip probability of the flow is exactly sin^2(pi t/2) on [0,2]
+PASS  B2c  the layer flow Ad R_x(pi t) has the same rooted flip probability
+PASS  B2d  channels differ off the diagonal: Ad R_x gives I*sin(pi*t)/2, flow gives 0
+PASS  B2e  flow channel at t=1/2 preserves nonnegativity on all matrix units; Ad R_x(pi/2) sends E00 to off-diagonal I/2 and fixes J
+PASS  B2f  Phi_1/2 o Phi_1/2 != Phi_1: the visible family is not a semigroup
+PASS  B3a  setting-indexed effects diag(s,s2) pairwise commute
+PASS  B3b  sharp members of the setting continuum are the configuration projectors only
+PASS  B3c  the X-basis projector has an off-diagonal entry: not in the setting continuum
+PASS  C1a  coherent hidden prior |-> with CNOT v->h: the visible channel is Ad Z exactly
+PASS  C1b  Ad Z sends J to a matrix with entry -1 (nonnegativity broken)
+PASS  C1c  the same coupling with a distribution prior is the dephasing channel
+PASS  C1d  control: coherent prior |+> gives the identity
+PASS  C2  non-permutation process (Hadamard): a matrix unit goes to a matrix with a negative entry
+PASS  C3  identification by a fixed basis change W=H: native X acts as Ad Z, nonnegativity broken
+PASS  C4  non-configuration (Y-basis) Lueders branch: complex off-diagonal Kraus entries
+PASS  D1  transpose (time reversal on descriptions) has Choi matrix SWAP with eigenvalue -1: positive, not CP
+PASS  D2  tau o Ad_P o tau = Ad_P for all 24 pair permutations
+PASS  D3  sum conj(K)^dag 1 = conj(sum K^dag 1): OnesNormal is invariant under entrywise conjugation of Kraus lists
+PASS  D4  conj(U) of a ones-fixing unitary fixes the all-ones ray
+PASS  D5  generated group has 48 elements; every unitary part is a permutation
+PASS  D6  time reversal of the heralded phase gadget conjugates its OnesNormal sum; no deterministic phase appears
+SUMMARY  32 PASS  0 FAIL
