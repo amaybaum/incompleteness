@@ -15,6 +15,14 @@
     "tail_lines": 5000,
     "tail_sha256": "898a87c7f8f3d6f4848e07f85114fe0f6555f6e43686a2c5bd6fcf11b517401c"
    }
+  },
+  {
+   "bridge_job": "118705242073",
+   "commit": "e35fe0993d22ea217d4094191ef355340ac80062",
+   "kind": "bridge",
+   "label": "E",
+   "path": "evidence/e-run/results.json",
+   "run_id": "39445227350"
   }
  ],
  "version": 1
