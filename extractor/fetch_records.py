@@ -9,6 +9,8 @@ For each target (run id R, bridge job J) it saves, into --out:
   job-J.json    repos/amaybaum/incompleteness/actions/jobs/J, the API answer's bytes as gh printed them
   jobs-R.json   repos/amaybaum/incompleteness/actions/runs/R/attempts/1/jobs?per_page=100&page=<n>, every page,
                 merged as {"total_count": N, "jobs": [...], "pages": k}
+and, for a target with a cells block (probe job P):
+  job-P.json    repos/amaybaum/incompleteness/actions/jobs/P, the API answer's bytes as gh printed them
 
 Only those JSON endpoints are called. Every path is checked against an allow-list built from the targets' run and
 job ids before `gh` is run, so no log endpoint, no download and no redirect target is ever requested here (the logs
@@ -48,9 +50,14 @@ class FetchError(Exception):
 def allow_list(targets):
     _R = re.escape(REPO)
     runs = "|".join(re.escape(t["run_id"]) for t in targets)
-    jobs = "|".join(re.escape(t["bridge_job"]) for t in targets)
+    jobs = "|".join(re.escape(j) for j in all_jobs(targets))
     return re.compile(rf"^repos/{_R}/actions/(?:runs/(?:{runs})(?:/attempts/1/jobs\?per_page=100&page=[1-9])?"
                       rf"|jobs/(?:{jobs}))\Z")
+
+
+def all_jobs(targets):
+    """Every listed job id: each target's bridge job, then its probe job when it has a cells block."""
+    return [j for t in targets for j in [t["bridge_job"]] + ([t["cells"]["probe_job"]] if t.get("cells") else [])]
 
 
 def gh_raw(path, allowed, runner=None):
@@ -110,20 +117,26 @@ def fetch_all(out, targets, runner=None):
         if int(run.get("run_attempt", 0)) != 1:
             raise FetchError(f"run {rid}: run_attempt {run.get('run_attempt')}, not 1")
         js = fetch_jobs(rid, allowed, runner)
-        jraw = gh_raw(f"repos/{REPO}/actions/jobs/{jid}", allowed, runner)
-        job = json.loads(jraw)
-        if str(job.get("id")) != jid:
-            raise FetchError(f"job {jid}: the API answered for job {job.get('id')}")
+        answers = {}
+        for j in [jid] + ([t["cells"]["probe_job"]] if t.get("cells") else []):
+            jraw = gh_raw(f"repos/{REPO}/actions/jobs/{j}", allowed, runner)
+            if str(json.loads(jraw).get("id")) != j:
+                raise FetchError(f"job {j}: the API answered for job {json.loads(jraw).get('id')}")
+            answers[j] = jraw
+        job = json.loads(answers[jid])
         save_bytes(out, f"run-{rid}.json", raw)
         save(out, f"jobs-{rid}.json", js)
-        save_bytes(out, f"job-{jid}.json", jraw)
+        for j, jraw in answers.items():
+            save_bytes(out, f"job-{j}.json", jraw)
         concl = {}
         for j in js["jobs"]:
             concl[str(j.get("conclusion"))] = concl.get(str(j.get("conclusion")), 0) + 1
         print(f"target {t['label']} run {rid} head_sha={run.get('head_sha')} run_attempt={run.get('run_attempt')} "
               f"event={run.get('event')} conclusion={run.get('conclusion')} jobs={js['total_count']} "
               f"pages={js['pages']} conclusions={json.dumps(concl, sort_keys=True)} "
-              f"bridge_job={jid} name={job.get('name')!r} job_conclusion={job.get('conclusion')}")
+              f"bridge_job={jid} name={job.get('name')!r} job_conclusion={job.get('conclusion')}"
+              + "".join(f" probe_job={j} name={json.loads(a).get('name')!r} job_conclusion={json.loads(a).get('conclusion')}"
+                        for j, a in answers.items() if j != jid))
 
 
 def self_test():
@@ -153,6 +166,8 @@ def self_test():
         ok = not allowed.fullmatch(p)
         fails += not ok
         print(f"  {'ok  ' if ok else 'FAIL'}  refused: {p!r}")
+    targets = [t for t in targets if t["label"] == "F"]   # the cases below are written against F alone
+    allowed = allow_list(targets)
     two = targets + [{"label": "E", "kind": "bridge", "run_id": "39999999999", "commit": "a" * 40,
                       "bridge_job": "118000000001", "path": "evidence/e-run/results.json"}]
     a2 = allow_list(two)
@@ -160,6 +175,18 @@ def self_test():
         and not a2.fullmatch(f"{r}/jobs/118000000001/logs") and not allowed.fullmatch(f"{r}/runs/39999999999")
     fails += not ok
     print(f"  {'ok  ' if ok else 'FAIL'}  a second target widens the allow-list by exactly its run and job")
+    three = targets + [dict(two[-1], cells={"probe_job": "118000000002", "path": "evidence/e-run/cells.json"})]
+    a3 = allow_list(three)
+    ok = bool(a3.fullmatch(f"{r}/jobs/118000000002")) and not a3.fullmatch(f"{r}/jobs/118000000002/logs") \
+        and not a3.fullmatch(f"{r}/jobs/118000000003") and not a2.fullmatch(f"{r}/jobs/118000000002") \
+        and all_jobs(three) == [jid, "118000000001", "118000000002"]
+    fails += not ok
+    print(f"  {'ok  ' if ok else 'FAIL'}  a cells block widens the allow-list by exactly its probe job's JSON endpoint")
+    real = T.load()["targets"]
+    ok = all(allow_list(real).fullmatch(f"{r}/jobs/{j}") for j in all_jobs(real)) \
+        and len(set(all_jobs(real))) == len(all_jobs(real))
+    fails += not ok
+    print(f"  {'ok  ' if ok else 'FAIL'}  the committed targets' jobs ({', '.join(all_jobs(real))}) are each allowed, once")
     calls = []
 
     def runner(cmd, **kw):
@@ -203,6 +230,15 @@ def self_test():
     fails += not ok
     print(f"  {'ok  ' if ok else 'FAIL'}  a clean fetch writes exactly the run, job and jobs-list records of the "
           f"listed runs, the run record byte for byte")
+    with tempfile.TemporaryDirectory() as d, contextlib.redirect_stdout(io.StringIO()):
+        try:
+            fetch_all(d, three, fake(1))
+            ok = sorted(os.listdir(d)) == sorted(want + ["run-39999999999.json", "jobs-39999999999.json",
+                                                        "job-118000000001.json", "job-118000000002.json"])
+        except FetchError:
+            ok = False
+    fails += not ok
+    print(f"  {'ok  ' if ok else 'FAIL'}  a cells target's fetch adds exactly its probe job's record")
     for name, fk in (("a run with run_attempt 2 is refused", fake(2)),
                      ("a job answer for another job id is refused", fake(1, job_id="1"))):
         with tempfile.TemporaryDirectory() as d, contextlib.redirect_stdout(io.StringIO()):
@@ -213,7 +249,7 @@ def self_test():
                 ok = True
         fails += not ok
         print(f"  {'ok  ' if ok else 'FAIL'}  {name}")
-    n = len(good) + len(bad) + 5
+    n = len(good) + len(bad) + 8
     print(f"fetch self-test: {n - fails} of {n} cases ok")
     return fails
 

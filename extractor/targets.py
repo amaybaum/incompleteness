@@ -18,10 +18,13 @@ targets.json is a JSON object with exactly these keys:
     bridge_job  the run's Mathlib bridge job, decimal digits as a string
     path        where the result is committed in the record directory, ^evidence/[a-z0-9-]+/results\\.json$
   and optionally
+    cells       {"probe_job": decimal digits, "path": ^evidence/[a-z0-9-]+/cells\\.json$}: the run's probe job, whose
+                log is read with the bridge log into a second result (check A3's lines, the absence line, the lines
+                the round's frozen verdict reads, the probe's output), and over which the frozen verdict is run
     session_observation  {"original_lines": int, "tail_lines": int, "tail_sha256": hex}: what a session's job-log
                 tool reported for the job (its line count, and the sha256 of the last tail_lines lines it served,
                 joined with newlines, no final newline). Printed as a cross-check only; never decisive.
-Every label, run id, job id, commit and path occurs once. Anything else is refused with TargetsError.
+Every label, run id, commit and path occurs once, and every job id (bridge and probe) once across all targets. Anything else is refused with TargetsError.
 """
 import hashlib
 import json
@@ -37,7 +40,9 @@ DEFAULT_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "targets
 MAX_TARGETS = 4
 TOP_KEYS = {"schema", "version", "repo", "round", "targets"}
 REQUIRED = {"label", "kind", "run_id", "commit", "bridge_job", "path"}
-OPTIONAL = {"session_observation"}
+OPTIONAL = {"session_observation", "cells"}
+CELLS_KEYS = {"probe_job", "path"}
+CELLS_PATH = re.compile(r"evidence/[a-z0-9][a-z0-9-]{0,40}/cells\.json\Z")
 OBS_KEYS = {"original_lines", "tail_lines", "tail_sha256"}
 RX = {
     "label": re.compile(r"[A-Z][A-Z0-9]{0,7}\Z"),
@@ -76,7 +81,8 @@ def parse(data):
     ts = doc["targets"]
     if not isinstance(ts, list) or not 1 <= len(ts) <= MAX_TARGETS:
         raise TargetsError("targets must be a list of 1 to %d entries" % MAX_TARGETS)
-    seen = {k: set() for k in ("label", "run_id", "bridge_job", "commit", "path")}
+    seen = {k: set() for k in ("label", "run_id", "commit", "path")}
+    jobs = set()
     out = []
     for n, t in enumerate(ts):
         if not isinstance(t, dict):
@@ -95,6 +101,19 @@ def parse(data):
                 what = "run" if k == "run_id" else k
                 raise TargetsError("%s %s is listed more than once" % (what, t[k]))
             seen[k].add(t[k])
+        cl = t.get("cells")
+        if cl is not None:
+            if (not isinstance(cl, dict) or set(cl) != CELLS_KEYS or not isinstance(cl["probe_job"], str)
+                    or not RX["bridge_job"].match(cl["probe_job"]) or not isinstance(cl["path"], str)
+                    or not CELLS_PATH.match(cl["path"])):
+                raise TargetsError("target %d cells is malformed" % n)
+            if cl["path"] in seen["path"]:
+                raise TargetsError("path %s is listed more than once" % cl["path"])
+            seen["path"].add(cl["path"])
+        for j in [t["bridge_job"]] + ([cl["probe_job"]] if cl else []):
+            if j in jobs:
+                raise TargetsError("job %s is listed more than once" % j)
+            jobs.add(j)
         obs = t.get("session_observation")
         if obs is not None:
             if (not isinstance(obs, dict) or set(obs) != OBS_KEYS or not _is_int(obs["original_lines"])
@@ -156,6 +175,20 @@ def self_test():
              ("another round", variant(lambda d: d.update(round="X")), False),
              ("version true", variant(lambda d: d.update(version=True)), False),
              ("an extra top-level key", variant(lambda d: d.update(note="x")), False),
+             ("E with a cells block", variant(lambda d: d["targets"].append(dict(e_entry, cells={
+                 "probe_job": "118000000002", "path": "evidence/e-run/cells.json"}))), True),
+             ("a cells probe job equal to a bridge job", variant(lambda d: d["targets"].append(dict(e_entry, cells={
+                 "probe_job": "117781736738", "path": "evidence/e-run/cells.json"}))), False),
+             ("a cells probe job equal to its own bridge job", variant(lambda d: d["targets"].append(dict(e_entry, cells={
+                 "probe_job": "118000000001", "path": "evidence/e-run/cells.json"}))), False),
+             ("a cells path equal to a result path", variant(lambda d: d["targets"].append(dict(e_entry, cells={
+                 "probe_job": "118000000002", "path": "evidence/f-run/results.json"}))), False),
+             ("a cells path not named cells.json", variant(lambda d: d["targets"].append(dict(e_entry, cells={
+                 "probe_job": "118000000002", "path": "evidence/e-run/x.json"}))), False),
+             ("a cells block with an extra key", variant(lambda d: d["targets"].append(dict(e_entry, cells={
+                 "probe_job": "118000000002", "path": "evidence/e-run/cells.json", "x": 1}))), False),
+             ("a cells probe job given as a number", variant(lambda d: d["targets"].append(dict(e_entry, cells={
+                 "probe_job": 118000000002, "path": "evidence/e-run/cells.json"}))), False),
              ("a malformed observation", variant(lambda d: d["targets"][0]["session_observation"].update(tail_lines=True)),
               False),
              ("not JSON", b"{", False), ("not UTF-8", b"\xff", False), ("a list", b"[]", False)]

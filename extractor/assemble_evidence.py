@@ -3,7 +3,8 @@
 extractor/targets.json, from each Mathlib bridge job's whole log, the host's JSON records and the target's commit,
 and print them. Read-only; Python 3 stdlib and git.
 
-  python3 -I assemble_evidence.py --objects OBJ --host HOSTDIR --logs LOGDIR --download-record download-record.json
+  python3 -I assemble_evidence.py --objects OBJ --history HIST --host HOSTDIR --logs LOGDIR \
+      --download-record download-record.json
   python3 -I assemble_evidence.py --self-test --objects OBJ [--work DIR]
   python3 -I assemble_evidence.py --reassemble SERVED_LOG --label F [--out FILE]
 
@@ -17,6 +18,8 @@ Inputs:
   --logs, --download-record
                      <job>.log and the record from download_job_logs.py; each log's length, sha256 and line count
                      must equal the record's.
+  --history          the bare repository from fetch_sources.py --history: a cells target's commit E with its history
+                     back to the round's D, in which the frozen controls.py's verdict runs.
 
 The result has the schema of the round's evidence/f-run/results.json (oi-evidence-result, kind bridge): the same
 keys at every level, with the whole log read, so `gaps` is empty and the window fields describe the whole log
@@ -39,6 +42,17 @@ record). Each failed check is printed by name. The verdict line is the last line
   EXTRACT FAILS       at least one target FAILS (exit 1)
   EXTRACT UNVERIFIED  no target FAILS, and a target is UNVERIFIED, the inputs are not exactly the listed runs,
                       each once, or targets.json is refused (exit 2)
+
+A target with a cells block also gets a second result, <label>.cells at its cells path (schema oi-evidence-cells,
+form derived): check A3's cases, judgements and final line and the absence line from the bridge log; every line the
+round's frozen verdict reads there (each report of a name in OIBridge.KTokenMaxCone with the continuation lines of a
+wrapped list, read as controls.py's axioms_from reads them from the timestamp-stripped log, and the whole-log counts
+of sorryAx and Lean.ofReduceBool); the probe job's probe and controls self-test output; and, under `verdict`, the
+output of the round's frozen controls.py (blob CONTROLS_BLOB, never modified) run as `verdict E --freeze F --axioms
+<log>` once on the bridge log as downloaded and once on its timestamp-stripped form, with both digests. The cells
+result HOLDS only if every required item is present (a missing A3 final line, absence line, probe verdict or verdict
+token FAILS it); the verdict's tokens are recorded, not required to be positive. Its VERDICT lines are printed
+verbatim, and its result as numbered `RJ <label>.cells` lines like any other.
 
 Printed for each target, whatever its verdict, when the sections were found: the release-gate block (GATE lines)
 and the axiom-report table of every .lean file at the commit (AXIOMS lines). Printed for a target that HOLDS: its
@@ -278,6 +292,13 @@ class Log:
 
     def text(self, a, b):
         return "\n".join(self.raw[a:b])
+
+    def body(self, a, b):
+        """The lines of a section after its header group (the echoed command), as (index, text)."""
+        k = a + 1
+        while k < b and self.s[k] != "##[endgroup]":
+            k += 1
+        return [(i, self.s[i]) for i in range(k + 1, b)] if k < b else []
 
 
 class Checks:
@@ -669,6 +690,521 @@ def assemble_target(t, exs, inputs, env=None):
     return C, result, show
 
 
+# ------------------------------------------------------------------------------------------------ cells
+
+# What a target's cells block reads, beyond its results.json: check A3's lines and the absence line from the bridge
+# log, every line the round's frozen verdict reads there, the probe job's output, and the frozen verdict itself,
+# run over the whole bridge log as downloaded and with its timestamps stripped. The constants below are those of
+# the round's frozen controls.py (blob CONTROLS_BLOB) and preregistration; the assembler checks that the controls.py
+# it runs is that blob and carries A3_LOG, EVAL_LOG and D = ROUND_D verbatim.
+RECORD_DIR = "verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/"
+CONTROLS_PATH = RECORD_DIR + "controls.py"
+CONTROLS_BLOB = "7c9672a170210f8c2496787cb8cb3bc16cb30ba2"
+ROUND_D = "b96662e6be4f537502c772db369ea32a35b213a8"
+ROUND_F = "e12c1573dc1605baf6ed299f9fe11cdb31ef56ee"
+VERDICT_NS = "OIBridge.KTokenMaxCone"
+A3_LOG = "A3-CHECK-NONVACUOUS: 13 cases as expected"
+EVAL_LOG = "OIBridge.EqvK2MaxCone.pairCone_eq_Q3_of_drive_maxCone is not in the environment"
+JOB_PROBE = "Numerical probes / KTOKEN-MAXCONE-1 k = 3 exact layer"
+STEP_A3 = "KTOKEN-MAXCONE-1 check A3 (k = 2 statement identity and dependency walk, with mutations)"
+STEP_PROBE, STEP_CONTROLS = "k = 3 exact witnesses and probe mutations", "Native control mutation tests"
+HDR_A3 = ("##[group]Run lake env python3 -I -B ../programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/checks/"
+          "run_checks.py run")
+HDR_PROBE = "##[group]Run python3 -I -B verification/lean/ktoken_maxcone1_probe.py --self-test"
+HDR_CONTROLS = ("##[group]Run python3 -I -B verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/"
+                "controls.py --self-test")
+ABSENCE = re.compile(r"^info: OIBridge/KTokenMaxCone\.lean:(\d+):(\d+): " + re.escape(EVAL_LOG) + r"$")
+PRESENT = "OIBridge.EqvK2MaxCone.pairCone_eq_Q3_of_drive_maxCone is in the environment"
+PROBE_CODES = ("DICT3", "PRODUCT3", "REACH3", "DEMUX3", "ADJOINT3", "QUANTUM3", "ZERO3", "SCALE3", "ADD3",
+               "SHIFT3", "SEP3", "ORBIT3", "CUT3", "SLICE3")
+PROBE_REJECTION_CODES = ("ADJOINT3", "CUT3", "DICT3", "ORBIT3", "SHIFT3")
+PROBE_N = 3196
+PROBE_VERDICT = "KTOKEN-K3-EXACT"
+A3_CASES, A3_MUTATIONS = 13, 11
+CELL_KEYS = ("Q-INCL", "Q-EQ", "Q-PAIR", "Q-EXACT")
+VERDICT_TIMEOUT_S = 1500
+VERDICT_PRINTS_N = 68   # controls.py's PRINTS
+# controls.py's axioms_from, verbatim in effect: the reports of names in VERDICT_NS, read across lines.
+V_DEP = re.compile(r"'%s\.([\w']+)' depends on axioms: \[([^\]]*)\]" % re.escape(VERDICT_NS))
+V_NONE = re.compile(r"'%s\.([\w']+)' does not depend on any axioms" % re.escape(VERDICT_NS))
+V_LINE = re.compile(r"'%s\.[\w']+' (depends on axioms: \[|does not depend on any axioms)" % re.escape(VERDICT_NS))
+A3_OPEN = re.compile(r"^##\[group\](\S+) \(exit (-?\d+)\)$")
+A3_JUDGED = re.compile(r"^(OK  |BAD ) (\S+) expected (pass|fail)$")
+A3_FINAL = re.compile(r"^A3-CHECK-NONVACUOUS: (\d+) cases as expected$")
+A3_BAD = re.compile(r"^(A3 FAIL|A3-CHECK-NOT-ESTABLISHED|RUN FAIL)")
+A3_ERROR = re.compile(r"^(?:\S*/)?([A-Za-z0-9_]+\.lean):(\d+):(\d+): error: (.*)$")
+A3_CODE = re.compile(r"^(STMT-IDENTITY\b.*|DEPCHECK (?:PASS|FAIL|closure|watched)\b|DEPCHECK-[A-Z-]+)")
+PROBE_PASS = re.compile(r"^PASS ([A-Z0-9]+) \((\d+)\)$")
+PROBE_CHECKS = re.compile(r"^checks: (\d+), failures: (\d+)$")
+PROBE_REJ = re.compile(r"^REJECTED ([A-Za-z0-9-]+): ([A-Z0-9]+)$")
+PROBE_MUT = re.compile(r"^mutations: (\d+) rejected, (\d+) accepted$")
+PROBE_VERD = re.compile(r"^VERDICT (\S+)$")
+CTRL_PASS = re.compile(r"^PASS self: (.+)$")
+CTRL_FINAL = re.compile(r"^controls: (\S+) \((\d+) failure\(s\)\)$")
+
+
+def parse_a3(body):
+    """Check A3's section (after its header group): its cases, judgements and final line (design-run assembler
+    30d96134). Inside a case only codes and normalized error lines are kept, so temporary paths never enter."""
+    cases, final, bad, cur, stray = {}, None, [], None, []
+    for i, l in body:
+        if cur is not None:
+            if l == "##[endgroup]":
+                cur = None
+                continue
+            m = A3_ERROR.match(l)
+            if m:
+                c["errors"].append("%s:%s:%s: error: %s" % m.groups())
+                continue
+            m = A3_CODE.match(l)
+            if m:
+                k = m.group(1) if m.group(1).startswith("STMT-IDENTITY") else m.group(1).rstrip()
+                c["codes"][k] = c["codes"].get(k, 0) + 1
+            if A3_BAD.match(l):
+                bad.append((i, l))
+            continue
+        m = A3_OPEN.match(l)
+        if m:
+            c = {"exit": int(m.group(2)), "codes": {}, "errors": [], "judged": None, "expected": None,
+                 "_lines": [(i + 1, l)]}
+            if m.group(1) in cases:
+                bad.append((i, "duplicate case " + m.group(1)))
+            cases[m.group(1)] = c
+            cur = m.group(1)
+            continue
+        m = A3_JUDGED.match(l)
+        if m:
+            name = m.group(2)
+            if name not in cases or cases[name]["judged"] is not None:
+                bad.append((i, l))
+            else:
+                cases[name]["judged"], cases[name]["expected"] = m.group(1).strip(), m.group(3)
+                cases[name]["_lines"].append((i + 1, l))
+            continue
+        m = A3_FINAL.match(l)
+        if m:
+            if final is not None:
+                bad.append((i, "second final line"))
+            final = (i + 1, l, int(m.group(1)))
+            continue
+        if A3_BAD.match(l):
+            bad.append((i, l))
+            continue
+        if l.strip():
+            stray.append((i, l))
+    if cur is not None:
+        bad.append((-1, "case %s never closed" % cur))
+    for c in cases.values():
+        c["errors"].sort()
+    return cases, final, bad, stray
+
+
+def parse_probe(body):
+    p = {"codes": {}, "checks": None, "rejected": {}, "mutations": None, "verdicts": [], "other": [], "lines": []}
+    for i, l in body:
+        if not l.strip():
+            continue
+        p["lines"].append((i + 1, l))
+        m = PROBE_PASS.match(l)
+        if m:
+            p["codes"][m.group(1)] = -1 if m.group(1) in p["codes"] else int(m.group(2))
+            continue
+        m = PROBE_CHECKS.match(l)
+        if m and p["checks"] is None:
+            p["checks"] = (int(m.group(1)), int(m.group(2)))
+            continue
+        m = PROBE_REJ.match(l)
+        if m and m.group(1) not in p["rejected"]:
+            p["rejected"][m.group(1)] = m.group(2)
+            continue
+        m = PROBE_MUT.match(l)
+        if m and p["mutations"] is None:
+            p["mutations"] = (int(m.group(1)), int(m.group(2)))
+            continue
+        m = PROBE_VERD.match(l)
+        if m:
+            p["verdicts"].append(m.group(1))
+            continue
+        p["other"].append((i, l))
+    return p
+
+
+def parse_controls(body):
+    c = {"passes": [], "final": [], "other": [], "lines": []}
+    for i, l in body:
+        if not l.strip():
+            continue
+        c["lines"].append((i + 1, l))
+        m = CTRL_PASS.match(l)
+        if m:
+            c["passes"].append(m.group(1))
+            continue
+        m = CTRL_FINAL.match(l)
+        if m:
+            c["final"].append((i + 1, l))
+            continue
+        c["other"].append((i, l))
+    return c
+
+
+def strip_form(data):
+    """The log with its timestamps stripped: UTF-8, the byte-order mark dropped, then extract_result.py's TS
+    pattern removed from the start of each line; line breaks and everything else unchanged."""
+    text = data.decode("utf-8")
+    if text.startswith("﻿"):
+        text = text[1:]
+    return "\n".join(TS.sub("", l, count=1) for l in text.split("\n")).encode("utf-8")
+
+
+def verdict_reads(text):
+    """What controls.py's verdict reads from a log text: its axioms_from over VERDICT_NS (names -> sorted axioms,
+    None for no axioms), the whole-text counts of sorryAx and Lean.ofReduceBool, and whether A3_LOG and EVAL_LOG
+    occur."""
+    rep = {}
+    for m in V_DEP.finditer(text):
+        rep[m.group(1)] = sorted({a.strip() for a in m.group(2).split(",") if a.strip()})
+    for m in V_NONE.finditer(text):
+        rep[m.group(1)] = []
+    return {"reports": rep, "sorryAx": text.count("sorryAx"), "Lean.ofReduceBool": text.count("Lean.ofReduceBool"),
+            "a3_line": A3_LOG in text, "absence_line": EVAL_LOG in text}
+
+
+def verdict_blocks(lines):
+    """Every report line of VERDICT_NS with the continuation lines of a wrapped axiom list: [(line, [texts])]."""
+    out, i = [], 0
+    while i < len(lines):
+        m = V_LINE.search(lines[i])
+        if not m:
+            i += 1
+            continue
+        blk, j = [lines[i]], i
+        if m.group(1).startswith("depends") and "]" not in lines[i][m.end():]:
+            while j + 1 < len(lines) and j - i < 40:
+                j += 1
+                blk.append(lines[j])
+                if "]" in lines[j]:
+                    break
+        out.append((i + 1, blk))
+        i = j + 1
+    return out
+
+
+def controls_prints(src):
+    m = re.search(r"^PRINTS = '''(.*?)'''", src, re.M | re.S)
+    return m.group(1).split() if m else []
+
+
+def run_verdict(hist_path, cbytes, e, f, log_path, timeout=VERDICT_TIMEOUT_S):
+    """Runs the frozen controls.py's verdict once, from a temporary copy, with the history repository as its
+    working directory and no credential in its environment: (exit code, stdout, stderr)."""
+    env = {k: v for k, v in os.environ.items() if k not in ("GH_TOKEN", "GITHUB_TOKEN")}
+    env.update(GIT_CONFIG_NOSYSTEM="1", GIT_CONFIG_GLOBAL=os.devnull, GIT_TERMINAL_PROMPT="0", GIT_NO_LAZY_FETCH="1")
+    with tempfile.TemporaryDirectory(prefix="verdict-") as d:
+        cp = os.path.join(d, "controls.py")
+        with open(cp, "wb") as fh:
+            fh.write(cbytes)
+        p = subprocess.run([sys.executable, "-I", "-B", cp, "verdict", e, "--freeze", f, "--axioms", os.path.abspath(log_path)],
+                           cwd=os.path.abspath(hist_path), capture_output=True, text=True, timeout=timeout, env=env)
+    return p.returncode, p.stdout, p.stderr
+
+
+def parse_verdict(rc, out, err):
+    lines = out.rstrip("\n").split("\n") if out else []
+    toks = {}
+    for l in lines:
+        m = re.match(r"^TOKEN (Q-[A-Z]+)\s+(\S+)$", l)
+        if m:
+            toks.setdefault(m.group(1), []).append(m.group(2))
+    rounds = [l for l in lines if re.match(r"^KTOKEN-MAXCONE-1-(READ|NOT-READ)\b", l)]
+    ax = [l for l in lines if re.match(r"^axiom reports read: \d+ of \d+ prints$", l)]
+    return {"exit": rc, "stdout_lines": lines, "stderr_lines": err.rstrip("\n").split("\n") if err else [],
+            "tokens": {k: v[0] for k, v in toks.items() if len(v) == 1},
+            "complete": sorted(toks) == sorted(CELL_KEYS) and all(len(v) == 1 for v in toks.values()) and len(rounds) == 1,
+            "round": rounds[0] if len(rounds) == 1 else None, "axiom_reports_read": ax[0] if len(ax) == 1 else None}
+
+
+class History(Objects):
+    def is_ancestor(self, a, b):
+        return self._git("merge-base", "--is-ancestor", a, b)[0] == 0
+
+    def parents(self, c):
+        rc, out = self._git("rev-list", "--parents", "-n1", c)
+        return out.decode().split()[1:] if rc == 0 else None
+
+
+def assemble_cells(t, exs, inputs, env=None, verdict_fn=None):
+    """The cells result of a target with a cells block: (Checks, result dict or None, printable dict)."""
+    env = os.environ if env is None else env
+    ex = exs["main"]
+    cl = t["cells"]
+    key = t["label"] + ".cells"
+    C = Checks(key)
+    show = {}
+    head, rid, jid, pid = t["commit"], t["run_id"], t["bridge_job"], cl["probe_job"]
+    objects, hist = inputs["objects"], inputs.get("history")
+    try:
+        run_raw, run = load_raw(os.path.join(inputs["host"], "run-%s.json" % rid))
+        check_run_record(run, "run-%s.json" % rid)
+        _, jobsd = load_raw(os.path.join(inputs["host"], "jobs-%s.json" % rid))
+        check_jobs_record(jobsd, "jobs-%s.json" % rid)
+        _, job = load_raw(os.path.join(inputs["host"], "job-%s.json" % jid))
+        check_job(job, "job-%s.json" % jid)
+        pjob_raw, pjob = load_raw(os.path.join(inputs["host"], "job-%s.json" % pid))
+        check_job(pjob, "job-%s.json" % pid)
+        recs = check_download_record(load_raw(inputs["download_record"])[1])
+        bpath = os.path.join(inputs["logs"], jid + ".log")
+        blog = Log(bpath, recs.get(jid), ex)
+        plog = Log(os.path.join(inputs["logs"], pid + ".log"), recs.get(pid), ex)
+        with open(bpath, "rb") as fh:
+            braw = fh.read()
+        if not objects.has_commit(head):
+            raise Unverified("commit %s absent from the objects" % head[:12])
+        got = objects.read(head, [LEAN_DIR + KTOKEN, CONTROLS_PATH])
+        msrc, cbytes = got[LEAN_DIR + KTOKEN], got[CONTROLS_PATH]
+        if msrc is None or cbytes is None:
+            raise Unverified("%s or %s absent at %s" % (KTOKEN, CONTROLS_PATH, head[:12]))
+        if git_blob_id(cbytes) != CONTROLS_BLOB:
+            raise Unverified("controls.py at %s is blob %s, not the frozen %s" % (head[:12], git_blob_id(cbytes), CONTROLS_BLOB[:12]))
+        csrc = cbytes.decode("utf-8")
+        if ("D = '%s'" % ROUND_D) not in csrc or ("A3_LOG = '%s'" % A3_LOG) not in csrc or ("EVAL_LOG = '%s'" % EVAL_LOG) not in csrc:
+            raise Unverified("controls.py does not carry this file's D, A3_LOG and EVAL_LOG")
+        if hist is None:
+            raise Unverified("no history repository")
+        for c in (ROUND_D, ROUND_F, head):
+            if not hist.has_commit(c):
+                raise Unverified("history lacks %s" % c[:12])
+        if not (hist.is_ancestor(ROUND_D, ROUND_F) and hist.is_ancestor(ROUND_F, head) and hist.parents(ROUND_F) == [ROUND_D]):
+            raise Unverified("history does not hold the walk D -> F -> %s with F's parent D" % head[:12])
+    except Unverified as e:
+        C.unverified.append(str(e))
+        return C, None, show
+    except Exception as e:  # noqa: BLE001 - any other failure while reading the inputs is an unverified target
+        C.unverified.append("malformed input: %s: %s" % (type(e).__name__, str(e)[:200]))
+        return C, None, show
+
+    # --- identity and the two jobs (API)
+    C("run: id, head, attempt 1, event workflow_dispatch, conclusion success",
+      str(run["id"]) == rid and run["head_sha"] == head and run["run_attempt"] == 1
+      and run["event"] == "workflow_dispatch" and run["conclusion"] == "success" and run["path"] == WORKFLOW)
+    byid = {str(j["id"]): j for j in jobsd["jobs"]}
+    lj, lp = byid.get(jid), byid.get(pid)
+    C("jobs: the probe job %s is in the run's job list, named %r" % (pid, JOB_PROBE), lp and lp["name"] == JOB_PROBE)
+    C("probe job record: id, name, success, at the head, of the run, attempt 1",
+      str(pjob["id"]) == pid and pjob["name"] == JOB_PROBE and pjob["conclusion"] == "success"
+      and pjob["head_sha"] == head and str(pjob["run_id"]) == rid and pjob["run_attempt"] == 1)
+
+    def steps(j):
+        return [(s["number"], s["name"], s["conclusion"]) for s in j["steps"]]
+    C("probe job record: its steps equal the job list's", lp is not None and steps(pjob) == steps(lp))
+    ps = {s["name"]: s["conclusion"] for s in pjob["steps"]}
+    for st in (STEP_PROBE, STEP_CONTROLS):
+        C("probe step %r success" % st, ps.get(st) == "success", str(ps.get(st)))
+    bs = {s["name"]: s["conclusion"] for s in job["steps"]}
+    C("bridge step %r success" % STEP_A3[:40], bs.get(STEP_A3) == "success", str(bs.get(STEP_A3)))
+    C("bridge job record: id %s, at the head, in the run's job list" % jid,
+      str(job["id"]) == jid and job["head_sha"] == head and lj is not None)
+
+    # --- the probe log: complete, of this job, at this head
+    C("probe log: complete (runner header on line 1, cleanup at the end)",
+      plog.s and plog.s[0].startswith("Current runner version: ") and "Cleaning up orphan processes" in plog.s[-8:])
+    C("probe log: job name line", ("Complete job name: " + JOB_PROBE) in plog.s)
+    k = [i for i, l in enumerate(plog.s) if l == "[command]/usr/bin/git log -1 --format=%H"]
+    C("probe log: checked-out head is the run's head", len(k) == 1 and k[0] + 1 < len(plog.s) and plog.s[k[0] + 1] == head)
+
+    # --- bridge: check A3's section after the gate, and the absence line in the Build section
+    hb, hg, ha = blog.find(HDR_BUILD), blog.find(HDR_GATE), blog.find(HDR_A3)
+    C("bridge log: one Build, one Release gate and one check A3 section", len(hb) == 1 and len(hg) == 1 and len(ha) == 1,
+      "%d/%d/%d found" % (len(hb), len(hg), len(ha)))
+    if not (len(hb) == 1 and len(hg) == 1 and len(ha) == 1):
+        return C, None, show
+    b0, b1 = blog.section(hb[0])
+    g0, g1 = blog.section(hg[0])
+    a0, a1 = blog.section(ha[0])
+    C("bridge log: Build, Release gate and check A3 in step order, each ending at the next", b1 == g0 and g1 == a0)
+    cases, final, bad, stray = parse_a3(blog.body(a0, a1))
+    C("A3: final line %r" % A3_LOG, final is not None and final[1] == A3_LOG)
+    C("A3: no failure line", not bad, str([(i + 1, l[:120]) for i, l in bad][:3]))
+    C("A3: no unrecognized line between cases", not stray, str([(i + 1, l[:120]) for i, l in stray][:3]))
+    C("A3: %d cases, each judged OK, and the final line counts them" % A3_CASES,
+      len(cases) == A3_CASES and final is not None and final[2] == len(cases)
+      and all(c["judged"] == "OK" for c in cases.values()), "%d cases" % len(cases))
+    C("A3: expected-pass cases exit 0, expected-fail cases exit non-zero",
+      cases and all((c["exit"] == 0) == (c["expected"] == "pass") for c in cases.values()))
+    nmut = sum(1 for c in cases.values() if c["expected"] == "fail")
+    C("A3: %d mutations fail" % A3_MUTATIONS, nmut == A3_MUTATIONS, str(nmut))
+    ab = [(i, l) for i, l in enumerate(blog.s[b0:b1], b0) if ABSENCE.match(l)]
+    mtext = msrc.decode("utf-8").split("\n")
+    src_line = int(ABSENCE.match(ab[0][1]).group(1)) if len(ab) == 1 else None
+    C("absence: one absence line in the Build section, at the source's #eval", len(ab) == 1 and 0 < src_line <= len(mtext)
+      and mtext[src_line - 1].startswith("#eval"), "%d found" % len(ab))
+    C("absence: the pair theorem is never reported present", not any(PRESENT in l for l in blog.s))
+
+    # --- what the verdict reads, in both forms
+    sdata = strip_form(braw)
+    raw_text, s_text = braw.decode("utf-8"), sdata.decode("utf-8")
+    vr_raw, vr_s = verdict_reads(raw_text), verdict_reads(s_text)
+    prints = controls_prints(csrc)
+    C("verdict lines: controls.py's PRINTS are %d names" % len(prints),
+      len(prints) == VERDICT_PRINTS_N and len(set(prints)) == VERDICT_PRINTS_N,
+      str(len(prints)))
+    missing = [p for p in prints if p not in vr_s["reports"]]
+    unclean = [p for p in prints if p in vr_s["reports"] and not set(vr_s["reports"][p]) <= set(PERMITTED)]
+    C("verdict lines: every print has a report in the stripped log, within the three axioms",
+      prints and not missing and not unclean, "missing %s; outside %s" % (missing[:4], unclean[:4]))
+    C("verdict lines: no sorryAx and no Lean.ofReduceBool anywhere in the bridge log",
+      vr_raw["sorryAx"] == 0 and vr_raw["Lean.ofReduceBool"] == 0,
+      "sorryAx %d, Lean.ofReduceBool %d" % (vr_raw["sorryAx"], vr_raw["Lean.ofReduceBool"]))
+    C("verdict lines: the A3 line and the absence line occur in the log", vr_s["a3_line"] and vr_s["absence_line"])
+    blocks = verdict_blocks(blog.s)
+    wrapped = sorted(re.search(r"'%s\.([\w']+)'" % re.escape(VERDICT_NS), b[0]).group(1) for _, b in blocks if len(b) > 1)
+    raw_unclean = sorted(n for n, a in vr_raw["reports"].items() if not set(a) <= set(PERMITTED))
+
+    # --- the probe job
+    hp, hc = plog.find(HDR_PROBE), plog.find(HDR_CONTROLS)
+    pp = parse_probe(plog.body(*plog.section(hp[0]))) if len(hp) == 1 else parse_probe([])
+    C("probe: one probe section", len(hp) == 1, str(len(hp)))
+    C("probe: final verdict line 'VERDICT %s'" % PROBE_VERDICT, pp["verdicts"] == [PROBE_VERDICT], str(pp["verdicts"]))
+    C("probe: the 14 codes PASS, once each", sorted(pp["codes"]) == sorted(PROBE_CODES)
+      and all(v > 0 for v in pp["codes"].values()), str(sorted(set(pp["codes"]) ^ set(PROBE_CODES))))
+    C("probe: 'checks: %d, failures: 0'" % PROBE_N, pp["checks"] == (PROBE_N, 0), str(pp["checks"]))
+    C("probe: five mutations rejected with the frozen codes, none accepted",
+      pp["mutations"] == (5, 0) and sorted(pp["rejected"].values()) == sorted(PROBE_REJECTION_CODES),
+      "%s %s" % (pp["mutations"], sorted(pp["rejected"].values())))
+    C("probe: no other output", not pp["other"], str([(i + 1, l[:120]) for i, l in pp["other"]][:3]))
+    cc = parse_controls(plog.body(*plog.section(hc[0]))) if len(hc) == 1 else parse_controls([])
+    C("controls self-test: one section", len(hc) == 1, str(len(hc)))
+    C("controls self-test: final line 'controls: OK (0 failure(s))'",
+      len(cc["final"]) == 1 and cc["final"][0][1] == "controls: OK (0 failure(s))", str(cc["final"])[:200])
+    C("controls self-test: PASS lines present, none repeated, no other output",
+      cc["passes"] and len(set(cc["passes"])) == len(cc["passes"]) and not cc["other"],
+      "%d PASS; other %s" % (len(cc["passes"]), [(i + 1, l[:100]) for i, l in cc["other"]][:3]))
+
+    # --- the frozen verdict over the whole bridge log, as downloaded and stripped
+    runs = {}
+    with tempfile.TemporaryDirectory(prefix="stripped-") as d:
+        spath = os.path.join(d, jid + ".stripped.log")
+        with open(spath, "wb") as fh:
+            fh.write(sdata)
+        for form, path, data in (("raw", bpath, braw), ("stripped", spath, sdata)):
+            try:
+                rc, out, err = (verdict_fn or run_verdict)(hist.path, cbytes, head, ROUND_F, path)
+                v = parse_verdict(rc, out, err)
+            except subprocess.TimeoutExpired:
+                v = {"exit": None, "stdout_lines": [], "stderr_lines": ["timeout"], "tokens": {}, "complete": False,
+                     "round": None, "axiom_reports_read": None}
+            v.update(log_sha256=sha256(data), log_bytes=len(data))
+            runs[form] = v
+            C("verdict (%s log): ran to its four TOKEN lines and its round line" % form, v["complete"] and v["exit"] in (0, 1),
+              "exit %s; %s" % (v["exit"], "; ".join(v["stderr_lines"])[:200]))
+    show["verdict"] = runs
+
+    if C.failed or C.unverified:
+        return C, None, show
+
+    case_out = {n: {"codes": c["codes"], "errors": c["errors"], "exit": c["exit"], "expected": c["expected"],
+                    "judged": c["judged"]} for n, c in cases.items()}
+    a3_lines = sorted([x for c in cases.values() for x in c["_lines"]] + [final[:2]])
+    xrun = env.get("GITHUB_RUN_ID")
+    where = ("extraction run %s attempt %s of the read-only workflow ktoken-f-evidence.yml" % (xrun, env.get("GITHUB_RUN_ATTEMPT"))
+             if xrun else "a local run of the extractor (no GITHUB_RUN_ID)")
+    pb = plog.body(*plog.section(hp[0]))
+    cb = plog.body(*plog.section(hc[0]))
+    result = {
+        "schema": "oi-evidence-cells",
+        "version": 1,
+        "kind": "cells",
+        "form": "derived",
+        "round": ROUND,
+        "commit": head,
+        "scope": "what %s's exact-head check run logged for the round's cells: check A3's lines and the absence line in "
+                 "its Mathlib bridge job, every line the frozen verdict reads there, its probe job's output; and the "
+                 "frozen verdict's output over the whole bridge log, as downloaded and with its timestamps stripped. "
+                 "Nothing about any later tree" % t["label"],
+        "run": {"id": rid, "head_sha": run["head_sha"], "event": run["event"], "attempt": run["run_attempt"],
+                "conclusion": run["conclusion"], "workflow": os.path.basename(run["path"]), "head_branch": run["head_branch"]},
+        "bridge_job": {"id": jid, "name": job["name"], "conclusion": job["conclusion"],
+                       "steps": [{"conclusion": s["conclusion"], "name": s["name"]} for s in job["steps"]]},
+        "probe_job": {"id": pid, "name": pjob["name"], "conclusion": pjob["conclusion"],
+                      "steps": [{"conclusion": s["conclusion"], "name": s["name"]} for s in pjob["steps"]]},
+        "expected": {
+            "a3": {"cases": case_out, "final": final[1], "mutations_failing": nmut,
+                   "lines": [l for _, l in a3_lines]},
+            "absence": {"module": KTOKEN, "source_line": src_line, "text": ab[0][1]},
+            "verdict_reads": {
+                "form": "stripped",
+                "reports": vr_s["reports"],
+                "prints": len(prints),
+                "sorryAx": vr_s["sorryAx"], "Lean.ofReduceBool": vr_s["Lean.ofReduceBool"],
+                "a3_line": vr_s["a3_line"], "absence_line": vr_s["absence_line"],
+                "report_lines": [b for _, b in blocks],
+                "wrapped": wrapped,
+            },
+            "probe": {"codes": pp["codes"], "checks": pp["checks"][0], "failures": pp["checks"][1],
+                      "rejected": pp["rejected"], "mutations_rejected": pp["mutations"][0],
+                      "mutations_accepted": pp["mutations"][1], "verdict": pp["verdicts"][0],
+                      "lines": [l for _, l in pp["lines"]]},
+            "controls_selftest": {"final": cc["final"][0][1], "pass_lines": cc["passes"]},
+            "permitted_axioms": PERMITTED,
+        },
+        "verdict": {
+            "note": "the output of the round's frozen controls.py (blob %s) run in CI as `controls.py verdict %s "
+                    "--freeze %s --axioms <log>` once per form, with a history repository holding D %s, F and E; "
+                    "printed as it ran, not compared by reproduction" % (CONTROLS_BLOB[:8], head, ROUND_F, ROUND_D[:8]),
+            "controls_blob": CONTROLS_BLOB,
+            "raw": {k: runs["raw"][k] for k in ("exit", "stdout_lines", "stderr_lines", "tokens", "round",
+                                                "axiom_reports_read", "log_sha256", "log_bytes")},
+            "stripped": {k: runs["stripped"][k] for k in ("exit", "stdout_lines", "stderr_lines", "tokens", "round",
+                                                          "axiom_reports_read", "log_sha256", "log_bytes")},
+        },
+        "observed": {
+            "note": "1-based lines of the job logs named in source, after the byte-order mark; provenance of these logs, "
+                    "not compared",
+            "a3_lines": [n for n, _ in a3_lines],
+            "a3_section": [a0 + 1, a1],
+            "absence_line": ab[0][0] + 1,
+            "report_lines": [n for n, _ in blocks],
+            "raw_form_reports_outside_permitted": raw_unclean,
+            "probe_lines": [n for n, _ in pp["lines"]],
+            "controls_selftest_lines": [n for n, _ in cc["lines"]],
+            "probe_section": [hp[0] + 1, plog.section(hp[0])[1]],
+            "controls_section": [hc[0] + 1, plog.section(hc[0])[1]],
+        },
+        "source": {
+            "bridge_log": {"job_id": jid, "bytes": blog.bytes, "lines": blog.lines_n, "source_sha256": blog.sha256,
+                           "stripped_sha256": sha256(sdata), "stripped_bytes": len(sdata)},
+            "probe_log": {"job_id": pid, "bytes": plog.bytes, "lines": plog.lines_n, "source_sha256": plog.sha256},
+            "probe_job_api_sha256": sha256(pjob_raw),
+            "stripped_form": "UTF-8, byte-order mark dropped, extract_result.py's TS pattern removed from the start of "
+                             "each line, line breaks unchanged",
+            "extractor": EXTRACT_RESULT_PATH, "extractor_blob": EXTRACTOR[1], "extractor_commit": EXTRACTOR[0],
+            "kind": "GitHub Actions job logs, whole: downloaded from the jobs/<id>/logs endpoint by %s, with "
+                    "extractor/download_job_logs.py blob %s and extractor/assemble_evidence.py blob %s"
+                    % (where, own_blob("download_job_logs.py"), own_blob("assemble_evidence.py")),
+            "note": "the digests identify the texts this result was read from: provenance of the extraction, not "
+                    "independent proof of the result, which reproduction at the commit supplies; the texts are not retained",
+        },
+        "reproduce": {
+            "compared": "check A3's cases and final line, the absence line, the verdict's reads of the stripped log, the "
+                        "probe's codes, counts, rejections and verdict line, and the controls self-test's lines",
+            "not_compared": "timestamps, durations, temporary paths, cache behaviour, output order, log lines, the "
+                            "verdict section",
+            "recipe": [
+                "run from the root of a full-history clone holding %s, %s and %s; <dir> is a new directory and <log> a "
+                "file outside it" % (ROUND_D, ROUND_F, head),
+                "git worktree add --detach <dir> %s" % head,
+                "(cd <dir>/verification/lean-mathlib && lean --version && lake exe cache get && lake --rehash build) > <log> 2>&1",
+                "(cd <dir>/verification/lean-mathlib && lake env python3 -I -B ../programmes/oi-qm/reconstruction/"
+                "round-ktoken-maxcone-1/checks/run_checks.py run) >> <log> 2>&1: every case and the final line as "
+                "expected.a3, and the absence line as expected.absence",
+                "(cd <dir> && python3 -I -B verification/lean/ktoken_maxcone1_probe.py --self-test): as expected.probe",
+                "(cd <dir> && python3 -I -B %scontrols.py --self-test): as expected.controls_selftest" % RECORD_DIR,
+                "python3 -I -B <dir>/%scontrols.py verdict %s --freeze %s --axioms <log>" % (RECORD_DIR, head, ROUND_F),
+            ],
+        },
+    }
+    return C, result, show
+
+
 def canonical(obj):
     return json.dumps(obj, indent=1, sort_keys=True) + "\n"
 
@@ -699,9 +1235,10 @@ def redact(s):
 
 def inventory_problem(targets, inputs):
     """None when the inputs hold exactly the listed runs' records and logs, each once; else why not."""
+    jobs = [j for t in targets for j in [t["bridge_job"]] + ([t["cells"]["probe_job"]] if t.get("cells") else [])]
     want_host = sorted(["run-%s.json" % t["run_id"] for t in targets] + ["jobs-%s.json" % t["run_id"] for t in targets]
-                       + ["job-%s.json" % t["bridge_job"] for t in targets])
-    want_logs = sorted("%s.log" % t["bridge_job"] for t in targets)
+                       + ["job-%s.json" % j for j in jobs])
+    want_logs = sorted("%s.log" % j for j in jobs)
     probs = []
     try:
         host = sorted(os.listdir(inputs["host"]))
@@ -723,7 +1260,7 @@ def inventory_problem(targets, inputs):
     if ids is None:
         probs.append("download record unreadable")
     else:
-        want = [t["bridge_job"] for t in targets]
+        want = jobs
         dup = sorted({i for i in ids if ids.count(i) > 1})
         if dup or sorted(ids) != sorted(want):
             probs.append("download record jobs %s, listed %s" % (sorted(ids), sorted(want)))
@@ -811,19 +1348,53 @@ def assemble(exs, inputs, tdoc, out=None, env=None):
             for x in tab:
                 P("AXIOMS %s %s prints=%d reports=%d unclosed=%d sets=%s" % (
                     key, x["module"], x["prints"], x["reports"], x["unclosed"], json.dumps(x["sets"], sort_keys=True)))
+    cverdicts = {}
     for t in targets:
-        key = t["label"]
-        if key in texts and verdicts[key] == "HOLDS":
-            res, text = texts[key]
-            c = compact(res)
-            parts = chunks(c)
-            P(BEGIN % (key, t["path"], len(parts)))
-            for i, p in enumerate(parts, 1):
-                P("RJ %s %04d %s" % (key, i, p))
-            P(END % (key, t["path"]))
-            P("SHA256 %s %s canonical=%s bytes=%d compact=%s" % (key, t["path"], sha256(text.encode("ascii")), len(text),
-                                                                  sha256(c.encode("ascii"))))
+        if not t.get("cells"):
+            continue
+        key = t["label"] + ".cells"
+        show = {}
+        try:
+            C, res, show = assemble_cells(t, exs, inputs, env)
+            if res is not None:
+                text = canonical(res)
+                hits = scan(text)
+                C("output: credential, signed-URL, IP and e-mail scan of the result", not hits, str(hits[:3]))
+                if not hits:
+                    texts[key] = (res, text)
+        except Exception as e:  # noqa: BLE001 - a cells result whose assembly stopped is unverified, never held
+            C = Checks(key)
+            C.unverified.append("assembly stopped: %s: %s" % (type(e).__name__, str(e)[:200]))
+            texts.pop(key, None)
+        for name, ok, detail in C.items:
+            P("CHECK %s %s %s%s" % (key, "ok  " if ok else "FAIL", name, (" -- " + redact(detail)) if detail and not ok else ""))
+        for u in C.unverified:
+            P("CHECK %s UNVERIFIED %s" % (key, redact(u)))
+        cverdicts[key] = C.verdict()
+        P("RESULT %s %s %s (%d checks, %d failed)" % (key, t["cells"]["path"], cverdicts[key], len(C.items), len(C.failed)))
+        for form, v in (show.get("verdict") or {}).items():
+            P("VERDICT %s %s log_sha256=%s bytes=%d exit=%s" % (t["label"], form, v["log_sha256"], v["log_bytes"], v["exit"]))
+            for l in v["stdout_lines"]:
+                P("VERDICT %s %s | %s" % (t["label"], form, redact(l)))
+            for l in v["stderr_lines"]:
+                P("VERDICT %s %s stderr | %s" % (t["label"], form, redact(l)))
+    for t in targets:
+        for key, path in [(t["label"], t["path"])] + ([(t["label"] + ".cells", t["cells"]["path"])] if t.get("cells") else []):
+            if key in texts and (verdicts.get(key) or cverdicts.get(key)) == "HOLDS":
+                res, text = texts[key]
+                c = compact(res)
+                parts = chunks(c)
+                P(BEGIN % (key, path, len(parts)))
+                for i, p in enumerate(parts, 1):
+                    P("RJ %s %04d %s" % (key, i, p))
+                P(END % (key, path))
+                P("SHA256 %s %s canonical=%s bytes=%d compact=%s" % (key, path, sha256(text.encode("ascii")), len(text),
+                                                                      sha256(c.encode("ascii"))))
     v = overall(verdicts, runs, expected)
+    if v != "FAILS" and any(x == "FAILS" for x in cverdicts.values()):
+        v = "FAILS"
+    elif v == "HOLDS" and any(x != "HOLDS" for x in cverdicts.values()):
+        v = "UNVERIFIED"
     problem = run_set_problem(verdicts, runs, expected) or inventory_problem(targets, inputs)
     if problem is not None:
         P("CHECK all UNVERIFIED the run set: %s" % redact(problem))
@@ -900,6 +1471,8 @@ def _sources(kind, mut):
                         "#print axioms k3\nend OIBridge.KTokenMaxCone\n"
     files.update(mut.get("source_edit", {}))
     out = {LEAN_DIR + f: s for f, s in files.items() if s is not None}
+    if kind == "E" and mut.get("_d"):
+        out[CONTROLS_PATH] = mut.get("controls_edit", lambda x: x)(FAKE_CONTROLS.replace("@D@", mut["_d"]))
     out[GATE_SOURCE] = mut.get("gate_source", "checks = [] # fixture gate\n")
     return out
 
@@ -932,11 +1505,14 @@ def _bridge_lines(head, srcs, kind, variant=0, mut=None):
             if (mod, m.group(1)) in mut.get("drop", []):
                 continue
             ax = mut.get("axioms", {}).get(m.group(1), "propext, Classical.choice, Quot.sound")
-            if m.group(1) == "a2" and ax == "propext, Classical.choice, Quot.sound":
+            if m.group(1) in ("a2", "k2") and ax == "propext, Classical.choice, Quot.sound":
                 # a list wrapped over three lines, as Lean prints a long one
                 L += [_report(mod, i + 1, nm, "propext,")[:-1], " Classical.choice,", " Quot.sound]"]
             else:
                 L.append(_report(mod, i + 1, nm, ax))
+    if kind == "E" and not mut.get("drop_absence"):
+        evl = next(i + 1 for i, l in enumerate(srcs[LEAN_DIR + KTOKEN].split("\n")) if l.startswith("#eval"))
+        L.append("info: %s:%d:0: %s" % (KTOKEN, evl, EVAL_LOG))
     L += mut.get("build_extra", [])
     if not mut.get("drop_build"):
         L.append("Build completed successfully (%d jobs)." % (3653 + variant))
@@ -952,11 +1528,8 @@ def _bridge_lines(head, srcs, kind, variant=0, mut=None):
             L.append("  %s  %-16s %s" % (st, x, summ))
         L += ["=" * 20, "release gate: %s  (note: --label bNNN not given)" % mut.get("gate_verdict", "PASS")]
     if kind == "E" or mut.get("a3"):
-        # check A3's step at E: its mutations print errors and direct reports, outside the sections read here
-        L += ["##[group]Run lake env python3 -I -B ../programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/checks/"
-              "run_checks.py run", "\x1b[36;1mlake env python3 ...\x1b[0m", "##[endgroup]", "##[group]M_iff (exit 1)",
-              "/tmp/x/M_iff.lean:3:0: error: DEPCHECK FAIL", "'OIBridge.KTokenPairCheck.x' depends on axioms: [propext]",
-              "##[endgroup]", "OK   M_iff expected fail", "A3-CHECK-NONVACUOUS: 13 cases as expected"]
+        # check A3's step at E: its mutations print errors and direct reports, outside the Build and gate sections
+        L += _a3_lines(variant, mut)
     L += mut.get("after_gate", [])
     L += ["Post job cleanup.", "Cache hit occurred on the primary key oibridge-Linux-abc%d, not saving cache." % variant,
           "Post job cleanup.", "[command]/usr/bin/git version", "Cleaning up orphan processes",
@@ -964,6 +1537,91 @@ def _bridge_lines(head, srcs, kind, variant=0, mut=None):
     if mut.get("truncate"):
         L = L[mut["truncate"]:]
     return L
+
+
+A3_FIXTURE = [("Positive", "pass"), ("M_real", "pass"), ("M_direct", "fail"), ("M_iff", "fail"),
+              ("M_inline", "fail"), ("M_deadref", "fail"), ("M_sibling", "fail"), ("M_required", "fail"),
+              ("M_vac_target", "fail"), ("M_vac_sibling", "fail"), ("M_vac_module", "fail"),
+              ("M_stmt_binder", "fail"), ("M_stmt_hyp", "fail")]
+
+
+def _a3_lines(variant, mut):
+    L = [HDR_A3, "\x1b[36;1mlake env python3 -I -B ...\x1b[0m", "shell: /usr/bin/bash -e {0}", "##[endgroup]"]
+    tmp = "/tmp/tmp%06d/" % (variant * 7 + 3)
+    for name, exp in A3_FIXTURE:
+        code = 0 if exp == "pass" else 1
+        if mut.get("a3_exit0") == name:
+            code = 0
+        L.append("##[group]%s (exit %d)" % (name, code))
+        if exp == "pass":
+            L += ["STMT-IDENTITY ok", "DEPCHECK closure of X: 35179 constants", "DEPCHECK watched A (B)", "DEPCHECK PASS X"]
+        else:
+            L += ["DEPCHECK closure of X: 34756 constants", "%s%s.lean:30:0: error: DEPCHECK FAIL" % (tmp, name),
+                  "  (∀ x ∈ K, x = x) →", "'OIBridge.KTokenPairCheck.x' depends on axioms: [propext]"]
+        L.append("##[endgroup]")
+        L.append("%s %s expected %s" % ("BAD " if mut.get("a3_bad") == name else "OK  ", name, exp))
+    if not mut.get("drop_a3_final"):
+        L.append(A3_LOG)
+    return L
+
+
+def _probe_lines(head, variant=0, mut=None):
+    mut = mut or {}
+    L = ["Current runner version: '2.337.0'", "Region: r%d" % variant, "Complete job name: " + JOB_PROBE,
+         "##[group]Run actions/checkout@v4", "##[endgroup]", "[command]/usr/bin/git log -1 --format=%H", head,
+         HDR_PROBE, "\x1b[36;1mpython3 -I -B verification/lean/ktoken_maxcone1_probe.py --self-test\x1b[0m",
+         "shell: /usr/bin/bash -e {0}", "##[endgroup]"]
+    counts = [2082, 4, 40, 2, 2, 914, 1, 1, 1, 2, 1, 3, 1, 142]
+    L += ["PASS %s (%d)" % (c, k) for c, k in zip(PROBE_CODES, counts)]
+    L += mut.get("probe_extra", [])
+    L.append("checks: %d, failures: 0" % mut.get("probe_n", PROBE_N))
+    L += ["REJECTED trace-factor: DICT3", "REJECTED adjoint: ADJOINT3", "REJECTED shift-sign: SHIFT3",
+          "REJECTED group-below-168: ORBIT3", "REJECTED cut-direction: CUT3", "mutations: 5 rejected, 0 accepted"]
+    if not mut.get("drop_probe_verdict"):
+        L.append("VERDICT KTOKEN-K3-EXACT")
+    L += [HDR_CONTROLS, "\x1b[36;1mpython3 -I -B .../controls.py --self-test\x1b[0m", "shell: /usr/bin/bash -e {0}",
+          "##[endgroup]", "PASS self: D agrees with the preregistration",
+          "PASS self: S1 rejects the mutation: i < j replaced by i ≠ j",
+          "PASS self: a sorryAx report on the recovery fails Q-PAIR alone",
+          "PASS self: 38 self-checks ran, as frozen (38)"]
+    if not mut.get("drop_controls_final"):
+        L.append("controls: OK (0 failure(s))")
+    L += ["Post job cleanup.", "Cleaning up orphan processes", "##[warning]Node.js 20 is deprecated."]
+    return L
+
+
+# A stand-in for the round's controls.py in the self-test: it reads the log as controls.py's axioms_from does (so a
+# wrapped report keeps its timestamps in the raw form), checks that its working directory holds E, and prints the
+# shape of the frozen verdict's output.
+FAKE_CONTROLS = r"""import re, subprocess, sys
+D = '@D@'
+A3_LOG = 'A3-CHECK-NONVACUOUS: 13 cases as expected'
+EVAL_LOG = 'OIBridge.EqvK2MaxCone.pairCone_eq_Q3_of_drive_maxCone is not in the environment'
+PRINTS = '''k0 k1
+k2 k3'''.split()
+
+
+def main(a):
+    e, log = a[1], open(a[a.index('--axioms') + 1], encoding='utf-8', errors='replace').read()
+    subprocess.run(['git', 'rev-parse', '--verify', e + '^{commit}'], check=True, capture_output=True)
+    rep = {m.group(1): {x.strip() for x in m.group(2).split(',') if x.strip()}
+           for m in re.finditer(r"'OIBridge\.KTokenMaxCone\.([\w']+)' depends on axioms: \[([^\]]*)\]", log)}
+    ok = all(p in rep and rep[p] <= {'propext', 'Classical.choice', 'Quot.sound'} for p in PRINTS) and 'sorryAx' not in log
+    pair = ok and A3_LOG in log and EVAL_LOG in log
+    print('PASS C1 fixture static control')
+    print('VERDICT KTOKEN-K3-EXACT')
+    print('axiom reports read: %d of %d prints' % (len([p for p in PRINTS if p in rep]), len(PRINTS)))
+    print('TOKEN Q-INCL  ' + ('KTOKEN-MAXCONE-INCLUSIONS-PROVED' if ok else 'KTOKEN-MAXCONE-INCLUSIONS-NOT-ESTABLISHED'))
+    print('TOKEN Q-EQ    ' + ('KTOKEN-MAXCONE-EQ-PROVED' if ok else 'KTOKEN-MAXCONE-EQ-NOT-ESTABLISHED'))
+    print('TOKEN Q-PAIR  ' + ('KTOKEN-MAXCONE-PAIR-RECOVERED' if pair else 'KTOKEN-MAXCONE-PAIR-NOT-ESTABLISHED'))
+    print('TOKEN Q-EXACT KTOKEN-MAXCONE-K3-EXACT')
+    print('KTOKEN-MAXCONE-1-READ')
+    print('controls: OK (0 failure(s))')
+    return 0
+
+
+sys.exit(main(sys.argv[1:]))
+"""
 
 
 def _write_log(path, lines, variant):
@@ -976,7 +1634,8 @@ def _write_log(path, lines, variant):
 
 
 def _git_commit(repo, files):
-    env = dict(os.environ, GIT_CONFIG_NOSYSTEM="1", GIT_CONFIG_GLOBAL=os.devnull)
+    env = dict(os.environ, GIT_CONFIG_NOSYSTEM="1", GIT_CONFIG_GLOBAL=os.devnull,
+               GIT_AUTHOR_DATE="2026-10-20T00:00:00Z", GIT_COMMITTER_DATE="2026-10-20T00:00:00Z")
     if not os.path.isdir(repo):
         os.makedirs(repo)
         subprocess.run(["git", "-C", repo, "init", "-q"], check=True, capture_output=True, env=env, timeout=60)
@@ -994,6 +1653,7 @@ def _git_commit(repo, files):
 
 
 FIXTURE_KINDS = {"F": ("1000000901", "2000009101"), "E": ("1000000902", "2000009102")}
+FIXTURE_PROBE_JOB = "2000009202"
 
 
 def _fixture(base, kinds=("F",), variant=0, mut=None):
@@ -1005,24 +1665,45 @@ def _fixture(base, kinds=("F",), variant=0, mut=None):
     os.makedirs(host)
     os.makedirs(logs)
     targets, recs = [], []
+    d = _git_commit(repo, {"README": "D\n"})
+    fx = {"d": d, "f": None, "controls_blob": None}
     for kind in kinds:
-        mk = mut.get(kind, {})
+        mk = dict(mut.get(kind, {}))
+        if kind == "E":
+            if fx["f"] is None:
+                fx["f"] = _git_commit(repo, {"README": "F\n"})
+            mk["_d"] = d
         srcs = _sources(kind, mk)
         head = _git_commit(repo, srcs)
+        if kind == "F":
+            fx["f"] = head
+        if CONTROLS_PATH in srcs:
+            fx["controls_blob"] = git_blob_id(srcs[CONTROLS_PATH].encode())
+        cells = kind == "E" and not mk.get("no_cells")
         rid, jid = FIXTURE_KINDS[kind]
         t = {"label": kind, "kind": "bridge", "run_id": rid, "commit": head, "bridge_job": jid,
              "path": "evidence/%s-run/results.json" % kind.lower()}
         if kind == "F":
             t["session_observation"] = {"original_lines": 0, "tail_lines": 5, "tail_sha256": "0" * 64}
+        if cells:
+            t["cells"] = {"probe_job": FIXTURE_PROBE_JOB, "path": "evidence/e-run/cells.json"}
         targets.append(t)
         run = {"id": int(rid), "head_sha": head, "run_attempt": 1, "event": "workflow_dispatch", "head_branch": "draft/x",
                "conclusion": mk.get("run_conclusion", "success"), "path": WORKFLOW, "created_at": _ts(variant)}
-        bsteps = [{"number": i + 1, "name": s, "conclusion": "success"}
-                  for i, s in enumerate(["Set up job", "Run actions/checkout@v4", STEP_BUILD, STEP_GATE, "Complete job"])]
+        bnames = ["Set up job", "Run actions/checkout@v4", STEP_BUILD, STEP_GATE] + ([STEP_A3] if kind == "E" else []) \
+            + ["Complete job"]
+        bsteps = [{"number": i + 1, "name": s, "conclusion": "success"} for i, s in enumerate(bnames)]
         job = {"id": int(jid), "name": JOB_BRIDGE, "conclusion": "success", "head_sha": head, "run_id": int(rid),
                "run_attempt": 1, "steps": bsteps}
         jobs = [json.loads(json.dumps(job)), {"id": int(jid) + 50, "name": "Numerical probes", "conclusion": mk.get("other_job", "success"),
                             "head_sha": head, "run_id": int(rid), "run_attempt": 1, "steps": []}]
+        pjob = None
+        if cells:
+            pjob = {"id": int(FIXTURE_PROBE_JOB), "name": JOB_PROBE, "conclusion": mk.get("probe_conclusion", "success"),
+                    "head_sha": head, "run_id": int(rid), "run_attempt": 1,
+                    "steps": [{"number": i + 1, "name": s, "conclusion": "success"}
+                              for i, s in enumerate(["Set up job", STEP_PROBE, STEP_CONTROLS, "Complete job"])]}
+            jobs.append(json.loads(json.dumps(pjob)))
         for edit in mk.get("run_edits", []):
             edit(run)
         for edit in mk.get("job_edits", []):
@@ -1031,7 +1712,8 @@ def _fixture(base, kinds=("F",), variant=0, mut=None):
         for edit in mk.get("jobs_edits", []):
             edit(jobsd)
         for name, obj, rawkey in (("run-%s.json" % rid, run, "run_raw"), ("job-%s.json" % jid, job, "job_raw"),
-                                  ("jobs-%s.json" % rid, jobsd, "jobs_raw")):
+                                  ("jobs-%s.json" % rid, jobsd, "jobs_raw")) + (
+                                      (("job-%s.json" % FIXTURE_PROBE_JOB, pjob, "pjob_raw"),) if cells else ()):
             if name.startswith("jobs") and mk.get("drop_jobs_json"):
                 continue
             b = json.dumps(obj).encode()
@@ -1040,6 +1722,9 @@ def _fixture(base, kinds=("F",), variant=0, mut=None):
         lines = _bridge_lines(head, srcs, kind, variant, mk.get("bridge"))
         rec = _write_log(os.path.join(logs, jid + ".log"), lines, variant)
         recs.append(rec)
+        if cells and not mk.get("drop_probe_log"):
+            recs.append(_write_log(os.path.join(logs, FIXTURE_PROBE_JOB + ".log"), _probe_lines(head, variant, mk.get("probe")),
+                                   variant))
         if kind == "F":
             with open(os.path.join(logs, jid + ".log"), "rb") as f:
                 text = f.read().decode("utf-8")
@@ -1062,14 +1747,17 @@ def _fixture(base, kinds=("F",), variant=0, mut=None):
     for edit in mut.get("targets_edits", []):
         edit(doc)
     tdoc = T.parse(json.dumps(doc).encode())
-    gate_blob = git_blob_id(_sources("F", {}).get(GATE_SOURCE).encode())
-    return {"objects": Objects(repo), "host": host, "logs": logs, "download_record": rec_path}, tdoc, gate_blob
+    fx["gate_blob"] = git_blob_id(_sources("F", {}).get(GATE_SOURCE).encode())
+    hist = None if mut.get("no_history") else History(mut.get("history_path", repo))
+    return {"objects": Objects(repo), "host": host, "logs": logs, "download_record": rec_path, "history": hist}, tdoc, fx
 
 
 def self_test(objects_path, work=None):
     base = tempfile.mkdtemp(prefix="assemble-selftest-", dir=work)
     fails, n = 0, 0
     saved = dict(GATE_STEPS_BY_BLOB)
+    g = globals()
+    saved_round = {k: g[k] for k in ("ROUND_D", "ROUND_F", "CONTROLS_BLOB", "VERDICT_PRINTS_N")}
     try:
         objs = Objects(objects_path)
         exs = {"main": load_extractor(objs, EXTRACTOR, ("extract", "check", "strip", "MARKERS")),
@@ -1080,12 +1768,14 @@ def self_test(objects_path, work=None):
             n += 1
             d = os.path.join(base, "c%03d" % n)
             try:
-                inputs, tdoc, gblob = _fixture(d, kinds, variant, mut)
+                inputs, tdoc, fx = _fixture(d, kinds, variant, mut)
             except T.TargetsError as e:
                 text = "CHECK all UNVERIFIED targets refused: %s\nEXTRACT UNVERIFIED\n" % e
                 code = 2
             else:
-                GATE_STEPS_BY_BLOB[gblob] = GATE_STEPS
+                GATE_STEPS_BY_BLOB[fx["gate_blob"]] = GATE_STEPS
+                g.update(ROUND_D=fx["d"], ROUND_F=fx["f"] or saved_round["ROUND_F"], VERDICT_PRINTS_N=4,
+                         CONTROLS_BLOB=mut.get("controls_blob_pin", fx["controls_blob"] or saved_round["CONTROLS_BLOB"]))
                 if tdoc_edit:
                     tdoc = tdoc_edit(tdoc)
                 buf = io.StringIO()
@@ -1094,8 +1784,8 @@ def self_test(objects_path, work=None):
             verdict = text.strip().split("\n")[-1]
             ok = verdict == "EXTRACT " + want and (needle is None or needle in text)
             # a target that does not hold never has its result printed
-            for lab in ("F", "E", "G"):
-                if not re.search(r"(?m)^RESULT %s \S+ HOLDS " % lab, text):
+            for lab in ("F", "E", "G", "E.cells"):
+                if not re.search(r"(?m)^RESULT %s \S+ HOLDS " % re.escape(lab), text):
                     ok = ok and ("===== BEGIN EXPECTED RESULT %s " % lab) not in text
             ok = ok and code == {"HOLDS": 0, "FAILS": 1, "UNVERIFIED": 2}[want]
             print("  %s  %s -> %s" % ("ok  " if ok else "FAIL", name, verdict))
@@ -1107,7 +1797,7 @@ def self_test(objects_path, work=None):
 
         def blocks(t):
             res = {}
-            for lab in ("F", "E"):
+            for lab in ("F", "E", "E.cells"):
                 try:
                     res[lab] = reassemble(t, lab)
                 except Unverified:
@@ -1150,6 +1840,90 @@ def self_test(objects_path, work=None):
         tfe = run_case("F and E listed together both hold", {}, "HOLDS", kinds=("F", "E"))
         extra("both results print, each once", tfe.count("===== BEGIN EXPECTED RESULT F ") == 1
               and tfe.count("===== BEGIN EXPECTED RESULT E ") == 1)
+
+        # --- E's cells: check A3, the absence line, the verdict's lines, the probe job and the frozen verdict
+        EK = ("E",)
+        tc = run_case("E's cells hold: A3, the absence line, a wrapped report with timestamps, the probe, both verdicts",
+                      {}, "HOLDS", kinds=EK)
+        bc = blocks(tc)
+        rc = json.loads(bc["E.cells"][0]) if "E.cells" in bc else {}
+        extra("cells.json reassembles to canonical ASCII JSON and names evidence/e-run/cells.json",
+              "E.cells" in bc and bc["E.cells"][1] == "evidence/e-run/cells.json" and bc["E.cells"][0].isascii()
+              and rc.get("schema") == "oi-evidence-cells" and rc.get("form") == "derived")
+        extra("the wrapped report: the raw form carries timestamps into its axiom list, the stripped form reads it clean",
+              rc and rc["expected"]["verdict_reads"]["wrapped"] == ["k2"]
+              and rc["observed"]["raw_form_reports_outside_permitted"] == ["k2"]
+              and rc["expected"]["verdict_reads"]["reports"]["k2"] == sorted(PERMITTED)
+              and rc["expected"]["verdict_reads"]["report_lines"][2] == [
+                  "info: OIBridge/KTokenMaxCone.lean:7:0: 'OIBridge.KTokenMaxCone.k2' depends on axioms: [propext,",
+                  " Classical.choice,", " Quot.sound]"])
+        extra("both verdict runs are recorded with their log digests: raw NOT-ESTABLISHED, stripped PROVED (the stand-in)",
+              rc and rc["verdict"]["raw"]["tokens"]["Q-INCL"].endswith("NOT-ESTABLISHED")
+              and rc["verdict"]["stripped"]["tokens"]["Q-INCL"] == "KTOKEN-MAXCONE-INCLUSIONS-PROVED"
+              and rc["verdict"]["raw"]["log_sha256"] == rc["source"]["bridge_log"]["source_sha256"]
+              and rc["verdict"]["stripped"]["log_sha256"] == rc["source"]["bridge_log"]["stripped_sha256"]
+              and "VERDICT E raw | TOKEN Q-PAIR  KTOKEN-MAXCONE-PAIR-NOT-ESTABLISHED" in tc
+              and "VERDICT E stripped | TOKEN Q-PAIR  KTOKEN-MAXCONE-PAIR-RECOVERED" in tc)
+        extra("A3's cases keep normalized errors only: no temporary path in the expected section",
+              rc and "/tmp/" not in json.dumps(rc["expected"]) and rc["expected"]["a3"]["cases"]["M_iff"]["errors"] == [
+                  "M_iff.lean:30:0: error: DEPCHECK FAIL"] and len(rc["expected"]["a3"]["cases"]) == 13)
+        tc3 = run_case("E's cells with other timestamps, temporary paths and durations hold", {}, "HOLDS", kinds=EK, variant=3)
+        rc3 = json.loads(blocks(tc3)["E.cells"][0]) if "E.cells" in blocks(tc3) else {}
+        extra("the cells' expected sections are identical across the two variants", rc and rc["expected"] == rc3.get("expected"))
+        tfe1 = run_case("F, and E with cells", {}, "HOLDS", kinds=("F", "E"))
+        tfe0 = run_case("F, and E without cells", {"E": {"no_cells": True}}, "HOLDS", kinds=("F", "E"))
+        b1, b0_ = blocks(tfe1), blocks(tfe0)
+        extra("F's and E's results are byte-identical whether or not E has a cells block",
+              "F" in b1 and b1.get("F") == b0_.get("F") and b1.get("E") == b0_.get("E") and "E.cells" not in b0_)
+        C_ = "FAIL "
+        run_case("NEGATIVE CONTROL: a bridge log without check A3's final line", {"E": {"bridge": {"drop_a3_final": True}}},
+                 "FAILS", C_ + "A3: final line", kinds=EK)
+        run_case("a bridge log without the absence line", {"E": {"bridge": {"drop_absence": True}}}, "FAILS",
+                 C_ + "absence: one absence line", kinds=EK)
+        run_case("an A3 case judged BAD", {"E": {"bridge": {"a3_bad": "M_iff"}}}, "FAILS", C_ + "A3: 13 cases", kinds=EK)
+        run_case("an A3 mutation that compiled", {"E": {"bridge": {"a3_exit0": "M_sibling"}}}, "FAILS",
+                 C_ + "A3: expected-pass cases exit 0", kinds=EK)
+        run_case("a sorryAx line in check A3's section", {"E": {"bridge": {"after_gate": ["DEPCHECK-MODULE sorryAx (X)"]}}},
+                 "FAILS", C_ + "verdict lines: no sorryAx", kinds=EK)
+        run_case("a KTokenMaxCone report outside the three axioms",
+                 {"E": {"bridge": {"axioms": {"k0": "propext, Lean.trustCompiler"}}}}, "FAILS",
+                 C_ + "verdict lines: every print has a report", kinds=EK)
+        run_case("no probe verdict line", {"E": {"probe": {"drop_probe_verdict": True}}}, "FAILS",
+                 C_ + "probe: final verdict line", kinds=EK)
+        run_case("a probe FAIL line", {"E": {"probe": {"probe_extra": ["FAIL SEP3 (1)"]}}}, "FAILS",
+                 C_ + "probe: no other output", kinds=EK)
+        run_case("a probe check count other than the frozen N", {"E": {"probe": {"probe_n": 3195}}}, "FAILS",
+                 C_ + "probe: 'checks: 3196", kinds=EK)
+        run_case("no controls self-test OK line", {"E": {"probe": {"drop_controls_final": True}}}, "FAILS",
+                 C_ + "controls self-test: final line", kinds=EK)
+        run_case("a probe job that did not succeed", {"E": {"probe_conclusion": "failure"}}, "FAILS",
+                 C_ + "probe job record: id, name, success", kinds=EK)
+        run_case("a verdict that prints no tokens", {"E": {"controls_edit": lambda x: x.replace(
+            "sys.exit(main(sys.argv[1:]))", "sys.exit(3)")}}, "FAILS", C_ + "verdict (raw log)", kinds=EK)
+        run_case("a missing probe log", {"E": {"drop_probe_log": True}}, "UNVERIFIED",
+                 "UNVERIFIED log 2000009202.log unreadable: FileNotFoundError", kinds=EK)
+        run_case("a controls.py other than the frozen blob", {"controls_blob_pin": "0" * 40}, "UNVERIFIED",
+                 "not the frozen 000000000000", kinds=EK)
+        run_case("a controls.py without the round's D", {"E": {"controls_edit": lambda x: x.replace("D = '", "D0 = '")}},
+                 "UNVERIFIED", "does not carry this file's D", kinds=EK)
+        run_case("no history repository", {"no_history": True}, "UNVERIFIED", "UNVERIFIED " + "no history repository", kinds=EK)
+        run_case("a history repository without D, F and E", {"history_path": objects_path}, "UNVERIFIED",
+                 "UNVERIFIED " + "history lacks", kinds=EK)
+        raw = "\n".join([_ts(1) + "info: OIBridge/KTokenMaxCone.lean:7:0: 'OIBridge.KTokenMaxCone.k2' depends on axioms: [propext,",
+                         _ts(2) + " Classical.choice,", _ts(3) + " Quot.sound]", ""]).encode()
+        vr_r, vr_s = verdict_reads(raw.decode()), verdict_reads(strip_form(raw).decode())
+        blk = verdict_blocks([TS.sub("", l, count=1) for l in raw.decode().split("\n")])
+        extra("parsing a wrapped report with timestamps: raw reads timestamps into the list, stripped reads the three",
+              not set(vr_r["reports"]["k2"]) <= set(PERMITTED) and vr_s["reports"]["k2"] == sorted(PERMITTED)
+              and blk == [(1, ["info: OIBridge/KTokenMaxCone.lean:7:0: 'OIBridge.KTokenMaxCone.k2' depends on axioms: [propext,",
+                               " Classical.choice,", " Quot.sound]"])]
+              and strip_form(b"\xef\xbb\xbf" + raw) == strip_form(raw))
+        pv = parse_verdict(0, "TOKEN Q-INCL  A\nTOKEN Q-EQ    B\nTOKEN Q-PAIR  C\nTOKEN Q-EXACT D\nKTOKEN-MAXCONE-1-READ\n", "")
+        pv2 = parse_verdict(0, "TOKEN Q-INCL  A\nTOKEN Q-INCL  A\nTOKEN Q-EQ    B\nTOKEN Q-PAIR  C\nTOKEN Q-EXACT D\n"
+                               "KTOKEN-MAXCONE-1-READ\n", "")
+        extra("the verdict parser needs the four cells once each and one round line",
+              pv["complete"] and pv["tokens"]["Q-EXACT"] == "D" and not pv2["complete"]
+              and not parse_verdict(0, "TOKEN Q-INCL  A\n", "")["complete"])
 
         run_case("no build line", {"F": {"bridge": {"drop_build": True}}}, "FAILS", "FAIL build: 'Build completed")
         run_case("no gate block", {"F": {"bridge": {"drop_gate": True}}}, "FAILS", "FAIL gate: a release-gate block")
@@ -1298,6 +2072,7 @@ def self_test(objects_path, work=None):
     finally:
         GATE_STEPS_BY_BLOB.clear()
         GATE_STEPS_BY_BLOB.update(saved)
+        g.update(saved_round)
         shutil.rmtree(base, ignore_errors=True)
     print("assemble self-test: %d of %d cases ok" % (n - fails, n))
     return fails
@@ -1309,6 +2084,7 @@ def main(argv=None):
     ap.add_argument("--host")
     ap.add_argument("--logs")
     ap.add_argument("--download-record")
+    ap.add_argument("--history")
     ap.add_argument("--self-test", action="store_true")
     ap.add_argument("--work")
     ap.add_argument("--reassemble")
@@ -1355,7 +2131,8 @@ def main(argv=None):
         print("CHECK all UNVERIFIED %s: %s" % (type(e).__name__, redact(str(e))[:200]))
         print("EXTRACT UNVERIFIED")
         return 2
-    inputs = {"objects": objs, "host": a.host, "logs": a.logs, "download_record": a.download_record}
+    inputs = {"objects": objs, "host": a.host, "logs": a.logs, "download_record": a.download_record,
+              "history": History(a.history) if a.history else None}
     return run_all(exs, inputs, tdoc)
 
 

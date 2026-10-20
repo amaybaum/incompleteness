@@ -5,8 +5,8 @@
   python3 -I download_job_logs.py --self-test [--work DIR]
 
 Adapted from extractor/download_job_logs.py on tmp/ktoken-evidence-20261017 at 0d94937d. JOB_IDS is read from
-extractor/targets.json (each target's bridge_job) instead of being written here, and the self-test's production
-pins follow it; the transport and its checks are unchanged. For each job
+extractor/targets.json (each target's bridge_job, then its cells probe_job when it has a cells block) instead of
+being written here, and the self-test's production pins follow it; the transport and its checks are unchanged. For each job
 in JOB_IDS, step 1 sends GET to https://api.github.com/repos/amaybaum/incompleteness/actions/jobs/<id>/logs with
 `Authorization: Bearer $GH_TOKEN` and no redirect handling. Before anything is sent the URL must equal one of the
 PINNED_ENDPOINTS exactly (scheme, host, path; no query, fragment or user info), one per listed job, or the request
@@ -52,7 +52,8 @@ def _load_targets_module():
 T = _load_targets_module()
 REPO = T.REPO
 try:
-    JOB_IDS = tuple(t["bridge_job"] for t in T.load()["targets"])
+    JOB_IDS = tuple(j for t in T.load()["targets"]
+                    for j in [t["bridge_job"]] + ([t["cells"]["probe_job"]] if t.get("cells") else []))
     TARGETS_ERROR = None
 except T.TargetsError as _e:
     JOB_IDS, TARGETS_ERROR = (), str(_e)
@@ -418,10 +419,11 @@ def _self_test(base):
         t2 = Transport(api_base=host_base, proxies={}, timeout=1.0)
         rec = download(REPO, JOB_IDS[0], token, os.path.join(base, "never.log"), t2)
         case(f"production pin: base {host_base} refused before sending", rec["error_type"] == "RefusedEndpoint")
-    case("the production endpoints are exactly the listed jobs' logs endpoints, one per target",
-         len(JOB_IDS) >= 1 and len(set(JOB_IDS)) == len(JOB_IDS) and PINNED_ENDPOINTS == frozenset(
-             f"https://api.github.com/repos/amaybaum/incompleteness/actions/jobs/{j}/logs"
-             for j in (t["bridge_job"] for t in T.load()["targets"])))
+    listed = [j for t in T.load()["targets"]
+              for j in [t["bridge_job"]] + ([t["cells"]["probe_job"]] if t.get("cells") else [])]
+    case("the production endpoints are exactly the listed jobs' logs endpoints (%s), one per job" % ", ".join(listed),
+         len(JOB_IDS) >= 1 and len(set(JOB_IDS)) == len(JOB_IDS) and list(JOB_IDS) == listed and PINNED_ENDPOINTS == frozenset(
+             f"https://api.github.com/repos/amaybaum/incompleteness/actions/jobs/{j}/logs" for j in listed))
 
     rec, a, s, out, leak, _ = run(redirect, serve, use_token="")
     case("no token: refused before sending", rec["error_type"] == "RefusedNoToken" and not a["requests"])
