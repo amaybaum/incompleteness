@@ -100,3 +100,9 @@ propagated into a manuscript, the process vocabulary and the internal tags shoul
   a non-operation resource that makes the layer flow executable exactly, though they break no uniform ray (`mc-node1`,
   independently reviewed). The item now states that scope.
 - LEDGER.md sha256 751155b1f772a4e82b69fbca6dabb020b8355d4cdf6e6d0cc963427fe701a0fb → a04f0e79b3d8dc6fb6779617db7161ac3067858e56f9840dde48b908ddcd704c.
+- Owner review of the scope above: the tests do give an exact Z on a heralded branch, and Ad Z as the limit of
+  almost-surely terminating repeat-until-success protocols. What finite protocols cannot give is a deterministic
+  unitary channel that moves the uniform ray, or a deterministic preparation of a state orthogonal to the uniform
+  vector; the A1 endpoint counts neither the heralded branch nor the limit (`mc-node1` node 1b, independently
+  reviewed). The item now says so.
+- LEDGER.md sha256 a04f0e79b3d8dc6fb6779617db7161ac3067858e56f9840dde48b908ddcd704c → a4955f186fd4abbaed089a7619de9f0a94e327544d6e9f7fc28092beb1c73f7a.
