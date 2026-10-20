@@ -1,0 +1,87 @@
+{
+ "bridge_job": "117781736738",
+ "commit": "e12c1573dc1605baf6ed299f9fe11cdb31ef56ee",
+ "cross_checks": [
+  {
+   "extraction_runs_api_sha256": "9a3cbc55a56f169d6bc485e9619d6840c1facac8c27d1aa23b863ab39b5454bd",
+   "in": "run.json",
+   "note": "run.json holds the session's read of the runs API (source_sha256 above). The extraction run read the same endpoint again: the answer's digest differs, and the fields results.json records from it (id, head_sha, head_branch, event, run_attempt 1, conclusion success, workflow verify.yml) equal run.json's"
+  },
+  {
+   "extraction_job_api_sha256": "6e5f98ae970c0ff675a94b2ef8d37c0d66f8df002055c029414ddbc61d286938",
+   "in": "jobs.json",
+   "note": "the extraction run read the job list again (37 jobs, every one success) and the bridge job's API answer, whose digest equals the session's job_api_sha256"
+  }
+ ],
+ "differs": [
+  {
+   "captured_text_sha256": "628c56d8261bc3e4f4b38102e121130f494b76bb61353ad007b059ad48ad508f",
+   "captured_updated_at": "2026-10-18T21:16:05Z",
+   "current_api_sha256": "0a00ce7746b1e92309354b93b746dc9c73a010fe27cd2fa3777b1e5cdb5354a9",
+   "current_body_sha256": "14251a17cfedecce93d7ccb9005ecdd3d1c73ed35879d29dbee2eee4e675f594",
+   "current_source": "GitHub issues API, GET issues/comments/6255241760, read 2026-10-19",
+   "current_text": "| Release gate | 22/22 PASS (corrected from \"23/23\", a counting error in the verification record) |",
+   "edited_at": "2026-10-18T21:33:30Z",
+   "in": "designation.json",
+   "note": "designation.json holds the comment as captured before the edit. The owner edited the comment at 2026-10-18T21:33:30Z; the edit changed one line, the release-gate row, from 23/23 to 22/22. The served log lists 22 gate steps, all PASS (results.json), and the attestation comment 6254986073 states 22.",
+   "text": "| Release gate | 23/23 PASS |"
+  }
+ ],
+ "files": [
+  {
+   "bytes": 507,
+   "form": "derived",
+   "path": "run.json",
+   "sha256": "88ef9d7834b77511529334e51657956d8db5b93b292a0439ebda36c6e287ed6b",
+   "source_sha256": "7933f20b1fe46c9585eee4abc170d3174c6e0bf9beef3e70a9e6c83247da030c"
+  },
+  {
+   "bytes": 43140,
+   "form": "derived",
+   "path": "jobs.json",
+   "sha256": "e97e111f9d6e1d98bb3b9b3e13a48f6b36db75c17ff5f31153f1b6fb8d658c14",
+   "source_sha256": "9fd2315a8c37702eb7a7795ae97978d9b008f8b77226260fb6b451724798d9d0"
+  },
+  {
+   "bytes": 1781,
+   "form": "derived",
+   "path": "designation.json",
+   "sha256": "e82c69a55535cc58378aa5d278efe1373438120a6a82a1470706761a6722c519",
+   "source_note": "source_sha256 is the digest of the API answer read before the comment was edited (updated_at 2026-10-18T21:16:05Z); GitHub serves only the edited comment, so it can no longer be re-derived there",
+   "source_sha256": "b4844877c41971674c466cccc52769d0bf8b64c6d8bcd55fb8968094505cc8da"
+  },
+  {
+   "bytes": 24376,
+   "extraction": {
+    "attempt": 1,
+    "caveat": "the extractor commit is on a parentless branch and the extraction run's log is a host log; neither is reachable from main, as for the design-run extraction (run 39063510375, extractor 0d94937d4d8dbc6662b4464842bcdb1523ede18e); they are provenance of this file, which reproduction at the commit checks",
+    "cross_check": {
+     "blob": "05c41bce610b8d02ccbaca8e69377b771bef4a35",
+     "commit": "b96662e6be4f537502c772db369ea32a35b213a8"
+    },
+    "event": "push",
+    "extract_result": {
+     "blob": "e6f69713bfffd1f1f9aca3c27bf26a689c994167",
+     "commit": "809fa9d6fc931d7a75027ad72d6d2d4b03b722a5"
+    },
+    "extractor_branch": "tmp/ktoken-f-evidence-20261020",
+    "extractor_commit": "2cbae144253df360a6e92cce5af2f0db20d4ff43",
+    "job": "118697245746",
+    "printed_canonical_sha256": "b40e667768f9ec0376ea307b8c984be8c2e51313561875f6a9a8d8b02c8b85f9",
+    "run": "39442932167",
+    "verdict": "EXTRACT HOLDS",
+    "workflow": ".github/workflows/ktoken-f-evidence.yml"
+   },
+   "form": "derived",
+   "path": "results.json",
+   "sha256": "b40e667768f9ec0376ea307b8c984be8c2e51313561875f6a9a8d8b02c8b85f9",
+   "source_note": "source_sha256 is the digest of the whole job log (job 117781736738; 3750005 bytes, 38627 lines) as the download record of the extraction gives it; the log's 38627 lines equal the length the job-log tool reported, and its last 5000 lines equal the window that tool served (sha256 898a87c7f8f3d6f4848e07f85114fe0f6555f6e43686a2c5bd6fcf11b517401c)",
+   "source_sha256": "4bbd3e9f45930ca403050f15a6321836d381d2d8460369f2c678a17db8b751e1"
+  }
+ ],
+ "missing": [],
+ "round": "KTOKEN-MAXCONE-1",
+ "run": "39163559807",
+ "schema": "oi-f-run-record",
+ "version": 1
+}
