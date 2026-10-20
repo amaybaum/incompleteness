@@ -1,0 +1,14 @@
+objects: 1023 entries, 993 stored and verified, 30 withheld, 722 ids expected on main (verified)
+reconstituted: 140 refs, 33 raw:tree commits as shallow boundaries; fsck --connectivity-only clean
+mechanisms: byte-copy 252, inclusion-proof 2, raw 588, raw:connected 105, raw:partial-tree 4, raw:proof-path 9, raw:tree 33, withheld:build-pdf 3, withheld:raw-log 22, withheld:raw-output 5
+parents named, not retained (16): 1775ad474f45 211e8dc2f19d 32a905d0e961 39832fbe5ecc 476651fed700 5d3ccb3e737d 6027be54636a 7a04184daa6a 859f32cd37a2 9f30f01acb14 b4c7b0a71e12 bbaa768c773b ea6a8ea36ceb f1fc73a50b91 f47437342032 fd6d4c66df58
+partial trees (4): 1f19a347108e withholds 21, ad64b603b7a1 withholds 3, e684897da41b withholds 2, febfe5e2668d withholds 2
+citations (O10): 137 cited, 7 pending (record not in the tree), 0 eligible for promotion
+  pending   195dfbeeca73  #824 KTRANS-SEP-1, verification/programmes/oi-qm/reconstruction/round-ktrans-sep-1-omega4/preregistration.md
+  pending   1ab0fd9dd2c6  #829 KTOKEN-MAXCONE-1, verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/preregistration.md
+  pending   6959ced4c327  #829 KTOKEN-MAXCONE-1, verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/preregistration.md
+  pending   95beab2b48ab  #824 KTRANS-SEP-1, verification/programmes/oi-qm/reconstruction/round-ktrans-sep-1-omega4/preregistration.md
+  pending   bd579bf8db60  #824 KTRANS-SEP-1, verification/programmes/oi-qm/reconstruction/round-ktrans-sep-1-omega4/preregistration.md
+  pending   e684897da41b  #831 PRESERVE-INDUCT-1, verification/programmes/oi-qm/reconstruction/round-preserve-induct-1/preregistration.md
+  pending   febfe5e2668d  #831 PRESERVE-INDUCT-1, verification/programmes/oi-qm/reconstruction/round-preserve-induct-1/preregistration.md
+check_objects: OK

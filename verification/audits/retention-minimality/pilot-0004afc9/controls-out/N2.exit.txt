@@ -1,0 +1,3 @@
+objects-tree 0
+objects-history 1
+retention 1
