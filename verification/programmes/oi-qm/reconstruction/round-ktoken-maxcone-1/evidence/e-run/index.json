@@ -3,9 +3,9 @@
  "commit": "e35fe0993d22ea217d4094191ef355340ac80062",
  "conditions": [
   {
-   "condition": "the designation's normalization condition: only GitHub's timestamp prefixes and the transport byte-order mark are removed; the raw log and both verdicts are kept; the three raw-log negative cells stay visible as parsing artifacts",
+   "condition": "the designation's normalization condition, verbatim: \"remove only GitHub's timestamp prefixes (and documented transport BOM), preserving the raw log and both verdicts. The three raw-log negative cells must remain visible as parsing artifacts, not be erased or silently treated as positive.\"",
    "in": "cells.json",
-   "note": "cells.json keeps the raw bridge log's digest (verdict.raw.log_sha256, 1773a7bf...) and the frozen verdict's output on both forms. On the raw log Q-INCL, Q-EQ and Q-PAIR print NOT-ESTABLISHED, recorded as printed, and observed.raw_form_reports_outside_permitted names the three wrapped reports whose axiom lists carry line timestamps there. The stripped form (source.stripped_form: the byte-order mark dropped, each line's timestamp removed, line breaks unchanged; 418bcc65...) prints the four positive tokens"
+   "note": "The raw bridge log's text is not retained here, only its digest (verdict.raw.log_sha256, 1773a7bf...; the host copy is a host log that expires) and the frozen verdict's output over it, recorded as printed. On the raw log Q-INCL, Q-EQ and Q-PAIR print NOT-ESTABLISHED, and observed.raw_form_reports_outside_permitted names the three wrapped reports whose axiom lists carry line timestamps there. The stripped form (source.stripped_form: the byte-order mark dropped, each line's timestamp removed, line breaks unchanged; 418bcc65...) prints the four positive tokens"
   }
  ],
  "cross_checks": [
@@ -41,10 +41,10 @@
    "source_sha256": "5249f5427ca4516cfbaca4fab0582531fecc0135c4cbfcdf4b98028a1ef61b28"
   },
   {
-   "bytes": 3225,
+   "bytes": 3231,
    "form": "derived",
    "path": "designation.json",
-   "sha256": "25d72e9468902249834d64c21b4ac0b3fc252a6da536bf689177cc3cab385e7f",
+   "sha256": "d15dba5a958472c8275a055a6f61dd42264a6d460b2ada7a5499a91ad7b8fbf4",
    "source_sha256": "83d809c900ec812a5868e0dd9c265a28bb2bbfd80d136388c1a74a8889f58303"
   },
   {
