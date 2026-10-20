@@ -1,0 +1,72 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "KTOKEN-MAXCONE-1",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "b96662e6be4f537502c772db369ea32a35b213a8",
+ "f": "e12c1573dc1605baf6ed299f9fe11cdb31ef56ee",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/preregistration.md",
+   "blob": "ffbcab2918a4e1e7594f7ab4b827b70bb25b9f9f"
+  }
+ ],
+ "governed_paths_digest": "d3d95a97d02d6b0e8d25568e52d655c0cc90f755130f7b58fddce840bf5f3f3a",
+ "e": "e35fe0993d22ea217d4094191ef355340ac80062",
+ "tree_e": "86c5608541f964efa5104eebde1d517aad312dbc",
+ "execution_delta_digest": "031b6f4944705c54f49811293489c187fc3b4bdc4cb8897b400b95ba763e4ac9",
+ "candidates": [
+  {
+   "commit": "38841fca7e4280e609d4c4b1548bed3062113c6f",
+   "tree": "7f316ac1a564e50836fe5e86ab6368cb00cad719",
+   "measured": "Stage 1, committed 2026-10-20T15:01:18Z, after the owner's designation of F (#829 comment 6255241760, 2026-10-18T21:16:05Z): controls.py at its frozen blob 7c9672a1, the two evidence files pinned at F (evidence/run1-39043849411.json sha256 4e630369..., evidence/run2.json sha256 bc896c46..., each equal to its pin) and evidence/f-run/, F's exact-head run record read from the whole bridge log of job 117781736738. It re-cuts the first stage 1, 86eb9d49, from the same F and differs from it only in evidence/f-run/index.json and results.json; the first chain (86eb9d49, 7ce49dd1) is preserved under preserve/ktoken-maxcone-1-7ce49dd1. No host run of its own (runs API, head_sha query). Local: 303 legacy records in 75 closed namespaces intact. Not designated."
+  },
+  {
+   "commit": "06a695df89fae3d4b11db6d2347e635e1f65cbb2",
+   "tree": "6fa52f3a3824a19ce48b7110bb6ff5c8865ff5ac",
+   "measured": "Stage 2, committed 2026-10-20T15:01:29Z: KTokenMaxCone.lean (blob 14bb9fc0), the probe (blob 04580c51), checks/KTokenPairCheck.lean (blob 354bd7ce) and checks/run_checks.py (blob dc6c77d1), verify.yml (blob 72d698f3) with the six frozen splices, the import line and the census family; its delta from stage 1 equals the first cut's delta(86eb9d49, 7ce49dd1) record for record. No host run of its own (runs API, head_sha query); pull_request run 39244307297 on the first cut's 7ce49dd1 tested a synthetic merge and is not an attestation. Local: controls.py check at this commit --freeze F --stage S1 passes all 13 static controls; 303 legacy records intact. Not designated."
+  },
+  {
+   "commit": "e35fe0993d22ea217d4094191ef355340ac80062",
+   "tree": "86c5608541f964efa5104eebde1d517aad312dbc",
+   "measured": "Stage 3, adding result.md alone (blob d9a56014), committed 2026-10-20T15:02:38Z. Exact-head workflow_dispatch run 39445227350, attempt 1, head_sha e35fe099, all 38 jobs success. Mathlib bridge job 118705242073: Build success; the release gate passed 22 of 22 steps (lean-axioms 6057 named results, no sorry; 303 legacy records; 48 receipts hold; evidence-retention HOLDS); the check A3 step success. Its whole log (41862 lines, sha256 1773a7bff2472fd2a3ab2c598bc83366134602ff35fdbf8bbbf2b5ea38428fc1) carries the module's 68 axiom reports, each within propext, Classical.choice and Quot.sound, with sorryAx and Lean.ofReduceBool absent. The frozen verdict, controls.py (blob 7c9672a1) verdict at E against F, run in CI on that log in two forms, passes all 13 static controls and prints KTOKEN-MAXCONE-1-READ on both. On the log as served, three wrapped reports carry line timestamps and Q-INCL, Q-EQ and Q-PAIR print NOT-ESTABLISHED, parsing artifacts kept visible as the designation requires; on the form with only the timestamp prefixes and byte-order mark removed (sha256 418bcc658633cbce336f757334e8bdc977cd0041a674a10019eb30a0f3cfd3bb) it prints KTOKEN-MAXCONE-INCLUSIONS-PROVED, KTOKEN-MAXCONE-EQ-PROVED, KTOKEN-MAXCONE-PAIR-RECOVERED and KTOKEN-MAXCONE-K3-EXACT; on both, the probe prints checks: 3196, failures: 0, rejects its five mutations and prints VERDICT KTOKEN-K3-EXACT. E's exact-head run reached main through its own pull request, #890 (landing 0fb020c7, the first parent of this reconciliation), retained under evidence/e-run/ with sha256 digests: results.json dd1c8f5cbb7d547f26da400a1fc3d93e3ab49c4bf15bbd510cc24816e85d3a65, cells.json df45c30223bbb94c25847f605e0a5f49071ddd3c5bf99d7398ba48803a1431c9, jobs.json e83a6d7f2e2d5434f04a98e2568c8b1e59b5f8686f01d3c08878506d14ebf3e6, run.json db94ffb516b705e2b29435100c36803358970cbacbdd750a8747b94ca34b31fe, designation.json d15dba5a958472c8275a055a6f61dd42264a6d460b2ada7a5499a91ad7b8fbf4, index.json b3856ca0e1d979ad6fe62e566de7a128024b7dbee6809a660d6f4b46bea08640. Local: controls.py check E --freeze F passes all 13 static controls; controls.py --self-test OK (38 self-checks); 303 legacy records intact. Designated by the owner (#829 comment 6297063705). The round sources none of its hypotheses; K2 and Kn remain open."
+  }
+ ],
+ "landing": {
+  "base": "0fb020c7f39548fe13d09315da21e0c622ffb029",
+  "object": "190ef19da1381d7f99831b4908d17af2d68e48ac",
+  "reconciliations": [
+   "190ef19da1381d7f99831b4908d17af2d68e48ac"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "e5339bfb1d6103446c5650c8d8595a1b9a80c52c59aef1570e14973019b17b8a"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "e12c1573dc1605baf6ed299f9fe11cdb31ef56ee",
+   "record": "https://github.com/amaybaum/incompleteness/pull/829#issuecomment-6255241760 (the owner's designation of F, made in session and recorded in this comment, posted as amaybaum, author association OWNER, at 2026-10-18T21:16:05Z, after check run 39163559807 concluded and before stage 1 was committed at 2026-10-20T15:01:18Z; edited at 2026-10-18T21:33:30Z in one row, the release-gate count, from 23/23 to 22/22; retained as first captured in evidence/f-run/designation.json)"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "e12c1573dc1605baf6ed299f9fe11cdb31ef56ee",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/39163559807/attempts/1 (verify.yml, workflow_dispatch, attempt 1, head_sha e12c1573dc1605baf6ed299f9fe11cdb31ef56ee, completed with conclusion success, run updated at 2026-10-18T20:49:07Z; 37 of 37 jobs success, each at that head_sha; retained in evidence/f-run/)"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "e35fe0993d22ea217d4094191ef355340ac80062",
+   "record": "https://github.com/amaybaum/incompleteness/pull/829#issuecomment-6297063705 (the owner's designation of E, made in session on 2026-10-20 between 17:27:36Z and 17:31:59Z and recorded in this comment, posted as amaybaum, author association OWNER, at 2026-10-20T17:32:14Z and not edited; retained as evidence/e-run/designation.json. The owner's conditions, verbatim from the comment: \"I approve timestamp normalization and designate E for #829, with these exact conditions:\" \"E: `e35fe0993d22ea217d4094191ef355340ac80062`.\" \"Attestation: run [39445227350](https://github.com/amaybaum/incompleteness/actions/runs/39445227350), 38/38 jobs successful.\" \"Evidence: all 68 relevant axiom reports accounted for; no unapproved axioms or sorry markers.\" \"Normalization: remove only GitHub's timestamp prefixes (and documented transport BOM), preserving the raw log and both verdicts. The three raw-log negative cells must remain visible as parsing artifacts, not be erased or silently treated as positive.\" \"Frozen controls: unchanged.\" The repository retains the raw bridge log's digest (sha256 1773a7bff2472fd2a3ab2c598bc83366134602ff35fdbf8bbbf2b5ea38428fc1) and the frozen verdict's output on both forms of the log (evidence/e-run/cells.json), not the raw log's text, a limitation the owner accepted at the #890 merge.)"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "e35fe0993d22ea217d4094191ef355340ac80062",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/39445227350/attempts/1 (verify.yml, workflow_dispatch, attempt 1, head_sha e35fe0993d22ea217d4094191ef355340ac80062, completed with conclusion success, run updated at 2026-10-20T15:31:56Z; 38 of 38 jobs success, each at that head_sha; retained under evidence/e-run/)"
+  }
+ ]
+}
