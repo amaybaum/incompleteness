@@ -1,0 +1,17 @@
+PASS S1  det(C_s + mu C_a) = det C_s + mu^2 a^2 for a generic 2x2 C (C_a = a[[0,1],[-1,0]])
+PASS S1  U(mu)v has coefficient matrix C_s + mu C_a, so v is in U(t)Prod iff det C_s + mu^2 a^2 = 0 for some |mu| = 1, iff |det C_s| = |a|^2
+PASS S1  control: the criterion accepts all 486 test vectors U(mu)(p (x) q)
+PASS S1  countercontrol: the criterion rejects the singlet and (1,2,3,5)
+PASS S2  V(x)V commutes with S for generic V (hence with every U(mu))
+PASS S2  (V(x)V)(alpha|00> + beta|11>) is symmetric for generic V (Ucal.G_pure lies in Sym)
+PASS S2  U(mu) acts trivially on Sym (P_anti v = 0 for symmetric v)
+PASS S2  V(x)V maps products to products
+PASS S3  exactly 4 native permutations commute with S, namely I, S, X(x)X, S(X(x)X)
+PASS S3  each lies in Ucal: I = U(1), S = U(-1), X(x)X = V(x)V with V = X, S(X(x)X) = U(-1)(X(x)X)
+PASS S4  K_S: each of the 20 other native permutations maps a pure state of K_S outside U(t)Prod (not in Aut(K_S))
+PASS S5  K_H*: each of the 20 other native permutations maps a pure state of K_H* outside U(t)Prod u Sym
+PASS S5  K_H*: B = Phi+ is symmetric (G is in K_H*: MI); the singlet is in neither U(t)Prod nor Sym (P_singlet not in K_H*)
+PASS S6  K_H: X(x)X commutes with S, maps G_pure to G_pure and swaps |00> and |11>
+PASS S6  K_H: on G_pure, a = 0 and det C_s = alpha*beta, so G_pure meets U(t)Prod exactly at |00> and |11>
+PASS S6  K_H: the singlet is in neither U(t)Prod nor G_pure (P_singlet not in K_H; K_H != Q3)
+SUMMARY 16 PASS, 0 FAIL

@@ -1,0 +1,296 @@
+#!/usr/bin/env python3
+"""src_witness.py -- exact certificates for SOURCE-CHECKPOINT.md (research only; decides nothing).
+
+SymPy, exact Rational / I / symbolic arithmetic only; no floating point.  Conventions follow
+x-screen-20261018/probes/p3_fixtures_op.py at 85e949ad: pair index 2a+b with token 1 = a,
+Gamma = partial transpose on token 2 (pt2), K(Z_F) defects z_{s,t} = (I + s XZ + t YY - st ZX)/4,
+B = projector onto (|00>+|11>)/sqrt2, CN = CNOT with control token 1, S = SWAP.
+
+Blocks:
+  E1  Gamma o Ad_S o Gamma = T o Ad_S (T = full transpose)
+  E2  orientation sign of the 24 native pair permutations relative to Q3 and to Gamma(Q3)
+  E3  continuous path U(t) from I to S; U(t) commutes with S; Gamma(B) = S/2
+  E4  K(Z_F): defect algebra, SWAP action on the defects, ingredients of the extremality/isolation argument
+  E5  K_S = cone(U(t)-orbit of SEP): separating functional for B (K_S fails MI, K_S != Q3)
+  E7  global transpose and Gamma(Q3)
+  E8  product-test correlation identity under Gamma
+  E9  three-token partial-transpose family and exchange symmetry (GHZ witness)
+  E10 Gamma-completion of the coherent-completion data (all data preserved, PSD fails)
+  MUT mutations that must be rejected
+"""
+import sympy as sp
+from itertools import product, permutations
+
+I = sp.I
+X = sp.Matrix([[0, 1], [1, 0]]); Y = sp.Matrix([[0, -I], [I, 0]]); Z = sp.diag(1, -1); I2 = sp.eye(2)
+kr = sp.kronecker_product
+PAULI = [I2, X, Y, Z]
+BASIS = [kr(p, q) for p in PAULI for q in PAULI]          # Hermitian basis of Herm(4)
+UNITS = []
+for p in range(4):
+    for q in range(4):
+        E = sp.zeros(4, 4); E[p, q] = 1; UNITS.append(E)
+
+res = []
+def chk(name, c):
+    c = bool(c); res.append((name, c)); print(('PASS ' if c else 'FAIL ') + name)
+
+def pt2(M):
+    R = sp.zeros(4, 4)
+    for a, b, c, d in product(range(2), repeat=4):
+        R[2*a+d, 2*c+b] = M[2*a+b, 2*c+d]
+    return R
+def pt1(M):
+    R = sp.zeros(4, 4)
+    for a, b, c, d in product(range(2), repeat=4):
+        R[2*c+b, 2*a+d] = M[2*a+b, 2*c+d]
+    return R
+def T(M): return M.T
+def Ad(U): return lambda M: U*M*U.H
+def br(A, B): return sp.expand(I*(A*B - B*A))
+def br_G(A, B): return sp.expand(pt2(br(pt2(A), pt2(B))))
+def same_map(f, g, mats=UNITS):
+    return all(sp.expand(f(E) - g(E)) == sp.zeros(*E.shape) for E in mats)
+def mineig_neg(M, vecs):
+    """exact negative quadratic form <v|M|v> < 0 for some v in vecs (returns the value or None)."""
+    for v in vecs:
+        q = sp.nsimplify(sp.expand((v.H*M*v)[0]))
+        q = sp.simplify(q)
+        if q.is_real and q < 0:
+            return q
+    return None
+
+S = sp.Matrix([[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]])
+CN = sp.Matrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0]])
+s2 = sp.sqrt(2)
+phi = sp.Matrix([1, 0, 0, 1])/s2; B = phi*phi.H
+
+# ---------------------------------------------------------------- E1
+chk('E1  Gamma o Ad_S o Gamma = T o Ad_S on all 16 matrix units',
+    same_map(lambda M: pt2(S*pt2(M)*S.T), lambda M: T(S*M*S.T)))
+chk('E1  Gamma o Ad_S o Gamma != Ad_S (the transported exchange is not the native one)',
+    not same_map(lambda M: pt2(S*pt2(M)*S.T), lambda M: S*M*S.T))
+
+# ---------------------------------------------------------------- E2
+def sign_wrt(f, bracket):
+    """s in {+1,-1} with f(bracket(A,B)) = s*bracket(fA,fB) on all 256 Pauli pairs, else None."""
+    plus = minus = True
+    for A in BASIS:
+        for Bm in BASIS:
+            lhs = sp.expand(f(bracket(A, Bm))); rhs = sp.expand(bracket(f(A), f(Bm)))
+            if plus and lhs != rhs: plus = False
+            if minus and lhs != -rhs: minus = False
+            if not (plus or minus): return None
+    return 1 if plus and not minus else (-1 if minus and not plus else None)
+
+chk('E2  nonvacuity: br and br_Gamma are not identically zero',
+    br(BASIS[1], BASIS[2]) != sp.zeros(4, 4) and br_G(BASIS[1], BASIS[2]) != sp.zeros(4, 4))
+# controls on Q3
+u = sp.Matrix([[sp.Rational(3, 5), -sp.Rational(4, 5)], [sp.Rational(4, 5), sp.Rational(3, 5)]])*sp.diag(1, I)
+Uent = CN*kr(u, I2)
+chk('E2  control: rational entangling unitary CN(u x I) has sign +1 w.r.t. br (identity component of Aut(Q3))',
+    sign_wrt(Ad(Uent), br) == 1)
+chk('E2  control: full transpose T has sign -1 w.r.t. br (the other component of Aut(Q3))', sign_wrt(T, br) == -1)
+chk('E2  control: Gamma o Ad(CN(u x I)) o Gamma (identity component of Aut(Gamma(Q3))) has sign +1 w.r.t. br_Gamma',
+    sign_wrt(lambda M: pt2(Uent*pt2(M)*Uent.H), br_G) == 1)
+chk('E2  control: Gamma o T o Gamma (other component of Aut(Gamma(Q3))) has sign -1 w.r.t. br_Gamma',
+    sign_wrt(lambda M: pt2(T(pt2(M))), br_G) == -1)
+
+ket = [sp.Matrix([1, 0]), sp.Matrix([0, 1]), sp.Matrix([1, 1])/s2, sp.Matrix([1, -1])/s2,
+       sp.Matrix([1, I])/s2, sp.Matrix([1, -I])/s2]
+prodvecs = [kr(a, b) for a in ket for b in ket]
+bellvecs = [sp.Matrix(v)/s2 for v in ([1, 0, 0, 1], [1, 0, 0, -1], [0, 1, 1, 0], [0, 1, -1, 0],
+                                      [1, 0, 0, I], [0, 1, I, 0])]
+testvecs = bellvecs + prodvecs
+
+perms = list(permutations(range(4)))
+def pmat(p):
+    M = sp.zeros(4, 4)
+    for i, j in enumerate(p): M[j, i] = 1
+    return M
+PM = [pmat(p) for p in perms]
+rows = []
+n_aut = 0; n_rev = 0; ok_nonaut = True
+for p, P in zip(perms, PM):
+    f = lambda M, P=P: pt2(P*pt2(M)*P.T)        # Gamma o Ad_P o Gamma, i.e. Ad_P read in the Q3 picture
+    form = None
+    for Q in PM:
+        if same_map(f, lambda M, Q=Q: Q*M*Q.T): form = '+'; break
+        if same_map(f, lambda M, Q=Q: (Q*M*Q.T).T): form = '-'; break
+    if form is None:
+        # Ad_P does not preserve Gamma(Q3): exact witness X = Gamma(|v><v|) in Gamma(Q3) mapped outside
+        wit = None
+        for v in bellvecs + prodvecs:
+            Mout = pt2(P*pt2(v*v.H)*P.T)            # = Gamma(Ad_P(Gamma(vv^dag))), must be PSD if preserved
+            w = mineig_neg(Mout, testvecs)
+            if w is not None: wit = w; break
+        ok_nonaut = ok_nonaut and (wit is not None)
+        rows.append((p, 'not an automorphism of Gamma(Q3)', wit))
+    else:
+        n_aut += 1
+        sG = sign_wrt(Ad(P), br_G)
+        sQ = sign_wrt(Ad(P), br)
+        if sG == -1: n_rev += 1
+        rows.append((p, 'automorphism; sign wrt Q3 %+d, wrt Gamma(Q3) %+d' % (sQ, sG), None))
+print('     native permutation table (images of indices 0..3 = |00>,|01>,|10>,|11>):')
+for r in rows:
+    print('       ', r[0], r[1], '' if r[2] is None else 'witness pairing %s' % r[2])
+chk('E2  exactly 8 of 24 native permutations preserve Gamma(Q3) (replays P2), the other 16 with exact witnesses',
+    n_aut == 8 and ok_nonaut)
+chk('E2  exactly 4 of those 8 have sign -1 w.r.t. Gamma(Q3): the SWAP-containing ones', n_rev == 4)
+chk('E2  SWAP: sign +1 w.r.t. Q3, sign -1 w.r.t. Gamma(Q3)', sign_wrt(Ad(S), br) == 1 and sign_wrt(Ad(S), br_G) == -1)
+chk('E2  local native X on token 2: sign +1 w.r.t. Gamma(Q3)', sign_wrt(Ad(kr(I2, X)), br_G) == 1)
+chk('E2  every native permutation has sign +1 w.r.t. Q3', all(sign_wrt(Ad(P), br) == 1 for P in PM))
+
+# ---------------------------------------------------------------- E3
+t = sp.symbols('t', real=True)
+Ps = (sp.eye(4) + S)/2; Pa = (sp.eye(4) - S)/2
+Ut = Ps + sp.exp(I*sp.pi*t)*Pa
+chk('E3  U(t) = P_sym + e^{i pi t} P_anti is unitary for all real t', sp.simplify(Ut*Ut.H - sp.eye(4)) == sp.zeros(4, 4))
+chk('E3  U(0) = I and U(1) = S', Ut.subs(t, 0) == sp.eye(4) and sp.simplify(Ut.subs(t, 1) - S) == sp.zeros(4, 4))
+chk('E3  [U(t), S] = 0 for all t', sp.simplify(Ut*S - S*Ut) == sp.zeros(4, 4))
+chk('E3  Gamma(B) = S/2 (so Ad U(t) fixes Gamma(B): K_Gamma = Q3 + R+ Gamma(B) is U(t)-invariant)', pt2(B) == S/2)
+
+# ---------------------------------------------------------------- E4
+def zdef(s, tt): return (sp.eye(4) + s*kr(X, Z) + tt*kr(Y, Y) - s*tt*kr(Z, X))/4
+keys = [(1, 1), (1, -1), (-1, 1), (-1, -1)]
+zs = {k: zdef(*k) for k in keys}
+Pm = {k: sp.eye(4)/2 - zs[k] for k in keys}
+chk('E4  each P_m := I/2 - z is a rank-one projector', all(sp.expand(Pm[k]*Pm[k] - Pm[k]) == sp.zeros(4, 4)
+                                                        and Pm[k].trace() == 1 for k in keys))
+chk('E4  the four P_m are mutually orthogonal: Tr(P_m P_m\') = 0', all((Pm[k]*Pm[l]).trace() == 0
+                                                                   for k in keys for l in keys if k != l))
+chk('E4  Tr z = 1, Tr(P_m z_m) = -1/2, Tr(P_m z_m\') = 1/2 (m != m\')',
+    all(zs[k].trace() == 1 for k in keys) and all((Pm[k]*zs[k]).trace() == sp.Rational(-1, 2) for k in keys)
+    and all((Pm[k]*zs[l]).trace() == sp.Rational(1, 2) for k in keys for l in keys if k != l))
+chk('E4  each z has eigenvalues {1/2 x3, -1/2} (normalized defect at operator distance >= 1/2 from PSD)',
+    all(sp.Matrix(zs[k]).eigenvals() == {sp.Rational(1, 2): 3, sp.Rational(-1, 2): 1} for k in keys))
+swap_img = {k: [l for l in keys if S*zs[k]*S.T == zs[l]] for k in keys}
+chk('E4  SWAP permutes the defects: (s,t) -> (-st, t)', all(swap_img[(s, tt)] == [(-s*tt, tt)] for (s, tt) in keys))
+chk('E4  SWAP moves the defect ray z_{1,1} to z_{-1,1} (distinct rays)', swap_img[(1, 1)] == [(-1, 1)] and zs[(1, 1)] != zs[(-1, 1)])
+chk('E4  every native permutation preserves the defect set Z_F (cf. PC24; op-fork N7)',
+    all(all(any(P*zs[k]*P.T == zs[l] for l in keys) for k in keys) for P in PM))
+
+# ---------------------------------------------------------------- E5
+W = sp.eye(4)/2 - B
+chk('E5  W = I/2 - B commutes with S, hence with every U(t)', W*S - S*W == sp.zeros(4, 4))
+chk('E5  Tr(W B) = -1/2', (W*B).trace() == sp.Rational(-1, 2))
+a0r, a0i, a1r, a1i, b0r, b0i, b1r, b1i = sp.symbols('a0r a0i a1r a1i b0r b0i b1r b1i', real=True)
+psi = sp.Matrix([a0r + I*a0i, a1r + I*a1i]); ph = sp.Matrix([b0r + I*b0i, b1r + I*b1i])
+v = kr(psi, ph)
+lhs = sp.expand((v.H*W*v)[0])
+rhs = sp.expand(sp.Abs(psi[0]*sp.conjugate(ph[1]) - psi[1]*sp.conjugate(ph[0]))**2/2)
+rhs = sp.expand((psi[0]*sp.conjugate(ph[1]) - psi[1]*sp.conjugate(ph[0]))
+                * sp.conjugate(psi[0]*sp.conjugate(ph[1]) - psi[1]*sp.conjugate(ph[0]))/2)
+chk('E5  <psi phi|W|psi phi> = |a0 conj(b1) - a1 conj(b0)|^2/2 >= 0 symbolically (W block-positive)',
+    sp.simplify(lhs - rhs) == 0)
+
+# ---------------------------------------------------------------- E7
+chk('E7  T o Gamma_2 = Gamma_1 on all matrix units', same_map(lambda M: T(pt2(M)), pt1))
+chk('E7  Gamma_1 = Gamma_2 o T on all matrix units', same_map(pt1, lambda M: pt2(T(M))))
+chk('E7  Ad_S o Gamma_2 o Ad_S = Gamma_1 on all matrix units', same_map(lambda M: S*pt2(S*M*S.T)*S.T, pt1))
+
+# ---------------------------------------------------------------- E8
+xs = sp.symbols('x0:16', real=True)
+Xg = sum((xs[i]*BASIS[i] for i in range(16)), sp.zeros(4, 4))
+e1, e2, e3, f1, f2, f3 = sp.symbols('e1 e2 e3 f1 f2 f3', real=True)
+ee = (I2 + e1*X + e2*Y + e3*Z)/2; ff = (I2 + f1*X + f2*Y + f3*Z)/2
+chk('E8  Tr[(e x f) Gamma(X)] = Tr[(e x f^T) X] for generic X, e, f',
+    sp.expand((kr(ee, ff)*pt2(Xg)).trace() - (kr(ee, ff.T)*Xg).trace()) == 0)
+chk('E8  f^T is the y-reflection of f in the token ball (effect set closed under f -> f^T)',
+    sp.expand(ff.T - (I2 + f1*X - f2*Y + f3*Z)/2) == sp.zeros(2, 2))
+
+# ---------------------------------------------------------------- E9
+ghz = sp.zeros(8, 1); ghz[0] = 1; ghz[7] = 1; ghz = ghz/s2; G3 = ghz*ghz.H
+def ptA(M, A):
+    R = sp.zeros(8, 8)
+    for r in product(range(2), repeat=3):
+        for c in product(range(2), repeat=3):
+            rr = list(r); cc = list(c)
+            for k in A: rr[k], cc[k] = c[k], r[k]
+            R[4*rr[0]+2*rr[1]+rr[2], 4*cc[0]+2*cc[1]+cc[2]] = M[4*r[0]+2*r[1]+r[2], 4*c[0]+2*c[1]+c[2]]
+    return R
+subsets = [(0,), (1,), (2,), (0, 1), (0, 2), (1, 2)]
+chk('E9  Gamma_A(GHZ) has eigenvalue -1/2 for every nonempty proper A (so Gamma_A(QK3) != QK3)',
+    all(sp.Rational(-1, 2) in sp.Matrix(ptA(G3, A)).eigenvals() for A in subsets))
+chk('E9  Gamma_{123}(GHZ) = T(GHZ) is PSD (the full transpose preserves QK3)', ptA(G3, (0, 1, 2)) == G3.T)
+
+# ---------------------------------------------------------------- E10
+chk('E10 Gamma is a trace isometry on matrix units: Tr(Gamma(E)Gamma(F)) = Tr(EF)',
+    all((pt2(E)*pt2(F)).trace() == (E*F).trace() for E in UNITS for F in UNITS))
+chk('E10 Gamma(I) = I, Gamma o Gamma = id, Gamma maps Hermitian to Hermitian (basis)',
+    pt2(sp.eye(4)) == sp.eye(4) and same_map(lambda M: pt2(pt2(M)), lambda M: M)
+    and all(pt2(Bm) == pt2(Bm).H for Bm in BASIS))
+chk('E10 the Gamma-completion fails only positivity: Gamma(B) has eigenvalue -1/2',
+    sp.Rational(-1, 2) in sp.Matrix(pt2(B)).eigenvals())
+
+# ---------------------------------------------------------------- E1b / E2b (re-identification; action on pure-state rays)
+chk('E1b re-identification control: Gamma o (T o Ad_S) o Gamma = Ad_S (Gamma(Q3) with exchange T o Ad_S satisfies EXC)',
+    same_map(lambda M: pt2(T(S*pt2(M)*S.T)), lambda M: S*M*S.T))
+vr = sp.symbols('v0r v1r v2r v3r v0i v1i v2i v3i', real=True)
+vv = sp.Matrix([vr[k] + I*vr[k+4] for k in range(4)])
+lhs = S*pt2(vv*vv.H)*S.T
+w = (S*vv).conjugate()
+rhs = pt2(w*w.H)
+chk('E2b Ad_S(Gamma(P_v)) = Gamma(P_{conj(S v)}) for generic v: on the pure rays of Gamma(Q3), SWAP acts as the antiholomorphic map v -> conj(Sv)',
+    sp.expand(lhs - rhs) == sp.zeros(4, 4))
+
+# ---------------------------------------------------------------- E11 (swap drive on Gamma(Q3))
+Uh = Ut.subs(t, sp.Rational(1, 2))
+def preserves_gamma_witness(U):
+    for v in bellvecs + prodvecs:
+        Mout = pt2(U*pt2(v*v.H)*U.H)
+        q = mineig_neg(Mout, testvecs)
+        if q is not None: return q
+    return None
+wq = preserves_gamma_witness(Uh)
+print('     E11 witness pairing for Ad U(1/2) on Gamma(Q3):', wq)
+chk('E11 the swap drive at t = 1/2, Ad U(1/2), maps an element of Gamma(Q3) outside Gamma(Q3) (exact witness)', wq is not None)
+chk('E11 control: Ad U(1) = Ad S preserves Gamma(Q3) (no witness among the test states)', preserves_gamma_witness(S) is None)
+
+# ---------------------------------------------------------------- E12 (native permutations and K_Gamma = Q3 + R+ S/2)
+comm = 0; nonpres = 0; other = []
+for p, P in zip(perms, PM):
+    if P*S*P.T == S:
+        comm += 1; continue
+    R = P*S*P.T
+    cs = sp.symbols('c', real=True)
+    found = False
+    for v in testvecs:
+        q0 = sp.simplify((v.H*R*v)[0]); qS = sp.simplify((v.H*S*v)[0])
+        # need <v|(R - cS)|v> < 0 for every c in [0,1] (c > 1 gives negative trace): linear in c
+        if q0 < 0 and (q0 - qS) < 0:
+            found = True; break
+    if found: nonpres += 1
+    else: other.append(p)
+print('     E12 commuting with S: %d; certified not preserving K_Gamma: %d; undecided: %s' % (comm, nonpres, other))
+chk('E12 every native permutation either commutes with S (then Ad_P lies on a path in the unitary centralizer of S, inside Aut_0(K_Gamma)) or maps S/2 outside K_Gamma',
+    comm + nonpres == 24 and not other)
+
+# ---------------------------------------------------------------- E13 (swap drive on K(Z_F) and K_B; witness for K(Z_F) found by search, sdp_zf_probe.py)
+wv = sp.Matrix([0, 1, -1, -I])
+chk('E13 W = |w><w|, w = (0,1,-1,-i): <w|z_m|w> >= 0 for all four defects (W PSD, so W in L* and in cone(Z_F)*, hence in K(Z_F)*)',
+    all(sp.expand((wv.H*zs[k]*wv)[0]) >= 0 for k in keys))
+chk('E13 <w| U(1/2) z_{1,1} U(1/2)^dag |w> = -3/4: the swap drive at t = 1/2 does not preserve K(Z_F)',
+    sp.expand((wv.H*Uh*zs[(1, 1)]*Uh.H*wv)[0]) == sp.Rational(-3, 4))
+u01 = Uh*sp.Matrix([0, 1, 0, 0])
+Cm = sp.Matrix(2, 2, lambda a_, b_: u01[2*a_+b_])
+chk('E13 U(1/2)|01> = ((1+i)|01> + (1-i)|10>)/2 is entangled (coefficient det != 0) and not proportional to (|00>+|11>): not a pure state of K_B',
+    sp.expand(u01 - sp.Matrix([0, (1+I)/2, (1-I)/2, 0])) == sp.zeros(4, 1) and sp.expand(Cm.det()) != 0 and u01[0] == 0)
+
+# ---------------------------------------------------------------- MUT (must be rejected)
+mut = []
+mut.append(('Gamma o Ad_S o Gamma = Ad_S', same_map(lambda M: pt2(S*pt2(M)*S.T), lambda M: S*M*S.T)))
+mut.append(('SWAP sign -1 w.r.t. the identity-transported bracket (Gamma replaced by id)', sign_wrt(Ad(S), br) == -1))
+brT = lambda A, Bm: sp.expand(T(br(T(A), T(Bm))))
+mut.append(('SWAP sign -1 w.r.t. the T-transported bracket (Gamma replaced by full transpose)', sign_wrt(Ad(S), brT) == -1))
+mut.append(('SWAP fixes the defect ray z_{1,1}', S*zs[(1, 1)]*S.T == zs[(1, 1)]))
+mut.append(('W = I/2 - B is negative on some pure product of the six kets',
+            any(sp.simplify((pv.H*W*pv)[0]) < 0 for pv in prodvecs)))
+for name, val in mut:
+    rejected = not bool(val)
+    res.append(('MUT ' + name, rejected)); print(('PASS ' if rejected else 'FAIL ') + 'MUT rejected: ' + name)
+
+npass = sum(1 for _, c in res if c); nfail = len(res) - npass
+print('SUMMARY %d PASS, %d FAIL' % (npass, nfail))
+raise SystemExit(0 if nfail == 0 else 1)

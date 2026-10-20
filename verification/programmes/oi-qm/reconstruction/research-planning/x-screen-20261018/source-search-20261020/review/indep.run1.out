@@ -1,0 +1,50 @@
+PASS R1 Gamma.Ad_S.Gamma == T.Ad_S as position maps (16/16)
+PASS R1 Gamma.(T.Ad_S).Gamma == Ad_S (kill test E1b)
+     (0, 1, 2, 3) ('+', (0, 1, 2, 3))
+     (0, 1, 3, 2) ('non', (0, 2, 1, ('minor', 1, 2, -1)))
+     (0, 2, 1, 3) ('-', (0, 2, 1, 3))
+     (0, 2, 3, 1) ('non', (0, 2, 1, ('minor', 1, 2, -1)))
+     (0, 3, 1, 2) ('non', (0, 1, 1, ('minor', 1, 2, -1)))
+     (0, 3, 2, 1) ('non', (0, 1, 1, ('minor', 1, 2, -1)))
+     (1, 0, 2, 3) ('non', (0, 2, 1, ('minor', 0, 3, -1)))
+     (1, 0, 3, 2) ('+', (1, 0, 3, 2))
+     (1, 2, 0, 3) ('non', (0, 1, 1, ('minor', 0, 3, -1)))
+     (1, 2, 3, 0) ('non', (0, 1, 1, ('minor', 0, 3, -1)))
+     (1, 3, 0, 2) ('-', (1, 3, 0, 2))
+     (1, 3, 2, 0) ('non', (0, 2, 1, ('minor', 0, 3, -1)))
+     (2, 0, 1, 3) ('non', (0, 2, 1, ('minor', 0, 3, -1)))
+     (2, 0, 3, 1) ('-', (2, 0, 3, 1))
+     (2, 1, 0, 3) ('non', (0, 1, 1, ('minor', 0, 3, -1)))
+     (2, 1, 3, 0) ('non', (0, 1, 1, ('minor', 0, 3, -1)))
+     (2, 3, 0, 1) ('+', (2, 3, 0, 1))
+     (2, 3, 1, 0) ('non', (0, 2, 1, ('minor', 0, 3, -1)))
+     (3, 0, 1, 2) ('non', (0, 1, 1, ('minor', 1, 2, -1)))
+     (3, 0, 2, 1) ('non', (0, 1, 1, ('minor', 1, 2, -1)))
+     (3, 1, 0, 2) ('non', (0, 2, 1, ('minor', 1, 2, -1)))
+     (3, 1, 2, 0) ('-', (3, 1, 2, 0))
+     (3, 2, 0, 1) ('non', (0, 2, 1, ('minor', 1, 2, -1)))
+     (3, 2, 1, 0) ('+', (3, 2, 1, 0))
+PASS R2 exactly 8 of 24 preserve Gamma(Q3); the 16 others each with an exact negative 2x2 minor
+PASS R2 the 4 transpose-type ones are exactly the coset SWAP.{I, I(x)X, X(x)I, X(x)X}
+PASS R3 bracket sign on random rational pairs: -1 exactly on the transpose-type 4, +1 on the other 4 automorphisms
+PASS R3 control: CNOT has no sign w.r.t. br_Gamma
+PASS R4 S(X(x)Z)S = Z(x)X, S(Y(x)Y)S = Y(x)Y
+PASS R4 S z_{s,t} S = z_{-st,t} for all four; z_{1,1} -> z_{-1,1}
+PASS R4 extremality algebra: pairing with P_m and trace force tt + 2Y + 2D = 0 (so y=0, D=0, C=1)
+PASS R4 P_m rank one PSD projector (P^2=P, tr 1) and pairings -1/2 / +1/2
+PASS R4 charpoly of each z is (lam-1/2)^3 (lam+1/2)
+PASS R5 Tr(WB) = -1/2 and [W,S]=0
+PASS R5 <pq|W|pq> = |p0 conj(q1) - p1 conj(q0)|^2 / 2 (Lagrange identity, so W is block-positive)
+PASS R6 control: criterion accepts U(mu)(a(x)b) for all test products and mu
+PASS R6 countercontrol: criterion rejects the singlet and a generic vector (1,2,3,5)
+PASS R6 cross-check: for (1,2,3,5) the roots mu of det(C_s+mu C_a) have |mu|^2 != 1
+     permutations commuting with S: [(0, 1, 2, 3), (0, 2, 1, 3), (3, 1, 2, 0), (3, 2, 1, 0)]
+PASS R6 K_S: each of the 20 non-S-commuting native perms maps a pure state of K_S outside U(t)Prod (so not in Aut(K_S))
+PASS R6 K_S: the 4 S-commuting perms are I, S, X(x)X, S.X(x)X (all on a path: U(t) and V(x)V, V in U(2))
+PASS R6 K_H: X(x)X commutes with S, maps G_pure into G_pure and products to products (Ad_{XX} in Aut(K_H))
+PASS R6 K_H: G_pure meets U(t)Prod only where alpha*beta = 0, i.e. at |00>, |11> (a=0, det C_s = alpha beta)
+PASS R6 K_H: Ad_{XX} swaps |00> and |11>
+PASS R6 K_H: singlet is not in the pure set of K_H (exact K_H != Q3 via rank-one extremality)
+PASS R6 K_H*: each of the 20 non-S-commuting native perms maps a pure state of K_H* outside its pure set
+PASS R6 K_H*: singlet not in its pure set (K_H* != Q3); B (=Phi+, symmetric) in it (MI); K_H* in Q3 (MEV)
+SUMMARY 24 PASS, 0 FAIL
