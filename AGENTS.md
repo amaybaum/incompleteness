@@ -455,20 +455,6 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   `tools/v3_verifier.py --verify-round Q` printing `VERDICT  HOLDS` (§A.39). A local run is
   evidence for the executor and is never recorded as a `check-run` attestation. Any special
   dispatch or launch still requires owner approval (§A.43).
-  **Evidence-retention batteries run in CI.** Repeated runs of the checks and self-tests of
-  `verification/audits/evidence-retention/` (`check_retention.py`, its `--gate`,
-  `check_objects.py`) and mutation campaigns against them run through the dispatch-only
-  `retention-tests` workflow on a pushed development or review branch head, not on a session's
-  disk. The bounded pre-push checks named above still run locally before every push; only these
-  repeated batteries and mutant runs move to CI. A mutant names the failing case it targets and
-  counts as caught only when its check fails cleanly on that case (`tools/mutant_verdict.py`);
-  mutants run only after the classifier's live controls and every unmodified check have passed.
-  Dispatching the workflow requires owner approval under §A.43 item 4, and the dispatched branch
-  must carry `main`'s copy of the workflow, runner and classifier. A standing exemption for routine
-  dispatches within the workflow's stated limits may be recorded here only after the workflow has
-  landed, an owner-approved first run on an allow-listed branch has covered a run without mutants,
-  a targeted kill and an unrelated-failure negative case, and an independent review of that run has
-  passed. Its runs are evidence for the executor, never `check-run` attestations.
   **Keep local checkouts small.** Prefer repository APIs and reuse of an existing worktree,
   sparse checkout or partial clone over repeated full clones and duplicate object stores.
   Full-history gates and isolated, no-alternates recovery tests belong in CI with the complete
@@ -554,8 +540,13 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   retirement.
 - A preservation plan once proposed archiving every historical run head in an inventory and
   extracting every expiring log, because their refs and logs were at risk. It did so before asking
-  which surviving claims needed them. Hence §A.42 item 8: retention follows necessity, not
+  which surviving claims needed them. Hence §A.42 item 5: retention follows necessity, not
   exposure.
+- In its first four days the evidence-retention archive grew to half the repository's tracked
+  files and about ten thousand lines of checker code, slowed the required check several-fold, and
+  held research pull requests red over citations of runs it had not yet retained, while no
+  manuscript claim depended on it and its gate step caught no defect. Hence §A.42's reduced form:
+  claims rest on a commit on `main`, a recipe and a stated result, and the archive is frozen.
 
 ---
 
@@ -885,172 +876,58 @@ carries:
 
 ## §A.42 Durable evidence and self-contained verification
 
-Every enduring research result, certification claim or governed decision rests on evidence an
-independent reviewer can reproduce from `main`: the commit the claim is about, the result it
-expects, and the recipe that regenerates that result, with the regeneration compared to the
-expectation as item 7 states. A log records one observation of a result; a rebuild tests the
-claim. Scratchpads, `/tmp`, local worktrees, disposable and research branches, external CI logs,
-host comments and reviews, and commits not reachable from `main` are working material and
-provenance. None of them is the sole source of an enduring claim, and an object id or digest that
-names such content neither retains nor establishes it.
+An enduring claim (a research result, a certification or a governed decision) can be re-established
+by an independent reviewer from `main` alone.
 
-1. **What is retained, and in what form.** For every computational claim a record relies on — a
-   verdict, a check run, an axiom report, a measured hazard, a design result — the expected
-   result, as a small structured file: the deterministic outputs the claim rests on (for a
-   bridge build: build success, the release gate's steps and verdict, each governed module's
-   `#print axioms` reports, and the failure markers), and nothing that varies between runs
-   (timestamps, durations, cache behaviour, output order).
-   - Each expected result names the commit it holds at, the recipe that regenerates it, and its
-     provenance: the run, job and the digest of the text it was read from. The digest is
-     provenance of the extraction, not independent proof.
-   - Its form is stated: **complete** (a file of the record's own), **derived** (read from a
-     named source, with that source's digest), or **complete-as-cited** (byte-identical to an
-     artifact a frozen record names by digest).
-   - A raw log or transcript is not committed as evidence. The one exception is an artifact a
-     frozen record pins by digest, whose line positions and digest that record asserts: it is
-     kept byte for byte, labelled as such, and its substantive claims are recorded as an expected
-     result as well.
-   - §A.28 bounds the amount; it does not send such evidence to the off-repo log.
-2. **When.** Before the citing record lands.
-   - **A native round's design evidence, drafting-time measurements and `F`'s exact-head run**
-     are committed to its record directory, outside `amendments/`, by its first execution
-     commit. In a halted round without one, the commit in `W`'s place carries them.
-     - The preregistration pins the pre-`F` items by hash.
-     - Drafting commits change only control-plane files (`S2`).
-   - **`E`'s exact-head run cannot be carried by any later commit of the round** (`S9`
-     condition 2, `S10`).
-     - An evidence-retention commit, landed on `main` through its own pull request, adds it
-       under the record directory, outside its control-plane files.
-     - The round's reconciliation takes a base containing that commit.
-     - The receipt's candidate entry for `E` names each retained file's digest.
-     - Nothing writes to the record directory after `Q` is built. A later write fails `G13` at
-       the landing, and the round builds again (`S10`).
-3. **Where.**
-   - For a round before its receipt commit: its record directory.
-   - For an audit: its own directory.
-   - For a paper: beside its code and data, never as a `.md` under `papers/`.
-   - For frozen records: `verification/audits/evidence-retention/`, whose manifest maps each
-     citing `file:line` to its retained copy and states which claims made there the copy carries.
-4. **Forward only.**
-   - A frozen record is never edited to point at retained evidence. That covers a native
-     round's record under `G13`, a receipt, and a legacy record. The archive's manifest maps
-     frozen records only.
-   - A mutable file citing such content is corrected in place to cite the retained copy
-     (§A.27, §A.30).
-   - Retention never strengthens a claim, never repairs a failed check by changing its evidence,
-     and never presents a re-cut or redacted copy as the original. A copy that is not
-     byte-identical to its cited digest carries its own digest and says so.
-   - Evidence that cannot be recovered is recorded as missing. A claim resting only on missing
-     evidence is corrected in its mutable dependents (§A.30), and in a frozen record only by a
-     new native round (`G13`).
-5. **Public repository.**
-   - Before a log is committed, it is scanned for secrets and sensitive operational data:
-     tokens, keys, signed URLs, IP and e-mail addresses.
-   - A redaction is recorded, with what was removed and where, and the redacted copy gets its own
-     digest.
-6. **V3 host attestations.** §A.42 adds retention, not verification.
-   - Receipts record host attestations as §A.39 and the specification define them, and
-     `tools/v3_verifier.py`'s verdict is unchanged: no predicate reads them.
-   - A retained copy is evidence of an attestation, not the attestation (`S5`). The receipt's
-     `record` still names the host object, and no retained or local output is recorded as a
-     `check-run` attestation (§A.40).
-   - From the attested host run itself, whatever the round's records cite is retained, including
-     the job conclusions, the release-gate block and the cited axiom reports.
-   - An owner designation is retained as its text, its author and its time.
-7. **Checking and reproduction.**
-   - `verification/audits/evidence-retention/check_retention.py` verifies the archive from the
-     repository tree alone:
-     - archived bytes match their hashes;
-     - every mapped citation still reads as recorded, in a file whose blob id is unchanged;
-     - every recorded claim stands verbatim in its citing file and names the retained files that
-       carry it, so a reviewer can read those files to check it;
-     - every expected result is well formed and names its commit, job and recipe;
-     - the manifest's gaps and the claims no retained file carries are printed.
-   - As the release gate's `evidence-retention` step it also runs in history mode, reading git:
-     - R9's scope is the receipts and certificate attestations at the archive's base;
-     - R10 checks that the base is an ancestor and that no path named as later existed there;
-     - R11 re-derives the module table of each expected result whose run a receipt or
-       certificate attestation at the base names: from the attesting rounds'
-       `v3-governed-paths` blocks, read at the run's commit at the blobs and digest the receipts
-       pin, or, for CV-1's runs, which no such block governs, from the contributions of
-       `verification/certificates/CV1.json` at the blob its attestation pins. The runs it checks
-       must be exactly the runs those attestations name. R11 is a consistency check: it shows the
-       archive applied those blocks faithfully, not that they name the right modules.
-   - `verification/audits/evidence-retention/reproduce.py`, run by the `reproduce evidence`
-     workflow, regenerates an expected result at its commit and compares it with
-     `compare_result.py`, which fails closed: a missing report, an unexpected axiom, an absent
-     gate step, an extraction failure or any mismatch fails it. The verifier is the checkout
-     the workflow runs on; the historical commit supplies only its sources and its own gate.
-     It writes `verdict.json` on every exit once its work directory is writable, an exception
-     included, and the verdict holds only on a clean exit.
-   - For a round, each hash pin of item 2 is a row of its invariant→checkpoint table (§A.41).
-8. **Necessity, not exposure.** Retention serves surviving claims, not the history of the work.
-   Items 1–6 state what must be retained. This item limits retention beyond them; it never waives
-   any of it, and it governs only what is newly retained. Beyond items 1–6, content is retained
-   only when both of the following hold, and only the smallest set that meets them is retained:
-   - a claim depends on it, where the claim has landed on `main`, is frozen in a governed
-     record, or belongs to a native round between the designation of its `F` and the landing of
-     its receipt; and
-   - it has not been shown redundant.
+1. **What a claim rests on.** A computational claim names a commit reachable from `main`, the
+   command that regenerates its result, and the result to expect: stated in the record, or in a
+   small structured file beside it when the record cannot state it or the environment must be
+   pinned. Only deterministic outputs are expected, not timestamps, durations, cache behaviour or
+   output order.
+2. **Provenance is not evidence.** CI runs and logs, run and job ids, host comments, scratchpads
+   and commits not reachable from `main` may be cited as provenance. None of them is the sole
+   support of an enduring claim, and naming such content by id or digest neither retains nor
+   establishes it. Content a claim needs from an off-`main` commit lands on `main` no later than
+   the claim.
+3. **Resolvable identifiers.** Every full commit or blob id added to a governed record resolves
+   to an object reachable from `main` when the record lands.
+4. **Exact bytes.** A claim about an artifact's exact bytes, such as its digest or a line
+   position in it, is made only when that artifact is small and committed beside the record.
+   Raw logs and transcripts are otherwise not committed. Anything committed is first scanned for
+   secrets and sensitive data (tokens, keys, signed URLs, IP and e-mail addresses); a redaction is
+   recorded, and the redacted copy carries its own digest.
+5. **Necessity, not exposure.** Only what a surviving claim needs is retained. An expiring log, a
+   ref that may be deleted or a run inventory is not a reason to retain anything, and its loss is
+   not recorded. Before a branch is deleted, check that no surviving claim rests on content that
+   only the branch holds.
+6. **Forward only.** Frozen records are never edited (§A.39, `legacy-records`). A mutable file
+   that cites content not on `main` is corrected in place (§A.27, §A.30); a frozen record is
+   corrected only by a new native round. Retention never strengthens a claim, and never repairs a
+   failed check by changing its evidence.
+7. **Native rounds.** Receipts record host attestations as §A.39 defines them; this section adds
+   no verification, and no retained or local output is a `check-run` attestation. `E` is on `main`
+   once the round lands, so the release gate at `E` re-establishes the round's computational
+   claims, and no separate retention pull request is needed. An owner designation a record relies
+   on is quoted in that record with its author and time.
+8. **The archive.** `verification/audits/evidence-retention/` is frozen: it is neither extended
+   nor maintained, and its files stay as committed. The release gate's `evidence-archive` step
+   (`tools/evidence_archive_check.py`) pins the directory's tree id, so a change to it is an
+   owner-authorized change of that pin. The archive's tools and the `reproduce evidence` workflow
+   may still be used to regenerate an archived expected result at its commit.
 
-   Further:
-   - Imminent loss is not a reason to retain. That covers an expiring log, a ref that may be
-     deleted, and a commit reachable only from a temporary branch. Membership in a run inventory
-     or a list of historical heads is not a reason either, and a temporary branch has no value of
-     its own.
-   - Superseded experiments, exploratory runs and failed runs used only for debugging are not
-     retained unless a surviving claim cites them. A failed run that a conclusion explicitly rests
-     on is evidence like any other.
-   - Before any bulk retention, log extraction or batch of protective refs, a necessity audit
-     classifies each candidate:
-     - **required**, **redundant** (regenerated and matched, as below), **optional** (useful, but
-       no surviving claim needs it; not retained) or **undetermined**;
-     - naming the claim it serves (`file:line`) for a required or redundant item, and how
-       reconstruction was checked.
-   - An item is redundant only when it has actually been regenerated and compared with the
-     original:
-     - regenerated from `main` or from content already retained;
-     - compared byte-identical, or, for a candidate expected result not yet retained, identical
-       under `compare_result.py`;
-     - with the recipe, the commit and the comparison recorded in the audit.
+Records frozen under this section's earlier form, and rounds frozen at `F` under it, keep the form
+under which they were frozen; a preregistration is not reinterpreted. That form is `AGENTS.md` at
+`df9e601ebe2a4e5af2a82f2d06ca2797c3a10f88`.
 
-     A similar source file, an unrun recipe or a repeatable experiment does not make an item
-     redundant. An item whose original is no longer available for comparison is undetermined.
-     An expected result of item 1 is never redundant: regenerating it is item 7's check against
-     it, not a substitute for it.
-   - A later run does not reconstruct a specific run, even a green run at the same commit.
-     Evidence of an `F` or `E` `check-run` attestation, or of any run a record cites, is never
-     redundant while the citing claim stands.
-   - Only required items are retained. An undetermined item is investigated and resolved before
-     it is retained. Nothing that holds it is deleted or released until then. CI time spent
-     extracting historical evidence meets the same test.
-   - A temporary protective ref is not retention; it holds an object while the audit decides.
-     - This item never authorizes deleting a ref, branch, archive entry, retained file or record,
-       and it does not affect §A.26 quarantine.
-     - Any such removal needs the owner's separate authorization (§A.43 items 3–4).
-     - Retained and frozen content stays forward-only (item 4, §A.39).
-     - A ref that §A.43 requires is not a protective ref and needs no audit.
+Enforcement: reviewers check items 1–6 on every record that lands; the `evidence-archive` step fails
+on any change to the frozen archive.
 
-Enforcement:
-- `check_retention.py` and its self-test run locally once before any push that touches the archive
-  (§A.40); repeated runs and mutation campaigns go to the `retention-tests` workflow (§A.40).
-- The release gate's `evidence-retention` step runs it in history mode. That mode reads from git
-  the receipts and certificate attestations at the archive's base, requires each to be covered,
-  and treats a receipt landed after the base as outside the archive's scope. It also runs R10
-  and R11 (item 7), and `check_objects.py --reconstitute` and `--self-test` on the retained
-  off-main objects under `objects/`.
-- Reviewers check that `E`'s evidence reached `main` through its own pull request before the
-  round's reconciliation.
-- Reviewers check that each hash pin of item 2 resolves to retained content.
-
-Adopted 2026-10-16, after an audit of `main` at `fc5abade` found:
-- 107 commits and 75 objects not reachable from `main`, cited in frozen records and, once, in a
-  mutable script;
-- 842 citations of CI runs and jobs, whose logs expire;
-- four cited logs held only in a session scratchpad.
-
-Rounds landed, or frozen at `F`, before this section keep their records unchanged. Their evidence
-is retained by the archive under 3, or listed there as not yet retained.
+Adopted 2026-10-16, after an audit of `main` at `fc5abade` found frozen records citing commits off
+`main`, CI log citations that expire, and cited logs held only in a session scratchpad. Reduced to
+this form on 2026-10-20, after a cost review found that no manuscript claim cites a CI run, that every
+build re-checks the kernel's claims, that receipts' attestations are provenance the verifier never
+reads, and that the gate's history-mode checks re-verified inputs that could no longer change on every
+build.
 
 ---
 
@@ -1099,7 +976,7 @@ required by §A.42.
 4. **Do not confuse publication with authorization.** A normal WIP branch push or draft
    PR update is allowed by default. It does **not** authorize `workflow_dispatch`, a
    special workflow launch, F/E designation, acceptance, merge to `main`, destructive
-   ref movement, branch deletion or evidence-retention promotion. Before pushing, inspect
+   ref movement or branch deletion. Before pushing, inspect
    all `push`-triggered workflows, including path-filtered workflows whose triggers depend
    on the diff or branch history (especially a non-fast-forward update). A push to a
    special trigger branch that starts a governed launch is itself a launch and still
