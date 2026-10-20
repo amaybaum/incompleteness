@@ -1,0 +1,21 @@
+{
+ "repo": "amaybaum/incompleteness",
+ "round": "KTOKEN-MAXCONE-1",
+ "schema": "ktoken-evidence-targets",
+ "targets": [
+  {
+   "bridge_job": "117781736738",
+   "commit": "e12c1573dc1605baf6ed299f9fe11cdb31ef56ee",
+   "kind": "bridge",
+   "label": "F",
+   "path": "evidence/f-run/results.json",
+   "run_id": "39163559807",
+   "session_observation": {
+    "original_lines": 38627,
+    "tail_lines": 5000,
+    "tail_sha256": "898a87c7f8f3d6f4848e07f85114fe0f6555f6e43686a2c5bd6fcf11b517401c"
+   }
+  }
+ ],
+ "version": 1
+}
