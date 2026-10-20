@@ -16,7 +16,7 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ARCHIVE = 'verification/audits/evidence-retention'
-PIN = 'ca86cd659b811a01495c421d4354aa3fa0f6b576'
+PIN = 'c8b7e8861dfbb79af1a71c8cef8fcfaf0acea85e'
 
 
 def git(*args):

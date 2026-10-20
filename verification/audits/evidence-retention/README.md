@@ -312,7 +312,7 @@ It prints the gaps and every claim not retained. The self-test mutates a copy on
 
 **Extractor identity.** Each expected result of tranche 1 and of the research builds that `extract_result.py` read, and each re-extraction, names the git blob of the extractor that read it, so a later change to the extractor or to its pin leaves each result's identity as it was: a re-extraction in its manifest file (`extractor_blob`), the results of tranche 1 and of the research builds in the manifest's `extractor_blobs` map, which stands after the entries so that no line a record cites moves. R15 requires the name, and in history mode re-derives it as the blob of `extract_result.py` at the commit that added the file. Every expected result of tranche 1 names `05c41bce`, and so does each research build's result. A tranche-3 expected result (`runs/<run>/expected.json`) names no extractor blob and is outside R15, a `gate` output included: `job_outputs.py` reads a gate block with the `extract_result.py` of the checkout it runs from, when it extracts and when it reproduces. Run 36373806246's gate output was extracted at a commit whose `extract_result.py` is `05c41bce`; `job_outputs.py --self-test` checks that expectation against the manifest's size and digest and against the counts its own steps state, and runs the checkout's extractor on a synthetic gate log; the archived block is compared with the checkout extractor's reading of a fresh gate run only by `job_outputs.py reproduce`.
 
-**`build_archive.py` documents how the tranche was cut.** It cannot be re-run from the tree, because its inputs (the saved API responses and served logs) are not retained; their digests are. The checker and the reproduction tool are the reproducible parts. The scripts that cut tranche 3, its priority run, the research-build entries and object tranche 4 are not kept in this directory: no retained result names one as its extractor or reproduction tool, and `check_retention.py` and `check_objects.py` verify what they wrote. They are `build_tranche3.py`, `build_priority_runs.py`, `build_research_runs.py` and `build_tranche4_objects.py` at `55a0e80abc4b96e7bf211566a036ad17ea64a69e`.
+**`build_archive.py` documents how the tranche was cut.** It cannot be re-run from the tree, because its inputs (the saved API responses and served logs) are not retained; their digests are. The checker and the reproduction tool are the reproducible parts.
 
 ## Secrets and operational data
 
@@ -330,8 +330,8 @@ Each needs a documented resolution in a later tranche: an expected result with a
 
 ## Frozen
 
-This archive is frozen (AGENTS §A.42 item 8). It is neither extended nor maintained, and its files stay
-as committed; the release gate's `evidence-archive` step pins this directory's tree id. What the sections
+This archive is frozen (AGENTS §A.42 item 8). It is neither extended nor maintained, and a change to it
+is an owner-authorized change of the tree id that the release gate's `evidence-archive` step pins. What the sections
 above describe as pending, queued or to be retained is the archive's state when it was frozen, not work
 to be done. The release gate no longer runs `check_retention.py` or `check_objects.py`. The tools still
 regenerate an archived expected result at its commit: `reproduce.py`, `job_outputs.py reproduce`, and the
