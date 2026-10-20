@@ -91,3 +91,12 @@ propagated into a manuscript, the process vocabulary and the internal tags shoul
 - "Every form of O-B depends on O-A" → "Every known form".
 - "A countable family can reach at most the dense endpoint" → "cannot reach the exact endpoint" (the cited theorems rule out exactness only).
 - LEDGER.md sha256 ccbe1f91b426ad8b9f206488dddd7519b9002b8d8ae440b1ba4654c625e7dc32 → 751155b1f772a4e82b69fbca6dabb020b8355d4cdf6e6d0cc963427fe701a0fb.
+
+## Monomial-lemma scope (from the missing-component node, PR #885)
+
+- §5, "What an OI-native derivation of O-A would have to show", item 2: the must-fail control said that a construction
+  adding "only preparations, or any other non-operation resource" does not qualify. The second clause overreached. The
+  lemma covers protocols whose instruments are configuration readouts. Sharp Lüders tests in non-configuration bases are
+  a non-operation resource that makes the layer flow executable exactly, though they break no uniform ray (`mc-node1`,
+  independently reviewed). The item now states that scope.
+- LEDGER.md sha256 751155b1f772a4e82b69fbca6dabb020b8355d4cdf6e6d0cc963427fe701a0fb → a04f0e79b3d8dc6fb6779617db7161ac3067858e56f9840dde48b908ddcd704c.

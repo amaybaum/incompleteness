@@ -349,8 +349,10 @@ None of the drop-one models is formalized.
 2. **Non-circularity.**
    - It must not posit the flow, gate or phase (E0, MEMO §2.4).
    - Representability must not stand in for availability (PG §3.12).
-   - The monomial lemma is a must-fail control: a construction that adds only preparations, or any other non-operation
-     resource, to the native class does not qualify.
+   - The monomial lemma is a must-fail control: a construction that adds only preparations to the native class, with
+     configuration readouts as the only instruments, does not qualify. Non-configuration sharp instruments with the
+     Lüders update fall outside the lemma: they make the layer flow executable exactly, but stay within the invariant
+     `OnesNormal`, so they supply no operation that breaks the uniform ray (missing-component node `mc-node1`, PR #885).
 3. **Discriminating controls, fixed in advance.**
    - `permTheory` and the monomial class must remain non-QM.
    - The construction should fix how the new operations act on coherence-level descriptions (Ad_U rather than a
