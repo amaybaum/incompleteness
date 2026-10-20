@@ -56,7 +56,8 @@ verbatim, and its result as numbered `RJ <label>.cells` lines like any other.
 
 Printed for each target, whatever its verdict, when the sections were found: the release-gate block (GATE lines)
 and the axiom-report table of every .lean file at the commit (AXIOMS lines). Printed for a target that HOLDS: its
-result, as compact JSON (sorted keys, separators "," and ":") cut into numbered lines between
+result, as compact JSON (sorted keys, separators "," and ":", every "#" written as the JSON escape \u0023, since a
+GitHub log viewer drops the text before "##[" on a served line) cut into numbered lines between
   ===== BEGIN EXPECTED RESULT <label> <path> (compact JSON, <k> numbered lines) =====
   RJ <label> <nnnn> <text>
   ===== END EXPECTED RESULT <label> <path> =====
@@ -1213,6 +1214,12 @@ def compact(obj):
     return json.dumps(obj, sort_keys=True, separators=(",", ":"))
 
 
+def printable(c):
+    """The compact text as printed: "#" occurs only inside JSON strings, so writing it as \\u0023 keeps the same JSON
+    value while no printed line carries a "##[" workflow-command marker."""
+    return c.replace("#", "\\u0023")
+
+
 def chunks(text, width=CHUNK):
     """Cut text into pieces of at most width characters, none ending with a space (a log viewer may trim it)."""
     out, i = [], 0
@@ -1382,7 +1389,7 @@ def assemble(exs, inputs, tdoc, out=None, env=None):
         for key, path in [(t["label"], t["path"])] + ([(t["label"] + ".cells", t["cells"]["path"])] if t.get("cells") else []):
             if key in texts and (verdicts.get(key) or cverdicts.get(key)) == "HOLDS":
                 res, text = texts[key]
-                c = compact(res)
+                c = printable(compact(res))
                 parts = chunks(c)
                 P(BEGIN % (key, path, len(parts)))
                 for i, p in enumerate(parts, 1):
@@ -2066,6 +2073,29 @@ def self_test(objects_path, work=None):
         else:
             ok = False
         extra("reassembly refuses a renumbered, altered or missing line, and reads timestamped served lines", ok)
+        # a served log drops the text before the first "##[" on a line; printed results carry no "#"
+        def gh_served(text):
+            return "\n".join(l[l.index("##["):] if "##[" in l else l for l in text.split("\n"))
+
+        def served_result(res, c, width=CHUNK):
+            parts = chunks(c, width)
+            body = [BEGIN % ("X", "p/results.json", len(parts))] + ["RJ X %04d %s" % (i, q) for i, q in enumerate(parts, 1)]
+            body += [END % ("X", "p/results.json"), "SHA256 X p/results.json canonical=%s bytes=%d compact=%s"
+                     % (sha256(canonical(res).encode("ascii")), len(canonical(res)), sha256(c.encode("ascii")))]
+            return "\n".join(body)
+        res = {"a": "x ##[group]y", "b": "#print axioms k0", "c": "\\#"}
+        pc = printable(compact(res))
+        try:
+            ok = "#" not in pc and json.loads(pc) == res and reassemble(gh_served(served_result(res, pc)), "X")[0] == canonical(res)
+        except (Unverified, ValueError):
+            ok = False
+        try:
+            reassemble(gh_served(served_result(res, compact(res))), "X")
+            neg = False
+        except (Unverified, ValueError):
+            neg = True
+        extra("a result holding '##[group]' and '#' prints no '#', survives a served log's '##[' handling and reassembles; "
+              "unescaped, it does not", ok and neg)
         pieces = chunks("ab   cd" * 60, 10)
         extra("no printed piece ends with a space and the pieces rejoin exactly",
               "".join(pieces) == "ab   cd" * 60 and all(not p.endswith(" ") for p in pieces[:-1]) and max(map(len, pieces)) <= 10)
