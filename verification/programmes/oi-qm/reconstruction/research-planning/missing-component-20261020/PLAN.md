@@ -3,6 +3,24 @@
 Research only (consistency axis, §A.23). No premise is adopted, no status changes, no round, F or E. Base: `main` at
 `df9e601ebe2a4e5af2a82f2d06ca2797c3a10f88`.
 
+## Guiding principle (owner direction, 2026-10-20)
+
+> Quantum mechanics describes what observers can access, not necessarily everything that exists. Observational
+> incompleteness may be the mechanism that makes a deeper reality appear quantum. The goal is to derive that
+> appearance, including its experimental predictions, without assuming quantum mechanics at the fundamental level.
+
+These are research hypotheses, not established facts. Quantum behaviour is the explanandum, not an assumed substratum.
+Three consequences for how this thread's results are read:
+
+- **A1 is a strict mathematical benchmark.** It records what a given construction cannot reproduce exactly. Failing it
+  does not by itself mean failing to explain experimentally accessible quantum behaviour.
+- **The explanatory challenge stays in force at every precision.** Interference, complex phases, measurement
+  statistics, entanglement and multi-system correlations must be reproduced in their measurable consequences;
+  declaring the underlying reality unobservable does not discharge them.
+- **Negative results are scoped to the construction examined.** The A1 results below concern the classical bijective
+  substratum with its present operational rules (κ1–κ4, configuration readout, supervenience). They do not establish
+  that observational incompleteness as such is incompatible with quantum behaviour.
+
 ## Question
 
 F2-reg (exact finite operational QM on qubit-power registers, under the owner-adopted gates G1–G8 and M1) needs two
@@ -180,3 +198,15 @@ Each node has been independently reviewed, and its review outcome is applied in 
   following. Multi-token clauses are needed only for sources limited to native operations (AW-F1, shown for
   K(Z_F)). Under Origin_M, O-B is inherited.
 - G6: none. A G6 must come from the source or from outside the domain.
+
+## A2 track: quantum appearance at every accessible precision
+
+A separate track, alongside the A1 benchmark. Question: can observational limitations make a deeper, non-quantum
+reality's observable regularities agree with QM to arbitrary experimentally accessible precision, without QM at the
+fundamental level? At the operational endpoint A2 (`DenseFiniteQM`), the node results above already fix part of the
+ground: U and O are not needed at A2 (`mc-node2`, `mc-node5`); M and R are needed at every precision, and the cone
+lemma (`mc-node3`) keeps every available map of the present construction in the monomial cone, limits included. The
+track therefore has to address interference (M), complex phases (R), and entanglement with multi-system compatibility
+(O-B) directly, and to ask whether operational availability is the right observable for the quantum appearance at all.
+It inherits this thread's method (depth-first, productivity test fixed first, exact checks, independent review), its
+controls, and G6; negative results are acceptable outcomes.
