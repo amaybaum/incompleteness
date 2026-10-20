@@ -1,0 +1,1756 @@
+{
+ "ancestor_retained_rows": {
+  "17de29c27ed43d7f105aa8518451d8ed61c59937": [
+   {
+    "kind": "tree",
+    "mode": "40000",
+    "oid": "e8e9a726ad688afc447214cbdc52b96675513307",
+    "path": "/",
+    "status": "stored"
+   },
+   {
+    "kind": "tree",
+    "mode": "40000",
+    "oid": "a2a2a7762446225c91ef1bfa17af98d14ecece26",
+    "path": "verification/",
+    "status": "stored"
+   },
+   {
+    "kind": "tree",
+    "mode": "40000",
+    "oid": "f7042861b741c353e989fc0f390a525bd1604a45",
+    "path": "verification/lean-mathlib/",
+    "status": "stored"
+   },
+   {
+    "kind": "tree",
+    "mode": "40000",
+    "oid": "23ddaf02eb50809f4d87cf426c20c81a8e30cf18",
+    "path": "verification/lean-mathlib/OIBridge/",
+    "status": "stored"
+   },
+   {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "016e542872383b296bb0255d8e9ff1561d36fbcc",
+    "path": "verification/lean-mathlib/OIBridge/ProductStrictLift.lean",
+    "status": "stored"
+   },
+   {
+    "kind": "blob",
+    "mode": "100644",
+    "oid": "4151e7c65fbb9ceb331636cb5becce876eddacfa",
+    "path": "verification/lean-manuscript-census.json",
+    "status": "stored"
+   }
+  ]
+ },
+ "entries": {
+  "0004afc9360117ba61523b72854de1aaf63705f0": {
+   "bytes": 741,
+   "cited": [
+    {
+     "class": "native-record",
+     "location": "verification/programmes/oi-qm/track-b/act-30-product-strict-lift/preregistration.md:502",
+     "role": "other:design-run",
+     "tokens": [
+      "0004afc9360117ba61523b72854de1aaf63705f0"
+     ],
+     "via": "token"
+    },
+    {
+     "class": "native-record",
+     "location": "verification/programmes/oi-qm/track-b/act-30-product-strict-lift/preregistration.md:502",
+     "role": "run-head (preregistration)",
+     "run": "36222326658",
+     "tokens": [
+      "36222326658"
+     ],
+     "via": "run"
+    }
+   ],
+   "content_bytes": 741,
+   "file": "commit/00/0004afc9360117ba61523b72854de1aaf63705f0",
+   "mechanism": "raw:connected",
+   "named_by_commits": [],
+   "tranche": 2,
+   "type": "commit"
+  },
+  "016e542872383b296bb0255d8e9ff1561d36fbcc": {
+   "bytes": 43639,
+   "cited": [
+    {
+     "class": "archive-self",
+     "location": "verification/audits/evidence-retention/audit/offmain_audit-output.txt:534",
+     "role": "archive-self-citation",
+     "tokens": [
+      "016e542872383b296bb0255d8e9ff1561d36fbcc",
+      "016e54287238"
+     ],
+     "via": "token"
+    },
+    {
+     "class": "native-record",
+     "location": "verification/programmes/oi-qm/track-b/act-30-product-strict-lift/preregistration.md:490",
+     "role": "other:unclassified",
+     "tokens": [
+      "016e542872383b296bb0255d8e9ff1561d36fbcc"
+     ],
+     "via": "token"
+    }
+   ],
+   "content_bytes": 43639,
+   "file": "blob/01/016e542872383b296bb0255d8e9ff1561d36fbcc",
+   "mechanism": "byte-copy",
+   "named_by_commits": [
+    "0004afc9360117ba61523b72854de1aaf63705f0",
+    "17de29c27ed43d7f105aa8518451d8ed61c59937",
+    "62ad3a5f9320fcea6ccd7d0ac08a8ded17c7e30f"
+   ],
+   "needed_by": [
+    {
+     "object": "0004afc9360117ba61523b72854de1aaf63705f0",
+     "path": "verification/lean-mathlib/OIBridge/ProductStrictLift.lean"
+    },
+    {
+     "object": "17de29c27ed43d7f105aa8518451d8ed61c59937",
+     "path": "verification/lean-mathlib/OIBridge/ProductStrictLift.lean"
+    },
+    {
+     "object": "62ad3a5f9320fcea6ccd7d0ac08a8ded17c7e30f",
+     "path": "verification/lean-mathlib/OIBridge/ProductStrictLift.lean"
+    }
+   ],
+   "tranche": 2,
+   "type": "blob"
+  },
+  "23ddaf02eb50809f4d87cf426c20c81a8e30cf18": {
+   "bytes": 5678,
+   "content_bytes": 8984,
+   "file": "loose/23/ddaf02eb50809f4d87cf426c20c81a8e30cf18",
+   "mechanism": "raw",
+   "named_by_commits": [
+    "0004afc9360117ba61523b72854de1aaf63705f0",
+    "17de29c27ed43d7f105aa8518451d8ed61c59937",
+    "62ad3a5f9320fcea6ccd7d0ac08a8ded17c7e30f"
+   ],
+   "needed_by": [
+    {
+     "object": "0004afc9360117ba61523b72854de1aaf63705f0",
+     "path": "verification/lean-mathlib/OIBridge/"
+    },
+    {
+     "object": "17de29c27ed43d7f105aa8518451d8ed61c59937",
+     "path": "verification/lean-mathlib/OIBridge/"
+    },
+    {
+     "object": "62ad3a5f9320fcea6ccd7d0ac08a8ded17c7e30f",
+     "path": "verification/lean-mathlib/OIBridge/"
+    }
+   ],
+   "tranche": 2,
+   "type": "tree"
+  },
+  "4151e7c65fbb9ceb331636cb5becce876eddacfa": {
+   "bytes": 99758,
+   "content_bytes": 326205,
+   "file": "loose/41/51e7c65fbb9ceb331636cb5becce876eddacfa",
+   "mechanism": "byte-copy",
+   "named_by_commits": [
+    "0004afc9360117ba61523b72854de1aaf63705f0",
+    "17de29c27ed43d7f105aa8518451d8ed61c59937",
+    "62ad3a5f9320fcea6ccd7d0ac08a8ded17c7e30f",
+    "6c30c61369dfa7245f080533099813b233e07d8b"
+   ],
+   "needed_by": [
+    {
+     "object": "0004afc9360117ba61523b72854de1aaf63705f0",
+     "path": "verification/lean-manuscript-census.json"
+    },
+    {
+     "object": "17de29c27ed43d7f105aa8518451d8ed61c59937",
+     "path": "verification/lean-manuscript-census.json"
+    },
+    {
+     "object": "62ad3a5f9320fcea6ccd7d0ac08a8ded17c7e30f",
+     "path": "verification/lean-manuscript-census.json"
+    },
+    {
+     "object": "6c30c61369dfa7245f080533099813b233e07d8b",
+     "path": "verification/lean-manuscript-census.json"
+    }
+   ],
+   "tranche": 2,
+   "type": "blob"
+  },
+  "dda14af07f862ee459a803e4e888c286b1f6bd57": {
+   "bytes": 595,
+   "content_bytes": 678,
+   "file": "loose/dd/a14af07f862ee459a803e4e888c286b1f6bd57",
+   "mechanism": "raw",
+   "named_by_commits": [
+    "0004afc9360117ba61523b72854de1aaf63705f0"
+   ],
+   "needed_by": [
+    {
+     "object": "0004afc9360117ba61523b72854de1aaf63705f0",
+     "path": "verification/"
+    }
+   ],
+   "tranche": 2,
+   "type": "tree"
+  },
+  "e5e70bc53a1c23a7b83ed902d9879868292cf5d9": {
+   "bytes": 374,
+   "content_bytes": 392,
+   "file": "loose/e5/e70bc53a1c23a7b83ed902d9879868292cf5d9",
+   "mechanism": "raw",
+   "named_by_commits": [
+    "0004afc9360117ba61523b72854de1aaf63705f0"
+   ],
+   "needed_by": [
+    {
+     "object": "0004afc9360117ba61523b72854de1aaf63705f0",
+     "path": "/"
+    }
+   ],
+   "tranche": 2,
+   "type": "tree"
+  },
+  "f7042861b741c353e989fc0f390a525bd1604a45": {
+   "bytes": 158,
+   "content_bytes": 159,
+   "file": "loose/f7/042861b741c353e989fc0f390a525bd1604a45",
+   "mechanism": "raw",
+   "named_by_commits": [
+    "0004afc9360117ba61523b72854de1aaf63705f0",
+    "17de29c27ed43d7f105aa8518451d8ed61c59937",
+    "62ad3a5f9320fcea6ccd7d0ac08a8ded17c7e30f"
+   ],
+   "needed_by": [
+    {
+     "object": "0004afc9360117ba61523b72854de1aaf63705f0",
+     "path": "verification/lean-mathlib/"
+    },
+    {
+     "object": "17de29c27ed43d7f105aa8518451d8ed61c59937",
+     "path": "verification/lean-mathlib/"
+    },
+    {
+     "object": "62ad3a5f9320fcea6ccd7d0ac08a8ded17c7e30f",
+     "path": "verification/lean-mathlib/"
+    }
+   ],
+   "tranche": 2,
+   "type": "tree"
+  }
+ },
+ "head": "0004afc9360117ba61523b72854de1aaf63705f0",
+ "parents": [
+  "17de29c27ed43d7f105aa8518451d8ed61c59937"
+ ],
+ "retained_ancestors": [
+  "17de29c27ed43d7f105aa8518451d8ed61c59937"
+ ],
+ "root_tree": "e5e70bc53a1c23a7b83ed902d9879868292cf5d9",
+ "tree_rows": [
+  {
+   "kind": "tree",
+   "mode": "40000",
+   "oid": "e5e70bc53a1c23a7b83ed902d9879868292cf5d9",
+   "path": "/",
+   "status": "stored"
+  },
+  {
+   "kind": "tree",
+   "mode": "40000",
+   "oid": "dda14af07f862ee459a803e4e888c286b1f6bd57",
+   "path": "verification/",
+   "status": "stored"
+  },
+  {
+   "kind": "tree",
+   "mode": "40000",
+   "oid": "ea7b7161fa84d96d8bc5ae03b0c8aa58e1879125",
+   "path": "verification/seals/",
+   "status": "outside"
+  },
+  {
+   "kind": "tree",
+   "mode": "40000",
+   "oid": "e48da75f70f36b2e08b2ecf85e791e15346f6a0e",
+   "path": "verification/receipts/",
+   "status": "outside"
+  },
+  {
+   "kind": "tree",
+   "mode": "40000",
+   "oid": "518c09b6e721a56fe6e67f5ab3dc5bb22734fcdf",
+   "path": "verification/programmes/",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "260015733ccce892f135859a1515bc6009283f97",
+   "path": "verification/migration-manifest.json",
+   "status": "outside"
+  },
+  {
+   "kind": "tree",
+   "mode": "40000",
+   "oid": "08464957184eb56c89eb9ceb519c0676bcc71e8e",
+   "path": "verification/lean/",
+   "status": "outside"
+  },
+  {
+   "kind": "tree",
+   "mode": "40000",
+   "oid": "f7042861b741c353e989fc0f390a525bd1604a45",
+   "path": "verification/lean-mathlib/",
+   "status": "stored"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "025e59548e48cf71f2744154e2890beefe30a258",
+   "path": "verification/lean-mathlib/lean-toolchain",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "5935a5aed3ed1bf4c5a7224049464d18ed4a8600",
+   "path": "verification/lean-mathlib/lakefile.toml",
+   "status": "outside"
+  },
+  {
+   "kind": "tree",
+   "mode": "40000",
+   "oid": "23ddaf02eb50809f4d87cf426c20c81a8e30cf18",
+   "path": "verification/lean-mathlib/OIBridge/",
+   "status": "stored"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "ea8e96921f8c4bce9b26f7c99a1719d5f9e05520",
+   "path": "verification/lean-mathlib/OIBridge/WordTraceSufficiency.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "c0b3882a67071557c0bb9b5208f4b0ef754ee4eb",
+   "path": "verification/lean-mathlib/OIBridge/WeylTwirl.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "bfe342b196efeca5439ca54d15767da1f54d4b2e",
+   "path": "verification/lean-mathlib/OIBridge/WeylLift.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "5b35b10bd7df5fa16ce710ee5285289438afa900",
+   "path": "verification/lean-mathlib/OIBridge/UhlmannUniqueness.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "729cfa6fe96f495f5dd9033f217de7c6cfed0273",
+   "path": "verification/lean-mathlib/OIBridge/TypedPositive.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "7ff39e64a2b0a6ae2fb8b60e267a2efb8bb77e5d",
+   "path": "verification/lean-mathlib/OIBridge/TypedCompletion.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "4bba2040c33424fafbc6d31c0d63b86dff33691a",
+   "path": "verification/lean-mathlib/OIBridge/TwoSidedGauge.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "9d38f716b316f8aebf50920c4dd06531cbd5d4da",
+   "path": "verification/lean-mathlib/OIBridge/TwoByTwoNoGo.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "79f5bd95d07a154caf09fcf04d5e26edcb064206",
+   "path": "verification/lean-mathlib/OIBridge/TurnpikeScopeTransfer.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "c08b988c5d882cee45690e3a2c49db6da1d49a18",
+   "path": "verification/lean-mathlib/OIBridge/TransposeBridge.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "91508205b33d9419fbffec5ad44035fad35de5f1",
+   "path": "verification/lean-mathlib/OIBridge/ThreadingObservability.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "35d72c3c3f748a810f47cb4bbdfd31849b80617a",
+   "path": "verification/lean-mathlib/OIBridge/ThermalOrientation.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "d21c6be0699a01a54893f23788584ee4b8c2c438",
+   "path": "verification/lean-mathlib/OIBridge/TasteBranching.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "0522db555977f4c19ac2f3469201e4d8435ad2fa",
+   "path": "verification/lean-mathlib/OIBridge/SwapLayer.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "4d053fe6c2d8c1d9ee96a8dcfaff721493c21269",
+   "path": "verification/lean-mathlib/OIBridge/SubstratumSource.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "56a0e4800c08e9a015ce4bc7da4d74aa3ea471b8",
+   "path": "verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "1c61fa6e4e5a668af55eea074898e87cc3866c06",
+   "path": "verification/lean-mathlib/OIBridge/SubstratumInterface.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "8f56716a2acb9020fa4e70a9136f22ac5d19cfa4",
+   "path": "verification/lean-mathlib/OIBridge/SubstantiveCensus.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "d6999cd1bd13013851aa7833c0ae062e60a4b35b",
+   "path": "verification/lean-mathlib/OIBridge/StructuralClosure.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "038f8e77de14f45790fddba69a4a659522d5fa81",
+   "path": "verification/lean-mathlib/OIBridge/StrictNaturalLift.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "0f4d1b1625e9c5c5070750bab04c9c989f0f0d04",
+   "path": "verification/lean-mathlib/OIBridge/StochasticInterface.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "5bb228363ea8708225fbd7d49a3375fae2c08435",
+   "path": "verification/lean-mathlib/OIBridge/StinespringUniqueness.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "1a91328de4f9a602771b2c1b216b605f61db4c05",
+   "path": "verification/lean-mathlib/OIBridge/StinespringAssembly.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "20cf5836ca941200c5eea579ed8fe9576959a7d2",
+   "path": "verification/lean-mathlib/OIBridge/StateMixingCoupling.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "b4cdd8c36b77291ee8119181bd8cc2eb9fa83781",
+   "path": "verification/lean-mathlib/OIBridge/SpectatorBridge.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "bed1967ae9508d499f5369e167d8402b4d796fa2",
+   "path": "verification/lean-mathlib/OIBridge/ShellAssignment.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "b36bb84357cc9b962bfaf78547f60c67e131c665",
+   "path": "verification/lean-mathlib/OIBridge/Separability.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "5ee55b5c7d3dcc45fac2a4b62c135a06d4010ea8",
+   "path": "verification/lean-mathlib/OIBridge/SemigroupTransfer.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "fb7e172024597ba3e217a993169447753fa052ec",
+   "path": "verification/lean-mathlib/OIBridge/SecondOrderLayer.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "0d4b9f8b3423bca837ac49acd6a2f3d32c688585",
+   "path": "verification/lean-mathlib/OIBridge/SecondOrderDrive.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "4eacbb0910dd7b9002640847a7bb4929ca7b92b9",
+   "path": "verification/lean-mathlib/OIBridge/SecondOrderCircuit.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "87b21f3808a3576259b7236157ea986100fc6675",
+   "path": "verification/lean-mathlib/OIBridge/ScalingFamily.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "fb62a5163fc66ce91a2127c0a77be7ea2ab816af",
+   "path": "verification/lean-mathlib/OIBridge/ScalarClosure.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "1a0f4560b1e196f86d98305575a6e9db8e825780",
+   "path": "verification/lean-mathlib/OIBridge/RouteB.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "67d99f3891e2a41c9674dc3ca3b0874da77b5e29",
+   "path": "verification/lean-mathlib/OIBridge/RootedClassificationT2.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "13123378286a31f2bae224b6eda3f8cbb6ce3847",
+   "path": "verification/lean-mathlib/OIBridge/RootedClassificationAllTime.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "ffb7546f72f0e3f5190650f77c4dc88b9f38f40b",
+   "path": "verification/lean-mathlib/OIBridge/RootedClassification.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "4c1137f35600320b9273c857ec62271341b05cd0",
+   "path": "verification/lean-mathlib/OIBridge/RepresentativeNaturality.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "70486def59e27ba7d752275356c09becfbf4405d",
+   "path": "verification/lean-mathlib/OIBridge/RegionTower.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "1edf1ccaf0ae8916d3afe604aaece7c033570ca6",
+   "path": "verification/lean-mathlib/OIBridge/RegionLimit.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "8b577e2e71e4ffd143dbdcb83d5bcee6c8e06fc5",
+   "path": "verification/lean-mathlib/OIBridge/ReferenceSufficiency.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "c4f0353601d8c69c5d069265427d560b93eadc48",
+   "path": "verification/lean-mathlib/OIBridge/ReferenceExtension.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "1ee2936d6d1656bc792f66cd12140bf53091f7b4",
+   "path": "verification/lean-mathlib/OIBridge/RecurrenceHorizon.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "2f5bb2107b71974784eec089044e9924b975f169",
+   "path": "verification/lean-mathlib/OIBridge/Reciprocity.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "16f08f712cbbb0a0f752ac8d7e072b1d5e52d761",
+   "path": "verification/lean-mathlib/OIBridge/ReanchoredChannelScope.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "c8dd9d1c772e300502dfa58210230cb81e6e7c89",
+   "path": "verification/lean-mathlib/OIBridge/RealPairFlow.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "2dc9db6dbeb9fd18532e89d266257d1e1d6fc23d",
+   "path": "verification/lean-mathlib/OIBridge/ReadbackRobustness.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "b95b0f7f2eba978d60da6ea61774449c598338af",
+   "path": "verification/lean-mathlib/OIBridge/ReadWriteControl.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "1957505c0cfbef0827144a4ab5f10b0a32c4a395",
+   "path": "verification/lean-mathlib/OIBridge/ReachabilitySeam.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "cd2578edd57364b496f2a71f0e2d4e9ac725fe71",
+   "path": "verification/lean-mathlib/OIBridge/RankGapTheory.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "f8d37a95066602156cb9671d67de2d0a2907ecf9",
+   "path": "verification/lean-mathlib/OIBridge/QuasilocalCharacterization.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "575067d735ae00cf3935c9325a3b54b72374311e",
+   "path": "verification/lean-mathlib/OIBridge/QuasilocalAlgebra.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "704f9b26321fc15bc7120e4555361c2d9da003cb",
+   "path": "verification/lean-mathlib/OIBridge/QuarterTurn.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "3a5d01270f15c4abe28a07074aa021549d1ec543",
+   "path": "verification/lean-mathlib/OIBridge/QuantumRepresentationT3.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "ae858b76e20c992e3bb8888976a2056e5db86ba9",
+   "path": "verification/lean-mathlib/OIBridge/QuantumRepresentationT2.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "e1338f54af1df896d5e3c237ec00ed6e3d69dbf2",
+   "path": "verification/lean-mathlib/OIBridge/QuantumRepresentation.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "8f33078228bd0a8ac13c4352a4a511d3e296af69",
+   "path": "verification/lean-mathlib/OIBridge/Purification.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "81553f6d165e18153cae938743ed97f93e0a2c9c",
+   "path": "verification/lean-mathlib/OIBridge/ProjectiveAction.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "016e542872383b296bb0255d8e9ff1561d36fbcc",
+   "path": "verification/lean-mathlib/OIBridge/ProductStrictLift.lean",
+   "status": "stored"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "325c09a180366765ae4d742b752099d3b219d3c9",
+   "path": "verification/lean-mathlib/OIBridge/ProductLocusFreedom.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "90533c832477ad25e8725f20b7759ac71149c251",
+   "path": "verification/lean-mathlib/OIBridge/ProductAdmission.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "dcc7f2f1f83a1e9e2574ce73a93d921d85790c80",
+   "path": "verification/lean-mathlib/OIBridge/PositiveReachability.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "66e6744fb5dfeac36bf48ae0b2f3e0083d357d69",
+   "path": "verification/lean-mathlib/OIBridge/PositivePackage.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "a1653b7aebf11ed038fb145e669ec25eeaea5733",
+   "path": "verification/lean-mathlib/OIBridge/PolarizationClosure.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "1d73ab92825cb87e528242be51f5aa3139245577",
+   "path": "verification/lean-mathlib/OIBridge/PiccardBridge.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "1a96e2454009638cee5bd3569b3bbcd5ec791d3a",
+   "path": "verification/lean-mathlib/OIBridge/PhysicalCharacterization.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "8bdf3c77acf51f074c4f05dc440e3511137cdf9c",
+   "path": "verification/lean-mathlib/OIBridge/PhysicalC4StorageReadback.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "832eeac3ee5f8df770b478b272842729183c7e48",
+   "path": "verification/lean-mathlib/OIBridge/PhysicalC4Discharge.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "635995900522ae2120fddb6dbc8436f1df45e6ac",
+   "path": "verification/lean-mathlib/OIBridge/PhaseSource.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "983a69d2e4a501ad07fc9e7b00092c4d4a674278",
+   "path": "verification/lean-mathlib/OIBridge/PassiveQuotient.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "8e946d0dfb7cd235b79a1b546fdf0caa60dfb822",
+   "path": "verification/lean-mathlib/OIBridge/PassiveObservation.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "5b418a4185bfa243e2d265ccf2302f6959fb27f1",
+   "path": "verification/lean-mathlib/OIBridge/PassiveIndependence.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "64b22ac1ee8b17358255601742ad76cec9447e4f",
+   "path": "verification/lean-mathlib/OIBridge/PartialTranspose.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "c01db717d7251f449df85feb9cc8d8832d3c9f9c",
+   "path": "verification/lean-mathlib/OIBridge/PairFlowEquivalence.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "ce9aa4bbb26336bb1ae9f96bf34963a0cdb66962",
+   "path": "verification/lean-mathlib/OIBridge/OrientationSelection.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "0fc95726c145828f766d13abf7c1af44b8fdcc29",
+   "path": "verification/lean-mathlib/OIBridge/OrientationClosure.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "62e75b8801f27662de7484dea8a00d147210a45f",
+   "path": "verification/lean-mathlib/OIBridge/OrbitReachability.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "860daac4eb20dbe92c35c2b3ca7aaa1ed798e7b8",
+   "path": "verification/lean-mathlib/OIBridge/OrbitLawRigidityTwisted.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "d41b157a3f38d4ebedbe11ad9682a8693836a383",
+   "path": "verification/lean-mathlib/OIBridge/OrbitLawNaturalityFactorization.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "5ed0dad78d87314dfd9e1a8ec241f479ded1e3e1",
+   "path": "verification/lean-mathlib/OIBridge/OrbitLawGaps.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "ce9d1aa05dfdedfb5cac171cfe6379681942195f",
+   "path": "verification/lean-mathlib/OIBridge/OrbitGeometrySelector.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "3e15384196203939d348f2a313a873818ec4b684",
+   "path": "verification/lean-mathlib/OIBridge/OrbitGeometryRigidity.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "954fbddaa7511713a26c316b3b2e0f29497e81d2",
+   "path": "verification/lean-mathlib/OIBridge/OrbitGeometryIsometries.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "9a71b5872df3c88ca119612ef4d90ab259955ad4",
+   "path": "verification/lean-mathlib/OIBridge/OperationalValidity.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "2ab6113754874ff6a83956ef8f2227578d089547",
+   "path": "verification/lean-mathlib/OIBridge/OperationalSourcing.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "15759593bb409640ab472931372874fef5a533a7",
+   "path": "verification/lean-mathlib/OIBridge/OperationalRigidity.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "592d8203c488914fe36c3e1b1371eb5efa9af3ca",
+   "path": "verification/lean-mathlib/OIBridge/OperationalAssembly.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "6c88618460d058261356d113c32567a2f65ac191",
+   "path": "verification/lean-mathlib/OIBridge/ObservabilityQuotient.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "4df632b73d3cfefc5923958a802319a552150afc",
+   "path": "verification/lean-mathlib/OIBridge/OIRealization.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "b1b7e0103a5b6fbe590ea003804214501aa9c0a5",
+   "path": "verification/lean-mathlib/OIBridge/MonoidalCompletion.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "7df37d3f606350f547985c3d577faba106a76a56",
+   "path": "verification/lean-mathlib/OIBridge/MinimalRepertoire.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "f124d609e119b8bb4f78d0788028b8e16a426d3a",
+   "path": "verification/lean-mathlib/OIBridge/MicroscopicReversibility.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "f7befdc7b5e814677e6220d91e06fc35b8950c49",
+   "path": "verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "6008b6f95149e1ad0fe0d0b98f7923c0f4cfa4af",
+   "path": "verification/lean-mathlib/OIBridge/LinkDecomposition.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "9fad45f9bc4de117fce41d4ec5f450d75e7baa29",
+   "path": "verification/lean-mathlib/OIBridge/LiftSource.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "deca05869ff4ed2f131d7e6fb77e5c900048e18f",
+   "path": "verification/lean-mathlib/OIBridge/LiftAudit.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "b9e789d3a00c9d1452169421434917057ecadd26",
+   "path": "verification/lean-mathlib/OIBridge/LieRankSource.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "57805fe4ff5cd7b37ffa5ebe026f817a366605aa",
+   "path": "verification/lean-mathlib/OIBridge/LevelOneSeam.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "6e94a39c795943d296e4dbbce28617650ccfd3fd",
+   "path": "verification/lean-mathlib/OIBridge/LevelOneRecursion.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "217031c5e394e5c0ccece99ff45fcf9e46525539",
+   "path": "verification/lean-mathlib/OIBridge/KrausUniqueness.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "33868ae15e20b273208f7c0f2bc2121b65d5016c",
+   "path": "verification/lean-mathlib/OIBridge/KrausSoundness.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "1e95229ba7b8a906c0eb8e463ec52daf7419e57e",
+   "path": "verification/lean-mathlib/OIBridge/JordanClassification.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "f369d2c43afc7943da0dc2e05909ec8e80db7c91",
+   "path": "verification/lean-mathlib/OIBridge/IsometryExtension.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "ad8a9132a3c2c1785f6f04d032fa0caef5a327cd",
+   "path": "verification/lean-mathlib/OIBridge/Irreducibility.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "658ebd7189aa0a4588e103e6cdf85b24b1703b47",
+   "path": "verification/lean-mathlib/OIBridge/InternalObserver.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "cb14c43b0becfe1a379ae3615d5553723ede9163",
+   "path": "verification/lean-mathlib/OIBridge/IntermediateCrossTimeStructure.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "0fd2c5d5e503bc0693784b4428f945a5d70eff90",
+   "path": "verification/lean-mathlib/OIBridge/InstrumentRealization.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "da05917b7f41040017adcb0837e7661b549d488d",
+   "path": "verification/lean-mathlib/OIBridge/InstrumentDilation.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "3d574649695604d2e04c364ed939b1d4ef63dccb",
+   "path": "verification/lean-mathlib/OIBridge/InstrumentCompletion.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "fa8560d85cc5ab7ac0cb53769ab72aa73fef1ae7",
+   "path": "verification/lean-mathlib/OIBridge/InstrumentAvailability.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "b31f8ea03736af2b3dfedd316ecd85ae363e1d27",
+   "path": "verification/lean-mathlib/OIBridge/IndependenceCensus.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "d96b65bd262e658baf0be52cfaf4b6e33de0dd28",
+   "path": "verification/lean-mathlib/OIBridge/ImplementationLocality.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "f91fb788e66d1ae21a1572de5865f8166c13f5bf",
+   "path": "verification/lean-mathlib/OIBridge/IdempotentTrace.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "fd5f54d8cbba4f68b67335c111d39a2add0c642f",
+   "path": "verification/lean-mathlib/OIBridge/HydroSourceAudit.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "aff9a47ba75c0172100ff82f6d03b59a23cf5320",
+   "path": "verification/lean-mathlib/OIBridge/HydroClosureBridge.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "eb387471d927960f8de43254a3614d78ba2648c5",
+   "path": "verification/lean-mathlib/OIBridge/HomometricSix.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "2b7736dcb4eae27ae5c2dc2cadb99aec0a019853",
+   "path": "verification/lean-mathlib/OIBridge/HomometricKill.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "b0cb1cb4203c7edf6c8ad0bc59160693c9e947f6",
+   "path": "verification/lean-mathlib/OIBridge/HiddenMemory.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "7ee9382349a58a9ea9403dc5a56c5e0986ad054b",
+   "path": "verification/lean-mathlib/OIBridge/HiddenCoherence.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "374db0387337960888a67f4e98609446c8a1b871",
+   "path": "verification/lean-mathlib/OIBridge/HexLatticeGas.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "afc22cfc93b244c80e1c55a273dcfda1ddebb121",
+   "path": "verification/lean-mathlib/OIBridge/GramTrajectorySelection.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "778fd9fc8ccc26084bced15f15c1148d648870e6",
+   "path": "verification/lean-mathlib/OIBridge/GeneralCarrier.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "812d4120acfde044f3417a580dbf001a4ceec0df",
+   "path": "verification/lean-mathlib/OIBridge/GaugeDimension.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "0e65cb3b9469000435864471dc953f847fc20e8b",
+   "path": "verification/lean-mathlib/OIBridge/FrozenSourcing.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "efd828d5913bba3b37195a07b77d1a32200a993b",
+   "path": "verification/lean-mathlib/OIBridge/FrequencyMatching.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "a306cc0b346f9fa9c836e22ec36962babebcc6b3",
+   "path": "verification/lean-mathlib/OIBridge/FlowEndpoint.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "71663c34eedee4fa5f9bd3f28e9c59698f057248",
+   "path": "verification/lean-mathlib/OIBridge/Finiteness.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "52fbd89d5e04701ff398ad166c607e81b0aded36",
+   "path": "verification/lean-mathlib/OIBridge/FiniteEntropy.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "9051827688f60dd2bc02621a5cbf31710e221f42",
+   "path": "verification/lean-mathlib/OIBridge/FactorUniqueness.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "c7e0776bc00e2920565ee0f11ed02c74d89e12c5",
+   "path": "verification/lean-mathlib/OIBridge/FactorExchange.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "ebb50145b8713f6ef193b0ec2793c878481ec579",
+   "path": "verification/lean-mathlib/OIBridge/ExecSource.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "3f06f76b7f3d4afc6dfaef546f9a8e63e41e97fe",
+   "path": "verification/lean-mathlib/OIBridge/EquivalenceChain.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "08b9c358feb378bb4cce300ad548594cd3c5040f",
+   "path": "verification/lean-mathlib/OIBridge/Equivalence.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "be7ff0941430925a27f1eb29561d27a69bfd3993",
+   "path": "verification/lean-mathlib/OIBridge/EmbeddedObservation.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "51ac26c42e695583175ee8d934cf82e72283e85a",
+   "path": "verification/lean-mathlib/OIBridge/EdgeRigidity.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "fd5012cdf8624c79e5c5f2ca6321c087bc0c89e0",
+   "path": "verification/lean-mathlib/OIBridge/DynamicsGlue.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "ff4a18a1497063fc975184e3e2d708a424dfe2b6",
+   "path": "verification/lean-mathlib/OIBridge/DomainGlue.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "985117b38d921b7cdc180713b043fe7525afe17d",
+   "path": "verification/lean-mathlib/OIBridge/DiscreteCompletion.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "24bdb2720458875986e37bc43d688ba75442446e",
+   "path": "verification/lean-mathlib/OIBridge/DimensionalObstruction.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "87d17d335b38f3ee7444758f5e426b8e079d005d",
+   "path": "verification/lean-mathlib/OIBridge/DimensionalCountermodel.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "7e3a8222cedf530f3c109662e7174d72b6358063",
+   "path": "verification/lean-mathlib/OIBridge/DilationChoice.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "837cb481f44cbf21194280c8be4ce341ad065a70",
+   "path": "verification/lean-mathlib/OIBridge/DiagonalTheory.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "b55436e26f2d20ce225b647865f88a2bd0ad0b70",
+   "path": "verification/lean-mathlib/OIBridge/DerivedQ3.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "9f25c0666256d9361c5f96aebbf7dd2d3205c525",
+   "path": "verification/lean-mathlib/OIBridge/DenseInstrumentBridge.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "da18f713e3c6488dc28ade6abfcced5648ccaa64",
+   "path": "verification/lean-mathlib/OIBridge/CycleFibreHull.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "c1918dc0c4ffaf1547f1918e6665f7c086233796",
+   "path": "verification/lean-mathlib/OIBridge/CubicIsotropy.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "47eb21e22845f0319926227c80d0d7f2f033880b",
+   "path": "verification/lean-mathlib/OIBridge/CrossTimeInvariants.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "74d65c6187752a118c77b4047fca607926c6dcc8",
+   "path": "verification/lean-mathlib/OIBridge/ControlledQuotient.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "db1451c5036e1d5af4694eddd76eeb66cc7be715",
+   "path": "verification/lean-mathlib/OIBridge/ControlLie.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "30ea173cf3e93273cef6f251680f3a502ac0757c",
+   "path": "verification/lean-mathlib/OIBridge/ContinuousExtension.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "9e17bf4e78afb46055f922afd2e7cc7632d63247",
+   "path": "verification/lean-mathlib/OIBridge/CongruentReconstruction.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "7279014f320f1a9356935e2d36571dc4e0d9ca98",
+   "path": "verification/lean-mathlib/OIBridge/CompositionalIndependence.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "3e153fa433f644a3746a36e09a4558e24f475d4b",
+   "path": "verification/lean-mathlib/OIBridge/CompositeSoundness.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "b22133e1962efbd4f34b515b9b56f7d478da3f9e",
+   "path": "verification/lean-mathlib/OIBridge/CompletedOI.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "a11798105d1ce0df18efad1b9a1e73c302e7d6f6",
+   "path": "verification/lean-mathlib/OIBridge/CombRealization.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "8d17177799327d648bbbd001cf237e1ac37bd3fc",
+   "path": "verification/lean-mathlib/OIBridge/CoherentLiftGauge.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "942e6dc24d077d08e542acf6a36c611fc016d676",
+   "path": "verification/lean-mathlib/OIBridge/CoherentLift.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "81c71c78614d64f82839799ec7f87738ad9a0be5",
+   "path": "verification/lean-mathlib/OIBridge/CoherentExtension.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "78de5d7643e4970ff8f485332f68b6043dbfdb2d",
+   "path": "verification/lean-mathlib/OIBridge/CoherentContinuumSource.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "8d0342eb3ee1de1ed20f2b148541bf3286615507",
+   "path": "verification/lean-mathlib/OIBridge/ClosureObstruction.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "060c2640b662d43e1a8c43e04251dd262c3f536e",
+   "path": "verification/lean-mathlib/OIBridge/CentralObservation.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "d7b71cf56aaddb24724653caa0d96b525134f95e",
+   "path": "verification/lean-mathlib/OIBridge/CausalReadback.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "06f0a74300a4bdada95002a245be55384a0b81f8",
+   "path": "verification/lean-mathlib/OIBridge/CarrierGeneralOIPlus.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "183cc42a69c6530803904c20f028c5ba3b889d6c",
+   "path": "verification/lean-mathlib/OIBridge/CanonicalMeasure.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "d1b543b4a68ed84862496f8034e252b7aa6eec1f",
+   "path": "verification/lean-mathlib/OIBridge/CandidateSelection.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "2cdfdf7742694391f16a73eebe37e1c0dcad6674",
+   "path": "verification/lean-mathlib/OIBridge/CancellationFork.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "08d8e8cec9cb6fc2b19cc31a14693f437baed8f2",
+   "path": "verification/lean-mathlib/OIBridge/C5Discovery.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "b6be90e0404eb9900c2a63a02bfddac258210546",
+   "path": "verification/lean-mathlib/OIBridge/C3Necessity.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "bfa1ba52d923d3eb1abb7afe39002b3bb8607ba0",
+   "path": "verification/lean-mathlib/OIBridge/BranchSelector.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "e7d0454af887f0a78898bf2723e505f959e6cccc",
+   "path": "verification/lean-mathlib/OIBridge/BoundaryRank.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "755dfdb33d122ae6b814ad8eefaf91ca6a463a02",
+   "path": "verification/lean-mathlib/OIBridge/BoundaryAudit.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "295dcacc4b3a31bafbd10d290a1c2f4d98ae85cc",
+   "path": "verification/lean-mathlib/OIBridge/BohrFrequency.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "5dac913c00002cc2b134ac05ff2fda3835c6412d",
+   "path": "verification/lean-mathlib/OIBridge/BarandesTuple.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "5ec9fe52835642724d0685d9b920f613874279d6",
+   "path": "verification/lean-mathlib/OIBridge/BackgroundIndependence.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "cd0738138322f26556f7e6394bd5d77aa61adc99",
+   "path": "verification/lean-mathlib/OIBridge/Averaging.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "8ecea52057a6e0968e83838a69c41c46b8bb855f",
+   "path": "verification/lean-mathlib/OIBridge/AntiunitaryInvariance.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "38f25e1c0fea2984c9e8b5682e31abf366734a3e",
+   "path": "verification/lean-mathlib/OIBridge/AncillaInterference.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "761d4b723c6411f66874d58a1c9448e8bd9f2f5d",
+   "path": "verification/lean-mathlib/OIBridge/AncillaClosure.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "b74202bc160918b32ca1b333da532a141ea8015d",
+   "path": "verification/lean-mathlib/OIBridge/AnchorRobustness.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "4b4c00582dff73eee815067f5b7ebf90b440f56e",
+   "path": "verification/lean-mathlib/OIBridge/AccessibleAlgebra.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "dc8060f0f4ffe26d3adea7139462430120c4a30c",
+   "path": "verification/lean-mathlib/OIBridge/A6Instantiation.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "7a6aaa6cd4011d03932a0c65fe622e6fc521b2c8",
+   "path": "verification/lean-mathlib/OIBridge.lean",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "4151e7c65fbb9ceb331636cb5becce876eddacfa",
+   "path": "verification/lean-manuscript-census.json",
+   "status": "stored"
+  },
+  {
+   "kind": "tree",
+   "mode": "40000",
+   "oid": "81525f8110352ca33dfc4dfb8c98cb2463de9a94",
+   "path": "verification/infrastructure/",
+   "status": "outside"
+  },
+  {
+   "kind": "tree",
+   "mode": "40000",
+   "oid": "6ed0c10ab737b5a4be95bfee4cb81f72d1052c27",
+   "path": "verification/coverage/",
+   "status": "outside"
+  },
+  {
+   "kind": "tree",
+   "mode": "40000",
+   "oid": "0fa2989ed441d936762fc6c7e1d5a490fe01b8b1",
+   "path": "verification/certificates/",
+   "status": "outside"
+  },
+  {
+   "kind": "tree",
+   "mode": "40000",
+   "oid": "545381ec6e3b2890eda124c22b15304a1f9626df",
+   "path": "verification/audits/",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "1b14ddfa84c372184525eac951863d7c06d39405",
+   "path": "verification/audit-census.json",
+   "status": "outside"
+  },
+  {
+   "kind": "tree",
+   "mode": "40000",
+   "oid": "bf40fe23f762a6be746b0acd336beb462609cabf",
+   "path": "verification/archive/",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "e6779380f858bcb905fc9877ed2f11bf5de75c95",
+   "path": "verification/ROADMAP.md",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "1be9ab5b4242531025d438ca5db39427feeba859",
+   "path": "verification/README.md",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "025d6eb5fd9fec2cf87af6b6454acffc6b0763d8",
+   "path": "verification/MIGRATION-RECORD.md",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "203904c3331301a31137281a0a36cce1c0e878aa",
+   "path": "verification/MIGRATION-MANIFEST.md",
+   "status": "outside"
+  },
+  {
+   "kind": "tree",
+   "mode": "40000",
+   "oid": "df82546d41b07f12b333bf1e88383050f15daafc",
+   "path": "tools/",
+   "status": "outside"
+  },
+  {
+   "kind": "tree",
+   "mode": "40000",
+   "oid": "4db74e8a3b176aa69892612e6544acf433d2cfcc",
+   "path": "papers/",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "cd612dee7c9eac6d0b4aad29d3ca820460d5bb8d",
+   "path": "build.sh",
+   "status": "outside"
+  },
+  {
+   "kind": "tree",
+   "mode": "40000",
+   "oid": "f7aac31791eaec3a364e39cca62c92329ad030a0",
+   "path": "book/",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "e1aca1e9c916f23227e5f06dfff6a9c3adab18a8",
+   "path": "README.md",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "74b043901dbee657528273452414a69bfa0da2b7",
+   "path": "LICENSE",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "4c7a768f4bf4a00c15c12a9e74c5b81a0fbdadc0",
+   "path": "AGENTS.md",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "5b51125bc0e871b03f512b08d8fa403a58829de4",
+   "path": ".zenodo.json",
+   "status": "outside"
+  },
+  {
+   "kind": "blob",
+   "mode": "100644",
+   "oid": "f1c62952d5ac1f2d9433b46137a273cbaafcfd62",
+   "path": ".gitignore",
+   "status": "outside"
+  },
+  {
+   "kind": "tree",
+   "mode": "40000",
+   "oid": "c140271b47f5e544c4ccbd1341811af797aa0902",
+   "path": ".github/",
+   "status": "outside"
+  }
+ ]
+}
