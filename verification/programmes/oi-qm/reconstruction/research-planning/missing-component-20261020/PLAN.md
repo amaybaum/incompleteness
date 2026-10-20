@@ -94,8 +94,9 @@ Each node has been independently reviewed, and its review outcome is applied in 
   - So the phase gap and the continuum of test bases are both A1-only. At A2, G4's uniform-ray clause is not
     necessary: every one-outcome unitary of this dense theory fixes the uniform ray.
   - Heralded branches count as outcomes of an available family; renormalized postselected branches do not.
-  - Completion rules of word type (almost-sure termination, stopping-time rules, countable mixtures, state-independent
-    postselection) keep `countable_not_pairFlowSourced` and `fixedGateTheory_not_qm`: they can supply the phase but not
+  - Completion rules of word type (almost-sure termination, stopping-time rules, countable mixtures, postselection
+    that does not depend on the input state) keep `countable_not_pairFlowSourced` and `fixedGateTheory_not_qm`: they
+    can supply the phase but not
     the continuum. Topological closure, convergent infinite compositions and basis-set closure erase the fixed-gate
     control: they are the dense endpoint relabelled. Shown for the eight listed forms only.
   - Almost-sure termination exceeds any fixed finite representative, as every A1-exact continuum does.
