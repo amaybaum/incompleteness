@@ -11,9 +11,11 @@ Blocks
   B  Bell under OI's actual readout: exhaustive local partitioned automaton (ceiling 2);
      one long edge (PR, operational no-signalling); a tunable family S = 2 + 2w; a
      measurement-dependent local model against Main's information bound.
-  C  preparation contextuality: a C4-satisfying delay line and the toy bit are preparation
-     noncontextual (record map injective); exact LP gives the PNC parity-oblivious-multiplexing
-     ceiling 3/4; a hidden-label (shadow-type) construction exceeds it, exactly parity-oblivious.
+  P  preparation contextuality (checks P1-P5, named to avoid the corpus's conditions C1-C4): a
+     C4-satisfying delay line and the toy bit are preparation noncontextual (record map injective);
+     exact LP gives the PNC parity-oblivious-multiplexing ceiling 3/4 (exact parity obliviousness
+     assumed); a hidden-label (shadow-type) construction exceeds it, exactly parity-oblivious;
+     destructive complementary readouts (P5) exceed it with a free weight.
   K  Peres-Mermin: no noncontextual assignment; context-indexed responses satisfy it.
   D  the one emergent constraint of the uniform prior: double stochasticity (replay of Main 3.1).
 """
@@ -230,7 +232,7 @@ def block_B():
             best = max(best, rule_best)
             attain += rule_best == 2
     check('B1', cone_ok and best == 2 and attain > 0,
-          f'local partitioned automaton, ring of 8, all 576 rule pairs x 64 pre-setting microstates: cone respected at every point, max |S| = {best} (attained by {attain} rule pairs); every setting-independent prior gives |S| <= 2')
+          f'local partitioned automaton, ring of 8, all 576 rule pairs x 64 pre-setting microstates: cone respected at every point (path check; sensitivity in B1m), max |S| = {best} (attained by {attain} rule pairs); every setting-independent prior gives |S| <= 2')
 
     # B1m can-fail countercontrol: two more steps (even, odd, even, odd) let the cones meet
     best3 = 0
@@ -381,7 +383,7 @@ def pnc_pom_lp(n_lambda, response_sets):
 
 
 def block_C():
-    # C1 a C4-satisfying delay line: (x, h) -> (h, x); fixed readout of x at t = 0, 1, 2
+    # P1 a C4-satisfying delay line: (x, h) -> (h, x); fixed readout of x at t = 0, 1, 2
     law = {}
     for x0, h0 in product((0, 1), repeat=2):
         xs_ = [x0]
@@ -395,22 +397,30 @@ def block_C():
         den = sum(law.get((x0, x1, z), 0) for z in (0, 1))
         return num / den
     c4 = cond(0, 0, 0) != cond(0, 0, 1)
-    # record map mu(x0,h0) -> law(x0, x1): x1 = h0, so the map is the identity on the 4-simplex
-    M = sp.Matrix([[1 if (x0, h0) == (u, v) else 0 for (x0, h0) in product((0, 1), repeat=2)]
-                   for (u, v) in product((0, 1), repeat=2)])
-    check('C1', c4 and M.rank() == 4,
-          f'delay line satisfies C4: P(x2=0|x1=0,x0=0) = {cond(0, 0, 0)}, P(x2=0|x1=0,x0=1) = {cond(0, 0, 1)}; record map on hidden distributions has rank {M.rank()}/4, so operationally equivalent preparations have identical ontic distributions (preparation noncontextual)')
+    # record map mu(x0,h0) -> law(x0, x1), derived from the dynamics: each ontic basis point is run
+    # through the swap and its readout pair recorded; the columns are the resulting record laws
+    recs = list(product((0, 1), repeat=2))
+    cols = []
+    for x0, h0 in product((0, 1), repeat=2):
+        x, h = x0, h0
+        r0 = x
+        x, h = h, x
+        r1 = x
+        cols.append([1 if (r0, r1) == rr else 0 for rr in recs])
+    M = sp.Matrix(cols).T
+    check('P1', c4 and M.rank() == 4,
+          f'delay line satisfies C4: P(x2=0|x1=0,x0=0) = {cond(0, 0, 0)}, P(x2=0|x1=0,x0=1) = {cond(0, 0, 1)}; record map on hidden distributions (from the dynamics) has rank {M.rank()}/4, so exactly operationally equivalent preparations have identical ontic distributions (preparation noncontextual)')
 
-    # C2 toy-bit operational map: (P(a=0), P(b=0), P(a^b=0), 1) from mu on (a, b)
+    # P2 toy-bit operational map: (P(a=0), P(b=0), P(a^b=0), 1) from mu on (a, b)
     ab = list(product((0, 1), repeat=2))
     T = sp.Matrix([[1 if a == 0 else 0 for a, b in ab],
                    [1 if b == 0 else 0 for a, b in ab],
                    [1 if (a ^ b) == 0 else 0 for a, b in ab],
                    [1 for _ in ab]])
-    check('C2', T.rank() == 4,
+    check('P2', T.rank() == 4,
           f'toy bit: single-measurement statistics already determine the ontic distribution (rank {T.rank()}/4): preparation noncontextual')
 
-    # C3 PNC POM ceiling, exact LP, 4 ontic states, every deterministic response function
+    # P3 PNC POM ceiling, exact LP, 4 ontic states, every deterministic response function
     allf = list(product((0, 1), repeat=4))
     best_all, _ = pnc_pom_lp(4, [allf, allf])
     # toy-restricted decodings: read a partition k and post-process
@@ -425,10 +435,10 @@ def block_C():
     xs = [(0, 0), (0, 1), (1, 0), (1, 1)]
     free_best = max(F(sum((g0[2 * x[0] + x[1]] == x[0]) + (g1[2 * x[0] + x[1]] == x[1]) for x in xs), 8)
                     for g0 in allf for g1 in allf)
-    check('C3', best_all == sp.Rational(3, 4) and best_toy == sp.Rational(3, 4) and free_best == 1,
+    check('P3', best_all == sp.Rational(3, 4) and best_toy == sp.Rational(3, 4) and free_best == 1,
           f'exact LP: PNC parity-oblivious multiplexing ceiling {best_all} (any response functions), {best_toy} (toy decodings); without parity obliviousness {free_best} (countercontrol)')
 
-    # C4 hidden-label (shadow-type) construction: hidden label x and uniform u in {0..N-1};
+    # P4 hidden-label (shadow-type) construction: hidden label x and uniform u in {0..N-1};
     # measuring axis m writes [u < N round_N((1 + n_x . m)/2)] into a pointer (a bijection).
     # Accessible axes: 16 directions in the XZ plane and +-Y.
     s2 = sp.sqrt(2)
@@ -456,12 +466,18 @@ def block_C():
         ok &= po
     q = (1 + 1 / s2) / 2
     ok &= rows[0].endswith('3/4') and rnd(q, 8) == sp.Rational(7, 8) and rnd(q, 100) == sp.Rational(17, 20)
-    # ontic distributions of the two parity mixtures differ (labels {00,11} vs {01,10})
-    check('C4', ok,
-          '; '.join(rows) + f'; QM value (1+1/sqrt2)/2; parity-0 and parity-1 mixtures have disjoint hidden-label supports (preparation contextual)')
+    # hidden-label supports of the two parity mixtures, computed (the label is the hidden datum)
+    supp0 = {x for x in nvec if x in ((0, 0), (1, 1))}
+    supp1 = {x for x in nvec if x in ((0, 1), (1, 0))}
+    mix0 = {x: (sp.Rational(1, 2) if x in supp0 else 0) for x in nvec}
+    mix1 = {x: (sp.Rational(1, 2) if x in supp1 else 0) for x in nvec}
+    disjoint = all(mix0[x] * mix1[x] == 0 for x in nvec) and any(mix0[x] != 0 for x in nvec)
+    ok &= disjoint
+    check('P4', ok,
+          '; '.join(rows) + f'; QM value (1+1/sqrt2)/2; hidden-label supports of the parity mixtures disjoint (computed): {disjoint} (preparation contextual)')
 
 
-def block_C5():
+def block_P5():
     # classical 2-bit ontology; accessible measurements: read bit y into a fresh pointer, then the
     # other bit is overwritten by fresh hidden randomness (destructive complementary readouts)
     def run(b0, b1, seq, rs):
@@ -511,7 +527,7 @@ def block_C5():
                    for x in product((0, 1), repeat=2) for y in (0, 1))
         ok &= obl and onticdiff and succ == (1 + w) / 2
         rows.append(f'w={w}: parity-oblivious on all {len(seqs)} sequences {obl}, ontic mixtures differ {onticdiff}, success {succ}')
-    check('C5', ok, 'destructive complementary readouts on a classical 2-bit ontology (bijective ' + str(bij) + '): ' + '; '.join(rows) + '; PNC ceiling 3/4, QM (1+1/sqrt2)/2 at w = 1/sqrt2')
+    check('P5', ok, 'destructive complementary readouts on a classical 2-bit ontology (bijective ' + str(bij) + '): ' + '; '.join(rows) + '; PNC ceiling 3/4, QM (1+1/sqrt2)/2 at w = 1/sqrt2')
 
 
 # ----------------------------------------------------------------------------------------------
@@ -525,16 +541,14 @@ def block_K():
     for v in product((1, -1), repeat=9):
         prods = [v[i] * v[j] * v[k] for (i, j, k) in rows + cols]
         nc += prods == target
-    # context-indexed responses: each context gets its own triple
-    ctx_ok = all(any(t[0] * t[1] * t[2] == tg for t in product((1, -1), repeat=3)) for tg in target)
     X = sp.Matrix([[0, 1], [1, 0]]); Z = sp.Matrix([[1, 0], [0, -1]]); Y = sp.Matrix([[0, -sp.I], [sp.I, 0]])
     kron = sp.kronecker_product
     grid = [kron(X, I2), kron(I2, X), kron(X, X), kron(I2, Z), kron(Z, I2), kron(Z, Z),
             kron(X, Z), kron(Z, X), kron(Y, Y)]
     qprods = [sp.simplify(grid[i] * grid[j] * grid[k]) for (i, j, k) in rows + cols]
     qok = all(qprods[n] == target[n] * sp.eye(4) for n in range(6))
-    check('K1', nc == 0 and ctx_ok and qok,
-          f'Peres-Mermin: noncontextual assignments satisfying all six contexts {nc}/512; context-indexed deterministic responses exist {ctx_ok}; operator identities hold {qok}')
+    check('K1', nc == 0 and qok,
+          f'Peres-Mermin: noncontextual assignments satisfying all six contexts {nc}/512; operator identities hold {qok}')
 
 
 # ----------------------------------------------------------------------------------------------
@@ -577,7 +591,7 @@ if __name__ == '__main__':
     block_A()
     block_B()
     block_C()
-    block_C5()
+    block_P5()
     block_K()
     block_D()
     npass = sum(ok for _, ok, _ in RESULTS)

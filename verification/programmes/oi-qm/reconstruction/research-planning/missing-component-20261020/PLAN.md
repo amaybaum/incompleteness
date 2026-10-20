@@ -178,6 +178,36 @@ Each node has been independently reviewed, and its review outcome is applied in 
   - G6: none. The postulate reproduces QMfin on its domain, and its A1 increment (U, O) is inert at finite precision.
     A G6 must come from the source or from outside the domain.
 
+- **`mc-node6/`, A2 track node 1, the quantum appearance in an observer's records: ELABORATING, one BORDERLINE item,
+  [W/EC].**
+  - Three rungs: R0, per-menu representability (universal, PR included); R1(d, m, K, ε), record laws of one
+    realization within ε of QM's in both directions at fixed dimension, outcome bound and horizon, a composite
+    entering as one system; R2, availability under G3 on visible carriers (`DenseFiniteQM`). The cone lemma and
+    clauses M and R are R2 statements. A κ1–κ4 toy-bit construction keeps every visible map in the cone and
+    reproduces the qubit's sequential Pauli records exactly on the 234 protocols checked. At R1 the corpus already
+    proves Reproduction (Main:576–578, a paper theorem). Local composite structure is the operational-lifting problem
+    it leaves open (Main:534, :578), and Main:580 and book appendix-c:228 name what remains as selection.
+  - Outcomes: Reproduction at R1 (corpus). Failure for the finite-range, measurement-independent completion (Bell),
+    and for every preparation-noncontextual model whose parity mixtures are exactly operationally equivalent
+    (parity-oblivious multiplexing ≤ 3/4 against QM's (1+1/√2)/2). No Emergence of quantum statistics found.
+    Contextuality from destructive complementary readouts comes from a posited restriction, as the toy bit's
+    statistics do. The emergent features found (double stochasticity, operational no-signalling, C4 memory) are
+    classical-compatible.
+  - Necessary for Emergence at R1 (not jointly sufficient):
+    - N1: in a model that keeps QM's operational equivalences exactly, preparation contextuality through
+      response-relevant memory that is never read back. History readback (C4) does not imply it, nor do knowledge
+      balance or bijectivity. Without exact equivalences, preparation noncontextuality is vacuous at finite
+      precision, so a finite-precision N1 needs a robust inequality;
+    - N2: for Bell, ontic parameter dependence or measurement dependence. In the parameter-dependence branch the
+      remote dependence must be nonaffine in the settings (GF(2)-affine remote dependence stays at 2), which bears on
+      preparation-indexed edges in a linear update (Main:392);
+    - N3: a principle fixing the magnitude. One long edge gives S = 2 + 2w, and destructive complementary readouts
+      give POM success (1+w)/2, with w free. Restriction overshoots QM as well as falls short;
+    - N4: response-relevant capacity unbounded in the precision;
+    - N5: with labelled instruments fixed (Main:550), Kochen–Specker contextuality carried by hidden memory that
+      earlier measurements update.
+  - G6: none under the preregistered rule.
+
 **Form the missing component must take under A1, as the reviewed nodes have narrowed it:**
 - Theory level: it entails phase-free richness, which is necessary for every A1 extension and sufficient when the
   extended theory satisfies `SourcedOI`, which the extension must itself supply. Stated directly, that is E0.
@@ -202,11 +232,12 @@ Each node has been independently reviewed, and its review outcome is applied in 
 ## A2 track: quantum appearance at every accessible precision
 
 A separate track, alongside the A1 benchmark. Question: can observational limitations make a deeper, non-quantum
-reality's observable regularities agree with QM to arbitrary experimentally accessible precision, without QM at the
-fundamental level? At the operational endpoint A2 (`DenseFiniteQM`), the node results above already fix part of the
-ground: U and O are not needed at A2 (`mc-node2`, `mc-node5`); M and R are needed at every precision, and the cone
-lemma (`mc-node3`) keeps every available map of the present construction in the monomial cone, limits included. The
-track therefore has to address interference (M), complex phases (R), and entanglement with multi-system compatibility
-(O-B) directly, and to ask whether operational availability is the right observable for the quantum appearance at all.
-It inherits this thread's method (depth-first, productivity test fixed first, exact checks, independent review), its
-controls, and G6; negative results are acceptable outcomes.
+reality's record statistics agree with QM to arbitrary accessible precision, without QM at the fundamental level?
+Results are classed as Emergence, Reproduction or Failure. At the level of availability under G3 (R2, `DenseFiniteQM`),
+U and O are not needed and M and R are, and the cone lemma (`mc-node3`) keeps the present construction's available
+maps in the monomial cone. At the level of record statistics (R1), M and R are not obstructions: κ1–κ4 constructions
+reproduce interference-type and complex-basis record statistics, and the corpus proves Reproduction at fixed
+dimension, outcome bound, horizon and tolerance, a composite entering as one system (Main:576–578); local composite
+structure stays open (Main:534, :578). The track's question at R1 is Emergence, related to the corpus's selection
+problem, under the necessary features N1–N5 of `mc-node6`. It inherits this thread's method, its controls and G6.
+Negative results are acceptable outcomes and are scoped to the construction examined.

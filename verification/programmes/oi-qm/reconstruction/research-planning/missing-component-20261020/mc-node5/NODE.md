@@ -295,9 +295,12 @@ the ingredient while keeping κ2 and supervenience. (iii), incompatibility with 
 conflict is with realizer assumptions that the corpus classes as a representation choice and a posit, and that
 GR.md:260 already relaxes for the phases.
 
-**What is empirically at stake.** U and O conflict only with the A1 target definition: at A2 they are not needed
-(MC2), and no finite-precision experiment separates the two endpoints (§5). M and R are needed at every precision, so
-their realization question cannot be avoided by relaxing exactness.
+**What is empirically at stake, at the level of availability.** U and O conflict only with the A1 target definition:
+at A2 they are not needed (MC2), and no finite-precision experiment separates the two endpoints (§5). As available
+operations under G3 on visible carriers, M and R are needed at every precision, so their realization question cannot be
+avoided by relaxing exactness. Record statistics are a different observable: there the corpus reproduces quantum
+statistics at fixed dimension, outcome bound, horizon and tolerance with configuration-bijection processes (Main.md:576),
+and the open question is selection (`mc-node6`).
 
 ***
 
