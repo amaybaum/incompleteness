@@ -1,0 +1,1314 @@
+{
+ "bridge_job": {
+  "conclusion": "success",
+  "id": "118705242073",
+  "name": "Mathlib bridge",
+  "steps": [
+   {
+    "conclusion": "success",
+    "name": "Set up job"
+   },
+   {
+    "conclusion": "success",
+    "name": "Run actions/checkout@v4"
+   },
+   {
+    "conclusion": "success",
+    "name": "Install elan"
+   },
+   {
+    "conclusion": "success",
+    "name": "Restore the OIBridge build cache"
+   },
+   {
+    "conclusion": "success",
+    "name": "Build"
+   },
+   {
+    "conclusion": "success",
+    "name": "Release gate"
+   },
+   {
+    "conclusion": "success",
+    "name": "KTOKEN-MAXCONE-1 check A3 (k = 2 statement identity and dependency walk, with mutations)"
+   },
+   {
+    "conclusion": "success",
+    "name": "Post Restore the OIBridge build cache"
+   },
+   {
+    "conclusion": "success",
+    "name": "Post Run actions/checkout@v4"
+   },
+   {
+    "conclusion": "success",
+    "name": "Complete job"
+   }
+  ]
+ },
+ "commit": "e35fe0993d22ea217d4094191ef355340ac80062",
+ "expected": {
+  "a3": {
+   "cases": {
+    "M_deadref": {
+     "codes": {
+      "DEPCHECK closure": 1,
+      "DEPCHECK watched": 569,
+      "DEPCHECK-MODULE": 12,
+      "DEPCHECK-PAIR": 1,
+      "DEPCHECK-SIBLING": 2
+     },
+     "errors": [
+      "M_deadref.lean:32:0: error: DEPCHECK FAIL"
+     ],
+     "exit": 1,
+     "expected": "fail",
+     "judged": "OK"
+    },
+    "M_direct": {
+     "codes": {
+      "DEPCHECK closure": 1,
+      "DEPCHECK watched": 235,
+      "DEPCHECK-MODULE": 12,
+      "DEPCHECK-PAIR": 1,
+      "DEPCHECK-REQUIRED": 1,
+      "DEPCHECK-SIBLING": 2
+     },
+     "errors": [
+      "M_direct.lean:30:0: error: DEPCHECK FAIL"
+     ],
+     "exit": 1,
+     "expected": "fail",
+     "judged": "OK"
+    },
+    "M_iff": {
+     "codes": {
+      "DEPCHECK closure": 1,
+      "DEPCHECK watched": 240,
+      "DEPCHECK-MODULE": 15,
+      "DEPCHECK-PAIR": 1,
+      "DEPCHECK-PROVED-FROM": 1,
+      "DEPCHECK-REQUIRED": 1,
+      "DEPCHECK-SIBLING": 2
+     },
+     "errors": [
+      "M_iff.lean:30:0: error: DEPCHECK FAIL"
+     ],
+     "exit": 1,
+     "expected": "fail",
+     "judged": "OK"
+    },
+    "M_inline": {
+     "codes": {
+      "DEPCHECK closure": 1,
+      "DEPCHECK watched": 234,
+      "DEPCHECK-MODULE": 11,
+      "DEPCHECK-REQUIRED": 1,
+      "DEPCHECK-SIBLING": 2
+     },
+     "errors": [
+      "M_inline.lean:31:0: error: DEPCHECK FAIL"
+     ],
+     "exit": 1,
+     "expected": "fail",
+     "judged": "OK"
+    },
+    "M_real": {
+     "codes": {
+      "DEPCHECK PASS": 1,
+      "DEPCHECK closure": 1,
+      "DEPCHECK watched": 466
+     },
+     "errors": [],
+     "exit": 0,
+     "expected": "pass",
+     "judged": "OK"
+    },
+    "M_required": {
+     "codes": {
+      "DEPCHECK closure": 1,
+      "DEPCHECK watched": 19,
+      "DEPCHECK-REQUIRED": 2
+     },
+     "errors": [
+      "M_required.lean:30:0: error: DEPCHECK FAIL"
+     ],
+     "exit": 1,
+     "expected": "fail",
+     "judged": "OK"
+    },
+    "M_sibling": {
+     "codes": {
+      "DEPCHECK closure": 1,
+      "DEPCHECK watched": 516,
+      "DEPCHECK-SIBLING": 1
+     },
+     "errors": [
+      "M_sibling.lean:32:0: error: DEPCHECK FAIL"
+     ],
+     "exit": 1,
+     "expected": "fail",
+     "judged": "OK"
+    },
+    "M_stmt_binder": {
+     "codes": {},
+     "errors": [
+      "M_stmt_binder.lean:54:0: error: STMT-IDENTITY binder annotations differ"
+     ],
+     "exit": 1,
+     "expected": "fail",
+     "judged": "OK"
+    },
+    "M_stmt_hyp": {
+     "codes": {},
+     "errors": [
+      "M_stmt_hyp.lean:52:71: error: Type mismatch",
+      "M_stmt_hyp.lean:55:0: error: STMT-IDENTITY the statements are not alpha-equivalent"
+     ],
+     "exit": 1,
+     "expected": "fail",
+     "judged": "OK"
+    },
+    "M_vac_module": {
+     "codes": {},
+     "errors": [
+      "M_vac_module.lean:30:0: error: DEPCHECK-VACUOUS module OIBridge.EqvK2MaxCon is not imported"
+     ],
+     "exit": 1,
+     "expected": "fail",
+     "judged": "OK"
+    },
+    "M_vac_sibling": {
+     "codes": {},
+     "errors": [
+      "M_vac_sibling.lean:30:0: error: DEPCHECK-VACUOUS OIBridge.EqvK2Schema.Q3_subset_of_puree is not a constant of the kernel environment"
+     ],
+     "exit": 1,
+     "expected": "fail",
+     "judged": "OK"
+    },
+    "M_vac_target": {
+     "codes": {},
+     "errors": [
+      "M_vac_target.lean:30:0: error: DEPCHECK-VACUOUS KTokenMaxConeCheck.Mutation.pairCone_eq_Q3_of_kTokenX is not a theorem of the kernel environment"
+     ],
+     "exit": 1,
+     "expected": "fail",
+     "judged": "OK"
+    },
+    "Positive": {
+     "codes": {
+      "DEPCHECK PASS": 1,
+      "DEPCHECK closure": 1,
+      "DEPCHECK watched": 465,
+      "STMT-IDENTITY ok": 1
+     },
+     "errors": [],
+     "exit": 0,
+     "expected": "pass",
+     "judged": "OK"
+    }
+   },
+   "final": "A3-CHECK-NONVACUOUS: 13 cases as expected",
+   "lines": [
+    "##[group]Positive (exit 0)",
+    "OK   Positive expected pass",
+    "##[group]M_real (exit 0)",
+    "OK   M_real expected pass",
+    "##[group]M_direct (exit 1)",
+    "OK   M_direct expected fail",
+    "##[group]M_iff (exit 1)",
+    "OK   M_iff expected fail",
+    "##[group]M_inline (exit 1)",
+    "OK   M_inline expected fail",
+    "##[group]M_deadref (exit 1)",
+    "OK   M_deadref expected fail",
+    "##[group]M_sibling (exit 1)",
+    "OK   M_sibling expected fail",
+    "##[group]M_required (exit 1)",
+    "OK   M_required expected fail",
+    "##[group]M_vac_target (exit 1)",
+    "OK   M_vac_target expected fail",
+    "##[group]M_vac_sibling (exit 1)",
+    "OK   M_vac_sibling expected fail",
+    "##[group]M_vac_module (exit 1)",
+    "OK   M_vac_module expected fail",
+    "##[group]M_stmt_binder (exit 1)",
+    "OK   M_stmt_binder expected fail",
+    "##[group]M_stmt_hyp (exit 1)",
+    "OK   M_stmt_hyp expected fail",
+    "A3-CHECK-NONVACUOUS: 13 cases as expected"
+   ],
+   "mutations_failing": 11
+  },
+  "absence": {
+   "module": "OIBridge/KTokenMaxCone.lean",
+   "source_line": 2520,
+   "text": "info: OIBridge/KTokenMaxCone.lean:2520:0: OIBridge.EqvK2MaxCone.pairCone_eq_Q3_of_drive_maxCone is not in the environment"
+  },
+  "controls_selftest": {
+   "final": "controls: OK (0 failure(s))",
+   "pass_lines": [
+    "D agrees with the preregistration",
+    "governed paths parsed (7) and include the module, the probe and the record directory",
+    "the frozen block declares the 14 names in order",
+    "the frozen-blob table names five paths",
+    "the retained-evidence table parses  2 rows, 0 pending",
+    "68 prints, 56 supporting",
+    "S1 accepts the module",
+    "the recovery states the landed pair theorem",
+    "S3 accepts the module",
+    "S4 finds nothing in the module header",
+    "S1 rejects the mutation: hmax dropped from the upper inclusion",
+    "S1 rejects the mutation: hadd dropped from the lower inclusion",
+    "S1 rejects the mutation: the guard (j : \u2115) \u2260 0 removed",
+    "S1 rejects the mutation: i < j replaced by i \u2260 j",
+    "S1 rejects the mutation: K = QK k weakened to K \u2286 QK k",
+    "S1 rejects the mutation: an extra print",
+    "S1 rejects the mutation: the classical instance made global",
+    "S1 rejects the mutation: a second import",
+    "the pair identity rejects a recovery off EqvK2MaxCone.lean:153-160",
+    "S3 rejects a recovery citing the pair theorem, and S1 does not",
+    "S3 rejects a recovery naming a sibling",
+    "S3 rejects an equivalence not built from its two witnesses",
+    "S3 rejects the module without the absence check",
+    "S4 flags each excluded phrase",
+    "W applies its six splices once each",
+    "W rejects a base lacking an anchor",
+    "I adds exactly one line after the anchor",
+    "J accepts the family and rejects a changed status",
+    "G flags a manuscript, the legacy manifest and the ROADMAP, and passes the module and the record",
+    "R accepts the frozen record and rejects an extra file",
+    "the cells are positive on a clean synthetic log",
+    "a sorryAx report on the recovery fails Q-PAIR alone",
+    "a missing A3 line fails Q-PAIR alone",
+    "a missing print fails Q-EQ",
+    "the probe rule accepts the frozen output shape and rejects N, a missing code and stderr",
+    "verdict() prints no positive token when any one of the 13 required static controls fails or is unreported, and prints all of them when every control passes (15 cases)",
+    "the real check() with any one control's record call removed, run through verdict(), fails, names that control, prints no positive token and never runs the probe; unmutated, it passes (26 cases)",
+    "38 self-checks ran, as frozen (38)"
+   ]
+  },
+  "permitted_axioms": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "probe": {
+   "checks": 3196,
+   "codes": {
+    "ADD3": 1,
+    "ADJOINT3": 2,
+    "CUT3": 1,
+    "DEMUX3": 2,
+    "DICT3": 2082,
+    "ORBIT3": 3,
+    "PRODUCT3": 4,
+    "QUANTUM3": 914,
+    "REACH3": 40,
+    "SCALE3": 1,
+    "SEP3": 1,
+    "SHIFT3": 2,
+    "SLICE3": 142,
+    "ZERO3": 1
+   },
+   "failures": 0,
+   "lines": [
+    "PASS DICT3 (2082)",
+    "PASS PRODUCT3 (4)",
+    "PASS REACH3 (40)",
+    "PASS DEMUX3 (2)",
+    "PASS ADJOINT3 (2)",
+    "PASS QUANTUM3 (914)",
+    "PASS ZERO3 (1)",
+    "PASS SCALE3 (1)",
+    "PASS ADD3 (1)",
+    "PASS SHIFT3 (2)",
+    "PASS SEP3 (1)",
+    "PASS ORBIT3 (3)",
+    "PASS CUT3 (1)",
+    "PASS SLICE3 (142)",
+    "checks: 3196, failures: 0",
+    "REJECTED trace-factor: DICT3",
+    "REJECTED adjoint: ADJOINT3",
+    "REJECTED shift-sign: SHIFT3",
+    "REJECTED group-below-168: ORBIT3",
+    "REJECTED cut-direction: CUT3",
+    "mutations: 5 rejected, 0 accepted",
+    "VERDICT KTOKEN-K3-EXACT"
+   ],
+   "mutations_accepted": 0,
+   "mutations_rejected": 5,
+   "rejected": {
+    "adjoint": "ADJOINT3",
+    "cut-direction": "CUT3",
+    "group-below-168": "ORBIT3",
+    "shift-sign": "SHIFT3",
+    "trace-factor": "DICT3"
+   },
+   "verdict": "KTOKEN-K3-EXACT"
+  },
+  "verdict_reads": {
+   "Lean.ofReduceBool": 0,
+   "a3_line": true,
+   "absence_line": true,
+   "form": "stripped",
+   "prints": 68,
+   "report_lines": [
+    [
+     "info: OIBridge/KTokenMaxCone.lean:223:0: 'OIBridge.KTokenMaxCone.tensor_conjugation' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:224:0: 'OIBridge.KTokenMaxCone.pauliWord_orthogonal' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:225:0: 'OIBridge.KTokenMaxCone.pauliWord_complete' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:226:0: 'OIBridge.KTokenMaxCone.coordinates_dictionary' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:227:0: 'OIBridge.KTokenMaxCone.dictionary_coordinates' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:228:0: 'OIBridge.KTokenMaxCone.dictionary_hermitian' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:229:0: 'OIBridge.KTokenMaxCone.coordinates_dictionary_real' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:230:0: 'OIBridge.KTokenMaxCone.dictionary_coordinates_real' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:1117:0: 'OIBridge.KTokenMaxCone.blockFam_mul' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:1118:0: 'OIBridge.KTokenMaxCone.isWord_conjTranspose' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:1119:0: 'OIBridge.KTokenMaxCone.isWord_lift' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:1120:0: 'OIBridge.KTokenMaxCone.sign_induction' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:1121:0: 'OIBridge.KTokenMaxCone.isWord_rzFam' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:1122:0: 'OIBridge.KTokenMaxCone.isWord_suFam' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:1123:0: 'OIBridge.KTokenMaxCone.reach_prod' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:1124:0: 'OIBridge.KTokenMaxCone.reach_norm' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:1125:0: 'OIBridge.KTokenMaxCone.subset_psd_of_maxCone_drive' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:1126:0: 'OIBridge.KTokenMaxCone.psd_subset_of_products_cone_drive' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:1127:0: 'OIBridge.KTokenMaxCone.kCone_eq_psd_of_drive_maxCone' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:1128:0: 'OIBridge.KTokenMaxCone.driveInvariant_of_eq_psd' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:1129:0: 'OIBridge.KTokenMaxCone.kCone_eq_psd_iff_drive_maxCone' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:1546:0: 'OIBridge.KTokenMaxCone.dictionary_prodTab' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:1547:0: 'OIBridge.KTokenMaxCone.trace_dictionary_mul' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:1548:0: 'OIBridge.KTokenMaxCone.tokMat_blochH' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:1549:0: 'OIBridge.KTokenMaxCone.lor_blochH' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:1550:0: 'OIBridge.KTokenMaxCone.quad_dictionary_prodVec' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:1551:0: 'OIBridge.KTokenMaxCone.psd_subset_of_pure_cone_drive' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:1552:0: 'OIBridge.KTokenMaxCone.tableCone_eq_psd_of_drive_maxCone' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:1553:0: 'OIBridge.KTokenMaxCone.lorPair_nonneg_of_maxConeTab' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:1554:0: 'OIBridge.KTokenMaxCone.tableCone_eq_psd_of_drive_maxConeTab' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:1555:0: 'OIBridge.KTokenMaxCone.tableDrive_of_eq_psd' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:1556:0: 'OIBridge.KTokenMaxCone.tableCone_eq_psd_iff_drive_maxConeTab' depends on axioms: [propext,",
+     " Classical.choice,",
+     " Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2525:0: 'OIBridge.KTokenMaxCone.pauliWord_apply' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2526:0: 'OIBridge.KTokenMaxCone.dictionary_tabOf' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2527:0: 'OIBridge.KTokenMaxCone.mem_QK_iff' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2528:0: 'OIBridge.KTokenMaxCone.tupOf_prodTab' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2529:0: 'OIBridge.KTokenMaxCone.sum_prodTab_tupOf' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2530:0: 'OIBridge.KTokenMaxCone.cnotM_apply' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2531:0: 'OIBridge.KTokenMaxCone.pauli_cnot_pair' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2532:0: 'OIBridge.KTokenMaxCone.dictK_cflip' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2533:0: 'OIBridge.KTokenMaxCone.tabAct_cnotM' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2534:0: 'OIBridge.KTokenMaxCone.tabAct_cnotM_eq' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2535:0: 'OIBridge.KTokenMaxCone.localM_conj_dictionary' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2536:0: 'OIBridge.KTokenMaxCone.tabAct_localM' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2537:0: 'OIBridge.KTokenMaxCone.tabAct_localM_eq' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2538:0: 'OIBridge.KTokenMaxCone.tabAct_rotK' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2539:0: 'OIBridge.KTokenMaxCone.tabAct_cycK' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2540:0: 'OIBridge.KTokenMaxCone.tableCone_subset_psd_of_maxCone_drive' depends on axioms: [propext,",
+     " Classical.choice,",
+     " Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2541:0: 'OIBridge.KTokenMaxCone.psd_subset_tableCone_of_products_cone_drive' depends on axioms: [propext,",
+     " Classical.choice,",
+     " Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2542:0: 'OIBridge.KTokenMaxCone.subset_QK_of_maxCone_drive' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2543:0: 'OIBridge.KTokenMaxCone.QK_subset_of_products_cone_drive' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2544:0: 'OIBridge.KTokenMaxCone.kCone_eq_QK_of_drive_maxCone' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2545:0: 'OIBridge.KTokenMaxCone.driveInvariantK_of_eq_QK' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2546:0: 'OIBridge.KTokenMaxCone.kCone_eq_QK_iff_drive_maxCone' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2547:0: 'OIBridge.KTokenMaxCone.pairCarrierEquiv_prodState' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2548:0: 'OIBridge.KTokenMaxCone.pairCarrierEquiv_maxCone' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2549:0: 'OIBridge.KTokenMaxCone.maxCone_of_pairCarrierEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2550:0: 'OIBridge.KTokenMaxCone.mem_Q3_iff_pairCarrier' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2551:0: 'OIBridge.KTokenMaxCone.pairCarrierEquiv_cnot' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2552:0: 'OIBridge.KTokenMaxCone.pairCarrierEquiv_actT' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2553:0: 'OIBridge.KTokenMaxCone.pairCone_eq_Q3_of_kToken' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2729:0: 'OIBridge.KTokenMaxCone.blochH_real' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2730:0: 'OIBridge.KTokenMaxCone.lor_blochH_decomp' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2731:0: 'OIBridge.KTokenMaxCone.lorTests_of_blochTests' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2732:0: 'OIBridge.KTokenMaxCone.maxConeTab_of_blochTests' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2733:0: 'OIBridge.KTokenMaxCone.maxConeTab_of_prodVec_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2734:0: 'OIBridge.KTokenMaxCone.prodVec_nonneg_of_maxConeTab' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ],
+    [
+     "info: OIBridge/KTokenMaxCone.lean:2735:0: 'OIBridge.KTokenMaxCone.maxConeTab_iff_prodVec_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]"
+    ]
+   ],
+   "reports": {
+    "QK_subset_of_products_cone_drive": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "blochH_real": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "blockFam_mul": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "cnotM_apply": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "coordinates_dictionary": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "coordinates_dictionary_real": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "dictK_cflip": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "dictionary_coordinates": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "dictionary_coordinates_real": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "dictionary_hermitian": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "dictionary_prodTab": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "dictionary_tabOf": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "driveInvariantK_of_eq_QK": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "driveInvariant_of_eq_psd": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "isWord_conjTranspose": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "isWord_lift": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "isWord_rzFam": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "isWord_suFam": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "kCone_eq_QK_iff_drive_maxCone": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "kCone_eq_QK_of_drive_maxCone": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "kCone_eq_psd_iff_drive_maxCone": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "kCone_eq_psd_of_drive_maxCone": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "localM_conj_dictionary": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "lorPair_nonneg_of_maxConeTab": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "lorTests_of_blochTests": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "lor_blochH": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "lor_blochH_decomp": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "maxConeTab_iff_prodVec_nonneg": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "maxConeTab_of_blochTests": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "maxConeTab_of_prodVec_nonneg": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "maxCone_of_pairCarrierEquiv": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "mem_Q3_iff_pairCarrier": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "mem_QK_iff": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "pairCarrierEquiv_actT": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "pairCarrierEquiv_cnot": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "pairCarrierEquiv_maxCone": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "pairCarrierEquiv_prodState": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "pairCone_eq_Q3_of_kToken": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "pauliWord_apply": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "pauliWord_complete": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "pauliWord_orthogonal": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "pauli_cnot_pair": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "prodVec_nonneg_of_maxConeTab": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "psd_subset_of_products_cone_drive": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "psd_subset_of_pure_cone_drive": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "psd_subset_tableCone_of_products_cone_drive": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "quad_dictionary_prodVec": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "reach_norm": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "reach_prod": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "sign_induction": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "subset_QK_of_maxCone_drive": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "subset_psd_of_maxCone_drive": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "sum_prodTab_tupOf": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "tabAct_cnotM": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "tabAct_cnotM_eq": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "tabAct_cycK": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "tabAct_localM": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "tabAct_localM_eq": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "tabAct_rotK": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "tableCone_eq_psd_iff_drive_maxConeTab": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "tableCone_eq_psd_of_drive_maxCone": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "tableCone_eq_psd_of_drive_maxConeTab": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "tableCone_subset_psd_of_maxCone_drive": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "tableDrive_of_eq_psd": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "tensor_conjugation": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "tokMat_blochH": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "trace_dictionary_mul": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ],
+    "tupOf_prodTab": [
+     "Classical.choice",
+     "Quot.sound",
+     "propext"
+    ]
+   },
+   "sorryAx": 0,
+   "wrapped": [
+    "psd_subset_tableCone_of_products_cone_drive",
+    "tableCone_eq_psd_iff_drive_maxConeTab",
+    "tableCone_subset_psd_of_maxCone_drive"
+   ]
+  }
+ },
+ "form": "derived",
+ "kind": "cells",
+ "observed": {
+  "a3_lines": [
+   38922,
+   39393,
+   39394,
+   39865,
+   39866,
+   40122,
+   40123,
+   40388,
+   40389,
+   40642,
+   40643,
+   41232,
+   41233,
+   41755,
+   41756,
+   41782,
+   41783,
+   41787,
+   41788,
+   41792,
+   41793,
+   41797,
+   41798,
+   41802,
+   41803,
+   41836,
+   41837
+  ],
+  "a3_section": [
+   38918,
+   41837
+  ],
+  "absence_line": 38824,
+  "controls_section": [
+   155,
+   204
+  ],
+  "controls_selftest_lines": [
+   166,
+   167,
+   168,
+   169,
+   170,
+   171,
+   172,
+   173,
+   174,
+   175,
+   176,
+   177,
+   178,
+   179,
+   180,
+   181,
+   182,
+   183,
+   184,
+   185,
+   186,
+   187,
+   188,
+   189,
+   190,
+   191,
+   192,
+   193,
+   194,
+   195,
+   196,
+   197,
+   198,
+   199,
+   200,
+   201,
+   202,
+   203,
+   204
+  ],
+  "note": "1-based lines of the job logs named in source, after the byte-order mark; provenance of these logs, not compared",
+  "probe_lines": [
+   133,
+   134,
+   135,
+   136,
+   137,
+   138,
+   139,
+   140,
+   141,
+   142,
+   143,
+   144,
+   145,
+   146,
+   147,
+   148,
+   149,
+   150,
+   151,
+   152,
+   153,
+   154
+  ],
+  "probe_section": [
+   122,
+   154
+  ],
+  "raw_form_reports_outside_permitted": [
+   "psd_subset_tableCone_of_products_cone_drive",
+   "tableCone_eq_psd_iff_drive_maxConeTab",
+   "tableCone_subset_psd_of_maxCone_drive"
+  ],
+  "report_lines": [
+   38735,
+   38736,
+   38737,
+   38738,
+   38739,
+   38740,
+   38741,
+   38742,
+   38772,
+   38773,
+   38774,
+   38775,
+   38776,
+   38777,
+   38778,
+   38779,
+   38780,
+   38781,
+   38782,
+   38783,
+   38784,
+   38811,
+   38812,
+   38813,
+   38814,
+   38815,
+   38816,
+   38817,
+   38818,
+   38819,
+   38820,
+   38821,
+   38825,
+   38826,
+   38827,
+   38828,
+   38829,
+   38830,
+   38831,
+   38832,
+   38833,
+   38834,
+   38835,
+   38836,
+   38837,
+   38838,
+   38839,
+   38840,
+   38843,
+   38846,
+   38847,
+   38848,
+   38849,
+   38850,
+   38851,
+   38852,
+   38853,
+   38854,
+   38855,
+   38856,
+   38857,
+   38858,
+   38859,
+   38860,
+   38861,
+   38862,
+   38863,
+   38864
+  ]
+ },
+ "probe_job": {
+  "conclusion": "success",
+  "id": "118705242163",
+  "name": "Numerical probes / KTOKEN-MAXCONE-1 k = 3 exact layer",
+  "steps": [
+   {
+    "conclusion": "success",
+    "name": "Set up job"
+   },
+   {
+    "conclusion": "success",
+    "name": "Run actions/checkout@v4"
+   },
+   {
+    "conclusion": "success",
+    "name": "Run actions/setup-python@v5"
+   },
+   {
+    "conclusion": "success",
+    "name": "k = 3 exact witnesses and probe mutations"
+   },
+   {
+    "conclusion": "success",
+    "name": "Native control mutation tests"
+   },
+   {
+    "conclusion": "success",
+    "name": "Post Run actions/setup-python@v5"
+   },
+   {
+    "conclusion": "success",
+    "name": "Post Run actions/checkout@v4"
+   },
+   {
+    "conclusion": "success",
+    "name": "Complete job"
+   }
+  ]
+ },
+ "reproduce": {
+  "compared": "check A3's cases and final line, the absence line, the verdict's reads of the stripped log, the probe's codes, counts, rejections and verdict line, and the controls self-test's lines",
+  "not_compared": "timestamps, durations, temporary paths, cache behaviour, output order, log lines, the verdict section",
+  "recipe": [
+   "run from the root of a full-history clone holding b96662e6be4f537502c772db369ea32a35b213a8, e12c1573dc1605baf6ed299f9fe11cdb31ef56ee and e35fe0993d22ea217d4094191ef355340ac80062; <dir> is a new directory and <log> a file outside it",
+   "git worktree add --detach <dir> e35fe0993d22ea217d4094191ef355340ac80062",
+   "(cd <dir>/verification/lean-mathlib && lean --version && lake exe cache get && lake --rehash build) > <log> 2>&1",
+   "(cd <dir>/verification/lean-mathlib && lake env python3 -I -B ../programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/checks/run_checks.py run) >> <log> 2>&1: every case and the final line as expected.a3, and the absence line as expected.absence",
+   "(cd <dir> && python3 -I -B verification/lean/ktoken_maxcone1_probe.py --self-test): as expected.probe",
+   "(cd <dir> && python3 -I -B verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/controls.py --self-test): as expected.controls_selftest",
+   "python3 -I -B <dir>/verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/controls.py verdict e35fe0993d22ea217d4094191ef355340ac80062 --freeze e12c1573dc1605baf6ed299f9fe11cdb31ef56ee --axioms <log>"
+  ]
+ },
+ "round": "KTOKEN-MAXCONE-1",
+ "run": {
+  "attempt": 1,
+  "conclusion": "success",
+  "event": "workflow_dispatch",
+  "head_branch": "draft/ktoken-maxcone-1",
+  "head_sha": "e35fe0993d22ea217d4094191ef355340ac80062",
+  "id": "39445227350",
+  "workflow": "verify.yml"
+ },
+ "schema": "oi-evidence-cells",
+ "scope": "what E's exact-head check run logged for the round's cells: check A3's lines and the absence line in its Mathlib bridge job, every line the frozen verdict reads there, its probe job's output; and the frozen verdict's output over the whole bridge log, as downloaded and with its timestamps stripped. Nothing about any later tree",
+ "source": {
+  "bridge_log": {
+   "bytes": 4103870,
+   "job_id": "118705242073",
+   "lines": 41862,
+   "source_sha256": "1773a7bff2472fd2a3ab2c598bc83366134602ff35fdbf8bbbf2b5ea38428fc1",
+   "stripped_bytes": 2889898,
+   "stripped_sha256": "418bcc658633cbce336f757334e8bdc977cd0041a674a10019eb30a0f3cfd3bb"
+  },
+  "extractor": "verification/audits/evidence-retention/extract_result.py",
+  "extractor_blob": "e6f69713bfffd1f1f9aca3c27bf26a689c994167",
+  "extractor_commit": "809fa9d6fc931d7a75027ad72d6d2d4b03b722a5",
+  "kind": "GitHub Actions job logs, whole: downloaded from the jobs/<id>/logs endpoint by extraction run 39462609898 attempt 1 of the read-only workflow ktoken-f-evidence.yml, with extractor/download_job_logs.py blob b58e235106542b88a1b8a91b56160d43950e76b5 and extractor/assemble_evidence.py blob 27b24dc35a525f54888f82ce3aa0679239c137e8",
+  "note": "the digests identify the texts this result was read from: provenance of the extraction, not independent proof of the result, which reproduction at the commit supplies; the texts are not retained",
+  "probe_job_api_sha256": "74067877ce9df01d14afb8da543f569bf3952c1add323abd03a40b7babd4b7da",
+  "probe_log": {
+   "bytes": 17993,
+   "job_id": "118705242163",
+   "lines": 223,
+   "source_sha256": "d6e494928d5f40653ec31f3a78c2b6dbd4c6042f53b1be4001b9951a315f27b5"
+  },
+  "stripped_form": "UTF-8, byte-order mark dropped, extract_result.py's TS pattern removed from the start of each line, line breaks unchanged"
+ },
+ "verdict": {
+  "controls_blob": "7c9672a170210f8c2496787cb8cb3bc16cb30ba2",
+  "note": "the output of the round's frozen controls.py (blob 7c9672a1) run in CI as `controls.py verdict e35fe0993d22ea217d4094191ef355340ac80062 --freeze e12c1573dc1605baf6ed299f9fe11cdb31ef56ee --axioms <log>` once per form, with a history repository holding D b96662e6, F and E; printed as it ran, not compared by reproduction",
+  "raw": {
+   "axiom_reports_read": "axiom reports read: 68 of 68 prints",
+   "exit": 0,
+   "log_bytes": 4103870,
+   "log_sha256": "1773a7bff2472fd2a3ab2c598bc83366134602ff35fdbf8bbbf2b5ea38428fc1",
+   "round": "KTOKEN-MAXCONE-1-READ",
+   "stderr_lines": [],
+   "stdout_lines": [
+    "PASS C1 the preregistration at E is the one at F",
+    "PASS C2 the frozen execution blobs at E",
+    "PASS S1 surface: preamble, the frozen declarations in order, the 68 prints",
+    "PASS S2 the landed objects resolve at D's blobs and lines",
+    "PASS S3 the witnesses of the equivalence, the recovery's proof, the absence check",
+    "PASS S4 the module header (and, at E, the result note) present, with no excluded phrase",
+    "PASS W the workflow at E is D's with the frozen splices",
+    "PASS I one import line",
+    "PASS J one census family",
+    "PASS P retained evidence pinned at F is present at E with its digest  2 pins",
+    "PASS R the record directory holds exactly the frozen files",
+    "PASS G every change from D to E lies in the governed paths; the legacy manifest untouched  17 paths",
+    "PASS T delta(D, F) is the control plane; F descends from D and E from F, each by single-parent commits",
+    "PASS DICT3 (2082)",
+    "PASS PRODUCT3 (4)",
+    "PASS REACH3 (40)",
+    "PASS DEMUX3 (2)",
+    "PASS ADJOINT3 (2)",
+    "PASS QUANTUM3 (914)",
+    "PASS ZERO3 (1)",
+    "PASS SCALE3 (1)",
+    "PASS ADD3 (1)",
+    "PASS SHIFT3 (2)",
+    "PASS SEP3 (1)",
+    "PASS ORBIT3 (3)",
+    "PASS CUT3 (1)",
+    "PASS SLICE3 (142)",
+    "checks: 3196, failures: 0",
+    "REJECTED trace-factor: DICT3",
+    "REJECTED adjoint: ADJOINT3",
+    "REJECTED shift-sign: SHIFT3",
+    "REJECTED group-below-168: ORBIT3",
+    "REJECTED cut-direction: CUT3",
+    "mutations: 5 rejected, 0 accepted",
+    "VERDICT KTOKEN-K3-EXACT",
+    "axiom reports read: 68 of 68 prints",
+    "TOKEN Q-INCL  KTOKEN-MAXCONE-INCLUSIONS-NOT-ESTABLISHED",
+    "TOKEN Q-EQ    KTOKEN-MAXCONE-EQ-NOT-ESTABLISHED",
+    "TOKEN Q-PAIR  KTOKEN-MAXCONE-PAIR-NOT-ESTABLISHED",
+    "TOKEN Q-EXACT KTOKEN-MAXCONE-K3-EXACT",
+    "KTOKEN-MAXCONE-1-READ",
+    "controls: OK (0 failure(s))"
+   ],
+   "tokens": {
+    "Q-EQ": "KTOKEN-MAXCONE-EQ-NOT-ESTABLISHED",
+    "Q-EXACT": "KTOKEN-MAXCONE-K3-EXACT",
+    "Q-INCL": "KTOKEN-MAXCONE-INCLUSIONS-NOT-ESTABLISHED",
+    "Q-PAIR": "KTOKEN-MAXCONE-PAIR-NOT-ESTABLISHED"
+   }
+  },
+  "stripped": {
+   "axiom_reports_read": "axiom reports read: 68 of 68 prints",
+   "exit": 0,
+   "log_bytes": 2889898,
+   "log_sha256": "418bcc658633cbce336f757334e8bdc977cd0041a674a10019eb30a0f3cfd3bb",
+   "round": "KTOKEN-MAXCONE-1-READ",
+   "stderr_lines": [],
+   "stdout_lines": [
+    "PASS C1 the preregistration at E is the one at F",
+    "PASS C2 the frozen execution blobs at E",
+    "PASS S1 surface: preamble, the frozen declarations in order, the 68 prints",
+    "PASS S2 the landed objects resolve at D's blobs and lines",
+    "PASS S3 the witnesses of the equivalence, the recovery's proof, the absence check",
+    "PASS S4 the module header (and, at E, the result note) present, with no excluded phrase",
+    "PASS W the workflow at E is D's with the frozen splices",
+    "PASS I one import line",
+    "PASS J one census family",
+    "PASS P retained evidence pinned at F is present at E with its digest  2 pins",
+    "PASS R the record directory holds exactly the frozen files",
+    "PASS G every change from D to E lies in the governed paths; the legacy manifest untouched  17 paths",
+    "PASS T delta(D, F) is the control plane; F descends from D and E from F, each by single-parent commits",
+    "PASS DICT3 (2082)",
+    "PASS PRODUCT3 (4)",
+    "PASS REACH3 (40)",
+    "PASS DEMUX3 (2)",
+    "PASS ADJOINT3 (2)",
+    "PASS QUANTUM3 (914)",
+    "PASS ZERO3 (1)",
+    "PASS SCALE3 (1)",
+    "PASS ADD3 (1)",
+    "PASS SHIFT3 (2)",
+    "PASS SEP3 (1)",
+    "PASS ORBIT3 (3)",
+    "PASS CUT3 (1)",
+    "PASS SLICE3 (142)",
+    "checks: 3196, failures: 0",
+    "REJECTED trace-factor: DICT3",
+    "REJECTED adjoint: ADJOINT3",
+    "REJECTED shift-sign: SHIFT3",
+    "REJECTED group-below-168: ORBIT3",
+    "REJECTED cut-direction: CUT3",
+    "mutations: 5 rejected, 0 accepted",
+    "VERDICT KTOKEN-K3-EXACT",
+    "axiom reports read: 68 of 68 prints",
+    "TOKEN Q-INCL  KTOKEN-MAXCONE-INCLUSIONS-PROVED",
+    "TOKEN Q-EQ    KTOKEN-MAXCONE-EQ-PROVED",
+    "TOKEN Q-PAIR  KTOKEN-MAXCONE-PAIR-RECOVERED",
+    "TOKEN Q-EXACT KTOKEN-MAXCONE-K3-EXACT",
+    "KTOKEN-MAXCONE-1-READ",
+    "controls: OK (0 failure(s))"
+   ],
+   "tokens": {
+    "Q-EQ": "KTOKEN-MAXCONE-EQ-PROVED",
+    "Q-EXACT": "KTOKEN-MAXCONE-K3-EXACT",
+    "Q-INCL": "KTOKEN-MAXCONE-INCLUSIONS-PROVED",
+    "Q-PAIR": "KTOKEN-MAXCONE-PAIR-RECOVERED"
+   }
+  }
+ },
+ "version": 1
+}
