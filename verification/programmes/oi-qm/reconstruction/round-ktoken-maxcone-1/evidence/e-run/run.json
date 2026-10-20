@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-10-20T15:05:34Z",
+ "display_title": "verify",
+ "event": "workflow_dispatch",
+ "head_branch": "draft/ktoken-maxcone-1",
+ "head_sha": "e35fe0993d22ea217d4094191ef355340ac80062",
+ "id": 39445227350,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "39445227350",
+ "run_number": 2191,
+ "source": "GitHub Actions runs API, GET runs/<run_id>, read 2026-10-20; selected fields",
+ "status": "completed",
+ "updated_at": "2026-10-20T15:31:56Z"
+}

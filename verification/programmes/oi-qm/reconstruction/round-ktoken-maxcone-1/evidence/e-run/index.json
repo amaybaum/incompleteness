@@ -1,0 +1,79 @@
+{
+ "bridge_job": "118705242073",
+ "commit": "e35fe0993d22ea217d4094191ef355340ac80062",
+ "cross_checks": [
+  {
+   "extraction_runs_api_sha256": "0db83c61d95c09219f6667befbf862756e04723e05773b1230fee103a66e58e8",
+   "in": "run.json",
+   "note": "run.json holds the session's read of the runs API (source_sha256 above). The extraction run read the same endpoint: the answer's digest is equal, and the fields results.json records from it (id, head_sha, head_branch, event, run_attempt 1, conclusion success, workflow verify.yml) equal run.json's"
+  },
+  {
+   "extraction_job_api_sha256": "02a1a5c37d5ad04cab700d1cdfbe191b5cd7e02e7d51e817fab0d529f756c23f",
+   "in": "jobs.json",
+   "note": "the extraction run read the job list (38 jobs, every one success) and the bridge job's API answer, whose digest equals the session's read of GET jobs/118705242073; the bridge job's steps in jobs.json equal, by name and conclusion, results.json's run.job_steps"
+  }
+ ],
+ "files": [
+  {
+   "bytes": 507,
+   "form": "derived",
+   "path": "run.json",
+   "sha256": "db94ffb516b705e2b29435100c36803358970cbacbdd750a8747b94ca34b31fe",
+   "source_sha256": "0db83c61d95c09219f6667befbf862756e04723e05773b1230fee103a66e58e8"
+  },
+  {
+   "bytes": 44535,
+   "form": "derived",
+   "path": "jobs.json",
+   "sha256": "e83a6d7f2e2d5434f04a98e2568c8b1e59b5f8686f01d3c08878506d14ebf3e6",
+   "source_sha256": "5249f5427ca4516cfbaca4fab0582531fecc0135c4cbfcdf4b98028a1ef61b28"
+  },
+  {
+   "bytes": 41433,
+   "extraction": {
+    "attempt": 1,
+    "caveat": "the extractor commit is on a parentless branch and the extraction run's log is a host log; neither is reachable from main, as for the design-run extraction (run 39063510375, extractor 0d94937d4d8dbc6662b4464842bcdb1523ede18e) and F's (run 39442932167, extractor 2cbae144253df360a6e92cce5af2f0db20d4ff43); they are provenance of this file, which reproduction at the commit checks",
+    "cross_check": {
+     "blob": "05c41bce610b8d02ccbaca8e69377b771bef4a35",
+     "commit": "b96662e6be4f537502c772db369ea32a35b213a8"
+    },
+    "event": "push",
+    "extract_result": {
+     "blob": "e6f69713bfffd1f1f9aca3c27bf26a689c994167",
+     "commit": "809fa9d6fc931d7a75027ad72d6d2d4b03b722a5"
+    },
+    "extractor_branch": "tmp/ktoken-f-evidence-20261020",
+    "extractor_commit": "b059d33aacd267c30ba8b1b7c86730855d973c0e",
+    "job": "118721050581",
+    "printed_canonical_sha256": "dd1c8f5cbb7d547f26da400a1fc3d93e3ab49c4bf15bbd510cc24816e85d3a65",
+    "run": "39449737941",
+    "verdict": "EXTRACT HOLDS",
+    "workflow": ".github/workflows/ktoken-f-evidence.yml"
+   },
+   "form": "derived",
+   "path": "results.json",
+   "sha256": "dd1c8f5cbb7d547f26da400a1fc3d93e3ab49c4bf15bbd510cc24816e85d3a65",
+   "source_note": "source_sha256 is the digest of the whole job log (job 118705242073; 4103870 bytes, 41862 lines) as the download record of the extraction gives it; the extraction read every line of it",
+   "source_sha256": "1773a7bff2472fd2a3ab2c598bc83366134602ff35fdbf8bbbf2b5ea38428fc1"
+  }
+ ],
+ "missing": [
+  {
+   "item": "the absence line of OIBridge/KTokenMaxCone.lean's #eval and check A3's lines, its final line 'A3-CHECK-NONVACUOUS: 13 cases as expected' among them, in the bridge log",
+   "note": "the session's served window of the bridge log (its last 5000 lines, original lines 36863-41862, sha256 9da575cddcacd1547985741056b705cd1927eb7ecbf763aca4162a75b0e570b2) holds the absence line at original line 38824 and the A3 final line at 41837; the window's KTokenMaxCone report lines, gate lines and build line equal those results.json gives",
+   "why": "the extraction records build success, the gate, the governed modules' reports and the markers; it does not read the absence line or check A3, which Q-PAIR's rule reads"
+  },
+  {
+   "item": "the output of the probe job 118705242163 (shard probes_ktokenmaxcone1): the probe's codes, its counts, its five rejections and its final line, and controls.py --self-test's output",
+   "why": "no log of that job was read; jobs.json carries its conclusion and its steps' conclusions"
+  },
+  {
+   "item": "the owner's designation of E",
+   "why": "E is not designated at this commit; the designation is retained as its text, its author and its time (§A.42 item 6 at df9e601e)"
+  }
+ ],
+ "round": "KTOKEN-MAXCONE-1",
+ "run": "39445227350",
+ "schema": "oi-e-run-record",
+ "version": 1
+}
