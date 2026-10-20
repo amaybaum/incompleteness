@@ -37,7 +37,7 @@
    "bytes": 41433,
    "extraction": {
     "attempt": 1,
-    "caveat": "the extractor commit is on a parentless branch and the extraction run's log is a host log; neither is reachable from main, as for the design-run extraction (run 39063510375, extractor 0d94937d4d8dbc6662b4464842bcdb1523ede18e) and F's (run 39442932167, extractor 2cbae144253df360a6e92cce5af2f0db20d4ff43); they are provenance of this file, which reproduction at the commit checks",
+    "caveat": "the extractor commit is on a temporary branch whose root commit (2cbae144) is parentless and the extraction run's log is a host log; neither is reachable from main, as for the design-run extraction (run 39063510375, extractor 0d94937d4d8dbc6662b4464842bcdb1523ede18e) and F's (run 39442932167, extractor 2cbae144253df360a6e92cce5af2f0db20d4ff43); they are provenance of this file, which a reproduction at the commit can check",
     "cross_check": {
      "blob": "05c41bce610b8d02ccbaca8e69377b771bef4a35",
      "commit": "b96662e6be4f537502c772db369ea32a35b213a8"
@@ -65,7 +65,7 @@
    "bytes": 39909,
    "extraction": {
     "attempt": 1,
-    "caveat": "the extractor commit is on a parentless branch and the extraction run's log is a host log; neither is reachable from main, as for results.json's extraction; they are provenance of this file, which reproduction at the commit checks",
+    "caveat": "the extractor commit is on a temporary branch whose root commit (2cbae144) is parentless and the extraction run's log is a host log; neither is reachable from main, as for results.json's extraction; they are provenance of this file, which a reproduction at the commit can check",
     "event": "push",
     "extract_result": {
      "blob": "e6f69713bfffd1f1f9aca3c27bf26a689c994167",
@@ -82,7 +82,7 @@
    "form": "derived",
    "path": "cells.json",
    "sha256": "df45c30223bbb94c25847f605e0a5f49071ddd3c5bf99d7398ba48803a1431c9",
-   "source_note": "read from two whole job logs as the download record of the extraction gives them: the bridge job's (job 118705242073; 4103870 bytes, 41862 lines; the same log results.json was read from) and the probe job's (job 118705242163; 17993 bytes, 223 lines). The frozen verdict was run on the bridge log in two forms: as downloaded (raw) and with the byte-order mark and each line's timestamp removed (stripped, 2889898 bytes)",
+   "source_note": "read from two whole job logs as the download record of the extraction gives them: the bridge job's (job 118705242073; 4103870 bytes, 41862 lines; the same log results.json was read from) and the probe job's (job 118705242163; 17993 bytes, 223 lines). The frozen verdict was run on the bridge log in two forms: as downloaded (raw) and with the byte-order mark and each line's timestamp removed (stripped, 2889898 bytes). The verdict section is that run's output, recorded as printed: it is computed by executing the frozen controls.py against E's history in extraction run 39462609898, not read from the logs",
    "source_sha256": {
     "bridge_log_raw": "1773a7bff2472fd2a3ab2c598bc83366134602ff35fdbf8bbbf2b5ea38428fc1",
     "bridge_log_stripped": "418bcc658633cbce336f757334e8bdc977cd0041a674a10019eb30a0f3cfd3bb",
