@@ -85,7 +85,10 @@ def main():
         print(f'n={n}: mixtures of n response pairs that are no-signalling: {len(m)}; no-signalling boxes with entries '
               f'in (1/n)Z by eight coordinates: {len(c)}; equal: {eq}')
     print(f'[{"PASS" if allok else "FAIL"}] K-10 (n <= 3): the two forms define the same set at n = 1, 2, 3, so every '
-          f'objective has the same optimum over both; n = 4 pending (CI); written argument for all n in NODE.md')
+          f'objective has the same optimum over both; n = 4 pending (CI); written argument for all n, both directions: a '
+          f'uniform mixture of n response pairs has entries in (1/n)Z and the class requires no-signalling; conversely '
+          f'any box with entries in (1/n)Z is such a mixture (assign the n values of lam to outcomes one setting pair at '
+          f'a time), so a no-signalling one is in the class')
 
 
 if __name__ == '__main__':

@@ -208,6 +208,32 @@ Each node has been independently reviewed, and its review outcome is applied in 
       earlier measurements update.
   - G6: none under the preregistered rule.
 
+- **`mc-node7/`, A2 track node 2, does a principle stated in the corpus fix the size of the nonclassicality:
+  ELABORATING, [EC/W]. Preregistered at `73a27ba1`; amendments A-1 to A-10; independently reviewed.**
+  - Seventeen readings of Lemma 3's measure selection, partition covariance, H-Bell and Barandes–Hasan–Kagan causal
+    locality were tested on the long-edge and destructive-readout families under condition O (one substratum, one
+    bijective dynamics).
+  - None derives the quantum CHSH or POM boundary in the families and classes tested. Fifteen are Failures:
+    - twelve admit the PR box or the gbit (L3-C under one of its two readings; under the other, no member satisfies
+      condition O);
+    - two admit no nonlocal correlation in the long-edge and gate classes, while admitting the gbit by scenario
+      silence;
+    - one is Failure-as-stated.
+
+    Two are Parked (HB-3β, CL). The quantum set passes, as Reproduction by construction. Outcome (a) is not
+    established for any OI reading, and outcome (b) is not reached.
+  - On architectures that include the nonaffine gate r ^= a·b (`mc-node6` B2), no constraint on the prior that admits
+    the counting measure excludes the PR box. Its correlators do not depend on the hidden bit, and the prior decides
+    only operational no-signalling.
+  - H-Bell's clause (iii), in the readings decided and for one preparation-indexed edge between antipodal wings,
+    admits every weight (the sparse diagnostic) or none (endpoint hop-metric Ollivier curvature κ ≤ −5/4 at every
+    scale and weight; Gromov–Hausdorff distance ≥ 3/8 − 1/(4L)). The support graph's hop metric is the same for every
+    positive weight, and no tolerance yields an interior band. The generator-based route the corpus names for clause
+    (iii) is Parked.
+  - The long-edge family is quantum only at w = 0. The destructive-readout family equals a qubit with Lüders readouts
+    for w ≤ 1/√2 on the sequences checked.
+  - G6: none. Verdicts are provisional on K-10 at n = 4 (CI); no verdict is decided through K-10.
+
 **Form the missing component must take under A1, as the reviewed nodes have narrowed it:**
 - Theory level: it entails phase-free richness, which is necessary for every A1 extension and sufficient when the
   extended theory satisfies `SourcedOI`, which the extension must itself supply. Stated directly, that is E0.

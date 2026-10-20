@@ -2,8 +2,16 @@
 
 Amendments to the frozen preregistration (`PREREG.md`, sha256
 `99834efa540bbf0d2f6cd84bc819daa71b7d612864775285785e033739ebd3bc`, committed at `73a27ba1`). `PREREG.md` is not
-edited. Each entry gives its date, its reason, and whether any result was known when it was written. No entry changes a
-decision clause in a candidate's favour.
+edited. PREREG §8 (I-1) and §9 require amendments under `amendments/`, each with its time and reason. Each entry below
+gives its date, its reason, and whether any result was known when it was written. No entry changes a decision clause
+in a candidate's favour.
+
+**What git can and cannot confirm about timing.**
+- The dates and states of knowledge below are the author's record. Git does not confirm them.
+- All of these amendments reached the branch in one commit together with the node's results.
+- This file was rewritten after the probe outputs existed, so its modification time postdates them.
+- The order stated here (A-1 to A-7 before any probe run; A-8 and A-9 after debug runs; A-10 after the independent
+  review) therefore rests on this record alone.
 
 **State of knowledge when A-1 to A-7 were written (2026-10-20).** No probe of step 2 had been run, and no clause
 outcome had been computed for any candidate. The preregistration's own notes already anticipate some outcomes. Drafting
@@ -84,6 +92,8 @@ the candidate verdicts of the second debug run were known.
   is the translation cost).
 - The check now requires the reference value to be ≥ 0 at every L and exactly 0 at L ≥ 10. L = 10 and 12 were added
   as further instances, and L = 4 is reported as a flow instance only, since the closed form needs 3L/2 ≥ 4δ + 1.
+- L = 10 and 12 were added after the candidate verdicts were known. They extend PREREG's L set {4, 6, 8} for this check
+  only. They decide nothing: the HB-3α verdict rests on the closed form and its written limit argument.
 - HB-3α's decision rests on the long-edge pair: κ(A, B) ≤ −5/4 for every δ ≥ 1 and every w > 0, while the reference
   value tends to 0. That is unaffected. The candidate fails with either version of the check, so the change cannot
   favour it.
@@ -94,3 +104,32 @@ the candidate verdicts of the second debug run were known.
 - The certifier now applies the argument as §2 states it: if three correlators are ±1, the fourth must equal their
   product.
 - No verdict had been printed before the fix.
+
+***
+
+**A-10. Fixes after the independent review (2026-10-20).** Written after every result was known. It changes no
+classification. Where it changes a sub-label, the change does not favour the candidate.
+- **Verdicts are computed from measurements** (PREREG §5, I-11, §A.29).
+  - `p7.py` used to call the classifier with literal arguments.
+  - Each class and sub-label is now derived from the measured clauses: (i) false gives over-generation; (ii-S) false
+    gives under-generation; (iii) false gives classical exclusion; admitting every family member gives "vacuous".
+  - Each candidate's admitted set is computed from its own measurements. Each verdict is printed only if the
+    candidate's own checks pass; otherwise it is printed as void.
+  - Two controls show this: K-M4 (the reviewer's mutant m4, L3-A admitting only k = 0, changes the derived label) and
+    K-M2 (a candidate whose own check fails gets no verdict).
+  - While this was being added, a pointer-index bug in the new L3-C code for DR made L3-C-readings fail. The
+    own-check gate printed L3-C's verdict as void until the bug was fixed.
+- **L3-C reading (β) is now checked against condition O.**
+  - The invariant measure's visible marginal at the readout phase is not a point mass. For LE(1,1) at a = b = 0 it is
+    2/5, 1/5, 1/5, 1/5.
+  - So under (β) no LE or DR member is admissible (PREREG §1), and the earlier "S_max = 3 under (β)" was not a valid
+    witness.
+  - L3-C stays Failure under both readings: over-generation under (α), and under-generation with classical exclusion
+    under (β).
+- **The L3-C, gate-class and K-8 realizations now go through the realization engine and its condition-O check.** The
+  K-9 count rises from 404 to 2624.
+- **The L3-A-priorfree message and check are corrected.** S_max = 4 holds for every prior on λ, but the box is
+  operationally no-signalling only at P(λ = 0) = 1/2. The check asserts both.
+- **PC-4b is evaluated under both readings that A-5 leaves open.** If a readout may be reapplied to its own pointer it
+  over-generates; if not it under-generates and excludes the classical models. Its POM part stays Parked.
+- **PC-1, PC-3a, PC-4, HB-1 and HB-2** now have their own measured checks, which their admitted sets use.

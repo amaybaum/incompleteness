@@ -1,4 +1,4 @@
 n=1: mixtures of n response pairs that are no-signalling: 16; no-signalling boxes with entries in (1/n)Z by eight coordinates: 16; equal: True
 n=2: mixtures of n response pairs that are no-signalling: 136; no-signalling boxes with entries in (1/n)Z by eight coordinates: 136; equal: True
 n=3: mixtures of n response pairs that are no-signalling: 752; no-signalling boxes with entries in (1/n)Z by eight coordinates: 752; equal: True
-[PASS] K-10 (n <= 3): the two forms define the same set at n = 1, 2, 3, so every objective has the same optimum over both; n = 4 pending (CI); written argument for all n in NODE.md
+[PASS] K-10 (n <= 3): the two forms define the same set at n = 1, 2, 3, so every objective has the same optimum over both; n = 4 pending (CI); written argument for all n, both directions: a uniform mixture of n response pairs has entries in (1/n)Z and the class requires no-signalling; conversely any box with entries in (1/n)Z is such a mixture (assign the n values of lam to outcomes one setting pair at a time), so a no-signalling one is in the class

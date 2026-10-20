@@ -16,10 +16,13 @@ from itertools import product
 PREREG = '../PREREG.md'
 EXPECTED_PREREG = '99834efa540bbf0d2f6cd84bc819daa71b7d612864775285785e033739ebd3bc'
 CHECKS = []
+CHECKRES = {}
+LE_BOX = {}
 
 
 def check(cid, ok, msg):
     CHECKS.append((cid, bool(ok)))
+    CHECKRES[cid] = bool(ok)
     print(f'[{"PASS" if ok else "FAIL"}] {cid}: {msg}')
 
 
@@ -647,6 +650,7 @@ def controls():
     for n in range(1, N_MAX + 1):
         for k in range(0, n + 1):
             bx = le_box(n, k, check=(n <= 12))
+            LE_BOX[(n, k)] = bx
             ok &= s_max(bx) == 2 + 2 * F(k, n) and nosig(bx)
     check('LEARCH', ok, f'every LE(n,k), n <= {N_MAX}, computed from the architecture: S_max = 2 + 2k/n and '
           'operational no-signalling (bijectivity checked on Omega for n <= 12; every step XORs a function of other '
@@ -817,39 +821,6 @@ def k5():
           f'(identity step, law unchanged) to meet log2|C_H| >= I*; every family member, PR included, is admitted')
 
 
-def k8():
-    # A_CHSH point at n = 68: 29 + 29 PR response pairs (s, s xor ab), 5 + 5 anti-PR pairs (s, s xor ab xor 1)
-    pairs = [(s, 0) for s in (0, 1) for _ in range(29)] + [(s, 1) for s in (0, 1) for _ in range(5)]
-    n = len(pairs)
-    box = {}
-    for s, anti in pairs:
-        for a, b in product((0, 1), repeat=2):
-            q = s
-            r = s ^ (a & b) ^ anti
-            box[(a, b, q, r)] = box.get((a, b, q, r), 0) + F(1, n)
-    E = corr(box)
-    ok = n == 68 and nosig(box) and all((v * 68).denominator == 1 for v in box.values())
-    ok &= all(E[(a, b)] == F(12, 17) * (1 if (a & b) == 0 else -1) for a, b in product((0, 1), repeat=2))
-    st = kp_bell(box)
-    ok &= st[0] == 'admitted'
-    ok &= all(within(abs(E[ab]), Q2(0, F(1, 2)), EPS / 4) for ab in E)
-    ok &= within(s_max(box), TSI, EPS)
-    # gate class: F(a,b,0) = ab, F(a,b,1) = ab xor 1, control c in Z_34, [c < 5]
-    gb = {}
-    for lam in (0, 1):
-        for c in range(34):
-            s = 1 if c < 5 else 0
-            for a, b in product((0, 1), repeat=2):
-                q = lam
-                r = lam ^ (a & b) ^ s
-                gb[(a, b, q, r)] = gb.get((a, b, q, r), 0) + F(1, 68)
-    ok &= gb == box
-    check('K-8', ok, f'A_CHSH(68) contains the PR/anti-PR point with correlators (12/17)(-1)^ab, zero marginals, '
-          f'entries in (1/68)Z, K-P {st[0]} ({st[1]}), each correlator within eps/4 of 1/sqrt2, S_max = 48/17 within '
-          f'eps of 2sqrt2; the gate class reaches the same box at n = 34, k = 5 (amendment A-1)')
-    return box
-
-
 def k11():
     ok = True
     for w, (n, k) in ((F(0), (1, 0)), (F(1, 2), (2, 1)), (F(12, 17), (17, 12))):
@@ -886,26 +857,291 @@ def sos_check():
 
 
 # ===============================================================================================================
+def k8_real(a, b):
+    """A_CHSH(68) point: lam in Z_68 carries one deterministic response pair; 29 + 29 PR pairs (s, s xor ab), 5 + 5
+    anti-PR pairs (s, s xor ab xor 1); cells 0 a, 1 b, 2 q, 3 r, 4 lam"""
+    pairs = [(s, 0) for s in (0, 1) for _ in range(29)] + [(s, 1) for s in (0, 1) for _ in range(5)]
+    steps = [xor_into(2, lambda x: pairs[x[4]][0]),
+             xor_into(3, lambda x: pairs[x[4]][0] ^ (x[0] & x[1]) ^ pairs[x[4]][1])]
+    pri = {(a, b, 0, 0, lam): F(1, 68) for lam in range(68)}
+    return Realization(f'A_CHSH(68)[{a}{b}]', [2, 2, 2, 2, 68], [0, 1, 2, 3], steps, pri, lambda x: (x[2], x[3]))
+
+
+def k8_box():
+    box = {}
+    for a, b in product((0, 1), repeat=2):
+        for (q, r), v in law(checked(k8_real(a, b))).items():
+            box[(a, b, q, r)] = v
+    return box
+
+
+def gate_F(code, a, b, s):
+    return (code >> (a + 2 * b + 4 * s)) & 1
+
+
+def gate_real(code, n, k, a, b):
+    """long-edge gate class: cells 0 a, 1 b, 2 q, 3 r, 4 lam, 5 c (c in Z_n); q ^= lam; r ^= lam; r ^= F(a, b, [c < k])"""
+    steps = [xor_into(2, lambda x: x[4]), xor_into(3, lambda x: x[4]),
+             xor_into(3, lambda x: gate_F(code, x[0], x[1], 1 if x[5] < k else 0))]
+    pri = {(a, b, 0, 0, lam, c): F(1, 2 * n) for lam in (0, 1) for c in range(n)}
+    return Realization(f'gate[{code},{n},{k}][{a}{b}]', [2] * 5 + [n], [0, 1, 2, 3], steps, pri,
+                       lambda x: (x[2], x[3]))
+
+
+def gate_box(code, n, k, check=False):
+    box = {}
+    for a, b in product((0, 1), repeat=2):
+        R = gate_real(code, n, k, a, b)
+        if check:
+            checked(R)
+        for (q, r), v in law(R).items():
+            box[(a, b, q, r)] = v
+    return box
+
+
+def k8():
+    box = k8_box()
+    E = corr(box)
+    ok = nosig(box) and all((v * 68).denominator == 1 for v in box.values())
+    ok &= all(E[(a, b)] == F(12, 17) * (1 if (a & b) == 0 else -1) for a, b in product((0, 1), repeat=2))
+    st = kp_bell(box)
+    ok &= st[0] == 'admitted'
+    ok &= all(within(abs(E[ab]), Q2(0, F(1, 2)), EPS / 4) for ab in E)
+    ok &= within(s_max(box), TSI, EPS)
+    code = sum(((a & b) ^ s) << (a + 2 * b + 4 * s) for a, b, s in product((0, 1), repeat=3))
+    gb = gate_box(code, 34, 5, check=True)
+    ok &= gb == box
+    check('K-8', ok, f'A_CHSH(68) contains the PR/anti-PR point (O-checked realization, lam in Z_68) with correlators '
+          f'(12/17)(-1)^ab, zero marginals, entries in (1/68)Z, K-P {st[0]} ({st[1]}), each correlator within eps/4 '
+          f'of 1/sqrt2, S_max = 48/17 within eps of 2sqrt2; the gate class reaches the same box at n = 34, k = 5 '
+          f'(O-checked; amendment A-1)')
+    return box
+
+
+def gate_class():
+    """exhaustive over 256 gates x 2 control values, each slice an O-checked realization; edge present at s iff
+    F(., b, s) depends on a for some b (coupling-graph rule)"""
+    max_free = None
+    n_free = 0
+    best_edge = None
+    local_with_edge = 0
+    for code in range(256):
+        for s in (0, 1):
+            free = all(gate_F(code, 0, b, s) == gate_F(code, 1, b, s) for b in (0, 1))
+            box = gate_box(code, 1, s, check=True)
+            sm = s_max(box)
+            if free:
+                n_free += 1
+                max_free = sm if max_free is None or gt(sm, max_free) else max_free
+            else:
+                best_edge = sm if best_edge is None or gt(sm, best_edge) else best_edge
+                if ge(2, sm):
+                    local_with_edge += 1
+    msg = (f'{n_free} edge-free (F, s) slices, maximum S_max {max_free} (local, so every admitted mixture has '
+           f'S_max <= 2); edge slices reach S_max {best_edge}; {local_with_edge} edge slices are local yet use the '
+           f'edge (e.g. F(a,b,c) = a) and are excluded too')
+    check('GATE', max_free == 2 and best_edge == 4, 'exhaustive over 256 gates x 2 control values (O-checked): ' + msg)
+    return msg, max_free
+
+
+def l3c_cycle_le(n, k, a, b):
+    """protocol cycle on Omega x Z_5 (clock cell 8, visible); returns (alpha realization, beta realization)"""
+    T = 5
+    steps = le_steps(k)
+
+    def phi(st):
+        x, t = st[:-1], st[-1]
+        return steps[t](x) + ((t + 1) % T,)
+    union = set()
+    for lam in (0, 1):
+        for u in range(n):
+            s0 = (a, b, 0, 0, 0, 0, lam, u, 0)
+            if s0 in union:
+                continue
+            s = s0
+            while True:
+                union.add(s)
+                s = phi(s)
+                if s == s0:
+                    break
+    doms = [2] * 7 + [n] + [T]
+    vis = [0, 1, 2, 3, 4, 5, 8]
+    sl = sorted(s for s in union if s[-1] == 0 and s[:6] == (a, b, 0, 0, 0, 0))
+    Ra = Realization(f'L3C-alpha LE({n},{k})[{a}{b}]', doms, vis, [phi] * T, {s: F(1, len(sl)) for s in sl},
+                     lambda s: (s[2], s[3]))
+    rp = sorted(s for s in union if s[-1] == 0)
+    Rb = Realization(f'L3C-beta LE({n},{k})[{a}{b}]', doms, vis, [], {s: F(1, len(rp)) for s in rp},
+                     lambda s: (s[2], s[3]))
+    return Ra, Rb
+
+
+def l3c_cycle_dr(n, k, x, y):
+    base = dr_real(n, k, x, (y,))
+    T = len(base.steps)
+
+    def phi(st):
+        z, t = st[:-1], st[-1]
+        return base.steps[t](z) + ((t + 1) % T,)
+    union = set()
+    for s0x in base.prior:
+        s0 = s0x + (0,)
+        if s0 in union:
+            continue
+        s = s0
+        while True:
+            union.add(s)
+            s = phi(s)
+            if s == s0:
+                break
+    doms = base.domains + [T]
+    vis = base.visible + [len(base.domains)]
+    init_vis = tuple(next(iter(base.prior))[i] for i in base.visible)
+    sl = sorted(s for s in union if s[-1] == 0 and tuple(s[i] for i in base.visible) == init_vis)
+    ptr = len(base.domains) - 1                      # the single readout's pointer cell (5 + L + 0 with L = 1)
+    Ra = Realization(f'L3C-alpha DR({n},{k})', doms, vis, [phi] * T, {s: F(1, len(sl)) for s in sl},
+                     lambda s: (s[ptr],))
+    rp = sorted(s for s in union if s[-1] == 0)
+    Rb = Realization(f'L3C-beta DR({n},{k})', doms, vis, [], {s: F(1, len(rp)) for s in rp}, lambda s: (s[ptr],))
+    return Ra, Rb
+
+
+L3C = {}
+
+
+def l3c_eval():
+    """A-4 readings: (alpha) first pass from the slice under the orbit-invariant prior; (beta) readout-phase statistics
+    of the invariant measure. Condition O is checked on both."""
+    alpha_eq = True
+    beta_ok_le = {}
+    for n in range(1, 13):
+        for k in range(n + 1):
+            box = {}
+            okb = True
+            for a, b in product((0, 1), repeat=2):
+                Ra, Rb = l3c_cycle_le(n, k, a, b)
+                if n <= 3:
+                    checked(Ra)
+                for (q, r), v in law(Ra).items():
+                    box[(a, b, q, r)] = v
+                okb &= check_O(Rb)
+            alpha_eq &= box == le_box(n, k)
+            beta_ok_le[(n, k)] = okb
+            if (n, k) == (1, 1):
+                L3C['alpha_S_11'] = s_max(box)
+    beta_ok_dr = {}
+    alpha_eq_dr = True
+    for n in range(1, 5):
+        for k in range(n + 1):
+            okb = True
+            for x in product((0, 1), repeat=2):
+                for y in (0, 1):
+                    Ra, Rb = l3c_cycle_dr(n, k, x, y)
+                    if n <= 2:
+                        checked(Ra)
+                    alpha_eq_dr &= law(Ra) == dr_law(n, k, x, (y,))
+                    okb &= check_O(Rb)
+            beta_ok_dr[(n, k)] = okb
+    L3C['beta_ok_le'] = beta_ok_le
+    L3C['beta_ok_dr'] = beta_ok_dr
+    nb_le = sum(beta_ok_le.values())
+    nb_dr = sum(beta_ok_dr.values())
+    ok = alpha_eq and alpha_eq_dr and nb_le == 0 and nb_dr == 0 and L3C['alpha_S_11'] == 4
+    check('L3-C-readings', ok,
+          f'(alpha): the orbit-invariant prior conditioned on the initial slice gives exactly the counting-measure law '
+          f'for every LE(n,k), n <= 12, and DR(n,k), n <= 4 (O-checked for LE n <= 3, DR n <= 2); LE(1,1) S_max = '
+          f'{L3C["alpha_S_11"]}. (beta): the invariant measure at the readout phase has a visible marginal that is not '
+          f'a point mass, so condition O fails for {len(beta_ok_le) - nb_le}/{len(beta_ok_le)} LE and '
+          f'{len(beta_ok_dr) - nb_dr}/{len(beta_ok_dr)} DR members computed; for all n [W]: every orbit through a '
+          f'slice point with lam = 1 (LE) or with a nonzero pointer after one cycle (DR) carries a different visible '
+          f'configuration at the readout phase')
+    return ok
+
+
+PC = {}
+
+
+def pc_checks():
+    """PC-1 (marginal consistency), PC-3a (permutation-unitary fixed-basis representation), PC-4 (readout inverses),
+    measured member by member on small n; [W] beyond"""
+    ok1 = True
+    pc1 = {}
+    for n in range(1, 13):
+        for k in range(n + 1):
+            bx = LE_BOX[(n, k)]
+            good = True
+            for a, b in product((0, 1), repeat=2):
+                R = le_real(n, k, a, b)
+                la = law(Realization('A-part', R.domains, R.visible, R.steps, R.prior, lambda x: (x[2],)))
+                lb = law(Realization('B-part', R.domains, R.visible, R.steps, R.prior, lambda x: (x[3],)))
+                for q in (0, 1):
+                    good &= la.get((q,), 0) == sum(bx.get((a, b, q, r), 0) for r in (0, 1))
+                    good &= lb.get((q,), 0) == sum(bx.get((a, b, r, q), 0) for r in (0, 1))
+            pc1[(n, k)] = good
+            ok1 &= good
+    PC['pc1'] = pc1
+    check('PC-1', ok1, 'marginal consistency: for every LE(n,k), n <= 12, each wing\'s law (its own partition) equals '
+          'the marginal of the joint law of V_A u V_B; holds for every member computed (all n [W])')
+    ok3 = True
+    pc3 = {}
+    for n in range(1, 4):
+        for k in range(n + 1):
+            good = True
+            reals = [le_real(n, k, a, b) for a, b in product((0, 1), repeat=2)]
+            reals += [dr_real(n, k, x, (y,)) for x in product((0, 1), repeat=2) for y in (0, 1)]
+            for R in reals:
+                om = list(product(*[range(d) for d in R.domains]))
+                U = {}
+                for x in om:
+                    yy = x
+                    for st in R.steps:
+                        yy = st(yy)
+                    U[x] = yy
+                good &= len(set(U.values())) == len(om)
+                born = {}
+                for x, wt in R.prior.items():
+                    kk = R.readout(U[x])
+                    born[kk] = born.get(kk, 0) + wt
+                good &= {kk: v for kk, v in born.items() if v} == law(R)
+            pc3[(n, k)] = good
+            ok3 &= good
+    PC['pc3a'] = pc3
+    check('PC-3a', ok3, 'for every LE(n,k) and DR(n,k), n <= 3, the realization\'s permutation unitary with rho = diag(mu) '
+          'and fixed-basis Born readout reproduces the record law exactly (all n [W]: Main.md:82)')
+    ok4 = True
+    pc4_le = {}
+    for n in range(1, 4):
+        for k in range(n + 1):
+            steps = le_steps(k)
+            good = True
+            for x in product(*[range(d) for d in [2] * 7 + [n]]):
+                good &= steps[2](steps[2](x)) == x
+                good &= steps[4](steps[3](steps[4](steps[3](x)))) == x
+            pc4_le[(n, k)] = good
+            ok4 &= good
+    pc4_dr = {}
+    for n in range(1, 4):
+        for k in range(n + 1):
+            R = dr_real(n, k, (0, 1), (0,))
+            good = True
+            for x in product(*[range(d) for d in R.domains]):
+                good &= R.steps[2](R.steps[3](R.steps[3](R.steps[2](x)))) == x
+            pc4_dr[(n, k)] = good
+            ok4 &= good
+    PC['pc4_le'] = pc4_le
+    PC['pc4_dr'] = pc4_dr
+    check('PC-4', ok4, 'LE readouts (q ^= p1; r ^= p2, r ^= ab[u<k]) applied twice to their own pointers restore '
+          'Omega pointwise, and the kappa2 inverse of each DR readout restores it, for n <= 3 (all n [W])')
+    okh = True
+    for n in range(1, 13):
+        for k in range(n + 1):
+            st = le_steps(k)[4]
+            dep = any(st((0, 1) + x[2:]) [3] != st((1, 1) + x[2:])[3] for x in product(*[range(d) for d in [2] * 7 + [n]]))
+            okh &= dep == (k > 0) and nosig(LE_BOX[(n, k)])
+    check('HB-1', okh, 'for every LE(n,k), n <= 12: Bob\'s readout step depends on Alice\'s setting (one long edge, added '
+          'degree 1) iff k > 0, and the box is operationally no-signalling')
+
+
 RESULTS = []
-
-
-def report(cid, fam, fu=None, b=None, cls='', note=''):
-    RESULTS.append((cid, cls))
-    print(f'\n--- {cid}: {cls}')
-    for sc in ('chsh', 'pom'):
-        if sc in fam:
-            r = fam[sc]
-            print(f'  family {sc.upper()}: (i) {r.get("i")} [witness {fmt_member(r.get("i_witness"))}]; '
-                  f'(ii-S) {r.get("iiS")} [{r.get("iiS_where", "")}]; (iii) {r.get("iii")}; admitted members '
-                  f'{r.get("n_admitted", "-")}')
-    if fu:
-        for k_, v in fu.items():
-            print(f'  follow-up {k_}: {v}')
-    if b:
-        for k_, v in b.items():
-            print(f'  outcome (b) {k_}: {v}')
-    if note:
-        print('  note: ' + note)
 
 
 def finish_family(res, iiS_follow=None):
@@ -932,214 +1168,182 @@ ALL = lambda *a: True  # noqa: E731
 NONE = lambda *a: False  # noqa: E731
 
 
-def candidates(kp_box):
+def full_count():
+    return len(le_members()) + len(LE_STRUCT)
+
+
+def derive(res, skip=()):
+    """class and sub-labels computed from the measured clauses (PREREG section 6; I-11)"""
+    failed = False
+    labels = []
+    for sc in ('chsh', 'pom'):
+        if sc in skip:
+            continue
+        r = res[sc]
+        S = sc.upper()
+        if not r['i']:
+            failed = True
+            labels.append(f'over-generation ({S})')
+        if not r['iiS']:
+            failed = True
+            labels.append(f'under-generation ({S})')
+        if not r['iii']:
+            failed = True
+            labels.append(f'classical exclusion ({S})')
+        if r['n_admitted'] == full_count():
+            labels.append(f'vacuous ({S})')
+    return failed, labels
+
+
+def verdict(cid, readings, own, repro=False, skip=(), note='', fu=None, b=None, dry=False):
+    """readings: list of (reading name, res). A verdict is printed only if every own check passed (else 'void'), and
+    only if every reading gives the same Failure / non-Failure verdict (amendments A-4, A-5; else Parked)."""
+    bad = [c for c in own if not CHECKRES.get(c, False)]
+    if bad:
+        cls = f'void (own checks not passed: {bad})'
+    else:
+        outs = [(name, derive(res, skip)) for name, res in readings]
+        fails = {f for _, (f, _) in outs}
+        if len(fails) > 1:
+            cls = 'Parked (readings disagree)'
+        else:
+            failed = fails.pop()
+            if len(outs) == 1:
+                labels = outs[0][1][1]
+            else:
+                labels = [f'{name}: ' + ', '.join(lb) for name, (_, lb) in outs]
+            if skip:
+                labels = labels + [f'{sc.upper()} part Parked' for sc in skip]
+            cls = classify(False, failed, repro, labels)
+    if dry:
+        return cls
+    RESULTS.append((cid, cls))
+    print(f'\n--- {cid}: {cls}')
+    for name, res in readings:
+        for sc in ('chsh', 'pom'):
+            if sc in skip:
+                print(f'  [{name}] family {sc.upper()}: Parked')
+                continue
+            r = res[sc]
+            print(f'  [{name}] family {sc.upper()}: (i) {r["i"]} [witness {fmt_member(r.get("i_witness"))}]; '
+                  f'(ii-S) {r["iiS"]} [{r.get("iiS_where", "")}]; (iii) {r["iii"]}; admitted members '
+                  f'{r.get("n_admitted", "-")}')
+    if fu:
+        for k_, v in fu.items():
+            print(f'  follow-up {k_}: {v}')
+    if b:
+        for k_, v in b.items():
+            print(f'  outcome (b) {k_}: {v}')
+    if note:
+        print('  note: ' + note)
+    return cls
+
+
+def mutation_controls():
+    """K-M4: the reviewer's mutant m4 (L3-A admitting only k = 0) must change the derived verdict;
+    K-M2: a candidate whose own check failed must get no verdict"""
+    res_m = finish_family(family_eval(lambda n, k: k == 0, ALL, NONE, NONE))
+    failed, labels = derive(res_m)
+    check('K-M4', failed and 'over-generation (CHSH)' not in labels and 'under-generation (CHSH)' in labels,
+          f'mutant L3-A admitting only k = 0: derived labels {labels} (the over-generation verdict is not printed)')
+    CHECKRES['__forced_fail__'] = False
+    cls = verdict('mutant', [('m', res_m)], own=['__forced_fail__'], dry=True)
+    check('K-M2', cls.startswith('void'), f'a candidate whose own check fails gets "{cls.split(" (")[0]}", no verdict')
+
+
+def candidates(kp_box, hb, gate_msg, gate_max):
     print('\n=== Candidates (section 9 order) ===')
-    lab_over = 'over-generation'
-    # ---- L3-0
-    res = finish_family(family_eval(ALL, ALL, ALL, ALL))
-    report('L3-0', res, cls=classify(False, True, False, [lab_over, 'vacuous: admits every member']),
-           note='Main.md:60 read literally admits every prior; LE(1,1) is the PR box (S_max = 4)')
-    # ---- L3-A
-    res = finish_family(family_eval(ALL, ALL, NONE, NONE))
-    report('L3-A', res, cls=classify(False, True, False, [lab_over]),
-           note='counting measure on the hidden carrier; LE(1,1) has no control register and reaches S_max = 4 for '
-                'every prior on lam (prior-independent responses); threshold registers make w = k/n dense')
-    check('L3-A-priorfree', all(s_max(le_box_lamprior(F(j, 9))) == 4 for j in range(10)),
-          'LE(1,1) gives S_max = 4 for every prior on lam (checked at P(lam=0) = j/9, j = 0..9): the PR value '
-          'does not depend on the measure at all')
-    # ---- L3-B
-    res = finish_family(family_eval(ALL, ALL, NONE, NONE))
-    report('L3-B', res, cls=classify(False, True, False, [lab_over]),
-           note='record conditioning only adds realizations to L3-A (unconditioned = conditioning on the trivial '
-                'record), so L3-B admits L3-A\'s members, LE(1,1) included')
-    # ---- L3-C
-    l3c = l3c_eval()
-    res = finish_family(family_eval(ALL, ALL, NONE, NONE))
-    report('L3-C', res, cls=classify(False, True, False, [lab_over]),
-           note=l3c)
-    # ---- L3-D
+    count = lambda n, k: True  # noqa: E731
+    # L3-0: no constraint (Main.md:60)
+    verdict('L3-0', [('L3-0', finish_family(family_eval(ALL, ALL, ALL, ALL)))], own=['LEARCH'],
+            note='Main.md:60 read literally admits every prior; LE(1,1) is the PR box')
+    verdict('L3-A', [('L3-A', finish_family(family_eval(count, count, NONE, NONE)))], own=['LEARCH', 'L3-A-priorfree'],
+            note='counting measure on the hidden carrier; LE(1,1) (gate r ^= ab, no control register) is admitted: its '
+                 'correlators are (-1)^ab for every lam, and the counting measure makes it the no-signalling PR box')
+    verdict('L3-B', [('L3-B', finish_family(family_eval(count, count, NONE, NONE)))], own=['LEARCH'],
+            note='conditioning on the trivial record is allowed, so L3-B admits L3-A\'s members')
+    bl = L3C['beta_ok_le']
+    bd = L3C['beta_ok_dr']
+    beta_le = lambda n, k: bl.get((n, k), False)  # noqa: E731  (n > 12: [W], see L3-C-readings)
+    beta_dr = lambda n, k: bd.get((n, k), False)  # noqa: E731  (n > 4: [W])
+    verdict('L3-C', [('alpha', finish_family(family_eval(count, count, NONE, NONE))),
+                     ('beta', finish_family(family_eval(beta_le, beta_dr, NONE, NONE)))],
+            own=['L3-C-readings'],
+            note='(alpha) reproduces L3-A\'s prior on the slice; under (beta) the invariant measure\'s visible marginal at '
+                 'the readout phase is not a point mass, so no LE or DR member satisfies condition O (PREREG section 1)')
     print('\n--- L3-D: Failure (Failure-as-stated: the moment-constraint values are parameters OI does not fix; '
           'no corpus text fixes them; not computed, as preregistered)')
     RESULTS.append(('L3-D', 'Failure (Failure-as-stated)'))
-    # ---- L3-PR
-    print('\n--- L3-PR: Failure (over-generation; not independent): no corpus text fixes "geometric and '
-          'thermodynamic properties of the partition boundary" for LE or DR, so its admitted set is L3-A\'s (rule '
-          'fixed in section 3.1)')
-    RESULTS.append(('L3-PR', 'Failure (over-generation; not independent of L3-A)'))
-    # ---- PC-1
-    ok = pc1_check()
-    res = finish_family(family_eval(ALL, ALL, ALL, ALL))
-    report('PC-1', res, cls=classify(False, True, False, [lab_over, 'vacuous']),
-           note=f'marginal consistency holds for every realization checked ({ok}): the joint law of V_A u V_B '
-                f'marginalizes to each wing\'s law; expected countercontrol, confirmed')
-    # ---- PC-2
-    ns = all(nosig(le_box(n, k)) for n in range(1, N_MAX + 1, 3) for k in range(n + 1))
-    res = finish_family(family_eval(lambda n, k: True, ALL, ALL, ALL))
-    report('PC-2', res, cls=classify(False, True, False, [lab_over]),
-           note=f'operational no-signalling holds on every LE member checked ({ns}) and DR readout laws depend only on '
-                f'(x, y) by construction; PC-2 admits PR and gbit (Methodology.md:393 already states no-signalling '
-                f'is insufficient)')
-    # ---- PC-3a
-    ok = pc3a_check()
-    res = finish_family(family_eval(ALL, ALL, ALL, ALL))
-    report('PC-3a', res, cls=classify(False, True, False, [lab_over, 'vacuous']),
-           note=f'the realization\'s permutation unitary with rho = diag(mu) and fixed-basis Born readout reproduces '
-                f'LE(1,1) and DR(1,1) exactly ({ok}); Q_fb is universal (Main.md:82)')
-    # ---- PC-3b = K-P: evaluated with the controls (K-P), result recorded there
-    print('\n--- PC-3b: see K-P above (Reproduction)')
-    # ---- PC-4a / PC-4b
-    ok_le, ok_dr = pc4_check()
-    res = finish_family(family_eval(ALL, ALL, ALL, ALL))
-    report('PC-4a', res, cls=classify(False, True, False, [lab_over, 'vacuous']),
-           note=f'under kappa2 the inverse of each readout bijection is accessible and restores the pre-readout law '
-                f'on wing u pointer (LE: {ok_le}; DR: {ok_dr}); recorded vacuous as preregistered')
-    res = finish_family(family_eval(ALL, ALL, ALL, ALL))
-    res['pom'] = dict(i=None, iiS=None, iii=None, iiS_where='Parked (amendment A-5)', n_admitted='-')
-    report('PC-4b', res, cls=classify(False, True, False, [lab_over + ' (CHSH)', 'POM part Parked (A-5)']),
-           note=f'LE readouts are self-inverse within the family\'s accessible set ({ok_le}), so PC-4b admits LE(1,1) '
-                f'(S_max = 4); the POM part needs a pointer-reuse choice (A-5); the CHSH failure decides the class')
-    # ---- H-Bell
-    hb = hbell()
-    res = finish_family(family_eval(ALL, ALL, ALL, ALL))
-    report('HB-1', res, cls=classify(False, True, False, [lab_over + ' (CHSH)', 'POM silent: ' + lab_over]),
-           note='LE(1,1) has one preparation-indexed long edge (added degree 1, so D = 1 already admits it), ontic '
-                'parameter dependence and operational no-signalling: S_max = 4')
-    res = finish_family(family_eval(ALL, ALL, ALL, ALL))
-    report('HB-2', res, cls=classify(False, True, False, [lab_over + ' (CHSH)', 'POM silent: ' + lab_over]),
-           note=hb['hb2'])
-    gate = gate_class()
-    le0 = lambda n, k: k == 0  # noqa: E731
-    res = finish_family(family_eval(le0, ALL, lambda w: w == 0, ALL),
-                        iiS_follow={'chsh': (False, 'long-edge gate class: ' + gate)})
-    report('HB-3alpha', res, cls=classify(False, True, False, ['under-generation (CHSH)',
-                                                                 'POM silent: ' + lab_over]),
-           note=hb['hb3a'])
+    verdict('L3-PR', [('as L3-A', finish_family(family_eval(count, count, NONE, NONE)))], own=['LEARCH'],
+            note='no corpus text fixes the "geometric and thermodynamic properties of the partition boundary" for LE or '
+                 'DR, so its admitted set is L3-A\'s (rule fixed in PREREG section 3.1); not independent')
+    pc1 = PC['pc1']
+    verdict('PC-1', [('PC-1', finish_family(family_eval(lambda n, k: pc1.get((n, k), True), ALL, ALL, ALL)))],
+            own=['PC-1'], note='marginal consistency measured for n <= 12; beyond, [W] (marginals of one law)')
+    verdict('PC-2', [('PC-2', finish_family(family_eval(lambda n, k: nosig(LE_BOX[(n, k)]), ALL,
+                                                        lambda w: nosig(le_struct_box(w)), ALL)))],
+            own=['LEARCH'], note='admission = operational no-signalling, measured on every LE member; DR readout laws '
+                                 'depend only on (x, y) by construction; Methodology.md:393 states no-signalling is '
+                                 'insufficient')
+    pc3 = PC['pc3a']
+    verdict('PC-3a', [('PC-3a', finish_family(family_eval(lambda n, k: pc3.get((n, k), True),
+                                                          lambda n, k: pc3.get((n, k), True), ALL, ALL)))],
+            own=['PC-3a'], note='Q_fb measured for n <= 3; universal (Main.md:82)')
+    print('\n--- PC-3b: see K-P above')
+    p4 = PC['pc4_le']
+    p4d = PC['pc4_dr']
+    verdict('PC-4a', [('PC-4a', finish_family(family_eval(lambda n, k: p4.get((n, k), True),
+                                                          lambda n, k: p4d.get((n, k), True), ALL, ALL)))],
+            own=['PC-4'], note='under kappa2 every readout has an accessible inverse that restores the pre-readout law')
+    verdict('PC-4b', [('reapply allowed', finish_family(family_eval(lambda n, k: p4.get((n, k), True), ALL, ALL, ALL))),
+                      ('reapply not allowed', finish_family(family_eval(NONE, ALL, NONE, ALL)))],
+            own=['PC-4'], skip=('pom',),
+            note='the two readings are the A-5 choice: if a readout may be reapplied to its own pointer, LE readouts are '
+                 'self-inverse and every LE member is admitted; if not, no LE readout is invertible within the family\'s '
+                 'accessible set and every LE member is excluded; the POM part is Parked (A-5)')
+    verdict('HB-1', [('HB-1', finish_family(family_eval(count, ALL, ALL, ALL)))], own=['HB-1'],
+            note='LE(1,1): one long edge (added degree 1, so D = 1 already admits it), parameter dependence, no-signalling; '
+                 'POM: H-Bell is silent, every DR member admitted')
+    verdict('HB-2', [('HB-2', finish_family(family_eval(count if hb['hb2_holds'] else NONE, ALL,
+                                                        ALL if hb['hb2_holds'] else NONE, ALL)))],
+            own=['HB-2'], note=hb['hb2'])
+    gate_follow = {'chsh': (ge(gate_max, TSI - EPS), 'long-edge gate class: ' + gate_msg)}
+    ex3 = hb['hb3a_excl']
+    verdict('HB-3alpha', [('HB-3alpha', finish_family(
+        family_eval(lambda n, k: k == 0 or not ex3, ALL, lambda w: w == 0 or not ex3, ALL), iiS_follow=gate_follow))],
+            own=['HB-3alpha', 'GATE'], note=hb['hb3a'])
     print('\n--- HB-3beta: Parked (the mesoscopic Bakry-Emery functional needs a scale and averaging the corpus does '
-          'not define; section 3.3 rule; N_BE in {3, 6, infinity} not evaluated because the functional is undefined)')
+          'not define; PREREG section 3.3 rule; N_BE in {3, 6, infinity} not evaluated because the functional is '
+          'undefined)')
     RESULTS.append(('HB-3beta', 'Parked'))
-    res = finish_family(family_eval(le0, ALL, lambda w: w == 0, ALL),
-                        iiS_follow={'chsh': (False, 'long-edge gate class: ' + gate)})
-    report('HB-4', res, cls=classify(False, True, False, ['under-generation (CHSH)', 'POM silent: ' + lab_over]),
-           note=hb['hb4'])
+    ex4 = hb['hb4_excl']
+    verdict('HB-4', [('HB-4', finish_family(
+        family_eval(lambda n, k: k == 0 or not ex4, ALL, lambda w: w == 0 or not ex4, ALL), iiS_follow=gate_follow))],
+            own=['HB-4', 'GATE'], note=hb['hb4'])
     print('\n--- CL: Parked (definition not retrieved: arXiv:2512.18105 unreachable from the container at drafting and '
-          'at execution; section 3.4 rule)')
+          'at execution; PREREG section 3.4 rule)')
     RESULTS.append(('CL', 'Parked'))
+
+
+def priorfree_check():
+    smax_all = all(s_max(le_box_lamprior(F(j, 9))) == 4 for j in range(10))
+    sig_all = all(not nosig(le_box_lamprior(F(j, 9))) for j in range(10))
+    half = le_box_lamprior(F(1, 2))
+    check('L3-A-priorfree', smax_all and sig_all and nosig(half) and half == LE_BOX[(1, 1)],
+          'S_max = 4 for every prior on lam; operationally no-signalling only at P(lam=0) = 1/2: S_max = 4 at '
+          'P(lam = 0) = j/9, j = 0..9, each of these ten boxes signalling; P(lam = 0) = 1/2 gives the no-signalling PR '
+          'box, which is LE(1,1) under the counting measure')
 
 
 def le_box_lamprior(p0):
     box = {}
     for a, b in product((0, 1), repeat=2):
         pri = {(a, b, 0, 0, 0, 0, lam, 0): (p0 if lam == 0 else 1 - p0) for lam in (0, 1)}
-        R = Realization('LE(1,1)[lam-prior]', [2] * 7 + [1], [0, 1, 2, 3, 4, 5], le_steps(1),
-                        pri, lambda x: (x[2], x[3]))
+        R = checked(Realization('LE(1,1)[lam-prior]', [2] * 7 + [1], [0, 1, 2, 3, 4, 5], le_steps(1),
+                                pri, lambda x: (x[2], x[3])))
         for (q, r), v in law(R).items():
             box[(a, b, q, r)] = v
     return box
-
-
-def l3c_eval():
-    """orbit-invariant prior on the protocol cycle (clock included); readings (alpha) and (beta) of amendment A-4"""
-    out = []
-    worst = {}
-    for n, k in ((1, 1), (2, 1), (3, 2), (4, 4)):
-        T = 5
-        steps = le_steps(k)
-        box_a, box_b = {}, {}
-        for a, b in product((0, 1), repeat=2):
-            def phi(st):
-                t, x = st
-                return ((t + 1) % T, steps[t](x))
-            slice_pts = [(0, (a, b, 0, 0, 0, 0, lam, u)) for lam in (0, 1) for u in range(n)]
-            union = set()
-            for s0 in slice_pts:
-                if s0 in union:
-                    continue
-                s = s0
-                while True:
-                    union.add(s)
-                    s = phi(s)
-                    if s == s0:
-                        break
-            # (alpha): uniform on the union, conditioned on the slice, one pass
-            sl = [s for s in union if s[0] == 0 and s[1][:6] == (a, b, 0, 0, 0, 0)]
-            for s in sl:
-                y = s
-                for _ in range(T):
-                    y = phi(y)
-                key = (a, b, y[1][2], y[1][3])
-                box_a[key] = box_a.get(key, 0) + F(1, len(sl))
-            # (beta): uniform on the union, records (q, r) at the readout phase (clock 0)
-            rp = [s for s in union if s[0] == 0]
-            for s in rp:
-                key = (a, b, s[1][2], s[1][3])
-                box_b[key] = box_b.get(key, 0) + F(1, len(rp))
-        sa, sb = s_max(box_a), s_max(box_b)
-        worst[(n, k)] = (sa, sb)
-        out.append(f'LE({n},{k}): S_max alpha={sa}, beta={sb}')
-    fa = gt(worst[(1, 1)][0], TSI + EPS)
-    fb = gt(worst[(1, 1)][1], TSI + EPS)
-    check('L3-C-readings', fa and fb, 'both readings of A-4 admit a member with S_max > 2sqrt2 + eps at LE(1,1): '
-          + '; '.join(out))
-    return ('orbit-invariant prior computed on the protocol cycle (clock included): ' + '; '.join(out) +
-            '. Reading (alpha) reproduces the counting measure on the slice; both readings exceed 2sqrt2 + eps at '
-            'LE(1,1), so the verdict does not depend on the A-4 choice')
-
-
-def pc1_check():
-    ok = True
-    for n, k in ((1, 1), (3, 1), (5, 2)):
-        bx = le_box(n, k)
-        for a, b in product((0, 1), repeat=2):
-            R = le_real(n, k, a, b)
-            Ra = Realization('A-part', R.domains, R.visible, R.steps, R.prior, lambda x: (x[2],))
-            Rb = Realization('B-part', R.domains, R.visible, R.steps, R.prior, lambda x: (x[3],))
-            la, lb = law(Ra), law(Rb)
-            for q in (0, 1):
-                ok &= la.get((q,), 0) == sum(bx.get((a, b, q, r), 0) for r in (0, 1))
-                ok &= lb.get((q,), 0) == sum(bx.get((a, b, r, q), 0) for r in (0, 1))
-    return ok
-
-
-def pc3a_check():
-    ok = True
-    for R in [le_real(1, 1, 1, 1), dr_real(1, 1, (0, 1), (1,))]:
-        om = list(product(*[range(d) for d in R.domains]))
-        U = {}
-        for x in om:
-            y = x
-            for st in R.steps:
-                y = st(y)
-            U[x] = y
-        ok &= len(set(U.values())) == len(om)                       # permutation, hence unitary
-        rho = {x: R.prior.get(x, 0) for x in om}
-        born = {}
-        for x in om:
-            if rho[x]:
-                k = R.readout(U[x])
-                born[k] = born.get(k, 0) + rho[x]                   # <y|U rho U^T|y> on the readout fibre
-        ok &= born == law(R)
-    return ok
-
-
-def pc4_check():
-    # LE: readout beta_A = (q ^= p1); beta_B = (r ^= p2; r ^= ab[u<k]); applying each twice restores Omega pointwise
-    ok_le = True
-    for n, k in ((1, 1), (2, 1)):
-        steps = le_steps(k)
-        om = list(product(*[range(d) for d in [2] * 7 + [n]]))
-        for x in om:
-            y = steps[2](steps[2](x))
-            z = steps[4](steps[3](steps[4](steps[3](x))))
-            ok_le &= y == x and z == x
-    # DR under kappa2 closure: the inverse of (p ^= b_y; b_{1-y} ^= r) is (b_{1-y} ^= r; p ^= b_y), a bijection
-    ok_dr = True
-    R = dr_real(2, 1, (0, 1), (0,))
-    om = list(product(*[range(d) for d in R.domains]))
-    for x in om:
-        y = R.steps[3](R.steps[2](x))
-        z = R.steps[2](R.steps[3](y))
-        ok_dr &= z == x
-    return ok_le, ok_dr
 
 
 def hbell():
@@ -1155,6 +1359,12 @@ def hbell():
                   'schedule r_N -> infinity, r_N / L -> 0 (m_N <= |ell_1 ball of radius 3 r_N| <= (6 r_N + 1)^3) [W]; '
                   'instances ' + '; '.join(rows) + '. The condition holds whatever w is, so HB-2 admits LE(1,1)')
     print('HB-2 instances: ' + '; '.join(rows))
+    hb2_ok = all(len(ball(bfs(torus(L)[0], (0, 0, 0)), 3)) <= 7 ** 3 for L in L_SET)
+    ratios = [F(len(ball(bfs(torus(L)[0], (0, 0, 0)), 3)), L ** 3) for L in L_SET]
+    hb2_ok &= all(ratios[i + 1] < ratios[i] for i in range(len(ratios) - 1))
+    check('HB-2', hb2_ok, 'm_N <= (6r+1)^3 = 343 at r = 1 and L_N m_N / N decreasing over L in L_set: ' + '; '.join(rows)
+          + '; the limit for every schedule r_N -> infinity, r_N/L -> 0 is the [W] bound P(6 r_N + 1)^3 / L^3')
+    out['hb2_holds'] = hb2_ok
     # HB-3alpha: exact W1 by min-cost flow vs closed form, reference and glued torus
     s_r = lambda r: 1 if r == 0 else 4 * r * r + 2  # noqa: E731
     V = lambda dl: sum(s_r(r) for r in range(dl + 1))  # noqa: E731
@@ -1220,6 +1430,7 @@ def hbell():
           'kappa -> -infinity); W1 at w = 1 for delta = 1, 2, 5, 20, 60: ' + ', '.join(lim))
     for r in rows:
         print('  HB-3alpha ' + r)
+    out['hb3a_excl'] = bool(ok and bound_ok and ref_ok)
     out['hb3a'] = ('both options of amendment A-3 give the same admitted set: for every w > 0 the endpoint '
                    'curvature kappa(A,B) <= -5/4 for every delta >= 1 (exact closed form, verified by min-cost flow), '
                    'while the reference value tends to 0; so only w = 0 is admitted; in the gate class only '
@@ -1240,37 +1451,12 @@ def hbell():
     check('HB-4', ok, 'rescaled Gromov-Hausdorff distance between the glued and reference tori is at least '
           '(rad X - rad Y)/(2L) >= 3/8 - 1/(4L): ' + '; '.join(rows) + ' (|rad X - rad Y| <= 2 d_GH; '
           'd(z,A) + d(z,B) = 3L/2 on the ell_1 torus gives rad Y <= 3L/4 + 1/2 for every even L [W])')
+    out['hb4_excl'] = bool(ok)
     out['hb4'] = ('any positive-weight prepared graph with the long edge stays at rescaled GH distance >= 3/8 - '
                   '1/(4L) from the reference (radius argument, exact at L = 4..10, [W] for all even L); so only w = 0 '
                   'is admitted in LE, and only edge-free gate realizations in the gate class, which are local. '
                   'SM.md:150 already states that such an edge destroys GH closeness')
     return out
-
-
-def gate_class():
-    """long-edge gate class: r ^= F(a,b,c), q = lam, r = lam xor F; edge present at c iff F(.,b,c) depends on a"""
-    worst_free = None
-    n_free = 0
-    best_edge = None
-    for code in range(256):
-        Ff = lambda a, b, c: (code >> (a + 2 * b + 4 * c)) & 1  # noqa: E731
-        for c in (0, 1):
-            free = all(Ff(0, b, c) == Ff(1, b, c) for b in (0, 1))
-            box = {}
-            for lam in (0, 1):
-                for a, b in product((0, 1), repeat=2):
-                    q, r = lam, lam ^ Ff(a, b, c)
-                    box[(a, b, q, r)] = box.get((a, b, q, r), 0) + F(1, 2)
-            sm = s_max(box)
-            if free:
-                n_free += 1
-                worst_free = sm if worst_free is None or gt(sm, worst_free) else worst_free
-            else:
-                best_edge = sm if best_edge is None or gt(sm, best_edge) else best_edge
-    msg = (f'{n_free} edge-free (F, c) slices, maximum S_max {worst_free} (local, so every admitted mixture has '
-           f'S_max <= 2); slices with the edge reach S_max {best_edge}')
-    check('GATE', worst_free == 2 and best_edge == 4, 'exhaustive over 256 gates x 2 control values: ' + msg)
-    return msg
 
 
 def kp_run(kp_box):
@@ -1303,9 +1489,10 @@ def kp_run(kp_box):
                              'ontic parity mixtures, so its diagonal quantum realization has rho_00 + rho_11 = '
                              'rho_01 + rho_10 [W]')
     b = kp_outcome_b()
-    report('PC-3b (= K-P)', res, fu=fu, b=b, cls=classify(False, False, True),
-           note='passes by construction: the principle is the quantum set (quantum ingredient), so Reproduction')
+    cls = verdict('PC-3b (= K-P)', [('K-P', res)], own=['SOS', 'K-4', 'K-8', 'K-11'], repro=True, fu=fu, b=b,
+                  note='the principle is the quantum set (a quantum ingredient), so a pass is Reproduction')
     kp_ok = passes(res['chsh']) and passes(res['pom']) and len(fu) == 6 and b['b1'].startswith('holds')
+    kp_ok &= cls == 'Reproduction'
     check('K-P', kp_ok, 'positive control passes the family stage, (a), (a-POM) and (b1); classified Reproduction')
     return res
 
@@ -1427,20 +1614,27 @@ def main():
     kp_box = k8_box()
     kp_run(kp_box)
     synthetic_controls(kp_box)
+    mutation_controls()
     static_checks()
     gate_ok = all(ok for cid, ok in CHECKS)
     k9 = all(ok for _, ok in O_LOG)
     check('K-9', k9, f'condition O (bijectivity on Omega, point-mass visible marginal, normalized prior) holds for '
           f'all {len(O_LOG)} realizations checked')
     gate_ok = gate_ok and k9
-    print('\nI-6 gate: controls K-1..K-9, K-11, K-P, K-N1..K-N6, SOS, I-17, static checks: '
-          + ('all green' if gate_ok else 'FAILED'))
+    print('\nI-6 gate: controls K-1..K-9, K-11, K-P, K-N1..K-N6, K-M2, K-M4, SOS, I-17, static checks: '
+          + ('all green' if gate_ok else 'failed'))
     print('K-10: n <= 3 in k10.py (see k10.run*.out); n = 4 pending (CI, owner approval); verdicts below are '
           'provisional on K-10 n = 4 (amendment A-2)')
     if not gate_ok:
-        print('VERDICTS SUPPRESSED (I-6)')
+        print('verdicts suppressed (I-6)')
         return
-    candidates(kp_box)
+    print('\n=== Candidate measurements (each verdict below is printed only if its own checks pass) ===')
+    priorfree_check()
+    l3c_eval()
+    pc_checks()
+    hb = hbell()
+    gate_msg, gate_max = gate_class()
+    candidates(kp_box, hb, gate_msg, gate_max)
     k9b = all(ok for _, ok in O_LOG)
     check('K-9-final', k9b, f'condition O holds for all {len(O_LOG)} realizations checked, candidates included')
     print('\n=== Classification summary ===')
@@ -1448,16 +1642,6 @@ def main():
         print(f'  {cid}: {cls}')
     nf = sum(1 for _, ok in CHECKS if not ok)
     print(f'\nchecks: {len(CHECKS) - nf} PASS, {nf} FAIL')
-
-
-def k8_box():
-    pairs = [(s, 0) for s in (0, 1) for _ in range(29)] + [(s, 1) for s in (0, 1) for _ in range(5)]
-    box = {}
-    for s, anti in pairs:
-        for a, b in product((0, 1), repeat=2):
-            key = (a, b, s, s ^ (a & b) ^ anti)
-            box[key] = box.get(key, 0) + F(1, 68)
-    return box
 
 
 if __name__ == '__main__':
