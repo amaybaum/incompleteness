@@ -1,0 +1,5 @@
+PASS split |S|=2, |A|=4, all 40320 permutations: every branch row-monomial (0 failures)
+PASS split |S|=2, |A|=4: 92160 full-support branches, all monomial (0 non-monomial)
+PASS split |S|=4, |A|=2, all 40320 permutations: every branch row-monomial (0 failures)
+PASS split |S|=4, |A|=2: 18432 full-support branches, all monomial (0 non-monomial)
+PASS control: with a Hadamard post-map the same scan flags 4 full-support non-monomial branches (detector fires)

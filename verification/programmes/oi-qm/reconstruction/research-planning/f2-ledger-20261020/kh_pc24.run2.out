@@ -1,0 +1,11 @@
+PASS K0 det(C_s + mu C_a) = det C_s + mu^2 a^2 (generic C)
+PASS K0b coefficient matrix of U(mu)v is C_s + mu C_a
+PASS K1a V(x)V commutes with SWAP
+PASS K1b V(x)V maps span{|00>,|11>} into Sym
+PASS K1c U(mu) fixes Sym
+PASS K2 criterion accepts U(i)(|+>(x)|0>) and rejects the singlet
+PASS K3a V = [[3,4i],[4i,3]]/5 is unitary
+PASS K3b g = (V(x)V)(|00>+2|11>) = [-23, 36*I, 36*I, 2]/25 is symmetric (a pure state of K_H*)
+PASS K3c CNOT g = [-23, 36*I, 2, 36*I]/25 is neither symmetric nor in U(mu)Prod, so Ad_CNOT |g><g| is not in K_H*: K_H* fails hH2
+PASS K4 native pair permutations with a witness in this family: 20 of 24 (agrees with #864 SC S5; preservation by the other 4 is not tested here)
+== SUMMARY: 0 FAIL ==

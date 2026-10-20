@@ -1,0 +1,7 @@
+PASS I1 every permutation of the 4 pair configurations maps the defect set onto itself
+PASS I2a value on |+i>|-i>|+i> is (-2+0i) (negative real)
+PASS I2b value on real test (2,1)(1,2)(3,1) is (-47/4+0i) (negative real)
+PASS I3 control: configuration tests give minimum 0 >= 0
+PASS I4a P_m has a column with nonzero first entry
+PASS I4b generated readout branch, discarded, is proportional to P_m
+PASS I4c Tr(z P_m) = (-1/2+0i) = -1/2

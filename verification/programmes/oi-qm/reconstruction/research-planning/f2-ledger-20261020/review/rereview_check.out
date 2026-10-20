@@ -1,0 +1,7 @@
+g*25 = [-23, 36*I, 36*I, 2] symmetric: True
+h*25 = [-23, 36*I, 2, 36*I]
+nu with U(nu)h product: [-sqrt(2929 - 11628*I)/65, sqrt(2929 - 11628*I)/65] |nu|: [34033**(1/4)*sqrt(65)/65, 34033**(1/4)*sqrt(65)/65]
+h symmetric: False
+min product test on Ad_CNOT Gamma(Phi+) over axis tests: (-1, (1, -1), (0, 1))
+DIS: Tr3(z x tau) == (t00+t11) z : True
+RO3: branch 0 == z x (P0 tau P0): True

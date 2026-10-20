@@ -1,0 +1,4 @@
+Gamma(Q3): native pair perms P with Ad_P Gamma(Phi+) notin Gamma(Q3): 16 of 24
+K_B: Ad_{X(x)I} B == B ? False ; img rank-1 entangled: {-1/2: 1, 1/2: 3}
+K_Gamma: eigenvalues of Ad_CNOT Gamma(B): {1/2: 3, -1/2: 1}
+ charpoly of Ad_CNOT Gamma(B) - t Gamma(B): -(2*lambda + t - 1)**2*(-4*lambda**2 + t**2 + t + 1)/16

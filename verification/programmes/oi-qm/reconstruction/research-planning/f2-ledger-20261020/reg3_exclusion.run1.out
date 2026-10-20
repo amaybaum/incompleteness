@@ -1,0 +1,59 @@
+== A. pair fixtures ==
+PASS A1 defect(1, 1) Hermitian, trace 1, spectrum {1/2:3,-1/2:1}
+PASS A1 defect(1, -1) Hermitian, trace 1, spectrum {1/2:3,-1/2:1}
+PASS A1 defect(-1, 1) Hermitian, trace 1, spectrum {1/2:3,-1/2:1}
+PASS A1 defect(-1, -1) Hermitian, trace 1, spectrum {1/2:3,-1/2:1}
+PASS A2 all 24 native pair permutations map Z_F onto Z_F (so K(Z_F) is PC24-invariant)
+PASS A3 defect(1,1): coefficient matrix orthogonal (|a.Mb|<=1 => <ab|z|ab>=(1+a.Mb)/4>=0) [EC+W]
+PASS A3 defect(1,-1): coefficient matrix orthogonal (|a.Mb|<=1 => <ab|z|ab>=(1+a.Mb)/4>=0) [EC+W]
+PASS A3 defect(-1,1): coefficient matrix orthogonal (|a.Mb|<=1 => <ab|z|ab>=(1+a.Mb)/4>=0) [EC+W]
+PASS A3 defect(-1,-1): coefficient matrix orthogonal (|a.Mb|<=1 => <ab|z|ab>=(1+a.Mb)/4>=0) [EC+W]
+PASS A4a P_m = I/2 - z_(1,1) is a rank-one projector (pure state in Q3)
+PASS A4b Tr(z_m z_j) >= 0 for all four defects (z_m in Z_F*, hence z_m in K(Z_F)* by L <= Z_F*) [EC+W]
+PASS A4c Tr(z_m P_m) = -1/2 < 0, so P_m notin K(Z_F): Q3 is not contained in K(Z_F)
+PASS A4d z_m has eigenvalue -1/2, so K(Z_F) is not contained in Q3
+PASS A5 Gamma(Phi+) = SWAP/2 has eigenvalue -1/2 (Gamma(Q3) not in Q3)
+== B. upper route: ATT + NC_3 (CNOTs into token 3) + MAX_3  =>  K2 <= Q3 ==
+PASS B0 C = CNOT23.CNOT13 is a permutation matrix and unitary
+PASS B1 symbolic: test value after (attach |0>, CNOT13, CNOT23) equals <u|X|u>, u = D_c(a(x)b), D_c=diag(c0,c1,c1,c0)
+PASS B2 constructive density instance: u = (1,2,8,4) equals D_c(a(x)b) with c=(1,2), a=(1,4), b=(1,1) [EC; general: W]
+PASS B3a K(Z_F): z_(1,1) (x)|0><0| -> CNOT13,CNOT23 -> test |+i>|-i>|+i> gives -2 < 0 (8 = norm^2 of unnormalized test)
+PASS B3b defect(1, 1): minimum over 216 sharp-axis product tests after (ATT, CNOT13, CNOT23) is -2 < 0
+PASS B3b defect(1, -1): minimum over 216 sharp-axis product tests after (ATT, CNOT13, CNOT23) is -2 < 0
+PASS B3b defect(-1, 1): minimum over 216 sharp-axis product tests after (ATT, CNOT13, CNOT23) is -2 < 0
+PASS B3b defect(-1, -1): minimum over 216 sharp-axis product tests after (ATT, CNOT13, CNOT23) is -2 < 0
+PASS B3c Gamma(Phi+) (generator of K_Gamma, element of Gamma(Q3)): minimum over the same 216 tests is -1 < 0
+PASS B4a sigma (slice x3=0 -> weight<=1 set) is a native permutation of 8 configs that is NOT affine
+PASS B4b symbolic: after (attach |0>, sigma) the product test (1,u1)(x)(1,u2)(x)(1,u3) reads <u|X|u>, u=(1,u1,u2,u3): every u with u_00 != 0, exactly
+PASS B4c the -1/2 eigenvector of z_(1,1) has a nonzero first entry (so B4b applies with no density step)
+PASS B4d non-affine route on z_(1,1): value -2 = -1/2 * |u|^2 < 0
+== C. lower route: H1_3 + NC_3 + RO_3 + DIS  =>  pure states in K2 ==
+PASS C1 symbolic: selective readout 0 on token 3 after CNOT13,CNOT23 gives D_c(a(x)b) (x)|0>
+PASS C1b discard of that branch is |u><u|
+PASS C2a P_singlet (absent from K_H*) generated exactly: a=(1,1), b=(-1,1), c=(0,1)
+PASS C2b Phi+ (absent from K_S, which fails MI) generated exactly: a=b=(1,1), c=(1,0)
+PASS C2c CZ|++> (not a native-permutation image of a product: no pairing of its entries has equal products [W]) generated exactly via the non-affine native sigma^-1
+PASS C2d P_m (pure state absent from K(Z_F), A4c) generated exactly via sigma^-1
+PASS C2e and it is proportional to P_m
+== D. controls and mutations ==
+PASS D1a C is unitary, so Ad_C maps PSD to PSD (QK3 satisfies NC_3)
+PASS D1b sample rational rho is PSD (positive control input)
+PASS D1c its native 3-token image is PSD (no false exclusion of Q3)
+PASS D1d minimum over the 216 tests on the Q3 sample is 0 >= 0
+PASS D2a classical: native image of a diagonal state stays diagonal and nonnegative (upper route excludes nothing classical)
+PASS D2b classical: lower route output Phi+ is not diagonal (classical cone excluded by H1_3+NC_3+RO_3+DIS; it already fails H1)
+PASS D3a control: identity in place of C (spectator token 3) gives minimum 0 >= 0 over the 216 tests
+PASS D3b control: CNOT13 alone yields a PRODUCT test vector (a*c)(x)b, so it cannot exclude any maxCone element [EC+W]
+PASS D3c control: the 24 pair permutations (x) id on token 3 give minimum 0 >= 0 (exclusion needs coupling into the extra token)
+PASS D4a mutation: ancilla tests restricted to the x-axis states give minimum 0 >= 0 over that family (the axis witness of B3a uses a non-real ancilla test)
+PASS D4b real non-axis tests suffice for the real fixture z_(1,1): a=(2,1), b=(1,2), c=(3,1) give -47/4 < 0 (normalized -47/1000)
+PASS D4c configuration-only tests (all three tokens in {|0>,|1>}) give minimum 0 >= 0 on every defect and on Gamma(Phi+): the exclusion needs non-configuration token tests
+PASS D5a the Gamma(token 2)-transported action of the same native bijection differs from Ad_C on a matrix unit
+PASS D5b ... while agreeing with Ad_C on every configuration-diagonal matrix unit: the exclusion of Gamma(Q3) holds relative to the fixed identification only
+== E. ingredients of the drop-one models (LEDGER.md section 4.4) ==
+PASS E1 discard formula for g = I (symbolic M, tau)
+PASS E1 discard formula for g = CNOT13 (symbolic M, tau)
+PASS E1 discard formula for g = CNOT23 (symbolic M, tau)
+PASS E1 discard formula for g = C (symbolic M, tau)
+PASS E2 readout branch 0 of C(M (x)|c><c|)C^dag, discarded, equals D_c M D_c^dag (the filter of block B)
+== SUMMARY: 53 checks, 0 FAIL ==
