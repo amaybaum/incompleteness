@@ -18,6 +18,10 @@
   },
   {
    "bridge_job": "118705242073",
+   "cells": {
+    "path": "evidence/e-run/cells.json",
+    "probe_job": "118705242163"
+   },
    "commit": "e35fe0993d22ea217d4094191ef355340ac80062",
    "kind": "bridge",
    "label": "E",

@@ -2,21 +2,24 @@ name: KTOKEN-MAXCONE-1 exact-head bridge evidence extraction (read-only)
 
 # Read-only, in-CI extraction of KTOKEN-MAXCONE-1's exact-head bridge results (AGENTS §A.42 item 1) from the whole
 # Mathlib bridge job logs, which a session cannot download. What is read is listed in extractor/targets.json and
-# nowhere else; it lists F's run 39163559807 at e12c1573, bridge job 117781736738. E's run is added by a commit that
-# changes targets.json alone. The workflow runs only on a push to tmp/ktoken-f-evidence-20261020, a parentless
+# nowhere else: F's run 39163559807 at e12c1573 (bridge job 117781736738) and E's run 39445227350 at e35fe099
+# (bridge job 118705242073), with E's cells block naming its probe job 118705242163. The workflow runs only on a push to tmp/ktoken-f-evidence-20261020, a parentless
 # branch that holds only this workflow and extractor/; no other workflow file is in that tree, so a push to it
 # starts no other workflow.
 #
 # extractor/fetch_sources.py fetches the two pinned extractor commits on main and each target's commit by id from
-# the public repository, with no credential. extractor/fetch_records.py reads the listed runs' JSON records from
+# the public repository, with no credential, and for E (the target with a cells block) a second repository holding
+# E's history back to the round's D b96662e6, which the frozen verdict reads. extractor/fetch_records.py reads the listed runs' JSON records from
 # endpoints allow-listed from targets.json. extractor/download_job_logs.py fetches each listed log in an explicit
 # two-step: the token goes only to the listed jobs/<id>/logs endpoints on api.github.com; the storage link is
 # fetched without credentials, under a size cap, timeouts and a deadline, and is never printed.
 # extractor/assemble_evidence.py checks the logs against the download record, reads them with extract_result.py
 # from main at 809fa9d6 (blob e6f69713, verified before it runs) and cross-checks with the blob at b96662e6
-# (05c41bce), and prints the release-gate block, the axiom-report table, each result as numbered compact-JSON lines
-# with its sha256, and one verdict line: EXTRACT HOLDS (exit 0), EXTRACT FAILS (exit 1) or EXTRACT UNVERIFIED
-# (exit 2).
+# (05c41bce), reads E's cells (check A3's lines, the absence line, the lines the frozen verdict reads, the probe job's
+# output), runs the round's frozen controls.py (blob 7c9672a1, unchanged) as `verdict E --freeze F --axioms <log>`
+# over E's whole bridge log as downloaded and with its timestamps stripped, and prints the release-gate block, the
+# axiom-report table, both verdict outputs, each result as numbered compact-JSON lines with its sha256, and one
+# verdict line: EXTRACT HOLDS (exit 0), EXTRACT FAILS (exit 1) or EXTRACT UNVERIFIED (exit 2).
 #
 # The job writes nothing: no artifact, no cache, no commit, ref, tag or release, no step summary. GH_TOKEN is set
 # only on the two steps that call the API; the checkout uses persist-credentials: false.
@@ -42,7 +45,7 @@ jobs:
     name: Extract KTOKEN-MAXCONE-1 exact-head bridge results
     if: github.ref == 'refs/heads/tmp/ktoken-f-evidence-20261020'
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 40
     steps:
       # actions/checkout, tag v4, pinned to 11d5960a326750d5838078e36cf38b85af677262: the commit GitHub resolved
       # actions/checkout@v4 to in the design runs' own logs. It is the only external action in this workflow.
@@ -64,10 +67,10 @@ jobs:
 
       # No token here: the repository is public, and the script removes GH_TOKEN and GITHUB_TOKEN from git's
       # environment and resets the credential helper and extra headers.
-      - name: Fetch the extractor commits and the listed commits (public repository, no credentials)
+      - name: Fetch the extractor commits, the listed commits and E's history to D (public repository, no credentials)
         id: sources
         if: ${{ !cancelled() && steps.selftest.outcome == 'success' }}
-        run: python3 -I extractor/fetch_sources.py --objects "$RUNNER_TEMP/objects"
+        run: python3 -I extractor/fetch_sources.py --objects "$RUNNER_TEMP/objects" --history "$RUNNER_TEMP/history"
 
       - name: Self-test the assembler (local only, no network)
         id: selftest2
@@ -81,7 +84,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: python3 -I extractor/fetch_records.py --out "$RUNNER_TEMP/host"
 
-      - name: Download the listed bridge-job logs (two-step; the token goes only to the listed API endpoints)
+      - name: Download the listed job logs (two-step; the token goes only to the listed API endpoints)
         if: ${{ !cancelled() && steps.selftest.outcome == 'success' && steps.selftest2.outcome != 'failure' }}
         env:
           GH_TOKEN: ${{ github.token }}
@@ -94,5 +97,5 @@ jobs:
       - name: Assemble, check and print the expected results
         if: ${{ !cancelled() && steps.selftest.outcome == 'success' && steps.selftest2.outcome != 'failure' }}
         run: |
-          python3 -I extractor/assemble_evidence.py --objects "$RUNNER_TEMP/objects" \
+          python3 -I extractor/assemble_evidence.py --objects "$RUNNER_TEMP/objects" --history "$RUNNER_TEMP/history" \
             --host "$RUNNER_TEMP/host" --logs "$RUNNER_TEMP/logs" --download-record "$RUNNER_TEMP/download-record.json"
