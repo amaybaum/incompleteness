@@ -1,0 +1,27 @@
+PASS T0 U is unitary
+PASS T1 target Kraus completeness sum K_j^dag K_j = I
+PASS T2 K_0 has four nonzero entries (non-monomial) and U moves the all-ones ray of the carrier
+PASS T3 exact word of 40 letters reproduces U to 1e-30
+     word: 6 X-letters (exact), 34 P-letters (phase gadget + RUS)
+Mode CONT (exact angles), per-outcome bounds eps_0, eps_1, and the coarse-grained one-outcome channel:
+  n=  1  eps_0=     1.128  eps_1=    0.6199  eps_coarse=     1.135  nP*2^-n=17.0
+  n=  2  eps_0=     1.108  eps_1=     0.598  eps_coarse=     1.119  nP*2^-n=8.5
+  n=  4  eps_0=    0.7123  eps_1=    0.3383  eps_coarse=    0.7298  nP*2^-n=2.125
+  n=  8  eps_0=   0.06803  eps_1=   0.02952  eps_coarse=   0.06985  nP*2^-n=0.1328
+  n= 16  eps_0=  0.000274  eps_1= 0.0001181  eps_coarse= 0.0002813  nP*2^-n=0.0005188
+  n= 32  eps_0=  4.181e-9  eps_1=  1.802e-9  eps_coarse=  4.293e-9  nP*2^-n=7.916e-9
+  n= 64  eps_0= 9.735e-19  eps_1= 4.195e-19  eps_coarse= 9.996e-19  nP*2^-n=1.843e-18
+PASS T4 per-outcome error decreases strictly with the RUS depth n
+PASS T5 every available family built is trace-preserving in aggregate (sum of outcomes)
+PASS T6 at n = 64 both outcomes are within 1e-17 (bound scale nP * 2^-n)
+  countercontrol, phase gadget without RUS correction: max eps = 1.129
+PASS T7 countercontrol: without the RUS correction the error stays of order one (> 0.05)
+Mode FIN (bases X, Y, w(1) only; RUS depth n = 100):
+  delta=  0.01  gadget applications=    9409  max eps=0.0373  (<= 2 * 40 letters * delta = 0.8)
+  delta= 0.001  gadget applications=  305303  max eps=0.003707  (<= 2 * 40 letters * delta = 0.08)
+  delta=0.0001  gadget applications=  894149  max eps=0.0004501  (<= 2 * 40 letters * delta = 0.008)
+PASS T8 mode FIN: the error tracks the angle tolerance and falls below 2 * letters * delta at each delta
+  Ad Z by RUS depth n=1,4,16: eps = 1.414, 0.1768, 4.316e-5
+PASS T9 the one-outcome family Phi_n is within ChanWithin 2^(1-n) of Ad Z (HS-bound <= 2*sqrt2*2^-n)
+
+10 PASS, 0 FAIL

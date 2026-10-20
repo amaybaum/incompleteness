@@ -85,6 +85,23 @@ Each node has been independently reviewed, and its review outcome is applied in 
   - O-B is not sourced and stays open.
   - The F2 ledger's monomial-lemma wording (LEDGER.md §5 item 2) is corrected to this scope.
 
+- **`mc-node2/`, dense availability and operational completion as a candidate: NEW, narrow, [W].**
+  - Sharp Lüders tests in three fixed non-configuration bases (X, Y and one real basis), with the native class, meet
+    the A2 endpoint `DenseFiniteQM` = `KrausSoundExt ∧ KrausDense` (DiscreteCompletion.lean:59). Every finite Kraus
+    instrument is approximated outcome by outcome, without `DenseUnitaryControl` and without `DerivedOI`. This is the
+    converse of the kernel's own sufficiency route (DenseInstrumentBridge.lean:437). It is a written argument with
+    exact and numerical instances at level one; soundness and theory-hood of the extended theory are [W].
+  - So the phase gap and the continuum of test bases are both A1-only. At A2, G4's uniform-ray clause is not
+    necessary: every one-outcome unitary of this dense theory fixes the uniform ray.
+  - Heralded branches count as outcomes of an available family; renormalized postselected branches do not.
+  - Completion rules of word type (almost-sure termination, stopping-time rules, countable mixtures, state-independent
+    postselection) keep `countable_not_pairFlowSourced` and `fixedGateTheory_not_qm`: they can supply the phase but not
+    the continuum. Topological closure, convergent infinite compositions and basis-set closure erase the fixed-gate
+    control: they are the dense endpoint relabelled. Shown for the eight listed forms only.
+  - Almost-sure termination exceeds any fixed finite representative, as every A1-exact continuum does.
+  - No OI posit or derivation found supplies the test bases, operational completion or O-B. Purification with
+    uniqueness would cover all three, but only as a posit. G6 stays open.
+
 **Form the missing component must take, as these two nodes have narrowed it:**
 - It is non-supervenient, or it enlarges the substratum.
 - It includes a primitive outside `OnesNormal`, such as a phase-type isometry or a deterministic preparation of |−⟩, or

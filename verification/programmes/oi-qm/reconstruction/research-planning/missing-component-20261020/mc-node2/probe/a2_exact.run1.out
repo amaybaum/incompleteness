@@ -1,0 +1,42 @@
+PASS A1a Y-test branches complete: P_+ + P_- = I
+PASS A1b outcome +i branch is (1/sqrt2)|+i>
+PASS A1c outcome -i branch, after native X, is (-i/sqrt2)|+i>
+PASS A2a[d=4] both couplings are permutation matrices (native)
+PASS A2b[d=4] X_ab^2 = I
+PASS A2c[d=4] X-type gadget, outcome w: branch = (1/sqrt2) exp(i phi X_ab)
+PASS A2d[d=4] outcome w_perp then native X_ab: branch = (i/sqrt2) exp(i phi X_ab)
+PASS A2e[d=4] exp(i phi X_ab) is unitary and fixes the all-ones vector up to e^(i phi)
+PASS A3a[d=4] phase gadget, outcome w: branch = (e^(i phi)/sqrt2) D_s(phi), D_s = diag(1 off s, i e^(-2i phi) on s)
+PASS A3b[d=4] phase gadget, outcome w_perp: branch = (i e^(i phi)/sqrt2) Z_s D_s(phi)
+PASS A4[d=4] at phi = pi/4 (the X basis) D_s = I: branches are I and Z_s, each p = 1/2 (heralded Z_s)
+PASS A4b[d=4] D_s(phi) moves the all-ones ray for generic phi (phi = 1/3)
+PASS A2a[d=6] both couplings are permutation matrices (native)
+PASS A2b[d=6] X_ab^2 = I
+PASS A2c[d=6] X-type gadget, outcome w: branch = (1/sqrt2) exp(i phi X_ab)
+PASS A2d[d=6] outcome w_perp then native X_ab: branch = (i/sqrt2) exp(i phi X_ab)
+PASS A2e[d=6] exp(i phi X_ab) is unitary and fixes the all-ones vector up to e^(i phi)
+PASS A3a[d=6] phase gadget, outcome w: branch = (e^(i phi)/sqrt2) D_s(phi), D_s = diag(1 off s, i e^(-2i phi) on s)
+PASS A3b[d=6] phase gadget, outcome w_perp: branch = (i e^(i phi)/sqrt2) Z_s D_s(phi)
+PASS A4[d=6] at phi = pi/4 (the X basis) D_s = I: branches are I and Z_s, each p = 1/2 (heralded Z_s)
+PASS A4b[d=6] D_s(phi) moves the all-ones ray for generic phi (phi = 1/3)
+PASS A5a Phi_n X - Z X Z = 2^-n (X - Z X Z) (exact, symbolic X)
+PASS A5b on X = E01 + E10 (||X|| = 1): X - Z X Z = 2X, so the ChanWithin constant 2^(1-n) is attained
+PASS A6a corrected phase gadget = (1 - 2^(-n-1)) Ad D + 2^(-n-1) Ad(Z_s D) (exact, symbolic X)
+PASS A6b its distance to Ad D is 2^(-n-1) (Ad(Z_s D) - Ad D), so ChanWithin 2^-n
+PASS A6c the corrected channel is unital (mixed-unitary), so its infinity-norm is 1 and errors add under composition
+PASS A7a[d=2] Lie algebra of {i X_ab} has real dim (d-1)^2 = 1 and commutes with the uniform projector J (inside the all-ones ray stabilizer, dim 1+(d-1)^2)
+PASS A7b[d=2] adding the singleton phase generators {i P_c} gives real dim d^2 = 4, i.e. u(d)
+PASS A7a[d=4] Lie algebra of {i X_ab} has real dim (d-1)^2 = 9 and commutes with the uniform projector J (inside the all-ones ray stabilizer, dim 1+(d-1)^2)
+PASS A7b[d=4] adding the singleton phase generators {i P_c} gives real dim d^2 = 16, i.e. u(d)
+PASS A7a[d=6] Lie algebra of {i X_ab} has real dim (d-1)^2 = 25 and commutes with the uniform projector J (inside the all-ones ray stabilizer, dim 1+(d-1)^2)
+PASS A7b[d=6] adding the singleton phase generators {i P_c} gives real dim d^2 = 36, i.e. u(d)
+PASS A8a phase step pi/2 - 2 over 2 pi is irrational (would make 1/pi rational)
+PASS A8b X-type step 1 over 2 pi is irrational
+PASS A9 (Z (x) I) u is orthogonal to u, so ||(Z(x)I - cV) u||^2 = 2 for every ones-fixing unitary V, |c| = 1
+PASS A10a configuration ancilla |0> instead of |+i>: every branch is a scalar times I (no flow)
+PASS A10b configuration test (phi = 0) on |+i>: branches are I/sqrt2 and (i/sqrt2) X_ab (monomial)
+PASS A10c conjugation by a scaled partial permutation maps nonnegative matrices to nonnegative ones
+PASS A11a every terminating leaf of the RUS tree for Ad Z has Kraus operator proportional to Z (depth <= 4)
+PASS A11b leaf weights sum to 1 - 2^-4 (truncation) and to 1 in the limit
+
+40 PASS, 0 FAIL

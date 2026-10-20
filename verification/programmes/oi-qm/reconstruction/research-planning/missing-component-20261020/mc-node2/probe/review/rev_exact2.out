@@ -1,0 +1,15 @@
+PASS G1 phase gadget (d=3, s={0,2}): branch w = e^{i phi}/sqrt2 * D_s(phi), D_s = diag(1 off s, i e^{-2i phi} on s)
+PASS G2 branch w_perp = i e^{i phi}/sqrt2 * Z_s D_s(phi)
+PASS G3 at phi = 1 the relative phase is pi/2 - 2; at phi = pi/4 (X basis) D_s = I
+PASS G4 heralded D-branch + (Z_s D-branch followed by Phi_n[Z_s]) = (1-2^{-n-1}) Ad D + 2^{-n-1} Ad(Z_s D)
+PASS G5 d=2: Lie{iX_ab} real dim 1 (= (d-1)^2 + [d>2 ? 0] check), Lie{iX_ab, iP_c} real dim 4 = d^2
+PASS G5 d=3: Lie{iX_ab} real dim 4 (= (d-1)^2 + [d>2 ? 0] check), Lie{iX_ab, iP_c} real dim 9 = d^2
+PASS G5 d=4: Lie{iX_ab} real dim 9 (= (d-1)^2 + [d>2 ? 0] check), Lie{iX_ab, iP_c} real dim 16 = d^2
+PASS G5 d=5: Lie{iX_ab} real dim 16 (= (d-1)^2 + [d>2 ? 0] check), Lie{iX_ab, iP_c} real dim 25 = d^2
+PASS G5 d=6: Lie{iX_ab} real dim 25 (= (d-1)^2 + [d>2 ? 0] check), Lie{iX_ab, iP_c} real dim 36 = d^2
+    info d=2: Lie{iX_ab, iP_0} real dim 4
+    info d=3: Lie{iX_ab, iP_0} real dim 9
+    info d=4: Lie{iX_ab, iP_0} real dim 16
+PASS G6 [P_a, X_ab] = E_ab - E_ba and X_ab - sum_{c!=a,b} P_c = E_ab + E_ba, d = 2..7, all ordered pairs
+PASS G7 order step: <x|(lam|v><v| - |K>><<K|)|x> = -||x||^4 for x the part of vec K orthogonal to vec V (lam arbitrary)
+SUMMARY 11 PASS 0 FAIL
