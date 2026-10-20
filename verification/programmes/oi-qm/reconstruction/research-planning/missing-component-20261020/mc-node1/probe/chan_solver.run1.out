@@ -1,0 +1,9 @@
+PASS POS  n=2 target I (trivial)                                    states=912    truncated=False deterministic=True
+PASS POS  n=2 target X (native correction)                          states=912    truncated=False deterministic=True
+PASS POS  n=2 target R_x(pi/2) (TU layer-flow gadget)               states=912    truncated=False deterministic=True
+PASS POS  n=2 target Z with ancilla started in |-> (kickback, B7)   states=912    truncated=False deterministic=True
+PASS NEG  n=2 target Z, configuration tests only                    states=20     truncated=False deterministic=False
+PASS MAIN n=2 target Z, Pauli Lueders tests, feed-forward           states=912    truncated=False deterministic=False
+PASS MAIN n=2 target S, Pauli Lueders tests, feed-forward           states=912    truncated=False deterministic=False
+PASS MAIN n=3 target Z, Pauli Lueders tests, feed-forward           states=34032  truncated=False deterministic=False
+SUMMARY fails 0

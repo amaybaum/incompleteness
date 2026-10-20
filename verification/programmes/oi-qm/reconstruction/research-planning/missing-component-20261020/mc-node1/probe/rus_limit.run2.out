@@ -1,0 +1,17 @@
+PASS L1 Phi_n has Kraus form {sqrt(1-2^-n) Z, sqrt(2^-n) I}: complete and equal to the channel (symbolic n)
+PASS L2 Phi_n is OnesNormal for every finite n: 1 lies in span{K_j^H 1} = span{(1,-1)sqrt(1-eps), (1,1)sqrt(eps)} (eps>0)
+PASS L3 Ad Z is not OnesNormal: Z^H 1 = (1,-1) and 1 is not in span{(1,-1)}
+PASS L4 Phi_n - Ad Z = 2^-n (id - Ad Z) and lim 2^-n = 0, so lim Phi_n = Ad Z exactly
+PASS L5 OnesNormal is not closed under channel limits (L2 for every finite n, L3 at the limit)
+PASS L6 the unbounded protocol terminates with probability 1 (sum 2^-k = 1) after 2 attempts on average (sum k 2^-k = 2)
+PASS L7 the off-diagonal coefficient of Phi_n is 2^(1-n) - 1
+PASS L8 Phi_1 preserves entrywise nonnegativity on |+><+| (coefficient 0); Phi_n breaks it for n >= 2 (coefficient < 0)
+PASS L9 the limit Ad Z sends |+><+| to |-><-|, off-diagonal -1/2 (NonnegBounded is broken in the limit as well)
+PASS M1 owner sketch {sqrt(p) I, +-sqrt((1-p)/2) Z} reproduces Phi_n and is complete, but sum K^H 1 = sqrt(2^-n) 1, not 1 (normalization fails for n >= 1)
+PASS M2 corrected decomposition: 2^n copies of 2^-n I plus the pair +-sqrt((1-2^-n)/2) Z reproduces Phi_n, is complete and has sum K^H 1 = 1 (n = 1..6): OnesNormal as defined
+PASS M3 with m = 2^n - 1 operators the largest |sum al_j| is sqrt((2^n - 1) 2^-n) < 1 (n = 1..8): at least 2^n Kraus operators are needed
+PASS U1 Phi_n(|u><u|) = (1-2^-n)|-><-| + 2^-n |u><u| (symbolic n), which differs from |u><u| for every n >= 1
+PASS U2 the limit Ad Z sends |u><u| to |-><-|
+PASS U3 instances: X-basis amplitude damping and the Lueders X-test fix |u><u| and satisfy 1 in span{K_j^H 1}
+PASS N1 Phi_2([[1,1],[1,1]]) = [[1,-1/2],[-1/2,1]] exactly
+SUMMARY 16 PASS 0 FAIL

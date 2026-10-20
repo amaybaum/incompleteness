@@ -4,8 +4,8 @@ Research only, consistency axis (§A.23). No premise adopted, no status changed,
 
 **Base.** Papers and kernel at `origin/main` = `df9e601ebe2a4e5af2a82f2d06ca2797c3a10f88`; every [AT] name below was
 confirmed by `git grep` of its declaration there (Lean paths under `verification/lean-mathlib/OIBridge/`). Paper lines
-(Main.md:n, GR.md:n) and ROADMAP lines (RM:n) are at `df9e601e`. LG = `f2-ledger-20261020/LEDGER.md` (branch `ccr-9c2ecca4-vkb666` at
-`38e9af32`; its own base `ec49d0b4`). N1 = O-A node 1 (`../oa-node1/NODE.md`, with its review outcome). XS, MI+, SC =
+(Main.md:n, GR.md:n) and ROADMAP lines (RM:n) are at `df9e601e`. LG = `f2-ledger-20261020/LEDGER.md` (branch `ccr-9c2ecca4-vkb666`;
+its own base `ec49d0b4`). N1 = O-A node 1 (`../oa-node1/NODE.md`, with its review outcome). XS, MI+, SC =
 `REPORT.md`, `mi-plus/{PREREG,RESULT}.md`, `source-search-20261020/SOURCE-CHECKPOINT.md` on
 `research/x-screen-20261018` @ `76383997`. PM = `premise-memo/PREMISE-MEMO.md` on `staging/premise-memo-864-20261018`
 @ `641ae161`. H = thread H @ `804843f1`.
@@ -15,6 +15,13 @@ confirmed by `git grep` of its declaration there (Lean paths under `verification
 
 **Productivity test (fixed before the node).** Gem iff the node yields a fact strictly stronger than "no listed condition
 supplies O-A/O-B" and either constrains the form the missing component must take or exposes a hidden assumption.
+
+**Productivity test for node 1b (fixed before node 1b, §9).** Node 1b is productive iff it yields a fact strictly stronger
+than "the phase no-go holds for deterministic channels", and does either of the following:
+- (a) states the exact protocol class each phase claim covers (ancillas, feed-forward, discard, coarse-graining,
+  heralding, postselection, limits), with a proof or an exact computation for each case;
+- (b) determines what TU plus heralding supplies relative to the A1 endpoint, through the kernel's availability
+  notions.
 
 ***
 
@@ -137,16 +144,24 @@ branches have at most one (LG §3). MC10 therefore violates P2, and CR does not 
   primitive that has it.
   - Generic unsharp Lüders instruments satisfy it. For E = diag(1/4, 3/4), the split with s = √3 − 1 gives Σ K^H 1 = 1
     (review B1, B2).
-  - A replace-by-ψ channel satisfies it exactly when ⟨1|ψ⟩ ≠ 0 (review B4, B5). This is why |+i⟩ is reachable and |−⟩
+  - A replace-by-ψ channel satisfies it exactly when ⟨1|ψ⟩ ≠ 0 (review B4, B5). This is why |+i⟩ is deterministically reachable and |−⟩
     is not.
-- `instAvail_unitary_fixes_ones` (:398) then gives: **every unitary conjugation available in the TU-extended theory fixes
-  the all-ones ray.**
+- `instAvail_unitary_fixes_ones` (:398) then gives: **every unitary conjugation that the TU-extended theory makes
+  available as a one-outcome family, i.e. a deterministic trace-preserving channel, fixes the all-ones ray.**
+  - Scope (§9.1): finite protocols with configuration and TU-prepared ancillas, classical feed-forward, discard and
+    coarse-graining.
+  - It says nothing about individual branches of multi-outcome instruments. Heralded and postselected branches lie
+    outside it, and so do limits of channels.
+  - T2 is a statement about finite protocols and is not limit-stable. `OnesNormal` is not closed under channel limits:
+    the finite repeat-until-success channels Φ_n are `OnesNormal`, and their limit Ad Z is not (§9.2 item 1).
 - Consequences:
-  - The quarter phase S and the sign Z are unavailable, so the theory is not QM on any carrier with ≥ 2 states, by the
-    argument of `onesTheory_not_phasesAvailable` (FlowEndpoint.lean:177).
+  - The quarter phase S and the sign Z are unavailable *as deterministic channels*, so the theory is not QM on any
+    carrier with ≥ 2 states. The endpoint asks for every one-outcome Kraus instrument (§9.2), and the argument is that
+    of `onesTheory_not_phasesAvailable` (FlowEndpoint.lean:177).
+  - An instrument with an exact Z branch *is* available, and so is a heralded |−⟩ preparation with p = 1/2 (§9.1(b)).
   - Relative to `SourcedOI`, the phase-free driven transition that `sourcedOI_qm_iff_phaseFree` requires moves the ray
-    (`onesTheory_not_phaseFree` :142), so TU cannot supply it either.
-  - Deterministic preparation of any state with zero uniform weight (e.g. |−⟩) from configuration states is impossible.
+    (`onesTheory_not_phaseFree` :142), so TU cannot supply it as a deterministic channel either.
+  - No state with zero uniform weight (e.g. |−⟩) can be prepared *deterministically* from configuration states.
 
 **T3. Checks of T2 [EC B0–B7; solver].**
 - The full Kraus list of T1's protocol satisfies Σ K^H 1 = 1 (B1) and Σ K^H K = I (B2). That list includes the |+i⟩
@@ -169,7 +184,9 @@ branches have at most one (LG §3). MC10 therefore violates P2, and CR does not 
   - negative controls: configuration tests only, and a single token, never give |−⟩.
   - T2 predicted every MAIN row in advance; the solver is an independent code path.
 
-**T4. One discrete sign completes TU [EC C1–C3 for single-token relations; L for registers; W for QM].**
+**T4. The deterministic sign Z completes TU [EC C1–C3 for single-token relations; L for registers; W for QM].**
+The sufficiency is shown for the deterministic Z channel, or for a deterministic |−⟩ preparation through B7, and for
+nothing else. Other uniform-ray breakers, and heralded Z, are not shown to complete TU exactly (§9.1(c)).
 - With Z available, the phase teleport is deterministic for every θ (C1).
 - Exact relations: H ∝ R_z(π/2)R_x(π/2)R_z(π/2) (C2), and S ∝ R_z(π/2) (C3).
 - With the native CNOT, every unitary on a 2^k register is an exact product of CNOTs and single-token unitaries
@@ -195,19 +212,30 @@ branches have at most one (LG §3). MC10 therefore violates P2, and CR does not 
    visible configuration (Main.md:632).
 2. *Equivalence in kind.* TU carries the content of `LayerFlowExecutable` (T1), and full control implies TU (T4 converse).
    It is the layer-flow posit expressed on the test side.
-3. *Incompleteness.* By T2 TU cannot carry the uniform-ray part, so it cannot be the whole missing component.
-4. *Knobs.* TU must posit a continuum of bases. T1 uses a one-parameter real family plus the Y basis, and choosing
-   that family is a G7 question.
+3. *Incompleteness.* By T2, no finite TU protocol realizes a ray-moving unitary as a deterministic channel. TU does give
+   an exact Z on a heralded branch, and channels within Choi distance 2^{−n} of Z (§9.1). Under A1 exactness it therefore
+   cannot be the whole missing component.
+4. *Knobs, and the source of the continuum.* The flow is realizable *given* TU, but OI does not supply TU.
+   - OI's measurement is conditioning on a visible configuration (Main.md:632).
+   - The non-configuration bases and their continuous real parameter are posited by TU and are themselves unsourced.
+   - T1 uses a one-parameter real family plus the Y basis. Choosing that family is a G7 question.
 5. *O-B.* A local Lüders filter maps every domain cone into SEP ⊆ K: for X ∈ maxCone, (P_v⊗I)X(P_v⊗I) = |v⟩⟨v| ⊗ (a PSD
    conditional) [W]. TU's own pair-level compatibility is therefore automatic. Preservation of K by the TU-generated
    flow reduces to ATT, NC₃ for the CNOT ancilla→data, a non-configuration RO₃ and DIS. These are Σ3-type clauses
    (LG §4), unsourced, in agreement with AW-F1 [W]. TU does not source O-B.
 
-**Verdict (by the rule).** TU is a *partial* O-A source. It supplies (a), the non-monomial continuum (the layer flow),
-exactly. It cannot supply (b), by the invariant `OnesNormal`. It is non-supervenient and does not source O-B. Measurement
-in the von Neumann–Lüders sense is therefore not the missing component under any availability strengthening whose
-primitives are `OnesNormal` over the ones-fixing native class. That scope covers sharp tests in every basis and generic
-unsharp Lüders updates.
+**Verdict (by the rule).** TU is a *partial* O-A source.
+- It supplies (a), the non-monomial continuum (the layer flow), exactly. The basis continuum it uses is posited, not
+  sourced.
+- It does not supply (b) as a deterministic channel, by the invariant `OnesNormal`. Within the protocol class of §9.1(a)
+  no finite protocol realizes Z, S or another ray-moving unitary deterministically.
+- It does supply (b) in two weaker forms: as an exact heralded branch of a complete instrument, and as a limit of
+  channels. A1 counts neither (§9.2).
+- It is non-supervenient and does not source O-B, which stays open.
+
+Measurement in the von Neumann–Lüders sense is therefore not the missing component *at the A1 endpoint*, under any
+availability strengthening whose primitives are `OnesNormal` over the ones-fixing native class. That scope covers sharp
+tests in every basis and generic unsharp Lüders updates.
 
 ***
 
@@ -217,22 +245,28 @@ From CR, T2 and T4, any extension yielding exact QM on qubit-power registers fro
 
 1. **Non-supervenience** (CR): some available primitive is not a function of an implementing substratum process plus
    countable context, or else the substratum is enlarged.
-2. **A non-`OnesNormal` primitive** (T2). Each such primitive is one of:
+2. **A non-`OnesNormal` primitive** (T2), or else an operational-completion rule admitting limits such as
+   almost-surely terminating protocols (§9.3). One of these is needed for a *deterministic* ray-moving channel at A1
+   exactness, with availability generated by finite protocols. Heralded branches and channel approximants need
+   neither (§9.1). Each non-`OnesNormal` primitive is one of:
    - (i) an admissible isometry that moves the all-ones ray, a phase-type operation;
    - (ii) a preparation of non-uniform weight, e.g. |−⟩, whose ω = ⟨1|·⟩ differs from that of configuration states;
    - (iii) more generally, any primitive family {K_j} with 1 ∉ span{K_jᴴ1}, such as Z or a deterministic preparation
      of |−⟩. Generic unsharp Lüders updates are not in this class (T2).
-   Given TU, one discrete real sign Z (equivalently one deterministic zero-weight preparation) suffices (T4).
+   Given TU, a deterministic Z channel suffices, or equivalently a deterministic |−⟩ preparation (T4). This is shown for
+   Z only.
 3. **An uncountable non-monomial family** (A1 with `countable_not_pairFlowSourced` PairFlowEquivalence.lean:218):
    either a continuous operation family or, equivalently for this purpose, a continuum of sharp Lüders test bases (T1).
+   In the second form, the bases and their parameter are themselves an unsourced posit.
 4. **O-B**:
    - the fixed identification G3: native operations act by Ad_P, and a TU branch acts by Ad_{P_v};
    - compatibility clauses reaching three tokens (AW-F1), since TU's pair-level compatibility is automatic and excludes
      nothing (§3 item 5).
 
-In the kernel's own split (GR.md:266–272: phase intervention plus layer flow), measurement can stand in for the layer flow
-and not for the phase intervention. Relative to `SourcedOI`, where no phase is assumed, the two are fused in the phase-free
-rotation, and no measurement condition reaches it.
+In the kernel's own split (GR.md:266–272: phase intervention plus layer flow), TU can stand in for the layer flow. It
+supplies the phase intervention only in heralded or approximate form, never as the deterministic channel that
+`PhasesAvailable` (RouteB.lean:128) asks for. Relative to `SourcedOI`, where no phase is assumed, the two are fused in
+the phase-free rotation, and no `OnesNormal` measurement condition reaches it as a deterministic channel.
 
 **Controls any candidate must preserve, fixed in advance (§A.29).**
 - (1) `permTheory_not_qm` and the monomial class (`substratum_residual` StructuralClosure.lean:383) stay non-QM when the
@@ -240,7 +274,8 @@ rotation, and no measurement condition reaches it.
 - (2) The rooted law (`finiteRootedRealizable_iff_pper`) is unchanged for native protocols.
 - (3) M1 on retained protocols: TU and sign primitives add protocols and leave native ones unchanged.
 - (4) Must-fail: preparations alone give no coherent control (LG §3).
-- (5) Must-fail, new: sharp measurements alone give no phase (T2).
+- (5) Must-fail, new: sharp measurements alone give no deterministic ray-moving channel by finite protocols (T2). This
+  is not a must-fail for heralded branches (§9.1(b)).
 - (6) The candidate names which CR premise it gives up.
 - (7) Γ(Q3) and K(Z_F) are excluded only through the fixed identification and multi-token clauses.
 - (8) The fixed-carrier obstruction of Main.md:538 is respected.
@@ -255,7 +290,7 @@ TU-alone. That is a retrodiction against an incomplete candidate, not a predicti
 
 | # | assumption | where | finding |
 |---|---|---|---|
-| HA-M1 | the barrier against coherent control is "configuration readout" | LG §3 monomial lemma; `InstAvail` readout constructor | **exposed.** The configuration restriction is load-bearing only for monomiality, the continuum part. The phase part rests on completeness Σ P_k = 1 together with ones-fixing isometries, which survive any sharp basis (T2) |
+| HA-M1 | the barrier against coherent control is "configuration readout" | LG §3 monomial lemma; `InstAvail` readout constructor | **exposed.** The configuration restriction is load-bearing only for monomiality, the continuum part. The phase part rests on completeness Σ P_k = 1 together with ones-fixing isometries, which survive any sharp basis for deterministic channels (T2; heralded branches excepted, §9.1) |
 | HA-M2 | O-A is one premise | LG §3, §5; N1 | **CONFIRMING, not exposed.** The split into a uniform-ray breaker and a continuum is already in the records: LG:346; H:42 and :245–250 (I3 = `OnesFixing`, E4); I:263–271 and :531; and the kernel pattern `onesTheory_layerFlowExecutable` FlowEndpoint.lean:87 with `onesTheory_not_phasesAvailable` :177, into which TU embeds. The node adds that, given TU, a single sign suffices |
 | HA-M3 | "valid measurements" and "nonclassical operations" are separate F2 targets | RM:1125–1127 | with native multi-token protocols, tests carry operation content (T1), and full control implies TU (T4). The targets are not independent |
 | HA-M4 | measurement content is the effect (test) | MI+, PM OVc/MEV | the Lüders post-measurement state is load-bearing (T5). Coherent effects and coherent post-measurement states are needed together |
@@ -264,8 +299,10 @@ TU-alone. That is a retrodiction against an incomplete candidate, not a predicti
 | HA-M7 | the finite-substratum obstruction applies to OI | Main.md:538 | it binds a fixed carrier. OI grows carriers per experiment, so CR is the operative obstruction |
 
 Assumption-watch markers:
-- **AW-MC1.** `OnesNormal` survives sharp Lüders measurement in every basis. A claim that measurement supplies phases or
-  dense unitary control must name its non-`OnesNormal` primitive.
+- **AW-MC1.** `OnesNormal` survives sharp Lüders measurement in every basis.
+  - A claim that measurement supplies *deterministic* phases, or dense unitary control in the operator-norm sense of
+    `DenseUnitaryControl`, must name its non-`OnesNormal` primitive.
+  - Heralded phase branches and channel-metric approximation need none.
 - **AW-MC2** (CONFIRMING; LG:346, H:42, I:263–271). O-A = a uniform-ray breaker plus a continuum. Records citing O-A
   should state which part a candidate supplies.
 - **AW-MC3.** TU implies the layer flow. "Measurement sources the drive" is at most the layer-flow half, and it is non-native.
@@ -287,6 +324,13 @@ Assumption-watch markers:
 - Non-Lüders instruments (MC12) are not classified against the criterion 1 ∈ span{K_jᴴ1}. Unsharp Lüders instruments
   are settled by the review (B1, B2).
 - [rec] rows (XS, MI+, SC, PM, H, N1) were taken as recorded. LG and N1 line citations are at `ec49d0b4`.
+- Node 1b items are [W]:
+  - the widened `InstAvail` class of §9.1(a) is not formalized;
+  - the diamond-distance equality in §9.1(c) is not computed (the Choi value is);
+  - `KrausDense` for the TU theory is not checked;
+  - the QMfin failure at m = 1 is read from the definitions.
+- `chan_solver.py` uses Pauli bases and affine permutations only. Its negative rows are consistency checks of (a), not
+  evidence for it.
 - The first run of `mc_check.py` had two FAILs (B1, B3). The check used the single-Kraus decomposition I⊗⟨w|, which
   is not the decomposition the invariant is stated for. The corrected check uses the Lüders projector with the
   configuration Kraus of the discard (B0 shows the channel is the same) and keeps the wrong form as B3b. A8's inert first
@@ -303,6 +347,12 @@ Assumption-watch markers:
 | `det_solver.py` | `ae626b43…920a` | exact AND-OR solver |
 | `run_solver.py` | `d4aab9ce…29e9` | 8 rows with controls |
 | `run_solver.run1.out`, `.run2.out` | `815b6d8c…4ad2` (both) | 8 PASS |
+| `heralded.py` | `ed4cd81c…9845` | node 1b: heralded Z, repeat-until-success (n ≤ 4), operator-norm bound; 25 checks |
+| `heralded.run1.out`, `.run2.out` | `01088fda…09db` (both) | 25 PASS |
+| `chan_solver.py` | `5ae13603…0684` | node 1b: AND-OR search for deterministic data channels under heralding and feed-forward |
+| `chan_solver.run1.out`, `.run2.out` | `9f7c39f4…091e` (both) | 8 PASS |
+| `rus_limit.py` | `dd1d225e…1ad2` | node 1b: Φ_n, the limit Ad Z, the three invariants; 16 checks |
+| `rus_limit.run1.out`, `.run2.out` | `04ec6c80…740c` (both) | 16 PASS |
 
 Full digests are in `probe/SHA256SUMS`; the review files and their digests are in `probe/review/`.
 
@@ -312,10 +362,11 @@ Full digests are in `probe/SHA256SUMS`; the review files and their digests are i
 
 **Gem: yes.** The node yields three facts strictly stronger than "no listed condition supplies O-A/O-B":
 1. Granting the strongest measurement-availability condition (TU), even non-supervenient and uncountable, does not
-   supply the uniform-ray part of O-A. Every available unitary stays ones-fixing [W from AT; EC].
+   supply the uniform-ray part of O-A as a deterministic channel. Every unitary available as a one-outcome family stays
+   ones-fixing [W from AT; EC]. Heralded branches are not covered (§9).
 2. TU supplies exactly the other part, the layer flow that GR.md:272 records as unsourced, deterministically
    and exactly [EC].
-3. Given TU, the residue is one non-`OnesNormal` primitive, and a single discrete sign suffices. The evidence is [EC] for
+3. Given TU, the residue is one non-`OnesNormal` primitive, and a deterministic Z suffices (shown for Z only). The evidence is [EC] for
    the single-token relations (C1–C3), [L] (Barenco et al.) for registers, and [W] for QM via
    `exactAll_iff_physical_general`.
 
@@ -331,7 +382,8 @@ whose instruments are configuration readouts. Proposed wording, to be propagated
 > The monomial lemma is a must-fail control: a construction that adds only preparations to the native class, with
 > configuration readouts as the only instruments, does not qualify. Non-configuration sharp instruments with the Lüders
 > update fall outside the lemma. They yield the layer flow exactly, but remain within the invariant `OnesNormal`, so
-> they supply no uniform-ray-breaking operation.
+> they supply no deterministic, trace-preserving operation that breaks the uniform ray. Heralded instruments can
+> carry an exact Z branch.
 
 **Classification (as corrected by the independent review): NEW (narrow).** The new content is the gadget direction
 "Lüders tests ⟹ layer flow" and the ledger correction F4. Everything else is ELABORATING or CONFIRMING:
@@ -340,9 +392,12 @@ whose instruments are configuration readouts. Proposed wording, to be propagated
 - the phase/layer-flow split is already recorded (HA-M2);
 - the one-bit teleportation gadgets are standard [L: Zhou–Leung–Chuang 2000; Nielsen 2003].
 
-Answer to the owner's question: The act of measurement, in every native form, adds no operation. In its
-only non-native form (TU) it can be one half of O-A, the continuum, and provably not the other half, the uniform-ray
-breaker. It does not source O-B.
+Answer to the owner's question, as scoped in §9:
+- The act of measurement, in every native form, adds no operation.
+- In its only non-native form (TU) it supplies one half of O-A, the continuum, from a posited basis continuum.
+- It provably does not supply the other half, the uniform-ray breaker, as a deterministic channel by finite protocols.
+- It does supply that half as a heralded exact branch and as a channel limit, neither of which meets A1.
+- It does not source O-B.
 
 ***
 
@@ -366,3 +421,337 @@ sha256 is `c7e2ccb212fc0d91bfa7d189ef18d466f89f0d019f4dd5ad9756ca66bb7ad87f`.
 
 **Overall classification: NEW (narrow).** The new content is the gadget direction "Lüders tests ⟹ layer flow" and the
 ledger correction F4. Everything else is ELABORATING or CONFIRMING.
+
+***
+
+## 9. Node 1b: scope of the phase no-go
+
+**Trigger (owner review of PR #885 at `5de64a1a`).**
+- A Lüders X-test on |0⟩ yields |−⟩ with p = 1/2, heralded.
+- A CNOT from the data into that ancilla applies Z to the data.
+- Repeating with a fresh ancilla until success terminates with probability 1, and every terminating run applies exactly
+  Z.
+- So a statement that measurement never supplies a phase cannot be unrestricted. T2 concerns one-outcome families
+  generated by finite protocols. This section separates the three notions in play and gives each its own exact
+  statement. The productivity test is fixed at the head of the file.
+
+### 9.1 Three notions, kept apart (the decisive outcome)
+
+**(i) A heralded operation: exact Z on the success branch [EC `heralded.py` b1–b8].**
+- The X-test on |0⟩ gives |−⟩ with p = 1/2 (b1).
+- The heralded-Z instrument is: attach |0⟩, X-test, CNOT data→ancilla on outcome −, discard. Then:
+  - its success branch is exactly ½ ZρZ, with every success Kraus operator ∝ Z (b2, b3);
+  - its failure branch is ½ ρ (b4);
+  - it is complete (b5) and `OnesNormal` as a whole (b6), so the TU theory makes it available as a two-outcome family;
+  - its Z branch alone is not `OnesNormal`-compatible (b7), and coarse-graining the herald gives dephasing, not Z (b8).
+- A postselected Z, with the branch renormalized and kept as a one-outcome family, is not a kernel availability
+  operation:
+  - `FiniteOperationalTheory` (OperationalAssembly.lean:594) is closed under coarse-graining (`avail_coarse` :604);
+  - `InstAvail` has no sum and no outcome-selection constructor (docstring at ImplementationLocality.lean:260–267).
+
+**(ii) An almost-surely terminating unbounded protocol. It defines Ad Z exactly as a limit, and it is not a finite
+protocol [EC `rus_limit.py` L1–L6, `heralded.py` c1–c4].**
+- Truncating at depth n, and doing nothing after n failures, gives the complete channel
+  Φ_n(ρ) = (1 − 2^{−n}) ZρZ + 2^{−n} ρ:
+  - the protocol's own Kraus list gives it (c.1);
+  - its Kraus form is {√(1−2^{−n}) Z, √(2^{−n}) I} (L1);
+  - its failure probability is 2^{−n} (c.2);
+  - its Choi trace distance to Ad Z is exactly 2^{−n} (c.4).
+- The unbounded protocol terminates with probability 1, after 2 attempts on average (L6). Every terminating run applies
+  exactly Z (b3). Its channel is lim Φ_n = Ad Z exactly (L4).
+- **`OnesNormal` holds for every Φ_n.** The definition (InstrumentRealization.lean:172) asks for a finite Kraus list
+  with F = Σ conj K_i and Σ K_iᴴ1 = 1. No weights enter it; `splitWeight` is internal to the discard case of
+  `instAvail_onesNormal`.
+  - The decomposition {√p I, ±√((1−p)/2) Z}, with p = 2^{−n}, reproduces Φ_n and is complete. The Z pair cancels in
+    Σ Kᴴ1, but the sum is √p·1 ≠ 1 (M1). The normalization has to be fixed by splitting the identity branch.
+  - Fixed decomposition: 2^n copies of 2^{−n} I, plus the pair ±√((1−2^{−n})/2) Z. It reproduces Φ_n, is complete, and
+    has Σ Kᴴ1 = 1 (M2, n = 1–6). The protocol's own Kraus list also works (c.3, n ≤ 4).
+  - Exactly 2^n Kraus operators are needed and suffice [W + EC].
+    - Every Kraus operator of Φ_n is α_j I + β_j Z. The four maps ρ ↦ AρBᴴ with A, B ∈ {I, Z} are linearly independent
+      (rank 4; review ii5), so the coefficient relations Σ|α_j|² = 2^{−n}, Σ|β_j|² = 1 − 2^{−n} and Σ α_j β̄_j = 0 are
+      fixed.
+    - The Z parts contribute only multiples of (1, −1), so Σ ᾱ_j = 1. Cauchy–Schwarz then gives m ≥ 2^n (M3).
+    - Exactly 2^n operators suffice (review ii6; n = 2: ¼I ± √(3/8) Z, ¼I, ¼I). The 2^n + 2 list of M2 is valid but
+      not minimal.
+- **`OnesNormal` fails for the limit.** Every Kraus operator of the unitary channel Ad Z is c_j Z, and 1 ∉ span{Zᴴ1}
+  = span{(1, −1)} (L3).
+- **So `OnesNormal` is not closed under channel limits (L5).** The minimal decomposition size, exactly 2^n, diverges
+  along the sequence.
+- The kernel already records this pattern for its own repeat-until-success construction:
+  - BridgeFiniteProtocol.lean:6–7: "Every finite depth is available from these primitive resources, rather than assumed
+    as a whole approximation sequence";
+  - :9–10: "No limiting-channel availability … is established by these theorems";
+  - `instAvail_stopped` :63, `finite_protocol_available` :236, and `balanced_stopped_formula` :245, which gives
+    (1 − (3/8)^k) Ad drivePhase + (3/8)^k id at every finite depth k. That construction assumes its circuit and Z-type
+    corrections are admissible (`balanced_finite_available` :256).
+
+**(iii) An operation admitted by `InstAvail`. Finite protocols only, so Ad Z is not available [W from AT; EC].**
+- *Class.* The constructors of `InstAvail` (ImplementationLocality.lean:268) over `onesClass`, with the readout
+  constructor widened to any complete orthogonal projective family (§3 T2):
+  - `op`: ones-fixing isometries, including the native permutations and the gate flows;
+  - `readout`: configuration or TU bases;
+  - `coarse`;
+  - `bind`: classical feed-forward, native corrections included;
+  - `discard`: configuration ancillas are derived from it, and TU-prepared ancillas are sub-protocols.
+- *Read as* one-outcome families, i.e. total trace-preserving channels.
+- *Proof.*
+  - Every generated family is `OnesNormal` (`instAvail_onesNormal` InstrumentRealization.lean:313, readout case
+    widened).
+  - A unitary channel in the class fixes the all-ones ray (`instAvail_unitary_fixes_ones` :398).
+  - Ad Z, Ad S and every other ray-moving unitary channel are therefore not available.
+  - A deterministic |−⟩ preparation has every Kraus operator of the form |−⟩⟨u|, so Kᴴ1 = 0. It is not `OnesNormal`
+    (review B4) and not available.
+- *Heralding and feed-forward do not evade this.* Any finite tree of heralds and feed-forward is a `bind`/`coarse`
+  composite, and its total channel is `OnesNormal`.
+- *Exact consistency checks.*
+  - `chan_solver.py` searches Pauli Lüders tests on any token, affine permutations and feed-forward of unbounded depth.
+    It finds no deterministic Z or S at n = 2 (912 operator states) or n = 3 (34 032), both full graphs.
+  - It finds the positive controls: I, X, R_x(π/2) (the TU gadget), and Z from an ancilla started in |−⟩.
+  - `run_solver.py` finds no deterministic |−⟩.
+  - These are checks of (iii), not evidence for it: Pauli bases only.
+
+**NonnegBounded along the sequence [EC L7–L9].**
+- The coefficient of ρ₀₁ in Φ_n(ρ) is 2^{1−n} − 1 (L7). Φ_1 preserves entrywise nonnegativity on |+⟩⟨+|; every Φ_n with
+  n ≥ 2 breaks it (L8), and so does the limit (L9).
+- Entrywise nonnegativity is limit-closed: along unitary limits by `preservesNonneg_of_approx` (FrozenSourcing.lean:127),
+  and along channel limits [W]. The native theory satisfies it (`obsTheory_nonnegBounded` :84). No native protocol
+  reaches Φ_n (n ≥ 2), and no limit of native protocols reaches Ad Z (§9.2 item 3).
+- Φ_n becomes available only through TU's non-native X-test. Once TU is admitted, `NonnegBounded` is already broken by TU
+  branches themselves, and the barrier left at finite depth is `OnesNormal`, the one invariant that is not
+  limit-closed.
+
+**Main result of node 1b.** Measurement plus unbounded repetition produces the exact phase channel Ad Z
+mathematically: an X-test on |0⟩, kickback, and repeat until success give Ad Z as the almost-sure limit (L4, L6).
+- It is not an operation that finite `InstAvail` admits: limiting-channel availability is left unestablished
+  (BridgeFiniteProtocol.lean:9–10).
+- Its construction relies on non-configuration measurements that native OI does not supply.
+- OI still has to justify the required measurements, and any operational-completion rule that admits the limit.
+
+### 9.2 Three invariants, named separately
+
+Each statement below concerns one named invariant. No statement here is about "the barrier invariants" as a group.
+
+**1. `OnesNormal`** (InstrumentRealization.lean:172; existential over finite Kraus decompositions, Σ K_iᴴ1 = 1).
+- It holds for every Φ_n (M2) and fails for Ad Z (L3). **Not closed under channel limits** (L5, M3).
+- T2 and §9.1 (iii) are therefore statements about finite protocols. They are not limit-stable.
+
+**2. Fixing the uniform pure state**, Φ(|u⟩⟨u|) = |u⟩⟨u| with u = 1/√N. **Native readout does not satisfy it, so it is
+not a barrier.**
+- Coarse-grained configuration readout sends |u⟩⟨u| to I/2 while satisfying `OnesNormal` (review u2, u3). The
+  condition is therefore not an invariant of the native theory, and it bars nothing that native OI cannot already do.
+- It is a closed condition under channel limits [W: one linear equation in Φ].
+- Φ_n fails it for every n ≥ 1: Φ_n(|u⟩⟨u|) = (1 − 2^{−n})|−⟩⟨−| + 2^{−n}|u⟩⟨u| (U1). Ad Z fails it as well (U2).
+- **`OnesNormal` is strictly weaker.**
+  - Fixing |u⟩⟨u| implies `OnesNormal` [W]. If Φ fixes |u⟩⟨u|, every Kraus operator satisfies K_j u = λ_j u, so
+    u = Σ_j K_jᴴK_j u = Σ_j λ_j K_jᴴu, and 1 ∈ span{K_jᴴ1}. Exact instances: U3. The step from the span criterion to a
+    decomposition uses splitting (review B1, B2; M2 here).
+  - Φ_n is `OnesNormal` and does not fix |u⟩⟨u|.
+  - The identity branch restores the `OnesNormal` sum, but it does not make the channel preserve what the Z branch
+    violates.
+- *Kernel relation.* For unitary channels the two coincide. `instAvail_unitary_fixes_ones` (:398) derives "U fixes the
+  all-ones ray" from `OnesNormal` of an available unitary conjugation. Every Kraus operator of Ad U is ∝ U
+  (`kraus_of_conj_unitary` MicroscopicReversibility.lean:189), which forces Uᴴ1 ∝ 1. Conversely, a ray-fixing unitary
+  rescaled by its eigenvalue (the `op` case of :313) satisfies the sum.
+
+**3. Entrywise nonnegativity** (`PreservesNonneg`; `NonnegBounded` FrozenSourcing.lean:65 for theories).
+- The kernel's limit statement is `preservesNonneg_of_approx` (FrozenSourcing.lean:127). Its hypotheses: U is unitary,
+  and for every ε > 0 there is a unitary W with `PreservesNonneg (conjChannel W)` and ‖U − W‖ < ε (operator norm).
+  Its conclusion: `PreservesNonneg (conjChannel U)`.
+- That is closure along unitary limits. Closure under general pointwise channel limits also holds, since the condition
+  is a closed cone condition [W], but it is not the kernel statement.
+- Φ_2 already violates it at finite depth: Φ_2([[1,1],[1,1]]) = [[1, −½], [−½, 1]] (N1). In general the off-diagonal
+  coefficient is 2^{1−n} − 1, negative from n = 2 (L7, L8).
+- So `NonnegBounded` stays a valid barrier for the native sourced theory. The RUS channels are excluded by it at
+  finite depth, because they need TU's non-native tests.
+
+| invariant | closed under limits? | Φ_n (finite n) | Ad Z (limit) |
+|---|---|---|---|
+| `OnesNormal` | **no** (channel limits) | holds (M2) | fails (L3) |
+| fixing the uniform state (not satisfied by native readout; not a barrier) | yes [W] | fails, n ≥ 1 (U1) | fails (U2) |
+| entrywise nonnegativity | yes: unitary limits (`preservesNonneg_of_approx` :127); channel limits [W] | fails, n ≥ 2 (N1, L8) | fails (L9) |
+| ones-fixing of unitaries (K1 = z1) | yes, operator-norm limits (H:42 [W, rec]) | not a unitary | fails |
+
+Operator-norm density fails for the TU theory, sharply. For every ones-fixing unitary V (Vu = zu, |z| = 1) and unit
+scalar c, ‖(Z − cV)u‖² = 1 + |cz|² = 2, since Zu ⊥ u. So ‖Z − cV‖ ≥ √2.
+- `heralded.py` d1 checks the identity |(Z − cV)1|² = 2 + 2|w|²; |w| = 1 then gives √2. The review's d1 checks the
+  sharp form.
+- So `DenseUnitaryControl` (DiscreteCompletion.lean:45) fails for the TU theory, whatever else holds [W]. Whether
+  channel-metric density holds is open (§9.6).
+
+**Corrected wording for oa-node1's route-table row R1** (`../oa-node1/NODE.md`, R1, "decisive obstruction" column):
+
+> A1 + countability: `countable_not_pairFlowSourced`, `mixTheoryR_not_qm`, `fixedGateTheory_not_qm`,
+> `uncountable_of_layerFlowExecutable`. Two invariants are closed under limits, each under its stated hypotheses:
+> - entrywise nonnegativity of unitary conjugations: if U is unitary and is approximated in operator norm by unitaries
+>   whose conjugations preserve nonnegativity, its conjugation preserves nonnegativity (`preservesNonneg_of_approx`
+>   FrozenSourcing.lean:127);
+> - ones-fixing of unitaries, which is closed under operator-norm limits (H:42 [W]).
+> The protocol invariant `OnesNormal` is not closed under channel limits: the finite repeat-until-success channels
+> built from non-configuration Lüders tests are `OnesNormal` and converge to Ad Z, which is not (`mc-node1` §9.2).
+
+The "level" column becomes "closed-K for availability; the limit-invariance step is [W] except for the kernel statement
+`preservesNonneg_of_approx`". R1's conclusion for the native class is unchanged: the native theory is `NonnegBounded`,
+and nonnegativity is limit-closed.
+
+### 9.3 The limit against the existing records
+
+- **AW-X4** (XS REPORT:157): "exactness is asymmetric — closure is free for preservation, but countability theorems [AT]
+  block it for availability".
+  - For a single target channel such as Ad Z, countability blocks nothing: the approximants are countable and so is
+    the target.
+  - What blocks Ad Z is the finite-protocol generation of availability (`InstAvail`; BridgeFiniteProtocol.lean:9–10).
+  - AW-X4 is accurate for uncountable target families (flows), and needs this qualification for single limiting
+    channels.
+- **XS gate ambiguity** (REPORT, "Gate ambiguities"): "A1 vs limit closure: treated as the dense endpoint relabelled; not
+  admitted". Intake R5 bars limit closure as a standalone X. R5's G4 invariants are `NonnegBounded`, the uniform ray for
+  unitaries, and reality. They are limit-closed, and `OnesNormal` was never on R5's list. This node therefore qualifies
+  R5's parenthetical; it does not correct it.
+- **F2 memo §1.1**: A1 exact means `QMfin` = `ShadowQuantum`, characterized by `typed_determined_iff`
+  (TypedCompletion.lean:850). A2 dense needs an endpoint defined first, and exists only on `Fin 2` (`DenseFiniteQM`
+  DiscreteCompletion.lean:59).
+
+**Does an RUS-closure rule count as A1 exact availability, or as the barred limit closure?** From the definitions:
+1. A1 asks that the theory's availability predicate be exactly the Kraus instruments for every outcome count m,
+   including m = 1 (`ExactFiniteEndomorphicQuantumOps` KrausSoundness.lean:134 with :112; `ExactCompositeQuantumOps`
+   AncillaClosure.lean:364).
+2. In the F2 setting that predicate is generated by `InstAvail`'s five finite constructors. The kernel's bridge
+   establishes every finite stopping depth and no limiting channel (BridgeFiniteProtocol.lean:6–10).
+3. The channel of an almost-surely terminating unbounded protocol is lim_n Φ_n, a limiting channel. No finite
+   composition of the five constructors yields it (§9.1 (iii)).
+
+An RUS-closure rule is therefore a new closure rule on availability. It is a restricted form of limit closure: only
+limits along one protocol tree whose unfinished weight tends to 0. It is not A1 availability as currently defined.
+- Under the adopted gates it falls under "A1 vs limit closure: not admitted", unless the owner rules separately on a
+  restricted, almost-sure-termination closure.
+- That ruling would be a target-definition decision, fixed before screening (G8).
+- It differs from the full dense endpoint in kind. With TU it would give the exact channel Ad Z, not merely
+  approximants. So it is not "the dense endpoint relabelled" in the sense of approximation.
+- Whether it keeps CR's countability is not examined. Infinite adaptive trees over a countable alphabet form an
+  uncountable set, so CR does not apply to it automatically [W].
+
+### 9.4 What the endpoint asks for, and what TU with heralding supplies
+
+- `typed_determined_iff` (TypedCompletion.lean:850) and `ExactFiniteEndomorphicQuantumOps` require, at m = 1, the
+  one-outcome family {Ad Z}. `PhasesAvailable` (RouteB.lean:128) asks for `availExt n Unit (conjChannel (phaseGate a))`.
+- **The endpoint requires the deterministic Z channel, not an instrument containing a Z branch.**
+- Relative to it, TU with heralding supplies, all inside `InstAvail`:
+  - the layer flow exactly as a deterministic channel (T1);
+  - every heralded instrument built from TU tests, exactly, including heralded Z and heralded |−⟩;
+  - channels within 2^{−n} of Ad Z.
+- It does not supply the one-outcome Ad Z or Ad S families. So `ExactFiniteEndomorphicQuantumOps` fails at m = 1, and
+  QMfin fails [W from the definitions and T2].
+- The basis continuum that TU uses is posited, not sourced. O-B stays open.
+
+### 9.5 Proposed replacement texts
+
+**(i) PLAN.md, Status, the `mc-node1/` bullets** (final; replacing the bullets from "No `OnesNormal` primitive breaks
+the uniform ray" through "O-B is not sourced"):
+
+> - Three notions are kept apart:
+>   - Heralded: the tests give an exact Z on a heralded branch. An X-test on |0⟩ yields |−⟩ with probability 1/2,
+>     then kickback.
+>   - Almost surely terminating: repeating until success terminates with probability 1 and defines Ad Z exactly, but
+>     only as the limit of the finite-depth channels Φ_n = (1 − 2^−n) Ad Z + 2^−n id.
+>   - Finite protocols: finite `InstAvail` protocols built from primitives satisfying `OnesNormal` (generic unsharp
+>     Lüders instruments included) yield no deterministic ray-moving unitary channel and no deterministic |−⟩.
+> - Every Φ_n is `OnesNormal` and Ad Z is not, so `OnesNormal` is not closed under channel limits. The cost is exactly
+>   2^n Kraus operators at depth n. Entrywise nonnegativity of unitary conjugations is limit-closed
+>   (`preservesNonneg_of_approx`), and Φ_n already violates nonnegativity from n = 2. Only non-native tests make Φ_n
+>   available at all.
+> - The A1 endpoint requires the deterministic Ad Z channel. Admitting almost-surely terminating protocols would be a
+>   restricted limit-closure rule, which the adopted gates do not admit without a separate owner ruling. Whether TU
+>   meets the existing A2 endpoint (`KrausDense`, `DenseFiniteQM`) is open.
+> - The continuum of measurement bases that makes the layer flow exact is itself unsourced: OI's readout is
+>   configuration readout, and the bases are posited.
+> - Adding the deterministic Ad Z channel to these tests gives full control on qubit registers. This is shown for Z
+>   only, and the register step rests on Barenco et al. [L] and a written argument [W].
+> - O-B is not sourced and stays open.
+
+The "Form the missing component must take" bullet becomes (final):
+
+> - It includes a primitive outside `OnesNormal`, such as a phase-type isometry or a deterministic preparation of |−⟩,
+>   or else a rule admitting almost-surely terminating protocols. This is needed for a deterministic phase at A1
+>   exactness; heralded phase branches need neither.
+
+**(ii) F2 ledger §5 item 2, the monomial-lemma bullet** (final; replacing LEDGER.md:352–355 at `ab25f17a`):
+
+> - The monomial lemma is a must-fail control: a construction that adds only preparations to the native class, with
+>   configuration readouts as the only instruments, does not qualify. Non-configuration sharp instruments with the
+>   Lüders update fall outside the lemma. They make the layer flow executable exactly, but stay within the invariant
+>   `OnesNormal`. So in finite protocols (ancillas, feed-forward, discard, coarse-graining) they yield no deterministic
+>   unitary channel that moves the uniform ray, and no deterministic preparation of a state orthogonal to the uniform
+>   vector. They do yield an exact Z on a heralded branch, and Ad Z as the limit of almost-surely terminating
+>   repeat-until-success protocols. The A1 endpoint counts neither (missing-component node `mc-node1`, PR #885).
+
+**(iii) oa-node1, route-table row R1:** the final wording is in §9.2.
+
+### 9.6 The question this opens for step 2 (not answered here)
+
+Is there an operational-completion rule justified by OI itself that admits the limiting phase operation? One example
+is almost-sure termination of protocols the observer can run. Such a rule would have to:
+- supply Ad Z (or another uniform-ray breaker) without positing Z;
+- pass G2 sourcing;
+- explain the continuum of measurement choices that TU posits;
+- keep the countercontrols: `permTheory` and the monomial class non-QM, and K_B, K(Z_F) and Γ(Q3) excluded;
+- address O-B.
+
+**Open question for step 2 (A2).**
+- Does `KrausDense` (DiscreteCompletion.lean:52) hold for TU on qubit registers? It looks likely: Φ_n → Ad Z in the
+  channel metric, with trace distance 2^{−n}, and T4's construction with Φ_n in place of the exact Z would approximate
+  every instrument. This is not checked.
+- If it holds, `DenseFiniteQM` (:59) may hold for TU. The phase gap would then exist only at A1, and vanish at the
+  existing A2 endpoint.
+- `DenseUnitaryControl` fails for TU regardless (‖Z − cV‖ ≥ √2, §9.2).
+
+### 9.7 Productivity verdict (node 1b)
+
+**Productive: yes**, under the test fixed above.
+- (a) Each phase claim now carries an exact protocol class, with a proof or computation for every case: heralded
+  branches (i), almost-surely terminating protocols (ii), and finite `InstAvail` protocols with heralding and
+  feed-forward (iii).
+- (b) The endpoint asks for the one-outcome Ad Z. TU with heralding supplies heralded exact Z and the finite channels
+  Φ_n, and it reaches Ad Z only through a limit that `InstAvail` and A1 do not admit.
+- The fact strictly stronger than "the no-go holds for deterministic channels" is the three-way distinction of §9.2:
+  - `OnesNormal` is not closed under channel limits (M2, L3), at a cost of exactly 2^n Kraus operators at depth n (M3,
+    review ii5–ii6);
+  - fixing the uniform state is limit-closed and fails at every finite n (U1), but native readout fails it as well, so
+    it is not a barrier;
+  - entrywise nonnegativity is limit-closed (`preservesNonneg_of_approx` along unitary limits; channel limits [W]) and
+    fails from n = 2 (N1).
+  - TU's phase gap is therefore a finite-protocol exactness gap, not a countability gap.
+- This qualifies the recorded claim that "the barrier invariants are closed under limits".
+  - XS R5's invariants are limit-closed, and the claim concerns limit closure as a standalone X.
+  - oa-node1's R1 row is reworded in §9.2.
+  - AW-X4 is qualified for single limiting channels.
+
+**Classification (node 1b): ELABORATING, with one NEW (narrow) item.** The new item is the non-closure of `OnesNormal`
+under channel limits, with the three-way separation it forces. The finite-depth-available, limit-unestablished pattern
+is CONFIRMING: the kernel's own bridge records it (BridgeFiniteProtocol.lean:6–10). The heralded-Z and RUS
+constructions are elementary [L: standard repeat-until-success]. The node's overall classification stays **NEW
+(narrow)**, with this item added. Not independently reviewed.
+
+***
+
+## Node 1b review outcome
+
+Review: `probe/review1b/` (`rev_1b.py`, 19 PASS, its output and `SHA256SUMS`, copied unchanged from
+the reviewer's working copy). The texts before node 1b and before its review are not kept here; their sha256 are
+`079d6672b195a28c1d34c351a791fa6fba731303f488ad3f6a149b5888b7c9ed` and `c83d01e1f32e8e16ef743a5186723023264df97a60038444572e37197a07ea95`.
+
+| item | verdict | applied as |
+|---|---|---|
+| (i) heralded Z | CONFIRMED | — |
+| (ii) RUS limit | CONFIRMED | — |
+| (iii) finite `InstAvail`, and the endpoint reading | CONFIRMED | — |
+| `OnesNormal` non-closure | CONFIRMED | the minimum is exactly 2^n; the linear-independence step is cited (F6) |
+| nonnegativity | CONFIRMED | — |
+| RUS-closure as barred restricted limit closure | CONFIRMED | — |
+| uniform-state fixing | CORRECTED | not satisfied by native readout, so not a barrier; removed from R1 and PLAN, labelled in the §9.2 table (F1) |
+| ledger wording | CORRECTED | "no deterministic unitary channel that moves the uniform ray, and no deterministic preparation of a state orthogonal to the uniform vector" (F2) |
+| PLAN finite-protocol bullet | CORRECTED | F3 wording |
+| XS R5 | CORRECTED | "qualifies", not "corrects" (F4) |
+| A2 and d1 | CORRECTED | the A2 question raised to §9.6; d1 sharpened to √2 (F5) |
+
+**Final classification of node 1b: ELABORATING, with one NEW (narrow) item.** The item is the non-closure of
+`OnesNormal` under channel limits, at a cost of 2^n Kraus operators at depth n. Combined with node 1's NEW (narrow)
+gadget direction, mc-node1 overall stays **NEW (narrow)**.

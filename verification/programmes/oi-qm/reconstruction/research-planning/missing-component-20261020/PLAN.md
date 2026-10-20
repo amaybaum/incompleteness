@@ -64,17 +64,32 @@ Each node has been independently reviewed, and its review outcome is applied in 
   - Native measurement adds no operation.
   - Sharp Lüders tests in non-configuration token bases make the layer flow of X executable exactly. This direction,
     from tests to the flow, is new to the F2 records.
-  - No `OnesNormal` primitive breaks the uniform ray, and that includes generic unsharp Lüders instruments. So
-    measurement supplies no phase-type operation.
-  - Adding Z to these tests gives full control on qubit registers. That last step rests on Barenco et al. [L] and on a
-    written argument [W].
-  - O-B is not sourced.
-  - It proposes a correction to the F2 ledger's monomial-lemma wording at LEDGER.md:352: the lemma covers only
-    protocols whose instruments are configuration readouts.
+  - Three notions are kept apart:
+    - Heralded: the tests give an exact Z on a heralded branch. An X-test on |0⟩ yields |−⟩ with probability 1/2, then
+      kickback.
+    - Almost surely terminating: repeating until success terminates with probability 1 and defines Ad Z exactly, but
+      only as the limit of the finite-depth channels Φ_n = (1 − 2^−n) Ad Z + 2^−n id.
+    - Finite protocols: finite `InstAvail` protocols built from primitives satisfying `OnesNormal` (generic unsharp
+      Lüders instruments included) yield no deterministic ray-moving unitary channel and no deterministic |−⟩.
+  - Every Φ_n is `OnesNormal` and Ad Z is not, so `OnesNormal` is not closed under channel limits. The cost is exactly
+    2^n Kraus operators at depth n. Entrywise nonnegativity of unitary conjugations is limit-closed
+    (`preservesNonneg_of_approx`), and Φ_n already violates nonnegativity from n = 2. Only non-native tests make Φ_n
+    available at all.
+  - The A1 endpoint requires the deterministic Ad Z channel. Admitting almost-surely terminating protocols would be a
+    restricted limit-closure rule, which the adopted gates do not admit without a separate owner ruling. Whether TU
+    meets the existing A2 endpoint (`KrausDense`, `DenseFiniteQM`) is open.
+  - The continuum of measurement bases that makes the layer flow exact is itself unsourced: OI's readout is
+    configuration readout, and the bases are posited.
+  - Adding the deterministic Ad Z channel to these tests gives full control on qubit registers. This is shown for Z
+    only, and the register step rests on Barenco et al. [L] and a written argument [W].
+  - O-B is not sourced and stays open.
+  - The F2 ledger's monomial-lemma wording (LEDGER.md §5 item 2) is corrected to this scope.
 
 **Form the missing component must take, as these two nodes have narrowed it:**
 - It is non-supervenient, or it enlarges the substratum.
-- It includes a primitive outside `OnesNormal`, such as a phase-type isometry or a preparation such as |−⟩.
+- It includes a primitive outside `OnesNormal`, such as a phase-type isometry or a deterministic preparation of |−⟩, or
+  else a rule admitting almost-surely terminating protocols. This is needed for a deterministic phase at A1 exactness;
+  heralded phase branches need neither.
 - It includes an uncountable non-monomial family, for which a continuum of Lüders test bases suffices.
 - It includes the G3 identification and multi-token compatibility clauses, for O-B.
 - An independent prediction (G6) is still open.
