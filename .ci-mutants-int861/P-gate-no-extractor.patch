@@ -1,0 +1,11 @@
+--- a/verification/audits/evidence-retention/check_retention.py	2026-10-20 03:16:15.706309135 +0000
++++ b/verification/audits/evidence-retention/check_retention.py	2026-10-20 03:16:15.707021093 +0000
+@@ -1358,7 +1358,7 @@
+ 
+ 
+ # the self-tests of the archive's other tools that the gate runs, after the retained objects' check
+-GATE_SELF_TESTS = (('extractor self-test', extractor_gate),)
++GATE_SELF_TESTS = ()
+ 
+ 
+ def job_outputs_gate(archive, root):

@@ -1,0 +1,11 @@
+--- a/verification/audits/evidence-retention/check_retention.py	2026-10-20 03:16:15.692807759 +0000
++++ b/verification/audits/evidence-retention/check_retention.py	2026-10-20 03:16:15.693197567 +0000
+@@ -551,7 +551,7 @@
+             continue
+         xread.add(rel)
+         b, why = extractor_blob_of(man, meta.get(rel, {'path': rel}))
+-        if why:
++        if False:
+             F('R15 %s: %s %s' % (e.get('id'), rel, why))
+             continue
+         if '/re-extraction-' in rel:
