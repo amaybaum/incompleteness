@@ -1819,6 +1819,20 @@ def r13_fixture(m, tarch, troot, need):
     return (m, idx), None
 
 
+def lone_extractor_case(lone, root):
+    """The self-test's negative case for the gate's extractor step: extractor_gate on a lone copy of extract_result.py
+    with no bg3/ beside it. Returns (good, diagnostic). The run's output, which ends in the copy's expected traceback,
+    is captured; the case holds only when the gate's run fails and the diagnostic names the missing bg3/ beside the
+    copy. Any other failure is not good, and the caller prints the diagnostic, so an unexpected crash stays visible."""
+    import contextlib
+    import io
+    cap = io.StringIO()
+    with contextlib.redirect_stdout(cap):
+        failed = not extractor_gate(lone, root)
+    diag = cap.getvalue()
+    expected = 'FileNotFoundError' in diag and os.path.join(lone, 'bg3') + os.sep in diag
+    return failed and expected, diag
+
 def self_test(archive, root):
     """Each mutation must be reported by the check it targets, identified by that check's own message; the
     unmutated copy must pass. Every failure message of check() has a mutation here."""
@@ -2480,9 +2494,11 @@ def self_test(archive, root):
         lone = os.path.join(tmp, 'lone')
         os.makedirs(lone)
         shutil.copyfile(os.path.join(archive, 'extract_result.py'), os.path.join(lone, 'extract_result.py'))
-        good = not extractor_gate(lone, root)
+        good, diag = lone_extractor_case(lone, root)
         ok &= good
         print('%s self: an extractor whose self-test fails (no bg3/ beside it) fails the gate\'s run of it' % ('PASS' if good else 'FAIL'))
+        if not good:
+            print(diag.rstrip())
         # gate() itself, its other steps stubbed: it runs each of GATE_SELF_TESTS, and a failing one fails it
         import contextlib
         import io
