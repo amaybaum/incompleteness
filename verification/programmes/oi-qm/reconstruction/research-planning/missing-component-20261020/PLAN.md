@@ -138,17 +138,45 @@ Each node has been independently reviewed, and its review outcome is applied in 
     maps, does not supply the prior.
   - Controls K_B/K(Z_F)/Γ(Q3) and G2 fail. G6: none.
 
+- **`mc-node5/`, the precise additional postulate: ELABORATING, [W/EC].**
+  - Relative to `SourcedOI`, exact QM holds iff phase-free richness holds, one continuously driven pair per level
+    (`sourcedOI_qm_iff_phaseFree`, with `sourcedOI_of_qm`). QM implies phase-free richness outright, so every A1
+    extension entails it. Sufficiency needs the extended theory to satisfy `SourcedOI` as well, which the extension
+    must supply (`StructurallyClosed` in `substratum_plus_control_qm`). This is GR's controllability resource. Under
+    Origin_K, with full control and the domain premises, O-B holds iff X-4 holds for the available unitaries. Stated
+    as premises, these are E0 and the bare transfer clause, so no acceptable single postulate is found. An
+    admissible one must entail them and carry a source.
+  - With finite protocols over the native class, a generating set needs: an uncountable alphabet (U); a primitive
+    outside the row-monomial class and one outside the column-monomial class (M); a primitive outside `OnesNormal`
+    (O); and a primitive with no real Kraus form (R). Each is necessary and the four are irredundant. Joint
+    sufficiency is not shown. A theory with destructive non-configuration tests and phases meets every earlier form
+    clause and stays monomial, so the earlier clause on non-classical kind is strictly weaker than M.
+  - Classification: (i) is excluded for the constructions examined. As an operational hypothesis on the
+    implementation architecture the ingredient is (ii), as GR.md:260–264 states it. No construction examined
+    realizes M by substratum dynamics with configuration-bijection processes (κ2) and supervenience (Main.md:44,
+    :56). R and O are met by monomial phases, already outside κ2 and inside the kernel's substratum class. At A1 the
+    uncountable selected family also meets countable realization with Lemma 1 under the per-realization reading.
+    Incompatibility with the framework, (iii), is not established.
+  - G6: none. The postulate reproduces QMfin on its domain, and its A1 increment (U, O) is inert at finite precision.
+    A G6 must come from the source or from outside the domain.
+
 **Form the missing component must take under A1, as the reviewed nodes have narrowed it:**
-- It contains a primitive of non-classical kind (κ1 read as mixed priors, κ2, or κ4 dropped; κ3 is barred by G3), and,
-  for (a) at A1, it is non-supervenient or rests on an infinite substratum of non-classical kind. Enlarging a classical
-  substratum's cardinality or time model adds nothing (`mc-node3`). Dropping κ1 alone (a coherent hidden prior with
-  κ2–κ4) gives only monomial unitary channels and diagonal effects, and no native statistic beyond the mixed prior
-  |h|², so for (a) a coherent prior has to be paired with κ2 or κ4 dropped (`mc-node4`).
-- It includes a primitive outside `OnesNormal`, such as a phase-type isometry, a deterministic preparation of |−⟩, or
-  a coherent hidden prior with an eigen-relation h∘σ⁻¹ = λh, λ ≠ 1 [W], or else a rule admitting almost-surely
-  terminating protocols. For a coherent prior to supply it under κ2–κ4, zero uniform weight (h ∈ ℓ¹) is necessary but
-  not sufficient (`mc-node4`). This is needed for a deterministic phase at A1 exactness; heralded phase branches need
-  neither.
-- It includes an uncountable non-monomial family, for which a continuum of Lüders test bases suffices.
-- It includes the G3 identification and multi-token compatibility clauses, for O-B.
-- An independent prediction (G6) is still open.
+- Theory level: it entails phase-free richness, which is necessary for every A1 extension and sufficient when the
+  extended theory satisfies `SourcedOI`, which the extension must itself supply. Stated directly, that is E0.
+- Primitive level, with finite protocols over the native class (necessary, irredundant, not shown jointly
+  sufficient):
+  - U: an uncountable alphabet;
+  - M: a primitive outside the row-monomial class and one outside the column-monomial class. Destructive
+    non-configuration tests alone do not qualify, nor does a coherent prior with κ2–κ4;
+  - O: a primitive outside `OnesNormal`, or else a rule admitting almost-surely terminating protocols;
+  - R: a primitive with no real Kraus form.
+  U and M may sit in different primitives (`mc-node4`'s M\*).
+- Realization: M needs κ2 dropped or a non-supervenient primitive (`mc-node3`, `mc-node4`); R and O are met by
+  monomial phases. For U at A1 under the per-realization reading, the selected settings are countable by Lemma 1
+  unless the source is non-supervenient or the substratum infinite. Under E3 as read, an infinite-dimensional
+  coherently coupled sector is barred and a deep sector acts only at O(t/τ_B); a finite non-classical boundary is
+  not barred by E3.
+- O-B, under Origin_K with full control and the domain premises: X-4 for the available unitaries, with X-5
+  following. Multi-token clauses are needed only for sources limited to native operations (AW-F1, shown for
+  K(Z_F)). Under Origin_M, O-B is inherited.
+- G6: none. A G6 must come from the source or from outside the domain.

@@ -1,0 +1,45 @@
+== Block P: the PFR transition flow at level two carries U, M, O and R in one family
+PASS P0a flow(t) is exp(-itX_ab): F(0)=1, F'(0)=-iX_ab, F(t)F(s)=F(t+s)
+PASS P0b flow(t) unitary for all real t
+PASS P1 (M) flow(pi/4) is not monomial (not RM, not CM)
+PASS P2 (O) flow(pi/2) moves the all-ones ray (third point present) : [-I, -I, 1, 1]
+PASS P3 (R) flow(pi/4) is not a scalar multiple of a real matrix
+PASS P4 (U) distinct times give distinct rays: flow(pi/4) not prop. flow(pi/6)
+PASS P5 level one (two states): the same flow fixes the all-ones ray for every t
+== Block M: the row/column-monomial criterion (clause M)
+PASS M1a CM patterns closed under products (all 64x64 3x3 pairs)
+PASS M1b RM patterns closed under products (all 64x64 3x3 pairs)
+PASS M1c tensoring with the identity keeps CM and RM (all 64 patterns, I_2)
+PASS M1d an invertible CM (or RM) square matrix is monomial: all 64 patterns
+PASS M2a every primitive of the CM alphabet is CM
+PASS M2b the alphabet meets PLAN's clauses: a non-monomial test Kraus, a ray-moving Z, a non-real phase
+PASS M2c every word (depth <= 3) over the CM alphabet is CM : 2992 words
+PASS M2d every unitary-up-to-scalar word is monomial (no Hadamard-type channel) : 1286 unitary words
+PASS M3a the attach of |+> is RM and not CM; the destructive Y test is CM and not RM
+PASS M3b branches are prop. to exp(-i pi/4 X) and exp(+i pi/4 X): non-monomial unitaries
+PASS M3c native X on outcome -i makes both branches prop. to the same unitary (a deterministic channel)
+PASS M3d the composite channel is complete (sum K^H K = 1 over both branches)
+== Block R: the reality clause
+PASS R1 the real rotation family meets U-type, M and O: non-monomial, moves the all-ones ray : [-1/5, 7/5]
+PASS R2 every word (depth <= 3) over the real alphabet is real : 584 words
+PASS R3 the quarter phase S is not a scalar multiple of a real matrix
+PASS R4 (can fail) the M3 gadget output exp(-i pi/4 X) is not real up to scalar
+PASS R5 Choi of a real-Kraus channel is real symmetric (instance: Ad R35)
+== Block O: OnesNormal of the primitives
+PASS O1 Lueders tests in a real basis and in the Y basis: sum K^H 1 = 1
+PASS O2 Z and diag(1,u), u != 1, have K^H 1 off the all-ones ray (non-OnesNormal unitaries)
+PASS O3 the real rotation R35 is a non-OnesNormal unitary
+== Block B: the O-B residue under full control
+PASS B1 Gamma(Bell) in Gamma(Q3): exact unitary U maps the negative eigenvector to |00>; product test on U X U^H = -1/2 < 0
+PASS B1 z_{1,1} in K(Z_F): exact unitary U maps the negative eigenvector to |00>; product test on U X U^H = -1/2 < 0
+PASS B1 SWAP in maxCone: exact unitary U maps the negative eigenvector to |00>; product test on U X U^H = -1 < 0
+PASS B2 (control) PSD elements stay nonnegative on every product test of the form |ab><ab|, a,b in {0,1,+,+i}
+PASS B3 (P*_A without X-4) CNOT maps SWAP in maxCone outside maxCone: some product test negative : min -1
+PASS B4 (X-4 without P*_A) every native pair permutation preserves PSD: spectra of P A P^T equal (Bell instance)
+PASS B5 Fact B control: CNOT maps Gamma(Bell) outside Gamma(Q3) (its partial transpose is not PSD)
+== Block G: M1 negative control and the A1/A2 inertness instance
+PASS G1 (can fail) replacing the configuration readout by an X-basis Lueders test changes P(x0, x2) : {(0, 0): 1/2, (0, 1): 0, (1, 0): 0, (1, 1): 1/2} vs {(0, 0): 1/4, (0, 1): 1/4, (1, 0): 1/4, (1, 1): 1/4}
+PASS G2 configuration readout is non-disturbing on this law: P(x0,x2) with readout equals P(x0,x2) without
+PASS G3 a finite experiment separates Phi_n from Ad Z by exactly 2^-n (|+> prepared, X test)
+
+TOTAL 37 checks: 37 PASS, 0 FAIL
