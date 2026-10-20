@@ -2,10 +2,12 @@ name: reproduce evidence
 
 # Reproduces one archived expected result of verification/audits/evidence-retention/ (AGENTS §A.42):
 # checks out the attested commit, rebuilds the Mathlib bridge and runs the release gate there, extracts the
-# same structured result the archive holds, and compares the two. The verifier (the archive's manifest,
-# reproduce.py and compare_result.py) is read from the ref this workflow runs on; the extractor is the version
-# the expected result names, read from the repository's objects; the historical commit supplies only the
-# sources, the toolchain pin and its own tools/release_gate.py.
+# same structured result the archive holds, and compares the two. For a bridge entry (the job `reproduce`) the
+# verifier (the archive's manifest, reproduce.py and compare_result.py) is read from the ref this workflow runs
+# on; the extractor is the version the expected result names, read from the repository's objects; the historical
+# commit supplies only the sources, the toolchain pin and its own tools/release_gate.py. For a gate or guard
+# output (the job `reproduce-job-output`) job_outputs.py, and the extract_result.py it reads a gate with, are the
+# ref's own; a tranche-3 expected result names no extractor blob.
 #
 # Deliberately not cached: the historical build starts from Mathlib's cache alone, so the verdict never
 # depends on what a previous run left behind. A cache miss costs time, never correctness.

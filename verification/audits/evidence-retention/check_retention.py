@@ -86,7 +86,7 @@ Rules:
       digest), citing record, recorded discrepancy or authorizing decision record is removed, substituted or
       relabelled. The section's counts agree. R12 does not re-derive an expected result: job_outputs.py reproduce
       does, at the commit.
-  R14 (stated beside R12, whose tranche it serves) open-claims.json, the record of citing claims about runs not yet
+  R16 (stated beside R12, whose tranche it serves) open-claims.json, the record of citing claims about runs not yet
       retained whose read covers them only in part, is listed and holds exactly the claims of OPEN_CLAIMS_PIN,
       hardcoded below: no claim missing, repeated or added; each `unresolved`, the record's status vocabulary that
       alone; each with its pinned run and head, citing path, lines and git blob, and fragment; each citing file
@@ -133,9 +133,12 @@ Rules:
       number of added reports, per_module counts them, and no added report is of a governed module. Every
       accounting file is named by a record. R14 checks the records against the archive; the served text they
       were read from is not retained, so it does not re-derive them.
-  R15 every expected result read by extract_result.py, and every re-extraction, names the git blob of the extractor
-      that read it, so that a later change to extract_result.py, and to its pin in the tranche record, leaves each
-      result's extractor identity as it was. The name is its manifest file's extractor_blob or, for the results of
+  R15 every expected result of tranche 1 (BG-3's included) and of the research builds read by extract_result.py (a
+      results.json or BG-3 result whose source names that extractor), and every re-extraction, names the git blob of
+      the extractor that read it, so that a later change to extract_result.py, and to its pin in the tranche record,
+      leaves each result's extractor identity as it was. A tranche-3 expected result (runs/<run>/expected.json, a
+      gate output included, which job_outputs.py reads with the checkout's extract_result.py) names none and is
+      outside R15. The name is its manifest file's extractor_blob or, for the results of
       tranche 1 and the research builds, the manifest's extractor_blobs map, which stands after the entries so that
       no line a record cites moves; a file named in both must name one blob, and the map names only such files. A
       re-extraction's record names its own blob and the original's as the manifest does. With git
@@ -750,7 +753,7 @@ def check_priority(man, t3, held, read_tree, F):
     return exempt
 
 
-# R14: the open-claims record. Each claim of open-claims.json, by id: its run and head, the citing file, the lines
+# R16: the open-claims record. Each claim of open-claims.json, by id: its run and head, the citing file, the lines
 # and the git blob it cites, and the fragment that stands verbatim there. The record must hold exactly these claims,
 # each `unresolved`; adding, removing or changing one needs a reviewed change to this table.
 OPEN_CLAIMS_FILE = 'open-claims.json'
@@ -785,29 +788,29 @@ OPEN_CLAIMS_PIN = {
 
 
 def check_open_claims(man, texts, read_tree, F):
-    """R14: open-claims.json holds exactly the pinned claims, each unresolved and naming no other status, each with
+    """R16: open-claims.json holds exactly the pinned claims, each unresolved and naming no other status, each with
     its pinned run and head, citing location (path, lines, blob) and fragment; each citing file still has that blob
     (hashed here from its bytes), and the fragment stands verbatim on those lines, joined."""
     if not any(f.get('path') == OPEN_CLAIMS_FILE for e in man['entries'] for f in e.get('files', [])):
-        F('R14 %s is not listed in the manifest' % OPEN_CLAIMS_FILE)
+        F('R16 %s is not listed in the manifest' % OPEN_CLAIMS_FILE)
         return
     try:
         doc = json.loads(texts.get(OPEN_CLAIMS_FILE) or '')
         claims = doc['claims']
         assert isinstance(claims, list) and all(isinstance(c, dict) for c in claims)
     except (ValueError, KeyError, TypeError, AssertionError):
-        F('R14 %s is not a readable open-claims record' % OPEN_CLAIMS_FILE)
+        F('R16 %s is not a readable open-claims record' % OPEN_CLAIMS_FILE)
         return
     if doc.get('schema') != 'oi-evidence-open-claims' or doc.get('version') != 1 or \
             set(doc.get('statuses') or {}) != {OPEN_CLAIMS_STATUS}:
-        F('R14 %s: schema, version or status vocabulary is not the pinned one' % OPEN_CLAIMS_FILE)
+        F('R16 %s: schema, version or status vocabulary is not the pinned one' % OPEN_CLAIMS_FILE)
     ids = [c.get('id') for c in claims]
     for i in sorted({i for i in ids if ids.count(i) > 1}, key=str):
-        F('R14 claim %s is repeated' % i)
+        F('R16 claim %s is repeated' % i)
     for i in sorted(set(OPEN_CLAIMS_PIN) - set(ids)):
-        F('R14 claim %s is missing' % i)
+        F('R16 claim %s is missing' % i)
     for i in sorted(set(ids) - set(OPEN_CLAIMS_PIN), key=str):
-        F('R14 claim %s is not in the pinned set' % i)
+        F('R16 claim %s is not in the pinned set' % i)
     for c in claims:
         i = c.get('id')
         if i not in OPEN_CLAIMS_PIN or ids.count(i) > 1:
@@ -815,20 +818,20 @@ def check_open_claims(man, texts, read_tree, F):
         run, head, path, lines, blob, frag = OPEN_CLAIMS_PIN[i]
         ci = c.get('citing') or {}
         if c.get('status') != OPEN_CLAIMS_STATUS:
-            F('R14 %s: status %r, not %s' % (i, c.get('status'), OPEN_CLAIMS_STATUS))
+            F('R16 %s: status %r, not %s' % (i, c.get('status'), OPEN_CLAIMS_STATUS))
         if c.get('run') != {'id': run, 'head_sha': head}:
-            F('R14 %s: its run or head is not the pinned one' % i)
+            F('R16 %s: its run or head is not the pinned one' % i)
         if (ci.get('path'), tuple(ci.get('lines') or ()), ci.get('blob')) != (path, lines, blob):
-            F('R14 %s: its citing location (path, lines, blob) is not the pinned one' % i)
+            F('R16 %s: its citing location (path, lines, blob) is not the pinned one' % i)
         if c.get('fragment') != frag:
-            F('R14 %s: its fragment is not the pinned one' % i)
+            F('R16 %s: its fragment is not the pinned one' % i)
         data = read_tree(path)
         if data is None or blob_id(data) != blob:
-            F('R14 %s: the citing file %s is absent or changed' % (i, path))
+            F('R16 %s: the citing file %s is absent or changed' % (i, path))
             continue
         L = data.decode('utf-8', 'replace').split('\n')
         if not all(0 < n <= len(L) for n in lines) or frag not in ' '.join(L[n - 1].strip() for n in lines):
-            F('R14 %s: the fragment is not verbatim at %s:%s' % (i, path, ','.join(map(str, lines))))
+            F('R16 %s: the fragment is not verbatim at %s:%s' % (i, path, ','.join(map(str, lines))))
 
 
 def expiry_of(created):
@@ -1617,7 +1620,7 @@ def job_outputs_gate(archive, root):
 
 
 def gate(archive, root):
-    """The release-gate step: the check in history mode (R1-R15), then the self-test, then the retained objects'
+    """The release-gate step: the check in history mode (R1-R16), then the self-test, then the retained objects'
     check and self-test, then tranche 3's comparator self-test, then each of GATE_SELF_TESTS."""
     man = json.load(open(os.path.join(archive, 'manifest.json'), encoding='utf-8'))
     fails, st11 = history_mode(archive, root, man)
@@ -1933,7 +1936,7 @@ def priority_cases(man, ents, t3, tarch, expect, edit, back, json_edit, file_edi
 
 
 def open_claims_cases(tarch, expect, edit, back, json_edit, file_edit):
-    """The self-test's R14 cases: each mutation of open-claims.json (its manifest record following it, so that R1
+    """The self-test's R16 cases: each mutation of open-claims.json (its manifest record following it, so that R1
     passes) or of a citing file must fail with its own message."""
     troot = os.path.dirname(tarch)
     P = os.path.join(tarch, OPEN_CLAIMS_FILE)
@@ -1943,29 +1946,29 @@ def open_claims_cases(tarch, expect, edit, back, json_edit, file_edit):
         x = json.loads(json.dumps(C(d, 'OC-1')))
         x['id'] = 'OC-11'
         d['claims'].append(x)
-    expect('an added open claim', *json_edit(P, add), rule='R14', msg='OC-11 is not in the pinned set')
-    expect('a removed open claim', *json_edit(P, lambda d: d['claims'].remove(C(d, 'OC-4'))), rule='R14',
+    expect('an added open claim', *json_edit(P, add), rule='R16', msg='OC-11 is not in the pinned set')
+    expect('a removed open claim', *json_edit(P, lambda d: d['claims'].remove(C(d, 'OC-4'))), rule='R16',
            msg='OC-4 is missing')
     expect('a duplicated open claim', *json_edit(P, lambda d: d['claims'].append(json.loads(json.dumps(C(d, 'OC-2'))))),
-           rule='R14', msg='OC-2 is repeated')
+           rule='R16', msg='OC-2 is repeated')
     expect('an edited fragment', *json_edit(P, lambda d: C(d, 'OC-3').__setitem__('fragment', 'with the one hundred theorems')),
-           rule='R14', msg='OC-3: its fragment')
+           rule='R16', msg='OC-3: its fragment')
     for st in ('retained', 'differs'):
         expect('an open claim relabelled %s' % st, *json_edit(P, lambda d, s=st: C(d, 'OC-5').__setitem__('status', s)),
-               rule='R14', msg='OC-5: status')
+               rule='R16', msg='OC-5: status')
     expect('a status vocabulary that admits retained',
-           *json_edit(P, lambda d: d['statuses'].__setitem__('retained', 'x')), rule='R14', msg='status vocabulary')
+           *json_edit(P, lambda d: d['statuses'].__setitem__('retained', 'x')), rule='R16', msg='status vocabulary')
     expect('a substituted citing blob', *json_edit(P, lambda d: C(d, 'OC-6')['citing'].__setitem__('blob', '0' * 40)),
-           rule='R14', msg='OC-6: its citing location')
-    expect('a moved line', *json_edit(P, lambda d: C(d, 'OC-1')['citing'].__setitem__('lines', [207])), rule='R14',
+           rule='R16', msg='OC-6: its citing location')
+    expect('a moved line', *json_edit(P, lambda d: C(d, 'OC-1')['citing'].__setitem__('lines', [207])), rule='R16',
            msg='OC-1: its citing location')
     expect('a substituted run head', *json_edit(P, lambda d: C(d, 'OC-9')['run'].__setitem__('head_sha', '0' * 40)),
-           rule='R14', msg='OC-9: its run or head')
-    expect('a substituted run id', *json_edit(P, lambda d: C(d, 'OC-10')['run'].__setitem__('id', '1')), rule='R14',
+           rule='R16', msg='OC-9: its run or head')
+    expect('a substituted run id', *json_edit(P, lambda d: C(d, 'OC-10')['run'].__setitem__('id', '1')), rule='R16',
            msg='OC-10: its run or head')
     expect('a changed citing file', *file_edit(os.path.join(troot, OPEN_CLAIMS_PIN['OC-7'][2]), lambda b: b + b'\n'),
-           rule='R14', msg='OC-7: the citing file')
-    expect('an unreadable open-claims record', *json_edit(P, lambda d: d.__setitem__('claims', {})), rule='R14',
+           rule='R16', msg='OC-7: the citing file')
+    expect('an unreadable open-claims record', *json_edit(P, lambda d: d.__setitem__('claims', {})), rule='R16',
            msg='not a readable open-claims record')
     def delete_both():
         os.rename(P, P + '.x')
@@ -1973,10 +1976,10 @@ def open_claims_cases(tarch, expect, edit, back, json_edit, file_edit):
         m['entries'] = [x for x in m['entries'] if not any(f['path'] == OPEN_CLAIMS_FILE for f in x.get('files', []))]
         open(os.path.join(tarch, 'manifest.json'), 'w', encoding='utf-8').write(json.dumps(m))
     expect('the open-claims record and its entry both deleted', delete_both, lambda: (os.rename(P + '.x', P), back()),
-           'R14', 'is not listed')
+           'R16', 'is not listed')
     expect('the open-claims record dropped from the manifest',
            edit(lambda m: [x.__setitem__('files', [f for f in x['files'] if f['path'] != OPEN_CLAIMS_FILE]) for x in m['entries']]),
-           back, 'R14', 'is not listed')
+           back, 'R16', 'is not listed')
     # the pinned table itself: a fragment the citing file does not hold, pinned and recorded alike
     pin = OPEN_CLAIMS_PIN['OC-8']
     bad = 'a fragment that line 40 does not hold'
@@ -1985,7 +1988,7 @@ def open_claims_cases(tarch, expect, edit, back, json_edit, file_edit):
         OPEN_CLAIMS_PIN['OC-8'] = pin[:5] + (bad,)
     go, undo = json_edit(P, lambda d: C(d, 'OC-8').__setitem__('fragment', bad))
     expect('a pinned fragment that is not verbatim at its line', lambda: (seam_on(), go()),
-           lambda: (OPEN_CLAIMS_PIN.__setitem__('OC-8', pin), undo()), 'R14', 'OC-8: the fragment is not verbatim')
+           lambda: (OPEN_CLAIMS_PIN.__setitem__('OC-8', pin), undo()), 'R16', 'OC-8: the fragment is not verbatim')
 
 
 def r13_cases(man, ents, rs, troot, tarch, expect, edit, back, json_edit, file_edit):
@@ -2325,7 +2328,7 @@ def self_test(archive, root):
             dst = os.path.join(troot, rel)
             os.makedirs(os.path.dirname(dst), exist_ok=True)
             shutil.copyfile(os.path.join(root, rel), dst)
-        for rel in sorted({v[2] for v in OPEN_CLAIMS_PIN.values()} - need):   # R14's citing files, when present
+        for rel in sorted({v[2] for v in OPEN_CLAIMS_PIN.values()} - need):   # R16's citing files, when present
             if os.path.isfile(os.path.join(root, rel)):
                 os.makedirs(os.path.dirname(os.path.join(troot, rel)), exist_ok=True)
                 shutil.copyfile(os.path.join(root, rel), os.path.join(troot, rel))

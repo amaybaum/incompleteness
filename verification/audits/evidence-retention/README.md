@@ -212,13 +212,15 @@ The other 7 runs are cited for their identity, outcome and jobs alone, which `ru
 
 For each claim the record gives the citing file, its lines and blob, the verbatim fragment, the served lines, their count and digest, and what the read showed. Each claim is `unresolved`: neither retained nor differing. The lines outside the read are no evidence either way. Each is reassessed when its run is retained or reproduced at its commit, and a claim that neither settles stays a recorded gap.
 
-R14 checks the record against `OPEN_CLAIMS_PIN`, hardcoded in `check_retention.py`:
+R16 checks the record against `OPEN_CLAIMS_PIN`, hardcoded in `check_retention.py`:
 - exactly the claims OC-1 to OC-10, none missing, repeated or added;
 - each `unresolved`, the record's only status;
 - each with its pinned run and head, citing path, lines, blob and fragment;
 - each citing file hashed to that blob, and the fragment verbatim on those lines.
 
 Any change to a claim needs a reviewed change to that table.
+
+None of the ten claims is about run 36373806246. The guard output retained for that run carries its own 91 `PASS` and 0 `FAIL` and settles none of them; their being unresolved says nothing about that run's guard.
 
 ## Research builds retained ahead of their citing record
 
@@ -282,7 +284,7 @@ python3 -I verification/audits/evidence-retention/job_outputs.py reproduce --run
 `check_retention.py` leaves the files under `objects/` to `check_objects.py`, whose manifest it pins, and `--gate`
 also runs `check_objects.py --reconstitute` and `--self-test`, and `job_outputs.py --self-test`.
 
-The check uses the tree alone: no git history, network or third-party package. Its rules (R1–R9, R12 and R13, in its docstring) verify:
+The check uses the tree alone: no git history, network or third-party package. Its rules (R1–R9 and R12–R16, in its docstring; R15 also has a history part, which `--gate` runs) verify:
 - every archived file's size and sha256, and the digest match of each `complete-as-cited` file;
 - that each citing file has its recorded blob id, the cited line still holds its tokens, and each claim's text stands verbatim where it says;
 - that every expected result is well formed and names its commit, job and recipe, with module statuses consistent with their reports;
@@ -291,8 +293,10 @@ The check uses the tree alone: no git history, network or third-party package. I
 - the manifest's form, and that each entry's files agree with each other and with the gap list, a CI entry's expected result being a bridge result;
 - coverage, recomputed from the tree: every receipt under `verification/receipts/`, and every certificate attestation that cites runs, is covered by this tranche or named in the manifest's `coverage.later`; each of their check-run attestations and cited runs has an entry that matches it.
 - for tranche 3 (R12): that each `run-` entry's files agree: the run, its head commit and attempt, its jobs, each output's job, commit, recipe, source and expectation, and its expiry, creation plus 90 days. It also checks that no retained or remaining run is attested or already retained by tranche 1, that `tranche3.remaining` lists each run once in order of creation, that no retained run expires after a remaining one, except a run of `PRIORITY_ALLOWLIST` whose owner-approved record the section carries unchanged and whose pinned entry, files, citations and decision record are intact, and that the counts agree.
-- for the open-claims record (R14): that `open-claims.json` is listed and holds exactly the claims of `OPEN_CLAIMS_PIN`, each `unresolved`, with its pinned run, head, citing path, lines, blob and fragment, the blob hashed from the citing file and the fragment verbatim there.
+- for the open-claims record (R16): that `open-claims.json` is listed and holds exactly the claims of `OPEN_CLAIMS_PIN`, each `unresolved`, with its pinned run, head, citing path, lines, blob and fragment, the blob hashed from the citing file and the fragment verbatim there.
 - for the research builds (R13): that each `research-` entry is pending, eligible or cited as above; that its three files name one run, head commit, attempt and job; that the result is of kind `research-build` and records no gate (R4); and that every item it does not carry is a recorded gap.
+- for the re-extractions (R14): that each re-extraction names its original's exact bytes, which must stand unchanged, and accounts for every difference, as below.
+- for extractor identity (R15): that each file it covers names its extractor's blob, as below.
 
 At `fc5abade` every receipt is covered and `coverage.later` is empty. A receipt that lands after this tranche keeps its own evidence in its record directory (§A.42), and the plain check fails on it until `coverage.later` names it with that directory; a path named there may be neither covered nor cited by this tranche. The tree cannot order commits, so `--later-provenance` (R10) checks against git history that the tranche base is an ancestor of HEAD and that no path named as later existed at the base.
 
@@ -306,7 +310,7 @@ It prints the gaps and every claim not retained. The self-test mutates a copy on
 
 **Re-extractions.** An expected result is never rewritten. A re-extraction by a later extractor is kept beside it as `ci/<run>/re-extraction-<blob>.json`: it names the original with its sha256 and blob id, both extractor blobs, the source digest and the recipe, holds the re-extracted result, and lists every field in which it differs; its accounting file explains each difference. R14 requires the original to have exactly the bytes the record names, so a rewritten original fails even when its recorded digest follows it. `ci/36228429141` has one: the extractor at `fdf3ec80` reads 24 reports, of modules the result does not govern, whose declaration names contain a prime and which `05c41bce` did not match, so its `reports_in_served_text` is 2793 against the original's 2769. The expected section is the same.
 
-**Extractor identity.** Each file read by `extract_result.py`, an expected result or a re-extraction, names the git blob of the extractor that read it, so a later change to the extractor or to its pin leaves each result's identity as it was: a re-extraction in its manifest file (`extractor_blob`), the results of tranche 1 and of the research builds in the manifest's `extractor_blobs` map, which stands after the entries so that no line a record cites moves. R15 requires the name, and in history mode re-derives it as the blob of `extract_result.py` at the commit that added the file. Every expected result of tranche 1 names `05c41bce`, and so does each research build's result.
+**Extractor identity.** Each expected result of tranche 1 and of the research builds that `extract_result.py` read, and each re-extraction, names the git blob of the extractor that read it, so a later change to the extractor or to its pin leaves each result's identity as it was: a re-extraction in its manifest file (`extractor_blob`), the results of tranche 1 and of the research builds in the manifest's `extractor_blobs` map, which stands after the entries so that no line a record cites moves. R15 requires the name, and in history mode re-derives it as the blob of `extract_result.py` at the commit that added the file. Every expected result of tranche 1 names `05c41bce`, and so does each research build's result. A tranche-3 expected result (`runs/<run>/expected.json`) names no extractor blob and is outside R15, a `gate` output included: `job_outputs.py` reads a gate block with the `extract_result.py` of the checkout it runs from, when it extracts and when it reproduces. Run 36373806246's gate output was extracted at a commit whose `extract_result.py` is `05c41bce`; `job_outputs.py --self-test` validates that expectation with the checkout's extractor.
 
 **`build_archive.py` documents how the tranche was cut.** It cannot be re-run from the tree, because its inputs (the saved API responses and served logs) are not retained; their digests are. The checker and the reproduction tool are the reproducible parts.
 
