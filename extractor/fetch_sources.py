@@ -59,7 +59,8 @@ def git_env():
 
 def git_cmd(objects, *args):
     return ["git", "-C", objects, "-c", "credential.helper=", "-c", "http.extraHeader=", "-c", "core.askPass=",
-            "-c", "protocol.file.allow=user"] + list(args)
+            "-c", "protocol.file.allow=user", "-c", "gc.auto=0", "-c", "maintenance.auto=false",
+            "-c", "fetch.writeCommitGraph=false"] + list(args)
 
 
 def run(cmd, runner=None):
@@ -165,6 +166,9 @@ def self_test(work=None):
              f_cmds and all("credential.helper=" in c and "http.extraHeader=" in c for c in f_cmds)
              and all(e.get("GIT_CONFIG_NOSYSTEM") == "1" and e.get("GIT_CONFIG_GLOBAL") == os.devnull
                      and e.get("GIT_TERMINAL_PROMPT") == "0" for _, e in seen))
+        case("no background maintenance: auto-gc, auto-maintenance and commit-graph writes are off for every fetch",
+             f_cmds and all("gc.auto=0" in c and "maintenance.auto=false" in c and "fetch.writeCommitGraph=false" in c
+                            for c in f_cmds))
         case("production fetches name only the public repository URL and a full commit id, depth 1",
              f_cmds and all(c[-2] == URL and SHA.match(c[-1]) and "--depth=1" in c for c in f_cmds))
         targets = T.load()["targets"]
