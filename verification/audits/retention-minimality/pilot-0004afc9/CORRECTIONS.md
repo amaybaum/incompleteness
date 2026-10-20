@@ -36,3 +36,12 @@ argument for the history entries is correct) required no text change.
 - PILOT.md sha256 before: b03d2204158f8a3a7817651f07a1322638b31c7e787b7d8db7fdd4d5b402bb61; after: 7c3eed7337daa560b7f7399fb91e6b9126473caddfefb9052bf70d8150b8b4d5
 - Line 255: "the 25 byte-copy blobs" → "the 25 raw-form byte-copy blobs" (third-pass cosmetic note). PILOT.md sha256 now: 894083293dd06bc477d0a86549cb78babebca04f455248f715806c1733985ea0
 - Publication copy: PREREG.sha256 path field changed from the local scratch path to `PREREG.md`; the digest is unchanged.
+
+## Publication fix (PR #882 release gate)
+
+- On the PR's merge with main, `evidence-retention` failed R13 twice: `controls-out/*.retention.txt` and `N3.gate.txt`
+  were full checker transcripts, and they name the archive's two pending research-build runs, which R13 forbids in
+  any tracked file. The five files are reduced to their verdict and FAIL lines, each stating the sha256 of the full
+  transcript (`LIVE`, `N1`, `N3` retention: `03f45a5b…afeca2`; `N2` retention: `070ac6af…3717a`; `N3.gate.txt`:
+  `1495740c…b892`). No control result changes: every exit code (`*.exit.txt`) and every FAIL line PILOT.md quotes is
+  kept. PILOT.md's file table says so. Raw transcripts are not committed as evidence (AGENTS §A.42 item 1).

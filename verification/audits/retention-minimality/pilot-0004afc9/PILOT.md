@@ -301,6 +301,6 @@ Every failure line names the omitted object, the commit or tree that names it, o
 | `regen.sh` | see the file | regeneration test K1 against a `main`-only full-history clone |
 | `omit.py` | `966723e0…6bca3` | applies N1/N2/N3 to a disposable clone, after verifying that each manifest serialization round-trips byte-for-byte |
 | `controls.sh` | `9455a10c…251d1d` | builds the isolated clones and runs the live and omission controls |
-| `controls-out/` | — | the controls' and the regeneration test's raw outputs |
+| `controls-out/` | — | the controls' and the regeneration test's outputs; the four `*.retention.txt` transcripts and `N3.gate.txt` are reduced to their verdict and FAIL lines, each with the sha256 of the full transcript, because the full transcripts list the archive's pending research-build runs and R13 fails on a tracked file that names them |
 | `PILOT.original.md` | `eabdacb6…0f6f` | this note as first written, before the review corrections |
 | `CORRECTIONS.md` | see the file | the review corrections applied to this note |
