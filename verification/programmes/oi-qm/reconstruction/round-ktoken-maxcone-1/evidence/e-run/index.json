@@ -1,6 +1,13 @@
 {
  "bridge_job": "118705242073",
  "commit": "e35fe0993d22ea217d4094191ef355340ac80062",
+ "conditions": [
+  {
+   "condition": "the designation's normalization condition: only GitHub's timestamp prefixes and the transport byte-order mark are removed; the raw log and both verdicts are kept; the three raw-log negative cells stay visible as parsing artifacts",
+   "in": "cells.json",
+   "note": "cells.json keeps the raw bridge log's digest (verdict.raw.log_sha256, 1773a7bf...) and the frozen verdict's output on both forms. On the raw log Q-INCL, Q-EQ and Q-PAIR print NOT-ESTABLISHED, recorded as printed, and observed.raw_form_reports_outside_permitted names the three wrapped reports whose axiom lists carry line timestamps there. The stripped form (source.stripped_form: the byte-order mark dropped, each line's timestamp removed, line breaks unchanged; 418bcc65...) prints the four positive tokens"
+  }
+ ],
  "cross_checks": [
   {
    "extraction_runs_api_sha256": "0db83c61d95c09219f6667befbf862756e04723e05773b1230fee103a66e58e8",
@@ -32,6 +39,13 @@
    "path": "jobs.json",
    "sha256": "e83a6d7f2e2d5434f04a98e2568c8b1e59b5f8686f01d3c08878506d14ebf3e6",
    "source_sha256": "5249f5427ca4516cfbaca4fab0582531fecc0135c4cbfcdf4b98028a1ef61b28"
+  },
+  {
+   "bytes": 3225,
+   "form": "derived",
+   "path": "designation.json",
+   "sha256": "25d72e9468902249834d64c21b4ac0b3fc252a6da536bf689177cc3cab385e7f",
+   "source_sha256": "83d809c900ec812a5868e0dd9c265a28bb2bbfd80d136388c1a74a8889f58303"
   },
   {
    "bytes": 41433,
@@ -90,12 +104,7 @@
    }
   }
  ],
- "missing": [
-  {
-   "item": "the owner's designation of E",
-   "why": "E is not designated at this commit; the designation is retained as its text, its author and its time (§A.42 item 6 at df9e601e)"
-  }
- ],
+ "missing": [],
  "round": "KTOKEN-MAXCONE-1",
  "run": "39445227350",
  "schema": "oi-e-run-record",
