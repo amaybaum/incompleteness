@@ -54,4 +54,27 @@ skeptical review before its result is used.
 
 ## Status
 
-Node 1 (inventory, and measurement forms) is in progress. Results are added here as reviewed nodes.
+Each node has been independently reviewed, and its review outcome is applied in its record.
+
+- **`oa-node1/`, O-A node 1: ELABORATING with a CONFIRMING core.**
+  - The countable-realization argument is confirmed with corrections: it covers every available level-1 conjugation
+    channel, and thread H already states it in substance.
+  - The logarithm-branch point is a wording correction to AW-X5. It is not a new hidden assumption.
+- **`mc-node1/`, measurement as a condition: NEW, narrow.**
+  - Native measurement adds no operation.
+  - Sharp Lüders tests in non-configuration token bases make the layer flow of X executable exactly. This direction,
+    from tests to the flow, is new to the F2 records.
+  - No `OnesNormal` primitive breaks the uniform ray, and that includes generic unsharp Lüders instruments. So
+    measurement supplies no phase-type operation.
+  - Adding Z to these tests gives full control on qubit registers. That last step rests on Barenco et al. [L] and on a
+    written argument [W].
+  - O-B is not sourced.
+  - It proposes a correction to the F2 ledger's monomial-lemma wording at LEDGER.md:352: the lemma covers only
+    protocols whose instruments are configuration readouts.
+
+**Form the missing component must take, as these two nodes have narrowed it:**
+- It is non-supervenient, or it enlarges the substratum.
+- It includes a primitive outside `OnesNormal`, such as a phase-type isometry or a preparation such as |−⟩.
+- It includes an uncountable non-monomial family, for which a continuum of Lüders test bases suffices.
+- It includes the G3 identification and multi-token compatibility clauses, for O-B.
+- An independent prediction (G6) is still open.

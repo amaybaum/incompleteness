@@ -1,0 +1,22 @@
+PASS A1 Y-test branches on |0> are both proportional to |+i> (outcome -i after native X)
+PASS A2 outcome-w branch is proportional to R_x(-2 phi)
+PASS A3 outcome-w_perp branch after native X is proportional to R_x(-2 phi)
+PASS A4 branches complete: K_w^H K_w + K_wp^H K_wp = I
+PASS A5 coarse-grained channel equals conjugation by R_x(-2 phi) on a generic input
+PASS A6 R_x(pi/2) is non-monomial (two nonzero entries in a row)
+PASS A7 R_x(pi/2) breaks entrywise nonnegativity and reality (image of |0><0| has entry +-i/2)
+PASS A8 every R_x(t) fixes the uniform ray (ones-fixing): R_x(t) 1 = e^{-it/2} 1
+PASS B0 the Lueders+configuration-discard Kraus list gives the same channel as A5
+PASS B1 TU layer-flow protocol: sum over all branches of K^H 1 equals 1 (OnesNormal)
+PASS B2 TU layer-flow protocol: sum K^H K = I
+PASS B3 phase teleport (Lueders + configuration discard Kraus) keeps OnesNormal: sum K^H 1 = 1
+PASS B3b mutation of the decomposition: the single-Kraus form I(x)<m| does not satisfy the identity (it is not the invariant)
+PASS B4 phase-teleport branches are D and Z D (D = diag(1, e^{-i theta}))
+PASS B5 Z moves the uniform ray (no ones-fixing correction can equal it)
+PASS B6 sensitivity: for an unsharp Lueders instrument (E = diag(1/4,3/4)) the identity fails for this decomposition (no claim about other decompositions)
+PASS B7 mutation (|-> preparation): the kickback branch is exactly Z and K^H 1 != 1
+PASS C1 with Z: phase teleport deterministic, both branches proportional to D
+PASS C2 Hadamard = phase * R_z(pi/2) R_x(pi/2) R_z(pi/2) exactly
+PASS C3 quarter phase S = phase * R_z(pi/2)
+PASS D1 control: with ancilla |+> and real tests the branch is real (cos phi I + sin phi X)/sqrt2, not unitary-proportional in general
+SUMMARY 21 PASS 0 FAIL

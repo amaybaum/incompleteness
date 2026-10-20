@@ -1,0 +1,9 @@
+PASS NEG  n=2 configuration tests only, target |->        states=4      truncated=False deterministic=False
+PASS NEG  n=1 Pauli Lueders, target |->                   states=9      truncated=False deterministic=False
+PASS POS  n=2 Pauli Lueders, target |+i>                  states=125    truncated=False deterministic=True
+PASS POS  n=2 Pauli Lueders, target |+>                   states=125    truncated=False deterministic=True
+PASS MAIN n=2 Pauli Lueders, target |->                   states=125    truncated=False deterministic=False
+PASS MAIN n=3 Pauli Lueders, affine perms, target |->     states=3229   truncated=False deterministic=False
+PASS DES  n=3 Pauli destructive (test, reset), target |+i> states=8      truncated=False deterministic=False
+PASS MAIN n=3 Pauli Lueders, + Toffoli/Fredkin, target |-> (bounded) states=30000  truncated=True  deterministic=False
+SUMMARY fails 0

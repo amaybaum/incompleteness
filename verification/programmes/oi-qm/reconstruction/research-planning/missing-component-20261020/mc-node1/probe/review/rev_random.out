@@ -1,0 +1,5 @@
+C1 150 random TU protocols (4605 Kraus ops): max |sum K^H 1 - 1| = 8.97e-15 ; max |sum K^H K - I| = 5.84e-15
+C1b 60 random protocols with attach |0>/configuration discard of token 2: max defect = 5.60e-15
+C2 control: Z inserted in a branch -> invariant broken in 31 of 60 random protocols (some trees never reach the injection point)
+C3 positive control: |+i> deterministic within 2 tests: True ; |-> deterministic within 1/2/3 tests: [False, False, False] ; memo states=128
+SUMMARY ALL PASS
