@@ -29,10 +29,14 @@ The initial option is to **keep** `.github/workflows/reproduce-evidence.yml`, `r
 
 ## Mandatory dependencies
 
-1. **Act-37 discrepancy:** the frozen preregistration says 4,829 axiom reports for run 36373806246, whereas its structured expected result says 4,803. Forward-only correction PR **#887** records `DIFFERS` outside the archive. **It must be reviewed and landed before any deletion of the relevant archive bookkeeping.** Do not edit the frozen Act-37 directory.
+1. **Act-37 discrepancy (met):** the frozen preregistration says 4,829 axiom reports for run 36373806246, whereas its structured expected result says 4,803. The finding lives outside the archive in `verification/audits/provenance-errata/ACT37-CI-COUNT.md`, landed by #887 (`55a0e80a`). Do not edit the frozen Act-37 directory.
 2. **Legacy-frozen native rounds:** #829 still needs an E-evidence retention PR and the direct `check_retention.py --gate` checkpoint under its original §A.42. Do not remove that command or weaken the requirement without satisfying and independently verifying the checkpoint.
 3. **Frozen evidence and immutable claims:** never rewrite a saved expected result, run identity, job record, BG-3 byte artifact, retained object, legacy/frozen round, receipt or scientific verdict. New bookkeeping must be forward-only and attributable.
 4. **Archive fingerprint:** any authorized archive change must recompute the exact directory tree ID, update `tools/evidence_archive_check.py`'s pin and test its negative controls. The old tree remains recoverable from the base commit.
+
+## Stage 2: removal ledger
+
+`LEDGER.md` replaces the provisional table above with the per-file audit: four builders removable (77,294 bytes), `build_archive.py` and every other code or bookkeeping file required, none undetermined, and the manifest migration `manifest_migration.py` checks byte for byte.
 
 ## Acceptance tests before any destructive patch is proposed for merge
 
