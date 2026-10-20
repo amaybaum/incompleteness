@@ -1,0 +1,6 @@
+distinct entries ['-1', '0', '1'] nonzeros 16
+G^2 == 1: False
+G == R False
+G == R o (Zpi(x)1) False
+R^-1 G: distinct entries ['-1', '0', '1'] diagonal? True
+R^-1 G diag ['1', '-1', '-1', '1', '-1', '1', '-1', '1', '-1', '1', '-1', '1', '1', '-1', '-1', '1']

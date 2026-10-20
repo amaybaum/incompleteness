@@ -1,0 +1,21 @@
+== eps 0.001
+trial 0 eps 0.001: initial residual 1.115e-03
+b0 it 1: residual 2.387e-13 (rho 2.00e+00), |G-R| 6.047e-13
+trial 1 eps 0.001: initial residual 1.103e-03
+b1 it 1: residual 2.939e-13 (rho 2.00e+00), |G-R| 1.221e-12
+trial 2 eps 0.001: initial residual 1.541e-03
+b2 it 1: residual 5.256e-13 (rho 2.00e+00), |G-R| 6.411e-13
+== eps 0.03
+trial 0 eps 0.03: initial residual 3.329e-02
+b0 it 2: residual 2.420e-14 (rho 4.00e+00), |G-R| 4.496e-14
+trial 1 eps 0.03: initial residual 3.284e-02
+b1 it 2: residual 7.036e-14 (rho 4.00e+00), |G-R| 7.949e-14
+trial 2 eps 0.03: initial residual 4.582e-02
+b2 it 2: residual 1.256e-13 (rho 4.00e+00), |G-R| 2.761e-13
+== eps 0.3
+trial 0 eps 0.3: initial residual 3.181e-01
+b0 it 3: residual 4.476e-15 (rho 4.00e+00), |G-R| 1.278e-14
+trial 1 eps 0.3: initial residual 3.056e-01
+b1 it 3: residual 6.772e-15 (rho 4.00e+00), |G-R| 2.320e-14
+trial 2 eps 0.3: initial residual 4.332e-01
+b2 it 3: residual 7.166e-14 (rho 4.00e+00), |G-R| 1.468e-13

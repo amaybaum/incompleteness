@@ -1,0 +1,7 @@
+eball3: reference PASS True; identity fails frame True; squeeze 2 fails posFwd only True; squeeze 1/2 fails posInv only True; bad effect fails VE True; outside state fails VS True; bad shape fails True
+omegah: reference PASS True; identity fails frame True; squeeze 2 fails posFwd only True; squeeze 1/2 fails posInv only True; bad effect fails VE True; outside state fails VS True; bad shape fails True
+self-test: OK
+
+real	0m55.658s
+user	0m55.376s
+sys	0m0.004s

@@ -1,0 +1,4 @@
+eball3: dim F 48; G-side tight quadruples 200; rows mod p built in 0 s
+rank mod 2147483647 of the tight rows: 48 of dim F 48 (0 s)
+pool-A quadruples 331776; rows forced constant by F: 0 (constants min nan)
+max margin over non-forced pool-A rows (box 8): status 0, t* = 5.375e-02

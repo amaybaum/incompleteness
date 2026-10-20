@@ -1,0 +1,24 @@
+== ../a830/work/slp-candidate-eball3-s3.json
+member^2 == 1: False
+member passes frame/relT/relC: (True, True, True)
+R meets frame/relT/relC: True True True
+inverse: min 0 zeros 192
+pool-A quadruples: 331776 ; min scaled value: 0 ; negatives: 0 ; exact zeros: 192
+tight G-side: 192 H-side: 192
+exact rank of G-tight rows: 48 of 48
+exact rank of G+H tight rows: 48
+skip R F_0 R check (n/a)
+float Stiemke LP status 0 t* = 0.47842458628540724
+exact Stiemke certificate: sum y_i row_i == 0: True ; all y_i > 0: True ; min y_i = 0.4784 (t* normalisation sum y = 384)
+== rr/orbit/member-29.json
+member^2 == 1: True
+member passes frame/relT/relC: (True, True, True)
+R meets frame/relT/relC: True True True
+inverse: min 0 zeros 200
+pool-A quadruples: 331776 ; min scaled value: 0 ; negatives: 0 ; exact zeros: 200
+tight G-side: 200 H-side: 200
+exact rank of G-tight rows: 48 of 48
+exact rank of G+H tight rows: 48
+skip R F_0 R check (n/a)
+float Stiemke LP status 0 t* = 0.5203966625557434
+exact Stiemke certificate: sum y_i row_i == 0: True ; all y_i > 0: True ; min y_i = 0.5204 (t* normalisation sum y = 400)

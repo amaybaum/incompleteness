@@ -1,0 +1,3 @@
+pools ['A', 'B'] states 24 effects 64
+omegah G-side: tight 919368/919368; float rank 776 of dim F 960; smallest kept sqrt-eig 7.97e-01, largest dropped 3.15e-06
+omegah G+H-side: tight 919368/919368; float rank 784 of dim F 960; smallest kept sqrt-eig 5.95e-01, largest dropped 4.98e-06

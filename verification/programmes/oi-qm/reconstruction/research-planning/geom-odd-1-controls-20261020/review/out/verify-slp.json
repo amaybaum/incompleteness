@@ -1,0 +1,32 @@
+{
+ "VE": true,
+ "VI": true,
+ "VL": {
+  "frame": true,
+  "relC": true,
+  "relT": true
+ },
+ "VP": {
+  "posFwd": true,
+  "posFwd_min": "0",
+  "posFwd_negative": 0,
+  "posInv": true,
+  "posInv_min": "0",
+  "posInv_negative": 0
+ },
+ "VS": true,
+ "control": "eball3",
+ "equals_reference": false,
+ "pool_sizes": {
+  "A": [
+   24,
+   24
+  ],
+  "B": [
+   24,
+   24
+  ]
+ },
+ "shape": true,
+ "verdict": "PASS"
+}

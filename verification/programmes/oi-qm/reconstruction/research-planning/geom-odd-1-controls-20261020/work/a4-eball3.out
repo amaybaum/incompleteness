@@ -1,0 +1,5 @@
+== eball3: dim F 48; G-side tight quadruples 200; distinct rows 186; float rank 48
+exact rank mod 2147483647 of 48 selected tight rows: 48 (dim F 48)
+exact rank mod 1000000007 of 48 selected tight rows: 48 (dim F 48)
+random-objective vertices of the full pool-A polytope (box 8): 0 of 20 equal R; distance min 1.316 median 1.717
+objective = sum of R tight rows (minimised): vertex distance to R 1.014e-13

@@ -1,0 +1,9 @@
+R^-1 G diagonal: True signs [[1, -1, -1, 1], [-1, 1, -1, 1], [-1, 1, -1, 1], [1, -1, -1, 1]]
+local signed permutations per factor: 48
+decompositions G = (A(x)B) R (C(x)D) with local signed permutations: 128
+ first: A = [[1, 0, 0], [0, 1, 0], [0, 0, 1]] B = [[1, 0, 0], [0, 1, 0], [0, 0, -1]] C = [[-1, 0, 0], [0, -1, 0], [0, 0, 1]] D = [[-1, 0, 0], [0, -1, 0], [0, 0, -1]]
+ of which pure conjugations (C(x)D = (A(x)B)^-1): 0
+ local maps of first hit: z-line kept / commute with N: [(True, True), (True, True), (True, True), (True, True)]
+sign twists R o diag(s) in F passing posFwd and posInv exactly on pools A u B: 32
+ candidate among them: True
+ of these, local relabellings (A(x)B) R (C(x)D) of R: 32

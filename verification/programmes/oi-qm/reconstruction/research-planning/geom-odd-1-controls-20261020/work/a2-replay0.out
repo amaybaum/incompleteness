@@ -1,0 +1,46 @@
+start 0 vertices: residual 1.471e+00
+s0 round 1: residual 9.868e-01, |G-R|_max 1.833e+00, |G-G^T...| cuts 8559
+s0 round 2: residual 9.942e-01, |G-R|_max 1.902e+00, |G-G^T...| cuts 8601
+s0 round 3: residual 9.243e-01, |G-R|_max 1.948e+00, |G-G^T...| cuts 8771
+s0 round 4: residual 7.008e-02, |G-R|_max 1.983e+00, |G-G^T...| cuts 8843
+s0 round 5: residual 3.359e-02, |G-R|_max 2.004e+00, |G-G^T...| cuts 8856
+s0 round 6: residual 2.710e-02, |G-R|_max 2.003e+00, |G-G^T...| cuts 8859
+s0 round 7: residual 2.411e-02, |G-R|_max 2.003e+00, |G-G^T...| cuts 8860
+s0 round 8: residual 2.328e-02, |G-R|_max 2.003e+00, |G-G^T...| cuts 8862
+s0 round 9: residual 2.218e-02, |G-R|_max 2.003e+00, |G-G^T...| cuts 8863
+s0 round 10: residual 2.205e-02, |G-R|_max 2.003e+00, |G-G^T...| cuts 8863
+s0 round 11: residual 2.201e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8866
+s0 round 12: residual 2.189e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8866
+s0 round 13: residual 2.173e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8866
+s0 round 14: residual 2.151e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+s0 round 15: residual 2.139e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+s0 round 16: residual 2.125e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+s0 round 17: residual 2.111e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+s0 round 18: residual 2.097e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+s0 round 19: residual 2.082e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+s0 round 20: residual 2.070e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+s0 round 21: residual 2.061e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+s0 round 22: residual 2.061e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+s0 round 23: residual 2.060e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+s0 round 24: residual 2.060e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+s0 round 25: residual 2.060e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+s0 round 26: residual 2.060e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+s0 round 27: residual 2.060e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+s0 round 28: residual 2.060e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+s0 round 29: residual 2.060e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+s0 round 30: residual 2.060e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+s0 round 31: residual 2.060e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+s0 round 32: residual 2.060e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+s0 round 33: residual 2.060e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+s0 round 34: residual 2.060e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+s0 round 35: residual 2.060e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+s0 round 36: residual 2.060e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+s0 round 37: residual 2.060e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+s0 round 38: residual 2.060e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+s0 round 39: residual 2.060e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+s0 round 40: residual 2.060e-02, |G-R|_max 2.002e+00, |G-G^T...| cuts 8867
+stalled G: sigma_min 9.845e-01 sigma_max 1.006e+00; pool-A min of G -1.772e-08; pool-A min of G^-1 -5.083e-03
+
+real	1m4.536s
+user	0m58.723s
+sys	0m5.215s

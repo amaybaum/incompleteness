@@ -1,0 +1,12 @@
+R^2 == 1 (exact): True
+dim F_0 from the matrix identities: 48
+R meets frame/relT/relC: True True True
+generator dim F: 48 ; rank(mine) = 48 ; rank(mine + generator) = 48
+G0 - R in F_0 (rank unchanged): True
+pool-A quadruples: 331776 ; min scaled value: 0 ; negatives: 0 ; exact zeros: 200
+tight G-side: 200 H-side: 200
+exact rank of G-tight rows: 48 of 48
+exact rank of G+H tight rows: 48
+R F_0 R subset F_0: True
+float Stiemke LP status 0 t* = 0.4747321930452311
+exact Stiemke certificate: sum y_i row_i == 0: True ; all y_i > 0: True ; min y_i = 0.4747 (t* normalisation sum y = 400)

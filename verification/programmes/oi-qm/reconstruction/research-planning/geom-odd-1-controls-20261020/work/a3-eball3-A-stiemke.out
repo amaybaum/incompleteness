@@ -1,0 +1,10 @@
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 200, for R^-1 200
+distinct nonzero tight rows: 372
+float rank of tight rows: 48 -> float dim L = 0
+exact tightness confirmed for all 200 + 200 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+rank mod 1000000007 of the exact tight rows: 48 -> dim L over Q <= 0
+Stiemke LP: status 0, min y = 1.774e-01
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 1.774e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+max over distinct tight rows of the single-row LP: 0.000e+00

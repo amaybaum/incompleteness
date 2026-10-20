@@ -1,0 +1,192 @@
+## work/orbit/member-00.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 192, for R^-1 192
+exact tightness confirmed for all 192 + 192 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 2.368e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-01.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 217, for R^-1 217
+exact tightness confirmed for all 217 + 217 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 2.725e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-02.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 192, for R^-1 192
+exact tightness confirmed for all 192 + 192 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 2.061e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-03.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 156, for R^-1 156
+exact tightness confirmed for all 156 + 156 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 1.953e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-04.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 217, for R^-1 217
+exact tightness confirmed for all 217 + 217 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 2.725e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-05.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 192, for R^-1 192
+exact tightness confirmed for all 192 + 192 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 2.061e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-06.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 156, for R^-1 156
+exact tightness confirmed for all 156 + 156 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 1.953e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-07.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 192, for R^-1 192
+exact tightness confirmed for all 192 + 192 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 2.368e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-08.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 179, for R^-1 179
+exact tightness confirmed for all 179 + 179 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 1.726e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-09.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 170, for R^-1 170
+exact tightness confirmed for all 170 + 170 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 2.246e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-10.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 179, for R^-1 179
+exact tightness confirmed for all 179 + 179 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 1.748e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-11.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 162, for R^-1 162
+exact tightness confirmed for all 162 + 162 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 9.597e-02
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-12.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 162, for R^-1 162
+exact tightness confirmed for all 162 + 162 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 9.597e-02
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-13.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 179, for R^-1 179
+exact tightness confirmed for all 179 + 179 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 1.726e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-14.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 170, for R^-1 170
+exact tightness confirmed for all 170 + 170 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 2.246e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-15.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 179, for R^-1 179
+exact tightness confirmed for all 179 + 179 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 1.748e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-16.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 165, for R^-1 165
+exact tightness confirmed for all 165 + 165 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 2.313e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-17.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 194, for R^-1 194
+exact tightness confirmed for all 194 + 194 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 3.140e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-18.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 165, for R^-1 165
+exact tightness confirmed for all 165 + 165 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 2.313e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-19.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 122, for R^-1 122
+exact tightness confirmed for all 122 + 122 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 1.315e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-20.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 168, for R^-1 168
+exact tightness confirmed for all 168 + 168 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 3.825e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-21.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 168, for R^-1 168
+exact tightness confirmed for all 168 + 168 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 3.222e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-22.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 148, for R^-1 148
+exact tightness confirmed for all 148 + 148 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 3.195e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-23.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 168, for R^-1 168
+exact tightness confirmed for all 168 + 168 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 3.222e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-24.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 198, for R^-1 198
+exact tightness confirmed for all 198 + 198 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 2.276e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-25.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 168, for R^-1 168
+exact tightness confirmed for all 168 + 168 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 1.082e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-26.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 198, for R^-1 198
+exact tightness confirmed for all 198 + 198 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 2.362e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-27.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 168, for R^-1 168
+exact tightness confirmed for all 168 + 168 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 1.082e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-28.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 189, for R^-1 189
+exact tightness confirmed for all 189 + 189 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 2.169e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-29.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 200, for R^-1 200
+exact tightness confirmed for all 200 + 200 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 1.788e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-30.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 189, for R^-1 189
+exact tightness confirmed for all 189 + 189 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 2.169e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00
+## work/orbit/member-31.json
+== eball3 pools A: dim F 48; quadruples 331776; tight for R 200, for R^-1 200
+exact tightness confirmed for all 200 + 200 quadruples
+rank mod 2147483647 of the exact tight rows: 48 -> dim L over Q <= 0
+exact Stiemke certificate: nullspace True, all y_i > 0: True, min y_i = 1.774e-01
+LP status 0; max summed tight value over C cap box = -0.000e+00

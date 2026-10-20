@@ -1,0 +1,4 @@
+R o (Zpi (x) 1) PASS VL {'frame': True, 'relT': True, 'relC': True} VP {'posFwd': True, 'posInv': True, 'posFwd_min': '0', 'posInv_min': '0'}
+R o (Rz(3/5,4/5) (x) 1) FAIL VL {'frame': True, 'relT': True, 'relC': False} VP {'posFwd': False, 'posInv': False, 'posFwd_min': None, 'posInv_min': None}
+(Zpi (x) 1) o R PASS VL {'frame': True, 'relT': True, 'relC': True} VP {'posFwd': True, 'posInv': True, 'posFwd_min': '0', 'posInv_min': '0'}
+R o (1 (x) Xpi) FAIL VL {'frame': False, 'relT': True, 'relC': True} VP {'posFwd': False, 'posInv': False, 'posFwd_min': None, 'posInv_min': None}

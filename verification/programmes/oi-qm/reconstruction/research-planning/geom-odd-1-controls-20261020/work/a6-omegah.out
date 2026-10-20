@@ -1,0 +1,5 @@
+Problem built in 0.4 s; dim F 960; quadruples 147456
+initial cuts 3000 built in 74.0 s
+LP 0: 71.9 s, rows 4500, min value -5.630e+00, violated 43305, coords at box 50, separation 50.4 s
+LP 1: 134.9 s, rows 6000, min value -4.574e+00, violated 16770, coords at box 30, separation 34.4 s
+LP 2: no solution within budget (127.4 s)

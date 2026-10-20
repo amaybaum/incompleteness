@@ -1,0 +1,10 @@
+== eball3: D 3, dim F 48, free entries 64 of 256
+  R in F (exact coords found): True; R^-1 in F: True; R^2 == 1: True
+  max|lam*(R)| = 1 (BOX 8.0); nonzero coords 12; distinct values ['-1', '0', '1']
+  pool A exact: posFwd min 0 (neg 0), posInv min 0 (neg 0)
+  pool-A quadruples 331776; tight (|v|<1e-12) for R: 200; for R^-1: 200
+== omegah: D 7, dim F 960, free entries 1024 of 4096
+  R in F (exact coords found): True; R^-1 in F: True; R^2 == 1: True
+  max|lam*(R)| = 1 (BOX 8.0); nonzero coords 60; distinct values ['-1', '0', '1']
+  pool A exact: posFwd min 0 (neg 0), posInv min 0 (neg 0)
+  pool-A quadruples 147456; tight (|v|<1e-12) for R: 57456; for R^-1: 57456

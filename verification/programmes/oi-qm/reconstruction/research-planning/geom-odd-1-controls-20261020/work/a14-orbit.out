@@ -1,0 +1,11 @@
+(i) candidate == (1 (x) diag(1,1,-1)) R (Zpi (x) -1_3): True
+    every element of Gamma: orthogonal on the chart, keeps the z3 line, commutes with nflip: True
+(ii) distinct members of the class {(A(x)B) R (C(x)D)} lying in F: 32 ; of the form R o diag(s): 32 ; candidate in the class: True ; involutions in the class: 8
+(iii) sign twists R o diag(s) in F: 4096; in the class: 32; outside: 4064
+    max |scaled state entry| 17, max |scaled effect entry| 17
+    control: in-class twists passing exactly on A u B: 32 of 32
+    outside-class twists passing posFwd and posInv exactly on A u B: 0 of 4064
+
+real	10m21.025s
+user	9m43.695s
+sys	0m31.104s
