@@ -8,6 +8,9 @@ The records keep their bytes (AGENTS §A.42 item 6). This table records the attr
 a correction of a frozen record's own text is a native round's (`G13`). Whether a mutable pointer, such as the
 evidence-retention manifest, should reference these errata is moot: that archive is frozen (AGENTS §A.42 item 8).
 
+A count discrepancy of a different kind, Act 37's `lean-axioms` figure for its base run (4829 stated, 4803 recorded), is
+recorded in [`ACT37-CI-COUNT.md`](ACT37-CI-COUNT.md); it is outside the table below and the checker.
+
 | id | location | run, attempt | cited id | real head | shared digits | verdict | explanation | status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | PE-1 | verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/preregistration.md:710 | 36257341185, 1 | `4c4155da7ccc2cf47d63bfe2ce7d8c4cba7f0ff2` | `4c4155da059388a4724039fd5e60aaa96965f7c3` | 8 | confirmed | confirmed | holds |
