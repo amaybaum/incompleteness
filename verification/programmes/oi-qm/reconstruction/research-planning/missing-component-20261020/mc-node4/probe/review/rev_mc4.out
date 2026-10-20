@@ -1,0 +1,12 @@
+PASS  R1.R  720 bijections: Ad_U then partial trace = Kraus channel (independent code path)
+PASS  R1.C  720 bijections: Ad_U then partial trace = Kraus channel (independent code path)
+PASS  R2.(2,-1,-1)  sum h = 0; 24 rank-one channels, normalized V all 0/1 permutations, ray-moving: 0
+PASS  R2.(3,-1,-2)  sum h = 0; 12 rank-one channels, normalized V all 0/1 permutations, ray-moving: 0
+PASS  R2.(3,-1,-1,-1)  sum h = 0; 288 rank-one channels, normalized V all 0/1 permutations, ray-moving: 0
+PASS  R2b.control  eigenvector prior (1,-1,1,-1): a ray-moving unitary channel is found by the same code
+PASS  R3.info  h = (2,-1,-1): bijections whose single-outcome family has 1 outside span{K^H 1}: 0 of 720
+PASS  R4  1600 two-step protocols with a visible ancilla (pure or uniformly mixed attach): coherent law = mixed law
+PASS  R5a  author's row_monomial_tags returns False on a non-injective map
+PASS  R5b  author's E3 comparison detects added amplitudes: coherent 2/3 vs mixed 1
+PASS  R5c  author's effect() reports a non-diagonal effect for an X-basis projector
+SUMMARY 11 PASS, 0 FAIL

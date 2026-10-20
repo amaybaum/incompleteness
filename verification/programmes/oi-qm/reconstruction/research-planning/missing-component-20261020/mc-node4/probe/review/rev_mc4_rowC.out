@@ -1,0 +1,4 @@
+PASS  C1  h = (3, -1+i, -2-i), Sum h = 0: 12 rank-one channels, ray-moving 0
+PASS  C1b  same prior: some channel maps a matrix unit to a non-real matrix (reality broken without a phase)
+PASS  C2  h = (1, i, 1), Sum h != 0: reality is broken too, so 'broken when Sum h = 0' is not the condition
+SUMMARY 3 PASS, 0 FAIL

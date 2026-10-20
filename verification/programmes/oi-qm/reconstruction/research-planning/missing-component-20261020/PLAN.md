@@ -120,13 +120,35 @@ Each node has been independently reviewed, and its review outcome is applied in 
   - The global antiunitary gives no deterministic phase. The reconstruction principles each need a non-classical
     primitive. G6: none.
 
+- **`mc-node4/`, the coherent hidden prior: ELABORATING, [W].**
+  - With κ2–κ4 kept, a coherent hidden prior of any form (nonnegative, signed or complex), at any hidden cardinality
+    and with any time model (nonsingular dynamics), gives only monomial unitary channels and diagonal effects:
+    amplitudes are transported, never added. This is LG's monomial-branch lemma applied to an unread hidden
+    preparation. No (a): even an uncountable family of exact phases, from a continuum eigenfunction, stays in the
+    monomial class (`substratum_residual`).
+  - On native protocols a coherent prior h and the mixed prior |h|² give identical laws. The mixed reading of κ1 is
+    load-bearing for availability (the cone 𝒞(C)), not for native statistics, and any G6 that distinguishes a
+    coherent prior from the mixed prior |h|² must use non-native tests.
+  - For (b), zero uniform weight of the prior is necessary (h ∈ ℓ¹), as is a pair of coordinates of equal modulus and
+    distinct phase; zero uniform weight is not sufficient. An eigen-relation h∘σ⁻¹ = λh with λ ≠ 1 under a hidden
+    bijection σ suffices, by a single controlled step [W].
+  - A continuum eigenfunction prior with real-coupled controlled flows and Lüders tests in one fixed basis, with the
+    native class, realizes all A1 operations [W]. It needs a continuum in the coherently coupled sector, which E3 as
+    read in Substratum.md:92 bars, and a posited phase field (G2). The canonical purification, with bijective purifier
+    maps, does not supply the prior.
+  - Controls K_B/K(Z_F)/Γ(Q3) and G2 fail. G6: none.
+
 **Form the missing component must take under A1, as the reviewed nodes have narrowed it:**
 - It contains a primitive of non-classical kind (κ1 read as mixed priors, κ2, or κ4 dropped; κ3 is barred by G3), and,
   for (a) at A1, it is non-supervenient or rests on an infinite substratum of non-classical kind. Enlarging a classical
-  substratum's cardinality or time model adds nothing (`mc-node3`).
-- It includes a primitive outside `OnesNormal`, such as a phase-type isometry or a deterministic preparation of |−⟩, or
-  else a rule admitting almost-surely terminating protocols. This is needed for a deterministic phase at A1 exactness;
-  heralded phase branches need neither.
+  substratum's cardinality or time model adds nothing (`mc-node3`). Dropping κ1 alone (a coherent hidden prior with
+  κ2–κ4) gives only monomial unitary channels and diagonal effects, and no native statistic beyond the mixed prior
+  |h|², so for (a) a coherent prior has to be paired with κ2 or κ4 dropped (`mc-node4`).
+- It includes a primitive outside `OnesNormal`, such as a phase-type isometry, a deterministic preparation of |−⟩, or
+  a coherent hidden prior with an eigen-relation h∘σ⁻¹ = λh, λ ≠ 1 [W], or else a rule admitting almost-surely
+  terminating protocols. For a coherent prior to supply it under κ2–κ4, zero uniform weight (h ∈ ℓ¹) is necessary but
+  not sufficient (`mc-node4`). This is needed for a deterministic phase at A1 exactness; heralded phase branches need
+  neither.
 - It includes an uncountable non-monomial family, for which a continuum of Lüders test bases suffices.
 - It includes the G3 identification and multi-token compatibility clauses, for O-B.
 - An independent prediction (G6) is still open.

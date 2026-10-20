@@ -7,10 +7,12 @@ S2  continuum hidden circle, controlled rotation (v, x) -> (v, x + v t mod 1), c
     (b) psi = sqrt(2) cos(2 pi x) (real, signed): coherence cos(2 pi t); rank one only at t in Z/2,
         where t = 1/2 gives Ad Z;
     (c) psi = 1 (nonnegative, the KvN uniform prior): identity for every t.
-S3  the moving-boundary flow of node 3 (B2) with coherent prior psi = sqrt(f) exp(i alpha): the hidden
-    phase cancels pointwise; the channel equals the mixed-prior channel and differs from Ad R_x(pi t).
+S3  the moving-boundary flow of node 3 (B2) with coherent prior psi = sqrt(f) exp(i alpha): the Gram
+    matrix of the transported functions, computed from psi and the flow, carries no hidden phase; the
+    channel is the mixture of I and X (the mixed-prior channel) and differs from Ad R_x(pi t).
 S4  X- and Y-basis Lueders tests with the native CNOT and X give R_x(pi/2) deterministically.
-S5  exact R_z(theta) for every theta with exact R_x(pi/2): R_y(theta) and the ZYZ form; Hadamard exact;
+S5  exact R_z(theta) for every theta with exact R_x(pi/2): R_y(theta) and the ZYZ form (products lie in
+    SU(2); that every element is reached is the Euler-angle theorem, not checked here); Hadamard exact;
     R_y(theta) non-monomial off pi Z.
 S6  the circle returns unentangled (catalytic phase reference).
 S7  diag(1, exp(i theta)) moves the all-ones ray for theta not in 2 pi Z.
@@ -83,35 +85,72 @@ def main():
     check("S2c", gram(psi_c + 0 * x) == Gc, "psi = 1 (KvN uniform): identity channel for every t")
 
     # ---------------- S3 ----------------
+    # Flow x -> x + T mod 2 on [0, 2), v = floor(x), h = x - v, 0 < T < 1, coherent prior psi on the
+    # hidden coordinate for both visible starts. The transported functions psi_{v -> v'}(h') are built
+    # from the flow itself: the preimage of (v', h') is y = v' + h' - T (mod 2); its integer part, read
+    # at a representative point of each region of h', fixes the source visible value and the source
+    # hidden point. The Gram matrix G[(v1,v1'),(v2,v2')] = int psi_{v1->v1'} conj(psi_{v2->v2'}) dh' is
+    # then integrated from psi directly.
     hh = sp.symbols('hh', real=True)
+    hp = sp.symbols('hp', real=True)
     T = sp.symbols('T', positive=True)
     Fn = sp.Function('F', positive=True)
-    alpha = 5 * hh**2 + 3 * hh
-    psi = sp.sqrt(Fn(hh)) * sp.exp(sp.I * alpha)
-    # Kraus of the flow x -> x + T mod 2 on [0, 2), v = floor(x), h = x - v, 0 < T < 1:
-    #   final h' in [T, 1): source h = h' - T, no flip, Kraus psi(h' - T) I
-    #   final h' in [0, T): source h = h' + 1 - T, flip, Kraus psi(h' + 1 - T) X
-    # so every Kraus operator is a scalar function times I or X, and the channel weight at h' is
-    # psi(s) conj(psi(s)) at the single source point s.
-    w = sp.simplify(psi * sp.conjugate(psi))
-    check("S3a", sp.simplify(w - Fn(hh)) == 0, "hidden phase alpha cancels pointwise: |psi|^2 = F, Kraus are scalar multiples of I or X")
-    f = sp.pi / 2 * sp.sin(sp.pi * hh)
-    hp = sp.symbols('hp', real=True)
-    noflip = sp.integrate(w.subs(hh, hp - T).subs(Fn(hp - T), f.subs(hh, hp - T)), (hp, T, 1))
-    flip = sp.integrate(w.subs(hh, hp + 1 - T).subs(Fn(hp + 1 - T), f.subs(hh, hp + 1 - T)), (hp, 0, T))
-    Xm = sp.Matrix([[0, 1], [1, 0]])
-    def chan(rho): return sp.simplify(noflip * rho + flip * Xm * rho * Xm)
-    R = sp.Matrix([[sp.cos(sp.pi * T / 2), -sp.I * sp.sin(sp.pi * T / 2)], [-sp.I * sp.sin(sp.pi * T / 2), sp.cos(sp.pi * T / 2)]])
+    def psi_of(z, alpha): return sp.sqrt(Fn(z)) * sp.exp(sp.I * alpha(z))
+    regions = [(sp.Integer(0), T, sp.Rational(1, 6)), (T, sp.Integer(1), sp.Rational(2, 3))]  # (lo, hi, representative at T = 1/3)
+    Tr = sp.Rational(1, 3)
+    def transported(v, vp, alpha):
+        """List over regions of the transported amplitude psi_{v->vp}(hp), or 0."""
+        out = []
+        for lo, hi, rep in regions:
+            y_rep = vp + rep - Tr
+            fl = sp.floor(y_rep)
+            v_src = int(fl) % 2
+            h_src = vp + hp - T - fl
+            out.append(psi_of(h_src, alpha) if v_src == v else sp.Integer(0))
+        return out
+    fsub = lambda e: e.replace(Fn, sp.Lambda(hh, sp.pi / 2 * sp.sin(sp.pi * hh)))
+    def gram(alpha):
+        G = {}
+        integrands_alpha_free = True
+        for v1 in range(2):
+            for v1p in range(2):
+                for v2 in range(2):
+                    for v2p in range(2):
+                        A = transported(v1, v1p, alpha); B = transported(v2, v2p, alpha)
+                        tot = 0
+                        for r, (lo, hi, rep) in enumerate(regions):
+                            ig = sp.simplify(A[r] * sp.conjugate(B[r]))
+                            if ig.has(sp.exp) or ig.has(sp.I): integrands_alpha_free = False
+                            tot += sp.integrate(fsub(ig), (hp, lo, hi))
+                        G[(v1, v1p, v2, v2p)] = sp.simplify(tot)
+        return G, integrands_alpha_free
+    al1 = lambda z: 5 * z**2 + 3 * z
+    al0 = lambda z: 0 * z
+    G1, free1 = gram(al1)
+    G0, _ = gram(al0)
+    def chan_from(G, rho):
+        return sp.Matrix(2, 2, lambda i, j: sp.simplify(sum(rho[v1, v2] * G[(v1, i, v2, j)] for v1 in range(2) for v2 in range(2))))
     E00 = sp.Matrix([[1, 0], [0, 0]]); E01 = sp.Matrix([[0, 1], [0, 0]])
+    same = all(sp.simplify(chan_from(G1, U) - chan_from(G0, U)) == sp.zeros(2, 2) for U in (E00, E01, E01.T, sp.Matrix([[0, 0], [0, 1]])))
+    check("S3a", free1 and same,
+          "Gram integrands from psi carry no hidden phase (every product pairs one source point); channel with alpha = 5h^2+3h equals alpha = 0")
+    c00 = chan_from(G1, E00); c01 = chan_from(G1, E01)
+    R = sp.Matrix([[sp.cos(sp.pi * T / 2), -sp.I * sp.sin(sp.pi * T / 2)], [-sp.I * sp.sin(sp.pi * T / 2), sp.cos(sp.pi * T / 2)]])
     lay00 = sp.simplify(R * E00 * R.H)
-    c00 = chan(E00)
-    check("S3b", sp.simplify(flip - sp.sin(sp.pi * T / 2)**2) == 0 and sp.simplify(c00[1, 1] - lay00[1, 1]) == 0
-          and sp.simplify(noflip + flip - 1) == 0,
+    flip = sp.sin(sp.pi * T / 2)**2
+    check("S3b", sp.simplify(c00[1, 1] - flip) == 0 and sp.simplify(c00[1, 1] - lay00[1, 1]) == 0
+          and sp.simplify(c00[0, 0] + c00[1, 1] - 1) == 0,
           "flip probability sin^2(pi T/2) = layer-flow flip probability (rooted law reproduced); trace preserved")
-    check("S3c", c00[0, 1] == 0 and sp.simplify(lay00[0, 1] - sp.I * sp.sin(sp.pi * T) / 2) == 0,
+    check("S3c", sp.simplify(c00[0, 1]) == 0 and sp.simplify(lay00[0, 1] - sp.I * sp.sin(sp.pi * T) / 2) == 0,
           "from |0><0| the layer flow carries coherence i sin(pi T)/2, the coherent-prior flow 0")
-    check("S3d", sp.simplify((chan(E01) - R * E01 * R.H).subs(T, sp.Rational(1, 2))) != sp.zeros(2, 2),
-          "on |0><1| the coherent-prior channel differs from Ad R_x(pi/2); it equals the mixed-prior channel by S3a")
+    mixed01 = sp.Matrix([[0, 1 - flip], [flip, 0]])
+    check("S3d", sp.simplify(c01 - mixed01) == sp.zeros(2, 2)
+          and sp.simplify((c01 - R * E01 * R.H).subs(T, sp.Rational(1, 2))) != sp.zeros(2, 2),
+          "on |0><1| the coherent-prior channel is (1-p)|0><1| + p|1><0| (the mixture of I and X) and differs from Ad R_x(pi/2)")
+
+    ig_bad = sp.simplify(psi_of(hp, al1) * sp.conjugate(psi_of(hp + sp.Rational(1, 4), al1)))
+    check("S3e", ig_bad.has(sp.exp) or ig_bad.has(sp.I),
+          "countercontrol: a product pairing two distinct source points keeps the hidden phase (the S3a test can fail)")
 
     # ---------------- S4 ----------------
     a0, a1 = sp.symbols('a0 a1')
@@ -158,7 +197,7 @@ def main():
         and sp.simplify(sp.Abs(U[0, 0])**2 + sp.Abs(U[1, 0])**2 - 1) == 0
     nm = Ry(sp.pi / 3)
     check("S5", okY and okH and okU and all(nm[i, j] != 0 for i in range(2) for j in range(2)),
-          "R_x(pi/2) R_z(theta) R_x(-pi/2) = R_y(-theta); H prop. to R_z R_x R_z (pi/2); ZYZ is SU(2); R_y(pi/3) non-monomial")
+          "R_x(pi/2) R_z(theta) R_x(-pi/2) = R_y(-theta); H prop. to R_z R_x R_z (pi/2); ZYZ products lie in SU(2); R_y(pi/3) non-monomial")
 
     # ---------------- S6, S7, S8 ----------------
     shift = sp.simplify(psi_a.subs(x, x - t) - sp.exp(-2 * sp.pi * sp.I * k * t) * psi_a)
