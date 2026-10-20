@@ -1,0 +1,292 @@
+{
+ "added": [
+  {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "line": 578,
+   "module": "OIBridge/CompletedOI.lean",
+   "name": "OIBridge.OIHierarchy.single_diag_hermitian'",
+   "served_line": 27
+  },
+  {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "line": 581,
+   "module": "OIBridge/CompletedOI.lean",
+   "name": "OIBridge.OIHierarchy.edyad_eq_conj_single'",
+   "served_line": 30
+  },
+  {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "line": 1102,
+   "module": "OIBridge/ImplementationLocality.lean",
+   "name": "OIBridge.InterventionLocality.sum_comp'",
+   "served_line": 116
+  },
+  {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "line": 1103,
+   "module": "OIBridge/ImplementationLocality.lean",
+   "name": "OIBridge.InterventionLocality.comp_sum'",
+   "served_line": 117
+  },
+  {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "line": 1120,
+   "module": "OIBridge/ImplementationLocality.lean",
+   "name": "OIBridge.InterventionLocality.reindex_isometry'",
+   "served_line": 134
+  },
+  {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "line": 1125,
+   "module": "OIBridge/ImplementationLocality.lean",
+   "name": "OIBridge.InterventionLocality.tensorOf_mul'",
+   "served_line": 139
+  },
+  {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "line": 1126,
+   "module": "OIBridge/ImplementationLocality.lean",
+   "name": "OIBridge.InterventionLocality.tensorOf_one_isometry'",
+   "served_line": 140
+  },
+  {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "line": 1129,
+   "module": "OIBridge/ImplementationLocality.lean",
+   "name": "OIBridge.InterventionLocality.amplRef_apply'",
+   "served_line": 143
+  },
+  {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "line": 378,
+   "module": "OIBridge/MicroscopicReversibility.lean",
+   "name": "OIBridge.MicroReversibility.conjChannel_zero'",
+   "served_line": 211
+  },
+  {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "line": 573,
+   "module": "OIBridge/LieRankSource.lean",
+   "name": "OIBridge.LieRankSource.single_apply'",
+   "served_line": 453
+  },
+  {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "line": 574,
+   "module": "OIBridge/LieRankSource.lean",
+   "name": "OIBridge.LieRankSource.single_conjTranspose'",
+   "served_line": 454
+  },
+  {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "line": 579,
+   "module": "OIBridge/LieRankSource.lean",
+   "name": "OIBridge.LieRankSource.permMatrix_one'",
+   "served_line": 459
+  },
+  {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "line": 580,
+   "module": "OIBridge/LieRankSource.lean",
+   "name": "OIBridge.LieRankSource.permMatrix_mul'",
+   "served_line": 460
+  },
+  {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "line": 921,
+   "module": "OIBridge/LiftAudit.lean",
+   "name": "OIBridge.LiftAudit.regionSwap_involutive'",
+   "served_line": 1989
+  },
+  {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "line": 1209,
+   "module": "OIBridge/HexLatticeGas.lean",
+   "name": "OIBridge.HexLatticeGas.hexRot_apply'",
+   "served_line": 2241
+  },
+  {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "line": 1223,
+   "module": "OIBridge/InstrumentRealization.lean",
+   "name": "OIBridge.InstrumentRealization.mulVec_sum'",
+   "served_line": 2496
+  },
+  {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "line": 310,
+   "module": "OIBridge/DerivedQ3.lean",
+   "name": "OIBridge.DerivedQ3.derivedOI_qm_iff_layerFlowExecutable'",
+   "served_line": 2616
+  },
+  {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "line": 313,
+   "module": "OIBridge/DerivedQ3.lean",
+   "name": "OIBridge.DerivedQ3.derivedOI_qm_iff_layerFlowExecutable_swap'",
+   "served_line": 2621
+  },
+  {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "line": 1159,
+   "module": "OIBridge/SemigroupTransfer.lean",
+   "name": "OIBridge.SemigroupTransfer.pairC'_hct",
+   "served_line": 2697
+  },
+  {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "line": 758,
+   "module": "OIBridge/PolarizationClosure.lean",
+   "name": "OIBridge.PolarizationClosure.killBattery'_not_qm",
+   "served_line": 2863
+  },
+  {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "line": 1996,
+   "module": "OIBridge/DiscreteCompletion.lean",
+   "name": "OIBridge.DiscreteCompletion.exists_unit_scalar_su'",
+   "served_line": 3028
+  },
+  {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "line": 185,
+   "module": "OIBridge/QuantumRepresentationT2.lean",
+   "name": "OIBridge.QuantumRepresentation.hadData_bornPow_succ'",
+   "served_line": 3418
+  },
+  {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "line": 186,
+   "module": "OIBridge/QuantumRepresentationT2.lean",
+   "name": "OIBridge.QuantumRepresentation.hadData_bornPow_zero'",
+   "served_line": 3419
+  },
+  {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "line": 956,
+   "module": "OIBridge/OperationalSourcing.lean",
+   "name": "OIBridge.OperationalSourcing.permClass_permMatrix'",
+   "served_line": 3487
+  }
+ ],
+ "added_count": 24,
+ "field": "observed.reports_in_served_text",
+ "original": 2769,
+ "per_module": {
+  "OIBridge/CompletedOI.lean": 2,
+  "OIBridge/DerivedQ3.lean": 2,
+  "OIBridge/DiscreteCompletion.lean": 1,
+  "OIBridge/HexLatticeGas.lean": 1,
+  "OIBridge/ImplementationLocality.lean": 6,
+  "OIBridge/InstrumentRealization.lean": 1,
+  "OIBridge/LieRankSource.lean": 4,
+  "OIBridge/LiftAudit.lean": 1,
+  "OIBridge/MicroscopicReversibility.lean": 1,
+  "OIBridge/OperationalSourcing.lean": 1,
+  "OIBridge/PolarizationClosure.lean": 1,
+  "OIBridge/QuantumRepresentationT2.lean": 2,
+  "OIBridge/SemigroupTransfer.lean": 1
+ },
+ "re_extracted": 2793,
+ "rule": "original + added_count = re_extracted, and added_count is the number of entries in added",
+ "run_id": "36228429141",
+ "schema": "oi-evidence-reextraction-accounting",
+ "version": 1,
+ "why": "each added report names a declaration containing a prime, which the original extractor's report pattern does not match; none is of a module the result governs, so its expected section is unchanged"
+}

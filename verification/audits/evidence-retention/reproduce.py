@@ -8,18 +8,23 @@
 A flag that takes a value takes it as the next argument or after '=' (--expect-failure=TEXT): the two forms are
 parsed identically and give the same verdict.
 
+    python3 -I verification/audits/evidence-retention/reproduce.py --self-test     # needs history
+
 Run from the repository root of a clone with full history and a Lean toolchain manager (elan) on PATH. The
-verifier is this checkout: the manifest and results.json read here, and extract_result.py and compare_result.py
-beside this file. The historical commit supplies only its sources, its toolchain pin and its own
-tools/release_gate.py. The steps:
+verifier is this checkout: the manifest and results.json read here, and compare_result.py beside this file. The
+extractor is the version the expected result names (its manifest file's extractor_blob, or the manifest's
+extractor_blobs map), read from the repository's objects (its history, or retained objects materialized into it), never the checkout's
+extract_result.py, which a later change or pin may have moved. The historical commit supplies only its sources,
+its toolchain pin and its own tools/release_gate.py. The steps:
   1. validate the arguments: each a known flag or a flag's value, no value missing, empty or whitespace-only, no
      flag but --expect-failure given twice, RUN_ID decimal, SHA a full 40-hex commit id;
-  2. find the entry ci-RUN_ID and its results.json; record the verifier commit;
+  2. find the entry ci-RUN_ID and its results.json; load the extractor blob the result names, which must be an
+     object of the repository and define extract(); record it and the verifier commit;
   3. check that the commit to build is in the repository (a shallow clone fails here);
   4. check it out as a detached worktree under DIR;
   5. in its verification/lean-mathlib: `lean --version`, `lake exe cache get`, `lake --rehash build`; then, at its
      root, `python3 tools/release_gate.py`; everything captured to DIR/build-and-gate.log;
-  6. extract the structured result from the captured output (DIR/reproduced.json);
+  6. extract the structured result from the captured output with that extractor (DIR/reproduced.json);
   7. compare it with the expected result (compare_result.py), reading each governed module's #print axioms
      lines from its source at the built commit; write DIR/verdict.json and DIR/verdict.txt.
 Reproduction holds, and the exit code is 0, only if every command succeeded and the comparison found nothing.
@@ -40,6 +45,7 @@ or whitespace-only --expect-failure, in either form, or one given without a valu
 is contained in every failure, so it would expect nothing. So is an unknown argument, such as --expect-failures,
 which would otherwise drop the expectation it was meant to state.
 """
+import hashlib
 import json
 import os
 import re
@@ -50,14 +56,47 @@ import time
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..'))
 sys.path.insert(0, HERE)
-from extract_result import extract  # noqa: E402
 from compare_result import compare  # noqa: E402
 
 RUN_ID = re.compile(r'^[0-9]{1,20}$')
 SHA = re.compile(r'^[0-9a-f]{40}$')
 VALUED = ('--run', '--work', '--override-sha', '--expect-failure')
 SWITCHES = ('--expect-scientific-mismatch',)
+EXTRACTOR = 'verification/audits/evidence-retention/extract_result.py'
+HEX40 = re.compile(r'^[0-9a-f]{40}$')
 EMPTY_TEXT = '--expect-failure needs a non-empty text: the empty text is contained in every failure, so it expects nothing'
+
+
+def named_blob(man, file_entry):
+    """The extractor blob an expected result names: its manifest file's extractor_blob, else the manifest's
+    extractor_blobs map's (as check_retention.py R15 reads it). Returns (blob, problem)."""
+    own, mapped = file_entry.get('extractor_blob'), (man.get('extractor_blobs') or {}).get(file_entry.get('path'))
+    if own is not None and mapped is not None and own != mapped:
+        return None, 'the expected result names two extractor blobs, %s and %s' % (str(own)[:12], str(mapped)[:12])
+    b = own if own is not None else mapped
+    if not (isinstance(b, str) and HEX40.match(b)):
+        return None, 'the expected result names no extractor blob'
+    return b, None
+
+
+def named_extractor(man, file_entry, root=ROOT):
+    """The extract() of the extractor an expected result names, read from the repository's objects and never from
+    the checkout. Returns (extract, blob, problem); problem is None on success."""
+    b, why = named_blob(man, file_entry)
+    if why:
+        return None, b, why
+    p = subprocess.run(['git', 'cat-file', 'blob', b], cwd=root, capture_output=True)
+    if p.returncode != 0:
+        return None, b, 'extractor blob %s is not in this repository (its history or retained objects)' % b[:12]
+    data = p.stdout  # git cat-file returns exactly the object named b
+    ns = {'__name__': 'extract_result_%s' % b[:12]}
+    try:
+        exec(compile(data, '%s@%s' % (EXTRACTOR, b[:12]), 'exec'), ns)
+    except Exception as exc:  # a blob that is not Python, or fails on load
+        return None, b, 'extractor blob %s does not load: %s: %s' % (b[:12], type(exc).__name__, exc)
+    if not callable(ns.get('extract')):
+        return None, b, 'extractor blob %s defines no extract()' % b[:12]
+    return ns['extract'], b, None
 
 
 def sh(args, cwd, log):
@@ -201,10 +240,16 @@ def reproduce(problems, run_id, work, override, negative, expect, record, out, f
     if ent is None:
         out('FAIL  no entry ci-%s in the manifest' % run_id)
         return finish(False, 'no entry')
-    rp = next((f['path'] for f in ent['files'] if f['path'].endswith('/results.json')), None)
-    if rp is None:
+    fe = next((f for f in ent['files'] if f['path'].endswith('/results.json')), None)
+    if fe is None:
         out('FAIL  entry ci-%s has no results.json' % run_id)
         return finish(False, 'no results.json')
+    rp = fe['path']
+    extract, xblob, xproblem = named_extractor(man, fe)
+    record['extractor_blob'] = xblob
+    if xproblem:
+        out('FAIL  %s' % xproblem)
+        return finish(False, 'extractor')
     expected = json.load(open(os.path.join(HERE, rp), encoding='utf-8'))
     if expected.get('kind') != 'bridge':
         out('FAIL  results of kind %r are not reproduced by this tool' % expected.get('kind'))
@@ -213,8 +258,8 @@ def reproduce(problems, run_id, work, override, negative, expect, record, out, f
     sha = override or attested
     verifier = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=ROOT, capture_output=True, text=True).stdout.strip()
     record.update(expected_head=attested, built=sha, verifier=verifier)
-    out('REPRODUCE  run %s: expected result at %s; verifier at %s%s' % (
-        run_id, attested[:12], verifier[:12], '; NEGATIVE CONTROL built at %s' % sha[:12] if negative else ''))
+    out('REPRODUCE  run %s: expected result at %s; verifier at %s; extractor blob %s%s' % (
+        run_id, attested[:12], verifier[:12], xblob[:12], '; NEGATIVE CONTROL built at %s' % sha[:12] if negative else ''))
     if subprocess.run(['git', 'cat-file', '-e', sha + '^{commit}'], cwd=ROOT).returncode != 0:
         out('FAIL  commit %s is not in this repository (shallow clone, or the commit is not retained)' % sha)
         return finish(False, 'commit not in repository')
@@ -282,5 +327,117 @@ def reproduce(problems, run_id, work, override, negative, expect, record, out, f
     return finish(ok)
 
 
+def self_test():
+    """The extractor a reproduction runs is the one each expected result names, not the checkout's."""
+    man = json.load(open(os.path.join(HERE, 'manifest.json'), encoding='utf-8'))
+    ok = True
+
+    def case(name, good, detail=''):
+        nonlocal ok
+        ok &= bool(good)
+        print('%s self: %s%s' % ('PASS' if good else 'FAIL', name, '' if good or not detail else '\n      %s' % detail))
+
+    def blob(data):
+        return hashlib.sha1(b'blob %d\0' % len(data) + data).hexdigest()
+    current = blob(open(os.path.join(HERE, 'extract_result.py'), 'rb').read())
+    ci = [(e, next(f for f in e['files'] if f['path'].endswith('/results.json'))) for e in man['entries']
+          if str(e.get('id', '')).startswith('ci-') and any(f['path'].endswith('/results.json') for f in e['files'])]
+    loaded, bad = {}, []
+    for e, fe in ci:
+        b = named_blob(man, fe)[0]
+        if b not in loaded:
+            loaded[b] = named_extractor(man, fe)
+        if loaded[b][2] or loaded[b][1] != b:
+            bad.append((e['id'], loaded[b][2]))
+    case('each of the %d CI expected results loads the extractor blob it names' % len(ci), ci and not bad, bad[:3])
+    # a primed report: the extractor before fdf3ec80 does not read it, the later one does, so the outcome shows
+    # which version ran
+    probe = "info: OIBridge/Probe.lean:1:0: 'OIBridge.Probe.p'' depends on axioms: [propext]"
+    sys.path.insert(0, HERE)
+    import extract_result as checkout
+    differ = [(e['id'], fe) for e, fe in ci if named_blob(man, fe)[0] != current]
+    if differ:
+        eid, fe = differ[0]
+        ex, b, _ = named_extractor(man, fe)
+        case('%s names %s, not the checkout\'s %s, and its reproduction runs the named one' % (eid, str(b)[:12], current[:12]),
+             ex is not None and ex(probe)['reports'] != checkout.extract(probe)['reports'], 'the probe reads alike')
+    else:
+        case('every CI expected result names the checkout\'s extractor %s' % current[:12], True)
+    tail = open(os.path.join(HERE, 'bg3', 'bridge-116826161407-tail.log'), encoding='utf-8').read()
+    e38 = next(((e, fe) for e, fe in ci if e['id'] == 'ci-38855576525'), None)
+    if e38 is None:
+        case('ci-38855576525 is in the manifest', False)
+    else:
+        res = json.load(open(os.path.join(HERE, e38[1]['path']), encoding='utf-8'))
+        ex, _, prob = named_extractor(man, e38[1])
+        x = ex(tail) if ex else {'reports': {}, 'markers': {}, 'gate': None}
+        mods = res['expected']['modules']
+        case('ci-38855576525\'s named extractor reads its retained log as the expected result records it',
+             not prob and {m: [{'line': r['line'], 'name': r['name'], 'axioms': r['axioms']} for r in x['reports'].get(m, [])] for m in mods}
+             == {m: em['reports'] for m, em in mods.items()} and x['markers'] == res['expected']['markers']
+             and sum(len(v) for v in x['reports'].values()) == res['observed']['reports_in_served_text']
+             and (x['gate'] or {}).get('verdict', {}).get('text') == res['expected']['gate']['verdict'], prob)
+    # reproduce() itself, its build stubbed: the captured output is BG-3 E's retained tail, so the extraction it
+    # writes shows which extractor it ran
+    if e38 is not None:
+        import contextlib, io, tempfile, types
+        g = globals()
+        real_sh, real_sub = g['sh'], g['subprocess']
+
+        def fake_sh(args, cwd, log):
+            if args[:3] == ['git', 'worktree', 'add']:
+                os.makedirs(args[-2], exist_ok=True)
+            elif args[0] == 'lean':
+                log.write(tail)
+            return 0
+
+        def fake_run(args, **kw):
+            if args == ['git', 'rev-parse', 'HEAD'] and str(kw.get('cwd', '')).endswith(os.sep + 'tree'):
+                return types.SimpleNamespace(returncode=0, stdout=res['run']['head_sha'] + '\n', stderr='')
+            if args[:3] == ['git', 'worktree', 'remove']:
+                return types.SimpleNamespace(returncode=0, stdout='', stderr='')
+            return real_sub.run(args, **kw)
+        argv = sys.argv
+        with tempfile.TemporaryDirectory() as tmp:
+            try:
+                g['sh'], g['subprocess'] = fake_sh, types.SimpleNamespace(run=fake_run)
+                sys.argv = ['reproduce.py', '--run', '38855576525', '--work', tmp]
+                with contextlib.redirect_stdout(io.StringIO()):
+                    rc = main()
+            finally:
+                g['sh'], g['subprocess'], sys.argv = real_sh, real_sub, argv
+            verdict = json.load(open(os.path.join(tmp, 'verdict.json'), encoding='utf-8'))
+            rep = json.load(open(os.path.join(tmp, 'reproduced.json'), encoding='utf-8'))
+            logtext = open(os.path.join(tmp, 'build-and-gate.log'), encoding='utf-8', errors='replace').read()
+        named = named_blob(man, e38[1])[0]
+        ex = named_extractor(man, e38[1])[0]
+        want = json.loads(json.dumps(ex(logtext))) if ex else None
+        case('reproduce() for ci-38855576525, its build stubbed with the retained tail, records and runs blob %s'
+             % str(named)[:12], verdict.get('extractor_blob') == named and rep == want
+             and (named == current or rep != json.loads(json.dumps(checkout.extract(logtext)))),
+             'verdict names %s; exit %s' % (verdict.get('extractor_blob'), rc))
+    fe0 = ci[0][1] if ci else {}
+    at_head = lambda f: subprocess.run(['git', 'rev-parse', 'HEAD:verification/audits/evidence-retention/' + f], cwd=ROOT,
+                                       capture_output=True, text=True).stdout.strip()
+    for name, b, msg in (('a result naming no extractor blob', None, 'names no extractor blob'),
+                         ('a result naming one blob in its file and another in extractor_blobs', 'b' * 40, 'two extractor blobs'),
+                         ('a result naming a malformed blob', 'x' * 40, 'names no extractor blob'),
+                         ('a named blob absent from the repository', '0' * 40, 'not in this repository'),
+                         ('a named blob that is not Python (the README)', at_head('README.md'), 'does not load'),
+                         ('a named blob that defines no extract() (the comparator)', at_head('compare_result.py'), 'defines no extract()')):
+        # a path the map does not name, except where the case is the disagreement with the map
+        fx = {k: v for k, v in fe0.items() if k != 'extractor_blob'}
+        if msg != 'two extractor blobs':
+            fx['path'] = 'ci/0/results.json'
+        if b is not None:
+            fx['extractor_blob'] = b
+        r = named_extractor(man, fx)
+        case('%s fails closed' % name, r[0] is None and r[2] and msg in r[2], r[2])
+    print('reproduce self-test: %s' % ('OK' if ok else 'FAILED'))
+    return 0 if ok else 1
+
+
 if __name__ == '__main__':
+    if sys.argv[1:] == ['--self-test']:
+        sys.exit(self_test())
     sys.exit(main())

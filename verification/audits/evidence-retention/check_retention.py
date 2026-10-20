@@ -109,6 +109,24 @@ Rules:
                   such an entry is never eligible).
       The rule's limitation (check_objects.py's docstring): a hex word of 64 digits or more is opaque, so another
       commit's id written as part of one is not read as a head.
+  R14 a re-extraction of a CI entry's expected result is a separate version beside it, never a rewrite: a file
+      ci/<run>/re-extraction-<blob>.json of that entry names the original results.json, and the original's bytes
+      must have exactly the sha256 and git blob id it names, so a rewritten original fails even when its recorded
+      size and digest follow it. The record names the original extractor's blob and its own, distinct; its source
+      digest is the original's and its manifest file's; its run is the original's; its result differs from the
+      original in exactly the fields its differences list, with those values; and its accounting, a file of the
+      same entry, accounts for every difference: original + added_count = re_extracted, added_count is the
+      number of added reports, per_module counts them, and no added report is of a governed module. Every
+      accounting file is named by a record. R14 checks the records against the archive; the served text they
+      were read from is not retained, so it does not re-derive them.
+  R15 every expected result read by extract_result.py, and every re-extraction, names the git blob of the extractor
+      that read it, so that a later change to extract_result.py, and to its pin in the tranche record, leaves each
+      result's extractor identity as it was. The name is its manifest file's extractor_blob or, for the results of
+      tranche 1 and the research builds, the manifest's extractor_blobs map, which stands after the entries so that
+      no line a record cites moves; a file named in both must name one blob, and the map names only such files. A
+      re-extraction's record names its own blob and the original's as the manifest does. With git
+      history (run by --gate) each named blob is re-derived, not read: it must be the blob of extract_result.py at
+      the commit that added the file, which makes it an object of the repository that reproduce.py can run.
 The self-test mutates a copy once per failure message of these checks and requires that message; its R10 and R11
 cases read the repository's history, and the self-test fails, with a FAIL line, when that history or a commit
 the cases read is absent.
@@ -174,7 +192,7 @@ def check(archive, root, scope=None):
     if man.get('schema') != 'oi-evidence-retention' or man.get('version') != 3:
         return ['R7 manifest schema or version'], []
     kinds, statuses = set(man.get('kinds', {})), set(man.get('claim_status', {}))
-    listed, ids, texts = set(), set(), {}
+    listed, ids, texts, xread = set(), set(), {}, set()
 
     def read_tree(path):
         p = os.path.join(root, path)
@@ -269,12 +287,18 @@ def check(archive, root, scope=None):
                     if rr.get('id') != pv.get('run_id') or rr.get('head_sha') != pv.get('head_sha') or rr.get('job_id') != pv.get('job_id') \
                             or rel != 'bg3/results-%s.json' % pv.get('job_id') or fr.get('source_sha256') != f0.get('sha256'):
                         F('R8 %s: %s names another run, job or head commit than the entry, or does not derive from its log' % (eid, rel))
+        check_extractor_identity(e, files, man, F, xread)
         if is_ci:
             check_entry_files(e, files, man, F)
+            check_reextractions(e, files, F)
+        elif any('/re-extraction-' in rel for rel in files):
+            F('R14 %s: a re-extraction outside a CI entry' % eid)
         if str(eid).startswith('run-') or e.get('tranche') == 3:
             check_run_entry(e, files, F)
         if str(eid).startswith('research-') and eid != 'research-runs-record' or 'awaiting_citation' in e:
             check_research_entry(e, files, man, archive, root, F)
+    for rel in sorted(set(man.get('extractor_blobs') or {}) - xread):
+        F('R15 extractor_blobs names %s, which is not a listed file read by the extractor' % rel)
     for g in man.get('missing', []):
         if g.get('id') not in ids or not g.get('what') or not g.get('why'):
             F('R7 gap %r names no entry, or has no what/why' % g)
@@ -401,7 +425,182 @@ def check_entry_files(e, files, man, F):
             F('R8 %s: %s is %s, and its gap record is %s' % (eid, mod, m.get('status'), 'present' if not want else 'absent'))
 
 
-HEX40 = re.compile(r'[0-9a-f]{40}')
+def json_leaves(o, p=''):
+    """Every leaf of a JSON value with its dotted path; a list of objects or lists is indexed."""
+    if isinstance(o, dict):
+        for k in o:
+            yield from json_leaves(o[k], p + '.' + k if p else k)
+    elif isinstance(o, list) and o and all(isinstance(x, (dict, list)) for x in o):
+        for i, x in enumerate(o):
+            yield from json_leaves(x, '%s[%d]' % (p, i))
+    else:
+        yield p, o
+
+
+def check_reextractions(e, files, F):
+    """R14: each re-extraction of a CI entry's expected result is a separate version, and accounts for its differences."""
+    eid, rid = e['id'], e.get('run_id')
+    hexid = re.compile(r'^[0-9a-f]{40}$')
+    meta = {f['path']: f for f in e.get('files', [])}
+    named = set()
+    for rel in sorted(files):
+        if not rel.startswith('ci/%s/re-extraction-' % rid) or rel.endswith('-accounting.json'):
+            continue
+        try:
+            rec = json.loads(files[rel])
+        except ValueError:
+            F('R14 %s: %s is not JSON' % (eid, rel))
+            continue
+        if rec.get('schema') != 'oi-evidence-reextraction' or rec.get('version') != 1:
+            F('R14 %s: %s is of another schema' % (eid, rel))
+            continue
+        o, x = rec.get('original') or {}, rec.get('extractor') or {}
+        opath = 'ci/%s/results.json' % rid
+        raw = files.get(opath)
+        if o.get('path') != opath or raw is None:
+            F('R14 %s: %s does not name this entry\'s results.json' % (eid, rel))
+            continue
+        data = raw.encode('utf-8')
+        if hashlib.sha256(data).hexdigest() != o.get('sha256') or blob_id(data) != o.get('blob'):
+            F('R14 %s: the original result differs from the one %s names (it was rewritten)' % (eid, rel))
+        ob, nb = (o.get('extractor') or {}).get('blob'), x.get('blob')
+        if not (isinstance(ob, str) and hexid.match(ob) and isinstance(nb, str) and hexid.match(nb)) or ob == nb or \
+                (o.get('extractor') or {}).get('path') != x.get('path') or not str(x.get('path', '')).endswith('extract_result.py'):
+            F('R14 %s: %s does not name two distinct extractor blobs of extract_result.py' % (eid, rel))
+        if not rel.endswith('-%s.json' % str(nb)[:12]):
+            F('R14 %s: %s is not named by its extractor blob' % (eid, rel))
+        orig = json.loads(raw)
+        src = (rec.get('source') or {}).get('served_sha256')
+        if src != (orig.get('source') or {}).get('served_sha256') or src != meta.get(rel, {}).get('source_sha256'):
+            F('R14 %s: %s names another source than the original and its manifest file' % (eid, rel))
+        if rec.get('run') != orig.get('run'):
+            F('R14 %s: %s names another run than the original' % (eid, rel))
+        if not rec.get('recipe'):
+            F('R14 %s: %s has no recipe' % (eid, rel))
+        lo, ln = dict(json_leaves(orig)), dict(json_leaves(rec.get('result')))
+        got = {k: (lo.get(k), ln.get(k)) for k in set(lo) | set(ln) if lo.get(k) != ln.get(k) or (k in lo) != (k in ln)}
+        listed = {d.get('field'): (d.get('original'), d.get('re_extracted')) for d in rec.get('differences') or []}
+        if not listed or got != listed:
+            F('R14 %s: %s\'s result differs from the original in %s, and it lists %s' % (eid, rel, sorted(got)[:3], sorted(listed)[:3]))
+        arel = rec.get('accounting')
+        named.add(arel)
+        if arel not in files or not str(arel).startswith('ci/%s/re-extraction-' % rid):
+            F('R14 %s: %s names no accounting file of the entry' % (eid, rel))
+            continue
+        try:
+            acc = json.loads(files[arel])
+        except ValueError:
+            F('R14 %s: %s is not JSON' % (eid, arel))
+            continue
+        added = acc.get('added') if isinstance(acc.get('added'), list) else []
+        gov = {(m, r.get('line')) for m, em in ((orig.get('expected') or {}).get('modules') or {}).items() for r in em.get('reports', [])}
+        per = {}
+        for a in added:
+            per[a.get('module')] = per.get(a.get('module'), 0) + 1
+        diff = listed.get(acc.get('field'))
+        if acc.get('schema') != 'oi-evidence-reextraction-accounting' or str(acc.get('run_id')) != rid or len(listed) != 1 or diff is None \
+                or (acc.get('original'), acc.get('re_extracted')) != diff or not all(isinstance(v, int) for v in diff) \
+                or acc['original'] + acc.get('added_count', -1) != acc['re_extracted'] or acc.get('added_count') != len(added) \
+                or acc.get('per_module') != per:
+            F('R14 %s: %s does not account for the difference: original + added_count = re_extracted, with every added '
+              'report listed and counted by module' % (eid, arel))
+        for a in added:
+            if not (isinstance(a.get('name'), str) and isinstance(a.get('line'), int) and isinstance(a.get('served_line'), int)
+                    and isinstance(a.get('axioms'), (list, type(None)))) or a.get('module') in ((orig.get('expected') or {}).get('modules') or {}) \
+                    or (a.get('module'), a.get('line')) in gov:
+                F('R14 %s: %s lists a malformed report, or one of a governed module: %r' % (eid, arel, a.get('name')))
+                break
+        if len({a.get('served_line') for a in added}) != len(added):
+            F('R14 %s: %s lists a served line twice' % (eid, arel))
+    for rel in files:
+        if rel.startswith('ci/%s/re-extraction-' % rid) and rel.endswith('-accounting.json') and rel not in named:
+            F('R14 %s: %s is named by no re-extraction' % (eid, rel))
+
+
+EXTRACTOR = 'verification/audits/evidence-retention/extract_result.py'
+HEX40 = re.compile(r'^[0-9a-f]{40}$')
+
+
+def extractor_read(rel, text):
+    """Whether a listed file is an expected result read by extract_result.py, or a re-extraction."""
+    if '/re-extraction-' in rel and not rel.endswith('-accounting.json'):
+        return True
+    if rel.endswith('/results.json') or (rel.startswith('bg3/results-') and rel.endswith('.json')):
+        try:
+            return (json.loads(text).get('source') or {}).get('extractor') == EXTRACTOR
+        except ValueError:
+            return False
+    return False
+
+
+def extractor_blob_of(man, f):
+    """The extractor blob a listed file names: its manifest file's extractor_blob, else the extractor_blobs map's.
+    Returns (blob, problem)."""
+    own, mapped = f.get('extractor_blob'), (man.get('extractor_blobs') or {}).get(f.get('path'))
+    if own is not None and mapped is not None and own != mapped:
+        return None, 'names %s in its file and %s in extractor_blobs' % (str(own)[:12], str(mapped)[:12])
+    b = own if own is not None else mapped
+    return (b, None) if isinstance(b, str) and HEX40.match(b) else (None, 'names no extractor blob')
+
+
+def check_extractor_identity(e, files, man, F, xread):
+    """R15 in the tree: each file read by the extractor names its extractor's blob, and a re-extraction agrees."""
+    meta = {f['path']: f for f in e.get('files', [])}
+    for rel in sorted(files):
+        if not extractor_read(rel, files[rel]):
+            continue
+        xread.add(rel)
+        b, why = extractor_blob_of(man, meta.get(rel, {'path': rel}))
+        if why:
+            F('R15 %s: %s %s' % (e.get('id'), rel, why))
+            continue
+        if '/re-extraction-' in rel:
+            try:
+                rec = json.loads(files[rel])
+            except ValueError:
+                continue
+            op = (rec.get('original') or {}).get('path')
+            ob = extractor_blob_of(man, meta.get(op, {'path': op}))[0]
+            if (rec.get('extractor') or {}).get('blob') != b or ((rec.get('original') or {}).get('extractor') or {}).get('blob') != ob:
+                F('R15 %s: %s names other extractor blobs than its manifest file and the original\'s' % (e.get('id'), rel))
+
+
+_ADDED = {}
+
+
+def extractor_history(man, root, arel='verification/audits/evidence-retention'):
+    """R15 with git history: each named extractor blob is the blob of extract_result.py at the commit that added
+    the file (its latest addition reachable from HEAD), which makes it an object of the repository."""
+    fails = []
+    if root not in _ADDED:
+        out = subprocess.run(['git', '-C', root, 'log', '--diff-filter=A', '--format=%x00%H', '--name-only', 'HEAD', '--', arel],
+                             capture_output=True, text=True)
+        add = {}
+        for blk in out.stdout.split('\x00')[1:] if out.returncode == 0 else []:
+            ls = [x for x in blk.split('\n') if x]
+            for p in ls[1:]:
+                add.setdefault(p, ls[0])
+        _ADDED[root] = add, {}
+    add, at = _ADDED[root]
+    for e in man.get('entries', []):
+        for f in e.get('files', []):
+            b = extractor_blob_of(man, f)[0]
+            if b is None:
+                continue
+            path = '%s/%s' % (arel, f['path'])
+            c = add.get(path)
+            if c is None:
+                fails.append('R15 %s: %s names extractor blob %s, and no commit reachable from HEAD adds it' % (e.get('id'), f['path'], str(b)[:12]))
+                continue
+            if c not in at:
+                r = subprocess.run(['git', '-C', root, 'rev-parse', '%s:%s' % (c, EXTRACTOR)], capture_output=True, text=True)
+                at[c] = r.stdout.strip() if r.returncode == 0 else None
+            if at[c] != b:
+                fails.append('R15 %s: %s was added at %s, where extract_result.py is blob %s, and it names %s' % (
+                    e.get('id'), f['path'], c[:12], str(at[c])[:12], str(b)[:12]))
+    return fails
+
+
 HEX64 = re.compile(r'[0-9a-f]{64}')
 JOB_KINDS = ('base-check', 'guard')
 EXTRACTOR3 = 'verification/audits/evidence-retention/job_outputs.py'
@@ -1126,7 +1325,7 @@ def history_mode(archive, root, man, tree=None):
     if scope is None:
         return fails, None
     f11, st = module_sets(archive, root, man, scope=scope)
-    return fails + check(archive, tree or root, scope)[0] + later_provenance(man, root) + f11, st
+    return fails + check(archive, tree or root, scope)[0] + later_provenance(man, root) + f11 + extractor_history(man, root), st
 
 
 def objects_gate(archive, root):
@@ -1145,6 +1344,23 @@ def objects_gate(archive, root):
     return True, ok
 
 
+def extractor_gate(archive, root):
+    """extract_result.py's self-test, which reads BG-3's sources at E from git. Returns ok."""
+    p = subprocess.run([sys.executable, '-I', os.path.join(archive, 'extract_result.py'), '--self-test'], cwd=root,
+                       capture_output=True, text=True)
+    lines = p.stdout.rstrip().split('\n')
+    for ln in lines:
+        if not ln.startswith('PASS'):
+            print(ln)
+    if p.returncode:
+        print(p.stderr.rstrip()[-2000:])
+    return p.returncode == 0 and lines[-1:] == ['extractor self-test: OK']
+
+
+# the self-tests of the archive's other tools that the gate runs, after the retained objects' check
+GATE_SELF_TESTS = (('extractor self-test', extractor_gate),)
+
+
 def job_outputs_gate(archive, root):
     """Tranche 3's comparator, when the archive holds it: job_outputs.py --self-test. Returns (ran, ok)."""
     tool = os.path.join(archive, 'job_outputs.py')
@@ -1158,8 +1374,8 @@ def job_outputs_gate(archive, root):
 
 
 def gate(archive, root):
-    """The release-gate step: the check in history mode (R1-R13), then the self-test, then the retained objects'
-    check and self-test, then tranche 3's comparator self-test."""
+    """The release-gate step: the check in history mode (R1-R15), then the self-test, then the retained objects'
+    check and self-test, then tranche 3's comparator self-test, then each of GATE_SELF_TESTS."""
     man = json.load(open(os.path.join(archive, 'manifest.json'), encoding='utf-8'))
     fails, st11 = history_mode(archive, root, man)
     print_unscoped(st11)
@@ -1169,12 +1385,14 @@ def gate(archive, root):
     st = self_test(archive, root)
     ran, obj_ok = objects_gate(archive, root)
     jran, job_ok = job_outputs_gate(archive, root)
-    good = not fails and st == 0 and obj_ok and job_ok
-    print('EVIDENCE-RETENTION  %s (history mode: %d failure(s); self-test %s%s%s)' % (
-        'HOLDS' if good else 'FAILS', len(fails), 'OK' if st == 0 else 'FAILED',
+    tools = [(name, fn(archive, root)) for name, fn in GATE_SELF_TESTS]
+    holds = not fails and st == 0 and obj_ok and job_ok and all(t_ok for _, t_ok in tools)
+    print('EVIDENCE-RETENTION  %s (history mode: %d failure(s); self-test %s%s%s%s)' % (
+        'HOLDS' if holds else 'FAILS', len(fails), 'OK' if st == 0 else 'FAILED',
         ('; retained objects %s' % ('OK' if obj_ok else 'FAILED')) if ran else '',
-        ('; job-output comparator %s' % ('OK' if job_ok else 'FAILED')) if jran else ''))
-    return 0 if good else 1
+        ('; job-output comparator %s' % ('OK' if job_ok else 'FAILED')) if jran else '',
+        ''.join('; %s %s' % (name, 'OK' if t_ok else 'FAILED') for name, t_ok in tools)))
+    return 0 if holds else 1
 
 
 def report(archive, root):
@@ -1600,6 +1818,20 @@ def r13_fixture(m, tarch, troot, need):
                 (m['entries'][i]['run_id'],) + cl[0])
     return (m, idx), None
 
+
+def lone_extractor_case(lone, root):
+    """The self-test's negative case for the gate's extractor step: extractor_gate on a lone copy of extract_result.py
+    with no bg3/ beside it. Returns (good, diagnostic). The run's output, which ends in the copy's expected traceback,
+    is captured; the case holds only when the gate's run fails and the diagnostic names the missing bg3/ beside the
+    copy. Any other failure is not good, and the caller prints the diagnostic, so an unexpected crash stays visible."""
+    import contextlib
+    import io
+    cap = io.StringIO()
+    with contextlib.redirect_stdout(cap):
+        failed = not extractor_gate(lone, root)
+    diag = cap.getvalue()
+    expected = 'FileNotFoundError' in diag and os.path.join(lone, 'bg3') + os.sep in diag
+    return failed and expected, diag
 
 def self_test(archive, root):
     """Each mutation must be reported by the check it targets, identified by that check's own message; the
@@ -2141,6 +2373,173 @@ def self_test(archive, root):
             'roles', [r for r in m['entries'][rec]['roles'] if r.get('kind') != 'receipt check-run'])), back, 'R9',
                'does not record this role')
         expect('a certificate run with no entry', edit(drop(cert)), back, 'R9', 'no matching entry')
+        # R14: a re-extraction is a separate version; the original must stay byte for byte as the record names it
+        rx = next(((i, f['path']) for i, e in enumerate(ents) for f in e['files']
+                   if '/re-extraction-' in f['path'] and not f['path'].endswith('-accounting.json')), None)
+        if rx is None:
+            ok = False
+            print('FAIL self: no re-extraction in the archive, so R14 is not exercised')
+        else:
+            ri, rrel = rx
+            rpath = os.path.join(tarch, rrel)
+            rec0 = json.load(open(rpath, encoding='utf-8'))
+            opath = os.path.join(tarch, rec0['original']['path'])
+            apath = os.path.join(tarch, rec0['accounting'])
+            field = rec0['differences'][0]['field'].split('.')
+            corrected = rec0['differences'][0]['re_extracted']
+
+            def rewrite(d):
+                d[field[0]][field[1]] = corrected
+            go, undo = json_edit(opath, rewrite)
+            go()
+            hf, _ = check(tarch, troot)
+            undo()
+            good = any(f.startswith('R14 ') and 'was rewritten' in f for f in hf) and not any(f.startswith('R1 ') for f in hf)
+            ok &= good
+            print('%s self: the original result rewritten to the corrected count, its recorded size and digest following '
+                  'it, fails R14 and not R1 (R14)' % ('PASS' if good else 'FAIL'))
+            if not good:
+                print('      got: %s' % (hf[:3],))
+            expect('the original result rewritten in place', *file_edit(opath, lambda b: b.replace(b'"reports_in_served_text": ',
+                                                                                                  b'"reports_in_served_text":  ')),
+                   rule='R14', msg='was rewritten')
+            expect('a re-extraction that is not JSON', *file_edit(rpath, lambda b: b[:-3]), rule='R14', msg='is not JSON')
+            expect('a re-extraction of another schema', *json_edit(rpath, lambda d: d.__setitem__('schema', 'x')), rule='R14',
+                   msg='another schema')
+            expect('a re-extraction naming another original', *json_edit(rpath, lambda d: d['original'].__setitem__(
+                'path', 'ci/0/results.json')), rule='R14', msg='does not name this entry')
+            expect('a re-extraction whose file name is not its extractor blob', *json_edit(rpath, lambda d: d['extractor'].__setitem__(
+                'blob', 'a' * 40)), rule='R14', msg='not named by its extractor blob')
+            expect('an accounting that is not JSON', *file_edit(apath, lambda b: b[:-3]), rule='R14', msg='is not JSON')
+            tri = idx(lambda e: e.get('id') == 'tranche-record')
+            expect('a re-extraction listed outside a CI entry', edit(lambda m: m['entries'][tri]['files'].append(dict(
+                next(f for f in m['entries'][ri]['files'] if f['path'] == rrel), kind='complete'))), back, 'R14',
+                   'outside a CI entry')
+            expect('a re-extraction naming the same extractor blob twice', *json_edit(rpath, lambda d: d['extractor'].__setitem__(
+                'blob', d['original']['extractor']['blob'])), rule='R14', msg='two distinct extractor blobs')
+            expect('a re-extraction naming another source', *json_edit(rpath, lambda d: d['source'].__setitem__('served_sha256', '0' * 64)),
+                   rule='R14', msg='another source')
+            expect('a re-extraction naming another run', *json_edit(rpath, lambda d: d['run'].__setitem__('job_id', '1')), rule='R14',
+                   msg='another run')
+            expect('a re-extraction without a recipe', *json_edit(rpath, lambda d: d.__setitem__('recipe', [])), rule='R14', msg='no recipe')
+            expect('a re-extracted result differing in an unlisted field', *json_edit(rpath, lambda d: d['result']['expected'].__setitem__(
+                'build_success', False)), rule='R14', msg='differs from the original in')
+            expect('a listed difference with another value', *json_edit(rpath, lambda d: d['differences'][0].__setitem__(
+                're_extracted', corrected + 1)), rule='R14', msg='differs from the original in')
+            expect('an accounting with one added report dropped', *json_edit(apath, lambda d: d['added'].pop()), rule='R14',
+                   msg='does not account')
+            expect('an accounting whose sum does not hold', *json_edit(apath, lambda d: d.__setitem__('added_count', d['added_count'] - 1)),
+                   rule='R14', msg='does not account')
+            expect('an accounting whose module counts differ', *json_edit(apath, lambda d: d['per_module'].__setitem__('X.lean', 1)),
+                   rule='R14', msg='does not account')
+            expect('an accounting listing a report of a governed module', *json_edit(apath, lambda d: d['added'][0].__setitem__(
+                'module', next(iter(json.load(open(opath))['expected']['modules'])))), rule='R14', msg='governed module')
+            expect('an accounting listing a served line twice', *json_edit(apath, lambda d: d['added'][1].__setitem__(
+                'served_line', d['added'][0]['served_line'])), rule='R14', msg='served line twice')
+            expect('a re-extraction naming no accounting', *json_edit(rpath, lambda d: d.__setitem__('accounting', 'ci/x.json')),
+                   rule='R14', msg='names no accounting')
+            stray = rec0['accounting'].replace('-accounting.json', '-x-accounting.json')
+
+            def add_stray():
+                shutil.copyfile(apath, os.path.join(tarch, stray))
+                edit(lambda m: m['entries'][ri]['files'].append(dict(
+                    next(f for f in m['entries'][ri]['files'] if f['path'] == rec0['accounting']), path=stray)))()
+
+            def drop_stray():
+                os.remove(os.path.join(tarch, stray))
+                back()
+            expect('an accounting no re-extraction names', add_stray, drop_stray, 'R14', 'named by no re-extraction')
+        # R15: each result read by the extractor names that extractor's blob, re-derived from history
+        rj = next(j for j, f in enumerate(ents[ci]['files']) if f['path'].endswith('/results.json'))
+        rjp = ents[ci]['files'][rj]['path']
+        expect('a result whose extractor blob is dropped from extractor_blobs', edit(lambda m: m['extractor_blobs'].pop(rjp)),
+               back, 'R15', 'names no extractor blob')
+        expect('a result naming a malformed extractor blob', edit(lambda m: m['extractor_blobs'].__setitem__(rjp, 'x')),
+               back, 'R15', 'names no extractor blob')
+        expect('a result naming its extractor blob with a hex digit appended (only a full 40-digit id names a blob)',
+               edit(lambda m: m['extractor_blobs'].__setitem__(rjp, m['extractor_blobs'][rjp] + '0')), back, 'R15',
+               'names no extractor blob')
+        expect('a result naming one blob in its file and another in extractor_blobs', edit(
+            lambda m: m['entries'][ci]['files'][rj].__setitem__('extractor_blob', 'b' * 40)), back, 'R15', 'in extractor_blobs')
+        expect('extractor_blobs naming a file the extractor did not read', edit(
+            lambda m: m['extractor_blobs'].__setitem__(next(f['path'] for f in m['entries'][ci]['files'] if f['path'].endswith('/run.json')),
+                                                       'b' * 40)), back, 'R15', 'not a listed file read by the extractor')
+        if rx is not None:
+            rk = next(j for j, f in enumerate(ents[ri]['files']) if f['path'] == rrel)
+            expect('a re-extraction whose manifest file names another blob than its record', edit(
+                lambda m: m['entries'][ri]['files'][rk].__setitem__('extractor_blob', 'b' * 40)), back, 'R15', 'other extractor blobs')
+            expect('a re-extraction whose original names another blob than its record', edit(
+                lambda m: m['extractor_blobs'].__setitem__(rec0['original']['path'], 'b' * 40)), back, 'R15', 'other extractor blobs')
+
+        def r15(name, mutate, msg=None):
+            nonlocal ok
+            m = json.loads(morig)
+            mutate(m)
+            fails = extractor_history(m, root)
+            good = (not fails) if msg is None else any(f.startswith('R15 ') and msg in f for f in fails)
+            ok &= good
+            print('%s self: %s%s' % ('PASS' if good else 'FAIL', name, '' if msg is None else ' (R15)'))
+            if not good:
+                print('      got: %s' % (fails[:3],))
+        later = next((f['extractor_blob'] for e in ents for f in e['files'] if '/re-extraction-' in f['path'] and 'extractor_blob' in f), None)
+        r15('every named extractor blob is the one at the commit that added its file', lambda m: None)
+        # the gate runs the extractor's self-test, and a failing one fails the gate
+        named = dict(GATE_SELF_TESTS)
+        good = named.get('extractor self-test') is extractor_gate
+        ok &= good
+        print('%s self: the gate runs the extractor\'s self-test' % ('PASS' if good else 'FAIL'))
+        good = extractor_gate(archive, root)
+        ok &= good
+        print('%s self: the extractor\'s self-test passes as the gate runs it' % ('PASS' if good else 'FAIL'))
+        lone = os.path.join(tmp, 'lone')
+        os.makedirs(lone)
+        shutil.copyfile(os.path.join(archive, 'extract_result.py'), os.path.join(lone, 'extract_result.py'))
+        good, diag = lone_extractor_case(lone, root)
+        ok &= good
+        print('%s self: an extractor whose self-test fails (no bg3/ beside it) fails the gate\'s run of it' % ('PASS' if good else 'FAIL'))
+        if not good:
+            print(diag.rstrip())
+        # gate() itself, its other steps stubbed: it runs each of GATE_SELF_TESTS, and a failing one fails it
+        import contextlib
+        import io
+        g = globals()
+        saved = {k: g[k] for k in ('history_mode', 'print_unscoped', 'self_test', 'objects_gate', 'job_outputs_gate',
+                                   'GATE_SELF_TESTS')}
+        calls, codes = [], []
+        try:
+            g.update(history_mode=lambda a, r, m: ([], None), print_unscoped=lambda st: None, self_test=lambda a, r: 0,
+                     objects_gate=lambda a, r: (False, True), job_outputs_gate=lambda a, r: (False, True))
+            for res in (True, False):
+                g['GATE_SELF_TESTS'] = tuple((n, lambda a, r, n=n, res=res: calls.append(n) or res)
+                                             for n, fn in saved['GATE_SELF_TESTS'] if fn is extractor_gate)
+                with contextlib.redirect_stdout(io.StringIO()):
+                    codes.append(gate(archive, root))
+        finally:
+            g.update(saved)
+        good = codes == [0, 1] and calls == ['extractor self-test'] * 2
+        ok &= good
+        print('%s self: gate() runs the extractor\'s self-test, and holds only when it passes' % ('PASS' if good else 'FAIL'))
+        if not good:
+            print('      got: exit codes %s, runs %s' % (codes, calls))
+        # the gate's history mode runs R15's re-derivation: a result naming a later extractor fails there
+        edit(lambda m: m['extractor_blobs'].__setitem__(rjp, later or 'c' * 40))()
+        try:
+            hf = history_mode(tarch, root, json.load(open(mp, encoding='utf-8')), tree=troot)[0]
+        finally:
+            back()
+        good = any(f.startswith('R15 ') and 'was added at' in f for f in hf)
+        ok &= good
+        print('%s self: history mode, as the gate runs it, re-derives each named extractor blob (R15)' % ('PASS' if good else 'FAIL'))
+        if not good:
+            print('      got: %s' % (hf[:3],))
+        r15('a result naming a later extractor than the one that read it, in history mode',
+            lambda m: m['extractor_blobs'].__setitem__(rjp, later or 'c' * 40), 'was added at')
+        r15('a listed file that no commit adds, in history mode',
+            lambda m: (m['entries'][ci]['files'].append(dict(m['entries'][ci]['files'][rj], path='ci/0/results.json')),
+                       m['extractor_blobs'].__setitem__('ci/0/results.json', m['extractor_blobs'][rjp])), 'no commit')
+        if rx is not None:
+            r15('a re-extraction naming the original extractor instead of its own, in history mode',
+                lambda m: m['entries'][ri]['files'][rk].__setitem__('extractor_blob', rec0['original']['extractor']['blob']), 'was added at')
         # tranche 3 (R12)
         t3 = [i for i, e in enumerate(ents) if str(e.get('id', '')).startswith('run-')]
         if 'tranche3' in man or t3:
