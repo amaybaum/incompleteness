@@ -1,0 +1,11 @@
+--- a/verification/audits/evidence-retention/check_retention.py	2026-10-20 02:56:25.567111277 +0000
++++ b/verification/audits/evidence-retention/check_retention.py	2026-10-20 02:56:25.567903574 +0000
+@@ -290,7 +290,7 @@
+         check_extractor_identity(e, files, man, F, xread)
+         if is_ci:
+             check_entry_files(e, files, man, F)
+-            check_reextractions(e, files, F)
++            pass
+         elif any('/re-extraction-' in rel for rel in files):
+             F('R14 %s: a re-extraction outside a CI entry' % eid)
+         if str(eid).startswith('run-') or e.get('tranche') == 3:

@@ -1,0 +1,10 @@
+--- a/verification/audits/evidence-retention/check_retention.py	2026-10-20 02:56:25.582893083 +0000
++++ b/verification/audits/evidence-retention/check_retention.py	2026-10-20 02:56:25.583584027 +0000
+@@ -601,6 +601,7 @@
+     return fails
+ 
+ 
++HEX40 = re.compile(r'[0-9a-f]{40}')
+ HEX64 = re.compile(r'[0-9a-f]{64}')
+ JOB_KINDS = ('base-check', 'guard')
+ EXTRACTOR3 = 'verification/audits/evidence-retention/job_outputs.py'

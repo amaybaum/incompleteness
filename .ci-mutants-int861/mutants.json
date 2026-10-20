@@ -1,0 +1,46 @@
+{
+ "mutants": [
+  {
+   "id": "P-r15-history-off",
+   "patch": "P-r15-history-off.patch",
+   "check": "retention-self-test",
+   "expect": "a result naming a later extractor than the one that read it, in history mode (R15)"
+  },
+  {
+   "id": "P-r15-tree-off",
+   "patch": "P-r15-tree-off.patch",
+   "check": "retention-self-test",
+   "expect": "a result whose extractor blob is dropped from extractor_blobs (R15)"
+  },
+  {
+   "id": "P-r14-off",
+   "patch": "P-r14-off.patch",
+   "check": "retention-self-test",
+   "expect": "the original result rewritten in place (R14)"
+  },
+  {
+   "id": "P-gate-no-extractor",
+   "patch": "P-gate-no-extractor.patch",
+   "check": "retention-self-test",
+   "expect": "the gate runs the extractor's self-test"
+  },
+  {
+   "id": "P-gate-r15-history-unhooked",
+   "patch": "P-gate-r15-history-unhooked.patch",
+   "check": "retention-self-test",
+   "expect": "history mode, as the gate runs it, re-derives each named extractor blob (R15)"
+  },
+  {
+   "id": "P-gate-ignores-extractor",
+   "patch": "P-gate-ignores-extractor.patch",
+   "check": "retention-self-test",
+   "expect": "gate() runs the extractor's self-test, and holds only when it passes"
+  },
+  {
+   "id": "P-hex40-unanchored",
+   "patch": "P-hex40-unanchored.patch",
+   "check": "retention-self-test",
+   "expect": "a result naming its extractor blob with a hex digit appended (only a full 40-digit id names a blob) (R15)"
+  }
+ ]
+}

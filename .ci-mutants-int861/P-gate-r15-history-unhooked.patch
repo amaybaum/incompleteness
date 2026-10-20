@@ -1,0 +1,11 @@
+--- a/verification/audits/evidence-retention/check_retention.py	2026-10-20 02:56:25.575241316 +0000
++++ b/verification/audits/evidence-retention/check_retention.py	2026-10-20 02:56:25.575921469 +0000
+@@ -1325,7 +1325,7 @@
+     if scope is None:
+         return fails, None
+     f11, st = module_sets(archive, root, man, scope=scope)
+-    return fails + check(archive, tree or root, scope)[0] + later_provenance(man, root) + f11 + extractor_history(man, root), st
++    return fails + check(archive, tree or root, scope)[0] + later_provenance(man, root) + f11, st
+ 
+ 
+ def objects_gate(archive, root):
