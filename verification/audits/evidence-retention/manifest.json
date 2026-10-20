@@ -14557,10 +14557,10 @@
    "citations": [],
    "files": [
     {
-     "bytes": 16179,
+     "bytes": 32458,
      "kind": "complete",
      "path": "job_outputs.py",
-     "sha256": "04a5a826e085cdc6761078433637f7c0c219eee1c08bab338e008122f61f867b"
+     "sha256": "4770c6ed790685be982cb6df5022a39fa9945acbb6f57e43c4caf790a1237842"
     },
     {
      "bytes": 32767,
@@ -14701,6 +14701,218 @@
    "kind": "complete",
    "provenance": {
     "source": "written for this archive: the script that cut archive tranche 4 of the retained off-main objects (objects/manifest.json, which tranche-record pins, holds the objects)"
+   }
+  },
+  {
+   "citations": [],
+   "files": [
+    {
+     "bytes": 12840,
+     "kind": "complete",
+     "path": "open-claims.json",
+     "sha256": "17d42a78018c82cd4a77ccef1087163166283edda2f35a8f546d46738549c628"
+    }
+   ],
+   "id": "open-claims-record",
+   "kind": "complete",
+   "provenance": {
+    "source": "written for this archive from a read-only read of the runs' job logs on 2026-10-19: ten citing claims whose coverage is partial, each unresolved"
+   }
+  },
+  {
+   "citations": [
+    {
+     "blob": "1e9e67701c3bb38e0290d13ab2ec4cbf7b733283",
+     "claims": [
+      {
+       "in": [
+        "runs/36373806246/run.json",
+        "runs/36373806246/jobs.json"
+       ],
+       "line": 62,
+       "note": "run.json: event push, head_sha d014bafe…, run_attempt 1, conclusion success; jobs.json: seven jobs at that head and attempt, each concluding success",
+       "status": "retained",
+       "text": "It is certified by"
+      },
+      {
+       "in": [
+        "runs/36373806246/run.json"
+       ],
+       "line": 63,
+       "note": "run.json id 36373806246, event push, head_sha d014bafe…",
+       "status": "retained",
+       "text": "push run 36373806246"
+      },
+      {
+       "in": [
+        "runs/36373806246/jobs.json"
+       ],
+       "line": 63,
+       "note": "jobs.json: seven jobs, each conclusion success",
+       "status": "retained",
+       "text": "all seven jobs green"
+      },
+      {
+       "in": [
+        "runs/36373806246/run.json",
+        "runs/36373806246/jobs.json"
+       ],
+       "line": 63,
+       "note": "run.json created_at 03:27:42Z; jobs.json: the last job completed at 03:30:42Z, three minutes later. The duration is read from the host's run and job timestamps, which run.json and jobs.json record; it is not a job's output, unlike the probe durations at lines 65-66",
+       "status": "retained",
+       "text": "in 3 minutes"
+      },
+      {
+       "in": [
+        "runs/36373806246/expected.json"
+       ],
+       "line": 63,
+       "note": "expected.json: 21 steps, each PASS, and the verdict line release gate: PASS; v3-receipts \"RECEIPTS  12 receipt(s), all hold\", the count 12 among its counts",
+       "status": "retained",
+       "text": "the release gate passing with twelve"
+      },
+      {
+       "in": [
+        "runs/36373806246/expected.json"
+       ],
+       "line": 64,
+       "note": "expected.json: v3-receipts \"RECEIPTS  12 receipt(s), all hold\"",
+       "status": "retained",
+       "text": "receipts holding"
+      },
+      {
+       "in": [
+        "runs/36373806246/jobs.json",
+        "runs/36373806246/expected.json"
+       ],
+       "line": 64,
+       "note": "jobs.json: job 108775417498 (Mathlib bridge) and its Build step conclude success; expected.json: lean-axioms PASS, a step that runs lake build and fails on a nonzero exit",
+       "status": "retained",
+       "text": "the `Mathlib bridge` build green"
+      },
+      {
+       "in": [
+        "runs/36373806246/expected.json"
+       ],
+       "line": 64,
+       "note": "expected.json: lean-axioms \"lean_axiom_check: OK (4803 named result(s) reported, no sorr\" (job 108775417498, log line 12656 of 12683, served line 1173 of its last 1200). 4829 is the count with act 37's module DitaArcExclusivity.lean, whose 26 #print axioms lines it adds to 4803: this file reports it at line 1339 for design run 36378121576, and act 37's result.md at lines 170-171 for stages 2 and 3",
+       "status": "differs",
+       "text": "`lean-axioms` at 4829 named results"
+      },
+      {
+       "in": [
+        "runs/36373806246/expected.json"
+       ],
+       "line": 65,
+       "note": "expected.json: lean-axioms PASS; the check fails on any sorryAx, and its summary, cut at the gate's column width, ends \"no sorr\"",
+       "status": "retained",
+       "text": "sorry"
+      },
+      {
+       "in": [
+        "runs/36373806246/expected.json"
+       ],
+       "line": 65,
+       "note": "expected.json: the guard output of job 108775417269 (Numerical probes / core B), read from its whole served log: 91 checks, each PASS, and the verdict edge_rigidity_probe: ALL CHECKS PASS. It carries the guard's own checks and nothing about the other claims of these lines",
+       "status": "retained",
+       "text": "the guard 91 PASS and 0 FAIL"
+      },
+      {
+       "line": 65,
+       "note": "the probe prints in job 108775417433 (Numerical probes / A36 hierarchy), whose output this entry does not retain; jobs.json records that job's success",
+       "status": "not retained",
+       "text": "act 36's probe reporting its `OK` line"
+      },
+      {
+       "line": 65,
+       "note": "a probe's duration: a probe prints it inside its job's output, which an expected result does not record (AGENTS §A.42 item 1), and no file of this entry records it; jobs.json's host timestamps bound the job, not the probe. Observed, not retained: job 108775417433's log prints the probe's cumulative timer \"(85s)\" at line 224 of 245, its header at 03:27:56.179Z (line 155) and its OK line at 03:29:21.397Z (line 226), read on 2026-10-19 from the served text",
+       "status": "not retained",
+       "text": "in 50 seconds"
+      },
+      {
+       "line": 66,
+       "note": "a probe's duration: a probe prints it inside its job's output, which an expected result does not record (AGENTS §A.42 item 1), and no file of this entry records it; jobs.json's host timestamps bound the job, not the probe. Observed, not retained: job 108775417269's log prints act 35's probe's cumulative timer \"(37s)\" at line 1273 of 1294, its header at 03:29:55.148Z (line 1217) and its OK line at 03:30:32.100Z (line 1275), read on 2026-10-19 from the served text whose sha256 is 5c62853854d7ac5f07bc1ba37f8d3e8a7d3dde8695edcdf9d474ca78e1170f8a",
+       "status": "not retained",
+       "text": "35's in 45"
+      }
+     ],
+     "line": 63,
+     "path": "verification/programmes/oi-qm/track-b/act-37-arc-exclusivity/preregistration.md",
+     "tokens": [
+      "36373806246"
+     ]
+    }
+   ],
+   "expires": "2026-12-27",
+   "files": [
+    {
+     "bytes": 531,
+     "kind": "derived",
+     "path": "runs/36373806246/run.json",
+     "sha256": "fd81073041266d500b497f1a357e857298c2ee7676bc8dbd10e5f6c42928ec1a",
+     "source_sha256": "6a340dc94b8de5a565501e1c386c292bd9d549d6dd6443d08d661889709c62b5"
+    },
+    {
+     "bytes": 7624,
+     "kind": "derived",
+     "path": "runs/36373806246/jobs.json",
+     "sha256": "33d7b5eab314fb22ecb0d479fe3489f5720b19fd021c4bf8abd73ad1074aee93",
+     "source_sha256": "dc3d884d9c0e66b9d7c256a8111b0efdae5f9ce150618e72d230dd373abb4cbc"
+    },
+    {
+     "bytes": 21477,
+     "kind": "derived",
+     "path": "runs/36373806246/expected.json",
+     "sha256": "4d1617bab83dd3c4c9e378c4d8a0afd07fe13425e9accadac8815f689979361e",
+     "source_sha256": [
+      "bb153d18187f9c95b709c045b2051cc46d9da3e233d21a3a360d28e77f14047b",
+      "5c62853854d7ac5f07bc1ba37f8d3e8a7d3dde8695edcdf9d474ca78e1170f8a"
+     ]
+    }
+   ],
+   "id": "run-36373806246",
+   "kind": "derived",
+   "run_id": "36373806246",
+   "tranche": 3
+  },
+  {
+   "citations": [],
+   "files": [
+    {
+     "bytes": 4258,
+     "kind": "derived",
+     "path": "decisions/pr862-comment-6270971164.json",
+     "sha256": "5e9193e4519ae355b83f44897087d5342fa0e5b2b9428d62a587efb0902f15d9",
+     "source_sha256": "dd426f81124a06e694a5c87da5e087eec85756150cca1428debf611d8d6cb471"
+    },
+    {
+     "bytes": 2700,
+     "kind": "derived",
+     "path": "decisions/pr862-comment-6272650041.json",
+     "sha256": "97cb3d4d2ec976051db90f89e37b457ef58e94322afac7d5d570667d6f742e48",
+     "source_sha256": "1b218adb4cea56f49b7f76fd902516553bbe2559648a5bd64451fda3bf0955f0"
+    }
+   ],
+   "id": "priority-decision-record",
+   "kind": "complete",
+   "provenance": {
+    "source": "the owner's decision that check_retention.py's PRIORITY_ALLOWLIST cites, and its supplement, read through the issues API"
+   }
+  },
+  {
+   "citations": [],
+   "files": [
+    {
+     "bytes": 18722,
+     "kind": "complete",
+     "path": "build_priority_runs.py",
+     "sha256": "a114015e40f1f5308515ea36290700575d52ee5936c4ead328885e1b72b5ec88"
+    }
+   ],
+   "id": "priority-runs-record",
+   "kind": "complete",
+   "provenance": {
+    "source": "written for this archive: the script that retained the tranche3 section's priority runs"
    }
   }
  ],
@@ -15337,6 +15549,32 @@
   "cut": "earliest log expiry first: the runs whose 90-day expiry falls on 2026-12-17 or 2026-12-18",
   "expiry_rule": "created_at plus 90 days, GitHub's default for a public repository; the repository's own setting was not readable",
   "how_cited": "every CI run id in main's tracked text at the base outside this archive: 11-digit run ids and 12-digit job ids on lines that say run, job or actions/ (the audit's rule R), the same id shapes on other lines when they name a run of the repository, and the inner runs of the one cited range (act 40, preregistration.md:744); job ids count for their runs. It equals the 487 runs of the inventory accepted on 2026-10-17.",
+  "priority": [
+   {
+    "authorization": {
+     "comment": "6270971164",
+     "posted": "2026-10-19T15:31:28Z",
+     "record": "decisions/pr862-comment-6270971164.json",
+     "url": "https://github.com/amaybaum/incompleteness/pull/862#issuecomment-6270971164"
+    },
+    "claim": {
+     "lines": [
+      63,
+      64
+     ],
+     "path": "verification/programmes/oi-qm/track-b/act-37-arc-exclusivity/preregistration.md"
+    },
+    "run_id": "36373806246",
+    "supplement": {
+     "authorizes": "the guard output retained, and the pinned reproduction environment",
+     "comment": "6272650041",
+     "posted": "2026-10-19T17:01:20Z",
+     "record": "decisions/pr862-comment-6272650041.json",
+     "url": "https://github.com/amaybaum/incompleteness/pull/862#issuecomment-6272650041"
+    },
+    "why": "act 37's preregistration states at lines 63-64 a lean-axioms count for this run that differs from the count its release gate printed; the run is retained so that the difference rests on retained evidence"
+   }
+  ],
   "remaining": [
    {
     "conclusion": "success",
@@ -16401,14 +16639,6 @@
     "expires": "2026-12-26",
     "run_id": "36338368274",
     "tier": "A"
-   },
-   {
-    "conclusion": "success",
-    "created_at": "2026-09-28T03:27:42Z",
-    "event": "push",
-    "expires": "2026-12-27",
-    "run_id": "36373806246",
-    "tier": "B"
    },
    {
     "conclusion": "success",
@@ -18267,7 +18497,7 @@
     "tier": "A"
    }
   ],
-  "retained": 22,
+  "retained": 23,
   "uncovered": 388
  },
  "version": 3
