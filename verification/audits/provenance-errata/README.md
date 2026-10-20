@@ -4,9 +4,9 @@ Five citing lines, in four frozen files, cite a CI run's head commit by an id th
 run executed at its real head, which the host's run and job records name. The cited id shares its first 7 or 8 hex
 digits with the real head and is not a prefix of it. The errors are of attribution, not of execution.
 
-The records keep their bytes (AGENTS §A.42 item 4). This table records the attribution errors and the verified heads;
+The records keep their bytes (AGENTS §A.42 item 6). This table records the attribution errors and the verified heads;
 a correction of a frozen record's own text is a native round's (`G13`). Whether a mutable pointer, such as the
-evidence-retention manifest, should reference these errata is the owner's decision.
+evidence-retention manifest, should reference these errata is moot: that archive is frozen (AGENTS §A.42 item 8).
 
 | id | location | run, attempt | cited id | real head | shared digits | verdict | explanation | status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -97,7 +97,7 @@ None is a designated `F` or `E`, and none is a certification:
 `objects/` holds the git objects E3 reads, 52 files, 444,060 bytes. Each file is a git object exactly as git hashes
 it: the header `<type> <size>\0`, then the uncompressed body. The file's name is its id.
 
-**Form (§A.42): complete.** Each file is byte-identical to the host's object of that id, and E5 verifies every file by
+**Form: complete.** Each file is byte-identical to the host's object of that id, and E5 verifies every file by
 its id. The objects are:
 - **7 commits:**
   - the five real heads;
@@ -116,7 +116,7 @@ The commits on `main` the checks compare with are read from the repository, whic
 parent `db82376d`, act 45's `D` `fa6ddf77` and its `E` `a5696e37`. `errata.json`'s `object_store` lists each object
 with its type, its size and where the stored commits reach it.
 
-**Public-repository scan (§A.42 item 5).** Every stored object was scanned before commit:
+**Public-repository scan (§A.42 item 4).** Every stored object was scanned before commit:
 - **No match** for access keys, tokens, private keys, bearer or JWT strings, signed-URL parameters, credentials in URLs,
   secret assignments, or IPv4 and IPv6 addresses.
 - **E-mail:** 21 matches, all `noreply@anthropic.com`, in the seven commits' author and committer lines and

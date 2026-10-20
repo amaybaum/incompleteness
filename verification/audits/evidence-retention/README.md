@@ -1,4 +1,4 @@
-# Evidence retention (AGENTS §A.42)
+# Evidence retention (AGENTS §A.42): a frozen archive
 
 This archive makes the computational claims of records already frozen reproducible from `main`. Those records cite CI runs that GitHub's log retention will delete, and four logs that existed only in a session scratchpad. For each cited run the archive holds the *expected result*: the deterministic outputs the record's claims rest on, in a small structured file, with the commit it holds at and the recipe that regenerates it. A reviewer reproduces a claim by rebuilding that commit, not by trusting a copied log.
 
@@ -327,3 +327,13 @@ Recorded here so the gap is visible, not resolved. Counts are from `audit/offmai
 - **Act-26's scratchpad computation** (`result.md:931`), which the audit found saved nowhere.
 
 Each needs a documented resolution in a later tranche: an expected result with a recipe, or a recorded gap.
+
+## Frozen
+
+This archive is frozen (AGENTS §A.42 item 8). It is neither extended nor maintained, and its files stay
+as committed; the release gate's `evidence-archive` step pins this directory's tree id. What the sections
+above describe as pending, queued or to be retained is the archive's state when it was frozen, not work
+to be done. The release gate no longer runs `check_retention.py` or `check_objects.py`. The tools still
+regenerate an archived expected result at its commit: `reproduce.py`, `job_outputs.py reproduce`, and the
+dispatch-only `reproduce evidence` workflow. That workflow first runs `check_retention.py`, which checks the whole tree;
+once a later record names a run the archive lists as pending, that step fails, and the tools are then run directly.
