@@ -47,4 +47,4 @@ The initial option is to **keep** `.github/workflows/reproduce-evidence.yml`, `r
 
 ## Status and authority
 
-**DISCOVERY / WIP:** this commit establishes the deletion ledger and the two implementation choices only. No files have been pruned, no archive pin moved, no workflow retired, and nothing merged. Any actual pruning patch is a later commit on this draft branch, scoped and reviewed by filename. Opening this PR does not grant its merge.
+**WIP / UNREVIEWED:** the draft branch carries one proposed pruning patch: the four builders of `LEDGER.md` removed, the manifest migrated, two `README.md` lines corrected, and `tools/evidence_archive_check.py` re-pinned to tree `ca86cd659b811a01495c421d4354aa3fa0f6b576`. No retained data, checker or workflow is changed or retired, and nothing is merged. The pin change needs the owner's authorization (AGENTS §A.42 item 8); opening this PR does not grant its merge.
