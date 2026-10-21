@@ -2,6 +2,10 @@
 
 **DRAFT — NOT FROZEN; design specification; no computation may run against it as a test.**
 
+**Deferred (owner, 2026-10-21).** The n = 3 run is not to be dispatched. Without an explicit map from the card/record
+interface to an operational carrier, its selection bears on labelling only and not on which operations are available
+(`../map/MAP.md`). Node 9 works on sourcing a non-monomial gate first (NOTES, "Direction after the map").
+
 A candidate that a later node could preregister, for gap G1 only (a composition rule for joint records), drafted
 2026-10-21 after review REVIEW-G1-8d90f77e and revised on the owner's corrections. Revised again after the pre-freeze
 review `REVIEW-HLOC-1860b961.md` (committed beside this file), on the owner's choice (a): H-LOC is scoped to the

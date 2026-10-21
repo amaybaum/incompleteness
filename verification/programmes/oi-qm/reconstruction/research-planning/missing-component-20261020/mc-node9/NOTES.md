@@ -258,10 +258,13 @@ floating-point linear algebra and are a numerical cross-check of Clifford identi
   corpus places in the completion. Lemma F already makes the quantum values unattainable for finite rational models. A
   test consistent with the corpus asks whether purification holds in the limit along a declared family of finite
   constructions (M5-A's A2 form). The limit and its convergence notion are specified in `design/limit/LIMIT-DESIGN.md`.
-  Enlarging a stabilizer-type family cannot make the error vanish. Every pure stabilizer state gives a fixed local Pauli
-  measurement only the probabilities 0, ½ or 1, so it misses the 3/4 witness by at least 1/4 at every size [rec, owner
-  2026-10-21: stabilizer density-matrix expansion]. A family reaching G2 must therefore be richer than stabilizer-type,
-  not merely larger.
+  Every pure stabilizer state gives a fixed local Pauli measurement only the probabilities 0, ½ or 1, so it misses the
+  3/4 witness by at least 1/4 at every size [rec, owner 2026-10-21: stabilizer density-matrix expansion]. The bound is a
+  property of affine operation rules, not of family size or of the finite stage: H on two qubits followed by one
+  non-affine configuration exchange |110⟩ ↔ |111⟩ (a Toffoli, available in the sourced access) gives a pure three-qubit
+  state with target marginal exactly diag(3/4, 1/4) [EC, `design/map/MAP.md`]. The biased witness therefore needs
+  neither a limit nor a continuum; it needs one non-monomial gate (H), whose sourcing is the C5 discovery audit's test 8.
+  A purifier of one system's size is not checked.
 - *Literature named by the owner [Q, not read here; network-gated]:*
   - CDP 2011: purification implies no information without disturbance;
   - Chiribella, "Agents, subsystems, and the conservation of information";
@@ -435,3 +438,30 @@ The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb
     - The seed entropy, K log₂ 25 bits, scales with the R budget, and the recurrence lemma forbids a fixed carrier.
     - The resource moves from per-step kicks to a budget-sized initial seed.
     - This refines AP-1's scope for this interpreter only. It does not remove AP-1 from the card or lattice models.
+
+## Direction after the map (owner, 2026-10-21)
+
+- *Decision.* On the coordinator's recommendation after `design/map/MAP.md` and owner report 3, the owner chose three
+  things:
+  - The H-LOC n = 3 run is deferred and not to be dispatched (`design/g1/G1-HYPOTHESIS.md`).
+  - Node 9 works on sourcing a non-monomial gate: the C5 discovery audit's test 8.
+  - The Lemma G framing is corrected in place, in this file, `design/limit/LIMIT-DESIGN.md` and PREREG §4: the 1/4 gap
+    belongs to affine operation rules.
+- *What test 8 already holds [corpus, `verification/audits/foundations/c5-discovery-audit.md`, T4–T6, and its
+  polarization closure audit].*
+  - The polarization candidate's map sends the shear layer to the quarter phase and the swap layer to the Hadamard
+    matrix on the two-valued alphabet. The observer reads the position half of each site's (current, previous) pair,
+    and the layers act by the Weil representation.
+  - The resulting class is not configuration-level, so test 2 passes.
+  - Its relabelling closure PolC has O1 at every level and no O2, since it is countable up to scalar. It satisfies the
+    closure and is not QM.
+  - Test 8 fails only because the corpus does not supply the map: `Γ = Γ_V × Γ_H` splits sites, not each site's phase
+    space.
+- *The refocused question.* Does any condition on observer access, of C1–C4's logical type and not mentioning the test
+  vocabulary (audit test 7), force the polarization map? Equivalently, in report 3's form: an encoding E, fixed before
+  any experiment, with E(F(p)) = U E(p) U† for the swap layer F and U = H, on every admitted preparation and with an
+  untouched spectator.
+  - A positive answer is a candidate for test 8 only. O2 stays with the completion (Main.md:352,
+    `fixedGateTheory_denseFiniteQM`).
+  - H fits the dyadic marker of report 3's review: it is the gate the polarization map produces on the two-valued
+    alphabet. R is not.

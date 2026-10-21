@@ -548,7 +548,10 @@ general necessity nor a sufficient condition for purification.
     which the re-review makes its condition for citing the findings.
 - *Biased state* [rec, owner 2026-10-21]: (3/8, 3/8, 1/8, 1/8) on one toy bit, a ½-mixture of a two-point state with
   the uniform state, has no purification by its finite toy-system composites in the repaired family. Control K-BIAS
-  (§5), carried to Option B.
+  (§5), carried to Option B. The obstruction comes from the family's affine operation rule (Π_ω, §4: Ops = ASp(2*n*, 2)),
+  not from its size and not from OI access. In the qubit calibration, H on two qubits followed by one non-affine
+  configuration exchange |110⟩ ↔ |111⟩ gives a pure three-qubit state whose target marginal is exactly diag(3/4, 1/4)
+  [EC, `design/map/MAP.md`]; that construction uses H, which model A does not have.
 
 **Claim table.** Main.md:290 [corpus]: "$$u'_x = \sum_{z \sim x} u_z + v_x, \qquad v'_x = u_x ,$$". Its matrix
 M = [[L, I], [I, 0]] satisfies MᵀJM = J for J = [[0, I], [I, 0]] because Lᵀ + L = 2L = 0 over F₂ [rec, coordinator

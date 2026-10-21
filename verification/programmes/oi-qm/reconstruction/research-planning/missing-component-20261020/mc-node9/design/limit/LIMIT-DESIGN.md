@@ -24,6 +24,10 @@ as exact purification on one fixed finite carrier.
   Z-measurement updates from |00⟩, every single-qubit Bloch component lies in {−1, 0, 1} (`../owner-checks/fb2.py`).
 - **Scope.** The bound holds while candidate pure extensions remain stabilizer states and the designated local
   measurement is preserved. Any other encoding or operation family is evaluated separately.
+- **Source of the gap.** It is a property of affine operation rules (node 9's Π_ω, Ops = ASp(2*n*, 2)), not of stage size.
+  H on two qubits followed by one non-affine configuration exchange |110⟩ ↔ |111⟩ gives a pure three-qubit state whose
+  target marginal is exactly diag(3/4, 1/4) [EC, `../map/MAP.md`]; a one-system purifier is not checked. At two qubits
+  every permutation is affine (|AGL(2, 2)| = 24 = |S₄|), which is why the two-qubit families stay at {0, ½, 1}.
 - The same three-value structure is the uniform-affine obstruction of node 8 and model A (node 9 NOTES, "the
   biased-state obstruction").
 
@@ -32,7 +36,9 @@ as exact purification on one fixed finite carrier.
 1. **The family and its embeddings.** Declare a sequence of finite constructions 𝒯₁, 𝒯₂, …, with maps carrying each
    stage's preparations, measurements, records and composites into the next. Each map must preserve the meaning of
    those objects: a stage-k experiment is still the same experiment at stage k+1. The family must state what supplies
-   pure extensions outside the stabilizer/uniform-affine class (G2) before any convergence study is launched.
+   pure extensions outside the stabilizer/uniform-affine class (G2) before any convergence study is launched. Non-affine
+   configuration exchanges with H supply them at a finite stage (see *Source of the gap*); the open obligation is
+   sourcing H.
 2. **Operational error.** Fix in advance a finite family 𝓔 of experiments, with the P(0) = 3/4 witness and the six- and
    seven-operation composition witnesses included at every stage. The stage-k error is the supremum over 𝓔 of the
    absolute probability differences against the declared target. Every experiment in 𝓔 is computed exactly at each
@@ -70,7 +76,8 @@ universal requirement on an OI completion.
 ## Order
 
 1. This specification, with K-STAB-GAP.
-2. Model A stays a calibration. Its size is not increased in pursuit of purification while its pure-state family
-   retains the 1/4 gap.
+2. Model A stays a calibration. Its size is not increased in pursuit of purification: the 1/4 gap comes from its
+   affine operation rule, which no size increase changes.
 3. G1: an independently motivated composition rule for joint records, with K-G1 fixed.
-4. G2: a proposed enlarged family must name what supplies non-stabilizer pure extensions before a convergence study.
+4. G2: a proposed family must name what supplies non-stabilizer pure extensions before a convergence study. With
+   non-affine exchanges available, this reduces to sourcing one non-monomial gate (C5 discovery audit, test 8).
