@@ -1,0 +1,63 @@
+{
+  "coherent_rotation_intertwining": "4/4 exact",
+  "reset_read_span": [
+    1,
+    3,
+    3
+  ],
+  "passive_read_span": [
+    1,
+    3,
+    4,
+    4
+  ],
+  "single_system_compatible_permutations": "8/24",
+  "passive_X_plus_plus": [
+    "1/4",
+    "1/2"
+  ],
+  "swap_then_Z_plus": [
+    "3/4",
+    "1/4"
+  ],
+  "product_quotient_automorphisms": "128 = 8*8*2; local symmetries and system exchange only",
+  "interaction": "bijective involution; preserves binary symplectic form",
+  "product_protocol_span": [
+    1,
+    5,
+    9,
+    9
+  ],
+  "interacting_protocol_span": [
+    1,
+    5,
+    9,
+    10,
+    16,
+    16
+  ],
+  "reversible_words_then_product_tests_span": 10,
+  "four_step_witness": {
+    "word": [
+      "X_B+",
+      "G",
+      "X_B+",
+      "X_A+"
+    ],
+    "probabilities": [
+      "1/4",
+      "3/16"
+    ]
+  },
+  "independent_seed_enumeration": [
+    [
+      16,
+      64
+    ],
+    [
+      12,
+      64
+    ]
+  ],
+  "local_classical_CHSH_bound": 2
+}

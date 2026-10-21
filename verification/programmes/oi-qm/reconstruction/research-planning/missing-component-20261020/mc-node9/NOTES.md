@@ -330,3 +330,43 @@ The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb
   5. one independent consequence beyond the calibration targets.
 
   This is an open reconstruction problem with sharper controls. It does not rule out deterministic OI.
+
+## Owner report 2, "Observer interfaces, coherent control and composite records" (2026-10-21), coordinator review
+
+- *Source.* The owner's read-only session, as an HTML report pinned to `main` at `af8c59d6`. The report's own checker is
+  committed in `design/owner-checks/report2/` together with its output.
+- *Verification.*
+  - The checker's sha256 `37dbc272…` and its output's sha256 `ae05d543…` match the report's stated hashes. Every
+    internal assertion passes.
+  - The coordinator independently recomputed the four-step witness from the report's definitions, without importing
+    the checker (`coordinator_witness.py`). P(+++) = 1/4 for PZ and 3/16 for PX ✓.
+- *Findings [rec, owner report 2].*
+  - The four-label diamond calibration: R ↦ qubit conjugation (stipulated map); reset reads give span 1 → 3 → 3, while
+    disturbance-free reads give 1 → 3 → 4; 8 of 24 hidden permutations preserve the quotient.
+  - The product two-system quotient has exactly 128 = 8·8·2 automorphisms: local symmetries and exchange only.
+  - The symplectic involution G : (a_A, b_A, a_B, b_B) ↦ (a_A, b_A ⊕ b_B, a_B ⊕ a_A, b_B), with reset reads and retained
+    outcomes, gives the probability span 1 → 5 → 9 → 10 → 16. Every initial hidden distribution becomes statistically
+    identifiable, and the product density-matrix quotient is not a sufficient state for this interface.
+  - The witness word X_B, G, X_B, X_A gives the branch probabilities above, cross-checked by seed enumeration
+    (16/64 vs 12/64).
+  - Scope: one declared reduced-state model. It does not rule out deterministic OI.
+  - Relation to G1: this is a trivial-extension (unsigned) lift of a symplectic gate. It is consistent with G1-REPORT,
+    where the trivial extension reproduces the cards and not QM.
+- *Corpus results the report names.* They are on `main` and already used in mc-node2 and mc-node5, but node 9's G1/G2
+  framing does not yet connect to them:
+  - the C5 discovery audit (`verification/audits/foundations/c5-discovery-audit.md`, verdict C, underdetermined), which
+    frames the coherent resource as two separate obligations: O1, the relative-phase resource `PhasesAvailable`, and
+    O2, the continuous coherent transition `LayerFlowExecutable`;
+  - `sourcedOI_qm_iff_phaseFree`;
+  - `fixedGateTheory_denseFiniteQM` and `fixedGateTheory_not_qm`;
+  - `obsTheory_rule_independent`, whose observer theory is permTheory on the configuration space;
+  - OPACT-1, COMP-1, and the conditional pair-cone theorem (KTOKEN-MAXCONE-1).
+  
+  Before G1/G2 work continues, map G1 (sign/phase composition) and G2 (pure states beyond stabilizer, continuous
+  completion) onto O1/O2 and these results, so the thread reuses them rather than re-deriving them.
+- *Manuscript bridge flagged by the report, not checked here.* papers/Main.md:702 asserts that every fundamental
+  non-Markovian process "must therefore be classical-memory simulable in the operational sense of Bäcker, Beyer, and
+  Strunz [28]". The report notes that BBS Definition 1 requires E₂(ρ) = Σᵢ Φᵢ(Mᵢ ρ Mᵢ†) with each Φᵢ CPTP, and that a
+  classical hidden-variable simulation is not automatically a proof of that decomposition. Whether OI's
+  fixed-basis/permutation representation meets the definition, in particular for coherent system inputs, is an open
+  check on a manuscript claim. §A.25 applies if it changes.
