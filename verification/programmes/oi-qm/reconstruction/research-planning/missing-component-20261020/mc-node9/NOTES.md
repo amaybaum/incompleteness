@@ -198,3 +198,61 @@ agent proxy got a 403 at CONNECT for arxiv.org, export.arxiv.org, journals.aps.o
 to arxiv.org on 2026-10-21 failed again (ENOTFOUND). Nothing load-bearing rests on a [Q] source: the numbers that decide
 M3 come from in-house controls; M2's wording is gated on PC-CDP; attributions are gated on PC-POM, PC-S05, PC-SPK and
 PC-BRS.
+
+## Owner investigation after the card exploration (2026-10-21), coordinator review
+
+These results come from the owner's read-only session. The coordinator re-checked the computational claims in
+`design/owner-checks/` (`fb.py` and `fb2.py`). The card-side and counting checks are exact. The quantum-side checks use
+floating-point linear algebra and are a numerical cross-check of Clifford identities, not an exact certificate.
+
+- *Menu closure first.* A restricted menu of uniform four-deal mixtures, 70 of them each extreme in the menu, becomes the
+  full classical state space once a non-destructive read with heralding is allowed. Purity is judged on the closed menu
+  only.
+- *Uniqueness control.* There are 16 four-deal supports with a 3:1 marginal, in two classes under relabellings of B
+  [exact].
+- *Single-system card theory.* Operations are swap, and read-and-replace with a fresh fair card.
+  - The space of outcome-probability functionals closes at dimension 3: normalization, E(−1)^v and E(−1)^h [exact].
+  - ρ(a, b) = ½(I + aZ + bX) reproduces it. Swap ↔ H; read ↔ Z measurement with its update; swap–read–swap ↔ X
+    measurement. Preparations form the diamond |a| + |b| ≤ 1. This is a restricted qubit theory [rec, owner].
+  - Reusing one reservoir card across three reads with swaps between them determines the system in every branch. A
+    fresh card at each read leaves support 2 [exact].
+  - So the correspondence holds only with fresh, independent replacement resources, the same assumption as AP-1 in
+    design/c1.
+- *Two-system card coupling (q_B ^= q_A, p_A ^= p_B).*
+  - 24 pure joint states are reachable, 8 of them with both marginals maximally mixed.
+  - On the five-state finite menu, Pur-E and Pur-U pass. On the convex closure, Pur-E fails: P(q = 0) = 3/4 is preparable,
+    but no pure joint state has that marginal [rec, owner].
+  - Six-operation witness: (swap_A, couple)³, then read q_B. The cards give 0 with certainty; the qubit circuit
+    (CNOT·(H ⊗ I))³ on |00⟩ gives 1 with certainty, with (U³)†Z_B U³ = −Z_A Z_B [card side exact; QM side numerical].
+  - Adding one more swap_A returns the card distribution to its start, while QM still gives 1 [numerical].
+  - Under the existing preparation and readout rules, the CNOT tests force all four output bits, so no 4-bit shuffle
+    repairs the discrepancy [rec, owner; scoped to this representation].
+- *Signed relations, i.e. the stabilizer formalism [rec, owner; Aaronson–Gottesman, Q].* Tracking signed joint relations
+  reproduces the family's quantum transitions and measurement branches (owner: 192/192, 192/192, 160/160).
+  - Dropping the sign update for swaps gives 16 failures; dropping it for the coupling gives 24.
+  - The sign rules were taken from quantum theory, so this is reproduction or calibration, not reconstruction (§A.29).
+  - Coordinator check: the reachable set under H_A, H_B, CNOT_AB, X_A, X_B and Z-measurement updates from |00⟩ has 24
+    pure states, 8 of them maximally entangled [numerical].
+- *The purification obstruction persists after the sign repair* [coordinator check, numerical]. Every single-qubit Bloch
+  component of the 24 reachable states lies in {−1, 0, 1}, so local binary probabilities are 0, ½ or 1. This is the
+  uniform-affine obstruction again: the biased state still has no purification in this family.
+- *Two separate gaps, as the coordinator reads them.*
+  - (G1) A composition law for joint records that supplies the sign/phase structure, the step from the toy theory to
+    the stabilizer theory. It is needed for the six-operation witness.
+  - (G2) Pure states outside the uniform-affine (stabilizer-type) class, the step from stabilizer to full QM. These are
+    needed for C5-P on the convex closure.
+  - C5-P bears directly on G2. G1 is a composite-statistics requirement in its own right.
+- *Corpus check (§A.19).* papers/Main.md:352 reads: "The purification, continuous-transitivity, and tomographic-locality
+  axioms of the cited reconstructions are hypotheses of their continuum endpoint, which the classical-dimension
+  obstruction places beyond any fixed finite carrier; they are not what the finite characterization uses." Testing C5-P
+  as exact purification on one fixed finite carrier (nodes 8 and 9) therefore asks the finite stage for a property the
+  corpus places in the completion. Lemma F already makes the quantum values unattainable for finite rational models. A
+  test consistent with the corpus asks whether purification holds in the limit along a declared family of finite
+  constructions (M5-A's A2 form), with approximation error going to 0. That limit and its convergence notion are open
+  design questions.
+- *Literature named by the owner [Q, not read here; network-gated]:*
+  - CDP 2011: purification implies no information without disturbance;
+  - Chiribella, "Agents, subsystems, and the conservation of information";
+  - the phase-group distinction between Spekkens' toy theory and qubit stabilizer QM;
+  - Aaronson–Gottesman;
+  - outcome-deterministic contextual models of stabilizer QM.

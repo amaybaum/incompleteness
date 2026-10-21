@@ -1,0 +1,5 @@
+(5) card final q_B values: {0}
+(5) QM P(Z_B=1) = 1.0 ; U3^dag Z_B U3 == -Z_A Z_B: True
+(5b) QM after extra H_A, P(Z_B=1)= 1.0
+(6) reachable pure states 24 with both marginals maximally mixed 8
+(6b) single-qubit Bloch components over the 24 reachable states: [-1.0, 0.0, 1.0]
