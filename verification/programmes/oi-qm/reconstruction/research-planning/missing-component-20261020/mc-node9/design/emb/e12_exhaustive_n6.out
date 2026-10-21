@@ -121,9 +121,9 @@
 === n = 5: 34 graphs up to isomorphism; orders of M: {2: 1, 4: 1, 6: 11, 8: 4, 10: 4, 12: 3, 16: 3, 24: 7}
   decl=FULL |R|=1 toy conn: cases:526 minF=1:36 minF=2:45 minF=4:445 minH=1:167 minH=4:359 never(conn):490
   decl=FULL |R|=1 toy disc: cases:154 minF=4:154 minH=4:154
-  decl=FULL |R|=2 toy conn: cases:864 dist:in memory:128 dist:known:16 dist:not in memory:22 learn:166 learn&bath:116 minF=1:241 minF=2:183 minF=4:440 minH=1:504 minH=4:360 never(conn):623 persist:31
+  decl=FULL |R|=2 toy conn: cases:864 dist:in memory:128 dist:known:16 dist:not in memory:22 learn:166 learn&bath:116 minF=1:241 minF=2:183 minF=4:440 minH=1:504 minH=4:360 never(conn):623
   decl=FULL |R|=2 toy disc: cases:156 minF=4:156 minH=4:156
-  decl=FULL |R|=3 toy conn: cases:594 dist:in memory:272 dist:known:84 learn:356 learn&bath:212 minF=1:437 minF=2:15 minF=4:142 minH=1:458 minH=4:136 never(conn):157 persist:89
+  decl=FULL |R|=3 toy conn: cases:594 dist:in memory:272 dist:known:84 learn:356 learn&bath:212 minF=1:437 minF=2:15 minF=4:142 minH=1:458 minH=4:136 never(conn):157
   decl=FULL |R|=3 toy disc: cases:86 minF=4:86 minH=4:86
   decl=FULL |R|=4 toy conn: cases:151 dist:known:95 learn:95 minF=1:151 minH=1:151
   decl=FULL |R|=4 toy disc: cases:19 minF=4:19 minH=4:19
@@ -137,17 +137,17 @@
   decl=NONE |R|=4 toy disc: cases:19 minF=4:19 minH=4:19
   decl=U    |R|=1 toy conn: cases:526 minF=2:73 minF=4:453 minH=1:167 minH=4:359 never(conn):526 persist:36
   decl=U    |R|=1 toy disc: cases:154 minF=4:154 minH=4:154
-  decl=U    |R|=2 toy conn: cases:864 dist:in memory:6 dist:not in memory:2 learn:8 learn&bath:4 minF=1:8 minF=2:350 minF=4:506 minH=1:504 minH=4:360 never(conn):856 persist:112
+  decl=U    |R|=2 toy conn: cases:864 dist:in memory:6 dist:not in memory:2 learn:8 learn&bath:4 minF=1:8 minF=2:350 minF=4:506 minH=1:504 minH=4:360 never(conn):856 persist:114
   decl=U    |R|=2 toy disc: cases:156 minF=4:156 minH=4:156
-  decl=U    |R|=3 toy conn: cases:594 dist:in memory:52 dist:not in memory:43 learn:95 learn&bath:35 minF=1:95 minF=2:357 minF=4:142 minH=1:458 minH=4:136 never(conn):499 persist:221
+  decl=U    |R|=3 toy conn: cases:594 dist:in memory:52 dist:not in memory:43 learn:95 learn&bath:35 minF=1:95 minF=2:357 minF=4:142 minH=1:458 minH=4:136 never(conn):499 persist:232
   decl=U    |R|=3 toy disc: cases:86 minF=4:86 minH=4:86
   decl=U    |R|=4 toy conn: cases:151 dist:in memory:98 learn:98 minF=1:98 minF=2:53 minH=1:151 never(conn):53 persist:72
   decl=U    |R|=4 toy disc: cases:19 minF=4:19 minH=4:19
   decl=V    |R|=1 toy conn: cases:526 minF=2:73 minF=4:453 minH=1:167 minH=4:359 never(conn):526 persist:36
   decl=V    |R|=1 toy disc: cases:154 minF=4:154 minH=4:154
-  decl=V    |R|=2 toy conn: cases:864 dist:in memory:6 dist:not in memory:2 learn:8 learn&bath:4 minF=1:8 minF=2:350 minF=4:506 minH=1:504 minH=4:360 never(conn):856 persist:112
+  decl=V    |R|=2 toy conn: cases:864 dist:in memory:6 dist:not in memory:2 learn:8 learn&bath:4 minF=1:8 minF=2:350 minF=4:506 minH=1:504 minH=4:360 never(conn):856 persist:114
   decl=V    |R|=2 toy disc: cases:156 minF=4:156 minH=4:156
-  decl=V    |R|=3 toy conn: cases:594 dist:in memory:52 dist:not in memory:43 learn:95 learn&bath:35 minF=1:95 minF=2:357 minF=4:142 minH=1:458 minH=4:136 never(conn):499 persist:221
+  decl=V    |R|=3 toy conn: cases:594 dist:in memory:52 dist:not in memory:43 learn:95 learn&bath:35 minF=1:95 minF=2:357 minF=4:142 minH=1:458 minH=4:136 never(conn):499 persist:232
   decl=V    |R|=3 toy disc: cases:86 minF=4:86 minH=4:86
   decl=V    |R|=4 toy conn: cases:151 dist:in memory:98 learn:98 minF=1:98 minF=2:53 minH=1:151 never(conn):53 persist:72
   decl=V    |R|=4 toy disc: cases:19 minF=4:19 minH=4:19
@@ -160,7 +160,6 @@
   earliest learning reconstruction decl=V |R|=2: t=2 edges=((0, 1), (0, 2)) R=(0, 1) toy=2 toy-has-hidden-neighbour=False
   earliest learning reconstruction decl=V |R|=3: t=2 edges=((0, 1), (0, 2)) R=(0, 1, 3) toy=2 toy-has-hidden-neighbour=False
   earliest learning reconstruction decl=V |R|=4: t=2 edges=((0, 1), (0, 2)) R=(0, 1, 3, 4) toy=2 toy-has-hidden-neighbour=False
-  earliest 'old record kept, current toy uncertain' (initial toy determined by final memory, current toy support >= 2) decl=FULL: t=3 |R|=2 edges=((0, 1), (0, 3), (0, 4), (1, 2)) R=(2, 3) toy=1
   earliest learning reconstruction with a hidden bath neighbour decl=FULL |R|=2: t=2 edges=((0, 1), (0, 3), (1, 2)) R=(2, 3) toy=0
   earliest learning reconstruction with a hidden bath neighbour decl=FULL |R|=3: t=2 edges=((0, 1), (0, 3), (1, 2)) R=(2, 3, 4) toy=0
   earliest 'old record kept, current toy uncertain' (initial toy determined by final memory, current toy support >= 2) decl=NONE: t=3 |R|=1 edges=((0, 1),) R=(0,) toy=1
@@ -223,11 +222,11 @@
 === n = 6: 156 graphs up to isomorphism; orders of M: {2: 1, 4: 3, 6: 33, 8: 10, 10: 16, 12: 37, 14: 5, 16: 7, 18: 5, 24: 23, 30: 16}
   decl=FULL |R|=1 toy conn: cases:4012 minF=1:154 minF=2:247 minF=4:3611 minH=1:1228 minH=4:2784 never(conn):3858
   decl=FULL |R|=1 toy disc: cases:668 minF=4:668 minH=4:668
-  decl=FULL |R|=2 toy conn: cases:8524 dist:in memory:496 dist:known:42 dist:not in memory:319 learn:857 learn&bath:687 minF=1:1380 minF=2:1602 minF=4:5542 minH=1:4678 minH=4:3846 never(conn):7144 persist:111
+  decl=FULL |R|=2 toy conn: cases:8524 dist:in memory:496 dist:known:42 dist:not in memory:319 learn:857 learn&bath:687 minF=1:1380 minF=2:1602 minF=4:5542 minH=1:4678 minH=4:3846 never(conn):7144
   decl=FULL |R|=2 toy disc: cases:836 minF=4:836 minH=4:836
-  decl=FULL |R|=3 toy conn: cases:8688 dist:in memory:4060 dist:known:372 dist:not in memory:222 learn:4654 learn&bath:3561 minF=1:5163 minF=2:825 minF=4:2700 minH=1:6371 minH=4:2317 never(conn):3525 persist:1272
+  decl=FULL |R|=3 toy conn: cases:8688 dist:in memory:4060 dist:known:372 dist:not in memory:222 learn:4654 learn&bath:3561 minF=1:5163 minF=2:825 minF=4:2700 minH=1:6371 minH=4:2317 never(conn):3525
   decl=FULL |R|=3 toy disc: cases:672 minF=4:672 minH=4:672
-  decl=FULL |R|=4 toy conn: cases:4387 dist:in memory:2371 dist:known:908 learn:3279 learn&bath:1846 minF=1:3711 minF=2:47 minF=4:629 minH=1:3787 minH=4:600 never(conn):676 persist:603
+  decl=FULL |R|=4 toy conn: cases:4387 dist:in memory:2371 dist:known:908 learn:3279 learn&bath:1846 minF=1:3711 minF=2:47 minF=4:629 minH=1:3787 minH=4:600 never(conn):676
   decl=FULL |R|=4 toy disc: cases:293 minF=4:293 minH=4:293
   decl=FULL |R|=5 toy conn: cases:883 dist:known:628 learn:628 minF=1:883 minH=1:883
   decl=FULL |R|=5 toy disc: cases:53 minF=4:53 minH=4:53
@@ -243,21 +242,21 @@
   decl=NONE |R|=5 toy disc: cases:53 minF=4:53 minH=4:53
   decl=U    |R|=1 toy conn: cases:4012 minF=2:324 minF=4:3688 minH=1:1228 minH=4:2784 never(conn):4012 persist:154
   decl=U    |R|=1 toy disc: cases:668 minF=4:668 minH=4:668
-  decl=U    |R|=2 toy conn: cases:8524 dist:in memory:14 dist:not in memory:2 learn:16 learn&bath:6 minF=1:16 minF=2:2397 minF=4:6111 minH=1:4678 minH=4:3846 never(conn):8508 persist:643
+  decl=U    |R|=2 toy conn: cases:8524 dist:in memory:14 dist:not in memory:2 learn:16 learn&bath:6 minF=1:16 minF=2:2397 minF=4:6111 minH=1:4678 minH=4:3846 never(conn):8508 persist:645
   decl=U    |R|=2 toy disc: cases:836 minF=4:836 minH=4:836
-  decl=U    |R|=3 toy conn: cases:8688 dist:in memory:142 dist:not in memory:267 learn:409 learn&bath:226 minF=1:409 minF=2:5193 minF=4:3086 minH=1:6371 minH=4:2317 never(conn):8279 persist:1683
+  decl=U    |R|=3 toy conn: cases:8688 dist:in memory:142 dist:not in memory:267 learn:409 learn&bath:226 minF=1:409 minF=2:5193 minF=4:3086 minH=1:6371 minH=4:2317 never(conn):8279 persist:1733
   decl=U    |R|=3 toy disc: cases:672 minF=4:672 minH=4:672
-  decl=U    |R|=4 toy conn: cases:4387 dist:in memory:1425 dist:not in memory:346 learn:1771 learn&bath:820 minF=1:1771 minF=2:1980 minF=4:636 minH=1:3787 minH=4:600 never(conn):2616 persist:1671
+  decl=U    |R|=4 toy conn: cases:4387 dist:in memory:1425 dist:not in memory:346 learn:1771 learn&bath:820 minF=1:1771 minF=2:1980 minF=4:636 minH=1:3787 minH=4:600 never(conn):2616 persist:1709
   decl=U    |R|=4 toy disc: cases:293 minF=4:293 minH=4:293
   decl=U    |R|=5 toy conn: cases:883 dist:in memory:693 learn:693 minF=1:693 minF=2:190 minH=1:883 never(conn):190 persist:432
   decl=U    |R|=5 toy disc: cases:53 minF=4:53 minH=4:53
   decl=V    |R|=1 toy conn: cases:4012 minF=2:324 minF=4:3688 minH=1:1228 minH=4:2784 never(conn):4012 persist:154
   decl=V    |R|=1 toy disc: cases:668 minF=4:668 minH=4:668
-  decl=V    |R|=2 toy conn: cases:8524 dist:in memory:14 dist:not in memory:2 learn:16 learn&bath:6 minF=1:16 minF=2:2397 minF=4:6111 minH=1:4678 minH=4:3846 never(conn):8508 persist:643
+  decl=V    |R|=2 toy conn: cases:8524 dist:in memory:14 dist:not in memory:2 learn:16 learn&bath:6 minF=1:16 minF=2:2397 minF=4:6111 minH=1:4678 minH=4:3846 never(conn):8508 persist:645
   decl=V    |R|=2 toy disc: cases:836 minF=4:836 minH=4:836
-  decl=V    |R|=3 toy conn: cases:8688 dist:in memory:142 dist:not in memory:267 learn:409 learn&bath:226 minF=1:409 minF=2:5193 minF=4:3086 minH=1:6371 minH=4:2317 never(conn):8279 persist:1679
+  decl=V    |R|=3 toy conn: cases:8688 dist:in memory:142 dist:not in memory:267 learn:409 learn&bath:226 minF=1:409 minF=2:5193 minF=4:3086 minH=1:6371 minH=4:2317 never(conn):8279 persist:1733
   decl=V    |R|=3 toy disc: cases:672 minF=4:672 minH=4:672
-  decl=V    |R|=4 toy conn: cases:4387 dist:in memory:1425 dist:not in memory:346 learn:1771 learn&bath:820 minF=1:1771 minF=2:1980 minF=4:636 minH=1:3787 minH=4:600 never(conn):2616 persist:1653
+  decl=V    |R|=4 toy conn: cases:4387 dist:in memory:1425 dist:not in memory:346 learn:1771 learn&bath:820 minF=1:1771 minF=2:1980 minF=4:636 minH=1:3787 minH=4:600 never(conn):2616 persist:1709
   decl=V    |R|=4 toy disc: cases:293 minF=4:293 minH=4:293
   decl=V    |R|=5 toy conn: cases:883 dist:in memory:693 learn:693 minF=1:693 minF=2:190 minH=1:883 never(conn):190 persist:432
   decl=V    |R|=5 toy disc: cases:53 minF=4:53 minH=4:53
@@ -273,7 +272,6 @@
   earliest learning reconstruction decl=V |R|=3: t=2 edges=((0, 1), (0, 2)) R=(0, 1, 3) toy=2 toy-has-hidden-neighbour=False
   earliest learning reconstruction decl=V |R|=4: t=2 edges=((0, 1), (0, 2)) R=(0, 1, 3, 4) toy=2 toy-has-hidden-neighbour=False
   earliest learning reconstruction decl=V |R|=5: t=2 edges=((0, 1), (0, 2)) R=(0, 1, 3, 4, 5) toy=2 toy-has-hidden-neighbour=False
-  earliest 'old record kept, current toy uncertain' (initial toy determined by final memory, current toy support >= 2) decl=FULL: t=3 |R|=2 edges=((0, 1), (0, 3), (0, 4), (1, 2)) R=(2, 3) toy=1
   earliest learning reconstruction with a hidden bath neighbour decl=FULL |R|=2: t=2 edges=((0, 1), (0, 3), (1, 2)) R=(2, 3) toy=0
   earliest learning reconstruction with a hidden bath neighbour decl=FULL |R|=3: t=2 edges=((0, 1), (0, 3), (1, 2)) R=(2, 3, 4) toy=0
   earliest learning reconstruction with a hidden bath neighbour decl=FULL |R|=4: t=2 edges=((0, 1), (0, 3), (1, 2)) R=(2, 3, 4, 5) toy=0

@@ -172,8 +172,8 @@ def main():
                                         ctrl["CAP"] += 1
                                 if sF == 1 and pr == 2 and tL is None:
                                     tL = t
-                                    T0 = toy_rows(p0[t], n, toy)
-                                    D = [a ^ b for a, b in zip(T, T0)]
+                                    Tb = toy_rows(p0[t], n, toy)
+                                    D = [a ^ b for a, b in zip(T, Tb)]
                                     if all(d == 0 for d in D):
                                         dcls = "none"
                                     elif all(d & um == 0 for d in D):
