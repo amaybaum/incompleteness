@@ -1,0 +1,3 @@
+Prep(AB): [{('R', 'R', 'R', 'R'): Fraction(1, 2), ('B', 'B', 'B', 'B'): Fraction(1, 2)}]
+Prep(A): [{('R', 'R'): Fraction(1, 2), ('B', 'B'): Fraction(1, 2)}, {('R', 'R'): Fraction(1, 1)}, {('B', 'B'): Fraction(1, 1)}]
+AB state {('R', 'R', 'R', 'R'): Fraction(1, 2), ('B', 'B', 'B', 'B'): Fraction(1, 2)} extreme: True | A-marginal {('R', 'R'): Fraction(1, 2), ('B', 'B'): Fraction(1, 2)} P(RR) = 1/2 P(a1=R)^2 = 1/4

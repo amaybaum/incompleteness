@@ -1,0 +1,7 @@
+56 ('mixed A', 'scarcity: E(M) on |AB| slots exists, not preparable here')
+20 ('mixed A', 'size: needs |AB| >= 3')
+42 ('mixed A', 'size: needs |AB| >= 4')
+60 ('mixed A', 'size: needs |AB| >= 5')
+16 ('mixed A', 'size: needs |AB| >= 6')
+26 ('pure A', 'non-monochrome pure: no purification at any size')
+64 ('pure A', 'scarcity: E(M) on |AB| slots exists, not preparable here')

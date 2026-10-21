@@ -407,6 +407,9 @@ def pur_analysis(model, Aslots, Bslots, nodes, depth, out=print, extra_states=()
         if nA == 2:
             pr = sum(v for k, v in p.items() if k[0] == 0); prr = p.get((0, 0), 0)
             if prr > pr * pr or (prr == pr * pr and pr not in (0, 1)): return "P(RR) >= P(R)^2, not monochrome: no E(M) of any size"
+            # a non-monochrome E(M) on A itself (here E(RB): P(RR) = P(BB) = 0) is a pure A-state; an E(M) on n slots
+            # has a two-slot marginal with P(RR) = P(BB) = 0 only if n <= 2, so it has no purification at any size >= 1
+            if p.get((0, 0), 0) == 0 and p.get((1, 1), 0) == 0: return "non-monochrome pure A-state E(RB): no purification at any size"
         # does some E(M) with |M| = nAB have this marginal (deck permitting)?
         for r in range(nAB + 1):
             seqs = set(itertools.permutations([0] * r + [1] * (nAB - r)))
