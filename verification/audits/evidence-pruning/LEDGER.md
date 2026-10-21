@@ -81,7 +81,11 @@ and `.github/workflows/reproduce-evidence.yml` are byte-identical.
 
 ## Checks on the resulting tree
 
-History modes ran in a full-history clone.
+Run at `7aa3c8bf7fb1f35e1d7e78115edaea4e65d7112d`, whose archive is tree `c8b7e8861dfbb79af1a71c8cef8fcfaf0acea85e`.
+History modes ran in a full-history clone. Plain `check_retention.py` reads R9's scope from the tree, so its outcome
+below is specific to that commit. On a commit whose tree carries a receipt that landed after the archive's base and that
+the tranche neither covers nor names, such as `verification/receipts/KTOKEN-MAXCONE-1.json` from #829, that mode fails
+R9; `check_retention.py --gate`, which reads R9's scope from history, is the check that applies there.
 
 | Check | Outcome |
 | --- | --- |
