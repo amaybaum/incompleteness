@@ -4,7 +4,7 @@
 
 Research only, consistency axis (§A.23). No premise adopted, no status changed, nothing written to `main`. Freeze
 requires the items of §11 and the sha256 of the frozen bytes recorded before any computation. The decision rules are
-fixed here; expected numbers are not (§A.29). Revision 2 of the draft.
+fixed here; expected numbers are not (§A.29). Revision 3 of the draft.
 
 **Governing question (owner, 2026-10-21).** Which independently motivated OI condition, stated in OI's own terms
 (visible and hidden cells, φ, coupling steps, ancillas, records), yields operational structure beyond the minimal tensor
@@ -21,22 +21,31 @@ demonstrating purification or contextuality.
   other preparation operationally (§1.2). This is a model choice: Main.md:60 makes the fixed prior a realization datum
   and the counting measure the default, and permits structured preparations (§0).
 - **Q4.** Heralded conditioning is a generator from the start (§1.2), not a sensitivity row.
+- **Q10.** Model A is finished as a bounded calibration, with C-i covering the whole record lifecycle; Option B follows.
+- **Q11.** Pointer reuse need not be forbidden if recording has the appropriate back-action (the copy X′ = X + Q,
+  P′ = P + Y, Y fresh and never accessed). Single use is the default; the back-acting copy is the tested alternative.
+- **Q12.** Independence: Pr(P = r | h, H) = ½ for the current target h and accessible history H; a discarded pointer
+  stays unavailable to later interactions.
+- **Q13.** The biased state (3/8, 3/8, 1/8, 1/8) is carried as a control for Option B (§4, K-BIAS).
 
 **Tags.** [corpus] text quoted verbatim from the corpus at the base, with file:line; [rec] stated in a thread record, not
 re-derived; [rec, owner …] a check or reading supplied by the owner, not re-derived in this session; [W] written
 argument, to be reviewed; [EC] exact computation (none run); [lit-read] literature read in full and the claim verified
 against the text; [Q] literature not read, whether recalled or known only from a search summary; [rec, coordinator
-check 2026-10-21] verified in this session by the exact check stated (script and output kept off-repo as provenance).
-No claim tagged [Q] decides a verdict (§9).
+check 2026-10-21] verified in this session by the exact check stated (script and output kept off-repo as provenance);
+[rec, design/… at SHA] a pre-freeze design report on this branch at that commit, with its review status stated. No
+claim tagged [Q], and no claim from a design report under review, decides a verdict (§9).
 
 ***
 
 ## 0. Base and state of knowledge
 
-- Thread `research/missing-component-20261020`; revision 2 drafted at `c81f2df4c174bd305e496d01e7e83429479765bc`,
+- Thread `research/missing-component-20261020`; revision 3 drafted at `b71199a86eeb8e600905c369c89731de3c43d05a`,
   whose node-8 records are those of the close-out `789134678aac771466f4443f8d053bdf084a5b18` with amendment A-5 (PLAN =
   `../PLAN.md`, MC*k* = `../mc-nodek/`). `main` at `af8c59d6d61322853f5b456da2849890d5c790e7`. `papers/Main.md` is
-  identical at both.
+  identical at both. Pre-freeze design inputs, disclosed in §4: design/c1 at
+  `49033a3e61233dcfa342c2cce59992c53ee9d6fa` (reviewed, ACCEPT WITH CORRECTIONS) and design/emb at `b71199a8` (under
+  review); the pre-freeze review of `6cf71e0e`.
 - **Node 8, context only** [rec, MC8 probe outputs r1 and r2, `probe/CHANGES-r2.md`, and the reviews]. In the eight
   tested finite realizations every composite preparation is a mixture of allowed product preparations (the minimal
   tensor product). By the composition lemma (budget *m* ≥ 1, MC8 A-5), pure composites are products of pure states, and
@@ -64,8 +73,8 @@ No claim tagged [Q] decides a verdict (§9).
     and has no two-point preparable decomposition, for the tested partner and provided the restriction survives the
     closure (M0, §4.1; under ρ₀ it does not, K-SYMP). Its single system has a full-rank effect space (MC6 P2, rank 4/4
     [rec]).
-- Nothing else has been computed beyond the checks tagged [rec, coordinator check 2026-10-21]. No paper was read in
-  this session (§9).
+- Nothing else has been computed beyond the [rec] checks, the pre-freeze review's scripts and the two design reports
+  (§4). No paper was read in this session (§9).
 
 ***
 
@@ -80,8 +89,10 @@ the same state in every test.**
 - **System boundary.** A system *S* is its visible cells V_S together with the hidden cells H_S assigned to it,
   including its record cells. Bath cells are hidden cells outside every system: each is fresh, used at most once, under
   the counting measure, and discarded after use.
-- **Accessible records.** The configurations of visible cells, read by configuration readout (κ4). A readout does not
-  change the ontic state.
+- **Accessible records.** The configurations of visible cells, read by configuration readout (κ4), unless the model
+  declares a narrower readout rule as a postulate (R-MENU (v); Option A's PP-2). A readout does not change the ontic
+  state. Retention of every record and a disturbance-free visible copy are grants of this interface, not of the
+  lattice dynamics [rec, design/c1].
 - **Permitted operations.** Each one is a bijection of the realization's Ω, or a selection on a record (heralding):
   - permutations of visible cells, selectable by a setting;
   - the model's declared coupling steps, which may read or write hidden cells and may consume bath cells;
@@ -93,8 +104,10 @@ the same state in every test.**
 
   Hidden cells change only through φ and the coupling steps (MC8 PREREG §2.2 option (B)).
 - **Clean ancillas.** The model declares every clean ancilla, a cell or system supplied in a declared initial state
-  other than the counting measure (a visible pointer at 0, a known-zero bit), and states that declaration as a physical
-  principle (R-MENU (v)). Visible cells fixed by the protocol (condition O) are clean ancillas and are declared as such.
+  other than the counting measure (a visible pointer at 0, a known-zero bit), with its count, and states that
+  declaration as a physical principle (R-MENU (v)). Visible cells fixed by the protocol (condition O) are clean
+  ancillas and are declared as such. The declaration says whether a second clean visible site is available; withholding
+  any clean resource is a postulate.
 - **Ancillas.** Independently supplied copies of any system type the model declares, in any preparable state (§1.2),
   with the model's joint operations. Equivalence is computed with *k* = 0, 1 and 2 ancillas (I-4).
 - **Records left by preparation.** The model states, for each kind of hidden record, whether some coupling step reads
@@ -137,9 +150,9 @@ probability 1 in state 0 and ½ in state 1, leaving the state unchanged. Retaini
 This applies whenever fresh randomness or ancillas come without a fixed total budget. Three layers are decided
 separately, each at its own checkpoint (§7):
 1. **equivalence**, by Lemma W within the declared model (I-5);
-2. **preparation reachability**, at a stated resource scope (*n*, *k*, a budget b_r on fresh bath bits and b_h on
-   heralding repetitions), by a termination proof or a mathematical characterization of Prep at that scope; otherwise
-   the result is PARKED (I-20);
+2. **preparation reachability**, at a stated resource scope (for Option A, S of §4.1), by a completeness certificate
+   (§4.1: a fixed point of the closure search with the remaining budgets in the state, or an exact period); otherwise
+   the result is PARKED at deterministic caps (I-20). The engine has no characterization path;
 3. **purity and purification**, evaluated on the resulting preparation set with its resource limits and any completion
    stated (I-7).
 
@@ -167,7 +180,8 @@ Prep(ancilla^*k*). Arithmetic is rational throughout. The lemma replaces node 8'
 
 *Scope.* The lemma covers arbitrary depth within the declared finite model, its declared ancillas included. It decides
 equivalence only, not which preparations are reachable (§1.2, K-REACH). It does not cover arbitrarily large ancillas,
-new couplings, or apparatus memory that Ω does not represent. K-ANC (*k* = 1 vs 2) is the extension checkpoint: a
+new couplings, or apparatus memory that Ω does not represent, such as pointers or memory pairs beyond the declared
+scope (W4 shows that pointer memory matters). K-ANC (*k* = 1 vs 2) is the extension checkpoint: a
 result computed at *k* ancillas is reported for *k* ancillas only. Passing selected ancilla controls is evidence for
 those extensions only; stability under arbitrary ancillary systems needs a proof, given and reviewed.
 
@@ -188,7 +202,9 @@ is not compared with 3/4.
 ### 1.5 Purity
 
 A preparable state ψ is **pure** iff there are no two inequivalent preparable states ρ₁ ≁ ρ₂ and no generated weight *w*
-∈ (0, 1) with ψ ~ *w*ρ₁ + (1 − *w*)ρ₂. Purity is never judged by the underlying ontic distribution. A state whose
+∈ (0, 1) with ψ ~ *w*ρ₁ + (1 − *w*)ρ₂. The generated weights at a scope are fixed as the dyadic *k*/2^*m* with *m* ≤
+b_r together with every branch probability the reachability layer prints at b_h (non-dyadic under heralding, K-REACH),
+printed with the scope. Purity is never judged by the underlying ontic distribution. A state whose
 ontic support has several points can be pure, and a point mass can be mixed only if it is equivalent to such a mixture.
 Following MC8 A-1, three readings are reported separately:
 - at the declared budget;
@@ -223,8 +239,8 @@ declared carrier that satisfies Π. It then checks five things:
 - (iii) **generated preparations**: §1.2 holds with all of (g1)–(g6), and the restriction Π asserts on preparations
   survives that closure (§4.1);
 - (iv) **invariance**: replacing the model's operation list by Ops(Π) changes no milestone output;
-- (v) **declared resources**: which clean ancillas exist, and in which states, is stated as part of Π, not as an
-  unstated absence.
+- (v) **declared resources**: which clean ancillas exist, in which states and how many, and any pointer or record
+  policy (Option A's PP), are stated as independent postulates beside Π, not as unstated absences.
 
 A milestone pass whose model fails R-MENU is printed "pass for the declared operation set; R-MENU fails at (i)–(v)".
 It does not count toward the governing question. K-MENU (§5) must fail (ii).
@@ -233,7 +249,8 @@ It does not count toward the governing question. K-MENU (§5) must fail (ii).
 restriction that is stated but not independently justified is **R-MENU unmet**, even when M0 holds within the
 restricted model. "Only the declared read coupling may write hidden cells" is largely a menu; it counts as a principle
 only if derived, e.g. from the substratum dynamics, which is open (§4, claim table). Under Option A's revision-1 rule
-ρ₀, M0 is lost by K-SYMP's witness; under the candidate Π_ω, both classifications are open.
+ρ₀, M0 is lost by K-SYMP's witness. Under Π_ω, M0 is decided by §4.1 for each PP form; PP and the clean-resource
+declaration are postulates under (v), so R-MENU is printed green on the record carrier only.
 
 ### 2.3 Preserved results (controls fixed in advance) and the beyond-target prediction
 
@@ -369,111 +386,138 @@ ancillas). A pass holds for that preparation set and those purifiers only.
 
 ***
 
-## 4. The first candidate model: Option A (owner decision Q1)
+## 4. The first candidate model: Option A, a bounded calibration (Q1, Q10)
 
-**The boundary toy bit, under the candidate principle Π_ω.**
-- *System T.* A visible pointer x ∈ {0, 1}, initially 0, and record cells h ∈ ℤ₂²; for *n* systems, h ∈ ℤ₂^{2n} with the
-  standard symplectic form ω. φ = identity. Bath bits follow the counting measure; the fixed prior on h is uniform.
-- *Read coupling [A-typed].* A coupling step that makes the record functional ω(u, ·) readable writes it into a pointer
-  and shifts the record along u by a fresh bath bit: R_u is x ^= ω(u, h), then h ^= r·u. Read physically: the pointer's
-  conjugate variable is hidden, so reading a record kicks the record's conjugate content.
-- *Record-only rule ρ₀ (revision 1):* a coupling step that reads nothing is a record bijection mapping the readable
-  functionals onto themselves. **ρ₀ admits an exact M0 violation** (K-SYMP) [rec, owner check 2026-10-21; coordinator
-  check 2026-10-21, exact replay]. Two toy bits, h = (q₁, p₁, q₂, p₂), uniform prior: (1) read q₁, keep 0 → support 8;
-  (2) read q₂, keep 0 → 4; (3) record-only swap p₁ ↔ q₂ → q₁ = p₁ = 0, support 4; (4) read q₂, keep 0 → q₁ = p₁ = q₂ =
-  0, support 2 < 2² = 4; branch probability 1/8, back-action included. The swap is bijective and permutes all 15 nonzero
-  readable linear functionals but is not symplectic (ω(e_q₁, e_p₁) = 1 becomes 0), so it breaks the pairing between a
-  readout and its disturbance. Excluding pointer swaps alone cannot save the restriction.
-- *Candidate principle Π_ω (to be evaluated, not adopted).* Allowed reversible record transformations preserve the full
-  read/disturb relationship; in the linear setting, they preserve the symplectic pairing ω. Option A is computed under
-  Π_ω, with ρ₀ run only as K-SYMP's arm. Whether Π_ω is a principle or a menu is decided by §2.2.
-- *Observations; none is a verdict.*
-  - (i) *What symplecticity does and does not establish.* Main.md:290 [corpus]: "$$u'_x = \sum_{z \sim x} u_z + v_x,
-    \qquad v'_x = u_x ,$$". Its matrix on (u, v) is M = [[L, I], [I, 0]], L the symmetric adjacency; MᵀJM = J for
-    J = [[0, I], [I, 0]] because Lᵀ + L = 2L = 0 over F₂ [rec, coordinator check 2026-10-21: exact over F₂ for every
-    symmetric L at *n* ≤ 3 and 200 random ones at *n* = 4, 5, 474 matrices; a non-symmetric L fails]. Main.md:320
-    [corpus]: "All of this concerns the realization displayed above and is not a property of arbitrary finite
-    bijections." Symplecticity of the update does not establish that every available intervention preserves the
-    pairing, that every symplectic map is physically available, or that the observer cannot learn both conjugate
-    coordinates [rec, owner 2026-10-21].
+Model A calibrates the engine, the record lifecycle and M0 on a model whose closure is expected to restate Spekkens'
+toy theory. It is not offered as an answer to the governing question. Option B follows on the same engine (`NOTES.md`).
 
-    | claim | support |
-    |---|---|
-    | the displayed binary update preserves a symplectic pairing | established algebraically [rec, owner check; coordinator check 2026-10-21] |
-    | Option A's read-and-disturb rule admits a symplectic implementation | established in the elementary construction below [rec, owner check 2026-10-21; coordinator re-check 2026-10-21] |
-    | OI's available operations and preparation resources enforce that rule and its restriction | open: needs an explicit construction from the declared substratum dynamics and a closure argument |
+**System, coupling, principle.**
+- *System T.* Record cells h ∈ ℤ₂^{2n} (*n* toy bits) with the standard symplectic form ω; φ = identity; the fixed
+  prior on h is uniform; bath bits follow the counting measure. Pointers and memory pairs are declared below.
+- *Read coupling (a model postulate of Option A).* C_u acts on h and one pointer (Q visible, P hidden): Q′ = Q +
+  ω(u, h), h′ = h + P·u, P′ = P, for u ≠ 0. With Q = 0 and P fresh and then discarded it is R_u (x the pointer's Q,
+  r its P): x ^= ω(u, h), then h ^= r·u. C_u is symplectic for every u; with P known the displacement is known and the
+  read loses no information [rec, owner check; coordinator re-check 2026-10-21, exact].
+- *Π_ω, mechanical (B3).* Carrier: the record space ℤ₂^{2n} only. Ops(Π_ω) is the normalizer of the read family in
+  Sym(ℤ₂^{2n}): every bijection g of the records, identity on every other cell, such that for each u ≠ 0 there are
+  u′ ≠ 0 and a bijection V of the pointer's visible cell with g R_u g⁻¹ = V ∘ R_{u′} as stochastic maps. It is computed
+  by exhaustive backtracking over bijections of the carrier, the predicate checked on partial assignments; no structural
+  lemma is used for completeness. [W, to be reviewed]: the clause forces g(k + u) = g(k) + σ(u) for all k and u ≠ 0, so
+  σ is additive and g affine, and the readout part gives ω(σu, σk) = ω(u, k); hence Ops(Π_ω) = ASp(2*n*, 2). The run
+  prints the group's order beside this; a mismatch is reported, not repaired. At *n* = 1 every one of the 24 bijections
+  of ℤ₂² is affine symplectic, so Π_ω excludes nothing there; its first content is K-SYMP's swap at *n* = 2. Maps on
+  pointer, memory or bath cells other than C_u and the copy are outside the carrier and are not operations; that
+  exclusion belongs to the pointer policy, not to Π_ω. R-MENU (ii) is computed on the record carrier and is not claimed
+  on the full carrier.
+- *ρ₀ (revision 1), kept only as K-SYMP's arm:* a record bijection mapping the readable functionals onto themselves,
+  such as the non-symplectic swap p₁ ↔ q₂ of K-SYMP's witness.
 
-  - *Elementary construction.* The pointer has a visible coordinate Q and a hidden conjugate P; the coupling is Q′ =
-    Q + ω(u, h), h′ = h + P·u, P′ = P. It is symplectic for each of the three nonzero u of one toy bit; with Q = 0, P an
-    independent fair bit and P discarded, it reproduces R_u; with P known, the same coupling reads without disturbance
-    [rec, owner check; coordinator re-check 2026-10-21, exact]. The load-bearing resource assumption is named
-    **pointer conjugates are never supplied clean**: a candidate independent postulate, not a consequence of
-    symplecticity, carried in the clean-ancilla declaration and R-MENU (v). Its precise form [rec, owner 2026-10-21]:
-    *each fresh pointer is supplied with Q = 0, its conjugate P uniformly distributed and independent of the system and
-    of every accessible preparation record.* The independence clause is load-bearing. If an accessible record carries
-    P, the observer knows the disturbance P·u and, where the corrective displacement is available, can undo it, so
-    marginal uniformity of P alone does not supply the restriction.
-  - *Diagnostic K-SYMP2* [rec, owner check; coordinator re-check 2026-10-21, exact]. Main.md:290's update on two sites,
-    u₁′ = u₂ + v₁, v₁′ = u₁, u₂′ = u₁ + v₂, v₂′ = u₂, is bijective and symplectic. With the visible site at (u₁, v₁) =
-    (0, 0) and the hidden site uniform, after two steps the visible site is (v₂, u₂), revealing both hidden coordinates,
-    and the hidden site is (0, v₂), determined by the record; each branch has probability 1/4. Symplectic evolution with
-    a clean, fully readable canonical pair breaks the support bound, so the distinction between a visible pointer and its
-    inaccessible conjugate is load-bearing. It is a diagnostic, not a certified C1–C4 witness.
-  - (ii) *Expected M3 consequence.* Under Π_ω, Option A is close to Spekkens' toy theory, which has a
-    preparation-noncontextual ontological model [Q, pending PC-SPK]. Option A is therefore expected to FAIL M3 by
-    construction. Its value lies in M0–M2 and in whether the pairing is inherited (§6).
-- *Clean ancillas (draft declaration, to be fixed at freeze):* the visible pointer coordinates, each at 0, are the only
-  clean ancillas. Pointer conjugates and hidden cells are supplied only under the counting measure, each fresh pointer
-  conjugate independent of the system and of every accessible preparation record (the postulate above). This is a
-  restriction on primitive resources, not a prohibition on states prepared later. Its statement as a principle is part
-  of R-MENU (v) and is open (`NOTES.md` QA′).
-- *The proposed preparation restriction:* let *N* be the number of canonical pairs present: the *n* toy bits and the
-  pointers not yet discarded. Every preparable state of all hidden coordinates jointly (each toy bit's two, each
-  present pointer's P), conditioned on all accessible records (each present pointer's Q included), has support of size
-  ≥ 2^*N*. Discarding a pointer removes its pair from *N*. With no pointer present, *N* = *n*. A fresh
-  pointer (Q = 0 recorded, P uniform) and one read R_u followed by conditioning on Q both meet it with equality
-  [coordinator hand check 2026-10-21]. It is evaluated on the information available about the whole pair, never on whether a
-  coordinate carrying a given name is definite. A permitted symplectic exchange can turn (Q = 0, P unknown) into
-  (Q unknown, P = 0) without creating a jointly known pair [rec, owner 2026-10-21]; such a state is not a violation.
-  It is an invariant to test, neither a general necessity nor a sufficient condition for purification. The number of
-  record functionals a state determines is printed beside it as a diagnostic and decides nothing.
-- *Derived operations.* Ops(Π_ω) are computed mechanically under R-MENU (ii); the affine symplectic maps are not
-  assumed. Joint readouts of ω(u, ·) with u ∈ ℤ₂^{2n} are the joint operations.
-- *R-flag:* R-yes. Every record functional is reachable by some R_u. Bell branch: local.
-- *Smallest realization for C5-P:* *n* = 2 (A = one toy bit, B = one toy bit). Sizes computed: *n* ≤ 4.
-- *Beyond-target postdiction (independent postdiction, not a new quantum prediction):* repeatability of a read before
-  and after an intervening complementary read, derived from the frozen read coupling: the exact probability that two
-  reads of ω(u, ·) agree around a read of ω(v, ·), for ω(u, v) = 0 and 1, against the quantum value of the
-  corresponding Pauli sequence; a mismatch is a miss. Also prerecorded: in its local branch the model predicts |S_CHSH|
-  ≤ 2 for every composite, a raw-direct conflict with loophole-free Bell tests [Q]. The model is a step toward the
-  question, not a candidate theory of nature.
+**Pointer policy PP (R-MENU (v); an independent postulate, Q11).**
+- *Independence (both forms).* A pointer is supplied with Q = 0 and P with Pr(P = r | h, H) = ½ for the current target
+  h and the accessible history H. A discarded pointer stays unavailable: no later coupling, readout, map or bath draw
+  involves its P.
+- *PP-1, single use (the default).* Each pointer takes part in exactly one coupling step; its Q is read (κ4) and the
+  pointer is discarded.
+- *PP-2, the back-acting copy (the tested alternative).* A pointer may be reused if every retained reading passes
+  through the copy X′ = X + Q, P′ = P + Y, with (X, Y) a fresh memory pair, X visible at 0 and Y under the independence
+  clause and never accessed afterwards. The pointer's Q is not otherwise an accessible record. Memory pairs are neither
+  reused as pointers nor exchanged.
+- Neither form follows from symplecticity or from Π_ω. M0, M1 and M2 print one line per form.
+
+**Clean resources (declared; each withholding is a postulate, R-MENU (v)).** The only clean cells are the pointer Q
+cells (*b_p* of them) and, under PP-2, the memory X cells (*b_m*), each at 0 and used only under PP. No other clean cell
+exists: no clean hidden cell, and no further clean visible cell (no second clean visible site in design/emb's sense)
+that any operation can bring into contact with a pointer or the records. This meets the emb finding below by
+declaration. Hidden cells and pointer and memory conjugates are
+supplied only under the counting measure.
+
+**Implementation (B6).** M0–M2 run on the abstract pointer model above, not on a lattice construction. The disclosed
+construction C1 delivers only the read of the toy's current u coordinate within its search bounds, so model A's free
+choice of u is an assumption. AP-1 to AP-5 [rec, design/c1] are assumptions of this implementation: AP-1 (fresh kick
+source at every read), AP-2 (one step of contact), AP-3 (choice of read), and for PP-2 AP-4 (no retention except
+through the back-acting copy) and AP-5 (memory conjugates fresh, never accessed).
+
+**M0's restriction (B1).** At each evaluation point, the distribution of the toy coordinates h, conditioned on every
+accessible record, with the P of every used pointer (and under PP-2 every Y) marginalized, has support ≥ 2^*n*.
+Evaluation points: after each completed read-and-discard (PP-1) or read-and-copy (PP-2), and at every stopping time of
+every protocol, heralded branches included, a pointer still present counting as used. The joint (h, P) form of
+revision 2 is withdrawn, with its claim that a pointer exchange is a permitted non-violation: Q is visible, so an
+exchange followed by a readout determines the pair (W3′). Marginalizing one binary coordinate at most halves support,
+so discarding never creates a violation, but it can hide one (W1, W6); the joint support and the number of determined
+record functionals are printed as diagnostics and decide nothing. The restriction is an invariant to test, neither a
+general necessity nor a sufficient condition for purification.
+
+**Disclosed baseline (pre-freeze design inputs; none is a verdict of this node).**
+- *Pre-freeze review of 6cf71e0e* [rec, exact scripts kept off-repo]: W6 (two single-use complementary reads, joint
+  support 2 < 4), W1, W3′, W4 (one pointer reused three times: toy point mass with probability 1), W5 (exchange before
+  single use: toy support 1), W2 (transvection: toy support 1). Under PP-1 without pointer-internal maps the closure
+  reaches exactly the isotropic subspaces of ℤ₂^{2*n*}, 4, 31 and 514 at *n* = 1, 2, 3, and never violates the toy
+  form. Counted as states, an isotropic W with outcome values on W (a coset of W^⊥), they number 7 and 91 at *n* = 1,
+  2 [rec, owner 2026-10-21], K-SPK's 6 + 1 and 60 + 30 + 1. The counts agree: 1 + 3·2 = 7, 1 + 15·2 + 15·4 = 91.
+- *C-i* [rec, design/c1 at `49033a3e`, reviewed ACCEPT WITH CORRECTIONS], covering the whole record lifecycle (C1-REPORT
+  §9.1). Under the region partition a visible coordinate's lattice conjugate is visible, so "Q visible, P hidden" has no
+  lattice referent; the kick comes from a bath site; C1 reads only the toy's current u coordinate. The free copy and
+  free retention come from the interface rule (§1.1: κ4 readout, feedback on all records, visible permutations), not
+  from the lattice. The history used by C-i's waiting counterexample (toy point mass at step 4) is the interface's
+  permanent record. The back-acting copy is not realized by the lattice dynamics in the searched space; in the abstract
+  model it gives support 2 on W4 and no point mass over the bounded alphabet of C1-REPORT §9.2 (iv).
+- *emb* [rec, design/emb at `b71199a8`, under review]: L1, a one-clean-site budget lemma; reconstruction of the current
+  toy state with two clean visible sites (W-E2); dependence of C-i's waiting counterexample on external history only
+  (K-EXTHIST). No decision rule rests on these until that review accepts them.
+- *Biased state* [rec, owner 2026-10-21]: (3/8, 3/8, 1/8, 1/8) on one toy bit, a ½-mixture of a two-point state with
+  the uniform state, has no purification by its finite toy-system composites in the repaired family. Control K-BIAS
+  (§5), carried to Option B.
+
+**Claim table.** Main.md:290 [corpus]: "$$u'_x = \sum_{z \sim x} u_z + v_x, \qquad v'_x = u_x ,$$". Its matrix
+M = [[L, I], [I, 0]] satisfies MᵀJM = J for J = [[0, I], [I, 0]] because Lᵀ + L = 2L = 0 over F₂ [rec, coordinator
+check 2026-10-21, exact; a non-symmetric L fails].
+Main.md:320 [corpus]: "All of this concerns the realization displayed above and is not a property of arbitrary finite
+bijections."
+
+| claim | support |
+|---|---|
+| the displayed binary update preserves a symplectic pairing | established algebraically [rec, owner check; coordinator check 2026-10-21] |
+| Option A's read-and-disturb rule admits a symplectic implementation | in the abstract pointer model [rec, owner check; coordinator re-check 2026-10-21]; on the lattice for one read functional, with a bath kick, up to stated corrections [rec, design/c1] |
+| OI's available operations and resources enforce that rule and its restriction | open; PP and the clean-resource declaration are postulates |
+
+**Further declarations.**
+- R-flag R-yes; Bell branch local; joint operations C_u with u ∈ ℤ₂^{2*n*}. Smallest realization for C5-P: *n* = 2;
+  sizes *n* ≤ 4 (Q5).
+- *Expected M3 consequence.* Under Π_ω and PP-1 model A is expected to be close to Spekkens' toy theory, which has a
+  preparation-noncontextual model [Q, pending PC-SPK], and so is expected to FAIL M3. With reuse and free readout the
+  closure is classical full access (W4) [rec, review of 6cf71e0e], where M3 also fails by Lemma A.
+- *Postdiction, at most CONFIRMING.* The probability that two reads of ω(u, ·) agree around a read of ω(v, ·), for
+  ω(u, v) = 0 and 1, against the quantum value of the Pauli sequence; a mismatch is a miss. It is built into the read
+  coupling (MC6 already reproduced sequential Pauli records), so a match is at most CONFIRMING (§A.29). Also
+  prerecorded: in its local branch the model gives |S_CHSH| ≤ 2 for every composite, a raw-direct conflict with
+  loophole-free Bell tests [Q].
 
 ### 4.1 The decisive first question (M0)
 
-- *Question:* starting from the fixed prior, does the full operational preparation closure of §1.2, with clean ancillas
-  (g1), couplings (g2), feedback (g3), waiting (g4), discarding (g5) and heralding with back-action (g6), retain the
-  proposed preparation restriction (§4)?
-- *Rule:* **retained** iff the closure computation is shown complete for its stated resource scope (*n*, *k*, b_r, b_h),
-  by a termination proof or a mathematical characterization of Prep at that scope (§1.2, layer 2), and every state in
-  it, every heralded branch of nonzero probability included, satisfies the restriction. Completeness is never inferred
-  from Lemma W or from the stabilization of W. **Lost** iff an exact witness preparation violates it; the witness is
-  printed as its generator sequence, with its success probability and post-measurement state. PARKED if completeness is
-  not shown within §8's bound, with the completed depth.
-- *First construction task, two results kept separate:*
-  - *(C-i) Mechanism.* Implement the pointer coupling from the declared substratum (lattice) dynamics and resources,
-    with clean resources accounted for explicitly. Success establishes only that the measurement mechanism is
-    available in the model. Any further resource or access condition it needs is recorded as an independent
-    postulate, not attributed to symplecticity.
-  - *(C-ii) Closure.* Show that every allowed continuation, conditioning and feedback included, preserves the proposed
-    preparation restriction: this is M0's rule above. Success establishes that the restriction survives the rest of
-    the interface at the stated scope.
-  - Each is reported with its own verdict line. (C-i) passing does not establish (C-ii), and (C-ii) is computed only
-    over the mechanism (C-i) actually delivers.
-- *Pressure tests (§A.31), required for "retained":* K-CLN-A (a heralded read, then a clean-bit swap), K-SYMP's ρ₀ arm
-  and K-SYMP2 must each print "lost" with its witness (§5).
-- *Scope:* either outcome is a result about the specified construction at the stated *n* and *k* (K-ANC). "Lost" fails
-  R-MENU (iii) and names the operation responsible; M1–M5 still run on the closure as generated. "Retained" does not
-  establish M1 or M2.
+- *Question:* does the closure of §1.2 from the fixed prior, with clean resources (g1), couplings (g2), feedback (g3),
+  waiting (g4), discarding (g5) and heralding with back-action (g6), under Π_ω, the clean-resource declaration and PP-1
+  or PP-2, retain M0's restriction (§4) at every evaluation point? This is the closure task C-ii; C-i is the disclosed
+  design input above.
+- *Scope S = (n, k, b_p, b_m, b_r, b_h).* *n* toy bits; *k* ancillas; *b_p* pointers supplied; *b_m* memory pairs (0
+  under PP-1); *b_r* fresh uniform bits, counting every pointer P, every memory Y and every coin; *b_h* heralding
+  events. *Ordinary conditioning* records an outcome and keeps every branch, each evaluated separately; it costs no
+  budget. *Heralding* keeps a subset of one operation's outcomes and renormalizes, yielding a new preparation; each such
+  selection costs one unit of *b_h*. Deterministic caps *s_max* (closure states) and *d_max* (levels) are fixed at
+  freeze (Q5).
+- *Completeness certificate.* Either (a) a fixed point of the breadth-first closure search over branch states (the
+  exact conditional distribution on the cells present, the remaining budgets, the pointers present), every generator
+  applied to every state, which covers feedback; or (b) for fixed linear dynamics with no other generator, an exact
+  period M^k = I, which covers every stopping time. Completeness is never inferred from Lemma W or W's stabilization,
+  and no written characterization is a certificate.
+- *Rule.* **retained** iff a certificate is printed and every state of the closure satisfies the restriction at every
+  evaluation point. **lost** iff an exact witness violates it, printed as its generator sequence with its success
+  probability and post-measurement state. **PARKED** iff *s_max* or *d_max* is reached first, printed with the
+  completed level and state count. Each line names its PP form and S.
+- *Required for "retained":* K-CLN-A, K-SYMP's ρ₀ arm, K-SYMP2, K-PIND, K-REUSE and K-PEX each print "lost" with its
+  witness, and K-CLN and K-CLN0 are green (§5).
+- *Scope:* either outcome concerns the specified model, PP form and S (K-ANC). "lost" fails R-MENU (iii) and names the
+  operation responsible; M1–M5 still run on the closure as generated. "retained" establishes neither M1, M2 nor row 3
+  of the claim table.
 
 ***
 
@@ -487,24 +531,28 @@ ancillas). A pass holds for that preparation set and those purifiers only.
 | K-HL0 | countercontrol (M1, M3; §1.4 case b) | classical bit plus a hidden preparation label that no allowed experiment reads (R-no, response-irrelevant) | preparations differing only in the label are equivalent; POM ≤ 3/4; M1 and M3 FAIL |
 | K-HL1 | countercontrol (§1.4 case a; premise check) | K-HL0 with a coupling step that reads the label | label-different preparations inequivalent; the §1.4 premise check runs on every encoding; premise-meeting encodings ≤ 3/4; M3 not PASS |
 | K-SPK | calibration (M1, M2, M3) | Spekkens toy bit, original form (MC8 PREREG §6.5 reading; 6 + 1 states; 60/30/1 for two) | M3: POM ≤ 3/4, verified by computing W's rank and the maximum, not assumed; M1 and M2 printed for "the seven-state single-toy-bit menu with the tested one-toy-bit partner" and for "its convex closure, against the tested pure joint states", against the two readings of §0 |
-| K-MENU | countercontrol (R-MENU, M5-L) | MC6 P5: destructive complementary readouts on ℤ₂², Y withheld, generated preparations; and its *w* = 1 member (the gbit) | passes M3 for its declared set; R-MENU (ii) fails, naming the withheld Y readout; at *w* = 1, M5-L FAIL (POM = 1 > (2+√2)/4) |
+| K-MENU | countercontrol (R-MENU, M5-L) | MC6 P5: destructive complementary readouts on ℤ₂², Y withheld, generated preparations; and its *w* = 1 member (the gbit). Stated Π_K: a coupling step reads one nonzero linear functional of the two cells and refreshes a complementary one from the bath, so Ops(Π_K) contains the Y readout (the control's Π, not Option B's) | passes M3 for its declared set; R-MENU (ii) fails, naming the withheld Y readout; at *w* = 1, M5-L FAIL (POM = 1 > (2+√2)/4) |
 | K-PR6 | countercontrol (M4, M5-L) | MC7 LE(1,1) / MC6 B2 [rec]: A = λ, B = λ ⊕ ab | M4 PASS with S = 4 and no-signalling; M5-L FAIL |
 | K-BL | preserved result | every local-branch composite of the model | |S| ≤ 2 exactly; otherwise the run is VOID |
 | K-CL | countercontrol (M1, M2) | classical bit pair, full access | M1 FAIL; Pur-E fails for every mixed state |
 | K-QSTAB | positive (M1, M2) | MC8 §6.5's stabilizer instance (7 one-qubit and 91 two-qubit states, ℚ(i, √2)) | M1 PASS; Pur-E and Pur-U hold for A = one qubit |
-| K-N8 | preserved result (engine) | node 8's eight classes under node 8's menu; reference MC8 `probe/p8s1.r2.run1.out`, sha256 `b5ce288c3ed13658198a3a605387a06d76e6270b18923d6129350265426bd951`, at `78913467` (reviewed, ACCEPT WITH NOTES; carries the N1/N2 countercontrols); its 46 realization lines equal r1's byte for byte [rec, coordinator check 2026-10-21, sha256 and line comparison] | the eight Pur-E/Pur-U answers reproduced |
+| K-N8 | preserved result (engine) | node 8's eight classes under node 8's menu; node 8's relation is depth-2 enumeration, node 9's is Lemma W at unbounded depth, so the two relations are first compared on each carrier; reference MC8 `probe/p8s1.r2.run1.out`, sha256 `b5ce288c3ed13658198a3a605387a06d76e6270b18923d6129350265426bd951`, at `78913467` (reviewed, ACCEPT WITH NOTES; carries the N1/N2 countercontrols); its 46 realization lines equal r1's byte for byte [rec, coordinator check 2026-10-21, sha256 and line comparison] | the eight Pur-E/Pur-U answers reproduced wherever the relations coincide; where W separates states that depth 2 does not, the changed answer is reported as a refinement with its separating sequence, not as a halt |
 | K-ANC | engine; extension guard (§1.3) | equivalence at *k* = 0, 1, 2 ancillas | any change from *k* = 1 to *k* = 2 halts (PARKED, gap named); every equivalence-dependent line prints its *k*; a pass is evidence for the tested extensions only; no line claims *k* > 2 without a reviewed proof |
-| K-REACH | engine (reachability, §1.2) [rec, owner check 2026-10-21] | the example of §1.2 | with no heralding budget the reachability layer prints PARKED while W has dimension 2 after one round; at b_h = *j* it lists exactly *j* + 1 conditional states |
+| K-REACH | engine (reachability, §1.2) [rec, owner check 2026-10-21] | the example of §1.2 | with no heralding budget the reachability layer prints PARKED while W has dimension 2 after one round; at b_h = *j* ≥ 1 it lists exactly *j* + 2 conditional states (2^*k*/(2^*k*+1) for *k* ≤ *j*, and δ₁), 1 at *j* = 0 |
 | K-HERALD | engine (g6) [rec, owner check 2026-10-21] | fair hidden bit h, pointer x = 0, bath bit r. Arm 1: x ^= h. Arm 2: x ^= h, then h ↔ r | both arms: Pr(x = b) = 1/2. Arm 1: state given x = b is h = b. Arm 2: state given x = b is h uniform |
 | K-CLN | countercontrol (M0 detector) [rec, owner check 2026-10-21] | fair hidden bit, declared clean bit at 0, swap allowed, no heralding; restriction: h is not a point mass | M0 prints "lost" with the swap as witness |
 | K-CLN0 | positive (M0 detector) | fair hidden bit, no clean ancilla, bijections on h only, no readout; same restriction | M0 prints "retained" at a fixed point |
-| K-CLN-A | pressure test (M0) | Option A, *n* = 1, plus one clean hidden bit; a direct swap leaves support 2, within the bound, so first a heralded read of q, keep 0, then the clean bit swapped into p: support 1 [rec, coordinator check 2026-10-21, exact] | M0 prints "lost" with that two-step witness |
-| K-SYMP | countercontrol (M0, operation rule) [rec, owner check 2026-10-21] | Option A, *n* = 2, the four-step witness of §4 | under ρ₀, M0 prints "lost" with that witness; under Π_ω, the swap p₁ ↔ q₂ is absent from Ops(Π_ω) and the witness is excluded |
-| K-SYMP2 | diagnostic (M0 detector) [rec, owner check 2026-10-21] | the two-site update of §4 as φ, visible site clean at (0, 0), hidden site uniform | under every rule, M0 prints "lost" with the two waiting steps as witness (hidden support 1) |
+| K-CLN-A | pressure test (M0) | Option A, *n* = 1, plus one clean hidden bit with the swap declared allowed for this test (as in K-CLN); a direct swap leaves support 2, within the bound, so first a heralded read of q, keep 0, then the clean bit swapped into p: support 1 [rec, coordinator check 2026-10-21, exact] | M0 prints "lost" with that two-step witness |
+| K-SYMP | countercontrol (M0, operation rule) [rec, owner check 2026-10-21] | Option A, *n* = 2, h = (q₁, p₁, q₂, p₂) uniform: read q₁, keep 0 (support 8); read q₂, keep 0 (4); ρ₀'s swap p₁ ↔ q₂ (4); read q₂, keep 0: support 2 < 4, branch probability 1/8 [rec, coordinator check 2026-10-21, exact replay] | under ρ₀, M0 prints "lost" with that witness; under Π_ω, the swap p₁ ↔ q₂ is absent from Ops(Π_ω) and the witness is excluded |
+| K-SYMP2 | diagnostic (M0 detector) [rec, owner check; coordinator re-check 2026-10-21] | Main.md:290 on two sites as φ (u₁′ = u₂ + v₁, v₁′ = u₁, u₂′ = u₁ + v₂, v₂′ = u₂); visible site clean at (0, 0), hidden site uniform, as the toy | under every rule, M0 prints "lost" with the two waiting steps as witness (hidden support 1) |
+| K-PIND | countercontrol (PP independence) | Option A, *n* = 1, PP-1, the pointers' P also written into accessible visible cells | M0 prints "lost": with the displacement known, a read of q and a read of p leave toy support 1 |
+| K-REUSE | countercontrol (PP single use) and positive arm (PP-2) | W4: one pointer, reads of p, q, p. Arm 1: reuse with free readout. Arm 2: PP-2, the copy after each read | arm 1: "lost", toy point mass in all 8 branches; arm 2: toy support 2 in all 8 branches |
+| K-PEX | countercontrol (pointer-internal maps) | Option A, *n* = 1, PP-1 with the pointer exchange (Q, P) → (P, Q) (W5) or the transvection (Q, P) → (Q + P, P) (W2) admitted | each arm prints "lost" with toy support 1; under Π_ω and PP both maps are absent and the witnesses excluded |
+| K-BIAS | calibration (M2); carried to Option B [rec, owner 2026-10-21] | (3/8, 3/8, 1/8, 1/8) on one toy bit, generated by a ½ coin | Pur-E prints "no purification" for it against every composite at the declared sizes |
 
 A control result that merely reproduces the formula it is meant to check is vacuous. K-QPOM computes the density
-matrices from ρ_b, not from the success formula; K-PNC's LP is solved, not the value inserted; K-HERALD's states come
-from the engine's joint update, not from the stated answer.
+matrices from ρ_b, not from the success formula; K-PNC's LP is solved, not the value inserted; K-HERALD's and
+K-REUSE's states come from the engine's joint update, not from the stated answer.
 
 ***
 
@@ -515,9 +563,12 @@ from the engine's joint update, not from the stated answer.
 - MC6 P3–P5 and N1–N5;
 - MC7's verdicts;
 - Lemma F, Lemma A, Lemma K and Lemma W;
-- the outcomes of K-HERALD, K-CLN, K-CLN0, K-REACH, K-SYMP and K-SYMP2, the calibration readings of §0, and Lemma S;
-- the observations of §4: the first two rows of its claim table, the elementary construction, and an M3 FAIL of Option
-  A under Π_ω, which is expected by construction [Q] and is not a finding;
+- the outcomes of K-HERALD, K-CLN, K-CLN0, K-REACH, K-SYMP, K-SYMP2, K-PIND, K-REUSE, K-PEX and K-BIAS, the
+  calibration readings of §0, and Lemma S;
+- §4's disclosed baseline: the pre-freeze witnesses W1–W6 (W3′ included), the isotropic-subspace closure under PP-1
+  (Spekkens' toy-theory closure, MC8's SPK-orig reading), the C-i and emb findings, and the biased state;
+- the observations of §4: the first two rows of its claim table, the abstract pointer construction, the postdiction,
+  an M2 FAIL on the biased state, and an M3 FAIL of Option A under Π_ω, which is expected [Q] and is not a finding;
 - appendix-c:232 [corpus]: "restricted access does not by itself single out quantum theory";
 - Main.md:550 [corpus], which disclaims Spekkens noncontextuality ("not Spekkens noncontextuality, which concerns
   operationally equivalent procedures and is not claimed");
@@ -529,11 +580,14 @@ from the engine's joint update, not from the stated answer.
 - (b) M1 or M2 reaches FAIL on an R-MENU-green model, with the named interface property that blocks it, and that
   property is not the node-8 menu or Lemma A;
 - (c) M3 reaches PASS on an R-MENU-green model;
-- (d) R-MENU fails for a candidate whose principle was stated in advance, M0 "lost" included (other than K-SYMP's
-  witness under ρ₀), and the computation names the operation or witness preparation that breaks it. This exposes a
-  hidden assumption. It is recorded as an assumption-watch marker for later nodes;
-- (e) M0 prints "retained" under Π_ω with K-CLN-A, K-SYMP and K-SYMP2 green and completeness shown, so that the
-  restriction is shown to rest on Π_ω and the declared clean-ancilla principle at the stated resource scope.
+- (d) R-MENU fails for a candidate whose principle was stated in advance, M0 "lost" included, and the computation names
+  the operation or witness preparation that breaks it, the witness not being one of W1, W2, W3′, W4, W5, W6, K-SYMP's
+  or K-SYMP2's. This exposes a hidden assumption, recorded as an assumption-watch marker for later nodes;
+- (e) M0 prints "retained" under PP-2 with a certificate, at a scope exceeding C1-REPORT §9.2 (iv)'s bounded check,
+  with every control of §4.1 green. This is sufficiency of the declared interface at that scope (Π_ω on the records,
+  PP-2, the readout rule that admits the pointer's Q only through the copy, and the clean-resource declaration), not an
+  attribution to Π_ω alone, and it does not establish row 3 of the claim table; output class POSITIVE. "Retained"
+  under PP-1 restates the toy-theory closure and is CONFIRMING, not a gem.
 
 M5-L lines linked by one construction count as one item. Anything else is a non-gem (record-only). A favourable branch,
 any PASS or "retained", gets the skeptical pressure test of §A.31 before it is recorded: the controls are rerun with the
@@ -553,20 +607,22 @@ decisive object perturbed. Output classes are NEW, POSITIVE, ELABORATING, CONFIR
 | I-6 | preparations generated, never listed, with all six generators | Prep(𝓘) built only by the §1.2 generator; a static check that (g1)–(g6) are each invoked; a static scan refuses a literal state list outside controls; KM-4, KM-13 |
 | I-7 | purity by preparable decomposition | §1.5's three readings printed separately; MC8 A-2's KM-32 fixture rerun; KM-5 |
 | I-8 | parity obliviousness over all experiments, checked as a premise | M3's check calls I-3's relation before any score comparison; K-HL1 green; KM-6 replaces it by a fixed readout set, and K-MENU's Y readout must then pass falsely and be caught; KM-15 |
-| I-9 | exactness | `Fraction` and sympy ℚ(√2) only; an AST scan for floats on the verdict path; a missing dependency fails, never skips |
+| I-9 | exactness | `Fraction` only: ℚ(√2) as pairs (a, b) of Fractions for a + b√2, ℚ(i, √2) as pairs of those, in house, with a self-test (√2·√2 = 2, exact sign comparison); no third-party dependency; an AST scan for floats on the verdict path; KM-12 |
 | I-10 | verdicts only over green controls | each milestone block is gated on its controls (§5); a red control prints VOID; KM-7 |
 | I-11 | milestones never merged | separate generated blocks; a static check that no milestone reads another's status; KM-8 |
 | I-12 | verdict text generated from measurements | every count and status is computed; scanned against MC8 A-1's word list (extended: "theorem", "impossible", "no-go", "universal", "for every realization"); every M1/M2 line names its preparation set and purifiers; KM-9 |
 | I-13 | R-MENU is computed | Ops(Π) enumerated from Π's predicate; (v) printed; K-MENU must fail (ii); KM-10 |
-| I-14 | preserved results hold | K-N8, K-BL, condition O, no-signalling, the C2 check printed before milestones |
-| I-15 | determinism | two runs byte-identical; `SHA256SUMS`; no randomness |
-| I-16 | resource bound | wall time printed per phase; §8's limits |
-| I-17 | literature never decides | each line lists its [Q] dependencies; a line depending on an unmet PC gate prints "provisional" |
+| I-14 | preserved results hold | K-N8 (refinements reported, §5), K-BL, condition O, no-signalling, the C2 check printed before milestones; KM-34 |
+| I-15 | determinism | two runs byte-identical; `SHA256SUMS`; no randomness; the replayed output carries no timing |
+| I-16 | resource bound, deterministic | every closure and enumeration runs to fixed caps (*s_max*, *d_max* and §8's sizes); PARKED depends on the caps only; wall times go to a separate log outside the replayed output and `SHA256SUMS` |
+| I-17 | literature and unreviewed design inputs never decide | each line lists its [Q] and [rec, design/emb] dependencies; a line depending on an unmet PC gate or an unreviewed report prints "provisional"; KM-35 |
 | I-18 | heralding uses the post-measurement state | K-HERALD green before any preparation is generated; KM-14 |
-| I-19 | the decisive closure question is decided first, by its rule | M0 block printed before M1, with completeness certificate or witness; K-CLN, K-CLN0 green; "retained" printed only with K-CLN-A (heralded read, then swap) , K-SYMP and K-SYMP2 green; KM-17, KM-20 |
-| I-20 | reachability decided separately from equivalence | M0 and Prep print their resource scope (*n*, *k*, b_r, b_h) and a completeness certificate, never W's dimension; K-REACH green; KM-18 |
-| I-21 | the operation rule preserves read/disturb; the conjugate-resource assumption is visible | Ops(Π_ω) contains only ω-preserving record maps (checked on every element); K-SYMP's two arms and K-SYMP2 green; the clean-ancilla printout names the pointer-conjugate postulate; KM-19, KM-22 |
+| I-19 | the decisive closure question is decided first, by its rule | M0 block printed before M1 for each PP form, with certificate or witness; the restriction evaluated on the toy coordinates at every evaluation point of §4; K-CLN, K-CLN0 green; "retained" printed only with K-CLN-A, K-SYMP, K-SYMP2, K-PIND, K-REUSE and K-PEX green; KM-17, KM-20, KM-23 |
+| I-20 | reachability decided separately from equivalence | M0 and Prep print S = (*n*, *k*, *b_p*, *b_m*, *b_r*, *b_h*), the heralding count apart from ordinary conditioning, and a certificate, never W's dimension; K-REACH green; KM-18, KM-33 |
+| I-21 | Ops(Π_ω) is computed, on its declared carrier | the normalizer predicate evaluated on every candidate bijection of the records; its order printed; no map on pointer, memory or bath cells in Ops(Π_ω); K-SYMP's two arms and K-SYMP2 green; KM-19, KM-22, KM-25 |
 | I-22 | Lemma S's link computed, not assumed | a linked POM/CHSH pair prints the steering table from the model's own extension, its S and marginals; K-QPOM's extension gives S = 2√2 exactly; KM-21 |
+| I-23 | the pointer policy and the clean-resource declaration are enforced | PP and the clean cells printed with the digest (I-2); a static check that no operation touches a discarded pointer's P or an accessed Y; K-PIND, K-REUSE, K-PEX green; KM-23, KM-24, KM-25 |
+| I-24 | each control is sensitive, not only gated | the sensitivity mutants KM-26 to KM-32 |
 
 **Mutation plan.** Each mutant runs on a scratch copy and must be caught by the named check, which then prints FAIL and
 suppresses the governed lines:
@@ -591,7 +647,19 @@ suppresses the governed lines:
 - KM-19: Ops(Π_ω) replaced by ρ₀'s functional-permutation test (K-SYMP's Π_ω arm must then find the witness);
 - KM-20: K-CLN-A run as a direct swap without the heralded read (it must then fail to print "lost" and be caught);
 - KM-21: the CHSH value of a linked pair inserted as 8*p* − 4 instead of computed from the table (I-22's scan);
-- KM-22: M0's generators without waiting (g4) (K-SYMP2 must then print "retained" and be caught).
+- KM-22: M0's generators without waiting (g4) (K-SYMP2 must then print "retained" and be caught);
+- KM-23: P marginalized before conditioning on records that carry it (K-PIND must then print "retained" and be caught);
+- KM-24: a reused pointer silently refreshed (K-REUSE arm 1 must then miss W4 and be caught);
+- KM-25: Ops(Π_ω) computed on the carrier with the pointer cells (K-PEX's Π_ω arm must then find W5 and be caught);
+- sensitivity mutants, each caught by its control's "must": KM-26, K-PNC's LP without the PNC constraints; KM-27, one
+  ρ_b of K-QPOM with a sign flipped; KM-28, K-CBIT given a second readable bit; KM-29, K-HL0 with K-HL1's reading
+  coupling; KM-30, one Lagrangian coset removed from K-SPK's joint menu (60/30/1); KM-31, K-PR6's composite declared
+  local-branch (K-BL must print VOID), and its M5-L comparator clipped at 2√2; KM-32, K-QSTAB's Pur-U group cut to
+  Paulis, K-CL's mixed states dropped from its Pur-E table (caught as vacuous), and K-CLN0 printed "retained" at the
+  depth cap without a fixed point;
+- KM-33: a heralding event counted as ordinary conditioning (K-REACH must then list the wrong count and be caught);
+- KM-34: K-BL disabled (the I-14 printout must show it missing and halt);
+- KM-35: a [Q] dependency dropped from a line's list (I-17's scan against the static dependency table must catch it).
 
 ***
 
@@ -600,9 +668,10 @@ suppresses the governed lines:
 **Order (depth-first, §A.12):**
 1. the engine and the controls: K-HERALD, K-REACH, K-CLN, K-CLN0, K-ANC, K-PNC, K-QPOM, K-CBIT, K-HL0, K-HL1, K-SPK,
    K-CL, K-QSTAB, K-N8, K-MENU, K-PR6;
-2. the model's interface printout and R-MENU;
-3. M0, the decisive first question, with K-CLN-A, K-SYMP and K-SYMP2, after the first construction task (§4.1);
-4. M1, then M2 at *n* = 2;
+2. the model's interface printout (Π_ω, PP, clean resources, S) and R-MENU;
+3. M0, the decisive first question, with K-CLN-A, K-SYMP, K-SYMP2, K-PIND, K-REUSE and K-PEX, under PP-1 then PP-2
+   (§4.1);
+4. M1, then M2 at *n* = 2, with K-BIAS;
 5. M3;
 6. M4;
 7. M5;
@@ -612,8 +681,9 @@ suppresses the governed lines:
 
 A FAIL at M1 does not stop M3 or M4, since they are separate questions; nor does M0 "lost" stop M1–M5. Each is reported.
 
-**Resources (§A.40).** The local run must stay under about 60 minutes. Each phase prints its wall time and halts
-reporting its completed range if it exceeds its share. Anything larger, such as *n* = 4 enumerations or deeper decoder
+**Resources (§A.40).** Every phase runs to deterministic caps fixed at freeze (Q5) and, on reaching one, prints PARKED
+with its completed range. The caps are chosen so that the local run is expected to stay under about 60 minutes; wall
+times are logged outside the replayed output (I-16). Anything larger, such as *n* = 4 enumerations or deeper decoder
 stability, becomes a CI plan proposed on the guiding PR and runs only with owner approval.
 
 **Replay.** Two runs from a clean checkout of the frozen commit must be byte-identical. `SHA256SUMS` covers the probe and
@@ -630,14 +700,14 @@ read; every other entry is [Q].
 |---|---|---|---|
 | Spekkens, Buzacott, Keehn, Toner, Pryde, PRL 102, 010401 (2009), arXiv:0805.1463 | the two-bit POM task; with exact parity obliviousness, PNC success ≤ 3/4; quantum (2+√2)/4 | values 3/4 and (2+√2)/4: [rec, owner read 2026-10-21: Theorem 2 and its two-bit quantum example]; task wording: [Q] | PC-POM: an amendment quoting the task definition. The numbers that decide M3 come from K-PNC and K-QPOM |
 | Spekkens, PRA 71, 052108 (2005), quant-ph/0406166 | preparation-noncontextual ontological models of quantum theory do not exist, a proof that applies already in dimension 2 | [Q] (abstract-level search summary) | PC-S05 before any verdict text cites it |
-| Spekkens, PRA 75, 032110 (2007), quant-ph/0401052 | the toy theory; knowledge balance; it has a preparation-noncontextual ontological model | [Q] | K-SPK is built from MC8's combinatorial reading; PC-SPK as in MC8, also before §4 (ii) is cited as more than an expectation |
+| Spekkens, PRA 75, 032110 (2007), quant-ph/0401052 | the toy theory; knowledge balance; it has a preparation-noncontextual ontological model | [Q] | K-SPK is built from MC8's combinatorial reading; PC-SPK as in MC8, also before §4's expected M3 consequence is cited as more than an expectation |
 | Bartlett, Rudolph, Spekkens, PRA 86, 012103 (2012), arXiv:1111.5057 | Gaussian QM reconstructed from one specific epistemic restriction on Liouville mechanics | [Q] (search summary) | PC-BRS |
 | Chiribella, D'Ariano, Perinotti, PRA 84, 012311 (2011), arXiv:1011.6451 | five axioms (causality, perfect distinguishability, ideal compression, local distinguishability, pure conditioning) plus purification select QM | [Q] (search summary lists the axioms) | PC-CDP (inherited from MC8 §6.8) gates M2's wording |
 
 **Narrow claims, and only these.**
 - Bartlett, Rudolph and Spekkens (2012) reconstruct Gaussian QM from one specific epistemic restriction on Liouville
-  mechanics.
-- Spekkens (2005) excludes preparation-noncontextual models of full QM.
+  mechanics [Q].
+- Spekkens (2005) excludes preparation-noncontextual models of full QM [Q].
 
 Together these constrain the route. They do not rule out contextual, epistemically restricted constructions. Nothing
 here states that epistemic restrictions in general stop at stabilizer or Gaussian physics.
@@ -647,22 +717,25 @@ here states that epistemic restrictions in general stop at stabilizer or Gaussia
 ## 10. Scope
 
 Every negative result concerns the specified model, its interface 𝓘 (clean ancillas included), the sizes and ancilla
-count computed and the declared readings. A FAIL does not establish that observational incompleteness cannot yield
-purification, contextuality, Bell violation or QM. A PASS establishes the milestone's stated content for that model,
-its preparation set and its purifiers, and nothing beyond it. Lemma W decides equivalence exactly within the declared
-finite model, not reachability; beyond it, K-ANC and a reviewed extension argument govern. Finite-model success is
-never classified as an exact quantum reconstruction (MC8 A-1). No equivalence is claimed. M5's two directions are
-reported separately.
+count computed, the declared PP form and resource scope S, and the declared readings. A FAIL does not establish that
+observational incompleteness cannot yield purification, contextuality, Bell violation or QM. A PASS establishes the
+milestone's stated content for that model, its preparation set and its purifiers, and nothing beyond it. Lemma W decides
+equivalence exactly within the declared finite model, not reachability; beyond it, K-ANC and a reviewed extension
+argument govern. Finite-model success is never classified as an exact quantum reconstruction (MC8 A-1). No equivalence
+is claimed. M5's two directions are reported separately.
 
 ***
 
 ## 11. Procedure and freeze
 
 - **Before freeze:**
-  - the owner fixes Option A's clean-ancilla declaration, with the pointer-conjugate postulate, its statement as a
-    principle and the status of Π_ω (§4; `NOTES.md` QA′), and the resource scope b_r, b_h (Q5);
-  - the remaining questions of `NOTES.md` are disposed;
-  - an independent pre-freeze review runs.
+  - the owner confirms §4's PP text, clean-resource declaration and Π_ω definition (`NOTES.md` QA′), and fixes the
+    values of S, *s_max* and *d_max* (Q5);
+  - the remaining questions of `NOTES.md` (Q6–Q9) are disposed, and node 8's `quotecheck.py` is run with a node-9
+    fragment list (Q8);
+  - the design/emb review's disposition is recorded; until it accepts the report, its findings stay [rec, under
+    review] and decide nothing (I-17);
+  - an independent re-review of this revision against the pre-freeze checklist of the review of `6cf71e0e` runs.
 - **Freeze:** the sha256 of this file is recorded in the commit message and on the guiding PR. After freeze the file is
   not edited. Changes go to `amendments/` with time, reason and state of knowledge, before the computation they touch.
   No amendment changes a decision rule in a candidate's favour.

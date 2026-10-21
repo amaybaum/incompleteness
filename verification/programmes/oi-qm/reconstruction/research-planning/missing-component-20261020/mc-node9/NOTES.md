@@ -29,26 +29,27 @@ generated. A model choice, since Main.md:60 permits structured preparations (PRE
 
 **Q4. Heralded conditioning: closed.** Generator (g6) with back-action; control K-HERALD.
 
-## Closed in draft revision 2, 2026-10-21
+## Closed in draft revisions 2 and 3, 2026-10-21
 
 **QA. Option A's operation rule and clean-ancilla declaration: partially closed.** Two failure classifications are
 defined (PREREG §2.2): an explicit violating preparation is M0 lost; a stated but unjustified operation restriction is
 R-MENU unmet. The revision-1 rule ρ₀ is M0 lost by K-SYMP's witness [rec, owner check 2026-10-21]. The candidate Π_ω
 (reversible record maps preserve the read/disturb pairing ω) is to be evaluated, not adopted; for it both
 classifications are open. Main.md:290's update is symplectic, but that does not show that OI's available operations
-enforce the rule (PREREG §4, claim table); the elementary pointer construction names the resource assumption "pointer
-conjugates are never supplied clean" as a candidate independent postulate, and K-SYMP2 shows the distinction it
-protects is load-bearing. Still open: QA′ below.
+enforce the rule (PREREG §4, claim table). Completed by QA′ in revision 3.
 
 **QB. Beyond-target prediction: closed.** The sequential-readout repeatability postdiction of PREREG §4, derived from the
-frozen read coupling; an independent postdiction, not a new quantum prediction. |S| ≤ 2 in the local branch stays
+frozen read coupling; built into that coupling, so a match is at most CONFIRMING. |S| ≤ 2 in the local branch stays
 prerecorded.
 
-**QC. Restriction criterion: closed.** Named "the proposed preparation restriction"; an invariant to test, neither a
-general necessity nor a sufficient condition for purification. The determined-functional count stays a diagnostic.
-Owner clarification (2026-10-21): it is evaluated on the joint information about every canonical pair present
-(support ≥ 2^*N* over all hidden coordinates given all accessible records, pointers included), never on whether a
-coordinate named P is definite; a symplectic exchange (Q = 0, P unknown) → (Q unknown, P = 0) is not a violation.
+**QC. Restriction criterion: reopened and re-closed in revision 3.** The joint-pair form of revision 2 (support ≥ 2^*N*
+over every canonical pair present) is violated by the declared coupling itself (W6, W1), and its exchange sentence is
+false: Q is visible, so an exchange followed by a readout determines the pair (W3′) [rec, pre-freeze review of
+6cf71e0e]. The corrected form (PREREG §4): the toy coordinates alone, every used pointer's P marginalized, support ≥
+2^*n*, evaluated after each completed read-and-discard (or read-and-copy) and at every stopping time. Discarding at most
+halves support, so it never creates a violation but can hide one; the joint support and the determined-functional
+count are diagnostics. It remains an invariant to test, neither a general necessity nor a sufficient condition for
+purification.
 
 **QD. The POM–CHSH link: closed.** Written out as Lemma S [W] (PREREG §2.4): S_CHSH = 8*p* − 4, no-signalling from parity
 equivalence, with the physical qualification that the common extension must exist in the model.
@@ -57,26 +58,37 @@ equivalence, with the physical qualification that the common extension must exis
 `78913467`, reviewed ACCEPT WITH NOTES; its 46 realization lines equal r1's [rec, coordinator check 2026-10-21]. MC8
 A-5 corrects A-4's wording and changes no outcome.
 
+**QA′. Π_ω and the resources of Option A: closed in revision 3, subject to the owner's confirmation at freeze.**
+Decisions Q10–Q13 (owner, 2026-10-21) applied, with the pre-freeze review's B1–B6 (PREREG §4, §4.1):
+- Π_ω is the normalizer of the read family {R_u} on the record carrier, computed by exhaustive backtracking; [W]
+  identifies it with ASp(2*n*, 2), which excludes nothing at *n* = 1. Pointer-internal maps are not operations.
+- The pointer policy is an independent postulate under R-MENU (v): PP-1 single use (default), PP-2 the back-acting
+  copy (tested alternative), both with the independence clause and the unavailability of discarded pointers.
+- Clean resources are declared with their counts; no second clean visible site is available, a postulate.
+- C-i is a disclosed design input: design/c1 at `49033a3e` (reviewed) covers the whole record lifecycle; design/emb at
+  `b71199a8` is under review and decides nothing. M0 runs on the abstract pointer model, with AP-1 to AP-5 named as
+  assumptions of this implementation; C1 delivers only u-reads within its search bounds.
+- R-MENU is computed on the record carrier only; whether Π_ω, PP and the declaration are derivable from the substratum
+  stays open (claim table, row 3).
+
 ## Open before freeze
 
-**QA′. Π_ω and the resources of Option A.** Whether Π_ω is a principle or a menu (R-MENU); the clean-ancilla
-declaration, including the pointer-conjugate postulate, as a principle (R-MENU (v)); the first construction task of
-PREREG §4.1, the pointer coupling built from the declared lattice dynamics with clean resources accounted for, and
-whether it needs any further postulate. The postulate's precise form (owner, 2026-10-21): each fresh pointer has
-Q = 0 and P uniform and independent of the system and of every accessible preparation record; the independence clause
-is load-bearing, and it restricts primitive resources, not later states. The construction reports two separate
-results, (C-i) mechanism available and (C-ii) closure preserves the restriction (PREREG §4.1).
-
-**Q5. Sizes, depths and ancilla counts.** The proposed parameters:
+**Q5. Sizes, depths, ancilla counts and the scope S (updated).** S = (*n*, *k*, *b_p*, *b_m*, *b_r*, *b_h*) and the
+caps *s_max*, *d_max* are defined in PREREG §4.1; heralding counts separately from ordinary conditioning. Proposed
+values, for the owner to fix:
 - M2 at A = one and two systems, each with a same-type purifier (*n* ≤ 4 toy bits; 256 record configurations);
 - M3 decoders to depth D = 3, with stability checked at D = 4;
-- equivalence and M0 at *k* ≤ 2 ancillas, halting if *k* = 1 and *k* = 2 differ; results are reported for *k* ≤ 2 only
-  unless an extension argument is reviewed (PREREG §1.3);
-- the reachability budgets b_r (fresh bath bits) and b_h (heralding repetitions), with the termination argument that
-  makes M0's closure complete at that scope (PREREG §1.2, layer 2).
+- equivalence and M0 at *k* ≤ 2 ancillas, halting if *k* = 1 and *k* = 2 differ (PREREG §1.3);
+- M0 locally at *n* ≤ 2 with *b_p* ≤ 4, *b_m* ≤ 3 (PP-2), *b_r* = *b_p* + *b_m* + 2, *b_h* ≤ 2; *n* = 3 and larger
+  budgets as a CI plan; *s_max* and *d_max* set from a dry count of the closure's state space, not from wall time.
 
-Lemma W makes depth unbounded for equivalence, not for reachability. Are these acceptable, and should *n* = 4 go to CI
-from the start?
+**Remaining before freeze.**
+1. Q5's values, *s_max* and *d_max* fixed by the owner.
+2. The owner confirms PREREG §4's PP text, clean-resource declaration and Π_ω definition.
+3. The design/emb review's disposition recorded; until it accepts, its findings stay [rec, under review].
+4. Q6–Q9 disposed; node 8's `quotecheck.py` run with a node-9 fragment list (Q8).
+5. An independent re-review of revision 3 against the pre-freeze checklist; then the frozen sha256 recorded.
+6. Not blocking (I-17 prints "provisional"): the literature gates PC-POM, PC-SPK, PC-CDP, PC-S05, PC-BRS.
 
 **Q6. Scope of M5.** M5-L and M5-A cover POM and CHSH only, linked by Lemma S (PREREG §2.4). Should further statistics
 be added, such as the quantum set at NPA level 1, the chained Bell inequalities, or 3-bit POM? Is M5-A's A2 form wanted
@@ -95,6 +107,19 @@ At freeze, node 8's `quotecheck.py` should be run with a node-9 fragment list.
 **Q9. Left out to keep the node short.** The CDP per-axiom audit (MC8 §6.3–§6.4); C5-IC; the interference diagnostic;
 branch-(a) composites; robust (finite-precision) noncontextuality inequalities. The last matters: under ε-agreement PNC
 is vacuous (MC6 `leak.py`), so M3 is an exact-equivalence test only.
+
+## Option B handoff
+
+What carries over from model A to Option B, unchanged unless an amendment says otherwise:
+- the engine: equivalence by Lemma W, the closure search with its completeness certificate and deterministic caps,
+  heralding with back-action, the exact ℚ(√2) and ℚ(i, √2) arithmetic, and the mechanical Ops(Π) computation;
+- Lemma W, and Lemmas F, A, S and the composition lemma;
+- the controls and mutants of PREREG §5 and §7, including K-PIND, K-REUSE and K-PEX and the independence clause they
+  test;
+- the biased-state control K-BIAS, (3/8, 3/8, 1/8, 1/8);
+- model A's results as baseline for Option B's productivity test, beside the disclosed C-i and emb findings.
+
+Option B needs its own Π, clean-resource declaration and record policy, each stated before computing.
 
 ## Literature status
 
