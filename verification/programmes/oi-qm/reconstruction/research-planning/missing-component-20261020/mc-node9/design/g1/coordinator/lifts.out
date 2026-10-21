@@ -1,0 +1,17 @@
+{(Fraction(1, 1), Fraction(1, 1)): 64, (Fraction(0, 1), Fraction(0, 1)): 64, (Fraction(0, 1), Fraction(1, 1)): 64, (Fraction(1, 1), Fraction(0, 1)): 64}
+swap lift I_A I_B ·H_A -> W6 1 W7 1
+swap lift I_A X_B ·H_A -> W6 0 W7 1
+swap lift I_A Z_B ·H_A -> W6 0 W7 0
+swap lift I_A XZ_B ·H_A -> W6 1 W7 0
+swap lift X_A I_B ·H_A -> W6 1 W7 1
+swap lift X_A X_B ·H_A -> W6 0 W7 1
+swap lift X_A Z_B ·H_A -> W6 0 W7 0
+swap lift X_A XZ_B ·H_A -> W6 1 W7 0
+swap lift Z_A I_B ·H_A -> W6 1 W7 1
+swap lift Z_A X_B ·H_A -> W6 0 W7 1
+swap lift Z_A Z_B ·H_A -> W6 0 W7 0
+swap lift Z_A XZ_B ·H_A -> W6 1 W7 0
+swap lift XZ_A I_B ·H_A -> W6 1 W7 1
+swap lift XZ_A X_B ·H_A -> W6 0 W7 1
+swap lift XZ_A Z_B ·H_A -> W6 0 W7 0
+swap lift XZ_A XZ_B ·H_A -> W6 1 W7 0

@@ -1,0 +1,20 @@
+== (I-a) n=1, every normalized cocycle (= every section of every class) and every lift of swap (H)
+  C=Z2, lifts trivial on C: 8 cocycles, 16 (cocycle, lift) pairs; sign update additive in 0; bit-linear into Z2 in 0
+  C=Z4, lifts trivial on C: 64 cocycles, 128 (cocycle, lift) pairs; sign update additive in 0; bit-linear into Z4 in 0
+  C=Z4, lifts INVERTING on C: 64 cocycles, 128 (cocycle, lift) pairs; sign update additive in 32; bit-linear into Z4 in 64
+  [W] reason: for any lift of S acting trivially on C with Su = v, Sv = u, omega(u,v) = 1:  g(u+v) - g(u) - g(v) = beta(v,u) - beta(u,v) = -(m/2) != 0,
+      while an additive g (and a bit-linear g at disjoint-support u, v) gives 0.
+== (I-b) n=2, C=Z2 real class: all 2^15 sections f (beta_f = beta0 + delta f), ANF degree of each sign update
+  real section s(u) = X^x Z^z: deg g = {'swap0': 2, 'swap1': 2, 'couple': -1} ; g_swapA == x_A z_A: True ; g_couple == 0: True
+  sections with an affine (deg <= 1) swap_A update: 0 of 32768; min over sections of max degree (swapA, swapB, couple): 2
+  degree profiles (swapA, swapB, couple) -> #sections: {(2, 2, -1): 128, (2, 2, 1): 384, (2, 2, 2): 1536, (2, 2, 3): 6144, (2, 3, -1): 128, (2, 3, 1): 384, (2, 3, 2): 1536, (2, 3, 3): 6144, (3, 2, -1): 128, (3, 2, 1): 384, (3, 2, 2): 1536, (3, 2, 3): 6144, (3, 3, -1): 128, (3, 3, 1): 384, (3, 3, 2): 1536, (3, 3, 3): 6144}
+  (other lifts differ by a linear character, which changes no degree >= 2)
+== (I-c) formula checks against the engine (C=Z4 Pauli class, Hermitian section i^{x.z} X^x Z^z = Aaronson-Gottesman)
+  swap0   AG phase rule reproduced on all 16 Hermitian records: True ; ANF degree in this section: 2
+  swap1   AG phase rule reproduced on all 16 Hermitian records: True ; ANF degree in this section: 2
+  couple  AG phase rule reproduced on all 16 Hermitian records: True ; ANF degree in this section: 3
+== (II) ontic: card cells + one extra F2 cell h, affine extensions of the card maps
+  bijective affine extensions per card map: {'swap0': 272, 'swap1': 272, 'couple': 272}
+  control: h-decoupled extension == cards on ['swap0', 'couple', 'read0', 'read1'] : True ; == QM: False
+  models passing both K-G1 witnesses (QM values), by (initial h, reads refresh h): {(0, False): 3757, (0, True): 3757, (1, False): 5429, (1, True): 5429, (None, False): 1491, (None, True): 1491}
+  ... of which exactly equivalent to QM on every word over ['swap0', 'couple', 'read0', 'read1'] : 0
