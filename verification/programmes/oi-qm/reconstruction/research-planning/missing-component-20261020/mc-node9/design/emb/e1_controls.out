@@ -1,0 +1,18 @@
+E1-K2 (two-site K-SYMP2): path 0-1, R = {0} clean, toy site 1 uniform
+  (a,b)=(0,0): after 2 steps visible (u0,v0)=(0, 0), hidden (u1,v1)=(0, 0)
+  (a,b)=(0,1): after 2 steps visible (u0,v0)=(1, 0), hidden (u1,v1)=(0, 1)
+  (a,b)=(1,0): after 2 steps visible (u0,v0)=(0, 1), hidden (u1,v1)=(0, 0)
+  (a,b)=(1,1): after 2 steps visible (u0,v0)=(1, 1), hidden (u1,v1)=(0, 1)
+  visible = (b, a), hidden = (0, b) for all four: PASS
+  period 6; toy support given the current visible site, t = 0..5: 4 2 1 1 1 2
+
+E1-C1 (pointer 1 - toy 0 - bath 2, R = {1})
+  period by state simulation: 8 (owner: M^8 = I)
+  uniform toy, uniform bath: min toy support t = 0..7: 4 2 2 4 4 4 2 2   (owner: 4 2 2 4 4 4 2 2) PASS
+  toy uniform on ((0, 0), (0, 1)), bath uniform: min toy support t = 0..7: 2 2 2 2 2 2 2 2
+  toy uniform on ((0, 0), (1, 0)), bath uniform: min toy support t = 0..7: 2 2 2 2 2 2 2 2
+  toy uniform on ((0, 0), (1, 1)), bath uniform: min toy support t = 0..7: 2 2 2 2 2 2 2 2
+  toy uniform on ((0, 1), (1, 0)), bath uniform: min toy support t = 0..7: 2 2 2 2 2 2 2 2
+  toy uniform on ((0, 1), (1, 1)), bath uniform: min toy support t = 0..7: 2 2 2 2 2 2 2 2
+  toy uniform on ((1, 0), (1, 1)), bath uniform: min toy support t = 0..7: 2 2 2 2 2 2 2 2
+  no point mass at any stopping time for the six two-point preparations: PASS

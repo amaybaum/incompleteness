@@ -1,0 +1,99 @@
+K-EXTHIST control: replay of C-i lifecycle.out (path pointer-toy-bath-reservoir, R = {pointer})
+  L=1 with feedback reset: toy support 2 2 2 1 1 1 1  first point mass at 4 (C-i: 4)
+  L=2 with feedback reset: toy support 2 2 2 2 2 1 1 1 1  first point mass at 6 (C-i: 6)
+  L=3 with feedback reset: toy support 2 2 2 2 2 2 2 1 1 1 1  first point mass at 8 (C-i: 8)
+  L=4 with feedback reset: toy support 2 2 2 2 2 2 2 2 2 1 1 1 1  first point mass at 10 (C-i: 10)
+  L=5 with feedback reset: toy support 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1  first point mass at 12 (C-i: 12)
+  L=1 no reset: 2 2 2 1 1 1 1 1 (C-i: 2 2 2 1 1 1 1 1)
+  K-EXTHIST REPLAY: PASS
+
+Same graphs, embedded memory only (no external history, no reset): the pointer site is the whole memory
+  L=1: period 8; min toy support over the period 2; learning t: none; K-EXTHIST (no reset) first point mass t=4
+  L=2: period 10; min toy support over the period 2; learning t: none; K-EXTHIST (no reset) first point mass t=6
+  L=3: period 12; min toy support over the period 2; learning t: none; K-EXTHIST (no reset) first point mass t=8
+  L=4: period 14; min toy support over the period 2; learning t: none; K-EXTHIST (no reset) first point mass t=10
+  L=5: period 16; min toy support over the period 2; learning t: none; K-EXTHIST (no reset) first point mass t=12
+  L=6: period 18; min toy support over the period 2; learning t: none; K-EXTHIST (no reset) first point mass t=14
+
+Family A (single apparatus): memory chain of m sites behind the pointer, toy, bath, reservoir of L-1 sites
+  m=0 L=1 n=3 period 8: min support 2; learning at 0 of 7 times; K-EXTHIST first t=4; times with initial toy fully recorded but current toy support >= 2: 0
+  m=0 L=2 n=4 period 10: min support 2; learning at 0 of 9 times; K-EXTHIST first t=6; times with initial toy fully recorded but current toy support >= 2: 0
+  m=0 L=3 n=5 period 12: min support 2; learning at 0 of 11 times; K-EXTHIST first t=8; times with initial toy fully recorded but current toy support >= 2: 0
+  m=0 L=4 n=6 period 14: min support 2; learning at 0 of 13 times; K-EXTHIST first t=10; times with initial toy fully recorded but current toy support >= 2: 0
+  m=0 L=5 n=7 period 16: min support 2; learning at 0 of 15 times; K-EXTHIST first t=12; times with initial toy fully recorded but current toy support >= 2: 0
+  m=0 L=6 n=8 period 18: min support 2; learning at 0 of 17 times; K-EXTHIST first t=14; times with initial toy fully recorded but current toy support >= 2: 0
+  m=1 L=1 n=4 period 10: min support 1; learning at 0 of 9 times; K-EXTHIST first t=4; times with initial toy fully recorded but current toy support >= 2: 0
+  m=1 L=2 n=5 period 12: min support 2; learning at 0 of 11 times; K-EXTHIST first t=6; times with initial toy fully recorded but current toy support >= 2: 0
+  m=1 L=3 n=6 period 14: min support 2; learning at 0 of 13 times; K-EXTHIST first t=8; times with initial toy fully recorded but current toy support >= 2: 0
+  m=1 L=4 n=7 period 16: min support 2; learning at 0 of 15 times; K-EXTHIST first t=10; times with initial toy fully recorded but current toy support >= 2: 0
+  m=1 L=5 n=8 period 18: min support 2; learning at 0 of 17 times; K-EXTHIST first t=12; times with initial toy fully recorded but current toy support >= 2: 0
+  m=1 L=6 n=9 period 20: min support 2; learning at 0 of 19 times; K-EXTHIST first t=14; times with initial toy fully recorded but current toy support >= 2: 0
+  m=2 L=1 n=5 period 12: min support 1; learning at 0 of 11 times; K-EXTHIST first t=4; times with initial toy fully recorded but current toy support >= 2: 0
+  m=2 L=2 n=6 period 14: min support 1; learning at 0 of 13 times; K-EXTHIST first t=6; times with initial toy fully recorded but current toy support >= 2: 0
+  m=2 L=3 n=7 period 16: min support 2; learning at 0 of 15 times; K-EXTHIST first t=8; times with initial toy fully recorded but current toy support >= 2: 0
+  m=2 L=4 n=8 period 18: min support 2; learning at 0 of 17 times; K-EXTHIST first t=10; times with initial toy fully recorded but current toy support >= 2: 0
+  m=2 L=5 n=9 period 20: min support 2; learning at 0 of 19 times; K-EXTHIST first t=12; times with initial toy fully recorded but current toy support >= 2: 0
+  m=2 L=6 n=10 period 22: min support 2; learning at 0 of 21 times; K-EXTHIST first t=14; times with initial toy fully recorded but current toy support >= 2: 0
+  m=3 L=1 n=6 period 14: min support 1; learning at 0 of 13 times; K-EXTHIST first t=4; times with initial toy fully recorded but current toy support >= 2: 0
+  m=3 L=2 n=7 period 16: min support 1; learning at 0 of 15 times; K-EXTHIST first t=6; times with initial toy fully recorded but current toy support >= 2: 0
+  m=3 L=3 n=8 period 18: min support 1; learning at 0 of 17 times; K-EXTHIST first t=8; times with initial toy fully recorded but current toy support >= 2: 0
+  m=3 L=4 n=9 period 20: min support 2; learning at 0 of 19 times; K-EXTHIST first t=10; times with initial toy fully recorded but current toy support >= 2: 0
+  m=3 L=5 n=10 period 22: min support 2; learning at 0 of 21 times; K-EXTHIST first t=12; times with initial toy fully recorded but current toy support >= 2: 0
+  m=3 L=6 n=11 period 24: min support 2; learning at 0 of 23 times; K-EXTHIST first t=14; times with initial toy fully recorded but current toy support >= 2: 0
+  m=4 L=1 n=7 period 16: min support 1; learning at 0 of 15 times; K-EXTHIST first t=4; times with initial toy fully recorded but current toy support >= 2: 0
+  m=4 L=2 n=8 period 18: min support 1; learning at 0 of 17 times; K-EXTHIST first t=6; times with initial toy fully recorded but current toy support >= 2: 0
+  m=4 L=3 n=9 period 20: min support 1; learning at 0 of 19 times; K-EXTHIST first t=8; times with initial toy fully recorded but current toy support >= 2: 0
+  m=4 L=4 n=10 period 22: min support 1; learning at 0 of 21 times; K-EXTHIST first t=10; times with initial toy fully recorded but current toy support >= 2: 0
+  m=4 L=5 n=11 period 24: min support 2; learning at 0 of 23 times; K-EXTHIST first t=12; times with initial toy fully recorded but current toy support >= 2: 0
+  m=4 L=6 n=12 period 26: min support 2; learning at 0 of 25 times; K-EXTHIST first t=14; times with initial toy fully recorded but current toy support >= 2: 0
+
+Family B (single apparatus, toy with k hidden bath neighbours, memory chain m)
+  k=1 m=0 n=3 period 8: min support 2; learning times 0; K-EXTHIST first t=4
+  k=1 m=1 n=4 period 10: min support 1; learning times 0; K-EXTHIST first t=4
+  k=1 m=2 n=5 period 12: min support 1; learning times 0; K-EXTHIST first t=4
+  k=1 m=3 n=6 period 14: min support 1; learning times 0; K-EXTHIST first t=4
+  k=2 m=0 n=4 period 6: min support 2; learning times 0; K-EXTHIST first t=4
+  k=2 m=1 n=5 period 16: min support 1; learning times 2 first t=4; K-EXTHIST first t=4
+  k=2 m=2 n=6 period 10: min support 1; learning times 3 first t=4; K-EXTHIST first t=4
+  k=2 m=3 n=7 period 24: min support 1; learning times 10 first t=4; K-EXTHIST first t=4
+  k=3 m=0 n=5 period 8: min support 2; learning times 0; K-EXTHIST first t=4
+  k=3 m=1 n=6 period 10: min support 1; learning times 0; K-EXTHIST first t=4
+  k=3 m=2 n=7 period 12: min support 1; learning times 0; K-EXTHIST first t=4
+  k=3 m=3 n=8 period 14: min support 1; learning times 0; K-EXTHIST first t=4
+  k=4 m=0 n=6 period 6: min support 2; learning times 0; K-EXTHIST first t=4
+  k=4 m=1 n=7 period 16: min support 1; learning times 2 first t=4; K-EXTHIST first t=4
+  k=4 m=2 n=8 period 10: min support 1; learning times 3 first t=4; K-EXTHIST first t=4
+  k=4 m=3 n=9 period 24: min support 1; learning times 10 first t=4; K-EXTHIST first t=4
+
+Witness W-E2 (from e12_exhaustive): edges (0,1),(0,3),(0,4),(1,2); R = {1, 2}; toy 0; baths 3, 4
+  period 16
+   t=1: toy support given final memory 2 (prior 4); initial toy support 2; K-EXTHIST 2
+   t=2: toy support given final memory 2 (prior 4); initial toy support 2; K-EXTHIST 2
+   t=3: toy support given final memory 2 (prior 4); initial toy support 2; K-EXTHIST 2
+   t=4: toy support given final memory 1 (prior 4); initial toy support 1; K-EXTHIST 1
+   t=5: toy support given final memory 2 (prior 4); initial toy support 2; K-EXTHIST 1
+   t=6: toy support given final memory 2 (prior 4); initial toy support 2; K-EXTHIST 1
+   t=7: toy support given final memory 2 (prior 4); initial toy support 2; K-EXTHIST 1
+   t=8: toy support given final memory 4 (prior 4); initial toy support 4; K-EXTHIST 1
+   t=9: toy support given final memory 2 (prior 4); initial toy support 2; K-EXTHIST 1
+   t=10: toy support given final memory 2 (prior 4); initial toy support 2; K-EXTHIST 1
+   t=11: toy support given final memory 2 (prior 4); initial toy support 2; K-EXTHIST 1
+   t=12: toy support given final memory 1 (prior 4); initial toy support 1; K-EXTHIST 1
+   t=13: toy support given final memory 2 (prior 4); initial toy support 2; K-EXTHIST 1
+   t=14: toy support given final memory 2 (prior 4); initial toy support 2; K-EXTHIST 1
+   t=15: toy support given final memory 2 (prior 4); initial toy support 2; K-EXTHIST 1
+  at t=4: memory cells  u1=u1 + u3 + u4;  v1=v1 + v3 + v4;  u2=u0 + v3 + v4;  v2=u3 + u4 + v0
+          toy cells     u0=u2 + v3 + v4;  v0=u3 + u4 + v2
+  background B0 (all R-H edges cut): toy at t=4 u0=u0; v0=v0; difference D = (u0 + u2 + v3 + v4, u3 + u4 + v0 + v2): in memory
+     that background as a protocol: learning times none; min support 4
+  background non-copying (edge pointer-memory removed): toy at t=4 u0=u0 + v1 + v3 + v4; v0=u1 + u3 + u4; difference D = (u0 + u2 + v1, u1 + v2): in memory
+     that background as a protocol: learning times none; min support 2
+
+Lattice-like graphs: every region R, every toy site, one full period (decl FULL)
+  path P7: period 16; |R|=1: learning in 0 of 42 (R, toy) cases; |R|=2: learning in 2 of 105 (R, toy) cases; |R|>=3: learning in 166 of 294 (R, toy) cases
+  cycle C6: period 6; |R|=1: learning in 0 of 30 (R, toy) cases; |R|=2: learning in 0 of 60 (R, toy) cases; |R|>=3: learning in 72 of 96 (R, toy) cases
+  cycle C8: period 8; |R|=1: learning in 0 of 56 (R, toy) cases; |R|=2: learning in 0 of 168 (R, toy) cases; |R|>=3: learning in 504 of 792 (R, toy) cases
+  grid 2x3: period 12; |R|=1: learning in 0 of 30 (R, toy) cases; |R|=2: learning in 0 of 60 (R, toy) cases; |R|>=3: learning in 84 of 96 (R, toy) cases
+  grid 2x4: period 10; |R|=1: learning in 0 of 56 (R, toy) cases; |R|=2: learning in 0 of 168 (R, toy) cases; |R|>=3: learning in 500 of 792 (R, toy) cases
+  grid 3x3: period 8; |R|=1: learning in 0 of 72 (R, toy) cases; |R|=2: learning in 0 of 252 (R, toy) cases; |R|>=3: learning in 995 of 1971 (R, toy) cases
+  cube 2x2x2: period 6; |R|=1: learning in 0 of 56 (R, toy) cases; |R|=2: learning in 0 of 168 (R, toy) cases; |R|>=3: learning in 384 of 792 (R, toy) cases
