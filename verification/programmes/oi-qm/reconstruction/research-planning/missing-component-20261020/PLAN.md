@@ -232,7 +232,7 @@ Each node has been independently reviewed, and its review outcome is applied in 
     (iii) is Parked.
   - The long-edge family is quantum only at w = 0. The destructive-readout family equals a qubit with Lüders readouts
     for w ≤ 1/√2 on the sequences checked.
-  - G6: none. Verdicts are provisional on K-10 at n = 4 (CI); no verdict is decided through K-10.
+  - G6: none. K-10 holds at n = 4 (CI run 39529498293); no verdict is decided through K-10.
 
 **Form the missing component must take under A1, as the reviewed nodes have narrowed it:**
 - Theory level: it entails phase-free richness, which is necessary for every A1 extension and sufficient when the

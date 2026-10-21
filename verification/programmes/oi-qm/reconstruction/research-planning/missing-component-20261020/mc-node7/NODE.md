@@ -79,8 +79,9 @@ fails for an identified structural reason that propagates to N1–N3 of `mc-node
    The literal first clause is met only by PC-3b, which carries no information (amendment A-7). Overall: ELABORATING
    with CONFIRMING parts, no NEW item.
 
-All verdicts are provisional on K-10 at n = 4, which runs in CI and needs owner approval (amendment A-2). No verdict is
-decided through the K-10 reduction.
+K-10 holds at n = 4 (CI run 39529498293, job 118991884713; `k10-n4/`): both forms give 3105 boxes, the sets are equal,
+and all C(259, 4) = 183181376 multisets are visited. The verdicts above are final, with no classification changed. No
+verdict is decided through the K-10 reduction.
 
 ***
 
@@ -107,7 +108,7 @@ L3-C's verdict as void (A-10).
 | K-7 | LE is quantum only at w = 0: the exact perfect-correlation argument (if three correlators are ±1 the fourth equals their product) excludes every LE(n,k) with k ≥ 1, n ≤ 12 (all n [W]). T1: E = (1,1,1,1/5), S_max = 14/5 | must-hold | holds |
 | K-8 | 𝒜_CHSH contains the PR/anti-PR point (an O-checked realization with λ ∈ ℤ₆₈) with correlators (12/17)(−1)^{ab}, zero marginals and entries in (1/68)ℤ. K-P admits it through the exact isotropic TLM condition. Each correlator is within ε/4 of 1/√2, and S_max = 48/17 is within ε of 2√2. The gate class reaches the same box at n = 34 (A-1) | must-hold | holds |
 | K-9 | condition O (bijectivity on Ω, point-mass visible marginal, normalized prior): 416 realizations before the candidates, 2624 with the candidate measurements | must-hold | holds |
-| K-10 | the 256-count and eight-coordinate forms of 𝒜_CHSH(n) are the same set: 16, 136 and 752 boxes at n = 1, 2, 3. [W] for all n, both directions: a uniform mixture of n response pairs has entries in (1/n)ℤ, and the class requires no-signalling; conversely, any box with entries in (1/n)ℤ is such a mixture (assign the n values of λ to outcomes one setting pair at a time), so a no-signalling one is in the class | must-hold | holds at n ≤ 3 and [W]; n = 4 pending (CI) |
+| K-10 | the 256-count and eight-coordinate forms of 𝒜_CHSH(n) are the same set: 16, 136, 752 and 3105 boxes at n = 1, 2, 3, 4. [W] for all n, both directions: a uniform mixture of n response pairs has entries in (1/n)ℤ, and the class requires no-signalling; conversely, any box with entries in (1/n)ℤ is such a mixture (assign the n values of λ to outcomes one setting pair at a time), so a no-signalling one is in the class | must-hold | holds at n ≤ 4 (n = 4 in CI run 39529498293) and [W] |
 | K-11 | K-P's POM witness ρ_x = ½(I + w((−1)^{x₀}Z + (−1)^{x₁}X)) equals DR(w) exactly on all 14 sequences × 4 preparations for w ∈ {0, 1/2, 12/17}. ρ₀₀ + ρ₁₁ = ρ₀₁ + ρ₁₀ | must-hold | holds |
 | SOS | exact identity (1/√2)[(A₀ − (B₀+B₁)/√2)² + (A₁ − (B₀−B₁)/√2)²] = 2√2 − CHSH (SymPy, noncommutative) | must-hold | holds |
 | I-17, I-2, I-4 | classifier precedence on five synthetic clause vectors; `law()` reads only (prior, steps, readout); no float constant or `float()` outside `num_*` functions (an AST scan) | must-hold | hold |
@@ -334,8 +335,8 @@ Assumption-watch markers:
 
 ## 8. Not verified
 
-- **K-10.** n = 4 is pending in CI with owner approval (A-2). The two-direction written argument (K-10 row) has been
-  reviewed.
+- **K-10.** Computed at n ≤ 4 (n = 4 in CI, `k10-n4/`); for larger n it rests on the reviewed two-direction written
+  argument (K-10 row).
 - **HB-3α.**
   - The limit statement rests on the closed form and its algebra [W]. It is checked by flow at L ∈ {6, 8, 10, 12} with
     δ ≤ 2, and by the reviewer at L = 14 with δ = 3. The closed form needs 3L/2 ≥ 4δ + 1.
@@ -376,6 +377,7 @@ Assumption-watch markers:
 | `p7.py` | controls, mutation controls and static checks, then the candidate measurements and the derived verdicts, in PREREG §9 order; 37 checks |
 | `p7.run1.out`, `p7.run2.out` | 37 PASS, 0 FAIL; byte-identical |
 | `k10.py`, `k10.run{1,2}.out` | K-10 at n ≤ 3; byte-identical |
+| `../k10-n4/` | K-10 at n = 4: the CI runner (`k10_n4.py`, `mc7-k10-n4.yml`, byte-identical to the blobs of runner commit `94516631`), the run's structured result (`result.json`) and `SHA256SUMS`. The runner executes the unmodified `k10.py` of `a501b418` |
 | `sup_hb3a_edge.py`, `sup_hb3a_edge.run{1,2}.out` | supplementary HB-3α edge curvature (not decision-bearing); byte-identical |
 | `SHA256SUMS` | digests of the nine files above |
 | `review/` | the reviewer's checks, copied unchanged (`hb3a_indep.py`, `hb4.py`, `l3c.py`, `priorfree.py`, `rw.py`), each run twice with byte-identical outputs, and `SHA256SUMS`. The mutants are not copied |
@@ -420,7 +422,7 @@ Run from `probe/review/`:
 >     (iii) is Parked.
 >   - The long-edge family is quantum only at w = 0. The destructive-readout family equals a qubit with Lüders readouts
 >     for w ≤ 1/√2 on the sequences checked.
->   - G6: none. Verdicts are provisional on K-10 at n = 4 (CI); no verdict is decided through K-10.
+>   - G6: none. K-10 holds at n = 4 (CI run 39529498293); no verdict is decided through K-10.
 
 **Next node for the A2 track (proposed): does a limit on what an embedded observer's records carry, derived from OI's
 premises, restrict the admitted response maps?**
