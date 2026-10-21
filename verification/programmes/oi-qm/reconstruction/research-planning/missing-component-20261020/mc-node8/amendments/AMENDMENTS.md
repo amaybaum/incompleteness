@@ -255,3 +255,48 @@ and §6.10 verdict logic are those of `p8s1_r1.py`, except the Pur-U status of N
 
 The repaired run is `probe/p8s1.r2.run1.out` and `probe/p8s1.r2.run2.out`. `probe/CHANGES-r2.md` accounts for every
 line in which it differs from `p8s1.r1.run1.out`.
+
+***
+
+**A-5. Correction of A-4's wording, made after the review of `78913467` (2026-10-21).** Recorded under PREREG §19's
+discrepancy procedure ("a later discrepancy is recorded, not repaired"). Source: the independent review of `78913467`
+(disposition ACCEPT WITH NOTES; findings 1–6), relayed by the coordinator. State of knowledge when A-5 was written: the
+complete step-1 outputs of `390e252f`, `d924b5bb` and `78913467`, the three reviews and their scratch measurements. A-5
+is not a preregistered choice. It changes no class, rule, criterion or decision clause of the preregistration, no code,
+and no Pur-E or Pur-U outcome of any run. `PREREG.md`, A-1 to A-4 above, `probe/p8s1_r2.py` and its outputs are
+unchanged; A-4 is not edited, and these entries correct it. The r2 output prints the digest of this file
+(`37aff9f1…78f70` at `78913467`), which this entry changes; a byte-identical replay of `p8s1.r2.run1.out` (sha256
+`b5ce288c…bd951`) is made from a checkout of `78913467`.
+
+- **Scope of the composition lemma (finding 1).** A-4 item 2 states the lemma "at any budget m". It holds for m ≥ 1
+  only. At m = 0 the weight set is empty (`weights(0)`, p8s1_r2.py:409–410), so ½ ∉ W and (H1) fails: the A-2
+  composite ½(δ₀⊗δ₀ + δ₁⊗δ₁), preparable from the grid {0, 1} of the prior p = 1, is not a W-mixture, hence pure, and
+  it is not a product. The claim's first sentence is false at m = 0. Its conclusion, that no mixed local state has a
+  purification, holds there only vacuously, because no local state is mixed at m = 0. The hypotheses also use one weight
+  set W for the local purity test (α = wα′ + (1 − w)α″) and for the composite purity test (ψ a W-mixture); the proof
+  relies on this, and it is part of the lemma's statement. At m ≥ 1, ½ ∈ weights(m) and the proof stands as written.
+- **Closure claim (finding 2).** A-4's "Closure under the declared operations is the accounting rule above" is narrowed
+  to: closure under composing and discarding is the accounting rule above. The other operations §2.2 admits (the
+  class's transformations and coupling steps, adjoining an uncoupled ancilla, classical coarse-graining of outcomes,
+  and sequential composition with feed-forward, PREREG l. 242–243) were not shown to add no states beyond the union of
+  the budget-m local sets. Feed-forward on a readout of a class with full hidden access, such as K-SWAP, could select
+  with non-dyadic weights; that was not computed. The completion distinction and A-4's *Consequence* bullet are
+  unaffected.
+- **Per-prior identity (finding 3) [rec, review of `78913467`].** A-4's "The per-prior identity is also checked on the
+  grids at m = 0, 1, 2, 3" is corrected. Check A4-MARG compares the union over priors of the per-prior half-sums with
+  S_onebit(m+1) (p8s1_r2.py:2105–2111); it does not compare prior by prior, and the mutant that drops k = 2^m passes it
+  by the p ↔ 1 − p symmetry. The per-prior form, ½(grid_m(p) + grid_m(p)) = grid_{m+1}(p), was confirmed by the
+  reviewer's independent exact script, which does not import the probe: it holds for every prior in F₈ at m = 0..3.
+  It is also A-4's [W] argument (K = k₀ + k₁ takes every value in {0..2^{m+1}}). The identity depends on A-2's
+  per-prior grouping, in which both halves of copy A come from one prior. With mixed-prior pairs the marginals have
+  197, 197, 393 and 787 states at m = 0..3, each a strict superset of S_onebit(m+1); 1/14 is an example of an added
+  state. A4-MARG uses the same grouping, so it confirms the identity under A-2's reading and does not test the reading.
+- **The [L] citation (finding 4).** A-4's "the standard fact that the extreme points of the minimal tensor product of two
+  state spaces are the products of extreme points [L]" names no specific work. It stays unverified. The proof of the
+  lemma is self-contained and does not depend on it.
+- **Known cosmetic defects of the r2 output text (findings 5 and 6).** The reading label of the A-4 accounting line,
+  "enlarged local set S_onebit(4), weights k/8, sensitivity" (p8s1_r2.py:2127), calls a line a sensitivity row that is
+  not one: K8-SENS is the sensitivity block, and "weights k/8" refers to the budget-3 composite pure set the line is
+  tested against. The A4-MARG message (p8s1_r2.py:2116–2118) always ends "the identity holds on the per-prior grids at
+  m = 0..3", including on a FAIL; the per-m `equal` flags printed above it carry the measured result. A-4 item 1 states
+  both contents correctly. No code is changed.
