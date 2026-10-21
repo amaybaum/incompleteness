@@ -465,3 +465,57 @@ The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb
     `fixedGateTheory_denseFiniteQM`).
   - H fits the dyadic marker of report 3's review: it is the gate the polarization map produces on the two-valued
     alphabet. R is not.
+
+## Owner report 4, "OI reversible implementation: independent handoff" (2026-10-21), coordinator review
+
+- *Source.* The owner's read-only session, as an HTML report pinned to `main` at `af8c59d6`. The report's checker and
+  its output are committed in `design/owner-checks/report4/`.
+- *Verification.*
+  - The checker's sha256 `d85da93c…` and its output's sha256 `9fa9dbf7…` match the report's stated hashes. A re-run
+    replay-matches byte for byte. The compiled circuit is checked against a separately written arithmetic reference on
+    all 5,632 admissible inputs.
+  - `coordinator_report4_checks.py` recomputes the following without importing the checker:
+    - the six-qubit preparation from a state vector: target (3, 4)/8, success 25/64; omitting the uncompute gives
+      [[9, 9], [9, 10]] and 19/64 ✓;
+    - the octahedron's closest point to R|0⟩ by a supporting-face argument: (21/25, 0, −4/25), squared trace distance
+      9/1250 ✓. The checker only evaluates the distance to the stated point; the face argument shows it is the minimum;
+    - the injection branches: Kraus 5√2·K = 5R and 5Rᵀ ✓;
+    - the nonlinear leapfrog with swap and shear correction: Toffoli on all 64 inputs ✓;
+    - the PR program's CHSH: 4 ✓.
+- *Findings [rec, owner report 4].*
+  - Reversible compilation. One real one-qubit experiment (H, Zᶻ, H, then readout and seed update) compiles to 1,095
+    NOT/CNOT/Toffoli gates on 377 data bits, with clean uncomputation. An 11-bit clock makes it one autonomous
+    bijection. The clock addresses distant wires, and no local controller is built.
+  - PR countercontrol. The same compiler realizes a = r, b = r ⊕ xy in eight gates: uniform marginals, CHSH = 4,
+    with global settings.
+  - Stabilizer barrier. Under the canonical encoding, the affine update is Clifford. The stabilizer closure, with
+    correlated retained baths, stays at trace distance ≥ 3/(25√2) from R|0⟩.
+  - Magic-state route. H on three qubits plus Toffolis prepares (3|0⟩ + 4|1⟩)/5 heralded at 25/64. Injection gives
+    R or R⁻¹ with probability ½ each, a symmetric random walk with infinite mean hitting time.
+  - Nonlinear lattice primitive. A nonlinear coupling F gives the Toffoli from the leapfrog itself. Swap, shear
+    correction, addressing and timing are added resources.
+  - Encoding consistency. An H realized by card relabelling and a Toffoli taken from the canonical encoding are not
+    one encoding: product card vertices give ⟨XZ⟩ + ⟨ZX⟩ ≤ 1, and the graph state gives 2.
+- *Coordinator assessment.*
+  - The PR countercontrol confirms existing corpus statements. Main.md:30 says every finite stochastic law has a
+    finite reversible realization. GR.md:228 says every theory with full reversible control realizes the sealed core
+    (`realizesSealedOICore_of_control`), so the OI clause does not select. The report also confirms that the
+    sufficient conditional completion is GR §3.3's OI⁺ (GR.md:230–242, `carrier_general_oiPlus`). Neither is new.
+  - The stabilizer barrier and the magic-state route agree with the corrected Lemma G framing. Affine rules stay
+    Clifford/stabilizer, and H plus a non-affine Toffoli leaves the stabilizer class at a finite stage. The binary-seed
+    preparation is an instance of report 3's dyadic marker: 9/25 arises from 64 binary seeds only conditionally,
+    heralded at 25/64.
+  - The nonlinear lattice primitive does not bear on availability: the kernel's sourced access already has the
+    exchanges as interventions (`ExchangesAvailable`). It bears only on a native-dynamics account, and the Toffoli is
+    monomial, so it does not touch test 8.
+  - Two consequences for the test-8 design, both passed to the design pass in `design/test8/`:
+    - (1) Common encoding. The polarization map must carry H (swap image), S (shear image) and the configuration
+      relabellings in one encoding. The card-relabelling H shows that a gate realized in another encoding does not
+      compose.
+    - (2) Density of PolC. The polarization closure audit does not state whether PolC is dense in finite QM. If H, S
+      and a Toffoli act in one encoding at level ≥ 3, density is plausible from the Clifford-plus-non-Clifford
+      literature [Q], and test 8 together with a separate exclusion obligation would be the whole finite-accuracy gap.
+      This is unverified and is treated as the favourable branch to pressure-test.
+  - Exclusion is a separate obligation. A forced map that supplies QM's operations does not exclude the PR program.
+    GR's OI⁺ handles exclusion through its operational-validity and composition conditions, which a test-8 candidate
+    must also source.

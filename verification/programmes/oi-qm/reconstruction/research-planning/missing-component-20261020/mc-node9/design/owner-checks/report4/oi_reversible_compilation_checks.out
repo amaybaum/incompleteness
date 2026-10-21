@@ -1,0 +1,18 @@
+REVERSIBLE_COMPILER {"admissible_inputs": 5632, "carry_mutant_detected": {"removed_forward_gate": 2, "seed": 0, "x": -3, "y": -3, "z": 0}, "explicit_clock_index_bits": 11, "gate_list_sha256": "f878dda04133fcb74bf7bc509fb3251ef621bf3b4656d26460337d753d0b9ddb", "gate_total": 1095, "gates": {"CNOT": 767, "NOT": 68, "Toffoli": 260}, "input_bits": 15, "naive_program_table_bits": 31755, "naive_program_word_bits": 29, "nonzero_output_targets": 126, "omitted_uncompute_detected": {"dirty_workspace_bits": 100, "seed": 0, "x": -4, "y": -4, "z": 0}, "output_bits": 31, "serial_schedule_positions": 1096, "total_data_bits": 377, "workspace_clean_bits": 331}
+COMPILED_HZH_0 {"0": 4}
+COMPILED_HZH_1 {"1": 4}
+AUTONOMOUS_GLOBAL_PERMUTATION {"absorbing_halt": false, "clock_bits": 11, "clock_words_inverse_checked": 2048, "complete_basis_runs": 8, "data_plus_clock_bits": 388, "local_lattice_controller_built": false, "next_cycle_erases_XOR_output": true, "terminal_phase": 1095}
+SAME_COMPILER_PR_COUNTERCONTROL {"C1_C4_witness_claimed": false, "CHSH": 4, "data_bits": 7, "each_local_marginal_uniform": true, "gates": 8, "table_counts_out_of_2": {"00": {"00": 1, "11": 1}, "01": {"00": 1, "11": 1}, "10": {"00": 1, "11": 1}, "11": {"01": 1, "10": 1}}, "uses_global_settings": true}
+BINARY_SEED_PREPARATION {"reject-address": 31, "reject-flag": 8, "success-0": 9, "success-1": 16}
+BUDGET_COMPATIBILITY {"all_record_labels_match": true, "refinements_checked": 128}
+GRAPH_STATE_XZ {"00": 4, "11": 4}
+GRAPH_STATE_ZX {"00": 4, "11": 4}
+PREPARATION_CONTROLS {"correct_success": "25/64", "dephase_address_success": "7/64", "dephase_target": ["3/7", "4/7"], "omit_work_density_numerator": [[9, 9], [9, 10]], "omit_work_purity": "343/361", "omit_work_uncompute_success": "19/64", "uncomputed_target_density_numerator": [[9, 12], [12, 16]]}
+INJECTION_MATRIX {"Choi_integer_vector": [3, -4, 4, 3], "branch_probability": "1/2", "correct_branch": "R", "other_branch": "R_inverse", "prepared_resource_plus_correct_injection": "25/128"}
+INJECTION_RANDOM_WALK {"failure_formula": "binom(N,floor(N/2))/2^N", "finite_mean_hitting_time": false, "steps_checked": 255}
+LATTICE_PRIMITIVE {"additional_controls": "pair swaps, linear shear correction, addressing/timing NOT supplied", "bijection_and_Toffoli_inputs": 64}
+SEPARATE_HIDDEN_READBACK_WITNESS {"next_visible_u_equals_initial_bit": true, "same_witness_as_quantum_compiler": false, "slow_memory_not_tested": true, "structural_memory_retained": true, "visible_at_t3": [0, 0]}
+PRODUCT_CARD_CONTROL {"XZ_plus_ZX_upper_bound": 1, "graph_state_value": 2, "product_vertices": 16, "scope": "affine mixtures of products of the declared card vertices"}
+DIAGONAL_RECORD_CONTROL {"permutation_event_pairs": 384, "worst_input_H_then_Z_error_lower_bound": "1/2"}
+STABILIZER_BARRIER {"trace_distance_squared": "9/1250", "worst_of_XZ_probability_error": "3/50"}
+PASS {"scope": "bounded reversible circuit plus explicitly programmed quantum calibrations; no OI equivalence theorem"}
