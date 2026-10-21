@@ -123,8 +123,9 @@ the same state in every test.**
   enumeration in `design/emb/common-spec/aht.py`]. Write d_prior = rank[A;T] − rank A and d_posterior = rank[A;H;T]
   − rank[A;H]. Then d_posterior = 0 means the retained memory determines the target. d_prior = 0 means the target was
   determined without reading that memory, possibly by overwrite. d_prior − d_posterior is the information the
-  retained memory supplies about the target, in bits. "Learnt" means d_posterior = 0 with d_prior > 0, and the
-  common specification prints both dimensions. Coin cells (§1.2) are visible cells with no clean coordinate; they are not
+  retained memory supplies about the target, in bits. For a toy pair, "learnt" in design/emb's sense means
+  d_posterior = 0 with d_prior = 2 (prior support 4). d_posterior = 0 with d_prior = 1 is mixed: one bit comes from
+  memory and one is fixed without it. The common specification prints both dimensions and these labels. Coin cells (§1.2) are visible cells with no clean coordinate; they are not
   counted under (i), because no coupling step brings one into contact with the toy, a pointer or another record cell.
   Withholding any clean resource is a postulate. Neither count bounds what is learnt by itself: a second visible site
   with no clean coordinate can lift L1, and so can a second clean pair read through one site [rec, design/emb at

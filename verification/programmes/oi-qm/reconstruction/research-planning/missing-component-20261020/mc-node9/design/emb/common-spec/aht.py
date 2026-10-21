@@ -51,7 +51,9 @@ def run(name,adj,toy,full,none,tmax=8):
         assert len(pri)==2**dprior
         print(f'  t={t}: d_prior = rank[A;T]-rank[A] = {dprior}, d_posterior = rank[A;H;T]-rank[A;H] = {d} '
               f'(support {2**d}, enumerated {sup}); information from retained memory = {dprior-d} bit(s); '
-              + ('LEARNED' if d==0 and dprior>0 else ('determined without reading memory (overwrite)' if dprior==0 else '')))
+              + ('' if d>0 else ('LEARNED (all 2 bits from retained memory; prior support 4)' if dprior==2 else
+                 ('determined without reading memory (overwrite)' if dprior==0 else
+                  f'determined, mixed: {dprior} bit(s) from retained memory, {2-dprior} fixed without it (not learning in the design/emb sense)'))))
 path_012={0:[1],1:[0,2],2:[1]}
 print('Path 0-1-2 (centre = site 1).')
 run("re-review's 'NONE in centre' reading", path_012, toy=2, full=0, none=1)
