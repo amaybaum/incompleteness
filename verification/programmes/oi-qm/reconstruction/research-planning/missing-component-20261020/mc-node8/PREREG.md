@@ -232,8 +232,9 @@ is Parked with the gap named; the definitions are not changed by result.
   discarding, that is, marginalization over the ancilla or over discarded cells). It is a transformation only if it is
   well defined on equivalence classes; the check is per class (I-38).
 - **Reversible transformation.** A transformation T with a transformation T′ in the same theory such that T′∘T and T∘T′
-  are the identity on states. Under κ2 the inverse bijection is accessible (node 7's PC-4a [rec]), but reversibility on
-  states is measured, not assumed.
+  are the identity on states. Under option (B) the inverse of an accessible visible permutation is accessible, while
+  the inverse of a declared coupling step need not be (ℛ₁ᵇ's destructive read consumes its fresh bit), so reversibility
+  on states is measured per class, not assumed.
 - **Composite.** The product carrier V_A × V_B with the joint accessible class. A local operation on A is a protocol
   acting on A's cells and A's ancillas only; discarding a factor is an allowed local operation. Whether the joint class
   contains operations beyond compositions of local ones and shared randomness is a property of the realization class,
@@ -448,9 +449,9 @@ proof does not use recovery of the prior alone: recovering a state by repeated e
 quantum states also allow; classicality comes from (A1) and (A3) together with (A2). Where a preparation restriction
 remains (a grid, Q-PREP), the conclusion is re-checked on that set, not inherited. Consequences, stated as expected
 shapes and not verdicts: on a class meeting (A1)–(A3), §6.10's answer for Pur-E is no, C5-P's R1 holds if the class
-passes C1–C4, and D2 is refuted on every finite carrier with a mixed preparable state. Sub-class ℛ₁ᵃ (§6.10) is the
-intended instance; the computation checks (A1)–(A3) on it and reports the result as Lemma A's instance, never as a
-finding.
+passes C1–C4, and D2 is refuted on every finite carrier with a mixed preparable state. The full-access classes ℛ₁ᵃ, ℛ₂ᵃ,
+K-SWAP and CL-C4 (§6.10) are the intended instances; the computation checks (A1)–(A3) on each and reports the result as
+Lemma A's instance, never as a finding.
 
 The exact wording of CDP's axiom is gated on PC-CDP (§6.8); the formal statement above is this node's, and a
 discrepancy with the paper's wording found later is recorded as an amendment before any dependent computation.
@@ -517,15 +518,15 @@ required of them.
 | id | role: witness / calibration | control | construction fixed now | expectation / checkpoint |
 |---|---|---|---|---|
 | RQ | calibration | real-amplitude quantum theory on two rebits | states ρ± = (I⊗I ± Y⊗Y)/4, real symmetric; the product effects, spanned by the 9 product Pauli operators {I, X, Z}⊗{I, X, Z}; the joint observable Y⊗Y; a third rebit as purifier | owner-verified in another session, recomputed here: both PSD with trace 1; equal on every product effect; separated by Y⊗Y, so real QT fails X-4. Purification half, in house: each ρ± is rank 2 with eigenvalues 1/2, so it has a real purification on a third rebit, and any two such are related by a real orthogonal map on the purifier; computed exactly. Checkpoint I-40 |
-| SPK-orig | calibration (R1 witness only if K-C1C4 passes on its OI embedding, measured) | Spekkens' toy theory, original (non-convex) form, under this node's combinatorial reading | ontic space ℤ₂^{2n} for n toy bits, with the standard symplectic form ω on it. Valid epistemic states: the uniform distributions on cosets v + W^⊥ for W an isotropic subspace (ω(w, w′) = 0 on W) of dimension k, 0 ≤ k ≤ n; size 2^{2n−k}. Transformations: the affine symplectic maps of ℤ₂^{2n} (they permute the family). Measurements: the partitions of the ontic space into the cosets of W^⊥ for a chosen isotropic W, outcomes the cosets. For n = 1: 6 pure states (size 2) and the fully mixed state. For n = 2: 60 pure states (size 4), 30 states of size 8, one of size 16. This rule is the node's reading, tagged as such; any discrepancy with [L: Spekkens, PRA 75, 032110 (2007)] goes through PC-SPK as an amendment before the SPK verdict is final. Built exactly, finite and rational, an epistemic-restriction theory on a classical ontic space (V-12) | tests Pur-E, Pur-U and X-1 to X-5 on the built spaces and records which hold. The owner's correction: the original states are not convex-closed, so "it satisfies purification" and Lemma K are compatible only because arbitrary mixtures are not preparable there. Literature (purification holds [L: Chiribella and Scandolo 2015]; not QM) gated on PC-SPK; the computation does not depend on it |
+| SPK-orig | calibration (R1 witness only if K-C1C4 passes on its OI embedding, measured) | Spekkens' toy theory, original (non-convex) form, under this node's combinatorial reading | ontic space ℤ₂^{2n} for n toy bits, with the standard symplectic form ω on it. Valid epistemic states: the uniform distributions on cosets v + W^⊥ for W an isotropic subspace (ω(w, w′) = 0 on W) of dimension k, 0 ≤ k ≤ n; size 2^{2n−k}. Transformations: the affine symplectic maps of ℤ₂^{2n} (they permute the family). Measurements: the partitions of the ontic space into the cosets of W^⊥ for a chosen isotropic W, outcomes the cosets. For n = 1: 6 pure states (size 2) and the fully mixed state. For n = 2: 60 pure states (size 4), 30 states of size 8, one of size 16. This rule is the node's reading, tagged as such; any discrepancy with [L: Spekkens, PRA 75, 032110 (2007)] goes through PC-SPK as an amendment before the SPK verdict is final. Built exactly, finite and rational, an epistemic-restriction theory on a classical ontic space (V-12). Hand expectation for the measurement to agree with, not a verdict: for A = one toy bit with a one-toy-bit purifier, the mixed state's purifications are the 24 correlated size-4 states (graphs of the affine maps of ℤ₂²), permuted transitively by the local affine symplectic group, and a pure state's purifications are products, so Pur-E and Pur-U are expected to hold on the built two-toy-bit space | tests Pur-E, Pur-U and X-1 to X-5 on the built spaces and records which hold. The owner's correction: the original states are not convex-closed, so "it satisfies purification" and Lemma K are compatible only because arbitrary mixtures are not preparable there. Literature (purification holds [L: Chiribella and Scandolo 2015]; not QM) gated on PC-SPK; the computation does not depend on it |
 | SPK-conv | calibration | the convex closure of SPK-orig | the same ontic spaces with every real convex mixture of valid states admitted as a state | Pur-E fails by Lemma K: hypotheses (i)–(iii) all hold on the convex closure, so this is a theorem, and the computation confirms the lemma's instance (I-51). The pair records which form satisfies purification. This is the sharpest finite test of "purification alone is not sufficient" inside OI's class |
-| K-SWAP | calibration; R1 witness candidate | access through composition: the observer reads h by waiting | one visible bit x (initially 0), one hidden bit h, fixed dynamics φ = swap(x, h); no coupling step beyond φ; readouts of x at each step. Visible sequence 0, h, 0, h, …; at step 2 the visible value is always 0 and the history predicts the next value (C4); C1–C3 hold | must-hold: the class admits it under option (B); §6.10's access-class computation reports full hidden access (operational state = hidden prior) for it; K-C1C4 passes. Role: calibration of the access computation, and an R1 witness candidate since it passes C1–C4. Checkpoint I-58 |
+| K-SWAP | calibration; R1 witness candidate | access through composition: the observer reads h by waiting | one visible bit x (initially 0), one hidden bit h, fixed dynamics φ = swap(x, h); no coupling step beyond φ; readouts of x at each step under §6.10's timing convention; its full class entry (prior set, ancillas, composites) is in §6.10. Visible sequence 0, h, 0, h, …; at step 2 the visible value is always 0 and the history predicts the next value (C4); C1–C3 hold | must-hold: the class admits it under option (B); §6.10's access-class computation reports full hidden access (operational state = hidden prior) for it; K-C1C4 passes. Role: calibration of the access computation, and an R1 witness candidate since it passes C1–C4. Checkpoint I-58 |
 | K-OPSTATE | calibration | identical passive records, different operational states | one visible bit x = 0 and one hidden bit h; preparation P₀ sets h = 0, P₁ sets h = 1; the passive dynamics leaves x fixed, so both display 0 and keep displaying 0 under passive observation; the intervention x ^= h followed by readout gives 0 under P₀ and 1 under P₁ | must-hold, exactly: equal passive record laws at every horizon; different statistics under one later intervention; so P₀ ≠ P₁ as operational states (§2.2) while their records coincide. Its realization has zero coupling under the passive dynamics and fails C1: it is a control for the state definition, not a C1–C4 model. Checkpoint I-49 |
 | CL | calibration | classical theory, uncoupled | a system with 𝒞_V = {0, 1}, κ1–κ4 with no hidden coupling beyond mixing; composites by product; fails C1, so a control and not an R1 witness | expected shape: Pur-E fails (mc-node3:233 [Q]); measured |
-| CL-C4 | R1 witness candidate | classical theory with C1–C4: the delay line | MC6 P1's (x, h) ↦ (h, x) [rec], one visible and one hidden bit, hidden prior a realization datum with denominator ≤ 8; option-(B) access with the swap as the declared coupling step; composites by product | K-C1C4 must pass; Pur-E and Pur-U measured; the R1 witness candidate of §6.2 |
+| CL-C4 | R1 witness candidate | classical theory with C1–C4: the delay line | MC6 P1's dynamics (x, h) ↦ (h, x) [rec, mc-node6/NODE.md:211–212]: φ = swap, no coupling step, one visible and one hidden bit, the realization-datum prior on h with denominator ≤ 8; composites as §6.10 fixes them; coincides with K-SWAP up to the prior set and the initial x | K-C1C4 must pass (C4 holds because the swap is autonomous); Pur-E and Pur-U measured; the R1 witness candidate of §6.2 |
 | BW | calibration | boxworld / PR | the gbit and the PR box as a two-system theory (node 7's DR(1,1) and LE(1,1) [rec]) | tested for Pur-E, Pur-U and X-1 to X-5; expected to fail at least one [L: boxworld has no purification]; measured |
 | K-PR6 | R1 witness candidate (K-C1C4 measured) | §4.2 | — | its C5-P line as §4.2 |
-| QM | calibration (positive) | the stabilizer instance of a qubit, as the positive control | one qubit: states the six stabilizer states and I/2; unitaries the single-qubit Clifford group (24 elements modulo phase); readouts the Pauli measurements. Composite: two qubits, states the 60 two-qubit stabilizer states, the products of a stabilizer state with I/2, and I/4; unitaries the two-qubit Clifford group; purifier of I/2 the Bell states. Field ℚ(i, √2). Closure: the instance is closed under the Clifford unitaries, Pauli readouts with conditioning, and partial trace (a partial trace of a two-qubit stabilizer state is a stabilizer state or I/2), verified by enumeration (I-57) | must satisfy Pur-E, Pur-U and X-1 to X-5 on the instance, as [L] states for QM; computed exactly; classified Reproduction as a control. A failure voids §6, so the instance is fixed to lie in the field |
+| QM | calibration (positive) | the stabilizer instance of a qubit, as the positive control | one qubit: states the six stabilizer states and I/2; unitaries the single-qubit Clifford group (24 elements modulo phase); readouts the Pauli measurements. Composite: two qubits, states all 91 two-qubit stabilizer states, mixed included: the 60 pure states (stabilizer groups of order 4), the 30 states (I ± P)/4 for the 15 non-identity two-qubit Paulis P (order 2; the 12 products of a stabilizer state with I/2 are among them), and I/4 (order 1); unitaries the two-qubit Clifford group; purifier of I/2 the Bell states. Field ℚ(i, √2). Closure: the set is closed under the Clifford group (it permutes stabilizer groups), under Pauli readouts with conditioning (post-measurement stabilizer groups are stabilizer groups) and under partial trace ((I ± P)/4 traces to I/2 or to a single-qubit stabilizer state), verified by enumeration (I-57). Purification test scope: A = one qubit, purifying system B = one qubit, the two-qubit composite being the AB of that test; the two-qubit system's own mixed states are not purification targets within the instance (no three- or four-qubit composite is declared). Hand expectation recorded as the control's expected shape, not a finding: I/2's purifications in the composite are the 24 entangled stabilizer states (I ⊗ U)\|Φ⁺⟩ over the 24 single-qubit Cliffords U, permuted transitively by the local Clifford group, and a pure ψ's purifications are the six ψ ⊗ χ, so Pur-E and Pur-U hold for A = one qubit under local Cliffords | must satisfy Pur-E and Pur-U for A = one qubit, and X-1 to X-5 on the instance, as [L] states for QM; computed exactly; classified Reproduction as a control. A failure voids §6, so the instance is fixed to lie in the field |
 
 ### 6.6 D1 and D2, preregistered as separate questions
 
@@ -584,14 +585,33 @@ classes that have an operational mixture, and determine whether Pur-E and Pur-U 
   permutation of the configurations of the visible cells (x and the visible ancillas), selectable by a setting.
   Declared coupling steps, two sub-classes: ℛ₁ᵃ, the clean read x ^= h (Lemma A's instance; expected shape: classical
   probability on the preparable priors); ℛ₁ᵇ, the destructive read x ^= h followed by h ^= r with r a fresh hidden
-  counting-measure bit per use (node 6's P5 step [rec]). Preparations: every hidden prior with denominator ≤ 8 (as
-  realization data) and every preparation bijection of the hidden cells. Composites: two copies, with shared hidden
-  cells allowed and declared.
+  counting-measure bit per use (node 6's P5 step [rec]). Preparations: the realization-datum prior on h alone has
+  denominator ≤ 8 (hidden ancillas are counting-measure cells, §2.2); the preparable set is whatever the declared
+  ancillas and preparation bijections of the hidden cells yield from it (a bijection composed with prior p gives
+  h-marginals p·k/8 + (1 − p)·k′/8, denominators up to 64), printed under I-54. Composites: two copies A and B, each
+  with its own x, h and ancillas; shared hidden cells are exactly one declared hidden counting-measure ancilla common to
+  both copies (the hidden bits h_A, h_B are never shared); the joint prior set is the product of the per-copy priors
+  with the shared ancilla uniform; the joint accessible class is the local permutations and local coupling steps of each
+  copy only.
+- **Timing convention, stated once and used for every class.** One time step is: the observer's selected visible
+  permutation or declared coupling step (the identity permutation included, so waiting is a step), then φ; readouts are
+  taken after the step. ℛ₁ (φ = identity) is unaffected; ℛ₂, K-SWAP and CL-C4 depend on it.
 - **ℛ₂, two hidden bits.** Ω = 𝒞_V × {0,1}_{h₁} × {0,1}_{h₂} with 𝒞_V = {0,1} (one-bit observer) or {0,1}² (two-bit
   observer), ancillas as in ℛ₁. Fundamental step φ = the swap h₁ ↔ h₂ (autonomous hidden dynamics). Accessible
   bijections: every permutation of the visible configurations. Declared coupling steps: x ^= h₁ (one-bit observer), x_i
   ^= h_i (two-bit observer), each in the clean form (ℛ₂ᵃ) and the destructive form with a fresh hidden bit (ℛ₂ᵇ).
-  Priors with denominator ≤ 8.
+  Preparations: the realization-datum prior on (h₁, h₂) has denominator ≤ 8, with the preparable set as in ℛ₁.
+  Composites: two copies with the same sharing rule, joint prior set and joint accessible class as ℛ₁.
+- **K-SWAP as a class.** Ω = {0,1}_x × {0,1}_h with x initially 0; φ = swap(x, h); no coupling step; accessible
+  bijections every permutation of the visible configurations (the identity included); ancillas as in ℛ₁; preparations
+  the realization-datum prior on h with denominator ≤ 8 and the preparation bijections of the hidden cells; composites
+  as in ℛ₁. Expected shape under Lemma A (A2 met by read, wait, read): full access.
+- **CL-C4 as a class.** Node 6's P1 [rec, mc-node6/NODE.md:211–212]: the dynamics (x, h) ↦ (h, x), that is, φ = swap
+  with no coupling step, visible history x₀, x₁, x₂, …; it coincides with K-SWAP up to the prior set and the initial x,
+  and keeps both roles (R1 witness candidate; calibration of the access computation). Prior as in K-SWAP.
+- **The live content under option (B).** ℛ₁ᵇ and ℛ₂ᵇ, where the fresh hidden bit consumed by each destructive read is
+  what can prevent full access, are the classes whose state space across interventions is open at freeze; ℛ₁ᵃ, ℛ₂ᵃ,
+  K-SWAP and CL-C4 are Lemma A's expected instances.
 - Each class's inputs (Ω, φ, accessible bijections, coupling steps, ancilla conventions, priors, composites) are printed
   with digest before §6.10 runs (I-52).
 - **Outputs, per class:** the equivalence classes (states), the pure states, the transformations well defined on
@@ -989,14 +1009,14 @@ Each verdict line gets exactly one class, computed from its measured clauses, le
 result on a domain, decides its line whatever else is undecided); then Failure; then Reproduction; then Conditional
 (with the equivalence label when both directions are proved); then Emergence. For every Failure and Conditional the node
 states the step and premise responsible. The classifier reads only measured clauses, ledgers, countercontrol lines and
-the recorded circularity verdict; no class is a literal; Emergence and Conditional print as provisional until the review
-is recorded.
+the recorded circularity verdict; no class is a literal; Emergence and Conditional print as "pending review" until the
+review is recorded. "Provisional" is reserved for an audit row whose PC-CDP gate is unmet (I-53).
 
 ### 13.2 The R1–R4 scorecard (deliverable (e))
 
 | candidate | R1 independence | R2 physical meaning | R3 sufficiency | R4 reverse compatibility |
 |---|---|---|---|---|
-| C5-P | witness from §6.2 (CL, K-PR6, fiber freedom), exact | inspection and review (§6.2) | the audit (§6.3–§6.4), the controls (§6.5), D1 (§6.6), Q-FIN (finite realizations against a continuum of pure states); not proved by this node; refuted if a control satisfying C5-P and the audited axioms is non-quantum | [L: CDP] for QM satisfying it; D2 for the OI fit |
+| C5-P | witness from §6.2 (CL-C4, K-SWAP, K-PR6 or a §6.10 class, each with its K-C1C4 printout), exact | inspection and review (§6.2) | the audit (§6.3–§6.4), the controls (§6.5), D1 (§6.6), Q-FIN (finite realizations against a continuum of pure states); not proved by this node; refuted if a control satisfying C5-P and the audited axioms is non-quantum | [L: CDP] for QM satisfying it; D2 for the OI fit |
 | C5-IC | §7.5's table; K-PR6 if D-1 to D-7 hold on it | inspection and review | K-C5+: classical theory satisfies it, so R3 fails for C5-IC alone | QM satisfies IC [L]; D2 |
 | node 5's condition | [rec] necessary and sufficient relative to `SourcedOI` | fails: stated on unitaries (§8) | [AT] equivalence | [AT] |
 
@@ -1030,7 +1050,7 @@ dependency (sympy, python-flint or mpmath) fails the dependent control, with the
 | K-PROG | PROG-0, PROG-B, PROG-3, PROG-c through the engine; V = 1, D = 1 at K = 12 for PROG-0 | §9 | replay; line per Q2 route | replays |
 | K-9 | condition O on every realization | all | must-hold | holds |
 | K-C1C4 | the coin–die example (book ch01 §1.5) satisfies C1 and C4; a Markov chain fails C4; a zero-coupling realization fails C1; the tape-and-ledger fair coin satisfies C1–C3 and fails C4 [rec] | §6, §9, §10 | must-hold both ways | as stated |
-| K-IF | the interface of §2.2 computed on CL, QM (qubit), SPK, BW, K-PR6: states, pure states, transformations well defined on classes, reversible transformations, composites; sizes printed | §6, §7 | must-hold (well-definedness) or Parked per class | reported |
+| K-IF | the interface of §2.2 computed on CL, CL-C4, K-SWAP, QM (the stabilizer instance), SPK-orig, SPK-conv, BW, K-PR6: states, pure states, transformations well defined on classes, reversible transformations, composites; sizes printed | §6, §7 | must-hold (well-definedness) or Parked per class | reported |
 | RQ | the two-rebit control of §6.5 | §6 | must-hold: PSD; equal on the span of the 9 product Pauli operators; separated by Y⊗Y; purified on a third rebit with orthogonally related purifications | as stated |
 | SPK-orig, SPK-conv | the toy theory in both forms, built exactly; Pur-E, Pur-U, X-1 to X-5 tested on each | §6 | measured; the pair records which form satisfies purification | reported |
 | K-OPSTATE | §6.5's two preparations: equal passive laws, separated by x ^= h | §2.2, §6 | must-hold | holds |
@@ -1097,6 +1117,14 @@ verdict, no traceback).
 - KM-30 (I-52; case: ℛ₁ᵇ run with the clean coupling step substituted, its printed inputs unchanged) is caught by the
   digest mismatch.
 - KM-31 (I-58; case: K-SWAP's access class reported as "none" because only one-step protocols were composed) is caught.
+- KM-32 (I-54; case: ℛ₁'s pure set computed with real convex combination, so only δ₀, δ₁ print pure while the
+  preparable-set rule is in force) is caught.
+- KM-33 (I-57; case: the state ω_{1/3} = diag(1/3, 2/3) inserted into the one-qubit instance) is caught by the field
+  check.
+- KM-34 (I-59; case: a grid Pur-E pass printing "purification holds" without the convex-closure line) is caught.
+- KM-35 (I-55; case: a D2 line scoped to Q_fb while the declared domain is a fixed carrier) is caught.
+- KM-36 (I-3; case: a size-8 subset of ℤ₂⁴ that is not a coset of a W^⊥ admitted as an SPK-orig state) is caught by the
+  transcription check of §6.5's rule.
 
 ***
 
@@ -1161,7 +1189,8 @@ Main.md:356.
 - **a Q2 or H-X result** strictly stronger than appendix-c:232 and V-1 to V-8.
 
 A Failure that restates the baseline is a non-gem (record-only), and so is any R1, D2 or §6.10 line that is a corollary
-of Lemma A on a full-access class (ℛ₁ᵃ, ℛ₂ᵃ).
+of Lemma A on a full-access class (ℛ₁ᵃ, ℛ₂ᵃ, K-SWAP, CL-C4); such an R1 line still prints as decided, since a violating
+C1–C4 model is a positive finding, but it is not a gem.
 
 **G6 (rule from MC7 PREREG §7):** a finite-precision, raw-direct statistic (§A.24) on which the line's admitted set
 differs from QM by more than the stated resolution, of a size fixed by OI quantities, both outcomes possible. Scenarios:
@@ -1237,7 +1266,7 @@ coarse-grained Bell tests on non-i.i.d. sources [L-s]; the Q1 points violating I
 | I-37 | missing tools fail, never skip | import failures abort the dependent control with its name; versions printed |
 | I-38 | the interface is well defined per class before use | K-IF prints states, pure states, transformations (checked on classes), reversibles and composites for each control class, with digest, before any candidate; KM-22 |
 | I-39 | every ledger quote passes the quote checker | the step-2 ledgers' quotes are appended to the checker's list and checked |
-| I-40 | the real-QT control decides as fixed | RQ: PSD, 9 product effects equal, Y⊗Y separates; KM-21 |
+| I-40 | the real-QT control decides as fixed | RQ: PSD; equal on the span of the 9 product Pauli operators; Y⊗Y separates; third-rebit purifications orthogonally related; KM-21 |
 | I-41 | the reference row is a record check | the quoted statement at mc-node5:28–29 and GR.md:216 printed; nothing computed |
 | I-42 | Q2 suppressed until K-LEM passes | gate on K-LEM |
 | I-43 | the scorecard is generated | each cell names its line and checkpoint; a literal cell fails the build |
@@ -1245,18 +1274,18 @@ coarse-grained Bell tests on non-i.i.d. sources [L-s]; the Q1 points violating I
 | I-45 | B and its slices declared and printed before any route | §2.2's B_{t₀}, B_{t₁} and the K-PR6-C5 system printed with digest |
 | I-46 | 𝔇 and the interface declared before C5-IC checks | 𝔇 ⊇ 𝔇_min printed with digest; any exclusion typed |
 | I-47 | V and θ₀ predicted before the pattern | printed per realization before the count computation |
-| I-48 | Lemma T is applied as proved, with its limits | K-TRANS: on CL and on the qubit control, the reversible transformations are shown transitive on pure states (classical permutations on vertices; unitaries on the Bloch sphere instance), and the printout states that neither the pure-state set nor the operation set is fixed by it; KM-24 |
+| I-48 | Lemma T is applied as proved, with its limits | K-TRANS: on CL-C4 and on the stabilizer instance, the hypothesis (Pur-U on the control) is checked first, then the conclusion (the reversible transformations transitive on the pure states: permutations on the classical vertices; local Cliffords on the six stabilizer states), and the printout states that neither the pure-state set nor the operation set is fixed by it; KM-24, KM-29 |
 | I-49 | operational states are classes under all interventions, not records | K-OPSTATE: equal passive laws, separated by an intervention; a static check that the state-equivalence code quantifies over the protocol class with ancillas and later interventions; KM-25 |
 | I-50 | §6.10 runs first and fixes the objects | the probe log shows ℛ₁ and ℛ₂ outputs with digests before any C5-P line; every C5-P line cites those digests |
 | I-51 | Lemma K's consequences are not asserted of OI without the three hypotheses checked | each use of Lemma K prints which of (i)–(iii) hold on the class, with the preparable-mixture set (Q-PREP) stated |
 | I-52 | each §6.10 class's inputs are fixed before it runs | (Ω, φ, accessible bijections, coupling steps, ancilla conventions, priors, composites) printed with digest before §6.10; every later line cites the digest; KM-30 |
 | I-53 | a provisional audit row yields no final verdict | rows print "provisional, pending PC-CDP" while the gate is unmet; the classifier maps a provisional row to Parked and refuses "supplied" final, Emergence and final C6… labels; unit test; KM-27 |
-| I-54 | the mixture and pure-state definitions are applied as fixed | K-IF prints the preparable set and the pure set per class under §2.2's rule, and states whether the set is closed under real convex combination |
-| I-55 | the equivalence domain is declared before step 3 | printed with digest; a line claiming equivalence on another domain fails the build |
+| I-54 | the mixture and pure-state definitions are applied as fixed | K-IF prints the preparable set and the pure set per class under §2.2's rule, and states whether the set is closed under real convex combination; KM-32 |
+| I-55 | the equivalence domain is declared before step 3 | printed with digest; a line claiming equivalence on another domain fails the build; KM-35 |
 | I-56 | every R1 witness passes K-C1C4; calibrations are never used as witnesses | the R1 cell names the witness and its K-C1C4 printout; a witness without one is refused; KM-28 |
 | I-58 | access is measured per class over composed protocols | §6.10 prints each class's access class (the hidden distinctions operationally visible after composition) with digest before any purification verdict; K-SWAP's class must print full hidden access; KM-31 |
-| I-59 | the two purification readings are kept apart | the classifier prints Pur-E on the preparable set (per budget and across the theory) and Pur-E on the convex closure as separate lines, with Lemma K's hypothesis status beside the closure line; a unit test feeding a grid pass alone cannot print CDP purification |
-| I-57 | the QM instance is closed and lies in its field | enumeration: Clifford images, Pauli readouts with conditioning and partial traces of every instance state stay in the instance; every entry in ℚ(i, √2) |
+| I-59 | the two purification readings are kept apart | the classifier prints Pur-E on the preparable set (per budget and across the theory) and Pur-E on the convex closure as separate lines, with Lemma K's hypothesis status beside the closure line; a unit test feeding a grid pass alone cannot print CDP purification; KM-34 |
+| I-57 | the QM instance is closed and lies in its field | enumeration over the 7 one-qubit and 91 two-qubit instance states: Clifford images, Pauli readouts with conditioning and partial traces stay in the instance; every entry in ℚ(i, √2); KM-33 |
 
 ***
 
@@ -1266,8 +1295,8 @@ coarse-grained Bell tests on non-i.i.d. sources [L-s]; the Q1 points violating I
   1. quote check (I-12), condition-O engine (K-9), C1–C4 checker, interface computation on the control classes (K-IF),
      classifier unit tests (I-17, I-36);
   2. common controls K-PR6, K-PR6-RAC, K-PROG; their mutants;
-  3. (after the equivalence domain is declared, I-55) C5-P (§6): first §6.10 on ℛ₁ᵃ, ℛ₁ᵇ, then ℛ₂ᵃ, ℛ₂ᵇ (the state
-     space across interventions, K-OPSTATE); then controls RQ,
+  3. (after the equivalence domain is declared, I-55) C5-P (§6): first §6.10 on ℛ₁ᵃ, ℛ₁ᵇ, then ℛ₂ᵃ, ℛ₂ᵇ, then K-SWAP
+     and CL-C4 as classes (the state space and access class across interventions; K-OPSTATE); then controls RQ,
      SPK-orig, SPK-conv, CL, CL-C4, BW, QM, K-TRANS; R1, R2, R4; Q-PREP, Q-FIN; the framework and axiom audits
      (provisional pending PC-CDP, Parked while unmet); D1, D2, L-PI; mutants;
   4. C5-IC (§7): K-C5+, K-I2, K-PR6-C5, K-ONT, K-ACC; R-ont, R-acc, R-pq, R-ms with (I1)–(I10); the chain C5-S1 to

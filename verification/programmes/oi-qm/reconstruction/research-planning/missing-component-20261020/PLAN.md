@@ -233,6 +233,18 @@ Each node has been independently reviewed, and its review outcome is applied in 
   - The long-edge family is quantum only at w = 0. The destructive-readout family equals a qubit with Lüders readouts
     for w ≤ 1/√2 on the sequences checked.
   - G6: none. K-10 holds at n = 4 (CI run 39529498293); no verdict is decided through K-10.
+- **`mc-node8/`, A2 track node 3, which independently motivated condition, added to OI, suffices for the full
+  operational structure of QM: preregistered, frozen (`PREREG.md` sha256 `ca5f9760…`), no computation yet.**
+  - C5 is an independent condition, not derived from C1–C4 (owner direction, 2026-10-21). Candidates: C5-P, operational
+    purification with reversible uniqueness (primary); C5-IC, a consistent information measure (secondary); node 5's
+    control condition as the reference row. Decision criteria R1–R4: independence, physical meaning, sufficiency,
+    reverse compatibility. Each of CDP's five further axioms is audited separately and typed supplied / added (C6, C7, …)
+    / contradicted; both directions of the equivalence are separate questions.
+  - The observer interface is restricted to visible cells and declared ancillas; access is measured per realization over
+    composed protocols; mixtures are preparable-weight, with purification reported on the preparable set and on its
+    convex closure. Lemma A (full access gives classical probability), Lemma T (transitivity from uniqueness) and
+    Lemma K (cardinality) are stated with proofs; Q-PREP and Q-FIN carry the finite-versus-continuum question.
+  - Three independent pre-freeze reviews (`mc-node8/review/`); every blocking item applied before the freeze.
 
 **Form the missing component must take under A1, as the reviewed nodes have narrowed it:**
 - Theory level: it entails phase-free richness, which is necessary for every A1 extension and sufficient when the
