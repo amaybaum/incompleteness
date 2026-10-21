@@ -1,0 +1,28 @@
+== node 4: diagonal Weil lifts of the shear (p,c) -> (p + Lc, c) over F2, positions c in F2^n
+n=1, L=[1] (centre term, the C5 audit's site shear): 2 lifts (expected 2^n = 2); any non-real entry: True; criterion 'd_a = +-i iff sum_x L_xx a_x odd' holds: True
+   lifts: [['1+0i', '0+1i'], ['1+0i', '0+-1i']]
+n=1, L=[0] (isolated centre-free site): 2 lifts (expected 2^n = 2); any non-real entry: False; criterion 'd_a = +-i iff sum_x L_xx a_x odd' holds: True
+   lifts: [['1+0i', '1+0i'], ['1+0i', '-1+0i']]
+n=2, path, centre-free (Main.md:290 form): 4 lifts (expected 2^n = 4); any non-real entry: False; criterion 'd_a = +-i iff sum_x L_xx a_x odd' holds: True
+n=2, path + centre term at site 0: 4 lifts (expected 2^n = 4); any non-real entry: True; criterion 'd_a = +-i iff sum_x L_xx a_x odd' holds: True
+n=3, path, centre-free: 8 lifts (expected 2^n = 8); any non-real entry: False; criterion 'd_a = +-i iff sum_x L_xx a_x odd' holds: True
+n=3, triangle, centre-free: 8 lifts (expected 2^n = 8); any non-real entry: False; criterion 'd_a = +-i iff sum_x L_xx a_x odd' holds: True
+n=3, triangle, centre terms everywhere: 8 lifts (expected 2^n = 8); any non-real entry: True; criterion 'd_a = +-i iff sum_x L_xx a_x odd' holds: True
+
+== addendum (1): which position permutations are Clifford (normalize the Pauli group), n = 3 positions
+permutations of 8 positions: 40320; affine: 1344; Clifford: 1344; agree everywhere: True
+Toffoli (flip bit 2 when bits 0,1 set) affine: False | Clifford: False
+single exchange |110> <-> |111> is the Toffoli; at n = 2 every one of the 24 permutations is affine: True
+
+== addendum (1): the shear layer read on the position carrier vs its Weil image
+shear preserves the current value at every configuration: True -> position-carrier permutation it induces: identity; Weil image (L=[1]): diag(1, +-i), not identity
+
+== addendum (1): the card-report witness, recomputed
+max over products of X/Z card vertices of <XZ>+<ZX>: 1 (affine mixtures cannot exceed the max)
+graph state 4*<X(x)Z> = 4 , 4*<Z(x)X> = 4 -> sum = 2
+
+== addendum (2): squared moduli of entries of PolC unitaries lie in Z[1/sqrt2]; rational ones in Z[1/2]
+T6 rotation, cos^2 = 4/5: cos^2 in Z[1/2]: False, sin^2 in Z[1/2]: False
+report-3 R, cos^2 = 9/25: cos^2 in Z[1/2]: False, sin^2 in Z[1/2]: False
+H-type, cos^2 = 1/2: cos^2 in Z[1/2]: True, sin^2 in Z[1/2]: True
+cos^2 = 5/8 (alpha/pi irrational, not excluded): cos^2 in Z[1/2]: True, sin^2 in Z[1/2]: True

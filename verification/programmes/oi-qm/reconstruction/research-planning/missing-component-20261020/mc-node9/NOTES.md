@@ -455,16 +455,17 @@ The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb
   - The resulting class is not configuration-level, so test 2 passes.
   - Its relabelling closure PolC has O1 at every level and no O2, since it is countable up to scalar. It satisfies the
     closure and is not QM.
-  - Test 8 fails only because the corpus does not supply the map: `Γ = Γ_V × Γ_H` splits sites, not each site's phase
-    space.
+  - Test 8 fails because the corpus does not supply the map. The discrete realization reads both slices of a visible
+    site (Main.md:292, :316). The continuum statement at Main.md:216, which marginalizes the momenta, is an access
+    statement of the right type, and it excludes the map (`design/test8/`, N4).
 - *The refocused question.* Does any condition on observer access, of C1–C4's logical type and not mentioning the test
-  vocabulary (audit test 7), force the polarization map? Equivalently, in report 3's form: an encoding E, fixed before
-  any experiment, with E(F(p)) = U E(p) U† for the swap layer F and U = H, on every admitted preparation and with an
-  untouched spectator.
-  - A positive answer is a candidate for test 8 only. O2 stays with the completion (Main.md:352,
-    `fixedGateTheory_denseFiniteQM`).
-  - H fits the dyadic marker of report 3's review: it is the gate the polarization map produces on the two-valued
-    alphabet. R is not.
+  vocabulary (audit test 7), force the polarization map? In report 3's form, the target is an encoding E, fixed before
+  any experiment, that is not constant and reads the position half. E must intertwine both layers, E(τp) = S E(p) S†
+  and E(σp) = H E(p) H, on every admitted preparation and with an untouched spectator. The swap half alone is a
+  strictly weaker target (`design/test8/`, N3).
+  - A positive answer is a candidate for test 8 only. O2 stays with the completion (Main.md:352).
+  - H fits the dyadic marker of report 3's review. It is the swap's image on the two-valued alphabet; R is not. The
+    quarter phase S is the shear's image only when the coupling has a centre term (`design/test8/`, N2).
 
 ## Owner report 4, "OI reversible implementation: independent handoff" (2026-10-21), coordinator review
 
@@ -512,10 +513,59 @@ The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb
     - (1) Common encoding. The polarization map must carry H (swap image), S (shear image) and the configuration
       relabellings in one encoding. The card-relabelling H shows that a gate realized in another encoding does not
       compose.
-    - (2) Density of PolC. The polarization closure audit does not state whether PolC is dense in finite QM. If H, S
-      and a Toffoli act in one encoding at level ≥ 3, density is plausible from the Clifford-plus-non-Clifford
-      literature [Q], and test 8 together with a separate exclusion obligation would be the whole finite-accuracy gap.
-      This is unverified and is treated as the favourable branch to pressure-test.
+    - (2) Density of PolC. The polarization closure audit does not state whether PolC is dense in finite QM.
+      `fixedGateTheory_denseFiniteQM` concerns `mixTheoryR` and is not a hypothesis schema PolC could meet. PolC lacks
+      `FixedGateSourced` and `DenseUnitaryControl`, and its density is open (`design/test8/`, A2). Test 8 plus
+      exclusion is not established as the whole finite-accuracy gap.
   - Exclusion is a separate obligation. A forced map that supplies QM's operations does not exclude the PR program.
     GR's OI⁺ handles exclusion through its operational-validity and composition conditions, which a test-8 candidate
     must also source.
+
+## Test-8 design pass (`design/test8/`, 2026-10-21), coordinator review
+
+- *Source.* A read-only design agent working in its own directory. `TEST8-DESIGN.md` is a draft and not frozen. Its two
+  exact scripts verify against `SHA256SUMS`, and the coordinator's re-runs replay byte for byte. The pass was not
+  independently reviewed. Classification: NEW.
+- *Findings.*
+  - **N1.** The shear τ is an involution on configurations. Its position-fixing Weil images S and S† square to Z. So
+    any E with E∘τ = Ad_S∘E commutes with Z; with swap covariance under H it also commutes with X. The site part is
+    then I/2 for every spectator, and for every E, linear or not.
+    - Coordinator check [arg]: the commutant of {Z, X} is the scalars. The argument uses only τ² = id, S² = Z, H Z H = X
+      and closure of the preparation set under both layers.
+  - **N2.** A diagonal lift of the shear (p, c) ↦ (p + Lc, c) has a phase ±i exactly when Σ_x L_xx a_x is odd. The
+    corpus rule (Main.md:290) is centre-free (SM.md:224–236), so its images are real, CZ networks times Paulis. The
+    audit's site quarter phase therefore rests on a self-coupled shear, which the displayed rule does not have.
+  - **N3.** Swap covariance alone:
+    - No affine-injective encoding exists, by a sign obstruction: a transposition cannot be intertwined with a
+      unitary conjugation.
+    - With U = H, solutions have rank at most 2. Their position readout is unsharp, with bias ≤ 1/√2 on p = c.
+    - They read the previous value in the X basis.
+    - The class they source is real and countable: no O1, no O2.
+  - **N4.** Main.md:216 marginalizes the momenta. Formalized as E(p, c) = e(c), it forces E to be constant.
+  - **N5.** C1–C4-type conditions leave the observer theory at `permTheory` (`permTheory_realizesSealedOICore`). A
+    forcing condition must add a conjugate-basis readout, which is new structure (outcome C).
+  - **A1.** PolC uses one carrier by stipulation. The shear gets the identity as a position relabelling and
+    diag(1, ±i) as its Weil image. The Toffoli is not the image of a substratum relabelling: exactly 1,344 of the
+    8! permutations of 8 positions are Clifford, the affine ones.
+  - **A2.** Density of PolC is open (see the report 4 section).
+- *Coordinator assessment.*
+  - **N1's scope is narrower than "no access condition can force the map".** N1 rules out encodings of preparations on
+    which the shear acts with order 2. A substratum whose state carries a ℤ/4 extension, for example a hidden phase
+    register on which the shear acts with order 4, is outside it.
+    - That escape changes the substratum. It is the central extension G1 studied (`design/g1/`, complex Pauli ℤ₄
+      lift), now located precisely: the quarter phase needs the layer group itself to be extended.
+    - Recorded as an assumption-watch marker on candidate 2: *the polarization map's shear image is a representation
+      of the ℤ/4 lift, not of the layer group on configurations.*
+  - **N4 rests on a reading.** Main.md:216 concerns §3.1's continuum phase-space flow. Identifying its momenta with
+    the leapfrog's previous value is an interpretive step [arg]. The discrete realization at Main.md:292 and :316
+    reads both slices. So N4 establishes that the one corpus access statement of the right type, *so read*, excludes
+    the target. The difference between the two surfaces is recorded and not edited.
+  - **N2 is the stronger marker.** It does not depend on any encoding. On the displayed centre-free rule, the Weil
+    images are real, so the polarization route cannot reach O1 without a centre term the corpus excludes.
+  - My framing in "Direction after the map" is corrected in place on the agent's points: NT and both layers in the
+    target, the swap half strictly weaker, Main.md:216, and S needing a centre term.
+- *Consequence for node 9.* On the corpus rule, test 8 through the polarization map cannot source O1. If test 8 is
+  kept, the honest target is the swap half with NT, and a positive answer gives a real, countable class. A route to
+  O1 needs one of three things: a centre term, a ℤ/4-extended substratum state, or a different sourcing map. Each is
+  new structure and needs an owner decision. No probe is dispatched until a candidate access condition is written
+  down; the decision rule in TEST8-DESIGN §4 is ready for one.
