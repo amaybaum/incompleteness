@@ -46,7 +46,9 @@ claim tagged [Q], and no claim from a design report under review, decides a verd
   identical at both. Pre-freeze design inputs, disclosed in §4: design/c1 at
   `49033a3e61233dcfa342c2cce59992c53ee9d6fa` (reviewed, ACCEPT WITH CORRECTIONS) and design/emb at
   `3f11c8f7ecfa043016833595dfa1dcf17a4b857b` (tree `6afbdab5`; corrected; re-review ACCEPT WITH CORRECTIONS; N1–N7
-  applied in the commit that adds this line); the pre-freeze review of `6cf71e0e`.
+  applied in the commit that adds this line); the pre-freeze review of `6cf71e0e`; design/cards at `edf17209`
+  (reviewed at `a9af8ef0`, ACCEPT WITH CORRECTIONS; corrections applied in place, not yet re-reviewed), which motivates
+  M1's spectator-stability clause (§3).
 - **Node 8, context only** [rec, MC8 probe outputs r1 and r2, `probe/CHANGES-r2.md`, and the reviews]. In the eight
   tested finite realizations every composite preparation is a mixture of allowed product preparations (the minimal
   tensor product). By the composition lemma (budget *m* ≥ 1, MC8 A-5), pure composites are products of pure states, and
@@ -345,12 +347,42 @@ sizes and ancilla count *k*. Every M1/M2 statement, verdict or expectation names
 stated budget and generators, a finite menu, or a convex closure) and its allowed purifying systems (type, size,
 ancillas). A pass holds for that preparation set and those purifiers only.
 
-**M1. An operationally pure composite with a mixed marginal.**
-- *Question:* is there a composite AB of the model and a pure ψ ∈ Prep(AB) (§1.5) whose A-marginal is not pure?
-- *Rule:* PASS iff an exact witness is found, with ψ's purity certified over all of Prep(AB) at the declared budget and
-  across the model. FAIL iff exhaustive enumeration of Prep(AB) at the declared sizes finds no witness. PARKED if the
-  enumeration exceeds §8's bound.
-- *Establishes:* the model escapes the node-8 composition obstruction at that size.
+**M1. An operationally pure composite with a mixed marginal, stable under an independent spectator.**
+- *Question:* is there a composite AB of the model and a pure ψ ∈ Prep(AB) (§1.5) whose A-marginal is not pure, and
+  whose purity survives adjoining an independently prepared spectator system (the clause below)?
+- *Spectator-stability clause (draft; the owner confirms it at freeze).* Let S be one system of the model's smallest
+  declared system type (for Option A one toy bit with its declared interface; for a card theory one hidden slot). For
+  every pure σ ∈ Prep(S), the product ψ ⊗ σ (an ABS preparation equivalent, §1.3, to one whose ontic distribution is
+  the product of representatives of ψ and σ) must lie in Prep(ABS) and be pure there, on the same readings as ψ.
+- *Why the clause.* A classical theory without preparable product states passes M1 as worded without it. The card
+  theory Π_B of `design/cards/` (one shared depleting deck, destructive reads) has a simplex for every state space and
+  no preparable non-monochrome product state; its M1 witness E(RRRB) is a vertex of that simplex whose A-marginal is
+  not a vertex, and its purity is global: it holds only while AB holds every card in play [rec, design/cards at
+  `edf17209`: `CARDS-REPORT.md` (b), (c), H-1, H-2, H-9, corrected in place after `REVIEW-CARDS-a9af8ef0.md`, ACCEPT
+  WITH CORRECTIONS, N7–N8; corrections not yet re-reviewed]. The bare M1 rule therefore does not separate a simplicial
+  theory without products from a quantum-like composite.
+- *Two readings of the clause, and the choice.*
+  - (P) *Product preparability:* the model admits product preparations of A and B, at least α ⊗ β ∈ Prep(AB) for the
+    local pure states α, β involved in ψ's marginals.
+  - (S) *Spectator stability:* as stated above.
+
+  (S) is adopted. It is a property of the witness itself: it asks whether ψ's purity is a global artefact, which is
+  exactly how Π_B passes the bare rule (H-2: one unrevealed spectator card makes AB mixed). (P) is a property of the
+  menu, which a model could meet with products unrelated to the witness, and its scope depends on which decomposition
+  of ψ's marginals names the "involved" states; the decomposition is not unique (the card witness's A-marginal has two,
+  ½E(RR) + ½E(RB) and ¾E(RRB)|_A + ¼RR), a free choice that §A.29 rejects. (S) contains the product preparability that
+  bears on the witness, since ψ ⊗ σ is itself a product preparation of AB with S, and it is stated in the interface's
+  own terms (§1.1's independently supplied ancillas and fresh bath). It shares an ingredient with the corpus's "inert
+  spectators" condition (`papers/GR.md:216`, item (iii)); that is a shared ingredient, not an identification. (P) is
+  printed as a reported line and decides nothing.
+- *Rule:* the M1 block prints two lines. The bare-witness line: the count of pure ψ ∈ Prep(AB) with a mixed A-marginal,
+  ψ's purity certified over all of Prep(AB) at the declared budget and across the model. The clause line: for each such
+  ψ, each pure σ ∈ Prep(S) with the certificate that ψ ⊗ σ ∈ Prep(ABS) and is pure there, or the first σ for which it
+  fails. PASS iff some exact witness satisfies the clause. FAIL iff exhaustive enumeration at the declared sizes finds no
+  witness satisfying it; a FAIL with a nonzero bare-witness count is printed "M1 witness without spectator stability".
+  PARKED if the enumeration of Prep(AB) or Prep(ABS) exceeds §8's bound.
+- *Establishes:* the model escapes the node-8 composition obstruction at that size, with a witness whose purity is not
+  an artefact of the absence of independently prepared systems.
 - *Does not establish:* purification for every state, uniqueness, contextuality, Bell violation, or QM. K-SPK's two
   readings (§0) are reported separately, each with its preparation set and purifying system.
 
@@ -580,12 +612,13 @@ bijections."
 | K-CBIT | countercontrol (M3) | classical bit, full access | maximum POM success with exact parity obliviousness = 3/4, attained by m = b₀ |
 | K-HL0 | countercontrol (M1, M3; §1.4 case b) | classical bit plus a hidden preparation label that no allowed experiment reads (R-no, response-irrelevant) | preparations differing only in the label are equivalent; POM ≤ 3/4; M1 and M3 FAIL |
 | K-HL1 | countercontrol (§1.4 case a; premise check) | K-HL0 with a coupling step that reads the label | label-different preparations inequivalent; the §1.4 premise check runs on every encoding; premise-meeting encodings ≤ 3/4; M3 not PASS |
-| K-SPK | calibration (M1, M2, M3) | Spekkens toy bit, original form (MC8 PREREG §6.5 reading; 6 + 1 states; 60/30/1 for two) | M3: POM ≤ 3/4, verified by computing W's rank and the maximum, not assumed; M1 and M2 printed for "the seven-state single-toy-bit menu with the tested one-toy-bit partner" and for "its convex closure, against the tested pure joint states", against the two readings of §0 |
+| K-SPK | calibration (M1, M2, M3) | Spekkens toy bit, original form (MC8 PREREG §6.5 reading; 6 + 1 states; 60/30/1 for two) | M3: POM ≤ 3/4, verified by computing W's rank and the maximum, not assumed; M1 (bare-witness and clause lines, spectator one toy bit) and M2 printed for "the seven-state single-toy-bit menu with the tested one-toy-bit partner" and for "its convex closure, against the tested pure joint states", against the two readings of §0 |
 | K-MENU | countercontrol (R-MENU, M5-L) | MC6 P5: destructive complementary readouts on ℤ₂², Y withheld, generated preparations; and its *w* = 1 member (the gbit). Stated Π_K: a coupling step reads one nonzero linear functional of the two cells and refreshes a complementary one from the bath, so Ops(Π_K) contains the Y readout (the control's Π, not Option B's) | passes M3 for its declared set; R-MENU (ii) fails, naming the withheld Y readout; at *w* = 1, M5-L FAIL (POM = 1 > (2+√2)/4) |
 | K-PR6 | countercontrol (M4, M5-L) | MC7 LE(1,1) / MC6 B2 [rec]: A = λ, B = λ ⊕ ab | M4 PASS with S = 4 and no-signalling; M5-L FAIL |
 | K-BL | preserved result | every local-branch composite of the model | |S| ≤ 2 exactly; otherwise the run is VOID |
 | K-CL | countercontrol (M1, M2) | classical bit pair, full access | M1 FAIL; Pur-E fails for every mixed state |
-| K-QSTAB | positive (M1, M2) | MC8 §6.5's stabilizer instance (7 one-qubit and 91 two-qubit states, ℚ(i, √2)) | M1 PASS; Pur-E and Pur-U hold for A = one qubit |
+| K-QSTAB | positive (M1, M2) | MC8 §6.5's stabilizer instance (7 one-qubit and 91 two-qubit states, ℚ(i, √2)), and for M1's clause its three-qubit products ψ ⊗ σ with a one-qubit spectator, generated by the instance's own operations (the extension fixed at freeze) | M1 PASS under the clause; Pur-E and Pur-U hold for A = one qubit |
+| K-CARD | countercontrol (M1's spectator-stability clause) | the card theory Π_B of `design/cards/` (one shared deck of known composition, MC-1 to MC-4; destructive reads; heralding, feed-forward and discards), rebuilt in this engine, at the realizations with a 3/4 witness and at least five cards (3R2B, 4R1B, 3R3B, 4R2B, 5R1B; A = B = 2 hidden slots; S = 1 hidden slot) | the bare-witness line is nonzero (E(RRRB) on A = {a1, a2}, B = {b1, b2}); under the clause M1 FAILs, ψ ⊗ σ ∉ Prep(ABS) for both pure σ, printed "M1 witness without spectator stability"; reading (P) also fails (no non-monochrome preparable product state). Computed by this engine, not read from design/cards' outputs |
 | K-N8 | preserved result (engine) | node 8's eight classes under node 8's menu; node 8's relation is depth-2 enumeration, node 9's is Lemma W at unbounded depth, so the two relations are first compared on each carrier; reference MC8 `probe/p8s1.r2.run1.out`, sha256 `b5ce288c3ed13658198a3a605387a06d76e6270b18923d6129350265426bd951`, at `78913467` (reviewed, ACCEPT WITH NOTES; carries the N1/N2 countercontrols); its 46 realization lines equal r1's byte for byte [rec, coordinator check 2026-10-21, sha256 and line comparison] | the eight Pur-E/Pur-U answers reproduced wherever the relations coincide; where W separates states that depth 2 does not, the changed answer is reported as a refinement with its separating sequence, not as a halt |
 | K-ANC | engine; extension guard (§1.3) | equivalence at *k* = 0, 1, 2 ancillas | any change from *k* = 1 to *k* = 2 halts (PARKED, gap named); every equivalence-dependent line prints its *k*; a pass is evidence for the tested extensions only; no line claims *k* > 2 without a reviewed proof |
 | K-REACH | engine (reachability, §1.2) [rec, owner check 2026-10-21] | the example of §1.2 | with no heralding budget the reachability layer prints PARKED while W has dimension 2 after one round; at b_h = *j* ≥ 1 it lists exactly *j* + 2 conditional states (2^*k*/(2^*k*+1) for *k* ≤ *j*, and δ₁), 1 at *j* = 0 |
@@ -613,8 +646,12 @@ K-REUSE's states come from the engine's joint update, not from the stated answer
 - MC6 P3–P5 and N1–N5;
 - MC7's verdicts;
 - Lemma F, Lemma A, Lemma K and Lemma W;
-- the outcomes of K-HERALD, K-CLN, K-CLN0, K-REACH, K-SYMP, K-SYMP2, K-PIND, K-REUSE, K-PEX and K-BIAS, the
+- the outcomes of K-HERALD, K-CLN, K-CLN0, K-REACH, K-SYMP, K-SYMP2, K-PIND, K-REUSE, K-PEX, K-BIAS and K-CARD, the
   calibration readings of §0, and Lemma S;
+- design/cards' results for Π_B [rec, design/cards at `edf17209`]: the pure-state lemma for a known deck composition
+  (exchangeability, simplex state spaces), the bare-rule M1 pass of a simplicial theory without products, and the
+  positive-dependence, denominator and non-monochrome pure-state obstructions to Pur-E. An M1 or M2 outcome of a
+  Π_B-type model that only restates these is not a gem;
 - §4's disclosed baseline: the pre-freeze witnesses W1–W6 (W3′ included), the isotropic-subspace closure under PP-1
   (Spekkens' toy-theory closure, MC8's SPK-orig reading), the C-i and emb findings, and the biased state;
 - the observations of §4: the first two rows of its claim table, the abstract pointer construction, the postdiction,
@@ -660,7 +697,7 @@ decisive object perturbed. Output classes are NEW, POSITIVE, ELABORATING, CONFIR
 | I-9 | exactness | `Fraction` only: ℚ(√2) as pairs (a, b) of Fractions for a + b√2, ℚ(i, √2) as pairs of those, in house, with a self-test (√2·√2 = 2, exact sign comparison); no third-party dependency; an AST scan for floats on the verdict path; KM-12 |
 | I-10 | verdicts only over green controls | each milestone block is gated on its controls (§5); a red control prints VOID; KM-7 |
 | I-11 | milestones never merged | separate generated blocks; a static check that no milestone reads another's status; KM-8 |
-| I-12 | verdict text generated from measurements | every count and status is computed; scanned against MC8 A-1's word list (extended: "theorem", "impossible", "no-go", "universal", "for every realization"); every M1/M2 line names its preparation set and purifiers; KM-9 |
+| I-12 | verdict text generated from measurements | every count and status is computed; scanned against MC8 A-1's word list (extended: "theorem", "impossible", "no-go", "universal", "for every realization"); every M1/M2 line names its preparation set and purifiers, and every M1 line its spectator system; KM-9 |
 | I-13 | R-MENU is computed | Ops(Π) enumerated from Π's predicate; (v) printed; K-MENU must fail (ii); KM-10 |
 | I-14 | preserved results hold | K-N8 (refinements reported, §5), K-BL, condition O, no-signalling, the C2 check printed before milestones; KM-34 |
 | I-15 | determinism | two runs byte-identical; `SHA256SUMS`; no randomness; the replayed output carries no timing |
@@ -673,6 +710,7 @@ decisive object perturbed. Output classes are NEW, POSITIVE, ELABORATING, CONFIR
 | I-22 | Lemma S's link computed, not assumed | a linked POM/CHSH pair prints the steering table from the model's own extension, its S and marginals; K-QPOM's extension gives S = 2√2 exactly; KM-21 |
 | I-23 | the pointer policy and the clean-resource declaration are enforced | PP and the clean cells printed with the digest (I-2); a static check that no operation touches a discarded pointer's P or an accessed Y; K-PIND, K-REUSE, K-PEX green; KM-23, KM-24, KM-25 |
 | I-24 | each control is sensitive, not only gated | the sensitivity mutants KM-26 to KM-32 |
+| I-25 | M1's spectator-stability clause is evaluated, never assumed; M1 PASS only with it | the M1 block prints the bare-witness line and the clause line separately, the clause line with S, every pure σ, and a certificate that ψ ⊗ σ ∈ Prep(ABS) is pure, or the first failing σ; ψ ⊗ σ generated by §1.2, never listed; K-CARD (bare witness nonzero, clause FAIL) and K-QSTAB (PASS under the clause) green; KM-36, KM-37 |
 
 **Mutation plan.** Each mutant runs on a scratch copy and must be caught by the named check, which then prints FAIL and
 suppresses the governed lines:
@@ -709,7 +747,11 @@ suppresses the governed lines:
   depth cap without a fixed point;
 - KM-33: a heralding event counted as ordinary conditioning (K-REACH must then list the wrong count and be caught);
 - KM-34: K-BL disabled (the I-14 printout must show it missing and halt);
-- KM-35: a [Q] dependency dropped from a line's list (I-17's scan against the static dependency table must catch it).
+- KM-35: a [Q] dependency dropped from a line's list (I-17's scan against the static dependency table must catch it);
+- KM-36: M1 decided on the bare-witness line alone, the clause skipped (K-CARD must then print M1 PASS and be caught);
+- KM-37: ψ ⊗ σ inserted as a listed state instead of generated (I-6's static scan must refuse it), and, separately,
+  its purity judged against Prep(AB) × Prep(S) instead of Prep(ABS) (K-CARD's clause line must then change and be
+  caught).
 
 ***
 
@@ -717,11 +759,11 @@ suppresses the governed lines:
 
 **Order (depth-first, §A.12):**
 1. the engine and the controls: K-HERALD, K-REACH, K-CLN, K-CLN0, K-ANC, K-PNC, K-QPOM, K-CBIT, K-HL0, K-HL1, K-SPK,
-   K-CL, K-QSTAB, K-N8, K-MENU, K-PR6;
+   K-CL, K-QSTAB, K-CARD, K-N8, K-MENU, K-PR6;
 2. the model's interface printout (Π_ω, PP, clean resources, S) and R-MENU;
 3. M0, the decisive first question, with K-CLN-A, K-SYMP, K-SYMP2, K-PIND, K-REUSE and K-PEX, under PP-1 then PP-2
    (§4.1);
-4. M1, then M2 at *n* = 2, with K-BIAS;
+4. M1 (the bare-witness line, then the spectator-stability clause on ABS), then M2 at *n* = 2, with K-BIAS;
 5. M3;
 6. M4;
 7. M5;
@@ -786,6 +828,7 @@ is claimed. M5's two directions are reported separately.
   - a diff check confirms the design/emb correction N1 as applied (the re-review of `a9af8ef0` returned ACCEPT WITH
     CORRECTIONS and makes N1 its condition for citing the findings; N1–N7 applied in the commit that adds this line);
     until then its findings decide nothing (I-17);
+  - the owner confirms M1's spectator-stability clause and its reading (S), with K-CARD and KM-36/KM-37 (§3, §5, §7);
   - an independent re-review of this revision against the pre-freeze checklist of the review of `6cf71e0e` runs.
 - **Freeze:** the sha256 of this file is recorded in the commit message and on the guiding PR. After freeze the file is
   not edited. Changes go to `amendments/` with time, reason and state of knowledge, before the computation they touch.

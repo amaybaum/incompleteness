@@ -391,6 +391,8 @@ two-slot states.
      n ≤ 6 bound): M1 must fail. K-SEPDECK-scarce: reported, with no must.
    - K-VISNOSWAP and K-MAXREV/CSWAP: outputs must be identical to BASE.
    - K-UNIQ's card encoding and K-BIAS (a)/(b).
+   - Π_B itself as a countercontrol for M1's spectator-stability clause (PREREG §3, K-CARD): the bare witness is
+     present, and M1 must FAIL under the clause (lemma (ii)–(iii): ψ ⊗ σ is never preparable for a non-monochrome ψ).
 4. **Productivity baseline.** Add the exchangeability invariant, the positive-dependence obstruction and the
    denominator obstruction, together with obstruction (0) (non-monochrome pure A-states have no purification), to the
    §6 baseline. Then an M2 FAIL of a Π_B-type model is a restatement, not a gem. A Π_B-type M1 PASS is a PASS of a

@@ -83,6 +83,8 @@ Decisions Q10–Q13 (owner, 2026-10-21) applied, with the pre-freeze review's B1
 caps *s_max*, *d_max* are defined in PREREG §4.1; heralding counts separately from ordinary conditioning. Proposed
 values, for the owner to fix:
 - M2 at A = one and two systems, each with a same-type purifier (*n* ≤ 4 toy bits; 256 record configurations);
+- M1's spectator-stability clause on ABS, with S one system of the smallest declared type, at M1's sizes plus that
+  system;
 - M3 decoders to depth D = 3, with stability checked at D = 4;
 - equivalence and M0 at *k* ≤ 2 ancillas, halting if *k* = 1 and *k* = 2 differ (PREREG §1.3);
 - M0 locally at *n* ≤ 2 with *b_p* ≤ 4, *b_m* ≤ 3 (PP-2), *b_r* = *b_p* + *b_m* + 2, *b_h* ≤ 2; *n* = 3 and larger
@@ -96,6 +98,9 @@ values, for the owner to fix:
 4. Q6–Q9 disposed; node 8's `quotecheck.py` run with a node-9 fragment list (Q8).
 5. An independent re-review of revision 3 against the pre-freeze checklist; then the frozen sha256 recorded.
 6. Not blocking (I-17 prints "provisional"): the literature gates PC-POM, PC-SPK, PC-CDP, PC-S05, PC-BRS.
+7. The owner confirms M1's spectator-stability clause (PREREG §3, reading (S) chosen over product preparability (P)),
+   motivated by design/cards: Π_B, a classical simplicial theory without preparable product states, passes M1 as
+   worded without it. Control K-CARD must FAIL M1 under the clause.
 
 **Q6. Scope of M5.** M5-L and M5-A cover POM and CHSH only, linked by Lemma S (PREREG §2.4). Should further statistics
 be added, such as the quantum set at NPA level 1, the chained Bell inequalities, or 3-bit POM? Is M5-A's A2 form wanted
