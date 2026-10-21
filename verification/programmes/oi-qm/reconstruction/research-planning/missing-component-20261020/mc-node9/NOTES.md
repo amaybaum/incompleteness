@@ -64,11 +64,15 @@ Decisions Q10–Q13 (owner, 2026-10-21) applied, with the pre-freeze review's B1
   identifies it with ASp(2*n*, 2), which excludes nothing at *n* = 1. Pointer-internal maps are not operations.
 - The pointer policy is an independent postulate under R-MENU (v): PP-1 single use (default), PP-2 the back-acting
   copy (tested alternative), both with the independence clause and the unavailability of discarded pointers.
-- Clean resources are declared with their counts. Two counts are separate postulates of model A's interface: the
-  number of visible read-out sites and the number of clean pairs. Withholding a second clean pair is not enough, since a
-  second visible site alone lifts L1 [rec, design/emb at blob `4e693fb7`, reviewed REVISE → corrected].
+- Clean resources are declared with their counts. Two counts are separate postulates (PREREG §1.1, §4): the number of
+  visible read-out sites and the number of clean coordinates, each stated with whether its conjugate is clean; coin
+  cells take part in no coupling step (§1.2). Model A's own declaration is unchanged: *b_p* + *b_m* clean coordinates,
+  none with a clean conjugate. Neither count bounds what is learnt by itself, since a second visible site with no clean
+  coordinate can lift L1, and so can a second clean pair read through one site [rec, design/emb at `3f11c8f7` (tree
+  `6afbdab5`), corrected; re-review ACCEPT WITH CORRECTIONS; N1–N7 applied in the commit that adds this line].
 - C-i is a disclosed design input: design/c1 at `49033a3e` (reviewed) covers the whole record lifecycle; design/emb at
-  blob `4e693fb7` (reviewed REVISE → corrected) decides nothing until a review accepts it. M0 runs on the abstract pointer model, with AP-1 to AP-5 named as
+  `3f11c8f7` (tree `6afbdab5`; corrected; re-review ACCEPT WITH CORRECTIONS; N1–N7 applied in the commit that adds this
+  line) decides nothing until a diff check confirms N1 as applied. M0 runs on the abstract pointer model, with AP-1 to AP-5 named as
   assumptions of this implementation; C1 delivers only u-reads within its search bounds.
 - R-MENU is computed on the record carrier only; whether Π_ω, PP and the declaration are derivable from the substratum
   stays open (claim table, row 3).
@@ -87,8 +91,8 @@ values, for the owner to fix:
 **Remaining before freeze.**
 1. Q5's values, *s_max* and *d_max* fixed by the owner.
 2. The owner confirms PREREG §4's PP text, clean-resource declaration and Π_ω definition.
-3. A review accepts the corrected design/emb report (the review of `b71199a8` returned REVISE; corrections applied);
-   until then its findings stay [rec, reviewed REVISE → corrected].
+3. A diff check confirms the design/emb correction N1 as applied (the re-review of `a9af8ef0` returned ACCEPT WITH
+   CORRECTIONS; N1–N7 applied in the commit that adds this line); until then its findings decide nothing.
 4. Q6–Q9 disposed; node 8's `quotecheck.py` run with a node-9 fragment list (Q8).
 5. An independent re-review of revision 3 against the pre-freeze checklist; then the frozen sha256 recorded.
 6. Not blocking (I-17 prints "provisional"): the literature gates PC-POM, PC-SPK, PC-CDP, PC-S05, PC-BRS.

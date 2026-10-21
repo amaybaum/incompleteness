@@ -44,8 +44,9 @@ claim tagged [Q], and no claim from a design report under review, decides a verd
   whose node-8 records are those of the close-out `789134678aac771466f4443f8d053bdf084a5b18` with amendment A-5 (PLAN =
   `../PLAN.md`, MC*k* = `../mc-nodek/`). `main` at `af8c59d6d61322853f5b456da2849890d5c790e7`. `papers/Main.md` is
   identical at both. Pre-freeze design inputs, disclosed in §4: design/c1 at
-  `49033a3e61233dcfa342c2cce59992c53ee9d6fa` (reviewed, ACCEPT WITH CORRECTIONS) and design/emb at EMB-REPORT.md blob
-  `4e693fb7` (the review of `b71199a8` returned REVISE; corrected); the pre-freeze review of `6cf71e0e`.
+  `49033a3e61233dcfa342c2cce59992c53ee9d6fa` (reviewed, ACCEPT WITH CORRECTIONS) and design/emb at
+  `3f11c8f7ecfa043016833595dfa1dcf17a4b857b` (tree `6afbdab5`; corrected; re-review ACCEPT WITH CORRECTIONS; N1–N7
+  applied in the commit that adds this line); the pre-freeze review of `6cf71e0e`.
 - **Node 8, context only** [rec, MC8 probe outputs r1 and r2, `probe/CHANGES-r2.md`, and the reviews]. In the eight
   tested finite realizations every composite preparation is a mixture of allowed product preparations (the minimal
   tensor product). By the composition lemma (budget *m* ≥ 1, MC8 A-5), pure composites are products of pure states, and
@@ -106,10 +107,15 @@ the same state in every test.**
 - **Clean ancillas.** The model declares every clean ancilla, a cell or system supplied in a declared initial state
   other than the counting measure (a visible pointer at 0, a known-zero bit), with its count, and states that
   declaration as a physical principle (R-MENU (v)). Visible cells fixed by the protocol (condition O) are clean
-  ancillas and are declared as such. The declaration states two counts separately, each a postulate: the number of
-  visible read-out sites and the number of clean pairs. Withholding any clean resource is a postulate. Withholding a
-  second clean pair does not by itself bound what is learnt, since a second visible site alone lifts L1 [rec,
-  design/emb at blob `4e693fb7`, reviewed REVISE → corrected].
+  ancillas and are declared as such. The declaration states two counts separately, each a postulate: (i) the number of
+  visible read-out sites, and (ii) the number of clean coordinates, stating for each whether its conjugate is also
+  supplied clean. Coordinates are counted, not pairs: in the lattice two visible sites with one clean coordinate each
+  and no clean pair can learn the toy. Coin cells (§1.2) are visible cells with no clean coordinate; they are not
+  counted under (i), because no coupling step brings one into contact with the toy, a pointer or another record cell.
+  Withholding any clean resource is a postulate. Neither count bounds what is learnt by itself: a second visible site
+  with no clean coordinate can lift L1, and so can a second clean pair read through one site [rec, design/emb at
+  `3f11c8f7` (tree `6afbdab5`), corrected; re-review ACCEPT WITH CORRECTIONS; N1–N7 applied in the commit that adds
+  this line].
 - **Ancillas.** Independently supplied copies of any system type the model declares, in any preparable state (§1.2),
   with the model's joint operations. Equivalence is computed with *k* = 0, 1 and 2 ancillas (I-4).
 - **Records left by preparation.** The model states, for each kind of hidden record, whether some coupling step reads
@@ -132,8 +138,10 @@ clean ancillas in their declared states) under every generator:
 - (g5) discarding;
 - (g6) heralded conditioning with back-action.
 
-Mixtures arise inside the same rule: a bath bit is read into a visible coin cell and steers the preparation. A budget of
-*m* coins gives the weights *k*/2^*m*. Preparations are not supplied as priors, and a test never adds one.
+Mixtures arise inside the same rule: a bath bit is read into a visible coin cell and steers the preparation. A coin
+cell takes part in no coupling step with the toy, a pointer or another record cell; its value enters only through
+feed-forward (g3). A budget of *m* coins gives the weights *k*/2^*m*. Preparations are not supplied as priors, and a
+test never adds one.
 
 **Heralding (g6).** Selection is allowed on every physically recorded outcome of nonzero probability. The record keeps
 that outcome's success probability and the actual post-measurement state: the full coupling step, back-action included,
@@ -430,13 +438,17 @@ toy theory. It is not offered as an answer to the governing question. Option B f
 cells (*b_p* of them) and, under PP-2, the memory X cells (*b_m*), each at 0 and used only under PP. No other clean cell
 exists: no clean hidden cell, and no further clean visible cell that any operation can bring into contact with a
 pointer or the records. Hidden cells and pointer and memory conjugates are supplied only under the counting measure.
-Two counts are postulates of model A's interface, declared separately: (i) the number of visible read-out sites (the
-*b_p* pointers and, under PP-2, the *b_m* memory cells), and (ii) the number of clean pairs, a coordinate supplied clean
-together with its conjugate (none). Withholding a second clean pair is not enough: in the lattice a second visible site
-alone, with no clean coordinate, lifts L1, and so does a second clean pair read through one site [rec, design/emb at
-blob `4e693fb7`, reviewed REVISE → corrected]. L1 is stated for a read-out that is a whole canonical pair (the
-site-level partition); model A's pointer, Q visible with P hidden, is outside its hypotheses, so this declaration
-rests on the two postulates, not on L1.
+Two counts are postulates of model A's interface, declared separately as §1.1 requires: (i) the number of visible
+read-out sites, the *b_p* pointers and, under PP-2, the *b_m* memory cells (coin cells are excluded by §1.2); and (ii)
+the number of clean coordinates, *b_p* + *b_m* (the Q and X cells), none supplied with a clean conjugate. These are the
+counts of the declaration above, which they leave unchanged. Model A has clean coordinates and no clean pair, the
+analogue of the lattice case in which two visible sites with one clean coordinate each can learn. Withholding a second
+clean pair does not by itself bound what is learnt, since in the lattice a second visible site with no clean coordinate
+can lift L1. Nor does a single read-out site, since a second clean pair read through one site can also lift L1. Both
+counts are therefore declared [rec, design/emb at `3f11c8f7` (tree `6afbdab5`), corrected; re-review ACCEPT WITH
+CORRECTIONS; N1–N7 applied in the commit that adds this line]. L1 is stated for a read-out that is a whole canonical
+pair (the site-level partition); model A's pointer, Q visible with P hidden, is outside its hypotheses, so this
+declaration rests on the two postulates, not on L1.
 
 **Implementation (B6).** M0–M2 run on the abstract pointer model above, not on a lattice construction. The disclosed
 construction C1 delivers only the read of the toy's current u coordinate within its search bounds, so model A's free
@@ -468,18 +480,25 @@ general necessity nor a sufficient condition for purification.
   from the lattice. The history used by C-i's waiting counterexample (toy point mass at step 4) is the interface's
   permanent record. The back-acting copy is not realized by the lattice dynamics in the searched space; in the abstract
   model it gives support 2 on W4 and no point mass over the bounded alphabet of C1-REPORT §9.2 (iv).
-- *emb* [rec, design/emb at blob `4e693fb7`, reviewed REVISE → corrected]:
+- *emb* [rec, design/emb at `3f11c8f7` (tree `6afbdab5`), corrected; re-review ACCEPT WITH CORRECTIONS; N1–N7 applied
+  in the commit that adds this line]:
   - L1: one visible read-out site with one clean pair never completely learns a toy pair of prior support 4 (site-level
     partition, every graph, t and symplectic evolution). It rests on two separate limits, one read-out pair and one
-    clean pair; relaxing either alone lifts it. One clean pair with two visible sites learns (9, 96 and 1650 cases at
-    *n* = 3, 4, 5; the 3-site path at t = 2), and two clean pairs read through the pointer alone learn (W-E2).
+    clean pair; relaxing either alone can lift it, and neither relaxation does in every arrangement. One clean pair
+    with two visible sites can learn (9, 96 and 1650 of 24, 768 and 30 720 labelled cases at *n* = 3, 4, 5; at *n* = 3
+    the path 1–0–2 with the FULL site 0 in the centre, R = {0 FULL, 1 NONE}, toy 2, t = 2), and two clean pairs read
+    through the pointer alone can learn (W-E2). Two clean coordinates with no clean pair can also learn (one clean u
+    coordinate at each of two visible sites: 6, 24 and 300 cases at *n* = 3, 4, 5).
   - Complete learning of *m* target pairs needs at least 2*m* clean coordinates and at least *m* visible pairs (L2).
-  - Two clean visible sites determine the current toy state from the current visible cells alone, at isolated stopping
-    times (W-E2, t = 4 and 12 of period 16); what is learnt there is a bath mode the pointer shares. Retained records
-    are shown only under external gating (W-E3, AP-2).
+  - In some arrangements two clean visible sites determine the current toy state from the current visible cells alone,
+    at isolated stopping times (W-E2, t = 4 and 12 of period 16); what is learnt there is a bath mode the pointer
+    shares. In others they never do: a memory chain behind the pointer on a path, and the cycles, grids and cube
+    with |R| = 2; at *n* = 6 with |R| = 2, 857 of 8524 cases learn. Retained records are shown only under external gating
+    (W-E3, AP-2).
   - C-i's waiting counterexample depends on external history (K-EXTHIST), as C1-REPORT §9.1 records; emb computes the
     dependence exactly.
-  - No decision rule rests on these until a review accepts the corrected report.
+  - No decision rule rests on these until a diff check confirms the re-review's required correction N1 as applied,
+    which the re-review makes its condition for citing the findings.
 - *Biased state* [rec, owner 2026-10-21]: (3/8, 3/8, 1/8, 1/8) on one toy bit, a ½-mixture of a two-point state with
   the uniform state, has no purification by its finite toy-system composites in the repaired family. Control K-BIAS
   (§5), carried to Option B.
@@ -749,8 +768,9 @@ is claimed. M5's two directions are reported separately.
     values of S, *s_max* and *d_max* (Q5);
   - the remaining questions of `NOTES.md` (Q6–Q9) are disposed, and node 8's `quotecheck.py` is run with a node-9
     fragment list (Q8);
-  - a review accepts the corrected design/emb report (the review of `b71199a8` returned REVISE; corrections applied);
-    until then its findings stay [rec, reviewed REVISE → corrected] and decide nothing (I-17);
+  - a diff check confirms the design/emb correction N1 as applied (the re-review of `a9af8ef0` returned ACCEPT WITH
+    CORRECTIONS and makes N1 its condition for citing the findings; N1–N7 applied in the commit that adds this line);
+    until then its findings decide nothing (I-17);
   - an independent re-review of this revision against the pre-freeze checklist of the review of `6cf71e0e` runs.
 - **Freeze:** the sha256 of this file is recorded in the commit message and on the guiding PR. After freeze the file is
   not edited. Changes go to `amendments/` with time, reason and state of knowledge, before the computation they touch.
