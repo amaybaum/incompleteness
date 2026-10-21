@@ -110,7 +110,14 @@ the same state in every test.**
   ancillas and are declared as such. The declaration states two counts separately, each a postulate: (i) the number of
   visible read-out sites, and (ii) the number of clean coordinates, stating for each whether its conjugate is also
   supplied clean. Coordinates are counted, not pairs: in the lattice two visible sites with one clean coordinate each
-  and no clean pair can learn the toy. Coin cells (§1.2) are visible cells with no clean coordinate; they are not
+  and no clean pair can learn the toy. Counting clean coordinates suffices only for independent product preparations.
+  If correlated preparations are admitted, every known relation counts too. The declared initial information is the
+  constraint space A of the preparation, A s₀ = a, and its rank is the count. For example, the support {(0,0),(1,1)}
+  has no clean coordinate, but its known parity x ⊕ y = 0 becomes a known-zero coordinate under the reversible map
+  (x, y) ↦ (x, x ⊕ y) [rec, owner 2026-10-21; `design/emb/common-spec/aht.py`]. In the linear binary model, the target T s₀
+  at a stated time, given A and the physically retained records H s₀ (never an external list of past observations), has
+  conditional support 2^(rank[A;H;T] − rank[A;H]). It is learnt exactly when the difference is 0 [rec, owner;
+  checked against enumeration in `design/emb/common-spec/aht.py`]. Coin cells (§1.2) are visible cells with no clean coordinate; they are not
   counted under (i), because no coupling step brings one into contact with the toy, a pointer or another record cell.
   Withholding any clean resource is a postulate. Neither count bounds what is learnt by itself: a second visible site
   with no clean coordinate can lift L1, and so can a second clean pair read through one site [rec, design/emb at

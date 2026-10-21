@@ -1,0 +1,41 @@
+Path 0-1-2 (centre = site 1).
+== re-review's 'NONE in centre' reading: edges [(0, 1), (1, 2)], toy 2, FULL 0, NONE 1
+  t=1: rank[A;H;T]-rank[A;H] = 2 -> support 4 (enumerated 4); prior support 4; 
+  t=2: rank[A;H;T]-rank[A;H] = 1 -> support 2 (enumerated 2); prior support 4; 
+  t=3: rank[A;H;T]-rank[A;H] = 0 -> support 1 (enumerated 1); prior support 2; overwrite point mass
+  t=4: rank[A;H;T]-rank[A;H] = 0 -> support 1 (enumerated 1); prior support 1; overwrite point mass
+  t=5: rank[A;H;T]-rank[A;H] = 0 -> support 1 (enumerated 1); prior support 2; overwrite point mass
+  t=6: rank[A;H;T]-rank[A;H] = 1 -> support 2 (enumerated 2); prior support 4; 
+  t=7: rank[A;H;T]-rank[A;H] = 2 -> support 4 (enumerated 4); prior support 4; 
+  t=8: rank[A;H;T]-rank[A;H] = 2 -> support 4 (enumerated 4); prior support 4; 
+== coordinator placement: edges [(0, 1), (1, 2)], toy 0, FULL 1, NONE 2
+  t=1: rank[A;H;T]-rank[A;H] = 1 -> support 2 (enumerated 2); prior support 4; 
+  t=2: rank[A;H;T]-rank[A;H] = 0 -> support 1 (enumerated 1); prior support 4; LEARNED
+  t=3: rank[A;H;T]-rank[A;H] = 1 -> support 2 (enumerated 2); prior support 4; 
+  t=4: rank[A;H;T]-rank[A;H] = 2 -> support 4 (enumerated 4); prior support 4; 
+== coordinator placement: edges [(0, 1), (1, 2)], toy 1, FULL 0, NONE 2
+  t=1: rank[A;H;T]-rank[A;H] = 1 -> support 2 (enumerated 2); prior support 4; 
+  t=2: rank[A;H;T]-rank[A;H] = 0 -> support 1 (enumerated 1); prior support 4; LEARNED
+  t=3: rank[A;H;T]-rank[A;H] = 1 -> support 2 (enumerated 2); prior support 4; 
+  t=4: rank[A;H;T]-rank[A;H] = 2 -> support 4 (enumerated 4); prior support 4; 
+== coordinator placement: edges [(0, 1), (1, 2)], toy 1, FULL 2, NONE 0
+  t=1: rank[A;H;T]-rank[A;H] = 1 -> support 2 (enumerated 2); prior support 4; 
+  t=2: rank[A;H;T]-rank[A;H] = 0 -> support 1 (enumerated 1); prior support 4; LEARNED
+  t=3: rank[A;H;T]-rank[A;H] = 1 -> support 2 (enumerated 2); prior support 4; 
+  t=4: rank[A;H;T]-rank[A;H] = 2 -> support 4 (enumerated 4); prior support 4; 
+== coordinator placement: edges [(0, 1), (1, 2)], toy 2, FULL 1, NONE 0
+  t=1: rank[A;H;T]-rank[A;H] = 1 -> support 2 (enumerated 2); prior support 4; 
+  t=2: rank[A;H;T]-rank[A;H] = 0 -> support 1 (enumerated 1); prior support 4; LEARNED
+  t=3: rank[A;H;T]-rank[A;H] = 1 -> support 2 (enumerated 2); prior support 4; 
+  t=4: rank[A;H;T]-rank[A;H] = 2 -> support 4 (enumerated 4); prior support 4; 
+Path 1-0-2 (centre = site 0), the re-review witness.
+== re-review witness: edges [(0, 1), (0, 2)], toy 2, FULL 0, NONE 1
+  t=1: rank[A;H;T]-rank[A;H] = 1 -> support 2 (enumerated 2); prior support 4; 
+  t=2: rank[A;H;T]-rank[A;H] = 0 -> support 1 (enumerated 1); prior support 4; LEARNED
+  t=3: rank[A;H;T]-rank[A;H] = 1 -> support 2 (enumerated 2); prior support 4; 
+  t=4: rank[A;H;T]-rank[A;H] = 2 -> support 4 (enumerated 4); prior support 4; 
+  t=5: rank[A;H;T]-rank[A;H] = 1 -> support 2 (enumerated 2); prior support 4; 
+  t=6: rank[A;H;T]-rank[A;H] = 0 -> support 1 (enumerated 1); prior support 4; LEARNED
+  t=7: rank[A;H;T]-rank[A;H] = 1 -> support 2 (enumerated 2); prior support 4; 
+  t=8: rank[A;H;T]-rank[A;H] = 2 -> support 4 (enumerated 4); prior support 4; 
+== correlated preparation: clean coordinates in [(0, 0), (1, 1)] : [] ; after (x,y)->(x,x^y): [(0, 0), (1, 0)] clean coordinates [1] ; rank(A) of the constraint x^y=0 is 1 before and after
