@@ -1,0 +1,16 @@
+P1a single system A {sA,xA,zA,rA} : triples == cards on all words of the sub-family: 2048 | std QM == cards on it: True
+P1b single system B {sB,xB,zB,rB} : triples == cards on all words of the sub-family: 2048 | std QM == cards on it: True
+P2 coupling, no swaps {c,flips,rA,rB} : triples == cards on all words of the sub-family: 1024 | std QM == cards on it: True
+P3 local only {sA,sB,flips,rA,rB} : triples == cards on all words of the sub-family: 64 | std QM == cards on it: True
+P1 & P2 & P3 : 16 triples; all == std QM on all FULL words: False ; #classes by (sA,sB,c) twist: 16
+   survivors: [('II', 'II', 'II'), ('II', 'II', 'IZ'), ('II', 'II', 'ZI'), ('II', 'II', 'ZZ'), ('II', 'IXZ', 'II'), ('II', 'IXZ', 'IZ'), ('II', 'IXZ', 'ZI'), ('II', 'IXZ', 'ZZ'), ('XZI', 'II', 'II'), ('XZI', 'II', 'IZ'), ('XZI', 'II', 'ZI'), ('XZI', 'II', 'ZZ'), ('XZI', 'IXZ', 'II'), ('XZI', 'IXZ', 'IZ'), ('XZI', 'IXZ', 'ZI'), ('XZI', 'IXZ', 'ZZ')]
+   W6 values among P1-P3 survivors: Counter({'1': 8, '0': 8})
+P4_1 full alphabet, at most 1 couple(s), all lengths: std QM == cards: True; triples == cards: 4
+   P1&P2&P3&P4_1 : 4 triples; all == std QM on all FULL words: True ; #classes by (sA,sB,c) twist: 4
+   P4_1 alone : 4 triples; all == std QM on all FULL words: True ; #classes by (sA,sB,c) twist: 4
+P4_2 full alphabet, at most 2 couple(s), all lengths: std QM == cards: False; triples == cards: 0
+   P1&P2&P3&P4_2 : 0 triples; all == std QM on all FULL words: True ; #classes by (sA,sB,c) twist: 0
+   P4_2 alone : 0 triples; all == std QM on all FULL words: True ; #classes by (sA,sB,c) twist: 0
+P4_3 full alphabet, at most 3 couple(s), all lengths: std QM == cards: False; triples == cards: 0
+   P1&P2&P3&P4_3 : 0 triples; all == std QM on all FULL words: True ; #classes by (sA,sB,c) twist: 0
+   P4_3 alone : 0 triples; all == std QM on all FULL words: True ; #classes by (sA,sB,c) twist: 0

@@ -1,0 +1,51 @@
+== full | std-QM vs cards first disagreement: 7 | fd histogram: [(2, 3840), (3, 192), (4, 56), (5, 4), (7, 4)]
+   triples == std QM over this alphabet: 4
+   L=1: 4096 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 256
+   L=2:  256 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 32
+   L=3:   64 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 16
+   L=4:    8 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 4
+   L=5:    4 survivors; all == std QM over alphabet: True; all == std QM over FULL: True; W6-relevant (sA,c) pairs: 4
+   L=6:    4 survivors; all == std QM over alphabet: True; all == std QM over FULL: True; W6-relevant (sA,c) pairs: 4
+   L=7: 0 survivors
+== no flips {sA,sB,c,rA,rB} | std-QM vs cards first disagreement: 7 | fd histogram: [(2, 3840), (3, 192), (4, 56), (5, 4), (7, 4)]
+   triples == std QM over this alphabet: 4
+   L=1: 4096 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 256
+   L=2:  256 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 32
+   L=3:   64 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 16
+   L=4:    8 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 4
+   L=5:    4 survivors; all == std QM over alphabet: True; all == std QM over FULL: True; W6-relevant (sA,c) pairs: 4
+   L=6:    4 survivors; all == std QM over alphabet: True; all == std QM over FULL: True; W6-relevant (sA,c) pairs: 4
+   L=7: 0 survivors
+== {sA,c,rA,rB} | std-QM vs cards first disagreement: 7 | fd histogram: [(2, 3584), (3, 256), (5, 128), (7, 64), (10, 64)]
+   triples == std QM over this alphabet: 64
+   L=1: 4096 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 256
+   L=2:  512 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 32
+   L=3:  256 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 16
+   L=4:  256 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 16
+   L=5:  128 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 8
+   L=6:  128 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 8
+   L=7:   64 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 4
+   L=8:   64 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 4
+   L=9:   64 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 4
+== no sB {sA,c,4 flips,rA,rB} | std-QM vs cards first disagreement: 7 | fd histogram: [(2, 3584), (3, 256), (5, 128), (7, 64), (10, 64)]
+   triples == std QM over this alphabet: 64
+   L=1: 4096 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 256
+   L=2:  512 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 32
+   L=3:  256 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 16
+   L=4:  256 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 16
+   L=5:  128 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 8
+   L=6:  128 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 8
+   L=7:   64 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 4
+   L=8:   64 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 4
+   L=9:   64 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 4
+== K-G1 {sA,c,rB} | std-QM vs cards first disagreement: 7 | fd histogram: [(2, 3072), (3, 512), (4, 256), (6, 128), (7, 64), (None, 64)]
+   triples == std QM over this alphabet: 64
+   L=1: 4096 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 256
+   L=2: 1024 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 64
+   L=3:  512 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 32
+   L=4:  256 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 16
+   L=5:  256 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 16
+   L=6:  128 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 8
+   L=7:   64 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 4
+   L=8:   64 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 4
+   L=9:   64 survivors; all == std QM over alphabet: False; all == std QM over FULL: False; W6-relevant (sA,c) pairs: 4

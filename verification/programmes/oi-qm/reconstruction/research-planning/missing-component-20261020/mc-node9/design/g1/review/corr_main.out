@@ -1,0 +1,9 @@
+first card/lift disagreement length over 4096 triples: [(2, 3840), (3, 192), (4, 56), (5, 4), (7, 4)]
+L=1 survivors 4096  all == std QM (all words): False
+L=2 survivors 256  all == std QM (all words): False
+L=3 survivors 64  all == std QM (all words): False
+L=4 survivors 8  all == std QM (all words): False
+L=5 survivors 4  all == std QM (all words): True
+L=6 survivors 4  all == std QM (all words): True
+L=7 survivors 0  all == std QM (all words): -
+triples == std QM on all words: [(0, 0, 0), (0, 3, 8), (12, 0, 0), (12, 3, 8)]

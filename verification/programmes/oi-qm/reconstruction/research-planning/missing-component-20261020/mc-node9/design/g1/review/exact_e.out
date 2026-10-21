@@ -1,0 +1,5 @@
+W=I       fixes |00> record group: True; fixes Z_A,Z_B records: True; commutes with every flip: True
+W=Z_A     fixes |00> record group: True; fixes Z_A,Z_B records: True; commutes with every flip: True
+W=Z_B     fixes |00> record group: True; fixes Z_A,Z_B records: True; commutes with every flip: True
+W=Z_AZ_B  fixes |00> record group: True; fixes Z_A,Z_B records: True; commutes with every flip: True
+survivor -> W with survivor = Ad(W) std Ad(W)^-1: {(0, 0, 0): 'I', (12, 0, 0): 'Z_A', (0, 3, 8): 'Z_B', (12, 3, 8): 'Z_AZ_B'}

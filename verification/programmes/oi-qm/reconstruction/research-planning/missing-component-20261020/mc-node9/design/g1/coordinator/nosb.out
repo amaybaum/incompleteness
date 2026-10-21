@@ -1,0 +1,4 @@
+no swap_B, L 5 any swap lift survivors 8 W6 values {Fraction(1, 1): 4, 0: 4}
+no swap_B, L 5 local swap lift survivors 4 W6 values {Fraction(1, 1): 4}
+no swap_B, L 6 any swap lift survivors 8 W6 values {Fraction(1, 1): 4, 0: 4}
+no swap_B, L 6 local swap lift survivors 4 W6 values {Fraction(1, 1): 4}
