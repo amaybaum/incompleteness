@@ -4,8 +4,7 @@ Usage: python3 -I -B quotecheck.py <repo-worktree> <commit>"""
 import subprocess, sys, re
 
 Q = [
-    ("papers/Main.md", 44, 44, ["an observer $V \\subsetneq S$ — a proper subsystem with finitely many distinguishable internal states, coupled to the complement $H = S \\setminus V$ through $\\varphi$"]),
-    ("papers/Main.md", 48, 48, ["The observer has finitely many distinguishable internal states, so the visible configuration space $\\mathcal{C}_V$ is finite, with a discreteness scale $\\epsilon$ providing a finite minimal cell volume."]),
+        ("papers/Main.md", 48, 48, ["The observer has finitely many distinguishable internal states, so the visible configuration space $\\mathcal{C}_V$ is finite, with a discreteness scale $\\epsilon$ providing a finite minimal cell volume."]),
     ("papers/Main.md", 50, 50, ["The observer is a proper subsystem: $V \\subsetneq S$. The complement $H = S \\setminus V$ is the hidden sector."]),
     ("papers/Main.md", 56, 56, ["a bijection: distinct states have distinct successors and predecessors", "globally, the counting measure is selected among invariant measures as the maximal-entropy one"]),
     ("papers/Main.md", 60, 60, ["a realization in the sense of §3.4 carries its own fixed hidden prior $\\mu_H$ as part of the realization datum", "the counting measure is the default, not a constraint on representations"]),
@@ -30,8 +29,7 @@ Q = [
     ("papers/Substratum.md", 44, 44, ["φ is a bijection: *perfect memory* — information is never created or destroyed.", "The partition $V$ defines the observer's *access* — both read and write."]),
     ("papers/Substratum.md", 92, 92, ["E3, with the holographic bound read as a Hilbert-space dimension cutoff"]),
     ("papers/Computation.md", 130, 130, ["realizable correlations are those approximable by finite-dimensional strategies"]),
-    ("papers/Methodology.md", 393, 393, ["one wing's response can depend on the remote setting at the microstate level even though the averaged outcome distribution is operationally no-signaling"]),
-    ("verification/lean-mathlib/OIBridge/FiniteEntropy.lean", 383, 385, ["theorem cmi_le_of_deterministic", "cmi w a b (fun s => g (b s, c s)) ≤ cmi w a b c"]),
+        ("verification/lean-mathlib/OIBridge/FiniteEntropy.lean", 383, 385, ["theorem cmi_le_of_deterministic", "cmi w a b (fun s => g (b s, c s)) ≤ cmi w a b c"]),
     ("verification/lean-mathlib/OIBridge/FiniteEntropy.lean", 457, 459, ["theorem cmi_le_log_card", "cmi w a b c ≤ Real.log (Fintype.card γ)"]),
     ("verification/lean-mathlib/OIBridge/C3Necessity.lean", 80, 80, ["theorem c3_necessity"]),
     # revision 2 (owner redirect, 2026-10-21): C1-C4 start, branch 1 and branch 2 sources
@@ -48,9 +46,7 @@ Q = [
     ("papers/Explainer.md", 566, 566, ["The mystery dissolves not into another postulate but into a derivation: this is what marginal statistics look like when paths through the partition are indistinguishable."]),
     ("book/ch01-observation.md", 280, 282, ["a player who prices hands divisibly loses money at a rate equal to the interference term", "Interference is not a substance; it is the failure of divisibility"]),
     ("book/appendix-c-objections.md", 228, 228, ["which an ordinary classical stochastic process also reprodu"]),
-    ("papers/Structure.md", 1312, 1312, ["bounded the magnitude of three-path interference to less than $10^{-2}$ of the expected two-path interference"]),
-    ("papers/SM.md", 296, 296, ["The *exact* dynamics is the linear rule $f = \\sum_{\\text{nn}} x - x(t-1)$ over $\\mathbb{Z}/q\\mathbb{Z}$"]),
-    ("papers/Main.md", 716, 716, ["the realization's permutation unitary, $\\hat{H} = i\\log U$, exact at integer horizon times for uniform, slice, and weighted priors"]),
+            ("papers/Main.md", 716, 716, ["the realization's permutation unitary, $\\hat{H} = i\\log U$, exact at integer horizon times for uniform, slice, and weighted priors"]),
     ("papers/Main.md", 534, 534, ["exact coherent/composite compatibility is the residual operational-lifting problem"]),
     # revision 3 (owner's sharpened direction, 2026-10-21)
     ("papers/Main.md", 80, 80, ["The condition is operational; it does not by itself assert a causal write-then-read cycle — a pre-sampled hidden variable revealed by the history satisfies it (the response-table construction, §3.4)."]),
@@ -62,6 +58,18 @@ Q = [
     ("verification/programmes/oi-qm/reconstruction/research-planning/missing-component-20261020/mc-node3/NODE.md", 232, 233, ["Purification is the closest to what OI states. None of the three is derivable under κ1–κ4."]),
     ("verification/programmes/oi-qm/reconstruction/research-planning/missing-component-20261020/mc-node5/NODE.md", 263, 263, ["The purification uniqueness that would give O-B is not supplied (Main.md:602; MC2 §3)."]),
     ("verification/programmes/oi-qm/reconstruction/research-planning/missing-component-20261020/mc-node5/NODE.md", 344, 346, ["Each posits continuous reversibility or purification with uniqueness."]),
+    # revision 4 (redirect + pre-freeze review, 2026-10-21)
+    ("verification/programmes/oi-qm/reconstruction/research-planning/missing-component-20261020/mc-node7/NODE.md", 42, 43, ["Every §3.1 reading that admits the counting measure on LE(1,1)'s hidden bit admits LE(1,1)."]),
+    ("verification/programmes/oi-qm/reconstruction/research-planning/missing-component-20261020/mc-node7/NODE.md", 82, 82, ["provisional on K-10 at n = 4"]),
+    ("verification/programmes/oi-qm/reconstruction/research-planning/missing-component-20261020/mc-node5/NODE.md", 28, 29, ["Relative to `SourcedOI`, exact QM holds iff phase-free richness (PFR) holds, one continuously driven pair per level [AT]"]),
+    ("verification/programmes/oi-qm/reconstruction/research-planning/missing-component-20261020/mc-node3/NODE.md", 233, 233, ["classical theory has no purification"]),
+    ("papers/GR.md", 216, 216, ["(iv) *Full reversible control*: every finite unitary on every composite is available."]),
+    ("papers/Main.md", 352, 352, ["The purification, continuous-transitivity, and tomographic-locality axioms of the cited reconstructions are hypotheses of their continuum endpoint, which the classical-dimension obstruction places beyond any fixed finite carrier;", "five conditions hold: valid probabilities, trivial-ancilla consistency, inert spectators, full reversible control, and iterated composition"]),
+    ("papers/Main.md", 568, 568, ["This is a characterization of a quantum-complete extension of OI, not a claim that bare OI entails the added principles"]),
+    ("papers/Main.md", 600, 600, ["full completions are NOT claimed unique up to reversible relabeling, and same-law realizations with non-relabel-equivalent fibers exist (`fiber_freedom`, certified)"]),
+    ("papers/Main.md", 602, 602, ["CDP's uniqueness (any two purifications related by a reversible transformation on the purifier alone) is strictly stronger, and the certified fiber freedom shows completions here are not unique as wholes"]),
+    ("book/appendix-c-objections.md", 226, 226, ["An instrument that leaves every state unchanged on average — a passive instrument — learns only about the commutative center of the observable algebra", "it holds in every finite operational theory with two or more states, whether or not the framework's core conditions hold"]),
+    ("book/appendix-c-objections.md", 232, 232, ["an epistemic restriction alone reproduces complementarity, uncertainty-like trade-offs and no-cloning, but not violations of Bell inequalities", "restricted access does not by itself single out quantum theory"]),
 ]
 
 def norm(s):
