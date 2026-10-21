@@ -1,0 +1,13 @@
+[strict, relabelled outputs] n=2 ops=GL: configurations=0 (isomorphic duplicates skipped=0, visible dim over cap=0) max record-safe classes/level=0
+    k=1: record-safe designated matches: none
+    k=2: record-safe designated matches: none
+    k=3: record-safe designated matches: none
+    k=4: record-safe designated matches: none
+[strict, relabelled outputs] n=3 ops=GL: configurations=32 (isomorphic duplicates skipped=0, visible dim over cap=0) max record-safe classes/level=9
+    k=1: record-safe designated matches: AV read u_toy:2
+    k=2: record-safe designated matches: none
+    k=3: record-safe designated matches: none
+    k=4: record-safe designated matches: none
+      example k=1 AV read u_toy: edges=((0, 1), (0, 2)) Q=u1,P=u2;site1=V,site2=H;sites3..= ('(q,p)=(u0,v0),u=(0, 1)', (3, 0, 1, 5))
+      example k=1 AV read u_toy: edges=((0, 1), (0, 2)) Q=v1,P=u2;site1=V,site2=H;sites3..= ('(q,p)=(u0,v0),u=(0, 1)', (3, 0, 1, 5))
+[stopped by the agent after ~1 h (resource discipline, AGENTS.md A.40) before this block completed; superseded by the bounded runs *_dv3.out / *_dv4.out]

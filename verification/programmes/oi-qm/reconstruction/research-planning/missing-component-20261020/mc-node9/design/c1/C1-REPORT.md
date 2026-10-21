@@ -5,6 +5,9 @@ verdict. It establishes only whether the measurement mechanism is available in t
 about closure (C-ii). Base: a detached checkout of `6cf71e0e`. Everything is
 exact: F₂ bitmask linear algebra, numpy integer bit operations, and Fractions. There is no floating point anywhere.
 
+Corrected after independent review (REVIEW-C1-231ec13c, 2026-10-21); the computations and outputs are unchanged except
+as listed in §Corrections.
+
 Read first: `AGENTS.md` (§A.16, §A.21, §A.29, §A.31); `mc-node9/PREREG.md` §1.2, §2.2, §4, §4.1; `mc-node9/NOTES.md`
 (QA′); `papers/Main.md` l. 56–62 and l. 288–320. Also read: Main.md l. 74–76 for (C1)/(C2), l. 88 ("By Lemma 2, the
 partition is fixed") and l. 109 (§2.2, slow bath).
@@ -14,28 +17,35 @@ partition is fixed") and l. 109 (§2.2, slow bath).
 - **(C-i-a) Pointer coupling realized from lattice dynamics: realized up to stated corrections, for one read
   functional and one update step.** Construction C1 (§3) uses the corpus region partition. It equals the target on
   declared clean visible inputs, with bookkeeping relabelling, and reproduces R_u exactly against every visible record.
-  It reads only the toy's current u coordinate. It is not realized at unchanged positions, not for the other two
-  reads, and not in the draft's own pointer form (§1, §2).
+  It reads only the toy's current u coordinate. Within the searched class (§2 bounds), it is not realized at unchanged
+  positions, the other two reads are realized only with a hidden coordinate supplied known, and the draft's own
+  pointer form has no record-safe realization (§1, §2). At unchanged positions, exact equality is excluded
+  structurally for words whose observer operations are symplectic (§1 item 1, V3).
 - **(C-i-b) Recording with back-action: not realized as a consequence of the lattice dynamics; a disturbance-free
   record is available instead.**
   - Storing a reading in visible cells is an observer operation. It is exactly the identity on every hidden
     coordinate, so it has zero back-action (§9.1 (c)). κ4 readout and feedback on all records already give free
-    retention.
-  - The owner's copy rule X′ = X + Q, P′ = P + Y is realized by short lattice words only as a decoupled product: an
-    observer CNOT on visible cells, and an unconditional hidden update between two hidden sites. The kick occurs
-    whether or not anything is recorded. In the owner's literal coordinate-level form, nothing record-safe is found
-    (§9.2 (i)).
+    retention. Both are grants of the drafted interface (PREREG §1.1), not of the lattice dynamics.
+  - The owner's copy rule X′ = X + Q, P′ = P + Y is realized by short lattice words (searched space, §8) as a
+    decoupled product: an observer CNOT on visible cells, and an unconditional hidden update between two hidden sites.
+    In 54 of the 60 cases found the kick occurs whether or not anything is recorded; in the other 6 a
+    visible-only copy records the reading with no hidden change. In the owner's literal coordinate-level form, nothing
+    record-safe is found at n ≤ 3 (GL at visible dimension ≤ 3) or at n = 4, ops = none, k ≤ 4 (§9.2 (i)).
   - In the abstract model the owner's repair checks out: W4 plus recording gives support 2 in all 8 branches. No
-    sequence of length ≤ 7 without free readout reaches a point mass. Free readout reaches one at length 5 (§9.2).
-  - On the fixed graph, the lattice's own substitute for the refresh, a hidden reservoir behind the bath, only delays
-    the W4 collapse: the toy becomes a point mass at step 2(L+1) (§9.1 (d)).
+    sequence of length ≤ 7 over the alphabet of §9.2 (iv) without free readout reaches a point mass. Free readout
+    reaches one at length 5 (§9.2).
+  - On the path graphs computed (reservoir L ≤ 5), the lattice's own substitute for the refresh, a hidden reservoir
+    behind the bath, only delays the W4 collapse: the toy becomes a point mass at step 2(L+1) (§9.1 (d)). On other
+    graphs of the same family the toy collapses earlier (the star at step 4; §8).
 - **(C-i-c) Resources and extra postulates.**
   - For C-i-a: clean visible pointer site (Q and Q̄); a uniform hidden bath; AP-1 (fresh kick source at every read);
     AP-2 (one step of contact); AP-3 (choice of read). See §4 and §5.
   - For C-i-b, beyond the abstract checks: **AP-4**, every retained reading passes through a back-acting record. This
     excludes free retention, which κ4 readout plus feedback on all records grants, and excludes disturbance-free
-    visible copies. **AP-5**, memory conjugates are fresh and independent, and are never accessed later. On a finite
-    fixed graph the lattice analogue, a hidden reservoir behind the bath, stays fresh for only 2(L+1) − 1 steps.
+    visible copies. **AP-5**, memory conjugates are fresh and independent, and are never accessed later. On the path
+    graphs computed (reservoir L ≤ 5) the lattice analogue, a hidden reservoir behind the bath, stays fresh for
+    2(L+1) − 1 steps.
+  - AP-1 to AP-5 are assumptions of this proposed implementation only (§8).
   - None of these follows from symplecticity. Under the region partition the visible sector is a symplectic subspace,
     so symplecticity never forces a hidden kick on a visible copy.
 
@@ -44,14 +54,18 @@ partition is fixed") and l. 109 (§2.2, slow bath).
 **C-i verdict line: realized up to stated corrections, for one read functional and one update step. Not realized as
 specified.**
 
-1. **Corpus partition, positions unchanged: not realized.** Under Main.md l. 292, the visible sector is "the sites of
-   a region R", so both coordinates of a site share its visibility. No word in the searched space (§2) makes the four
-   designated rows equal to the target with the toy bit and pointer at their input positions. This holds even with
-   clean visible ancillas, and even if leaking records were allowed (`run_search1_*`). For exact equality there is a
-   general reason, independent of graph, size and step count. **No symplectic map** has designated rows equal to the
-   target when Q and P lie on different sites (V3, a two-line pairing identity). Under the region partition, a visible
-   coordinate's lattice conjugate is visible: "Q visible with hidden conjugate P" cannot be formed from the lattice's
-   own canonical pairs.
+1. **Corpus partition, positions unchanged: not realized in the searched space.** Under Main.md l. 292, the visible
+   sector is "the sites of a region R", so both coordinates of a site share its visibility. No word in the searched
+   space (§2, within its bounds) makes the four designated rows equal to the target with the toy bit and pointer at
+   their input positions. This holds even with clean visible ancillas, and even if leaking records were allowed
+   (`run_search1_*`, n = 3 only). For exact equality and for words whose observer operations are symplectic (in
+   particular pure waiting), there is a general reason, independent of graph, size and step count: no symplectic map
+   has designated rows equal to the target, at the input positions or relabelled, when Q is visible and P hidden (V3,
+   a two-line pairing identity). For the cell and GL classes, which contain non-symplectic visible maps, and for AV
+   (equality on clean visible inputs only), the negative is the bounded search result (§2). Under the region
+   partition, a visible coordinate's lattice conjugate is visible: "Q visible with hidden conjugate P" cannot be
+   formed from the lattice's own canonical pairs. Equivalently, ω(V, H) = 0 under the region partition, so no hidden
+   functional is conjugate to any visible functional, composite pointers included, not only to a lattice coordinate.
 2. **Corpus partition, with output relabelling (bookkeeping only): realized, construction C1 (§3).** The toy's u and v
    exchange at every step, and P moves from u_c to v_c. With that relabelling, one update step on the path
    *pointer site – toy site – bath site* (R = {pointer site}) gives Q′ = Q + q, q′ = q, p′ = p + P + Q̄, P′ = P. Here
@@ -61,17 +75,19 @@ specified.**
 3. **Only one of the three reads.** The construction reads ω(u, ·) for a single u: the toy's *current u coordinate*.
    This follows from Main.md's Lemma 1 column statement: a step's visible outputs see hidden inputs only through the u
    of hidden sites adjacent to R. In the searched space no record-safe word reads the toy's v coordinate or u + v
-   without a hidden coordinate in a known state (§2, table). The observer's free choice of u in model A is not
-   supplied.
-4. **The draft's own pointer form is outside the corpus and fails anyway.** A pointer with visible Q and hidden
-   lattice-conjugate P on one site needs a coordinate-level partition, which Main.md does not define. Under such a
-   partition the update exposes the hidden coordinate of a split site after one step. If the site's v is visible, it
+   without a hidden coordinate in a known state (§2, table). No record-safe word in the searched space supplies the
+   observer's free choice of u in model A without a hidden coordinate in a known state.
+4. **The draft's own pointer form is outside the corpus, and the searched space has no record-safe realization of
+   it.** A pointer with visible Q and hidden lattice-conjugate P on one site needs a coordinate-level partition, which
+   Main.md does not define. Under such a partition the update exposes the hidden coordinate of a split site after one step. If the site's v is visible, it
    is exposed exactly: v′_x = u_x. If its u is visible, the exposure is masked only by the neighbours' u (V4). The
    searched space has no record-safe AV/E realization there; every hit leaks or needs a known hidden coordinate.
 5. **Not on demand.** On a fixed graph the coupling acts at every step, as Main.md l. 109 states: "By (C1), coupling
    is continuously active". Continued waiting re-reads the toy against the same bath site. Each step reveals one more
    hidden bit, and after 4 steps toy and bath are fully determined by the records, with or without feedback resets of
-   the pointer (C1.6). With the bath supplied in a known state, C1 *is* K-SYMP2's failure mode (C1.7).
+   the pointer (C1.6). Support 1 under the uniform prior means the record map is injective on the four hidden bits,
+   so the point mass at step 4 holds for every preparation. With the bath supplied in a known state, C1 *is*
+   K-SYMP2's failure mode (C1.7).
 
 ## 2. Search: space, bounds, method, outcome
 
@@ -79,7 +95,10 @@ specified.**
 v_x, v′_x = u_x. Each G_i is an observer operation on the visible coordinates only. There are three operation classes,
 nested: **none** (pure waiting), **cell** (all permutations of the visible coordinates), and **GL** (all invertible
 linear maps of the visible coordinates). Affine shifts and record feedback only add known constants and are covered by
-the AV rule. Nonlinear visible permutations are **not** searched.
+the AV rule. Nonlinear visible permutations are **not** searched. The GL class, the feedback resets and the visible
+copy of §9.1 (c2) read PREREG §1.1's "permutations of visible cells" as bijections of the visible configuration
+space. Under the narrower reading (rearrangements of cells only), (c2) is unavailable, while (c1) and the waiting
+counterexample (C1.6) are unaffected.
 
 **Graphs and assignments.** All simple graphs on n labelled sites. Site 0 is the toy, with both coordinates hidden.
 - **strict** (corpus): site 1 is visible and carries Q (u1 or v1); site 2 is hidden and carries P (u2 or v2); other
@@ -125,7 +144,7 @@ rows modulo the class, L), and every level is complete for its class.
 - cell at n = 5 (a bounded rerun at visible dimension ≤ 4 also hit its 1700 s cap before the strict block printed);
 - GL at n = 5 beyond the strict, visible-dimension-2 block (the relaxed n = 5 GL block hit the cap).
 
-These are the bounds of every negative statement below.
+These are the bounds of every negative statement in this report, including §0 and §1.
 
 Across the whole completed space, **every AV/E realization reads u_toy at k = 1**, and every read of v_toy or of
 u_toy + v_toy is AH. AH hits are of two kinds, separated exactly by `rebase_check.py`:
@@ -184,7 +203,7 @@ p. Idle outputs: Q̄′ = Q̄ is visible and known. P̄′ = q + P̄ is hidden: 
 **General form found by the search** (all 16 AV configurations at n = 4, `list_av.out`):
 - the toy has at least one visible neighbour; each such neighbour reads u_toy, and its other neighbours are
   visible/known;
-- the toy has exactly one hidden neighbour c, the bath, with P = u_c; several hidden neighbours give a composite kick;
+- the toy has one hidden neighbour c, the bath, with P = u_c, or several, giving a composite kick K = Σ u_c (§2);
 - c has no visible neighbour.
 
 ## 4. Resource table (C1)
@@ -204,7 +223,10 @@ only clean resources are visible. This is not the K-CLN/K-SYMP2 failure mode. Th
 hidden coordinate are exactly the "genuine AH" hits of §2: every read other than u_toy, and the relaxed-partition hits.
 They are not realizations under the clean-ancilla declaration.
 
-## 5. Additional postulates the mechanism needs (each independent; none is a consequence of symplecticity)
+## 5. Additional postulates of the proposed implementation
+
+Each is recorded separately, as PREREG §4.1 requires; none is a consequence of symplecticity. Their mutual
+independence, and whether other implementations need them, are not established.
 
 - **AP-1, fresh kick source.** At every read, the hidden coordinate(s) that kick the toy are uniform and independent
   of the system and of every accessible record. This is the draft's independence clause, relocated. In C1 the
@@ -213,12 +235,21 @@ They are not realizations under the clean-ancilla declaration.
   therefore does not describe the lattice mechanism. The lattice needs the opposite for the pointer's own conjugate,
   plus a fresh-bath condition.
 
-  The counting measure gives uniformity at the initial time only. On a fixed graph the bath is a permanent neighbour,
-  so after the first step it carries P̄′ = q + P̄ and is no longer independent (C1.6). AP-1 is a condition of
-  Markovian-bath type. It sits in tension, though it does not contradict, with the corpus's regime conditions: (C2)
-  requires "a hidden record of visible history, once written, persists to the readback that uses it" (Main.md l. 76),
-  and §2.2 sets τ_S ≪ τ_B (l. 109). Both can hold only if the hidden sector splits into a fresh reservoir that supplies
-  kicks and a slow memory part. The corpus supplies no such split.
+  The counting measure guarantees uniformity and independence at the initial time. Whether they survive a step depends
+  on the preparation. With (q, p) uniform, the bath after one step, (P, q + P̄), is independent of the toy (q, p + P)
+  and of every visible record: P̄ masks q, and p masks P. Under continued waiting from that preparation the bath loses
+  its independence of the toy at step 2 (computed by the independent review; no script in this directory computes
+  it). With q uniform and p = 0 known, p′ = P = P′, and the bath is correlated with the toy from step 1. Fresh-bath
+  independence is therefore not preserved for all admissible preparations. Under continued waiting on the fixed graph
+  the records determine toy and bath after four steps for every preparation (C1.6, a support computation, not an
+  independence measurement).
+
+  AP-1 is a fresh-source condition: each read draws its kick from hidden degrees of freedom not yet correlated with
+  the system or the records. Persistent hidden memory (C2) is compatible with fresh kicks drawn from previously unused
+  degrees of freedom: (C2-structural) requires that a hidden record of visible history persist to the readback that
+  uses it (Main.md l. 76), and a deterministic hidden sector can retain earlier records while each read draws on
+  degrees of freedom not used before. Whether the displayed lattice supplies that arrangement is open. On the path
+  graphs computed here (L ≤ 5) the supply of unused degrees of freedom is finite (§9.1 (d)).
 - **AP-2, contact timing.** The coupling acts for exactly one step. The corpus gives the observer no operation that
   starts or stops a coupling on a fixed graph, and Main.md l. 109 states that coupling is continuously active.
   Without AP-2 the construction is a read at every step, not R_u on demand.
@@ -256,12 +287,17 @@ They are not realizations under the clean-ancilla declaration.
   - For all 192 placements (n = 3, 4) with Q and P on different sites, the target rows violate a symplectic pairing:
     ω(row_Q′, row_q′) = u_q (J(Q, P) + 1).
   - With Q, P on the same site (the split pointer), the target extended by the identity is symplectic in all 36 cases.
+  - The 192-placement check confirms instances of the identity and adds no independent evidence; the identity itself
+    is the general argument (§1 item 1). It covers symplectic words and exact equality only.
 - **V4, split-site exposure.** v′_x = u_x and u′_x = Σ_{z∼x} u_z + v_x for all 284 (graph, site) cases at n ≤ 4.
 - **Engine controls (GREEN).**
   - PC-1: target-as-update gives E at k = 1.
   - PC-2: target composed with a visible swap: none fails, cell and GL succeed.
   - PC-3: each of the three read functionals is detected.
   - LC-1: target followed by the pointer exchange: no record-safe class survives.
+  - Known gap: PC-3 drives the relabelled check in relaxed mode only. No strict-mode positive control shows that the
+    strict relabelled check detects an AV read of v_toy or u_toy + v_toy; strict-mode v_toy classification is
+    exercised only indirectly, through the AH v_toy hits under GL at n = 4 and 5.
 - **Cross-checks.**
   - search3 (reference, pure Python) against search4 (vectorized): 0 mismatches in class counts and hits on every
     configuration, n ≤ 4, none and cell. At n = 4 that includes cell classes up to 820 per level.
@@ -284,22 +320,26 @@ either constrains or exposes a hidden assumption. The DFS nodes:
    pressure-tested (§A.31): every visible record was included and the result was cross-checked by brute force. It
    survives, but only for one step and one functional. **NEW:** the disturbance source is a bath site, not the
    pointer.
-3. *Which functional?* Only the toy's current u (Lemma 1's column statement in action). **NEW:** the setting choice
-   of u is not supplied.
+3. *Which functional?* Only the toy's current u (Lemma 1's column statement in action). **NEW:** no record-safe word
+   in the searched space supplies the setting choice of u without a hidden coordinate in a known state.
 4. *Does the observer need to control the partition?* **No** for C1, where R is fixed. Yes for the draft's own pointer
-   form, which needs a sub-site partition the corpus does not define and which fails anyway (V4, searches).
+   form, which needs a sub-site partition the corpus does not define, and which has no record-safe realization in the
+   searched space (V4, searches).
    **POSITIVE** for C1, **NEW** for the draft form.
 5. *Does it need control of step timing?* **Yes**: the mechanism is a single step of contact, while the corpus says
    coupling is continuously active. **NEW:** AP-2.
-6. *Is P's independence supplied by the counting measure?* **Only at the initial time.** On a fixed graph the bath
-   records the toy at the first step (C1.6), and (C2)/(C4) make persistent hidden records the observer-admitting
-   regime. **NEW:** AP-1 is a fresh-bath condition in tension with the slow-bath regime.
+6. *Is P's independence supplied by the counting measure?* **At the initial time; afterwards it depends on the
+   preparation.** After one step it survives for a uniform toy and fails for a toy with p known (§5, AP-1). On the
+   fixed graph the records determine toy and bath after four steps for every preparation (C1.6). **NEW:** AP-1 is a
+   condition on every read, which the counting measure guarantees only at t = 0.
 7. *Is a known hidden state needed?* **No** for C1. Yes for every other read found. **CONFIRMING** the K-CLN boundary.
 8. *Does storing a reading cost back-action?* **No.** A visible copy is exactly the identity on hidden coordinates,
-   and κ4 plus feedback give free retention (§9.1). **NEW:** the owner's back-acting record needs AP-4, which
-   restricts what the drafted interface grants. The lattice's copy realizations are decoupled products (§9.2).
-9. *Is the bath's freshness renewable on a fixed graph?* **Only finitely.** The toy becomes a point mass at step
-   2(L+1), the hidden bit count (§9.1 (d)). **NEW**, quantitative: one bit of freshness is consumed per step.
+   and κ4 plus feedback give free retention (§9.1). **CONFIRMING** for the copy, which follows from PREREG §1.1.
+   **NEW:** the owner's back-acting record needs AP-4, a restriction of the drafted interface. The lattice's copy
+   realizations in the searched space are decoupled products (§9.2).
+9. *Is the bath's freshness renewable on a fixed graph?* **Only finitely, on the graphs computed.** On the path graphs
+   (L ≤ 5) the toy becomes a point mass at step 2(L+1), the hidden bit count (§9.1 (d)). **NEW**, quantitative for
+   those graphs: one bit of freshness is consumed per step.
 
 Assumption-watch markers for other claims:
 - (a) "visible Q with hidden conjugate" presupposes a sub-site partition;
@@ -309,19 +349,29 @@ Assumption-watch markers for other claims:
 
 ## 8. Scope (what this does not establish)
 
-- **Bounds.** n ≤ 4 for all three operation classes (GL only at visible dimension ≤ 4); n = 5 for none and cell.
-  Depth k ≤ 4. Linear observer operations only; no nonlinear visible permutations and no adaptive changes of the
-  linear word. A single toy site; the pointer and P on single coordinates (composite kicks noted, not searched as
+- **Bounds.** n ≤ 3 for none, cell and GL. n = 4 for none and cell; GL at n = 4 only at visible dimension 2
+  (strict) and ≤ 3 (relaxed). n = 5 for none (strict unrelabelled; strict and relaxed relabelled), and GL only for
+  the strict relabelled block at visible dimension 2. Cell at n = 5 is not completed. Depth k ≤ 4. Linear observer
+  operations only; no nonlinear visible permutations and no adaptive changes of the linear word. A single toy site; the pointer and P on single coordinates (composite kicks noted, not searched as
   designated). The update is Main.md l. 290 over F₂ only.
 - **Lifecycle and copy-rule bounds.**
-  - Lifecycle: path graphs only, reservoir L ≤ 5.
-  - Copy search: n ≤ 3 for all classes; n = 4 for ops = none only (cell/GL killed at the memory limit); GL at visible
-    dimension ≤ 3.
+  - Lifecycle: path graphs only, reservoir L ≤ 5. On other graphs of the C1 family (pointer adjacent only to the toy,
+    n = 4, 5, pure waiting, all other sites hidden) the independent review finds the toy becomes a point mass no later
+    than step 2(L+1), L the number of hidden sites other than the toy, and often earlier (the star at step 4, at
+    n = 4 and 5); outside that family some graphs never determine the toy. No script in this directory computes those
+    graphs.
+  - Copy search: n ≤ 3 for all classes (GL at visible dimension ≤ 3); n = 4 for ops = none only, strict partition
+    (`copy_search_n4.out`) and owner form (`owner_form_n4.out`); cell/GL at n = 4 killed at the memory limit. The
+    persistence of a copy under later update steps is not computed.
   - Owner model: the stated alphabet up to length 7 (length 5 with FREE).
 - **Negative results** hold for this construction class and these bounds only. They are not impossibility for every
   observer-level extension.
-- **C1 is a mechanism witness, not closure.** C1.6 describes continued waiting and is not an M0 computation. Nothing
-  here bears on C-ii, M0 or R-MENU (iii); in particular, whether Π_ω is a principle stays open.
+- **Postulates.** AP-1 to AP-5 are assumptions of this proposed implementation (C1) and of the owner's abstract repair
+  only. Their logical independence is untested, and nothing here shows that every OI reconstruction needs them.
+- **C1 is a mechanism witness, not closure.** C1.6 describes continued waiting and is not an M0 computation. §9.2 (iv)
+  is a bounded check in the owner's abstract model at the stated alphabet and length. It is not the C-ii computation,
+  which runs over the mechanism C-i delivers (PREREG §4.1). Nothing here bears on M0 or R-MENU (iii); in particular,
+  whether Π_ω is a principle stays open.
 - **Run log.**
   - The first unpruned record-complete run (`search2.py`) was stopped by its 900 s time limit during relaxed n = 3 GL.
     Its none/cell part was rerun to `run_search2_unpruned_n3_none_cell.out`.
@@ -335,17 +385,20 @@ Assumption-watch markers for other claims:
 
 | stage | what the lattice does | resource or postulate |
 |---|---|---|
-| (a) preparation | pointer site (Q, Q̄) and any memory site clean at 0; toy, bath and reservoir under the counting measure, independent of each other and of every record at t = 0 | clean visible cells are declared (condition O; feedback resets); independence holds only at t = 0 |
+| (a) preparation | pointer site (Q, Q̄) and any memory site clean at 0; toy, bath and reservoir under the counting measure, independent of each other and of every record at t = 0 | clean visible cells are declared (condition O; feedback resets); independence is guaranteed at t = 0; whether it survives a step depends on the preparation (§5, AP-1) |
 | (b) coupling | one update step: Q′ = Q + q, p′ = p + P + Q̄, P′ = P (§3) | AP-2 (one step of contact), AP-3 (fixed read) |
-| (c) storing | (c1) **free retention**: the visible configuration is an accessible record (κ4: readout does not change the ontic state), and feedback may use every record so far. (c2) **physical copy** into a visible memory site, X += Q, completed symplectically by Q̄ += X̄: exactly the identity on every hidden coordinate, rows and columns. After the read, it leaves every hidden coordinate unchanged and puts the reading in X | **no back-action**. The interface and the lattice give a disturbance-free, persistent record |
-| (d) reuse or discard | the pointer site can be reset by feedback, but the bath and any reservoir stay adjacent forever; every later step is another read with the same hidden neighbours. Support of the toy's current state given every visible record, path pointer–toy–bath–reservoir (L hidden sites behind and including the bath): **2 until step 2(L+1) − 1, then 1 in every branch from step 2(L+1)**, which equals the number of hidden bits including the toy (L = 1..5; with or without pointer reset for L = 1) | a discarded pointer does **not** stay unavailable: AP-1 fails after the reservoir's freshness is consumed, one bit per step |
-| (e) later access | later steps re-read the bath's hidden record of the first read (P at v2, q + P̄ at u2), which is the mechanism of (d); with the bath supplied known, C1 becomes K-SYMP2 (C1.7) | single-use condition (owner): Pr(P = r \| h, H) = ½ and no later recovery. On a fixed finite graph this holds only for 2(L+1) − 1 steps |
+| (c) storing | (c1) **free retention**: the visible configuration is an accessible record (κ4: readout does not change the ontic state), and feedback may use every record so far. (c2) **physical copy** into a visible memory site, X += Q, completed symplectically by Q̄ += X̄: exactly the identity on every hidden coordinate, rows and columns. After the read, it leaves every hidden coordinate unchanged and puts the reading in X | **no back-action**. The interface gives a disturbance-free, persistent record: persistence through κ4 readout and feedback on all records so far (c1), and a disturbance-free copy through a visible-only operation (c2). The lattice dynamics contributes neither. Persistence of the copy under later update steps is not computed |
+| (d) reuse or discard | the pointer site can be reset by feedback, but the bath and any reservoir stay adjacent forever; every later step is another read with the same hidden neighbours. Support of the toy's current state given every visible record, path pointer–toy–bath–reservoir (L hidden sites behind and including the bath): **2 until step 2(L+1) − 1, then 1 in every branch from step 2(L+1)**, which equals the number of hidden bits including the toy (L = 1..5; with or without pointer reset for L = 1) | a discarded pointer does **not** stay unavailable: AP-1 fails after the reservoir's freshness is consumed (one bit per step on these path graphs) |
+| (e) later access | later steps re-read the bath's hidden record of the first read (P at v2, q + P̄ at u2), which is the route by which the accumulated records determine the finite hidden sector in (d); with the bath supplied known, C1 becomes K-SYMP2 (C1.7) | single-use condition (owner): Pr(P = r \| h, H) = ½ and no later recovery. On these path graphs this holds only for 2(L+1) − 1 steps |
 
 **Decisive question.** Does OI physically implement persistent records in a way that supplies recording back-action,
-or does it in effect provide an external, disturbance-free record? **In this lattice realization it provides a
-disturbance-free record.**
+or does it in effect provide an external, disturbance-free record? **With the drafted interface on this lattice
+realization, the record is external and disturbance-free.**
 - Persistence is free: the readout is passive, accessible records accumulate, and observer operations on visible
-  cells never touch hidden cells.
+  cells never touch hidden cells. The accumulated history is held by the interface (κ4 readout, records so far), not
+  in any lattice cell; the pointer site holds only the current configuration. The waiting counterexample (C1.6) uses
+  that history with no observer operation, so removing free visible permutations alone does not remove that
+  counterexample.
 - The only back-action in the lifecycle is the read's own kick from the bath, at (b). Storing, at (c), adds none.
 - (C2) persistence of *hidden* records holds here too: the bath keeps q + P̄. But it is exactly what (d)/(e) exploit;
   it does not supply recording back-action.
@@ -360,15 +413,18 @@ be copied.
   - n = 4: ops = none at k = 1, 2, 4. For example, edges (0,3),(1,2) with sites VHHV: the visible pair 0–3 performs
     X′ = X + Q by the update itself, and the hidden pair 1–2 performs P′ = P + Y.
   - n = 4, cell and GL: **not completed** (killed at the memory limit).
-- **They are decoupled products.**
+- **54 of the 60 are decoupled products.**
   - Of 60 (configuration, k) realization cases, 54 have the P/Y hidden sites in a connected component with **no
     visible site**. There the kick is unconditional hidden evolution: it happens whether or not anything is recorded.
   - The other 6 (triangle graph, GL, k = 4) connect the two. Even there, the observer can make the same visible copy
     with one visible operation that is the identity on every hidden coordinate (9.1 (c2)).
-  - So the lattice never forces the kick on the recording.
+  - So in no case found is the observer forced to incur the kick in order to record: in 54 of 60 cases the kick
+    occurs without any recording, and in the other 6 a visible-only copy records the reading with no hidden change.
+    (`copy_decoupling.out`: of 264 E/AV copy realizations, 252 produce the kick by free evolution alone.)
 - **Owner's literal form** (pointer site = (Q visible, P hidden), memory site = (X visible, Y hidden), a
-  coordinate-level partition): no record-safe realization at n ≤ 3 (all classes) or at n = 4, ops = none. n = 4
-  cell/GL is not completed. This is consistent with V4: split sites expose their hidden coordinate.
+  coordinate-level partition): no record-safe realization at n ≤ 3 (all classes; GL at visible dimension ≤ 3) or at
+  n = 4, ops = none, k ≤ 4 (`owner_form_n4.py` → `owner_form_n4.out`: 1024 cases). n = 4 cell/GL is not completed.
+  This is consistent with V4: split sites expose their hidden coordinate.
 
 **(ii) What it needs** (abstract model, `owner_model.py` → `owner_model.out`, linear algebra plus brute-force branch
 enumeration, all agreeing):
@@ -381,9 +437,9 @@ enumeration, all agreeing):
 - Needs:
   - fresh, independent memory conjugates;
   - no later access to Y;
-  - **AP-4: no reading is retained except through the back-acting copy.** This rules out free retention and
-    back-action-free visible copies, both of which the drafted interface (§1.1: κ4 readout, feedback on records so far,
-    permutations of visible cells) and the lattice (9.1 (c)) provide.
+  - **AP-4: no reading is retained except through the back-acting copy.** This rules out free retention, which κ4
+    readout and feedback on the records so far provide, and back-action-free visible copies, which visible-only
+    operations provide (§1.1). Both are grants of the drafted interface, not of the lattice dynamics.
 
 **(iii) Exchange followed by unrestricted free readout breaks it.**
 - W3′ reproduced: SWP, FREE, read p, read q gives support 1.
@@ -395,14 +451,44 @@ enumeration, all agreeing):
 **(iv) Adversarial sequences with reuse and recording.**
 - Exhaustive over all sequences of {read p, read q, read q+p, REC, SWP} up to length 7: 97,655 sequences in total
   (5 + 25 + … + 78,125). Observer sees only the X's.
-- **Minimum toy support 2 at every length; no point mass.**
+- **Minimum toy support at least 2 at every length (4 at length 1; 2 from length 2); no point mass.**
 - This is a checked counterexample repair within that alphabet and length bound. It is **not** a closure theorem, and
   it does not cover memory exchanges, reuse of memories as pointers, or composites.
 
 
 ## 10. Files (all in this directory; sha256 at report time)
 
-Scripts: `f2.py` (F₂ engine), `search.py` (designated-only first pass), `search2.py` (unpruned, record-complete), `search3.py` (pruned reference), `search4.py` (vectorized), `search5.py` (relabelled outputs), `brute_none.py` (independent brute force), `engine_controls.py`, `verify.py`, `verify2.py` (C1), `list_av.py`, `analyze_ah.py`, `rebase_check.py`, `lifecycle.py`, `owner_model.py`, `copy_search.py`, `copy_decoupling.py`, `copy_decoupling_detail.py`. Outputs: the matching `*.out` files. `superseded/` holds the stopped runs' partial outputs.
+Scripts: `f2.py` (F₂ engine), `search.py` (designated-only first pass), `search2.py` (unpruned, record-complete), `search3.py` (pruned reference), `search4.py` (vectorized), `search5.py` (relabelled outputs), `brute_none.py` (independent brute force), `engine_controls.py`, `verify.py`, `verify2.py` (C1), `list_av.py`, `analyze_ah.py`, `rebase_check.py`, `lifecycle.py`, `owner_model.py`, `copy_search.py`, `copy_decoupling.py`, `copy_decoupling_detail.py`, `owner_form_n4.py` (the owner-form block of `copy_search.py` at n = 4, ops = none; written by the independent reviewer) and `owner_form_n4_ctrl.py` (its control: the same calls reproduce the strict n = 4, ops = none tally of `copy_search_n4.out`; its docstring names the driver by the reviewer's filename `owner_n4_none.py`). Outputs: the matching `*.out` files. `superseded/` holds the stopped runs' partial outputs and stop notices.
+
+**Regeneration commands** (run in this directory with `python3`; the expected result is the output less its `elapsed` line, and less the bracketed status lines appended when a run stopped):
+
+| output | command |
+|---|---|
+| `verify.out`, `verify2.out`, `engine_controls.out`, `lifecycle.out`, `owner_model.out`, `analyze_ah.out`, `rebase_check.out`, `copy_decoupling.out`, `copy_decoupling_detail.out` | `python3 <script>.py` (no arguments) |
+| `list_av.out` | `python3 list_av.py 4` |
+| `brute_none_n4.out` | `python3 brute_none.py 4` |
+| `run_search1_designated_only_n3.out` | `python3 search.py 3` |
+| `run_search2_unpruned_n3_none_cell.out` | `python3 search2.py 3 strict,relaxed none,cell` |
+| `run_n4_none_cell.out` | `python3 search4.py 4 4 strict,relaxed none,cell --crosscheck` |
+| `run_n4_GL_dv3.out` | `python3 search4.py 4 4 strict,relaxed GL 3` |
+| `run_n5_none_cell.out` (strict/none block only) | `python3 search4.py 5 5 strict none` |
+| `run_relabel_n4_none_cell.out` | `python3 search5.py 2 4 strict,relaxed none,cell` |
+| `run_relabel_n4_GL_dv3.out` | `python3 search5.py 2 4 strict,relaxed GL 3` |
+| `run_relabel_n5_none_cell.out` (strict/none block only) | `python3 search5.py 5 5 strict none` |
+| `run_relabel_n5_relaxed_none.out` | `python3 search5.py 5 5 relaxed none` |
+| `run_relabel_n5_GL_dv3.out` (strict block only) | `python3 search5.py 5 5 strict GL 3` |
+| `run_relabel_n5_cell_dv4.out` | none: the run printed no result block |
+| `copy_search_n3.out` | `python3 copy_search.py 3` |
+| `copy_search_n4.out` (blocks before the memory kill) | `python3 copy_search.py 4` |
+| `owner_form_n4.out` | `python3 owner_form_n4.py .` |
+| `owner_form_n4_ctrl.out` | `python3 owner_form_n4_ctrl.py .` |
+
+Re-run for this correction, each reproducing its expected result: every command with arguments except
+`search5.py 5 5 strict GL 3` and `copy_search.py 4`, plus `analyze_ah.py`, `copy_decoupling.py` and the
+`owner_form_n4` pair. The independent review replayed `verify.py`, `verify2.py`, `engine_controls.py`, `lifecycle.py`,
+`owner_model.py`, `copy_decoupling_detail.py`, `rebase_check.py` and `list_av.py 4` byte for byte. Not re-run by
+either: `search5.py 5 5 strict GL 3` and `copy_search.py 4`. `run_n4_GL_dv3.out` is also reproduced by
+`python3 search3.py 4 4 strict,relaxed GL 3`.
 
 ```
 0e389a789d971510848c01a3e7b994cee59bca87b49dc97bc6ead50d5bf1b236  analyze_ah.py
@@ -414,6 +500,8 @@ fa06c5348c18f3af61894040bee40819134208534b677f8812d472dad545f93d  engine_control
 855df88d65f9c45b2140438f3d717912b16c41970494652b40e3795b08d43d59  f2.py
 af97455f0b9a729702e378120124ce23513ece48b6deb5992778a79c683f7952  lifecycle.py
 2560f0ea2350b956f6d05bd001b638c6d4b741898576b6fb9c38e802e18a7192  list_av.py
+5104a65327f799b7911ab157a5de4f155fd8f88e949dbf7583240ed21f770fab  owner_form_n4.py
+fe76fe777f73133ed39bb200684ce00de25139b9bbb847a409ac4b70f0b83f5d  owner_form_n4_ctrl.py
 af2fc5e181916b51fc6e1aab38e7a026aca73f158b31213d274df36a9ec30669  owner_model.py
 c8b4ba0545facbc552568edd7eaad8f1b779d5ca7054892405d44d1f06adb84f  rebase_check.py
 7a61d68107dddd7675f1dfe26ea14ab9140139ced9ec1d9443c57fe8552a1092  search.py
@@ -432,6 +520,8 @@ cd1550d44c8898a5ba0b9609abb651f79b2c1f7911ce20c427623a34c3634119  search2.py
 61f6d3a09d727a9838f726db11106eacacbb99a98c9f8c50d63aa5bc5eda33a1  engine_controls.out
 797f8985ca009843bc8b96f60fa7ddc1ada7dd7bd8981a2159fb9fdb6fe7a0e3  lifecycle.out
 2563bf4210b58e6dde9df0e07f50a656017efad754bb66bc183b4e5fe9c3d772  list_av.out
+23a7450235b84059b0527260e9ce50501b48ae69be04af963d3f3f03c5320125  owner_form_n4.out
+059003928290601c002b4e5655e25348bcb313358ccdd1edec57b90fb2f1cf86  owner_form_n4_ctrl.out
 08c5468ea877b0106fc5956b05e656195a7188e5c349477df97a00d4c3fd5ee2  owner_model.out
 febb2897e4cb9fb39a2eac6e80e3ed706aff9c6be5ec6998a656f20a34f269c9  rebase_check.out
 48203a7ddda3176963d091dedfcfe3c1ea4c43f726f92752a4cd010c69109cb0  run_n4_GL_dv3.out
@@ -452,3 +542,41 @@ b471ebb69388f66f922ca6d4ee8acd5c896682b289e34518d48d09f68caf6416  verify2.out
 47896919d764998f89ef80f07a68cb07ac6fe7ee3d2e85720481134dadbc4cd7  superseded/run_relabel_n5_relaxed_cell.out
 14b666fd6274a46f64d5e6ac2632e64caf23bd300696a7293854cf0e2f53a915  superseded/run_relabel_n5_strict_cell.out
 ```
+
+## Corrections
+
+Changes made after REVIEW-C1-231ec13c, numbered by its findings. No computation was changed; the files added are
+listed under 3 and 9.
+
+1. **Bath independence.** §5 (AP-1), §7 node 6 and §9.1 rows (a) and (e): fresh-bath independence is not preserved
+   for all admissible preparations. With (q, p) uniform, the bath is independent of the toy and the record after
+   step 1 and loses that independence at step 2 under continued waiting; with q uniform and p = 0 known, p′ = P and
+   the two are correlated from step 1. C1.6 is cited as a support computation, not an independence measurement. The
+   waiting counterexample is unchanged; §1 item 5 states that its step-4 point mass holds for every preparation.
+2. **Search bounds.** §8's bounds are restated to the completed classes (GL at n = 4 only at visible dimension 2
+   strict and ≤ 3 relaxed; cell at n = 5 not completed). §2's bounds sentence covers §0 and §1. Bounds are attached to
+   the negatives of §0 (C-i-a, C-i-b), §1 items 1, 3 and 4, and §7 nodes 3 and 4.
+3. **Owner's literal form at n = 4, ops = none.** The reviewer's driver and its control are added as
+   `owner_form_n4.py` / `.out` and `owner_form_n4_ctrl.py` / `.out`, re-run in this directory with byte-identical
+   output, and cited in §0, §8 and §9.2 (i). "All classes" names GL at visible dimension ≤ 3.
+4. **V3 scope.** §1 item 1 and §6 (V3): the pairing identity covers exact equality for symplectic words only; the
+   cell/GL negatives, which involve non-symplectic visible maps, and the AV negatives rest on the bounded search.
+   ω(V, H) = 0 under the region partition is stated. The 192-placement check is described as an instance check that
+   adds no independent evidence.
+5. **Path graphs.** 2(L+1) − 1 steps of freshness and one bit per step are scoped to the path graphs computed,
+   L ≤ 5 (§0, §7 node 9, §9.1 rows (d) and (e)). §8 records the reviewer's probe of other graphs (the star collapses
+   at step 4).
+6. **AP-1 to AP-5.** §5's heading no longer asserts independence or necessity. The "only if … split" sentence and
+   "Markovian-bath type" / "tension" are removed; AP-1 is stated as a fresh-source condition compatible with (C2),
+   with the lattice arrangement open. §0 and §8 state that AP-1 to AP-5 are assumptions of this implementation only.
+7. **Free copy.** §0, §9.1 row (c), the decisive-question paragraph and §9.2 (ii) attribute free retention and the
+   disturbance-free copy to the interface rule (PREREG §1.1), not the lattice; persistence of the copy under later
+   steps is recorded as not computed. The waiting counterexample's history is stated to be the interface's record,
+   and to survive removal of free visible permutations. §2 states the reading of "permutations of visible cells";
+   §7 node 8 classifies the copy as CONFIRMING.
+8. **Copy decoupling.** §0 (C-i-b) and §9.2 (i): "never forces" and "only as a decoupled product" are scoped to the cases found, with the 252-of-264 count.
+9. **`superseded/`.** The four stop notices cited in §2 and §10 are committed, with the hashes already listed.
+10. **Regeneration commands.** Added to §10.
+11. **Strict-mode positive control.** Recorded in §6 as a known gap; not built.
+12. **Minor.** §8 describes §9.2 (iv) as a bounded abstract-model check, distinct from C-ii. §9.2 (iv): minimum
+    support 4 at length 1, 2 from length 2. §3: the composite-kick sentence no longer contradicts itself.
