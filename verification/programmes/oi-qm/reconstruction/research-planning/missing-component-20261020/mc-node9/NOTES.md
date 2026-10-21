@@ -259,3 +259,65 @@ floating-point linear algebra and are a numerical cross-check of Clifford identi
   - the phase-group distinction between Spekkens' toy theory and qubit stabilizer QM;
   - Aaronson–Gottesman;
   - outcome-deterministic contextual models of stabilizer QM.
+
+## Owner investigation summary after G1 (2026-10-21), coordinator review
+
+These results come from the owner's read-only session and have not been independently reviewed as repository results.
+The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb3.py`.
+
+- **Card fragment.**
+  - The outcome-probability space has dimension 3, and the state space is the diamond |x| + |z| ≤ 1.
+  - Swap and read-with-reset reproduce a restricted qubit theory for the declared fragment.
+  - Reservoir freshness is decisive in the three-read test.
+  - The engine's double-slit tables encode chosen statistics; they are a reproduction, not a derivation.
+- **Stabilizer calibration.**
+  - The full two-qubit stabilizer operations reach 60 pure states, 24 of them maximally entangled.
+  - This is calibration with supplied quantum algebra, and its classical simulability is established literature [Q].
+- **Fixed gaps.**
+  - Lemma G's 1/4 gap (see `design/limit/`).
+  - **Diamond witness.** If conditional local states stay in the diamond, W = ⟨Z_A⟩ + ⟨X_A X_B⟩ ≤ 1. The state
+    (15|00⟩ + 8|11⟩)/17 gives W = 401/289 ✓.
+  - The best diamond-constrained approximation has total-variation error 28/289 [rec, owner].
+  - Passing W is necessary for the target, not sufficient: a classical model with a less restricted menu reproduces
+    those tables.
+- **Limits must carry operations and composites.**
+  - The rational rotation (1/289)[[161, −240], [240, 161]] has an irrational angle (cos θ = 161/289; Niven ✓). Under
+    reversible closure, mixtures and limit closure it expands the diamond to the disk. This is conditional: the
+    rotation is supplied, not native.
+  - ρ± = (II ± YY)/4 agree on every product measurement built from I, X, Z. A declared interaction followed by local
+    readout separates them, and the functional span grows from 9 to 10 [rec, owner]. This is the real-QT failure of
+    local tomography [Q].
+- **Local validity is not composite validity.**
+  - (x, y, z) ↦ (z, y, x) preserves the Bloch ball but gives a negative probability on half of a Bell calibration.
+  - (z, −y, x) is the Hadamard action.
+  - All 24 orientation-preserving signed permutations pass and all 24 orientation-reversing ones fail [rec, owner].
+- **The effect menu is substantive.**
+  - On the diamond, a restricted effect family satisfies the tested "no simultaneous encoding" condition.
+  - All affine-valid effects permit perfectly recovering one bit together with a 5/8 guess of a second [rec, owner].
+  - "Every mathematically valid effect" is therefore an assumption.
+- **The histories route (conditional; literature [Q]).**
+  - A tensor-closed class of weakly positive systems is either strongly positive or real and nonnegative.
+  - With a declared phase operation, recombination and marker readout, positivity gives |c_r|² ≤ a_r b_r and hence
+    V² + D² ≤ 1.
+  - It gives a Tsirelson bound under Bell-scenario assumptions.
+- **Single-system history weights do not fix composition.** For D_t = [[½, it], [−it, ½]], every single-system weight is
+  0, ½, ½ or 1, but the two-copy agree weight is ½ − 2t² ✓. It fails strong positivity at t = 1 and passes at t = 0,
+  ¼ and ½, so a continuum of choices stays consistent.
+- **Pairwise consistency does not license jointly retained records.**
+  - At t = ½, every pair of three copies has agree weight 0.
+  - Three actual bits satisfy 1[a=b] + 1[a=c] + 1[b=c] ≥ 1, so the pairwise distributions cannot describe three
+    jointly retained bits.
+  - The common refinement of the three partitions is not decoherent [rec, owner].
+  - A history formalism therefore needs a physical rule for which partitions become records.
+- **Classical countercontrol.** Hidden signs with means 2t and 2s give P(r_A ≠ r_B) = ½ − 2t_A s_B ✓. A bijective
+  five-bit XOR pointer realizes it, so matching the two-system formula does not establish a history interpretation.
+- **Owner's verdict.** No tested condition has earned the status of C5. Purification, information constraints,
+  continuous reversible dynamics and history composition each leave named premises unresolved. CDP's other five axioms
+  are not to be credited to C1–C4. Before the next construction, declare:
+  1. one dynamics and resource model, including the apparatus, memory and preparations;
+  2. one representation across all interventions;
+  3. which records can coexist, including copying, reuse, heralding and later access;
+  4. a compatible family and a convergence criterion, if the target is a completion;
+  5. one independent consequence beyond the calibration targets.
+
+  This is an open reconstruction problem with sharper controls. It does not rule out deterministic OI.
