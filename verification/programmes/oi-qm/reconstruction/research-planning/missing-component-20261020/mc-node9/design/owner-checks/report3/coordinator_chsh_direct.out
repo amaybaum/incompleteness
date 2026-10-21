@@ -1,0 +1,14 @@
+-6 -3 max-CHSH-over-sign-patterns==formula: True 2.7994530688524297 2.7994530688524297
+1 1 max-CHSH-over-sign-patterns==formula: False 2.329472 1.209472
+2 -1 max-CHSH-over-sign-patterns==formula: False 1.1149064192 -1.1149064192
+3 2 max-CHSH-over-sign-patterns==formula: False 2.1532595762102273 -2.1532595762102273
+72 -47 max-CHSH-over-sign-patterns==formula: True 2.827935806104731 2.827935806104731
+--- fixed sign patterns vs formula over m,k in [-6,6]
+(1, 1, 1, -1) 169 / 169
+(1, 1, -1, 1) 25 / 169
+(1, -1, 1, 1) 13 / 169
+(1, -1, -1, -1) 0 / 169
+(-1, 1, 1, 1) 13 / 169
+(-1, 1, -1, -1) 0 / 169
+(-1, -1, 1, -1) 0 / 169
+(-1, -1, -1, 1) 0 / 169

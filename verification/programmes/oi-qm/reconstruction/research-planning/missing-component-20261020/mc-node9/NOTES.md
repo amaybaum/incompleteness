@@ -370,3 +370,68 @@ The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb
   classical hidden-variable simulation is not automatically a proof of that decomposition. Whether OI's
   fixed-basis/permutation representation meets the definition, in particular for coherent system inputs, is an open
   check on a manuscript claim. §A.25 applies if it changes.
+
+## Owner report 3, "OI fixed-gate source investigation — independent handoff" (2026-10-21), coordinator review
+
+- *Source.* The owner's read-only session, as an HTML report pinned to `main` at `af8c59d6`. The report's checker and
+  its output are committed in `design/owner-checks/report3/`.
+- *Verification.*
+  - The checker's sha256 `d9697c3f…` and its output's sha256 `73c584d2…` match the report's stated hashes. A re-run
+    replay-matches byte for byte, and every internal assertion passes.
+  - `coordinator_spotcheck.py` recomputes, without importing the checker: P(0) = 9/25 after R and 49/625 after R²;
+    337/625 for both R S R and the dephased R;R; and |x| + |z| = 31/25 for R|0⟩ ✓.
+  - Control gap closed. The checker evaluates the CHSH closed form S = 2[cos 2kθ + sin² 2mθ · sin 2kθ] but never
+    compares it with the state and observables. `coordinator_chsh_direct.py` builds CNOT·(R^m|0⟩ ⊗ |0⟩) and the
+    report's four observables exactly. The formula equals A₀B₀ + A₀B₁ + A₁B₀ − A₁B₁ at all 169 pairs
+    (m, k) ∈ [−6, 6]², including the reported (−6, −3) and (72, −47) ✓.
+- *Findings [rec, owner report 3].*
+  - Sufficient package. R = (1/5)[[3, −4], [4, 3]], S = diag(1, i) and CNOT, with quantum representation, zero
+    ancillas, Z readout, feedback and discard, are dense in finite instruments. θ/π is irrational because
+    2 cos θ = 6/5 is not an algebraic integer.
+  - Exact bounded interpreter. A fixed online update on (D, k, j), where D is a Gaussian-integer branch matrix and j
+    is one seed uniform on {0, …, 25^K − 1}, reproduces the full adaptive record law of every rational circuit with at
+    most K uses of R. All 625 seeds were enumerated on eight protocols.
+  - Seed-support lower bound. a_n ≡ 3 (mod 5) for (3 + 4i)^n = a_n + i b_n, so P(0 | Rⁿ) = a_n²/25ⁿ is in lowest
+    terms. A uniform prior on M microstates needs 25ⁿ | M.
+  - Growing family. J′ = 25J + d preserves the record of every protocol within the old budget, checked on 625 and
+    15,625 refinements. This holds at the record level and is not a lattice embedding.
+  - Fixed-carrier recurrence lemma. One fixed finite deterministic update per R use with a fixed readout makes every
+    readout probability eventually periodic. cos²(nθ) is dense on every arithmetic progression, so the supremum error
+    over all n is at least ½.
+  - Obstructions. (i) The four-label diamond, with |x| + |z| ≤ 1, cannot hold R|0⟩. (ii) A basis permutation on
+    diagonal system ⊗ diagonal ancilla is at trace distance ≥ 12/25 from R|0⟩, at every ancilla size.
+  - Imports. Matrix encoding, tensor rule, gate matrices, Born weights and update rule are assumed. The model is not a
+    C1–C4 witness and not Bell-local.
+- *Coordinator assessment.*
+  - Relation to the corpus: ELABORATING. Main.md's *finite operational realization and gluing* theorem (§3.4, at
+    `papers/Main.md:544`) already has the same architecture: a digitized branch-matrix density register, K pre-loaded
+    uniform seeds, one fixed injective step map per instrument, a predecessor stack, and gluing by restriction. The
+    report's specialization adds three things:
+    - exactness (G = 25, zero total-variation error, for the rational alphabet) in place of the ε-form;
+    - compatibility between realizations at budgets K and K + 1, where the theorem's gluing is within one realization;
+    - the 25ⁿ seed-support count.
+  - The other two results are anticipated:
+    - The recurrence lemma is a single-gate, repeated-use form of the remark at Main.md:542: no fixed finite carrier
+      reproduces the exact continuum theory.
+    - The basis-permutation obstruction is anticipated by Main.md §3.2 and by the kernel's configuration-level results
+      (`permTheory_no_sign`, `instAvail_unitary_fixes_ones`, `coherentLiftClass_eq_substratumClass`).
+  - Agreement with node 9's refocus: CONFIRMING. The report's next task is an OI realization with an encoding E fixed
+    in advance and E(F_R(p)) = R E(p) R† on every admitted preparation, spectator composites included. This is the
+    C5 audit's test 8 (sourcing one non-monomial gate), which the MAP identifies as the missing item. The report
+    sources R where the MAP named H; both are non-monomial, and either one closes test 8's question for its alphabet.
+  - Assumption-watch marker (BORDERLINE, conditional). The seed-support lemma couples the gate choice to the counting
+    measure's support:
+    - Exact reproduction of Rⁿ needs a uniform sector whose size is divisible by 25ⁿ.
+    - H + Toffoli circuits have amplitudes (integer)/√2^h, so all their probabilities are dyadic
+      (`coordinator_dyadic.py`, 2,000 random circuits, exact).
+    - So if a realization's accessible sectors have power-of-two sizes, H + Toffoli is exactly reproducible and R is
+      approximable only.
+    - The corpus fixes no binary site alphabet (Main.md Lemma 3: counting measure on a finite S), so the marker is
+      conditional on the realization.
+    - Consequence for test 8: the target gate should be chosen together with the declared sector structure, not
+      separately.
+  - Pressure test of the favorable reading (§A.31). The construction shows that bounded record-level simulation does
+    not need a fresh kick at each measurement. It does not show that an OI lattice supplies one:
+    - The seed entropy, K log₂ 25 bits, scales with the R budget, and the recurrence lemma forbids a fixed carrier.
+    - The resource moves from per-step kicks to a budget-sized initial seed.
+    - This refines AP-1's scope for this interpreter only. It does not remove AP-1 from the card or lattice models.
