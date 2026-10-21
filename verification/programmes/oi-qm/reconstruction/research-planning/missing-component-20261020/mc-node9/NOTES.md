@@ -121,6 +121,65 @@ What carries over from model A to Option B, unchanged unless an amendment says o
 
 Option B needs its own Π, clean-resource declaration and record policy, each stated before computing.
 
+## Owner inputs after revision 3 (2026-10-21), not yet applied to PREREG
+
+**Compatible-records argument [rec, owner 2026-10-21; W, to be reviewed].**
+- *Assumptions.* The whole apparatus (toy, pointers, bath, controller, memory) starts uniform subject to mutually
+  compatible linear constraints, or as a mixture of such states. Its complete evolution is affine symplectic. Every
+  retained record is physically present in it. The simultaneously accessible record coordinates are mutually compatible,
+  i.e. their symplectic pairings vanish.
+- *Claim.* Conditioning on the complete current record then leaves the remaining toy systems with support ≥ 2^*n*, for
+  any finite apparatus and any time.
+- *Proof.* With *K* the transported definite properties, *L* the readable record properties and *B* the remaining
+  system, the definite properties of *B* are *K_B* = (*K* + *L*) ∩ *B*. This set is compatible because *K* and *L* are.
+- *Scope.* It allows reused pointers and correlated apparatus coordinates. Fresh independent disturbances are one way to
+  implement it, not a necessary assumption. Intermediate observations and feedback must be implemented inside the
+  declared dynamics; a free external record breaks the premise.
+- *Owner's exact check, two toy bits, one part read.* With one compatible linear readout, all 324 nonzero branches keep
+  support 2. Reading both conjugate coordinates gives 96 point masses and 72 branches with support 2.
+- *Consequence for this draft.* M0 "retained" under PP-1 or PP-2 is predicted by this argument wherever its assumptions
+  hold. Before freeze, the productivity baseline (§6) must therefore include it, and gem (e) must be checked against it.
+  That review is open.
+
+**The biased-state obstruction, with weaker premises [rec, owner 2026-10-21; W, to be reviewed].**
+- *Premises.* Every preparation of a fixed finite composite is a mixture of preparable uniform affine states. Ordinary
+  randomization is allowed. At least one specified local binary linear measurement is accessible. Full tomography is not
+  needed.
+- *Argument.* That measurement gives probability 0, ½ or 1 on every uniform affine state. An operationally pure joint
+  preparation must give the same operational state in every component, so it cannot give 3/4. The preparable
+  (3/8, 3/8, 1/8, 1/8) gives 3/4, so within this family it has no purification for a purifier of any finite size; the
+  gap is ≥ 1/4. This applies to the stated affine family only.
+- *Target this sets for Option B.* Can a construction supply an operationally pure composite whose marginal gives
+  the biased probability 3/4? A successful construction must leave the uniform-affine preparation structure somewhere,
+  or change another explicit premise.
+
+**Card-structure line (owner, 2026-10-21; book §1.11, `amaybaum/card-table` at `17115cc`).**
+- *State definition.* In the two-card swap game, preparations with equal current visible distributions are separated
+  perfectly by a later swap. So the current visible distribution is not the operational state, and such preparations must
+  not be declared equivalent (§1).
+- *Recording versus disturbance.* In the owner's controls, return certainty drops to ½ only when the hidden memory card
+  the next swap would recover is replaced. Copying the visible card does not lower it. The game's burn rule couples the
+  two by declaration. Replacement draws come from a depleted deck, so they are correlated, not independent.
+- *Escape from the affine counting obstruction.* Uniform joint deals with unequal fibres give biased marginals. Example:
+  {(0,0),(0,1),(0,2),(1,3)} gives P(A=0) = 3/4. A uniform deal is not automatically operationally pure: if its
+  individual deals are preparable, it is an ordinary mixture.
+- *Uniqueness control.* {(0,0),(0,1),(0,2),(1,0)} has the same A-marginal, but B predicts A with success 3/4 instead
+  of 1. None of the 24 relabellings of B maps one deal to the other [rec, owner; coordinator check 2026-10-21, exact].
+  A menu that admitted both as pure would fail Pur-U under local relabellings.
+- *Question.* Can card-like preparation and intervention rules, motivated independently, make such a joint preparation
+  operationally pure while remaining closed under the permitted protocols? Exploratory design work comes before any
+  preregistration.
+
+**Parked: a relativistic reading of access (owner, 2026-10-21, to return to).**
+- Accessibility should be judged at an observation event: which records have physically arrived there.
+- Finite propagation speed alone does not prohibit the hidden reset in the reflection counterexample.
+- For a nonlocal branch, operational no-signalling constrains which hidden records may be read. Diagnostic: with
+  a = λ, b = λ ⊕ xy, a local record r = λ lets Bob read x = b ⊕ r.
+- Candidate requirement: every allowed local protocol, including ancillary measurements, retained records and selection
+  flags, has accessible statistics independent of spacelike-separated choices. Conditioning on a distant outcome
+  received later is not signalling.
+- Popescu–Rohrlich correlations reach CHSH = 4 under no-signalling, so this does not select the quantum bound.
+
 ## Literature status
 
 | source | read? | what was established |
