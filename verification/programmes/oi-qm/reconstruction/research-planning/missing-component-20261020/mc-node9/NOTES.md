@@ -44,9 +44,11 @@ protects is load-bearing. Still open: QA′ below.
 frozen read coupling; an independent postdiction, not a new quantum prediction. |S| ≤ 2 in the local branch stays
 prerecorded.
 
-**QC. Restriction criterion: closed.** Named "the proposed preparation restriction" (support ≥ 2^*n*); an invariant to
-test, neither a general necessity nor a sufficient condition for purification. The determined-functional count stays a
-diagnostic.
+**QC. Restriction criterion: closed.** Named "the proposed preparation restriction"; an invariant to test, neither a
+general necessity nor a sufficient condition for purification. The determined-functional count stays a diagnostic.
+Owner clarification (2026-10-21): it is evaluated on the joint information about every canonical pair present
+(support ≥ 2^*N* over all hidden coordinates given all accessible records, pointers included), never on whether a
+coordinate named P is definite; a symplectic exchange (Q = 0, P unknown) → (Q unknown, P = 0) is not a violation.
 
 **QD. The POM–CHSH link: closed.** Written out as Lemma S [W] (PREREG §2.4): S_CHSH = 8*p* − 4, no-signalling from parity
 equivalence, with the physical qualification that the common extension must exist in the model.
@@ -60,7 +62,10 @@ A-5 corrects A-4's wording and changes no outcome.
 **QA′. Π_ω and the resources of Option A.** Whether Π_ω is a principle or a menu (R-MENU); the clean-ancilla
 declaration, including the pointer-conjugate postulate, as a principle (R-MENU (v)); the first construction task of
 PREREG §4.1, the pointer coupling built from the declared lattice dynamics with clean resources accounted for, and
-whether it needs any further postulate.
+whether it needs any further postulate. The postulate's precise form (owner, 2026-10-21): each fresh pointer has
+Q = 0 and P uniform and independent of the system and of every accessible preparation record; the independence clause
+is load-bearing, and it restricts primitive resources, not later states. The construction reports two separate
+results, (C-i) mechanism available and (C-ii) closure preserves the restriction (PREREG §4.1).
 
 **Q5. Sizes, depths and ancilla counts.** The proposed parameters:
 - M2 at A = one and two systems, each with a same-type purifier (*n* ≤ 4 toy bits; 256 record configurations);

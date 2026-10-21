@@ -408,7 +408,11 @@ ancillas). A pass holds for that preparation set and those purifiers only.
     independent fair bit and P discarded, it reproduces R_u; with P known, the same coupling reads without disturbance
     [rec, owner check; coordinator re-check 2026-10-21, exact]. The load-bearing resource assumption is named
     **pointer conjugates are never supplied clean**: a candidate independent postulate, not a consequence of
-    symplecticity, carried in the clean-ancilla declaration and R-MENU (v).
+    symplecticity, carried in the clean-ancilla declaration and R-MENU (v). Its precise form [rec, owner 2026-10-21]:
+    *each fresh pointer is supplied with Q = 0, its conjugate P uniformly distributed and independent of the system and
+    of every accessible preparation record.* The independence clause is load-bearing. If an accessible record carries
+    P, the observer knows the disturbance P·u and, where the corrective displacement is available, can undo it, so
+    marginal uniformity of P alone does not supply the restriction.
   - *Diagnostic K-SYMP2* [rec, owner check; coordinator re-check 2026-10-21, exact]. Main.md:290's update on two sites,
     u₁′ = u₂ + v₁, v₁′ = u₁, u₂′ = u₁ + v₂, v₂′ = u₂, is bijective and symplectic. With the visible site at (u₁, v₁) =
     (0, 0) and the hidden site uniform, after two steps the visible site is (v₂, u₂), revealing both hidden coordinates,
@@ -419,12 +423,20 @@ ancillas). A pass holds for that preparation set and those purifiers only.
     preparation-noncontextual ontological model [Q, pending PC-SPK]. Option A is therefore expected to FAIL M3 by
     construction. Its value lies in M0–M2 and in whether the pairing is inherited (§6).
 - *Clean ancillas (draft declaration, to be fixed at freeze):* the visible pointer coordinates, each at 0, are the only
-  clean ancillas; pointer conjugates and hidden cells are never supplied in a state other than the counting measure.
-  Its statement as a principle is part of R-MENU (v) and is open (`NOTES.md` QA′).
-- *The proposed preparation restriction:* for *n* toy bits, every preparable state of h, conditioned on all visible
-  records, has support of size ≥ 2^*n*. It is an invariant to test, neither a general necessity nor a sufficient
-  condition for purification. The number of record functionals a state determines is printed beside it as a diagnostic
-  and decides nothing.
+  clean ancillas. Pointer conjugates and hidden cells are supplied only under the counting measure, each fresh pointer
+  conjugate independent of the system and of every accessible preparation record (the postulate above). This is a
+  restriction on primitive resources, not a prohibition on states prepared later. Its statement as a principle is part
+  of R-MENU (v) and is open (`NOTES.md` QA′).
+- *The proposed preparation restriction:* let *N* be the number of canonical pairs present: the *n* toy bits and the
+  pointers not yet discarded. Every preparable state of all hidden coordinates jointly (each toy bit's two, each
+  present pointer's P), conditioned on all accessible records (each present pointer's Q included), has support of size
+  ≥ 2^*N*. Discarding a pointer removes its pair from *N*. With no pointer present, *N* = *n*. A fresh
+  pointer (Q = 0 recorded, P uniform) and one read R_u followed by conditioning on Q both meet it with equality
+  [coordinator hand check 2026-10-21]. It is evaluated on the information available about the whole pair, never on whether a
+  coordinate carrying a given name is definite. A permitted symplectic exchange can turn (Q = 0, P unknown) into
+  (Q unknown, P = 0) without creating a jointly known pair [rec, owner 2026-10-21]; such a state is not a violation.
+  It is an invariant to test, neither a general necessity nor a sufficient condition for purification. The number of
+  record functionals a state determines is printed beside it as a diagnostic and decides nothing.
 - *Derived operations.* Ops(Π_ω) are computed mechanically under R-MENU (ii); the affine symplectic maps are not
   assumed. Joint readouts of ω(u, ·) with u ∈ ℤ₂^{2n} are the joint operations.
 - *R-flag:* R-yes. Every record functional is reachable by some R_u. Bell branch: local.
@@ -447,9 +459,16 @@ ancillas). A pass holds for that preparation set and those purifiers only.
   from Lemma W or from the stabilization of W. **Lost** iff an exact witness preparation violates it; the witness is
   printed as its generator sequence, with its success probability and post-measurement state. PARKED if completeness is
   not shown within §8's bound, with the completed depth.
-- *First construction task:* implement the pointer coupling from the declared substratum (lattice) dynamics, with clean
-  resources accounted for explicitly. Any further resource or access condition it needs is recorded as an independent
-  postulate, not attributed to symplecticity.
+- *First construction task, two results kept separate:*
+  - *(C-i) Mechanism.* Implement the pointer coupling from the declared substratum (lattice) dynamics and resources,
+    with clean resources accounted for explicitly. Success establishes only that the measurement mechanism is
+    available in the model. Any further resource or access condition it needs is recorded as an independent
+    postulate, not attributed to symplecticity.
+  - *(C-ii) Closure.* Show that every allowed continuation, conditioning and feedback included, preserves the proposed
+    preparation restriction: this is M0's rule above. Success establishes that the restriction survives the rest of
+    the interface at the stated scope.
+  - Each is reported with its own verdict line. (C-i) passing does not establish (C-ii), and (C-ii) is computed only
+    over the mechanism (C-i) actually delivers.
 - *Pressure tests (§A.31), required for "retained":* K-CLN-A (a heralded read, then a clean-bit swap), K-SYMP's ρ₀ arm
   and K-SYMP2 must each print "lost" with its witness (§5).
 - *Scope:* either outcome is a result about the specified construction at the stated *n* and *k* (K-ANC). "Lost" fails
