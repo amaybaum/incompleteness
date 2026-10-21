@@ -1,0 +1,57 @@
+name: Node 7 control K-10 at n = 4 (read-only)
+
+# Runs node 7's control K-10 at n = 4 (PREREG section 5, K-10 row; amendment A-2), the CI part of an exhaustive check
+# the probe runs locally at n <= 3. Owner-approved for this run only (AGENTS §A.40, §A.43 item 4).
+#
+# The workflow runs only on a push to tmp/mc7-k10-n4-20261021, a parentless branch that holds only this workflow and
+# runner/; no other workflow file is in that tree, so a push to it starts no other workflow.
+#
+# runner/k10_n4.py fetches commit a501b4189d7f1ada923d76179fa6a38a1a83b408 (research/missing-component-20261020) by
+# its full id from the public repository with no credential, verifies the node's PREREG.md (sha256 99834efa),
+# amendments, SHA256SUMS, probe/k10.py (blob 25c83510, sha256 e63d1e15) and probe/k10.run1.out (blob b330973f) against
+# pinned ids, and executes exactly the verified k10.py bytes. The committed probe is not edited. Self-test first:
+# main() must reproduce k10.run1.out byte for byte (n = 1, 2, 3) and five negative controls must fail. Then the
+# committed by_mixtures(4, vecs) and by_coordinates(4) are compared as sets (m == c, integer count vectors), with the
+# multisets visited counted against C(259, 4) = 183181376 and the coordinate boxes against a closed-form count. One
+# job, no sharding: the full n = 4 enumeration is about 15 minutes of pure Python on a single core.
+#
+# Last line: K10 N4 HOLDS (exit 0), K10 N4 FAILS (exit 1) or K10 N4 UNVERIFIED (exit 2; source or self-test control
+# not as required, no n = 4 verdict printed).
+#
+# The job writes nothing: no artifact, no cache, no commit, ref, tag or release, no step summary. No secret or token
+# is used; the checkout uses persist-credentials: false.
+
+on:
+  push:
+    branches: ['tmp/mc7-k10-n4-20261021']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mc7-k10-n4-20261021
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  k10-n4:
+    name: K-10 at n = 4 on node 7's committed probe
+    if: github.ref == 'refs/heads/tmp/mc7-k10-n4-20261021'
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      # actions/checkout, tag v4, pinned to 11d5960a326750d5838078e36cf38b85af677262, the same commit the
+      # tmp/ktoken-f-evidence-20261020 extractor pins. It is the only external action in this workflow.
+      - name: Check out the runner
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4
+        with:
+          persist-credentials: false
+
+      - name: Fetch a501b418 (public, no credentials), verify the pinned blobs, self-test, run K-10 at n = 4
+        run: |
+          python3 --version
+          git --version
+          python3 -I -B -u runner/k10_n4.py --objects "$RUNNER_TEMP/objects" --fetch
