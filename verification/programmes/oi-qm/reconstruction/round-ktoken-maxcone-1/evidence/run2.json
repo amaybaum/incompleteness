@@ -1,0 +1,1680 @@
+{
+ "bridge_job": {
+  "conclusion": "success",
+  "id": "117466847042",
+  "name": "Mathlib bridge",
+  "steps": [
+   {
+    "conclusion": "success",
+    "name": "Set up job",
+    "number": 1
+   },
+   {
+    "conclusion": "success",
+    "name": "Run actions/checkout@v4",
+    "number": 2
+   },
+   {
+    "conclusion": "success",
+    "name": "Install elan",
+    "number": 3
+   },
+   {
+    "conclusion": "success",
+    "name": "Restore the OIBridge build cache",
+    "number": 4
+   },
+   {
+    "conclusion": "success",
+    "name": "Build",
+    "number": 5
+   },
+   {
+    "conclusion": "success",
+    "name": "Release gate",
+    "number": 6
+   },
+   {
+    "conclusion": "success",
+    "name": "KTOKEN-MAXCONE-1 check A3 (k = 2 statement identity and dependency walk, with mutations)",
+    "number": 7
+   },
+   {
+    "conclusion": "success",
+    "name": "Post Restore the OIBridge build cache",
+    "number": 13
+   },
+   {
+    "conclusion": "success",
+    "name": "Post Run actions/checkout@v4",
+    "number": 14
+   },
+   {
+    "conclusion": "success",
+    "name": "Complete job",
+    "number": 15
+   }
+  ]
+ },
+ "commit": "6959ced4c327ebb800cf6d463a049e4066e37288",
+ "design_run": 2,
+ "expected": {
+  "a3_check": {
+   "cases": {
+    "M_deadref": {
+     "codes": {
+      "DEPCHECK closure": 1,
+      "DEPCHECK watched": 569,
+      "DEPCHECK-MODULE": 12,
+      "DEPCHECK-PAIR": 1,
+      "DEPCHECK-SIBLING": 2
+     },
+     "errors": [
+      "M_deadref.lean:32:0: error: DEPCHECK FAIL"
+     ],
+     "exit": 1,
+     "expected": "fail",
+     "judged": "OK"
+    },
+    "M_direct": {
+     "codes": {
+      "DEPCHECK closure": 1,
+      "DEPCHECK watched": 235,
+      "DEPCHECK-MODULE": 12,
+      "DEPCHECK-PAIR": 1,
+      "DEPCHECK-REQUIRED": 1,
+      "DEPCHECK-SIBLING": 2
+     },
+     "errors": [
+      "M_direct.lean:30:0: error: DEPCHECK FAIL"
+     ],
+     "exit": 1,
+     "expected": "fail",
+     "judged": "OK"
+    },
+    "M_iff": {
+     "codes": {
+      "DEPCHECK closure": 1,
+      "DEPCHECK watched": 240,
+      "DEPCHECK-MODULE": 15,
+      "DEPCHECK-PAIR": 1,
+      "DEPCHECK-PROVED-FROM": 1,
+      "DEPCHECK-REQUIRED": 1,
+      "DEPCHECK-SIBLING": 2
+     },
+     "errors": [
+      "M_iff.lean:30:0: error: DEPCHECK FAIL"
+     ],
+     "exit": 1,
+     "expected": "fail",
+     "judged": "OK"
+    },
+    "M_inline": {
+     "codes": {
+      "DEPCHECK closure": 1,
+      "DEPCHECK watched": 234,
+      "DEPCHECK-MODULE": 11,
+      "DEPCHECK-REQUIRED": 1,
+      "DEPCHECK-SIBLING": 2
+     },
+     "errors": [
+      "M_inline.lean:31:0: error: DEPCHECK FAIL"
+     ],
+     "exit": 1,
+     "expected": "fail",
+     "judged": "OK"
+    },
+    "M_real": {
+     "codes": {
+      "DEPCHECK PASS": 1,
+      "DEPCHECK closure": 1,
+      "DEPCHECK watched": 466
+     },
+     "errors": [],
+     "exit": 0,
+     "expected": "pass",
+     "judged": "OK"
+    },
+    "M_required": {
+     "codes": {
+      "DEPCHECK closure": 1,
+      "DEPCHECK watched": 19,
+      "DEPCHECK-REQUIRED": 2
+     },
+     "errors": [
+      "M_required.lean:30:0: error: DEPCHECK FAIL"
+     ],
+     "exit": 1,
+     "expected": "fail",
+     "judged": "OK"
+    },
+    "M_sibling": {
+     "codes": {
+      "DEPCHECK closure": 1,
+      "DEPCHECK watched": 516,
+      "DEPCHECK-SIBLING": 1
+     },
+     "errors": [
+      "M_sibling.lean:32:0: error: DEPCHECK FAIL"
+     ],
+     "exit": 1,
+     "expected": "fail",
+     "judged": "OK"
+    },
+    "M_stmt_binder": {
+     "codes": {},
+     "errors": [
+      "M_stmt_binder.lean:54:0: error: STMT-IDENTITY binder annotations differ"
+     ],
+     "exit": 1,
+     "expected": "fail",
+     "judged": "OK"
+    },
+    "M_stmt_hyp": {
+     "codes": {},
+     "errors": [
+      "M_stmt_hyp.lean:52:71: error: Type mismatch",
+      "M_stmt_hyp.lean:55:0: error: STMT-IDENTITY the statements are not alpha-equivalent"
+     ],
+     "exit": 1,
+     "expected": "fail",
+     "judged": "OK"
+    },
+    "M_vac_module": {
+     "codes": {},
+     "errors": [
+      "M_vac_module.lean:30:0: error: DEPCHECK-VACUOUS module OIBridge.EqvK2MaxCon is not imported"
+     ],
+     "exit": 1,
+     "expected": "fail",
+     "judged": "OK"
+    },
+    "M_vac_sibling": {
+     "codes": {},
+     "errors": [
+      "M_vac_sibling.lean:30:0: error: DEPCHECK-VACUOUS OIBridge.EqvK2Schema.Q3_subset_of_puree is not a constant of the kernel environment"
+     ],
+     "exit": 1,
+     "expected": "fail",
+     "judged": "OK"
+    },
+    "M_vac_target": {
+     "codes": {},
+     "errors": [
+      "M_vac_target.lean:30:0: error: DEPCHECK-VACUOUS KTokenMaxConeCheck.Mutation.pairCone_eq_Q3_of_kTokenX is not a theorem of the kernel environment"
+     ],
+     "exit": 1,
+     "expected": "fail",
+     "judged": "OK"
+    },
+    "Positive": {
+     "codes": {
+      "DEPCHECK PASS": 1,
+      "DEPCHECK closure": 1,
+      "DEPCHECK watched": 465,
+      "STMT-IDENTITY ok": 1
+     },
+     "errors": [],
+     "exit": 0,
+     "expected": "pass",
+     "judged": "OK"
+    }
+   },
+   "final": "A3-CHECK-NONVACUOUS: 13 cases as expected",
+   "markers": {
+    "Lean.ofReduceBool": 0,
+    "declaration uses 'sorry'": 0,
+    "error:": 12,
+    "sorryAx": 0
+   },
+   "mutations_failing": 11
+  },
+  "absence_check": {
+   "module": "OIBridge/KTokenMaxCone.lean",
+   "source_line": 2520,
+   "text": "OIBridge/KTokenMaxCone.lean:2520:0: OIBridge.EqvK2MaxCone.pairCone_eq_Q3_of_drive_maxCone is not in the environment"
+  },
+  "build_success": true,
+  "controls": {
+   "applicable": true,
+   "final": "controls: OK (0 failure(s))",
+   "pass_lines": [
+    "38 self-checks ran, as frozen (38)",
+    "68 prints, 56 supporting",
+    "D agrees with the preregistration",
+    "G flags a manuscript, the legacy manifest and the ROADMAP, and passes the module and the record",
+    "I adds exactly one line after the anchor",
+    "J accepts the family and rejects a changed status",
+    "R accepts the frozen record and rejects an extra file",
+    "S1 accepts the module",
+    "S1 rejects the mutation: K = QK k weakened to K \u2286 QK k",
+    "S1 rejects the mutation: a second import",
+    "S1 rejects the mutation: an extra print",
+    "S1 rejects the mutation: hadd dropped from the lower inclusion",
+    "S1 rejects the mutation: hmax dropped from the upper inclusion",
+    "S1 rejects the mutation: i < j replaced by i \u2260 j",
+    "S1 rejects the mutation: the classical instance made global",
+    "S1 rejects the mutation: the guard (j : \u2115) \u2260 0 removed",
+    "S3 accepts the module",
+    "S3 rejects a recovery citing the pair theorem, and S1 does not",
+    "S3 rejects a recovery naming a sibling",
+    "S3 rejects an equivalence not built from its two witnesses",
+    "S3 rejects the module without the absence check",
+    "S4 finds nothing in the module header",
+    "S4 flags each excluded phrase",
+    "W applies its six splices once each",
+    "W rejects a base lacking an anchor",
+    "a missing A3 line fails Q-PAIR alone",
+    "a missing print fails Q-EQ",
+    "a sorryAx report on the recovery fails Q-PAIR alone",
+    "governed paths parsed (7) and include the module, the probe and the record directory",
+    "the cells are positive on a clean synthetic log",
+    "the frozen block declares the 14 names in order",
+    "the frozen-blob table names five paths",
+    "the pair identity rejects a recovery off EqvK2MaxCone.lean:153-160",
+    "the probe rule accepts the frozen output shape and rejects N, a missing code and stderr",
+    "the real check() with any one control's record call removed, run through verdict(), fails, names that control, prints no positive token and never runs the probe; unmutated, it passes (21 cases)",
+    "the recovery states the landed pair theorem",
+    "the retained-evidence table parses  2 rows, 2 pending",
+    "verdict() prints no positive token when any one of the 13 required static controls fails or is unreported, and prints all of them when every control passes (15 cases)"
+   ]
+  },
+  "gate": {
+   "steps": [
+    {
+     "name": "toolchain",
+     "status": "PASS",
+     "summary": "toolchain_check: OK (build entry present, unicode-fix.tex co"
+    },
+    {
+     "name": "staleness",
+     "status": "PASS",
+     "summary": "staleness_check: OK (13 matched, 0 unstamped)"
+    },
+    {
+     "name": "baseline-label",
+     "status": "PASS",
+     "summary": "baseline_label_check: OK (no baseline archives named)"
+    },
+    {
+     "name": "voice",
+     "status": "PASS",
+     "summary": "voice_check: OK (no manuscript-voice history narration; 40 m"
+    },
+    {
+     "name": "voice-scope",
+     "status": "PASS",
+     "summary": "voice_scope_test: OK (6 scope case(s); the checker scans the"
+    },
+    {
+     "name": "ci-gate-presence",
+     "status": "PASS",
+     "summary": "ci_gate_presence_test: OK (CI runs the real release gate)"
+    },
+    {
+     "name": "artifact-placement",
+     "status": "PASS",
+     "summary": "artifact_placement_check: OK (no unaccounted root artifact;"
+    },
+    {
+     "name": "manifest-drift",
+     "status": "PASS",
+     "summary": "build_migration_manifest --check: OK (91 artifacts; both gen"
+    },
+    {
+     "name": "claims",
+     "status": "PASS",
+     "summary": "claims_check: OK (no withdrawn result asserted unconditional"
+    },
+    {
+     "name": "duplicate",
+     "status": "PASS",
+     "summary": "duplicate_check: OK (no paragraph repeated within a file)"
+    },
+    {
+     "name": "mirror",
+     "status": "PASS",
+     "summary": "mirror_check: 0 chapter line(s) absent from FULL.md"
+    },
+    {
+     "name": "citation",
+     "status": "PASS",
+     "summary": "citation_check: 112 citation(s), 0 broken, 0 duplicate bib n"
+    },
+    {
+     "name": "architecture",
+     "status": "PASS",
+     "summary": "architecture_check: 259 invariant(s), 0 violation(s), 0 self"
+    },
+    {
+     "name": "dependency-label",
+     "status": "PASS",
+     "summary": "dependency_label_check: OK (no stale dependency label, 41 fi"
+    },
+    {
+     "name": "coverage",
+     "status": "PASS",
+     "summary": "coverage_check: OK (128 canonical statements, 19 unattached"
+    },
+    {
+     "name": "lean-axioms",
+     "status": "PASS",
+     "summary": "lean_axiom_check: OK (6057 named result(s) reported, no sorr"
+    },
+    {
+     "name": "lean-manuscript",
+     "status": "PASS",
+     "summary": "lean_manuscript_census: OK (every cited identifier and path"
+    },
+    {
+     "name": "legacy-records",
+     "status": "PASS",
+     "summary": "LEGACY  303 record(s) in 75 closed namespace(s), all intact"
+    },
+    {
+     "name": "v3-self-test",
+     "status": "PASS",
+     "summary": "v3_verifier: self-test OK"
+    },
+    {
+     "name": "v3-corpus",
+     "status": "PASS",
+     "summary": "CORPUS  140 vector(s), exact and as expected"
+    },
+    {
+     "name": "v3-receipts",
+     "status": "PASS",
+     "summary": "RECEIPTS  48 receipt(s), all hold"
+    },
+    {
+     "name": "evidence-retention",
+     "status": "PASS",
+     "summary": "EVIDENCE-RETENTION  HOLDS (history mode: 0 failure(s); self-"
+    }
+   ],
+   "steps_pass": 22,
+   "steps_total": 22,
+   "verdict": "PASS  (note: --label bNNN not given, so the baseline check ran in relative mode only)"
+  },
+  "markers": {
+   "Lean.ofReduceBool": 0,
+   "declaration uses 'sorry'": 0,
+   "error:": 0,
+   "sorryAx": 0
+  },
+  "modules": {
+   "OIBridge.lean": {
+    "print_lines": [
+     [
+      857,
+      875
+     ]
+    ],
+    "prints": 19,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 857,
+      "name": "OIBridge.LinkJoin.char_two_subset_ne_link"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 858,
+      "name": "OIBridge.LinkJoin.char_multiset_collision"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 859,
+      "name": "OIBridge.LinkJoin.sum_sq_collision"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 860,
+      "name": "OIBridge.LinkJoin.sum_cube_collision"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 861,
+      "name": "OIBridge.LinkJoin.faceEquivLink_op"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 862,
+      "name": "OIBridge.LinkJoin.act_op"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 863,
+      "name": "OIBridge.LinkJoin.sym_linkHom"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 864,
+      "name": "OIBridge.LinkJoin.act_injective"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 865,
+      "name": "OIBridge.LinkJoin.linkHom_injective"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 866,
+      "name": "OIBridge.LinkJoin.character_rhoLink"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 867,
+      "name": "OIBridge.LinkJoin.rhoLink_comm_PT"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 868,
+      "name": "OIBridge.LinkJoin.character_restrict_PT"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 869,
+      "name": "OIBridge.LinkJoin.character_PA_eq_one"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 870,
+      "name": "OIBridge.LinkJoin.character_sum"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 871,
+      "name": "OIBridge.LinkJoin.character_rhoT"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 872,
+      "name": "OIBridge.LinkJoin.character_rhoE"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 873,
+      "name": "OIBridge.LinkJoin.character_rhoA"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 874,
+      "name": "OIBridge.LinkJoin.character_rhoA_eq_one"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 875,
+      "name": "OIBridge.LinkJoin.character_rhoLink_eq_sum"
+     }
+    ],
+    "status": "complete"
+   },
+   "OIBridge/KTokenMaxCone.lean": {
+    "print_lines": [
+     [
+      223,
+      230
+     ],
+     [
+      1117,
+      1129
+     ],
+     [
+      1546,
+      1556
+     ],
+     [
+      2525,
+      2553
+     ],
+     [
+      2729,
+      2735
+     ]
+    ],
+    "prints": 68,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 223,
+      "name": "OIBridge.KTokenMaxCone.tensor_conjugation"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 224,
+      "name": "OIBridge.KTokenMaxCone.pauliWord_orthogonal"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 225,
+      "name": "OIBridge.KTokenMaxCone.pauliWord_complete"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 226,
+      "name": "OIBridge.KTokenMaxCone.coordinates_dictionary"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 227,
+      "name": "OIBridge.KTokenMaxCone.dictionary_coordinates"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 228,
+      "name": "OIBridge.KTokenMaxCone.dictionary_hermitian"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 229,
+      "name": "OIBridge.KTokenMaxCone.coordinates_dictionary_real"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 230,
+      "name": "OIBridge.KTokenMaxCone.dictionary_coordinates_real"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1117,
+      "name": "OIBridge.KTokenMaxCone.blockFam_mul"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1118,
+      "name": "OIBridge.KTokenMaxCone.isWord_conjTranspose"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1119,
+      "name": "OIBridge.KTokenMaxCone.isWord_lift"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1120,
+      "name": "OIBridge.KTokenMaxCone.sign_induction"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1121,
+      "name": "OIBridge.KTokenMaxCone.isWord_rzFam"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1122,
+      "name": "OIBridge.KTokenMaxCone.isWord_suFam"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1123,
+      "name": "OIBridge.KTokenMaxCone.reach_prod"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1124,
+      "name": "OIBridge.KTokenMaxCone.reach_norm"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1125,
+      "name": "OIBridge.KTokenMaxCone.subset_psd_of_maxCone_drive"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1126,
+      "name": "OIBridge.KTokenMaxCone.psd_subset_of_products_cone_drive"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1127,
+      "name": "OIBridge.KTokenMaxCone.kCone_eq_psd_of_drive_maxCone"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1128,
+      "name": "OIBridge.KTokenMaxCone.driveInvariant_of_eq_psd"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1129,
+      "name": "OIBridge.KTokenMaxCone.kCone_eq_psd_iff_drive_maxCone"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1546,
+      "name": "OIBridge.KTokenMaxCone.dictionary_prodTab"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1547,
+      "name": "OIBridge.KTokenMaxCone.trace_dictionary_mul"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1548,
+      "name": "OIBridge.KTokenMaxCone.tokMat_blochH"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1549,
+      "name": "OIBridge.KTokenMaxCone.lor_blochH"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1550,
+      "name": "OIBridge.KTokenMaxCone.quad_dictionary_prodVec"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1551,
+      "name": "OIBridge.KTokenMaxCone.psd_subset_of_pure_cone_drive"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1552,
+      "name": "OIBridge.KTokenMaxCone.tableCone_eq_psd_of_drive_maxCone"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1553,
+      "name": "OIBridge.KTokenMaxCone.lorPair_nonneg_of_maxConeTab"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1554,
+      "name": "OIBridge.KTokenMaxCone.tableCone_eq_psd_of_drive_maxConeTab"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1555,
+      "name": "OIBridge.KTokenMaxCone.tableDrive_of_eq_psd"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1556,
+      "name": "OIBridge.KTokenMaxCone.tableCone_eq_psd_iff_drive_maxConeTab"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2525,
+      "name": "OIBridge.KTokenMaxCone.pauliWord_apply"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2526,
+      "name": "OIBridge.KTokenMaxCone.dictionary_tabOf"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2527,
+      "name": "OIBridge.KTokenMaxCone.mem_QK_iff"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2528,
+      "name": "OIBridge.KTokenMaxCone.tupOf_prodTab"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2529,
+      "name": "OIBridge.KTokenMaxCone.sum_prodTab_tupOf"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2530,
+      "name": "OIBridge.KTokenMaxCone.cnotM_apply"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2531,
+      "name": "OIBridge.KTokenMaxCone.pauli_cnot_pair"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2532,
+      "name": "OIBridge.KTokenMaxCone.dictK_cflip"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2533,
+      "name": "OIBridge.KTokenMaxCone.tabAct_cnotM"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2534,
+      "name": "OIBridge.KTokenMaxCone.tabAct_cnotM_eq"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2535,
+      "name": "OIBridge.KTokenMaxCone.localM_conj_dictionary"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2536,
+      "name": "OIBridge.KTokenMaxCone.tabAct_localM"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2537,
+      "name": "OIBridge.KTokenMaxCone.tabAct_localM_eq"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2538,
+      "name": "OIBridge.KTokenMaxCone.tabAct_rotK"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2539,
+      "name": "OIBridge.KTokenMaxCone.tabAct_cycK"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2540,
+      "name": "OIBridge.KTokenMaxCone.tableCone_subset_psd_of_maxCone_drive"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2541,
+      "name": "OIBridge.KTokenMaxCone.psd_subset_tableCone_of_products_cone_drive"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2542,
+      "name": "OIBridge.KTokenMaxCone.subset_QK_of_maxCone_drive"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2543,
+      "name": "OIBridge.KTokenMaxCone.QK_subset_of_products_cone_drive"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2544,
+      "name": "OIBridge.KTokenMaxCone.kCone_eq_QK_of_drive_maxCone"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2545,
+      "name": "OIBridge.KTokenMaxCone.driveInvariantK_of_eq_QK"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2546,
+      "name": "OIBridge.KTokenMaxCone.kCone_eq_QK_iff_drive_maxCone"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2547,
+      "name": "OIBridge.KTokenMaxCone.pairCarrierEquiv_prodState"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2548,
+      "name": "OIBridge.KTokenMaxCone.pairCarrierEquiv_maxCone"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2549,
+      "name": "OIBridge.KTokenMaxCone.maxCone_of_pairCarrierEquiv"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2550,
+      "name": "OIBridge.KTokenMaxCone.mem_Q3_iff_pairCarrier"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2551,
+      "name": "OIBridge.KTokenMaxCone.pairCarrierEquiv_cnot"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2552,
+      "name": "OIBridge.KTokenMaxCone.pairCarrierEquiv_actT"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2553,
+      "name": "OIBridge.KTokenMaxCone.pairCone_eq_Q3_of_kToken"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2729,
+      "name": "OIBridge.KTokenMaxCone.blochH_real"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2730,
+      "name": "OIBridge.KTokenMaxCone.lor_blochH_decomp"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2731,
+      "name": "OIBridge.KTokenMaxCone.lorTests_of_blochTests"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2732,
+      "name": "OIBridge.KTokenMaxCone.maxConeTab_of_blochTests"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2733,
+      "name": "OIBridge.KTokenMaxCone.maxConeTab_of_prodVec_nonneg"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2734,
+      "name": "OIBridge.KTokenMaxCone.prodVec_nonneg_of_maxConeTab"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2735,
+      "name": "OIBridge.KTokenMaxCone.maxConeTab_iff_prodVec_nonneg"
+     }
+    ],
+    "status": "complete"
+   }
+  },
+  "permitted_axioms": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "probe": {
+   "checks": 3196,
+   "codes": {
+    "ADD3": 1,
+    "ADJOINT3": 2,
+    "CUT3": 1,
+    "DEMUX3": 2,
+    "DICT3": 2082,
+    "ORBIT3": 3,
+    "PRODUCT3": 4,
+    "QUANTUM3": 914,
+    "REACH3": 40,
+    "SCALE3": 1,
+    "SEP3": 1,
+    "SHIFT3": 2,
+    "SLICE3": 142,
+    "ZERO3": 1
+   },
+   "failures": 0,
+   "markers": {
+    "Lean.ofReduceBool": 0,
+    "declaration uses 'sorry'": 0,
+    "error:": 0,
+    "sorryAx": 0
+   },
+   "mutations_accepted": 0,
+   "mutations_rejected": 5,
+   "rejected": {
+    "adjoint": "ADJOINT3",
+    "cut-direction": "CUT3",
+    "group-below-168": "ORBIT3",
+    "shift-sign": "SHIFT3",
+    "trace-factor": "DICT3"
+   },
+   "verdict": "KTOKEN-K3-EXACT"
+  }
+ },
+ "form": "derived",
+ "jobs": {
+  "conclusions": {
+   "Lean kernel check": "success",
+   "Mathlib bridge": "success",
+   "Numerical probes": "success",
+   "Numerical probes / A36 hierarchy": "success",
+   "Numerical probes / A38 escape": "success",
+   "Numerical probes / A40 locus": "success",
+   "Numerical probes / A41 hulls": "success",
+   "Numerical probes / A41 independent": "success",
+   "Numerical probes / A41 production": "success",
+   "Numerical probes / A42 census01": "success",
+   "Numerical probes / A42 exclusion (cubes:0)": "success",
+   "Numerical probes / A42 exclusion (cubes:1)": "success",
+   "Numerical probes / A42 exclusion (cubes:2)": "success",
+   "Numerical probes / A42 exclusion (dfs:0)": "success",
+   "Numerical probes / A42 exclusion (dfs:1)": "success",
+   "Numerical probes / A42 exclusion (dfs:2)": "success",
+   "Numerical probes / A42 exclusion (dfs:3)": "success",
+   "Numerical probes / A42 exclusion (dfs:4)": "success",
+   "Numerical probes / A42 exclusion (dfs:5)": "success",
+   "Numerical probes / A42 exclusion (n18:0)": "success",
+   "Numerical probes / A42 exclusion (n18:1)": "success",
+   "Numerical probes / A42 exclusion (n18:2)": "success",
+   "Numerical probes / A42 exclusion (paths)": "success",
+   "Numerical probes / A42 exclusion (r5)": "success",
+   "Numerical probes / A42 exclusion (sathr)": "success",
+   "Numerical probes / A42 witness": "success",
+   "Numerical probes / A45 ancilla": "success",
+   "Numerical probes / BG-2 premise orientation": "success",
+   "Numerical probes / KINF-2 foundations": "success",
+   "Numerical probes / KT4-PREM-1 premise audit": "success",
+   "Numerical probes / KTOKEN-MAXCONE-1 k = 3 exact layer": "success",
+   "Numerical probes / NB-1 native-gate ball": "success",
+   "Numerical probes / OI channel protocol": "success",
+   "Numerical probes / OI finite protocol": "success",
+   "Numerical probes / OI pair maxCone": "success",
+   "Numerical probes / core A": "success",
+   "Numerical probes / core B": "success",
+   "Numerical probes / foundations": "success"
+  },
+  "total": 38
+ },
+ "kind": "bridge",
+ "observed": {
+  "a3_lines": {
+   "cases": {
+    "M_deadref": [
+     40511,
+     41100
+    ],
+    "M_direct": [
+     39734,
+     39990
+    ],
+    "M_iff": [
+     39991,
+     40256
+    ],
+    "M_inline": [
+     40257,
+     40510
+    ],
+    "M_real": [
+     39262,
+     39733
+    ],
+    "M_required": [
+     41624,
+     41650
+    ],
+    "M_sibling": [
+     41101,
+     41623
+    ],
+    "M_stmt_binder": [
+     41666,
+     41670
+    ],
+    "M_stmt_hyp": [
+     41671,
+     41704
+    ],
+    "M_vac_module": [
+     41661,
+     41665
+    ],
+    "M_vac_sibling": [
+     41656,
+     41660
+    ],
+    "M_vac_target": [
+     41651,
+     41655
+    ],
+    "Positive": [
+     38790,
+     39261
+    ]
+   },
+   "final": 41705
+  },
+  "absence_line": 38692,
+  "build_line": {
+   "line": 38753,
+   "text": "Build completed successfully"
+  },
+  "controls_lines": {
+   "final": 204,
+   "pass_lines": {
+    "38 self-checks ran, as frozen (38)": 203,
+    "68 prints, 56 supporting": 171,
+    "D agrees with the preregistration": 166,
+    "G flags a manuscript, the legacy manifest and the ROADMAP, and passes the module and the record": 194,
+    "I adds exactly one line after the anchor": 192,
+    "J accepts the family and rejects a changed status": 193,
+    "R accepts the frozen record and rejects an extra file": 195,
+    "S1 accepts the module": 172,
+    "S1 rejects the mutation: K = QK k weakened to K \u2286 QK k": 180,
+    "S1 rejects the mutation: a second import": 183,
+    "S1 rejects the mutation: an extra print": 181,
+    "S1 rejects the mutation: hadd dropped from the lower inclusion": 177,
+    "S1 rejects the mutation: hmax dropped from the upper inclusion": 176,
+    "S1 rejects the mutation: i < j replaced by i \u2260 j": 179,
+    "S1 rejects the mutation: the classical instance made global": 182,
+    "S1 rejects the mutation: the guard (j : \u2115) \u2260 0 removed": 178,
+    "S3 accepts the module": 174,
+    "S3 rejects a recovery citing the pair theorem, and S1 does not": 185,
+    "S3 rejects a recovery naming a sibling": 186,
+    "S3 rejects an equivalence not built from its two witnesses": 187,
+    "S3 rejects the module without the absence check": 188,
+    "S4 finds nothing in the module header": 175,
+    "S4 flags each excluded phrase": 189,
+    "W applies its six splices once each": 190,
+    "W rejects a base lacking an anchor": 191,
+    "a missing A3 line fails Q-PAIR alone": 198,
+    "a missing print fails Q-EQ": 199,
+    "a sorryAx report on the recovery fails Q-PAIR alone": 197,
+    "governed paths parsed (7) and include the module, the probe and the record directory": 167,
+    "the cells are positive on a clean synthetic log": 196,
+    "the frozen block declares the 14 names in order": 168,
+    "the frozen-blob table names five paths": 169,
+    "the pair identity rejects a recovery off EqvK2MaxCone.lean:153-160": 184,
+    "the probe rule accepts the frozen output shape and rejects N, a missing code and stderr": 200,
+    "the real check() with any one control's record call removed, run through verdict(), fails, names that control, prints no positive token and never runs the probe; unmutated, it passes (21 cases)": 202,
+    "the recovery states the landed pair theorem": 173,
+    "the retained-evidence table parses  2 rows, 2 pending": 170,
+    "verdict() prints no positive token when any one of the 13 required static controls fails or is unreported, and prints all of them when every control passes (15 cases)": 201
+   },
+   "section": [
+    155,
+    204
+   ]
+  },
+  "gate_served_lines": {
+   "start": 38760,
+   "verdict": 38785
+  },
+  "note": "1-based lines of the job log named in source.logs, after the byte-order mark; provenance of this log, not compared",
+  "probe_lines": {
+   "PASS ADD3": 141,
+   "PASS ADJOINT3": 137,
+   "PASS CUT3": 145,
+   "PASS DEMUX3": 136,
+   "PASS DICT3": 133,
+   "PASS ORBIT3": 144,
+   "PASS PRODUCT3": 134,
+   "PASS QUANTUM3": 138,
+   "PASS REACH3": 135,
+   "PASS SCALE3": 140,
+   "PASS SEP3": 143,
+   "PASS SHIFT3": 142,
+   "PASS SLICE3": 146,
+   "PASS ZERO3": 139,
+   "REJECTED adjoint": 149,
+   "REJECTED cut-direction": 152,
+   "REJECTED group-below-168": 151,
+   "REJECTED shift-sign": 150,
+   "REJECTED trace-factor": 148,
+   "VERDICT": 154,
+   "checks": 147,
+   "mutations": 153
+  },
+  "report_served_lines": {
+   "OIBridge.lean": {
+    "OIBridge.LinkJoin.act_injective": 38741,
+    "OIBridge.LinkJoin.act_op": 38739,
+    "OIBridge.LinkJoin.char_multiset_collision": 38735,
+    "OIBridge.LinkJoin.char_two_subset_ne_link": 38734,
+    "OIBridge.LinkJoin.character_PA_eq_one": 38746,
+    "OIBridge.LinkJoin.character_restrict_PT": 38745,
+    "OIBridge.LinkJoin.character_rhoA": 38750,
+    "OIBridge.LinkJoin.character_rhoA_eq_one": 38751,
+    "OIBridge.LinkJoin.character_rhoE": 38749,
+    "OIBridge.LinkJoin.character_rhoLink": 38743,
+    "OIBridge.LinkJoin.character_rhoLink_eq_sum": 38752,
+    "OIBridge.LinkJoin.character_rhoT": 38748,
+    "OIBridge.LinkJoin.character_sum": 38747,
+    "OIBridge.LinkJoin.faceEquivLink_op": 38738,
+    "OIBridge.LinkJoin.linkHom_injective": 38742,
+    "OIBridge.LinkJoin.rhoLink_comm_PT": 38744,
+    "OIBridge.LinkJoin.sum_cube_collision": 38737,
+    "OIBridge.LinkJoin.sum_sq_collision": 38736,
+    "OIBridge.LinkJoin.sym_linkHom": 38740
+   },
+   "OIBridge/KTokenMaxCone.lean": {
+    "OIBridge.KTokenMaxCone.QK_subset_of_products_cone_drive": 38715,
+    "OIBridge.KTokenMaxCone.blochH_real": 38726,
+    "OIBridge.KTokenMaxCone.blockFam_mul": 38640,
+    "OIBridge.KTokenMaxCone.cnotM_apply": 38698,
+    "OIBridge.KTokenMaxCone.coordinates_dictionary": 38606,
+    "OIBridge.KTokenMaxCone.coordinates_dictionary_real": 38609,
+    "OIBridge.KTokenMaxCone.dictK_cflip": 38700,
+    "OIBridge.KTokenMaxCone.dictionary_coordinates": 38607,
+    "OIBridge.KTokenMaxCone.dictionary_coordinates_real": 38610,
+    "OIBridge.KTokenMaxCone.dictionary_hermitian": 38608,
+    "OIBridge.KTokenMaxCone.dictionary_prodTab": 38679,
+    "OIBridge.KTokenMaxCone.dictionary_tabOf": 38694,
+    "OIBridge.KTokenMaxCone.driveInvariantK_of_eq_QK": 38717,
+    "OIBridge.KTokenMaxCone.driveInvariant_of_eq_psd": 38651,
+    "OIBridge.KTokenMaxCone.isWord_conjTranspose": 38641,
+    "OIBridge.KTokenMaxCone.isWord_lift": 38642,
+    "OIBridge.KTokenMaxCone.isWord_rzFam": 38644,
+    "OIBridge.KTokenMaxCone.isWord_suFam": 38645,
+    "OIBridge.KTokenMaxCone.kCone_eq_QK_iff_drive_maxCone": 38718,
+    "OIBridge.KTokenMaxCone.kCone_eq_QK_of_drive_maxCone": 38716,
+    "OIBridge.KTokenMaxCone.kCone_eq_psd_iff_drive_maxCone": 38652,
+    "OIBridge.KTokenMaxCone.kCone_eq_psd_of_drive_maxCone": 38650,
+    "OIBridge.KTokenMaxCone.localM_conj_dictionary": 38703,
+    "OIBridge.KTokenMaxCone.lorPair_nonneg_of_maxConeTab": 38686,
+    "OIBridge.KTokenMaxCone.lorTests_of_blochTests": 38728,
+    "OIBridge.KTokenMaxCone.lor_blochH": 38682,
+    "OIBridge.KTokenMaxCone.lor_blochH_decomp": 38727,
+    "OIBridge.KTokenMaxCone.maxConeTab_iff_prodVec_nonneg": 38732,
+    "OIBridge.KTokenMaxCone.maxConeTab_of_blochTests": 38729,
+    "OIBridge.KTokenMaxCone.maxConeTab_of_prodVec_nonneg": 38730,
+    "OIBridge.KTokenMaxCone.maxCone_of_pairCarrierEquiv": 38721,
+    "OIBridge.KTokenMaxCone.mem_Q3_iff_pairCarrier": 38722,
+    "OIBridge.KTokenMaxCone.mem_QK_iff": 38695,
+    "OIBridge.KTokenMaxCone.pairCarrierEquiv_actT": 38724,
+    "OIBridge.KTokenMaxCone.pairCarrierEquiv_cnot": 38723,
+    "OIBridge.KTokenMaxCone.pairCarrierEquiv_maxCone": 38720,
+    "OIBridge.KTokenMaxCone.pairCarrierEquiv_prodState": 38719,
+    "OIBridge.KTokenMaxCone.pairCone_eq_Q3_of_kToken": 38725,
+    "OIBridge.KTokenMaxCone.pauliWord_apply": 38693,
+    "OIBridge.KTokenMaxCone.pauliWord_complete": 38605,
+    "OIBridge.KTokenMaxCone.pauliWord_orthogonal": 38604,
+    "OIBridge.KTokenMaxCone.pauli_cnot_pair": 38699,
+    "OIBridge.KTokenMaxCone.prodVec_nonneg_of_maxConeTab": 38731,
+    "OIBridge.KTokenMaxCone.psd_subset_of_products_cone_drive": 38649,
+    "OIBridge.KTokenMaxCone.psd_subset_of_pure_cone_drive": 38684,
+    "OIBridge.KTokenMaxCone.psd_subset_tableCone_of_products_cone_drive": 38711,
+    "OIBridge.KTokenMaxCone.quad_dictionary_prodVec": 38683,
+    "OIBridge.KTokenMaxCone.reach_norm": 38647,
+    "OIBridge.KTokenMaxCone.reach_prod": 38646,
+    "OIBridge.KTokenMaxCone.sign_induction": 38643,
+    "OIBridge.KTokenMaxCone.subset_QK_of_maxCone_drive": 38714,
+    "OIBridge.KTokenMaxCone.subset_psd_of_maxCone_drive": 38648,
+    "OIBridge.KTokenMaxCone.sum_prodTab_tupOf": 38697,
+    "OIBridge.KTokenMaxCone.tabAct_cnotM": 38701,
+    "OIBridge.KTokenMaxCone.tabAct_cnotM_eq": 38702,
+    "OIBridge.KTokenMaxCone.tabAct_cycK": 38707,
+    "OIBridge.KTokenMaxCone.tabAct_localM": 38704,
+    "OIBridge.KTokenMaxCone.tabAct_localM_eq": 38705,
+    "OIBridge.KTokenMaxCone.tabAct_rotK": 38706,
+    "OIBridge.KTokenMaxCone.tableCone_eq_psd_iff_drive_maxConeTab": 38689,
+    "OIBridge.KTokenMaxCone.tableCone_eq_psd_of_drive_maxCone": 38685,
+    "OIBridge.KTokenMaxCone.tableCone_eq_psd_of_drive_maxConeTab": 38687,
+    "OIBridge.KTokenMaxCone.tableCone_subset_psd_of_maxCone_drive": 38708,
+    "OIBridge.KTokenMaxCone.tableDrive_of_eq_psd": 38688,
+    "OIBridge.KTokenMaxCone.tensor_conjugation": 38603,
+    "OIBridge.KTokenMaxCone.tokMat_blochH": 38681,
+    "OIBridge.KTokenMaxCone.trace_dictionary_mul": 38680,
+    "OIBridge.KTokenMaxCone.tupOf_prodTab": 38696
+   }
+  },
+  "reports_in_build_section": 6069,
+  "sections": {
+   "bridge": {
+    "a3": [
+     38786,
+     41705
+    ],
+    "build": [
+     503,
+     38755
+    ],
+    "gate": [
+     38756,
+     38785
+    ]
+   },
+   "probe": [
+    122,
+    154
+   ]
+  }
+ },
+ "probe_job": {
+  "conclusion": "success",
+  "id": "117466847062",
+  "name": "Numerical probes / KTOKEN-MAXCONE-1 k = 3 exact layer",
+  "steps": [
+   {
+    "conclusion": "success",
+    "name": "Set up job",
+    "number": 1
+   },
+   {
+    "conclusion": "success",
+    "name": "Run actions/checkout@v4",
+    "number": 2
+   },
+   {
+    "conclusion": "success",
+    "name": "Run actions/setup-python@v5",
+    "number": 3
+   },
+   {
+    "conclusion": "success",
+    "name": "k = 3 exact witnesses and probe mutations",
+    "number": 4
+   },
+   {
+    "conclusion": "success",
+    "name": "Native control mutation tests",
+    "number": 5
+   },
+   {
+    "conclusion": "success",
+    "name": "Post Run actions/setup-python@v5",
+    "number": 9
+   },
+   {
+    "conclusion": "success",
+    "name": "Post Run actions/checkout@v4",
+    "number": 10
+   },
+   {
+    "conclusion": "success",
+    "name": "Complete job",
+    "number": 11
+   }
+  ]
+ },
+ "reproduce": {
+  "compared": "build success; the gate's steps and verdict; each governed module's reports and axioms; the markers (compare_result.py); then, by reading, check A3's cases and final line, the probe's codes, counts and verdict, and the controls self-test's lines",
+  "not_compared": "timestamps, durations, cache behaviour, build-job counts, output order, source lines",
+  "recipe": [
+   "run from the root of a full-history clone at a commit that carries verification/audits/evidence-retention (the verifier), with the object 6959ced4c327ebb800cf6d463a049e4066e37288 available; <dir> is a new directory and <log> a file outside it",
+   "git worktree add --detach <dir> 6959ced4c327ebb800cf6d463a049e4066e37288",
+   "(cd <dir>/verification/lean-mathlib && lean --version && lake exe cache get && lake --rehash build) > <log> 2>&1",
+   "(cd <dir> && python3 tools/release_gate.py) >> <log> 2>&1",
+   "python3 -I verification/audits/evidence-retention/extract_result.py <log> > reproduced.json",
+   "python3 -I verification/audits/evidence-retention/compare_result.py <this file> reproduced.json --tree <dir>",
+   "(cd <dir>/verification/lean-mathlib && lake env python3 -I -B ../programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/checks/run_checks.py run): every case and the final line as expected.a3_check",
+   "(cd <dir> && python3 -I -B verification/lean/ktoken_maxcone1_probe.py --self-test): as expected.probe",
+   "(cd <dir> && python3 -I -B verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/controls.py --self-test): as expected.controls"
+  ]
+ },
+ "round": "KTOKEN-MAXCONE-1",
+ "run": {
+  "attempt": 1,
+  "conclusion": "success",
+  "event": "workflow_dispatch",
+  "head_sha": "6959ced4c327ebb800cf6d463a049e4066e37288",
+  "id": "39056982958",
+  "job_id": "117466847042",
+  "job_name": "Mathlib bridge",
+  "workflow": "verify.yml"
+ },
+ "schema": "oi-evidence-result",
+ "source": {
+  "assembler": "extractor/assemble_evidence.py",
+  "assembler_blob": "30d96134b3f465f5cb76e12735107696b74ebd82",
+  "downloader": "extractor/download_job_logs.py",
+  "downloader_blob": "d32d6392aea7eb017c2302a04ba7439ecf6c04cd",
+  "extractor": "verification/audits/evidence-retention/extract_result.py",
+  "extractor_blob": "05c41bce610b8d02ccbaca8e69377b771bef4a35",
+  "extractor_commit": "b96662e6be4f537502c772db369ea32a35b213a8",
+  "kind": "GitHub Actions job logs, each downloaded in full from the jobs/<id>/logs endpoint by a read-only workflow, with the run and job records from the Actions runs and jobs API",
+  "logs": {
+   "bridge": {
+    "byte_order_mark": true,
+    "bytes": 4087094,
+    "carriage_returns": 0,
+    "job_id": "117466847042",
+    "lines": 41728,
+    "source_sha256": "2da23e513b8ecf9e2d3fcf35d4707d957d624748d651e55a571e6345218ede27"
+   },
+   "probe": {
+    "byte_order_mark": true,
+    "bytes": 18075,
+    "carriage_returns": 0,
+    "job_id": "117466847062",
+    "lines": 223,
+    "source_sha256": "b6447334f69b4fb5f8670f9fef7c3d526af26747dd28849b44a0f0eafbe69378"
+   }
+  },
+  "module_sources": {
+   "OIBridge.lean": "93c89b366d421a5d4c5488a9bb8bced800fe6b6a",
+   "OIBridge/KTokenMaxCone.lean": "14bb9fc07bf65e59e3f412ac7270ffb734a30069"
+  },
+  "note": "the digests identify the bytes this result was read from: provenance of the extraction, not independent proof of the result, which reproduction at the commit supplies",
+  "source_sha256": "2da23e513b8ecf9e2d3fcf35d4707d957d624748d651e55a571e6345218ede27"
+ },
+ "version": 1
+}

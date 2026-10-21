@@ -1,0 +1,1435 @@
+{
+ "basis": {
+  "build_success": "the build-success line at line 38885, in the Build step's section (lines 597-38887), and the Build step's conclusion 'success' in the job's API answer (job_api_sha256)",
+  "gate": "the release-gate block, lines 38892-38917, in the Release gate step's section (lines 38888-38917)",
+  "markers": "counted over the Build and Release gate sections (lines 597-38917), the scope compare_result.py (C4) compares; over the whole log: sorryAx 0, Lean.ofReduceBool 0, declaration uses 'sorry' 0, error: 12",
+  "modules": "OIBridge.lean: its 19 reports, in the Build section, against its 19 #print axioms lines at E; OIBridge/KTokenMaxCone.lean: its 68 reports, in the Build section, against its 68 #print axioms lines at E",
+  "unserved_reports": "none: every line of the log was read. Each of the 6098 #print axioms commands in the 223 .lean files with one under verification/lean-mathlib at e35fe0993d22 has exactly one report in the Build section (6098 reports), each within propext, Classical.choice and Quot.sound, with no truncated list and no failure marker: extract_result.check (blob e6f69713 at 809fa9d6) holds with no failure and no gap"
+ },
+ "expected": {
+  "build_success": true,
+  "gate": {
+   "steps": [
+    {
+     "name": "toolchain",
+     "status": "PASS",
+     "summary": "toolchain_check: OK (build entry present, unicode-fix.tex co"
+    },
+    {
+     "name": "staleness",
+     "status": "PASS",
+     "summary": "staleness_check: OK (13 matched, 0 unstamped)"
+    },
+    {
+     "name": "baseline-label",
+     "status": "PASS",
+     "summary": "baseline_label_check: OK (no baseline archives named)"
+    },
+    {
+     "name": "voice",
+     "status": "PASS",
+     "summary": "voice_check: OK (no manuscript-voice history narration; 40 m"
+    },
+    {
+     "name": "voice-scope",
+     "status": "PASS",
+     "summary": "voice_scope_test: OK (6 scope case(s); the checker scans the"
+    },
+    {
+     "name": "ci-gate-presence",
+     "status": "PASS",
+     "summary": "ci_gate_presence_test: OK (CI runs the real release gate)"
+    },
+    {
+     "name": "artifact-placement",
+     "status": "PASS",
+     "summary": "artifact_placement_check: OK (no unaccounted root artifact;"
+    },
+    {
+     "name": "manifest-drift",
+     "status": "PASS",
+     "summary": "build_migration_manifest --check: OK (91 artifacts; both gen"
+    },
+    {
+     "name": "claims",
+     "status": "PASS",
+     "summary": "claims_check: OK (no withdrawn result asserted unconditional"
+    },
+    {
+     "name": "duplicate",
+     "status": "PASS",
+     "summary": "duplicate_check: OK (no paragraph repeated within a file)"
+    },
+    {
+     "name": "mirror",
+     "status": "PASS",
+     "summary": "mirror_check: 0 chapter line(s) absent from FULL.md"
+    },
+    {
+     "name": "citation",
+     "status": "PASS",
+     "summary": "citation_check: 112 citation(s), 0 broken, 0 duplicate bib n"
+    },
+    {
+     "name": "architecture",
+     "status": "PASS",
+     "summary": "architecture_check: 259 invariant(s), 0 violation(s), 0 self"
+    },
+    {
+     "name": "dependency-label",
+     "status": "PASS",
+     "summary": "dependency_label_check: OK (no stale dependency label, 41 fi"
+    },
+    {
+     "name": "coverage",
+     "status": "PASS",
+     "summary": "coverage_check: OK (128 canonical statements, 19 unattached"
+    },
+    {
+     "name": "lean-axioms",
+     "status": "PASS",
+     "summary": "lean_axiom_check: OK (6057 named result(s) reported, no sorr"
+    },
+    {
+     "name": "lean-manuscript",
+     "status": "PASS",
+     "summary": "lean_manuscript_census: OK (every cited identifier and path"
+    },
+    {
+     "name": "legacy-records",
+     "status": "PASS",
+     "summary": "LEGACY  303 record(s) in 75 closed namespace(s), all intact"
+    },
+    {
+     "name": "v3-self-test",
+     "status": "PASS",
+     "summary": "v3_verifier: self-test OK"
+    },
+    {
+     "name": "v3-corpus",
+     "status": "PASS",
+     "summary": "CORPUS  140 vector(s), exact and as expected"
+    },
+    {
+     "name": "v3-receipts",
+     "status": "PASS",
+     "summary": "RECEIPTS  48 receipt(s), all hold"
+    },
+    {
+     "name": "evidence-retention",
+     "status": "PASS",
+     "summary": "EVIDENCE-RETENTION  HOLDS (history mode: 0 failure(s); self-"
+    }
+   ],
+   "steps_pass": 22,
+   "steps_total": 22,
+   "verdict": "PASS  (note: --label bNNN not given, so the baseline check ran in relative mode only)"
+  },
+  "markers": {
+   "Lean.ofReduceBool": 0,
+   "declaration uses 'sorry'": 0,
+   "error:": 0,
+   "sorryAx": 0
+  },
+  "modules": {
+   "OIBridge.lean": {
+    "print_lines": [
+     [
+      857,
+      875
+     ]
+    ],
+    "prints": 19,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 857,
+      "name": "OIBridge.LinkJoin.char_two_subset_ne_link"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 858,
+      "name": "OIBridge.LinkJoin.char_multiset_collision"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 859,
+      "name": "OIBridge.LinkJoin.sum_sq_collision"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 860,
+      "name": "OIBridge.LinkJoin.sum_cube_collision"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 861,
+      "name": "OIBridge.LinkJoin.faceEquivLink_op"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 862,
+      "name": "OIBridge.LinkJoin.act_op"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 863,
+      "name": "OIBridge.LinkJoin.sym_linkHom"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 864,
+      "name": "OIBridge.LinkJoin.act_injective"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 865,
+      "name": "OIBridge.LinkJoin.linkHom_injective"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 866,
+      "name": "OIBridge.LinkJoin.character_rhoLink"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 867,
+      "name": "OIBridge.LinkJoin.rhoLink_comm_PT"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 868,
+      "name": "OIBridge.LinkJoin.character_restrict_PT"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 869,
+      "name": "OIBridge.LinkJoin.character_PA_eq_one"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 870,
+      "name": "OIBridge.LinkJoin.character_sum"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 871,
+      "name": "OIBridge.LinkJoin.character_rhoT"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 872,
+      "name": "OIBridge.LinkJoin.character_rhoE"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 873,
+      "name": "OIBridge.LinkJoin.character_rhoA"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 874,
+      "name": "OIBridge.LinkJoin.character_rhoA_eq_one"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 875,
+      "name": "OIBridge.LinkJoin.character_rhoLink_eq_sum"
+     }
+    ],
+    "status": "complete"
+   },
+   "OIBridge/KTokenMaxCone.lean": {
+    "print_lines": [
+     [
+      223,
+      230
+     ],
+     [
+      1117,
+      1129
+     ],
+     [
+      1546,
+      1556
+     ],
+     [
+      2525,
+      2553
+     ],
+     [
+      2729,
+      2735
+     ]
+    ],
+    "prints": 68,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 223,
+      "name": "OIBridge.KTokenMaxCone.tensor_conjugation"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 224,
+      "name": "OIBridge.KTokenMaxCone.pauliWord_orthogonal"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 225,
+      "name": "OIBridge.KTokenMaxCone.pauliWord_complete"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 226,
+      "name": "OIBridge.KTokenMaxCone.coordinates_dictionary"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 227,
+      "name": "OIBridge.KTokenMaxCone.dictionary_coordinates"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 228,
+      "name": "OIBridge.KTokenMaxCone.dictionary_hermitian"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 229,
+      "name": "OIBridge.KTokenMaxCone.coordinates_dictionary_real"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 230,
+      "name": "OIBridge.KTokenMaxCone.dictionary_coordinates_real"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1117,
+      "name": "OIBridge.KTokenMaxCone.blockFam_mul"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1118,
+      "name": "OIBridge.KTokenMaxCone.isWord_conjTranspose"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1119,
+      "name": "OIBridge.KTokenMaxCone.isWord_lift"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1120,
+      "name": "OIBridge.KTokenMaxCone.sign_induction"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1121,
+      "name": "OIBridge.KTokenMaxCone.isWord_rzFam"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1122,
+      "name": "OIBridge.KTokenMaxCone.isWord_suFam"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1123,
+      "name": "OIBridge.KTokenMaxCone.reach_prod"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1124,
+      "name": "OIBridge.KTokenMaxCone.reach_norm"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1125,
+      "name": "OIBridge.KTokenMaxCone.subset_psd_of_maxCone_drive"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1126,
+      "name": "OIBridge.KTokenMaxCone.psd_subset_of_products_cone_drive"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1127,
+      "name": "OIBridge.KTokenMaxCone.kCone_eq_psd_of_drive_maxCone"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1128,
+      "name": "OIBridge.KTokenMaxCone.driveInvariant_of_eq_psd"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1129,
+      "name": "OIBridge.KTokenMaxCone.kCone_eq_psd_iff_drive_maxCone"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1546,
+      "name": "OIBridge.KTokenMaxCone.dictionary_prodTab"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1547,
+      "name": "OIBridge.KTokenMaxCone.trace_dictionary_mul"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1548,
+      "name": "OIBridge.KTokenMaxCone.tokMat_blochH"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1549,
+      "name": "OIBridge.KTokenMaxCone.lor_blochH"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1550,
+      "name": "OIBridge.KTokenMaxCone.quad_dictionary_prodVec"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1551,
+      "name": "OIBridge.KTokenMaxCone.psd_subset_of_pure_cone_drive"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1552,
+      "name": "OIBridge.KTokenMaxCone.tableCone_eq_psd_of_drive_maxCone"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1553,
+      "name": "OIBridge.KTokenMaxCone.lorPair_nonneg_of_maxConeTab"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1554,
+      "name": "OIBridge.KTokenMaxCone.tableCone_eq_psd_of_drive_maxConeTab"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1555,
+      "name": "OIBridge.KTokenMaxCone.tableDrive_of_eq_psd"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1556,
+      "name": "OIBridge.KTokenMaxCone.tableCone_eq_psd_iff_drive_maxConeTab"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2525,
+      "name": "OIBridge.KTokenMaxCone.pauliWord_apply"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2526,
+      "name": "OIBridge.KTokenMaxCone.dictionary_tabOf"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2527,
+      "name": "OIBridge.KTokenMaxCone.mem_QK_iff"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2528,
+      "name": "OIBridge.KTokenMaxCone.tupOf_prodTab"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2529,
+      "name": "OIBridge.KTokenMaxCone.sum_prodTab_tupOf"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2530,
+      "name": "OIBridge.KTokenMaxCone.cnotM_apply"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2531,
+      "name": "OIBridge.KTokenMaxCone.pauli_cnot_pair"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2532,
+      "name": "OIBridge.KTokenMaxCone.dictK_cflip"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2533,
+      "name": "OIBridge.KTokenMaxCone.tabAct_cnotM"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2534,
+      "name": "OIBridge.KTokenMaxCone.tabAct_cnotM_eq"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2535,
+      "name": "OIBridge.KTokenMaxCone.localM_conj_dictionary"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2536,
+      "name": "OIBridge.KTokenMaxCone.tabAct_localM"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2537,
+      "name": "OIBridge.KTokenMaxCone.tabAct_localM_eq"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2538,
+      "name": "OIBridge.KTokenMaxCone.tabAct_rotK"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2539,
+      "name": "OIBridge.KTokenMaxCone.tabAct_cycK"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2540,
+      "name": "OIBridge.KTokenMaxCone.tableCone_subset_psd_of_maxCone_drive"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2541,
+      "name": "OIBridge.KTokenMaxCone.psd_subset_tableCone_of_products_cone_drive"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2542,
+      "name": "OIBridge.KTokenMaxCone.subset_QK_of_maxCone_drive"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2543,
+      "name": "OIBridge.KTokenMaxCone.QK_subset_of_products_cone_drive"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2544,
+      "name": "OIBridge.KTokenMaxCone.kCone_eq_QK_of_drive_maxCone"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2545,
+      "name": "OIBridge.KTokenMaxCone.driveInvariantK_of_eq_QK"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2546,
+      "name": "OIBridge.KTokenMaxCone.kCone_eq_QK_iff_drive_maxCone"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2547,
+      "name": "OIBridge.KTokenMaxCone.pairCarrierEquiv_prodState"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2548,
+      "name": "OIBridge.KTokenMaxCone.pairCarrierEquiv_maxCone"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2549,
+      "name": "OIBridge.KTokenMaxCone.maxCone_of_pairCarrierEquiv"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2550,
+      "name": "OIBridge.KTokenMaxCone.mem_Q3_iff_pairCarrier"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2551,
+      "name": "OIBridge.KTokenMaxCone.pairCarrierEquiv_cnot"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2552,
+      "name": "OIBridge.KTokenMaxCone.pairCarrierEquiv_actT"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2553,
+      "name": "OIBridge.KTokenMaxCone.pairCone_eq_Q3_of_kToken"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2729,
+      "name": "OIBridge.KTokenMaxCone.blochH_real"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2730,
+      "name": "OIBridge.KTokenMaxCone.lor_blochH_decomp"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2731,
+      "name": "OIBridge.KTokenMaxCone.lorTests_of_blochTests"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2732,
+      "name": "OIBridge.KTokenMaxCone.maxConeTab_of_blochTests"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2733,
+      "name": "OIBridge.KTokenMaxCone.maxConeTab_of_prodVec_nonneg"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2734,
+      "name": "OIBridge.KTokenMaxCone.prodVec_nonneg_of_maxConeTab"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2735,
+      "name": "OIBridge.KTokenMaxCone.maxConeTab_iff_prodVec_nonneg"
+     }
+    ],
+    "status": "complete"
+   }
+  },
+  "permitted_axioms": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ]
+ },
+ "form": "derived",
+ "gaps": [],
+ "kind": "bridge",
+ "observed": {
+  "build_line": "Build completed successfully (3653 jobs).",
+  "build_served_line": 38885,
+  "built": [
+   {
+    "module": "OIBridge.KTokenMaxCone",
+    "seconds": 10.0,
+    "served_line": 38683
+   },
+   {
+    "module": "OIBridge",
+    "seconds": 6.9,
+    "served_line": 38865
+   }
+  ],
+  "cache": [
+   {
+    "served_line": 596,
+    "text": "Cache restored from key: oibridge-Linux-324962b2357195e1544c06a1936656a7dafa7cf303e07c9c08c1e5a3b289622d-de5484e196eb453de62819189535292f1ded0ccca114d9735502f9b86b286e39"
+   },
+   {
+    "served_line": 41846,
+    "text": "Cache saved with key: oibridge-Linux-324962b2357195e1544c06a1936656a7dafa7cf303e07c9c08c1e5a3b289622d-b1dad80c5a69f8960d29389b75cf06c5751bd1928ce028601db4e3a7813f665f"
+   }
+  ],
+  "first_report_served_line": 781,
+  "gate_served_lines": {
+   "start": 38892,
+   "steps": [
+    38894,
+    38895,
+    38896,
+    38897,
+    38898,
+    38899,
+    38900,
+    38901,
+    38902,
+    38903,
+    38904,
+    38905,
+    38906,
+    38907,
+    38908,
+    38909,
+    38910,
+    38911,
+    38912,
+    38913,
+    38914,
+    38915
+   ],
+   "verdict": 38917
+  },
+  "ktoken_lines_in_served_text": 1444,
+  "other_modules_in_served_text": {
+   "OIBridge/A6Instantiation.lean": 25,
+   "OIBridge/AccessibleAlgebra.lean": 17,
+   "OIBridge/AnchorRobustness.lean": 12,
+   "OIBridge/AncillaClosure.lean": 33,
+   "OIBridge/AncillaInterference.lean": 17,
+   "OIBridge/AntiunitaryInvariance.lean": 11,
+   "OIBridge/BackgroundIndependence.lean": 16,
+   "OIBridge/BarandesTuple.lean": 24,
+   "OIBridge/BohrFrequency.lean": 10,
+   "OIBridge/BoundaryAudit.lean": 2,
+   "OIBridge/BoundaryRank.lean": 15,
+   "OIBridge/BranchSelector.lean": 6,
+   "OIBridge/BridgeConverge.lean": 21,
+   "OIBridge/BridgeDictionary.lean": 20,
+   "OIBridge/BridgeFiniteProtocol.lean": 14,
+   "OIBridge/C3Necessity.lean": 6,
+   "OIBridge/C5Discovery.lean": 17,
+   "OIBridge/CancellationFork.lean": 10,
+   "OIBridge/CandidateSelection.lean": 7,
+   "OIBridge/CanonicalMeasure.lean": 9,
+   "OIBridge/CarrierGeneralOIPlus.lean": 11,
+   "OIBridge/CausalReadback.lean": 21,
+   "OIBridge/CentralObservation.lean": 13,
+   "OIBridge/ClosureObstruction.lean": 49,
+   "OIBridge/CoherentContinuumSource.lean": 17,
+   "OIBridge/CoherentExtension.lean": 27,
+   "OIBridge/CoherentLift.lean": 66,
+   "OIBridge/CoherentLiftGauge.lean": 18,
+   "OIBridge/CombRealization.lean": 4,
+   "OIBridge/CompletedOI.lean": 32,
+   "OIBridge/CompletionAction.lean": 16,
+   "OIBridge/CompositeDimension.lean": 87,
+   "OIBridge/CompositeInterface.lean": 64,
+   "OIBridge/CompositeSoundness.lean": 17,
+   "OIBridge/CompositionOrder.lean": 35,
+   "OIBridge/CompositionalIndependence.lean": 21,
+   "OIBridge/CongruentReconstruction.lean": 16,
+   "OIBridge/ContinuousExtension.lean": 25,
+   "OIBridge/ControlLie.lean": 11,
+   "OIBridge/ControlledQuotient.lean": 13,
+   "OIBridge/CrossTimeInvariants.lean": 35,
+   "OIBridge/CubicIsotropy.lean": 16,
+   "OIBridge/CycleFibreHull.lean": 20,
+   "OIBridge/DenseInstrumentBridge.lean": 32,
+   "OIBridge/DenseOrbit.lean": 15,
+   "OIBridge/DerivedQ3.lean": 17,
+   "OIBridge/DiagonalTheory.lean": 32,
+   "OIBridge/DilationChoice.lean": 25,
+   "OIBridge/DimensionalCountermodel.lean": 33,
+   "OIBridge/DimensionalObstruction.lean": 20,
+   "OIBridge/DiscreteCompletion.lean": 51,
+   "OIBridge/DitaArcExclusivity.lean": 26,
+   "OIBridge/DitaHierarchy.lean": 37,
+   "OIBridge/DitaHull.lean": 56,
+   "OIBridge/DitaLocalEscape.lean": 122,
+   "OIBridge/DitaTorus.lean": 101,
+   "OIBridge/DitaTorusLocus.lean": 199,
+   "OIBridge/DomainGlue.lean": 7,
+   "OIBridge/DynamicsGlue.lean": 11,
+   "OIBridge/EdgeRigidity.lean": 7,
+   "OIBridge/EffectSpace.lean": 31,
+   "OIBridge/EmbeddedObservation.lean": 22,
+   "OIBridge/Equivalence.lean": 9,
+   "OIBridge/EquivalenceChain.lean": 8,
+   "OIBridge/EqvK2Block.lean": 11,
+   "OIBridge/EqvK2Converse.lean": 9,
+   "OIBridge/EqvK2Generation.lean": 12,
+   "OIBridge/EqvK2MaxCone.lean": 16,
+   "OIBridge/EqvK2Schema.lean": 22,
+   "OIBridge/ExecSource.lean": 12,
+   "OIBridge/FactorExchange.lean": 9,
+   "OIBridge/FactorUniqueness.lean": 11,
+   "OIBridge/FiniteEntropy.lean": 5,
+   "OIBridge/Finiteness.lean": 7,
+   "OIBridge/FlowEndpoint.lean": 15,
+   "OIBridge/FrequencyMatching.lean": 5,
+   "OIBridge/FrozenSourcing.lean": 23,
+   "OIBridge/GaugeDimension.lean": 6,
+   "OIBridge/GeneralCarrier.lean": 13,
+   "OIBridge/GramTrajectorySelection.lean": 23,
+   "OIBridge/HexLatticeGas.lean": 71,
+   "OIBridge/HiddenCoherence.lean": 21,
+   "OIBridge/HiddenMemory.lean": 6,
+   "OIBridge/HomometricKill.lean": 8,
+   "OIBridge/HomometricSix.lean": 18,
+   "OIBridge/HydroClosureBridge.lean": 18,
+   "OIBridge/HydroSourceAudit.lean": 44,
+   "OIBridge/IdempotentTrace.lean": 8,
+   "OIBridge/ImplementationLocality.lean": 81,
+   "OIBridge/IndependenceCensus.lean": 29,
+   "OIBridge/InstrumentAvailability.lean": 19,
+   "OIBridge/InstrumentCompletion.lean": 53,
+   "OIBridge/InstrumentDilation.lean": 17,
+   "OIBridge/InstrumentRealization.lean": 69,
+   "OIBridge/IntermediateCrossTimeStructure.lean": 18,
+   "OIBridge/InternalObserver.lean": 14,
+   "OIBridge/InvariantInnerProduct.lean": 21,
+   "OIBridge/Irreducibility.lean": 5,
+   "OIBridge/IsometryExtension.lean": 21,
+   "OIBridge/JordanClassification.lean": 11,
+   "OIBridge/K1Bridge.lean": 10,
+   "OIBridge/K2Guard.lean": 19,
+   "OIBridge/KInfFoundations.lean": 67,
+   "OIBridge/KrausSoundness.lean": 8,
+   "OIBridge/KrausUniqueness.lean": 11,
+   "OIBridge/LevelOneRecursion.lean": 3,
+   "OIBridge/LevelOneSeam.lean": 31,
+   "OIBridge/LieRankSource.lean": 40,
+   "OIBridge/LiftAudit.lean": 56,
+   "OIBridge/LiftSource.lean": 18,
+   "OIBridge/LinkDecomposition.lean": 17,
+   "OIBridge/ManuscriptAxioms.lean": 11,
+   "OIBridge/MicroscopicReversibility.lean": 21,
+   "OIBridge/MinimalRepertoire.lean": 23,
+   "OIBridge/MonoidalCompletion.lean": 23,
+   "OIBridge/NativeGateBall.lean": 10,
+   "OIBridge/OIRealization.lean": 22,
+   "OIBridge/ObservabilityQuotient.lean": 13,
+   "OIBridge/OddChar.lean": 12,
+   "OIBridge/OperationalAssembly.lean": 28,
+   "OIBridge/OperationalRigidity.lean": 17,
+   "OIBridge/OperationalSourcing.lean": 53,
+   "OIBridge/OperationalValidity.lean": 12,
+   "OIBridge/OrbitGeneration.lean": 64,
+   "OIBridge/OrbitGeometryIsometries.lean": 36,
+   "OIBridge/OrbitGeometryRigidity.lean": 158,
+   "OIBridge/OrbitGeometrySelector.lean": 62,
+   "OIBridge/OrbitIsometryClassification.lean": 56,
+   "OIBridge/OrbitIsometryGroup.lean": 354,
+   "OIBridge/OrbitLawGaps.lean": 12,
+   "OIBridge/OrbitLawNaturalityFactorization.lean": 5,
+   "OIBridge/OrbitLawRigidityTwisted.lean": 29,
+   "OIBridge/OrbitNormalization.lean": 20,
+   "OIBridge/OrbitReachability.lean": 38,
+   "OIBridge/OrientationClosure.lean": 10,
+   "OIBridge/OrientationSelection.lean": 15,
+   "OIBridge/PairFlowEquivalence.lean": 15,
+   "OIBridge/ParityNot.lean": 24,
+   "OIBridge/PartialTranspose.lean": 14,
+   "OIBridge/PassiveIndependence.lean": 14,
+   "OIBridge/PassiveObservation.lean": 10,
+   "OIBridge/PassiveQuotient.lean": 31,
+   "OIBridge/PhaseSource.lean": 10,
+   "OIBridge/PhysicalC4Discharge.lean": 35,
+   "OIBridge/PhysicalC4StorageReadback.lean": 25,
+   "OIBridge/PhysicalCharacterization.lean": 39,
+   "OIBridge/PiccardBridge.lean": 8,
+   "OIBridge/PolarizationClosure.lean": 26,
+   "OIBridge/PositivePackage.lean": 3,
+   "OIBridge/PositiveReachability.lean": 19,
+   "OIBridge/ProductAdmission.lean": 6,
+   "OIBridge/ProductOffLocusUniqueness.lean": 5,
+   "OIBridge/ProductStratum.lean": 82,
+   "OIBridge/ProductStrictLift.lean": 26,
+   "OIBridge/ProjectiveAction.lean": 9,
+   "OIBridge/Purification.lean": 9,
+   "OIBridge/QuantumRepresentation.lean": 16,
+   "OIBridge/QuantumRepresentationT2.lean": 17,
+   "OIBridge/QuantumRepresentationT3.lean": 13,
+   "OIBridge/QuarterTurn.lean": 27,
+   "OIBridge/QuasilocalAlgebra.lean": 143,
+   "OIBridge/QuasilocalCharacterization.lean": 87,
+   "OIBridge/RankGapTheory.lean": 52,
+   "OIBridge/ReachabilitySeam.lean": 25,
+   "OIBridge/ReadWriteControl.lean": 9,
+   "OIBridge/ReadbackRobustness.lean": 8,
+   "OIBridge/RealPairFlow.lean": 20,
+   "OIBridge/ReanchoredChannelScope.lean": 12,
+   "OIBridge/Reciprocity.lean": 6,
+   "OIBridge/RecurrenceHorizon.lean": 9,
+   "OIBridge/ReferenceExtension.lean": 30,
+   "OIBridge/ReferenceSufficiency.lean": 24,
+   "OIBridge/RegionLimit.lean": 16,
+   "OIBridge/RegionTower.lean": 28,
+   "OIBridge/RelcSelectBlock.lean": 5,
+   "OIBridge/RelcSelectC5.lean": 12,
+   "OIBridge/RelcSelectParity.lean": 2,
+   "OIBridge/RelcSelectSqueeze.lean": 15,
+   "OIBridge/RepresentativeNaturality.lean": 25,
+   "OIBridge/RootedClassification.lean": 16,
+   "OIBridge/RootedClassificationAllTime.lean": 16,
+   "OIBridge/RootedClassificationT2.lean": 8,
+   "OIBridge/RouteB.lean": 31,
+   "OIBridge/ScalarClosure.lean": 12,
+   "OIBridge/ScalingFamily.lean": 11,
+   "OIBridge/SecondOrderCircuit.lean": 55,
+   "OIBridge/SecondOrderDrive.lean": 55,
+   "OIBridge/SecondOrderLayer.lean": 62,
+   "OIBridge/SemigroupTransfer.lean": 61,
+   "OIBridge/Separability.lean": 16,
+   "OIBridge/SharpTests.lean": 13,
+   "OIBridge/ShellAssignment.lean": 4,
+   "OIBridge/SpectatorBridge.lean": 30,
+   "OIBridge/StageCompletion.lean": 15,
+   "OIBridge/StateMixingCoupling.lean": 25,
+   "OIBridge/StinespringAssembly.lean": 7,
+   "OIBridge/StinespringUniqueness.lean": 10,
+   "OIBridge/StochasticInterface.lean": 12,
+   "OIBridge/StrictNaturalLift.lean": 26,
+   "OIBridge/StructuralClosure.lean": 35,
+   "OIBridge/SubstantiveCensus.lean": 77,
+   "OIBridge/SubstratumInterface.lean": 12,
+   "OIBridge/SubstratumInterfaceAudit.lean": 82,
+   "OIBridge/SubstratumSource.lean": 9,
+   "OIBridge/SwapLayer.lean": 40,
+   "OIBridge/TasteBranching.lean": 9,
+   "OIBridge/ThermalOrientation.lean": 21,
+   "OIBridge/ThreadingObservability.lean": 39,
+   "OIBridge/TrackBQfbBridge.lean": 27,
+   "OIBridge/TransitiveBody.lean": 26,
+   "OIBridge/TransposeBridge.lean": 8,
+   "OIBridge/TurnpikePremiseOrientation.lean": 7,
+   "OIBridge/TurnpikeScopeTransfer.lean": 8,
+   "OIBridge/TwoByTwoNoGo.lean": 3,
+   "OIBridge/TwoSidedGauge.lean": 43,
+   "OIBridge/TypedCompletion.lean": 40,
+   "OIBridge/TypedPositive.lean": 2,
+   "OIBridge/UhlmannUniqueness.lean": 22,
+   "OIBridge/WeylLift.lean": 23,
+   "OIBridge/WeylTwirl.lean": 20,
+   "OIBridge/WordTraceSufficiency.lean": 40
+  },
+  "report_served_lines": {
+   "OIBridge.lean": {
+    "OIBridge.LinkJoin.act_injective": 38873,
+    "OIBridge.LinkJoin.act_op": 38871,
+    "OIBridge.LinkJoin.char_multiset_collision": 38867,
+    "OIBridge.LinkJoin.char_two_subset_ne_link": 38866,
+    "OIBridge.LinkJoin.character_PA_eq_one": 38878,
+    "OIBridge.LinkJoin.character_restrict_PT": 38877,
+    "OIBridge.LinkJoin.character_rhoA": 38882,
+    "OIBridge.LinkJoin.character_rhoA_eq_one": 38883,
+    "OIBridge.LinkJoin.character_rhoE": 38881,
+    "OIBridge.LinkJoin.character_rhoLink": 38875,
+    "OIBridge.LinkJoin.character_rhoLink_eq_sum": 38884,
+    "OIBridge.LinkJoin.character_rhoT": 38880,
+    "OIBridge.LinkJoin.character_sum": 38879,
+    "OIBridge.LinkJoin.faceEquivLink_op": 38870,
+    "OIBridge.LinkJoin.linkHom_injective": 38874,
+    "OIBridge.LinkJoin.rhoLink_comm_PT": 38876,
+    "OIBridge.LinkJoin.sum_cube_collision": 38869,
+    "OIBridge.LinkJoin.sum_sq_collision": 38868,
+    "OIBridge.LinkJoin.sym_linkHom": 38872
+   },
+   "OIBridge/KTokenMaxCone.lean": {
+    "OIBridge.KTokenMaxCone.QK_subset_of_products_cone_drive": 38847,
+    "OIBridge.KTokenMaxCone.blochH_real": 38858,
+    "OIBridge.KTokenMaxCone.blockFam_mul": 38772,
+    "OIBridge.KTokenMaxCone.cnotM_apply": 38830,
+    "OIBridge.KTokenMaxCone.coordinates_dictionary": 38738,
+    "OIBridge.KTokenMaxCone.coordinates_dictionary_real": 38741,
+    "OIBridge.KTokenMaxCone.dictK_cflip": 38832,
+    "OIBridge.KTokenMaxCone.dictionary_coordinates": 38739,
+    "OIBridge.KTokenMaxCone.dictionary_coordinates_real": 38742,
+    "OIBridge.KTokenMaxCone.dictionary_hermitian": 38740,
+    "OIBridge.KTokenMaxCone.dictionary_prodTab": 38811,
+    "OIBridge.KTokenMaxCone.dictionary_tabOf": 38826,
+    "OIBridge.KTokenMaxCone.driveInvariantK_of_eq_QK": 38849,
+    "OIBridge.KTokenMaxCone.driveInvariant_of_eq_psd": 38783,
+    "OIBridge.KTokenMaxCone.isWord_conjTranspose": 38773,
+    "OIBridge.KTokenMaxCone.isWord_lift": 38774,
+    "OIBridge.KTokenMaxCone.isWord_rzFam": 38776,
+    "OIBridge.KTokenMaxCone.isWord_suFam": 38777,
+    "OIBridge.KTokenMaxCone.kCone_eq_QK_iff_drive_maxCone": 38850,
+    "OIBridge.KTokenMaxCone.kCone_eq_QK_of_drive_maxCone": 38848,
+    "OIBridge.KTokenMaxCone.kCone_eq_psd_iff_drive_maxCone": 38784,
+    "OIBridge.KTokenMaxCone.kCone_eq_psd_of_drive_maxCone": 38782,
+    "OIBridge.KTokenMaxCone.localM_conj_dictionary": 38835,
+    "OIBridge.KTokenMaxCone.lorPair_nonneg_of_maxConeTab": 38818,
+    "OIBridge.KTokenMaxCone.lorTests_of_blochTests": 38860,
+    "OIBridge.KTokenMaxCone.lor_blochH": 38814,
+    "OIBridge.KTokenMaxCone.lor_blochH_decomp": 38859,
+    "OIBridge.KTokenMaxCone.maxConeTab_iff_prodVec_nonneg": 38864,
+    "OIBridge.KTokenMaxCone.maxConeTab_of_blochTests": 38861,
+    "OIBridge.KTokenMaxCone.maxConeTab_of_prodVec_nonneg": 38862,
+    "OIBridge.KTokenMaxCone.maxCone_of_pairCarrierEquiv": 38853,
+    "OIBridge.KTokenMaxCone.mem_Q3_iff_pairCarrier": 38854,
+    "OIBridge.KTokenMaxCone.mem_QK_iff": 38827,
+    "OIBridge.KTokenMaxCone.pairCarrierEquiv_actT": 38856,
+    "OIBridge.KTokenMaxCone.pairCarrierEquiv_cnot": 38855,
+    "OIBridge.KTokenMaxCone.pairCarrierEquiv_maxCone": 38852,
+    "OIBridge.KTokenMaxCone.pairCarrierEquiv_prodState": 38851,
+    "OIBridge.KTokenMaxCone.pairCone_eq_Q3_of_kToken": 38857,
+    "OIBridge.KTokenMaxCone.pauliWord_apply": 38825,
+    "OIBridge.KTokenMaxCone.pauliWord_complete": 38737,
+    "OIBridge.KTokenMaxCone.pauliWord_orthogonal": 38736,
+    "OIBridge.KTokenMaxCone.pauli_cnot_pair": 38831,
+    "OIBridge.KTokenMaxCone.prodVec_nonneg_of_maxConeTab": 38863,
+    "OIBridge.KTokenMaxCone.psd_subset_of_products_cone_drive": 38781,
+    "OIBridge.KTokenMaxCone.psd_subset_of_pure_cone_drive": 38816,
+    "OIBridge.KTokenMaxCone.psd_subset_tableCone_of_products_cone_drive": 38843,
+    "OIBridge.KTokenMaxCone.quad_dictionary_prodVec": 38815,
+    "OIBridge.KTokenMaxCone.reach_norm": 38779,
+    "OIBridge.KTokenMaxCone.reach_prod": 38778,
+    "OIBridge.KTokenMaxCone.sign_induction": 38775,
+    "OIBridge.KTokenMaxCone.subset_QK_of_maxCone_drive": 38846,
+    "OIBridge.KTokenMaxCone.subset_psd_of_maxCone_drive": 38780,
+    "OIBridge.KTokenMaxCone.sum_prodTab_tupOf": 38829,
+    "OIBridge.KTokenMaxCone.tabAct_cnotM": 38833,
+    "OIBridge.KTokenMaxCone.tabAct_cnotM_eq": 38834,
+    "OIBridge.KTokenMaxCone.tabAct_cycK": 38839,
+    "OIBridge.KTokenMaxCone.tabAct_localM": 38836,
+    "OIBridge.KTokenMaxCone.tabAct_localM_eq": 38837,
+    "OIBridge.KTokenMaxCone.tabAct_rotK": 38838,
+    "OIBridge.KTokenMaxCone.tableCone_eq_psd_iff_drive_maxConeTab": 38821,
+    "OIBridge.KTokenMaxCone.tableCone_eq_psd_of_drive_maxCone": 38817,
+    "OIBridge.KTokenMaxCone.tableCone_eq_psd_of_drive_maxConeTab": 38819,
+    "OIBridge.KTokenMaxCone.tableCone_subset_psd_of_maxCone_drive": 38840,
+    "OIBridge.KTokenMaxCone.tableDrive_of_eq_psd": 38820,
+    "OIBridge.KTokenMaxCone.tensor_conjugation": 38735,
+    "OIBridge.KTokenMaxCone.tokMat_blochH": 38813,
+    "OIBridge.KTokenMaxCone.trace_dictionary_mul": 38812,
+    "OIBridge.KTokenMaxCone.tupOf_prodTab": 38828
+   }
+  },
+  "reports_in_served_text": 6098
+ },
+ "reproduce": {
+  "compared": "build success; the gate's steps and verdict; each governed module's reports and axioms; the markers",
+  "markers_note": "the expected zero marker counts were observed over the Build and Release gate sections of the whole log; compare_result.py (C4) holds a reproduction to zero markers over its whole log",
+  "not_compared": "timestamps, durations, cache behaviour, job counts, output order",
+  "recipe": [
+   "run from the root of a full-history clone at a commit that carries this record (the verifier); <dir> is a new directory and <log> a file outside it",
+   "make e35fe0993d22ea217d4094191ef355340ac80062 present in the clone (this extraction fetched it by id from https://github.com/amaybaum/incompleteness.git)",
+   "git worktree add --detach <dir> e35fe0993d22ea217d4094191ef355340ac80062",
+   "(cd <dir>/verification/lean-mathlib && lean --version && lake exe cache get && lake --rehash build) > <log> 2>&1",
+   "(cd <dir> && python3 tools/release_gate.py) >> <log> 2>&1",
+   "python3 -I verification/audits/evidence-retention/extract_result.py <log> > reproduced.json",
+   "python3 -I verification/audits/evidence-retention/compare_result.py <this file> reproduced.json --tree <dir>"
+  ],
+  "tool": null
+ },
+ "run": {
+  "attempt": 1,
+  "conclusion": "success",
+  "event": "workflow_dispatch",
+  "head_branch": "draft/ktoken-maxcone-1",
+  "head_sha": "e35fe0993d22ea217d4094191ef355340ac80062",
+  "id": "39445227350",
+  "job_conclusion": "success",
+  "job_id": "118705242073",
+  "job_name": "Mathlib bridge",
+  "job_steps": [
+   {
+    "conclusion": "success",
+    "name": "Set up job"
+   },
+   {
+    "conclusion": "success",
+    "name": "Run actions/checkout@v4"
+   },
+   {
+    "conclusion": "success",
+    "name": "Install elan"
+   },
+   {
+    "conclusion": "success",
+    "name": "Restore the OIBridge build cache"
+   },
+   {
+    "conclusion": "success",
+    "name": "Build"
+   },
+   {
+    "conclusion": "success",
+    "name": "Release gate"
+   },
+   {
+    "conclusion": "success",
+    "name": "KTOKEN-MAXCONE-1 check A3 (k = 2 statement identity and dependency walk, with mutations)"
+   },
+   {
+    "conclusion": "success",
+    "name": "Post Restore the OIBridge build cache"
+   },
+   {
+    "conclusion": "success",
+    "name": "Post Run actions/checkout@v4"
+   },
+   {
+    "conclusion": "success",
+    "name": "Complete job"
+   }
+  ],
+  "workflow": "verify.yml"
+ },
+ "schema": "oi-evidence-result",
+ "scope": "what E's exact-head check run logged in its Mathlib bridge job, as read from the whole job log (41862 lines), and nothing about any later tree",
+ "source": {
+  "digest_form": "sha256 of the job log's bytes exactly as downloaded from the jobs/<id>/logs endpoint (4103870 bytes, 41862 lines): the digest of the whole log",
+  "extractor": "verification/audits/evidence-retention/extract_result.py",
+  "extractor_blob": "e6f69713bfffd1f1f9aca3c27bf26a689c994167",
+  "form_note": "derived: read from the whole job log (served_sha256) with extract_result.py at main 809fa9d6fc931d7a75027ad72d6d2d4b03b722a5, cross-checked for the build line, the gate, the governed modules' reports and the markers against blob 05c41bce610b8d02ccbaca8e69377b771bef4a35 at b96662e6be4f537502c772db369ea32a35b213a8; and from the runs and jobs APIs (their answers' digests)",
+  "job_api_sha256": "02a1a5c37d5ad04cab700d1cdfbe191b5cd7e02e7d51e817fab0d529f756c23f",
+  "kind": "GitHub Actions job log, whole: downloaded from the jobs/<id>/logs endpoint (job_id 118705242073) by extraction run 39449737941 attempt 1 of the read-only workflow ktoken-f-evidence.yml, with extractor/download_job_logs.py blob 445bbd42c0a6015416fbca9bf6b114dd1cc9d290 and extractor/assemble_evidence.py blob 18fb922fea28288c97a241809755980d496b17be",
+  "markers_scope": "the failure markers are counted over the Build and Release gate sections of the whole log (lines 597-38917)",
+  "note": "the digest identifies the text this result was read from: it is provenance of the extraction, not independent proof of the result, which reproduction at the commit supplies; the text is not retained",
+  "original_lines": 41862,
+  "retrievals": "one download in the extraction run",
+  "runs_api_sha256": "0db83c61d95c09219f6667befbf862756e04723e05773b1230fee103a66e58e8",
+  "served_bytes": 4103870,
+  "served_lines": 41862,
+  "served_sha256": "1773a7bff2472fd2a3ab2c598bc83366134602ff35fdbf8bbbf2b5ea38428fc1",
+  "served_window": [
+   1,
+   41862
+  ],
+  "window_coverage": "complete: original lines 1-41862 of 41862 were downloaded and read",
+  "window_rule": "the whole log was read: the Build section (lines 597-38887), the Release gate section (lines 38888-38917) and every report lie in it"
+ },
+ "version": 1
+}

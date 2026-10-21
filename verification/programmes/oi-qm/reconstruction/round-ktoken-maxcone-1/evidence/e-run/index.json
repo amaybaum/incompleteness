@@ -1,0 +1,112 @@
+{
+ "bridge_job": "118705242073",
+ "commit": "e35fe0993d22ea217d4094191ef355340ac80062",
+ "conditions": [
+  {
+   "condition": "the designation's normalization condition, verbatim: \"remove only GitHub's timestamp prefixes (and documented transport BOM), preserving the raw log and both verdicts. The three raw-log negative cells must remain visible as parsing artifacts, not be erased or silently treated as positive.\"",
+   "in": "cells.json",
+   "note": "The raw bridge log's text is not retained here, only its digest (verdict.raw.log_sha256, 1773a7bf...; the host copy is a host log that expires) and the frozen verdict's output over it, recorded as printed. On the raw log Q-INCL, Q-EQ and Q-PAIR print NOT-ESTABLISHED, and observed.raw_form_reports_outside_permitted names the three wrapped reports whose axiom lists carry line timestamps there. The stripped form (source.stripped_form: the byte-order mark dropped, each line's timestamp removed, line breaks unchanged; 418bcc65...) prints the four positive tokens"
+  }
+ ],
+ "cross_checks": [
+  {
+   "extraction_runs_api_sha256": "0db83c61d95c09219f6667befbf862756e04723e05773b1230fee103a66e58e8",
+   "in": "run.json",
+   "note": "run.json holds the session's read of the runs API (source_sha256 above). The extraction run read the same endpoint: the answer's digest is equal, and the fields results.json records from it (id, head_sha, head_branch, event, run_attempt 1, conclusion success, workflow verify.yml) equal run.json's"
+  },
+  {
+   "extraction_job_api_sha256": "02a1a5c37d5ad04cab700d1cdfbe191b5cd7e02e7d51e817fab0d529f756c23f",
+   "in": "jobs.json",
+   "note": "the extraction run read the job list (38 jobs, every one success) and the bridge job's API answer, whose digest equals the session's read of GET jobs/118705242073; the bridge job's steps in jobs.json equal, by name and conclusion, results.json's run.job_steps"
+  },
+  {
+   "extraction_probe_job_api_sha256": "74067877ce9df01d14afb8da543f569bf3952c1add323abd03a40b7babd4b7da",
+   "in": "jobs.json",
+   "note": "the extraction run read the probe job's API answer (job 118705242163), whose digest equals the session's read of GET jobs/118705242163; its steps equal, by name and conclusion, cells.json's probe_job.steps"
+  }
+ ],
+ "files": [
+  {
+   "bytes": 507,
+   "form": "derived",
+   "path": "run.json",
+   "sha256": "db94ffb516b705e2b29435100c36803358970cbacbdd750a8747b94ca34b31fe",
+   "source_sha256": "0db83c61d95c09219f6667befbf862756e04723e05773b1230fee103a66e58e8"
+  },
+  {
+   "bytes": 44535,
+   "form": "derived",
+   "path": "jobs.json",
+   "sha256": "e83a6d7f2e2d5434f04a98e2568c8b1e59b5f8686f01d3c08878506d14ebf3e6",
+   "source_sha256": "5249f5427ca4516cfbaca4fab0582531fecc0135c4cbfcdf4b98028a1ef61b28"
+  },
+  {
+   "bytes": 3231,
+   "form": "derived",
+   "path": "designation.json",
+   "sha256": "d15dba5a958472c8275a055a6f61dd42264a6d460b2ada7a5499a91ad7b8fbf4",
+   "source_sha256": "83d809c900ec812a5868e0dd9c265a28bb2bbfd80d136388c1a74a8889f58303"
+  },
+  {
+   "bytes": 41433,
+   "extraction": {
+    "attempt": 1,
+    "caveat": "the extractor commit is on a temporary branch whose root commit (2cbae144) is parentless and the extraction run's log is a host log; neither is reachable from main, as for the design-run extraction (run 39063510375, extractor 0d94937d4d8dbc6662b4464842bcdb1523ede18e) and F's (run 39442932167, extractor 2cbae144253df360a6e92cce5af2f0db20d4ff43); they are provenance of this file, which a reproduction at the commit can check",
+    "cross_check": {
+     "blob": "05c41bce610b8d02ccbaca8e69377b771bef4a35",
+     "commit": "b96662e6be4f537502c772db369ea32a35b213a8"
+    },
+    "event": "push",
+    "extract_result": {
+     "blob": "e6f69713bfffd1f1f9aca3c27bf26a689c994167",
+     "commit": "809fa9d6fc931d7a75027ad72d6d2d4b03b722a5"
+    },
+    "extractor_branch": "tmp/ktoken-f-evidence-20261020",
+    "extractor_commit": "b059d33aacd267c30ba8b1b7c86730855d973c0e",
+    "job": "118721050581",
+    "printed_canonical_sha256": "dd1c8f5cbb7d547f26da400a1fc3d93e3ab49c4bf15bbd510cc24816e85d3a65",
+    "run": "39449737941",
+    "verdict": "EXTRACT HOLDS",
+    "workflow": ".github/workflows/ktoken-f-evidence.yml"
+   },
+   "form": "derived",
+   "path": "results.json",
+   "sha256": "dd1c8f5cbb7d547f26da400a1fc3d93e3ab49c4bf15bbd510cc24816e85d3a65",
+   "source_note": "source_sha256 is the digest of the whole job log (job 118705242073; 4103870 bytes, 41862 lines) as the download record of the extraction gives it; the extraction read every line of it",
+   "source_sha256": "1773a7bff2472fd2a3ab2c598bc83366134602ff35fdbf8bbbf2b5ea38428fc1"
+  },
+  {
+   "bytes": 39909,
+   "extraction": {
+    "attempt": 1,
+    "caveat": "the extractor commit is on a temporary branch whose root commit (2cbae144) is parentless and the extraction run's log is a host log; neither is reachable from main, as for results.json's extraction; they are provenance of this file, which a reproduction at the commit can check",
+    "event": "push",
+    "extract_result": {
+     "blob": "e6f69713bfffd1f1f9aca3c27bf26a689c994167",
+     "commit": "809fa9d6fc931d7a75027ad72d6d2d4b03b722a5"
+    },
+    "extractor_branch": "tmp/ktoken-f-evidence-20261020",
+    "extractor_commit": "2476089586115bc9ada6dcaf28a3fb84d1a40632",
+    "job": "118765675733",
+    "printed_canonical_sha256": "df45c30223bbb94c25847f605e0a5f49071ddd3c5bf99d7398ba48803a1431c9",
+    "run": "39462609898",
+    "verdict": "EXTRACT HOLDS",
+    "workflow": ".github/workflows/ktoken-f-evidence.yml"
+   },
+   "form": "derived",
+   "path": "cells.json",
+   "sha256": "df45c30223bbb94c25847f605e0a5f49071ddd3c5bf99d7398ba48803a1431c9",
+   "source_note": "read from two whole job logs as the download record of the extraction gives them: the bridge job's (job 118705242073; 4103870 bytes, 41862 lines; the same log results.json was read from) and the probe job's (job 118705242163; 17993 bytes, 223 lines). The frozen verdict was run on the bridge log in two forms: as downloaded (raw) and with the byte-order mark and each line's timestamp removed (stripped, 2889898 bytes). The verdict section is that run's output, recorded as printed: it is computed by executing the frozen controls.py against E's history in extraction run 39462609898, not read from the logs",
+   "source_sha256": {
+    "bridge_log_raw": "1773a7bff2472fd2a3ab2c598bc83366134602ff35fdbf8bbbf2b5ea38428fc1",
+    "bridge_log_stripped": "418bcc658633cbce336f757334e8bdc977cd0041a674a10019eb30a0f3cfd3bb",
+    "probe_log": "d6e494928d5f40653ec31f3a78c2b6dbd4c6042f53b1be4001b9951a315f27b5"
+   }
+  }
+ ],
+ "missing": [],
+ "round": "KTOKEN-MAXCONE-1",
+ "run": "39445227350",
+ "schema": "oi-e-run-record",
+ "version": 1
+}
