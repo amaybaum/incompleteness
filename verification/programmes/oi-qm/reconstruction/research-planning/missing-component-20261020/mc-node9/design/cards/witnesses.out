@@ -1,0 +1,54 @@
+== deck 3R1B, A=['a1', 'a2'], B=['b1', 'b2']: closure {'status': 'FIXED POINT', 'depth': 6} ==
+    |Prep(AB)| = 1, |Prep(A)| = 4; extreme AB = 1; budget-pure AB (no pair decomposition in Prep(AB)) = 1
+    M1 witnesses: extreme AB with mixed A-marginal = 1; budget-pure AB with pair-decomposable A-marginal = 1
+    witness P(a1=R) values: ['3/4']
+    sample witness (depth 4): psi_AB = {RRRB:1/4, RRBR:1/4, RBRR:1/4, BRRR:1/4}
+      A-marginal = {RR:1/2, RB:1/4, BR:1/4}, P(a1=R) = 3/4
+      A-marginal = 3/4 * {RR:1/3, RB:1/3, BR:1/3} + 1/4 * {RR:1}  (weight in branch probs: True)
+  protocol: reveal the top 0 deck cards; herald on 0 R + 0 B revealed (Pr = 1); deal a1,a2,b1,b2
+  prepared psi = {RRRB:1/4, RRBR:1/4, RBRR:1/4, BRRR:1/4}; extreme in conv(Prep(AB)): True; P(a1=R) = 3/4
+== deck 3R2B, A=['a1', 'a2'], B=['b1', 'b2']: closure {'status': 'FIXED POINT', 'depth': 8} ==
+    |Prep(AB)| = 3, |Prep(A)| = 8; extreme AB = 2; budget-pure AB (no pair decomposition in Prep(AB)) = 2
+    M1 witnesses: extreme AB with mixed A-marginal = 2; budget-pure AB with pair-decomposable A-marginal = 2
+    witness P(a1=R) values: ['1/2', '3/4']
+    sample witness (depth 5): psi_AB = {RRRB:1/4, RRBR:1/4, RBRR:1/4, BRRR:1/4}
+      A-marginal = {RR:1/2, RB:1/4, BR:1/4}, P(a1=R) = 3/4
+      A-marginal = 3/4 * {RR:1/3, RB:1/3, BR:1/3} + 1/4 * {RR:1}  (weight in branch probs: True)
+  protocol: reveal the top 1 deck cards; herald on 0 R + 1 B revealed (Pr = 2/5); deal a1,a2,b1,b2
+  prepared psi = {RRRB:1/4, RRBR:1/4, RBRR:1/4, BRRR:1/4}; extreme in conv(Prep(AB)): True; P(a1=R) = 3/4
+== deck 3R3B, A=['a1', 'a2'], B=['b1', 'b2']: closure {'status': 'FIXED POINT', 'depth': 9} ==
+    |Prep(AB)| = 6, |Prep(A)| = 11; extreme AB = 3; budget-pure AB (no pair decomposition in Prep(AB)) = 3
+    M1 witnesses: extreme AB with mixed A-marginal = 3; budget-pure AB with pair-decomposable A-marginal = 3
+    witness P(a1=R) values: ['1/2', '1/4', '3/4']
+    sample witness (depth 6): psi_AB = {RRRB:1/4, RRBR:1/4, RBRR:1/4, BRRR:1/4}
+      A-marginal = {RR:1/2, RB:1/4, BR:1/4}, P(a1=R) = 3/4
+      A-marginal = 3/4 * {RR:1/3, RB:1/3, BR:1/3} + 1/4 * {RR:1}  (weight in branch probs: True)
+  protocol: reveal the top 2 deck cards; herald on 0 R + 2 B revealed (Pr = 1/5); deal a1,a2,b1,b2
+  prepared psi = {RRRB:1/4, RRBR:1/4, RBRR:1/4, BRRR:1/4}; extreme in conv(Prep(AB)): True; P(a1=R) = 3/4
+== deck 4R1B, A=['a1', 'a2'], B=['b1', 'b2']: closure {'status': 'FIXED POINT', 'depth': 8} ==
+    |Prep(AB)| = 3, |Prep(A)| = 5; extreme AB = 2; budget-pure AB (no pair decomposition in Prep(AB)) = 2
+    M1 witnesses: extreme AB with mixed A-marginal = 1; budget-pure AB with pair-decomposable A-marginal = 1
+    witness P(a1=R) values: ['3/4']
+    sample witness (depth 5): psi_AB = {RRRB:1/4, RRBR:1/4, RBRR:1/4, BRRR:1/4}
+      A-marginal = {RR:1/2, RB:1/4, BR:1/4}, P(a1=R) = 3/4
+      A-marginal = 1/4 * {RR:1} + 3/4 * {RR:1/3, RB:1/3, BR:1/3}  (weight in branch probs: True)
+  protocol: reveal the top 1 deck cards; herald on 1 R + 0 B revealed (Pr = 4/5); deal a1,a2,b1,b2
+  prepared psi = {RRRB:1/4, RRBR:1/4, RBRR:1/4, BRRR:1/4}; extreme in conv(Prep(AB)): True; P(a1=R) = 3/4
+== deck 4R2B, A=['a1', 'a2'], B=['b1', 'b2']: closure {'status': 'FIXED POINT', 'depth': 9} ==
+    |Prep(AB)| = 6, |Prep(A)| = 10; extreme AB = 3; budget-pure AB (no pair decomposition in Prep(AB)) = 3
+    M1 witnesses: extreme AB with mixed A-marginal = 2; budget-pure AB with pair-decomposable A-marginal = 2
+    witness P(a1=R) values: ['1/2', '3/4']
+    sample witness (depth 6): psi_AB = {RRRB:1/4, RRBR:1/4, RBRR:1/4, BRRR:1/4}
+      A-marginal = {RR:1/2, RB:1/4, BR:1/4}, P(a1=R) = 3/4
+      A-marginal = 1/4 * {RR:1} + 3/4 * {RR:1/3, RB:1/3, BR:1/3}  (weight in branch probs: True)
+  protocol: reveal the top 2 deck cards; herald on 1 R + 1 B revealed (Pr = 8/15); deal a1,a2,b1,b2
+  prepared psi = {RRRB:1/4, RRBR:1/4, RBRR:1/4, BRRR:1/4}; extreme in conv(Prep(AB)): True; P(a1=R) = 3/4
+== deck 5R1B, A=['a1', 'a2'], B=['b1', 'b2']: closure {'status': 'FIXED POINT', 'depth': 10} ==
+    |Prep(AB)| = 4, |Prep(A)| = 6; extreme AB = 2; budget-pure AB (no pair decomposition in Prep(AB)) = 2
+    M1 witnesses: extreme AB with mixed A-marginal = 1; budget-pure AB with pair-decomposable A-marginal = 1
+    witness P(a1=R) values: ['3/4']
+    sample witness (depth 6): psi_AB = {RRRB:1/4, RRBR:1/4, RBRR:1/4, BRRR:1/4}
+      A-marginal = {RR:1/2, RB:1/4, BR:1/4}, P(a1=R) = 3/4
+      A-marginal = 1/2 * {RR:2/3, RB:1/6, BR:1/6} + 1/2 * {RR:1/3, RB:1/3, BR:1/3}  (weight in branch probs: True)
+  protocol: reveal the top 2 deck cards; herald on 2 R + 0 B revealed (Pr = 2/3); deal a1,a2,b1,b2
+  prepared psi = {RRRB:1/4, RRBR:1/4, RBRR:1/4, BRRR:1/4}; extreme in conv(Prep(AB)): True; P(a1=R) = 3/4

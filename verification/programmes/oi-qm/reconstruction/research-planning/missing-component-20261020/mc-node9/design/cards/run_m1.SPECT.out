@@ -1,0 +1,73 @@
+== variant SPECT ==
+  SPECT deck=0R3B  A=1 B=1 FIXED POINT@ 3 nodes=    20 W=4/4    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=1R2B  A=1 B=1 FIXED POINT@ 4 nodes=    46 W=4/4    nonexch=0 |PAB|=  3 ext=  0 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=2R1B  A=1 B=1 FIXED POINT@ 4 nodes=    46 W=4/4    nonexch=0 |PAB|=  3 ext=  0 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=3R0B  A=1 B=1 FIXED POINT@ 3 nodes=    20 W=4/4    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=0R4B  A=1 B=1 FIXED POINT@ 4 nodes=    28 W=4/4    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=0R4B  A=1 B=2 FIXED POINT@ 4 nodes=    48 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=0R4B  A=2 B=1 FIXED POINT@ 4 nodes=    48 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=1R3B  A=1 B=1 FIXED POINT@ 6 nodes=    81 W=4/4    nonexch=0 |PAB|=  4 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=1R3B  A=1 B=2 FIXED POINT@ 6 nodes=   131 W=8/8    nonexch=0 |PAB|=  3 ext=  0 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=1R3B  A=2 B=1 FIXED POINT@ 6 nodes=   131 W=8/8    nonexch=0 |PAB|=  3 ext=  0 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=2R2B  A=1 B=1 FIXED POINT@ 5 nodes=    95 W=4/4    nonexch=0 |PAB|=  6 ext=  0 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=2R2B  A=1 B=2 FIXED POINT@ 5 nodes=   153 W=8/8    nonexch=0 |PAB|=  3 ext=  0 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=2R2B  A=2 B=1 FIXED POINT@ 5 nodes=   153 W=8/8    nonexch=0 |PAB|=  3 ext=  0 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=3R1B  A=1 B=1 FIXED POINT@ 6 nodes=    81 W=4/4    nonexch=0 |PAB|=  4 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=3R1B  A=1 B=2 FIXED POINT@ 6 nodes=   131 W=8/8    nonexch=0 |PAB|=  3 ext=  0 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=3R1B  A=2 B=1 FIXED POINT@ 6 nodes=   131 W=8/8    nonexch=0 |PAB|=  3 ext=  0 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=4R0B  A=1 B=1 FIXED POINT@ 4 nodes=    28 W=4/4    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=4R0B  A=1 B=2 FIXED POINT@ 4 nodes=    48 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=4R0B  A=2 B=1 FIXED POINT@ 4 nodes=    48 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=0R5B  A=1 B=1 FIXED POINT@ 4 nodes=    36 W=4/4    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=0R5B  A=1 B=2 FIXED POINT@ 5 nodes=    64 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=0R5B  A=2 B=1 FIXED POINT@ 5 nodes=    64 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=0R5B  A=2 B=2 FIXED POINT@ 5 nodes=   112 W=16/16  nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=1R4B  A=1 B=1 FIXED POINT@ 8 nodes=   124 W=4/4    nonexch=0 |PAB|=  5 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=1R4B  A=1 B=2 FIXED POINT@ 8 nodes=   210 W=8/8    nonexch=0 |PAB|=  4 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=1R4B  A=2 B=1 FIXED POINT@ 8 nodes=   210 W=8/8    nonexch=0 |PAB|=  4 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=1R4B  A=2 B=2 FIXED POINT@ 8 nodes=   346 W=16/16  nonexch=0 |PAB|=  3 ext=  0 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=2R3B  A=1 B=1 FIXED POINT@ 8 nodes=   165 W=4/4    nonexch=0 |PAB|=  8 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=2R3B  A=1 B=2 FIXED POINT@ 8 nodes=   278 W=8/8    nonexch=0 |PAB|=  6 ext=  0 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=2R3B  A=2 B=1 FIXED POINT@ 8 nodes=   278 W=8/8    nonexch=0 |PAB|=  6 ext=  0 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=2R3B  A=2 B=2 FIXED POINT@ 8 nodes=   452 W=16/16  nonexch=0 |PAB|=  3 ext=  0 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=3R2B  A=1 B=1 FIXED POINT@ 8 nodes=   165 W=4/4    nonexch=0 |PAB|=  8 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=3R2B  A=1 B=2 FIXED POINT@ 8 nodes=   278 W=8/8    nonexch=0 |PAB|=  6 ext=  0 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=3R2B  A=2 B=1 FIXED POINT@ 8 nodes=   278 W=8/8    nonexch=0 |PAB|=  6 ext=  0 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=3R2B  A=2 B=2 FIXED POINT@ 8 nodes=   452 W=16/16  nonexch=0 |PAB|=  3 ext=  0 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=4R1B  A=1 B=1 FIXED POINT@ 8 nodes=   124 W=4/4    nonexch=0 |PAB|=  5 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=4R1B  A=1 B=2 FIXED POINT@ 8 nodes=   210 W=8/8    nonexch=0 |PAB|=  4 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=4R1B  A=2 B=1 FIXED POINT@ 8 nodes=   210 W=8/8    nonexch=0 |PAB|=  4 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=4R1B  A=2 B=2 FIXED POINT@ 8 nodes=   346 W=16/16  nonexch=0 |PAB|=  3 ext=  0 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=5R0B  A=1 B=1 FIXED POINT@ 4 nodes=    36 W=4/4    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=5R0B  A=1 B=2 FIXED POINT@ 5 nodes=    64 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=5R0B  A=2 B=1 FIXED POINT@ 5 nodes=    64 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=5R0B  A=2 B=2 FIXED POINT@ 5 nodes=   112 W=16/16  nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=0R6B  A=1 B=1 FIXED POINT@ 5 nodes=    44 W=4/4    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=0R6B  A=1 B=2 FIXED POINT@ 5 nodes=    80 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=0R6B  A=2 B=1 FIXED POINT@ 5 nodes=    80 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=0R6B  A=2 B=2 FIXED POINT@ 6 nodes=   144 W=16/16  nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=1R5B  A=1 B=1 FIXED POINT@10 nodes=   175 W=4/4    nonexch=0 |PAB|=  6 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=1R5B  A=1 B=2 FIXED POINT@10 nodes=   305 W=8/8    nonexch=0 |PAB|=  5 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=1R5B  A=2 B=1 FIXED POINT@10 nodes=   305 W=8/8    nonexch=0 |PAB|=  5 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=1R5B  A=2 B=2 FIXED POINT@10 nodes=   521 W=16/16  nonexch=0 |PAB|=  4 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=2R4B  A=1 B=1 FIXED POINT@ 9 nodes=   247 W=4/4    nonexch=0 |PAB|= 10 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=2R4B  A=1 B=2 FIXED POINT@ 9 nodes=   431 W=8/8    nonexch=0 |PAB|=  8 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=2R4B  A=2 B=1 FIXED POINT@ 9 nodes=   431 W=8/8    nonexch=0 |PAB|=  8 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=2R4B  A=2 B=2 FIXED POINT@ 9 nodes=   731 W=16/16  nonexch=0 |PAB|=  6 ext=  0 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=3R3B  A=1 B=1 FIXED POINT@ 9 nodes=   274 W=4/4    nonexch=0 |PAB|= 11 ext=  2 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=3R3B  A=1 B=2 FIXED POINT@ 9 nodes=   477 W=8/8    nonexch=0 |PAB|= 10 ext=  0 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=3R3B  A=2 B=1 FIXED POINT@ 9 nodes=   477 W=8/8    nonexch=0 |PAB|= 10 ext=  0 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=3R3B  A=2 B=2 FIXED POINT@ 9 nodes=   805 W=16/16  nonexch=0 |PAB|=  6 ext=  0 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=4R2B  A=1 B=1 FIXED POINT@ 9 nodes=   247 W=4/4    nonexch=0 |PAB|= 10 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=4R2B  A=1 B=2 FIXED POINT@ 9 nodes=   431 W=8/8    nonexch=0 |PAB|=  8 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=4R2B  A=2 B=1 FIXED POINT@ 9 nodes=   431 W=8/8    nonexch=0 |PAB|=  8 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=4R2B  A=2 B=2 FIXED POINT@ 9 nodes=   731 W=16/16  nonexch=0 |PAB|=  6 ext=  0 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=5R1B  A=1 B=1 FIXED POINT@10 nodes=   175 W=4/4    nonexch=0 |PAB|=  6 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=5R1B  A=1 B=2 FIXED POINT@10 nodes=   305 W=8/8    nonexch=0 |PAB|=  5 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=5R1B  A=2 B=1 FIXED POINT@10 nodes=   305 W=8/8    nonexch=0 |PAB|=  5 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=5R1B  A=2 B=2 FIXED POINT@10 nodes=   521 W=16/16  nonexch=0 |PAB|=  4 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=6R0B  A=1 B=1 FIXED POINT@ 5 nodes=    44 W=4/4    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=6R0B  A=1 B=2 FIXED POINT@ 5 nodes=    80 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=6R0B  A=2 B=1 FIXED POINT@ 5 nodes=    80 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SPECT deck=6R0B  A=2 B=2 FIXED POINT@ 6 nodes=   144 W=16/16  nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SUMMARY SPECT: realizations=71 parked=0 with M1 witness=0 (of which |Prep(AB)|>1: 0); witnesses giving P(a1=R)=3/4 in: []

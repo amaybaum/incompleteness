@@ -1,0 +1,89 @@
+== variant NDP ==
+  NDP   deck=0R2B  A=1 B=1 FIXED POINT@ 2 nodes=     8 W=4/4    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=1R1B  A=1 B=1 FIXED POINT@ 3 nodes=    20 W=4/4    nonexch=6 |PAB|=  3 ext=  2 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=2R0B  A=1 B=1 FIXED POINT@ 2 nodes=     8 W=4/4    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=0R3B  A=1 B=1 FIXED POINT@ 3 nodes=    12 W=4/4    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=0R3B  A=1 B=2 FIXED POINT@ 3 nodes=    20 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=0R3B  A=2 B=1 FIXED POINT@ 3 nodes=    20 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=1R2B  A=1 B=1 FIXED POINT@ 4 nodes=    48 W=4/4    nonexch=19 |PAB|=  7 ext=  3 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=1R2B  A=1 B=2 FIXED POINT@ 4 nodes=    94 W=8/8    nonexch=48 |PAB|=  7 ext=  3 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=1R2B  A=2 B=1 FIXED POINT@ 4 nodes=    94 W=8/8    nonexch=48 |PAB|=  7 ext=  3 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=2R1B  A=1 B=1 FIXED POINT@ 4 nodes=    48 W=4/4    nonexch=19 |PAB|=  7 ext=  3 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=2R1B  A=1 B=2 FIXED POINT@ 4 nodes=    94 W=8/8    nonexch=48 |PAB|=  7 ext=  3 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=2R1B  A=2 B=1 FIXED POINT@ 4 nodes=    94 W=8/8    nonexch=48 |PAB|=  7 ext=  3 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=3R0B  A=1 B=1 FIXED POINT@ 3 nodes=    12 W=4/4    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=3R0B  A=1 B=2 FIXED POINT@ 3 nodes=    20 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=3R0B  A=2 B=1 FIXED POINT@ 3 nodes=    20 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=0R4B  A=1 B=1 FIXED POINT@ 3 nodes=    16 W=4/4    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=0R4B  A=1 B=2 FIXED POINT@ 4 nodes=    28 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=0R4B  A=2 B=1 FIXED POINT@ 4 nodes=    28 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=0R4B  A=2 B=2 FIXED POINT@ 4 nodes=    48 W=16/16  nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=1R3B  A=1 B=1 FIXED POINT@ 6 nodes=    85 W=4/4    nonexch=37 |PAB|= 10 ext=  3 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=1R3B  A=1 B=2 FIXED POINT@ 6 nodes=   187 W=8/8    nonexch=106 |PAB|= 15 ext=  4 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=1R3B  A=2 B=1 FIXED POINT@ 6 nodes=   187 W=8/8    nonexch=106 |PAB|= 15 ext=  4 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=1R3B  A=2 B=2 FIXED POINT@ 6 nodes=   383 W=16/16  nonexch=252 |PAB|= 15 ext=  4 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=2R2B  A=1 B=1 FIXED POINT@ 6 nodes=   118 W=4/4    nonexch=62 |PAB|= 16 ext=  4 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=2R2B  A=1 B=2 FIXED POINT@ 6 nodes=   281 W=8/8    nonexch=186 |PAB|= 27 ext=  6 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=2R2B  A=2 B=1 FIXED POINT@ 6 nodes=   281 W=8/8    nonexch=186 |PAB|= 27 ext=  6 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=2R2B  A=2 B=2 FIXED POINT@ 6 nodes=   607 W=16/16  nonexch=454 |PAB|= 27 ext=  6 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=3R1B  A=1 B=1 FIXED POINT@ 6 nodes=    85 W=4/4    nonexch=37 |PAB|= 10 ext=  3 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=3R1B  A=1 B=2 FIXED POINT@ 6 nodes=   187 W=8/8    nonexch=106 |PAB|= 15 ext=  4 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=3R1B  A=2 B=1 FIXED POINT@ 6 nodes=   187 W=8/8    nonexch=106 |PAB|= 15 ext=  4 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=3R1B  A=2 B=2 FIXED POINT@ 6 nodes=   383 W=16/16  nonexch=252 |PAB|= 15 ext=  4 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=4R0B  A=1 B=1 FIXED POINT@ 3 nodes=    16 W=4/4    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=4R0B  A=1 B=2 FIXED POINT@ 4 nodes=    28 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=4R0B  A=2 B=1 FIXED POINT@ 4 nodes=    28 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=4R0B  A=2 B=2 FIXED POINT@ 4 nodes=    48 W=16/16  nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=0R5B  A=1 B=1 FIXED POINT@ 4 nodes=    20 W=4/4    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=0R5B  A=1 B=2 FIXED POINT@ 4 nodes=    36 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=0R5B  A=2 B=1 FIXED POINT@ 4 nodes=    36 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=0R5B  A=2 B=2 FIXED POINT@ 5 nodes=    64 W=16/16  nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=1R4B  A=1 B=1 FIXED POINT@ 8 nodes=   131 W=4/4    nonexch=60 |PAB|= 13 ext=  3 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=1R4B  A=1 B=2 FIXED POINT@ 8 nodes=   307 W=8/8    nonexch=183 |PAB|= 22 ext=  4 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=1R4B  A=2 B=1 FIXED POINT@ 8 nodes=   307 W=8/8    nonexch=183 |PAB|= 22 ext=  4 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=1R4B  A=2 B=2 FIXED POINT@ 8 nodes=   685 W=16/16  nonexch=475 |PAB|= 31 ext=  5 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=2R3B  A=1 B=1 FIXED POINT@ 8 nodes=   212 W=4/4    nonexch=118 |PAB|= 22 ext=  4 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=2R3B  A=1 B=2 FIXED POINT@ 8 nodes=   557 W=8/8    nonexch=392 |PAB|= 51 ext=  7 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=2R3B  A=2 B=1 FIXED POINT@ 8 nodes=   557 W=8/8    nonexch=392 |PAB|= 51 ext=  7 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=2R3B  A=2 B=2 FIXED POINT@ 8 nodes=  1364 W=16/16  nonexch=1086 |PAB|= 81 ext= 10 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=3R2B  A=1 B=1 FIXED POINT@ 8 nodes=   212 W=4/4    nonexch=118 |PAB|= 22 ext=  4 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=3R2B  A=1 B=2 FIXED POINT@ 8 nodes=   557 W=8/8    nonexch=392 |PAB|= 51 ext=  7 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=3R2B  A=2 B=1 FIXED POINT@ 8 nodes=   557 W=8/8    nonexch=392 |PAB|= 51 ext=  7 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=3R2B  A=2 B=2 FIXED POINT@ 8 nodes=  1364 W=16/16  nonexch=1086 |PAB|= 81 ext= 10 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=4R1B  A=1 B=1 FIXED POINT@ 8 nodes=   131 W=4/4    nonexch=60 |PAB|= 13 ext=  3 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=4R1B  A=1 B=2 FIXED POINT@ 8 nodes=   307 W=8/8    nonexch=183 |PAB|= 22 ext=  4 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=4R1B  A=2 B=1 FIXED POINT@ 8 nodes=   307 W=8/8    nonexch=183 |PAB|= 22 ext=  4 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=4R1B  A=2 B=2 FIXED POINT@ 8 nodes=   685 W=16/16  nonexch=475 |PAB|= 31 ext=  5 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=5R0B  A=1 B=1 FIXED POINT@ 4 nodes=    20 W=4/4    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=5R0B  A=1 B=2 FIXED POINT@ 4 nodes=    36 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=5R0B  A=2 B=1 FIXED POINT@ 4 nodes=    36 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=5R0B  A=2 B=2 FIXED POINT@ 5 nodes=    64 W=16/16  nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=0R6B  A=1 B=1 FIXED POINT@ 5 nodes=    24 W=4/4    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=0R6B  A=1 B=2 FIXED POINT@ 5 nodes=    44 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=0R6B  A=2 B=1 FIXED POINT@ 5 nodes=    44 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=0R6B  A=2 B=2 FIXED POINT@ 5 nodes=    80 W=16/16  nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=1R5B  A=1 B=1 FIXED POINT@10 nodes=   186 W=4/4    nonexch=88 |PAB|= 16 ext=  3 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=1R5B  A=1 B=2 FIXED POINT@10 nodes=   454 W=8/8    nonexch=279 |PAB|= 29 ext=  4 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=1R5B  A=2 B=1 FIXED POINT@10 nodes=   454 W=8/8    nonexch=279 |PAB|= 29 ext=  4 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=1R5B  A=2 B=2 FIXED POINT@10 nodes=  1068 W=16/16  nonexch=763 |PAB|= 46 ext=  5 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=2R4B  A=1 B=1 FIXED POINT@10 nodes=   330 W=4/4    nonexch=193 |PAB|= 30 ext=  4 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=2R4B  A=1 B=2 FIXED POINT@10 nodes=   914 W=8/8    nonexch=667 |PAB|= 71 ext=  7 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=2R4B  A=2 B=1 FIXED POINT@10 nodes=   914 W=8/8    nonexch=667 |PAB|= 71 ext=  7 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=2R4B  A=2 B=2 FIXED POINT@10 nodes=  2401 W=16/16  nonexch=1970 |PAB|=140 ext= 11 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=3R3B  A=1 B=1 FIXED POINT@10 nodes=   380 W=4/4    nonexch=228 |PAB|= 33 ext=  4 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=3R3B  A=1 B=2 FIXED POINT@10 nodes=  1090 W=8/8    nonexch=816 |PAB|= 88 ext=  8 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=3R3B  A=2 B=1 FIXED POINT@10 nodes=  1090 W=8/8    nonexch=816 |PAB|= 88 ext=  8 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=3R3B  A=2 B=2 FIXED POINT@10 nodes=  2971 W=16/16  nonexch=2494 |PAB|=192 ext= 14 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=4R2B  A=1 B=1 FIXED POINT@10 nodes=   330 W=4/4    nonexch=193 |PAB|= 30 ext=  4 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=4R2B  A=1 B=2 FIXED POINT@10 nodes=   914 W=8/8    nonexch=667 |PAB|= 71 ext=  7 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=4R2B  A=2 B=1 FIXED POINT@10 nodes=   914 W=8/8    nonexch=667 |PAB|= 71 ext=  7 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=4R2B  A=2 B=2 FIXED POINT@10 nodes=  2401 W=16/16  nonexch=1970 |PAB|=140 ext= 11 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=5R1B  A=1 B=1 FIXED POINT@10 nodes=   186 W=4/4    nonexch=88 |PAB|= 16 ext=  3 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=5R1B  A=1 B=2 FIXED POINT@10 nodes=   454 W=8/8    nonexch=279 |PAB|= 29 ext=  4 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=5R1B  A=2 B=1 FIXED POINT@10 nodes=   454 W=8/8    nonexch=279 |PAB|= 29 ext=  4 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=5R1B  A=2 B=2 FIXED POINT@10 nodes=  1068 W=16/16  nonexch=763 |PAB|= 46 ext=  5 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=6R0B  A=1 B=1 FIXED POINT@ 5 nodes=    24 W=4/4    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=6R0B  A=1 B=2 FIXED POINT@ 5 nodes=    44 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=6R0B  A=2 B=1 FIXED POINT@ 5 nodes=    44 W=8/8    nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  NDP   deck=6R0B  A=2 B=2 FIXED POINT@ 5 nodes=    80 W=16/16  nonexch=0 |PAB|=  1 ext=  1 M1wit(ext)= 0 M1wit(bud)= 0 P(a1=R)=
+  SUMMARY NDP: realizations=87 parked=0 with M1 witness=0 (of which |Prep(AB)|>1: 0); witnesses giving P(a1=R)=3/4 in: []
