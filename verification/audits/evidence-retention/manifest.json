@@ -14561,18 +14561,12 @@
      "kind": "complete",
      "path": "job_outputs.py",
      "sha256": "4770c6ed790685be982cb6df5022a39fa9945acbb6f57e43c4caf790a1237842"
-    },
-    {
-     "bytes": 32767,
-     "kind": "complete",
-     "path": "build_tranche3.py",
-     "sha256": "be30ae0cacd148eadffd97c2177fda488c2943c25a9063a0b9d276728e59f649"
     }
    ],
    "id": "tranche3-record",
    "kind": "complete",
    "provenance": {
-    "source": "written for this archive: tranche 3's extractor, reproduction tool and comparator, and the script that cut the tranche"
+    "source": "written for this archive: tranche 3's extractor, reproduction tool and comparator"
    }
   },
   {
@@ -14670,38 +14664,6 @@
     }
    ],
    "run_id": "38454439833"
-  },
-  {
-   "citations": [],
-   "files": [
-    {
-     "bytes": 14649,
-     "kind": "complete",
-     "path": "build_research_runs.py",
-     "sha256": "42a553257362aa1f2ea7ae3324f4846d9746f5c83e20107840e1bcc992ba1d47"
-    }
-   ],
-   "id": "research-runs-record",
-   "kind": "complete",
-   "provenance": {
-    "source": "written for this archive: the script that cut the research-build entries"
-   }
-  },
-  {
-   "citations": [],
-   "files": [
-    {
-     "bytes": 11156,
-     "kind": "complete",
-     "path": "build_tranche4_objects.py",
-     "sha256": "c2b45ee9f5f80080a6d976de123273ca874e5f3ac1c3b5d2e213c301b2e0225e"
-    }
-   ],
-   "id": "tranche4-record",
-   "kind": "complete",
-   "provenance": {
-    "source": "written for this archive: the script that cut archive tranche 4 of the retained off-main objects (objects/manifest.json, which tranche-record pins, holds the objects)"
-   }
   },
   {
    "citations": [],
@@ -14897,22 +14859,6 @@
    "kind": "complete",
    "provenance": {
     "source": "the owner's decision that check_retention.py's PRIORITY_ALLOWLIST cites, and its supplement, read through the issues API"
-   }
-  },
-  {
-   "citations": [],
-   "files": [
-    {
-     "bytes": 18722,
-     "kind": "complete",
-     "path": "build_priority_runs.py",
-     "sha256": "a114015e40f1f5308515ea36290700575d52ee5936c4ead328885e1b72b5ec88"
-    }
-   ],
-   "id": "priority-runs-record",
-   "kind": "complete",
-   "provenance": {
-    "source": "written for this archive: the script that retained the tranche3 section's priority runs"
    }
   }
  ],

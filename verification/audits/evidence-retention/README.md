@@ -179,7 +179,7 @@ Frozen records also cite CI runs that no receipt or certificate attests: push ru
 | `runs/<run>/run.json` | the run's identity and outcome, selected fields of the runs API's answer | `derived`; `source_sha256` is the answer's digest |
 | `runs/<run>/jobs.json` | every job, with its attempt, conclusion and steps, from the jobs API's answer | `derived`, likewise |
 | `runs/<run>/expected.json` | for the 16 runs whose citing claims rest on what a job printed, that output, extracted by `job_outputs.py` from the served job log: the commit it holds at, the recipe that regenerates it, and the served text's line counts and digest | `derived` from the served log, whose digest is `source_sha256` |
-| `job_outputs.py`, `build_tranche3.py`, `build_priority_runs.py` | the extractor, reproduction tool and comparator for these outputs, the script that cut the tranche, and the script that retained the run ahead of its order | `complete`, hash-pinned |
+| `job_outputs.py` | the extractor, reproduction tool and comparator for these outputs | `complete`, hash-pinned |
 
 **Three kinds of output are retained.**
 - **The control-plane base check** (8 runs). These are its PASS, SKIP and FAIL lines, its header and its summary, such as `OK (mode B, 16 row(s), no failure)`. The header's REF is masked and kept beside the output as provenance. A push run's REF is its head. A pull-request run's REF is GitHub's synthetic merge, a commit not reachable from `main`. The expected result therefore records the merge's base and head, as the run's checkout reported them ("HEAD is now at 28ed5c98 Merge c6d94dda… into d08b932d…"). A reproduction rebuilds the merge from those two commits, both on `main`, under a new id.
@@ -330,8 +330,8 @@ Each needs a documented resolution in a later tranche: an expected result with a
 
 ## Frozen
 
-This archive is frozen (AGENTS §A.42 item 8). It is neither extended nor maintained, and its files stay
-as committed; the release gate's `evidence-archive` step pins this directory's tree id. What the sections
+This archive is frozen (AGENTS §A.42 item 8). It is neither extended nor maintained, and a change to it
+is an owner-authorized change of the tree id that the release gate's `evidence-archive` step pins. What the sections
 above describe as pending, queued or to be retained is the archive's state when it was frozen, not work
 to be done. The release gate no longer runs `check_retention.py` or `check_objects.py`. The tools still
 regenerate an archived expected result at its commit: `reproduce.py`, `job_outputs.py reproduce`, and the
