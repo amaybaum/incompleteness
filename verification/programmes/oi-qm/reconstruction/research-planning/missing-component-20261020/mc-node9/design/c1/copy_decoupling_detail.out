@@ -1,0 +1,7 @@
+(config, k) cases with an E/AV copy realization: 60; P/Y sites connected to any visible site: 6
+   (3, 'GL', 4, ((0, 1), (0, 2), (1, 2)), 'VHH', 4, 1, True)
+   (3, 'GL', 4, ((0, 1), (0, 2), (1, 2)), 'VHH', 5, 2, True)
+   (3, 'GL', 4, ((0, 1), (0, 2), (1, 2)), 'HVH', 3, 0, True)
+   (3, 'GL', 4, ((0, 1), (0, 2), (1, 2)), 'HVH', 5, 2, True)
+   (3, 'GL', 4, ((0, 1), (0, 2), (1, 2)), 'HHV', 3, 0, True)
+   (3, 'GL', 4, ((0, 1), (0, 2), (1, 2)), 'HHV', 4, 1, True)

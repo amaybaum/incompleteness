@@ -1,0 +1,54 @@
+[strict, relabelled outputs] n=2 ops=GL: configurations=0 (isomorphic duplicates skipped=0, visible dim over cap=0) max record-safe classes/level=0
+    k=1: record-safe designated matches: none
+    k=2: record-safe designated matches: none
+    k=3: record-safe designated matches: none
+    k=4: record-safe designated matches: none
+[strict, relabelled outputs] n=3 ops=GL: configurations=32 (isomorphic duplicates skipped=0, visible dim over cap=0) max record-safe classes/level=9
+    k=1: record-safe designated matches: AV read u_toy:2
+    k=2: record-safe designated matches: none
+    k=3: record-safe designated matches: none
+    k=4: record-safe designated matches: none
+      example k=1 AV read u_toy: edges=((0, 1), (0, 2)) Q=u1,P=u2;site1=V,site2=H;sites3..= ('(q,p)=(u0,v0),u=(0, 1)', (3, 0, 1, 5))
+      example k=1 AV read u_toy: edges=((0, 1), (0, 2)) Q=v1,P=u2;site1=V,site2=H;sites3..= ('(q,p)=(u0,v0),u=(0, 1)', (3, 0, 1, 5))
+[strict, relabelled outputs] n=4 ops=GL: configurations=256 (isomorphic duplicates skipped=0, visible dim over cap=256) max record-safe classes/level=81
+    k=1: record-safe designated matches: AH read u_toy:4, AV read u_toy:4
+    k=2: record-safe designated matches: AH read u_toy:2
+    k=3: record-safe designated matches: AH read u_toy:2, AH read v_toy:2
+    k=4: record-safe designated matches: AH read u_toy+v_toy:4
+      example k=1 AH read u_toy: edges=((0, 1), (0, 2), (0, 3)) Q=u1,P=u2;site1=V,site2=H;sites3..=H ('(q,p)=(u0,v0),u=(0, 1)', (4, 0, 1, 6))
+      example k=1 AH read u_toy: edges=((0, 1), (0, 2), (0, 3)) Q=v1,P=u2;site1=V,site2=H;sites3..=H ('(q,p)=(u0,v0),u=(0, 1)', (4, 0, 1, 6))
+      example k=1 AH read u_toy: edges=((0, 1), (0, 2), (0, 3), (2, 3)) Q=u1,P=u2;site1=V,site2=H;sites3..=H ('(q,p)=(u0,v0),u=(0, 1)', (4, 0, 1, 6))
+      example k=1 AV read u_toy: edges=((0, 1), (0, 2)) Q=u1,P=u2;site1=V,site2=H;sites3..=H ('(q,p)=(u0,v0),u=(0, 1)', (4, 0, 1, 6))
+      example k=1 AV read u_toy: edges=((0, 1), (0, 2)) Q=v1,P=u2;site1=V,site2=H;sites3..=H ('(q,p)=(u0,v0),u=(0, 1)', (4, 0, 1, 6))
+      example k=1 AV read u_toy: edges=((0, 1), (0, 2), (2, 3)) Q=u1,P=u2;site1=V,site2=H;sites3..=H ('(q,p)=(u0,v0),u=(0, 1)', (4, 0, 1, 6))
+      example k=2 AH read u_toy: edges=((0, 1), (0, 3), (2, 3)) Q=u1,P=v2;site1=V,site2=H;sites3..=H ('(q,p)=(u0,v0),u=(0, 1)', (7, 3, 1, 6))
+      example k=2 AH read u_toy: edges=((0, 1), (0, 3), (2, 3)) Q=v1,P=v2;site1=V,site2=H;sites3..=H ('(q,p)=(u0,v0),u=(0, 1)', (7, 3, 1, 6))
+      example k=3 AH read u_toy: edges=((0, 1), (0, 2), (0, 3)) Q=u1,P=u2;site1=V,site2=H;sites3..=H ('(q,p)=(u0,v0),u=(0, 1)', (3, 7, 1, 0))
+      example k=3 AH read u_toy: edges=((0, 1), (0, 2), (0, 3)) Q=v1,P=u2;site1=V,site2=H;sites3..=H ('(q,p)=(u0,v0),u=(0, 1)', (3, 7, 1, 0))
+      example k=3 AH read v_toy: edges=((0, 1), (1, 2), (1, 3), (2, 3)) Q=u1,P=u2;site1=V,site2=H;sites3..=H ('(q,p)=(u0,v0),u=(1, 0)', (7, 3, 1, 4))
+      example k=3 AH read v_toy: edges=((0, 1), (1, 2), (1, 3), (2, 3)) Q=v1,P=u2;site1=V,site2=H;sites3..=H ('(q,p)=(u0,v0),u=(1, 0)', (7, 3, 1, 4))
+      example k=4 AH read u_toy+v_toy: edges=((0, 1), (0, 2), (0, 3), (1, 2)) Q=u1,P=v2;site1=V,site2=H;sites3..=H ('(q,p)=(u0,v0),u=(1, 1)', (7, 3, 1, 4))
+      example k=4 AH read u_toy+v_toy: edges=((0, 1), (0, 2), (0, 3), (1, 2)) Q=v1,P=v2;site1=V,site2=H;sites3..=H ('(q,p)=(u0,v0),u=(1, 1)', (7, 3, 1, 4))
+      example k=4 AH read u_toy+v_toy: edges=((0, 1), (0, 2), (0, 3), (1, 3)) Q=u1,P=u2;site1=V,site2=H;sites3..=H ('(q,p)=(u0,v0),u=(1, 1)', (3, 7, 1, 4))
+[relaxed, relabelled outputs] n=2 ops=GL: configurations=4 (isomorphic duplicates skipped=0, visible dim over cap=0) max record-safe classes/level=0
+    k=1: record-safe designated matches: none
+    k=2: record-safe designated matches: none
+    k=3: record-safe designated matches: none
+    k=4: record-safe designated matches: none
+[relaxed, relabelled outputs] n=3 ops=GL: configurations=64 (isomorphic duplicates skipped=0, visible dim over cap=0) max record-safe classes/level=1
+    k=1: record-safe designated matches: none
+    k=2: record-safe designated matches: none
+    k=3: record-safe designated matches: none
+    k=4: record-safe designated matches: none
+[relaxed, relabelled outputs] n=4 ops=GL: configurations=752 (isomorphic duplicates skipped=960, visible dim over cap=336) max record-safe classes/level=21952
+    k=1: record-safe designated matches: none
+    k=2: record-safe designated matches: AH read u_toy:2, AH read v_toy:2
+    k=3: record-safe designated matches: AH read v_toy:2
+    k=4: record-safe designated matches: none
+      example k=2 AH read u_toy: edges=((0, 2), (0, 3), (1, 2)) ptrA:Q=u1,P=v1;sites2..=Hb ('(q,p)=(u0,v0),u=(0, 1)', (6, 2, 1, 5))
+      example k=2 AH read u_toy: edges=((0, 2), (0, 3), (1, 2), (1, 3)) ptrA:Q=u1,P=v1;sites2..=Hb ('(q,p)=(u0,v0),u=(0, 1)', (6, 2, 1, 5))
+      example k=2 AH read v_toy: edges=((0, 2), (1, 3)) ptrA:Q=u1,P=v1;sites2..=aH ('(q,p)=(u0,v0),u=(1, 0)', (0, 4, 2, 6))
+      example k=2 AH read v_toy: edges=((0, 2), (1, 3), (2, 3)) ptrA:Q=u1,P=v1;sites2..=aH ('(q,p)=(u0,v0),u=(1, 0)', (0, 4, 2, 6))
+      example k=3 AH read v_toy: edges=((0, 2), (1, 2)) ptrA:Q=u1,P=v1;sites2..=HV ('(q,p)=(u0,v0),u=(1, 0)', (2, 6, 1, 5))
+      example k=3 AH read v_toy: edges=((0, 2), (1, 2), (1, 3)) ptrA:Q=u1,P=v1;sites2..=HV ('(q,p)=(u0,v0),u=(1, 0)', (2, 6, 1, 5))
+elapsed 22.5s

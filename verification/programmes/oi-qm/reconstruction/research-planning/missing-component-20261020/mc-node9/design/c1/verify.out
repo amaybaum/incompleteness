@@ -1,0 +1,37 @@
+V1  elementary construction on (q, p, Q, P)
+ u = (1,0)
+  [PASS] bijective (invertible over F2)
+  [PASS] symplectic: omega(row_i,row_j) = J_ij for all i,j
+  [PASS] Q=0, P uniform, P discarded: joint law of (Q', h') equals R_u for all four h
+  [PASS] countercontrol P = 0 known: Q' = omega(u,h), h' = h (read without disturbance)
+  [PASS] countercontrol P = 1 known: h' = h + u, a known, deterministic shift
+ u = (0,1)
+  [PASS] bijective (invertible over F2)
+  [PASS] symplectic: omega(row_i,row_j) = J_ij for all i,j
+  [PASS] Q=0, P uniform, P discarded: joint law of (Q', h') equals R_u for all four h
+  [PASS] countercontrol P = 0 known: Q' = omega(u,h), h' = h (read without disturbance)
+  [PASS] countercontrol P = 1 known: h' = h + u, a known, deterministic shift
+ u = (1,1)
+  [PASS] bijective (invertible over F2)
+  [PASS] symplectic: omega(row_i,row_j) = J_ij for all i,j
+  [PASS] Q=0, P uniform, P discarded: joint law of (Q', h') equals R_u for all four h
+  [PASS] countercontrol P = 0 known: Q' = omega(u,h), h' = h (read without disturbance)
+  [PASS] countercontrol P = 1 known: h' = h + u, a known, deterministic shift
+V2  K-SYMP2 in the lattice conventions
+  [PASS] two-site update bijective
+  [PASS] two-site update symplectic
+  after two steps the visible site equals (v1, u1) of the input: True
+  [PASS] every record branch has probability 1/4 and hidden support 1 (< 2^1)
+  branches: 4; minimum hidden support 1; support bound 2^N = 2 broken
+    record (u0,v0 after step 1; u0,v0 after step 2) = (0, 0, 0, 0): hidden (u1,v1) = [(0, 0)] w.p. 1/4
+    record (u0,v0 after step 1; u0,v0 after step 2) = (0, 0, 1, 0): hidden (u1,v1) = [(0, 1)] w.p. 1/4
+    record (u0,v0 after step 1; u0,v0 after step 2) = (1, 0, 0, 1): hidden (u1,v1) = [(0, 0)] w.p. 1/4
+    record (u0,v0 after step 1; u0,v0 after step 2) = (1, 0, 1, 1): hidden (u1,v1) = [(0, 1)] w.p. 1/4
+V3  pairing obstruction for designated rows equal to the target, Q and P on different sites
+  [PASS] for all 192 placements (n = 3, 4) the target rows violate a symplectic pairing
+  [PASS] same-site Q,P (split pointer): target extended by identity is symplectic in all 36 cases
+V4  split-site exposure under one update step
+  [PASS] for all 284 (graph, site) cases at n <= 4: v'_x = u_x and u'_x = sum_(z~x) u_z + v_x
+  => a site with v_x visible exposes its hidden u_x exactly after one step;
+     a site with u_x visible exposes its hidden v_x masked only by its neighbours' u's.
+VERIFY: ALL PASS

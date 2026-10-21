@@ -1,0 +1,30 @@
+[brute, strict] n=2 ops=none
+    k=1: none
+    k=2: none
+    k=3: none
+    k=4: none
+[brute, strict] n=3 ops=none
+    k=1: AV read u_toy:2
+    k=2: none
+    k=3: none
+    k=4: none
+[brute, strict] n=4 ops=none
+    k=1: AH read u_toy:4, AV read u_toy:16
+    k=2: AH read u_toy:2
+    k=3: AH read u_toy:2
+    k=4: none
+[brute, relaxed] n=2 ops=none
+    k=1: none
+    k=2: none
+    k=3: none
+    k=4: none
+[brute, relaxed] n=3 ops=none
+    k=1: none
+    k=2: none
+    k=3: none
+    k=4: none
+[brute, relaxed] n=4 ops=none
+    k=1: none
+    k=2: AH read u_toy:1
+    k=3: none
+    k=4: none

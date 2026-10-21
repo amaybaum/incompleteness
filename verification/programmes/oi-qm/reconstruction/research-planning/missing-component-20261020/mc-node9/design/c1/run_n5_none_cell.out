@@ -1,0 +1,6 @@
+[strict] n=5 ops=none: configurations=16384 skipped(visible dim)=0 max record-safe classes/level=1
+    k=1: record-safe designated matches: none
+    k=2: record-safe designated matches: none
+    k=3: record-safe designated matches: none
+    k=4: record-safe designated matches: none
+[process was no longer running when checked (no error text captured); only the strict/none block completed; the unrelabelled n=5 search was not rerun -- the relabelled n=5 search, whose output assignments include the unrelabelled one, was run instead]

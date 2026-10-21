@@ -1,0 +1,9 @@
+[relaxed, relabelled outputs] n=5 ops=none: configurations=23936 (isomorphic duplicates skipped=107136, visible dim over cap=0) max record-safe classes/level=1
+    k=1: record-safe designated matches: none
+    k=2: record-safe designated matches: AH read u_toy:29
+    k=3: record-safe designated matches: none
+    k=4: record-safe designated matches: none
+      example k=2 AH read u_toy: edges=((0, 2), (0, 3), (1, 2)) ptrA:Q=u1,P=v1;sites2..=HbV ('(q,p)=(u0,v0),u=(0, 1)', (7, 2, 1, 6))
+      example k=2 AH read u_toy: edges=((0, 2), (0, 3), (1, 2)) ptrA:Q=u1,P=v1;sites2..=HbH ('(q,p)=(u0,v0),u=(0, 1)', (7, 2, 1, 6))
+      example k=2 AH read u_toy: edges=((0, 2), (0, 3), (1, 2)) ptrA:Q=u1,P=v1;sites2..=Hba ('(q,p)=(u0,v0),u=(0, 1)', (7, 2, 1, 6))
+elapsed 11.9s

@@ -1,0 +1,43 @@
+[strict] n=2 ops=none: configurations searched=0 skipped(dim)=0 max classes/level=0
+    k=1: configurations with a designated match by category: no designated match
+    k=2: configurations with a designated match by category: no designated match
+    k=3: configurations with a designated match by category: no designated match
+    k=4: configurations with a designated match by category: no designated match
+[strict] n=2 ops=cell: configurations searched=0 skipped(dim)=0 max classes/level=0
+    k=1: configurations with a designated match by category: no designated match
+    k=2: configurations with a designated match by category: no designated match
+    k=3: configurations with a designated match by category: no designated match
+    k=4: configurations with a designated match by category: no designated match
+[strict] n=3 ops=none: configurations searched=32 skipped(dim)=0 max classes/level=1
+    k=1: configurations with a designated match by category: no designated match
+    k=2: configurations with a designated match by category: no designated match
+    k=3: configurations with a designated match by category: no designated match
+    k=4: configurations with a designated match by category: no designated match
+[strict] n=3 ops=cell: configurations searched=32 skipped(dim)=0 max classes/level=16
+    k=1: configurations with a designated match by category: no designated match
+    k=2: configurations with a designated match by category: no designated match
+    k=3: configurations with a designated match by category: no designated match
+    k=4: configurations with a designated match by category: no designated match
+[relaxed] n=2 ops=none: configurations searched=4 skipped(dim)=0 max classes/level=1
+    k=1: configurations with a designated match by category: no designated match
+    k=2: configurations with a designated match by category: no designated match
+    k=3: configurations with a designated match by category: no designated match
+    k=4: configurations with a designated match by category: no designated match
+[relaxed] n=2 ops=cell: configurations searched=4 skipped(dim)=0 max classes/level=1
+    k=1: configurations with a designated match by category: no designated match
+    k=2: configurations with a designated match by category: no designated match
+    k=3: configurations with a designated match by category: no designated match
+    k=4: configurations with a designated match by category: no designated match
+[relaxed] n=3 ops=none: configurations searched=64 skipped(dim)=0 max classes/level=1
+    k=1: configurations with a designated match by category: no designated match
+    k=2: configurations with a designated match by category: no designated match
+    k=3: configurations with a designated match by category: no designated match
+    k=4: configurations with a designated match by category: no designated match
+[relaxed] n=3 ops=cell: configurations searched=64 skipped(dim)=0 max classes/level=1296
+    k=1: configurations with a designated match by category: no designated match
+    k=2: configurations with a designated match by category: no designated match
+    k=3: configurations with a designated match by category: no designated match
+    k=4: configurations with a designated match by category: AV/leak:2
+      example k=4 AV/leak: edges=((0, 2),) ptrA:Q=u1,P=v1;sites2..=V target (q,p)=(u0,v0),u=(1, 1)
+      example k=4 AV/leak: edges=((0, 2),) ptrB:Q=v1,P=u1;sites2..=V target (q,p)=(u0,v0),u=(1, 1)
+elapsed 0.2s

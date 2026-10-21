@@ -1,0 +1,70 @@
+[strict] n=2 ops=none: configs=0
+    k=1: E=0 AV=0 AH=0 none=0
+    k=2: E=0 AV=0 AH=0 none=0
+    k=3: E=0 AV=0 AH=0 none=0
+    k=4: E=0 AV=0 AH=0 none=0
+[strict] n=2 ops=cell: configs=0
+    k=1: E=0 AV=0 AH=0 none=0
+    k=2: E=0 AV=0 AH=0 none=0
+    k=3: E=0 AV=0 AH=0 none=0
+    k=4: E=0 AV=0 AH=0 none=0
+[strict] n=2 ops=GL: configs=0
+    k=1: E=0 AV=0 AH=0 none=0
+    k=2: E=0 AV=0 AH=0 none=0
+    k=3: E=0 AV=0 AH=0 none=0
+    k=4: E=0 AV=0 AH=0 none=0
+[strict] n=3 ops=none: configs=32
+    k=1: E=0 AV=0 AH=0 none=32
+    k=2: E=0 AV=0 AH=0 none=32
+    k=3: E=0 AV=0 AH=0 none=32
+    k=4: E=0 AV=0 AH=0 none=32
+[strict] n=3 ops=cell: configs=32
+    k=1: E=0 AV=0 AH=0 none=32
+    k=2: E=0 AV=0 AH=0 none=32
+    k=3: E=0 AV=0 AH=0 none=32
+    k=4: E=0 AV=0 AH=0 none=32
+[strict] n=3 ops=GL: configs=32
+    k=1: E=0 AV=0 AH=0 none=32
+    k=2: E=0 AV=0 AH=0 none=32
+    k=3: E=0 AV=0 AH=0 none=32
+    k=4: E=0 AV=0 AH=0 none=32
+[relaxed] n=2 ops=none: configs=4
+    k=1: E=0 AV=0 AH=0 none=4
+    k=2: E=0 AV=0 AH=0 none=4
+    k=3: E=0 AV=0 AH=0 none=4
+    k=4: E=0 AV=0 AH=0 none=4
+[relaxed] n=2 ops=cell: configs=4
+    k=1: E=0 AV=0 AH=0 none=4
+    k=2: E=0 AV=0 AH=0 none=4
+    k=3: E=0 AV=0 AH=0 none=4
+    k=4: E=0 AV=0 AH=0 none=4
+[relaxed] n=2 ops=GL: configs=4
+    k=1: E=0 AV=0 AH=0 none=4
+    k=2: E=0 AV=0 AH=0 none=4
+    k=3: E=0 AV=0 AH=0 none=4
+    k=4: E=0 AV=0 AH=0 none=4
+[relaxed] n=3 ops=none: configs=64
+    k=1: E=0 AV=0 AH=0 none=64
+    k=2: E=0 AV=0 AH=0 none=64
+    k=3: E=0 AV=0 AH=0 none=64
+    k=4: E=0 AV=0 AH=0 none=64
+[relaxed] n=3 ops=cell: configs=64
+    k=1: E=0 AV=0 AH=0 none=64
+    k=2: E=0 AV=0 AH=0 none=64
+    k=3: E=0 AV=0 AH=0 none=64
+    k=4: E=0 AV=2 AH=0 none=62
+    hit: k=4 AV edges=((0, 2),) ptrA others=V (q,p)=(u0,v0) u=(1, 1)
+    hit: k=4 AV edges=((0, 2),) ptrB others=V (q,p)=(u0,v0) u=(1, 1)
+[relaxed] n=3 ops=GL: configs=64
+    k=1: E=0 AV=0 AH=0 none=64
+    k=2: E=0 AV=0 AH=0 none=64
+    k=3: E=0 AV=0 AH=0 none=64
+    k=4: E=4 AV=6 AH=6 none=48
+    hit: k=4 E edges=((0, 2),) ptrA others=V (q,p)=(u0,v0) u=(1, 1)
+    hit: k=4 E edges=((0, 2),) ptrB others=V (q,p)=(u0,v0) u=(1, 1)
+    hit: k=4 E edges=((0, 2), (1, 2)) ptrA others=V (q,p)=(u0,v0) u=(1, 1)
+    hit: k=4 E edges=((0, 2), (1, 2)) ptrB others=V (q,p)=(u0,v0) u=(1, 1)
+    hit: k=4 AV edges=((0, 1),) ptrA others=V (q,p)=(u0,v0) u=(1, 0)
+    hit: k=4 AV edges=((0, 1), (0, 2)) ptrA others=V (q,p)=(u0,v0) u=(1, 0)
+    ... 10 hits in total
+elapsed 42.0s
