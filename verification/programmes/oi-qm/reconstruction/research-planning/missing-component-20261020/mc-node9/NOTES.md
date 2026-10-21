@@ -248,8 +248,11 @@ floating-point linear algebra and are a numerical cross-check of Clifford identi
   as exact purification on one fixed finite carrier (nodes 8 and 9) therefore asks the finite stage for a property the
   corpus places in the completion. Lemma F already makes the quantum values unattainable for finite rational models. A
   test consistent with the corpus asks whether purification holds in the limit along a declared family of finite
-  constructions (M5-A's A2 form), with approximation error going to 0. That limit and its convergence notion are open
-  design questions.
+  constructions (M5-A's A2 form). The limit and its convergence notion are specified in `design/limit/LIMIT-DESIGN.md`.
+  Enlarging a stabilizer-type family cannot make the error vanish. Every pure stabilizer state gives a fixed local Pauli
+  measurement only the probabilities 0, ½ or 1, so it misses the 3/4 witness by at least 1/4 at every size [rec, owner
+  2026-10-21: stabilizer density-matrix expansion]. A family reaching G2 must therefore be richer than stabilizer-type,
+  not merely larger.
 - *Literature named by the owner [Q, not read here; network-gated]:*
   - CDP 2011: purification implies no information without disturbance;
   - Chiribella, "Agents, subsystems, and the conservation of information";
