@@ -111,13 +111,20 @@ the same state in every test.**
   visible read-out sites, and (ii) the number of clean coordinates, stating for each whether its conjugate is also
   supplied clean. Coordinates are counted, not pairs: in the lattice two visible sites with one clean coordinate each
   and no clean pair can learn the toy. Counting clean coordinates suffices only for independent product preparations.
-  If correlated preparations are admitted, every known relation counts too. The declared initial information is the
-  constraint space A of the preparation, A s₀ = a, and its rank is the count. For example, the support {(0,0),(1,1)}
+  If correlated preparations are admitted, known relations count too. For preparations specified by affine
+  constraints, A s₀ = a, the initial constraint information is counted by rank A. More general preparations need
+  their actual support and probability law, because rank A misses nonlinear correlation. Example: (x, y, xy) with x
+  and y fair satisfies no nontrivial affine constraint (rank A = 0), yet retaining x and y determines the third bit
+  [rec, owner 2026-10-21; `design/emb/common-spec/aht.py`]. For example, the support {(0,0),(1,1)}
   has no clean coordinate, but its known parity x ⊕ y = 0 becomes a known-zero coordinate under the reversible map
   (x, y) ↦ (x, x ⊕ y) [rec, owner 2026-10-21; `design/emb/common-spec/aht.py`]. In the linear binary model, the target T s₀
   at a stated time, given A and the physically retained records H s₀ (never an external list of past observations), has
-  conditional support 2^(rank[A;H;T] − rank[A;H]). It is learnt exactly when the difference is 0 [rec, owner;
-  checked against enumeration in `design/emb/common-spec/aht.py`]. Coin cells (§1.2) are visible cells with no clean coordinate; they are not
+  conditional support 2^(rank[A;H;T] − rank[A;H]) under a uniform affine ensemble [rec, owner; checked against
+  enumeration in `design/emb/common-spec/aht.py`]. Write d_prior = rank[A;T] − rank A and d_posterior = rank[A;H;T]
+  − rank[A;H]. Then d_posterior = 0 means the retained memory determines the target. d_prior = 0 means the target was
+  determined without reading that memory, possibly by overwrite. d_prior − d_posterior is the information the
+  retained memory supplies about the target, in bits. "Learnt" means d_posterior = 0 with d_prior > 0, and the
+  common specification prints both dimensions. Coin cells (§1.2) are visible cells with no clean coordinate; they are not
   counted under (i), because no coupling step brings one into contact with the toy, a pointer or another record cell.
   Withholding any clean resource is a postulate. Neither count bounds what is learnt by itself: a second visible site
   with no clean coordinate can lift L1, and so can a second clean pair read through one site [rec, design/emb at

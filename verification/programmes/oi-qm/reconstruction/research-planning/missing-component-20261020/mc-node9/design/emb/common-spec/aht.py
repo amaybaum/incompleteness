@@ -49,8 +49,9 @@ def run(name,adj,toy,full,none,tmax=8):
             br.setdefault(h,set()).add(tt); pri.add(tt)
         sup=min(len(v) for v in br.values()); assert all(len(v)==2**d for v in br.values()), 'rank formula mismatch'
         assert len(pri)==2**dprior
-        print(f'  t={t}: rank[A;H;T]-rank[A;H] = {d} -> support {2**d} (enumerated {sup}); prior support {len(pri)}; '
-              + ('LEARNED' if d==0 and len(pri)==4 else ('overwrite point mass' if d==0 else '')))
+        print(f'  t={t}: d_prior = rank[A;T]-rank[A] = {dprior}, d_posterior = rank[A;H;T]-rank[A;H] = {d} '
+              f'(support {2**d}, enumerated {sup}); information from retained memory = {dprior-d} bit(s); '
+              + ('LEARNED' if d==0 and dprior>0 else ('determined without reading memory (overwrite)' if dprior==0 else '')))
 path_012={0:[1],1:[0,2],2:[1]}
 print('Path 0-1-2 (centre = site 1).')
 run("re-review's 'NONE in centre' reading", path_012, toy=2, full=0, none=1)
@@ -64,3 +65,10 @@ sup={(0,0),(1,1)}; img={(x,x^y) for x,y in sup}
 print('== correlated preparation: clean coordinates in', sorted(sup), ':', [i for i in (0,1) if len({s[i] for s in sup})==1],
       '; after (x,y)->(x,x^y):', sorted(img), 'clean coordinates', [i for i in (0,1) if len({s[i] for s in img})==1],
       '; rank(A) of the constraint x^y=0 is 1 before and after')
+# Owner's nonlinear control: (x, y, z) = (x, y, xy), x, y fair. No nontrivial affine constraint holds (rank A = 0),
+# yet retaining x, y determines z. rank(A) counts affine constraint information only.
+sup2={(x,y,x*y) for x in (0,1) for y in (0,1)}
+aff=[m for m in range(1,8) if len({bin(m & (s[0]|s[1]<<1|s[2]<<2)).count('1')%2 for s in sup2})==1]
+det=all(len({s[2] for s in sup2 if s[:2]==xy})==1 for xy in {s[:2] for s in sup2})
+print('== nonlinear correlation: support', sorted(sup2), '; nonzero affine constraints holding:', aff,
+      '; z determined by (x, y):', det)
