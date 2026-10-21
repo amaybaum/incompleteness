@@ -156,3 +156,102 @@ changes concern how the verdict text is generated and gated:
 
 The repaired run is `probe/p8s1.r1.run1.out` and `probe/p8s1.r1.run2.out`. `probe/CHANGES-r1.md` accounts for every
 line in which the repaired output differs from `p8s1.run1.out`.
+
+***
+
+**A-4. Retrospective clarification made after the step-1 results of `390e252f` and `d924b5bb` were seen
+(2026-10-21).** Recorded under PREREG §19's discrepancy procedure ("a later discrepancy is recorded, not repaired").
+Source: the independent review of `d924b5bb` (notes N1–N9); the scope was approved by the owner on 2026-10-21 and
+relayed by the coordinator. State of knowledge when A-4 was written: the complete step-1 outputs of `390e252f` and
+`d924b5bb`, both reviews and their scratch measurements, and one trial run of `probe/p8s1_r2.py`. A-4 is therefore not
+a preregistered choice. It changes no class, rule, criterion or decision clause of the preregistration, and no Pur-E or
+Pur-U outcome of the earlier runs. `PREREG.md`, A-1, A-2 and A-3 above, `probe/p8s1.py`, `probe/p8s1_r1.py` and their
+outputs are unchanged. The r1 output prints the digest of this file (`f0ab4db2…dcc04` at `d924b5bb`), which this entry
+changes; a byte-identical replay of `p8s1.r1.run1.out` is made from a checkout of `d924b5bb`.
+
+*1. Resource accounting across composition and discarding.*
+- **The composite marginals are the next budget.** Under A-2's reading a one-bit composite state is
+  ½(α₀ ⊗ β₀ + α₁ ⊗ β₁): a shared fair hidden bit s selects between two preparations of each copy, and on copy A both
+  come from one prior p at budget m, α_s = (k_s p + (2^m − k_s)(1 − p))/2^m with k_s ∈ {0..2^m}. Discarding B leaves
+  ½[(k₀p + (2^m − k₀)(1 − p)) + (k₁p + (2^m − k₁)(1 − p))]/2^m = (Kp + (2^{m+1} − K)(1 − p))/2^{m+1} with
+  K = k₀ + k₁, and K takes every value in {0..2^{m+1}}. For each prior the A-marginals of the composites are therefore
+  exactly that prior's budget-(m+1) grid, and over all priors they are the budget-(m+1) local set S_onebit(m+1) [W].
+  This is §2.2(a)'s embedding rule ("a 1/8 event selected by an independent fair coin becomes a 1/16 event, and the
+  randomizer costs resources") applied to the shared ancilla: s is one more hidden ancilla bit of A's preparation.
+- **Measured at m = 3** (`p8s1_r2.py`, check A4-MARG). The A-marginals of the 195769 composite states are 117 states,
+  equal as a set to S_onebit(4) (117), against 63 in S_onebit(3); S_onebit(3) is contained in them and 54 states are
+  added. For example P(h = 1) = 1/16 is a marginal and is not in S_onebit(3). The per-prior identity is also checked on
+  the grids at m = 0, 1, 2, 3 (23, 39, 63, 117 states).
+- **`composite_onebit`.** Its per-prior grid is {(k p + (8 − k)(1 − p))/8 : k = 0..8}: 8 = 2³ is written into the
+  function, and its arguments S_single and W are not read (check A4-GRID, an AST scan of the function body). The
+  composite it returns is the budget-3 composite whatever set is passed. Every call in step 1 passes the budget-3 set
+  and weights, so no printed result is affected; a call at another budget would silently return the budget-3
+  composite. The function is not changed.
+- **The accounting rule.** Composing at budget m and then discarding lands at budget m + 1. The step-1 local sets, as
+  counted (one declared budget per class, and "across the declared theory" as the union at m = 3), are therefore not
+  closed under discarding, which §2.2 lists among the allowed operations. Iterating the rule gives the union of the
+  budget-m local sets over m [W].
+- **Pur-E on the enlarged set is unchanged** (check A4-PURE-E). Against the pure composite states of the step-1
+  composite set, which are the four point-mass products (K-CL), with A-marginals 0 and 1, Pur-E holds for 2 of the
+  117 states and fails for 115; none of the 54 added states has a purification. The pure set of S_onebit(4), and the
+  enlarged R2 sets, were not computed.
+- **Closure, not completion.** Closure under the declared operations is the accounting rule above. It is distinct from
+  the topological completion of a state set in the operational norm, which would add limit states that no finite
+  budget prepares. That completion is not adopted. The convex-closure lines of step 1 remain the separate reading that
+  I-59 requires, and A-4 does not change them.
+- **Consequence.** The step-1 objects are the declared budget-3 sets and their composites; they cannot be read as a
+  complete operational theory closed under its own operations. The eight Pur-E/Pur-U answers of §6.10 are statements
+  about those declared sets and are unchanged.
+
+*2. The composition lemma [W].* Hypotheses, for a pair of local state sets S_A, S_B with mixing weights W and an
+allowed composite set S_AB:
+- (H1) every allowed composite state is either a product α ⊗ β with α ∈ S_A and β ∈ S_B, or a mixture
+  wπ + (1 − w)π′ with w ∈ W of two distinct allowed product states π, π′ (under A-2 every composite is
+  ½(α₀ ⊗ β₀ + α₁ ⊗ β₁), with ½ ∈ W);
+- (H2) every product α ⊗ β with α ∈ S_A and β ∈ S_B is an allowed composite state.
+
+*Claim.* Every pure composite state is a product of pure local states, so its marginals are pure. Hence no mixed local
+state has a purification.
+
+*Proof.* Let ψ be pure. By (H1) it is a product or a nontrivial W-mixture of two distinct allowed states; the second is
+excluded by purity (§2.2), so ψ = α ⊗ β. Suppose α is mixed: α = wα′ + (1 − w)α″ with w ∈ W and α′ ≠ α″ in S_A. By
+(H2), α′ ⊗ β and α″ ⊗ β are allowed; they are distinct, since their A-marginals differ; and
+ψ = w(α′ ⊗ β) + (1 − w)(α″ ⊗ β). Then ψ is not pure, a contradiction. The same argument applies to β. The A-marginal
+of ψ is α, which is pure. A purification of ρ is a pure composite state with A-marginal ρ, so ρ is pure. ∎
+
+- This is the finite-weight form of the standard fact that the extreme points of the minimal tensor product of two
+  state spaces are the products of extreme points [L]. The citation was not retrieved (network-gated) and is
+  unverified.
+- Scope: this model family, the one- and two-hidden-bit classes of §6.10 under A-2's shared-ancilla reading, at any
+  budget m, since composites keep A-2's form and products of allowed states stay allowed. It is not a statement about
+  other OI constructions, other composite rules, or other realization classes. The R2 composite lemma printed by
+  `p8s1_r1.py` is its instance with the R2 pure set measured by I-54-R2. K-CL checks one instance exhaustively, and
+  K8-SENS checks the same instance with k/8 priors.
+
+*3. Corrections to A-3's wording (review of `d924b5bb`, N3 and N4).* A-3 is not edited; these entries correct it.
+- **N3.** A-3 says that if either positive control fails "no purification line is printed". What is suppressed is every
+  realization purification line: those of the eight classes, of CL, and the summary lines. The K-PURPOS and
+  K-PURPOS-SPK fixture lines are printed before their checks run and are labelled as fixtures. In `p8s1_r2.py` the
+  same holds for the three added fixture lines.
+- **N4.** A-3 says "PREREG §19's table gives C2 only as …". That row is PREREG l. 264, in §3 ("OI premises available to
+  the derivations"), not in §19. A-3's quotation of §19 ("a later discrepancy is recorded, not repaired", l. 1310) is
+  correct.
+
+*Code repairs, in `probe/p8s1_r2.py`.* `probe/p8s1_r1.py` is kept as run. The classes, rules, criteria, computations
+and §6.10 verdict logic are those of `p8s1_r1.py`, except the Pur-U status of N2.
+- **N1.** K-PURPOS gains two Pur-U countercontrols on the production path (`onebit_grid_text`). With K-SWAP's
+  reversible maps removed, Pur-U must report "fails" and name (δ₀⊗δ₀, δ₀⊗δ₁). With pure composite states {d00, d11},
+  it must report "vacuous". In scratch copies, forcing the status to 'holds' fails K-PURPOS and voids §6.10. So do the
+  r1 rule (undecided counted as failing) and a vacuous branch returning 'holds'.
+- **N2.** A state with a purification that is not a product of point masses makes Pur-U 'undecided', not 'fails'. It
+  is not counted as failing, and the summary prints the status word. The fixture {d00, ½(d00 + d01)} must report
+  'undecided'. No production line reaches this branch.
+- **N5.** The A-3 statements that rested on review scratch work are computed after phase C as check lines that gate
+  nothing: K8-SENS (the k/8 prior sensitivity block: 63 → 19, 195769 → 22719 and 93585 → 38749 states; pure sets
+  unchanged), A3-CLC4-X1 (CL-C4 at x₀ = 1) and A3-COMP-U (the composite-level search with A idle, for K-SWAP and
+  CL-C4). A4-GRID, A4-MARG and A4-PURE-E compute item 1 above.
+- **N9.** The amendments digest line names A-3 and A-4, and the unused `c2_report` is removed.
+- N6, N7, N8 and the convex-closure text (F5 of the review of `390e252f`) are not addressed.
+
+The repaired run is `probe/p8s1.r2.run1.out` and `probe/p8s1.r2.run2.out`. `probe/CHANGES-r2.md` accounts for every
+line in which it differs from `p8s1.r1.run1.out`.
