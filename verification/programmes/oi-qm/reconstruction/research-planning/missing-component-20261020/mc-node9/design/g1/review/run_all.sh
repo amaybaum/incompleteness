@@ -13,4 +13,9 @@ grep -v '^time ' corr_main.raw > corr_main.out
 for s in exact_e direct_ctrl alph ident subfam extra; do
   python3 "$s.py" > "$s.out"
 done
+# Pre-freeze review of the H-LOC draft (REVIEW-HLOC-1860b961): lift algebra and n = 2 checks only;
+# none computes an n = 3 word, an n = 3 distribution or a re-costed metric.
+for s in lifts_b1 restrict kg1_local nearmiss; do
+  python3 "$s.py" > "$s.out"
+done
 rm -f corr_main.raw fd_full.pkl alph.pkl
