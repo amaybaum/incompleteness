@@ -86,3 +86,73 @@ Also fixed here, because the frozen text leaves them to the executor and they ar
 - **Visible ancillas.** The probe checks statically that φ and every coupling step read and write only x (x₁, x₂) and
   hidden cells; the visible ancillas are then relabelings of a register the observer already knows, and the
   transformation list is enumerated over the permutations of the core visible cells with that certificate printed.
+
+***
+
+**A-3. Retrospective clarification made after the step-1 results of `390e252f` were seen (2026-10-21).** Recorded
+under PREREG §19's discrepancy procedure ("a later discrepancy is recorded, not repaired"). Source: the independent
+review of `390e252f` (findings F1–F13); the repair scope was approved by the owner on 2026-10-21 and relayed by the
+coordinator. State of knowledge when A-3 was written: the complete step-1 output of `390e252f` (`probe/p8s1.run1.out`,
+`probe/p8s1.run2.out`) and the review's measurements. A-3 is therefore not a preregistered choice. It changes no class,
+rule, criterion or decision clause of the preregistration, and no Pur-E or Pur-U outcome of the original run.
+
+*Preserved unchanged.* `PREREG.md` (sha256 `ca5f9760…bf9dd`); A-1 and A-2 above; `probe/p8s1.py`,
+`probe/p8s1.run1.out` and `probe/p8s1.run2.out`. The first three lines of `probe/SHA256SUMS` are those of `390e252f`;
+the lines for the r1 files are appended after them. The original run prints the digest of this file
+(`6856df0d…5ebec` at `390e252f`), which this entry changes. A byte-identical replay of `p8s1.run1.out` is therefore
+made from a checkout of `390e252f`: `python3 -I -B p8s1.py` from `probe/`.
+
+Readings fixed by the code of `390e252f` and stated nowhere before the run:
+- **Denominator ≤ 8 (PREREG l. 588–589).** For one hidden bit, the priors are the Farey set F₈, all fractions a/n with
+  n ≤ 8 (23 priors). For (h₁, h₂), the priors are the joint priors with a common denominator n ≤ 8 (407 priors, 37 up
+  to relabeling). Sensitivity, measured by the review with priors on the k/8 grid instead: the one-bit preparable set
+  at m = 3 has 19 states instead of 63, the one-bit composites have 22719 states instead of 195769, and the R2 preparable
+  set at m = 3 has 38749 states instead of 93585. The pure sets are unchanged under both conventions: point masses at
+  m = 1, 2, 3, for the composites and for R2. Pur-U does not depend on the priors. Counts change, and no Pur-E or Pur-U
+  verdict changes. A per-entry Farey reading for the two-bit priors was not tested.
+- **C2.** PREREG §19's table gives C2 only as "memory persistence, Main.md:76", a physical-regime premise. The probe
+  of `390e252f` declared C2 "by the structural reading: every step is a bijection" and measured nothing. That reading
+  holds for every realization satisfying condition O, so the C2 part of the K-C1C4 control was vacuous. Bijectivity of
+  a step is also not persistence of a hidden record: ℛ₁ᵇ's destructive read is a bijection on Ω × fresh and overwrites
+  h. C2 is therefore recorded as **not checked**. The K-C1C4 printout states "C1, C3, C4 measured; C2 not checked". The
+  R1 witness candidates are the classes that pass C1, C3 and C4 in the tested protocols. That list characterizes the
+  tested realizations only and does not establish independence from all of C1–C4. An operational C2 check is to be
+  preregistered before any step-3 R1 line uses the list.
+- **CL-C4 at x₀ = 0 (F7).** A-2 fixes x₀ ∈ {0, 1}. Phase C of `390e252f` computed CL-C4's states, purifications and
+  Pur-U at x₀ = 0 only, so the counts printed for CL-C4 are those of x₀ = 0. I-58 prints full access at both values.
+  The review checked that at x₀ = 1 the collected reversible transformations act transitively on all four point masses
+  (x, h), so Pur-U also holds on the declared set of initial values.
+- **Pur-U on B alone (F8).** Pur-U is tested on B as a single system: a pair of purifications (a ⊗ δ_b, a ⊗ δ_b') is
+  connected iff a collected reversible transformation of B sends δ_b to δ_b'. The global φ also acts on A while U_B
+  runs. The witnesses found for K-SWAP and CL-C4 have two steps, so A undergoes φ² = id and is unaffected. The review's
+  composite-level search with A idle confirms Pur-U for both. For ℛ₁ and ℛ₂ the failures are unconnected pairs on B
+  alone.
+
+Code repairs, in `probe/p8s1_r1.py`; `probe/p8s1.py` is kept as run. The computations are those of `p8s1.py`; the
+changes concern how the verdict text is generated and gated:
+- **F1, Pur-E counted.** The Pur-E count and the "fails for N states" count are taken from the purification table:
+  a state passes iff at least one pure composite state has it as its A-marginal. They are no longer taken from the size
+  of the single-system pure set. Two positive controls gate section 6.10, and if either fails no purification line is
+  printed. K-PURPOS feeds K-SWAP's one-bit line generator the four point masses plus the correlated pure composite
+  state ½(δ₀₀ + δ₁₁); the reported count must rise from 2 to 3 of 63 and must name the mixed state P(h = 1) = ½.
+  K-PURPOS-SPK passes the Spekkens toy bit pair (SPK-orig, §6.5 reading; 60/30/1 states, 60 pure) through the same Pur-E
+  generator; it must report 7 of 7 A-states, the mixed state included, with 24 purifications. For R2 the Pur-E lines
+  are counted from the purification table of the composite pure set. That set, the 16 products of point masses, is
+  established analytically by the composite lemma, and the line prints the argument. Under A-2's reading every
+  composite state is ½(α₀ ⊗ β₀ + α₁ ⊗ β₁). With ½ among the weights it is mixed unless (α₀, β₀) = (α₁, β₁). A
+  product α ⊗ β with α = wα′ + (1 − w)α″ is the same mixture of the products α′ ⊗ β and α″ ⊗ β, so it is mixed unless
+  both factors are single-system pure. The single-system pure set is the point masses (I-54-R2), and products of point
+  masses are extreme.
+- **F2, Pur-U generated from the uniqueness checks.** Pur-U is tested only on states with two or more purifications.
+  For each such state the probe prints "connected pairs c of t" and names every pair of its purifications that no
+  collected reversible transformation of B connects. A state with exactly one purification is vacuous for Pur-U. A
+  state without a purification is a Pur-E failure and is not counted toward Pur-U. The hard-coded explanation "the
+  hidden cells are never written by any op or phi" is removed: φ = swap(h₁, h₂) and the destructive reads write hidden
+  cells, and waiting connects δ(0,1) and δ(1,0) in every R2 class (2 of 12 ordered pairs).
+- **F3.** The K-C1C4 block, the class lines and the R1-candidate list print "C2 not checked", as above.
+- **F9.** K-CL and I-54-R2 gate the lines that depend on them. `pur_line` scans each line against A-1's word list before
+  printing it and refuses a hit, which also fails A1-SCOPE. The final line states that HOLDS certifies the controls
+  only.
+
+The repaired run is `probe/p8s1.r1.run1.out` and `probe/p8s1.r1.run2.out`. `probe/CHANGES-r1.md` accounts for every
+line in which the repaired output differs from `p8s1.run1.out`.
