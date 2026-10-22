@@ -771,3 +771,79 @@ The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb
   - (i) and (ii) are added to PREREG §5 as K-POS and K-POS-RET, beside K-MEM4 (report 6) and K-MEM5 (report 7), and
     the four lines are added to M0's "required for retained" list. The owner recommended the controls; the draft is
     not frozen.
+
+## Owner direction after the open-items brief (2026-10-22)
+
+- *Recommended order.*
+  1. Manuscript correction.
+  2. An explicit conditional complex-QM benchmark.
+  3. Review and extension of the six-site memory construction.
+  4. A bounded model A calibration, if useful.
+  5. H-LOC only once its evidential value and cost are justified.
+- *Manuscript correction.* The owner read Bäcker–Beyer–Strunz. Their classical-memory condition is a quantum
+  instrument followed by channels conditioned on its classical outcome. That matches the instrument-realizing reading
+  of `design/bbs-check/`, so the swap counterexample no longer rests on a reconstruction.
+  - Draft PR #893 (branch `ccr-5e87695b-wcffoc`, from `main` at `af8c59d6`) replaces the implication with the open
+    bridge requirement at Main.md:702 and :704 and GR.md:601. It also corrects the dilation-sense Class C item at
+    Substratum.md:476, ch04:144 and FULL:1261, and the ROADMAP row.
+  - The rebuilt artifacts and local checks are listed on the PR.
+- *Corrections to the coordinator's open-items brief.*
+  - **Local tomography alone does not select QM.**
+    - Krumm–Müller also assume ball-shaped local state spaces, all local rotations, no-signalling, and a closed
+      connected reversible group with a genuine interaction.
+    - De la Torre et al. assume identical locally quantum (complex) units, local tomography, and continuous reversible
+      interaction with consistent extension to further systems.
+    - Adding local tomography to the existing real construction may make its assumptions incompatible rather than
+      complex. Locally indistinguishable states cannot be identified while an interaction that later distinguishes
+      them is retained (report 5's 12/25 bound).
+  - **Real stabilizer gates are not full real QM.** The N2 class (H, CZ, Paulis) is real Clifford. Two milestones stay
+    separate: supplying the quarter phase, and supplying operations beyond the Clifford/stabilizer sector. Reaching the
+    first does not reach the second.
+  - **A different sourcing map is additional mathematical structure, not automatically new physical dynamics.** A
+    self-coupling term does change the stated update. Before the substratum is altered, the freedom in the operational
+    map should be audited for consistency across preparations, interventions and composites.
+- *Disposition of the fork.*
+  - The real model is kept as a calibration, not an endpoint.
+  - Local tomography is an explicit hypothesis of a conditional reconstruction benchmark.
+  - Added phase structure is investigated through concrete implementations, with every added resource identified.
+  - The reconstruction target stays complex QM.
+- *Memory item: conditional construction found, closure unresolved.*
+  - The owner reports a six-site construction: fixed native dynamics supply a physical record, and its recording
+    back-action keeps the bound under the declared positions-only terminal readout. The correlated initial preparation
+    is assumed.
+  - The coordinator has not received this construction's report or checker, so it is unverified here.
+  - Next questions:
+    - whether declared resources can generate the correlated ready state;
+    - whether the record can be preserved, transferred and reused;
+    - whether heralding with actual back-action keeps the restriction;
+    - whether all jointly retained records stay compatible.
+- *Model A, decisions.*
+  - The primary exhaustive scope is n ≤ 2. n = 3 is optional corroboration after a cost estimate, not an automatic CI
+    requirement.
+  - Fix the preparation resources and operation alphabet before choosing *s_max* and *d_max*. A cap reached without a
+    completeness argument is PARKED or bounded evidence, never a general success or failure.
+  - The pointer policy and Π_ω need executable definitions, with native operations kept distinct from added interface
+    assumptions.
+  - The spectator-stability clause (S) is retained, which confirms item 7 of "Remaining before freeze".
+  - Q6: do not broaden M5 unless the extra statistics separate surviving candidates.
+  - Q7: mark M4 inapplicable to Option A.
+  - Q8/Q9: run the quote check and publish explicit exclusions.
+  - Verify the emb correction N1 by diff, and include the compatible-records proof in the baseline.
+  - Passing the four native controls (K-MEM4, K-MEM5, K-POS, K-POS-RET) validates the checker's sensitivity. It does
+    not prove closure.
+  - These decisions are applied to PREREG at its next revision, if model A is still to be executed.
+- *H-LOC (deferred).*
+  - A tie between genuinely inequivalent surviving classes refutes the unique-selection claim within the declared
+    family. It refutes neither locality nor OI. Equivalent descriptions are quotiented before ties are counted.
+  - A reduced test is independent evidence only if its target was not fixed by the results used to design it;
+    otherwise it is a consistency check.
+  - No 20–3,000 CPU-hour run without a pilot giving a credible cost estimate, and only if the result would change a
+    research decision.
+- *Reviews, by dependence.*
+  - First: PR #893 and the six-site construction.
+  - Then: model A's exact revised PREREG, if it is to be executed.
+  - The corrected card report and the H-LOC draft are reviewed before renewed use.
+  - Earlier report reviews get targeted checks of their consequential claims, not blanket replays.
+  - Literature-dependent controls stay gated: a freeze may carry an unresolved gate, but never counts it as verified.
+- *Parked.* Relativity stays parked. The book/card discrepancies are revisited when a current argument depends on
+  them. The network block does not set research order.
