@@ -1,0 +1,9 @@
+both whole-site support at t=3: 1
+(0,3) only whole-site support at t=3: 2
+(1,4) only whole-site support at t=3: 2
+neither whole-site support at t=3: 4
+positions-only (all visible u) support: 2
+momenta-only (all visible v) support: 2
+hidden (u1,v1) = (V0+V2, U0) on all 256 admissible states
+number of Lagrangian subspaces of F2^8 (formula): 2295
+Lagrangian readouts by hidden support (rank method): {2: 405, 4: 1890}

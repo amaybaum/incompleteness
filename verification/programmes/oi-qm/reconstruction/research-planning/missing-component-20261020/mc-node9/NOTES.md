@@ -669,14 +669,17 @@ The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb
       - a background-subtraction control for back-action.
     - It also agrees with the BBS-check counterexample (Main.md:60's swap with an initialized hidden slot) and with
       the emb finding that the lattice gives disturbance-free records.
-  - **Resource accounting (POSITIVE).** The information gained equals the clean resource spent. A uniform affine memory
-    of rank r gives H(hidden | visible) ≥ 2 − r, and the protocol attains equality. This is what PREREG §1.1's
-    clean-resource rule assumes (count clean coordinates and read-out sites as resources). Here it is attained by
-    native dynamics with no added operation, which is an independent check that the rule counts the right thing.
+  - **Resource accounting (POSITIVE, for this protocol).** In this protocol the information gained equals the known
+    memory relations supplied. A uniform affine memory of rank r gives H(hidden | visible) ≥ 2 − r, and the protocol
+    attains equality with native dynamics and no added operation. This agrees with PREREG §1.1's clean-resource rule,
+    which counts clean coordinates and read-out sites as resources. It is information accounting for this protocol,
+    not an irreversible expenditure: the evolution is periodic.
   - **Consequence for model A's M0 restriction (support ≥ 2ⁿ).**
-    - The witness violates M0 whenever a known visible memory pair is admitted. The native update cannot be the
-      source of the restriction; only a restriction on admitted memory preparations can be.
-    - This is the report's own conclusion, and it repeats K-SYMP2's.
+    - The witness violates M0 whenever a known visible memory pair is admitted, so the native update cannot be the
+      source of the restriction.
+    - A restriction has to govern the operational package as a whole: which memory preparations are admitted,
+      together with which records are jointly readable. Report 7 shows that a preparation restriction alone is
+      insufficient.
     - Recommendation: when PREREG is next revised, add the four-site witness as a countercontrol beside K-SYMP2, with
       the edge-removed run as its paired positive control (M0 "retained"). Its value over K-SYMP2 is the
       reconstruction clause. Not applied yet, since it is a change to a draft preregistration.
@@ -685,3 +688,57 @@ The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb
     - The two binary coordinates of a site are not shown to represent incompatible quantum observables, so learning
       both is not a violation of QM.
     - No post-measurement preparation is established.
+
+## Owner report 7, "Two partial memories and the role of compatible records" (2026-10-22), coordinator review
+
+- *Source.* The owner's read-only session, as an HTML report. The report's checker and its output are committed in
+  `design/owner-checks/report7/`.
+- *Verification.*
+  - The checker's sha256 `c23b790c…` and its output's sha256 `06a2e3e7…` match the report's stated hashes. A re-run
+    replay-matches byte for byte, in 7 CPU-seconds.
+  - `coordinator_report7_checks.py` was built from Main.md:290's rule on the graph (0, 1), (1, 2), (0, 3), (1, 4),
+    without the checker's code. It confirms:
+    - whole-site hidden support at t = 3: 1 with both memory edges, 2 with either one alone, 4 with neither;
+    - (u₁, v₁) = (V₀ ⊕ V₂, U₀) on all 256 admissible states;
+    - support 2 when only the visible u coordinates are read, or only the visible v coordinates;
+    - the number of Lagrangian subspaces of F₂⁸ from the formula Π(2ⁱ + 1) = 2,295, matching the report's
+      enumeration;
+    - by an independent rank method over all 2,295: 405 with support 2, 1,890 with support 4, none with 1 ✓.
+- *Findings [rec, owner report 7].*
+  - **Composed-memory countercontrol.** Two memories, each with one known coordinate (u₃ = u₄ = 0) and one fair
+    conjugate. The known constraints are isotropic, and neither memory pair is fully known. With both couplings, the
+    whole-site visible record determines the hidden pair and reconstructs every initially unknown bit.
+  - **Conditional theorem.** Assume a uniform affine preparation with isotropic known constraints, linear symplectic
+    evolution, and an isotropic jointly readable record space R on the visible sector. Then K = (A_t + R) ∩ H is
+    isotropic, so n hidden pairs keep support ≥ 2ⁿ. The deciding pair V₀ ⊕ V₂ and U₀ has pairing 1, so the
+    whole-site readout violates the record hypothesis. No maximal isotropic readout determines the hidden pair.
+  - **Narrowing.** The report narrows my report 6 statement that only a preparation restriction can enforce M0; that
+    statement is corrected in place above.
+- *Coordinator assessment.*
+  - **The theorem is the compatible-records argument already in this file**, from the owner on 2026-10-21 (section
+    "Owner inputs after revision 3", still marked to be reviewed). Report 7 adds two things:
+    - a written proof in the same three steps, which the coordinator checked: ⟨k, r′⟩ = 0 by sector,
+      ⟨a, r′⟩ = 0 by R's isotropy, and ⟨k₁, k₂⟩ = 0 by A_t's isotropy;
+    - a native exhaustive control.
+    So it is CONFIRMING for that argument. It also discharges part of that section's open review: the proof holds as
+    stated for the uniform affine class.
+  - **My report 6 statement was wrong.** The compatible-records argument had already made record compatibility a
+    hypothesis. Saying "only a preparation restriction can enforce M0" ignored it, and I should have caught that
+    before writing it.
+  - **Cross-link to the corpus surfaces (open, [arg]).** The isotropic condition rules out reading both coordinates
+    of any one visible site, since ⟨u_x, v_x⟩ = 1. The corpus's discrete realization reads whole sites (Main.md:292,
+    :316). Its continuum §3.1 marginalizes momenta (Main.md:216), and that matches the positions-only Lagrangian,
+    which keeps support 2 here.
+    - So the bound-preserving interface corresponds to the reading of Main.md:216, and whole-site access in §3.2
+      defeats it.
+    - Test-8 N4 found the same difference between the two passages. It is recorded and not edited.
+    - The two findings point the same way: the §3.1 reading preserves the knowledge bound and excludes the
+      polarization encoding, while the §3.2 reading supports neither.
+  - **Recommendation.** At the next PREREG revision, add both native witnesses as M0 countercontrols beside K-SYMP2:
+    - the four-site witness (fails preparation isotropy);
+    - the five-site witness (isotropic preparation, fails record isotropy).
+    Add the positions-only readout as the paired positive control, where M0 must print "retained". Not applied, since
+    it is a change to a draft preregistration.
+  - **Scope.** The theorem is conditional on the uniform affine linear class, and the isotropic interface is not shown
+    to be OI's. The bound does not give amplitudes, contextuality, purification, the complex field or composition.
+    Learning both coordinates of a site is not shown to contradict QM.
