@@ -1,0 +1,17 @@
+Preregistered apparatus prediction for candidate C-SPH-1 (continuum, before the finite test is run).
+control: fast band reproduces (1 + cos alpha)/2 exactly in the continuum (quadrature residual shown)
+  X+/R  P_window(k=1) - (1+ca)/2 = 0.0   P_kappa(1) - (1+ca)/2 = 0.0
+  Y+/R  P_window(k=1) - (1+ca)/2 = 0.0   P_kappa(1) - (1+ca)/2 = 0.0
+  Z+/R  P_window(k=1) - (1+ca)/2 = 0.0   P_kappa(1) - (1+ca)/2 = 0.0
+  R+/X  P_window(k=1) - (1+ca)/2 = 0.0   P_kappa(1) - (1+ca)/2 = 0.0
+prediction: window-averaged first read past L/v (k = 5..8), and time-resolved at kappa = 1/2, 1/4
+  X+/R QM 0.9 | k=4 0.9  k=5 0.875  k=6 0.8125  k=7 0.73847665  k=8 0.68235552 | kappa=1/2 0.66449286 kappa=1/4 0.57298377
+  Y+/R QM 0.8 | k=4 0.8  k=5 0.75  k=6 0.65555697  k=7 0.61717769  k=8 0.59619469 | kappa=1/2 0.58811406 kappa=1/4 0.54071249
+  Z+/R QM 0.5 | k=4 0.5  k=5 0.5  k=6 0.5  k=7 0.5  k=8 0.5 | kappa=1/2 0.5 kappa=1/4 0.5
+  R+/X QM 0.9 | k=4 0.9  k=5 0.875  k=6 0.8125  k=7 0.73847665  k=8 0.68235552 | kappa=1/2 0.66449286 kappa=1/4 0.57298377
+prediction: relation-6 residual 1/2 P(X+) + 1/2 P(Y+) - 5/6 P(R+) - 1/6 P(X-), per menu axis
+  window 4: X 0.0  Y 3.69779e-32  Z -1.2326e-32  R -1.54074e-32
+  window 5: X 0.0208333  Y 0.0416667  Z -1.2326e-32  R -0.0416667
+  window 6: X 0.0729167  Y 0.120369  Z -1.2326e-32  R -0.130555
+  window 7: X 0.134603  Y 0.152352  Z -1.2326e-32  R -0.199093
+  window 8: X 0.18137  Y 0.169838  Z -1.2326e-32  R -0.246999
