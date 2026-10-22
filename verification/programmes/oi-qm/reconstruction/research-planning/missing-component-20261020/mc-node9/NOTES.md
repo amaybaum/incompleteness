@@ -847,3 +847,35 @@ The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb
   - Literature-dependent controls stay gated: a freeze may carry an unresolved gate, but never counts it as verified.
 - *Parked.* Relativity stays parked. The book/card discrepancies are revisited when a current argument depends on
   them. The network block does not set research order.
+
+## Conditional complex-QM benchmark: first deliverable (2026-10-22)
+
+- *Owner instruction.* Keep both routes side by side, and draft the unfrozen design note now.
+  `design/benchmark/BENCH-DESIGN.md` carries:
+  - the premise ledger:
+    - route K: GR §3.3's well-formedness K-W1/K-W2 plus K1–K3, with conclusion scope exact finite endomorphic
+      operational QM, and the K2′ primitive-source certificate;
+    - route L: L1–L6 as expanded by the owner, plus the coverage line L7;
+  - the theorem-dependency map;
+  - the proposed scoring rules;
+  - control scores for both routes.
+- *Owner corrections, applied.*
+  - The routes have different jobs.
+  - The baseline meaning of Native is frozen at `fc9018e8`, and later observer restrictions stay Added.
+  - An evidence column separates proof, bounded computation and assumption.
+  - The theorem verdict requires every hypothesis for the same candidate, interpretation and completion.
+  - Added premises are not counted as a distance from a derivation.
+  - The theorem and adoption verdicts are separate.
+  - The controls are corrected and separated: the classical bit fails d ≥ 2; the 12/25 bound is scoped; the real
+    Clifford class is distinguished from full real QM; stabilizer preparations and their closure are separated;
+    Spekkens and boxworld have their own rows, with named failed premises.
+  - The milestones are diagnostics D1–D5, not conclusions.
+- *Exact check.* `bench_controls_span.py` computes the product-effect span for four controls: 16 of 16 for complex QM
+  and the stabilizer theory, and 9 below the joint 10 for the rebit and the real Clifford class.
+- *Every kernel identifier the note cites* was confirmed present under `verification/lean-mathlib/OIBridge/`. No build
+  was run.
+- *Open before freeze:*
+  - the literature gate: quote the Krumm–Müller, de la Torre et al. and Gross et al. hypotheses;
+  - the rows marked [arg] or [open];
+  - the six-site construction's report and checker;
+  - then score the candidates.
