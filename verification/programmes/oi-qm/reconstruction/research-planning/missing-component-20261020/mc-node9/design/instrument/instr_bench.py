@@ -25,6 +25,11 @@ Tests (all exact; depth-bounded, so a PASS is evidence for the stated depth only
      discrimination of depth <= 3 between any two preparations does not exceed the quantum trace distance
      |r1 - r2|/2. It is computed exactly by recursion over unnormalized hidden-state measures,
      V_d(a, b) = max_m sum_o V_{d-1}(a|m,o; b|m,o) and V_0 = |mass(a) - mass(b)|/2, and compared on squares.
+  T5 preparation equivalence (owner review): preparation procedures with the same quantum state (the mixtures
+     Z-mix = (Z+ + Z-)/2, X-mix, Y-mix, all I/2, and XY-mix = (X+ + Y+)/2, equal to r_plus) must have optimal
+     depth-3 discrimination exactly 0 under the menu and every declared extra read, discard reads included.
+     A procedure's hidden law is its declared mixture; different hidden laws are allowed, observable differences
+     are not. Pairs whose components lie outside a partial model's preparations are reported as not scored.
 """
 from fractions import Fraction as F
 from itertools import product
@@ -103,6 +108,22 @@ class TripleCorr:
         p=(1+F(7,10)*x*y*z)/2
         return [(1,l,p),(0,l,1-p)]
 
+class TagLeak(Quantum):
+    """Countercontrol for T5 (owner review): correct instruments; the mixture procedures leave a procedure tag that a
+    declared discard read D reports (1 for Z-mix, 0 otherwise). Pure preparations carry no tag, so T1-T4 cannot see
+    it."""
+    name='countercontrol: procedure tag readable through a discard read'
+    extra={'D':None}
+    def prep(self,label): return {(PREPS[label],None):F(1)}
+    def procedure(self,proc):
+        out=defaultdict(F)
+        for l,w in PROCEDURES[proc].items(): out[(PREPS[l],'Z' if proc=='Z-mix' else None)]+=w
+        return dict(out)
+    def meas(self,m,state):
+        r,tag=state
+        if m=='D': return [(1 if tag=='Z' else 0,state,F(1))]
+        n=AX[m]; p=(1+dot(n,r))/2
+        return [(1,(n,tag),p),(0,(neg(n),tag),1-p)]
 class NegWeight(Quantum):
     """Mutation (owner review): signed weights on two distinct next states that cancel in every statistic. The
     ghost state carries the same Bloch vector, so its future statistics equal the true state's."""
@@ -167,6 +188,16 @@ def run(model,label,strat):
 def tv(a,b): return sum((abs(a.get(k,F(0))-b.get(k,F(0))) for k in set(a)|set(b)),F(0))/2
 def trace_dist_sq(r1,r2): return sum((a-b)**2 for a,b in zip(r1,r2))/4
 
+PROCEDURES={'Z-mix':{'Z+':F(1,2),'Z-':F(1,2)},'X-mix':{'X+':F(1,2),'X-':F(1,2)},'Y-mix':{'Y+':F(1,2),'Y-':F(1,2)},
+            'XY-mix':{'X+':F(1,2),'Y+':F(1,2)},'r_plus':{'r_plus':F(1)}}
+def bloch(proc): return tuple(sum((w*PREPS[l][i] for l,w in PROCEDURES[proc].items()),F(0)) for i in range(3))
+def procedure_law(model,proc):
+    if hasattr(model,'procedure'): return model.procedure(proc)
+    out=defaultdict(F)
+    for l,w in PROCEDURES[proc].items():
+        for h,p in model.prep(l).items(): out[h]+=w*p
+    return dict(out)
+
 def validity(model,menu,preps):
     """Explore every hidden state reachable from the declared preparations and check each kernel exactly."""
     seen=set(); stack=[]
@@ -176,6 +207,12 @@ def validity(model,menu,preps):
         if any(not isinstance(p,(F,int)) for p in d.values()): return 'non-exact weight in %s'%lab
         if any(p<0 for p in d.values()) or sum(d.values(),F(0))!=1: return 'preparation %s is not a probability distribution'%lab
         stack+=list(d)
+    for proc,comp in PROCEDURES.items():          # procedure laws are explored too (T5's hidden states)
+        if all(l in preps for l in comp):
+            d=procedure_law(model,proc)
+            if any(not isinstance(p,(F,int)) or p<0 for p in d.values()) or sum(d.values(),F(0))!=1:
+                return 'procedure %s is not a probability distribution'%proc
+            stack+=list(d)
     while stack:
         h=stack.pop()
         if h in seen: continue
@@ -244,33 +281,45 @@ def evaluate(model,ref=REF):
             assert isinstance(g,F)
             if g*g>trace_dist_sq(PREPS[a],PREPS[b]): w=w or (a,b,'optimal depth-3 gap',g)
     res['T4']=w
+    # T5: preparation equivalence between procedures with the same quantum state
+    w=None; scored=0
+    names=list(PROCEDURES)
+    for i_,a in enumerate(names):
+        for b in names[i_+1:]:
+            if bloch(a)!=bloch(b): continue
+            if not all(l in preps for l in list(PROCEDURES[a])+list(PROCEDURES[b])): continue
+            scored+=1
+            g=V(3,procedure_law(model,a),procedure_law(model,b))
+            if g!=0: w=w or (a,b,'optimal depth-3 gap',g)
+    res['T5']=w if scored else 'not scored'
     return res
 
 if __name__=='__main__':
     print(__doc__.strip().splitlines()[0])
     print('preparations',len(PREPS),'| menu',MENU,'| fixed sequences of length <= 3:',sum(4**L for L in (1,2,3)))
-    expect={'quantum reference':'VALID 10/10 PPPP',
-            'positive control: label + seed dilation (imports QM)':'VALID 10/10 PPPP',
-            'countercontrol: correct first read, no state update':'VALID 10/10 PFFF',
-            'countercontrol: R collapses to the X eigenstate':'VALID 10/10 PFFP',
-            'countercontrol: correct instruments plus an accessible preparation-label read':'VALID 10/10 PPPF',
-            'countercontrol: triple-correlation encoding, nondisturbing reads':'VALID 2/10 PFFF',
+    expect={'quantum reference':'VALID 10/10 PPPP P',
+            'positive control: label + seed dilation (imports QM)':'VALID 10/10 PPPP P',
+            'countercontrol: correct first read, no state update':'VALID 10/10 PFFF F',
+            'countercontrol: R collapses to the X eigenstate':'VALID 10/10 PFFP P',
+            'countercontrol: correct instruments plus an accessible preparation-label read':'VALID 10/10 PPPF F',
+            'countercontrol: triple-correlation encoding, nondisturbing reads':'VALID 2/10 PFFF -',
             'mutation: negative transition weights that cancel':'INVALID',
             'mutation: no preparations declared':'COVERAGE',
-            'restricted control: fresh-card instrument (menu XY, preparations X+-, Y+-)':'VALID 4/10 PPPP'}
+            'restricted control: fresh-card instrument (menu XY, preparations X+-, Y+-)':'VALID 4/10 PPPP P',
+            'countercontrol: procedure tag readable through a discard read':'VALID 10/10 PPPP F'}
     allok=True
-    MODELS=(Quantum(),LabelSeed(),NoCollapse(),WrongUpdate(),LabelLeak(),TripleCorr(),NegWeight(),EmptyPreps(),FreshCard())
+    MODELS=(Quantum(),LabelSeed(),NoCollapse(),WrongUpdate(),LabelLeak(),TripleCorr(),NegWeight(),EmptyPreps(),FreshCard(),TagLeak())
     for M in MODELS:
         r=evaluate(M)
         if r['gate']: got=r['gate'].split(':')[0]
-        else: got='VALID %s '%r['coverage'].split(' ')[0]+''.join('P' if r[t] is None else 'F' for t in ('T1','T2','T3','T4'))
+        else: got='VALID %s '%r['coverage'].split(' ')[0]+''.join('P' if r[t] is None else 'F' for t in ('T1','T2','T3','T4'))+' '+('-' if r['T5']=='not scored' else 'P' if r['T5'] is None else 'F')
         ok=got==expect[M.name]; allok&=ok
         print(('ok  ' if ok else 'BAD ')+M.name+': '+got+'  ['+r['coverage']+']'+('' if not r['gate'] else '  '+r['gate']))
-        for t in ('T1','T2','T3','T4'):
-            if r.get(t) is not None: print('      %s witness: %s'%(t,str(r[t])[:160]))
+        for t in ('T1','T2','T3','T4','T5'):
+            if r.get(t) not in (None,'not scored'): print('      %s witness: %s'%(t,str(r[t])[:160]))
     tgt,tvd,gap,eps,got,worst=card_R_obstruction()
     print('card R obstruction: targets',{k:str(v) for k,v in tgt.items()},'TV(X+,Y-) =',tvd,'required gap',gap)
     print('  minimum worst-case error >=',eps,'; witness response attains',worst,'with',{k:str(v) for k,v in got.items()})
     allok&= eps==F(1,10) and worst==F(1,10)
-    print('Only a VALID 10/10 PPPP row on menu XYZR can accept a candidate; restricted and partial rows never do.')
+    print('Only a VALID 10/10 PPPP P row on menu XYZR can accept a candidate; restricted and partial rows never do.')
     print('PASS: every model classified as declared.' if allok else 'FAIL: a control is misclassified; the benchmark is void.')

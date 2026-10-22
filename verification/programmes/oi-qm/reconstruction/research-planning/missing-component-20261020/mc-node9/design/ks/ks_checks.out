@@ -7,6 +7,8 @@ Part 2: finite disk grids, u = X+, n = R (cos alpha = 4/5): target 9/10
    M= 20:  1264 cells, P = 71/79, error = 1/790
    M= 80: 20108 cells, P = 9049/10054, error = 1/25135
 Part 3: conditional swap on the M=5 grid is injective: True ( 12800 images )
-        the system after outcome sigma is the lift of a fresh uniform seed around sigma*n, independent of
-        the old lambda, which sits in the dump register: the KS update rule realized by a bijection,
-        at the cost of one fresh disk seed per measurement and an inaccessible dump.
+        scope: a restricted ready-state domain (fresh seed), measurement along the preparation axis only;
+        not a permutation of a complete apparatus state space and not an implementation by OI dynamics.
+        The fresh seed lifted around sigma*n already incorporates the KS reset law: it implements the
+        reset, it does not derive it.
+Part 4: discard read E = [lambda_z^2 > lambda_x^2]: P(E|Z-mix) = sqrt(2)/2  P(E|X-mix) = 1 - sqrt(2)/2  gap = -1 + sqrt(2) ; quantum value 0 (both procedures are I/2)

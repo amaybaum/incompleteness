@@ -37,22 +37,25 @@
 | T1 | First read: every preparation and every menu measurement match the reference |
 | T2 | Repetition: m then m gives equal outcomes with probability 1 |
 | T3 | Switching, retained outcomes and feedback: every fixed sequence of length ≤ 3 gives the reference joint distribution. Along each outcome path an adaptive strategy applies one fixed sequence, so this covers every adaptive strategy of depth ≤ 3 |
+| T5 | Preparation equivalence (owner review): procedures with the same quantum state (Z-mix, X-mix, Y-mix, all I/2; XY-mix and r₊) must have optimal depth-3 discrimination exactly 0 under the menu and every declared extra read, discard reads included. Different hidden laws are allowed; observable differences are not |
 | T4 | Extra accessible reads: with the candidate's declared extra reads added, the optimal adaptive discrimination of depth ≤ 3 between any two preparations does not exceed the quantum trace distance \|r₁ − r₂\|/2. It is computed by exact recursion over unnormalized hidden-state measures and compared on squares |
 
 ## Controls and results
 
-| Model | Role | Gate and coverage | T1 T2 T3 T4 | Deciding witness |
+| Model | Role | Gate and coverage | T1 T2 T3 T4 T5 | Deciding witness |
 |---|---|---|---|---|
-| Quantum reference | reference | VALID 10/10, XYZR | P P P P | — |
-| Label + seed deterministic dilation | positive control (imports QM rules) | VALID 10/10, XYZR | P P P P | — |
-| Correct first read, no state update | countercontrol | VALID 10/10, XYZR | P F F F | X then X on Y+; X+ vs Y+ separated by 7/8 > √2/2 |
-| R collapses to the X eigenstate | countercontrol | VALID 10/10, XYZR | P F F P | R repetition on X+ fails with probability 1/10 |
-| Correct instruments plus an accessible label read | countercontrol | VALID 10/10, XYZR | P P P F | X+ vs r₊ separated by 1 > √2/4 |
-| Triple-correlation encoding (report 10) | partial countercontrol | VALID **2/10**, XYZR | P F F F | R repetition fails with probability 51/200; X then Y on r₊; r± separated by 1 > 1/√2 |
+| Quantum reference | reference | VALID 10/10, XYZR | P P P P P | — |
+| Label + seed deterministic dilation | positive control (imports QM rules) | VALID 10/10, XYZR | P P P P P | — |
+| Correct first read, no state update | countercontrol | VALID 10/10, XYZR | P F F F F | X then X on Y+; X+ vs Y+ separated by 7/8 > √2/2; Z-mix vs X-mix by 3/4 |
+| R collapses to the X eigenstate | countercontrol | VALID 10/10, XYZR | P F F P P | R repetition on X+ fails with probability 1/10 |
+| Correct instruments plus an accessible label read | countercontrol | VALID 10/10, XYZR | P P P F F | X+ vs r₊ separated by 1 > √2/4; XY-mix vs r₊ by 1 |
+| Triple-correlation encoding (report 10) | partial countercontrol | VALID **2/10**, XYZR | P F F F – | R repetition fails with probability 51/200; X then Y on r₊; r± separated by 1 > 1/√2 |
 | Negative weights that cancel (owner mutation) | gate countercontrol | **INVALID** | not reported | its statistics match the reference on all 840 sequence–preparation pairs, so only the gate catches it |
 | No preparations declared (owner mutation) | gate countercontrol | **COVERAGE** refused | not reported | — |
-| Fresh-card instrument (owner) | restricted positive control | VALID **4/10**, menu XY | P P P P | reading one coordinate replaces the other with a fresh card value, a counted resource |
+| Procedure tag readable through a discard read | T5 countercontrol | VALID 10/10, XYZR | P P P P F | passes T1–T4; Z-mix vs X-mix separated by 1, where QM requires 0 |
+| Fresh-card instrument (owner) | restricted positive control | VALID **4/10**, menu XY | P P P P P | reading one coordinate replaces the other with a fresh card value, a counted resource |
 
+- **The validity gate also explores procedure laws**, which are T5's hidden states.
 - **Positive control.** The label + seed dilation reproduces the reference exactly. Its purpose is to show that the
   checker accepts correct sequential behaviour. It is not a reconstruction or a candidate.
 - **Correction to my declared expectations.** My first table was wrong in two places:

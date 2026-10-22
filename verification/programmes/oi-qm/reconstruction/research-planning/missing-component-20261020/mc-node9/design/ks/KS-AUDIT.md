@@ -21,35 +21,45 @@
 
 ## The three gates
 
-**Gate 1, preparation mechanism: a mechanism is available, but its load-bearing choice is Added.**
-- The cosine law is what the counting measure gives on a planar cell grid perpendicular to u, lifted onto the facing
-  hemisphere. OI's counting measure (Main.md Lemma 3) would supply the uniformity.
-- The same counting measure on a different chart gives a different law. Uniform cells on the sphere give the earlier
-  uniform-direction construction, which fails.
-- So the law is chart-dependent. What carries the result is the choice of the projection plane as the chart, and
-  nothing in the baseline selects it.
-- **Assumption-watch marker:** *a counting measure fixes a law only together with its chart.*
+**Gate 1, preparation mechanism: open; the needed object is a physical preparation process.**
+- Relabelling a fixed finite set does not change its uniform counting measure. So the projected-area law is not a
+  matter of coordinates.
+- Uniform disk sampling and uniform sphere sampling assign different weights to physical directions. The second gives
+  the earlier uniform-direction construction, which fails.
+- **The question:** *what physically specified OI preparation process maps its initial counting measure into the
+  projected-area distribution?* Choosing convenient coordinates cannot answer it.
+- **Assumption-watch marker:** *a counting measure fixes a law over directions only through a physical map from the
+  counted configurations to the directions.*
 
-**Gate 2, recording mechanism: met by a declared bijection, with one fresh resource per measurement.**
-- **The interaction.** Measuring along n, the detector carries a fresh disk seed s. The interaction is a conditional
-  swap: σ = sign(n·λ) is recorded, the system receives the lift of s around σn, and the old λ moves into the
-  detector's dump register.
-- **What it achieves.** It is injective, so one declared dynamics produces both the outcome and the post-measurement
-  distribution μ_{σn}, which is independent of the old λ. No separate reset rule is inserted afterwards.
-- **The cost.** The KS caveat that the reset ignores the previous state becomes physical here: the previous state is
-  moved, not erased. That costs one fresh projected-area seed per measurement. This is the fresh-card and AP-1
-  resource, and it is Added.
+**Gate 2, recording mechanism: the reset is implemented, not derived.**
+- **The implementation.** A conditional swap with a fresh disk seed does it: record σ = sign(n·λ), give the system
+  the lift of the seed around σn, and move the old λ into a dump register. Moving the old state, rather than erasing
+  it, makes the implementation deterministic.
+- **Why this is not a derivation.** Supplying a fresh seed of exactly the projected-area law, and lifting it around
+  σn, already incorporates the KS reset law. The standard model supplies this re-preparation update, and its
+  explanatory status is a recognized limitation [Q, owner].
+- **What the check shows.** `ks_checks.py` Part 3 shows injectivity only on a restricted ready-state domain, with
+  measurement along the preparation axis. It is neither a permutation of a complete apparatus state space nor an
+  implementation by OI's dynamics.
 
-**Gate 3, access closure: holds only under two further Added premises.**
-- **(i) λ and the dump register are never readable.** A readable dump reveals the pre-measurement λ. That is a
-  label-leak failure, which D6's T4 catches: λ carries more than the quantum trace distance permits.
-- **(ii) A used detector is never reused unprepared.** Its seed register then holds a dumped λ, not a fresh disk seed.
-  A fixed finite device must therefore keep re-preparing, and by the finite recurrence lemma it cannot keep the
-  statistics at all late times without growing resources.
-- **Mixed preparations r±.** These are mixtures of pure preparations, for example ½μ_{X+} + ½μ_{Y+}, and different
-  decompositions give different hidden laws. The owner's rule permits this preparation dependence. T4 must then hold
-  for each declared decomposition. It does when λ and the dump register are inaccessible, since the menu statistics
-  equal QM.
+**Gate 3, access closure: stated operationally, with an exact witness.**
+- **Requirements:**
+  - every allowed read of the discard, and every later interaction, must preserve the claimed quantum statistics,
+    including equivalence between preparation procedures;
+  - reuse of a detector must restore the required apparatus distribution and independence, or carry a separate proof
+    that its statistics stay valid.
+  - "Never read a discard" and "never reuse a detector" are sufficient but stronger than necessary. A
+    finite-resource recurrence argument does not prohibit every bounded reuse protocol.
+- **Exact discard witness** (owner; Part 4, symbolic). Take the procedures Z-mix = ½μ_{+Z} + ½μ_{−Z} and
+  X-mix = ½μ_{+X} + ½μ_{−X}. Both are I/2, so quantum mechanics cannot distinguish them through the system and an
+  identically prepared, independent detector.
+  - A discard read E: λ_z² > λ_x² becomes the ellipse 2x² + y² < 1 on the preparation disk.
+  - P(E | Z-mix) = 1/√2 and P(E | X-mix) = 1 − 1/√2. The gap is √2 − 1, where quantum mechanics requires 0.
+- **Interpretation.** This does not forbid preparation contextuality, since different hidden laws are allowed. It
+  shows exactly which additional access would make the hidden difference observable.
+- **In the benchmark.** The ten-preparation T4 test does not cover this case. D6 therefore gains test T5,
+  preparation equivalence between procedures with the same quantum state, discard reads included, with its own
+  countercontrol (`../instrument/`).
 
 ## Boundaries, fixed in advance
 
@@ -60,16 +70,13 @@
 
 ## Verdict under the stop rule
 
-The construction is a **conditional calibration**:
-- the chart behind the preparation law is chosen to give QM's first-read statistics (Gate 1);
-- the recording interaction needs a fresh seed of exactly that law at every measurement, plus an inaccessible dump
-  (Gates 2–3).
+The construction is a **conditional calibration**. It shows that the desired measurement behaviour can be implemented
+with specified resources:
+- a preparation process supplying the projected-area law (Gate 1);
+- a fresh seed of that law at every recording (Gate 2);
+- discard and reuse rules that keep the statistics, preparation equivalence included (Gate 3).
 
-Each is a declared resource, not a consequence of the baseline. One question is left that would change this
-classification:
-
-> Does any chart that OI's finite substratum supplies for directions — a lattice projection, say — produce the
-> projected-area law without being chosen for it, together with a source of fresh seeds whose dump stays
-> inaccessible?
-
-No large implementation should start before that question has an answer.
+It does not explain why OI supplies them. The next investigation concerns preparation equivalence and detector access.
+A candidate specifies its preparation process, complete recording interaction, and every later apparatus operation
+together. A restriction such as C5 may limit these, but it must survive physical recording and reuse, not just declare
+the unwanted information inaccessible. No large implementation should start before then.

@@ -1143,9 +1143,10 @@ The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb
     boundary;
   - exact grid counts converge to 9/10, with error 1/790 at M = 20 and 1/25135 at M = 80.
 - *Gate results.*
-  - **Gate 1: Added.** The cosine law is the counting measure on a planar chart perpendicular to u. Nothing selects
-    the chart, and the uniform sphere chart fails. New assumption-watch marker: *a counting measure fixes a law only
-    together with its chart.*
+  - **Gate 1: open.** The needed object is a physical preparation process that maps the counting measure into the
+    projected-area law (corrected after owner review: relabelling a finite set does not change its counting
+    measure). Assumption-watch marker: *a counting measure fixes a law over directions only through a physical map
+    from the counted configurations to the directions.*
   - **Gate 2: met by a declared bijection.** A conditional swap with a fresh disk seed produces both the outcome and
     μ_{σn}, and the old λ moves into a dump register. It costs one fresh seed per measurement (AP-1/fresh-card).
   - **Gate 3: needs two Added premises.** The dump must be inaccessible, and a used detector must not be reused
@@ -1153,3 +1154,34 @@ The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb
 - *Verdict under the owner's stop rule:* conditional calibration. No large implementation. The one question that
   could change the classification is whether a chart supplied by OI's substratum gives the projected-area law
   without being chosen for it, together with a fresh-seed source whose dump stays inaccessible.
+
+## Owner review of the projected-area audit (2026-10-22), applied
+
+- *Verdict kept:* conditional calibration. The construction shows the behaviour can be implemented with specified
+  resources. It does not show that OI supplies them.
+- *Corrections, made in place in `design/ks/KS-AUDIT.md` and in the previous section.*
+  - **Gate 1.** The preparation choice is a physical preparation process, not a coordinate choice: relabelling does
+    not change a counting measure, while disk and sphere sampling weight physical directions differently. The marker
+    is reworded.
+  - **Gate 2.** The fresh seed lifted around σn implements the reset law; it does not derive it. Part 3's
+    injectivity holds on a restricted ready-state domain with measurement along the preparation axis. It is not a
+    permutation of a complete apparatus space or an implementation by OI's dynamics.
+  - **Gate 3.** Access is stated operationally. Allowed discard reads and later interactions must preserve the
+    statistics, preparation equivalence included. Reuse must restore the apparatus distribution and independence,
+    or carry a proof. Recurrence does not forbid bounded reuse.
+- *The owner's exact discard witness.* Z-mix and X-mix are both I/2. The discard read λ_z² > λ_x² gives 1/√2 and
+  1 − 1/√2, a gap of √2 − 1 where QM requires 0. It is checked symbolically in `ks_checks.py` Part 4, through the
+  ellipse 2x² + y² < 1.
+- *D6 gains T5, preparation equivalence.* `design/instrument/` now requires optimal depth-3 discrimination exactly 0
+  between procedures with the same quantum state, under every declared read, discard reads included:
+  - **Procedures:** Z-mix, X-mix and Y-mix, all I/2; and XY-mix, which equals r₊.
+  - **Countercontrol:** a procedure tag readable through a discard read passes T1–T4 and fails only T5, showing that
+    T4 does not cover this case.
+  - **Other rows:** the quantum reference, the label + seed dilation and the fresh-card control pass T5. The
+    no-collapse and label-leak models fail it. The wrong-update model passes it: its kernel is affine in the Bloch
+    vector, with a post-state independent of it. The partial triple-correlation row is not scored.
+  - **Expectations:** every T5 expectation was declared before the run and met.
+  - **Gate fix:** the validity gate now also explores procedure laws.
+- *Next (owner):* preparation equivalence and detector access. A candidate specifies its preparation process, complete
+  recording interaction, and every later apparatus operation together. A C5 restriction must survive physical
+  recording and reuse, not merely declare information inaccessible.

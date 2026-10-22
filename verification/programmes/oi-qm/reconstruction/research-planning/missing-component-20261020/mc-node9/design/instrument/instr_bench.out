@@ -1,24 +1,28 @@
 D6 instrument benchmark: a finite single-qubit instrument experiment, exact rational arithmetic.
 preparations 10 | menu ['X', 'Y', 'Z', 'R'] | fixed sequences of length <= 3: 84
-ok  quantum reference: VALID 10/10 PPPP  [10/10 preparations, menu XYZR]
-ok  positive control: label + seed dilation (imports QM): VALID 10/10 PPPP  [10/10 preparations, menu XYZR]
-ok  countercontrol: correct first read, no state update: VALID 10/10 PFFF  [10/10 preparations, menu XYZR]
+ok  quantum reference: VALID 10/10 PPPP P  [10/10 preparations, menu XYZR]
+ok  positive control: label + seed dilation (imports QM): VALID 10/10 PPPP P  [10/10 preparations, menu XYZR]
+ok  countercontrol: correct first read, no state update: VALID 10/10 PFFF F  [10/10 preparations, menu XYZR]
       T2 witness: ('X+', 'Y', Fraction(1, 2))
       T3 witness: ('Y+', ('X', 'X'))
       T4 witness: ('X+', 'Y+', 'optimal depth-3 gap', Fraction(7, 8))
-ok  countercontrol: R collapses to the X eigenstate: VALID 10/10 PFFP  [10/10 preparations, menu XYZR]
+      T5 witness: ('Z-mix', 'X-mix', 'optimal depth-3 gap', Fraction(3, 4))
+ok  countercontrol: R collapses to the X eigenstate: VALID 10/10 PFFP P  [10/10 preparations, menu XYZR]
       T2 witness: ('X+', 'R', Fraction(1, 10))
       T3 witness: ('X+', ('R', 'X'))
-ok  countercontrol: correct instruments plus an accessible preparation-label read: VALID 10/10 PPPF  [10/10 preparations, menu XYZR]
+ok  countercontrol: correct instruments plus an accessible preparation-label read: VALID 10/10 PPPF F  [10/10 preparations, menu XYZR]
       T4 witness: ('X+', 'r_plus', 'optimal depth-3 gap', Fraction(1, 1))
-ok  countercontrol: triple-correlation encoding, nondisturbing reads: VALID 2/10 PFFF  [2/10 preparations, menu XYZR]
+      T5 witness: ('XY-mix', 'r_plus', 'optimal depth-3 gap', Fraction(1, 1))
+ok  countercontrol: triple-correlation encoding, nondisturbing reads: VALID 2/10 PFFF -  [2/10 preparations, menu XYZR]
       T2 witness: ('r_plus', 'R', Fraction(51, 200))
       T3 witness: ('r_plus', ('X', 'Y'))
       T4 witness: ('r_plus', 'r_minus', 'optimal depth-3 gap', Fraction(1, 1))
-ok  mutation: negative transition weights that cancel: INVALID  [10/10 preparations, menu XYZR]  INVALID: negative transition weight at (Fraction(-1, 2), Fraction(-1, 2), Fract under X
+ok  mutation: negative transition weights that cancel: INVALID  [10/10 preparations, menu XYZR]  INVALID: negative transition weight at (Fraction(1, 2), Fraction(1, 2), Fractio under X
 ok  mutation: no preparations declared: COVERAGE  [0/10 preparations, menu XYZR]  COVERAGE: no preparations declared
-ok  restricted control: fresh-card instrument (menu XY, preparations X+-, Y+-): VALID 4/10 PPPP  [4/10 preparations, menu XY]
+ok  restricted control: fresh-card instrument (menu XY, preparations X+-, Y+-): VALID 4/10 PPPP P  [4/10 preparations, menu XY]
+ok  countercontrol: procedure tag readable through a discard read: VALID 10/10 PPPP F  [10/10 preparations, menu XYZR]
+      T5 witness: ('Z-mix', 'X-mix', 'optimal depth-3 gap', Fraction(1, 1))
 card R obstruction: targets {'X+': '9/10', 'X-': '1/10', 'Y+': '4/5', 'Y-': '1/5'} TV(X+,Y-) = 1/2 required gap 7/10
   minimum worst-case error >= 1/10 ; witness response attains 1/10 with {'X+': '4/5', 'X-': '1/5', 'Y+': '7/10', 'Y-': '3/10'}
-Only a VALID 10/10 PPPP row on menu XYZR can accept a candidate; restricted and partial rows never do.
+Only a VALID 10/10 PPPP P row on menu XYZR can accept a candidate; restricted and partial rows never do.
 PASS: every model classified as declared.

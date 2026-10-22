@@ -50,6 +50,17 @@ for axis_sign in (1,-1):
             if out in seen: inj=False
             seen[out]=(lamstate,s)
 print('Part 3: conditional swap on the M=5 grid is injective:',inj,'(',len(seen),'images )')
-print('        the system after outcome sigma is the lift of a fresh uniform seed around sigma*n, independent of')
-print('        the old lambda, which sits in the dump register: the KS update rule realized by a bijection,')
-print('        at the cost of one fresh disk seed per measurement and an inaccessible dump.')
+print('        scope: a restricted ready-state domain (fresh seed), measurement along the preparation axis only;')
+print('        not a permutation of a complete apparatus state space and not an implementation by OI dynamics.')
+print('        The fresh seed lifted around sigma*n already incorporates the KS reset law: it implements the')
+print('        reset, it does not derive it.')
+# ---- Part 4: owner's discard-access witness (exact) ----
+# Procedures Z-mix = (mu_{+Z} + mu_{-Z})/2 and X-mix, both quantum I/2. Discard read E: lambda_z^2 > lambda_x^2.
+# On the +Z preparation disk E is 1 - x^2 - y^2 > x^2, the ellipse 2x^2 + y^2 < 1.
+x=sp.symbols('x',real=True)
+area=sp.integrate(2*sp.sqrt(1-2*x**2),(x,-1/sp.sqrt(2),1/sp.sqrt(2)))
+PZ=sp.simplify(area/sp.pi)
+PX=sp.simplify(1-PZ)          # x <-> z symmetry: under X-mix, P(lambda_z^2 > lambda_x^2) = 1 - P(lambda_x^2 > lambda_z^2)
+print('Part 4: discard read E = [lambda_z^2 > lambda_x^2]: P(E|Z-mix) =',PZ,' P(E|X-mix) =',PX,
+      ' gap =',sp.nsimplify(sp.simplify(PZ-PX)),'; quantum value 0 (both procedures are I/2)')
+assert sp.simplify(PZ-1/sp.sqrt(2))==0 and sp.simplify(PZ-PX-(sp.sqrt(2)-1))==0
