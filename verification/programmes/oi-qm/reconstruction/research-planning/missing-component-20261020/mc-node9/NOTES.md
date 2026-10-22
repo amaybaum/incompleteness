@@ -1028,3 +1028,46 @@ The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb
     - the qualifications are cross-referenced to I-6 and I-20;
     - "arbitrarily close to 1 (99/100 tested)".
 - *Still open.* No re-review of this correction yet. The draft is not frozen.
+
+## Owner report, "Preparations, readouts and instruments" (2026-10-22), coordinator review
+
+- *Source.* An HTML report from the owner's read-only session. Its checker and output are committed in
+  `design/owner-checks/report10/`.
+- *Verification.*
+  - The checker's sha256 `760455f5…` and its output's sha256 `584d45f4…` match the report's stated values, and a
+    re-run replays byte for byte.
+  - `coordinator_report10_checks.py` is separate code. It builds the two-preparation first-read feasible set exactly,
+    as a zonotope, and tests the targets against its edges. Results:
+    - The correlated repair's target (17/20, 3/20) is infeasible. The maximum of P₊ − P₋/2 over the set is 3/4,
+      against 31/40, and (5/6, 1/6) is feasible.
+    - The independent product encoding is infeasible.
+    - The triple-correlation control is feasible, with response (17/20, 3/20), E(x, y, z) = (±½, ±½, 0) and total
+      variation 1.
+    - ((X + Y)/2)² = I/2, so the quantum trace distance is 1/√2.
+    - Three retained nondisturbing reads give gap 1757/2000, with square > ½.
+  - The first version of my zonotope walk had a sign-order bug. The triple-correlation positive control caught it.
+- *The three points the owner asked a reviewer to check [arg].* The coordinator checked these, not an independent
+  reviewer:
+  - **The supporting half-space certificate is correct.** max over e ∈ [0, 1]^Λ of yᵀDe = Σ_λ max(0, (Dᵀy)_λ). The image
+    D[0, 1]^Λ is a compact convex zonotope, so these inequalities for all y are necessary and sufficient.
+  - **The same-copy scope is correct.** The Helstrom bound limits any measurement sequence with feedback on one copy
+    to the trace distance, here 1/√2. It does not limit three independently prepared copies, and the report makes no
+    such comparison.
+  - **The distinction between first-read responses and instruments is correct.** Feasibility of D e = p says nothing
+    about post-measurement updates. Repeatability fails for the fixed noisy response, whose values on the carrier are
+    only 3/20 and 17/20.
+- *Coordinator assessment.*
+  - **CONFIRMING.** The |E(A)| + |E(B)| ≤ 1 bound for Kₙ under incompatible parities is the diamond witness of
+    reports 3 and 4, and the purification diagnostic restates Lemma G's family under the convex Kₙ. These are
+    calibrations under a fixed mapping, as scoped.
+  - **ELABORATING.** The new content is the exact first-read test with dual certificates, and the separation of three
+    failure modes on one example: insufficient distinguishability, sufficient distinguishability that is still
+    infeasible, and a feasible fit that exposes too much under extra or sequential reads. The mechanisms are standard
+    (Helstrom; preparation dependence versus preparation contextuality, Spekkens 2005), and the report claims no
+    novelty.
+  - **Placement.** Recorded in the benchmark as diagnostic D6, the single-system instrument screen, with the three
+    encodings as its controls. Not added to PREREG: model A's question is M0 closure, and D6 applies to candidates.
+    The owner's handoff asks to record the bounds with their fixed-mapping scopes and to carry the correlated failure
+    and the sequential control to the next design review; both are done here.
+  - **Next (owner):** declare preparations, accessible readouts and post-measurement dynamics together, before larger
+    lattice constructions.
