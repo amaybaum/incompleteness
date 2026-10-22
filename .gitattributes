@@ -1,0 +1,3 @@
+# Release archives (the GitHub zipball Zenodo deposits) omit the frozen evidence-retention
+# archive of AGENTS §A.42 item 8; it stays in the repository.
+verification/audits/evidence-retention export-ignore
