@@ -569,3 +569,63 @@ The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb
   O1 needs one of three things: a centre term, a ℤ/4-extended substratum state, or a different sourcing map. Each is
   new structure and needs an owner decision. No probe is dispatched until a candidate access condition is written
   down; the decision rule in TEST8-DESIGN §4 is ready for one.
+
+## Owner report 5, "Can interaction select the quantum state space?" (2026-10-22), coordinator review
+
+- *Source.* The owner's read-only session, as an HTML report pinned to `main` at `af8c59d6`. The report's checker and
+  its output are committed in `design/owner-checks/report5/`.
+- *Verification.*
+  - The checker's sha256 `be85b0c0…` and its output's sha256 `a6445f48…` match the report's stated hashes. A re-run
+    replay-matches byte for byte.
+  - `coordinator_report5_checks.py` recomputes the following with genuine complex Y, not the checker's real identity
+    Y⊗Y = −J⊗J:
+    - CNOT conjugates Y⊗Y to −X⊗Z;
+    - after CNOT, ⟨XZ⟩ = −1 and +1 for ρ₊ and ρ₋;
+    - P(+Z_B) = 49/50 and 1/50 under U = (3I + 4J⊗X)/5, with best common error 12/25;
+    - W = SWAP/2 gives −1/2 after CNOT ✓.
+  - It also writes ρ₊ = (II + YY)/4 and ρ₋ = (II − YY)/4 as coin mixtures of real Bell states, (ψ⁺ + φ⁻)/2 and
+    (φ⁺ + ψ⁻)/2, prepared from |00⟩ by H, CNOT, X and Z.
+  - The cited corpus results exist on `main`:
+    - `round-oi-pair-maxcone-1/result.md`, the conditional pair-cone theorem over eball 3 and Q(i);
+    - `round-comp-1-composite-interface/result.md`, which has local tomography as an explicit premise and a padding
+      control showing its independence.
+- *Findings [rec, owner report 5].*
+  - **Sufficient package.** Local Bloch-ball geometry, locally tomographic composition, continuous reversible
+    interaction and one compatible family give complex QM for finite collections of qubits, by two literature results
+    [Q, not read here; network-gated]:
+    - Krumm–Müller, Theorem 1: a genuine interaction selects d = 3;
+    - de la Torre–Masanes–Short–Müller, Theorem 2: the quantum completion.
+    These premises are adopted, not derived from C1–C4.
+  - **Rebit witness.** ρ₊ and ρ₋ agree on the whole nine-dimensional product-effect span of real local tests. CNOT
+    separates them perfectly, and the continuous real interaction exp(θJ⊗X) separates them with gap 24/25. A quotient
+    that identifies them has a fixed error ≥ 12/25 on this experiment, so no limit along such a family repairs it.
+  - **Joint state set.**
+    - A set of product mixtures is too small for CNOT: XX + ZZ ≤ 1 on it, and = 2 on the gate's output.
+    - The set of tables that are positive on all products is too large: W = SWAP/2 gives −1/2.
+    - The −1/2 is rejected only for the standard gate lift; a consistent partial-transpose twist gives 0.
+  - **Continuity.** A continuous path into a finite permutation group is constant. A stochastic interpolation is not
+    reversible: (id + CNOT)/2 has rank 3.
+- *Coordinator assessment.*
+  - **Relation to the corpus: ELABORATING.**
+    - The continuity point restates Main §3.2 and the kernel's `bijectionLevel_not_layerFlowExecutable`.
+    - The tomography and cone controls illustrate COMP-1, where local tomography is an independent field, and the
+      pair-cone theorem's conditional inclusions.
+    - GR §3.3's OI⁺ works inside a fixed complex-matrix representation (GR.md:228–242). The report's package instead
+      selects the complex representation, given local tomography and genuine interaction. That difference is worth
+      keeping: OI⁺ presupposes what the package's ball-dimension step decides.
+  - **Cross-link to test 8, N2 (CONFIRMING, [arg]).** On the corpus's centre-free rule, the polarization route's Weil
+    images are real (H, CZ, Paulis). The report's rebit witness is realized inside that real class: ρ₊ and ρ₋ are coin
+    mixtures of real Bell states prepared by H, CNOT, X and Z (coordinator check). So the class the corpus rule can
+    source is not locally tomographic for real local tests. Its products miss the Y⊗Y coordinate, which only an
+    interaction reveals.
+    - The three routes to O1 that the test-8 review named all supply the complex structure that restores local
+      tomography: a centre term, a ℤ/4-extended substratum state, or a different sourcing map.
+    - Local tomography is the operational form of that choice. It is the premise COMP-1 shows independent, and the one
+      the literature uses to exclude real QM.
+    - This narrows node 9's open question to one fork, which the report states: keep the holistic coordinate (a real
+      theory), or remove it by an independent locality-of-tests condition.
+  - **Scope.**
+    - The 12/25 bound holds for a quotient that retains these two preparations and this experiment. It is not a no-go
+      for disc theories or for deterministic OI.
+    - The literature results are [Q] until read; the network blocks arXiv.
+    - Calling the package C5 would be a declared axiom package, as the report says, not a derived condition.
