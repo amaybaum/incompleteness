@@ -1260,10 +1260,12 @@ lattice model (PRA 108, 012217 (2023)), whose departure from quantum mechanics i
 estimate, is the comparison case. These are expected to lie beyond experimental reach; the row
 records them so the expectation is computed, not assumed.
 
-**Cross-cutting — the classical-memory test.** [Main §4.5]'s falsification route requires every
-fundamental non-Markovian process to be classical-memory simulable, and exempts engineered quantum
-environments. Required output: an operational criterion separating fundamental from engineered
-processes, fixed before any data, so that the test cannot be passed by reclassification.
+**Cross-cutting — the classical-memory test.** [Main §4.5]'s memory-witness test of the ontology
+is conditional on two inputs: the coherent-preparation and instrument bridge, without which the
+classical/quantum memory classification is not fixed by the substratum, and an outcome-independent
+rule separating fundamental from engineered open-system processes. Required output: that rule,
+fixed before any data, so that the test cannot be passed by reclassification, and the bridge
+statement under which the memory witness applies to a realization.
 
 **What the row does not license.** No claim that the hidden sector is detectable, and none that it
 is not. The manuscripts state the gravitational completion and the measure question as open; the
