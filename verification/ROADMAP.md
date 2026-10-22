@@ -1260,12 +1260,15 @@ lattice model (PRA 108, 012217 (2023)), whose departure from quantum mechanics i
 estimate, is the comparison case. These are expected to lie beyond experimental reach; the row
 records them so the expectation is computed, not assumed.
 
-**Cross-cutting — the classical-memory test.** [Main §4.5]'s memory-witness test of the ontology
-is conditional on two inputs: the coherent-preparation and instrument bridge, without which the
-classical/quantum memory classification is not fixed by the substratum, and an outcome-independent
-rule separating fundamental from engineered open-system processes. Required output: that rule,
-fixed before any data, so that the test cannot be passed by reclassification, and the bridge
-statement under which the memory witness applies to a realization.
+**Cross-cutting — the classical-memory test.** [Main §4.5] establishes no ontology-level memory
+falsifier. A memory-witness experiment needs three inputs: the coherent-preparation and instrument
+bridge, without which the classical/quantum memory classification is not fixed by the substratum;
+an outcome-independent rule separating fundamental from engineered open-system processes; and a
+constraint, derived from the completed model, on what eligible processes must show. Required
+output: that rule, fixed before any data, so that the test cannot be passed by reclassification;
+the bridge statement under which the memory witness applies to a realization; and the constraint
+itself (classical memory in the BBS sense for every eligible realization, or another explicit
+witness bound), as a property of the bridge or the completed model rather than a further axiom.
 
 **What the row does not license.** No claim that the hidden sector is detectable, and none that it
 is not. The manuscripts state the gravitational completion and the measure question as open; the
