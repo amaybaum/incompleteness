@@ -9,8 +9,8 @@ controls. Proposed OI constructions are scored only after the control scores are
 
 Evidence tags:
 - **[kernel `name`]** is a Lean result cited from GR §3.3 at `fc9018e8`; no `lake` build was run for this note.
-- **[lit, gated]** is a literature theorem as read by the owner. Its hypothesis text has not yet been quoted and
-  checked here (§7).
+- **[lit, owner-checked]** is a literature theorem whose statement and surrounding definitions the owner checked on
+  2026-10-22. The scope below is the owner's reading. This environment cannot reach the sources (§7).
 - **[std]** is a standard textbook fact.
 - **[exact, file]** is a computation in this directory or a cited sibling directory.
 - **[arg]** is a short written argument, not reviewed.
@@ -60,7 +60,7 @@ scored against each route separately.
 - **Substratum-source form.** The current substratum plus continuous off-diagonal controllability is equivalent to QM.
   There, the phase intervention is an assumption on the substratum class.
 
-### 2.2 Route L (Krumm–Müller, then de la Torre–Masanes–Short–Müller) [lit, gated]
+### 2.2 Route L (Krumm–Müller, then de la Torre–Masanes–Short–Müller) [lit, owner-checked]
 
 | ID | Premise |
 |---|---|
@@ -71,11 +71,22 @@ scored against each route separately.
 | L5 | The reversible transformations of composites form a **closed, connected group** that contains the local rotations and includes a **genuine interaction**, i.e. one not a product of local transformations |
 | L6 | Consistent extension to **arbitrary numbers of identical systems**, including spectators and relabelling |
 
-- **Step 1, Krumm–Müller Theorem 1** [lit, gated]. Under L1–L6 for arbitrarily many ball systems, with d ≥ 2 and
-  d ≠ 3, the group has only independent local gates. A genuine interaction therefore forces d = 3.
-- **Step 2, de la Torre et al. Theorem 2** [lit, gated]. Identical locally quantum systems (B³ with its qubit
-  pairing), with local tomography, continuous reversible interaction, and consistent extension to more systems, give
-  the quantum operational structure of finite qubit collections.
+- **Step 1, Krumm–Müller Theorem 1** [lit, owner-checked]. The hypotheses are:
+  - ball state spaces;
+  - all local rotations;
+  - no-signalling;
+  - local tomography;
+  - a closed connected reversible group.
+
+  Under them, a genuine interaction requires ball dimension d = 3.
+- **Step 2, de la Torre et al. Theorem 2** [lit, owner-checked]. The hypotheses are:
+  - identical local qubits;
+  - local tomography;
+  - continuous reversible interaction;
+  - consistent extension to additional systems.
+
+  Under them, the quantum composite theory is recovered.
+- Local tomography alone does not select complex QM.
 - **Partial kernel coverage:**
   - The conditional pair-cone theorem (`round-oi-pair-maxcone-1`) identifies the two-system cone given eball 3 and its
     other hypotheses. A two-system result does not complete step 2, which needs the identical-system extension.
@@ -176,7 +187,7 @@ that premise; the theorem verdict counts only Native or Added, as §4 defines th
 | Qubit stabilizer: convex closure | **Fails**: octahedron, not B³ [std] | **Fails** | Pass | Pass | **Fails** | Pass | not reached |
 | Spekkens toy theory | **Fails**: polytope of 6 epistemic states [std] | **Fails**: finite group (S₄ symmetries) [std] | Pass [arg] | Open | **Fails**: finite group | Open | not reached |
 | Classical bit | **Fails** the declared d ≥ 2; its interval is both a simplex and B¹ [std] | trivial | Pass | Pass [std] | **Fails**: permutations only | Pass | not reached |
-| Boxworld (gbits, maximal tensor product, reversible dynamics) | **Fails**: square state space, not a disc [std] | **Fails**: finite symmetry group | Pass, by construction | Pass [std] | **Fails**: no genuine reversible interaction; only local operations and permutations [lit, gated: Gross–Müller–Colbeck–Dahlsten 2010] | Pass | not reached; fails L1, L2, L5 |
+| Boxworld (gbits, maximal tensor product, reversible dynamics) | **Fails**: square state space, not a disc [std] | **Fails**: finite symmetry group | Pass, by construction | Pass [std] | **Fails**: no genuine reversible interaction; only local operations and permutations [lit, owner-checked: Gross–Müller–Colbeck–Dahlsten 2010, Theorem 1. In the specified full boxworld, reversible transformations are local relabellings and subsystem permutations. This is not a theorem about every theory containing a PR box; the paper discusses exceptions for classical–boxworld hybrids] | Pass | not reached; fails L1, L2, L5 |
 | PR box (exclusion control D5) | n/a | n/a | Pass | n/a | n/a | n/a | admitted by a candidate means D5 fails for that candidate |
 | Native memory constructions (owner reports, 2026-10-22: product-ready six-site, relay, two-record, heralding; `../owner-checks/report9/`) | n/a | n/a | n/a | n/a | n/a | n/a | positive calibration: native evolution within a declared memory construction, with added preparation and readout premises (isotropic known coordinates, u-only terminal read). Not a geometry candidate. Bears on the compatible-records interface candidate only |
 
@@ -196,14 +207,11 @@ are to be checked against the definitions before the table is relied on [open].
 
 ## 7. Gates and what remains before freeze
 
-- **Literature gate.** Quote and check the exact hypotheses before any verdict rule is fixed:
-  - Krumm–Müller Theorem 1: ball state spaces, the pairing, all local SO(d), no-signalling, local tomography, the
-    closed connected group with genuine interaction, arbitrary numbers of systems;
-  - de la Torre et al. Theorem 2 and their identical-system extension assumptions;
-  - Gross et al. on boxworld dynamics.
-
-  The owner has read the first two. They stay gated here until their passages are recorded; the gate does not treat
-  their content as unavailable.
+- **Literature, owner-checked on 2026-10-22.** The hypotheses of Krumm–Müller Theorem 1, de la Torre et al. Theorem 2
+  and Gross et al. Theorem 1 are recorded in §2.2 and §6.1 as the owner's checked scope.
+  - Still to do: a verbatim quotation with section and page locations. The owner's session can supply it; this
+    environment's proxy denies `arxiv.org`, `journals.aps.org` and `link.springer.com`.
+  - Until those quotations are recorded, verdicts that cite these theorems name the owner check as their source.
 - **Rows marked [arg] or [open].** These need a check or a citation before the control table is used:
   - the real Clifford class's L1–L3 and L6;
   - Spekkens L3, L4 and L6;

@@ -954,3 +954,44 @@ The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb
   - **Benchmark.** The memory constructions enter `design/benchmark/` as a positive calibration row. They are native
     evolution within a declared memory construction, with added preparation and readout premises, and bear only on
     the compatible-records interface candidate. They score nothing on L1–L6.
+
+## Owner decision: the Kₙ form of M0, and checked literature (2026-10-22)
+
+- *Decision (owner, PREREG Q14).* M0's restriction becomes Kₙ membership of P(h | r) for every nonzero-probability
+  physically available record, and stays a calibration condition of model A.
+  - It was adopted after the native-memory results were seen, and the draft says so.
+  - Three qualifications are written into PREREG:
+    - M0 tests the preparations actually generated, never "allowed because they pass Kₙ";
+    - membership is kept separate from reachability;
+    - the finite menu is kept separate from its convex completion.
+  - Support size, maximum point probability, guessing probability and single-toy K₁ membership are reported as
+    diagnostics.
+  - Membership is decided by exact rational feasibility over the uniform isotropic affine states (7 at n = 1, 91 at
+    n = 2), and each verdict carries a certificate: mixture weights or a separating functional.
+- *New countercontrols, in PREREG §5 and `design/kn/kn_controls.py` [exact].*
+  - **K-BIAS-MASK.** A line with weights p, 1 − p. Support is 2, yet it lies outside K₁ for p ≠ ½. The guessing
+    probabilities are 3/4 and 99/100 for the two biased cases; p = ½ is the paired positive.
+  - **K-COMP2**, owner's example. Uniform on q₁ = q₂, p₁ = 0:
+    - support 4, maximum point probability ¼, and both marginals in K₁;
+    - outside K₂: the two constraints have bracket 1, and none of the 91 isotropic uniform states has support inside
+      the set.
+    - It rejects any checker that tests only support, point probability or marginals.
+- *Fankhauser–Gonda–De les Coves* [rec, owner-checked; not readable here].
+  - They define the observer's accessible variables as a Lagrangian subspace, and prove that the measurable linear
+    variables are exactly those with vanishing mutual brackets.
+  - The access restriction is part of their observer definition; symplectic dynamics does not supply it.
+  - Their exact-learning requirement holds for every observer-conjugate value. It gives no guessing bound for
+    arbitrarily biased distributions, so the probabilistic preparation and closure premises (Kₙ, heralding closure)
+    stay essential.
+  - **The concrete bridge for OI:** why its physically accessible records, stored records included, have compatible
+    structure. Whole-site access (Main.md:292, :316) does not supply it.
+- *Benchmark literature, owner-checked.* `design/benchmark/BENCH-DESIGN.md` now records the checked scopes:
+  - Krumm–Müller Theorem 1;
+  - de la Torre et al. Theorem 2;
+  - Gross et al. Theorem 1, which covers full boxworld only and is not a theorem about every theory containing a PR
+    box; the paper discusses hybrid exceptions.
+
+  Verbatim quotations with locations remain to be recorded.
+- *Next (owner):* a focused revision and review of model A's Kₙ test, including both countercontrols. In parallel, the
+  benchmark carries the checked hypotheses. The memory constructions stay evidence about physical records; they do
+  not supply geometry or composition.
