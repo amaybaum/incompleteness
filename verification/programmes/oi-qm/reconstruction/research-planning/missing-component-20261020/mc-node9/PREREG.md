@@ -29,11 +29,12 @@ demonstrating purification or contextuality.
 - **Q13.** The biased state (3/8, 3/8, 1/8, 1/8) is carried as a control for Option B (§4, K-BIAS).
 - **Q14 (owner, 2026-10-22).** M0's restriction is membership in Kₙ, not support size (§4). It was adopted after the
   native-memory results of 2026-10-22 were seen: the biased-mask family keeps support 2ⁿ while a conjugate toy
-  coordinate becomes predictable with probability up to 99/100. It is a calibration condition of model A, not a
+  coordinate becomes predictable with probability arbitrarily close to 1 (99/100 tested). It is a calibration condition of model A, not a
   candidate C5. Three qualifications apply:
-  - M0 tests the preparations the closure actually generates. A preparation is never admitted because it passes Kₙ.
+  - M0 tests the preparations the closure actually generates. A preparation is never admitted because it passes Kₙ
+    (I-6).
   - Membership is kept separate from reachability. Closure inside Kₙ does not show that every member of Kₙ is
-    preparable.
+    preparable (I-20).
   - The generated finite menu is kept separate from its convex completion, in M2's purification lines above all.
 
 **Tags.** [corpus] text quoted verbatim from the corpus at the base, with file:line; [rec] stated in a thread record, not
@@ -511,26 +512,34 @@ choice of u is an assumption. AP-1 to AP-5 [rec, design/c1] are assumptions of t
 source at every read), AP-2 (one step of contact), AP-3 (choice of read), and for PP-2 AP-4 (no retention except
 through the back-acting copy) and AP-5 (memory conjugates fresh, never accessed).
 
-**M0's restriction (B1; Kₙ form, Q14).** At each evaluation point and for every nonzero-probability physically
-available record r, the conditional distribution P(h | r) of the retained toy coordinates h, with the P of every used
-pointer (and under PP-2 every Y) marginalized, lies in Kₙ.
+**M0's restriction (B1; Kₙ form, Q14).** At each evaluation point and for every nonzero-probability accessible record
+r (§1.1), the conditional distribution P(h | r) of the retained toy coordinates h, with the P of every used pointer
+(and under PP-2 every Y) marginalized, lies in Kₙ. Here h consists of whole retained toy pairs. Kₙ is closed under
+marginals onto any set of whole pairs, but a single coordinate of a pair lies outside its definition.
 - **Kₙ** is the convex hull of the uniform distributions on affine subsets of ℤ₂^{2*n*} whose constraint space is
   isotropic under the symplectic pairing of the n toy pairs. There are 7 such uniform states at n = 1 and 91 at n = 2
   (`design/kn/kn_controls.py`). For one pair, K₁ = {p : p_x ≤ ½ for each x}.
 - **Membership** is decided exactly. The test is an exact rational linear-feasibility problem over those uniform states,
   and its result is printed with a certificate: the mixture weights if P(h | r) is a member, a separating functional if
-  it is not. Neither direction is accepted without its certificate.
+  it is not.
+  - Neither direction is accepted without its certificate.
+  - Every certificate is re-verified by code separate from the solver.
+  - A separating functional is valid only against the complete generator list. That list is therefore checked against
+    the counting formula before any verdict: 7, 91, 2,467 and 150,451 uniform isotropic states at n = 1–4.
+  - Equivalently, the Lagrangian cosets can serve as generators: 6, 60, 1,080 and 36,720. Every uniform isotropic
+    state is an equal mixture of them (`design/kn/review/`).
 - **Diagnostics, deciding nothing:** the support size, the maximum point probability, the optimal guessing probability
   of each toy coordinate, and each single-toy marginal's K₁ membership.
-- **Coarser records.** Kₙ is convex, and a coarser record's conditional distribution is a mixture of finer ones. So
-  marginalizing or discarding never creates a violation, though it can hide one (W1, W6).
+- **Coarser records.** Kₙ is convex. A coarser record's conditional distribution is a mixture of finer ones; for
+  example, marginalizing a pointer P mixes the P(h | r, P) with weights P(P | r). So marginalizing or discarding never
+  creates a violation, though it can hide one (W1, W6).
+- **Diagnostics feed no verdict** (I-19).
 
 Evaluation points: after each completed read-and-discard (PP-1) or read-and-copy (PP-2), and at every stopping time of
 every protocol, heralded branches included, a pointer still present counting as used. The joint (h, P) form of
 revision 2 is withdrawn, with its claim that a pointer exchange is a permitted non-violation: Q is visible, so an
-exchange followed by a readout determines the pair (W3′). Marginalizing one binary coordinate at most halves support,
-so discarding never creates a support violation either; the joint support and the number of determined
-record functionals are printed as diagnostics and decide nothing. The restriction is an invariant to test, neither a
+exchange followed by a readout determines the pair (W3′). The joint support and the number of determined record
+functionals are printed as diagnostics and decide nothing. The restriction is an invariant to test, neither a
 general necessity nor a sufficient condition for purification.
 
 **Disclosed baseline (pre-freeze design inputs; none is a verdict of this node).**
@@ -619,8 +628,9 @@ bijections."
   probability and post-measurement state. **PARKED** iff *s_max* or *d_max* is reached first, printed with the
   completed level and state count. Each line names its PP form and S.
 - *Required for "retained":* K-CLN-A, K-SYMP's ρ₀ arm, K-SYMP2, K-MEM4, K-MEM5, K-POS-RET, K-PIND, K-REUSE and K-PEX
-  each print "lost" with its witness; K-CLN, K-CLN0 and K-POS are green; and the Kₙ test classifies K-BIAS-MASK and
-  K-COMP2 as stated, both with certificates (§5).
+  each print "lost" with its witness, a separating functional for the Kₙ test, and support as a diagnostic; K-CLN,
+  K-CLN0 and K-POS are green; and the Kₙ test classifies K-BIAS-MASK, K-COMP2, K-MIX2 and K-CORR2 as stated, each with
+  a verified certificate (§5).
 - Passing these controls validates the checker's sensitivity. It does not prove closure.
 - *Scope:* either outcome concerns the specified model, PP form and S (K-ANC). "lost" fails R-MENU (iii) and names the
   operation responsible; M1–M5 still run on the closure as generated. "retained" establishes neither M1, M2 nor row 3
@@ -650,17 +660,20 @@ bijections."
 | K-HERALD | engine (g6) [rec, owner check 2026-10-21] | fair hidden bit h, pointer x = 0, bath bit r. Arm 1: x ^= h. Arm 2: x ^= h, then h ↔ r | both arms: Pr(x = b) = 1/2. Arm 1: state given x = b is h = b. Arm 2: state given x = b is h uniform |
 | K-CLN | countercontrol (M0 detector) [rec, owner check 2026-10-21] | fair hidden bit, declared clean bit at 0, swap allowed, no heralding; restriction: h is not a point mass | M0 prints "lost" with the swap as witness |
 | K-CLN0 | positive (M0 detector) | fair hidden bit, no clean ancilla, bijections on h only, no readout; same restriction | M0 prints "retained" at a fixed point |
-| K-CLN-A | pressure test (M0) | Option A, *n* = 1, plus one clean hidden bit with the swap declared allowed for this test (as in K-CLN); a direct swap leaves support 2, within the bound, so first a heralded read of q, keep 0, then the clean bit swapped into p: support 1 [rec, coordinator check 2026-10-21, exact] | M0 prints "lost" with that two-step witness |
+| K-CLN-A | pressure test (M0) | Option A, *n* = 1, plus one clean hidden bit with the swap declared allowed for this test (as in K-CLN); a direct swap leaves a toy state in K₁, so first a heralded read of q, keep 0, then the clean bit swapped into p: a point mass, outside K₁ [rec, coordinator check 2026-10-21, exact] | M0 prints "lost" with that two-step witness |
 | K-SYMP | countercontrol (M0, operation rule) [rec, owner check 2026-10-21] | Option A, *n* = 2, h = (q₁, p₁, q₂, p₂) uniform: read q₁, keep 0 (support 8); read q₂, keep 0 (4); ρ₀'s swap p₁ ↔ q₂ (4); read q₂, keep 0: support 2 < 4, branch probability 1/8 [rec, coordinator check 2026-10-21, exact replay] | under ρ₀, M0 prints "lost" with that witness; under Π_ω, the swap p₁ ↔ q₂ is absent from Ops(Π_ω) and the witness is excluded |
 | K-SYMP2 | diagnostic (M0 detector) [rec, owner check; coordinator re-check 2026-10-21] | Main.md:290 on two sites as φ (u₁′ = u₂ + v₁, v₁′ = u₁, u₂′ = u₁ + v₂, v₂′ = u₂); visible site clean at (0, 0), hidden site uniform, as the toy | under every rule, M0 prints "lost" with the two waiting steps as witness (hidden support 1) |
 | K-MEM4 | countercontrol (M0 detector) [rec, owner report 6; coordinator check 2026-10-22] | Main.md:290 on the edges (0, 1), (1, 2), (0, 3); site 1 hidden, sites 0, 2, 3 visible; core uniform, memory site 3 at (0, 0); one whole-site read at t = 3 (`design/owner-checks/report6/`) | M0 prints "lost" with hidden support 1; the preparation's known constraints are not isotropic |
 | K-MEM5 | countercontrol (M0 detector) [rec, owner report 7; coordinator check 2026-10-22] | Main.md:290 on the edges (0, 1), (1, 2), (0, 3), (1, 4); site 1 hidden; u₃ = u₄ = 0, all else uniform; one whole-site read at t = 3 (`design/owner-checks/report7/`) | M0 prints "lost" with hidden support 1; the preparation is isotropic, but the deciding records V₀ ⊕ V₂ and U₀ pair to 1 |
-| K-POS | positive (M0 detector) [rec, owner 2026-10-22; coordinator check] | K-MEM4's and K-MEM5's preparations, with a record policy admitting only the visible u coordinates at one terminal time t, for every t in the period (10 and 16) (`design/owner-checks/report8/`) | M0 prints "retained": hidden support ≥ 2 at every t. For K-MEM5 this follows from the compatible-records argument; for K-MEM4, whose preparation is not isotropic, it is a checked property of the example |
+| K-POS | positive (M0 detector) [rec, owner 2026-10-22; coordinator check] | K-MEM4's and K-MEM5's preparations, with a record policy admitting only the visible u coordinates at one terminal time t, for every t in the period (10 and 16) (`design/owner-checks/report8/`) | M0 prints "retained": every terminal record leaves the hidden pair in K₁ at every t, weights included [review check, `design/kn/review/`]. For K-MEM5 this follows from the compatible-records argument; for K-MEM4, whose preparation is not isotropic, it is a checked property of the example |
 | K-POS-RET | countercontrol (M0 detector; records across time) [rec, owner 2026-10-22; coordinator check] | K-POS's preparations, with the visible u coordinates at t = 2 retained undisturbed and read together with those at t = 3 | M0 prints "lost" with hidden support 1 in both. Each snapshot is isotropic and their union is not, since v_x(t) = u_x(t − 1) |
 | K-BIAS-MASK | countercontrol (M0 test, weights) [rec, owner 2026-10-22; coordinator check] | one toy pair given directly as a distribution, not as a reachable preparation: a line support with weights p, 1 − p, for p ∈ {1/4, 99/100}, and p = ½ as its paired positive control (`design/kn/`) | for p ≠ ½: support 2, so the support diagnostic is met, and Kₙ-M0 prints "lost" with a separating functional. For p = ½: "retained" with mixture weights |
 | K-COMP2 | countercontrol (M0 test, joint compatibility) [rec, owner 2026-10-22; coordinator check] | two toy pairs given directly: uniform on q₁ = q₂, p₁ = 0, with p₂ free (`design/kn/`) | support 4, maximum point probability ¼, and both single-toy marginals in K₁, yet Kₙ-M0 prints "lost": the two constraints have bracket 1, so no isotropic uniform state has support inside the set. A checker that tests only support, point probability or marginals fails this control |
+| K-MIX2 | positive (M0 test, mixtures) [rec, review of `1dcbde1d`] | two toy pairs given directly: ½U[q₁ = q₂ = 0] + ½U[p₁ = p₂ = 0]. The support has 7 points and is not an affine set | Kₙ-M0 prints "retained" with mixture weights. A checker that accepts only uniform isotropic states, or requires an isotropic affine support, fails this control |
+| K-CORR2 | countercontrol (M0 test, weights on a compatible support) [rec, review of `1dcbde1d`] | two toy pairs given directly: support q₁ = q₂ = 0, weights 3/8, 1/8, 1/8, 3/8 on p₁p₂ = 00, 01, 10, 11 | both single-toy marginals in K₁, and the support is isotropic affine, yet Kₙ-M0 prints "lost" with a separating functional. A checker that tests support containment plus marginals fails this control |
+| K-CLN, K-CLN0 note | — | — | their restriction is "h is not a point mass"; they exercise the M0 search, not the Kₙ membership test |
 | K-PIND | countercontrol (PP independence) | Option A, *n* = 1, PP-1, the pointers' P also written into accessible visible cells | M0 prints "lost": with the displacement known, a read of q and a read of p leave toy support 1 |
-| K-REUSE | countercontrol (PP single use) and positive arm (PP-2) | W4: one pointer, reads of p, q, p. Arm 1: reuse with free readout. Arm 2: PP-2, the copy after each read | arm 1: "lost", toy point mass in all 8 branches; arm 2: toy support 2 in all 8 branches |
+| K-REUSE | countercontrol (PP single use) and positive arm (PP-2) | W4: one pointer, reads of p, q, p. Arm 1: reuse with free readout. Arm 2: PP-2, the copy after each read | arm 1: "lost", toy point mass in all 8 branches; arm 2: the toy marginal in K₁ in all 8 branches (weights to be checked at execution; the support was 2) |
 | K-PEX | countercontrol (pointer-internal maps) | Option A, *n* = 1, PP-1 with the pointer exchange (Q, P) → (P, Q) (W5) or the transvection (Q, P) → (Q + P, P) (W2) admitted | each arm prints "lost" with toy support 1; under Π_ω and PP both maps are absent and the witnesses excluded |
 | K-BIAS | calibration (M2); carried to Option B [rec, owner 2026-10-21] | (3/8, 3/8, 1/8, 1/8) on one toy bit, generated by a ½ coin | Pur-E prints "no purification" for it against every composite at the declared sizes |
 
@@ -735,7 +748,7 @@ decisive object perturbed. Output classes are NEW, POSITIVE, ELABORATING, CONFIR
 | I-16 | resource bound, deterministic | every closure and enumeration runs to fixed caps (*s_max*, *d_max* and §8's sizes); PARKED depends on the caps only; wall times go to a separate log outside the replayed output and `SHA256SUMS` |
 | I-17 | literature and unreviewed design inputs never decide | each line lists its [Q] and [rec, design/emb] dependencies; a line depending on an unmet PC gate or an unreviewed report prints "provisional"; KM-35 |
 | I-18 | heralding uses the post-measurement state | K-HERALD green before any preparation is generated; KM-14 |
-| I-19 | the decisive closure question is decided first, by its rule | M0 block printed before M1 for each PP form, with certificate or witness; the Kₙ restriction evaluated on the toy coordinates at every evaluation point of §4, each verdict with its membership certificate (mixture weights or separating functional); K-BIAS-MASK and K-COMP2 classified as stated; K-CLN, K-CLN0 green; "retained" printed only with K-CLN-A, K-SYMP, K-SYMP2, K-PIND, K-REUSE and K-PEX green; KM-17, KM-20, KM-23 |
+| I-19 | the decisive closure question is decided first, by its rule | M0 block printed before M1 for each PP form, with certificate or witness; the Kₙ restriction evaluated on the toy coordinates at every evaluation point of §4, each verdict with its membership certificate (mixture weights or separating functional), re-verified by code separate from the solver; the generator census checked against the counting formula before any verdict; K-BIAS-MASK, K-COMP2, K-MIX2 and K-CORR2 classified as stated; a static check that no diagnostic (support, point probability, guessing probability, marginal membership) enters a verdict; mutants KM-38 to KM-41; K-CLN, K-CLN0 green; "retained" printed only with K-CLN-A, K-SYMP, K-SYMP2, K-PIND, K-REUSE and K-PEX green; KM-17, KM-20, KM-23 |
 | I-20 | reachability decided separately from equivalence | M0 and Prep print S = (*n*, *k*, *b_p*, *b_m*, *b_r*, *b_h*), the heralding count apart from ordinary conditioning, and a certificate, never W's dimension; K-REACH green; KM-18, KM-33 |
 | I-21 | Ops(Π_ω) is computed, on its declared carrier | the normalizer predicate evaluated on every candidate bijection of the records; its order printed; no map on pointer, memory or bath cells in Ops(Π_ω); K-SYMP's two arms and K-SYMP2 green; KM-19, KM-22, KM-25 |
 | I-22 | Lemma S's link computed, not assumed | a linked POM/CHSH pair prints the steering table from the model's own extension, its S and marginals; K-QPOM's extension gives S = 2√2 exactly; KM-21 |
@@ -782,7 +795,13 @@ suppresses the governed lines:
 - KM-36: M1 decided on the bare-witness line alone, the clause skipped (K-CARD must then print M1 PASS and be caught);
 - KM-37: ψ ⊗ σ inserted as a listed state instead of generated (I-6's static scan must refuse it), and, separately,
   its purity judged against Prep(AB) × Prep(S) instead of Prep(ABS) (K-CARD's clause line must then change and be
-  caught).
+  caught);
+- KM-38: the Kₙ test replaced by support ≥ 2ⁿ (K-BIAS-MASK and K-CORR2 must then print "retained" and be caught);
+- KM-39: the Kₙ test replaced by "is a uniform isotropic state" (K-MIX2 must then print "lost" and be caught);
+- KM-40: the Kₙ test replaced by "support contains an isotropic support, and every single-toy marginal is in K₁"
+  (K-CORR2 must then print "retained" and be caught);
+- KM-41: one generator dropped from the census (the census check must halt, or a separating functional must fail
+  re-verification against the full list).
 
 ***
 

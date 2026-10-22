@@ -995,3 +995,36 @@ The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb
 - *Next (owner):* a focused revision and review of model A's Kₙ test, including both countercontrols. In parallel, the
   benchmark carries the checked hypotheses. The memory constructions stay evidence about physical records; they do
   not supply geometry or composition.
+
+## Review of the Kₙ revision (`1dcbde1d`) and corrections applied
+
+- *Review.* A read-only reviewer worked from independent enumeration, an exact simplex with certificates, and a
+  separate certificate verifier: `design/kn/review/REVIEW-KN.md` and `kn_review_checks.py`/`.out`. The coordinator
+  re-ran the checker: it replays byte for byte, both in the reviewer's directory and in place. Verdict: **REVISE**.
+  - The mathematics holds: the definition, K₁, the counts 7/91/2,467, the completeness of the Farkas test, convexity,
+    and closure under marginals onto whole pairs.
+  - The controls and the certificate path did not hold.
+- *Coordinator check of the decisive witnesses [arg].*
+  - **K-CORR2 is outside K₂.** Its support is a single isotropic uniform state's support. Every isotropic state has
+    support of at least 4, so that state is the only possible component, and the weights are not uniform.
+  - **K-MIX2 is inside K₂** by definition.
+  - **My `in_Kn_by_support` docstring was false.** Uniform on 3 points is in K₁. It is replaced by a one-directional
+    test, which is valid for K-COMP2.
+- *Applied to PREREG.*
+  - B1: K-MIX2 (positive) and K-CORR2 (countercontrol).
+  - B2: in I-19, a generator census against the counting formula (7, 91, 2,467, 150,451, or the Lagrangian cosets 6,
+    60, 1,080, 36,720), re-verification of every certificate by separate code, a static check that no diagnostic enters
+    a verdict, and mutants KM-38 to KM-41 (support form, vertex-only, support plus marginals, dropped generator).
+  - B3: the script is corrected, and certificates are cited from the review checker.
+  - N1–N8:
+    - the stale support sentence is removed;
+    - the K-CLN-A, K-POS and K-REUSE arm 2 verdicts are restated in K₁ terms, K-REUSE's weights to be checked at
+      execution;
+    - "lost" rows print a separating functional, with support as a diagnostic;
+    - K-CLN and K-CLN0 are noted as not exercising the Kₙ test;
+    - h is stated to be whole pairs;
+    - "accessible record (§1.1)" is used;
+    - the weights are named P(P | r);
+    - the qualifications are cross-referenced to I-6 and I-20;
+    - "arbitrarily close to 1 (99/100 tested)".
+- *Still open.* No re-review of this correction yet. The draft is not frozen.

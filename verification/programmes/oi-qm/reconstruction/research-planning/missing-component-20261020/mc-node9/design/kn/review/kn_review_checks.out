@@ -1,0 +1,40 @@
+ok   n=1: isotropic subspaces by dim {0: 1, 1: 3} match q-binomial formula; total 4
+ok   n=1: uniform isotropic affine states 7 (formula 7); Lagrangian cosets 6
+ok   n=2: isotropic subspaces by dim {0: 1, 1: 15, 2: 15} match q-binomial formula; total 31
+ok   n=2: uniform isotropic affine states 91 (formula 91); Lagrangian cosets 60
+ok   n=3: isotropic subspaces by dim {0: 1, 1: 63, 2: 315, 3: 135} match q-binomial formula; total 514
+ok   n=3: uniform isotropic affine states 2467 (formula 2467); Lagrangian cosets 1080
+n=4 by formula: subspaces 19381  states 150451  Lagrangian cosets 36720
+ok   n=1: every isotropic uniform state is an equal mixture of Lagrangian coset states
+ok   n=2: every isotropic uniform state is an equal mixture of Lagrangian coset states
+ok   n=3: every isotropic uniform state is an equal mixture of Lagrangian coset states
+ok   K1 polytope {p>=0, sum 1, p_x<=1/2} has exactly the 6 two-point uniform vertices = the 6 line states
+
+exact K_n membership with verified certificates
+ok   K-BIAS-MASK p=1/4: in K1 = False (expected False); certificate verified = True; support 2, max p 3/4, marginals in K1 False
+      separating functional y (y.v<=0 on all generators, y.x>0): ['-1', '-1', '1', '-1']
+ok   K-BIAS-MASK p=99/100: in K1 = False (expected False); certificate verified = True; support 2, max p 99/100, marginals in K1 False
+      separating functional y (y.v<=0 on all generators, y.x>0): ['1', '-1', '-1', '-1']
+ok   K-BIAS-MASK p=1/2: in K1 = True (expected True); certificate verified = True; support 2, max p 1/2, marginals in K1 True
+ok   K-COMP2: in K2 = False (expected False); certificate verified = True; support 4, max p 1/4, marginals in K1 True
+      separating functional y (y.v<=0 on all generators, y.x>0): ['1', '-3', '-3', '-3', '-3', '1', '-3', '-3', '1', '-3', '-3', '-3', '1', '1', '1', '1']
+ok   new K-MIX2 (1/2 U[q1=q2=0] + 1/2 U[p1=p2=0]): in K2 = True (expected True); certificate verified = True; support 7, max p 1/4, marginals in K1 True
+ok   new K-CORR2 (on q1=q2=0, weights 3/8,1/8,1/8,3/8 on p1p2=00,01,10,11): in K2 = False (expected False); certificate verified = True; support 4, max p 3/8, marginals in K1 True
+      separating functional y (y.v<=0 on all generators, y.x>0): ['1', '-3', '-1', '-3', '1', '-3', '-1', '-3', '-1', '-3', '1', '-3', '-1', '1', '1', '1']
+ok   report9 heralded target (2/5,2/5,1/10,1/10): in K1 = True (expected True); certificate verified = True; support 4, max p 2/5, marginals in K1 True
+ok   uniform on 3 points, n=1: in K1 = True (expected True); certificate verified = True; support 3, max p 1/3, marginals in K1 True
+ok   uniform on 3 points, n=2: in K2 = False (expected False); certificate verified = True; support 3, max p 1/3, marginals in K1 False
+ok   uniform on disjoint union U[q1=q2=0] u U[q1=1,p2=0] (not affine), n=2: in K2 = True (expected True); certificate verified = True; support 8, max p 1/8, marginals in K1 True
+
+weaker checkers vs controls (pass = agrees with exact K_n on every control in the set)
+  support>=2^n                                               old controls pass: False; caught by: ['new K-CORR2']
+  vertex-only (d is a uniform isotropic state)               old controls pass: True; caught by: ['new K-MIX2', 'report9 heralded target']
+  support is isotropic affine (weights ignored)              old controls pass: False; caught by: ['new K-MIX2', 'new K-CORR2']
+  support contains an isotropic support + marginals in K1    old controls pass: True; caught by: ['new K-CORR2']
+  point prob <= 2^-n + marginals in K1                       old controls pass: False; caught by: []
+ok   design/kn in_Kn_by_support "necessary-and-sufficient for uniform targets" is false: counterexamples ['uniform on 3 points, n=1', 'uniform on disjoint union U[q1=q2=0] u U[q1=1,p2=0] (not affine), n=2']
+ok   K_n closed under marginals onto any subset of whole toy pairs (n=2,3 exhaustive)
+note: discarding one coordinate of a pair leaves h outside every K_m (K_n is defined on whole pairs)
+ok   K-POS: every u-only terminal record fiber is in K1 (all t in each period), weights included
+ok   K-POS-RET: every retained two-time fiber is outside K1
+ALL OK

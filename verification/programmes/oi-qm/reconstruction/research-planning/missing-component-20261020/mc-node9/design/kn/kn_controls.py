@@ -23,12 +23,12 @@ def iso_states(n):
         for x0 in range(1<<N):
             sts.add(frozenset(x for x in range(1<<N) if all(dot(a,x^x0)==0 for a in S)))
     return sts
-def in_Kn_by_support(dist,n,sts):
-    """Necessary-and-sufficient test used here only for UNIFORM targets: a uniform distribution on S lies in
-    K_n iff S is the support of some isotropic uniform state, since every component's support must lie inside S
-    and the uniform weights then force each component to be uniform on all of S."""
+def has_isotropic_component_inside_support(dist,sts):
+    """One-directional test. Every member of K_n has a mixture component whose support lies inside the member's
+    support. So if no isotropic uniform state has support inside supp(dist), dist is NOT in K_n. A True result
+    decides nothing; full membership needs the exact linear test with certificates (design/kn/review/)."""
     S=frozenset(x for x,p in dist.items() if p)
-    return S in sts
+    return any(T<=S for T in sts)
 st1=iso_states(1); st2=iso_states(2)
 print('isotropic uniform states: n=1 ->',len(st1),' n=2 ->',len(st2))
 # composite countercontrol: q1 = q2, p1 = 0, p2 free (bit order q1,p1,q2,p2 = bits 0,1,2,3)
@@ -43,8 +43,9 @@ for x,p in dist.items():
     m1[a]=m1.get(a,0)+p; m2[b]=m2.get(b,0)+p
 k1=lambda m: all(v<=F(1,2) for v in m.values()) and abs(sum(m.values())-1)==0
 print('  toy-1 marginal in K1:',k1(m1),' toy-2 marginal in K1:',k1(m2))
-print('  joint uniform on S in K2:',in_Kn_by_support(dist,2,st2),
-      '(isotropic states with support inside S:',sum(1 for T in st2 if T<=frozenset(S)),')')
+ok=has_isotropic_component_inside_support(dist,st2)
+print('  isotropic uniform states with support inside S:',sum(1 for T in st2 if T<=frozenset(S)),
+      '-> joint in K2:', 'not decided here' if ok else False)
 # biased-mask family on one pair: support a line, weights p, 1-p
 for p in (F(1,2),F(1,4),F(99,100)):
     m={(0,0):p,(0,1):1-p}
