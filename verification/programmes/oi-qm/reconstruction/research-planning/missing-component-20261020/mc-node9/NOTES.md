@@ -1235,3 +1235,21 @@ The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb
   the same apparatus and its actual state carried forward; the complete record, including failed heralds and timing;
   explicit bounded verdicts. Decisive question: can one physically specified interaction produce the measurement
   update while keeping every later accessible record consistent with QM?
+
+## Encounter construction, first calculation (owner, 2026-10-22), coordinator check
+
+- *Owner, read-only.* The hidden direction is taken as a direction of motion at fixed speed, an Added identification.
+  `design/encounter/ENCOUNTER.md` records the results with the coordinator's exact checks.
+- *Results.*
+  - **Crossing time.** Conditioned on crossing, it is uniform and independent of the prepared direction, so recording
+    it leaks nothing (single particle).
+  - **Planar collectors.** Parallel planar collectors with a coarse deadline bit B (λ_z² > ½) separate Z-mix from X-mix,
+    both I/2: ½ against ½ − 1/π, a gap of 1/π. Finite grids give 0.304, 0.311 and 0.317 at M = 10, 40 and 160.
+    - This rejects the planar device as an implementation of the qubit interface.
+    - An expanded motional-state correspondence would be a different claim, not a QM contradiction.
+  - **Spherical collector.** The arrival time is d/v for every direction, which removes that leak. The impact location
+    still encodes the old λ.
+- *Paired controls.* The planar-plus-deadline detector must detect the failure (done). The spherical collector needs
+  impact records, signal routing and reuse specified (open).
+- *Next (owner):* specify how the spherical collector produces and retains only the intended accessible record
+  through an actual interaction.

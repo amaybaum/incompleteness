@@ -1,0 +1,6 @@
+1: P(cross in [0,tau]) = tau*v/(4*L) ; conditional density in (t, Omega) = cos(theta)/(pi*tau) = (1/tau) * cos(theta)/pi  -> time uniform and independent of direction
+2: P(B | Z-mix) = 1/2 ; P(B | X-mix) = (-2 + pi)/(2*pi) ; gap = 1/pi ; minimum common-prediction error = 1/(2*pi)
+3: M= 10: P(B|Z-mix) = 39/79, P(B|X-mix) = 15/79, gap = 0.3037974683544304 (1/pi ~ 0.31831)
+3: M= 40: P(B|Z-mix) = 313/628, P(B|X-mix) = 59/314, gap = 0.3105095541401274 (1/pi ~ 0.31831)
+3: M=160: P(B|Z-mix) = 10048/20113, P(B|X-mix) = 3672/20113, gap = 0.3170088997166012 (1/pi ~ 0.31831)
+4: spherical collector: first-arrival time = d/v for every direction; impact point = d * lambda (the old direction is written into the impact location)
