@@ -1,0 +1,21 @@
+READ-ONLY EXPLORATORY DESIGN EVIDENCE; no preregistration or independent review.
+All native preparations are uniform products; exactly one known coordinate per memory site.
+k=0: sites=6, clean coordinates=3, guaranteed end=2, actual initial window end=2, exact period=18; enumerated all 512 preparations at every time.
+k=1: sites=7, clean coordinates=4, guaranteed end=3, actual initial window end=3, exact period=24; enumerated all 1024 preparations at every time.
+k=2: sites=8, clean coordinates=5, guaranteed end=4, actual initial window end=5, exact period=20; enumerated all 2048 preparations at every time.
+k=3: sites=9, clean coordinates=6, guaranteed end=5, actual initial window end=5, exact period=56; enumerated all 4096 preparations at every time.
+k=4: sites=10, clean coordinates=7, guaranteed end=6, actual initial window end=11, exact period=102; enumerated all 8192 preparations at every time.
+k=6: sites=12, clean coordinates=9, guaranteed end=8, actual initial window end=17, exact period=130; exact linear algebra, no state enumeration.
+k=8: sites=14, clean coordinates=11, guaranteed end=10, actual initial window end=16, exact period=258; exact linear algebra, no state enumeration.
+k=10: sites=16, clean coordinates=13, guaranteed end=12, actual initial window end=83, exact period=714; exact linear algebra, no state enumeration.
+k=16: sites=22, clean coordinates=19, guaranteed end=18, actual initial window end=274, exact period=2046; exact linear algebra, no state enumeration.
+Seven-site sensitivity controls: (parity support, current hidden-pair support).
+native: t=2 (1, 2), t=3 (1, 2); all 1024 preparations enumerated.
+v6 unknown: t=2 (2, 4), t=3 (1, 2); all 2048 preparations enumerated.
+u6 clean instead: t=2 (2, 2), t=3 (1, 2); all 1024 preparations enumerated.
+edge absent: t=2 (1, 2), t=3 (2, 4); all 1024 preparations enumerated.
+both6 clean: t=2 (1, 1), t=3 (1, 2); all 512 preparations enumerated.
+k=32: direct native relay identities checked through t=34.
+k=64: direct native relay identities checked through t=66.
+k=128: direct native relay identities checked through t=130.
+PASS: exact state enumeration agrees with linear algebra; all resource controls discriminate.

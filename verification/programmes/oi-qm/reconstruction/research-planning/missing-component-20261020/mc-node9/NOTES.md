@@ -879,3 +879,78 @@ The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb
   - the rows marked [arg] or [open];
   - the six-site construction's report and checker;
   - then score the candidates.
+
+## Owner reports on native memory, 2026-10-22: product-ready memory, relay, two-record mask, heralding closure
+
+- *Source.* Four HTML reports from the owner's read-only session. Their four checkers and outputs are committed in
+  `design/owner-checks/report9/` with `SHA256SUMS`.
+- *Verification.*
+  - All eight sha256 values match the reports' stated hashes. All four checkers replay byte for byte, the longest in
+    5 CPU-seconds.
+  - `coordinator_report9_checks.py` was built from Main.md:290's rule on the declared graphs, without the reports'
+    code. It confirms the following.
+  - Product-ready six-site memory:
+    - with v₃ = v₄ = u₅ = 0, the period is 18 and u₅(2) = u₁(2) = u₀(1) ⊕ u₂(1) on all 512 states;
+    - the hidden support under visible-u reads is 4, 2, 2, 4, 4, 2, 2, 4, 4, 4, 2, 4, 4, 2, 4, 2, 4, 4 over the period,
+      and 1 if v₅(2) is also read;
+    - the historical parity is recoverable only at t = 1, 2, 11, 15.
+  - Relay, k = 0–3 enumerated: u₅₊ᵣ(2 + r) = f for r ≤ k, the periods are 18, 24, 20 and 56, and the minimum hidden
+    support over each period is 2.
+  - Seven-site masked conjugate: m = u₀(2) ⊕ u₆(2) = v₁(2) ⊕ r, and r is fair on all 64 complete records. Also
+    u₄(12) = u₆(0).
+  - Four-site heralding:
+    - success probability 5/8;
+    - accepted output 2/5, 2/5, 1/10, 1/10;
+    - free-history countercontrol at t = 6: 4/5 and 1/5;
+    - all six two-point subsets of F₂² are affine lines, so the vertices of {p_x ≤ 1/2} are uniform line states.
+  - Not independently rechecked: the 14-site two-record count (2²⁰ states) and the relay rows for k ≥ 4. Both rest on
+    the replayed checkers.
+- *Findings [rec, owner].*
+  - **Acquisition.** A product preparation with one known coordinate per memory site acquires an earlier parity
+    under fixed native dynamics. The correlated preparation is unnecessary: it is one native step from the product
+    menu. Back-action keeps the hidden support at 2 or more. Cancelling the kick is not symplectic.
+  - **Storage.** A relay chain of k added sites guarantees readability through t = k + 2. There is a written proof for
+    every k, and exhaustive checks for small k. A finite closed reversible device cannot keep a record readable at all
+    late times (finite recurrence).
+  - **Two records.** Compatible records of two toys coexist, with joint hidden support 4. For a conjugate attempt on
+    one toy, the second record carries an unknown mask.
+  - **Support versus weights.** Biasing the mask bit to P(r = 0) = p keeps support 2 but makes the second coordinate
+    predictable with probability max(p, 1 − p). The time-2 position statistics are the same for every p; u₄(12)
+    reveals p.
+  - **Heralding closure.** Let Kₙ be the convex hull of uniform distributions on affine sets with isotropic
+    constraints (K₁ = {p_x ≤ 1/2}). Kₙ is closed under affine symplectic evolution, isotropic terminal reads,
+    conditioning and coarse heralding. Native heralding produces a nonuniform state inside K₁. Retaining the herald
+    as free external history and reusing the apparatus produces the excluded biased line state.
+  - **Literature named by the owner** [Q, not read here; `link.springer.com` and `arxiv.org` are denied by the
+    proxy]:
+    - Fankhauser, Gonda and De les Coves, *Synthese* (2025): a Lagrangian accessible-variable subspace
+      (Definition 2.5), ready-state measurements, and Theorem 3.1 (measurable variables ↔ vanishing Poisson
+      brackets);
+    - Spekkens, "Quasi-quantization", arXiv:1409.5041 (2014): binary versions are not stabilizer QM.
+- *Coordinator assessment.*
+  - **CONFIRMING** the compatible-records argument and its stated scope.
+    - Every positive construction is an instance of it.
+    - The free-herald countercontrol is the failure its scope note already names ("a free external record breaks the
+      premise").
+    - The temporal-retention countercontrol K-POS-RET is the same failure across time.
+    - The finite recurrence lemma for storage restates report 3's fixed-carrier recurrence lemma for a historical
+      bit.
+  - **ELABORATING:** concrete native acquisition, relay and closure constructions, with resources stated.
+  - **Prior art for the mechanism.** The Fankhauser–Gonda–De les Coves framework, as the owner summarizes it, has the
+    same structure as the compatible-records argument: a Lagrangian accessible subspace, with measurability given by
+    vanishing brackets. The thread claims no novelty for the mechanism. A comparison of their observer premises with
+    OI's interface is the owner's proposed next step. It is gated here until the paper can be read.
+  - **The support-versus-weights finding bears directly on the draft PREREG (POSITIVE, a hidden assumption).**
+    - M0's restriction is support-based: "support ≥ 2ⁿ" (PREREG §4). The biased-mask family satisfies it while making
+      a conjugate coordinate predictable with probability close to 1. So the support form gives no guessing-probability
+      bound.
+    - Kₙ membership is the distributional form that the heralding closure theorem preserves under the declared
+      operations. It implies point probabilities ≤ 2⁻ⁿ but is strictly stronger than that bound.
+    - Recommendation, an owner decision, not applied: if model A is to be executed, restate M0's restriction as Kₙ
+      membership of the toy marginal on every accessible record. Keep the support line as a reported diagnostic, and
+      add the biased-mask family as a countercontrol, where support-M0 should print "retained" and Kₙ-M0 "lost".
+  - **All-future equivalence: CONFIRMING.** The u₄(12) read separates preparations that agree on every current read.
+    PREREG's Lemma W equivalence is already taken at unbounded depth, so snapshot equivalence is not what it uses.
+  - **Benchmark.** The memory constructions enter `design/benchmark/` as a positive calibration row. They are native
+    evolution within a declared memory construction, with added preparation and readout premises, and bear only on
+    the compatible-records interface candidate. They score nothing on L1–L6.

@@ -178,7 +178,7 @@ that premise; the theorem verdict counts only Native or Added, as §4 defines th
 | Classical bit | **Fails** the declared d ≥ 2; its interval is both a simplex and B¹ [std] | trivial | Pass | Pass [std] | **Fails**: permutations only | Pass | not reached |
 | Boxworld (gbits, maximal tensor product, reversible dynamics) | **Fails**: square state space, not a disc [std] | **Fails**: finite symmetry group | Pass, by construction | Pass [std] | **Fails**: no genuine reversible interaction; only local operations and permutations [lit, gated: Gross–Müller–Colbeck–Dahlsten 2010] | Pass | not reached; fails L1, L2, L5 |
 | PR box (exclusion control D5) | n/a | n/a | Pass | n/a | n/a | n/a | admitted by a candidate means D5 fails for that candidate |
-| Six-site memory construction (owner) | n/a | n/a | n/a | n/a | n/a | n/a | positive calibration for one embedded recording protocol under a declared correlated preparation. Not a geometry candidate. Report and checker not yet received [open] |
+| Native memory constructions (owner reports, 2026-10-22: product-ready six-site, relay, two-record, heralding; `../owner-checks/report9/`) | n/a | n/a | n/a | n/a | n/a | n/a | positive calibration: native evolution within a declared memory construction, with added preparation and readout premises (isotropic known coordinates, u-only terminal read). Not a geometry candidate. Bears on the compatible-records interface candidate only |
 
 ### 6.2 Route K
 
@@ -208,7 +208,6 @@ are to be checked against the definitions before the table is relied on [open].
   - the real Clifford class's L1–L3 and L6;
   - Spekkens L3, L4 and L6;
   - the K-route Pass marks on the countermodels.
-- **The six-site memory construction.** Needs its report and checker.
 - **Candidates, after the control table is reviewed:**
   - the polarization map, as added mathematical structure;
   - a ℤ/4-extended substratum state;

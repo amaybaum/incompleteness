@@ -1,0 +1,12 @@
+A six-site: period 18; u5(2)=u1(2)=u0(1)+u2(1) on 512 states
+  hidden support by t: [4, 2, 2, 4, 4, 2, 2, 4, 4, 4, 2, 4, 4, 2, 4, 2, 4, 4]
+  with v5(2) also read: [1]
+  historical parity recoverable from visible u at t = [1, 2, 11, 15]
+B relay k=0: 512 states, period 18, u_{5+r}(2+r)=f for r<=0, min hidden support over period 2
+B relay k=1: 1024 states, period 24, u_{5+r}(2+r)=f for r<=1, min hidden support over period 2
+B relay k=2: 2048 states, period 20, u_{5+r}(2+r)=f for r<=2, min hidden support over period 2
+B relay k=3: 4096 states, period 56, u_{5+r}(2+r)=f for r<=3, min hidden support over period 2
+C seven-site: m = u0(2)+u6(2) = v1(2)+r, r fair on all 64 complete records; u4(12)=u6(0)
+D heralding: success 5/8  accepted output {(0, 0): Fraction(2, 5), (0, 1): Fraction(1, 10), (1, 0): Fraction(2, 5), (1, 1): Fraction(1, 10)}
+  free-history countercontrol at t=6 {(0, 0): Fraction(4, 5), (1, 0): Fraction(1, 5)}
+  K1: all six two-point subsets of F2^2 are affine lines (vertex set of {p_x <= 1/2})
