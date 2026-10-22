@@ -1,0 +1,39 @@
+Candidate C-SPH-1 (COLLECTOR.md): exact checks.
+Part 1: conditional two-emission law (3 particles, 30 directions, exact)
+  A  iid, windows <= L/v: 15 record values; max TV(law | record, flux law) = 0
+  B  iid, exact crossing time t' in {5/8, 7/8, 9/8, 3/2, 7/4}: 20 cases; max TV(law, c 1[c < 1/t']) = 0
+  C  iid, window 5 (past L/v), window index only: max TV across first records = 0 (0.00e+00); TV to flux law up to 0.1304
+  C  iid, window 6 (past L/v), window index only: max TV across first records = 0 (0.00e+00); TV to flux law up to 0.1304
+  C' iid, recorded interval [7/8, 11/8) straddling a breakpoint: max TV across first records = 0 (0.00e+00)
+  C' iid, recorded interval [5/4, 7/4) straddling a breakpoint: max TV across first records = 0 (0.00e+00)
+  C'' factorized iid law equals the brute-force sum on 3 records (30 directions): True
+  C'' iid, 102 directions, first window k1 in {1, 5, 6}, second interval [13/8, 17/8): max TV across first records = 0.000e+00
+  C'' iid, 102 directions, first window k1 in {1, 5, 6}, second interval [2, 3): max TV across first records = 1.261e-04
+  D  countercontrol, absorbed system recycled into the reservoir: TV(law | s1 = +, law | s1 = -) = 681943/1256046 (0.5429) -> caught
+  E  countercontrol, reservoir sharing one direction: TV(law | s1 = +, law | s1 = -) = 1 (1.0000) -> caught
+Part 2: finite realization in D6 format (menu XYZR, ten preparations, depth <= 3)
+  N=  9 |D|= 96  T1 max error 9/560 (0.0161)  T3 max error 9/560 (0.0161)  T2 disagreement mass 0
+  N= 15 |D|=120  T1 max error 23/1130 (0.0204)  T3 max error 4101389/140459000 (0.0292)  T2 disagreement mass 0
+  N= 45 |D|=480  T1 max error 14/1705 (0.0082)  T3 max error 218732444/24578896375 (0.0089)  T2 disagreement mass 0
+  fast push equals the generic kernel push (impact model, N=9, all preparations, menu + I): True
+  depth-free outcome-functional span, C-SPH-1 finite, N=9, window 1: 96 reachable states, span dimension 5
+  depth-free outcome-functional span, control: impact-location read, N=9: 192 reachable states, span dimension 20
+  T5 at depth <= 3: optimal bias between the two sides of each D6 basis relation (quantum value 0)
+    C-SPH-1 finite, N=9, window 1          max 3/224 (0.0134)  per relation 0.0000 0.0000 0.0000 0.0000 0.0000 0.0134
+    control: impact-location read, N=9     max 5/14 (0.3571)  per relation 0.1786 0.3571 0.0852 0.0893 0.0000 0.0183
+    C-SPH-1 finite, N=9, window 8          max 61/252 (0.2421)  per relation 0.0000 0.0000 0.0000 0.0000 0.0000 0.2421
+    C-SPH-1 finite, N=15, window 1         max 7/1356 (0.0052)  per relation 0.0000 0.0000 0.0000 0.0000 0.0000 0.0052
+    control: impact-location read, N=15    max 47/113 (0.4159)  per relation 0.2301 0.4159 0.1193 0.1150 0.0000 0.0156
+    C-SPH-1 finite, N=15, window 8         max 20/69 (0.2899)  per relation 0.0000 0.0000 0.0000 0.0000 0.0000 0.2899
+Part 3: preregistered apparatus prediction (COLLECTOR.md section 2; ties counted 1/2)
+  N= 45 |D|= 510  e_N = 0.005284  max late |P_N - P_cont| = 0.02185 (bound 3e_N = 0.01585)  Z+/R = 1/2 at all windows: True
+        window-8 relation-6 residual: X 0.1797  Y 0.1569  Z 0.0000  R -0.2620
+        late windows (finite vs continuum): X+/R k=5 0.8804 vs 0.8750; X+/R k=7 0.7227 vs 0.7385; X+/R k=8 0.6763 vs 0.6824; Y+/R k=5 0.7448 vs 0.7500; Y+/R k=7 0.6020 vs 0.6172; Y+/R k=8 0.5743 vs 0.5962
+  N=105 |D|=1350  e_N = 0.001984  max late |P_N - P_cont| = 0.01344 (bound 3e_N = 0.005953)  Z+/R = 1/2 at all windows: True
+        window-8 relation-6 residual: X 0.1758  Y 0.1610  Z 0.0000  R -0.2395
+        late windows (finite vs continuum): X+/R k=5 0.8766 vs 0.8750; X+/R k=7 0.7320 vs 0.7385; X+/R k=8 0.6835 vs 0.6824; Y+/R k=5 0.7512 vs 0.7500; Y+/R k=7 0.6242 vs 0.6172; Y+/R k=8 0.6096 vs 0.5962
+  control (windows 1-4 equal the finite flux law exactly): green
+  verdict: NOT SUPPORTED at these N; failing clause(s): b
+Part 1 controls and countercontrols: green
+Part 2 exact T2 and fast-push agreement: green
+Part 3 control: green
