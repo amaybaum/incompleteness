@@ -1131,3 +1131,25 @@ The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb
 - *Owner's order for the first substantive candidate.* Change the preparation encoding and its physically accessible
   apparatus together. The extra preparation structure needs an independently specified source, not just another
   update formula. The candidate passes first-read feasibility before longer sequences are implemented.
+
+## Design audit of the projected-area (Kochen–Specker) construction (2026-10-22)
+
+- *Owner instruction.* Run a short design audit of the projected-area preparation and detector interaction, through
+  three gates (preparation mechanism, recording mechanism, access closure), with two boundaries fixed in advance:
+  continuity requires a declared approximation family, and a single-qubit result says nothing about composites.
+  Do not call this the first native OI candidate.
+- *Done.* `design/ks/KS-AUDIT.md` and `ks_checks.py`/`.out`:
+  - sympy confirms the cos θ/π density from the disk lift, and P(+ | u, n) = (1 + cos α)/2 through the ellipse
+    boundary;
+  - exact grid counts converge to 9/10, with error 1/790 at M = 20 and 1/25135 at M = 80.
+- *Gate results.*
+  - **Gate 1: Added.** The cosine law is the counting measure on a planar chart perpendicular to u. Nothing selects
+    the chart, and the uniform sphere chart fails. New assumption-watch marker: *a counting measure fixes a law only
+    together with its chart.*
+  - **Gate 2: met by a declared bijection.** A conditional swap with a fresh disk seed produces both the outcome and
+    μ_{σn}, and the old λ moves into a dump register. It costs one fresh seed per measurement (AP-1/fresh-card).
+  - **Gate 3: needs two Added premises.** The dump must be inaccessible, and a used detector must not be reused
+    unprepared.
+- *Verdict under the owner's stop rule:* conditional calibration. No large implementation. The one question that
+  could change the classification is whether a chart supplied by OI's substratum gives the projected-area law
+  without being chosen for it, together with a fresh-seed source whose dump stays inaccessible.
