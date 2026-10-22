@@ -18,6 +18,18 @@
 - **Quantum reference.** Bloch calculus: P(+ | r, n) = (1 + n·r)/2, with post-measurement state ±n. Every quantity is
   rational.
 
+## Gates (owner review, 2026-10-22), applied before any test
+
+- **VALIDITY.** Every preparation distribution, and every kernel reachable from the declared preparations under the
+  menu and the declared extra reads, must have nonnegative exact probabilities summing to 1 and outcomes in {0, 1}.
+  Otherwise the model prints **INVALID**, and its behavioural scores are not reported.
+- **COVERAGE.** The mandatory preparations are all ten, and the mandatory menu is X, Y, Z, R.
+  - A model may not shrink either.
+  - A countercontrol or restricted control declaring a subset is scored on that subset, and its row states k/10 and
+    the menu used.
+  - Empty coverage is refused.
+  - Only a VALID 10/10 PPPP row on the full menu can accept a candidate.
+
 ## Tests (`instr_bench.py`, exact)
 
 | Test | Content |
@@ -29,14 +41,17 @@
 
 ## Controls and results
 
-| Model | Role | T1 T2 T3 T4 | Deciding witness |
-|---|---|---|---|
-| Quantum reference | reference | P P P P | — |
-| Label + seed deterministic dilation | positive control (imports QM rules) | P P P P | — |
-| Correct first read, no state update | countercontrol | P F F F | X then X on Y+; X+ vs Y+ separated by 7/8 > √2/2 |
-| R collapses to the X eigenstate | countercontrol | P F F P | R repetition on X+ fails with probability 1/10 |
-| Correct instruments plus an accessible label read | countercontrol | P P P F | X+ vs r₊ separated by 1 > √2/4 |
-| Triple-correlation encoding (report 10) | countercontrol | P F F F | R repetition fails with probability 51/200; X then Y on r₊; r± separated by 1 > 1/√2 |
+| Model | Role | Gate and coverage | T1 T2 T3 T4 | Deciding witness |
+|---|---|---|---|---|
+| Quantum reference | reference | VALID 10/10, XYZR | P P P P | — |
+| Label + seed deterministic dilation | positive control (imports QM rules) | VALID 10/10, XYZR | P P P P | — |
+| Correct first read, no state update | countercontrol | VALID 10/10, XYZR | P F F F | X then X on Y+; X+ vs Y+ separated by 7/8 > √2/2 |
+| R collapses to the X eigenstate | countercontrol | VALID 10/10, XYZR | P F F P | R repetition on X+ fails with probability 1/10 |
+| Correct instruments plus an accessible label read | countercontrol | VALID 10/10, XYZR | P P P F | X+ vs r₊ separated by 1 > √2/4 |
+| Triple-correlation encoding (report 10) | partial countercontrol | VALID **2/10**, XYZR | P F F F | R repetition fails with probability 51/200; X then Y on r₊; r± separated by 1 > 1/√2 |
+| Negative weights that cancel (owner mutation) | gate countercontrol | **INVALID** | not reported | its statistics match the reference on all 840 sequence–preparation pairs, so only the gate catches it |
+| No preparations declared (owner mutation) | gate countercontrol | **COVERAGE** refused | not reported | — |
+| Fresh-card instrument (owner) | restricted positive control | VALID **4/10**, menu XY | P P P P | reading one coordinate replaces the other with a fresh card value, a counted resource |
 
 - **Positive control.** The label + seed dilation reproduces the reference exactly. Its purpose is to show that the
   checker accepts correct sequential behaviour. It is not a reconstruction or a candidate.
@@ -48,6 +63,18 @@
   disclosed here.
 - **Exactness bug, fixed before recording.** An empty measure made V₀ return a float. Every gap is now asserted to
   be a Fraction.
+
+## First-read obstruction for the four-state card preparations (owner review)
+
+- **Setting.** Keep the card preparations X±, Y±: uniform on the two cards with that coordinate fixed.
+- **Bound.** No response on the cards implements R. X+ and Y− are at total-variation distance ½, so
+  P(R+ | X+) − P(R+ | Y−) ≤ ½. The quantum values are 9/10 and 1/5, a gap of 7/10.
+- **Exact optimum.** Per card, the conditions force b ≥ 4/5 − 2ε and b ≤ 2/5 + 2ε for the card (+, −). So the
+  minimum worst-case error is ε = 1/10, and the response (1, 3/5, 2/5, 0) attains it (`card_R_obstruction`).
+- **Decision.** Do not search for a better R update while these preparation distributions are kept. The first read
+  rules it out, whatever the update rule.
+- **Relation to earlier results.** It is the measurement-side form of the diamond obstruction of reports 3 and 4:
+  the card preparations are K₁ line states.
 
 ## Scope
 

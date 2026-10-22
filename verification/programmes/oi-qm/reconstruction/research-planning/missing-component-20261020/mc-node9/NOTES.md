@@ -1099,3 +1099,35 @@ The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb
 - *Next.* Candidates are to be specified in this kernel format, starting with an OI construction that declares
   preparations, accessible reads and updates from its own dynamics. The Kₙ re-review and the source comparisons run
   alongside and do not block it.
+
+## Owner review of the D6 instrument benchmark (2026-10-22), corrections applied
+
+- *Owner review.* The owner reproduced the published output and found two gaps. Neither changes the six
+  classifications.
+  - **(1) No validity gate.** A model with cancelling negative transition weights scored PPPP. Coordinator check: its
+    statistics match the reference on all 840 sequence–preparation pairs, so only a gate can catch it.
+  - **(2) No coverage gate.** A model declaring no preparations passed vacuously.
+  - The mathematics was confirmed:
+    - fixed sequences cover adaptive strategies, given kernels that depend only on the current state and the
+      measurement;
+    - T4's same-copy comparison is appropriate;
+    - the triple-correlation failure needs no extra read;
+    - the record tuple suffices for this abstract benchmark.
+- *Applied in `design/instrument/`.*
+  - **VALIDITY gate:** exact, nonnegative, normalized kernels on every reachable state; otherwise INVALID.
+  - **COVERAGE gate:** all ten preparations and the full menu are mandatory, and partial rows state k/10 and their
+    menu. Only a VALID 10/10 PPPP row on XYZR can accept a candidate.
+  - **The owner's two mutations as controls:** the cancelling negative weights print INVALID, and the empty
+    preparation list is refused under COVERAGE.
+  - **The fresh-card instrument as a restricted positive control:** reading one card coordinate replaces the other
+    with a fresh card value. On menu XY it is VALID 4/10, PPPP. This "fresh card" reading is the coordinator's
+    construction of the owner's description.
+  - **The triple-correlation row** now states 2/10.
+- *Four-state rotated-read obstruction (owner, checked exactly).* With the card preparations X±, Y±:
+  - TV(X+, Y−) = ½, while R needs the gap 9/10 − 1/5 = 7/10;
+  - the minimum worst-case error is exactly 1/10, attained by the response (1, 3/5, 2/5, 0);
+  - **Decision recorded:** no search for an R update while these preparations are kept.
+  - It is the measurement-side form of the diamond obstruction; the card preparations are K₁ line states.
+- *Owner's order for the first substantive candidate.* Change the preparation encoding and its physically accessible
+  apparatus together. The extra preparation structure needs an independently specified source, not just another
+  update formula. The candidate passes first-read feasibility before longer sequences are implemented.
