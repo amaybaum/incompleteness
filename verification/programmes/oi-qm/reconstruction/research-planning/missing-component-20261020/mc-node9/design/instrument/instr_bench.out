@@ -1,0 +1,18 @@
+D6 instrument benchmark: a finite single-qubit instrument experiment, exact rational arithmetic.
+preparations 10 | menu ['X', 'Y', 'Z', 'R'] | fixed sequences of length <= 3: 84
+ok  quantum reference: T1..T4 = PPPP
+ok  positive control: label + seed dilation (imports QM): T1..T4 = PPPP
+ok  countercontrol: correct first read, no state update: T1..T4 = PFFF
+      T2 witness: ('X+', 'Y', Fraction(1, 2))
+      T3 witness: ('Y+', ('X', 'X'))
+      T4 witness: ('X+', 'Y+', 'optimal depth-3 gap', Fraction(7, 8))
+ok  countercontrol: R collapses to the X eigenstate: T1..T4 = PFFP
+      T2 witness: ('X+', 'R', Fraction(1, 10))
+      T3 witness: ('X+', ('R', 'X'))
+ok  countercontrol: correct instruments plus an accessible preparation-label read: T1..T4 = PPPF
+      T4 witness: ('X+', 'r_plus', 'optimal depth-3 gap', Fraction(1, 1))
+ok  countercontrol: triple-correlation encoding, nondisturbing reads: T1..T4 = PFFF
+      T2 witness: ('r_plus', 'R', Fraction(51, 200))
+      T3 witness: ('r_plus', ('X', 'Y'))
+      T4 witness: ('r_plus', 'r_minus', 'optimal depth-3 gap', Fraction(1, 1))
+PASS: every model classified as declared.

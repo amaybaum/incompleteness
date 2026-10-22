@@ -1071,3 +1071,31 @@ The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb
     and the sequential control to the next design review; both are done here.
   - **Next (owner):** declare preparations, accessible readouts and post-measurement dynamics together, before larger
     lattice constructions.
+
+## D6 instrument benchmark built (owner specification, 2026-10-22)
+
+- *Owner input.* D6 was a complete first-read test plus specific countercontrols, not a test of measurement
+  sequences. The owner specified the next step:
+  - a finite menu: X, Y, Z and R;
+  - the eigenstate preparations together with r±;
+  - outcome and update rules declared together;
+  - tests of repetition, switching, retained outcomes and feedback, with physical record locations;
+  - tests of extra accessible reads;
+  - a positive control for complete instruments that imports quantum rules and is not a candidate.
+- *Built.* `design/instrument/INSTR-DESIGN.md` and `instr_bench.py`/`.out` (exact; replays byte for byte; 2 CPU-seconds).
+  - **Tests.** T1 first read, T2 repetition, T3 all fixed sequences of length ≤ 3, which covers adaptive strategies,
+    and T4 the optimal adaptive depth-3 discrimination against the quantum trace distance.
+  - **Positive.** The quantum reference and a label + seed deterministic dilation both pass T1–T4.
+  - **Countercontrols:**
+    - no state update: P F F F;
+    - a wrong update: P F F P;
+    - an accessible label read: P P P F;
+    - report 10's triple-correlation encoding: P F F F. Its sharp X, Y, Z reads already expose h = xyz, so r± are
+      separated perfectly at depth 3.
+- *Disclosure.* Two of my declared expectations were wrong, both underpredicting failures: no-collapse also fails T4,
+  and triple-correlation also fails T2. The checker was correct on analysis, and the expectation table was corrected
+  after the first run. A float leak in V₀ was fixed before recording.
+- *Scope.* Depth 3, a single qubit, no composites. Passing is evidence at that depth only.
+- *Next.* Candidates are to be specified in this kernel format, starting with an OI construction that declares
+  preparations, accessible reads and updates from its own dynamics. The Kₙ re-review and the source comparisons run
+  alongside and do not block it.
