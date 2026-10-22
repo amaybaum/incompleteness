@@ -1,0 +1,28 @@
+C-SPH-1 complete-record checker, implementing CHECKER-PREREG.md as frozen at 27cbc2d7 (FREEZE.md).
+protocols: F1 340, F2 72, F3 32, total 444; cases 2664
+full-sphere integral of |w.lambda| = 2*pi; hemisphere integral of lambda = [0, 0, pi]: True
+so P(s | a, w) = (1/pi)(pi/2 + pi s a.w/2) = (1 + s a.w)/2
+midpoint quadrature (2000 x 4000) of the flux law for the 32 menu cases agrees with (1 + s a.w)/2 to within 2.1e-04 (numerical evidence)
+derivation checks: green
+C2  station closed form = particle-level enumeration, symbolic over call times, windows, offsets and q: 56 cases (N <= 4, 14 patterns): True
+    merge identity behind log R: (1 - eps)(1 - qS1)(1 - qS2) = 1 - q(S1 + S2): True
+C4  reference merge: log R_ref = 0 identically for h1 <= 4, h2 <= 1 (pointwise agreement): True
+C5  herald-history regression through the checker's merge rule: fixed pool 151201/16777216; Poisson reference 0: True
+C6  impact-read control (absorber privacy): P(E | Z-mix) = sqrt(2)/2, P(E | X-mix) = 1 - sqrt(2)/2; F3 a = Z, all 8 probes: min lo = 0.393503 > 0.02: True
+C8  address-exposure control: supports disjoint True and every record mass contains 1, so TV = 1 exactly on all 8 single-probe F2 protocols: True
+distinct integrals: 7703 (cap 400 evaluations each, target relative gap 1/100)
+integrals done at 1161 s
+C3  identity relation 5: hi = 0 on every protocol: True
+C4  Poisson reference: hi <= 1e-30 on every pair and protocol: True
+implementation: sum_w d_w r_w = 0 exactly on every branch: True; distinct integrals 15406; box evaluations per cell max 143663 (limit 1000000); run 1669352 (limit 500000000)
+D1  coupling diagnostic: max over preparations and protocols of hi(TV(fixed pool, Poisson)) = 1.06379e-6; bound m Lambda^2/N = 0.00493523; largest lower bracket 6.99494e-7
+    record masses contain 1 for every preparation and protocol: True
+    completion F1: fixed pool in [0.9999846, 1.0]; Poisson reference in [0.9999846, 1.0]
+    completion F2: fixed pool in [1.0, 1.0]; Poisson reference in [1.0, 1.0]
+    completion F3: fixed pool in [1.0, 1.0]; Poisson reference in [1.0, 1.0]
+TV  F1: 2040 cases; max hi 8.47283e-6 (XXX|R, relation 1; lo 4.33537e-7); cells with hi = 0: 596
+TV  F2: 432 cases; max hi 1.41072e-6 (R+,R+, relation 6; lo 2.97527e-7); cells with hi = 0: 172
+TV  F3: 192 cases; max hi 2.82555e-7 (Y>R+, relation 6; lo 2.04404e-7); cells with hi = 0: 112
+cells: 2664; hi <= 0.01: 2664; lo > 0.01: 0; undecided: 0
+controls green; verdict on P* (pool allocation 0.01; total with the aperture bound <= 0.02): ACCEPT
+elapsed 2207 s
