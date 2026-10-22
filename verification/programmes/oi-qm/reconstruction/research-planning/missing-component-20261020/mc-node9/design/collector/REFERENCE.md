@@ -169,8 +169,9 @@ on w is affine in w. Procedures representing the same quantum state are therefor
 
 ## Next
 
-1. **The owner fixes the direction rule.** The acceptance rule is then preregistered.
-2. **Build the complete-record D6 checker.** It carries station inventories, slot schedules, successes, failures,
-   continuous crossing times and outcomes. It verifies that the implemented protocol satisfies the Theorem R / C
-   assumptions and meets the frozen error allowance.
-3. **Composite work stays parked.**
+1. **The direction rule is decided (owner):** the analytic read law P(s | a, w) = (1 + s·a·w)/2, derived from the
+   flux law in `read_law_checks.py`. The direction term is 0, and the total allowance is 0.02.
+2. **The checker's preregistration** is drafted in `CHECKER-PREREG.md`, for owner review before any checker code
+   exists.
+3. **After this checkpoint,** numerical refinement stops, and work returns to which assumptions OI supplies.
+4. **Composite work stays parked.**
