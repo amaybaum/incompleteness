@@ -1,0 +1,7 @@
+Coordinator checks of the joint-record handoff v1 (independent code; standard library and fractions only).
+J1  n=63, m=256, X read: handoff frames: exact-time TV 0.04377046, 16-bin 0.00790809, time-blind 0.00063982; alternative R frame: 0.04424444, 0.00891793, 0.00060662; reproduces the handoff: True
+J2  n=15, alternative frames, every read axis, atom by atom on (timestamp, read): antipodal identities hold True; fourth identity fails True
+J3  rank of (1, w) columns = 4; four relations in the null space True with rank 4 = 8 - 4: True
+J4  clock/velocity TV vs B/(8 E[P+]): ['n=127 B=16 TV 0.059660 bound 0.088796', 'n=127 B=64 TV 0.236995 bound 0.355184']: True
+J5  single call, 16-bin clock, A vs B: (n, TV, delta_n, bound 2c[delta_n + B/(8E[P+])]) ['(63, 0.007908, 0.001229, 0.249471)', '(127, 0.004558, 0.000610, 0.168270)']; TV <= bound: True
+coordinator checks: green
