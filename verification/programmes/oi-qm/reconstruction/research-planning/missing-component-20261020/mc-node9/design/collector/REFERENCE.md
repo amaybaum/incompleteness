@@ -144,20 +144,17 @@ on w is affine in w. Procedures representing the same quantum state are therefor
 | Expected aperture crossings per station | Λ = (200/23) ln 20 ≈ 26.04985 |
 | Fixed pool | N = 1,100,000 per station. The minimum for the pool term to stay below 0.01 is 1,085,752; the earlier 920,000 figure left no latency allowance |
 | Aperture fraction | η = 4Λ/N ≈ 9.4727·10⁻⁵ |
-| Pairwise transcript-error target | 0.03: 0.01 each to pools, aperture and directions |
+| Pairwise transcript-error target | 0.02: 0.01 to pools, 0.01 to aperture, 0 to directions |
 
 **Accounting, all in the pairwise transcript TV metric.**
 - **Pools.** The term is 16Λ²/N ≈ 0.0098705.
 - **Aperture.**
   - The discrepancy is at most δ_ap = 4ρ/(d − ρ) per read. Over at most R = 8 reads it contributes at most 2Rδ_ap.
   - So ρ/d ≤ 1/6401 meets 0.01. At that value δ_ap = 1/1600.
-- **Directions.**
-  - **For the checker's model.** The read law is analytic: (1 + s·a·w)/2, read off continuous directions. The
-    direction term is then 0.
-  - **For a finite carrier set.** The same accounting requires a per-read outcome error of at most 1/1600. The
-    rational spheres measured so far do not reach it (fast-band errors between 0.002 and 0.008, and erratic in N).
-  - **Owner decision.** Whether to fix a finite-carrier rule now, or to accept the checker on the analytic read
-    law.
+- **Directions.** The checker uses the analytic read law (1 + s·a·w)/2 on continuous directions, derived from the
+  flux law (`read_law_checks.py`). The direction term is 0. A finite carrier set would need a per-read outcome error
+  of at most 1/1600, which the rational spheres measured so far do not reach; no finite carrier is part of this
+  target.
 
 **Qualifications.**
 - **The 5% failure rate is a Poisson-reference guarantee.** It is not a conditional guarantee after every fixed-pool
