@@ -151,3 +151,11 @@ essential assumptions OI actually supplies.
 Run 2 was replayed in a separate copy of `collector/` and `instrument/`.
 - `record_checker_cells.csv` and `record_checker_d1.csv` are byte-identical.
 - The printed output is identical except for its two wall-clock lines.
+
+## Owner acceptance
+
+> I accept the repair at a7b9674a for the bounded numerical checkpoint. […] The checkpoint can now close with its
+> stated scope: bounded approximate equivalence for the specified apparatus and protocols, conditional on its
+> resource and access assumptions. Numerical refinement should stop here.
+
+Owner, 2026-10-22, relayed in the coordinating session. **The numerical checkpoint for C-SPH-1 is closed.**
