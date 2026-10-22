@@ -31,8 +31,9 @@ Tests (all exact; depth-bounded, so a PASS is evidence for the stated depth only
      basis of six relations covers every mixture equivalence by linearity (checked exactly below). The test is
      depth-free: the outcome-functional span (normalization, closed under the transpose of every outcome-labelled
      kernel) is computed over the reachable hidden states, and each relation's signed hidden-law difference must
-     annihilate it. Separately declared contextual procedures (a model's own procedure laws) are checked the same
-     way against every procedure with the same quantum state. The span covers declared operations on a fully
+     annihilate it. Separately declared contextual procedures (a model's own procedure laws) enter one augmented
+     preparation matrix together with the ten base laws, and its entire null space is checked against the same
+     span, so cross-family equivalences (a base preparation against a declared procedure) are covered too. The span covers declared operations on a fully
      specified finite model only; undeclared operations and unbounded extensions are not certified.
 """
 from fractions import Fraction as F
@@ -126,6 +127,22 @@ class TagLeak(Quantum):
     def meas(self,m,state):
         r,tag=state
         if m=='D': return [(1 if tag=='Z' else 0,state,F(1))]
+        n=AX[m]; p=(1+dot(n,r))/2
+        return [(1,(n,tag),p),(0,(neg(n),tag),1-p)]
+class ProcedureTag(Quantum):
+    """Countercontrol (owner review): ordinary preparations carry tag 0, every separately declared procedure carries
+    tag 1, menu measurements are correct, and an extra read T reveals the tag. The ordinary r_plus preparation and
+    the declared r_plus procedure represent the same state and are perfectly distinguishable."""
+    name='countercontrol: tag separating ordinary preparations from declared procedures'
+    extra={'T':None}
+    def prep(self,label): return {(PREPS[label],0):F(1)}
+    def procedure(self,proc):
+        out=defaultdict(F)
+        for l,w in PROCEDURES[proc].items(): out[(PREPS[l],1)]+=w
+        return dict(out)
+    def meas(self,m,state):
+        r,tag=state
+        if m=='T': return [(tag,state,F(1))]
         n=AX[m]; p=(1+dot(n,r))/2
         return [(1,(n,tag),p),(0,(neg(n),tag),1-p)]
 class DetectorLeak(Quantum):
@@ -269,6 +286,24 @@ def check_basis():
     vecs=[[lhs.get(l,F(0))-rhs.get(l,F(0)) for l in ORDER] for lhs,rhs in BASIS]
     in_null=all(sum(rows[i][j]*v[j] for j in range(10))==0 for v in vecs for i in range(4))
     return rank(rows),in_null,rank(vecs)
+def nullspace(cols):
+    """Exact null space of the 4 x k matrix whose columns are (1, r) for each preparation."""
+    k=len(cols); A=[[cols[j][i] for j in range(k)] for i in range(4)]
+    piv=[]; r=0
+    for c in range(k):
+        p_=next((i for i in range(r,4) if A[i][c]!=0),None)
+        if p_ is None: continue
+        A[r],A[p_]=A[p_],A[r]; A[r]=[x/A[r][c] for x in A[r]]
+        for i in range(4):
+            if i!=r and A[i][c]!=0: f=A[i][c]; A[i]=[a-f*b for a,b in zip(A[i],A[r])]
+        piv.append(c); r+=1
+        if r==4: break
+    free=[c for c in range(k) if c not in piv]; out=[]
+    for f_ in free:
+        v=[F(0)]*k; v[f_]=F(1)
+        for i,pc in enumerate(piv): v[pc]=-A[i][f_]
+        out.append(v)
+    return out
 def reachable(model,menu,preps):
     stack=[]
     for l in preps: stack+=list(model.prep(l))
@@ -374,16 +409,20 @@ def evaluate(model,ref=REF):
         a,b=law_of(model,lhs),law_of(model,rhs)
         d={h:a.get(h,F(0))-b.get(h,F(0)) for h in set(a)|set(b)}
         if not unobservable(d): w=w or ('basis relation %d'%(k+1),lhs,rhs)
-    if hasattr(model,'procedure'):        # separately declared contextual procedures
-        names=list(PROCEDURES)
-        for i_,a_ in enumerate(names):
-            for b_ in names[i_+1:]:
-                if bloch(a_)!=bloch(b_): continue
-                if not all(l in preps for l in list(PROCEDURES[a_])+list(PROCEDURES[b_])): continue
-                scored+=1
-                a,b=procedure_law(model,a_),procedure_law(model,b_)
-                d={h:a.get(h,F(0))-b.get(h,F(0)) for h in set(a)|set(b)}
-                if not unobservable(d): w=w or ('declared procedures',a_,b_)
+    if hasattr(model,'procedure'):        # augmented matrix: base laws plus declared procedures, whole null space
+        procs=[p_ for p_ in PROCEDURES if all(l in preps for l in PROCEDURES[p_])]
+        base=[l for l in ORDER if l in preps]
+        cols=[[F(1)]+list(PREPS[l]) for l in base]+[[F(1)]+list(bloch(p_)) for p_ in procs]
+        laws=[model.prep(l) for l in base]+[procedure_law(model,p_) for p_ in procs]
+        names_=base+['procedure '+p_ for p_ in procs]
+        for v in nullspace(cols):
+            scored+=1
+            d=defaultdict(F)
+            for c_,law in zip(v,laws):
+                if c_:
+                    for h,p in law.items(): d[h]+=c_*p
+            if not unobservable(dict(d)):
+                w=w or ('augmented null vector',{n_:str(c_) for n_,c_ in zip(names_,v) if c_})
     res['T5']=w if scored else 'not scored'
     res['span']=(len(H),len(span))
     return res
@@ -404,9 +443,10 @@ if __name__=='__main__':
             'mutation: no preparations declared':'COVERAGE',
             'restricted control: fresh-card instrument (menu XY, preparations X+-, Y+-)':'VALID 4/10 PPPP P',
             'countercontrol: procedure tag readable through a discard read':'VALID 10/10 PPPP F',
-            'countercontrol: detector read biased on the R preparations':'VALID 10/10 PPPP F'}
+            'countercontrol: detector read biased on the R preparations':'VALID 10/10 PPPP F',
+            'countercontrol: tag separating ordinary preparations from declared procedures':'VALID 10/10 PPPP F'}
     allok=True
-    MODELS=(Quantum(),LabelSeed(),NoCollapse(),WrongUpdate(),LabelLeak(),TripleCorr(),NegWeight(),EmptyPreps(),FreshCard(),TagLeak(),DetectorLeak())
+    MODELS=(Quantum(),LabelSeed(),NoCollapse(),WrongUpdate(),LabelLeak(),TripleCorr(),NegWeight(),EmptyPreps(),FreshCard(),TagLeak(),DetectorLeak(),ProcedureTag())
     for M in MODELS:
         r=evaluate(M)
         if r['gate']: got=r['gate'].split(':')[0]

@@ -18,11 +18,19 @@ the projected-area preparation law μ_u(λ) = max(0, u·λ)/π through its actua
 - The preparation is therefore a herald on a crossing record, applied to a counting measure on positions and
   directions.
 
+**What "exact" refers to (owner review).**
+- With continuous isotropic directions, the flux law *is* the projected-area law (A).
+- With a finite direction set, the early windows reproduce *that set's* discrete flux law exactly. For N = 15 the
+  result is P = 506/551, not 9/10.
+- A bounded slab with continuously distributed positions is not yet a finite OI carrier.
+- These are window distributions, not yet a reusable source of independent seeds. Nothing here specifies how several
+  particles are selected, or their joint law conditional on earlier records.
+
 **B. The incident direction set carries the result** [exact, bounded]. The target is P(+ | u = X+, n = R) = 9/10:
 
 | Direction set | Result |
 |---|---|
-| The cubic lattice's own six unit directions | Fails: P = 1, an error of 1/10. For u = Z+ and n = R, every heralded direction lies on the tie boundary n·λ = 0 |
+| Directions restricted to the six coordinate axes | Fails: P = 1, an error of 1/10. For u = Z+ and n = R, every heralded direction lies on the tie boundary n·λ = 0 |
 | Near-isotropic rational direction sets (integer vectors of norm N) | Errors between 1/1000 and 1/20 for N = 3, 9, 15, 25, 45 |
 
 - The rational-set errors are not monotone in N.
@@ -41,8 +49,10 @@ the projected-area preparation law μ_u(λ) = max(0, u·λ)/π through its actua
 - **The earlier failing law comes back as an input.** The favourable reading is that transport supplies Gate 1. What
   it supplies is a conversion: an isotropic incident law becomes the projected-area law through flux selection. The
   isotropic law is the uniform-direction law that failed as a preparation; here it is the reservoir's input.
-- **Isotropy is load-bearing, and the baseline doesn't supply it.** The displayed realization is a cubic lattice with
-  nearest-neighbour coupling (Main.md:290), and its natural six-direction velocity set fails (B).
+- **Isotropy is load-bearing, and nothing here supplies it.** The six-axis model fails (B), but only that tested
+  model, in which directions are restricted to the coordinate axes. It is a countercontrol, not a general obstruction.
+  Without a derivation connecting OI's evolving lattice configurations to particle velocities, it does not show that a
+  cubic substrate cannot supply effective isotropy.
 - **Assumption-watch marker:** *flux heralding turns an isotropic incident law into the projected-area law; the
   isotropy itself must be sourced.*
 - **The herald needs a physical crossing record**, and its failure branch, ¾ of the time for τ = L, must be accounted
@@ -55,6 +65,25 @@ the projected-area preparation law μ_u(λ) = max(0, u·λ)/π through its actua
 3. Which later interactions can reach it. D6's T4 and T5 decide this once the model is finite and declared.
 4. How repeated use changes the reservoir. C gives the first quantitative answer: the law is exact for ⌊L/τ⌋ windows,
    then drifts.
+
+## Next construction: one complete encounter (owner specification, 2026-10-22)
+
+Isotropy is accepted provisionally as an Added premise (owner decision). Deriving it now would not settle recording,
+disturbance or later access. The bounded specification has five parts.
+
+1. **The incoming reservoir.** Declare the position distribution, the independence of direction and position, the
+   speed, the particle count and the selection rule. Isotropy is Added.
+2. **One complete encounter.** Include the system, the detector, the crossing record, the outcome record and the
+   outgoing discarded information.
+3. **Two encounters with the same apparatus.** Carry forward its actual state. A fresh seed is never inserted
+   automatically.
+4. **The complete record.** Test successful and unsuccessful heralds, any accessible timing information, and the
+   permitted later interactions. D6's T1–T5 are applied to the finite version.
+5. **Explicit verdicts.** A counterexample rejects this construction. A pass establishes the stated bounded
+   correspondence. Neither establishes full QM or a general impossibility.
+
+> **Decisive question:** given isotropic incoming resources, can one physically specified interaction produce the
+> required measurement update while keeping every later accessible record consistent with quantum theory?
 
 **Classification:** a physically interpretable Gate 1 mechanism with two declared premises, isotropic incident
 directions and a crossing herald. It is not yet a candidate, because the recording interaction, the access rules and

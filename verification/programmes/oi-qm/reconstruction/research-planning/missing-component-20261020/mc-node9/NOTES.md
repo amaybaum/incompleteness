@@ -1204,7 +1204,8 @@ The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb
 - *Transport calculation (`design/transport/`).*
   - **(A)** Heralding on a surface crossing turns isotropic incident directions exactly into μ_u (Lambert). The herald
     succeeds with probability ¼ · τ/L.
-  - **(B)** The cubic lattice's six directions fail: error 1/10, or all weight on the tie boundary. Near-isotropic
+  - **(B)** The six-axis direction model fails: error 1/10, or all weight on the tie boundary. This is a
+    countercontrol for that tested model, not an obstruction for a cubic substrate (owner review). Near-isotropic
     rational sets give small errors that are not monotone in N.
   - **(C)** A finite slab reservoir gives the exact law for ⌊L/τ⌋ windows, then drifts.
   - **Assumption-watch marker:** *flux heralding converts an isotropic incident law into the projected-area law; the
@@ -1213,3 +1214,24 @@ The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb
   - **Classification:** a physically interpretable Gate 1 mechanism with declared premises (isotropy, crossing
     herald). Not a candidate.
   - **Open:** the recording interaction, where the old information goes, later access, and replenishment.
+
+## Owner decision and review after the transport calculation (2026-10-22)
+
+- *Decision.* Option 2: isotropy is accepted provisionally as an Added premise, and the next investigation is the
+  complete detector interaction.
+- *Qualifications, applied in `design/transport/TRANSPORT.md` and corrected in place above.*
+  - "Exact" is stated against its reference: continuous isotropy gives the projected-area law, while a finite set
+    reproduces its own discrete flux law (506/551 at N = 15).
+  - A continuous-position slab is not a finite OI carrier.
+  - Window distributions are not yet a reusable independent seed source.
+  - The six-axis failure is narrowed to that tested model.
+- *T5 cross-family gap (owner countercontrol).* Ordinary preparations carry tag 0 and declared procedures carry tag 1,
+  read by an extra read. The ordinary r₊ and the declared r₊ procedure are perfectly distinguishable, yet the
+  previous T5 passed the model (confirmed by running it against the previous checker).
+  - **Repair:** one augmented preparation matrix holds the ten base laws and every declared procedure. Its whole null
+    space is checked against the outcome-functional span.
+  - The countercontrol is retained and now fails T5. All rows are as declared.
+- *Next construction, specified in TRANSPORT.md:* the declared reservoir; one complete encounter; two encounters with
+  the same apparatus and its actual state carried forward; the complete record, including failed heralds and timing;
+  explicit bounded verdicts. Decisive question: can one physically specified interaction produce the measurement
+  update while keeping every later accessible record consistent with QM?

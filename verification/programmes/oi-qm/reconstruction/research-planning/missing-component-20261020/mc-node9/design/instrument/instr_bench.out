@@ -22,9 +22,11 @@ ok  mutation: negative transition weights that cancel: INVALID  [10/10 preparati
 ok  mutation: no preparations declared: COVERAGE  [0/10 preparations, menu XYZR]  COVERAGE: no preparations declared
 ok  restricted control: fresh-card instrument (menu XY, preparations X+-, Y+-): VALID 4/10 PPPP P  [4/10 preparations, menu XY]  [T5: 4 reachable states, functional span 3]
 ok  countercontrol: procedure tag readable through a discard read: VALID 10/10 PPPP F  [10/10 preparations, menu XYZR]  [T5: 18 reachable states, functional span 8]
-      T5 witness: ('declared procedures', 'Z-mix', 'X-mix')
+      T5 witness: ('augmented null vector', {'X+': '-1/2', 'X-': '-1/2', 'procedure Z-mix': '1'})
 ok  countercontrol: detector read biased on the R preparations: VALID 10/10 PPPP F  [10/10 preparations, menu XYZR]  [T5: 82 reachable states, functional span 8]
       T5 witness: ('basis relation 3', {'X+': Fraction(1, 2), 'X-': Fraction(1, 2)}, {'R+': Fraction(1, 2), 'R-': Fraction(1, 2)})
+ok  countercontrol: tag separating ordinary preparations from declared procedures: VALID 10/10 PPPP F  [10/10 preparations, menu XYZR]  [T5: 19 reachable states, functional span 8]
+      T5 witness: ('augmented null vector', {'X+': '-1/2', 'X-': '-1/2', 'procedure Z-mix': '1'})
 card R obstruction: targets {'X+': '9/10', 'X-': '1/10', 'Y+': '4/5', 'Y-': '1/5'} TV(X+,Y-) = 1/2 required gap 7/10
   minimum worst-case error >= 1/10 ; witness response attains 1/10 with {'X+': '4/5', 'X-': '1/5', 'Y+': '7/10', 'Y-': '3/10'}
 Only a VALID 10/10 PPPP P row on menu XYZR can accept a candidate; restricted and partial rows never do.
