@@ -742,3 +742,32 @@ The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb
   - **Scope.** The theorem is conditional on the uniform affine linear class, and the isotropic interface is not shown
     to be OI's. The bound does not give amplitudes, contextuality, purification, the complex field or composition.
     Learning both coordinates of a site is not shown to contradict QM.
+
+## Owner note on records across time (2026-10-22), coordinator check
+
+- *Source.* A short owner note relayed in chat, with no checker attached. `design/owner-checks/report8/` holds the
+  coordinator's check, built from Main.md:290's rule.
+- *Claim and check.* In the five-site example, a single positions-only (visible u) read leaves hidden support 2, both
+  at t = 3 and at t = 2. If the t = 2 positions are retained undisturbed and read together with those at t = 3, the
+  support is 1. The reason is v_x(t) = u_x(t − 1): two consecutive position snapshots carry one whole-site snapshot.
+  The coordinator check confirms all of this on 256 states:
+  - u₁(3) = u₀(2) ⊕ u₂(2) and v₁(3) = u₀(3), so three bits suffice;
+  - the five-site period is 16, and the positions-only terminal support never falls below 2 over it;
+  - the four-site witness behaves the same way: support ≥ 2 over its period of 10 with a single terminal read, and 1
+    with t = 2 and t = 3 retained. The owner did not state the last fact; the coordinator check adds it.
+- *Assessment.*
+  - **This refines the cross-link in report 7's review, and does not overturn the compatible-records argument.** That
+    argument puts every retained record into R at the terminal cut. A t = 2 position record, transported to t = 3, is
+    a momentum function, so R is not isotropic.
+  - So "observers read positions only" is not a sufficient access condition. The condition has to say which position
+    records can coexist across time, and what recording does to the subsequent evolution.
+  - Identifying the lattice's u coordinates with physical positions is itself a modelling choice. Main.md:216
+    projects onto configuration variables, and the discrete realization reads whole sites.
+- *Three tests, as the owner frames them.*
+  - (i) Single terminal positions-only read: a positive control.
+  - (ii) Positions-only with free retention across times: a negative control.
+  - (iii) Positions-only with embedded physical memory, covering acquisition, storage, subsequent interaction and final
+    read in one protocol: the substantive construction question, open.
+  - (i) and (ii) are added to PREREG §5 as K-POS and K-POS-RET, beside K-MEM4 (report 6) and K-MEM5 (report 7), and
+    the four lines are added to M0's "required for retained" list. The owner recommended the controls; the draft is
+    not frozen.
