@@ -25,11 +25,15 @@ Tests (all exact; depth-bounded, so a PASS is evidence for the stated depth only
      discrimination of depth <= 3 between any two preparations does not exceed the quantum trace distance
      |r1 - r2|/2. It is computed exactly by recursion over unnormalized hidden-state measures,
      V_d(a, b) = max_m sum_o V_{d-1}(a|m,o; b|m,o) and V_0 = |mass(a) - mass(b)|/2, and compared on squares.
-  T5 preparation equivalence (owner review): preparation procedures with the same quantum state (the mixtures
-     Z-mix = (Z+ + Z-)/2, X-mix, Y-mix, all I/2, and XY-mix = (X+ + Y+)/2, equal to r_plus) must have optimal
-     depth-3 discrimination exactly 0 under the menu and every declared extra read, discard reads included.
-     A procedure's hidden law is its declared mixture; different hidden laws are allowed, observable differences
-     are not. Pairs whose components lie outside a partial model's preparations are reported as not scored.
+  T5 preparation equivalence (owner reviews): every mixture equivalence among the ten fixed preparation laws must
+     be exactly unobservable, at every finite depth, under the menu and every declared extra read (discard reads
+     included). The ten Bloch columns (1, r) have rank 4, so the equivalences form a 6-dimensional space; a fixed
+     basis of six relations covers every mixture equivalence by linearity (checked exactly below). The test is
+     depth-free: the outcome-functional span (normalization, closed under the transpose of every outcome-labelled
+     kernel) is computed over the reachable hidden states, and each relation's signed hidden-law difference must
+     annihilate it. Separately declared contextual procedures (a model's own procedure laws) are checked the same
+     way against every procedure with the same quantum state. The span covers declared operations on a fully
+     specified finite model only; undeclared operations and unbounded extensions are not certified.
 """
 from fractions import Fraction as F
 from itertools import product
@@ -124,6 +128,20 @@ class TagLeak(Quantum):
         if m=='D': return [(1 if tag=='Z' else 0,state,F(1))]
         n=AX[m]; p=(1+dot(n,r))/2
         return [(1,(n,tag),p),(0,(neg(n),tag),1-p)]
+class DetectorLeak(Quantum):
+    """Countercontrol (owner review): correct quantum instruments; the hidden state keeps the inaccessible preparation
+    label; a declared detector read D gives P(D=1) = 51/100 for R+ and R-, 1/2 otherwise, and leaves the state
+    unchanged. It passes T1-T4 at depth 3; the R-mixture and the X-mixture (both I/2) differ on D."""
+    name='countercontrol: detector read biased on the R preparations'
+    extra={'D':None}
+    def prep(self,label): return {(PREPS[label],label):F(1)}
+    def meas(self,m,state):
+        r,lab=state
+        if m=='D':
+            q=F(51,100) if lab in ('R+','R-') else F(1,2)
+            return [(1,state,q),(0,state,1-q)]
+        n=AX[m]; p=(1+dot(n,r))/2
+        return [(1,(n,lab),p),(0,(neg(n),lab),1-p)]
 class NegWeight(Quantum):
     """Mutation (owner review): signed weights on two distinct next states that cancel in every statistic. The
     ghost state carries the same Bloch vector, so its future statistics equal the true state's."""
@@ -226,6 +244,69 @@ def validity(model,menu,preps):
             stack+=[h2 for _,h2,p in ks if p]
     return None
 
+ORDER=['X+','X-','Y+','Y-','Z+','Z-','R+','R-','r_plus','r_minus']
+BASIS=[  # (lhs mixture, rhs mixture): equal quantum states (owner, 2026-10-22)
+ ({'X+':F(1,2),'X-':F(1,2)},{'Y+':F(1,2),'Y-':F(1,2)}),
+ ({'X+':F(1,2),'X-':F(1,2)},{'Z+':F(1,2),'Z-':F(1,2)}),
+ ({'X+':F(1,2),'X-':F(1,2)},{'R+':F(1,2),'R-':F(1,2)}),
+ ({'X+':F(1,2),'X-':F(1,2)},{'r_plus':F(1,2),'r_minus':F(1,2)}),
+ ({'r_plus':F(1)},{'X+':F(1,2),'Y+':F(1,2)}),
+ ({'r_plus':F(1)},{'R+':F(5,6),'X-':F(1,6)})]
+def rank(rows):
+    rows=[list(r) for r in rows]; rk=0; ncol=len(rows[0]) if rows else 0
+    for c in range(ncol):
+        piv=next((i for i in range(rk,len(rows)) if rows[i][c]!=0),None)
+        if piv is None: continue
+        rows[rk],rows[piv]=rows[piv],rows[rk]
+        for i in range(len(rows)):
+            if i!=rk and rows[i][c]!=0:
+                f=rows[i][c]/rows[rk][c]; rows[i]=[a-f*b for a,b in zip(rows[i],rows[rk])]
+        rk+=1
+    return rk
+def check_basis():
+    cols=[[F(1)]+list(PREPS[l]) for l in ORDER]
+    rows=[[cols[j][i] for j in range(10)] for i in range(4)]
+    vecs=[[lhs.get(l,F(0))-rhs.get(l,F(0)) for l in ORDER] for lhs,rhs in BASIS]
+    in_null=all(sum(rows[i][j]*v[j] for j in range(10))==0 for v in vecs for i in range(4))
+    return rank(rows),in_null,rank(vecs)
+def reachable(model,menu,preps):
+    stack=[]
+    for l in preps: stack+=list(model.prep(l))
+    for proc,comp in PROCEDURES.items():
+        if all(l in preps for l in comp): stack+=list(procedure_law(model,proc))
+    seen=set()
+    while stack:
+        h=stack.pop()
+        if h in seen: continue
+        seen.add(h)
+        for m in menu: stack+=[h2 for _,h2,p in kernel(model,m,h) if p]
+    return sorted(seen,key=repr)
+def functional_span(model,menu,H):
+    idx={h:i for i,h in enumerate(H)}
+    basis=[]; piv=[]
+    def reduce(v):
+        v=list(v)
+        for b,c in zip(basis,piv):
+            if v[c]!=0: f=v[c]/b[c]; v=[a-f*x for a,x in zip(v,b)]
+        return v
+    def add(v):
+        v=reduce(v); c=next((i for i,a in enumerate(v) if a!=0),None)
+        if c is None: return False
+        basis.append(v); piv.append(c); return True
+    queue=[[F(1)]*len(H)]; add(queue[0]); out=[queue[0]]
+    while queue:
+        f=queue.pop()
+        for m in menu:
+            for o in (0,1):
+                g=[sum((p*f[idx[h2]] for oo,h2,p in kernel(model,m,h) if oo==o and p),F(0)) for h in H]
+                if add(g): queue.append(g); out.append(g)
+    return out
+def law_of(model,mix):
+    out=defaultdict(F)
+    for l,w in mix.items():
+        for h,p in model.prep(l).items(): out[h]+=w*p
+    return out
+
 REF=Quantum()
 def evaluate(model,ref=REF):
     preps=tuple(getattr(model,'preps',tuple(PREPS)))
@@ -281,22 +362,38 @@ def evaluate(model,ref=REF):
             assert isinstance(g,F)
             if g*g>trace_dist_sq(PREPS[a],PREPS[b]): w=w or (a,b,'optimal depth-3 gap',g)
     res['T4']=w
-    # T5: preparation equivalence between procedures with the same quantum state
+    # T5: complete, depth-free preparation equivalence
+    H=reachable(model,menu,preps); idx={h:k for k,h in enumerate(H)}
+    span=functional_span(model,menu,H)
+    def unobservable(da):
+        return all(sum((da.get(h,F(0))*f[idx[h]] for h in da),F(0))==0 for f in span)
     w=None; scored=0
-    names=list(PROCEDURES)
-    for i_,a in enumerate(names):
-        for b in names[i_+1:]:
-            if bloch(a)!=bloch(b): continue
-            if not all(l in preps for l in list(PROCEDURES[a])+list(PROCEDURES[b])): continue
-            scored+=1
-            g=V(3,procedure_law(model,a),procedure_law(model,b))
-            if g!=0: w=w or (a,b,'optimal depth-3 gap',g)
+    for k,(lhs,rhs) in enumerate(BASIS):
+        if not all(l in preps for l in list(lhs)+list(rhs)): continue
+        scored+=1
+        a,b=law_of(model,lhs),law_of(model,rhs)
+        d={h:a.get(h,F(0))-b.get(h,F(0)) for h in set(a)|set(b)}
+        if not unobservable(d): w=w or ('basis relation %d'%(k+1),lhs,rhs)
+    if hasattr(model,'procedure'):        # separately declared contextual procedures
+        names=list(PROCEDURES)
+        for i_,a_ in enumerate(names):
+            for b_ in names[i_+1:]:
+                if bloch(a_)!=bloch(b_): continue
+                if not all(l in preps for l in list(PROCEDURES[a_])+list(PROCEDURES[b_])): continue
+                scored+=1
+                a,b=procedure_law(model,a_),procedure_law(model,b_)
+                d={h:a.get(h,F(0))-b.get(h,F(0)) for h in set(a)|set(b)}
+                if not unobservable(d): w=w or ('declared procedures',a_,b_)
     res['T5']=w if scored else 'not scored'
+    res['span']=(len(H),len(span))
     return res
 
 if __name__=='__main__':
     print(__doc__.strip().splitlines()[0])
     print('preparations',len(PREPS),'| menu',MENU,'| fixed sequences of length <= 3:',sum(4**L for L in (1,2,3)))
+    rk,innull,rb=check_basis()
+    print('T5 basis: rank of the (1, r) columns =',rk,'| six relations in the null space:',innull,'| their rank =',rb,'(null space dimension',10-rk,')')
+    basis_ok=(rk,innull,rb)==(4,True,6)
     expect={'quantum reference':'VALID 10/10 PPPP P',
             'positive control: label + seed dilation (imports QM)':'VALID 10/10 PPPP P',
             'countercontrol: correct first read, no state update':'VALID 10/10 PFFF F',
@@ -306,20 +403,21 @@ if __name__=='__main__':
             'mutation: negative transition weights that cancel':'INVALID',
             'mutation: no preparations declared':'COVERAGE',
             'restricted control: fresh-card instrument (menu XY, preparations X+-, Y+-)':'VALID 4/10 PPPP P',
-            'countercontrol: procedure tag readable through a discard read':'VALID 10/10 PPPP F'}
+            'countercontrol: procedure tag readable through a discard read':'VALID 10/10 PPPP F',
+            'countercontrol: detector read biased on the R preparations':'VALID 10/10 PPPP F'}
     allok=True
-    MODELS=(Quantum(),LabelSeed(),NoCollapse(),WrongUpdate(),LabelLeak(),TripleCorr(),NegWeight(),EmptyPreps(),FreshCard(),TagLeak())
+    MODELS=(Quantum(),LabelSeed(),NoCollapse(),WrongUpdate(),LabelLeak(),TripleCorr(),NegWeight(),EmptyPreps(),FreshCard(),TagLeak(),DetectorLeak())
     for M in MODELS:
         r=evaluate(M)
         if r['gate']: got=r['gate'].split(':')[0]
         else: got='VALID %s '%r['coverage'].split(' ')[0]+''.join('P' if r[t] is None else 'F' for t in ('T1','T2','T3','T4'))+' '+('-' if r['T5']=='not scored' else 'P' if r['T5'] is None else 'F')
         ok=got==expect[M.name]; allok&=ok
-        print(('ok  ' if ok else 'BAD ')+M.name+': '+got+'  ['+r['coverage']+']'+('' if not r['gate'] else '  '+r['gate']))
+        print(('ok  ' if ok else 'BAD ')+M.name+': '+got+'  ['+r['coverage']+']'+('' if not r['gate'] else '  '+r['gate'])+('' if 'span' not in r else '  [T5: %d reachable states, functional span %d]'%r['span']))
         for t in ('T1','T2','T3','T4','T5'):
             if r.get(t) not in (None,'not scored'): print('      %s witness: %s'%(t,str(r[t])[:160]))
     tgt,tvd,gap,eps,got,worst=card_R_obstruction()
     print('card R obstruction: targets',{k:str(v) for k,v in tgt.items()},'TV(X+,Y-) =',tvd,'required gap',gap)
     print('  minimum worst-case error >=',eps,'; witness response attains',worst,'with',{k:str(v) for k,v in got.items()})
-    allok&= eps==F(1,10) and worst==F(1,10)
+    allok&= eps==F(1,10) and worst==F(1,10) and basis_ok
     print('Only a VALID 10/10 PPPP P row on menu XYZR can accept a candidate; restricted and partial rows never do.')
     print('PASS: every model classified as declared.' if allok else 'FAIL: a control is misclassified; the benchmark is void.')

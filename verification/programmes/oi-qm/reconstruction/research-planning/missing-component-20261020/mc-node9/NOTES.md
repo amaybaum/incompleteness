@@ -1185,3 +1185,31 @@ The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb
 - *Next (owner):* preparation equivalence and detector access. A candidate specifies its preparation process, complete
   recording interaction, and every later apparatus operation together. A C5 restriction must survive physical
   recording and reuse, not merely declare information inaccessible.
+
+## Owner review: T5 completed and made depth-free; detector-leak countercontrol; transport calculation (2026-10-22)
+
+- *Owner finding.* A detector read with P(D = 1) = 51/100 on R± and ½ otherwise passed VALID, 10/10 and T1–T5,
+  although R-mix and X-mix are both I/2. T5 covered only three of the six independent mixture equivalences.
+- *Applied in `design/instrument/`.*
+  - **Complete basis.** T5 now uses the owner's six-relation basis. Checked exactly: the (1, r) columns have rank 4,
+    all six relations lie in the null space, and the six have rank 6. So every mixture equivalence of the ten fixed
+    laws is covered by linearity.
+  - **Depth-free test.** Unobservability is decided by the outcome-functional span: normalization, closed under the
+    transpose of every outcome-labelled kernel over the reachable states. This holds at every finite depth for a
+    fully specified finite model.
+  - **Declared contextual procedures** are checked separately.
+  - **Results.** The detector-leak countercontrol is added: VALID 10/10, PPPP, F on basis relation 3. Every row is as
+    declared. The span is 4 for the quantum reference and the dilation (the qubit's effect dimension) and 3 for the
+    fresh card.
+- *Transport calculation (`design/transport/`).*
+  - **(A)** Heralding on a surface crossing turns isotropic incident directions exactly into μ_u (Lambert). The herald
+    succeeds with probability ¼ · τ/L.
+  - **(B)** The cubic lattice's six directions fail: error 1/10, or all weight on the tie boundary. Near-isotropic
+    rational sets give small errors that are not monotone in N.
+  - **(C)** A finite slab reservoir gives the exact law for ⌊L/τ⌋ windows, then drifts.
+  - **Assumption-watch marker:** *flux heralding converts an isotropic incident law into the projected-area law; the
+    isotropy must be sourced.* The uniform-direction law that failed as a preparation re-enters as the reservoir's
+    input.
+  - **Classification:** a physically interpretable Gate 1 mechanism with declared premises (isotropy, crossing
+    herald). Not a candidate.
+  - **Open:** the recording interaction, where the old information goes, later access, and replenishment.

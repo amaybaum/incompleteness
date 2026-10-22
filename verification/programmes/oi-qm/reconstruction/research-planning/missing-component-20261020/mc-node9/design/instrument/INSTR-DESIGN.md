@@ -37,7 +37,7 @@
 | T1 | First read: every preparation and every menu measurement match the reference |
 | T2 | Repetition: m then m gives equal outcomes with probability 1 |
 | T3 | Switching, retained outcomes and feedback: every fixed sequence of length ≤ 3 gives the reference joint distribution. Along each outcome path an adaptive strategy applies one fixed sequence, so this covers every adaptive strategy of depth ≤ 3 |
-| T5 | Preparation equivalence (owner review): procedures with the same quantum state (Z-mix, X-mix, Y-mix, all I/2; XY-mix and r₊) must have optimal depth-3 discrimination exactly 0 under the menu and every declared extra read, discard reads included. Different hidden laws are allowed; observable differences are not |
+| T5 | Preparation equivalence, complete and depth-free (owner reviews): every mixture equivalence among the ten fixed laws must be exactly unobservable. The (1, r) columns have rank 4, so a basis of six relations covers all equivalences by linearity (checked exactly). Unobservability means the signed hidden-law difference annihilates the outcome-functional span: normalization, closed under the transpose of every outcome-labelled kernel over the reachable states, extra and discard reads included. This decides equivalence at every finite depth, adaptive protocols included, for a fully specified finite model. Declared contextual procedures are checked the same way. Undeclared operations and unbounded extensions are not certified |
 | T4 | Extra accessible reads: with the candidate's declared extra reads added, the optimal adaptive discrimination of depth ≤ 3 between any two preparations does not exceed the quantum trace distance \|r₁ − r₂\|/2. It is computed by exact recursion over unnormalized hidden-state measures and compared on squares |
 
 ## Controls and results
@@ -52,10 +52,12 @@
 | Triple-correlation encoding (report 10) | partial countercontrol | VALID **2/10**, XYZR | P F F F – | R repetition fails with probability 51/200; X then Y on r₊; r± separated by 1 > 1/√2 |
 | Negative weights that cancel (owner mutation) | gate countercontrol | **INVALID** | not reported | its statistics match the reference on all 840 sequence–preparation pairs, so only the gate catches it |
 | No preparations declared (owner mutation) | gate countercontrol | **COVERAGE** refused | not reported | — |
-| Procedure tag readable through a discard read | T5 countercontrol | VALID 10/10, XYZR | P P P P F | passes T1–T4; Z-mix vs X-mix separated by 1, where QM requires 0 |
+| Procedure tag readable through a discard read | T5 countercontrol | VALID 10/10, XYZR | P P P P F | passes T1–T4; the declared Z-mix vs X-mix procedures are separated |
+| Detector read biased on R± (owner) | T5 countercontrol | VALID 10/10, XYZR | P P P P F | P(D = 1) = 51/100 on R±, ½ otherwise; passes T1–T4 at depth 3; caught by basis relation 3 (X-mix = R-mix). The earlier three-relation T5 missed it |
 | Fresh-card instrument (owner) | restricted positive control | VALID **4/10**, menu XY | P P P P P | reading one coordinate replaces the other with a fresh card value, a counted resource |
 
 - **The validity gate also explores procedure laws**, which are T5's hidden states.
+- **Functional-span sanity check.** The span is 4 for the quantum reference and the dilation, which is the qubit's effect-space dimension, and 3 for the fresh-card control.
 - **Positive control.** The label + seed dilation reproduces the reference exactly. Its purpose is to show that the
   checker accepts correct sequential behaviour. It is not a reconstruction or a candidate.
 - **Correction to my declared expectations.** My first table was wrong in two places:
