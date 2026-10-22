@@ -1,0 +1,7 @@
+Coordinator checks of the emission-map handoff v1 (independent code; standard library and fractions only).
+E1  n=63, M=1024, m=256, gcd reduction of every timestamp: completion 0.981776369544 0.981543683592; event 0.819346363181 0.164250679444; gap 0.655095683737 > 1/2 (exact): True
+E2  n=3 full enumeration: menu reads unbiased given every timestamp for X-mix and R-mix: True; X-mix = Y-mix on (success, timestamp, read): True; X-mix and R-mix single-trial timestamp laws differ: True (TV 9/128 = 0.070312)
+E3  16-bin herald record, n=63, m=256, bins from ceil(16 D/P): TV 0.015685376945976 (owner 0.015685376946): True
+E4  attempt-index-only record (m=256): (n, p_X, p_R, TV) ['(7, 0.085449, 0.082859, 1.183e-02)', '(15, 0.030684, 0.030275, 5.021e-03)', '(31, 0.021867, 0.021728, 2.380e-03)', '(63, 0.015523, 0.015474, 1.167e-03)', '(127, 0.010998, 0.010981, 5.778e-04)']
+    consistency: attempt-only TV at n=63 (1.167253e-03) <= 16-bin TV (1.568538e-02), as a coarsening must be: True
+coordinator checks: green
