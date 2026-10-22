@@ -5,9 +5,14 @@ Part 1  conditional two-emission law of one station's reservoir, exact rationals
         complete accessible record of the first emission (window index, so failures, and outcome) and the second's
         own window or exact crossing time. Paired countercontrols: the absorbed system recycled into the reservoir,
         and a reservoir sharing one direction.
-Part 2  the finite realization in D6 format (menu XYZR, the ten preparations): bounded errors of T1-T3, exact T2, and
-        preparation equivalence at depth <= 3, with paired controls (an impact-location read; a depleted station).
-Part 3  the preregistered apparatus prediction (COLLECTOR.md section 2), decided by its fixed rule.
+Part 2  the reduced direction/reset kernel in D6 format (menu XYZR, the ten preparations): the hidden state is the
+        current direction only, so station inventories, crossing clocks and herald failures are not modelled (see
+        herald_checks.py for what they expose). Bounded T1-T3 errors as total variation over the transcript, exact
+        T2, and preparation equivalence at depth <= 3, with paired controls (an impact-location read; a depleted
+        station).
+Part 3  the preregistered apparatus prediction (COLLECTOR.md section 2), decided by its fixed rule. That prediction
+        averages bulk crossings in each window; the apparatus selects the first arrival after a call
+        (first_arrival.py).
 """
 import sys, os
 from fractions import Fraction as F
@@ -277,7 +282,7 @@ def V(model,menu,d,a,b,memo):
     else: r=max(sum(V(model,menu,d-1,push(model,a,m,o),push(model,b,m,o),memo) for o in (0,1)) for m in menu)
     memo[key]=r; return r
 def part2():
-    print('Part 2: finite realization in D6 format (menu XYZR, ten preparations, depth <= 3)')
+    print('Part 2: reduced direction/reset kernel in D6 format (no station inventories, clocks or herald failures; menu XYZR, ten preparations, depth <= 3)')
     REF=IB.Quantum(); ok=True; rows={}
     for N in (9,15,45):
         M=FluxKS(N); e1=e3=F(0); bad2=F(0)
@@ -286,13 +291,13 @@ def part2():
             for L_ in (1,2,3):
                 for seq in product(IB.MENU,repeat=L_):
                     got=seq_dist(M,mu,seq); want=seq_dist(REF,ref,seq)
-                    err=max(abs(got.get(k,F(0))-want.get(k,F(0))) for k in set(got)|set(want))
+                    err=tvd(got,want)          # total variation over the outcome transcript
                     if L_==1: e1=max(e1,err)
                     e3=max(e3,err)
             for m in IB.MENU:
                 d=seq_dist(M,mu,(m,m)); bad2+=sum(p for k,p in d.items() if k[0]!=k[1])
         rows[N]=(len(M.D),e1,e3,bad2)
-        print('  N=%3d |D|=%3d  T1 max error %s (%.4f)  T3 max error %s (%.4f)  T2 disagreement mass %s'%(N,len(M.D),e1,float(e1),e3,float(e3),bad2))
+        print('  N=%3d |D|=%3d  T1 max TV %s (%.4f)  T1-T3 max transcript TV %s (%.4f)  T2 disagreement mass %s'%(N,len(M.D),e1,float(e1),e3,float(e3),bad2))
         ok&= bad2==0
     # the model's own push (used above for speed) must agree with the generic kernel push on every reachable state
     M=FluxKSImpact(9); menu=IB.MENU+['I']; agree=True

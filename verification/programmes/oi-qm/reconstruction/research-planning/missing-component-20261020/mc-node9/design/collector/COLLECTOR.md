@@ -119,14 +119,14 @@ the reservoir's physical sourcing, isotropy included, is established.
 
 **Claim.** Take any herald of a station whose particle has not yet entered any record. The complete accessible record
 depends on that particle only through its crossing time. This holds for every call time that is a function of the
-record, so it covers failed windows, retries, and every earlier crossing time and outcome.
+record.
 
-**Consequence.** Given its crossing time t, the herald's direction law is ∝ (w·λ)·1[w·λ < L/(vt)]. That is:
-- exactly μ_w up to L/v;
-- truncated toward grazing directions after L/v;
-- in both cases independent of the rest of the record.
+**Consequence.** Given its crossing time t, and given that the herald succeeded, the herald's direction law is
+∝ (w·λ)·1[w·λ < L/(vt)]. That is exactly μ_w up to L/v, and it is independent of the rest of the record.
 
-So, within the fast band, resource independence holds exactly, and observable agreement follows from it.
+**What the claim does not cover.** It conditions on the herald's own crossing time. It says nothing about the
+probability that a herald, or a failure, is recorded at all. That probability does depend on the station's history
+(§4).
 
 **Checks.** Three particles, the 30-direction rational sphere, continuous depths.
 
@@ -134,106 +134,124 @@ So, within the fast band, resource independence holds exactly, and observable ag
 |---|---|
 | A: fast band, record = window index and outcome | the law equals the flux law for all 15 record values |
 | B: record includes the exact crossing time, fast and late | the law equals the truncated flux law in all 20 cases |
-| C, C′: late windows or straddling intervals, window index only | no dependence on the first record |
-| C″: richer set (102 directions), first and second emission both late, window index only | the law depends on the first record; the dependence is exact, of size 1.26·10⁻⁴ |
-| D: countercontrol, absorbed system recycled into the reservoir | caught: TV(law given s₁ = +, law given s₁ = −) = 0.543 |
-| E: countercontrol, reservoir sharing one direction | caught: TV = 1 |
+| C, C′: late windows or straddling intervals, window index only | no dependence on the first record (the 30-direction set has three values of c, so the density is constant on those intervals) |
+| C″: richer set (102 directions), both emissions late, window index only | the law depends on the first record; the dependence is exact, of size 1.26·10⁻⁴ |
+| D: countercontrol, absorbed system recycled into the reservoir | caught: TV 0.543 |
+| E: countercontrol, reservoir sharing one direction | caught: TV 1 |
 
-- **Why C and C′ show no dependence.** The 30-direction set has only three values of c, so the herald density is
-  constant on those intervals.
-- **What C″ means.** With a window-index record past L/v, earlier records shift the second law. Recording the exact
-  crossing time, as in B, or staying inside the fast band, as in A, removes the shift.
+## 4. Herald statistics expose the station's history (owner witness; `herald_checks.py`, exact)
 
-## 4. Verdict: is the reset generated or supplied?
+**Protocol W.**
+1. Prepare Z-mix or X-mix, with the initial herald in window A.
+2. Measure Z.
+3. Call the routed station in a later disjoint window B. Both windows may lie before L/v.
 
-**The reset law is generated, given isotropy.**
-- The outgoing law μ_{sa} comes from the herald dynamics of station S_{sa}: flux selection through its shutter
-  plane, applied to an isotropic reservoir.
-- It holds conditional on the complete accessible record (§3).
-- No probability or update law is inserted. The seed is isotropic, not already projected-area distributed. This is
-  the difference from Gate 2's lifted seed.
-- The same mechanism supplies preparation and reset.
+**Why the two mixtures differ.**
+- Under Z-mix, the outcome routes back to the station that supplied the initial particle.
+- Under X-mix, it routes to a Z station that has not been called before.
+
+**Setting.** Each of a station's N particles crosses the aperture in A with probability a, or in B with probability
+b.
+
+**Result.**
+- **The difference.** P(H_A F_B | Z-mix) − P(H_A F_B | X-mix) = ((1−a)(1−b))^N − (1−a−b)^N. It is strictly
+  positive for every N ≥ 1 when a, b > 0.
+- **Example.** At N = 3 and a = b = 1/16:
+  - the conditional failure probabilities are 631/721 and 3375/4096;
+  - the joint difference is 151201/16777216 ≈ 0.0090, which reproduces the owner's values.
+- **Bound.** The difference is at most N·ab·((1−a)(1−b))^(N−1), checked exactly on a grid.
+- **Scaling.** At fixed expected crossings a = α/N and b = β/N, it falls as αβe^(−α−β)/N, so it is at most e⁻²/N.
+- **Poisson comparison.** If each station's particle number is Poisson with mean μ, the difference is identically 0.
+  Counts in disjoint windows are then independent.
+
+**What this means.** The specified finite apparatus does not satisfy preparation equivalence. The witness uses
+the declared herald record alone, before any detector record is read. Gate 3 therefore requires more than absorber
+privacy: the herald statistics must not depend on preparation history.
+
+**Scope.** This is a counterexample to C-SPH-1's interface equivalence. It is not an impossibility result for
+transport-generated resets.
+
+## 5. Verdict on the reset
+
+**What is generated.** The successful fast-band emission law μ_{sa} is generated by flux selection at station S_{sa}.
+This holds conditional on the stipulated reservoir ensemble:
+- independent particles, uniform positions, isotropic directions [ADD];
+- a common speed.
+
+No probability or update law is inserted, and the seed is isotropic rather than already projected-area distributed.
 
 **What is supplied.**
-- **[ADD] Isotropy** of the reservoir.
-- **[CAL] The routing s → S_{sa}.** Repeatability fixes it uniquely among the stations, and no probability enters its
-  choice.
-- **[CAL] Disjoint reservoirs.** Countercontrols D and E show what sharing or recycling does.
-- **[CAL] The fast-band budget.**
-- **Access closure.** The collector's absorber keeps each absorbed λ, and no declared operation reads it. Stored
-  particles do not interact, so collector reuse leaves later outcomes unaffected. But that inaccessibility is
-  declared, not derived. One coarse read of the impact record breaks preparation equivalence (§5).
+- **The routing.** Repeatability alone only requires the next law to be supported in {s a·λ > 0}. S_{sa} is the
+  unique choice within the chosen emitter family {S_w}, so the routing comes from that family, not from
+  repeatability by itself.
+- **The resource assumptions:** disjoint pools, the fast-band budget, and the pool statistics that §4 shows to be
+  observable.
+- **Access closure for the absorbers,** which is declared.
 
-**Carrier.** The encounter itself only produces s: the incoming carrier is absorbed, and a new carrier is emitted.
-This is the measure-and-reprepare form of the projected-area model.
+**Carrier.** The encounter itself produces only s: the incoming carrier is absorbed, and a new one is emitted.
 
-**Under the stop rule.**
-- The reset is not a calibration by insertion.
-- Gate 3 remains conditional: closure is declared.
+**Classification.** The complete instrument is a conditional construction. Its interface equivalence fails for finite
+canonical pools (§4).
 
-## 5. The whole apparatus against D6 (`collector_checks.py` Part 2)
+## 6. The reduced direction/reset kernel against D6 (`collector_checks.py` Part 2)
 
-**Finite realization.**
-- **Direction set.** Rational spheres with every direction tied to a menu axis removed: 96, 120 and 480 directions
-  at N = 9, 15, 45.
-- **Laws.** Fast-band herald laws, and the routing as specified.
+**What the model contains.** The finite D6 model carries only the current direction, and each measurement applies a
+fixed replacement law. It carries no station inventories, crossing clocks or herald failures. So these results
+concern that reduced kernel, not the specified apparatus with its complete transcript.
 
 **Results.**
-- **T2 is exact.**
-- **T1 and T3 are bounded.** The maximum errors are 0.016 / 0.016, 0.020 / 0.029 and 0.0082 / 0.0089 at
-  N = 9, 15, 45. The errors are not monotone in N.
-- **Depth-free functional span.** Its dimension is 5: normalization plus the four first-read effects. Every reset is
-  independent of the absorbed direction, so no deeper functional exists.
-- **In the continuum,** this makes every D6 equivalence exactly unobservable: each relation's residual is
-  Σ cᵢ(1 + n·rᵢ)/2 = 0. This is the depth-free result. The finite numbers below are the bounded check.
+- **Errors.** T2 is exact. T1 errors are 0.016, 0.020 and 0.0082 (total variation). The largest total variation over
+  the depth-≤3 outcome transcript is 0.029, 0.037 and 0.013. These are at 96, 120 and 480 directions.
+- **Functional span.** Its dimension is 5, so the reduced kernel's equivalences are exactly unobservable in the
+  continuum.
 
-**Preparation equivalence at depth ≤ 3: the optimal bias between the two sides of each basis relation.** The quantum
-value is 0.
+**Depth-3 preparation-equivalence bias.**
 
 | Model | N = 9 | N = 15 |
 |---|---|---|
-| C-SPH-1, fast band | 0.0134 | 0.0052 |
-| control: coarse impact read I (is λ_z² > λ_x² for the absorbed system?) | 0.357 | 0.416 |
-| control: depleted station (window 8) | 0.242 | 0.290 |
+| reduced kernel | 0.0134 | 0.0052 |
+| impact-read control | 0.357 | 0.416 |
+| depleted-station control | 0.242 | 0.290 |
 
-- **What the candidate's residual is.** It appears only in relation 6, and it is of the size of the finite-set error.
-- **The impact read** gives a large bias in relations 1–4 that does not shrink with N. This is the access witness of
-  Gate 3 on the actual collector.
-- **Depletion** opens relation 6, as predicted.
+## 7. The preregistered prediction
 
-## 6. The preregistered prediction: result
+**Verdict, as printed by its fixed rule: not supported at N = 45 and 105, failing clause (b).** The control was
+green, and clauses (a) and (c) hold.
 
-- **Control:** green. Windows 1–4 equal the finite flux law exactly.
-- **Verdict as printed: not supported at N = 45 and 105; failing clause (b).**
+**Correction to the prediction itself.**
+- **What the prediction computed.** It averaged bulk crossings in each window, as did the finite test
+  (`window_law`) and the Monte Carlo (`collector_mc.py`).
+- **What the apparatus does.** It selects the first arrival after a call. That arrival's density carries the
+  factor N·f(t, λ)·[1 − F(t) + F(t₀)]^(N−1).
+- **Consequence.** The prediction, its test and the Monte Carlo therefore concern the bulk-crossing law, not this
+  apparatus's herald. The Monte Carlo agreement (largest |z| 1.93 over 32 cells) corroborates only the bulk-crossing
+  formula. It does not show that the failed clause reflects a tolerance rather than the apparatus.
 
-| Clause | N = 45 | N = 105 |
-|---|---|---|
-| (a) Z+/R gives exactly ½ at every window | holds | holds |
-| (b) late deviation ≤ 3e_N | fails: deviation 0.0219 against a bound of 0.0159 | fails: 0.0134 against 0.0060 |
-| (c) relation-6 signs (X +0.180, Y +0.157, R −0.262 at N = 45) | hold | hold |
+**`first_arrival.py`** gives the corrected window law for a station called once, with N particles and aperture pass
+probability η, conditioned on success:
+- **Fast band.** Windows 1–4 are exactly (1 + cos α)/2 for every (N, η).
+- **Past L/v.** The values depend on N·η. For X+/R at window 5:
 
-**Post-hoc diagnosis.** None of these checks changes the verdict.
-- **The rational-sphere family converges erratically.** At N = 45, 105, 205, 325 and 425, the fast-band error is
-  0.0053, 0.0020, 0.0066, 0.0079 and 0.0063. The late error is 0.022, 0.013, 0.024, 0.021 and 0.0094.
-- **A Monte Carlo of the mechanism** (`collector_mc.py`: 4·10⁷ particles, fixed seed, floating point) reproduces
-  every continuum value in all 32 cells, with largest |z| = 1.93.
-- **So the failing clause most likely measured the rule's error scale.** Late windows weight c with a kink at
-  1/(kτ), and the fast-band error e_N underestimates that discretization error. It did not measure the mechanism.
-  This is a diagnosis. A re-test needs a new rule and a better-equidistributed exact family, fixed in advance.
+| N·η | P(+) |
+|---|---|
+| 0.75 | 0.87512 |
+| 3 | 0.87548 to 0.87569 |
+| 100 | 0.8914 |
 
-## 7. Bounded milestone and next step
+  The bulk-crossing value is 0.875.
 
-**Milestone status.**
-- **The reset is generated** on the menu, the ten preparations and depth 3, within the fast-band budget, given
-  isotropy.
-- **Repetition is exact.**
-- **First reads and sequences** match within the finite error ε (0.9% at N = 480 directions).
-- **Preparation equivalence** holds exactly in the continuum, provided the collector record is never read.
-- **A1 is not addressed.**
+No acceptance rule is attached. A new test needs its rule preregistered first, with the pool size, aperture, call
+schedule and conditioning fixed.
 
-**Composite test, prediction stated now.** Two C-SPH-1 apparatuses determine each outcome from their own particle's
-direction. Every pair state they can share is therefore a joint law over two directions, read out locally. With
-setting choices independent of the source, CHSH ≤ 2. A composite test of this family is predicted to fail Bell-type correlations.
+## 8. Next
 
-**What would have to change.** The premise that a composite's outcomes are fixed by local readout of each carrier's
-own hidden direction. That is the next premise to examine, before any composite is built.
+1. **Choose the target, an owner decision.**
+   - **Bounded approximate equivalence for canonical pools.** The protocol-W bias is O(1/N) at fixed expected
+     crossings, but this is shown for protocol W only.
+   - **A revised reservoir process** whose herald statistics are independent of preparation history. A Poisson pool
+     does this for counts in disjoint windows. It changes the counting measure from fixed N to a Poisson mixture,
+     which would be [CAL].
+2. **Extend the D6 model** to carry station inventories and the full public transcript: calls, successes, failures,
+   crossing times and outcomes. Test the chosen target there.
+3. **Composite work waits for the single-apparatus result.** The local CHSH ≤ 2 boundary stands as stated, and any
+   herald-conditioned Bell test must account for selection explicitly.

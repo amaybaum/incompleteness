@@ -1,0 +1,16 @@
+C-SPH-1: the depletion-regime prediction corrected for first-arrival selection (owner review, 2026-10-22).
+X+/R (QM 0.9): P(+ | w, n, window k) by (N, eta)
+  N=   1 eta=1.0   N*eta=1.0   k5 0.875 k6 0.8125 k7 0.738477 k8 0.682356   (fast band max deviation 0.0)
+  N=   3 eta=1.0   N*eta=3.0   k5 0.875476 k6 0.812886 k7 0.738782 k8 0.682468   (fast band max deviation 9.9e-32)
+  N=   3 eta=0.25  N*eta=0.75  k5 0.875117 k6 0.812595 k7 0.738552 k8 0.682383   (fast band max deviation 0.0)
+  N=  30 eta=0.1   N*eta=3.0   k5 0.875673 k6 0.813051 k7 0.738914 k8 0.682517   (fast band max deviation 0.0)
+  N= 300 eta=0.01  N*eta=3.0   k5 0.875693 k6 0.813067 k7 0.738928 k8 0.682522   (fast band max deviation 0.0)
+  N= 100 eta=1.0   N*eta=100.0 k5 0.89135 k6 0.828273 k7 0.752246 k8 0.687673   (fast band max deviation 9.9e-32)
+Y+/R (QM 0.8): P(+ | w, n, window k) by (N, eta)
+  N=   1 eta=1.0   N*eta=1.0   k5 0.75 k6 0.655557 k7 0.617178 k8 0.596195   (fast band max deviation 0.0)
+  N=   3 eta=1.0   N*eta=3.0   k5 0.750951 k6 0.655868 k7 0.617282 k8 0.596244   (fast band max deviation 0.0)
+  N=   3 eta=0.25  N*eta=0.75  k5 0.750233 k6 0.655634 k7 0.617204 k8 0.596207   (fast band max deviation 0.0)
+  N=  30 eta=0.1   N*eta=3.0   k5 0.751347 k6 0.656001 k7 0.617328 k8 0.596266   (fast band max deviation 0.0)
+  N= 300 eta=0.01  N*eta=3.0   k5 0.751385 k6 0.656014 k7 0.617332 k8 0.596268   (fast band max deviation 9.9e-32)
+  N= 100 eta=1.0   N*eta=100.0 k5 0.7827 k6 0.669121 k7 0.621961 k8 0.59853   (fast band max deviation 9.9e-32)
+controls: windows 1-4 give (1 + cos alpha)/2 for every (N, eta); N = 1 reproduces collector_predict.py: green

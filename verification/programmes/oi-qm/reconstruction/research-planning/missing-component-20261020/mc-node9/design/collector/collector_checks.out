@@ -11,10 +11,10 @@ Part 1: conditional two-emission law (3 particles, 30 directions, exact)
   C'' iid, 102 directions, first window k1 in {1, 5, 6}, second interval [2, 3): max TV across first records = 1.261e-04
   D  countercontrol, absorbed system recycled into the reservoir: TV(law | s1 = +, law | s1 = -) = 681943/1256046 (0.5429) -> caught
   E  countercontrol, reservoir sharing one direction: TV(law | s1 = +, law | s1 = -) = 1 (1.0000) -> caught
-Part 2: finite realization in D6 format (menu XYZR, ten preparations, depth <= 3)
-  N=  9 |D|= 96  T1 max error 9/560 (0.0161)  T3 max error 9/560 (0.0161)  T2 disagreement mass 0
-  N= 15 |D|=120  T1 max error 23/1130 (0.0204)  T3 max error 4101389/140459000 (0.0292)  T2 disagreement mass 0
-  N= 45 |D|=480  T1 max error 14/1705 (0.0082)  T3 max error 218732444/24578896375 (0.0089)  T2 disagreement mass 0
+Part 2: reduced direction/reset kernel in D6 format (no station inventories, clocks or herald failures; menu XYZR, ten preparations, depth <= 3)
+  N=  9 |D|= 96  T1 max TV 9/560 (0.0161)  T1-T3 max transcript TV 15651/542000 (0.0289)  T2 disagreement mass 0
+  N= 15 |D|=120  T1 max TV 23/1130 (0.0204)  T1-T3 max transcript TV 47311/1276900 (0.0371)  T2 disagreement mass 0
+  N= 45 |D|=480  T1 max TV 14/1705 (0.0082)  T1-T3 max transcript TV 37996/2907025 (0.0131)  T2 disagreement mass 0
   fast push equals the generic kernel push (impact model, N=9, all preparations, menu + I): True
   depth-free outcome-functional span, C-SPH-1 finite, N=9, window 1: 96 reachable states, span dimension 5
   depth-free outcome-functional span, control: impact-location read, N=9: 192 reachable states, span dimension 20
