@@ -4547,31 +4547,49 @@ the timescales accessible to laboratory experiments --- physically
 indistinguishable from a timeless identity for all experiments well
 below the recurrence time.
 
-\textbf{Falsifiability.} The framework makes a specific, experimentally
-testable structural claim: \emph{the hidden sector is a classical
-substratum} --- a finite set with a deterministic bijection. Every
-fundamental non-Markovian open-system process in nature --- dynamics
-arising from embedded observation, not from engineered quantum
-environments --- must therefore be classical-memory simulable in the
-operational sense of Bäcker, Beyer, and Strunz {[}28{]}: the
-environment's memory can be captured by a classical variable, and the
-non-Markovian dynamics reconstructed by conditioning on that variable. A
-physically realized fundamental open-system process whose memory
-provably exceeds the classical bound --- demonstrated via the
-entanglement-structure protocols of {[}28, 29{]} --- would falsify the
-framework's foundational ontology. This is a current-technology test
-whose experimental tools are under active development; a recent unified
-review {[}30{]} surveys the rapidly evolving classical-vs-quantum memory
-distinction in open-system dynamics. The claim is sharpest in the
+\textbf{Falsifiability.} The framework's structural claim is that
+\emph{the hidden sector is a classical substratum} --- a finite set with
+a deterministic bijection. Bäcker, Beyer, and Strunz {[}28{]} classify
+the memory of a two-step open-system process as classical when the
+second step can be written as a quantum instrument realizing the first
+step, followed by channels conditioned on the instrument's classical
+outcome. The classification is a property of the process maps on all
+density matrices; applying it to the substratum therefore requires the
+coherent-preparation and instrument bridge of §3.4, which is open. The
+substratum alone does not fix the classification. Restricted to inputs
+diagonal in a fixed basis, every two-step process admits a
+classical-memory decomposition. On coherent inputs the permutation
+unitary of §3.4 carries visible coherence into the hidden register, and
+the classification depends on the realization rather than on the visible
+law: the law \(X_1 = 0\), \(X_2 = X_0\) has a ledger realization (§3.4)
+with classical memory and a swap realization, \(\varphi(x,h) = (h,x)\)
+with an initialized hidden slot (§1.2), whose two-step maps are
+\(\rho \mapsto |0\rangle\langle 0|\) and \(\rho \mapsto \rho\). Every
+Kraus operator of the first map has one-dimensional range, so every
+processing conditioned on its outcome is entanglement-breaking, and the
+identity map is not; this swap realization admits no classical-memory
+decomposition. By the gluing and uniform-continuum theorems of §3.4, a
+finite reversible realization reproduces the statistics of any finite
+quantum-memory experiment to any stated accuracy. A memory-witness
+experiment {[}28, 29, 30{]} is interpretable as a test of the ontology
+only given two inputs not supplied here: the coherent-preparation and
+instrument bridge, and an outcome-independent rule identifying the
+fundamental open-system processes --- those arising from embedded
+observation --- as distinct from engineered quantum environments. It is
+a falsifier only given a third: a constraint, derived from the completed
+model, on what eligible processes must show --- every eligible
+realization classical-memory in the sense of {[}28{]}, or another
+explicit witness bound. The swap realization shows that the bridge alone
+does not supply such a constraint, and none is established here; no
+memory-witness outcome therefore falsifies the ontology at present. Were
+such a constraint established, the test would be sharpest in the
 \emph{C2-marginal regime} (\(\tau_S \sim \tau_B\) rather than
 \(\tau_S \ll \tau_B\)), where non-Markovianity is \(\mathcal{O}(1)\)
-rather than suppressed. Candidate physical realizations ---
-strongly-driven superconducting qubits with two-level-system baths,
-biological electron transport with vibrational coupling, spin-boson
-dynamics at strong coupling --- are the systems where the
-classical-memory simulability commitment is most stringently tested, and
-where emerging experimental and theoretical tools {[}28, 29, 30{]} are
-converging on the classical-vs-quantum memory distinction.
+rather than suppressed; candidate systems are strongly-driven
+superconducting qubits with two-level-system baths, biological electron
+transport with vibrational coupling, and spin-boson dynamics at strong
+coupling, with the classical-vs-quantum memory distinction surveyed in
+{[}30{]}.
 
 \emph{Theorem-level falsifiability.} The characterization theorem is
 mathematical --- the fixed-basis representation and the hidden-memory
@@ -4579,8 +4597,9 @@ theorem are internal (§3.4), with Barandes retained for compression and
 Stinespring as supporting structure --- so no experiment falsifies the
 theorem itself; what is empirically falsifiable is the framework's
 physical identification of nature with its deterministic finite
-ontology. The classical-memory test above is therefore the primary
-falsifiability route.
+ontology. No ontology-level memory falsifier is established until the
+completed model supplies the constraint on eligible processes stated
+above.
 
 Laboratory tests of the characterization theorem may be possible in
 tabletop systems where the hidden sector capacity is tunable.
@@ -5242,4 +5261,4 @@ limitations of measurement,'' in W. C. Myrvold and J. Christian (eds.),
 Circle} (Springer, 2009).
 
 \end{document}
-% source-sha256: 1eae595c334d099f213ad052848db62133667016045d42b79854633a4cc22620
+% source-sha256: e308e93c6e835ca48da4e0e66be7a0dc84f1b0744960e233d05da93ab297e27e
