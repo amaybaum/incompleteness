@@ -1,0 +1,4 @@
+history sweep: 216 cases; deficient (q, alpha, K, s, history rank, conditional rank): []
+separation sweep: 186 cases (L1 distance 1..4, K=3); deficient (q, alpha, offset, ready rank, conditional rank): [] ... total 0
+countercontrols: history plus six neighbour values -> first future reading conditional rank 0 (must be 0); duplicated port -> rank 3 of 6 rows (must be 3); L=3 torus history s=0..8 -> conditional future ranks [4, 3, 2, 1, 0, 0, 0, 0, 0] (must fall below 4)
+countercontrols: detected
