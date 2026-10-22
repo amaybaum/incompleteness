@@ -1,0 +1,5 @@
+global period divides 10, not 5: True  period 2 fails: True
+closed forms, hidden identity and decoder: all 256 inputs
+known-pair support t=0..9: [4, 4, 2, 1, 2, 4, 2, 1, 2, 4]
+memory edge removed, support t=0..9: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+unknown memory pair at t=3: 4  known parity at t=3: 2

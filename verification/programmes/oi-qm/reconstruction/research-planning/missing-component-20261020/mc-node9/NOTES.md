@@ -629,3 +629,59 @@ The coordinator re-checked the exact items marked ✓ in `design/owner-checks/fb
       for disc theories or for deterministic OI.
     - The literature results are [Q] until read; the network blocks arXiv.
     - Calling the package C5 would be a declared axiom package, as the report says, not a derived condition.
+
+## Owner report 6, "A physical memory register under the native update" (2026-10-22), coordinator review
+
+- *Source.* The owner's read-only session, as an HTML report pinned to `main` at `af8c59d6`. The report's checker and
+  its output are committed in `design/owner-checks/report6/`.
+- *Verification.*
+  - The checker's sha256 `8ae711bf…` and its output's sha256 `36242146…` match the report's stated hashes. A re-run
+    replay-matches byte for byte.
+  - `coordinator_report6_checks.py` was written from Main.md:290's rule and the declared graph (0, 1), (1, 2), (0, 3),
+    without the checker's hand-coded update. On all 256 states it confirms:
+    - the six closed forms after three updates;
+    - the hidden-pair identity (u₁, v₁) = (V₂ ⊕ p, U₀ ⊕ q);
+    - the six-bit decoder;
+    - exact period 10;
+    - support 4, 4, 2, 1, 2, 4, 2, 1, 2, 4 over one period with known memory, and 4 at every time with the memory edge
+      removed;
+    - at t = 3, support 4 with unknown memory and 2 with known parity ✓.
+- *Findings [rec, owner report 6].*
+  - A visible memory site coupled to visible site 0 evolves under the same fixed rule. After three updates, one read
+    of the visible cells recovers all six initial core bits and the current hidden pair.
+  - The hidden pair's conditional law is the initial memory law, shifted and exchanged:
+    P(hidden | record) = μ(q = h₂ ⊕ U₀, p = h₁ ⊕ V₂). So H(hidden | record) = H(memory), and the conditional support
+    is 2^(2−r) for a uniform affine memory of relation rank r. That is d_posterior's rank formula on the full
+    apparatus.
+  - Back-action is measured against the same evolution with the memory edge removed: 32 and 48 of 64 core states
+    differ at t = 2 and 3.
+  - Perfect records exist only at t ≡ 3, 7 (mod 10). Retention needs further control.
+  - Two extra record bits are necessary for a single-run reconstruction of an arbitrary six-bit core, and the
+    construction attains that.
+- *Coordinator assessment.*
+  - **Relation to node 9: CONFIRMING K-SYMP2, ELABORATING.**
+    - PREREG's K-SYMP2 is Main.md:290 on two sites, with a clean visible site and a hidden toy. It already prints M0
+      "lost": hidden support 1 after two waiting steps.
+    - This report is the same phenomenon with a separate memory site, and it adds three things:
+      - full reconstruction of the initial core, which rules out the reading that the clean values merely overwrite
+        the hidden site;
+      - the exact prior identity;
+      - a background-subtraction control for back-action.
+    - It also agrees with the BBS-check counterexample (Main.md:60's swap with an initialized hidden slot) and with
+      the emb finding that the lattice gives disturbance-free records.
+  - **Resource accounting (POSITIVE).** The information gained equals the clean resource spent. A uniform affine memory
+    of rank r gives H(hidden | visible) ≥ 2 − r, and the protocol attains equality. This is what PREREG §1.1's
+    clean-resource rule assumes (count clean coordinates and read-out sites as resources). Here it is attained by
+    native dynamics with no added operation, which is an independent check that the rule counts the right thing.
+  - **Consequence for model A's M0 restriction (support ≥ 2ⁿ).**
+    - The witness violates M0 whenever a known visible memory pair is admitted. The native update cannot be the
+      source of the restriction; only a restriction on admitted memory preparations can be.
+    - This is the report's own conclusion, and it repeats K-SYMP2's.
+    - Recommendation: when PREREG is next revised, add the four-site witness as a countercontrol beside K-SYMP2, with
+      the edge-removed run as its paired positive control (M0 "retained"). Its value over K-SYMP2 is the
+      reconstruction clause. Not applied yet, since it is a change to a draft preregistration.
+  - **Scope.**
+    - The memory preparation and the terminal read are assumed, not derived.
+    - The two binary coordinates of a site are not shown to represent incompatible quantum observables, so learning
+      both is not a violation of QM.
+    - No post-measurement preparation is established.
