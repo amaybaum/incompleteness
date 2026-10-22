@@ -3,9 +3,34 @@
 > **Status.** The run executes `CHECKER-PREREG.md`, frozen at `27cbc2d7` (`FREEZE.md`).
 > - **Files.** The checker is `record_checker.py`. Its outputs are `record_checker.out`, `record_checker_cells.csv`
 >   (one bracket per case) and `record_checker_d1.csv` (one D1 bracket per preparation and protocol).
-> - **Run.** Single run of 2207 s on 4 cores. A replay in a separate copy matches byte for byte (see the end).
 > - **What it is.** Verification of the implemented model against the frozen allowance, not a certification by
 >   review.
+> - **Which run.** The results below are from run 2, the corrective run (2391 s on 4 cores), replayed byte for byte.
+>   Run 1 is kept on record (see Runs).
+
+## Runs
+
+**Run 1, at `9ceadbca`.** It is retained in the branch history, and it deviated from the freeze in one respect:
+- **Precision.** It used 40-digit arithmetic. The preregistration fixes 50 (§5).
+
+Owner review then found three certification defects in it:
+- **Box antiderivative sign.** The helper returned the box integral with sign (−1)^d, for example −0.115 for
+  ∫₀^(23/200) 1 du. Within a box every term has the same dimension, so the following absolute value cancelled the
+  sign, and the brackets were unaffected.
+- **D1 accumulation.** The D1 upper bound was accumulated with nearest rounding.
+- **CSV export.** Endpoints were rounded to nearest, so a stored upper endpoint could fall below the computed one.
+
+Run 1's verdict, controls and maxima agree with run 2 at the printed precision.
+
+**Run 2, the corrective run, under the unchanged freeze.** It fixes all four points:
+- 50-digit arithmetic;
+- correct corner signs in the box antiderivative (new check I3: a positive volume, and agreement with quadrature
+  in 1, 2 and 3 dimensions, for the fixed pool and the reference);
+- interval accumulation in D1;
+- outward export: lo rounded down and hi rounded up to 8 significant digits, with the enclosure checked exactly for
+  every row.
+
+It also encloses C6's √2 values exactly, rather than through a decimal string.
 
 ## Verdict
 
@@ -16,7 +41,7 @@
 
 | Family | Cases | Largest hi | Where | Its lo | Cases exactly 0 |
 |---|---|---|---|---|---|
-| F1 | 2,040 | 8.47·10⁻⁶ | XXX\|R, relation 1 | 4.34·10⁻⁷ | 596 |
+| F1 | 2,040 | 8.47·10⁻⁶ | YYY\|R, relation 1 (equal at printed precision to its mirror XXX\|R) | 4.34·10⁻⁷ | 596 |
 | F2 | 432 | 1.41·10⁻⁶ | probes R+, R+, relation 6 | 2.98·10⁻⁷ | 172 |
 | F3 | 192 | 2.83·10⁻⁷ | Y > R+, relation 6 | 2.04·10⁻⁷ | 112 |
 
@@ -38,6 +63,7 @@ the verdict, which needs only hi ≤ 0.01.
 
 | Control | Result |
 |---|---|
+| I3 | box antiderivatives: ∫₀^(23/200) 1 du = 0.115; the fixed-pool and reference box integrals agree with quadrature in 1–3 dimensions |
 | C1 | read-law derivation: the hemisphere integrals hold symbolically; a grid quadrature agrees to 2.1·10⁻⁴ (numerical evidence) |
 | C2 | closed form = particle-level enumeration, symbolic over call times, windows, offsets and q: 56 cases (N ≤ 4, 14 patterns). The merge identity behind log R also holds |
 | C3 | relation 5 (identical procedures) has hi = 0 on every protocol |
@@ -73,8 +99,8 @@ the verdict, which needs only hi ≤ 0.01.
   identically.
 - **Choices made within the limits:**
   - a cap of 400 evaluations per integral;
-  - a target relative gap of 1%;
-  - 40-digit interval arithmetic.
+  - a target relative gap of 1%.
+- **Precision.** Interval arithmetic at 50 digits, as frozen.
 
 ## Implementation choices within the frozen specification
 
@@ -95,9 +121,10 @@ the verdict, which needs only hi ≤ 0.01.
 ∫|ΠA − ΠB| ≤ Σ_s Π_{t<s} ∫A_t · ∫|A_s − B_s| · Π_{t>s} ∫B_t, on disjoint variables. Each ∫|A_s − B_s| is a
 one-dimensional certified integral.
 
-**CSV writer.** The first run wrote the case files without quoting, which split F2 protocol names such as
-`X+,X+`. The checker now writes with the csv module. The two files from that run were rewritten by re-splitting
-each line from the right, which changes no value. The replay of the fixed checker reproduces them byte for byte.
+**CSV writer.**
+- **Quoting.** The checker writes with the csv module, so F2 protocol names such as `X+,X+` are quoted.
+- **Outward rounding.** Each endpoint is rounded outward from the computed binary value to 8 significant digits.
+- **Exactness of the check.** The enclosure check compares exact rationals.
 
 ## What this establishes, and the stop point
 
@@ -121,6 +148,6 @@ essential assumptions OI actually supplies.
 
 ## Replay
 
-The checker was replayed in a separate copy of `collector/` and `instrument/` (2199 s).
-- `record_checker_cells.csv` and `record_checker_d1.csv` are byte-identical to this run's.
-- The printed output is identical except for the two wall-clock lines ("integrals done at …" and "elapsed …").
+Run 2 was replayed in a separate copy of `collector/` and `instrument/`.
+- `record_checker_cells.csv` and `record_checker_d1.csv` are byte-identical.
+- The printed output is identical except for its two wall-clock lines.

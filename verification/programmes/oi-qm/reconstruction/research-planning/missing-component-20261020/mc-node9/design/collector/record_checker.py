@@ -24,7 +24,7 @@ from fractions import Fraction as F
 from itertools import product
 from collections import defaultdict
 import mpmath as mp
-iv=mp.iv; iv.dps=40; mp.mp.dps=40
+iv=mp.iv; iv.dps=50; mp.mp.dps=50                       # frozen precision (prereg section 5)
 import itertools
 _TIE=itertools.count()
 HERE=os.path.dirname(os.path.abspath(__file__))
@@ -89,63 +89,6 @@ def V_box(k,lo,hi):
     return s/math.factorial(k-1)
 
 # ---------------- certified box integration ----------------
-class Integral:
-    """Bracket of int |g| over offset sums, g = D_p(S_p) prod_{v in M} D_v(S_v) sum_w c_w (R_w - 1)."""
-    def __init__(self,prep,Ms,ref=False):
-        self.prep=prep; self.Ms=Ms; self.ref=ref; self.evals=0
-        self.vars=[]                                   # (role, k, f)
-        if prep[0]>0: self.vars.append(('p',prep[0],prep[1]))
-        for i,(k,f,c) in enumerate(Ms):
-            if k>0: self.vars.append((i,k,f))
-    def bound(self,box):
-        self.evals+=1
-        t=ivF(TAU)
-        def S_of(role):
-            if role=='p': k,f=self.prep
-            else: k,f,_=self.Ms[role]
-            for (r,kk,ff),(lo,hi) in zip(self.vars,box):
-                if r==role: return ff*t+lo, ff*t+hi
-            base=f*t; return base,base
-        Splo,Sphi=S_of('p')
-        g=D_box(self.prep[0],Splo,Sphi,self.ref)
-        terms=iv.mpf(0)
-        for i,(k,f,c) in enumerate(self.Ms):
-            Slo,Shi=S_of(i)
-            g*=D_box(k,Slo,Shi,self.ref)
-            if self.ref:
-                Rm1=iv.mpf(0)                          # reference merge factor: log R = 0 identically (control C4)
-            else:
-                lo,hi=logR_box(k,Slo,Shi,self.prep[0],Splo,Sphi)
-                Rm1=iv.exp(iv.mpf([lo,hi]))-1
-            terms+=ivF(c)*Rm1
-        g*=terms
-        w=iv.mpf(1); vol=iv.mpf(1)
-        for (r,k,f),(lo,hi) in zip(self.vars,box):
-            w*=V_box(k,lo,hi); vol*=(hi-lo)
-        if g.a>=0: ab=g
-        elif g.b<=0: ab=-g
-        else: ab=iv.mpf([0,max(-g.a,g.b)])
-        val=ab*w*vol
-        return max(mp.mpf(0),mp.mpf(val.a)),mp.mpf(val.b)
-    def run(self):
-        t=ivF(TAU)
-        if not self.vars:
-            lo,hi=self.bound(()); return lo,hi
-        pieces=[[(iv.mpf(j)*t,iv.mpf(j+1)*t) for j in range(k)] for (_,k,_) in self.vars]
-        heap=[]; gap=mp.mpf(0); est=mp.mpf(0)
-        for box in product(*pieces):
-            lo,hi=self.bound(box); gap+=hi-lo; est+=hi; heapq.heappush(heap,(-(hi-lo),next(_TIE),box,lo,hi))
-        rel=mp.mpf(REL_GAP.numerator)/REL_GAP.denominator
-        while heap and self.evals<INTEGRAL_CAP and gap>rel*est:
-            _,_,box,lo,hi=heapq.heappop(heap); gap-=hi-lo; est-=hi
-            d=max(range(len(box)),key=lambda i:mp.mpf(box[i][1].b)-mp.mpf(box[i][0].a))
-            a,b=box[d]; m=(a+b)/2; m=iv.mpf(mp.mpf(m.a))                 # a representable split point
-            for half in ((a,m),(m,b)):
-                nb=tuple(half if i==d else box[i] for i in range(len(box)))
-                l2,h2=self.bound(nb); gap+=h2-l2; est+=h2; heapq.heappush(heap,(-(h2-l2),next(_TIE),nb,l2,h2))
-        tl=iv.mpf(0); th=iv.mpf(0)                     # certified totals: outward-rounded sums of the box brackets
-        for _,_,_,lo,hi in heap: tl+=iv.mpf(lo); th+=iv.mpf(hi)
-        return max(mp.mpf(0),mp.mpf(tl.a)),mp.mpf(th.b)
 def G_box(n,c,ivs,ref=False):
     """Exact integral over the box prod_i [lo_i, hi_i] of (1 - q(c + sum u))^n (fixed pool), or of e^(-Lambda(c + sum u))
     (reference): iterated antiderivatives give a signed sum over the box corners."""
@@ -154,9 +97,9 @@ def G_box(n,c,ivs,ref=False):
     tot=iv.mpf(0)
     for corner in product((0,1),repeat=d):
         x=c+sum((ivF(iv_[1] if e else iv_[0]) for e,iv_ in zip(corner,ivs)),iv.mpf(0))
-        sgn=(-1)**(d-sum(corner))
+        sgn=(-1)**sum(corner)                          # lower corner +, upper corner -, per variable
         tot+=sgn*(iv.exp(-LAM*x) if ref else (1-Q*x)**(n+d))
-    if ref: return tot*(-1)**d/(-LAM)**d
+    if ref: return tot/LAM**d
     den=iv.mpf(1)
     for i in range(1,d+1): den*=(n+i)
     return tot/(Q**d*den)
@@ -374,7 +317,7 @@ def tv_cell(d,brs,ref=False):
     return mp.mpf(lo.a),mp.mpf(hi.b),work,ok_sum
 def d1_cell(p,brs):
     """Diagnostic D1: TV(fixed pool, Poisson reference) for one preparation; hi by telescoping over stations."""
-    hi=mp.mpf(0); lo=mp.mpf(0); used=set(); comp=iv.mpf(0); compR=iv.mpf(0); mass=iv.mpf(0)
+    hi=iv.mpf(0); lo=iv.mpf(0); used=set(); comp=iv.mpf(0); compR=iv.mpf(0); mass=iv.mpf(0)
     for br in brs:
         c0=ivF(br.c0); diff=iv.mpf(0)
         for w,pw in p.items():
@@ -382,20 +325,21 @@ def d1_cell(p,brs):
             if rw==0: continue
             pats=configs(br,w); coef=c0*ivF(pw*rw)
             A=[PN(*x) for x in pats]; B=[PR(*x) for x in pats]
-            tel=mp.mpf(0)
+            tel=iv.mpf(0)
             for s_,x in enumerate(pats):
                 jl,jh,_=J1(*x); used.add(x)
                 pa=iv.mpf(1)
                 for t_ in range(s_): pa*=A[t_]
                 for t_ in range(s_+1,len(pats)): pa*=B[t_]
-                tel+=mp.mpf(pa.b)*jh
-            hi+=mp.mpf(coef.b)*tel/2
+                tel+=iv.mpf(pa.b)*iv.mpf(jh)
+            hi+=iv.mpf((iv.mpf(coef.b)*iv.mpf(tel.b)/2).b)
             pA=prob(pats); pB=prob(pats,True)
             diff+=coef*(pA-pB); mass+=coef*pA
             if br.complete: comp+=coef*pA; compR+=coef*pB
-        lo+=(mp.mpf(max(0,diff.a)) if diff.a>=0 else (mp.mpf(max(0,-diff.b)) if diff.b<=0 else mp.mpf(0)))/2
+        dl=(diff.a if diff.a>=0 else (-diff.b if diff.b<=0 else 0))
+        lo+=iv.mpf((iv.mpf(max(0,dl))/2).a)
     work=sum(_JCACHE[u][2] for u in used)
-    return lo,hi,work,comp,compR,mass
+    return mp.mpf(lo.a),mp.mpf(hi.b),work,comp,compR,mass
 
 # ---------------- controls ----------------
 def C1():
@@ -457,6 +401,12 @@ def C5():
     ok=dz==F(151201,16777216) and dref==0
     print('C5  herald-history regression through the checker\'s merge rule: fixed pool %s; Poisson reference %s: %s'%(dz,dref,ok))
     return ok
+def enclose_sqrt2(c):
+    """Interval enclosure of a number p + r sqrt(2) with p, r rational (asserted exactly)."""
+    import sympy as sp
+    c=sp.expand(sp.nsimplify(c)); p_=c.subs(sp.sqrt(2),0); r_=sp.expand((c-p_)/sp.sqrt(2))
+    assert p_.is_Rational and r_.is_Rational and sp.simplify(p_+r_*sp.sqrt(2)-c)==0
+    return ivF(F(int(p_.p),int(p_.q)))+ivF(F(int(r_.p),int(r_.q)))*iv.sqrt(iv.mpf(2))
 def C6():
     import sympy as sp
     x,y=sp.symbols('x y',real=True)
@@ -479,7 +429,7 @@ def C6():
             for E in ((True,False) if br.pread else (None,)):
                 tot=iv.mpf(0)
                 for v,dv in dd.items():
-                    if br.pread: c=sp.nsimplify(rjoint(v,br.pread[1],E)); rv=iv.mpf(str(sp.N(c,60)))
+                    if br.pread: rv=enclose_sqrt2(rjoint(v,br.pread[1],E))
                     else: rv=iv.mpf(1)
                     tot+=ivF(dv)*rv*prob(configs(br,v))
                 lo+=iv.mpf(max(0,(tot.a if tot.a>=0 else (-tot.b if tot.b<=0 else 0))))/2
@@ -500,6 +450,32 @@ def C8():
     print('C8  address-exposure control: supports disjoint %s and every record mass contains 1, so TV = 1 exactly on all 8 single-probe F2 protocols: %s'%(disjoint,ok))
     return ok
 
+def mpf_fraction(x):
+    """Exact value of a binary mpf as a Fraction."""
+    m,e=mp.mpf(x).man_exp
+    return F(int(m))*F(2)**int(e) if e>=0 else F(int(m),2**int(-e))
+def dec_out(x,up):
+    import decimal
+    fr=mpf_fraction(x)
+    if fr==0: return '0'
+    ctx=decimal.Context(prec=8,rounding=decimal.ROUND_CEILING if up else decimal.ROUND_FLOOR)
+    return str(ctx.divide(decimal.Decimal(fr.numerator),decimal.Decimal(fr.denominator)))
+def encloses(a,b,lo,hi):
+    return F(a)<=mpf_fraction(lo) and F(b)>=mpf_fraction(hi)
+def I3():
+    """G_box against direct values: positive volume, and quadrature in 1, 2 and 3 dimensions (numerical evidence)."""
+    ok=True
+    v=G_box(0,iv.mpf(0),[(F(0),TAU)])
+    ok&= v.a>0 and v.a<=ivF(TAU).b and ivF(TAU).a<=v.b
+    q=mp.mpf(Q.a); n=NPOOL-1; c=mp.mpf(1)/10
+    for ivs in ([(F(0),F(1,20))],[(F(0),F(1,20)),(F(1,40),F(1,10))],[(F(0),F(1,20)),(F(1,40),F(1,10)),(F(1,100),F(1,30))]):
+        g=G_box(n,ivF(F(1,10)),ivs); gr=G_box(0,ivF(F(1,10)),ivs,True)
+        rng=[[mp.mpf(x.numerator)/x.denominator for x in iv_] for iv_ in ivs]
+        num=mp.quad(lambda *u:(1-q*(c+sum(u)))**n,*rng); numr=mp.quad(lambda *u:mp.exp(-mp.mpf(LAM.a)*(c+sum(u))),*rng)
+        ok&= abs(mp.mpf(g.a)-num)<mp.mpf('1e-12')*abs(num) and abs(mp.mpf(gr.a)-numr)<mp.mpf('1e-12')*abs(numr) and g.a>0 and gr.a>0
+    print('I3  box antiderivatives: int_0^(23/200) 1 du = %s (positive); fixed-pool and reference box integrals match quadrature in 1, 2 and 3 dimensions: %s'%(mp.nstr(mp.mpf(v.a),12),ok))
+    return ok
+
 def _work(key):
     I=Integral2(key[0],list(key[1])); lo,hi=I.run(); return (lo,hi,I.evals)
 
@@ -508,7 +484,7 @@ if __name__=='__main__':
     print(__doc__.strip().splitlines()[0])
     print('protocols: F1 %d, F2 %d, F3 %d, total %d; cases %d'%(sum(p[0]=='F1' for p in PROTOCOLS),sum(p[0]=='F2' for p in PROTOCOLS),sum(p[0]=='F3' for p in PROTOCOLS),len(PROTOCOLS),6*len(PROTOCOLS)))
     ctrl={}
-    ctrl['C1']=C1(); ctrl['C2']=C2(); ctrl['C4s']=C4_symbolic(); ctrl['C5']=C5(); ctrl['C6']=C6(); ctrl['C8']=C8()
+    ctrl['I3']=I3(); ctrl['C1']=C1(); ctrl['C2']=C2(); ctrl['C4s']=C4_symbolic(); ctrl['C5']=C5(); ctrl['C6']=C6(); ctrl['C8']=C8()
     BR={p[1]+'@'+p[0]:branches(p) for p in PROTOCOLS}
     keys=set()
     for fam,name,arg in PROTOCOLS:
@@ -567,12 +543,17 @@ if __name__=='__main__':
     n_acc=sum(1 for x in rows if x[4]<=mp.mpf('0.01')); n_rej=sum(1 for x in rows if x[3]>mp.mpf('0.01'))
     n_und=len(rows)-n_acc-n_rej
     import csv
+    enc=True
     with open(os.path.join(HERE,'record_checker_cells.csv'),'w',newline='') as fh:
         cw=csv.writer(fh,lineterminator='\n'); cw.writerow(['family','protocol','relation','lo','hi'])
-        for fam,name,ri,lo,hi in rows: cw.writerow([fam,name,ri,mp.nstr(lo,8),mp.nstr(hi,8)])
+        for fam,name,ri,lo,hi in rows:
+            a,b=dec_out(lo,False),dec_out(hi,True); enc&=encloses(a,b,lo,hi); cw.writerow([fam,name,ri,a,b])
     with open(os.path.join(HERE,'record_checker_d1.csv'),'w',newline='') as fh:
         cw=csv.writer(fh,lineterminator='\n'); cw.writerow(['family','protocol','preparation','lo','hi'])
-        for fam,name,pk,lo,hi in d1_rows: cw.writerow([fam,name,pk,mp.nstr(lo,8),mp.nstr(hi,8)])
+        for fam,name,pk,lo,hi in d1_rows:
+            a,b=dec_out(lo,False),dec_out(hi,True); enc&=encloses(a,b,lo,hi); cw.writerow([fam,name,pk,a,b])
+    print('export: every CSV endpoint is rounded outward to 8 significant digits (lo down, hi up), checked exactly: %s'%enc)
+    green&=enc
     print('cells: %d; hi <= 0.01: %d; lo > 0.01: %d; undecided: %d'%(len(rows),n_acc,n_rej,n_und))
     if not green:
         print('VOID: a control or a work limit failed; no verdict is printed.')
