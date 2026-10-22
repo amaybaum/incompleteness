@@ -30,8 +30,9 @@ both time directions.
 ### 1. Port separation is sufficient, not necessary (POSITIVE, exploratory)
 
 - **Measured.** Two ports at axis distance 1 to 9 on L = 18, K = 4 keep full conditional rank 8 (R4).
-- **Sweep.** For q ∈ {3, 5}, every nonzero α, K = 3, L = 15 and every offset at L1 distance 1 to 4 (186 cases),
-  every case keeps full rank.
+- **Sweep.** For q ∈ {3, 5}, every nonzero α, K = 3 and L = 15, every case keeps full rank (186 cases). The sweep
+  covers offsets with each coordinate in 0–3 at L1 distance 1 to 4, so it omits offsets such as (4, 0, 0). R4
+  covers the axis distances 1 to 9 on L = 18.
 - **What this means.** Freshness across ports holds well inside the separation 2K that the report's proof uses.
 - **Scope.** This is computed evidence for these instances only. No proof is supplied.
 
@@ -56,8 +57,9 @@ both time directions.
   - **Neighbour access:** the six current neighbour values plus the history make the first future reading
     determined (rank 0).
   - **Duplicated port:** a duplicated port is caught (rank 3 of 6).
-- **Assumption-watch marker.** The history budget s and the horizon K draw on the same nonwrap budget, K + s < L/2.
-  An observer with longer port history than the window allows can predict the source.
+- **Assumption-watch marker.** The history budget s and the horizon K draw on the same nonwrap budget: L > 2(K + s)
+  is sufficient for freshness. It is not shown necessary, so exceeding it does not by itself imply predictability.
+  The L = 3 countercontrol shows that, under finite return, enough history can determine the future.
 
 ### 3. The report's limits are confirmed
 
