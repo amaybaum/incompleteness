@@ -7,7 +7,8 @@ H2  closed form and pool-size dependence
     Z - X - [((1-a)(1-b))^N - (1-a-b)^N] simplifies to 0
     enumeration = closed form, positive for every N >= 1, and <= N ab ((1-a)(1-b))^(N-1): True
     n * difference at a = alpha/n, b = beta/n tends to alpha*beta*exp(-alpha - beta)
-    so the witness falls as alpha beta e^(-alpha-beta)/N at fixed expected crossings; its maximum over alpha, beta is e^-2/N
+    so the witness falls as alpha beta e^(-alpha-beta)/N at fixed expected crossings; the coefficient's maximum e^-2 is an asymptotic scale
+    not a finite-N bound: N = 3, a = b = 1/3 gives 37/729 (0.05075) > e^-2/3 (0.04511): True
 H3  Poisson particle number per station (mean mu)
     P(no A) = exp(-a*mu), P(no B) = exp(-b*mu), P(no A, no B) = exp(mu*(-a - b))
     P(H_A F_B | Z-mix) - P(H_A F_B | X-mix) = 0

@@ -1,0 +1,10 @@
+C-SPH-1 reference construction and coupling bound (REFERENCE.md): checks of the components.
+V1  crossing rate = eta*mu*v/(4*L) = Lambda/T; mark density in theta = sin(2*theta) (the projected-area law mu_w): True
+V2  TV(Bernoulli(q), Poisson(q)) = q - q*exp(-q) <= q^2 (e^-q >= 1 - q): True
+V3  TV(Binomial(N, q), Poisson(Nq)) <= N q^2 on 42 grid points (interval arithmetic): True; largest ratio 1.000
+V4  protocol W: 0 < fixed-pool difference <= min(1, 16 Lambda^2/N) on 24 cases: True; largest ratio 0.2000
+    Poisson reference: difference identically 0 (herald_checks.py H3)
+H3  Poisson particle number per station (mean mu)
+    P(no A) = exp(-a*mu), P(no B) = exp(-b*mu), P(no A, no B) = exp(mu*(-a - b))
+    P(H_A F_B | Z-mix) - P(H_A F_B | X-mix) = 0
+all checks: green

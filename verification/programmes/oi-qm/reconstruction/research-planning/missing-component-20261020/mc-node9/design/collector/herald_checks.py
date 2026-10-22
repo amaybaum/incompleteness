@@ -62,8 +62,11 @@ def H2():
     lead=sp.limit(n*((((1-al/n)*(1-be/n))**n-(1-(al+be)/n)**n)),n,sp.oo)
     print('    n * difference at a = alpha/n, b = beta/n tends to', sp.simplify(lead))
     ok&= sp.simplify(lead-al*be*sp.exp(-al-be))==0
-    print('    so the witness falls as alpha beta e^(-alpha-beta)/N at fixed expected crossings; its maximum over alpha, beta is e^-2/N')
-    return ok
+    print('    so the witness falls as alpha beta e^(-alpha-beta)/N at fixed expected crossings; the coefficient\'s maximum e^-2 is an asymptotic scale')
+    _,_,d=protocol(3,F(1,3),F(1,3))
+    above=sp.Rational(d.numerator,d.denominator)>sp.exp(-2)/3
+    print('    not a finite-N bound: N = 3, a = b = 1/3 gives %s (%.5f) > e^-2/3 (%.5f): %s'%(d,float(d),float(sp.exp(-2)/3),above))
+    return ok and d==F(37,729) and bool(above)
 def H3():
     print('H3  Poisson particle number per station (mean mu)')
     a,b,mu=sp.symbols('a b mu',positive=True); k=sp.symbols('k',integer=True,nonnegative=True)
