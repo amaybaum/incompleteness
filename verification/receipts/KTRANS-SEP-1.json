@@ -1,0 +1,47 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "KTRANS-SEP-1",
+ "status": "halted",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "ec36234cb98a30ecb4681e118ff9ccb82e19aa6d",
+ "f": "7e9aef691f47edaec9111ef5923ed9e946854737",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-ktrans-sep-1-omega4/preregistration.md",
+   "blob": "7af918b1d41ad38b52b45a80a62c799f8931b297"
+  }
+ ],
+ "governed_paths_digest": "a305e5a325bc1d688c690b8f35577f5ff62e2db8964579b14793fc02db7acee1",
+ "candidates": [],
+ "landing": {
+  "base": "48b18ac54e39920a4fc4bbb8ee1d1b6cebea2c29",
+  "object": "282ec19cba0c0b140920d270d246a71295998437",
+  "reconciliations": [
+   "282ec19cba0c0b140920d270d246a71295998437"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "6c8e2f9238f925c1a363a79e8e267d2711b1c5aa63c9ce4a4850975c67d02b54"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "7e9aef691f47edaec9111ef5923ed9e946854737",
+   "record": "https://github.com/amaybaum/incompleteness/pull/824#issuecomment-6363553096 (the owner's designation of F, made in session and recorded in this comment, posted as amaybaum at 2026-10-23T11:11Z, after check run 39940836089 concluded and after the owner's decision on F's precondition 2 in comment 6363045119; the round then halted before any execution commit, by the owner's decision recorded in result.md)"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "7e9aef691f47edaec9111ef5923ed9e946854737",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/39940836089/attempts/1 (verify.yml, workflow_dispatch on staging/ktrans-sep-824-candF-20261018, attempt 1, head_sha 7e9aef691f47edaec9111ef5923ed9e946854737, completed with conclusion success; 37 of 37 jobs success; retained in evidence/f-run/results.json)"
+  }
+ ],
+ "absent": {
+  "e": "halted-before-certification",
+  "tree_e": "halted-before-certification",
+  "execution_delta_digest": "halted-before-certification",
+  "withdrawal": "no-execution-commits"
+ }
+}
