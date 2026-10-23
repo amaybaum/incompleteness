@@ -481,6 +481,9 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   guiding draft PR with continuously pushed safe checkpoints. Migrate planning-only PRs
   to cross-linked Issues and close without merge or branch deletion. The §A.39 pre-F
   control-plane chain, candidate-F/E holds and separate launch approvals remain intact.
+- **§A.44 Verdicts read structured data, not log text.** A computational verdict reads exit
+  statuses, the host's job and step conclusions and files in a stated schema; a fact visible
+  only in printed output is turned into such a signal inside the job. Logs are diagnostics.
 
 ---
 
@@ -547,6 +550,10 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   held research pull requests red over citations of runs it had not yet retained, while no
   manuscript claim depended on it and its gate step caught no defect. Hence §A.42's reduced form:
   claims rest on a commit on `main`, a recipe and a stated result.
+- KTRANS-SEP-1 halted after `F` because a frozen control read the module's lines from a run log
+  that `F`'s tree could not produce, and its successor's drafts then spent four review rounds
+  fitting their verdict into a 5,000-line served tail whose contents cache replays rearranged.
+  Hence §A.44: verdicts read exit statuses and step conclusions, never log text.
 
 ---
 
@@ -1003,3 +1010,32 @@ required by §A.42.
    released; resumption requires a new guiding PR from a current `D`, citing the closed
    PR's control plane and immutable commits as provenance. Native V3 rounds otherwise
    retain §A.39's protocol throughout.
+
+---
+
+## §A.44 Structured evidence for computational verdicts
+
+A verdict, stage requirement or control that decides what a CI run showed reads **structured
+data**:
+
+- the exit status of the check that computed the fact;
+- the host's run, job and step records (identity and conclusions), read from its API, which
+  returns them whole;
+- files the check writes in a stated schema, where the claim's evidence can retrieve them (§A.42).
+
+It does not parse free-form log text. Where a fact is observable only in a tool's printed output,
+such as a build status, a cache result or a report a compiler prints, the workflow turns it into a
+structured signal inside the job. Either the check that reads the output succeeds or fails, or it
+sets an output that a marker step's `if:` condition reads, so that a step's conclusion carries the
+fact. A marker step's name states the fact it records, and its condition is part of the frozen
+workflow edit.
+
+A served log is not complete evidence. The host serves a bounded tail of it, cached builds change
+what earlier steps print and so where later lines fall, and its retention expires. A verdict read
+from it inherits all three, and the absence of a line from the served part proves nothing about
+the part not served. Logs remain diagnostics, and provenance under §A.42 item 2.
+
+A preregistration frozen before this section keeps the evidence form it froze (§A.39). Control
+planes not yet at `F` move to this form.
+
+Adopted 2026-10-23 after the KTRANS-SEP-1 halt and its successor's drafting (lessons register).
