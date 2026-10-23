@@ -16,6 +16,15 @@ defect requires, the anchors that moved with `D`, and the safeguard and negative
 control plane, its `F`, that run, its predicted tree `bd579bf8db6065f6667511ee0a02fa31effc1f5b` and that tree's design
 run 39173554213 are provenance.
 
+**The reused implementation bytes.** This round reuses KTRANS-SEP-1's implementation bytes as they stand in that
+round's predicted tree `bd579bf8`: the module `verification/lean-mathlib/OIBridge/TransSeparation.lean` (blob
+`ba7431915e7ab6e8f7bdfb6ab980f16067e9331b`) and the probe `verification/lean/ktrans_sep1_probe.py` (blob
+`19e19f28fa7644de0bcc3089a354317310de3e41`), byte-identical and at the same paths. The module's header and the probe's
+docstring name round KTRANS-SEP-1; those labels identify where the bytes were designed and frozen, which is their
+provenance, and they are kept unchanged so that the blobs, the frozen surface and the probe's frozen output are the
+ones KTRANS-SEP-1's design runs tested. This round's identity is carried by its record directory, its controls, its
+shard and its receipt.
+
 ```v3-round
 round KTRANS-SEP-2
 kind non-sealing
@@ -100,7 +109,8 @@ chart dimension 3, and nothing about K∞-Stage, K∞-Act, K∞-V4 or K∞-Copy,
 
 ## The kernel declarations the round adds (frozen surface, module `OIBridge/TransSeparation.lean`)
 
-The module is blob **`ba7431915e7ab6e8f7bdfb6ab980f16067e9331b`**. It imports `OIBridge.DenseOrbit` only; namespace
+The module is blob **`ba7431915e7ab6e8f7bdfb6ab980f16067e9331b`**, KTRANS-SEP-1's bytes from its predicted tree
+`bd579bf8`; its header names that round as their provenance (*The reused implementation bytes*). It imports `OIBridge.DenseOrbit` only; namespace
 `OIBridge.TransSeparation`; one `open` line, `open Set KInfFoundations OrbitGeneration TransitiveBody DenseOrbit`.
 It is the repaired design module of the design runs below with three changes and no other: the namespace
 `EqvOmega4` renamed `TransSeparation` (in the `namespace` and `end` lines and the fifteen `#print axioms` lines), the
@@ -165,7 +175,8 @@ reconstruction)", `modules: ["TransSeparation"]`, `status: "kernel-only"`, `manu
 ## The exact layer
 
 **The frozen probe** `verification/lean/ktrans_sep1_probe.py`, blob **`19e19f28fa7644de0bcc3089a354317310de3e41`**
-(the path and bytes KTRANS-SEP-1 froze; its docstring names that round, which designed it),
+(the path and bytes KTRANS-SEP-1 froze, reused from its predicted tree `bd579bf8`; its docstring names that round as
+the bytes' provenance; see *The reused implementation bytes*),
 imports `sys`, `itertools`, `fractions` and `sympy` (pinned `1.14.0` in its shard) and reads no file. Exact
 arithmetic only. Its checks:
 
@@ -335,10 +346,18 @@ read-only git commands and embeds every frozen text. Its codes:
     `Built OIBridge.TransSeparation`, of each of the fifteen reports and of the gate block's start and end, all inside
     the served window and in that order, with the fifteen reports within the three axioms and the gate passing
     (`run_window_ok`);
-  - `F`'s run result (`evidence/f-run/results.json`, with `--freeze`) names `F`, is a green `workflow_dispatch` run
-    with every job `success`, a successful build and a passing gate, and records the module **absent**: status
-    `absent`, no report, and an empty window (`frun_ok`). A result recording any module evidence fails: `F` carries
-    the control plane only.
+  - at `F` (with `--freeze`) three checks, kept separate:
+    - **absence, from `F`'s tree** (`ftree_ok`): read through git at `F`, neither the module's path
+      `verification/lean-mathlib/OIBridge/TransSeparation.lean` nor the probe's path exists, and `F`'s
+      `OIBridge.lean`, which must be readable, has no line importing `OIBridge.TransSeparation`. This is the proof
+      that `F` carries no module; an absence of module lines in a log is not.
+    - **identity, success and gate, from `F`'s run evidence** (`frun_ok`, on `evidence/f-run/results.json`): the run
+      names `F` as its `head_sha`, is a `workflow_dispatch` run with a positive integer `attempt` and conclusion
+      `success`, the Mathlib bridge job and every job `success`, the build successful, and the release gate's verdict
+      PASS with every step PASS and `steps_pass` equal to `steps_total`.
+    - **consistency** (`frun_log_consistent`): the same result records no module build line, no report and the module's
+      status `absent`, as a run of a tree without the module must. A failure here is a failed control; a pass is not
+      evidence of absence.
 - **T** chain (with `--freeze`): `D..commit` is one chain of single-parent commits through `F`; `delta(D, F)` is the
   control plane; the preregistration at the commit is `F`'s. The check is on commit identity: a re-cut `F` with the
   same bytes is not on the chain and fails.
@@ -396,18 +415,24 @@ control, the exact layer, the frozen probe run, a proof-only repair, a complete 
 and log metadata showing a full and a tail window.
 
 It adds, against the defect:
-- **regression (real evidence):** `frun_ok` accepts KTRANS-SEP-1's real `F` run result (run 39940836089, head
-  `7e9aef69`, the module absent), embedded verbatim with its sha256
-  `d2ac295647dfb593a09026de51ad145102645dcc98dee1bd7d25988c6623ca8f`, which the old rule rejected; and rejects
-  another head, a push event, a failed job, no jobs, a failed build, a failed gate, and a result recording a build
-  line, a report or the module complete;
+- **regression (real evidence):** `frun_ok` and `frun_log_consistent` accept KTRANS-SEP-1's real `F` run result (run
+  39940836089, head `7e9aef69`), embedded verbatim with its sha256
+  `d2ac295647dfb593a09026de51ad145102645dcc98dee1bd7d25988c6623ca8f`, which the old rule rejected;
+- **the run half:** `frun_ok` rejects another head, a push event, no attempt or attempt 0, a failed run conclusion, a
+  failed bridge job, any failed job, no jobs, a failed build, a failed gate verdict, a failed gate step and a gate
+  missing a step; `frun_log_consistent` rejects a result recording a build line, a report or the module complete,
+  which `frun_ok` does not read;
+- **the tree half, negative control:** scratch commits on `D` (temporary objects, no ref) adding the module, or only
+  the import line, or only the probe, each fail the F-stage check even though the run evidence offered with them names
+  them, is green, passes the gate and records no module lines; a commit adding only a control-plane file passes, and
+  an unreadable commit fails;
 - **negative control, missing module evidence where it is required:** that real result, offered as a module-bearing
   run result (the predicted tree's or `E`'s), is rejected by `run_window_ok`;
 - **negative control at `E`:** a complete, green, gate-passing log with no module build line and no report — the shape
   of a run whose tree lacks the module, as `F`'s did — is VOID, never a token.
 
 The regression cases test the corrected rule; they are not the safeguard. The safeguard is condition 3 of
-*Preconditions of `F`*, run on this round's own candidate `F`. It passes 90 checks.
+*Preconditions of `F`*, run on this round's own candidate `F`. It passes 94 checks.
 
 `controls.py` is the draft generated from KTRANS-SEP-1's blob `412802eb` by `make_controls.py` (asserted
 replacements only; the draft notes list them); its blob is pinned when this draft is reviewed.
@@ -416,12 +441,12 @@ replacements only; the draft notes list them); its blob is pinned when this draf
 
 | stage | its tree | its run validates | evidence | control that reads it | negative control |
 | --- | --- | --- | --- | --- | --- |
-| `F` | `D` plus the control plane; no module | the control plane: every job green, build success, gate PASS; the module **absent** | `evidence/f-run/results.json`, added at stage 1 | P (`frun_ok`) at S1 and `E` | a result recording a build line, a report or the module complete fails `frun_ok` |
+| `F` | `D` plus the control plane; no module | the control plane: the run's identity (`F`, `workflow_dispatch`, attempt), every job `success`, build success, release gate PASS on every step. The module's absence is **not** a run result: it is read from `F`'s tree | absence: `F`'s tree through git (module and probe paths, the import line); identity, success, gate: `evidence/f-run/results.json`, added at stage 1 | P: `ftree_ok` (absence), `frun_ok` (run), `frun_log_consistent` (consistency only), at S1 and `E` | a tree containing the module, the import line or the probe fails although its log has no module lines; a run with a failed job or a failed gate fails |
 | predicted tree | `D` plus the predicted execution files | the proposed implementation: the module built, its fifteen reports within the three axioms, gate PASS | `evidence/predicted-tree-run.json`, pinned before `F` | P (`run_window_ok`) | KTRANS-SEP-1's real `F` run (no module), offered here, fails |
 | `E` | the actual execution | the actual execution: the module built at `E`, the fifteen reports, gate PASS | `E`'s served bridge log (`LOG`, `META`) | `verdict`: VOID unless the build line and every report are in the window | a complete green log without the module's lines is VOID |
 
-`mock-s1` (condition 3 of *Preconditions of `F`*) runs the stage-1 acceptance on candidate `F`'s own actual run result
-before `F` is designated, so that a requirement `F`'s run cannot meet fails before the freeze.
+`mock-s1` (condition 3 of *Preconditions of `F`*) runs the stage-1 acceptance on candidate `F`'s own tree and its own
+actual run result before `F` is designated, so that a requirement `F` cannot meet fails before the freeze.
 
 ## Invariants and their checkpoints (§A.41)
 
@@ -431,14 +456,17 @@ before `F` is designated, so that a requirement `F`'s run cannot meet fails befo
 | the controls, module and probe are the frozen ones | `C2`: `git rev-parse <commit>:<path>` equal to the frozen blobs, for `controls.py` at stage 1 and all three at `E`; `B`; `controls.py --self-test` OK at `E` |
 | every frozen declaration elaborates within the three axioms; no `sorryAx` | `C3`: the exact-head run at `E`, every job `success`; the fifteen reports read by `controls.py verdict E --freeze F --log LOG` |
 | the decisive step is the module's own construction | `C5`: X3 in `check E --freeze F` |
-| the exact layer replays; its countercontrols fail as stated | `C3`: shard `probes_ktranssep1` green; `verdict` re-runs the probe blob at `E` against the frozen output digest |
+| the exact layer replays; its countercontrols fail as stated | `C3`: shard `probes_ktranssep2` green; `verdict` re-runs the probe blob at `E` against the frozen output digest |
 | no positive token over a failed or missing control | `C5`: the verdict gate; its self-test cases run in the shard at `E` |
 | a tooling failure or incomplete evidence never yields a token, positive or negative | `C5`: the VOID rules of `verdict`; their self-test cases (log, probe, sympy, metadata) run in the shard at `E` |
 | the served `LOG` is complete for the fifteen reports | `C5`: `verdict` with `--log-meta`, the build-line-before-reports rule; `C8`: `evidence/predicted-tree-run.json` records the window, checked by P (`run_window_ok`) |
-| `F`'s run validates the control plane only: green, gate PASS, the module absent | `C5`: P (`frun_ok`) on `evidence/f-run/results.json` at S1 and `E` |
-| every stage-1 requirement can be met by `F`'s own run (no control `F`'s run can never satisfy) | `C9`: `controls.py mock-s1 <candidate F> --f-run <result derived from candidate F's actual exact-head run> --predicted <P> --evidence evidence/predicted-tree-run.json=<pinned file>` prints `controls: OK`, before designation; its output and the derived file's sha256 are recorded on the pull request with the designation request (*Preconditions of `F`*, condition 3); reviewers check that stage 1's `evidence/f-run/results.json` has that digest |
+| `F` carries no module | `C5`: P (`ftree_ok`) at S1 and `E`, reading `F`'s tree through git: no module path, no probe path, no `import OIBridge.TransSeparation` in `F`'s `OIBridge.lean`; `C9` on candidate `F` |
+| `F`'s run validates the control plane: it is `F`'s `workflow_dispatch` run, every job `success`, the release gate PASS | `C5`: P (`frun_ok`) on `evidence/f-run/results.json` at S1 and `E`; `C8` |
+| `F`'s run evidence is consistent with the absence (no module build line or report); never the proof of it | `C5`: P (`frun_log_consistent`) at S1 and `E` |
+| every stage-1 requirement can be met by `F`'s own tree and run (no control `F` can never satisfy) | `C9`: `controls.py mock-s1 <candidate F> --f-run <result derived from candidate F's actual exact-head run> --predicted <P> --evidence evidence/predicted-tree-run.json=<pinned file>` prints `controls: OK`, before designation; its output and the derived file's sha256 are recorded on the pull request with the designation request (*Preconditions of `F`*, condition 3); reviewers check that stage 1's `evidence/f-run/results.json` has that digest |
 | the corrected `F` rule accepts a real `F` run without the module (regression) | `C5`: the self-test's real-evidence cases (KTRANS-SEP-1's `F` run, digest pinned in `controls.py`), run in the shard at `E` |
 | missing module evidence is rejected where the module is required | `C5`: `run_window_ok` and the verdict's VOID rule; the self-test's two negative controls, run in the shard at `E` |
+| module presence in `F`'s tree is rejected whatever its log shows; a failed job or gate in `F`'s run is rejected | `C5`: the self-test's tree-half negative control (scratch commits with the module, the import line or the probe) and its run-half cases, run in the shard at `E` |
 | the module is registered; no manuscript or ROADMAP changes | `C4`: the release gate at `E` passing every step, `lean-manuscript` included; `C5` (C, G) |
 | the change stays inside the governed paths, with exactly the frozen import, census and workflow edits | `C6`: `git diff --no-renames --name-status D E`; `C5` (G, I, C, W) |
 | the pre-`F` evidence is retained and unchanged (§A.42 item 2) | `C5` (P) at `E` against the digests below; reviewers check that each pin resolves to retained content |
@@ -570,7 +598,7 @@ attestations.
 
 **Stages.**
 1. **C1** adds `controls.py` at its frozen blob, the pinned evidence files and `evidence/f-run/results.json`, the
-   structured expected result of `F`'s exact-head run (the module absent). Acceptance: each blob is the frozen blob or
+   structured expected result of `F`'s exact-head run. Acceptance: each blob is the frozen blob or
    matches its pin, and `evidence/f-run/results.json` has the digest recorded under condition 3 of *Preconditions of
    `F`*.
 2. **S1** adds the module, the probe, the import line, the census family and the workflow edit in one commit.
@@ -605,6 +633,7 @@ manuscript. Correctness bands are unchanged by either outcome: the round is cons
    read with `D`'s extraction code, and the runs and jobs APIs), never from an invented or edited log; then
    `controls.py mock-s1 <candidate F> --f-run <that file> --predicted <the predicted tree> --evidence
    evidence/predicted-tree-run.json=<the pinned file>` builds a mock stage-1 commit in a temporary object directory
-   with no ref and prints `controls: OK`. The command, its full output and the derived file's sha256 are recorded on
-   the pull request with the designation request. KTRANS-SEP-1's real evidence passing the corrected rule is a
+   with no ref and prints `controls: OK`, which includes P's three F-stage checks: the absence read from candidate
+   `F`'s tree, and the identity, success and gate read from that run's evidence. The command, its full output and the
+   derived file's sha256 are recorded on the pull request with the designation request. KTRANS-SEP-1's real evidence passing the corrected rule is a
    regression check of the rule, not this condition. Open.
