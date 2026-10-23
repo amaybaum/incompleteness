@@ -1,4 +1,4 @@
-"""Composition-lemma checker (deterministic). Usage: python3 -I composition_checks.py [--with-3d-78]
+"""Composition-lemma checker (deterministic). Usage: python3 composition_checks.py (full 3D at n = 7, 8: python3 check3d.py 7 8)
 Verdict lines are generated from measurements and printed only over green controls."""
 import sys, time, itertools, numpy as np
 from math import comb

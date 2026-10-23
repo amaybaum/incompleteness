@@ -43,11 +43,14 @@ The reports are in `owner-checks/`.
   - report17: the obstruction for the repaired rule (F1–F4).
   - report18: a rule beyond the previous degree-2 bound. A two-stage AND attains degree 3, and output degree reaches
     10 with 10 free variables.
+  - report20: the composition builder (`design/composition/`) writes raw ANDₙ for every n ≥ 2 under the report18
+    rule, with affine readiness resources. It was independently reviewed for n = 2–13.
 - **Status.**
   - The obstruction for the repaired rule is proved and independently reviewed.
   - The general g·g′ bound is proved by polynomial composition; the owner reviewed it in report18.
-  - For the report18 rule, the measured degree 10 excludes conjugacies with g·g′ < 10 under the stated encoding and
-    readout. It does not exclude every bounded-degree conjugacy.
+  - For the report18 rule, ANDₙ of degree n for every n excludes any conjugacy to linear dynamics with forward and
+    inverse degrees bounded uniformly in lattice size and time. This is proved and independently reviewed (report20).
+    It does not exclude size-dependent degree bounds or representations outside the stated conjugacy class.
 - **A successor must demonstrate** the degree its detector functions need. Either its rule reaches that degree under
   the stated encoding, readout and resource restrictions, or it must name the decoder or encoding that supplies the
   missing degree.

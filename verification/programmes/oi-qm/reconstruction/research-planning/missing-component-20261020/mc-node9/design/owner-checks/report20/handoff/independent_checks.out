@@ -1,0 +1,20 @@
+I1 group closure 40320; all 24 leaf cycles and their commutators; identity padding 6/8/10: PASS
+I2 separate scalar full-torus update: n=2, all inputs, two dense backgrounds and silent prefix: PASS
+I4 first-light reduction: 24 arbitrary 3D shell cases against raw second-order recursion: PASS
+I3 n=2 T=7 sources=31 rank=2 degree=2 full terminal triple and countercontrol PASS
+I3 n=3 T=25 sources=127 rank=3 degree=3 full terminal triple and countercontrol PASS
+I3 n=4 T=25 sources=126 rank=4 degree=4 full terminal triple and countercontrol PASS
+I3 n=5 T=61 sources=312 rank=5 degree=5 full terminal triple and countercontrol PASS
+I3 n=6 T=61 sources=320 rank=6 degree=6 full terminal triple and countercontrol PASS
+I3 n=7 T=97 sources=513 rank=7 degree=7 full terminal triple and countercontrol PASS
+I3 n=8 T=97 sources=528 rank=8 degree=8 full terminal triple and countercontrol PASS
+I3 n=9 T=169 sources=928 rank=9 degree=9 full terminal triple and countercontrol PASS
+I3 n=10 T=169 sources=939 rank=10 degree=10 full terminal triple and countercontrol PASS
+I3 n=11 T=241 sources=1352 rank=11 degree=11 full terminal triple and countercontrol PASS
+I3 n=12 T=241 sources=1342 rank=12 degree=12 full terminal triple and countercontrol PASS
+I3 n=13 T=313 sources=1751 rank=13 degree=13 full terminal triple and countercontrol PASS
+I5 n=9 all-input packed array bytes=7613149632
+I5 n=12 all-input packed array bytes=175233216000
+I5 padding finite check through 1000: PASS; general proof in REVIEW.md
+I6 recursion weight through 128; latency and cone formulas n=2..32: PASS
+ALL INDEPENDENT CHECKS PASS

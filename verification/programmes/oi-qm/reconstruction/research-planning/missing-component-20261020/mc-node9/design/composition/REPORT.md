@@ -92,7 +92,11 @@ Deadlines and resources (receiver-cone constraint count C(n) = 3[v(T)+v(T-1)] - 
 | C(n) | 2854 | 125397 | 125396 | 1816819 | 1816818 | 7302929 | 7302928 | 38617167 | 111984012 |
 
 **Against the preregistered rule.**
-- Criteria 1 (zero background) and 3 (non-vacuous countercontrol) are met.
+- Criterion 1 (zero background) is met.
+- Criterion 3 (a non-vacuous countercontrol) is required at every discovery and held-out size; this checker runs its
+  three structural controls at n = 4 only. The independent review (report20) adds a released-chain-pin
+  countercontrol at every n = 2..13 in the reduced model; that is a post-publication check, not a preregistered
+  raw-torus result.
 - Criterion 2 (two dense full-torus backgrounds) is met at every discovery size, n = 2..8. The checker runs n = 2..6;
   a separate run of the same code (`check3d.py 7 8`, saved as `check3d_78.out`, 554 s and 954 s) gives exact AND_7
   and AND_8 with degrees 7 and 8 on the zero background and both dense backgrounds.
@@ -100,8 +104,17 @@ Deadlines and resources (receiver-cone constraint count C(n) = 3[v(T)+v(T-1)] - 
   side 2T+3 needs about 7.6 and 175 GB per state array. The held-out sizes are covered by the exact register machine
   and by the 3D first-light sweep, which implements a proved lemma rather than the raw dynamics. The lemma itself is
   checked against the raw dynamics at every size from 2 to 8.
-- **By the preregistered rule as written, the outcome is therefore not "success".** The builder is stated and
-  proved, and verified in full 3D at every discovery size, but at the held-out sizes only in the two reduced models.
+- **Resource specification.** The preregistration asks for single-input copy slots and closed forms for T(n) and
+  the copy count m(n). The builder instead uses affine XORs of several inputs (at n = 12, 644 of the 1342 source
+  entries), which expands the preparation contract, and gives no closed form for the copy count. Report20 supplies
+  all-size bounds: with k = ceil(n/2) and G(k) = 2^h (3k - 2^(h+1)), h = floor(log2 k),
+  6G(k) + 1 <= T(n) <= 8G(k) + 7, and C(n) = 8T^3 + 16T - n.
+- **Chronology.** The hashes establish content consistency. That the preregistration and Section A predate the
+  held-out runs is the author's attestation; all files were first published together, at `43400ea7`.
+- **By the preregistered rule as written, preregistered success is not established.** The held-out full-torus runs
+  were not run (not observed to fail), criterion 3 was published at one size only, and the resource contract was
+  broadened. The builder is stated and proved, and verified in full 3D at every discovery size; at the held-out sizes
+  it is verified in the two reduced models.
 
 ## Section C. Branch record (depth-first)
 
