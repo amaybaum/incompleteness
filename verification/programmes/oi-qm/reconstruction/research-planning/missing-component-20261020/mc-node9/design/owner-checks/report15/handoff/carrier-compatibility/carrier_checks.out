@@ -1,0 +1,9 @@
+Majority rule: 12 boundary truth cases and 184 runs x 8 ticks confirm box confinement
+Radial-metric control: (-1,0,0) is outside the box but has L1 distance 1
+Shared ensemble, K=3: all 2048 frontier/payload assignments match the exact joint record law
+Source records: 512 equally likely three-tick words for each of four payloads
+Receiver: silent at ticks 1,2; (a,b,ab) at tick 3; payload TV=1 on raw receiver inputs
+Horizons 1..8: separated pulses meet with exact product; readiness exponent at K=3 is 268
+Original-rule control: terminal (1,1,0); one freed background bit masks the carrier, TV=0
+Uniform-background flip: preserves readiness and the entire ensemble; message-record TV=0
+PASS: conditional bit-carrier/source/gate compatibility; not an angular-emission or QM verdict
