@@ -233,9 +233,9 @@ Historical references, at the off-main commit
 [R6 NOTES N2/N5](https://github.com/amaybaum/incompleteness/blob/e7d380fcb9881e3063243aaa149e85be3cd0a914/research/archive/pt/R6/NOTES.md),
 [R6 REASSESSMENT §4](https://github.com/amaybaum/incompleteness/blob/e7d380fcb9881e3063243aaa149e85be3cd0a914/research/archive/pt/R6/REASSESSMENT.md),
 and [stage-6 integration §5, disguise test](https://github.com/amaybaum/incompleteness/blob/e7d380fcb9881e3063243aaa149e85be3cd0a914/research/archive/pt/INTEGRATION-NOTE-STAGE6.md).
-The links are provenance. Of these files, main retains only `R6/NOTES.md`
-(blob `62cdd79871c0fd78215be69f4d4ea630e178273d`), in
-`verification/audits/evidence-retention/objects/`; its N2 and N5 entries list
+The links are provenance. Of these files, main's history retains only `R6/NOTES.md`
+(blob `62cdd79871c0fd78215be69f4d4ea630e178273d`), in the evidence-retention archive at
+`48b18ac5` (`verification/audits/evidence-retention/objects/loose/62/`); its N2 and N5 entries list
 the alternatives and record that the stage-6 certificates passed.
 `R6/REASSESSMENT.md` (blob `04e35df63bade710994d57b317bc0a599551277c`) and
 `INTEGRATION-NOTE-STAGE6.md` (blob `22261d7c8f5963b45bdabefab8badae30a23d250`),

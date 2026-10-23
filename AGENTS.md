@@ -546,7 +546,7 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   files and about ten thousand lines of checker code, slowed the required check several-fold, and
   held research pull requests red over citations of runs it had not yet retained, while no
   manuscript claim depended on it and its gate step caught no defect. Hence §A.42's reduced form:
-  claims rest on a commit on `main`, a recipe and a stated result, and the archive is frozen.
+  claims rest on a commit on `main`, a recipe and a stated result.
 
 ---
 
@@ -910,21 +910,16 @@ by an independent reviewer from `main` alone.
    once the round lands, so the round's workflow run at `E` re-establishes its computational
    claims, and no separate retention pull request is needed. An owner designation a record relies
    on is quoted in that record with its author and time.
-8. **The archive.** `verification/audits/evidence-retention/` is frozen: it is neither extended
-   nor maintained, and its files stay as committed. The release gate's `evidence-archive` step
-   (`tools/evidence_archive_check.py`) pins the directory's tree id, so a change to it is an
-   owner-authorized change of that pin. The archive's tools and the `reproduce evidence` workflow
-   may still be used to regenerate an archived expected result at its commit.
 
 Records frozen under this section's earlier form, and rounds frozen at `F` under it, keep the form
 under which they were frozen; a preregistration is not reinterpreted. That form is `AGENTS.md` at
-`df9e601ebe2a4e5af2a82f2d06ca2797c3a10f88`. Such a round still owes the separate pull request that
-form requires for `E`'s evidence. A checkpoint its record names that the release gate no longer
-runs, such as the former `evidence-retention` step, is met by running the named check directly:
-`python3 verification/audits/evidence-retention/check_retention.py --gate`.
+`df9e601ebe2a4e5af2a82f2d06ca2797c3a10f88`. The evidence-retention archive those records cite is
+read from `main`'s history: `verification/audits/evidence-retention/` at
+`48b18ac54e39920a4fc4bbb8ee1d1b6cebea2c29` (tree `c8b7e8861dfbb79af1a71c8cef8fcfaf0acea85e`) holds
+the objects it retains, its manifests and its tools, and a recipe that names one of those tools runs
+at that commit.
 
-Enforcement: reviewers check items 1–6 on every record that lands; the `evidence-archive` step fails
-on any change to the frozen archive.
+Enforcement: reviewers check items 1–6 on every record that lands.
 
 Adopted 2026-10-16, after an audit of `main` at `fc5abade` found frozen records citing commits off
 `main`, CI log citations that expire, and cited logs held only in a session scratchpad. Reduced to

@@ -63,8 +63,8 @@ Stage-6 provenance, at the off-main commit
 (blob `04e35df63bade710994d57b317bc0a599551277c`). These two files record H3
 for K(Z_F); the complete written proof they rely on is `pt/T6/TEST.md` §3.3
 at that commit (blob `335cdc08701306d77670b6836e8081e244068de4`). None of
-the three is retained on main. From that commit, main's
-`verification/audits/evidence-retention/objects/` retains the R6 tree and `R6/NOTES.md` (blob `62cdd79871c0fd78215be69f4d4ea630e178273d`),
+the three is retained on main. From that commit, the evidence-retention archive in main's history
+(`verification/audits/evidence-retention/objects/` at `48b18ac5`) retains the R6 tree and `R6/NOTES.md` (blob `62cdd79871c0fd78215be69f4d4ea630e178273d`),
 whose N5 entry records that the stage-6 H3 certificates passed but does not
 contain the proof.
 Current availability is the existing `finite_protocol_spectator`, and the
