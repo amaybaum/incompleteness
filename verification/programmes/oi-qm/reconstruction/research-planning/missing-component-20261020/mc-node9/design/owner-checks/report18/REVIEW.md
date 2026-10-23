@@ -56,15 +56,16 @@ or on a zero background, and run dense backgrounds only with the frontier fixed.
    - The affine encoding 1 + x gives an exact three-input zero flag. That is beyond the old rule's degree-2 bound,
      under the new rule.
    - The joint law with the source holds on dense backgrounds (G3).
-   - Output degree grows to the number of free variables within a few ticks (G4). This is finite evidence that the
-     rule is not conjugate to a linear one by any bounded-degree map. It is not a proof of unbounded degree or of
-     universal computation.
+   - Output degree grows to the number of free variables within a few ticks (G4). Degree 10 excludes any conjugacy to
+     a linear rule with g·g′ < 10 under the stated encoding and readout. It does not exclude every bounded-degree
+     conjugacy, and it is not a proof of unbounded degree or of universal computation.
 4. **Workspace accounting (proposed; assumption-watch).**
-   - The gate evaluates 3 inputs only on a 99-bit readiness event, 96 of whose fixed bits form its clean workspace.
-   - A readiness detector assembled from such gates therefore carries its own clean-workspace and reset requirement.
-     That requirement belongs in the entropy budget of report16.
-   - Detection is worth building only if its total clean resources cost less than preparing the readiness event
-     directly. That comparison must be made for any scaled circuit; this report does not make it.
+   - The gate evaluates 3 inputs only on a 99-bit readiness event. Its fixed bits are 93 in the receiver region,
+     (3·25 − 3) + 3·7, and 6 at the source port. The three payload coordinates are free and are not part of the
+     fixed workspace.
+   - A readiness detector assembled from such gates must account explicitly for its initialization, the information
+     it retains, and any restoration needed for reuse. These belong in the resource budget of report16.
+   - A one-shot detector need not implement a reset.
 5. **Scope.** The following are supplied, not constructed:
    - the rule and its internal field order;
    - the readiness event (2^−99);
@@ -83,6 +84,6 @@ the source separated and accounting for every returned signal. Finding 4 adds a 
 - interference;
 - side records;
 - source separation;
-- the clean-workspace budget per detected bit.
+- explicit accounting of initialization, retained information and any restoration for reuse.
 
 The C-SPH-1 checkpoint stays closed.
