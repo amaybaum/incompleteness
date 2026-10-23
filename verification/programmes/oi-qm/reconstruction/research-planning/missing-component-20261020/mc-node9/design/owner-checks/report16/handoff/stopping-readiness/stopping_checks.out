@@ -1,0 +1,16 @@
+Entropy grouping PASS: 1872 exact integer inequalities; no heat claim
+Permutation PASS: 3769 event/permutation cases; Kac and first-hit laws distinguished
+Countercontrols: 16-cycle return mean=2, first-hit mean=9/4; identity has never-ready states
+Stopping controls PASS: selected bit biased; strictly future bit fair before wrap; wrap reveals old zero
+Independent raw-update PASS: 60 dense-background transitions, including wrap-around
+Rank PASS: K=1 B=0 L=9 J=28; all w=0..B
+Rank PASS: K=2 B=1 L=17 J=100; all w=0..B
+K=3 original geometry, w=0: P(W=w) terms [(1, 268)]
+K=3 original geometry, w=1: P(W=w) terms [(1, 268), (-1, 385)]
+K=3 original geometry, w=2: P(W=w) terms [(1, 268), (-1, 442), (-1, 385), (1, 502)]
+Rank PASS: K=3 B=2 L=25 J=268; all w=0..B
+Rank PASS: K=1 B=2 L=25 J=28; all w=0..B
+Rank PASS: K=2 B=3 L=41 J=100; all w=0..B
+Rank PASS: K=3 B=3 L=49 J=268; all w=0..B
+Readiness intersections checked exactly: 48
+PASS: bounded stopping theorem checks; no native readiness detector or clock constructed

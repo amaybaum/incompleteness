@@ -17,10 +17,9 @@
   write only to stdout, and use no randomness.
 - **Replay.** Each checker was run from a separate directory with `python3 -I`, normally and with `-O`. In all four
   runs the output is byte-identical to the included `.out`.
-- **Provenance gap.** The joint-readiness handoff continues `OI_rule_census_handoff_v1.zip` (sha256
-  `8705f2b267734cd3baf81a6d05d791106364a940979df9bbf43878ef81feeead`), which the coordinator has not received.
-  Both archives restate the update rules they use, and both checkers are self-contained. Nothing recorded here
-  depends on the missing archive.
+- **Provenance.** The joint-readiness handoff continues `OI_rule_census_handoff_v1.zip` (sha256
+  `8705f2b267734cd3baf81a6d05d791106364a940979df9bbf43878ef81feeead`), recorded and reviewed in report16. Both
+  archives here restate the update rules they use, and both checkers are self-contained.
 
 ## The handoffs' corrections to report14: applied
 

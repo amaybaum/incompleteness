@@ -1,0 +1,15 @@
+Cubic group: 48 transformations; 10 complete orbits; 1024 invariant rules
+code degree parity_distance P00 P10 three_tick_TV flip_covariant pulse/hole
+270 4 24 8339/32768 8259/32768 107/16384 False [6, 6]
+  AND slice: i,j,other_bits,input_flips,output_flip = (0, 1, 4, 1, 1, 0)
+298 1 0 1/4 1/4 0 True [6, 6]
+330 4 24 8259/32768 8339/32768 107/16384 False [6, 6]
+  AND slice: i,j,other_bits,input_flips,output_flip = (0, 1, 4, 0, 0, 1)
+412 4 36 1/4 131513/524288 441/524288 False [6, 0]
+  AND slice: i,j,other_bits,input_flips,output_flip = (0, 1, 0, 1, 1, 1)
+440 4 12 32507/131072 135895/524288 5867/524288 False [6, 0]
+  AND slice: i,j,other_bits,input_flips,output_flip = (0, 1, 0, 1, 1, 1)
+472 4 36 29907/131072 146359/524288 26731/524288 False [6, 0]
+  AND slice: i,j,other_bits,input_flips,output_flip = (0, 1, 0, 1, 1, 1)
+Triangular three-field escape: 4096/4096 bijection; crossing gate [0, 0, 1, 0]
+PASS: exact three-tick freshness selects XOR within the stated scalar class only
