@@ -437,67 +437,71 @@
    {
     "module": "OIBridge.PreservationInduction",
     "seconds": 2.5,
-    "served_line": 4868
+    "served_line": 38676
    },
    {
     "module": "OIBridge.PreservationInductionInstances",
     "seconds": 2.5,
-    "served_line": 4877
+    "served_line": 38685
    },
    {
     "module": "OIBridge",
     "seconds": 7.7,
-    "served_line": 4884
+    "served_line": 38692
    }
   ],
   "cache": [
    {
-    "served_line": 4984,
+    "served_line": 603,
+    "text": "Cache restored from key: oibridge-Linux-324962b2357195e1544c06a1936656a7dafa7cf303e07c9c08c1e5a3b289622d-b1dad80c5a69f8960d29389b75cf06c5751bd1928ce028601db4e3a7813f665f"
+   },
+   {
+    "served_line": 38792,
     "text": "Cache saved with key: oibridge-Linux-324962b2357195e1544c06a1936656a7dafa7cf303e07c9c08c1e5a3b289622d-f197c83013b96fd853fe8553019250614fdcb56e1d9ee5a05f09cb62703ac3ba"
    }
   ],
   "gate_served_lines": {
-   "start": 4911,
-   "verdict": 4936
+   "start": 38719,
+   "verdict": 38744
   },
   "report_served_lines": {
    "OIBridge.lean": {
-    "OIBridge.LinkJoin.act_injective": 4892,
-    "OIBridge.LinkJoin.act_op": 4890,
-    "OIBridge.LinkJoin.char_multiset_collision": 4886,
-    "OIBridge.LinkJoin.char_two_subset_ne_link": 4885,
-    "OIBridge.LinkJoin.character_PA_eq_one": 4897,
-    "OIBridge.LinkJoin.character_restrict_PT": 4896,
-    "OIBridge.LinkJoin.character_rhoA": 4901,
-    "OIBridge.LinkJoin.character_rhoA_eq_one": 4902,
-    "OIBridge.LinkJoin.character_rhoE": 4900,
-    "OIBridge.LinkJoin.character_rhoLink": 4894,
-    "OIBridge.LinkJoin.character_rhoLink_eq_sum": 4903,
-    "OIBridge.LinkJoin.character_rhoT": 4899,
-    "OIBridge.LinkJoin.character_sum": 4898,
-    "OIBridge.LinkJoin.faceEquivLink_op": 4889,
-    "OIBridge.LinkJoin.linkHom_injective": 4893,
-    "OIBridge.LinkJoin.rhoLink_comm_PT": 4895,
-    "OIBridge.LinkJoin.sum_cube_collision": 4888,
-    "OIBridge.LinkJoin.sum_sq_collision": 4887,
-    "OIBridge.LinkJoin.sym_linkHom": 4891
+    "OIBridge.LinkJoin.act_injective": 38700,
+    "OIBridge.LinkJoin.act_op": 38698,
+    "OIBridge.LinkJoin.char_multiset_collision": 38694,
+    "OIBridge.LinkJoin.char_two_subset_ne_link": 38693,
+    "OIBridge.LinkJoin.character_PA_eq_one": 38705,
+    "OIBridge.LinkJoin.character_restrict_PT": 38704,
+    "OIBridge.LinkJoin.character_rhoA": 38709,
+    "OIBridge.LinkJoin.character_rhoA_eq_one": 38710,
+    "OIBridge.LinkJoin.character_rhoE": 38708,
+    "OIBridge.LinkJoin.character_rhoLink": 38702,
+    "OIBridge.LinkJoin.character_rhoLink_eq_sum": 38711,
+    "OIBridge.LinkJoin.character_rhoT": 38707,
+    "OIBridge.LinkJoin.character_sum": 38706,
+    "OIBridge.LinkJoin.faceEquivLink_op": 38697,
+    "OIBridge.LinkJoin.linkHom_injective": 38701,
+    "OIBridge.LinkJoin.rhoLink_comm_PT": 38703,
+    "OIBridge.LinkJoin.sum_cube_collision": 38696,
+    "OIBridge.LinkJoin.sum_sq_collision": 38695,
+    "OIBridge.LinkJoin.sym_linkHom": 38699
    },
    "OIBridge/PreservationInduction.lean": {
-    "OIBridge.PreservationInduction.instAvail_preserves": 4869,
-    "OIBridge.PreservationInduction.instAvail_spectator_preserves": 4871,
-    "OIBridge.PreservationInduction.instAvail_sum_preserves": 4870,
-    "OIBridge.PreservationInduction.instAvail_transport_preserves": 4874
+    "OIBridge.PreservationInduction.instAvail_preserves": 38677,
+    "OIBridge.PreservationInduction.instAvail_spectator_preserves": 38679,
+    "OIBridge.PreservationInduction.instAvail_sum_preserves": 38678,
+    "OIBridge.PreservationInduction.instAvail_transport_preserves": 38682
    },
    "OIBridge/PreservationInductionInstances.lean": {
-    "OIBridge.PreservationInduction.classical_instAvail": 4879,
-    "OIBridge.PreservationInduction.classical_native_readout": 4883,
-    "OIBridge.PreservationInduction.classical_readProj": 4882,
-    "OIBridge.PreservationInduction.quantum_attach": 4880,
-    "OIBridge.PreservationInduction.quantum_discard": 4881,
-    "OIBridge.PreservationInduction.quantum_instAvail": 4878
+    "OIBridge.PreservationInduction.classical_instAvail": 38687,
+    "OIBridge.PreservationInduction.classical_native_readout": 38691,
+    "OIBridge.PreservationInduction.classical_readProj": 38690,
+    "OIBridge.PreservationInduction.quantum_attach": 38688,
+    "OIBridge.PreservationInduction.quantum_discard": 38689,
+    "OIBridge.PreservationInduction.quantum_instAvail": 38686
    }
   },
-  "reports_in_served_text": 124
+  "reports_in_served_text": 6011
  },
  "reproduce": {
   "compared": "build success; the gate's steps and verdict; each governed module's reports and axioms; the markers",
@@ -526,17 +530,17 @@
  "schema": "oi-evidence-result",
  "source": {
   "extractor": "verification/audits/evidence-retention/extract_result.py",
-  "kind": "GitHub Actions job log, read through the session's job-log tool, which returns at most the last 5000 lines",
+  "kind": "GitHub Actions job log, downloaded whole in CI by the extraction workflow (run 39953063524, attempt 1, commit cc8dcf11fd74c354e0605277e48ac636d095d3f4) through the jobs/<id>/logs endpoint",
   "note": "the digest identifies the text this result was read from: it is provenance of the extraction, not independent proof of the result, which reproduction at the commit supplies",
   "original_lines": 38808,
-  "served_lines": 5000,
-  "served_sha256": "6978cdc3eb7dde200f77d2c8198cf4bced7fae0ae00b58ce331adf021334ad94"
+  "served_lines": 38808,
+  "served_sha256": "6d8ee6fbd905fba34b850b1149a4e60f086d43d637d84e780908f0b9995348ae"
  },
  "version": 1,
  "window": {
-  "first_original_line": 33809,
+  "first_original_line": 1,
   "last_original_line": 38808,
-  "note": "the served text is the last 5000 lines of the log; the reports and markers above are read from it alone",
+  "note": "the served text is the whole log, downloaded in CI; the reports and markers above are read from all of it",
   "original_lines": 38808
  }
 }

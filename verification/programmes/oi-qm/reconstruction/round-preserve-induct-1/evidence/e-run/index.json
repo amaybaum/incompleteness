@@ -24,35 +24,52 @@
    "source_sha256": "a7a4885615d2d019045193999826c6f745ceb590b5d60028449a7003b5a68194"
   },
   {
-   "bytes": 13861,
+   "bytes": 14196,
+   "extraction": {
+    "attempt": 1,
+    "caveat": "the extractor commit is on a temporary branch whose root commit is parentless and the extraction run's log is a host log; neither is reachable from main. They are provenance of this file, which a reproduction at the commit can check",
+    "event": "push",
+    "extractor_branch": "tmp/preserve-induct-1-e-evidence-20261023",
+    "extractor_commit": "cc8dcf11fd74c354e0605277e48ac636d095d3f4",
+    "job": "120412051257",
+    "printed_sha256": "d4c98b060769082f4348dff7902120a3b5fab40cec8026c4b12a0101ff4ac3d2",
+    "run": "39953063524",
+    "verdict": "EXTRACT HOLDS",
+    "workflow": ".github/workflows/preserve-induct-1-e-evidence.yml"
+   },
    "form": "derived",
    "path": "results.json",
-   "sha256": "37234c78f0757d3f9018360b81d8692a021c19c3978b5b575d2c8ee76e2dc545",
-   "source_note": "source_sha256 is the digest of the served text: the last 5000 of the job log's 38808 lines, as the session's job-log tool returned them; the whole log was not retrievable read-only from the session",
-   "source_sha256": "6978cdc3eb7dde200f77d2c8198cf4bced7fae0ae00b58ce331adf021334ad94"
+   "sha256": "d4c98b060769082f4348dff7902120a3b5fab40cec8026c4b12a0101ff4ac3d2",
+   "source_note": "source_sha256 is the digest of the whole job log (job 120371493729; 3771312 bytes, 38808 lines) as the extraction's download record gives it; the extraction read every line of it",
+   "source_sha256": "6d8ee6fbd905fba34b850b1149a4e60f086d43d637d84e780908f0b9995348ae"
   },
   {
-   "bytes": 17086,
+   "bytes": 21899,
+   "extraction": {
+    "attempt": 1,
+    "caveat": "the extractor commit is on a temporary branch whose root commit is parentless and the extraction run's log is a host log; neither is reachable from main. They are provenance of this file, which a reproduction at the commit can check",
+    "event": "push",
+    "extractor_branch": "tmp/preserve-induct-1-e-evidence-20261023",
+    "extractor_commit": "cc8dcf11fd74c354e0605277e48ac636d095d3f4",
+    "job": "120412051257",
+    "printed_file": "cells-ci.json",
+    "printed_sha256": "b36dda0a0c107b4ebd88a0c53610bf501a60d5e3238348b3ce338d0fcff740d2",
+    "run": "39953063524",
+    "verdict": "EXTRACT HOLDS",
+    "workflow": ".github/workflows/preserve-induct-1-e-evidence.yml"
+   },
    "form": "derived",
    "path": "cells.json",
-   "sha256": "e48ebb66c8d5b8bad72be5fa52ca48febd0dac6354b9a6631115a155e43c03ec",
-   "source_note": "read from the bridge job's served window (the same text results.json was read from) and the probe job's whole served log; the verdict section is the output of the frozen controls.py run at E over the window",
+   "sha256": "f0b5f9ba61fbff254d45334791f1628ebd6b4ad0bf594a26cb1f7bd431748b1a",
+   "source_note": "expected and verdict_ci are read from, and run over, the two whole job logs as the extraction's download record gives them (bridge job 120371493729, 38808 lines; probe job 120371494151, 768 lines); verdict_ci is the output of the frozen controls.py executed in extraction run 39953063524 at E, not read from the logs. verdict_session is the session's run of the same controls.py over the served window (bridge_window_session)",
    "source_sha256": {
-    "bridge_window": "6978cdc3eb7dde200f77d2c8198cf4bced7fae0ae00b58ce331adf021334ad94",
-    "probe_log": "7a237085ad3149d870c0c1503561ec9f7c283ef143296caa356edb23eada95bd"
+    "bridge_log": "6d8ee6fbd905fba34b850b1149a4e60f086d43d637d84e780908f0b9995348ae",
+    "bridge_window_session": "6978cdc3eb7dde200f77d2c8198cf4bced7fae0ae00b58ce331adf021334ad94",
+    "probe_log": "71d4e45cb1efaeeb4a2d01f14a9154754a192fa09ef166b628000dfaff875d58"
    }
   }
  ],
- "missing": [
-  {
-   "item": "#print axioms reports in original lines 1-33808 of 38808 of the bridge log, before the partial served window",
-   "why": "the job-log tool serves at most the last 5000 lines and the whole log was not retrievable read-only from the session; results.json records the window and the gap"
-  },
-  {
-   "item": "failure markers in original lines 1-33808 of 38808 of the bridge log, before the partial served window",
-   "why": "the job-log tool serves at most the last 5000 lines and the whole log was not retrievable read-only from the session; results.json records the window and the gap"
-  }
- ],
+ "missing": [],
  "round": "PRESERVE-INDUCT-1",
  "run": "39940811486",
  "schema": "oi-e-run-record",
