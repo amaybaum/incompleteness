@@ -1,0 +1,49 @@
+{
+ "bridge_job": "118098114324",
+ "commit": "46781818f8d8da53153dbe62c9e88c61488960ff",
+ "files": [
+  {
+   "bytes": 523,
+   "form": "derived",
+   "path": "run.json",
+   "sha256": "5e58152bdb825df2f2902f80e6c3dac27c0aa9259eb68977736d44fdc94a7288",
+   "source_sha256": "ca58f5f0ebb8156e7901b5b00eea8b62b393b534c727ce0df9f715ec1e94a616"
+  },
+  {
+   "bytes": 43732,
+   "form": "derived",
+   "path": "jobs.json",
+   "sha256": "dfcd67ba949bbfe6b53339a359507a90e1dfa25c482199313834c5c586d118fb",
+   "source_sha256": "62216016e881b7df70c130d5b68a845cbfa1e3fa2efc61a96d666a4edf7bc144"
+  },
+  {
+   "bytes": 2388,
+   "form": "derived",
+   "path": "designation.json",
+   "sha256": "8f5018b8fa4b662e0c6449abfd432aeaa3fe571dfc19999e4220b4ec64533b97",
+   "source_sha256": "f09d61da858036e8a1805cde04c6aefdfecc32016b8f1472e80d7d8a62850a6a"
+  },
+  {
+   "bytes": 11028,
+   "form": "derived",
+   "path": "results.json",
+   "sha256": "922024fb160f3b11bfdbcda6e1f0190a2799792ad99742cca27570c227ecaf3c",
+   "source_note": "source_sha256 is the digest of the served text: the last 5000 of the job log's 38705 lines, as the session's job-log tool returned them; the whole log was not retrievable read-only from the session",
+   "source_sha256": "00c471ed22cc859b2da4bc852a668dac9ad115d059613bac0943d9769bf8b5b8"
+  }
+ ],
+ "missing": [
+  {
+   "item": "#print axioms reports in original lines 1-33705 of 38705 of the bridge log, before the partial served window",
+   "why": "the job-log tool serves at most the last 5000 lines and the whole log was not retrievable read-only from the session; results.json records the window and the gap"
+  },
+  {
+   "item": "failure markers in original lines 1-33705 of 38705 of the bridge log, before the partial served window",
+   "why": "the job-log tool serves at most the last 5000 lines and the whole log was not retrievable read-only from the session; results.json records the window and the gap"
+  }
+ ],
+ "round": "PRESERVE-INDUCT-1",
+ "run": "39263818996",
+ "schema": "oi-f-run-record",
+ "version": 1
+}
