@@ -242,8 +242,11 @@ so dropping one has no countermodel to exhibit.
 
 ## The decision rules (frozen; implemented by `controls.py verdict`)
 
-`LOG` is the served text of the Mathlib bridge job of the exact-head run at `E`, and `META` the tool's line counts for
-it (`{"original_lines": N, "served_lines": M}`). `controls.py verdict E --freeze F --log LOG --log-meta META` first
+`LOG` is the served text of the Mathlib bridge job of the exact-head run at `E`, saved as served (the job-log tool's
+`logs_content`, JSON-decoded, which ends without a newline), and `META` its line counts
+(`{"original_lines": N, "served_lines": M}`): `N` is the tool's `original_length`, the whole log's line count, and `M`
+the number of lines of the text as served. Every reader reads `LOG` as bytes decoded as UTF-8, with a leading
+byte-order mark dropped and no newline translation. `controls.py verdict E --freeze F --log LOG --log-meta META` first
 runs every control of `check E --freeze F`. `--log-meta` is mandatory for the round's verdict: `controls.py` accepts
 a call without it, and such a call is not the round's verdict (*Stages and outcomes*). It prints the cells only from
 complete evidence; otherwise it prints
@@ -252,13 +255,22 @@ incomplete evidence never yields a `NOT-ESTABLISHED` token: the evidence is take
 repeated) or the round halts under `S12`.
 
 **VOID** when any of these holds: a required control failed or never ran; `LOG` is empty, or `META` does not describe
-it; a frozen report is missing, duplicated, at another source line or unparsable; the line
-`Built OIBridge.TransSeparation` is not in the served window before the first report (the window may begin inside the
-report block); the build line or the release-gate block is missing, or the gate fails at a step outside the module;
+it; a frozen report is missing, duplicated, at another source line or unparsable; the module's build-status line,
+`Built OIBridge.TransSeparation` or `Replayed OIBridge.TransSeparation`, is not in the served window before the first
+report (the window may begin inside the report block); the build line or the release-gate block is missing, or the gate fails at a step outside the module;
 sympy `1.14.0` is not importable; the probe does not run to completion (non-zero exit, no `checks:` line, or no final
 `VERDICT` line); or its output differs from the frozen output with no failing check. When `META` shows the full log
 (`served_lines = original_lines`) the window is complete by construction; when it shows a tail, the build-line rule is
 what establishes that the report block lies inside it.
+
+**Built or replayed.** The bridge job restores a build cache whose key hashes the toolchain, the dependency manifest,
+the lakefile and every `OIBridge` source (`verify.yml` at `D`, the step "Restore the OIBridge build cache"), and builds
+with `lake --rehash build`, which re-hashes each source against the restored trace. A module whose inputs are
+byte-identical to a cached build is replayed: Lake prints `Replayed` and the stored messages of that build, the
+`#print axioms` reports among them; any other module is built and prints `Built`. `E` has the Lean sources of S1,
+whose required green run saves that cache on the round's branch, so `E`'s run replays the module, and a re-cut
+predicted tree dispatched on a branch that already ran the same sources replays it too. Both words therefore name a
+build of the module's exact bytes under the pinned toolchain, and the rules read either.
 
 | Cell | Outcome | Rule |
 |---|---|---|
@@ -351,7 +363,7 @@ condition 3). Its codes:
   requirements*):
   - the predicted tree's run result (`evidence/predicted-tree-run.json`) names the commit in *The predicted execution
     tree*, is a green `workflow_dispatch` run, and records in `observed.transseparation_window` the served line of
-    `Built OIBridge.TransSeparation`, of each of the fifteen reports and of the gate block's start and end, all inside
+    the module's build-status line (`Built` or `Replayed OIBridge.TransSeparation`), of each of the fifteen reports and of the gate block's start and end, all inside
     the served window and in that order, with the fifteen reports within the three axioms and the gate's verdict PASS
     (`run_window_ok`);
   - at `F` (with `--freeze`) three checks, kept separate:
@@ -443,29 +455,38 @@ It adds, against the defect:
 - **the tree half, negative control:** scratch commits on `D` (temporary objects, no ref) adding the module at its path
   or at another, or only the import line, alone or beside another module on one line, or only the probe, each fail
   the F-stage check even though the run evidence offered with them names them, is green, passes the gate and records
-  no module lines; a commit adding only a control-plane file passes, and an unreadable commit fails;
+  no module lines; a commit adding only a control-plane file passes, and an unreadable commit fails. Those commits
+  fail through the Lean-directory clause, which decides on a real tree; each other clause (the probe's path, the
+  module's path, an import line, an unreadable `OIBridge.lean`, an unreadable directory) is tested alone with the
+  directories held equal;
 - **end to end, on scratch commits:** `derive-run` turns a served log without the module into status `absent` and the
-  gate's steps, and one with it into status `complete` with the fifteen reports in order, the same inputs giving the
-  same bytes; it refuses metadata that does not describe the text, an incomplete jobs answer, no bridge job and a job
-  listed twice. A predicted tree and a candidate `F` built as the round builds them (the predicted tree's run result
-  and `F`'s derived by `derive-run` from served logs in the real layout) pass `check` and `mock-s1`, which runs every
-  required control and the three F-stage checks; and `mock-s1` fails, at the named check, for an `F` run naming
-  another head, an `F` log carrying the module, an `F` run missing a job of the predicted run, an f-run file that is
+  gate's steps, and one with it into status `complete` with the fifteen reports in order, whether the module was built
+  or replayed, the same inputs giving the same bytes; a status line without reports, or reports without one, is
+  `incomplete`, and a byte-order mark changes only the text's digest; it refuses metadata that does not describe the
+  text, an incomplete jobs answer, no bridge job and a job listed twice. A predicted tree and a candidate `F` built as
+  the round builds them (the predicted tree's run result and `F`'s derived by `derive-run` from served logs in a
+  simplified form of the real layout) pass `check` and `mock-s1`, which runs every required control and the three
+  F-stage checks; and `mock-s1` fails, at the named check, for an `F` run naming another head, an `F` run whose
+  conclusion, bridge job, other job or gate step failed (each carried through `derive-run`), an `F` log carrying the
+  module, an `F` run missing a job of the predicted run, an f-run file that is
   not `derive-run`'s output over the inputs given, a predicted tree other than the one `F` names, a predicted-tree
   section in this round's first draft's form, a candidate `F` carrying the module (T and P), a candidate `F` pinning
-  another `controls.py` blob or leaving the pin pending (B), a pinned file that differs from its pin, and a
-  predicted-tree run result naming another commit;
+  another `controls.py` blob or leaving the pin pending (B), a stage-1 `controls.py` other than the file running though
+  the pin names the running file (B), a pinned file that differs from its pin, and a predicted-tree run result naming
+  another commit;
+- **built or replayed:** a complete log whose module was replayed from the build cache gives the same tokens as one
+  where it was built; a log whose status line has neither word is VOID;
 - **negative control, missing module evidence where it is required:** that real result, offered as a module-bearing
   run result (the predicted tree's or `E`'s), is rejected by `run_window_ok`;
 - **negative control at `E`:** a complete, green, gate-passing log with no module build line and no report — the shape
   of a run whose tree lacks the module, as `F`'s did — is VOID, never a token.
 
 The regression and end-to-end cases test the corrected rule and its wiring; they are not the safeguard. The safeguard
-is condition 3 of *Preconditions of `F`*, run on this round's own candidate `F`. The self-test passes 112 checks.
+is condition 3 of *Preconditions of `F`*, run on this round's own candidate `F`. The self-test passes 120 checks.
 
 `controls.py` is KTRANS-SEP-1's `controls.py` (blob `412802eb`) with this round's changes, drafted on the branch
-`draft/ktrans-sep-2-staging-controls`, which this round's pull request links; its blob is pinned below (*The frozen
-`controls.py`*).
+`draft/ktrans-sep-2-staging-controls`, which this round's pull request links; its blob is pinned below once it is
+final (*The frozen `controls.py`*).
 
 ## Stage requirements (what each run validates)
 
@@ -473,7 +494,7 @@ is condition 3 of *Preconditions of `F`*, run on this round's own candidate `F`.
 | --- | --- | --- | --- | --- | --- |
 | `F` | `D` plus the control plane; no module | that `D`'s workflow and release gate pass on `D` plus this file: the run's identity (`F`, `verify.yml`, the Mathlib bridge job, `workflow_dispatch`, run and job ids, attempt), every job `success` and exactly the predicted tree's run's jobs less the round's shard, build success, release gate PASS on exactly its steps. It runs none of the round's controls, which first run at stage 1 and in `mock-s1`. The module's absence is **not** a run result: it is read from `F`'s tree | absence: `F`'s tree through git (the Lean directories, the module and probe paths, the import line); identity, success, gate: `evidence/f-run/results.json`, derived by `controls.py derive-run` and added at stage 1 | P: `ftree_ok` (absence), `frun_ok` (run), `frun_log_consistent` (consistency only), at S1 and `E` | a tree containing the module, the import line or the probe fails although its log has no module lines; a run with a failed job, a missing job or a failed gate fails |
 | predicted tree | `D` plus the predicted execution files | the proposed implementation: the module built, its fifteen reports within the three axioms, gate PASS | `evidence/predicted-tree-run.json`, pinned before `F` | P (`run_window_ok`) | KTRANS-SEP-1's real `F` run (no module), offered here, fails |
-| `E` | the actual execution | the actual execution: the module built at `E`, the fifteen reports, gate PASS | `E`'s served bridge log (`LOG`, `META`) | `verdict`: VOID unless the build line and every report are in the window | a complete green log without the module's lines is VOID |
+| `E` | the actual execution | the actual execution: the module built at `E`, the fifteen reports, gate PASS | `E`'s served bridge log (`LOG`, `META`) | `verdict`: VOID unless the module's status line (`Built` or `Replayed`) and every report are in the window | a complete green log without the module's lines is VOID |
 
 `mock-s1` (condition 3 of *Preconditions of `F`*) runs the stage-1 acceptance on candidate `F`'s own tree and its own
 actual run result before `F` is designated, so that a requirement `F` cannot meet fails before the freeze.
@@ -484,12 +505,13 @@ actual run result before `F` is designated, so that a requirement `F` cannot mee
 | --- | --- |
 | execution begins from the frozen control plane | `C1`: this file's blob at `F`; `T` in `controls.py check E --freeze F` |
 | the controls, module and probe are the frozen ones | `C5`: B, `controls.py` at the commit equal to the running file and to the blob this file pins (*The frozen `controls.py`*), the probe at its frozen blob, at S1 and `E`; N1–N3 for the module; `C2`: `git rev-parse <commit>:<path>` equal to the frozen blobs, for `controls.py` at stage 1 and all three at `E`; `controls.py --self-test` OK at `E` |
-| every frozen declaration elaborates within the three axioms; no `sorryAx` | `C3`: the exact-head run at `E`, every job `success`; the fifteen reports read by `controls.py verdict E --freeze F --log LOG` |
+| every frozen declaration elaborates within the three axioms; no `sorryAx` | `C3`: the exact-head run at `E`, every job `success`; the fifteen reports read by `controls.py verdict E --freeze F --log LOG --log-meta META` |
 | the decisive step is the module's own construction | `C5`: X3 in `check E --freeze F` |
 | the exact layer replays; its countercontrols fail as stated | `C3`: shard `probes_ktranssep2` green; `verdict` re-runs the probe blob at `E` against the frozen output digest |
 | no positive token over a failed or missing control | `C5`: the verdict gate; its self-test cases run in the shard at `E` |
 | a tooling failure or incomplete evidence never yields a token, positive or negative | `C5`: the VOID rules of `verdict`; their self-test cases (log, probe, sympy, metadata) run in the shard at `E` |
 | the served `LOG` is complete for the fifteen reports | `C5`: `verdict` with `--log-meta`, the build-line-before-reports rule; `C8`: `evidence/predicted-tree-run.json` records the window, checked by P (`run_window_ok`) |
+| a cached build at `E` (or of a re-cut predicted tree) is read, not voided | `C5`: the `verdict` and `derive-run` rules read `Built` or `Replayed OIBridge.TransSeparation`; their self-test cases (a replayed log gives the same tokens and status; a status line with neither word is VOID) run in the shard at `E` |
 | `F` carries no module | `C5`: T (`delta(D, F)` is the control plane) and P (`ftree_ok`) at S1 and `E`, reading `F`'s tree through git: its Lean directories equal `D`'s, no module path, no probe path, no import line naming `OIBridge.TransSeparation` in `F`'s `OIBridge.lean`; `C9` on candidate `F` |
 | `F`'s run shows `D`'s workflow and release gate passing on `D` plus this file: it is `F`'s `workflow_dispatch` run of `verify.yml`, its jobs are the predicted tree's run's less the shard, every job `success`, the release gate PASS on the predicted tree's run's steps | `C5`: P (`frun_ok`) on `evidence/f-run/results.json` against `evidence/predicted-tree-run.json` at S1 and `E`; `C8` |
 | `evidence/f-run/results.json` is derived from `F`'s actual run, by the frozen recipe | `C9`: `mock-s1` requires the file to be `controls.py derive-run`'s output over the served bridge log, its metadata and the runs and jobs answers of candidate `F`'s exact-head run, and prints its digest; the digests of those inputs are in the file; reviewers check that stage 1's file has the digest recorded with the designation request |
@@ -560,11 +582,12 @@ form:
   push run, without its timestamps;
 - `evidence/predicted-tree-run.json`, pending, and `evidence/f-run/results.json`, added at stage 1 — `derived` by
   this round's frozen recipe, `controls.py derive-run --log LOG --log-meta META --run-api RUN --jobs-api JOBS`, from
-  the run's Mathlib bridge job's served log exactly as served (`LOG`), the serving tool's line counts for it (`META`)
-  and the runs and jobs API answers for the run (`RUN`, `JOBS`). The result is a function of those four inputs alone.
-  It records the run's identity, every job's conclusion, the build and the release gate's steps and verdict, the
-  module's status and reports, and in `observed.transseparation_window` the served line of `Built
-  OIBridge.TransSeparation`, of each report and of the gate block's start and end; in `source`, the log's
+  the run's Mathlib bridge job's served log exactly as served (`LOG`), its line counts (`META`), both as *The decision
+  rules* define them, and the runs and jobs API answers for the run (`RUN`, `JOBS`; the jobs answer lists every job of
+  the run in one answer, `per_page` 100, or the recipe refuses it). The result is a function of those four inputs
+  alone. It records the run's identity, every job's conclusion, the build and the release gate's steps and verdict,
+  the module's status and reports, and in `observed.transseparation_window` the served line of the module's
+  build-status line (`Built` or `Replayed`), of each report and of the gate block's start and end; in `source`, the log's
   `original_lines` and `served_lines` and the digests of the four inputs. The inputs are not retained (§A.42 item 4).
 
 Each file names its commit, run, job and recipe and, as provenance, the digest of the text it was read from, and no
@@ -609,7 +632,8 @@ evidence-retention archive's extractor and carried byte for byte; this round der
 
 The entry lists the tree's files with their blobs. The tree is a single-parent child of `D` that carries:
 - the record files: this preregistration in its drafting revision (which differs from the revision at `F` in this
-  section, the pin of the predicted tree's run, and the status line), `controls.py` at its pinned blob, and the pinned
+  section, the pin of the predicted tree's run, the status line and the preconditions' `Open` markers),
+  `controls.py` at its pinned blob, and the pinned
   evidence files other than `evidence/predicted-tree-run.json`;
 - the five execution paths: the module and the probe at their frozen blobs, and `OIBridge.lean`, the census and
   `verify.yml` exactly as I, C and W require at this `D`.
