@@ -52,13 +52,6 @@ another. Each exists because a real defect shipped past the others:
                        this step is where a native round whose receipt does not
                        hold, or whose records were rewritten after it held, can
                        reject a build.
-  evidence-archive     the frozen evidence-retention archive (AGENTS §A.42 item 8):
-                       verification/audits/evidence-retention/ at its pinned tree
-                       id, with nothing changed, added or removed in the working
-                       tree. Its history-mode checker used to run here on every
-                       build, re-verifying inputs that could no longer change;
-                       the archive is now neither extended nor maintained, so a
-                       change to it is an owner-authorized change of the pin.
 
 Post-packaging, verify the DECLARED checksum against the shipped archive:
     python3 tools/baseline_label_check.py --verify-archive PATH --root TRANSFER
@@ -168,10 +161,6 @@ def main():
         # history, so the workflow's Mathlib bridge job checks out with fetch-depth: 0.
         ("v3-receipts",
                       [sys.executable, "tools/v3_verifier.py", "--receipts", head]),
-        # evidence-archive: the frozen evidence-retention archive of AGENTS §A.42 item 8 is unchanged:
-        # its tree id at HEAD is the pinned one and the working tree changes nothing under it.
-        ("evidence-archive",
-                      [sys.executable, "tools/evidence_archive_check.py"]),
     ]
     # baselines are named in the TRANSFER's docs, not the manuscript tree, so
     # point the label check there when a transfer path is supplied

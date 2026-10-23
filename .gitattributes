@@ -1,6 +1,5 @@
 # Release archives (the GitHub zipball Zenodo deposits) omit the verification round records and
-# audits, the frozen evidence-retention archive of AGENTS §A.42 item 8 among them; they stay in the
-# repository.
+# audits; they stay in the repository.
 verification/programmes export-ignore
 verification/audits export-ignore
 verification/infrastructure/round-* export-ignore

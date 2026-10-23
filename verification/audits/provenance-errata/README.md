@@ -6,7 +6,7 @@ digits with the real head and is not a prefix of it. The errors are of attributi
 
 The records keep their bytes (AGENTS §A.42 item 6). This table records the attribution errors and the verified heads;
 a correction of a frozen record's own text is a native round's (`G13`). Whether a mutable pointer, such as the
-evidence-retention manifest, should reference these errata is moot: that archive is frozen (AGENTS §A.42 item 8).
+evidence-retention manifest, should reference these errata is moot: that archive is read from `main`'s history, not the tree (AGENTS §A.42).
 
 A count discrepancy of a different kind, Act 37's `lean-axioms` figure for its base run (4829 stated, 4803 recorded), is
 recorded in [`ACT37-CI-COUNT.md`](ACT37-CI-COUNT.md); it is outside the table below and the checker.
