@@ -1,0 +1,76 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "PRESERVE-INDUCT-1",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "ec36234cb98a30ecb4681e118ff9ccb82e19aa6d",
+ "f": "46781818f8d8da53153dbe62c9e88c61488960ff",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-preserve-induct-1/preregistration.md",
+   "blob": "815fc6cb432a054bb511abf343f1bba7b29ff015"
+  }
+ ],
+ "governed_paths_digest": "2698cd6c6e07da17a03ee77ce228e7f27813c521a39a6d8d3b7fec1b0461b1e9",
+ "e": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+ "tree_e": "231ecf72a23a3a816f562ff05f81750ae1320c58",
+ "execution_delta_digest": "f4deda01f864f797207177ba26460b94381fde6d62b921b151940a7d9500e40e",
+ "candidates": [
+  {
+   "commit": "bf8b93ad63f56829aebbded47694ddab363c08f3",
+   "tree": "b14078133658055fe896ac501866b670e3396473",
+   "measured": "Stage 1, committed 2026-10-23T08:52:56Z, after the owner's designation of F (#880 comment 6270966165, 2026-10-19T15:31:13Z); prepared before, and pushed after, the owner's execution authorization (#880 comment 6363032479, 2026-10-23T10:40:15Z): controls.py at its frozen blob 208801fc, evidence/predicted-tree/results.json (sha256 d3508cad6339a5c32d0359868ab460d57d6550f45df4167878ff0164e8ae86fb, equal to its pin at F) and evidence/f-run/, F's exact-head run record read from the served last 5000 of 38705 bridge-log lines, lines 1-33705 recorded as missing. No host run of its own (runs API, branch query). Local: controls.py check at this commit --freeze F --stage S1 passes its 7 controls; 303 legacy records intact. Not designated."
+  },
+  {
+   "commit": "a84e73094c64f05b523d42b8b0c766d7a1612751",
+   "tree": "6661f1292eeb706b86dd89c46af6aeba584e8b1f",
+   "measured": "Stage 2, committed 2026-10-23T08:52:56Z: PreservationInduction.lean (blob a40464f5), PreservationInductionInstances.lean (blob 13b786c7), the probe (blob 0333a734) and the independent check (blob b2e3f178), each at its frozen blob, with the verify.yml splices, the two import lines and the two census families. No host run of its own (runs API, branch query). Local: controls.py check at this commit --freeze F --stage S1 passes its 7 controls. Not designated."
+  },
+  {
+   "commit": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "tree": "231ecf72a23a3a816f562ff05f81750ae1320c58",
+   "measured": "Stage 3, adding result.md alone (blob 0ec5b29c), committed 2026-10-23T08:52:56Z. Exact-head workflow_dispatch run 39940811486, attempt 1, head_sha 46e6f319, all 38 jobs success. Mathlib bridge job 120371493729: Build success; the release gate passed 22 of 22 steps; every governed module complete, each report within propext, Classical.choice and Quot.sound; every failure marker zero; the round's final axiom step printed its marker naming E and 'preserve_induct1 axioms: OK -- 10 reports'. Its whole log (38808 lines, sha256 6d8ee6fbd905fba34b850b1149a4e60f086d43d637d84e780908f0b9995348ae) and the probe job's whole log (768 lines, sha256 71d4e45cb1efaeeb4a2d01f14a9154754a192fa09ef166b628000dfaff875d58) were read by the owner-authorized extraction run 39953063524 (EXTRACT HOLDS). The frozen verdict, controls.py (blob 208801fc) verdict at E against F, run in CI over the whole bridge log and in the session over its served last 5000 lines, prints on both PRESERVE-INDUCT-CORE-PROVED, PRESERVE-INDUCT-COROLLARIES-PROVED, PRESERVE-INDUCT-EXACT-CHECKED and PRESERVE-INDUCT-1-READ. E's exact-head run reached main through its own pull request, #904 (landing 897c4909, the first parent of this reconciliation), retained under evidence/e-run/ with sha256 digests: results.json d4c98b060769082f4348dff7902120a3b5fab40cec8026c4b12a0101ff4ac3d2, cells.json f0b5f9ba61fbff254d45334791f1628ebd6b4ad0bf594a26cb1f7bd431748b1a, jobs.json f23ba428d207f7b6ed3cb7a81cb352bea13af57df53a15a4265446e2074cf750, run.json 6988e1c7dcc9b41e17eb1a61557cafd087d0db474e7d56796a9605f4feb6a7d2, designation.json 82d2ef44842d844ed5c80e6ce16e4e6e3b3bb5fa982f17b8b544e511382dab8f, index.json b5c8c76190f048a81dc6b7282cdb6052bb6c03f3ae0c96b5ce64fb26797cd840. Local: controls.py check E --freeze F passes its 14 static controls; controls.py --self-test 60 of 60; 303 legacy records intact. Designated by the owner (#880 comment 6363551657). The four premises of the preservation theorem remain hypotheses; the round sources none of them."
+  }
+ ],
+ "landing": {
+  "base": "897c4909d87f638acf7ecb7da288fe4b582960b9",
+  "object": "139a7c844456b5f2935d792d06971e2ca1fd91f9",
+  "reconciliations": [
+   "139a7c844456b5f2935d792d06971e2ca1fd91f9"
+  ],
+  "resolved_paths": [
+   ".github/workflows/verify.yml",
+   "verification/lean-manuscript-census.json",
+   "verification/lean-mathlib/OIBridge.lean"
+  ],
+  "delta_digest": "de637647803f6e17d4560b5f66b967c87c9334c0b498a87bdf070ca2722fc8a8"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "46781818f8d8da53153dbe62c9e88c61488960ff",
+   "record": "https://github.com/amaybaum/incompleteness/pull/880#issuecomment-6270966165 (the owner's designation of F, made in session on 2026-10-19 and recorded in this comment, posted as amaybaum, author association OWNER, at 2026-10-19T15:31:13Z and not edited, after check run 39263818996 concluded and before stage 1 was committed at 2026-10-23T08:52:56Z; retained as evidence/f-run/designation.json)"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "46781818f8d8da53153dbe62c9e88c61488960ff",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/39263818996/attempts/1 (verify.yml, workflow_dispatch, attempt 1, head_sha 46781818f8d8da53153dbe62c9e88c61488960ff, completed with conclusion success, run updated at 2026-10-19T14:14:03Z; 37 of 37 jobs success, each at that head_sha; retained in evidence/f-run/)"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "record": "https://github.com/amaybaum/incompleteness/pull/880#issuecomment-6363551657 (the owner's designation of E, made in session on 2026-10-23 in the words \"Designate E for #880 and F for #824\" and recorded in this comment, posted as amaybaum, author association OWNER, at 2026-10-23T11:11:12Z and not edited, after check run 39940811486 concluded; retained as evidence/e-run/designation.json)"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/39940811486/attempts/1 (verify.yml, workflow_dispatch, attempt 1, head_sha 46e6f3196d425a7c7d797a9667d53a9e628f7d6a, completed with conclusion success, run updated at 2026-10-23T10:58:39Z; 38 of 38 jobs success, each at that head_sha; retained under evidence/e-run/)"
+  }
+ ]
+}
