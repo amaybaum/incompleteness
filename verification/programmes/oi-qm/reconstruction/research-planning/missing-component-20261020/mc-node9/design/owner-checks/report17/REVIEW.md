@@ -63,9 +63,9 @@
      2. Every member of that family therefore inherits the obstruction.
    - Composable logic of unbounded degree needs a rule that is not conjugate to a linear map in this bounded-degree
      sense. F2's feedback term is an example.
-   - **Assumption-watch marker.** Every source-freshness proof so far uses the linear wave. Feedback into the source
-     fields, which composable logic of this kind needs, removes that proof. Whether freshness itself survives such
-     feedback is open; F2 does not test it.
+   - **Assumption-watch marker.** The linear-wave freshness proof does not survive feedback into the source fields,
+     which composable logic of this kind needs. Freshness itself can survive: report18 proves bounded freshness for
+     a rule with nonlinear feedback, from local permutivity along the frontier.
 4. **Scope.** The obstruction is narrow: one raw register, a fixed deadline, inputs that vary freely, and resources
    and encoding that do not depend on the input. It does not exclude:
    - restricted prepared inputs;
@@ -84,6 +84,7 @@ The next step is a choice:
   source stays fresh.
 
 Finding 3 makes the trade-off concrete. The first option moves the conjunction into an interface that must be
-accounted for. The second gives up the linear-wave freshness proof, which then has to be replaced. Angular-law
+accounted for. The second gives up the linear-wave freshness proof, which then has to be replaced; report18 supplies one
+replacement. Angular-law
 selection remains a separate obligation, and the four record identities still have no station-indexed preparations
 to test. The C-SPH-1 checkpoint stays closed.

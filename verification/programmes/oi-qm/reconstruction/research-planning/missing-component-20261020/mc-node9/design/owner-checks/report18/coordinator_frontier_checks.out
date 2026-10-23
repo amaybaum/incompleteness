@@ -1,0 +1,7 @@
+Coordinator checks of the nonlinear-frontier handoff v1 (independent code; numpy).
+G1  H permutes the eight triples; explicit inverse recovers the previous slice on random 7^3 and 6x5x4 tori over 12 ticks: True
+G2  dense full-torus backgrounds, frontier along -y, K=2,3,4 on 11^3, 12 cases: every source word once, next triple uniform given every prefix: True
+G3  joint apparatus, 3 dense full-torus backgrounds x 512 (input, frontier) assignments, AND3 and complemented zero test: receiver ((0,0,0),(c,ab,abc)) in every run, 64 distinct source words per input, same set for every input: True
+G4  max output degree, 3 random choices each, ticks 1..10, 7^3 torus: 8 variables [2, 2, 3, 4, 6, 7, 8, 8, 8, 8]; 10 variables [1, 2, 3, 5, 6, 9, 10, 10, 10, 10]; exceeds 6: True
+G5  readiness of the joint apparatus: 3 x 25 current ball bits - 3 input slots + 3 x 7 previous ball bits + 6 source bits = 99: True
+coordinator checks: green
