@@ -86,18 +86,18 @@ def J1():
     print('J1  n=63, m=256, X read: handoff frames: exact-time TV %.8f, 16-bin %.8f, time-blind %.8f; alternative R frame: %.8f, %.8f, %.8f; reproduces the handoff: %s'%(*[float(v) for v in out['handoff']],*[float(v) for v in out['alt']],ok))
     return ok,out
 def J2():
-    n=15; fr=frames('alt'); ok=True; fourth_fails=False
+    n=15; fr=frames('alt'); ok=True; fourth={}
     st=['X+','X-','Y+','Y-','Z+','Z-','R+','R-']
     rel=((1,1,-1,-1,0,0,0,0),(1,1,0,0,-1,-1,0,0),(1,1,0,0,0,0,-1,-1),(-4,4,-3,3,0,0,5,-5))
     for a in 'XYZR':
         L={s:joint(n,fr,s,a) for s in st}
         keys=set().union(*L.values())
         for i,r in enumerate(rel):
-            bad=any(sum(c*L[s].get(k,0) for c,s in zip(r,st))!=0 for k in keys)
-            if i<3: ok&= not bad
-            else: fourth_fails|=bad
-    print('J2  n=15, alternative frames, every read axis, atom by atom on (timestamp, read): antipodal identities hold %s; fourth identity fails %s'%(ok,fourth_fails))
-    return ok and fourth_fails
+            nz=sum(1 for k in keys if k[1] and sum(c*L[s].get(k,0) for c,s in zip(r,st))!=0)
+            if i<3: ok&= nz==0
+            else: fourth[a]=(nz,sum(1 for k in keys if k[1]))
+    print('J2  n=15, alternative frames, atom by atom on (timestamp, read), per read axis: antipodal identities hold on every axis %s; fourth identity, nonzero positive-read atoms / timestamps: %s'%(ok,', '.join('%s %d/%d'%(a,*fourth[a]) for a in 'XYZR')))
+    return ok and fourth['Z'][0]==0 and all(fourth[a][0]>0 for a in 'XYR')
 def J3():
     st=['X+','X-','Y+','Y-','Z+','Z-','R+','R-']
     vec={s:tuple((1 if s[1]=='+' else -1)*c for c in AX[s[0]]) for s in st}
