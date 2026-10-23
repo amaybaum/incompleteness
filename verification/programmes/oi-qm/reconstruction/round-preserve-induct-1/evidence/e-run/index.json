@@ -1,0 +1,77 @@
+{
+ "bridge_job": "120371493729",
+ "commit": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+ "files": [
+  {
+   "bytes": 523,
+   "form": "derived",
+   "path": "run.json",
+   "sha256": "6988e1c7dcc9b41e17eb1a61557cafd087d0db474e7d56796a9605f4feb6a7d2",
+   "source_sha256": "c843f6bbba18cb5a808ecdafb2403b08bec55847e32987a7af33cd070a8f0e3b"
+  },
+  {
+   "bytes": 45323,
+   "form": "derived",
+   "path": "jobs.json",
+   "sha256": "f23ba428d207f7b6ed3cb7a81cb352bea13af57df53a15a4265446e2074cf750",
+   "source_sha256": "1975d793054715dba84d67014a4039f1a66d18657290cb274b5e2c27088c95eb"
+  },
+  {
+   "bytes": 2112,
+   "form": "derived",
+   "path": "designation.json",
+   "sha256": "82d2ef44842d844ed5c80e6ce16e4e6e3b3bb5fa982f17b8b544e511382dab8f",
+   "source_sha256": "a7a4885615d2d019045193999826c6f745ceb590b5d60028449a7003b5a68194"
+  },
+  {
+   "bytes": 14196,
+   "extraction": {
+    "attempt": 1,
+    "caveat": "the extractor commit is on a temporary branch whose root commit is parentless and the extraction run's log is a host log; neither is reachable from main. They are provenance of this file, which a reproduction at the commit can check",
+    "event": "push",
+    "extractor_branch": "tmp/preserve-induct-1-e-evidence-20261023",
+    "extractor_commit": "cc8dcf11fd74c354e0605277e48ac636d095d3f4",
+    "job": "120412051257",
+    "printed_sha256": "d4c98b060769082f4348dff7902120a3b5fab40cec8026c4b12a0101ff4ac3d2",
+    "run": "39953063524",
+    "verdict": "EXTRACT HOLDS",
+    "workflow": ".github/workflows/preserve-induct-1-e-evidence.yml"
+   },
+   "form": "derived",
+   "path": "results.json",
+   "sha256": "d4c98b060769082f4348dff7902120a3b5fab40cec8026c4b12a0101ff4ac3d2",
+   "source_note": "source_sha256 is the digest of the whole job log (job 120371493729; 3771312 bytes, 38808 lines) as the extraction's download record gives it; the extraction read every line of it",
+   "source_sha256": "6d8ee6fbd905fba34b850b1149a4e60f086d43d637d84e780908f0b9995348ae"
+  },
+  {
+   "bytes": 21899,
+   "extraction": {
+    "attempt": 1,
+    "caveat": "the extractor commit is on a temporary branch whose root commit is parentless and the extraction run's log is a host log; neither is reachable from main. They are provenance of this file, which a reproduction at the commit can check",
+    "event": "push",
+    "extractor_branch": "tmp/preserve-induct-1-e-evidence-20261023",
+    "extractor_commit": "cc8dcf11fd74c354e0605277e48ac636d095d3f4",
+    "job": "120412051257",
+    "printed_file": "cells-ci.json",
+    "printed_sha256": "b36dda0a0c107b4ebd88a0c53610bf501a60d5e3238348b3ce338d0fcff740d2",
+    "run": "39953063524",
+    "verdict": "EXTRACT HOLDS",
+    "workflow": ".github/workflows/preserve-induct-1-e-evidence.yml"
+   },
+   "form": "derived",
+   "path": "cells.json",
+   "sha256": "f0b5f9ba61fbff254d45334791f1628ebd6b4ad0bf594a26cb1f7bd431748b1a",
+   "source_note": "expected and verdict_ci are read from, and run over, the two whole job logs as the extraction's download record gives them (bridge job 120371493729, 38808 lines; probe job 120371494151, 768 lines); verdict_ci is the output of the frozen controls.py executed in extraction run 39953063524 at E, not read from the logs. verdict_session is the session's run of the same controls.py over the served window (bridge_window_session)",
+   "source_sha256": {
+    "bridge_log": "6d8ee6fbd905fba34b850b1149a4e60f086d43d637d84e780908f0b9995348ae",
+    "bridge_window_session": "6978cdc3eb7dde200f77d2c8198cf4bced7fae0ae00b58ce331adf021334ad94",
+    "probe_log": "71d4e45cb1efaeeb4a2d01f14a9154754a192fa09ef166b628000dfaff875d58"
+   }
+  }
+ ],
+ "missing": [],
+ "round": "PRESERVE-INDUCT-1",
+ "run": "39940811486",
+ "schema": "oi-e-run-record",
+ "version": 1
+}

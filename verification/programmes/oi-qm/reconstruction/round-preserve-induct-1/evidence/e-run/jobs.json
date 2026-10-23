@@ -1,0 +1,2028 @@
+{
+ "jobs": [
+  {
+   "completed_at": "2026-10-23T10:44:57Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371493948,
+   "name": "Lean kernel check",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:44:23Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Install Lean",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Report toolchain",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "Kernel check",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:51:33Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371493729,
+   "name": "Mathlib bridge",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:40:57Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Install elan",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Restore the OIBridge build cache",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "Build",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Release gate",
+     "number": 6
+    },
+    {
+     "conclusion": "success",
+     "name": "PRESERVE-INDUCT-1 axiom reports",
+     "number": 7
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Restore the OIBridge build cache",
+     "number": 13
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 14
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 15
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:58:38Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120378192320,
+   "name": "Numerical probes",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:58:34Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Require every probe shard",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 3
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:44:03Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371493815,
+   "name": "Numerical probes / A36 hierarchy",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:40:56Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install dependencies",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "A36 hierarchy probe",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:46:44Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371493979,
+   "name": "Numerical probes / A38 escape",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:42:08Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install dependencies",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "A38 local-escape probe",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:42:43Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371494016,
+   "name": "Numerical probes / A40 locus",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:40:57Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "A40 Dita-locus probe",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 7
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 8
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 9
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:49:10Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371494044,
+   "name": "Numerical probes / A41 hulls",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:44:05Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install dependencies",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "A41 hull census",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:45:35Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371493884,
+   "name": "Numerical probes / A41 independent",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:40:56Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "A41 index-map probe, the independent path",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 7
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 8
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 9
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:43:23Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371493807,
+   "name": "Numerical probes / A41 production",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:40:57Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "A41 index-map probe, the production path",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 7
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 8
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 9
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:52:29Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371494207,
+   "name": "Numerical probes / A42 census01",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:46:35Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install dependencies",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "A42 {0,1} census and the zero-row span lemma",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:51:28Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371493891,
+   "name": "Numerical probes / A42 exclusion (cubes:0)",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:40:57Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install dependencies",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "A42 exclusion shard",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:54:12Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371493899,
+   "name": "Numerical probes / A42 exclusion (cubes:1)",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:40:57Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install dependencies",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "A42 exclusion shard",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:45:15Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371493867,
+   "name": "Numerical probes / A42 exclusion (cubes:2)",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:40:56Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install dependencies",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "A42 exclusion shard",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:47:36Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371493910,
+   "name": "Numerical probes / A42 exclusion (dfs:0)",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:40:56Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install dependencies",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "A42 exclusion shard",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:51:21Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371494007,
+   "name": "Numerical probes / A42 exclusion (dfs:1)",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:42:40Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install dependencies",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "A42 exclusion shard",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:58:32Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371494196,
+   "name": "Numerical probes / A42 exclusion (dfs:2)",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:45:37Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install dependencies",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "A42 exclusion shard",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:52:04Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371493976,
+   "name": "Numerical probes / A42 exclusion (dfs:3)",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:40:57Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install dependencies",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "A42 exclusion shard",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:49:30Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371493824,
+   "name": "Numerical probes / A42 exclusion (dfs:4)",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:40:56Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install dependencies",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "A42 exclusion shard",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:48:51Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371493887,
+   "name": "Numerical probes / A42 exclusion (dfs:5)",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:40:56Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install dependencies",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "A42 exclusion shard",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:43:45Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371493876,
+   "name": "Numerical probes / A42 exclusion (n18:0)",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:42:45Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install dependencies",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "A42 exclusion shard",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:45:36Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371494162,
+   "name": "Numerical probes / A42 exclusion (n18:1)",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:43:47Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install dependencies",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "A42 exclusion shard",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:46:41Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371494046,
+   "name": "Numerical probes / A42 exclusion (n18:2)",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:45:17Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install dependencies",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "A42 exclusion shard",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:55:41Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371494095,
+   "name": "Numerical probes / A42 exclusion (paths)",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:43:25Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install dependencies",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "A42 exclusion shard",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:53:15Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371493953,
+   "name": "Numerical probes / A42 exclusion (r5)",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:43:19Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install dependencies",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "A42 exclusion shard",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:45:58Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371493832,
+   "name": "Numerical probes / A42 exclusion (sathr)",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:40:57Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install dependencies",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "A42 exclusion shard",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:46:09Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371493949,
+   "name": "Numerical probes / A42 witness",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:40:57Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install dependencies",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "A42 witness, class supports, controls, lemmas and case-split ingredients",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:41:07Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371494035,
+   "name": "Numerical probes / A45 ancilla",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:40:56Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "A45 fixed-basis ancilla probe",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 7
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 8
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 9
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:44:08Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371494224,
+   "name": "Numerical probes / BG-2 premise orientation",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:43:57Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "BG-2 premise orientation probe",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "BG-2 control mutation tests",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:41:13Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371494037,
+   "name": "Numerical probes / KINF-2 foundations",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:40:57Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install the exact-algebra dependency",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "KINF-2 foundations probe",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:42:38Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371493923,
+   "name": "Numerical probes / KT4-PREM-1 premise audit",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:41:55Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install the exact-algebra dependency",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "KT4-PREM-1 premise audit probe",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "KT4-PREM-1 independent countermodel check",
+     "number": 6
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 11
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 12
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 13
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:41:45Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371494171,
+   "name": "Numerical probes / NB-1 native-gate ball",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:41:31Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "NB-1 native-gate ball probe",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 7
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 8
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 9
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:41:53Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371494073,
+   "name": "Numerical probes / OI channel protocol",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:41:19Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Exact channel and cone controls",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "Audit control mutation tests",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:46:56Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371494161,
+   "name": "Numerical probes / OI finite protocol",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:45:37Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Exact finite protocol controls",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "Adoption control mutation tests",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:41:45Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371494071,
+   "name": "Numerical probes / OI pair maxCone",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:41:09Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Exact maxCone and cone controls",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "Native control mutation tests",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:41:50Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371494151,
+   "name": "Numerical probes / PRESERVE-INDUCT-1 preservation induction",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:41:15Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install the exact-algebra dependency",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "PRESERVE-INDUCT-1 exact probe",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "PRESERVE-INDUCT-1 independent exact check",
+     "number": 6
+    },
+    {
+     "conclusion": "success",
+     "name": "PRESERVE-INDUCT-1 control mutation tests",
+     "number": 7
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 13
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 14
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 15
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:44:18Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371493466,
+   "name": "Numerical probes / core A",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:40:56Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install dependencies",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "Core probes A",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:43:56Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371493650,
+   "name": "Numerical probes / core B",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:40:56Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install dependencies",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "Core probes B",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-10-23T10:43:17Z",
+   "conclusion": "success",
+   "head_branch": "draft/preserve-induct-1-candF-20261019",
+   "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "id": 120371494102,
+   "name": "Numerical probes / foundations",
+   "run_attempt": 1,
+   "started_at": "2026-10-23T10:42:03Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install dependencies",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "Foundations probes",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 9
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  }
+ ],
+ "run_id": "39940811486",
+ "source": "GitHub Actions jobs API, GET runs/<run_id>/jobs?filter=all, read 2026-10-23; selected fields"
+}
