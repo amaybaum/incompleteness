@@ -1,0 +1,39 @@
+{
+ "schema": "oi-evidence-result",
+ "version": 1,
+ "form": "complete",
+ "kind": "halt control: the frozen control P for F's exact-head run",
+ "recipe": "from the repository root at the halt commit: python3 -I -B verification/programmes/oi-qm/reconstruction/round-ktrans-sep-1-omega4/evidence/halt_p_check.py > verification/programmes/oi-qm/reconstruction/round-ktrans-sep-1-omega4/evidence/halt-control-p.json; it loads the round's controls.py (blob 412802eb11e74200734e4ae6511dcbef4d76613e) and calls its run_window_ok, the function behind P's line \"F's exact-head run is retained, names F, is green on every job and places the module's build line, reports and gate inside its served window\"",
+ "inputs": {
+  "controls.py": "a371508e29e1f9b6afac5eb489b9610f52887d63034b4b2cfcb19498fee4bb4e",
+  "evidence/f-run/results.json": "d2ac295647dfb593a09026de51ad145102645dcc98dee1bd7d25988c6623ca8f",
+  "evidence/predicted-tree-run.json": "58fcf6fec66e8c695c923810b67d20040d801f5c8b71adfad561b42855e21ef7",
+  "preregistration.md": "f5930acc681223b9695abee2ac2230faebd458bf83bb8c04e38b0924eae42786"
+ },
+ "f": "7e9aef691f47edaec9111ef5923ed9e946854737",
+ "predicted_head": "bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+ "results": [
+  {
+   "case": "the failing control: F's run result against F",
+   "run_window_ok": false,
+   "reason": "F is D plus the preregistration, so its run builds no OIBridge.TransSeparation; the result's observed.transseparation_window records no build line, no report and no gate block",
+   "window": {
+    "served_lines": 5000,
+    "built_line": null,
+    "report_lines": {},
+    "gate_start": null,
+    "gate_end": null,
+    "note": "no TransSeparation build line or report exists in this run"
+   }
+  },
+  {
+   "case": "positive control: the predicted tree's run against the predicted tree",
+   "run_window_ok": true
+  },
+  {
+   "case": "head control: the predicted tree's run against F",
+   "run_window_ok": false
+  }
+ ],
+ "evidence_ok_f_run": true
+}
