@@ -1,0 +1,60 @@
+{
+ "bridge_job": "120371493729",
+ "commit": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+ "files": [
+  {
+   "bytes": 523,
+   "form": "derived",
+   "path": "run.json",
+   "sha256": "6988e1c7dcc9b41e17eb1a61557cafd087d0db474e7d56796a9605f4feb6a7d2",
+   "source_sha256": "c843f6bbba18cb5a808ecdafb2403b08bec55847e32987a7af33cd070a8f0e3b"
+  },
+  {
+   "bytes": 45323,
+   "form": "derived",
+   "path": "jobs.json",
+   "sha256": "f23ba428d207f7b6ed3cb7a81cb352bea13af57df53a15a4265446e2074cf750",
+   "source_sha256": "1975d793054715dba84d67014a4039f1a66d18657290cb274b5e2c27088c95eb"
+  },
+  {
+   "bytes": 2112,
+   "form": "derived",
+   "path": "designation.json",
+   "sha256": "82d2ef44842d844ed5c80e6ce16e4e6e3b3bb5fa982f17b8b544e511382dab8f",
+   "source_sha256": "a7a4885615d2d019045193999826c6f745ceb590b5d60028449a7003b5a68194"
+  },
+  {
+   "bytes": 13861,
+   "form": "derived",
+   "path": "results.json",
+   "sha256": "37234c78f0757d3f9018360b81d8692a021c19c3978b5b575d2c8ee76e2dc545",
+   "source_note": "source_sha256 is the digest of the served text: the last 5000 of the job log's 38808 lines, as the session's job-log tool returned them; the whole log was not retrievable read-only from the session",
+   "source_sha256": "6978cdc3eb7dde200f77d2c8198cf4bced7fae0ae00b58ce331adf021334ad94"
+  },
+  {
+   "bytes": 17086,
+   "form": "derived",
+   "path": "cells.json",
+   "sha256": "e48ebb66c8d5b8bad72be5fa52ca48febd0dac6354b9a6631115a155e43c03ec",
+   "source_note": "read from the bridge job's served window (the same text results.json was read from) and the probe job's whole served log; the verdict section is the output of the frozen controls.py run at E over the window",
+   "source_sha256": {
+    "bridge_window": "6978cdc3eb7dde200f77d2c8198cf4bced7fae0ae00b58ce331adf021334ad94",
+    "probe_log": "7a237085ad3149d870c0c1503561ec9f7c283ef143296caa356edb23eada95bd"
+   }
+  }
+ ],
+ "missing": [
+  {
+   "item": "#print axioms reports in original lines 1-33808 of 38808 of the bridge log, before the partial served window",
+   "why": "the job-log tool serves at most the last 5000 lines and the whole log was not retrievable read-only from the session; results.json records the window and the gap"
+  },
+  {
+   "item": "failure markers in original lines 1-33808 of 38808 of the bridge log, before the partial served window",
+   "why": "the job-log tool serves at most the last 5000 lines and the whole log was not retrievable read-only from the session; results.json records the window and the gap"
+  }
+ ],
+ "round": "PRESERVE-INDUCT-1",
+ "run": "39940811486",
+ "schema": "oi-e-run-record",
+ "version": 1
+}

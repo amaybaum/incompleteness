@@ -1,0 +1,339 @@
+{
+ "bridge_job": {
+  "conclusion": "success",
+  "id": "120371493729",
+  "name": "Mathlib bridge",
+  "steps": [
+   {
+    "conclusion": "success",
+    "name": "Set up job",
+    "number": 1
+   },
+   {
+    "conclusion": "success",
+    "name": "Run actions/checkout@v4",
+    "number": 2
+   },
+   {
+    "conclusion": "success",
+    "name": "Install elan",
+    "number": 3
+   },
+   {
+    "conclusion": "success",
+    "name": "Restore the OIBridge build cache",
+    "number": 4
+   },
+   {
+    "conclusion": "success",
+    "name": "Build",
+    "number": 5
+   },
+   {
+    "conclusion": "success",
+    "name": "Release gate",
+    "number": 6
+   },
+   {
+    "conclusion": "success",
+    "name": "PRESERVE-INDUCT-1 axiom reports",
+    "number": 7
+   },
+   {
+    "conclusion": "success",
+    "name": "Post Restore the OIBridge build cache",
+    "number": 13
+   },
+   {
+    "conclusion": "success",
+    "name": "Post Run actions/checkout@v4",
+    "number": 14
+   },
+   {
+    "conclusion": "success",
+    "name": "Complete job",
+    "number": 15
+   }
+  ]
+ },
+ "commit": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+ "expected": {
+  "bridge_final_step_block": [
+   "preserve_induct1 axioms: step at 46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "'OIBridge.PreservationInduction.instAvail_preserves' depends on axioms: [propext, Classical.choice, Quot.sound]",
+   "'OIBridge.PreservationInduction.instAvail_sum_preserves' depends on axioms: [propext, Classical.choice, Quot.sound]",
+   "'OIBridge.PreservationInduction.instAvail_spectator_preserves' depends on axioms: [propext,",
+   " Classical.choice,",
+   " Quot.sound]",
+   "'OIBridge.PreservationInduction.instAvail_transport_preserves' depends on axioms: [propext,",
+   " Classical.choice,",
+   " Quot.sound]",
+   "'OIBridge.PreservationInduction.quantum_instAvail' depends on axioms: [propext, Classical.choice, Quot.sound]",
+   "'OIBridge.PreservationInduction.classical_instAvail' depends on axioms: [propext, Classical.choice, Quot.sound]",
+   "'OIBridge.PreservationInduction.quantum_attach' depends on axioms: [propext, Classical.choice, Quot.sound]",
+   "'OIBridge.PreservationInduction.quantum_discard' depends on axioms: [propext, Classical.choice, Quot.sound]",
+   "'OIBridge.PreservationInduction.classical_readProj' depends on axioms: [propext, Classical.choice, Quot.sound]",
+   "'OIBridge.PreservationInduction.classical_native_readout' depends on axioms: [propext, Classical.choice, Quot.sound]",
+   "PASS axioms: instAvail_preserves  1 report(s)",
+   "PASS axioms: instAvail_sum_preserves  1 report(s)",
+   "PASS axioms: instAvail_spectator_preserves  1 report(s)",
+   "PASS axioms: instAvail_transport_preserves  1 report(s)",
+   "PASS axioms: quantum_instAvail  1 report(s)",
+   "PASS axioms: classical_instAvail  1 report(s)",
+   "PASS axioms: quantum_attach  1 report(s)",
+   "PASS axioms: quantum_discard  1 report(s)",
+   "PASS axioms: classical_readProj  1 report(s)",
+   "PASS axioms: classical_native_readout  1 report(s)",
+   "PASS axioms: no other report",
+   "PASS axioms: no forbidden log token",
+   "preserve_induct1 axioms: OK -- 10 reports"
+  ],
+  "probe_job_lines": [
+   "SYMPY 1.14.0",
+   "REJECTED readout-as-isometry: op-isometry",
+   "REJECTED aggregate-for-branch: branch-cone",
+   "REJECTED discard-enlarged-premise-dropped: branch-cone",
+   "REJECTED labels-as-cone-transport: branch-cone",
+   "REJECTED availability-as-source: branch-cone",
+   "REJECTED pure-for-uniform: attach-cone",
+   "REJECTED empty-fibre-dropped: empty-fibre",
+   "REJECTED discard-omits-sum: aggregate-trace",
+   "mutations: 8 rejected, 0 survived, 0 undecided",
+   "SAMPLE-MANIFEST-SHA256 a1f82e289ba07a4c60dd6b56396dcdf7c0c217b2ff49a8d779f1c4e923842ea9",
+   "checks: 127, failures: 0",
+   "preserve_induct1_probe: OK -- 127 checks",
+   "SAMPLE-MANIFEST-SHA256 a1f82e289ba07a4c60dd6b56396dcdf7c0c217b2ff49a8d779f1c4e923842ea9",
+   "checks: 47, failures: 0",
+   "preserve_induct1_indep_check: OK -- 47 checks",
+   "PASS self: D agrees with the preregistration",
+   "PASS self: the round declaration parses",
+   "PASS self: the governed-path block equals the frozen nine entries",
+   "PASS self: the frozen-blob table names the five execution files  5 rows, 0 pending",
+   "PASS self: the retention table parses into the three frozen rows  3 rows, 0 pending",
+   "PASS self: the drafting decision's citation of 65b85147 and link to #831 are present",
+   "PASS self: the preregistration's S2 table equals LANDED",
+   "PASS self: D is in this repository's history, where the historical fixture is read",
+   "PASS self: every landed object resolves on its pinned line at D (19)",
+   "PASS self: every cited span has its pinned digest at D (1)",
+   "PASS self: the pinned-line table equals CITED_SPANS and the cited run lines' digests  [('`verification/ROADMAP.md` at `D`', '1125–1129', 'bfcc4fd0c5ebc02e2f9d65c99b52eb3d899f33d8e19c47be00dafa2e32305e50'), ('this file', '68', 'b49b3e674845d1cbb2616d0133c7e599b166466138c701e6dc73d80c55a14ea2'), ('this file', '69', '2892155d251408c8f5da1ab66639303103de9a7fae97d56309eaef697c7af473'), ('this file', '127', 'bf84b537a746956779fd48b78843c1d0226f516c8a201c9b2ddc5ca2c2f1a8e3')]",
+   "PASS self: show(), run_probe() and read_text() keep bytes: a carriage return and an invalid UTF-8 byte read back unchanged from a blob, a probe's stdout and a working-tree file, through real git in a scratch repository with every GIT_* variable removed",
+   "PASS self: every line citation in the preregistration's prose is a pinned landed object or span",
+   "PASS self: control A holds on this file against the archive at D, each cited line with its pinned text",
+   "PASS self: the ninth governed path's named content agrees with the frozen-blob pin and PROBE_SPEC",
+   "PASS self: every surface name, print and token is named in the preregistration",
+   "PASS self: every PENDING parameter is set, or a frozen blob is still pending here",
+   "PASS self: the probe spec names the eight frozen mutations and the mutation-rule code",
+   "PASS self: S1 accepts the fixture against its frozen blocks",
+   "PASS self: S1 fails closed with the surface or the namespace pending",
+   "PASS self: S3 accepts the fixture",
+   "PASS self: S1 rejects: hDiscard dropped from the headline",
+   "PASS self: S1 rejects: 0 < m dropped from UniformAttachPreservation",
+   "PASS self: S1 rejects: the transport conclusion moved to the source carrier",
+   "PASS self: S1 rejects: the headline restricted to fullClass",
+   "PASS self: S1 rejects: quantum_instAvail restricted to fullClass",
+   "PASS self: S1 rejects: an extra print",
+   "PASS self: S1 rejects: a second import",
+   "PASS self: S1 rejects: an example dropped",
+   "PASS self: S1 rejects: a sorry in a proof",
+   "PASS self: S1 rejects: an open line changed",
+   "PASS self: S1 rejects: the classical cone redefined",
+   "PASS self: S3 rejects: PSD used in a core proof",
+   "PASS self: S3 rejects: the discard arm removed",
+   "PASS self: S3 rejects: the coarse and bind arms swapped",
+   "PASS self: S3 rejects: the transport corollary not built from instAvail_transport",
+   "PASS self: S3 rejects: the spectator corollary not built from the headline",
+   "PASS self: S3 rejects: a research namespace left in the instances",
+   "PASS self: S3 rejects: a third AdditiveClosure field",
+   "PASS self: S3 rejects a preparation family defined through availability",
+   "PASS self: the run-citation rule: a link and its URL free, an identifier embedded, a longer number not the run; the full head beside, another head or no head refused, a 64-digit digest opaque",
+   "PASS self: the prose-citation reader takes a file:line, a bare :N against the paragraph's last file and a ROADMAP span, flags a bare :N with no file, and skips fenced code",
+   "PASS self: S4 flags each excluded phrase and passes the fixture headers",
+   "PASS self: W applies the splices once each, and fails closed with none, an absent base or a lost anchor",
+   "PASS self: the frozen bridge-job step fails closed: pipefail, its marker naming the checked-out SHA, both modules teed to one log, then this file's axiom gate on that log",
+   "PASS self: I inserts both lines after the last import, and refuses a base already carrying one",
+   "PASS self: J accepts the families and rejects a changed status, none, or an absent base",
+   "PASS self: G authorizes by status letter and longest prefix",
+   "PASS self: R requires the frozen files, the record-relative digest rows' files, f-run and (at E) the result note, and nothing else; a gap row or a file retained on main names no record file",
+   "PASS self: the probe rule accepts the frozen shape and fails closed with no spec, a code missing, stderr, a nonzero exit or a script absent",
+   "PASS self: the probe rule requires the independent check's codes, both byte replays, the shared manifest digest, the SymPy line and every mutation rejected",
+   "PASS self: a mutation run counts only as rejected: an undecided (crashed) or surviving run, a crash beside a clean summary and a repeated rejection each fail the probe rule (6 cases)  accepted: ",
+   "PASS self: W's pin rule requires exactly sympy==1.14.0 when the spec names SymPy, and fails with the spec pending",
+   "PASS self: the retention table takes an expected-result digest, a file retained on main or a recorded gap on a historical row, and refuses the inconsistent forms",
+   "PASS self: passed() rejects an empty, non-bool or partial map and an unknown stage",
+   "PASS self: the bridge job's axiom gate passes the ten clean reports and fails closed on a missing, repeated, dirty or unexpected report, a bad token, an empty log or an unset namespace; main exits (18 cases)",
+   "PASS self: verdict() prints no positive token when any required control fails, is unreported or non-bool; each cell reads only its own reports; the Lean cells read only the final step's block, bound to E, with one OK line after its last report and no FAILED line (44 cases)",
+   "PASS self: the real check() through verdict() fails, names the control, prints no positive token and never runs the probe with any record call removed or any control's inputs absent; unmutated it passes; main exits and refuses unknown stages and arguments (73 cases)",
+   "PASS self: candidate() on the fixture passes unmutated and fails the named control on a candidate tree with a premise dropped from a module, an ungoverned path, a wrong ninth-path row, a pending pin, a moved import or a run named elsewhere; main exits (10 cases)",
+   "PASS self: 60 self-checks ran, as frozen (60)",
+   "controls: OK (0 failure(s))"
+  ]
+ },
+ "form": "derived",
+ "kind": "cells",
+ "probe_job": {
+  "conclusion": "success",
+  "id": "120371494151",
+  "name": "Numerical probes / PRESERVE-INDUCT-1 preservation induction",
+  "steps": [
+   {
+    "conclusion": "success",
+    "name": "Set up job",
+    "number": 1
+   },
+   {
+    "conclusion": "success",
+    "name": "Run actions/checkout@v4",
+    "number": 2
+   },
+   {
+    "conclusion": "success",
+    "name": "Run actions/setup-python@v5",
+    "number": 3
+   },
+   {
+    "conclusion": "success",
+    "name": "Install the exact-algebra dependency",
+    "number": 4
+   },
+   {
+    "conclusion": "success",
+    "name": "PRESERVE-INDUCT-1 exact probe",
+    "number": 5
+   },
+   {
+    "conclusion": "success",
+    "name": "PRESERVE-INDUCT-1 independent exact check",
+    "number": 6
+   },
+   {
+    "conclusion": "success",
+    "name": "PRESERVE-INDUCT-1 control mutation tests",
+    "number": 7
+   },
+   {
+    "conclusion": "success",
+    "name": "Post Run actions/setup-python@v5",
+    "number": 13
+   },
+   {
+    "conclusion": "success",
+    "name": "Post Run actions/checkout@v4",
+    "number": 14
+   },
+   {
+    "conclusion": "success",
+    "name": "Complete job",
+    "number": 15
+   }
+  ]
+ },
+ "round": "PRESERVE-INDUCT-1",
+ "run": {
+  "attempt": 1,
+  "conclusion": "success",
+  "event": "workflow_dispatch",
+  "head_branch": "draft/preserve-induct-1-candF-20261019",
+  "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+  "id": "39940811486",
+  "workflow": "verify.yml"
+ },
+ "schema": "oi-evidence-cells",
+ "scope": "what E's exact-head check run logged for the round's cells: the final bridge step's block (marker, the ten axiom reports, the gate line) and the probe job's exact-layer and self-test lines; and the frozen verdict's output over the served bridge window, recorded as printed",
+ "source": {
+  "bridge_log": {
+   "first_original_line": 33809,
+   "job_id": "120371493729",
+   "original_lines": 38808,
+   "served_lines": 5000,
+   "served_sha256": "6978cdc3eb7dde200f77d2c8198cf4bced7fae0ae00b58ce331adf021334ad94"
+  },
+  "probe_log": {
+   "job_id": "120371494151",
+   "lines": 768,
+   "note": "the whole log: every line was served",
+   "original_lines": 768,
+   "served_sha256": "7a237085ad3149d870c0c1503561ec9f7c283ef143296caa356edb23eada95bd"
+  },
+  "stripped_lines": "the lines recorded above have the leading timestamp removed (extract_result.py's form)"
+ },
+ "verdict": {
+  "axiom_reports_read": "axiom reports read from the final bridge step: 10 of 10 prints",
+  "command": "python3 -I -B controls.py verdict 46e6f3196d425a7c7d797a9667d53a9e628f7d6a --freeze 46781818f8d8da53153dbe62c9e88c61488960ff --axioms <served bridge window>",
+  "controls_blob": "208801fcb4b96808c8f9a3d5c7175bcf79d38981",
+  "exit": 0,
+  "log_lines": 5000,
+  "log_sha256": "6978cdc3eb7dde200f77d2c8198cf4bced7fae0ae00b58ce331adf021334ad94",
+  "note": "run in the session at E against the served window, as served (timestamps kept); the verdict reads only the final bridge step's block, which lies inside the window, and runs the probe and the independent check itself for Q-EXACT. It was not run in CI",
+  "round": "PRESERVE-INDUCT-1-READ",
+  "stderr_lines": [],
+  "stdout_lines": [
+   "PASS C1 the preregistration at E is the one at F, with this round's D, declaration and #831 citation",
+   "PASS C2 the frozen execution blobs at E and the ninth path's named content",
+   "PASS P the retention rows at F: digests present at E, gaps only on historical rows  3 digest(s), 0 gap(s)",
+   "PASS R the record directory holds exactly the frozen files, the record-relative evidence and evidence/f-run/",
+   "PASS A the archive's pending citations of this record stand as the archive records them  2 run(s) cited on their recorded lines only",
+   "PASS G every change from D lies in the governed paths at F; no receipt yet; the legacy manifest untouched  16 paths",
+   "PASS T delta(D, F) is the control plane, drafted linearly from D without #831's commits; the execution is linear after F",
+   "PASS S1 surface: the two modules equal the frozen blocks",
+   "PASS S2 the landed objects and cited spans on their pinned lines, unchanged from D; the prose citations pinned",
+   "PASS S3 the statement-level design invariants",
+   "PASS S4 both module headers and the result note present, with no excluded phrase",
+   "PASS W the workflow at E is D's with the frozen splices, installing the probe spec's SymPy pin",
+   "PASS I the two import lines after D's last import",
+   "PASS J the census at E is D's with the frozen families",
+   "SYMPY 1.14.0",
+   "PASS CONSTRUCTORS (4)",
+   "PASS ISOMETRY (25)",
+   "PASS READOUT (6)",
+   "PASS ATTACH (30)",
+   "PASS AGGREGATE (5)",
+   "PASS EMPTY (5)",
+   "PASS NONVACUOUS (5)",
+   "PASS BRANCH-PSD (15)",
+   "PASS BRANCH-DIAG (9)",
+   "PASS RELABEL (3)",
+   "PASS COUNTER-HADAMARD (3)",
+   "PASS COUNTER-READOUT (5)",
+   "PASS COUNTER-DISCARD (4)",
+   "PASS MANIFEST (1)",
+   "PASS MUTATION-RULE (7)",
+   "REJECTED readout-as-isometry: op-isometry",
+   "REJECTED aggregate-for-branch: branch-cone",
+   "REJECTED discard-enlarged-premise-dropped: branch-cone",
+   "REJECTED labels-as-cone-transport: branch-cone",
+   "REJECTED availability-as-source: branch-cone",
+   "REJECTED pure-for-uniform: attach-cone",
+   "REJECTED empty-fibre-dropped: empty-fibre",
+   "REJECTED discard-omits-sum: aggregate-trace",
+   "mutations: 8 rejected, 0 survived, 0 undecided",
+   "SAMPLE-MANIFEST-SHA256 a1f82e289ba07a4c60dd6b56396dcdf7c0c217b2ff49a8d779f1c4e923842ea9",
+   "checks: 127, failures: 0",
+   "preserve_induct1_probe: OK -- 127 checks",
+   "PASS I-TRACE (5)",
+   "PASS I-EMPTY (5)",
+   "PASS I-PSD (15)",
+   "PASS I-DIAG (9)",
+   "PASS I-HADAMARD (4)",
+   "PASS I-READOUT (4)",
+   "PASS I-DISCARD (2)",
+   "PASS I-SEPARATE (2)",
+   "PASS I-MANIFEST (1)",
+   "SAMPLE-MANIFEST-SHA256 a1f82e289ba07a4c60dd6b56396dcdf7c0c217b2ff49a8d779f1c4e923842ea9",
+   "checks: 47, failures: 0",
+   "preserve_induct1_indep_check: OK -- 47 checks",
+   "axiom reports read from the final bridge step: 10 of 10 prints",
+   "TOKEN Q-CORE  PRESERVE-INDUCT-CORE-PROVED",
+   "TOKEN Q-COR   PRESERVE-INDUCT-COROLLARIES-PROVED",
+   "TOKEN Q-EXACT PRESERVE-INDUCT-EXACT-CHECKED",
+   "earned reading: full (every cell positive)",
+   "PRESERVE-INDUCT-1-READ",
+   "controls: OK (0 failure(s))"
+  ],
+  "tokens": {
+   "Q-COR": "PRESERVE-INDUCT-COROLLARIES-PROVED",
+   "Q-CORE": "PRESERVE-INDUCT-CORE-PROVED",
+   "Q-EXACT": "PRESERVE-INDUCT-EXACT-CHECKED"
+  }
+ },
+ "version": 1
+}

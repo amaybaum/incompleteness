@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-10-23T10:40:53Z",
+ "display_title": "verify",
+ "event": "workflow_dispatch",
+ "head_branch": "draft/preserve-induct-1-candF-20261019",
+ "head_sha": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+ "id": 39940811486,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "39940811486",
+ "run_number": 2311,
+ "source": "GitHub Actions runs API, GET runs/<run_id>, read 2026-10-23; selected fields",
+ "status": "completed",
+ "updated_at": "2026-10-23T10:58:39Z"
+}
