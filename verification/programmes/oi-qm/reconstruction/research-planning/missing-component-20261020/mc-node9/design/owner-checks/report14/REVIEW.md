@@ -30,7 +30,7 @@
 | K1 | The one-sided Chebyshev step gives 9/(16n + 9), and (13/16)(1 − 9/(16n + 9)) − 3/4 = (4n − 27)/(4(16n + 9)), both exactly for every odd n ≤ 201. As numerical evidence for irrational frames (θ ∈ {1, √2, π/7, e/3} rad; n ∈ {7, 15, 63}; 30 digits; exact enumeration over S_y and S_z), P(W ≤ 0 \| T = 1/(5n)) never exceeds 0.0008 of the bound |
 | K2 | The full-record lower bound, recomputed from the per-trial probability of (S_x = n, D = 1), is 3.703827556461·10⁻²², matching the handoff. The probability that the first success has T = 1/(5n) is c_m/C_n |
 | K3 | Two-tick freshness of the pair-parity majority rule on the actual cubic geometry (5³ torus). The port's initial pair is fixed and its six neighbours' initial pairs are enumerated (2¹²), with six fixed second-shell patterns. In all 24 cases the port's next two values are exactly i.i.d. fair |
-| K4 | Propagation probe for the same rule (exploratory): every pattern of 1 to 3 ones in a 2×2×2 block, with the previous field zero or equal, on a 9³ torus for 8 ticks. No support ever reaches beyond L1 distance 3, the block's own extent |
+| K4 | Propagation probe for the same rule (exploratory): all 184 patterns of 1 to 3 ones in a 2×2×2 block, with the previous field zero or equal, on a 9³ torus for 8 ticks. Box membership is tested directly: the support leaves the block in none of them. The owner's follow-up proves confinement on a zero background in general; this probe is a finite instance |
 
 ## Findings
 
@@ -46,8 +46,8 @@
    - The cubic quadratic force writes the predicate, but biases the readiness-conditioned source to 9/16.
    - The pair-parity majority force writes the predicate and keeps two-tick freshness. That holds exactly on the
      real geometry (K3).
-   - The majority force does not propagate small excitations. The handoff's isolated pulse two-cycles. Here (K4), no
-     pattern of up to three cells leaves its block in 8 ticks.
+   - The majority force does not propagate small excitations. The handoff's isolated pulse two-cycles. Here (K4), none
+     of 184 patterns of up to three cells leaves its 2×2×2 block within 8 ticks, tested by box membership.
 4. **Assumption-watch marker.** Detector logic, source freshness under readiness, and carrier propagation must be
    established under one update and one prior. Each has a working example, but no single rule tested so far
    satisfies all three.

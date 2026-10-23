@@ -81,25 +81,27 @@ def K3():
     print('K3  pair-parity majority, 5^3 torus: (y1, y2) i.i.d. fair given the port pair, over 2^12 neighbour pairs, for %d (shell pattern, port pair) cases: %s'%(n_cases,ok))
     return ok
 def K4():
-    side=9; sites,nb=lattice(side); block=[s for s in product((0,1),repeat=3)]
+    side=9; sites,nb=lattice(side); block=set(product((0,1),repeat=3))
     def dist(s):
         return sum(min(c,side-c) for c in s)
-    best=(0,None)
+    best=(0,None); left=0; n=0
     for k in (1,2,3):
-        for ones in combinations(block,k):
+        for ones in combinations(sorted(block),k):
             for prev_mode in ('zero','equal'):
                 cur={s:0 for s in sites}
                 for o in ones: cur[o]=1
                 prev=dict(cur) if prev_mode=='equal' else {s:0 for s in sites}
-                far=0
+                far=0; out=False; n+=1
                 for _ in range(8):
                     nxt={s:prev[s]^fM(tuple(cur[v] for v in nb[s])) for s in sites}
                     prev,cur=cur,nxt
                     sup=[s for s,v in cur.items() if v]
+                    if any(s not in block for s in sup): out=True
                     if sup: far=max(far,max(dist(s) for s in sup))
+                left+=out
                 if far>best[0]: best=(far,(ones,prev_mode))
-    print('K4  majority rule, 1-3 ones in a 2x2x2 block, previous zero or equal, 9^3 torus, 8 ticks: largest L1 distance of the support from the origin %d (by %s)'%best)
-    return best
+    print('K4  majority rule, 1-3 ones in the 2x2x2 block, previous zero or equal, 9^3 torus, 8 ticks: %d patterns; support leaves the block in %d; largest L1 distance from the origin %d'%(n,left,best[0]))
+    return left
 if __name__=='__main__':
     print(__doc__.strip().splitlines()[0])
     r=[K1(),K2(),K3()]; K4()
