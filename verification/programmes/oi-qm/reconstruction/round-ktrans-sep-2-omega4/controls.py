@@ -1010,7 +1010,7 @@ FINAL_STEP = '''
         if: ${{ !cancelled() }}
         working-directory: verification/lean-mathlib
         run: |
-          set -uo pipefail
+          set -euo pipefail
           echo "ktrans_sep2 axioms: step at $(git rev-parse HEAD)"
           log="$RUNNER_TEMP/ktrans-sep2-axioms.log"
           rc=0
@@ -1477,12 +1477,14 @@ def log_facts(text, mod):
 
 # The final bridge step (the sixth workflow splice): after every other step of the Mathlib bridge job it prints one
 # line 'ktrans_sep2 axioms: step at <commit>', elaborates the module alone (`lake env lean`), which prints its fifteen
-# reports again (without file positions, and wrapped by Lean when long), and runs `controls.py axioms` on that output,
-# which ends the block with exactly one OK or FAILED line. Being the job's last output, the block lies in any served
+# reports again (without file positions, and wrapped by Lean when long), prints one line 'ktrans_sep2 axioms: lean
+# exited <status>', and runs `controls.py axioms` on that output, which ends the block with exactly one OK or FAILED
+# line. Being the job's last output, the block lies in any served
 # tail of the log, whatever the build cache replayed earlier in it.
 STEP_MARK = re.compile(r'^ktrans_sep2 axioms: step at (\S*)$', re.M)
 STEP_OK = 'ktrans_sep2 axioms: OK -- %d reports' % len(PRINTS)
 STEP_FAILED = re.compile(r'^ktrans_sep2 axioms: FAILED\b', re.M)
+STEP_EXIT = re.compile(r'^ktrans_sep2 axioms: lean exited (\d+)$', re.M)
 STEP_END = re.compile(r'^(?:##\[group\]Run |Post job cleanup\.)', re.M)
 BLOCK_REPORT = re.compile(r"^'" + re.escape(NS) + r"([A-Za-z0-9_']+)' (?:depends on axioms: \[([^\]]*)\]|does not "
                           r"depend on any axioms)", re.M)
@@ -1512,7 +1514,8 @@ def step_facts(text):
     ln = lambda off: t.count('\n', 0, off) + 1
     marks = list(STEP_MARK.finditer(t))
     s = {'marks': len(marks), 'commit': None, 'marker_line': None, 'reports': {}, 'order': [], 'report_lines': {},
-         'unparsed': 0, 'ok_lines': [], 'failed_lines': [], 'errors': 0, 'mod_errors': 0, 'bad': []}
+         'unparsed': 0, 'ok_lines': [], 'failed_lines': [], 'exit_lines': [], 'exit': None, 'errors': 0,
+         'mod_errors': 0, 'bad': []}
     if len(marks) != 1:
         return s
     m0 = marks[0]
@@ -1527,6 +1530,9 @@ def step_facts(text):
         s['report_lines'].setdefault(n, ln(base + off))
     s['ok_lines'] = [ln(base + m.start()) for m in re.finditer(r'^%s$' % re.escape(STEP_OK), block, re.M)]
     s['failed_lines'] = [ln(base + m.start()) for m in STEP_FAILED.finditer(block)]
+    exits = list(STEP_EXIT.finditer(block))
+    s['exit_lines'] = [ln(base + m.start()) for m in exits]
+    s['exit'] = int(exits[0].group(1)) if len(exits) == 1 else None
     s['errors'] = len(STEP_ERROR.findall(block))
     s['mod_errors'] = len(STEP_MOD_ERROR.findall(block))
     s['bad'] = [b for b in BAD_TOKENS if b in block]
@@ -1548,6 +1554,8 @@ def block_problem(s, sha):
     ends = s['ok_lines'] + s['failed_lines']
     if len(ends) != 1 or ends[0] < max(s['report_lines'].values()):
         return 'the final step\'s gate line is missing, repeated, or not after its last report'
+    if len(s['exit_lines']) != 1 or not max(s['report_lines'].values()) < s['exit_lines'][0] < ends[0]:
+        return 'the final step\'s lean exit line is missing, repeated, or not between its last report and its gate line'
     return None
 
 
@@ -1572,14 +1580,14 @@ def kernel_state(f, s, meta, sha):
         return ('void', p)
     bad = {n for n in PRINTS if not s['reports'][n][0] <= ALLOWED_AXIOMS}
     gate_done = f['gate_start'] is not None and f['gate_end'] is not None
-    if (s['ok_lines'] and not bad and not s['bad'] and not s['errors'] and f['build'] and gate_done
+    if (s['ok_lines'] and s['exit'] == 0 and not bad and not s['bad'] and not s['errors'] and f['build'] and gate_done
             and f['gate_pass'] and f['build_line'] < f['gate_start'] and f['gate_end'] < s['marker_line']):
         return (True, True)
     if s['failed_lines'] and bad and (s['mod_errors'] or (gate_done and f['gate_fail'] == ['lean-axioms'])):
         return (False, False)
     return ('void', 'the final step, build and gate evidence is inconsistent or fails for a reason outside the module '
-                    '(step %s, build %s, gate %s, failing steps %s, module errors in the step %d)'
-            % ('OK' if s['ok_lines'] else 'FAILED', f['build'], 'complete' if gate_done else 'incomplete',
+                    '(step %s, lean exit %s, build %s, gate %s, failing steps %s, module errors in the step %d)'
+            % ('OK' if s['ok_lines'] else 'FAILED', s['exit'], f['build'], 'complete' if gate_done else 'incomplete',
                f['gate_fail'] or 'none', s['mod_errors']))
 
 
@@ -1604,7 +1612,8 @@ def window_facts(f, s=None):
            'gate_start': f['gate_start'], 'gate_end': f['gate_end']}
     if s is not None:
         out['axioms_step'] = {'marker_line': s['marker_line'], 'commit': s['commit'], 'report_lines': s['report_lines'],
-                              'ok_lines': s['ok_lines'], 'failed_lines': s['failed_lines']}
+                              'ok_lines': s['ok_lines'], 'failed_lines': s['failed_lines'],
+                              'exit_lines': s['exit_lines'], 'exit': s['exit']}
     return out
 
 
@@ -1721,7 +1730,8 @@ def other_run(a, b):
 def run_window_ok(data, head, replayed=False):
     """A run's retained result names head, is a green workflow_dispatch run, and records the final bridge step's
     block for head inside the served window, after the release gate: its marker, the fifteen reports in print order
-    within the three axioms, and one OK line after the last report, with no FAILED line. With replayed, the module's
+    within the three axioms, one lean exit line with status 0 after the last report and one OK line after it, with
+    no FAILED line. With replayed, the module's
     status line in the window is not `Built` (the run restored the build cache of an earlier run of the same tree)."""
     try:
         d = json.loads(data)
@@ -1730,7 +1740,7 @@ def run_window_ok(data, head, replayed=False):
         mods = d['expected']['modules']['OIBridge/TransSeparation.lean']
         rl = b['report_lines']
         ints = [o, m, w['served_lines'], w['gate_start'], w['gate_end'], b['marker_line']] + list(rl.values()) + \
-            list(b['ok_lines'])
+            list(b['ok_lines']) + list(b['exit_lines'])
         if not all(type(x) is int for x in ints):
             return False
         return bool(evidence_ok(data) and r['head_sha'] == head and r['event'] == 'workflow_dispatch'
@@ -1739,7 +1749,8 @@ def run_window_ok(data, head, replayed=False):
                 and b['commit'] == head and sorted(rl) == sorted(PRINTS) and len(b['ok_lines']) == 1
                 and b['failed_lines'] == []
                 and w['gate_start'] < w['gate_end'] < b['marker_line'] < min(rl.values())
-                and max(rl.values()) < b['ok_lines'][0] <= m
+                and b['exit'] == 0 and len(b['exit_lines']) == 1
+                and max(rl.values()) < b['exit_lines'][0] < b['ok_lines'][0] <= m
                 and d['expected']['build_success'] is True and gate_passed(d['expected']['gate']['verdict'])
                 and mods['status'] == 'complete'
                 and [x['name'] for x in mods['reports']] == [NS + n for n in PRINTS]
@@ -1881,7 +1892,7 @@ def derive_run(log, meta, run_api, jobs_api):
     if (not f['reports'] and not f['unparsed'] and f['built'] is None and not f['mod_errors'] and not st['marks']
             and not parse_reports(plain(text))[0]):
         status = 'absent'
-    elif block_problem(st, run['head_sha']) is None and st['ok_lines']:
+    elif block_problem(st, run['head_sha']) is None and st['ok_lines'] and st['exit'] == 0:
         status = 'complete'
     else:
         status = 'incomplete'
@@ -1909,7 +1920,8 @@ def derive_run(log, meta, run_api, jobs_api):
                 'cache_hit': f['cache_hit'],
                 'gate_start': f['gate_start'], 'gate_end': f['gate_end']},
             'axioms_step': {'marker_line': st['marker_line'], 'commit': st['commit'], 'report_lines': st['report_lines'],
-                            'ok_lines': st['ok_lines'], 'failed_lines': st['failed_lines']}},
+                            'ok_lines': st['ok_lines'], 'failed_lines': st['failed_lines'],
+                            'exit_lines': st['exit_lines'], 'exit': st['exit']}},
         'source': {'served_sha256': sha(log), 'original_lines': o, 'served_lines': m, 'runs_api_sha256': sha(run_api),
                    'jobs_api_sha256': sha(jobs_api),
                    'note': 'the digests identify the inputs this result was derived from; the inputs are not retained'}}
@@ -2347,11 +2359,12 @@ def self_test():
     gate = 'release gate\n  PASS  lean-axioms  ok\n  PASS  lean-manuscript  ok\nrelease gate: PASS\n'
     pre = 'ℹ [3652/3653] Replayed OIBridge\nBuild completed successfully (3653 jobs).\n' + gate + \
         '##[group]Run lake env python3 -I -B ../programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/checks/run_checks.py run\nA3 ok\n' + \
-        '##[group]Run set -uo pipefail\n'
+        '##[group]Run set -euo pipefail\n'
 
-    def mk(reports=None, mark=None, end=STEP_OK, extra='', before=pre, after='Post job cleanup.'):
+    def mk(reports=None, mark=None, end=STEP_OK, extra='', before=pre, after='Post job cleanup.', rc='0'):
         reports = [blk(n) if n != 'conv_core' else wrapped(n) for n in PRINTS] if reports is None else reports
-        body = ['ktrans_sep2 axioms: step at %s' % (mark or sha_e)] + reports + ['PASS axioms: no other report'] + \
+        body = ['ktrans_sep2 axioms: step at %s' % (mark or sha_e)] + reports + \
+            (['ktrans_sep2 axioms: lean exited %s' % rc] if rc is not None else []) + ['PASS axioms: no other report'] + \
             ([end] if end else []) + ([extra] if extra else []) + [after]
         return '\n'.join(head + l for l in (before + '\n'.join(body)).split('\n'))
     log_ok = mk()
@@ -2409,18 +2422,36 @@ def self_test():
         .replace('release gate: PASS', 'release gate: FAILED -> lean-axioms')
     check('M', 'sorryAx in a final-step report, the step FAILED and the gate failing at lean-axioms alone, is negative '
                'in both kernel cells', c(sci) == [N_[0], N_[1], P_[2]])
-    brk = mk(reports=['OIBridge/TransSeparation.lean:157:16: error: Type mismatch'] + with_sorry, end=failed,
-             before='error: build failed\n##[group]Run set -uo pipefail\n')
+    brk = mk(reports=['OIBridge/TransSeparation.lean:157:16: error: Type mismatch'] + with_sorry, end=failed, rc='1',
+             before='error: build failed\n##[group]Run set -euo pipefail\n')
     check('M', 'sorryAx with a module error in the final step and no gate is negative in both kernel cells; the same '
                'with the step printing OK is VOID',
           c(brk) == [N_[0], N_[1], P_[2]] and isvoid(c(brk.replace(failed, STEP_OK))))
+    check('M', 'an OK line beside a non-zero lean exit (lean crashing after its output, an uncaught exception, an '
+               'error line without a position) is VOID, and so is an OK line with no exit line, two exit lines, an '
+               'exit line before the last report or after the gate line, or an exit line that is not whole',
+          all(isvoid(c(mk(rc=v))) for v in ('1', '139', '2'))
+          and isvoid(c(mk(extra='uncaught exception: x', rc='1'))) and isvoid(c(mk(extra='error: x', rc='1')))
+          and isvoid(c(mk(rc=None))) and isvoid(c(mk(extra='ktrans_sep2 axioms: lean exited 0')))
+          and 'lean exit line' in c(mk(extra='ktrans_sep2 axioms: lean exited 0'))[1]
+          and step_facts(mk(extra='ktrans_sep2 axioms: lean exited 0'))['exit'] is None
+          and step_facts(mk(rc='139'))['exit'] == 139
+          and isvoid(c(mk(reports=[blk(n) for n in PRINTS[:-1]] + ['ktrans_sep2 axioms: lean exited 0', blk(PRINTS[-1])],
+                          rc=None)))
+          and isvoid(c(mk(rc=None, extra='ktrans_sep2 axioms: lean exited 0')))
+          and isvoid(c(mk(rc='0 (and more)'))) and isvoid(c(mk(rc='')))
+          and c(mk(rc='0')) == P_)
+    check('M', 'a negative reading does not depend on lean\'s exit status: a module error with lean exiting 1, or a '
+               'non-standard axiom with lean exiting 0, reads negative; the same with no exit line is VOID',
+          c(brk) == [N_[0], N_[1], P_[2]] and c(sci) == [N_[0], N_[1], P_[2]]
+          and isvoid(c(brk.replace(head + 'ktrans_sep2 axioms: lean exited 1\n', ''))))
     check('M', 'a failed final step with every report standard and no module error is VOID, and so is one with a '
                'module error but every report standard',
           isvoid(c(mk(end=failed)))
           and isvoid(c(mk(reports=['OIBridge/TransSeparation.lean:157:16: error: x'] + [blk(n) for n in PRINTS],
-                          end=failed, before='error: build failed\n##[group]Run set -uo pipefail\n'))))
+                          end=failed, before='error: build failed\n##[group]Run set -euo pipefail\n'))))
     other_err = mk(reports=['OIBridge/DenseOrbit.lean:1:1: error: x'] + with_sorry, end=failed,
-                   before='error: build failed\n##[group]Run set -uo pipefail\n')
+                   before='error: build failed\n##[group]Run set -euo pipefail\n')
     two_fail = sci.replace('  PASS  lean-manuscript', '  FAIL  lean-manuscript')
     check('M', 'the negative route needs a module error in the block (an error in another file is VOID) or the gate '
                'failing at lean-axioms alone (failing at another step too is VOID)',
@@ -2563,6 +2594,13 @@ def self_test():
           and cmds[-1] == 'exit "$rc"' and cmds[-2].endswith('controls.py axioms "$log"')
           and '||' not in cmds[-2] and 'continue-on-error' not in FINAL_STEP
           and cmds.index('cat "$log"') < len(cmds) - 2)
+    check('M', 'workflow: the final step sets -e itself rather than relying on the runner\'s default, initialises the '
+               'status before lean runs, and prints lean\'s status after its output and before the gate',
+          cmds[0] == 'set -euo pipefail' and cmds.count('rc=0') == 1
+          and cmds.index('rc=0') < cmds.index('lake env lean OIBridge/TransSeparation.lean > "$log" 2>&1 || rc=$?')
+          and cmds.count('echo "ktrans_sep2 axioms: lean exited ${rc}"') == 1
+          and cmds.index('cat "$log"') < cmds.index('echo "ktrans_sep2 axioms: lean exited ${rc}"') == len(cmds) - 3
+          and not any(re.match(r'set\s+\+', x) for x in cmds) and 'shell:' not in FINAL_STEP)
     # governed paths, record, pins, chain, F's run
     rows = [('A', p) for p in (MOD, PROBE)] + [('M', p) for p in (IMPORTS, CENSUS, WORKFLOW)] + \
         [('A', PREREG), ('A', CONTROLS)]
@@ -2622,7 +2660,8 @@ def self_test():
                                                         'cache_hit': True, 'report_lines': {}, 'gate_start': 2000,
                                                         'gate_end': 2030},
                             'axioms_step': {'marker_line': 4899, 'commit': f_, 'report_lines': rl,
-                                            'ok_lines': [4920], 'failed_lines': []}},
+                                            'ok_lines': [4920], 'failed_lines': [], 'exit_lines': [4916],
+                                            'exit': 0}},
                   expected={'build_success': True, 'gate': {'verdict': 'PASS'},
                             'modules': {'OIBridge/TransSeparation.lean': {
                                 'status': 'complete', 'reports': [{'name': NS + n, 'axioms': sorted(ALLOWED_AXIOMS)}
@@ -2641,7 +2680,8 @@ def self_test():
     check('M', 'a run result naming its head, green, with the gate and then the final step\'s block for it inside the '
                'window passes; another head, a push event, a failed run conclusion, a failed job, no jobs, the step run '
                'at another commit, a report past the window, a missing report, the block before the gate, the OK line '
-               'before a report or missing or doubled, a FAILED line, a non-standard axiom and a failed gate fail',
+               'before a report or missing or doubled, a FAILED line, a non-zero, missing, doubled or misplaced lean '
+               'exit line, a non-standard axiom and a failed gate fail',
           run_window_ok(json.dumps(run_ev), f_) and not run_window_ok(json.dumps(run_ev), e_)
           and not run_window_ok(rw(run__event='push'), f_) and not run_window_ok(rw(run__conclusion='failure'), f_)
           and not run_window_ok(rw(jobs=[{'name': 'a', 'conclusion': 'failure'}]), f_)
@@ -2653,6 +2693,11 @@ def self_test():
           and not run_window_ok(rw(**{ax_ + 'ok_lines': [4910]}), f_) and not run_window_ok(rw(**{ax_ + 'ok_lines': []}), f_)
           and not run_window_ok(rw(**{ax_ + 'ok_lines': [4920, 4921]}), f_)
           and not run_window_ok(rw(**{ax_ + 'failed_lines': [4921]}), f_)
+          and not run_window_ok(rw(**{ax_ + 'exit': 1}), f_) and not run_window_ok(rw(**{ax_ + 'exit': None}), f_)
+          and not run_window_ok(rw(**{ax_ + 'exit_lines': []}), f_)
+          and not run_window_ok(rw(**{ax_ + 'exit_lines': [4916, 4917]}), f_)
+          and not run_window_ok(rw(**{ax_ + 'exit_lines': [4921]}), f_)
+          and not run_window_ok(rw(**{ax_ + 'exit_lines': [4910]}), f_)
           and not run_window_ok(rw(expected__modules={'OIBridge/TransSeparation.lean': {
               'status': 'complete', 'reports': [{'name': NS + n, 'axioms': ['sorryAx']} for n in PRINTS]}}), f_)
           and not run_window_ok(rw(expected__gate={'verdict': 'FAILED -> lean-axioms'}), f_)
@@ -2799,7 +2844,7 @@ def self_test():
 
 # ---- the end-to-end self-test: derive-run, check and mock-s1 on scratch commits ---------------------------------
 def synth_log(module, steps, verdict='PASS  (note: scratch)', cut=None, word='Built', reports=True, head=None,
-              step_end=None, cache_hit=False):
+              step_end=None, cache_hit=False, lean_rc=0):
     """A served bridge log in a simplified form of the real layout (timestamped lines, as served, with no final
     newline): the build, with the module's status line (word: Built, or Replayed when restored from the build cache)
     and, when reports is true, its fifteen reports, when module is true; the release-gate block with the given
@@ -2817,11 +2862,11 @@ def synth_log(module, steps, verdict='PASS  (note: scratch)', cut=None, word='Bu
     L += ['  %s  %-16s %s: OK' % (st, n, n) for n, st in steps]
     L += ['', 'release gate: %s' % verdict]
     if head:
-        L += ['##[group]Run set -uo pipefail', 'ktrans_sep2 axioms: step at %s' % head]
+        L += ['##[group]Run set -euo pipefail', 'ktrans_sep2 axioms: step at %s' % head]
         for n in PRINTS:
             L += (["'%s%s' depends on axioms: [propext," % (NS, n), ' Classical.choice,', ' Quot.sound]']
                   if n == 'conv_core' else ["'%s%s' depends on axioms: [propext, Classical.choice, Quot.sound]" % (NS, n)])
-        L += ['PASS axioms: no other report', step_end or STEP_OK]
+        L += ['ktrans_sep2 axioms: lean exited %s' % lean_rc, 'PASS axioms: no other report', step_end or STEP_OK]
     L += ['Post job cleanup.']
     L += ['Cache hit occurred on the primary key oibridge-Linux-scratch, not saving cache.' if cache_hit
           else 'Cache saved with key: oibridge-Linux-scratch', 'Post job cleanup.']
@@ -2898,6 +2943,18 @@ def self_test_e2e(d_imp, d_cen, d_wf, step_names):
           and st(fl + b'\n2026-01-01T00:00:00.0000000Z ktrans_sep2 axioms: step at ' + a40.encode()) == 'incomplete'
           and dict(bom, source=None) == dict(absent, source=None)
           and bom['source']['served_sha256'] != absent['source']['served_sha256'])
+    fresh = synth_log(False, steps, head=a40, word='Replayed')
+    fresh_ = json.loads(derive_run(fresh, meta(fresh), ra, ja))
+    crash = ml(a40, lean_rc=139)
+    crash_ = json.loads(derive_run(crash, meta(crash), ra, ja))
+    check('M', 'derive-run reads the cache line and the lean exit line from the log: a run whose post step saved the '
+               'cache records no hit and fails the replay requirement while passing the plain one; a run whose lean '
+               'exited non-zero beside an OK line records that status, is incomplete and fails the window check',
+          rep_['observed']['transseparation_window']['cache_hit'] is True
+          and fresh_['observed']['transseparation_window']['cache_hit'] is False
+          and run_window_ok(json.dumps(fresh_), a40) and not run_window_ok(json.dumps(fresh_), a40, replayed=True)
+          and rep_['observed']['axioms_step']['exit'] == 0 and crash_['observed']['axioms_step']['exit'] == 139
+          and mstat(crash_)['status'] == 'incomplete' and not run_window_ok(json.dumps(crash_), a40))
     blk_only = b'\n'.join(l for l in ml(a40).split(b'\n') if b'info:' not in l and (
         b'ktrans_sep2' in l or b"'OIBridge" in l or l.endswith((b'Classical.choice,', b'Quot.sound]'))))
     bom_blk = json.loads(derive_run(b'\xef\xbb\xbf' + blk_only, meta(blk_only), ra, ja))

@@ -259,10 +259,12 @@ repeated) or the round halts under `S12`.
 bridge job, which the round adds (the sixth splice of *The workflow edit*). That step prints one line
 `ktrans_sep2 axioms: step at <commit>`, elaborates the module alone with `lake env lean`, keeping its exit status,
 prints that output, in which the module's fifteen reports appear again (without file positions, and wrapped across
-lines by Lean when long), and runs `controls.py axioms` on it, which ends the block with exactly one line,
-`ktrans_sep2 axioms: OK -- 15 reports` or `ktrans_sep2 axioms: FAILED …`; the step then fails if `lean` or the gate
-failed. The block is the last output of the job's steps, before the runner's post-job cleanup, so it lies in any
-served tail of the log. The
+lines by Lean when long), then one line `ktrans_sep2 axioms: lean exited <status>`, and runs `controls.py axioms` on
+the output, which ends the block with exactly one line, `ktrans_sep2 axioms: OK -- 15 reports` or
+`ktrans_sep2 axioms: FAILED …`; the step then fails if `lean` or the gate failed. A positive reading needs `lean`'s
+status 0 on that line: the gate reads only `lean`'s output, and `lean` can exit non-zero after printing fifteen clean
+reports (a crash after its output, an uncaught exception, an error line without a file position). The block is the
+last output of the job's steps, before the runner's post-job cleanup, so it lies in any served tail of the log. The
 build output does not: the bridge job restores a build cache keyed on the toolchain, the dependency manifest, the
 lakefile and every `OIBridge` source, and `lake --rehash build` then replays every module whose inputs match a cached
 build, printing its stored messages under `Replayed`. `E` has the Lean sources of S1, whose required green run saves
@@ -277,17 +279,19 @@ there.
 **VOID** when any of these holds: a required control failed or never ran; `LOG` is empty, or `META` does not describe
 it; the served text has no final-step marker line, or more than one, or its marker names another commit than the one
 under check; in the block (from the marker to the next step header or the job's cleanup), a report does not parse,
-the fifteen prints are not each reported exactly once in the module's print order, or there is not exactly one OK or
-FAILED line after the last report; the evidence is neither positive nor negative as the table defines (among them:
+the fifteen prints are not each reported exactly once in the module's print order, there is not exactly one OK or
+FAILED line after the last report, or there is not exactly one whole line `ktrans_sep2 axioms: lean exited <status>`
+between the last report and that line; the evidence is neither positive nor negative as the table defines (among them:
 the build-success line or the release-gate block missing, or the gate after the block, with an OK line; the gate
 failing at a step outside the module; a report outside the three axioms, a forbidden token or an error line beside an
-OK line; a FAILED line with every report standard and no module error); sympy `1.14.0` is not importable; the probe
+OK line; an OK line beside a `lean` status other than 0; a FAILED line with every report standard and no module
+error); sympy `1.14.0` is not importable; the probe
 does not run to completion (non-zero exit, no `checks:` line, or no final `VERDICT` line); or its output differs from
 the frozen output with no failing check.
 
 | Cell | Outcome | Rule |
 |---|---|---|
-| Q-NONELL | `KTRANS-SEP-NONELLIPSOID-PROVED` | S1 holds for `not_affine_eball_omega4`, and in `LOG` the build-success line and the release gate's PASS verdict stand before the final step's complete block for `E`, which has exactly one report for each of the fifteen prints, in print order, each within `[propext, Classical.choice, Quot.sound]` (among them `not_affine_eball_omega4`), the OK line, and no error line and no `sorryAx`, `Lean.ofReduceBool` or `Lean.trustCompiler` |
+| Q-NONELL | `KTRANS-SEP-NONELLIPSOID-PROVED` | S1 holds for `not_affine_eball_omega4`, and in `LOG` the build-success line and the release gate's PASS verdict stand before the final step's complete block for `E`, which has exactly one report for each of the fifteen prints, in print order, each within `[propext, Classical.choice, Quot.sound]` (among them `not_affine_eball_omega4`), the line `ktrans_sep2 axioms: lean exited 0`, the OK line, and no error line and no `sorryAx`, `Lean.ofReduceBool` or `Lean.trustCompiler` |
 | Q-NONELL | `KTRANS-SEP-NONELLIPSOID-NOT-ESTABLISHED` | complete evidence of a failure in the module: the final step's complete block for `E` with every frozen report present, some report outside the three axioms, the FAILED line, and either an error line of the module in the block or the release gate failing at `lean-axioms` alone |
 | Q-CEX | `KTRANS-SEP-COUNTEREXAMPLE-PROVED` | S1 holds for `omega4`, `not_affine_eball_omega4`, `not_boundaryTransitive_omega4`, `not_denseBoundaryOrbit_omega4` and `kinfTrans_separation`, and the same `LOG` facts as for Q-NONELL hold |
 | Q-CEX | `KTRANS-SEP-COUNTEREXAMPLE-NOT-ESTABLISHED` | as for Q-NONELL |
@@ -297,14 +301,15 @@ the frozen output with no failing check.
 No rule reads another cell's outcome. `#print axioms` reports every axiom of a declaration's dependency closure, so a
 `sorry` anywhere beneath a printed theorem shows in its report; N3 also rejects one in the module's text. The final
 step elaborates the module's exact bytes at `E` against the oleans that step's run built or restored for `E`'s
-dependency closure. The outcome is `KTRANS-SEP-2-READ` when the three cells are assigned; the tokens are those
-`controls.py verdict E` prints.
+dependency closure. The outcome is `KTRANS-SEP-2-READ` when the three cells are assigned and the exact-head
+run at `E` is green on every job (*Stages and outcomes*); the tokens are those `controls.py verdict E` prints.
 
 **No vacuous verdict, and no tooling negative.** Every VOID condition above, and each of the two negative routes, is
 driven by a self-test case: an empty log; a log without the final step (the shape of a run whose workflow lacks the
 step, or whose tree lacks the module); a marker naming another commit, and two markers; a block cut before its gate
 line, with its OK line before a report, or with both an OK and a FAILED line; a missing, duplicated, extra or
-reordered report, and a report cut inside its wrapped axiom list; a missing gate verdict, and the gate after the
+reordered report, and a report cut inside its wrapped axiom list; an OK line beside a non-zero `lean` status, with
+no status line, with two, or with the status line outside its place; a missing gate verdict, and the gate after the
 block; a gate failing outside the module; an incomplete build; `sorryAx` or an error line beside an OK line; a FAILED
 line with every report standard; `META` that does not match the text; a probe that crashes, a probe whose import
 fails, sympy absent or of another version, a probe output cut before its verdict or reduced to its summary, and a
@@ -362,14 +367,14 @@ boundary orbit (`kinfTrans_separation`)." K∞-Trans stays open under every outc
 
 - the final bridge step, `KTRANS-SEP-2 axiom reports`, inserted directly after KTOKEN-MAXCONE-1's check A3 step, the
   Mathlib bridge job's last step at `D`. It runs with `if: ${{ !cancelled() }}`, so it runs after a failed earlier
-  step too, in `verification/lean-mathlib`, under GitHub's default `bash -e`: it prints
+  step too, in `verification/lean-mathlib`, under `set -euo pipefail`, which the step sets itself: it prints
   `ktrans_sep2 axioms: step at $(git rev-parse HEAD)`, runs `lake env lean OIBridge/TransSeparation.lean` into a file
   under `$RUNNER_TEMP` keeping its exit status (`|| rc=$?`), prints that file and the line
   `ktrans_sep2 axioms: lean exited <status>`, runs `controls.py axioms` on the file, which exits non-zero, failing the
   step, unless each of the fifteen prints is reported exactly once, in print order, within the three axioms, with no
   other report of the namespace, no report that does not parse, no error line and none of `sorryAx`,
-  `Lean.ofReduceBool` and `Lean.trustCompiler`, and which prints the block's one OK or FAILED line, and then exits with
-  `lean`'s status (*The decision rules*);
+  `Lean.ofReduceBool` and `Lean.trustCompiler`, and which prints the block's one OK or FAILED line, and, when the gate
+  passes, exits with `lean`'s status (*The decision rules*);
 
 - the shard `probes_ktranssep2`, `Numerical probes / KTRANS-SEP-2 Omega4 counterexample`, inserted directly before the
   Act 42 comment (`:483`), after KTOKEN-MAXCONE-1's shard. It checks out with `fetch-depth: 0` (the controls read `D` through git),
@@ -546,17 +551,25 @@ It adds, against the defect:
   a second run that built the module fresh; a replay run result without the primary-key cache hit fails;
 - **the final step's own gate and shape:** `controls.py axioms`, run as a command, exits 0 and ends with the OK line
   on the fifteen standard reports and exits 1 and ends with the FAILED line on a non-standard one; each of its clauses
-  fails alone (a duplicated report, an extra report, a report cut short, an empty output); W's case pins the step's
-  shape. The verdict's clauses are isolated as well: each forbidden token, an error line in another file and a
+  is killed by a case (a duplicated report, an extra report, a report cut short, an empty output); W's cases pin the
+  step's shape, among it `set -euo pipefail` as its first command, `rc=0` before `lean` and the status line after
+  `lean`'s output and before the gate. The verdict reads that line: an OK line beside a non-zero status (lean crashing
+  after its output, an uncaught exception, an unpositioned error line), with no status line, two, or one out of place,
+  is VOID, while the negative readings hold whatever the status; `derive-run` reads the cache line and the status line
+  from the log itself. The verdict's clauses are isolated as well: each forbidden token, an error line in another
+  file and a
   report outside the three axioms that names no forbidden token are VOID beside an OK line, while a report of no axioms
   is standard; a report head that does not parse, an indented or extended marker, a gate line after the job's
   cleanup and a build-success line after the gate are VOID; the negative route needs a module error in the block (an
   error in another file is VOID) or the gate failing at `lean-axioms` alone (another failing step too is VOID), and a
   FAILED step with a module error but every report standard is VOID;
 - **the real layout:** before this revision was frozen, `D`'s own cache-hit push run (bridge job 119783438107; every
-  module replayed) was read with a final-step block for a commit inserted before the job's cleanup, as the step
-  places it: in the served last 5000 lines the gate falls at lines 1993–2018 and the block at 4944–4983, and the
-  kernel cells read positive; the same log without the block is VOID. This is design evidence from a real log whose
+  module replayed) was read with the final step's own output inserted before the job's cleanup, as the step places
+  it: the step's script, run under `bash` with a stand-in for `lake`, beneath the group header and echoed script
+  GitHub prints. In the served last 5000 lines the build-success line falls at line 1978, the gate at lines
+  1985–2010, the cache-hit line at 4982 and the block at 4943–4980, and the kernel cells read positive; with `lean`
+  exiting non-zero after fifteen clean reports they are VOID, and so is the same log without the block. This is
+  design evidence from a real log whose
   text is not retained, not a self-test case or a predicate input; the frozen check of the same property is the
   predicted tree's second run (*Preconditions of `F`*, condition 1);
 - **negative control, missing module evidence where it is required:** that real result, offered as a module-bearing
@@ -565,7 +578,7 @@ It adds, against the defect:
   workflow lacks the step or whose tree lacks the module, as `F`'s did — is VOID, never a token.
 
 The regression and end-to-end cases test the corrected rule and its wiring; they are not the safeguard. The safeguard
-is condition 3 of *Preconditions of `F`*, run on this round's own candidate `F`. The self-test passes 137 checks.
+is condition 3 of *Preconditions of `F`*, run on this round's own candidate `F`. The self-test passes 141 checks.
 
 `controls.py` is KTRANS-SEP-1's `controls.py` (blob `412802eb`) with this round's changes, drafted on the branch
 `draft/ktrans-sep-2-staging-controls`, which this round's pull request links; its blob is pinned below once it is
@@ -596,7 +609,8 @@ actual run result before `F` is designated, so that a requirement `F` cannot mee
 | a tooling failure or incomplete evidence never yields a token, positive or negative | `C5`: the VOID rules of `verdict`; their self-test cases (log, probe, sympy, metadata) run in the shard at `E` |
 | the served `LOG` holds the fifteen reports whatever the build cache replayed | `C5`: the final step's block is the last output of the job's steps, bound to `E` by its marker; `verdict` with `--log-meta` reads only that block; W checks the step is the bridge job's last; `C8`: both predicted-tree run results record the block in their windows, checked by P (`run_window_ok`), the second from a run that restored the cache (`replayed`) |
 | the predicted tree's run, S1's and `E`'s can be green beside KTOKEN-MAXCONE-1's live self-test | `C5`: the self-test checks each of KTOKEN-MAXCONE-1's live requirements on `D`'s files with the frozen edits (`ktoken_live_ok`), and that the first draft's placement breaks them; `C8`: the predicted tree's two runs green on every job |
-| the final step itself fails closed | `C5`: `controls.py axioms`, whose self-test cases (a missing, duplicated, extra or reordered report, a non-standard axiom, a report cut short, an error line, a forbidden token, an empty output, each clause alone) and its command path (exit 0 and the OK line, exit 1 and the FAILED line) run in the shard at `E`; W's case pins the step's shape (the module elaborated, its status kept, the output printed, the gate a plain command, the step exiting with `lean`'s status, nothing continuing on error); `C3`: the step green in `E`'s run |
+| the final step itself fails closed | `C5`: `controls.py axioms`, whose self-test cases (a missing, duplicated, extra or reordered report, a non-standard axiom, a report cut short, an error line, a forbidden token, an empty output, each clause alone) and its command path (exit 0 and the OK line, exit 1 and the FAILED line) run in the shard at `E`; W's cases pin the step's shape (`set -euo pipefail` its first command, `rc=0` before the module is elaborated, its status kept and printed after the output and before the gate, the gate a plain command, the step exiting with `lean`'s status, no `set +e`, no `shell:` override, nothing continuing on error); the verdict's cases make an OK line beside a non-zero or missing status line VOID; `C3`: the step green in `E`'s run |
+| the reconciliation keeps every round's live requirements | the reconciliation (§A.39 item 3): before it is pushed, every round self-test that reads the live workflow, root or census is run on the reconciled tree, and each prints OK; the list and the outputs are recorded on the pull request |
 | a negative reading halts the round, never reads as `READ` | *Stages and outcomes*: `READ` requires every job green, and a negative reading fails a job; `C3` |
 | `F` carries no module | `C5`: T (`delta(D, F)` is the control plane) and P (`ftree_ok`) at S1 and `E`, reading `F`'s tree through git: its Lean directories equal `D`'s, no module path, no probe path, no import line naming `OIBridge.TransSeparation` in `F`'s `OIBridge.lean`; `C9` on candidate `F` |
 | `F`'s run shows `D`'s workflow and release gate passing on `D` plus this file: it is `F`'s `workflow_dispatch` run of `verify.yml`, its jobs are the predicted tree's run's less the shard, every job `success`, the release gate PASS on the predicted tree's run's steps | `C5`: P (`frun_ok`) on `evidence/f-run/results.json` against `evidence/predicted-tree-run.json` at S1 and `E`; `C8` |
