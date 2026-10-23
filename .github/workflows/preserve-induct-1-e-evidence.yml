@@ -1,0 +1,108 @@
+name: PRESERVE-INDUCT-1 exact-head bridge evidence extraction (read-only)
+
+# Read-only, in-CI extraction of PRESERVE-INDUCT-1's E results from the whole Mathlib bridge job log, which a session
+# cannot download (its job-log tool serves the last 5000 lines). What is read is listed in extractor/targets.json and
+# nowhere else: E's exact-head run 39940811486, attempt 1, at 46e6f319 (bridge job 120371493729, probe job
+# 120371494151). The workflow runs only on a push to tmp/preserve-induct-1-e-evidence-20261023, a parentless branch
+# that holds only this workflow and extractor/; no other workflow file is in that tree, so a push to it starts no
+# other workflow.
+#
+# extractor/fetch_sources.py fetches the round's D ec36234c (the pinned extractor commit) and E by id from the public
+# repository, with no credential, and a second repository holding E's history back to D, which the frozen verdict
+# reads. extractor/fetch_records.py reads the run's JSON records from endpoints allow-listed from targets.json.
+# extractor/download_job_logs.py fetches each listed log in an explicit two-step: the token goes only to the listed
+# jobs/<id>/logs endpoints on api.github.com; the storage link is fetched without credentials, under a size cap,
+# timeouts and a deadline, and is never printed. extractor/assemble_e.py checks the logs against the download record,
+# reads the bridge log with D's results_for() and extract_result.py (blobs 860ec868 and 05c41bce, verified before they
+# run), reads the final bridge step's block and the probe job's lines, runs the round's frozen controls.py (blob
+# 208801fc) as `verdict E --freeze F --axioms <log>` over the whole bridge log in a worktree at E (verdict_ci), and
+# prints results.json and cells-ci.json as numbered lines with their sha256, the whole logs' digests and line counts,
+# and one verdict line: EXTRACT HOLDS (exit 0), EXTRACT FAILS (exit 1) or EXTRACT UNVERIFIED (exit 2). The raw logs
+# are not printed.
+#
+# The job writes nothing: no artifact, no cache, no commit, ref, tag or release, no step summary. GH_TOKEN is set
+# only on the two steps that call the API; the checkout uses persist-credentials: false.
+
+on:
+  push:
+    branches: ['tmp/preserve-induct-1-e-evidence-20261023']
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: preserve-induct-1-e-evidence-20261023
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  extract:
+    name: Extract PRESERVE-INDUCT-1 exact-head bridge results
+    if: github.ref == 'refs/heads/tmp/preserve-induct-1-e-evidence-20261023'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      # actions/checkout, tag v4, pinned to 11d5960a326750d5838078e36cf38b85af677262, as on
+      # tmp/ktoken-f-evidence-20261020. It is the only external action in this workflow.
+      - name: Check out the extractor
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4
+        with:
+          persist-credentials: false
+
+      - name: Self-test the target list, the fetchers, the downloader and the assembler (local only, no network)
+        id: selftest
+        run: |
+          python3 --version
+          git --version
+          python3 -I extractor/targets.py --self-test
+          python3 -I extractor/targets.py
+          python3 -I extractor/fetch_records.py --self-test
+          python3 -I extractor/download_job_logs.py --self-test --work "$RUNNER_TEMP"
+          python3 -I extractor/fetch_sources.py --self-test --work "$RUNNER_TEMP"
+          python3 -I extractor/assemble_e.py --self-test
+
+      # No token here: the repository is public, and the script removes GH_TOKEN and GITHUB_TOKEN from git's
+      # environment and resets the credential helper and extra headers.
+      - name: Fetch D, E and E's history to D (public repository, no credentials)
+        id: sources
+        if: ${{ !cancelled() && steps.selftest.outcome == 'success' }}
+        run: python3 -I extractor/fetch_sources.py --objects "$RUNNER_TEMP/objects" --history "$RUNNER_TEMP/history"
+
+      # The frozen verdict runs the round's probe and independent check, which need sympy 1.14.0: a fresh venv,
+      # hash-pinned wheels, no dependency resolution. No token here.
+      - name: Install the verdict's exact-algebra dependency (hash-pinned)
+        id: venv
+        if: ${{ !cancelled() && steps.selftest.outcome == 'success' }}
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/python" -m pip install --quiet --no-deps --require-hashes \
+            -r extractor/requirements-verdict.txt
+          "$RUNNER_TEMP/venv/bin/python" -I -c 'import sympy, sys; print(sys.version.split()[0], "sympy", sympy.__version__)'
+
+      - name: Fetch the run's record and job list (JSON endpoints only)
+        if: ${{ !cancelled() && steps.selftest.outcome == 'success' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 -I extractor/fetch_records.py --out "$RUNNER_TEMP/host"
+
+      - name: Download the listed job logs (two-step; the token goes only to the listed API endpoints)
+        if: ${{ !cancelled() && steps.selftest.outcome == 'success' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 -I extractor/download_job_logs.py --out-dir "$RUNNER_TEMP/logs" \
+            --record "$RUNNER_TEMP/download-record.json"
+
+      # Runs whenever the self-tests passed, so a failed source fetch, record fetch or download still ends in a
+      # printed UNVERIFIED verdict rather than in silence. No token here.
+      - name: Assemble, check and print the whole-log results
+        if: ${{ !cancelled() && steps.selftest.outcome == 'success' }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/work"
+          python3 -I extractor/assemble_e.py --objects "$RUNNER_TEMP/objects" --history "$RUNNER_TEMP/history" \
+            --host "$RUNNER_TEMP/host" --logs "$RUNNER_TEMP/logs" --download-record "$RUNNER_TEMP/download-record.json" \
+            --work "$RUNNER_TEMP/work" --python "$RUNNER_TEMP/venv/bin/python"

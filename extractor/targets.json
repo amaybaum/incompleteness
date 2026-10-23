@@ -1,0 +1,25 @@
+{
+ "repo": "amaybaum/incompleteness",
+ "round": "PRESERVE-INDUCT-1",
+ "schema": "preserve-induct-evidence-targets",
+ "targets": [
+  {
+   "bridge_job": "120371493729",
+   "cells": {
+    "path": "evidence/e-run/cells.json",
+    "probe_job": "120371494151"
+   },
+   "commit": "46e6f3196d425a7c7d797a9667d53a9e628f7d6a",
+   "kind": "bridge",
+   "label": "E",
+   "path": "evidence/e-run/results.json",
+   "run_id": "39940811486",
+   "session_observation": {
+    "original_lines": 38808,
+    "tail_lines": 5000,
+    "tail_sha256": "6978cdc3eb7dde200f77d2c8198cf4bced7fae0ae00b58ce331adf021334ad94"
+   }
+  }
+ ],
+ "version": 1
+}
