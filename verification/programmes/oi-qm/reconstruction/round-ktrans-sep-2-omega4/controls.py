@@ -5,60 +5,62 @@ Imports nothing from the repository and changes nothing. It reads D and the comm
 commands, embeds every frozen text it compares against, and runs the frozen probe from a temporary copy of its blob.
 Standard library only; the probe it runs needs sympy 1.14.0.
 
-    python3 -I -B controls.py check <commit> [--freeze F] [--stage S1] [--log LOG [--log-meta META]]
-    python3 -I -B controls.py verdict <commit> --freeze F --log LOG --log-meta META
+    python3 -I -B controls.py check <commit> [--freeze F] [--stage S1] [--run-api RUN --jobs-api JOBS]
+    python3 -I -B controls.py verdict <commit> --freeze F --run-api RUN --jobs-api JOBS
     python3 -I -B controls.py exact
-    python3 -I -B controls.py axioms STEP_OUTPUT
-    python3 -I -B controls.py derive-run --log LOG --log-meta META --run-api RUN --jobs-api JOBS
-    python3 -I -B controls.py mock-s1 <candidate F> --f-run FILE --predicted P --log LOG --log-meta META
-                                      --run-api RUN --jobs-api JOBS [--evidence REL=FILE ...]
+    python3 -I -B controls.py axioms LEAN_OUTPUT
+    python3 -I -B controls.py derive-run --run-api RUN --jobs-api JOBS
+    python3 -I -B controls.py mock-s1 <candidate F> --f-run FILE --predicted P --run-api RUN --jobs-api JOBS
+                                      [--evidence REL=FILE ...]
     python3 -I -B controls.py --self-test
+
+Every fact this file reads about a CI run comes from the host's structured records: RUN is the runs API answer for
+the run (GET /repos/{owner}/{repo}/actions/runs/{id}) and JOBS the jobs API answer (GET .../runs/{id}/jobs?per_page=100,
+every job of the run in one answer: either {"total_count", "jobs"} or that object under "jobs"). A job's record lists
+each of its steps with its name and conclusion. No log text is read: where a fact is visible only in printed output,
+the workflow edit turns it into a step conclusion inside the job.
 
 `check` runs every control below at <commit>. With --freeze it adds T and the retention checks that need F; without
 it (the predicted execution tree) those are skipped and a pending pin is allowed. --stage S1 is the commit before the
-result note; the default stage is E, at which the result note is required when --freeze is given. LOG is the served
-text of the Mathlib bridge job of the exact-head run at <commit>; it is required at a commit carrying the result note.
-META is a JSON object {"original_lines": N, "served_lines": M} for that text: N is the serving tool's line count of
-the whole log (the job-log tool's original_length), M the number of lines of the text as served, which ends without
-a newline. LOG is saved as served (the tool's logs_content, JSON-decoded), and every reader reads it as bytes
-decoded as UTF-8 with a leading byte-order mark dropped and no newline translation. Its jobs answer must list every
-job of the run in one answer (per_page 100).
+result note; the default stage is E, at which the result note is required when --freeze is given. RUN and JOBS are
+those of the exact-head run at <commit>; they are required at a commit carrying the result note.
 
 `verdict` runs `check` first and prints the three cell tokens only when every control of `check` ran and passed and
 the evidence the cells read is complete; otherwise it prints `VERDICT  VOID` with the reason, prints no token and exits
 1. VOID is not an outcome: a tooling failure or incomplete evidence never yields a NOT-ESTABLISHED token.
 `exact` runs the independent exact layer (X, CX) alone.
-`derive-run` is the frozen recipe for a run result (the predicted tree's run and F's run): it reads the served text
-of the run's Mathlib bridge job (LOG, exactly as served), META for it, and the runs and jobs API answers for the run
-(RUN, JOBS; a jobs answer is either {"total_count", "jobs"} or that object under "jobs"), and prints the result.
-The result is a function of those four inputs alone, and records their digests.
-`mock-s1` is the pre-freeze safeguard. It first requires FILE to be exactly derive-run's output over LOG, META, RUN
-and JOBS, which are the served bridge log and the API answers of candidate F's ACTUAL exact-head run, and P to be the
-predicted tree candidate F's preregistration names. It then builds, in a temporary object directory and with no ref,
-a mock stage-1 commit on the candidate F: candidate F's tree plus the predicted tree P's record and execution files,
-each --evidence file at its record path (the pinned files stage 1 adds that P cannot carry, such as P's own run
-result), and FILE as evidence/f-run/results.json, and runs `check <mock> --freeze <candidate F> --stage S1` on it,
-so that a control F's own run can never satisfy fails before F is designated rather than after.
+`axioms` is the gate the workflow's second KTRANS-SEP-2 step runs over the module's own `lake env lean` output: it
+prints one row per clause, classifies the reports as `standard`, `complete-nonstandard` or `incomplete`, writes
+`reports=<class>` to the file $GITHUB_OUTPUT names when that variable is set, and exits 0 exactly when the class is
+`standard`.
+`derive-run` is the frozen recipe for a run result (the predicted tree's run, F's run and E's run): a function of RUN
+and JOBS alone, recording the run's identity, every job's conclusion, the Mathlib bridge job's steps with their
+conclusions, and the digests of the two answers.
+`mock-s1` is the pre-freeze safeguard. It first requires FILE to be exactly derive-run's output over RUN and JOBS, the
+API answers of candidate F's ACTUAL exact-head run, and P to be the predicted tree candidate F's preregistration names.
+It then builds, in a temporary object directory and with no ref, a mock stage-1 commit on the candidate F: candidate
+F's tree plus the predicted tree P's record and execution files, each --evidence file at its record path (the pinned
+files stage 1 adds that P cannot carry, such as P's own run result), and FILE as evidence/f-run/results.json, and runs
+`check <mock> --freeze <candidate F> --stage S1` on it, so that a control F's own run can never satisfy fails before F
+is designated rather than after.
 
 Controls (each prints PASS or FAIL with its code):
   G   governed   delta(D, commit) is exactly the five execution paths, with their statuses, plus record files
   R   record     the record directory holds only the preregistration, controls.py, the pinned evidence, F's run
                  (required with --freeze), amendments/ and, at E, the result note
   P   pins       every evidence file the preregistration's retained-evidence table pins is present with its sha256;
-                 the table names at least the five required files; with --freeze no pin is pending; each pinned
-                 file is a structured result with its form stated and no timestamp or duration field. Each run
-                 result is checked for what its stage validates: the predicted tree's run (the proposed
-                 implementation) names the predicted tree, is green and places the release gate and then the final
-                 step's block for it inside the served window; its second run, on the same branch, does the same
-                 after restoring the build cache (no `Built` line for the module) and is another run. With --freeze the
-                 predicted-tree section names its commit in the frozen form. At F (the control plane) the module's
-                 absence is read from F's tree through git (F's two Lean directories are D's, which carry no module;
-                 neither the module's nor the probe's path; no import line), and F's run evidence establishes its
-                 identity (F, verify.yml, the Mathlib bridge job, workflow_dispatch, run and job ids, attempt), every
-                 job success, exactly the predicted tree's jobs less the round's shard, and the release gate PASS on
-                 exactly the predicted tree's steps; that the log has no module lines is checked for consistency
-                 only. E's run (the actual execution) is read by `verdict`, which is VOID without the module's
-                 evidence
+                 the table names at least the four required files; with --freeze no pin is pending; each pinned file
+                 is a structured result with its form stated and no timestamp or duration field. Each run result is
+                 checked for what its stage validates: the predicted tree's run (the proposed implementation) names
+                 the predicted tree, is a green workflow_dispatch run of verify.yml and its bridge job's three
+                 KTRANS-SEP-2 steps read positive. With --freeze the predicted-tree section names its commit in the
+                 frozen form. At F (the control plane) the module's absence is read from F's tree through git (F's
+                 two Lean directories are D's, which carry no module; neither the module's nor the probe's path; no
+                 import line), and F's run result establishes its identity (F, verify.yml, workflow_dispatch, run and
+                 bridge job ids, attempt), every job and every bridge step success, exactly the predicted tree's jobs
+                 less the round's shard, and exactly the predicted tree's bridge steps less the round's three; that
+                 F's run has none of the round's steps or jobs is checked for consistency only. E's run (the actual
+                 execution) is read by `verdict`
   T   chain      (with --freeze) D..commit is one chain of single-parent commits through F; delta(D, F) is the
                  preregistration and amendments only; the preregistration at commit is F's
   B   blobs      the probe is the frozen blob; controls.py at commit is the file running, and its blob is the one
@@ -94,26 +96,26 @@ Controls (each prints PASS or FAIL with its code):
   C   census     the census is D's with the frozen family directly before KTOKEN-MAXCONE-1's family, which stays
                  last, in D's layout
   W   workflow   verify.yml is D's with exactly the six frozen splices (the shard, its four aggregate lines, and the
-                 final bridge step after KTOKEN-MAXCONE-1's check A3)
+                 three KTRANS-SEP-2 bridge steps after KTOKEN-MAXCONE-1's check A3)
   V   note       at a commit carrying the result note: exactly the computed tokens, the earned reading exactly when
                  all three cells are positive, the non-inference rule always
 
-Cells (verdict), read only when every control passed. The kernel cells read only the final bridge step's block
-(the step the sixth splice adds, the job's last: a marker line naming the commit, the module's fifteen reports from
-`lake env lean`, and one OK or FAILED line from `controls.py axioms`), and the build-success line and the release-gate
-block before it; on a build-cache hit the build output replays every module and lies mostly outside a served tail.
-  VOID      the log is empty or its metadata does not describe it; no final-step marker, two, or one naming another
-            commit; in the block a report that does not parse, the fifteen prints not each reported once in print
-            order, or not exactly one OK or FAILED line after the last report; evidence neither positive nor negative;
-            sympy 1.14.0 is absent; the probe did not run to completion, or its output differs from the frozen output
-            without a failing check. No token is printed.
-  Q-NONELL  KTRANS-SEP-NONELLIPSOID-PROVED   the build-success line and the gate's PASS verdict before the block, and
-            in the block every frozen report within [propext, Classical.choice, Quot.sound], the OK line, no error
-            line and no forbidden token, with S1 holding for not_affine_eball_omega4
+Cells (verdict), read only when every control passed. The kernel cells read the exact-head run's derived result: the
+run names <commit> and is a run of verify.yml, and its Mathlib bridge job's steps include, each exactly once, in this
+order and after the release gate, the three steps the sixth splice adds: L `KTRANS-SEP-2 elaborate the module`
+(succeeds exactly when `lake env lean` elaborates the module), A `KTRANS-SEP-2 axiom reports within the three axioms`
+(succeeds exactly when `controls.py axioms` classifies the module's reports `standard`) and M `KTRANS-SEP-2 marker
+complete reports with an axiom outside the three` (runs, and succeeds, exactly when that class is
+`complete-nonstandard`; skipped otherwise).
+  VOID      the run result does not describe one run of verify.yml at <commit> with one Mathlib bridge job, or the
+            bridge job does not carry L, A and M each once in that order after the release gate; the step
+            conclusions are neither positive nor negative; sympy 1.14.0 is absent; the probe did not run to
+            completion, or its output differs from the frozen output without a failing check. No token is printed.
+  Q-NONELL  KTRANS-SEP-NONELLIPSOID-PROVED   Build, Release gate, L and A success and M skipped, with S1 holding for
+            not_affine_eball_omega4
   Q-CEX     KTRANS-SEP-COUNTEREXAMPLE-PROVED  the same, with S1 holding for the four statements and omega4
-            Both kernel cells read NOT-ESTABLISHED only from complete evidence of a failure in the module: a complete
-            block with a report outside the three axioms and the FAILED line, and a module error line in the block or
-            the gate failing at lean-axioms alone
+            Both kernel cells read NOT-ESTABLISHED only from complete evidence of a failure in the module: A failure
+            and M success (the fifteen reports complete, one outside the three axioms), whatever L's conclusion
   Q-EXACT   KTRANS-SEP-INSTANCES-EXACT       the probe blob at <commit>, run under sympy 1.14.0 with python3 -I -B,
             prints exactly the frozen output (sha256 below), whose lines include the twelve PASS lines, both COUNTER
             lines, the summary and the verdict; NOT-ESTABLISHED from a complete run in which a check failed
@@ -143,7 +145,7 @@ CENSUS = 'verification/lean-manuscript-census.json'
 WORKFLOW = '.github/workflows/verify.yml'
 EXEC = {MOD: 'A', PROBE: 'A', IMPORTS: 'M', CENSUS: 'M', WORKFLOW: 'M'}
 REQUIRED_EVIDENCE = ['evidence/design-run-1.json', 'evidence/design-run-2.json', 'evidence/exact-replay.json',
-                     'evidence/predicted-tree-run.json', 'evidence/predicted-tree-replay-run.json']
+                     'evidence/predicted-tree-run.json']
 ALLOWED_AXIOMS = {'propext', 'Classical.choice', 'Quot.sound'}
 LEAN_DIRS = ('verification/lean-mathlib', 'verification/lean')
 SHARD_JOB = 'Numerical probes / KTRANS-SEP-2 Omega4 counterexample'
@@ -587,386 +589,442 @@ LANDED = GEN['landed']
 BALL = GEN['ball']
 CENSUS_FAMILY = {k: GEN['census_family'][k] for k in ('name', 'modules', 'status', 'manuscript')}  # D's key order
 PROBE_LINES = GEN['probe_lines']
-# KTRANS-SEP-1's F-run result (run 39940836089, head 7e9aef69), derived from its served log: the module absent.
-KTSEP1_FRUN_SHA256 = 'd2ac295647dfb593a09026de51ad145102645dcc98dee1bd7d25988c6623ca8f'
-# KTRANS-SEP-1's predicted tree's run result (run 39173554213), the reference its real F run is compared with; read by
-# blob id from main, where that round's record directory carries it.
-KTSEP1_PTR_BLOB = '458753c8ec14a43bc8a86a5c0aec1d1175935b66'
-KTSEP1_PTR_SHA256 = '58fcf6fec66e8c695c923810b67d20040d801f5c8b71adfad561b42855e21ef7'
+# KTRANS-SEP-1's F run (run 39940836089, head 7e9aef69; its tree carries no module) and its predicted tree's run
+# (run 39173554213, head bd579bf8), each derived by derive-run from the runs and jobs API answers, which list every
+# job and every bridge step: the real regression fixtures for F's run rule.
 KTSEP1_SHARD_JOB = 'Numerical probes / KTRANS-SEP-1 Omega4 counterexample'
+KTSEP1_FRUN_SHA256 = '25f863f56cf95868a927ad44c8643fe21e37ad03f180698f936b93fe41d1b96f'
 KTSEP1_FRUN = r'''{
- "schema": "oi-evidence-result",
- "version": 1,
- "form": "derived",
- "kind": "exact-head-run",
- "scope": "what F's exact-head run logged at F (7e9aef69), whose tree is D plus the preregistration alone; nothing about any later tree",
- "run": {
-  "workflow": "verify.yml",
-  "id": 39940836089,
-  "attempt": 1,
-  "event": "workflow_dispatch",
+ "bridge": {
   "conclusion": "success",
-  "head_branch": "staging/ktrans-sep-824-candF-20261018",
-  "head_sha": "7e9aef691f47edaec9111ef5923ed9e946854737",
   "job_id": 120371576458,
-  "job_name": "Mathlib bridge",
-  "job_conclusion": "success",
-  "job_steps": [
+  "steps": [
    {
-    "name": "Set up job",
-    "conclusion": "success"
+    "conclusion": "success",
+    "name": "Set up job"
    },
    {
-    "name": "Run actions/checkout@v4",
-    "conclusion": "success"
+    "conclusion": "success",
+    "name": "Run actions/checkout@v4"
    },
    {
-    "name": "Install elan",
-    "conclusion": "success"
+    "conclusion": "success",
+    "name": "Install elan"
    },
    {
-    "name": "Restore the OIBridge build cache",
-    "conclusion": "success"
+    "conclusion": "success",
+    "name": "Restore the OIBridge build cache"
    },
    {
-    "name": "Build",
-    "conclusion": "success"
+    "conclusion": "success",
+    "name": "Build"
    },
    {
-    "name": "Release gate",
-    "conclusion": "success"
+    "conclusion": "success",
+    "name": "Release gate"
    },
    {
-    "name": "Post Restore the OIBridge build cache",
-    "conclusion": "success"
+    "conclusion": "success",
+    "name": "Post Restore the OIBridge build cache"
    },
    {
-    "name": "Post Run actions/checkout@v4",
-    "conclusion": "success"
+    "conclusion": "success",
+    "name": "Post Run actions/checkout@v4"
    },
    {
-    "name": "Complete job",
-    "conclusion": "success"
+    "conclusion": "success",
+    "name": "Complete job"
    }
   ]
  },
+ "form": "derived",
  "jobs": [
   {
-   "name": "Lean kernel check",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Lean kernel check"
   },
   {
-   "name": "Mathlib bridge",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Mathlib bridge"
   },
   {
-   "name": "Numerical probes",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes"
   },
   {
-   "name": "Numerical probes / A36 hierarchy",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / A36 hierarchy"
   },
   {
-   "name": "Numerical probes / A38 escape",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / A38 escape"
   },
   {
-   "name": "Numerical probes / A40 locus",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / A40 locus"
   },
   {
-   "name": "Numerical probes / A41 hulls",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / A41 hulls"
   },
   {
-   "name": "Numerical probes / A41 independent",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / A41 independent"
   },
   {
-   "name": "Numerical probes / A41 production",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / A41 production"
   },
   {
-   "name": "Numerical probes / A42 census01",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / A42 census01"
   },
   {
-   "name": "Numerical probes / A42 exclusion (cubes:0)",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (cubes:0)"
   },
   {
-   "name": "Numerical probes / A42 exclusion (cubes:1)",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (cubes:1)"
   },
   {
-   "name": "Numerical probes / A42 exclusion (cubes:2)",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (cubes:2)"
   },
   {
-   "name": "Numerical probes / A42 exclusion (dfs:0)",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (dfs:0)"
   },
   {
-   "name": "Numerical probes / A42 exclusion (dfs:1)",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (dfs:1)"
   },
   {
-   "name": "Numerical probes / A42 exclusion (dfs:2)",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (dfs:2)"
   },
   {
-   "name": "Numerical probes / A42 exclusion (dfs:3)",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (dfs:3)"
   },
   {
-   "name": "Numerical probes / A42 exclusion (dfs:4)",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (dfs:4)"
   },
   {
-   "name": "Numerical probes / A42 exclusion (dfs:5)",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (dfs:5)"
   },
   {
-   "name": "Numerical probes / A42 exclusion (n18:0)",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (n18:0)"
   },
   {
-   "name": "Numerical probes / A42 exclusion (n18:1)",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (n18:1)"
   },
   {
-   "name": "Numerical probes / A42 exclusion (n18:2)",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (n18:2)"
   },
   {
-   "name": "Numerical probes / A42 exclusion (paths)",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (paths)"
   },
   {
-   "name": "Numerical probes / A42 exclusion (r5)",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (r5)"
   },
   {
-   "name": "Numerical probes / A42 exclusion (sathr)",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (sathr)"
   },
   {
-   "name": "Numerical probes / A42 witness",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / A42 witness"
   },
   {
-   "name": "Numerical probes / A45 ancilla",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / A45 ancilla"
   },
   {
-   "name": "Numerical probes / BG-2 premise orientation",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / BG-2 premise orientation"
   },
   {
-   "name": "Numerical probes / KINF-2 foundations",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / KINF-2 foundations"
   },
   {
-   "name": "Numerical probes / KT4-PREM-1 premise audit",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / KT4-PREM-1 premise audit"
   },
   {
-   "name": "Numerical probes / NB-1 native-gate ball",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / NB-1 native-gate ball"
   },
   {
-   "name": "Numerical probes / OI channel protocol",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / OI channel protocol"
   },
   {
-   "name": "Numerical probes / OI finite protocol",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / OI finite protocol"
   },
   {
-   "name": "Numerical probes / OI pair maxCone",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / OI pair maxCone"
   },
   {
-   "name": "Numerical probes / core A",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / core A"
   },
   {
-   "name": "Numerical probes / core B",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / core B"
   },
   {
-   "name": "Numerical probes / foundations",
-   "conclusion": "success"
+   "conclusion": "success",
+   "name": "Numerical probes / foundations"
   }
  ],
- "expected": {
-  "build_success": true,
-  "build_errors": [],
-  "gate": {
-   "steps": [
-    {
-     "name": "toolchain",
-     "status": "PASS",
-     "summary": "toolchain_check: OK (build entry present, unicode-fix.tex co"
-    },
-    {
-     "name": "staleness",
-     "status": "PASS",
-     "summary": "staleness_check: OK (13 matched, 0 unstamped)"
-    },
-    {
-     "name": "baseline-label",
-     "status": "PASS",
-     "summary": "baseline_label_check: OK (no baseline archives named)"
-    },
-    {
-     "name": "voice",
-     "status": "PASS",
-     "summary": "voice_check: OK (no manuscript-voice history narration; 40 m"
-    },
-    {
-     "name": "voice-scope",
-     "status": "PASS",
-     "summary": "voice_scope_test: OK (6 scope case(s); the checker scans the"
-    },
-    {
-     "name": "ci-gate-presence",
-     "status": "PASS",
-     "summary": "ci_gate_presence_test: OK (CI runs the real release gate)"
-    },
-    {
-     "name": "artifact-placement",
-     "status": "PASS",
-     "summary": "artifact_placement_check: OK (no unaccounted root artifact;"
-    },
-    {
-     "name": "manifest-drift",
-     "status": "PASS",
-     "summary": "build_migration_manifest --check: OK (91 artifacts; both gen"
-    },
-    {
-     "name": "claims",
-     "status": "PASS",
-     "summary": "claims_check: OK (no withdrawn result asserted unconditional"
-    },
-    {
-     "name": "duplicate",
-     "status": "PASS",
-     "summary": "duplicate_check: OK (no paragraph repeated within a file)"
-    },
-    {
-     "name": "mirror",
-     "status": "PASS",
-     "summary": "mirror_check: 0 chapter line(s) absent from FULL.md"
-    },
-    {
-     "name": "citation",
-     "status": "PASS",
-     "summary": "citation_check: 112 citation(s), 0 broken, 0 duplicate bib n"
-    },
-    {
-     "name": "architecture",
-     "status": "PASS",
-     "summary": "architecture_check: 259 invariant(s), 0 violation(s), 0 self"
-    },
-    {
-     "name": "dependency-label",
-     "status": "PASS",
-     "summary": "dependency_label_check: OK (no stale dependency label, 41 fi"
-    },
-    {
-     "name": "coverage",
-     "status": "PASS",
-     "summary": "coverage_check: OK (128 canonical statements, 19 unattached"
-    },
-    {
-     "name": "lean-axioms",
-     "status": "PASS",
-     "summary": "lean_axiom_check: OK (5989 named result(s) reported, no sorr"
-    },
-    {
-     "name": "lean-manuscript",
-     "status": "PASS",
-     "summary": "lean_manuscript_census: OK (every cited identifier and path"
-    },
-    {
-     "name": "legacy-records",
-     "status": "PASS",
-     "summary": "LEGACY  303 record(s) in 75 closed namespace(s), all intact"
-    },
-    {
-     "name": "v3-self-test",
-     "status": "PASS",
-     "summary": "v3_verifier: self-test OK"
-    },
-    {
-     "name": "v3-corpus",
-     "status": "PASS",
-     "summary": "CORPUS  140 vector(s), exact and as expected"
-    },
-    {
-     "name": "v3-receipts",
-     "status": "PASS",
-     "summary": "RECEIPTS  48 receipt(s), all hold"
-    },
-    {
-     "name": "evidence-retention",
-     "status": "PASS",
-     "summary": "EVIDENCE-RETENTION  HOLDS (history mode: 0 failure(s); self-"
-    }
-   ],
-   "steps_pass": 22,
-   "steps_total": 22,
-   "verdict": "PASS  (note: --label bNNN not given, so the baseline check ran in relative mode only)"
-  },
-  "markers": {
-   "Lean.ofReduceBool": 0,
-   "declaration uses 'sorry'": 0,
-   "error:": 0,
-   "sorryAx": 0
-  },
-  "modules": {
-   "OIBridge/TransSeparation.lean": {
-    "status": "absent",
-    "prints": 0,
-    "reports": [],
-    "print_lines": [],
-    "note": "F's tree has no OIBridge/TransSeparation.lean (the module is added at S1); the served text holds no line naming it"
+ "kind": "exact-head-run",
+ "recipe": "controls.py derive-run --run-api RUN --jobs-api JOBS (round KTRANS-SEP-2, at the controls.py blob its preregistration pins)",
+ "run": {
+  "attempt": 1,
+  "conclusion": "success",
+  "event": "workflow_dispatch",
+  "head_branch": "staging/ktrans-sep-824-candF-20261018",
+  "head_sha": "7e9aef691f47edaec9111ef5923ed9e946854737",
+  "id": 39940836089,
+  "workflow": "verify.yml"
+ },
+ "schema": "oi-evidence-result",
+ "source": {
+  "jobs_api_sha256": "8b651e17a9d035df60feff8802c634d3e8da22473d8d54fd6bb7a0af5d08bfca",
+  "note": "the digests identify the API answers this result was derived from; the answers are not retained",
+  "runs_api_sha256": "223bcd7bbdb3d6d1f8e8e492661154ff84b0af3d29fb62e3a88ad9224739edd0"
+ },
+ "version": 1
+}
+'''
+KTSEP1_PTR_SHA256 = '27fe73fda6dcac37e12baacb87b999cc9c1720663780f0bb98108736a06d74f0'
+KTSEP1_PTR = r'''{
+ "bridge": {
+  "conclusion": "success",
+  "job_id": 117811475147,
+  "steps": [
+   {
+    "conclusion": "success",
+    "name": "Set up job"
+   },
+   {
+    "conclusion": "success",
+    "name": "Run actions/checkout@v4"
+   },
+   {
+    "conclusion": "success",
+    "name": "Install elan"
+   },
+   {
+    "conclusion": "success",
+    "name": "Restore the OIBridge build cache"
+   },
+   {
+    "conclusion": "success",
+    "name": "Build"
+   },
+   {
+    "conclusion": "success",
+    "name": "Release gate"
+   },
+   {
+    "conclusion": "success",
+    "name": "Post Restore the OIBridge build cache"
+   },
+   {
+    "conclusion": "success",
+    "name": "Post Run actions/checkout@v4"
+   },
+   {
+    "conclusion": "success",
+    "name": "Complete job"
    }
-  },
-  "permitted_axioms": [
-   "propext",
-   "Classical.choice",
-   "Quot.sound"
   ]
  },
- "observed": {
-  "build_line": "Build completed successfully (3652 jobs).",
-  "transseparation_window": {
-   "served_lines": 5000,
-   "built_line": null,
-   "report_lines": {},
-   "gate_start": null,
-   "gate_end": null,
-   "note": "no TransSeparation build line or report exists in this run"
+ "form": "derived",
+ "jobs": [
+  {
+   "conclusion": "success",
+   "name": "Lean kernel check"
+  },
+  {
+   "conclusion": "success",
+   "name": "Mathlib bridge"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A36 hierarchy"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A38 escape"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A40 locus"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A41 hulls"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A41 independent"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A41 production"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 census01"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (cubes:0)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (cubes:1)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (cubes:2)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (dfs:0)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (dfs:1)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (dfs:2)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (dfs:3)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (dfs:4)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (dfs:5)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (n18:0)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (n18:1)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (n18:2)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (paths)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (r5)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (sathr)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 witness"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A45 ancilla"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / BG-2 premise orientation"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / KINF-2 foundations"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / KT4-PREM-1 premise audit"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / KTRANS-SEP-1 Omega4 counterexample"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / NB-1 native-gate ball"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / OI channel protocol"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / OI finite protocol"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / OI pair maxCone"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / core A"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / core B"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / foundations"
   }
+ ],
+ "kind": "exact-head-run",
+ "recipe": "controls.py derive-run --run-api RUN --jobs-api JOBS (round KTRANS-SEP-2, at the controls.py blob its preregistration pins)",
+ "run": {
+  "attempt": 1,
+  "conclusion": "success",
+  "event": "workflow_dispatch",
+  "head_branch": "staging/ktrans-sep-824-predicted-r2-20261018",
+  "head_sha": "bd579bf8db6065f6667511ee0a02fa31effc1f5b",
+  "id": 39173554213,
+  "workflow": "verify.yml"
  },
+ "schema": "oi-evidence-result",
  "source": {
-  "extractor": "verification/audits/evidence-retention/extract_result.py",
-  "extractor_blob": "05c41bce610b8d02ccbaca8e69377b771bef4a35",
-  "form_note": "derived: read from the served job log (served_sha256) and the runs and jobs APIs (their answers' digests)",
-  "kind": "GitHub Actions job log, read on 2026-10-23 through the session's job-log tool, which returns at most the last 5000 lines",
-  "markers_scope": "the failure markers are counted over the served text only",
-  "original_lines": 38742,
-  "served_lines": 5000,
-  "served_sha256": "ea778de6e61fbb224d822ddcd096465ae7f564dab362a2dd30745da89ae3f630",
-  "jobs_api_sha256": "d780edef46d7e01d125254f6b9811de56bf37c144a7013b1c7a90d37e1e952dd",
-  "runs_api_sha256": "c8edd649a918bdbd4e67efa7d604053c78a19b9d807d5296a6b5a70c83203308",
-  "runs_api_note": "digest of the selected fields of the runs API answer, serialized with sorted keys",
-  "missing": "lines 1-33742 of 38742 were not served; the build-success line, the release-gate block and the axiom reports lie in the served window",
-  "note": "the digest identifies the text this result was read from: it is provenance of the extraction, not independent proof of the result, which reproduction at the commit supplies; the text is not retained"
- }
+  "jobs_api_sha256": "39a596d09093d6cb8e943e7848d0f166e6e4a7c7a591242e40831e3109bbc72c",
+  "note": "the digests identify the API answers this result was derived from; the answers are not retained",
+  "runs_api_sha256": "fb49f05a7ecf2d045dd57fe77e6bfd2a563145a9013f7a9a31437c70da8dbfe4"
+ },
+ "version": 1
 }
 '''
 
@@ -1001,24 +1059,35 @@ SHARD = '''  probes_ktranssep2:
 '''
 A3_RUN = ('        run: lake env python3 -I -B ../programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/checks/'
           'run_checks.py run\n')
-FINAL_STEP = '''
-      # KTRANS-SEP-2: the module's fifteen axiom reports again, as the bridge job's last output, so that they lie in
-      # any served tail of its log whatever the build cache replayed. The step fails unless each of the fifteen is
-      # reported exactly once, in print order, within propext, Classical.choice and Quot.sound, with no other report,
-      # no error line and none of the forbidden tokens (controls.py axioms).
-      - name: KTRANS-SEP-2 axiom reports
+STEP_LEAN = 'KTRANS-SEP-2 elaborate the module'
+STEP_AXIOMS = 'KTRANS-SEP-2 axiom reports within the three axioms'
+STEP_MARKER = 'KTRANS-SEP-2 marker complete reports with an axiom outside the three'
+ROUND_STEPS = (STEP_LEAN, STEP_AXIOMS, STEP_MARKER)
+FINAL_STEPS = '''
+      # KTRANS-SEP-2: the module's fifteen axiom reports, decided inside the job so that the verdict reads only these
+      # three steps' conclusions from the jobs API, never the log. The first step elaborates the module and succeeds
+      # exactly when `lake env lean` does. The second prints that output and runs controls.py axioms on it, which
+      # records the reports' class as the step output `reports` and succeeds exactly when each of the fifteen is
+      # reported once, in print order, within propext, Classical.choice and Quot.sound, with no other report, no error
+      # line and none of the forbidden tokens. The third runs only when the class is complete-nonstandard: every report
+      # present once and parsed, one outside the three axioms.
+      - name: KTRANS-SEP-2 elaborate the module
+        if: ${{ !cancelled() }}
+        working-directory: verification/lean-mathlib
+        run: lake env lean OIBridge/TransSeparation.lean > "$RUNNER_TEMP/ktrans-sep2-axioms.log" 2>&1
+
+      - name: KTRANS-SEP-2 axiom reports within the three axioms
+        id: ktrans_sep2_axioms
         if: ${{ !cancelled() }}
         working-directory: verification/lean-mathlib
         run: |
           set -euo pipefail
-          echo "ktrans_sep2 axioms: step at $(git rev-parse HEAD)"
-          log="$RUNNER_TEMP/ktrans-sep2-axioms.log"
-          rc=0
-          lake env lean OIBridge/TransSeparation.lean > "$log" 2>&1 || rc=$?
-          cat "$log"
-          echo "ktrans_sep2 axioms: lean exited ${rc}"
-          python3 -I -B ../programmes/oi-qm/reconstruction/round-ktrans-sep-2-omega4/controls.py axioms "$log"
-          exit "$rc"
+          cat "$RUNNER_TEMP/ktrans-sep2-axioms.log"
+          python3 -I -B ../programmes/oi-qm/reconstruction/round-ktrans-sep-2-omega4/controls.py axioms "$RUNNER_TEMP/ktrans-sep2-axioms.log"
+
+      - name: KTRANS-SEP-2 marker complete reports with an axiom outside the three
+        if: ${{ !cancelled() && steps.ktrans_sep2_axioms.outputs.reports == 'complete-nonstandard' }}
+        run: echo "the fifteen reports are complete and one lies outside the three axioms"
 '''
 # KTOKEN-MAXCONE-1's self-test, which runs in its shard on every build, reads the live workflow, root and census and
 # requires each of its own splices verbatim and its census family last. The edits above keep each of these intact.
@@ -1044,7 +1113,7 @@ def ktoken_live_ok(wf, root, census):
 
 
 SPLICES = [
-    (A3_RUN, A3_RUN + FINAL_STEP),
+    (A3_RUN, A3_RUN + FINAL_STEPS),
     ('  # Act 42. Two shards run on every event', SHARD + '  # Act 42. Two shards run on every event'),
     ('probes_a42_witness, probes_a42_census01', 'probes_a42_witness, probes_ktranssep2, probes_a42_census01'),
     ('          KTOKENMAXCONE1_RESULT: ${{ needs.probes_ktokenmaxcone1.result }}\n',
@@ -1429,74 +1498,17 @@ def probe_ok(out):
     return out is not None and probe_state((SYMPY_VERSION, 0, out, '')) == 'exact'
 
 
-# ---- the bridge log ----------------------------------------------------------------------------------------------
-TS = re.compile(r'^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d+Z ')
-REPORT = re.compile(r"^info: OIBridge/TransSeparation\.lean:(\d+):\d+: '" + re.escape(NS) +
-                    r"([A-Za-z0-9_']+)' (?:depends on axioms: \[([^\]]*)\]|does not depend on any axioms)\s*$")
-REPORT_HEAD = re.compile(r'^info: OIBridge/TransSeparation\.lean:\d+:\d+: ')
-# The module's build-status line. The bridge job restores a build cache keyed on the toolchain, the dependency
-# manifest, the lakefile and every OIBridge source, and runs `lake --rehash build`, which re-hashes each source
-# against the restored trace: a module whose inputs are byte-identical to a cached build is replayed, its stored
-# messages (the #print axioms reports among them) printed under `Replayed`, and any other module is built.
-BUILT = re.compile(r'(?:Built|Replayed) OIBridge\.TransSeparation\b')
-GATE_STEP = re.compile(r'^  (PASS|FAIL|SKIP)  (\S+)')
-
-
-def log_facts(text, mod):
-    """What the served text shows about the module, with the served line of each item (1-based)."""
-    lines = [TS.sub('', l, count=1) for l in (text or '').split('\n')] if text else []
-    f = {'served_lines': len(lines), 'reports': {}, 'unparsed': [], 'built': None, 'built_word': None, 'build': False,
-         'build_line': None, 'cache_hit': False,
-         'gate_start': None, 'gate_end': None, 'gate_pass': False, 'gate_fail': [], 'mod_errors': 0}
-    for n, l in enumerate(lines, 1):
-        m = REPORT.match(l)
-        if m:
-            ax = {a.strip() for a in (m.group(3) or '').split(',') if a.strip()}
-            f['reports'].setdefault(m.group(2), []).append((int(m.group(1)), ax, n))
-        elif REPORT_HEAD.match(l):
-            f['unparsed'].append(n)
-        if f['built'] is None and BUILT.search(l):
-            f['built'], f['built_word'] = n, BUILT.search(l).group(0).split()[0]
-        if re.match(r'^Build completed successfully \(\d+ jobs\)\.', l):
-            f['build'], f['build_line'] = True, f['build_line'] or n
-        if l.startswith('Cache hit occurred on the primary key '):
-            f['cache_hit'] = True
-        if l.startswith('error: OIBridge/TransSeparation.lean:'):
-            f['mod_errors'] += 1
-        if l == 'release gate' and f['gate_start'] is None:
-            f['gate_start'] = n
-        if l.startswith('release gate: ') and f['gate_start'] is not None and f['gate_end'] is None:
-            f['gate_end'] = n
-            f['gate_pass'] = l.startswith('release gate: PASS')
-        m = GATE_STEP.match(l)
-        if m and f['gate_start'] is not None and f['gate_end'] is None and m.group(1) == 'FAIL':
-            f['gate_fail'].append(m.group(2))
-    f['at'] = {l[len('#print axioms ' + NS):].strip(): n for n, l in print_lines(mod or '')}
-    return f
-
-
-# The final bridge step (the sixth workflow splice): after every other step of the Mathlib bridge job it prints one
-# line 'ktrans_sep2 axioms: step at <commit>', elaborates the module alone (`lake env lean`), which prints its fifteen
-# reports again (without file positions, and wrapped by Lean when long), prints one line 'ktrans_sep2 axioms: lean
-# exited <status>', and runs `controls.py axioms` on that output, which ends the block with exactly one OK or FAILED
-# line. Being the job's last output, the block lies in any served
-# tail of the log, whatever the build cache replayed earlier in it.
-STEP_MARK = re.compile(r'^ktrans_sep2 axioms: step at (\S*)$', re.M)
-STEP_OK = 'ktrans_sep2 axioms: OK -- %d reports' % len(PRINTS)
-STEP_FAILED = re.compile(r'^ktrans_sep2 axioms: FAILED\b', re.M)
-STEP_EXIT = re.compile(r'^ktrans_sep2 axioms: lean exited (\d+)$', re.M)
-STEP_END = re.compile(r'^(?:##\[group\]Run |Post job cleanup\.)', re.M)
+# ---- the module's reports: the in-job gate, and the run's structured result -------------------------------------
+# The gate reads the module's own `lake env lean` output (no file positions; Lean wraps a long axiom list across
+# lines). It runs inside the job, and its result reaches the verdict only as the conclusions of the bridge job's
+# KTRANS-SEP-2 steps.
 BLOCK_REPORT = re.compile(r"^'" + re.escape(NS) + r"([A-Za-z0-9_']+)' (?:depends on axioms: \[([^\]]*)\]|does not "
                           r"depend on any axioms)", re.M)
 BLOCK_HEAD = re.compile(r"^'" + re.escape(NS), re.M)
 BAD_TOKENS = ('sorryAx', 'Lean.ofReduceBool', 'Lean.trustCompiler')
 STEP_ERROR = re.compile(r'^\S+\.lean:\d+:\d+: error\b', re.M)
-STEP_MOD_ERROR = re.compile(r'^OIBridge/TransSeparation\.lean:\d+:\d+: error\b', re.M)
-
-
-def plain(text):
-    """The text with each line's leading timestamp removed, so that a report Lean wraps across lines reads whole."""
-    return '\n'.join(TS.sub('', l, count=1) for l in (text or '').split('\n'))
+STEP_OK = 'ktrans_sep2 axioms: OK -- %d reports' % len(PRINTS)
+CLASSES = ('standard', 'complete-nonstandard', 'incomplete')
 
 
 def parse_reports(text):
@@ -1507,122 +1519,11 @@ def parse_reports(text):
     return reps, len(BLOCK_HEAD.findall(text)) - len(reps)
 
 
-def step_facts(text):
-    """What the final bridge step shows, with served line numbers (1-based). Its block runs from the step's one
-    marker line to the next step header or the job's cleanup."""
-    t = plain(text)
-    ln = lambda off: t.count('\n', 0, off) + 1
-    marks = list(STEP_MARK.finditer(t))
-    s = {'marks': len(marks), 'commit': None, 'marker_line': None, 'reports': {}, 'order': [], 'report_lines': {},
-         'unparsed': 0, 'ok_lines': [], 'failed_lines': [], 'exit_lines': [], 'exit': None, 'errors': 0,
-         'mod_errors': 0, 'bad': []}
-    if len(marks) != 1:
-        return s
-    m0 = marks[0]
-    s['commit'], s['marker_line'] = m0.group(1), ln(m0.start())
-    rest = t[m0.end():]
-    end = STEP_END.search(rest)
-    block, base = (rest[:end.start()] if end else rest), m0.end()
-    reps, s['unparsed'] = parse_reports(block)
-    for n, ax, off in reps:
-        s['reports'].setdefault(n, []).append(ax)
-        s['order'].append(n)
-        s['report_lines'].setdefault(n, ln(base + off))
-    s['ok_lines'] = [ln(base + m.start()) for m in re.finditer(r'^%s$' % re.escape(STEP_OK), block, re.M)]
-    s['failed_lines'] = [ln(base + m.start()) for m in STEP_FAILED.finditer(block)]
-    exits = list(STEP_EXIT.finditer(block))
-    s['exit_lines'] = [ln(base + m.start()) for m in exits]
-    s['exit'] = int(exits[0].group(1)) if len(exits) == 1 else None
-    s['errors'] = len(STEP_ERROR.findall(block))
-    s['mod_errors'] = len(STEP_MOD_ERROR.findall(block))
-    s['bad'] = [b for b in BAD_TOKENS if b in block]
-    return s
-
-
-def block_problem(s, sha):
-    """None when the final step's block is complete evidence for the commit sha, else the reason it is not."""
-    if s['marks'] != 1:
-        return '%d final-step marker line(s) in the served text, not one' % s['marks']
-    if not re.fullmatch(r'[0-9a-f]{40}', sha or '') or s['commit'] != sha:
-        return 'the final step ran at %s, not at the commit under check' % ((s['commit'] or '?')[:12])
-    if s['unparsed']:
-        return 'a report in the final step does not parse'
-    if sorted(s['reports']) != sorted(PRINTS) or any(len(v) != 1 for v in s['reports'].values()):
-        return 'the final step does not report each of the fifteen prints exactly once'
-    if s['order'] != list(PRINTS):
-        return 'the final step\'s reports are not in the module\'s print order'
-    ends = s['ok_lines'] + s['failed_lines']
-    if len(ends) != 1 or ends[0] < max(s['report_lines'].values()):
-        return 'the final step\'s gate line is missing, repeated, or not after its last report'
-    if len(s['exit_lines']) != 1 or not max(s['report_lines'].values()) < s['exit_lines'][0] < ends[0]:
-        return 'the final step\'s lean exit line is missing, repeated, or not between its last report and its gate line'
-    return None
-
-
-def meta_problem(f, meta):
-    if not f['served_lines']:
-        return 'the log is empty or absent'
-    if meta is not None:
-        try:
-            o, m = int(meta['original_lines']), int(meta['served_lines'])
-        except (KeyError, TypeError, ValueError):
-            return 'the log metadata names no original and served line counts'
-        if m != f['served_lines'] or not 1 <= m <= o:
-            return 'the log metadata (%s of %s lines) does not describe this text (%d lines)' % (m, o, f['served_lines'])
-    return None
-
-
-def kernel_state(f, s, meta, sha):
-    """('void', reason), or (nonell_ok, cex_ok) from complete evidence: the final step's block for sha, and the
-    build and release-gate lines before it."""
-    p = meta_problem(f, meta) or block_problem(s, sha)
-    if p:
-        return ('void', p)
-    bad = {n for n in PRINTS if not s['reports'][n][0] <= ALLOWED_AXIOMS}
-    gate_done = f['gate_start'] is not None and f['gate_end'] is not None
-    if (s['ok_lines'] and s['exit'] == 0 and not bad and not s['bad'] and not s['errors'] and f['build'] and gate_done
-            and f['gate_pass'] and f['build_line'] < f['gate_start'] and f['gate_end'] < s['marker_line']):
-        return (True, True)
-    if s['failed_lines'] and bad and (s['mod_errors'] or (gate_done and f['gate_fail'] == ['lean-axioms'])):
-        return (False, False)
-    return ('void', 'the final step, build and gate evidence is inconsistent or fails for a reason outside the module '
-                    '(step %s, lean exit %s, build %s, gate %s, failing steps %s, module errors in the step %d)'
-            % ('OK' if s['ok_lines'] else 'FAILED', s['exit'], f['build'], 'complete' if gate_done else 'incomplete',
-               f['gate_fail'] or 'none', s['mod_errors']))
-
-
-def cells(mod, good_key, log, exact_ok, probe_run, meta=None, sha=None):
-    """The three tokens, or ('void', reason): a tooling failure or incomplete evidence never yields a token."""
-    if not exact_ok:
-        return ('void', 'an exact control failed')
-    ks = kernel_state(log_facts(log, mod), step_facts(log), meta, sha)
-    if ks[0] == 'void':
-        return ks
-    ps = probe_state(probe_run)
-    if isinstance(ps, tuple):
-        return ps
-    nonell = ks[0] and set(NONELL_KEY) <= good_key
-    cex = ks[1] and set(KEY) <= good_key
-    return [TOK_NONELL[0 if nonell else 1], TOK_CEX[0 if cex else 1], TOK_EXACT[0 if ps == 'exact' else 1]]
-
-
-def window_facts(f, s=None):
-    pos = {n: f['reports'][n][0][2] for n in PRINTS if len(f['reports'].get(n, [])) == 1}
-    out = {'served_lines': f['served_lines'], 'built_line': f['built'], 'report_lines': pos,
-           'gate_start': f['gate_start'], 'gate_end': f['gate_end']}
-    if s is not None:
-        out['axioms_step'] = {'marker_line': s['marker_line'], 'commit': s['commit'], 'report_lines': s['report_lines'],
-                              'ok_lines': s['ok_lines'], 'failed_lines': s['failed_lines'],
-                              'exit_lines': s['exit_lines'], 'exit': s['exit']}
-    return out
-
-
 def axioms_gate(text):
-    """The final bridge step's fail-closed gate over the module's own `lake env lean` output: [(label, ok, detail)].
-    Each of the fifteen prints is reported exactly once, in print order, within the three axioms; no other report
-    of the namespace; no report that does not parse; no error line; none of the forbidden tokens. Labels name no
-    forbidden token, since this output lands in the job log the verdict reads."""
-    t = plain(text)
+    """The in-job gate over the module's own `lake env lean` output: [(label, ok, detail)]. Each of the fifteen prints
+    is reported exactly once, in print order, within the three axioms; no other report of the namespace; no report
+    that does not parse; no error line; none of the forbidden tokens. Labels name no forbidden token and no report."""
+    t = text or ''
     if not t.strip():
         return [('the output is not empty', False, '')]
     reps, unparsed = parse_reports(t)
@@ -1641,6 +1542,84 @@ def axioms_gate(text):
     out.append(('no error line', not STEP_ERROR.search(t), ''))
     out.append(('no forbidden log token', not any(b in t for b in BAD_TOKENS), ''))
     return out
+
+
+def axioms_class(text):
+    """`standard` when every clause of the gate holds; `complete-nonstandard` when the fifteen are each reported once,
+    in print order, every report parses, there is no other report, and some report names an axiom outside the three
+    (a forbidden token there among them); `incomplete` otherwise (an empty or cut output, a missing, duplicated, extra
+    or reordered report, or clean reports beside an error line or a stray forbidden token)."""
+    rows = axioms_gate(text)
+    if all(ok for _, ok, _ in rows):
+        return 'standard'
+    reps, unparsed = parse_reports(text or '')
+    names = [n for n, _, _ in reps]
+    if names == list(PRINTS) and not unparsed and any(not ax <= ALLOWED_AXIOMS for _, ax, _ in reps):
+        return 'complete-nonstandard'
+    return 'incomplete'
+
+
+def run_problem(d, sha):
+    """None when d (a derived run result, as a dict) is one run of verify.yml at sha whose Mathlib bridge job carries
+    the three KTRANS-SEP-2 steps once each, in order, after its release gate; else the reason it is not."""
+    try:
+        r, steps = d['run'], d['bridge']['steps']
+        names = [s['name'] for s in steps]
+        if not re.fullmatch(r'[0-9a-f]{40}', sha or '') or r['head_sha'] != sha:
+            return 'the run is at %s, not at the commit under check' % str(r.get('head_sha'))[:12]
+        if r['workflow'] != 'verify.yml':
+            return 'the run is not a run of verify.yml'
+        if any(names.count(n) != 1 for n in ROUND_STEPS + ('Build', 'Release gate')):
+            return 'the bridge job does not carry Build, Release gate and the three KTRANS-SEP-2 steps once each'
+        i = [names.index(n) for n in ('Build', 'Release gate') + ROUND_STEPS]
+        if i != sorted(i) or i[3] != i[2] + 1 or i[4] != i[3] + 1:
+            return 'the bridge job\'s KTRANS-SEP-2 steps are not consecutive, in order, after its release gate'
+        return None
+    except (KeyError, TypeError, AttributeError, ValueError):
+        return 'the run result does not describe one run with its Mathlib bridge job and steps'
+
+
+def kernel_state(d, sha):
+    """('void', reason), or (nonell_ok, cex_ok) from the run's bridge-step conclusions: (True, True) when Build,
+    Release gate, L and A succeeded and M was skipped; (False, False) when A failed and M succeeded, whatever L's
+    conclusion; VOID for every other combination."""
+    p = run_problem(d, sha)
+    if p:
+        return ('void', p)
+    c = {s['name']: s['conclusion'] for s in d['bridge']['steps']}
+    lean, axioms, marker = (c[n] for n in ROUND_STEPS)
+    if c['Build'] == c['Release gate'] == lean == axioms == 'success' and marker == 'skipped':
+        return (True, True)
+    if axioms == 'failure' and marker == 'success' and lean in ('success', 'failure'):
+        return (False, False)
+    return ('void', 'the bridge steps are neither positive nor negative (Build %s, Release gate %s, L %s, A %s, M %s)'
+            % (c['Build'], c['Release gate'], lean, axioms, marker))
+
+
+def as_result(run):
+    """A derived run result as a dict, from its JSON text, its bytes or the dict itself; None if it does not parse."""
+    try:
+        return json.loads(run) if isinstance(run, (str, bytes)) else run if isinstance(run, dict) else None
+    except ValueError:
+        return None
+
+
+def cells(mod, good_key, run, exact_ok, probe_run, sha=None):
+    """The three tokens, or ('void', reason): a tooling failure or incomplete evidence never yields a token."""
+    if not exact_ok:
+        return ('void', 'an exact control failed')
+    d = as_result(run)
+    if d is None:
+        return ('void', 'no run result')
+    ks = kernel_state(d, sha)
+    if ks[0] == 'void':
+        return ks
+    ps = probe_state(probe_run)
+    if isinstance(ps, tuple):
+        return ps
+    nonell = ks[0] and set(NONELL_KEY) <= good_key
+    cex = ks[1] and set(KEY) <= good_key
+    return [TOK_NONELL[0 if nonell else 1], TOK_CEX[0 if cex else 1], TOK_EXACT[0 if ps == 'exact' else 1]]
 
 
 # ---- the record, the pins, the chain, the governed paths ---------------------------------------------------------
@@ -1683,13 +1662,6 @@ def record_ok(rel, table, frozen, stage):
 
 TS_KEY = re.compile(r'(?:^|_)(?:at|time|times|timestamp|date|duration|seconds)$')
 RUN_EVIDENCE = 'evidence/predicted-tree-run.json'
-REPLAY_EVIDENCE = 'evidence/predicted-tree-replay-run.json'
-GATE_PASS = re.compile(r'PASS(?:\s.*)?', re.S)
-
-
-def gate_passed(v):
-    """The release gate's verdict text is PASS, alone or followed by whitespace and a note; never a longer word."""
-    return isinstance(v, str) and GATE_PASS.fullmatch(v) is not None
 
 
 def walk(x):
@@ -1718,44 +1690,22 @@ def evidence_ok(data):
     return not any(TS_KEY.search(k) for k, _ in walk(d))
 
 
-def other_run(a, b):
-    """Two run results name the same head and branch and different runs."""
-    try:
-        x, y = json.loads(a)['run'], json.loads(b)['run']
-        return x['head_sha'] == y['head_sha'] and x['head_branch'] == y['head_branch'] and x['id'] != y['id']
-    except (ValueError, KeyError, TypeError):
-        return False
+def green_run(d, head):
+    """d (a derived run result) names head and is a successful workflow_dispatch run of verify.yml with a positive
+    integer run id and attempt, every job and its Mathlib bridge job success."""
+    r, b = d['run'], d['bridge']
+    return bool(r['head_sha'] == head and r['workflow'] == 'verify.yml' and r['event'] == 'workflow_dispatch'
+                and type(r['id']) is int and r['id'] >= 1 and type(r['attempt']) is int and r['attempt'] >= 1
+                and r['conclusion'] == 'success' and type(b['job_id']) is int and b['job_id'] >= 1
+                and b['conclusion'] == 'success' and d['jobs'] and all(j['conclusion'] == 'success' for j in d['jobs']))
 
 
-def run_window_ok(data, head, replayed=False):
-    """A run's retained result names head, is a green workflow_dispatch run, and records the final bridge step's
-    block for head inside the served window, after the release gate: its marker, the fifteen reports in print order
-    within the three axioms, one lean exit line with status 0 after the last report and one OK line after it, with
-    no FAILED line. With replayed, the module's
-    status line in the window is not `Built` (the run restored the build cache of an earlier run of the same tree)."""
+def run_ok(data, head):
+    """The predicted tree's run: a structured result naming head, a green workflow_dispatch run of verify.yml, whose
+    bridge steps read positive (kernel_state (True, True))."""
     try:
         d = json.loads(data)
-        r, s, w, b = d['run'], d['source'], d['observed']['transseparation_window'], d['observed']['axioms_step']
-        o, m = s['original_lines'], s['served_lines']
-        mods = d['expected']['modules']['OIBridge/TransSeparation.lean']
-        rl = b['report_lines']
-        ints = [o, m, w['served_lines'], w['gate_start'], w['gate_end'], b['marker_line']] + list(rl.values()) + \
-            list(b['ok_lines']) + list(b['exit_lines']) + [b['exit']]
-        if not all(type(x) is int for x in ints):
-            return False
-        return bool(evidence_ok(data) and r['head_sha'] == head and r['event'] == 'workflow_dispatch'
-                and r['conclusion'] == 'success' and d['jobs']
-                and all(j['conclusion'] == 'success' for j in d['jobs']) and 1 <= m <= o and w['served_lines'] == m
-                and b['commit'] == head and sorted(rl) == sorted(PRINTS) and len(b['ok_lines']) == 1
-                and b['failed_lines'] == []
-                and w['gate_start'] < w['gate_end'] < b['marker_line'] < min(rl.values())
-                and b['exit'] == 0 and len(b['exit_lines']) == 1
-                and max(rl.values()) < b['exit_lines'][0] < b['ok_lines'][0] <= m
-                and d['expected']['build_success'] is True and gate_passed(d['expected']['gate']['verdict'])
-                and mods['status'] == 'complete'
-                and [x['name'] for x in mods['reports']] == [NS + n for n in PRINTS]
-                and all(set(x['axioms']) <= ALLOWED_AXIOMS for x in mods['reports'])
-                and (not replayed or (w['status_word'] != 'Built' and w['cache_hit'] is True)))
+        return bool(evidence_ok(data) and green_run(d, head) and kernel_state(d, head) == (True, True))
     except (ValueError, KeyError, TypeError, AttributeError):
         return False
 
@@ -1780,60 +1730,50 @@ def ftree_ok(paths, imports, trees, d_trees):
     """That F carries no module, from F's actual tree: F's two Lean directories are exactly D's (so F's Lean content
     is D's, which carries no module), neither the module's nor the probe's path exists at F, and F's OIBridge.lean
     (which must be readable) has no import line naming OIBridge.TransSeparation, alone or beside other modules. A
-    run's log never establishes absence; it is checked for consistency only (frun_log_consistent)."""
+    run never establishes absence; it is checked for consistency only (frun_consistent)."""
     return paths is not None and imports is not None and trees is not None and d_trees is not None \
         and None not in trees and tuple(trees) == tuple(d_trees) and MOD not in paths and PROBE not in paths \
         and not IMPORT_RE.search(imports)
 
 
-def frun_ok(data, head, ref, shard=SHARD_JOB):
-    """F's retained run result, read for what a run can establish: its identity (head_sha is F; the workflow is
-    verify.yml; a workflow_dispatch run with a positive integer run id and attempt and conclusion success; the job is
-    the Mathlib bridge, with a positive integer job id), its success (every job and the bridge job success, build
-    success) and its release-gate result (verdict PASS, every gate step PASS, steps_pass = steps_total). ref is the
-    predicted tree's retained run, a workflow_dispatch run of D's workflow plus the round's shard: F's run must have
-    exactly its jobs less that one shard job, each once, and exactly its gate steps, in order. It says nothing about
-    whether the module is absent; ftree_ok establishes that from F's tree."""
+def frun_ok(data, head, ref, shard=SHARD_JOB, round_steps=ROUND_STEPS):
+    """F's retained run result, read for what a run can establish: its identity and success (green_run at head) and
+    that it ran exactly the predicted tree's workflow less the round's edits. ref is the predicted tree's retained
+    run, a workflow_dispatch run of D's workflow plus the round's edits: F's run must have exactly its jobs less the
+    one shard job, each once, and its bridge job exactly the predicted run's bridge steps less the round's steps, in
+    order, each success (the Build and Release gate steps among them). It says nothing about whether the module is
+    absent; ftree_ok establishes that from F's tree."""
     try:
         d, p = json.loads(data), json.loads(ref)
-        r, g = d['run'], d['expected']['gate']
-        steps = g['steps']
         names = [j['name'] for j in d['jobs']]
         want = sorted(j['name'] for j in p['jobs'] if j['name'] != shard)
-        return bool(evidence_ok(data) and r['head_sha'] == head and r['workflow'] == 'verify.yml'
-                    and r['event'] == 'workflow_dispatch' and type(r['id']) is int and r['id'] >= 1
-                    and type(r['attempt']) is int and r['attempt'] >= 1 and r['conclusion'] == 'success'
-                    and r['job_name'] == 'Mathlib bridge' and type(r['job_id']) is int and r['job_id'] >= 1
-                    and r['job_conclusion'] == 'success' and d['jobs']
-                    and all(j['conclusion'] == 'success' for j in d['jobs'])
+        steps = [s['name'] for s in d['bridge']['steps']]
+        want_steps = [s['name'] for s in p['bridge']['steps'] if s['name'] not in round_steps]
+        return bool(evidence_ok(data) and green_run(d, head)
                     and len(want) == len(p['jobs']) - 1 and len(set(names)) == len(names) and sorted(names) == want
-                    and d['expected']['build_success'] is True and gate_passed(g['verdict'])
-                    and steps and all(s['status'] == 'PASS' for s in steps)
-                    and [s['name'] for s in steps] == [s['name'] for s in p['expected']['gate']['steps']]
-                    and g['steps_pass'] == g['steps_total'] == len(steps))
+                    and steps == want_steps and steps.count('Build') == 1 and steps.count('Release gate') == 1
+                    and all(s['conclusion'] == 'success' for s in d['bridge']['steps']))
     except (ValueError, KeyError, TypeError, AttributeError):
         return False
 
 
-def frun_log_consistent(data):
-    """Consistency only, not the proof of absence: F's run evidence records no module build line, no report and the
-    module's status absent, and no final-step marker, as a run of a tree without the module must. Where the release
-    gate falls in the log is not module evidence and is not read."""
+def frun_consistent(data, shard=SHARD_JOB):
+    """Consistency only, not the proof of absence: F's run has none of the round's bridge steps and not its shard,
+    as a run of D's workflow on a tree without the module must."""
     try:
         d = json.loads(data)
-        w = d['observed']['transseparation_window']
-        m = d['expected']['modules'][MOD[len('verification/lean-mathlib/'):]]
-        b = d['observed'].get('axioms_step', {})
-        return bool(m['status'] == 'absent' and m['reports'] == [] and w['built_line'] is None
-                    and w['report_lines'] == {} and b.get('marker_line') is None and not b.get('report_lines'))
+        return bool(not any(s['name'] in ROUND_STEPS or s['name'].startswith('KTRANS-SEP-2')
+                            for s in d['bridge']['steps'])
+                    and not any(j['name'] == shard for j in d['jobs']))
     except (ValueError, KeyError, TypeError, AttributeError):
         return False
 
 
-def fstage_ok(data, head, f, ref, shard=SHARD_JOB):
-    """The F-stage requirement: absence from F's tree, and identity, success and gate from F's run evidence against
-    the predicted tree's run, with the log consistent. Returns (tree, run, consistent)."""
-    return (ftree_ok(*ftree_at(f), ftree_at(D)[2]), frun_ok(data, head, ref, shard), frun_log_consistent(data))
+def fstage_ok(data, head, f, ref, shard=SHARD_JOB, round_steps=ROUND_STEPS):
+    """The F-stage requirement: absence from F's tree, and identity, success and workflow from F's run result against
+    the predicted tree's run, with the run consistent. Returns (tree, run, consistent)."""
+    return (ftree_ok(*ftree_at(f), ftree_at(D)[2]), frun_ok(data, head, ref, shard, round_steps),
+            frun_consistent(data, shard))
 
 
 def predicted_head(prereg):
@@ -1853,22 +1793,9 @@ def controls_pin(prereg):
     return ('pinned', ms[0]) if ms[0] else ('pending', None)
 
 
-def gate_steps(lines, start, end):
-    return [{'name': m.group(2), 'status': m.group(1)} for m in
-            (GATE_STEP.match(l) for l in lines[start:end - 1]) if m] if start and end else []
-
-
-def read_log(path):
-    """LOG as every reader reads it: bytes, decoded as UTF-8 with a leading byte-order mark dropped and no newline
-    translation; '' when the file is absent."""
-    return open(path, 'rb').read().decode('utf-8-sig', errors='replace') if path and os.path.isfile(path) else ''
-
-
-def derive_run(log, meta, run_api, jobs_api):
-    """The frozen recipe for a run result: a function of the served bridge-job text (bytes, exactly as served), its
-    metadata {"original_lines", "served_lines"} and the runs and jobs API answers (bytes). Raises ValueError when the
-    inputs do not describe one complete run with one Mathlib bridge job."""
-    text = log.decode('utf-8-sig')
+def derive_run(run_api, jobs_api):
+    """The frozen recipe for a run result: a function of the runs and jobs API answers (bytes) alone. Raises
+    ValueError when they do not describe one complete run with one Mathlib bridge job and its steps."""
     run = json.loads(run_api)
     jobs = json.loads(jobs_api)
     if isinstance(jobs.get('jobs'), dict):
@@ -1876,55 +1803,29 @@ def derive_run(log, meta, run_api, jobs_api):
     js = jobs['jobs']
     if jobs.get('total_count') != len(js) or len({j['name'] for j in js}) != len(js):
         raise ValueError('the jobs answer is not one complete list of distinct jobs')
+    if any(j.get('run_id', run['id']) != run['id'] for j in js):
+        raise ValueError('the jobs answer lists a job of another run')
     bridge = [j for j in js if j['name'] == 'Mathlib bridge']
     if len(bridge) != 1:
         raise ValueError('the jobs answer has no single Mathlib bridge job')
     b = bridge[0]
-    f = log_facts(text, '')
-    o, m = int(meta['original_lines']), int(meta['served_lines'])
-    if m != f['served_lines'] or not 1 <= m <= o:
-        raise ValueError('the metadata (%s of %s lines) does not describe the text (%d lines)' % (m, o, f['served_lines']))
-    lines = [TS.sub('', l, count=1) for l in text.split('\n')]
-    steps = gate_steps(lines, f['gate_start'], f['gate_end'])
-    verdict = lines[f['gate_end'] - 1][len('release gate: '):] if f['gate_end'] else None
-    first = {n: v[0][2] for n, v in f['reports'].items()}
-    st = step_facts(text)
-    if (not f['reports'] and not f['unparsed'] and f['built'] is None and not f['mod_errors'] and not st['marks']
-            and not parse_reports(plain(text))[0]):
-        status = 'absent'
-    elif block_problem(st, run['head_sha']) is None and st['ok_lines'] and st['exit'] == 0:
-        status = 'complete'
-    else:
-        status = 'incomplete'
+    steps = sorted(b.get('steps') or [], key=lambda s: s['number'])
+    if not steps or len({s['number'] for s in steps}) != len(steps):
+        raise ValueError('the Mathlib bridge job lists no steps, or a step number twice')
     sha = lambda b_: hashlib.sha256(b_).hexdigest()
     res = {
         'schema': 'oi-evidence-result', 'version': 1, 'form': 'derived', 'kind': 'exact-head-run',
-        'recipe': 'controls.py derive-run --log LOG --log-meta META --run-api RUN --jobs-api JOBS (round '
-                  'KTRANS-SEP-2, at the controls.py blob its preregistration pins)',
+        'recipe': 'controls.py derive-run --run-api RUN --jobs-api JOBS (round KTRANS-SEP-2, at the controls.py blob '
+                  'its preregistration pins)',
         'run': {'workflow': os.path.basename(run['path']), 'id': int(run['id']), 'attempt': int(run['run_attempt']),
                 'event': run['event'], 'conclusion': run['conclusion'], 'head_branch': run.get('head_branch'),
-                'head_sha': run['head_sha'], 'job_id': int(b['id']), 'job_name': b['name'],
-                'job_conclusion': b['conclusion'],
-                'job_steps': [{'name': s['name'], 'conclusion': s['conclusion']} for s in b.get('steps') or []]},
+                'head_sha': run['head_sha']},
         'jobs': sorted(({'name': j['name'], 'conclusion': j['conclusion']} for j in js), key=lambda j: j['name']),
-        'expected': {
-            'build_success': f['build'],
-            'gate': {'verdict': verdict, 'steps': steps, 'steps_pass': sum(s['status'] == 'PASS' for s in steps),
-                     'steps_total': len(steps)},
-            'modules': {MOD[len('verification/lean-mathlib/'):]: {
-                'status': status,
-                'reports': [{'name': NS + n, 'axioms': sorted(st['reports'][n][0])} for n in st['order']]}}},
-        'observed': {
-            'transseparation_window': {
-                'served_lines': m, 'built_line': f['built'], 'status_word': f['built_word'], 'report_lines': first,
-                'cache_hit': f['cache_hit'],
-                'gate_start': f['gate_start'], 'gate_end': f['gate_end']},
-            'axioms_step': {'marker_line': st['marker_line'], 'commit': st['commit'], 'report_lines': st['report_lines'],
-                            'ok_lines': st['ok_lines'], 'failed_lines': st['failed_lines'],
-                            'exit_lines': st['exit_lines'], 'exit': st['exit']}},
-        'source': {'served_sha256': sha(log), 'original_lines': o, 'served_lines': m, 'runs_api_sha256': sha(run_api),
-                   'jobs_api_sha256': sha(jobs_api),
-                   'note': 'the digests identify the inputs this result was derived from; the inputs are not retained'}}
+        'bridge': {'job_id': int(b['id']), 'conclusion': b['conclusion'],
+                   'steps': [{'name': s['name'], 'conclusion': s['conclusion']} for s in steps]},
+        'source': {'runs_api_sha256': sha(run_api), 'jobs_api_sha256': sha(jobs_api),
+                   'note': 'the digests identify the API answers this result was derived from; the answers are not '
+                           'retained'}}
     return json.dumps(res, indent=1, sort_keys=True, ensure_ascii=False) + '\n'
 
 
@@ -1968,7 +1869,8 @@ def tree_files(commit, prefix):
     return [p for p in r.stdout.split('\n') if p] if r.returncode == 0 else []
 
 
-def run_check(commit, freeze=None, stage='E', log=None, meta=None):
+def run_check(commit, freeze=None, stage='E', run=None):
+    """run: the derived result (JSON text) of the exact-head run at commit, required at a commit carrying the note."""
     r = git('diff', '--name-status', '--no-renames', D, commit)
     rows = [tuple(l.split('\t')) for l in r.stdout.splitlines() if l]
     check('G', 'delta(D, commit) is exactly the governed execution paths plus record files',
@@ -1982,7 +1884,7 @@ def run_check(commit, freeze=None, stage='E', log=None, meta=None):
         b = subprocess.run(['git', 'show', '%s:%s%s' % (commit, RDIR, p)], capture_output=True)
         if b.returncode == 0:
             files[p] = b.stdout
-    check('P', 'the pinned evidence is present with its digests; the five required files are pinned%s'
+    check('P', 'the pinned evidence is present with its digests; the four required files are pinned%s'
           % ('; no pin is pending' if freeze else ''), pins_ok(table, files, bool(freeze)))
     bad_ev = sorted(p for p, b in files.items() if not evidence_ok(b.decode('utf-8', 'replace')))
     check('P', 'every pinned evidence file is a structured expected result with its form stated and no run-varying '
@@ -1992,14 +1894,9 @@ def run_check(commit, freeze=None, stage='E', log=None, meta=None):
         check('P', 'the predicted-tree section names its commit in the frozen form (its first line `- **`<sha>`**`)',
               predicted_head(prereg) is not None)
     if ref is not None:
-        check('P', 'the predicted tree\'s retained run names the predicted tree, is green, and places the release gate '
-                   'and then the final step\'s block for it inside its served window', run_window_ok(ref, predicted_head(prereg)))
-    if REPLAY_EVIDENCE in files:
-        rep_ = files[REPLAY_EVIDENCE].decode('utf-8', 'replace')
-        check('P', 'the predicted tree\'s second run, on the same branch, restored the build cache (the module is not '
-                   '`Built` in its window) and still places the final step\'s block for it inside its served window; it '
-                   'is another run than the first', run_window_ok(rep_, predicted_head(prereg), replayed=True)
-              and ref is not None and other_run(rep_, ref))
+        check('P', 'the predicted tree\'s retained run names the predicted tree, is a green workflow_dispatch run of '
+                   'verify.yml, and its bridge job\'s three KTRANS-SEP-2 steps read positive',
+              run_ok(ref, predicted_head(prereg)))
     if freeze:
         rv = git('rev-list', '--parents', '%s..%s' % (D, commit))
         revs = [(l.split()[0], l.split()[1:]) for l in rv.stdout.split('\n') if l]
@@ -2008,15 +1905,13 @@ def run_check(commit, freeze=None, stage='E', log=None, meta=None):
                    'preregistration is F\'s', rv.returncode == 0 and chain_ok(revs, D, freeze, commit, ddf, prereg,
                                                                               show(freeze, PREREG)))
         fr = show(commit, FRUN) or ''
-        t_ok, r_ok, c_ok = fstage_ok(fr, freeze, freeze, ref)
+        t_ok, r_ok, c_ok = fstage_ok(fr, freeze, freeze, ref or '')
         check('P', 'F has no module, read through git at F: F\'s Lean directories are D\'s, neither the module\'s nor '
                    'the probe\'s path exists, and OIBridge.lean imports no OIBridge.TransSeparation', t_ok)
-        check('P', 'F\'s exact-head run is retained and its evidence names F as a workflow_dispatch run of verify.yml '
-                   '(its Mathlib bridge job, run id, job id and attempt), every job success and exactly the predicted '
-                   'tree\'s jobs less the round\'s shard, build success, and the release gate PASS on exactly the '
-                   'predicted tree\'s steps', r_ok)
-        check('P', 'consistency, not the proof of absence: F\'s run evidence records no module build line or report',
-              c_ok)
+        check('P', 'F\'s exact-head run is retained and names F as a green workflow_dispatch run of verify.yml, with '
+                   'exactly the predicted tree\'s jobs less the round\'s shard and exactly its bridge steps less the '
+                   'round\'s three, every job and bridge step success', r_ok)
+        check('P', 'consistency, not the proof of absence: F\'s run has none of the round\'s steps or jobs', c_ok)
     me = open(os.path.abspath(__file__), encoding='utf-8').read()
     pin = controls_pin(prereg)
     check('B', 'the probe is the frozen blob; controls.py at commit is the file running, and its blob is the one the '
@@ -2034,11 +1929,11 @@ def run_check(commit, freeze=None, stage='E', log=None, meta=None):
     check('W', 'verify.yml is D\'s with exactly the six frozen splices', workflow_want(d_wf) == show(commit, WORKFLOW))
     note = show(commit, RESULT)
     if note is not None:
-        if log is None:
-            check('V', 'the result note is read against the exact-head bridge log (--log required)', False)
+        if run is None:
+            check('V', 'the result note is read against the exact-head run (--run-api and --jobs-api required)', False)
         else:
-            toks = cells(mod, good, log, all(CODES_RUN.get(c) for c in EXACT_CODES), run_probe(show(commit, PROBE) or ''),
-                         meta, full_sha(commit))
+            toks = cells(mod, good, run, all(CODES_RUN.get(c) for c in EXACT_CODES), run_probe(show(commit, PROBE) or ''),
+                         full_sha(commit))
             if isinstance(toks, tuple):
                 check('V', 'the cells are read from complete evidence (VOID: %s)' % toks[1], False)
             else:
@@ -2082,23 +1977,29 @@ def workflow_want(d):
     return d
 
 
-def print_verdict(commit, freeze, logpath, metapath=None):
-    log = read_log(logpath)
-    meta = None
-    if metapath:
-        try:
-            meta = json.load(open(metapath, encoding='utf-8'))
-        except (OSError, ValueError):
-            meta = {}
-    mod, good = run_check(commit, freeze, 'E', log, meta)
+def derive_or_none(run_api, jobs_api):
+    try:
+        return derive_run(run_api, jobs_api)
+    except (ValueError, KeyError, TypeError, AttributeError, UnicodeDecodeError):
+        return None
+
+
+def print_verdict(commit, freeze, run_api, jobs_api):
+    run = derive_or_none(run_api, jobs_api)
+    mod, good = run_check(commit, freeze, 'E', run)
     if not gate_verdict(CODES_RUN, FAILS):
         print('VERDICT  VOID  (a required control failed or did not run: %s)'
               % ' '.join(sorted(set(FAILS) | (REQUIRED_CODES - set(CODES_RUN)))))
         FAILS.append('VOID')
         return
-    f = log_facts(log, mod)
-    print('LOG  %s' % json.dumps(window_facts(f, step_facts(log)), sort_keys=True))
-    toks = cells(mod, good, log, True, run_probe(show(commit, PROBE) or ''), meta, full_sha(commit))
+    d = as_result(run)
+    if d is not None:
+        print('RUN  %s' % json.dumps({'run': d.get('run'), 'bridge_steps': [(s.get('name'), s.get('conclusion'))
+                                                                           for s in d.get('bridge', {}).get('steps', [])
+                                                                           if s.get('name') in ROUND_STEPS
+                                                                           + ('Build', 'Release gate')]},
+                                     sort_keys=True))
+    toks = cells(mod, good, run, True, run_probe(show(commit, PROBE) or ''), full_sha(commit))
     if isinstance(toks, tuple):
         print('VERDICT  VOID  (%s)' % toks[1])
         FAILS.append('VOID')
@@ -2150,23 +2051,20 @@ class Scratch:
         shutil.rmtree(self.tmp, ignore_errors=True)
 
 
-def mock_s1(candf, frun, predicted, extra, log, meta, run_api, jobs_api, s=None):
-    """The pre-freeze safeguard. FILE (frun, bytes) must be derive-run's output over the served bridge log, its
-    metadata and the runs and jobs answers of candidate F's actual exact-head run, and predicted must be the tree
-    candidate F's preregistration names. Then, in a Scratch object directory (no ref written), build mock C1 =
-    candidate F + the predicted tree's record files + each --evidence file (extra: [(rel, bytes)]) + FILE as
-    evidence/f-run/results.json, and mock S1 = mock C1 + the predicted tree's execution files, and run
-    check(mock S1, freeze=candidate F, stage S1). With s given, its objects are used and it stays open."""
+def mock_s1(candf, frun, predicted, extra, run_api, jobs_api, s=None):
+    """The pre-freeze safeguard. FILE (frun, bytes) must be derive-run's output over the runs and jobs answers of
+    candidate F's actual exact-head run, and predicted must be the tree candidate F's preregistration names. Then, in
+    a Scratch object directory (no ref written), build mock C1 = candidate F + the predicted tree's record files + each
+    --evidence file (extra: [(rel, bytes)]) + FILE as evidence/f-run/results.json, and mock S1 = mock C1 + the
+    predicted tree's execution files, and run check(mock S1, freeze=candidate F, stage S1). With s given, its objects
+    are used and it stays open."""
     own = s is None
     if own:
         s = Scratch('ktsep2-mock-').__enter__()
     try:
-        try:
-            derived = derive_run(log, meta, run_api, jobs_api).encode('utf-8')
-        except (ValueError, KeyError, TypeError, AttributeError, UnicodeDecodeError):
-            derived = None
-        check('P', 'the f-run file (sha256 %s) is derive-run\'s output over the served log, its metadata and the runs '
-                   'and jobs answers given' % hashlib.sha256(frun).hexdigest(), derived is not None and derived == frun)
+        derived = derive_or_none(run_api, jobs_api)
+        check('P', 'the f-run file (sha256 %s) is derive-run\'s output over the runs and jobs answers given'
+              % hashlib.sha256(frun).hexdigest(), derived is not None and derived.encode('utf-8') == frun)
         named = predicted_head(show(candf, PREREG))
         check('P', 'the predicted tree given is the one candidate F\'s preregistration names (%s)' % named,
               named is not None and named == predicted)
@@ -2350,163 +2248,84 @@ def self_test():
           and not probe_ok('') and not probe_ok(None))
     check('M', 'an output that differs in a non-check line is VOID',
           isvoid(probe_state((ver, 0, out.replace('grid: 1669', 'grid: 1670', 1), ''))))
-    # the log and the cells: the final bridge step's block, after the build and the release gate
+    # the cells: the conclusions of the bridge job's three KTRANS-SEP-2 steps, read from the derived run result
+    sha_e = 'e' * 40
+    base_steps = ['Set up job', 'Run actions/checkout@v4', 'Install elan', 'Restore the OIBridge build cache', 'Build',
+                  'Release gate', 'KTOKEN-MAXCONE-1 check A3 (k = 2 statement identity and dependency walk, with mutations)']
+    post_steps = ['Post Restore the OIBridge build cache', 'Post Run actions/checkout@v4', 'Complete job']
+    all_steps = base_steps + list(ROUND_STEPS) + post_steps
+
+    def run_result(concl=None, names=None, head=sha_e, workflow='verify.yml'):
+        """A derived run result at head whose bridge steps are names (default: D's with the round's three after
+        check A3), each success except where concl ({name: conclusion}) says otherwise; M skipped by default."""
+        concl = dict({STEP_MARKER: 'skipped'}, **(concl or {}))
+        names = all_steps if names is None else names
+        return {'schema': 'oi-evidence-result', 'version': 1, 'form': 'derived', 'kind': 'exact-head-run',
+                'run': {'workflow': workflow, 'id': 7, 'attempt': 1, 'event': 'workflow_dispatch',
+                        'conclusion': 'success', 'head_branch': 'b', 'head_sha': head},
+                'jobs': [{'name': 'Mathlib bridge', 'conclusion': 'success'}],
+                'bridge': {'job_id': 8, 'conclusion': 'success',
+                           'steps': [{'name': n, 'conclusion': concl.get(n, 'success')} for n in names]},
+                'source': {'runs_api_sha256': 'a' * 64, 'jobs_api_sha256': 'b' * 64}}
+    good = set(KEY)
+    P_, N_ = [TOK_NONELL[0], TOK_CEX[0], TOK_EXACT[0]], [TOK_NONELL[1], TOK_CEX[1], TOK_EXACT[1]]
+    c = lambda run, ex=True, pr=prun, gk=good, sha=sha_e: cells(mod, gk, run, ex, pr, sha)
+    neg = {STEP_AXIOMS: 'failure', STEP_MARKER: 'success'}
+    without = lambda n: [x for x in all_steps if x != n]
+    check('M', 'Build, Release gate, L and A success with M skipped give the three positive tokens, read from the '
+               'result as a dict, as JSON text or as bytes',
+          c(run_result()) == P_ and c(json.dumps(run_result())) == P_ and c(json.dumps(run_result()).encode()) == P_)
+    check('M', 'A failed with M succeeded (complete reports, one outside the three axioms) is negative in both kernel '
+               'cells, whether L succeeded or failed',
+          c(run_result(neg)) == [N_[0], N_[1], P_[2]]
+          and c(run_result(dict(neg, **{STEP_LEAN: 'failure'}))) == [N_[0], N_[1], P_[2]])
+    check('M', 'every other combination of the step conclusions is VOID: L failed beside a passing A; A failed with M '
+               'skipped (incomplete reports or a tooling failure); A and M both succeeded; A skipped or cancelled; L '
+               'cancelled or skipped beside a negative pair; M failed; an unknown conclusion; Build or Release gate '
+               'failed beside positive steps',
+          isvoid(c(run_result({STEP_LEAN: 'failure'}))) and isvoid(c(run_result({STEP_AXIOMS: 'failure'})))
+          and isvoid(c(run_result({STEP_MARKER: 'success'})))
+          and isvoid(c(run_result({STEP_AXIOMS: 'skipped'}))) and isvoid(c(run_result({STEP_AXIOMS: 'cancelled'})))
+          and isvoid(c(run_result(dict(neg, **{STEP_LEAN: 'cancelled'}))))
+          and isvoid(c(run_result(dict(neg, **{STEP_LEAN: 'skipped'}))))
+          and isvoid(c(run_result({STEP_MARKER: 'failure'}))) and isvoid(c(run_result({STEP_AXIOMS: 'neutral'})))
+          and isvoid(c(run_result({'Build': 'failure'}))) and isvoid(c(run_result({'Release gate': 'failure'}))))
+    moved = base_steps[:5] + list(ROUND_STEPS) + base_steps[5:] + post_steps
+    split = base_steps + [STEP_LEAN, STEP_AXIOMS, 'Another step', STEP_MARKER] + post_steps
+    check('M', 'a run result that is not this commit\'s run of verify.yml with each of the three steps once, in order, '
+               'after the release gate, is VOID: another commit or none; another workflow; each step missing; a step '
+               'twice; the steps reordered, before the release gate or split by another step; Build missing; Release '
+               'gate twice; a step without a conclusion; no bridge job; no result; text that is not JSON',
+          isvoid(c(run_result(head='f' * 40))) and isvoid(c(run_result(), sha=None))
+          and isvoid(c(run_result(), sha='E' * 40)) and isvoid(c(run_result(head='E' * 40), sha='E' * 40))
+          and isvoid(c(run_result(head='e' * 39), sha='e' * 39)) and isvoid(c(run_result(workflow='other.yml')))
+          and all(isvoid(c(run_result(names=without(n)))) for n in ROUND_STEPS)
+          and isvoid(c(run_result(names=all_steps + [STEP_AXIOMS])))
+          and isvoid(c(run_result(names=base_steps + [STEP_AXIOMS, STEP_LEAN, STEP_MARKER] + post_steps)))
+          and isvoid(c(run_result(names=moved))) and isvoid(c(run_result(names=split)))
+          and isvoid(c(run_result(names=without('Build'))))
+          and isvoid(c(run_result(names=all_steps + ['Release gate'])))
+          and isvoid(c(dict(run_result(), bridge=dict(run_result()['bridge'], steps=[
+              dict(s, conclusion=None) if s['name'] == STEP_LEAN else s for s in run_result()['bridge']['steps']]))))
+          and isvoid(c({k: v for k, v in run_result().items() if k != 'bridge'})) and isvoid(c(None))
+          and isvoid(c('not json')))
+    check('M', 'a failed load-bearing statement reads the cells that rest on it negative',
+          c(run_result(), gk=good - {'kinfTrans_separation'}) == [P_[0], N_[1], P_[2]]
+          and c(run_result(), gk=good - {'not_affine_eball_omega4'}) == [N_[0], N_[1], P_[2]])
+    check('M', 'a failed exact control is VOID', isvoid(c(run_result(), ex=False)))
+    check('M', 'a probe crash is VOID and a complete failing probe run is negative in Q-EXACT alone',
+          isvoid(c(run_result(), pr=(ver, 1, '', 'Traceback'))) and
+          c(run_result(), pr=(ver, 0, out.replace('PASS D9', 'FAIL D9', 1), '')) == [P_[0], P_[1], N_[2]])
+    # the in-job gate (controls.py axioms), over the module's `lake env lean` output
     std = '[propext, Classical.choice, Quot.sound]'
     blk = lambda n, ax=std: "'%s%s' depends on axioms: %s" % (NS, n, ax)
     wrapped = lambda n: "'%s%s' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]" % (NS, n)
-    sha_e = 'e' * 40
-    head = '2026-10-10T23:54:47.9382674Z '
-    gate = 'release gate\n  PASS  lean-axioms  ok\n  PASS  lean-manuscript  ok\nrelease gate: PASS\n'
-    pre = 'ℹ [3652/3653] Replayed OIBridge\nBuild completed successfully (3653 jobs).\n' + gate + \
-        '##[group]Run lake env python3 -I -B ../programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/checks/run_checks.py run\nA3 ok\n' + \
-        '##[group]Run set -euo pipefail\n'
-
-    def mk(reports=None, mark=None, end=STEP_OK, extra='', before=pre, after='Post job cleanup.', rc='0'):
-        reports = [blk(n) if n != 'conv_core' else wrapped(n) for n in PRINTS] if reports is None else reports
-        body = ['ktrans_sep2 axioms: step at %s' % (mark or sha_e)] + reports + \
-            (['ktrans_sep2 axioms: lean exited %s' % rc] if rc is not None else []) + ['PASS axioms: no other report'] + \
-            ([end] if end else []) + ([extra] if extra else []) + [after]
-        return '\n'.join(head + l for l in (before + '\n'.join(body)).split('\n'))
-    log_ok = mk()
-    good = set(KEY)
-    P_, N_ = [TOK_NONELL[0], TOK_CEX[0], TOK_EXACT[0]], [TOK_NONELL[1], TOK_CEX[1], TOK_EXACT[1]]
-    c = lambda lg, ex=True, pr=prun, meta=None, gk=good, sha=sha_e: cells(mod, gk, lg, ex, pr, meta, sha)
     sorry = lambda n: blk(n, '[propext, sorryAx, Classical.choice, Quot.sound]')
-    with_sorry = [blk(n) if n != 'omega4_strictConvex' else sorry(n) for n in PRINTS]
-    failed = 'ktrans_sep2 axioms: FAILED (1 check(s))'
-    check('M', 'a complete log whose final step reports all fifteen within the three axioms, after a passing gate, '
-               'gives the three positive tokens, a wrapped report read whole', c(log_ok) == P_)
-    check('M', 'the cells do not depend on the build output: a log with the module built and reported there, or '
-               'with neither, reads the same from the final step',
-          c(log_ok.replace(head + 'ℹ [3652/3653] Replayed OIBridge', head + '✔ [3650/3653] Built OIBridge.TransSeparation'))
-          == P_)
-    check('M', 'the window facts place the release gate before the final step, its lean exit line (status 0) after its '
-               'last report and its OK line after that',
-          (lambda w: w['gate_end'] < w['axioms_step']['marker_line'] < min(w['axioms_step']['report_lines'].values())
-           and max(w['axioms_step']['report_lines'].values()) < w['axioms_step']['exit_lines'][0]
-           < w['axioms_step']['ok_lines'][0] and len(w['axioms_step']['exit_lines']) == 1
-           and w['axioms_step']['exit'] == 0)
-          (window_facts(log_facts(log_ok, mod), step_facts(log_ok))))
-    check('M', 'an empty log is VOID', isvoid(c('')))
-    check('M', 'negative control at E: a complete, green, gate-passing log with no final step (the shape of a run '
-               'whose workflow lacks the step, or whose tree lacks the module, as F\'s did) is VOID, never a token',
-          isvoid(c(log_ok.split(head + 'ktrans_sep2 axioms: step at')[0] + head + 'Post job cleanup.')))
-    check('M', 'a final step run at another commit, or two markers, is VOID',
-          isvoid(c(mk(mark='f' * 40))) and isvoid(c(log_ok, sha='f' * 40)) and isvoid(c(log_ok, sha=None))
-          and isvoid(c(log_ok.replace(head + 'Post job cleanup.', head + 'ktrans_sep2 axioms: step at %s\n' % sha_e
-                                      + head + 'Post job cleanup.'))))
-    check('M', 'a final step cut before its gate line, or with its OK line before its last report, or with both an '
-               'OK and a FAILED line, is VOID',
-          isvoid(c(mk(end=None)))
-          and isvoid(c(mk(reports=[blk(n) for n in PRINTS[:-1]] + [STEP_OK, blk(PRINTS[-1])], end=None)))
-          and isvoid(c(mk(extra=failed))))
-    check('M', 'the block ends at the next step header: lines a later step prints after it are not read',
-          c(log_ok.replace(head + 'Post job cleanup.', head + '##[group]Run another step\n' + head + blk(PRINTS[0]) + '\n'
-                           + head + failed + '\n' + head + 'Post job cleanup.')) == P_)
-    check('M', 'a missing, duplicated, extra or reordered report is VOID',
-          isvoid(c(mk(reports=[blk(n) for n in PRINTS[:-1]])))
-          and isvoid(c(mk(reports=[blk(n) for n in PRINTS] + [blk(PRINTS[0])])))
-          and isvoid(c(mk(reports=[blk(n) for n in PRINTS] + [blk('extra_t')])))
-          and isvoid(c(mk(reports=[blk(n) for n in PRINTS[1:]] + [blk(PRINTS[0])]))))
-    check('M', 'a report that does not parse (a wrapped axiom list cut short) is VOID',
-          isvoid(c(mk(reports=[blk(n) for n in PRINTS[:-1]] + ["'%s%s' depends on axioms: [propext," % (NS, PRINTS[-1])]))))
-    check('M', 'a log without the release gate\'s verdict line, or with the gate after the final step, is VOID',
-          isvoid(c(log_ok.replace('release gate: PASS', 'release gate (no verdict)')))
-          and isvoid(c(mk(before='Build completed successfully (3653 jobs).\n', after=gate + 'Post job cleanup.'))))
-    check('M', 'a gate failing at a step outside the module, with clean reports, is VOID',
-          isvoid(c(log_ok.replace('  PASS  lean-manuscript', '  FAIL  legacy-records')
-                   .replace('release gate: PASS', 'release gate: FAILED -> legacy-records'))))
-    check('M', 'a build that did not complete, without module errors, is VOID',
-          isvoid(c(log_ok.replace('Build completed successfully (3653 jobs).', 'Build halted'))))
-    check('M', 'sorryAx in the final step with its OK line (inconsistent evidence) is VOID, and so is an error line '
-               'in a step that printed OK',
-          isvoid(c(mk(reports=with_sorry))) and isvoid(c(mk(extra='OIBridge/TransSeparation.lean:157:16: error: x'))))
-    sci = mk(reports=with_sorry, end=failed).replace('  PASS  lean-axioms', '  FAIL  lean-axioms') \
-        .replace('release gate: PASS', 'release gate: FAILED -> lean-axioms')
-    check('M', 'sorryAx in a final-step report, the step FAILED and the gate failing at lean-axioms alone, is negative '
-               'in both kernel cells', c(sci) == [N_[0], N_[1], P_[2]])
-    brk = mk(reports=['OIBridge/TransSeparation.lean:157:16: error: Type mismatch'] + with_sorry, end=failed, rc='1',
-             before='error: build failed\n##[group]Run set -euo pipefail\n')
-    check('M', 'sorryAx with a module error in the final step and no gate is negative in both kernel cells; the same '
-               'with the step printing OK is VOID',
-          c(brk) == [N_[0], N_[1], P_[2]] and isvoid(c(brk.replace(failed, STEP_OK))))
-    check('M', 'an OK line beside a non-zero lean exit (lean crashing after its output, an uncaught exception, an '
-               'error line without a position) is VOID, and so is an OK line with no exit line, two exit lines, an '
-               'exit line before the last report or after the gate line, or an exit line that is not whole',
-          all(isvoid(c(mk(rc=v))) for v in ('1', '139', '2'))
-          and isvoid(c(mk(extra='uncaught exception: x', rc='1'))) and isvoid(c(mk(extra='error: x', rc='1')))
-          and isvoid(c(mk(rc=None))) and isvoid(c(mk(extra='ktrans_sep2 axioms: lean exited 0')))
-          and 'lean exit line' in c(mk(extra='ktrans_sep2 axioms: lean exited 0'))[1]
-          and step_facts(mk(extra='ktrans_sep2 axioms: lean exited 0'))['exit'] is None
-          and step_facts(mk(rc='139'))['exit'] == 139
-          and isvoid(c(mk(reports=[blk(n) for n in PRINTS[:-1]] + ['ktrans_sep2 axioms: lean exited 0', blk(PRINTS[-1])],
-                          rc=None)))
-          and isvoid(c(mk(rc=None, extra='ktrans_sep2 axioms: lean exited 0')))
-          and isvoid(c(mk(rc='0 (and more)'))) and isvoid(c(mk(rc='')))
-          and isvoid(c(log_ok.replace(head + 'ktrans_sep2 axioms: lean exited 0', head + '  ktrans_sep2 axioms: lean exited 0')))
-          and isvoid(c(log_ok.replace(head + 'ktrans_sep2 axioms: lean exited 0', head + 'x ktrans_sep2 axioms: lean exited 0')))
-          and c(mk(rc='0')) == P_)
-    check('M', 'a negative reading does not depend on lean\'s exit status: a module error with lean exiting 1, or a '
-               'non-standard axiom with lean exiting 0, reads negative; the same with no exit line is VOID',
-          c(brk) == [N_[0], N_[1], P_[2]] and c(sci) == [N_[0], N_[1], P_[2]]
-          and isvoid(c(brk.replace(head + 'ktrans_sep2 axioms: lean exited 1\n', ''))))
-    check('M', 'a failed final step with every report standard and no module error is VOID, and so is one with a '
-               'module error but every report standard',
-          isvoid(c(mk(end=failed)))
-          and isvoid(c(mk(reports=['OIBridge/TransSeparation.lean:157:16: error: x'] + [blk(n) for n in PRINTS],
-                          end=failed, before='error: build failed\n##[group]Run set -euo pipefail\n'))))
-    other_err = mk(reports=['OIBridge/DenseOrbit.lean:1:1: error: x'] + with_sorry, end=failed,
-                   before='error: build failed\n##[group]Run set -euo pipefail\n')
-    two_fail = sci.replace('  PASS  lean-manuscript', '  FAIL  lean-manuscript')
-    check('M', 'the negative route needs a module error in the block (an error in another file is VOID) or the gate '
-               'failing at lean-axioms alone (failing at another step too is VOID)',
-          isvoid(c(other_err)) and isvoid(c(two_fail)))
-    check('M', 'each forbidden token, an error line in another file, or a report outside the three axioms that '
-               'names no forbidden token, beside an OK line, is VOID; a report of no axioms is standard',
-          all(isvoid(c(mk(extra='uses %s' % t))) for t in ('sorryAx', 'Lean.ofReduceBool', 'Lean.trustCompiler'))
-          and isvoid(c(mk(extra='OIBridge/DenseOrbit.lean:1:1: error: x')))
-          and isvoid(c(mk(reports=[blk(n) if n != 'omega4_convex' else blk(n, '[propext, Foo.ax]') for n in PRINTS])))
-          and c(mk(reports=[blk(n) if n != 'conv_core' else "'%s%s' does not depend on any axioms" % (NS, n)
-                            for n in PRINTS])) == P_)
-    check('M', 'a report head that does not parse beside the fifteen reports is VOID; the build-success line after the '
-               'gate is VOID',
-          isvoid(c(mk(reports=[blk(n) for n in PRINTS] + ["'%sconv_core' reports something else" % NS])))
-          and isvoid(c(log_ok.replace(head + 'Build completed successfully (3653 jobs).\n', '')
-                       .replace(head + 'release gate: PASS', head + 'release gate: PASS\n' + head
-                                + 'Build completed successfully (3653 jobs).'))))
-    check('M', 'the marker counts only as a whole line, and the block ends at the job\'s cleanup: an indented or '
-               'extended marker is no marker, and a gate line after the cleanup is not read',
-          isvoid(c(mk(mark=sha_e + ' (and more)')))
-          and isvoid(c(log_ok.replace(head + 'ktrans_sep2 axioms: step at', head + '  ktrans_sep2 axioms: step at')))
-          and isvoid(c(mk(end=None, after='Post job cleanup.\n' + STEP_OK)))
-          and c(mk(after='Post job cleanup.\n' + failed)) == P_)
-    check('M', 'a failed load-bearing statement reads the cells that rest on it negative',
-          c(log_ok, gk=good - {'kinfTrans_separation'}) == [P_[0], N_[1], P_[2]]
-          and c(log_ok, gk=good - {'not_affine_eball_omega4'}) == [N_[0], N_[1], P_[2]])
-    check('M', 'a failed exact control is VOID', isvoid(c(log_ok, ex=False)))
-    check('M', 'a probe crash is VOID and a complete failing probe run is negative in Q-EXACT alone',
-          isvoid(c(log_ok, pr=(ver, 1, '', 'Traceback'))) and
-          c(log_ok, pr=(ver, 0, out.replace('PASS D9', 'FAIL D9', 1), '')) == [P_[0], P_[1], N_[2]])
-    nl = len(log_ok.split('\n'))
-    check('M', 'log metadata: a full-length window passes; a count that does not match the text, or a served count '
-               'above the original, is VOID',
-          c(log_ok, meta={'original_lines': nl, 'served_lines': nl}) == P_
-          and c(log_ok, meta={'original_lines': nl + 100, 'served_lines': nl}) == P_
-          and isvoid(c(log_ok, meta={'original_lines': nl, 'served_lines': nl - 1}))
-          and isvoid(c(log_ok, meta={'original_lines': nl - 1, 'served_lines': nl})) and isvoid(c(log_ok, meta={})))
-    with tempfile.TemporaryDirectory() as td:
-        lp = os.path.join(td, 'log')
-        open(lp, 'wb').write(b'\xef\xbb\xbf' + log_ok.replace('\n', '\r\n', 1).encode('utf-8'))
-        rl = read_log(lp)
-    check('M', 'the verdict reads LOG as bytes: a leading byte-order mark is dropped and a carriage return is kept, '
-               'not translated',
-          rl.startswith(head) and '\r\n' in rl and rl.count('\n') == log_ok.count('\n') and c(rl) == P_)
-    # the final step's own gate (controls.py axioms), over the module's `lake env lean` output
     lean_out = '\n'.join(blk(n) if n != 'conv_core' else wrapped(n) for n in PRINTS) + '\n'
     ag = lambda t: all(ok for _, ok, _ in axioms_gate(t))
-    check('M', 'the final step\'s gate passes the fifteen standard reports (one wrapped) and fails an empty output, a '
-               'missing, duplicated, extra or reordered report, a non-standard axiom, a report that does not parse, an '
-               'error line and a forbidden token',
+    check('M', 'the gate passes the fifteen standard reports (one wrapped) and fails an empty output, a missing, '
+               'duplicated, extra or reordered report, a non-standard axiom, a report that does not parse, an error '
+               'line and a forbidden token',
           ag(lean_out) and not ag('') and not ag('\n'.join(blk(n) for n in PRINTS[1:]))
           and not ag(lean_out + blk(PRINTS[0])) and not ag(lean_out + blk('extra_t'))
           and not ag('\n'.join(blk(n) for n in PRINTS[1:] + PRINTS[:1]))
@@ -2515,24 +2334,65 @@ def self_test():
           and not ag(lean_out + 'OIBridge/TransSeparation.lean:1:1: error: x\n')
           and not ag(lean_out + 'uses Lean.ofReduceBool\n'))
     fails = lambda t: sorted(lbl for lbl, ok, _ in axioms_gate(t) if not ok)
-    check('M', 'the final step\'s gate fails each clause alone: a duplicated report (the report and the order), an '
-               'extra report (other report), a report cut short (parse), an empty output',
+    check('M', 'the gate\'s clauses are each killed by a case: a duplicated report (the report and the order), an '
+               'extra report (other report and the order), a report cut short (parse), an empty output, a non-standard '
+               'axiom (that report)',
           fails(lean_out + blk(PRINTS[-1])) == sorted([PRINTS[-1], 'the reports in print order'])
           and fails(lean_out + blk('extra_t')) == sorted(['no other report', 'the reports in print order'])
           and fails(lean_out + "'%sconv_core' depends on axioms: [propext," % NS) == ['every report parses']
           and fails('') == ['the output is not empty']
           and fails(lean_out.replace(blk('omega4_convex'), blk('omega4_convex', '[propext, Foo.ax]'))) == ['omega4_convex'])
-    rcs = []
+    nonstd = lean_out.replace(blk('omega4_convex'), sorry('omega4_convex'))
+    err = 'OIBridge/TransSeparation.lean:157:16: error: Type mismatch\n'
+    check('M', 'the reports are classed standard when the gate passes; complete-nonstandard when the fifteen are each '
+               'reported once, in order, parsed, with no other report and one outside the three axioms (sorryAx, '
+               'another axiom or a trust token in its list, with or without a module error line); incomplete otherwise',
+          axioms_class(lean_out) == 'standard'
+          and axioms_class(nonstd) == 'complete-nonstandard' and axioms_class(err + nonstd) == 'complete-nonstandard'
+          and axioms_class(lean_out.replace(blk('omega4_convex'), blk('omega4_convex', '[propext, Foo.ax]')))
+          == 'complete-nonstandard'
+          and axioms_class(lean_out.replace(wrapped('conv_core'), blk('conv_core', '[propext, Lean.ofReduceBool]')))
+          == 'complete-nonstandard'
+          and all(axioms_class(t) == 'incomplete' for t in (
+              '', '\n'.join(blk(n) for n in PRINTS[1:]), lean_out + blk(PRINTS[0]), lean_out + blk('extra_t'),
+              '\n'.join(blk(n) for n in PRINTS[1:] + PRINTS[:1]),
+              lean_out.replace(blk('omega4_convex'), "'%somega4_convex' depends on axioms: [propext," % NS),
+              lean_out + err, lean_out + 'uses Lean.ofReduceBool\n',
+              '\n'.join(blk(n) if n != 'omega4_convex' else sorry(n) for n in PRINTS[1:]),
+              nonstd + blk(PRINTS[0]),
+              '\n'.join(blk(n) if n != 'omega4_convex' else sorry(n) for n in PRINTS[1:] + PRINTS[:1]),
+              nonstd + "'%sconv_core' reports something else\n" % NS)))
+    outs = []
     with tempfile.TemporaryDirectory() as td:
-        for name, text in (('ok', lean_out), ('bad', lean_out.replace(blk('omega4_convex'), sorry('omega4_convex')))):
-            fp = os.path.join(td, name)
-            open(fp, 'w').write(text)
-            capture(lambda: rcs.append(main(['axioms', fp])))
-            rcs.append(LAST_OUT[0].rstrip('\n').split('\n')[-1])
-    check('M', 'the axioms command exits 0 and ends with the OK line on the fifteen standard reports, and exits 1 and '
-               'ends with the FAILED line on a non-standard one',
-          rcs[0] == 0 and rcs[1] == STEP_OK and rcs[2] == 1 and STEP_FAILED.match(rcs[3]) is not None)
-    check('M', 'the final step\'s gate labels name no forbidden token and no report, since they land in the log',
+        ghout = os.path.join(td, 'github_output')
+        old = os.environ.get('GITHUB_OUTPUT')
+        try:
+            for name, text in (('ok', lean_out), ('neg', err + nonstd), ('cut', lean_out[:200])):
+                fp = os.path.join(td, name)
+                open(fp, 'w').write(text)
+                open(ghout, 'w').close()
+                os.environ['GITHUB_OUTPUT'] = ghout
+                rc = []
+                capture(lambda: rc.append(main(['axioms', fp])))
+                outs.append((rc[0], LAST_OUT[0].rstrip('\n').split('\n')[-1], open(ghout).read()))
+            os.environ.pop('GITHUB_OUTPUT')
+            open(ghout, 'w').close()
+            rc = []
+            capture(lambda: rc.append(main(['axioms', os.path.join(td, 'ok')])))
+            outs.append((rc[0], open(ghout).read()))
+        finally:
+            if old is None:
+                os.environ.pop('GITHUB_OUTPUT', None)
+            else:
+                os.environ['GITHUB_OUTPUT'] = old
+    check('M', 'the axioms command exits 0, ends with the OK line and writes reports=standard on the fifteen standard '
+               'reports; exits 1 and writes reports=complete-nonstandard on complete reports with sorryAx; exits 1 and '
+               'writes reports=incomplete on a cut output; without GITHUB_OUTPUT it writes nothing',
+          outs[0] == (0, STEP_OK, 'reports=standard\n')
+          and outs[1][0] == 1 and outs[1][1].startswith('ktrans_sep2 axioms: FAILED')
+          and outs[1][2] == 'reports=complete-nonstandard\n'
+          and outs[2][0] == 1 and outs[2][2] == 'reports=incomplete\n' and outs[3] == (0, ''))
+    check('M', 'the gate\'s labels name no forbidden token and no report',
           not any(b in label + detail for label, _, detail in axioms_gate(lean_out + 'sorryAx\n') for b in BAD_TOKENS)
           and not any(BLOCK_HEAD.search(label) for label, _, _ in axioms_gate(lean_out)))
     # the verdict gate (no tokens over a failed or missing control)
@@ -2572,9 +2432,9 @@ def self_test():
           and gc != d_cen)
     gw = workflow_want(d_wf)
     check('M', 'workflow: the six splices apply once each; without the aggregate test line, the shard or the final '
-               'step it differs',
+               'steps it differs',
           gw is not None and gw.replace('          test "${KTRANSSEP2_RESULT}" = success\n', '') != gw
-          and gw.replace(SHARD, '') != gw and gw.replace(FINAL_STEP, '') != gw and gw.count('probes_ktranssep2') == 3
+          and gw.replace(SHARD, '') != gw and gw.replace(FINAL_STEPS, '') != gw and gw.count('probes_ktranssep2') == 3
           and workflow_want(gw) is None)
     check('M', 'KTOKEN-MAXCONE-1\'s live self-test still holds on D\'s files with the frozen edits (each of its splices '
                'once, its root line, its census family last), as it does on D; the edits of the first draft broke it',
@@ -2583,29 +2443,37 @@ def self_test():
                                               'probes_ktokenmaxcone1, probes_ktranssep2, probes_a42_witness'), gi, gc)
           and not ktoken_live_ok(gw, gi, json.dumps(dict(json.loads(gc), families=json.loads(gc)['families'][:-2] + [
               json.loads(gc)['families'][-1], json.loads(gc)['families'][-2]]))))
-    tail = gw.split(FINAL_STEP, 1)[1].split('\n  # Probe shards run independently', 1)[0] if gw else ''
-    check('M', 'workflow: the final step is the bridge job\'s last step, after KTOKEN-MAXCONE-1\'s check A3, runs when '
-               'an earlier step failed, prints the marker the verdict reads and runs this file\'s axioms gate',
-          gw is not None and gw.count(FINAL_STEP) == 1 and gw.index(A3_RUN) < gw.index(FINAL_STEP)
-          and '      - name:' not in tail and gw.index(FINAL_STEP) < gw.index('\n  probes_core_a:')
-          and "if: ${{ !cancelled() }}" in FINAL_STEP
-          and 'echo "ktrans_sep2 axioms: step at $(git rev-parse HEAD)"' in FINAL_STEP
-          and (CONTROLS[len('verification/'):] + ' axioms') in FINAL_STEP)
-    body = FINAL_STEP.split('run: |\n', 1)[1].split('\n')
-    cmds = [l.strip() for l in body if l.strip()]
-    check('M', 'workflow: the final step elaborates the module itself, keeps lean\'s exit status, prints the output, '
-               'runs the gate as a plain command and exits with lean\'s status; nothing in it continues on error',
-          'lake env lean OIBridge/TransSeparation.lean > "$log" 2>&1 || rc=$?' in cmds and 'cat "$log"' in cmds
-          and cmds[-1] == 'exit "$rc"' and cmds[-2].endswith('controls.py axioms "$log"')
-          and '||' not in cmds[-2] and 'continue-on-error' not in FINAL_STEP
-          and cmds.index('cat "$log"') < len(cmds) - 2)
-    check('M', 'workflow: the final step sets -e itself rather than relying on the runner\'s default, initialises the '
-               'status before lean runs, and prints lean\'s status after its output and before the gate',
-          cmds[0] == 'set -euo pipefail' and cmds.count('rc=0') == 1
-          and cmds.index('rc=0') < cmds.index('lake env lean OIBridge/TransSeparation.lean > "$log" 2>&1 || rc=$?')
-          and cmds.count('echo "ktrans_sep2 axioms: lean exited ${rc}"') == 1
-          and cmds.index('cat "$log"') < cmds.index('echo "ktrans_sep2 axioms: lean exited ${rc}"') == len(cmds) - 3
-          and sum(bool(re.match(r'set\b', x)) for x in cmds) == 1 and 'shell:' not in FINAL_STEP)
+    tail = gw.split(FINAL_STEPS, 1)[1].split('\n  # Probe shards run independently', 1)[0] if gw else ''
+    check('M', 'workflow: the three KTRANS-SEP-2 steps are the bridge job\'s last steps, directly after '
+               'KTOKEN-MAXCONE-1\'s check A3',
+          gw is not None and gw.count(FINAL_STEPS) == 1 and gw.index(A3_RUN) + len(A3_RUN) == gw.index(FINAL_STEPS)
+          and '      - name:' not in tail and gw.index(FINAL_STEPS) < gw.index('\n  probes_core_a:'))
+    blocks = ['      - name: ' + b for b in FINAL_STEPS.split('      - name: ')[1:]]
+    head_line = lambda b: b.split('\n', 1)[0][len('      - name: '):]
+    field = lambda b, k: [l.strip()[len(k) + 2:] for l in b.split('\n') if l.strip().startswith(k + ': ')]
+    lean_b, ax_b, mk_b = (blocks + [''] * 3)[:3]
+    ax_cmds = [l.strip() for l in ax_b.split('run: |\n', 1)[-1].split('\n') if l.strip()]
+    gate_cmd = ('python3 -I -B ../programmes/oi-qm/reconstruction/round-ktrans-sep-2-omega4/controls.py axioms '
+                '"$RUNNER_TEMP/ktrans-sep2-axioms.log"')
+    check('M', 'workflow: the steps are named as the verdict reads them, in order; L and A run whenever the job was not '
+               'cancelled, in the bridge project, with A under the id M\'s condition reads; M runs exactly when A '
+               'recorded the class complete-nonstandard, which is a class the gate writes under the output name it '
+               'writes',
+          len(blocks) == 3 and [head_line(b) for b in blocks] == list(ROUND_STEPS)
+          and field(lean_b, 'if') == field(ax_b, 'if') == ['${{ !cancelled() }}']
+          and field(lean_b, 'working-directory') == field(ax_b, 'working-directory') == ['verification/lean-mathlib']
+          and field(ax_b, 'id') == ['ktrans_sep2_axioms']
+          and field(mk_b, 'if') == ["${{ !cancelled() && steps.ktrans_sep2_axioms.outputs.reports == "
+                                    "'complete-nonstandard' }}"]
+          and 'complete-nonstandard' in CLASSES)
+    check('M', 'workflow: L only elaborates the module into the file A reads, with nothing that masks its status; A sets '
+               '-e itself (one set line), prints the file, then runs this file\'s gate on it as its last command; '
+               'nothing continues on error and no shell is overridden',
+          field(lean_b, 'run') == ['lake env lean OIBridge/TransSeparation.lean > "$RUNNER_TEMP/ktrans-sep2-axioms.log" 2>&1']
+          and ax_cmds == ['set -euo pipefail', 'cat "$RUNNER_TEMP/ktrans-sep2-axioms.log"', gate_cmd]
+          and (CONTROLS[len('verification/'):] + ' axioms') in gate_cmd
+          and 'continue-on-error' not in FINAL_STEPS and 'shell:' not in FINAL_STEPS and '||' not in FINAL_STEPS
+          and sum(bool(re.match(r'set\b', x)) for x in ax_cmds) == 1 and len(field(mk_b, 'run')) == 1)
     # governed paths, record, pins, chain, F's run
     rows = [('A', p) for p in (MOD, PROBE)] + [('M', p) for p in (IMPORTS, CENSUS, WORKFLOW)] + \
         [('A', PREREG), ('A', CONTROLS)]
@@ -2656,91 +2524,37 @@ def self_test():
           and not evidence_ok(json.dumps(dict(ev, source={'kind': 'x'})))
           and not evidence_ok(json.dumps(dict(ev, run={'created_at': '2026-10-18T00:00:00Z'})))
           and not evidence_ok(json.dumps(dict(ev, run={'duration': 3}))) and not evidence_ok('not json'))
-    rl = {n: 4900 + i for i, n in enumerate(PRINTS)}
-    run_ev = dict(ev, run={'head_sha': f_, 'head_branch': 'b', 'id': 1, 'event': 'workflow_dispatch',
-                           'conclusion': 'success'},
-                  jobs=[{'name': 'a', 'conclusion': 'success'}],
-                  source={'served_sha256': 'a' * 64, 'original_lines': 9000, 'served_lines': 5000},
-                  observed={'transseparation_window': {'served_lines': 5000, 'built_line': None, 'status_word': None,
-                                                        'cache_hit': True, 'report_lines': {}, 'gate_start': 2000,
-                                                        'gate_end': 2030},
-                            'axioms_step': {'marker_line': 4899, 'commit': f_, 'report_lines': rl,
-                                            'ok_lines': [4920], 'failed_lines': [], 'exit_lines': [4916],
-                                            'exit': 0}},
-                  expected={'build_success': True, 'gate': {'verdict': 'PASS'},
-                            'modules': {'OIBridge/TransSeparation.lean': {
-                                'status': 'complete', 'reports': [{'name': NS + n, 'axioms': sorted(ALLOWED_AXIOMS)}
-                                                                  for n in PRINTS]}}})
-
-    def rw(**kw):
-        d = json.loads(json.dumps(run_ev))
-        for path, v in kw.items():
-            x = d
-            ks = path.split('__')
-            for k in ks[:-1]:
-                x = x[k]
-            x[ks[-1]] = v
-        return json.dumps(d)
-    ax_ = 'observed__axioms_step__'
-    check('M', 'a run result naming its head, green, with the gate and then the final step\'s block for it inside the '
-               'window passes; another head, a push event, a failed run conclusion, a failed job, no jobs, the step run '
-               'at another commit, a report past the window, a missing report, the block before the gate, the OK line '
-               'before a report or missing or doubled, a FAILED line, a non-zero, missing, doubled or misplaced lean '
-               'exit line, a non-standard axiom and a failed gate fail',
-          run_window_ok(json.dumps(run_ev), f_) and not run_window_ok(json.dumps(run_ev), e_)
-          and not run_window_ok(rw(run__event='push'), f_) and not run_window_ok(rw(run__conclusion='failure'), f_)
-          and not run_window_ok(rw(jobs=[{'name': 'a', 'conclusion': 'failure'}]), f_)
-          and not run_window_ok(rw(jobs=[]), f_)
-          and not run_window_ok(rw(**{ax_ + 'commit': e_}), f_)
-          and not run_window_ok(rw(**{ax_ + 'report_lines': dict(rl, conv_core=5001)}), f_)
-          and not run_window_ok(rw(**{ax_ + 'report_lines': {k: v for k, v in rl.items() if k != 'conv_core'}}), f_)
-          and not run_window_ok(rw(**{ax_ + 'marker_line': 1999}), f_)
-          and not run_window_ok(rw(**{ax_ + 'ok_lines': [4910]}), f_) and not run_window_ok(rw(**{ax_ + 'ok_lines': []}), f_)
-          and not run_window_ok(rw(**{ax_ + 'ok_lines': [4920, 4921]}), f_)
-          and not run_window_ok(rw(**{ax_ + 'failed_lines': [4921]}), f_)
-          and not run_window_ok(rw(**{ax_ + 'exit': 1}), f_) and not run_window_ok(rw(**{ax_ + 'exit': None}), f_)
-          and not run_window_ok(rw(**{ax_ + 'exit_lines': []}), f_)
-          and not run_window_ok(rw(**{ax_ + 'exit_lines': [4916, 4917]}), f_)
-          and not run_window_ok(rw(**{ax_ + 'exit_lines': [4921]}), f_)
-          and not run_window_ok(rw(**{ax_ + 'exit_lines': [4910]}), f_)
-          and not run_window_ok(rw(**{ax_ + 'exit_lines': [4916.0]}), f_)
-          and not run_window_ok(rw(**{ax_ + 'exit': False}), f_) and not run_window_ok(rw(**{ax_ + 'exit': 0.0}), f_)
-          and not run_window_ok(rw(expected__modules={'OIBridge/TransSeparation.lean': {
-              'status': 'complete', 'reports': [{'name': NS + n, 'axioms': ['sorryAx']} for n in PRINTS]}}), f_)
-          and not run_window_ok(rw(expected__gate={'verdict': 'FAILED -> lean-axioms'}), f_)
-          and not run_window_ok(rw(expected__gate={'verdict': 'PASSING'}), f_)
-          and not run_window_ok('not json', f_))
-    check('M', 'a replay run result passes only when its window shows the primary-key cache hit and no `Built` line '
-               'for the module; two run results are other runs only with the same head and branch and different run '
-               'ids; the OK line past the window fails',
-          run_window_ok(json.dumps(run_ev), f_, replayed=True)
-          and not run_window_ok(rw(observed__transseparation_window__cache_hit=False), f_, replayed=True)
-          and run_window_ok(rw(observed__transseparation_window__cache_hit=False), f_)
-          and not run_window_ok(rw(**{ax_ + 'ok_lines': [5001]}), f_)
-          and not other_run(rw(run__id=2, run__head_sha=e_), json.dumps(run_ev))
-          and run_window_ok(rw(observed__transseparation_window__status_word='Replayed'), f_, replayed=True)
-          and not run_window_ok(rw(observed__transseparation_window__status_word='Built'), f_, replayed=True)
-          and run_window_ok(rw(observed__transseparation_window__status_word='Built'), f_)
-          and other_run(rw(run__id=2), json.dumps(run_ev)) and not other_run(json.dumps(run_ev), json.dumps(run_ev))
-          and not other_run(rw(run__id=2, run__head_branch='c'), json.dumps(run_ev)))
-    check('M', 'the gate verdict is PASS alone or with a note, never a longer word or another status',
-          gate_passed('PASS') and gate_passed('PASS  (note: --label bNNN not given)') and not gate_passed('PASSED')
-          and not gate_passed('PASSING (note)') and not gate_passed('FAILED -> x') and not gate_passed(None))
-    # F's run shows D's workflow and gate passing on D plus the control plane: the corrected rule on KTRANS-SEP-1's
-    # real F run (module absent), and the
-    # negative controls. The fixture is that run's derived result, embedded verbatim (sha256 KTSEP1_FRUN_SHA256).
-    real_f = KTSEP1_FRUN
+    rr = lambda **kw: json.dumps(dict(run_result(head=f_), **kw))
+    rrun = lambda **kw: json.dumps(dict(run_result(head=f_), run=dict(run_result(head=f_)['run'], **kw)))
+    rbr = lambda **kw: json.dumps(dict(run_result(head=f_), bridge=dict(run_result(head=f_)['bridge'], **kw)))
+    check('M', 'the predicted tree\'s run rule passes a structured result naming its head, a green workflow_dispatch run '
+               'of verify.yml whose three steps read positive; it fails another head, another workflow, a push event, '
+               'a failed run conclusion, no run id, attempt 0, a failed job, no jobs, a failed bridge job, no bridge job '
+               'id, negative or VOID steps, a timestamp field, and non-JSON',
+          run_ok(rr(), f_) and not run_ok(rr(), e_) and not run_ok(rrun(workflow='other.yml'), f_)
+          and not run_ok(rrun(event='push'), f_) and not run_ok(rrun(conclusion='failure'), f_)
+          and not run_ok(rrun(id=None), f_) and not run_ok(rrun(attempt=0), f_)
+          and not run_ok(rr(jobs=[{'name': 'Mathlib bridge', 'conclusion': 'failure'}]), f_)
+          and not run_ok(rr(jobs=[]), f_) and not run_ok(rbr(conclusion='failure'), f_)
+          and not run_ok(rbr(job_id=None), f_)
+          and not run_ok(json.dumps(run_result(neg, head=f_)), f_)
+          and not run_ok(json.dumps(run_result({STEP_AXIOMS: 'failure'}, head=f_)), f_)
+          and not run_ok(rrun(created_at='2026-10-23T00:00:00Z'), f_) and not run_ok('not json', f_))
+    # F's run shows D's workflow passing on D plus the control plane: the rule on KTRANS-SEP-1's real F run (its tree
+    # without the module) against its predicted tree's run, both derived from the runs and jobs API answers and
+    # embedded verbatim, and the negative controls.
+    real_f, ref1 = KTSEP1_FRUN, KTSEP1_PTR
     real_head = json.loads(real_f)['run']['head_sha']
-    ref1 = cat_blob(KTSEP1_PTR_BLOB)
-    check('M', 'the real F-run fixture is KTRANS-SEP-1\'s derived result, byte for byte, and its reference is '
-               'KTRANS-SEP-1\'s predicted tree\'s run result, read by blob id',
-          hashlib.sha256(real_f.encode()).hexdigest() == KTSEP1_FRUN_SHA256 and ref1 is not None
-          and hashlib.sha256(ref1.encode()).hexdigest() == KTSEP1_PTR_SHA256)
+    check('M', 'the real fixtures are KTRANS-SEP-1\'s F run and predicted-tree run, derived by derive-run, byte for '
+               'byte',
+          hashlib.sha256(real_f.encode()).hexdigest() == KTSEP1_FRUN_SHA256
+          and hashlib.sha256(ref1.encode()).hexdigest() == KTSEP1_PTR_SHA256
+          and json.loads(real_f)['run']['id'] == 39940836089 and json.loads(ref1)['run']['id'] == 39173554213)
     fok = lambda data, head, ref=ref1: frun_ok(data, head, ref, KTSEP1_SHARD_JOB)
-    check('M', 'F\'s run rule accepts the real F run of KTRANS-SEP-1 (identity, every job success, exactly the '
-               'predicted run\'s jobs less its shard, gate PASS on exactly its steps) and its log is consistent with '
-               'no module; the halted round\'s rule, which demanded the module window of F\'s run, rejects it',
-          fok(real_f, real_head) and frun_log_consistent(real_f) and not run_window_ok(real_f, real_head))
+    check('M', 'F\'s run rule accepts the real F run of KTRANS-SEP-1 (identity, every job and bridge step success, '
+               'exactly the predicted run\'s jobs less its shard and exactly its bridge steps) and finds it consistent '
+               'with no module; the predicted tree\'s run rule, which requires the round\'s steps, rejects it',
+          fok(real_f, real_head) and frun_consistent(real_f, KTSEP1_SHARD_JOB) and not run_ok(real_f, real_head))
     fr = json.loads(real_f)
 
     def fw(**kw):
@@ -2752,45 +2566,47 @@ def self_test():
                 x = x[k]
             x[ks[-1]] = v
         return json.dumps(d)
-    steps = fr['expected']['gate']['steps']
+    bsteps = fr['bridge']['steps']
     ref_j = json.loads(ref1)
-    check('M', 'F\'s run rule rejects a failed or misidentified run: another head, another workflow, another job, '
-               'no run id, no job id, a push event, no attempt or attempt 0, a failed run conclusion, a failed bridge '
-               'job, a failed job, no jobs, a job list cut to one entry, a job dropped, a job added, a job listed '
-               'twice, a failed build, a failed gate verdict, a verdict that only begins with PASS, a failed gate '
-               'step, a gate missing a step, a gate step renamed, a pass count short of the steps, a reference without the shard, '
-               'and non-JSON',
+    check('M', 'F\'s run rule rejects a failed or misidentified run: another head, another workflow, no run id, a push '
+               'event, no attempt or attempt 0, a failed run conclusion, a failed bridge job, no bridge job id, a '
+               'failed job, no jobs, a job list cut to one entry, a job dropped, a job added, a job listed twice (in place '
+               'of another or beside all the others), a '
+               'bridge step dropped, added or renamed, a failed Release gate or Build step, a reference without the '
+               'shard, and non-JSON',
           not fok(real_f, f_) and not fok(fw(run__workflow='reproduce-evidence.yml'), real_head)
-          and not fok(fw(run__job_name='Lean kernel check'), real_head)
-          and not fok(fw(run__id=None), real_head) and not fok(fw(run__job_id=None), real_head)
-          and not fok(fw(run__event='push'), real_head)
+          and not fok(fw(run__id=None), real_head) and not fok(fw(run__event='push'), real_head)
           and not fok(fw(run__attempt=None), real_head) and not fok(fw(run__attempt=0), real_head)
           and not fok(fw(run__conclusion='failure'), real_head)
-          and not fok(fw(run__job_conclusion='failure'), real_head)
+          and not fok(fw(bridge__conclusion='failure'), real_head) and not fok(fw(bridge__job_id=None), real_head)
           and not fok(fw(jobs=fr['jobs'][:-1] + [dict(fr['jobs'][-1], conclusion='failure')]), real_head)
           and not fok(fw(jobs=[]), real_head) and not fok(fw(jobs=fr['jobs'][:1]), real_head)
           and not fok(fw(jobs=fr['jobs'][:-1]), real_head)
           and not fok(fw(jobs=fr['jobs'] + [{'name': 'Numerical probes / extra', 'conclusion': 'success'}]), real_head)
           and not fok(fw(jobs=fr['jobs'][:-1] + [fr['jobs'][0]]), real_head)
-          and not fok(fw(expected__build_success=False), real_head)
-          and not fok(fw(expected__gate__verdict='FAILED -> lean-axioms'), real_head)
-          and not fok(fw(expected__gate__verdict='PASSING'), real_head)
-          and not fok(fw(expected__gate__steps=steps[:-1] + [dict(steps[-1], status='FAIL')]), real_head)
-          and not fok(fw(expected__gate__steps=steps[:-1], expected__gate__steps_pass=len(steps) - 1,
-                         expected__gate__steps_total=len(steps) - 1), real_head)
-          and not fok(fw(expected__gate__steps=steps[:-1] + [dict(steps[-1], name='renamed')]), real_head)
-          and not fok(fw(expected__gate__steps_pass=len(steps) - 1), real_head)
+          and not fok(fw(jobs=fr['jobs'] + [fr['jobs'][0]]), real_head)
+          and not fok(fw(bridge__steps=bsteps[:-1]), real_head)
+          and not fok(fw(bridge__steps=bsteps + [{'name': 'Another step', 'conclusion': 'success'}]), real_head)
+          and not fok(fw(bridge__steps=[dict(s, name='Renamed') if s['name'] == 'Install elan' else s for s in bsteps]),
+                      real_head)
+          and not fok(fw(bridge__steps=[dict(s, conclusion='failure') if s['name'] == 'Release gate' else s
+                                        for s in bsteps]), real_head)
+          and not fok(fw(bridge__steps=[dict(s, conclusion='failure') if s['name'] == 'Build' else s for s in bsteps]),
+                      real_head)
           and not fok(real_f, real_head, json.dumps(dict(ref_j, jobs=[j for j in ref_j['jobs']
                                                                      if j['name'] != KTSEP1_SHARD_JOB])))
           and not fok('not json', real_head))
-    check('M', 'the log consistency check flags module evidence (a build line, a report, the module complete), and '
-               'the run rule does not read it: absence is never proved from a log',
-          not frun_log_consistent(fw(observed__transseparation_window__built_line=4896))
-          and not frun_log_consistent(fw(observed__transseparation_window__report_lines={'conv_core': 4910}))
-          and not frun_log_consistent(fw(expected__modules={'OIBridge/TransSeparation.lean': {'status': 'complete',
-                                                                                            'reports': []}}))
-          and fok(fw(observed__transseparation_window__built_line=4896), real_head)
-          and not frun_log_consistent(fw(observed__axioms_step={'marker_line': 4900})))
+    with_steps = fw(bridge__steps=bsteps[:-3] + [{'name': n, 'conclusion': 'success'} for n in ROUND_STEPS]
+                    + bsteps[-3:])
+    check('M', 'the consistency check flags the round\'s steps or its shard in F\'s run; the run rule, read against a '
+               'predicted run carrying the round\'s steps, accepts F\'s run without them: absence is never proved from a '
+               'run',
+          not frun_consistent(with_steps, KTSEP1_SHARD_JOB)
+          and not frun_consistent(fw(jobs=fr['jobs'] + [{'name': KTSEP1_SHARD_JOB, 'conclusion': 'success'}]),
+                                  KTSEP1_SHARD_JOB)
+          and not frun_consistent(fw(bridge__steps=bsteps + [{'name': 'KTRANS-SEP-2 other', 'conclusion': 'success'}]))
+          and fok(real_f, real_head, json.dumps(dict(ref_j, bridge=dict(ref_j['bridge'], steps=json.loads(with_steps)[
+              'bridge']['steps'])))))
     # The proof of absence is F's tree. Scratch commits on D (temporary objects, no ref): one that adds only a
     # control-plane file, one that adds the module, one that adds only the import line, one that adds the import beside
     # another module on one line, one that adds the probe, and one that adds the module at another path.
@@ -2830,8 +2646,8 @@ def self_test():
           and IMPORT_RE.search('-- import OIBridge.TransSeparation\n') is None
           and IMPORT_RE.search('import X.OIBridge.TransSeparation\n') is None)
     check('M', 'negative control, missing module evidence where the module is required: the real F run, offered as a '
-               'module-bearing run result (the predicted tree\'s or E\'s), is rejected',
-          not run_window_ok(real_f, real_head) and not run_window_ok(real_f, f_))
+               'module-bearing run result (the predicted tree\'s or E\'s), is rejected, and its cells are VOID',
+          not run_ok(real_f, real_head) and not run_ok(real_f, f_) and isvoid(c(real_f, sha=real_head)))
     sec = '### The predicted execution tree\n\n'
     check('M', 'the predicted head is read from the predicted-tree section\'s first line and nowhere else; the '
                'section as KTRANS-SEP-2\'s first draft wrote it (a paragraph, then a bullet naming another round\'s '
@@ -2846,48 +2662,24 @@ def self_test():
           and controls_pin('') == ('absent', None)
           and controls_pin('**The frozen `controls.py`:** blob `%s`.\n' % ('a' * 39)) == ('absent', None)
           and controls_pin('**The frozen `controls.py`:** blob pending.\n' * 2) == ('absent', None))
-    self_test_e2e(d_imp, d_cen, d_wf, [s_['name'] for s_ in steps])
+    self_test_e2e(d_imp, d_cen, d_wf, [s_['name'] for s_ in bsteps])
 
 
 # ---- the end-to-end self-test: derive-run, check and mock-s1 on scratch commits ---------------------------------
-def synth_log(module, steps, verdict='PASS  (note: scratch)', cut=None, word='Built', reports=True, head=None,
-              step_end=None, cache_hit=False, lean_rc=0):
-    """A served bridge log in a simplified form of the real layout (timestamped lines, as served, with no final
-    newline): the build, with the module's status line (word: Built, or Replayed when restored from the build cache)
-    and, when reports is true, its fifteen reports, when module is true; the release-gate block with the given
-    steps; with head, the final bridge step's block for head (one report wrapped as Lean wraps it); and a closing
-    line."""
-    mod = cat_blob(MOD_BLOB)
-    ts = '2026-01-01T00:00:00.0000000Z '
-    L = ['Run lake build', 'info: building']
-    if module:
-        L.append('✔ [3650/3653] %s OIBridge.TransSeparation' % word)
-    if module and reports:
-        L += ["info: OIBridge/TransSeparation.lean:%d:0: '%s%s' depends on axioms: [propext, Classical.choice, "
-              "Quot.sound]" % (n, NS, l[len('#print axioms ' + NS):].strip()) for n, l in print_lines(mod)]
-    L += ['ℹ [3652/3653] %s OIBridge' % word, 'Build completed successfully (3653 jobs).', 'release gate', '']
-    L += ['  %s  %-16s %s: OK' % (st, n, n) for n, st in steps]
-    L += ['', 'release gate: %s' % verdict]
-    if head:
-        L += ['##[group]Run set -euo pipefail', 'ktrans_sep2 axioms: step at %s' % head]
-        for n in PRINTS:
-            L += (["'%s%s' depends on axioms: [propext," % (NS, n), ' Classical.choice,', ' Quot.sound]']
-                  if n == 'conv_core' else ["'%s%s' depends on axioms: [propext, Classical.choice, Quot.sound]" % (NS, n)])
-        L += ['ktrans_sep2 axioms: lean exited %s' % lean_rc, 'PASS axioms: no other report', step_end or STEP_OK]
-    L += ['Post job cleanup.']
-    L += ['Cache hit occurred on the primary key oibridge-Linux-scratch, not saving cache.' if cache_hit
-          else 'Cache saved with key: oibridge-Linux-scratch', 'Post job cleanup.']
-    if cut:
-        L = L[:cut]
-    return '\n'.join(ts + l for l in L).encode('utf-8')
-
-
-def synth_api(head, names, mcp=False, conclusion='success', failed=(), run_id=4242):
+def synth_api(head, names, conclusion='success', failed=(), run_id=4242, bridge=None, mcp=False):
+    """The runs and jobs API answers (bytes) for a scratch run, with the fields the host returns that the recipe must
+    drop (timestamps, urls). bridge: [(step name, conclusion)] of the Mathlib bridge job, listed out of number order."""
     run = {'id': run_id, 'head_sha': head, 'event': 'workflow_dispatch', 'conclusion': conclusion, 'run_attempt': 1,
-           'path': '.github/workflows/verify.yml', 'head_branch': 'scratch', 'created_at': '2026-01-01T00:00:00Z'}
-    js = [{'id': 1000 + i, 'name': n, 'conclusion': 'failure' if n in failed else 'success',
-           'started_at': '2026-01-01T00:00:00Z',
-           'steps': [{'name': 'Build', 'conclusion': 'success', 'number': 1}]} for i, n in enumerate(names)]
+           'path': '.github/workflows/verify.yml', 'head_branch': 'scratch', 'created_at': '2026-01-01T00:00:00Z',
+           'html_url': 'https://example.invalid/run'}
+    bridge = bridge if bridge is not None else []
+    js = []
+    for i, n in enumerate(names):
+        st = [{'name': s, 'conclusion': c, 'number': k + 1, 'started_at': '2026-01-01T00:00:00Z'}
+              for k, (s, c) in enumerate(bridge)][::-1] if n == 'Mathlib bridge' else \
+            [{'name': 'Build', 'conclusion': 'success', 'number': 1}]
+        js.append({'id': 1000 + i, 'run_id': run_id, 'name': n, 'conclusion': 'failure' if n in failed else 'success',
+                   'started_at': '2026-01-01T00:00:00Z', 'steps': st})
     jobs = {'total_count': len(js), 'jobs': js}
     return json.dumps(run).encode(), json.dumps({'jobs': jobs} if mcp else jobs).encode()
 
@@ -2899,21 +2691,20 @@ def synth_prereg(pred, pins, ctl, section=None):
             '\n### The predicted execution tree\n\n%s' % (rows, '`%s`' % ctl if ctl else 'pending', sec))
 
 
-def self_test_e2e(d_imp, d_cen, d_wf, step_names):
+def self_test_e2e(d_imp, d_cen, d_wf, base_steps):
     me = open(os.path.abspath(__file__), encoding='utf-8').read()
-    steps = [(n, 'PASS') for n in step_names]
     base_jobs = ['Lean kernel check', 'Mathlib bridge', 'Numerical probes', 'Numerical probes / core A']
-    meta = lambda b_: {'original_lines': b_.decode('utf-8').count('\n') + 1 + 30000,
-                       'served_lines': b_.decode('utf-8').count('\n') + 1}
-    ml = lambda h, **kw: synth_log(True, steps, head=h, **kw)
-    replay_log = lambda h: synth_log(False, steps, head=h, word='Replayed', cache_hit=True)
-    # derive-run, alone
+    post = [s for s in base_steps if s.startswith(('Post ', 'Complete job'))]
+    pre = [s for s in base_steps if s not in post]
+    f_steps = [(s, 'success') for s in base_steps]
+    p_steps = [(s, 'success') for s in pre] + [(STEP_LEAN, 'success'), (STEP_AXIOMS, 'success'),
+                                               (STEP_MARKER, 'skipped')] + [(s, 'success') for s in post]
+    neg_steps = [(s, {STEP_AXIOMS: 'failure', STEP_MARKER: 'success'}.get(s, c)) for s, c in p_steps]
     a40, b40 = 'a' * 40, 'b' * 40
-    fl = synth_log(False, steps)
-    ra, ja = synth_api(a40, base_jobs)
-    absent = json.loads(derive_run(fl, meta(fl), ra, ja))
-    present = json.loads(derive_run(ml(b40), meta(ml(b40)), *synth_api(b40, base_jobs + [SHARD_JOB], mcp=True)))
-    mstat = lambda d: d['expected']['modules']['OIBridge/TransSeparation.lean']
+    fapi = lambda h, names=base_jobs, **kw: synth_api(h, names, bridge=kw.pop('bridge', f_steps), **kw)
+    papi = lambda h, names=base_jobs + [SHARD_JOB], **kw: synth_api(h, names, bridge=kw.pop('bridge', p_steps), **kw)
+    absent = json.loads(derive_run(*fapi(a40)))
+    present = json.loads(derive_run(*papi(b40, mcp=True)))
 
     def refused(*a):
         try:
@@ -2921,230 +2712,188 @@ def self_test_e2e(d_imp, d_cen, d_wf, step_names):
             return False
         except (ValueError, KeyError, TypeError):
             return True
-    check('M', 'derive-run: a log without the module or the final step gives status absent and the gate steps; a log '
-               'with the final step for the run\'s head gives status complete with its fifteen reports in print order '
-               '(one wrapped); both are structured results without run-varying fields, and the same inputs give the '
-               'same bytes',
-          mstat(absent) == {'status': 'absent', 'reports': []}
-          and absent['observed']['transseparation_window']['built_line'] is None
-          and absent['observed']['axioms_step']['marker_line'] is None
-          and [x['name'] for x in absent['expected']['gate']['steps']] == step_names
-          and absent['expected']['gate']['steps_pass'] == len(step_names) and gate_passed(absent['expected']['gate']['verdict'])
-          and mstat(present)['status'] == 'complete'
-          and [x['name'] for x in mstat(present)['reports']] == [NS + n for n in PRINTS]
-          and run_window_ok(json.dumps(present), b40)
+    check('M', 'derive-run: from the runs and jobs answers alone it records the run\'s identity, every job\'s '
+               'conclusion and the bridge job\'s steps in step order; it drops every host timestamp and url, reads an '
+               'answer wrapped under "jobs" the same but for its digest, and gives the same bytes for the same inputs',
+          [s['name'] for s in absent['bridge']['steps']] == base_steps
+          and [(s['name'], s['conclusion']) for s in present['bridge']['steps']] == p_steps
+          and absent['run'] == {'workflow': 'verify.yml', 'id': 4242, 'attempt': 1, 'event': 'workflow_dispatch',
+                                'conclusion': 'success', 'head_branch': 'scratch', 'head_sha': a40}
+          and sorted(j['name'] for j in present['jobs']) == sorted(base_jobs + [SHARD_JOB])
           and evidence_ok(json.dumps(absent)) and evidence_ok(json.dumps(present))
-          and derive_run(fl, meta(fl), ra, ja) == derive_run(fl, meta(fl), ra, ja))
-    st = lambda lg: mstat(json.loads(derive_run(lg, meta(lg), ra, ja)))['status']
-    rep_ = json.loads(derive_run(replay_log(a40), meta(replay_log(a40)), ra, ja))
-    bom = json.loads(derive_run(b'\xef\xbb\xbf' + fl, meta(fl), ra, ja))
-    check('M', 'derive-run: with the module replayed and its build lines outside the window, the final step still '
-               'gives status complete and the window shows no `Built`; build lines without the final step, the step '
-               'for another commit, or the step cut before its gate line, are incomplete; a byte-order mark changes '
-               'only the text\'s digest',
-          mstat(rep_)['status'] == 'complete' and run_window_ok(json.dumps(rep_), a40, replayed=True)
-          and st(ml(None)) == 'incomplete' and st(ml(b40)) == 'incomplete' and st(ml(a40, cut=-5)) == 'incomplete'
-          and st(ml(a40, step_end='ktrans_sep2 axioms: FAILED (1 check(s))')) == 'incomplete'
-          and st(ml(a40)) == 'complete'
-          and st(synth_log(False, steps, head=a40, step_end='x')) == 'incomplete'
-          and st(fl + b'\n2026-01-01T00:00:00.0000000Z ktrans_sep2 axioms: step at ' + a40.encode()) == 'incomplete'
-          and dict(bom, source=None) == dict(absent, source=None)
-          and bom['source']['served_sha256'] != absent['source']['served_sha256'])
-    fresh = synth_log(False, steps, head=a40, word='Replayed')
-    fresh_ = json.loads(derive_run(fresh, meta(fresh), ra, ja))
-    crash = ml(a40, lean_rc=139)
-    crash_ = json.loads(derive_run(crash, meta(crash), ra, ja))
-    check('M', 'derive-run reads the cache line and the lean exit line from the log: a run whose post step saved the '
-               'cache records no hit and fails the replay requirement while passing the plain one; a run whose lean '
-               'exited non-zero beside an OK line records that status, is incomplete and fails the window check',
-          rep_['observed']['transseparation_window']['cache_hit'] is True
-          and fresh_['observed']['transseparation_window']['cache_hit'] is False
-          and run_window_ok(json.dumps(fresh_), a40) and not run_window_ok(json.dumps(fresh_), a40, replayed=True)
-          and rep_['observed']['axioms_step']['exit'] == 0 and crash_['observed']['axioms_step']['exit'] == 139
-          and mstat(crash_)['status'] == 'incomplete' and not run_window_ok(json.dumps(crash_), a40))
-    blk_only = b'\n'.join(l for l in ml(a40).split(b'\n') if b'info:' not in l and (
-        b'ktrans_sep2' in l or b"'OIBridge" in l or l.endswith((b'Classical.choice,', b'Quot.sound]'))))
-    bom_blk = json.loads(derive_run(b'\xef\xbb\xbf' + blk_only, meta(blk_only), ra, ja))
-    red_bridge = json.loads(derive_run(fl, meta(fl), *synth_api(a40, base_jobs, failed=['Mathlib bridge'])))
-    check('M', 'derive-run reads the final step\'s marker on the first line behind a byte-order mark, records the '
-               'bridge job\'s own failed conclusion, and reads a gate step on the line directly after the gate\'s heading',
-          bom_blk['observed']['axioms_step']['marker_line'] == 1
-          and len(bom_blk['observed']['axioms_step']['report_lines']) == len(PRINTS)
-          and red_bridge['run']['job_conclusion'] == 'failure'
-          and gate_steps(['release gate', '  PASS  a  x', 'release gate: PASS'], 1, 3) == [{'name': 'a', 'status': 'PASS'}])
-    check('M', 'derive-run refuses metadata that does not describe the text, an incomplete jobs answer, no bridge job '
-               'and a job listed twice',
-          refused(fl, dict(meta(fl), served_lines=5), ra, ja)
-          and refused(fl, meta(fl), ra, json.dumps({'total_count': 9, 'jobs': json.loads(ja)['jobs']}).encode())
-          and refused(fl, meta(fl), *synth_api(a40, ['Lean kernel check']))
-          and refused(fl, meta(fl), *synth_api(a40, base_jobs + ['Mathlib bridge'])))
+          and 'example.invalid' not in json.dumps(present)
+          and dict(json.loads(derive_run(*papi(b40))), source=None) == dict(present, source=None)
+          and derive_run(*papi(b40)) == derive_run(*papi(b40)))
+    check('M', 'derive-run feeds the rules: the predicted-tree rule passes a run whose steps read positive and fails one '
+               'without the round\'s steps or with negative steps, whose cells read negative; F\'s rule passes F\'s run '
+               'against the predicted run',
+          run_ok(json.dumps(present), b40) and not run_ok(json.dumps(absent), a40)
+          and not run_ok(derive_run(*papi(b40, bridge=neg_steps)), b40)
+          and kernel_state(json.loads(derive_run(*papi(b40, bridge=neg_steps))), b40) == (False, False)
+          and frun_ok(json.dumps(absent), a40, json.dumps(present)) and frun_consistent(json.dumps(absent))
+          and not frun_consistent(json.dumps(present)))
+    ra, ja = fapi(a40)
+    jl = json.loads(ja)
+    check('M', 'derive-run refuses an incomplete jobs answer, no bridge job, a job listed twice, a job of another run, a '
+               'bridge job without steps and a step number listed twice',
+          refused(ra, json.dumps({'total_count': 9, 'jobs': jl['jobs']}).encode())
+          and refused(*synth_api(a40, ['Lean kernel check'], bridge=f_steps))
+          and refused(*synth_api(a40, base_jobs + ['Mathlib bridge'], bridge=f_steps))
+          and refused(ra, json.dumps(dict(jl, jobs=[dict(j, run_id=1) if j['name'] == 'Lean kernel check' else j
+                                                    for j in jl['jobs']])).encode())
+          and refused(*synth_api(a40, base_jobs, bridge=[]))
+          and refused(ra, json.dumps(dict(jl, jobs=[dict(j, steps=j['steps'] + j['steps'][:1])
+                                                    if j['name'] == 'Mathlib bridge' else j
+                                                    for j in jl['jobs']])).encode()))
     # Scratch commits (temporary objects, no ref): the predicted tree P and candidate F, as the round builds them.
-    runs = (RUN_EVIDENCE, REPLAY_EVIDENCE)
     ev = {p: json.dumps({'schema': 'oi-evidence-result', 'version': 1, 'form': 'complete', 'kind': p}).encode()
-          for p in REQUIRED_EVIDENCE if p not in runs}
+          for p in REQUIRED_EVIDENCE if p != RUN_EVIDENCE}
     with Scratch() as s:
         exe = {MOD: MOD_BLOB, PROBE: PROBE_BLOB, IMPORTS: s.blob(imports_want(d_imp)),
                CENSUS: s.blob(census_want(d_cen)), WORKFLOW: s.blob(workflow_want(d_wf))}
         draft = synth_prereg(None, dict({p: hashlib.sha256(b).hexdigest() for p, b in ev.items()},
-                                        **{p: None for p in runs}),
+                                        **{RUN_EVIDENCE: None}),
                              blob_id(me), section='This revision is the drafting revision.\n')
         rec = {PREREG: s.blob(draft), CONTROLS: s.blob(me)}
         rec.update({RDIR + p: s.blob(b) for p, b in ev.items()})
         P = s.commit(D, dict(rec, **exe), 'scratch predicted tree')
-        jobs_p = base_jobs + [SHARD_JOB]
-        pair = lambda h: (derive_run(ml(h), meta(ml(h)), *synth_api(h, jobs_p)).encode(),
-                          derive_run(replay_log(h), meta(replay_log(h)), *synth_api(h, jobs_p, run_id=4243)).encode())
-        ptr, ptr_rep = pair(P)
-        pins_of = lambda a, b: dict({p: hashlib.sha256(x).hexdigest() for p, x in ev.items()},
-                                    **{RUN_EVIDENCE: hashlib.sha256(a).hexdigest(),
-                                       REPLAY_EVIDENCE: hashlib.sha256(b).hexdigest()})
-        pin = pins_of(ptr, ptr_rep)
+        ptr = derive_run(*papi(P)).encode()
+        pins_of = lambda a: dict({p: hashlib.sha256(x).hexdigest() for p, x in ev.items()},
+                                 **{RUN_EVIDENCE: hashlib.sha256(a).hexdigest()})
+        pin = pins_of(ptr)
 
         def cand(pins=pin, ctl=blob_id(me), section=None, extra=None, pred=P):
             return s.commit(D, dict({PREREG: s.blob(synth_prereg(pred, pins, ctl, section))}, **(extra or {})),
                             'scratch candidate F')
         F_ = cand()
-        frun_in = lambda head, log=fl, names=base_jobs: (log, meta(log)) + synth_api(head, names)
 
-        def mock(candf, inputs, frun=None, extra_ev=((RUN_EVIDENCE, ptr), (REPLAY_EVIDENCE, ptr_rep)), predicted=P):
-            frun = frun if frun is not None else derive_run(*inputs).encode()
-            return lambda: mock_s1(candf, frun, predicted, list(extra_ev), *inputs, s=s)
-        check('M', 'the predicted tree P passes check without --freeze (its run results pending)',
+        def mock(candf, api, frun=None, extra_ev=((RUN_EVIDENCE, ptr),), predicted=P):
+            frun = frun if frun is not None else derive_run(*api).encode()
+            return lambda: mock_s1(candf, frun, predicted, list(extra_ev), *api, s=s)
+        check('M', 'the predicted tree P passes check without --freeze (its run result pending)',
               not capture(lambda: run_check(P))[0])
-        failed, ran = capture(mock(F_, frun_in(F_)))
+        failed, ran = capture(mock(F_, fapi(F_)))
         out = LAST_OUT[0]
         check('M', 'mock-s1 on a candidate F with its own derived run result passes, running every required control, '
-                   'the three F-stage checks of P and both predicted-tree run checks (failed: %s)' % (sorted(failed) or 'none'),
+                   'the three F-stage checks of P and the predicted-tree run check (failed: %s)' % (sorted(failed) or 'none'),
               not failed and REQUIRED_CODES <= set(ran) and 'P    F has no module' in out
               and 'P    F\'s exact-head run is retained' in out and 'P    consistency, not the proof' in out
               and 'P    the f-run file' in out and 'P    the predicted tree given' in out
-              and 'P    the predicted tree\'s retained run' in out and 'P    the predicted tree\'s second run' in out)
+              and 'P    the predicted tree\'s retained run' in out)
         A_RUN, A_CONS, A_FILE = 'F\'s exact-head run is retained', 'consistency, not the proof', 'the f-run file'
         A_NAMED, A_SEC, A_PIN = 'the predicted tree given is the one', 'the predicted-tree section names', 'the pinned evidence'
         A_PTR, A_TREE, A_B = 'the predicted tree\'s retained run', 'F has no module', 'the probe is the frozen blob'
-        A_REP = 'the predicted tree\'s second run'
-        must_fail_at('mock-s1 with a run result naming another head', 'P', mock(F_, frun_in(P)), A_RUN, only=True)
-        must_fail_at('mock-s1 with a run result whose log carries the module', 'P', mock(F_, frun_in(F_, log=ml(F_))),
-                     A_CONS, only=True)
+        must_fail_at('mock-s1 with a run result naming another head', 'P', mock(F_, fapi(P)), A_RUN, only=True)
+        must_fail_at('mock-s1 with a run whose bridge job carries the round\'s steps', 'P',
+                     mock(F_, fapi(F_, bridge=p_steps)), A_CONS)
         must_fail_at('mock-s1 with a run result missing a job of the predicted run', 'P',
-                     mock(F_, frun_in(F_, names=base_jobs[:-1])), A_RUN, only=True)
-        must_fail_at('mock-s1 with a run result that is not derive-run\'s output over the inputs given', 'P',
-                     mock(F_, frun_in(F_), frun=json.dumps(json.loads(derive_run(*frun_in(F_))), indent=2).encode()),
+                     mock(F_, fapi(F_, names=base_jobs[:-1])), A_RUN, only=True)
+        must_fail_at('mock-s1 with a run result that is not derive-run\'s output over the answers given', 'P',
+                     mock(F_, fapi(F_), frun=json.dumps(json.loads(derive_run(*fapi(F_))), indent=2).encode()),
                      A_FILE, only=True)
         P2 = s.commit(D, dict(rec, **exe), 'scratch predicted tree, a second commit of the same tree')
         must_fail_at('mock-s1 given a predicted tree, of the same content, other than the one candidate F names', 'P',
-                     mock(F_, frun_in(F_), predicted=P2), A_NAMED, only=True)
+                     mock(F_, fapi(F_), predicted=P2), A_NAMED, only=True)
         must_fail_at('mock-s1 given a commit without the execution files as the predicted tree', 'P',
-                     mock(F_, frun_in(F_), predicted=D), A_NAMED)
+                     mock(F_, fapi(F_), predicted=D), A_NAMED)
         f_sep1 = cand(section='This round\'s predicted tree is built on this `D`.\n\n- **KTRANS-SEP-1\'s predicted '
                               'tree, provenance: `%s`**\n' % P)
         must_fail_at('mock-s1 on a candidate F whose predicted-tree section is in the first draft\'s form', 'P',
-                     mock(f_sep1, frun_in(f_sep1)), A_SEC, only=True)
+                     mock(f_sep1, fapi(f_sep1)), A_SEC, only=True)
         f_mod = cand(extra={MOD: MOD_BLOB})
-        failed, _ = capture(mock(f_mod, frun_in(f_mod)))
+        failed, _ = capture(mock(f_mod, fapi(f_mod)))
         check('M', 'mock-s1 on a candidate F carrying the module fails T and P at the tree check (failed: %s)'
               % sorted(failed), {'T', 'P'} <= failed and '  FAIL  P    ' + A_TREE in LAST_OUT[0])
-        red = [('a failed run conclusion', frun_in(F_)[:2] + synth_api(F_, base_jobs, conclusion='failure')),
-               ('a failed job', frun_in(F_)[:2] + synth_api(F_, base_jobs, failed=['Numerical probes / core A'])),
-               ('a failed Mathlib bridge job', frun_in(F_)[:2] + synth_api(F_, base_jobs, failed=['Mathlib bridge'])),
-               ('a failed gate step', (lambda lg: (lg, meta(lg)) + synth_api(F_, base_jobs))(
-                   synth_log(False, steps[:-1] + [(steps[-1][0], 'FAIL')], verdict='FAILED -> ' + steps[-1][0])))]
-        for label, inputs in red:
+        red = [('a failed run conclusion', fapi(F_, conclusion='failure')),
+               ('a failed job', fapi(F_, failed=['Numerical probes / core A'])),
+               ('a failed Mathlib bridge job', fapi(F_, failed=['Mathlib bridge'])),
+               ('a failed Release gate step', fapi(F_, bridge=[(n, 'failure' if n == 'Release gate' else c)
+                                                               for n, c in f_steps]))]
+        for label, api in red:
             must_fail_at('mock-s1 with %s in candidate F\'s run, carried through derive-run' % label, 'P',
-                         mock(F_, inputs), A_RUN, only=True)
+                         mock(F_, api), A_RUN, only=True)
         alt = me + '\n# another controls.py\n'
         P_alt = s.commit(D, dict(rec, **dict(exe, **{CONTROLS: s.blob(alt)})), 'scratch predicted tree, another controls.py')
-        alt_pair = pair(P_alt)
-        f_alt = cand(pins=pins_of(*alt_pair), pred=P_alt)
+        ptr_alt = derive_run(*papi(P_alt)).encode()
+        f_alt = cand(pins=pins_of(ptr_alt), pred=P_alt)
         must_fail_at('mock-s1 whose stage-1 controls.py is not the file running, though the pin names the running file',
-                     'B', mock(f_alt, frun_in(f_alt), extra_ev=tuple(zip(runs, alt_pair)), predicted=P_alt), A_B,
+                     'B', mock(f_alt, fapi(f_alt), extra_ev=((RUN_EVIDENCE, ptr_alt),), predicted=P_alt), A_B,
                      only=True)
         f_ctl = cand(ctl='0' * 40)
-        must_fail_at('mock-s1 on a candidate F pinning another controls.py blob', 'B', mock(f_ctl, frun_in(f_ctl)),
+        must_fail_at('mock-s1 on a candidate F pinning another controls.py blob', 'B', mock(f_ctl, fapi(f_ctl)),
                      A_B, only=True)
         f_pend = cand(ctl=None)
-        must_fail_at('mock-s1 on a candidate F with the controls.py pin pending', 'B', mock(f_pend, frun_in(f_pend)),
+        must_fail_at('mock-s1 on a candidate F with the controls.py pin pending', 'B', mock(f_pend, fapi(f_pend)),
                      A_B, only=True)
         must_fail_at('mock-s1 with a pinned evidence file that differs from its pin', 'P',
-                     mock(F_, frun_in(F_), extra_ev=((RUN_EVIDENCE, ptr + b'\n'), (REPLAY_EVIDENCE, ptr_rep))), A_PIN,
-                     only=True)
-        ptr_other = derive_run(ml(D), meta(ml(D)), *synth_api(D, jobs_p)).encode()
-        f_po = cand(pins=pins_of(ptr_other, ptr_rep))
+                     mock(F_, fapi(F_), extra_ev=((RUN_EVIDENCE, ptr + b'\n'),)), A_PIN, only=True)
+        ptr_other = derive_run(*papi(D)).encode()
+        f_po = cand(pins=pins_of(ptr_other))
         must_fail_at('mock-s1 with a predicted-tree run result naming another commit', 'P',
-                     mock(f_po, frun_in(f_po), extra_ev=((RUN_EVIDENCE, ptr_other), (REPLAY_EVIDENCE, ptr_rep))), A_PTR,
-                     only=True)
-        same = ptr
-        f_same = cand(pins=pins_of(ptr, same))
-        must_fail_at('mock-s1 with the predicted tree\'s first run offered as its replay run', 'P',
-                     mock(f_same, frun_in(f_same), extra_ev=((RUN_EVIDENCE, ptr), (REPLAY_EVIDENCE, same))), A_REP,
-                     only=True)
-        rep_same = derive_run(replay_log(P), meta(replay_log(P)), *synth_api(P, jobs_p)).encode()
-        f_rs = cand(pins=pins_of(ptr, rep_same))
-        must_fail_at('mock-s1 with a replay run result that names the first run\'s run id', 'P',
-                     mock(f_rs, frun_in(f_rs), extra_ev=((RUN_EVIDENCE, ptr), (REPLAY_EVIDENCE, rep_same))), A_REP,
-                     only=True)
-        fresh2 = derive_run(ml(P), meta(ml(P)), *synth_api(P, jobs_p, run_id=4243)).encode()
-        f_fresh = cand(pins=pins_of(ptr, fresh2))
-        must_fail_at('mock-s1 with a second run that built the module fresh (no cache restored)', 'P',
-                     mock(f_fresh, frun_in(f_fresh), extra_ev=((RUN_EVIDENCE, ptr), (REPLAY_EVIDENCE, fresh2))), A_REP,
-                     only=True)
+                     mock(f_po, fapi(f_po), extra_ev=((RUN_EVIDENCE, ptr_other),)), A_PTR, only=True)
+        ptr_neg = derive_run(*papi(P, bridge=neg_steps)).encode()
+        f_neg = cand(pins=pins_of(ptr_neg))
+        must_fail_at('mock-s1 with a predicted-tree run whose steps read negative', 'P',
+                     mock(f_neg, fapi(f_neg), extra_ev=((RUN_EVIDENCE, ptr_neg),)), A_PTR, only=True)
+
 
 def main(argv):
+    rd = lambda p: open(p, 'rb').read()
     if argv == ['--self-test']:
         self_test()
     elif len(argv) == 2 and argv[0] == 'axioms':
         try:
-            text = read_log(argv[1]) if os.path.isfile(argv[1]) else ''
+            text = rd(argv[1]).decode('utf-8', errors='replace') if os.path.isfile(argv[1]) else ''
         except OSError:
             text = ''
         rows = axioms_gate(text)
         for label, ok, detail in rows:
             print('%s axioms: %s%s' % ('PASS' if ok else 'FAIL', label, ('  ' + detail) if detail else ''))
+        cls = axioms_class(text)
+        out = os.environ.get('GITHUB_OUTPUT')
+        if out:
+            with open(out, 'a', encoding='utf-8') as fh:
+                fh.write('reports=%s\n' % cls)
         bad = [label for label, ok, _ in rows if not ok]
-        print(STEP_OK if not bad else 'ktrans_sep2 axioms: FAILED (%d check(s))' % len(bad))
-        return 1 if bad else 0
+        print(STEP_OK if not bad else 'ktrans_sep2 axioms: FAILED (%d check(s); reports %s)' % (len(bad), cls))
+        return 0 if cls == 'standard' else 1
     elif argv[:1] == ['derive-run']:
         opts = dict(zip(argv[1::2], argv[2::2]))
-        if len(argv) != 9 or set(opts) != {'--log', '--log-meta', '--run-api', '--jobs-api'}:
+        if len(argv) != 5 or set(opts) != {'--run-api', '--jobs-api'}:
             print(__doc__)
             return 2
-        rd = lambda k: open(opts[k], 'rb').read()
-        sys.stdout.write(derive_run(rd('--log'), json.loads(rd('--log-meta')), rd('--run-api'), rd('--jobs-api')))
+        sys.stdout.write(derive_run(rd(opts['--run-api']), rd(opts['--jobs-api'])))
         return 0
-    elif len(argv) >= 14 and argv[0] == 'mock-s1' and len(argv) % 2 == 0:
+    elif len(argv) >= 10 and argv[0] == 'mock-s1' and len(argv) % 2 == 0:
         pairs = list(zip(argv[2::2], argv[3::2]))
         opts = {k: v for k, v in pairs if k != '--evidence'}
         extra = [tuple(v.split('=', 1)) for k, v in pairs if k == '--evidence' and '=' in v]
         if len(opts) != sum(k != '--evidence' for k, _ in pairs) or \
-                set(opts) != {'--f-run', '--predicted', '--log', '--log-meta', '--run-api', '--jobs-api'} or \
+                set(opts) != {'--f-run', '--predicted', '--run-api', '--jobs-api'} or \
                 len(extra) != sum(k == '--evidence' for k, _ in pairs):
             print(__doc__)
             return 2
-        rd = lambda p: open(p, 'rb').read()
-        mock_s1(argv[1], rd(opts['--f-run']), opts['--predicted'], [(r, rd(p)) for r, p in extra], rd(opts['--log']),
-                json.loads(rd(opts['--log-meta'])), rd(opts['--run-api']), rd(opts['--jobs-api']))
+        mock_s1(argv[1], rd(opts['--f-run']), opts['--predicted'], [(r, rd(p)) for r, p in extra],
+                rd(opts['--run-api']), rd(opts['--jobs-api']))
     elif argv == ['exact']:
         mod = show('HEAD', MOD) or cat_blob(MOD_BLOB)
         exact_checks(mod)
         print('EXACT  %s' % ('AS STATED' if not FAILS else 'NOT AS STATED'))
     elif len(argv) >= 2 and argv[0] in ('check', 'verdict'):
         opts = dict(zip(argv[2::2], argv[3::2]))
-        if len(argv) % 2 or not set(opts) <= {'--freeze', '--stage', '--log', '--log-meta'} or \
-                opts.get('--stage', 'E') not in ('E', 'S1'):
+        if len(argv) % 2 or not set(opts) <= {'--freeze', '--stage', '--run-api', '--jobs-api'} or \
+                opts.get('--stage', 'E') not in ('E', 'S1') or (('--run-api' in opts) != ('--jobs-api' in opts)):
             print(__doc__)
             return 2
+        api = (rd(opts['--run-api']), rd(opts['--jobs-api'])) if '--run-api' in opts else None
         if argv[0] == 'check':
-            log, meta = None, None
-            if '--log' in opts:
-                log = read_log(opts['--log'])
-            if '--log-meta' in opts:
-                meta = json.load(open(opts['--log-meta'], encoding='utf-8'))
-            run_check(argv[1], opts.get('--freeze'), opts.get('--stage', 'E'), log, meta)
+            run_check(argv[1], opts.get('--freeze'), opts.get('--stage', 'E'),
+                      derive_or_none(*api) if api else None)
         else:
-            if '--freeze' not in opts or '--log' not in opts:
+            if '--freeze' not in opts or api is None:
                 print(__doc__)
                 return 2
-            print_verdict(argv[1], opts['--freeze'], opts['--log'], opts.get('--log-meta'))
+            print_verdict(argv[1], opts['--freeze'], *api)
     else:
         print(__doc__)
         return 2
