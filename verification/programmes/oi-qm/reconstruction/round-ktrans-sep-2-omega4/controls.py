@@ -6,7 +6,7 @@ commands, embeds every frozen text it compares against, and runs the frozen prob
 Standard library only; the probe it runs needs sympy 1.14.0.
 
     python3 -I -B controls.py check <commit> [--freeze F] [--stage S1] [--log LOG [--log-meta META]]
-    python3 -I -B controls.py verdict <commit> --freeze F --log LOG [--log-meta META]
+    python3 -I -B controls.py verdict <commit> --freeze F --log LOG --log-meta META
     python3 -I -B controls.py exact
     python3 -I -B controls.py derive-run --log LOG --log-meta META --run-api RUN --jobs-api JOBS
     python3 -I -B controls.py mock-s1 <candidate F> --f-run FILE --predicted P --log LOG --log-meta META
@@ -17,7 +17,11 @@ Standard library only; the probe it runs needs sympy 1.14.0.
 it (the predicted execution tree) those are skipped and a pending pin is allowed. --stage S1 is the commit before the
 result note; the default stage is E, at which the result note is required when --freeze is given. LOG is the served
 text of the Mathlib bridge job of the exact-head run at <commit>; it is required at a commit carrying the result note.
-META is a JSON object {"original_lines": N, "served_lines": M} for that text, from the tool that served it.
+META is a JSON object {"original_lines": N, "served_lines": M} for that text: N is the serving tool's line count of
+the whole log (the job-log tool's original_length), M the number of lines of the text as served, which ends without
+a newline. LOG is saved as served (the tool's logs_content, JSON-decoded), and every reader reads it as bytes
+decoded as UTF-8 with a leading byte-order mark dropped and no newline translation. Its jobs answer must list every
+job of the run in one answer (per_page 100).
 
 `verdict` runs `check` first and prints the three cell tokens only when every control of `check` ran and passed and
 the evidence the cells read is complete; otherwise it prints `VERDICT  VOID` with the reason, prints no token and exits
@@ -92,7 +96,8 @@ Controls (each prints PASS or FAIL with its code):
 
 Cells (verdict), read only when every control passed:
   VOID      the log is empty or its metadata does not describe it; a frozen report is missing, duplicated, at another
-            line or unparsable; the module's build line is not in the served window before its reports; the build or
+            line or unparsable; the module's build-status line (Built or Replayed) is not in the served window before
+            its reports; the build or
             gate evidence is incomplete or fails outside the module; sympy 1.14.0 is absent; the probe did not run to
             completion, or its output differs from the frozen output without a failing check. No token is printed.
   Q-NONELL  KTRANS-SEP-NONELLIPSOID-PROVED   the build line, the gate's PASS verdict, and every frozen report within
@@ -1369,7 +1374,11 @@ TS = re.compile(r'^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d+Z ')
 REPORT = re.compile(r"^info: OIBridge/TransSeparation\.lean:(\d+):\d+: '" + re.escape(NS) +
                     r"([A-Za-z0-9_']+)' (?:depends on axioms: \[([^\]]*)\]|does not depend on any axioms)\s*$")
 REPORT_HEAD = re.compile(r'^info: OIBridge/TransSeparation\.lean:\d+:\d+: ')
-BUILT = re.compile(r'Built OIBridge\.TransSeparation\b')
+# The module's build-status line. The bridge job restores a build cache keyed on the toolchain, the dependency
+# manifest, the lakefile and every OIBridge source, and runs `lake --rehash build`, which re-hashes each source
+# against the restored trace: a module whose inputs are byte-identical to a cached build is replayed, its stored
+# messages (the #print axioms reports among them) printed under `Replayed`, and any other module is built.
+BUILT = re.compile(r'(?:Built|Replayed) OIBridge\.TransSeparation\b')
 GATE_STEP = re.compile(r'^  (PASS|FAIL|SKIP)  (\S+)')
 
 
@@ -1421,7 +1430,8 @@ def window(f, meta=None):
         return 'a TransSeparation report line does not parse (served line %d)' % f['unparsed'][0]
     first = min(f['reports'][n][0][2] for n in PRINTS)
     if f['built'] is None or f['built'] > first:
-        return 'the module\'s build line is not in the served window before its reports (the window may be truncated)'
+        return ('the module\'s build-status line (Built or Replayed) is not in the served window before its reports '
+                '(the window may be truncated)')
     return None
 
 
@@ -1548,7 +1558,8 @@ def run_window_ok(data, head):
         ints = [o, m, w['served_lines'], w['built_line'], w['gate_start'], w['gate_end']] + list(rl.values())
         if not all(type(x) is int for x in ints):
             return False
-        return bool(evidence_ok(data) and r['head_sha'] == head and r['event'] == 'workflow_dispatch' and d['jobs']
+        return bool(evidence_ok(data) and r['head_sha'] == head and r['event'] == 'workflow_dispatch'
+                and r['conclusion'] == 'success' and d['jobs']
                 and all(j['conclusion'] == 'success' for j in d['jobs']) and 1 <= m <= o and w['served_lines'] == m
                 and sorted(rl) == sorted(PRINTS) and 1 <= w['built_line'] < min(rl.values())
                 and max(rl.values()) < w['gate_start'] < w['gate_end'] <= m
@@ -1655,6 +1666,12 @@ def controls_pin(prereg):
 def gate_steps(lines, start, end):
     return [{'name': m.group(2), 'status': m.group(1)} for m in
             (GATE_STEP.match(l) for l in lines[start:end - 1]) if m] if start and end else []
+
+
+def read_log(path):
+    """LOG as every reader reads it: bytes, decoded as UTF-8 with a leading byte-order mark dropped and no newline
+    translation; '' when the file is absent."""
+    return open(path, 'rb').read().decode('utf-8-sig', errors='replace') if path and os.path.isfile(path) else ''
 
 
 def derive_run(log, meta, run_api, jobs_api):
@@ -1865,7 +1882,7 @@ def workflow_want(d):
 
 
 def print_verdict(commit, freeze, logpath, metapath=None):
-    log = open(logpath, encoding='utf-8', errors='replace').read() if logpath and os.path.isfile(logpath) else ''
+    log = read_log(logpath)
     meta = None
     if metapath:
         try:
@@ -2149,6 +2166,13 @@ def self_test():
     check('M', 'the window facts place the build line before the fifteen reports and the gate after them',
           (lambda w: w['built_line'] == 1 and sorted(w['report_lines'].values()) == list(range(2, 17))
            and w['gate_start'] == 18 and w['gate_end'] == 21)(window_facts(log_facts(log_ok, mod))))
+    replayed = built.replace('Built', 'Replayed').replace(' (12s)', '')
+    check('M', 'a complete log whose module was replayed from the build cache (`Replayed`, as when E restores the '
+               'cache S1 saved) gives the same three tokens, its status line placed as the build line; a log with '
+               'neither word is VOID',
+          c(log_ok.replace(built, replayed)) == P_
+          and window_facts(log_facts(log_ok.replace(built, replayed), mod))['built_line'] == 1
+          and isvoid(c(log_ok.replace(built, 'ℹ [3642/3644] Checked OIBridge.TransSeparation'))))
     check('M', 'an empty log is VOID', isvoid(c('')))
     check('M', 'a log truncated before the module\'s build line is VOID',
           isvoid(c(log_ok.replace(head + built + '\n', ''))))
@@ -2286,7 +2310,8 @@ def self_test():
           and not evidence_ok(json.dumps(dict(ev, run={'created_at': '2026-10-18T00:00:00Z'})))
           and not evidence_ok(json.dumps(dict(ev, run={'duration': 3}))) and not evidence_ok('not json'))
     rl = {n: 100 + i for i, n in enumerate(PRINTS)}
-    run_ev = dict(ev, run={'head_sha': f_, 'event': 'workflow_dispatch'}, jobs=[{'name': 'a', 'conclusion': 'success'}],
+    run_ev = dict(ev, run={'head_sha': f_, 'event': 'workflow_dispatch', 'conclusion': 'success'},
+                  jobs=[{'name': 'a', 'conclusion': 'success'}],
                   source={'served_sha256': 'a' * 64, 'original_lines': 9000, 'served_lines': 5000},
                   observed={'transseparation_window': {'served_lines': 5000, 'built_line': 99, 'report_lines': rl,
                                                         'gate_start': 200, 'gate_end': 230}},
@@ -2305,10 +2330,10 @@ def self_test():
             x[ks[-1]] = v
         return json.dumps(d)
     check('M', 'a run result naming its head, green, with the window in order passes; another head, a push event, a '
-               'failed job, no jobs, a report past the window, the build line after a report, a missing report, the '
+               'failed run conclusion, a failed job, no jobs, a report past the window, the build line after a report, a missing report, the '
                'gate inside the reports, a gate past the window, a non-standard axiom and a failed gate fail',
           run_window_ok(json.dumps(run_ev), f_) and not run_window_ok(json.dumps(run_ev), e_)
-          and not run_window_ok(rw(run__event='push'), f_)
+          and not run_window_ok(rw(run__event='push'), f_) and not run_window_ok(rw(run__conclusion='failure'), f_)
           and not run_window_ok(rw(jobs=[{'name': 'a', 'conclusion': 'failure'}]), f_)
           and not run_window_ok(rw(jobs=[]), f_)
           and not run_window_ok(rw(observed__transseparation_window__report_lines=dict(rl, conv_core=5001)), f_)
@@ -2325,7 +2350,8 @@ def self_test():
     check('M', 'the gate verdict is PASS alone or with a note, never a longer word or another status',
           gate_passed('PASS') and gate_passed('PASS  (note: --label bNNN not given)') and not gate_passed('PASSED')
           and not gate_passed('PASSING (note)') and not gate_passed('FAILED -> x') and not gate_passed(None))
-    # F validates the control plane: the corrected rule on KTRANS-SEP-1's real F run (module absent), and the
+    # F's run shows D's workflow and gate passing on D plus the control plane: the corrected rule on KTRANS-SEP-1's
+    # real F run (module absent), and the
     # negative controls. The fixture is that run's derived result, embedded verbatim (sha256 KTSEP1_FRUN_SHA256).
     real_f = KTSEP1_FRUN
     real_head = json.loads(real_f)['run']['head_sha']
@@ -2356,7 +2382,8 @@ def self_test():
                'no run id, no job id, a push event, no attempt or attempt 0, a failed run conclusion, a failed bridge '
                'job, a failed job, no jobs, a job list cut to one entry, a job dropped, a job added, a job listed '
                'twice, a failed build, a failed gate verdict, a verdict that only begins with PASS, a failed gate '
-               'step, a gate missing a step, a gate step renamed, a reference without the shard, and non-JSON',
+               'step, a gate missing a step, a gate step renamed, a pass count short of the steps, a reference without the shard, '
+               'and non-JSON',
           not fok(real_f, f_) and not fok(fw(run__workflow='reproduce-evidence.yml'), real_head)
           and not fok(fw(run__job_name='Lean kernel check'), real_head)
           and not fok(fw(run__id=None), real_head) and not fok(fw(run__job_id=None), real_head)
@@ -2376,6 +2403,7 @@ def self_test():
           and not fok(fw(expected__gate__steps=steps[:-1], expected__gate__steps_pass=len(steps) - 1,
                          expected__gate__steps_total=len(steps) - 1), real_head)
           and not fok(fw(expected__gate__steps=steps[:-1] + [dict(steps[-1], name='renamed')]), real_head)
+          and not fok(fw(expected__gate__steps_pass=len(steps) - 1), real_head)
           and not fok(real_f, real_head, json.dumps(dict(ref_j, jobs=[j for j in ref_j['jobs']
                                                                      if j['name'] != KTSEP1_SHARD_JOB])))
           and not fok('not json', real_head))
@@ -2405,6 +2433,14 @@ def self_test():
                'OIBridge.lean as carrying no module; an unreadable commit fails',
           verdicts[ctl] == (True, True, True) and ftree_ok(*d_tree, d_tree[2]) and None not in d_tree[2]
           and not ftree_ok(*unreadable, d_tree[2]))
+    dp, di, dt = d_tree
+    check('M', 'F\'s tree rule fails on each clause alone, with the Lean directories equal to D\'s: the probe\'s path, '
+               'the module\'s path, an import line (alone or beside another module), an unreadable OIBridge.lean, and '
+               'unequal or unreadable directory trees',
+          not ftree_ok(dp | {PROBE}, di, dt, dt) and not ftree_ok(dp | {MOD}, di, dt, dt)
+          and not ftree_ok(dp, gi, dt, dt) and not ftree_ok(dp, same_line, dt, dt) and not ftree_ok(dp, None, dt, dt)
+          and not ftree_ok(dp, di, (dt[0], 'f' * 40), dt) and not ftree_ok(dp, di, (dt[0], None), dt)
+          and not ftree_ok(dp, di, None, dt) and not ftree_ok(dp, di, dt, None) and ftree_ok(dp, di, dt, dt))
     check('M', 'negative control, the proof of absence is the tree: a tree containing the module (at its path or '
                'another), the import line (alone or beside another module) or the probe fails the F-stage check '
                'although its run evidence names it, is green, passes the gate and its log has no module lines',
@@ -2437,14 +2473,17 @@ def self_test():
 
 
 # ---- the end-to-end self-test: derive-run, check and mock-s1 on scratch commits ---------------------------------
-def synth_log(module, steps, verdict='PASS  (note: scratch)', cut=None):
-    """A served bridge log in the real layout (timestamped lines): the build, the module's build line and its fifteen
-    reports when module is true, the release-gate block with the given steps, and a closing line."""
+def synth_log(module, steps, verdict='PASS  (note: scratch)', cut=None, word='Built', reports=True):
+    """A served bridge log in a simplified form of the real layout (timestamped lines, as served, with no final
+    newline): the build, the module's status line (word: Built, or Replayed when restored from the build cache) and,
+    when reports is true, its fifteen reports when module is true, the release-gate block with the given steps, and a
+    closing line."""
     mod = cat_blob(MOD_BLOB)
     ts = '2026-01-01T00:00:00.0000000Z '
     L = ['Run lake build', 'info: building']
     if module:
-        L.append('✔ [3650/3653] Built OIBridge.TransSeparation (12s)')
+        L.append('✔ [3650/3653] %s OIBridge.TransSeparation' % word)
+    if module and reports:
         L += ["info: OIBridge/TransSeparation.lean:%d:0: '%s%s' depends on axioms: [propext, Classical.choice, "
               "Quot.sound]" % (n, NS, l[len('#print axioms ' + NS):].strip()) for n, l in print_lines(mod)]
     L += ['Build completed successfully (3653 jobs).', 'release gate', '']
@@ -2455,10 +2494,11 @@ def synth_log(module, steps, verdict='PASS  (note: scratch)', cut=None):
     return '\n'.join(ts + l for l in L).encode('utf-8')
 
 
-def synth_api(head, names, mcp=False):
-    run = {'id': 4242, 'head_sha': head, 'event': 'workflow_dispatch', 'conclusion': 'success', 'run_attempt': 1,
+def synth_api(head, names, mcp=False, conclusion='success', failed=()):
+    run = {'id': 4242, 'head_sha': head, 'event': 'workflow_dispatch', 'conclusion': conclusion, 'run_attempt': 1,
            'path': '.github/workflows/verify.yml', 'head_branch': 'scratch', 'created_at': '2026-01-01T00:00:00Z'}
-    js = [{'id': 1000 + i, 'name': n, 'conclusion': 'success', 'started_at': '2026-01-01T00:00:00Z',
+    js = [{'id': 1000 + i, 'name': n, 'conclusion': 'failure' if n in failed else 'success',
+           'started_at': '2026-01-01T00:00:00Z',
            'steps': [{'name': 'Build', 'conclusion': 'success', 'number': 1}]} for i, n in enumerate(names)]
     jobs = {'total_count': len(js), 'jobs': js}
     return json.dumps(run).encode(), json.dumps({'jobs': jobs} if mcp else jobs).encode()
@@ -2501,6 +2541,24 @@ def self_test_e2e(d_imp, d_cen, d_wf, step_names):
           == [NS + n for n in PRINTS] and run_window_ok(json.dumps(present), 'b' * 40)
           and evidence_ok(json.dumps(absent)) and evidence_ok(json.dumps(present))
           and derive_run(fl, meta(fl), ra, ja) == derive_run(fl, meta(fl), ra, ja))
+    rl_ = synth_log(True, steps, word='Replayed')
+    nb = synth_log(True, steps, reports=False)
+    st = lambda lg: json.loads(derive_run(lg, meta(lg), ra, ja))['expected']['modules']['OIBridge/TransSeparation.lean']['status']
+    bom = json.loads(derive_run(b'\xef\xbb\xbf' + fl, meta(fl), ra, ja))
+    check('M', 'derive-run: a module replayed from the build cache is complete; a status line without reports and '
+               'reports without a status line are incomplete; a byte-order mark changes only the text\'s digest',
+          st(rl_) == 'complete' and st(nb) == 'incomplete'
+          and st(ml.replace('✔ [3650/3653] Built OIBridge.TransSeparation'.encode(), b'info: building')) == 'incomplete'
+          and dict(bom, source=None) == dict(absent, source=None)
+          and bom['source']['served_sha256'] != absent['source']['served_sha256'])
+    first_rep = b'\n'.join(l for l in ml.split(b'\n') if b"info: OIBridge/TransSeparation.lean" in l)
+    bom_rep = json.loads(derive_run(b'\xef\xbb\xbf' + first_rep, meta(first_rep), ra, ja))
+    red_bridge = json.loads(derive_run(fl, meta(fl), *synth_api('a' * 40, base_jobs, failed=['Mathlib bridge'])))
+    check('M', 'derive-run reads a report on the first line behind a byte-order mark, records the bridge job\'s own '
+               'failed conclusion, and reads a gate step on the line directly after the gate\'s heading',
+          len(bom_rep['observed']['transseparation_window']['report_lines']) == len(PRINTS)
+          and red_bridge['run']['job_conclusion'] == 'failure'
+          and gate_steps(['release gate', '  PASS  a  x', 'release gate: PASS'], 1, 3) == [{'name': 'a', 'status': 'PASS'}])
     check('M', 'derive-run refuses metadata that does not describe the text, an incomplete jobs answer, no bridge job '
                'and a job listed twice; a log cut inside the reports is not complete',
           refused(fl, dict(meta(fl), served_lines=5), ra, ja)
@@ -2565,6 +2623,26 @@ def self_test_e2e(d_imp, d_cen, d_wf, step_names):
         failed, _ = capture(mock(f_mod, frun_in(f_mod)))
         check('M', 'mock-s1 on a candidate F carrying the module fails T and P at the tree check (failed: %s)'
               % sorted(failed), {'T', 'P'} <= failed and '  FAIL  P    ' + A_TREE in LAST_OUT[0])
+        red = [('a failed run conclusion', frun_in(F_)[:2] + synth_api(F_, base_jobs, conclusion='failure')),
+               ('a failed job', frun_in(F_)[:2] + synth_api(F_, base_jobs, failed=['Numerical probes / core A'])),
+               ('a failed Mathlib bridge job', frun_in(F_)[:2] + synth_api(F_, base_jobs, failed=['Mathlib bridge'])),
+               ('a failed gate step', (lambda lg: (lg, meta(lg)) + synth_api(F_, base_jobs))(
+                   synth_log(False, steps[:-1] + [(steps[-1][0], 'FAIL')], verdict='FAILED -> ' + steps[-1][0])))]
+        for label, inputs in red:
+            must_fail_at('mock-s1 with %s in candidate F\'s run, carried through derive-run' % label, 'P',
+                         mock(F_, inputs), A_RUN, only=True)
+        alt = me + '\n# another controls.py\n'
+        P_alt = s.commit(D, dict(rec, **dict(exe, **{CONTROLS: s.blob(alt)})), 'scratch predicted tree, another controls.py')
+        ptr_alt = derive_run(ml, meta(ml), *synth_api(P_alt, base_jobs + [SHARD_JOB])).encode()
+
+        def cand_alt():
+            return s.commit(D, {PREREG: s.blob(synth_prereg(P_alt, dict(pin, **{RUN_EVIDENCE: hashlib.sha256(ptr_alt)
+                                                                              .hexdigest()}), blob_id(me)))},
+                            'scratch candidate F, naming the tree with another controls.py')
+        f_alt = cand_alt()
+        must_fail_at('mock-s1 whose stage-1 controls.py is not the file running, though the pin names the running file',
+                     'B', mock(f_alt, frun_in(f_alt), extra_ev=((RUN_EVIDENCE, ptr_alt),), predicted=P_alt), A_B,
+                     only=True)
         f_ctl = cand(ctl='0' * 40)
         must_fail_at('mock-s1 on a candidate F pinning another controls.py blob', 'B', mock(f_ctl, frun_in(f_ctl)),
                      A_B, only=True)
@@ -2614,7 +2692,7 @@ def main(argv):
         if argv[0] == 'check':
             log, meta = None, None
             if '--log' in opts:
-                log = open(opts['--log'], encoding='utf-8', errors='replace').read()
+                log = read_log(opts['--log'])
             if '--log-meta' in opts:
                 meta = json.load(open(opts['--log-meta'], encoding='utf-8'))
             run_check(argv[1], opts.get('--freeze'), opts.get('--stage', 'E'), log, meta)
