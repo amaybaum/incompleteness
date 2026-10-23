@@ -1740,7 +1740,7 @@ def run_window_ok(data, head, replayed=False):
         mods = d['expected']['modules']['OIBridge/TransSeparation.lean']
         rl = b['report_lines']
         ints = [o, m, w['served_lines'], w['gate_start'], w['gate_end'], b['marker_line']] + list(rl.values()) + \
-            list(b['ok_lines']) + list(b['exit_lines'])
+            list(b['ok_lines']) + list(b['exit_lines']) + [b['exit']]
         if not all(type(x) is int for x in ints):
             return False
         return bool(evidence_ok(data) and r['head_sha'] == head and r['event'] == 'workflow_dispatch'
@@ -2380,9 +2380,12 @@ def self_test():
                'with neither, reads the same from the final step',
           c(log_ok.replace(head + 'ℹ [3652/3653] Replayed OIBridge', head + '✔ [3650/3653] Built OIBridge.TransSeparation'))
           == P_)
-    check('M', 'the window facts place the release gate before the final step and its OK line after its last report',
+    check('M', 'the window facts place the release gate before the final step, its lean exit line (status 0) after its '
+               'last report and its OK line after that',
           (lambda w: w['gate_end'] < w['axioms_step']['marker_line'] < min(w['axioms_step']['report_lines'].values())
-           and max(w['axioms_step']['report_lines'].values()) < w['axioms_step']['ok_lines'][0])
+           and max(w['axioms_step']['report_lines'].values()) < w['axioms_step']['exit_lines'][0]
+           < w['axioms_step']['ok_lines'][0] and len(w['axioms_step']['exit_lines']) == 1
+           and w['axioms_step']['exit'] == 0)
           (window_facts(log_facts(log_ok, mod), step_facts(log_ok))))
     check('M', 'an empty log is VOID', isvoid(c('')))
     check('M', 'negative control at E: a complete, green, gate-passing log with no final step (the shape of a run '
@@ -2440,6 +2443,8 @@ def self_test():
                           rc=None)))
           and isvoid(c(mk(rc=None, extra='ktrans_sep2 axioms: lean exited 0')))
           and isvoid(c(mk(rc='0 (and more)'))) and isvoid(c(mk(rc='')))
+          and isvoid(c(log_ok.replace(head + 'ktrans_sep2 axioms: lean exited 0', head + '  ktrans_sep2 axioms: lean exited 0')))
+          and isvoid(c(log_ok.replace(head + 'ktrans_sep2 axioms: lean exited 0', head + 'x ktrans_sep2 axioms: lean exited 0')))
           and c(mk(rc='0')) == P_)
     check('M', 'a negative reading does not depend on lean\'s exit status: a module error with lean exiting 1, or a '
                'non-standard axiom with lean exiting 0, reads negative; the same with no exit line is VOID',
@@ -2600,7 +2605,7 @@ def self_test():
           and cmds.index('rc=0') < cmds.index('lake env lean OIBridge/TransSeparation.lean > "$log" 2>&1 || rc=$?')
           and cmds.count('echo "ktrans_sep2 axioms: lean exited ${rc}"') == 1
           and cmds.index('cat "$log"') < cmds.index('echo "ktrans_sep2 axioms: lean exited ${rc}"') == len(cmds) - 3
-          and not any(re.match(r'set\s+\+', x) for x in cmds) and 'shell:' not in FINAL_STEP)
+          and sum(bool(re.match(r'set\b', x)) for x in cmds) == 1 and 'shell:' not in FINAL_STEP)
     # governed paths, record, pins, chain, F's run
     rows = [('A', p) for p in (MOD, PROBE)] + [('M', p) for p in (IMPORTS, CENSUS, WORKFLOW)] + \
         [('A', PREREG), ('A', CONTROLS)]
@@ -2698,6 +2703,8 @@ def self_test():
           and not run_window_ok(rw(**{ax_ + 'exit_lines': [4916, 4917]}), f_)
           and not run_window_ok(rw(**{ax_ + 'exit_lines': [4921]}), f_)
           and not run_window_ok(rw(**{ax_ + 'exit_lines': [4910]}), f_)
+          and not run_window_ok(rw(**{ax_ + 'exit_lines': [4916.0]}), f_)
+          and not run_window_ok(rw(**{ax_ + 'exit': False}), f_) and not run_window_ok(rw(**{ax_ + 'exit': 0.0}), f_)
           and not run_window_ok(rw(expected__modules={'OIBridge/TransSeparation.lean': {
               'status': 'complete', 'reports': [{'name': NS + n, 'axioms': ['sorryAx']} for n in PRINTS]}}), f_)
           and not run_window_ok(rw(expected__gate={'verdict': 'FAILED -> lean-axioms'}), f_)
