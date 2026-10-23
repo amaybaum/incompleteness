@@ -1,0 +1,14 @@
+n=4 T=3 L=21 J=5978: all 16 inputs, two dense full-torus backgrounds; degree=4
+  Complete record: 208 nonzero coordinate-time polynomials; 5977 zero pins + 1 affine copy constraints
+  Source: all 512 words once on each dense complement; joint factorization by disjoint cones
+  Released-pin control: field=A position=(3, 0, 0) gives 4/16 incorrect flags when set to 1
+n=5 T=4 L=27 J=14017: all 32 inputs, two dense full-torus backgrounds; degree=5
+  Complete record: 454 nonzero coordinate-time polynomials; 14015 zero pins + 2 affine copy constraints
+  Source: all 4096 words once on each dense complement; joint factorization by disjoint cones
+  Released-pin control: field=A position=(4, 0, 0) gives 24/32 incorrect flags when set to 1
+n=6 T=5 L=33 J=27240: all 64 inputs, two dense full-torus backgrounds; degree=6
+  Complete record: 1022 nonzero coordinate-time polynomials; 27237 zero pins + 3 affine copy constraints
+  Source: all 32768 words once on each dense complement; joint factorization by disjoint cones
+  Released-pin control: field=A position=(5, 0, 0) gives 26/64 incorrect flags when set to 1
+PASS: finite AND4/AND5/AND6 components, complete specified records, bounded independent source
+SCALING NOT ESTABLISHED: no all-n layout, clock, native preparation, or reuse protocol
