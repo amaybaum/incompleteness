@@ -52,8 +52,8 @@ kernel module and no other round's record change under any outcome.**
 ## The objects
 
 - **`D`** = `48b18ac54e39920a4fc4bbb8ee1d1b6cebea2c29`, the head of `main` after #895.
-  Its push run is recorded in `evidence/d-push-run.json` (pending: derived before `F` from the runs and jobs APIs, as
-  KTRANS-SEP-1's was).
+  Its push run, run 39766586077, is recorded in `evidence/d-push-run.json`, derived from the runs and jobs APIs as
+  KTRANS-SEP-1's was.
 - **`F`** — the commit carrying this file that the owner designates; `delta(D, F)` is this file and any amendments.
 - **`E`** — the certified execution head, which the owner designates.
 - **`Λ`**, **`Q`** — the reconciliation and the receipt commit, as §A.39 defines them.
@@ -425,7 +425,8 @@ condition 3). Its codes:
   - the predicted tree's run result (`evidence/predicted-tree-run.json`) names the commit in *The predicted execution
     tree*, is a green `workflow_dispatch` run, and records the release gate's block and then, in
     `observed.axioms_step`, the final bridge step's block for that commit: its marker line, the served line of each of
-    the fifteen reports and its one OK line, all inside the served window and in that order, with no FAILED line, the
+    the fifteen reports, its one line `ktrans_sep2 axioms: lean exited 0` and its one OK line, all inside the served
+    window and in that order, with no FAILED line, the
     fifteen reports in print order within the three axioms and the gate's verdict PASS (`run_window_ok`);
   - the predicted tree's second run result (`evidence/predicted-tree-replay-run.json`), a second `workflow_dispatch`
     run of the same commit on the same branch, after the first saved its build cache, satisfies the same and, in
@@ -501,8 +502,8 @@ family reduced to `{id}` (CX4 alone); the probe and log cases of *No vacuous ver
 them a real crashing probe and a real failing import; the evidence-file cases of P (no form, an unknown form, a derived
 result without a digest, a timestamp field, a duration field; for a run result another head, a push event, a failed
 run conclusion, a failed job, no jobs, the final step run at another commit, a report past the window, a missing
-report, the block before the gate, the OK line before a report, missing or doubled, a FAILED line, a non-standard
-axiom, a failed gate; for the second run, a `Built` line in its window, no primary-key cache hit, and the same run offered twice); the verdict gate with each required
+report, the block before the gate, the OK line before a report, missing or doubled, a FAILED line, a lean exit line
+with a status other than the integer 0, missing, doubled or out of place, a non-standard axiom, a failed gate; for the second run, a `Built` line in its window, no primary-key cache hit, and the same run offered twice); the verdict gate with each required
 control failed or missing; the note with an extra token, an altered earned reading, no non-inference rule, the earned
 reading under a negative cell, and a frozen phrase (a neutral addition passes); and the pure cores of I, C, W, G, R, P
 and T, including a merge, a re-cut `F` and an `F` not on `D`. Positive controls: the frozen module, the landed ball
@@ -610,7 +611,7 @@ actual run result before `F` is designated, so that a requirement `F` cannot mee
 | the served `LOG` holds the fifteen reports whatever the build cache replayed | `C5`: the final step's block is the last output of the job's steps, bound to `E` by its marker; `verdict` with `--log-meta` reads only that block; W checks the step is the bridge job's last; `C8`: both predicted-tree run results record the block in their windows, checked by P (`run_window_ok`), the second from a run that restored the cache (`replayed`) |
 | the predicted tree's run, S1's and `E`'s can be green beside KTOKEN-MAXCONE-1's live self-test | `C5`: the self-test checks each of KTOKEN-MAXCONE-1's live requirements on `D`'s files with the frozen edits (`ktoken_live_ok`), and that the first draft's placement breaks them; `C8`: the predicted tree's two runs green on every job |
 | the final step itself fails closed | `C5`: `controls.py axioms`, whose self-test cases (a missing, duplicated, extra or reordered report, a non-standard axiom, a report cut short, an error line, a forbidden token, an empty output, each clause alone) and its command path (exit 0 and the OK line, exit 1 and the FAILED line) run in the shard at `E`; W's cases pin the step's shape (`set -euo pipefail` its first command, `rc=0` before the module is elaborated, its status kept and printed after the output and before the gate, the gate a plain command, the step exiting with `lean`'s status, no `set +e`, no `shell:` override, nothing continuing on error); the verdict's cases make an OK line beside a non-zero or missing status line VOID; `C3`: the step green in `E`'s run |
-| the reconciliation keeps every round's live requirements | the reconciliation (§A.39 item 3): before it is pushed, every round self-test that reads the live workflow, root or census is run on the reconciled tree, and each prints OK; the list and the outputs are recorded on the pull request |
+| the reconciliation keeps every round's live requirements | the reconciliation (§A.39 item 3): before it is pushed, every round self-test that reads the live workflow, root or census is run on the reconciled tree and prints OK; after it is pushed, the run of `verify.yml` on the reconciled head, which runs each of those self-tests in its shard, is green on every job |
 | a negative reading halts the round, never reads as `READ` | *Stages and outcomes*: `READ` requires every job green, and a negative reading fails a job; `C3` |
 | `F` carries no module | `C5`: T (`delta(D, F)` is the control plane) and P (`ftree_ok`) at S1 and `E`, reading `F`'s tree through git: its Lean directories equal `D`'s, no module path, no probe path, no import line naming `OIBridge.TransSeparation` in `F`'s `OIBridge.lean`; `C9` on candidate `F` |
 | `F`'s run shows `D`'s workflow and release gate passing on `D` plus this file: it is `F`'s `workflow_dispatch` run of `verify.yml`, its jobs are the predicted tree's run's less the shard, every job `success`, the release gate PASS on the predicted tree's run's steps | `C5`: P (`frun_ok`) on `evidence/f-run/results.json` against `evidence/predicted-tree-run.json` at S1 and `E`; `C8` |
@@ -690,9 +691,10 @@ form:
   the run in one answer, `per_page` 100, or the recipe refuses it). The result is a function of those four inputs
   alone. It records the run's identity, every job's conclusion, the build and the release gate's steps and verdict,
   the module's status and reports as the final bridge step's block gives them, in `observed.axioms_step` that
-  block's marker line and commit, the served line of each report and its OK and FAILED lines, and in
-  `observed.transseparation_window` the served line and word of the module's build-status line (`Built` or
-  `Replayed`) where the build output shows one, and the gate block's start and end; in `source`, the log's
+  block's marker line and commit, the served line of each report, its lean exit lines and their status, and its OK
+  and FAILED lines, and in `observed.transseparation_window` the served line and word of the module's build-status
+  line (`Built` or `Replayed`) where the build output shows one, whether the cache step reports a primary-key hit, and
+  the gate block's start and end; in `source`, the log's
   `original_lines` and `served_lines` and the digests of the four inputs. The inputs are not retained (§A.42 item 4).
 
 Each file names its commit, run, job and recipe and, as provenance, the digest of the text it was read from, and no
@@ -706,8 +708,8 @@ pinned here before `F`. `F` is not designated with a pending pin.
 | `evidence/design-run-1.json` | `2a9f30ca1a85d3bc5e728a98edfc047d6d8bbde3c1c5d387c2043038f9962d49` |
 | `evidence/design-run-2.json` | `32045681fb4749a5ec95a49db5cb95c852b0652021b38b072da55001413c4a03` |
 | `evidence/ktrans-sep-1-predicted-tree-run.json` | `58fcf6fec66e8c695c923810b67d20040d801f5c8b71adfad561b42855e21ef7` |
-| `evidence/exact-replay.json` | pending |
-| `evidence/d-push-run.json` | pending |
+| `evidence/exact-replay.json` | `fa4701fdeb94bc38a12d8f81181220c56982f4c8876314ae51420ec51d61b786` |
+| `evidence/d-push-run.json` | `1603fcb20a24e4484a262bfab07e441d48e6aa1caaa69c592a48a01e2d55356f` |
 | `evidence/predicted-tree-run.json` | pending |
 | `evidence/predicted-tree-replay-run.json` | pending |
 
@@ -721,7 +723,7 @@ predicted tree's own run, and `evidence/predicted-tree-replay-run.json` its seco
 also the reference against which the self-test reads KTRANS-SEP-1's real `F` run (its blob `458753c8`, the same bytes
 as in that round's record on `main`).
 
-**The frozen `controls.py`:** blob pending.
+**The frozen `controls.py`:** blob `2b70e43852565fa88e3c15d4b7071975adbb6f54`.
 
 **The design commits.** The two design-run heads and KTRANS-SEP-1's predicted tree are named in full in their run
 entries above. Main reaches none of them; under `AGENTS.md` §A.42 items 1–2 they are provenance, held under
