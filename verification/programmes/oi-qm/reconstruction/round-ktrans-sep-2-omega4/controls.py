@@ -585,7 +585,7 @@ KEYTEXT = GEN['keytext']
 PRINTS = GEN['prints']
 LANDED = GEN['landed']
 BALL = GEN['ball']
-CENSUS_FAMILY = GEN['census_family']
+CENSUS_FAMILY = {k: GEN['census_family'][k] for k in ('name', 'modules', 'status', 'manuscript')}  # D's key order
 PROBE_LINES = GEN['probe_lines']
 # KTRANS-SEP-1's F-run result (run 39940836089, head 7e9aef69), derived from its served log: the module absent.
 KTSEP1_FRUN_SHA256 = 'd2ac295647dfb593a09026de51ad145102645dcc98dee1bd7d25988c6623ca8f'
@@ -1013,9 +1013,12 @@ FINAL_STEP = '''
           set -uo pipefail
           echo "ktrans_sep2 axioms: step at $(git rev-parse HEAD)"
           log="$RUNNER_TEMP/ktrans-sep2-axioms.log"
-          lake env lean OIBridge/TransSeparation.lean > "$log" 2>&1
+          rc=0
+          lake env lean OIBridge/TransSeparation.lean > "$log" 2>&1 || rc=$?
           cat "$log"
+          echo "ktrans_sep2 axioms: lean exited ${rc}"
           python3 -I -B ../programmes/oi-qm/reconstruction/round-ktrans-sep-2-omega4/controls.py axioms "$log"
+          exit "$rc"
 '''
 # KTOKEN-MAXCONE-1's self-test, which runs in its shard on every build, reads the live workflow, root and census and
 # requires each of its own splices verbatim and its census family last. The edits above keep each of these intact.
@@ -1443,6 +1446,7 @@ def log_facts(text, mod):
     """What the served text shows about the module, with the served line of each item (1-based)."""
     lines = [TS.sub('', l, count=1) for l in (text or '').split('\n')] if text else []
     f = {'served_lines': len(lines), 'reports': {}, 'unparsed': [], 'built': None, 'built_word': None, 'build': False,
+         'build_line': None, 'cache_hit': False,
          'gate_start': None, 'gate_end': None, 'gate_pass': False, 'gate_fail': [], 'mod_errors': 0}
     for n, l in enumerate(lines, 1):
         m = REPORT.match(l)
@@ -1454,7 +1458,9 @@ def log_facts(text, mod):
         if f['built'] is None and BUILT.search(l):
             f['built'], f['built_word'] = n, BUILT.search(l).group(0).split()[0]
         if re.match(r'^Build completed successfully \(\d+ jobs\)\.', l):
-            f['build'] = True
+            f['build'], f['build_line'] = True, f['build_line'] or n
+        if l.startswith('Cache hit occurred on the primary key '):
+            f['cache_hit'] = True
         if l.startswith('error: OIBridge/TransSeparation.lean:'):
             f['mod_errors'] += 1
         if l == 'release gate' and f['gate_start'] is None:
@@ -1567,7 +1573,7 @@ def kernel_state(f, s, meta, sha):
     bad = {n for n in PRINTS if not s['reports'][n][0] <= ALLOWED_AXIOMS}
     gate_done = f['gate_start'] is not None and f['gate_end'] is not None
     if (s['ok_lines'] and not bad and not s['bad'] and not s['errors'] and f['build'] and gate_done
-            and f['gate_pass'] and f['gate_end'] < s['marker_line']):
+            and f['gate_pass'] and f['build_line'] < f['gate_start'] and f['gate_end'] < s['marker_line']):
         return (True, True)
     if s['failed_lines'] and bad and (s['mod_errors'] or (gate_done and f['gate_fail'] == ['lean-axioms'])):
         return (False, False)
@@ -1738,7 +1744,7 @@ def run_window_ok(data, head, replayed=False):
                 and mods['status'] == 'complete'
                 and [x['name'] for x in mods['reports']] == [NS + n for n in PRINTS]
                 and all(set(x['axioms']) <= ALLOWED_AXIOMS for x in mods['reports'])
-                and (not replayed or w['status_word'] != 'Built'))
+                and (not replayed or (w['status_word'] != 'Built' and w['cache_hit'] is True)))
     except (ValueError, KeyError, TypeError, AttributeError):
         return False
 
@@ -1900,6 +1906,7 @@ def derive_run(log, meta, run_api, jobs_api):
         'observed': {
             'transseparation_window': {
                 'served_lines': m, 'built_line': f['built'], 'status_word': f['built_word'], 'report_lines': first,
+                'cache_hit': f['cache_hit'],
                 'gate_start': f['gate_start'], 'gate_end': f['gate_end']},
             'axioms_step': {'marker_line': st['marker_line'], 'commit': st['commit'], 'report_lines': st['report_lines'],
                             'ok_lines': st['ok_lines'], 'failed_lines': st['failed_lines']}},
@@ -2407,8 +2414,36 @@ def self_test():
     check('M', 'sorryAx with a module error in the final step and no gate is negative in both kernel cells; the same '
                'with the step printing OK is VOID',
           c(brk) == [N_[0], N_[1], P_[2]] and isvoid(c(brk.replace(failed, STEP_OK))))
-    check('M', 'a failed final step with every report standard and no module error is VOID',
-          isvoid(c(mk(end=failed))))
+    check('M', 'a failed final step with every report standard and no module error is VOID, and so is one with a '
+               'module error but every report standard',
+          isvoid(c(mk(end=failed)))
+          and isvoid(c(mk(reports=['OIBridge/TransSeparation.lean:157:16: error: x'] + [blk(n) for n in PRINTS],
+                          end=failed, before='error: build failed\n##[group]Run set -uo pipefail\n'))))
+    other_err = mk(reports=['OIBridge/DenseOrbit.lean:1:1: error: x'] + with_sorry, end=failed,
+                   before='error: build failed\n##[group]Run set -uo pipefail\n')
+    two_fail = sci.replace('  PASS  lean-manuscript', '  FAIL  lean-manuscript')
+    check('M', 'the negative route needs a module error in the block (an error in another file is VOID) or the gate '
+               'failing at lean-axioms alone (failing at another step too is VOID)',
+          isvoid(c(other_err)) and isvoid(c(two_fail)))
+    check('M', 'each forbidden token, an error line in another file, or a report outside the three axioms that '
+               'names no forbidden token, beside an OK line, is VOID; a report of no axioms is standard',
+          all(isvoid(c(mk(extra='uses %s' % t))) for t in ('sorryAx', 'Lean.ofReduceBool', 'Lean.trustCompiler'))
+          and isvoid(c(mk(extra='OIBridge/DenseOrbit.lean:1:1: error: x')))
+          and isvoid(c(mk(reports=[blk(n) if n != 'omega4_convex' else blk(n, '[propext, Foo.ax]') for n in PRINTS])))
+          and c(mk(reports=[blk(n) if n != 'conv_core' else "'%s%s' does not depend on any axioms" % (NS, n)
+                            for n in PRINTS])) == P_)
+    check('M', 'a report head that does not parse beside the fifteen reports is VOID; the build-success line after the '
+               'gate is VOID',
+          isvoid(c(mk(reports=[blk(n) for n in PRINTS] + ["'%sconv_core' reports something else" % NS])))
+          and isvoid(c(log_ok.replace(head + 'Build completed successfully (3653 jobs).\n', '')
+                       .replace(head + 'release gate: PASS', head + 'release gate: PASS\n' + head
+                                + 'Build completed successfully (3653 jobs).'))))
+    check('M', 'the marker counts only as a whole line, and the block ends at the job\'s cleanup: an indented or '
+               'extended marker is no marker, and a gate line after the cleanup is not read',
+          isvoid(c(mk(mark=sha_e + ' (and more)')))
+          and isvoid(c(log_ok.replace(head + 'ktrans_sep2 axioms: step at', head + '  ktrans_sep2 axioms: step at')))
+          and isvoid(c(mk(end=None, after='Post job cleanup.\n' + STEP_OK)))
+          and c(mk(after='Post job cleanup.\n' + failed)) == P_)
     check('M', 'a failed load-bearing statement reads the cells that rest on it negative',
           c(log_ok, gk=good - {'kinfTrans_separation'}) == [P_[0], N_[1], P_[2]]
           and c(log_ok, gk=good - {'not_affine_eball_omega4'}) == [N_[0], N_[1], P_[2]])
@@ -2443,6 +2478,24 @@ def self_test():
           and not ag(lean_out.replace(blk('omega4_convex'), "'%somega4_convex' depends on axioms: [propext," % NS))
           and not ag(lean_out + 'OIBridge/TransSeparation.lean:1:1: error: x\n')
           and not ag(lean_out + 'uses Lean.ofReduceBool\n'))
+    fails = lambda t: sorted(lbl for lbl, ok, _ in axioms_gate(t) if not ok)
+    check('M', 'the final step\'s gate fails each clause alone: a duplicated report (the report and the order), an '
+               'extra report (other report), a report cut short (parse), an empty output',
+          fails(lean_out + blk(PRINTS[-1])) == sorted([PRINTS[-1], 'the reports in print order'])
+          and fails(lean_out + blk('extra_t')) == sorted(['no other report', 'the reports in print order'])
+          and fails(lean_out + "'%sconv_core' depends on axioms: [propext," % NS) == ['every report parses']
+          and fails('') == ['the output is not empty']
+          and fails(lean_out.replace(blk('omega4_convex'), blk('omega4_convex', '[propext, Foo.ax]'))) == ['omega4_convex'])
+    rcs = []
+    with tempfile.TemporaryDirectory() as td:
+        for name, text in (('ok', lean_out), ('bad', lean_out.replace(blk('omega4_convex'), sorry('omega4_convex')))):
+            fp = os.path.join(td, name)
+            open(fp, 'w').write(text)
+            capture(lambda: rcs.append(main(['axioms', fp])))
+            rcs.append(LAST_OUT[0].rstrip('\n').split('\n')[-1])
+    check('M', 'the axioms command exits 0 and ends with the OK line on the fifteen standard reports, and exits 1 and '
+               'ends with the FAILED line on a non-standard one',
+          rcs[0] == 0 and rcs[1] == STEP_OK and rcs[2] == 1 and STEP_FAILED.match(rcs[3]) is not None)
     check('M', 'the final step\'s gate labels name no forbidden token and no report, since they land in the log',
           not any(b in label + detail for label, _, detail in axioms_gate(lean_out + 'sorryAx\n') for b in BAD_TOKENS)
           and not any(BLOCK_HEAD.search(label) for label, _, _ in axioms_gate(lean_out)))
@@ -2502,6 +2555,14 @@ def self_test():
           and "if: ${{ !cancelled() }}" in FINAL_STEP
           and 'echo "ktrans_sep2 axioms: step at $(git rev-parse HEAD)"' in FINAL_STEP
           and (CONTROLS[len('verification/'):] + ' axioms') in FINAL_STEP)
+    body = FINAL_STEP.split('run: |\n', 1)[1].split('\n')
+    cmds = [l.strip() for l in body if l.strip()]
+    check('M', 'workflow: the final step elaborates the module itself, keeps lean\'s exit status, prints the output, '
+               'runs the gate as a plain command and exits with lean\'s status; nothing in it continues on error',
+          'lake env lean OIBridge/TransSeparation.lean > "$log" 2>&1 || rc=$?' in cmds and 'cat "$log"' in cmds
+          and cmds[-1] == 'exit "$rc"' and cmds[-2].endswith('controls.py axioms "$log"')
+          and '||' not in cmds[-2] and 'continue-on-error' not in FINAL_STEP
+          and cmds.index('cat "$log"') < len(cmds) - 2)
     # governed paths, record, pins, chain, F's run
     rows = [('A', p) for p in (MOD, PROBE)] + [('M', p) for p in (IMPORTS, CENSUS, WORKFLOW)] + \
         [('A', PREREG), ('A', CONTROLS)]
@@ -2558,7 +2619,8 @@ def self_test():
                   jobs=[{'name': 'a', 'conclusion': 'success'}],
                   source={'served_sha256': 'a' * 64, 'original_lines': 9000, 'served_lines': 5000},
                   observed={'transseparation_window': {'served_lines': 5000, 'built_line': None, 'status_word': None,
-                                                        'report_lines': {}, 'gate_start': 2000, 'gate_end': 2030},
+                                                        'cache_hit': True, 'report_lines': {}, 'gate_start': 2000,
+                                                        'gate_end': 2030},
                             'axioms_step': {'marker_line': 4899, 'commit': f_, 'report_lines': rl,
                                             'ok_lines': [4920], 'failed_lines': []}},
                   expected={'build_success': True, 'gate': {'verdict': 'PASS'},
@@ -2596,9 +2658,14 @@ def self_test():
           and not run_window_ok(rw(expected__gate={'verdict': 'FAILED -> lean-axioms'}), f_)
           and not run_window_ok(rw(expected__gate={'verdict': 'PASSING'}), f_)
           and not run_window_ok('not json', f_))
-    check('M', 'a replay run result passes only when the module is not `Built` in its window; two run results of '
-               'the same head and branch are other runs only with different run ids',
+    check('M', 'a replay run result passes only when its window shows the primary-key cache hit and no `Built` line '
+               'for the module; two run results are other runs only with the same head and branch and different run '
+               'ids; the OK line past the window fails',
           run_window_ok(json.dumps(run_ev), f_, replayed=True)
+          and not run_window_ok(rw(observed__transseparation_window__cache_hit=False), f_, replayed=True)
+          and run_window_ok(rw(observed__transseparation_window__cache_hit=False), f_)
+          and not run_window_ok(rw(**{ax_ + 'ok_lines': [5001]}), f_)
+          and not other_run(rw(run__id=2, run__head_sha=e_), json.dumps(run_ev))
           and run_window_ok(rw(observed__transseparation_window__status_word='Replayed'), f_, replayed=True)
           and not run_window_ok(rw(observed__transseparation_window__status_word='Built'), f_, replayed=True)
           and run_window_ok(rw(observed__transseparation_window__status_word='Built'), f_)
@@ -2670,7 +2737,8 @@ def self_test():
           and not frun_log_consistent(fw(observed__transseparation_window__report_lines={'conv_core': 4910}))
           and not frun_log_consistent(fw(expected__modules={'OIBridge/TransSeparation.lean': {'status': 'complete',
                                                                                             'reports': []}}))
-          and fok(fw(observed__transseparation_window__built_line=4896), real_head))
+          and fok(fw(observed__transseparation_window__built_line=4896), real_head)
+          and not frun_log_consistent(fw(observed__axioms_step={'marker_line': 4900})))
     # The proof of absence is F's tree. Scratch commits on D (temporary objects, no ref): one that adds only a
     # control-plane file, one that adds the module, one that adds only the import line, one that adds the import beside
     # another module on one line, one that adds the probe, and one that adds the module at another path.
@@ -2731,7 +2799,7 @@ def self_test():
 
 # ---- the end-to-end self-test: derive-run, check and mock-s1 on scratch commits ---------------------------------
 def synth_log(module, steps, verdict='PASS  (note: scratch)', cut=None, word='Built', reports=True, head=None,
-              step_end=None):
+              step_end=None, cache_hit=False):
     """A served bridge log in a simplified form of the real layout (timestamped lines, as served, with no final
     newline): the build, with the module's status line (word: Built, or Replayed when restored from the build cache)
     and, when reports is true, its fifteen reports, when module is true; the release-gate block with the given
@@ -2755,6 +2823,8 @@ def synth_log(module, steps, verdict='PASS  (note: scratch)', cut=None, word='Bu
                   if n == 'conv_core' else ["'%s%s' depends on axioms: [propext, Classical.choice, Quot.sound]" % (NS, n)])
         L += ['PASS axioms: no other report', step_end or STEP_OK]
     L += ['Post job cleanup.']
+    L += ['Cache hit occurred on the primary key oibridge-Linux-scratch, not saving cache.' if cache_hit
+          else 'Cache saved with key: oibridge-Linux-scratch', 'Post job cleanup.']
     if cut:
         L = L[:cut]
     return '\n'.join(ts + l for l in L).encode('utf-8')
@@ -2784,7 +2854,7 @@ def self_test_e2e(d_imp, d_cen, d_wf, step_names):
     meta = lambda b_: {'original_lines': b_.decode('utf-8').count('\n') + 1 + 30000,
                        'served_lines': b_.decode('utf-8').count('\n') + 1}
     ml = lambda h, **kw: synth_log(True, steps, head=h, **kw)
-    replay_log = lambda h: synth_log(False, steps, head=h, word='Replayed')
+    replay_log = lambda h: synth_log(False, steps, head=h, word='Replayed', cache_hit=True)
     # derive-run, alone
     a40, b40 = 'a' * 40, 'b' * 40
     fl = synth_log(False, steps)
@@ -2821,9 +2891,11 @@ def self_test_e2e(d_imp, d_cen, d_wf, step_names):
                'for another commit, or the step cut before its gate line, are incomplete; a byte-order mark changes '
                'only the text\'s digest',
           mstat(rep_)['status'] == 'complete' and run_window_ok(json.dumps(rep_), a40, replayed=True)
-          and st(ml(None)) == 'incomplete' and st(ml(b40)) == 'incomplete' and st(ml(a40, cut=-3)) == 'incomplete'
+          and st(ml(None)) == 'incomplete' and st(ml(b40)) == 'incomplete' and st(ml(a40, cut=-5)) == 'incomplete'
           and st(ml(a40, step_end='ktrans_sep2 axioms: FAILED (1 check(s))')) == 'incomplete'
           and st(ml(a40)) == 'complete'
+          and st(synth_log(False, steps, head=a40, step_end='x')) == 'incomplete'
+          and st(fl + b'\n2026-01-01T00:00:00.0000000Z ktrans_sep2 axioms: step at ' + a40.encode()) == 'incomplete'
           and dict(bom, source=None) == dict(absent, source=None)
           and bom['source']['served_sha256'] != absent['source']['served_sha256'])
     blk_only = b'\n'.join(l for l in ml(a40).split(b'\n') if b'info:' not in l and (

@@ -257,17 +257,20 @@ repeated) or the round halts under `S12`.
 
 **The final bridge step.** The kernel cells read the module's reports from one place: the last step of the Mathlib
 bridge job, which the round adds (the sixth splice of *The workflow edit*). That step prints one line
-`ktrans_sep2 axioms: step at <commit>`, elaborates the module alone with `lake env lean`, which prints its fifteen
-reports again (without file positions, and wrapped across lines by Lean when long), and runs `controls.py axioms` on
-that output, which ends the block with exactly one line, `ktrans_sep2 axioms: OK -- 15 reports` or
-`ktrans_sep2 axioms: FAILED …`. The block is the job's last output, so it lies in any served tail of the log. The
+`ktrans_sep2 axioms: step at <commit>`, elaborates the module alone with `lake env lean`, keeping its exit status,
+prints that output, in which the module's fifteen reports appear again (without file positions, and wrapped across
+lines by Lean when long), and runs `controls.py axioms` on it, which ends the block with exactly one line,
+`ktrans_sep2 axioms: OK -- 15 reports` or `ktrans_sep2 axioms: FAILED …`; the step then fails if `lean` or the gate
+failed. The block is the last output of the job's steps, before the runner's post-job cleanup, so it lies in any
+served tail of the log. The
 build output does not: the bridge job restores a build cache keyed on the toolchain, the dependency manifest, the
 lakefile and every `OIBridge` source, and `lake --rehash build` then replays every module whose inputs match a cached
 build, printing its stored messages under `Replayed`. `E` has the Lean sources of S1, whose required green run saves
 that cache on the round's branch, so `E`'s run replays every module, in roughly dependency-depth order; in `D`'s own
 cache-hit push run (bridge job 119783438107) the served last 5000 of 41820 lines hold only about 2000 lines of build
 output, ending with the root module, and every module replayed before it lies outside the window. The block is
-bound to the commit under check by its marker line. The build-success line and the release-gate block lie between
+bound to the commit under check by its marker line. The build-success line and the release-gate block, in that order,
+lie between
 the build output and the final steps, inside the window in that run (served lines about 2000–2030), and are read
 there.
 
@@ -306,8 +309,17 @@ block; a gate failing outside the module; an incomplete build; `sorryAx` or an e
 line with every report standard; `META` that does not match the text; a probe that crashes, a probe whose import
 fails, sympy absent or of another version, a probe output cut before its verdict or reduced to its summary, and a
 changed non-check line all give VOID; `sorryAx` with the gate failing at `lean-axioms` alone, `sorryAx` with a module
-error in the block, and a complete probe run with a failing check give the negative tokens. A complete block reads
+error in the block, and a complete probe run with a failing check give the negative tokens, which `verdict` prints and
+a halted round's result note records (*The negative readings and the outcome*). A complete block reads
 the same whether the module was built or replayed earlier in the log, and wrapped reports read whole.
+
+**The negative readings and the outcome.** A negative reading is complete evidence of a failure, never the round's
+`READ` outcome: a kernel NOT-ESTABLISHED needs the final step's FAILED line, which fails the step and so the bridge
+job, and Q-EXACT's NOT-ESTABLISHED needs a probe check that failed, which fails the shard's `VERDICT` step; `READ`
+requires the exact-head run at `E` green on every job. Either reading therefore halts the round (`S12`), and its
+result note states the tokens `verdict` printed. A literal `sorry` in the module fails N3, which voids the verdict
+before any cell is read; the kernel's negative route reads the kernel's own report of a failure, such as the
+`sorryAx` that Lean's error recovery records at a term that does not elaborate.
 
 ## The earned reading and the non-inference rule (frozen)
 
@@ -350,12 +362,14 @@ boundary orbit (`kinfTrans_separation`)." K∞-Trans stays open under every outc
 
 - the final bridge step, `KTRANS-SEP-2 axiom reports`, inserted directly after KTOKEN-MAXCONE-1's check A3 step, the
   Mathlib bridge job's last step at `D`. It runs with `if: ${{ !cancelled() }}`, so it runs after a failed earlier
-  step too, in `verification/lean-mathlib`: it prints `ktrans_sep2 axioms: step at $(git rev-parse HEAD)`, runs
-  `lake env lean OIBridge/TransSeparation.lean` into a file under `$RUNNER_TEMP` and prints that file, then runs
-  `controls.py axioms` on it, which fails the step unless each of the fifteen prints is reported exactly once, in
-  print order, within the three axioms, with no other report of the namespace, no report that does not parse, no
-  error line and none of `sorryAx`, `Lean.ofReduceBool` and `Lean.trustCompiler`, and which prints the block's one
-  OK or FAILED line (*The decision rules*);
+  step too, in `verification/lean-mathlib`, under GitHub's default `bash -e`: it prints
+  `ktrans_sep2 axioms: step at $(git rev-parse HEAD)`, runs `lake env lean OIBridge/TransSeparation.lean` into a file
+  under `$RUNNER_TEMP` keeping its exit status (`|| rc=$?`), prints that file and the line
+  `ktrans_sep2 axioms: lean exited <status>`, runs `controls.py axioms` on the file, which exits non-zero, failing the
+  step, unless each of the fifteen prints is reported exactly once, in print order, within the three axioms, with no
+  other report of the namespace, no report that does not parse, no error line and none of `sorryAx`,
+  `Lean.ofReduceBool` and `Lean.trustCompiler`, and which prints the block's one OK or FAILED line, and then exits with
+  `lean`'s status (*The decision rules*);
 
 - the shard `probes_ktranssep2`, `Numerical probes / KTRANS-SEP-2 Omega4 counterexample`, inserted directly before the
   Act 42 comment (`:483`), after KTOKEN-MAXCONE-1's shard. It checks out with `fetch-depth: 0` (the controls read `D` through git),
@@ -378,6 +392,14 @@ these holds: the census family stands before its family, the shard joins `needs`
 other insertion follows its lines. With the edits applied to `D`'s files, KTOKEN-MAXCONE-1's self-test and every other
 round self-test present at `D` print OK; with the placement of this round's first draft (the family after its family,
 the shard after `probes_ktokenmaxcone1`), its self-test fails, and the predicted tree's run could not be green.
+
+**Reconciliation.** `main` has moved since `D`: PRESERVE-INDUCT-1 (#880) added, at the same anchors, its own bridge
+step after KTOKEN-MAXCONE-1's check A3, two import lines after `import OIBridge.KTokenMaxCone`, two census families
+before KTOKEN-MAXCONE-1's, and its shard and aggregate lines. The round keeps `D`; its execution and its `E` run on
+`D`'s workflow, so its verdict reads a bridge job whose last step is this round's. The conflicts this leaves for the
+reconciliation are resolved there by merits (§A.39): every round's lines are kept, this round's final bridge step
+stays the job's last step, and the placement keeps KTOKEN-MAXCONE-1's live requirements; before the reconciliation is
+pushed, every round self-test that reads the live files is run on the reconciled tree.
 
 ## The controls (in `controls.py`)
 
@@ -402,8 +424,9 @@ condition 3). Its codes:
     fifteen reports in print order within the three axioms and the gate's verdict PASS (`run_window_ok`);
   - the predicted tree's second run result (`evidence/predicted-tree-replay-run.json`), a second `workflow_dispatch`
     run of the same commit on the same branch, after the first saved its build cache, satisfies the same and, in
-    addition, its window shows no `Built OIBridge.TransSeparation` line: it restored the cache and replayed the module,
-    as `E`'s run will; it is another run than the first (`run_window_ok` with `replayed`, `other_run`);
+    addition, its window shows the cache step's `Cache hit occurred on the primary key …` line and no
+    `Built OIBridge.TransSeparation` line: it restored the cache and replayed the module, as `E`'s run will; it is
+    another run than the first (`run_window_ok` with `replayed`, `other_run`);
   - at `F` (with `--freeze`) three checks, kept separate:
     - **absence, from `F`'s tree** (`ftree_ok`): read through git at `F`, the trees `verification/lean-mathlib` and
       `verification/lean` are exactly `D`'s, neither the module's path
@@ -474,7 +497,7 @@ them a real crashing probe and a real failing import; the evidence-file cases of
 result without a digest, a timestamp field, a duration field; for a run result another head, a push event, a failed
 run conclusion, a failed job, no jobs, the final step run at another commit, a report past the window, a missing
 report, the block before the gate, the OK line before a report, missing or doubled, a FAILED line, a non-standard
-axiom, a failed gate; for the second run, a `Built` line in its window and the same run offered twice); the verdict gate with each required
+axiom, a failed gate; for the second run, a `Built` line in its window, no primary-key cache hit, and the same run offered twice); the verdict gate with each required
 control failed or missing; the note with an extra token, an altered earned reading, no non-inference rule, the earned
 reading under a negative cell, and a frozen phrase (a neutral addition passes); and the pure cores of I, C, W, G, R, P
 and T, including a merge, a re-cut `F` and an `F` not on `D`. Positive controls: the frozen module, the landed ball
@@ -519,8 +542,17 @@ It adds, against the defect:
   section in this round's first draft's form, a candidate `F` carrying the module (T and P), a candidate `F` pinning
   another `controls.py` blob or leaving the pin pending (B), a stage-1 `controls.py` other than the file running though
   the pin names the running file (B), a pinned file that differs from its pin, a predicted-tree run result naming
-  another commit, the predicted tree's first run offered as its second, and a second run that built the module
-  fresh;
+  another commit, the predicted tree's first run offered as its second, a second run under the first run's id, and
+  a second run that built the module fresh; a replay run result without the primary-key cache hit fails;
+- **the final step's own gate and shape:** `controls.py axioms`, run as a command, exits 0 and ends with the OK line
+  on the fifteen standard reports and exits 1 and ends with the FAILED line on a non-standard one; each of its clauses
+  fails alone (a duplicated report, an extra report, a report cut short, an empty output); W's case pins the step's
+  shape. The verdict's clauses are isolated as well: each forbidden token, an error line in another file and a
+  report outside the three axioms that names no forbidden token are VOID beside an OK line, while a report of no axioms
+  is standard; a report head that does not parse, an indented or extended marker, a gate line after the job's
+  cleanup and a build-success line after the gate are VOID; the negative route needs a module error in the block (an
+  error in another file is VOID) or the gate failing at `lean-axioms` alone (another failing step too is VOID), and a
+  FAILED step with a module error but every report standard is VOID;
 - **the real layout:** before this revision was frozen, `D`'s own cache-hit push run (bridge job 119783438107; every
   module replayed) was read with a final-step block for a commit inserted before the job's cleanup, as the step
   places it: in the served last 5000 lines the gate falls at lines 1993–2018 and the block at 4944–4983, and the
@@ -533,7 +565,7 @@ It adds, against the defect:
   workflow lacks the step or whose tree lacks the module, as `F`'s did — is VOID, never a token.
 
 The regression and end-to-end cases test the corrected rule and its wiring; they are not the safeguard. The safeguard
-is condition 3 of *Preconditions of `F`*, run on this round's own candidate `F`. The self-test passes 127 checks.
+is condition 3 of *Preconditions of `F`*, run on this round's own candidate `F`. The self-test passes 137 checks.
 
 `controls.py` is KTRANS-SEP-1's `controls.py` (blob `412802eb`) with this round's changes, drafted on the branch
 `draft/ktrans-sep-2-staging-controls`, which this round's pull request links; its blob is pinned below once it is
@@ -545,7 +577,7 @@ final (*The frozen `controls.py`*).
 | --- | --- | --- | --- | --- | --- |
 | `F` | `D` plus the control plane; no module | that `D`'s workflow and release gate pass on `D` plus this file: the run's identity (`F`, `verify.yml`, the Mathlib bridge job, `workflow_dispatch`, run and job ids, attempt), every job `success` and exactly the predicted tree's run's jobs less the round's shard, build success, release gate PASS on exactly its steps. It runs none of the round's controls, which first run at stage 1 and in `mock-s1`. The module's absence is **not** a run result: it is read from `F`'s tree | absence: `F`'s tree through git (the Lean directories, the module and probe paths, the import line); identity, success, gate: `evidence/f-run/results.json`, derived by `controls.py derive-run` and added at stage 1 | P: `ftree_ok` (absence), `frun_ok` (run), `frun_log_consistent` (consistency only), at S1 and `E` | a tree containing the module, the import line or the probe fails although its log has no module lines; a run with a failed job, a missing job or a failed gate fails |
 | predicted tree | `D` plus the predicted execution files | the proposed implementation: the module built, the final step's block for it with its fifteen reports within the three axioms, gate PASS | `evidence/predicted-tree-run.json`, pinned before `F` | P (`run_window_ok`) | KTRANS-SEP-1's real `F` run (no module), offered here, fails |
-| predicted tree, second run | the same commit, dispatched again on the same branch | that a run restoring the build cache, as `E`'s will, still serves the final step's block: no `Built` line for the module in its window, the block complete | `evidence/predicted-tree-replay-run.json`, pinned before `F` | P (`run_window_ok` with `replayed`, `other_run`) | the first run offered again, or a second run that built the module fresh, fails |
+| predicted tree, second run | the same commit, dispatched again on the same branch | that a run restoring the build cache, as `E`'s will, still serves the final step's block: the primary-key cache hit and no `Built` line for the module in its window, the block complete | `evidence/predicted-tree-replay-run.json`, pinned before `F` | P (`run_window_ok` with `replayed`, `other_run`) | the first run offered again, or a second run that built the module fresh, fails |
 | `E` | the actual execution | the actual execution: the final step's block for `E` with the fifteen reports, gate PASS | `E`'s served bridge log (`LOG`, `META`) | `verdict`: VOID unless the final step's complete block for `E` is in the window | a complete green log without the final step is VOID |
 
 `mock-s1` (condition 3 of *Preconditions of `F`*) runs the stage-1 acceptance on candidate `F`'s own tree and its own
@@ -562,9 +594,10 @@ actual run result before `F` is designated, so that a requirement `F` cannot mee
 | the exact layer replays; its countercontrols fail as stated | `C3`: shard `probes_ktranssep2` green; `verdict` re-runs the probe blob at `E` against the frozen output digest |
 | no positive token over a failed or missing control | `C5`: the verdict gate; its self-test cases run in the shard at `E` |
 | a tooling failure or incomplete evidence never yields a token, positive or negative | `C5`: the VOID rules of `verdict`; their self-test cases (log, probe, sympy, metadata) run in the shard at `E` |
-| the served `LOG` holds the fifteen reports whatever the build cache replayed | `C5`: the final step's block is the job's last output, bound to `E` by its marker; `verdict` with `--log-meta` reads only that block; W checks the step is the bridge job's last; `C8`: both predicted-tree run results record the block in their windows, checked by P (`run_window_ok`), the second from a run that restored the cache (`replayed`) |
+| the served `LOG` holds the fifteen reports whatever the build cache replayed | `C5`: the final step's block is the last output of the job's steps, bound to `E` by its marker; `verdict` with `--log-meta` reads only that block; W checks the step is the bridge job's last; `C8`: both predicted-tree run results record the block in their windows, checked by P (`run_window_ok`), the second from a run that restored the cache (`replayed`) |
 | the predicted tree's run, S1's and `E`'s can be green beside KTOKEN-MAXCONE-1's live self-test | `C5`: the self-test checks each of KTOKEN-MAXCONE-1's live requirements on `D`'s files with the frozen edits (`ktoken_live_ok`), and that the first draft's placement breaks them; `C8`: the predicted tree's two runs green on every job |
-| the final step itself fails closed | `C5`: `controls.py axioms`, whose self-test cases (a missing, duplicated, extra or reordered report, a non-standard axiom, a report cut short, an error line, a forbidden token, an empty output) run in the shard at `E`; `C3`: the step green in `E`'s run |
+| the final step itself fails closed | `C5`: `controls.py axioms`, whose self-test cases (a missing, duplicated, extra or reordered report, a non-standard axiom, a report cut short, an error line, a forbidden token, an empty output, each clause alone) and its command path (exit 0 and the OK line, exit 1 and the FAILED line) run in the shard at `E`; W's case pins the step's shape (the module elaborated, its status kept, the output printed, the gate a plain command, the step exiting with `lean`'s status, nothing continuing on error); `C3`: the step green in `E`'s run |
+| a negative reading halts the round, never reads as `READ` | *Stages and outcomes*: `READ` requires every job green, and a negative reading fails a job; `C3` |
 | `F` carries no module | `C5`: T (`delta(D, F)` is the control plane) and P (`ftree_ok`) at S1 and `E`, reading `F`'s tree through git: its Lean directories equal `D`'s, no module path, no probe path, no import line naming `OIBridge.TransSeparation` in `F`'s `OIBridge.lean`; `C9` on candidate `F` |
 | `F`'s run shows `D`'s workflow and release gate passing on `D` plus this file: it is `F`'s `workflow_dispatch` run of `verify.yml`, its jobs are the predicted tree's run's less the shard, every job `success`, the release gate PASS on the predicted tree's run's steps | `C5`: P (`frun_ok`) on `evidence/f-run/results.json` against `evidence/predicted-tree-run.json` at S1 and `E`; `C8` |
 | `evidence/f-run/results.json` is derived from `F`'s actual run, by the frozen recipe | `C9`: `mock-s1` requires the file to be `controls.py derive-run`'s output over the served bridge log, its metadata and the runs and jobs answers of candidate `F`'s exact-head run, and prints its digest; the digests of those inputs are in the file; reviewers check that stage 1's file has the digest recorded with the designation request |
@@ -732,8 +765,9 @@ attestations.
   `controls.py verdict E --freeze F --log LOG --log-meta META` prints one token for each of the three cells, not VOID; the exact-head run at `E` is green on every job;
   the result note states each cell's token, the earned reading in its frozen words exactly when all three cells are
   positive, and the non-inference rule.
-- **`KTRANS-SEP-2-HALTED`**: anything else (`S12`); the result note names the failing check or job. A VOID verdict is
-  not an outcome: the evidence is taken again, and if it cannot be made complete the round halts.
+- **`KTRANS-SEP-2-HALTED`**: anything else (`S12`); the result note names the failing check or job, and the tokens
+  `verdict` printed when it read a negative cell (*The negative readings and the outcome*). A VOID verdict is not an
+  outcome: the evidence is taken again, and if it cannot be made complete the round halts.
 
 No outcome sources boundary transitivity or its dense form, adopts either as a premise, or edits the ROADMAP or a
 manuscript. Correctness bands are unchanged by either outcome: the round is consistency-axis work.
@@ -747,8 +781,8 @@ manuscript. Correctness bands are unchanged by either outcome: the round is cons
    `controls.py derive-run`, pinned above in the form P requires, its window recording the release gate and then the
    final step's block for that commit. Then, after that run has saved its build cache, `verify.yml` dispatched again
    on the same commit and branch, every job green, and its retained result `evidence/predicted-tree-replay-run.json`
-   pinned in the same form, its window showing no `Built OIBridge.TransSeparation` line and the final step's complete
-   block: the probe of the full replay `E`'s run will make. Each dispatch needs the owner's authorization. Open.
+   pinned in the same form, its window showing the primary-key cache hit, no `Built OIBridge.TransSeparation` line
+   and the final step's complete block: the probe of the full replay `E`'s run will make. Each dispatch needs the owner's authorization. Open.
 2. **No pin pending.** `evidence/exact-replay.json` and `evidence/d-push-run.json` are derived and pinned,
    `controls.py`'s blob is pinned (*The frozen `controls.py`*), and *The predicted execution tree* names its commit.
    Open.
