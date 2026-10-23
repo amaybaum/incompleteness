@@ -45,8 +45,9 @@ Before receiving the archive, the coordinator also checked the following from th
 ## Findings
 
 1. **The census holds as stated (CONFIRMING).**
-   - In the binary scalar, cubic-invariant, center-free nearest-neighbor second-order class, the three requirements
-     select XOR.
+   - In the binary scalar, cubic-invariant, center-free nearest-neighbor second-order class, the filters act in
+     succession: a quiescent background, a pulse response and a balanced truth table leave six rules, and exact
+     three-tick freshness then selects XOR.
    - Every nonlinear survivor has an AND slice, so their failure is a freshness failure.
    - The three-field "escape" at the end of the census is the original detector rule. Report15 records why that rule
      cannot be reused as a gate, and records the repaired rule that replaced it.
@@ -58,19 +59,17 @@ Before receiving the archive, the coordinator also checked the following from th
    - S1 and S2 check this by separate code paths.
 3. **Under the uniform prior the theorem is exact but nearly free; its real use is for prepared priors
    (ELABORATING).**
-   - Conditioning on W = w rather than on E_w changes every law by at most 2^−117 in total variation at K = 3 (S3),
-     so the fixed-start law of report15 already gave the stopped law to that accuracy.
+   - At K = 3, conditioning on W = w rather than on E_w changes the full state law by exactly the S3 distances:
+     2^−117 at w = 1, and 2^−117 + 2^−174 − 2^−234 at w = 2. Any recorded quantity changes by at most that much.
+     The payload, source and receiver record has the same law under both conditionings, so its distance is zero.
    - The exact statement matters where readiness is likely, which under a uniform prior it is not.
-   - Read as written, the proof uses only the following, which is the coordinator's reading and is not separately
-     checked:
-     - W = w depends only on unreserved bits;
-     - the reserved 2 + 3K frontier bits are fair and independent of those unreserved bits;
-     - given the unreserved bits, the outputs are bijective in the reserved bits.
-   - It therefore extends to any initial law under which, for each w ≤ B, that w's reserved frontier bits are fair
-     and independent of the rest.
+   - The extension to prepared priors is proved branch by branch in report17. For each w it needs three things:
+     - the reserved 2 + 3K frontier bits are fair and independent of everything else;
+     - W = w and the entire preparatory record depend only on the other bits;
+     - given those bits, the outputs are bijective in the reserved bits.
    - **Assumption-watch marker.** A native preparation must hold an entropy deficit of at least about J bits. It
-     preserves this freshness if it leaves the reserved frontier bits fair and independent of everything it
-     prepares.
+     keeps this freshness exactly if its records do not reveal the reserved bits. Leaving them unchanged is not
+     enough: a copy into a visible register leaves a bit fair but no longer fresh.
 4. **Waiting and resources (CONFIRMING; corrects the coordinator's earlier remark).**
    - The Kac return mean bounds the return time to E, not the first-hit time from a uniform start.
    - In this rule the uniform-start mean first-hit time is infinite, because some states never become ready.

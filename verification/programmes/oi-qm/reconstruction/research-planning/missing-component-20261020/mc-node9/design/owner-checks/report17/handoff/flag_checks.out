@@ -1,0 +1,7 @@
+Polynomial PASS: all 128 quadratic tables; readiness distances {1:8,3:56,5:56,7:8}
+Degree PASS: J=1..12; abstract randomized worst-case bound 1/8 is tight
+Raw-rule PASS: 45 whole-field third differences on the actual 25^3 torus
+Positive control PASS: native two-input AND at the receiver; three-input readiness has odd parity
+Prepared-prior mechanism PASS: K=1,2,3; copy-to-record countercontrol reveals untouched bit
+Review correction PASS: w=2 TV ceiling is 2^-117 + 2^-174 - 2^-234 > 2^-117
+PASS: restricted raw-flag obstruction; no general apparatus or OI no-go
