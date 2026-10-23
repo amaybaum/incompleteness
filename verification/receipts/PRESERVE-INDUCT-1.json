@@ -36,16 +36,17 @@
  ],
  "landing": {
   "base": "897c4909d87f638acf7ecb7da288fe4b582960b9",
-  "object": "139a7c844456b5f2935d792d06971e2ca1fd91f9",
+  "object": "b306eb1301476eca644ecc6ef3388f6ac882082d",
   "reconciliations": [
-   "139a7c844456b5f2935d792d06971e2ca1fd91f9"
+   "139a7c844456b5f2935d792d06971e2ca1fd91f9",
+   "b306eb1301476eca644ecc6ef3388f6ac882082d"
   ],
   "resolved_paths": [
    ".github/workflows/verify.yml",
    "verification/lean-manuscript-census.json",
    "verification/lean-mathlib/OIBridge.lean"
   ],
-  "delta_digest": "de637647803f6e17d4560b5f66b967c87c9334c0b498a87bdf070ca2722fc8a8"
+  "delta_digest": "8b3654ce5aa7abddc45e05c67f58c298fb0c16969cadb782a70fcba7d33bb104"
  },
  "attestations": [
   {
