@@ -1,0 +1,17 @@
+{
+  "upstream_head": "9d77dbbaddf5671cb20655934e4a65145c983e57",
+  "inherited_files": {
+    "../reset_v7/inherited_model.py": "dfb056bfe91372b44787d962e63d83ae7109802b38034b661e1c3275a63e146b",
+    "../reset_v7/inherited_correction_model.py": "81fb9162229409e42d4383274c91988b94c8727dc70d9398cc1ca1ac51a38ee4",
+    "../reset_v7/probe.py": "1b00605540c71e499a6a7b3b4f59f965f140e2620c287b4321c74c2cd2554b72"
+  },
+  "source_paths": {
+    "../reset_v7/inherited_model.py": "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/reset_v7/inherited_model.py",
+    "../reset_v7/inherited_correction_model.py": "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/reset_v7/inherited_correction_model.py",
+    "../reset_v7/probe.py": "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/reset_v7/probe.py"
+  },
+  "geometry": {
+    "path": "../parallel_v3/history_control/SOURCE-GEOMETRY.json",
+    "sha256": "2642e1a68825faa5d3bb1049e8722adec1ec33bd3f56b9e4416b2c902a85ec5d"
+  }
+}
