@@ -1,4 +1,4 @@
-# A fixed redundant q10 readout delivers the old sign under affine sources
+# Fixed readouts of the q10 cell under jointly affine known-seed sources
 
 Research checkpoint, 24 October 2026. Plan committed on #910 at
 `36213be6354ef15442b4f3040ecdb511fd0b5641`, before computation, on base
@@ -22,18 +22,28 @@ all accepted contexts. Under the preregistered rule the verdict is positive.
 - Of the 254 nonconstant readouts, 78 decode s exactly on all 48 accepted
   (s,k) rows for at least one of the 2^36 jointly affine laws. The total
   number of (readout, law) solutions is 7464.
-- All eight degree-one readouts succeed. The single raw field q10.A equals s
-  under 1456 laws, and equals NOT s under 912 further laws. The parities
-  A XOR B (384 laws), its complement (424), A XOR D (24), its complement
-  (16), B XOR D (8) and its complement (4) also succeed. The fields q10.B
-  and q10.D alone, and their complements, have no law.
+- Of the fourteen nonconstant degree-one readouts, eight succeed. The single
+  raw field q10.A equals s under 1456 laws, and equals NOT s under 912
+  further laws. The parities A XOR B (384 laws), its complement (424),
+  A XOR D (24), its complement (16), B XOR D (8) and its complement (4) also
+  succeed. The six others have no law: q10.B, q10.D and A XOR B XOR D, and
+  their complements.
 - The remaining positive readouts have degree two (29) or three (41).
 
-Thus the native table carries s pointwise into the outward port q10 at
-L+1 under the affine source contract, when the code is read at a fixed
-field rather than as a fixed whole triple. The exclusion of
-`native_route_v13` holds for its own class: no law gives a two-symbol
-whole-triple code.
+Thus, under the affine source contract, the q10 cell at L+1 carries s in its
+single field A for suitable laws, when the code is read at a fixed field
+rather than as a fixed whole triple. q10 is a lattice cell, not a permitted
+read (see *Scope*). The exclusion of `native_route_v13` holds for its own
+class: no law gives a two-symbol whole-triple code.
+
+s is not singled out. A separate computation in the independent review of
+this checkpoint, not this checkpoint's checker, shows that for each of the
+64 affine functions f of the known seeds k there exist jointly affine laws
+with q10.A = x XOR f(k) on all accepted rows (512 to 2016 laws for each f);
+the law depends on f, and no single law serves every f. s is the case
+f = u XOR a, and q10.A = x holds under 992 laws. What the table shows is the
+old input x carried into the field A, with a seed offset chosen by the
+law.
 
 One law for q10.A=s, of the fewest seed dependences (mY alone), is
 
@@ -49,7 +59,7 @@ the degree-one block of result.json.
 
 These descriptions were computed after the verdict and do not enter it.
 
-- **The second front is required.** No solution has E identically 000.
+- **No affine law with E identically 000.** No solution has E identically 000.
   The E=000 subtable equals Native B's single-N table, so in that geometry
   no fixed q10 readout decodes s under affine N, in agreement with Native
   B's loss on the accepted branch u=0, a=b=1. Forty solutions have constant
@@ -58,8 +68,11 @@ These descriptions were computed after the verdict and do not enter it.
   (s, raw code) values across the contexts (16 laws use six, 680 use
   seven, 6768 use all eight). The q10 triple therefore carries known-seed
   information beside s.
-- **The other fields carry s as well.** For no q10.A law are the B and D
-  fields independent of s on every context.
+- **The B and D fields jointly carry s.** For no q10.A law are B and D
+  jointly independent of s on every context. This check reads the pair
+  jointly; the independent review finds B alone independent of s in 8 q10.A
+  laws, and D alone dependent on s on at least four contexts in every q10.A
+  law.
 - **A fresh-bit pad on q10.A.** In 512 pairs, a q10.A=s law and a
   q10.A=NOT s law differ only in constant coefficients: in 256 pairs the
   E.B constant, in 256 all three E constants. Driving that constant by one
@@ -96,6 +109,8 @@ Every control raises before any verdict text is written.
    joint laws for every pair.
 5. **Sign-erased countercontrol.** Replacing the s=1 rows by the s=0 rows
    gives zero for every readout and for the diagnostic, in both solvers.
+   This holds by construction, since no readout can separate s once the
+   rows agree; it checks the solvers' bookkeeping, not the result.
 6. **Solver agreement.** Solver A eliminates two source fields at a time
    over bit sets of affine coefficient pairs; solver B backtracks over a
    greedy affine basis of the context features and determines the other
@@ -114,9 +129,19 @@ two-front geometry of `native_route_v13`, with affine payloads in the known
 old seeds and the accepted old contexts. It is exact and exhaustive within
 that class. It does not show:
 
-- a clean operand: the other q10 fields depend on s and on the seeds, and
-  native dynamics acts on the whole triple through H(A,B,D)=(B,D,A XOR BD).
+- a clean operand: the B and D fields jointly depend on s and on the seeds,
+  and native dynamics acts on the whole triple through H(A,B,D)=(B,D,A XOR BD).
   No native stage that consumes q10.A while tolerating B and D is tested;
+- a permitted read: Native A allows a single whole-V (q9) read at L+2, and
+  under Native A q10 is a private pool cell. No current access rule permits
+  reading q10 at any tick. Reading q10.A would need a new access rule and the
+  affine known-seed contract, neither of which is adopted;
+- a read operation or a post-read law: no read, post-read evolution, or
+  complete public-record and outgoing-carrier law is modelled. After q10.A,
+  the remaining fields stay correlated with s given the seeds, an untested
+  leak or disturbance hazard;
+- delivery of the earlier sign specifically, as distinct from the old input
+  x with a law-chosen seed offset;
 - masking: a fresh bit on the E constants pads q10.A, but the triple still
   reveals s given the seeds in every tested pair;
 - that the seed-dependent payloads are an admissible preparation, beyond

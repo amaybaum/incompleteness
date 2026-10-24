@@ -91,17 +91,23 @@ contexts, against all 2^36 jointly affine known-seed E/N laws on the
 retained 4096-row table. 78 of 254 readouts decode s exactly on all 48
 accepted rows (7464 laws). The single field q10.A equals s under 1456 laws;
 one such law depends on mY alone: E=(1,1 XOR mY,1), N=(mY,1,1 XOR mY).
-All eight degree-one readouts succeed; q10.B or q10.D alone never does.
+Eight of the fourteen nonconstant degree-one readouts succeed; q10.B,
+q10.D and A XOR B XOR D, and their complements, have no law.
 Two independent exact solvers agree on every solution set, with planted,
 brute-force, raw-pair reproduction and sign-erased controls.
 
-So the second front delivers s pointwise to one native field of q10 at L+1
-under the affine source contract. Post hoc: no solution has E identically
-000; the B and D fields depend on s in every q10.A law; a fresh bit on the
-E constants pads q10.A but never hides s in the whole triple given the
-seeds. No native stage that consumes q10.A while tolerating B and D, no Y
-operand, acceptance flag or joint history/carrier law follows. Separate
-review is pending.
+So, under the affine source contract, the q10 cell at L+1 carries s in its
+single field A for suitable laws. The independent review shows that s is not
+singled out: for each affine function f of the known seeds, some law gives
+q10.A = x XOR f(k), so the table carries the old input x with a law-chosen
+seed offset. q10 is a private cell under Native A, not a permitted read, and
+no read operation, post-read carrier law or reusable interface is modelled.
+Post hoc: no affine law has E identically 000; B and D jointly carry s in
+every q10.A law (B alone is s-free in 8 laws); a fresh bit on the E
+constants pads q10.A but never hides s in the whole triple given the seeds.
+No native stage that consumes q10.A while tolerating B and D, no Y operand,
+acceptance flag or joint history/carrier law follows. Separate review of the
+corrected text is pending.
 
 ## Explicit acceptance specification and the native delay gap
 
