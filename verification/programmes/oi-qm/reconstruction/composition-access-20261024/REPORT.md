@@ -16,8 +16,8 @@ transition kernels; summing over r preserves mass. Failures, heralds, timing,
 and accessible intermediate ticks belong to r. Stopping can be padded with an
 absorbing state and a distinguished no-new-record symbol.
 
-Let C_i be a cone of admissible boundary measures containing the initial law
-and closed under every allowed K_i(a,r). A fixed linear decoder D_i on the span
+Let C_i be a cone of admissible boundary measures, with mu_0 in C_0 and
+K_i(a,r)(C_i) contained in C_(i+1) for every allowed setting and record. A fixed linear decoder D_i on the span
 of C_i maps its elements to positive semidefinite quantum operators, with
 Tr D_i(mu)=mass(mu). It is fixed by the interface, not chosen after reading a
 history. Positivity is required on C_i, not silently on every ontic point mass.
@@ -54,8 +54,9 @@ admit this particular decoder. QED.
 
 At the actual use boundary, a seed U may be averaged with its advertised law
 nu only after establishing P(U | H=h, X_relevant=x)=nu on every reachable
-positive-probability pair. Here X_relevant includes all variables used by the
-stage, not merely the visible carrier. Conditional independence given the
+positive-probability pair. Here X_relevant includes all non-seed variables
+used by the stage, not merely the visible carrier; U itself is excluded from
+X_relevant. Conditional independence given the
 public history alone need not suffice if the seed remains correlated with a
 hidden input. An independent initial seed bank supplies this condition only
 when earlier dynamics and access have not used it or conditioned on it in a
@@ -113,6 +114,70 @@ finite construction for each depth.
   relevant background; the elementary induction above is self-contained and
   does not import a claim of native realizability from that paper.
 
-The theorem is a written proof, not Lean certification. This initial checkpoint
-precedes the exact countercontrol suite and independent review. It is a scoped
-active research result, not a completed native application or full equivalence.
+The theorem is a written proof, not Lean certification. The finite controls
+below test its use and expose weakened contracts; they do not prove its
+arbitrary-depth quantifier. Separate-author review remains pending. This is a
+scoped active research result, not a completed native application or full
+equivalence.
+
+## Exact controls and counterexamples
+
+`checks.py` uses Python's rational `Fraction` arithmetic. Its structured
+`RESULT.json` is reproduced byte-for-byte in normal and optimized execution.
+Failures raise explicit exceptions, so optimized execution retains checks.
+
+**Positive composition control.** A four-state physical toy boundary `(q,g)`
+has a decoded classical bit q and private garbage g. The three settings are
+copy, flip, and fair replacement. Each has success probability 3/4; on failure
+the decoded bit stays unchanged and the garbage flips. A direct physical
+implementation averages an independent four-valued seed on success. Its
+decoder identifies unequal garbage fibers. Twelve local cases satisfy (1),
+and all 81 deterministic depth-two adaptive policies agree on the complete
+records and terminal decoded bit for each of four initial boundary states
+(324 cases). The reference can be realized as measure-and-prepare diagonal
+qubit instruments. This is an abstract control, not a native lattice model or
+a demonstration involving quantum coherence.
+
+**Marginals do not compose.** Reference record R and outgoing carrier C are
+independent fair bits; a candidate instead sets C=R with R fair. Both one-bit
+marginals agree, but the joint distributions have TV distance 1/2. A later
+read of C exposes the difference. The contract must include the outgoing
+state jointly with the record.
+
+**Fair after heralding is weaker than conditionally fresh.** Initially X and
+U are independent fair bits. An earlier herald H announces whether X=U.
+Conditional on H=1, U is still fair, but U=X. The later output X XOR U is
+always zero, whereas replacing U with an independent fair seed would make it
+fair (TV distance 1/2). Thus initial independence and even the correct seed
+marginal conditional on each herald do not justify a fresh reset law. The
+conditional joint law with the relevant input is load-bearing.
+
+**Calibration needs the terminal R diagnostic.** For each fixed y, compare
+the post-Y carrier `(y XOR a,y,y XOR b,z)` with z independently fair and
+`(a,b)=00,10,11` weighted 5:3:2 versus 5:2:3. Both give a fair terminal X bit.
+The terminal R laws differ by TV 1/10, as do the full carrier laws. These are
+exact checks of the supplied reference calibration; they do not derive it.
+
+**Failures and access are separately detectable.** Success-conditioned
+outputs can agree while success probabilities 1/2 and 3/4 give full herald
+laws at TV 1/4. Likewise, revealing the garbage bit distinguishes the two
+private fibers of the positive control perfectly, although its declared
+menu identifies them. These controls exhibit the need to keep failures and
+the actual access class in the contract.
+
+## Application checklist and next decisive test
+
+| Obligation | This checkpoint | Native-Y application |
+| --- | --- | --- |
+| Fixed full boundary and admissible cone | Defined; toy instance checked | Actual two-slice neighborhood and correlated resources required |
+| Local complete-record instrument identity | Written sufficient theorem; toy cases checked | Downstream reset K and 5:3:2 law remain to construct |
+| Physical compatibility at consecutive stages | Explicit hypothesis | Clean q7 code alone does not discharge it |
+| Freshness conditional on input and history | Sufficient condition; counterexample to weaker versions | Future seed bank and herald conditioning need audit |
+| Terminal effect matching | Included in theorem; X/R calibration control checked | Terminal native R instrument and full record needed |
+| Converse access coverage | Separate obligation identified | Private prefix and expanded access remain supplied restrictions |
+| Composite and unbounded-menu coverage | Separate obligations identified | Not established here |
+
+The next decisive input from #910 is its actual proposed reset boundary and
+kernel, not another isolated output marginal. Applying equation (1) to that
+kernel either yields a composable stage or a concrete branch/record witness
+of failure. A proof of this contract cannot supply a missing physical kernel.
