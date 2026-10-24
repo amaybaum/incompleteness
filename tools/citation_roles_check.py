@@ -20,13 +20,14 @@ Manifest:
                              "claim_sha256": "<64 lowercase hex>"},
       "<40 lowercase hex>": {"role": "provenance", "reason": "<why it is not load-bearing>"},
       "<40 lowercase hex>": {"role": "external",   "repository": "<owner>/<repo>"}},
-     "retired": {"<40 lowercase hex>": <downgrade record>}}
+     "retired": {"<40 lowercase hex>": [<downgrade record>, ...]}}
 
 with exactly those fields, `retired` optional and non-empty when present, the ids of each map
-in sorted order and none in both, and each entry carrying exactly its role and that role's
-fields, each a non-empty string; a `provenance` or `external` entry may also carry a
-`downgrade` record (below). Roles are the author's declaration and are never inferred;
-each entry states something a reviewer can check:
+in sorted order, each `retired` list non-empty and without repeats, a retired id listed in
+`ids` only as `support` (a reworded claim retires its old record), and each entry carrying
+exactly its role and that role's fields, each a non-empty string; a `provenance` or `external`
+entry may also carry a `downgrade` record (below). Roles are the author's declaration and are
+never inferred; each entry states something a reviewer can check:
 
   support     `claim` is a repository path under the manifest's directory, other than the
               manifest, and a line of that file on which the id appears: the claim it supports.
@@ -38,38 +39,50 @@ each entry states something a reviewer can check:
               every occurrence of the id in a covered file names it: immediately preceded by
               `<owner>/<repo>@`, or inside a URL `https://github.com/<owner>/<repo>/.../<id>`.
 
-Downgrades. A downgrade record is
+Claim records and downgrades. Each support entry is a claim record: the manifest that holds it,
+its id, and its claim, identified by `claim_sha256`; `claim` locates it, and moving the same text
+to another line keeps the record. A downgrade record is
 
     {"from_claim": "<path>:<line>", "from_claim_sha256": "<64 lowercase hex>",
-     "reason": "<why the claim was removed or narrowed>"}
+     "reason": "<why the claim was removed, narrowed or moved>"}
 
-and matches a support entry whose `claim` and `claim_sha256` it repeats. Against main (every
-manifest main's tree has, at any path):
+and matches the claim record whose id it is keyed or listed under, and whose `claim` and
+`claim_sha256` it repeats. Main's claim records are the baseline, compared one by one with the
+commit's:
 
-  - a support id of main that no manifest of the commit lists as `support` needs a matching
-    record in some manifest of the commit: as the `downgrade` of the entry that now lists it, or
-    under `retired` when no entry does, whether or not the id is still cited;
-  - an entry of the commit that lists such an id as `provenance` or `external` needs a matching
-    `downgrade` of its own, unless main's copy of that manifest already lists it so;
-  - such an id's claim must not stand anywhere in the commit's tree: no line, in any file,
-    covered or not, may hash to its `claim_sha256`, or match main's claimed line once every run
-    of 7 or more hexadecimal characters is removed and the text case-folded (so abbreviating,
-    uppercasing or deleting the id leaves the claim unchanged);
-  - a support id of main that some manifest of the commit still lists as `support` needs no
-    record, but main's claim of it may stand, in that loose sense, only on lines that still
-    carry the id: a claim kept while its reference is deleted, abbreviated or uppercased fails,
-    wherever the id is still declared support.
-
-The baseline is therefore every support declaration of every manifest of main's tree, whatever
-directory or manifest held it, so a manifest removed, renamed or split, or an id deleted from
-its claim, cannot carry a dependency away unrecorded.
+  - a claim record of main that the commit no longer has, at the same manifest, id and claim
+    hash, needs a matching record in some manifest of the commit: the `downgrade` of the entry
+    that now lists its id, or one under `retired`. That covers an entry relabelled, dropped,
+    re-pointed or reworded, its manifest removed, renamed or split, and its id deleted from the
+    text, whatever other manifest still declares the same id support;
+  - an entry relabelled in place needs a matching `downgrade` of its own, and an entry of another
+    manifest that newly lists a downgraded id as `provenance` or `external` needs one matching
+    a downgraded record of that id;
+  - the claim of a downgraded record must no longer stand: no line anywhere in the tree may
+    hash to its `claim_sha256` (except a line that a support record with the same claim hash
+    claims, as when a record moves to another manifest), and no paragraph of a file under the
+    record's own directory may state main's claimed line with the id's slot empty or holding
+    an id no record declares support. That comparison joins each blank-line paragraph, applies
+    NFKC, drops Unicode format characters, removes hexadecimal runs of 7 or more characters and
+    4- to 6-character hexadecimal words that mix digits and letters or begin a support id,
+    case-folds, and treats the word or brackets next to the id ("at <id>", "(<id>)") as part of
+    the reference. It needs at least three words of claim besides the reference.
 
 Independently of main, a record fails while any line of the tree hashes to its
-`from_claim_sha256`. Each failure is `support-downgrade`. A genuine rewording or removal of the
-claim with a matching record passes, by design: the record is the reviewable statement of what
-became of the claim. No syntactic checker can reliably decide whether an arbitrarily rewritten
-claim means the same as the one it replaced: these controls catch the known structural evasions,
-and independent review still decides whether a downgrade is scientifically justified.
+`from_claim_sha256`, outside lines a support record of the same claim claims. Each failure is
+`support-downgrade`.
+
+So a claim that stays in the text while its record is deleted is caught by the missing record;
+with a record, by the claim still standing verbatim anywhere, or reformatted, or with its
+reference deleted, shortened or replaced by a non-support id, in its own record's directory.
+Every test that compares with main finds nothing when main is the commit, and the rest read the
+commit's tree alone, so a change that passes as a pull request passes again as main.
+
+A genuine rewording, narrowing or withdrawal of the claim with a matching record passes, by
+design: the record is the reviewable statement of what became of the claim. No syntactic
+checker can reliably decide whether an arbitrarily rewritten claim keeps its meaning; these
+controls catch the structural evasions listed above, and independent review still decides
+whether a downgrade is scientifically justified.
 
 Ids. Every run of exactly 40 lowercase hexadecimal characters, bounded by non-hexadecimal
 characters, in a covered file is an object id the record cites: a commit, or a blob or tree id. A
@@ -87,9 +100,8 @@ At the commit under check, read from git objects and nothing else, a manifest fa
   claim-file-absent       a support claim names a file the commit does not have;
   claim-line-mismatch     the claimed line does not exist or does not carry the id;
   claim-hash-mismatch     the claimed line's normalized text does not hash to `claim_sha256`;
-  support-downgrade       a support id of main is listed as support by no manifest of the
-                          commit without a matching record, or its claim, or a record's claim,
-                          still stands (Downgrades, above);
+  support-downgrade       a claim record of main is gone without a matching record, or the
+                          claim of a downgraded record still stands (Claim records, above);
   absent                  an id names no object in the repository: checked for every `support`
                           id, and for a `provenance` id when it lands, i.e. when main's copy of
                           the same manifest does not list it as provenance;
@@ -112,27 +124,30 @@ Limitations:
     this repository turns main red until the manifest is corrected.
   - A provenance id's existence, and every downgrade, is checked against a main that lacks the
     change, i.e. in pull-request CI; a commit that reaches main without pull-request CI is
-    compared against itself and skips both. With no main ref, nothing is compared, and only the
-    test that a record's claim does not stand by its normalized hash runs.
-  - An id some manifest of the commit still lists as `support` needs no record, so a claim of it
-    reworded beyond its ids, the reference dropped, passes while the id stays declared support
-    on another line; its reachability is still checked there.
+    compared against itself and skips both. With no main ref, only the test that a record's
+    claim does not stand verbatim runs.
+  - A claim moved out of its record's directory is followed only verbatim, by its hash; with a
+    matching record, a reformatted or unreferenced copy elsewhere passes. A claim of fewer than
+    three words besides its reference (a JSON field, a list item) is compared by its hash alone.
+    A reference replaced by another id that some record declares support counts as a re-pin.
   - A record may sit in any manifest of the commit, so removing every manifest of the tree
     leaves nowhere to record a downgrade, and such a commit fails.
   - An unrelated record that newly lists a downgraded support id as provenance needs a
     `downgrade` record of its own.
-  - The loose comparison uses main's claimed line, so it runs only against main; a claim line
-    that is nothing but ids and whitespace has no loose form and is compared by its hash alone.
-    A rewording beyond the ids, with a matching record, passes. An unrelated line that matches a
-    claim loosely (the same words around another id) is taken for the claim.
+  - Rewording a supported claim changes its record: the old one needs a `retired` record.
+  - Files holding a NUL byte are compared by hash only; markdown emphasis or other markup inside
+    a claim is not removed, so an emphasized copy with a record passes.
   - Lines inserted above a claim shift it: the entry then fails as `claim-line-mismatch` or
     `claim-hash-mismatch`, depending on what the claimed line now holds, until it is updated.
   - THIS_REPOSITORY is a constant: in a fork or after a rename it must be edited, or an external
     entry naming the new name is not refused as this repository (external-in-repository still
     refuses an object this repository holds).
-  - When main has a support entry or the commit a record, the check reads and hashes every
-    line of the tree once (one `git cat-file --batch`; several seconds on this repository's
-    tree). The self-test takes about 10 s and runs before every check.
+  - When a claim record of main is downgraded or the commit holds a record, the check reads the
+    tree's blobs once (one `git cat-file --batch`), scans for the id the files that hold it, and
+    normalizes only the files of the downgraded records' directories. The self-test takes about
+    13 s and runs before every check.
+  - An `external` entry's repository is the author's declaration: an id that names no object
+    here, with a qualifier naming any repository, passes.
   - A 40-hex value that names no git object of any repository (a SHA-1 file digest) has no role.
   - The checker forces a reviewable statement per id; whether a reason is honest, or a claim
     really rests on its id, is for review."""
@@ -143,6 +158,7 @@ import re
 import subprocess
 import sys
 import tempfile
+import unicodedata
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -154,7 +170,7 @@ FIELDS = {'support': ('claim', 'claim_sha256'), 'provenance': ('reason',),
           'external': ('repository',)}
 DOWNGRADE = ('from_claim', 'from_claim_sha256', 'reason')
 SHA256 = re.compile(r'[0-9a-f]{64}')
-HEX_RUN = re.compile(rb'[0-9A-Fa-f]{7,}')
+HEX_RUN = re.compile(r'[0-9A-Fa-f]{7,}')
 THIS_REPOSITORY = 'amaybaum/incompleteness'
 PROTECTED = (b'verification/receipts', b'verification/seals')
 MAIN_REFS = ('refs/remotes/origin/main', 'refs/heads/main')
@@ -216,8 +232,10 @@ def load(raw):
         if not isinstance(keyed, dict) or list(keyed) != sorted(keyed) or not all(
                 isinstance(k, str) and re.fullmatch(r'[0-9a-f]{40}', k) for k in keyed):
             return None
-    if 'retired' in m and not retired or set(ids) & set(retired) \
-            or not all(_downgrade_ok(r) for r in retired.values()):
+    if 'retired' in m and not retired or not all(
+            isinstance(rs, list) and rs and all(_downgrade_ok(r) for r in rs)
+            and len({(r['from_claim'], r['from_claim_sha256']) for r in rs}) == len(rs)
+            for rs in retired.values()):
         return None
     out = {}
     for k, e in ids.items():
@@ -237,7 +255,9 @@ def load(raw):
         if 'downgrade' in e and not _downgrade_ok(e['downgrade']):
             return None
         out[k] = dict(e)
-    return out, {k: dict(r) for k, r in retired.items()}
+    if any(out[k]['role'] != 'support' for k in set(out) & set(retired)):
+        return None
+    return out, {k: [dict(r) for r in rs] for k, rs in retired.items()}
 
 
 def manifest_paths(files):
@@ -298,65 +318,163 @@ def claim_problem(repo, files, d, mp, entry, oid):
     return None
 
 
-def loose_sha256(line):
-    """SHA-256 of a line's text with every run of 7 or more hexadecimal characters removed, then
-    case-folded and whitespace-normalized: the claim whatever became of the ids on it."""
-    text = HEX_RUN.sub(b'', line).decode('utf-8', 'replace').casefold()
-    return hashlib.sha256(' '.join(text.split()).encode()).hexdigest()
+FULL_ID = re.compile(r'(?<![0-9A-Fa-f])[0-9a-f]{40}(?![0-9A-Fa-f])')
+SHORT_HEX = re.compile(r'(?<![0-9A-Za-z])[0-9A-Fa-f]{4,6}(?![0-9A-Za-z])')
+BREAK = re.compile(r'\n[ \t\r\f\v]*\n\s*')
+WORD = re.compile(r'[^\W\d_]{2,}')
+MIN_WORDS = 3
+_CF = []
 
 
-EMPTY_LOOSE = loose_sha256(b'')
+def format_characters():
+    """The Unicode format (Cf) characters, built on first use."""
+    if not _CF:
+        _CF.append(frozenset(chr(c) for c in range(sys.maxunicode + 1)
+                             if unicodedata.category(chr(c)) == 'Cf'))
+    return _CF[0]
 
 
-class TreeLines:
-    """Where the lines of the commit's tree that hash to the given normalized or loose hashes
-    stand, from every blob of the tree read in one `git cat-file --batch`; each distinct line is
-    hashed once."""
+PARA = '\x01'
 
-    def __init__(self, repo, files, strict, loose):
-        self.strict_at, self.loose_at = {h: [] for h in strict}, \
-            {h: [] for h in loose if h != EMPTY_LOOSE}
-        if not self.strict_at and not self.loose_at:
-            return
-        paths = [(p, obj) for p, (mode, obj) in sorted(files.items()) if mode != '160000']
-        r = subprocess.run(['git', 'cat-file', '--batch'], cwd=repo.cwd, env=v3.GIT_ENV,
-                           input=''.join(obj + '\n' for _p, obj in paths).encode(),
-                           capture_output=True)
-        if r.returncode != 0:
-            raise v3.Undecidable('undecidable:object-absent')
-        seen, out, at = {}, r.stdout, 0
-        for p, obj in paths:
-            nl = out.index(b'\n', at)
-            head = out[at:nl].split()
-            if len(head) != 3 or head[0].decode() != obj:
+
+def normalize(text, prefixes=frozenset()):
+    """The text a claim comparison reads: each paragraph break (a blank line) one PARA mark;
+    NFKC; Unicode format characters removed; every run of 7 or more hexadecimal characters
+    removed except a full lowercase id, and every 4- to 6-character hexadecimal word that mixes
+    digits and letters or begins one of `prefixes`; case-folded; whitespace collapsed."""
+    text = BREAK.sub(PARA, text)
+    if not text.isascii():
+        text = unicodedata.normalize('NFKC', text)
+        for ch in format_characters() & set(text):
+            text = text.replace(ch, '')
+    text = HEX_RUN.sub(lambda m: m.group() if FULL_ID.fullmatch(m.group()) else '', text)
+    text = SHORT_HEX.sub(lambda m: '' if (re.search('[0-9]', m.group())
+                                          and re.search('[A-Fa-f]', m.group()))
+                         or m.group().lower() in prefixes else m.group(), text)
+    return ' '.join(text.casefold().split())
+
+
+def _tail(seg):
+    """(core, reference) of the text before an id: the reference is the brackets, quotes and
+    separators next to the id and, when only whitespace separates them, the word before it.
+    Sentence punctuation stays in the core."""
+    t = re.search(r'[\s(\[{<"\'`@#:=]*\Z', seg).group()
+    rest = seg[:len(seg) - len(t)]
+    w = re.search(r'\w+\Z', rest) if not t.strip() else None
+    if w:
+        return rest[:w.start()], rest[w.start():] + t
+    return rest, t
+
+
+def _head(seg):
+    """(reference, core) of the text after an id: the closing brackets and quotes next to it."""
+    h = re.match(r'[\s)\]}>"\'`]*', seg).group()
+    return h, seg[len(h):]
+
+
+class Claim:
+    """A support claim's line, read for comparison. `pattern` matches the claim in normalized
+    text with each id slot, and the reference words and punctuation next to it, optional; the
+    groups `slots` are the slots that held `oid`. `literal` is its longest fixed piece."""
+
+    def __init__(self, oid, line, prefixes):
+        text = normalize(line.decode('utf-8', 'replace'), prefixes)
+        ids, parts = FULL_ID.findall(text), FULL_ID.split(text)
+        cores, refs = [], []
+        for k, part in enumerate(parts):
+            before = ''
+            if k > 0:
+                before, part = _head(part)
+            after = ''
+            if k < len(ids):
+                part, after = _tail(part)
+            cores.append(part.strip())
+            refs.append((before.strip(), after.strip()))
+        self.slots = [k + 1 for k, t in enumerate(ids) if t == oid]
+        opt = lambda r: '(?:%s)?' % re.escape(r) if r else ''          # noqa: E731
+        rx = re.escape(cores[0])
+        for k in range(len(ids)):
+            rx += r'\s?' + opt(refs[k][1]) + r'\s?(?:([0-9a-f]{40}))?\s?' + opt(refs[k + 1][0]) \
+                + r'\s?' + re.escape(cores[k + 1])
+        if cores[0][:1].isalnum():
+            rx = r'(?<!\w)' + rx
+        if cores[-1][-1:].isalnum():
+            rx += r'(?!\w)'
+        self.pattern = re.compile(rx)
+        self.literal = max(cores, key=len)
+        self.eligible = bool(self.slots) and \
+            len(WORD.findall(' '.join(cores))) >= MIN_WORDS
+
+
+class TreeText:
+    """The blobs of the commit's tree, read on first use in one `git cat-file --batch`, with each
+    blob's normalized text cached."""
+
+    def __init__(self, repo, files, prefixes):
+        self.repo, self.files, self.prefixes = repo, files, prefixes
+        self._data, self._norm = None, {}
+
+    def data(self, obj):
+        if self._data is None:
+            objs = sorted({o for _p, (mode, o) in self.files.items() if mode != '160000'})
+            r = subprocess.run(['git', 'cat-file', '--batch'], cwd=self.repo.cwd, env=v3.GIT_ENV,
+                               input=''.join(o + '\n' for o in objs).encode(), capture_output=True)
+            if r.returncode != 0:
                 raise v3.Undecidable('undecidable:object-absent')
-            size = int(head[2])
-            data, at = out[nl + 1:nl + 1 + size], nl + 2 + size
+            self._data, out, at = {}, r.stdout, 0
+            for o in objs:
+                nl = out.index(b'\n', at)
+                head = out[at:nl].split()
+                if len(head) != 3 or head[0].decode() != o:
+                    raise v3.Undecidable('undecidable:object-absent')
+                size = int(head[2])
+                self._data[o], at = out[nl + 1:nl + 1 + size], nl + 2 + size
+        return self._data[obj]
+
+    def strict(self, oid, sha, claimed):
+        """`path:line` of a line anywhere in the commit's tree whose normalized text hashes to
+        `sha`, other than a line a support record of the same claim claims, or None. Such a line
+        carries the id, so only files holding it are read."""
+        for p, (mode, obj) in sorted(self.files.items()):
+            if mode == '160000':
+                continue
+            data = self.data(obj)
+            if oid.encode() not in data:
+                continue
             for i, line in enumerate(data.split(b'\n')):
-                hit = seen.get(line)
-                if hit is None:
-                    hit = seen[line] = (self.strict_at.get(line_sha256(line)),
-                                        self.loose_at.get(loose_sha256(line)))
-                for lst in hit:
-                    if lst is not None:
-                        lst.append((p, i + 1, line))
+                if oid.encode() in line and line_sha256(line) == sha \
+                        and (p, i + 1) not in claimed:
+                    return '%s:%d' % (p.decode('utf-8', 'replace'), i + 1)
+        return None
 
-    def strict(self, sha):
-        """[(path, line number, text)] of the lines with this normalized hash."""
-        return self.strict_at.get(sha, [])
-
-    def loose(self, sha):
-        """[(path, line number, text)] of the lines with this loose hash."""
-        return self.loose_at.get(sha, [])
-
-
-def at(hits):
-    p, n, _t = hits[0]
-    return '%s:%d' % (p.decode('utf-8', 'replace'), n)
+    def anchored(self, d, claim, support):
+        """`path:line` of a paragraph of a file under the record's directory `d` that states
+        `claim` without a declared support id in each of its id's slots, or None. A file holding
+        a NUL byte is not read."""
+        for p, (mode, obj) in sorted(self.files.items()):
+            if mode == '160000' or not p.startswith(d):
+                continue
+            data = self.data(obj)
+            if b'\0' in data:
+                continue
+            norm = self._norm.get(obj)
+            if norm is None:
+                norm = self._norm[obj] = normalize(data.decode('utf-8', 'replace'), self.prefixes)
+            if claim.literal not in norm:
+                continue
+            for m in claim.pattern.finditer(norm):
+                if all(m.group(s) in support for s in claim.slots):
+                    continue
+                n = norm.count(PARA, 0, m.start())
+                raw = data.decode('utf-8', 'replace')
+                starts = [0] + [b.end() for b in BREAK.finditer(raw)]
+                line = raw.count('\n', 0, starts[min(n, len(starts) - 1)]) + 1
+                return '%s:%d' % (p.decode('utf-8', 'replace'), line)
+        return None
 
 
 def old_line(repo, files, claim):
-    """The text main's tree holds at `path:line`, or None."""
+    """The text a tree holds at `path:line`, or None."""
     path, n = CLAIM.fullmatch(claim).groups()
     st = files.get(path.encode())
     if st is None or st[0] == '160000':
@@ -448,62 +566,69 @@ def check(repo, c, main=None):
 
 
 def downgrades(repo, files, main_files, main_entries, main_support, loaded, broken):
-    """support-downgrade problems. A support id of any main manifest that no manifest of the commit
-    lists as support needs a record matching that support entry, as the `downgrade` of an entry
-    or under `retired`, and its claim must not stand anywhere in the tree; an entry of the commit
-    listing such an id otherwise needs a matching record of its own; and no record's claim may
-    stand unchanged anywhere in the tree."""
+    """support-downgrade problems, record by record; see Downgrades in the module docstring."""
     out = []
-    support_now = {k for ids, _r in loaded.values() for k, e in ids.items()
-                   if e['role'] == 'support'}
+    current = {(mp, k): e for mp, (ids, _r) in loaded.items() for k, e in ids.items()
+               if e['role'] == 'support'}
+    support_now = {k for _m, k in current}
+    claimed = {}
+    for (_mp, k), e in current.items():
+        path, n = CLAIM.fullmatch(e['claim']).groups()
+        claimed.setdefault((k, e['claim_sha256']), set()).add((path.encode(), int(n)))
     records = sorted((mp, k, e['downgrade']) for mp, (ids, _r) in loaded.items()
                      for k, e in ids.items() if 'downgrade' in e)
-    records += sorted((mp, k, r) for mp, (_i, retired) in loaded.items()
-                      for k, r in retired.items())
-    was = [(mp, k, e) for mp, k, e in main_support if mp not in broken and k not in support_now]
-    looses = {}
-    for mp, oid, e in main_support:
-        text = old_line(repo, main_files, e['claim'])
-        looses[(mp, oid)] = loose_sha256(text) if text is not None \
-            and line_sha256(text) == e['claim_sha256'] else EMPTY_LOOSE
-    lines = TreeLines(repo, files, {e['claim_sha256'] for _m, _k, e in was}
-                      | {r['from_claim_sha256'] for _m, _k, r in records}, set(looses.values()))
+    records += [(mp, k, r) for mp, (_i, retired) in sorted(loaded.items())
+                for k, rs in sorted(retired.items()) for r in rs]
+    prefixes = frozenset(k[:n] for k in {k for _m, k, _e in main_support} | support_now
+                         for n in (4, 5, 6))
+    text = TreeText(repo, files, prefixes)
+    downgraded = []
     for mp, oid, e in main_support:
         if mp in broken:
             continue
+        now = current.get((mp, oid))
+        if now is not None and now['claim_sha256'] == e['claim_sha256']:
+            continue                                    # the same claim record
+        downgraded.append((mp, oid, e))
         name = mp.decode('utf-8', 'replace')
-        loose = looses[(mp, oid)]
-        if oid in support_now:
-            # still support somewhere: its claim may stand only with the reference on it
-            bare = [h for h in lines.loose(loose) if oid.encode() not in OBJECT_ID.findall(h[2])]
-            if bare:
-                out.append((name, 'support-downgrade', oid, 'the claim of %s stands at %s '
-                            'without its reference' % (e['claim'], at(bare))))
-            continue
         if not any(k == oid and matches(r, e) for _m, k, r in records):
             out.append((name, 'support-downgrade', oid,
-                        'no downgrade record for the support claim %s' % e['claim']))
-        hits = lines.strict(e['claim_sha256']) or lines.loose(loose)
-        if hits:
+                        'no downgrade record for the support record of %s' % e['claim']))
+        # a verbatim copy anywhere is the record test's, below; here the claim's own directory
+        where, line = None, old_line(repo, main_files, e['claim'])
+        if line is not None and line_sha256(line) == e['claim_sha256']:
+            claim = Claim(oid, line, prefixes)
+            if claim.eligible:
+                where = text.anchored(mp[:-len(NAME)], claim, support_now)
+        if where:
             out.append((name, 'support-downgrade', oid,
-                        'the claim of %s stands at %s' % (e['claim'], at(hits))))
+                        'the claim of %s stands at %s' % (e['claim'], where)))
+    by_id = {}
+    for mp, oid, e in downgraded:
+        by_id.setdefault(oid, []).append(e)
     for mp, (ids, _r) in sorted(loaded.items()):
         name = mp.decode('utf-8', 'replace')
         for oid, e in sorted(ids.items()):
-            prior = main_entries.get(mp, {}).get(oid)
-            if e['role'] == 'support' or prior is not None and prior['role'] != 'support':
+            if e['role'] == 'support':
                 continue
-            supported = [w for _m, k, w in was if k == oid]
+            own = main_entries.get(mp, {}).get(oid)
+            if own is not None and own['role'] == 'support':
+                need = [own]                # relabelled in place: a record of its own claim
+            elif own is None and oid in by_id:
+                need = by_id[oid]
+            else:
+                continue
             dg = e.get('downgrade')
-            if supported and not (dg and any(matches(dg, w) for w in supported)):
-                out.append((name, 'support-downgrade', oid, '%s record for the support claim %s'
+            if not (dg and any(matches(dg, w) for w in need)):
+                out.append((name, 'support-downgrade', oid, '%s record for the support record of %s'
                             % ('no downgrade' if dg is None else 'a non-matching downgrade',
-                               supported[0]['claim'])))
+                               need[0]['claim'])))
     for mp, oid, r in records:
-        hits = lines.strict(r['from_claim_sha256'])
-        if hits:
+        where = text.strict(oid, r['from_claim_sha256'],
+                            claimed.get((oid, r['from_claim_sha256']), ()))
+        if where:
             out.append((mp.decode('utf-8', 'replace'), 'support-downgrade', oid,
-                        'the claim of %s stands at %s' % (r['from_claim'], at(hits))))
+                        'the claim of %s stands at %s' % (r['from_claim'], where)))
     return out
 
 
@@ -530,7 +655,7 @@ def _manifest(entries, ordered=False, retired=None):
     ids = entries if ordered else dict(sorted(entries.items()))
     m = {'schema': 'oi-citations', 'version': 2, 'ids': ids}
     if retired is not None:
-        m['retired'] = dict(sorted(retired.items()))
+        m['retired'] = {k: v if isinstance(v, list) else [v] for k, v in sorted(retired.items())}
     return (json.dumps(m, indent=1) + '\n').encode()
 
 
@@ -763,11 +888,19 @@ def self_test():
             ('malformed: retired record without a reason', 'malformed', rec('x\n', _manifest(
                 {}, retired={s: {'from_claim': 'rec/NOTE.md:2', 'from_claim_sha256': 'f' * 64}}))),
             ('malformed: retired ids unsorted', 'malformed', rec('x\n', (
-                '{"schema": "oi-citations", "version": 2, "ids": {}, "retired": {"%s": %s, '
-                '"%s": %s}}' % (s, json.dumps(dg_ok), m0, json.dumps(dg_ok))).encode()
+                '{"schema": "oi-citations", "version": 2, "ids": {}, "retired": {"%s": [%s], '
+                '"%s": [%s]}}' % (s, json.dumps(dg_ok), m0, json.dumps(dg_ok))).encode()
                 if s > m0 else ('{"schema": "oi-citations", "version": 2, "ids": {}, "retired": '
-                                '{"%s": %s, "%s": %s}}' % (m0, json.dumps(dg_ok), s,
-                                                           json.dumps(dg_ok))).encode())),
+                                '{"%s": [%s], "%s": [%s]}}' % (m0, json.dumps(dg_ok), s,
+                                                               json.dumps(dg_ok))).encode())),
+            ('malformed: a retired record repeated', 'malformed', rec('x\n', _manifest(
+                {}, retired={s: [dict(dg_ok), dict(dg_ok)]}))),
+            ('malformed: a retired value not a list', 'malformed', rec('x\n', (
+                '{"schema": "oi-citations", "version": 2, "ids": {}, "retired": {"%s": %s}}'
+                % (s, json.dumps(dg_ok))).encode())),
+            ('malformed: an empty retired list', 'malformed', rec('x\n', (
+                '{"schema": "oi-citations", "version": 2, "ids": {}, "retired": {"%s": []}}'
+                % s).encode())),
             ('malformed: downgrade as a string', 'malformed', rec('see %s\n' % s, {s: {
                 'role': 'provenance', 'reason': 'x', 'downgrade': 'narrowed'}})),
             ('nested manifest', 'nested-manifest', rec('see %s\n' % m0, {m0: 'support'}, {
@@ -864,9 +997,15 @@ def self_test():
         sc.commit('D0', ['M0'], 'M0', rec(d0_text, {m0: 'support'}), [])
         sc.commit('DX', ['M0'], 'M0', rec('# Note\nThe bound holds at %s.\n' % gone,
                                           {gone: 'support'}), [])
+        d0 = sc.labels['D0']
+        # DO: D0 with other/ already listing m0 as provenance
+        sc.commit('DO', ['D0'], 'D0', {
+            b'other/x.md': ('100644', (hist + '\n').encode()),
+            b'other/CITATIONS.json': ('100644', _manifest({m0: {
+                'role': 'provenance', 'reason': 'the run the bound was read from'}}))}, [])
         sc.commit('DI', ['M0'], 'M0', rec('# Note\n%s\n\nend\n' % m0, {m0: 'support'}), [])
         # DS: main's own entry is stale, its claim_sha256 not the hash of the line it names
-        sc.commit('DS', ['M0'], 'M0', rec('# Note\nan aside on %s\n' % m0, {m0: {
+        sc.commit('DS', ['M0'], 'M0', rec('# Note\nan aside on the run at %s\n' % m0, {m0: {
             'role': 'support', 'claim': 'rec/NOTE.md:2', 'claim_sha256': h_stale}}), [])
         hx = line_sha256(('The bound holds at %s.' % gone).encode())
         if json.loads(sc.files['D0'][b'rec/CITATIONS.json'][1])['ids'][m0]['claim_sha256'] != h0 \
@@ -887,6 +1026,8 @@ def self_test():
 
         gone_rec = (b'rec/NOTE.md', b'rec/CITATIONS.json')
         note = lambda *ls: '# Note\n' + ''.join(x + '\n' for x in ls)        # noqa: E731
+        paren_line = 'The bound holds (%s).' % m0
+        sc.commit('DP', ['M0'], 'M0', rec(note(paren_line), {m0: 'support'}), [])
         dcases = [
             # name, sets, deletions, parent and main, expected codes
             ('support relabelled provenance without a record', rec(d0_text, {m0: prov()}), (),
@@ -917,8 +1058,14 @@ def self_test():
                                                              {m0: prov(dg0)}), (), 'D0', set()),
             ('support relabelled external with a record', rec(
                 note('uses: actions/checkout@%s' % gone), {gone: ext(dgx)}), (), 'DX', set()),
-            ('support kept, its claim moved and rehashed', rec(note(hist, claim_line),
-                                                               {m0: 'support'}), (), 'D0', set()),
+            ('support entry re-pointed to another claim, no record', rec(
+                note(hist, claim_line), {m0: 'support'}), (), 'D0', {SD}),
+            ('support entry re-pointed, the old claim removed, retired', rec(
+                note(hist), _manifest({m0: _support({b'rec/NOTE.md': (
+                    '100644', note(hist).encode())}, m0)}, retired={m0: dg0})), (), 'D0', set()),
+            ('the claim moved to another line, its entry updated', rec(
+                note(hist, claim_line), {m0: {'role': 'support', 'claim': 'rec/NOTE.md:3'}}), (),
+             'D0', set()),
             ('support entry dropped with its citations, no record', rec(note(), {}), (), 'D0',
              {SD}),
             ('support entry retired with its citations', rec(note(), _manifest(
@@ -940,7 +1087,11 @@ def self_test():
                 d0_text, {m0: prov(dg0)}, d='rec2'), gone_rec, 'D0', {SD}),
             ('record moved, a record kept with the claim removed', rec(
                 note(hist), {m0: prov(dg0)}, d='rec2'), gone_rec, 'D0', set()),
-            ('record moved, still support', rec(d0_text, {m0: 'support'}, d='rec2'), gone_rec,
+            ('record moved to another manifest, still support, no record', rec(
+                d0_text, {m0: 'support'}, d='rec2'), gone_rec, 'D0', {SD}),
+            ('record moved to another manifest, still support, retired there', rec(
+                d0_text, _manifest({m0: _support({b'rec2/NOTE.md': ('100644', d0_text.encode())},
+                                                 m0)}, retired={m0: dg0}), d='rec2'), gone_rec,
              'D0', set()),
             ('record moved without a manifest, the claim reworded', {
                 b'rec2/NOTE.md': ('100644', note(reworded).encode())}, gone_rec, 'D0', {SD}),
@@ -981,8 +1132,12 @@ def self_test():
                     b'other/CITATIONS.json': ('100644', _manifest({m0: _support(
                         {b'other/x.md': ('100644', (hist + '\n').encode())}, m0)}))}), (),
              'D0', {SD}),
-            ('still support, the claim reworded with its reference', rec(
-                note(reworded, hist), {m0: 'support'}), (), 'D0', set()),
+            ('still support, the claim reworded with its reference, no record', rec(
+                note(reworded, hist), {m0: 'support'}), (), 'D0', {SD}),
+            ('still support, the claim reworded with its reference, retired', rec(
+                note(reworded, hist), _manifest({m0: _support({b'rec/NOTE.md': (
+                    '100644', note(reworded, hist).encode())}, m0)}, retired={m0: dg0})), (),
+             'D0', set()),
             ('still support, the claim also quoted with its reference elsewhere', rec(
                 d0_text, {m0: {'role': 'support', 'claim': 'rec/NOTE.md:2'}}, {
                     b'loose/x.md': ('100644', (claim_line + '\n').encode())}), (), 'D0', set()),
@@ -995,8 +1150,94 @@ def self_test():
              (), 'D0', {SD}),
             ('retired, the id removed from the unchanged claim', rec(
                 note('The bound holds at .'), _manifest({}, retired={m0: dg0})), (), 'D0', {SD}),
-            ('retired, the id removed and the claim reworded', rec(
-                note('The bound holds.'), _manifest({}, retired={m0: dg0})), (), 'D0', set()),
+            ('retired, the claim kept with its reference phrase deleted', rec(
+                note('The bound holds.'), _manifest({}, retired={m0: dg0})), (), 'D0', {SD}),
+            ('retired, the claim reworded', rec(
+                note('The bound is not established.'), _manifest({}, retired={m0: dg0})), (),
+             'D0', set()),
+            # reformatted claims, with a matching record: the claim still stands
+            ('recorded, the claim split over two lines', rec(
+                note('The bound holds', 'at %s.' % m0), {m0: prov(dg0)}), (),
+             'D0', {SD}),
+            ('recorded, the claim reflowed into a longer line', rec(
+                note('As before. ' + claim_line + ' Nothing else.'), {m0: prov(dg0)}), (), 'D0',
+             {SD}),
+            ('recorded, a zero-width space in the claim', rec(
+                note('The bound\u200b holds at %s.' % m0), {m0: prov(dg0)}), (),
+             'D0', {SD}),
+            ('recorded, a no-break space in the claim', rec(
+                note('The bound\u00a0holds at %s.' % m0), {m0: prov(dg0)}), (),
+             'D0', {SD}),
+            ('retired, the id abbreviated to 6 characters', rec(
+                note('The bound holds at %s.' % m0[:6]), _manifest({}, retired={m0: dg0})), (),
+             'D0', {SD}),
+            ('retired, the reference in parentheses deleted', rec(
+                note('The bound holds.'), _manifest({}, retired={m0: dict(
+                    dg0, from_claim_sha256=line_sha256(paren_line.encode()))})), (), 'DP', {SD}),
+            ('recorded, the claim narrowed over two lines', rec(
+                note('The bound holds at %s' % m0, 'for n <= 4 only.'), {m0: prov(dg0)}), (),
+             'D0', set()),
+            ('retired, the claim kept with its id deleted in a JSON file of the record', rec(
+                note(), _manifest({}, retired={m0: dg0}), {b'rec/data.json': (
+                    '100644', b'{"claim": "The bound holds at ."}\n')}), (), 'D0', {SD}),
+            ('retired, the claim moved verbatim into an uncovered text file', rec(
+                note(), _manifest({}, retired={m0: dg0}), {b'loose/x.txt': (
+                    '100644', (claim_line + '\n').encode())}), (), 'D0', {SD}),
+            ('retired under another id', rec(note(), _manifest({}, retired={s: dg0})), (), 'D0',
+             {SD}),
+            ('retired, another manifest already listing the id as provenance on main', rec(
+                note(), _manifest({}, retired={m0: dg0})), (), 'DO', set()),
+            ('retired, a copy without its reference outside the record\'s directory: not '
+             'followed, the comparison being anchored', rec(note(), _manifest(
+                 {}, retired={m0: dg0}), {b'loose/x.md': ('100644', b'The bound holds at .\n')}),
+             (), 'D0', set()),
+            ('retired, the reference replaced by a provenance id', rec(
+                note('The bound holds at %s.' % s), _manifest(
+                    {s: {'role': 'provenance', 'reason': 'x'}}, retired={m0: dg0})), (), 'D0',
+             {SD}),
+            ('retired, the claim re-pinned to another support commit', rec(
+                note('The bound holds at %s.' % d0), _manifest({d0: _support({b'rec/NOTE.md': (
+                    '100644', note('The bound holds at %s.' % d0).encode())}, d0)},
+                    retired={m0: dg0})), (), 'D0', set()),
+            ('recorded, the claim in fullwidth letters', rec(
+                note('\uff34\uff48\uff45 \uff42\uff4f\uff55\uff4e\uff44 holds at %s.' % m0),
+                {m0: prov(dg0)}), (), 'D0', {SD}),
+            ('retired, the id abbreviated to a 6-letter prefix of it', rec(
+                note('The bound holds at %s.' % gone[:6]), _manifest({}, retired={gone: dgx})),
+             (), 'DX', {SD}),
+            ('recorded, a claim line of nothing but the id left in place', rec(
+                '# Note\n%s\n\nend\n' % m0, {m0: prov(dict(
+                    dg0, from_claim_sha256=line_sha256(m0.encode())))}), (), 'DI', {SD}),
+            ('manifest removed, retired in other/, provenance in third/ without a record', {
+                b'rec/NOTE.md': ('100644', note(hist).encode()),
+                b'other/CITATIONS.json': ('100644', _manifest({}, retired={m0: dg0})),
+                b'third/x.md': ('100644', (reworded + '\n').encode()),
+                b'third/CITATIONS.json': ('100644', _manifest({m0: prov()}))},
+             (b'rec/CITATIONS.json',), 'D0', {SD}),
+            ('relabelled in place with a non-matching downgrade, retired elsewhere', rec(
+                note(hist), {m0: prov(dict(dg0, from_claim='rec/NOTE.md:3'))}, {
+                    b'other/CITATIONS.json': ('100644', _manifest({}, retired={m0: dg0}))}), (),
+             'D0', {SD}),
+            ('a malformed manifest over a support record', {
+                b'rec/CITATIONS.json': ('100644', b'{\n')}, (), 'D0', {'malformed'}),
+            # relabel in place while the id is support in another manifest
+            ('relabelled in place, support in another manifest, no record', rec(
+                d0_text, {m0: prov()}, {b'other/x.md': ('100644', (hist + '\n').encode()),
+                                        b'other/CITATIONS.json': ('100644', _manifest({m0: _support(
+                                            {b'other/x.md': ('100644', (hist + '\n').encode())},
+                                            m0)}))}), (), 'D0', {SD}),
+            ('relabelled in place, support in another manifest, record, claim unchanged', rec(
+                d0_text, {m0: prov(dg0)}, {
+                    b'other/x.md': ('100644', (hist + '\n').encode()),
+                    b'other/CITATIONS.json': ('100644', _manifest({m0: _support(
+                        {b'other/x.md': ('100644', (hist + '\n').encode())}, m0)}))}), (), 'D0',
+             {SD}),
+            ('relabelled in place, support in another manifest, record, claim withdrawn', rec(
+                note(hist), {m0: prov(dg0)}, {
+                    b'other/x.md': ('100644', (hist + '\n').encode()),
+                    b'other/CITATIONS.json': ('100644', _manifest({m0: _support(
+                        {b'other/x.md': ('100644', (hist + '\n').encode())}, m0)}))}), (), 'D0',
+             set()),
             # a relabel in another manifest needs its own record
             ('retired in rec/, relabelled provenance in other/ without a record', rec(
                 note('moved'), _manifest({}, retired={m0: dg0}), {
@@ -1017,7 +1258,7 @@ def self_test():
             ('retired, the id removed and only the case of the claim changed', rec(
                 note('THE BOUND HOLDS AT .'), _manifest({}, retired={m0: dg0})), (), 'D0', {SD}),
             ('retired against a stale main entry: the line it names is not the claim', rec(
-                note('an aside on'), _manifest({}, retired={m0: dict(
+                note('an aside on the run at'), _manifest({}, retired={m0: dict(
                     dg0, from_claim_sha256=h_stale)})), (), 'DS', set()),
             ('relabelled provenance in place, its only record retired in another manifest', rec(
                 note(hist), {m0: prov()}, {b'other/CITATIONS.json': ('100644', _manifest(
@@ -1029,11 +1270,54 @@ def self_test():
             ('limitation: another record citing a removed manifest\'s support id', dict(rec(
                 note(hist), {m0: prov()}, d='other')), (b'rec/CITATIONS.json',), 'D0', {SD}),
         ]
+        n_down = len(dcases) + 5
         for name, sets, dels, parent, want in dcases:
             got = case('D-' + name, sets, main=sc.labels[parent], parent=parent, dels=dels)
             if got != want:
                 fails.append('downgrade, %s: expected %s, got %s' % (name, sorted(want),
                                                                      sorted(got)))
+        # a green change stays green once it is main: structured claim lines (a JSON field, a list
+        # item) beside many look-alike lines elsewhere, checked against main before landing, as
+        # main after landing, and from a later unrelated change; then downgraded both ways
+        jl, ll = '  "commit": "%s",' % m0, '- %s' % m0
+        look = ''.join('{\n  "commit": "%s",\n  "x": %d\n}\n' % (o, i)
+                       for i, o in enumerate((s, b1, gone)))
+        for tag, path, body, line_no in (('J', b'rec/result.json', '{\n%s\n  "x": 1\n}\n' % jl, 2),
+                                         ('K', b'rec/LIST.md', '# runs\n%s\n' % ll, 2)):
+            sets = {path: ('100644', body.encode()),
+                    b'evidence/run.json': ('100644', look.encode()),
+                    b'docs/list.md': ('100644', b'- \n- item\n-\n- %s\n' % s.encode())}
+            sets[b'rec/CITATIONS.json'] = ('100644', _manifest({m0: _support(
+                sets, m0, '%s:%d' % (path.decode(), line_no))}))
+            sc.commit(tag, ['M0'], 'M0', sets, [])
+            jc = sc.labels[tag]
+            sc.commit(tag + '-later', [tag], tag, {b'z.txt': ('100644', b'z\n')}, [])
+            rec_j = {'from_claim': '%s:%d' % (path.decode(), line_no), 'reason': 'withdrawn',
+                     'from_claim_sha256': line_sha256((jl if tag == 'J' else ll).encode())}
+            for name, got, want in (
+                    ('%s: lands against main' % tag, codes(jc, m0), set()),
+                    ('%s: checked as main after landing' % tag, codes(jc, jc), set()),
+                    ('%s: a later unrelated change' % tag, codes(sc.labels[tag + '-later'], jc),
+                     set()),
+                    ('%s: relabelled without a record' % tag, case(tag + '-r', {
+                        b'rec/CITATIONS.json': ('100644', _manifest({m0: prov()}))}, main=jc,
+                        parent=tag), {SD}),
+                    ('%s: recorded, the claim line unchanged' % tag, case(tag + '-u', {
+                        b'rec/CITATIONS.json': ('100644', _manifest({m0: prov(rec_j)}))}, main=jc,
+                        parent=tag), {SD}),
+                    ('%s: retired, the id deleted from the line: a short claim, compared by '
+                     'its hash alone' % tag, case(tag + '-d', {
+                         path: ('100644', body.replace(m0, '').encode()),
+                         b'rec/CITATIONS.json': ('100644', _manifest({}, retired={m0: rec_j}))},
+                         main=jc, parent=tag), set()),
+                    ('%s: retired, the claim line removed' % tag, case(tag + '-w', {
+                        path: ('100644', b'{}\n' if tag == 'J' else b'# runs\n'),
+                        b'rec/CITATIONS.json': ('100644', _manifest({}, retired={m0: rec_j}))},
+                        main=jc, parent=tag), set())):
+                n_down += 1
+                if got != want:
+                    fails.append('downgrade, %s: expected %s, got %s' % (name, sorted(want),
+                                                                         sorted(got)))
         # with no main ref nothing is compared, but a record whose claim stands still fails; and
         # once a downgrade has landed it needs nothing more, unless its claim comes back
         for name, sets, want in (
@@ -1059,7 +1343,6 @@ def self_test():
             if got != want:
                 fails.append('downgrade, %s: expected %s, got %s' % (name, sorted(want),
                                                                      sorted(got)))
-        n_down = len(dcases) + 5
 
         # main resolved from real refs, with HEAD at the commit under check: origin/main is
         # preferred over a stale local main, local main is used alone, and with neither every id

@@ -58,10 +58,11 @@ another. Each exists because a real defect shipped past the others:
                        carries CITATIONS.json declares each full object id it
                        cites as support, provenance or external; a support id
                        must be a commit reachable from the commit under check.
-                       A support declaration of main that no manifest still
-                       makes needs a record matching it, and a claim of main
-                       may not stand in the tree unchanged, or with its
-                       reference deleted, abbreviated or uppercased.
+                       Each support entry of main is a claim record; one the
+                       commit no longer has needs a downgrade record matching
+                       it, and its claim may not stand verbatim in the tree,
+                       or reformatted or unreferenced in its record's
+                       directory.
 
 Post-packaging, verify the DECLARED checksum against the shipped archive:
     python3 tools/baseline_label_check.py --verify-archive PATH --root TRANSFER
@@ -172,9 +173,9 @@ def main():
         ("v3-receipts",
                       [sys.executable, "tools/v3_verifier.py", "--receipts", head]),
         # citation-roles: AGENTS §A.42 items 2-3 for records that carry CITATIONS.json. A support id
-        # is a commit reachable from the commit under check; a support declaration of main that
-        # disappears needs a matching record, and main's claim may not stand in the tree unchanged
-        # or stripped of its reference; and a provenance id names an object when it lands.
+        # is a commit reachable from the commit under check; a claim record of main the commit no
+        # longer has needs a matching downgrade record, its claim no longer standing; and a
+        # provenance id names an object when it lands.
         # Reachability needs full history, as v3-receipts does.
         ("citation-roles",
                       [sys.executable, "tools/citation_roles_check.py", head]),
