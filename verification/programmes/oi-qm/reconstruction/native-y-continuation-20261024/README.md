@@ -1,102 +1,60 @@
 # Native-Y research checkpoints
 
-WIP research, 24 October 2026. This branch preserves the native-Y continuation
-and scoped independent review. It does not adopt a physical premise, change an
-acceptance criterion, certify a native round, or authorize a merge.
+Research draft based on main de6fe29324ade8a0826c18f7829786086dd590da.
+[CURRENT-HANDOFF.md](CURRENT-HANDOFF.md) is the navigation entry point;
+[EQUIVALENCE-OBLIGATIONS.md](EQUIVALENCE-OBLIGATIONS.md) states the remaining
+full-equivalence obligations. #885 remains under its separate writer.
 
-Base: `de6fe29324ade8a0826c18f7829786086dd590da`.
-Workstream branch: `draft/native-y-research-checkpoints-20261024`.
-Related research: [#885](https://github.com/amaybaum/incompleteness/pull/885),
-whose branch remains under a separate writer and is not modified here.
+## Current results
 
-## Findings and next task
+- [history_v9](history_v9/REPORT.md): the W-modified seven-port noise word
+  through R+8 remains jointly uniform and independent of the bank complement
+  under the supplied initial frontier prior. Its [review](history_v9/review/REPORT.md)
+  extends the geometry through R+9, requiring 189 post-R fair bits.
+- [reset_v9](reset_v9/REPORT.md): one additional original-time source
+  J=(u XOR a,a,u XOR a) produces q9=(0,y XOR a,y XOR a), retaining the actual
+  dirty boundary. The [separate review](reset_v9/review/REPORT.md) confirms it;
+  the [fresh-bit corollary](reset_v9/review/COROLLARY.md) states the joint
+  masked-sign/noise law under explicit initial independence of a.
+- The earlier clean q7/q8 routes, one-source exclusions and source-specific
+  failures remain retained in their original directories. Their reports
+  preserve their historical scope; current status is in the handoff.
 
-Latest construction: [reset_v8/REPORT.md](reset_v8/REPORT.md).
-Two initial sources W=111 and G=011/101 depending on the existing seed u
-route the native Y value to q8=(0,y,0) at R+8 while preserving clean q7.
-The coupled-source calculation is [independently accepted](reset_v8/review/REPORT.md).
-The arbitrary late-q7 input socket fails throughout the tested family.
-The calibrated 5:3:2 reset and extended joint public-record law remain open.
+A simultaneous calibrated post-Y carrier, 5:3:2 selector, fresh-z output,
+new herald/failure kernel and reusable boundary remain unbuilt. The preceding
+results do not supply whole-neighborhood independence or arbitrary sockets.
+No physical premise, acceptance rule, F/E designation or equivalence verdict
+is adopted. A1 and A2 remain separate.
 
-Start with [CURRENT-HANDOFF.md](CURRENT-HANDOFF.md) for the current result and
-resume task. Read [the historical combined report](parallel_v3/COMBINED-REPORT.md), then
-[the independent review](parallel_v3/review/REPORT.md). The reports preserve
-their original scientific scope and historical preparation statements.
+## Replay
 
-Historical v3 findings:
-
-* An actual nearby native x sidecar is available in the previous slice next
-  to the current q2 operand; persistence and a usable junction are unproved.
-* A conditional five-tick native A extractor exists. Its direct late splice
-  fails a readiness condition, with a controlled counterexample.
-* A standalone native reset/herald candidate has a checked tagged terminal
-  law. The strict common raw carrier requirement fails for that candidate.
-* The third outward step gives `(u,x*u,u)` and supplies no new raw-Y socket.
-
-Next: embed this clean output into a subsequent native measurement/reset
-using its actual two-slice neighborhood, then prove the complete record and
-outgoing-carrier law including failures. Do not reload q8 into a separately
-clean apparatus. Delayed private access, supplied initial readiness, and the
-prior 147-bit extension through R+7 remain explicit resources; that prior accounting
-does not certify W-modified public histories through R+8.
-
-## Reproduce this checkpoint
-
-From this directory, with Python 3.12, its standard library, and a C++17 compiler (`g++`):
+Python 3.12 standard library suffices for the five new groups:
 
 ```sh
-python3 replay.py
+python3 replay.py --latest
 ```
 
-The driver verifies the payload manifest and retained input hashes bound by
-the independent reviews, compiles Python source, then runs 25 checker groups normally and
-with `-O`, comparing both with recorded deterministic output. It runs in a
-temporary copy because the symbolic checker regenerates a JSON result.
-Expected: 25 passing groups and `PASS: checkpoint replay` with exit status 0.
-These checks establish only the scopes stated in the reports, not Lean
-certification, a universal compiler theorem, or a full transport audit.
+Expected: five normal/-O/recorded comparisons, then PASS: checkpoint replay.
+The driver verifies the complete retained manifest and review hashes, compiles
+Python, and runs in a temporary copy to preserve tracked files.
 
-## Continuing checkpoints
+The full `python3 replay.py` recipe includes 30 groups and also needs a C++17
+compiler for older groups. This continuation ran only the five new groups;
+the preceding 25 retain unchanged scientific sources and prior passing
+evidence. CHECKPOINT-CHECKS.json distinguishes these checks. No new full-suite,
+Lean or exact-head host attestation is claimed; ordinary PR CI is separate.
 
-The owner requested continuous saving of findings to a draft repository branch.
-During active work, publish each meaningful finding, negative result, completed
-review, and session handoff promptly to this branch with forward commits.
-Run applicable bounded checks first; label incomplete or failing work
-`WIP / UNVERIFIED` and state exactly what remains unchecked. Keep this
-workstream's guiding draft PR aligned with its current head and next task.
-Preserve reviewed commits. Do not amend, force-push, delete the branch, merge,
-dispatch workflows, or designate F/E as part of checkpointing. This policy
-does not schedule unattended background work.
+## Checkpoint policy and provenance
 
-## Provenance and omissions
+Continue safe forward checkpoints on draft/native-y-research-checkpoints-20261024
+and keep guiding #910 aligned. Separate-agent internal review is retained with
+each result; it is not external validation or owner adoption. States/dynamics
+and composition/access remain on #911 and #912. Required off-main evidence
+must land with dependent enduring claims under AGENTS section A.42.
 
-The historical v3 combined report describes a separate portable handoff ZIP;
-its `--baseline` command, dependency archives, and PDF are not the layout of
-this repository checkpoint. This tree contains the v2 interface sources and
-v3–v8 research sources/inputs needed for the 25-group replay above. The earlier
-ten-checker v1 bundle is not rerun by this driver. Copied inherited core code
-and source geometry are retained where the current checks need them.
-
-The standalone PDF, archive containers, rendering scripts, caches, executables,
-temporary search logs, and orchestration notes are omitted. Deterministic
-checker outputs are retained as regression expectations; historical provenance
-files describe the original calculations, including their then-read-only
-repository status. The user's later checkpoint instruction authorizes this
-publication. No historical result is strengthened by publication.
-
-Repository-wide full-history, Lean and release gates are left to ordinary PR
-CI. No special workflow dispatch or exact-head attestation is claimed.
-
-## Parallel continuation and actual reset boundary
-
-[CURRENT-HANDOFF.md](CURRENT-HANDOFF.md) now includes the actual q7 interface
-and both the earlier [one-source obstruction](reset_v7/REPORT.md) and the
-[new two-source clean route](reset_v8/REPORT.md).
-The [shared equivalence obligations](EQUIVALENCE-OBLIGATIONS.md) link the separate
-states/dynamics (#911) and composition/access (#912) research PRs.
-Run `python3 replay.py --latest` for the new reset_v8 author/reviewer controls;
-`python3 replay.py` retains the full checkpoint replay.
-
-The continuation replayed the two new groups in the packaged layout. The prior
-23 groups retain unchanged sources and previously passing evidence; a fresh
-full-suite run is not claimed. See CHECKPOINT-CHECKS.json for that distinction.
+Only source, small structured results and necessary inherited inputs are
+retained. PDFs, archive containers, caches, executables, raw orchestration logs
+and redundant replay outputs are omitted. The original standalone handoff-ZIP
+commands are historical provenance, not this repository's replay layout.
+No merge, force-push, dispatch, F/E designation or branch deletion follows
+from checkpoint publication. No unattended future work is scheduled.

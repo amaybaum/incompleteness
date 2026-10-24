@@ -11,7 +11,7 @@ The source synthesis is `INTEGRATION.md` on #885 at
 `2d555f17c23bea31d32b3f5eb4c49d245b413a76`, under
 `verification/programmes/oi-qm/reconstruction/research-planning/missing-component-20261020/`.
 That source is read-only for this effort. The native-Y source is #910 at
-`e46d30fdd2c237b70ee7569f0044f2486f07f8ce`.
+`328b74b88eaeddc798bf4693af78a571bf429787`.
 
 The finite calibrated menu and its supplied probabilities are a restricted
 instrument target. They are not the full quantum state space. A1 (exact
@@ -24,7 +24,7 @@ approximations is not an available exact limiting operation.
 
 | Track | Owns | First decisive obligation | Does not establish by itself |
 | --- | --- | --- | --- |
-| Native measurement and reset (#910) | Actual lattice construction, resources, diagnostic interventions, full record/carrier law | Starting from the actual corrected q7/q8 neighborhood, produce the calibrated post-Y carrier with every failure branch accounted for | Full state space, calibration selection, arbitrary menu/depth or composites |
+| Native measurement and reset (#910) | Actual lattice construction, resources, diagnostic interventions, full record/carrier law | Starting from the actual corrected q7/q8/q9 neighborhood, produce the calibrated post-Y carrier with every failure branch accounted for | Full state space, calibration selection, arbitrary menu/depth or composites |
 | States and dynamics (#911) | Exact target, representation map, preparation/operation availability and structural obstructions | Identify precisely which assumptions obstruct A1 and whether the native route changes any of them | Native implementation of a mathematically representable channel |
 | Composition and access (#912) | Conditional composition theorem, observable history, adaptive choices and composite-system boundary | State sufficient local contracts and prove their finite-depth consequence; exhibit controls for weaker inadequate contracts | Satisfaction of those contracts by the actual lattice or a tensor-product/Bell reconstruction |
 
@@ -46,7 +46,10 @@ under AGENTS §A.42.
    late-time input socket. The actual previous slice and neighborhood are part
    of the downstream initial-value problem. The workspace-assisted q8 route
    gives (0,y,0) on the native family; its arbitrary q7 socket still fails,
-   and W-modified public histories need a new joint-law audit.
+   and W-modified old-port noise is now controlled by the conditional
+   history_v9 theorem. The actual full outgoing boundary remains a separate
+   problem. The next initial source gives q9=(0,y XOR a,y XOR a),
+   still one sign rather than a simultaneous calibrated carrier.
 3. **Post-Y target.** The outgoing carrier must decode to
    `(y XOR a, y, y XOR b, z)` with `(a,b)=00,10,11` in ratio `5:3:2`
    and fresh fair `z`. This calibration is supplied, not derived. The decoder
@@ -85,11 +88,15 @@ not declare any of them closed.
 
 ## Reviewed parallel checkpoints
 
-- [#911](https://github.com/amaybaum/incompleteness/pull/911), `81bc53e482158072869b916116a4fc0f8b28f99e`: separate-author review accepts the almost-sure irrational sampler and its joint timing diagnostic within scope. The fixed pointwise/G3 operation invariant remains; an enlarged fair reservoir alone does not source A1. Prior finite-resource results remain unchanged.
-- [#912](https://github.com/amaybaum/incompleteness/pull/912), `7be889a88987cb0a4ab248b3787982958fca1a97`: separate-author review accepts the actual native-X finite success/failure kernel under inherited source hypotheses. Terminal-metadata plus unchanged-carrier reuse fails joint TV and positivity checks. This does not refute the original terminal-only claim or simulate later native ticks. Prior conditional-composition theorem remains unchanged.
-- #910: separate-author review accepts reset_v8 author revision `e46d30fdd2c237b70ee7569f0044f2486f07f8ce`, giving q8=(0,y,0) using two additional initial sources and the actual coupled origin/W front. The arbitrary late-q7 socket remains excluded. The earlier one-source obstruction remains intact. Calibrated native reset and the W-modified public-history law are open.
+- [#911](https://github.com/amaybaum/incompleteness/pull/911), `81bc53e482158072869b916116a4fc0f8b28f99e`: unchanged reviewed almost-sure sampler and joint timing diagnostic. The fixed pointwise/G3 operation invariant remains; fair-reservoir enlargement alone does not source A1.
+- [#912](https://github.com/amaybaum/incompleteness/pull/912), `69540662b234e37c6805ded244962a80f15f63a2`: reviewed tagged-post-Y comparison and terminal-R positivity countercontrols. A fixed global history decoder is algebraically possible; strict raw encoding still fails for that standalone gadget and no relaxation is adopted. Independent resampling is an abstract positive control, with native reset/closure open.
+- #910 history author `96e7b6249eedc221a364b79d996a080f0b850438`: separate review accepts the seven-port noise/complement theorem through R+8. Independent reviewer geometry extends it through R+9 under 189 supplied post-R fair bits.
+- #910 masked-route author `328b74b88eaeddc798bf4693af78a571bf429787`: separate review accepts the original-time J source and pointwise q9=(0,y XOR a,y XOR a) identity, retaining actual boundary values and the failure of arbitrary q8 socket targets. The combined conditional fresh-bit/noise corollary is separately stated in reset_v9/review/COROLLARY.md.
 
-Next first check: establish conditional resource independence for the W-modified
-public history, then construct the calibrated native reset and prove a valid
-joint post-read carrier law including metadata and failures. This is a local
-instrument task; A1 identification/coverage and composites remain separate.
+The old noise law is controlled under its explicit bank/access assumptions;
+it does not give an independent entire two-slice neighborhood. Next construct
+simultaneous retained-Y, X-mask and R-mask branches, then z and a synchronized
+herald, with the exact joint 5:3:2 law and every failure branch. Each new
+source/readiness region must preserve the bank and conditional seed law.
+A1 correspondence/coverage, native preparation/clock/settings, arbitrary
+protocol closure and composites remain separate obligations.

@@ -1,116 +1,139 @@
 # Native-Y continuation: current research handoff
 
-24 October 2026. Active draft research on #910, #911 and #912. #885 remains
-read-only for this effort, with programme synthesis at
-`2d555f17c23bea31d32b3f5eb4c49d245b413a76`. No physical premise, manuscript
-status, native-round designation or full-equivalence claim is adopted.
+24 October 2026. Active research drafts #910 and #912, with the reviewed A1
+resource audit retained on #911. Programme synthesis on #885 remains read-only
+for this effort, pinned at 2d555f17c23bea31d32b3f5eb4c49d245b413a76.
+No physical premise, target extension, F/E designation or full-equivalence
+claim is adopted. Exact-QM A1 and bounded operational A2 retain separate verdicts.
 
-## Native routing result
+## Current native results
 
-The earlier clean q7 readout remains valid. With T=185, P=12*840^185,
-S=T+P, d=68 and R=S+d, the prepared native family gives q7=(0,0,y) at R+7,
-where y=x XOR u. Its seed-only correction and geometry are retained in
-[outward_v6](outward_v6/CORRECTION-REPORT.md).
+Keep T=185, P=12*840^185, S=T+P, d=68 and R=S+d. The earlier initial-only
+construction gives q7=(0,0,y) at R+7 and q8=(0,y,0) at R+8 on the retained
+native family y=x XOR u. Its old one-source obstruction and later two-source
+route remain valid for their respective preparations.
 
-The [workspace-assisted continuation](reset_v8/REPORT.md), author revision
-`e46d30fdd2c237b70ee7569f0044f2486f07f8ce`, reaches q8=(0,y,0) at R+8.
-It adds initial W=111 at (0,-76,76), and G=011 for u=0 or G=101 for u=1
-at (0,S,S+152), retaining Q, C and the explicitly extended ready region.
-The unknown input reaches W through native dynamics; it is not preloaded.
-The coupled origin/W front is calculated before the late collision diamond.
-Its exact period divides 384*840, which divides actual P.
+The new [masked route](reset_v9/REPORT.md), author revision
+328b74b88eaeddc798bf4693af78a571bf429787, extends the current/previous initial
+ready balls about q9=(0,S,77) to radii R+9 and R+8. Preserve W=111,
+Q,C and G=(u,1 XOR u,1), and add one initial current source
 
-There are 32 common ordered codeword pairs, realized by 56 pairs of
-u-specific source choices among the 4,096 examined pairs. An arbitrary
-late-q7 input socket is excluded throughout this family. For the clean route,
-u=0 and intervened q7.D=0 give q8=000 for x=0 and 001 for x=1. The actual
-past remains essential even when the native endpoint is clean.
-The [separate-author review](reset_v8/review/REPORT.md) accepts this scope,
-independently reproducing 6,144 path rows and eight scalar collision diamonds.
-The earlier [one-source obstruction](reset_v7/REPORT.md) remains valid.
+    position (0,S,S+154), payload J=(u XOR a,a,u XOR a).
 
-This is native-family routing. The 5:3:2 sampler, fresh fair z, herald/failure
-law, complete outgoing carrier and reusable reset are unbuilt. W can change
-later old-port backgrounds; preservation of earlier designated reads does
-not establish the extended public-record law.
+For a supplied new independent fair bit a, the actual native evolution gives
 
-## Reviewed parallel findings
+    U_(R+9)(q9)=(0,y XOR a,y XOR a).
 
-| Track | Retained checkpoint | Result and boundary |
-| --- | --- | --- |
-| States/dynamics #911 | `81bc53e482158072869b916116a4fc0f8b28f99e` | Almost-sure fair-bit stopping samples the supplied irrational p exactly, but does not overcome countability or the closed nonnegative-operation invariant under the fixed pointwise/G3 identification. Native execution remains unsourced. |
-| Composition/access #912 | `7be889a88987cb0a4ab248b3787982958fca1a97` | Actual native-X finite kernel satisfies the conditional one-stage law on the supplied preparation cone. Unchanged-sample reuse after terminal metadata fails; native repeated reset remains open. |
+No unknown x or later y is preloaded. The actual coupled W/origin front,
+Q/C/G/J strip and late collision diamond are used. q7 and q8 are unchanged.
+The census finds eight common native code pairs; the arbitrary q8.B socket
+and prescribed cold-mixer targets fail in this one-source outward family.
+The [independent review](reset_v9/review/REPORT.md) records scalar front and
+collision controls. The result is one masked sign, with no simultaneous
+outgoing Y branch or complete calibrated reset.
 
-Both have separate-author internal reviews with replayable code and results
-beside their reports. Their earlier reviewed resource and composition results
-are unchanged. Internal review is not external validation or owner adoption.
+The measured boundary creating q8 has old local value (1 XOR u,1,0), plus
+six nonzero/history-dependent incoming cells; all are retained in the result.
+The clean endpoint does not imply a cold neighborhood. The subsequent full
+two-slice boundary is not asserted independent of old public records.
 
-The #911 candidate uses p=(2+sqrt(2))/4, expected two coin queries and unbounded
-worst-case resources. For p and 1-p, stopping depth has the same marginal,
-yet the joint depth/outcome laws have disjoint support (TV 1). At cutoff K,
-retaining a common timeout gives TV 1-2^-K. This diagnoses that proposed
-completion record; it does not exclude every physical timing mechanism.
-The fixed-G3 operation obstruction is distinct from record-level A2 or an
-alternative operational quotient.
+## Full old public noise record
 
-The #912 native-X audit checks 128 success branches and 128 terminal failure
-branches on eight supplied calibrated preparations. It inherits the long
-public-noise independence and physical geometry. Its 5/16 success probability
-is for this stage conditional on valid incoming history. Failure is the
-declared terminal no-carrier symbol, not an invented reset qubit.
-Exposing terminal X's Y metadata and offering the unchanged sampled carrier
-for a later decoded Y read yields joint TV 1/2 from a fresh reset reference,
-or 5/32 including the common failure branch. The metadata-conditioned decoder
-has determinant -1/4. This rejects that explicit terminal-only access extension;
-it is not a simulation of later native ticks or a refutation of the source's
-terminal claim.
+The [history theorem](history_v9/REPORT.md), author revision
+96e7b6249eedc221a364b79d996a080f0b850438, resolves the W-background question
+through R+8. Under the specified initial independent frontier bank, the
+entire seven-port noise word is jointly uniform independent of its bank
+complement, including informative deadlines, old seeds and q8. W can change
+offsets without changing the chronological bank-to-record bijection.
+Informative outcomes, both earlier heralds and every failure branch remain
+in the record. The used seed u is not declared fresh.
 
-## Next constructive target
+The [history review](history_v9/review/REPORT.md) separately extends the exact
+geometry to q9 through R+9, including source J. The required post-R bank is
+189 fair bits (168 through R+8, with 21 further bits for the ninth tick).
+The complete bank has 6P+18d+189 bits. All blocks are supplied initially,
+outside readiness and source pins, under the inherited access/clock assumptions.
+Their physical preparation is not derived.
 
-Use q8's actual two-slice neighborhood to construct the calibrated post-Y
-carrier (y XOR a,y,y XOR b,z), with (a,b)=00,10,11 in ratio 5:3:2 and
-fresh fair z. Supply workspace, retained information and independent
-resources at the original initial time. Do not reload a clean endpoint into
-a separately ready late-time apparatus. Check every accessible prefix,
-record, timing output, carrier and failure together.
+The [fresh-bit corollary](reset_v9/review/COROLLARY.md) combines that proof
+with the pointwise masked route. If D contains earlier informative records
+and an allowed earlier Y outcome y, N9 is the whole old noise word, and a
+is initially independent and unused by D, then on every nonzero-probability
+branch satisfying the retained native-family assumptions,
 
-First establish whether the W-modified old public records preserve conditional
-resource independence. Failure would leave a local clean route but block its
-use as a composable instrument under the unchanged access contract.
-A subsequent reset must also close the positive decoder cone after the actual
-full read, including any metadata, as #912's counterexample requires.
+    Pr(N9=n,q9=(0,t,t) | D,y) = 2^(-(6P+18d+189)-1), t=0,1.
 
-For A1, enlarging the fair reservoir alone is insufficient under the examined
-identification. A different candidate must specify its state/operation map,
-allowed continuations, sourcing and both directions of target equivalence.
-A2 requires its own protocol class and operational error bound. Neither
-track is inferred from the other's verdict.
+J is beyond every old informative deadline and cannot change q8 before R+10;
+its rank leaves one fair a degree of freedom conditional on u. The noise
+bijection preserves that conditional law. Subsequent heralding involving a
+must still be included explicitly. This concerns the old seven full port
+streams and one terminal q9 read; the private prefix and complete outgoing
+neighborhood are not added to the public record by this result.
 
-## Resources, access and scope
+## Composition and A1 findings
 
-The q7 prefix at R-7 is (u,u,1); it remains private and informative. No native
-shutter or clock is supplied. Initial readiness and seed correlations are
-resources. The prior q7 construction specified 147 additional independent
-fair frontier bits beyond R for its seven old records through R+7. That
-accounting does not certify the W-modified extension through R+8.
-No frontier variable may be silently pinned or reused.
+[#912](https://github.com/amaybaum/incompleteness/pull/912) at
+69540662b234e37c6805ded244962a80f15f63a2 retains the reviewed tagged-post-Y
+diagnostic. A single fixed classical-history/quantum-carrier comparison can
+account for the known tag xy. No tagged-interface extension is adopted;
+the stricter common raw-code condition still fails TV 1 for that standalone
+gadget. A mathematical comparison does not construct native memory or a splice.
 
-Calibration selection, native preparation/settings/clock, access closure,
-arbitrary depth/menu, composites and Bell structure, and full target coverage
-remain open; see [the obligation map](EQUIVALENCE-OBLIGATIONS.md).
-Required off-main evidence must land with any enduring claim under AGENTS
-§A.42. This handoff is navigation, not certification.
+Even with that comparison, unchanged post-Y carriers fail positivity after
+terminal X/R/Z reads. The decoder determinant after R=y is -1/64, and after
+R differing from y it is -1/4. Independent calibrated resampling passes all
+28 complete-record/outgoing-carrier branches as an abstract positive control.
+Actual native back-action and interface closure remain necessary.
 
-## Replay and checkpoint discipline
+[#911](https://github.com/amaybaum/incompleteness/pull/911) remains at
+81bc53e482158072869b916116a4fc0f8b28f99e. Its almost-sure fair-bit sampler
+reproduces a supplied irrational probability but does not overcome the
+countability or closed nonnegative-operation obstruction under the examined
+fixed pointwise/G3 identification. Its stopping-depth/outcome joint leak and
+the prior finite-resource diagnostics remain unchanged. This does not refute
+OI generally or a separately defined A2 target.
 
-`python3 replay.py --latest` checks the reset_v8 author and reviewer groups
-normally and with -O against retained outputs. The full driver contains
-25 groups; the preceding 23 retain their previously passing evidence and
-unchanged sources. This continuation reruns the two new groups in the
-packaged layout, verifies the complete manifest and compiles sources.
-It does not claim a new full-suite, Lean or exact-head CI attestation.
+## Remaining construction
 
-Continue forward checkpoints on the three existing draft branches, keeping
-their PR descriptions aligned. #885 stays under its separate writer.
-No force-push, merge, special dispatch, branch deletion or F/E designation
-follows from this authorization. No unattended future work is scheduled.
+The desired simultaneous post-Y carrier is
+
+    (y XOR a,y,y XOR b,z),
+    (a,b)=00,10,11 with conditional weights 5:3:2, z independent fair.
+
+One fair masked sign supplies a necessary output component; it does not
+supply the two-mask joint law. The next bounded native geometry must branch
+the actual signal into simultaneous retained Y, X-mask and R-mask outputs,
+then join an initially supplied z and a synchronized herald. The inherited
+5/16 herald benchmark accepts 5,3,2 of eight K values on the three (a,b)
+patterns, using six initial fair bits including z. Those resources and the
+compiler's compatibility with the late dirty geometry remain unbuilt here.
+Do not reload q8 or q9 into a separately cold late-time apparatus.
+
+Check each new source and ready region against the full frontier bank; keep
+all accessible prefixes, whole raw ports, conditional seed laws, retained
+information and failure records in the same kernel. The output must close
+the next admissible comparison cone after the actual read, as the #912
+countercontrols require. A physical separation or justified closure for any
+history tag remains necessary under the unchanged strict interface.
+
+Calibration selection, native preparation/clock/settings, adaptive access,
+arbitrary depth/menu, composite/Bell structure and full state/operation
+coverage remain open; see EQUIVALENCE-OBLIGATIONS.md. A1 requires an explicit
+alternative correspondence if it is to escape the examined obstruction.
+A2 needs its own protocol class and error bound.
+
+## Reproduction and checkpoints
+
+Run python3 replay.py --latest for the five new history/route author,
+reviewer and corollary groups normally and with -O against retained outputs.
+The full driver has 30 groups. Its preceding 25 groups retain unchanged
+sources and earlier passing evidence; this continuation claims only a new
+five-group packaged replay, manifest verification and source compilation.
+No fresh full-suite, Lean build or exact-head CI attestation is asserted.
+
+All calculations and separate-agent internal reviews are retained with their
+threads. Internal review is not external validation or owner adoption.
+Off-main evidence must land with any dependent enduring claim under AGENTS
+§A.42. Continue forward checkpoints on the existing draft branches. #885
+stays under its separate writer. No merge, special dispatch, force-push,
+branch deletion or F/E designation follows. No unattended work is scheduled.
