@@ -1,0 +1,1046 @@
+{
+ "schema": "oi-885-author-replays",
+ "version": 1,
+ "programme": "PR #885, INTEGRATION.md",
+ "source": {
+  "note": "the bundles were recovered from the owner's file library as byte-identical originals and are held outside this repository; each is identified by its sha256, which INTEGRATION.md cites. 977e8e33 contains all the others byte for byte.",
+  "recovery_package_sha256": "ca6b82bdf1bf5b137e8c8eb96fe11eafe2a557b24ed965eebcf846e79840d39d"
+ },
+ "tiers": {
+  "evidence_retained": "the structured result below is in this repository",
+  "computation_reproducible_from_repository": "checker and inputs are in this repository (false for every record)",
+  "computation_reproducible_from_identified_bundle": "the bundle with the cited sha256 regenerates the result",
+  "independently_verified_here": "a separate implementation or proof has checked the claim here (false for every record)"
+ },
+ "fields": {
+  "result": "one entry per line of the recorded output; 'line' is the exact text and is authoritative",
+  "status": "the line's literal status token (PASS, detected) or null where the line carries none, as for verdict, limit and scope lines; detected marks a countercontrol that detected its target",
+  "kind": "verdict, limit or scope for lines with that prefix, otherwise check"
+ },
+ "records": [
+  {
+   "checkpoint": "Selector-record boundary",
+   "source_bundle": {
+    "sha256": "3d18fe9cf0306b92ffec69d5e3cd8b77e3b57e36016f6090c49e9a8932d91d33",
+    "file": "OI_selector_session_handoff_v1.zip",
+    "retained_in_repository": false
+   },
+   "checker": {
+    "path": "selector_checks.py",
+    "sha256": "a998d9b299d4c32a113a7bf6f9cc83066d61abb4f153680fb89441f25431c2f7"
+   },
+   "recorded_output": {
+    "path": "selector_checks.out",
+    "sha256": "b5e8c139c9d04392d915fc02962d54cb3a7ba93a4d104b81c2518a000e904e90"
+   },
+   "verification": {
+    "type": "author-replay",
+    "date": "2026-10-24",
+    "python": "3.13.16",
+    "execution_modes": [
+     "normal",
+     "O"
+    ],
+    "invocation": "run from an empty working directory with the bundle directory appended to sys.path, python3 -I -B, normal and -O; stdout compared with the recorded output",
+    "observed_sha256": {
+     "normal": "b5e8c139c9d04392d915fc02962d54cb3a7ba93a4d104b81c2518a000e904e90",
+     "O": "b5e8c139c9d04392d915fc02962d54cb3a7ba93a4d104b81c2518a000e904e90"
+    },
+    "output_match": "byte-identical"
+   },
+   "result": [
+    {
+     "kind": "check",
+     "code": "S1",
+     "status": "PASS",
+     "line": "S1: 8 preparations, 32 calibrations; quantum rank 4, hidden rank 6: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "S2",
+     "status": "PASS",
+     "line": "S2: all 4096 events: 346 satisfy identities, 238 extend to qubit effects: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "S3",
+     "status": "PASS",
+     "line": "S3: partitions by 1..4 labels: affine=(1,172,864,576), positive=(1,118,42,9): PASS"
+    },
+    {
+     "kind": "check",
+     "code": "S4",
+     "status": "PASS",
+     "line": "S4: all 8 sharp outcome halves have no proper nonempty positive deterministic refinement: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "S5",
+     "status": "PASS",
+     "line": "S5: joint X/Z record passes every identity but predicts -1/10 on a rational pure state: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "S6",
+     "status": "PASS",
+     "line": "S6: X-mixture versus Z-mixture stored-pair TV: XY=1/6, XZ=0, XR=7/30, YZ=0, YR=1/15, ZR=0: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "S7",
+     "status": "PASS",
+     "line": "S7: fair private pad restores sharp-record law; key disclosure restores TV=7/30: PASS"
+    },
+    {
+     "kind": "verdict",
+     "code": "VERDICT",
+     "status": "PASS",
+     "line": "VERDICT: exact deterministic selector-record boundary and countercontrols PASS"
+    },
+    {
+     "kind": "limit",
+     "code": "LIMIT",
+     "status": null,
+     "line": "LIMIT: supplied 12-state calibration; no native selector, outgoing instrument, clock, or access closure"
+    }
+   ],
+   "evidence_tiers": {
+    "evidence_retained": true,
+    "computation_reproducible_from_repository": false,
+    "computation_reproducible_from_identified_bundle": true
+   },
+   "independent_review": {
+    "status": "independent review; report retained, reviewer evidence missing",
+    "report": "integration-reviews/SELECTOR-RECORD-REVIEW.md",
+    "reviewer_code_in_repository": false,
+    "reviewer_code_held_outside_repository": false,
+    "independently_verified_here": false,
+    "note": "the review's own computations (reviewer checkers and mutants) are not retained; its findings are attributed to the report"
+   }
+  },
+  {
+   "checkpoint": "Native selected-sign readout",
+   "source_bundle": {
+    "sha256": "c204e6f6ddd46c160e568e546e4652fcbf6f89988fa5664bb177a293d01b8664",
+    "file": "OI_native_selector_handoff_v1.zip",
+    "retained_in_repository": false
+   },
+   "checker": {
+    "path": "checks.py",
+    "sha256": "02c93fef9e655200d617d20d0866889c4ff61d4b2442d7ac0b9af8e973995565"
+   },
+   "recorded_output": {
+    "path": "checks.out",
+    "sha256": "0efc7df36c9db13e4bdbe7f181ce2d15792cbc885b2c511b761c057788325dd1"
+   },
+   "verification": {
+    "type": "author-replay",
+    "date": "2026-10-24",
+    "python": "3.13.16",
+    "execution_modes": [
+     "normal",
+     "O"
+    ],
+    "invocation": "run from an empty working directory with the bundle directory appended to sys.path, python3 -I -B, normal and -O; stdout compared with the recorded output",
+    "observed_sha256": {
+     "normal": "0efc7df36c9db13e4bdbe7f181ce2d15792cbc885b2c511b761c057788325dd1",
+     "O": "0efc7df36c9db13e4bdbe7f181ce2d15792cbc885b2c511b761c057788325dd1"
+    },
+    "output_match": "byte-identical"
+   },
+   "result": [
+    {
+     "kind": "check",
+     "code": "N1",
+     "status": "PASS",
+     "line": "N1: path-parity recursion and actual T=185 source/record separation, including huge P: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "N2",
+     "status": "PASS",
+     "line": "N2: full torus T=1 P=0, all 1024 inputs/pads/settings, two dense exteriors: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "N2",
+     "status": "PASS",
+     "line": "N2: full torus T=1 P=1, all 1024 inputs/pads/settings, two dense exteriors: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "N2",
+     "status": "PASS",
+     "line": "N2: full torus T=1 P=2, all 1024 inputs/pads/settings, two dense exteriors: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "N2",
+     "status": "PASS",
+     "line": "N2: full torus T=2 P=3, all 1024 inputs/pads/settings, two dense exteriors: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "N2",
+     "status": "PASS",
+     "line": "N2: full torus T=3 P=6, all 1024 inputs/pads/settings, two dense exteriors: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "N3",
+     "status": "detected",
+     "line": "N3: removing X cross-pulse compensation corrupts the selected X read: detected"
+    },
+    {
+     "kind": "check",
+     "code": "N4",
+     "status": "PASS",
+     "line": "N4: compiled T=9 reset, P=2, whole torus, 16 data lanes and four mask patterns: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "N5",
+     "status": "PASS",
+     "line": "N5: 36 full-torus frontier-block permutations with all six public ports and dense backgrounds: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "N6",
+     "status": "PASS",
+     "line": "N6: all 4096 joint four-port frontier assignments form a bijection: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "L1",
+     "status": "PASS",
+     "line": "L1: all 12 hidden inputs and 512 menu-setting-record cells: P(record)=Tr(P_selected rho)/8: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "L2",
+     "status": "PASS",
+     "line": "L2: independent pads give TV=0; disclosed keys or a shared pad give TV=7/30: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "L3",
+     "status": "PASS",
+     "line": "L3: all 2048 joint first-X / herald / setting / four-bit cells match, including failures: PASS"
+    },
+    {
+     "kind": "limit",
+     "code": "LIMIT",
+     "status": null,
+     "line": "LIMIT: a programmed initial setting; supplied calibration and private resources; no second reset or adaptive controller"
+    },
+    {
+     "kind": "verdict",
+     "code": "VERDICT",
+     "status": "PASS",
+     "line": "VERDICT: native opposite-front masked readout and bounded designated-record laws PASS"
+    },
+    {
+     "kind": "scope",
+     "code": "SCOPE",
+     "status": null,
+     "line": "SCOPE: one-shot preprogrammed setting, conditional readiness and access; not a reusable quantum instrument"
+    }
+   ],
+   "evidence_tiers": {
+    "evidence_retained": true,
+    "computation_reproducible_from_repository": false,
+    "computation_reproducible_from_identified_bundle": true
+   },
+   "independent_review": {
+    "status": "independent review; report retained, reviewer evidence missing",
+    "report": "integration-reviews/NATIVE-SELECTOR-REVIEW.md",
+    "reviewer_code_in_repository": false,
+    "reviewer_code_held_outside_repository": false,
+    "independently_verified_here": false,
+    "note": "the review's own computations (reviewer checkers and mutants) are not retained; its findings are attributed to the report"
+   }
+  },
+  {
+   "checkpoint": "Read-and-reset boundary",
+   "source_bundle": {
+    "sha256": "15af0674fd17a0c053a70f5f4949bf2ab0e6585b62b777bc668c3f1dcbb1b7a5",
+    "file": "OI_read_reset_boundary_handoff_v1.zip",
+    "retained_in_repository": false
+   },
+   "checker": {
+    "path": "checks.py",
+    "sha256": "083fd9f3403a84793e3f122db0791fc40a0e7672568c12fd6fc39dadcc438a06"
+   },
+   "recorded_output": {
+    "path": "checks.out",
+    "sha256": "c3a9771d529b86b8964a3f14b7f4e3d17b44b9737241e0499c261a0c963ec30d"
+   },
+   "verification": {
+    "type": "author-replay",
+    "date": "2026-10-24",
+    "python": "3.13.16",
+    "execution_modes": [
+     "normal",
+     "O"
+    ],
+    "invocation": "run from an empty working directory with the bundle directory appended to sys.path, python3 -I -B, normal and -O; stdout compared with the recorded output",
+    "observed_sha256": {
+     "normal": "c3a9771d529b86b8964a3f14b7f4e3d17b44b9737241e0499c261a0c963ec30d",
+     "O": "c3a9771d529b86b8964a3f14b7f4e3d17b44b9737241e0499c261a0c963ec30d"
+    },
+    "output_match": "byte-identical"
+   },
+   "result": [
+    {
+     "kind": "check",
+     "code": "G1",
+     "status": "PASS",
+     "line": "G1: 1479 actual source entries, 368 new cones, old input excluded; raw D delays 6 and 66: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "G2",
+     "status": "PASS",
+     "line": "G2: Pascal recursion and 2040 multinomial mask-cancellation cases: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "G3",
+     "status": "PASS",
+     "line": "G3: isolated-collision seed locus is one axial site in 30 enumerated geometries: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "G4",
+     "status": "PASS",
+     "line": "G4: public frontier exclusion checked at huge symbolic coordinates (general formulas in report): PASS"
+    },
+    {
+     "kind": "check",
+     "code": "N0",
+     "status": "PASS",
+     "line": "N0: imported packed dynamics agrees with independent site loop and inverse, four ticks: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "N",
+     "status": "PASS",
+     "line": "N: full torus T=4 P=24 d=1..3 compiled=False exterior=181, 128 lanes, native plus intervention: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "N",
+     "status": "PASS",
+     "line": "N: full torus T=4 P=24 d=1..3 compiled=False exterior=347, 128 lanes, native plus intervention: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "N",
+     "status": "PASS",
+     "line": "N: full torus T=5 P=3 d=1..4 compiled=False exterior=181, 128 lanes, native plus intervention: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "N",
+     "status": "PASS",
+     "line": "N: full torus T=5 P=3 d=1..4 compiled=False exterior=347, 128 lanes, native plus intervention: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "N",
+     "status": "PASS",
+     "line": "N: full torus T=9 P=3 d=1..8 compiled=True exterior=181, 128 lanes, native plus intervention: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "N",
+     "status": "PASS",
+     "line": "N: full torus T=9 P=3 d=1..8 compiled=True exterior=347, 128 lanes, native plus intervention: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "N-controls",
+     "status": "detected",
+     "line": "N-controls: blank premature port and bad-delay erased X bit both distinguish from a repeatable carrier: detected"
+    },
+    {
+     "kind": "check",
+     "code": "J0",
+     "status": "PASS",
+     "line": "J0: mask-only reset minimax TV exactly 2/5; requiring valid carrier on every input raises it to 9/10: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "J1",
+     "status": "detected",
+     "line": "J1: exact outgoing and public marginals, wrong joint law: TV 1/2 on success; 5/16 with failures retained: detected"
+    },
+    {
+     "kind": "check",
+     "code": "J2",
+     "status": "detected",
+     "line": "J2: independent pads TV 0; disclosed keys and shared X/R pad TV 7/30: detected"
+    },
+    {
+     "kind": "check",
+     "code": "J3",
+     "status": null,
+     "line": "J3: current post-read public triples are uniform under the imported record theorem; any raw X re-read has agreement 1/2 (theorem consequence, not a new simulation)."
+    },
+    {
+     "kind": "verdict",
+     "code": "VERDICT",
+     "status": null,
+     "line": "VERDICT: PARTIAL — private X relay and method boundary; no read-and-reset instrument constructed."
+    }
+   ],
+   "evidence_tiers": {
+    "evidence_retained": true,
+    "computation_reproducible_from_repository": false,
+    "computation_reproducible_from_identified_bundle": true
+   },
+   "independent_review": {
+    "status": "independent review; report retained, reviewer evidence missing",
+    "report": "integration-reviews/READ-RESET-REVIEW.md",
+    "reviewer_code_in_repository": false,
+    "reviewer_code_held_outside_repository": false,
+    "independently_verified_here": false,
+    "note": "the review's own computations (reviewer checkers, mutants and LP sources) are not retained; its findings are attributed to the report"
+   }
+  },
+  {
+   "checkpoint": "Native X read-and-reset",
+   "source_bundle": {
+    "sha256": "529185bb95a4ab1fb41097be8746418568e9a1a9e892ce5dff8f5fd36ffd2db8",
+    "file": "OI_native_X_instrument_handoff_v1.zip",
+    "retained_in_repository": false
+   },
+   "checker": {
+    "path": "checks.py",
+    "sha256": "07aa1c4b073832e4814250c5394d83172031431efd1227f5ef42f15ee21de6e1"
+   },
+   "recorded_output": {
+    "path": "checks.out",
+    "sha256": "8bb36846671bc127824361faf45ae05704551f389f5182cc0d0849cea7f39c7a"
+   },
+   "verification": {
+    "type": "author-replay",
+    "date": "2026-10-24",
+    "python": "3.13.16",
+    "execution_modes": [
+     "normal",
+     "O"
+    ],
+    "invocation": "run from an empty working directory with the bundle directory appended to sys.path, python3 -I -B, normal and -O; stdout compared with the recorded output",
+    "observed_sha256": {
+     "normal": "8bb36846671bc127824361faf45ae05704551f389f5182cc0d0849cea7f39c7a",
+     "O": "8bb36846671bc127824361faf45ae05704551f389f5182cc0d0849cea7f39c7a"
+    },
+    "output_match": "byte-identical"
+   },
+   "result": [
+    {
+     "kind": "check",
+     "code": "G1",
+     "status": "PASS",
+     "line": "G1: actual 1479-source geometry, d=68, R=1 mod12; pulse/public/frontier separation: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "G2",
+     "status": "PASS",
+     "line": "G2: exact actual collision gives (x,1,x XOR fresh_bit): PASS"
+    },
+    {
+     "kind": "check",
+     "code": "H1",
+     "status": "PASS",
+     "line": "H1: full 2141-tick native wing/axis recurrence; all 32 herald inputs, complete raw triple: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "H2",
+     "status": "PASS",
+     "line": "H2: all-state identity words, rank-five affine herald encoding, exact symbolic padding to R: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "N0",
+     "status": "PASS",
+     "line": "N0: independent site-loop and inverse agree with packed update: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "N",
+     "status": "PASS",
+     "line": "N: full torus T=9 P=3 d=1 compiled=True exterior=129, 128 lanes, full records and register intervention: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "N",
+     "status": "PASS",
+     "line": "N: full torus T=9 P=3 d=1 compiled=True exterior=391, 128 lanes, full records and register intervention: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "N",
+     "status": "PASS",
+     "line": "N: full torus T=11 P=6 d=8 compiled=False exterior=129, 128 lanes, full records and register intervention: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "N",
+     "status": "PASS",
+     "line": "N: full torus T=11 P=6 d=8 compiled=False exterior=391, 128 lanes, full records and register intervention: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "N",
+     "status": "PASS",
+     "line": "N: full torus T=14 P=3 d=8 compiled=False exterior=129, 128 lanes, full records and register intervention: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "N",
+     "status": "PASS",
+     "line": "N: full torus T=14 P=3 d=8 compiled=False exterior=391, 128 lanes, full records and register intervention: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "P1",
+     "status": "PASS",
+     "line": "P1: all point inputs: success 5/16 times mu_X,s; failures 11/16 retained; fixed raw encoding: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "P2",
+     "status": "PASS",
+     "line": "P2: eight calibrated inputs, 896 joint target cells, selector records and failures: exact factorization PASS"
+    },
+    {
+     "kind": "check",
+     "code": "P3",
+     "status": "PASS",
+     "line": "P3: complete terminal raw-port reads X,Y,R,Z give agreements 1,1/2,9/10,1/2; extra fields accounted: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "P4",
+     "status": "PASS",
+     "line": "P4: actual predecessor retained: all 32768 assignments, both heralds and failures; overall success 25/128: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "C",
+     "status": "detected",
+     "line": "C: marginal-only TV 5/32 with failures; wrong herald TV 1/10; no herald TV 2/5; shared seed and missing coupling: detected"
+    },
+    {
+     "kind": "check",
+     "code": "C-privacy",
+     "status": "detected",
+     "line": "C-privacy: fixed X selector: private pads TV 0; disclosed keys 7/30; shared Y/R pad 1/15: detected"
+    },
+    {
+     "kind": "verdict",
+     "code": "VERDICT",
+     "status": null,
+     "line": "VERDICT: conditional native heralded X read/reset kernel with a new private encoding and terminal menu reads; not a reusable full-menu instrument."
+    }
+   ],
+   "evidence_tiers": {
+    "evidence_retained": true,
+    "computation_reproducible_from_repository": false,
+    "computation_reproducible_from_identified_bundle": true
+   },
+   "independent_review": {
+    "status": "external review; text and spotchecker held in the combined bundle, outside this repository",
+    "review_sha256": "2a51fe2a16658c9e3534626b045805a1305acf713eafb2f2e959d06cd32bcd11",
+    "reviewer_code_in_repository": false,
+    "reviewer_code_held_outside_repository": true,
+    "independently_verified_here": false,
+    "note": "the external review states provisional technical acceptance within its scope and does not claim an uninterrupted checks.py transcript matched checks.out; its spotchecker is replayed in the next record"
+   }
+  },
+  {
+   "checkpoint": "Native X read-and-reset: external spotchecker",
+   "source_bundle": {
+    "sha256": "88f805670fe329c1dea9ca48604348a880d3758ea1c4fcf91d5f57eeaf304227",
+    "file": "OI_combined_handoff_2026-10-24_v1.zip",
+    "retained_in_repository": false
+   },
+   "checker": {
+    "path": "external_review/OI_native_X_independent_spotchecks.py",
+    "sha256": "ded0ed1165d42f4c3b96c23f54a52c48040da60a165cac6ad3bd6cf3227449fe"
+   },
+   "recorded_output": {
+    "path": "verification/external_spotchecks.out",
+    "sha256": "fc798ee082ba75c29f46fa7c584b6512b2ac12763e1e1c109315a07197a27ccf"
+   },
+   "verification": {
+    "type": "author-replay",
+    "date": "2026-10-24",
+    "python": "3.13.16",
+    "execution_modes": [
+     "normal"
+    ],
+    "invocation": "copied alone into an empty directory, python3 -I -B, normal only (it relies on assert, so -O would disable its checks); stdout compared with the recorded output",
+    "observed_sha256": {
+     "normal": "fc798ee082ba75c29f46fa7c584b6512b2ac12763e1e1c109315a07197a27ccf"
+    },
+    "output_match": "byte-identical"
+   },
+   "result": [
+    {
+     "kind": "check",
+     "code": "PASS",
+     "status": "PASS",
+     "line": "PASS: independent H^12 and actual phase/collision arithmetic"
+    },
+    {
+     "kind": "check",
+     "code": "PASS",
+     "status": "PASS",
+     "line": "PASS: 10/32 herald; exact 12-state X reset kernel, failures accounted"
+    },
+    {
+     "kind": "check",
+     "code": "PASS",
+     "status": "PASS",
+     "line": "PASS: four two-herald branch masses 25/128,55/128,15/128,33/128"
+    },
+    {
+     "kind": "check",
+     "code": "PASS",
+     "status": "PASS",
+     "line": "PASS: algebraic Y and R seed-count recipes (not native realizations)"
+    }
+   ],
+   "evidence_tiers": {
+    "evidence_retained": true,
+    "computation_reproducible_from_repository": false,
+    "computation_reproducible_from_identified_bundle": true
+   },
+   "independent_review": {
+    "status": "the external reviewer's own pure-arithmetic spotchecker",
+    "review_sha256": "2a51fe2a16658c9e3534626b045805a1305acf713eafb2f2e959d06cd32bcd11",
+    "reviewer_code_in_repository": false,
+    "reviewer_code_held_outside_repository": true,
+    "independently_verified_here": false,
+    "scope_checked": {
+     "imports": "Python standard library only (fractions, collections, math); no author module is imported",
+     "covers": [
+      "H^12 is the identity on the eight 3-bit states, and h((u,x,1)) = (x,1,x xor u)",
+      "S & d = 0 and R = 1 (mod 12) for T = 185, P = 12*840^T, S = T + P, d = 68, R = S + d",
+      "a stipulated 5:4:1 acceptance table over the 32 (u, v, k) cases gives exactly 5/16 times the X menu law (the reviewer's transcription of the calibrated menu)",
+      "the products of the stated first-herald masses 5/8 and 3/8 with 5/16 and 11/16 (25/128, 55/128, 15/128, 33/128)",
+      "algebraic Y and R seed-count recipes, which the checker states are not native realizations"
+     ],
+     "does_not_cover": [
+      "that the native herald realizes the acceptance table",
+      "the first-herald masses 5/8 and 3/8, which are inputs",
+      "an enumeration of the failure branches (only the accepted mass 5/16 is checked)",
+      "the native transport of the X bit, which rests on the inherited transport theorem (open obligation 1)",
+      "any author code path"
+     ]
+    },
+    "note": "a byte-identical replay of the reviewer-supplied check within the scope above; it is not a new independent verification"
+   }
+  },
+  {
+   "checkpoint": "Combined handoff",
+   "source_bundle": {
+    "sha256": "88f805670fe329c1dea9ca48604348a880d3758ea1c4fcf91d5f57eeaf304227",
+    "file": "OI_combined_handoff_2026-10-24_v1.zip",
+    "retained_in_repository": false
+   },
+   "checker": {
+    "path": "replay.py",
+    "sha256": "d2ab368ade9efac9e9d6d6ca66836560972d73edf7abe32683fa20041f875514"
+   },
+   "recorded_output": {
+    "path": "verification/combined_exact.out",
+    "sha256": "316f6a52ff726c54a4c60bf35a2ae3db4901bb24f578a6bdd8dad7ef52471eb4"
+   },
+   "verification": {
+    "type": "author-replay",
+    "date": "2026-10-24",
+    "python": "3.13.16",
+    "execution_modes": [
+     "driver, default mode"
+    ],
+    "invocation": "the bundle's own driver, python3 -I -B replay.py in its default mode, from an empty working directory. Default mode runs the parallel and follow-up drivers (each compares its selected checkers with their recorded outputs under normal and -O), the calibrated menu check (normal and -O) and the external spotchecker (normal only). The full native-X suite runs only with --full-native-x; the same checker is replayed in the Native X record",
+    "observed_sha256": {
+     "driver": "316f6a52ff726c54a4c60bf35a2ae3db4901bb24f578a6bdd8dad7ef52471eb4"
+    },
+    "output_match": "byte-identical"
+   },
+   "result": [
+    {
+     "kind": "check",
+     "code": null,
+     "status": "PASS",
+     "line": "PASS normal/-O byte-identical: audit/independent_checks.py "
+    },
+    {
+     "kind": "check",
+     "code": null,
+     "status": "PASS",
+     "line": "PASS normal/-O byte-identical: composition/exact_checks.py "
+    },
+    {
+     "kind": "check",
+     "code": null,
+     "status": "PASS",
+     "line": "PASS normal/-O byte-identical: selection/checks.py "
+    },
+    {
+     "kind": "check",
+     "code": null,
+     "status": "PASS",
+     "line": "PASS normal/-O byte-identical: selection/native_mutant.py "
+    },
+    {
+     "kind": "check",
+     "code": null,
+     "status": "PASS",
+     "line": "PASS normal/-O byte-identical: information/checks.py "
+    },
+    {
+     "kind": "check",
+     "code": null,
+     "status": "PASS",
+     "line": "PASS normal/-O byte-identical: synthesis/history_control.py "
+    },
+    {
+     "kind": "check",
+     "code": "PASS",
+     "status": "PASS",
+     "line": "PASS: all selected recorded checks reproduced; no new scientific verdict inferred"
+    },
+    {
+     "kind": "check",
+     "code": null,
+     "status": "PASS",
+     "line": "PASS normal/-O byte-identical: compiler_audit/checks.py"
+    },
+    {
+     "kind": "check",
+     "code": null,
+     "status": "PASS",
+     "line": "PASS normal/-O byte-identical: selection/checks.py"
+    },
+    {
+     "kind": "check",
+     "code": null,
+     "status": "PASS",
+     "line": "PASS normal/-O byte-identical: y_adapter/local_proof.py"
+    },
+    {
+     "kind": "check",
+     "code": null,
+     "status": "PASS",
+     "line": "PASS normal/-O byte-identical: y_adapter/checks.py"
+    },
+    {
+     "kind": "check",
+     "code": null,
+     "status": "PASS",
+     "line": "PASS normal/-O byte-identical: integration/local_cost.py"
+    },
+    {
+     "kind": "check",
+     "code": "PASS",
+     "status": "PASS",
+     "line": "PASS: all selected exact checks replayed; scope remains that of the individual reports"
+    },
+    {
+     "kind": "check",
+     "code": "PASS",
+     "status": "PASS",
+     "line": "PASS: explicit menu normal/-O output"
+    },
+    {
+     "kind": "check",
+     "code": "PASS",
+     "status": "PASS",
+     "line": "PASS: external independent spotchecker (assertions enabled)"
+    },
+    {
+     "kind": "check",
+     "code": "PASS",
+     "status": "PASS",
+     "line": "PASS: selected bundle replays completed; scientific scope unchanged"
+    }
+   ],
+   "evidence_tiers": {
+    "evidence_retained": true,
+    "computation_reproducible_from_repository": false,
+    "computation_reproducible_from_identified_bundle": true
+   },
+   "independent_review": {
+    "status": "internal (radius-185 audit); replays reported by the coordinating session",
+    "reviewer_code_in_repository": false,
+    "reviewer_code_held_outside_repository": false,
+    "independently_verified_here": false,
+    "note": "the coordinating session's replay outputs (combined-review/replay.out) are not retained"
+   }
+  },
+  {
+   "checkpoint": "Native-Y continuation",
+   "source_bundle": {
+    "sha256": "977e8e33683e1b06b47e6cfd78071cbccf72d95b03724f2684a77f1242af736e",
+    "file": "OI_native_Y_continuation_handoff_v1.zip",
+    "retained_in_repository": false
+   },
+   "checker": {
+    "path": "run_replays.py",
+    "sha256": "e89914604624723c3134e4dcc91385a7ff9a8a1e4970ae4c57ef6a34c08fbb2b"
+   },
+   "recorded_output": {
+    "path": "verification/COMBINED-REPLAY.out",
+    "sha256": "28a4bcf79490f62570d804a5cb8e4b643c300fed47f34406f41f72d1e24fcbb9"
+   },
+   "verification": {
+    "type": "author-replay",
+    "date": "2026-10-24",
+    "python": "3.13.16",
+    "execution_modes": [
+     "driver: each checker normal and -O"
+    ],
+    "invocation": "the bundle's own driver, python3 -I -B run_replays.py, from an empty working directory; it checks the nested combined bundle's sha256 and compares its 10 new checkers with their recorded outputs under normal and -O; it does not re-run the older baseline checks",
+    "observed_sha256": {
+     "driver": "28a4bcf79490f62570d804a5cb8e4b643c300fed47f34406f41f72d1e24fcbb9"
+    },
+    "output_match": "byte-identical"
+   },
+   "result": [
+    {
+     "kind": "check",
+     "code": "PASS",
+     "status": "PASS",
+     "line": "PASS: unchanged baseline archive and all 1479 source entries"
+    },
+    {
+     "kind": "check",
+     "code": "PASS",
+     "status": "PASS",
+     "line": "PASS: native_y/checks.py normal/-O match recorded output"
+    },
+    {
+     "kind": "check",
+     "code": "PASS",
+     "status": "PASS",
+     "line": "PASS: native_y/SUPPLEMENTARY.py normal/-O match recorded output"
+    },
+    {
+     "kind": "check",
+     "code": "PASS",
+     "status": "PASS",
+     "line": "PASS: information/checks.py normal/-O match recorded output"
+    },
+    {
+     "kind": "check",
+     "code": "PASS",
+     "status": "PASS",
+     "line": "PASS: selection/checks.py normal/-O match recorded output"
+    },
+    {
+     "kind": "check",
+     "code": "PASS",
+     "status": "PASS",
+     "line": "PASS: integration/terminal_axis_check.py normal/-O match recorded output"
+    },
+    {
+     "kind": "check",
+     "code": "PASS",
+     "status": "PASS",
+     "line": "PASS: review/checks.py normal/-O match recorded output"
+    },
+    {
+     "kind": "check",
+     "code": "PASS",
+     "status": "PASS",
+     "line": "PASS: review/terminal_control_review.py normal/-O match recorded output"
+    },
+    {
+     "kind": "check",
+     "code": "PASS",
+     "status": "PASS",
+     "line": "PASS: review/selection_review.py normal/-O match recorded output"
+    },
+    {
+     "kind": "check",
+     "code": "PASS",
+     "status": "PASS",
+     "line": "PASS: review/information_review.py normal/-O match recorded output"
+    },
+    {
+     "kind": "check",
+     "code": "PASS",
+     "status": "PASS",
+     "line": "PASS: review/native_second_review.py normal/-O match recorded output"
+    },
+    {
+     "kind": "check",
+     "code": "PASS",
+     "status": "PASS",
+     "line": "PASS: all 10 new exact checkers; scientific scope unchanged"
+    }
+   ],
+   "evidence_tiers": {
+    "evidence_retained": true,
+    "computation_reproducible_from_repository": false,
+    "computation_reproducible_from_identified_bundle": true
+   },
+   "independent_review": {
+    "status": "internal; replays reported by the coordinating session",
+    "reviewer_code_in_repository": false,
+    "reviewer_code_held_outside_repository": false,
+    "independently_verified_here": false,
+    "note": "the coordinating session's replay outputs (native-y-review/replay.out) are not retained"
+   }
+  },
+  {
+   "checkpoint": "Inherited transport theorem (author checks)",
+   "source_bundle": {
+    "sha256": "4a232a48596fb3402fc20fbf95397f3f1a5686279215122c7371b6b377a69098",
+    "file": "OI_native_transfer_handoff_v1.zip (nested in 3d18fe9c)",
+    "retained_in_repository": false
+   },
+   "checker": {
+    "path": "checks.py",
+    "sha256": "1a8138c2fe25c1b2fc897dd4b892ca5c3994faa18119c9266703fafea4605ec8"
+   },
+   "recorded_output": {
+    "path": "checks.out",
+    "sha256": "aa38c009d7d227dac0a113f4b54fbc378ff6e87ab3ab5ce5232ebf4732b6a66c"
+   },
+   "verification": {
+    "type": "author-replay",
+    "date": "2026-10-24",
+    "python": "3.13.16",
+    "execution_modes": [
+     "normal",
+     "O"
+    ],
+    "invocation": "run from an empty working directory with the bundle directory appended to sys.path, python3 -I -B, normal and -O; stdout compared with the recorded output",
+    "observed_sha256": {
+     "normal": "aa38c009d7d227dac0a113f4b54fbc378ff6e87ab3ab5ce5232ebf4732b6a66c",
+     "O": "aa38c009d7d227dac0a113f4b54fbc378ff6e87ab3ab5ce5232ebf4732b6a66c"
+    },
+    "output_match": "byte-identical"
+   },
+   "result": [
+    {
+     "kind": "check",
+     "code": "R1",
+     "status": "PASS",
+     "line": "R1: exact monodromy and 90-step relay theorem; ordinary-correct shorter relay fails opaque test: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "R2",
+     "status": "PASS",
+     "line": "R2: packed full-torus update agrees with independent site recursion; inverse and masks: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "R3",
+     "status": "PASS",
+     "line": "R3: full cubic tori at distances 1,4,31; all 16 input/intervention assignments: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "R4",
+     "status": "PASS",
+     "line": "R4: FULL 189^3 torus, 92 ticks, same dense exterior for all 16 assignments; late gate and blank prefix: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "R5",
+     "status": "PASS",
+     "line": "R5: full rectangular tori through distance 361, two exteriors each; released-workspace countercontrol: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "R6",
+     "status": "PASS",
+     "line": "R6: exact complete receiver record; 1/2-tick future triple words uniform for each input, including distance 91: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "R7",
+     "status": "PASS",
+     "line": "R7: exact cubic readiness J=8T^3+16T-3; T=92 gives 6230973; raw gate exposes operands: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "R8",
+     "status": "PASS",
+     "line": "R8: all 32768 radius-one front states, exact inverse; full permutation order 720: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "R9",
+     "status": "PASS",
+     "line": "R9: general front recurrence matches full cubic dynamics, radii 1,2,3 through six extrusion layers: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "R10",
+     "status": "PASS",
+     "line": "R10: radius-two outer-period and central-permutation induction checks, three dense front states: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "R11",
+     "status": "PASS",
+     "line": "R11: actual T=185 reset source geometry supports all four relays; unknown x once; calibrated law unchanged: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "R11",
+     "status": "PASS",
+     "line": "R11: 543-digit common delay checked algebraically; chronological X/H frontier inequalities include its endpoint: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "R12",
+     "status": "PASS",
+     "line": "R12: relocated five-port reset on full 77x41x217 torus; all 256 inputs, entire prefix and deadline: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "R13",
+     "status": "PASS",
+     "line": "R13: full two-port block bijections past both cross-arrival thresholds; shared-frontier countercontrol: PASS"
+    },
+    {
+     "kind": "check",
+     "code": "PASS",
+     "status": "PASS",
+     "line": "PASS: native delayed relay, downstream gate, general extrusion, and transported-reset geometry"
+    },
+    {
+     "kind": "limit",
+     "code": "LIMIT",
+     "status": null,
+     "line": "LIMIT: general long-delay transfer is proved, not simulated; no native setting selector, compact input adapter, clock, or equivalence proof"
+    }
+   ],
+   "evidence_tiers": {
+    "evidence_retained": true,
+    "computation_reproducible_from_repository": false,
+    "computation_reproducible_from_identified_bundle": true
+   },
+   "independent_review": {
+    "status": "historical checkers reproduced; internal proof audits only",
+    "reviewer_code_in_repository": false,
+    "reviewer_code_held_outside_repository": false,
+    "independently_verified_here": false,
+    "note": "the independent proof review (open obligation 1) remains open; reproducible checkers do not discharge it"
+   }
+  }
+ ]
+}
