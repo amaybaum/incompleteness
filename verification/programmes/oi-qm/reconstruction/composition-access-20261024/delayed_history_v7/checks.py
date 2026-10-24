@@ -14,6 +14,7 @@ import json
 H = tuple(4*((v >> 1) & 1) + 2*(v & 1) + (((v >> 2) & 1) ^ ((v >> 1) & (v & 1) & 1))
           for v in range(8))
 N = {(0, 0): 5, (0, 1): 0, (1, 0): 4, (1, 1): 1}
+V6_PHASE_INPUT_BITS = 21           # composition_flag_v6 result.json, phase_input_bits
 STEPS = ((1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, -1, 0), (0, 0, 1), (0, 0, -1))
 
 
@@ -74,6 +75,12 @@ def actual_geometry():
                  'q9+x': (1, S, 77), 'q9-y': (0, S-1, 77), 'q9+y': (0, S+1, 77)}
     carrier = [('q9', q9, L+2), ('q9', q9, L)]
     carrier += [(name, site, L+1) for name, site in neighbors.items()]
+    # Post-plan control: the list must equal v6's read set, derived from q9
+    # and the lattice steps: whole V at L+2, the six neighbours at L+1 and the
+    # old q9 record at L (v6 phase wires: 7 triples = 21 bits).
+    v6_read_set = {(q9, L+2), (q9, L)} | {(add(q9, st), L+1) for st in STEPS}
+    carrier_read_set_ok = ({(site, time) for name, site, time in carrier} == v6_read_set
+                           and len(carrier) == 8 and 3*(len(carrier)-1) == V6_PHASE_INPUT_BITS)
     sources = {'F8': (-(L+1), S, 76), 'F10': (-(L+1), S, 78), 'F9': (-(L+2), S, 77)}
 
     def frontier(i, t):
@@ -145,6 +152,7 @@ def actual_geometry():
     return {
         'tail_bank': 'f_i(t), max(a_i,L)<t<=H, eight ports, 24 bits per tick',
         'carrier_site_times': len(carrier),
+        'carrier_list_equals_v6_read_set': carrier_read_set_ok,
         'tail_carrier_family_pairs': tail_rows,
         'g1_min_tail_slack_over_carrier_site_times': min(tail_slacks),
         'g1_tail_reaches_no_carrier_site_time': g1,
@@ -195,6 +203,8 @@ def scaled_geometry():
     for t in range(DEAD+1, HS+4):
         need(dist(bank_site(t), PORT) == t, 'own axial first front')
     carrier = [(Q9, NS+2), (Q9, NS)] + [(x, NS+1) for x in PHASE_NBRS]
+    need({x for x, tm in carrier if tm == NS+1} == {add(Q9, st) for st in STEPS},
+         'scaled carrier read set')
     for t in TAIL + tuple(range(HS+1, HS+4)):
         need(all(dist(bank_site(t), x) > tm for x, tm in carrier), 'scaled tail reaches carrier')
     hits = [(t, x) for t in range(DEAD+1, TAIL[0]) for x, tm in carrier
@@ -399,14 +409,11 @@ def family(seed, kind, p_expected):
     vals = {key: lanes_of(get(key[1], key[0])) for key in OUTPUTS}
     lanes = range(WORLDS)
     # (s1) pre-tail port records constant; p and complement constant.
-    for t in range(0, TAIL[0]):
-        need(len(set(vals[PORT, t])) == 1, 'pre-tail public record depends on G or tail')
-    p_set = set(vals[Q9, NS])
-    need(p_set == {p_expected}, 'old q9 not a C0 function')
+    s1 = (all(len(set(vals[PORT, t])) == 1 for t in range(0, TAIL[0]))
+          and set(vals[Q9, NS]) == {p_expected}
+          and all(len(set(vals[o, NS+1])) == 1 for o in OTHERS))
     p = p_expected
     s_old = comp(p, 1)
-    for o in OTHERS:
-        need(len(set(vals[o, NS+1])) == 1, 'complement neighbor depends on G or tail')
     q8, q10, mm = vals[Q8, NS+1], vals[Q10, NS+1], vals[MM, NS+1]
     v_cur = vals[Q9, NS+2]
     others = [vals[o, NS+1][0] for o in OTHERS]
@@ -416,7 +423,7 @@ def family(seed, kind, p_expected):
     # (x2) seven-site inverse recovers old q9 in every world.
     cx = others[0] ^ others[1] ^ others[2]
     inv_ok = all(v_cur[l] ^ H[q8[l] ^ q10[l] ^ mm[l] ^ cx] == p for l in lanes)
-    need(inv_ok, 'seven-site inverse')
+    sign_mismatch = 0
     # Triangular Native A pool at fixed tail.
     fixed_tail = [l for l in lanes if l >> 9 == 0]
     need(len({pool[l] for l in fixed_tail}) == 512, 'triangular pool bijection')
@@ -428,16 +435,18 @@ def family(seed, kind, p_expected):
     for l in lanes:
         a8, a10, am = q8[l], q10[l], mm[l]
         s = comp(v_cur[l], 1) ^ comp(a8, 2) ^ comp(a10, 2) ^ comp(am, 2) ^ dbits
-        need(s == s_old, 'decoded sign')
+        sign_mismatch += int(s != s_old)
         j = (s, comp(a8, 1), comp(a10, 2), comp(a10, 1))
         k = comp(a8, 0)+2*comp(a8, 2)+4*comp(a10, 0)
         sel.append(j)
         acc.append(int(k < N[j[1] ^ s, j[2] ^ s]))
     counts = Counter(zip(w, v_cur, acc, sel))
-    # (s3) complete public record: constants, tail record, V, pads, pointer(A).
+    # (s3) complete public record: constants, tail record, V, pointer(A, pads).
+    # The pads are fresh and enter only through the pointer prefix, so they
+    # factor out by product; the cells compared below exclude them.
     s3_cells = 0
     s3 = True
-    for rec, v, pads, a in product(range(512), range(8), range(4), range(2)):
+    for rec, v, a in product(range(512), range(8), range(2)):
         for j in product(range(2), repeat=4):
             if counts.get((rec, v, a, j), 0) != target_count(s_old, a, j):
                 s3 = False
@@ -451,18 +460,16 @@ def family(seed, kind, p_expected):
                 positive += 1
             else:
                 s3 = False
-        positive *= 4
     offered = 0 if kind == 'failure' else sum(acc)
     # (x1) independent scalar evaluator on sampled worlds.
     sample = [0, WORLDS-1] + [(l*0x9E37+seed*0x1F3) % WORLDS for l in range(1, 23)]
+    scalar_mismatch = 0
     for l in sample:
         sc = scalar_world(bg, l)
-        for key in OUTPUTS:
-            need(sc[key] == vals[key][l], 'scalar/bit-sliced disagreement')
+        scalar_mismatch += sum(int(sc[key] != vals[key][l]) for key in OUTPUTS)
     # (x3)/(c2) duplicated tail triple: second tail triple equals the first.
     dup = [l for l in lanes if (l >> 12) & 7 == (l >> 9) & 7]
     dup_support = len({(pool[l], w[l]) for l in dup})
-    need(dup_support < WORLDS, 'duplicate-bank control vacuous')
     def joint_tv(subset):
         # TV of the actual (record, V, A, J) law from Pr(record) x v6 reference,
         # in exact integers: sum over actual keys of |a-p|-p, plus total mass.
@@ -479,6 +486,8 @@ def family(seed, kind, p_expected):
     full_tv, _ = joint_tv(list(lanes))
     s3 = s3 and full_tv == 0
     dup_tv, _ = joint_tv(dup)
+    # (x3) post-plan form: the s3 statistic must fire on the duplicated bank.
+    x3_ok = dup_tv > 0
     # (c1) known tail: for each fixed tail value, vary only G.
     by_tail = defaultdict(list)
     for l in lanes:
@@ -519,17 +528,21 @@ def family(seed, kind, p_expected):
     return {
         'seed': seed, 'family': kind, 'old_q9': p, 'old_sign': s_old,
         'worlds': WORLDS,
-        's1_pre_tail_records_constant': True,
+        's1_pre_tail_records_constant': s1,
         's2_pool_tail_record_support': len(set(zip(pool, w))),
         's2_joint_bijective': s2,
-        's3_cells_checked_including_pads_and_zeros': s3_cells,
+        's3_cells_compared_including_zeros_pads_by_product': s3_cells,
         's3_complete_record_law_matches_v6': s3,
         's3_fresh_tail_record_carrier_tv': str(full_tv),
-        'positive_accepted_complete_records': positive,
+        'positive_accepted_records_pads_by_product': positive,
         'accepted_worlds_offered': offered,
         'x1_scalar_sampled_worlds': len(sample),
+        'x1_scalar_mismatched_outputs': scalar_mismatch,
+        'x1_pass': scalar_mismatch == 0,
         'x2_seven_site_inverse_worlds': WORLDS,
+        'x2_pass': inv_ok and sign_mismatch == 0,
         'x3_duplicated_tail_support': dup_support,
+        'x3_duplicated_tail_tv_positive': x3_ok,
         'c2_duplicated_tail_record_carrier_tv': str(dup_tv),
         'c1_known_tail_values': 512,
         'c1_max_distinct_tail_records_over_G': max(c1_distinct),
@@ -553,12 +566,23 @@ def main():
     fams = [family(*f) for f in choose_families()]
     g_ok = (geo['g1_tail_reaches_no_carrier_site_time'] and
             geo['g2_G_reaches_no_port_through_L_plus_2'] and geo['g3_horizons_within_2L'])
-    s_ok = all(f['s2_joint_bijective'] and f['s3_complete_record_law_matches_v6'] for f in fams)
-    verdict = 'HOLDS_WITHIN_SCOPE' if g_ok and s_ok else 'NEGATIVE_FOR_CONSTRUCTION'
+    s_ok = all(f['s1_pre_tail_records_constant'] and f['s2_joint_bijective'] and
+               f['s3_complete_record_law_matches_v6'] for f in fams)
+    controls = {
+        'x1_scalar_evaluator_agrees': all(f['x1_pass'] for f in fams),
+        'x2_seven_site_inverse': all(f['x2_pass'] for f in fams),
+        'x3_duplicated_tail_detected': all(f['x3_duplicated_tail_tv_positive'] for f in fams),
+        'carrier_list_equals_v6_read_set': geo['carrier_list_equals_v6_read_set'],
+    }
+    controls_ok = all(controls.values())
+    if not controls_ok:
+        verdict = 'VOID'
+    else:
+        verdict = 'HOLDS_WITHIN_SCOPE' if g_ok and s_ok else 'NEGATIVE_FOR_CONSTRUCTION'
     bank_load_bearing = any(F(f['c1_max_record_carrier_tv']) > 0 for f in fams)
     storage_load_bearing = any(F(f['c3_native_q8_at_horizon_tail_record_tv']) > 0 for f in fams)
     result = {
-        'schema': 'oi-delayed-port-history-frozen-carrier-v7.1',
+        'schema': 'oi-delayed-port-history-frozen-carrier-v7.2',
         'scope': ('frozen logical v6 carrier; eight old ports with the supplied '
                   'history_v11 bank through H<=2L; Native A source contract'),
         'verdict': verdict,
@@ -570,9 +594,21 @@ def main():
         'actual_astronomical_time_simulated': False,
         'native_storage_or_compilation_established': False,
         'observer_access_rule_adopted': False,
-        'all_required_controls_pass': True,
+        'required_controls': controls,
+        'all_required_controls_pass': controls_ok,
+        'post_plan_rows': [
+            'x3 criterion: duplicated-tail record/carrier TV > 0 (support count kept, reported only)',
+            'carrier_list_equals_v6_read_set control',
+            'all_required_controls_pass computed from required_controls; VOID otherwise',
+            's3 and positive-record counts exclude the pad factor',
+            's1 recorded as a criterion rather than an exception',
+            'c1_accepted_records denominator, reported only',
+            'c3 native q8 row at n+3, reported only',
+        ],
     }
     print(json.dumps(result, indent=2, sort_keys=True))
+    if not controls_ok:
+        raise SystemExit(2)
 
 
 if __name__ == '__main__':
