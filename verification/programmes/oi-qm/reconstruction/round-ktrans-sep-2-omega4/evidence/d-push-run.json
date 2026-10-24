@@ -1,0 +1,154 @@
+{
+ "form": "derived",
+ "jobs": [
+  {
+   "attempt": 1,
+   "conclusion": "success",
+   "name": "Lean kernel check"
+  },
+  {
+   "attempt": 1,
+   "conclusion": "success",
+   "name": "Mathlib bridge"
+  },
+  {
+   "attempt": 1,
+   "conclusion": "success",
+   "name": "Numerical probes"
+  },
+  {
+   "attempt": 1,
+   "conclusion": "success",
+   "name": "Numerical probes / A36 hierarchy"
+  },
+  {
+   "attempt": 1,
+   "conclusion": "success",
+   "name": "Numerical probes / A38 escape"
+  },
+  {
+   "attempt": 1,
+   "conclusion": "success",
+   "name": "Numerical probes / A40 locus"
+  },
+  {
+   "attempt": 1,
+   "conclusion": "success",
+   "name": "Numerical probes / A41 hulls"
+  },
+  {
+   "attempt": 1,
+   "conclusion": "success",
+   "name": "Numerical probes / A41 independent"
+  },
+  {
+   "attempt": 1,
+   "conclusion": "success",
+   "name": "Numerical probes / A41 production"
+  },
+  {
+   "attempt": 1,
+   "conclusion": "success",
+   "name": "Numerical probes / A42 census01"
+  },
+  {
+   "attempt": 1,
+   "conclusion": "skipped",
+   "name": "Numerical probes / A42 exclusion (${{ matrix.part }})"
+  },
+  {
+   "attempt": 1,
+   "conclusion": "success",
+   "name": "Numerical probes / A42 witness"
+  },
+  {
+   "attempt": 1,
+   "conclusion": "success",
+   "name": "Numerical probes / A45 ancilla"
+  },
+  {
+   "attempt": 1,
+   "conclusion": "success",
+   "name": "Numerical probes / BG-2 premise orientation"
+  },
+  {
+   "attempt": 1,
+   "conclusion": "success",
+   "name": "Numerical probes / KINF-2 foundations"
+  },
+  {
+   "attempt": 1,
+   "conclusion": "success",
+   "name": "Numerical probes / KT4-PREM-1 premise audit"
+  },
+  {
+   "attempt": 1,
+   "conclusion": "success",
+   "name": "Numerical probes / KTOKEN-MAXCONE-1 k = 3 exact layer"
+  },
+  {
+   "attempt": 1,
+   "conclusion": "success",
+   "name": "Numerical probes / NB-1 native-gate ball"
+  },
+  {
+   "attempt": 1,
+   "conclusion": "success",
+   "name": "Numerical probes / OI channel protocol"
+  },
+  {
+   "attempt": 1,
+   "conclusion": "success",
+   "name": "Numerical probes / OI finite protocol"
+  },
+  {
+   "attempt": 1,
+   "conclusion": "success",
+   "name": "Numerical probes / OI pair maxCone"
+  },
+  {
+   "attempt": 1,
+   "conclusion": "success",
+   "name": "Numerical probes / core A"
+  },
+  {
+   "attempt": 1,
+   "conclusion": "success",
+   "name": "Numerical probes / core B"
+  },
+  {
+   "attempt": 1,
+   "conclusion": "success",
+   "name": "Numerical probes / foundations"
+  }
+ ],
+ "kind": "base-run",
+ "reproduce": {
+  "compared": "every job conclusion",
+  "not_compared": "timestamps, durations",
+  "recipe": [
+   "git cat-file -e 48b18ac54e39920a4fc4bbb8ee1d1b6cebea2c29 (on main)",
+   "the run is a host record; its outcome is re-established by a new run of verify.yml at that commit"
+  ]
+ },
+ "run": {
+  "conclusion": "success",
+  "event": "push",
+  "head_branch": "main",
+  "head_sha": "48b18ac54e39920a4fc4bbb8ee1d1b6cebea2c29",
+  "id": 39766586077,
+  "path": ".github/workflows/verify.yml",
+  "run_attempt": 1,
+  "status": "completed"
+ },
+ "schema": "oi-evidence-result",
+ "scope": "the identity and outcome of the push run on main at D; nothing about any other tree",
+ "source": {
+  "form_note": "derived: selected fields of the runs and jobs API answers named by their digests",
+  "jobs_api_sha256": "3ab484f39193580a211e3fc24e1161bd22dbb2e850505974a3d8910c95725b2b",
+  "kind": "GitHub Actions runs and jobs APIs, read 2026-10-23; selected fields",
+  "note": "the digests identify the answers these fields were read from; provenance, not independent proof",
+  "runs_api_sha256": "659a93882d2b0cba913373051a651ceb91c19f0dbf272541b128f3ea7d8cff43"
+ },
+ "version": 1
+}
