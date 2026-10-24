@@ -5,7 +5,7 @@
 > adopts no premise.
 
 - `PREREG.md`: the questions, decision rules and controls. `PREREG.sha256` holds its digest and the timestamp on
-  which its precedence over the code rests; the two were first committed together.
+  which its precedence over the code rests; `PREREG.md` was first committed together with the code.
 - `REPORT.md`: the instrument, the exact results and the findings.
 - `instrument_checks.py`: the deterministic checker (numpy and fractions). Its saved output is
   `instrument_checks.out`. Replayed normally and with `-O`, the output is byte-identical; a run takes about 10 s.
