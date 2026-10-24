@@ -268,6 +268,7 @@ import OIBridge.RelcSelectC5
 import OIBridge.EqvK2MaxCone
 import OIBridge.TurnpikePremiseOrientation
 import OIBridge.KTokenMaxCone
+import OIBridge.TransSeparation
 
 namespace OIBridge
 
