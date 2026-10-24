@@ -1,0 +1,109 @@
+{
+  "dyadic_brackets": [
+    [
+      1,
+      1,
+      2,
+      2
+    ],
+    [
+      2,
+      3,
+      4,
+      4
+    ],
+    [
+      3,
+      6,
+      7,
+      8
+    ],
+    [
+      4,
+      13,
+      14,
+      16
+    ],
+    [
+      5,
+      27,
+      28,
+      32
+    ],
+    [
+      6,
+      54,
+      55,
+      64
+    ],
+    [
+      7,
+      109,
+      110,
+      128
+    ],
+    [
+      8,
+      218,
+      219,
+      256
+    ],
+    [
+      9,
+      437,
+      438,
+      512
+    ],
+    [
+      10,
+      874,
+      875,
+      1024
+    ],
+    [
+      11,
+      1748,
+      1749,
+      2048
+    ],
+    [
+      12,
+      3496,
+      3497,
+      4096
+    ],
+    [
+      13,
+      6992,
+      6993,
+      8192
+    ],
+    [
+      14,
+      13984,
+      13985,
+      16384
+    ],
+    [
+      15,
+      27969,
+      27970,
+      32768
+    ],
+    [
+      16,
+      55938,
+      55939,
+      65536
+    ]
+  ],
+  "failed_atoms": 44,
+  "minimum_fair_bits_at_success_5_over_16": 6,
+  "rational_error_comparisons": 2144,
+  "reversible_states_checked": 512,
+  "sample_atoms": 64,
+  "schema": "oi-states-review-v1",
+  "scope": "abstract fixed-input uniform-resource sampler; not native reset",
+  "successful_atoms": 20,
+  "verdict": "PASS"
+}
