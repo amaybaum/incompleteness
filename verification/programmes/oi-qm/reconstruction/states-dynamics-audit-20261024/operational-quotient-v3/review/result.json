@@ -1,0 +1,22 @@
+{
+  "adaptive_full_record_leaves": 1836,
+  "all_controls_pass": true,
+  "all_depth_two_axis_policies_per_prior": 27,
+  "author_commit": "fb0f799d94b621cdb82a8e06183f07afc070f14c",
+  "blockers": [],
+  "deterministic_binary_responses": 256,
+  "global_dilation_cases": 1536,
+  "hadamard_offdiagonal": "-1/2",
+  "independent_priors": 17,
+  "independent_projector_branches": 102,
+  "kernel_congruence_checks": 120,
+  "no_reset_full_record_tv": "1",
+  "nonclifford_cube_coordinate": "7/5",
+  "optimal_deterministic_pair_responses": 20,
+  "pair_error_floor": "1/15",
+  "proper_signed_permutations": 24,
+  "schema": "oi-operational-quotient-v3-review-1",
+  "separate_state_coverage_error": "1/10",
+  "verdict": "ACCEPT_WITHIN_SCOPE",
+  "zero_mass_adaptive_leaves_retained": 396
+}
