@@ -270,6 +270,7 @@ import OIBridge.TurnpikePremiseOrientation
 import OIBridge.KTokenMaxCone
 import OIBridge.PreservationInduction
 import OIBridge.PreservationInductionInstances
+import OIBridge.TransSeparation
 
 namespace OIBridge
 
