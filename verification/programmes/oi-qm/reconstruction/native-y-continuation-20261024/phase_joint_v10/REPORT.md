@@ -9,7 +9,7 @@ access assumptions. No nonlinear initial seed function is used.
 
 This is a post-Y **two-slice phase-preparation candidate** on the retained
 native family. Y occupies a previous-slice field and X/R share a current raw
-port. Native menu readout, next-stage closure and an arbitrary late-q8 socket
+port. General native menu readout, next-stage closure and an arbitrary late-q8 socket
 remain open. This report does not designate a reusable instrument or alter
 the observer's access class.
 
@@ -124,6 +124,32 @@ physical failure distribution is checked, in addition to the terminal
 no-offered-carrier convention. Exposing those private fields or q9's private
 prefix would change the access contract and require another record proof.
 
+## Restricted terminal X and R record checks
+
+Under the candidate's permitted whole-q9 terminal read at L, no raw field
+is suppressed. On a successful post-Y branch its (X,R) pairs are
+(y,y),(1 XOR y,y),(1 XOR y,1 XOR y), with probabilities 1/2,3/10,1/5.
+For designated X the quantum outcome is fair. The additional R field has
+conditional weight 1 when X=y, or weights 3/5,2/5 when X differs from y.
+For designated R the quantum probabilities are 4/5,1/5. The extra X field
+has weights 5/8,3/8 when R=y, or weight 1 when R differs from y. These
+refinements depend only on the earlier public y, setting and outcome, not
+the original preparation conditional on that record.
+
+This gives a bounded terminal X-to-Y-to-X or X-to-Y-to-R record comparison
+on the post-Y family, inheriting the predecessor's native-family/record law
+and the candidate's declared terminal-access and clock convention. It does
+not derive that access rule, a direction selector, or menu reads on arbitrary
+inputs. If the terminal port is also exposed on G=0, its actual raw failure
+law above must be retained as failure metadata; no successful reference
+measurement or offered carrier is asserted there.
+
+After any nonzero whole-port record the unchanged phase has sharp old Y
+and sharp X. Its fixed Bloch decoder determinant is -1/4. The terminal
+record comparison therefore permits stopping after the read; it supplies
+no valid post-read quantum output or reusable instrument. New native
+back-action/reset remains necessary, as #912's controls require.
+
 ## Readout and reuse boundary
 
 The second-order native state at L is the pair (U_(L-1),U_L), so the selected
@@ -152,7 +178,8 @@ conditional calibrated success law; no full OI-QM equivalence follows.
 checks.py reads the pinned actual symmetric-controller table and evaluates
 the retained 2684-step predicate word on all 32 seed assignments, including
 its final H phase. It enumerates all 1024 old-row/new-seed worlds, verifies
-32 success/failure branch measures and 208 nonzero raw phase cells, and
+32 success/failure branch measures, 208 nonzero raw phase cells and 96
+whole-port terminal-refinement branches, and
 checks the complete physical rejected distribution. Normal and optimized
 execution are byte-identical to result.json. Failed controls raise before
 a pass verdict is emitted.

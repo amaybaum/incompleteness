@@ -48,7 +48,7 @@
   "old_seed_reuse_X_tv": "1/2",
   "phase_decoder": "(previous q8.B,current q9.B,current q9.D,current z.D), reordered X,Y,R,Z",
   "raw_phase_cells_checked": 208,
-  "readout_and_reuse": "OPEN; previous-slice Y and whole-port X/R access require native protocols",
+  "readout_and_reuse": "Permitted whole-q9 terminal X/R refinement passes on post-Y family; previous-slice Y delivery and native next-stage reset remain OPEN",
   "schema": "oi.native-y.joint-phase-v10",
   "scope": "Conditional original-time native-family phase preparation with explicit terminal failures; no reusable instrument or OI-QM equivalence.",
   "shared_z_joint_tv": "1/2",
@@ -59,5 +59,7 @@
     3,
     2
   ],
+  "terminal_complete_record_branches": 96,
+  "terminal_unchanged_decoder_determinant": "-1/4",
   "verdict": "PASS_CONDITIONAL_NATIVE_FAMILY_PHASE_PREPARATION"
 }

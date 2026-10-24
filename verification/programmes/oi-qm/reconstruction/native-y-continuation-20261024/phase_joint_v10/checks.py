@@ -49,7 +49,7 @@ def main():
     need(sum(flags.values())==10,'native herald acceptance count')
     target_planes={(0,0):5,(1,0):3,(1,1):2}
     rejected_planes={(0,0):3,(0,1):8,(1,0):5,(1,1):6}
-    worlds=0; branches=0; raw_cells=0; fail_rows=[]
+    worlds=0; branches=0; raw_cells=0; fail_rows=[]; terminal_branches=0
     for x,u,my,mr in product((0,1),repeat=4):
         y=x^u; success=defaultdict(F); failure=defaultdict(F)
         for a,b,k,z in product((0,1),(0,1),range(8),(0,1)):
@@ -73,6 +73,23 @@ def main():
         # Same native source row must remain independent of ciphertext pads.
         need(all(kernel_raw(table,x,u,my,mr,a,b)==kernel_raw(table,x,u,0,0,a,b)
                  for a,b in product((0,1),repeat=2)),'no hidden pad conditioning')
+        records=defaultdict(F)
+        for phase,mass in success.items():records[phase[1]]+=mass/F(5,16)
+        need(dict(records)=={(0,y,y):F(1,2),(0,1^y,y):F(3,10),(0,1^y,1^y):F(1,5)},'entire terminal current-port record')
+        for axis in ('X','R'):
+            for raw,prob in records.items():
+                outcome=raw[1] if axis=='X' else raw[2]
+                if axis=='X':
+                    quantum=F(1,2)
+                    kappa=F(1) if outcome==y else F(3,5) if raw[2]==y else F(2,5)
+                else:
+                    quantum=F(4,5) if outcome==y else F(1,5)
+                    kappa=(F(5,8) if raw[1]==y else F(3,8)) if outcome==y else F(1)
+                need(prob==quantum*kappa,'complete raw terminal projector refinement on post-Y family')
+                bloch=(1-2*raw[1],1-2*y,F())
+                determinant=(1-sum(v*v for v in bloch))/4
+                need(determinant==F(-1,4),'unchanged whole-port posterior is not a reset state')
+                terminal_branches+=1
         branches+=2;raw_cells+=len(success)+len(failure)
         if my==mr==0:
             fail_rows.append({'x':x,'u':u,'pattern01':kernel_raw(table,x,u,0,0,0,1)})
@@ -108,12 +125,12 @@ def main():
     need(dist((0,-1,0),(0,S,76))>R+8,'representative old frontier excluded from previous Y cone')
     result={'schema':'oi.native-y.joint-phase-v10','verdict':'PASS_CONDITIONAL_NATIVE_FAMILY_PHASE_PREPARATION',
         'old_rows':16,'complete_seed_worlds':worlds,'success_failure_branches':branches,
-        'raw_phase_cells_checked':raw_cells,'fresh_bits':6,'success':'5/16','failure':'11/16',
+        'raw_phase_cells_checked':raw_cells,'terminal_complete_record_branches':terminal_branches,'terminal_unchanged_decoder_determinant':'-1/4','fresh_bits':6,'success':'5/16','failure':'11/16',
         'success_plane_counts':[5,3,2],'fair_z_joint':True,'failure_pattern01_raw':fail_rows,
         'calibration_mutant_tv':'1/10','shared_z_joint_tv':'1/2','old_seed_reuse_X_tv':'1/2',
         'noise_factor':'2^(-(6*P+18*d+189)) under retained bank theorem',
         'phase_decoder':'(previous q8.B,current q9.B,current q9.D,current z.D), reordered X,Y,R,Z',
-        'readout_and_reuse':'OPEN; previous-slice Y and whole-port X/R access require native protocols',
+        'readout_and_reuse':'Permitted whole-q9 terminal X/R refinement passes on post-Y family; previous-slice Y delivery and native next-stage reset remain OPEN',
         'arbitrary_q8_socket':'FAILS retained intervention check',
         'scope':'Conditional original-time native-family phase preparation with explicit terminal failures; no reusable instrument or OI-QM equivalence.'}
     print(json.dumps(result,indent=2,sort_keys=True))
