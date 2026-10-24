@@ -60,6 +60,17 @@ Old-local terms and all six neighbors must be retained in native calculations.
 No unknown s copy may be preloaded, no old reserved bank may be overwritten,
 and no separately cold late-time apparatus may replace this boundary.
 
+At L+2, the old q9 field is no longer directly present as a stored slice.
+The native inverse nevertheless gives the fixed local two-slice identity
+
+    s=U_(L+2)(q9).B XOR XOR_(w~q9) U_(L+1)(w).D.
+
+The pool cells are also present in the previous slice at this cut. This
+history-free seven-site coordinate map is a positive representation control;
+it is not an observer operation or an implemented native predicate gate.
+A later candidate must transport or explicitly re-encode the operand at its
+own declared phase, rather than retrieving an unavailable historical field.
+
 ## Fixed post-X target and physical acceptance gap
 
 Write Q8=(b0,b1,b2), Q10=(b3,b4,b5). At this phase the fixed selected map is
