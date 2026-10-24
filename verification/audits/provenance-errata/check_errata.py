@@ -778,7 +778,9 @@ def self_test(data, readme):
         ('E3u', "PE-5's real-head commit removed, with --require-objects", drop({h5}), {'overlay': {h5: None}, 'require': True}),
     ]
     if info['cross_checked']:
-        cases.append(('E3x', 'a git route that disagrees', lambda d, r: (d, r), {'xflip': ('PE-1', 0)}))
+        # flip a check of an entry the git route actually reached: which real heads are in the repository depends on
+        # the clone, and a flip aimed at an entry that was not cross-checked would never be applied
+        cases.append(('E3x', 'a git route that disagrees', lambda d, r: (d, r), {'xflip': (info['cross_checked'][0], 0)}))
     caught = []
     for code, name, mut, opts in cases:
         d, r = mut(copy.deepcopy(data), readme)
