@@ -103,16 +103,59 @@ and assigning timeout a fixed output instead gives a Bernoulli approximation
 with error at most 2^-K by coupling on the timeout event. This is a bounded
 record approximation, not full A2 instrument equivalence.
 
-## Check planned for this published milestone
+## Exact bounded checks
 
-The written claims above precede their computational check. A bounded exact
-checker will enumerate prefix trees for p and 1-p, verify timeout and joint
-laws, reject timing-independence and flipped-output mutants, and check all
-qubit partial-permutation shapes against the fixed-identification witness.
-It will use integer/Fraction arithmetic and Q(sqrt(2)) comparisons, write
-structured evidence, and fail before printing a pass if any control fails.
+The published written claims and control rule preceded this computation.
+`checks.py` uses integer/Fraction arithmetic and Q(sqrt(2)) comparisons.
+It enumerates both threshold prefix trees through cutoffs 1 to 12, totaling
+16,380 prefix comparisons. A digit-comparison implementation agrees with an
+independent dyadic-interval classification on every case. Every cutoff has
+one unresolved prefix, the two stopping-depth marginals agree, and the joint
+distance is exactly 1-2^-K. Truncated expected coin queries are 2-2^(1-K).
+
+Flipping the sampler's output is rejected on every terminating prefix. The
+preparation-independent refinement test rejects the candidate, with factors
+2-sqrt(2) and 0 for (Y=1,T=1). It accepts the abstract positive control with
+an independently generated geometric depth: its common factor is 1/2.
+That positive control is a law-level check, not a physical timing mechanism.
+
+All seven qubit 0/1 partial-permutation shapes, including zero, send |1><1|
+to diagonal nonnegative matrices. The Hadamard witness has off-diagonal
+entry -1/2. Nonnegative sums and limits keep that entry nonnegative, giving
+an operator-norm output gap at least 1/2 on this norm-one input. This is a
+fixed-identification operation-side separation, not an obstruction to every
+restricted record-level A2 model or every alternative operational quotient.
+
+Replay using Python 3's standard library:
+
+```sh
+python3 checks.py
+python3 -O checks.py
+```
+
+Both outputs are byte-identical to `result.json`, with structured verdict
+`PASS`. `checks.py --output path.json` writes that evidence directly. Failed
+controls raise an exception before any pass verdict is written. The checker
+source compiles, and `SHA256SUMS` covers the report, checker and result.
 Finite prefixes test implementation; the geometric-tail and cone arguments
-establish the unbounded statements at the written-proof level.
+establish the unbounded statements at the written-proof level. No new Lean
+certificate or native instrument is asserted.
+
+## Decision for this candidate
+
+The route succeeds at exact sampling of a supplied irrational constant under
+almost-sure unbounded access. It does not source the A1 operation family.
+Under the pointwise mixed/configuration/G3 premises, stopping and infinite
+fair resources retain a separate closed invariant that blocks the target
+Hadamard, even if an uncountable setting oracle were supplied. To continue
+this route toward A1, a candidate must explicitly change that identification
+or the physical operation/hidden-state kind and establish its new sourcing
+and composition map. The availability change alone is insufficient.
+
+For the native-instrument track, the concrete retained lesson is narrower:
+unbounded completion changes the resource target, and a completion record
+must be audited jointly with the outcome. Matching its marginal is not a
+substitute for the preparation-independent refinement law.
 
 ## Primary sources and relation to existing results
 
