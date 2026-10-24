@@ -1,0 +1,2327 @@
+{
+  "algebra": {
+    "degree_scope": "formal diagnostics only; no actual huge-L exclusion inferred",
+    "logical_A_ANF": [
+      "1",
+      "s*b0",
+      "s*b1",
+      "s*b0*b1",
+      "s*b2",
+      "s*b0*b2",
+      "s*b1*b2",
+      "s*b0*b1*b2",
+      "s*b3",
+      "b0*b3",
+      "b1*b3",
+      "b0*b1*b3",
+      "b2*b3",
+      "b0*b2*b3",
+      "b1*b2*b3",
+      "b0*b1*b2*b3",
+      "b5",
+      "s*b5",
+      "s*b0*b5",
+      "b1*b5",
+      "b0*b1*b5",
+      "s*b2*b5",
+      "s*b0*b2*b5",
+      "b1*b2*b5",
+      "b0*b1*b2*b5",
+      "b0*b3*b5",
+      "b2*b3*b5",
+      "b0*b2*b3*b5"
+    ],
+    "logical_A_degree": 4,
+    "logical_success_truth_rows": 40,
+    "logical_total_truth_rows": 128,
+    "logical_variables": [
+      "s",
+      "b0",
+      "b1",
+      "b2",
+      "b3",
+      "b4",
+      "b5"
+    ],
+    "native_logical_basis_variables": [
+      "pA",
+      "s",
+      "r",
+      "q8A",
+      "q8B",
+      "q8D",
+      "q10A",
+      "q10B",
+      "q10D",
+      "mA",
+      "mB",
+      "mD"
+    ],
+    "native_old_fresh_product_terms": [
+      "pD*gB",
+      "pB*gD",
+      "pD*gB*gD"
+    ],
+    "native_polynomial_worlds": 4096,
+    "native_prepared_P_0_s_1_D_ANF": [
+      "1",
+      "q8A",
+      "s*q8B",
+      "q8D",
+      "q8B*q8D",
+      "q10A",
+      "s*q10B",
+      "q8D*q10B",
+      "q10D",
+      "q8B*q10D",
+      "q10B*q10D",
+      "mA",
+      "s*mB",
+      "q8D*mB",
+      "q10D*mB",
+      "mD",
+      "q8B*mD",
+      "q10B*mD",
+      "mB*mD"
+    ],
+    "native_prepared_X_pool_products": [
+      "s*q8B",
+      "s*q10B",
+      "s*mB"
+    ],
+    "native_two_tick_ANF": {
+      "A": [
+        "pA",
+        "gD"
+      ],
+      "B": [
+        "pB",
+        "xD*yB",
+        "xB*yD",
+        "gA",
+        "pD*gB",
+        "xD*gB",
+        "yD*gB",
+        "pB*gD",
+        "xB*gD",
+        "yB*gD",
+        "gB*gD"
+      ],
+      "D": [
+        "pD",
+        "gB",
+        "pB*gD",
+        "xB*gD",
+        "yB*gD",
+        "xD*yB*gD",
+        "xB*yD*gD",
+        "gA*gD",
+        "gB*gD",
+        "pD*gB*gD",
+        "xD*gB*gD",
+        "yD*gB*gD"
+      ]
+    },
+    "native_two_tick_variables": [
+      "pA",
+      "pB",
+      "pD",
+      "xA",
+      "xB",
+      "xD",
+      "yA",
+      "yB",
+      "yD",
+      "gA",
+      "gB",
+      "gD"
+    ],
+    "nonlinear_mutant_witnesses": [
+      {
+        "initial_payloads": [
+          0,
+          0,
+          0,
+          3
+        ],
+        "linear_mutant": 5,
+        "native": 6
+      },
+      {
+        "initial_payloads": [
+          0,
+          0,
+          0,
+          5
+        ],
+        "linear_mutant": 6,
+        "native": 7
+      }
+    ],
+    "nonlinear_term_removed_changed_worlds": 2432,
+    "old_local_term_removed_changed_worlds": 3584,
+    "substituted_A_degree": 4,
+    "substituted_A_monomials": 72,
+    "substituted_phase_variables": [
+      "vB",
+      "q8A",
+      "q8B",
+      "q8D",
+      "q10A",
+      "q10B",
+      "q10D",
+      "mD",
+      "xpD",
+      "ymD",
+      "ypD"
+    ],
+    "substituted_truth_rows": 2048
+  },
+  "all_controls_passed": true,
+  "counts": {
+    "complete_native_worlds": 28672,
+    "families": 7,
+    "pointer_sites_per_deadline": 25,
+    "readout_functions_checked_per_case_and_sector": 256,
+    "scalar_independent_comparisons": 168,
+    "sectors": 2,
+    "terminal_pointer_cases": 525
+  },
+  "families": [
+    {
+      "background": 0,
+      "complete_pointer_tables_sha256": "3568ceb8a5aad6d7b340a60db0971facdcbc1bb7d826851e324e68c7daa270d1",
+      "deadlines": [
+        {
+          "best_terminal_collision_witnesses": {
+            "all": {
+              "A0_payloads": [
+                0,
+                0,
+                0,
+                4
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                6,
+                7
+              ],
+              "raw": 0
+            },
+            "prepared": {
+              "A0_payloads": [
+                1,
+                0,
+                0,
+                0
+              ],
+              "A1_payloads": [
+                1,
+                0,
+                7,
+                0
+              ],
+              "raw": 0
+            }
+          },
+          "best_terminal_site_counts": {
+            "all": 25,
+            "prepared": 2
+          },
+          "best_terminal_site_examples": {
+            "all": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ],
+            "prepared": [
+              [
+                0,
+                0,
+                2
+              ],
+              [
+                1,
+                0,
+                1
+              ]
+            ]
+          },
+          "candidate_sites": 25,
+          "delay_after_pool": 1,
+          "exact_prefix_decoder_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "exact_terminal_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "full_prefix_support_range": [
+            1,
+            8
+          ],
+          "minimum_full_prefix_flag_error_all": "1/4",
+          "minimum_full_prefix_flag_error_prepared": "1/4",
+          "minimum_terminal_flag_error_all": "5/16",
+          "minimum_terminal_flag_error_prepared": "19/64",
+          "terminal_raw_support_range": [
+            1,
+            8
+          ]
+        },
+        {
+          "best_terminal_collision_witnesses": {
+            "all": {
+              "A0_payloads": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                6,
+                0
+              ],
+              "raw": 4
+            },
+            "prepared": {
+              "A0_payloads": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                6,
+                0
+              ],
+              "raw": 4
+            }
+          },
+          "best_terminal_site_counts": {
+            "all": 25,
+            "prepared": 25
+          },
+          "best_terminal_site_examples": {
+            "all": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ],
+            "prepared": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ]
+          },
+          "candidate_sites": 25,
+          "delay_after_pool": 2,
+          "exact_prefix_decoder_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "exact_terminal_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "full_prefix_support_range": [
+            1,
+            64
+          ],
+          "minimum_full_prefix_flag_error_all": "1/4",
+          "minimum_full_prefix_flag_error_prepared": "1/4",
+          "minimum_terminal_flag_error_all": "5/16",
+          "minimum_terminal_flag_error_prepared": "5/16",
+          "terminal_raw_support_range": [
+            1,
+            8
+          ]
+        },
+        {
+          "best_terminal_collision_witnesses": {
+            "all": {
+              "A0_payloads": [
+                0,
+                0,
+                1,
+                3
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                6,
+                3
+              ],
+              "raw": 0
+            },
+            "prepared": {
+              "A0_payloads": [
+                0,
+                0,
+                1,
+                3
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                6,
+                3
+              ],
+              "raw": 0
+            }
+          },
+          "best_terminal_site_counts": {
+            "all": 25,
+            "prepared": 25
+          },
+          "best_terminal_site_examples": {
+            "all": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ],
+            "prepared": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ]
+          },
+          "candidate_sites": 25,
+          "delay_after_pool": 3,
+          "exact_prefix_decoder_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "exact_terminal_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "full_prefix_support_range": [
+            4,
+            64
+          ],
+          "minimum_full_prefix_flag_error_all": "1/4",
+          "minimum_full_prefix_flag_error_prepared": "1/4",
+          "minimum_terminal_flag_error_all": "5/16",
+          "minimum_terminal_flag_error_prepared": "5/16",
+          "terminal_raw_support_range": [
+            1,
+            8
+          ]
+        }
+      ],
+      "initial_worlds": 4096,
+      "n": 1,
+      "old_source_image": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "prepared_shape_worlds": 2048,
+      "scalar_native_comparisons": 24,
+      "source_positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          -1,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -2,
+          0,
+          0
+        ]
+      ],
+      "source_triangle_and_pool_ciphertext_bijections": 8
+    },
+    {
+      "background": 3,
+      "complete_pointer_tables_sha256": "606890abe15ae07f3cd7622ec4a4d42bcaaac30ff859524cf37788490e70cd6d",
+      "deadlines": [
+        {
+          "best_terminal_collision_witnesses": {
+            "all": {
+              "A0_payloads": [
+                0,
+                0,
+                2,
+                0
+              ],
+              "A1_payloads": [
+                0,
+                1,
+                1,
+                0
+              ],
+              "raw": 0
+            },
+            "prepared": {
+              "A0_payloads": [
+                3,
+                0,
+                1,
+                0
+              ],
+              "A1_payloads": [
+                3,
+                0,
+                3,
+                0
+              ],
+              "raw": 0
+            }
+          },
+          "best_terminal_site_counts": {
+            "all": 25,
+            "prepared": 2
+          },
+          "best_terminal_site_examples": {
+            "all": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ],
+            "prepared": [
+              [
+                0,
+                0,
+                2
+              ],
+              [
+                1,
+                0,
+                1
+              ]
+            ]
+          },
+          "candidate_sites": 25,
+          "delay_after_pool": 1,
+          "exact_prefix_decoder_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "exact_terminal_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "full_prefix_support_range": [
+            1,
+            8
+          ],
+          "minimum_full_prefix_flag_error_all": "1/4",
+          "minimum_full_prefix_flag_error_prepared": "1/4",
+          "minimum_terminal_flag_error_all": "5/16",
+          "minimum_terminal_flag_error_prepared": "19/64",
+          "terminal_raw_support_range": [
+            1,
+            8
+          ]
+        },
+        {
+          "best_terminal_collision_witnesses": {
+            "all": {
+              "A0_payloads": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                1,
+                0
+              ],
+              "raw": 6
+            },
+            "prepared": {
+              "A0_payloads": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                1,
+                0
+              ],
+              "raw": 6
+            }
+          },
+          "best_terminal_site_counts": {
+            "all": 25,
+            "prepared": 25
+          },
+          "best_terminal_site_examples": {
+            "all": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ],
+            "prepared": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ]
+          },
+          "candidate_sites": 25,
+          "delay_after_pool": 2,
+          "exact_prefix_decoder_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "exact_terminal_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "full_prefix_support_range": [
+            1,
+            64
+          ],
+          "minimum_full_prefix_flag_error_all": "1/4",
+          "minimum_full_prefix_flag_error_prepared": "1/4",
+          "minimum_terminal_flag_error_all": "5/16",
+          "minimum_terminal_flag_error_prepared": "5/16",
+          "terminal_raw_support_range": [
+            1,
+            8
+          ]
+        },
+        {
+          "best_terminal_collision_witnesses": {
+            "all": {
+              "A0_payloads": [
+                0,
+                0,
+                0,
+                4
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                4,
+                7
+              ],
+              "raw": 0
+            },
+            "prepared": {
+              "A0_payloads": [
+                0,
+                0,
+                0,
+                4
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                4,
+                7
+              ],
+              "raw": 0
+            }
+          },
+          "best_terminal_site_counts": {
+            "all": 25,
+            "prepared": 25
+          },
+          "best_terminal_site_examples": {
+            "all": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ],
+            "prepared": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ]
+          },
+          "candidate_sites": 25,
+          "delay_after_pool": 3,
+          "exact_prefix_decoder_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "exact_terminal_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "full_prefix_support_range": [
+            4,
+            64
+          ],
+          "minimum_full_prefix_flag_error_all": "1/4",
+          "minimum_full_prefix_flag_error_prepared": "1/4",
+          "minimum_terminal_flag_error_all": "5/16",
+          "minimum_terminal_flag_error_prepared": "5/16",
+          "terminal_raw_support_range": [
+            1,
+            8
+          ]
+        }
+      ],
+      "initial_worlds": 4096,
+      "n": 1,
+      "old_source_image": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "prepared_shape_worlds": 2048,
+      "scalar_native_comparisons": 24,
+      "source_positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          -1,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -2,
+          0,
+          0
+        ]
+      ],
+      "source_triangle_and_pool_ciphertext_bijections": 8
+    },
+    {
+      "background": 0,
+      "complete_pointer_tables_sha256": "942b0a3abc7c5502cfa29a301b3caab1156281b44704e9004c99d2f56c0c0a01",
+      "deadlines": [
+        {
+          "best_terminal_collision_witnesses": {
+            "all": {
+              "A0_payloads": [
+                1,
+                0,
+                4,
+                0
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                4,
+                0
+              ],
+              "raw": 0
+            },
+            "prepared": {
+              "A0_payloads": [
+                3,
+                0,
+                4,
+                0
+              ],
+              "A1_payloads": [
+                2,
+                0,
+                4,
+                0
+              ],
+              "raw": 0
+            }
+          },
+          "best_terminal_site_counts": {
+            "all": 2,
+            "prepared": 2
+          },
+          "best_terminal_site_examples": {
+            "all": [
+              [
+                0,
+                -1,
+                1
+              ],
+              [
+                0,
+                1,
+                1
+              ]
+            ],
+            "prepared": [
+              [
+                0,
+                -1,
+                1
+              ],
+              [
+                0,
+                1,
+                1
+              ]
+            ]
+          },
+          "candidate_sites": 25,
+          "delay_after_pool": 1,
+          "exact_prefix_decoder_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "exact_terminal_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "full_prefix_support_range": [
+            1,
+            8
+          ],
+          "minimum_full_prefix_flag_error_all": "5/32",
+          "minimum_full_prefix_flag_error_prepared": "5/32",
+          "minimum_terminal_flag_error_all": "5/32",
+          "minimum_terminal_flag_error_prepared": "5/32",
+          "terminal_raw_support_range": [
+            1,
+            8
+          ]
+        },
+        {
+          "best_terminal_collision_witnesses": {
+            "all": {
+              "A0_payloads": [
+                0,
+                0,
+                1,
+                1
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                4,
+                0
+              ],
+              "raw": 0
+            },
+            "prepared": {
+              "A0_payloads": [
+                2,
+                0,
+                3,
+                4
+              ],
+              "A1_payloads": [
+                2,
+                0,
+                4,
+                3
+              ],
+              "raw": 0
+            }
+          },
+          "best_terminal_site_counts": {
+            "all": 1,
+            "prepared": 1
+          },
+          "best_terminal_site_examples": {
+            "all": [
+              [
+                0,
+                0,
+                1
+              ]
+            ],
+            "prepared": [
+              [
+                0,
+                0,
+                1
+              ]
+            ]
+          },
+          "candidate_sites": 25,
+          "delay_after_pool": 2,
+          "exact_prefix_decoder_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "exact_terminal_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "full_prefix_support_range": [
+            4,
+            64
+          ],
+          "minimum_full_prefix_flag_error_all": "5/32",
+          "minimum_full_prefix_flag_error_prepared": "5/32",
+          "minimum_terminal_flag_error_all": "159/512",
+          "minimum_terminal_flag_error_prepared": "39/128",
+          "terminal_raw_support_range": [
+            1,
+            8
+          ]
+        },
+        {
+          "best_terminal_collision_witnesses": {
+            "all": {
+              "A0_payloads": [
+                0,
+                0,
+                0,
+                5
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                6,
+                0
+              ],
+              "raw": 0
+            },
+            "prepared": {
+              "A0_payloads": [
+                2,
+                0,
+                0,
+                3
+              ],
+              "A1_payloads": [
+                2,
+                0,
+                6,
+                2
+              ],
+              "raw": 0
+            }
+          },
+          "best_terminal_site_counts": {
+            "all": 25,
+            "prepared": 25
+          },
+          "best_terminal_site_examples": {
+            "all": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ],
+            "prepared": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ]
+          },
+          "candidate_sites": 25,
+          "delay_after_pool": 3,
+          "exact_prefix_decoder_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "exact_terminal_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "full_prefix_support_range": [
+            4,
+            64
+          ],
+          "minimum_full_prefix_flag_error_all": "293/2048",
+          "minimum_full_prefix_flag_error_prepared": "37/256",
+          "minimum_terminal_flag_error_all": "5/16",
+          "minimum_terminal_flag_error_prepared": "5/16",
+          "terminal_raw_support_range": [
+            1,
+            8
+          ]
+        }
+      ],
+      "initial_worlds": 4096,
+      "n": 2,
+      "old_source_image": [
+        5,
+        6,
+        0,
+        2,
+        4,
+        7,
+        1,
+        3
+      ],
+      "prepared_shape_worlds": 2048,
+      "scalar_native_comparisons": 24,
+      "source_positions": [
+        [
+          -1,
+          0,
+          0
+        ],
+        [
+          -2,
+          0,
+          -1
+        ],
+        [
+          -2,
+          0,
+          1
+        ],
+        [
+          -3,
+          0,
+          0
+        ]
+      ],
+      "source_triangle_and_pool_ciphertext_bijections": 8
+    },
+    {
+      "background": 3,
+      "complete_pointer_tables_sha256": "f98ecd45f163f7be73cd473550bffbf495c38fa61d9b8261bb3301e45d6eef83",
+      "deadlines": [
+        {
+          "best_terminal_collision_witnesses": {
+            "all": {
+              "A0_payloads": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "A1_payloads": [
+                0,
+                1,
+                0,
+                0
+              ],
+              "raw": 1
+            },
+            "prepared": {
+              "A0_payloads": [
+                2,
+                0,
+                5,
+                0
+              ],
+              "A1_payloads": [
+                2,
+                7,
+                5,
+                0
+              ],
+              "raw": 2
+            }
+          },
+          "best_terminal_site_counts": {
+            "all": 2,
+            "prepared": 2
+          },
+          "best_terminal_site_examples": {
+            "all": [
+              [
+                0,
+                -1,
+                1
+              ],
+              [
+                0,
+                1,
+                1
+              ]
+            ],
+            "prepared": [
+              [
+                0,
+                -1,
+                1
+              ],
+              [
+                0,
+                1,
+                1
+              ]
+            ]
+          },
+          "candidate_sites": 25,
+          "delay_after_pool": 1,
+          "exact_prefix_decoder_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "exact_terminal_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "full_prefix_support_range": [
+            1,
+            8
+          ],
+          "minimum_full_prefix_flag_error_all": "1/4",
+          "minimum_full_prefix_flag_error_prepared": "3/16",
+          "minimum_terminal_flag_error_all": "1/4",
+          "minimum_terminal_flag_error_prepared": "3/16",
+          "terminal_raw_support_range": [
+            1,
+            8
+          ]
+        },
+        {
+          "best_terminal_collision_witnesses": {
+            "all": {
+              "A0_payloads": [
+                0,
+                0,
+                1,
+                1
+              ],
+              "A1_payloads": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "raw": 0
+            },
+            "prepared": {
+              "A0_payloads": [
+                2,
+                0,
+                1,
+                6
+              ],
+              "A1_payloads": [
+                2,
+                3,
+                2,
+                2
+              ],
+              "raw": 0
+            }
+          },
+          "best_terminal_site_counts": {
+            "all": 1,
+            "prepared": 1
+          },
+          "best_terminal_site_examples": {
+            "all": [
+              [
+                0,
+                0,
+                1
+              ]
+            ],
+            "prepared": [
+              [
+                0,
+                0,
+                1
+              ]
+            ]
+          },
+          "candidate_sites": 25,
+          "delay_after_pool": 2,
+          "exact_prefix_decoder_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "exact_terminal_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "full_prefix_support_range": [
+            4,
+            64
+          ],
+          "minimum_full_prefix_flag_error_all": "15/64",
+          "minimum_full_prefix_flag_error_prepared": "3/16",
+          "minimum_terminal_flag_error_all": "39/128",
+          "minimum_terminal_flag_error_prepared": "143/512",
+          "terminal_raw_support_range": [
+            1,
+            8
+          ]
+        },
+        {
+          "best_terminal_collision_witnesses": {
+            "all": {
+              "A0_payloads": [
+                0,
+                0,
+                0,
+                2
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                2,
+                1
+              ],
+              "raw": 0
+            },
+            "prepared": {
+              "A0_payloads": [
+                2,
+                0,
+                0,
+                0
+              ],
+              "A1_payloads": [
+                2,
+                0,
+                2,
+                7
+              ],
+              "raw": 0
+            }
+          },
+          "best_terminal_site_counts": {
+            "all": 25,
+            "prepared": 25
+          },
+          "best_terminal_site_examples": {
+            "all": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ],
+            "prepared": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ]
+          },
+          "candidate_sites": 25,
+          "delay_after_pool": 3,
+          "exact_prefix_decoder_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "exact_terminal_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "full_prefix_support_range": [
+            4,
+            64
+          ],
+          "minimum_full_prefix_flag_error_all": "59/256",
+          "minimum_full_prefix_flag_error_prepared": "91/512",
+          "minimum_terminal_flag_error_all": "5/16",
+          "minimum_terminal_flag_error_prepared": "5/16",
+          "terminal_raw_support_range": [
+            1,
+            8
+          ]
+        }
+      ],
+      "initial_worlds": 4096,
+      "n": 2,
+      "old_source_image": [
+        5,
+        6,
+        1,
+        3,
+        4,
+        7,
+        0,
+        2
+      ],
+      "prepared_shape_worlds": 2048,
+      "scalar_native_comparisons": 24,
+      "source_positions": [
+        [
+          -1,
+          0,
+          0
+        ],
+        [
+          -2,
+          0,
+          -1
+        ],
+        [
+          -2,
+          0,
+          1
+        ],
+        [
+          -3,
+          0,
+          0
+        ]
+      ],
+      "source_triangle_and_pool_ciphertext_bijections": 8
+    },
+    {
+      "background": 0,
+      "complete_pointer_tables_sha256": "b70828b92e8510b9c48667cd98b0685b44f6dd73c9ca01c84914da0f162f2b31",
+      "deadlines": [
+        {
+          "best_terminal_collision_witnesses": {
+            "all": {
+              "A0_payloads": [
+                0,
+                0,
+                1,
+                4
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                0,
+                3
+              ],
+              "raw": 0
+            },
+            "prepared": {
+              "A0_payloads": [
+                1,
+                0,
+                0,
+                0
+              ],
+              "A1_payloads": [
+                1,
+                7,
+                5,
+                0
+              ],
+              "raw": 0
+            }
+          },
+          "best_terminal_site_counts": {
+            "all": 25,
+            "prepared": 2
+          },
+          "best_terminal_site_examples": {
+            "all": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ],
+            "prepared": [
+              [
+                0,
+                -1,
+                1
+              ],
+              [
+                0,
+                1,
+                1
+              ]
+            ]
+          },
+          "candidate_sites": 25,
+          "delay_after_pool": 1,
+          "exact_prefix_decoder_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "exact_terminal_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "full_prefix_support_range": [
+            1,
+            8
+          ],
+          "minimum_full_prefix_flag_error_all": "1/4",
+          "minimum_full_prefix_flag_error_prepared": "1/4",
+          "minimum_terminal_flag_error_all": "5/16",
+          "minimum_terminal_flag_error_prepared": "9/32",
+          "terminal_raw_support_range": [
+            1,
+            8
+          ]
+        },
+        {
+          "best_terminal_collision_witnesses": {
+            "all": {
+              "A0_payloads": [
+                0,
+                0,
+                1,
+                0
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "raw": 0
+            },
+            "prepared": {
+              "A0_payloads": [
+                1,
+                0,
+                0,
+                0
+              ],
+              "A1_payloads": [
+                1,
+                0,
+                1,
+                0
+              ],
+              "raw": 0
+            }
+          },
+          "best_terminal_site_counts": {
+            "all": 25,
+            "prepared": 25
+          },
+          "best_terminal_site_examples": {
+            "all": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ],
+            "prepared": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ]
+          },
+          "candidate_sites": 25,
+          "delay_after_pool": 2,
+          "exact_prefix_decoder_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "exact_terminal_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "full_prefix_support_range": [
+            1,
+            64
+          ],
+          "minimum_full_prefix_flag_error_all": "1009/4096",
+          "minimum_full_prefix_flag_error_prepared": "31/128",
+          "minimum_terminal_flag_error_all": "5/16",
+          "minimum_terminal_flag_error_prepared": "5/16",
+          "terminal_raw_support_range": [
+            1,
+            8
+          ]
+        },
+        {
+          "best_terminal_collision_witnesses": {
+            "all": {
+              "A0_payloads": [
+                0,
+                0,
+                2,
+                3
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "raw": 0
+            },
+            "prepared": {
+              "A0_payloads": [
+                1,
+                0,
+                0,
+                2
+              ],
+              "A1_payloads": [
+                1,
+                0,
+                1,
+                7
+              ],
+              "raw": 0
+            }
+          },
+          "best_terminal_site_counts": {
+            "all": 25,
+            "prepared": 25
+          },
+          "best_terminal_site_examples": {
+            "all": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ],
+            "prepared": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ]
+          },
+          "candidate_sites": 25,
+          "delay_after_pool": 3,
+          "exact_prefix_decoder_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "exact_terminal_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "full_prefix_support_range": [
+            6,
+            64
+          ],
+          "minimum_full_prefix_flag_error_all": "1009/4096",
+          "minimum_full_prefix_flag_error_prepared": "31/128",
+          "minimum_terminal_flag_error_all": "5/16",
+          "minimum_terminal_flag_error_prepared": "5/16",
+          "terminal_raw_support_range": [
+            1,
+            8
+          ]
+        }
+      ],
+      "initial_worlds": 4096,
+      "n": 3,
+      "old_source_image": [
+        5,
+        1,
+        4,
+        2,
+        6,
+        3,
+        7,
+        0
+      ],
+      "prepared_shape_worlds": 2048,
+      "scalar_native_comparisons": 24,
+      "source_positions": [
+        [
+          -2,
+          0,
+          0
+        ],
+        [
+          -3,
+          0,
+          -1
+        ],
+        [
+          -3,
+          0,
+          1
+        ],
+        [
+          -4,
+          0,
+          0
+        ]
+      ],
+      "source_triangle_and_pool_ciphertext_bijections": 8
+    },
+    {
+      "background": 3,
+      "complete_pointer_tables_sha256": "6f26d75288f89175b82ff8b702ad120a6e53bddedf881c210483d1c24f50a2b4",
+      "deadlines": [
+        {
+          "best_terminal_collision_witnesses": {
+            "all": {
+              "A0_payloads": [
+                3,
+                0,
+                1,
+                0
+              ],
+              "A1_payloads": [
+                3,
+                1,
+                3,
+                0
+              ],
+              "raw": 1
+            },
+            "prepared": {
+              "A0_payloads": [
+                0,
+                0,
+                3,
+                0
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                2,
+                0
+              ],
+              "raw": 4
+            }
+          },
+          "best_terminal_site_counts": {
+            "all": 1,
+            "prepared": 1
+          },
+          "best_terminal_site_examples": {
+            "all": [
+              [
+                0,
+                0,
+                2
+              ]
+            ],
+            "prepared": [
+              [
+                0,
+                0,
+                2
+              ]
+            ]
+          },
+          "candidate_sites": 25,
+          "delay_after_pool": 1,
+          "exact_prefix_decoder_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "exact_terminal_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "full_prefix_support_range": [
+            1,
+            8
+          ],
+          "minimum_full_prefix_flag_error_all": "1/4",
+          "minimum_full_prefix_flag_error_prepared": "1/4",
+          "minimum_terminal_flag_error_all": "19/64",
+          "minimum_terminal_flag_error_prepared": "9/32",
+          "terminal_raw_support_range": [
+            1,
+            8
+          ]
+        },
+        {
+          "best_terminal_collision_witnesses": {
+            "all": {
+              "A0_payloads": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                2,
+                0
+              ],
+              "raw": 2
+            },
+            "prepared": {
+              "A0_payloads": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                2,
+                0
+              ],
+              "raw": 2
+            }
+          },
+          "best_terminal_site_counts": {
+            "all": 25,
+            "prepared": 25
+          },
+          "best_terminal_site_examples": {
+            "all": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ],
+            "prepared": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ]
+          },
+          "candidate_sites": 25,
+          "delay_after_pool": 2,
+          "exact_prefix_decoder_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "exact_terminal_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "full_prefix_support_range": [
+            1,
+            64
+          ],
+          "minimum_full_prefix_flag_error_all": "503/2048",
+          "minimum_full_prefix_flag_error_prepared": "61/256",
+          "minimum_terminal_flag_error_all": "5/16",
+          "minimum_terminal_flag_error_prepared": "5/16",
+          "terminal_raw_support_range": [
+            1,
+            8
+          ]
+        },
+        {
+          "best_terminal_collision_witnesses": {
+            "all": {
+              "A0_payloads": [
+                0,
+                0,
+                0,
+                2
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                2,
+                6
+              ],
+              "raw": 0
+            },
+            "prepared": {
+              "A0_payloads": [
+                0,
+                0,
+                0,
+                2
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                2,
+                6
+              ],
+              "raw": 0
+            }
+          },
+          "best_terminal_site_counts": {
+            "all": 25,
+            "prepared": 25
+          },
+          "best_terminal_site_examples": {
+            "all": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ],
+            "prepared": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ]
+          },
+          "candidate_sites": 25,
+          "delay_after_pool": 3,
+          "exact_prefix_decoder_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "exact_terminal_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "full_prefix_support_range": [
+            6,
+            64
+          ],
+          "minimum_full_prefix_flag_error_all": "503/2048",
+          "minimum_full_prefix_flag_error_prepared": "61/256",
+          "minimum_terminal_flag_error_all": "5/16",
+          "minimum_terminal_flag_error_prepared": "5/16",
+          "terminal_raw_support_range": [
+            1,
+            8
+          ]
+        }
+      ],
+      "initial_worlds": 4096,
+      "n": 3,
+      "old_source_image": [
+        0,
+        6,
+        3,
+        7,
+        2,
+        5,
+        1,
+        4
+      ],
+      "prepared_shape_worlds": 2048,
+      "scalar_native_comparisons": 24,
+      "source_positions": [
+        [
+          -2,
+          0,
+          0
+        ],
+        [
+          -3,
+          0,
+          -1
+        ],
+        [
+          -3,
+          0,
+          1
+        ],
+        [
+          -4,
+          0,
+          0
+        ]
+      ],
+      "source_triangle_and_pool_ciphertext_bijections": 8
+    },
+    {
+      "background": "zero",
+      "complete_pointer_tables_sha256": "e193e2896011dd507c9acddb8cb89be98ea4d78c550ebae6f9d68502c1f139a5",
+      "deadlines": [
+        {
+          "best_terminal_collision_witnesses": {
+            "all": {
+              "A0_payloads": [
+                0,
+                0,
+                3,
+                0
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "raw": 0
+            },
+            "prepared": {
+              "A0_payloads": [
+                0,
+                0,
+                3,
+                0
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "raw": 0
+            }
+          },
+          "best_terminal_site_counts": {
+            "all": 25,
+            "prepared": 2
+          },
+          "best_terminal_site_examples": {
+            "all": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ],
+            "prepared": [
+              [
+                0,
+                0,
+                2
+              ],
+              [
+                1,
+                0,
+                1
+              ]
+            ]
+          },
+          "candidate_sites": 25,
+          "delay_after_pool": 1,
+          "exact_prefix_decoder_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "exact_terminal_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "full_prefix_support_range": [
+            1,
+            8
+          ],
+          "minimum_full_prefix_flag_error_all": "1/4",
+          "minimum_full_prefix_flag_error_prepared": "1/4",
+          "minimum_terminal_flag_error_all": "5/16",
+          "minimum_terminal_flag_error_prepared": "19/64",
+          "terminal_raw_support_range": [
+            1,
+            8
+          ]
+        },
+        {
+          "best_terminal_collision_witnesses": {
+            "all": {
+              "A0_payloads": [
+                0,
+                0,
+                3,
+                0
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "raw": 0
+            },
+            "prepared": {
+              "A0_payloads": [
+                0,
+                0,
+                3,
+                0
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "raw": 0
+            }
+          },
+          "best_terminal_site_counts": {
+            "all": 25,
+            "prepared": 25
+          },
+          "best_terminal_site_examples": {
+            "all": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ],
+            "prepared": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ]
+          },
+          "candidate_sites": 25,
+          "delay_after_pool": 2,
+          "exact_prefix_decoder_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "exact_terminal_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "full_prefix_support_range": [
+            1,
+            64
+          ],
+          "minimum_full_prefix_flag_error_all": "1/4",
+          "minimum_full_prefix_flag_error_prepared": "1/4",
+          "minimum_terminal_flag_error_all": "5/16",
+          "minimum_terminal_flag_error_prepared": "5/16",
+          "terminal_raw_support_range": [
+            1,
+            8
+          ]
+        },
+        {
+          "best_terminal_collision_witnesses": {
+            "all": {
+              "A0_payloads": [
+                0,
+                0,
+                3,
+                0
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "raw": 0
+            },
+            "prepared": {
+              "A0_payloads": [
+                0,
+                0,
+                3,
+                0
+              ],
+              "A1_payloads": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "raw": 0
+            }
+          },
+          "best_terminal_site_counts": {
+            "all": 25,
+            "prepared": 25
+          },
+          "best_terminal_site_examples": {
+            "all": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ],
+            "prepared": [
+              [
+                -2,
+                0,
+                0
+              ],
+              [
+                -1,
+                -1,
+                0
+              ]
+            ]
+          },
+          "candidate_sites": 25,
+          "delay_after_pool": 3,
+          "exact_prefix_decoder_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "exact_terminal_site_counts": {
+            "all": 0,
+            "prepared": 0
+          },
+          "full_prefix_support_range": [
+            4,
+            64
+          ],
+          "minimum_full_prefix_flag_error_all": "1/4",
+          "minimum_full_prefix_flag_error_prepared": "1/4",
+          "minimum_terminal_flag_error_all": "5/16",
+          "minimum_terminal_flag_error_prepared": "5/16",
+          "terminal_raw_support_range": [
+            1,
+            8
+          ]
+        }
+      ],
+      "initial_worlds": 4096,
+      "n": 1,
+      "old_source_image": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "prepared_shape_worlds": 2048,
+      "scalar_native_comparisons": 24,
+      "source_positions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          -1,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -2,
+          0,
+          0
+        ]
+      ],
+      "source_triangle_and_pool_ciphertext_bijections": 8
+    }
+  ],
+  "measured_exact_prefix_cases_both_sectors": 0,
+  "measured_exact_terminal_cases_both_sectors": 0,
+  "pooled_common_readout": [
+    {
+      "best_site_count": 25,
+      "best_site_examples": [
+        [
+          -2,
+          0,
+          0
+        ],
+        [
+          -1,
+          -1,
+          0
+        ]
+      ],
+      "delay_after_pool": 1,
+      "minimum_common_terminal_error": "5/16"
+    },
+    {
+      "best_site_count": 25,
+      "best_site_examples": [
+        [
+          -2,
+          0,
+          0
+        ],
+        [
+          -1,
+          -1,
+          0
+        ]
+      ],
+      "delay_after_pool": 2,
+      "minimum_common_terminal_error": "5/16"
+    },
+    {
+      "best_site_count": 25,
+      "best_site_examples": [
+        [
+          -2,
+          0,
+          0
+        ],
+        [
+          -1,
+          -1,
+          0
+        ]
+      ],
+      "delay_after_pool": 3,
+      "minimum_common_terminal_error": "5/16"
+    }
+  ],
+  "schema": "native-short-window-gate-v13-1",
+  "scope": "seven explicit small original-time families; no actual huge-L or universal native-gate claim",
+  "verdict": "NO_EXACT_SINGLE_CELL_FLAG_IN_FIXED_WINDOW"
+}
