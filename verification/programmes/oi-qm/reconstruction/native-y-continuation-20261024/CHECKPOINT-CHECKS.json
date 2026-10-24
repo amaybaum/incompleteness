@@ -3,7 +3,7 @@
   "date": "2026-10-24",
   "base_commit": "de6fe29324ade8a0826c18f7829786086dd590da",
   "python": "3.12",
-  "checker_groups": 19,
+  "checker_groups": 20,
   "normal_optimized_recorded_outputs": "byte-identical",
   "reviewed_input_hashes_verified": 18,
   "python_source_compilation": "PASS",
@@ -27,5 +27,6 @@
   ],
   "six_source_review": "six_source_v5/review/REPORT.md",
   "six_source_review_input_hashes_verified": 15,
-  "outward_v6": "Author scan checks PASS: q7 raw qY.D transfer with retained u; q2.A-only transfer and clean full code not established; independent review pending"
+  "outward_v6": "Author scan checks PASS: q7 raw qY.D transfer with retained u; q2.A-only transfer and clean full code not established; independent review pending",
+  "outward_v6_correction": "Author checks PASS: seed-only initial source yields clean native00y at q7; arbitrary diagnostic full-code/q2 input reuse/reset not established; independent review finalizing"
 }

@@ -43,7 +43,7 @@ def main():
     tests += [('junction_v4', 'checks'), ('junction_v4/review', 'checks')]
     tests += [('six_source_v5/period', 'checks'), ('six_source_v5', 'checks'),
               ('six_source_v5/review', 'checks')]
-    tests += [('outward_v6', 'checks')]
+    tests += [('outward_v6', 'checks'), ('outward_v6', 'correction_checks')]
     with tempfile.TemporaryDirectory(prefix='native-y-replay-') as directory:
         work = Path(directory) / 'checkpoint'
         shutil.copytree(ROOT, work, ignore=shutil.ignore_patterns('__pycache__'))
