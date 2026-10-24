@@ -74,21 +74,71 @@ axiom. Neither supplies those transformations from the native lattice.
 | Composition | The correspondence respects sequential/parallel composition and adaptive controls | Owned by the composition track; essential to upgrading local witnesses |
 | Full equivalence | Both soundness (no extra operational laws) and completeness (every target law available) | Neither follows from calibrated examples or from necessary conditions alone |
 
-## Next decisive check
+## Exact finite-resource diagnostic
 
-Separate an elementary arithmetic resource obstruction from the structural
-obstruction. With finitely many initially independent fair bits and
-deterministic native dynamics, unconditional events are dyadic and nonzero
-herald-conditioned events are rational. Exact rational post-Y weights 5:3:2
-can therefore be compatible with heralding; an irrational target probability
-cannot arise under these particular finite fair-resource assumptions. This
-does not cover arbitrary real initial priors or almost-surely unbounded
-resource use.
+The written derivation and pre-computation rule are in `PROBE-SPEC.md`.
+With finitely many fair bits and deterministic dynamics, unconditional events
+are dyadic and nonzero herald-conditioned events are rational. Here the
+uniform bank must contain **all** randomness used, conditional on the fixed
+input and earlier history. The bound is not on only the newly introduced bits
+when a correlated reservoir also participates.
 
-A small exact checker will test this distinction, the minimal support counts
-for the specified post-Y law, and finite approximants with no positive
-error floor. These will be abstract resource diagnostics, not native reset
-implementations. The proof and controls must precede any computational verdict.
+For post-Y weights 5:3:2 with independent fair z, the six successful cell
+probabilities are (5,5,3,3,2,2)/20. A uniform deterministic sampler therefore
+needs a positive success atom count divisible by 20. Always-success sampling
+from a finite fair-bit bank is excluded. At the illustrative success rate
+5/16, six fair bits suffice and fewer do not: assign the six counts
+5,5,3,3,2,2 among 64 seed atoms and declare the other 44 failures. This rate
+is a resource benchmark, not a claim about the actual downstream reset.
+
+Keeping the seed and XORing its label into a blank three-bit register extends
+this abstract sampler to an involution on 512 states. Both y values produce
+the prescribed decoded carrier law. The three blank bits are additional
+readiness resources. This exhibits an abstract reversible sampler, not a
+native lattice implementation, and does not source either its seed bank or
+its decoder.
+
+For the irrational target p=(2+sqrt(2))/4, an event n/M on M successful
+uniform atoms has error strictly greater than 1/(8M^2), by its nonzero integer
+polynomial residual and factorization through 8p^2-8p+1=0. This produces a
+finite-budget separation, but not an A2 error floor: dyadic brackets of width
+2^-b contain p for arbitrarily large b. A two-state identity model with p
+already placed in its prior is an exact countercontrol, demonstrating why
+finite state count alone does not establish the rational-probability premise.
+
+The checker verifies integer feasibility for bit counts 0 through 16, the
+entire 512-state involution, both carrier laws, 2,144 exact rational comparisons
+for the error bound, and 16 dyadic brackets. It rejects a wrong 5:2:3 law and
+a fixed-z law whose (a,b) marginal is nevertheless correct. The general
+counting/error statements rest on the written proof, not on those bounded
+enumerations. No claim of full instrument approximation follows from a
+Bernoulli approximation example.
+
+Replay with Python 3's standard library:
+
+```sh
+python3 checks.py
+python3 -O checks.py
+```
+
+Both outputs are byte-identical to `result.json`, whose structured verdict is
+`PASS`. `checks.py --output path.json` writes the same data directly. Any
+failed condition raises an exception and exits nonzero before a pass result
+is written. `SHA256SUMS` covers the four deliverable source/result files.
+
+## Consequence for the parallel programme
+
+The next native-reset attempt should account for its complete conditional
+random bank and implement its acceptance law, rather than require an
+always-success deterministic sampler that this resource class cannot supply.
+The composition track must verify that earlier records do not spoil the
+uniform conditional bank. These are necessary checks on a candidate; the
+abstract sampler does not demonstrate that a native candidate exists.
+
+On the broader state/dynamics track, the outstanding step remains sourcing
+an operation/state correspondence that actually changes a load-bearing A1
+premise, or establishing a stated A2 endpoint under permitted resources.
+Neither the six-bit benchmark nor the native clean-Y readout does that.
 
 ## Sources and scope of reading
 
