@@ -1,0 +1,45 @@
+{
+  "author_revision": "7ec3f8234a148cadb58ebc6c8212b3b0233acabe",
+  "claim_boundary": "Outside-ready variation only; specified complement laws or full boundary contracts are not excluded.",
+  "geometry": {
+    "M1_opposite_component": true,
+    "M2_isolated_front_coefficient_zero": true,
+    "endpoint_distance_offsets": [
+      [
+        1,
+        2,
+        3
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    "globally_fixed_complement_excludes_variation": true,
+    "inherited_source_comparisons": 2958,
+    "min_public_port_slacks": [
+      77,
+      79
+    ],
+    "outward_bank_offsets": [
+      2,
+      3
+    ],
+    "positive_x_countercontrol_slack": -478,
+    "public_cone_exclusions": 18,
+    "ready_exclusions": 48,
+    "return_bank_current_shell_offsets": [
+      0,
+      1
+    ]
+  },
+  "native_controls": {
+    "conditional_own_permutations": 160,
+    "full_native_worlds": 640,
+    "joint_outputs_each_family": 64,
+    "prior_phase_rows": 640
+  },
+  "schema": "oi.native-v11.review.v1",
+  "verdict": "ACCEPT_SCOPED_BOUNDARY_OBSTRUCTION"
+}
