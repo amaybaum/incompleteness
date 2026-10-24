@@ -47,10 +47,10 @@ python3 replay.py
 ```
 
 The driver verifies the payload manifest and retained input hashes bound by
-the independent reviews, compiles Python source, then runs 21 checker groups normally and
+the independent reviews, compiles Python source, then runs 23 checker groups normally and
 with `-O`, comparing both with recorded deterministic output. It runs in a
 temporary copy because the symbolic checker regenerates a JSON result.
-Expected: 21 passing groups and `PASS: checkpoint replay` with exit status 0.
+Expected: 23 passing groups and `PASS: checkpoint replay` with exit status 0.
 These checks establish only the scopes stated in the reports, not Lean
 certification, a universal compiler theorem, or a full transport audit.
 
@@ -71,7 +71,7 @@ does not schedule unattended background work.
 The historical v3 combined report describes a separate portable handoff ZIP;
 its `--baseline` command, dependency archives, and PDF are not the layout of
 this repository checkpoint. This tree contains the v2 interface sources and
-v3–v6 research sources/inputs needed for the 21-group replay above. The earlier
+v3–v7 research sources/inputs needed for the 23-group replay above. The earlier
 ten-checker v1 bundle is not rerun by this driver. Copied inherited core code
 and source geometry are retained where the current checks need them.
 

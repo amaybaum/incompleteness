@@ -3,7 +3,7 @@
   "date": "2026-10-24",
   "base_commit": "de6fe29324ade8a0826c18f7829786086dd590da",
   "python": "3.12",
-  "checker_groups": 22,
+  "checker_groups": 23,
   "normal_optimized_recorded_outputs": "byte-identical",
   "reviewed_input_hashes_verified": 18,
   "python_source_compilation": "PASS",
@@ -33,7 +33,11 @@
   "outward_review_input_hashes_verified": 8,
   "current_handoff": "CURRENT-HANDOFF.md",
   "retained_checker_groups": 21,
-  "reset_v7": "Author controls and packaged normal/-O replay PASS; separate-author review pending",
+  "reset_v7": "Separate-author internal review ACCEPTS exact actual interface and one-source/one-tick obstruction; both new groups pass packaged normal/-O replay",
   "parallel_obligations": "EQUIVALENCE-OBLIGATIONS.md",
-  "latest_replay_groups": 1
+  "latest_replay_groups": 2,
+  "reset_v7_review": "reset_v7/review/REPORT.md",
+  "reset_v7_review_input_hashes_verified": 9,
+  "retained_previous_full_replay_commit": "5f6786d6f02605f8e8821a536b678495e19015da",
+  "reset_v7_reviewed_author_commit": "f7058d59ea2136601a679a7fdd7b7573b1e4bfa7"
 }

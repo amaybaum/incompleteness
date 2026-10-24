@@ -72,7 +72,7 @@ failure accounting remain unchanged; no second reset success is asserted.
 ## Actual interface and one-step obstruction
 
 The [next-stage audit](reset_v7/REPORT.md) gives the complete incoming q7
-neighborhood. Its old local term is111 and the six incoming triples retain
+neighborhood. Its old local term is 111 and the six incoming triples retain
 selector masks and input history. The clean endpoint therefore does not supply
 a cold next-stage boundary.
 
@@ -81,7 +81,10 @@ next outward q8 endpoint. Under an explicitly supplied depth-eight ready
 extension, no choice of that triple depending only on u gives any common
 two-code encoding of y. This excludes only the one-source, one-tick family;
 other directions, longer routing and additional workspace remain open.
-Author controls pass; separate-author review is pending at this checkpoint.
+Author controls and the [separate-author internal review](reset_v7/review/REPORT.md)
+accept these exact statements within the one-source, one-tick family.
+The review independently reproduced all 768 q8 outputs and all 384 incoming
+q7 neighbor triples; the native reset and complete joint-history law remain open.
 
 ## Parallel equivalence tracks
 
@@ -90,6 +93,40 @@ states/dynamics and the A1 obstruction audit; draft #912 owns composition and
 observer access. Both have scoped separate-author internal acceptance. Their
 abstract resource and composition results do not establish a native reset or
 full equivalence. #885 remains read-only for this effort.
+
+## Findings from the other two tracks
+
+- **States/dynamics, #911 at `2f09be040b12c894e28bafd46bd82fcb724c68f6`.**
+  The current finite native apparatus does not change the countable-realization
+  assumptions of the existing exact-operation obstruction. This is conditional
+  on the stated realization map and availability class, not a no-go for OI or
+  every finite classical model. The separate fair-resource argument requires
+  all relevant randomness to be uniform conditional on fixed input/history:
+  the six post-Y cells have probabilities `(5,5,3,3,2,2)/20`, so the success
+  atom count must be divisible by 20. An illustrative 5/16 success sampler needs
+  six fair bits and the exhibited reversible implementation uses three blank
+  label bits. It is abstract, not a native reset. Irrational-prior and dyadic
+  approximation controls preserve the distinction between finite resources,
+  exact availability and A2 approximation. Author and independent checker
+  replays pass; the source/proof review accepts within scope.
+- **Composition/access, #912 at `5b57321a39525ccd486560628a10ecedefb8dc65`.**
+  A fixed stage decoder on an admissible cone, closed under the actual
+  branch transitions and intertwining the complete reference instrument,
+  gives exact full-history and outgoing decoded-state agreement by induction
+  for every finite adaptive protocol. Controller randomness must have the
+  stated conditional independence or be included in the joint contract.
+  Exact controls expose failures of marginal-only comparison, hidden-input
+  seed correlation after heralding, altered failure mass and enlarged access.
+  Terminal X misses the 5:3:2/5:2:3 calibration swap; terminal R detects TV 1/10.
+  Author and independent finite controls pass; the written conditional theorem
+  is accepted within scope. Native application and composite/Bell structure
+  remain open.
+
+The new PRs start independently from main `de6fe29324ade8a0826c18f7829786086dd590da`;
+they do not include #885's or #910's branch history. Their reports pin source
+revisions, and all required off-main evidence must land before a dependent
+enduring claim. This handoff is a reviewed-research checkpoint, not an owner
+adoption, Lean certification or full equivalence proof.
 
 ## Next research task
 
@@ -112,8 +149,10 @@ programme, initialization, access closure, arbitrary depth/menu or composites.
 
 ## Replay and checkpoint discipline
 
-Run `python3 replay.py` from this directory; all 21 checker groups have passing
-normal and optimized replay evidence. Python 3.12's standard library
+Run `python3 replay.py` from this directory for all 23 checker groups.
+The 21 unchanged groups retain their earlier passing normal/optimized evidence;
+the two new author/reviewer groups pass packaged normal/optimized replay via
+`python3 replay.py --latest`. Python 3.12's standard library
 and a C++17 compiler (`g++`) suffice. The driver checks retained hashes,
 compiles Python, runs every scoped checker normally and with `-O`, and compares
 deterministic output. It works in a temporary copy to preserve tracked bytes.
