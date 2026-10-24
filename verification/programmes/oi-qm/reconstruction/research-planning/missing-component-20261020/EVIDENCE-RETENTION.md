@@ -5,14 +5,15 @@ is held in this repository and which is not (AGENTS §A.42). It does not re-deri
 reports in `integration-reviews/` are kept byte for byte (`integration-reviews/SHA256SUMS`) and their verdicts stand
 as historical verdicts of their authors.
 
-Two statuses are distinguished:
+Four statuses are distinguished, the same as in `INTEGRATION.md`:
 
 - **reproducible here**: the code under review, the reviewer's own checkers and their outputs are in this repository,
   so the review's computational checks can be re-run from it;
 - **report only**: the review report is retained, but the reviewer's code, the author bundle it replayed, or the
   outputs are not in this repository. Its findings are attributed to the report; they are not re-run here;
 - **not retained (cited only)**: neither the report nor the material is in this repository; the statement rests on the
-  record that cites it.
+  record that cites it;
+- **on #910**: the material, with #910's own retained reviews and checkers, is held on #910's branch.
 
 The search behind this record covered the trees and histories of every branch of the repository and the
 coordinating session's disk, by file name and by the sha256 prefixes the reports give (24 October 2026).
@@ -28,7 +29,7 @@ coordinating session's disk, by file name and by the sha256 prefixes the reports
 | Native X read-and-reset | external review `2a51fe2a…` | not retained (cited only) | — | the bundle `529185bb…` and the external review text |
 | Combined handoff | internal; replays by the coordinating session | not retained (cited only) | — (per #910's provenance records, #910 holds `compiler.py` from this bundle; see the native-selector row) | the bundle `88f80567…`; the replay outputs `combined-review/replay.out` that `INTEGRATION-REVIEW-1907963e.md` cites |
 | Native-Y continuation | internal; replays by the coordinating session | not retained (cited only) | — (per #910's provenance records, #910 holds `native-y-continuation-20261024/continuation/core.py` byte for byte from this bundle) | the bundle `977e8e33…`; the replay outputs `native-y-review/replay.out` |
-| Native-Y (#910) | #910's retained reviews | reproducible on #910 | — (held on #910, see `INTEGRATION.md`) | — |
+| Native-Y (#910) | #910's retained reviews | on #910 | — (held on #910, see `INTEGRATION.md`) | — |
 
 ## What this means for `INTEGRATION.md`
 
