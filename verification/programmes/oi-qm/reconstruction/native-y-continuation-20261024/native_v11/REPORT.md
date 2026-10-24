@@ -32,8 +32,9 @@ strictly greater than L. Thus changing either initial triple changes no
 permitted earlier public record, terminal flag, selected carrier field or
 success/failure mass through L. This includes the new herald at +48L.
 
-The tight old-public-port slacks are L+77 and L+79, at ports3 and5, for
-f8 and f10 respectively. These are literal cone exclusions; no noise-bank
+For f8 and f10, the minimum distances to the old public ports are L+77
+and L+79, respectively, attained at ports 3 and 5. The slacks over L are
+77 and 79. These are literal cone exclusions; no noise-bank
 compensation is used to conceal an earlier record change. The no-wrap
 torus already specified by herald_v10 remains sufficient.
 
