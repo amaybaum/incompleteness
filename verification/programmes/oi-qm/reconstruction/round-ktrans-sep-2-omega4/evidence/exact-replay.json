@@ -1,0 +1,76 @@
+{
+ "controls_exact": {
+  "blob": "027bed8c909c864b5d554d29a0763b615486ffcb",
+  "command": "python3 -I -B controls.py exact",
+  "exit_status": 0,
+  "expected_lines": [
+   "  PASS  X1   the eight states lie in Omega4 and the eight points outside it, exactly",
+   "  PASS  X2   the frozen positive weights cancel every coefficient and the constant: the system is infeasible",
+   "  PASS  X3   the module's proof of not_affine_eball_omega4 states exactly these sixteen points, in order",
+   "  PASS  CX1  the 4-ball: seed, central symmetry, the drive's maps and strict midpoints hold at 1281 exact states; the ball's system is feasible; a state of the certificate is not a ball state",
+   "  PASS  CX2  translations carry each of 9 boundary points to each other; each nonzero one moves a state of Omega4 out of it (so the translations are boundary transitive and not body-preserving)",
+   "  PASS  CX3  the half-space {s <= 1}: translations with zero last coordinate preserve it and carry each of 25 boundary points to each other; it contains (10^6, 0, 0, 0)",
+   "  PASS  CX4  the segment [-e0, e0]: -id preserves it and swaps its two endpoints; (0, 10^-k, 0, 0) is outside it for k = 1..6",
+   "EXACT  AS STATED",
+   "controls: OK -- 7 checks"
+  ],
+  "output_sha256": "daba6b7b2c78882ac5145ec62d83943d677ade83bb41f75a027a723372f24b12",
+  "path": "verification/programmes/oi-qm/reconstruction/round-ktrans-sep-2-omega4/controls.py",
+  "replays": 2,
+  "replays_identical": true
+ },
+ "environment": {
+  "flags": "-I -B",
+  "python": "3.11.17",
+  "sympy": "1.14.0"
+ },
+ "form": "complete",
+ "kind": "exact-replay",
+ "probe": {
+  "blob": "19e19f28fa7644de0bcc3089a354317310de3e41",
+  "command": "python3 -I -B ktrans_sep1_probe.py (from verification/lean)",
+  "exit_status": 0,
+  "expected_lines": [
+   "PASS D1 the flow preserves F identically",
+   "PASS D2 flow_zero and flow_add (R_z(t) R_z(u) = R_z(t+u))",
+   "PASS D3 N = flow(pi) is an involution and moves e0 in Omega4",
+   "PASS D4 J and J^-1 preserve F identically",
+   "PASS D5 J_off_axis at t = pi/2, x = e1: J flow(pi/2) J^-1 e1 = e2, flow(s) e1 has zero third coordinate",
+   "PASS D6 seed (1+s)/2: s^4 <= F gives |s| <= 1 on Omega4; values 1 and 0 at (0,0,0,+-1) in Omega4",
+   "PASS D7 F(-v) = F(v) (central symmetry; capacity <= 2 by Lemma D)",
+   "PASS D8 9 exact boundary points; every midpoint of a distinct pair has F < 1 (max 169/225)",
+   "PASS D9 the section {u^4 + v^4 <= 1} is not {A u^2 + 2 B u v + C v^2 <= 1}: the boundary-point system has no solution",
+   "PASS C1 ball4: D1-D5 hold and the section system is consistent (B = 0) -- solution [{A: 1, B: 0, C: 1, tau: 1/2}]",
+   "PASS W5 SEC for the full effects: Euler identity, gradient gap = explicit sum of squares, 11 exact boundary points, grid of 1669 states -- euler True, sos True, points True, grid True",
+   "PASS C2 ball4: grad F(p).p = 2 F(p) and the gradient gap is |y - p|^2",
+   "COUNTER XW1 fails as stated -- the sum of squares without 2|p_x|^2|y_x - p_x|^2 is not an identity",
+   "COUNTER XW2 fails as stated -- |p1|^2 = 7/5, F(y*) = 388962/390625, e'(p1) = 1: True, p1.y*/|p1|^2 = 3*sqrt(15)/25 + 6*sqrt(5)/25 > 1 (3 b^2 = 3888/15625 > a^2 = 3844/15625)",
+   "checks: 12, failures: 0",
+   "VERDICT DRIVE-SEED-GEOM-SEC-CAP2-NOT-TRANS"
+  ],
+  "output_lines": 31,
+  "output_sha256": "d6f6d298d3ed57081f4e81bef267771fc81d8083a111c0414a69216c772a2940",
+  "path": "verification/lean/ktrans_sep1_probe.py",
+  "provenance": {
+   "design_output_sha256": "d6f6d298d3ed57081f4e81bef267771fc81d8083a111c0414a69216c772a2940",
+   "design_probe_sha256": "c32afda944c73b6db1edf3ad4967e3a459bd05be2a4305b8ada408c76a44081b",
+   "relation": "the frozen probe is the research thread's design probe with its module docstring replaced by a self-contained one; with the docstring removed the two files parse to the same syntax tree and their remaining text is byte-identical, and both print this output byte for byte"
+  },
+  "replays": 2,
+  "replays_identical": true,
+  "sha256": "f4376958b2eb44a658be9469ec92fef3733cf1347399f4e8394780b975db5008"
+ },
+ "reproduce": {
+  "compared": "the full output bytes",
+  "not_compared": "nothing",
+  "recipe": [
+   "from a checkout of a commit carrying both files, with sympy 1.14.0",
+   "(cd verification/lean && python3 -I -B ktrans_sep1_probe.py) | sha256sum",
+   "python3 -I -B verification/programmes/oi-qm/reconstruction/round-ktrans-sep-2-omega4/controls.py exact | sha256sum",
+   "compare each digest with output_sha256"
+  ]
+ },
+ "schema": "oi-evidence-result",
+ "scope": "drafting-time local replays of the round's exact layer at the frozen blobs; evidence for the preparer, not a check-run attestation",
+ "version": 1
+}
