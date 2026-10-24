@@ -11,7 +11,7 @@ The source synthesis is `INTEGRATION.md` on #885 at
 `2d555f17c23bea31d32b3f5eb4c49d245b413a76`, under
 `verification/programmes/oi-qm/reconstruction/research-planning/missing-component-20261020/`.
 That source is read-only for this effort. The native-Y source is #910 at
-`328b74b88eaeddc798bf4693af78a571bf429787`.
+`9b334367864c39e969072d9fbd46b0c049584963`.
 
 The finite calibrated menu and its supplied probabilities are a restricted
 instrument target. They are not the full quantum state space. A1 (exact
@@ -24,7 +24,7 @@ approximations is not an available exact limiting operation.
 
 | Track | Owns | First decisive obligation | Does not establish by itself |
 | --- | --- | --- | --- |
-| Native measurement and reset (#910) | Actual lattice construction, resources, diagnostic interventions, full record/carrier law | Starting from the actual corrected q7/q8/q9 neighborhood, produce the calibrated post-Y carrier with every failure branch accounted for | Full state space, calibration selection, arbitrary menu/depth or composites |
+| Native measurement and reset (#910) | Actual lattice construction, resources, diagnostic interventions, full record/carrier law | Accept the actual calibrated two-slice phase in a native next instrument; deliver previous-Y access and valid post-read reset | Full state space, calibration selection, arbitrary menu/depth or composites |
 | States and dynamics (#911) | Exact target, representation map, preparation/operation availability and structural obstructions | Identify precisely which assumptions obstruct A1 and whether the native route changes any of them | Native implementation of a mathematically representable channel |
 | Composition and access (#912) | Conditional composition theorem, observable history, adaptive choices and composite-system boundary | State sufficient local contracts and prove their finite-depth consequence; exhibit controls for weaker inadequate contracts | Satisfaction of those contracts by the actual lattice or a tensor-product/Bell reconstruction |
 
@@ -41,20 +41,17 @@ under AGENTS §A.42.
    representation from a physically available preparation or operation. If
    equivalence is claimed, provide both coverage of the target and preservation
    of all permitted source observations.
-2. **Measurement boundary.** The clean native q7 code is `(0,0,y)` at `R+7`.
-   It is clean on the retained native family; it does not supply an arbitrary
-   late-time input socket. The actual previous slice and neighborhood are part
-   of the downstream initial-value problem. The workspace-assisted q8 route
-   gives (0,y,0) on the native family; its arbitrary q7 socket still fails,
-   and W-modified old-port noise is now controlled by the conditional
-   history_v9 theorem. The actual full outgoing boundary remains a separate
-   problem. The next initial source gives q9=(0,y XOR a,y XOR a),
-   still one sign rather than a simultaneous calibrated carrier.
-3. **Post-Y target.** The outgoing carrier must decode to
-   `(y XOR a, y, y XOR b, z)` with `(a,b)=00,10,11` in ratio `5:3:2`
-   and fresh fair `z`. This calibration is supplied, not derived. The decoder
-   must be native to the next stage's interface, without history-dependent
-   interpretation smuggled into that stage.
+2. **Measurement boundary.** The actual local phase has previous q8=(0,y,0)
+   and, on accepted masks, current q9=(0,y XOR a,y XOR b). The new J/Kplus/
+   Kminus sources are affine in the existing u and new a,b; native dynamics
+   provides the required nonlinear processing. Arbitrary late-q8 intervention
+   still fails. The complete two-slice neighborhood is not a cold socket.
+3. **Post-Y target and code.** The combined phase_joint_v10 construction
+   decodes the selected previous/current cells to (y XOR a,y,y XOR b,z),
+   with 5:3:2 plane weights, jointly fair z and 5/16 herald success. Failure
+   is retained with 11/16 mass and its actual physical raw fields. This is
+   a conditional native-family phase preparation. The fixed decoder is not
+   a derived observer operation; previous-Y access and reuse remain open.
 4. **Joint law.** Keep public records, heralds, timing and outgoing carrier in
    the same law; retain failures. Conditional freshness is relative to the
    entire relevant earlier history, not only an unconditioned initial prior.
@@ -88,15 +85,18 @@ not declare any of them closed.
 
 ## Reviewed parallel checkpoints
 
-- [#911](https://github.com/amaybaum/incompleteness/pull/911), `81bc53e482158072869b916116a4fc0f8b28f99e`: unchanged reviewed almost-sure sampler and joint timing diagnostic. The fixed pointwise/G3 operation invariant remains; fair-reservoir enlargement alone does not source A1.
-- [#912](https://github.com/amaybaum/incompleteness/pull/912), `69540662b234e37c6805ded244962a80f15f63a2`: reviewed tagged-post-Y comparison and terminal-R positivity countercontrols. A fixed global history decoder is algebraically possible; strict raw encoding still fails for that standalone gadget and no relaxation is adopted. Independent resampling is an abstract positive control, with native reset/closure open.
-- #910 history author `96e7b6249eedc221a364b79d996a080f0b850438`: separate review accepts the seven-port noise/complement theorem through R+8. Independent reviewer geometry extends it through R+9 under 189 supplied post-R fair bits.
-- #910 masked-route author `328b74b88eaeddc798bf4693af78a571bf429787`: separate review accepts the original-time J source and pointwise q9=(0,y XOR a,y XOR a) identity, retaining actual boundary values and the failure of arbitrary q8 socket targets. The combined conditional fresh-bit/noise corollary is separately stated in reset_v9/review/COROLLARY.md.
+- #910 joint phase author `9b334367864c39e969072d9fbd46b0c049584963`: separate integration review accepts the full conditional selected-phase/old-record/new-herald law and all failures. On the candidate's permitted whole-q9 terminal read, bounded terminal X/R refinement passes on the post-Y family. The unchanged post-read decoder has determinant -1/4; no reusable output follows.
+- #910 native controller author `bf1bc9fb067e38417d8968e26a691debf7d3eb5f`: separate scalar native review accepts the affine-source two-sign witness. Its historical one-source obstruction remains valid; the richer native source family resolves that preparation restriction.
+- #910 herald author `25220128c3c7991e4c22c917af56b68c02ab8051`: separate review accepts the synchronized remote initial-source program, full raw herald/z phases, shared seed law, exact padding and source geometry. P is unchanged.
+- #910 alternative layout author `8dc85bce24569a2ee80e8150d2aa7e05ac24f540`: scoped source-direction and order-three full-law obstructions accepted by separate review. These do not exclude the actual local controller.
+- [#911](https://github.com/amaybaum/incompleteness/pull/911), `81bc53e482158072869b916116a4fc0f8b28f99e`: unchanged reviewed almost-sure sampler and joint timing diagnostic. Fair-reservoir enlargement alone does not source A1 under the examined fixed pointwise/G3 identification.
+- [#912](https://github.com/amaybaum/incompleteness/pull/912), `69540662b234e37c6805ded244962a80f15f63a2`: unchanged reviewed tagged comparison and post-read positivity controls; no tagged-interface relaxation is adopted.
 
-The old noise law is controlled under its explicit bank/access assumptions;
-it does not give an independent entire two-slice neighborhood. Next construct
-simultaneous retained-Y, X-mask and R-mask branches, then z and a synchronized
-herald, with the exact joint 5:3:2 law and every failure branch. Each new
-source/readiness region must preserve the bank and conditional seed law.
-A1 correspondence/coverage, native preparation/clock/settings, arbitrary
-protocol closure and composites remain separate obligations.
+The next decisive task is native read/back-action and phase closure: accept
+this actual prepared boundary, handle previous-Y delivery and the shared
+current X/R raw port, and output a valid next-stage state with every exposed
+field and failure in its branch law. Do not replace the physical neighborhood
+by a standalone ready phase. Extend the history bank when public observation
+continues beyond L, including the new remote herald port. A1 coverage, A2
+error guarantees, native preparation/settings/clock and composites remain
+separate obligations. No full equivalence is established.

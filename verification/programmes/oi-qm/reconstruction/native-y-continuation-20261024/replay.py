@@ -48,16 +48,26 @@ def main():
               ('outward_v6/review', 'checks')]
     tests += [('reset_v7', 'probe'), ('reset_v7/review', 'checks')]
     tests += [('reset_v8', 'probe'), ('reset_v8/review', 'checks')]
-    latest = [('history_v9', 'checks'), ('history_v9/review', 'checks'),
+    tests += [('history_v9', 'checks'), ('history_v9/review', 'checks'),
               ('reset_v9', 'checks'), ('reset_v9/review', 'checks'),
               ('reset_v9/review', 'history_corollary')]
+    latest = [('branch_v10', 'checks'), ('branch_v10/review', 'checks'),
+              ('herald_v10', 'checks'), ('herald_v10/review', 'checks'),
+              ('layout_v10', 'checks'), ('layout_v10/review', 'checks'),
+              ('branch_v10/local-controller', 'checks', [], 'single-result.json'),
+              ('branch_v10/local-controller', 'checks', ['--symmetric'], 'symmetric-result.json'),
+              ('branch_v10/local-controller/review', 'checks'),
+              ('phase_joint_v10', 'checks'), ('phase_joint_v10/review', 'checks')]
     tests = latest if sys.argv[1:] == ['--latest'] else tests + latest
     with tempfile.TemporaryDirectory(prefix='native-y-replay-') as directory:
         work = Path(directory) / 'checkpoint'
         shutil.copytree(ROOT, work, ignore=shutil.ignore_patterns('__pycache__'))
         for source in work.rglob('*.py'):
             py_compile.compile(str(source), doraise=True)
-        for folder, name in tests:
+        for spec in tests:
+            folder, name = spec[:2]
+            arguments = spec[2] if len(spec) > 2 else []
+            explicit_output = spec[3] if len(spec) > 3 else None
             script = work / folder / (name + '.py')
             output_name = 'review-normal.out' if folder == 'junction_v4/review' else name + '.out'
             if folder in ('reset_v7', 'reset_v7/review', 'reset_v8'):
@@ -68,17 +78,24 @@ def main():
                 output_name = 'results.json'
             if name == 'history_corollary':
                 output_name = 'history-corollary-result.json'
+            if folder.startswith(('branch_v10', 'herald_v10', 'phase_joint_v10')):
+                output_name = 'result.json'
+            if folder.startswith('layout_v10'):
+                output_name = 'results.json'
+            if explicit_output:
+                output_name = explicit_output
             expected = (work / folder / output_name).read_bytes()
             for options in ([], ['-O']):
                 result = subprocess.run(
-                    [sys.executable, *options, str(script)], cwd=work,
+                    [sys.executable, *options, str(script), *arguments], cwd=work,
                     capture_output=True, timeout=180)
                 require(result.returncode == 0,
                         'checker failed: ' + folder + '/' + name + '\n' +
                         result.stderr.decode(errors='replace'))
                 require(result.stdout == expected,
                         'recorded output mismatch: ' + folder + '/' + name)
-            print('PASS: ' + folder + '/' + name + ' normal/-O/recorded', flush=True)
+            label = folder + '/' + name + (' ' + ' '.join(arguments) if arguments else '')
+            print('PASS: ' + label + ' normal/-O/recorded', flush=True)
     print('PASS: checkpoint replay', flush=True)
 
 
