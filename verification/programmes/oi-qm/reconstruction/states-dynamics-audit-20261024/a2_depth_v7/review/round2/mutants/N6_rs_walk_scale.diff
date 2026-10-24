@@ -1,0 +1,11 @@
+--- a/checks.py
++++ b/N6_rs_walk_scale.py
+@@ -527,7 +527,7 @@
+             return
+         a, b = a << B, b << B                     # extend prefixes by this slot's fresh block
+         m = lo + QUANTUM * (hi - lo)
+-        scale = 1 << ((t + 1) * B)
++        scale = 1 << B
+         cut = -((-m.numerator * scale) // m.denominator)   # least prefix with prefix/scale >= m
+         cut = min(max(cut, a), b)
+         walk(t + 1, lo, m, a, cut, rec + (1,))

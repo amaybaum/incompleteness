@@ -58,13 +58,15 @@ X+, then read a, X, a, X, ...", the executed M=16, W=16, B=24 controller,
 extended by one fresh 24-bit block per slot, has complete-record TV from the
 quantum protocol tending to 1 with depth (certified TV>1/2 for h>=67382091).
 
-The same holds for every controller in the memoryless reset class, in which
-the post-reset carrier depends only on that slot's fresh block of at most B
-fair bits and the public record, for every fixed B. A retained-seed reset
-escapes the class on this protocol with TV<=1/(2^B-2) at every depth; it is a
-protocol-specific sampler, not a geometric controller. Arbitrary depth is
-therefore open for controllers that carry randomness across slots; the h=3
-certificate above is unchanged.
+The same holds for every controller in the memoryless reset class, for every
+fixed B. In that class the post-reset carrier depends only on that slot's
+fresh block of at most B fair bits and the public record, responses depend
+only on carrier, public word and setting, and the preparation read is
+unconstrained. A retained-seed reset lies outside the class and escapes the
+obstruction on this protocol, with TV<=1/(2^B-2) at every depth for B>=2; it
+is a protocol-specific sampler, not a geometric controller. Arbitrary depth
+is therefore open for controllers that carry randomness across slots and for
+growing per-slot blocks; the h=3 certificate above is unchanged.
 
 ## Exact reset-resource audit
 

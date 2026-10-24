@@ -1,0 +1,11 @@
+--- a/checks.py
++++ b/M8_recenum_ignores_parity.py
+@@ -358,7 +358,7 @@
+ def record_enumeration_control(pa, pb):
+     n = 0
+     for h in range(1, 13):
+-        t = tv_records(lambda s: pb if s % 2 else pa, h)
++        t = tv_records(lambda s: pb, h)
+         check(t == tv_direct(pa, pb, h) == tv_fast(pa, pb, h), 'record enumeration agrees')
+         n += 1 << h
+     return n

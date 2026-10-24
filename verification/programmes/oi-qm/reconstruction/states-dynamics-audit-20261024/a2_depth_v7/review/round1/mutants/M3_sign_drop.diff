@@ -1,0 +1,11 @@
+--- a/checks.py
++++ b/M3_sign_drop.py
+@@ -121,7 +121,7 @@
+     rows = {}
+     for s in (1, -1):
+         pole = tuple(s * x for x in a)
+-        hit, zero = grid.sign_mass(pole, X, s)
++        hit, zero = grid.sign_mass(pole, X, 1)
+         rows['A' + ('+' if s == 1 else '-')] = (hit, zero)
+         pole = tuple(s * x for x in X)
+         hit, zero = grid.sign_mass(pole, a, s)
