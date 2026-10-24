@@ -55,3 +55,46 @@ joint neighbor kernel promptly to composition and the alternate native path.
 The public-prefix argument stops at its proved cut; a computation delay,
 new public flag or reusable outgoing boundary needs a further joint audit.
 No #885 edits, GitHub mutation, workflow launch, F/E designation or merge.
+
+## Preregistered constructive fork: third original-time frontier triple
+
+Before running this fork, specify an additional current source
+
+    f9=(-(L+2),S,77), payload=(g0,g1,g2),
+
+where the three new known apparatus seed bits are independently fair and
+independent of F8/F10 and every remaining initial variable. This is an
+explicit candidate resource extension, not an adopted physical prior.
+Each source field is affine in those new bits and contains no copy of s.
+
+At L+1 its assigned receiver is M=q9-e_x. The proposed geometry has own
+distance L+1; both Q8/Q10 and the other three q9 neighbors have distance
+L+3. Audit those statements, all original ready regions and source/bank
+exceptions, the old selected phase, full public past through L+2 and no-wrap
+torus geometry before invoking the resource. The expected public earliest
+arrival lower bound is L+79, to be measured rather than assumed.
+
+Decision rule: accept a scoped physical masked-X coupling only if the full
+native three-source map `(F8,F10,F9)->(Q8,Q10,M)` is bijective conditional
+on every other initial variable, and the actual update
+
+    V=U_(L+2)(q9)=oldP XOR H(Q8 XOR Q10 XOR M XOR C)
+
+has whole-triple uniformity jointly with Q8/Q10 and the earlier public
+history. Here C is the sum of the other three neighbors; it may be treated
+as a complement function only after its source exclusions are proved.
+The fixed seven-site phase decoder must recover all of oldP, including s,
+without history access. Retain previous Q8/Q10 and every rejected phase.
+
+Use complete512-world native controls at small distances and nonzero
+two-slice backgrounds, plus an independent scalar control. Omitting or
+sharing F9 must detect the resulting joint defect; old-local omission and
+discarding the shared neighbor must fail the inverse identity. Local exact
+truth tables must include all oldP/complement values, full V metadata and
+all old/new abstract failure labels. A reference acceptance predicate may
+test the carrier law but cannot be called native.
+
+Even on success this fork delivers a current masked physical carrier with a
+fixed local phase code. A clean old-X operand, physically available unmasking,
+native acceptance/whole flag, later computation/history closure and reusable
+instrument remain separate questions.
