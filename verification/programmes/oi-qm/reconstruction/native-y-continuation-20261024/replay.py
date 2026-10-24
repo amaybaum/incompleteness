@@ -46,7 +46,8 @@ def main():
               ('six_source_v5/review', 'checks')]
     tests += [('outward_v6', 'checks'), ('outward_v6', 'correction_checks'),
               ('outward_v6/review', 'checks')]
-    latest = [('reset_v7', 'probe'), ('reset_v7/review', 'checks')]
+    tests += [('reset_v7', 'probe'), ('reset_v7/review', 'checks')]
+    latest = [('reset_v8', 'probe'), ('reset_v8/review', 'checks')]
     tests = latest if sys.argv[1:] == ['--latest'] else tests + latest
     with tempfile.TemporaryDirectory(prefix='native-y-replay-') as directory:
         work = Path(directory) / 'checkpoint'
@@ -56,8 +57,10 @@ def main():
         for folder, name in tests:
             script = work / folder / (name + '.py')
             output_name = 'review-normal.out' if folder == 'junction_v4/review' else name + '.out'
-            if folder in ('reset_v7', 'reset_v7/review'):
+            if folder in ('reset_v7', 'reset_v7/review', 'reset_v8'):
                 output_name = 'results.json'
+            if folder == 'reset_v8/review':
+                output_name = 'result.json'
             expected = (work / folder / output_name).read_bytes()
             for options in ([], ['-O']):
                 result = subprocess.run(

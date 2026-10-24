@@ -11,7 +11,7 @@ The source synthesis is `INTEGRATION.md` on #885 at
 `2d555f17c23bea31d32b3f5eb4c49d245b413a76`, under
 `verification/programmes/oi-qm/reconstruction/research-planning/missing-component-20261020/`.
 That source is read-only for this effort. The native-Y source is #910 at
-`5f6786d6f02605f8e8821a536b678495e19015da`.
+`e46d30fdd2c237b70ee7569f0044f2486f07f8ce`.
 
 The finite calibrated menu and its supplied probabilities are a restricted
 instrument target. They are not the full quantum state space. A1 (exact
@@ -24,7 +24,7 @@ approximations is not an available exact limiting operation.
 
 | Track | Owns | First decisive obligation | Does not establish by itself |
 | --- | --- | --- | --- |
-| Native measurement and reset (#910) | Actual lattice construction, resources, diagnostic interventions, full record/carrier law | Starting from the actual corrected q7 neighborhood, produce the calibrated post-Y carrier with every failure branch accounted for | Full state space, calibration selection, arbitrary menu/depth or composites |
+| Native measurement and reset (#910) | Actual lattice construction, resources, diagnostic interventions, full record/carrier law | Starting from the actual corrected q7/q8 neighborhood, produce the calibrated post-Y carrier with every failure branch accounted for | Full state space, calibration selection, arbitrary menu/depth or composites |
 | States and dynamics (#911) | Exact target, representation map, preparation/operation availability and structural obstructions | Identify precisely which assumptions obstruct A1 and whether the native route changes any of them | Native implementation of a mathematically representable channel |
 | Composition and access (#912) | Conditional composition theorem, observable history, adaptive choices and composite-system boundary | State sufficient local contracts and prove their finite-depth consequence; exhibit controls for weaker inadequate contracts | Satisfaction of those contracts by the actual lattice or a tensor-product/Bell reconstruction |
 
@@ -44,7 +44,9 @@ under AGENTS §A.42.
 2. **Measurement boundary.** The clean native q7 code is `(0,0,y)` at `R+7`.
    It is clean on the retained native family; it does not supply an arbitrary
    late-time input socket. The actual previous slice and neighborhood are part
-   of the downstream initial-value problem.
+   of the downstream initial-value problem. The workspace-assisted q8 route
+   gives (0,y,0) on the native family; its arbitrary q7 socket still fails,
+   and W-modified public histories need a new joint-law audit.
 3. **Post-Y target.** The outgoing carrier must decode to
    `(y XOR a, y, y XOR b, z)` with `(a,b)=00,10,11` in ratio `5:3:2`
    and fresh fair `z`. This calibration is supplied, not derived. The decoder
@@ -83,6 +85,11 @@ not declare any of them closed.
 
 ## Reviewed parallel checkpoints
 
-- [#911](https://github.com/amaybaum/incompleteness/pull/911), `2f09be040b12c894e28bafd46bd82fcb724c68f6`: scoped sourcing audit and abstract finite-resource sampler accepted by separate-author internal review. The illustrative 5/16 sampler benchmark needs six fair bits covering all conditional randomness and uses three blank label bits; it is not a native reset.
-- [#912](https://github.com/amaybaum/incompleteness/pull/912), `5b57321a39525ccd486560628a10ecedefb8dc65`: conditional finite-depth composition proof and exact countercontrols accepted by separate-author internal review. Actual native application, composite systems and full target coverage remain open.
-- #910 retains the clean q7 readout. The next-tick `reset_v7` checkpoint computes its actual incoming neighborhood and excludes the tested one-source outward routing family; separate-author internal review accepts the exact family at author revision `f7058d59ea2136601a679a7fdd7b7573b1e4bfa7`; native reset and joint-history certification remain open.
+- [#911](https://github.com/amaybaum/incompleteness/pull/911), `81bc53e482158072869b916116a4fc0f8b28f99e`: separate-author review accepts the almost-sure irrational sampler and its joint timing diagnostic within scope. The fixed pointwise/G3 operation invariant remains; an enlarged fair reservoir alone does not source A1. Prior finite-resource results remain unchanged.
+- [#912](https://github.com/amaybaum/incompleteness/pull/912), `7be889a88987cb0a4ab248b3787982958fca1a97`: separate-author review accepts the actual native-X finite success/failure kernel under inherited source hypotheses. Terminal-metadata plus unchanged-carrier reuse fails joint TV and positivity checks. This does not refute the original terminal-only claim or simulate later native ticks. Prior conditional-composition theorem remains unchanged.
+- #910: separate-author review accepts reset_v8 author revision `e46d30fdd2c237b70ee7569f0044f2486f07f8ce`, giving q8=(0,y,0) using two additional initial sources and the actual coupled origin/W front. The arbitrary late-q7 socket remains excluded. The earlier one-source obstruction remains intact. Calibrated native reset and the W-modified public-history law are open.
+
+Next first check: establish conditional resource independence for the W-modified
+public history, then construct the calibrated native reset and prove a valid
+joint post-read carrier law including metadata and failures. This is a local
+instrument task; A1 identification/coverage and composites remain separate.

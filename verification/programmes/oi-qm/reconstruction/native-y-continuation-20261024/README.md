@@ -11,18 +11,19 @@ whose branch remains under a separate writer and is not modified here.
 
 ## Findings and next task
 
-Latest construction: [outward_v6/CORRECTION-REPORT.md](outward_v6/CORRECTION-REPORT.md).
-One added initial source (u,0,u), using only the existing apparatus seed,
-produces the clean native code (0,0,y) at q7,R+7. The full nonlinear source
-calculation and geometry are [independently accepted](outward_v6/review/REPORT.md).
-This is a clean readout of the original qY operand for the current native
-family. The arbitrary qY diagnostic guarantees D=p only, and q2.A-only reuse
-still fails. A reusable late input socket and the subsequent Y reset are open.
+Latest construction: [reset_v8/REPORT.md](reset_v8/REPORT.md).
+Two initial sources W=111 and G=011/101 depending on the existing seed u
+route the native Y value to q8=(0,y,0) at R+8 while preserving clean q7.
+The coupled-source calculation is [independently accepted](reset_v8/review/REPORT.md).
+The arbitrary late-q7 input socket fails throughout the tested family.
+The calibrated 5:3:2 reset and extended joint public-record law remain open.
 
 Start with [CURRENT-HANDOFF.md](CURRENT-HANDOFF.md) for the current result and
 resume task. Read [the historical combined report](parallel_v3/COMBINED-REPORT.md), then
 [the independent review](parallel_v3/review/REPORT.md). The reports preserve
 their original scientific scope and historical preparation statements.
+
+Historical v3 findings:
 
 * An actual nearby native x sidecar is available in the previous slice next
   to the current q2 operand; persistence and a usable junction are unproved.
@@ -34,9 +35,10 @@ their original scientific scope and historical preparation statements.
 
 Next: embed this clean output into a subsequent native measurement/reset
 using its actual two-slice neighborhood, then prove the complete record and
-outgoing-carrier law including failures. Do not reload q7 into a separately
+outgoing-carrier law including failures. Do not reload q8 into a separately
 clean apparatus. Delayed private access, supplied initial readiness, and the
-147-bit extension for the seven old public records remain explicit resources.
+prior 147-bit extension through R+7 remain explicit resources; that prior accounting
+does not certify W-modified public histories through R+8.
 
 ## Reproduce this checkpoint
 
@@ -47,10 +49,10 @@ python3 replay.py
 ```
 
 The driver verifies the payload manifest and retained input hashes bound by
-the independent reviews, compiles Python source, then runs 23 checker groups normally and
+the independent reviews, compiles Python source, then runs 25 checker groups normally and
 with `-O`, comparing both with recorded deterministic output. It runs in a
 temporary copy because the symbolic checker regenerates a JSON result.
-Expected: 23 passing groups and `PASS: checkpoint replay` with exit status 0.
+Expected: 25 passing groups and `PASS: checkpoint replay` with exit status 0.
 These checks establish only the scopes stated in the reports, not Lean
 certification, a universal compiler theorem, or a full transport audit.
 
@@ -71,7 +73,7 @@ does not schedule unattended background work.
 The historical v3 combined report describes a separate portable handoff ZIP;
 its `--baseline` command, dependency archives, and PDF are not the layout of
 this repository checkpoint. This tree contains the v2 interface sources and
-v3–v7 research sources/inputs needed for the 23-group replay above. The earlier
+v3–v8 research sources/inputs needed for the 25-group replay above. The earlier
 ten-checker v1 bundle is not rerun by this driver. Copied inherited core code
 and source geometry are retained where the current checks need them.
 
@@ -88,8 +90,13 @@ CI. No special workflow dispatch or exact-head attestation is claimed.
 ## Parallel continuation and actual reset boundary
 
 [CURRENT-HANDOFF.md](CURRENT-HANDOFF.md) now includes the actual q7 interface
-and the bounded next-tick routing obstruction in [reset_v7/REPORT.md](reset_v7/REPORT.md).
+and both the earlier [one-source obstruction](reset_v7/REPORT.md) and the
+[new two-source clean route](reset_v8/REPORT.md).
 The [shared equivalence obligations](EQUIVALENCE-OBLIGATIONS.md) link the separate
 states/dynamics (#911) and composition/access (#912) research PRs.
-Run `python3 replay.py --latest` for the newly added reset-boundary controls;
+Run `python3 replay.py --latest` for the new reset_v8 author/reviewer controls;
 `python3 replay.py` retains the full checkpoint replay.
+
+The continuation replayed the two new groups in the packaged layout. The prior
+23 groups retain unchanged sources and previously passing evidence; a fresh
+full-suite run is not claimed. See CHECKPOINT-CHECKS.json for that distinction.
