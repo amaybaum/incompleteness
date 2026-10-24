@@ -1,0 +1,35 @@
+{
+  "author_revision": "51d8956100cf76d24b6810f1853c9f714f596c35",
+  "dilation_and_access": {
+    "global_inverse_cases": 3584,
+    "point_decoder_determinant": "-5/16",
+    "reset_sample_geometries": 448,
+    "seed_bit_conditional_mean": "38/45",
+    "seed_bit_decoder_determinant": "-34/225",
+    "seed_bit_probability": "5/9"
+  },
+  "hidden_timing_joint_TV": "1",
+  "independent_stereographic_integrals": 144,
+  "native_availability_or_full_A1_claimed": false,
+  "no_reset_or_old_workspace_joint_TV": "1/5",
+  "operators_and_adaptive_laws": {
+    "adaptive_branch_nodes": 360,
+    "adaptive_depth": 4,
+    "adaptive_leaf_records": 192,
+    "nonclifford_output_laws": [
+      [
+        "29/30",
+        "1/30"
+      ],
+      [
+        "1/30",
+        "29/30"
+      ]
+    ],
+    "preparations": 10,
+    "projective_branch_intertwinings": 100,
+    "rotation_intertwinings": 50
+  },
+  "schema": "oi.continuous-qubit-architecture.review.v5",
+  "verdict": "ACCEPT_SCOPED_KNOWN_MODEL"
+}
