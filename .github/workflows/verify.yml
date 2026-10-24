@@ -168,6 +168,39 @@ jobs:
           lake env lean OIBridge/PreservationInductionInstances.lean 2>&1 | tee -a "$log"
           python3 -I -B ../programmes/oi-qm/reconstruction/round-preserve-induct-1/controls.py axioms "$log"
 
+      # KTRANS-SEP-2: the module's fifteen axiom reports, decided inside the job so that the verdict reads only these
+      # four steps' conclusions from the jobs API, never the log. The first step builds the module's import closure
+      # with lake --rehash, which rehashes the sources and rebuilds every artifact whose trace differs (Lake's trace
+      # semantics, not observed under a stale cache); the second elaborates the module and succeeds exactly when
+      # `lake env lean` does. The third prints that output and runs controls.py axioms on it, which records the
+      # reports' class as the step output `reports` and succeeds exactly when each of the fifteen is reported once, in
+      # print order, within propext, Classical.choice and Quot.sound, with no other report, no error line and none of
+      # the forbidden tokens. The fourth runs only when the class is complete-nonstandard: every report present once
+      # and parsed, one outside the three axioms.
+      - name: KTRANS-SEP-2 build the imports of the module
+        if: ${{ !cancelled() }}
+        timeout-minutes: 30
+        working-directory: verification/lean-mathlib
+        run: lake --rehash build OIBridge.DenseOrbit
+
+      - name: KTRANS-SEP-2 elaborate the module
+        if: ${{ !cancelled() }}
+        working-directory: verification/lean-mathlib
+        run: lake env lean OIBridge/TransSeparation.lean > "$RUNNER_TEMP/ktrans-sep2-axioms.log" 2>&1
+
+      - name: KTRANS-SEP-2 axiom reports within the three axioms
+        id: ktrans_sep2_axioms
+        if: ${{ !cancelled() }}
+        working-directory: verification/lean-mathlib
+        run: |
+          set -euo pipefail
+          cat "$RUNNER_TEMP/ktrans-sep2-axioms.log"
+          python3 -I -B ../programmes/oi-qm/reconstruction/round-ktrans-sep-2-omega4/controls.py axioms "$RUNNER_TEMP/ktrans-sep2-axioms.log"
+
+      - name: KTRANS-SEP-2 marker complete reports with an axiom outside the three
+        if: ${{ !cancelled() && steps.ktrans_sep2_axioms.outputs.reports == 'complete-nonstandard' }}
+        run: echo "the fifteen reports are complete and one lies outside the three axioms"
+
   # Probe shards run independently so the required Numerical probes check is bounded by
   # the slowest shard rather than by their sum. The final `probes` job below keeps the
   # historical required-check name and fails unless every shard succeeded.
@@ -525,6 +558,34 @@ jobs:
       - name: PRESERVE-INDUCT-1 control mutation tests
         run: python3 -I -B verification/programmes/oi-qm/reconstruction/round-preserve-induct-1/controls.py --self-test
 
+  probes_ktranssep2:
+    name: Numerical probes / KTRANS-SEP-2 Omega4 counterexample
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install the exact-algebra dependency
+        run: pip install sympy==1.14.0
+
+      - name: KTRANS-SEP-2 exact probe
+        working-directory: verification/lean
+        run: |
+          echo "=== ktrans_sep1_probe.py ==="
+          python3 -I -B ktrans_sep1_probe.py | tee "$RUNNER_TEMP/ktrans_sep1_probe.out"
+          grep -qx 'VERDICT DRIVE-SEED-GEOM-SEC-CAP2-NOT-TRANS' "$RUNNER_TEMP/ktrans_sep1_probe.out"
+
+      - name: KTRANS-SEP-2 independent exact layer and countercontrols
+        run: python3 -I -B verification/programmes/oi-qm/reconstruction/round-ktrans-sep-2-omega4/controls.py exact
+
+      - name: KTRANS-SEP-2 control mutation tests
+        run: python3 -I -B verification/programmes/oi-qm/reconstruction/round-ktrans-sep-2-omega4/controls.py --self-test
+
   # Act 42. Two shards run on every event; the exclusion shards, about six CPU-hours between them,
   # run only on workflow_dispatch, which is how the exact-head attestations are taken (section A.39).
   # On any other event the matrix job is skipped and the aggregate below requires exactly that.
@@ -620,7 +681,7 @@ jobs:
 
   probes:
     name: Numerical probes
-    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_a40, probes_a41_production, probes_a41_independent, probes_a41_hulls, probes_a45, probes_nb1, probes_kinf2, probes_kt4prem1, probes_oichannel1, probes_oifiniteprotocol1, probes_oimaxcone, probes_preserveinduct1, probes_bg2, probes_ktokenmaxcone1, probes_a42_witness, probes_a42_census01, probes_a42_exclusion, probes_foundations]
+    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_a40, probes_a41_production, probes_a41_independent, probes_a41_hulls, probes_a45, probes_nb1, probes_kinf2, probes_kt4prem1, probes_oichannel1, probes_oifiniteprotocol1, probes_oimaxcone, probes_preserveinduct1, probes_bg2, probes_ktokenmaxcone1, probes_a42_witness, probes_ktranssep2, probes_a42_census01, probes_a42_exclusion, probes_foundations]
     if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
@@ -643,6 +704,7 @@ jobs:
           BG2_RESULT: ${{ needs.probes_bg2.result }}
           KTOKENMAXCONE1_RESULT: ${{ needs.probes_ktokenmaxcone1.result }}
           PRESERVEINDUCT1_RESULT: ${{ needs.probes_preserveinduct1.result }}
+          KTRANSSEP2_RESULT: ${{ needs.probes_ktranssep2.result }}
           OIFINITEPROTOCOL1_RESULT: ${{ needs.probes_oifiniteprotocol1.result }}
           A42W_RESULT: ${{ needs.probes_a42_witness.result }}
           A42C_RESULT: ${{ needs.probes_a42_census01.result }}
@@ -666,6 +728,7 @@ jobs:
           echo "bg2=${BG2_RESULT}"
           echo "ktokenmaxcone1=${KTOKENMAXCONE1_RESULT}"
           echo "preserveinduct1=${PRESERVEINDUCT1_RESULT}"
+          echo "ktranssep2=${KTRANSSEP2_RESULT}"
           echo "oifiniteprotocol1=${OIFINITEPROTOCOL1_RESULT}"
           echo "a42_witness=${A42W_RESULT}"
           echo "a42_census01=${A42C_RESULT}"
@@ -688,6 +751,7 @@ jobs:
           test "${BG2_RESULT}" = success
           test "${KTOKENMAXCONE1_RESULT}" = success
           test "${PRESERVEINDUCT1_RESULT}" = success
+          test "${KTRANSSEP2_RESULT}" = success
           test "${OIFINITEPROTOCOL1_RESULT}" = success
           test "${A42W_RESULT}" = success
           test "${A42C_RESULT}" = success

@@ -1,0 +1,245 @@
+{
+ "bridge": {
+  "conclusion": "success",
+  "job_id": 120793426164,
+  "status": "completed",
+  "steps": [
+   {
+    "conclusion": "success",
+    "name": "Set up job"
+   },
+   {
+    "conclusion": "success",
+    "name": "Run actions/checkout@v4"
+   },
+   {
+    "conclusion": "success",
+    "name": "Install elan"
+   },
+   {
+    "conclusion": "success",
+    "name": "Restore the OIBridge build cache"
+   },
+   {
+    "conclusion": "success",
+    "name": "Build"
+   },
+   {
+    "conclusion": "success",
+    "name": "Release gate"
+   },
+   {
+    "conclusion": "success",
+    "name": "KTOKEN-MAXCONE-1 check A3 (k = 2 statement identity and dependency walk, with mutations)"
+   },
+   {
+    "conclusion": "success",
+    "name": "KTRANS-SEP-2 build the imports of the module"
+   },
+   {
+    "conclusion": "success",
+    "name": "KTRANS-SEP-2 elaborate the module"
+   },
+   {
+    "conclusion": "success",
+    "name": "KTRANS-SEP-2 axiom reports within the three axioms"
+   },
+   {
+    "conclusion": "skipped",
+    "name": "KTRANS-SEP-2 marker complete reports with an axiom outside the three"
+   },
+   {
+    "conclusion": "success",
+    "name": "Post Restore the OIBridge build cache"
+   },
+   {
+    "conclusion": "success",
+    "name": "Post Run actions/checkout@v4"
+   },
+   {
+    "conclusion": "success",
+    "name": "Complete job"
+   }
+  ]
+ },
+ "form": "derived",
+ "jobs": [
+  {
+   "conclusion": "success",
+   "name": "Lean kernel check"
+  },
+  {
+   "conclusion": "success",
+   "name": "Mathlib bridge"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A36 hierarchy"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A38 escape"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A40 locus"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A41 hulls"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A41 independent"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A41 production"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 census01"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (cubes:0)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (cubes:1)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (cubes:2)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (dfs:0)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (dfs:1)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (dfs:2)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (dfs:3)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (dfs:4)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (dfs:5)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (n18:0)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (n18:1)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (n18:2)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (paths)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (r5)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 exclusion (sathr)"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A42 witness"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / A45 ancilla"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / BG-2 premise orientation"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / KINF-2 foundations"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / KT4-PREM-1 premise audit"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / KTOKEN-MAXCONE-1 k = 3 exact layer"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / KTRANS-SEP-2 Omega4 counterexample"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / NB-1 native-gate ball"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / OI channel protocol"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / OI finite protocol"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / OI pair maxCone"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / core A"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / core B"
+  },
+  {
+   "conclusion": "success",
+   "name": "Numerical probes / foundations"
+  }
+ ],
+ "kind": "exact-head-run",
+ "recipe": "controls.py derive-run --run-api RUN --jobs-api JOBS (round KTRANS-SEP-2, at the controls.py blob its preregistration pins)",
+ "run": {
+  "attempt": 1,
+  "conclusion": "success",
+  "event": "workflow_dispatch",
+  "head_branch": "draft/ktrans-sep-2-predicted-tree-r13",
+  "head_repository": "amaybaum/incompleteness",
+  "head_sha": "79455c44b5d70b0af01668ec34dd2c438808717c",
+  "id": 40067399041,
+  "path": ".github/workflows/verify.yml",
+  "repository": "amaybaum/incompleteness",
+  "status": "completed"
+ },
+ "schema": "oi-evidence-result",
+ "source": {
+  "jobs_api_sha256": "8dd759a046ad8bca04e4b0e6deafd5998cecb287b0877b2cf09a5dbd07602875",
+  "note": "the digests identify the API answers this result was derived from; the answers are not retained",
+  "runs_api_sha256": "18d2ef0fb760eedadab9fb6ccbf23be1135b7a8b1db641e8eb260db2b33ca792"
+ },
+ "version": 1
+}
