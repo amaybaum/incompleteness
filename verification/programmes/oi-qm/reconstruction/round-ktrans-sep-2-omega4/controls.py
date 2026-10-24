@@ -107,7 +107,7 @@ Cells (verdict), read only when every control passed. The kernel cells read the 
 must be the completed workflow_dispatch run of this repository's .github/workflows/verify.yml at <commit>, on this
 repository's branch, and its Mathlib bridge job (completed) must carry, each exactly once, consecutive, in this order and
 after the release gate, the four steps the sixth splice adds: L0 `KTRANS-SEP-2 build the imports of the module`
-(rebuilds the module's import closure from its sources), L `KTRANS-SEP-2 elaborate the module` (succeeds exactly when
+(brings the import closure up to date with its sources), L `KTRANS-SEP-2 elaborate the module` (succeeds exactly when
 `lake env lean` elaborates the module), A `KTRANS-SEP-2 axiom reports within the three axioms` (succeeds exactly when
 `controls.py axioms` classifies the module's reports `standard`) and M `KTRANS-SEP-2 marker complete reports with an
 axiom outside the three` (runs, and succeeds, exactly when that class is `complete-nonstandard`; skipped otherwise).
@@ -1081,9 +1081,9 @@ STEP_MARKER = 'KTRANS-SEP-2 marker complete reports with an axiom outside the th
 ROUND_STEPS = (STEP_DEPS, STEP_LEAN, STEP_AXIOMS, STEP_MARKER)
 FINAL_STEPS = '''
       # KTRANS-SEP-2: the module's fifteen axiom reports, decided inside the job so that the verdict reads only these
-      # four steps' conclusions from the jobs API, never the log. The first step rebuilds the module's import closure
-      # from its sources (lake --rehash), so that the module is elaborated against current dependencies whatever the
-      # build cache restored or an earlier step left; the second elaborates the module and succeeds exactly when
+      # four steps' conclusions from the jobs API, never the log. The first step builds the module's import closure
+      # with lake --rehash, which rehashes the sources and rebuilds every artifact whose trace differs (Lake's trace
+      # semantics, not observed under a stale cache); the second elaborates the module and succeeds exactly when
       # `lake env lean` does. The third prints that output and runs controls.py axioms on it, which records the
       # reports' class as the step output `reports` and succeeds exactly when each of the fifteen is reported once, in
       # print order, within propext, Classical.choice and Quot.sound, with no other report, no error line and none of
@@ -1632,8 +1632,8 @@ def run_problem(d, sha):
 def kernel_state(d, sha):
     """('void', reason), or (nonell_ok, cex_ok) from the run's bridge-step conclusions: (True, True) when Build,
     Release gate, L0, L and A succeeded and M was skipped; (False, False) when L0 succeeded, A failed and M succeeded,
-    with L succeeded or failed; VOID for every other combination, so that no reading rests on dependencies L0 did
-    not rebuild."""
+    with L succeeded or failed; VOID for every other combination, so that no reading rests on a dependency build
+    that did not succeed."""
     p = run_problem(d, sha)
     if p:
         return ('void', p)
@@ -2345,7 +2345,7 @@ def self_test():
           and isvoid(c(run_result(dict(neg, **{STEP_LEAN: 'skipped'}))))
           and isvoid(c(run_result({STEP_MARKER: 'failure'}))) and isvoid(c(run_result({STEP_AXIOMS: 'neutral'})))
           and isvoid(c(run_result({'Build': 'failure'}))) and isvoid(c(run_result({'Release gate': 'failure'}))))
-    check('M', 'no reading rests on dependencies L0 did not rebuild: L0 failed, cancelled, skipped, timed out or unknown '
+    check('M', 'no reading rests on a dependency build that did not succeed: L0 failed, cancelled, skipped, timed out or unknown '
                'beside steps that otherwise read negative, or positive, is VOID, and so is a run without L0',
           all(isvoid(c(run_result(dict(neg, **{STEP_DEPS: x})))) and isvoid(c(run_result({STEP_DEPS: x})))
               for x in ('failure', 'cancelled', 'skipped', 'timed_out', None, 'neutral'))
@@ -2541,7 +2541,7 @@ def self_test():
           and field(mk_b, 'if') == ["${{ !cancelled() && steps.ktrans_sep2_axioms.outputs.reports == "
                                     "'complete-nonstandard' }}"]
           and 'complete-nonstandard' in CLASSES)
-    check('M', 'workflow: L0 only rebuilds the import closure of the module from its sources (`lake --rehash build` of '
+    check('M', 'workflow: L0 only builds the import closure of the module (`lake --rehash build` of '
                'its one import, OIBridge.DenseOrbit, which the module is checked to import alone), under a time limit; '
                'L only elaborates the module into the file A reads, with nothing that masks its status; A sets -e itself '
                '(one set line), prints the file, then runs this file\'s gate on it as its last command; nothing '
