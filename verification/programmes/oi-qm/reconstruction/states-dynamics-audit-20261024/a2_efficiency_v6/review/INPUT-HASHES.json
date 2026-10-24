@@ -1,0 +1,16 @@
+{
+  "schema": "oi.a2-efficiency-v6.separate-review-inputs.v1",
+  "author_commit": "bff7b58d951babd4064b60699281ee0a7f3e9f45",
+  "author_pr": 911,
+  "author_prefix": "verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_efficiency_v6/",
+  "published_plan_commit": "cf1855ed1576adf446fbc505c027928bce4c4cb7",
+  "verification": "All six Git blobs were fetched at the immutable author revision and compared to local bytes before execution. Reviewer imports no author engine.",
+  "author_files": {
+    "PLAN.md": {"git_blob": "828b66e22af3ba575346d0e85214b91e9d3f2db8", "sha256": "b0e3fa46a4aeb98a5d4cdd9323d21a8118bdb3e9b6aa1bdf017721c4c29fc212"},
+    "PROVENANCE.json": {"git_blob": "9d8b3789724a0f665bd97805cc9ec50a6c17dbed", "sha256": "0a3f889741177991f2ce69146d5fc6aa4cafff27a3641c432a8fa4f409dcc4bc"},
+    "REPORT.md": {"git_blob": "67f2ee086d0d15ad5548e0a733c58b3c44375a91", "sha256": "a372c3893ea24cd18975f3f955d6a7a9133daa0ef5e87a43363a6a24e9a2592e"},
+    "SHA256SUMS": {"git_blob": "f5c255bd59c1005d2dfbb05d79fbc6eb0d865784", "sha256": "79d0517928b3405935ef366e347d059b6867710e524e5c5cda5a769c8abcf8ed"},
+    "checks.py": {"git_blob": "df82c2817768f439b0afd5f7fecbf87ac166f704", "sha256": "0593cea536254fc65deef6a37e374736f5986f4e8fdf2108062416acd61f4c6f"},
+    "result.json": {"git_blob": "4195bdd0e30308285c6525c29f1f2b4d0239452e", "sha256": "07354f6349a8ca6bd35195d6ca9ffe2a8a7c94a0001df5a65f315f80456c085e"}
+  }
+}
