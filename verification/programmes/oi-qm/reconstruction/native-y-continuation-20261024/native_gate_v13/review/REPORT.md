@@ -117,6 +117,11 @@ reads the pinned author result as reference data but imports no author code.
 All six input blobs are revalidated on every replay. SHA256SUMS lists the
 other four curated review artifacts.
 
+The default author path detects both the standalone sibling layout and the
+published `native_gate_v13/review/` layout; `--author-root` remains available.
+This forward portability correction leaves result.json and every mathematical
+input and measured result unchanged.
+
 This is a separate internal review. It is not external or coordinator-
 commissioned programme review, Lean/kernel certification, full-suite testing
 or an exact-head CI attestation. The actual native acceptance gate, operand

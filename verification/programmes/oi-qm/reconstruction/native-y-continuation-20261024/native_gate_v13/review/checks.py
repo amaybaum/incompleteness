@@ -297,8 +297,10 @@ def algebra_check(zero_field,reference):
             'nonlinear_removed_changed_worlds':nonlinear_count,'oldlocal_removed_changed_worlds':oldlocal_count}
 
 def main():
+    here=Path(__file__).resolve().parent
+    default_author=here.parent if (here.parent/'PLAN.md').is_file() else here.parent/'native_gate_v13'
     parser=argparse.ArgumentParser()
-    parser.add_argument('--author-root',type=Path,default=Path(__file__).resolve().parents[1]/'native_gate_v13')
+    parser.add_argument('--author-root',type=Path,default=default_author)
     args=parser.parse_args()
     pins=json.loads((Path(__file__).with_name('INPUT-HASHES.json')).read_text())
     for row in pins['files']:

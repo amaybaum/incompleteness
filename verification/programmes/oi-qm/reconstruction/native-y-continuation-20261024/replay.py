@@ -63,10 +63,13 @@ def main():
         'transport_audit_v1', 'transport_audit_v1/review',
         'history_v11', 'history_v11/review',
         'native_pool_v11', 'native_pool_v11/review')]
-    latest = [(folder, 'checks', [], 'result.json') for folder in (
+    retained_v12 = [(folder, 'checks', [], 'result.json') for folder in (
         'native_x_v12', 'native_x_v12/review',
         'native_seed_v12', 'native_seed_v12/review')]
-    tests = latest if sys.argv[1:] == ['--latest'] else tests + retained_v10 + retained_v11 + latest
+    latest = [(folder, 'checks', [], 'result.json') for folder in (
+        'native_gate_v13', 'native_gate_v13/review',
+        'native_route_v13', 'native_route_v13/review')]
+    tests = latest if sys.argv[1:] == ['--latest'] else tests + retained_v10 + retained_v11 + retained_v12 + latest
     with tempfile.TemporaryDirectory(prefix='native-y-replay-') as directory:
         work = Path(directory) / 'checkpoint'
         shutil.copytree(ROOT, work, ignore=shutil.ignore_patterns('__pycache__'))
