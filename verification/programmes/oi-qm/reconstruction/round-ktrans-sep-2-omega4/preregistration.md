@@ -3,7 +3,7 @@
 **Status: draft control plane for owner review; not a candidate `F`.** This file is the control plane of a native
 round under `AGENTS.md` §A.39, to be drafted on its guiding pull request from `D`. Only the owner designates `F`; an
 instruction to proceed is not a designation. `F` has the preconditions listed under *Preconditions of `F`* at the end;
-none is met yet. Nothing is executed.
+conditions 1 and 2 are met and condition 3 is open. Nothing is executed.
 
 **Provenance: the successor of KTRANS-SEP-1.** KTRANS-SEP-1 (#824) froze its control plane at `F` =
 `7e9aef691f47edaec9111ef5923ed9e946854737` (preregistration blob `7af918b1`), whose exact-head run 39940836089 was
@@ -769,7 +769,7 @@ form:
   with their output digests and lines;
 - `evidence/d-push-run.json` — `derived` from the runs and jobs API answers: the identity and job outcomes of `D`'s
   push run, without its timestamps;
-- `evidence/predicted-tree-run.json`, pending, and `evidence/f-run/results.json`, added at stage 1 — `derived` by this
+- `evidence/predicted-tree-run.json`, pinned, and `evidence/f-run/results.json`, added at stage 1 — `derived` by this
   round's frozen recipe, `controls.py derive-run --run-api RUN --jobs-api JOBS`, from the runs and jobs API answers
   for the run (`RUN`, `JOBS`; the jobs answer lists every job of the run in one answer, `per_page` 100, or the recipe
   refuses it). The result is a function of those two answers alone. It records:
@@ -793,7 +793,7 @@ before `F`. `F` is not designated with a pending pin.
 | `evidence/design-run-2.json` | `32045681fb4749a5ec95a49db5cb95c852b0652021b38b072da55001413c4a03` |
 | `evidence/exact-replay.json` | `e033a96a670f6425c9d547f7e0650946ee040f16ecc3dd87ed996de9341921f7` |
 | `evidence/d-push-run.json` | `1603fcb20a24e4484a262bfab07e441d48e6aa1caaa69c592a48a01e2d55356f` |
-| `evidence/predicted-tree-run.json` | pending |
+| `evidence/predicted-tree-run.json` | `cccefa27a380494735427a0f9c89b73dab66472400ad9ce45597f52083fb6ecd` |
 
 `evidence/exact-replay.json` is re-derived because it names `controls.py`'s blob and path. The exact layer's output is
 unchanged (sha256 `daba6b7b…`). `evidence/d-push-run.json` is derived for this `D`. `evidence/predicted-tree-run.json`
@@ -815,9 +815,26 @@ lands. The design-run files are KTRANS-SEP-1's, carried byte for byte. This roun
 
 ### The predicted execution tree
 
-- **`pending`**: this round's predicted tree. It is built on this `D` once `controls.py`'s blob is pinned, and this
-  line is then replaced by its entry, whose first line is `- **`<commit>`**` followed by the tree id. P reads the commit
-  from that line (*The controls*, P), and `F` is not designated while this line reads `pending`.
+- **`79455c44b5d70b0af01668ec34dd2c438808717c`** tree `1a53db4e713506b41704207d259f647ce8094524`, a single-parent
+  child of `D`, on `draft/ktrans-sep-2-predicted-tree-r13`. Its files and blobs:
+  - `.github/workflows/verify.yml` `27ba2b1bf0127f7c76552cd5ab3011796051a767`;
+  - `verification/lean-manuscript-census.json` `d6302d70f4eee1fd2c6cb1e1f71d3d239b7a44e4`;
+  - `verification/lean-mathlib/OIBridge.lean` `1c919c5c68b563e700461a8954dd107cf176036d`;
+  - `verification/lean-mathlib/OIBridge/TransSeparation.lean` `ba7431915e7ab6e8f7bdfb6ab980f16067e9331b`;
+  - `verification/lean/ktrans_sep1_probe.py` `19e19f28fa7644de0bcc3089a354317310de3e41`;
+  - in this round's record directory:
+    - `controls.py` `73f356565ce1402b37da80a5d18dddd556df23c5`;
+    - `evidence/d-push-run.json` `26fc275edd4eab6e3b000fa8abb1a7b0e14722c8`;
+    - `evidence/design-run-1.json` `efdb93318d07153034d087b34b03a1993443e57f`;
+    - `evidence/design-run-2.json` `0e88741075aeabf3fb261612adc4bab149e27256`;
+    - `evidence/exact-replay.json` `6b900d0a682a9cc41ff5c3e75ebe8cabd1f415e5`;
+    - `preregistration.md` `b7d0c3e9b3d0b05e97c85d46ce1f9fa79f2f042b`, this preregistration's drafting revision.
+
+  At this commit, `controls.py check 79455c44b5d70b0af01668ec34dd2c438808717c` printed `controls: OK -- 24 checks`
+  and `controls.py --self-test` printed `controls: OK -- 120 checks`. Its run is workflow run 40067399041,
+  `workflow_dispatch`, attempt 1, green on all 39 jobs, with Build, Release gate, L0, L and A `success` and M
+  `skipped` in bridge job 120793426164; its result is `evidence/predicted-tree-run.json` (*Preconditions of `F`*,
+  condition 1).
 
 The entry lists the tree's files with their blobs. The tree is a single-parent child of `D` that carries:
 - the record files:
@@ -889,10 +906,10 @@ manuscript. Correctness bands are unchanged by either outcome: the round is cons
    (`gh api` prints it compact), and a re-run of the run changes its `run_attempt` and `updated_at`; then its digests,
    and the `source` the file would record, differ. If the captured answers cannot be supplied, no byte-for-byte
    reproduction is claimed. No control reads this derivation; P checks the file's digest and `run_ok`. The dispatch
-   needs the owner's authorization. Open.
+   needs the owner's authorization. Met.
 2. **No pin pending.** `evidence/exact-replay.json` and `evidence/d-push-run.json` are derived and pinned,
    `controls.py`'s blob is pinned (*The frozen `controls.py`*), and *The predicted execution tree* names its commit.
-   Open.
+   Met.
 3. **The mock first-execution check on this round's own candidate `F` (the safeguard).**
    - After candidate `F`'s exact-head run is green, the runs and jobs API answers for **that actual run** (`RUN`,
      `JOBS`) are taken. `evidence/f-run/results.json` is `controls.py derive-run` over them, never derived from an
