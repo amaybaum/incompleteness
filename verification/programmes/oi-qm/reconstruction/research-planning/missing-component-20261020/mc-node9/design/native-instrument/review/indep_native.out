@@ -1,0 +1,15 @@
+native L=44 seeds 11,12: ok True cases 1024
+native L=40 seed 13: ok True cases 512
+C-NAT even pin changes record: True ; odd pin leaves record: True
+Q6c seed 303 X first D violation 8 TV@10 0.240000 dep {'Y': 8}
+Q6c seed 303 Y first D violation 10 TV@10 0.060000 dep {'X': 8, 'Z': 8}
+Q6c seed 303 Z first D violation 8 TV@10 0.117188 dep {'Y': 8, 'R': 8}
+Q6c seed 303 R first D violation None TV@10 0.000000 dep {'Z': 8}
+Q6c seed 404 X first D violation 8 TV@10 0.240000 dep {'Y': 8}
+Q6c seed 404 Y first D violation 10 TV@10 0.060000 dep {'X': 8, 'Z': 8}
+Q6c seed 404 Z first D violation 8 TV@10 0.117188 dep {'Y': 8, 'R': 8}
+Q6c seed 404 R first D violation None TV@10 0.000000 dep {'Z': 8}
+Q6c permuted rows ['Z', 'X', 'R', 'Y'] X first D violation 10 TV@10 0.100000 dep {'Z': 8, 'R': 8}
+Q6c permuted rows ['Z', 'X', 'R', 'Y'] Y first D violation 8 TV@10 0.093750 dep {'R': 8}
+Q6c permuted rows ['Z', 'X', 'R', 'Y'] Z first D violation None TV@10 0.000000 dep {'X': 8}
+Q6c permuted rows ['Z', 'X', 'R', 'Y'] R first D violation 8 TV@10 0.297938 dep {'X': 8, 'Y': 8}

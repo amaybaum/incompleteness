@@ -1,0 +1,14 @@
+per-component threshold flag u<10: degree 3 weight 10
+joint threshold flag (16 bits): degree 12
+per-component flag 1+x0x1+x2x3: degree 2 weight 10
+joint of four degree-2 flags: degree 8
+joint flag 1+x0x1x2+x3x4x5 on 6 bits: degree 3 weight 50
+degree-3 single joint flag (6 bits, accept 50/64 for every station) + 3 free fair bits gives exact product law for all 8 stations: True
+n=1 affine-function weights: [0, 1, 2]
+n=2 affine-function weights: [0, 2, 4]
+n=3 affine-function weights: [0, 4, 8]
+n=4 affine-function weights: [0, 8, 16]
+n=5 affine-function weights: [0, 16, 32]
+2^10+1 = 1025 = 25*41: True ; weight 2^9*1025 / 50 = 10496
+density-matrix Born and Lueders second-read values equal (1+a.w)/2 and (1+s a.c)/2 for all stations/axes: True
+weight of 1+sum_{i<10} x_{2i}x_{2i+1} on 20 bits: 524800 True 0

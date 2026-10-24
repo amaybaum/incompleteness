@@ -72,6 +72,9 @@ skeptical review before its result is used.
 
 ## Status
 
+The programme's current index, with the later checkpoints, the division of work with #910 and the open
+obligations, is `INTEGRATION.md`.
+
 Each node has been independently reviewed, and its review outcome is applied in its record.
 
 - **`oa-node1/`, O-A node 1: ELABORATING with a CONFIRMING core.**

@@ -305,8 +305,26 @@ def main():
     junk = {a: identities({p: single_read_law(p, a, 'junk') for p in PREPS}) for a in AXES}
     junk_tv = {a: witness_tv({p: single_read_law(p, a, 'junk') for p in PREPS}) for a in AXES}
     fresh_id = {a: identities({p: single_read_law(p, a, 'fresh') for p in PREPS}) for a in AXES}
-    # closure given a record that includes r: lambda' is then determined, so its conditional law is a point mass
-    fresh_closure_fails = any(max(fresh_law(a).values()) < 1 for a in AXES)
+    # closure given a record that also shows the fresh bits r: for each setting, compare the conditional law of
+    # lambda' given (o, r) with the prepared law of P_{s a}, as for Q4
+    fresh_clos = {}
+    for a in AXES:
+        ok = True; ia = AXES.index(a)
+        for p in PREPS:
+            mu, rl = prepared_law(vec(p)), fresh_law(a)
+            for o in (0, 1):
+                for r, prr in rl.items():
+                    if prr == 0: continue
+                    po = sum(v for lam, v in mu.items() if lam[ia] == o)
+                    if po == 0: continue
+                    cond = {}
+                    for lam, pl in mu.items():
+                        if lam[ia] != o: continue
+                        l2 = reprepare(lam, r, a); cond[l2] = cond.get(l2, F(0)) + pl / po
+                    target = prepared_law(tuple((1 if o else -1) * x for x in AX[a]))
+                    ok &= all(cond.get(k, F(0)) == v for k, v in target.items())
+        fresh_clos[a] = ok
+    fresh_closure_fails = {a: not v for a, v in fresh_clos.items()}
 
     # ---------------- native realization
     fA = arrival_field()
@@ -345,8 +363,8 @@ def main():
           % (KT, np.array_equal(base[0][:, KT], odd[0][:, KT])))
     pins_record = 3 * (25 + 7) - 1; pins_out = 3 * (25 + 7) - 3
     control('Q5 native realization: record and outgoing registers equal the register-level map', bool(nat_ok),
-            '%d input assignments x 2 dense full-torus backgrounds; arrival field %s; receivers silent before tick %d'
-            % (nat_cases, 'ABD'[fA], KT))
+            '%d runs (%d input assignments x 2 dense full-torus backgrounds); arrival field %s; receivers silent'
+            ' before tick %d' % (nat_cases, nat_cases // 2, 'ABD'[fA], KT))
 
     # Q6 (c) native time-extended record access at the record site
     win = {}
@@ -403,7 +421,8 @@ def main():
     print('Q6a record also shows unread hidden components: identities', {a: str(v) for a, v in junk.items()},
           'witness TV', {a: str(v) for a, v in junk_tv.items()})
     print('Q6b record also shows the fresh re-preparation bits: identities', {a: str(v) for a, v in fresh_id.items()},
-          '; closure given that record fails (outgoing state determined by the record):', fresh_closure_fails)
+          '; closure given that record fails, by setting (conditional law of the outgoing state vs P_{s a}):',
+          fresh_closure_fails)
     print('Q6c record site read natively at ticks KT..KT+D (readiness extended): first D with an identity violation',
           first_leak, '; witness TV at D=10:', {a: '%.6f' % float(win[(a, 10)][1]) for a in AXES})
     print('Q6c the widened record depends on unread hidden components from window D:', dep,
@@ -417,11 +436,17 @@ def main():
         q1ok = all(v == 0 for v in q1.values()); q2ok = max(q2v.values()) == 0
         print('VERDICT (generated): identities %s on the complete single-read record and %s on the complete two-read'
               ' record; Born values %s; closure %s; native realization %s. Widening access to the unread hidden'
-              ' components breaks the identities; exposing the fresh bits keeps the identities but breaks closure given'
-              ' the record; the native record site leaks once later ticks are read (first identity violation by setting: %s).'
+              ' components %s the identities (settings failing: %s); exposing the fresh bits %s the identities and %s'
+              ' closure given the record (settings where closure fails: %s); reading the native record site at later'
+              ' ticks gives a first identity violation by setting of %s, for this layout.'
               % ('HOLD exactly' if q1ok else 'FAIL', 'HOLD exactly' if q2ok else 'FAIL',
                  'exact' if (born1 and eq_quantum and eq_quantum1) else 'NOT exact', 'HOLDS' if clos else 'FAILS',
-                 'HOLDS' if nat_ok else 'FAILS', first_leak))
+                 'HOLDS' if nat_ok else 'FAILS',
+                 'breaks' if any(v != 0 for v in junk.values()) else 'keeps',
+                 [a for a in AXES if junk[a] != 0],
+                 'keeps' if all(v == 0 for v in fresh_id.values()) else 'breaks',
+                 'breaks' if any(fresh_closure_fails.values()) else 'keeps',
+                 [a for a in AXES if fresh_closure_fails[a]], first_leak))
     else:
         print('NO VERDICT: controls failed:', FAIL)
     return 0 if green else 1
