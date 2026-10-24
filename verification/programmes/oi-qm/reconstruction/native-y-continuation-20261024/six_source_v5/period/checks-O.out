@@ -1,0 +1,7 @@
+PER1: 1872 direct dipole/strip comparisons; all16 x/M2 assignments, n0..8,13 entries: PASS
+PER2: all512 abstract L2 states form a permutation; orbit lengths[1, 3, 4, 6, 8, 9, 12, 16, 18, 24, 30, 45, 48] divide12*840^2: PASS
+PER3: every one of40320 triple permutations has exponent dividing840: PASS
+PER4: H^12=id and actualP divisible by12*840^144: PASS
+PER5: exact preS slice budgets(offset,count,maxweight,minnprime)=[(-1, 286, 142, 112), (-2, 71, 140, 113)]: PASS
+PER6: actual initial dipole interaction retained; isolated-pulse sum countercontrol fails at tick1: PASS
+SCOPE: exact period-reduction theorem and bounded controls; six-source endpoint not evaluated by this checker.

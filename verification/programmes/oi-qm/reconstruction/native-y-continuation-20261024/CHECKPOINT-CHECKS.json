@@ -3,7 +3,7 @@
   "date": "2026-10-24",
   "base_commit": "de6fe29324ade8a0826c18f7829786086dd590da",
   "python": "3.12",
-  "checker_groups": 15,
+  "checker_groups": 17,
   "normal_optimized_recorded_outputs": "byte-identical",
   "reviewed_input_hashes_verified": 18,
   "python_source_compilation": "PASS",
@@ -19,5 +19,10 @@
   "scientific_scope": "Integrated reusable native reset and broader transport review remain OPEN; no certification or premise adoption.",
   "junction_v4": "Independent review ACCEPTS unchanged-junction obstruction and six-source initial geometry only; extended output, diagnostic transfer and joint law OPEN",
   "junction_review_retained_input_hashes_verified": 5,
-  "junction_review": "junction_v4/review/REPORT.md"
+  "junction_review": "junction_v4/review/REPORT.md",
+  "six_source_v5": "Author endpoint and period checks PASS; clean transfer fails with fixed-X support overlaps; independent review pending",
+  "requirements": [
+    "Python 3.12 standard library",
+    "C++17 compiler g++"
+  ]
 }

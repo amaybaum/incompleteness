@@ -11,12 +11,12 @@ whose branch remains under a separate writer and is not modified here.
 
 ## Findings and next task
 
-Latest independently reviewed continuation: [junction_v4/REPORT.md](junction_v4/REPORT.md).
-The unchanged sidecar junction is sensitive bijectively to a previously free
-initial triple; it cannot be treated as a clean Y code. [Independent review](junction_v4/review/REPORT.md) accepts this result and
-the conditional six-source preparation geometry. Its output and joint law
-remain open. The author report retains its pre-review status header; the
-review report supplies the current verdict. Earlier reviewed bytes are unchanged.
+Latest continuation: [six_source_v5/REPORT.md](six_source_v5/REPORT.md).
+The six-source output is evaluated exactly using a proved giant-delay
+reduction. It fails clean Y transfer: opposite Y values have overlapping
+raw output supports at fixed known X. The full truth table, probability
+counts, solver and controls are retained. Independent review of v5 is pending.
+The earlier [v4 review](junction_v4/review/REPORT.md) remains unchanged.
 
 Read [the combined report](parallel_v3/COMBINED-REPORT.md), then
 [the independent review](parallel_v3/review/REPORT.md). The reports preserve
@@ -30,27 +30,25 @@ their original scientific scope and historical preparation statements.
   law. The strict common raw carrier requirement fails for that candidate.
 * The third outward step gives `(u,x*u,u)` and supplies no new raw-Y socket.
 
-A compatible initial extension restricted to the active no-wrap parity
-sector is specified in the latest report. It preserves M2 and all inherited
-sources, reducing the next calculation to six current sources. Its exact
-output, diagnostic transfer, and joint old-record/carrier law remain open.
-A blanket cold ball would overwrite reserved randomness and the old input. Initial resources must be specified
-at the original initial time; no late cleaning or input reloading is allowed.
-Integrated reusable native reset and the broader transport review remain open.
+The next design must change the initial controls or route the actual
+operand through a compatible extractor while retaining unwanted information
+elsewhere. The unmodified junction and the specified six-source preparation
+are excluded as clean interfaces. A reusable native reset and its complete
+joint record/carrier law remain open.
 
 ## Reproduce this checkpoint
 
-From this directory, with Python 3.12 and its standard library:
+From this directory, with Python 3.12, its standard library, and a C++17 compiler (`g++`):
 
 ```sh
 python3 replay.py
 ```
 
 The driver verifies the payload manifest and all 18 earlier independently reviewed
-input hashes and the five locally retained inputs of the new review, compiles Python source, then runs 15 checker groups normally and
+input hashes and the five locally retained inputs of the new review, compiles Python source, then runs 17 checker groups normally and
 with `-O`, comparing both with recorded deterministic output. It runs in a
 temporary copy because the symbolic checker regenerates a JSON result.
-Expected: 15 passing groups and `PASS: checkpoint replay` with exit status 0.
+Expected: 17 passing groups and `PASS: checkpoint replay` with exit status 0.
 These checks establish only the scopes stated in the reports, not Lean
 certification, a universal compiler theorem, or a full transport audit.
 
@@ -71,7 +69,7 @@ does not schedule unattended background work.
 The historical v3 combined report describes a separate portable handoff ZIP;
 its `--baseline` command, dependency archives, and PDF are not the layout of
 this repository checkpoint. This tree contains the v2 interface sources and
-v3 research sources/inputs needed for the 15-group replay above. The earlier
+v3 research sources/inputs needed for the 17-group replay above. The earlier
 ten-checker v1 bundle is not rerun by this driver. Copied inherited core code
 and source geometry are retained where the current checks need them.
 
