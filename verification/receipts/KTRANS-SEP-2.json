@@ -1,0 +1,76 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "KTRANS-SEP-2",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "48b18ac54e39920a4fc4bbb8ee1d1b6cebea2c29",
+ "f": "6b2ad388a30af21135dd0600a2773f57b57352d5",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-ktrans-sep-2-omega4/preregistration.md",
+   "blob": "8a9751677675c172cd75e3bd880b4183ac730017"
+  }
+ ],
+ "governed_paths_digest": "17f88f9a4c7ce43079dd800079151a04e219b66a8d4134c30d2e8748b2972c8f",
+ "e": "97f6c2e10e1d64eff34f99f1aeb2592644a8012a",
+ "tree_e": "bc41a42544fbdbf1ceddd778c01d922ff89c4273",
+ "execution_delta_digest": "c542fa1f1a1df57e28ccbb24b099f2811eb0ae37d0934d82e3f050162c2e68c6",
+ "candidates": [
+  {
+   "commit": "06b0eae14002d4a89c5dc481d302cb52255fbb9d",
+   "tree": "1ff02a8cec7aae783656719d068ac9aa693fa3d9",
+   "measured": "Stage C1, committed 2026-10-24T09:57:29Z, a single-parent child of F: controls.py at its frozen blob 73f35656, the four design-evidence files at the predicted tree 79455c44's blobs, evidence/predicted-tree-run.json (sha256 cccefa27..., equal to its pin at F) and evidence/f-run/results.json (sha256 89e1fe71fadd942e9aad22d955138dd2bdba6430945f1dd676d192262026bf9d), derived by controls.py derive-run from F's exact-head run 40077741127. No exact-head run of its own; ordinary PR CI run 40083997969 green. Not designated."
+  },
+  {
+   "commit": "a9337346bc507441558daec60cb72ca77513484e",
+   "tree": "4ee0f6a5a29874949dcdb8fc1910288b45360733",
+   "measured": "Stage S1, committed 2026-10-24T10:49:45Z: the module TransSeparation.lean (blob ba743191), the probe ktrans_sep1_probe.py (blob 19e19f28), the import line, the census family and the six verify.yml splices, each as frozen. Exact-head workflow_dispatch run 40089555298, attempt 1, head_sha a9337346, all 39 jobs success; in the Mathlib bridge job Build, Release gate, L0, L and A success and M skipped. controls.py check S1 --freeze F --stage S1 passes 30 of 30. Accepted by the owner (#905 comment 6385190302). Not designated."
+  },
+  {
+   "commit": "97f6c2e10e1d64eff34f99f1aeb2592644a8012a",
+   "tree": "bc41a42544fbdbf1ceddd778c01d922ff89c4273",
+   "measured": "Stage S2, adding result.md alone (blob f8dcacce), with commit date 2026-10-24T14:30:00Z (a fixed date; its exact-head run was created at 2026-10-24T14:24:01Z). Exact-head workflow_dispatch run 40102315735, attempt 1, head_sha 97f6c2e1, all 39 jobs success, job-name set equal to the predicted tree's run; in the Mathlib bridge job Build, Release gate, L0, L and A success and M skipped. controls.py check E --freeze F --run-api RUN --jobs-api JOBS: controls OK, 31 checks; verdict: Q-NONELL KTRANS-SEP-NONELLIPSOID-PROVED, Q-CEX KTRANS-SEP-COUNTEREXAMPLE-PROVED, Q-EXACT KTRANS-SEP-INSTANCES-EXACT, from the derived run result (sha256 f2878e01d6d0d8729864a56bd17d350c2ffdd2023b97e52736936f12a3c76d35) under sympy 1.14.0. A first local evaluation under an interpreter without sympy read VOID (sympy 1.14.0 not available) and printed no token (#905 comment 6385742350). Designated E."
+  }
+ ],
+ "landing": {
+  "base": "e548b5e12716a1ef5a2e00a6c71d176eaaa8ef13",
+  "object": "cfa5c65e874a5a13b7f306ebf7c299c0e3fedc62",
+  "reconciliations": [
+   "cfa5c65e874a5a13b7f306ebf7c299c0e3fedc62"
+  ],
+  "resolved_paths": [
+   ".github/workflows/verify.yml",
+   "verification/lean-manuscript-census.json",
+   "verification/lean-mathlib/OIBridge.lean"
+  ],
+  "delta_digest": "b4dcaf6f794a3f5c621477a4b98eda19ecfe48b2fcd92843e60cc87b41f9336a"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "6b2ad388a30af21135dd0600a2773f57b57352d5",
+   "record": "https://github.com/amaybaum/incompleteness/pull/905#issuecomment-6382448786 (the owner's designation of F, in the owner's words in this comment, markdown formatting removed: \"Owner decision — KTRANS-SEP-2 F DESIGNATED at exact SHA 6b2ad388a30af21135dd0600a2773f57b57352d5\" and \"This designates only the control-plane commit F at the exact SHA above\"; posted as amaybaum, author association OWNER, at 2026-10-24T09:18:01Z and not edited, after check run 40077741127 concluded and before stage C1 was committed at 2026-10-24T09:57:29Z)"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "6b2ad388a30af21135dd0600a2773f57b57352d5",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/40077741127/attempts/1 (verify.yml, workflow_dispatch, attempt 1, head_sha 6b2ad388a30af21135dd0600a2773f57b57352d5, completed with conclusion success, run updated at 2026-10-24T08:54:02Z; 38 of 38 jobs success, each at that head_sha; retained as evidence/f-run/results.json)"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "97f6c2e10e1d64eff34f99f1aeb2592644a8012a",
+   "record": "https://github.com/amaybaum/incompleteness/pull/905#issuecomment-6385760924 (the owner's designation of E, made in session on 2026-10-24 in the words \"I designate the following exact commit as E for KTRANS-SEP-2: 97f6c2e10e1d64eff34f99f1aeb2592644a8012a\" and \"These conclusions apply only within the frozen KTRANS-SEP-2 mathematical scope. They do not establish full OI–QM equivalence.\", and recorded in this comment by the coordinating session at the owner's instruction; the comment is a record of that decision, not a separate act of designation; posted as amaybaum, author association OWNER, at 2026-10-24T15:03:36Z, so the decision was made no later than that time, and not edited, after check run 40102315735 concluded)"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "97f6c2e10e1d64eff34f99f1aeb2592644a8012a",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/40102315735/attempts/1 (verify.yml, workflow_dispatch, attempt 1, head_sha 97f6c2e10e1d64eff34f99f1aeb2592644a8012a, completed with conclusion success, run updated at 2026-10-24T14:55:51Z; 39 of 39 jobs success, each at that head_sha; runs and jobs answers kept privately, sha256 66075601a542c7c9cbf7ddf066eb9e667cc6fd2708e8e7678d5e54564b141e65 and 8ee657ac09eab25111683562790cffeebcffe3fab2a8227ad9231ff3423afa72)"
+  }
+ ]
+}
