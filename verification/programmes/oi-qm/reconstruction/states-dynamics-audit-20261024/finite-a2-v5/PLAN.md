@@ -83,6 +83,27 @@ e=99/M+16*2^-W+2*(N-1)*2^-B. If any proof/control fails, revise or reject
 the bound before rendering a pass. No measured constant may replace a
 universal proof.
 
+## Fixed-decoder refinement after the first bounded implementation check
+
+The preparation-target bound h*kappa+chi compares the finite preparation
+with its associated ideal sphere preparation. For a single fixed operational
+decoder D on every physical carrier measure, also compare the source protocol
+with the quantum protocol starting from D(input). The ideal preparation and
+D(input) differ by at most chi, so quantum trace-distance contraction gives
+the stronger-interface bound h*kappa+2chi. Test this second comparison
+independently, without passing a preparation label to the source controller.
+Main epsilon resource certificates will cover h*kappa+2chi, using
+
+    (52h+300)/M + (8h+48)*2^-W + (h+6)*(N-1)*2^-B.
+
+Positive integer weight is uniform on the theorem's M>=8,W>=4 domain:
+choose a face with |n_face|>1/2 and a central midpoint aligned with the
+other component signs. Its positive dot product is>1/2 and its denominator
+is<2, so g>1/4 and its integer weight is nonzero. Opposite directions use
+antipodal CDF ordering, preserving exact zero means of antipodal mixtures.
+These refinements are fixed before the revised checker and its resource
+certificates are executed. The first bounded output is intermediate only.
+
 ## Bounded controls fixed in advance
 
 Use exact rational cube weights, CDFs, response signs and matrix rotations.
