@@ -49,6 +49,23 @@ decoder. It is not an improved universal convergence theorem. Enlarged menus
 or horizons need recertification. Geometric priors, reset, private access,
 clock and reversible gate scheduling remain supplied rather than native.
 
+## Depth extension of the finite controller
+
+`a2_depth_v7/`, author head `2668343631ba7e80bc3588219578b1b7362fddb7`, has
+separate-engine internal reviews retained under `a2_depth_v7/review/`: two
+blocking rounds and a third, accepting round. On the in-menu protocol "prepare
+X+, then read a, X, a, X, ...", the executed M=16, W=16, B=24 controller,
+extended by one fresh 24-bit block per slot, has complete-record TV from the
+quantum protocol tending to 1 with depth (certified TV>1/2 for h>=67382091).
+
+The same holds for every controller in the memoryless reset class, in which
+the post-reset carrier depends only on that slot's fresh block of at most B
+fair bits and the public record, for every fixed B. A retained-seed reset
+escapes the class on this protocol with TV<=1/(2^B-2) at every depth; it is a
+protocol-specific sampler, not a geometric controller. Arbitrary depth is
+therefore open for controllers that carry randomness across slots; the h=3
+certificate above is unchanged.
+
 ## Exact reset-resource audit
 
 `a1_reset_v6/`, author `41992cc0b7f8901195f70ff47b34f1a0ed5eba5e`, has
