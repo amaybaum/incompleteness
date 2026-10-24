@@ -18,6 +18,7 @@
     "c3 row for native q8 at n+3, reported only",
     "c1 accepted-record denominator (c1_accepted_records), reported only",
     "x3 criterion changed to duplicated-tail record/carrier TV > 0 after review; the support count is kept and reported only",
+    "x4 aliased-tail full-enumeration control for s2 and the s3 cell comparison, added after review",
     "carrier_list_equals_v6_read_set control added after review",
     "all_required_controls_pass computed from required_controls after review; failed controls give verdict VOID and exit status 2",
     "s1 recorded as a criterion rather than an exception after review",
@@ -26,7 +27,7 @@
   "published_plan_commit": "d72ea524586b84e285c4723bf47a377df3ecb8a9",
   "published_plan_path": "verification/programmes/oi-qm/reconstruction/composition-access-20261024/delayed_history_v7/PLAN.md",
   "repository": "amaybaum/incompleteness",
-  "schema": "oi-delayed-port-history-provenance-v7.2",
+  "schema": "oi-delayed-port-history-provenance-v7.3",
   "source_files": [
     {
       "commit": "f24a57a7c23cc1818c04265cec7604f8bc2f410d",

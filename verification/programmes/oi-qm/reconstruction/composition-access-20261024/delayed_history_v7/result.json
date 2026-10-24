@@ -153,6 +153,7 @@
   "post_plan_rows": [
     "x3 criterion: duplicated-tail record/carrier TV > 0 (support count kept, reported only)",
     "carrier_list_equals_v6_read_set control",
+    "x4 aliased-tail full-enumeration control for s2 and the s3 cell comparison",
     "all_required_controls_pass computed from required_controls; VOID otherwise",
     "s3 and positive-record counts exclude the pad factor",
     "s1 recorded as a criterion rather than an exception",
@@ -163,7 +164,8 @@
     "carrier_list_equals_v6_read_set": true,
     "x1_scalar_evaluator_agrees": true,
     "x2_seven_site_inverse": true,
-    "x3_duplicated_tail_detected": true
+    "x3_duplicated_tail_detected": true,
+    "x4_aliased_tail_detected": true
   },
   "scaled_families": [
     {
@@ -199,7 +201,10 @@
       "x2_pass": true,
       "x2_seven_site_inverse_worlds": 262144,
       "x3_duplicated_tail_support": 32768,
-      "x3_duplicated_tail_tv_positive": true
+      "x3_duplicated_tail_tv_positive": true,
+      "x4_aliased_tail_cells_match_v6": false,
+      "x4_aliased_tail_detected": true,
+      "x4_aliased_tail_support": 32768
     },
     {
       "accepted_worlds_offered": 0,
@@ -234,7 +239,10 @@
       "x2_pass": true,
       "x2_seven_site_inverse_worlds": 262144,
       "x3_duplicated_tail_support": 32768,
-      "x3_duplicated_tail_tv_positive": true
+      "x3_duplicated_tail_tv_positive": true,
+      "x4_aliased_tail_cells_match_v6": false,
+      "x4_aliased_tail_detected": true,
+      "x4_aliased_tail_support": 32768
     },
     {
       "accepted_worlds_offered": 81920,
@@ -269,7 +277,10 @@
       "x2_pass": true,
       "x2_seven_site_inverse_worlds": 262144,
       "x3_duplicated_tail_support": 32768,
-      "x3_duplicated_tail_tv_positive": true
+      "x3_duplicated_tail_tv_positive": true,
+      "x4_aliased_tail_cells_match_v6": false,
+      "x4_aliased_tail_detected": true,
+      "x4_aliased_tail_support": 32768
     }
   ],
   "scaled_geometry": {
@@ -294,7 +305,7 @@
       8
     ]
   },
-  "schema": "oi-delayed-port-history-frozen-carrier-v7.2",
+  "schema": "oi-delayed-port-history-frozen-carrier-v7.3",
   "scope": "frozen logical v6 carrier; eight old ports with the supplied history_v11 bank through H<=2L; Native A source contract",
   "verdict": "HOLDS_WITHIN_SCOPE"
 }

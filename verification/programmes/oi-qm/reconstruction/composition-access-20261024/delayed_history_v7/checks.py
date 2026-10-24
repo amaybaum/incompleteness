@@ -444,13 +444,15 @@ def family(seed, kind, p_expected):
     # (s3) complete public record: constants, tail record, V, pointer(A, pads).
     # The pads are fresh and enter only through the pointer prefix, so they
     # factor out by product; the cells compared below exclude them.
-    s3_cells = 0
-    s3 = True
-    for rec, v, a in product(range(512), range(8), range(2)):
-        for j in product(range(2), repeat=4):
-            if counts.get((rec, v, a, j), 0) != target_count(s_old, a, j):
-                s3 = False
-            s3_cells += 1
+    def cells_match(cnt):
+        ok, n_cells = True, 0
+        for rec, v, a in product(range(512), range(8), range(2)):
+            for j in product(range(2), repeat=4):
+                if cnt.get((rec, v, a, j), 0) != target_count(s_old, a, j):
+                    ok = False
+                n_cells += 1
+        return ok, n_cells
+    s3, s3_cells = cells_match(counts)
     positive = 0
     if kind == 'success':
         for rec, v in product(range(512), range(8)):
@@ -488,6 +490,14 @@ def family(seed, kind, p_expected):
     dup_tv, _ = joint_tv(dup)
     # (x3) post-plan form: the s3 statistic must fire on the duplicated bank.
     x3_ok = dup_tv > 0
+    # (x4) post-plan control for s2 and the s3 cell comparison: a full
+    # enumeration in which the second tail triple is aliased to the first
+    # (each world replaced by its aliased world) must lower the s2 support
+    # below WORLDS and fail the s3 cell comparison.
+    alias = [(l & ~(7 << 12)) | (((l >> 9) & 7) << 12) for l in lanes]
+    alias_support = len({(pool[l], w[l]) for l in alias})
+    alias_cells_ok, _ = cells_match(Counter((w[l], v_cur[l], acc[l], sel[l]) for l in alias))
+    x4_ok = alias_support < WORLDS and not alias_cells_ok
     # (c1) known tail: for each fixed tail value, vary only G.
     by_tail = defaultdict(list)
     for l in lanes:
@@ -543,6 +553,9 @@ def family(seed, kind, p_expected):
         'x2_pass': inv_ok and sign_mismatch == 0,
         'x3_duplicated_tail_support': dup_support,
         'x3_duplicated_tail_tv_positive': x3_ok,
+        'x4_aliased_tail_support': alias_support,
+        'x4_aliased_tail_cells_match_v6': alias_cells_ok,
+        'x4_aliased_tail_detected': x4_ok,
         'c2_duplicated_tail_record_carrier_tv': str(dup_tv),
         'c1_known_tail_values': 512,
         'c1_max_distinct_tail_records_over_G': max(c1_distinct),
@@ -572,6 +585,7 @@ def main():
         'x1_scalar_evaluator_agrees': all(f['x1_pass'] for f in fams),
         'x2_seven_site_inverse': all(f['x2_pass'] for f in fams),
         'x3_duplicated_tail_detected': all(f['x3_duplicated_tail_tv_positive'] for f in fams),
+        'x4_aliased_tail_detected': all(f['x4_aliased_tail_detected'] for f in fams),
         'carrier_list_equals_v6_read_set': geo['carrier_list_equals_v6_read_set'],
     }
     controls_ok = all(controls.values())
@@ -582,7 +596,7 @@ def main():
     bank_load_bearing = any(F(f['c1_max_record_carrier_tv']) > 0 for f in fams)
     storage_load_bearing = any(F(f['c3_native_q8_at_horizon_tail_record_tv']) > 0 for f in fams)
     result = {
-        'schema': 'oi-delayed-port-history-frozen-carrier-v7.2',
+        'schema': 'oi-delayed-port-history-frozen-carrier-v7.3',
         'scope': ('frozen logical v6 carrier; eight old ports with the supplied '
                   'history_v11 bank through H<=2L; Native A source contract'),
         'verdict': verdict,
@@ -599,6 +613,7 @@ def main():
         'post_plan_rows': [
             'x3 criterion: duplicated-tail record/carrier TV > 0 (support count kept, reported only)',
             'carrier_list_equals_v6_read_set control',
+            'x4 aliased-tail full-enumeration control for s2 and the s3 cell comparison',
             'all_required_controls_pass computed from required_controls; VOID otherwise',
             's3 and positive-record counts exclude the pad factor',
             's1 recorded as a criterion rather than an exception',

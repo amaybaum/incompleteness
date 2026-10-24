@@ -22,12 +22,22 @@ The result is conditional on:
 - the Native A source contract;
 - the supplied `history_v11` bank;
 - v6's supplied isolated logical storage for the carrier, which sits at q9 at L+2, its six neighbours at L+1 and
-  old q9 at L.
+  old q9 at L;
+- v6's candidate access contract, with the eight old ports added: the public records are exactly the eight raw
+  port streams, the old whole-q9 record, the single whole-V record and the pointer prefix. Q8, Q10, M, the other
+  neighbours, the pool and the phase and workspace wires are private. In v6's tested sectors, adding the whole M
+  triple to the record gives accepted posteriors with decoder determinant as low as −1/18.
+
+At actual L the result is a written conditional corollary: it rests on the exact geometry g1–g3 below and on the
+inherited Native A and `history_v11` results. The scaled control does not establish it. That control uses one
+port, so G arrives at a single port, whereas at actual L it reaches ports 3 and 5 at the same tick; and its
+horizon, 8, exceeds 2n.
 
 It does not establish any of the following:
 - native storage, compilation, routing, clock or isolation;
 - the bank and G priors, which are supplied;
 - an actual-L simulation;
+- an observer-access rule or access closure;
 - anything beyond 2L, new ports or reads, or the next stage;
 - A1/A2 equivalence or a general instrument.
 
@@ -50,7 +60,7 @@ Together these give
 
     Pr(N_L, N_tail, Φ | C0) = [N_L = N_L(C0)] · 2^(−24(H−L)) · Pr_v6(Φ | C0).
 
-Pr_v6(Φ | C0) depends on C0 only through the public old-q9 sign, so the formula is the stated public law.
+Pr_v6(Φ | C0) depends on C0 only through the public old-q9 record (its sign), so the formula is the stated public law.
 
 The carrier does depend on exposed bank from before the tail. Those records belong to N_L, which Native A's
 conditioning already covers.
@@ -87,12 +97,13 @@ There are three families of 262,144 worlds each:
 | check | result |
 | --- | --- |
 | read set | The carrier site-times, rebuilt from q9 and the six lattice steps (8 site-times, and 7 phase triples giving v6's 21 phase bits), equal v6's read set, at actual L and in the scaled control. |
-| s1 | Records before the tail window are constant. This is part of the verdict rule, which goes beyond the plan. |
+| s1 | Records before the tail window are constant. The check is the plan's; recording it as a criterion of the verdict rule, with the old-q9 and neighbour conditions, is post-plan. |
 | s2 | The joint (pool, tail-record) map is bijective, with support 262,144 of 262,144. |
 | s3 | All 131,072 complete-record cells match v6, and the fresh-tail record/carrier TV is 0; pads enter by product. Each success family has 4,096 accepted records, all with the positive X decoder. |
 | x1 | The independent scalar evaluator agrees on 24 sampled worlds per family. |
 | x2 | The seven-site inverse holds on all 262,144 worlds. |
 | x3 | A duplicated tail triple is detected: the record/carrier TV is positive (131/256, 107/256 and 9/32), which goes beyond the plan. The support, 32,768, is reported only. |
+| x4 | Aliasing the second tail triple to the first over the full enumeration lowers the s2 support to 32,768 and fails the s3 cell comparison in every family. This control goes beyond the plan. |
 
 ## Countercontrols
 
@@ -113,10 +124,11 @@ These are scoped to the scaled families, conditional on C0.
 
 ## Replay
 
-    python3 -I -B checks.py > out.json && cmp out.json result.json
-    python3 -I -B -O checks.py > out.json && cmp out.json result.json
+    D=<repository root>/verification/programmes/oi-qm/reconstruction/composition-access-20261024/delayed_history_v7
+    python3 -I -B "$D/checks.py" > out.json && cmp out.json "$D/result.json"
+    python3 -I -B -O "$D/checks.py" > out.json && cmp out.json "$D/result.json"
 
-Run from an empty working directory, with paths from the repository root; each run takes about one minute. If a
+Run from an empty working directory; each run takes about one minute. If a
 required control fails, the checker prints `VOID` and exits with status 2. `PROVENANCE.json` and `result.json`
 list every row added after the plan. The checker uses the standard library only
 and imports no author engine. `SHA256SUMS` lists `PLAN.md`, `REPORT.md`, `checks.py`, `result.json` and
