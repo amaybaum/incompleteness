@@ -103,7 +103,7 @@ There are three families of 262,144 worlds each:
 | x1 | The independent scalar evaluator agrees on 24 sampled worlds per family. |
 | x2 | The seven-site inverse holds on all 262,144 worlds. |
 | x3 | A duplicated tail triple is detected: the record/carrier TV is positive (131/256, 107/256 and 9/32), which goes beyond the plan. The support, 32,768, is reported only. |
-| x4 | Aliasing the second tail triple to the first over the full enumeration lowers the s2 support to 32,768 and fails the s3 cell comparison in every family. This control goes beyond the plan. |
+| x4 | A self-test of the s2 and s3 statistics, not of the model. On the enumeration with the second tail triple aliased to the first, counting fixes the answer: support at most 32,768 and every cell count a multiple of 8. The s2 and s3 functions reject it in every family. This test goes beyond the plan. |
 
 ## Countercontrols
 

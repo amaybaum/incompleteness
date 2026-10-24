@@ -153,7 +153,7 @@
   "post_plan_rows": [
     "x3 criterion: duplicated-tail record/carrier TV > 0 (support count kept, reported only)",
     "carrier_list_equals_v6_read_set control",
-    "x4 aliased-tail full-enumeration control for s2 and the s3 cell comparison",
+    "x4 self-test of the s2 and s3 statistics on an aliased enumeration fixed by counting",
     "all_required_controls_pass computed from required_controls; VOID otherwise",
     "s3 and positive-record counts exclude the pad factor",
     "s1 recorded as a criterion rather than an exception",

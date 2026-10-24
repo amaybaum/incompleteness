@@ -428,7 +428,12 @@ def family(seed, kind, p_expected):
     fixed_tail = [l for l in lanes if l >> 9 == 0]
     need(len({pool[l] for l in fixed_tail}) == 512, 'triangular pool bijection')
     # (s2) joint pool/tail-record support.
-    s2 = len(set(zip(pool, w))) == WORLDS
+    def support(sub):
+        return len({(pool[l], w[l]) for l in sub})
+
+    def bijective(sub):
+        return support(sub) == WORLDS
+    s2 = bijective(lanes)
     # Phase map and predicate.
     sel, acc = [], []
     dbits = (others[0] & 1) ^ (others[1] & 1) ^ (others[2] & 1)
@@ -490,14 +495,15 @@ def family(seed, kind, p_expected):
     dup_tv, _ = joint_tv(dup)
     # (x3) post-plan form: the s3 statistic must fire on the duplicated bank.
     x3_ok = dup_tv > 0
-    # (x4) post-plan control for s2 and the s3 cell comparison: a full
-    # enumeration in which the second tail triple is aliased to the first
-    # (each world replaced by its aliased world) must lower the s2 support
-    # below WORLDS and fail the s3 cell comparison.
+    # (x4) post-plan self-test of the s2 and s3 statistics, not of the model:
+    # each world is replaced by its world with the second tail triple aliased
+    # to the first. By counting, the support is at most 2^15 and every cell
+    # count is a multiple of 8, so the s2 and s3 functions above must both
+    # reject this enumeration.
     alias = [(l & ~(7 << 12)) | (((l >> 9) & 7) << 12) for l in lanes]
-    alias_support = len({(pool[l], w[l]) for l in alias})
+    alias_support = support(alias)
     alias_cells_ok, _ = cells_match(Counter((w[l], v_cur[l], acc[l], sel[l]) for l in alias))
-    x4_ok = alias_support < WORLDS and not alias_cells_ok
+    x4_ok = not bijective(alias) and not alias_cells_ok
     # (c1) known tail: for each fixed tail value, vary only G.
     by_tail = defaultdict(list)
     for l in lanes:
@@ -539,7 +545,7 @@ def family(seed, kind, p_expected):
         'seed': seed, 'family': kind, 'old_q9': p, 'old_sign': s_old,
         'worlds': WORLDS,
         's1_pre_tail_records_constant': s1,
-        's2_pool_tail_record_support': len(set(zip(pool, w))),
+        's2_pool_tail_record_support': support(lanes),
         's2_joint_bijective': s2,
         's3_cells_compared_including_zeros_pads_by_product': s3_cells,
         's3_complete_record_law_matches_v6': s3,
@@ -613,7 +619,7 @@ def main():
         'post_plan_rows': [
             'x3 criterion: duplicated-tail record/carrier TV > 0 (support count kept, reported only)',
             'carrier_list_equals_v6_read_set control',
-            'x4 aliased-tail full-enumeration control for s2 and the s3 cell comparison',
+            'x4 self-test of the s2 and s3 statistics on an aliased enumeration fixed by counting',
             'all_required_controls_pass computed from required_controls; VOID otherwise',
             's3 and positive-record counts exclude the pad factor',
             's1 recorded as a criterion rather than an exception',

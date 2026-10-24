@@ -18,7 +18,7 @@
     "c3 row for native q8 at n+3, reported only",
     "c1 accepted-record denominator (c1_accepted_records), reported only",
     "x3 criterion changed to duplicated-tail record/carrier TV > 0 after review; the support count is kept and reported only",
-    "x4 aliased-tail full-enumeration control for s2 and the s3 cell comparison, added after review",
+    "x4 self-test of the s2 and s3 statistics on an aliased enumeration whose answer is fixed by counting, added after review",
     "carrier_list_equals_v6_read_set control added after review",
     "all_required_controls_pass computed from required_controls after review; failed controls give verdict VOID and exit status 2",
     "s1 recorded as a criterion rather than an exception after review",
