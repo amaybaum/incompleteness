@@ -1,0 +1,47 @@
+{
+  "actual_astronomical_time_simulated": false,
+  "evidence_levels": [
+    "elementary reversible gate proof",
+    "conditional source-kernel proof",
+    "exact bounded gate and kernel controls",
+    "scaled sparse native delay countercontrol"
+  ],
+  "expected_output": "result.json",
+  "guiding_pr": 912,
+  "implementation_imports_author_engine": false,
+  "native_gate_compilation_established": false,
+  "native_source_geometry_inherited": true,
+  "new_physical_premise_adopted": false,
+  "normal_command": "python3 checks.py",
+  "observer_access_adopted": false,
+  "optimized_command": "python3 -O checks.py",
+  "optional_complete_record_dilation": "270 additional clean record bits and270 CNOT;359 total logical ticks;no autonomous clock or native timing conversion",
+  "published_plan_commit": "b355f81e550c7c6328837c5423bfe2d903b2a008",
+  "published_plan_path": "verification/programmes/oi-qm/reconstruction/composition-access-20261024/composition_flag_v6/PLAN.md",
+  "repository": "amaybaum/incompleteness",
+  "schema": "oi-reversible-acceptance-provenance-v6.1",
+  "scope_note": "Existing actual-phase operands are logical input wires; gate schedule, isolation, storage, pointer channel and initialization are supplied for this circuit control.",
+  "source_files": [
+    {
+      "commit": "fe8f0363c99064038763a20e4cef9051f1ac7408",
+      "path": "verification/programmes/oi-qm/reconstruction/composition-access-20261024/native-coupling-v5/REPORT.md",
+      "sha256": "1be10243e16dd0d2eb386ad5657bc7fa330be0da04ca8517031b0f3ad6b9cd1e"
+    },
+    {
+      "commit": "fe8f0363c99064038763a20e4cef9051f1ac7408",
+      "path": "verification/programmes/oi-qm/reconstruction/composition-access-20261024/native-coupling-v5/checks.py",
+      "sha256": "8cf93739b78d17379c48f61e7d081066e6b730752217623f11dbfecda778c2c9"
+    },
+    {
+      "commit": "f24a57a7c23cc1818c04265cec7604f8bc2f410d",
+      "path": "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/native_x_v12/REPORT.md",
+      "sha256": "18678f906f6492b13d27152db3f3595361df0414cc4fa8de2f48229fac4e2808"
+    },
+    {
+      "commit": "05397c79370f66c88f0bf8fdaedb09297ba358a9",
+      "path": "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/shared_v12/INTERFACE-CONTRACT.md",
+      "sha256": "1a0b34ebb0c7115dd5faae11d2ab20c25ecf8a6f091ea292eb184e4311be7633"
+    }
+  ],
+  "starting_head": "fe8f0363c99064038763a20e4cef9051f1ac7408"
+}

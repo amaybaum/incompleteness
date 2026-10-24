@@ -1,0 +1,18 @@
+{
+  "author_checker_executed": false,
+  "author_checker_imported": false,
+  "author_commit": "5b77352f50ddfe750b1cf5cbc72ebdded046df31",
+  "author_pr": 912,
+  "remote_manifest_verified": true,
+  "repository_prefix": "verification/programmes/oi-qm/reconstruction/composition-access-20261024/native-phase-v4/",
+  "schema": "oi-native-phase-v4-review-inputs.1",
+  "scope": "separate-agent internal review of local boundary controls and conditional instrument contract",
+  "source_sha256": {
+    "PLAN.md": "1868d2f7b3dae7219340abcd23e17b0058ab68421a6984df24acc964930cf0b0",
+    "PROVENANCE.json": "5fde4072d005ae57cc2898acec9ea836321d22407d4c725860013588859a2fcd",
+    "REPORT.md": "ad0c77e3acfaeb49bf949709ed9b3f7fe8e68e5730fedbd2eb06e8f237b9e473",
+    "SHA256SUMS": "d01432d4e76137ec62ea3142aef5367f19de61268565b3eb65d71d42804a18da",
+    "checks.py": "d361a8ebf224a5736a6984bace1e3fb807174f93ecbca0c9fa808685429c0e73",
+    "result.json": "b859bd20d5bd159286b3db19571dd645af822ff547efd73476e5e30e90801cbc"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-24",
+  "governance_blob": "0fe9a4c5a6b7a40f83ec4cb772bc3acd639fddc7",
+  "initial_plan_commit": "feba7dc6da3fcf744af5e8dc3ebc708fe8f912ee",
+  "local_completion_reachability_claimed": false,
+  "normal_optimized_replay": "byte-identical",
+  "runtime_imports": "Python standard library only",
+  "source_files_sha256": {
+    "checkpoint_v10/CURRENT-HANDOFF.md": "cd33f48a0b9f722af2e39451309ca0383477a6847d1deb73adf59c6adec5832c",
+    "checkpoint_v10/EQUIVALENCE-OBLIGATIONS.md": "87b2e25393e26fa4f07764e3fda3bf17d5c510eca8007a40f4c01340015a053c",
+    "checkpoint_v10/phase_joint_v10/REPORT.md": "a4d4be43a9229166e57555daa637f3bf82b7407443746e4ff10515d2f017ba47",
+    "composition_resume/author/REPORT.md": "55e62f33970ac72c08c8432eda23e9dece63afae7bbe84709efcf4d320782147",
+    "composition_v3/REPORT.md": "9f983fb58e33ac98576e1c912b4c95293447b52f154a9ad19c360b61901ce18e"
+  },
+  "source_native_geometry": "q9 is +z neighbor of q8; native H=(B,D,A XOR BD); old-slice q8=(0,y,0)",
+  "source_pr_910": "71d291297d0a662cbb9377ab48eef7aa4b839e77",
+  "source_pr_912": "69540662b234e37c6805ded244962a80f15f63a2",
+  "target_tables": "Retained 5:3:2 post-Y and 5:4:1 post-X calibrated laws; no newly fitted probabilities"
+}
