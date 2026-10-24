@@ -67,3 +67,26 @@ Neither a common local code nor a no-go for this family settles the full
 native predicate, full public/failure law, observer access, reuse, A1 or A2.
 No new resource or access rule is adopted. Root alone publishes checkpoints;
 no #885 writes, special dispatch, F/E designation or merge.
+
+## Bounded follow-up fixed after the first table, before its computation
+
+The first native table and64/512-family result are retained. A finite table
+diagnostic shows that on accepted mask10 a held-N mR toggle flips q10.B.
+To distinguish missing pad dependence from a stronger single-source limit,
+for each known context k=(u,mY,mR,a,b), with accepted a,b, form all eight
+ordered pairs (q10 for s=0,N; q10 for s=1,N) using the same N. Intersect
+these pair sets across every k, discarding noninjective pairs. A seed-only
+controller N(k,c), even nonlinear and pad-aware, needs a common pair for
+each fixed c. An empty intersection excludes a common full-triple X code
+for this fixed single-N physical geometry. It does not exclude a weaker
+operational decoder, another port, or a multi-source controller.
+
+If pairs survive, the N value for each k is unique because the native
+own-N response is a permutation. Solve the exact affine consistency system
+N=constant XOR u*U XOR mY*MY XOR mR*MR XOR a*A XOR b*B on the accepted
+domain. Report surviving affine source maps and their raw binary X codes.
+If two maps differ by a context-independent triple, their difference can
+also be driven by the new fresh c in a jointly affine source. This tests
+only the existing512-row native table; no additional lattice search or
+source geometry is introduced. Root publishes this addendum before the
+new intersection/affine calculation.
