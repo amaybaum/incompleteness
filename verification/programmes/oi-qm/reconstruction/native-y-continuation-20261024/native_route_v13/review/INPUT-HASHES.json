@@ -1,0 +1,68 @@
+{
+  "author_files": {
+    "PLAN.md": {
+      "bytes": 4907,
+      "git_blob": "3db4b21df1007216b971ab9855551a654f296009",
+      "sha256": "ff72e2f5b49c29164e8e69eb381ed62dac9fddeb0f561e425be51ccc8155d43d"
+    },
+    "PROVENANCE.json": {
+      "bytes": 1052,
+      "git_blob": "09278a86673aeb04a2d7c9b446dfc73def8db3d9",
+      "sha256": "7f6aefa2398acae84dca3fdb29c1c80ba826e1b1d2309d9f3ea0fa242aa0748b"
+    },
+    "REPORT.md": {
+      "bytes": 9871,
+      "git_blob": "81e3746a9545eb50117c6b4ada63dad684cdc9f0",
+      "sha256": "f6e272d95fdc831e028cbc1f2027585130dd15dc7b11bbda5b8cc07dafbe669d"
+    },
+    "SHA256SUMS": {
+      "bytes": 386,
+      "git_blob": "c648f87e432187a312238a954317f7f961662a53",
+      "sha256": "9e8d2496dddf9f8a5e25bd60a80d469225a97540dff95cccddb3ba21e841c6bf"
+    },
+    "checks.py": {
+      "bytes": 23704,
+      "git_blob": "6528adf61dbbe042f825fd3052970c45eed1e669",
+      "sha256": "8c1bbc37f47b6ff7ad7ee67d719f058067e2e15e9a6a967adfb78ef57d1ed856"
+    },
+    "result.json": {
+      "bytes": 11764,
+      "git_blob": "f395335dfbb1bfd8b0cc40b0b90bc7e2531bad38",
+      "sha256": "762b9799db7448c4eecf2c994c8c68ff94e1be83a7f6884b4a36385505df5a02"
+    }
+  },
+  "author_prefix": "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/native_route_v13/",
+  "author_revision": "753fe4f69392ca940754489468e8c8235f6aa583",
+  "input_files": {
+    "branch_v10/local-controller/symmetric-result.json": {
+      "bytes": 53580,
+      "role": "reference/proof context; earlier engine read as bytes only and never imported",
+      "sha256": "d8e7c1f5841192165beefb3fe35b069cc14cc93f2faa2bd68619aa7748b3db2f"
+    },
+    "native_seed_v12/REPORT.md": {
+      "bytes": 10063,
+      "role": "reference/proof context; earlier engine read as bytes only and never imported",
+      "sha256": "7fb515126a6835a2c10031b3000077d62fd8ac3af4af860dc40721cb47b39c52"
+    },
+    "native_seed_v12/checks.py": {
+      "bytes": 23554,
+      "role": "reference/proof context; earlier engine read as bytes only and never imported",
+      "sha256": "236438fc59188deb6575bf29d1236de10130bd78576db0c5308f4604426fc3b3"
+    },
+    "native_seed_v12/result.json": {
+      "bytes": 3597,
+      "role": "reference/proof context; earlier engine read as bytes only and never imported",
+      "sha256": "4628cc9f241b0ab71f62d96fbdb2e99f5c5991cce66725f9f86c82ddcb46a28d"
+    },
+    "parallel_v3/history_control/SOURCE-GEOMETRY.json": {
+      "bytes": 197836,
+      "role": "reference/proof context; earlier engine read as bytes only and never imported",
+      "sha256": "2642e1a68825faa5d3bb1049e8722adec1ec33bd3f56b9e4416b2c902a85ec5d"
+    },
+    "six_source_v5/period/REPORT.md": {
+      "bytes": 9883,
+      "role": "reference/proof context; earlier engine read as bytes only and never imported",
+      "sha256": "7743ee8fccb5e39df674bb7ada6fcd6ce45582b801d4d58d77af5162420cf360"
+    }
+  }
+}
