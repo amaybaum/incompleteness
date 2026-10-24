@@ -11,10 +11,12 @@ whose branch remains under a separate writer and is not modified here.
 
 ## Findings and next task
 
-Latest author-checked continuation: [junction_v4/REPORT.md](junction_v4/REPORT.md).
+Latest independently reviewed continuation: [junction_v4/REPORT.md](junction_v4/REPORT.md).
 The unchanged sidecar junction is sensitive bijectively to a previously free
-initial triple; it cannot be treated as a clean Y code. Independent review
-of this continuation is pending. Earlier reviewed findings remain unchanged.
+initial triple; it cannot be treated as a clean Y code. [Independent review](junction_v4/review/REPORT.md) accepts this result and
+the conditional six-source preparation geometry. Its output and joint law
+remain open. The author report retains its pre-review status header; the
+review report supplies the current verdict. Earlier reviewed bytes are unchanged.
 
 Read [the combined report](parallel_v3/COMBINED-REPORT.md), then
 [the independent review](parallel_v3/review/REPORT.md). The reports preserve
@@ -44,11 +46,11 @@ From this directory, with Python 3.12 and its standard library:
 python3 replay.py
 ```
 
-The driver verifies the payload manifest and all 18 independently reviewed
-input hashes, compiles Python source, then runs 14 checker groups normally and
+The driver verifies the payload manifest and all 18 earlier independently reviewed
+input hashes and the five locally retained inputs of the new review, compiles Python source, then runs 15 checker groups normally and
 with `-O`, comparing both with recorded deterministic output. It runs in a
 temporary copy because the symbolic checker regenerates a JSON result.
-Expected: 14 passing groups and `PASS: checkpoint replay` with exit status 0.
+Expected: 15 passing groups and `PASS: checkpoint replay` with exit status 0.
 These checks establish only the scopes stated in the reports, not Lean
 certification, a universal compiler theorem, or a full transport audit.
 
@@ -69,7 +71,7 @@ does not schedule unattended background work.
 The historical v3 combined report describes a separate portable handoff ZIP;
 its `--baseline` command, dependency archives, and PDF are not the layout of
 this repository checkpoint. This tree contains the v2 interface sources and
-v3 research sources/inputs needed for the 14-group replay above. The earlier
+v3 research sources/inputs needed for the 15-group replay above. The earlier
 ten-checker v1 bundle is not rerun by this driver. Copied inherited core code
 and source geometry are retained where the current checks need them.
 

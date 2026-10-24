@@ -27,6 +27,12 @@ def main():
     reviewed = json.loads((ROOT / 'parallel_v3/review/INPUT-HASHES.json').read_text())
     for name, expected in reviewed.items():
         require(digest(ROOT / name) == expected, 'reviewed bytes changed: ' + name)
+    current_review = json.loads((ROOT / 'junction_v4/review/INPUT-HASHES.json').read_text())
+    prefix = 'repo_checkpoint/payload/'
+    for name, expected in current_review.items():
+        if name.startswith(prefix):
+            require(digest(ROOT / name[len(prefix):]) == expected,
+                    'new reviewed bytes changed: ' + name)
     tests = [('continuation', 'checks'), ('continuation', 'symbolic')]
     tests += [('parallel_v3/' + track, 'checks') for track in
               ('aux_routing', 'history_control', 'direct_reset', 'new_geometry')]
@@ -34,7 +40,7 @@ def main():
               ('checks', 'sidecar_check', 'gadgets_check', 'contract_check',
                'geometry_check', 'herald_check')]
     tests += [('parallel_v3/integration', 'tagged_contract')]
-    tests += [('junction_v4', 'checks')]
+    tests += [('junction_v4', 'checks'), ('junction_v4/review', 'checks')]
     with tempfile.TemporaryDirectory(prefix='native-y-replay-') as directory:
         work = Path(directory) / 'checkpoint'
         shutil.copytree(ROOT, work, ignore=shutil.ignore_patterns('__pycache__'))
@@ -42,7 +48,8 @@ def main():
             py_compile.compile(str(source), doraise=True)
         for folder, name in tests:
             script = work / folder / (name + '.py')
-            expected = (work / folder / (name + '.out')).read_bytes()
+            output_name = 'review-normal.out' if folder == 'junction_v4/review' else name + '.out'
+            expected = (work / folder / output_name).read_bytes()
             for options in ([], ['-O']):
                 result = subprocess.run(
                     [sys.executable, *options, str(script)], cwd=work,
