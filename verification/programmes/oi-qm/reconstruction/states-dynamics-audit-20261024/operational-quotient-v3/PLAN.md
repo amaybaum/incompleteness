@@ -49,3 +49,26 @@ This is a small bounded local diagnostic, with no Lean build or large
 campaign. The finite model is a supplied implementation contract: native
 realization, calibration selection, arbitrary quantum-state coverage,
 non-Clifford availability and composites remain separate questions.
+
+## Preregistered next fork, before computation
+
+After the positive Clifford control, test a rational non-Clifford Bloch
+rotation with first row (3/5,-4/5,0). Under this same fixed decoder and all
+admissible preparation fibres, a positive hidden kernel must be well-defined
+on classes. Test the eight admissible preparations
+
+    nu_lambda = (2/3) uniform + (1/3) delta_lambda.
+
+They affinely span the normalized preparation hyperplane. Determine whether
+exact moment intertwining extends to forbidden point preparations by linearity,
+and whether a transformed cube vertex has a coordinate outside [-1,1]. Use
+the antipodal nu pair with lambda=(1,-1,1) to obtain a direct total-variation
+data-processing control and a quantitative worst-preparation approximation
+bound. The bound is scoped to this representation/preparation contract,
+not to every operational quotient or to OI's general A2 programme.
+
+This fork distinguishes escaping the old G3-specific invariant from sourcing
+the complete A1 operation family. It must not infer a full state-space
+obstruction merely from the octahedron example: enlarging admissible priors
+to ||E(lambda)||_2<=1 is a different, supplied preparation rule and has to be
+accounted for separately.
