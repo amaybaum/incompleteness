@@ -19,11 +19,13 @@ Manifest:
       "<40 lowercase hex>": {"role": "support",    "claim": "<path>:<line>",
                              "claim_sha256": "<64 lowercase hex>"},
       "<40 lowercase hex>": {"role": "provenance", "reason": "<why it is not load-bearing>"},
-      "<40 lowercase hex>": {"role": "external",   "repository": "<owner>/<repo>"}}}
+      "<40 lowercase hex>": {"role": "external",   "repository": "<owner>/<repo>"}},
+     "retired": {"<40 lowercase hex>": <downgrade record>}}
 
-with exactly those three fields, the ids in sorted order, and each entry carrying exactly its
-role and that role's fields, each a non-empty string; a `provenance` or `external` entry may also
-carry a `downgrade` record (below). Roles are the author's declaration and are never inferred;
+with exactly those fields, `retired` optional and non-empty when present, the ids of each map
+in sorted order and none in both, and each entry carrying exactly its role and that role's
+fields, each a non-empty string; a `provenance` or `external` entry may also carry a
+`downgrade` record (below). Roles are the author's declaration and are never inferred;
 each entry states something a reviewer can check:
 
   support     `claim` is a repository path under the manifest's directory, other than the
@@ -36,20 +38,38 @@ each entry states something a reviewer can check:
               every occurrence of the id in a covered file names it: immediately preceded by
               `<owner>/<repo>@`, or inside a URL `https://github.com/<owner>/<repo>/.../<id>`.
 
-Downgrades. Support cannot be relabelled away. When main's copy of a manifest lists an id as
-`support`, the manifest under check at the same path that lists it as `provenance` or `external`
-must carry
+Downgrades. A downgrade record is
 
-    "downgrade": {"from_claim": "<main's claim>", "from_claim_sha256": "<main's claim_sha256>",
-                  "reason": "<why the claim was removed or narrowed>"}
+    {"from_claim": "<path>:<line>", "from_claim_sha256": "<64 lowercase hex>",
+     "reason": "<why the claim was removed or narrowed>"}
 
-matching main's support entry; one that drops the id while a covered file still cites it fails.
-So does a manifest main has and the commit under check removes: each of its support ids that a
-covered file of main's directory still cites, or that stands on a line anywhere in the tree with
-the support entry's hash, fails unless another manifest lists it, as support or with the record.
-Every downgrade is therefore an explicit, reviewable change, however the claim was reworded. In
-addition, a `downgrade` record fails while any covered file still has a line whose normalized
-text hashes to `from_claim_sha256`: the claim stands unchanged, wherever it moved.
+and matches a support entry whose `claim` and `claim_sha256` it repeats. Against main (every
+manifest main's tree has, at any path):
+
+  - a support id of main that no manifest of the commit lists as `support` needs a matching
+    record in some manifest of the commit: as the `downgrade` of the entry that now lists it, or
+    under `retired` when no entry does, whether or not the id is still cited;
+  - an entry of the commit that lists such an id as `provenance` or `external` needs a matching
+    `downgrade` of its own, unless main's copy of that manifest already lists it so;
+  - such an id's claim must not stand anywhere in the commit's tree: no line, in any file,
+    covered or not, may hash to its `claim_sha256`, or match main's claimed line once every run
+    of 7 or more hexadecimal characters is removed and the text case-folded (so abbreviating,
+    uppercasing or deleting the id leaves the claim unchanged);
+  - a support id of main that some manifest of the commit still lists as `support` needs no
+    record, but main's claim of it may stand, in that loose sense, only on lines that still
+    carry the id: a claim kept while its reference is deleted, abbreviated or uppercased fails,
+    wherever the id is still declared support.
+
+The baseline is therefore every support declaration of every manifest of main's tree, whatever
+directory or manifest held it, so a manifest removed, renamed or split, or an id deleted from
+its claim, cannot carry a dependency away unrecorded.
+
+Independently of main, a record fails while any line of the tree hashes to its
+`from_claim_sha256`. Each failure is `support-downgrade`. A genuine rewording or removal of the
+claim with a matching record passes, by design: the record is the reviewable statement of what
+became of the claim. No syntactic checker can reliably decide whether an arbitrarily rewritten
+claim means the same as the one it replaced: these controls catch the known structural evasions,
+and independent review still decides whether a downgrade is scientifically justified.
 
 Ids. Every run of exactly 40 lowercase hexadecimal characters, bounded by non-hexadecimal
 characters, in a covered file is an object id the record cites: a commit, or a blob or tree id. A
@@ -67,8 +87,9 @@ At the commit under check, read from git objects and nothing else, a manifest fa
   claim-file-absent       a support claim names a file the commit does not have;
   claim-line-mismatch     the claimed line does not exist or does not carry the id;
   claim-hash-mismatch     the claimed line's normalized text does not hash to `claim_sha256`;
-  support-downgrade       a support id of main's copy lost its support role without a matching
-                          `downgrade` record, or a `downgrade` record's claim still stands;
+  support-downgrade       a support id of main is listed as support by no manifest of the
+                          commit without a matching record, or its claim, or a record's claim,
+                          still stands (Downgrades, above);
   absent                  an id names no object in the repository: checked for every `support`
                           id, and for a `provenance` id when it lands, i.e. when main's copy of
                           the same manifest does not list it as provenance;
@@ -89,14 +110,29 @@ Limitations:
     the target file; a submodule entry is not scanned.
   - `external-in-repository` is checked on every build, so an external object that later enters
     this repository turns main red until the manifest is corrected.
-  - A provenance id's existence, and every downgrade, is checked when the manifest is compared
-    against a main that lacks the change, i.e. in pull-request CI; a commit that reaches main
-    without pull-request CI is compared against itself and skips both. With no main ref, no
-    downgrade is detected; the stands-unchanged test of a `downgrade` record runs regardless.
-  - A downgrade is detected against main's manifest at the same path, or against a main manifest
-    the commit removes. A support id of a removed manifest that another record lists as
-    provenance needs a `downgrade` record there too, although the two records may be unrelated.
-    A record moved to a directory without a manifest, its claim reworded, is not followed.
+  - A provenance id's existence, and every downgrade, is checked against a main that lacks the
+    change, i.e. in pull-request CI; a commit that reaches main without pull-request CI is
+    compared against itself and skips both. With no main ref, nothing is compared, and only the
+    test that a record's claim does not stand by its normalized hash runs.
+  - An id some manifest of the commit still lists as `support` needs no record, so a claim of it
+    reworded beyond its ids, the reference dropped, passes while the id stays declared support
+    on another line; its reachability is still checked there.
+  - A record may sit in any manifest of the commit, so removing every manifest of the tree
+    leaves nowhere to record a downgrade, and such a commit fails.
+  - An unrelated record that newly lists a downgraded support id as provenance needs a
+    `downgrade` record of its own.
+  - The loose comparison uses main's claimed line, so it runs only against main; a claim line
+    that is nothing but ids and whitespace has no loose form and is compared by its hash alone.
+    A rewording beyond the ids, with a matching record, passes. An unrelated line that matches a
+    claim loosely (the same words around another id) is taken for the claim.
+  - Lines inserted above a claim shift it: the entry then fails as `claim-line-mismatch` or
+    `claim-hash-mismatch`, depending on what the claimed line now holds, until it is updated.
+  - THIS_REPOSITORY is a constant: in a fork or after a rename it must be edited, or an external
+    entry naming the new name is not refused as this repository (external-in-repository still
+    refuses an object this repository holds).
+  - When main has a support entry or the commit a record, the check reads and hashes every
+    line of the tree once (one `git cat-file --batch`; several seconds on this repository's
+    tree). The self-test takes about 10 s and runs before every check.
   - A 40-hex value that names no git object of any repository (a SHA-1 file digest) has no role.
   - The checker forces a reviewable statement per id; whether a reason is honest, or a claim
     really rests on its id, is for review."""
@@ -104,6 +140,7 @@ import hashlib
 import json
 import os
 import re
+import subprocess
 import sys
 import tempfile
 
@@ -117,6 +154,7 @@ FIELDS = {'support': ('claim', 'claim_sha256'), 'provenance': ('reason',),
           'external': ('repository',)}
 DOWNGRADE = ('from_claim', 'from_claim_sha256', 'reason')
 SHA256 = re.compile(r'[0-9a-f]{64}')
+HEX_RUN = re.compile(rb'[0-9A-Fa-f]{7,}')
 THIS_REPOSITORY = 'amaybaum/incompleteness'
 PROTECTED = (b'verification/receipts', b'verification/seals')
 MAIN_REFS = ('refs/remotes/origin/main', 'refs/heads/main')
@@ -160,7 +198,7 @@ def _downgrade_ok(dg):
 
 
 def load(raw):
-    """{id: entry}, or None when the manifest is malformed."""
+    """({id: entry}, {retired id: record}), or None when the manifest is malformed."""
     try:
         pairs = []
         m = json.loads(raw.decode('utf-8'),
@@ -169,12 +207,17 @@ def load(raw):
         return None
     if any(len({k for k, _ in kv}) != len(kv) for kv in pairs):
         return None
-    if not isinstance(m, dict) or set(m) != {'schema', 'version', 'ids'} \
+    if not isinstance(m, dict) or not {'schema', 'version', 'ids'} <= set(m) \
+            or set(m) - {'schema', 'version', 'ids', 'retired'} \
             or m['schema'] != 'oi-citations' or m['version'] != 2 or type(m['version']) is not int:
         return None
-    ids = m['ids']
-    if not isinstance(ids, dict) or list(ids) != sorted(ids) or not all(
-            isinstance(k, str) and re.fullmatch(r'[0-9a-f]{40}', k) for k in ids):
+    ids, retired = m['ids'], m.get('retired', {})
+    for keyed in (ids, retired):
+        if not isinstance(keyed, dict) or list(keyed) != sorted(keyed) or not all(
+                isinstance(k, str) and re.fullmatch(r'[0-9a-f]{40}', k) for k in keyed):
+            return None
+    if 'retired' in m and not retired or set(ids) & set(retired) \
+            or not all(_downgrade_ok(r) for r in retired.values()):
         return None
     out = {}
     for k, e in ids.items():
@@ -194,7 +237,7 @@ def load(raw):
         if 'downgrade' in e and not _downgrade_ok(e['downgrade']):
             return None
         out[k] = dict(e)
-    return out
+    return out, {k: dict(r) for k, r in retired.items()}
 
 
 def manifest_paths(files):
@@ -255,24 +298,76 @@ def claim_problem(repo, files, d, mp, entry, oid):
     return None
 
 
-def standing_line(repo, c, oid, d, sha):
-    """For a support id of a manifest the commit removed: where a file of its old directory still
-    cites it, or where a line carrying it, anywhere in the tree, still hashes to its claim."""
-    out = repo.run(['grep', '-a', '-l', '-z', '-F', '-e', oid, c], ok=(0, 1)) or b''
-    files = repo.entries(c)
-    for rec in out.split(b'\0'):
-        p = rec[len(c) + 1:] if rec.startswith(c.encode() + b':') else None
-        if not p or p not in files or files[p][0] == '160000':
-            continue
-        for i, line in enumerate(repo.blob(files[p][1]).split(b'\n')):
-            if oid.encode() not in OBJECT_ID.findall(line):
-                continue
-            where = '%s:%d' % (p.decode('utf-8', 'replace'), i + 1)
-            if p.startswith(d):
-                return 'manifest removed; still cited at %s' % where
-            if line_sha256(line) == sha:
-                return 'manifest removed; the claim stands at %s' % where
-    return None
+def loose_sha256(line):
+    """SHA-256 of a line's text with every run of 7 or more hexadecimal characters removed, then
+    case-folded and whitespace-normalized: the claim whatever became of the ids on it."""
+    text = HEX_RUN.sub(b'', line).decode('utf-8', 'replace').casefold()
+    return hashlib.sha256(' '.join(text.split()).encode()).hexdigest()
+
+
+EMPTY_LOOSE = loose_sha256(b'')
+
+
+class TreeLines:
+    """Where the lines of the commit's tree that hash to the given normalized or loose hashes
+    stand, from every blob of the tree read in one `git cat-file --batch`; each distinct line is
+    hashed once."""
+
+    def __init__(self, repo, files, strict, loose):
+        self.strict_at, self.loose_at = {h: [] for h in strict}, \
+            {h: [] for h in loose if h != EMPTY_LOOSE}
+        if not self.strict_at and not self.loose_at:
+            return
+        paths = [(p, obj) for p, (mode, obj) in sorted(files.items()) if mode != '160000']
+        r = subprocess.run(['git', 'cat-file', '--batch'], cwd=repo.cwd, env=v3.GIT_ENV,
+                           input=''.join(obj + '\n' for _p, obj in paths).encode(),
+                           capture_output=True)
+        if r.returncode != 0:
+            raise v3.Undecidable('undecidable:object-absent')
+        seen, out, at = {}, r.stdout, 0
+        for p, obj in paths:
+            nl = out.index(b'\n', at)
+            head = out[at:nl].split()
+            if len(head) != 3 or head[0].decode() != obj:
+                raise v3.Undecidable('undecidable:object-absent')
+            size = int(head[2])
+            data, at = out[nl + 1:nl + 1 + size], nl + 2 + size
+            for i, line in enumerate(data.split(b'\n')):
+                hit = seen.get(line)
+                if hit is None:
+                    hit = seen[line] = (self.strict_at.get(line_sha256(line)),
+                                        self.loose_at.get(loose_sha256(line)))
+                for lst in hit:
+                    if lst is not None:
+                        lst.append((p, i + 1, line))
+
+    def strict(self, sha):
+        """[(path, line number, text)] of the lines with this normalized hash."""
+        return self.strict_at.get(sha, [])
+
+    def loose(self, sha):
+        """[(path, line number, text)] of the lines with this loose hash."""
+        return self.loose_at.get(sha, [])
+
+
+def at(hits):
+    p, n, _t = hits[0]
+    return '%s:%d' % (p.decode('utf-8', 'replace'), n)
+
+
+def old_line(repo, files, claim):
+    """The text main's tree holds at `path:line`, or None."""
+    path, n = CLAIM.fullmatch(claim).groups()
+    st = files.get(path.encode())
+    if st is None or st[0] == '160000':
+        return None
+    lines = repo.blob(st[1]).split(b'\n')
+    return lines[int(n) - 1] if int(n) <= len(lines) else None
+
+
+def matches(record, entry):
+    return (record['from_claim'], record['from_claim_sha256']) \
+        == (entry['claim'], entry['claim_sha256'])
 
 
 def check(repo, c, main=None):
@@ -283,72 +378,50 @@ def check(repo, c, main=None):
     files = repo.entries(c)
     manifests = manifest_paths(files)
     main_files = repo.entries(main) if main else {}
-    main_entries = {mp: load(repo.blob(main_files[mp][1])) or {}
+    main_entries = {mp: (load(repo.blob(main_files[mp][1])) or ({}, {}))[0]
                     for mp in manifest_paths(main_files)}
-    main_support = {mp: {k: e for k, e in es.items() if e['role'] == 'support'}
-                    for mp, es in main_entries.items()}
-    if not manifests and not any(main_support.values()):
+    main_support = [(mp, k, e) for mp in sorted(main_entries)
+                    for k, e in sorted(main_entries[mp].items()) if e['role'] == 'support']
+    if not manifests and not main_support:
         return [], 0, 0
-    orphans = {}            # id -> support entries of main manifests the commit removes
-    for mp in sorted(main_support):
-        if mp not in files:
-            for k, e in main_support[mp].items():
-                orphans.setdefault(k, []).append(e)
     pdirs, precs = protected(repo, files) if manifests else (set(), set())
-    out, n_ids, listed = [], 0, set()
+    out, n_ids, loaded, broken = [], 0, {}, set()
     for mp in manifests:
         d = mp[:-len(NAME)]                     # b'' or b'dir/'
         name = mp.decode('utf-8', 'replace')
         if any((p + b'/').startswith(d) or d.startswith(p + b'/')
                for p in pdirs) or any(r.startswith(d) for r in precs):
             out.append((name, 'frozen-scope', '', ''))
+            broken.add(mp)
             continue
         if any(o != mp and o.startswith(d) for o in manifests):
             out.append((name, 'nested-manifest', '', ''))
+            broken.add(mp)
             continue
-        ids = load(repo.blob(files[mp][1]))
-        if ids is None:
+        man = load(repo.blob(files[mp][1]))
+        if man is None:
             out.append((name, 'malformed', '', ''))
+            broken.add(mp)
             continue
+        ids, loaded[mp] = man[0], man
         n_ids += len(ids)
-        listed.update(ids)
-        cited, quals, lines_at = {}, {}, {}
+        cited, quals = {}, {}
         for p in sorted(files):
             mode, obj = files[p]
             if p == mp or not p.startswith(d) or mode == '160000':
                 continue
             data = repo.blob(obj)
-            for i, line in enumerate(data.split(b'\n')):
-                lines_at.setdefault(line_sha256(line), '%s:%d' % (p.decode('utf-8', 'replace'),
-                                                                  i + 1))
             for tok in OBJECT_ID.finditer(data):
                 oid = tok.group().decode()
                 cited.setdefault(oid, p.decode('utf-8', 'replace'))
                 quals.setdefault(oid, set()).add(qualifier(data, tok.start()))
         landed = {k: e['role'] for k, e in main_entries.get(mp, {}).items()}
-        own = main_support.get(mp, {})
         for oid in sorted(set(cited) - set(ids)):
             out.append((name, 'unlisted', oid, cited[oid]))
         for oid in sorted(set(ids) - set(cited)):
             out.append((name, 'unused', oid, ''))
-        for oid in sorted(set(own) - set(ids)):
-            if oid in cited:
-                out.append((name, 'support-downgrade', oid,
-                            'support entry dropped; still cited at %s' % cited[oid]))
         for oid, e in ids.items():
             role = e['role']
-            if role != 'support':
-                was = ([own[oid]] if oid in own else []) + orphans.get(oid, [])
-                dg = e.get('downgrade')
-                match = dg and any((dg['from_claim'], dg['from_claim_sha256'])
-                                   == (w['claim'], w['claim_sha256']) for w in was)
-                if was and not match:
-                    out.append((name, 'support-downgrade', oid, '%s record for the support claim %s'
-                                % ('no downgrade' if dg is None else 'a non-matching downgrade',
-                                   was[0]['claim'])))
-                if dg and dg['from_claim_sha256'] in lines_at:
-                    out.append((name, 'support-downgrade', oid, 'the claim of %s stands at %s'
-                                % (dg['from_claim'], lines_at[dg['from_claim_sha256']])))
             if role == 'support':
                 why = claim_problem(repo, files, d, mp, e, oid)
                 if why:
@@ -370,18 +443,68 @@ def check(repo, c, main=None):
                 out.append((name, 'support-not-commit', oid, cited.get(oid, '')))
             elif role == 'support' and not repo.is_ancestor(oid, c):
                 out.append((name, 'support-unreachable', oid, cited.get(oid, '')))
-    # a manifest main has and the commit removes: its support ids, unless another manifest lists
-    # them (and is checked above), must neither be cited from its old directory nor stand anywhere
-    for mp in sorted(main_support):
-        if mp in files:
-            continue
-        for oid, e in sorted(main_support[mp].items()):
-            if oid in listed:
-                continue
-            why = standing_line(repo, c, oid, mp[:-len(NAME)], e['claim_sha256'])
-            if why:
-                out.append((mp.decode('utf-8', 'replace'), 'support-downgrade', oid, why))
+    out.extend(downgrades(repo, files, main_files, main_entries, main_support, loaded, broken))
     return out, len(manifests), n_ids
+
+
+def downgrades(repo, files, main_files, main_entries, main_support, loaded, broken):
+    """support-downgrade problems. A support id of any main manifest that no manifest of the commit
+    lists as support needs a record matching that support entry, as the `downgrade` of an entry
+    or under `retired`, and its claim must not stand anywhere in the tree; an entry of the commit
+    listing such an id otherwise needs a matching record of its own; and no record's claim may
+    stand unchanged anywhere in the tree."""
+    out = []
+    support_now = {k for ids, _r in loaded.values() for k, e in ids.items()
+                   if e['role'] == 'support'}
+    records = sorted((mp, k, e['downgrade']) for mp, (ids, _r) in loaded.items()
+                     for k, e in ids.items() if 'downgrade' in e)
+    records += sorted((mp, k, r) for mp, (_i, retired) in loaded.items()
+                      for k, r in retired.items())
+    was = [(mp, k, e) for mp, k, e in main_support if mp not in broken and k not in support_now]
+    looses = {}
+    for mp, oid, e in main_support:
+        text = old_line(repo, main_files, e['claim'])
+        looses[(mp, oid)] = loose_sha256(text) if text is not None \
+            and line_sha256(text) == e['claim_sha256'] else EMPTY_LOOSE
+    lines = TreeLines(repo, files, {e['claim_sha256'] for _m, _k, e in was}
+                      | {r['from_claim_sha256'] for _m, _k, r in records}, set(looses.values()))
+    for mp, oid, e in main_support:
+        if mp in broken:
+            continue
+        name = mp.decode('utf-8', 'replace')
+        loose = looses[(mp, oid)]
+        if oid in support_now:
+            # still support somewhere: its claim may stand only with the reference on it
+            bare = [h for h in lines.loose(loose) if oid.encode() not in OBJECT_ID.findall(h[2])]
+            if bare:
+                out.append((name, 'support-downgrade', oid, 'the claim of %s stands at %s '
+                            'without its reference' % (e['claim'], at(bare))))
+            continue
+        if not any(k == oid and matches(r, e) for _m, k, r in records):
+            out.append((name, 'support-downgrade', oid,
+                        'no downgrade record for the support claim %s' % e['claim']))
+        hits = lines.strict(e['claim_sha256']) or lines.loose(loose)
+        if hits:
+            out.append((name, 'support-downgrade', oid,
+                        'the claim of %s stands at %s' % (e['claim'], at(hits))))
+    for mp, (ids, _r) in sorted(loaded.items()):
+        name = mp.decode('utf-8', 'replace')
+        for oid, e in sorted(ids.items()):
+            prior = main_entries.get(mp, {}).get(oid)
+            if e['role'] == 'support' or prior is not None and prior['role'] != 'support':
+                continue
+            supported = [w for _m, k, w in was if k == oid]
+            dg = e.get('downgrade')
+            if supported and not (dg and any(matches(dg, w) for w in supported)):
+                out.append((name, 'support-downgrade', oid, '%s record for the support claim %s'
+                            % ('no downgrade' if dg is None else 'a non-matching downgrade',
+                               supported[0]['claim'])))
+    for mp, oid, r in records:
+        hits = lines.strict(r['from_claim_sha256'])
+        if hits:
+            out.append((mp.decode('utf-8', 'replace'), 'support-downgrade', oid,
+                        'the claim of %s stands at %s' % (r['from_claim'], at(hits))))
+    return out
 
 
 def check_against_main(repo, c):
@@ -403,10 +526,12 @@ def verdict(target, codes):
     return 'survived'
 
 
-def _manifest(entries, ordered=False):
+def _manifest(entries, ordered=False, retired=None):
     ids = entries if ordered else dict(sorted(entries.items()))
-    return (json.dumps({'schema': 'oi-citations', 'version': 2, 'ids': ids}, indent=1)
-            + '\n').encode()
+    m = {'schema': 'oi-citations', 'version': 2, 'ids': ids}
+    if retired is not None:
+        m['retired'] = dict(sorted(retired.items()))
+    return (json.dumps(m, indent=1) + '\n').encode()
 
 
 def _claim(sets, oid):
@@ -632,6 +757,17 @@ def self_test():
                     'from_claim': 'rec/NOTE.md:2', 'reason': 'x'}}})),
             ('malformed: downgrade with an extra field', 'malformed', rec('see %s\n' % s, {s: {
                 'role': 'provenance', 'reason': 'x', 'downgrade': dict(dg_ok, note='x')}})),
+            ('malformed: empty retired', 'malformed', rec('x\n', _manifest({}, retired={}))),
+            ('malformed: retired id also listed', 'malformed', rec('see %s\n' % s, _manifest(
+                {s: {'role': 'provenance', 'reason': 'x'}}, retired={s: dict(dg_ok)}))),
+            ('malformed: retired record without a reason', 'malformed', rec('x\n', _manifest(
+                {}, retired={s: {'from_claim': 'rec/NOTE.md:2', 'from_claim_sha256': 'f' * 64}}))),
+            ('malformed: retired ids unsorted', 'malformed', rec('x\n', (
+                '{"schema": "oi-citations", "version": 2, "ids": {}, "retired": {"%s": %s, '
+                '"%s": %s}}' % (s, json.dumps(dg_ok), m0, json.dumps(dg_ok))).encode()
+                if s > m0 else ('{"schema": "oi-citations", "version": 2, "ids": {}, "retired": '
+                                '{"%s": %s, "%s": %s}}' % (m0, json.dumps(dg_ok), s,
+                                                           json.dumps(dg_ok))).encode())),
             ('malformed: downgrade as a string', 'malformed', rec('see %s\n' % s, {s: {
                 'role': 'provenance', 'reason': 'x', 'downgrade': 'narrowed'}})),
             ('nested manifest', 'nested-manifest', rec('see %s\n' % m0, {m0: 'support'}, {
@@ -720,6 +856,7 @@ def self_test():
         # the codes given; support-downgrade is SD.
         SD = 'support-downgrade'
         claim_line = 'The bound holds at %s.' % m0
+        h0, h_stale = line_sha256(claim_line.encode()), line_sha256(b'The bound was read off.')
         hist = 'history: %s' % m0
         reworded = 'The bound is established at %s.' % m0
         narrowed = 'The bound holds at %s for n <= 4 only.' % m0
@@ -727,7 +864,10 @@ def self_test():
         sc.commit('D0', ['M0'], 'M0', rec(d0_text, {m0: 'support'}), [])
         sc.commit('DX', ['M0'], 'M0', rec('# Note\nThe bound holds at %s.\n' % gone,
                                           {gone: 'support'}), [])
-        h0 = line_sha256(claim_line.encode())
+        sc.commit('DI', ['M0'], 'M0', rec('# Note\n%s\n\nend\n' % m0, {m0: 'support'}), [])
+        # DS: main's own entry is stale, its claim_sha256 not the hash of the line it names
+        sc.commit('DS', ['M0'], 'M0', rec('# Note\nan aside on %s\n' % m0, {m0: {
+            'role': 'support', 'claim': 'rec/NOTE.md:2', 'claim_sha256': h_stale}}), [])
         hx = line_sha256(('The bound holds at %s.' % gone).encode())
         if json.loads(sc.files['D0'][b'rec/CITATIONS.json'][1])['ids'][m0]['claim_sha256'] != h0 \
                 or codes(sc.labels['D0'], m0) or codes(sc.labels['DX'], m0) != {'absent'}:
@@ -771,13 +911,18 @@ def self_test():
             ('support entry dropped while the id is cited', rec(note(hist), {}), (), 'D0',
              {'unlisted', SD}),
             ('record, the claim removed', rec(note(hist), {m0: prov(dg0)}), (), 'D0', set()),
+            ('record, narrowed text added above the old claim left in place', rec(
+                note(narrowed, claim_line), {m0: prov(dg0)}), (), 'D0', {SD}),
             ('record, the claim narrowed with new text', rec(note(narrowed, hist),
                                                              {m0: prov(dg0)}), (), 'D0', set()),
             ('support relabelled external with a record', rec(
                 note('uses: actions/checkout@%s' % gone), {gone: ext(dgx)}), (), 'DX', set()),
             ('support kept, its claim moved and rehashed', rec(note(hist, claim_line),
                                                                {m0: 'support'}), (), 'D0', set()),
-            ('support entry dropped with its citations', rec(note(), {}), (), 'D0', set()),
+            ('support entry dropped with its citations, no record', rec(note(), {}), (), 'D0',
+             {SD}),
+            ('support entry retired with its citations', rec(note(), _manifest(
+                {}, retired={m0: dg0})), (), 'D0', set()),
             ('manifest removed, its directory still citing the id', {},
              (b'rec/CITATIONS.json',), 'D0', {SD}),
             ('manifest removed, the claim reworded, its directory still citing the id', {
@@ -785,7 +930,10 @@ def self_test():
              'D0', {SD}),
             ('manifest removed, the claim moved unchanged out of scope', {
                 b'other/x.md': ('100644', (claim_line + '\n').encode())}, gone_rec, 'D0', {SD}),
-            ('record removed with its claim', {}, gone_rec, 'D0', set()),
+            ('record removed with its claim, no record', {}, gone_rec, 'D0', {SD}),
+            ('record removed with its claim, retired in another manifest', {
+                b'other/CITATIONS.json': ('100644', _manifest({}, retired={m0: dg0}))},
+             gone_rec, 'D0', set()),
             ('record moved, relabelled without a record', rec(note(hist), {m0: prov()}, d='rec2'),
              gone_rec, 'D0', {SD}),
             ('record moved, a record kept with the claim unchanged', rec(
@@ -794,8 +942,90 @@ def self_test():
                 note(hist), {m0: prov(dg0)}, d='rec2'), gone_rec, 'D0', set()),
             ('record moved, still support', rec(d0_text, {m0: 'support'}, d='rec2'), gone_rec,
              'D0', set()),
-            ('limitation: record moved without a manifest, the claim reworded', {
-                b'rec2/NOTE.md': ('100644', note(reworded).encode())}, gone_rec, 'D0', set()),
+            ('record moved without a manifest, the claim reworded', {
+                b'rec2/NOTE.md': ('100644', note(reworded).encode())}, gone_rec, 'D0', {SD}),
+            # the second review's seven bypasses
+            ('the id removed from text and manifest, the claim kept', rec(
+                note('The bound holds.'), {}), (), 'D0', {SD}),
+            ('the id abbreviated on the claim, the entry dropped', rec(
+                note('The bound holds at %s.' % m0[:12]), {}), (), 'D0', {SD}),
+            ('the id uppercased on the claim, the entry dropped', rec(
+                note('The bound holds at %s.' % m0.upper()), {}), (), 'D0', {SD}),
+            ('the claim moved verbatim to a directory without a manifest', rec(note('moved'), {}, {
+                b'loose/x.md': ('100644', (claim_line + '\n').encode())}), (), 'D0', {SD}),
+            ('the claim moved verbatim to another manifest\'s record as provenance', rec(
+                note('moved'), {}, {b'other/x.md': ('100644', (claim_line + '\n').encode()),
+                                    b'other/CITATIONS.json': ('100644', _manifest(
+                                        {m0: prov()}))}), (), 'D0', {SD}),
+            ('record kept, the claim moved verbatim out of the covered tree', rec(
+                note(hist), {m0: prov(dg0)}, {
+                    b'loose/x.md': ('100644', (claim_line + '\n').encode())}), (), 'D0', {SD}),
+            ('manifest renamed citations.json, the id removed from the text', {
+                b'rec/NOTE.md': ('100644', note('The bound holds.').encode()),
+                b'rec/citations.json': ('100644', _manifest({}))}, (b'rec/CITATIONS.json',),
+             'D0', {SD}),
+            ('manifest removed, the claim kept with its reference deleted', {
+                b'rec/NOTE.md': ('100644', note('The bound holds at .').encode())},
+             (b'rec/CITATIONS.json',), 'D0', {SD}),
+            # the id still declared support on another line: the claim may not stay without it
+            ('still support on another line, the reference deleted from the claim', rec(
+                note(hist, 'The bound holds at .'), {m0: 'support'}), (), 'D0', {SD}),
+            ('still support on another line, the reference abbreviated on the claim', rec(
+                note(hist, 'The bound holds at %s.' % m0[:12]), {m0: 'support'}), (), 'D0', {SD}),
+            ('still support on another line, the reference uppercased on the claim', rec(
+                note(hist, 'The bound holds at %s.' % m0.upper()), {m0: 'support'}), (), 'D0',
+             {SD}),
+            ('still support in another manifest, the claim kept without its reference', rec(
+                note('The bound holds at .'), {}, {
+                    b'other/x.md': ('100644', (hist + '\n').encode()),
+                    b'other/CITATIONS.json': ('100644', _manifest({m0: _support(
+                        {b'other/x.md': ('100644', (hist + '\n').encode())}, m0)}))}), (),
+             'D0', {SD}),
+            ('still support, the claim reworded with its reference', rec(
+                note(reworded, hist), {m0: 'support'}), (), 'D0', set()),
+            ('still support, the claim also quoted with its reference elsewhere', rec(
+                d0_text, {m0: {'role': 'support', 'claim': 'rec/NOTE.md:2'}}, {
+                    b'loose/x.md': ('100644', (claim_line + '\n').encode())}), (), 'D0', set()),
+            # with a matching record: the claim counts as unchanged when its only edit is to its id
+            ('retired, the id abbreviated on the unchanged claim', rec(
+                note('The bound holds at %s.' % m0[:12]), _manifest({}, retired={m0: dg0})), (),
+             'D0', {SD}),
+            ('retired, the id uppercased on the unchanged claim', rec(
+                note('The bound holds at %s.' % m0.upper()), _manifest({}, retired={m0: dg0})),
+             (), 'D0', {SD}),
+            ('retired, the id removed from the unchanged claim', rec(
+                note('The bound holds at .'), _manifest({}, retired={m0: dg0})), (), 'D0', {SD}),
+            ('retired, the id removed and the claim reworded', rec(
+                note('The bound holds.'), _manifest({}, retired={m0: dg0})), (), 'D0', set()),
+            # a relabel in another manifest needs its own record
+            ('retired in rec/, relabelled provenance in other/ without a record', rec(
+                note('moved'), _manifest({}, retired={m0: dg0}), {
+                    b'other/x.md': ('100644', (reworded + '\n').encode()),
+                    b'other/CITATIONS.json': ('100644', _manifest({m0: prov()}))}), (), 'D0',
+             {SD}),
+            ('a claim line of nothing but the id, retired and removed', rec(
+                '# Note\n\nend\n', _manifest({}, retired={m0: dict(
+                    dg0, from_claim_sha256=line_sha256(m0.encode()))})), (), 'DI', set()),
+            ('relabelled external in place, its only record retired in another manifest', rec(
+                note('uses: actions/checkout@%s' % gone), {gone: ext()}, {
+                    b'other/CITATIONS.json': ('100644', _manifest({}, retired={gone: dgx}))}),
+             (), 'DX', {SD}),
+            ('retired with a record not matching main\'s claim hash', rec(note(), _manifest(
+                {}, retired={m0: dict(dg0, from_claim_sha256=h_stale)})), (), 'D0', {SD}),
+            ('retired with a record not matching main\'s claim path', rec(note(), _manifest(
+                {}, retired={m0: dict(dg0, from_claim='rec/NOTE.md:3')})), (), 'D0', {SD}),
+            ('retired, the id removed and only the case of the claim changed', rec(
+                note('THE BOUND HOLDS AT .'), _manifest({}, retired={m0: dg0})), (), 'D0', {SD}),
+            ('retired against a stale main entry: the line it names is not the claim', rec(
+                note('an aside on'), _manifest({}, retired={m0: dict(
+                    dg0, from_claim_sha256=h_stale)})), (), 'DS', set()),
+            ('relabelled provenance in place, its only record retired in another manifest', rec(
+                note(hist), {m0: prov()}, {b'other/CITATIONS.json': ('100644', _manifest(
+                    {}, retired={m0: dg0}))}), (), 'D0', {SD}),
+            ('relabelled provenance in other/ with the record, the claim reworded', rec(
+                note('moved'), {}, {b'other/x.md': ('100644', (reworded + '\n').encode()),
+                                    b'other/CITATIONS.json': ('100644', _manifest(
+                                        {m0: prov(dg0)}))}), (), 'D0', set()),
             ('limitation: another record citing a removed manifest\'s support id', dict(rec(
                 note(hist), {m0: prov()}, d='other')), (b'rec/CITATIONS.json',), 'D0', {SD}),
         ]

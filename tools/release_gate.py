@@ -57,9 +57,11 @@ another. Each exists because a real defect shipped past the others:
                        and no step read reachability (Issue #915). A record that
                        carries CITATIONS.json declares each full object id it
                        cites as support, provenance or external; a support id
-                       must be a commit reachable from the commit under check,
-                       and loses that role only by an explicit downgrade record
-                       matching main's support entry.
+                       must be a commit reachable from the commit under check.
+                       A support declaration of main that no manifest still
+                       makes needs a record matching it, and a claim of main
+                       may not stand in the tree unchanged, or with its
+                       reference deleted, abbreviated or uppercased.
 
 Post-packaging, verify the DECLARED checksum against the shipped archive:
     python3 tools/baseline_label_check.py --verify-archive PATH --root TRANSFER
@@ -170,8 +172,9 @@ def main():
         ("v3-receipts",
                       [sys.executable, "tools/v3_verifier.py", "--receipts", head]),
         # citation-roles: AGENTS §A.42 items 2-3 for records that carry CITATIONS.json. A support id
-        # is a commit reachable from the commit under check and is downgraded only by a record
-        # matching main's support entry, and a provenance id names an object when it lands.
+        # is a commit reachable from the commit under check; a support declaration of main that
+        # disappears needs a matching record, and main's claim may not stand in the tree unchanged
+        # or stripped of its reference; and a provenance id names an object when it lands.
         # Reachability needs full history, as v3-receipts does.
         ("citation-roles",
                       [sys.executable, "tools/citation_roles_check.py", head]),
