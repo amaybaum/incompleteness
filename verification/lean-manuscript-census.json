@@ -1491,6 +1491,14 @@
       "manuscript": []
     },
     {
+      "name": "Ω₄, the ℓ⁴-sum of the Euclidean 3-ball and the segment, is compact, convex, with interior, drivable, with a sharp seed, relatively strictly convex and centrally symmetric, is no affine image of the Euclidean ball, and admits no body-preserving family that is boundary transitive or has a dense boundary orbit (round KTRANS-SEP-2, reconstruction)",
+      "modules": [
+        "TransSeparation"
+      ],
+      "status": "kernel-only",
+      "manuscript": []
+    },
+    {
       "name": "conditional k-token cone theorem: products, cone closure, the k-fold maxCone bound and CNOT plus rotation/cyclic invariance give the PSD cone of the k-fold Pauli dictionary (round KTOKEN-MAXCONE-1, reconstruction)",
       "modules": [
         "KTokenMaxCone"
