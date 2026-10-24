@@ -1,0 +1,36 @@
+{
+  "controls_passed": true,
+  "full_public_noise_independence": "INHERITED_NOT_REPROVED",
+  "missing_constant_collision_control_detected": true,
+  "native_next_stage_boundary_closure": "NOT_SUPPLIED",
+  "physical_failure_uv_counts": {
+    "00": 3,
+    "01": 8,
+    "10": 4,
+    "11": 7
+  },
+  "post_failure_qubit_carrier_law": "NOT_SUPPLIED",
+  "preparation_cone_generators": 8,
+  "proposed_unchanged_sample_extension": [
+    {
+      "conditional_success_tv": "1/2",
+      "including_same_terminal_failure_tv": "5/32",
+      "posterior_decoder_determinant": "-1/4",
+      "x": 0
+    },
+    {
+      "conditional_success_tv": "1/2",
+      "including_same_terminal_failure_tv": "5/32",
+      "posterior_decoder_determinant": "-1/4",
+      "x": 1
+    }
+  ],
+  "schema": "oi-native-x-contract-audit-v1",
+  "scope": "exact native-source finite kernel and conditional proof application; not a new lattice transport proof",
+  "success_intertwining_branches": 128,
+  "success_mass": "5/16",
+  "swapped_herald_count_control_tv": "1/10",
+  "terminal_failure_mass": "11/16",
+  "terminal_failure_record_branches": 128,
+  "verdict": "CONDITIONAL_ONE_STAGE_SUCCESS_CONTRACT; TERMINAL_FAILURE_ACCOUNTED; REUSABLE_CLOSURE_OPEN"
+}
