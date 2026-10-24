@@ -1,81 +1,88 @@
 # Composition and access: current research handoff
 
-24 October 2026. New author `621e1a05776be4bcf870e2db61fa05244a354f1c`,
-under `native-coupling-v5/`, has an accepting separate-agent internal review
-at `4f74936e891c9599222da7b421e179297e8db692`. No observer-access rule,
-physical acceptance flag, native reset or equivalence verdict is adopted.
-#885 remains read-only for this effort.
+24 October 2026. #912 now retains an explicit logical acceptance circuit
+and its complete raw-pointer/outgoing-state law. Author
+`1cb224db6c17e083849a0f82768e991beac39399` is under `composition_flag_v6/`,
+with separate-engine internal review retained beside it. This is a conditional
+compiler target, not an implemented native gate, adopted observer access or
+full quantum instrument. #885 remains read-only.
 
-## Candidate-specific native result
+## What is constructed
 
-The six-bit pool alone does not make all nearby fields jointly independent.
-An original-time small native control gives pairwise uniform Q8,Q10,M with
-a strongly dependent triple law. Treating their shared neighbor as an
-independent offset changes the next physical response. Its whole raw q9
-record can spoil the post-X conditional decoder even when the pooled sampler
-looks correct.
+The inputs are actual21 phase wires: current V and six previous native
+neighbors, including Q8/Q10. The fixed local inverse supplies s. The circuit
+computes A=[K<n(Y XOR s,R XOR s)] for thresholds(5,0,4,1) with NOT/CNOT/
+Toffoli gates, copies A into the public flag B, then uncomputes temporary
+wires. Every phase bit and all seven clean temporary bits are restored.
 
-Native A supplies a concrete repair: an additional independent original-time
-F9 triple reaches the shared negative-x neighbor without reaching Q8/Q10 or
-the old selected phase early. Conditional on the remaining initial state,
-(Q8,Q10,M) is a uniform nine-bit resource. The actual next q9 is
+The core has 89 logical ticks:30 Toffoli,36 NOT,23 CNOT. Its31 register bits
+include the existing21, seven clean temporaries, one clean flag and two
+initially fair unused pointer fields. This chosen three-field public channel
+is read at every tick. Its complete90-sample prefix is (padA,0,padD) through
+tick44 and (padA,A,padD) from tick45. All branches have the same schedule.
 
-    V=oldP XOR H(Q8 XOR Q10 XOR M XOR C),
+An optional explicit90-sample record-bank dilation uses 270 additional clean
+bits and 270 copying CNOTs:301 total register bits,359 logical ticks and a
+360-sample whole-pointer prefix. The added copies retain, rather than erase,
+the public record. These are explicit upper bounds, not minimal costs or
+native/autonomous clock implementations.
 
-where C is the other three neighbors. Whole V is uniform jointly with Q8,Q10,
-oldP and the retained past. A fixed seven-site two-slice code recovers oldP;
-no unavailable historical field is read. The actual-scale source geometry
-and prior hypotheses are audited on #910, author
-`f24a57a7c23cc1818c04265cec7604f8bc2f410d`.
+## Conditional complete law
 
-The new composition calculation independently checks the native small-world
-coupling and complete conditional raw/reference-flag/outgoing law. On every
-accepted whole-V branch the decoded post-X state is positive and correct;
-actual rejected fields and prior terminal failures remain accounted for.
-This statement conditions on the intended abstract predicate. It does not
-construct a physical herald or certify continuous q9-prefix access.
+Native A's inherited initial-source theorem makes(Q8,Q10,M) uniform on 512
+values conditional on the remaining initial variables. OldP=p and the XOR
+of the other three neighbors are then fixed; V=p XOR H(sum neighbors).
+The circuit's full raw pointer history, V, old record and selected carrier
+are checked jointly, with all rejected physical fields, zero cells and
+parent terminal guards. Every accepted whole-record posterior has the
+correct5:4:1 post-X mask law, fair Z and positive X-state decoder.
 
-## Why the physical flag is still a decisive gate
+The checker exhausts32768 conditional phase worlds,131072 padded worlds,
+65536 selected cells and 1024 valid accepted raw-record posteriors. Gate
+truth tables, arbitrary-dirty global inverses, optional recording and a
+separate threshold/kernel engine are additional controls. Written bijection
+and conditional-kernel proofs remain separate from bounded enumeration and
+the inherited actual-scale source theorem.
 
-The current V port is independent of the intended acceptance event A.
-Relabelling its raw symbols therefore cannot compute A; the best joint
-flag error is 5/16. An unrelated flag with the correct 5/16 success rate
-also leaves the wrong carrier distribution: the full offered-carrier/
-reference-terminal-R comparison differs by TV 1/8 on the specified sector.
-That comparison is an exact intended-code diagnostic, not an adopted native
-R read. Matching a herald rate alone cannot replace its joint state law.
+## What the circuit still assumes
 
-A future physical gate must use actual logical X, pool fields and any private
-mask information with the correct dependencies. Its full raw pointer, timing,
-flags and outgoing carrier must be checked together. The current-key fields
-cannot silently become public; altered-access controls can leave the fixed
-positive cone. Native unmasking, gate delay/history and reusable phase closure
-remain open.
+Logical phase storage, scheduled gates, pointer coupling, fixed clock and
+workspace isolation are supplied. The evolving native field has not been
+shown to implement them. Native masks and garbage are real physical state;
+uncomputing them later does not remove an earlier public leak.
 
-## Native B and review scope
+Actual countercontrols show that revealing private M/key fields gives
+negative fixed-decoder posteriors (minimum determinant-1/18); revealing
+temporary a gives determinant-1/4. Omitting uncomputation fails this chosen
+clean-workspace boundary. A flag with the right rate but independent of the
+pool has complete offered-carrier error1/8. Reusing unused pads gives TV3/4
+against the chosen independent-noise reference only; a separately specified
+correlated public-noise convention can remain admissible.
 
-Native B's separate source variant, author
-`1c91d3158e13eaa69c7fd1710932c9995d0288d7`, replaces the optional F10 factor
-by an initial q10 readiness pin and one axial source. Its accepted branch
-u=0,a=b=1 loses unknown X from q10 for every payload/pad. The adapter here
-checks the pinned 512-row table and the sign-loss witnesses; it does not
-turn a single-port failure into a full-boundary no-go or claim the compared
-worlds have identical complete prior histories. Previous q9 retains X.
+A small original-time native one-tick control changes the old-sign and pool
+code if the same phase formula is reused after uncontrolled evolution.
+Logical input restoration therefore proves no native storage theorem.
+Even a hypothetical serial one-gate/native-tick core from L+2 finishes
+L+91, after F8's first old-receiver arrival at L+77 and F10/F9 at L+79.
+The optional recorded dilation would finish L+361. Neither timing is an
+established native runtime or a lower bound for a parallel compiler.
+The earlier unchanged-prefix causal argument does not cover these delays;
+a new joint public-history/carrier proof is required. Cone arrival alone
+does not prove leakage because masking may protect the joint law.
 
-The composition reviewer authored Native B and discloses that fact. Its
-independent validation concerns the composition engine and use of the pinned
-table, not an independent revalidation of its own earlier source engine.
-The separate Native B review on #910 provides that latter check.
+## Related work and next gate
 
-Author/review normal and optimized outputs match retained structured results.
-The independent review checks 4,096 source-reachable native worlds and a
-32,768-world conditional kernel with 256 positive complete-raw posteriors,
-failure/zero-cell laws and flag countercontrols. It imports no author engine.
-The source-scale proof, small native controls and conditional composition
-certificate are distinct evidence layers.
+The preceding `native-coupling-v5/` conditional law and wrong-flag controls
+remain unchanged. #910 adds a small-family native nonlinear-product witness
+and an actual-scale second-front source result: common raw X response pairs
+are restored, but no jointly affine source controller selects a common raw
+binary code. Distributed/richer encodings remain open. #911 adds a reviewed
+finite-menu approximation and a scoped fixed-vector reset-reuse failure;
+neither supplies native gates or access closure.
 
-The existing full-future operational relation and earlier strict raw-tag
-audit remain unchanged. #910 owns the physical gate and history geometry;
-#911 exact architecture and finite A2 comparison; [#913](https://github.com/amaybaum/incompleteness/issues/913)
-tracks broader inactive gates. No full suite, Lean certificate, exact-head
-attestation, premise/access adoption, F/E designation, dispatch or merge follows.
+The next gate is native compilation or a cheaper native predicate with
+actual operand delivery, preserved/re-encoded carrier, full pointer metadata
+and complete delayed history. General instruments, composites/Bell and full
+A1/A2 reconstruction remain in #913. Author and review replay normally and
+with -O; no full-suite, Lean or exact-head attestation, premise/access adoption,
+F/E designation, dispatch, merge or equivalence verdict follows.
