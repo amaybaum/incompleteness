@@ -337,7 +337,8 @@ self-test case. These give VOID:
 - run results at another commit or at none;
 - run results of a `push`, `pull_request` or `schedule` event, of another repository, from a fork's head repository,
   of another workflow path (a path ending in `verify.yml` among them), not completed, with a bridge job not
-  completed, with a zero or non-integer run id, attempt or bridge job id, or with an identity field missing;
+  completed, with a zero or non-integer run id or attempt, without a bridge job id, or with an identity field of the
+  run missing (a zero or non-integer bridge job id is VOID under the same rule; no self-test case drives it);
 - run results without a bridge job, with each of L0, L, A and M missing, with a step twice, or with the steps reordered,
   placed before the release gate or split by another step;
 - `Build` missing, `Release gate` twice, a step without a conclusion, and text that is not JSON;
@@ -461,9 +462,11 @@ condition 3).
 
 `check`, `--self-test`, `verdict` and `mock-s1` read the commits' trees through git with paths relative to the
 repository root, and are run from the repository root, as the workflow runs the self-test. Run from another
-directory they fail closed: `check` fails R, the self-test fails, and `verdict` and `mock-s1`, which run `check`'s
-controls first, fail with it, so `verdict` prints `VERDICT  VOID` and no token. `exact`, `derive-run` and `axioms`
-read only their own inputs and run from any directory; the workflow runs `axioms` in the bridge job's directory.
+directory of the checkout they fail closed: `check` fails R, the self-test fails, `mock-s1` fails R and B, and
+`verdict`, which runs `check`'s controls first, prints `VERDICT  VOID` and no token. Outside the checkout `check` and
+the self-test fail further checks. `exact` reads the module through git and runs from any directory inside the
+checkout; outside one it fails X3. `derive-run` and `axioms` read only their own inputs and run from any directory;
+the workflow runs `axioms` in the bridge job's directory.
 
 Its codes:
 
@@ -882,8 +885,9 @@ manuscript. Correctness bands are unchanged by either outcome: the round is cons
    of each captured answer (which the file's `source` records) and the file's sha256 are recorded on the pull request
    with the pin. Before `F` is designated, reviewers check the captured answers they were given against those digests
    and check that `derive-run` over them reproduces the pinned file byte for byte. The check needs the captured bytes:
-   answers fetched again can differ from them in fields the host updates, such as `updated_at`, and then so do their
-   digests and the `source` the file would record. If the captured answers cannot be supplied, no byte-for-byte
+   the same answer fetched again can come back in other bytes, since another client can serialize it differently
+   (`gh api` prints it compact), and a re-run of the run changes its `run_attempt` and `updated_at`; then its digests,
+   and the `source` the file would record, differ. If the captured answers cannot be supplied, no byte-for-byte
    reproduction is claimed. No control reads this derivation; P checks the file's digest and `run_ok`. The dispatch
    needs the owner's authorization. Open.
 2. **No pin pending.** `evidence/exact-replay.json` and `evidence/d-push-run.json` are derived and pinned,
