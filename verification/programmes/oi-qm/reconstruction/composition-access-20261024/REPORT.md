@@ -46,7 +46,11 @@ D_(i+1)(mu_(h,r))=I_i(a(h),r)(sigma_h)=sigma_(h,r). Induction proves the branch
 identity. Taking traces proves every history probability, including zero-mass
 and failure branches without division or postselection. Applying any matched
 terminal effect proves the joint terminal law. Randomized controllers follow
-by the same common controller kernel and linearity. This is a sufficient
+by the same common controller kernel and linearity, provided the controller's
+random choice is independent of the residual physical boundary conditional
+on the public history. If that condition is unavailable, the controller's
+randomness must instead be represented explicitly in the boundary and the
+corresponding reference, and the joint contract checked there. This is a sufficient
 contract, not a claim that every operationally equivalent implementation must
 admit this particular decoder. QED.
 
