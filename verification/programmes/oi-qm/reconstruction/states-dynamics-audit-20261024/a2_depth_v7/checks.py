@@ -1,4 +1,4 @@
-"""Depth extension of the per-slot fresh-block finite controller.
+"""Depth extension of the memoryless-reset finite controller.
 
 Exact integer/rational arithmetic, Python standard library only. Imports no
 earlier checker and reads no input file. Retained a2_efficiency_v6 values are
@@ -25,6 +25,9 @@ A2_DIGEST = '0637f0089fc5ce666d17ddaf828cc98bf317d46e3ea3cd22851bc21eb893a6a1'
 
 QUANTUM = Q(4, 5)          # agreement probability for poles at a.X = 3/5
 TENTH, HALF = Q(1, 10), Q(1, 2)
+CLASS_HYPOTHESIS = ('after each read, the post-reset carrier is a function of that slot\'s fresh block '
+                    'of at most B fair bits and the public record only; responses depend only on '
+                    'carrier, public word and setting; the preparation read is not constrained')
 
 AXES = {'X': (Q(1), Q(0), Q(0)), 'Y': (Q(0), Q(1), Q(0)),
         'Z': (Q(0), Q(0), Q(1)), 'a': (Q(3, 5), Q(4, 5), Q(0))}
@@ -204,6 +207,21 @@ def tv_records(prob_fn, h):
     return tot / 2
 
 
+def root_hi(x, bits=256):
+    """Rational upper endpoint of sqrt(x), checked by squaring."""
+    check(x >= 0, 'nonnegative root')
+    d = 1 << bits
+    k = isqrt(x.numerator * d * d // x.denominator)
+    hi = Q(k, d) if Q(k, d) ** 2 >= x else Q(k + 1, d)
+    check(hi * hi >= x and (hi == 0 or (hi - Q(1, d)) ** 2 < x), 'square-root enclosure')
+    return hi
+
+
+def hellinger_sq_lower(p, q):
+    """Certified lower endpoint of 1-sqrt(pq)-sqrt((1-p)(1-q))."""
+    return 1 - root_hi(p * q) - root_hi((1 - p) * (1 - q))
+
+
 def display(x, digits=12):
     scaled = x.numerator * 10 ** digits // x.denominator
     return '0.' + str(scaled).zfill(digits) if scaled < 10 ** digits else str(Q(scaled, 10 ** digits))
@@ -213,9 +231,11 @@ def digest(x):
     return hashlib.sha256(f'{x.numerator:x}/{x.denominator:x}'.encode()).hexdigest()   # hexadecimal num/den
 
 
-def bracket(da, db, h):
+def bracket(da, db, h, with_product=True):
     na, nb = slots(h)
     S = (na * da * da + nb * db * db) / 4
+    if not with_product:                      # product form is too large to expand at huge h
+        return S / (1 + S), None, na * da + nb * db
     hell = 1 - (1 - da * da / 4) ** na * (1 - db * db / 4) ** nb
     return S / (1 + S), hell, na * da + nb * db
 
@@ -295,21 +315,28 @@ def nearest_dyadic(B):
 
 def class_statement():
     rows = []
-    for B in range(1, 65):
+    for B in range(1, 201):
         k, d = nearest_dyadic(B)
         closed = Q(2 if B % 2 else 1, 5 * (1 << B))
         check(d == closed and d > 0, 'closed-form dyadic distance')
         rows.append(B)
     d24 = Q(1, 5 * (1 << 24))
     c = d24 * d24 / 4
-    half_depth = 1 / c + 1                  # h*c > 1 implies T > 1/2
+    check(c <= hellinger_sq_lower(QUANTUM - d24, QUANTUM) and
+          c <= hellinger_sq_lower(QUANTUM + d24, QUANTUM), 'class constant within certified H^2')
+    half_depth = 1 / c + 2                  # (h-1)*c > 1 implies T > 1/2; read 1 unconstrained
     check(half_depth.denominator == 1, 'integer certified depth')
+    check((half_depth - 1) * c > 1 and (half_depth - 2) * c <= 1, 'class depth is minimal')
     tenth_upper = (TENTH / d24).numerator // (TENTH / d24).denominator   # h*d24 <= 1/10
-    return {'B_range_verified': [rows[0], rows[-1]],
+    check(tenth_upper * d24 <= TENTH < (tenth_upper + 1) * d24, 'coupling depth is maximal')
+    return {'hypothesis': CLASS_HYPOTHESIS,
+            'obstruction_source': 'resets that carry no randomness across slots',
+            'B_range_verified': [rows[0], rows[-1]],
             'distance_formula': 'dist(4/5,2^-B Z)=2^-B*(2/5 if B odd else 1/5)',
             'B24_distance': str(d24),
             'B24_depth_certified_T_above_half': int(half_depth),
-            'B24_max_depth_coupling_T_at_most_tenth_best_sampler': tenth_upper}
+            'B24_depth_rule': 'least h with (h-1)*dist^2/4 > 1; preparation read unconstrained',
+            'B24_max_depth_coupling_T_at_most_tenth_nearest_dyadic_every_read': tenth_upper}
 
 
 def growing_bits_control():
@@ -355,13 +382,70 @@ def positive_control():
     return {'five_atom_exact_source_zero_tv_through': 256}
 
 
-def record_enumeration_control(pa, pb):
+def product_formula_enumeration(pa, pb):
+    """Enumerates the agreement-bit product formula itself; not a controller test."""
     n = 0
     for h in range(1, 13):
         t = tv_records(lambda s: pb if s % 2 else pa, h)
         check(t == tv_direct(pa, pb, h) == tv_fast(pa, pb, h), 'record enumeration agrees')
         n += 1 << h
     return n
+
+
+def controller_record_enumeration(g, pa, pb, hmax=12):
+    """Outcome records of the actual controller: each slot's mass is the seed count of the
+    reset law at the actual signed pole; the quantum mass is the Born rule at that pole."""
+    nxt = {'X': 'a', 'a': 'X'}
+    mass = {}
+    for ax in ('X', 'a'):
+        for s in (1, -1):
+            pole = tuple(s * x for x in AXES[ax])
+            for o in (1, -1):
+                hit, zero = g.sign_mass(pole, AXES[nxt[ax]], o)
+                check(zero == 0, 'no zero responses')
+                mass[ax, s, o] = Q(hit, g.K)
+    for ax in ('X', 'a'):
+        for s in (1, -1):
+            check(mass[ax, s, 1] + mass[ax, s, -1] == 1, 'normalized reset response')
+    n = 0
+    for h in range(1, hmax + 1):
+        tv = Q(0)
+        for rec in product((1, -1), repeat=h):
+            ax, s = 'X', 1                       # preparation X+
+            src = qm = Q(1)
+            for o in rec:
+                read = nxt[ax]
+                src *= mass[ax, s, o]
+                pole = tuple(s * x for x in AXES[ax])
+                qm *= (1 + o * sum((x * y for x, y in zip(pole, AXES[read])), Q(0))) / 2
+                ax, s = read, o
+            tv += abs(src - qm)
+        tv /= 2
+        check(tv == tv_fast(pa, pb, h), 'actual controller records equal product engine')
+        n += 1 << h
+    return n
+
+
+def bracket_constant_control(pa, pb, da, db):
+    """The bracket's per-read constant against certified Hellinger values."""
+    pairs = 0
+    grid = [Q(k, 40) for k in range(41)]
+    extra = [(pa, QUANTUM), (pb, QUANTUM)]
+    for B in range(1, 65):
+        k, _ = nearest_dyadic(B)
+        extra.append((Q(k, 1 << B), QUANTUM))
+    for p, q in [(p, q) for p in grid for q in grid if p != q] + extra:
+        check(hellinger_sq_lower(p, q) >= (p - q) ** 2 / 4, 'H^2 >= d^2/4')
+        pairs += 1
+    # the constants actually used by bracket(): read 1 is B-type, read 2 A-type
+    low1, hell1, up1 = bracket(da, db, 1)
+    _, hell2, _ = bracket(da, db, 2)
+    hB = hellinger_sq_lower(pb, QUANTUM)
+    hA = hellinger_sq_lower(pa, QUANTUM)
+    check(hell1 <= hB and low1 / (1 - low1) <= hB, 'bracket constant within certified H^2 (B read)')
+    check(1 - (1 - hell2) / (1 - hell1) <= hA, 'bracket constant within certified H^2 (A read)')
+    check(up1 == db, 'coupling term is the discrepancy')
+    return pairs
 
 
 def seeded_control():
@@ -431,19 +515,126 @@ def pooled_countercontrol():
             'conditional_law_outside_2^-24Z': nondyadic}
 
 
+def retained_seed_law(B, h):
+    """Record law when slot t's decision reads its fresh B bits together with every retained
+    earlier bit: agree iff the left end of the known tB-bit cell lies below the exact
+    arithmetic-coding cut. Consistent prefixes stay contiguous, so each record is a range."""
+    law = {}
+
+    def walk(t, lo, hi, a, b, rec):
+        if t == h:
+            law[rec] = b - a
+            return
+        a, b = a << B, b << B                     # extend prefixes by this slot's fresh block
+        m = lo + QUANTUM * (hi - lo)
+        scale = 1 << ((t + 1) * B)
+        cut = -((-m.numerator * scale) // m.denominator)   # least prefix with prefix/scale >= m
+        cut = min(max(cut, a), b)
+        walk(t + 1, lo, m, a, cut, rec + (1,))
+        walk(t + 1, m, hi, cut, b, rec + (0,))
+    walk(0, Q(0), Q(1), 0, 1, ())
+    return law
+
+
+def retained_seed_bruteforce(B, h):
+    law = {}
+    N = B * h
+    for k in range(1 << N):
+        lo, hi, rec = Q(0), Q(1), ()
+        for t in range(1, h + 1):
+            m = lo + QUANTUM * (hi - lo)
+            g = 1 if Q(k >> (N - t * B), 1 << (t * B)) < m else 0
+            rec += (g,)
+            lo, hi = (lo, m) if g else (m, hi)
+        law[rec] = law.get(rec, 0) + 1
+    return law
+
+
+def retained_seed_countercontrol():
+    """Counterexample limiting the class: bounded fresh bits per slot, but the reset also reads
+    retained private seed bits. Its conditional laws leave 2^-B Z and T stays bounded."""
+    for B, h in ((1, 6), (2, 4), (3, 3)):
+        walk, brute = retained_seed_law(B, h), retained_seed_bruteforce(B, h)
+        check(all(walk.get(r, 0) == brute.get(r, 0) for r in product((1, 0), repeat=h)),
+              'range walk equals seed enumeration')
+    out = {}
+    for B in (2, 3, 4):
+        law = retained_seed_law(B, 2)
+        p1 = law[(1, 1)] + law[(1, 0)]
+        cond = Q(law[(1, 1)], p1)
+        check((cond * (1 << B)).denominator != 1, 'retained-seed conditional law leaves 2^-B Z')
+        out['B' + str(B)] = {'conditional_agree2_given_agree1': str(cond),
+                             'all_depth_union_bound': str(Q(1, (1 << B) - 2))}
+    exact, shown = {}, {}
+    bound = Q(1, 14)
+    for h in range(1, 6):
+        law = retained_seed_law(4, h)
+        tv = Q(0)
+        for rec in product((1, 0), repeat=h):
+            qq = Q(1)
+            for g in rec:
+                qq *= QUANTUM if g else 1 - QUANTUM
+            tv += abs(Q(law.get(rec, 0), 1 << (4 * h)) - qq)
+        tv /= 2
+        check(tv <= bound, 'retained-seed TV within union bound')
+        exact[str(h)] = str(tv)
+    for h in (8, 12, 16):
+        law = retained_seed_law(4, h)
+        tv = Q(0)
+        for rec in product((1, 0), repeat=h):
+            qq = Q(1)
+            for g in rec:
+                qq *= QUANTUM if g else 1 - QUANTUM
+            tv += abs(Q(law.get(rec, 0), 1 << (4 * h)) - qq)
+        tv /= 2
+        check(tv <= bound, 'retained-seed TV within union bound')
+        shown[str(h)] = display(tv)
+    out['B4_tv_exact_h1_to_5'] = exact
+    out['B4_tv_display_h8_12_16'] = shown
+    k, _ = nearest_dyadic(4)
+    p4 = Q(k, 16)
+    mem = tv_fast(p4, p4, 4096)
+    check(mem > bound, 'memoryless 4-bit reset exceeds retained-seed all-depth bound')
+    out['memoryless_B4_nearest_dyadic'] = str(p4)
+    out['memoryless_B4_tv_h4096_display'] = display(mem)
+    out['union_bound_rule'] = 'T(h) <= sum_t 2^(t-1)*2^(-tB) <= 1/(2^B-2) for all h, B>=2'
+    return out
+
+
+def grid_sensitivity():
+    out = {}
+    for M, W in ((16, 16), (16, 40), (32, 16)):
+        g = Grid(M, W, 24)
+        rows = agreement(g)
+        pa, pb = Q(rows['A+'][0], g.K), Q(rows['B+'][0], g.K)
+        out[f'M{M}_W{W}'] = {'dA': str(abs(pa - QUANTUM)), 'dB': str(abs(pb - QUANTUM)),
+                              'dA_display': display(abs(pa - QUANTUM)), 'dB_display': display(abs(pb - QUANTUM))}
+    out['B24_dyadic_floor'] = str(Q(1, 5 * (1 << 24)))
+    return out
+
+
 def main():
     g, pa, pb, da, db = controller()
     exact, cross, cross_half = depth_scan(pa, pb, da, db)
     t3 = exact[3]
     check(t3 <= A2_CQ_BOUND, 'h=3 TV within retained certificate')
     pos = positive_control()
-    enum = record_enumeration_control(pa, pb)
+    enum = product_formula_enumeration(pa, pb)
+    actual = controller_record_enumeration(g, pa, pb)
+    hpairs = bracket_constant_control(pa, pb, da, db)
     seeded = seeded_control()
     pooled = pooled_countercontrol()
     cls = class_statement()
     grow = growing_bits_control()
     obstruction = (pa != QUANTUM) or (pb != QUANTUM)
     cert = {str(l): certified_depth(da, db, l) for l in (TENTH, HALF, Q(9, 10))} if obstruction else None
+    if cert:
+        for l in (TENTH, HALF, Q(9, 10)):
+            h = cert[str(l)]
+            check(bracket(da, db, h, False)[0] > l and bracket(da, db, h - 1, False)[0] <= l,
+                  'certified depth is minimal')
+    cls['limiting_counterexample_retained_seed_reset'] = retained_seed_countercontrol()
+    sens = grid_sensitivity()
     small = {str(h): str(exact[h]) for h in range(1, 5)}
     table = {str(h): {'display': display(exact[h]), 'sha256': digest(exact[h]),
                       'above_tenth': exact[h] > TENTH, 'above_half': exact[h] > HALF}
@@ -455,6 +646,10 @@ def main():
         verdict += f'; certified TV>1/2 for h>={cert[str(HALF)]}'
     else:
         verdict = 'NO_OBSTRUCTION_FROM_THIS_PROTOCOL'
+    class_verdict = ('MEMORYLESS_RESET_CLASS: for every fixed B the conditional agreement law after the '
+                     f'first read lies in 2^-B Z (distance formula verified B={cls["B_range_verified"][0]}..'
+                     f'{cls["B_range_verified"][1]}), so T(h)->1; B=24 certified T>1/2 for '
+                     f'h>={cls["B24_depth_certified_T_above_half"]}')
     out = {
         'schema': 'oi.a2-depth-extension-v7.v1',
         'controller': {'M': g.M, 'W': g.W, 'B': g.B, 'labels': g.N,
@@ -470,12 +665,21 @@ def main():
         'h3_tv_vs_retained_certificate': {'tv': str(t3), 'certificate': str(A2_CQ_BOUND)},
         'class_statement': cls,
         'growing_bits_sampler_control': grow,
-        'controls': {'positive': pos, 'record_enumeration_records': enum,
+        'controls': {'positive': pos, 'product_formula_enumeration_records': enum,
+                     'controller_record_enumeration_records': actual,
+                     'hellinger_constant_pairs': hpairs,
                      'seeded_exhaustion': seeded, 'pooled_bank_countercontrol': pooled,
+
                      'sign_control': 'agreement masses for both pole signs computed directly and equal; zero responses 0'},
-        'scope': ('Natural slot extension of the executed M=16 controller and the per-slot fresh '
-                  'fair-block class, on one in-menu protocol. Not a bound on total or pooled '
-                  'randomness, per-read error, continuous resources or OI; the h=3 certificate is unchanged.'),
+        'grid_sensitivity': sens,
+        'display_rule': 'decimal truncation toward zero',
+        'scope': ('Natural slot extension of the executed M=16 controller, and the class in which the '
+                  'post-reset carrier is a function of that slot\'s fresh block of at most B fair bits '
+                  'and the public record only, with responses depending only on carrier, public word '
+                  'and setting; one in-menu protocol. The obstruction is attributed to resets that carry '
+                  'no randomness across slots. Not a bound on total, pooled or retained-seed randomness, '
+                  'per-read error, continuous resources or OI; the h=3 certificate is unchanged.'),
+        'class_verdict': class_verdict,
         'verdict': verdict,
     }
     text = json.dumps(out, sort_keys=True, separators=(',', ':'))
