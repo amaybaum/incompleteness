@@ -1,0 +1,42 @@
+{
+  "author_commit": "41992cc0b7f8901195f70ff47b34f1a0ed5eba5e",
+  "author_prefix": "verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a1_reset_v6/",
+  "files": {
+    "PLAN.md": {
+      "git_blob_sha1": "2cab2b2ffceb929d5e605c8364c0e07e09d35d6b",
+      "sha256": "40f5627e3e3cd99f553e2d666e0730bc157f661934b799f5636fdf8825d18373"
+    },
+    "PROVENANCE.json": {
+      "git_blob_sha1": "f9663defa8906dac01254e3a6715205af2fe042d",
+      "sha256": "8807998a4368c8bf2392c22e6dccad0cb2691f2780581e6dab3ef3424dd853ca"
+    },
+    "REPORT.md": {
+      "git_blob_sha1": "8b7e01cbf5fb2d150ee1549fe6af50d52c3dfaa4",
+      "sha256": "d4e39154ff53d12ec94514c396493c66babbaaca193b7b54403c9310306aca12"
+    },
+    "SHA256SUMS": {
+      "git_blob_sha1": "028ad23be65be14425aa374801fd4e7e28be29ea",
+      "sha256": "a2e05369f621d568fbe8ba0d4adc9b0ba8c907ddbea9366bbfddd414b95e2d09"
+    },
+    "checks.py": {
+      "git_blob_sha1": "f4d7f9bdc9160b6ea85b78b7fa193df0917cf99e",
+      "sha256": "aba76a749d6975de4f796d1d6091d849fcb4da95c9aa57324c302cf5c82f574f"
+    },
+    "result.json": {
+      "git_blob_sha1": "ae1ade4f1d84b87c489125781f48b62bbd8d04fd",
+      "sha256": "7a81fb14dfcdc1fc14494e46fbe69ecb75d2ef87a77b5952f32651cd3d567e2c"
+    }
+  },
+  "primary_sources": [
+    {
+      "parts": "Scope paragraph and Models1/2 Eqs3,4,7\u201312; personally opened in separate-agent review.",
+      "url": "https://arxiv.org/html/1108.5138v3"
+    },
+    {
+      "parts": "\u00a74.1.2 Eq17 preparation, rotations, response, update; personally opened in separate-agent review.",
+      "url": "https://arxiv.org/html/1812.08218v3"
+    }
+  ],
+  "remote_tree_read": "GitHub recursive tree for author commit; truncated=false; all six blob IDs equal local Git object hashes",
+  "schema": "oi.a1-reset-v6.review-inputs.v1"
+}
