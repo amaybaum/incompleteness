@@ -37,8 +37,8 @@ rather than as a fixed whole triple. q10 is a lattice cell, not a permitted
 read (see *Scope*). The exclusion of `native_route_v13` holds for its own
 class: no law gives a two-symbol whole-triple code.
 
-s is not singled out. A separate computation in the separate review of this checkpoint
-(`review/round1/`), not this checkpoint's checker, shows that for each of the
+s is not singled out. The separate review (`review/round1/`), not this
+checkpoint's checker, shows that for each of the
 64 affine functions f of the known seeds k there exist jointly affine laws
 with q10.A = x XOR f(k) on all accepted rows (512 to 2016 laws for each f);
 the law depends on f, and no single law serves every f. s is the case

@@ -14,7 +14,7 @@
   "branch_v10": "Separate review accepts one-affine-J obstruction; no nonlinear prior adopted",
   "checker_groups": 58,
   "composition_access_checkpoint": "588edce16926ae1a40d1f1e75fc1b5cfb7ccc55e",
-  "continuation_replay": "Four reviewed v13 native groups and the unreviewed v14 fixed-readout author group normally and with -O. Prior53 scientific groups are unchanged and retain earlier evidence.",
+  "continuation_replay": "Four reviewed v13 native groups and the v14 fixed-readout author group normally and with -O. Prior53 scientific groups are unchanged and retain earlier evidence.",
   "controller_v10": "Separate native review accepts affine J/Kplus/Kminus witness for two-sign phase code; previous-Y/current-XR scope explicit",
   "controller_v10_reviewed_author_commit": "bf1bc9fb067e38417d8968e26a691debf7d3eb5f",
   "current_handoff": "CURRENT-HANDOFF.md",

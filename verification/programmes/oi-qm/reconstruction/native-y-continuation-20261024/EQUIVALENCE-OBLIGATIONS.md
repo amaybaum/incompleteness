@@ -1,9 +1,7 @@
 # Active reconstruction paths and remaining equivalence obligations
 
 24 October 2026. The three guiding drafts retain five complementary bounded
-paths. Each has a concrete result; each has a separate-agent internal
-review except the fixed-readout checkpoint `native_decode_v14/`, whose review
-is pending.
+paths. Each has a concrete result and a separate-agent internal review.
 Research, exact algebra, finite computation, written general proofs, external
 validation and formal certification remain distinct. A1 exact reconstruction
 and A2 finite operational approximation keep separate targets.
@@ -61,9 +59,9 @@ The actual-scale E route is a different readiness/source variant replacing
 optional uniform F10. It may not inherit Native A's six-bit pool unchanged.
 The affine-source obstruction concerns a common raw binary code. A fixed
 single-field readout of the q10 cell succeeds under jointly affine E/N:
-q10.A carries s, and, per the separate review, more
-generally x XOR f(k) for each affine f of the known seeds under a law
-depending on f, with B and D jointly carrying s beside it. q10 is not a
+q10.A carries s, and, per the separate review, more generally x XOR f(k)
+for each affine f of the known seeds under a law depending on f, with B
+and D jointly carrying s beside it. q10 is not a
 permitted read under Native A. Distribution-level quantum instruments are
 untested.
 The small pointer census concerns its seven declared families/window only.

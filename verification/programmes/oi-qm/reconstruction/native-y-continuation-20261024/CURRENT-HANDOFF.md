@@ -161,7 +161,7 @@ concrete next test is a native stage taking q10.A to a cleaned operand
 while its s-carrying B and D fields are accounted for.
 
 `python3 replay.py --latest` checks the four reviewed v13 native groups and
-the unreviewed v14 author group normally and with -O, Python compilation
+the v14 fixed-readout author group normally and with -O, Python compilation
 and the full manifest. The driver retains 58 groups; the preceding 53
 scientific groups are unchanged and are not freshly rerun. Four current #911 groups and two #912 groups
 are checked separately. CHECKPOINT-CHECKS.json records measured scope.
