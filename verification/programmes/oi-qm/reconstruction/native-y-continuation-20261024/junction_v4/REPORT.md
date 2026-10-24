@@ -151,11 +151,60 @@ are in the odd sector; a preparation restricted to the active sector
 need not touch them. Current M2 is even and remains a protected exception.
 All current M_j with j>=3 are outside this target cone.
 
-The next focused route is therefore an explicitly initial, parity-restricted
-extension preserving M2 and all inherited sources, followed by an exact
-M2-dependent junction calculation. Compatibility with every other reserved
-bank and the whole old record must still be checked before accepting it.
-Pinning only f does not prove this repair; other new cone coordinates exist.
+### A compatible initial prescription, with an uncomputed law
+
+The initial geometry admits the following conditional extension. In the
+current ball B_N(s), pin newly unprepared even-parity coordinates to zero,
+preserving the existing sources and M2. In the previous ball B_(N-1)(s),
+pin newly unprepared odd-parity coordinates to zero. Leave the opposite
+sector unchanged. This is a new *initial* apparatus prescription, not a
+late modification or a statement about the original unextended apparatus.
+
+The protected frontier families have exact distance slacks relative to N:
+
+| Initial current family, positive index | Distance to s minus N |
+| --- | --- |
+| M_j=(0,-j,0) | j-2 |
+| N_j=(0,0,-9T-j) | 9T+j-2 |
+| F_(X,k), F_(Y,k), F_(R,k)=Q_i+(S+k)e_y | k |
+| F_(Z,k)=Q_Z+(S+k)e_y | 3T+k |
+
+Thus M1 is in the untouched sector, M2 is an explicit untouched exception,
+and the rest lie outside. The remote banks are outside by their inherited
+x separation. All 1,479 old source coordinates are checked; only the origin
+lies inside. The Z selector and opposite reset pulse are also outside.
+The unknown previous origin remains in the untouched sector. No input-
+dependent pin or new seed is required for this geometric prescription.
+
+The exact active-sector computation consequently reduces to **six current
+sources**, with a zero previous active sector:
+
+| Absolute coordinate | Preserved initial triple |
+| --- | --- |
+| (0,0,0) | (0,x,0) |
+| (0,2S,0) | (0,mY XOR mR,0) |
+| (T,P+S,0) | (0,mY,0) |
+| (-T,P+S,0) | (0,mR,0) |
+| (0,S,S+2d) | (u,0,1) |
+| (0,-2,0) | M2, an independent uniform triple |
+
+This is a finite-speed reduction of the proposed prepared cone, not an
+evaluation of its output. The origin is two steps behind its first-arrival
+front at the target; M2 and the three selector controls are on the boundary.
+Interactions therefore cannot be replaced by a sum of isolated pulses.
+
+In particular M2's *isolated* first-arrival contribution cancels: the
+displacement is `(0,S+1,70)` and `(S+1)&70=2`, so the shortest-path count
+is even. That does not prove cancellation in the populated nonlinear cone.
+Keeping this as a countercontrol prevents treating causal inclusion alone
+as proof of influence, just as it prevents deleting M2 without calculation.
+
+The next focused task is the exact six-source native output and the
+diagnostic operand test under this initial prescription. Any favorable
+result must also prove the joint old-record/carrier law: preserving the
+frontier variables alone does not preserve their independence from a new
+carrier that may use M2. Pinning only f does not implement this extension;
+the whole newly specified active portion of the cone is part of its cost.
 
 ## Checks
 
@@ -170,7 +219,8 @@ dynamics module and checks:
   1..8 and three backgrounds;
 * a countercontrol distinguishing the full equation from H^N(M), and
   a two-path cancellation showing distance alone is insufficient;
-* the terminal sidecar identity and the captured-resource/parity inventory.
+* the terminal sidecar identity, captured-resource/parity inventory, complete
+  reserved-bank inequalities, and isolated-M2 cancellation countercontrol.
 
 Normal and optimized output is byte-identical. These finite controls
 exercise the analytic unique-path argument; they do not replace its

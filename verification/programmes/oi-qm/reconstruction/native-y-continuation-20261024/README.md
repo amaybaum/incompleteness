@@ -28,10 +28,11 @@ their original scientific scope and historical preparation statements.
   law. The strict common raw carrier requirement fails for that candidate.
 * The third outward step gives `(u,x*u,u)` and supplies no new raw-Y socket.
 
-The next calculation is a compatible initial extension restricted to the
-active spacetime parity, preserving the old M2 frontier and all sources,
-followed by its exact M2-dependent junction law. A blanket new cold ball
-would overwrite reserved randomness and the unknown previous input. Initial resources must be specified
+A compatible initial extension restricted to the active no-wrap parity
+sector is specified in the latest report. It preserves M2 and all inherited
+sources, reducing the next calculation to six current sources. Its exact
+output, diagnostic transfer, and joint old-record/carrier law remain open.
+A blanket cold ball would overwrite reserved randomness and the old input. Initial resources must be specified
 at the original initial time; no late cleaning or input reloading is allowed.
 Integrated reusable native reset and the broader transport review remain open.
 

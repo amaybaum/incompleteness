@@ -145,4 +145,22 @@ need(sum((0, -1, 0)) % 2 == 1, 'M1 opposite current parity')
 need((sum((0, 0, 0))-1) % 2 == 1, 'old unknown opposite phase parity')
 need(dist((0, -3, 0), s) == R+4, 'all further Mj outside')
 print('J5: blanket ready extension captures old M1/M2 and unknown previous input; active-parity extension still captures M2: PASS')
+
+# Proposed initial active-sector extension: six current-source exceptions.
+# The formulas below also give the inequalities for every positive index.
+for j in (1, 2, 3, D, P, R):
+    need(dist((0, -j, 0), s)-N == j-2, 'old Mj slack')
+    need(dist((0, 0, -9*T-j), s)-N == 9*T+j-2, 'old Nj slack')
+for k in (1, 2, 3, D, P, R):
+    for i, q in enumerate(ports[:4]):
+        frontier = add(q, (0, P+S+k, 0))
+        need(dist(frontier, s)-N == k+(3*T if i == 3 else 0), 'selector frontier slack')
+inside = [src for src in geometry['sources'] if dist(tuple(src['position']), s) <= N]
+need(len(inside) == 1 and inside[0]['position'] == [0, 0, 0], 'only old origin source inside')
+need(dist(controls[0], s) == N and dist(controls[1], s) == N and dist(controls[2], s) == N, 'three selector exceptions on boundary')
+need(dist(controls[3], s) == N+3*T, 'Z selector outside')
+need(dist(controls[4], s) == N-4 and dist(controls[5], s) == N+2*D, 'upper/lower pulse distances')
+need((S+1) & (D+2) == 2, 'isolated M2 no-carry obstruction')
+need(64*R+64*T+1 > 2*N+1, 'local cone embeds in inherited odd torus')
+print('J6: proposed initial active-sector cone preserves all reserved banks with M2 exception; isolated M2 front cancels, interaction law remains open: PASS')
 print('SCOPE: the unchanged proposed junction has no deterministic raw operand or clean code for all allowed backgrounds. Uniform terminal marginal is not a joint-history law. A redesigned prepared junction remains open.')
