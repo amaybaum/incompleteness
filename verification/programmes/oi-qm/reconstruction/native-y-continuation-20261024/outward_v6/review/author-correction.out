@@ -1,0 +1,7 @@
+COR1: 10080 scalar direct dipole comparisons; all16 u/C assignments and70 strip entries,n0..8: PASS
+COR2: both8-state input-source maps bijective; unique C=(u,0,u) gives delta=(u,0,u); old q7 triple111: PASS
+COR3: complete first-arrival geometry; only upper neighbor changes atN7−1; all15 old ready regions and receiver histories excluded: PASS
+COR4: all32 qY.D diagnostic rows yield(x(1+u)(1+p),(x+u)(1+p),p); native rows clean(0,0,y): PASS
+COR5: all32 q2.A diagnostic rows checked separately; x1/u0/p20 still gives111, so reusable q2 transfer not proved: PASS
+COR6: correction cannot affect any q7 prefix; informativeR−7 prefix(u,u,1) remains private: PASS
+SCOPE: native clean qY readout under modified initial depth7 preparation; no native reset or arbitrary q2-input socket.

@@ -14,12 +14,13 @@ whose branch remains under a separate writer and is not modified here.
 Latest construction: [outward_v6/CORRECTION-REPORT.md](outward_v6/CORRECTION-REPORT.md).
 One added initial source (u,0,u), using only the existing apparatus seed,
 produces the clean native code (0,0,y) at q7,R+7. The full nonlinear source
-calculation and geometry are checked; independent review is being finalized.
+calculation and geometry are [independently accepted](outward_v6/review/REPORT.md).
 This is a clean readout of the original qY operand for the current native
 family. The arbitrary qY diagnostic guarantees D=p only, and q2.A-only reuse
 still fails. A reusable late input socket and the subsequent Y reset are open.
 
-Read [the combined report](parallel_v3/COMBINED-REPORT.md), then
+Start with [CURRENT-HANDOFF.md](CURRENT-HANDOFF.md) for the current result and
+resume task. Read [the historical combined report](parallel_v3/COMBINED-REPORT.md), then
 [the independent review](parallel_v3/review/REPORT.md). The reports preserve
 their original scientific scope and historical preparation statements.
 
@@ -45,11 +46,11 @@ From this directory, with Python 3.12, its standard library, and a C++17 compile
 python3 replay.py
 ```
 
-The driver verifies the payload manifest and all 18 earlier independently reviewed
-input hashes and the five locally retained inputs of the new review, compiles Python source, then runs 20 checker groups normally and
+The driver verifies the payload manifest and retained input hashes bound by
+the independent reviews, compiles Python source, then runs 21 checker groups normally and
 with `-O`, comparing both with recorded deterministic output. It runs in a
 temporary copy because the symbolic checker regenerates a JSON result.
-Expected: 20 passing groups and `PASS: checkpoint replay` with exit status 0.
+Expected: 21 passing groups and `PASS: checkpoint replay` with exit status 0.
 These checks establish only the scopes stated in the reports, not Lean
 certification, a universal compiler theorem, or a full transport audit.
 
@@ -70,7 +71,7 @@ does not schedule unattended background work.
 The historical v3 combined report describes a separate portable handoff ZIP;
 its `--baseline` command, dependency archives, and PDF are not the layout of
 this repository checkpoint. This tree contains the v2 interface sources and
-v3 research sources/inputs needed for the 20-group replay above. The earlier
+v3–v6 research sources/inputs needed for the 21-group replay above. The earlier
 ten-checker v1 bundle is not rerun by this driver. Copied inherited core code
 and source geometry are retained where the current checks need them.
 

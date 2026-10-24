@@ -3,7 +3,7 @@
   "date": "2026-10-24",
   "base_commit": "de6fe29324ade8a0826c18f7829786086dd590da",
   "python": "3.12",
-  "checker_groups": 20,
+  "checker_groups": 21,
   "normal_optimized_recorded_outputs": "byte-identical",
   "reviewed_input_hashes_verified": 18,
   "python_source_compilation": "PASS",
@@ -17,7 +17,7 @@
     "Lean and full release gate"
   ],
   "scientific_scope": "Integrated reusable native reset and broader transport review remain OPEN; no certification or premise adoption.",
-  "junction_v4": "Independent review ACCEPTS unchanged-junction obstruction and six-source initial geometry only; extended output, diagnostic transfer and joint law OPEN",
+  "junction_v4": "Independent review ACCEPTS unchanged-junction obstruction and six-source initial geometry; proposed output subsequently evaluated in six_source_v5",
   "junction_review_retained_input_hashes_verified": 5,
   "junction_review": "junction_v4/review/REPORT.md",
   "six_source_v5": "Independent actual-scale review ACCEPTS endpoint-specific clean-transfer failure; full joint-history law and integrated reset OPEN",
@@ -27,6 +27,9 @@
   ],
   "six_source_review": "six_source_v5/review/REPORT.md",
   "six_source_review_input_hashes_verified": 15,
-  "outward_v6": "Author scan checks PASS: q7 raw qY.D transfer with retained u; q2.A-only transfer and clean full code not established; independent review pending",
-  "outward_v6_correction": "Author checks PASS: seed-only initial source yields clean native00y at q7; arbitrary diagnostic full-code/q2 input reuse/reset not established; independent review finalizing"
+  "outward_v6": "Author depth1\u201312 census PASS; q7 raw qY.D transfer independently accepted; uncorrected q7 retains u and is not a full clean code; q2.A-only transfer fails",
+  "outward_v6_correction": "Independent actual-scale review ACCEPTS clean native00y construction and source/readiness compatibility; general late-input socket, full joint-record certification and native reset OPEN",
+  "outward_v6_review": "outward_v6/review/REPORT.md",
+  "outward_review_input_hashes_verified": 8,
+  "current_handoff": "CURRENT-HANDOFF.md"
 }
