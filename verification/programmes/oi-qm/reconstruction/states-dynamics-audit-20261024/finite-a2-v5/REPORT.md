@@ -13,6 +13,9 @@ measurements, a fixed finite preparation menu, and at most h adaptive
 operations, the controller below has a finite carrier and a finite initially
 supplied fair-bit bank. It uses one common geometric response function,
 not the unknown preparation label or a table of quantum protocol answers.
+The theorem starts at public clock0 with a canonical preparation mixture
+and an empty current rotation word. The single apparatus has a total budget
+of h operations; a later cut does not restart that budget.
 Policies are deterministic functions of the public history. Independent
 randomized policies inherit the bound by convex mixing, with their extra
 initial random resources counted separately.
@@ -99,8 +102,9 @@ midpoint u,v=+/-1/M aligned with the other component signs. Its dot product
 with n is>1/2 and (1+u^2+v^2)^2<2 for M>=8. Therefore g_n>1/4 and W>=4
 gives a nonzero integer weight. A claim for arbitrarily small W is not made.
 
-The current finite carrier is (i,w), where w is a word of at most h known
-rotation generators. A unitary appends its generator, and R_w is its exact
+The phase-tagged current boundary is (t,i,w), with public clock0<=t<=h
+and word length |w|<=t. Initially t=0 and w is empty. A unitary appends its
+generator and advances t by1, and R_w is its exact
 rational rotation matrix. The measurement response is
 
     s=+1 if a dot R_w z_i >=0, and s=-1 otherwise.
@@ -110,6 +114,10 @@ not discarded. The controller uses the actual index, stored word and known
 setting. It does not consult an external unknown-preparation label. On a
 measurement it draws a fresh index from nu_(s a) and sets the current word
 empty. Keeping exact words avoids per-unitary geometric rounding drift.
+Every completed operation, including a measurement or absorbing stop slot,
+advances the same clock. At clock t, at most h-t further operations are
+available, so appending unitary words cannot exceed the declared capacity.
+A measurement clears the current word but does not reset the clock.
 
 Preparation may use its known preparation instruction n to compile the
 source table. After the carrier is offered, every retained preparation
@@ -179,10 +187,13 @@ Use the single linear decoder
 
 For every normalized canonical preparation/reset ray and its rotations,
 the decoded Bloch norm is at most alpha(2/3+e)=1. Positive mixtures preserve
-positivity, and mass is preserved. These rays generate the admissible cone.
-After completed measurement instruments the fresh reset returns a canonical
-ray; rotations preserve its form while word capacity remains. Hence the
-declared cone is closed at the permitted completed-instrument cuts.
+positivity, and mass is preserved. At clock t these rays with word length
+at most t generate the phase cone C_t. The fixed decoder is the same
+linear rule in every clock sector; it does not read public history to
+choose a different map. After a completed measurement the fresh reset
+returns an empty-word canonical ray at clock t+1; a rotation maps C_t
+into C_(t+1), as does a stop slot. This is phase-wise closure within the
+one total h-operation budget, not closure for h fresh operations from C_h.
 
 Compared with its associated ideal state R_w n, the decoded Bloch error is
 at most2alpha*e, giving qubit trace-distance error at most chi=alpha*e.
@@ -193,7 +204,8 @@ partial-read cut is also not claimed.
 
 ## Adaptive complete record and outgoing-state law
 
-For a normalized initial positive mixture of canonical rays, fix the same
+For a normalized initial positive mixture of canonical empty-word rays at
+clock0, fix the same
 adaptive public controller in the source and reference. Between projective
 reads exact stored rotations preserve the geometric coupling. At a read,
 record disagreement probability is at most kappa. After each read the
@@ -225,8 +237,11 @@ preparation. The entire adaptive quantum protocol is a trace-preserving
 quantum channel to the final record/state system and contracts trace
 distance. A triangle inequality therefore gives the fixed-decoder operation
 bound h*kappa+2chi stated first. The source controller never needs a
-decomposition label for this proof. The bound holds for every admissible
-source measure and any generating-mixture decomposition.
+decomposition label for this proof. The theorem's initial quantifier is
+every source preparation measure in C_0 and any generating-mixture
+decomposition. A continuation from an actual later cut must preserve its
+clock sector and use only the remaining h-t slots and reserved seed blocks;
+no new h-step guarantee is asserted by resetting that clock or word budget.
 
 An existing terminal-failure sector may be adjoined identically on both
 sides; it contributes zero error. The offered-carrier sector gets its
@@ -252,8 +267,10 @@ For g declared rotation generators, at most
 
     L_carrier=N sum_(j=0)^h g^j
 
-current labels suffice. Their binary width is ceil(log2 L_carrier), with
-a separately declared finite clock. Preparation uses one B-bit block and
+current carrier labels suffice. Their binary width is ceil(log2 L_carrier),
+with a separately declared finite clock of ceil(log2(h+1)) bits. The count
+includes words through length h for the whole experiment, not h additional
+symbols after any earlier length-h word. Preparation uses one B-bit block and
 each operation slot reserves one more, even if unused by a unitary or stop.
 This fixed allocation preserves conditional freshness under adaptive choices.
 An explicit forgotten dyadic preparation mixture has its own initial bits.

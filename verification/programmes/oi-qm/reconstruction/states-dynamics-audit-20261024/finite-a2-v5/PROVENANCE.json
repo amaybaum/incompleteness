@@ -21,6 +21,9 @@
   "result": "result.json",
   "proof_layer": "Written conditional approximation theorem with exact finite smoke controls and symbolic nonvacuous resource certificates",
   "comparison": "Complete adaptive classical record plus positive decoded qubit output; main bound uses the same fixed decoder on input and output",
+  "initial_theorem_domain": "Public clock0, canonical preparation mixtures with empty current rotation word; at most h total operations",
+  "phase_budget": "At public clockt, current word length is at mostt and only h-t slots remain. Reset empties the current word but does not reset clock, seed allocation or capacity.",
+  "word_scope_clarified_from_author_revision": "6097379b86f319eaa9b258e920f2eb44dc6401a6",
   "resources": "Initially supplied independent B-bit blocks, finite geometric code/word/controller tables, private retained workspace with no return coupling and padded fixed public ticks",
   "limits": "Not native availability, geometric-prior selection, full instruments, composites, general A2 completion or A1 equivalence"
 }
