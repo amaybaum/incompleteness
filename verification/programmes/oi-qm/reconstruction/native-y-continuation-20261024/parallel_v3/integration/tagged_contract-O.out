@@ -1,0 +1,7 @@
+T1: both native-polynomial mixer maps are full permutations/involutions: PASS
+T2: exact tagged full-carrier and all-failure law for every x,y: PASS
+T3: each complete X/R cell factors through public history plus designated sign: PASS
+T4: supplied two-reset composition law holds; double success25/256, or125/2048 with older5/8 selector: PASS
+T5: y=1 strict raw distributions have TV1 across x; decoded carriers coincide: PASS
+C1: retained-history-sensitive future dynamics can change R agreement4/5 to1/5; terminal encoding alone does not prove reuse: PASS
+SCOPE: exact supplied-resource information contract, not a complete native instrument.

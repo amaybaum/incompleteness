@@ -1,0 +1,4 @@
+LAW1: tagged full carrier per-history multiplicities5,3,2; herald5/16, failure11/16; all4 x,y: PASS
+LAW2: supplied independent-seed composition retains all failures and complete record; double success25/256: PASS
+LAW3: strict common raw-carrier law FAILS: conditional y=1 supports for x0,x1 are disjoint (TV1); histories encoded in complete cells: CONFIRMED
+SCOPE: per-history tagged law accepted only as candidate interface; unchanged strict acceptance not met, no encoding relaxation adopted.

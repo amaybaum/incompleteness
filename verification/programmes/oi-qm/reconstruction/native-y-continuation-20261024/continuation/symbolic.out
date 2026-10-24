@@ -1,0 +1,5 @@
+Output A: x XOR u
+Delta on y=1: ['0', 'c0 XOR c1 XOR c6 XOR c7', '1 XOR c0 XOR c1 XOR c6 XOR c7']
+Output 0 x XOR u
+Output 1 x XOR u XOR u*c0 XOR u*c1 XOR u*c6 XOR u*c7 XOR c8 XOR c9 XOR c10 XOR c11 XOR c12 XOR c13 XOR c14 XOR c15 XOR c16 XOR c17 XOR c18 XOR c19
+Output 2 1 XOR x XOR x*u XOR u*c0 XOR x*u*c0 XOR u*c1 XOR x*u*c1 XOR u*c6 XOR x*u*c6 XOR u*c7 XOR x*u*c7 XOR x*c8 XOR u*c8 XOR x*c9 XOR u*c9 XOR x*c10 XOR u*c10 XOR x*c11 XOR u*c11 XOR x*c12 XOR u*c12 XOR x*c13 XOR u*c13 XOR x*c14 XOR u*c14 XOR x*c15 XOR u*c15 XOR x*c16 XOR u*c16 XOR x*c17 XOR u*c17 XOR x*c18 XOR u*c18 XOR x*c19 XOR u*c19

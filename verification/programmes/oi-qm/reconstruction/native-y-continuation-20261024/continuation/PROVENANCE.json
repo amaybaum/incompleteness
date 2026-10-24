@@ -1,0 +1,8 @@
+{
+  "source_handoff": "OI_native_Y_continuation_handoff_v1(1).zip",
+  "source_handoff_sha256": "977e8e33683e1b06b47e6cfd78071cbccf72d95b03724f2684a77f1242af736e",
+  "core_sha256": "b16155925700321abdb6f59260bc510e8e6c1d039f30c9eadc0c4320de89c941",
+  "repository_actions": [],
+  "independent_review": "not performed; transport-proof review open",
+  "baseline_replay": "all ten new handoff checkers normal/-O matched recorded outputs"
+}

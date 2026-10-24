@@ -1,0 +1,20 @@
+{
+  "status": "PASS_SCOPED_REPLAY",
+  "date": "2026-10-24",
+  "base_commit": "de6fe29324ade8a0826c18f7829786086dd590da",
+  "python": "3.12",
+  "checker_groups": 13,
+  "normal_optimized_recorded_outputs": "byte-identical",
+  "reviewed_input_hashes_verified": 18,
+  "python_source_compilation": "PASS",
+  "sensitive_data_scan": "PASS",
+  "v3_verifier_self_test": "PASS",
+  "legacy_records_self_test": "PASS",
+  "artifact_placement_self_test": "PASS (minimal API-fetched fixture; added paths are below programme/reconstruction)",
+  "not_run_locally": [
+    "full-history legacy-record verification",
+    "V3 conformance corpus with historical repository objects",
+    "Lean and full release gate"
+  ],
+  "scientific_scope": "Integrated reusable native reset and broader transport review remain OPEN; no certification or premise adoption."
+}
