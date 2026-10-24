@@ -1,0 +1,6 @@
+INPUTS: 15 exact author files match reviewed SHA256 digests.
+V1: signed dipole strip agrees at 6336 native values; triangular bijections, universal exponent divisibility, source separations: PASS
+V2: exact giant-integer controls (5467 boundary terms), strip budgets [[-2, 71, 140, 113], [-1, 286, 142, 112]]; raw-coordinate dipole cache 97624 entries; 68 sparse updates (peak support 409) reproduce all192x64 lower triples: PASS
+V3: independent signed upper periods3600/2940, giant phases253; final four native updates preserve qY, sidecar and entire q2 triple in all256 diagnostic assignments: PASS
+V4: all256 output triples and ANFs,128 native assignments,4 marginal rows and native overlap witnesses agree; equal-prior local errors=['1/16', '9/32']; all128 p-pairs distinct: PASS
+VERDICT: ACCEPT this six-source endpoint obstruction only. Full-history decoding, later processing, other preparations and native reset remain OPEN.

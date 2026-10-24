@@ -41,7 +41,8 @@ def main():
                'geometry_check', 'herald_check')]
     tests += [('parallel_v3/integration', 'tagged_contract')]
     tests += [('junction_v4', 'checks'), ('junction_v4/review', 'checks')]
-    tests += [('six_source_v5/period', 'checks'), ('six_source_v5', 'checks')]
+    tests += [('six_source_v5/period', 'checks'), ('six_source_v5', 'checks'),
+              ('six_source_v5/review', 'checks')]
     with tempfile.TemporaryDirectory(prefix='native-y-replay-') as directory:
         work = Path(directory) / 'checkpoint'
         shutil.copytree(ROOT, work, ignore=shutil.ignore_patterns('__pycache__'))

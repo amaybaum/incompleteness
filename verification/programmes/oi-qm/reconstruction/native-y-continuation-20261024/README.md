@@ -15,7 +15,8 @@ Latest continuation: [six_source_v5/REPORT.md](six_source_v5/REPORT.md).
 The six-source output is evaluated exactly using a proved giant-delay
 reduction. It fails clean Y transfer: opposite Y values have overlapping
 raw output supports at fixed known X. The full truth table, probability
-counts, solver and controls are retained. Independent review of v5 is pending.
+counts, solver and controls are retained. [Independent review](six_source_v5/review/REPORT.md) reproduced the full
+actual-scale computation and accepts this endpoint-specific conclusion.
 The earlier [v4 review](junction_v4/review/REPORT.md) remains unchanged.
 
 Read [the combined report](parallel_v3/COMBINED-REPORT.md), then
@@ -45,10 +46,10 @@ python3 replay.py
 ```
 
 The driver verifies the payload manifest and all 18 earlier independently reviewed
-input hashes and the five locally retained inputs of the new review, compiles Python source, then runs 17 checker groups normally and
+input hashes and the five locally retained inputs of the new review, compiles Python source, then runs 18 checker groups normally and
 with `-O`, comparing both with recorded deterministic output. It runs in a
 temporary copy because the symbolic checker regenerates a JSON result.
-Expected: 17 passing groups and `PASS: checkpoint replay` with exit status 0.
+Expected: 18 passing groups and `PASS: checkpoint replay` with exit status 0.
 These checks establish only the scopes stated in the reports, not Lean
 certification, a universal compiler theorem, or a full transport audit.
 
@@ -69,7 +70,7 @@ does not schedule unattended background work.
 The historical v3 combined report describes a separate portable handoff ZIP;
 its `--baseline` command, dependency archives, and PDF are not the layout of
 this repository checkpoint. This tree contains the v2 interface sources and
-v3 research sources/inputs needed for the 17-group replay above. The earlier
+v3 research sources/inputs needed for the 18-group replay above. The earlier
 ten-checker v1 bundle is not rerun by this driver. Copied inherited core code
 and source geometry are retained where the current checks need them.
 
