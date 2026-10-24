@@ -1,0 +1,36 @@
+{
+  "schema": "oi.source-excerpts.v1",
+  "scope": "Source provenance only; complete target theorem and native controls are restated in REPORT.md and checks.py. These excerpts do not certify the original transport endpoint.",
+  "sources": [
+    {
+      "archive": "OI_combined_handoff_2026-10-24_v1",
+      "path": "workspace/oi_native_selector_v1/REPORT.md",
+      "source_sha256": "9c2a5dcc50c2d83a48616b9756e7b04bea1812ccafd75d1fff497ee151bed1cc",
+      "lines": [
+        184,
+        215
+      ],
+      "excerpt": "The public ports in the actual composed apparatus are the fixed original X and\nH ports, plus the four new Q ports. Assume only those specified raw records are\naccessible, with the setting known as the chosen protocol parameter. The\noriginal reset readiness, access restriction and clock convention remain\nassumptions. A native readiness detector or clock is not silently included.\n\nFix any additional finite horizon B. Enlarge the torus sufficiently to prevent\nwrap-around; for example side 16(S+B+10T)+1 suffices. Prepare independent uniform\ncurrent triples at\n\n    M_j=(0,-j,0), N_j=(0,0,-9T-j),   1<=j<=P+B,\n    F_(i,k)=Q_i+(S+k)e_y,            1<=k<=B, i=X,Y,R,Z.\n\nThese coordinates are outside the ready cones and distinct from the control\npulses and source encodings. They are independent of the masks and lower seeds.\nNo fresh coordinates are inserted during the run.\n\nM_j and N_j first reach the original X and H ports respectively at T+j. The\nF_(i,k) block first reaches its own Q_i at S+k. It cannot reach any public port\nearlier than that time. At equal time there are just two cross-edges among\nthese new ports: F_Y can affect Q_X, and F_R can affect Q_X. Order the four\nports Y,R,Z,X to make those edges triangular.\n\nAll other cross-arrivals occur later. In particular, old-frontier arrivals at\nnew ports and new-frontier arrivals at original ports have positive delays\nwhen P>0. The old X/H cross-delays are 7T and 9T. At a given global tick an\nordering old-X,H,Y,R,Z,X works for the streams that have begun.\n\nFor each newly arriving extreme axial triple, the path to its own port is\nunique. Conditional on earlier blocks and the complementary initial fields,\nthat output is a composition of H permutations and XOR translations in that\nnew triple. It is therefore a permutation. Chronological triangularity gives\n"
+    },
+    {
+      "archive": "OI_combined_handoff_2026-10-24_v1",
+      "path": "workspace/oi_native_x_instrument_v1/REPORT.md",
+      "source_sha256": "97005ac530b84710642b85c07c8e5778ab985d528d7aa4597b04c5fc1a3ad736",
+      "lines": [
+        221,
+        245
+      ],
+      "excerpt": "## 5. Complete public record, joint independence, and failures\n\nKeep the predecessor's six designated public ports through tick R and add the\nnew herald port, including its whole raw prefix. The outgoing q_Y,q_R,q_Z ports\nremain private until a specified terminal read. No internal seed, key, or old\ncarrier register is added to the observer's access class.\n\nNeither new pulse can reach an old public port by R; its nearest such arrival\nis at S+2d=R+d. The remote herald/Z sources are farther still. The reserved old\nand selector public-frontier triples remain outside every new private ready\ncone and outside the remote cones. Thus their conditional independence survives\nthe extra readiness constraints.\n\nThe preceding chronological-bijection proof consequently gives the same joint\nuniform law for all old public noise records: probability factor 2^(-6P-18d),\nindependent of the old and new seeds, input, selected deadline record, and new\nprivate outputs. At the selector deadline the three unselected ciphertexts are\nindependent fair bits conditional on x and the hidden carrier. They are also\nindependent of the six new reset seeds.\n\nConditioning on G changes the distribution of u,v exactly as specified above;\nit does not create a correlation with those old public records. This proves\nthe joint factorization in section 1. It is stronger than separately correct\npublic and carrier marginals.\n\n"
+    },
+    {
+      "archive": "OI_combined_handoff_2026-10-24_v1",
+      "path": "workspace/oi_parallel_20261024/information/REPORT.md",
+      "source_sha256": "dee08c1198fc58ab3a4d4e3d6f507149e3ca701c7ab8e6a152e15287b271699d",
+      "lines": [
+        90,
+        112
+      ],
+      "excerpt": "Let T,P,S=T+P,d,R=S+d be the actual native-X parameters, with d=68 and\nT=185, and retain the actual initial preparation and ready cones. Let qG be\nthe new herald position (12R,0,0). Fix B with 1 <= B <= R before preparation.\nRetain the original six public positions in this order:\n\n    p0=(0,T,0), p1=(0,0,-8T),\n    p2=(T,P,0), p3=(-T,P,0), p4=(4T,P,0), p5=(0,S,0).\n\nAt initial tick zero supply independent uniform triples at the following new\ncoordinates for each t=R+1,...,R+B:\n\n    f0(t)=(0,T-t,0),\n    f1(t)=(0,0,-8T-t),\n    fi(t)=pi+t e_y, i=2,3,4,5,\n    f6(t)=(12R-t,0,0).\n\nAll these blocks are independent of the original apparatus, seed correlations,\nprior frontier bank, and input. They replace only previously unconstrained\ninitial coordinates. No additional cold pins or mid-run preparation are used.\nUse a sufficiently large torus; the previous choice 64R+64T+1 suffices for\nthis extension through 2R.\n\n**Claim.** Under the same reversible native update, the complete raw records\n"
+    }
+  ]
+}

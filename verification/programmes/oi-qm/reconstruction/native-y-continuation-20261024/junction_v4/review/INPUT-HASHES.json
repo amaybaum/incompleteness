@@ -1,0 +1,12 @@
+{
+  "repo_checkpoint/payload/junction_v4/REPORT.md": "5cce7c933e25cdf493c3d08871de732a6a217189becff82d5ff6642e2b5c0b08",
+  "repo_checkpoint/payload/junction_v4/checks.py": "588a248c8d00cb23bf90de23dd440401d99f329e75348a7e27ade85bccf21d44",
+  "repo_checkpoint/payload/parallel_v3/history_control/SOURCE-GEOMETRY.json": "2642e1a68825faa5d3bb1049e8722adec1ec33bd3f56b9e4416b2c902a85ec5d",
+  "repo_checkpoint/payload/parallel_v3/history_control/REPORT.md": "aad8d9adf833784f6f32f74528df0eeb1dd71424bfb95a073a2521dec57719ea",
+  "repo_checkpoint/payload/parallel_v3/new_geometry/REPORT.md": "61483ff9fc4b8b57ddfa7e851db9f27cc46b179518849e8d921ce6c5dc8a3ffb",
+  "baseline/OI_combined_handoff_2026-10-24_v1/workspace/oi_native_transfer_v1/REPORT.md": "11f66eb63492b1b563b3f83c51929fa1d2104f91a88b6a6bbb0216bdde3bfcf0",
+  "baseline/OI_combined_handoff_2026-10-24_v1/workspace/oi_native_selector_v1/REPORT.md": "9c2a5dcc50c2d83a48616b9756e7b04bea1812ccafd75d1fff497ee151bed1cc",
+  "baseline/OI_combined_handoff_2026-10-24_v1/workspace/oi_native_x_instrument_v1/REPORT.md": "97005ac530b84710642b85c07c8e5778ab985d528d7aa4597b04c5fc1a3ad736",
+  "baseline/OI_combined_handoff_2026-10-24_v1/workspace/oi_read_reset_boundary_v1/REPORT.md": "e50b51f0a1e54956065328241654159ce737c37f631026d6bb0f46dcc0b36234",
+  "handoff/unpacked/OI_native_Y_continuation_handoff_v1/oi_next_cycle_20261024/native_y/REPORT.md": "352b89bb5ade5c8caa3328b0e60529e982ba33ddab90d3ac67dc329fd800c72c"
+}

@@ -1,0 +1,39 @@
+{
+  "author_revision": "c326546f228a1769856fded2268b76d976a171d3",
+  "future_full_physical_boundary_independence": false,
+  "geometry": {
+    "chronological_minima": 64,
+    "clamped_ready_distance_proof": true,
+    "covered_inherited_sources": 1479,
+    "distinct_family_pairs": 28,
+    "future_bits_per_tick": 24,
+    "monotone_cross_distance_proof": true,
+    "ready_exclusions": 192,
+    "same_time_edges": [
+      [
+        2,
+        5
+      ],
+      [
+        3,
+        5
+      ]
+    ],
+    "selected_phase_exclusions": 32,
+    "window": "L < t <= L+Delta, 1<=Delta<=L"
+  },
+  "native_controls": {
+    "conditional_diagonal_checks": 36,
+    "direct_scalar_native_worlds": 256,
+    "extra_read_joint_support": 8,
+    "factorized_four_block_worlds_proved": 8192,
+    "four_block_uniform_support": 4096,
+    "independent_extra_read_support": 64,
+    "pinned_four_block_support": 512,
+    "prefix_assignments": 128,
+    "shared_four_block_support": 512
+  },
+  "schema": "oi.history-v11.review.v1",
+  "tail_conditioning": "uniform given complement, informative history and earlier noise",
+  "verdict": "ACCEPT_CONDITIONAL_EIGHT_PORT_EXTENSION"
+}

@@ -1,0 +1,58 @@
+{
+  "author_input_hashes": {
+    "PROBE-PLAN.md": "d71b9e97adf118206e4d92717271bf8da573e6f419705eb569b390273c7a3f28",
+    "PROVENANCE.json": "0343cd367a994bd0bc65c62ca710d8f5c4abfea5a9bc319b5ff470cbd4a1967c",
+    "REPORT.md": "1530928d335627e499b5e41c54a66497f299f589ecec8e5ffd5fb29fbab947ab",
+    "SECOND-PROBE-PLAN.md": "6598b5d47caec9f245f7dc15278cd320b5791253e8e8ca67dd9a932f3757c554",
+    "checks-summary.json": "b83f9ba2bfe2be61dda4ea26740c9829ecf599d7852a2cee1dada6945f35f965",
+    "inherited_correction_model.py": "81fb9162229409e42d4383274c91988b94c8727dc70d9398cc1ca1ac51a38ee4",
+    "inherited_model.py": "dfb056bfe91372b44787d962e63d83ae7109802b38034b661e1c3275a63e146b",
+    "probe.py": "1b00605540c71e499a6a7b3b4f59f965f140e2620c287b4321c74c2cd2554b72",
+    "results.json": "6fb3ed95948f9900f1ec9f40ef740d26d7792c7dae549a37644210e8a9e1eb43"
+  },
+  "controls": {
+    "G_output_permutations": 32,
+    "actual_period_divisibility": true,
+    "direct_scalar_comparisons": 46944,
+    "geometry": {
+      "G_current_q7_slack": 2,
+      "additional_bits_beyond_q7": 21,
+      "joint_history_certified": false,
+      "original_sources": 1479,
+      "prior_ready_regions": 15,
+      "public_bits_beyond_R_if_extended": 168
+    },
+    "native_mask_bearing_interfaces": 16,
+    "prior_independent_QC_projection_values": 22016,
+    "published_q7_incoming_triples": 384,
+    "published_q8_triples": 768,
+    "q7_formula_rows": 256,
+    "q7_old_and_endpoint_rows": 64,
+    "signed_strip_coordinates": 489,
+    "source_pairs_per_encoding_test": 64
+  },
+  "measurements": {
+    "common_two_code_G_pairs": {
+      "q7": [],
+      "qY": []
+    },
+    "native_route_G_by_u": {
+      "0": [],
+      "1": []
+    },
+    "q7_socket_G_by_u": {
+      "0": [],
+      "1": []
+    }
+  },
+  "schema": "oi.review-native-reset.v1",
+  "verdict": {
+    "common_native_two_code": "excluded_in_family",
+    "common_q7_two_code_socket": "excluded_in_family",
+    "joint_history": "not_certified",
+    "native_reset": "not_constructed",
+    "q8_from_q7_only": "underdetermined",
+    "specified_native_route": "excluded_in_family",
+    "specified_q7_socket": "excluded_in_family"
+  }
+}

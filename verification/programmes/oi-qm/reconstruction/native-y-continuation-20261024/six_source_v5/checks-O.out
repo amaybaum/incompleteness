@@ -1,0 +1,5 @@
+S1: exact reduced lower solver reproduces192 rows; independent direct controls384 rows x64 assignments: PASS
+S2: actual giant-coordinate control parity matches low-bit reduction on5467 boundary contributions: PASS
+S3: upper/lower assembly preserves qY, sidecar and all256 q2 diagnostic assignments; positive raw-p control: PASS
+S4: exact128 native cases; opposite-Y supports overlap at fixed x; no raw-p field; all128 fixed-background diagnostic pairs remain distinct: PASS
+VERDICT: this prepared junction is not a clean Y transfer; history-aware decoding, other apparatuses and integrated reset remain OPEN.
