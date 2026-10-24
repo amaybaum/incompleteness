@@ -3,7 +3,8 @@
 > **Research record.** It reports the investigation preregistered in `PREREG.md`
 > (sha256 `e92724ca…`). That it was written before any construction code rests on the timestamp recorded in
 > `PREREG.sha256`: the preregistration was first committed together with the code. Every number below is printed by
-> `instrument_checks.py` (saved output `instrument_checks.out`), with two exceptions that the coordinator computed by
+> `instrument_checks.py` (saved output `instrument_checks.out`), except values marked as from the independent review
+> (`review/REVIEW.md`) and two that the coordinator computed by
 > hand from the definitions:
 > - the entropy deficits: per read, Σ over the three fresh components c ≠ a of 1 − h₂((1 + a·c)/2);
 > - the acceptance flag's degree: per component, "4-bit value < 10" is ¬b₃ ∨ (¬b₂ ∧ ¬b₁), of degree 3, and four
@@ -29,7 +30,7 @@ The rule is the unchanged report18 update U′ = H(SU) ⊕ U_old, with H(a, b, d
      counting, a readiness event that is an affine subspace has a power-of-two count, so it cannot give them. The
      earlier constructions (reports 15–19) used only such events. Exact R values therefore need a rejection herald,
      or a supplied non-dyadic resource. More precisely, the accepted count's odd part must be divisible by 5 for each
-     component, or by 25 for a single joint herald.
+     component, or by 25 for a single joint herald (`review/REVIEW.md`).
 2. **Herald and clock records.**
    - The preparation herald is accept or fail, over at most two attempts.
    - The read reports at the record receiver at tick 2.
@@ -102,7 +103,7 @@ The R case in (c) is a dependence the identities do not flag, not a protection.
 2. **New: non-dyadic Born values need a non-subspace event.** Exact R-menu probabilities cannot come from affine
    readiness events under uniform counting. The threshold sampler here has a joint acceptance flag of degree 12 in
    its fair bits; any exact sampler needs degree at least 2, and lower-degree flags suffice, for example
-   1 ⊕ x₀x₁ ⊕ x₂x₃ per component. No flag was built natively here. The composition builder (`design/composition/`) supplies conjunctions
+   1 ⊕ x₀x₁ ⊕ x₂x₃ per component (`review/REVIEW.md`). No flag was built natively here. The composition builder (`design/composition/`) supplies conjunctions
    of any degree under the same rule. Whether that gives a native acceptance flag, and at what readiness cost, is
    untested.
 3. **Access decides the identities and closure in the examples tested.** For this instrument and layout, they hold
