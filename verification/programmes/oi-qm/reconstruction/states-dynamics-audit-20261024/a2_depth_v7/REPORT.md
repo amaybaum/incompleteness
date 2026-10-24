@@ -107,7 +107,8 @@ All four steps below concern the joint law of the whole h-read record.
 - **Chain rule.** For any controller, adaptive or not, BC_h = Σ_past √(P·Q)·BC_t(past) ≤ BC_{h−1} · sup_past BC_t,
   so BC_h ≤ Π_t sup_past BC_t = Π_t (1 − c_t), with c_t ≥ inf_past d_t²/4. For the executed extension the product
   holds with equality.
-- **Lower bound.** TV ≥ 1 − BC, and 1 − Π(1 − c_t) ≥ 1 − e^(−S) ≥ S/(1+S), with S = Σ d_t²/4.
+- **Lower bound.** TV ≥ 1 − BC, and 1 − Π(1 − c_t) ≥ 1 − e^(−S) ≥ S/(1+S), with S = Σ_t c_t ≥ Σ_t inf_past d_t²/4.
+  For the executed extension the per-read laws do not depend on the past, and S = Σ_t d_t²/4.
 - **Upper bound.** Maximal coupling gives T(h) ≤ Σ_t sup_past d_t, which is Σ d_t for the product law.
 
 Every exact value lies inside this bracket. The lower bound gives these depths, each checked to be minimal:
