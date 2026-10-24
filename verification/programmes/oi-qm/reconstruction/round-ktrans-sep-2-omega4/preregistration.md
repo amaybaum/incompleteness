@@ -457,7 +457,15 @@ pushed, every round self-test that reads the live files is run on the reconciled
 `controls.py` imports nothing from the repository and changes nothing; it reads `D` and the commits it is given with
 read-only git commands and embeds every frozen text. It also carries the round's recipe for its run results,
 `controls.py derive-run` (*Retained evidence*), and the safeguard `controls.py mock-s1` (*Preconditions of `F`*,
-condition 3). Its codes:
+condition 3).
+
+`check`, `--self-test`, `verdict` and `mock-s1` read the commits' trees through git with paths relative to the
+repository root, and are run from the repository root, as the workflow runs the self-test. Run from another
+directory they fail closed: `check` fails R, the self-test fails, and `verdict` and `mock-s1`, which run `check`'s
+controls first, fail with it, so `verdict` prints `VERDICT  VOID` and no token. `exact`, `derive-run` and `axioms`
+read only their own inputs and run from any directory; the workflow runs `axioms` in the bridge job's directory.
+
+Its codes:
 
 - **G** governed paths: `delta(D, commit)` is exactly the five execution paths with their statuses, plus record files.
 - **R** record: only the permitted files; `evidence/f-run/results.json` required with `--freeze`; the result note
@@ -673,7 +681,7 @@ actual run result before `F` is designated, so that a requirement `F` cannot mee
 | the verdict reads only structured records, complete whatever the build cache did | `C5`: `derive-run` reads only `RUN` and `JOBS`; `verdict` reads only the step conclusions it records; W pins L0, L, A and M as the bridge job's last steps, L0, L and A running whenever the job is not cancelled; `C8`: the predicted tree's run result records them, checked by P (`run_ok`) |
 | the in-job gate turns the reports into A's and M's conclusions faithfully | `C5`: `controls.py axioms`, whose self-test cases (every clause, every class, the command's exit status and its `reports=` output, with and without `GITHUB_OUTPUT`) run in the shard at `E`; W's cases pin M's condition on the class A writes and A's id. Observed in a run: `C8`, the predicted tree's run, shows only the positive path (L0, L and A `success`, M `skipped`) on the module's real output. Not observed in any run: that M runs after A fails, and that the output A writes before failing reaches M's condition. Those rest on GitHub's documented `!cancelled()` and step-output semantics and the runner's source; the steps running after a failed step and a skipped step's `skipped` conclusion were also observed in this repository's run 39638156685. If either unobserved behaviour did not hold, a genuine negative would read VOID, never a token, and the round would halt either way |
 | no reading rests on a dependency build that did not succeed | `C5`: `kernel_state` requires L0 `success` for both readings; its self-test cases (L0 failed, cancelled, skipped, timed out, unknown or absent beside negative-looking and positive-looking steps, each VOID); W pins L0's command and limit; `C8`: L0 `success` in the predicted tree's run. That the closure L0 builds is current with the sources, a stale restored closure included, rests on Lake's trace semantics and is not measured: `C8` shows L0 `success` only after `Build` has brought the closure up to date |
-| the evidence is the exact-head run at `E` and no other | `C5`: `identity_problem` (repository, head repository, workflow path, `workflow_dispatch`, completed run and bridge job, integer ids and attempt) and `derive-run`'s refusal of jobs of another run, attempt or commit; their self-test cases: through `derive-run` from synthetic answers, another workflow path (one ending in `verify.yml` among them), another repository or head repository, a `push` or `pull_request` event, a run or bridge job not completed, and `derive-run`'s refusals; on derived results, also a `schedule` event, a zero or non-integer run id, attempt or bridge job id, and missing fields; the chain case in which a pull-request run at `E` prints VOID |
+| the evidence is the exact-head run at `E` and no other | `C5`: `identity_problem` (repository, head repository, workflow path, `workflow_dispatch`, completed run and bridge job, integer ids and attempt) and `derive-run`'s refusal of jobs of another run, attempt or commit; their self-test cases: through `derive-run` from synthetic answers, another workflow path (one ending in `verify.yml` among them), another repository or head repository, a `push` or `pull_request` event, a run or bridge job not completed, and `derive-run`'s refusals; on derived results, also a `schedule` event, a zero or non-integer run id or attempt, a missing bridge job id, and each identity field of the run missing; the chain case in which a pull-request run at `E` prints VOID |
 | the predicted tree's run, S1's and `E`'s can be green beside KTOKEN-MAXCONE-1's live self-test | `C5`: the self-test checks each of KTOKEN-MAXCONE-1's live requirements on `D`'s files with the frozen edits (`ktoken_live_ok`), and that the first draft's placement breaks them; `C8`: the predicted tree's run green on every job |
 | the steps fail closed | `C5`: W's cases (L's single command, nothing masking its status; A under `set -euo pipefail` with the gate its last command; no `continue-on-error`, no `shell:` override, no `||`); the gate exits 1 on every class but `standard`; `C3`: A green in `E`'s run |
 | the reconciliation keeps every round's live requirements | the reconciliation (§A.39 item 3): before it is pushed, every round self-test that reads the live workflow, root or census is run on the reconciled tree and prints OK; after it is pushed, the run of `verify.yml` on the reconciled head, which runs each of those self-tests in its shard, is green on every job |
@@ -681,7 +689,7 @@ actual run result before `F` is designated, so that a requirement `F` cannot mee
 | `F` carries no module | `C5`: T (`delta(D, F)` is the control plane) and P (`ftree_ok`) at S1 and `E`, reading `F`'s tree through git: its Lean directories equal `D`'s, no module path, no probe path, no import line naming `OIBridge.TransSeparation` in `F`'s `OIBridge.lean`; `C9` on candidate `F` |
 | `F`'s run shows `D`'s workflow passing on `D` plus this file: it is `F`'s `workflow_dispatch` run of `verify.yml`, its jobs are the predicted tree's run's less the shard, its bridge steps the predicted tree's run's less L0, L, A and M, every job and step `success` | `C5`: P (`frun_ok`) on `evidence/f-run/results.json` against `evidence/predicted-tree-run.json` at S1 and `E`; `C8` |
 | `evidence/f-run/results.json` is derived from `F`'s actual run, by the frozen recipe | `C9`: `mock-s1` requires the file to be `controls.py derive-run`'s output over the runs and jobs answers of candidate `F`'s exact-head run, and prints its digest; the digests of those answers are in the file; reviewers check that stage 1's file has the digest recorded with the designation request |
-| `evidence/predicted-tree-run.json` is derived from the predicted tree's actual run, by the frozen recipe | reviewers, before `F` (*Preconditions of `F`*, condition 1): the command, the answers' digests and the file's sha256 recorded on the pull request with the pin, and `derive-run` over those answers reproducing the pinned bytes; no control reads the derivation, and P checks the file's digest and `run_ok` |
+| `evidence/predicted-tree-run.json` is derived from the predicted tree's actual run, by the frozen recipe | reviewers, before `F` (*Preconditions of `F`*, condition 1): the captured answers, kept byte for byte and supplied to them (not committed); the command, the answers' digests and the file's sha256 recorded on the pull request with the pin; and `derive-run` over the captured answers reproducing the pinned bytes, which answers fetched again need not do; no control reads the derivation, and P checks the file's digest and `run_ok` |
 | the predicted tree is the one this file names, in the form P reads | `C5`: P with `--freeze` (the section's first line names a commit); P (`run_ok`) against that commit; `C9`: `mock-s1` requires `--predicted` to be the commit candidate `F` names |
 | the predicted tree's push starts no workflow | `C10`: before that push, the push-triggered workflows at `D` and their branch and path filters are listed against the tree's branch and paths, with the result recorded on the pull request |
 | `F`'s run is consistent with the absence (none of the round's steps or its shard); never the proof of it | `C5`: P (`frun_consistent`) at S1 and `E` |
@@ -780,7 +788,7 @@ before `F`. `F` is not designated with a pending pin.
 | --- | --- |
 | `evidence/design-run-1.json` | `2a9f30ca1a85d3bc5e728a98edfc047d6d8bbde3c1c5d387c2043038f9962d49` |
 | `evidence/design-run-2.json` | `32045681fb4749a5ec95a49db5cb95c852b0652021b38b072da55001413c4a03` |
-| `evidence/exact-replay.json` | `324e783b1a977f43a0cc378ea7c7f058e13cabd972dbd9e1cc51543baa911b68` |
+| `evidence/exact-replay.json` | `e033a96a670f6425c9d547f7e0650946ee040f16ecc3dd87ed996de9341921f7` |
 | `evidence/d-push-run.json` | `1603fcb20a24e4484a262bfab07e441d48e6aa1caaa69c592a48a01e2d55356f` |
 | `evidence/predicted-tree-run.json` | pending |
 
@@ -788,7 +796,7 @@ before `F`. `F` is not designated with a pending pin.
 unchanged (sha256 `daba6b7b…`). `evidence/d-push-run.json` is derived for this `D`. `evidence/predicted-tree-run.json`
 is this round's predicted tree's own run (*Preconditions of `F`*, condition 1).
 
-**The frozen `controls.py`:** blob `027bed8c909c864b5d554d29a0763b615486ffcb`.
+**The frozen `controls.py`:** blob `73f356565ce1402b37da80a5d18dddd556df23c5`.
 
 **The design commits.** The two design-run heads, KTRANS-SEP-1's predicted tree and this round's earlier predicted
 tree are named in full in their entries above. Main reaches none of them; under `AGENTS.md` §A.42 items 1–2 they are
@@ -869,10 +877,15 @@ manuscript. Correctness bands are unchanged by either outcome: the round is cons
 1. **The predicted tree's design run.** `verify.yml` is dispatched on exactly the commit in *The predicted execution
    tree*. The run is green on every job, and its bridge job's L0, L and A conclude `success` and M `skipped`. Its retained
    result `evidence/predicted-tree-run.json` is derived by `controls.py derive-run` from the run's runs and jobs
-   answers and pinned above in the form P requires. The command, the sha256 of each answer (which the file's `source`
-   records) and the file's sha256 are recorded on the pull request with the pin, and before `F` is designated
-   reviewers check that `derive-run` over those answers reproduces the pinned file byte for byte. No control reads
-   this derivation; P checks the file's digest and `run_ok`. The dispatch needs the owner's authorization. Open.
+   answers and pinned above in the form P requires. The two answers are kept as captured, byte for byte, and supplied
+   to the reviewers; they are not committed, because they carry personal data (§A.42 item 4). The command, the sha256
+   of each captured answer (which the file's `source` records) and the file's sha256 are recorded on the pull request
+   with the pin. Before `F` is designated, reviewers check the captured answers they were given against those digests
+   and check that `derive-run` over them reproduces the pinned file byte for byte. The check needs the captured bytes:
+   answers fetched again can differ from them in fields the host updates, such as `updated_at`, and then so do their
+   digests and the `source` the file would record. If the captured answers cannot be supplied, no byte-for-byte
+   reproduction is claimed. No control reads this derivation; P checks the file's digest and `run_ok`. The dispatch
+   needs the owner's authorization. Open.
 2. **No pin pending.** `evidence/exact-replay.json` and `evidence/d-push-run.json` are derived and pinned,
    `controls.py`'s blob is pinned (*The frozen `controls.py`*), and *The predicted execution tree* names its commit.
    Open.
@@ -880,8 +893,9 @@ manuscript. Correctness bands are unchanged by either outcome: the round is cons
    - After candidate `F`'s exact-head run is green, the runs and jobs API answers for **that actual run** (`RUN`,
      `JOBS`) are taken. `evidence/f-run/results.json` is `controls.py derive-run` over them, never derived from an
      invented or edited answer.
-   - Then `controls.py mock-s1 <candidate F, its full 40-character commit id> --f-run <that file> --predicted <the predicted tree> --run-api RUN
-     --jobs-api JOBS --evidence evidence/predicted-tree-run.json=<the pinned file>` runs. It requires the file to be
+   - Then `controls.py mock-s1 <candidate F, its full 40-character commit id> --f-run <that file>
+     --predicted <the predicted tree> --run-api RUN --jobs-api JOBS
+     --evidence evidence/predicted-tree-run.json=<the pinned file>` runs. It requires the file to be
      `derive-run`'s output over those answers and the predicted tree to be the one candidate `F` names. It builds a
      mock stage-1 commit in a temporary object directory with no ref, and prints `controls: OK`. That output includes
      P's three F-stage checks: the absence read from candidate `F`'s tree, and the identity, jobs, success and bridge

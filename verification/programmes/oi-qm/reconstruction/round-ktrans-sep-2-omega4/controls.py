@@ -2353,7 +2353,7 @@ def self_test():
           and isvoid(c(run_result(dict(neg, **{STEP_LEAN: 'failure', STEP_DEPS: 'failure'})))))
     check('M', 'the run\'s identity binds: a push, pull_request or schedule run at the commit, another repository, a fork '
                'as head repository, another workflow path (a basename match included), a run or bridge job not '
-               'completed, a non-integer or zero run id, attempt or bridge job id, and each identity field missing, '
+               'completed, a non-integer or zero run id or attempt, and each identity field of the run missing, '
                'are VOID beside positive and beside negative steps',
           all(isvoid(c(run_result(steps_, **kw))) for steps_ in (None, neg) for kw in (
               {'event': 'push'}, {'event': 'pull_request'}, {'event': 'schedule'}, {'repository': 'other/incompleteness'},
