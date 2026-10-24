@@ -1,0 +1,41 @@
+{
+  "authority": "Research only; no native implementation, map/access/premise adoption, total-randomness bound or full OI equivalence.",
+  "comparison": "Complete public record of the alternating a/X read protocol from X+, source versus quantum projective instrument, for the natural slot extension of the executed M=16 controller and for the per-slot fresh fair-block class.",
+  "contextual_source_sha256_relative_to_source_prefix": {
+    "CURRENT-HANDOFF.md": "3e77cf6e5b63b4c7c86cee3682128872236213523eeee87d1ecdba339eca3389",
+    "a1_reset_v6/REPORT.md": "d4e39154ff53d12ec94514c396493c66babbaaca193b7b54403c9310306aca12",
+    "a2_efficiency_v6/REPORT.md": "a372c3893ea24cd18975f3f955d6a7a9133daa0ef5e87a43363a6a24e9a2592e",
+    "a2_efficiency_v6/checks.py": "0593cea536254fc65deef6a37e374736f5986f4e8fdf2108062416acd61f4c6f",
+    "a2_efficiency_v6/review/REPORT.md": "89a49ceaf9a67675ee0f8162e0502c0337ee3a1351f255907d66948e7345246d",
+    "finite-a2-v5/REPORT.md": "f78c8e7e1d3d1fb348352dd815d65835b238569de92f1d3ddfbdc793e7cd77d7"
+  },
+  "engine": "Self-contained standard-library exact integer/rational engine; rebuilds the executed grid and CDF counts and checks them against the retained a2 count digest; imports no prior checker and reads no input file.",
+  "guiding_pr": 911,
+  "literature": [
+    {
+      "authors": "Shizuo Kakutani",
+      "scope_used": "credited for the separation of infinite products of nonidentical laws; the bounds used here are proved directly in REPORT.md",
+      "title": "On equivalence of infinite product measures",
+      "venue": "Annals of Mathematics 49 (1948) 214-224"
+    }
+  ],
+  "plan_sha256": "e77ac06e1d648c506c9f13019fea79fd9357351e75f6cdc221aca9477b0b6536",
+  "published_plan_commit": "a27e8d8f2e20be50688f881d5ccf3a78b90f399c",
+  "published_plan_path": "verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_depth_v7/PLAN.md",
+  "replay": [
+    "python3 checks.py > out.json && cmp out.json result.json",
+    "python3 -O checks.py > out.json && cmp out.json result.json"
+  ],
+  "retained_constants_source": {
+    "path": "a2_efficiency_v6/result.json",
+    "sha256": "07354f6349a8ca6bd35195d6ca9ffe2a8a7c94a0001df5a65f315f80456c085e",
+    "values": [
+      "selected.kappa",
+      "selected.fixed_decoder_CQ_bound_upper",
+      "selected.cdf_count_vectors_sha256"
+    ]
+  },
+  "schema": "oi.a2-depth-extension-v7.provenance.v1",
+  "source_head": "70a8d97f54e4f00e729e9ff73fd94a81852d3dab",
+  "source_prefix": "verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/"
+}
