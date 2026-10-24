@@ -1,7 +1,7 @@
 # Delayed old-port history and the frozen acceptance carrier
 
-24 October 2026. This is an author computation, with no retained review yet. The plan was published before
-computation at `d72ea524` on #912, whose base is #912 at `588edce16926ae1a40d1f1e75fc1b5cfb7ccc55e`. The Native A
+24 October 2026. Author computation under #912. The plan was committed before computation at `d72ea524`, whose
+parent is #912 at `588edce16926ae1a40d1f1e75fc1b5cfb7ccc55e`. The Native A
 source geometry and its eight-port bank `history_v11/` are author `f24a57a7c23cc1818c04265cec7604f8bc2f410d`.
 
 ## Result and scope
@@ -33,13 +33,26 @@ It does not establish any of the following:
 
 ## Argument
 
-Native A's G masks the pool. `history_v11`'s chronological inversion, run with G in the dirty complement, makes
-the tail record a bijective image of fresh bank triples. The one new fact needed is geometric: no tail-bank triple
-(t > max(a_i, L)) reaches any carrier site-time (g1). With that fact,
+The supplied joint prior extends `history_v11`'s complement: given C0, the bank, G and the pads are uniform and
+independent.
+
+1. **G masks the pool.** Native A's G masks the pool. Native A's complement contains the whole bank, so the pool is
+   uniform given C0 and the tail.
+2. **The tail record is a bijection of the tail.** `history_v11`'s chronological inversion has steps of the form
+   v → α ⊕ H(v ⊕ β), where α and β may be any function of the complement, G included. Run with G in that dirty
+   complement, the inversion makes the tail record a bijective image of the fresh bank triples for each fixed
+   (C0, G).
+3. **The new geometric fact (g1).** No tail-bank triple (t > max(a_i, L)) reaches any carrier site-time. So Φ is a
+   function of (C0, G, pads) alone.
+4. **The tail is not seen early.** It reaches no port before its own time, so N_L is free of the tail.
+
+Together these give
 
     Pr(N_L, N_tail, Φ | C0) = [N_L = N_L(C0)] · 2^(−24(H−L)) · Pr_v6(Φ | C0).
 
-The carrier does depend on exposed bank from before the tail, but those records belong to N_L, which Native A's
+Pr_v6(Φ | C0) depends on C0 only through the public old-q9 sign, so the formula is the stated public law.
+
+The carrier does depend on exposed bank from before the tail. Those records belong to N_L, which Native A's
 conditioning already covers.
 
 ## Actual-L geometry (exact integers)
@@ -58,25 +71,28 @@ conditioning already covers.
   | q9 | L+78 |
   | q10, q9−y | L+79 |
 
-  A natively stored carrier would therefore acquire bank-dependent public records from L+77, inside the L+91
-  window.
+  A natively stored carrier could therefore depend on tail-bank triples from L+77, inside the L+91 window. Cone
+  arrival makes that dependence possible, not certain. The only dependence actually shown is c3 in the scaled
+  control.
 
 ## Scaled exhaustive control (n=3, k=2)
 
-Port (0,0,−3), with tail bank times 6, 7 and 8, G-to-port offsets 3, 5 and 5, and horizon 8. Three families of
-262,144 worlds each:
+Port (0,0,−3), with tail bank times 6, 7 and 8, G-to-port offsets 3, 5 and 5, and horizon 8. Bank times 4 and 5
+lie in C0 there, while at actual L the corresponding triples count as tail; this does not affect the argument.
+There are three families of 262,144 worlds each:
 - old q9 = 2, sign 1 (success);
 - old q9 = 6, sign 1 (failure);
 - old q9 = 1, sign 0 (success).
 
 | check | result |
 | --- | --- |
-| s1 | Records before the tail window are constant. |
+| read set | The carrier site-times, rebuilt from q9 and the six lattice steps (8 site-times, and 7 phase triples giving v6's 21 phase bits), equal v6's read set, at actual L and in the scaled control. |
+| s1 | Records before the tail window are constant. This is part of the verdict rule, which goes beyond the plan. |
 | s2 | The joint (pool, tail-record) map is bijective, with support 262,144 of 262,144. |
-| s3 | All 524,288 complete-record cells match v6, and the fresh-tail record/carrier TV is 0. Each success family has 16,384 positive accepted complete records. |
+| s3 | All 131,072 complete-record cells match v6, and the fresh-tail record/carrier TV is 0; pads enter by product. Each success family has 4,096 accepted records, all with the positive X decoder. |
 | x1 | The independent scalar evaluator agrees on 24 sampled worlds per family. |
 | x2 | The seven-site inverse holds on all 262,144 worlds. |
-| x3 | Duplicated-tail detection fires, with support 32,768. |
+| x3 | A duplicated tail triple is detected: the record/carrier TV is positive (131/256, 107/256 and 9/32), which goes beyond the plan. The support, 32,768, is reported only. |
 
 ## Countercontrols
 
@@ -86,7 +102,7 @@ These are scoped to the scaled families, conditional on C0.
   - The tail records take 40 or 48 distinct values.
   - The record/carrier TV is at least 227593/262144, 55345/65536 and 107601/131072 for the three families.
   - On the success families, accepted records have negative determinants: 66,656 of 66,656 and 61,760 of 64,064,
-    with minimum −1/2.
+    with minimum −1/2. These accepted-record denominators go beyond the plan.
   - So the bank is load-bearing.
 - **c2, a duplicated tail triple:** TV 131/256, 107/256 and 9/32.
 - **c3, q8 left to native dynamics:**
@@ -100,6 +116,8 @@ These are scoped to the scaled families, conditional on C0.
     python3 -I -B checks.py > out.json && cmp out.json result.json
     python3 -I -B -O checks.py > out.json && cmp out.json result.json
 
-Run from an empty working directory; each run takes about one minute. The checker uses the standard library only
+Run from an empty working directory, with paths from the repository root; each run takes about one minute. If a
+required control fails, the checker prints `VOID` and exits with status 2. `PROVENANCE.json` and `result.json`
+list every row added after the plan. The checker uses the standard library only
 and imports no author engine. `SHA256SUMS` lists `PLAN.md`, `REPORT.md`, `checks.py`, `result.json` and
 `PROVENANCE.json`.
