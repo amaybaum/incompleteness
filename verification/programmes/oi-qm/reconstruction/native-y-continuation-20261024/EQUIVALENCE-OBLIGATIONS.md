@@ -1,102 +1,116 @@
-# Parallel equivalence investigations
+# Parallel OI-to-QM equivalence investigations
 
-Research synthesis for 24 October 2026. This is a coordination supplement for
-the native-Y continuation, not a replacement for the programme owner's index.
-No physical premise, target extension, F/E designation or manuscript status is
-adopted here.
+Coordination supplement for 24 October 2026. The programme owner's source is
+`INTEGRATION.md` on #885 at `2d555f17c23bea31d32b3f5eb4c49d245b413a76`,
+under `research-planning/missing-component-20261020/`. It remains read-only
+for this effort. This supplement does not replace it or adopt premises.
 
-## Common target and evidence boundary
+## Active division of responsibility
 
-The source synthesis is `INTEGRATION.md` on #885 at
-`2d555f17c23bea31d32b3f5eb4c49d245b413a76`, under
-`verification/programmes/oi-qm/reconstruction/research-planning/missing-component-20261020/`.
-That source is read-only for this effort. The native-Y source is #910 at
-`9b334367864c39e969072d9fbd46b0c049584963`.
+| Track | Current scoped result | Next decisive obligation |
+| --- | --- | --- |
+| [#910 native instruments](https://github.com/amaybaum/incompleteness/pull/910) | Calibrated post-Y selected phase; restricted terminal X/R records; actual next-port boundary/reservoir result; eight-port history extension; scoped internal transport proof scrutiny | Couple the retained X to fresh resources by the native rule, implement readout/back-action/acceptance, and preserve a reusable full-boundary joint law |
+| [#911 states and dynamics](https://github.com/amaybaum/incompleteness/pull/911) | Explicit alternative operational quotient passes its supplied Pauli/Clifford contract but has a scoped non-Clifford obstruction; natural product preparations retain this fixed-map obstruction | Specify a different preparation/map/carrier/continuation contract, then prove observation preservation, target coverage and actual availability |
+| [#912 composition and access](https://github.com/amaybaum/incompleteness/pull/912) | Fixed full-future operational relation and actual native one-step response controls; matching next records can still hide a wrong joint retained-field law | Verify the actual native output cone and every complete-record kernel satisfy the contract for adaptive reuse |
 
-The finite calibrated menu and its supplied probabilities are a restricted
-instrument target. They are not the full quantum state space. A1 (exact
-equivalence on the specified full target) and A2 (a stated operational error
-bound on a specified protocol class) require separate verdicts. A theorem for
-one finite depth is not an arbitrary-depth theorem, and a family of finite
-approximations is not an available exact limiting operation.
-
-## Division of responsibility
-
-| Track | Owns | First decisive obligation | Does not establish by itself |
-| --- | --- | --- | --- |
-| Native measurement and reset (#910) | Actual lattice construction, resources, diagnostic interventions, full record/carrier law | Accept the actual calibrated two-slice phase in a native next instrument; deliver previous-Y access and valid post-read reset | Full state space, calibration selection, arbitrary menu/depth or composites |
-| States and dynamics (#911) | Exact target, representation map, preparation/operation availability and structural obstructions | Identify precisely which assumptions obstruct A1 and whether the native route changes any of them | Native implementation of a mathematically representable channel |
-| Composition and access (#912) | Conditional composition theorem, observable history, adaptive choices and composite-system boundary | State sufficient local contracts and prove their finite-depth consequence; exhibit controls for weaker inadequate contracts | Satisfaction of those contracts by the actual lattice or a tensor-product/Bell reconstruction |
-
-Each track uses a disjoint directory and its own forward checkpoints. Reviews
-remain with the result they inspect; they do not create separate PRs. Draft
-publication is not adoption or durable evidence on main. Before landing any
-claim, its required source and executable evidence must be reachable from main
+Each active track keeps its own guiding draft and disjoint source directory.
+Reviews are retained with the result, not in duplicate PRs. Internal review
+is not external validation, formal certification, adoption or evidence on
+main. Required off-main evidence must land with any dependent enduring claim
 under AGENTS §A.42.
 
-## Shared contracts
+## Shared acceptance contract
 
-1. **State and operation map.** Specify the source preparations, allowed
-   protocols, target states/instruments and correspondence. Distinguish a
-   representation from a physically available preparation or operation. If
-   equivalence is claimed, provide both coverage of the target and preservation
-   of all permitted source observations.
-2. **Measurement boundary.** The actual local phase has previous q8=(0,y,0)
-   and, on accepted masks, current q9=(0,y XOR a,y XOR b). The new J/Kplus/
-   Kminus sources are affine in the existing u and new a,b; native dynamics
-   provides the required nonlinear processing. Arbitrary late-q8 intervention
-   still fails. The complete two-slice neighborhood is not a cold socket.
-3. **Post-Y target and code.** The combined phase_joint_v10 construction
-   decodes the selected previous/current cells to (y XOR a,y,y XOR b,z),
-   with 5:3:2 plane weights, jointly fair z and 5/16 herald success. Failure
-   is retained with 11/16 mass and its actual physical raw fields. This is
-   a conditional native-family phase preparation. The fixed decoder is not
-   a derived observer operation; previous-Y access and reuse remain open.
-4. **Joint law.** Keep public records, heralds, timing and outgoing carrier in
-   the same law; retain failures. Conditional freshness is relative to the
-   entire relevant earlier history, not only an unconditioned initial prior.
-   A terminal R read is needed beside X→Y→X to detect the known swapped-weight
-   calibration counterexample.
-5. **Access and preparation.** List every private field, allowed read and
-   timing restriction. The q7 prefix `(u,u,1)` remains informative. Initial
-   ready regions, seed correlations, new independent banks, clock and settings
-   are explicit resources. None is silently derived from the local update.
-6. **Composition.** A proof must preserve its interface invariant after each
-   branch. If it needs equality of hidden states, justify that requirement;
-   a sufficient operational equivalence relation may be weaker. Multi-system
-   composition needs an additional operation/state correspondence and cannot
-   be inferred from a one-carrier sequential theorem.
+1. **Physical input.** Use the actual previous/current native phase and its
+   neighborhood, residual workspace, resources, timing and earlier records.
+   A selected coordinate map is not an autonomous state-transition theorem.
+   A cold late-time apparatus or arbitrary forced q8 input cannot replace it.
+2. **Fixed operational map.** State one source/target correspondence and
+   allowed protocol class. Verify equality of all permitted observations,
+   not just representation of desired states. A changed map is a candidate
+   architecture with its own obligations, not adoption by notation.
+3. **Joint branches.** Compare complete raw records, flags, timing and the
+   outgoing carrier together, retaining every failure and zero-mass branch.
+   A previous terminal failure never restarts an offered carrier. Terminal
+   X->Y->X alone misses known calibration errors; R is a necessary retained
+   diagnostic beside the full joint comparison.
+4. **Resources.** Specify independent sources at the original initial time,
+   with readiness and source-coordinate compatibility. Conditional freshness
+   relative to public history alone can miss correlations with incoming
+   response variables. Either prove the needed joint independence or retain
+   and check the actual joint resource/input kernel.
+5. **Access and initialization.** Identify public/private fields, delayed
+   reads, workspace return coupling, setting mechanisms and clock. A globally
+   fixed-zero complement is stronger than ready-ball assumptions. Adding a
+   reserved bank read or zeroing a bank coordinate changes the contract.
+6. **Closure.** Prove branchwise positivity and preservation of an admissible
+   boundary invariant under every next instrument. Hidden-state identity may
+   be stronger than operational equivalence, but selected-moment equality is
+   weaker unless its kernel is preserved. A finite-depth example is not an
+   arbitrary-depth or multi-system theorem.
 
-## Integration gates
+## Native checkpoints and precise boundaries
 
-The structural audit has priority for A1 viability. A blocked A1 architecture
-does not refute OI generally or a separately specified A2 claim. Native reset
-work can still settle the finite instrument obligation without settling A1.
+- `phase_joint_v10/`, author `9b334367864c39e969072d9fbd46b0c049584963`:
+  conditional selected-phase law with 5:3:2 masks, fair z and 5/16 success,
+  plus restricted whole-q9 terminal X/R records. Previous-Y access, general
+  menu and post-read native reset remain open.
+- `native_v11/`, revised author `7ec3f8234a148cadb58ebc6c8212b3b0233acabe`:
+  actual original-time first-front variations prove a next-port boundary
+  requirement. Under an explicitly independent uniform initial factor they
+  also provide a native local six-bit reservoir. The globally-zero case is
+  a different initialization restriction, not ruled out by that variation.
+- `history_v11/`, author `c326546f228a1769856fded2268b76d976a171d3`:
+  conditional eight-port public-noise theorem for H=L+Delta<=2L, adding
+  24Delta bits. Its whole-word and future-tail claims do not imply future
+  carrier/neighborhood independence.
+- `transport_audit_v1/`, author `a3e8b7a201aae9f7ac6babf93173188f87ed8bb8`:
+  accepted scoped written extrusion/frontier proofs, with a native cyclic
+  same-time countercontrol. Internal review does not automatically discharge
+  the programme's coordinator-commissioned independent proof review.
+- `native_pool_v11/` separates a conditional sampler/calibration bridge from
+  the unimplemented native predicate. Retained-X delivery, computation delay
+  and the full delayed record/carrier law remain construction obligations.
 
-A candidate result enters the combined handoff only with its explicit
-assumptions, proof or replay command, scope, source revision and separate-author
-review status. A computational diagnostic does not certify a universal theorem.
-Only accepted scoped findings are offered to the #885 owner for synthesis.
+## Reviewed parallel source pins
 
-Open broader obligations remain: calibration selection; native preparation,
-clock and settings; access closure; unrestricted depth and menu; composite
-systems and Bell structure; exact state/operation coverage. This document does
-not declare any of them closed.
+- #911 operational-quotient author `fb0f799d94b621cdb82a8e06183f07afc070f14c`,
+  accepting internal review `8cace57a0935adc4d9b790d527e4c5f91964d76c`:
+  explicit supplied Pauli/Clifford congruence and a scoped 1/15 pair bound.
+- #911 product-section author `d6966ce055f6f1d872080328023fc37d68d17533`,
+  accepting internal review `088af1453efc7780187bc81f8f765f5005b91870`:
+  eight product inputs already span the hidden measure space; a different
+  product pair gives a sharp 2/15 record bound under the same decoder.
+  These are different preparation contracts/pairs, not full-channel minimax
+  results or OI-wide error floors.
+- #912 native-phase author `5b77352f50ddfe750b1cf5cbc72ebdded046df31`,
+  accepting internal review `be3840081fb40fe991660fb394b262c8b1a1b89e`:
+  exact omitted-neighbor response and matching-record/wrong-joint-law
+  controls on explicitly local boundary completions. No original-time
+  reachability or added observer access is asserted.
 
-## Reviewed parallel checkpoints
+## Broader open gates
 
-- #910 joint phase author `9b334367864c39e969072d9fbd46b0c049584963`: separate integration review accepts the full conditional selected-phase/old-record/new-herald law and all failures. On the candidate's permitted whole-q9 terminal read, bounded terminal X/R refinement passes on the post-Y family. The unchanged post-read decoder has determinant -1/4; no reusable output follows.
-- #910 native controller author `bf1bc9fb067e38417d8968e26a691debf7d3eb5f`: separate scalar native review accepts the affine-source two-sign witness. Its historical one-source obstruction remains valid; the richer native source family resolves that preparation restriction.
-- #910 herald author `25220128c3c7991e4c22c917af56b68c02ab8051`: separate review accepts the synchronized remote initial-source program, full raw herald/z phases, shared seed law, exact padding and source geometry. P is unchanged.
-- #910 alternative layout author `8dc85bce24569a2ee80e8150d2aa7e05ac24f540`: scoped source-direction and order-three full-law obstructions accepted by separate review. These do not exclude the actual local controller.
-- [#911](https://github.com/amaybaum/incompleteness/pull/911), `81bc53e482158072869b916116a4fc0f8b28f99e`: unchanged reviewed almost-sure sampler and joint timing diagnostic. Fair-reservoir enlargement alone does not source A1 under the examined fixed pointwise/G3 identification.
-- [#912](https://github.com/amaybaum/incompleteness/pull/912), `69540662b234e37c6805ded244962a80f15f63a2`: unchanged reviewed tagged comparison and post-read positivity controls; no tagged-interface relaxation is adopted.
+The planning/backlog authority for these continuation follow-ups is
+[#913](https://github.com/amaybaum/incompleteness/issues/913), cross-linking
+the existing physical-source, geometry, composition and continuum Issues.
+Unstarted items do not receive placeholder PRs. Their next actions and
+activation conditions are stated there.
 
-The next decisive task is native read/back-action and phase closure: accept
-this actual prepared boundary, handle previous-Y delivery and the shared
-current X/R raw port, and output a valid next-stage state with every exposed
-field and failure in its branch law. Do not replace the physical neighborhood
-by a standalone ready phase. Extend the history bank when public observation
-continues beyond L, including the new remote herald port. A1 coverage, A2
-error guarantees, native preparation/settings/clock and composites remain
-separate obligations. No full equivalence is established.
+Open gates include calibration and physical observable-direction selection;
+native preparation, clock and settings; access closure; unrestricted menu
+and depth; composite/Bell structure; exact state/operation coverage; and
+the later finite-to-continuum scope. A single-carrier instrument does not
+discharge these gates. The structural architecture audit should stay active
+alongside native construction rather than waiting for every finite circuit.
+
+**A1 and A2 are separate.** A1 needs exact coverage and availability on its
+specified full target. A2 needs a stated protocol class, horizon, error
+metric/tolerance and resource-scaling guarantee. The scoped error floors for
+the #911 eight-sign representation are not bounds for every OI architecture.
+Finite calibrated successes do not establish emergent selection of quantum
+statistics, and failure of one architecture does not refute OI generally.
+
+No full equivalence, new physical premise, observer-access adoption, F/E
+designation, special workflow launch, force-push, merge or branch deletion
+follows from these research checkpoints.

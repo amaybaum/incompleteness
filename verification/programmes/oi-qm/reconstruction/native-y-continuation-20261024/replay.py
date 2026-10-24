@@ -51,14 +51,19 @@ def main():
     tests += [('history_v9', 'checks'), ('history_v9/review', 'checks'),
               ('reset_v9', 'checks'), ('reset_v9/review', 'checks'),
               ('reset_v9/review', 'history_corollary')]
-    latest = [('branch_v10', 'checks'), ('branch_v10/review', 'checks'),
+    retained_v10 = [('branch_v10', 'checks'), ('branch_v10/review', 'checks'),
               ('herald_v10', 'checks'), ('herald_v10/review', 'checks'),
               ('layout_v10', 'checks'), ('layout_v10/review', 'checks'),
               ('branch_v10/local-controller', 'checks', [], 'single-result.json'),
               ('branch_v10/local-controller', 'checks', ['--symmetric'], 'symmetric-result.json'),
               ('branch_v10/local-controller/review', 'checks'),
               ('phase_joint_v10', 'checks'), ('phase_joint_v10/review', 'checks')]
-    tests = latest if sys.argv[1:] == ['--latest'] else tests + latest
+    latest = [(folder, 'checks', [], 'result.json') for folder in (
+        'native_v11', 'native_v11/review',
+        'transport_audit_v1', 'transport_audit_v1/review',
+        'history_v11', 'history_v11/review',
+        'native_pool_v11', 'native_pool_v11/review')]
+    tests = latest if sys.argv[1:] == ['--latest'] else tests + retained_v10 + latest
     with tempfile.TemporaryDirectory(prefix='native-y-replay-') as directory:
         work = Path(directory) / 'checkpoint'
         shutil.copytree(ROOT, work, ignore=shutil.ignore_patterns('__pycache__'))
