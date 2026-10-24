@@ -315,7 +315,7 @@ def nearest_dyadic(B):
 
 def class_statement():
     rows = []
-    for B in range(1, 201):
+    for B in range(1, 301):
         k, d = nearest_dyadic(B)
         closed = Q(2 if B % 2 else 1, 5 * (1 << B))
         check(d == closed and d > 0, 'closed-form dyadic distance')
@@ -330,6 +330,12 @@ def class_statement():
     tenth_upper = (TENTH / d24).numerator // (TENTH / d24).denominator   # h*d24 <= 1/10
     check(tenth_upper * d24 <= TENTH < (tenth_upper + 1) * d24, 'coupling depth is maximal')
     return {'hypothesis': CLASS_HYPOTHESIS,
+            'distance_formula_status': ('proved: 4 = -1 mod 5, so 2^(B+2) = +-1 mod 5 for even B and '
+                                        '+-2 for odd B, hence 2^(B+2)/5 lies 1/5 or 2/5 from the nearest '
+                                        'integer; checked exactly for B in B_range_verified'),
+            'hellinger_step': ('proved: H^2(p,q) >= (p-q)^2/4, since 2H^2 = (sqrt p - sqrt q)^2 + '
+                               '(sqrt(1-p) - sqrt(1-q))^2 and |p-q| <= 2|sqrt p - sqrt q|, likewise for '
+                               '1-p, 1-q; the finite pair check is recorded as controls.hellinger_lemma_check_pairs'),
             'obstruction_source': 'resets that carry no randomness across slots',
             'B_range_verified': [rows[0], rows[-1]],
             'distance_formula': 'dist(4/5,2^-B Z)=2^-B*(2/5 if B odd else 1/5)',
@@ -392,6 +398,39 @@ def product_formula_enumeration(pa, pb):
     return n
 
 
+def born_record_masses(hmax):
+    """Sequential rank-one projections on rational 2x2 complex density matrices; independent of
+    the enumeration's pole bookkeeping. Reads alternate a, X, a, ... from X+."""
+    def cm(x, y):
+        return (x[0] * y[0] - x[1] * y[1], x[0] * y[1] + x[1] * y[0])
+
+    def ca(x, y):
+        return (x[0] + y[0], x[1] + y[1])
+
+    def mul(A, B):
+        return tuple(tuple(ca(cm(A[i][0], B[0][j]), cm(A[i][1], B[1][j])) for j in range(2)) for i in range(2))
+
+    def proj(n, o):
+        x, y, z = (o * c for c in n)
+        return (((Q(1) + z) / 2, Q(0)), (x / 2, -y / 2)), ((x / 2, y / 2), ((Q(1) - z) / 2, Q(0)))
+    rho0 = proj(AXES['X'], 1)
+    out = {}
+
+    def dfs(rho, rec):
+        if rec:
+            tr = rho[0][0][0] + rho[1][1][0]
+            check(rho[0][0][1] + rho[1][1][1] == 0, 'real trace')
+            out[rec] = tr
+        if len(rec) == hmax:
+            return
+        axis = AXES['a'] if len(rec) % 2 == 0 else AXES['X']
+        for o in (1, -1):
+            P = proj(axis, o)
+            dfs(mul(mul(P, rho), P), rec + (o,))
+    dfs(rho0, ())
+    return out
+
+
 def controller_record_enumeration(g, pa, pb, hmax=12):
     """Outcome records of the actual controller: each slot's mass is the seed count of the
     reset law at the actual signed pole; the quantum mass is the Born rule at that pole."""
@@ -407,6 +446,7 @@ def controller_record_enumeration(g, pa, pb, hmax=12):
     for ax in ('X', 'a'):
         for s in (1, -1):
             check(mass[ax, s, 1] + mass[ax, s, -1] == 1, 'normalized reset response')
+    born = born_record_masses(hmax)
     n = 0
     for h in range(1, hmax + 1):
         tv = Q(0)
@@ -419,6 +459,14 @@ def controller_record_enumeration(g, pa, pb, hmax=12):
                 pole = tuple(s * x for x in AXES[ax])
                 qm *= (1 + o * sum((x * y for x, y in zip(pole, AXES[read])), Q(0))) / 2
                 ax, s = read, o
+            check(qm == born[rec], 'per-record Born mass from independent matrix engine')
+            agree = Q(1)
+            prev = 1
+            for t, o in enumerate(rec, 1):
+                p = pb if t % 2 else pa
+                agree *= p if o == prev else 1 - p
+                prev = o
+            check(src == agree, 'per-record source mass equals signed-pole agreement law')
             tv += abs(src - qm)
         tv /= 2
         check(tv == tv_fast(pa, pb, h), 'actual controller records equal product engine')
@@ -515,7 +563,21 @@ def pooled_countercontrol():
             'conditional_law_outside_2^-24Z': nondyadic}
 
 
-def retained_seed_law(B, h):
+def union_partial(B, h):
+    return sum((Q(1 << (t - 1), 1 << (t * B)) for t in range(1, h + 1)), Q(0))
+
+
+def union_sum(B):
+    """Closed form of sum_t 2^(t-1) 2^(-tB): first term 2^-B, ratio 2^(1-B)."""
+    first, ratio = Q(1, 1 << B), Q(2, 1 << B)
+    check(ratio < 1, 'convergent union series')
+    total = first / (1 - ratio)
+    for h in (1, 2, 5, 20):
+        check(union_partial(B, h) + first * ratio ** h / (1 - ratio) == total, 'geometric tail identity')
+    return total
+
+
+def retained_seed_law(B, h, paths=None):
     """Record law when slot t's decision reads its fresh B bits together with every retained
     earlier bit: agree iff the left end of the known tB-bit cell lies below the exact
     arithmetic-coding cut. Consistent prefixes stay contiguous, so each record is a range."""
@@ -524,6 +586,8 @@ def retained_seed_law(B, h):
     def walk(t, lo, hi, a, b, rec):
         if t == h:
             law[rec] = b - a
+            if paths is not None:
+                paths[rec] = (lo, hi, a, b)
             return
         a, b = a << B, b << B                     # extend prefixes by this slot's fresh block
         m = lo + QUANTUM * (hi - lo)
@@ -550,6 +614,25 @@ def retained_seed_bruteforce(B, h):
     return law
 
 
+def retained_seed_tv_gap(B, h):
+    """Exact TV against QM, and the exact disagreement probability of the coupling through one
+    uniform U whose leading bits are the seeds (exact decoding of U reproduces QM)."""
+    paths = {}
+    law = retained_seed_law(B, h, paths)
+    scale = 1 << (B * h)
+    tv = Q(0)
+    overlap = Q(0)
+    for rec in product((1, 0), repeat=h):
+        qq = Q(1)
+        for g in rec:
+            qq *= QUANTUM if g else 1 - QUANTUM
+        lo, hi, a, b = paths[rec]
+        check(hi - lo == qq, 'exact decoding interval has quantum mass')
+        tv += abs(Q(law.get(rec, 0), scale) - qq)
+        overlap += max(Q(0), min(hi, Q(b, scale)) - max(lo, Q(a, scale)))
+    return tv / 2, 1 - overlap
+
+
 def retained_seed_countercontrol():
     """Counterexample limiting the class: bounded fresh bits per slot, but the reset also reads
     retained private seed bits. Its conditional laws leave 2^-B Z and T stays bounded."""
@@ -557,39 +640,32 @@ def retained_seed_countercontrol():
         walk, brute = retained_seed_law(B, h), retained_seed_bruteforce(B, h)
         check(all(walk.get(r, 0) == brute.get(r, 0) for r in product((1, 0), repeat=h)),
               'range walk equals seed enumeration')
-    out = {}
-    for B in (2, 3, 4):
+    out = {'initial_seed_state': 'empty: no retained bits before read 1; read 1 uses the cut 4/5 and B fresh bits'}
+    for B, hmax in ((2, 8), (3, 6), (4, 5)):
         law = retained_seed_law(B, 2)
         p1 = law[(1, 1)] + law[(1, 0)]
         cond = Q(law[(1, 1)], p1)
         check((cond * (1 << B)).denominator != 1, 'retained-seed conditional law leaves 2^-B Z')
-        out['B' + str(B)] = {'conditional_agree2_given_agree1': str(cond),
+        entry = {'conditional_agree2_given_agree1': str(cond),
                              'all_depth_union_bound': str(Q(1, (1 << B) - 2))}
-    exact, shown = {}, {}
-    bound = Q(1, 14)
-    for h in range(1, 6):
-        law = retained_seed_law(4, h)
-        tv = Q(0)
-        for rec in product((1, 0), repeat=h):
-            qq = Q(1)
-            for g in rec:
-                qq *= QUANTUM if g else 1 - QUANTUM
-            tv += abs(Q(law.get(rec, 0), 1 << (4 * h)) - qq)
-        tv /= 2
-        check(tv <= bound, 'retained-seed TV within union bound')
-        exact[str(h)] = str(tv)
+        total = union_sum(B)
+        check(Q(entry['all_depth_union_bound']) == total, 'union-bound label derived from the series')
+        tvs, gaps = {}, {}
+        for h in range(1, hmax + 1):
+            tv, gap = retained_seed_tv_gap(B, h)
+            check(tv <= gap <= union_partial(B, h) < total, 'TV <= coupling gap <= partial union sum')
+            tvs[str(h)] = str(tv) if B == 4 else display(tv)
+            gaps[str(h)] = str(gap)
+        entry['tv_by_h'] = tvs
+        entry['coupling_gap_exact_by_h'] = gaps
+        entry['checked_depths'] = [1, hmax]
+        out['B' + str(B)] = entry
+    bound = union_sum(4)
+    shown = {}
     for h in (8, 12, 16):
-        law = retained_seed_law(4, h)
-        tv = Q(0)
-        for rec in product((1, 0), repeat=h):
-            qq = Q(1)
-            for g in rec:
-                qq *= QUANTUM if g else 1 - QUANTUM
-            tv += abs(Q(law.get(rec, 0), 1 << (4 * h)) - qq)
-        tv /= 2
-        check(tv <= bound, 'retained-seed TV within union bound')
+        tv, gap = retained_seed_tv_gap(4, h)
+        check(tv <= gap <= union_partial(4, h) < bound, 'TV <= coupling gap <= partial union sum')
         shown[str(h)] = display(tv)
-    out['B4_tv_exact_h1_to_5'] = exact
     out['B4_tv_display_h8_12_16'] = shown
     k, _ = nearest_dyadic(4)
     p4 = Q(k, 16)
@@ -597,7 +673,11 @@ def retained_seed_countercontrol():
     check(mem > bound, 'memoryless 4-bit reset exceeds retained-seed all-depth bound')
     out['memoryless_B4_nearest_dyadic'] = str(p4)
     out['memoryless_B4_tv_h4096_display'] = display(mem)
-    out['union_bound_rule'] = 'T(h) <= sum_t 2^(t-1)*2^(-tB) <= 1/(2^B-2) for all h, B>=2'
+    out['union_bound_rule'] = ('couple both laws through one uniform U whose leading bits are the seeds; '
+                               'records first differ at read t only if one of the 2^(t-1) depth-t cuts lies '
+                               'in the tB-bit cell of U: T(h) <= gap(h) <= sum_(t<=h) 2^(t-1-tB) < '
+                               '2^-B/(1-2^(1-B)) = 1/(2^B-2), B>=2')
+    out['nature'] = 'protocol-specific sampler reading the quantum cuts; not a geometric controller'
     return out
 
 
@@ -610,6 +690,20 @@ def grid_sensitivity():
         out[f'M{M}_W{W}'] = {'dA': str(abs(pa - QUANTUM)), 'dB': str(abs(pb - QUANTUM)),
                               'dA_display': display(abs(pa - QUANTUM)), 'dB_display': display(abs(pb - QUANTUM))}
     out['B24_dyadic_floor'] = str(Q(1, 5 * (1 << 24)))
+    ch = {}
+    for key in ('dA', 'dB'):
+        base = Q(out['M16_W16'][key])
+        w40 = Q(out['M16_W40'][key])
+        m32 = Q(out['M32_W16'][key])
+        rel, ratio = (base - w40) / base, base / m32
+        whole = ratio.numerator // ratio.denominator
+        ch[key + '_relative_change_W16_to_W40_at_M16'] = str(rel)
+        ch[key + '_relative_change_W16_to_W40_at_M16_display'] = display(rel)
+        ch[key + '_ratio_M16_over_M32_at_W16'] = str(ratio)
+        ch[key + '_ratio_M16_over_M32_at_W16_display'] = str(whole) + display(ratio - whole)[1:]
+    ch['scope'] = ('B=24; dA is the X read after reset at +-a, dB the a read after reset at +-X; '
+                   'single parameter steps for these two reads only, not a scaling law')
+    out['per_read_changes'] = ch
     return out
 
 
@@ -647,8 +741,10 @@ def main():
     else:
         verdict = 'NO_OBSTRUCTION_FROM_THIS_PROTOCOL'
     class_verdict = ('MEMORYLESS_RESET_CLASS: for every fixed B the conditional agreement law after the '
-                     f'first read lies in 2^-B Z (distance formula verified B={cls["B_range_verified"][0]}..'
-                     f'{cls["B_range_verified"][1]}), so T(h)->1; B=24 certified T>1/2 for '
+                     'first read lies in 2^-B Z, at distance at least dist(4/5,2^-B Z)>0 from 4/5 '
+                     f'(distance formula proved; checked B={cls["B_range_verified"][0]}..'
+                     f'{cls["B_range_verified"][1]}), and H^2>=d^2/4 per read (proved; checked on '
+                     f'{hpairs} rational pairs), so T(h)->1; B=24 certified T>1/2 for '
                      f'h>={cls["B24_depth_certified_T_above_half"]}')
     out = {
         'schema': 'oi.a2-depth-extension-v7.v1',
@@ -667,7 +763,7 @@ def main():
         'growing_bits_sampler_control': grow,
         'controls': {'positive': pos, 'product_formula_enumeration_records': enum,
                      'controller_record_enumeration_records': actual,
-                     'hellinger_constant_pairs': hpairs,
+                     'hellinger_lemma_check_pairs': hpairs,
                      'seeded_exhaustion': seeded, 'pooled_bank_countercontrol': pooled,
 
                      'sign_control': 'agreement masses for both pole signs computed directly and equal; zero responses 0'},

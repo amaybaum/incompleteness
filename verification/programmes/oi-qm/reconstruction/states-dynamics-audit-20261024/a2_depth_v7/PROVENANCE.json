@@ -24,7 +24,7 @@
     }
   ],
   "plan_commit_before_computation": "a27e8d8f2e20be50688f881d5ccf3a78b90f399c",
-  "plan_commit_note": "Local commit of PLAN.md at 15:17:55 UTC, before the first execution commit 1949a902 at 15:25:15 UTC; committed before computation, not published at that time.",
+  "plan_commit_note": "committed at a27e8d8f (15:17:55 UTC), a child of #911's head 70a8d97f, before 1949a902 (15:25:15 UTC)",
   "plan_path": "verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_depth_v7/PLAN.md",
   "plan_sha256": "e77ac06e1d648c506c9f13019fea79fd9357351e75f6cdc221aca9477b0b6536",
   "replay": [
