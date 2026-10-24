@@ -1,0 +1,63 @@
+{
+  "arbitrary_q8_socket": "FAILS retained intervention check",
+  "calibration_mutant_tv": "1/10",
+  "complete_seed_worlds": 1024,
+  "failure": "11/16",
+  "failure_pattern01_raw": [
+    {
+      "pattern01": [
+        0,
+        0,
+        0
+      ],
+      "u": 0,
+      "x": 0
+    },
+    {
+      "pattern01": [
+        1,
+        1,
+        0
+      ],
+      "u": 1,
+      "x": 0
+    },
+    {
+      "pattern01": [
+        0,
+        1,
+        1
+      ],
+      "u": 0,
+      "x": 1
+    },
+    {
+      "pattern01": [
+        1,
+        0,
+        0
+      ],
+      "u": 1,
+      "x": 1
+    }
+  ],
+  "fair_z_joint": true,
+  "fresh_bits": 6,
+  "noise_factor": "2^(-(6*P+18*d+189)) under retained bank theorem",
+  "old_rows": 16,
+  "old_seed_reuse_X_tv": "1/2",
+  "phase_decoder": "(previous q8.B,current q9.B,current q9.D,current z.D), reordered X,Y,R,Z",
+  "raw_phase_cells_checked": 208,
+  "readout_and_reuse": "OPEN; previous-slice Y and whole-port X/R access require native protocols",
+  "schema": "oi.native-y.joint-phase-v10",
+  "scope": "Conditional original-time native-family phase preparation with explicit terminal failures; no reusable instrument or OI-QM equivalence.",
+  "shared_z_joint_tv": "1/2",
+  "success": "5/16",
+  "success_failure_branches": 32,
+  "success_plane_counts": [
+    5,
+    3,
+    2
+  ],
+  "verdict": "PASS_CONDITIONAL_NATIVE_FAMILY_PHASE_PREPARATION"
+}
