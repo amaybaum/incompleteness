@@ -1,0 +1,77 @@
+{
+  "author_commit": "5b77352f50ddfe750b1cf5cbc72ebdded046df31",
+  "author_file_hashes_checked": {
+    "PLAN.md": "1868d2f7b3dae7219340abcd23e17b0058ab68421a6984df24acc964930cf0b0",
+    "PROVENANCE.json": "5fde4072d005ae57cc2898acec9ea836321d22407d4c725860013588859a2fcd",
+    "REPORT.md": "ad0c77e3acfaeb49bf949709ed9b3f7fe8e68e5730fedbd2eb06e8f237b9e473",
+    "checks.py": "d361a8ebf224a5736a6984bace1e3fb807174f93ecbca0c9fa808685429c0e73",
+    "result.json": "b859bd20d5bd159286b3db19571dd645af822ff547efd73476e5e30e90801cbc"
+  },
+  "distant_controls": 5120,
+  "dropped_old_slice_mismatches": 2560,
+  "dropped_parity_mismatches": 4480,
+  "equal_parity_three_neighbor_controls": 4096,
+  "fixed_old_history_contexts": {
+    "(0, 0)": {
+      "C_flip_conditional_tv": "1",
+      "C_flip_full_tv": "5/16",
+      "failure_mass": "11/16",
+      "fresh_correlated_joint_conditional_tv": "1/2",
+      "fresh_correlated_joint_full_tv": "5/32",
+      "fresh_correlated_public_tv": "0"
+    },
+    "(0, 1)": {
+      "C_flip_conditional_tv": "1",
+      "C_flip_full_tv": "5/16",
+      "failure_mass": "11/16",
+      "fresh_correlated_joint_conditional_tv": "1/2",
+      "fresh_correlated_joint_full_tv": "5/32",
+      "fresh_correlated_public_tv": "0"
+    },
+    "(1, 0)": {
+      "C_flip_conditional_tv": "1",
+      "C_flip_full_tv": "5/16",
+      "failure_mass": "11/16",
+      "fresh_correlated_joint_conditional_tv": "1/2",
+      "fresh_correlated_joint_full_tv": "5/32",
+      "fresh_correlated_public_tv": "0"
+    },
+    "(1, 1)": {
+      "C_flip_conditional_tv": "1",
+      "C_flip_full_tv": "5/16",
+      "failure_mass": "11/16",
+      "fresh_correlated_joint_conditional_tv": "1/2",
+      "fresh_correlated_joint_full_tv": "5/32",
+      "fresh_correlated_public_tv": "0"
+    }
+  },
+  "full_reset_measure_including_terminal_failures": "PASS",
+  "mask01_failure_triples_by_x_u": {
+    "(0, 0)": [
+      0,
+      0,
+      0
+    ],
+    "(0, 1)": [
+      1,
+      1,
+      0
+    ],
+    "(1, 0)": [
+      0,
+      1,
+      1
+    ],
+    "(1, 1)": [
+      1,
+      0,
+      0
+    ]
+  },
+  "native_reachability_of_local_completions_claimed": false,
+  "post_X_outgoing_cells": 36,
+  "post_X_reset_whole_port_branches": 6,
+  "response_cases": 5120,
+  "schema": "oi-native-phase-v4-independent-review.1",
+  "verdict": "ACCEPT_WITHIN_SCOPE"
+}
