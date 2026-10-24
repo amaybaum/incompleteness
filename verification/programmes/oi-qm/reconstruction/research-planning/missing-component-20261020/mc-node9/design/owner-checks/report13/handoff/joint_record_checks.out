@@ -1,0 +1,20 @@
+Joint-record diagnostic v1: exploratory exact arithmetic; NOT apparatus acceptance
+Original candidate: censored geometric TV, prefix event = direct sum (m=256)
+n=7 pX=0.085449218750 pR=0.082859039307 TV=0.011829311867
+n=15 pX=0.030684471130 pR=0.030274873716 TV=0.005020820371
+n=31 pX=0.021867177202 pR=0.021727684524 TV=0.002380300466
+n=63 pX=0.015522930273 pR=0.015474137704 TV=0.001167252923
+n=127 pX=0.010997826902 pR=0.010980661934 TV=0.000577797726
+Direct 3D bit/depth enumeration n=1,3: normalization, rotations, herald equality, joint TV PASS
+Menu state matrix rank=4; four null relations rank=4; equal-state pair PASS
+Quantum positive control PASS; all three antipodal relations PASS; fourth relation fails as expected
+Rotated candidate: same heralds; equivalent-state pair A vs B; m=256; terminal X read
+n | joint TV | time-blind TV | simple joint-event gap | completion
+3 | 0.023437500000 | 0.023437500000 | 0.016666666667 | 1.000000000000
+7 | 0.034165736603 | 0.008300781249 | 0.019291294641 | 0.999999999883
+15 | 0.040614656430 | 0.000024720364 | 0.017447246121 | 0.999657166211
+31 | 0.046889907268 | 0.001212007354 | 0.018434719851 | 0.996517868697
+63 | 0.043770460871 | 0.000639824906 | 0.017754798730 | 0.981776369544
+127 | 0.041774027592 | 0.000304799578 | 0.017317436015 | 0.941048489206
+Finite-bin joint clock/velocity TV: direct depth counts = residue formula <= bound, 12 cases PASS
+PASS: exact identities and scoped witnesses; no native clock or detector derivation claimed

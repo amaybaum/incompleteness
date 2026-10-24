@@ -1,0 +1,6 @@
+[owner] n=4 ops=none: cases=1024
+    k=1: record-safe copy realizations: none
+    k=2: record-safe copy realizations: none
+    k=3: record-safe copy realizations: none
+    k=4: record-safe copy realizations: none
+elapsed 0.0s

@@ -1,0 +1,16 @@
+OI native-wave bounded resource checks v1
+Arithmetic: integers modulo 3 and exact rational fractions; no sampling
+P1 PASS: L=9, four fresh pivots; conditional ranks [1, 2, 3, 4]
+P2 PASS: L=18, eight ports; per-component ranks ready=16, joint=48
+P2 COROLLARY: two components give 64 independent future trits given all 32 initial port trits
+P3 PASS: all 6561 histories; all 49 fixed-window joint records factor exactly
+P4 PASS: adaptive second window and start obey the conditional call law
+CALL LAW: failure=1/9; each mark at wait 1=2/9; each mark at wait 2=2/27
+P5 PASS: all 6561 two-port histories; adaptive station choice, 16 records
+N1 DETECTED: shared preparation keeps uniform marginals; success/failure=0 versus 2/9
+N2 DETECTED: alpha=0 gives zero conditional output rank
+N3 DETECTED: six initial-neighbour probes determine the next herald
+N4 DETECTED: L=3 ranks [1, 2, 3, 4, 4, 4]; u_5=-u_-1, u_6=-u_0
+P6 PASS: inverse and six-step return checked on all 54 phase-space basis vectors
+PASS: bounded resource lemma checks and all four countercontrols
+NOT CLAIMED: angular flux law, physical emission/reset apparatus, access closure, or OI-QM equivalence

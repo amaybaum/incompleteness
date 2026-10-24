@@ -1,0 +1,24 @@
+EXPLORATORY DESIGN EVIDENCE; not preregistered or independently reviewed.
+POSITIVE CONTROL: two connected seven-site devices; bridge (0,7).
+t=2: 2 independent retained bits; 4096 complete position records; 4 equally likely joint hidden states per record; image count=16384.
+t=3: 2 independent retained bits; 4096 complete position records; 4 equally likely joint hidden states per record; image count=16384.
+t=4: both historical bits become unreadable from the complete position record.
+CONJUGATE ATTEMPT: seven sites; final time 2; complete visible position record.
+Exact identity: f=u1(2)=u5(2), g=v1(2), m=u0(2) XOR u6(2)=g XOR r, r=u6(0).
+All four (f,m) pairs occur 256 times; f,g,r are independent fair bits.
+Every complete record leaves r fair (8/8), hence leaves g fair.
+both6 clean: hidden pair fully determined on every branch (512 inputs).
+read v5: hidden pair fully determined on every branch (1024 inputs).
+cancel core kick: hidden pair fully determined on every branch (1024 inputs).
+Kick cancellation is not symplectic; other two controls violate preparation/read compatibility.
+BIAS SENSITIVITY: P(r=0)=p, all other free initial bits fair and independent.
+p=0: hidden-pair support=1; optimal g prediction=1; visible record distribution unchanged.
+p=1/100: hidden-pair support=2; optimal g prediction=99/100; visible record distribution unchanged.
+p=1/4: hidden-pair support=2; optimal g prediction=3/4; visible record distribution unchanged.
+p=1/2: hidden-pair support=2; optimal g prediction=1/2; visible record distribution unchanged.
+p=99/100: hidden-pair support=2; optimal g prediction=99/100; visible record distribution unchanged.
+p=1: hidden-pair support=1; optimal g prediction=1; visible record distribution unchanged.
+FUTURE READ: u4(12)=u6(0)=r on all 1024 inputs; P(u4(12)=0)=p.
+No single current-position read at times 2 through 11 distinguishes p; time 12 does.
+These preparations agree at time 2 but are not equivalent across future protocols.
+PASS: exact identities, full seven-site enumeration, connected image counts and rational biases.

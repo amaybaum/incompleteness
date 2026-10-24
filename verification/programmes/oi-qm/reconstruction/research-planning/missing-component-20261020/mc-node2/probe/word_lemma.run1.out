@@ -1,0 +1,8 @@
+PASS W1 Choi(Ad Z) has rank 1
+PASS W2 Choi(Phi_n) = Choi((1-p) Ad Z + p id) has rank 2 for 0 < p < 1 (p = 1/2, 1/16, 1/1024)
+PASS W3 for K not proportional to U, <<v|Choi(Ad U) - |K>><<K||v>> < 0 exactly for v = vec K minus its vec U part (so K cannot be a summand)
+PASS W3b for K = U/3 the remainder is PSD (8/9 Choi(Ad U))
+PASS W4 [P_a, X_ab] = E_ab - E_ba and X_ab - sum_{c not in {a,b}} P_c = E_ab + E_ba (d = 2, 3, 5, 7, all pairs)
+PASS W5 with 2^10 equiprobable microstates, 2^-11 is not an achievable nonzero event probability
+
+6 PASS, 0 FAIL

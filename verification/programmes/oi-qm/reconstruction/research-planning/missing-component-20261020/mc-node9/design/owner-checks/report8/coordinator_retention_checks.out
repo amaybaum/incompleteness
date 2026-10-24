@@ -1,0 +1,7 @@
+five-site, u-only at t=3: (2, 2)
+five-site, u-only at t=2 (hidden at t=2): (2, 2)
+five-site, u-only at t=2 and t=3 retained (hidden at t=3): (1, 1)
+u1(3) = u0(2)+u2(2) and v1(3) = u0(3) on all 256 states
+five-site period: 16  u-only terminal support min over t=0..15: 2
+four-site u-only terminal support min over t=0..9: 2
+four-site u-only at t=2 and t=3 retained: (1, 1)

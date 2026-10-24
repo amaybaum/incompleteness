@@ -1,0 +1,17 @@
+Native five-site model: 256 admissible states; symplectic; exact period 16.
+All 1024 states satisfy the displayed three-step linear formulas.
+All admissible states: hidden u1 = V0 XOR V2; hidden v1 = U0.
+Explicit decoder recovers all eight initially unknown bits in every branch.
+both memories: records, hidden support, initial fibers = (256, [1], [1])
+memory 3 only: records, hidden support, initial fibers = (128, [2], [2])
+memory 4 only: records, hidden support, initial fibers = (128, [2], [2])
+neither memory: records, hidden support, initial fibers = (64, [4], [4])
+original endpoint pairs only: (16, [1], [16])
+three sufficient record bits: (8, [1], [32])
+visible u coordinates only: (16, [2], [16])
+visible v coordinates only: (16, [2], [16])
+One coordinate per visible site: support histogram {2: 12, 4: 4}
+The two sufficient hidden-inference record functions have pairing 1.
+Isotropic-space counts by dimension: [1, 255, 5355, 11475, 2295]
+All 2295 maximal isotropic record spaces, rank AND enumeration: {2: 405, 4: 1890}
+PASS: every asserted finite check; no floating-point arithmetic.

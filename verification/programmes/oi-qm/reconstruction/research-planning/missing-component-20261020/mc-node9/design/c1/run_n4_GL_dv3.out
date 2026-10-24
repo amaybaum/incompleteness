@@ -1,0 +1,11 @@
+[strict] n=4 ops=GL: configurations=256 skipped(visible dim)=256 max record-safe classes/level=81
+    k=1: record-safe designated matches: none
+    k=2: record-safe designated matches: none
+    k=3: record-safe designated matches: none
+    k=4: record-safe designated matches: none
+[relaxed] n=4 ops=GL: configurations=1408 skipped(visible dim)=640 max record-safe classes/level=21952
+    k=1: record-safe designated matches: none
+    k=2: record-safe designated matches: none
+    k=3: record-safe designated matches: none
+    k=4: record-safe designated matches: none
+elapsed 43.2s

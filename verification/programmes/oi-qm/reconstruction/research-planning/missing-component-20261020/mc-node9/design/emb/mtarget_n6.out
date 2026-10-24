@@ -1,0 +1,20 @@
+n <= 2 done
+n <= 3 done
+n <= 4 done
+n <= 5 done
+n <= 6 done
+memory pairs r=1 target pairs m=1: cases 5520, completely learnt with uniform prior: 0
+memory pairs r=1 target pairs m=2: cases 10524, completely learnt with uniform prior: 0
+memory pairs r=1 target pairs m=3: cases 10084, completely learnt with uniform prior: 0
+memory pairs r=1 target pairs m=4: cases 4850, completely learnt with uniform prior: 0
+memory pairs r=1 target pairs m=5: cases 936, completely learnt with uniform prior: 0
+memory pairs r=2 target pairs m=1: cases 10524, completely learnt with uniform prior: 1061   first: n=3 t=2 edges=((0, 1), (0, 2)) R=(1, 2) target=(0,)
+memory pairs r=2 target pairs m=2: cases 15126, completely learnt with uniform prior: 140   first: n=4 t=2 edges=((0, 1), (0, 3), (1, 2)) R=(0, 2) target=(1, 3)
+memory pairs r=2 target pairs m=3: cases 9700, completely learnt with uniform prior: 0
+memory pairs r=2 target pairs m=4: cases 2340, completely learnt with uniform prior: 0
+memory pairs r=3 target pairs m=1: cases 10084, completely learnt with uniform prior: 5026   first: n=4 t=2 edges=((0, 1), (0, 2)) R=(1, 2, 3) target=(0,)
+memory pairs r=3 target pairs m=2: cases 9700, completely learnt with uniform prior: 2913   first: n=5 t=2 edges=((0, 1), (0, 3), (1, 2)) R=(0, 2, 4) target=(1, 3)
+memory pairs r=3 target pairs m=3: cases 3120, completely learnt with uniform prior: 594   first: n=6 t=2 edges=((0, 3), (0, 5), (1, 2), (1, 4), (2, 3)) R=(0, 2, 4) target=(1, 3, 5)
+memory pairs r=4 target pairs m=1: cases 4850, completely learnt with uniform prior: 3374   first: n=5 t=2 edges=((0, 1), (0, 2)) R=(1, 2, 3, 4) target=(0,)
+memory pairs r=4 target pairs m=2: cases 2340, completely learnt with uniform prior: 1210   first: n=6 t=2 edges=((0, 1), (0, 3), (1, 2)) R=(0, 2, 4, 5) target=(1, 3)
+memory pairs r=5 target pairs m=1: cases 936, completely learnt with uniform prior: 628   first: n=6 t=2 edges=((0, 1), (0, 2)) R=(1, 2, 3, 4, 5) target=(0,)

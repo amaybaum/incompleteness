@@ -1,0 +1,9 @@
+n=2 QM class size (Z-frame conjugates): 4
+('s', 0) local lifts 4
+('s', 1) local lifts 4
+('s', 2) local lifts 4
+('c', 0, 1) local lifts 16
+('c', 1, 2) local lifts 16
+n=3 local tuples enumerated: 16384
+tuples with both 2-system restrictions in the n=2 QM class: 8
+equal to the 8 Z-frame conjugates of std3: True 8

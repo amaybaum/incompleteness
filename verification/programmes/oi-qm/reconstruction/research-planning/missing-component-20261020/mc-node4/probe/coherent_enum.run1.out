@@ -1,0 +1,54 @@
+Node 4 coherent-prior enumeration (exact, Gaussian rationals)
+PASS  E1.m3  all 720 bijections: Kraus row-monomial, single-amplitude entries
+PASS  E1.m4  all 40320 bijections: Kraus row-monomial, single-amplitude entries
+PASS  E2.N-uniform  effects diagonal, 40320 bijections
+PASS  E3.N-uniform  final-configuration law = mixed prior |h|^2, both starts
+PASS  E5.N-uniform  sum_x' K^H 1 = conj(sum h) 1
+PASS  E4.N-uniform  2 distinct rank-one V, all monomial; kinds ['perm']; all ones-fixing: True
+PASS  E4r.N-uniform  every entry of a normalized rank-one V is a ratio h_x/h_y of prior coordinates
+PASS  E4b.N-uniform  sum h != 0: every unitary channel fixes the all-ones ray
+PASS  E6.N-uniform  nonnegative prior: nonnegativity and reality preserved; unitary channels are permutations
+PASS  E2.N-nonunif  effects diagonal, 40320 bijections
+PASS  E3.N-nonunif  final-configuration law = mixed prior |h|^2, both starts
+PASS  E5.N-nonunif  sum_x' K^H 1 = conj(sum h) 1
+PASS  E4.N-nonunif  2 distinct rank-one V, all monomial; kinds ['perm']; all ones-fixing: True
+PASS  E4r.N-nonunif  every entry of a normalized rank-one V is a ratio h_x/h_y of prior coordinates
+PASS  E4b.N-nonunif  sum h != 0: every unitary channel fixes the all-ones ray
+PASS  E6.N-nonunif  nonnegative prior: nonnegativity and reality preserved; unitary channels are permutations
+PASS  E2.R-sum0  effects diagonal, 40320 bijections
+PASS  E3.R-sum0  final-configuration law = mixed prior |h|^2, both starts
+PASS  E5.R-sum0  sum_x' K^H 1 = conj(sum h) 1
+PASS  E4.R-sum0  4 distinct rank-one V, all monomial; kinds ['perm', 'signed']; all ones-fixing: False
+PASS  E4r.R-sum0  every entry of a normalized rank-one V is a ratio h_x/h_y of prior coordinates
+PASS  E6.R-sum0  signed prior: reality preserved; unitary kinds ['perm', 'signed']
+PASS  E2.R-sum2  effects diagonal, 40320 bijections
+PASS  E3.R-sum2  final-configuration law = mixed prior |h|^2, both starts
+PASS  E5.R-sum2  sum_x' K^H 1 = conj(sum h) 1
+PASS  E4.R-sum2  2 distinct rank-one V, all monomial; kinds ['perm']; all ones-fixing: True
+PASS  E4r.R-sum2  every entry of a normalized rank-one V is a ratio h_x/h_y of prior coordinates
+PASS  E4b.R-sum2  sum h != 0: every unitary channel fixes the all-ones ray
+PASS  E6.R-sum2  signed prior: reality preserved; unitary kinds ['perm']
+PASS  E2.C-fourier1  effects diagonal, 40320 bijections
+PASS  E3.C-fourier1  final-configuration law = mixed prior |h|^2, both starts
+PASS  E5.C-fourier1  sum_x' K^H 1 = conj(sum h) 1
+PASS  E4.C-fourier1  8 distinct rank-one V, all monomial; kinds ['complex', 'perm', 'signed']; all ones-fixing: False
+PASS  E4r.C-fourier1  every entry of a normalized rank-one V is a ratio h_x/h_y of prior coordinates
+PASS  E2.C-sum1+i  effects diagonal, 40320 bijections
+PASS  E3.C-sum1+i  final-configuration law = mixed prior |h|^2, both starts
+PASS  E5.C-sum1+i  sum_x' K^H 1 = conj(sum h) 1
+PASS  E4.C-sum1+i  2 distinct rank-one V, all monomial; kinds ['perm']; all ones-fixing: True
+PASS  E4r.C-sum1+i  every entry of a normalized rank-one V is a ratio h_x/h_y of prior coordinates
+PASS  E4b.C-sum1+i  sum h != 0: every unitary channel fixes the all-ones ray
+PASS  E6.Z-signed  signed sum-0 prior gives Z, never S
+PASS  E6.S-complex  Fourier prior on a 4-cycle gives S = diag(1,i)
+PASS  E6.none-moving-if-sum!=0  priors with sum h != 0 give neither Z nor S
+PASS  E6.signed-breaks-nonneg  witness bijection (0, 1, 2, 3, 5, 4, 7, 6)
+PASS  E7a  untouched purifier: channel = mixed prior (9/25, 16/25) channel, all 24 bijections, matrix units
+PASS  E7b  purifier acted on, amplitudes (3,4): nonnegativity kept; 576 rank-one cases, all ones-fixing
+PASS  E7c  purifier sign changes the visible channel for 20736 of 40320 bijections
+PASS  E8.R-sum0  12221 two-step protocols: single-amplitude row-monomial Kraus, mixed-prior statistics, 26 rank-one coarse channels all monomial
+PASS  E8.C-fourier1  12221 two-step protocols: single-amplitude row-monomial Kraus, mixed-prior statistics, 14 rank-one coarse channels all monomial
+PASS  E9a  Hadamard after swap-in: coherent P(1) = 1, mixed P(1) = 1/2
+PASS  E9b  with a Hadamard step before the bijection the Kraus operators are not row-monomial (check can fail)
+PASS  E9c  X-basis test effect is non-diagonal (diagonal-effect check can fail)
+SUMMARY 52 PASS, 0 FAIL

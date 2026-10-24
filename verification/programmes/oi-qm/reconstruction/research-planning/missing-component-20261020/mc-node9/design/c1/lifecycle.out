@@ -1,0 +1,11 @@
+(c2) storing by a visible copy: hidden back-action of the storage operation
+  storage map symplectic: True
+  storage map is the identity on every hidden coordinate (rows and columns): True
+  after the read step, storing leaves every hidden coordinate unchanged and puts the reading in the memory: True
+(d)/(e) reuse on the fixed graph: support of the TOY's current state given every visible record
+  bath + reservoir of 1 hidden site(s) (4 hidden bits incl. toy): toy support after steps 1..7: 2 2 2 1 1 1 1   -> every branch a point mass from step 4
+  bath + reservoir of 2 hidden site(s) (6 hidden bits incl. toy): toy support after steps 1..9: 2 2 2 2 2 1 1 1 1   -> every branch a point mass from step 6
+  bath + reservoir of 3 hidden site(s) (8 hidden bits incl. toy): toy support after steps 1..11: 2 2 2 2 2 2 2 1 1 1 1   -> every branch a point mass from step 8
+  bath + reservoir of 4 hidden site(s) (10 hidden bits incl. toy): toy support after steps 1..13: 2 2 2 2 2 2 2 2 2 1 1 1 1   -> every branch a point mass from step 10
+  bath + reservoir of 5 hidden site(s) (12 hidden bits incl. toy): toy support after steps 1..15: 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1   -> every branch a point mass from step 12
+  (L = 1, no feedback reset of the pointer: 2 2 2 1 1 1 1 1 )

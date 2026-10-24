@@ -1,0 +1,20 @@
+n=2 C=Z2 op=('s', 0) spectators=[1] {'total_trivC': 16, 'total_invC': 0, 'B1_trivC': 4, 'B1_invC': 0, 'genonly_trivC': 4, 'mutantB1_noC_trivC': 4, 'mutantB1_noC_invC': 0, 'R_size': 8, 'Rm_size': 8}
+n=2 C=Z2 op=('s', 1) spectators=[0] {'total_trivC': 16, 'total_invC': 0, 'B1_trivC': 4, 'B1_invC': 0, 'genonly_trivC': 4, 'mutantB1_noC_trivC': 4, 'mutantB1_noC_invC': 0, 'R_size': 8, 'Rm_size': 8}
+n=2 C=Z2 op=('c', 0, 1) spectators=[] {'total_trivC': 16, 'total_invC': 0, 'B1_trivC': 16, 'B1_invC': 0, 'genonly_trivC': 16, 'mutantB1_noC_trivC': 16, 'mutantB1_noC_invC': 0, 'R_size': 2, 'Rm_size': 1}
+n=2 C=Z2 product of B1-local counts over declared lifted ops = 256
+n=2 C=Z4 op=('s', 0) spectators=[1] {'total_trivC': 16, 'total_invC': 16, 'B1_trivC': 4, 'B1_invC': 0, 'genonly_trivC': 4, 'mutantB1_noC_trivC': 4, 'mutantB1_noC_invC': 4, 'R_size': 16, 'Rm_size': 8}
+n=2 C=Z4 op=('s', 1) spectators=[0] {'total_trivC': 16, 'total_invC': 16, 'B1_trivC': 4, 'B1_invC': 0, 'genonly_trivC': 4, 'mutantB1_noC_trivC': 4, 'mutantB1_noC_invC': 4, 'R_size': 16, 'Rm_size': 8}
+n=2 C=Z4 op=('c', 0, 1) spectators=[] {'total_trivC': 16, 'total_invC': 16, 'B1_trivC': 16, 'B1_invC': 0, 'genonly_trivC': 16, 'mutantB1_noC_trivC': 16, 'mutantB1_noC_invC': 16, 'R_size': 4, 'Rm_size': 1}
+n=2 C=Z4 product of B1-local counts over declared lifted ops = 256
+n=3 C=Z2 op=('s', 0) spectators=[1, 2] {'total_trivC': 64, 'total_invC': 0, 'B1_trivC': 4, 'B1_invC': 0, 'genonly_trivC': 4, 'mutantB1_noC_trivC': 4, 'mutantB1_noC_invC': 0, 'R_size': 32, 'Rm_size': 32}
+n=3 C=Z2 op=('s', 1) spectators=[0, 2] {'total_trivC': 64, 'total_invC': 0, 'B1_trivC': 4, 'B1_invC': 0, 'genonly_trivC': 4, 'mutantB1_noC_trivC': 4, 'mutantB1_noC_invC': 0, 'R_size': 32, 'Rm_size': 32}
+n=3 C=Z2 op=('s', 2) spectators=[0, 1] {'total_trivC': 64, 'total_invC': 0, 'B1_trivC': 4, 'B1_invC': 0, 'genonly_trivC': 4, 'mutantB1_noC_trivC': 4, 'mutantB1_noC_invC': 0, 'R_size': 32, 'Rm_size': 32}
+n=3 C=Z2 op=('c', 0, 1) spectators=[2] {'total_trivC': 64, 'total_invC': 0, 'B1_trivC': 16, 'B1_invC': 0, 'genonly_trivC': 16, 'mutantB1_noC_trivC': 16, 'mutantB1_noC_invC': 0, 'R_size': 8, 'Rm_size': 8}
+n=3 C=Z2 op=('c', 1, 2) spectators=[0] {'total_trivC': 64, 'total_invC': 0, 'B1_trivC': 16, 'B1_invC': 0, 'genonly_trivC': 16, 'mutantB1_noC_trivC': 16, 'mutantB1_noC_invC': 0, 'R_size': 8, 'Rm_size': 8}
+n=3 C=Z2 product of B1-local counts over declared lifted ops = 16384
+n=3 C=Z4 op=('s', 0) spectators=[1, 2] {'total_trivC': 64, 'total_invC': 64, 'B1_trivC': 4, 'B1_invC': 0, 'genonly_trivC': 4, 'mutantB1_noC_trivC': 4, 'mutantB1_noC_invC': 4, 'R_size': 64, 'Rm_size': 32}
+n=3 C=Z4 op=('s', 1) spectators=[0, 2] {'total_trivC': 64, 'total_invC': 64, 'B1_trivC': 4, 'B1_invC': 0, 'genonly_trivC': 4, 'mutantB1_noC_trivC': 4, 'mutantB1_noC_invC': 4, 'R_size': 64, 'Rm_size': 32}
+n=3 C=Z4 op=('s', 2) spectators=[0, 1] {'total_trivC': 64, 'total_invC': 64, 'B1_trivC': 4, 'B1_invC': 0, 'genonly_trivC': 4, 'mutantB1_noC_trivC': 4, 'mutantB1_noC_invC': 4, 'R_size': 64, 'Rm_size': 32}
+n=3 C=Z4 op=('c', 0, 1) spectators=[2] {'total_trivC': 64, 'total_invC': 64, 'B1_trivC': 16, 'B1_invC': 0, 'genonly_trivC': 16, 'mutantB1_noC_trivC': 16, 'mutantB1_noC_invC': 16, 'R_size': 16, 'Rm_size': 8}
+n=3 C=Z4 op=('c', 1, 2) spectators=[0] {'total_trivC': 64, 'total_invC': 64, 'B1_trivC': 16, 'B1_invC': 0, 'genonly_trivC': 16, 'mutantB1_noC_trivC': 16, 'mutantB1_noC_invC': 16, 'R_size': 16, 'Rm_size': 8}
+n=3 C=Z4 product of B1-local counts over declared lifted ops = 16384

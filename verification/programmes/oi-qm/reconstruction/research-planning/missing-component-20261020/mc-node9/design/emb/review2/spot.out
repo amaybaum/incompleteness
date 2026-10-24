@@ -1,0 +1,50 @@
+W-E2 n=5 R={1,2} FULL toy 0, all visible
+  t      :  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16
+  support:  2  2  2  1  2  2  2  4  2  2  2  1  2  2  2  4
+  prior  :  4  4  4  4  4  4  4  4  4  4  4  4  4  4  4  4
+  own rk :  2  1  0  0  0  1  2  2  2  1  0  0  0  1  2  2
+W-E2 pointer site 1 only
+  t      :  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16
+  support:  2  2  2  1  2  2  2  4  2  2  2  1  2  2  2  4
+  prior  :  4  4  4  4  4  4  4  4  4  4  4  4  4  4  4  4
+  own rk :  2  1  0  0  0  1  2  2  2  1  0  0  0  1  2  2
+W-E2 memory site 2 only
+  t      :  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16
+  support:  4  4  4  4  4  4  4  4  4  4  4  4  4  4  4  4
+  prior  :  4  4  4  4  4  4  4  4  4  4  4  4  4  4  4  4
+  own rk :  2  1  0  0  0  1  2  2  2  1  0  0  0  1  2  2
+rank-2 example n=5 R={0,3,4} FULL toy 1
+  t      :  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16
+  support:  2  2  2  1  2  2  2  4  2  2  2  1  2  2  2  4
+  prior  :  4  4  4  4  4  4  4  4  4  4  4  4  4  4  4  4
+  own rk :  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2
+mixed n=3 star centre 0 (path 1-0-2), R={0 FULL,1 NONE}, toy 2
+  t      :  1  2  3  4  5  6  7  8
+  support:  2  1  2  4  2  1  2  4
+  prior  :  4  4  4  4  4  4  4  4
+  own rk :  2  1  0  0  0  1  2  2
+mixed n=3 path 0-1-2, R={0 FULL,1 NONE}, toy 2
+  t      :  1  2  3  4  5  6  7  8
+  support:  4  2  1  1  1  2  4  4
+  prior  :  4  4  2  1  2  4  4  4
+  own rk :  2  1  0  0  0  1  2  2
+mixed n=3 path 0-1-2 R={0 NONE,1 FULL}, toy 2
+  t      :  1  2  3  4  5  6  7  8
+  support:  2  1  2  4  2  1  2  4
+  prior  :  4  4  4  4  4  4  4  4
+  own rk :  2  1  0  0  0  1  2  2
+U,U n=3 star centre 0, R={0 U,1 U}, toy 2
+  t      :  1  2  3  4  5  6  7  8
+  support:  4  2  1  2  2  1  2  4
+  prior  :  4  4  4  2  2  4  4  4
+  own rk :  2  1  0  0  0  1  2  2
+E1-K2 path 0-1 R={0}
+  t      :  1  2  3  4  5  6
+  support:  2  1  1  1  2  4
+  prior  :  4  2  1  2  4  4
+  own rk :  2  1  0  1  2  2
+n=4 path 3-0-1-2 R={2,3} toy 0
+  t      :  1  2  3  4  5  6  7  8
+  support:  2  1  1  2  4  2  1  1
+  prior  :  4  4  4  4  4  4  4  4
+  own rk :  2  2  2  1  0  1  2  2

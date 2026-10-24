@@ -1,0 +1,17 @@
+Part A: integral of (u.lambda)_+ over directions = pi -> herald law (u.lambda)_+/pi = mu_u (projected area)
+        herald success per window = tau/L * E[(u.lambda)_+] = 1/4 * tau/L
+Part B: target P(+ | u=X+, n=R) = 9/10, P(+ | u=Z+, n=R) = 1/2 (ties: weight on the boundary n.lambda = 0)
+   cubic lattice, 6 directions    |V|=   6  X+/R: P=1 (err 1/10, tie 0)   Z+/R: P=0 (err 1/2, tie 1)
+   rational sphere N=3            |V|=  30  X+/R: P=21/23 (err 3/230, tie 0)   Z+/R: P=10/23 (err 3/46, tie 3/23)
+   rational sphere N=9            |V|= 102  X+/R: P=207/233 (err 27/2330, tie 0)   Z+/R: P=112/233 (err 9/466, tie 9/233)
+   rational sphere N=15           |V|= 150  X+/R: P=506/551 (err 101/5510, tie 9/551)   Z+/R: P=268/551 (err 15/1102, tie 15/551)
+   rational sphere N=25           |V|= 150  X+/R: P=855/961 (err 99/9610, tie 57/961)   Z+/R: P=433/961 (err 95/1922, tie 95/961)
+   rational sphere N=45           |V|= 510  X+/R: P=5186/5753 (err 83/57530, tie 27/5753)   Z+/R: P=2854/5753 (err 45/11506, tie 45/5753)
+Part C: rational sphere N=15, slab depth 1, window 1/4; herald law per window vs (u.v)_+
+   window 1: max deviation from (u.v)_+ law = 0; P(+ | X+, R) = 506/551
+   window 2: max deviation from (u.v)_+ law = 0; P(+ | X+, R) = 506/551
+   window 3: max deviation from (u.v)_+ law = 0; P(+ | X+, R) = 506/551
+   window 4: max deviation from (u.v)_+ law = 0; P(+ | X+, R) = 506/551
+   window 5: max deviation from (u.v)_+ law = 15/551; P(+ | X+, R) = 137/152
+   window 6: max deviation from (u.v)_+ law = 15/551; P(+ | X+, R) = 283/328
+   window 7: max deviation from (u.v)_+ law = 39/1102; P(+ | X+, R) = 37/58

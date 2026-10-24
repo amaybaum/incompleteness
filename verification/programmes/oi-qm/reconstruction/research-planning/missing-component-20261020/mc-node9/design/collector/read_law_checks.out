@@ -1,0 +1,4 @@
+full-sphere integral of |w.lambda| = 2*pi; hemisphere integral of lambda = [0, 0, pi]: True
+so P(s | a, w) = (1/pi)(pi/2 + pi s a.w/2) = (1 + s a.w)/2
+midpoint quadrature (2000 x 4000) of the flux law for the 32 menu cases agrees with (1 + s a.w)/2 to within 2.1e-04 (numerical evidence)
+derivation checks: green

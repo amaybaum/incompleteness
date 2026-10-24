@@ -1,0 +1,9 @@
+passing at L<=4: [(0, 0, 0), (0, 0, 8), (0, 3, 0), (0, 3, 8), (12, 0, 0), (12, 0, 8), (12, 3, 0), (12, 3, 8)]
+(0, 0, 0) == standard QM on all length-5 words: True ; on 20000 random length-7 words: True
+(0, 0, 8) == standard QM on all length-5 words: False ; on 20000 random length-7 words: False
+(0, 3, 0) == standard QM on all length-5 words: False ; on 20000 random length-7 words: False
+(0, 3, 8) == standard QM on all length-5 words: True ; on 20000 random length-7 words: True
+(12, 0, 0) == standard QM on all length-5 words: True ; on 20000 random length-7 words: True
+(12, 0, 8) == standard QM on all length-5 words: False ; on 20000 random length-7 words: False
+(12, 3, 0) == standard QM on all length-5 words: False ; on 20000 random length-7 words: False
+(12, 3, 8) == standard QM on all length-5 words: True ; on 20000 random length-7 words: True

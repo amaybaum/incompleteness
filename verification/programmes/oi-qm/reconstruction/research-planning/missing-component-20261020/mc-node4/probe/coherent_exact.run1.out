@@ -1,0 +1,17 @@
+Node 4 coherent-prior symbolic checks (SymPy 1.14.0)
+PASS  S1a  720 bijections: outcome probabilities contain only h_x conj(h_x) monomials
+PASS  S1b  720 bijections: every effect K^H K is diagonal
+PASS  S2a  psi = exp(2 pi i k x): channel = Ad diag(1, exp(-2 pi i k t)) exactly, Gram rank 1, every real t
+PASS  S2b  psi = sqrt2 cos: coherence factor cos(2 pi t); t = 1/2 gives Ad Z (Gram [[1,-1],[-1,1]]); t = 1/8 rank 2
+PASS  S2c  psi = 1 (KvN uniform): identity channel for every t
+PASS  S3a  Gram integrands from psi carry no hidden phase (every product pairs one source point); channel with alpha = 5h^2+3h equals alpha = 0
+PASS  S3b  flip probability sin^2(pi T/2) = layer-flow flip probability (rooted law reproduced); trace preserved
+PASS  S3c  from |0><0| the layer flow carries coherence i sin(pi T)/2, the coherent-prior flow 0
+PASS  S3d  on |0><1| the coherent-prior channel is (1-p)|0><1| + p|1><0| (the mixture of I and X) and differs from Ad R_x(pi/2)
+PASS  S3e  countercontrol: a product pairing two distinct source points keeps the hidden phase (the S3a test can fail)
+PASS  S4  Y-test prep of |+i>, CNOT, X-basis test, X on one outcome: both branches prop. to R_x(pi/2), total weight 1
+PASS  S5  R_x(pi/2) R_z(theta) R_x(-pi/2) = R_y(-theta); H prop. to R_z R_x R_z (pi/2); ZYZ products lie in SU(2); R_y(pi/3) non-monomial
+PASS  S6  psi(x - t) = exp(-2 pi i k t) psi(x): the circle returns in a product state
+PASS  S7  diag(1, e^{i theta}) moves the all-ones ray unless e^{i theta} = 1
+PASS  S8  |psi|^2 = 1: native statistics of circle protocols are those of the uniform prior
+SUMMARY 15 PASS, 0 FAIL

@@ -1,0 +1,7 @@
+target numerators over 8: [3, 4]  success: 25/64
+omit-uncompute target numerators: [[9, 9], [9, 10]]  success: 19/64
+closest point (Fraction(21, 25), Fraction(0, 1), Fraction(-4, 25))  Bloch dist^2 18/625  trace dist^2 9/1250
+branch 1 5*sqrt2*Kraus = [[3, -4], [4, 3]]
+branch -1 5*sqrt2*Kraus = [[3, 4], [-4, 3]]
+Toffoli inputs passing: 64
+CHSH: 4

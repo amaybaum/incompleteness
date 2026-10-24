@@ -1,0 +1,286 @@
+== exact obstruction check: 2-slot marginal of E(M), |M| = n, r red: P(RR) <= P(a1=R)^2, equality iff r in {0,n} ==
+  holds for n = 2..12: True (formula brute-forced for n <= 7)
+
+== Pur-E / Pur-U, base theory, decks n = 2..6 (two colours), A in {1,2} slots, B in {1,2} slots ==
+  deck=1R1B A=1 B=1: FIXED POINT@2
+    Pur-E: 1 of 3 preparable A-states have a purification in B=['b1']; lacking: {R:1}, {B:1}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; E(M) with 2R exists but is not preparable in this deck: 1
+    Pur-U: pure AB states = 1; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=1R2B A=1 B=1: FIXED POINT@4
+    Pur-E: 2 of 4 preparable A-states have a purification in B=['b1']; lacking: {R:1/3, B:2/3}, {R:1}
+      obstruction classes: E(M) with 2R exists but is not preparable in this deck: 1; no E(M) on 2 slots has this marginal (purifier too small): 1
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=1R2B A=1 B=2: FIXED POINT@4
+    Pur-E: 1 of 4 preparable A-states have a purification in B=['b1', 'b2']; lacking: {R:1/2, B:1/2}, {B:1}, {R:1}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; E(M) with 3R exists but is not preparable in this deck: 1; no E(M) on 3 slots has this marginal (purifier too small): 1
+    Pur-U: pure AB states = 1; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=1R2B A=2 B=1: FIXED POINT@4
+    Pur-E: 1 of 3 preparable A-states have a purification in B=['b1']; lacking: {RB:1/2, BR:1/2}, {BB:1}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; non-monochrome pure A-state E(RB): no purification at any size: 1
+    Pur-U: pure AB states = 1; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=2R1B A=1 B=1: FIXED POINT@4
+    Pur-E: 2 of 4 preparable A-states have a purification in B=['b1']; lacking: {R:2/3, B:1/3}, {B:1}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; no E(M) on 2 slots has this marginal (purifier too small): 1
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=2R1B A=1 B=2: FIXED POINT@4
+    Pur-E: 1 of 4 preparable A-states have a purification in B=['b1', 'b2']; lacking: {R:1/2, B:1/2}, {R:1}, {B:1}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; E(M) with 3R exists but is not preparable in this deck: 1; no E(M) on 3 slots has this marginal (purifier too small): 1
+    Pur-U: pure AB states = 1; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=2R1B A=2 B=1: FIXED POINT@4
+    Pur-E: 1 of 3 preparable A-states have a purification in B=['b1']; lacking: {RR:1}, {RB:1/2, BR:1/2}
+      obstruction classes: E(M) with 3R exists but is not preparable in this deck: 1; non-monochrome pure A-state E(RB): no purification at any size: 1
+    Pur-U: pure AB states = 1; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=1R3B A=1 B=1: FIXED POINT@6
+    Pur-E: 2 of 5 preparable A-states have a purification in B=['b1']; lacking: {R:1/4, B:3/4}, {R:1/3, B:2/3}, {R:1}
+      obstruction classes: E(M) with 2R exists but is not preparable in this deck: 1; no E(M) on 2 slots has this marginal (purifier too small): 2
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=1R3B A=1 B=2: FIXED POINT@6
+    Pur-E: 2 of 5 preparable A-states have a purification in B=['b1', 'b2']; lacking: {R:1/4, B:3/4}, {R:1/2, B:1/2}, {R:1}
+      obstruction classes: E(M) with 3R exists but is not preparable in this deck: 1; no E(M) on 3 slots has this marginal (purifier too small): 2
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=1R3B A=1 B=3 (beyond bound): FIXED POINT@6
+    Pur-E: 1 of 5 preparable A-states have a purification in B=['b1', 'b2', 'b3']; lacking: {R:1/3, B:2/3}, {B:1}, {R:1/2, B:1/2}, {R:1}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; E(M) with 2R exists but is not preparable in this deck: 1; E(M) with 4R exists but is not preparable in this deck: 1; no E(M) on 4 slots has this marginal (purifier too small): 1
+    Pur-U: pure AB states = 1; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=1R3B A=2 B=1: FIXED POINT@6
+    Pur-E: 2 of 5 preparable A-states have a purification in B=['b1']; lacking: {RB:1/4, BR:1/4, BB:1/2}, {RB:1/2, BR:1/2}, {RB:1/2, BR:1/2}
+      obstruction classes: no E(M) on 3 slots has this marginal (purifier too small): 1; non-monochrome pure A-state E(RB): no purification at any size: 2
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=1R3B A=2 B=2: FIXED POINT@6
+    Pur-E: 1 of 5 preparable A-states have a purification in B=['b1', 'b2']; lacking: {RB:1/3, BR:1/3, BB:1/3}, {BB:1}, {RB:1/2, BR:1/2}, {RB:1/2, BR:1/2}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; no E(M) on 4 slots has this marginal (purifier too small): 1; non-monochrome pure A-state E(RB): no purification at any size: 2
+    Pur-U: pure AB states = 1; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=2R2B A=1 B=1: FIXED POINT@5
+    Pur-E: 3 of 5 preparable A-states have a purification in B=['b1']; lacking: {R:1/3, B:2/3}, {R:2/3, B:1/3}
+      obstruction classes: no E(M) on 2 slots has this marginal (purifier too small): 2
+    Pur-U: pure AB states = 3; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=2R2B A=1 B=2: FIXED POINT@5
+    Pur-E: 2 of 5 preparable A-states have a purification in B=['b1', 'b2']; lacking: {R:1/2, B:1/2}, {B:1}, {R:1}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; E(M) with 3R exists but is not preparable in this deck: 1; no E(M) on 3 slots has this marginal (purifier too small): 1
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=2R2B A=1 B=3 (beyond bound): FIXED POINT@5
+    Pur-E: 1 of 5 preparable A-states have a purification in B=['b1', 'b2', 'b3']; lacking: {R:1/3, B:2/3}, {R:2/3, B:1/3}, {B:1}, {R:1}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; E(M) with 4R exists but is not preparable in this deck: 1; no E(M) on 4 slots has this marginal (purifier too small): 2
+    Pur-U: pure AB states = 1; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=2R2B A=2 B=1: FIXED POINT@5
+    Pur-E: 2 of 7 preparable A-states have a purification in B=['b1']; lacking: {RR:1/6, RB:1/3, BR:1/3, BB:1/6}, {RR:1}, {RB:1/2, BR:1/2}, {BB:1}, {RR:1/2, BB:1/2}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; E(M) with 3R exists but is not preparable in this deck: 1; P(RR) >= P(R)^2, not monochrome: no E(M) of any size: 1; no E(M) on 3 slots has this marginal (purifier too small): 1; non-monochrome pure A-state E(RB): no purification at any size: 1
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=2R2B A=2 B=2: FIXED POINT@5
+    Pur-E: 1 of 7 preparable A-states have a purification in B=['b1', 'b2']; lacking: {RR:1/3, RB:1/3, BR:1/3}, {RB:1/3, BR:1/3, BB:1/3}, {RR:1}, {RB:1/2, BR:1/2}, {BB:1}, {RR:1/2, BB:1/2}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; E(M) with 4R exists but is not preparable in this deck: 1; P(RR) >= P(R)^2, not monochrome: no E(M) of any size: 1; no E(M) on 4 slots has this marginal (purifier too small): 2; non-monochrome pure A-state E(RB): no purification at any size: 1
+    Pur-U: pure AB states = 1; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=3R1B A=1 B=1: FIXED POINT@6
+    Pur-E: 2 of 5 preparable A-states have a purification in B=['b1']; lacking: {R:3/4, B:1/4}, {R:2/3, B:1/3}, {B:1}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; no E(M) on 2 slots has this marginal (purifier too small): 2
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=3R1B A=1 B=2: FIXED POINT@6
+    Pur-E: 2 of 5 preparable A-states have a purification in B=['b1', 'b2']; lacking: {R:3/4, B:1/4}, {R:1/2, B:1/2}, {B:1}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; no E(M) on 3 slots has this marginal (purifier too small): 2
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=3R1B A=1 B=3 (beyond bound): FIXED POINT@6
+    Pur-E: 1 of 5 preparable A-states have a purification in B=['b1', 'b2', 'b3']; lacking: {R:2/3, B:1/3}, {R:1}, {R:1/2, B:1/2}, {B:1}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; E(M) with 2R exists but is not preparable in this deck: 1; E(M) with 4R exists but is not preparable in this deck: 1; no E(M) on 4 slots has this marginal (purifier too small): 1
+    Pur-U: pure AB states = 1; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=3R1B A=2 B=1: FIXED POINT@6
+    Pur-E: 2 of 5 preparable A-states have a purification in B=['b1']; lacking: {RR:1/2, RB:1/4, BR:1/4}, {RB:1/2, BR:1/2}, {RB:1/2, BR:1/2}
+      obstruction classes: no E(M) on 3 slots has this marginal (purifier too small): 1; non-monochrome pure A-state E(RB): no purification at any size: 2
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=3R1B A=2 B=2: FIXED POINT@6
+    Pur-E: 1 of 5 preparable A-states have a purification in B=['b1', 'b2']; lacking: {RR:1/3, RB:1/3, BR:1/3}, {RR:1}, {RB:1/2, BR:1/2}, {RB:1/2, BR:1/2}
+      obstruction classes: E(M) with 4R exists but is not preparable in this deck: 1; no E(M) on 4 slots has this marginal (purifier too small): 1; non-monochrome pure A-state E(RB): no purification at any size: 2
+    Pur-U: pure AB states = 1; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=1R4B A=1 B=1: FIXED POINT@8
+    Pur-E: 2 of 6 preparable A-states have a purification in B=['b1']; lacking: {R:1/5, B:4/5}, {R:1/4, B:3/4}, {R:1/3, B:2/3}, {R:1}
+      obstruction classes: E(M) with 2R exists but is not preparable in this deck: 1; no E(M) on 2 slots has this marginal (purifier too small): 3
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=1R4B A=1 B=2: FIXED POINT@8
+    Pur-E: 2 of 6 preparable A-states have a purification in B=['b1', 'b2']; lacking: {R:1/5, B:4/5}, {R:1/4, B:3/4}, {R:1/2, B:1/2}, {R:1}
+      obstruction classes: E(M) with 3R exists but is not preparable in this deck: 1; no E(M) on 3 slots has this marginal (purifier too small): 3
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=1R4B A=1 B=3 (beyond bound): FIXED POINT@8
+    Pur-E: 2 of 6 preparable A-states have a purification in B=['b1', 'b2', 'b3']; lacking: {R:1/5, B:4/5}, {R:1/3, B:2/3}, {R:1/2, B:1/2}, {R:1}
+      obstruction classes: E(M) with 2R exists but is not preparable in this deck: 1; E(M) with 4R exists but is not preparable in this deck: 1; no E(M) on 4 slots has this marginal (purifier too small): 2
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=1R4B A=2 B=1: FIXED POINT@8
+    Pur-E: 3 of 6 preparable A-states have a purification in B=['b1']; lacking: {RB:1/5, BR:1/5, BB:3/5}, {RB:1/4, BR:1/4, BB:1/2}, {RB:1/2, BR:1/2}
+      obstruction classes: no E(M) on 3 slots has this marginal (purifier too small): 2; non-monochrome pure A-state E(RB): no purification at any size: 1
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=1R4B A=2 B=2: FIXED POINT@8
+    Pur-E: 2 of 6 preparable A-states have a purification in B=['b1', 'b2']; lacking: {RB:1/5, BR:1/5, BB:3/5}, {RB:1/3, BR:1/3, BB:1/3}, {RB:1/2, BR:1/2}, {RB:1/3, BR:1/3, BB:1/3}
+      obstruction classes: no E(M) on 4 slots has this marginal (purifier too small): 3; non-monochrome pure A-state E(RB): no purification at any size: 1
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=2R3B A=1 B=1: FIXED POINT@8
+    Pur-E: 3 of 7 preparable A-states have a purification in B=['b1']; lacking: {R:2/5, B:3/5}, {R:1/4, B:3/4}, {R:1/3, B:2/3}, {R:2/3, B:1/3}
+      obstruction classes: no E(M) on 2 slots has this marginal (purifier too small): 4
+    Pur-U: pure AB states = 3; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=2R3B A=1 B=2: FIXED POINT@8
+    Pur-E: 3 of 7 preparable A-states have a purification in B=['b1', 'b2']; lacking: {R:2/5, B:3/5}, {R:1/4, B:3/4}, {R:1/2, B:1/2}, {R:1}
+      obstruction classes: E(M) with 3R exists but is not preparable in this deck: 1; no E(M) on 3 slots has this marginal (purifier too small): 3
+    Pur-U: pure AB states = 3; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=2R3B A=1 B=3 (beyond bound): FIXED POINT@8
+    Pur-E: 2 of 7 preparable A-states have a purification in B=['b1', 'b2', 'b3']; lacking: {R:2/5, B:3/5}, {R:1/3, B:2/3}, {B:1}, {R:2/3, B:1/3}, {R:1}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; E(M) with 4R exists but is not preparable in this deck: 1; no E(M) on 4 slots has this marginal (purifier too small): 3
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=2R3B A=2 B=1: FIXED POINT@8
+    Pur-E: 3 of 9 preparable A-states have a purification in B=['b1']; lacking: {RR:1/10, RB:3/10, BR:3/10, BB:3/10}, {RR:1/6, RB:1/3, BR:1/3, BB:1/6}, {RB:1/4, BR:1/4, BB:1/2}, {RR:1}, {RB:1/2, BR:1/2}, {RR:1/4, RB:1/4, BR:1/4, BB:1/4}
+      obstruction classes: E(M) with 3R exists but is not preparable in this deck: 1; P(RR) >= P(R)^2, not monochrome: no E(M) of any size: 1; no E(M) on 3 slots has this marginal (purifier too small): 3; non-monochrome pure A-state E(RB): no purification at any size: 1
+    Pur-U: pure AB states = 3; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=2R3B A=2 B=2: FIXED POINT@8
+    Pur-E: 2 of 9 preparable A-states have a purification in B=['b1', 'b2']; lacking: {RR:1/10, RB:3/10, BR:3/10, BB:3/10}, {RR:1/3, RB:1/3, BR:1/3}, {RB:1/3, BR:1/3, BB:1/3}, {BB:1}, {RR:1}, {RB:1/2, BR:1/2}, {RR:1/4, RB:1/4, BR:1/4, BB:1/4}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; E(M) with 4R exists but is not preparable in this deck: 1; P(RR) >= P(R)^2, not monochrome: no E(M) of any size: 1; no E(M) on 4 slots has this marginal (purifier too small): 3; non-monochrome pure A-state E(RB): no purification at any size: 1
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=3R2B A=1 B=1: FIXED POINT@8
+    Pur-E: 3 of 7 preparable A-states have a purification in B=['b1']; lacking: {R:3/5, B:2/5}, {R:3/4, B:1/4}, {R:1/3, B:2/3}, {R:2/3, B:1/3}
+      obstruction classes: no E(M) on 2 slots has this marginal (purifier too small): 4
+    Pur-U: pure AB states = 3; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=3R2B A=1 B=2: FIXED POINT@8
+    Pur-E: 3 of 7 preparable A-states have a purification in B=['b1', 'b2']; lacking: {R:3/5, B:2/5}, {R:1/2, B:1/2}, {R:3/4, B:1/4}, {B:1}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; no E(M) on 3 slots has this marginal (purifier too small): 3
+    Pur-U: pure AB states = 3; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=3R2B A=1 B=3 (beyond bound): FIXED POINT@8
+    Pur-E: 2 of 7 preparable A-states have a purification in B=['b1', 'b2', 'b3']; lacking: {R:3/5, B:2/5}, {R:1/3, B:2/3}, {R:2/3, B:1/3}, {R:1}, {B:1}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; E(M) with 4R exists but is not preparable in this deck: 1; no E(M) on 4 slots has this marginal (purifier too small): 3
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=3R2B A=2 B=1: FIXED POINT@8
+    Pur-E: 3 of 9 preparable A-states have a purification in B=['b1']; lacking: {RR:3/10, RB:3/10, BR:3/10, BB:1/10}, {RR:1/6, RB:1/3, BR:1/3, BB:1/6}, {RR:1/2, RB:1/4, BR:1/4}, {RB:1/2, BR:1/2}, {BB:1}, {RR:1/4, RB:1/4, BR:1/4, BB:1/4}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; P(RR) >= P(R)^2, not monochrome: no E(M) of any size: 1; no E(M) on 3 slots has this marginal (purifier too small): 3; non-monochrome pure A-state E(RB): no purification at any size: 1
+    Pur-U: pure AB states = 3; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=3R2B A=2 B=2: FIXED POINT@8
+    Pur-E: 2 of 9 preparable A-states have a purification in B=['b1', 'b2']; lacking: {RR:3/10, RB:3/10, BR:3/10, BB:1/10}, {RR:1/3, RB:1/3, BR:1/3}, {RB:1/3, BR:1/3, BB:1/3}, {RR:1}, {RB:1/2, BR:1/2}, {BB:1}, {RR:1/4, RB:1/4, BR:1/4, BB:1/4}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; E(M) with 4R exists but is not preparable in this deck: 1; P(RR) >= P(R)^2, not monochrome: no E(M) of any size: 1; no E(M) on 4 slots has this marginal (purifier too small): 3; non-monochrome pure A-state E(RB): no purification at any size: 1
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=4R1B A=1 B=1: FIXED POINT@8
+    Pur-E: 2 of 6 preparable A-states have a purification in B=['b1']; lacking: {R:4/5, B:1/5}, {R:3/4, B:1/4}, {R:2/3, B:1/3}, {B:1}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; no E(M) on 2 slots has this marginal (purifier too small): 3
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=4R1B A=1 B=2: FIXED POINT@8
+    Pur-E: 2 of 6 preparable A-states have a purification in B=['b1', 'b2']; lacking: {R:4/5, B:1/5}, {R:3/4, B:1/4}, {R:1/2, B:1/2}, {B:1}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; no E(M) on 3 slots has this marginal (purifier too small): 3
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=4R1B A=1 B=3 (beyond bound): FIXED POINT@8
+    Pur-E: 2 of 6 preparable A-states have a purification in B=['b1', 'b2', 'b3']; lacking: {R:4/5, B:1/5}, {R:2/3, B:1/3}, {R:1/2, B:1/2}, {B:1}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; E(M) with 2R exists but is not preparable in this deck: 1; no E(M) on 4 slots has this marginal (purifier too small): 2
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=4R1B A=2 B=1: FIXED POINT@8
+    Pur-E: 3 of 6 preparable A-states have a purification in B=['b1']; lacking: {RR:3/5, RB:1/5, BR:1/5}, {RR:1/2, RB:1/4, BR:1/4}, {RB:1/2, BR:1/2}
+      obstruction classes: no E(M) on 3 slots has this marginal (purifier too small): 2; non-monochrome pure A-state E(RB): no purification at any size: 1
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=4R1B A=2 B=2: FIXED POINT@8
+    Pur-E: 2 of 6 preparable A-states have a purification in B=['b1', 'b2']; lacking: {RR:3/5, RB:1/5, BR:1/5}, {RR:1/3, RB:1/3, BR:1/3}, {RB:1/2, BR:1/2}, {RR:1/3, RB:1/3, BR:1/3}
+      obstruction classes: no E(M) on 4 slots has this marginal (purifier too small): 3; non-monochrome pure A-state E(RB): no purification at any size: 1
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=1R5B A=1 B=1: FIXED POINT@10
+    Pur-E: 2 of 7 preparable A-states have a purification in B=['b1']; lacking: {R:1/6, B:5/6}, {R:1/5, B:4/5}, {R:1/4, B:3/4}, {R:1/3, B:2/3}, {R:1}
+      obstruction classes: E(M) with 2R exists but is not preparable in this deck: 1; no E(M) on 2 slots has this marginal (purifier too small): 4
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=1R5B A=1 B=2: FIXED POINT@10
+    Pur-E: 2 of 7 preparable A-states have a purification in B=['b1', 'b2']; lacking: {R:1/6, B:5/6}, {R:1/5, B:4/5}, {R:1/4, B:3/4}, {R:1/2, B:1/2}, {R:1}
+      obstruction classes: E(M) with 3R exists but is not preparable in this deck: 1; no E(M) on 3 slots has this marginal (purifier too small): 4
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=1R5B A=1 B=3 (beyond bound): FIXED POINT@10
+    Pur-E: 2 of 7 preparable A-states have a purification in B=['b1', 'b2', 'b3']; lacking: {R:1/6, B:5/6}, {R:1/5, B:4/5}, {R:1/3, B:2/3}, {R:1/2, B:1/2}, {R:1}
+      obstruction classes: E(M) with 2R exists but is not preparable in this deck: 1; E(M) with 4R exists but is not preparable in this deck: 1; no E(M) on 4 slots has this marginal (purifier too small): 3
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=1R5B A=2 B=1: FIXED POINT@10
+    Pur-E: 2 of 7 preparable A-states have a purification in B=['b1']; lacking: {RB:1/6, BR:1/6, BB:2/3}, {RB:1/5, BR:1/5, BB:3/5}, {RB:1/4, BR:1/4, BB:1/2}, {RB:1/2, BR:1/2}, {RB:1/4, BR:1/4, BB:1/2}
+      obstruction classes: no E(M) on 3 slots has this marginal (purifier too small): 4; non-monochrome pure A-state E(RB): no purification at any size: 1
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=1R5B A=2 B=2: FIXED POINT@10
+    Pur-E: 3 of 7 preparable A-states have a purification in B=['b1', 'b2']; lacking: {RB:1/6, BR:1/6, BB:2/3}, {RB:1/5, BR:1/5, BB:3/5}, {RB:1/3, BR:1/3, BB:1/3}, {RB:1/2, BR:1/2}
+      obstruction classes: no E(M) on 4 slots has this marginal (purifier too small): 3; non-monochrome pure A-state E(RB): no purification at any size: 1
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=2R4B A=1 B=1: FIXED POINT@9
+    Pur-E: 3 of 8 preparable A-states have a purification in B=['b1']; lacking: {R:1/3, B:2/3}, {R:1/5, B:4/5}, {R:2/5, B:3/5}, {R:1/4, B:3/4}, {R:2/3, B:1/3}
+      obstruction classes: no E(M) on 2 slots has this marginal (purifier too small): 5
+    Pur-U: pure AB states = 3; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=2R4B A=1 B=2: FIXED POINT@9
+    Pur-E: 3 of 8 preparable A-states have a purification in B=['b1', 'b2']; lacking: {R:1/5, B:4/5}, {R:2/5, B:3/5}, {R:1/4, B:3/4}, {R:1/2, B:1/2}, {R:1}
+      obstruction classes: E(M) with 3R exists but is not preparable in this deck: 1; no E(M) on 3 slots has this marginal (purifier too small): 4
+    Pur-U: pure AB states = 3; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=2R4B A=1 B=3 (beyond bound): FIXED POINT@9
+    Pur-E: 3 of 8 preparable A-states have a purification in B=['b1', 'b2', 'b3']; lacking: {R:1/3, B:2/3}, {R:1/5, B:4/5}, {R:2/5, B:3/5}, {R:2/3, B:1/3}, {R:1}
+      obstruction classes: E(M) with 4R exists but is not preparable in this deck: 1; no E(M) on 4 slots has this marginal (purifier too small): 4
+    Pur-U: pure AB states = 3; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=2R4B A=2 B=1: FIXED POINT@9
+    Pur-E: 3 of 11 preparable A-states have a purification in B=['b1']; lacking: {RR:1/15, RB:4/15, BR:4/15, BB:2/5}, {RR:1/10, RB:3/10, BR:3/10, BB:3/10}, {RB:1/5, BR:1/5, BB:3/5}, {RR:1/6, RB:1/3, BR:1/3, BB:1/6}, {RB:1/4, BR:1/4, BB:1/2}, {RR:1}, {RB:1/2, BR:1/2}, {RR:1/7, RB:2/7, BR:2/7, BB:2/7}
+      obstruction classes: E(M) with 3R exists but is not preparable in this deck: 1; no E(M) on 3 slots has this marginal (purifier too small): 6; non-monochrome pure A-state E(RB): no purification at any size: 1
+    Pur-U: pure AB states = 3; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=2R4B A=2 B=2: FIXED POINT@9
+    Pur-E: 3 of 11 preparable A-states have a purification in B=['b1', 'b2']; lacking: {RR:1/15, RB:4/15, BR:4/15, BB:2/5}, {RR:1/10, RB:3/10, BR:3/10, BB:3/10}, {RB:1/5, BR:1/5, BB:3/5}, {RR:1/3, RB:1/3, BR:1/3}, {RB:1/3, BR:1/3, BB:1/3}, {RR:1}, {RB:1/2, BR:1/2}, {RR:1/7, RB:2/7, BR:2/7, BB:2/7}
+      obstruction classes: E(M) with 4R exists but is not preparable in this deck: 1; no E(M) on 4 slots has this marginal (purifier too small): 6; non-monochrome pure A-state E(RB): no purification at any size: 1
+    Pur-U: pure AB states = 3; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=3R3B A=1 B=1: FIXED POINT@9
+    Pur-E: 3 of 9 preparable A-states have a purification in B=['b1']; lacking: {R:2/5, B:3/5}, {R:3/5, B:2/5}, {R:1/4, B:3/4}, {R:3/4, B:1/4}, {R:1/3, B:2/3}, {R:2/3, B:1/3}
+      obstruction classes: no E(M) on 2 slots has this marginal (purifier too small): 6
+    Pur-U: pure AB states = 3; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=3R3B A=1 B=2: FIXED POINT@9
+    Pur-E: 4 of 9 preparable A-states have a purification in B=['b1', 'b2']; lacking: {R:1/2, B:1/2}, {R:2/5, B:3/5}, {R:3/5, B:2/5}, {R:1/4, B:3/4}, {R:3/4, B:1/4}
+      obstruction classes: no E(M) on 3 slots has this marginal (purifier too small): 5
+    Pur-U: pure AB states = 4; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=3R3B A=1 B=3 (beyond bound): FIXED POINT@9
+    Pur-E: 3 of 9 preparable A-states have a purification in B=['b1', 'b2', 'b3']; lacking: {R:2/5, B:3/5}, {R:3/5, B:2/5}, {R:1/3, B:2/3}, {B:1}, {R:2/3, B:1/3}, {R:1}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; E(M) with 4R exists but is not preparable in this deck: 1; no E(M) on 4 slots has this marginal (purifier too small): 4
+    Pur-U: pure AB states = 3; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=3R3B A=2 B=1: FIXED POINT@9
+    Pur-E: 4 of 12 preparable A-states have a purification in B=['b1']; lacking: {RR:1/5, RB:3/10, BR:3/10, BB:1/5}, {RR:1/10, RB:3/10, BR:3/10, BB:3/10}, {RR:3/10, RB:3/10, BR:3/10, BB:1/10}, {RR:1/6, RB:1/3, BR:1/3, BB:1/6}, {RB:1/4, BR:1/4, BB:1/2}, {RR:1/2, RB:1/4, BR:1/4}, {RB:1/2, BR:1/2}, {RR:1/4, RB:1/4, BR:1/4, BB:1/4}
+      obstruction classes: P(RR) >= P(R)^2, not monochrome: no E(M) of any size: 1; no E(M) on 3 slots has this marginal (purifier too small): 6; non-monochrome pure A-state E(RB): no purification at any size: 1
+    Pur-U: pure AB states = 4; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=3R3B A=2 B=2: FIXED POINT@9
+    Pur-E: 3 of 12 preparable A-states have a purification in B=['b1', 'b2']; lacking: {RR:1/5, RB:3/10, BR:3/10, BB:1/5}, {RR:1/10, RB:3/10, BR:3/10, BB:3/10}, {RR:3/10, RB:3/10, BR:3/10, BB:1/10}, {RR:1/3, RB:1/3, BR:1/3}, {RB:1/3, BR:1/3, BB:1/3}, {BB:1}, {RR:1}, {RB:1/2, BR:1/2} ...
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; E(M) with 4R exists but is not preparable in this deck: 1; P(RR) >= P(R)^2, not monochrome: no E(M) of any size: 1; no E(M) on 4 slots has this marginal (purifier too small): 5; non-monochrome pure A-state E(RB): no purification at any size: 1
+    Pur-U: pure AB states = 3; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=4R2B A=1 B=1: FIXED POINT@9
+    Pur-E: 3 of 8 preparable A-states have a purification in B=['b1']; lacking: {R:2/3, B:1/3}, {R:3/5, B:2/5}, {R:4/5, B:1/5}, {R:3/4, B:1/4}, {R:1/3, B:2/3}
+      obstruction classes: no E(M) on 2 slots has this marginal (purifier too small): 5
+    Pur-U: pure AB states = 3; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=4R2B A=1 B=2: FIXED POINT@9
+    Pur-E: 3 of 8 preparable A-states have a purification in B=['b1', 'b2']; lacking: {R:3/5, B:2/5}, {R:4/5, B:1/5}, {R:1/2, B:1/2}, {R:3/4, B:1/4}, {B:1}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; no E(M) on 3 slots has this marginal (purifier too small): 4
+    Pur-U: pure AB states = 3; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=4R2B A=1 B=3 (beyond bound): FIXED POINT@9
+    Pur-E: 3 of 8 preparable A-states have a purification in B=['b1', 'b2', 'b3']; lacking: {R:2/3, B:1/3}, {R:3/5, B:2/5}, {R:4/5, B:1/5}, {R:1/3, B:2/3}, {B:1}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; no E(M) on 4 slots has this marginal (purifier too small): 4
+    Pur-U: pure AB states = 3; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=4R2B A=2 B=1: FIXED POINT@9
+    Pur-E: 3 of 11 preparable A-states have a purification in B=['b1']; lacking: {RR:2/5, RB:4/15, BR:4/15, BB:1/15}, {RR:3/10, RB:3/10, BR:3/10, BB:1/10}, {RR:3/5, RB:1/5, BR:1/5}, {RR:1/6, RB:1/3, BR:1/3, BB:1/6}, {RR:1/2, RB:1/4, BR:1/4}, {RB:1/2, BR:1/2}, {BB:1}, {RR:2/7, RB:2/7, BR:2/7, BB:1/7}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; no E(M) on 3 slots has this marginal (purifier too small): 6; non-monochrome pure A-state E(RB): no purification at any size: 1
+    Pur-U: pure AB states = 3; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=4R2B A=2 B=2: FIXED POINT@9
+    Pur-E: 3 of 11 preparable A-states have a purification in B=['b1', 'b2']; lacking: {RR:2/5, RB:4/15, BR:4/15, BB:1/15}, {RR:3/10, RB:3/10, BR:3/10, BB:1/10}, {RR:3/5, RB:1/5, BR:1/5}, {RR:1/3, RB:1/3, BR:1/3}, {RB:1/3, BR:1/3, BB:1/3}, {RB:1/2, BR:1/2}, {BB:1}, {RR:2/7, RB:2/7, BR:2/7, BB:1/7}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; no E(M) on 4 slots has this marginal (purifier too small): 6; non-monochrome pure A-state E(RB): no purification at any size: 1
+    Pur-U: pure AB states = 3; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=5R1B A=1 B=1: FIXED POINT@10
+    Pur-E: 2 of 7 preparable A-states have a purification in B=['b1']; lacking: {R:5/6, B:1/6}, {R:4/5, B:1/5}, {R:3/4, B:1/4}, {R:2/3, B:1/3}, {B:1}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; no E(M) on 2 slots has this marginal (purifier too small): 4
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=5R1B A=1 B=2: FIXED POINT@10
+    Pur-E: 2 of 7 preparable A-states have a purification in B=['b1', 'b2']; lacking: {R:5/6, B:1/6}, {R:4/5, B:1/5}, {R:3/4, B:1/4}, {R:1/2, B:1/2}, {B:1}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; no E(M) on 3 slots has this marginal (purifier too small): 4
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=5R1B A=1 B=3 (beyond bound): FIXED POINT@10
+    Pur-E: 2 of 7 preparable A-states have a purification in B=['b1', 'b2', 'b3']; lacking: {R:5/6, B:1/6}, {R:4/5, B:1/5}, {R:2/3, B:1/3}, {R:1/2, B:1/2}, {B:1}
+      obstruction classes: E(M) with 0R exists but is not preparable in this deck: 1; E(M) with 2R exists but is not preparable in this deck: 1; no E(M) on 4 slots has this marginal (purifier too small): 3
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=5R1B A=2 B=1: FIXED POINT@10
+    Pur-E: 2 of 7 preparable A-states have a purification in B=['b1']; lacking: {RR:2/3, RB:1/6, BR:1/6}, {RR:3/5, RB:1/5, BR:1/5}, {RR:1/2, RB:1/4, BR:1/4}, {RB:1/2, BR:1/2}, {RR:1/2, RB:1/4, BR:1/4}
+      obstruction classes: no E(M) on 3 slots has this marginal (purifier too small): 4; non-monochrome pure A-state E(RB): no purification at any size: 1
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+  deck=5R1B A=2 B=2: FIXED POINT@10
+    Pur-E: 3 of 7 preparable A-states have a purification in B=['b1', 'b2']; lacking: {RR:2/3, RB:1/6, BR:1/6}, {RR:3/5, RB:1/5, BR:1/5}, {RR:1/3, RB:1/3, BR:1/3}, {RB:1/2, BR:1/2}
+      obstruction classes: no E(M) on 4 slots has this marginal (purifier too small): 3; non-monochrome pure A-state E(RB): no purification at any size: 1
+    Pur-U: pure AB states = 2; pairs with equal A-marginal = 0; unconnected by B-local reversible ops = 0
+
+  SUMMARY: realizations=67; with a Pur-E failure=67; with an unconnected Pur-U pair=0
+  same-type purifier (A=1,B=1 and A=2,B=2) Pur-E failures: 27 of 27
+  total Pur-U pairs tested: 0
+  obstruction classes over all realizations:
+    E(M) with 0R exists but is not preparable in this deck: 32
+    E(M) with 2R exists but is not preparable in this deck: 11
+    E(M) with 3R exists but is not preparable in this deck: 12
+    E(M) with 4R exists but is not preparable in this deck: 15
+    P(RR) >= P(R)^2, not monochrome: no E(M) of any size: 8
+    no E(M) on 2 slots has this marginal (purifier too small): 46
+    no E(M) on 3 slots has this marginal (purifier too small): 79
+    no E(M) on 4 slots has this marginal (purifier too small): 71
+    non-monochrome pure A-state E(RB): no purification at any size: 30

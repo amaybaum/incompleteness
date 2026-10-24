@@ -1,0 +1,4 @@
+2-qubit orbit size (up to sign): 24
+single-qubit Z/X expectations: [(Fraction(-1, 1), Fraction(0, 1)), (Fraction(0, 1), Fraction(0, 1)), (Fraction(1, 1), Fraction(0, 1))]
+3-qubit state: [1/2+0r2, 0+0r2, 1/2+0r2, 0+0r2, 1/2+0r2, 0+0r2, 0+0r2, 1/2+0r2]
+target P(0) = 3/4+0r2  off-diagonal = 0+0r2

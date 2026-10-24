@@ -1,0 +1,9 @@
+PASS A1 M2 alphabet (pattern level, all parameter values): every reachable word pattern to depth 8 is CM : 252 distinct patterns
+PASS A2 every square word pattern with all rows and columns nonzero is a permutation pattern (so any unitary word is monomial)
+PASS B1 mutation detected: with a |+> attach added, some word pattern is not CM
+PASS B2 exact: <+i| test after |+> attach + CNOT gives a branch prop. to a non-monomial unitary
+PASS C1 M3 countercontrol can fail: with a real destructive test <+| the branch is not prop. to a unitary (rank one) : Matrix([[1/2, 1/2], [1/2, 1/2]])
+PASS D1 adding the quarter phase to the real alphabet yields a word not real up to scalar
+PASS E1 exp(-i pi/2 X_ab) 1 = (-i,-i,1,1) via sympy matrix exp : [-I, -I, 1, 1]
+PASS F1 G3 gap is 2^-n (reproduces the formula; the X-test on |+> is the maximally discriminating test here)
+TOTAL 8 PASS 8

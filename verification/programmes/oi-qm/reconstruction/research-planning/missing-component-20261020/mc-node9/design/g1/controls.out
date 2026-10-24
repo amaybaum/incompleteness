@@ -1,0 +1,34 @@
+== relation push-forwards (Schroedinger) of the card maps; must equal Clifford conjugation labels
+  swap0 {'XA': 'ZA', 'ZA': 'XA', 'XB': 'XB', 'ZB': 'ZB'}
+  swap1 {'XA': 'XA', 'ZA': 'ZA', 'XB': 'ZB', 'ZB': 'XB'}
+  couple {'XA': 'XA*XB', 'ZA': 'ZA', 'XB': 'XB', 'ZB': 'ZA*ZB'}
+  all card maps symplectic: True
+== K-G1 (fixed words; never tuned): W6 = (swap_A, couple)^3 then read q_B ; W7 = W6 + swap_A
+  cards              W6 -> {0: '1'}   W7 -> {0: '1'}
+  QM (calibration)   W6 -> {1: '1'}   W7 -> {1: '1'}
+  cards: state after W7 equals initial state: True
+== trivial extension engine vs direct card simulation, all words over ['swap0', 'swap1', 'couple', 'flipq0', 'flipq1', 'flipp0', 'flipp1', 'read0', 'read1']
+   (True, 24, 248)
+   (flips = value twists; in this abelian extension they are NOT inner, every inner automorphism is trivial: True )
+== calibration C=Z2 real Pauli (beta = z.x') with ERT lifts
+   W6 -> {1: '1'}  W7 -> {1: '1'}
+   vs exact QM, all words over full alphabet: (True, 24, 248)
+   vs cards: (False, ('swap0', 'couple', 'swap0', 'couple', 'swap0', 'couple', 'read1'))
+== calibration C=Z4 complex Pauli (beta = 2 z.x') with ERT lifts
+   W6 -> {1: '1'}  W7 -> {1: '1'}
+   vs exact QM, all words over full alphabet: (True, 24, 248)
+   vs cards: (False, ('swap0', 'couple', 'swap0', 'couple', 'swap0', 'couple', 'read1'))
+== reachable sets (full alphabet)
+  cards        states 24, gate transitions 168, read branches 80
+  QM           states 24, gate transitions 168, read branches 80
+  trivial ext  states 24, gate transitions 168, read branches 80
+  QM under {H_A,H_B,CNOT,X_A,X_B,Z-meas}: states 24
+== K-STAB-GAP (exact): single-qubit Bloch components of every reachable QM state
+  components: [Fraction(-1, 1), Fraction(0, 1), Fraction(1, 1)]
+  full alphabet (with Z flips too): 24 states, components: [Fraction(-1, 1), Fraction(0, 1), Fraction(1, 1)]
+== preserved results (stated before the extension runs; these are the revision's controls)
+  P1 single system, D4 real class + ERT == cards (n=1): (True, 4, 18)  == QM (n=1): (True, 4, 18)
+  P2 coupling without swaps (classical reversible sector) == cards: (True, 4, 28)
+  P3 two systems, local operations only == cards: (True, 16, 144)
+  shortest word distinguishing cards from QM (BFS): (False, ('swap0', 'couple', 'swap0', 'couple', 'swap0', 'couple', 'read1'), ({0: '1'}, {1: '1'}))
+  K-STAB-GAP on the passing extension engine (C=Z2, ERT): 24 reachable record states; elementary-relation expectations [-1, 0, 1]

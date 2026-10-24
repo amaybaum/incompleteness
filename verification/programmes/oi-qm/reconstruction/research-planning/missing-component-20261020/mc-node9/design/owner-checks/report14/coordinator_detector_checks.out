@@ -1,0 +1,6 @@
+Coordinator checks of the detector-boundary handoff v1 (independent code; standard library, fractions, mpmath).
+K1  Cantelli bound and gap identity exact for odd n <= 201; irrational frames (4 angles, n in {7,15,63}): P(W<=0 | T) <= 9/(16n+9) with largest ratio 0.0008206: True
+K2  full-record lower bound at n=63, m=256: 3.703827556461e-22 (handoff 3.703827556461e-22); P(first success has T=1/(5n)) = c_m/C_n: True
+K3  pair-parity majority, 5^3 torus: (y1, y2) i.i.d. fair given the port pair, over 2^12 neighbour pairs, for 24 (shell pattern, port pair) cases: True
+K4  majority rule, 1-3 ones in the 2x2x2 block, previous zero or equal, 9^3 torus, 8 ticks: 184 patterns; support leaves the block in 0; largest L1 distance from the origin 3
+coordinator positive checks: green

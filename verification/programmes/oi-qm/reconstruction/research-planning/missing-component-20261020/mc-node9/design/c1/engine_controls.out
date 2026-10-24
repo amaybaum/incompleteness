@@ -1,0 +1,16 @@
+PC-1 target matrix symplectic: True
+  ops=none k=1: search3=[('(q,p)=(u0,v0),u=(1, 0)', 'E'), ('(q,p)=(v0,u0),u=(0, 1)', 'E')] search4=[('(q,p)=(u0,v0),u=(1, 0)', 'E'), ('(q,p)=(v0,u0),u=(0, 1)', 'E')] classes 1/1
+  ops=cell k=1: search3=[('(q,p)=(u0,v0),u=(1, 0)', 'E'), ('(q,p)=(v0,u0),u=(0, 1)', 'E')] search4=[('(q,p)=(u0,v0),u=(1, 0)', 'E'), ('(q,p)=(v0,u0),u=(0, 1)', 'E')] classes 1/1
+  ops=GL k=1: search3=[('(q,p)=(u0,v0),u=(1, 0)', 'E'), ('(q,p)=(v0,u0),u=(0, 1)', 'E')] search4=[('(q,p)=(u0,v0),u=(1, 0)', 'E'), ('(q,p)=(v0,u0),u=(0, 1)', 'E')] classes 1/1
+PC-2 ops=none k=1: search3=[] search4=[] classes 1/1  expected E: False
+PC-2 ops=cell k=1: search3=[('(q,p)=(u0,v0),u=(1, 0)', 'AV'), ('(q,p)=(u0,v0),u=(1, 0)', 'E'), ('(q,p)=(v0,u0),u=(0, 1)', 'AV'), ('(q,p)=(v0,u0),u=(0, 1)', 'E')] search4=[('(q,p)=(u0,v0),u=(1, 0)', 'AV'), ('(q,p)=(u0,v0),u=(1, 0)', 'E'), ('(q,p)=(v0,u0),u=(0, 1)', 'AV'), ('(q,p)=(v0,u0),u=(0, 1)', 'E')] classes 3/3  expected E: True
+PC-2 ops=GL k=1: search3=[('(q,p)=(u0,v0),u=(1, 0)', 'AV'), ('(q,p)=(u0,v0),u=(1, 0)', 'E'), ('(q,p)=(v0,u0),u=(0, 1)', 'AV'), ('(q,p)=(v0,u0),u=(0, 1)', 'E')] search4=[('(q,p)=(u0,v0),u=(1, 0)', 'AV'), ('(q,p)=(u0,v0),u=(1, 0)', 'E'), ('(q,p)=(v0,u0),u=(0, 1)', 'AV'), ('(q,p)=(v0,u0),u=(0, 1)', 'E')] classes 7/7  expected E: True
+LC-1 map symplectic: True
+  ops=none k=1: search3=[] search4=[] record-safe classes 0/0
+  ops=none k=2: search3=[] search4=[] record-safe classes 0/0
+  ops=GL k=1: search3=[] search4=[] record-safe classes 0/0
+  ops=GL k=2: search3=[] search4=[] record-safe classes 0/0
+PC-3 target u=(1,0) in (q,p)=(u0,v0): search5 reports [('v_toy', 'E')]
+PC-3 target u=(0,1) in (q,p)=(u0,v0): search5 reports [('u_toy', 'E')]
+PC-3 target u=(1,1) in (q,p)=(u0,v0): search5 reports [('u_toy+v_toy', 'E')]
+ENGINE CONTROLS: GREEN

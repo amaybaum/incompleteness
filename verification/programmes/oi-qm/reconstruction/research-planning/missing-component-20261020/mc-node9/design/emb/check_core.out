@@ -1,0 +1,3 @@
+formula vs forward brute force (n=2,3 all clean values; n=4 clean values all-0 and all-1; all graphs, regions, toys, declarations, t<=6, final and history): 92424 cases, 0 mismatches
+isomorphism classes n=1..6: [1, 2, 4, 11, 34, 156] expected [1, 2, 4, 11, 34, 156]: PASS
+CORE CONTROLS: GREEN

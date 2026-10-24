@@ -1,0 +1,14 @@
+Part 1a: dA/(dtheta dphi) = sin(2*theta)/2 = cos(theta) * [sin(theta) dtheta dphi = dOmega]
+         density on the hemisphere = cos(theta)/pi; total mass = 1
+Part 1b: boundary equation minus ellipse x1^2/cos^2(alpha) + x2^2 = 1 : 0
+         P(+ | u, n) = [area of disk minus (left half-disk minus left half-ellipse)]/pi = cos(alpha)/2 + 1/2
+Part 2: finite disk grids, u = X+, n = R (cos alpha = 4/5): target 9/10
+   M=  5:    80 cells, P = 9/10, error = 0
+   M= 20:  1264 cells, P = 71/79, error = 1/790
+   M= 80: 20108 cells, P = 9049/10054, error = 1/25135
+Part 3: conditional swap on the M=5 grid is injective: True ( 12800 images )
+        scope: a restricted ready-state domain (fresh seed), measurement along the preparation axis only;
+        not a permutation of a complete apparatus state space and not an implementation by OI dynamics.
+        The fresh seed lifted around sigma*n already incorporates the KS reset law: it implements the
+        reset, it does not derive it.
+Part 4: discard read E = [lambda_z^2 > lambda_x^2]: P(E|Z-mix) = sqrt(2)/2  P(E|X-mix) = 1 - sqrt(2)/2  gap = -1 + sqrt(2) ; quantum value 0 (both procedures are I/2)

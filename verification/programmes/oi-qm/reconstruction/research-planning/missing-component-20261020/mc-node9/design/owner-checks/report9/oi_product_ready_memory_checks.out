@@ -1,0 +1,29 @@
+One uniform product preparation on 512 states; bijective symplectic update; exact period 18.
+Earlier correlated menu -> product menu in one step; reverse in 17 steps.
+Recording and decoder identities hold on every state; core kick in 256/512 cases.
+native: record count, hidden-support histogram = (32, {2: 32})
+read conjugate: record count, hidden-support histogram = (64, {1: 64})
+cancel kick: record count, hidden-support histogram = (32, {1: 32})
+disconnect final step: record count, hidden-support histogram = (16, {2: 16})
+Copy-with-cancelled-kick fails 4 symplectic basis-pair checks.
+time: hidden possibilities; stored-parity possibilities, for each record
+0: 4; 2
+1: 2; 1
+2: 2; 1
+3: 4; 2
+4: 4; 2
+5: 2; 2
+6: 2; 2
+7: 4; 2
+8: 4; 2
+9: 4; 2
+10: 2; 2
+11: 4; 1
+12: 4; 2
+13: 2; 2
+14: 4; 2
+15: 2; 1
+16: 4; 2
+17: 4; 2
+Stored parity recoverable exactly at times [1, 2, 11, 15] modulo 18.
+PASS: exact enumeration and linear-span check agree. No external history used.

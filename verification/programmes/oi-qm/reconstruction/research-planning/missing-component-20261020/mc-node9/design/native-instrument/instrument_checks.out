@@ -1,0 +1,23 @@
+Bounded native instrument under the report18 rule: exact record laws, identities, closure, native realization.
+PASS C-RANK (1,w) rank 4; the four relations span its null space
+PASS sampler: one attempt accepts with 10/16 per component and gives P(1|accept) = (1+c.w)/2 exactly
+PASS non-dyadic Born values on the R read: e.g. [Fraction(9, 10), Fraction(1, 10)]; a subspace readiness event (power-of-two count) cannot give them
+PASS C-QM quantum record laws satisfy the identities (single and two reads)
+PASS C-AFF an affine non-Born law passes the identities (identities do not test Born)
+PASS C-ND non-disturbing instrument fails the sequential identities: 6 of 16 setting pairs fail; largest witness TV 2684038546875/140737488355328
+PASS C-HER w-dependent herald fails the single-read identities: witness TV up to 9068125/67108864
+PASS C-NAT releasing one load-bearing readiness pin (even distance) changes an accessible register
+observation: releasing an odd-distance current-slice pin leaves the tick-2 record unchanged: True (parity: such pins are not load-bearing, so the readiness count is not minimal)
+PASS Q5 native realization: record and outgoing registers equal the register-level map: 1024 runs (512 input assignments x 2 dense full-torus backgrounds); arrival field B; receivers silent before tick 2
+
+Q1 single-read identities (exact, complete record = prep herald, outcome, re-prep herald): {'X': '0', 'Y': '0', 'Z': '0', 'R': '0'}
+Q2 two-read identities, 16 setting pairs, largest |identity|: 0
+Q3 Born: single-read outcome probabilities exact: True ; complete single-read law = quantum law: True ; complete two-read law = quantum law (all w, a, c): True
+Q4 closure: outgoing law given (herald, outcome) equals the prepared law of P_{s a}, jointly: True
+Q6a record also shows unread hidden components: identities {'X': '4517940375/137438953472', 'Y': '4517940375/137438953472', 'Z': '4517940375/137438953472', 'R': '4517940375/137438953472'} witness TV {'X': '95155025/1073741824', 'Y': '95155025/1073741824', 'Z': '95155025/1073741824', 'R': '95155025/1073741824'}
+Q6b record also shows the fresh re-preparation bits: identities {'X': '0', 'Y': '0', 'Z': '0', 'R': '0'} ; closure given that record fails, by setting (conditional law of the outgoing state vs P_{s a}): {'X': True, 'Y': True, 'Z': True, 'R': True}
+Q6c record site read natively at ticks KT..KT+D (readiness extended): first D with an identity violation {'X': 8, 'Y': 10, 'Z': 8, 'R': None} ; witness TV at D=10: {'X': '0.240000', 'Y': '0.060000', 'Z': '0.117188', 'R': '0.000000'}
+Q6c the widened record depends on unread hidden components from window D: {'X': {'Y': 8}, 'Y': {'X': 8, 'Z': 8}, 'Z': {'Y': 8, 'R': 8}, 'R': {'Z': 8}} (a dependence the identities do not flag is invisible to this menu, not protected)
+Resources: herald acceptance per attempt (10/16)^4 = 625/4096; readiness pins per record device 95, per outgoing device 93 (5 devices: 467); hidden copies 5 per component (16 copy equalities); fresh biased bits 3 per read
+
+VERDICT (generated): identities HOLD exactly on the complete single-read record and HOLD exactly on the complete two-read record; Born values exact; closure HOLDS; native realization HOLDS. Widening access to the unread hidden components breaks the identities (settings failing: ['X', 'Y', 'Z', 'R']); exposing the fresh bits keeps the identities and breaks closure given the record (settings where closure fails: ['X', 'Y', 'Z', 'R']); reading the native record site at later ticks gives a first identity violation by setting of {'X': 8, 'Y': 10, 'Z': 8, 'R': None}, for this layout.

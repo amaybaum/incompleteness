@@ -1,0 +1,10 @@
+cards vs std QM, <=2 couples, shortest distinguishing word: (('sA', 'c', 'sA', 'c', 'sA', 'rA=0', 'rB'), {0: '1'}, {1: '1'})
+cards vs std QM, full alphabet: (('sA', 'c', 'sA', 'c', 'sA', 'c', 'rB'), {0: '1'}, {1: '1'})
+P4_1 over no flips : std==cards: True | passing 4 | of which == std QM over alphabet 4 | (sA,c) pairs: 4
+P4_1 over {sA,c,rA,rB} : std==cards: True | passing 256 | of which == std QM over alphabet 64 | (sA,c) pairs: 16
+P4_1 over no sB : std==cards: True | passing 256 | of which == std QM over alphabet 64 | (sA,c) pairs: 16
+local-swap-lift triples: 256
+local lifts, full : (L, survivors, (sA,c) pairs, all==stdQM over alph): [(2, 64, 16, False), (3, 16, 8, False), (4, 8, 4, False), (5, 4, 4, True), (6, 4, 4, True), (7, 0, 0, '-')]
+local lifts, no flips : (L, survivors, (sA,c) pairs, all==stdQM over alph): [(2, 64, 16, False), (3, 16, 8, False), (4, 8, 4, False), (5, 4, 4, True), (6, 4, 4, True), (7, 0, 0, '-')]
+local lifts, {sA,c,rA,rB} : (L, survivors, (sA,c) pairs, all==stdQM over alph): [(2, 64, 16, False), (3, 32, 8, False), (4, 32, 8, False), (5, 16, 4, True), (6, 16, 4, True), (7, 0, 0, '-')]
+local lifts, no sB : (L, survivors, (sA,c) pairs, all==stdQM over alph): [(2, 64, 16, False), (3, 32, 8, False), (4, 32, 8, False), (5, 16, 4, True), (6, 16, 4, True), (7, 0, 0, '-')]

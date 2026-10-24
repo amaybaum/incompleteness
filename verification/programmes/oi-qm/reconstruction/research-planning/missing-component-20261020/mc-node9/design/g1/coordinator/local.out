@@ -1,0 +1,2 @@
+A-local swap lifts x all 16 couple lifts: {(Fraction(1, 1), Fraction(1, 1)): 32, (Fraction(0, 1), Fraction(0, 1)): 32}
+A-local swap lifts x couple twists by Z-type Paulis: {(Fraction(1, 1), Fraction(1, 1)): 8, (Fraction(0, 1), Fraction(0, 1)): 8}

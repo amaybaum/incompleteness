@@ -1,0 +1,21 @@
+[strict] n=4 ops=none: configurations=512 skipped(visible dim)=0 max record-safe classes/level=1 crosscheck mismatches=0
+    k=1: record-safe designated matches: none
+    k=2: record-safe designated matches: none
+    k=3: record-safe designated matches: none
+    k=4: record-safe designated matches: none
+[strict] n=4 ops=cell: configurations=512 skipped(visible dim)=0 max record-safe classes/level=820 crosscheck mismatches=0
+    k=1: record-safe designated matches: none
+    k=2: record-safe designated matches: none
+    k=3: record-safe designated matches: none
+    k=4: record-safe designated matches: none
+[relaxed] n=4 ops=none: configurations=2048 skipped(visible dim)=0 max record-safe classes/level=1 crosscheck mismatches=0
+    k=1: record-safe designated matches: none
+    k=2: record-safe designated matches: none
+    k=3: record-safe designated matches: none
+    k=4: record-safe designated matches: none
+[relaxed] n=4 ops=cell: configurations=2048 skipped(visible dim)=0 max record-safe classes/level=216 crosscheck mismatches=0
+    k=1: record-safe designated matches: none
+    k=2: record-safe designated matches: none
+    k=3: record-safe designated matches: none
+    k=4: record-safe designated matches: none
+elapsed 7.7s

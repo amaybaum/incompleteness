@@ -1,0 +1,15 @@
+C-SPH-1: the herald-statistics witness (owner review, 2026-10-22) as an exact regression check, its dependence on
+H1  exact enumeration, N = 3, a = b = 1/16
+    P(F_B | H_A, Z-mix) = 631/721   P(F_B | H_A, X-mix) = 3375/4096   difference 0.05120
+    P(H_A F_B | Z-mix) - P(H_A F_B | X-mix) = 151201/16777216 (0.009012)
+    owner values reproduced: True
+H2  closed form and pool-size dependence
+    Z - X - [((1-a)(1-b))^N - (1-a-b)^N] simplifies to 0
+    enumeration = closed form, positive for every N >= 1, and <= N ab ((1-a)(1-b))^(N-1): True
+    n * difference at a = alpha/n, b = beta/n tends to alpha*beta*exp(-alpha - beta)
+    so the witness falls as alpha beta e^(-alpha-beta)/N at fixed expected crossings; the coefficient's maximum e^-2 is an asymptotic scale
+    not a finite-N bound: N = 3, a = b = 1/3 gives 37/729 (0.05075) > e^-2/3 (0.04511): True
+H3  Poisson particle number per station (mean mu)
+    P(no A) = exp(-a*mu), P(no B) = exp(-b*mu), P(no A, no B) = exp(mu*(-a - b))
+    P(H_A F_B | Z-mix) - P(H_A F_B | X-mix) = 0
+all checks: green

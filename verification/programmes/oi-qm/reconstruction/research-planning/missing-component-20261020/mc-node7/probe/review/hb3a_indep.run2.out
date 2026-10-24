@@ -1,0 +1,50 @@
+L=6 d=1 ref kappa(A,A+e1)=0
+   w=1/100: W1=7587/2800 closed=7587/2800 match=True kappa=-1.7096
+   w=1/4: W1=291/112 closed=291/112 match=True kappa=-1.5982
+   w=1/2: W1=139/56 closed=139/56 match=True kappa=-1.4821
+   w=1: W1=9/4 closed=9/4 match=True kappa=-1.2500
+L=6 d=2 ref kappa(A,A+e1)=4/25
+   w=1/100: W1=173781/40000 closed=173781/40000 match=True kappa=-3.3445
+   w=1/4: W1=6357/1600 closed=6357/1600 match=True kappa=-2.9731
+   w=1/2: W1=2869/800 closed=2869/800 match=True kappa=-2.5863
+   w=1: W1=45/16 closed=45/16 match=True kappa=-1.8125
+L=8 d=1 ref kappa(A,A+e1)=0
+   w=1/100: W1=7587/2800 closed=7587/2800 match=True kappa=-1.7096
+   w=1/4: W1=291/112 closed=291/112 match=True kappa=-1.5982
+   w=1/2: W1=139/56 closed=139/56 match=True kappa=-1.4821
+   w=1: W1=9/4 closed=9/4 match=True kappa=-1.2500
+L=8 d=2 ref kappa(A,A+e1)=2/25
+   w=1/100: W1=173781/40000 closed=173781/40000 match=True kappa=-3.3445
+   w=1/4: W1=6357/1600 closed=6357/1600 match=True kappa=-2.9731
+   w=1/2: W1=2869/800 closed=2869/800 match=True kappa=-2.5863
+   w=1: W1=45/16 closed=45/16 match=True kappa=-1.8125
+L=10 d=1 ref kappa(A,A+e1)=0
+   w=1/100: W1=7587/2800 closed=7587/2800 match=True kappa=-1.7096
+   w=1/4: W1=291/112 closed=291/112 match=True kappa=-1.5982
+   w=1/2: W1=139/56 closed=139/56 match=True kappa=-1.4821
+   w=1: W1=9/4 closed=9/4 match=True kappa=-1.2500
+L=10 d=2 ref kappa(A,A+e1)=0
+   w=1/100: W1=173781/40000 closed=173781/40000 match=True kappa=-3.3445
+   w=1/4: W1=6357/1600 closed=6357/1600 match=True kappa=-2.9731
+   w=1/2: W1=2869/800 closed=2869/800 match=True kappa=-2.5863
+   w=1: W1=45/16 closed=45/16 match=True kappa=-1.8125
+L=12 d=1 ref kappa(A,A+e1)=0
+   w=1/100: W1=7587/2800 closed=7587/2800 match=True kappa=-1.7096
+   w=1/4: W1=291/112 closed=291/112 match=True kappa=-1.5982
+   w=1/2: W1=139/56 closed=139/56 match=True kappa=-1.4821
+   w=1: W1=9/4 closed=9/4 match=True kappa=-1.2500
+L=12 d=2 ref kappa(A,A+e1)=0
+   w=1/100: W1=173781/40000 closed=173781/40000 match=True kappa=-3.3445
+   w=1/4: W1=6357/1600 closed=6357/1600 match=True kappa=-2.9731
+   w=1/2: W1=2869/800 closed=2869/800 match=True kappa=-2.5863
+   w=1: W1=45/16 closed=45/16 match=True kappa=-1.8125
+L=14 d=3 ref kappa(A,A+e1)=0
+   w=1/100: W1=182431/30800 closed=182431/30800 match=True kappa=-4.9231
+   w=1/4: W1=6431/1232 closed=6431/1232 match=True kappa=-4.2200
+   w=1/2: W1=8293/1848 closed=8293/1848 match=True kappa=-3.4876
+   w=1: W1=133/44 closed=133/44 match=True kappa=-2.0227
+delta 1 kappa(w=1)= -1.25 kappa(w=1/2)= -1.4821428571428572 kappa(w=0+)= -1.7142857142857142
+delta 2 kappa(w=1)= -1.8125 kappa(w=1/2)= -2.58625 kappa(w=0+)= -3.36
+delta 5 kappa(w=1)= -2.1166666666666667 kappa(w=1/2)= -5.084307359307359 kappa(w=0+)= -8.051948051948052
+delta 20 kappa(w=1)= -2.0635261194029852 kappa(w=1/2)= -16.379389133827 kappa(w=0+)= -30.69525214825102
+delta 100 kappa(w=1)= -2.0145478404319137 kappa(w=1/2)= -76.37667745936818 kappa(w=0+)= -150.73880707830446

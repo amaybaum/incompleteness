@@ -1,0 +1,48 @@
+[strict] n=4 k=1 edges=((0, 1), (0, 2), (0, 3)) Q=u1,P=u2;site1=V,site2=H;sites3..=H (q,p)=(u0,v0),u=(0, 1) read u_toy out(q,p,Q,P)=('v0', 'u0', 'u1', 'v2')
+     q'=u0 | p'=u1 + u2 + u3 + v0 | Q'=u0 + v1 | P'=u2
+[strict] n=4 k=1 edges=((0, 1), (0, 2), (0, 3)) Q=u1,P=u2;site1=V,site2=H;sites3..=H (q,p)=(v0,u0),u=(1, 0) read u_toy out(q,p,Q,P)=('u0', 'v0', 'u1', 'v2')
+     q'=u1 + u2 + u3 + v0 | p'=u0 | Q'=u0 + v1 | P'=u2
+[strict] n=4 k=3 edges=((0, 1), (0, 2), (0, 3)) Q=u1,P=u2;site1=V,site2=H;sites3..=H (q,p)=(u0,v0),u=(0, 1) read u_toy out(q,p,Q,P)=('u3', 'v3', 'u1', 'u0')
+     q'=u0 + v1 + v2 | p'=u1 + u2 + v0 | Q'=u0 + v2 + v3 | P'=u1 + u2 + u3
+[strict] n=4 k=3 edges=((0, 1), (0, 2), (0, 3)) Q=u1,P=u2;site1=V,site2=H;sites3..=H (q,p)=(v0,u0),u=(1, 0) read u_toy out(q,p,Q,P)=('v3', 'u3', 'u1', 'u0')
+     q'=u1 + u2 + v0 | p'=u0 + v1 + v2 | Q'=u0 + v2 + v3 | P'=u1 + u2 + u3
+[strict] n=4 k=1 edges=((0, 1), (0, 2), (0, 3)) Q=v1,P=u2;site1=V,site2=H;sites3..=H (q,p)=(u0,v0),u=(0, 1) read u_toy out(q,p,Q,P)=('v0', 'u0', 'u1', 'v2')
+     q'=u0 | p'=u1 + u2 + u3 + v0 | Q'=u0 + v1 | P'=u2
+[strict] n=4 k=1 edges=((0, 1), (0, 2), (0, 3)) Q=v1,P=u2;site1=V,site2=H;sites3..=H (q,p)=(v0,u0),u=(1, 0) read u_toy out(q,p,Q,P)=('u0', 'v0', 'u1', 'v2')
+     q'=u1 + u2 + u3 + v0 | p'=u0 | Q'=u0 + v1 | P'=u2
+[strict] n=4 k=3 edges=((0, 1), (0, 2), (0, 3)) Q=v1,P=u2;site1=V,site2=H;sites3..=H (q,p)=(u0,v0),u=(0, 1) read u_toy out(q,p,Q,P)=('u3', 'v3', 'u1', 'u0')
+     q'=u0 + v1 + v2 | p'=u1 + u2 + v0 | Q'=u0 + v2 + v3 | P'=u1 + u2 + u3
+[strict] n=4 k=3 edges=((0, 1), (0, 2), (0, 3)) Q=v1,P=u2;site1=V,site2=H;sites3..=H (q,p)=(v0,u0),u=(1, 0) read u_toy out(q,p,Q,P)=('v3', 'u3', 'u1', 'u0')
+     q'=u1 + u2 + v0 | p'=u0 + v1 + v2 | Q'=u0 + v2 + v3 | P'=u1 + u2 + u3
+[strict] n=4 k=1 edges=((0, 1), (0, 2), (2, 3)) Q=u1,P=u2;site1=V,site2=H;sites3..=H (q,p)=(u0,v0),u=(0, 1) read u_toy out(q,p,Q,P)=('v0', 'u0', 'u1', 'u3')
+     q'=u0 | p'=u1 + u2 + v0 | Q'=u0 + v1 | P'=u2 + v3
+[strict] n=4 k=1 edges=((0, 1), (0, 2), (2, 3)) Q=u1,P=u2;site1=V,site2=H;sites3..=H (q,p)=(v0,u0),u=(1, 0) read u_toy out(q,p,Q,P)=('u0', 'v0', 'u1', 'u3')
+     q'=u1 + u2 + v0 | p'=u0 | Q'=u0 + v1 | P'=u2 + v3
+[strict] n=4 k=1 edges=((0, 1), (0, 2), (2, 3)) Q=v1,P=u2;site1=V,site2=H;sites3..=H (q,p)=(u0,v0),u=(0, 1) read u_toy out(q,p,Q,P)=('v0', 'u0', 'u1', 'u3')
+     q'=u0 | p'=u1 + u2 + v0 | Q'=u0 + v1 | P'=u2 + v3
+[strict] n=4 k=1 edges=((0, 1), (0, 2), (2, 3)) Q=v1,P=u2;site1=V,site2=H;sites3..=H (q,p)=(v0,u0),u=(1, 0) read u_toy out(q,p,Q,P)=('u0', 'v0', 'u1', 'u3')
+     q'=u1 + u2 + v0 | p'=u0 | Q'=u0 + v1 | P'=u2 + v3
+[strict] n=4 k=2 edges=((0, 1), (0, 3), (2, 3)) Q=u1,P=v2;site1=V,site2=H;sites3..=H (q,p)=(u0,v0),u=(0, 1) read u_toy out(q,p,Q,P)=('v3', 'u3', 'v1', 'v2')
+     q'=u0 + u2 + v3 | p'=u1 + u3 + v0 + v2 | Q'=u0 + v1 | P'=u3 + v2
+[strict] n=4 k=2 edges=((0, 1), (0, 3), (2, 3)) Q=u1,P=v2;site1=V,site2=H;sites3..=H (q,p)=(v0,u0),u=(1, 0) read u_toy out(q,p,Q,P)=('u3', 'v3', 'v1', 'v2')
+     q'=u1 + u3 + v0 + v2 | p'=u0 + u2 + v3 | Q'=u0 + v1 | P'=u3 + v2
+[strict] n=4 k=2 edges=((0, 1), (0, 3), (2, 3)) Q=v1,P=v2;site1=V,site2=H;sites3..=H (q,p)=(u0,v0),u=(0, 1) read u_toy out(q,p,Q,P)=('v3', 'u3', 'v1', 'v2')
+     q'=u0 + u2 + v3 | p'=u1 + u3 + v0 + v2 | Q'=u0 + v1 | P'=u3 + v2
+[strict] n=4 k=2 edges=((0, 1), (0, 3), (2, 3)) Q=v1,P=v2;site1=V,site2=H;sites3..=H (q,p)=(v0,u0),u=(1, 0) read u_toy out(q,p,Q,P)=('u3', 'v3', 'v1', 'v2')
+     q'=u1 + u3 + v0 + v2 | p'=u0 + u2 + v3 | Q'=u0 + v1 | P'=u3 + v2
+[strict] n=4 k=1 edges=((0, 1), (0, 2), (0, 3), (2, 3)) Q=u1,P=u2;site1=V,site2=H;sites3..=H (q,p)=(u0,v0),u=(0, 1) read u_toy out(q,p,Q,P)=('v0', 'u0', 'u1', 'v2')
+     q'=u0 | p'=u1 + u2 + u3 + v0 | Q'=u0 + v1 | P'=u2
+[strict] n=4 k=1 edges=((0, 1), (0, 2), (0, 3), (2, 3)) Q=u1,P=u2;site1=V,site2=H;sites3..=H (q,p)=(v0,u0),u=(1, 0) read u_toy out(q,p,Q,P)=('u0', 'v0', 'u1', 'v2')
+     q'=u1 + u2 + u3 + v0 | p'=u0 | Q'=u0 + v1 | P'=u2
+[strict] n=4 k=1 edges=((0, 1), (0, 2), (0, 3), (2, 3)) Q=v1,P=u2;site1=V,site2=H;sites3..=H (q,p)=(u0,v0),u=(0, 1) read u_toy out(q,p,Q,P)=('v0', 'u0', 'u1', 'v2')
+     q'=u0 | p'=u1 + u2 + u3 + v0 | Q'=u0 + v1 | P'=u2
+[strict] n=4 k=1 edges=((0, 1), (0, 2), (0, 3), (2, 3)) Q=v1,P=u2;site1=V,site2=H;sites3..=H (q,p)=(v0,u0),u=(1, 0) read u_toy out(q,p,Q,P)=('u0', 'v0', 'u1', 'v2')
+     q'=u1 + u2 + u3 + v0 | p'=u0 | Q'=u0 + v1 | P'=u2
+[relaxed] n=4 k=2 edges=((0, 2), (0, 3), (1, 2)) ptrA:Q=u1,P=v1;sites2..=Hb (q,p)=(u0,v0),u=(0, 1) read u_toy out(q,p,Q,P)=('v2', 'u2', 'u1', 'v1')
+     q'=u0 + u1 + v2 | p'=u2 + u3 + v0 + v1 | Q'=u0 + v2 | P'=u2 + v1
+[relaxed] n=4 k=2 edges=((0, 2), (0, 3), (1, 2)) ptrA:Q=u1,P=v1;sites2..=Hb (q,p)=(v0,u0),u=(1, 0) read u_toy out(q,p,Q,P)=('u2', 'v2', 'u1', 'v1')
+     q'=u2 + u3 + v0 + v1 | p'=u0 + u1 + v2 | Q'=u0 + v2 | P'=u2 + v1
+[relaxed] n=4 k=2 edges=((0, 2), (0, 3), (1, 3)) ptrA:Q=u1,P=v1;sites2..=bH (q,p)=(u0,v0),u=(0, 1) read u_toy out(q,p,Q,P)=('v3', 'u3', 'u1', 'v1')
+     q'=u0 + u1 + v3 | p'=u2 + u3 + v0 + v1 | Q'=u0 + v3 | P'=u3 + v1
+[relaxed] n=4 k=2 edges=((0, 2), (0, 3), (1, 3)) ptrA:Q=u1,P=v1;sites2..=bH (q,p)=(v0,u0),u=(1, 0) read u_toy out(q,p,Q,P)=('u3', 'v3', 'u1', 'v1')
+     q'=u2 + u3 + v0 + v1 | p'=u0 + u1 + v3 | Q'=u0 + v3 | P'=u3 + v1

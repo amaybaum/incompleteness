@@ -1,0 +1,5 @@
+complex qubit (local effects I,X,Y,Z)        product-effect span 16, joint state dimension 16: L4 holds
+qubit stabilizer theory (Pauli effects)      product-effect span 16, joint state dimension 16: L4 holds
+real qubit / rebit (local effects I,X,Z)     product-effect span  9, joint state dimension 10: L4 fails (product span 9 < joint 10)
+real Clifford class (test-8 N2; I,X,Z)       product-effect span  9, joint state dimension 10: L4 fails (product span 9 < joint 10)
+Y(x)Y is a real symmetric matrix outside the real product span: True

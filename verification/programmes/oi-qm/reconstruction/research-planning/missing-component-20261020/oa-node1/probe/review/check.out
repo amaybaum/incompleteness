@@ -1,0 +1,16 @@
+principal logs exact: ok
+dim principal 9 onesfix True
+mixed branch trial 0 dim 9 onesfix True
+mixed branch trial 1 dim 9 onesfix True
+mixed branch trial 2 dim 9 onesfix True
+all -pi dim 9 True
+Lp = Matrix([[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, I*pi/2, -I*pi/2], [0, 0, -I*pi/2, I*pi/2]])
+[Lp,E00]=0: True
+exp(L)==CNOT (60-digit): True  exp(Lp)==CNOT: True
+Uh exact check True
+Unp(1/2)= Matrix([[-1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1/2 + I/2, 1/2 - I/2], [0, 0, 1/2 - I/2, 1/2 + I/2]])  sq==CN True onesfix False Up onesfix True
+dim with L 16 False
+dim with phase gen i*E00 (equivalence check) 16
+[J,CN]=0 True [J,Lp]=0 True
+dim with J/4 10 True
+J/4 in span{I,CN}: []

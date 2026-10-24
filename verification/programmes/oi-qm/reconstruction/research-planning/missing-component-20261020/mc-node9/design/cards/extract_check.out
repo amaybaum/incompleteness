@@ -1,0 +1,32 @@
+== swap core: state (v,h), v visible, h hidden; v0,h0 independent fair bits (engine dealHand) ==
+one shuffle: 1/2 | two shuffles: 1 | chained through middle: 1/2 | peek(engine): 1/2
+engine 'peek' enumeration size: 8 (book says 'sixteen cases in the longest protocol')
+
+== intervention table between swap1 and swap2 (return prob: final v == dealt v0) ==
+  none                       1
+  look_visible               1
+  copy_visible_to_record     1
+  burn_replace_visible       1
+  replace_hidden_memory      1/2
+  engine_peek                1/2
+
+== swap core dealt from a finite two-colour deck with depletion (book: 'dealt'; engine: fair independent bits) ==
+  N= 2: one-shuffle match 0 (formula (N/2-1)/(N-1) = 0); engine-peek with replacement from remaining deck: match n/a (deck empty); two-shuffle match 1
+  N= 4: one-shuffle match 1/3 (formula (N/2-1)/(N-1) = 1/3); engine-peek with replacement from remaining deck: match 1/3; two-shuffle match 1
+  N= 6: one-shuffle match 2/5 (formula (N/2-1)/(N-1) = 2/5); engine-peek with replacement from remaining deck: match 2/5; two-shuffle match 1
+  N=24: one-shuffle match 11/23 (formula (N/2-1)/(N-1) = 11/23); engine-peek with replacement from remaining deck: match 11/23; two-shuffle match 1
+
+== line game (Euchre 24 cards, m = +-1..6, red negative), exact ==
+  blind deals: 552 | all displacements even: True | odd mass: 0
+  peeked deals: 255024 | odd-position total probability: 80/161
+  blind distinct nonzero heights: 11
+  peek: unreachable positions in [-24,24]: [-24, -23, 23, 24]
+  blind: unreachable positions: [-23, -21, -19, -17] ... count 24
+  blind matches engine.test.js EXPECTED_BLIND: True
+  P(+24 blind) = 1/276 ; P(+-24 peek) = 0
+
+== cat protocol: catOdds(p) = (1-p)*1 + p*(1/2), exact at the five dial stops ==
+   [('0', '1'), ('1/4', '7/8'), ('1/2', '3/4'), ('3/4', '5/8'), ('1', '1/2')]
+
+  peek distribution matches engine.test.js EXPECTED_PEEK (independent Python enumeration): True
+  blind zero positions filled by peek: 22 of 24

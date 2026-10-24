@@ -1,0 +1,210 @@
+PREREG sha256 99834efa540bbf0d2f6cd84bc819daa71b7d612864775285785e033739ebd3bc
+[PASS] I-1: preregistration digest equals the frozen digest
+RULE PARAMETERS eps=1/100; eps_POM=1/800; N_max=100; L_set=(4, 6, 8); tolerance windows: |S_max-2sqrt2|<=eps, |POM-(1+1/sqrt2)/2|<=eps/8; (ii-Q) correlators within eps/4; families LE(n,k), DR(n,k), n<=N_max; classes A_CHSH(N_max), A_POM(N_max), long-edge gate class 256 F x (n,k)
+RULE PARAMETERS digest 085f4b205e1d667ce20cbd343e5016b8bac36ffa9bb5cb4e849013d942e0fd9c
+[PASS] I-17: classifier returns Parked / Failure / Failure / Reproduction / Emergence on the five synthetic clause vectors (Parked precedes Failure precedes Reproduction precedes Emergence)
+
+=== Controls (section 5), run before any candidate ===
+[PASS] K-1: LE(n,k) counting architecture = LE(w) structured prior = p6 B2b box, S = 2 + 2w, no-signalling; DR(n,k) = DR(w) = p6 P5 law on all 14 sequences x 4 preparations, POM = (1+w)/2: w=0:S=2, w=1/5:S=12/5, w=2/5:S=14/5, w=1/2:S=3, w=3/5:S=16/5, w=1:S=4, DR w=1:POM=1, DR w=7/10:POM=17/20, DR w=1/2:POM=3/4
+[PASS] LEARCH: every LE(n,k), n <= 100, computed from the architecture: S_max = 2 + 2k/n and operational no-signalling (bijectivity checked on Omega for n <= 12; every step XORs a function of other cells into one cell, so it is an involution for every n [W])
+[PASS] DRARCH: every DR(n,k), n <= 40, from the architecture: POM = (1 + k/n)/2; beyond n = 40 the closed form is used, the preparation prior being w delta_x + (1 - w) uniform with w = k/n by construction [W]
+[PASS] K-2: PR box (LE w=1, S=4): K-P excluded (S_max > 2sqrt2 (CHSH sum-of-squares witness, K-P outer set)); gbit (DR w=1, POM=1): K-P excluded
+[PASS] K-3: S = 3 at w = 1/2 (LE(2,1)): K-P excluded (S_max > 2sqrt2 (CHSH sum-of-squares witness, K-P outer set))
+[PASS] K-4: toy bit: counting-measure O-admissible realization equals the qubit Lueders record law of the six Pauli eigenstates on all 39 sequences of length <= 3 (234 protocols); delay line: O-admissible realization equals a two-qubit projective protocol with Lueders update and SWAP (4x4 density matrices)
+[PASS] K-5: C3 vacuous: over 144 LE realizations (n = 1, 10, ..., 100; k in 0, n/2, n; all settings) the conditional-support bound on 2^I* is at most 4; 0 realizations need an idle hidden pad (identity step, law unchanged) to meet log2|C_H| >= I*; every family member, PR included, is admitted
+[PASS] K-5b: patch budget: every realization used has log2|Omega| < 10^3 bits, far below ~10^145; passive-observation obstruction: holds in every finite operational theory with >= 2 states (appendix-c:226 [rec]); both admit every family member, PR and gbit included (vacuous)
+[PASS] K-7: LE is quantum only at w = 0: every LE(n,k) with k >= 1, n <= 12, is excluded by the exact perfect-correlation argument (three correlators = 1 force the fourth); T1 = LE(5,2): E = (1,1,1,1/5), S_max = 14/5 < 2sqrt2; TLM: 3pi/2 - asin(1/5) > pi because asin(1/5) < pi/2 (exact by monotonicity)
+[PASS] K-8: A_CHSH(68) contains the PR/anti-PR point (O-checked realization, lam in Z_68) with correlators (12/17)(-1)^ab, zero marginals, entries in (1/68)Z, K-P admitted (isotropic zero-marginal correlators |E| = 12/17, TLM exact (v^2 <= 1/2)), each correlator within eps/4 of 1/sqrt2, S_max = 48/17 within eps of 2sqrt2; the gate class reaches the same box at n = 34, k = 5 (O-checked; amendment A-1)
+[PASS] K-11: K-P's POM witness rho_x = (I + w((-1)^x0 Z + (-1)^x1 X))/2, y=0 -> Z, y=1 -> X, Lueders: equals DR(w) on all 14 sequences x 4 preparations for w in {0, 1/2, 12/17}; Bloch length^2 2w^2 <= 1 (288/289 at 12/17); rho_00 + rho_11 = rho_01 + rho_10 = I
+[PASS] SOS: exact identity (1/sqrt2)[(A0-(B0+B1)/sqrt2)^2 + (A1-(B0-B1)/sqrt2)^2] = 2sqrt2 - CHSH for +-1 observables with [A_i, B_j] = 0: every quantum box has S <= 2sqrt2 in every orientation (relabellings are symmetries); this is the outer-set witness K-P uses
+
+--- PC-3b (= K-P): Reproduction
+  [K-P] family CHSH: (i) True [witness -]; (ii-S) True [follow-up class A_CHSH(68) point v = 12/17 (isotropic zero-marginal correlators |E| = 12/17, TLM exact (v^2 <= 1/2)), S_max = 48/17]; (iii) True; admitted members 100
+  [K-P] family POM: (i) True [witness -]; (ii-S) True [family: (n,k)=(17,12), w=12/17]; (iii) True; admitted members 3624
+  follow-up CHSH (F1): holds: K-P excludes every box with S_max > 2sqrt2 by the exact SOS witness (check SOS), so the admitted maximum of S_max over A_CHSH is <= 2sqrt2
+  follow-up CHSH (ii-Q): holds: v = 12/17 point admitted (isotropic zero-marginal correlators |E| = 12/17, TLM exact (v^2 <= 1/2))
+  follow-up CHSH (iii-A): holds: every local box is admitted (Fine; diagonal quantum realization), so every local box in A_CHSH is admitted exactly
+  follow-up POM (F2): holds: K-P admits only quantum statistics with rho_00 + rho_11 = rho_01 + rho_10, whose POM success is <= (1+1/sqrt2)/2 [L: Spekkens et al. 2009]
+  follow-up POM (ii-Q-POM): holds: DR(12/17) equals the K-11 qubit protocol exactly, POM = 29/34 within eps/8
+  follow-up POM (iii-A): holds: a preparation-noncontextual model with exact parity obliviousness has equal ontic parity mixtures, so its diagonal quantum realization has rho_00 + rho_11 = rho_01 + rho_10 [W]
+  outcome (b) b1: holds: T1 excluded; every LE member with w > 0 excluded (K-7); correlator-grid instance n <= 12 (zero marginals): 54374 admitted boxes, 0 of them TLM-violating by a [NUM] cross-check, 26000 undetermined (count for no clause); beyond n = 12 by the admission rule (A-6)
+  outcome (b) b2: holds by construction for the admitted (inner) set, whose members are quantum, with tilted-CHSH maximum sqrt(8 + 2 alpha^2) [L: Acin-Massar-Pironio 2012, not read]; maximizing boxes not exhibited and NPA 1+AB status not computed (no SDP tooling)
+  outcome (b) b3: incomplete: admitted maximum <= 3sqrt3 [L: Wehner 2006]; achievability within eps in the class: the best isotropic zero-marginal quantum point (|E| = c, c^2 <= 3/4, entries in (1/n)Z, n <= 100) has I3 = 57/11 at n = 88 (<= 3sqrt3: True; within eps of 3sqrt3: False); non-isotropic points not searched, so (b3) is not established (no-reduction clause)
+  note: the principle is the quantum set (a quantum ingredient), so a pass is Reproduction
+[PASS] K-P: positive control passes the family stage, (a), (a-POM) and (b1); classified Reproduction
+
+=== Checker controls K-N1..K-N6 (synthetic principles, not candidates) ===
+[PASS] K-N1: "S_max <= 3, POM <= 7/8": fails (i) in CHSH (witness (n,k)=(2,1), w=1/2) and POM
+[PASS] K-N2: "w <= 1/2 (LE), w <= 1/sqrt2 (DR)": fails (i) in CHSH (witness (n,k)=(2,1), w=1/2)
+[PASS] K-N3: "S_max <= 2, POM <= 3/4 everywhere": fails (ii-S) in CHSH and POM
+[PASS] K-N4: "1/4 <= w <= sqrt2-1 (LE), 1/2 <= w <= 1/sqrt2 (DR)": fails (iii): the LE w = 0 law is not admitted
+[PASS] K-N5: passes the family stage (CHSH ii-S witness family: (n,k)=(17,7), w=7/17); in A_CHSH it admits the PR box (two response pairs (s, s xor ab)), S_max = 4 > 2sqrt2 + eps, so (F1) fails
+[PASS] K-N6: passes (a) (family stage, (F1) by its own bound, (ii-Q) at v = 12/17, (iii-A) local boxes have S_max <= 2) and (a-POM) as K-P; admits T1 (S_max = 14/5 <= 2sqrt2, post-quantum), so (b1) fails
+[PASS] K-M4: mutant L3-A admitting only k = 0: derived labels ['under-generation (CHSH)', 'over-generation (POM)'] (the over-generation verdict is not printed)
+[PASS] K-M2: a candidate whose own check fails gets "void", no verdict
+[PASS] I-2-static: law() reads only R.['prior', 'readout', 'steps']
+[PASS] I-4-static: no float constant or float() call outside num_* functions (w1_exact uses float('inf') as a graph-search sentinel only): offenders []
+[PASS] K-9: condition O (bijectivity on Omega, point-mass visible marginal, normalized prior) holds for all 416 realizations checked
+
+I-6 gate: controls K-1..K-9, K-11, K-P, K-N1..K-N6, K-M2, K-M4, SOS, I-17, static checks: all green
+K-10: n <= 3 in k10.py (see k10.run*.out); n = 4 pending (CI, owner approval); verdicts below are provisional on K-10 n = 4 (amendment A-2)
+
+=== Candidate measurements (each verdict below is printed only if its own checks pass) ===
+[PASS] L3-A-priorfree: S_max = 4 for every prior on lam; operationally no-signalling only at P(lam=0) = 1/2: S_max = 4 at P(lam = 0) = j/9, j = 0..9, each of these ten boxes signalling; P(lam = 0) = 1/2 gives the no-signalling PR box, which is LE(1,1) under the counting measure
+[PASS] L3-C-readings: (alpha): the orbit-invariant prior conditioned on the initial slice gives exactly the counting-measure law for every LE(n,k), n <= 12, and DR(n,k), n <= 4 (O-checked for LE n <= 3, DR n <= 2); LE(1,1) S_max = 4. (beta): the invariant measure at the readout phase has a visible marginal that is not a point mass, so condition O fails for 90/90 LE and 14/14 DR members computed; for all n [W]: every orbit through a slice point with lam = 1 (LE) or with a nonzero pointer after one cycle (DR) carries a different visible configuration at the readout phase
+[PASS] PC-1: marginal consistency: for every LE(n,k), n <= 12, each wing's law (its own partition) equals the marginal of the joint law of V_A u V_B; holds for every member computed (all n [W])
+[PASS] PC-3a: for every LE(n,k) and DR(n,k), n <= 3, the realization's permutation unitary with rho = diag(mu) and fixed-basis Born readout reproduces the record law exactly (all n [W]: Main.md:82)
+[PASS] PC-4: LE readouts (q ^= p1; r ^= p2, r ^= ab[u<k]) applied twice to their own pointers restore Omega pointwise, and the kappa2 inverse of each DR readout restores it, for n <= 3 (all n [W])
+[PASS] HB-1: for every LE(n,k), n <= 12: Bob's readout step depends on Alice's setting (one long edge, added degree 1) iff k > 0, and the box is operationally no-signalling
+HB-2 instances: L=4: m_N=42, L_N m_N/N=21/32; L=6: m_N=60, L_N m_N/N=5/18; L=8: m_N=63, L_N m_N/N=63/512
+[PASS] HB-2: m_N <= (6r+1)^3 = 343 at r = 1 and L_N m_N / N decreasing over L in L_set: L=4: m_N=42, L_N m_N/N=21/32; L=6: m_N=60, L_N m_N/N=5/18; L=8: m_N=63, L_N m_N/N=63/512; the limit for every schedule r_N -> infinity, r_N/L -> 0 is the [W] bound P(6 r_N + 1)^3 / L^3
+[PASS] HB-3alpha: exact min-cost-flow W1 equals the closed form W1 = |nu+| + 2 int r dnu+ at every instance with L >= 6 (the form needs 3L/2 >= 4 delta + 1; L = 4 is reported as a flow instance only); reference curvature on lattice edges is >= 0 at every L and exactly 0 for L >= 10 (on Z^3 it is 0: z_1 is 1-Lipschitz, so W1 >= 1 = the translation cost [W]); at the long edge (A,B), for every delta >= 1 and every w in (0,1], W1 >= 9/4, so kappa(A,B) <= -5/4 (option 1 is w = 1: W1 -> 3, kappa -> -2; option 2 with w < 1: kappa -> -infinity); W1 at w = 1 for delta = 1, 2, 5, 20, 60: 9/4, 45/16, 187/60, 32841/10720, 871321/288160
+  HB-3alpha L=4 delta=1 w=1/4: W1=291/112 (closed form 291/112), kappa(A,B)=-179/112
+  HB-3alpha L=4 delta=1 w=1/2: W1=139/56 (closed form 139/56), kappa(A,B)=-83/56
+  HB-3alpha L=4 delta=1 w=1: W1=9/4 (closed form 9/4), kappa(A,B)=-5/4
+  HB-3alpha L=4 delta=1: reference kappa(A,A+e1)=2/7, reference kappa(A,B)=2/7
+  HB-3alpha L=4 delta=2 w=1/4: W1=4923/2552 (closed form 6357/1600), kappa(A,B)=-2371/2552
+  HB-3alpha L=4 delta=2 w=1/2: W1=2081/1276 (closed form 2869/800), kappa(A,B)=-805/1276
+  HB-3alpha L=4 delta=2 w=1: W1=30/29 (closed form 45/16), kappa(A,B)=-1/29
+  HB-3alpha L=4 delta=2: reference kappa(A,A+e1)=6/11, reference kappa(A,B)=6/11
+  HB-3alpha L=6 delta=1 w=1/4: W1=291/112 (closed form 291/112), kappa(A,B)=-179/112
+  HB-3alpha L=6 delta=1 w=1/2: W1=139/56 (closed form 139/56), kappa(A,B)=-83/56
+  HB-3alpha L=6 delta=1 w=1: W1=9/4 (closed form 9/4), kappa(A,B)=-5/4
+  HB-3alpha L=6 delta=1: reference kappa(A,A+e1)=0, reference kappa(A,B)=4/21
+  HB-3alpha L=6 delta=2 w=1/4: W1=6357/1600 (closed form 6357/1600), kappa(A,B)=-4757/1600
+  HB-3alpha L=6 delta=2 w=1/2: W1=2869/800 (closed form 2869/800), kappa(A,B)=-2069/800
+  HB-3alpha L=6 delta=2 w=1: W1=45/16 (closed form 45/16), kappa(A,B)=-29/16
+  HB-3alpha L=6 delta=2: reference kappa(A,A+e1)=4/25, reference kappa(A,B)=28/75
+  HB-3alpha L=8 delta=1 w=1/4: W1=291/112 (closed form 291/112), kappa(A,B)=-179/112
+  HB-3alpha L=8 delta=1 w=1/2: W1=139/56 (closed form 139/56), kappa(A,B)=-83/56
+  HB-3alpha L=8 delta=1 w=1: W1=9/4 (closed form 9/4), kappa(A,B)=-5/4
+  HB-3alpha L=8 delta=1: reference kappa(A,A+e1)=0, reference kappa(A,B)=1/7
+  HB-3alpha L=8 delta=2 w=1/4: W1=6357/1600 (closed form 6357/1600), kappa(A,B)=-4757/1600
+  HB-3alpha L=8 delta=2 w=1/2: W1=2869/800 (closed form 2869/800), kappa(A,B)=-2069/800
+  HB-3alpha L=8 delta=2 w=1: W1=45/16 (closed form 45/16), kappa(A,B)=-29/16
+  HB-3alpha L=8 delta=2: reference kappa(A,A+e1)=2/25, reference kappa(A,B)=7/25
+  HB-3alpha L=10 delta=1 w=1/4: W1=291/112 (closed form 291/112), kappa(A,B)=-179/112
+  HB-3alpha L=10 delta=1 w=1/2: W1=139/56 (closed form 139/56), kappa(A,B)=-83/56
+  HB-3alpha L=10 delta=1 w=1: W1=9/4 (closed form 9/4), kappa(A,B)=-5/4
+  HB-3alpha L=10 delta=1: reference kappa(A,A+e1)=0, reference kappa(A,B)=4/35
+  HB-3alpha L=10 delta=2 w=1/4: W1=6357/1600 (closed form 6357/1600), kappa(A,B)=-4757/1600
+  HB-3alpha L=10 delta=2 w=1/2: W1=2869/800 (closed form 2869/800), kappa(A,B)=-2069/800
+  HB-3alpha L=10 delta=2 w=1: W1=45/16 (closed form 45/16), kappa(A,B)=-29/16
+  HB-3alpha L=10 delta=2: reference kappa(A,A+e1)=0, reference kappa(A,B)=28/125
+  HB-3alpha L=12 delta=1 w=1/4: W1=291/112 (closed form 291/112), kappa(A,B)=-179/112
+  HB-3alpha L=12 delta=1 w=1/2: W1=139/56 (closed form 139/56), kappa(A,B)=-83/56
+  HB-3alpha L=12 delta=1 w=1: W1=9/4 (closed form 9/4), kappa(A,B)=-5/4
+  HB-3alpha L=12 delta=1: reference kappa(A,A+e1)=0, reference kappa(A,B)=2/21
+  HB-3alpha L=12 delta=2 w=1/4: W1=6357/1600 (closed form 6357/1600), kappa(A,B)=-4757/1600
+  HB-3alpha L=12 delta=2 w=1/2: W1=2869/800 (closed form 2869/800), kappa(A,B)=-2069/800
+  HB-3alpha L=12 delta=2 w=1: W1=45/16 (closed form 45/16), kappa(A,B)=-29/16
+  HB-3alpha L=12 delta=2: reference kappa(A,A+e1)=0, reference kappa(A,B)=14/75
+[PASS] HB-4: rescaled Gromov-Hausdorff distance between the glued and reference tori is at least (rad X - rad Y)/(2L) >= 3/8 - 1/(4L): L=4: rad X=6, rad Y=3, d_GH(rescaled) >= 3/8; L=6: rad X=9, rad Y=5, d_GH(rescaled) >= 1/3; L=8: rad X=12, rad Y=6, d_GH(rescaled) >= 3/8; L=10: rad X=15, rad Y=8, d_GH(rescaled) >= 7/20 (|rad X - rad Y| <= 2 d_GH; d(z,A) + d(z,B) = 3L/2 on the ell_1 torus gives rad Y <= 3L/4 + 1/2 for every even L [W])
+[PASS] GATE: exhaustive over 256 gates x 2 control values (O-checked): 128 edge-free (F, s) slices, maximum S_max 2 (local, so every admitted mixture has S_max <= 2); edge slices reach S_max 4; 128 edge slices are local yet use the edge (e.g. F(a,b,c) = a) and are excluded too
+
+=== Candidates (section 9 order) ===
+
+--- L3-0: Failure (over-generation (CHSH); vacuous (CHSH); over-generation (POM); vacuous (POM))
+  [L3-0] family CHSH: (i) False [witness (n,k)=(1,1), w=1]; (ii-S) True [family: (n,k)=(12,5), w=5/12]; (iii) True; admitted members 5154
+  [L3-0] family POM: (i) False [witness (n,k)=(1,1), w=1]; (ii-S) True [family: (n,k)=(17,12), w=12/17]; (iii) True; admitted members 5154
+  note: Main.md:60 read literally admits every prior; LE(1,1) is the PR box
+
+--- L3-A: Failure (over-generation (CHSH); over-generation (POM))
+  [L3-A] family CHSH: (i) False [witness (n,k)=(1,1), w=1]; (ii-S) True [family: (n,k)=(12,5), w=5/12]; (iii) True; admitted members 5150
+  [L3-A] family POM: (i) False [witness (n,k)=(1,1), w=1]; (ii-S) True [family: (n,k)=(17,12), w=12/17]; (iii) True; admitted members 5150
+  note: counting measure on the hidden carrier; LE(1,1) (gate r ^= ab, no control register) is admitted: its correlators are (-1)^ab for every lam, and the counting measure makes it the no-signalling PR box
+
+--- L3-B: Failure (over-generation (CHSH); over-generation (POM))
+  [L3-B] family CHSH: (i) False [witness (n,k)=(1,1), w=1]; (ii-S) True [family: (n,k)=(12,5), w=5/12]; (iii) True; admitted members 5150
+  [L3-B] family POM: (i) False [witness (n,k)=(1,1), w=1]; (ii-S) True [family: (n,k)=(17,12), w=12/17]; (iii) True; admitted members 5150
+  note: conditioning on the trivial record is allowed, so L3-B admits L3-A's members
+
+--- L3-C: Failure (alpha: over-generation (CHSH), over-generation (POM); beta: under-generation (CHSH), classical exclusion (CHSH), under-generation (POM), classical exclusion (POM))
+  [alpha] family CHSH: (i) False [witness (n,k)=(1,1), w=1]; (ii-S) True [family: (n,k)=(12,5), w=5/12]; (iii) True; admitted members 5150
+  [alpha] family POM: (i) False [witness (n,k)=(1,1), w=1]; (ii-S) True [family: (n,k)=(17,12), w=12/17]; (iii) True; admitted members 5150
+  [beta] family CHSH: (i) True [witness -]; (ii-S) False [no admitted family member within the window; follow-up class not consulted]; (iii) False; admitted members 0
+  [beta] family POM: (i) True [witness -]; (ii-S) False [no admitted family member within the window; follow-up class not consulted]; (iii) False; admitted members 0
+  note: (alpha) reproduces L3-A's prior on the slice; under (beta) the invariant measure's visible marginal at the readout phase is not a point mass, so no LE or DR member satisfies condition O (PREREG section 1)
+
+--- L3-D: Failure (Failure-as-stated: the moment-constraint values are parameters OI does not fix; no corpus text fixes them; not computed, as preregistered)
+
+--- L3-PR: Failure (over-generation (CHSH); over-generation (POM))
+  [as L3-A] family CHSH: (i) False [witness (n,k)=(1,1), w=1]; (ii-S) True [family: (n,k)=(12,5), w=5/12]; (iii) True; admitted members 5150
+  [as L3-A] family POM: (i) False [witness (n,k)=(1,1), w=1]; (ii-S) True [family: (n,k)=(17,12), w=12/17]; (iii) True; admitted members 5150
+  note: no corpus text fixes the "geometric and thermodynamic properties of the partition boundary" for LE or DR, so its admitted set is L3-A's (rule fixed in PREREG section 3.1); not independent
+
+--- PC-1: Failure (over-generation (CHSH); vacuous (CHSH); over-generation (POM); vacuous (POM))
+  [PC-1] family CHSH: (i) False [witness (n,k)=(1,1), w=1]; (ii-S) True [family: (n,k)=(12,5), w=5/12]; (iii) True; admitted members 5154
+  [PC-1] family POM: (i) False [witness (n,k)=(1,1), w=1]; (ii-S) True [family: (n,k)=(17,12), w=12/17]; (iii) True; admitted members 5154
+  note: marginal consistency measured for n <= 12; beyond, [W] (marginals of one law)
+
+--- PC-2: Failure (over-generation (CHSH); vacuous (CHSH); over-generation (POM); vacuous (POM))
+  [PC-2] family CHSH: (i) False [witness (n,k)=(1,1), w=1]; (ii-S) True [family: (n,k)=(12,5), w=5/12]; (iii) True; admitted members 5154
+  [PC-2] family POM: (i) False [witness (n,k)=(1,1), w=1]; (ii-S) True [family: (n,k)=(17,12), w=12/17]; (iii) True; admitted members 5154
+  note: admission = operational no-signalling, measured on every LE member; DR readout laws depend only on (x, y) by construction; Methodology.md:393 states no-signalling is insufficient
+
+--- PC-3a: Failure (over-generation (CHSH); vacuous (CHSH); over-generation (POM); vacuous (POM))
+  [PC-3a] family CHSH: (i) False [witness (n,k)=(1,1), w=1]; (ii-S) True [family: (n,k)=(12,5), w=5/12]; (iii) True; admitted members 5154
+  [PC-3a] family POM: (i) False [witness (n,k)=(1,1), w=1]; (ii-S) True [family: (n,k)=(17,12), w=12/17]; (iii) True; admitted members 5154
+  note: Q_fb measured for n <= 3; universal (Main.md:82)
+
+--- PC-3b: see K-P above
+
+--- PC-4a: Failure (over-generation (CHSH); vacuous (CHSH); over-generation (POM); vacuous (POM))
+  [PC-4a] family CHSH: (i) False [witness (n,k)=(1,1), w=1]; (ii-S) True [family: (n,k)=(12,5), w=5/12]; (iii) True; admitted members 5154
+  [PC-4a] family POM: (i) False [witness (n,k)=(1,1), w=1]; (ii-S) True [family: (n,k)=(17,12), w=12/17]; (iii) True; admitted members 5154
+  note: under kappa2 every readout has an accessible inverse that restores the pre-readout law
+
+--- PC-4b: Failure (reapply allowed: over-generation (CHSH), vacuous (CHSH); reapply not allowed: under-generation (CHSH), classical exclusion (CHSH); POM part Parked)
+  [reapply allowed] family CHSH: (i) False [witness (n,k)=(1,1), w=1]; (ii-S) True [family: (n,k)=(12,5), w=5/12]; (iii) True; admitted members 5154
+  [reapply allowed] family POM: Parked
+  [reapply not allowed] family CHSH: (i) True [witness -]; (ii-S) False [no admitted family member within the window; follow-up class not consulted]; (iii) False; admitted members 0
+  [reapply not allowed] family POM: Parked
+  note: the two readings are the A-5 choice: if a readout may be reapplied to its own pointer, LE readouts are self-inverse and every LE member is admitted; if not, no LE readout is invertible within the family's accessible set and every LE member is excluded; the POM part is Parked (A-5)
+
+--- HB-1: Failure (over-generation (CHSH); vacuous (CHSH); over-generation (POM); vacuous (POM))
+  [HB-1] family CHSH: (i) False [witness (n,k)=(1,1), w=1]; (ii-S) True [family: (n,k)=(12,5), w=5/12]; (iii) True; admitted members 5154
+  [HB-1] family POM: (i) False [witness (n,k)=(1,1), w=1]; (ii-S) True [family: (n,k)=(17,12), w=12/17]; (iii) True; admitted members 5154
+  note: LE(1,1): one long edge (added degree 1, so D = 1 already admits it), parameter dependence, no-signalling; POM: H-Bell is silent, every DR member admitted
+
+--- HB-2: Failure (over-generation (CHSH); vacuous (CHSH); over-generation (POM); vacuous (POM))
+  [HB-2] family CHSH: (i) False [witness (n,k)=(1,1), w=1]; (ii-S) True [family: (n,k)=(12,5), w=5/12]; (iii) True; admitted members 5154
+  [HB-2] family POM: (i) False [witness (n,k)=(1,1), w=1]; (ii-S) True [family: (n,k)=(17,12), w=12/17]; (iii) True; admitted members 5154
+  note: per prepared graph with P = 1 long edge, L_N m_N / N <= P (6 r_N + 1)^3 / L^3 -> 0 for every schedule r_N -> infinity, r_N / L -> 0 (m_N <= |ell_1 ball of radius 3 r_N| <= (6 r_N + 1)^3) [W]; instances L=4: m_N=42, L_N m_N/N=21/32; L=6: m_N=60, L_N m_N/N=5/18; L=8: m_N=63, L_N m_N/N=63/512. The condition holds whatever w is, so HB-2 admits LE(1,1)
+
+--- HB-3alpha: Failure (under-generation (CHSH); over-generation (POM); vacuous (POM))
+  [HB-3alpha] family CHSH: (i) True [witness -]; (ii-S) False [long-edge gate class: 128 edge-free (F, s) slices, maximum S_max 2 (local, so every admitted mixture has S_max <= 2); edge slices reach S_max 4; 128 edge slices are local yet use the edge (e.g. F(a,b,c) = a) and are excluded too]; (iii) True; admitted members 100
+  [HB-3alpha] family POM: (i) False [witness (n,k)=(1,1), w=1]; (ii-S) True [family: (n,k)=(17,12), w=12/17]; (iii) True; admitted members 5154
+  note: both options of amendment A-3 give the same admitted set: for every w > 0 the endpoint curvature kappa(A,B) <= -5/4 for every delta >= 1 (exact closed form, verified by min-cost flow), while the reference value tends to 0; so only w = 0 is admitted; in the gate class only realizations with no edge at any positive-weight control value are admitted, and these are local
+
+--- HB-3beta: Parked (the mesoscopic Bakry-Emery functional needs a scale and averaging the corpus does not define; PREREG section 3.3 rule; N_BE in {3, 6, infinity} not evaluated because the functional is undefined)
+
+--- HB-4: Failure (under-generation (CHSH); over-generation (POM); vacuous (POM))
+  [HB-4] family CHSH: (i) True [witness -]; (ii-S) False [long-edge gate class: 128 edge-free (F, s) slices, maximum S_max 2 (local, so every admitted mixture has S_max <= 2); edge slices reach S_max 4; 128 edge slices are local yet use the edge (e.g. F(a,b,c) = a) and are excluded too]; (iii) True; admitted members 100
+  [HB-4] family POM: (i) False [witness (n,k)=(1,1), w=1]; (ii-S) True [family: (n,k)=(17,12), w=12/17]; (iii) True; admitted members 5154
+  note: any positive-weight prepared graph with the long edge stays at rescaled GH distance >= 3/8 - 1/(4L) from the reference (radius argument, exact at L = 4..10, [W] for all even L); so only w = 0 is admitted in LE, and only edge-free gate realizations in the gate class, which are local. SM.md:150 already states that such an edge destroys GH closeness
+
+--- CL: Parked (definition not retrieved: arXiv:2512.18105 unreachable from the container at drafting and at execution; PREREG section 3.4 rule)
+[PASS] K-9-final: condition O holds for all 2624 realizations checked, candidates included
+
+=== Classification summary ===
+  PC-3b (= K-P): Reproduction
+  L3-0: Failure (over-generation (CHSH); vacuous (CHSH); over-generation (POM); vacuous (POM))
+  L3-A: Failure (over-generation (CHSH); over-generation (POM))
+  L3-B: Failure (over-generation (CHSH); over-generation (POM))
+  L3-C: Failure (alpha: over-generation (CHSH), over-generation (POM); beta: under-generation (CHSH), classical exclusion (CHSH), under-generation (POM), classical exclusion (POM))
+  L3-D: Failure (Failure-as-stated)
+  L3-PR: Failure (over-generation (CHSH); over-generation (POM))
+  PC-1: Failure (over-generation (CHSH); vacuous (CHSH); over-generation (POM); vacuous (POM))
+  PC-2: Failure (over-generation (CHSH); vacuous (CHSH); over-generation (POM); vacuous (POM))
+  PC-3a: Failure (over-generation (CHSH); vacuous (CHSH); over-generation (POM); vacuous (POM))
+  PC-4a: Failure (over-generation (CHSH); vacuous (CHSH); over-generation (POM); vacuous (POM))
+  PC-4b: Failure (reapply allowed: over-generation (CHSH), vacuous (CHSH); reapply not allowed: under-generation (CHSH), classical exclusion (CHSH); POM part Parked)
+  HB-1: Failure (over-generation (CHSH); vacuous (CHSH); over-generation (POM); vacuous (POM))
+  HB-2: Failure (over-generation (CHSH); vacuous (CHSH); over-generation (POM); vacuous (POM))
+  HB-3alpha: Failure (under-generation (CHSH); over-generation (POM); vacuous (POM))
+  HB-3beta: Parked
+  HB-4: Failure (under-generation (CHSH); over-generation (POM); vacuous (POM))
+  CL: Parked
+
+checks: 37 PASS, 0 FAIL

@@ -1,0 +1,55 @@
+C1  path 1-0-2, R = {1}; one update step
+  u0' = u1 + u2 + v0
+  u1' = u0 + v1
+  u2' = u0 + v2
+  v0' = u0
+  v1' = u1
+  v2' = u2
+  [PASS] C1.1 bijective
+  [PASS] C1.1 symplectic (M J M^T = J)
+  M (rows = outputs u0 u1 u2 v0 v1 v2; columns = inputs in the same order):
+    u0  [0 1 1 1 0 0]
+    u1  [1 0 0 0 1 0]
+    u2  [1 0 0 0 0 1]
+    v0  [1 0 0 0 0 0]
+    v1  [0 1 0 0 0 0]
+    v2  [0 0 1 0 0 0]
+  the same step in role coordinates (input roles at their input cells, output roles at their
+  output cells; columns q p Q Qb P Pb):
+    q'  [1 0 0 0 0 0]
+    p'  [0 1 0 1 1 0]
+    Q'  [1 0 1 0 0 0]
+    Qb' [0 0 0 1 0 0]
+    P'  [0 0 0 0 1 0]
+    Pb' [1 0 0 0 0 1]
+  target on (q, p, Q, P) for omega(u,h) = q  [u = (0,1)]:  Q' = Q + q, q' = q, p' = p + P, P' = P;
+  the only extra entry in the four designated rows is p' <- Qb (a visible clean input).
+  designated rows, output position <- input functional:
+    Q' (at u1) = u0 + v1   target u0 + v1   residual 0
+    q' (at v0) = u0   target u0   residual 0
+    p' (at u0) = u1 + u2 + v0   target u2 + v0   residual u1
+    P' (at v2) = u2   target u2   residual 0
+  [PASS] C1.2 residuals involve only the visible clean coordinate Qb = u1
+  idle outputs: Qb' (v1) = u1 ; Pb' (u2) = u0 + v2
+  [PASS] C1.3 Q = Qb = 0, P, Pb uniform: joint law of (u1', v1', q', p') equals R_u (read q, kick p) for all h
+  [PASS] C1.4 P = 0 known: pointer reads q and h' = h exactly (no disturbance)
+  [PASS] C1.5 the visible records carry the toy functional u0 = q only (not p, not q + p)
+  C1.6 continued waiting, pointer reset by feedback each tick: False
+    after 1 tick(s): record branches  2; hidden (toy + bath, 4 bits) support given records: min 8, max 8
+    after 2 tick(s): record branches  4; hidden (toy + bath, 4 bits) support given records: min 4, max 4
+    after 3 tick(s): record branches  8; hidden (toy + bath, 4 bits) support given records: min 2, max 2
+    after 4 tick(s): record branches 16; hidden (toy + bath, 4 bits) support given records: min 1, max 1
+    after 5 tick(s): record branches 16; hidden (toy + bath, 4 bits) support given records: min 1, max 1
+    after 6 tick(s): record branches 16; hidden (toy + bath, 4 bits) support given records: min 1, max 1
+  C1.6 continued waiting, pointer reset by feedback each tick: True
+    after 1 tick(s): record branches  2; hidden (toy + bath, 4 bits) support given records: min 8, max 8
+    after 2 tick(s): record branches  4; hidden (toy + bath, 4 bits) support given records: min 4, max 4
+    after 3 tick(s): record branches  8; hidden (toy + bath, 4 bits) support given records: min 2, max 2
+    after 4 tick(s): record branches 16; hidden (toy + bath, 4 bits) support given records: min 1, max 1
+    after 5 tick(s): record branches 16; hidden (toy + bath, 4 bits) support given records: min 1, max 1
+    after 6 tick(s): record branches 16; hidden (toy + bath, 4 bits) support given records: min 1, max 1
+  first tick at which some record branch leaves hidden support < 2 (the bound 2^N with N >= 1): 4
+  [PASS] C1.6 continued waiting exhausts the single bath site: support 1 reached within 6 ticks
+  [PASS] C1.7 bath supplied known: records reveal q at tick 1 and p at tick 2 (toy support 1): K-SYMP2's failure mode
+  model A reference: reads with fresh independent kicks leave the toy support at 2 after every read
+VERIFY2: ALL PASS

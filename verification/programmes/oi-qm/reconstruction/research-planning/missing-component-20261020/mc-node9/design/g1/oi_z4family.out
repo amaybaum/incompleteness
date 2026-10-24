@@ -1,0 +1,28 @@
+action on C (swapA, swapB, couple) = ('triv', 'triv', 'triv'): f1 passing mod 2: 64 ; f1 completing to an additive section: 0
+action on C (swapA, swapB, couple) = ('triv', 'triv', 'inv'): f1 passing mod 2: 64 ; f1 completing to an additive section: 0
+action on C (swapA, swapB, couple) = ('triv', 'inv', 'triv'): f1 passing mod 2: 64 ; f1 completing to an additive section: 0
+action on C (swapA, swapB, couple) = ('triv', 'inv', 'inv'): f1 passing mod 2: 64 ; f1 completing to an additive section: 0
+action on C (swapA, swapB, couple) = ('inv', 'triv', 'triv'): f1 passing mod 2: 64 ; f1 completing to an additive section: 0
+action on C (swapA, swapB, couple) = ('inv', 'triv', 'inv'): f1 passing mod 2: 64 ; f1 completing to an additive section: 0
+action on C (swapA, swapB, couple) = ('inv', 'inv', 'triv'): f1 passing mod 2: 64 ; f1 completing to an additive section: 0
+action on C (swapA, swapB, couple) = ('inv', 'inv', 'inv'): f1 passing mod 2: 64 ; f1 completing to an additive section: 0
+-- single operations (control: n=1 found additive inverting swap lifts, so swap alone + inverting must be solvable)
+  swap0   triv on C: f1 completing to an additive section: 0 ; explicit verified section: None
+  swap0   inv  on C: f1 completing to an additive section: 64 ; explicit verified section: [0, 2, 0, 1, 0, 2, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0]
+  swap1   triv on C: f1 completing to an additive section: 0 ; explicit verified section: None
+  swap1   inv  on C: f1 completing to an additive section: 64 ; explicit verified section: [0, 0, 1, 1, 2, 2, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0]
+  couple  triv on C: f1 completing to an additive section: 512 ; explicit verified section: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  couple  inv  on C: f1 completing to an additive section: 64 ; explicit verified section: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+-- pairs of operations
+  ('swap0', 'swap1') with ('triv', 'triv') on C: f1 completing to a common additive section: 0
+  ('swap0', 'swap1') with ('triv', 'inv') on C: f1 completing to a common additive section: 0
+  ('swap0', 'swap1') with ('inv', 'triv') on C: f1 completing to a common additive section: 0
+  ('swap0', 'swap1') with ('inv', 'inv') on C: f1 completing to a common additive section: 0
+  ('swap0', 'couple') with ('triv', 'triv') on C: f1 completing to a common additive section: 0
+  ('swap0', 'couple') with ('triv', 'inv') on C: f1 completing to a common additive section: 0
+  ('swap0', 'couple') with ('inv', 'triv') on C: f1 completing to a common additive section: 0
+  ('swap0', 'couple') with ('inv', 'inv') on C: f1 completing to a common additive section: 0
+  ('swap1', 'couple') with ('triv', 'triv') on C: f1 completing to a common additive section: 0
+  ('swap1', 'couple') with ('triv', 'inv') on C: f1 completing to a common additive section: 0
+  ('swap1', 'couple') with ('inv', 'triv') on C: f1 completing to a common additive section: 0
+  ('swap1', 'couple') with ('inv', 'inv') on C: f1 completing to a common additive section: 0

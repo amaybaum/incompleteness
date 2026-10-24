@@ -1,0 +1,6 @@
+L = 2 words 90 lift triples agreeing with cards on all words <= L: 256
+W6 values among passing triples: {Fraction(1, 1): 128, 0: 128}
+L = 3 words 819 lift triples agreeing with cards on all words <= L: 64
+W6 values among passing triples: {Fraction(1, 1): 32, 0: 32}
+L = 4 words 7380 lift triples agreeing with cards on all words <= L: 8
+W6 values among passing triples: {Fraction(1, 1): 8}

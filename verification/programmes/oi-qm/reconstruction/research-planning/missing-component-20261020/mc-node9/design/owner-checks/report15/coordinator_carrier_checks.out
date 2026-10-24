@@ -1,0 +1,9 @@
+Coordinator checks of the joint-readiness and carrier-compatibility handoffs v1 (independent code; numpy).
+N1  repaired rule on random tori (7^3, 6x5x4, 9x8x10; 64 states x 12 ticks each): C' = S C xor C_old and the inverse recovers the previous slice, 2304 transitions: True
+N2  carrier with full random background outside E_K, K=2,3,4, 40 backgrounds per payload: receiver record ((0,0,0)^(K-1),(a,b,ab)) in all 480 runs; countercontrols (runs off the record of 160 per K): one free cone bit {2: 85, 3: 69, 4: 79}, original rule terminal {2: 40, 3: 40, 4: 40}: True
+N3  source freshness, random backgrounds, frontier along +y from q, K=2,3: in all 32 (background, payload) cases the 8^K frontier assignments give 8^K distinct raw source words and an unchanged receiver record: True
+N4  majority rule: 400 random two-slice patterns (half in boxes up to 5^3, half in random coordinate-subset products) on a 12^3 torus, 30 ticks: support never leaves the set: True (395 still nonzero at tick 30)
+N5  probe: one-site flip on a uniform random background, majority rule, 21^3, 20 backgrounds: farthest L1 distance of the difference at ticks 1..8: max [1, 2, 3, 4, 5, 6, 7, 8], median [1, 2, 3, 4, 5, 6, 7, 8]
+N6  original rule, E_blank, tick 2: 119 free A and 119 free B initial bits (radius-3 ball); bilinearity on 200 random pairs True; F2 rank of the error form 12; P(Z_2 != H_2 M_2) = 4095/8192: True
+N7  original rule, frontier coefficient of F_t G_t in Z_t, t=1..8: [1, 0, 1, 0, 1, 0, 1, 0] (t mod 2): True
+coordinator positive checks: green

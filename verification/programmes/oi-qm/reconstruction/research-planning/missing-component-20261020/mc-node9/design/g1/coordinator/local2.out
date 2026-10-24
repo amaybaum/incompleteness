@@ -1,0 +1,16 @@
+couple lift I_A I_B ·CNOT -> W6 1 W7 1
+couple lift I_A X_B ·CNOT -> W6 0 W7 0
+couple lift I_A Z_B ·CNOT -> W6 0 W7 0
+couple lift I_A XZ_B ·CNOT -> W6 1 W7 1
+couple lift X_A I_B ·CNOT -> W6 0 W7 0
+couple lift X_A X_B ·CNOT -> W6 1 W7 1
+couple lift X_A Z_B ·CNOT -> W6 1 W7 1
+couple lift X_A XZ_B ·CNOT -> W6 0 W7 0
+couple lift Z_A I_B ·CNOT -> W6 1 W7 1
+couple lift Z_A X_B ·CNOT -> W6 0 W7 0
+couple lift Z_A Z_B ·CNOT -> W6 0 W7 0
+couple lift Z_A XZ_B ·CNOT -> W6 1 W7 1
+couple lift XZ_A I_B ·CNOT -> W6 0 W7 0
+couple lift XZ_A X_B ·CNOT -> W6 1 W7 1
+couple lift XZ_A Z_B ·CNOT -> W6 1 W7 1
+couple lift XZ_A XZ_B ·CNOT -> W6 0 W7 0

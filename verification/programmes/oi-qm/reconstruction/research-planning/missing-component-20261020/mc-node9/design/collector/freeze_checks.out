@@ -1,0 +1,8 @@
+schedule: K (tau + Delta) = 1 = T: True
+Lambda in [26.049845857, 26.049845857]; reference failure per call = e^(-Lambda tau/T) contains 0.05: True
+pool term 16 Lambda^2/N at N = 1100000: <= 0.00987046500615 < 0.01: True
+minimum N for pool term < 0.01: 1085752 (ceil of an interval inside (1085751.15068, 1085751.15068))
+aperture fraction eta = 4 Lambda/N in [9.47267122072e-5, 9.47267122072e-5]
+aperture: rho/d = 1/6401 gives delta_ap = 1/1600 per read and 2 R delta_ap = 1/100 for R = 8: True
+direction (finite carrier only): per-read outcome error must be <= 1/1600
+all checks: green

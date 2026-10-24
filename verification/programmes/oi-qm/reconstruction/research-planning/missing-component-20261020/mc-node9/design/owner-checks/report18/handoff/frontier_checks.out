@@ -1,0 +1,10 @@
+Rule PASS: H permutes all eight triples; raw global inverse on 24 dense transitions
+Source PASS: 6 full frontier enumerations, K=1,2,3; every source word occurs once
+Stopping control PASS: next triple uniform after first A=1 at tick 1 or 2, with full prefix visible
+Countercontrol PASS: non-bijective H keeps global reversibility but source TV=1/2
+Joint PASS: 512 assignments each for AND3 and zero-detection; 64 source words per input
+Receiver record: (0,0,0), (c,ab,abc); shared readiness exponent J=99
+Dense joint PASS: 16 full 17^3 initial backgrounds/input runs
+Degree probe PASS: exact six-input max degrees at ticks 1..8: [1, 2, 3, 4, 6, 6, 6, 6]
+Scope: finite degree evidence, not a proof of unbounded degree or universal computation
+PASS: nonlinear feedback, bounded exact freshness and raw AND3 coexist conditionally

@@ -1,0 +1,57 @@
+PASS C1 Delta = 1/2(id + Ad Z)  (Delta mixed-unitary)
+PASS C2 PT(Choi(id)) has eigenvalue -1 (id not entanglement-breaking) :: [-1, 1, 1, 1]
+PASS C3 PT(Choi(Delta)) >= 0 (Delta entanglement-breaking: Choi is separable diag) :: [0, 0, 1, 1]
+PASS C4 Choi(Repl0) = I (x) |0><0|
+PASS C5 rule rejects {Repl0, Delta} (classical: I_x=<x|.|x>|0><0|, Phi_x=prep |x>)
+PASS C6 rule accepts {Repl0, id}
+PASS A[uniform] E1 = Delta
+PASS A[uniform] E2 (no intermediate) = id
+PASS A[uniform] E2 on |+> = |+><+|
+PASS A[uniform] E2H (Hadamard between steps) on |+> :: [[1/2, 0], [0, 1/2]]
+PASS A[uniform] E2H = Delta o Ad(H) o Delta ... i.e. maps rho -> I/2 + ? :: [[[1/2, 0], [0, 1/2]], [[0, -1/2], [1/2, 0]], [[0, 1/2], [-1/2, 0]], [[1/2, 0], [0, 1/2]]]
+PASS A[uniform] E2: sum I_a = E1
+PASS A[uniform] E2: sum Phi_a o I_a = E2  (classical memory, variable a = Z-kick label)
+PASS A[uniform] E2H: sum I_a = E1
+PASS A[uniform] E2H: sum Phi_a o I_a = E2H  (classical memory, variable a = Z-kick label)
+PASS A[uniform] instrument 'read hidden config h' factors through Delta (I_h = I_h o Delta)
+PASS A[uniform] => no Phi_h with sum Phi_h o I_h = E2=id: |+>,|-> give equal I_h-branches
+PASS A[uniform] joint state after step 1 on |+> :: [[1/4, 0, 0, 1/4], [0, 1/4, 1/4, 0], [0, 1/4, 1/4, 0], [1/4, 0, 0, 1/4]]
+PASS A[uniform] joint state has coherence between hidden configs (not cq in config basis)
+PASS A[uniform] PT spectrum of joint S:H state :: [0, 0, 1/2, 1/2]
+PASS A[point-mass] E1 = Delta
+PASS A[point-mass] E2 (no intermediate) = id
+PASS A[point-mass] E2 on |+> = |+><+|
+PASS A[point-mass] E2H (Hadamard between steps) on |+> :: [[1/2, 0], [0, 1/2]]
+PASS A[point-mass] E2H = Delta o Ad(H) o Delta ... i.e. maps rho -> I/2 + ? :: [[[1/2, 0], [0, 1/2]], [[0, -1/2], [1/2, 0]], [[0, 1/2], [-1/2, 0]], [[1/2, 0], [0, 1/2]]]
+PASS A[point-mass] E2: sum I_a = E1
+PASS A[point-mass] E2: sum Phi_a o I_a = E2  (classical memory, variable a = Z-kick label)
+PASS A[point-mass] E2H: sum I_a = E1
+PASS A[point-mass] E2H: sum Phi_a o I_a = E2H  (classical memory, variable a = Z-kick label)
+PASS A[point-mass] instrument 'read hidden config h' factors through Delta (I_h = I_h o Delta)
+PASS A[point-mass] => no Phi_h with sum Phi_h o I_h = E2=id: |+>,|-> give equal I_h-branches
+PASS A[point-mass] joint state after step 1 on |+> :: [[1/2, 0, 0, 1/2], [0, 0, 0, 0], [0, 0, 0, 0], [1/2, 0, 0, 1/2]]
+PASS A[point-mass] joint state has coherence between hidden configs (not cq in config basis)
+PASS A[point-mass] PT spectrum of joint S:H state :: [-1/2, 1/2, 1/2, 1/2]
+PASS B E1 = Repl0 (rho -> |0><0|)
+PASS B E2 = id
+PASS B classical visible law on configurations: X1=0, X2=X0
+PASS B (with sum I_i = E1) quantum memory: E2=id is not EB  [decided by rule, controls C5/C6]
+PASS B hidden marginal after step 1 on |+> is |+><+| (coherent, not diagonal) :: [[1/2, 1/2], [1/2, 1/2]]
+PASS B literal form E2 = sum Phi_i(M_i rho M_i^dag) holds with M=I, Phi=E2 (vacuous)
+PASS B' E1 = constant I/2
+PASS B' E2 = id
+PASS B' sum_P 1/4 Ad P = E1 (Pauli twirl, 2-bit label)
+PASS B' sum_P Phi_P o I_P = id with Phi_P = Ad P^dag  (classical memory, 2 bits > 1 hidden bit)
+PASS B' reading hidden config h after step 1 kills input coherence (I_h(|+>) = I_h(|->))
+PASS C E1 = Repl0
+PASS C E2 = Delta (ledger keeps x0: coherence not restored)
+PASS C same configuration law as B (X1=0, X2=X0)
+PASS C sum I_x = E1
+PASS C sum Phi_x o I_x = E2 (classical memory, variable = recorded x0)
+PASS C rule says classical for {Repl0, Delta}
+PASS D diagonal-input lemma holds on case B (the quantum-memory pair)
+PASS D diagonal-input lemma holds on Hadamard-process {Ad H, id} (generic quantum)
+
+53 checks, 0 failed
+controls green: True
+VERDICT (generated): case A classical-memory for both priors and both E2; case B {Repl0,id} not classical-memory under the constrained definition; case C (same configuration law as B) classical-memory; diagonal inputs: decomposition exists for every process.

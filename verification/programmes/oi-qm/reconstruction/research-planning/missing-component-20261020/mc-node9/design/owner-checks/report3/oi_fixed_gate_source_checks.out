@@ -1,0 +1,8 @@
+EXHAUSTIVE_625_SEEDS {"adaptive": {"00": 225, "10": 256, "11": 144}, "composite": {"00": 81, "01": 256, "10": 144, "11": 144}, "discard": {"0": 337, "1": 288}, "echo": {"0": 625}, "once": {"0": 225, "1": 400}, "phase": {"0": 337, "1": 288}, "read_between": {"00": 81, "01": 144, "10": 256, "11": 144}, "twice": {"0": 49, "1": 576}}
+BUDGET_COMPATIBILITY once 625/625; adaptive 15625/15625
+CHOI_EXACT pure; both marginals I/2; {"XX": "-7/25", "XZ": "24/25", "ZX": "-24/25", "ZZ": "-7/25"}
+COUNTERCONTROLS diamond L1=31/25; population/dephasing second read 337/625 != 49/625; ZRZ=R_inverse
+BASIS_DILATION obstruction: minimum trace distance 12/25 (proof in report); binary uniform seeds cannot give unconditional 9/25 exactly
+UNIFORM_SEED_DENOMINATOR exact denominator 25^n for n=1..100; general modular proof in report
+BELL_BENCHMARK [{"CHSH": "2.79945306885242980061477129421", "exact_bounds": "2<S and S^2<8", "k": -3, "m": -6, "search_bound": 10}, {"CHSH": "2.82793580610473122203400673817", "exact_bounds": "2<S and S^2<8", "k": -47, "m": 72, "search_bound": 100}, {"CHSH": "2.82842439015970385155036975695", "exact_bounds": "2<S and S^2<8", "k": 119, "m": 238, "search_bound": 1000}]
+PASS: exact arithmetic except candidate selection for Bell powers; all reported probabilities and inequalities checked exactly.

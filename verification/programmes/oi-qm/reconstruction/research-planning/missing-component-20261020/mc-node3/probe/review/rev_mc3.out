@@ -1,0 +1,18 @@
+PASS A1 all 720 bijections x 3 hidden points: reduced map (direct partial trace) = sum K X K^T with K from the hidden-collision rule
+PASS A2-A4 every induced Kraus operator is a 0/1 partial permutation, every effect diagonal, matrix units stay nonnegative
+PASS A5 distinct nonzero Kraus shapes = 6 (the 6 nonzero partial permutations of a 2-set)
+PASS A6 400 random two-step protocols (bijection, configuration readout, outcome-selected bijection): per-(outcome, hidden end) Kraus are partial permutations
+PASS A7 nonuniform prior: map is trace preserving and a finite nonnegative combination of Ad_P
+PASS K1 hidden prior as sqrt(mu) = |+> (KvN reading of the uniform distribution) + swap: |0><0| -> |+><+| (non-diagonal): OUTSIDE the cone C(C), corollary 6 fails
+PASS K2 ...yet entrywise nonnegativity is kept and the map is OnesNormal (|+> overlaps 1): the cone needs the MIXED reading of kappa1, NonnegBounded only nonnegative amplitudes
+PASS K3 control: the same swap with the MIXED uniform prior gives I/2 (diagonal, in the cone)
+PASS B1 real coupling: (1-theta) id + theta Ad X (Kraus I, X from the collision rule; weights = Lebesgue measure)
+PASS B2a flip probability = sin^2(pi t/2) for t in [0,1]: 1/2 - cos(pi*t)/2
+PASS B2b layer flow coherence from |0><0| = i sin(pi t)/2, mixture gives 0; diagonals agree
+PASS B2c at t = 3/2: flip probability 1/2 = sin^2(3 pi/4) = 1/2
+PASS B3 setting-selected effects diag(s,s2) commute; X-basis projector is not diagonal
+PASS C1 hidden |-> + CNOT v->h: Kraus = +-Z/sqrt2, channel = Ad Z exactly
+PASS C3 identification through W = H: native X acts as Ad(H X H) = Ad Z
+PASS C2 Hadamard process: Ad H maps E_00 to a matrix with negative... (H E01 H has entry -1/2)
+PASS D1 Choi of transposition = SWAP, eigenvalue -1 (not CP)
+SUMMARY 17 PASS 0 FAIL

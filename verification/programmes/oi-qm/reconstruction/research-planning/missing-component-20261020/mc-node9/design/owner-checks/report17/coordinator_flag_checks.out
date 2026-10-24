@@ -1,0 +1,6 @@
+Coordinator checks of the native-flag-boundary handoff v1 (independent code; numpy).
+F1  repaired rule, 7^3 torus, ticks 1..10, 40 random 5-bit subcubes on dense random backgrounds: max degree of A/B outputs 1, of D outputs 2: True
+F2  countercontrol with D feedback into A (A' = SA xor (SB)(SD) xor A_old): max degree A/B 4, D 4; exceeds 2: True
+F3  K=3, L=25, three tested readiness bits over 3 dense random backgrounds: E_K on the subcube is three-bit zero detection, and every raw output at ticks 0..5 has degree 2 <= 2 in them: True
+F4  all 128 quadratic tables have even cube sum, the readiness table odd; the eight single-error tables err once each per input (mixture error 1/8): True
+coordinator checks: green

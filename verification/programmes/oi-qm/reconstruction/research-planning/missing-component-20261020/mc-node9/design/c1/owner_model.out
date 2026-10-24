@@ -1,0 +1,29 @@
+W4 and the owner's repair
+  W4: reads p, q, p (one reused pointer)                     arm=FREE-RET toy support 1  (brute force: [1] over 8 branches)  expected 1: PASS
+    readings as functionals of (q,p,P): r = ['0b10', '0b111', '0b1'];  final toy q=0b1, p=0b110
+  W4 + REC after every read, observer sees only X's          arm=REC-ONLY toy support 2  (brute force: [2] over 8 branches)  expected 2: PASS
+W3' and condition (iii): exchange then unrestricted free readout
+  W3': SWP, FREE (learn old P), then reads p, q (P now known) arm=FREE-RET toy support 1  (brute force: [1] over 8 branches)  expected 1: PASS
+  (iii) SWP, FREE, then p REC q REC (records only via REC)   arm=REC-ONLY toy support 2  (brute force: [2] over 8 branches)
+  (iii) SWP, FREE, then p FREE q FREE                        arm=REC-ONLY toy support 1  (brute force: [1] over 8 branches)  expected 1: PASS
+  (iii) control: SWP, then p REC q REC (no free readout)     arm=REC-ONLY toy support 2  (brute force: [2] over 4 branches)
+  (iii) control: p REC SWP REC (exchange, record the new Q)  arm=REC-ONLY toy support 2  (brute force: [2] over 4 branches)
+Condition (ii): memory conjugates must be independent and fresh
+  W4 + REC with ONE memory conjugate Y reused for all three records: toy support 2
+  W4 + REC with Y supplied known (Y = 0, no back-action): toy support 1
+  W4 + REC, then later access to every Y_i (memory exchange + read): toy support 1
+Condition (iv): exhaustive adversarial sequences in the REC-ONLY arm (no FREE)
+  length 1: 5 sequences; minimum toy support 4  (e.g. p)
+  length 2: 25 sequences; minimum toy support 2  (e.g. p REC)
+  length 3: 125 sequences; minimum toy support 2  (e.g. p REC p)
+  length 4: 625 sequences; minimum toy support 2  (e.g. p p p REC)
+  length 5: 3125 sequences; minimum toy support 2  (e.g. p p p REC p)
+  length 6: 15625 sequences; minimum toy support 2  (e.g. p p p p p REC)
+  length 7: 78125 sequences; minimum toy support 2  (e.g. p p p p p REC p)
+  same with FREE allowed (unrestricted free readout of Q):
+  length 1: minimum toy support 4  (e.g. p)
+  length 2: minimum toy support 2  (e.g. p REC)
+  length 3: minimum toy support 2  (e.g. p REC p)
+  length 4: minimum toy support 2  (e.g. p p p REC)
+  length 5: minimum toy support 1  (e.g. p q FREE p REC)
+OWNER MODEL CHECKS: ALL CONSISTENT

@@ -1,0 +1,4 @@
+PASS O1 X-test + Z gives |+> deterministically
+PASS O2 R_z(pi/2)|+> ~ |+i>
+PASS O3 gadget gives R_x(pi/2), both branches, weight 1
+PASS O4 countercontrol: ancilla |+> fails

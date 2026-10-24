@@ -1,0 +1,17 @@
+Detector-boundary diagnostic v1: exact scoped checks; NOT apparatus acceptance
+R1 fourth relation, alternative frames, n=15: nonzero positive-read atoms / timestamps
+  X: 245 / 245
+  Y: 245 / 245
+  Z: 0 / 245
+  R: 245 / 245
+R2 all-frame analytical witness: conditional gap bound at n=63 = 25/452
+  Complete-record lower bound, n=63 m=256: 3.703827556461e-22
+  Timestamp isolation and 12 rational-frame controls PASS; asymptotic error floor NOT claimed
+R3 crossing slice [0, 0, 1, 0]; all 8 affine Boolean outputs fail; best agreement 3/4
+  Nonlinear macro-decoder countercontrol PASS; general observation maps NOT ruled out
+R4 nonlinear second-order gate: full inverse and bijection 64/64; write 4/4; no persistent latch
+  Cubic-symmetric quadratic force, ready old port=0: P(next=1)=9/16; linear control=1/2
+R5 pair-parity majority rule: balanced for all 64 shifts; crossing-bit write 4/4
+  Two-tick freshness follows analytically from balance and independent old-neighbor values
+  Actual 5^3 torus isolated-pulse populations at ticks 1..4: [0, 1, 0, 1]; linear tick 1: 6
+PASS: review corrections, all-frame witness controls, and specified detector boundaries

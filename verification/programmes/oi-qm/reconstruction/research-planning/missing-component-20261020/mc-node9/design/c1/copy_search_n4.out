@@ -1,0 +1,44 @@
+[strict] n=2 ops=none: (graph, partition, P, Y) cases=8
+    k=1: record-safe copy realizations: none
+    k=2: record-safe copy realizations: none
+    k=3: record-safe copy realizations: none
+    k=4: record-safe copy realizations: none
+[strict] n=2 ops=cell: (graph, partition, P, Y) cases=8
+    k=1: record-safe copy realizations: none
+    k=2: record-safe copy realizations: none
+    k=3: record-safe copy realizations: none
+    k=4: record-safe copy realizations: none
+[strict] n=2 ops=GL: (graph, partition, P, Y) cases=8
+    k=1: record-safe copy realizations: none
+    k=2: record-safe copy realizations: none
+    k=3: record-safe copy realizations: none
+    k=4: record-safe copy realizations: none
+[strict] n=3 ops=none: (graph, partition, P, Y) cases=336
+    k=1: record-safe copy realizations: none
+    k=2: record-safe copy realizations: none
+    k=3: record-safe copy realizations: none
+    k=4: record-safe copy realizations: none
+[strict] n=3 ops=cell: (graph, partition, P, Y) cases=336
+    k=1: record-safe copy realizations: none
+    k=2: record-safe copy realizations: none
+    k=3: record-safe copy realizations: none
+    k=4: record-safe copy realizations: none
+[strict] n=3 ops=GL: (graph, partition, P, Y) cases=288
+    k=1: record-safe copy realizations: E:6, AH:6
+    k=2: record-safe copy realizations: E:6
+    k=3: record-safe copy realizations: none
+    k=4: record-safe copy realizations: E:12
+      example k=1 AH: edges=((0, 1), (0, 2)) sites=HVH P=coord3 Y=coord2
+      example k=1 E: edges=((0, 1),) sites=HHV P=coord3 Y=coord1
+      example k=2 E: edges=((0, 1),) sites=HHV P=coord0 Y=coord4
+      example k=4 E: edges=((0, 1),) sites=HHV P=coord3 Y=coord1
+[strict] n=4 ops=none: (graph, partition, P, Y) cases=12800
+    k=1: record-safe copy realizations: E:12, AH:24
+    k=2: record-safe copy realizations: E:12
+    k=3: record-safe copy realizations: none
+    k=4: record-safe copy realizations: E:12
+      example k=1 AH: edges=((0, 1), (0, 3), (1, 2)) sites=VHHV P=coord5 Y=coord2
+      example k=1 E: edges=((0, 3), (1, 2)) sites=VHHV P=coord5 Y=coord2
+      example k=2 E: edges=((0, 3), (1, 2)) sites=VHHV P=coord1 Y=coord6
+      example k=4 E: edges=((0, 3), (1, 2)) sites=VHHV P=coord5 Y=coord2
+[exit 137]

@@ -1,0 +1,26 @@
+PASS b1 Lueders X-test on |0>: p(-) = 1/2 and the heralded state is |->
+PASS b2 success branch channel is exactly (1/2) Z rho Z
+PASS b3 every success Kraus operator is proportional to Z (or zero)
+PASS b4 failure branch channel is exactly (1/2) rho
+PASS b5 the instrument is complete: sum K^H K = I
+PASS b6 the instrument as a whole is OnesNormal: sum K^H 1 = 1 over its configuration Kraus list
+PASS b7 the success branch alone is not OnesNormal-compatible: Z^H 1 is not proportional to 1
+PASS b8 coarse-graining the herald gives dephasing, not the Z channel
+PASS c1.1 n=1: channel = (1-2^-n) Z rho Z + 2^-n rho
+PASS c1.2 n=1: failure probability 2^-n on every input
+PASS c1.3 n=1: the protocol is OnesNormal (sum K^H 1 = 1)
+PASS c1.4 n=1: Choi trace distance to the Z channel is exactly 2^-n (> 0, so not the Z channel)
+PASS c2.1 n=2: channel = (1-2^-n) Z rho Z + 2^-n rho
+PASS c2.2 n=2: failure probability 2^-n on every input
+PASS c2.3 n=2: the protocol is OnesNormal (sum K^H 1 = 1)
+PASS c2.4 n=2: Choi trace distance to the Z channel is exactly 2^-n (> 0, so not the Z channel)
+PASS c3.1 n=3: channel = (1-2^-n) Z rho Z + 2^-n rho
+PASS c3.2 n=3: failure probability 2^-n on every input
+PASS c3.3 n=3: the protocol is OnesNormal (sum K^H 1 = 1)
+PASS c3.4 n=3: Choi trace distance to the Z channel is exactly 2^-n (> 0, so not the Z channel)
+PASS c4.1 n=4: channel = (1-2^-n) Z rho Z + 2^-n rho
+PASS c4.2 n=4: failure probability 2^-n on every input
+PASS c4.3 n=4: the protocol is OnesNormal (sum K^H 1 = 1)
+PASS c4.4 n=4: Choi trace distance to the Z channel is exactly 2^-n (> 0, so not the Z channel)
+PASS d1 |(Z - cV) 1|^2 = 2 + 2|w|^2 >= 2 = |1|^2, so ||Z - cV|| >= 1 for every ones-fixing V
+SUMMARY 25 PASS 0 FAIL

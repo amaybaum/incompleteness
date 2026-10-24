@@ -1,0 +1,10 @@
+[strict] n=3 ops=none (configurations 32; GL dim<=3): no re-based (AK) hit
+[strict] n=4 ops=none (configurations 512; GL dim<=3): k=1 AK read u_toy: 4
+[strict] n=4 ops=cell (configurations 512; GL dim<=3): k=1 AK read u_toy: 4
+[strict] n=4 ops=GL (configurations 256; GL dim<=3): k=1 AK read u_toy: 4
+[relaxed] n=4 ops=none (configurations 1088; GL dim<=3): no re-based (AK) hit
+[relaxed] n=4 ops=cell (configurations 1088; GL dim<=3): no re-based (AK) hit
+[relaxed] n=4 ops=GL (configurations 752; GL dim<=3): no re-based (AK) hit
+[strict] n=5 ops=none (configurations 8704; GL dim<=3): k=1 AK read u_toy: 84
+[relaxed] n=5 ops=none (configurations 23936; GL dim<=3): no re-based (AK) hit
+[strict] n=5 ops=GL (configurations 2304; GL dim<=3): k=1 AK read u_toy: 28

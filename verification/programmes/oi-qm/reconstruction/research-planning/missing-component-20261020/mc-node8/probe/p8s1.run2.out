@@ -1,0 +1,365 @@
+=== Node 8, step 1 probe (PREREG section 6.10 and its controls) ===
+PREREG sha256 ca5f976071f3dc257c0e4abefff9b782c9eca0db9c06ddffea8df69f486bf9dd
+PASS  I-1: preregistration digest equals the frozen digest
+AMENDMENTS sha256 6856df0db1ec6474feb7a26a80c95ceabd1a3921ed29ec64e37b9c552d95ebec (A-1 interpretation rule; A-2 confirmatory review, readings and budgets)
+python 3.13.16; exact arithmetic: fractions.Fraction and int only
+sympy absent: no step-1 control depends on it (K-LEM is step 6; I-37 applies there)
+
+equivalence domain (I-55, A-2): fixed finite carrier and finite horizon; carriers = the core cells plus the declared ancillas of the classes R1a, R1b, R2a1, R2b1, R2a2, R2b2, KSWAP, CLC4; protocol depth T <= 3 for access, T = 4 for C1-C4, transformations from sequences of length <= 2 (adaptive depth 2 where the alphabet has <= 4 ops)
+I-55 digest a03db3569ee680bb54056ad3d4178993123b74c7d49d1859f4555f0358950be3
+PASS  I-55: the equivalence domain is declared with digest before section 6.10 runs
+
+=== I-52: class inputs (declared), digests ===
+--- R1a
+class R1a
+core visible cells x:2
+core hidden cells h:2
+visible ancillas (point masses at 0, absent from every step) v1:2, v2:2
+hidden ancillas (counting measure, for mixing, absent from every step) m1:2, m2:2, m3:2
+phi: identity
+accessible bijections: every permutation of the visible-core configurations (2)
+coupling steps: read = x ^= h (clean) (fresh bits 0)
+visible initial point masses: [(0,)]
+priors: realization-datum prior on h with denominator <= 8; preparable set from the hidden ancillas (A-2 budgets)
+composites: two copies A, B with own x, h, ancillas; one shared hidden counting-measure ancilla s; joint prior = product of per-copy priors, s uniform; joint accessible class = local permutations and local coupling steps; local preparations may read s and act on the copy's own hidden cells only (A-2)
+timing: one step = selected permutation or coupling step, then phi; readout after the step
+I-52 digest 2ec2174a2f6d63f22ff1062d963075214de2ac849004653abdec3a052b595ebd
+--- R1b
+class R1b
+core visible cells x:2
+core hidden cells h:2
+visible ancillas (point masses at 0, absent from every step) v1:2, v2:2
+hidden ancillas (counting measure, for mixing, absent from every step) m1:2, m2:2, m3:2
+phi: identity
+accessible bijections: every permutation of the visible-core configurations (2)
+coupling steps: dread = x ^= h; h ^= r, r a fresh hidden counting-measure bit per use (fresh bits 1)
+visible initial point masses: [(0,)]
+priors: realization-datum prior on h with denominator <= 8; preparable set from the hidden ancillas (A-2 budgets)
+composites: two copies A, B with own x, h, ancillas; one shared hidden counting-measure ancilla s; joint prior = product of per-copy priors, s uniform; joint accessible class = local permutations and local coupling steps; local preparations may read s and act on the copy's own hidden cells only (A-2)
+timing: one step = selected permutation or coupling step, then phi; readout after the step
+I-52 digest 1ededafe66fab1ab0417191058a94f6f829bd50dd15ebdb800560f21ed194698
+--- R2a1
+class R2a1
+core visible cells x:2
+core hidden cells h1:2, h2:2
+visible ancillas (point masses at 0, absent from every step) v1:2, v2:2
+hidden ancillas (counting measure, for mixing, absent from every step) m1:2, m2:2, m3:2
+phi: swap(h1, h2)
+accessible bijections: every permutation of the visible-core configurations (2)
+coupling steps: read1 = x ^= h1 (clean) (fresh bits 0)
+visible initial point masses: [(0,)]
+priors: realization-datum prior on (h1, h2) with denominator <= 8; preparable set from the hidden ancillas
+composites: two copies A, B with own x, h, ancillas; one shared hidden counting-measure ancilla s; joint prior = product of per-copy priors, s uniform; joint accessible class = local permutations and local coupling steps; local preparations may read s and act on the copy's own hidden cells only (A-2)
+timing: one step = selected permutation or coupling step, then phi; readout after the step
+I-52 digest b6608ec260363e28744591bceb3b388259462274da51280d20d5daba48add909
+--- R2b1
+class R2b1
+core visible cells x:2
+core hidden cells h1:2, h2:2
+visible ancillas (point masses at 0, absent from every step) v1:2, v2:2
+hidden ancillas (counting measure, for mixing, absent from every step) m1:2, m2:2, m3:2
+phi: swap(h1, h2)
+accessible bijections: every permutation of the visible-core configurations (2)
+coupling steps: dread1 = x ^= h1; h1 ^= r (fresh bit) (fresh bits 1)
+visible initial point masses: [(0,)]
+priors: realization-datum prior on (h1, h2) with denominator <= 8; preparable set from the hidden ancillas
+composites: two copies A, B with own x, h, ancillas; one shared hidden counting-measure ancilla s; joint prior = product of per-copy priors, s uniform; joint accessible class = local permutations and local coupling steps; local preparations may read s and act on the copy's own hidden cells only (A-2)
+timing: one step = selected permutation or coupling step, then phi; readout after the step
+I-52 digest dec8364b2ee6ca1b37272a668324bcb6dd1047168b4758eb6fd934b113e01d04
+--- R2a2
+class R2a2
+core visible cells x1:2, x2:2
+core hidden cells h1:2, h2:2
+visible ancillas (point masses at 0, absent from every step) v1:2, v2:2
+hidden ancillas (counting measure, for mixing, absent from every step) m1:2, m2:2, m3:2
+phi: swap(h1, h2)
+accessible bijections: every permutation of the visible-core configurations (24)
+coupling steps: read1 = x1 ^= h1 (clean) (fresh bits 0); read2 = x2 ^= h2 (clean) (fresh bits 0)
+visible initial point masses: [(0, 0)]
+priors: realization-datum prior on (h1, h2) with denominator <= 8; preparable set from the hidden ancillas
+composites: two copies A, B with own x, h, ancillas; one shared hidden counting-measure ancilla s; joint prior = product of per-copy priors, s uniform; joint accessible class = local permutations and local coupling steps; local preparations may read s and act on the copy's own hidden cells only (A-2)
+timing: one step = selected permutation or coupling step, then phi; readout after the step
+I-52 digest d22ae4d4dc49da1da71c4990e2ee56b16de0fea9e829f68da2bedfdd0e8ccf38
+--- R2b2
+class R2b2
+core visible cells x1:2, x2:2
+core hidden cells h1:2, h2:2
+visible ancillas (point masses at 0, absent from every step) v1:2, v2:2
+hidden ancillas (counting measure, for mixing, absent from every step) m1:2, m2:2, m3:2
+phi: swap(h1, h2)
+accessible bijections: every permutation of the visible-core configurations (24)
+coupling steps: dread1 = x1 ^= h1; h1 ^= r (fresh bit) (fresh bits 1); dread2 = x2 ^= h2; h2 ^= r (fresh bit) (fresh bits 1)
+visible initial point masses: [(0, 0)]
+priors: realization-datum prior on (h1, h2) with denominator <= 8; preparable set from the hidden ancillas
+composites: two copies A, B with own x, h, ancillas; one shared hidden counting-measure ancilla s; joint prior = product of per-copy priors, s uniform; joint accessible class = local permutations and local coupling steps; local preparations may read s and act on the copy's own hidden cells only (A-2)
+timing: one step = selected permutation or coupling step, then phi; readout after the step
+I-52 digest e6bf864319c99560aaaf4d47f894d0986f51f8e6d76f9f4a81c6be08c64910b2
+--- KSWAP
+class KSWAP
+core visible cells x:2
+core hidden cells h:2
+visible ancillas (point masses at 0, absent from every step) v1:2, v2:2
+hidden ancillas (counting measure, for mixing, absent from every step) m1:2, m2:2, m3:2
+phi: swap(x, h)
+accessible bijections: every permutation of the visible-core configurations (2)
+coupling steps: none
+visible initial point masses: [(0,)]
+priors: realization-datum prior on h with denominator <= 8; preparable set from the hidden ancillas (A-2 budgets)
+composites: two copies A, B with own x, h, ancillas; one shared hidden counting-measure ancilla s; joint prior = product of per-copy priors, s uniform; joint accessible class = local permutations and local coupling steps; local preparations may read s and act on the copy's own hidden cells only (A-2)
+timing: one step = selected permutation or coupling step, then phi; readout after the step
+I-52 digest d57e512c99116079cf49ee2b863cfa3dc14c1682666abccb51f0620742917400
+--- CLC4
+class CLC4
+core visible cells x:2
+core hidden cells h:2
+visible ancillas (point masses at 0, absent from every step) v1:2, v2:2
+hidden ancillas (counting measure, for mixing, absent from every step) m1:2, m2:2, m3:2
+phi: swap(x, h)
+accessible bijections: every permutation of the visible-core configurations (2)
+coupling steps: none
+visible initial point masses: [(0,), (1,)]
+priors: realization-datum prior on h with denominator <= 8; preparable set from the hidden ancillas (A-2 budgets) (as K-SWAP; A-2)
+composites: two copies A, B with own x, h, ancillas; one shared hidden counting-measure ancilla s; joint prior = product of per-copy priors, s uniform; joint accessible class = local permutations and local coupling steps; local preparations may read s and act on the copy's own hidden cells only (A-2) (as R1; A-2)
+timing: one step = selected permutation or coupling step, then phi; readout after the step
+I-52 digest bd76658685547cc6ddb12b9093b3d25a4491fa7f4a9a4d4b506b4832f65fea6c
+PASS  I-52: declared coupling steps agree with the truth tables of the step functions (mismatches: []); digests printed above
+
+=== K-9: condition O ===
+  R1a: every permutation, coupling step (with its fresh bits) and phi bijective on the core: True
+  R1b: every permutation, coupling step (with its fresh bits) and phi bijective on the core: True
+  R2a1: every permutation, coupling step (with its fresh bits) and phi bijective on the core: True
+  R2b1: every permutation, coupling step (with its fresh bits) and phi bijective on the core: True
+  R2a2: every permutation, coupling step (with its fresh bits) and phi bijective on the core: True
+  R2b2: every permutation, coupling step (with its fresh bits) and phi bijective on the core: True
+  KSWAP: every permutation, coupling step (with its fresh bits) and phi bijective on the core: True
+  CLC4: every permutation, coupling step (with its fresh bits) and phi bijective on the core: True
+PASS  K-9: condition O holds for all 9 realizations checked
+
+=== K-C1C4: the checker on the controls of section 14 ===
+  coin-die (book ch01 1.5): C1 True (witness (0, (0,))); C3 certificate True (distinct conditional future laws 2 <= |C_H| = 6); C4 True (witness (2, ((0,), (1,), (0,)), ((0,), (0,), (0,)), [(((1,), Fraction(1, 1)),), (((0,), Fraction(1, 1)),)]))
+  Markov chain (tape-driven, P(flip)=1/4): C1 True (witness (0, (0,))); C3 certificate True (distinct conditional future laws 1 <= |C_H| = 1280); C4 False (witness None)
+  zero coupling (phi flips h only): C1 False (witness None); C3 certificate True (distinct conditional future laws 1 <= |C_H| = 2); C4 False (witness None)
+  tape-and-ledger fair coin (Main.md:172): C1 True (witness (0, (0,))); C3 certificate True (distinct conditional future laws 1 <= |C_H| = 1280); C4 False (witness None)
+PASS  K-C1C4: coin-die satisfies C1, C4; the Markov chain fails C4; zero coupling fails C1; tape-and-ledger satisfies C1, C3 and fails C4 (C2 by the structural reading: every step is a bijection)
+
+=== K-PR6 replay ===
+  correlators {(0, 0): '1', (0, 1): '1', (1, 0): '1', (1, 1): '-1'}; CHSH S = 4; uniform marginals True; no operational signalling on (q; r) True
+  K-C1C4 on K-PR6 at (a,b)=(0, 0): C1 True, C3 True (1 <= 2), C4 False
+  K-C1C4 on K-PR6 at (a,b)=(0, 1): C1 True, C3 True (1 <= 2), C4 False
+  K-C1C4 on K-PR6 at (a,b)=(1, 0): C1 True, C3 True (1 <= 2), C4 False
+  K-C1C4 on K-PR6 at (a,b)=(1, 1): C1 True, C3 True (1 <= 2), C4 False
+PASS  K-PR6: K-PR6 replays: CHSH = 4, uniform marginals, no signalling on the wing records, all steps bijective
+  K-PR6 passes K-C1C4 (as a 5-step realization at each setting pair): False; not an R1 witness (fails C4 under its own 5-step dynamics: every next visible value is a function of the current visible record)
+
+=== K-C1C4 on the R1 witness candidates ===
+  R1a: passes (x0 (0,), prior uniform, protocol ['perm[id]', 'read', 'read', 'read']); C1 witness (1, (0,)); C3 2 <= 2; C4 witness (t, history, history') (3, ((0,), (0,), (0,), (0,)), ((0,), (0,), (1,), (0,)))
+  R1b: no protocol of length 4 over its op alphabet (3 ops), uniform or biased prior, passes C1, C3 and C4 together -> not an R1 witness candidate (section 6.2 admits only classes that pass K-C1C4)
+  R2a1: passes (x0 (0,), prior uniform, protocol ['perm[id]', 'read1', 'read1', 'read1']); C1 witness (1, (0,)); C3 2 <= 4; C4 witness (t, history, history') (3, ((0,), (0,), (0,), (0,)), ((0,), (0,), (1,), (0,)))
+  R2b1: passes (x0 (0,), prior biased, protocol ['dread1', 'perm[id]', 'dread1', 'dread1']); C1 witness (0, (0,)); C3 2 <= 4; C4 witness (t, history, history') (3, ((0,), (0,), (0,), (0,)), ((0,), (1,), (1,), (0,)))
+  R2a2: passes (x0 (0, 0), prior uniform, protocol ['perm[id]', 'read1', 'read1', 'read1']); C1 witness (1, (0, 0)); C3 2 <= 4; C4 witness (t, history, history') (3, ((0, 0), (0, 0), (0, 0), (0, 0)), ((0, 0), (0, 0), (1, 0), (0, 0))); op alphabet restricted to identity + coupling steps (3 ops)
+  R2b2: passes (x0 (0, 0), prior biased, protocol ['dread1', 'perm[id]', 'dread1', 'dread1']); C1 witness (0, (0, 0)); C3 2 <= 4; C4 witness (t, history, history') (3, ((0, 0), (0, 0), (0, 0), (0, 0)), ((0, 0), (1, 0), (1, 0), (0, 0))); op alphabet restricted to identity + coupling steps (3 ops)
+  KSWAP: passes (x0 (0,), prior uniform, protocol ['perm[id]', 'perm[id]', 'perm[id]', 'perm[id]']); C1 witness (0, (0,)); C3 2 <= 2; C4 witness (t, history, history') (2, ((0,), (0,), (0,)), ((0,), (1,), (0,)))
+  CLC4: passes (x0 (0,), prior uniform, protocol ['perm[id]', 'perm[id]', 'perm[id]', 'perm[id]']); C1 witness (0, (0,)); C3 2 <= 2; C4 witness (t, history, history') (2, ((0,), (0,), (0,)), ((0,), (1,), (0,)))
+  R1 witness candidates among the classes (K-C1C4 passed, printout above): ['R1a', 'R2a1', 'R2b1', 'R2a2', 'R2b2', 'KSWAP', 'CLC4']; failing: ['R1b']
+PASS  K-C1C4-classes: K-SWAP and CL-C4 pass K-C1C4 as section 6.5 requires (must-hold); section 6.10 classes passing: ['R1a', 'R2a1', 'R2b1', 'R2a2', 'R2b2', 'KSWAP', 'CLC4']
+
+=== I-58: access classes over composed protocols ===
+  access class of R1a (x0 = (0,)): dim per depth [1, 2, 2, 2]; full on cells {h}; reached at depth 1; ancilla cells ['v1', 'v2', 'm1', 'm2', 'm3'] absent from every step (invisible by the A-2 certificate)
+  access class of R1b (x0 = (0,)): dim per depth [1, 2, 2, 2]; full on cells {h}; reached at depth 1; ancilla cells ['v1', 'v2', 'm1', 'm2', 'm3'] absent from every step (invisible by the A-2 certificate)
+  access class of R2a1 (x0 = (0,)): dim per depth [1, 2, 4, 4]; full on cells {h1, h2}; reached at depth 2; ancilla cells ['v1', 'v2', 'm1', 'm2', 'm3'] absent from every step (invisible by the A-2 certificate)
+  access class of R2b1 (x0 = (0,)): dim per depth [1, 2, 4, 4]; full on cells {h1, h2}; reached at depth 2; ancilla cells ['v1', 'v2', 'm1', 'm2', 'm3'] absent from every step (invisible by the A-2 certificate)
+  access class of R2a2 (x0 = (0, 0)): dim per depth [1, 3, 4, 4]; full on cells {h1, h2}; reached at depth 2; ancilla cells ['v1', 'v2', 'm1', 'm2', 'm3'] absent from every step (invisible by the A-2 certificate)
+  access class of R2b2 (x0 = (0, 0)): dim per depth [1, 3, 4, 4]; full on cells {h1, h2}; reached at depth 2; ancilla cells ['v1', 'v2', 'm1', 'm2', 'm3'] absent from every step (invisible by the A-2 certificate)
+  access class of KSWAP (x0 = (0,)): dim per depth [1, 2, 2, 2]; full on cells {h}; reached at depth 1; ancilla cells ['v1', 'v2', 'm1', 'm2', 'm3'] absent from every step (invisible by the A-2 certificate)
+  access class of CLC4 (x0 = (0,)): dim per depth [1, 2, 2, 2]; full on cells {h}; reached at depth 1; ancilla cells ['v1', 'v2', 'm1', 'm2', 'm3'] absent from every step (invisible by the A-2 certificate)
+  access class of CLC4 (x0 = (1,)): dim per depth [1, 2, 2, 2]; full on cells {h}; reached at depth 1; ancilla cells ['v1', 'v2', 'm1', 'm2', 'm3'] absent from every step (invisible by the A-2 certificate)
+PASS  I-58: K-SWAP's access class prints full hidden access: full on cells {h} (dims [1, 2, 2, 2])
+  composite access (two copies, shared ancilla s in the core, local ops only):
+    R1a: dim [1, 4, 4] of 8 hidden configurations (h_A, h_B, s); tensor rule dim_A * dim_B = 4; agree True; s invisible: True
+    R1b: dim [1, 4, 4] of 8 hidden configurations (h_A, h_B, s); tensor rule dim_A * dim_B = 4; agree True; s invisible: True
+    KSWAP: dim [1, 4, 4] of 8 hidden configurations (h_A, h_B, s); tensor rule dim_A * dim_B = 4; agree True; s invisible: True
+    CLC4: dim [1, 4, 4] of 8 hidden configurations (h_A, h_B, s); tensor rule dim_A * dim_B = 4; agree True; s invisible: True
+PASS  K-TENSOR: composite access = tensor product of the local access classes on the one-bit composites (s invisible)
+
+=== K-OPSTATE (I-49) ===
+  passive record laws equal at horizons 1..4: True; intervention x ^= h then readout: [0, 1]; different operational states: True; C1 under the passive dynamics: False (fails, as fixed: a control for the state definition)
+PASS  I-49: identical passive records, different operational states (P0 != P1), C1 fails under the passive dynamics
+
+=== I-38: transformations well defined on classes, reversibles ===
+  R1a: 14 distinct induced maps (sequences <= 2, adaptive depth 2); well defined on classes 14, not well defined 0, unchecked 0; reversible 4; e.g. ['id (no step)', 'perm[(0,)->(1,) (1,)->(0,)]', 'read', 'perm[(0,)->(1,) (1,)->(0,)] ; read']
+  R1b: 21 distinct induced maps (sequences <= 2, adaptive depth 2); well defined on classes 21, not well defined 0, unchecked 0; reversible 2; e.g. ['id (no step)', 'perm[(0,)->(1,) (1,)->(0,)]']
+  R2a1: 24 distinct induced maps (sequences <= 2, adaptive depth 2); well defined on classes 24, not well defined 0, unchecked 0; reversible 9; e.g. ['id (no step)', 'perm[id]', 'perm[(0,)->(1,) (1,)->(0,)]', 'perm[id] ; perm[(0,)->(1,) (1,)->(0,)]', 'perm[id] ; read1', 'perm[(0,)->(1,) (1,)->(0,)] ; read1', 'read1 ; perm[id]', 'read1 ; perm[(0,)->(1,) (1,)->(0,)]']
+  R2b1: 26 distinct induced maps (sequences <= 2, adaptive depth 2); well defined on classes 26, not well defined 0, unchecked 0; reversible 4; e.g. ['id (no step)', 'perm[id]', 'perm[(0,)->(1,) (1,)->(0,)]', 'perm[id] ; perm[(0,)->(1,) (1,)->(0,)]']
+  R2a2: 134 distinct induced maps (sequences <= 2); well defined on classes 134, not well defined 0, unchecked 0; reversible 84; e.g. ['id (no step)', 'perm[id]', 'perm[(1, 0)->(1, 1) (1, 1)->(1, 0)]', 'perm[(0, 1)->(1, 0) (1, 0)->(0, 1)]', 'perm[(0, 1)->(1, 0) (1, 0)->(1, 1) (1, 1)->(0, 1)]', 'perm[(0, 1)->(1, 1) (1, 0)->(0, 1) (1, 1)->(1, 0)]', 'perm[(0, 1)->(1, 1) (1, 1)->(0, 1)]', 'perm[(0, 0)->(0, 1) (0, 1)->(0, 0)]']
+  R2b2: 134 distinct induced maps (sequences <= 2); well defined on classes 134, not well defined 0, unchecked 0; reversible 48; e.g. ['id (no step)', 'perm[id]', 'perm[(1, 0)->(1, 1) (1, 1)->(1, 0)]', 'perm[(0, 1)->(1, 0) (1, 0)->(0, 1)]', 'perm[(0, 1)->(1, 0) (1, 0)->(1, 1) (1, 1)->(0, 1)]', 'perm[(0, 1)->(1, 1) (1, 0)->(0, 1) (1, 1)->(1, 0)]', 'perm[(0, 1)->(1, 1) (1, 1)->(0, 1)]', 'perm[(0, 0)->(0, 1) (0, 1)->(0, 0)]']
+  KSWAP: 10 distinct induced maps (sequences <= 2, adaptive depth 2); well defined on classes 10, not well defined 0, unchecked 0; reversible 5; e.g. ['id (no step)', 'perm[id]', 'perm[id] ; perm[(0,)->(1,) (1,)->(0,)]', 'perm[(0,)->(1,) (1,)->(0,)] ; perm[id]', 'perm[(0,)->(1,) (1,)->(0,)] ; perm[(0,)->(1,) (1,)->(0,)]']
+  CLC4: 10 distinct induced maps (sequences <= 2, adaptive depth 2); well defined on classes 10, not well defined 0, unchecked 0; reversible 5; e.g. ['id (no step)', 'perm[id]', 'perm[id] ; perm[(0,)->(1,) (1,)->(0,)]', 'perm[(0,)->(1,) (1,)->(0,)] ; perm[id]', 'perm[(0,)->(1,) (1,)->(0,)] ; perm[(0,)->(1,) (1,)->(0,)]']
+PASS  I-38: every listed transformation carries its class check and is well defined on equivalence classes
+
+=== I-54: preparable sets and pure sets (section 2.2 rule) ===
+PASS  K-PREPSET: the preparable-set formula agrees with explicit enumeration of every permutation at m = 0, 1 (all priors) and m = 2 (priors 1/3, 1/7, 1/8)
+  one hidden bit, budget m=0: preparable P(h=1) set size 23, weights 0, pure ['0', '1/8', '1/7', '1/6', '1/5', '1/4', '2/7', '1/3', '3/8', '2/5', '3/7', '1/2', '4/7', '3/5', '5/8', '2/3', '5/7', '3/4', '4/5', '5/6', '6/7', '7/8', '1']; witnesses verified True; closed under real convex combination: False
+  one hidden bit, budget m=1: preparable P(h=1) set size 23, weights 1, pure ['0', '1']; witnesses verified True; closed under real convex combination: False
+  one hidden bit, budget m=2: preparable P(h=1) set size 39, weights 3, pure ['0', '1']; witnesses verified True; closed under real convex combination: False
+  one hidden bit, budget m=3: preparable P(h=1) set size 63, weights 7, pure ['0', '1']; witnesses verified True; closed under real convex combination: False
+  one hidden bit, m=3 preparable set: ['0', '1/8', '1/7', '1/6', '1/5', '7/32', '13/56', '1/4', '11/40', '2/7', '5/16', '9/28', '1/3', '19/56', '7/20', '3/8', '11/28', '2/5', '13/32', '23/56', '5/12', '17/40', '3/7', '7/16', '25/56', '9/20', '11/24', '13/28', '15/32', '19/40', '27/56', '1/2', '29/56', '21/40', '17/32', '15/28', '13/24', '11/20', '31/56', '9/16', '4/7', '23/40', '7/12', '33/56', '19/32', '3/5', '17/28', '5/8', '13/20', '37/56', '2/3', '19/28', '11/16', '5/7', '29/40', '3/4', '43/56', '25/32', '4/5', '5/6', '6/7', '7/8', '1']
+  m=3 digest fefe5e3b6e36434a17780d967c6ba435d13033be1e0a65f26626899302fd9c89
+PASS  I-54: A-2 fixture: pure states under the preparable-weight rule = 3 (expected 3; real convex combination would give 2); witnesses verified True
+
+=== K-IF: the interface on the control classes (single-system parts) ===
+  CLC4: states = preparable set under access full on cells {h}: 63 (m=3); pure ['0', '1']; transformations 10, reversible 5; composites: phase C
+  KSWAP: states = preparable set under access full on cells {h}: 63 (m=3); pure ['0', '1']; transformations 10, reversible 5; composites: phase C
+  CL (uncoupled, fails C1): states = P(x=1) in ['0', '1/8', '1/4', '3/8', '1/2', '5/8', '3/4', '7/8', '1'] (m=3); pure ['1', '0']; transformations: the 2 permutations of x, both reversible; composites: phase C
+  K-PR6: one declared preparation (lambda uniform) per setting pair; the mixture/pure structure of a single-preparation class is not defined by section 2.2 -> Parked (per K-IF); records and C1-C4 above
+PASS  K-IF: the interface is well defined on CL, CL-C4 and K-SWAP (states, pure, transformations)
+
+=== I-59 unit test, A-1 scope, static checks ===
+PASS  I-59: a grid pass alone cannot print a purification verdict: refused: closure line required: a grid pass alone cannot print a purification verdict (I-59)
+PASS  I-4: AST scan: float literals at lines [], float()/round() calls at [], math not imported
+PASS  I-49-static: the state-equivalence code quantifies over the protocol class (every op, every depth) and K-OPSTATE uses it
+PASS  A1-PRINT: prints of purification text outside pur_line: []
+
+=== Phase B: mutation controls (judged in the manner of tools/mutant_verdict.py) ===
+  KM-22 (target I-38; case: a transformation defined on preparations and not checked on equivalence classes): KILLED: FAIL  I-38: every listed transformation carries its class check and is well defined on equivalence classes
+  KM-25 (target I-49; case: state equivalence computed from passive records only (K-OPSTATE P0 = P1)): KILLED: FAIL  I-49: identical passive records, different operational states (P0 != P1), C1 fails under the passive dynamics
+  KM-30 (target I-52; case: R1b run with the clean coupling substituted, printed inputs unchanged): KILLED: FAIL  I-52: declared coupling steps agree with the truth tables of the step functions (mismatches: [('R1b', 'dread')]); digests printed abov
+  KM-31 (target I-58; case: K-SWAP access from zero-step protocols only (A-2 D1)): KILLED: FAIL  I-58: K-SWAP's access class prints full hidden access: none (constants only) (dims [1])
+  KM-32 (target I-54; case: the A-2 fixture pure set computed by real convex combination (A-2 D2)): KILLED: FAIL  I-54: A-2 fixture: pure states under the preparable-weight rule = 2 (expected 3; real convex combination would give 2); witnesses veri
+  KM-34 (target I-59; case: a grid Pur-E pass printing without the convex-closure line): KILLED: FAIL  I-59: a grid pass alone cannot print a purification verdict: a grid pass alone printed 1 line(s) without the closure line
+PASS  KM-ALL: every step-1 mutant is caught (the named check fails cleanly on the named case)
+
+I-6 gate for section 6.10: controls I-1, I-55, I-52, K-9, K-C1C4, K-PR6, I-58, K-TENSOR, I-49, I-38, K-PREPSET, I-54, K-IF, I-59, static checks, mutants: all green
+
+=== Phase C: section 6.10 outputs (every line generated from the measurements; A-1 scoping) ===
+
+--- composites of the one-hidden-bit classes under the A-2 reading ---
+  A-side conditional pairs (alpha_0, alpha_1) from one prior: 753; composite preparable states 195769; digest 2abb36fd1764a3ee1c7bd183238dae9b2b75ab962b0b90f15cc21e0bf9162b1e
+  pure composite states 4: ['(1, 0, 0, 0)', '(0, 1, 0, 0)', '(0, 0, 1, 0)', '(0, 0, 0, 1)'] (cells (hA,hB) = 00, 01, 10, 11); mixedness witnesses: {'half-mixture of two products': 195573, 'product with a mixed factor': 0}; exhaustive fallback decided mixed: 192
+PASS  K-CL: composite lemma instance: with the single pure set = {delta_0, delta_1}, the exhaustive composite pure set equals the 4 point masses (validates the lemma used for the R2 composites)
+  SHARED-ALT (sensitivity, A-2): under the alternative reading where copy A's preparation writes s, the B-marginal 16/35 (p_A=1/7, p_B=1/5, c_1=(8,0 | 4,4)) is reachable; it is a B-marginal of the A-2 reading: False; the two readings give different preparable sets
+
+--- R1a (I-52 digest 2ec2174a2f6d63f22ff1062d963075214de2ac849004653abdec3a052b595ebd) ---
+  access class of R1a (x0 = (0,)): dim per depth [1, 2, 2, 2]; full on cells {h}; reached at depth 1; ancilla cells ['v1', 'v2', 'm1', 'm2', 'm3'] absent from every step (invisible by the A-2 certificate)
+  states (equivalence classes of preparations under every protocol): 63 = the preparable P(h=1) set at m=3 (access full on cells {h}, so the class is the h-marginal); digest fefe5e3b6e36434a17780d967c6ba435d13033be1e0a65f26626899302fd9c89
+  pure states (preparable-weight rule, m=3): ['0', '1']; Q-PREP data: the preparable mixtures are the grid {(k p + (8-k)(1-p))/8 : p in D8, k = 0..8}, not closed under real convex combination
+  transformations: 14 distinct induced maps, all well defined on classes; reversible 4: ['id (no step)', 'perm[(0,)->(1,) (1,)->(0,)]', 'read', 'perm[(0,)->(1,) (1,)->(0,)] ; read']
+  composites: 195769 preparable joint states on (h_A, h_B), shared ancilla s invisible (composite access dim 4 of 8); joint accessible class = local ops (9 pairs); beyond local compositions and shared randomness: none declared
+  Lemma A instance (A1 grid reading: preparable set is the grid; A2 access full on cells {h}; A3 composites of product form with local operations, by construction): the operational theory of R1a is classical probability on its preparable priors; pure = extreme preparable (measured: ['0', '1']); a pure composite state has point-mass marginals (measured: True)
+[R1a | preparable set, budget m=3 (weights k/8), composite pure states = 4 point masses] Pur-E: holds for 2 of 63 preparable states (the pure states delta_0, delta_1; purifications 0 -> 2; 1 -> 2); fails for 61 states (no pure composite state has their marginal). Pur-U: fails: state P(h=1)=0: 2 purifications; connected on B alone: no (no reversible transformation of B among 4 maps delta_0 to delta_1 and back); state P(h=1)=1: 2 purifications; connected on B alone: no (no reversible transformation of B among 4 maps delta_0 to delta_1 and back)
+[R1a | preparable set, budget m=0 (weights k/1)] preparable states 23, pure under the budget's weights 23 (the composite purification test is stated at the class budget m=3)
+[R1a | preparable set, budget m=1 (weights k/2)] preparable states 23, pure under the budget's weights 2 (the composite purification test is stated at the class budget m=3)
+[R1a | preparable set, budget m=2 (weights k/4)] preparable states 39, pure under the budget's weights 2 (the composite purification test is stated at the class budget m=3)
+[R1a | preparable set, across the declared theory (union of the one-hidden-bit classes at m=3, weights k/8)] preparable states 63 (identical for R1a, R1b, K-SWAP, CL-C4), pure 2: 0, 1; Pur-E and Pur-U as the budget m=3 line
+[R1a | convex closure] convex closure of the preparable set = [0,1] (0 and 1 preparable); closure of the composite = the full simplex on 4 points (every point mass preparable: True), extreme points = the 4 point masses, each with point-mass marginals; transformations extend affinely (every induced map is a pushforward, hence affine: 14 maps); Pur-E on the closure: holds for the 2 extreme states, fails for every non-extreme state. Lemma K hypotheses on this closure: (i) holds (delta_0, delta_1 perfectly distinguished: access full on cells {h}; every real mixture preparable by definition of the closure), (ii) holds (one additional system type declared), (iii) holds (4 pure states in the composite closure): Lemma K's instance.
+
+--- R1b (I-52 digest 1ededafe66fab1ab0417191058a94f6f829bd50dd15ebdb800560f21ed194698) ---
+  access class of R1b (x0 = (0,)): dim per depth [1, 2, 2, 2]; full on cells {h}; reached at depth 1; ancilla cells ['v1', 'v2', 'm1', 'm2', 'm3'] absent from every step (invisible by the A-2 certificate)
+  states (equivalence classes of preparations under every protocol): 63 = the preparable P(h=1) set at m=3 (access full on cells {h}, so the class is the h-marginal); digest fefe5e3b6e36434a17780d967c6ba435d13033be1e0a65f26626899302fd9c89
+  pure states (preparable-weight rule, m=3): ['0', '1']; Q-PREP data: the preparable mixtures are the grid {(k p + (8-k)(1-p))/8 : p in D8, k = 0..8}, not closed under real convex combination
+  transformations: 21 distinct induced maps, all well defined on classes; reversible 2: ['id (no step)', 'perm[(0,)->(1,) (1,)->(0,)]']
+  composites: 195769 preparable joint states on (h_A, h_B), shared ancilla s invisible (composite access dim 4 of 8); joint accessible class = local ops (9 pairs); beyond local compositions and shared randomness: none declared
+  Lemma A instance (A1 grid reading: preparable set is the grid; A2 access full on cells {h}; A3 composites of product form with local operations, by construction): the operational theory of R1b is classical probability on its preparable priors; pure = extreme preparable (measured: ['0', '1']); a pure composite state has point-mass marginals (measured: True)
+[R1b | preparable set, budget m=3 (weights k/8), composite pure states = 4 point masses] Pur-E: holds for 2 of 63 preparable states (the pure states delta_0, delta_1; purifications 0 -> 2; 1 -> 2); fails for 61 states (no pure composite state has their marginal). Pur-U: fails: state P(h=1)=0: 2 purifications; connected on B alone: no (no reversible transformation of B among 2 maps delta_0 to delta_1 and back); state P(h=1)=1: 2 purifications; connected on B alone: no (no reversible transformation of B among 2 maps delta_0 to delta_1 and back)
+[R1b | preparable set, budget m=0 (weights k/1)] preparable states 23, pure under the budget's weights 23 (the composite purification test is stated at the class budget m=3)
+[R1b | preparable set, budget m=1 (weights k/2)] preparable states 23, pure under the budget's weights 2 (the composite purification test is stated at the class budget m=3)
+[R1b | preparable set, budget m=2 (weights k/4)] preparable states 39, pure under the budget's weights 2 (the composite purification test is stated at the class budget m=3)
+[R1b | preparable set, across the declared theory (union of the one-hidden-bit classes at m=3, weights k/8)] preparable states 63 (identical for R1a, R1b, K-SWAP, CL-C4), pure 2: 0, 1; Pur-E and Pur-U as the budget m=3 line
+[R1b | convex closure] convex closure of the preparable set = [0,1] (0 and 1 preparable); closure of the composite = the full simplex on 4 points (every point mass preparable: True), extreme points = the 4 point masses, each with point-mass marginals; transformations extend affinely (every induced map is a pushforward, hence affine: 21 maps); Pur-E on the closure: holds for the 2 extreme states, fails for every non-extreme state. Lemma K hypotheses on this closure: (i) holds (delta_0, delta_1 perfectly distinguished: access full on cells {h}; every real mixture preparable by definition of the closure), (ii) holds (one additional system type declared), (iii) holds (4 pure states in the composite closure): Lemma K's instance.
+
+--- KSWAP (I-52 digest d57e512c99116079cf49ee2b863cfa3dc14c1682666abccb51f0620742917400) ---
+  access class of KSWAP (x0 = (0,)): dim per depth [1, 2, 2, 2]; full on cells {h}; reached at depth 1; ancilla cells ['v1', 'v2', 'm1', 'm2', 'm3'] absent from every step (invisible by the A-2 certificate)
+  states (equivalence classes of preparations under every protocol): 63 = the preparable P(h=1) set at m=3 (access full on cells {h}, so the class is the h-marginal); digest fefe5e3b6e36434a17780d967c6ba435d13033be1e0a65f26626899302fd9c89
+  pure states (preparable-weight rule, m=3): ['0', '1']; Q-PREP data: the preparable mixtures are the grid {(k p + (8-k)(1-p))/8 : p in D8, k = 0..8}, not closed under real convex combination
+  transformations: 10 distinct induced maps, all well defined on classes; reversible 5: ['id (no step)', 'perm[id]', 'perm[id] ; perm[(0,)->(1,) (1,)->(0,)]', 'perm[(0,)->(1,) (1,)->(0,)] ; perm[id]', 'perm[(0,)->(1,) (1,)->(0,)] ; perm[(0,)->(1,) (1,)->(0,)]']
+  composites: 195769 preparable joint states on (h_A, h_B), shared ancilla s invisible (composite access dim 4 of 8); joint accessible class = local ops (4 pairs); beyond local compositions and shared randomness: none declared
+  Lemma A instance (A1 grid reading: preparable set is the grid; A2 access full on cells {h}; A3 composites of product form with local operations, by construction): the operational theory of KSWAP is classical probability on its preparable priors; pure = extreme preparable (measured: ['0', '1']); a pure composite state has point-mass marginals (measured: True)
+[KSWAP | preparable set, budget m=3 (weights k/8), composite pure states = 4 point masses] Pur-E: holds for 2 of 63 preparable states (the pure states delta_0, delta_1; purifications 0 -> 2; 1 -> 2); fails for 61 states (no pure composite state has their marginal). Pur-U: holds for every state with two or more purifications
+[KSWAP | preparable set, budget m=0 (weights k/1)] preparable states 23, pure under the budget's weights 23 (the composite purification test is stated at the class budget m=3)
+[KSWAP | preparable set, budget m=1 (weights k/2)] preparable states 23, pure under the budget's weights 2 (the composite purification test is stated at the class budget m=3)
+[KSWAP | preparable set, budget m=2 (weights k/4)] preparable states 39, pure under the budget's weights 2 (the composite purification test is stated at the class budget m=3)
+[KSWAP | preparable set, across the declared theory (union of the one-hidden-bit classes at m=3, weights k/8)] preparable states 63 (identical for R1a, R1b, K-SWAP, CL-C4), pure 2: 0, 1; Pur-E and Pur-U as the budget m=3 line
+[KSWAP | convex closure] convex closure of the preparable set = [0,1] (0 and 1 preparable); closure of the composite = the full simplex on 4 points (every point mass preparable: True), extreme points = the 4 point masses, each with point-mass marginals; transformations extend affinely (every induced map is a pushforward, hence affine: 10 maps); Pur-E on the closure: holds for the 2 extreme states, fails for every non-extreme state. Lemma K hypotheses on this closure: (i) holds (delta_0, delta_1 perfectly distinguished: access full on cells {h}; every real mixture preparable by definition of the closure), (ii) holds (one additional system type declared), (iii) holds (4 pure states in the composite closure): Lemma K's instance.
+
+--- CLC4 (I-52 digest bd76658685547cc6ddb12b9093b3d25a4491fa7f4a9a4d4b506b4832f65fea6c) ---
+  access class of CLC4 (x0 = (0,)): dim per depth [1, 2, 2, 2]; full on cells {h}; reached at depth 1; ancilla cells ['v1', 'v2', 'm1', 'm2', 'm3'] absent from every step (invisible by the A-2 certificate)
+  states (equivalence classes of preparations under every protocol): 63 = the preparable P(h=1) set at m=3 (access full on cells {h}, so the class is the h-marginal); digest fefe5e3b6e36434a17780d967c6ba435d13033be1e0a65f26626899302fd9c89
+  pure states (preparable-weight rule, m=3): ['0', '1']; Q-PREP data: the preparable mixtures are the grid {(k p + (8-k)(1-p))/8 : p in D8, k = 0..8}, not closed under real convex combination
+  transformations: 10 distinct induced maps, all well defined on classes; reversible 5: ['id (no step)', 'perm[id]', 'perm[id] ; perm[(0,)->(1,) (1,)->(0,)]', 'perm[(0,)->(1,) (1,)->(0,)] ; perm[id]', 'perm[(0,)->(1,) (1,)->(0,)] ; perm[(0,)->(1,) (1,)->(0,)]']
+  composites: 195769 preparable joint states on (h_A, h_B), shared ancilla s invisible (composite access dim 4 of 8); joint accessible class = local ops (4 pairs); beyond local compositions and shared randomness: none declared
+  Lemma A instance (A1 grid reading: preparable set is the grid; A2 access full on cells {h}; A3 composites of product form with local operations, by construction): the operational theory of CLC4 is classical probability on its preparable priors; pure = extreme preparable (measured: ['0', '1']); a pure composite state has point-mass marginals (measured: True)
+[CLC4 | preparable set, budget m=3 (weights k/8), composite pure states = 4 point masses] Pur-E: holds for 2 of 63 preparable states (the pure states delta_0, delta_1; purifications 0 -> 2; 1 -> 2); fails for 61 states (no pure composite state has their marginal). Pur-U: holds for every state with two or more purifications
+[CLC4 | preparable set, budget m=0 (weights k/1)] preparable states 23, pure under the budget's weights 23 (the composite purification test is stated at the class budget m=3)
+[CLC4 | preparable set, budget m=1 (weights k/2)] preparable states 23, pure under the budget's weights 2 (the composite purification test is stated at the class budget m=3)
+[CLC4 | preparable set, budget m=2 (weights k/4)] preparable states 39, pure under the budget's weights 2 (the composite purification test is stated at the class budget m=3)
+[CLC4 | preparable set, across the declared theory (union of the one-hidden-bit classes at m=3, weights k/8)] preparable states 63 (identical for R1a, R1b, K-SWAP, CL-C4), pure 2: 0, 1; Pur-E and Pur-U as the budget m=3 line
+[CLC4 | convex closure] convex closure of the preparable set = [0,1] (0 and 1 preparable); closure of the composite = the full simplex on 4 points (every point mass preparable: True), extreme points = the 4 point masses, each with point-mass marginals; transformations extend affinely (every induced map is a pushforward, hence affine: 10 maps); Pur-E on the closure: holds for the 2 extreme states, fails for every non-extreme state. Lemma K hypotheses on this closure: (i) holds (delta_0, delta_1 perfectly distinguished: access full on cells {h}; every real mixture preparable by definition of the closure), (ii) holds (one additional system type declared), (iii) holds (4 pure states in the composite closure): Lemma K's instance.
+
+--- CL (uncoupled classical control) composites ---
+  CL composite preparable states 2475; pure 4: ['(1, 0, 0, 0)', '(0, 1, 0, 0)', '(0, 0, 1, 0)', '(0, 0, 0, 1)']; witnesses {'half-mixture of two products': 2471, 'product with a mixed factor': 0}; fallback 0
+[CL | preparable set, budget m=3, weights k/8] Pur-E: holds for 2 of 9 preparable states (P(x=1) in ['0', '1']; pure composite states = 4, point masses: True), fails for 7. Pur-U: holds on the states with purifications (2 reversible transformations of B alone, permutations of x). A calibration: CL fails C1
+[CL | convex closure] closure = full simplex (every point mass preparable: True); extreme = the point masses; Pur-E on the closure holds for the 2 extreme states and fails for every non-extreme state (Lemma K instance: (i) holds, (ii) holds, (iii) holds with 4 pure composite states)
+
+--- R2 classes: preparable set on (h1, h2) ---
+  priors on (h1,h2) with denominator <= 8: 407 (37 up to relabeling); preparable set at m=3: 93585 states; digest cc18e86d7868e5bf45477396630f10e20a12bdb0e046aae351a1a38a11285ff2
+  pure (preparable-weight rule, weights k/8): 4: ['(0, 0, 0, 1)', '(0, 0, 1, 0)', '(0, 1, 0, 0)', '(1, 0, 0, 0)']; witnesses verified True; states decided by constructive hints 93581, by exhaustive search 0
+PASS  I-54-R2: R2 preparable set: every witness verified exactly; the pure set is the 4 point masses
+  budget m=0: preparable 407, pure 407 (no mixing operation at m=0)
+  budget m=1: preparable 1451, pure 4
+  budget m=2: preparable 11449, pure 4
+
+--- R2a1 (I-52 digest b6608ec260363e28744591bceb3b388259462274da51280d20d5daba48add909) ---
+  access class of R2a1 (x0 = (0,)): dim per depth [1, 2, 4, 4]; full on cells {h1, h2}; reached at depth 2; ancilla cells ['v1', 'v2', 'm1', 'm2', 'm3'] absent from every step (invisible by the A-2 certificate)
+  states: 93585 = the preparable set on (h1, h2) at m=3 (access full on cells {h1, h2}); pure ['(0, 0, 0, 1)', '(0, 0, 1, 0)', '(0, 1, 0, 0)', '(1, 0, 0, 0)']
+  transformations: 24 distinct induced maps, all well defined; reversible 9: ['id (no step)', 'perm[id]', 'perm[(0,)->(1,) (1,)->(0,)]', 'perm[id] ; perm[(0,)->(1,) (1,)->(0,)]', 'perm[id] ; read1', 'perm[(0,)->(1,) (1,)->(0,)] ; read1']...
+  composites: two copies with shared s (A-2 reading): preparable joint states are 1/2(alpha_0 x beta_0 + alpha_1 x beta_1), alpha_s, beta_s in the per-prior grids; not enumerated (the set exceeds the local bound of A.40: >= 93585^2 product states); pure set by the composite lemma (K-CL, validated on the one-bit composites): the 16 products of point masses; composite access by the tensor rule (local ops, s untouched)
+[R2a1 | preparable set, budget m=3 (weights k/8), composite pure states = 16 products of point masses (K-CL)] Pur-E: holds for 4 of 93585 preparable states (the point masses; purifications: the 4 products with a point mass of B); fails for 93581 states. Pur-U: fails: no reversible transformation of B among 9 maps one point mass of B to another (the hidden cells are never written by any op or phi)
+[R2a1 | preparable set, across the declared theory (the R2 classes share the preparable set; weights k/8)] preparable 93585, pure 4; Pur-E and Pur-U as the budget line
+[R2a1 | convex closure] convex closure of the preparable set = the full simplex on (h1, h2) (every point mass preparable); closure of the composite = full simplex on 16 points, extreme = the 16 products of point masses with point-mass marginals; transformations extend affinely (24 pushforward maps); Pur-E on the closure: holds for the 4 extreme states, fails for every non-extreme state. Lemma K: (i) holds (point masses distinguished: access full on cells {h1, h2}; every real mixture preparable in the closure), (ii) holds (one additional system type), (iii) holds (16 pure states): Lemma K's instance.
+  Lemma A instance: (A1) grid reading, (A2) access full on cells {h1, h2}, (A3) local product composites; the operational theory of R2a1 is classical probability on its preparable priors (measured pure set: ['(0, 0, 0, 1)', '(0, 0, 1, 0)', '(0, 1, 0, 0)', '(1, 0, 0, 0)'])
+
+--- R2b1 (I-52 digest dec8364b2ee6ca1b37272a668324bcb6dd1047168b4758eb6fd934b113e01d04) ---
+  access class of R2b1 (x0 = (0,)): dim per depth [1, 2, 4, 4]; full on cells {h1, h2}; reached at depth 2; ancilla cells ['v1', 'v2', 'm1', 'm2', 'm3'] absent from every step (invisible by the A-2 certificate)
+  states: 93585 = the preparable set on (h1, h2) at m=3 (access full on cells {h1, h2}); pure ['(0, 0, 0, 1)', '(0, 0, 1, 0)', '(0, 1, 0, 0)', '(1, 0, 0, 0)']
+  transformations: 26 distinct induced maps, all well defined; reversible 4: ['id (no step)', 'perm[id]', 'perm[(0,)->(1,) (1,)->(0,)]', 'perm[id] ; perm[(0,)->(1,) (1,)->(0,)]']
+  composites: two copies with shared s (A-2 reading): preparable joint states are 1/2(alpha_0 x beta_0 + alpha_1 x beta_1), alpha_s, beta_s in the per-prior grids; not enumerated (the set exceeds the local bound of A.40: >= 93585^2 product states); pure set by the composite lemma (K-CL, validated on the one-bit composites): the 16 products of point masses; composite access by the tensor rule (local ops, s untouched)
+[R2b1 | preparable set, budget m=3 (weights k/8), composite pure states = 16 products of point masses (K-CL)] Pur-E: holds for 4 of 93585 preparable states (the point masses; purifications: the 4 products with a point mass of B); fails for 93581 states. Pur-U: fails: no reversible transformation of B among 4 maps one point mass of B to another (the hidden cells are never written by any op or phi)
+[R2b1 | preparable set, across the declared theory (the R2 classes share the preparable set; weights k/8)] preparable 93585, pure 4; Pur-E and Pur-U as the budget line
+[R2b1 | convex closure] convex closure of the preparable set = the full simplex on (h1, h2) (every point mass preparable); closure of the composite = full simplex on 16 points, extreme = the 16 products of point masses with point-mass marginals; transformations extend affinely (26 pushforward maps); Pur-E on the closure: holds for the 4 extreme states, fails for every non-extreme state. Lemma K: (i) holds (point masses distinguished: access full on cells {h1, h2}; every real mixture preparable in the closure), (ii) holds (one additional system type), (iii) holds (16 pure states): Lemma K's instance.
+  Lemma A instance: (A1) grid reading, (A2) access full on cells {h1, h2}, (A3) local product composites; the operational theory of R2b1 is classical probability on its preparable priors (measured pure set: ['(0, 0, 0, 1)', '(0, 0, 1, 0)', '(0, 1, 0, 0)', '(1, 0, 0, 0)'])
+
+--- R2a2 (I-52 digest d22ae4d4dc49da1da71c4990e2ee56b16de0fea9e829f68da2bedfdd0e8ccf38) ---
+  access class of R2a2 (x0 = (0, 0)): dim per depth [1, 3, 4, 4]; full on cells {h1, h2}; reached at depth 2; ancilla cells ['v1', 'v2', 'm1', 'm2', 'm3'] absent from every step (invisible by the A-2 certificate)
+  states: 93585 = the preparable set on (h1, h2) at m=3 (access full on cells {h1, h2}); pure ['(0, 0, 0, 1)', '(0, 0, 1, 0)', '(0, 1, 0, 0)', '(1, 0, 0, 0)']
+  transformations: 134 distinct induced maps, all well defined; reversible 84: ['id (no step)', 'perm[id]', 'perm[(1, 0)->(1, 1) (1, 1)->(1, 0)]', 'perm[(0, 1)->(1, 0) (1, 0)->(0, 1)]', 'perm[(0, 1)->(1, 0) (1, 0)->(1, 1) (1, 1)->(0, 1)]', 'perm[(0, 1)->(1, 1) (1, 0)->(0, 1) (1, 1)->(1, 0)]']...
+  composites: two copies with shared s (A-2 reading): preparable joint states are 1/2(alpha_0 x beta_0 + alpha_1 x beta_1), alpha_s, beta_s in the per-prior grids; not enumerated (the set exceeds the local bound of A.40: >= 93585^2 product states); pure set by the composite lemma (K-CL, validated on the one-bit composites): the 16 products of point masses; composite access by the tensor rule (local ops, s untouched)
+[R2a2 | preparable set, budget m=3 (weights k/8), composite pure states = 16 products of point masses (K-CL)] Pur-E: holds for 4 of 93585 preparable states (the point masses; purifications: the 4 products with a point mass of B); fails for 93581 states. Pur-U: fails: no reversible transformation of B among 84 maps one point mass of B to another (the hidden cells are never written by any op or phi)
+[R2a2 | preparable set, across the declared theory (the R2 classes share the preparable set; weights k/8)] preparable 93585, pure 4; Pur-E and Pur-U as the budget line
+[R2a2 | convex closure] convex closure of the preparable set = the full simplex on (h1, h2) (every point mass preparable); closure of the composite = full simplex on 16 points, extreme = the 16 products of point masses with point-mass marginals; transformations extend affinely (134 pushforward maps); Pur-E on the closure: holds for the 4 extreme states, fails for every non-extreme state. Lemma K: (i) holds (point masses distinguished: access full on cells {h1, h2}; every real mixture preparable in the closure), (ii) holds (one additional system type), (iii) holds (16 pure states): Lemma K's instance.
+  Lemma A instance: (A1) grid reading, (A2) access full on cells {h1, h2}, (A3) local product composites; the operational theory of R2a2 is classical probability on its preparable priors (measured pure set: ['(0, 0, 0, 1)', '(0, 0, 1, 0)', '(0, 1, 0, 0)', '(1, 0, 0, 0)'])
+
+--- R2b2 (I-52 digest e6bf864319c99560aaaf4d47f894d0986f51f8e6d76f9f4a81c6be08c64910b2) ---
+  access class of R2b2 (x0 = (0, 0)): dim per depth [1, 3, 4, 4]; full on cells {h1, h2}; reached at depth 2; ancilla cells ['v1', 'v2', 'm1', 'm2', 'm3'] absent from every step (invisible by the A-2 certificate)
+  states: 93585 = the preparable set on (h1, h2) at m=3 (access full on cells {h1, h2}); pure ['(0, 0, 0, 1)', '(0, 0, 1, 0)', '(0, 1, 0, 0)', '(1, 0, 0, 0)']
+  transformations: 134 distinct induced maps, all well defined; reversible 48: ['id (no step)', 'perm[id]', 'perm[(1, 0)->(1, 1) (1, 1)->(1, 0)]', 'perm[(0, 1)->(1, 0) (1, 0)->(0, 1)]', 'perm[(0, 1)->(1, 0) (1, 0)->(1, 1) (1, 1)->(0, 1)]', 'perm[(0, 1)->(1, 1) (1, 0)->(0, 1) (1, 1)->(1, 0)]']...
+  composites: two copies with shared s (A-2 reading): preparable joint states are 1/2(alpha_0 x beta_0 + alpha_1 x beta_1), alpha_s, beta_s in the per-prior grids; not enumerated (the set exceeds the local bound of A.40: >= 93585^2 product states); pure set by the composite lemma (K-CL, validated on the one-bit composites): the 16 products of point masses; composite access by the tensor rule (local ops, s untouched)
+[R2b2 | preparable set, budget m=3 (weights k/8), composite pure states = 16 products of point masses (K-CL)] Pur-E: holds for 4 of 93585 preparable states (the point masses; purifications: the 4 products with a point mass of B); fails for 93581 states. Pur-U: fails: no reversible transformation of B among 48 maps one point mass of B to another (the hidden cells are never written by any op or phi)
+[R2b2 | preparable set, across the declared theory (the R2 classes share the preparable set; weights k/8)] preparable 93585, pure 4; Pur-E and Pur-U as the budget line
+[R2b2 | convex closure] convex closure of the preparable set = the full simplex on (h1, h2) (every point mass preparable); closure of the composite = full simplex on 16 points, extreme = the 16 products of point masses with point-mass marginals; transformations extend affinely (134 pushforward maps); Pur-E on the closure: holds for the 4 extreme states, fails for every non-extreme state. Lemma K: (i) holds (point masses distinguished: access full on cells {h1, h2}; every real mixture preparable in the closure), (ii) holds (one additional system type), (iii) holds (16 pure states): Lemma K's instance.
+  Lemma A instance: (A1) grid reading, (A2) access full on cells {h1, h2}, (A3) local product composites; the operational theory of R2b2 is classical probability on its preparable priors (measured pure set: ['(0, 0, 0, 1)', '(0, 0, 1, 0)', '(0, 1, 0, 0)', '(1, 0, 0, 0)'])
+
+--- section 6.10 summary (generated from the measurements above) ---
+[R1a | summary of the two reading lines above] access full on cells {h}; states 63; pure ['0', '1']; existence holds for 2 states on the preparable set and for the extreme states on the closure; uniqueness on the pure states: fails; nothing is decided beyond the class R1a
+[R1b | summary of the two reading lines above] access full on cells {h}; states 63; pure ['0', '1']; existence holds for 2 states on the preparable set and for the extreme states on the closure; uniqueness on the pure states: fails; nothing is decided beyond the class R1b
+[R2a1 | summary of the two reading lines above] access full on cells {h1, h2}; states 93585; pure ['(0, 0, 0, 1)', '(0, 0, 1, 0)', '(0, 1, 0, 0)', '(1, 0, 0, 0)']; existence holds for 4 states on the preparable set and for the extreme states on the closure; uniqueness on the pure states: fails; nothing is decided beyond the class R2a1
+[R2b1 | summary of the two reading lines above] access full on cells {h1, h2}; states 93585; pure ['(0, 0, 0, 1)', '(0, 0, 1, 0)', '(0, 1, 0, 0)', '(1, 0, 0, 0)']; existence holds for 4 states on the preparable set and for the extreme states on the closure; uniqueness on the pure states: fails; nothing is decided beyond the class R2b1
+[R2a2 | summary of the two reading lines above] access full on cells {h1, h2}; states 93585; pure ['(0, 0, 0, 1)', '(0, 0, 1, 0)', '(0, 1, 0, 0)', '(1, 0, 0, 0)']; existence holds for 4 states on the preparable set and for the extreme states on the closure; uniqueness on the pure states: fails; nothing is decided beyond the class R2a2
+[R2b2 | summary of the two reading lines above] access full on cells {h1, h2}; states 93585; pure ['(0, 0, 0, 1)', '(0, 0, 1, 0)', '(0, 1, 0, 0)', '(1, 0, 0, 0)']; existence holds for 4 states on the preparable set and for the extreme states on the closure; uniqueness on the pure states: fails; nothing is decided beyond the class R2b2
+[KSWAP | summary of the two reading lines above] access full on cells {h}; states 63; pure ['0', '1']; existence holds for 2 states on the preparable set and for the extreme states on the closure; uniqueness on the pure states: holds; nothing is decided beyond the class KSWAP
+[CLC4 | summary of the two reading lines above] access full on cells {h}; states 63; pure ['0', '1']; existence holds for 2 states on the preparable set and for the extreme states on the closure; uniqueness on the pure states: holds; nothing is decided beyond the class CLC4
+  live content under option (B), R1b: access full on cells {h} (full: True); its state set coincides with R1a's; the destructive read is reversible on states: False
+  live content under option (B), R2b1: access full on cells {h1, h2} (full: True); its state set coincides with R2a1's; the destructive read is reversible on states: False
+  live content under option (B), R2b2: access full on cells {h1, h2} (full: True); its state set coincides with R2a2's; the destructive read is reversible on states: False
+PASS  A1-SCOPE: no generated purification line names OI, QM or a general claim: offending []
+
+checks: 22 PASS, 0 FAIL
+P8S1  HOLDS

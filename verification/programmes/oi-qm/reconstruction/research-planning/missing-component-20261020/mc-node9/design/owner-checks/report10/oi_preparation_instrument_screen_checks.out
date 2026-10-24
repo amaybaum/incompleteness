@@ -1,0 +1,11 @@
+EXPLORATORY; not preregistered or independently reviewed.
+Four-state fixed-parity obstruction: negative weight -1/10; optimal three-probability error 1/15.
+Full-K purification diagnostic: closest allowed pure-composite marginal has TV error 1/5.
+Independent eight-state encoding: TV=1/2; rotated-outcome best error 1/10.
+Correlated repair: TV=3/4 passes; measurement target fails alpha-beta/2<=3/4.
+Target lhs=31/40; exact optimal probability error=1/60, attained at (5/6,1/6).
+Triple-correlation encoding: all three axes and rotated read fit exactly; direct triple-parity read perfectly distinguishes the preparations.
+Three independent noisy reads with retained outcomes and unchanged hidden sign: majority success=3757/4000; outcome gap=1757/2000.
+Quantum bound for these same-copy preparations is 1/sqrt(2) on any binary outcome gap; exact squared comparison violates it.
+Fixed noisy response cannot be a repeatable sharp instrument on this carrier: every posterior gives repeat probability <=17/20 for either recorded outcome.
+PASS: all exact checks. No native preparation, apparatus coupling, or composite completion supplied.

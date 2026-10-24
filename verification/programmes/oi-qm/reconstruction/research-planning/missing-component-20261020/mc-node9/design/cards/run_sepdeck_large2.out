@@ -1,0 +1,3 @@
+  SEPDECK d1=(4, 0) d2=(0, 4) A=2 B=2 FIXED POINT@7 nodes=1053 |PAB|=16 ext=16 M1wit(ext)=0 P(a1=R)= [0.1s]
+  SEPDECK d1=(3, 2) d2=(2, 3) A=2 B=2 FIXED POINT@16 nodes=34957 |PAB|=545 ext=16 M1wit(ext)=0 P(a1=R)= [86.4s]
+  SEPDECK d1=(4, 1) d2=(1, 4) A=2 B=2 FIXED POINT@16 nodes=20205 |PAB|=337 ext=16 M1wit(ext)=0 P(a1=R)= [11.1s]

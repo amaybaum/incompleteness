@@ -1,0 +1,2 @@
+m=2: cocycles with commutator 1*omega: 8; coboundaries: 2; classes: 4; order statistics of classes: Counter({((1, 1), (2, 5), (4, 2)): 3, ((1, 1), (2, 1), (4, 6)): 1})
+m=4: cocycles with commutator 2*omega: 64; coboundaries: 16; classes: 4; order statistics of classes: Counter({((1, 1), (2, 3), (4, 4), (8, 8)): 3, ((1, 1), (2, 7), (4, 8)): 1})

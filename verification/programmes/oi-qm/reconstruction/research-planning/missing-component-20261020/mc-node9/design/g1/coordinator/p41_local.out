@@ -1,0 +1,3 @@
+P4_1, local swap lifts, full: passing 4 of 256; == std QM over alphabet 4; (W6,W7) among passing: [(('1', '1'), 4)]
+P4_1, local swap lifts, {sA,c,rA,rB}: passing 32 of 256; == std QM over alphabet 16; (W6,W7) among passing: [(('0', '0'), 16), (('1', '1'), 16)]
+P4_1, local swap lifts, no sB: passing 32 of 256; == std QM over alphabet 16; (W6,W7) among passing: [(('0', '0'), 16), (('1', '1'), 16)]

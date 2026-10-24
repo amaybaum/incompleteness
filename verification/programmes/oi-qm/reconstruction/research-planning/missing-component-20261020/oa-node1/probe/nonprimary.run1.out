@@ -1,0 +1,16 @@
+PASS SPEC every native pair bijection equals sum_j omega^j Pi_j (projectors exact)
+PASS POS principal-log algebra of the 24 native pair bijections: dim 9 (x-screen P4 value), ones-fixing : dim 9, ones-fixing True
+PASS NP1 [K,CNOT]=0 and CNOT K = K (K inside the +1 eigenspace)
+PASS NP2 K is not a function of CNOT (K00 != K11 while CNOT acts identically on 00 and 01)
+PASS NP3 [L_p, K]=0 so exp(L_np)=exp(L_p)exp(2 pi i K)=CNOT*I exactly
+PASS NP4 U_p(1/2)^2 = CNOT and U_np(1/2)^2 = CNOT (both are half-period values of time-one CNOT flows)
+PASS NP5 U_p(1/2) fixes the uniform ray; U_np(1/2) does not
+PASS NP6 U_np(1/2) is not a scalar multiple of a real matrix (reality invariant broken)
+PASS NP7 principal logs + one non-primary CNOT log: dim 16 = u(4), not ones-fixing : dim 16, ones-fixing False
+PASS NEG0 J/4 is a projector commuting with CNOT, not a function of CNOT
+PASS NEG non-primary log with K = J/4 keeps the algebra ones-fixing (the test can say ones-fixing on a non-primary log) : dim 10
+PASS E0 exp((1/4)*2 pi i E00) = diag(i,1,1,1), the quarter phase (I + (i-1)E00)
+PASS KNOB K' = |v><v| (v in +1 eigenspace) admissible and gives a different half-period flow
+PASS IDN K=|+><+|(x)I is a projector; exp((1/4)2 pi i K) is non-monomial and its 4th power is I (an interpolation of doing nothing)
+SUMMARY 14/14 PASS
+VERDICT R2-STROB: the ones-fixing exclusion of stroboscopic interpolation is branch-relative: with the principal logarithm the native algebra is ones-fixing (dim 9); one non-primary logarithm of CNOT, exact at integer times, gives dim 16 and leaves the uniform ray, and the non-primary freedom contains the posited quarter phase (E0 control).

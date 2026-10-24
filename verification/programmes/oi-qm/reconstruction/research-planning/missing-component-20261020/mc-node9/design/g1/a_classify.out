@@ -1,0 +1,27 @@
+== n=1, C=Z2: normalized cocycles with commutator 1*omega: 8 ; classes mod coboundary: 4
+   class rep beta(X,Z)=0 beta(Z,X)=1 diag(X,Z,Y)=(0,1,0) | order hist {1: 1, 2: 5, 4: 2} D4 | squares of lifts {'X': [0], 'Z': [1], 'Y': [0]} | recordable relations ['X', 'Y']
+   class rep beta(X,Z)=0 beta(Z,X)=1 diag(X,Z,Y)=(1,0,0) | order hist {1: 1, 2: 5, 4: 2} D4 | squares of lifts {'X': [1], 'Z': [0], 'Y': [0]} | recordable relations ['Z', 'Y']
+   class rep beta(X,Z)=0 beta(Z,X)=1 diag(X,Z,Y)=(1,1,1) | order hist {1: 1, 2: 1, 4: 6} Q8 | squares of lifts {'X': [1], 'Z': [1], 'Y': [1]} | recordable relations []
+   class rep beta(X,Z)=0 beta(Z,X)=1 diag(X,Z,Y)=(0,0,1) | order hist {1: 1, 2: 5, 4: 2} D4 | squares of lifts {'X': [0], 'Z': [0], 'Y': [1]} | recordable relations ['X', 'Z']
+== n=1, C=Z4: normalized cocycles with commutator 2*omega: 64 ; classes mod coboundary: 4
+   class rep beta(X,Z)=0 beta(Z,X)=2 diag(X,Z,Y)=(1,1,0) | order hist {1: 1, 2: 3, 4: 4, 8: 8}  | squares of lifts {'X': [1, 3], 'Z': [1, 3], 'Y': [0, 2]} | recordable relations ['Y']
+   class rep beta(X,Z)=0 beta(Z,X)=2 diag(X,Z,Y)=(0,1,3) | order hist {1: 1, 2: 3, 4: 4, 8: 8}  | squares of lifts {'X': [0, 2], 'Z': [1, 3], 'Y': [1, 3]} | recordable relations ['X']
+   class rep beta(X,Z)=0 beta(Z,X)=2 diag(X,Z,Y)=(1,0,3) | order hist {1: 1, 2: 3, 4: 4, 8: 8}  | squares of lifts {'X': [1, 3], 'Z': [0, 2], 'Y': [1, 3]} | recordable relations ['Z']
+   class rep beta(X,Z)=0 beta(Z,X)=2 diag(X,Z,Y)=(0,0,2) | order hist {1: 1, 2: 7, 4: 8}  | squares of lifts {'X': [0, 2], 'Z': [0, 2], 'Y': [0, 2]} | recordable relations ['X', 'Z', 'Y']
+== n=1, C=Z2: 4 representatives, 4 distinct square-invariants (=> pairwise inequivalent); |Ext(V,C)| = 4
+   order histogram {1: 1, 2: 5, 4: 2} : 3 classes
+   order histogram {1: 1, 2: 1, 4: 6} : 1 classes
+   classes in which every elementary relation (X_j, Z_j) is recordable (has an involutive lift): [(0, 0)]
+== n=1, C=Z4: 4 representatives, 4 distinct square-invariants (=> pairwise inequivalent); |Ext(V,C)| = 4
+   order histogram {1: 1, 2: 7, 4: 8} : 1 classes
+   order histogram {1: 1, 2: 3, 4: 4, 8: 8} : 3 classes
+   classes in which every elementary relation (X_j, Z_j) is recordable (has an involutive lift): [(0, 0)]
+== n=2, C=Z2: 16 representatives, 16 distinct square-invariants (=> pairwise inequivalent); |Ext(V,C)| = 16
+   order histogram {1: 1, 2: 19, 4: 12} : 10 classes
+   order histogram {1: 1, 2: 11, 4: 20} : 6 classes
+   classes in which every elementary relation (X_j, Z_j) is recordable (has an involutive lift): [(0, 0, 0, 0)]
+   Arf invariant counts {0: plus-type 2^{1+4}_+, 1: minus-type}: {0: 10, 1: 6}
+== n=2, C=Z4: 16 representatives, 16 distinct square-invariants (=> pairwise inequivalent); |Ext(V,C)| = 16
+   order histogram {1: 1, 2: 31, 4: 32} : 1 classes
+   order histogram {1: 1, 2: 15, 4: 16, 8: 32} : 15 classes
+   classes in which every elementary relation (X_j, Z_j) is recordable (has an involutive lift): [(0, 0, 0, 0)]

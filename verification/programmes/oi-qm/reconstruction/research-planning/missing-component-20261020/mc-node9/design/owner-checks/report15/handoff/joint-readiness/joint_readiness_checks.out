@@ -1,0 +1,26 @@
+Shared readiness: 22 fixed initial bits; probability 1/4194304; D(1)=A(1)B(1)
+tick 1 source frontier: 1,1; past exclusion: PASS; detector pair coefficient: 1
+tick 2 source frontier: 1,1; past exclusion: PASS; detector pair coefficient: 0
+tick 3 source frontier: 1,1; past exclusion: PASS; detector pair coefficient: 1
+tick 4 source frontier: 1,1; past exclusion: PASS; detector pair coefficient: 0
+tick 5 source frontier: 1,1; past exclusion: PASS; detector pair coefficient: 1
+tick 6 source frontier: 1,1; past exclusion: PASS; detector pair coefficient: 0
+Even-tick raw AND error: at least 1/4, for each fixed remainder of the initial state
+Native torus slice: tick 1 all 1 past-record classes have uniform next source pair
+Native torus slice: tick 2 all 4 past-record classes have uniform next source pair
+Native torus slice: tick 3 all 32 past-record classes have uniform next source pair
+Same-tick selection countercontrol: D(1)=1 forces source pair 11; TV from uniform=3/4
+Completely blank detector, tick 2 : raw AND error exactly 1/4 on the frontier slice
+Completely blank detector, tick 4 : raw AND error exactly 1/4 on the frontier slice
+Completely blank detector, tick 6 : raw AND error exactly 1/4 on the frontier slice
+Completely blank detector, tick 8 : raw AND error exactly 1/4 on the frontier slice
+Odd-tick countercontrol: distinct distance-three pulses give (A,B,D)=(1,1,0) at tick 3
+Neighbor access countercontrol: next source pair deterministic; TV from uniform=3/4
+Without the ten source-neighbor zero constraints: P(D=1)=63/128; P(A=1|D=1)=32/63
+Tick 2, completely blank detector: error rank 12; raw AND error 4095/8192
+Tick 2, local readiness only: independent detector mask; raw AND error 1/2
+Repaired local rule: 4096/4096 phases invert; all 256 clean phases track D=AB for 8 ticks
+Repaired-rule countercontrol: a nonzero C=D XOR AB wave causes a raw-product error
+Full cubic repair: 21-variable symbolic identity and 16 phases x 8 native ticks agree
+Selection countercontrol: all 16 two-input Boolean functions track exactly under their conjugated rules
+PASS: original repeated gate fails; conjugated local repair works with its different readiness

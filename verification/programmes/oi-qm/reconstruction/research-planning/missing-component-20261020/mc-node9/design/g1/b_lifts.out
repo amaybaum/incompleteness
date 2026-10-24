@@ -1,0 +1,42 @@
+== n=2, C=Z2
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=0000 |Inn|=16  swap0:16 lifts =L0*Inn  swap1:16 lifts =L0*Inn  couple:16 lifts =L0*Inn  phase0:0 lifts
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=0001 |Inn|=16  swap0:16 lifts =L0*Inn  swap1:0 lifts  couple:16 lifts =L0*Inn  phase0:0 lifts
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=0010 |Inn|=16  swap0:16 lifts =L0*Inn  swap1:0 lifts  couple:0 lifts  phase0:0 lifts
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=0011 |Inn|=16  swap0:16 lifts =L0*Inn  swap1:16 lifts =L0*Inn  couple:0 lifts  phase0:0 lifts
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=0100 |Inn|=16  swap0:0 lifts  swap1:16 lifts =L0*Inn  couple:0 lifts  phase0:16 lifts =L0*Inn
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=0101 |Inn|=16  swap0:0 lifts  swap1:0 lifts  couple:0 lifts  phase0:16 lifts =L0*Inn
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=0110 |Inn|=16  swap0:0 lifts  swap1:0 lifts  couple:0 lifts  phase0:16 lifts =L0*Inn
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=0111 |Inn|=16  swap0:0 lifts  swap1:16 lifts =L0*Inn  couple:0 lifts  phase0:16 lifts =L0*Inn
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=1000 |Inn|=16  swap0:0 lifts  swap1:16 lifts =L0*Inn  couple:16 lifts =L0*Inn  phase0:0 lifts
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=1001 |Inn|=16  swap0:0 lifts  swap1:0 lifts  couple:16 lifts =L0*Inn  phase0:0 lifts
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=1010 |Inn|=16  swap0:0 lifts  swap1:0 lifts  couple:0 lifts  phase0:0 lifts
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=1011 |Inn|=16  swap0:0 lifts  swap1:16 lifts =L0*Inn  couple:0 lifts  phase0:0 lifts
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=1100 |Inn|=16  swap0:16 lifts =L0*Inn  swap1:16 lifts =L0*Inn  couple:0 lifts  phase0:16 lifts =L0*Inn
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=1101 |Inn|=16  swap0:16 lifts =L0*Inn  swap1:0 lifts  couple:0 lifts  phase0:16 lifts =L0*Inn
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=1110 |Inn|=16  swap0:16 lifts =L0*Inn  swap1:0 lifts  couple:0 lifts  phase0:16 lifts =L0*Inn
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=1111 |Inn|=16  swap0:16 lifts =L0*Inn  swap1:16 lifts =L0*Inn  couple:0 lifts  phase0:16 lifts =L0*Inn
+  classes admitting lifts of all of ['swap0', 'couple']: ['0000', '0001']
+  classes admitting lifts of all of ['swap0', 'swap1', 'couple']: ['0000']
+  classes admitting lifts of all of ['swap0', 'swap1', 'couple', 'phase0']: []
+  classes admitting lifts of all of ['swap0', 'phase0']: ['1100', '1101', '1110', '1111']
+== n=2, C=Z4
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=0000 |Inn|=16  swap0:16 lifts =L0*Inn (+16 inverting C)  swap1:16 lifts =L0*Inn (+16 inverting C)  couple:16 lifts =L0*Inn (+16 inverting C)  phase0:16 lifts =L0*Inn (+16 inverting C)
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=0001 |Inn|=16  swap0:16 lifts =L0*Inn (+16 inverting C)  swap1:0 lifts (+0 inverting C)  couple:16 lifts =L0*Inn (+16 inverting C)  phase0:16 lifts =L0*Inn (+16 inverting C)
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=0010 |Inn|=16  swap0:16 lifts =L0*Inn (+16 inverting C)  swap1:0 lifts (+0 inverting C)  couple:0 lifts (+0 inverting C)  phase0:16 lifts =L0*Inn (+16 inverting C)
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=0011 |Inn|=16  swap0:16 lifts =L0*Inn (+16 inverting C)  swap1:16 lifts =L0*Inn (+16 inverting C)  couple:0 lifts (+0 inverting C)  phase0:16 lifts =L0*Inn (+16 inverting C)
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=0100 |Inn|=16  swap0:0 lifts (+0 inverting C)  swap1:16 lifts =L0*Inn (+16 inverting C)  couple:0 lifts (+0 inverting C)  phase0:0 lifts (+0 inverting C)
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=0101 |Inn|=16  swap0:0 lifts (+0 inverting C)  swap1:0 lifts (+0 inverting C)  couple:0 lifts (+0 inverting C)  phase0:0 lifts (+0 inverting C)
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=0110 |Inn|=16  swap0:0 lifts (+0 inverting C)  swap1:0 lifts (+0 inverting C)  couple:0 lifts (+0 inverting C)  phase0:0 lifts (+0 inverting C)
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=0111 |Inn|=16  swap0:0 lifts (+0 inverting C)  swap1:16 lifts =L0*Inn (+16 inverting C)  couple:0 lifts (+0 inverting C)  phase0:0 lifts (+0 inverting C)
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=1000 |Inn|=16  swap0:0 lifts (+0 inverting C)  swap1:16 lifts =L0*Inn (+16 inverting C)  couple:16 lifts =L0*Inn (+16 inverting C)  phase0:16 lifts =L0*Inn (+16 inverting C)
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=1001 |Inn|=16  swap0:0 lifts (+0 inverting C)  swap1:0 lifts (+0 inverting C)  couple:16 lifts =L0*Inn (+16 inverting C)  phase0:16 lifts =L0*Inn (+16 inverting C)
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=1010 |Inn|=16  swap0:0 lifts (+0 inverting C)  swap1:0 lifts (+0 inverting C)  couple:0 lifts (+0 inverting C)  phase0:16 lifts =L0*Inn (+16 inverting C)
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=1011 |Inn|=16  swap0:0 lifts (+0 inverting C)  swap1:16 lifts =L0*Inn (+16 inverting C)  couple:0 lifts (+0 inverting C)  phase0:16 lifts =L0*Inn (+16 inverting C)
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=1100 |Inn|=16  swap0:16 lifts =L0*Inn (+16 inverting C)  swap1:16 lifts =L0*Inn (+16 inverting C)  couple:0 lifts (+0 inverting C)  phase0:0 lifts (+0 inverting C)
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=1101 |Inn|=16  swap0:16 lifts =L0*Inn (+16 inverting C)  swap1:0 lifts (+0 inverting C)  couple:0 lifts (+0 inverting C)  phase0:0 lifts (+0 inverting C)
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=1110 |Inn|=16  swap0:16 lifts =L0*Inn (+16 inverting C)  swap1:0 lifts (+0 inverting C)  couple:0 lifts (+0 inverting C)  phase0:0 lifts (+0 inverting C)
+  class [squares mod 2 on gens (xA,zA,xB,zB)]=1111 |Inn|=16  swap0:16 lifts =L0*Inn (+16 inverting C)  swap1:16 lifts =L0*Inn (+16 inverting C)  couple:0 lifts (+0 inverting C)  phase0:0 lifts (+0 inverting C)
+  classes admitting lifts of all of ['swap0', 'couple']: ['0000', '0001']
+  classes admitting lifts of all of ['swap0', 'swap1', 'couple']: ['0000']
+  classes admitting lifts of all of ['swap0', 'swap1', 'couple', 'phase0']: ['0000']
+  classes admitting lifts of all of ['swap0', 'phase0']: ['0000', '0001', '0010', '0011']

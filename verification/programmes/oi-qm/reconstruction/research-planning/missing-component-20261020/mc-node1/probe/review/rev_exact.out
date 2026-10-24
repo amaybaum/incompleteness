@@ -1,0 +1,16 @@
+PASS A0 X|-i> = c|+i> with c = -I (|c|=1)
+PASS A1 both Y-test branches on |0> (with X on -i) are prop. to |+i>, each weight 1/2
+PASS A2 branch w   = c_w  R_x(-2phi), c_w=sqrt(2)/2, |c_w|^2=1/2
+PASS A3 branch w_perp (after X) = c R_x(-2phi), c=sqrt(2)*I/2, |c|^2=1/2
+PASS A4 control: uncorrected w_perp branch is prop. to X R_x(-2phi), not to R_x(-2phi) (generic phi)
+PASS A5 unit(X,t) = e^{i pi t/2} R_x(pi t): c=(exp(I*pi*t) + 1)/(2*cos(pi*t/2))
+PASS A6 phi = -pi t/2 gives R_x(-2phi) = R_x(pi t): conjugation equals conj by gateFlow X t for every real t
+PASS A7 with a spectator token, branch = (c R_x) (x) I exactly
+PASS B1 unsharp Lueders E0=diag(1/4,3/4): explicit split decomposition (s0=-1 + sqrt(3), s1=-1 + sqrt(3), L=2) gives the same instrument and sum K^H 1 = 1, i.e. OnesNormal HOLDS
+PASS B2 the node's B6 unsharp instrument: 1 lies in span{K^H 1} (rank 2), so OnesNormal HOLDS for it under splitting
+PASS B3 control: Z^H 1 not prop. 1 -> unitary channel Z is not OnesNormal
+PASS B4 control: deterministic |-> preparation has all K^H 1 = 0 -> not OnesNormal
+PASS B5 replace-by-|+i> channel: 1 in span{K^H 1} -> OnesNormal (not a ray breaker)
+PASS B6 rank-1 token projector = E^H W F with ones-compatible E,F, W=1: in onesClass
+PASS B6 P(v) (x) I on two tokens = E^H W F with ones-compatible E,F, W=1: in onesClass
+SUMMARY 15 PASS 0 FAIL

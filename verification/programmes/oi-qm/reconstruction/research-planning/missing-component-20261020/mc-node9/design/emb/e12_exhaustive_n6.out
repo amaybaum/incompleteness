@@ -1,0 +1,361 @@
+=== n = 2: 2 graphs up to isomorphism; orders of M: {2: 1, 6: 1}
+  decl=FULL |R|=1 toy conn: cases:2 minF=1:2 minH=1:2
+  decl=FULL |R|=1 toy disc: cases:2 minF=4:2 minH=4:2
+  decl=NONE |R|=1 toy conn: cases:2 minF=4:2 minH=1:2 never(conn):2 persist:2
+  decl=NONE |R|=1 toy disc: cases:2 minF=4:2 minH=4:2
+  decl=U    |R|=1 toy conn: cases:2 minF=2:2 minH=1:2 never(conn):2 persist:2
+  decl=U    |R|=1 toy disc: cases:2 minF=4:2 minH=4:2
+  decl=V    |R|=1 toy conn: cases:2 minF=2:2 minH=1:2 never(conn):2 persist:2
+  decl=V    |R|=1 toy disc: cases:2 minF=4:2 minH=4:2
+  earliest 'old record kept, current toy uncertain' (initial toy determined by final memory, current toy support >= 2) decl=NONE: t=3 |R|=1 edges=((0, 1),) R=(0,) toy=1
+  earliest 'old record kept, current toy uncertain' (initial toy determined by final memory, current toy support >= 2) decl=U: t=3 |R|=1 edges=((0, 1),) R=(0,) toy=1
+  earliest 'old record kept, current toy uncertain' (initial toy determined by final memory, current toy support >= 2) decl=V: t=2 |R|=1 edges=((0, 1),) R=(0,) toy=1
+  by inner boundary: decl=FULL |R|=1 |inner boundary|=1: cases:2 maxgain=1:2 maxgain|prior4=1:2
+  by inner boundary: decl=NONE |R|=1 |inner boundary|=1: cases:2 maxgain=0:2 maxgain|prior4=0:2
+  by inner boundary: decl=U    |R|=1 |inner boundary|=1: cases:2 maxgain=1:2 maxgain|prior4=1:2
+  by inner boundary: decl=V    |R|=1 |inner boundary|=1: cases:2 maxgain=1:2 maxgain|prior4=1:2
+  [elapsed 0 s]
+=== n = 3: 4 graphs up to isomorphism; orders of M: {2: 1, 6: 2, 8: 1}
+  decl=FULL |R|=1 toy conn: cases:14 minF=1:4 minF=2:2 minF=4:8 minH=1:6 minH=4:8 never(conn):10
+  decl=FULL |R|=1 toy disc: cases:10 minF=4:10 minH=4:10
+  decl=FULL |R|=2 toy conn: cases:8 dist:known:4 learn:4 minF=1:8 minH=1:8
+  decl=FULL |R|=2 toy disc: cases:4 minF=4:4 minH=4:4
+  decl=NONE |R|=1 toy conn: cases:14 minF=4:14 minH=1:6 minH=4:8 never(conn):14 persist:4
+  decl=NONE |R|=1 toy disc: cases:10 minF=4:10 minH=4:10
+  decl=NONE |R|=2 toy conn: cases:8 minF=4:8 minH=1:8 never(conn):8 persist:4
+  decl=NONE |R|=2 toy disc: cases:4 minF=4:4 minH=4:4
+  decl=U    |R|=1 toy conn: cases:14 minF=2:6 minF=4:8 minH=1:6 minH=4:8 never(conn):14 persist:4
+  decl=U    |R|=1 toy disc: cases:10 minF=4:10 minH=4:10
+  decl=U    |R|=2 toy conn: cases:8 dist:in memory:2 learn:2 minF=1:2 minF=2:6 minH=1:8 never(conn):6 persist:4
+  decl=U    |R|=2 toy disc: cases:4 minF=4:4 minH=4:4
+  decl=V    |R|=1 toy conn: cases:14 minF=2:6 minF=4:8 minH=1:6 minH=4:8 never(conn):14 persist:4
+  decl=V    |R|=1 toy disc: cases:10 minF=4:10 minH=4:10
+  decl=V    |R|=2 toy conn: cases:8 dist:in memory:2 learn:2 minF=1:2 minF=2:6 minH=1:8 never(conn):6 persist:4
+  decl=V    |R|=2 toy disc: cases:4 minF=4:4 minH=4:4
+  earliest learning reconstruction decl=FULL |R|=2: t=2 edges=((0, 1), (0, 2)) R=(1, 2) toy=0 toy-has-hidden-neighbour=False
+  earliest learning reconstruction decl=U |R|=2: t=3 edges=((0, 1), (0, 2)) R=(0, 1) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction decl=V |R|=2: t=2 edges=((0, 1), (0, 2)) R=(0, 1) toy=2 toy-has-hidden-neighbour=False
+  earliest 'old record kept, current toy uncertain' (initial toy determined by final memory, current toy support >= 2) decl=NONE: t=3 |R|=1 edges=((0, 1),) R=(0,) toy=1
+  earliest 'old record kept, current toy uncertain' (initial toy determined by final memory, current toy support >= 2) decl=U: t=3 |R|=1 edges=((0, 1),) R=(0,) toy=1
+  earliest 'old record kept, current toy uncertain' (initial toy determined by final memory, current toy support >= 2) decl=V: t=2 |R|=1 edges=((0, 1),) R=(0,) toy=1
+  by inner boundary: decl=FULL |R|=1 |inner boundary|=1: cases:14 maxgain=0:10 maxgain=1:4 maxgain|prior4=0:10 maxgain|prior4=1:4
+  by inner boundary: decl=FULL |R|=2 |inner boundary|=1: cases:4 maxgain=1:4 maxgain|prior4=1:4
+  by inner boundary: decl=FULL |R|=2 |inner boundary|=2: cases:4 learn:4 maxgain=2:4 maxgain|prior4=2:4
+  by inner boundary: decl=NONE |R|=1 |inner boundary|=1: cases:14 maxgain=0:14 maxgain|prior4=0:14
+  by inner boundary: decl=NONE |R|=2 |inner boundary|=1: cases:4 maxgain=0:4 maxgain|prior4=0:4
+  by inner boundary: decl=NONE |R|=2 |inner boundary|=2: cases:4 maxgain=0:4 maxgain|prior4=0:4
+  by inner boundary: decl=U    |R|=1 |inner boundary|=1: cases:14 maxgain=0:10 maxgain=1:4 maxgain|prior4=0:10 maxgain|prior4=1:4
+  by inner boundary: decl=U    |R|=2 |inner boundary|=1: cases:4 learn:2 maxgain=1:2 maxgain=2:2 maxgain|prior4=1:2 maxgain|prior4=2:2
+  by inner boundary: decl=U    |R|=2 |inner boundary|=2: cases:4 maxgain=1:4 maxgain|prior4=1:4
+  by inner boundary: decl=V    |R|=1 |inner boundary|=1: cases:14 maxgain=0:10 maxgain=1:4 maxgain|prior4=0:10 maxgain|prior4=1:4
+  by inner boundary: decl=V    |R|=2 |inner boundary|=1: cases:4 learn:2 maxgain=1:2 maxgain=2:2 maxgain|prior4=1:2 maxgain|prior4=2:2
+  by inner boundary: decl=V    |R|=2 |inner boundary|=2: cases:4 maxgain=1:4 maxgain|prior4=1:4
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=U |R|=2: t=3 edges=((0, 1), (0, 2)) R=(0, 1) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=V |R|=2: t=2 edges=((0, 1), (0, 2)) R=(0, 1) toy=2 toy-has-hidden-neighbour=False
+  [elapsed 0 s]
+=== n = 4: 11 graphs up to isomorphism; orders of M: {2: 1, 4: 1, 6: 6, 8: 1, 10: 1, 12: 1}
+  decl=FULL |R|=1 toy conn: cases:90 minF=1:12 minF=2:12 minF=4:66 minH=1:35 minH=4:55 never(conn):78
+  decl=FULL |R|=1 toy disc: cases:42 minF=4:42 minH=4:42
+  decl=FULL |R|=2 toy conn: cases:102 dist:in memory:30 dist:known:4 learn:34 learn&bath:22 minF=1:56 minF=2:6 minF=4:40 minH=1:66 minH=4:36 never(conn):46
+  decl=FULL |R|=2 toy disc: cases:30 minF=4:30 minH=4:30
+  decl=FULL |R|=3 toy conn: cases:36 dist:known:16 learn:16 minF=1:36 minH=1:36
+  decl=FULL |R|=3 toy disc: cases:8 minF=4:8 minH=4:8
+  decl=NONE |R|=1 toy conn: cases:90 minF=4:90 minH=1:35 minH=4:55 never(conn):90 persist:12
+  decl=NONE |R|=1 toy disc: cases:42 minF=4:42 minH=4:42
+  decl=NONE |R|=2 toy conn: cases:102 minF=4:102 minH=1:66 minH=4:36 never(conn):102 persist:24
+  decl=NONE |R|=2 toy disc: cases:30 minF=4:30 minH=4:30
+  decl=NONE |R|=3 toy conn: cases:36 minF=4:36 minH=1:36 never(conn):36 persist:26
+  decl=NONE |R|=3 toy disc: cases:8 minF=4:8 minH=4:8
+  decl=U    |R|=1 toy conn: cases:90 minF=2:20 minF=4:70 minH=1:35 minH=4:55 never(conn):90 persist:12
+  decl=U    |R|=1 toy disc: cases:42 minF=4:42 minH=4:42
+  decl=U    |R|=2 toy conn: cases:102 dist:in memory:2 learn:2 minF=1:2 minF=2:60 minF=4:40 minH=1:66 minH=4:36 never(conn):100 persist:26
+  decl=U    |R|=2 toy disc: cases:30 minF=4:30 minH=4:30
+  decl=U    |R|=3 toy conn: cases:36 dist:in memory:15 learn:15 minF=1:15 minF=2:21 minH=1:36 never(conn):21 persist:19
+  decl=U    |R|=3 toy disc: cases:8 minF=4:8 minH=4:8
+  decl=V    |R|=1 toy conn: cases:90 minF=2:20 minF=4:70 minH=1:35 minH=4:55 never(conn):90 persist:12
+  decl=V    |R|=1 toy disc: cases:42 minF=4:42 minH=4:42
+  decl=V    |R|=2 toy conn: cases:102 dist:in memory:2 learn:2 minF=1:2 minF=2:60 minF=4:40 minH=1:66 minH=4:36 never(conn):100 persist:26
+  decl=V    |R|=2 toy disc: cases:30 minF=4:30 minH=4:30
+  decl=V    |R|=3 toy conn: cases:36 dist:in memory:15 learn:15 minF=1:15 minF=2:21 minH=1:36 never(conn):21 persist:19
+  decl=V    |R|=3 toy disc: cases:8 minF=4:8 minH=4:8
+  earliest learning reconstruction decl=FULL |R|=2: t=2 edges=((0, 1), (0, 2)) R=(1, 2) toy=0 toy-has-hidden-neighbour=False
+  earliest learning reconstruction decl=FULL |R|=3: t=2 edges=((0, 1), (0, 2)) R=(1, 2, 3) toy=0 toy-has-hidden-neighbour=False
+  earliest learning reconstruction decl=U |R|=2: t=3 edges=((0, 1), (0, 2)) R=(0, 1) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction decl=U |R|=3: t=3 edges=((0, 1), (0, 2)) R=(0, 1, 3) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction decl=V |R|=2: t=2 edges=((0, 1), (0, 2)) R=(0, 1) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction decl=V |R|=3: t=2 edges=((0, 1), (0, 2)) R=(0, 1, 3) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction with a hidden bath neighbour decl=FULL |R|=2: t=2 edges=((0, 1), (0, 3), (1, 2)) R=(2, 3) toy=0
+  earliest 'old record kept, current toy uncertain' (initial toy determined by final memory, current toy support >= 2) decl=NONE: t=3 |R|=1 edges=((0, 1),) R=(0,) toy=1
+  earliest 'old record kept, current toy uncertain' (initial toy determined by final memory, current toy support >= 2) decl=U: t=3 |R|=1 edges=((0, 1),) R=(0,) toy=1
+  earliest 'old record kept, current toy uncertain' (initial toy determined by final memory, current toy support >= 2) decl=V: t=2 |R|=1 edges=((0, 1),) R=(0,) toy=1
+  by inner boundary: decl=FULL |R|=1 |inner boundary|=1: cases:90 maxgain=0:74 maxgain=1:16 maxgain|prior4=0:74 maxgain|prior4=1:16
+  by inner boundary: decl=FULL |R|=2 |inner boundary|=1: cases:30 maxgain=0:20 maxgain=1:10 maxgain|prior4=0:20 maxgain|prior4=1:10
+  by inner boundary: decl=FULL |R|=2 |inner boundary|=2: cases:72 learn:34 maxgain=0:24 maxgain=1:14 maxgain=2:34 maxgain|prior4=0:24 maxgain|prior4=1:14 maxgain|prior4=2:34
+  by inner boundary: decl=FULL |R|=3 |inner boundary|=1: cases:14 learn:1 maxgain=1:13 maxgain=2:1 maxgain|prior4=1:13 maxgain|prior4=2:1
+  by inner boundary: decl=FULL |R|=3 |inner boundary|=2: cases:14 learn:14 maxgain=2:14 maxgain|prior4=2:14
+  by inner boundary: decl=FULL |R|=3 |inner boundary|=3: cases:8 learn:1 maxgain=1:7 maxgain=2:1 maxgain|prior4=1:7 maxgain|prior4=2:1
+  by inner boundary: decl=NONE |R|=1 |inner boundary|=1: cases:90 maxgain=0:90 maxgain|prior4=0:90
+  by inner boundary: decl=NONE |R|=2 |inner boundary|=1: cases:30 maxgain=0:30 maxgain|prior4=0:30
+  by inner boundary: decl=NONE |R|=2 |inner boundary|=2: cases:72 maxgain=0:72 maxgain|prior4=0:72
+  by inner boundary: decl=NONE |R|=3 |inner boundary|=1: cases:14 maxgain=0:14 maxgain|prior4=0:14
+  by inner boundary: decl=NONE |R|=3 |inner boundary|=2: cases:14 maxgain=0:14 maxgain|prior4=0:14
+  by inner boundary: decl=NONE |R|=3 |inner boundary|=3: cases:8 maxgain=0:8 maxgain|prior4=0:8
+  by inner boundary: decl=U    |R|=1 |inner boundary|=1: cases:90 maxgain=0:76 maxgain=1:14 maxgain|prior4=0:76 maxgain|prior4=1:14
+  by inner boundary: decl=U    |R|=2 |inner boundary|=1: cases:30 learn:2 maxgain=0:20 maxgain=1:8 maxgain=2:2 maxgain|prior4=0:20 maxgain|prior4=1:8 maxgain|prior4=2:2
+  by inner boundary: decl=U    |R|=2 |inner boundary|=2: cases:72 maxgain=0:24 maxgain=1:48 maxgain|prior4=0:24 maxgain|prior4=1:48
+  by inner boundary: decl=U    |R|=3 |inner boundary|=1: cases:14 learn:8 maxgain=1:6 maxgain=2:8 maxgain|prior4=1:6 maxgain|prior4=2:8
+  by inner boundary: decl=U    |R|=3 |inner boundary|=2: cases:14 learn:4 maxgain=1:10 maxgain=2:4 maxgain|prior4=1:10 maxgain|prior4=2:4
+  by inner boundary: decl=U    |R|=3 |inner boundary|=3: cases:8 learn:3 maxgain=1:5 maxgain=2:3 maxgain|prior4=1:5 maxgain|prior4=2:3
+  by inner boundary: decl=V    |R|=1 |inner boundary|=1: cases:90 maxgain=0:76 maxgain=1:14 maxgain|prior4=0:76 maxgain|prior4=1:14
+  by inner boundary: decl=V    |R|=2 |inner boundary|=1: cases:30 learn:2 maxgain=0:20 maxgain=1:8 maxgain=2:2 maxgain|prior4=0:20 maxgain|prior4=1:8 maxgain|prior4=2:2
+  by inner boundary: decl=V    |R|=2 |inner boundary|=2: cases:72 maxgain=0:24 maxgain=1:48 maxgain|prior4=0:24 maxgain|prior4=1:48
+  by inner boundary: decl=V    |R|=3 |inner boundary|=1: cases:14 learn:8 maxgain=1:6 maxgain=2:8 maxgain|prior4=1:6 maxgain|prior4=2:8
+  by inner boundary: decl=V    |R|=3 |inner boundary|=2: cases:14 learn:4 maxgain=1:10 maxgain=2:4 maxgain|prior4=1:10 maxgain|prior4=2:4
+  by inner boundary: decl=V    |R|=3 |inner boundary|=3: cases:8 learn:3 maxgain=1:5 maxgain=2:3 maxgain|prior4=1:5 maxgain|prior4=2:3
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=FULL |R|=3: t=5 edges=((0, 1), (0, 2), (0, 3), (1, 2)) R=(0, 1, 2) toy=3 toy-has-hidden-neighbour=False
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=U |R|=2: t=3 edges=((0, 1), (0, 2)) R=(0, 1) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=U |R|=3: t=3 edges=((0, 1), (0, 2)) R=(0, 1, 3) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=V |R|=2: t=2 edges=((0, 1), (0, 2)) R=(0, 1) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=V |R|=3: t=2 edges=((0, 1), (0, 2)) R=(0, 1, 3) toy=2 toy-has-hidden-neighbour=False
+  [elapsed 0 s]
+=== n = 5: 34 graphs up to isomorphism; orders of M: {2: 1, 4: 1, 6: 11, 8: 4, 10: 4, 12: 3, 16: 3, 24: 7}
+  decl=FULL |R|=1 toy conn: cases:526 minF=1:36 minF=2:45 minF=4:445 minH=1:167 minH=4:359 never(conn):490
+  decl=FULL |R|=1 toy disc: cases:154 minF=4:154 minH=4:154
+  decl=FULL |R|=2 toy conn: cases:864 dist:in memory:128 dist:known:16 dist:not in memory:22 learn:166 learn&bath:116 minF=1:241 minF=2:183 minF=4:440 minH=1:504 minH=4:360 never(conn):623
+  decl=FULL |R|=2 toy disc: cases:156 minF=4:156 minH=4:156
+  decl=FULL |R|=3 toy conn: cases:594 dist:in memory:272 dist:known:84 learn:356 learn&bath:212 minF=1:437 minF=2:15 minF=4:142 minH=1:458 minH=4:136 never(conn):157
+  decl=FULL |R|=3 toy disc: cases:86 minF=4:86 minH=4:86
+  decl=FULL |R|=4 toy conn: cases:151 dist:known:95 learn:95 minF=1:151 minH=1:151
+  decl=FULL |R|=4 toy disc: cases:19 minF=4:19 minH=4:19
+  decl=NONE |R|=1 toy conn: cases:526 minF=4:526 minH=1:167 minH=4:359 never(conn):526 persist:36
+  decl=NONE |R|=1 toy disc: cases:154 minF=4:154 minH=4:154
+  decl=NONE |R|=2 toy conn: cases:864 minF=4:864 minH=1:504 minH=4:360 never(conn):864 persist:108
+  decl=NONE |R|=2 toy disc: cases:156 minF=4:156 minH=4:156
+  decl=NONE |R|=3 toy conn: cases:594 minF=4:594 minH=1:458 minH=4:136 never(conn):594 persist:162
+  decl=NONE |R|=3 toy disc: cases:86 minF=4:86 minH=4:86
+  decl=NONE |R|=4 toy conn: cases:151 minF=4:151 minH=1:151 never(conn):151 persist:92
+  decl=NONE |R|=4 toy disc: cases:19 minF=4:19 minH=4:19
+  decl=U    |R|=1 toy conn: cases:526 minF=2:73 minF=4:453 minH=1:167 minH=4:359 never(conn):526 persist:36
+  decl=U    |R|=1 toy disc: cases:154 minF=4:154 minH=4:154
+  decl=U    |R|=2 toy conn: cases:864 dist:in memory:6 dist:not in memory:2 learn:8 learn&bath:4 minF=1:8 minF=2:350 minF=4:506 minH=1:504 minH=4:360 never(conn):856 persist:114
+  decl=U    |R|=2 toy disc: cases:156 minF=4:156 minH=4:156
+  decl=U    |R|=3 toy conn: cases:594 dist:in memory:52 dist:not in memory:43 learn:95 learn&bath:35 minF=1:95 minF=2:357 minF=4:142 minH=1:458 minH=4:136 never(conn):499 persist:232
+  decl=U    |R|=3 toy disc: cases:86 minF=4:86 minH=4:86
+  decl=U    |R|=4 toy conn: cases:151 dist:in memory:98 learn:98 minF=1:98 minF=2:53 minH=1:151 never(conn):53 persist:72
+  decl=U    |R|=4 toy disc: cases:19 minF=4:19 minH=4:19
+  decl=V    |R|=1 toy conn: cases:526 minF=2:73 minF=4:453 minH=1:167 minH=4:359 never(conn):526 persist:36
+  decl=V    |R|=1 toy disc: cases:154 minF=4:154 minH=4:154
+  decl=V    |R|=2 toy conn: cases:864 dist:in memory:6 dist:not in memory:2 learn:8 learn&bath:4 minF=1:8 minF=2:350 minF=4:506 minH=1:504 minH=4:360 never(conn):856 persist:114
+  decl=V    |R|=2 toy disc: cases:156 minF=4:156 minH=4:156
+  decl=V    |R|=3 toy conn: cases:594 dist:in memory:52 dist:not in memory:43 learn:95 learn&bath:35 minF=1:95 minF=2:357 minF=4:142 minH=1:458 minH=4:136 never(conn):499 persist:232
+  decl=V    |R|=3 toy disc: cases:86 minF=4:86 minH=4:86
+  decl=V    |R|=4 toy conn: cases:151 dist:in memory:98 learn:98 minF=1:98 minF=2:53 minH=1:151 never(conn):53 persist:72
+  decl=V    |R|=4 toy disc: cases:19 minF=4:19 minH=4:19
+  earliest learning reconstruction decl=FULL |R|=2: t=2 edges=((0, 1), (0, 2)) R=(1, 2) toy=0 toy-has-hidden-neighbour=False
+  earliest learning reconstruction decl=FULL |R|=3: t=2 edges=((0, 1), (0, 2)) R=(1, 2, 3) toy=0 toy-has-hidden-neighbour=False
+  earliest learning reconstruction decl=FULL |R|=4: t=2 edges=((0, 1), (0, 2)) R=(1, 2, 3, 4) toy=0 toy-has-hidden-neighbour=False
+  earliest learning reconstruction decl=U |R|=2: t=3 edges=((0, 1), (0, 2)) R=(0, 1) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction decl=U |R|=3: t=3 edges=((0, 1), (0, 2)) R=(0, 1, 3) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction decl=U |R|=4: t=3 edges=((0, 1), (0, 2)) R=(0, 1, 3, 4) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction decl=V |R|=2: t=2 edges=((0, 1), (0, 2)) R=(0, 1) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction decl=V |R|=3: t=2 edges=((0, 1), (0, 2)) R=(0, 1, 3) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction decl=V |R|=4: t=2 edges=((0, 1), (0, 2)) R=(0, 1, 3, 4) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction with a hidden bath neighbour decl=FULL |R|=2: t=2 edges=((0, 1), (0, 3), (1, 2)) R=(2, 3) toy=0
+  earliest learning reconstruction with a hidden bath neighbour decl=FULL |R|=3: t=2 edges=((0, 1), (0, 3), (1, 2)) R=(2, 3, 4) toy=0
+  earliest 'old record kept, current toy uncertain' (initial toy determined by final memory, current toy support >= 2) decl=NONE: t=3 |R|=1 edges=((0, 1),) R=(0,) toy=1
+  earliest 'old record kept, current toy uncertain' (initial toy determined by final memory, current toy support >= 2) decl=U: t=3 |R|=1 edges=((0, 1),) R=(0,) toy=1
+  earliest learning reconstruction with a hidden bath neighbour decl=U |R|=2: t=6 edges=((0, 2), (0, 3), (0, 4), (1, 2), (1, 3)) R=(1, 2) toy=3
+  earliest learning reconstruction with a hidden bath neighbour decl=U |R|=3: t=3 edges=((0, 2), (0, 3), (0, 4), (1, 2), (1, 3)) R=(0, 2, 4) toy=3
+  earliest 'old record kept, current toy uncertain' (initial toy determined by final memory, current toy support >= 2) decl=V: t=2 |R|=1 edges=((0, 1),) R=(0,) toy=1
+  earliest learning reconstruction with a hidden bath neighbour decl=V |R|=2: t=5 edges=((0, 2), (0, 3), (0, 4), (1, 2), (1, 3)) R=(1, 2) toy=3
+  earliest learning reconstruction with a hidden bath neighbour decl=V |R|=3: t=2 edges=((0, 2), (0, 3), (0, 4), (1, 2), (1, 3)) R=(0, 2, 4) toy=3
+  by inner boundary: decl=FULL |R|=1 |inner boundary|=1: cases:526 maxgain=0:477 maxgain=1:49 maxgain|prior4=0:477 maxgain|prior4=1:49
+  by inner boundary: decl=FULL |R|=2 |inner boundary|=1: cases:176 learn:4 maxgain=0:133 maxgain=1:39 maxgain=2:4 maxgain|prior4=0:134 maxgain|prior4=1:38 maxgain|prior4=2:4
+  by inner boundary: decl=FULL |R|=2 |inner boundary|=2: cases:688 learn:162 maxgain=0:335 maxgain=1:191 maxgain=2:162 maxgain|prior4=0:335 maxgain|prior4=1:191 maxgain|prior4=2:162
+  by inner boundary: decl=FULL |R|=3 |inner boundary|=1: cases:88 learn:4 maxgain=0:57 maxgain=1:27 maxgain=2:4 maxgain|prior4=0:57 maxgain|prior4=1:27 maxgain|prior4=2:4
+  by inner boundary: decl=FULL |R|=3 |inner boundary|=2: cases:214 learn:132 maxgain=0:54 maxgain=1:28 maxgain=2:132 maxgain|prior4=0:54 maxgain|prior4=1:28 maxgain|prior4=2:132
+  by inner boundary: decl=FULL |R|=3 |inner boundary|=3: cases:292 learn:220 maxgain=0:46 maxgain=1:26 maxgain=2:220 maxgain|prior4=0:46 maxgain|prior4=1:26 maxgain|prior4=2:220
+  by inner boundary: decl=FULL |R|=4 |inner boundary|=1: cases:38 learn:9 maxgain=1:29 maxgain=2:9 maxgain|prior4=1:29 maxgain|prior4=2:9
+  by inner boundary: decl=FULL |R|=4 |inner boundary|=2: cases:56 learn:56 maxgain=2:56 maxgain|prior4=2:56
+  by inner boundary: decl=FULL |R|=4 |inner boundary|=3: cases:38 learn:11 maxgain=1:27 maxgain=2:11 maxgain|prior4=1:27 maxgain|prior4=2:11
+  by inner boundary: decl=FULL |R|=4 |inner boundary|=4: cases:19 learn:19 maxgain=2:19 maxgain|prior4=2:19
+  by inner boundary: decl=NONE |R|=1 |inner boundary|=1: cases:526 maxgain=0:526 maxgain|prior4=0:526
+  by inner boundary: decl=NONE |R|=2 |inner boundary|=1: cases:176 maxgain=0:176 maxgain|prior4=0:176
+  by inner boundary: decl=NONE |R|=2 |inner boundary|=2: cases:688 maxgain=0:688 maxgain|prior4=0:688
+  by inner boundary: decl=NONE |R|=3 |inner boundary|=1: cases:88 maxgain=0:88 maxgain|prior4=0:88
+  by inner boundary: decl=NONE |R|=3 |inner boundary|=2: cases:214 maxgain=0:214 maxgain|prior4=0:214
+  by inner boundary: decl=NONE |R|=3 |inner boundary|=3: cases:292 maxgain=0:292 maxgain|prior4=0:292
+  by inner boundary: decl=NONE |R|=4 |inner boundary|=1: cases:38 maxgain=0:38 maxgain|prior4=0:38
+  by inner boundary: decl=NONE |R|=4 |inner boundary|=2: cases:56 maxgain=0:56 maxgain|prior4=0:56
+  by inner boundary: decl=NONE |R|=4 |inner boundary|=3: cases:38 maxgain=0:38 maxgain|prior4=0:38
+  by inner boundary: decl=NONE |R|=4 |inner boundary|=4: cases:19 maxgain=0:19 maxgain|prior4=0:19
+  by inner boundary: decl=U    |R|=1 |inner boundary|=1: cases:526 maxgain=0:479 maxgain=1:47 maxgain|prior4=0:479 maxgain|prior4=1:47
+  by inner boundary: decl=U    |R|=2 |inner boundary|=1: cases:176 learn:4 maxgain=0:140 maxgain=1:32 maxgain=2:4 maxgain|prior4=0:140 maxgain|prior4=1:32 maxgain|prior4=2:4
+  by inner boundary: decl=U    |R|=2 |inner boundary|=2: cases:688 learn:4 maxgain=0:390 maxgain=1:294 maxgain=2:4 maxgain|prior4=0:390 maxgain|prior4=1:294 maxgain|prior4=2:4
+  by inner boundary: decl=U    |R|=3 |inner boundary|=1: cases:88 learn:10 maxgain=0:54 maxgain=1:24 maxgain=2:10 maxgain|prior4=0:54 maxgain|prior4=1:24 maxgain|prior4=2:10
+  by inner boundary: decl=U    |R|=3 |inner boundary|=2: cases:214 learn:44 maxgain=0:54 maxgain=1:116 maxgain=2:44 maxgain|prior4=0:54 maxgain|prior4=1:116 maxgain|prior4=2:44
+  by inner boundary: decl=U    |R|=3 |inner boundary|=3: cases:292 learn:41 maxgain=0:45 maxgain=1:206 maxgain=2:41 maxgain|prior4=0:45 maxgain|prior4=1:206 maxgain|prior4=2:41
+  by inner boundary: decl=U    |R|=4 |inner boundary|=1: cases:38 learn:28 maxgain=1:10 maxgain=2:28 maxgain|prior4=1:10 maxgain|prior4=2:28
+  by inner boundary: decl=U    |R|=4 |inner boundary|=2: cases:56 learn:32 maxgain=1:24 maxgain=2:32 maxgain|prior4=1:24 maxgain|prior4=2:32
+  by inner boundary: decl=U    |R|=4 |inner boundary|=3: cases:38 learn:30 maxgain=1:8 maxgain=2:30 maxgain|prior4=1:8 maxgain|prior4=2:30
+  by inner boundary: decl=U    |R|=4 |inner boundary|=4: cases:19 learn:8 maxgain=1:11 maxgain=2:8 maxgain|prior4=1:11 maxgain|prior4=2:8
+  by inner boundary: decl=V    |R|=1 |inner boundary|=1: cases:526 maxgain=0:479 maxgain=1:47 maxgain|prior4=0:479 maxgain|prior4=1:47
+  by inner boundary: decl=V    |R|=2 |inner boundary|=1: cases:176 learn:4 maxgain=0:140 maxgain=1:32 maxgain=2:4 maxgain|prior4=0:140 maxgain|prior4=1:32 maxgain|prior4=2:4
+  by inner boundary: decl=V    |R|=2 |inner boundary|=2: cases:688 learn:4 maxgain=0:390 maxgain=1:294 maxgain=2:4 maxgain|prior4=0:390 maxgain|prior4=1:294 maxgain|prior4=2:4
+  by inner boundary: decl=V    |R|=3 |inner boundary|=1: cases:88 learn:10 maxgain=0:54 maxgain=1:24 maxgain=2:10 maxgain|prior4=0:54 maxgain|prior4=1:24 maxgain|prior4=2:10
+  by inner boundary: decl=V    |R|=3 |inner boundary|=2: cases:214 learn:44 maxgain=0:54 maxgain=1:116 maxgain=2:44 maxgain|prior4=0:54 maxgain|prior4=1:116 maxgain|prior4=2:44
+  by inner boundary: decl=V    |R|=3 |inner boundary|=3: cases:292 learn:41 maxgain=0:45 maxgain=1:206 maxgain=2:41 maxgain|prior4=0:45 maxgain|prior4=1:206 maxgain|prior4=2:41
+  by inner boundary: decl=V    |R|=4 |inner boundary|=1: cases:38 learn:28 maxgain=1:10 maxgain=2:28 maxgain|prior4=1:10 maxgain|prior4=2:28
+  by inner boundary: decl=V    |R|=4 |inner boundary|=2: cases:56 learn:32 maxgain=1:24 maxgain=2:32 maxgain|prior4=1:24 maxgain|prior4=2:32
+  by inner boundary: decl=V    |R|=4 |inner boundary|=3: cases:38 learn:30 maxgain=1:8 maxgain=2:30 maxgain|prior4=1:8 maxgain|prior4=2:30
+  by inner boundary: decl=V    |R|=4 |inner boundary|=4: cases:19 learn:8 maxgain=1:11 maxgain=2:8 maxgain|prior4=1:11 maxgain|prior4=2:8
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=FULL |R|=2: t=4 edges=((0, 1), (0, 3), (0, 4), (1, 2)) R=(1, 2) toy=0 toy-has-hidden-neighbour=True
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=FULL |R|=3: t=4 edges=((0, 1), (0, 3), (0, 4), (1, 2)) R=(0, 3, 4) toy=1 toy-has-hidden-neighbour=True
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=FULL |R|=4: t=5 edges=((0, 1), (0, 2), (0, 3), (1, 2)) R=(0, 1, 2, 4) toy=3 toy-has-hidden-neighbour=False
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=U |R|=2: t=3 edges=((0, 1), (0, 2)) R=(0, 1) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=U |R|=3: t=3 edges=((0, 1), (0, 2)) R=(0, 1, 3) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=U |R|=4: t=3 edges=((0, 1), (0, 2)) R=(0, 1, 3, 4) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=V |R|=2: t=2 edges=((0, 1), (0, 2)) R=(0, 1) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=V |R|=3: t=2 edges=((0, 1), (0, 2)) R=(0, 1, 3) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=V |R|=4: t=2 edges=((0, 1), (0, 2)) R=(0, 1, 3, 4) toy=2 toy-has-hidden-neighbour=False
+  [elapsed 5 s]
+=== n = 6: 156 graphs up to isomorphism; orders of M: {2: 1, 4: 3, 6: 33, 8: 10, 10: 16, 12: 37, 14: 5, 16: 7, 18: 5, 24: 23, 30: 16}
+  decl=FULL |R|=1 toy conn: cases:4012 minF=1:154 minF=2:247 minF=4:3611 minH=1:1228 minH=4:2784 never(conn):3858
+  decl=FULL |R|=1 toy disc: cases:668 minF=4:668 minH=4:668
+  decl=FULL |R|=2 toy conn: cases:8524 dist:in memory:496 dist:known:42 dist:not in memory:319 learn:857 learn&bath:687 minF=1:1380 minF=2:1602 minF=4:5542 minH=1:4678 minH=4:3846 never(conn):7144
+  decl=FULL |R|=2 toy disc: cases:836 minF=4:836 minH=4:836
+  decl=FULL |R|=3 toy conn: cases:8688 dist:in memory:4060 dist:known:372 dist:not in memory:222 learn:4654 learn&bath:3561 minF=1:5163 minF=2:825 minF=4:2700 minH=1:6371 minH=4:2317 never(conn):3525
+  decl=FULL |R|=3 toy disc: cases:672 minF=4:672 minH=4:672
+  decl=FULL |R|=4 toy conn: cases:4387 dist:in memory:2371 dist:known:908 learn:3279 learn&bath:1846 minF=1:3711 minF=2:47 minF=4:629 minH=1:3787 minH=4:600 never(conn):676
+  decl=FULL |R|=4 toy disc: cases:293 minF=4:293 minH=4:293
+  decl=FULL |R|=5 toy conn: cases:883 dist:known:628 learn:628 minF=1:883 minH=1:883
+  decl=FULL |R|=5 toy disc: cases:53 minF=4:53 minH=4:53
+  decl=NONE |R|=1 toy conn: cases:4012 minF=4:4012 minH=1:1228 minH=4:2784 never(conn):4012 persist:154
+  decl=NONE |R|=1 toy disc: cases:668 minF=4:668 minH=4:668
+  decl=NONE |R|=2 toy conn: cases:8524 minF=4:8524 minH=1:4678 minH=4:3846 never(conn):8524 persist:616
+  decl=NONE |R|=2 toy disc: cases:836 minF=4:836 minH=4:836
+  decl=NONE |R|=3 toy conn: cases:8688 minF=4:8688 minH=1:6371 minH=4:2317 never(conn):8688 persist:1203
+  decl=NONE |R|=3 toy disc: cases:672 minF=4:672 minH=4:672
+  decl=NONE |R|=4 toy conn: cases:4387 minF=4:4387 minH=1:3787 minH=4:600 never(conn):4387 persist:1226
+  decl=NONE |R|=4 toy disc: cases:293 minF=4:293 minH=4:293
+  decl=NONE |R|=5 toy conn: cases:883 minF=4:883 minH=1:883 never(conn):883 persist:668
+  decl=NONE |R|=5 toy disc: cases:53 minF=4:53 minH=4:53
+  decl=U    |R|=1 toy conn: cases:4012 minF=2:324 minF=4:3688 minH=1:1228 minH=4:2784 never(conn):4012 persist:154
+  decl=U    |R|=1 toy disc: cases:668 minF=4:668 minH=4:668
+  decl=U    |R|=2 toy conn: cases:8524 dist:in memory:14 dist:not in memory:2 learn:16 learn&bath:6 minF=1:16 minF=2:2397 minF=4:6111 minH=1:4678 minH=4:3846 never(conn):8508 persist:645
+  decl=U    |R|=2 toy disc: cases:836 minF=4:836 minH=4:836
+  decl=U    |R|=3 toy conn: cases:8688 dist:in memory:142 dist:not in memory:267 learn:409 learn&bath:226 minF=1:409 minF=2:5193 minF=4:3086 minH=1:6371 minH=4:2317 never(conn):8279 persist:1733
+  decl=U    |R|=3 toy disc: cases:672 minF=4:672 minH=4:672
+  decl=U    |R|=4 toy conn: cases:4387 dist:in memory:1425 dist:not in memory:346 learn:1771 learn&bath:820 minF=1:1771 minF=2:1980 minF=4:636 minH=1:3787 minH=4:600 never(conn):2616 persist:1709
+  decl=U    |R|=4 toy disc: cases:293 minF=4:293 minH=4:293
+  decl=U    |R|=5 toy conn: cases:883 dist:in memory:693 learn:693 minF=1:693 minF=2:190 minH=1:883 never(conn):190 persist:432
+  decl=U    |R|=5 toy disc: cases:53 minF=4:53 minH=4:53
+  decl=V    |R|=1 toy conn: cases:4012 minF=2:324 minF=4:3688 minH=1:1228 minH=4:2784 never(conn):4012 persist:154
+  decl=V    |R|=1 toy disc: cases:668 minF=4:668 minH=4:668
+  decl=V    |R|=2 toy conn: cases:8524 dist:in memory:14 dist:not in memory:2 learn:16 learn&bath:6 minF=1:16 minF=2:2397 minF=4:6111 minH=1:4678 minH=4:3846 never(conn):8508 persist:645
+  decl=V    |R|=2 toy disc: cases:836 minF=4:836 minH=4:836
+  decl=V    |R|=3 toy conn: cases:8688 dist:in memory:142 dist:not in memory:267 learn:409 learn&bath:226 minF=1:409 minF=2:5193 minF=4:3086 minH=1:6371 minH=4:2317 never(conn):8279 persist:1733
+  decl=V    |R|=3 toy disc: cases:672 minF=4:672 minH=4:672
+  decl=V    |R|=4 toy conn: cases:4387 dist:in memory:1425 dist:not in memory:346 learn:1771 learn&bath:820 minF=1:1771 minF=2:1980 minF=4:636 minH=1:3787 minH=4:600 never(conn):2616 persist:1709
+  decl=V    |R|=4 toy disc: cases:293 minF=4:293 minH=4:293
+  decl=V    |R|=5 toy conn: cases:883 dist:in memory:693 learn:693 minF=1:693 minF=2:190 minH=1:883 never(conn):190 persist:432
+  decl=V    |R|=5 toy disc: cases:53 minF=4:53 minH=4:53
+  earliest learning reconstruction decl=FULL |R|=2: t=2 edges=((0, 1), (0, 2)) R=(1, 2) toy=0 toy-has-hidden-neighbour=False
+  earliest learning reconstruction decl=FULL |R|=3: t=2 edges=((0, 1), (0, 2)) R=(1, 2, 3) toy=0 toy-has-hidden-neighbour=False
+  earliest learning reconstruction decl=FULL |R|=4: t=2 edges=((0, 1), (0, 2)) R=(1, 2, 3, 4) toy=0 toy-has-hidden-neighbour=False
+  earliest learning reconstruction decl=FULL |R|=5: t=2 edges=((0, 1), (0, 2)) R=(1, 2, 3, 4, 5) toy=0 toy-has-hidden-neighbour=False
+  earliest learning reconstruction decl=U |R|=2: t=3 edges=((0, 1), (0, 2)) R=(0, 1) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction decl=U |R|=3: t=3 edges=((0, 1), (0, 2)) R=(0, 1, 3) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction decl=U |R|=4: t=3 edges=((0, 1), (0, 2)) R=(0, 1, 3, 4) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction decl=U |R|=5: t=3 edges=((0, 1), (0, 2)) R=(0, 1, 3, 4, 5) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction decl=V |R|=2: t=2 edges=((0, 1), (0, 2)) R=(0, 1) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction decl=V |R|=3: t=2 edges=((0, 1), (0, 2)) R=(0, 1, 3) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction decl=V |R|=4: t=2 edges=((0, 1), (0, 2)) R=(0, 1, 3, 4) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction decl=V |R|=5: t=2 edges=((0, 1), (0, 2)) R=(0, 1, 3, 4, 5) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction with a hidden bath neighbour decl=FULL |R|=2: t=2 edges=((0, 1), (0, 3), (1, 2)) R=(2, 3) toy=0
+  earliest learning reconstruction with a hidden bath neighbour decl=FULL |R|=3: t=2 edges=((0, 1), (0, 3), (1, 2)) R=(2, 3, 4) toy=0
+  earliest learning reconstruction with a hidden bath neighbour decl=FULL |R|=4: t=2 edges=((0, 1), (0, 3), (1, 2)) R=(2, 3, 4, 5) toy=0
+  earliest 'old record kept, current toy uncertain' (initial toy determined by final memory, current toy support >= 2) decl=NONE: t=3 |R|=1 edges=((0, 1),) R=(0,) toy=1
+  earliest 'old record kept, current toy uncertain' (initial toy determined by final memory, current toy support >= 2) decl=U: t=3 |R|=1 edges=((0, 1),) R=(0,) toy=1
+  earliest learning reconstruction with a hidden bath neighbour decl=U |R|=2: t=6 edges=((0, 2), (0, 3), (0, 4), (1, 2), (1, 3)) R=(1, 2) toy=3
+  earliest learning reconstruction with a hidden bath neighbour decl=U |R|=3: t=3 edges=((0, 2), (0, 3), (0, 4), (1, 2), (1, 3)) R=(0, 2, 4) toy=3
+  earliest learning reconstruction with a hidden bath neighbour decl=U |R|=4: t=3 edges=((0, 2), (0, 3), (0, 4), (1, 2), (1, 3)) R=(0, 2, 4, 5) toy=3
+  earliest 'old record kept, current toy uncertain' (initial toy determined by final memory, current toy support >= 2) decl=V: t=2 |R|=1 edges=((0, 1),) R=(0,) toy=1
+  earliest learning reconstruction with a hidden bath neighbour decl=V |R|=2: t=5 edges=((0, 2), (0, 3), (0, 4), (1, 2), (1, 3)) R=(1, 2) toy=3
+  earliest learning reconstruction with a hidden bath neighbour decl=V |R|=3: t=2 edges=((0, 2), (0, 3), (0, 4), (1, 2), (1, 3)) R=(0, 2, 4) toy=3
+  earliest learning reconstruction with a hidden bath neighbour decl=V |R|=4: t=2 edges=((0, 2), (0, 3), (0, 4), (1, 2), (1, 3)) R=(0, 2, 4, 5) toy=3
+  by inner boundary: decl=FULL |R|=1 |inner boundary|=1: cases:4012 maxgain=0:3773 maxgain=1:239 maxgain|prior4=0:3773 maxgain|prior4=1:239
+  by inner boundary: decl=FULL |R|=2 |inner boundary|=1: cases:1060 learn:8 maxgain=0:938 maxgain=1:114 maxgain=2:8 maxgain|prior4=0:940 maxgain|prior4=1:112 maxgain|prior4=2:8
+  by inner boundary: decl=FULL |R|=2 |inner boundary|=2: cases:7464 learn:849 maxgain=0:4930 maxgain=1:1685 maxgain=2:849 maxgain|prior4=0:4934 maxgain|prior4=1:1681 maxgain|prior4=2:849
+  by inner boundary: decl=FULL |R|=3 |inner boundary|=1: cases:507 learn:37 maxgain=0:368 maxgain=1:102 maxgain=2:37 maxgain|prior4=0:370 maxgain|prior4=1:100 maxgain|prior4=2:37
+  by inner boundary: decl=FULL |R|=3 |inner boundary|=2: cases:2268 learn:966 maxgain=0:921 maxgain=1:381 maxgain=2:966 maxgain|prior4=0:927 maxgain|prior4=1:375 maxgain|prior4=2:966
+  by inner boundary: decl=FULL |R|=3 |inner boundary|=3: cases:5913 learn:3651 maxgain=0:1576 maxgain=1:686 maxgain=2:3651 maxgain|prior4=0:1586 maxgain|prior4=1:676 maxgain|prior4=2:3651
+  by inner boundary: decl=FULL |R|=4 |inner boundary|=1: cases:276 learn:26 maxgain=0:180 maxgain=1:70 maxgain=2:26 maxgain|prior4=0:180 maxgain|prior4=1:70 maxgain|prior4=2:26
+  by inner boundary: decl=FULL |R|=4 |inner boundary|=2: cases:912 learn:594 maxgain=0:210 maxgain=1:108 maxgain=2:594 maxgain|prior4=0:210 maxgain|prior4=1:108 maxgain|prior4=2:594
+  by inner boundary: decl=FULL |R|=4 |inner boundary|=3: cases:1588 learn:1272 maxgain=0:178 maxgain=1:138 maxgain=2:1272 maxgain|prior4=0:178 maxgain|prior4=1:138 maxgain|prior4=2:1272
+  by inner boundary: decl=FULL |R|=4 |inner boundary|=4: cases:1611 learn:1387 maxgain=0:107 maxgain=1:117 maxgain=2:1387 maxgain|prior4=0:107 maxgain|prior4=1:117 maxgain|prior4=2:1387
+  by inner boundary: decl=FULL |R|=5 |inner boundary|=1: cases:153 learn:60 maxgain=1:93 maxgain=2:60 maxgain|prior4=1:93 maxgain|prior4=2:60
+  by inner boundary: decl=FULL |R|=5 |inner boundary|=2: cases:262 learn:262 maxgain=2:262 maxgain|prior4=2:262
+  by inner boundary: decl=FULL |R|=5 |inner boundary|=3: cases:262 learn:129 maxgain=1:133 maxgain=2:129 maxgain|prior4=1:133 maxgain|prior4=2:129
+  by inner boundary: decl=FULL |R|=5 |inner boundary|=4: cases:153 learn:153 maxgain=2:153 maxgain|prior4=2:153
+  by inner boundary: decl=FULL |R|=5 |inner boundary|=5: cases:53 learn:24 maxgain=1:29 maxgain=2:24 maxgain|prior4=1:29 maxgain|prior4=2:24
+  by inner boundary: decl=NONE |R|=1 |inner boundary|=1: cases:4012 maxgain=0:4012 maxgain|prior4=0:4012
+  by inner boundary: decl=NONE |R|=2 |inner boundary|=1: cases:1060 maxgain=0:1060 maxgain|prior4=0:1060
+  by inner boundary: decl=NONE |R|=2 |inner boundary|=2: cases:7464 maxgain=0:7464 maxgain|prior4=0:7464
+  by inner boundary: decl=NONE |R|=3 |inner boundary|=1: cases:507 maxgain=0:507 maxgain|prior4=0:507
+  by inner boundary: decl=NONE |R|=3 |inner boundary|=2: cases:2268 maxgain=0:2268 maxgain|prior4=0:2268
+  by inner boundary: decl=NONE |R|=3 |inner boundary|=3: cases:5913 maxgain=0:5913 maxgain|prior4=0:5913
+  by inner boundary: decl=NONE |R|=4 |inner boundary|=1: cases:276 maxgain=0:276 maxgain|prior4=0:276
+  by inner boundary: decl=NONE |R|=4 |inner boundary|=2: cases:912 maxgain=0:912 maxgain|prior4=0:912
+  by inner boundary: decl=NONE |R|=4 |inner boundary|=3: cases:1588 maxgain=0:1588 maxgain|prior4=0:1588
+  by inner boundary: decl=NONE |R|=4 |inner boundary|=4: cases:1611 maxgain=0:1611 maxgain|prior4=0:1611
+  by inner boundary: decl=NONE |R|=5 |inner boundary|=1: cases:153 maxgain=0:153 maxgain|prior4=0:153
+  by inner boundary: decl=NONE |R|=5 |inner boundary|=2: cases:262 maxgain=0:262 maxgain|prior4=0:262
+  by inner boundary: decl=NONE |R|=5 |inner boundary|=3: cases:262 maxgain=0:262 maxgain|prior4=0:262
+  by inner boundary: decl=NONE |R|=5 |inner boundary|=4: cases:153 maxgain=0:153 maxgain|prior4=0:153
+  by inner boundary: decl=NONE |R|=5 |inner boundary|=5: cases:53 maxgain=0:53 maxgain|prior4=0:53
+  by inner boundary: decl=U    |R|=1 |inner boundary|=1: cases:4012 maxgain=0:3814 maxgain=1:198 maxgain|prior4=0:3814 maxgain|prior4=1:198
+  by inner boundary: decl=U    |R|=2 |inner boundary|=1: cases:1060 learn:10 maxgain=0:951 maxgain=1:99 maxgain=2:10 maxgain|prior4=0:951 maxgain|prior4=1:99 maxgain|prior4=2:10
+  by inner boundary: decl=U    |R|=2 |inner boundary|=2: cases:7464 learn:6 maxgain=0:5431 maxgain=1:2027 maxgain=2:6 maxgain|prior4=0:5431 maxgain|prior4=1:2027 maxgain|prior4=2:6
+  by inner boundary: decl=U    |R|=3 |inner boundary|=1: cases:507 learn:21 maxgain=0:378 maxgain=1:108 maxgain=2:21 maxgain|prior4=0:378 maxgain|prior4=1:108 maxgain|prior4=2:21
+  by inner boundary: decl=U    |R|=3 |inner boundary|=2: cases:2268 learn:145 maxgain=0:1039 maxgain=1:1084 maxgain=2:145 maxgain|prior4=0:1039 maxgain|prior4=1:1084 maxgain|prior4=2:145
+  by inner boundary: decl=U    |R|=3 |inner boundary|=3: cases:5913 learn:243 maxgain=0:1779 maxgain=1:3891 maxgain=2:243 maxgain|prior4=0:1779 maxgain|prior4=1:3891 maxgain|prior4=2:243
+  by inner boundary: decl=U    |R|=4 |inner boundary|=1: cases:276 learn:52 maxgain=0:172 maxgain=1:52 maxgain=2:52 maxgain|prior4=0:172 maxgain|prior4=1:52 maxgain|prior4=2:52
+  by inner boundary: decl=U    |R|=4 |inner boundary|=2: cases:912 learn:351 maxgain=0:213 maxgain=1:348 maxgain=2:351 maxgain|prior4=0:213 maxgain|prior4=1:348 maxgain|prior4=2:351
+  by inner boundary: decl=U    |R|=4 |inner boundary|=3: cases:1588 learn:738 maxgain=0:168 maxgain=1:682 maxgain=2:738 maxgain|prior4=0:168 maxgain|prior4=1:682 maxgain|prior4=2:738
+  by inner boundary: decl=U    |R|=4 |inner boundary|=4: cases:1611 learn:630 maxgain=0:111 maxgain=1:870 maxgain=2:630 maxgain|prior4=0:111 maxgain|prior4=1:870 maxgain|prior4=2:630
+  by inner boundary: decl=U    |R|=5 |inner boundary|=1: cases:153 learn:125 maxgain=1:28 maxgain=2:125 maxgain|prior4=1:28 maxgain|prior4=2:125
+  by inner boundary: decl=U    |R|=5 |inner boundary|=2: cases:262 learn:186 maxgain=1:76 maxgain=2:186 maxgain|prior4=1:76 maxgain|prior4=2:186
+  by inner boundary: decl=U    |R|=5 |inner boundary|=3: cases:262 learn:232 maxgain=1:30 maxgain=2:232 maxgain|prior4=1:30 maxgain|prior4=2:232
+  by inner boundary: decl=U    |R|=5 |inner boundary|=4: cases:153 learn:112 maxgain=1:41 maxgain=2:112 maxgain|prior4=1:41 maxgain|prior4=2:112
+  by inner boundary: decl=U    |R|=5 |inner boundary|=5: cases:53 learn:38 maxgain=1:15 maxgain=2:38 maxgain|prior4=1:15 maxgain|prior4=2:38
+  by inner boundary: decl=V    |R|=1 |inner boundary|=1: cases:4012 maxgain=0:3814 maxgain=1:198 maxgain|prior4=0:3814 maxgain|prior4=1:198
+  by inner boundary: decl=V    |R|=2 |inner boundary|=1: cases:1060 learn:10 maxgain=0:951 maxgain=1:99 maxgain=2:10 maxgain|prior4=0:951 maxgain|prior4=1:99 maxgain|prior4=2:10
+  by inner boundary: decl=V    |R|=2 |inner boundary|=2: cases:7464 learn:6 maxgain=0:5431 maxgain=1:2027 maxgain=2:6 maxgain|prior4=0:5431 maxgain|prior4=1:2027 maxgain|prior4=2:6
+  by inner boundary: decl=V    |R|=3 |inner boundary|=1: cases:507 learn:21 maxgain=0:378 maxgain=1:108 maxgain=2:21 maxgain|prior4=0:378 maxgain|prior4=1:108 maxgain|prior4=2:21
+  by inner boundary: decl=V    |R|=3 |inner boundary|=2: cases:2268 learn:145 maxgain=0:1039 maxgain=1:1084 maxgain=2:145 maxgain|prior4=0:1039 maxgain|prior4=1:1084 maxgain|prior4=2:145
+  by inner boundary: decl=V    |R|=3 |inner boundary|=3: cases:5913 learn:243 maxgain=0:1779 maxgain=1:3891 maxgain=2:243 maxgain|prior4=0:1779 maxgain|prior4=1:3891 maxgain|prior4=2:243
+  by inner boundary: decl=V    |R|=4 |inner boundary|=1: cases:276 learn:52 maxgain=0:172 maxgain=1:52 maxgain=2:52 maxgain|prior4=0:172 maxgain|prior4=1:52 maxgain|prior4=2:52
+  by inner boundary: decl=V    |R|=4 |inner boundary|=2: cases:912 learn:351 maxgain=0:213 maxgain=1:348 maxgain=2:351 maxgain|prior4=0:213 maxgain|prior4=1:348 maxgain|prior4=2:351
+  by inner boundary: decl=V    |R|=4 |inner boundary|=3: cases:1588 learn:738 maxgain=0:168 maxgain=1:682 maxgain=2:738 maxgain|prior4=0:168 maxgain|prior4=1:682 maxgain|prior4=2:738
+  by inner boundary: decl=V    |R|=4 |inner boundary|=4: cases:1611 learn:630 maxgain=0:111 maxgain=1:870 maxgain=2:630 maxgain|prior4=0:111 maxgain|prior4=1:870 maxgain|prior4=2:630
+  by inner boundary: decl=V    |R|=5 |inner boundary|=1: cases:153 learn:125 maxgain=1:28 maxgain=2:125 maxgain|prior4=1:28 maxgain|prior4=2:125
+  by inner boundary: decl=V    |R|=5 |inner boundary|=2: cases:262 learn:186 maxgain=1:76 maxgain=2:186 maxgain|prior4=1:76 maxgain|prior4=2:186
+  by inner boundary: decl=V    |R|=5 |inner boundary|=3: cases:262 learn:232 maxgain=1:30 maxgain=2:232 maxgain|prior4=1:30 maxgain|prior4=2:232
+  by inner boundary: decl=V    |R|=5 |inner boundary|=4: cases:153 learn:112 maxgain=1:41 maxgain=2:112 maxgain|prior4=1:41 maxgain|prior4=2:112
+  by inner boundary: decl=V    |R|=5 |inner boundary|=5: cases:53 learn:38 maxgain=1:15 maxgain=2:38 maxgain|prior4=1:15 maxgain|prior4=2:38
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=FULL |R|=2: t=4 edges=((0, 1), (0, 3), (0, 4), (1, 2)) R=(1, 2) toy=0 toy-has-hidden-neighbour=True
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=FULL |R|=3: t=4 edges=((0, 1), (0, 3), (0, 4), (1, 2)) R=(0, 3, 4) toy=1 toy-has-hidden-neighbour=True
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=FULL |R|=4: t=4 edges=((0, 1), (0, 3), (0, 4), (1, 2)) R=(0, 3, 4, 5) toy=1 toy-has-hidden-neighbour=True
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=FULL |R|=5: t=5 edges=((0, 1), (0, 2), (0, 3), (1, 2)) R=(0, 1, 2, 4, 5) toy=3 toy-has-hidden-neighbour=False
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=U |R|=2: t=3 edges=((0, 1), (0, 2)) R=(0, 1) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=U |R|=3: t=3 edges=((0, 1), (0, 2)) R=(0, 1, 3) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=U |R|=4: t=3 edges=((0, 1), (0, 2)) R=(0, 1, 3, 4) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=U |R|=5: t=3 edges=((0, 1), (0, 2)) R=(0, 1, 3, 4, 5) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=V |R|=2: t=2 edges=((0, 1), (0, 2)) R=(0, 1) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=V |R|=3: t=2 edges=((0, 1), (0, 2)) R=(0, 1, 3) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=V |R|=4: t=2 edges=((0, 1), (0, 2)) R=(0, 1, 3, 4) toy=2 toy-has-hidden-neighbour=False
+  earliest learning reconstruction with ONE inner-boundary site (single apparatus) decl=V |R|=5: t=2 edges=((0, 1), (0, 2)) R=(0, 1, 3, 4, 5) toy=2 toy-has-hidden-neighbour=False
+  [elapsed 107 s]
+controls: {'SYMP_checked': 81304}
+E1/E2 CONTROLS: GREEN

@@ -1,0 +1,7 @@
+isotropic uniform states: n=1 -> 7  n=2 -> 91
+composite: support 4 max point prob 1/4  constraint bracket <q1+q2, p1> = 1
+  toy-1 marginal in K1: True  toy-2 marginal in K1: True
+  isotropic uniform states with support inside S: 0 -> joint in K2: False
+biased line p=1/2: support 2, in K1: True, guessing probability 1/2
+biased line p=1/4: support 2, in K1: False, guessing probability 3/4
+biased line p=99/100: support 2, in K1: False, guessing probability 99/100

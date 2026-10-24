@@ -1,0 +1,30 @@
+acceptance per attempt by station: {Fraction(625, 4096)} (625/4096 = 625/4096 )
+hidden register is product with P(l_c=1)=(1+c.w)/2 for all 8 stations: True True
+Born table P(+a | w):
+  +X ['1', '1/2', '1/2', '9/10']
+  -X ['0', '1/2', '1/2', '1/10']
+  +Y ['1/2', '1', '1/2', '4/5']
+  -Y ['1/2', '0', '1/2', '1/5']
+  +Z ['1/2', '1/2', '1', '1/2']
+  -Z ['1/2', '1/2', '0', '1/2']
+  +R ['9/10', '4/5', '1/2', '1']
+  -R ['1/10', '1/5', '1/2', '0']
+Q1 single-read identities hold (affine test) per setting: {'X': True, 'Y': True, 'Z': True, 'R': True}
+Q2 two-read identities hold for all 16 pairs: True
+Q3 second-read Born given first outcome exact: True
+Q4 closure (outgoing law given outcome = P_{s a}, jointly): True
+C-ND failing pairs: 6 [('X', 'Y'), ('X', 'R'), ('Y', 'X'), ('Y', 'R'), ('R', 'X'), ('R', 'Y')] max TV 2684038546875/140737488355328
+Q6a X identities hold: False TV 95155025/1073741824 0.08862002287060022 ; =95155025/2^30: True
+Q6a Y identities hold: False TV 95155025/1073741824 0.08862002287060022 ; =95155025/2^30: True
+Q6a Z identities hold: False TV 95155025/1073741824 0.08862002287060022 ; =95155025/2^30: True
+Q6a R identities hold: False TV 95155025/1073741824 0.08862002287060022 ; =95155025/2^30: True
+Q6b X identities hold: True ; fresh bits non-degenerate so record determines outgoing (closure fails): True
+Q6b Y identities hold: True ; fresh bits non-degenerate so record determines outgoing (closure fails): True
+Q6b Z identities hold: True ; fresh bits non-degenerate so record determines outgoing (closure fails): True
+Q6b R identities hold: True ; fresh bits non-degenerate so record determines outgoing (closure fails): True
+entropy deficit of three fresh bits, setting X 0.531
+entropy deficit of three fresh bits, setting Y 0.278
+entropy deficit of three fresh bits, setting Z 0.000
+entropy deficit of three fresh bits, setting R 0.809
+C-HER per setting (identities hold?, TV): {'X': (False, '9068125/67108864'), 'Y': (False, '9068125/67108864'), 'Z': (False, '9068125/67108864'), 'R': (False, '9068125/67108864')}
+max TV 9068125/67108864 == 9068125/2^26: True

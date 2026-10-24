@@ -1,0 +1,8 @@
+Coordinator checks of the native-wave handoff v1 (independent code; standard library and fractions only).
+R1  L=9 one port (fresh recursion): conditional ranks [1, 2, 3, 4], frontier coefficients alpha^t present and new: True
+R2  one-port lemma for q in {3,5,7}, every nonzero alpha, L=7, K=3 (12 cases): full conditional rank and frontier alpha^t: True
+R3  L=18 eight ports built on that torus: supports disjoint True; ranks ready 16, joint 48: True
+R5  first-success call law from i.i.d. uniform symbols, q in {3,5}, n <= 3: failure q^-n, (q-1)/q^(k+1) per mark: True
+R4  two ports at axis distance d (L=18, K=4): conditional rank of 8 future readings: [(1, 8), (2, 8), (3, 8), (4, 8), (5, 8), (6, 8), (7, 8), (8, 8), (9, 8)]
+R6  pre-window port history u_x(-1-s..0), L=9, K=4: (s, history rank, conditional future rank) [(0, 2, 4), (1, 3, 4), (2, 4, 4), (3, 5, 4), (4, 6, 4), (5, 7, 4), (6, 8, 4)]
+coordinator positive checks: green

@@ -1,0 +1,9 @@
+correlated repair: target (17/20, 3/20) first-read feasible: False
+  max over feasible set of P+ - P-/2 = 3/4  target value 31/40
+  (5/6, 1/6) feasible: True
+independent product encoding: target feasible: False
+triple control: E(x),E(y),E(z) for s=+1: [Fraction(1, 2), Fraction(1, 2), Fraction(0, 1)]  s=-1: [Fraction(-1, 2), Fraction(-1, 2), Fraction(0, 1)]
+  rotated response: (Fraction(17, 20), Fraction(3, 20))  first-read feasible (zonotope): True
+  TV(mu+,mu-) = 1
+  ((X+Y)/2)^2 = [[(Fraction(1, 2), Fraction(0, 1)), (Fraction(0, 1), Fraction(0, 1))], [(Fraction(0, 1), Fraction(0, 1)), (Fraction(1, 2), Fraction(0, 1))]]  -> eigenvalues +-1/sqrt(2), trace distance 1/sqrt(2)
+three reads: P(maj=1|+) = 3757/4000  gap = 1757/2000  gap^2 > 1/2: True

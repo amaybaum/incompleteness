@@ -1,0 +1,20 @@
+PASS i1 success branch = 1/2 Z rho Z, each success Kraus prop. Z
+PASS i2 failure branch = 1/2 rho
+PASS i3 complete, and sum K^H 1 over the whole instrument = 1 (OnesNormal, this very list)
+PASS i4 success branch alone: 1 not in span{K^H 1} (no decomposition of it is OnesNormal)
+PASS i5 coarse-graining the herald gives dephasing (rho+ZrhoZ)/2, not Ad Z
+PASS ii1 Phi_n = (1-2^-n) Ad Z + 2^-n id, n=1..5, from the protocol recursion
+PASS ii2 normalized-Choi trace norm of (id - AdZ) is 2, so ||Phi_n - AdZ||_1(Choi) = 2^-n * 2
+PASS ii3 2^n copies of 2^-n I + pair +-sqrt((1-2^-n)/2) Z: channel Phi_n, complete, sum K^H 1 = 1 (n=1..6)
+PASS ii4 owner sketch {sqrt p I, +-sqrt((1-p)/2) Z}: channel right, sum K^H 1 = sqrt(p) 1 != 1
+PASS ii5 {I(x)I, I(x)Z, Z(x)I, Z(x)Z} superoperators independent (rank 4) => Kraus coefficients determined as stated
+PASS ii6 the bound 2^n is attained by exactly 2^n operators (n=2: a_j = 1/4, b = (+-sqrt(3/8),0,0)): node list of 2^n+2 is not minimal
+PASS ii7 limit Ad Z: Kraus prop. Z, 1 not in span{Z^H 1} -> not OnesNormal
+PASS u1 Phi_n(|u><u|) = (1-2^-n)|-><-| + 2^-n |u><u|, n=1..3 (fails to fix u)
+PASS u2 NATIVE configuration readout (coarse-grained) does not fix |u><u| (gives I/2): the uniform-state condition is not an invariant of the native theory
+PASS u3 ...while native readout is OnesNormal (sum P^H 1 = 1)
+PASS u4 X-basis dephasing fixes |u><u| and is OnesNormal (implication instance)
+PASS n1 Phi_2([[1,1],[1,1]]) = [[1,-1/2],[-1/2,1]]
+PASS n2 Phi_1 keeps [[1,1],[1,1]] nonnegative (off-diagonal 0)
+PASS d1 ||(Z - cV)u||^2 = 1 + |cz|^2 = 2 for any ones-fixing V, |c|=1: bound is sqrt(2), node states >= 1 (true, not sharp)
+SUMMARY 19 PASS 0 FAIL

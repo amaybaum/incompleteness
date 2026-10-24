@@ -1,0 +1,25 @@
+{
+ "check": "node 7 control K-10 at n = 4",
+ "claim": "the 256-count and eight-coordinate forms of A_CHSH(4) are the same set",
+ "conclusion": "success",
+ "counts": {
+  "closed_form": 3105,
+  "eight_coordinate": 3105,
+  "mixtures_no_signalling": 3105,
+  "multisets_total": 183181376,
+  "multisets_visited": 183181376
+ },
+ "equal": true,
+ "job_id": 118991884713,
+ "recipe": "push of the parentless commit runner_commit to a branch named in its workflow; the job fetches source_commit by id with no credential, checks the pinned blobs, runs the self-test (k10.run1.out reproduced byte for byte; five mutated equalities fail), then runs k10.py's by_mixtures(4, vecs) and by_coordinates(4) and compares them as sets",
+ "run_id": 39529498293,
+ "runner_commit": "945166315496888c472130d3eaea16c33763a2e7",
+ "runner_files": {
+  "k10_n4.py": "blob 123c6a2226cc7b61a4a5e05a9853440b11a5e38a (runner/k10_n4.py at runner_commit)",
+  "mc7-k10-n4.yml": "blob 784ea40f64438e0bfa157a5a7c2e49c6de6c0b4b (.github/workflows/mc7-k10-n4.yml at runner_commit)"
+ },
+ "self_test": "0 failed",
+ "source_commit": "a501b4189d7f1ada923d76179fa6a38a1a83b408",
+ "source_k10_blob": "25c83510",
+ "verdict_line": "K10 N4 HOLDS: mixtures no-signalling 3105; eight-coordinate 3105; equal True; multisets visited 183181376 of C(259, 4) = 183181376; closed-form count 3105"
+}

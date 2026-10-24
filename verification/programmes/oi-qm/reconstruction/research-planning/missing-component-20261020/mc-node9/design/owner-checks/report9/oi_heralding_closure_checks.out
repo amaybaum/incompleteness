@@ -1,0 +1,14 @@
+EXPLORATORY DESIGN EVIDENCE; no repository changes or independent review.
+FOUR-SITE NATIVE HERALD: edge (0,1), two isolated coins.
+Success=5/8; post-herald target distribution: {(0, 0): Fraction(2, 5), (0, 1): Fraction(1, 10), (1, 0): Fraction(2, 5), (1, 1): Fraction(1, 10)}
+Every exact record leaves a uniform two-point target; coarse herald gives an 4/5 : 1/5 mixture of two such states.
+Background subtraction: hidden u receives initial pointer u; hidden v is unchanged relative to no edge.
+External-history countercontrol at t=6: {(0, 0): Fraction(4, 5), (1, 0): Fraction(1, 5)}
+At t=6 each visible position record has 5 accepted and 3 rejected histories: no physical herald flag remains in this readout.
+NINE-SITE EMBEDDED RETENTION: path 0--1--...--6; isolated coins 7,8.
+Success=5/8; source q retained in u6(6); accepted target: {(0, 0): Fraction(1, 2), (0, 1): Fraction(1, 2)}
+Every complete terminal position record leaves two equally likely target states.
+Two-pair closure census: 31 isotropic constraint subspaces, 91 distinct affine states.
+All 259 nonempty herald events pass; target support histogram={2: 174, 4: 85}.
+Allowed coarse state has maximum point probability 2/5; free-history state has 4/5 and fails the one-pair convex bound.
+PASS: all exact native enumerations, herald probabilities, retained-record controls, and affine closure checks.

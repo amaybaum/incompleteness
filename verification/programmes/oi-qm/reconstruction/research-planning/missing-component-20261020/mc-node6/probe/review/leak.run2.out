@@ -1,0 +1,4 @@
+e=1/100 w=1: record-map rank 4/4 (=> PNC holds vacuously), POM success 1, max TV between parity mixtures over 39 sequences 7499/250000, L vs fair coin TV 1/100
+e=1/100 w=7/10: record-map rank 4/4 (=> PNC holds vacuously), POM success 17/20, max TV between parity mixtures over 39 sequences 52493/2500000, L vs fair coin TV 7/1000
+e=1/1000 w=1: record-map rank 4/4 (=> PNC holds vacuously), POM success 1, max TV between parity mixtures over 39 sequences 749999/250000000, L vs fair coin TV 1/1000
+e=1/1000 w=7/10: record-map rank 4/4 (=> PNC holds vacuously), POM success 17/20, max TV between parity mixtures over 39 sequences 5249993/2500000000, L vs fair coin TV 7/10000

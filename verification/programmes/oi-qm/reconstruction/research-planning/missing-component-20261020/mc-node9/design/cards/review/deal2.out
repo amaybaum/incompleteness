@@ -1,0 +1,8 @@
+deck (3, 1) A1B2: deal-2 statistics preparable: True ; extreme: False
+deck (3, 2) A1B2: deal-2 statistics preparable: True ; extreme: False
+deck (3, 3) A1B2: deal-2 statistics preparable: True ; extreme: False
+deck (4, 2) A1B2: deal-2 statistics preparable: True ; extreme: False
+deal-2 stats: P(a1=R) = 3/4  B predicts a1 with success 3/4
+M1 witness (2+2): joint (a1; b1 b2) = {('B', 'R', 'R'): Fraction(1, 4), ('R', 'R', 'R'): Fraction(1, 4), ('R', 'B', 'R'): Fraction(1, 4), ('R', 'R', 'B'): Fraction(1, 4)}  B predicts a1 with success 3/4
+M1 witness (2+2): B predicts A=(a1,a2) with success 3/4 ; B predicts A colour count with success 1
+abstract deal 2, A=1 slot, B=3 slots: encodings 3360 exchangeable 0
