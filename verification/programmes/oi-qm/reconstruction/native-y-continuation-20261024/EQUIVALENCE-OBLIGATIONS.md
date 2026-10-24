@@ -9,7 +9,7 @@ and A2 finite operational approximation keep separate targets.
 | Active path | Current result | Missing connection / next useful test |
 | --- | --- | --- |
 | Native nonlinear processing (#910) | Actual old-sign/pool products in seven small original-time families; no tested passive single-cell flag in the fixed short window | Isolate or control a useful native gate on the actual distributed operands; no huge-L extrapolation |
-| Native operand delivery (#910) | A second original-time E front restores 32 common raw X response pairs at actual scale; no jointly affine E/N controller selects one | Native computation of the required known-seed controls, another layout, or distributed/richer encoding |
+| Native operand delivery (#910) | A second original-time E front restores 32 common raw X response pairs at actual scale; no jointly affine E/N controller selects one, but 1456 such laws make the single field q10.A equal s (review pending) | A native stage using q10.A while its s-carrying B/D fields are accounted for; another layout |
 | Exact architecture/reset (#911) | Credited KS single-qubit comparison remains valid with supplied reset; fixed-vector Montina iteration fails repeated reads by exact public-record witness | Supply conditional source renewal or a different invariant update, with all memory/access/clock resources; preserve the original two-time theorem |
 | Finite A2 (#911) | Executed 1,536-label controller has complete fixed-decoder CQ error <0.074764 for the specified finite menu and h=3 | Native sourcing/implementation; recertify enlarged menus/horizons separately; no universal cost improvement inferred |
 | Complete-record composition (#912) | Explicit 89-tick logical acceptance circuit restores phase/workspace and has the right complete pointer/carrier law | Compile gates, storage and isolation under native H; check all delayed old/new public histories jointly |
@@ -20,6 +20,9 @@ and A2 finite operational approximation keep separate targets.
   `native_gate_v13/`; review retained in its `review/` subdirectory.
 - Actual-scale second-front author: `753fe4f69392ca940754489468e8c8235f6aa583`,
   `native_route_v13/`; review retained in its `review/` subdirectory.
+- Fixed q10 readout author: `7f843073d9245635d5b2bbeb0cfdc9f42dc7db0a`,
+  `native_decode_v14/`, plan `36213be6354ef15442b4f3040ecdb511fd0b5641`;
+  separate review pending.
 - Exact reset-resource author: `41992cc0b7f8901195f70ff47b34f1a0ed5eba5e`,
   `a1_reset_v6/` on #911; review `bdd897852d3f44089a5476205a949c8ecc54f981`.
 - Finite-menu A2 author: `bff7b58d951babd4064b60699281ee0a7f3e9f45`,
@@ -53,8 +56,10 @@ alone is not a leakage proof and the count is no parallel-compiler lower bound.
 
 The actual-scale E route is a different readiness/source variant replacing
 optional uniform F10. It may not inherit Native A's six-bit pool unchanged.
-The affine-source obstruction concerns a common raw binary code; arbitrary
-redundant decoding and distribution-level quantum instruments are untested.
+The affine-source obstruction concerns a common raw binary code. A fixed
+redundant readout succeeds: q10.A carries s under jointly affine E/N, with
+s-dependent B/D fields beside it. Distribution-level quantum instruments
+are untested.
 The small pointer census concerns its seven declared families/window only.
 Neither exclusion is an OI-wide no-go.
 
@@ -100,7 +105,7 @@ general instruments, composites/entanglement/Bell and later continuum scope.
 A reusable single-qubit native device would still require those extensions
 before full equivalence. No physical premise or operational map is adopted.
 
-The current native driver retains 57 groups and freshly checks only four;
+The current native driver retains 58 groups and freshly checks only five;
 the prior 53 scientific groups are unchanged. Four new #911 groups and two
 #912 groups are checked separately. No fresh full-suite, Lean, release-gate
 or exact-head attestation is claimed. No F/E designation, special dispatch,

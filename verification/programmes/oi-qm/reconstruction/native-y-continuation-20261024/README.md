@@ -14,10 +14,11 @@ still needs native realization. #911 has an executed short finite-menu
 approximation and an exact fixed-vector reset-reuse audit. A1 and A2 remain
 separate, and the supplied geometric probabilities are not selected by OI.
 
-Run `python3 replay.py --latest` for the four new native author/reviewer
-groups, normal/optimized comparison, Python compilation and the full manifest.
-The driver retains 57 groups; the preceding 53 have unchanged scientific
-source and prior evidence, without a new full-suite claim.
+Run `python3 replay.py --latest` for the four reviewed v13 native groups and
+the v14 fixed-readout author group, normal/optimized comparison, Python
+compilation and the full manifest. The driver retains 58 groups; the
+preceding 53 have unchanged scientific source and prior evidence, without a
+new full-suite claim.
 CHECKPOINT-CHECKS.json records current measured scope.
 
 Architecture/A2 work is on [#911](https://github.com/amaybaum/incompleteness/pull/911),

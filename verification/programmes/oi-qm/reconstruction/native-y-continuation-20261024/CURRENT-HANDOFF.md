@@ -77,11 +77,31 @@ E/N controller selects one. All 16 surviving affine E candidates require a
 nonaffine known-seed N law; explicit four-context affine-relation violations
 are retained. No nonlinear control is inserted silently into the initial prior.
 
-This is a raw-binary/affine-source obstruction in that geometry. Arbitrary
-redundant q10 decoding, changed layouts and weaker operational instruments
-are not excluded. A physical known-seed computation or different delivery
-mechanism is a concrete next question. Separate review is retained under
-`native_route_v13/review/`.
+This is a raw-binary/affine-source obstruction in that geometry; fixed
+redundant q10 readouts are decided in the next section. Changed layouts and
+weaker operational instruments are not excluded. Separate review is
+retained under `native_route_v13/review/`.
+
+## Fixed q10 readouts of the same table
+
+`native_decode_v14/`, author `7f843073d9245635d5b2bbeb0cfdc9f42dc7db0a`,
+plan `36213be6354ef15442b4f3040ecdb511fd0b5641`, decides every nonconstant
+Boolean readout of the whole q10 triple, common to the 24 accepted
+contexts, against all 2^36 jointly affine known-seed E/N laws on the
+retained 4096-row table. 78 of 254 readouts decode s exactly on all 48
+accepted rows (7464 laws). The single field q10.A equals s under 1456 laws;
+one such law depends on mY alone: E=(1,1 XOR mY,1), N=(mY,1,1 XOR mY).
+All eight degree-one readouts succeed; q10.B or q10.D alone never does.
+Two independent exact solvers agree on every solution set, with planted,
+brute-force, raw-pair reproduction and sign-erased controls.
+
+So the second front delivers s pointwise to one native field of q10 at L+1
+under the affine source contract. Post hoc: no solution has E identically
+000; the B and D fields depend on s in every q10.A law; a fresh bit on the
+E constants pads q10.A but never hides s in the whole triple given the
+seeds. No native stage that consumes q10.A while tolerating B and D, no Y
+operand, acceptance flag or joint history/carrier law follows. Separate
+review is pending.
 
 ## Explicit acceptance specification and the native delay gap
 
@@ -129,13 +149,15 @@ Both new architecture paths have accepting separate-agent internal reviews.
 Construct a source-compatible native gate or cheaper distributed predicate,
 deliver the actual operands, preserve/re-encode the carrier throughout its
 latency, and prove its full physical pointer/history law. The small native
-product, compatible raw pairs and logical acceptance circuit are distinct
-pieces; none alone supplies their missing native connection.
+product, the q10.A sign delivery and the logical acceptance circuit are
+distinct pieces; none alone supplies their missing native connection. A
+concrete next test is a native stage taking q10.A to a cleaned operand
+while its s-carrying B and D fields are accounted for.
 
-`python3 replay.py --latest` checks the four new native author/reviewer
-groups normally and with -O, Python compilation and the full manifest.
-The driver retains57 groups; the preceding53 scientific groups are unchanged
-and are not freshly rerun. Four current #911 groups and two #912 groups
+`python3 replay.py --latest` checks the four reviewed v13 native groups and
+the unreviewed v14 author group normally and with -O, Python compilation
+and the full manifest. The driver retains 58 groups; the preceding 53
+scientific groups are unchanged and are not freshly rerun. Four current #911 groups and two #912 groups
 are checked separately. CHECKPOINT-CHECKS.json records measured scope.
 No full-suite, Lean or exact-head attestation is claimed. Wider calibration,
 initialization/access, arbitrary-depth/menu, composites/Bell and full A1/A2
