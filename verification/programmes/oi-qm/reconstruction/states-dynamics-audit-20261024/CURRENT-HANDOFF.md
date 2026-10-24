@@ -72,6 +72,30 @@ adaptive-choice, insufficient-bank and access/timing controls, and verifies
 three nonvacuous symbolic resource certificates. Clipped bounds on tiny smoke
 grids can be vacuous and are not represented as proof of the asymptotic law.
 
+## Cross-track calibration and common-code bridge
+
+The integration probe `native-code-bridge-v6/`, author
+`0449d85910aed0f838b629ee683061ce9960cc2d`, relates the native targets to
+the geometric model directly. For post-X and post-Y eigenstate preparations,
+the sphere's X/Y/R/Z sign projection gives exactly the native 5:4:1 and
+5:3:2 full code measures with fair Z. This is a state-calibration relation;
+no underlying sphere or native operation lift is inferred.
+
+A common autonomous twelve-code input interface is still too coarse for a
+broader read. Its +X/+Y source pair has TV 1/2 while the rational direction
+(3/5,-4/5,0) has quantum record TV 7/10. A common independent continuation
+therefore has worst-pair record error at least 1/10, attained by an explicit
+stochastic pair control. The continuous model resolves points within the
+same code cell and implements the read. This conditional bound does not
+exclude the actual native full boundary, past/phase tags or response memory;
+all such information must be included before applying data processing.
+
+The useful bridge constraint is explicit: keeping only the selected signs
+cannot establish universal autonomous operation coverage. Additional physical
+response information or a changed/larger encoding is needed. No general
+OI/A2 bound, full-channel minimax or kernel/native lift is claimed. Separate
+review is retained with the bridge package.
+
 ## Retained obstructions and next gates
 
 The earlier eight-sign 1/15 and product-section 2/15 pair bounds remain valid
@@ -88,7 +112,7 @@ A2 result is conditional reproduction, not Emergence or full A2 reconstruction.
 Composites, Bell structure, general instruments and full A1 coverage remain
 separate obligations.
 
-All four new author/reviewer groups replay normally and with -O against
+All six new author/reviewer groups replay normally and with -O against
 retained structured output. Proofs, finite checks, internal review and
 formal certification remain distinct. No full suite, Lean certificate or
 exact-head CI attestation is claimed. #910 owns native construction, #912
