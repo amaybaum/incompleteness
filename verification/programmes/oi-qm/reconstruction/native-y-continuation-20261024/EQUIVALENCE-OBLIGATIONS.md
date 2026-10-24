@@ -61,10 +61,11 @@ The actual-scale E route is a different readiness/source variant replacing
 optional uniform F10. It may not inherit Native A's six-bit pool unchanged.
 The affine-source obstruction concerns a common raw binary code. A fixed
 single-field readout of the q10 cell succeeds under jointly affine E/N
-(review pending): q10.A carries s, and more generally x XOR f(k) for each
-affine f of the known seeds under a law depending on f, with B and D jointly
-carrying s beside it. q10 is not a permitted read under Native A. Distribution-level quantum instruments
-are untested.
+(review pending): q10.A carries s, and, per the separate review, more
+generally x XOR f(k) for each affine f of the known seeds under a law
+depending on f, with B and D jointly carrying s beside it. q10 is not a
+permitted read under Native A. Distribution-level quantum instruments are
+untested.
 The small pointer census concerns its seven declared families/window only.
 Neither exclusion is an OI-wide no-go.
 

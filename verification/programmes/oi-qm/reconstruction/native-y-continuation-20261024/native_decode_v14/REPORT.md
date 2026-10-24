@@ -9,7 +9,8 @@ q10 table of `native_route_v13/`, author
 the separate-engine review under `native_route_v13/review/` reproduced.
 No native evolution is recomputed; the large-time reduction, source and
 bank geometry and history scope are those of that reviewed pair.
-Separate review of this checkpoint is pending.
+The separate-agent internal review of this checkpoint is not yet retained on this branch; statements
+taken from its computation are marked as such.
 
 ## Result
 
@@ -36,8 +37,8 @@ rather than as a fixed whole triple. q10 is a lattice cell, not a permitted
 read (see *Scope*). The exclusion of `native_route_v13` holds for its own
 class: no law gives a two-symbol whole-triple code.
 
-s is not singled out. A separate computation in the independent review of
-this checkpoint, not this checkpoint's checker, shows that for each of the
+s is not singled out. A separate computation in the separate-agent internal review of this checkpoint (not yet retained on this branch), not this
+checkpoint's checker, shows that for each of the
 64 affine functions f of the known seeds k there exist jointly affine laws
 with q10.A = x XOR f(k) on all accepted rows (512 to 2016 laws for each f);
 the law depends on f, and no single law serves every f. s is the case
@@ -59,7 +60,7 @@ the degree-one block of result.json.
 
 These descriptions were computed after the verdict and do not enter it.
 
-- **No affine law with E identically 000.** No solution has E identically 000.
+- **No affine law with E identically 000.**
   The E=000 subtable equals Native B's single-N table, so in that geometry
   no fixed q10 readout decodes s under affine N, in agreement with Native
   B's loss on the accepted branch u=0, a=b=1. Forty solutions have constant
@@ -70,7 +71,7 @@ These descriptions were computed after the verdict and do not enter it.
   information beside s.
 - **The B and D fields jointly carry s.** For no q10.A law are B and D
   jointly independent of s on every context. This check reads the pair
-  jointly; the independent review finds B alone independent of s in 8 q10.A
+  jointly; the separate review finds B alone independent of s in 8 q10.A
   laws, and D alone dependent on s on at least four contexts in every q10.A
   law.
 - **A fresh-bit pad on q10.A.** In 512 pairs, a q10.A=s law and a

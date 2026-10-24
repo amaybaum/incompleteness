@@ -51,7 +51,7 @@
   "native_decode_v14_author": "7f843073d9245635d5b2bbeb0cfdc9f42dc7db0a",
   "native_decode_v14_plan": "36213be6354ef15442b4f3040ecdb511fd0b5641",
   "native_decode_v14_review": "pending",
-  "native_decode_v14_scope": "All254 fixed q10 readouts x2^36 jointly affine E/N laws on the retained table:78 readouts,7464 laws; q10.A=s under1456 laws; no law with E=000; B and D jointly carry s in every q10.A law (B alone is s-free in 8); q10 is a private cell under Native A, not a permitted read; the independent review finds q10.A = x XOR f(k) for each affine f under an f-dependent law. No native consuming stage, Y operand, acceptance flag or history law.",
+  "native_decode_v14_scope": "All254 fixed q10 readouts x2^36 jointly affine E/N laws on the retained table:78 readouts,7464 laws; q10.A=s under1456 laws; no law with E=000; B and D jointly carry s in every q10.A law (B alone is s-free in 8, per the separate review); q10 is a private cell under Native A, not a permitted read; the independent review finds q10.A = x XOR f(k) for each affine f under an f-dependent law. No native consuming stage, Y operand, acceptance flag or history law.",
   "native_failure": "11/16",
   "native_gate_v13_review_commit": "b21d9a6c79da158db7798a0ea382c0f716137ca9",
   "native_gate_v13_review_portability_fix": "Forward default-author-path correction only; mathematical engine and retained result unchanged. Standalone and published normal/-O outputs agree.",
