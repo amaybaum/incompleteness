@@ -79,3 +79,7 @@ without a native source:
 - Reject the repair if full metadata/flag/carrier factorization fails even
   when raw q9 alone looks uniform. An accepted conditional law still leaves
   the physical computation and public delivery of A unconstructed.
+- As a flag-only countercontrol, replace A by a supplied independent flag
+  with the same 5/16 success probability. Test the joint offered carrier and
+  calibrated terminal-R comparison, including the failure branch. Matching
+  herald/raw-port marginals must not be mistaken for the full branch law.

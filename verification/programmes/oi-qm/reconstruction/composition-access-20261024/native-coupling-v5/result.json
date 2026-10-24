@@ -1,0 +1,92 @@
+{
+  "F9_bijection_worlds_per_old_triple": 512,
+  "F9_failure_raw_record_branches": 32,
+  "F9_full_flag_raw_record_cells": 128,
+  "F9_old_flag_cases": 8,
+  "F9_raw_port_best_boolean_acceptance_error": "5/16",
+  "F9_raw_port_best_marginal_acceptance_error": "1/16",
+  "F9_rejected_selected_physical_cells": 256,
+  "F9_success_posterior_determinant": "0",
+  "F9_success_raw_record_branches": 32,
+  "actual_astronomical_stage_simulated": false,
+  "all_controls_pass": true,
+  "base_accepted_raw_nonpositive_branches": [
+    {
+      "determinant": "-1/64",
+      "mass_given_accept": "4/5",
+      "old_R": 0,
+      "raw": 0,
+      "s": 0
+    },
+    {
+      "determinant": "-1/4",
+      "mass_given_accept": "1/5",
+      "old_R": 0,
+      "raw": 2,
+      "s": 0
+    },
+    {
+      "determinant": "-5/196",
+      "mass_given_accept": "7/10",
+      "old_R": 1,
+      "raw": 1,
+      "s": 0
+    },
+    {
+      "determinant": "-5/36",
+      "mass_given_accept": "3/10",
+      "old_R": 1,
+      "raw": 3,
+      "s": 0
+    },
+    {
+      "determinant": "-1/20",
+      "mass_given_accept": "1/2",
+      "old_R": 0,
+      "raw": 0,
+      "s": 1
+    },
+    {
+      "determinant": "-1/20",
+      "mass_given_accept": "1/2",
+      "old_R": 0,
+      "raw": 2,
+      "s": 1
+    },
+    {
+      "determinant": "-1/25",
+      "mass_given_accept": "1/2",
+      "old_R": 1,
+      "raw": 1,
+      "s": 1
+    },
+    {
+      "determinant": "-1/25",
+      "mass_given_accept": "1/2",
+      "old_R": 1,
+      "raw": 3,
+      "s": 1
+    }
+  ],
+  "base_pairwise_independence_controls": 24,
+  "base_raw_vs_missing_neighbor_tv": "3/4",
+  "base_triple_vs_product_tv": "7/8",
+  "fixed_seven_site_inverse_cases": 4096,
+  "full_two_tick_source_worlds": 4096,
+  "independent_flag_conditional_carrier_tv": "2/5",
+  "independent_flag_full_offered_carrier_tv": "1/8",
+  "native_B_complete_public_history_equality_claimed": false,
+  "native_B_fixed_context_source_permutations": 64,
+  "native_B_input_table_rows": 512,
+  "native_B_opposite_sign_identical_current_port_pairs": 32,
+  "native_B_pad_sensitive_rows": 144,
+  "native_B_pad_witness": [
+    1,
+    3,
+    1,
+    3
+  ],
+  "physical_acceptance_computed": false,
+  "schema": "oi-coupled-native-pool-composition-v5.1",
+  "scope": "source-reachable n=1 controls and conditional actual-phase F9 kernel"
+}
