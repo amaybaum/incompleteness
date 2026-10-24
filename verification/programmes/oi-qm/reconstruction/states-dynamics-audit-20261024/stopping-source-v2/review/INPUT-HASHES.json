@@ -1,0 +1,21 @@
+{
+  "author_commit": "2bf6cb952fe7bdec42c9ffdb8ce4fb7242921152",
+  "files": {
+    "REPORT.md": {
+      "git_blob": "44e8f46b4f955585cac2e051d50ffc7ad4b15606",
+      "sha256": "b6e6208423fd251b924bcd5a05e1e83af8a9423a72748383e0aa5b23e13bfc9d"
+    },
+    "SHA256SUMS": {
+      "git_blob": "e11ee97ed406f5f92988b6b985f9567ea16a43f2",
+      "sha256": "af26e7265aeabfb42122ee2a83af9823127f05f7a650ddeec555028c00955148"
+    },
+    "checks.py": {
+      "git_blob": "7f48026145d236e8da146da1b7b0a569277ba8df",
+      "sha256": "432cdffd4c8d4bc3ff707add7ba8ddf93b91bcee7c1e63782e36eb0c6e2ead53"
+    },
+    "result.json": {
+      "git_blob": "a3f490318aa35fe82f3faff94a2eced422c9a78b",
+      "sha256": "061f41a850310e3295534b21bb711b8a1c651ef9959c62cfd24cb1fb7b0c376b"
+    }
+  }
+}
