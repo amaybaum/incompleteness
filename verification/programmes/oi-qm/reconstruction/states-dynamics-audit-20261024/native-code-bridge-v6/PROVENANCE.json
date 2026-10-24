@@ -1,14 +1,21 @@
 {
-  "schema": "oi.native-code-bridge.provenance.v6",
-  "published_plan_revision": "204536ef4270fe1be9ab1c0860161f0dfc7f83bc",
-  "repository": "amaybaum/incompleteness",
-  "native_source_revision": "00e85e748cf8e5ada75f4e1a22aef87eb0a823a2",
-  "native_sources": ["native-y-continuation-20261024/phase_joint_v10/REPORT.md", "native-y-continuation-20261024/native_pool_v11/REPORT.md"],
+  "actual_native_full_boundary_excluded": false,
   "architecture_author": "51d8956100cf76d24b6810f1853c9f714f596c35",
   "architecture_source": "states-dynamics-audit-20261024/history-architecture-v5/REPORT.md",
-  "runtime_dependencies": "Python standard library only; all finite measures are stated explicitly; no imported author engine or external files.",
+  "current_post_X_status": "Supplied calibrated target measure; the current native acceptance flag and reusable instrument are not implemented.",
+  "native_source_revision": "00e85e748cf8e5ada75f4e1a22aef87eb0a823a2",
+  "native_sources": [
+    "native-y-continuation-20261024/phase_joint_v10/REPORT.md",
+    "native-y-continuation-20261024/native_pool_v11/REPORT.md"
+  ],
   "negative_contract": "One common autonomous twelve-sign-code carrier and a common independent apparatus; no extra preparation label, response memory or public-history/phase tag.",
-  "actual_native_full_boundary_excluded": false,
-  "scope": "Exact X/Y calibration pushforward and pair-specific record bound under the printed common-code contract; not a no-go for full native states or all OI/A2 models.",
-  "replay": ["python3 checks.py", "python3 -O checks.py"]
+  "published_plan_revision": "204536ef4270fe1be9ab1c0860161f0dfc7f83bc",
+  "replay": [
+    "python3 checks.py",
+    "python3 -O checks.py"
+  ],
+  "repository": "amaybaum/incompleteness",
+  "runtime_dependencies": "Python standard library only; all finite measures are stated explicitly; no imported author engine or external files.",
+  "schema": "oi.native-code-bridge.provenance.v6",
+  "scope": "Exact X/Y calibration pushforward and pair-specific record bound under the printed common-code contract; not a no-go for full native states or all OI/A2 models."
 }

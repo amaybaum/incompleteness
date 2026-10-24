@@ -1,9 +1,13 @@
 # A calibration bridge and a limit of the selected twelve-code carrier
 
-Research integration diagnostic, 24 October 2026. The native post-X and
-post-Y measures are exactly the corresponding sign-code projections of the
-credited sphere model. Their shared finite code nevertheless discards
+Research integration diagnostic, 24 October 2026. The calibrated post-X
+target and post-Y measure used by the native programme are exactly the
+corresponding sign-code projections of the credited sphere model. Their shared finite code nevertheless discards
 information needed by a broader measurement direction.
+
+The post-X measure is a supplied target for the current continuation; its
+physical native acceptance gate is still unimplemented. This calculation
+compares distributions and does not assert construction of that instrument.
 
 The exclusion below assumes an autonomous common twelve-code interface and
 one continuation with a common independent apparatus. It does not apply
