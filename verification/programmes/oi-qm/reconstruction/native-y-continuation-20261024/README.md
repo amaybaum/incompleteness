@@ -11,6 +11,11 @@ whose branch remains under a separate writer and is not modified here.
 
 ## Findings and next task
 
+Latest author-checked continuation: [junction_v4/REPORT.md](junction_v4/REPORT.md).
+The unchanged sidecar junction is sensitive bijectively to a previously free
+initial triple; it cannot be treated as a clean Y code. Independent review
+of this continuation is pending. Earlier reviewed findings remain unchanged.
+
 Read [the combined report](parallel_v3/COMBINED-REPORT.md), then
 [the independent review](parallel_v3/review/REPORT.md). The reports preserve
 their original scientific scope and historical preparation statements.
@@ -23,9 +28,10 @@ their original scientific scope and historical preparation statements.
   law. The strict common raw carrier requirement fails for that candidate.
 * The third outward step gives `(u,x*u,u)` and supplies no new raw-Y socket.
 
-The next calculation is the complete update at `s=qY+(0,-1,2), t=R+3`,
-including every neighbor and lower-source behind-front term, or a tolerant
-extractor for the actual two-slice phase. Initial resources must be specified
+The next calculation is a compatible initial extension restricted to the
+active spacetime parity, preserving the old M2 frontier and all sources,
+followed by its exact M2-dependent junction law. A blanket new cold ball
+would overwrite reserved randomness and the unknown previous input. Initial resources must be specified
 at the original initial time; no late cleaning or input reloading is allowed.
 Integrated reusable native reset and the broader transport review remain open.
 
@@ -38,10 +44,10 @@ python3 replay.py
 ```
 
 The driver verifies the payload manifest and all 18 independently reviewed
-input hashes, compiles Python source, then runs 13 checker groups normally and
+input hashes, compiles Python source, then runs 14 checker groups normally and
 with `-O`, comparing both with recorded deterministic output. It runs in a
 temporary copy because the symbolic checker regenerates a JSON result.
-Expected: 13 passing groups and `PASS: checkpoint replay` with exit status 0.
+Expected: 14 passing groups and `PASS: checkpoint replay` with exit status 0.
 These checks establish only the scopes stated in the reports, not Lean
 certification, a universal compiler theorem, or a full transport audit.
 
@@ -62,7 +68,7 @@ does not schedule unattended background work.
 The historical v3 combined report describes a separate portable handoff ZIP;
 its `--baseline` command, dependency archives, and PDF are not the layout of
 this repository checkpoint. This tree contains the v2 interface sources and
-v3 research sources/inputs needed for the 13-group replay above. The earlier
+v3 research sources/inputs needed for the 14-group replay above. The earlier
 ten-checker v1 bundle is not rerun by this driver. Copied inherited core code
 and source geometry are retained where the current checks need them.
 
