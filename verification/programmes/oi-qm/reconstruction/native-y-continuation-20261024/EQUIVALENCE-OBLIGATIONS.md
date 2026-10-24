@@ -1,116 +1,131 @@
-# Parallel OI-to-QM equivalence investigations
+# Parallel equivalence investigations: five-path checkpoint
 
-Coordination supplement for 24 October 2026. The programme owner's source is
-`INTEGRATION.md` on #885 at `2d555f17c23bea31d32b3f5eb4c49d245b413a76`,
-under `research-planning/missing-component-20261020/`. It remains read-only
-for this effort. This supplement does not replace it or adopt premises.
+24 October 2026. This supplement coordinates #910, #911 and #912. It does
+not replace the programme owner's #885 index at
+`2d555f17c23bea31d32b3f5eb4c49d245b413a76`, which remains read-only for this
+effort. No physical premise, access rule, source/target map or target change
+is adopted. A1 and A2 remain separate.
 
-## Active division of responsibility
+The owner-accepted synthesis baseline is the pinned revision above. The
+observed #885 draft amendment at `cddcd3f5eece6d6c29dcab05fccc55027be70d86`
+is under independent review, with inherited reviewer-code retention still
+open. This effort reads it for coordination but neither edits nor adopts it.
 
-| Track | Current scoped result | Next decisive obligation |
+## Five investigations and what changed
+
+| Investigation | Reviewed scoped result | Next gate |
 | --- | --- | --- |
-| [#910 native instruments](https://github.com/amaybaum/incompleteness/pull/910) | Calibrated post-Y selected phase; restricted terminal X/R records; actual next-port boundary/reservoir result; eight-port history extension; scoped internal transport proof scrutiny | Couple the retained X to fresh resources by the native rule, implement readout/back-action/acceptance, and preserve a reusable full-boundary joint law |
-| [#911 states and dynamics](https://github.com/amaybaum/incompleteness/pull/911) | Explicit alternative operational quotient passes its supplied Pauli/Clifford contract but has a scoped non-Clifford obstruction; natural product preparations retain this fixed-map obstruction | Specify a different preparation/map/carrier/continuation contract, then prove observation preservation, target coverage and actual availability |
-| [#912 composition and access](https://github.com/amaybaum/incompleteness/pull/912) | Fixed full-future operational relation and actual native one-step response controls; matching next records can still hide a wrong joint retained-field law | Verify the actual native output cone and every complete-record kernel satisfy the contract for adaptive reuse |
+| Native A: stored X toward the pool (#910) | Three extra initial bits give a native nine-bit resource; current q9 carries a masked old triple with a harmless whole raw read and fixed two-slice inverse | Implement the actual correlated acceptance gate, pointer law and reusable boundary |
+| Native B: fresh-source outward adapter (#910) | A fixed single-source q10 geometry loses X on an accepted branch for all payloads/pads; arbitrary known-seed common raw-pair compatibility also fails | A distributed or richer source/input interface, with a new source-compatible proof |
+| Exact architecture comparison (#911) | A credited continuous qubit model passes the non-Clifford test and has exact state/rotation/projective finite-adaptive laws under supplied resources | Native availability, physical probability/access/clock selection, full instruments and composites |
+| Finite A2 controller (#911) | A geometric finite encoding has a positive fixed decoder and explicit complete record/state error, clock and initial-resource bounds | Improve costs or broaden the specified class; connect the controller to native resources |
+| Candidate-specific composition (#912) | The nine-bit repair preserves positive complete-raw post-X reference branches; relabelled/unrelated flags fail the required joint law | A physical predicate with every actual raw field, delay, failure and outgoing state checked together |
 
-Each active track keeps its own guiding draft and disjoint source directory.
-Reviews are retained with the result, not in duplicate PRs. Internal review
-is not external validation, formal certification, adoption or evidence on
-main. Required off-main evidence must land with any dependent enduring claim
-under AGENTS §A.42.
+These results are complementary. The two native routes use different
+initial-resource variants: Native B replaces the optional F10 uniform factor,
+while Native A retains it and adds F9. Their conclusions must not be combined
+as if they used the same full initial measure. The mathematical architecture
+and approximation do not supply a native bridge by themselves.
 
-## Shared acceptance contract
+## Immutable author and review sources
 
-1. **Physical input.** Use the actual previous/current native phase and its
-   neighborhood, residual workspace, resources, timing and earlier records.
-   A selected coordinate map is not an autonomous state-transition theorem.
-   A cold late-time apparatus or arbitrary forced q8 input cannot replace it.
-2. **Fixed operational map.** State one source/target correspondence and
-   allowed protocol class. Verify equality of all permitted observations,
-   not just representation of desired states. A changed map is a candidate
-   architecture with its own obligations, not adoption by notation.
-3. **Joint branches.** Compare complete raw records, flags, timing and the
-   outgoing carrier together, retaining every failure and zero-mass branch.
-   A previous terminal failure never restarts an offered carrier. Terminal
-   X->Y->X alone misses known calibration errors; R is a necessary retained
-   diagnostic beside the full joint comparison.
-4. **Resources.** Specify independent sources at the original initial time,
-   with readiness and source-coordinate compatibility. Conditional freshness
-   relative to public history alone can miss correlations with incoming
-   response variables. Either prove the needed joint independence or retain
-   and check the actual joint resource/input kernel.
-5. **Access and initialization.** Identify public/private fields, delayed
-   reads, workspace return coupling, setting mechanisms and clock. A globally
-   fixed-zero complement is stronger than ready-ball assumptions. Adding a
-   reserved bank read or zeroing a bank coordinate changes the contract.
-6. **Closure.** Prove branchwise positivity and preservation of an admissible
-   boundary invariant under every next instrument. Hidden-state identity may
-   be stronger than operational equivalence, but selected-moment equality is
-   weaker unless its kernel is preserved. A finite-depth example is not an
-   arbitrary-depth or multi-system theorem.
+- Native A: `f24a57a7c23cc1818c04265cec7604f8bc2f410d`,
+  `native_x_v12/`; accepting internal review retained at
+  `f4c95028be8c74a5fa05e131f8cb55f68e3b7ec7`.
+- Native B: `1c91d3158e13eaa69c7fd1710932c9995d0288d7`,
+  `native_seed_v12/`; separate review in its `review/` directory.
+- Exact architecture: `51d8956100cf76d24b6810f1853c9f714f596c35`,
+  #911 `history-architecture-v5/`; accepting internal review retained at
+  `988d090d0901f9369b644bda4361ea1af003073e`.
+- Finite A2: revised `dbfaa3c68003bfd5335353829c18cf6f21d300c4`,
+  #911 `finite-a2-v5/`; report/provenance clarify one total clock/word budget,
+  with scientific code/result unchanged. Separate review and current handoff
+  are retained at `64030d54c1f5447514e13fa1ae0fed63c0f016e0`.
+- Composition: `621e1a05776be4bcf870e2db61fa05244a354f1c`,
+  #912 `native-coupling-v5/`; accepting internal review retained at
+  `4f74936e891c9599222da7b421e179297e8db692`, current handoff at
+  `fe8f0363c99064038763a20e4cef9051f1ac7408`.
 
-## Native checkpoints and precise boundaries
+Each guiding draft retains its own source, proofs, structured outputs,
+manifests and reviews. Internal separate-agent review is not external
+validation, formal certification, owner adoption or durable evidence on main.
+Required source/evidence must land with any dependent enduring claim under
+AGENTS §A.42. Author snapshots and forward history remain preserved.
 
-- `phase_joint_v10/`, author `9b334367864c39e969072d9fbd46b0c049584963`:
-  conditional selected-phase law with 5:3:2 masks, fair z and 5/16 success,
-  plus restricted whole-q9 terminal X/R records. Previous-Y access, general
-  menu and post-read native reset remain open.
-- `native_v11/`, revised author `7ec3f8234a148cadb58ebc6c8212b3b0233acabe`:
-  actual original-time first-front variations prove a next-port boundary
-  requirement. Under an explicitly independent uniform initial factor they
-  also provide a native local six-bit reservoir. The globally-zero case is
-  a different initialization restriction, not ruled out by that variation.
-- `history_v11/`, author `c326546f228a1769856fded2268b76d976a171d3`:
-  conditional eight-port public-noise theorem for H=L+Delta<=2L, adding
-  24Delta bits. Its whole-word and future-tail claims do not imply future
-  carrier/neighborhood independence.
-- `transport_audit_v1/`, author `a3e8b7a201aae9f7ac6babf93173188f87ed8bb8`:
-  accepted scoped written extrusion/frontier proofs, with a native cyclic
-  same-time countercontrol. Internal review does not automatically discharge
-  the programme's coordinator-commissioned independent proof review.
-- `native_pool_v11/` separates a conditional sampler/calibration bridge from
-  the unimplemented native predicate. Retained-X delivery, computation delay
-  and the full delayed record/carrier law remain construction obligations.
+## Common acceptance rules
 
-## Reviewed parallel source pins
+1. Use the actual two-slice physical phase, neighborhood, workspace, old
+   records and resources. A fixed inverse coordinate map is not an observer
+   operation, and a cold late-time apparatus cannot replace the boundary.
+2. Compare complete raw records, pointer prefixes, timing, flags and outgoing
+   carrier jointly. Retain zero-mass and physical failure branches. A previous
+   terminal failure never creates a newly offered carrier.
+3. Specify sources and readiness at the original initial time. Conditional
+   freshness must include incoming response variables or their actual joint
+   kernel. Uniform marginals and pairwise independence can be insufficient.
+4. Use one fixed operational correspondence and admissible phase cone. Keep
+   branchwise positivity, mass and continuation closure explicit. Stored
+   physical word/clock tags are part of an encoding; an unavailable external
+   history or unknown preparation label is not an input.
+5. Distinguish exact native source dynamics, abstract reversible dilations,
+   written universal proofs, bounded computations and review levels. Passing
+   one does not silently establish the others.
 
-- #911 operational-quotient author `fb0f799d94b621cdb82a8e06183f07afc070f14c`,
-  accepting internal review `8cace57a0935adc4d9b790d527e4c5f91964d76c`:
-  explicit supplied Pauli/Clifford congruence and a scoped 1/15 pair bound.
-- #911 product-section author `d6966ce055f6f1d872080328023fc37d68d17533`,
-  accepting internal review `088af1453efc7780187bc81f8f765f5005b91870`:
-  eight product inputs already span the hidden measure space; a different
-  product pair gives a sharp 2/15 record bound under the same decoder.
-  These are different preparation contracts/pairs, not full-channel minimax
-  results or OI-wide error floors.
-- #912 native-phase author `5b77352f50ddfe750b1cf5cbc72ebdded046df31`,
-  accepting internal review `be3840081fb40fe991660fb394b262c8b1a1b89e`:
-  exact omitted-neighbor response and matching-record/wrong-joint-law
-  controls on explicitly local boundary completions. No original-time
-  reachability or added observer access is asserted.
+The native full raw port V is independent of the intended acceptance event.
+The physical flag must compute that event using actual logical X/pool/key
+operands. A rate-matched random flag gives a wrong offered-carrier law.
+New physical pointer ports, delayed reads or exposed private keys require
+new joint access/history checks; the old eight-port noise theorem alone
+does not establish future carrier independence.
 
-## Broader open gates
+## Cross-track integration
 
-The planning/backlog authority for these continuation follow-ups is
-[#913](https://github.com/amaybaum/incompleteness/issues/913), cross-linking
-the existing physical-source, geometry, composition and continuum Issues.
-Unstarted items do not receive placeholder PRs. Their next actions and
-activation conditions are stated there.
+`native-code-bridge-v6/` on #911, author
+`0449d85910aed0f838b629ee683061ce9960cc2d`, identifies the native post-X/Y
+calibrations with the sphere sign projection on those preparations. It also
+tests an explicitly autonomous common twelve-code interface: its +X/+Y
+pair has source TV 1/2 against target record TV 7/10 for a broader rational
+read, forcing a sharp stochastic pair error at least 1/10. The full sphere
+resolves information inside one old sign cell.
 
-Open gates include calibration and physical observable-direction selection;
-native preparation, clock and settings; access closure; unrestricted menu
-and depth; composite/Bell structure; exact state/operation coverage; and
-the later finite-to-continuum scope. A single-carrier instrument does not
-discharge these gates. The structural architecture audit should stay active
-alongside native construction rather than waiting for every finite circuit.
+This is a restriction on using the selected signs alone, not on the actual
+native full phase or a memory/context-carrying encoding. Additional initial
+apparatus, public history/phase tags and response memory must be included
+in the input law before any distinguishability bound is applied. No claim
+is made to a native lift or a general OI/A2 obstruction. The accepting bridge review and current #911 handoff are retained at
+`f2426f16d0054943ca4937648a9ff9613d08f960`. The bridge explains why
+distributed native information and larger A2 encodings matter.
 
-**A1 and A2 are separate.** A1 needs exact coverage and availability on its
-specified full target. A2 needs a stated protocol class, horizon, error
-metric/tolerance and resource-scaling guarantee. The scoped error floors for
-the #911 eight-sign representation are not bounds for every OI architecture.
-Finite calibrated successes do not establish emergent selection of quantum
-statistics, and failure of one architecture does not refute OI generally.
+## A1 and A2 boundaries
 
-No full equivalence, new physical premise, observer-access adoption, F/E
-designation, special workflow launch, force-push, merge or branch deletion
-follows from these research checkpoints.
+The old eight-sign 1/15 and product-section 2/15 pair bounds remain valid for
+their fixed encodings and preparation contracts. The continuous positive
+control changes the encoding and supplied operation family; it does not
+contradict those results or derive native operation availability.
+
+The finite A2 theorem covers stated finite rational menus and one total
+h-operation horizon from its canonical initial cone. Measurement resets
+the current word but not the clock or reserved-bit budget. Its conservative
+h=3, epsilon=0.1 certificate needs 156 initial fair bits and over a billion
+grid labels, with large deterministic table/workspace costs. The large grid
+is not run and efficiency is not claimed. This is conditional reproduction,
+not physical selection of quantum probabilities or full A2 reconstruction.
+
+Full A1 still needs the specified full target and sourced availability.
+General POVMs/instruments, multi-carrier tensor/composite/Bell structure and
+the native bridge remain separate. A single-carrier finite-depth theorem is
+not an arbitrary native-depth or multi-system reconstruction.
+
+## Wider programme backlog
+
+[#913](https://github.com/amaybaum/incompleteness/issues/913) retains the
+unstarted follow-up gates, dependencies and activation conditions, linking
+existing source, geometry, drive, composition and continuum Issues. Physical
+calibration/direction selection, preparation, settings/clock, access closure,
+unrestricted menus/depth and later continuum scope remain open. The programme's
+coordinator-commissioned independent transport proof review remains distinct
+from the internal audits already retained here.
+
+A failed construction refutes its stated class, not OI generally. No full
+equivalence, empirical prediction, F/E designation, special workflow launch,
+merge, force-push or branch deletion follows from this checkpoint.

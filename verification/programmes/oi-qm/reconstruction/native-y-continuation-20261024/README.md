@@ -1,29 +1,26 @@
-# Native measurement continuation: retained research checkpoint
+# Native coupling and parallel reconstruction research
 
 Start with [CURRENT-HANDOFF.md](CURRENT-HANDOFF.md) for the current native
-result, actual boundary assumptions, fresh-resource route and next reset gate.
-[EQUIVALENCE-OBLIGATIONS.md](EQUIVALENCE-OBLIGATIONS.md) maps the three active
-research drafts and the broader programme obligations. The guiding native
-draft is [#910](https://github.com/amaybaum/incompleteness/pull/910); the
-unstarted follow-up gates are tracked in [#913](https://github.com/amaybaum/incompleteness/issues/913).
-#885 remains read-only for this effort.
+result and remaining physical acceptance gate, and
+[EQUIVALENCE-OBLIGATIONS.md](EQUIVALENCE-OBLIGATIONS.md) for the three guiding
+drafts and wider obligations. The shared five-path comparison is in
+[shared_v12/INTERFACE-CONTRACT.md](shared_v12/INTERFACE-CONTRACT.md).
 
-The calibrated post-Y selected phase and restricted terminal records remain
-reviewed. This continuation adds a native next-phase boundary/reservoir
-calculation, an eight-port public-history extension, scoped transport proof
-scrutiny and their separate-agent internal reviews. The fresh-pool sampler
-module labels its abstract predicate separately from native dynamics.
-None establishes a reusable native X instrument or full OI-to-QM equivalence.
+Native A constructs a masked representation of the old state in a current
+field, with a safe complete raw record and fixed two-slice inverse code.
+Native B rules out its particular one-source single-port adapter. The exact
+reference post-X acceptance law remains conditional until a physical native
+flag gate is implemented. A decoder is not an observer operation.
 
-Run `python3 replay.py --latest` for the new scoped groups and complete
-manifest verification. Each normal and optimized output must match its
-retained structured result. The driver also retains the earlier 41 groups;
-running without --latest includes them, but no fresh full-run result is
-claimed here. Python sources are compiled in the temporary replay copy.
-CHECKPOINT-CHECKS.json records the exact scope and prior-evidence boundary.
+Run `python3 replay.py --latest` for four new native author/reviewer groups,
+normal/optimized output comparison, Python compilation and the complete
+manifest. The driver retains 53 groups in total; the older 49 have unchanged
+scientific source and prior passing evidence, without a new full-suite claim.
+CHECKPOINT-CHECKS.json gives the current measured scope.
 
-The source prior, original-time readiness, clock, settings and observer access
-are explicit candidate resources. Every failure and physical field remains
-accounted for at its claimed boundary. A failed construction rejects its
-stated family, not OI generally or a separately specified A2 model. Internal
-review is not external validation, formal certification or owner adoption.
+Architecture and finite A2 work are retained on
+[#911](https://github.com/amaybaum/incompleteness/pull/911), and the joint
+native interface/flag audit on [#912](https://github.com/amaybaum/incompleteness/pull/912).
+Broader unstarted gates remain in [#913](https://github.com/amaybaum/incompleteness/issues/913).
+#885 stays read-only for this effort. Internal review is not external
+validation, formal certification, owner adoption or full OI-to-QM equivalence.

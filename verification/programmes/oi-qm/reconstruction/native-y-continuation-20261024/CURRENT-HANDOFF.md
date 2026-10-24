@@ -1,130 +1,140 @@
 # Native instruments: current research handoff
 
-24 October 2026. Research drafts #910, #911 and #912 retain separate
-responsibilities. #885 is read-only for this effort, with programme synthesis
-pinned at `2d555f17c23bea31d32b3f5eb4c49d245b413a76`. No physical premise,
-access rule, operational map, F/E designation, merge or equivalence verdict
-is adopted. A1 and A2 remain separate targets.
+24 October 2026. The five-path continuation uses #910 for two native routes,
+#911 for exact architecture and finite A2 comparison, and #912 for composition.
+#885 remains read-only for this effort. No physical premise, access rule,
+operational-map adoption, F/E designation or equivalence verdict is implied.
+The broader unstarted gates remain in #913. The owner-accepted programme
+synthesis remains `2d555f17c23bea31d32b3f5eb4c49d245b413a76`. The separately
+observed #885 draft amendment at `cddcd3f5eece6d6c29dcab05fccc55027be70d86`
+is under independent review and records an older reviewer-code retention
+gate. These new internal reviews do not close that inherited gate or adopt
+the amendment.
 
-## Current native result and remaining reset
+## What the native step now does
 
-The reviewed calibrated post-Y preparation remains intact. Its selected
-phase at L=R+9 is previous q8=(0,y,0), current q9=(0,y XOR a,y XOR b),
-current remote Z=(0,0,z) and herald=(0,G,0). Conditional successful mask
-weights are 5:3:2, z is jointly fair, and success/failure masses are 5/16
-and 11/16. The actual affine initial sources and native nonlinear processing
-are retained in `branch_v10/local-controller/`, `herald_v10/` and
-`phase_joint_v10/`, with their separate reviews.
+Native A author `f24a57a7c23cc1818c04265cec7604f8bc2f410d`, under
+`native_x_v12/`, adds three explicitly independent initially fair bits at
 
-Keep T=185, P=12*840^185, S=P+185, R=S+68 and L=P+262. These exact constants
-have not changed. Previous q8 carries Y; current q9 carries X and R together.
-The phase coordinate map is fixed, while observer delivery of previous-slice
-fields and a general native measurement menu remain open.
+    f9=(-(L+2),S,77).
 
-The permitted whole-q9 terminal read has correct restricted X/R raw record
-laws on the retained post-Y family. Its unchanged post-read decoder is
-nonpositive, with determinant -1/4. A reusable X instrument still needs real
-native back-action/reset and a valid next-stage boundary. Earlier terminal
-failure never creates a newly offered carrier.
+Keep T=185, P=12*840^185, S=P+185, R=S+68 and L=R+9=P+262. No period or
+torus size is changed. The new source reaches M=q9-e_x at L+1 without
+reaching Q8,Q10 or any old informative field early. Together with the six
+previously supplied F8/F10 bits, it gives a uniform nine-bit native local
+resource (Q8,Q10,M), conditional on every other initial variable.
 
-## Native continuation and a constructive fresh resource
+Let oldP=U_L(q9), and let C be the XOR of the other three q9 neighbors at
+L+1. The unchanged native update physically writes
 
-`native_v11/REPORT.md`, revised author
-`7ec3f8234a148cadb58ebc6c8212b3b0233acabe`, has a separate accepting review
-retained at `bcc55d6999fdb2be70e045bfdfc7959107501d54`.
+    V=U_(L+2)(q9)=oldP XOR H(Q8 XOR Q10 XOR M XOR C).
 
-Two original-time current cells f8=(-(L+1),S,76) and
-f10=(-(L+1),S,78) are outside the retained ready regions and do not affect
-any permitted public record or selected phase through L. At L+1 each has
-a bijective dirty-background response to its own q8/q10 target, with no
-cross-target influence yet. Varying them gives all 64 ordered output pairs.
+For fixed complement and pool, M->V is a permutation. Consequently whole V
+is uniform jointly with the retained pool, oldP and specified public past.
+This is an actual native masked representation of the old triple, not an
+implemented post-X quantum instrument. The previous six-neighbor slice and
+current V give the fixed local inverse
 
-This proves a boundary requirement: the selected phase alone does not
-determine these next ports when the outside-ready complement can vary.
-A globally fixed-zero complement excludes this witness and is a narrower
-initialization assumption. No general reset impossibility follows.
+    oldP=V XOR H(XOR_(w~q9) U_(L+1)(w)),
+    s=V.B XOR XOR_(w~q9) U_(L+1)(w).D.
 
-Constructively, specifying these two initial triples as independent uniform
-resources conditional on every other initial variable produces an actual
-native local six-bit reservoir at L+1. It is jointly independent of those
-other variables, including old X, records and flags. Previous q9 still
-retains X. The fresh prior is a stated resource, not derived randomness.
-The source and public-bank exclusions remain part of the construction.
+The code uses one current site and its six previous neighbors; it does not
+retrieve an unavailable historical field or read a separate history log.
+Its existence is a coordinate-map result, not an observer read or physical
+unmasking gate. Exposing the private mask as extra metadata can make the
+fixed conditional decoder nonpositive. Only the stated single-V read is
+audited; continuous new q9-prefix access is not inferred.
 
-A return-q8 initial blank extension would overlap reserved old bank points
-M1 and M2. They must remain exceptions; geometric inclusion does not itself
-prove an actual leak. The outward q10 extension avoids those two points.
-No separately cold late-time apparatus is substituted.
+The candidate adds a stated initial product factor and no new blank shell.
+Old sources, bank coordinates and failures are preserved. Source geometry,
+whole native distributions, the local inverse and complete conditional
+reference-carrier/failure laws have separate accepting internal review at
+`f4c95028be8c74a5fa05e131f8cb55f68e3b7ec7`. The scientific input reports/data
+are hash pinned; the prior handoff is contextual provenance only.
 
-The `native_pool_v11/` author checkpoint at
-`6e9a3ec567a1f3472bad3ed23c48b8111d2f0515` uses this native reservoir for
-an exact abstract post-X target. Thresholds 5,0,4,1 give conditional success
-5/16, full 5:4:1 mask weights and jointly fair Z. All 65,536 finite worlds
-retain the old raw records and actual rejected phase fields. The acceptance
-predicate remains an abstract target until implemented by the native rule;
-its separate review is retained with that module. A predicate depending on retained X must acquire
-that physical operand, preserve the chosen output fields during computation,
-and include every new public record and failure. A matching conditional
-sampler law alone does not construct that native predicate.
+## The distinct outward route and its precise failure
 
-## Continued public records and transport proof scrutiny
+Native B author `1c91d3158e13eaa69c7fd1710932c9995d0288d7`, under
+`native_seed_v12/`, tries an original-time q10 ready extension and one new
+axial source N=(0,S,S+156). This replaces the optional uniform F10 factor
+by a readiness pin. It is a distinct resource variant, so it does not
+inherit the former two-port uniform-pool theorem unchanged.
 
-`history_v11/REPORT.md`, author
-`c326546f228a1769856fded2268b76d976a171d3`, extends the explicit bank to
-eight public ports through H=L+Delta, for any fixed 1<=Delta<=L. The old
-seven rays continue, while the new herald at cG=(48L,0,0) uses initially
-uniform triples at cG+(t,0,0), L<t<=H. The total noise word has
+The complete 512-row native table and exact upper/lower period reductions
+give an accepted branch u=0,a=b=1 on which q10 is independent of unknown x
+for every N payload and both selector pads. Its N->q10 permutation is
+4,2,1,0,3,5,6,7 for both x values, while s=1 XOR x differs. Thus q10 alone
+cannot recover X pointwise through any deterministic decoder on that branch.
+The common whole-port (s=0,s=1) pair intersection across all 24 known-seed
+contexts is also empty, excluding arbitrary seed-only single-N controls
+within this geometry before imposing affineness.
 
-    B_H=6P+18*68+189+24Delta
+Previous q9 and the full two-slice state still retain X. This is a failed
+single-port adapter, not a no-go for distributed processing, a richer source
+family, stochastic operational encodings, the Native A variant or OI. The
+compared worlds are not asserted to share the whole prior public history.
+The source-compatible alternative and its separate review are retained.
 
-bits. Exact geometry leaves only same-tick edges 2->5 and 3->5; chronological
-inversion gives whole-word uniformity conditional on the bank complement.
-The future tail is uniform even conditional on the complete permitted past
-through L. This does not establish independence of a future physical carrier
-that uses that bank. The separate review accepts this precise distinction.
+## The flag must compute the right event
 
-`transport_audit_v1/REPORT.md`, author
-`a3e8b7a201aae9f7ac6babf93173188f87ed8bb8`, re-derives the scoped one-sided
-extrusion recurrence, exponent, dirty-background axial response, chronological
-frontier theorem and finite wing-source formula. Its separate review and
-the history review are retained at `7707a9a3f287ba94c8ea391cc49c5e9db0ca859c`.
+The retained abstract target uses previous pool fields and the fixed local
+s decoder. With Q8=(b0,b1,b2), Q10=(b3,b4,b5), set
 
-The new native equal-time-cycle countercontrol has individually bijective
-own-port responses but only 8 joint outputs instead of 64. Thus the full
-same-time graph must be checked. Accepted clean-front transport lemmas do
-not supply an adapter for a dirty post-measurement boundary. These are
-internal proof reviews; the programme's coordinator-commissioned independent
-transport proof review is not automatically discharged.
+    Ynew=b1, Rnew=b5, Znew=b4, K=b0+2b2+4b3,
+    A=1 iff K<n(Ynew XOR s,Rnew XOR s), n=(5,0,4,1).
 
-## Parallel structural and composition results
+Conditional acceptance is 5/16 and the full accepted post-X law has 5:4:1
+mask weights with jointly fair Z. Native A supplies the data coupling and
+harmless full raw V record for this reference comparison. It does not yet
+compute or expose the physical A flag.
 
-The current state/dynamics and composition checkpoints are linked from
-`EQUIVALENCE-OBLIGATIONS.md` and their guiding draft PRs. #911 tests an
-explicit alternative operational quotient rather than assuming the old
-pointwise invariant survives every map. #912 supplies the full-response
-contract and controls showing that even matching next-record laws can hide
-a wrong joint record/carrier law. Neither track constructs the native reset.
+#912 author `621e1a05776be4bcf870e2db61fa05244a354f1c` independently audits
+the complete conditional kernel. Each accepted whole-V branch has the
+correct positive decoded X state; rejected actual fields and prior terminal
+failures remain retained. Relabelling V cannot supply A because V is
+independent of A. A separate flag with the same acceptance rate also fails:
+its offered-carrier/reference-R law differs by TV 1/8 on the stated sector.
+The physical gate must therefore couple the actual operands and preserve
+their joint law, not merely reproduce the acceptance frequency.
 
-Broader inactive obligations and their next actions are recorded in
-[#913](https://github.com/amaybaum/incompleteness/issues/913), with links to
-the existing source, geometry, drive, composition and continuum backlog.
-Calibration/direction selection, native preparation/settings/clock, access
-closure, arbitrary menu/depth, composites/Bell structure, full A1 coverage
-and stated A2 error/resource guarantees remain open.
+## Supporting records and parallel mathematical paths
 
-## Next decisive construction and validation
+The calibrated post-Y preparation and restricted terminal X/R records in
+`phase_joint_v10/` remain unchanged. The previous-slice/current-cell decoder,
+5:3:2 calibration, 5/16 parent success and all parent failures retain their
+reviewed scope. No arbitrary late-q8 socket or general native menu is supplied.
 
-Build a native acceptance/readout and back-action interface that accepts
-the actual two-slice phase, couples retained X to a fresh resource without
-preloading the unknown sign, and outputs the calibrated X post-state.
-Retain full raw records and every failure, verify conditional resources and
-preserve a reusable boundary invariant. The fresh pool is a constructive
-resource; the remaining gate is its native coupling and joint delayed law.
+The eight-port history proof in `history_v11/` covers H=L+Delta<=2L with
+its supplied bank and 24Delta additional bits. Future noise-tail uniformity
+does not prove future physical-carrier independence. A new public pointer,
+time window or read needs its own joint source/history audit. Scoped
+transport proofs retain internal review; the programme's coordinator-
+commissioned independent transport proof review remains a separate gate.
 
-`python3 replay.py --latest` replays only this continuation's new author and
-review groups, normally and with -O, against retained outputs. The earlier
-41 groups retain unchanged sources and prior passing evidence. The current
-CHECKPOINT-CHECKS.json gives the measured fresh group and manifest counts.
-No new full-suite run, Lean certificate or exact-head attestation is claimed.
-Safe forward checkpoints and reviews are on the existing draft branches;
-no unattended future work, special dispatch, merge or branch deletion follows.
+#911 now has a credited continuous single-qubit positive architecture and
+a finite approximation with an explicit adaptive record/state/resource
+bound. The post-X/Y sign-code measures match the geometric projections,
+but no native operation/access bridge to the full interface is proved. Their
+source pins and open coverage
+gates are in EQUIVALENCE-OBLIGATIONS.md and the #911 handoff. A1 and A2
+remain separate; neither the old finite-encoding obstructions nor these
+positive comparisons settle OI generally.
+
+## Next construction and verification boundary
+
+Use the distributed two-slice masked code to implement a native acceptance
+gate on actual X/pool/key operands. State original-time sources, deadline,
+full pointer metadata and prefix, all failures and a reusable outgoing
+boundary. Physical unmasking or computation cannot be replaced by the
+mathematical inverse decoder. Do not reuse the excluded one-cell shortcut
+without changing and rechecking its source/input contract.
+
+The replay driver retains 53 groups; --latest runs the four new native
+author/reviewer groups normally and with -O. The previous 49 groups retain
+unchanged scientific sources and earlier evidence. Other branches freshly
+check six architecture/A2/bridge groups and two composition groups. The final
+CHECKPOINT-CHECKS.json records measured manifest/replay scope. No new full
+suite, Lean certificate or exact-head attestation is claimed. Research and
+reviews are continuously saved on the existing draft branches; required
+evidence must land with any dependent enduring claim under AGENTS §A.42.
+No unattended work, special dispatch, merge or branch deletion is scheduled.

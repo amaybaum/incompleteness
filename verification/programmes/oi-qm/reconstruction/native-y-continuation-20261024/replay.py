@@ -58,12 +58,15 @@ def main():
               ('branch_v10/local-controller', 'checks', ['--symmetric'], 'symmetric-result.json'),
               ('branch_v10/local-controller/review', 'checks'),
               ('phase_joint_v10', 'checks'), ('phase_joint_v10/review', 'checks')]
-    latest = [(folder, 'checks', [], 'result.json') for folder in (
+    retained_v11 = [(folder, 'checks', [], 'result.json') for folder in (
         'native_v11', 'native_v11/review',
         'transport_audit_v1', 'transport_audit_v1/review',
         'history_v11', 'history_v11/review',
         'native_pool_v11', 'native_pool_v11/review')]
-    tests = latest if sys.argv[1:] == ['--latest'] else tests + retained_v10 + latest
+    latest = [(folder, 'checks', [], 'result.json') for folder in (
+        'native_x_v12', 'native_x_v12/review',
+        'native_seed_v12', 'native_seed_v12/review')]
+    tests = latest if sys.argv[1:] == ['--latest'] else tests + retained_v10 + retained_v11 + latest
     with tempfile.TemporaryDirectory(prefix='native-y-replay-') as directory:
         work = Path(directory) / 'checkpoint'
         shutil.copytree(ROOT, work, ignore=shutil.ignore_patterns('__pycache__'))
