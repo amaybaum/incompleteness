@@ -1,87 +1,96 @@
-# States/dynamics: current research handoff
+# States and dynamics: current research handoff
 
-24 October 2026. #911 retains abstract architecture diagnostics. No new
-operational map, preparation domain, resource law or physical premise is
-adopted. #885 remains read-only. These results do not refute OI generally or
-the different native encoding in #910. A1 and A2 have separate targets.
+24 October 2026. #911 records two distinct mathematical paths: an exact
+single-qubit architecture comparison and a finite approximation with explicit
+error/resources. Neither is an adopted OI operational map, native availability
+proof, probability-selection principle or full equivalence. #885 is read-only
+for this effort. A1 and A2 keep separate targets and verdicts.
 
-## Alternative map and its positive control
+## Exact architecture comparison
 
-`operational-quotient-v3/`, author
-`fb0f799d94b621cdb82a8e06183f07afc070f14c`, has an accepting separate-author
-internal review at `8cace57a0935adc4d9b790d527e4c5f91964d76c`.
+`history-architecture-v5/`, author
+`51d8956100cf76d24b6810f1853c9f714f596c35`, is a credited positive control
+using the known Kochen-Specker qubit sphere model. The accepting separate-agent
+internal review is retained at `988d090d0901f9369b644bda4361ea1af003073e`.
 
-An explicit eight-sign carrier with a fixed Bloch first-moment decoder
-reproduces the supplied Pauli/Clifford instrument contract. Positive hidden
-permutations can induce Hadamard, including a negative decoded off-diagonal
-entry. Therefore a pointwise/G3-specific invariant does not automatically
-survive a different operational correspondence. Its original theorem remains
-unchanged.
+The hidden point lambda lies on the unit sphere. A pure preparation n has
+density (n dot lambda)_+/pi; measurement reports sign(a dot lambda), rotations
+move lambda geometrically, and a fresh reset prepares the measured eigenstate
+density. A fixed moment decoder is positive on the specified mixture cone.
+An independent hemisphere integral gives the Born law. The model represents
+every one-qubit state and unitary rotation, and its finite adaptive rank-one
+projective records/outgoing states agree jointly with the quantum reference.
 
-Equality of moments is full finite-adaptive record equivalence only under
-the stated preparation/reset/access contract: fresh initially supplied seeds,
-blank workspace and no permitted return coupling from spent private registers.
-The reversible dilation retains the old carrier and seed. No-reset and
-workspace/seed-access controls expose failures of that congruence.
+It passes the earlier rational non-Clifford test without giving the apparatus
+an unknown preparation label. Its hidden input distributions differ from
+the old eight-sign encoding, so the old distinguishability obstruction does
+not transfer. The model and its quantum reproduction are prior work; novelty
+is not claimed. The report and review derive the interface and controls anew.
 
-## Fixed-map obstruction and preparation-section follow-up
+The continuum prior, exact rotation/reset primitives, independent initial
+uniforms, blank registers, fixed clock and private-memory isolation are
+supplied assumptions. The reversible dilation retains old information but
+does not implement it under the native lattice rule. Reset, workspace, seed
+access and timing controls show that the restrictions are load-bearing.
+General POVMs/instruments, native sourcing and composites remain open.
 
-For the same eight-sign moment map, exact implementation of a unitary Bloch
-rotation by one stochastic hidden kernel must preserve the sign cube if the
-admissible preparations span all hidden measure vectors. An orthogonal map
-preserving that cube is a signed permutation: only the 24 proper Clifford
-rotations satisfy the necessary condition. This is a scoped architecture
-obstruction, not a theorem about every operational quotient.
+## Finite A2 controller and fixed-decoder bound
 
-The initial full-fibre control gives a sharp 1/15 binary-record error floor
-for one explicitly allowed preparation pair and rational non-Clifford test.
-Its separate 1/10 number is an octahedral state-coverage gap, not the same
-operation/test bound. Allowing all valid-Bloch output priors does not repair
-the input-pair distinguishability problem.
+`finite-a2-v5/`, revised author
+`dbfaa3c68003bfd5335353829c18cf6f21d300c4`, discretizes the same geometric
+interface for specified finite rational preparation, rotation and projective
+menus and one total budget of h adaptive operations. Six cube-face grids give
+N=6M^2 labels; rational integer weights and fixed B-bit CDF samplers avoid
+tables of quantum protocol answers. The actual finite controller uses its
+hidden index, stored rotation word and declared setting, not an external
+unknown preparation label.
 
-The obvious product-preparation escape is tested in
-`operational-quotient-v3/product-section-v4/`, author
-`d6966ce055f6f1d872080328023fc37d68d17533`. Canonical positive product priors
-represent every Bloch state, but eight valid product inputs already span the
-eight-dimensional hidden measure space. The determinant is 1/531441. Thus
-full preparation fibres and mixture closure are not needed for the same
-fixed-map rotation obstruction.
+One inward moment decoder is positive on the preparation/reset/rotation
+phase cones. With the report's explicit kappa and chi, the complete public
+record plus decoded outgoing state differs from the quantum protocol begun
+at the decoded input by at most
 
-A different product pair r=+/-(2/3,-2/3,0) has ontic TV 2/3 while the target
-rational rotation followed by X read has TV 14/15. Data processing and the
-triangle inequality force worst-pair record error at least 2/15; an ordinary
-X sign read attains it. This pair is outside the earlier octahedral domain.
-The 1/15 and 2/15 numbers concern different pairs/contracts and neither is a
-full-channel minimax theorem. Additional output memory or enlarged output
-state geometry cannot increase the input pair's distinguishability.
+    min(1,h*kappa+2chi)
+      <= min(1,(52h+300)/M+(8h+48)/2^W+(h+6)(6M^2-1)/2^B).
 
-The product section is nonconvex; admitting physical forgotten mixtures
-cannot remove its existing counterexample inputs. Supplying an external
-unknown-preparation label lets a controller match the target only by changing
-the input-resource contract. It is a positive control for the hypothesis,
-not a physical source or a valid unknown-input channel.
+This is a written uniform bound, not extrapolation from small-grid tests.
+At clock t only h-t operations remain; measurement clears the word but does
+not reset the clock or reserved-bit budget. All (h+1)B random bits are supplied
+initially, with dyadic preparation-mixture bits counted separately.
 
-## Next architecture gate and validation
+The conservative h=3, epsilon=0.1 certificate uses M=13680, W=12, B=39:
+156 initially fair bits and 1,122,854,400 grid labels, plus deterministic
+tables, clock, word and retained workspace costs. The large grid is not
+executed and efficiency is not claimed. A fixed padded finite-circuit clock
+is supplied; the Python evaluator is not constant-time native hardware.
 
-Changing from full fibres to this natural product section alone is
-insufficient. The next candidate must explicitly change a load-bearing part
-of the input encoding, carrier, decoder or continuation/resource contract,
-then establish full-record congruence, preparation availability, operation
-availability and full target coverage. A preparation label must not silently
-become an apparatus input. The native #910 phase uses another encoding and
-requires its own analysis.
+The separate review checks the geometry/floor/CDF bounds, positive decoder,
+branchwise CQ proof, initial-decoding correction and clock/word scope.
+Its independent implementation matches the author on 128 adaptive cases
+and 672 leaf records, exhausts 1,024 small-sampler seeds, detects reuse,
+adaptive-choice, insufficient-bank and access/timing controls, and verifies
+three nonvacuous symbolic resource certificates. Clipped bounds on tiny smoke
+grids can be vacuous and are not represented as proof of the asymptotic law.
 
-Both author packages and their separate reviews retain exact standard-library
-checkers, normal/optimized structured outputs, immutable source pins and
-manifests. Written general statements are separated from bounded controls;
-no Lean certificate, full-suite run or exact-head CI attestation is claimed.
-The preceding almost-sure sampler audit at
-`81bc53e482158072869b916116a4fc0f8b28f99e` remains unchanged: an infinite fair
-reservoir can sample the supplied irrational probability but does not itself
-source full A1 operation availability.
+## Retained obstructions and next gates
 
-#910 owns native read/reset and resource geometry; #912 owns composition and
-access closure. Broader unstarted gates and activation conditions are tracked
-in [#913](https://github.com/amaybaum/incompleteness/issues/913). General A2
-protocol classes, error/resource guarantees, calibration selection and
-composites remain open. No special dispatch, F/E designation or merge follows.
+The earlier eight-sign 1/15 and product-section 2/15 pair bounds remain valid
+for their own maps, input priors and common-controller contracts. Neither is
+a general OI/A2 bound. The earlier almost-sure sampler audit also remains
+unchanged: a mathematical source or representation alone is not physical
+operation availability.
+
+The next architecture gate is the bridge from actual native carriers,
+resources and permitted reads to an operational interface with this coverage.
+The cosine prior, reset, settings/clock and private-access restrictions still
+need a physical source or explicitly justified added condition. The finite
+A2 result is conditional reproduction, not Emergence or full A2 reconstruction.
+Composites, Bell structure, general instruments and full A1 coverage remain
+separate obligations.
+
+All four new author/reviewer groups replay normally and with -O against
+retained structured output. Proofs, finite checks, internal review and
+formal certification remain distinct. No full suite, Lean certificate or
+exact-head CI attestation is claimed. #910 owns native construction, #912
+composition/access, and [#913](https://github.com/amaybaum/incompleteness/issues/913)
+the broader inactive gates. No merge, dispatch or F/E designation follows.
