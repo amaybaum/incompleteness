@@ -97,7 +97,7 @@ Two independent exact solvers agree on every solution set, with planted,
 brute-force, raw-pair reproduction and sign-erased controls.
 
 So, under the affine source contract, the q10 cell at L+1 carries s in its
-single field A for suitable laws. The separate-agent review (not yet retained) shows that s is
+single field A for suitable laws. The separate review shows that s is
 not singled out: for each affine function f of the known seeds, some law gives
 q10.A = x XOR f(k), so the table carries the old input x with a law-chosen
 seed offset. q10 is a private cell under Native A, not a permitted read, and
@@ -106,7 +106,8 @@ Post hoc: no affine law has E identically 000; B and D jointly carry s in
 every q10.A law (B alone is s-free in 8 laws, per the separate review); a fresh bit on the E
 constants pads q10.A but never hides s in the whole triple given the seeds.
 No native stage that consumes q10.A while tolerating B and D, no Y operand,
-acceptance flag or joint history/carrier law follows. Separate review is pending.
+acceptance flag or joint history/carrier law follows. Separate review is
+retained under `native_decode_v14/review/`.
 
 ## Explicit acceptance specification and the native delay gap
 
