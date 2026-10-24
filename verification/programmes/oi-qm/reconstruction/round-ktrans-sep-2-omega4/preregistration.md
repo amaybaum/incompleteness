@@ -1,9 +1,9 @@
 # Reconstruction round KTRANS-SEP-2 — Ω₄, a convex body in ℝ⁴ with the named kernel properties on which no body-preserving family is boundary transitive: PREREGISTRATION (draft for owner review)
 
-**Status: draft control plane for owner review; not a candidate `F`.** This file is the control plane of a native
+**Status: candidate `F` for owner review.** This file is the control plane of a native
 round under `AGENTS.md` §A.39, to be drafted on its guiding pull request from `D`. Only the owner designates `F`; an
-instruction to proceed is not a designation. `F` has the preconditions listed under *Preconditions of `F`* at the end;
-conditions 1 and 2 are met and condition 3 is open. Nothing is executed.
+instruction to proceed is not a designation. `F` has the preconditions listed under *Preconditions of `F`* at the end.
+Preconditions 1 and 2 are met; precondition 3 awaits the candidate's exact-head run and `mock-s1`. Nothing is executed.
 
 **Provenance: the successor of KTRANS-SEP-1.** KTRANS-SEP-1 (#824) froze its control plane at `F` =
 `7e9aef691f47edaec9111ef5923ed9e946854737` (preregistration blob `7af918b1`), whose exact-head run 39940836089 was
