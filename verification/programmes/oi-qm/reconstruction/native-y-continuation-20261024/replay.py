@@ -21,6 +21,7 @@ def digest(path):
 
 
 def main():
+    require(sys.argv[1:] in ([], ['--latest']), 'usage: replay.py [--latest]')
     for line in (ROOT / 'SHA256SUMS').read_text().splitlines():
         expected, name = line.split('  ', 1)
         require(digest(ROOT / name) == expected, 'manifest mismatch: ' + name)
@@ -45,6 +46,8 @@ def main():
               ('six_source_v5/review', 'checks')]
     tests += [('outward_v6', 'checks'), ('outward_v6', 'correction_checks'),
               ('outward_v6/review', 'checks')]
+    latest = [('reset_v7', 'probe')]
+    tests = latest if sys.argv[1:] == ['--latest'] else tests + latest
     with tempfile.TemporaryDirectory(prefix='native-y-replay-') as directory:
         work = Path(directory) / 'checkpoint'
         shutil.copytree(ROOT, work, ignore=shutil.ignore_patterns('__pycache__'))
@@ -53,6 +56,8 @@ def main():
         for folder, name in tests:
             script = work / folder / (name + '.py')
             output_name = 'review-normal.out' if folder == 'junction_v4/review' else name + '.out'
+            if folder == 'reset_v7':
+                output_name = 'results.json'
             expected = (work / folder / output_name).read_bytes()
             for options in ([], ['-O']):
                 result = subprocess.run(

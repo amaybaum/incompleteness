@@ -3,7 +3,7 @@
   "date": "2026-10-24",
   "base_commit": "de6fe29324ade8a0826c18f7829786086dd590da",
   "python": "3.12",
-  "checker_groups": 21,
+  "checker_groups": 22,
   "normal_optimized_recorded_outputs": "byte-identical",
   "reviewed_input_hashes_verified": 18,
   "python_source_compilation": "PASS",
@@ -31,5 +31,9 @@
   "outward_v6_correction": "Independent actual-scale review ACCEPTS clean native00y construction and source/readiness compatibility; general late-input socket, full joint-record certification and native reset OPEN",
   "outward_v6_review": "outward_v6/review/REPORT.md",
   "outward_review_input_hashes_verified": 8,
-  "current_handoff": "CURRENT-HANDOFF.md"
+  "current_handoff": "CURRENT-HANDOFF.md",
+  "retained_checker_groups": 21,
+  "reset_v7": "Author controls and packaged normal/-O replay PASS; separate-author review pending",
+  "parallel_obligations": "EQUIVALENCE-OBLIGATIONS.md",
+  "latest_replay_groups": 1
 }

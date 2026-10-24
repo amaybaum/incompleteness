@@ -69,10 +69,33 @@ the inherited joint-frontier theorem and its access assumptions. The local
 construction is not a new full-protocol certification. Existing herald and
 failure accounting remain unchanged; no second reset success is asserted.
 
+## Actual interface and one-step obstruction
+
+The [next-stage audit](reset_v7/REPORT.md) gives the complete incoming q7
+neighborhood. Its old local term is111 and the six incoming triples retain
+selector masks and input history. The clean endpoint therefore does not supply
+a cold next-stage boundary.
+
+A free initial triple at f+2e_z leaves q7 unchanged but permutes the entire
+next outward q8 endpoint. Under an explicitly supplied depth-eight ready
+extension, no choice of that triple depending only on u gives any common
+two-code encoding of y. This excludes only the one-source, one-tick family;
+other directions, longer routing and additional workspace remain open.
+Author controls pass; separate-author review is pending at this checkpoint.
+
+## Parallel equivalence tracks
+
+See [the shared obligation map](EQUIVALENCE-OBLIGATIONS.md). Draft #911 owns
+states/dynamics and the A1 obstruction audit; draft #912 owns composition and
+observer access. Both have scoped separate-author internal acceptance. Their
+abstract resource and composition results do not establish a native reset or
+full equivalence. #885 remains read-only for this effort.
+
 ## Next research task
 
-Connect the actual clean q7 code to a subsequent native measurement/reset,
-including its actual previous slice and neighboring fields. A clean endpoint
+Use the measured q7 neighborhood to design a subsequent native measurement/reset,
+using additional workspace, a different direction or a longer interaction than
+the excluded one-source outward step. A clean endpoint
 alone does not imply a cold input neighborhood. Do not reload it into the
 standalone direct-reset apparatus or impose readiness at the late time.
 

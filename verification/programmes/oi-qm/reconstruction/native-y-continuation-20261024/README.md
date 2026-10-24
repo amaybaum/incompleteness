@@ -84,3 +84,12 @@ publication. No historical result is strengthened by publication.
 
 Repository-wide full-history, Lean and release gates are left to ordinary PR
 CI. No special workflow dispatch or exact-head attestation is claimed.
+
+## Parallel continuation and actual reset boundary
+
+[CURRENT-HANDOFF.md](CURRENT-HANDOFF.md) now includes the actual q7 interface
+and the bounded next-tick routing obstruction in [reset_v7/REPORT.md](reset_v7/REPORT.md).
+The [shared equivalence obligations](EQUIVALENCE-OBLIGATIONS.md) link the separate
+states/dynamics (#911) and composition/access (#912) research PRs.
+Run `python3 replay.py --latest` for the newly added reset-boundary controls;
+`python3 replay.py` retains the full checkpoint replay.
