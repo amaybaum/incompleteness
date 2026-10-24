@@ -1,0 +1,33 @@
+{
+  "Clifford_product_closure_controls": 20,
+  "affine_interpolation_cases": 8,
+  "best_deterministic_pair_response_error": "2/15",
+  "cube_escape_coordinate": "7/5",
+  "deterministic_response_controls": 256,
+  "finite_spanning_product_priors": 8,
+  "fourier_moment_controls": 64,
+  "full_channel_minimax_claimed": false,
+  "minimum_spanning_prior_atom": "1/27",
+  "mixture_zero_mean_xy_correlation": "-4/9",
+  "native_implementation_claimed": false,
+  "pair_bloch_norm_squared": "8/9",
+  "pair_minimum_atom": "1/72",
+  "pair_r_plus": [
+    "2/3",
+    "-2/3",
+    "0"
+  ],
+  "prep_dependent_controller_target_laws": "exact using supplied input label and uniform30seed",
+  "prep_label_joint_input_tv": "1",
+  "preparation_matrix_determinant": "1/531441",
+  "preparation_matrix_rank": 8,
+  "rational_rotation_matrix_cases": 10,
+  "schema": "oi-product-section-v4.1",
+  "scope": "fixed eight-sign moment map, product preparation section, independent apparatus",
+  "source_pair_tv": "2/3",
+  "spanning_prior_bloch_norm_squared": "1/3",
+  "target_rotated_X_pair_tv": "14/15",
+  "tight_response": "ordinary X sign read",
+  "verdict": "PASS",
+  "worst_pair_record_error_floor": "2/15"
+}

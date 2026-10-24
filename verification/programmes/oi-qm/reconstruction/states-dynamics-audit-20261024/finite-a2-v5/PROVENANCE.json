@@ -1,0 +1,29 @@
+{
+  "schema": "oi.finite-geometric-a2-v5.provenance.v1",
+  "repository": "amaybaum/incompleteness",
+  "source_pr": 911,
+  "source_revision": "088af1453efc7780187bc81f8f765f5005b91870",
+  "published_initial_plan_revision": "28ecc0897031e261b4524efb8039b1ee115041b2",
+  "published_fixed_decoder_plan_refinement_revision": "f8b00ab3a5bf9b1bb93726d071ccd109d0e0a2f4",
+  "shared_contract_revision": "1324d9a854da60d0274ba77fe80d08e7cf2b1ef1",
+  "primary_model_source": {
+    "authors": "J. B. Ruebeck, P. Lillystone and J. Emerson",
+    "title": "psi-epistemic interpretations of quantum theory have a measurement problem",
+    "url": "https://arxiv.org/html/1812.08218v3",
+    "section": "4.1.1, equation16; standard qubit Kochen-Specker preparation/rotation/response/reset contract"
+  },
+  "predecessor_reports": [
+    "operational-quotient-v3/REPORT.md",
+    "operational-quotient-v3/product-section-v4/REPORT.md"
+  ],
+  "execution_dependencies": "Python standard library only; no author-engine imports, external tables or network inputs",
+  "replay_commands": ["python3 checks.py", "python3 -O checks.py"],
+  "result": "result.json",
+  "proof_layer": "Written conditional approximation theorem with exact finite smoke controls and symbolic nonvacuous resource certificates",
+  "comparison": "Complete adaptive classical record plus positive decoded qubit output; main bound uses the same fixed decoder on input and output",
+  "initial_theorem_domain": "Public clock0, canonical preparation mixtures with empty current rotation word; at most h total operations",
+  "phase_budget": "At public clockt, current word length is at mostt and only h-t slots remain. Reset empties the current word but does not reset clock, seed allocation or capacity.",
+  "word_scope_clarified_from_author_revision": "6097379b86f319eaa9b258e920f2eb44dc6401a6",
+  "resources": "Initially supplied independent B-bit blocks, finite geometric code/word/controller tables, private retained workspace with no return coupling and padded fixed public ticks",
+  "limits": "Not native availability, geometric-prior selection, full instruments, composites, general A2 completion or A1 equivalence"
+}

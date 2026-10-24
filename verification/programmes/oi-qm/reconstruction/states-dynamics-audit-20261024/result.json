@@ -1,0 +1,200 @@
+{
+  "benchmark": [
+    {
+      "fair_bits": 0,
+      "success_5_over_16_feasible": false
+    },
+    {
+      "fair_bits": 1,
+      "success_5_over_16_feasible": false
+    },
+    {
+      "fair_bits": 2,
+      "success_5_over_16_feasible": false
+    },
+    {
+      "fair_bits": 3,
+      "success_5_over_16_feasible": false
+    },
+    {
+      "fair_bits": 4,
+      "success_5_over_16_feasible": false
+    },
+    {
+      "fair_bits": 5,
+      "success_5_over_16_feasible": false
+    },
+    {
+      "fair_bits": 6,
+      "success_5_over_16_feasible": true
+    },
+    {
+      "fair_bits": 7,
+      "success_5_over_16_feasible": true
+    },
+    {
+      "fair_bits": 8,
+      "success_5_over_16_feasible": true
+    },
+    {
+      "fair_bits": 9,
+      "success_5_over_16_feasible": true
+    },
+    {
+      "fair_bits": 10,
+      "success_5_over_16_feasible": true
+    },
+    {
+      "fair_bits": 11,
+      "success_5_over_16_feasible": true
+    },
+    {
+      "fair_bits": 12,
+      "success_5_over_16_feasible": true
+    },
+    {
+      "fair_bits": 13,
+      "success_5_over_16_feasible": true
+    },
+    {
+      "fair_bits": 14,
+      "success_5_over_16_feasible": true
+    },
+    {
+      "fair_bits": 15,
+      "success_5_over_16_feasible": true
+    },
+    {
+      "fair_bits": 16,
+      "success_5_over_16_feasible": true
+    }
+  ],
+  "irrational_target": {
+    "brackets": [
+      {
+        "fair_bits": 1,
+        "lower": "1/2",
+        "upper": "1"
+      },
+      {
+        "fair_bits": 2,
+        "lower": "3/4",
+        "upper": "1"
+      },
+      {
+        "fair_bits": 3,
+        "lower": "3/4",
+        "upper": "7/8"
+      },
+      {
+        "fair_bits": 4,
+        "lower": "13/16",
+        "upper": "7/8"
+      },
+      {
+        "fair_bits": 5,
+        "lower": "27/32",
+        "upper": "7/8"
+      },
+      {
+        "fair_bits": 6,
+        "lower": "27/32",
+        "upper": "55/64"
+      },
+      {
+        "fair_bits": 7,
+        "lower": "109/128",
+        "upper": "55/64"
+      },
+      {
+        "fair_bits": 8,
+        "lower": "109/128",
+        "upper": "219/256"
+      },
+      {
+        "fair_bits": 9,
+        "lower": "437/512",
+        "upper": "219/256"
+      },
+      {
+        "fair_bits": 10,
+        "lower": "437/512",
+        "upper": "875/1024"
+      },
+      {
+        "fair_bits": 11,
+        "lower": "437/512",
+        "upper": "1749/2048"
+      },
+      {
+        "fair_bits": 12,
+        "lower": "437/512",
+        "upper": "3497/4096"
+      },
+      {
+        "fair_bits": 13,
+        "lower": "437/512",
+        "upper": "6993/8192"
+      },
+      {
+        "fair_bits": 14,
+        "lower": "437/512",
+        "upper": "13985/16384"
+      },
+      {
+        "fair_bits": 15,
+        "lower": "27969/32768",
+        "upper": "13985/16384"
+      },
+      {
+        "fair_bits": 16,
+        "lower": "27969/32768",
+        "upper": "55939/65536"
+      }
+    ],
+    "irrational_prior_countercontrol_exact": true,
+    "polynomial": [
+      8,
+      -8,
+      1
+    ],
+    "rational_comparisons": 2144,
+    "strict_bound": "1/(8*M^2)",
+    "symbolic": "(2+sqrt(2))/4"
+  },
+  "negative_controls": {
+    "fixed_z_rejected_despite_correct_ab_marginal": true,
+    "wrong_5_2_3_ratio_rejected": true
+  },
+  "sampler": {
+    "bijective": true,
+    "blank_label_bits": 3,
+    "carrier_checks": [
+      {
+        "joint_law_matched": true,
+        "y": 0
+      },
+      {
+        "joint_law_matched": true,
+        "y": 1
+      }
+    ],
+    "conditional_counts": [
+      5,
+      5,
+      3,
+      3,
+      2,
+      2
+    ],
+    "failure_atoms": 44,
+    "involutive": true,
+    "random_bits": 6,
+    "states": 512,
+    "success_probability": "5/16",
+    "successful_atoms": 20
+  },
+  "schema": "oi-states-dynamics-finite-resource-v1",
+  "scope": "abstract finite-resource diagnostic; not native implementation or full QM equivalence",
+  "verdict": "PASS"
+}

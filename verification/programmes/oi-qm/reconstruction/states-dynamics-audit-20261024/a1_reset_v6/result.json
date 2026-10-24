@@ -1,0 +1,152 @@
+{
+  "XZ_final_Z_plus": "2/3",
+  "XZ_joint_record_TV": "1/6",
+  "XZ_quantum_final_Z_plus": "1/2",
+  "checks": {
+    "XZ_complete_record_TV": 1,
+    "XZ_joint_witness": 1,
+    "all_six_nontrivial_difference_patterns": 1,
+    "complementary_integral_mass": 144,
+    "complete_law_mass": 7,
+    "coordinate_square_trace_zero": 6,
+    "exact_cell_mass": 1,
+    "first_X_read_passes": 1,
+    "four_possible_fixed_vector_records": 6,
+    "fresh_pair_complete_adaptive_branch_mass": 256,
+    "fresh_pair_complete_adaptive_outgoing_state": 256,
+    "global_dilation_inverse": 18432,
+    "global_dilation_permutation": 1152,
+    "long_support_TV_exact": 5,
+    "no_selector_countercontrol": 1,
+    "no_selector_geometric_probability": 1,
+    "orientation_bit_rotation_invariant": 384,
+    "rank_concordance_probability": 1,
+    "rational_sphere_witnesses": 96,
+    "ready_dilation_instrument": 4608,
+    "renewal_repairs_XZ_law": 1,
+    "reused_vector_record_failure": 6,
+    "rotation_inverse": 384,
+    "selected_folded_density_normalized": 1,
+    "single_vector_octant_witness": 8,
+    "strict_rank_witness": 6,
+    "two_coordinate_engines_agree": 3264,
+    "two_time_direct_integral_matrix": 144,
+    "unlifted_update_two_to_one": 1152
+  },
+  "claim_scope": "fixed two-vector deterministic continuation, not original two-time model refutation",
+  "coordinate_sign_cells_per_rank": 16,
+  "fixed_vector_records": {
+    "1": {
+      "complete_record_tv": "0",
+      "model_law": {
+        "+": "1/2",
+        "-": "1/2"
+      },
+      "model_support": 2,
+      "native_comparison_scope": "abstract fixed-vector continuation",
+      "quantum_support": 2
+    },
+    "10": {
+      "complete_record_tv": "255/256",
+      "model_law": {
+        "++++++++++": "1/3",
+        "+--++--++-": "1/6",
+        "-+-+-+-+-+": "1/3",
+        "--++--++--": "1/6"
+      },
+      "model_support": 4,
+      "native_comparison_scope": "abstract fixed-vector continuation",
+      "quantum_support": 1024
+    },
+    "2": {
+      "complete_record_tv": "1/6",
+      "model_law": {
+        "++": "1/3",
+        "+-": "1/6",
+        "-+": "1/3",
+        "--": "1/6"
+      },
+      "model_support": 4,
+      "native_comparison_scope": "abstract fixed-vector continuation",
+      "quantum_support": 4
+    },
+    "3": {
+      "complete_record_tv": "1/2",
+      "model_law": {
+        "+++": "1/3",
+        "+--": "1/6",
+        "-+-": "1/3",
+        "--+": "1/6"
+      },
+      "model_support": 4,
+      "native_comparison_scope": "abstract fixed-vector continuation",
+      "quantum_support": 8
+    },
+    "4": {
+      "complete_record_tv": "3/4",
+      "model_law": {
+        "++++": "1/3",
+        "+--+": "1/6",
+        "-+-+": "1/3",
+        "--++": "1/6"
+      },
+      "model_support": 4,
+      "native_comparison_scope": "abstract fixed-vector continuation",
+      "quantum_support": 16
+    },
+    "6": {
+      "complete_record_tv": "15/16",
+      "model_law": {
+        "++++++": "1/3",
+        "+--++-": "1/6",
+        "-+-+-+": "1/3",
+        "--++--": "1/6"
+      },
+      "model_support": 4,
+      "native_comparison_scope": "abstract fixed-vector continuation",
+      "quantum_support": 64
+    },
+    "8": {
+      "complete_record_tv": "63/64",
+      "model_law": {
+        "++++++++": "1/3",
+        "+--++--+": "1/6",
+        "-+-+-+-+": "1/3",
+        "--++--++": "1/6"
+      },
+      "model_support": 4,
+      "native_comparison_scope": "abstract fixed-vector continuation",
+      "quantum_support": 256
+    }
+  },
+  "fresh_pair_repair": {
+    "adaptive_depth": 4,
+    "adaptive_policies": 4,
+    "branch_nodes": 480,
+    "initial_preparations": 4,
+    "leaf_records": 256,
+    "minimum_fresh_continuous_entropy_claimed": false,
+    "ready_garbage_bits_for_explicit_bit_map": "h",
+    "scope": "supplied independent geometric pairs per reset; no native availability",
+    "sphere_vectors_for_h_measurements_and_outgoing_reset": "2*(h+1)",
+    "two_time_integrals": 144,
+    "zero_mass_leaves": 32
+  },
+  "full_equivalence_claimed": false,
+  "no_selector_control": {
+    "geometric_plus": "3/4",
+    "positive_gap": "(sqrt2-1)/4",
+    "quantum_plus": "(2+sqrt2)/4"
+  },
+  "rank_concordance_probability": "1/3",
+  "reversible_bit_update": {
+    "garbage_bits_per_declared_lift": 1,
+    "native_compilation_claimed": false,
+    "pointer_bits_per_measurement": 1,
+    "unlifted_multiplicity": 2
+  },
+  "schema": "oi-exact-reset-resource-audit-v6.1",
+  "source_cell_count": 96,
+  "source_rank_cells": 6,
+  "verdict": "PASS"
+}
