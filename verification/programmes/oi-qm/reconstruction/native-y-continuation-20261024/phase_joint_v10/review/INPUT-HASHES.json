@@ -1,0 +1,37 @@
+{
+  "author_commit": "9b334367864c39e969072d9fbd46b0c049584963",
+  "files": {
+    "../branch_v10/local-controller/symmetric-result.json": {
+      "git_blob": "4f742a823c71175ec111edbe6195ba07d85f6c07",
+      "sha256": "d8e7c1f5841192165beefb3fe35b069cc14cc93f2faa2bd68619aa7748b3db2f"
+    },
+    "../parallel_v3/direct_reset/herald.json": {
+      "git_blob": "e48fb2f99382336489537c5ae7d0ada4a2e04972",
+      "sha256": "406befa2c8d1f663856a78ca6cb632e9c61d1233b02a9d532c7cb43d6261ce64"
+    },
+    "PLAN.md": {
+      "git_blob": "191379ee1e657a447c8c5c897e905f1766329050",
+      "sha256": "5a46485e139225d50c4a05c97502cbda8a6204ed381a3474978726823e0ace0a"
+    },
+    "PROVENANCE.json": {
+      "git_blob": "22556e8393b483d6743a2d5c5cce70e7aebd38e8",
+      "sha256": "b16c365aa557851653b8882da2e7c8370416438a09c1a869e1e2cb071397a8b1"
+    },
+    "REPORT.md": {
+      "git_blob": "fef2a6d5138eb983c95de1a58a01d3ed28f4e9ed",
+      "sha256": "a4d4be43a9229166e57555daa637f3bf82b7407443746e4ff10515d2f017ba47"
+    },
+    "SHA256SUMS": {
+      "git_blob": "45eed1a043d4eb7a76e1eaab19fad6d63ae22c01",
+      "sha256": "3ecb7f00c25b4cae6f9d873c10ac773d781a383273e73e4e5b84b1cad9f94cc7"
+    },
+    "checks.py": {
+      "git_blob": "f719ff7ecce1ec1efa6525d57e45743d8b8f2ce9",
+      "sha256": "fc90f5a9fbbc04cec9788ea7e4faa69ffaa646b72310249813a8e29a26e8d21b"
+    },
+    "result.json": {
+      "git_blob": "1031aa258de167cd15d81f1e5718799237fe79d3",
+      "sha256": "9f83513141744f25c04efb4c1f4c6a23e36942e27c3910b8a3c72e5fa1093ecc"
+    }
+  }
+}
