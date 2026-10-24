@@ -61,20 +61,30 @@ commit's:
   - the claim of a downgraded record must no longer stand: no line anywhere in the tree may
     hash to its `claim_sha256` (except a line that a support record with the same claim hash
     claims, as when a record moves to another manifest), and no paragraph of a file under the
-    record's own directory may state main's claimed line with the id's slot empty or holding
-    an id no record declares support. That comparison joins each blank-line paragraph, applies
-    NFKC, drops Unicode format characters, removes hexadecimal runs of 7 or more characters and
-    4- to 6-character hexadecimal words that mix digits and letters or begin a support id,
-    case-folds, and treats the word or brackets next to the id ("at <id>", "(<id>)") as part of
-    the reference. It needs at least three words of claim besides the reference.
+    record's own directory, subdirectories included, may state main's claimed line unless each
+    position that held the id holds an id that a current support record claims on a line of
+    that same paragraph. The comparison:
+      - reads each blank-line paragraph as one text, after NFKC, with Unicode format characters
+        removed, a markdown link `[text](url)` reduced to its text and the full ids in its url,
+        hexadecimal runs of 7 or more characters removed (full ids kept) and 4- to 6-character
+        hexadecimal words removed that mix digits and letters or begin a support id, case-folded;
+      - reads the claim's own words with any whitespace, a line break included, between them;
+      - takes the place of each id as one optional reference slot, a run of reference tokens:
+        brackets, quotes, backticks and @ # : =; the words at, in, per, see, commit, cf and via;
+        full ids; a -suffix. Sentence punctuation stays part of the claim;
+      - when main's claimed line is a full sentence, matches only a statement that begins a line,
+        a paragraph, a sentence, or a quoted or bracketed text (list and quote markers aside), so
+        a condition put first or a negation is a new statement;
+      - needs at least three words of claim besides the reference.
 
 Independently of main, a record fails while any line of the tree hashes to its
 `from_claim_sha256`, outside lines a support record of the same claim claims. Each failure is
 `support-downgrade`.
 
 So a claim that stays in the text while its record is deleted is caught by the missing record;
-with a record, by the claim still standing verbatim anywhere, or reformatted, or with its
-reference deleted, shortened or replaced by a non-support id, in its own record's directory.
+with a record, by the claim still standing verbatim anywhere, or, in its own record's
+directory, reformatted as above or with its reference slot left empty, cut to 4 or more
+hexadecimal characters, or holding an id no support record claims in that paragraph.
 Every test that compares with main finds nothing when main is the commit, and the rest read the
 commit's tree alone, so a change that passes as a pull request passes again as main.
 
@@ -129,12 +139,22 @@ Limitations:
   - A claim moved out of its record's directory is followed only verbatim, by its hash; with a
     matching record, a reformatted or unreferenced copy elsewhere passes. A claim of fewer than
     three words besides its reference (a JSON field, a list item) is compared by its hash alone.
-    A reference replaced by another id that some record declares support counts as a re-pin.
+  - The reference slot reads only the tokens named above: a reference written with other words
+    ("as shown by <id>"), an id cut below 4 characters, which git cannot resolve, or markup
+    inside the claim (emphasis) reads as a different statement and, with a record, passes.
+    Without a record, every such change fails as a missing record.
+  - A full-sentence claim is matched only where a statement begins: one embedded after a comma
+    or a conjunction is read as a new statement.
   - A record may sit in any manifest of the commit, so removing every manifest of the tree
     leaves nowhere to record a downgrade, and such a commit fails.
   - An unrelated record that newly lists a downgraded support id as provenance needs a
     `downgrade` record of its own.
   - Rewording a supported claim changes its record: the old one needs a `retired` record.
+  - A landed record can later be deleted like any manifest entry; once it is gone, nothing
+    compares against it, so its claim can return as a claim citing its id as provenance, which
+    is a new unsupported claim and is not forbidden.
+  - The check reads one tree: two changes that each pass alone, one downgrading a claim and one
+    adding a verbatim copy of it, can fail together on main.
   - Files holding a NUL byte are compared by hash only; markdown emphasis or other markup inside
     a claim is not removed, so an emphasized copy with a record passes.
   - Lines inserted above a claim shift it: the entry then fails as `claim-line-mismatch` or
@@ -145,7 +165,7 @@ Limitations:
   - When a claim record of main is downgraded or the commit holds a record, the check reads the
     tree's blobs once (one `git cat-file --batch`), scans for the id the files that hold it, and
     normalizes only the files of the downgraded records' directories. The self-test takes about
-    13 s and runs before every check.
+    15-20 s and runs before every check.
   - An `external` entry's repository is the author's declaration: an id that names no object
     here, with a qualifier naming any repository, passes.
   - A 40-hex value that names no git object of any repository (a SHA-1 file digest) has no role.
@@ -323,6 +343,10 @@ SHORT_HEX = re.compile(r'(?<![0-9A-Za-z])[0-9A-Fa-f]{4,6}(?![0-9A-Za-z])')
 BREAK = re.compile(r'\n[ \t\r\f\v]*\n\s*')
 WORD = re.compile(r'[^\W\d_]{2,}')
 MIN_WORDS = 3
+LINK = re.compile(r'\[([^\]\n]*)\]\(([^)\s]*)\)')
+REF_TOKEN = r'(?:[()\[\]{}<>"\'`@#:=]+|(?:at|in|per|see|commit|cf|via)(?!\w)|[0-9a-f]{40}|-\w+)'
+REF_TAIL = re.compile(r'(?:\s?%s)*\s?\Z' % REF_TOKEN)
+REF_HEAD = re.compile(r'\A\s?(?:%s\s?)*' % REF_TOKEN)
 _CF = []
 
 
@@ -338,72 +362,78 @@ PARA = '\x01'
 
 
 def normalize(text, prefixes=frozenset()):
-    """The text a claim comparison reads: each paragraph break (a blank line) one PARA mark;
-    NFKC; Unicode format characters removed; every run of 7 or more hexadecimal characters
-    removed except a full lowercase id, and every 4- to 6-character hexadecimal word that mixes
-    digits and letters or begins one of `prefixes`; case-folded; whitespace collapsed."""
+    """The text a claim comparison reads: each paragraph break (a blank line) one PARA mark, and
+    each other line break kept; NFKC; Unicode format characters removed; a markdown link
+    `[text](url)` reduced to its text and the full ids its url holds; every run of 7 or more
+    hexadecimal characters removed except a full lowercase id, and every 4- to 6-character
+    hexadecimal word that mixes digits and letters or begins one of `prefixes`; case-folded;
+    other whitespace collapsed to one space."""
     text = BREAK.sub(PARA, text)
     if not text.isascii():
         text = unicodedata.normalize('NFKC', text)
         for ch in format_characters() & set(text):
             text = text.replace(ch, '')
+    text = LINK.sub(lambda m: m.group(1) + ' ' + ' '.join(FULL_ID.findall(m.group(2))), text)
     text = HEX_RUN.sub(lambda m: m.group() if FULL_ID.fullmatch(m.group()) else '', text)
     text = SHORT_HEX.sub(lambda m: '' if (re.search('[0-9]', m.group())
                                           and re.search('[A-Fa-f]', m.group()))
                          or m.group().lower() in prefixes else m.group(), text)
-    return ' '.join(text.casefold().split())
+    text = re.sub(r'[^\S\n]+', ' ', text.casefold())
+    return re.sub(r' ?\n[ \n]*', '\n', text).strip(' \n')
 
 
-def _tail(seg):
-    """(core, reference) of the text before an id: the reference is the brackets, quotes and
-    separators next to the id and, when only whitespace separates them, the word before it.
-    Sentence punctuation stays in the core."""
-    t = re.search(r'[\s(\[{<"\'`@#:=]*\Z', seg).group()
-    rest = seg[:len(seg) - len(t)]
-    w = re.search(r'\w+\Z', rest) if not t.strip() else None
-    if w:
-        return rest[:w.start()], rest[w.start():] + t
-    return rest, t
+def _split(seg, trailing):
+    """(core, reference) of the text on one side of an id: the reference is the run of reference
+    tokens next to the id."""
+    rx = REF_TAIL if trailing else REF_HEAD
+    m = rx.search(seg)
+    return (seg[:m.start()], m.group()) if trailing else (seg[m.end():], m.group())
 
 
-def _head(seg):
-    """(reference, core) of the text after an id: the closing brackets and quotes next to it."""
-    h = re.match(r'[\s)\]}>"\'`]*', seg).group()
-    return h, seg[len(h):]
+def _words_rx(core):
+    """`core` as a regex in which any whitespace, a line break included, separates its words."""
+    return r'\s'.join(re.escape(w) for w in core.split())
 
 
 class Claim:
-    """A support claim's line, read for comparison. `pattern` matches the claim in normalized
-    text with each id slot, and the reference words and punctuation next to it, optional; the
-    groups `slots` are the slots that held `oid`. `literal` is its longest fixed piece."""
+    """A support claim's line, read for comparison. Where the line held an id, `pattern` has one
+    reference slot: an optional run of reference tokens (brackets, quotes, backticks and
+    @ # : =; the words at, in, per, see, commit, cf and via; full ids; a -suffix). Group k is the
+    k-th slot; `slots` are those that held `oid`. `sentence` says the line is a full sentence,
+    whose statement must begin a line, a paragraph or a sentence. `literal` is its longest
+    word."""
 
     def __init__(self, oid, line, prefixes):
         text = normalize(line.decode('utf-8', 'replace'), prefixes)
         ids, parts = FULL_ID.findall(text), FULL_ID.split(text)
-        cores, refs = [], []
+        cores = []
         for k, part in enumerate(parts):
-            before = ''
             if k > 0:
-                before, part = _head(part)
-            after = ''
+                part = _split(part, False)[0]
             if k < len(ids):
-                part, after = _tail(part)
+                part = _split(part, True)[0]
             cores.append(part.strip())
-            refs.append((before.strip(), after.strip()))
         self.slots = [k + 1 for k, t in enumerate(ids) if t == oid]
-        opt = lambda r: '(?:%s)?' % re.escape(r) if r else ''          # noqa: E731
-        rx = re.escape(cores[0])
+        rx = _words_rx(cores[0])
         for k in range(len(ids)):
-            rx += r'\s?' + opt(refs[k][1]) + r'\s?(?:([0-9a-f]{40}))?\s?' + opt(refs[k + 1][0]) \
-                + r'\s?' + re.escape(cores[k + 1])
+            rx += r'\s?((?:\s?%s){0,8})\s?' % REF_TOKEN + _words_rx(cores[k + 1])
         if cores[0][:1].isalnum():
             rx = r'(?<!\w)' + rx
         if cores[-1][-1:].isalnum():
             rx += r'(?!\w)'
         self.pattern = re.compile(rx)
-        self.literal = max(cores, key=len)
-        self.eligible = bool(self.slots) and \
-            len(WORD.findall(' '.join(cores))) >= MIN_WORDS
+        words = WORD.findall(' '.join(cores))
+        self.literal = max(' '.join(cores).split(), key=len) if words else ''
+        self.eligible = bool(self.slots) and len(words) >= MIN_WORDS
+        self.sentence = bool(re.match(r'[\W]*[^\W\d_]', cores[0] or ' ')) \
+            and bool(re.search(r'[.!?]["\')\]]*\Z', cores[-1]))
+
+
+def sentence_start(norm, i):
+    """Whether position `i` of normalized text begins a line, a paragraph, a sentence or a quoted
+    or bracketed statement, list and quote markers aside."""
+    before = re.sub(r'[ \-*+>#]*\Z', '', norm[:i])
+    return not before or before[-1] in '\n.!?"\'([{`' + PARA
 
 
 class TreeText:
@@ -447,10 +477,12 @@ class TreeText:
                     return '%s:%d' % (p.decode('utf-8', 'replace'), i + 1)
         return None
 
-    def anchored(self, d, claim, support):
+    def anchored(self, d, claim, claimed_at):
         """`path:line` of a paragraph of a file under the record's directory `d` that states
-        `claim` without a declared support id in each of its id's slots, or None. A file holding
-        a NUL byte is not read."""
+        `claim` with a slot of its id holding no id that a current support record claims on a line
+        of that paragraph, or None. `claimed_at` maps an id to the (path, line) its support
+        records claim. A full-sentence claim must begin a line, a paragraph or a sentence. A file
+        holding a NUL byte is not read."""
         for p, (mode, obj) in sorted(self.files.items()):
             if mode == '160000' or not p.startswith(d):
                 continue
@@ -462,14 +494,20 @@ class TreeText:
                 norm = self._norm[obj] = normalize(data.decode('utf-8', 'replace'), self.prefixes)
             if claim.literal not in norm:
                 continue
+            spans = None
             for m in claim.pattern.finditer(norm):
-                if all(m.group(s) in support for s in claim.slots):
+                if claim.sentence and not sentence_start(norm, m.start()):
                     continue
-                n = norm.count(PARA, 0, m.start())
-                raw = data.decode('utf-8', 'replace')
-                starts = [0] + [b.end() for b in BREAK.finditer(raw)]
-                line = raw.count('\n', 0, starts[min(n, len(starts) - 1)]) + 1
-                return '%s:%d' % (p.decode('utf-8', 'replace'), line)
+                if spans is None:
+                    raw = data.decode('utf-8', 'replace')
+                    starts = [0] + [b.end() for b in BREAK.finditer(raw)]
+                    first = [raw.count('\n', 0, x) + 1 for x in starts]
+                    spans = list(zip(first, first[1:] + [raw.count('\n') + 2]))
+                lo, hi = spans[min(norm.count(PARA, 0, m.start()), len(spans) - 1)]
+                if all(any((p, n) in claimed_at.get(y, ()) for y in FULL_ID.findall(m.group(s))
+                           for n in range(lo, hi)) for s in claim.slots):
+                    continue
+                return '%s:%d' % (p.decode('utf-8', 'replace'), lo)
         return None
 
 
@@ -571,10 +609,11 @@ def downgrades(repo, files, main_files, main_entries, main_support, loaded, brok
     current = {(mp, k): e for mp, (ids, _r) in loaded.items() for k, e in ids.items()
                if e['role'] == 'support'}
     support_now = {k for _m, k in current}
-    claimed = {}
+    claimed, claimed_at = {}, {}
     for (_mp, k), e in current.items():
         path, n = CLAIM.fullmatch(e['claim']).groups()
         claimed.setdefault((k, e['claim_sha256']), set()).add((path.encode(), int(n)))
+        claimed_at.setdefault(k, set()).add((path.encode(), int(n)))
     records = sorted((mp, k, e['downgrade']) for mp, (ids, _r) in loaded.items()
                      for k, e in ids.items() if 'downgrade' in e)
     records += [(mp, k, r) for mp, (_i, retired) in sorted(loaded.items())
@@ -599,7 +638,7 @@ def downgrades(repo, files, main_files, main_entries, main_support, loaded, brok
         if line is not None and line_sha256(line) == e['claim_sha256']:
             claim = Claim(oid, line, prefixes)
             if claim.eligible:
-                where = text.anchored(mp[:-len(NAME)], claim, support_now)
+                where = text.anchored(mp[:-len(NAME)], claim, claimed_at)
         if where:
             out.append((name, 'support-downgrade', oid,
                         'the claim of %s stands at %s' % (e['claim'], where)))
@@ -1028,6 +1067,14 @@ def self_test():
         note = lambda *ls: '# Note\n' + ''.join(x + '\n' for x in ls)        # noqa: E731
         paren_line = 'The bound holds (%s).' % m0
         sc.commit('DP', ['M0'], 'M0', rec(note(paren_line), {m0: 'support'}), [])
+        # DD: D0 with the same claim also supported in rec2/; DQ: a claim that is no sentence
+        sc.commit('DD', ['D0'], 'D0', rec(d0_text, {m0: 'support'}, d='rec2'), [])
+        sc.commit('DQ', ['M0'], 'M0', rec(note('the bound holds at %s' % m0), {m0: 'support'}),
+                  [])
+        sc.commit('DW', ['M0'], 'M0', rec(note('Bound holds at %s.' % m0), {m0: 'support'}), [])
+        other_sup = {b'other/x.md': ('100644', ('see %s\n' % d0).encode()),
+                     b'other/CITATIONS.json': ('100644', _manifest({d0: _support(
+                         {b'other/x.md': ('100644', ('see %s\n' % d0).encode())}, d0)}))}
         dcases = [
             # name, sets, deletions, parent and main, expected codes
             ('support relabelled provenance without a record', rec(d0_text, {m0: prov()}), (),
@@ -1185,6 +1232,58 @@ def self_test():
                     '100644', (claim_line + '\n').encode())}), (), 'D0', {SD}),
             ('retired under another id', rec(note(), _manifest({}, retired={s: dg0})), (), 'D0',
              {SD}),
+            # a replacement id is a re-pin only where a support record of it claims a line of the
+            # same paragraph: not an id declared support elsewhere, nor this id supported elsewhere
+            ('retired, the reference replaced by an id supported only in another manifest', rec(
+                note('The bound holds at %s.' % d0), _manifest(
+                    {d0: {'role': 'provenance', 'reason': 'x'}}, retired={m0: dg0}), other_sup),
+             (), 'D0', {SD}),
+            ('retired, re-pinned to an id whose support record claims another paragraph', rec(
+                note('The bound holds at %s.' % d0, '', 'see %s' % d0), _manifest(
+                    {d0: {'role': 'support', 'claim': 'rec/NOTE.md:4',
+                          'claim_sha256': line_sha256(('see %s' % d0).encode())}},
+                    retired={m0: dg0})), (), 'D0', {SD}),
+            ('retired, re-pinned to an id supported elsewhere, another id supported beside it',
+             rec(note('The bound holds at %s.' % d0, 'see %s' % m0), _manifest(
+                 {d0: {'role': 'provenance', 'reason': 'x'},
+                  m0: {'role': 'support', 'claim': 'rec/NOTE.md:3',
+                       'claim_sha256': line_sha256(('see %s' % m0).encode())}},
+                 retired={m0: dg0}), other_sup), (), 'D0', {SD}),
+            ('retired, re-pinned through a markdown link to a supported commit', rec(
+                note('The bound holds at [%s](https://github.com/o/r/commit/%s).' % (d0[:7], d0)),
+                _manifest({d0: {'role': 'support', 'claim': 'rec/NOTE.md:2',
+                                'claim_sha256': line_sha256((
+                                    'The bound holds at [%s](https://github.com/o/r/commit/%s).'
+                                    % (d0[:7], d0)).encode())}}, retired={m0: dg0})), (),
+             'D0', set()),
+            ('recorded, the claim restated as a list item without its reference', rec(
+                note(hist, '- The bound holds at .'), {m0: prov(dg0)}), (), 'D0', {SD}),
+            ('recorded, the claim reflowed, its id still support in another manifest', rec(
+                note('The bound', 'holds at %s.' % m0, hist), {m0: prov(dg0)}), (), 'DD', {SD}),
+            ('recorded, the claim removed, its id still support in another manifest', rec(
+                note(hist), {m0: prov(dg0)}), (), 'DD', set()),
+            # narrowings written before the claim, and negations, are new statements
+            ('recorded, the claim narrowed by a condition put first', rec(
+                note('For n <= 4, the bound holds at %s.' % m0, hist), {m0: prov(dg0)}), (),
+             'D0', set()),
+            ('recorded, the claim negated', rec(
+                note('It is not shown that the bound holds at %s.' % m0, hist), {m0: prov(dg0)}),
+             (), 'D0', set()),
+            ('recorded, the claim reflowed in a subdirectory file', rec(note(hist), {
+                m0: prov(dg0)}, {b'rec/sub/y.md': (
+                    '100644', note('The bound', 'holds at %s.' % m0).encode())}), (), 'D0', {SD}),
+            ('recorded, a word ending in the claim\'s first word, of a claim that is no sentence',
+             rec(note('lathe bound holds at'), _manifest({}, retired={m0: dict(
+                 dg0, from_claim_sha256=line_sha256(('the bound holds at %s' % m0).encode()))})),
+             (), 'DQ', set()),
+            ('retired, a two-word claim with its reference deleted: compared by its hash alone',
+             rec(note('Bound holds at .'), _manifest({}, retired={m0: dict(
+                 dg0, from_claim_sha256=line_sha256(('Bound holds at %s.' % m0).encode()))})),
+             (), 'DW', set()),
+            ('retired, a support record claiming the old claim\'s line under another hash', rec(
+                d0_text, _manifest({m0: {'role': 'support', 'claim': 'rec/NOTE.md:2',
+                                         'claim_sha256': h_stale}}, retired={m0: dg0})), (),
+             'D0', {SD, 'claim-hash-mismatch'}),
             ('retired, another manifest already listing the id as provenance on main', rec(
                 note(), _manifest({}, retired={m0: dg0})), (), 'DO', set()),
             ('retired, a copy without its reference outside the record\'s directory: not '
@@ -1270,6 +1369,20 @@ def self_test():
             ('limitation: another record citing a removed manifest\'s support id', dict(rec(
                 note(hist), {m0: prov()}, d='other')), (b'rec/CITATIONS.json',), 'D0', {SD}),
         ]
+        # the reference slot: the forms it reads, each with a record, the claim unchanged
+        for label, ref in (('backticked short id', '`%s`' % m0[:8]),
+                           ('a markdown link', '[%s](https://github.com/o/r/commit/%s)'
+                            % (m0[:7], m0)),
+                           ('commit and a short id', 'commit %s' % m0[:7]),
+                           ('a short id with a suffix', m0[:9] + '-dirty'),
+                           ('"per" for "at"', 'per %s' % m0), ('"in" for "at"', 'in %s' % m0),
+                           ('in parentheses with "see"', '(see %s)' % m0)):
+            text = 'The bound holds %s.' % ref if ref.startswith(('per', 'in', '(see', 'commit')) \
+                else 'The bound holds at %s.' % ref
+            ids = {m0: prov(dg0)} if m0 in text else {}
+            man = _manifest(ids, retired=None if ids else {m0: dg0})
+            dcases.append(('recorded, the reference given as %s' % label, rec(note(text), man), (),
+                           'D0', {SD}))
         n_down = len(dcases) + 5
         for name, sets, dels, parent, want in dcases:
             got = case('D-' + name, sets, main=sc.labels[parent], parent=parent, dels=dels)
