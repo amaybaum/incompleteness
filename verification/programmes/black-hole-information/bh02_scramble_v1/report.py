@@ -199,7 +199,8 @@ def main():
     w("accounting for photons and gravitons from a large Schwarzschild hole (β = 1.4847, Page 1976 as used")
     w("in Page 2013, arXiv:1301.4995) the turnover is at %s of the evaporation time with a fraction %s"
       % (lit["quoted_t_fraction"], lit["quoted_entropy_lost"]))
-    w("of the entropy lost; the β formula gives %s and %s (K-page2013, %s). β itself is computed from the"
+    w("of the entropy lost (as quoted in the abstract; full text unverified, so conclusions resting on")
+    w("these values stay pending); the β formula gives %s and %s (K-page2013, %s). β itself is computed from the"
       % (lit["computed_t_fraction_4dp"], lit["computed_entropy_lost_4dp"], lit["resolution"]))
     w("emitted species' greybody factors. The derivation uses only the exponents in the mass-loss law")
     w("and in `S_BH ∝ M²`, not their coefficients, so no OI-specific quantity (σ, q, ε, the 1/4")
@@ -259,7 +260,8 @@ def main():
     w("  configurations) acting on a supplied superposition reaches Page-like values is untested.")
     w("- `mutants.py` reruns the full suite once per mutant (17 mutants, about 27 minutes wall time on a")
     w("  shared 4-core container); repeated mutation campaigns belong in CI (§A.40). The final")
-    w("  `mutants-output.txt` was produced by one run of the final code.")
+    w("  `mutants-output.txt` is the full campaign at the previous revision; after the second review")
+    w("  only the mutants whose targets changed were rerun (`mutants-targeted-output.txt`).")
     w("- Nothing here is a statement about physical black holes.")
     w("")
     w("## Replay from an empty directory")
@@ -272,6 +274,7 @@ def main():
     w("python3 -I -B checks.py | cmp - result.json        # about 1 minute")
     w("python3 -I -B -O checks.py | cmp - result.json")
     w("python3 -I -B mutants.py | cmp - mutants-output.txt   # about 30 minutes on a loaded host, 4 processes")
+    w("python3 -I -B mutants.py --only M-canonical,M-page2013,M-ode | cmp - mutants-targeted-output.txt")
     w("python3 -I -B report.py | cmp - REPORT.md")
     w("```")
     w("")

@@ -178,8 +178,13 @@ def main():
     if unmod_failed:
         print("VOID: unmodified run fails; mutants not run")
         sys.exit(2)
+    sel = list(range(len(MUTANTS)))
+    if "--only" in sys.argv:
+        names = sys.argv[sys.argv.index("--only") + 1].split(",")
+        sel = [i for i, m in enumerate(MUTANTS) if m[0] in names]
+        print("targeted run: %s" % ", ".join(MUTANTS[i][0] for i in sel))
     with multiprocessing.Pool(4) as pool:
-        rows = pool.map(run_one, range(len(MUTANTS)))
+        rows = pool.map(run_one, sel)
     allc = True
     for name, target, mode, failed, caught in rows:
         allc = allc and caught

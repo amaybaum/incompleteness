@@ -7,7 +7,7 @@
   "amendments/A1-shell-cases.md": "ff7b5c85",
   "amendments/A2-mutant-criterion.md": "836a661e"
  },
- "generated_on_parent": "1739f4e05e27f22911dee5e7a9f502089c9807e9",
+ "generated_on_parent": "91e2230a745a5a944696308d5a5944f04581d765",
  "form": "complete",
  "kind": "local run; not a CI run and not a check-run attestation",
  "interpreter": "CPython 3.13.16, standard library only",
@@ -64,5 +64,21 @@
    "note": "byte content retrievable from commit 1739f4e0"
   },
   "result_json_leaf_changes": "only additions and the CC5, C4-verdict, C6(a), C6(b), C6(c)-verdict fields; no previously reported numerical or exact value other than CC5 changed"
+ },
+ "post_review_2": {
+  "review": "re-check of 91e2230a: ACCEPT WITH NITS (two nits)",
+  "changes": [
+   "MANUSCRIPT-AUDIT.md: header 'Literature values pending' and a per-site label '[Page 2013 abstract value; full text unverified]' on every use of beta = 1.4847, 0.5381 / 0.538, 40.25% / about 40%; proposals using them (items 1, 5, 17, 20) are not to be adopted before the full text is checked (owner ruling)",
+   "C7 verdict: 'reproducing the literature value' -> 'reproducing the value quoted in the abstract of Page 2013 (full text unverified)'; REPORT Page-time paragraph labels the quoted values the same way",
+   "K-shell: canonical_by_enumeration also checks sum(counts) == comb(n, w) == D",
+   "mutants.py: optional --only selection; targeted rerun of M-canonical, M-page2013, M-ode recorded in mutants-targeted-output.txt (all caught); mutants-output.txt is the full campaign at 91e2230a and was not rerun (section A.40)"
+  ],
+  "result_json_leaf_changes": "only /C7/verdict (text)",
+  "superseded_outputs_at_91e2230a": {
+   "result.json": "af43da4fce43f8112c8ca9b6052681b4bcc4551c8b2bfad607fa3334b6e73443",
+   "REPORT.md": "4f8c927089a26f528e7514374fc3c91d3a440b3ff62fd17781d341575386bdc6",
+   "MANUSCRIPT-AUDIT.md": "f035579619d49b59489cf69143893959230f982d58e1fa7f88ed3037aaf97f16",
+   "note": "byte content retrievable from commit 91e2230a"
+  }
  }
 }

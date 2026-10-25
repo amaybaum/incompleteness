@@ -1128,7 +1128,8 @@ def canonical_by_enumeration(n, w, k, D, secs):
     spec = sorted(Fr(c, D) for c in counts.values())
     expect = sorted(Fr(b, D) for (j, a, b) in secs for _ in range(a))
     s = -sum((c / D) * math.log(c / D) for c in counts.values())
-    return spec == expect, s
+    total_ok = sum(counts.values()) == comb(n, w) == D
+    return spec == expect and total_ok, s
 
 
 def diag_shell_mean(m):
@@ -1461,7 +1462,7 @@ def run_C7(controls, res):
         "species factor cancels. COUNTEREXAMPLE to the unconditional reading: an M-dependent "
         "effective coefficient changes the fraction (power law p=1/2 gives %s; step model up "
         "to %s for the cases computed), and with Page's coarse-grained accounting beta=1.4847 "
-        "the fraction is %s, reproducing the literature value; beta itself is computed from the "
+        "the fraction is %s, reproducing the value quoted in the abstract of Page 2013 (full text unverified); beta itself is computed from the "
         "species' greybody factors."
         % (dec(lo, 6), pl["p=1/2"][0][:8], max(s["value_8dp"] for s in steps)[:8],
            dec(flo, 4)))

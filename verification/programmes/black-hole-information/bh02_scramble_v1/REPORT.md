@@ -19,7 +19,7 @@ none is an OI mechanism. NUMERICAL marks double-precision quantities, each contr
 - **C6(b) where the Page value enters.** The value S_Page enters Theorem A.8 only through the Haar ensemble that H-scramble posits for the orbit; the bijection's cycle structure contributes exact averaging bookkeeping and the trivial bound ln d_min. The Page value therefore follows from the hypothesis H-scramble on the orbit, not from bijectivity or the cycle decomposition; a dynamics that satisfied H-scramble would produce it.
 - **C6(c) shell factorization.** CONDITIONAL: Theorem A.8 states the Page value with the full factor dimensions while positing equidistribution on a shell subspace, and the Haar-on-shell mean differs from that value in a direction that depends on the shell. For a conserved Hamming weight it lies below S_Page(d_R,d_B), certified (concavity, rigorous log intervals) in cases (n,w,|R|)=(8,2,4), (n,w,|R|)=(10,2,5), (n,w,|R|)=(12,3,6) (all added by amendment A1; the preregistered half-filling cases are not certified by this bound). For the diagonal shell span{|i>|i>} it is exactly H_m - 1, above S_Page(m,m) for m = 2, 3, 4, 8, 16 (post-review result): all rows above. The unstated hypothesis is that the shell is the full product space, or that d_B, d_R are replaced by the shell's own typical value.
 - **C6(d) time average versus instantaneous value.** OPEN proof obligation (textual): Theorem A.8 bounds a cycle time-average at a fixed bipartition on a fixed shell; Theorem A.9 applies it at each t along one trajectory with a changing bipartition, starting from a definite state, which C1 shows has S=0 in the configuration factorization. No computation here settles it.
-- **C7 Page-time fraction.** CONDITIONAL: t_P/t_evap = 1 - 2^{-3/2} = 0.646446 holds exactly given (i) constant a in dM/dt=-a/M^2, (ii) turnover at half the initial black-hole entropy, i.e. radiation entropy equal to the black-hole entropy lost (beta=1, the identification n_R(t)=n_B(0)-n_B(t)), (iii) S_BH proportional to M^2. PROVED: a constant multiplicative greybody or species factor cancels. COUNTEREXAMPLE to the unconditional reading: an M-dependent effective coefficient changes the fraction (power law p=1/2 gives 0.702698; step model up to 0.870700 for the cases computed), and with Page's coarse-grained accounting beta=1.4847 the fraction is 0.5381, reproducing the literature value; beta itself is computed from the species' greybody factors.
+- **C7 Page-time fraction.** CONDITIONAL: t_P/t_evap = 1 - 2^{-3/2} = 0.646446 holds exactly given (i) constant a in dM/dt=-a/M^2, (ii) turnover at half the initial black-hole entropy, i.e. radiation entropy equal to the black-hole entropy lost (beta=1, the identification n_R(t)=n_B(0)-n_B(t)), (iii) S_BH proportional to M^2. PROVED: a constant multiplicative greybody or species factor cancels. COUNTEREXAMPLE to the unconditional reading: an M-dependent effective coefficient changes the fraction (power law p=1/2 gives 0.702698; step model up to 0.870700 for the cases computed), and with Page's coarse-grained accounting beta=1.4847 the fraction is 0.5381, reproducing the value quoted in the abstract of Page 2013 (full text unverified); beta itself is computed from the species' greybody factors.
 
 ## Proofs of the exact statements
 
@@ -125,7 +125,8 @@ thresholds), which makes it depend on `M_0` through `M_*/M_0` with corrections o
 `(M_*/M_0)^3` for `M_0 ≫ M_*`; and the radiation-entropy accounting. With Page's coarse-grained
 accounting for photons and gravitons from a large Schwarzschild hole (β = 1.4847, Page 1976 as used
 in Page 2013, arXiv:1301.4995) the turnover is at 0.5381 of the evaporation time with a fraction 0.4025
-of the entropy lost; the β formula gives 0.5381 and 0.4025 (K-page2013, 4 decimal places; confirms the beta formula is Page's accounting, not an independent physics test). β itself is computed from the
+of the entropy lost (as quoted in the abstract; full text unverified, so conclusions resting on
+these values stay pending); the β formula gives 0.5381 and 0.4025 (K-page2013, 4 decimal places; confirms the beta formula is Page's accounting, not an independent physics test). β itself is computed from the
 emitted species' greybody factors. The derivation uses only the exponents in the mass-loss law
 and in `S_BH ∝ M²`, not their coefficients, so no OI-specific quantity (σ, q, ε, the 1/4
 coefficient, bijectivity) enters the fraction; it is the same number in any model with these
@@ -197,7 +198,8 @@ ALL MUTANTS CAUGHT
   configurations) acting on a supplied superposition reaches Page-like values is untested.
 - `mutants.py` reruns the full suite once per mutant (17 mutants, about 27 minutes wall time on a
   shared 4-core container); repeated mutation campaigns belong in CI (§A.40). The final
-  `mutants-output.txt` was produced by one run of the final code.
+  `mutants-output.txt` is the full campaign at the previous revision; after the second review
+  only the mutants whose targets changed were rerun (`mutants-targeted-output.txt`).
 - Nothing here is a statement about physical black holes.
 
 ## Replay from an empty directory
@@ -210,6 +212,7 @@ sha256sum -c SHA256SUMS
 python3 -I -B checks.py | cmp - result.json        # about 1 minute
 python3 -I -B -O checks.py | cmp - result.json
 python3 -I -B mutants.py | cmp - mutants-output.txt   # about 30 minutes on a loaded host, 4 processes
+python3 -I -B mutants.py --only M-canonical,M-page2013,M-ode | cmp - mutants-targeted-output.txt
 python3 -I -B report.py | cmp - REPORT.md
 ```
 
