@@ -1771,24 +1771,55 @@ algorithmic reading of what the theorem establishes (§1.9).
 
 The marginalized transition probabilities of the previous section depend
 on three inputs: the dynamics, the partition, and the measure. The
-framework's lemmas fix the dynamics and the measure; only the partition
-remains as a free input. The following result establishes that this is
-the entire freedom: the emergent description is determined by the
-partition alone.
+framework's lemmas fix the dynamics. The measure is fixed only by adding
+a selection principle: Lemma 3 takes the invariant measure of maximal
+entropy as the canonical one. Under the canonical measure only the
+partition remains as a free input, and the following result establishes
+that this is the entire freedom: the emergent description is determined
+by the partition alone.
 
-\textbf{Lemma.} \emph{The emergent description is uniquely determined by
-the partition. Any parameters of the emergent theory depend only on the
-geometric and thermodynamic properties of the partition boundary.}
+\textbf{Lemma.} \emph{Under the canonical measure of Lemma 3, the
+emergent description is uniquely determined by the partition. Any
+parameters of the emergent theory depend only on the geometric and
+thermodynamic properties of the partition boundary.}
 
 \emph{Proof.} By Lemma 3 the Hamiltonian flow \(\phi_t\) is unique. By
 Lemma 2 the partition is fixed. An embedded observer with incomplete
 knowledge of the total energy averages over energies with a smooth
-prior, recovering the Liouville measure \(\mu\) on a phase-space band.
-Letting \(\pi_V\) project onto the visible sector, the marginalized
-transition probabilities are
+prior, recovering the Liouville measure \(\mu\) on a phase-space band
+--- the continuum form of Lemma 3's maximal-entropy selection. Letting
+\(\pi_V\) project onto the visible sector, the marginalized transition
+probabilities are
 \[T_{ij}(t_2, t_1) = \int_{\Gamma_H} \delta_{x_j}\!\bigl[\pi_V\bigl(\phi_{t_2-t_1}(x_i, h)\bigr)\bigr] \, d\mu(h),\]
-determined by dynamics, partition, and measure. All three are fixed;
-only the partition remains as input. \(\square\)
+determined by dynamics, partition, and measure. With the dynamics fixed
+and the measure set to the canonical one, only the partition remains as
+input. \(\square\)
+
+Three statements about the measure are distinct, and the lemma above is
+stated under the second. \emph{Invariance.} Invariance alone does not
+single out a measure: on each orbit the invariant measure is unique and
+uniform, but a bijection with two or more cycles carries distinct
+invariant measures --- the uniform measure on each cycle, and every
+mixture of these --- so the deterministic evolution by itself does not
+fix the measure (kernel: \texttt{invariance\_does\_not\_select} in
+\texttt{OIBridge/CanonicalMeasure.lean}). \emph{Canonical selection.}
+Among the invariant measures, Lemma 3 selects the counting measure as
+the one of maximal entropy compatible with the observer's records; its
+continuum form is the Liouville measure. The selection is a principle
+the framework adopts --- a standard but substantive epistemic postulate,
+carried in the posit ledger of {[}Main §4.5{]} --- not a consequence of
+invariance. \emph{Realization datum.} The canonical measure is the
+default, not a constraint on representations. A particular realization
+may carry its own specified hidden prior \(\mu_H\) as part of its data
+--- a structured preparation, subject to the invariance and preparation
+conditions its own hypotheses impose --- and the emergent law is then a
+function of the dynamics, the partition and \(\mu_H\). The same
+bijection and partition under different priors generally give different
+visible laws; the two-state swap under a uniform and under a point-mass
+hidden prior is the simplest case ({[}Main §1.2{]}).
+Partition-relativity is therefore relative to the declared measure, and
+the framework's baseline construction and its physical realization use
+the canonical one.
 
 Different observers correspond to different partitions of the same
 \((S, \varphi)\); different partitions produce different emergent
@@ -9589,14 +9620,14 @@ check.
 theory on the horizon depends only on the boundary modes --- the degrees
 of freedom at the horizon itself --- and not on the bulk content of the
 visible or hidden sectors at scales far from the boundary. This is the
-framework's partition-relativity result: the emergent description is
-uniquely determined by the partition geometry at leading order in
-\(\tau_S / \tau_B\), with bulk corrections at order \(\tau_S / \tau_B\)
-for the cosmological partition. The boundary-only dependence is a
-structural consequence of the small parameter
-\(\tau_S / \tau_B \sim 10^{-32}\): the emergent QFT is effectively a
-theory of the boundary modes, with bulk corrections suppressed by the
-slow-bath timescale ratio.
+framework's partition-relativity result: under the canonical measure of
+Lemma 3 of Chapter 1, the emergent description is uniquely determined by
+the partition geometry at leading order in \(\tau_S / \tau_B\), with
+bulk corrections at order \(\tau_S / \tau_B\) for the cosmological
+partition. The boundary-only dependence is a structural consequence of
+the small parameter \(\tau_S / \tau_B \sim 10^{-32}\): the emergent QFT
+is effectively a theory of the boundary modes, with bulk corrections
+suppressed by the slow-bath timescale ratio.
 
 \textbf{Step 3: Dimensional analysis of \(\hbar\).} The emergent action
 scale \(\hbar\) depends only on local geometric quantities at the
@@ -30486,4 +30517,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: a17d8302b985c545b3a7060941c59198609c64600e6ab023a6d532db4cec6d6f
+% source-sha256: 99f31146c900a0d87080dd4fa46d75db97c7aa348fd85c402c9265833fabb33f
