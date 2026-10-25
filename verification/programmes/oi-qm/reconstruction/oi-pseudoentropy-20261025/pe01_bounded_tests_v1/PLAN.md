@@ -75,7 +75,7 @@ all primitive $p$ of degree $n$, with $\ell$ and $g$ fixed. $\nu$ is uniform on 
 |---|---|
 | $n$ | $3,\dots,8$ (local $n \le 6$, CI $n = 7, 8$) |
 | $K$ | $0 \le K \le K_{\max}(n) = 4(2^n - 1)$, except where §3 sets a smaller cap for a class or knowledge level |
-| $m$ (observer memory) | exhaustive: $m \le 2$; $m = 3$ passive, up to conjugacy (CI, $n \le 6$); linear-filter observers $m \le 4$ (CI) |
+| $m$ (observer memory) | exhaustive: $m \le 2$; $m = 3$ passive, up to conjugacy (CI, $n \le 6$; extension to $n = 7, 8$ per the open decision in §10); linear-filter observers $m \le 4$, $n = 3,\dots,8$ (CI) |
 | $\delta$ | $1/8$ and $1/4$ |
 | Runs $r$ | 1 |
 
@@ -171,7 +171,7 @@ Each round $t < K$ applies three maps:
 At $K$: $\mathrm{out} \leftarrow \mathrm{out} \oplus 1[(v_K, x_K) \in F]$. This readout is a time-dependent operation:
 - In the reported curves, the evaluation time $K$ is supplied by the analyst and is not charged.
 - A verdict-bearing witness (§6) is realized with a clock register of $\lceil \log_2(K+1) \rceil$ bits. The clock
-  ticks as a cyclic permutation and triggers the readout. It is counted in the footprint, and EX1, EX8, IM3 and FP run
+  starts at $0$, ticks as a cyclic permutation and triggers the readout. It is counted in the footprint, and EX1, EX8, IM3 and FP run
   on the clocked composite.
 
 Every map is a bijection of $\mathcal{C}_V' \times \mathcal{C}_H$, and the observer's maps act as the identity on
@@ -190,7 +190,7 @@ $\mathcal{C}_H$. There is no hidden-sector access (`Computation.md:15`).
 The enumerated subclasses are:
 - all observers with $m \le 2$: 16 at $m=1$ and 9216 at $m=2$, each with every $F$;
 - passive observers with $m = 3$, up to simultaneous conjugacy fixing $v_0$;
-- linear-filter observers $\rho_x(v) = Av \oplus xb$, with $A \in \mathrm{GL}(m,2)$ and $m \le 4$.
+- linear-filter observers $\rho_x(v) = Av \oplus xb$, with $A \in \mathrm{GL}(m,2)$, $m \le 4$ and $n = 3,\dots,8$.
 
 K0 for each subclass:
 - **$m \le 2$.** The test is $(\rho, a, F)$, over all 256 sets $F$, for $K \le 255$.
@@ -275,8 +275,8 @@ Every numerical row is computed in exact integer or `Fraction` arithmetic. Faili
 | Deterministic replay (§A.26) | RP | a rerun's measurement JSON is byte-identical |
 | The plan precedes the code | PIN | the measurement JSON records this file's blob id, and this commit is an ancestor of every code commit |
 | Verdicts are generated from measurements | VG | The verdict is regenerated from the JSON and compared. Self-test: a copy with any control flag flipped must yield VOID. A verdict text lacking the resource-model limitation sentence of §7 must fail. |
-| The admissible region is derived, not reprinted | AR | Z(φ) (§7) is computed by exhaustive equidistribution over all control sequences, at every $n$ and for all three primary generators. Z(`G_lin`) $= n$ is cross-checked against PC. The region is recomputed from Z(φ), $K_{\rm cx}(\varphi)$ and $\theta$, and must equal the §7 tables cell for cell. The verdict prints the recomputed region. |
-| Runs wait for the fixed thresholds | TH | The measurement JSON records $\theta$, $K_{\rm LP}$ and the blob id of the amendment that fixes them. That amendment's commit must be an ancestor of every run commit, checked as PIN is. A run without that record refuses to start. |
+| The admissible region is derived, not reprinted | AR | Z(φ) (§7) is computed by exhaustive equidistribution over all control sequences, at every $n$ and for all three primary generators. Z(`G_lin`) $= n$ is cross-checked against PC. The assumptions of the zero argument are checked: $\mu$ factorises with $h$ uniform and independent of $x_0$, and every observer register (memory, clock, output) starts at a fixed value. The region is recomputed from Z(φ), $K_{\rm cx}(\varphi)$ and $\theta$, and must equal the §7 tables cell for cell. The verdict prints the recomputed region. |
+| Runs wait for the fixed thresholds | TH | The measurement JSON records $\theta$, $K_{\rm LP}$, the $m = 3$ scope decision (§10) and the blob id of the amendment that fixes them. That amendment's commit must be an ancestor of every run commit, checked as PIN is. A run without that record refuses to start. |
 
 ## 6. Decision rule and outcome classes (fixed before computation)
 
@@ -305,8 +305,8 @@ Every numerical row is computed in exact integer or `Fraction` arithmetic. Faili
    - (f) the footprint (FP) is at most $\theta$.
 
    A **bounded-resource claim** is a COUNTEREXAMPLE meeting (a)–(f). The threshold $\theta$ is the one open owner
-   decision (§10). No run starts before both $\theta$ and $K_{\rm LP}$ are fixed by amendment (TH). Witnesses meeting (a)–(e) but not (f) are reported for
-   comparison as unrestricted-footprint witnesses. They are not COUNTEREXAMPLEs.
+   decision (§10). No run starts before $\theta$, $K_{\rm LP}$ and the $m = 3$ scope decision are fixed by amendment
+   (TH). Witnesses meeting (a)–(e) but not (f) are reported for comparison as unrestricted-footprint witnesses. They are not COUNTEREXAMPLEs.
 
    Knowledge level: $O$ may depend on $\varphi$, so the witness is K1. The verdict also reports its K0 status, that is,
    whether the same $O$ is a witness for every $\varphi$ in its family $\mathfrak{F}$.
@@ -329,9 +329,12 @@ Every numerical row is computed in exact integer or `Fraction` arithmetic. Faili
      inside the class.
    - No finite result here establishes the universal form (`../README.md`, Question).
 
-   **Attribution.** The verdict attributes unpredictability to resources if and only if some witness meets (a)–(e) but
-   fails (f). That case is reported as a limitation of the resource model. In every other case without a
-   COUNTEREXAMPLE, the verdict states "no witness within the enumerated scope at any footprint". It never states that
+   **Attribution.** The rule is applied separately for each (generator, $n$, observer subclass); it is never pooled
+   across them.
+   - Within a combination, unpredictability is attributed to resources if and only if some witness in that combination
+     meets (a)–(e) but fails (f). That case is reported as a limitation of the resource model.
+   - In every other combination without a COUNTEREXAMPLE, the verdict states "no witness within the enumerated scope at
+     any footprint". It never states that
    the record is unpredictable because of the observations available on the strength of a finite enumeration.
 5. **Productivity tag (§A.31).** Each result also gets one tag:
    - **COVERED-corpus:** class U, anything implied by the support bound or by PC, and B4 at or beyond its counting
@@ -434,7 +437,7 @@ Every numerical row is computed in exact integer or `Fraction` arithmetic. Faili
   | 7 | [11,63] \| [9,63] \| [8,63] | [11,31] \| [9,31] \| [8,31] | [11,15] \| [9,15] \| [8,15] | – \| – \| – |
   | 8 | [12,127] \| [10,127] \| [9,127] | [12,63] \| [10,63] \| [9,63] | [12,31] \| [10,31] \| [9,31] | [12,15] \| [10,15] \| [9,15] |
 
-  Consequences, the same for all three generators:
+  Consequences:
   - **At $\theta = n$:**
     - the region is empty for $n \le 4$;
     - at $n = 5$ only $m = 1$, $K = 7$ survives, on `G_filt` and `G_clk`;
@@ -457,6 +460,7 @@ Seeds number $2^{n+1} \le 512$. Generator laws, U, B2 and B3 cost seconds per ge
 | B1 WHT for $K \le 23$, all generators, $n \le 8$ | about 10 min | CI |
 | 𝒫ᵉᵐᵇ($m=2$, active) for $n = 6, 7, 8$: K1 with the optimal $F$; K0 per §3 | 0.5–2 h in total, vectorised over seeds and observers. About $6 \times 10^{10}$ elementary updates at $n = 8$. Dominated by exact big-integer comparison against $Q$, which is computed once per observer and reused across $\varphi$. | CI, sharded by $(n, \text{family})$ |
 | 𝒫ᵉᵐᵇ($m=3$, passive, canonical form by BFS labelling of the component reachable from $v_0$); linear-filter observers with $m \le 4$ | 1–3 h in total | CI, sharded |
+| Only under option (ii) of §10: 𝒫ᵉᵐᵇ($m=3$, passive) at $n = 7, 8$, with K capped at the top of the admissible region ($K \le 15$ at $n = 8$ for $\theta = n$; $K \le 15$ at $n = 7$ and $K \le 31$ at $n = 8$ for $\theta = n+1$) | about 1–2 h | CI, sharded by $n$ |
 | `G_tape` checks: U and B1–B4 to $K = 20$; 𝒫ᵉᵐᵇ to $K = 12$ | minutes | CI |
 | B4 with $d = 3$ | minutes | CI |
 | Randomized K0, dual LP: $m \le 2$, $n \le 6$, $K \le K_{\rm LP}(n)$, at most 32 sign patterns | under 1 h | CI |
@@ -536,7 +540,18 @@ tables:
 - **At $\theta = n+1$:** the region is wider, with $m = 3$ from $n = 7$ and $m = 4$ at $n = 8$.
 - **The two sweeps.** The passive $m = 3$ sweep ($n \le 6$) is not admissible under either value.
 
-No PE-01 run starts before both $\theta$ and $K_{\rm LP}$ are fixed in an amendment to this plan (TH).
+**Open owner decision: the scope of the passive $m = 3$ sweep.** There are two options:
+- **(i)** Keep $m = 3$ at $n \le 6$, as comparison data only. Under either $\theta$, no admissible region exists there.
+- **(ii)** Extend it to $n = 7, 8$, with $K$ capped at the top of the admissible region:
+  - for $\theta = n$: $K \le 15$ at $n = 8$;
+  - for $\theta = n+1$: $K \le 15$ at $n = 7$ and $K \le 31$ at $n = 8$.
+
+  Option (ii) has its own §8 row.
+
+The independent review notes that (ii) is the only way an $m = 3$ observer can bear on condition (f). This plan does
+not make that decision.
+
+No PE-01 run starts before $\theta$, $K_{\rm LP}$ and the $m = 3$ scope are fixed in an amendment to this plan (TH).
 
 ## 11. Package
 
