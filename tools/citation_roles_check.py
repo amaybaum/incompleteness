@@ -1811,7 +1811,7 @@ def self_test():
                      'It does not claim that ', 'We do not claim that ', 'No claim is made that ',
                      'The round does not claim that ', 'This note makes no claim that ',
                      'It is not a claim that ', 'What is not established is that ',
-                     'Indeed, it is not shown that ',
+                     'Indeed, it is not shown that ', 'It was not established that ',
                      'For even n, ', 'When n is even, ', 'Provided (C2) holds, ',
                      'At T = 300 K, ', 'Except at n = 4, ', 'Below n = 4, ', 'Given two lattices, ',
                      'Given three lattices, ', 'For lattices of size <= 4, ',
