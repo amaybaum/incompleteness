@@ -1,0 +1,3 @@
+PC zero, G_lin n=3, all P_emb(m<=2) incl. active, K<=n: max TV over F = 0
+PC zero, G_lin n=4, all P_emb(m<=2) incl. active, K<=n: max TV over F = 0
+PC firing P_emb(1) on G_dec K=1: Pr_P 1 Pr_Q 1/2 adv 1/2
