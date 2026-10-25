@@ -114,6 +114,8 @@ Wu, C. S., Ambler, E., Hayward, R. W., Hoppes, D. D., & Hudson, R. P. (1957). Ex
 
 Abedi, J., Dykaar, H., & Afshordi, N. (2017). Echoes from the abyss: Tentative evidence for Planck-scale structure at black hole horizons. *Physical Review D* 96: 082004. arXiv:1612.00266.
 
+Bao, N., Carroll, S. M., & Singh, A. (2017). The Hilbert space of quantum gravity is locally finite-dimensional. *International Journal of Modern Physics D* 26(12): 1743013. arXiv:1704.00066.
+
 Bekenstein, J. D. (1981). Universal upper bound on the entropy-to-energy ratio for bounded systems. *Physical Review D* 23: 287-298.
 
 Bertini, N. R., Novaes, M. H., von Marttens, R., & Shapiro, I. L. (2025). Renormalization group corrections to ΛCDM model and observational consequences for H₀ tension. arXiv:2509.24026 [astro-ph.CO; gr-qc; hep-th]. [Lead author initial in earlier in-text references was given as "S." — correct lead author is Nicolas R. Bertini.]

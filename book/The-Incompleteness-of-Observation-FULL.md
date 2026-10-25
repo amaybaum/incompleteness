@@ -373,7 +373,7 @@ The definition is weaker than classical mechanics. A shuffled deck of cards sati
 
 **Lemma 1 (Finiteness).** *The visible configuration space $\mathcal{C}_V$ is finite, with a discreteness scale $\epsilon$ providing a finite minimal cell volume.*
 
-Any observer bounded by a finite-area surface couples to only finitely many modes across that boundary; independent support comes from holographic entropy bounds [2]. The scale $\epsilon$ is left unspecified here; Chapter 2 will show that self-consistency ties $\epsilon$ to the Planck length, $\epsilon = 2 \ell_P$ at one nat of entropy per boundary mode.
+Any observer bounded by a finite-area surface couples to only finitely many modes across that boundary; independent support comes from holographic entropy bounds (Bao, Carroll, and Singh 2017). The scale $\epsilon$ is left unspecified here; Chapter 2 will show that self-consistency ties $\epsilon$ to the Planck length, $\epsilon = 2 \ell_P$ at one nat of entropy per boundary mode.
 
 **Lemma 2 (Causal partition).** *The phase space decomposes as $\Gamma = \Gamma_V \times \Gamma_H$, with $H_{\text{tot}} = H_V + H_H + H_{\text{int}}$. Cross-partition correlations enter only through $H_{\text{int}}$.*
 
@@ -426,7 +426,7 @@ The marginalized transition probabilities of the previous section depend on thre
 $$T_{ij}(t_2, t_1) = \int_{\Gamma_H} \delta_{x_j}\!\bigl[\pi_V\bigl(\phi_{t_2-t_1}(x_i, h)\bigr)\bigr] \, d\mu(h),$$
 determined by dynamics, partition, and measure. All three are fixed; only the partition remains as input. $\square$
 
-Different observers correspond to different partitions of the same $(S, \varphi)$; different partitions produce different emergent descriptions. Quantum mechanics' parameters are not free constants. The Planck constant $\hbar$ does not appear in the lemmas or conditions; it must emerge from the marginalization, with value set by the partition's geometric and thermodynamic features. Chapter 7 shows that the cosmological partition produces $\hbar$ as a thermodynamic identity at the horizon surface, with $1/4$ Bekenstein-Hawking entropy following under the horizon conditions named there — with GW250114 confirming the classical area theorem at $99.999\%$; the entropy coefficient itself has no direct test [8].
+Different observers correspond to different partitions of the same $(S, \varphi)$; different partitions produce different emergent descriptions. Quantum mechanics' parameters are not free constants. The Planck constant $\hbar$ does not appear in the lemmas or conditions; it must emerge from the marginalization, with value set by the partition's geometric and thermodynamic features. Chapter 7 shows that the cosmological partition produces $\hbar$ as a thermodynamic identity at the horizon surface, with $1/4$ Bekenstein-Hawking entropy following under the horizon conditions named there — with GW250114 confirming the classical area theorem at $99.999\%$ (Abac et al. 2025); the entropy coefficient itself has no direct test.
 
 Partition-relativity establishes that the emergent description is well-defined. The next question is what kind of description it is — whether the marginalization produces a Markovian process, a generic non-Markovian one, or something more specific. The result of this section is that, in the recurrence and non-permutation regimes established there, the process satisfies a precise structural property with a name in the open-systems literature — P-indivisibility — while C1–C4 by themselves deliver accessible non-Markovianity ([Main §3.4]). The two sections following establish how the imported correspondence supplies the quantum representation across its class, under the translation hypothesis (T) — with P-indivisibility governing whether that representation is nontrivial ([Main §3.1]), which is a claim about the two-time marginal family and does not transport the multi-time content of (C4).
 
@@ -6895,6 +6895,8 @@ Wu, C. S., Ambler, E., Hayward, R. W., Hoppes, D. D., & Hudson, R. P. (1957). Ex
 ## Gravitational physics, cosmology, and quantum gravity
 
 Abedi, J., Dykaar, H., & Afshordi, N. (2017). Echoes from the abyss: Tentative evidence for Planck-scale structure at black hole horizons. *Physical Review D* 96: 082004. arXiv:1612.00266.
+
+Bao, N., Carroll, S. M., & Singh, A. (2017). The Hilbert space of quantum gravity is locally finite-dimensional. *International Journal of Modern Physics D* 26(12): 1743013. arXiv:1704.00066.
 
 Bekenstein, J. D. (1981). Universal upper bound on the entropy-to-energy ratio for bounded systems. *Physical Review D* 23: 287-298.
 
