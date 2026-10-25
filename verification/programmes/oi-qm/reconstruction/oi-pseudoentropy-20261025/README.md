@@ -131,8 +131,14 @@ The access restriction is informational: $h$ is never read. A computational boun
 Knowing the law is not knowing the seed. Every use names the observer's knowledge as one of three levels:
 - **(K0)** It knows neither $\varphi$ nor $\mu$.
   - $\mathrm{TV}(P_p, Q_p)$ is the advantage of the best test for that particular $P$, so it is a K1 quantity.
-  - At K0, the test class is therefore fixed independently of $\varphi$, and the advantage is reported for a named
-    generator family, worst-case or on average, as stated.
+  - At K0, a test $D$ from a class $\mathcal{D}$ is therefore chosen once, independently of $\varphi$, for a named
+    generator family $\mathfrak{F}$. The use states which form it reports:
+    - worst case: $\max_{D \in \mathcal{D}} \min_{\varphi \in \mathfrak{F}} \mathrm{adv}_D(\varphi)$;
+    - average case, under a stated law $\nu$ on $\mathfrak{F}$:
+      $\max_{D \in \mathcal{D}} \mathbb{E}_{\varphi \sim \nu}\, \mathrm{adv}_D(\varphi)$.
+  - Choosing the test separately for each $\varphi$ over all tests would collapse K0 into K1.
+  - The average-case form is not the same as folding $\varphi$ into the seed: the mixture's TV is at most
+    $\mathbb{E}_\varphi \mathrm{TV}$, not equal to it.
 - **(K1)** It knows $\varphi$ and $\mu$, but not the initial state. It conditions $\mu$ on the record it has seen. What it
   can predict at horizon $K$ is fixed by that posterior, and the thread computes it; it is not assumed.
   - The following holds for the passive, autonomous record. External inputs (`Main.md:560`) break periodicity.
@@ -150,8 +156,10 @@ Knowing the law is not knowing the seed. Every use names the observer's knowledg
 - its record memory and computation fit in $\mathcal{C}_V$;
 - its settings are measurement-independent.
 
-A K1 observer holding about $2L$ symbols, with $L$ up to $|\mathcal{C}_V \times \mathcal{C}_H| \gg |\mathcal{C}_V|$, is
-not embedded-realizable, and its success is already covered by `Structure.md:1256`.
+A K1 observer that needs about $2L$ symbols of record is not embedded-realizable whenever $2L \log_2|A|$ bits exceed
+its share of the $\log_2|\mathcal{C}_V|$ bits of visible memory, for example when $L$ is near
+$|\mathcal{C}_V \times \mathcal{C}_H|$. $L$ depends on $\varphi$ and can be small. Its success at that length is
+already covered by `Structure.md:1256`.
 
 The thread's first assumption-watch item is this memory bound, together with what the claim under audit assumes about
 observer knowledge.
@@ -265,4 +273,5 @@ above. The milestone closes with one or more of the following outcomes, all equa
 - a documented finding that the distinction is already covered by the existing OI mathematics (`Structure.md:1256`,
   `Main.md` §3.4), with the covering statement cited.
 
-If none of these is reached, the milestone closes as OPEN. If a control fails, it closes as VOID.
+A failed control makes the milestone VOID, regardless of any other outcome. Otherwise, if none of these is reached, it
+closes as OPEN.
