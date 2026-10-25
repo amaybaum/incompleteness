@@ -98,7 +98,7 @@ A fast environment with vast capacity would wash out correlations (Markovian noi
 
 This is the first real proof in the paper, and it's beautifully simple.
 
-**What it proves:** The emergent description (what the observer sees) depends *only* on the partition — on which degrees of freedom are visible and which are hidden. Nothing else.
+**What it proves:** Under the canonical measure of Lemma 3, the emergent description (what the observer sees) depends *only* on the partition — on which degrees of freedom are visible and which are hidden. For a general hidden prior the measure is a third input ([Main §1.4]).
 
 **The formula:**
 
@@ -111,13 +111,13 @@ Unpacking each symbol:
 - **φ_{t2-t1}**: The deterministic evolution. Takes the complete state at time t_1 and returns the complete state at time t_2. Uniquely determined by the definition.
 - **π_V**: Projection onto the visible sector. Takes a complete state (x, h) and returns just x.
 - **δ_{xj}[...]**: The Kronecker delta. Equals 1 if the visible part ended up at x_j, equals 0 otherwise.
-- **dμ(h)**: Integration over all possible hidden states, weighted by the Liouville measure.
+- **dμ(h)**: Integration over all possible hidden states, weighted by the hidden-sector measure μ — canonically the Liouville measure, the continuum form of Lemma 3's counting measure.
 
 **In plain English:** For each possible hidden state h, check whether starting at (x_i, h) and evolving forward lands the visible part on x_j. Count up all the hidden states where this happens, weighted by how likely each hidden state is. The result is the probability of the transition x_i → x_j.
 
-**The proof:** The formula has exactly three inputs: (1) the dynamics φ_t — fixed by the definition, (2) the partition (Γ_V, Γ_H) and projection π_V — fixed by Lemma 2, and (3) the measure μ — fixed by Lemma 3 (Liouville measure is the unique choice). Since inputs 1 and 3 are determined by the definition, the only free input is the partition. Therefore: everything about the emergent description depends only on the partition. QED.
+**The proof:** The formula has exactly three inputs: (1) the dynamics φ_t — fixed by the definition, (2) the partition (Γ_V, Γ_H) and projection π_V — fixed by Lemma 2, and (3) the measure μ. Lemma 3 supplies a canonical measure for input 3 by a selection principle: the counting measure, the maximal-entropy invariant measure, whose continuum form is the Liouville measure. With input 1 fixed by the definition and input 3 set to the canonical measure, the only free input is the partition. Therefore: under the canonical measure, everything about the emergent description depends only on the partition. QED.
 
-**Why the Liouville measure is unique:** The observer needs a "prior" — a way to weight the hidden states. Liouville measure is the unique measure on phase space that is absolutely continuous (no point masses) and invariant under Hamiltonian flow. An embedded observer with incomplete knowledge of the total energy averages over energies with a smooth prior, recovering the Liouville measure on a phase-space band. Singular invariant measures concentrated on atypical short orbits correspond to observer-lacking substrata and are outside scope by Lemma 3. The observer has no choice.
+**Where the Liouville measure comes from:** The observer needs a "prior" — a way to weight the hidden states. Invariance under the dynamics does not select one. On a single orbit the invariant measure is unique and uniform, but every invariant set of the bijection carries its own invariant measure, so a bijection with two or more cycles has a whole family of them, one dimension per cycle; in the continuum, Liouville measure is invariant but is not, in general, the unique absolutely continuous invariant measure. The selection is by maximal entropy: among the invariant measures, the counting measure has the greatest entropy. An embedded observer with incomplete knowledge of the total energy averages over energies with a smooth prior, recovering the Liouville measure on a phase-space band — the continuum form of that maximal-entropy selection. Singular invariant measures concentrated on atypical short orbits correspond to observer-lacking substrata and are outside scope by Lemma 3. The canonical measure is the default, not a constraint on representations: a realization may carry its own fixed hidden prior μ_H, the emergent law is then a function of (φ, partition, μ_H), and the same bijection and partition under different priors generally give different visible laws ([Main §1.2, Lemma 3 and its remarks]).
 
 ***
 
@@ -419,7 +419,7 @@ With the cosmological horizon satisfying the definition and all conditions, the 
 
 ## Where Planck's Constant Comes From (§5)
 
-Partition-relativity proved that the emergent quantum description is completely and uniquely determined by the partition. This means $\hbar$ cannot be a free parameter — it must be fixed by the geometry of the boundary.
+Partition-relativity proved that, under the canonical measure, the emergent quantum description is completely and uniquely determined by the partition. This means $\hbar$ cannot be a free parameter — it must be fixed by the geometry of the boundary.
 
 ### The Classical Horizon Temperature (§5.1)
 
@@ -1005,7 +1005,7 @@ And the incompleteness family extends one step further: Gödel showed that proof
 | Component | What it establishes | What it uses |
 |---|---|---|
 | Definition + Lemmas 1–3 | The physical setup (no QM assumed) | Nothing — these are starting points |
-| Partition-relativity (§1.4) | Emergent description depends only on partition | Definition, Lemmas 2, 3 |
+| Partition-relativity (§1.4) | Under the canonical measure, emergent description depends only on partition | Definition, Lemmas 2, 3 |
 | Emergent stochasticity (§2.1) | Determinism looks random to embedded observer | Definition, Lemmas 2, 3 |
 | P-indivisibility proof (§2.3) | The stochastic process is non-Markovian | Definition, Lemma 1 + C1 |
 | Accessible-timescale lemma (§2.3) | Non-Markovianity is observable, not just formal | C1–C3, plus C4 holding quantitatively: two histories with the same present whose next-step laws differ by δ > 0 (then I ≥ p₀δ²/ln 2) |

@@ -462,9 +462,11 @@ different times cannot be broken into independent steps.
 
 This is the first real proof in the paper, and it's beautifully simple.
 
-\textbf{What it proves:} The emergent description (what the observer
-sees) depends \emph{only} on the partition --- on which degrees of
-freedom are visible and which are hidden. Nothing else.
+\textbf{What it proves:} Under the canonical measure of Lemma 3, the
+emergent description (what the observer sees) depends \emph{only} on the
+partition --- on which degrees of freedom are visible and which are
+hidden. For a general hidden prior the measure is a third input ({[}Main
+§1.4{]}).
 
 \textbf{The formula:}
 
@@ -493,7 +495,8 @@ Unpacking each symbol:
   visible part ended up at x\_j, equals 0 otherwise.
 \item
   \textbf{dμ(h)}: Integration over all possible hidden states, weighted
-  by the Liouville measure.
+  by the hidden-sector measure μ --- canonically the Liouville measure,
+  the continuum form of Lemma 3's counting measure.
 \end{itemize}
 
 \textbf{In plain English:} For each possible hidden state h, check
@@ -504,21 +507,34 @@ probability of the transition x\_i → x\_j.
 
 \textbf{The proof:} The formula has exactly three inputs: (1) the
 dynamics φ\_t --- fixed by the definition, (2) the partition (Γ\_V,
-Γ\_H) and projection π\_V --- fixed by Lemma 2, and (3) the measure μ
---- fixed by Lemma 3 (Liouville measure is the unique choice). Since
-inputs 1 and 3 are determined by the definition, the only free input is
-the partition. Therefore: everything about the emergent description
-depends only on the partition. QED.
+Γ\_H) and projection π\_V --- fixed by Lemma 2, and (3) the measure μ.
+Lemma 3 supplies a canonical measure for input 3 by a selection
+principle: the counting measure, the maximal-entropy invariant measure,
+whose continuum form is the Liouville measure. With input 1 fixed by the
+definition and input 3 set to the canonical measure, the only free input
+is the partition. Therefore: under the canonical measure, everything
+about the emergent description depends only on the partition. QED.
 
-\textbf{Why the Liouville measure is unique:} The observer needs a
-``prior'' --- a way to weight the hidden states. Liouville measure is
-the unique measure on phase space that is absolutely continuous (no
-point masses) and invariant under Hamiltonian flow. An embedded observer
-with incomplete knowledge of the total energy averages over energies
-with a smooth prior, recovering the Liouville measure on a phase-space
-band. Singular invariant measures concentrated on atypical short orbits
-correspond to observer-lacking substrata and are outside scope by Lemma
-3. The observer has no choice.
+\textbf{Where the Liouville measure comes from:} The observer needs a
+``prior'' --- a way to weight the hidden states. Invariance under the
+dynamics does not select one. On a single orbit the invariant measure is
+unique and uniform, but every invariant set of the bijection carries its
+own invariant measure, so a bijection with two or more cycles has a
+whole family of them, one dimension per cycle; in the continuum,
+Liouville measure is invariant but is not, in general, the unique
+absolutely continuous invariant measure. The selection is by maximal
+entropy: among the invariant measures, the counting measure has the
+greatest entropy. An embedded observer with incomplete knowledge of the
+total energy averages over energies with a smooth prior, recovering the
+Liouville measure on a phase-space band --- the continuum form of that
+maximal-entropy selection. Singular invariant measures concentrated on
+atypical short orbits correspond to observer-lacking substrata and are
+outside scope by Lemma 3. The canonical measure is the default, not a
+constraint on representations: a realization may carry its own fixed
+hidden prior μ\_H, the emergent law is then a function of (φ, partition,
+μ\_H), and the same bijection and partition under different priors
+generally give different visible laws ({[}Main §1.2, Lemma 3 and its
+remarks{]}).
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1399,10 +1415,10 @@ which is what Section 5 derives.
 \subsection{Where Planck's Constant Comes From
 (§5)}\label{where-plancks-constant-comes-from-5}}
 
-Partition-relativity proved that the emergent quantum description is
-completely and uniquely determined by the partition. This means
-\(\hbar\) cannot be a free parameter --- it must be fixed by the
-geometry of the boundary.
+Partition-relativity proved that, under the canonical measure, the
+emergent quantum description is completely and uniquely determined by
+the partition. This means \(\hbar\) cannot be a free parameter --- it
+must be fixed by the geometry of the boundary.
 
 \hypertarget{the-classical-horizon-temperature-5.1}{%
 \subsubsection{The Classical Horizon Temperature
@@ -3727,8 +3743,8 @@ What it uses
 \endlastfoot
 Definition + Lemmas 1--3 & The physical setup (no QM assumed) & Nothing
 --- these are starting points \\
-Partition-relativity (§1.4) & Emergent description depends only on
-partition & Definition, Lemmas 2, 3 \\
+Partition-relativity (§1.4) & Under the canonical measure, emergent
+description depends only on partition & Definition, Lemmas 2, 3 \\
 Emergent stochasticity (§2.1) & Determinism looks random to embedded
 observer & Definition, Lemmas 2, 3 \\
 P-indivisibility proof (§2.3) & The stochastic process is non-Markovian
@@ -3903,4 +3919,4 @@ The final text and all scientific claims were reviewed and verified by
 the author.
 
 \end{document}
-% source-sha256: cd191241ae996d2c6ffd424bd2256b270026598702ca3e8e3cc8e18efd7dd6fa
+% source-sha256: 8ec8602c65ad578497ed17c55836e0ee2bc3e0dca68889cbf26dfe68598745e7
