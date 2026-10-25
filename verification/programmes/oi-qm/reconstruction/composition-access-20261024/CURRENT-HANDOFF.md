@@ -101,26 +101,28 @@ instrument.
 ## Passive native readout as the acceptance flag
 
 `native_predicate_v8/` (plan `631bec0ca55eacbf6a7cf7e72d72c673dfe430da`,
-committed before computation; head `fc452ea825b986a3babab5d110626e0019c39847`;
-separate review retained under its `review/`) tests the cheapest native
-replacement for the logical circuit, class C(4, 16): v6's public contract with
-the pointer replaced by the whole raw triples of any set of native site-times
-within Manhattan distance 4 of q9, read through L+17, with no gate, pad or added
-source, and any predicate of that record as the flag. Conditional on the
-complement C0, the complete v6 law requires every V value's 64 worlds to split
-into exactly two blocks carrying the 20 accepted and 44 rejected target counts.
-In the scaled control (n = 6, sixteen dirty old-success families, 3,225 read
-site-times each) no read set gives such a split for any V value in any family:
-`NEGATIVE_FOR_CONSTRUCTION` for that class, in the scaled control. The operands
-are delivered; once G arrives a native cell almost always carries more than one
-bit of pool information given V.
+committed before computation; head
+`fc452ea825b986a3babab5d110626e0019c39847`; separate review retained under
+its `review/`) tests passive readout, the cheapest form of a native
+predicate replacing the circuit's flag, class C(4, 16): v6's public contract
+with the pointer replaced by the whole raw triples of any set of native
+site-times within Manhattan distance 4 of q9, read through L+17, with no
+gate, pad or added source, and any predicate of that record as the flag.
+Conditional on the complement C0, the complete v6 law requires the record to
+split every V value's 64 worlds into exactly two blocks, one with exactly
+the accepted target counts (20 worlds) and one with exactly the rejected
+target counts (44). In the scaled control (n = 6, sixteen dirty old-success
+families, 3,225 read site-times each) no read set gives such a split for any
+V value in any family: `NEGATIVE_FOR_CONSTRUCTION` for that class, in the
+scaled control. There the operands are delivered; once G arrives a native
+cell almost always carries more than one bit of pool information given V.
 
-This does not exclude native predicates with fresh pads, prepared sources or
-gates, larger regions or later reads, a law that holds only on average over
-private backgrounds (with fresh pads, one open branch, since conditioning on C0
-is what stops background bits acting as fair pads), or a predicate at actual L
-in its actual background. It adopts no access rule and leaves the carrier in
-v6's supplied logical storage.
+This does not exclude native predicates with fresh pads, prepared sources, a
+different source family or gates, larger regions or later reads, a law that
+holds only on average over private backgrounds (with fresh pads, one open
+branch, since conditioning on C0 is what stops background bits acting as
+fair pads), or a predicate at actual L in its actual background. It adopts
+no access rule and leaves the carrier in v6's supplied logical storage.
 
 ## Related work and next gate
 
