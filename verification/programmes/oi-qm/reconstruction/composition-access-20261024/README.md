@@ -15,19 +15,22 @@ states the results and their scope.
 | Package | Content | Plan | Review |
 | --- | --- | --- | --- |
 | top level: `REPORT.md`, `checks.py`, `RESULT.json` | conditional finite-depth composition theorem (written proof) and exact toy controls | none | `review/`, accepts `a7f22c38` |
-| `native-x-v2/` | the contract applied to the native-X candidate: one-stage success kernel and terminal failure law; one unchanged-carrier continuation rejected | decision rule in `REPORT.md`, committed at `8d1150fe` before the checker | `review/`, accepts `2390b329` |
+| `native-x-v2/` | the contract applied to the native-X candidate: conditional one-stage success-branch instance on the supplied preparation cone and terminal failure law; one unchanged-carrier continuation rejected | decision rule in `REPORT.md`, committed at `8d1150fe` before the checker | `review/`, accepts `2390b329` |
 | `tagged-post-y-v3/` | a fixed tagged decoder for the direct-Y candidate's history tag; unchanged post-Y samples leave the positive decoder cone after X, R or Z reads | `PLAN.md`, committed with the checker at `75619cb7` | `review/`, accepts `75619cb7` |
-| `native-phase-v4/` | finite-depth operational comparison; an omitted native neighbour changes the next raw record | `PLAN.md` at `feba7dc6` | `review/`, accepts `5b77352f` |
-| `native-coupling-v5/` | coupled native pool: whole-port leak, and Native A's third-source repair as a conditional code/metadata law | `PLAN.md` at `91cc787e`; its flag-only countercontrol item was added with the results at `621e1a05` | `review/`, accepts `621e1a05` |
+| `native-phase-v4/` | finite-depth operational comparison; local boundary controls (reachability not claimed) in which an omitted native neighbour's parity changes the next raw record | `PLAN.md` at `feba7dc6` | `review/`, accepts `5b77352f` |
+| `native-coupling-v5/` | coupled native pool: whole-port leak in the scaled two-source control, and Native A's third-source repair as a conditional code/metadata law | `PLAN.md` at `91cc787e`; its flag-only countercontrol item was added with the results at `621e1a05` | `review/`, accepts `621e1a05` |
 | `composition_flag_v6/` | explicit 89-tick reversible logical acceptance circuit and its conditional complete pointer/carrier law | `PLAN.md` at `b355f81e` | `review/`, accepts `1cb224db` |
-| `delayed_history_v7/` | delayed old-port history for the frozen v6 carrier | `PLAN.md` at `d72ea524` | `review/round1/` blocks `114ad502`; `review/round2/` blocks `74cdd24e`, re-checks `98cf4647` and accepts `65650298` with nits |
+| `delayed_history_v7/` | delayed old-port history for the frozen v6 carrier | `PLAN.md` at `d72ea524` | `review/round1/` blocks `114ad502`; `review/round2/` blocks `74cdd24e`, blocks `98cf4647` on re-check (x4) and accepts `65650298` with nits |
 | `native_predicate_v8/` | passive native readout as the acceptance flag, class C(4, 16), scaled control: negative | `PLAN.md` at `631bec0c` | `review/round1/` accepts `375a29e4` with nits; `review/round2/` accepts `fc452ea8` |
 
 Every package's files are those its last review covers: the files pinned in
 each `review/INPUT-HASHES.json` are unchanged, `delayed_history_v7/` is
 unchanged since `65650298` and `native_predicate_v8/` since `fc452ea8`, apart
 from their `review/` directories. A plan file is unchanged since its commit
-except as stated in the table. `delayed_history_v7/review/README.md` and
+except as stated in the table. `tagged-post-y-v3/REPORT.md` states that its
+plan fixed the decision rule before computation; the plan and the checker
+were committed together, at `75619cb7`. The top-level `REPORT.md` states
+that its separate-author review is pending; that review is `review/`. `delayed_history_v7/review/README.md` and
 `native_predicate_v8/review/README.md` list what the reviewers' directories
 held, what is kept, and the one redaction (an absolute scratch prefix removed
 from four `err.txt` traceback paths in `delayed_history_v7/review/`).
@@ -88,7 +91,11 @@ regenerates its round-2 mutant summaries.
   rests on is the file at `05397c79`, as `composition_flag_v6/PROVENANCE.json`
   records; `1324d9a8`, named in its `PLAN.md` and `REPORT.md`, is the commit
   that first published the contract. The provenance file is pinned by its
-  review and is not edited.
+  review and is not edited. The F9 plan commit it and `REPORT.md` cite,
+  `757e766b`, changes no file. The package's `PLAN.md` is committed at
+  `91cc787e`; #910's `1b729355`, with the same subject as `757e766b`, adds
+  Native A's `native_x_v12/PLAN.md` and is cited as
+  `native_A_source_plan_publication`.
 - `REPORT.md`, `native-x-v2/REPORT.md` and `review/REVIEW.md` cite the
   programme's acceptance rule at commit `2d555f17`, on #885's branch
   `research/missing-component-20261020`, as provenance. No result here rests

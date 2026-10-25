@@ -15,8 +15,8 @@ has an accepting separate-engine internal review retained beside it. It is a
 conditional compiler target, not an implemented native gate, adopted observer
 access or full quantum instrument.
 
-The inputs are the actual 21 phase wires: current V and its six previous
-native neighbours, including Q8 and Q10. The fixed local inverse supplies s.
+The inputs are the 21 bits of the actual phase, taken as logical input
+wires: current V and its six previous native neighbours, including Q8 and Q10. The fixed local inverse supplies s.
 The circuit computes A=[K<n(Y XOR s,R XOR s)] for thresholds (5,0,4,1) with
 NOT, CNOT and Toffoli gates, copies A into the public flag B, then
 uncomputes the temporary wires. Every phase bit and all seven clean
@@ -37,8 +37,8 @@ native or autonomous clock implementations.
 
 ## Conditional complete law
 
-Native A's inherited initial-source theorem makes (Q8,Q10,M) uniform on 512
-values conditional on the remaining initial variables. OldP=p and the XOR of
+Native A's inherited theorem for its supplied F8/F10/F9 source family makes
+(Q8,Q10,M) uniform on 512 values conditional on the remaining initial variables. OldP=p and the XOR of
 the other three neighbours are then fixed; V=p XOR H(sum of neighbours).
 The circuit's full raw pointer history, V, old record and selected carrier
 are checked jointly, with all rejected physical fields, zero cells and
@@ -49,7 +49,7 @@ The checker exhausts 32,768 conditional phase worlds, 131,072 padded worlds,
 65,536 selected cells and 1,024 valid accepted raw-record posteriors. Gate
 truth tables, arbitrary-dirty global inverses, optional recording and a
 separate threshold and kernel engine are additional controls. The written
-bijection and conditional-kernel proofs are separate from the bounded
+bijection and conditional probability-kernel proofs are separate from the bounded
 enumeration and from the inherited actual-scale source theorem.
 
 ## What the circuit assumes
@@ -59,8 +59,9 @@ workspace isolation are supplied. The evolving native field has not been
 shown to implement them. Native masks and garbage are physical state;
 uncomputing them later does not remove an earlier public leak.
 
-The countercontrols show that revealing the private M or key fields gives
-negative fixed-decoder posteriors (minimum determinant −1/18), and revealing
+The countercontrols show that revealing the whole private key triple M
+gives negative fixed-decoder posteriors in the tested sectors (minimum
+determinant −1/18), and revealing
 the temporary a gives determinant −1/4. Omitting uncomputation fails the
 chosen clean-workspace boundary. A flag with the right rate but independent
 of the pool has complete offered-carrier error 1/8. Reusing unused pads
