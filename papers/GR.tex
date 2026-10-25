@@ -3088,7 +3088,7 @@ al.~{[}22{]}) to \(< 0.1\) dex across all galaxy-relevant accelerations.
 
 \textbf{Epistemic status.} Steps 1--3 are Tier 2 and conditional: the
 displacement formula follows from the Clausius relation applied to the
-boundary reservoir (§3.2, A.6) and therefore inherits the conditions on
+boundary reservoir (§3.2) and therefore inherits the conditions on
 \(T_{\rm dS}\) together with the local assumption \(Q = M_Bc^2\); the
 dimensional factor is imported (Step 2); given these, \(a_0 = cH/6\) and
 \(v^4 = GM_B \cdot cH/6\) contain no fitted parameter. The interpolation
@@ -3813,19 +3813,19 @@ evaporating black hole, the entanglement entropy of the radiation
 follows \(S_{\text{rad}}(t) = \min(n_R(t), n_B(t)) \cdot \ln q\) plus
 exponentially small corrections, where \(n_B(t)\) is the shrinking
 boundary mode count and \(n_R(t) = n_B(0) - n_B(t)\). Unitarity is
-preserved (bijectivity of \(\varphi\)), the turnover occurs at the Page
-time \(t_P \approx 0.646 \, t_{\text{evap}}\) (independent of mass and
-of the emission coefficient; conditional on the radiation gaining one
-mode's state-space entropy per boundary mode lost, \(\beta = 1\) in
-§A.7, with \(t_P/t_{\text{evap}} = 1 - [\beta/(1+\beta)]^{3/2}\) in
-general), and the Page value is recovered for all but an exponentially
-negligible fraction (\(\sim e^{-10^{77}}\) for \(30 M_\odot\)) of
-initial conditions --- from bijectivity (cycle decomposition on the
-finite energy shell) and Popescu-Short-Winter typicality {[}29{]},
-conditional on the scrambling condition H-scramble of Appendix A, which
-is not established there: uniformity over classical microstates is not
-uniformity over quantum pure states. The greybody factor is
-solution-specific.
+preserved (bijectivity of \(\varphi\)); at \(\beta = 1\), the radiation
+gaining one mode's state-space entropy per boundary mode lost (§A.7),
+the turnover occurs at the Page time
+\(t_P \approx 0.646 \, t_{\text{evap}}\) (in general
+\(t_P/t_{\text{evap}} = 1 - [\beta/(1+\beta)]^{3/2}\); independent of
+mass and of the emission coefficient); and the Page value is recovered
+for all but an exponentially negligible fraction (\(\sim e^{-10^{77}}\)
+for \(30 M_\odot\)) of initial conditions --- from bijectivity (cycle
+decomposition on the finite energy shell) and Popescu-Short-Winter
+typicality {[}29{]}, conditional on the scrambling condition H-scramble
+of Appendix A, which is not established there: uniformity over classical
+microstates is not uniformity over quantum pure states. The greybody
+factor is solution-specific.
 
 Laboratory tests of the characterization theorem may be possible in
 analogue gravity systems where the hidden sector capacity is tunable.
@@ -4605,8 +4605,9 @@ the evaporation of §A.7, where \(B \cup R\) is effectively pure (Theorem
 A.7), \(S(\rho_B) = S(\rho_R)\) follows Theorem A.9: it vanishes at
 \(n_R = 0\), where \(S_{\text{BH}} = n_B(0)\,\sigma\). Monotonicity
 under the reduced dynamics does not supply the identification either.
-Relative entropy contracts under every CPTP map. The output entropy is
-at least the input entropy for every input exactly when the channel is
+Relative entropy contracts under every CPTP map. For a channel whose
+input and output spaces have equal dimension, the output entropy is at
+least the input entropy for every input exactly when the channel is
 unital: unitality and contraction of
 \(D(\rho\,\|\,I/d) = \ln d - S(\rho)\) give one direction, and the input
 \(I/d\) gives the converse. The marginal channel \(\Phi_V\) is unital
@@ -4777,25 +4778,28 @@ per boundary mode lost, so \(\ln d_R\) grows by exactly the decrease of
 
 with \(\alpha\) and \(M_0\) cancelling for every \(\beta\). With
 \(\sigma = \ln q\), \(\beta\) is the radiation's coarse-grained entropy
-per unit of Bekenstein-Hawking entropy lost. In semiclassical emission
-from a non-rotating black hole into empty space,
-\(dS_{\text{BH}} = dE/T_H\), and a mode of energy \(\omega\) transmitted
-with probability \(0 < \Gamma_\omega \leq 1\) leaves with mean
-occupation \(N = \Gamma_\omega\,n(\omega)\) and entropy \(g(N)\), with
-\(n\) and \(g\) the thermal occupation at \(T_H\) and the entropy at
-fixed occupation for Bose or Fermi statistics. Since \(g\) is concave
-with \(g(0) = 0\), \(g(N)/N \geq g(n)/n\) for \(N \leq n\), and
+per unit of Bekenstein-Hawking entropy lost. In quasi-stationary
+semiclassical emission from a non-rotating, uncharged black hole into
+empty space (incoming vacuum), \(dS_{\text{BH}} = dE/T_H\), and a mode
+of energy \(\omega\) transmitted with probability
+\(0 < \Gamma_\omega \leq 1\) leaves in a thermal-form state, independent
+of the other modes, with mean occupation
+\(N = \Gamma_\omega\,n(\omega)\) and entropy \(g(N)\), with \(n\) and
+\(g\) the thermal occupation at \(T_H\) and the entropy at fixed
+occupation for Bose or Fermi statistics. Since \(g\) is concave with
+\(g(0) = 0\), \(g(N)/N \geq g(n)/n\) for \(N \leq n\), and
 \(g(n) - n\,\omega/T_H\) equals \(\ln(1+n)\) for bosons and
 \(-\ln(1-n)\) for fermions, both positive; every emitted mode therefore
 carries entropy above \(N\omega/T_H\), and \(\beta > 1\) for every
-greybody profile. Unfiltered emission of massless quanta
-(\(\Gamma_\omega = 1\)) gives \(\beta = 4/3\) and
+greybody profile. Unfiltered blackbody emission of massless quanta in
+3+1 dimensions (\(\Gamma_\omega = 1\), mode density
+\(\propto \omega^2\)) gives \(\beta = 4/3\) and
 \(t_P \approx 0.568\,t_{\text{evap}}\); the value for a black hole
 depends on the species content and the frequency dependence of
 \(\Gamma_\omega\). The value \(t_P \approx 0.646\,t_{\text{evap}}\) is
 the Page time at \(\beta = 1\).
 
-The entropy of the radiation at the Page time is
+At \(\beta = 1\), the entropy of the radiation at the Page time is
 \(S_{\text{rad}}(t_P) \approx n_B(0) \ln q / 2\), half the entropy
 \(n_B(0) \ln q\) of the initial boundary modes, up to the finite-size
 correction of Theorem A.9 (\(-1/2\) at \(n_R = n_B\)). With
@@ -5096,4 +5100,4 @@ quantum effects in gravity,'' \emph{Phys. Rev.~Lett.} \textbf{119},
 240402 (2017); arXiv:1707.06036.
 
 \end{document}
-% source-sha256: bf5b4144366dfef98e6c2300fda2b154a548ed316017f7120ea22b9f36db7cb6
+% source-sha256: 4094d3144aba76b8c019faebfd64a8b91a5944c62fd7870a766178c27d2011bf
