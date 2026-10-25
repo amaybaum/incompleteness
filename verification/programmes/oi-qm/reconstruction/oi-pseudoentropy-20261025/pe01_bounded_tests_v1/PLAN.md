@@ -297,16 +297,17 @@ Every numerical row is computed in exact integer or `Fraction` arithmetic. Faili
    reversible realization is unable to predict. It is refuted when a witness $(\varphi, O, K)$ meets all of:
    - (a) $\varphi$ is `G_lin`, `G_filt` or `G_clk` with $n$ in range, and passes EX6;
    - (b) $O \in$ 𝒫ᵉᵐᵇ(m) is given as explicit tables, with its readout clock (§3), and passes EX1, EX7, EX8 and IM3;
-   - (c) $K \le K_{\rm cx}(\varphi) = \lfloor \ell_{\rm med}(\varphi)/2 \rfloor$, where $\ell_{\rm med}$ is the $\mu$-median orbit
-     length of $\varphi$, i.e. below recurrence scale;
-   - (d) the same $O$ and $\chi$ give $\mathrm{adv}^{\rm pred}_O(\varphi, K') \ge \delta_{\rm cx} = 1/8$, exactly, at every
-     $K' \in [K - w, K]$, with $w = 3$ fixed and $K \ge w$;
+   - (c) $K \le K_{\rm cx}(\varphi) = \lfloor \ell_{\rm med}(\varphi)/2 \rfloor$, where $\ell_{\rm med}$ is the
+     $\mu$-median orbit length of $\varphi$, i.e. below recurrence scale;
+   - (d) the same $O$ and $\chi$ give $\mathrm{adv}^{\rm pred}_O(\varphi, K') \ge \delta_{\rm cx} = 1/8$, exactly,
+     at every $K' \in [K - w, K]$, with $w = 3$ fixed and $K \ge w$;
    - (e) every control is green;
    - (f) the footprint (FP) is at most $\theta$.
 
-   A **bounded-resource claim** is a COUNTEREXAMPLE meeting (a)–(f). The threshold $\theta$ is the one open owner
-   decision (§10). No run starts before $\theta$, $K_{\rm LP}$ and the $m = 3$ scope decision are fixed by amendment
-   (TH). Witnesses meeting (a)–(e) but not (f) are reported for comparison as unrestricted-footprint witnesses. They are not COUNTEREXAMPLEs.
+   A **bounded-resource claim** is a COUNTEREXAMPLE meeting (a)–(f). $\theta$ and the $m = 3$ scope are the open owner
+   decisions (§10); $K_{\rm LP}$ awaits confirmation. No run starts before $\theta$, $K_{\rm LP}$ and the $m = 3$ scope
+   are fixed by amendment (TH). Witnesses meeting (a)–(e) but not (f) are reported for comparison as
+   unrestricted-footprint witnesses. They are not COUNTEREXAMPLEs.
 
    Knowledge level: $O$ may depend on $\varphi$, so the witness is K1. The verdict also reports its K0 status, that is,
    whether the same $O$ is a witness for every $\varphi$ in its family $\mathfrak{F}$.
@@ -334,8 +335,8 @@ Every numerical row is computed in exact integer or `Fraction` arithmetic. Faili
    - Within a combination, unpredictability is attributed to resources if and only if some witness in that combination
      meets (a)–(e) but fails (f). That case is reported as a limitation of the resource model.
    - In every other combination without a COUNTEREXAMPLE, the verdict states "no witness within the enumerated scope at
-     any footprint". It never states that
-   the record is unpredictable because of the observations available on the strength of a finite enumeration.
+     any footprint". It never states that the record is unpredictable because of the observations available on the
+     strength of a finite enumeration.
 5. **Productivity tag (§A.31).** Each result also gets one tag:
    - **COVERED-corpus:** class U, anything implied by the support bound or by PC, and B4 at or beyond its counting
      horizon (§3);
