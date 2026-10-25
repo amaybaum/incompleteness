@@ -104,6 +104,24 @@ MUTANTS = [
        'check(power_rule_lower(bh, n_hp + 1) > HALF and (n_hp == 1 or power_rule_lower(bh, n_hp) <= HALF),'),
       ("check(pp[field] == val, 'audit recomputed depth equals reported (' + field + ')')", 'pass')],
      None, 'audit certificate T>1/2 contradicted by exact TV'),
+    # added after re-check 3 (its L1, L2, L3b, L5, L6): altered scope, omitted members, narrowed audit
+    ('M26_k_range_15_both', 'preregistered scope',
+     [('def family(Bs=(2, 3, 4), kmax=16):', 'def family(Bs=(2, 3, 4), kmax=15):'),
+      ('def independent_audit(fam, encl, Bs=(2, 3, 4), kmax=16):', 'def independent_audit(fam, encl, Bs=(2, 3, 4), kmax=15):')],
+     None, 'scope: reported members equal the preregistered B x k set'),
+    ('M27_k_range_15_main_only', 'preregistered scope',
+     [('def family(Bs=(2, 3, 4), kmax=16):', 'def family(Bs=(2, 3, 4), kmax=15):')],
+     None, 'scope: reported members equal the preregistered B x k set'),
+    ('M28_member_deleted', 'preregistered scope',
+     [('    fam, encl = family()\n', "    fam, encl = family()\n    del fam['B4_k16']\n")],
+     None, 'scope: reported members equal the preregistered B x k set'),
+    ('M29_B_range_both', 'preregistered scope',
+     [('def family(Bs=(2, 3, 4), kmax=16):', 'def family(Bs=(2, 3), kmax=16):'),
+      ('def independent_audit(fam, encl, Bs=(2, 3, 4), kmax=16):', 'def independent_audit(fam, encl, Bs=(2, 3), kmax=16):')],
+     None, 'scope: reported members equal the preregistered B x k set'),
+    ('M30_audit_subset_only', 'preregistered scope',
+     [('    audit = independent_audit(fam, encl)\n', '    audit = independent_audit(fam, encl, Bs=(2,), kmax=4)\n')],
+     None, 'scope: audited members equal the preregistered B x k set'),
 ]
 
 LOCATION = 'HERE = os.path.dirname(os.path.abspath(__file__))'

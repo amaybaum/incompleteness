@@ -24,4 +24,9 @@ M22_bc_enclosure_scaled_1e-6: targets independent BC recomputation; exit 2; VOID
 M23_bound_5pct_strong: targets independent depth recomputation; exit 2; VOID: audit recomputed depth equals reported (power_rule_T_above_half_for_h_at_least); CAUGHT
 M24_depth_one_block_early: targets independent depth recomputation; exit 2; VOID: audit recomputed depth equals reported (power_rule_T_above_half_for_h_at_least); CAUGHT
 M25_depth_one_block_early_certificates_only: targets certificate-level exact checks alone; exit 2; VOID: audit certificate T>1/2 contradicted by exact TV; CAUGHT
+M26_k_range_15_both: targets preregistered scope; exit 2; VOID: scope: reported members equal the preregistered B x k set; CAUGHT
+M27_k_range_15_main_only: targets preregistered scope; exit 2; VOID: scope: reported members equal the preregistered B x k set; CAUGHT
+M28_member_deleted: targets preregistered scope; exit 2; VOID: scope: reported members equal the preregistered B x k set; CAUGHT
+M29_B_range_both: targets preregistered scope; exit 2; VOID: scope: reported members equal the preregistered B x k set; CAUGHT
+M30_audit_subset_only: targets preregistered scope; exit 2; VOID: scope: audited members equal the preregistered B x k set; CAUGHT
 all mutants caught

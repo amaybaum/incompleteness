@@ -11,6 +11,7 @@ from math import comb, isqrt, lcm
 import hashlib
 import json
 import os
+import re
 import sys
 
 
@@ -26,6 +27,8 @@ def check(x, label):
 HERE = os.path.dirname(os.path.abspath(__file__))
 V7_RESULT = os.path.join(HERE, '..', 'a2_depth_v7', 'result.json')
 V7_RESULT_SHA256 = '2e8988de7285cf1ae6781fbed37eb4e869ecf16511b374a923b5dcdbfed589a7'
+PLAN = os.path.join(HERE, 'PLAN.md')
+PLAN_SHA256 = 'b7f7eaae58de13b9eb348bb4e31e92a7bce6741be64553c9ba496af9a2c6a275'
 A2_DIGEST = '0637f0089fc5ce666d17ddaf828cc98bf317d46e3ea3cd22851bc21eb893a6a1'
 
 QUANTUM = Q(4, 5)          # agreement probability for poles at a.X = 3/5
@@ -927,11 +930,34 @@ def audit_product_tv(B, k, counts, n):
     return Q(tot, 2 * (S * F) ** n)
 
 
+def preregistered_scope():
+    """The RS scope and thresholds as preregistered, parsed from PLAN.md after checking its pinned SHA-256; not
+    taken from any code default."""
+    with open(PLAN, 'rb') as f:
+        raw = f.read()
+    check(hashlib.sha256(raw).hexdigest() == PLAN_SHA256, 'scope: pinned PLAN.md hash')
+    text = raw.decode()
+    m = re.search(r'\*\*The family RS\(B,k\), B in \{([0-9,]+)\}, k = 1\.\.([0-9]+)\*\*', text)
+    check(m is not None, 'scope: preregistered family line present in PLAN.md')
+    Bs = tuple(int(x) for x in m.group(1).split(','))
+    kmax = int(m.group(2))
+    check('T(h) > 1/2 for every h >= k*n_half' in text and 'T(h) <= 1/10 for every h <= k*n_tenth' in text,
+          'scope: preregistered thresholds present in PLAN.md')
+    check(HALF == Q(1, 2) and TENTH == Q(1, 10), 'scope: threshold constants equal the preregistered 1/2 and 1/10')
+    keys = {f'B{B}_k{k}' for B in Bs for k in range(1, kmax + 1)}
+    check(len(keys) == 48, 'scope: preregistered set has 48 members')
+    return Bs, kmax, keys
+
+
 def independent_audit(fam, encl, Bs=(2, 3, 4), kmax=16):
     n_members = n_cert = 0
+    audited = set()
+    half_reached = set()
     for B in Bs:
         for k in range(1, kmax + 1):
+            check(f'B{B}_k{k}' in fam and (B, k) in encl, 'scope: audited member present in reported family')
             e = fam[f'B{B}_k{k}']
+            audited.add(f'B{B}_k{k}')
             pp = e['post_plan']
             counts = audit_block_counts(B, k)
             Lnum, Unum, Dn, tnum, tden = audit_bc_and_tv(B, k, counts)
@@ -961,6 +987,7 @@ def independent_audit(fam, encl, Bs=(2, 3, 4), kmax=16):
                 if n >= n_hp or n >= n_half:
                     check(T > HALF, 'audit certificate T>1/2 contradicted by exact TV')
                     n_cert += 1
+                    half_reached.add(f'B{B}_k{k}')
                 if n <= n_lp:
                     check(T <= HALF, 'audit certificate T<=1/2 contradicted by exact TV')
                     n_cert += 1
@@ -970,6 +997,7 @@ def independent_audit(fam, encl, Bs=(2, 3, 4), kmax=16):
                 n += 1
             if k == 1:
                 p = Q(counts[(1,)], 1 << B)
+                half_reached.add(f'B{B}_k{k}')
                 for nn, up in ((n_hp, False), (n_half, False), (n_lp, True)):
                     if nn >= 1:
                         T = tv_iid(p, nn)
@@ -979,7 +1007,8 @@ def independent_audit(fam, encl, Bs=(2, 3, 4), kmax=16):
                     check(tv_iid(p, n_tenth) <= TENTH, 'audit k=1 certificate T<=1/10 contradicted by exact TV')
                     n_cert += 1
             n_members += 1
-    return {'members': n_members, 'certificates_checked_against_exact_tv': n_cert}
+    return {'members': n_members, 'certificates_checked_against_exact_tv': n_cert,
+            'members_with_T_above_half_certificate_checked_against_exact_tv': sorted(half_reached)}, audited
 
 
 # ---------- main ----------
@@ -999,7 +1028,16 @@ def run():
     floor_member = floor_decoder_member()
     mech = restart_mechanics()
     fam, encl = family()
+    sB, skmax, scope_keys = preregistered_scope()
+    reported_keys = {key for key in fam if '_k' in key}
+    check(reported_keys == scope_keys and set(f'B{B}_k{k}' for (B, k) in encl) == scope_keys,
+          'scope: reported members equal the preregistered B x k set')
     audit = independent_audit(fam, encl)
+    audit, audited_keys = audit
+    check(audited_keys == scope_keys and audit['members'] == len(scope_keys),
+          'scope: audited members equal the preregistered B x k set')
+    audit['scope'] = {'source': 'PLAN.md, SHA-256 pinned', 'B': list(sB), 'k': [1, skmax],
+                      'members': len(scope_keys), 'thresholds': ['1/2', '1/10']}
     members = {k: v for k, v in fam.items() if 'memoryless' not in k}
     n_floor_classes = sum(len(v['class_sizes']) for v in floor_member.values())
     certified = {k: v['certified_T_above_half_for_h_at_least'] for k, v in members.items()}
@@ -1059,7 +1097,7 @@ def run():
                 'the a2_depth_v7 retained-seed reset granted the target cuts, keeps T<=1/(2^B-2) at every depth for '
                 'B>=2. The least sufficient growth rate is not determined here.')
     out = {
-        'schema': 'oi.a2-bounded-memory-v8.v4',
+        'schema': 'oi.a2-bounded-memory-v8.v5',
         'protocol': 'prepare X+, then reads a,X,a,X,...; quantum agreement 4/5 per read; complete public record',
         'class_hypothesis': ('finite persistent state (carrier, private memory, any clock or record registers read); '
                              'time-independent deterministic update from state, one fresh block of B fair bits and '
@@ -1105,6 +1143,9 @@ def main():
         out = run()
     except Void as e:
         print('VOID: ' + str(e))
+        sys.exit(2)
+    except (KeyError, IndexError, ValueError, TypeError, ZeroDivisionError, StopIteration) as e:
+        print('VOID: control failure from an internal inconsistency (' + type(e).__name__ + ')')
         sys.exit(2)
     text = json.dumps(out, sort_keys=True, separators=(',', ':'))
     if '--output' in sys.argv:

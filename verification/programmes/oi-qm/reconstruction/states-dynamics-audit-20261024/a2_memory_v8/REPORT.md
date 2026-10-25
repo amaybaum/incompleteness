@@ -230,7 +230,8 @@ This is not a statement about the best bounded-memory controller.
 | K8 restart mechanics | an explicit state machine (seed register, exact interval, phase, clearing), enumerated over every fresh-bit string, and its chain form both equal the product of block laws (B,k,h) = (2,2,8), (2,3,7), (3,2,5), (4,3,4) | green |
 | counts | census chain counts in closed form; memory column bounds the persistent-state count; that count equals the explicit chain size for RS(2,2), RS(2,3), RS(3,2) | green |
 | power-rule cross-checks | (i) exact T(h) at k=1 from the binomial engine `tv_iid` must be ≥ the bound at every checked h, and the exact first crossing must lie at or before the reported depth; (ii) for n·k ≤ 16, the exact product TV must lie inside the power-rule bracket; (iii) the reported depth must be no later than the preregistered nc/(1+nc) depth; (iv) T ≤ 1/2 may be certified only at depths before T > 1/2 is. (i)–(iv) all read the same BC enclosure, and (i) and (ii) are one-sided with slack, so they catch only errors large enough to cross them; the independent audit below is what checks the enclosure and the exact depths | green |
-| independent certificate audit | separately written code that shares no helper with the main computation. It builds integer-only block laws in absolute coordinates (the block TV digest must match), and an integer square-root enclosure of BC that must overlap the enclosure every reported depth was built from. It recomputes every reported depth from its stated definition with its own integer powers: the preregistered half and tenth depths, and the power-rule half and upper depths; each must equal the reported value. It checks every certificate against exact TV where exact TV is enumerable: for every member and every n with n·k ≤ 16, from its own product enumeration, T(nk) > 1/2 when n ≥ n_hp or n ≥ n_half, T ≤ 1/2 when n ≤ n_lp, and T ≤ 1/10 when n ≤ n_tenth; and at k=1 the same at the reported depths, with `tv_iid`. In all, 48 members and 212 certificate checks | green |
+| preregistered scope | the RS scope (B ∈ {2,3,4}, k = 1..16) and the thresholds 1/2 and 1/10 are parsed from PLAN.md after checking its pinned SHA-256, not taken from code defaults. The reported member set, the enclosure set and the audited member set must each equal that 48-member set; a missing, extra or mismatched member, or a lookup failure anywhere, prints VOID and exits 2 | green |
+| independent certificate audit | separately written code. It does not call `retained_seed_runs`, `block_law`, `bc_enclosure`, `root_lo`/`root_hi`, `power_rule_lower`, `least_n_above`, `least_power_below` or `tv_of`. It does share `tv_iid` (for the k=1 certificates), `digest`, the constants `HALF` and `TENTH`, `check`, `Q` and the standard-library `isqrt` and `product`, and it reads the reported entries and the reported enclosure. Single edits to the shared pieces are caught elsewhere in the review's mutants A1 (`HALF`), A2 (`digest`), A3 (`isqrt`) and A6 (`tv_iid`). The audit builds integer-only block laws in absolute coordinates (the block TV digest must match), and an integer square-root enclosure of BC that must overlap the enclosure every reported depth was built from. It recomputes every reported depth from its stated definition with its own integer powers: the preregistered half and tenth depths, and the power-rule half and upper depths; each must equal the reported value. It checks every certificate against exact TV where exact TV is enumerable: for every member and every n with n·k ≤ 16, from its own product enumeration, T(nk) > 1/2 when n ≥ n_hp or n ≥ n_half, T ≤ 1/2 when n ≤ n_lp, and T ≤ 1/10 when n ≤ n_tenth; and at k=1 the same at the reported depths, with `tv_iid`. In all, 48 members and 212 certificate checks. The T > 1/2 certificate is checked against exact TV for 7 of the 48 members (B=2, k=1..5; B=3, k=1; B=4, k=1); for the other 41 the T > 1/2 depth lies beyond the enumerable range and rests on the independent BC enclosure and depth recomputation | green |
 | comparators | the nearest-dyadic agreement is distance-minimal over 2^-B Z; its exact crossing is no earlier than the other neighbour's; the fails-before and outlasts lists in `family_verdict` are recomputed from the stored depths and the nearest-dyadic crossing and must equal the per-member flags | green |
 
 **Mutants** (`mutants/run_mutants.py`, output in `mutants/mutants.out`). The unmodified checker first reproduces
@@ -264,6 +265,8 @@ first line begins with VOID and the targeted control's label.
 - M25 is M24 with the depth recomputation disabled (certificate-level exact check). In a first version the
   certificate checks used the audit's own recomputed depths, not the reported ones, and M25 passed; they now use
   the reported depths
+- M26–M30 (the review's L1, L2, L3b, L5, L6) narrow the k range in both paths or in the main path only, delete a
+  member, narrow the B range in both paths, or restrict the audit to four members (preregistered-scope control)
 
 M11–M14 re-implement the review's mutants R1, R4, R10 and R15. M15 and M16 re-implement the re-check's D1 and D5.
 
@@ -281,7 +284,11 @@ the change.
 - M25 is M24 with that recomputation disabled. It is caught by the certificate-level exact check at a depth the
   checker enumerates exactly.
 
-These results hold for the mutants listed; they do not show that every possible error is caught. Before the audit
+These results hold for the mutants listed; they do not show that every possible error is caught. One limit is
+inherent: the audit's definitions and the main rules are two codings of the same stated formulas. If both are
+edited to agree, as in the review's mutant A5 (main bound and audit definition both 5% too strong), a second
+implementation cannot detect it. Only an exact certificate inside the affected range can, and A5 passes because
+⌊n/20⌋ = 0 for every n ≤ 16. Agreement of both codings with the definitions stated in this report rests on review. Before the audit
 was added, the re-check found that W1a, W1b, W3 and W4 passed every control, and that W4 reported a false
 certificate: T > 1/2 for h ≥ 10 at RS(2,5), whose exact T(10) is 0.4637.
 
@@ -289,8 +296,11 @@ The reviewers' scripts were rerun on copies against this revision:
 - **The first round's script** (15 code mutants and one tampered input). Its R1 targets a line the shared function
   replaced, so the copy's R1 strings were adapted to the new line.
 - **The re-check's script** (D1, D4, D5). Its D1 strings were adapted to the shared function.
-- **The second re-check's scripts** (the first-round set with R1 adapted, and W1a, W1b, W2–W5) were run
-  unmodified.
+- **The third re-check's scripts** (A1–A7 and L1–L6) were run on copies. Because PLAN.md is now a pinned input
+  of the checker, every reviewer script copy was adapted to copy PLAN.md beside the mutated checker; nothing else
+  in them was changed.
+- **The second re-check's scripts** (the first-round set with R1 adapted, and W1a, W1b, W2–W5) were run with
+  the same PLAN.md adaptation.
 - Results are given with this revision.
 
 Two controls were reordered so that M3 and M4 fail on their targeted labels and not on a later-added check: the
@@ -300,6 +310,12 @@ floor-decoder member now runs after the census, and the K4 count check after the
 
 **Correction.** PLAN.md says it was committed "alone before any computation of this round". That is inaccurate,
 and PLAN.md is left as committed.
+
+**What the repository establishes:** PLAN.md was committed alone at `1dfec979`, before any other file of this
+package, and the execution code postdates it.
+
+**By the author's account** (no artifact of the exploration is retained, and the repository cannot corroborate
+it), the following holds.
 - **What ran before the plan:** one floating-point exploration of the floor-truncated rescaling decoder with a
   fixed-width m-bit register (B=1..4, m=0..8). It is a finite-state member of the bounded-state class, not a member
   of the RS family.
@@ -316,7 +332,7 @@ and PLAN.md is left as committed.
     mismatches at small n, and the choice to compute exact stationary laws rather than frequencies.
   - These are disclosed as possible influences. How much influence there was cannot be measured after the fact,
     and the repository cannot establish the order in which the proof route and the exploration arose.
-  - It did not compute on RS(B,k), on the census populations or on the decision rule.
+  - It did not compute on RS(B,k), on the census populations or on the decision rule (author's account).
 - **The exact recomputation:** after the review, the decoder is recomputed exactly as the second concrete member.
   The B=2, m=4 class has frequency exactly 4/5 and mismatches at n=2.
 
@@ -367,6 +383,16 @@ and PLAN.md is left as committed.
 - the k=1 range's dependence on the shared enclosure stated;
 - the disclosure wording ("did not compute on"), mirrored into PROVENANCE.
 
+**Post-re-check 3:**
+- the preregistered scope parsed from the hash-pinned PLAN.md, with reported, enclosure and audited member sets
+  required to equal it;
+- lookup failures converted to VOID;
+- mutants M26–M30;
+- the audit's shared and unshared helpers listed;
+- the A5 limit stated;
+- the count of members whose T > 1/2 certificate meets exact TV (7 of 48) stated;
+- the exploration account attributed to the author, with what the repository establishes.
+
 ## What this does not show
 
 - A rate of failure, or a computed h*(|Σ|, B), for the bounded-state class.
@@ -379,8 +405,8 @@ and PLAN.md is left as committed.
 
 ## Replay
 
-Timings on the author's container: about 3 minutes for the checker, normal or -O, and about 28 minutes for the mutant
-run (measured while other runs shared the machine). From an empty working directory, with the repository root as R and
+Timings on the author's container: about 3 minutes for the checker, normal or -O, on a lightly loaded machine (7 minutes
+measured under heavy shared load), and about 95 minutes for the 30-mutant run under that load. From an empty working directory, with the repository root as R and
 D = R/verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8:
 
     python3 -I -B D/checks.py > out.json && cmp out.json D/result.json
