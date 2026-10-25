@@ -4354,11 +4354,11 @@ unitary in the measurement-outcome basis. This freedom preserves
 transition probabilities exactly. Energy shifts and the antiunitary
 reflection also preserve them; completeness of these alternatives under
 the stated gap and overlap hypotheses is conditional on the sign-aware
-integer classification H-BG ({[}GR §3.3{]}). Two Hamiltonians \(H\) and
-\(D H D^\dagger\) produce identical Born-rule probabilities
-\(T_{ij}(t) = |\langle j | e^{-iHt/\hbar} | i \rangle|^2\) in the
-measurement basis, so they are operationally indistinguishable. The
-transformation rephases the measurement basis, changing off-diagonal
+integer classification H-BG ({[}GR §3.3{]}; Appendix B.7). Two
+Hamiltonians \(H\) and \(D H D^\dagger\) produce identical Born-rule
+probabilities \(T_{ij}(t) = |\langle j | e^{-iHt/\hbar} | i \rangle|^2\)
+in the measurement basis, so they are operationally indistinguishable.
+The transformation rephases the measurement basis, changing off-diagonal
 phases of \(H\) while leaving its diagonal entries and every transition
 probability unchanged.
 
@@ -9341,21 +9341,23 @@ confirms the area theorem at \(99.999\%\) confidence (the \(1/4\)
 coefficient itself has no direct test). Section 7.6 resolves the black
 hole information paradox: information is never lost from the substratum
 bijection \(\varphi\) (bijectivity); the Page curve is derived from
-cycle typicality with structural Page time
-\(t_P \approx 0.646\, t_{\text{evap}}\) independent of mass and greybody
-factors, matching the quantum-extremal-surface and entanglement-island
-programs through a substantially different mechanism. Section 7.7
-dissolves the cosmological constant problem by identifying the emergent
-quantum vacuum energy and the effective cosmological constant as
-properties of logically distinct descriptions rather than commensurable
-quantities whose \(10^{122}\) ratio requires cancellation. Section 7.8
-develops the framework's content in dark-energy phenomenology ---
-Running Vacuum Model with \(\nu_{\text{OI}}\) bounded at the
-emergent-QFT scale \(\sim 10^{-32}\) --- and Section 7.9 develops the
-dark-sector content (95\% invisible matter as concordance rather than
-puzzle (the \(\sim 95\%\) being partly definitional,
-\(\approx 1-\Omega_B\)), MOND \(a_0 = cH/6\) from entropy displacement,
-declining rotation curves at \(r_M = \sqrt{6 G M_B/(cH)}\)).
+cycle typicality, conditional on the scrambling condition H-scramble, by
+a mechanism substantially different from that of the
+quantum-extremal-surface and entanglement-island programs, with a
+mass-independent Page time set by the entropy the radiation carries per
+unit of horizon entropy lost --- \(t_P \approx 0.646\, t_{\text{evap}}\)
+when the two are equal. Section 7.7 dissolves the cosmological constant
+problem by identifying the emergent quantum vacuum energy and the
+effective cosmological constant as properties of logically distinct
+descriptions rather than commensurable quantities whose \(10^{122}\)
+ratio requires cancellation. Section 7.8 develops the framework's
+content in dark-energy phenomenology --- Running Vacuum Model with
+\(\nu_{\text{OI}}\) bounded at the emergent-QFT scale \(\sim 10^{-32}\)
+--- and Section 7.9 develops the dark-sector content (95\% invisible
+matter as concordance rather than puzzle (the \(\sim 95\%\) being partly
+definitional, \(\approx 1-\Omega_B\)), MOND \(a_0 = cH/6\) from entropy
+displacement, declining rotation curves at
+\(r_M = \sqrt{6 G M_B/(cH)}\)).
 
 The methodological discipline of Chapter 4 organizes the gravitational
 predictions into three tiers. \textbf{Tier 1} consists of what follows
@@ -9967,9 +9969,11 @@ if black hole evaporation is unitary, the entanglement entropy of the
 radiation must follow a specific trajectory: rising as radiation
 accumulates in the early phase, then turning over and decreasing at the
 \emph{Page time} \(t_P\) --- defined as the moment when the radiation's
-entanglement entropy equals the remaining black hole's entropy. The Page
-time occurs at approximately half the black hole's entropy has been
-radiated; the curve's turnover is the empirical signature of unitarity.
+entanglement entropy equals the remaining black hole's entropy. If the
+radiation's entropy equals the horizon entropy it carries off, the Page
+time comes when half the black hole's initial entropy has been radiated,
+and earlier if the radiation carries more; the curve's turnover is the
+empirical signature of unitarity.
 
 The dispute between Hawking's calculation (thermal radiation,
 information lost) and Page's prediction (Page curve, information
@@ -9980,9 +9984,10 @@ curve through replica wormhole computations in the gravitational path
 integral, providing a derivation of the Page curve from semiclassical
 gravity. The framework provides an alternative derivation through a
 substantially different mechanism, conditional on the scrambling
-condition H-scramble of {[}GR Appendix A{]} --- and, under that
-condition, the two derivations converge on the same quantitative
-predictions.
+condition H-scramble of {[}GR Appendix A{]}. Under that condition the
+two derivations give a Page curve of the same form; whether they agree
+on the Page time depends on the entropy each assigns to the radiation,
+as set out below.
 
 \textbf{The framework's resolution: nested trace-out.} The framework's
 substratum is a deterministic bijection \(\varphi\) acting on a finite
@@ -10060,42 +10065,82 @@ structure has two regimes:
 
 The turnover --- the Page time \(t_P\) --- occurs at
 \(n_R(t_P) = n_B(t_P) = n_B(0)/2\), when half the initial boundary modes
-have been radiated. The structural Page time is
+have been radiated. Under the evaporation law \(dM/dt = -\alpha/M^2\),
+with a mass-independent coefficient \(\alpha\) into which the species
+content and the greybody factors enter ({[}GR Appendix A{]}), the mode
+count falls as \(n_B(t) = n_B(0)\,(1 - t/t_{\text{evap}})^{2/3}\), and
+the Page time is
 \[t_P = (1 - 2^{-3/2})\, t_{\text{evap}} \approx 0.646\, t_{\text{evap}},\]
-independent of the black hole's mass and the species-dependent greybody
-factor. The Page time's structural status --- its independence from
-solution-specific parameters --- is the framework's distinctive content:
-the timescale at which information transfer becomes evident in the
-radiation is fixed by the framework's structural commitments to
-bijectivity and to the boundary-mode counting from §7.5.
+independent of the black hole's mass and of \(\alpha\).
+
+The greybody factors enter a second time, through the entropy the
+radiation carries. The conservation law \(n_B(t) + n_R(t) = n_B(0)\)
+gives the radiation one mode of dimension \(q\) for each boundary mode
+the horizon loses, so the radiation's state-space entropy grows by
+exactly the amount the horizon's falls. More generally, write \(\beta\)
+for the ratio of the radiation's gain in state-space entropy to the
+horizon's loss, taken constant along the evaporation; when each mode
+carries \(\sigma = \ln q\), \(\beta\) is the radiation's coarse-grained
+entropy per unit of Bekenstein-Hawking entropy lost. The turnover falls
+where
+\(\beta\,[S_{\text{BH}}(0) - S_{\text{BH}}(t_P)] = S_{\text{BH}}(t_P)\),
+and the same evaporation law gives (Page 2013, Eq. (8))
+\[\frac{t_P}{t_{\text{evap}}} = 1 - \left(\frac{\beta}{1+\beta}\right)^{3/2},\]
+which is \(0.646\) at \(\beta = 1\) and falls as \(\beta\) grows:
+\(0.568\) at \(\beta = 4/3\), the value for unfiltered blackbody
+emission of massless quanta. In the quasi-stationary semiclassical
+regime --- a non-rotating, uncharged black hole emitting free fields
+into empty space (incoming vacuum), outgoing modes in independent
+thermal-form states with mean occupation
+\(N = \Gamma\, n_{\text{th}}(\omega/T_H)\) for greybody factors
+\(0 < \Gamma \leq 1\), and \(dS_{\text{BH}} = dE/T_H\) --- every emitted
+mode carries more entropy than its energy divided by the Hawking
+temperature, so \(\beta > 1\) in that regime (Page 2005, Eqs. (5)--(10);
+{[}GR Appendix A{]}); its value depends on the species content and on
+how the greybody factors vary with frequency --- solution-specific
+content, Tier 3 in the sense of Section 7.1. For a large Schwarzschild
+black hole emitting only photons and gravitons, at constant \(\alpha\),
+Page's emission rates give \(\beta \approx 1.485\) and
+\(t_P \approx 0.538\, t_{\text{evap}}\) (Page 2013, Eqs. (2), (8)). The
+Page time \(0.646\, t_{\text{evap}}\) is therefore conditional on
+\(\beta = 1\) as well as on H-scramble: the mode-for-mode conservation
+law sets \(\beta = 1\), the semiclassical regime just defined has
+\(\beta > 1\), and how much state-space entropy the radiation acquires
+per boundary mode lost is open.
 
 \textbf{Comparison with quantum extremal surfaces and islands.} The
-framework's Page curve derivation quantitatively matches the prediction
-from the quantum extremal surface formula and the entanglement-island
-construction developed by Penington, Almheiri-Engelhardt, and others. In
-the QES approach, the Page curve emerges through an extremization
-principle that selects the dominant saddle in a replica-trick
-computation of the radiation's entanglement entropy. The post-Page-time
-saddle includes an \emph{island} --- a region of bulk spacetime that
-contributes to the radiation's entanglement entropy despite being
-topologically disconnected from the radiation region. The replica
-wormhole geometries connecting the replicas in the gravitational path
-integral are essential to obtaining the saturating Page curve at late
-times.
+quantum extremal surface formula and the entanglement-island
+construction developed by Penington, Almheiri-Engelhardt, and others
+obtain the Page curve by a different route. In the QES approach, the
+Page curve emerges through an extremization principle that selects the
+dominant saddle in a replica-trick computation of the radiation's
+entanglement entropy. The post-Page-time saddle includes an
+\emph{island} --- a region of bulk spacetime that contributes to the
+radiation's entanglement entropy despite being topologically
+disconnected from the radiation region. The replica wormhole geometries
+connecting the replicas in the gravitational path integral are essential
+to obtaining the saturating Page curve at late times.
 
-The framework arrives at the same Page time, and approximately at the
-same Page entropy when each boundary mode carries the entropy
-\(\sigma = \ln q\) of its state space ({[}GR Appendix A{]}), through a
-structurally cleaner mechanism. The cycle-typicality argument invokes
-the Popescu-Short-Winter theorem applied to the deterministic substratum
-dynamics on the energy shell, under the scrambling condition H-scramble
-of {[}GR Appendix A{]} --- uniformity over classical microstates is not
-uniformity over quantum pure states, and that condition is not
-established --- with no replica trick and no gravitational path
-integral. The \emph{island} in the QES formulation corresponds, in the
-framework's construction, to the post-Page-time regime in which the
-black hole's boundary modes form the smaller subsystem; the
-\emph{replica wormhole} geometries appear to correspond to the
+The framework arrives at a Page curve of the same form --- rise,
+turnover, fall --- through a substantially different mechanism. The
+cycle-typicality argument invokes the Popescu-Short-Winter theorem
+applied to the deterministic substratum dynamics on the energy shell,
+under the scrambling condition H-scramble of {[}GR Appendix A{]} ---
+uniformity over classical microstates is not uniformity over quantum
+pure states, and that condition is not established --- with no replica
+trick and no gravitational path integral. In the QES computation the
+turnover comes where the island saddle's generalized entropy, at leading
+order the black hole's remaining Bekenstein-Hawking entropy, falls below
+the semiclassical entropy of the radiation. The two Page times coincide
+when that semiclassical entropy grows one-for-one with the horizon
+entropy lost, the \(\beta = 1\) of the mode counting; in the
+semiclassical regime defined above \(\beta > 1\) holds (Page 2005; for
+the QES setting, Penington 2019, §2), so agreement between the two
+derivations on the Page time and the Page entropy is not established. A
+correspondence between the two constructions is conjectured: the
+\emph{island} in the QES formulation would correspond to the
+post-Page-time regime in which the black hole's boundary modes form the
+smaller subsystem, and the \emph{replica wormhole} geometries to the
 substratum's cycle structure on the energy shell.
 
 This conjectured correspondence --- replica wormholes
@@ -10103,23 +10148,24 @@ This conjectured correspondence --- replica wormholes
 rigorous. Making it precise would require constructing the gravitational
 path integral as an effective description of the substratum dynamics in
 the appropriate limit, a task that has not been completed. What the
-framework's derivation establishes is that, under H-scramble, the Page
-curve's quantitative content is reproducible from a finite deterministic
-substratum without invoking the replica machinery; the scrambling
-condition itself is the open step.
+framework's derivation establishes is that, under H-scramble, a Page
+curve with its turnover where the radiation's state space overtakes the
+black hole's is reproducible from a finite deterministic substratum
+without invoking the replica machinery; the scrambling condition and the
+radiation's entropy per boundary mode lost are the open steps.
 
-The convergence is structural rather than coincidental. Both approaches
-require \emph{something} to play the role of typicality ---
-Popescu-Short-Winter measure concentration in the framework's
-derivation, replica saddles in QES + islands --- and both extract the
-same Page time and Page entropy from that ingredient. The framework's
-content here is that the typicality-providing ingredient need not be
-gravitational at all; it can be combinatorial, on the substratum side of
-the trace-out. This constitutes a microscopic realization of the
+Both approaches require \emph{something} to play the role of typicality
+--- Popescu-Short-Winter measure concentration in the framework's
+derivation, replica saddles in QES + islands --- and both place the
+turnover where the radiation's entropy reaches the black hole's
+remaining entropy. If the conjectured correspondence holds, the
+typicality-providing ingredient need not be gravitational at all; it can
+be combinatorial, on the substratum side of the trace-out, and the
+cycle-typicality derivation would be a microscopic realization of the
 entanglement-island construction.
 
-\textbf{The generalized second law.} A separate but related structural
-prediction is the generalized second law: the sum
+\textbf{The generalized second law.} A separate but related statement is
+the generalized second law: the sum
 \(S_{\text{matter}} + S_{\text{BH}} + S_{\text{dS}}\) is non-decreasing
 in time. The matter entropy \(S_{\text{matter}}\) captures the
 visible-sector matter's information content; the black hole entropy
@@ -10127,19 +10173,35 @@ visible-sector matter's information content; the black hole entropy
 Sitter entropy \(S_{\text{dS}}\) is the cosmological horizon's
 contribution.
 
-The framework proves the generalized second law from strong
-subadditivity of the emergent quantum description combined with the CPTP
-monotonicity of the framework's reduced dynamics. Any process that
-shrinks the black hole --- decreasing \(S_{\text{BH}}\) --- must
-transfer information to the visible sector matter (increasing
-\(S_{\text{matter}}\)) or to the cosmological boundary (increasing
-\(S_{\text{dS}}\)), compensating the decrease. The total information
-across the partition is conserved at the substratum level (bijectivity)
-and the entropy sum is non-decreasing at the observer's level (CPTP
-monotonicity). The two facts are consistent in the framework: the
-substratum is deterministic and information-preserving, while the
-observer's reduced description has the entropy-non-decrease that the
-second law requires.
+The framework does not derive it; what its reduced dynamics supplies is
+weaker. Bijectivity makes the evolution of the whole configuration space
+unitary, so the joint von Neumann entropy of the visible sector \(V\),
+the black hole interior \(B\) and the trans-cosmological region \(D\) is
+constant. If the state at \(t = 0\) is a product over the three sectors,
+subadditivity then gives
+\[S(\rho_V(t)) + S(\rho_B(t)) + S(\rho_D(t)) \geq S(\rho_V(0)) + S(\rho_B(0)) + S(\rho_D(0))\]
+at every later time, including when the degrees of freedom are regrouped
+into three sectors as the horizon moves. The inequality concerns the
+sectors' von Neumann entropies. It becomes the generalized second law
+only if \(S_{\text{BH}}\) and \(S_{\text{dS}}\) equal the von Neumann
+entropies of the black-hole and trans-cosmological reduced states at
+each time, and the boundary-mode count does not supply that
+identification: \(S_{\text{BH}} = n_B\,\sigma\) counts the horizon's
+modes, while in the Page-curve derivation above, where the black hole
+and its radiation share a pure state, the black hole's reduced entropy
+is approximately \(\min(n_R, n_B) \ln q\) --- near zero early in the
+evaporation, when \(S_{\text{BH}}\) is largest. Monotonicity under the
+reduced CPTP dynamics does not close the gap. It holds for relative
+entropy; the von Neumann entropy of the output is at least that of the
+input for every input only when the channel is unital, and then it
+constrains \(S_{\text{matter}}\) alone, not the horizon terms. A
+derivation of the generalized second law from the substratum needs a
+relation between horizon area and the hidden sectors' coarse-grained
+entropy that holds along the evaporation, and that relation is open.
+Conservation of information at the substratum level rests on bijectivity
+alone and does not wait on the generalized second law; how much of that
+information the observer can recover from the radiation is the separate
+question the Page-curve derivation addresses, under its own conditions.
 
 \textbf{Empirical status and falsification.} The framework's resolution
 of the information paradox has no direct empirical signature accessible
@@ -10158,13 +10220,14 @@ underlying dynamics --- for instance, an empirical demonstration that
 the radiation from an evaporating black hole carries less information
 than the matter that formed it, in a way that cannot be reproduced by
 the framework's nested trace-out. No such evidence currently exists, and
-the convergence with the QES + islands programs provides additional
-theoretical support for the unitarity resolution. The framework's
-content is therefore consistent with the current theoretical and
-(limited) empirical picture, with the structural Page time prediction
-\(t_P \approx 0.646\, t_{\text{evap}}\) providing a sharp quantitative
-target for any future empirical or theoretical work on the information
-paradox.
+the QES + islands computations, which obtain a unitary Page curve from
+semiclassical gravity by an independent route, support unitary
+evaporation without depending on the framework. The framework's content
+is therefore consistent with the current theoretical and (limited)
+empirical picture. Its quantitative target is the Page-time relation
+\(t_P/t_{\text{evap}} = 1 - [\beta/(1+\beta)]^{3/2}\), which becomes a
+sharp prediction once the radiation's entropy per boundary mode lost is
+derived; at the mode-counting value \(\beta = 1\) it gives \(0.646\).
 
 \hypertarget{dissolution-of-the-cosmological-constant-problem}{%
 \subsection{7.7 Dissolution of the cosmological constant
@@ -10656,9 +10719,9 @@ theorem ({[}GR §6.2{]}) would have to supply. With these, the Bekenstein
 bound applied to a baryonic mass \(M_B\) in a de Sitter background gives
 the entropy displaced from the cosmological boundary:
 \[\Delta S = \frac{M_B c^2}{k_B T_{\text{dS}}} = \frac{2 \pi M_B c^2}{\hbar H}.\]
-This follows from the generalized second law applied to the
-matter-boundary system: the boundary's entropy reduction is \(Q/T\) for
-a reversible process, where \(Q = M_B c^2\) and \(T = T_{\text{dS}}\).
+This is the Clausius relation applied to the boundary reservoir: the
+boundary's entropy reduction is \(Q/T\) for a reversible process, where
+\(Q = M_B c^2\) and \(T = T_{\text{dS}}\).
 
 \emph{Step 2: The critical acceleration \(a_0 = cH/6\) (conditional;
 dimensional factor imported).} The displaced entropy redistributes over
@@ -10814,8 +10877,8 @@ on H-slope & --- & structural & 1 (cond.) \\
 \(S_{\text{BH}} = A/(4 l_p^2)\) & factor \(1/4\) as the ratio
 \(2\pi/8\pi\), conditional on H-slope & no direct test (GW250114 tests
 the area theorem --- next row) & --- & 1 (cond.) \\
-Area law \(dA \geq 0\) & from generalized second law & GW250114 area
-increase & \(99.999\%\) confidence & 1 \\
+Area law \(dA \geq 0\) & classical area theorem (GR horizon dynamics,
+preserved) & GW250114 area increase & \(99.999\%\) confidence & 1 \\
 CC dissolution (descriptive) &
 \(\rho_{\text{QFT}} / \rho_{\text{class}} = S_{\text{dS}}\) &
 \(\rho_{\text{obs}} \sim H^2/G\) & consistent; dynamical form
@@ -12523,9 +12586,9 @@ Area law \(dA \geq 0\) & GW250114 area increase at \(99.999\%\) & Ch 7
 CC dissolution (descriptive) & \(\rho_{\text{obs}} \sim H^2/G\)
 consistent; dynamical form conditional on the coupling theorem & Ch 7
 §7.7 \\
-BH information preserved & Page curve at
-\(t_P \approx 0.646\, t_{\text{evap}}\), conditional on H-scramble & Ch
-7 §7.6 \\
+BH information preserved & Page curve conditional on H-scramble;
+\(t_P \approx 0.646\, t_{\text{evap}}\) at unit radiation-to-horizon
+entropy ratio & Ch 7 §7.6 \\
 Dark sector budget \(\sim 95\%\) & \(\Omega_{\text{dark}} \approx 0.95\)
 concordance & Ch 7 §7.9 \\
 No dark matter particle & XENON, LUX, etc. null & Ch 7 §7.9 \\
@@ -22144,12 +22207,15 @@ self-consistent emergent quantum description that preserves unitarity at
 the substratum level while reproducing the Page curve at the emergent
 level.
 
-The structural Page time \(t_P \approx 0.646\, t_{\text{evap}}\),
-independent of mass and greybody factors, matches the
-quantum-extremal-surface and entanglement-island predictions through a
-substantially different mechanism --- cycle typicality on the energy
-shell rather than replica wormhole computation in the gravitational path
-integral.
+The derivation runs through a mechanism substantially different from the
+quantum-extremal-surface and entanglement-island computations --- cycle
+typicality on the energy shell rather than replica wormhole computation
+in the gravitational path integral --- and the correspondence between
+the two is conjectural. Its Page time is a mass-independent fraction of
+the evaporation time set by the entropy the radiation carries per unit
+of horizon entropy lost: \(t_P \approx 0.646\, t_{\text{evap}}\) when
+the two are equal, and earlier when the radiation carries more, as it
+does in the semiclassical emission regime defined in Chapter 7 §7.6.
 
 The shared structural feature with the cosmological constant dissolution
 is that the framework's two-level description is doing the work. The
@@ -23446,17 +23512,26 @@ preservation; the Page curve is conditional. The substratum bijection
 follows from cycle typicality on the energy shell, applying
 Popescu-Short-Winter measure concentration to the deterministic
 substratum dynamics under the scrambling condition H-scramble ({[}GR
-Appendix A{]}), which is not established. The structural Page time is
-\(t_P = (1 - 2^{-3/2})\, t_{\text{evap}} \approx 0.646\, t_{\text{evap}}\),
-independent of mass and greybody factors. The framework's derivation
-matches the quantum-extremal-surface and entanglement-island predictions
-through a substantially different mechanism --- cycle typicality on the
-energy shell rather than replica wormhole computation in the
-gravitational path integral. The conjectured correspondence ``replica
-wormholes \(\leftrightarrow\) substratum cycles'' is suggestive but not
-yet rigorous; making it precise would require constructing the
-gravitational path integral as an effective description of the
-substratum dynamics in the appropriate limit.
+Appendix A{]}), which is not established. The Page time is
+\(t_P = [1 - (\beta/(1+\beta))^{3/2}]\, t_{\text{evap}}\), independent
+of mass, where \(\beta\) is the radiation's entropy per unit of horizon
+entropy lost:
+\((1 - 2^{-3/2})\, t_{\text{evap}} \approx 0.646\, t_{\text{evap}}\) at
+the mode-counting value \(\beta = 1\), and earlier for \(\beta > 1\),
+which holds in the semiclassical emission regime defined in Chapter 7
+§7.6 and there depends on the species content and the greybody factors.
+The derivation runs through a mechanism substantially different from the
+quantum-extremal-surface and entanglement-island programs --- cycle
+typicality on the energy shell rather than replica wormhole computation
+in the gravitational path integral. The conjectured correspondence
+``replica wormholes \(\leftrightarrow\) substratum cycles'' is
+suggestive but not yet rigorous; making it precise would require
+constructing the gravitational path integral as an effective description
+of the substratum dynamics in the appropriate limit. The generalized
+second law is open: the subadditivity bound on the sectors' reduced
+entropies becomes it only with an identification of horizon entropy with
+the hidden sectors' entropy that the boundary-mode count does not supply
+(§7.6).
 
 \emph{Developed in:} Chapter 7 §7.6.
 
@@ -25866,9 +25941,12 @@ realization per horizon, with the quantum representation internal and
 universal (\(S \iff D \iff Q_{\mathrm{fb}}\), {[}Main §3.4{]}) ---
 relies on a chain of intermediate lemmas: partition-relativity, emergent
 stochasticity, P-indivisibility from a non-permutation witness,
-accessible-timescale backflow, and phase-locking. This appendix collects
-these lemmas with their proofs in compact form, providing the reader a
-self-contained reference for the framework's logical structure.
+accessible-timescale backflow, and phase-locking, together with the
+results on which phase-locking rests: Bohr-frequency completeness, the
+real-to-integer transfer and the two-branch classification conditional
+on H-BG. This appendix collects these lemmas with their proofs in
+compact form, providing the reader a self-contained reference for the
+framework's logical structure.
 
 The appendix's content is \emph{complete derivations}, not exposition.
 Each derivation gives the algebraic steps, the lemmas invoked, and the
@@ -27241,11 +27319,11 @@ the transformation \(|i\rangle \to e^{i\theta_i}|i\rangle\) leaves all
 \(|U_{ij}|^2\) invariant. This is the basis-convention freedom --- the
 choice of phase for each basis state --- which is physically trivial.
 H-BG and the coefficient-labelled exceptional obstruction classify the
-possible mode correspondences ({[}GR §3.3{]}); this step is not supplied
-by Fourier extraction alone. Conditional on H-BG, the remaining
-alternatives are this rephasing freedom, the energy shift and the
-antiunitary conjugation \(\hat{H} \to -\hat{H}^*\) stated above.
-\(\square\)
+possible mode correspondences (Theorem B.7.5c below; {[}GR §3.3{]});
+this step is not supplied by Fourier extraction alone. Conditional on
+H-BG, the remaining alternatives are this rephasing freedom, the energy
+shift and the antiunitary conjugation \(\hat{H} \to -\hat{H}^*\) stated
+above. \(\square\)
 
 \emph{Scope.} The lemma is stated in its simplest form,
 \(T_{ij}(t) = |U_{ij}(t)|^2\) --- the trivial-ancilla case of the
@@ -27260,6 +27338,171 @@ pair-phase gauge reduces to the diagonal one for generic families at
 each fixed dimension --- together with the antiunitary conjugate
 \(H \to -H^*\), retained there as an intrinsic ambiguity of transition
 data.
+
+\textbf{Bohr frequencies and the D-gauge classification.} The proof of
+Lemma B.7.5 rests on the results collected here, each stated with its
+hypotheses ({[}GR §3.3{]}). Throughout, \(U(t) = e^{-iHt}\) with \(H\)
+in frequency units and \(H = V\,\mathrm{diag}(E)\,V^\dagger\) on a
+finite configuration space, so that \(V_{ia}\) is the overlap of
+configuration \(i\) with eigenvector \(a\), and likewise
+\(H' = W\,\mathrm{diag}(E')\,W^\dagger\); the antiunitary reflection
+\(-\bar{H}\) is the \(-\hat{H}^*\) of Lemma B.7.5.
+
+\textbf{Theorem B.7.5a (Bohr-frequency completeness).} \emph{Let
+\(U(t) = e^{-iHt}\) with non-degenerate eigenvalues and non-vanishing
+configuration-basis overlaps. Then the transition probabilities
+determine the Bohr-frequency set \(\{E_a - E_b\}\): each return
+probability expands as
+\(|U_{ii}(t)|^2 = \sum_{a,b} |V_{ia}|^2 |V_{ib}|^2\, e^{-i(E_a - E_b)t}\),
+in which every gap value carries a strictly positive coefficient; every
+\(|U_{ij}(t)|^2\) is a combination of the same frequencies; and
+consequently any \(U'\) of the same form with
+\(|U'_{ij}(t)|^2 = |U_{ij}(t)|^2\) for all \(i, j, t\) has
+\(\{E'_a - E'_b\} = \{E_a - E_b\}\).}
+
+\emph{Proof.} Expanding
+\(U_{ij}(t) = \sum_a V_{ia}\, e^{-iE_a t}\, V_{ja}^*\) gives
+\(|U_{ij}(t)|^2 = \sum_{a,b} V_{ia} V_{ja}^* V_{ib}^* V_{jb}\, e^{-i(E_a - E_b)t}\);
+at \(i = j\) the coefficients are \(|V_{ia}|^2 |V_{ib}|^2 > 0\), and
+grouping terms by frequency value only adds positive quantities ---
+degenerate gaps merge coefficients but cannot cancel them. Distinct
+characters \(t \mapsto e^{-i\omega t}\) of \((\mathbb{R}, +)\) are
+linearly independent (Dedekind), so equality of two probability families
+forces equality of the per-frequency coefficients over the union of the
+two gap sets, and positivity makes the supports --- the gap sets ---
+coincide. \(\square\)
+
+\textbf{The dimensional obstruction.} Theorem B.7.5a is what the gap
+equation of §B.4 consumes, and it is less than a reconstruction of
+\(H\). The unitary \(U(t)\) is dimensionless, and \(\hbar\) enters only
+through \(\hat{H} = i\hbar\,\partial_t U\, U^\dagger\). The transition
+probabilities are dimensionless functions of \(t\) and determine
+temporal frequencies; converting a frequency to an energy requires the
+action scale \(\hbar\) itself, so no amount of transition data fixes it.
+The residual ambiguities in passing from frequencies to a Hamiltonian
+carry no scale either: diagonal rephasing \(H \mapsto DHD^\dagger\)
+moves no modulus, the energy origin \(H \mapsto H + E_0\) contributes
+only the global phase \(e^{-iE_0 t}\), the antiunitary reflection
+\(H \mapsto -\bar{H}\) satisfies
+\(e^{-i(-\bar{H})t} = \overline{e^{-iHt}}\) entrywise and so preserves
+every \(|U_{ij}(t)|^2\) exactly, and Theorem B.7.5c below excludes
+further ambiguities conditional on its stated classification hypothesis.
+The thermal self-consistency of §B.4, Step 4, is therefore the
+mathematically obligatory entry point for the dimensionful input.
+
+\textbf{Lemma B.7.5b (Real-to-integer transfer).} \emph{Let \(E, E'\) be
+real spectra on \(n\) modes, each with distinct directed gaps ---
+\(E_b - E_a = E_d - E_c\) with \(a \neq b\) and \(c \neq d\) only when
+\((a, b) = (c, d)\) --- and with equal gap sets. Then \(E'\) is, after
+relabeling its modes, a translate \(E + E_0\) of \(E\) or a translate
+\(-E + E_0\) of its reflection; or else there are relabelings of the two
+spectra and strictly increasing integer rulers \(F, F'\) on \(n\) marks,
+each with distinct positive differences, with equal difference sets, and
+neither a translate nor a reflection of the other, such that every
+integer gap identity \(F'_d - F'_c = F_b - F_a\) with \(a \neq b\) holds
+for the relabeled real spectra as well.}
+
+The lemma assumes no classification hypothesis. It is proved in the
+framework's Lean formalization (kernel:
+\texttt{real\_to\_integer\_surrogate} in
+\texttt{OIBridge/TurnpikeScopeTransfer.lean}), and it is the step
+through which a classification of integer rulers, such as H-BG below,
+applies to real spectra.
+
+\textbf{Theorem B.7.5c (D-gauge completeness, two-branch form).}
+\emph{Assume H-BG: every non-congruent pair of strictly ordered integer
+rulers with distinct positive differences and equal difference sets has
+six marks and, after relabeling, realizes either \(\mu\) or its global
+reversal, where \(\mu\) sends each ascending mark pair of
+\(\{0,1,4,10,12,17\}\) to the ascending mark pair of
+\(\{0,1,8,11,13,17\}\) with the same difference. The orientation is
+chosen once for the whole pair. Let \(H,H'\) act on the same finite
+configuration space of dimension \(m\ge3\), with distinct nonzero energy
+gaps and non-vanishing configuration-basis overlaps for both
+Hamiltonians. If \(|U'_{ij}(t)|^2 = |U_{ij}(t)|^2\) for all \(i,j,t\),
+then \(H' = DHD^\dagger + E_0\) or \(H' = -D\bar{H}D^\dagger + E_0\),
+for a time-independent diagonal unitary \(D\) and a real \(E_0\).}
+
+\emph{Conditional proof.} Equality of the probability families forces
+equality of the per-frequency coefficients of
+\(|U_{ij}(t)|^2 = \sum_{a,b} V_{ia} V_{ja}^* V_{ib}^* V_{jb}\, e^{-i(E_a-E_b)t}\).
+Under the stated overlap and gap hypotheses, the spectra have equal
+difference sets and the coefficient matching induces a bijection of
+ordered mode pairs preserving directed gaps. A fixed correspondence can
+be transferred from real to integer spectra while preserving its gap
+identities, strict order, distinct differences and non-congruence (Lemma
+B.7.5b): its realization constraints are homogeneous rational-linear
+equalities, strict inequalities and inequations, and rational
+approximation in the equality subspace followed by denominator clearing
+preserves the finite list of strict conditions. H-BG then supplies a
+congruent pair or one of the two globally oriented exceptional
+correspondences. For congruent spectra, diagonal-line rigidity fixes the
+moduli and the phase-coboundary relation fixes the phases, giving
+\(W_{i,\tau a}=d_i\beta_a V_{ia}\) with \(d,\beta\) unimodular. The
+column phases cancel in the reconstructed Hamiltonian. Reflection
+congruence applies this argument to \((\bar V,-E)\) and gives the second
+branch. For the positive exceptional correspondence \(\mu\), the
+coefficient identities force flat moduli and constrain the phase data to
+a graph of maximum clique three, excluding the six orthogonal rows
+required by unitarity. For the reversed correspondence, reversing the
+source mode pair conjugates its coefficient tensor; applying the same
+obstruction to the conjugated source eigenbasis excludes that
+orientation as well. Thus the two Hamiltonian branches follow
+conditional on H-BG. \(\square\)
+
+\emph{Scope.} The complete comparison of H-BG with the published integer
+classification of Bekir and Golomb {[}A. Bekir and S. W. Golomb, IEEE
+Trans. Inform. Theory 53 (2007) 2864--2867{]}, including all
+normalizations and exceptional orientations, is open. The unsigned
+formal premise \texttt{BGIntegerClassification} of the Lean
+formalization is false: the strictly ordered rulers \((0,1,4,10,12,17)\)
+and \((0,4,6,9,16,17)\) have distinct positive differences and equal
+difference sets, are neither translates nor reflections of one another,
+and satisfy the reversed exceptional correspondence while admitting no
+relabelings with the required positive orientation. The kernel
+implication \texttt{twoBranch\_of\_BGClassification} therefore does not
+establish reconstruction from the physical hypotheses. The example
+contradicts that formal premise, not the published classification.
+Bohr-frequency completeness, the real-to-integer transfer, congruent
+reconstruction and the positive six-mode obstruction are kernel-proved
+independently of it. The listed ambiguities are exactly invisible:
+\(H+E_0\) contributes only a global phase, while \(-\bar H\) conjugates
+the propagator entrywise. The gap condition is used where coefficient
+matching induces a bijection of ordered mode pairs: with degenerate gaps
+one frequency's coefficient is a sum over several mode pairs. The
+\(C_4\) ring of {[}SM{]} Proposition 20 has distinct eigenvalues,
+uniform overlaps and degenerate gaps; its conjugate \(\bar H\)
+reproduces every \(|U_{ij}(t)|^2\) and conjugates the loop product
+\(H_{01}H_{12}H_{23}H_{30}\), which no diagonal conjugation changes. The
+ring therefore does not exhibit a failure, without the gap condition, of
+the two-branch form conditional on H-BG: \(\bar H\) lies in the
+reflection branch, \(\bar H = -D_s\bar H D_s^\dagger\) with
+\(D_s = \mathrm{diag}(1,-1,1,-1)\). The raw frequency set alone cannot
+distinguish the non-congruent homometric rulers; reconstruction uses
+coefficient-labelled frequency data.
+
+\textbf{Corollary B.7.5d (Operational antiunitary invariance).}
+\emph{Transposing the preparation, every operation, and the effect
+simultaneously --- \(\rho \mapsto \rho^T\),
+\(\mathcal{G} \mapsto T \circ \mathcal{G} \circ T\), \(E \mapsto E^T\)
+--- preserves every finite circuit probability, for arbitrary operations
+and arbitrary finite sequences, hence for every fixed outcome branch of
+any adaptive instrument strategy; the transformation carries Kraus
+operations to Kraus operations with conjugated operators, preserves the
+trace normalization, and on unitary evolution is exactly the branch map
+\(H \mapsto -\bar{H}\).}
+
+Enlarging the data from transition probabilities to arbitrary
+preparations, instruments, adaptive finite circuits, and effects
+therefore cannot remove the second branch: at the purely operational
+level the two branches are not two empirically distinguishable theories
+but two antiunitarily related reconstructions of the same complete
+circuit statistics, and they become physically distinct only once an
+oriented structure is fixed ({[}GR §3.3{]}). (kernel:
+\texttt{circuit\_invariance}, \texttt{string\_invariance},
+\texttt{transposeMap\_kraus}, \texttt{kraus\_normalization},
+\texttt{unitary\_channel\_transpose} in
+\texttt{OIBridge/AntiunitaryInvariance.lean})
 
 \textbf{Theorem B.7.6 (Characterization theorem).} \emph{In the
 redefined form of {[}Main §3.4{]}: accessible non-Markovianity of the
@@ -29269,9 +29512,12 @@ level. Developed in Chapter 6 §6.3 (for fundamental physics) and Chapter
 \textbf{Page curve.} The time-dependence of black-hole entanglement
 entropy: rising during the early evaporation phase, reaching a peak at
 the Page time, then falling as the black hole evaporates fully. The
-framework derives the Page curve from cycle typicality with structural
-Page time \(t_P \approx 0.646 t_{evap}\) independent of mass and
-greybody factors. Developed in Chapter 7 §6.
+framework derives the Page curve from cycle typicality, conditional on
+the scrambling condition H-scramble, with a Page time that is a
+mass-independent fraction of the evaporation time:
+\(t_P \approx 0.646\, t_{evap}\) when the radiation's entropy equals the
+horizon entropy it carries off, earlier when it carries more. Developed
+in Chapter 7 §6.
 
 \textbf{Partially-quantum regime.} A label for intermediate memory
 backflow --- not a quantum-membership scale ({[}Main §3.4{]}): every
@@ -29767,6 +30013,17 @@ Letters} 135: 011802 (2025), arXiv:2410.17036.
 Maldacena, J. (2024). Real observers solving imaginary problems.
 \emph{arXiv}:2412.14014.
 
+Page, D. N. (2005). Hawking radiation and black hole thermodynamics.
+\emph{New Journal of Physics} 7: 203. arXiv:hep-th/0409024.
+
+Page, D. N. (2013). Time dependence of Hawking radiation entropy.
+\emph{Journal of Cosmology and Astroparticle Physics} 2013(09): 028.
+arXiv:1301.4995.
+
+Penington, G. (2019). Entanglement wedge reconstruction and the
+information paradox. \emph{Journal of High Energy Physics} 2020(09):
+002. arXiv:1905.08255.
+
 Planck Collaboration (2018). Planck 2018 results. VI. Cosmological
 parameters. \emph{Astronomy \& Astrophysics} 641: A6.
 
@@ -30229,4 +30486,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: 1d7233d748253ed37c68ddc28bf0b6f08870dcd188bbbc7c318fe5732cb27422
+% source-sha256: a17d8302b985c545b3a7060941c59198609c64600e6ab023a6d532db4cec6d6f

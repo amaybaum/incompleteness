@@ -1,0 +1,36 @@
+{
+  "author_files_checked": 6,
+  "author_sha": "a3e8b7a201aae9f7ac6babf93173188f87ed8bb8",
+  "chronological": {
+    "acyclic": 64,
+    "cycle": 8
+  },
+  "eight_symbol_cycle_types": 22,
+  "limitations": [
+    "internal separate-author review",
+    "not external certification",
+    "no dirty-phase adapter",
+    "no quantum calibration derivation",
+    "radius185 source application remains separate dependency"
+  ],
+  "native_dirty_axis_value_comparisons": 384,
+  "native_extrusion_front_values": 880,
+  "radius185_application_geometry": {
+    "compiled_truth_semantics": "separate retained application audit",
+    "receiver_count": 4,
+    "source_receiver_comparisons": 5916
+  },
+  "radius_one": {
+    "cycles": 1804,
+    "order": 720,
+    "states": 32768
+  },
+  "schema": "oi.native-transport-proof-review.v1",
+  "verdict": "ACCEPT_SCOPED_PROOFS",
+  "wing": {
+    "Pascal_entries": 180,
+    "native_steps": 60,
+    "terminal_omission_failures": 14,
+    "words": 15
+  }
+}

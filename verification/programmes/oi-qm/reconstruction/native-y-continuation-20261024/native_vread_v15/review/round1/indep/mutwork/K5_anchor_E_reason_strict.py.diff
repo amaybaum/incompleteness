@@ -1,0 +1,11 @@
+--- checks.py
++++ checks.py
+@@ -379,7 +379,7 @@
+         'q10_ready_interior': classify((0, S, 78+L), inv, balls),
+     }
+     need(anchors['q10_axial'][0] == 'PINNED', 'K5 anchor q10 axial pinned')
+-    need(anchors['E'][0] == 'PINNED' and anchors['N'][0] == 'PINNED', 'K5 anchor E,N pinned')
++    need(tuple(anchors['E']) == ('PINNED','source E') and tuple(anchors['N']) == ('PINNED','source N'), 'K5 anchor E,N pinned')
+     need(anchors['F10_position'][0] == 'PINNED', 'K5 anchor F10 pinned')
+     need(anchors['F8_position'][0] == 'FREE', 'K5 anchor F8 free')
+     need(anchors['port0_bank_T+2'][0] == 'BANK', 'K5 anchor port-0 bank')

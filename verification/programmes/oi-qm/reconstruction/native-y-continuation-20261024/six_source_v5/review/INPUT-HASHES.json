@@ -1,0 +1,17 @@
+{
+  "REPORT.md": "9fa56cfd67429ea6246398439a0e6114d0f38696c9fdef1c308656f227e8d068",
+  "lower.cpp": "07b1a64ecff83462d67559e0d60b6938a2ef0dc742d41bace2b89d4fcf68c0d3",
+  "model.py": "1e5130a61b10a857c14149bdeffc0871d888ff224cb78349f33d9dce5674b3bd",
+  "RESULT.json": "bac739e9e3ab1699ac35b89e45556301d434ada56d3300650007066cebc488c0",
+  "lower-slices.json": "86518f9b693af0540e76e61a3ee30ae328881feb3dd3110063508da760070f17",
+  "checks.py": "6ea944a242931c343bb30bfa3bad06bf9e62505784b58fadf264e3acd36093e1",
+  "period/REPORT.md": "7743ee8fccb5e39df674bb7ada6fcd6ce45582b801d4d58d77af5162420cf360",
+  "period/checks.py": "6fde090f0df917d428fb83591f2ca80c32a326274a7c3163bf35cf6bcffe2e5a",
+  "period/strip.py": "968af8d44b0767cca4f8d0de2218adc8c99b39016f0b7396b214c2e0b2c63626",
+  "period/PROVENANCE.json": "0505f7033c635eb3433b22bee81ed0216aaae57c29b6d1e631ca092a1d3aa746",
+  "../parallel_v3/new_geometry/third_step.py": "81936562f6e9f9dabadbaa4e19a9cd37460c077503063a898f3605a62e27861f",
+  "../parallel_v3/new_geometry/diamond_strip.py": "968af8d44b0767cca4f8d0de2218adc8c99b39016f0b7396b214c2e0b2c63626",
+  "../parallel_v3/new_geometry/inherited_core.py": "b16155925700321abdb6f59260bc510e8e6c1d039f30c9eadc0c4320de89c941",
+  "../junction_v4/REPORT.md": "5cce7c933e25cdf493c3d08871de732a6a217189becff82d5ff6642e2b5c0b08",
+  "../junction_v4/checks.py": "588a248c8d00cb23bf90de23dd440401d99f329e75348a7e27ade85bccf21d44"
+}

@@ -750,18 +750,47 @@ stochastic process --- and hence any emergent quantum description (§3.1)
 The results organize into four layers, and every claim should be read at
 its layer. \textbf{Layer 1 --- reversible dilation} (§2.2, §3.4): exact
 mathematics, no quantum claim ---
-\[\text{finite-horizon non-Markovianity} \iff \exists\ \text{finite reversible hidden-state realization},\]
-the paper's core. \textbf{Layer 2 --- memory and capacity} (§2.3): (C4)
-forces positive conditional memory; the (C3) information bound; the
-physical-memory theorem ((C2), conditional on mixing). \textbf{Layer 3
---- quantum representation} (§3.1, §3.4): the imported correspondence
-(Q1) and the in-house uncompressed form (Q2), scopes separated.
-\textbf{Layer 4 --- physical and operational realization} (§3.2, §4,
-companions): interventions (classical comb closed, §3.4; quantum
-instruments open), coherent preparation, Bell and free-choice structure,
-H-spin' and H-χ', the cosmological realization --- where the named
-hypotheses live. A Layer-1 result does not by itself establish any
-Layer-4 claim.
+\[\begin{gathered}\{\text{finite-horizon visible laws}\}\\ =\ \{\text{visible marginals of finite reversible hidden-state systems}\},\end{gathered}\]
+that is \(S \iff D\), Markov laws included, so the existence of a
+realization does not distinguish non-Markovian laws (kernel:
+\texttt{S\_imp\_D} for \(\subseteq\); \texttt{D\_imp\_Qfb} with
+\texttt{Qfb\_imp\_S} for \(\supseteq\); assembled in
+\texttt{finite\_horizon\_equivalence}). Non-Markovianity is instead
+recorded in every realization (§3.4, unavoidable hidden predictive
+memory). Here a faithful realization is a system as in class (D): a
+bijection \(\varphi\) of \(\mathcal{C}_V \times \mathcal{C}_H\) with an
+initial law on \(\mathcal{C}_V \times \mathcal{C}_H\), which may
+correlate the hidden and visible coordinates, under which the visible
+trajectory \((x_0, \ldots, x_K)\) has the given law. In every faithful
+realization the next-step law after a positive-probability history \(p\)
+ending at \(x\) is the pushforward \((f_x)_\#\mu_p\) of its hidden
+posterior \(\mu_p\) through \(f_x(h) = \pi_V(\varphi(x,h))\), and
+next-step laws a total-variation distance \(\delta\) apart force
+posteriors at least \(\delta\) apart (kernel:
+\texttt{pushforward\_identity}, \texttt{distinguishability\_floor}, for
+a joint law of history, present and hidden state; reading a
+realization's time-\(t\) law as that joint law is a step not
+formalized). Hence a finite-horizon law has a memory witness at \(t\)
+--- two positive-probability histories ending at the same \(x_t\) with
+different next-step laws, equivalently
+\(M_t := I(X_{<t}; X_{t+1} \mid X_t) > 0\) by the standard vanishing
+criterion for conditional mutual information, which is not formalized
+--- exactly when every faithful realization carries readout-relevant
+hidden memory at \(t\), a pair of such posteriors with different
+pushforwards: the forward direction is the pushforward identity applied
+in each realization, the converse the same identity applied in one
+realization, which exists (kernel: \texttt{S\_imp\_D}). The equivalence
+\(S \iff D\) and this universal statement are the paper's core.
+\textbf{Layer 2 --- memory and capacity} (§2.3): (C4) forces positive
+conditional memory; the (C3) information bound; the physical-memory
+theorem ((C2), conditional on mixing). \textbf{Layer 3 --- quantum
+representation} (§3.1, §3.4): the imported correspondence (Q1) and the
+in-house uncompressed form (Q2), scopes separated. \textbf{Layer 4 ---
+physical and operational realization} (§3.2, §4, companions):
+interventions (classical comb closed, §3.4; quantum instruments open),
+coherent preparation, Bell and free-choice structure, H-spin' and H-χ',
+the cosmological realization --- where the named hypotheses live. A
+Layer-1 result does not by itself establish any Layer-4 claim.
 
 \hypertarget{emergent-stochasticity-and-p-indivisibility}{%
 \subsection{2. EMERGENT STOCHASTICITY AND
@@ -2783,7 +2812,12 @@ including the §3.2 revival family and a non-Markovian kernel set with
 \(T^{(2)} \neq (T^{(1)})^2\) --- by
 \texttt{process\_dilation\_probes.py} (full-joint equality in exact
 rational arithmetic; permutation control silent). \(\square\) (kernel:
-\texttt{S\_imp\_D} in \texttt{OIBridge/Equivalence.lean})
+\texttt{S\_imp\_D} in \texttt{OIBridge/Equivalence.lean}, for the
+realization of the full multi-time law from an initial law on
+\(\mathcal{C}_V \times \mathcal{C}_H\) that may correlate the hidden and
+visible coordinates; the independence of \(\mu_H\) from the visible
+initial state rests on the construction above and the cited probes and
+is not formalized)
 
 \emph{Remark (prior structure).} The realization uses a structured prior
 --- uniform on the initialized ledger/clock sector times the tape. The
@@ -2963,11 +2997,13 @@ diagonal-preservation lemmas \texttt{permMatrix\_mem\_unitaryGroup},
 
 \emph{Proof.} (S \(\Rightarrow\) D) is the response-table construction
 of §3.4, which reproduces the whole multi-time law, not merely the
-one-step matrices. (D \(\Rightarrow\) \(Q_{\mathrm{fb}}\)) is internal
-and needs no imported correspondence: for a bijection \(\varphi\) on
-\(\mathcal{C}_V \times \mathcal{C}_H\) set
-\(U_\varphi |x, h\rangle = |\varphi(x,h)\rangle\) and take the hidden
-prior diagonal. A permutation unitary preserves diagonality, so
+one-step matrices (kernel: \texttt{S\_imp\_D}, by a different carrier, a
+clock with the complete trajectory record, whose initial law may
+correlate the hidden and visible coordinates). (D \(\Rightarrow\)
+\(Q_{\mathrm{fb}}\)) is internal and needs no imported correspondence:
+for a bijection \(\varphi\) on \(\mathcal{C}_V \times \mathcal{C}_H\)
+set \(U_\varphi |x, h\rangle = |\varphi(x,h)\rangle\) and take the
+hidden prior diagonal. A permutation unitary preserves diagonality, so
 sequential projective measurements in the configuration basis do not
 disturb the state, and the measured record reproduces
 \(P(x_0, \ldots, x_K)\) exactly; \(U_\varphi = e^{-i\hat H}\) for a
@@ -5277,4 +5313,4 @@ limitations of measurement,'' in W. C. Myrvold and J. Christian (eds.),
 Circle} (Springer, 2009).
 
 \end{document}
-% source-sha256: ded3069d7685059cc5fd6c84609ff3c6d8ee2421d57ff3f5ba36d7a2baf283a7
+% source-sha256: 0f89ebcb41a3c02119c8f36248c16b2318d5bfb508775d82f7c49a3b93a9add8

@@ -1,0 +1,11 @@
+--- native_route_v13/checks.py
++++ native_route_v13/checks.py
+@@ -260,7 +260,7 @@
+     ports=[(0,T,0),(0,0,-8*T),(T,P,0),(-T,P,0),(4*T,P,0),(0,S,0),(12*R,0,0),(48*L,0,0)]
+     deadlines=[T,T,S,S,S,S,R,L]
+     ready=list(zip(ports,deadlines))
+-    ready += [((T,0,0),T),((-T,0,0),T),((4*T,0,0),T),((0,S,-68),R),((-12*R,0,0),R)]
++    ready += [((T,0,0),T+1),((-T,0,0),T),((4*T,0,0),T),((0,S,-68),R),((-12*R,0,0),R)]
+     ready += [((0,S,68+k),R+k) for k in range(10)]
+     ready += [((-48*L,0,0),L)]
+     for source in (epos,npos):

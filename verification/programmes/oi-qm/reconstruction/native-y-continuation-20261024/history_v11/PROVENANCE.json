@@ -1,0 +1,12 @@
+{
+  "schema": "oi.native-y.history-v11.provenance.v1",
+  "repository": "amaybaum/incompleteness",
+  "source_commit": "71d291297d0a662cbb9377ab48eef7aa4b839e77",
+  "repository_prefix": "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024",
+  "source_reports": ["history_v9/REPORT.md", "herald_v10/REPORT.md", "phase_joint_v10/REPORT.md"],
+  "runtime_dependencies": "Python standard library only; no imported author engines or external data.",
+  "replay_commands": ["python3 checks.py", "python3 -O checks.py"],
+  "result": "result.json",
+  "proof_layer": "Written conditional finite-horizon theorem with exact geometry and bounded native controls; no Lean certificate.",
+  "limits": "Supplied independent original-time bank, fixed ports/access/horizon. Not independence of a future carrier or full physical boundary."
+}

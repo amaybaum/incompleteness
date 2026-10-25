@@ -1,0 +1,12 @@
+{
+  "inputs": {
+    "herald_v10/REPORT.md": "03180f4fd0eed30064a0e25873719c8c93ce57a876fecaba3c51374da50ae5b4",
+    "history_v9/REPORT.md": "2125314d49e14abdac8b62ddbaa1f89f1c0ec693dd14744fca4b79a0b38c6997",
+    "parallel_v3/history_control/REPORT.md": "aad8d9adf833784f6f32f74528df0eeb1dd71424bfb95a073a2521dec57719ea",
+    "parallel_v3/history_control/SOURCE-GEOMETRY.json": "2642e1a68825faa5d3bb1049e8722adec1ec33bd3f56b9e4416b2c902a85ec5d",
+    "phase_joint_v10/REPORT.md": "a4d4be43a9229166e57555daa637f3bf82b7407443746e4ff10515d2f017ba47",
+    "reset_v9/REPORT.md": "019f392c4b91f278248874e8d726894b19b10f55e540a8d10f82c11ce4cb2ecb"
+  },
+  "source_commit": "71d291297d0a662cbb9377ab48eef7aa4b839e77",
+  "source_handoff_sha256": "cd33f48a0b9f722af2e39451309ca0383477a6847d1deb73adf59c6adec5832c"
+}

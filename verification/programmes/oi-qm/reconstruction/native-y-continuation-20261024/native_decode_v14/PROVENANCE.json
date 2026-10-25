@@ -1,0 +1,16 @@
+{
+  "guiding_pr": 910,
+  "inputs": {
+    "native_route_v13/result.json": "762b9799db7448c4eecf2c994c8c68ff94e1be83a7f6884b4a36385505df5a02",
+    "native_route_v13/review/result.json": "73780def8505d68d1967936116a88a49d471eb32aeb83d528ff3cd41025ae6e4"
+  },
+  "input_roles": "Reviewed two-front q10 table (author 753fe4f69392ca940754489468e8c8235f6aa583) read as data; review result read for its independent table digest. No earlier engine imported.",
+  "plan_base": "94a4e6ccf18845af6c2d37cd797da1082f575d65",
+  "plan_commit": "36213be6354ef15442b4f3040ecdb511fd0b5641",
+  "plan_sha256": "ac1f55b94a1e26ec22d21a34a24d833fd3f8af16a6ec78c2710bdf038ded6581",
+  "q10_table_sha256": "b2f32466113dede2fa9e43469f5c209fde5d610180ed748dcd025d4cd2a4b3cc",
+  "repository": "amaybaum/incompleteness",
+  "schema": "native-decode-v14-provenance-1",
+  "scope": "Exact exhaustive readout/affine-source decision on one q10 cell of the native_route_v13 geometry; not a native gate, acceptance predicate, history/carrier law, preparation adoption or full equivalence.",
+  "post_plan_additions": "Planted restricted brute-force control (control 3, third run) and all post-hoc structure blocks; neither changes the preregistered decision rule."
+}

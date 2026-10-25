@@ -1,0 +1,32 @@
+{
+  "engine": "new full six-neighbor/two-slice packed implementation with separate scalar integer control; no author-engine imports",
+  "native_predicate_or_reusable_interface": false,
+  "new_resource": {
+    "affine_source_dimension": 3,
+    "independence": "three fair seed bits independent of F8,F10 and every other initial variable",
+    "initial_current_position": "(-(L+2),S,77)",
+    "payload": "(g0,g1,g2)",
+    "physical_adoption": false
+  },
+  "no_astronomical_period_reduction_used": true,
+  "published_amended_plan_revision": "1b7293558c8d57fe3b17f3dba0a1aa04228e8086",
+  "schema": "oi.native-masked-X-coupling-provenance.v12",
+  "shared_contract_revision": "1324d9a854da60d0274ba77fe80d08e7cf2b1ef1",
+  "shared_contract_sha256": "1a0b34ebb0c7115dd5faae11d2ab20c25ecf8a6f091ea292eb184e4311be7633",
+  "source_context": {
+    "CURRENT-HANDOFF.md": {
+      "role": "historical contextual handoff; not an executable scientific dependency",
+      "sha256": "08e54c7bb5bd306b704537a64982538c7176a0b2152ab8209455403d5fbbd66c",
+      "source_revision": "00e85e748cf8e5ada75f4e1a22aef87eb0a823a2"
+    }
+  },
+  "source_files": {
+    "history_v11/REPORT.md": "413c9595a6def923ba62e1c0d34c12c0516997fe1c928e5438abaf6a990fdb81",
+    "native_pool_v11/REPORT.md": "2c9d74e687f19de6730617ea5e3522396714c75a74c7ad8ea07cd52442b2d6a0",
+    "native_pool_v11/result.json": "e7e16099b322a9b44ade9f296d9ec9ad1dec9dc2e5807e836ff479043dcfe9c9",
+    "native_v11/REPORT.md": "eba6a93de9f784649da61f778eec6be4626df61f23c05fc71981c9ebace17deb",
+    "native_v11/result.json": "de03b82b0c4b9c16f979c547c92a6946e401a05dc6b989bfb5436b3de879b5b9",
+    "parallel_v3/history_control/SOURCE-GEOMETRY.json": "2642e1a68825faa5d3bb1049e8722adec1ec33bd3f56b9e4416b2c902a85ec5d"
+  },
+  "source_revision": "00e85e748cf8e5ada75f4e1a22aef87eb0a823a2"
+}

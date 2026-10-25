@@ -138,7 +138,7 @@
           "anchor": "`theorem_19`"
         }
       ],
-      "note": "Main 3.4 with kernel pointers at the proof or list paragraphs that follow the statements, the statement lines untouched: the finite-horizon stochastic-reversible-unitary equivalence (finite_horizon_equivalence, S_imp_D; permMatrix_mem_unitaryGroup, isDiag_Phi of EquivalenceChain), the process dilation (S_imp_D), C3 necessity and the per-process capacity bound (c3_necessity, card_hidden_ge_two_pow_Istar, c3_necessity_and_capacity), unavoidable hidden predictive memory (unavoidable_hidden_predictive_memory, distinguishability_floor, capacity_floor), the separability threshold in Main 3.2 (entanglementBreaking_twirl, not_entanglementBreaking_twirl, exists_lagrangian_tuple, isotropic_iff_commute, separable_imp_ppt); SM Theorem 19 (theorem_19). Lemma 1 and Lemma 3 of Main 1.2 (Finiteness, CanonicalMeasure), FactorUniqueness, IdempotentTrace, Irreducibility, KrausUniqueness, StinespringUniqueness and BoundaryRank are supporting results of the same family, stated in the papers' own derivations without pointers."
+      "note": "Main 3.4 with kernel pointers at the proof or list paragraphs that follow the statements, the statement lines untouched: the finite-horizon stochastic-reversible-unitary equivalence (finite_horizon_equivalence, S_imp_D; permMatrix_mem_unitaryGroup, isDiag_Phi of EquivalenceChain), the process dilation (S_imp_D, for the realization from an initial law that may correlate the hidden and visible coordinates; the independence of the hidden prior from the visible initial state is not formalized), C3 necessity and the per-process capacity bound (c3_necessity, card_hidden_ge_two_pow_Istar, c3_necessity_and_capacity), unavoidable hidden predictive memory (unavoidable_hidden_predictive_memory, distinguishability_floor, capacity_floor), the separability threshold in Main 3.2 (entanglementBreaking_twirl, not_entanglementBreaking_twirl, exists_lagrangian_tuple, isotropic_iff_commute, separable_imp_ppt); SM Theorem 19 (theorem_19). Main 1.5's Layer-1 summary carries its pointers inline, in the summary paragraph itself (S_imp_D, D_imp_Qfb, Qfb_imp_S, finite_horizon_equivalence; pushforward_identity, distinguishability_floor). Lemma 1 and Lemma 3 of Main 1.2 (Finiteness, CanonicalMeasure), FactorUniqueness, IdempotentTrace, Irreducibility, KrausUniqueness, StinespringUniqueness and BoundaryRank are supporting results of the same family, stated in the papers' own derivations without pointers."
     },
     {
       "name": "Hamiltonian reconstruction",
@@ -164,6 +164,22 @@
         {
           "file": "papers/GR.md",
           "anchor": "thermodynamic orientation"
+        },
+        {
+          "file": "book/appendix-b-derivations.md",
+          "anchor": "Thus the two Hamiltonian branches follow conditional on H-BG"
+        },
+        {
+          "file": "book/The-Incompleteness-of-Observation-FULL.md",
+          "anchor": "Thus the two Hamiltonian branches follow conditional on H-BG"
+        },
+        {
+          "file": "book/appendix-b-derivations.md",
+          "anchor": "*Conditional proof.* Equality of the probability families"
+        },
+        {
+          "file": "book/The-Incompleteness-of-Observation-FULL.md",
+          "anchor": "*Conditional proof.* Equality of the probability families"
         }
       ],
       "note": "GR 3.3: Bohr-frequency completeness, congruent reconstruction, positive six-mode obstruction, antiunitary invariance and thermodynamic orientation are independent kernel results. Full two-branch reconstruction is conditional on the open global sign-aware classification; the unsigned BGIntegerClassification is refuted. The design package landed with #842 is pre-freeze design evidence, not adopted certification."

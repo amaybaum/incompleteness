@@ -1,0 +1,50 @@
+{
+  "geometry": {
+    "active_shell_exceptions": 4,
+    "finite_source_pairs": 4437,
+    "full_bank_ray_pairs": 24,
+    "public_cut_pairs": 24,
+    "public_minimum_offsets": [
+      77,
+      79,
+      79
+    ],
+    "ready_pairs": 72,
+    "torus_lift_checked": true,
+    "zero_shell_exceptions": 8
+  },
+  "joint_branches": {
+    "acceptance": "5/16",
+    "all_raw_old_background_worlds": 32768,
+    "full_joint_carrier_cells": 4096,
+    "native_acceptance_flag_claimed": false,
+    "private_key_exposure_determinants": [
+      "-1/18",
+      "0"
+    ],
+    "private_key_exposure_negative_sectors": 1024,
+    "reference_failure": "11/16",
+    "whole_cipher_symbol": "1/8"
+  },
+  "native": {
+    "conditional_diagonal_checks": 528,
+    "forward_native_families": 8,
+    "forward_native_worlds": 4096,
+    "inverse_checks": 4096,
+    "missing_key_mutant_failures": 3584,
+    "old_local_mutant_failures": 4096,
+    "old_raw_triples_observed": [
+      1,
+      3,
+      5,
+      6,
+      7
+    ],
+    "pinned_or_shared_joint_tv": "7/8"
+  },
+  "reviewed_author_revision": "f24a57a7c23cc1818c04265cec7604f8bc2f410d",
+  "rule_cases": 8,
+  "schema": "oi.native-x-v12.independent-review.v1",
+  "scope": "Native conditional resource/ciphertext and fixed inverse code; no native predicate, physical unmasking, continuous port access or reusable instrument.",
+  "verdict": "ACCEPT_SCOPED_NATIVE_MASKED_X_COUPLING"
+}

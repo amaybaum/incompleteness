@@ -1,0 +1,8 @@
+{
+  "compiler_source": "baseline/OI_combined_handoff_2026-10-24_v1/workspace/oi_native_x_instrument_v1/compiler.py",
+  "compiler_sha256": "c0057e953656e26493e9a92b1cd8d4795a77c95def6ed97480e89f541581daa3",
+  "herald_word_length": 2684,
+  "deadline": 2700,
+  "source_entries": 7832,
+  "scope": "standalone prepared socket; no actual-q2 embedding; tagged contract is candidate, strict raw encoding fails; no premise adopted"
+}

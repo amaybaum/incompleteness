@@ -1,0 +1,293 @@
+{
+  "bank_ray_selected_cone_tests": 14,
+  "calibrated_post_Y_Bloch_check": "PASS",
+  "complete_terminal_refinement_cases_including_zeros": 128,
+  "old_rows": [
+    {
+      "failure_worlds": 44,
+      "mR": 0,
+      "mY": 0,
+      "physical_raw_cells": 12,
+      "success_worlds": 20,
+      "u": 0,
+      "x": 0
+    },
+    {
+      "failure_worlds": 44,
+      "mR": 1,
+      "mY": 0,
+      "physical_raw_cells": 12,
+      "success_worlds": 20,
+      "u": 0,
+      "x": 0
+    },
+    {
+      "failure_worlds": 44,
+      "mR": 0,
+      "mY": 1,
+      "physical_raw_cells": 12,
+      "success_worlds": 20,
+      "u": 0,
+      "x": 0
+    },
+    {
+      "failure_worlds": 44,
+      "mR": 1,
+      "mY": 1,
+      "physical_raw_cells": 12,
+      "success_worlds": 20,
+      "u": 0,
+      "x": 0
+    },
+    {
+      "failure_worlds": 44,
+      "mR": 0,
+      "mY": 0,
+      "physical_raw_cells": 14,
+      "success_worlds": 20,
+      "u": 1,
+      "x": 0
+    },
+    {
+      "failure_worlds": 44,
+      "mR": 1,
+      "mY": 0,
+      "physical_raw_cells": 14,
+      "success_worlds": 20,
+      "u": 1,
+      "x": 0
+    },
+    {
+      "failure_worlds": 44,
+      "mR": 0,
+      "mY": 1,
+      "physical_raw_cells": 14,
+      "success_worlds": 20,
+      "u": 1,
+      "x": 0
+    },
+    {
+      "failure_worlds": 44,
+      "mR": 1,
+      "mY": 1,
+      "physical_raw_cells": 14,
+      "success_worlds": 20,
+      "u": 1,
+      "x": 0
+    },
+    {
+      "failure_worlds": 44,
+      "mR": 0,
+      "mY": 0,
+      "physical_raw_cells": 12,
+      "success_worlds": 20,
+      "u": 0,
+      "x": 1
+    },
+    {
+      "failure_worlds": 44,
+      "mR": 1,
+      "mY": 0,
+      "physical_raw_cells": 12,
+      "success_worlds": 20,
+      "u": 0,
+      "x": 1
+    },
+    {
+      "failure_worlds": 44,
+      "mR": 0,
+      "mY": 1,
+      "physical_raw_cells": 12,
+      "success_worlds": 20,
+      "u": 0,
+      "x": 1
+    },
+    {
+      "failure_worlds": 44,
+      "mR": 1,
+      "mY": 1,
+      "physical_raw_cells": 12,
+      "success_worlds": 20,
+      "u": 0,
+      "x": 1
+    },
+    {
+      "failure_worlds": 44,
+      "mR": 0,
+      "mY": 0,
+      "physical_raw_cells": 14,
+      "success_worlds": 20,
+      "u": 1,
+      "x": 1
+    },
+    {
+      "failure_worlds": 44,
+      "mR": 1,
+      "mY": 0,
+      "physical_raw_cells": 14,
+      "success_worlds": 20,
+      "u": 1,
+      "x": 1
+    },
+    {
+      "failure_worlds": 44,
+      "mR": 0,
+      "mY": 1,
+      "physical_raw_cells": 14,
+      "success_worlds": 20,
+      "u": 1,
+      "x": 1
+    },
+    {
+      "failure_worlds": 44,
+      "mR": 1,
+      "mY": 1,
+      "physical_raw_cells": 14,
+      "success_worlds": 20,
+      "u": 1,
+      "x": 1
+    }
+  ],
+  "physical_raw_cells": 208,
+  "schema": "oi-joint-phase-independent-review-v1",
+  "scope": "conditional native-family selected phase law; inherited native dynamics and arbitrary-noise proof; readout/reuse open",
+  "seed_worlds": 1024,
+  "success_failure_branches": 32,
+  "success_mass": "5/16",
+  "terminal_failure_mass": "11/16",
+  "verdict": "PASS",
+  "whole_q9_read_posteriors": [
+    {
+      "probability": "1/2",
+      "raw_q9": [
+        0,
+        0,
+        0
+      ],
+      "u": 0,
+      "unchanged_decoder_determinant": "-1/4",
+      "x": 0
+    },
+    {
+      "probability": "3/10",
+      "raw_q9": [
+        0,
+        1,
+        0
+      ],
+      "u": 0,
+      "unchanged_decoder_determinant": "-1/4",
+      "x": 0
+    },
+    {
+      "probability": "1/5",
+      "raw_q9": [
+        0,
+        1,
+        1
+      ],
+      "u": 0,
+      "unchanged_decoder_determinant": "-1/4",
+      "x": 0
+    },
+    {
+      "probability": "1/5",
+      "raw_q9": [
+        0,
+        0,
+        0
+      ],
+      "u": 1,
+      "unchanged_decoder_determinant": "-1/4",
+      "x": 0
+    },
+    {
+      "probability": "3/10",
+      "raw_q9": [
+        0,
+        0,
+        1
+      ],
+      "u": 1,
+      "unchanged_decoder_determinant": "-1/4",
+      "x": 0
+    },
+    {
+      "probability": "1/2",
+      "raw_q9": [
+        0,
+        1,
+        1
+      ],
+      "u": 1,
+      "unchanged_decoder_determinant": "-1/4",
+      "x": 0
+    },
+    {
+      "probability": "1/5",
+      "raw_q9": [
+        0,
+        0,
+        0
+      ],
+      "u": 0,
+      "unchanged_decoder_determinant": "-1/4",
+      "x": 1
+    },
+    {
+      "probability": "3/10",
+      "raw_q9": [
+        0,
+        0,
+        1
+      ],
+      "u": 0,
+      "unchanged_decoder_determinant": "-1/4",
+      "x": 1
+    },
+    {
+      "probability": "1/2",
+      "raw_q9": [
+        0,
+        1,
+        1
+      ],
+      "u": 0,
+      "unchanged_decoder_determinant": "-1/4",
+      "x": 1
+    },
+    {
+      "probability": "1/2",
+      "raw_q9": [
+        0,
+        0,
+        0
+      ],
+      "u": 1,
+      "unchanged_decoder_determinant": "-1/4",
+      "x": 1
+    },
+    {
+      "probability": "3/10",
+      "raw_q9": [
+        0,
+        1,
+        0
+      ],
+      "u": 1,
+      "unchanged_decoder_determinant": "-1/4",
+      "x": 1
+    },
+    {
+      "probability": "1/5",
+      "raw_q9": [
+        0,
+        1,
+        1
+      ],
+      "u": 1,
+      "unchanged_decoder_determinant": "-1/4",
+      "x": 1
+    }
+  ]
+}

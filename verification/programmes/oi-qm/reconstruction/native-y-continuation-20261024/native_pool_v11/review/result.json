@@ -1,0 +1,47 @@
+{
+  "assembly": {
+    "branch_counts_per_4096": [
+      400,
+      880,
+      2816
+    ],
+    "branch_probabilities": [
+      "25/256",
+      "55/256",
+      "11/16"
+    ],
+    "finite_worlds": 65536,
+    "joint_success_cell_equalities": 288,
+    "old_history_rows": 16,
+    "old_mask01_failed_physical_worlds": 16384,
+    "parent_native_word_truth_rows": 32,
+    "parent_seed_assignments_including_z": 64,
+    "parent_source_table_rows": 64,
+    "rejected_selected_phase_cells_sum": 11392,
+    "resurrection_false_offer_probability": "55/256"
+  },
+  "author_revision": "6e9a3ec567a1f3472bad3ed23c48b8111d2f0515",
+  "minimum_public_arrival_slacks_over_L": [
+    77,
+    79
+  ],
+  "native_pool_conditional_prior": "independent fair original-time witness triples",
+  "native_predicate_or_reusable_instrument_constructed": false,
+  "public_past_cut": "L+1; source arrival lower bounds L+77 and L+79",
+  "sampler": {
+    "accepted_raw_phases_each_sign": 20,
+    "codebook_cells": 12,
+    "forbidden_mask_rate": "11/32",
+    "negative_control_tvs": {
+      "reused_r_equal_s": "1/10",
+      "reused_r_opposite_s": "9/10",
+      "shared_z": "1/2",
+      "stale": "4/5",
+      "swap": "3/10"
+    },
+    "pool_raw_phases_both_signs": 128,
+    "rejected_raw_phases_each_sign": 44
+  },
+  "schema": "oi.native-pool-v11.review.v1",
+  "verdict": "ACCEPT_NATIVE_RESOURCE_AND_ABSTRACT_FULL_LAW"
+}

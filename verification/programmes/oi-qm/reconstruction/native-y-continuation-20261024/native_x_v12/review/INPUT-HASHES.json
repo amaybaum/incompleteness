@@ -1,0 +1,41 @@
+{
+  "schema": "oi.native-x-v12.review-inputs.v1",
+  "reviewed_author_revision": "f24a57a7c23cc1818c04265cec7604f8bc2f410d",
+  "reviewed_prefix": "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/native_x_v12",
+  "author_files": {
+    "PLAN.md": {
+      "sha256": "bc7be9bbcf74ddc6238dd8846a6f319090f0710ff835e2c83fa42b1c19d90cf2",
+      "git_blob": "ac1cd2feca672a1ff5999e855c2d0ffbfa70819f"
+    },
+    "REPORT.md": {
+      "sha256": "18678f906f6492b13d27152db3f3595361df0414cc4fa8de2f48229fac4e2808",
+      "git_blob": "bc510615cf9b6ddcfd9230bd335c9cfa99ec4e5a"
+    },
+    "checks.py": {
+      "sha256": "9c89a7a434346ee7ae4b2d8558a5fc7ea8dfd7b46d3445352644735b09f2bff3",
+      "git_blob": "ac061455ba2f2f1587a70dd687e3fc8f73d24870"
+    },
+    "result.json": {
+      "sha256": "302d4f2e2fc37150738512a81b3bcbc2d387b92d7001108a354fd7417a5b537a",
+      "git_blob": "bd5f8ab53ea2abf7917a0a93371adb0b177d7dec"
+    },
+    "PROVENANCE.json": {
+      "sha256": "fbab96d418f4afae9a98e02d9361cbd36b10d121fe1458a855e3dac40b45b3f6",
+      "git_blob": "c5ef50b4cdc8cb0ec9070af5e660c3283ffc8aac"
+    },
+    "SHA256SUMS": {
+      "sha256": "375da9e5495aaba934037a3396c46342a0a43d3abfbc09ed3688190b47390edc",
+      "git_blob": "1c07726620bb4550b888b7b5c5d38ba337420dcb"
+    }
+  },
+  "scientific_source_revision": "00e85e748cf8e5ada75f4e1a22aef87eb0a823a2",
+  "scientific_inputs": {
+    "history_v11/REPORT.md": "413c9595a6def923ba62e1c0d34c12c0516997fe1c928e5438abaf6a990fdb81",
+    "native_pool_v11/REPORT.md": "2c9d74e687f19de6730617ea5e3522396714c75a74c7ad8ea07cd52442b2d6a0",
+    "native_pool_v11/result.json": "e7e16099b322a9b44ade9f296d9ec9ad1dec9dc2e5807e836ff479043dcfe9c9",
+    "native_v11/REPORT.md": "eba6a93de9f784649da61f778eec6be4626df61f23c05fc71981c9ebace17deb",
+    "native_v11/result.json": "de03b82b0c4b9c16f979c547c92a6946e401a05dc6b989bfb5436b3de879b5b9",
+    "parallel_v3/history_control/SOURCE-GEOMETRY.json": "2642e1a68825faa5d3bb1049e8722adec1ec33bd3f56b9e4416b2c902a85ec5d"
+  },
+  "review_level": "separate-agent internal review, not external validation or certification"
+}
