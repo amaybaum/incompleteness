@@ -103,6 +103,14 @@
     ],
     "review": "independent fifth re-check of 70faede0 on #911: BLOCK on 12058945 (result.json environment-dependent); review retention and handoff accept with nits"
   },
+  "post_recheck6": {
+    "changes": [
+      "--verify-plan-commit reads only objects already in the local store (git cat-file --batch-all-objects lists them without fetching; commit, trees and blob are read only after being found there); a missing object is VOID; GIT_NO_LAZY_FETCH alone is not relied on (git 2.43 ignores it)",
+      "targeted mutant MT4 (PLAN.md blob treated as absent locally) added; the targeted runner checks that the object store is unchanged by every mutant run",
+      "REPORT: the SHA256SUMS clause dropped; the git history at 1dfec979 is the independent anchor"
+    ],
+    "review": "independent sixth re-check of 70faede0..3ca0d8ba on #911, ACCEPT WITH NITS"
+  },
   "post_review": {
     "changes": [
       "F1: nearest-dyadic memoryless comparator added for every B; RS(B,1) named the ceiling-rounded reset; comparison lists and family_verdict regenerated against the nearest-dyadic comparator",

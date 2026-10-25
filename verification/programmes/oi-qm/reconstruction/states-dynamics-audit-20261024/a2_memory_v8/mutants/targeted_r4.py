@@ -14,11 +14,17 @@ TARGET = os.path.normpath(os.path.join(HERE, '..'))
 LOCATION = 'HERE = os.path.dirname(os.path.abspath(__file__))'
 
 
+def store():
+    """Local object-store size, to show that no mutant run fetched anything."""
+    p = subprocess.run(['git', '-C', TARGET, 'count-objects', '-v'], capture_output=True, text=True)
+    return tuple(l for l in p.stdout.splitlines() if l.startswith(('count:', 'in-pack:', 'packs:')))
+
+
 def main():
     src = open(os.path.join(TARGET, 'checks.py')).read()
     plan = open(os.path.join(TARGET, 'PLAN.md')).read()
     prov = json.load(open(os.path.join(TARGET, 'PROVENANCE.json')))
-    lines, ok = [], True
+    lines, ok, store_ok = [], True, True
     with tempfile.TemporaryDirectory() as tmp:
         # a consistently edited preregistration: PLAN.md rescoped to k = 1..15 with its pin updated to match
         p2 = plan.replace('k = 1..16**', 'k = 1..15**')
@@ -46,9 +52,18 @@ def main():
             ('MT3_plan_pin_and_provenance_edited', 'plan-commit blob check (--verify-plan-commit)',
              rescope + [("PROVENANCE = os.path.join(HERE, 'PROVENANCE.json')", f'PROVENANCE = {prov_path!r}')],
              'plan commit: PLAN.md blob of 1dfec979 equals the pin'),
+            # the PLAN.md blob treated as absent from the local store: the mode must fail closed without fetching
+            ('MT4_plan_blob_absent_locally', 'local-objects-only check (--verify-plan-commit)',
+             [("    local = set(git('cat-file', '--batch-all-objects', '--batch-check=%(objectname)').decode().split())\n",
+               "    local = set(git('cat-file', '--batch-all-objects', '--batch-check=%(objectname)').decode().split())\n"
+               "    local.discard(PLAN_BLOB_OID)\n"),
+              ("PLAN_COMMIT = '1dfec979721336cc9f0ce703b544f9d6be8e906c'\n",
+               "PLAN_COMMIT = '1dfec979721336cc9f0ce703b544f9d6be8e906c'\nPLAN_BLOB_OID = 'a6954c3611e32d85ea6449ef8a4eabbe432b390d'\n")],
+             'plan commit: object present locally'),
         ]
         for name, control, pairs, label in mutants:
-            args = ['--verify-plan-commit'] if name.startswith('MT3') else []
+            args = ['--verify-plan-commit'] if name.startswith(('MT3', 'MT4')) else []
+            before = store()
             m = src
             for o, n in pairs:
                 if m.count(o) != 1:
@@ -60,10 +75,14 @@ def main():
             open(path, 'w').write(m)
             p = subprocess.run([sys.executable, '-I', '-B', path] + args, capture_output=True, text=True)
             first = p.stdout.splitlines()[0] if p.stdout else ''
-            caught = p.returncode == 2 and first.startswith('VOID: ' + label)
+            same = store() == before
+            store_ok &= same
+            caught = p.returncode == 2 and first.startswith('VOID: ' + label) and same
             ok &= caught
             lines.append(f'{name}: targets {control}; exit {p.returncode}; {first[:120]}; '
                          + ('CAUGHT' if caught else 'NOT CAUGHT'))
+    lines.append('object store unchanged across every mutant run (git count-objects)' if store_ok
+                 else 'OBJECT STORE CHANGED DURING A MUTANT RUN')
     lines.append('all targeted mutants caught' if ok else 'SOME TARGETED MUTANT NOT CAUGHT')
     print('\n'.join(lines))
     sys.exit(0 if ok else 1)

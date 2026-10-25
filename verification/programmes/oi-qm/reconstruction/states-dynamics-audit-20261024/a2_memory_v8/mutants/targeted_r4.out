@@ -1,4 +1,6 @@
 T3_label_remap_k_plus_1: targets record-length check (review T3); exit 2; VOID: scope: block-law record length equals member k; CAUGHT
 MT2_plan_and_pin_edited: targets PROVENANCE cross-check (default run); exit 2; VOID: scope: plan pin equals PROVENANCE plan_sha256; CAUGHT
 MT3_plan_pin_and_provenance_edited: targets plan-commit blob check (--verify-plan-commit); exit 2; VOID: plan commit: PLAN.md blob of 1dfec979 equals the pin; CAUGHT
+MT4_plan_blob_absent_locally: targets local-objects-only check (--verify-plan-commit); exit 2; VOID: plan commit: object present locally (needs the plan commit, its trees and the PLAN.md blob in the local store; the; CAUGHT
+object store unchanged across every mutant run (git count-objects)
 all targeted mutants caught

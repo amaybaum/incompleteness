@@ -949,17 +949,44 @@ def provenance_pin_check():
 
 def verify_plan_commit():
     """Opt-in (--verify-plan-commit): the pin must equal the SHA-256 of PLAN.md as committed at the plan commit.
-    Needs a repository checkout with the full history; an unreachable commit or a missing blob is a control
-    failure in this mode. The default run never starts a git process. Lazy fetching is disabled."""
+    The mode reads only objects already present in the local object store and never fetches: it lists the local
+    objects (git cat-file --batch-all-objects, which does not fetch), and reads the plan commit, each tree on the
+    path to PLAN.md and the PLAN.md blob only after finding them in that list. A missing object (a shallow or
+    partial clone without them) is a control failure in this mode. The default run never starts a git process."""
     env = dict(os.environ, GIT_NO_LAZY_FETCH='1')
-    try:
-        c = subprocess.run(['git', '-C', GIT_DIR, 'cat-file', '-e', PLAN_COMMIT + '^{commit}'], capture_output=True, env=env)
-        p = subprocess.run(['git', '-C', GIT_DIR, 'show', PLAN_COMMIT + ':./PLAN.md'], capture_output=True, env=env)
-    except OSError:
-        raise Void('plan commit: git available for --verify-plan-commit')
-    check(c.returncode == 0 and p.returncode == 0, 'plan commit: 1dfec979 and its PLAN.md reachable (needs full history)')
-    check(hashlib.sha256(p.stdout).hexdigest() == PLAN_SHA256, 'plan commit: PLAN.md blob of 1dfec979 equals the pin')
-    sys.stderr.write('plan commit 1dfec979: PLAN.md blob equals the pinned SHA-256\n')
+
+    def git(*args):
+        try:
+            p = subprocess.run(['git', '-C', GIT_DIR] + list(args), capture_output=True, env=env)
+        except OSError:
+            raise Void('plan commit: git available for --verify-plan-commit')
+        check(p.returncode == 0, 'plan commit: local git query succeeds')
+        return p.stdout
+
+    local = set(git('cat-file', '--batch-all-objects', '--batch-check=%(objectname)').decode().split())
+
+    def present(oid):
+        check(oid in local, 'plan commit: object present locally (needs the plan commit, its trees and the PLAN.md '
+                            'blob in the local store; the mode never fetches)')
+        return oid
+    commit = present(PLAN_COMMIT)
+    head = git('cat-file', 'commit', commit).decode().split('\n', 1)[0]
+    check(head.startswith('tree '), 'plan commit: commit object has a tree')
+    tree = present(head[5:].strip())
+    path = git('rev-parse', '--show-prefix').decode().strip().split('/')
+    path = [x for x in path if x] + ['PLAN.md']
+    for i, name in enumerate(path):
+        entries = {}
+        for line in git('ls-tree', '--full-tree', tree).decode().splitlines():
+            meta, entry = line.split('\t', 1)
+            entries[entry] = meta.split()
+        check(name in entries, 'plan commit: PLAN.md path present at the plan commit')
+        kind, oid = entries[name][1], entries[name][2]
+        check(kind == ('blob' if i == len(path) - 1 else 'tree'), 'plan commit: path entry has the expected type')
+        tree = present(oid)
+    blob = git('cat-file', 'blob', tree)
+    check(hashlib.sha256(blob).hexdigest() == PLAN_SHA256, 'plan commit: PLAN.md blob of 1dfec979 equals the pin')
+    sys.stderr.write('plan commit 1dfec979: PLAN.md blob equals the pinned SHA-256 (local objects only)\n')
 
 
 def preregistered_scope():

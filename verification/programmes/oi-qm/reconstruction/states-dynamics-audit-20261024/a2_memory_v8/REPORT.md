@@ -230,7 +230,7 @@ This is not a statement about the best bounded-memory controller.
 | K8 restart mechanics | an explicit state machine (seed register, exact interval, phase, clearing), enumerated over every fresh-bit string, and its chain form both equal the product of block laws (B,k,h) = (2,2,8), (2,3,7), (3,2,5), (4,3,4) | green |
 | counts | census chain counts in closed form; memory column bounds the persistent-state count; that count equals the explicit chain size for RS(2,2), RS(2,3), RS(3,2) | green |
 | power-rule cross-checks | (i) exact T(h) at k=1 from the binomial engine `tv_iid` must be ≥ the bound at every checked h, and the exact first crossing must lie at or before the reported depth; (ii) for n·k ≤ 16, the exact product TV must lie inside the power-rule bracket; (iii) the reported depth must be no later than the preregistered nc/(1+nc) depth; (iv) T ≤ 1/2 may be certified only at depths before T > 1/2 is. (i)–(iv) all read the same BC enclosure, and (i) and (ii) are one-sided with slack, so they catch only errors large enough to cross them; the independent audit below is what checks the enclosure and the exact depths | green |
-| preregistered scope | the RS scope (B ∈ {2,3,4}, k = 1..16) and the thresholds 1/2 and 1/10 are parsed from PLAN.md after checking its pinned SHA-256, not taken from code defaults. The reported member set, the enclosure set and the audited member set must each equal that 48-member set; a missing, extra or mismatched member, or a lookup failure anywhere, prints VOID and exits 2. Each member's block law must have 2^k records of length k. The PLAN.md pin must equal PROVENANCE.json's `plan_sha256` and `plan_commit` (both package files). The opt-in mode `--verify-plan-commit` also requires the pin to equal the SHA-256 of PLAN.md as committed at `1dfec979`. That mode needs a checkout with the full history: an unreachable commit is a control failure in it. The default run starts no git process, and its output depends on the package files alone | green |
+| preregistered scope | the RS scope (B ∈ {2,3,4}, k = 1..16) and the thresholds 1/2 and 1/10 are parsed from PLAN.md after checking its pinned SHA-256, not taken from code defaults. The reported member set, the enclosure set and the audited member set must each equal that 48-member set; a missing, extra or mismatched member, or a lookup failure anywhere, prints VOID and exits 2. Each member's block law must have 2^k records of length k. The PLAN.md pin must equal PROVENANCE.json's `plan_sha256` and `plan_commit` (both package files). The opt-in mode `--verify-plan-commit` also requires the pin to equal the SHA-256 of PLAN.md as committed at `1dfec979`. That mode reads only objects already present in the local object store and never fetches. It lists the local objects, and reads the plan commit, the trees on the path and the PLAN.md blob only after finding each in that list. It therefore needs a checkout in which those objects are present locally: a full clone, or a partial or shallow clone that happens to hold them. Otherwise it is a control failure. The default run starts no git process, and its output depends on the package files alone | green |
 | independent certificate audit | separately written code. It does not call `retained_seed_runs`, `block_law`, `bc_enclosure`, `root_lo`/`root_hi`, `power_rule_lower`, `least_n_above`, `least_power_below` or `tv_of`. It does share `tv_iid` (for the k=1 certificates), `digest`, the constants `HALF` and `TENTH`, `check`, `Q` and the standard-library `isqrt` and `product`, and it reads the reported entries and the reported enclosure. Single edits to the shared pieces are caught elsewhere in the review's mutants A1 (`HALF`), A2 (`digest`), A3 (`isqrt`) and A6 (`tv_iid`). The audit builds integer-only block laws in absolute coordinates (the block TV digest must match), and an integer square-root enclosure of BC that must overlap the enclosure every reported depth was built from. It recomputes every reported depth from its stated definition with its own integer powers: the preregistered half and tenth depths, and the power-rule half and upper depths; each must equal the reported value. It checks every certificate against exact TV where exact TV is enumerable: for every member and every n with n·k ≤ 16, from its own product enumeration, T(nk) > 1/2 when n ≥ n_hp or n ≥ n_half, T ≤ 1/2 when n ≤ n_lp, and T ≤ 1/10 when n ≤ n_tenth; and at k=1 the same at the reported depths, with `tv_iid`. In all, 48 members and 212 certificate checks. The T > 1/2 certificate is checked against exact TV for 7 of the 48 members (B=2, k=1..5; B=3, k=1; B=4, k=1); for the other 41 the T > 1/2 depth lies beyond the enumerable range and rests on the independent BC enclosure and depth recomputation | green |
 | comparators | the nearest-dyadic agreement is distance-minimal over 2^-B Z; its exact crossing is no earlier than the other neighbour's; the fails-before and outlasts lists in `family_verdict` are recomputed from the stored depths and the nearest-dyadic crossing and must equal the per-member flags | green |
 
@@ -421,23 +421,25 @@ Timings on the author's container:
 - `mutants/mutants.out` records the full M1–M30 campaign against the checker of commit `a97c852a`. It took about
   95 minutes under heavy load, which exceeds the local budget of section A.40, and it was not rerun after the
   re-check-4 additions. Its first line ("output equals result.json") refers to that commit's `result.json`.
-- `mutants/targeted_r4.out` records the review's T3 and one targeted mutant for each new check, run against the
-  current checker:
+- `mutants/targeted_r4.out` records the review's T3 and a targeted mutant for each new or changed check, run
+  against the current checker:
   - T3 is caught by "scope: block-law record length equals member k";
   - a consistently edited PLAN.md and pin is caught by "scope: plan pin equals PROVENANCE plan_sha256" in the
     default run;
   - the same with PROVENANCE also edited is caught by "plan commit: PLAN.md blob of 1dfec979 equals the pin", run
-    with `--verify-plan-commit`.
+    with `--verify-plan-commit`;
+  - the PLAN.md blob treated as absent from the local store is caught by "plan commit: object present locally",
+    run with `--verify-plan-commit`. The object store is unchanged by every mutant run.
 
   Without that mode, an edit of PLAN.md, the pin and PROVENANCE.json together that keeps 48 members is not caught
-  by the package alone. It is visible against `1dfec979` and the package SHA256SUMS.
+  by the package alone; the independent anchor is the git history at `1dfec979`.
 
 From an empty working directory, with the repository root as R and
 D = R/verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8:
 
     python3 -I -B D/checks.py > out.json && cmp out.json D/result.json
     python3 -I -B -O D/checks.py > out.json && cmp out.json D/result.json
-    python3 -I -B D/checks.py --verify-plan-commit > out.json && cmp out.json D/result.json   # full history needed
+    python3 -I -B D/checks.py --verify-plan-commit > out.json && cmp out.json D/result.json   # plan-commit objects must be local
     python3 -I -B D/mutants/targeted_r4.py > t.out && cmp t.out D/mutants/targeted_r4.out
 
 The default output is identical in a repository checkout and in a git-less export of the package files.
