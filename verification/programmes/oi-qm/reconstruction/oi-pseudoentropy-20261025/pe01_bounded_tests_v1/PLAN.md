@@ -9,6 +9,10 @@ indistinguishable from a fixed random reference, and up to which horizon? The co
 The unrestricted observer is computed only as a calibration and countercontrol, because its outcome is already
 covered by `Structure.md:1256` and `Main.md` §3.4 (`../README.md`, "What the corpus already settles").
 
+**Purpose (owner).** The stage tests whether apparent randomness is unpredictable because of the observations
+available, or only because the observer lacks resources. Wherever unpredictability is traced to a lack of resources, it
+is reported as a limitation of the resource model (§7), not as a property of observation.
+
 ## 1. Objects
 
 **Template.** Let $\mathcal{C}_V = \{0,1\}$ and $\mathcal{C}_H = \mathbb{F}_2^n$. Each generator is $\varphi = \tau_f \circ \kappa_\sigma$, where:
@@ -129,7 +133,7 @@ exact. $H$ is printed for display only and never enters a verdict.
 
 | Class | Tests | Exact computation and limits |
 |---|---|---|
-| B1 linear | $D_T = \bigoplus_{t\in T} X_t$, $\emptyset \ne T \subseteq [0,K]$ | All $T$ via an integer Walsh–Hadamard transform for $K \le 23$. For larger $K$, only the bias-$\pm1$ tests are covered, via the $\mathbb{F}_2$ affine hull of the support. That is a lower bound in general, and exact for `G_lin`, `G_dec` and `G_tape`, whose biases are all $0$ or $\pm1$. K0: $\max_T \min_\varphi$ over the same range, and beyond $K = 23$ the affine hull of $\bigcup_\varphi \mathrm{supp}\,P_\varphi$. |
+| B1 linear | $D_T = \bigoplus_{t\in T} X_t$, $\emptyset \ne T \subseteq [0,K]$ | All $T$ via an integer Walsh–Hadamard transform for $K \le 23$. For larger $K$, only the bias-$\pm1$ tests are covered, via the $\mathbb{F}_2$ affine hull of the support. That is a lower bound in general, and exact for `G_lin`, `G_dec` and `G_tape`, whose biases are all $0$ or $\pm1$. K0: $\max_T \min_\varphi$ over the same range. Beyond $K = 23$, the tests are the $T$ in the intersection over $\varphi \in \mathfrak{F}$ of the annihilators of each support's direction space. That is a lower bound, exact for $\mathfrak{F}_{\rm lin}$. |
 | B2 Berlekamp–Massey | $D_\lambda = 1[\mathrm{LC}(X_{0:K}) \le \lambda]$, $0 \le \lambda \le K+1$ | $\Pr_P$ by enumeration. $\Pr_Q$ by the closed-form count $N_N(0)=1$, $N_N(L) = 2^{\min(2L-1,\,2N-2L)}$ for $1 \le L \le N$, with $N = K+1$. $D_\lambda$ does not depend on $\varphi$, so K0 fixes $\lambda$ before $\varphi$, and K1 maximises over $\lambda$ per $\varphi$. |
 | B3 $k$-wise / window | all tests on any $k \le 3$ positions ($K \le 127$); all tests on any window of $w \le 16$ consecutive positions | exact marginal TV, maximised over position sets. K0: $\max$ over (position set, test) of $\min_\varphi$, exact. |
 | B4 low degree | $D_q = 1[q(X)=0]$ for $q \ne 0$ of degree $\le d$ vanishing on $\mathrm{supp}\,P_K$; $d=1,2$ for $K \le 255$, $d=3$ for $K \le 63$ | The least $K$ at which an annihilator exists, by exact $\mathbb{F}_2$ elimination (binary search, since existence is monotone in $K$). The certified bound is $\mathrm{adv} \ge 2^{-d}$ (Reed–Muller minimum distance). The exact maximum is computed over an annihilator space of dimension $\le 20$ only: for $d \le 2$ by Dickson rank, and for $d = 3$ only where $K+1 \le 24$, by enumeration. Otherwise the $2^{-d}$ bound is reported. K0: $q$ annihilates $\bigcup_\varphi \mathrm{supp}\,P_\varphi$. |
@@ -139,8 +143,18 @@ every generator, by counting alone. B4 results at or beyond this horizon are tag
 support bound implies them.
 
 **𝒫ᵉᵐᵇ(m): physically restricted OI observers.** The visible sector is enlarged to
-$\{0,1\}_{\rm sys} \times \{0,1\}^m_{\rm mem} \times \{0,1\}_{\rm out}$, so the observer's footprint is $m+1$ bits,
-plus a readout clock for a verdict-bearing witness (below).
+$\{0,1\}_{\rm sys} \times \{0,1\}^m_{\rm mem} \times \{0,1\}_{\rm out}$. Memory and output together take $m+1$ bits.
+
+**Footprint.** The observer's footprint at horizon $K$ is $m + \lceil \log_2(K+1) \rceil + 1$ bits: memory, readout
+clock and output. Every footprint-bearing statement uses this value:
+- the admissibility condition (f) of §6;
+- any bounded-resource claim;
+- any statement of the form "for observers of footprint $\le f$".
+
+The reported curves are indexed by $m$ and labelled "evaluation time uncharged".
+- The fixed clock charge can overcharge an observer whose memory already keeps time.
+- (f) is then stricter than necessary. That is conservative toward the claim under audit, and the verdict says so
+  whenever it reports that no admissible witness was found.
 
 An observer is $(\rho_0, \rho_1, a, F)$:
 - $\rho_x \in \mathrm{Sym}(\{0,1\}^m)$;
@@ -155,8 +169,9 @@ Each round $t < K$ applies three maps:
 
 At $K$: $\mathrm{out} \leftarrow \mathrm{out} \oplus 1[(v_K, x_K) \in F]$. This readout is a time-dependent operation:
 - In the reported curves, the evaluation time $K$ is supplied by the analyst and is not charged.
-- A verdict-bearing witness (§6) is realized with a clock register of $\lceil \log_2(K+1) \rceil$ bits that triggers
-  the readout. That clock is counted in its footprint, and EX1, EX8 and IM3 run on the clocked composite.
+- A verdict-bearing witness (§6) is realized with a clock register of $\lceil \log_2(K+1) \rceil$ bits. The clock
+  ticks as a cyclic permutation and triggers the readout. It is counted in the footprint, and EX1, EX8, IM3 and FP run
+  on the clocked composite.
 
 Every map is a bijection of $\mathcal{C}_V' \times \mathcal{C}_H$, and the observer's maps act as the identity on
 $\mathcal{C}_H$. There is no hidden-sector access (`Computation.md:15`).
@@ -164,7 +179,8 @@ $\mathcal{C}_H$. There is no hidden-sector access (`Computation.md:15`).
   That anchor is cited for time-invariance only.
 - **Tables.** The modelling choice is that the tables $(\rho_0, \rho_1, a, F)$ belong to the composite dynamics
   $\varphi'$, not to its state. `Main.md:560` charges a program register as state, so every witness also records its
-  table size, $2m \cdot 2^m + 2^m + 2^{m+1}$ bits, next to its footprint.
+  table size next to its footprint. The table size is $2m \cdot 2^m + 2^m + 2^{m+1} + \lceil \log_2(K+1) \rceil$ bits,
+  the last term being the clock's trigger constant.
 - **Clock.** A time-dependent rule is realized by a time-invariant one with a clock in memory, and the footprint counts
   that clock.
 - **Prediction tests.** $v_K$ depends on $X_{0:K-1}$ only. The prediction subclass is therefore $F$ equal to the graph of
@@ -179,13 +195,18 @@ K0 for each subclass:
 - **$m \le 2$.** The test is $(\rho, a, F)$, over all 256 sets $F$, for $K \le 255$.
   - The deterministic worst case is reported, as a lower bound.
   - The average case is exact.
-  - The randomized worst case is exact for $|\mathfrak{F}| \le 6$ ($n \le 6$): one exact rational LP per sign pattern on
-    $\mathfrak{F}$, modulo a global flip, over the complement-closed test class. The all-positive pattern is reported
-    separately, as the value for an observer that fixes its decision orientation in advance.
+  - The randomized worst case is exact for $|\mathfrak{F}| \le 6$ ($n \le 6$) and $K \le K_{\rm LP}(n) = 2^{n-1} - 1$.
+    - There is one exact rational LP per sign pattern $s$ on $\mathfrak{F}$, modulo a global flip, over the
+      complement-closed test class.
+    - Each LP is solved in its dual form, with one variable per $\varphi \in \mathfrak{F}$:
+      $\min_{\pi \in \Delta(\mathfrak{F})} \max_{(\rho,a)} \sum_{(v,x)} \bigl(\sum_\varphi \pi_\varphi s_\varphi \Delta_\varphi(v,x)\bigr)_+$.
+      For each observer, the inner maximum over $F$ is the sum of positive parts.
+    - The all-positive pattern is reported separately, as the value for an observer that fixes its decision orientation
+      in advance.
 - **Passive $m = 3$.** K1 with the optimal $F$. K0 only over prediction tests, every $\chi$.
 - **Linear-filter $m \le 4$.** K1 with the optimal $F$. K0 only over linear prediction tests $\chi(v) = c \cdot v \oplus e$.
 
-Named larger observers are admissible only as explicit tables, verified by EX1 and IM3. By definition, the passive
+Named larger observers are admissible only as explicit tables, verified by EX1, EX8, IM3 and FP. By definition, the passive
 𝒫ᵉᵐᵇ(m) is a class of time-invariant permutation automata of width $2^m$. PE-01 asserts no relation between it and
 the B classes. That relation is PE-02's question.
 
@@ -214,9 +235,10 @@ the B classes. That relation is PE-02's question.
   - On both siblings, the advantage must equal $1 - \Pr_Q[\mathrm{LC} \le n+1]$.
   - The mutant `G_tape(K)` must give $0$ at every $K \le K_{\rm tape}$.
   - Specificity: `G_filt` keeps the support reason and removes the linear-complexity reason. At every $K$ where the
-    records of both `G_filt` and `G_lin` are injective, U's NC-1 value on `G_filt` must equal that on `G_lin`, and B2 at
-    $\lambda = n+1$ must be strictly smaller on `G_filt`. The converse separation is impossible: $\mathrm{LC} \le n+1$
-    bounds the support.
+    records of both `G_filt` and `G_lin` are injective, U's NC-1 value on `G_filt` must equal that on `G_lin`.
+    - B2 at $\lambda = n+1$ must be $\le$ on `G_filt` at every such $K$, and strictly smaller at some such $K$, for each
+      $n$.
+    - The converse separation is impossible: $\mathrm{LC} \le n+1$ bounds the support.
 - **Exactness and implementation.** EX1–EX8 and IM1–IM6 in §5.
 - **Symmetry (§A.21).** `G_lin`, `G_filt`, `G_dec` and `G_tape` commute with the global flip $x \mapsto x \oplus 1$, and $\mu$
   is flip-invariant. Their record laws, and $Q$, must therefore be complement-invariant exactly. `G_clk` does not
@@ -234,7 +256,7 @@ Every numerical row is computed in exact integer or `Fraction` arithmetic. Faili
 | $p_n$ and $p'_n$ are primitive | EX4 | order of $z$ is $2^n-1$ |
 | $(\ell, L_p)$ is observable | EX5 | $\mathbb{F}_2$ rank $n$ |
 | T-level (C1) holds for the primary generators and fails for `G_dec` | EX6 | exact one-step visible matrix |
-| The observer has no hidden-sector access | EX8 | For every composite step table, the $h$-component is the identity, and the $(v, x, \mathrm{out})$-component is constant across $h$ for each $(v, x, \mathrm{out})$. Checked exhaustively at $n \le 4$ and for every verdict-bearing witness, clocked composite included. |
+| The observer has no hidden-sector access, and the generator does not touch the observer | EX8 | Each observer map is checked as a table on $\mathcal{C}_V' \times \mathcal{C}_H$: the $\rho$-step, the $a$-step, the clock tick and the readout. For each, the $h$-component is the identity, and the $(v, \mathrm{clk}, x, \mathrm{out})$-component is constant across $h$. The generator step $\varphi$ must act as the identity on $(v, \mathrm{clk}, \mathrm{out})$. Checked exhaustively at $n \le 4$ and for every verdict-bearing witness. |
 | Settings are measurement-independent | EX7 | EX8 holds, and the joint prior factorises as $\mu \otimes \delta_{v_0}$ |
 | BM is correct | IM1 | agrees with brute-force minimal-LFSR search on all sequences of length $\le 12$ |
 | The LC count formula holds | IM2 | Equals enumeration of $\{0,1\}^N$ for $N \le 20$. Equals, for every $N$ used, an independent exact DP on the Berlekamp–Massey length process under fair bits; that process's Markov premise is itself checked by enumeration for $N \le 20$. |
@@ -246,6 +268,8 @@ Every numerical row is computed in exact integer or `Fraction` arithmetic. Faili
 | NC-1 and NC-2, with their mutant, sibling and `G_filt` specificity | NC | §4 |
 | Complement symmetry | SY | §4 |
 | Inclusions | MO | Each passive class is at most U. K0 worst case is at most $\min_\varphi$ K1; K0 average is at most $\mathbb{E}_\nu$ K1. 𝒫ᵉᵐᵇ(m) is at most 𝒫ᵉᵐᵇ(m+1). Passive is at most active. B4 at $d=1$ exists iff B1 has a bias-$\pm1$ test. All are checked pointwise. |
+| The footprint is measured | FP | For every witness, the printed footprint equals the total bit width of the visible registers of its clocked composite (the one checked by EX1, EX8 and IM3), less the system bit. It is computed from the composite and compared with the formula of §3. |
+| The counterexample conditions are evaluated mechanically | CX | For every candidate witness, the JSON records: the exact $\mathrm{adv}^{\rm pred}_O(\varphi, K')$ at each $K' \in [K-3, K]$, from full-state simulation of the clocked composite (the IM3 path); $K_{\rm cx}(\varphi)$; the FP footprint; EX6. The checker evaluates (a)–(f) of §6 from those fields alone. A COUNTEREXAMPLE is printed only if all hold. Self-test: three mutant witnesses must each be refused, and reported as a measurement, on their own condition: one $K'$ in the window at $1/8 - 2^{-K-2}$; footprint $\theta + 1$; and $K = K_{\rm cx} + 1$. A refusal counts only if it names that condition. |
 | The K0 test is chosen before $\varphi$ | K0 | each K0 record names one test id, evaluated across all of $\mathfrak{F}$ |
 | Deterministic replay (§A.26) | RP | a rerun's measurement JSON is byte-identical |
 | The plan precedes the code | PIN | the measurement JSON records this file's blob id, and this commit is an ancestor of every code commit |
@@ -274,16 +298,21 @@ Every numerical row is computed in exact integer or `Fraction` arithmetic. Faili
      length of $\varphi$, i.e. below recurrence scale;
    - (d) the same $O$ and $\chi$ give $\mathrm{adv}^{\rm pred}_O(\varphi, K') \ge \delta_{\rm cx} = 1/8$, exactly, at every
      $K' \in [K - w, K]$, with $w = 3$ fixed and $K \ge w$;
-   - (e) every control is green.
+   - (e) every control is green;
+   - (f) the footprint (FP) is at most $\theta$.
+
+   A **bounded-resource claim** is a COUNTEREXAMPLE meeting (a)–(f). The threshold $\theta$ is the one open owner
+   decision (§10), and no run starts before it is fixed. Witnesses meeting (a)–(e) but not (f) are reported for
+   comparison as unrestricted-footprint witnesses. They are not COUNTEREXAMPLEs.
 
    Knowledge level: $O$ may depend on $\varphi$, so the witness is K1. The verdict also reports its K0 status, that is,
    whether the same $O$ is a witness for every $\varphi$ in its family $\mathfrak{F}$.
 
    The verdict prints:
-   - the footprint $m + \lceil \log_2(K+1) \rceil + 1$ (memory, clock, output);
+   - the footprint $m + \lceil \log_2(K+1) \rceil + 1$ (memory, clock, output), as measured by FP;
    - the table size;
-   - a regime tag, `small` if the footprint is $\le n$ and `large` otherwise. The tag is this plan's reading of the
-     embedded-memory condition of `../README.md:155–159`.
+   - the admissibility result (f). Condition (f) implements the embedded-memory condition of `../README.md:155–159`;
+   - the resource-model limitation of §7, together with the admissible-region table for the chosen $\theta$;
    - the realization conditions the witness satisfies, in the form "T-level (C1) holds; C2–C4 not checked". The
      refuted statement is therefore exactly the one tested.
 
@@ -304,7 +333,8 @@ Every numerical row is computed in exact integer or `Fraction` arithmetic. Faili
      - the B4 counting bound;
      - the NC-1 value.
 
-     No other closed form may be cited for this tag.
+     The only other admissible citation is a result listed in §9 under "before any candidate-NEW tag" that covers the
+     candidate. The tag then cites that result.
    - **candidate-NEW:** 𝒫ᵉᵐᵇ results not implied by MO together with a covered result, and K0–K1 gaps.
      - A worst-case gap qualifies only in the average-case form or the exact randomized form (§3), never in the
        deterministic lower bound.
@@ -313,8 +343,11 @@ Every numerical row is computed in exact integer or `Fraction` arithmetic. Faili
      - These stay candidates until independent review.
 
    Favorable readings get the hardest scrutiny. These are $K_{\rm zero} = K_{\max}$ for an embedded class, or no
-   witness found. For each, the verdict states the enumerated scope it rests on, and it does not extend that reading
-   beyond the enumeration.
+   witness found.
+   - For each, the verdict states the enumerated scope it rests on, and it does not extend that reading beyond the
+     enumeration.
+   - Where the admissible region of §7 is empty, or narrower than the measured range, "no admissible witness" is
+     reported as a fact about the resource model, not as a measurement.
 6. **Bounded-theorem targets.** These are questions, not expectations:
    - **T1.** An exact characterisation of $\mathrm{adv}^{\rm pred}$ for $\mathfrak{F}_{\rm lin}(n)$ against linear-filter
      observers, as a function of $(n, m, K)$.
@@ -337,6 +370,41 @@ Every numerical row is computed in exact integer or `Fraction` arithmetic. Faili
 - No identification of 𝒫ᵉᵐᵇ with any B class, or with any computational notion, is made (PE-02).
 - The class-$\mathcal{Q}$ forms, $r > 1$ runs and persistent seeds across runs are out of scope (PE-02, PE-03).
 - No manuscript change, workflow dispatch, theorem designation or merge is made without separate owner approval.
+- **Resource-model limitation.** The horizon bound $K < 2^{\,n-m-1}$ ($\theta = n$), or $K < 2^{\,n-m}$ ($\theta = n+1$),
+  is a consequence of the selected resource model: memory + clock + output $\le \theta$. It is not a limit OI imposes on
+  observers. The generated verdict text repeats this sentence.
+  - The admissible horizons for a COUNTEREXAMPLE combine the clock bound, the window (d) and $K \le K_{\rm cx}$. For
+    `G_lin`, PC forces $K - 3 \ge n+1$.
+  - For `G_filt` and `G_clk` no PC zero is claimed, so the lower end is only the window floor $K = 3$.
+  - The tables were design-checked at drafting, and the verdict reprints them.
+
+  Each cell gives `G_lin` / `G_filt`, `G_clk`; – means empty.
+
+  $\theta = n$:
+
+  | $n$ | $m=1$ | $m=2$ | $m=3$ | $m=4$ |
+  |---|---|---|---|---|
+  | 3 | – / – | – / – | – / – | – / – |
+  | 4 | – / [3,3] | – / – | – / – | – / – |
+  | 5 | – / [3,7] | – / [3,3] | – / – | – / – |
+  | 6 | [10,15] / [3,15] | – / [3,7] | – / [3,3] | – / – |
+  | 7 | [11,31] / [3,31] | [11,15] / [3,15] | – / [3,7] | – / [3,3] |
+  | 8 | [12,63] / [3,63] | [12,31] / [3,31] | [12,15] / [3,15] | – / [3,7] |
+
+  $\theta = n+1$:
+
+  | $n$ | $m=1$ | $m=2$ | $m=3$ | $m=4$ |
+  |---|---|---|---|---|
+  | 3 | – / [3,3] | – / – | – / – | – / – |
+  | 4 | – / [3,7] | – / [3,3] | – / – | – / – |
+  | 5 | [9,15] / [3,15] | – / [3,7] | – / [3,3] | – / – |
+  | 6 | [10,31] / [3,31] | [10,15] / [3,15] | – / [3,7] | – / [3,3] |
+  | 7 | [11,63] / [3,63] | [11,31] / [3,31] | [11,15] / [3,15] | – / [3,7] |
+  | 8 | [12,127] / [3,127] | [12,63] / [3,63] | [12,31] / [3,31] | [12,15] / [3,15] |
+
+  At $\theta = n$, `G_lin` has no admissible region for $n \le 5$. On `G_lin`, the passive $m = 3$ sweep ($n \le 6$)
+  and the linear-filter $m = 4$ sweep can never yield an admissible witness. On `G_filt` and `G_clk`, the window floor
+  leaves some $m \ge 3$ cells non-empty.
 
 ## 8. Resources and CI (§A.40)
 
@@ -351,6 +419,7 @@ Seeds number $2^{n+1} \le 512$. Generator laws, U, B2 and B3 cost seconds per ge
 | 𝒫ᵉᵐᵇ($m=3$, passive, canonical form by BFS labelling of the component reachable from $v_0$); linear-filter observers with $m \le 4$ | 1–3 h in total | CI, sharded |
 | `G_tape` checks: U and B1–B4 to $K = 20$; 𝒫ᵉᵐᵇ to $K = 12$ | minutes | CI |
 | B4 with $d = 3$ | minutes | CI |
+| Randomized K0, dual LP: $m \le 2$, $n \le 6$, $K \le K_{\rm LP}(n)$, at most 32 sign patterns | under 1 h | CI |
 
 The estimates are not measurements. A local run that exceeds its row by a factor of 3 is stopped and moved to CI.
 The CI job definition is part of the code commits.
@@ -382,6 +451,7 @@ Other results enter only as design rationale:
 Other papers are cited for framing only:
 - HILL 1999, BSW 2003 and RTTV 2008, for the class-$\mathcal{Q}$ forms (deferred).
 - Yao 1982, for prediction against distinguishing. Prediction tests are used directly, so no reduction is relied on.
+
 Each is read in full before any closure claim relies on it (`../README.md`).
 
 To read before any candidate-NEW tag. Passive 𝒫ᵉᵐᵇ(m) are width-$2^m$ oblivious read-once permutation branching
@@ -393,28 +463,36 @@ programs, and these results bear on them directly:
   $\mathfrak{F}_{\rm lin}$. The construction's exact distribution on feedback polynomials is to be verified before use.
 - Bogdanov–Dvir–Verbin–Yehudayoff 2013: small-bias results for width-2 branching programs.
 
-## 10. Owner decisions (defaults in force; amendable before code)
+## 10. Owner decisions
 
-Each item gives the default in force in this plan and the independent review's recommendation, marked as a
-recommendation. The owner decides.
+The owner has decided the following, and they replace the earlier defaults:
 
-1. **Reference law.** Default: $Q$ fixed and uniform, with the class-$\mathcal{Q}$ forms deferred to PE-02.
-   *Recommendation:* keep.
-2. **Basis of the counterexample.** Default: prediction advantage. Distinguishing witnesses are labelled as bearing on
-   the second clause of `ch18:114` and do not qualify. *Recommendation:* keep.
-3. **Footprint.** Default: a regime tag, as this plan's reading of `../README.md:155–159`. *Recommendation:* make it an
-   admissibility condition, with memory + clock + output $\le n$ and large-regime witnesses reported as measurements.
-   With the clock charged, that condition admits only horizons $K < 2^{\,n-m-1}$.
-4. **Thresholds.** Default: $\delta_{\rm cx} = 1/8$, $K_{\rm cx} = \lfloor \ell_{\rm med}/2 \rfloor$, and the window
-   $w = 3$ of §6. For `G_lin` at $n = 3$, $K_{\rm cx} = n$, so PC leaves the window empty there. *Recommendation:* keep,
-   together with the window or the clock charge.
-5. **Readout.** Default: one output bit, the clock charged at $\lceil \log_2(K+1) \rceil$ bits, and the table size
-   recorded. *Recommendation:* as the default. The alternative, an uncharged evaluation time, makes it free
-   information.
-6. **Witness knowledge level.** Default: K1 witnesses qualify, and K0 status is reported. *Recommendation:* as the
-   default, following the Kerckhoffs convention of `../README.md:112`.
-7. **K0 for T3.** Default: the average-case form, or the exact randomized LP at $m \le 2$ and $n \le 6$. The
-   deterministic worst case is labelled a lower bound. *Recommendation:* as the default.
+1. **Footprint.** Footprint is an admissibility condition for the bounded-resource claim: condition (f), footprint
+   $\le \theta$ (§6). Results without the restriction are also reported, for comparison.
+2. **Clock and window.** The clock charge of $\lceil \log_2(K+1) \rceil$ bits and the fixed four-step window
+   $[K-3, K]$ are approved.
+3. **Knowledge level.** K1 observers are allowed. Whether one observer works across the whole family (K0) is reported
+   separately.
+4. **Thresholds.** Prediction advantage $\ge \delta_{\rm cx} = 1/8$ stays as preregistered. All other thresholds are
+   fixed before any run. The fixed values are: $\delta \in \{1/8, 1/4\}$, $w = 3$, $K_{\rm cx}$, $K_{\max}$,
+   $K_{\rm tape} = 20$, the 𝒫ᵉᵐᵇ tape cap of 12, the $K \le 255$ K0 cap, the B4 limits and the IM ranges. Two values
+   remain:
+   - $\theta$, which is open;
+   - $K_{\rm LP}(n) = 2^{n-1} - 1$, proposed by this plan and awaiting owner confirmation.
+5. **Reference.** The reference $Q$ stays fixed throughout PE-01. Alternative reference classes go to PE-02.
+6. **Prediction and distinguishing.** Both are recorded. A distinguishing-only witness is not treated as proof of
+   predictability.
+7. **Gap claims.** Average-case or exact randomized evaluation is required for any claimed new gap. Deterministic
+   worst-case results are reported as bounds only.
+
+**Open owner decision: the value of $\theta$.** The candidates are $\theta = n$, the hidden register, and
+$\theta = n+1 = \log_2|\mathcal{C}_V \times \mathcal{C}_H|$, the whole generator. The consequences are in the §7
+tables:
+- At $\theta = n$, the admissible region on `G_lin` is empty for $n \le 5$. There, the passive $m = 3$ and linear $m = 4$
+  sweeps can never be admissible.
+- At $\theta = n+1$, the region is wider.
+
+No PE-01 run starts before $\theta$ is fixed in an amendment to this plan.
 
 ## 11. Package
 
