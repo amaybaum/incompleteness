@@ -1,0 +1,20 @@
+--- checks.py
++++ checks.py
+@@ -272,7 +272,7 @@
+     if x in SRC:
+         return var_planes(3*SRC.index(x))
+     if x in TAIL_SITES:
+-        return var_planes(9+3*TAIL_SITES.index(x))
++        return const_planes(0)
+     return const_planes(cur.get(x, 0))
+ 
+ 
+@@ -352,7 +352,7 @@
+     for i, f in enumerate(SRC):
+         cur[f] = (lane >> (3*i)) & 7
+     for i, t in enumerate(TAIL):
+-        cur[bank_site(t)] = (lane >> (9+3*i)) & 7
++        cur[bank_site(t)] = 0
+     prev = {p: v for p, v in prev.items() if v}
+     cur = {p: v for p, v in cur.items() if v}
+     slices = {-1: prev, 0: cur}

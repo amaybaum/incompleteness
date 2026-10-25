@@ -1,0 +1,11 @@
+--- checks.py
++++ checks.py
+@@ -272,7 +272,7 @@
+     if x in SRC:
+         return var_planes(3*SRC.index(x))
+     if x in TAIL_SITES:
+-        return var_planes(9+3*TAIL_SITES.index(x))
++        return const_planes(0)
+     return const_planes(cur.get(x, 0))
+ 
+ 

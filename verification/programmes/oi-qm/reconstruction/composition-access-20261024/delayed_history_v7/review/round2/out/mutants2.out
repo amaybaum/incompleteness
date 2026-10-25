@@ -1,0 +1,19 @@
+R1_M1_drop_bank_mask_bitsliced: rc=2 verdict=VOID controls={'x1_scalar_evaluator_agrees': False}
+   g1 True slack 76 | cells ['False', 'False', 'False']
+   seed 1 s1 True s2 512 s3 False tv 228169/262144 x1mm 76 x2 True c2 228169/262144 x3sup 512 c1max 228169/262144 c1min 228169/262144 c3 43919/131072 c3pre 84911/262144
+   seed 2 s1 True s2 512 s3 False tv 27983/32768 x1mm 77 x2 True c2 27983/32768 x3sup 512 c1max 27983/32768 c1min 27983/32768 c3 74113/262144 c3pre 82357/262144
+   seed 4 s1 True s2 512 s3 False tv 216809/262144 x1mm 74 x2 True c2 216809/262144 x3sup 512 c1max 216809/262144 c1min 216809/262144 c3 4473/16384 c3pre 75897/262144
+   bank_lb True storage_lb True same_as_ref False
+R1_M1b_drop_bank_mask_both: rc=0 verdict=NEGATIVE_FOR_CONSTRUCTION controls=all true
+   g1 True slack 76 | cells ['False', 'False', 'False']
+   seed 1 s1 True s2 512 s3 False tv 228169/262144 x1mm 0 x2 True c2 228169/262144 x3sup 512 c1max 228169/262144 c1min 228169/262144 c3 43919/131072 c3pre 84911/262144
+   seed 2 s1 True s2 512 s3 False tv 27983/32768 x1mm 0 x2 True c2 27983/32768 x3sup 512 c1max 27983/32768 c1min 27983/32768 c3 74113/262144 c3pre 82357/262144
+   seed 4 s1 True s2 512 s3 False tv 216809/262144 x1mm 0 x2 True c2 216809/262144 x3sup 512 c1max 216809/262144 c1min 216809/262144 c3 4473/16384 c3pre 75897/262144
+   bank_lb True storage_lb True same_as_ref False
+R1_M5_drop_old_local_bitsliced: rc=2 verdict=VOID controls={'x1_scalar_evaluator_agrees': False, 'x2_seven_site_inverse': False}
+   g1 True slack 76 | cells ['False', 'False', 'True']
+   seed 1 s1 False s2 262144 s3 False tv 1 x1mm 401 x2 False c2 1 x3sup 32768 c1max 1 c1min 1 c3 1431/32768 c3pre 0
+   seed 2 s1 False s2 262144 s3 False tv 1 x1mm 411 x2 False c2 1 x3sup 32768 c1max 1 c1min 1 c3 1939/32768 c3pre 0
+   seed 4 s1 False s2 262144 s3 True tv 0 x1mm 413 x2 False c2 49/128 x3sup 32768 c1max 204967/262144 c1min 101555/131072 c3 971/16384 c3pre 0
+   bank_lb True storage_lb True same_as_ref False
+R1_M6_native_q8_as_carrier rc 1 NO JSON ['RuntimeError: triangular pool bijection']

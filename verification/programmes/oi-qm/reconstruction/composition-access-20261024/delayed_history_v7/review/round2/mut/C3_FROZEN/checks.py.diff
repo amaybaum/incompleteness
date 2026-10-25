@@ -1,0 +1,19 @@
+--- checks.py
++++ checks.py
+@@ -451,6 +451,7 @@
+             if counts.get((rec, v, a, j), 0) != target_count(s_old, a, j):
+                 s3 = False
+             s3_cells += 1
++    print('CELLS', seed, s3, file=__import__('sys').stderr)
+     positive = 0
+     if kind == 'success':
+         for rec, v in product(range(512), range(8)):
+@@ -518,7 +519,7 @@
+         return tv({k: F(c, WORLDS) for k, c in jq.items()},
+                   {(a, b): F(mw[a]*mq[b], WORLDS*WORLDS) for a in mw for b in mq})
+ 
+-    q8late = vals[Q8, HS]
++    q8late = vals[Q8, NS+1]
+     c3_tv = dependence(q8late)
+     c3_before_tv = dependence(vals[Q8, HS-2])
+     need(len(set(vals[Q8, HS-2])) > 1, 'pre-arrival native q8 constant')

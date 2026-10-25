@@ -66,9 +66,32 @@ Even a hypothetical serial one-gate/native-tick core from L+2 finishes
 L+91, after F8's first old-receiver arrival at L+77 and F10/F9 at L+79.
 The optional recorded dilation would finish L+361. Neither timing is an
 established native runtime or a lower bound for a parallel compiler.
-The earlier unchanged-prefix causal argument does not cover these delays;
-a new joint public-history/carrier proof is required. Cone arrival alone
-does not prove leakage because masking may protect the joint law.
+The earlier unchanged-prefix causal argument does not cover these delays.
+
+## Delayed old-port history for the frozen carrier
+
+`delayed_history_v7/` (plan `d72ea524586b84e285c4723bf47a377df3ecb8a9`,
+committed before computation; head `656502989dd34ef64ba63d54328e13966517444b`;
+separate review retained under its `review/`) treats them for the frozen
+logical v6 carrier within the same hypothetical serial alignment. Conditional
+on the Native A source contract, the supplied `history_v11` bank and G
+priors, v6's isolated logical storage and v6's candidate access contract
+with the eight old ports added, the complete public record through any
+L < H <= 2L is distributed jointly with the outgoing selected carrier as the
+v6 law tensored with an independent uniform tail of 24(H-L) bits. The public
+record is the eight raw port streams, the old whole-q9 record, the whole-V
+record and the pointer prefix; Q8, Q10, M, the other neighbours, the pool
+and the phase and workspace wires are private.
+
+At actual L this is a written conditional corollary of exact integer
+geometry (no tail triple reaches a carrier site-time, minimum slack 76) and
+the inherited Native A and `history_v11` results. The exhaustive check of
+the complete joint law, cell by cell with zero cells, is a scaled control
+(n=3, k=2, one port). Tail triples first reach the carrier sites from L+77,
+so a natively stored carrier could depend on them; in the scaled control,
+q8 left to native dynamics does. The result concerns the joint record law
+only: it adopts no observer-access rule or access closure and establishes
+no native storage, arbitrary composition or reusable measurement instrument.
 
 ## Related work and next gate
 
@@ -82,7 +105,7 @@ neither supplies native gates or access closure.
 
 The next gate is native compilation or a cheaper native predicate with
 actual operand delivery, preserved/re-encoded carrier, full pointer metadata
-and complete delayed history. General instruments, composites/Bell and full
-A1/A2 reconstruction remain in #913. Author and review replay normally and
+and complete delayed history for a natively stored carrier. General
+instruments, composites/Bell and full A1/A2 reconstruction remain in #913. Author and review replay normally and
 with -O; no full-suite, Lean or exact-head attestation, premise/access adoption,
 F/E designation, dispatch, merge or equivalence verdict follows.

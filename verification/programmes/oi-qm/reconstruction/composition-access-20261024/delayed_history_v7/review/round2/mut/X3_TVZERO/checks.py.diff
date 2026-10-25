@@ -1,0 +1,19 @@
+--- checks.py
++++ checks.py
+@@ -451,6 +451,7 @@
+             if counts.get((rec, v, a, j), 0) != target_count(s_old, a, j):
+                 s3 = False
+             s3_cells += 1
++    print('CELLS', seed, s3, file=__import__('sys').stderr)
+     positive = 0
+     if kind == 'success':
+         for rec, v in product(range(512), range(8)):
+@@ -481,7 +482,7 @@
+         for (r, v, a, j), c in jt.items():
+             pnum = wm[r]*target_count(s_old, a, j)
+             acc_sum += abs(c*512-pnum)-pnum
+-        return F(acc_sum, 2*total), jt
++        return F(0), jt
+ 
+     full_tv, _ = joint_tv(list(lanes))
+     s3 = s3 and full_tv == 0

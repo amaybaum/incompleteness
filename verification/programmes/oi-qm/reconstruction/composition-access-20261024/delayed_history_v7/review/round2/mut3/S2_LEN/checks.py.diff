@@ -1,0 +1,11 @@
+--- checks.py
++++ checks.py
+@@ -428,7 +428,7 @@
+     fixed_tail = [l for l in lanes if l >> 9 == 0]
+     need(len({pool[l] for l in fixed_tail}) == 512, 'triangular pool bijection')
+     # (s2) joint pool/tail-record support.
+-    s2 = len(set(zip(pool, w))) == WORLDS
++    s2 = len(list(zip(pool, w))) == WORLDS
+     # Phase map and predicate.
+     sel, acc = [], []
+     dbits = (others[0] & 1) ^ (others[1] & 1) ^ (others[2] & 1)
