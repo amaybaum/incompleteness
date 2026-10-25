@@ -151,7 +151,17 @@ def tv_iid(p, h):
     """Exact TV of Bernoulli(p)^h against Bernoulli(4/5)^h."""
     D = lcm(p.denominator, QUANTUM.denominator)
     pi, qi = p.numerator * (D // p.denominator), QUANTUM.numerator * (D // QUANTUM.denominator)
-    tot = sum(comb(h, i) * abs(pi ** i * (D - pi) ** (h - i) - qi ** i * (D - qi) ** (h - i)) for i in range(h + 1))
+
+    def powers(x):
+        out = [1]
+        for _ in range(h):
+            out.append(out[-1] * x)
+        return out
+    ps, pf, qs, qf = powers(pi), powers(D - pi), powers(qi), powers(D - qi)
+    tot, c = 0, 1
+    for i in range(h + 1):
+        tot += c * abs(ps[i] * pf[h - i] - qs[i] * qf[h - i])
+        c = c * (h - i) // (i + 1)
     return Q(tot, 2 * D ** h)
 
 
@@ -276,7 +286,8 @@ def solve(Amat, b):
     n = len(Amat)
     M = [row[:] + [b[i]] for i, row in enumerate(Amat)]
     for c in range(n):
-        p = next(r for r in range(c, n) if M[r][c] != 0)
+        p = next((r for r in range(c, n) if M[r][c] != 0), None)
+        check(p is not None, 'step4 nonsingular stationary system')
         M[c], M[p] = M[p], M[c]
         for r in range(n):
             if r != c and M[r][c] != 0:
@@ -384,6 +395,7 @@ def step4_census():
                         exact_freq.append({'n': n, 'B': B, 'D0': [[str(x) for x in r] for r in D0],
                                            'D1': [[str(x) for x in r] for r in D1],
                                            'first_mismatch': cl['first_mismatch']})
+        check(chains == comb(N + 2 * n - 1, 2 * n - 1) ** n, 'census chain count equals C(2^B+2n-1,2n-1)^n')
         rows[f'n{n}_B{B}'] = {'chains': chains, 'closed_classes': classes,
                               'classes_with_exact_frequency_4/5': freq45,
                               'largest_least_mismatch_index': worst}
@@ -405,6 +417,8 @@ def base5_countercontrol():
                     check(cl['chi'] == 0, 'K4 exact match has eigenvalue 4')
         out[f'n{n}'] = {'chains': chains, 'classes_matching_(4/5)^n_for_all_n<=|C|': matches}
     check(out['n1']['classes_matching_(4/5)^n_for_all_n<=|C|'] >= 1, 'K4 base-5 countercontrol finds an exact match')
+    for n in (1, 2):
+        check(out[f'n{n}']['chains'] == comb(5 + 2 * n - 1, 2 * n - 1) ** n, 'K4 chain count equals C(2n+4,2n-1)^n')
     exact = {'n': 1, 'init': {0: Q(1)}, 'D': {1: {(0, 0): QUANTUM}, 0: {(0, 0): 1 - QUANTUM}}}
     for h in range(1, 13):
         check(chain_tv(exact, h) == 0, 'K3 exact base-5 source gives zero TV')
@@ -482,12 +496,14 @@ def retained_seed_reproduction(v7):
         tv, _ = retained_seed_tv_gap(4, h)
         check(display(tv) == ref['B4_tv_display_h8_12_16'][str(h)], 'K2 retained-seed B=4 display equals a2_depth_v7')
         n += 1
+    k6 = 0
     p4 = Q(-((-4 * 16) // 5), 16)     # read 1 of the reset with B=4: ceil(4*16/5)/16
     check(str(p4) == ref['memoryless_B4_nearest_dyadic'], 'K6 RS(4,1) is the memoryless 4-bit reset')
     check(tv_iid(p4, 64) == tv_product(p4, p4, 64), 'K6 iid and alternating engines agree')
     check(display(tv_iid(p4, 4096)) == ref['memoryless_B4_tv_h4096_display'],
           'K6 RS(4,1) T(4096) equals a2_depth_v7 memoryless value')
-    return n + 2
+    k6 += 3
+    return n, k6
 
 
 # ---------- the restarted family RS(B,k) ----------
@@ -540,9 +556,22 @@ def least_power_below(x, level):
     return hi
 
 
-def memoryless_crossing(B):
-    """Exact first depth with T > 1/2 for the B-bit reset with agreement ceil(4*2^B/5)/2^B every read."""
-    p = Q(-((-4 * (1 << B)) // 5), 1 << B)
+def ceiling_rounded(B):
+    """Agreement of RS(B,1), the ceiling-rounded B-bit reset: ceil(4*2^B/5)/2^B."""
+    return Q(-((-4 * (1 << B)) // 5), 1 << B)
+
+
+def nearest_dyadic(B):
+    """The multiple of 2^-B nearest to 4/5 (never a tie, since 4*2^B/5 is not a half-integer)."""
+    K = 1 << B
+    lo = Q((4 * K) // 5, K)
+    hi = lo + Q(1, K)
+    check(abs(lo - QUANTUM) != abs(hi - QUANTUM), 'nearest dyadic unique')
+    return lo if abs(lo - QUANTUM) < abs(hi - QUANTUM) else hi
+
+
+def memoryless_crossing(p):
+    """Exact first depth with T > 1/2 for the memoryless reset with agreement p at every read."""
     hi = 1
     while tv_iid(p, hi) <= HALF:
         hi *= 2
@@ -557,11 +586,26 @@ def memoryless_crossing(B):
     return p, hi
 
 
+def power_rule_exact_k1(p, bl, bh, Tk, n_hp):
+    """K7 for the post-plan power rule at k=1: exact T(h) against 1-BC_upper^h, sqrt(1-BC_lower^(2h)) and
+    h*T_1, for every h <= min(2 n_hp, 600), and beyond that every multiple of 256 up to 2 n_hp and n_hp-1..n_hp+1."""
+    top = 2 * n_hp
+    hs = sorted(set(range(1, min(top, 600) + 1)) | set(range(256, top + 1, 256)) | {max(1, n_hp - 1), n_hp, n_hp + 1})
+    for h in hs:
+        T = tv_iid(p, h)
+        check(T >= 1 - bh ** h, 'K7 exact T(h) >= 1 - BC_upper^h at k=1')
+        check(T * T <= 1 - (bl * bl) ** h and T <= h * Tk, 'K7 exact T(h) inside power-rule upper bounds at k=1')
+    return {'depths_checked': len(hs), 'all_h_up_to': min(top, 600), 'max_h': hs[-1]}
+
+
 def family(Bs=(2, 3, 4), kmax=16):
     rows = {}
     for B in Bs:
         base_half = None
-        p_mem, cross_mem = memoryless_crossing(B)
+        p_mem, cross_mem = memoryless_crossing(ceiling_rounded(B))
+        p_near, cross_near = memoryless_crossing(nearest_dyadic(B))
+        check(all(abs(Q(x, 1 << B) - QUANTUM) >= abs(p_near - QUANTUM) for x in range((1 << B) + 1)),
+              'nearest dyadic minimal over 2^-B Z')            # the best i.i.d. B-bit memoryless law
         for k in range(1, kmax + 1):
             law = block_law(B, k)
             check(sum(law.values()) == 1, 'family block law normalized')
@@ -573,9 +617,12 @@ def family(Bs=(2, 3, 4), kmax=16):
             check(1 - bh <= Tk and bl * bl <= 1 - Tk * Tk, 'K7 Le Cam inequalities between TV and BC')
             c_low, c_up = 1 - bh, 1 - bl          # c_low <= 1-BC <= c_up
             null_q = sum((qmass(r) for r, p in law.items() if p == 0), Q(0))
+            n_states = sum(1 << (j * (B + 1)) for j in range(k))   # (phase j, j*B seed bits, j record bits)
             entry = {'memory_bits_upper': (k - 1) * B + (k - 1) + (k - 1).bit_length(),
                      'block_tv': display(Tk), 'block_tv_exact_sha256': digest(Tk),
-                     'one_minus_bc_lower': display(c_low, 20), 'one_minus_bc_upper': display(c_up, 20)}
+                     'one_minus_bc_lower': display(c_low, 20), 'one_minus_bc_upper': display(c_up, 20),
+                     'persistent_states': n_states}
+            check((1 << entry['memory_bits_upper']) >= n_states, 'memory column bounds the persistent-state count')
             if c_low > 0:
                 n_half = floor_q(1 / c_low) + 1                   # n*c > 1  =>  T(nk) >= nc/(1+nc) > 1/2
                 check(n_half * c_low > 1 and (n_half - 1) * c_low <= 1, 'K7 half-depth minimal for its rule')
@@ -591,21 +638,27 @@ def family(Bs=(2, 3, 4), kmax=16):
                 entry['half_depth_ratio_to_k1'] = display(Q(k * n_half, base_half), 6)
                 entry['half_depth_per_memory_bit'] = (display(Q(k * n_half, entry['memory_bits_upper']), 3)
                                                       if entry['memory_bits_upper'] else None)
-                # Power rule (added after the plan): T(nk) >= 1 - BC^n and T(nk) <= sqrt(1 - BC^(2n)).
+                # Power rule (post-plan): T(nk) >= 1 - BC^n and T(nk) <= sqrt(1 - BC^(2n)) or n*T_k.
                 n_hp = least_power_below(bh, HALF)
+                check(bh ** n_hp < HALF and (n_hp == 1 or bh ** (n_hp - 1) >= HALF),
+                      'K7 power-rule depth is the least n with BC_upper^n < 1/2')
                 n_lp = max(least_power_below(bl * bl, Q(3, 4)) - 1, floor_q(HALF / Tk))
                 check(n_lp * Tk <= HALF or (bl * bl) ** n_lp >= Q(3, 4), 'K7 half-upper depth valid')
-                entry['power_rule_T_above_half_for_h_at_least'] = k * n_hp
-                entry['power_rule_T_at_most_half_for_h_at_most'] = k * n_lp
+                post = {'power_rule_T_above_half_for_h_at_least': k * n_hp,
+                        'power_rule_T_at_most_half_for_h_at_most': k * n_lp}
                 if k == 1:
-                    check(str(law[(1,)]) == str(p_mem), 'K6 RS(B,1) is the memoryless B-bit reset')
-                    check(k * n_lp < cross_mem <= k * n_hp, 'K7 power rule brackets the exact memoryless crossing')
+                    check(law[(1,)] == p_mem, 'K6 RS(B,1) is the ceiling-rounded B-bit reset')
+                    check(k * n_lp < cross_mem <= k * n_hp, 'K7 power rule brackets the exact ceiling-rounded crossing')
+                    post['power_rule_exact_checks_at_k1'] = power_rule_exact_k1(p_mem, bl, bh, Tk, n_hp)
                 else:
-                    entry['certified_fails_before_memoryless_reset'] = k * n_hp < cross_mem
-                    entry['certified_outlasts_memoryless_reset'] = k * n_lp >= cross_mem
+                    post['certified_fails_before_nearest_dyadic_reset'] = k * n_hp < cross_near
+                    post['certified_outlasts_nearest_dyadic_reset'] = k * n_lp >= cross_near
+                    post['certified_fails_before_ceiling_rounded_reset'] = k * n_hp < cross_mem
+                    post['certified_outlasts_ceiling_rounded_reset'] = k * n_lp >= cross_mem
+                entry['post_plan'] = post
             else:
                 entry['certified_T_above_half_for_h_at_least'] = None
-            entry['quantum_mass_of_source_null_records'] = display(null_q)
+            entry.setdefault('post_plan', {})['quantum_mass_of_source_null_records'] = display(null_q)
             runs = {}
             for r in (5, 8):
                 if k >= r:
@@ -613,7 +666,7 @@ def family(Bs=(2, 3, 4), kmax=16):
                     check(sum((qmass(rec) for rec in law if rec[-r:] == (0,) * r), Q(0)) == (1 - QUANTUM) ** r,
                           'diagnostic trailing-run quantum mass')
                     runs[str(r)] = {'source': display(ps), 'quantum': display((1 - QUANTUM) ** r)}
-            entry['mass_of_records_ending_in_r_disagreements'] = runs
+            entry.setdefault('post_plan', {})['mass_of_records_ending_in_r_disagreements'] = runs
             # K7: exact product TV inside the bracket where enumerable.
             n = 1
             while n * k <= 16:
@@ -621,9 +674,12 @@ def family(Bs=(2, 3, 4), kmax=16):
                 lower = n * c_low / (1 + n * c_low)
                 check(lower <= T <= n * Tk, 'K7 exact product TV inside certified bracket')
                 check(T * T <= 2 * n * c_up, 'K7 exact product TV inside Hellinger upper bound')
+                check(T >= 1 - bh ** n and T * T <= 1 - (bl * bl) ** n, 'K7 exact product TV inside power-rule bracket')
                 n += 1
             rows[f'B{B}_k{k}'] = entry
-        rows[f'B{B}_memoryless_reset'] = {'agreement': str(p_mem), 'exact_first_depth_T_above_half': cross_mem}
+        rows[f'B{B}_memoryless_comparators_post_plan'] = {
+            'ceiling_rounded_reset_RS_B_1': {'agreement': str(p_mem), 'exact_first_depth_T_above_half': cross_mem},
+            'nearest_dyadic_reset': {'agreement': str(p_near), 'exact_first_depth_T_above_half': cross_near}}
     return rows
 
 
@@ -709,6 +765,7 @@ def restart_mechanics():
                 pred = {r + s: p * q for r, p in pred.items() for s, q in tail.items()}
             check(all(law.get(r, 0) == pred.get(r, 0) for r in product((1, 0), repeat=h)),
                   'K8 chain form equals product of block laws')
+        check(ch['n'] == sum(1 << (j * (B + 1)) for j in range(k)), 'memory column state count equals explicit chain')
         D0, D1 = dense(ch)
         cls = class_analysis(ch['n'], D0, D1, 1 << B)
         for cl in cls:
@@ -718,6 +775,42 @@ def restart_mechanics():
                                 'least_mismatch': [cl['first_mismatch'] for cl in cls],
                                 'stationary_agreement_frequency': [str(cl['freq']) for cl in cls]}
     out['step4_on_RS_chains'] = chains
+    return out
+
+
+# ---------- second concrete class member: floor-truncated rescaling decoder (post-review) ----------
+
+def floor_decoder_chain(B, m):
+    """State r in [0, 2^m): append B fresh bits, v = r*2^B + u; agree iff v < ceil(4*2^(m+B)/5); rescale the
+    left end by 5/4 (agree) or 5 (disagree) and truncate to m bits. A finite-state, time-independent member of the
+    bounded-state class; it reads the quantum cut."""
+    K = 1 << (m + B)
+    c = -((-4 * K) // 5)
+    D = {0: {}, 1: {}}
+    for r in range(1 << m):
+        for u in range(1 << B):
+            v = (r << B) + u
+            if v < c:
+                g, r2 = 1, (5 * v) // (4 << B)
+            else:
+                g, r2 = 0, (5 * v - 4 * K) >> B
+            check(0 <= r2 < (1 << m), 'floor decoder state in range')
+            D[g][r, r2] = D[g].get((r, r2), Q(0)) + Q(1, 1 << B)
+    return {'n': 1 << m, 'init': {r: Q(1, 1 << m) for r in range(1 << m)}, 'D': D}
+
+
+def floor_decoder_member():
+    out = {}
+    for B in (2, 3, 4):
+        for m in range(1, 6):
+            ch = floor_decoder_chain(B, m)
+            D0, D1 = dense(ch)
+            cls = class_analysis(ch['n'], D0, D1, 1 << B)
+            for cl in cls:
+                check(cl['first_mismatch'] is not None and cl['chi'] != 0, 'step4 floor-decoder chain mismatch')
+            out[f'B{B}_m{m}'] = {'states': ch['n'], 'class_sizes': [cl['size'] for cl in cls],
+                                 'least_mismatch': [cl['first_mismatch'] for cl in cls],
+                                 'stationary_agreement_frequency': [str(cl['freq']) for cl in cls]}
     return out
 
 
@@ -732,12 +825,14 @@ def run():
     exec_cls = class_analysis(4, D0, D1, K)
     for cl in exec_cls:
         check(cl['first_mismatch'] is not None and cl['chi'] != 0, 'step4 executed controller mismatch')
-    k2 = retained_seed_reproduction(v7)
+    k2, k6 = retained_seed_reproduction(v7)
     census, exact_freq = step4_census()
     cc = base5_countercontrol()
+    floor_member = floor_decoder_member()
     mech = restart_mechanics()
     fam = family()
     members = {k: v for k, v in fam.items() if 'memoryless' not in k}
+    n_floor_classes = sum(len(v['class_sizes']) for v in floor_member.values())
     certified = {k: v['certified_T_above_half_for_h_at_least'] for k, v in members.items()}
     all_cert = all(v is not None for v in certified.values())
     n_chains = sum(r['chains'] for r in census.values())
@@ -748,33 +843,46 @@ def run():
                      'and a time-independent update has T(h)->1 on this protocol (proof in REPORT.md); finite step '
                      f'checked on {n_chains} enumerated dyadic chains ({n_classes} closed classes, {n_freq} with '
                      f'exact stationary frequency 4/5, least run mismatch at most n={worst}), on the executed '
-                     'controller chain and on three RS chains; base-5 countercontrol matches exactly')
+                     f'controller chain, on three RS chains and on {len(floor_member)} floor-truncated decoder chains '
+                     f'({n_floor_classes} closed classes); base-5 countercontrol matches exactly')
     by_B = {}
     for key, v in members.items():
         B = int(key[1:key.index('_')])
         by_B.setdefault(B, []).append((int(key[key.index('k') + 1:]), v))
-    parts = []
+    pre, post = [], []
     for B in sorted(by_B):
         rows = sorted(by_B[B])
-        cross = fam[f'B{B}_memoryless_reset']['exact_first_depth_T_above_half']
-        best_k, best = min(((k, v['power_rule_T_above_half_for_h_at_least']) for k, v in rows), key=lambda x: (x[1], x[0]))
-        before = [k for k, v in rows if k > 1 and v['certified_fails_before_memoryless_reset']]
-        outlast = [k for k, v in rows if k > 1 and v['certified_outlasts_memoryless_reset']]
-        worst_k, worst = max(((k, v['power_rule_T_above_half_for_h_at_least']) for k, v in rows), key=lambda x: (x[1], -x[0]))
-        parts.append(f'B={B}: memoryless reset first exceeds T=1/2 at h={cross} (exact); each k=1..{rows[-1][0]} '
-                     f'certified T>1/2 for every h beyond a finite depth, largest h={worst} (k={worst_k}), smallest '
-                     f'h={best} (k={best_k}, '
-                     f'{dict(rows)[best_k]["memory_bits_upper"]} memory bits); certified to fail before the memoryless '
-                     f'reset for k in {before}; certified to outlast it for k in {outlast}')
+        comp = fam[f'B{B}_memoryless_comparators_post_plan']
+        near = comp['nearest_dyadic_reset']
+        ceil_ = comp['ceiling_rounded_reset_RS_B_1']
+        pk, pv = max(((k, v['certified_T_above_half_for_h_at_least']) for k, v in rows), key=lambda x: (x[1], -x[0]))
+        pre.append(f'B={B}: each k=1..{rows[-1][0]} certified T>1/2 beyond a finite depth (nc/(1+nc) rule), '
+                   f'largest h={pv} (k={pk})')
+        best_k, best = min(((k, v['post_plan']['power_rule_T_above_half_for_h_at_least']) for k, v in rows),
+                           key=lambda x: (x[1], x[0]))
+        worst_k, worst = max(((k, v['post_plan']['power_rule_T_above_half_for_h_at_least']) for k, v in rows),
+                             key=lambda x: (x[1], -x[0]))
+        before = [k for k, v in rows if k > 1 and v['post_plan']['certified_fails_before_nearest_dyadic_reset']]
+        outlast = [k for k, v in rows if k > 1 and v['post_plan']['certified_outlasts_nearest_dyadic_reset']]
+        undet = [k for k, v in rows if k > 1 and k not in before and k not in outlast]
+        post.append(f'B={B}: power-rule depths from h={best} (k={best_k}, {dict(rows)[best_k]["memory_bits_upper"]} '
+                    f'memory bits) to h={worst} (k={worst_k}); nearest-dyadic memoryless reset (agreement '
+                    f'{near["agreement"]}) first exceeds T=1/2 at h={near["exact_first_depth_T_above_half"]} (exact); '
+                    f'certified to fail before it for k in {before}; certified to outlast it for k in {outlast}; '
+                    f'undetermined for k in {undet}; ceiling-rounded reset RS(B,1) (agreement {ceil_["agreement"]}) '
+                    f'first exceeds 1/2 at h={ceil_["exact_first_depth_T_above_half"]}')
     family_verdict = (('RS_FAMILY_FINITE_FAILURE_DEPTH_EVERY_TESTED_MEMBER: ' if all_cert else
-                       'RS_FAMILY_PARTIAL_CERTIFICATION: ') + '; '.join(parts))
-    resource = ('With B fair fresh bits per slot and a time-independent update, T(h)->1 whenever the persistent '
-                'state set is finite; so keeping T(h) bounded below 1 at every depth requires the number of '
-                'persistent states reachable within h slots to grow without bound in h. The a2_depth_v7 '
-                'retained-seed reset (tB seed bits and the record after t reads) keeps T<=1/(2^B-2) at every depth '
-                'for B>=2. The least growth rate is not determined here.')
+                       'RS_FAMILY_PARTIAL_CERTIFICATION: ') + 'preregistered rule: ' + '; '.join(pre)
+                      + ' | post-plan (power rule, exact memoryless comparators): ' + '; '.join(post))
+    resource = ('Necessity: with B fair fresh bits per slot and a time-independent update, T(h)->1 whenever the '
+                'persistent state set is finite; so a controller keeping T(h) bounded below 1 at every depth needs '
+                'the number of persistent states reachable within h slots, from a finite initial support, to grow '
+                'without bound in h. Growth is not sufficient by itself: the a2_depth_v7 full-record memoryless '
+                'controllers have growing state and T(h)->1. One controller with linearly growing private memory, '
+                'the a2_depth_v7 retained-seed reset granted the target cuts, keeps T<=1/(2^B-2) at every depth for '
+                'B>=2. The least sufficient growth rate is not determined here.')
     out = {
-        'schema': 'oi.a2-bounded-memory-v8.v1',
+        'schema': 'oi.a2-bounded-memory-v8.v2',
         'protocol': 'prepare X+, then reads a,X,a,X,...; quantum agreement 4/5 per read; complete public record',
         'class_hypothesis': ('finite persistent state (carrier, private memory, any clock or record registers read); '
                              'time-independent deterministic update from state, one fresh block of B fair bits and '
@@ -787,13 +895,19 @@ def run():
         'step4_exact_frequency_examples': exact_freq,
         'family_RS': fam,
         'restart_mechanics': mech,
+        'floor_truncated_decoder_member_post_review': floor_member,
         'controls': {
             'K1_memoryless_reproduction': 'digest, A, B, exact T(1..4), T digests h<=64 equal; generic engine equal h<=12',
             'K2_retained_seed_values_matched': k2,
+            'K6_retained_value_checks': k6,
             'K3_K4_base5': cc,
             'K5_exact_frequency_classes': n_freq,
-            'K6': 'RS(B,k>=h) equals the retained-seed reset; block TV below 1/(2^B-2); RS(4,1) memoryless value equal',
-            'K7': 'square-root endpoints verified by squaring; exact product TV inside both brackets for n*k<=16',
+            'K6': ('the unrestarted state machine equals the retained-seed law (B=2 h=6, B=3 h=4); block TV below '
+                   '1/(2^B-2); RS(4,1) is the 13/16 reset and its T(4096) display equals a2_depth_v7'),
+            'K7': ('square-root endpoints verified by squaring; Le Cam inequalities; exact product TV inside the '
+                   'preregistered and power-rule brackets for n*k<=16; power rule checked against exact T(h) at k=1'),
+            'counts': ('census chain counts equal C(2^B+2n-1,2n-1)^n; memory column bounds the persistent-state '
+                       'count, which equals the explicit chain size where built'),
             'K8': 'explicit state machine and chain form equal the product of block laws'},
         'display_rule': 'decimal truncation toward zero',
         'scope': ('A2 only. The class theorem covers bounded persistent state with a time-independent update and B '

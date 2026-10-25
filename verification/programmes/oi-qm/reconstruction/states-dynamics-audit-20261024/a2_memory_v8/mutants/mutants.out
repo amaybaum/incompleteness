@@ -9,4 +9,8 @@ M7_half_depth_off_by_one: targets K7 depth minimality; exit 2; VOID: K7 half-dep
 M8_wrong_initial_phase: targets K1 generic engine; exit 2; VOID: K1 generic engine equals product engine (h<=12); CAUGHT
 M9_pinned_hash: targets pinned input; exit 2; VOID: K1/K2 pinned a2_depth_v7 result.json hash; CAUGHT
 M10_memoryless_rounding: targets K6 RS(4,1) memoryless identity; exit 2; VOID: K6 RS(4,1) is the memoryless 4-bit reset; CAUGHT
+M11_power_rule_exponent: targets K7 power-rule control; exit 2; VOID: K7 power-rule depth is the least n with BC_upper^n < 1/2; CAUGHT
+M12_drop_closedness: targets step-5 class analysis; exit 2; VOID: step4 nonsingular stationary system; CAUGHT
+M13_fewer_chains: targets census count; exit 2; VOID: census chain count equals C(2^B+2n-1,2n-1)^n; CAUGHT
+M14_memory_formula: targets memory column; exit 2; VOID: memory column bounds the persistent-state count; CAUGHT
 all mutants caught

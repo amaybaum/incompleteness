@@ -40,6 +40,18 @@ MUTANTS = [
      "V7_RESULT_SHA256 = '2e8988de", "V7_RESULT_SHA256 = '2e8988df", 'K1/K2 pinned a2_depth_v7 result.json hash'),
     ('M10_memoryless_rounding', 'K6 RS(4,1) memoryless identity',
      'p4 = Q(-((-4 * 16) // 5), 16)', 'p4 = Q((4 * 16) // 5, 16)', 'K6 RS(4,1) is the memoryless 4-bit reset'),
+    # added after the independent review (its mutants R1, R4, R10, R15)
+    ('M11_power_rule_exponent', 'K7 power-rule control',
+     'n_hp = least_power_below(bh, HALF)', 'n_hp = least_power_below(bh * bh, HALF)',
+     'K7 power-rule depth is the least n with BC_upper^n < 1/2'),
+    ('M12_drop_closedness', 'step-5 class analysis',
+     'if all(i in reach[j] for j in reach[i]):', 'if True:', 'step4 nonsingular stationary system'),
+    ('M13_fewer_chains', 'census count',
+     'per_state = list(compositions(N, 2 * n))', 'per_state = list(compositions(N, 2 * n))[:-1]',
+     'census chain count equals C(2^B+2n-1,2n-1)^n'),
+    ('M14_memory_formula', 'memory column',
+     "'memory_bits_upper': (k - 1) * B + (k - 1) + (k - 1).bit_length()",
+     "'memory_bits_upper': (k - 1) * B + (k - 1).bit_length()", 'memory column bounds the persistent-state count'),
 ]
 
 LOCATION = 'HERE = os.path.dirname(os.path.abspath(__file__))'

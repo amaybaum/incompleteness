@@ -31,17 +31,45 @@
     }
   ],
   "mutants": "mutants/run_mutants.py and its output mutants/mutants.out",
-  "plan_commit_before_computation": "1dfec979721336cc9f0ce703b544f9d6be8e906c",
-  "plan_commit_note": "committed at 1dfec979 (2026-10-25 03:52:56 UTC), a single-parent child of #911's head 49e1a119, before any computation on the tested class or family; one earlier floating-point exploration of a different candidate (a floor-truncated rescaling decoder, not adopted and not reported) preceded the plan",
+  "plan_commit": "1dfec979721336cc9f0ce703b544f9d6be8e906c",
+  "plan_commit_note": "committed at 1dfec979 (2026-10-25 03:52:56 UTC), a single-parent child of #911's head 49e1a119, touching PLAN.md alone. Correction: PLAN.md's sentence that it was committed \"alone before any computation of this round\" is inaccurate. One floating-point exploration ran before it: a floor-truncated rescaling decoder with a fixed-width m-bit register (B=1..4, m=0..8). That decoder has bounded state, so it is a member of the bounded-state class, though not of the RS family. Qualitatively it showed several closed classes and absorbing states, stationary agreement defects that did not shrink steadily with m, and at B=2, m=4 a class matching frequency 4/5 to float precision while differing in run masses at n>=2. It steered the choice of tested family away from that decoder to RS(B,k). It touched neither RS(B,k), the census populations nor the decision rule. The decoder is recomputed exactly, post-review, as the second concrete class member.",
   "plan_path": "verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8/PLAN.md",
   "plan_sha256": "b7f7eaae58de13b9eb348bb4e31e92a7bce6741be64553c9ba496af9a2c6a275",
+  "post_plan": [
+    "power-rule depths",
+    "the T<=1/2 threshold for the upper depth (plan: 1/10)",
+    "exact memoryless crossings and every fails-before/outlasts comparison",
+    "Le Cam checks",
+    "trailing-disagreement diagnostic",
+    "the mechanism paragraph in REPORT.md",
+    "the changed K6 implementation",
+    "mutants M9 and M10",
+    "mutant-runner prefix match"
+  ],
+  "post_review": {
+    "changes": [
+      "F1: nearest-dyadic memoryless comparator added for every B; RS(B,1) named the ceiling-rounded reset; comparison lists and family_verdict regenerated against the nearest-dyadic comparator",
+      "F2: preregistration correction recorded here and in REPORT.md; key plan_commit_before_computation renamed plan_commit; post-plan items labelled, including inside family_verdict",
+      "F3: power-rule controls (least-n check, exact T(h) at k=1, power-rule bracket in the n*k<=16 loop)",
+      "F4: necessity/sufficiency wording; finite initial support",
+      "F5: verdicts quoted verbatim in REPORT.md",
+      "F6: proof step 3 applies the strong law to each residue class mod n",
+      "nits: singular stationary system is a VOID control failure; K6 string; K2/K6 counts split (41 and 3); closed-form census counts and memory-column controls; second concrete class member (floor-truncated decoder, exact); faster exact tv_iid",
+      "mutants M11-M14 re-implement reviewer mutants R1, R4, R10, R15",
+      "attribution wording adopted from the review in REPORT.md",
+      "controls reordered (floor-decoder member after the census; K4 count after the exact-match check) so that M3 and M4 fail on their targeted labels"
+    ],
+    "review": "independent internal review of 200fcd9f on #911, ACCEPT WITH NITS; reviewer code not imported",
+    "reviewer_mutants_rerun": "the review script rerun on a copy against this revision: all 15 code mutants and the tampered input exit 2 with VOID"
+  },
+  "preregistered": "class, hypothesis H and its proof route, census populations, K1-K8, RS(B,k) for B=2,3,4 and k=1..16, the nc/(1+nc) and min(nT_k, sqrt(2nc)) depth rules with thresholds 1/2 and 1/10, memory bits, VOID rule, verdict labels",
   "replay": [
     "python3 -I -B verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8/checks.py > out.json && cmp out.json verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8/result.json",
     "python3 -I -B -O verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8/checks.py > out.json && cmp out.json verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8/result.json",
     "python3 -I -B verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8/mutants/run_mutants.py > m.out && cmp m.out verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8/mutants/mutants.out",
     "paths are relative to the repository root; run from an empty working directory with those paths made absolute"
   ],
-  "schema": "oi.a2-bounded-memory-v8.provenance.v1",
+  "schema": "oi.a2-bounded-memory-v8.provenance.v2",
   "source_head": "49e1a1191c9ea5c303883afd2d8d3c28a233f9e5",
   "source_prefix": "verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/"
 }
