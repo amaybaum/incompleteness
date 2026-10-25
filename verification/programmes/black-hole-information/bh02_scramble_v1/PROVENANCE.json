@@ -7,7 +7,7 @@
   "amendments/A1-shell-cases.md": "ff7b5c85",
   "amendments/A2-mutant-criterion.md": "836a661e"
  },
- "generated_on_parent": "91e2230a745a5a944696308d5a5944f04581d765",
+ "generated_on_parent": "ee2d4e689c7bd67343c2bd4215e4711b9e765af2",
  "form": "complete",
  "kind": "local run; not a CI run and not a check-run attestation",
  "interpreter": "CPython 3.13.16, standard library only",
@@ -29,7 +29,8 @@
    "source": "D. N. Page, Time Dependence of Hawking Radiation Entropy, JCAP 09 (2013) 028, arXiv:1301.4995",
    "values": "beta = 1.4847 (photons and gravitons, from Page 1976), turnover at 53.81% of the evaporation time, 40.25% of the initial Bekenstein-Hawking entropy lost",
    "how_obtained": "abstract and database-record text via web search on 2026-10-25; full text not accessed",
-   "use": "external control K-page2013 only"
+   "use": "external control K-page2013 only",
+   "full_text_read_later": "see post_review_4"
   },
   {
    "source": "D. N. Page, Phys. Rev. Lett. 71, 1291 (1993); proofs by Foong-Kanno (1994), Sanchez-Ruiz (1995), Sen (1996)",
@@ -85,5 +86,33 @@
   "review": "re-check of 1f1aec6f: ACCEPT, with one hazard to remove before landing",
   "change": "mutants.py --only is validated before any run: an unknown name, an empty selection or a missing argument prints VOID and exits 2; a full run and a valid targeted run print the same lines as before",
   "verified": "--only M-bogus, --only ',', --only with no argument, --only M-canonical,M-bogus each exit 2; --only M-canonical reproduces its line of mutants-targeted-output.txt; mutants-output.txt, mutants-targeted-output.txt and result.json unchanged; result.json replays byte for byte under -I -B"
+ },
+ "post_review_4": {
+  "trigger": "full text of Page 2013 read and the reading independently reviewed (ACCEPT WITH NITS)",
+  "sources_read_in_full": {
+   "page2013": {
+    "ref": "D. N. Page, Time Dependence of Hawking Radiation Entropy, JCAP 09 (2013) 028, arXiv:1301.4995v3",
+    "pdf_sha256": "43ba2ce2374ec93577e2c2d75648af6fa6f421140c97e8b0571e48a12200211a",
+    "values": "beta = 1.48472 Eq. (2) p.6 (computed from Page's 1976 photon and graviton rates; constant alpha = 0.000037474, Eq. (1) p.5); t* = 0.53810 t_decay Eq. (8) p.11; 40.25% of S_BH lost p.12; 1/(1+beta) = tau_12 at f = 0, Eq. (14) p.19"
+   },
+   "page2005": {
+    "ref": "D. N. Page, Hawking Radiation and Black Hole Thermodynamics, New J. Phys. 7 (2005) 203, arXiv:hep-th/0409024v3",
+    "pdf_sha256": "cc977f7f2aa651ffa9e0d6cef155b655eeb62108299f537fc67b95b1ba754be1",
+    "values": "per-mode entropy production for emission into empty space, Eqs. (5)-(10) pp.10-11; species rates Eqs. (19)-(21) p.13"
+   }
+  },
+  "not_read": "Page 1976 (PRD 13, 198; PRD 14, 3260): read only through Page 2013 and Page 2005",
+  "changes": [
+   "MANUSCRIPT-AUDIT.md: 'Literature values pending' header replaced by a sourced statement; each '[Page 2013 abstract value; full text unverified]' tag replaced by its equation/page citation; proposals 1, 5, 17, 20 adoptable as far as the sources support (that species content, constant alpha, emission into empty space)",
+   "item 1: '(0.5381 at constant alpha with Page's photon-and-graviton beta = 1.4847 [Page 2013, Eqs. (2), (8)])'",
+   "item 5 proposal: the 0.538 parenthetical attaches only to the entropy-accounting clause (Page holds alpha constant); the coarse-grained-entropy clause is limited to emission into empty space and cites Page 2005 Eqs. (5)-(10)",
+   "items 17 and 20: wording kept, citations added",
+   "C7 verdict: 'reproducing the value quoted in the abstract of Page 2013 (full text unverified)' -> 'reproducing Page 2013 Eq. (8)'; e_literature_control.source cites Eq. (2) p.6, Eq. (8) p.11, p.12; REPORT Page-time paragraph and limitation updated"
+  ],
+  "result_json_leaf_changes": "/C7/verdict and /C7/e_literature_control/source (text only)",
+  "mutants": "targeted rerun of M-page2013 only (the C7 literature-control area): unmodified run no failed controls; 'M-page2013      target=K-page2013      run=clean caught=True failed=[K-page2013]'; mutants-output.txt and mutants-targeted-output.txt not rerun",
+  "superseded_outputs_at_ee2d4e68": {
+   "note": "byte content retrievable from commit ee2d4e68"
+  }
  }
 }

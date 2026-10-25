@@ -1442,7 +1442,7 @@ def run_C7(controls, res):
     lit = (dec(flo + Fr(5, 100000), 4) == "0.5381" and dec(fhi + Fr(5, 100000), 4) == "0.5381"
            and dec(1 - y + Fr(5, 100000), 4) == "0.4025")
     out["e_beta_accounting"] = beta_rows
-    out["e_literature_control"] = {"source": "Page 2013 (arXiv:1301.4995): 53.81% of evaporation time, 40.25% of S_BH lost, beta=1.4847",
+    out["e_literature_control"] = {"source": "Page 2013 (arXiv:1301.4995v3, read in full): beta = 1.48472 Eq. (2) p.6; t* = 0.53810 t_decay Eq. (8) p.11; 40.25% of S_BH lost p.12",
                                    "quoted_t_fraction": "0.5381", "quoted_entropy_lost": "0.4025",
                                    "computed_t_fraction_4dp": dec(flo + Fr(5, 100000), 4),
                                    "computed_entropy_lost_4dp": dec(1 - y + Fr(5, 100000), 4),
@@ -1462,7 +1462,7 @@ def run_C7(controls, res):
         "species factor cancels. COUNTEREXAMPLE to the unconditional reading: an M-dependent "
         "effective coefficient changes the fraction (power law p=1/2 gives %s; step model up "
         "to %s for the cases computed), and with Page's coarse-grained accounting beta=1.4847 "
-        "the fraction is %s, reproducing the value quoted in the abstract of Page 2013 (full text unverified); beta itself is computed from the "
+        "the fraction is %s, reproducing Page 2013 Eq. (8); beta itself is computed from the "
         "species' greybody factors."
         % (dec(lo, 6), pl["p=1/2"][0][:8], max(s["value_8dp"] for s in steps)[:8],
            dec(flo, 4)))

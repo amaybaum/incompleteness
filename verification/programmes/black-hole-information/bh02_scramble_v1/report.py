@@ -196,12 +196,13 @@ def main():
     w("thresholds), which makes it depend on `M_0` through `M_*/M_0` with corrections of order")
     w("`(M_*/M_0)^3` for `M_0 ≫ M_*`; and the radiation-entropy accounting. With Page's coarse-grained")
     lit = c7["e_literature_control"]
-    w("accounting for photons and gravitons from a large Schwarzschild hole (β = 1.4847, Page 1976 as used")
-    w("in Page 2013, arXiv:1301.4995) the turnover is at %s of the evaporation time with a fraction %s"
-      % (lit["quoted_t_fraction"], lit["quoted_entropy_lost"]))
-    w("of the entropy lost (as quoted in the abstract; full text unverified, so conclusions resting on")
-    w("these values stay pending); the β formula gives %s and %s (K-page2013, %s). β itself is computed from the"
-      % (lit["computed_t_fraction_4dp"], lit["computed_entropy_lost_4dp"], lit["resolution"]))
+    w("accounting for photons and gravitons from a large Schwarzschild hole at constant α (β ≈ 1.4847,")
+    w("computed in Page 2013, Eq. (2), from Page's 1976 rates) the turnover is at %s of the evaporation"
+      % lit["quoted_t_fraction"])
+    w("time (Eq. (8)) with a fraction %s of the entropy lost (p.12); the β formula gives %s and %s"
+      % (lit["quoted_entropy_lost"], lit["computed_t_fraction_4dp"], lit["computed_entropy_lost_4dp"]))
+    w("(K-page2013, %s). β itself is computed from the"
+      % lit["resolution"])
     w("emitted species' greybody factors. The derivation uses only the exponents in the mass-loss law")
     w("and in `S_BH ∝ M²`, not their coefficients, so no OI-specific quantity (σ, q, ε, the 1/4")
     w("coefficient, bijectivity) enters the fraction; it is the same number in any model with these")
@@ -250,8 +251,8 @@ def main():
     w("  decisive one.")
     w("- C7(a) and (c) are algebraic identities checked at rational points; K-ode is the independent")
     w("  Simpson-rule integration of the ODE.")
-    w("- C7 uses literature values (β = 1.4847, 0.5381, 40.25%) as read from the abstract of Page 2013")
-    w("  and its database record; the full text and Page 1976 were not consulted here. The step and")
+    w("- C7 uses literature values (β ≈ 1.4847, 0.5381, 40.25%) from Page 2013, read in full (Eq. (2),")
+    w("  Eq. (8), p.12); Page 1976, the source of the emission rates, was not read. The step and")
     w("  power-law models are parametric, not fitted to Standard Model thresholds.")
     w("- C1's exhaustive sweeps exercise the code path (exact rank on every image state); the")
     w("  universal claim rests on the one-line proof, not on the sweep.")

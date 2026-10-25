@@ -15,12 +15,14 @@ target entropy (C2), which A.7's "definite initial state" excludes, and on H-scr
 for `papers/` are written in the neutral register of §A.32–§A.33. Revised after independent
 review (post-review changes listed in `PROVENANCE.json`).
 
-**Literature values pending.** The figures β = 1.4847, 0.5381 (0.538) of the evaporation time,
-40.25% (about 40%) of the entropy lost, are quoted from the abstract and database record of
-Page 2013 (arXiv:1301.4995); the full text, and Page 1976 from which β is taken, have not been
-read. Each site is marked [Page 2013 abstract value; full text unverified]. Under the owner's ruling, conclusions resting on them stay pending,
-and no proposal using them (items 1, 5, 17, 20) is to be adopted before the full text is
-checked.
+**Literature values.** Page 2013 (JCAP 09 (2013) 028, arXiv:1301.4995v3) was read in full. For a
+large Schwarzschild hole emitting photons and gravitons into empty space at constant mass-loss
+coefficient α ≈ 0.000037474, β ≈ 1.4847 is computed there (Eq. (2), p.6) from Page's 1976 photon
+and graviton emission rates (reproduced in Page 2005, Eqs. (19)–(21)); Page 1976 itself was not
+read. The turnover t∗ ≈ 0.53810 t_decay is Eq. (8) (p.11), the 40.25% of the entropy lost is on
+p.12, and 1/(1+β) is Page's τ₁₂ at f = 0 (Eq. (14), p.19). Each site cites the equation or page.
+Proposals 1, 5, 17 and 20 may be adopted as far as these sources support them: the figures hold
+for that species content, constant α and emission into empty space.
 
 ## book/ch07-gravity.md
 
@@ -36,7 +38,7 @@ checked.
   mass-loss coefficient, turnover at half the initial black-hole entropy (radiation entropy equal
   to black-hole entropy lost) and `S ∝ M²`; a constant greybody factor cancels; an M-dependent
   effective coefficient or coarse-grained radiation-entropy accounting changes the fraction
-  (0.5381 with Page's β = 1.4847 [Page 2013 abstract value; full text unverified]).
+  (0.5381 at constant α with Page's photon-and-graviton β ≈ 1.4847 [Page 2013, Eqs. (2), (8)]).
 - "matching the quantum-extremal-surface and entanglement-island programs": **not supported** by
   any result here; the Page time a QES computation yields depends on its radiation-entropy
   accounting (C7(e)), and no matched comparison exists.
@@ -107,9 +109,11 @@ checked.
   these inputs, so "distinctive content" is not supported.
 - Proposal: "… $t_P = (1 - 2^{-3/2})\,t_{\text{evap}} \approx 0.646\,t_{\text{evap}}$, for a
   constant mass-loss coefficient and with the radiation's entropy equal to the black-hole entropy
-  lost; a constant greybody factor cancels from the fraction, while mass-dependent emission (new
-  species becoming light) and the coarse-grained entropy of thermal emission move it (Page's
-  accounting for photons and gravitons gives $0.538\,t_{\text{evap}}$)." [Page 2013 abstract value; full text unverified] Delete the
+  lost; a constant greybody factor cancels from the fraction, and mass-dependent emission (new
+  species becoming light) would move it; for emission into empty space the radiation's
+  coarse-grained entropy also exceeds the black-hole entropy lost [Page 2005, Eqs. (5)–(10)], and
+  Page's accounting for photon and graviton emission from a large Schwarzschild hole, at constant
+  mass-loss coefficient, gives $0.538\,t_{\text{evap}}$ [Page 2013, Eq. (8)]." Delete the
   "distinctive content" sentence.
 
 **6. Line 141 (FULL:2016).**
@@ -166,11 +170,12 @@ checked.
 - **Conditions** (C7(e)). Half the entropy holds when the radiation's entropy equals the black-hole
   entropy lost (β = 1). With the definition given in the same sentence (radiation entropy equal to
   the remaining black hole's entropy) and Page's coarse-grained accounting for photon and graviton
-  emission, the turnover comes when about 40.25% has been lost (Page 2013) [Page 2013 abstract value; full text unverified].
+  emission, the turnover comes when about 40.25% has been lost [Page 2013, p.12; 1/(1+β) is
+  τ₁₂ at f = 0, Eq. (14), p.19].
 - Proposal: "The Page time occurs when the black hole has lost a fraction $1/(1+\beta)$ of its
   initial entropy, where $\beta$ is the entropy carried off by the radiation per unit of
   black-hole entropy lost: one half for $\beta = 1$, about 40% for photon and graviton emission
-  from a large Schwarzschild hole." [Page 2013 abstract value; full text unverified]
+  from a large Schwarzschild hole." [Page 2013, Eq. (14) p.19 and p.12]
 
 ## papers/GR.md (Appendix A and its summary)
 
@@ -228,7 +233,7 @@ part of the hypothesis, or restate A.9 for time averages.
   `Γ` does not (C7(d)); `n_B(t_P) = n_B(0)/2` is the β = 1 accounting (C7(e)).
 - Proposal: add "for constant $\Gamma$, and with the radiation's entropy equal to the black-hole
   entropy lost; Page's coarse-grained accounting for photon and graviton emission gives
-  $0.538\,t_{\text{evap}}$ [Page 2013]." [Page 2013 abstract value; full text unverified]
+  $0.538\,t_{\text{evap}}$ [Page 2013, Eq. (8)]."
 
 **18. Line 863.**
 > "this is $S_{\text{rad}}(t_P) \approx S_{\text{BH}}(0) \ln q/(2\sigma)$: approximately half the initial black-hole entropy when $\sigma = \ln q$"
