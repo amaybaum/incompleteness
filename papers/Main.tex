@@ -753,21 +753,22 @@ realization does not distinguish non-Markovian laws (kernel:
 \texttt{Qfb\_imp\_S} for \(\supseteq\); assembled in
 \texttt{finite\_horizon\_equivalence}). Non-Markovianity is instead
 recorded in every realization (§3.4, unavoidable hidden predictive
-memory). Here a faithful realization is a member of class (D): a
+memory). Here a faithful realization is a system as in class (D): a
 bijection \(\varphi\) of \(\mathcal{C}_V \times \mathcal{C}_H\) with an
 initial law on \(\mathcal{C}_V \times \mathcal{C}_H\), which may
-correlate the hidden and visible coordinates, whose visible marginal is
-the given law. In every faithful realization the next-step law after a
-positive-probability history \(p\) ending at \(x\) is the pushforward
-\((f_x)_\#\mu_p\) of its hidden posterior \(\mu_p\) through
-\(f_x(h) = \pi_V(\varphi(x,h))\), and next-step laws a total-variation
-distance \(\delta\) apart force posteriors at least \(\delta\) apart
-(kernel: \texttt{pushforward\_identity},
-\texttt{distinguishability\_floor}, for a joint law of history, present
-and hidden state; reading a realization's time-\(t\) law as that joint
-law is a step not formalized). Hence a finite-horizon law has a memory
-witness at \(t\) --- two positive-probability histories ending at the
-same \(x_t\) with different next-step laws, equivalently
+correlate the hidden and visible coordinates, under which the visible
+trajectory \((x_0, \ldots, x_K)\) has the given law. In every faithful
+realization the next-step law after a positive-probability history \(p\)
+ending at \(x\) is the pushforward \((f_x)_\#\mu_p\) of its hidden
+posterior \(\mu_p\) through \(f_x(h) = \pi_V(\varphi(x,h))\), and
+next-step laws a total-variation distance \(\delta\) apart force
+posteriors at least \(\delta\) apart (kernel:
+\texttt{pushforward\_identity}, \texttt{distinguishability\_floor}, for
+a joint law of history, present and hidden state; reading a
+realization's time-\(t\) law as that joint law is a step not
+formalized). Hence a finite-horizon law has a memory witness at \(t\)
+--- two positive-probability histories ending at the same \(x_t\) with
+different next-step laws, equivalently
 \(M_t := I(X_{<t}; X_{t+1} \mid X_t) > 0\) by the standard vanishing
 criterion for conditional mutual information, which is not formalized
 --- exactly when every faithful realization carries readout-relevant
@@ -5296,4 +5297,4 @@ limitations of measurement,'' in W. C. Myrvold and J. Christian (eds.),
 Circle} (Springer, 2009).
 
 \end{document}
-% source-sha256: e93ccabee2bb60a6e73610abb00dc5794f40c343e69f0557dd132a8aa8fd7729
+% source-sha256: e005c969bd90f93c9c54fa48b550c6d717d391c459b8671e2d6f7863944a897d
