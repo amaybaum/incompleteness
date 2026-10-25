@@ -156,5 +156,5 @@ that replay.
 The top-level `REPORT.md`, `stopping-source-v2/REPORT.md`, `review/REVIEW.md`
 and the `PROVENANCE.json` of `operational-quotient-v3/` and
 `history-architecture-v5/` cite programme snapshot `2d555f17` on branch
-`research/missing-component-20261020` as provenance. The claims there rest on Lean declarations at `de6fe293`, which
-is on `main`, and on their own checkers.
+`research/missing-component-20261020` as provenance. The claims there rest on their own checkers and, where they cite
+Lean, on declarations at `de6fe293`, which is on `main`.
