@@ -4354,11 +4354,11 @@ unitary in the measurement-outcome basis. This freedom preserves
 transition probabilities exactly. Energy shifts and the antiunitary
 reflection also preserve them; completeness of these alternatives under
 the stated gap and overlap hypotheses is conditional on the sign-aware
-integer classification H-BG ({[}GR §3.3{]}). Two Hamiltonians \(H\) and
-\(D H D^\dagger\) produce identical Born-rule probabilities
-\(T_{ij}(t) = |\langle j | e^{-iHt/\hbar} | i \rangle|^2\) in the
-measurement basis, so they are operationally indistinguishable. The
-transformation rephases the measurement basis, changing off-diagonal
+integer classification H-BG ({[}GR §3.3{]}; Appendix B.7). Two
+Hamiltonians \(H\) and \(D H D^\dagger\) produce identical Born-rule
+probabilities \(T_{ij}(t) = |\langle j | e^{-iHt/\hbar} | i \rangle|^2\)
+in the measurement basis, so they are operationally indistinguishable.
+The transformation rephases the measurement basis, changing off-diagonal
 phases of \(H\) while leaving its diagonal entries and every transition
 probability unchanged.
 
@@ -25941,9 +25941,12 @@ realization per horizon, with the quantum representation internal and
 universal (\(S \iff D \iff Q_{\mathrm{fb}}\), {[}Main §3.4{]}) ---
 relies on a chain of intermediate lemmas: partition-relativity, emergent
 stochasticity, P-indivisibility from a non-permutation witness,
-accessible-timescale backflow, and phase-locking. This appendix collects
-these lemmas with their proofs in compact form, providing the reader a
-self-contained reference for the framework's logical structure.
+accessible-timescale backflow, and phase-locking, together with the
+results on which phase-locking rests: Bohr-frequency completeness, the
+real-to-integer transfer and the two-branch classification conditional
+on H-BG. This appendix collects these lemmas with their proofs in
+compact form, providing the reader a self-contained reference for the
+framework's logical structure.
 
 The appendix's content is \emph{complete derivations}, not exposition.
 Each derivation gives the algebraic steps, the lemmas invoked, and the
@@ -27316,11 +27319,11 @@ the transformation \(|i\rangle \to e^{i\theta_i}|i\rangle\) leaves all
 \(|U_{ij}|^2\) invariant. This is the basis-convention freedom --- the
 choice of phase for each basis state --- which is physically trivial.
 H-BG and the coefficient-labelled exceptional obstruction classify the
-possible mode correspondences ({[}GR §3.3{]}); this step is not supplied
-by Fourier extraction alone. Conditional on H-BG, the remaining
-alternatives are this rephasing freedom, the energy shift and the
-antiunitary conjugation \(\hat{H} \to -\hat{H}^*\) stated above.
-\(\square\)
+possible mode correspondences (Theorem B.7.5c below; {[}GR §3.3{]});
+this step is not supplied by Fourier extraction alone. Conditional on
+H-BG, the remaining alternatives are this rephasing freedom, the energy
+shift and the antiunitary conjugation \(\hat{H} \to -\hat{H}^*\) stated
+above. \(\square\)
 
 \emph{Scope.} The lemma is stated in its simplest form,
 \(T_{ij}(t) = |U_{ij}(t)|^2\) --- the trivial-ancilla case of the
@@ -27335,6 +27338,171 @@ pair-phase gauge reduces to the diagonal one for generic families at
 each fixed dimension --- together with the antiunitary conjugate
 \(H \to -H^*\), retained there as an intrinsic ambiguity of transition
 data.
+
+\textbf{Bohr frequencies and the D-gauge classification.} The proof of
+Lemma B.7.5 rests on the results collected here, each stated with its
+hypotheses ({[}GR §3.3{]}). Throughout, \(U(t) = e^{-iHt}\) with \(H\)
+in frequency units and \(H = V\,\mathrm{diag}(E)\,V^\dagger\) on a
+finite configuration space, so that \(V_{ia}\) is the overlap of
+configuration \(i\) with eigenvector \(a\), and likewise
+\(H' = W\,\mathrm{diag}(E')\,W^\dagger\); the antiunitary reflection
+\(-\bar{H}\) is the \(-\hat{H}^*\) of Lemma B.7.5.
+
+\textbf{Theorem B.7.5a (Bohr-frequency completeness).} \emph{Let
+\(U(t) = e^{-iHt}\) with non-degenerate eigenvalues and non-vanishing
+configuration-basis overlaps. Then the transition probabilities
+determine the Bohr-frequency set \(\{E_a - E_b\}\): each return
+probability expands as
+\(|U_{ii}(t)|^2 = \sum_{a,b} |V_{ia}|^2 |V_{ib}|^2\, e^{-i(E_a - E_b)t}\),
+in which every gap value carries a strictly positive coefficient; every
+\(|U_{ij}(t)|^2\) is a combination of the same frequencies; and
+consequently any \(U'\) of the same form with
+\(|U'_{ij}(t)|^2 = |U_{ij}(t)|^2\) for all \(i, j, t\) has
+\(\{E'_a - E'_b\} = \{E_a - E_b\}\).}
+
+\emph{Proof.} Expanding
+\(U_{ij}(t) = \sum_a V_{ia}\, e^{-iE_a t}\, V_{ja}^*\) gives
+\(|U_{ij}(t)|^2 = \sum_{a,b} V_{ia} V_{ja}^* V_{ib}^* V_{jb}\, e^{-i(E_a - E_b)t}\);
+at \(i = j\) the coefficients are \(|V_{ia}|^2 |V_{ib}|^2 > 0\), and
+grouping terms by frequency value only adds positive quantities ---
+degenerate gaps merge coefficients but cannot cancel them. Distinct
+characters \(t \mapsto e^{-i\omega t}\) of \((\mathbb{R}, +)\) are
+linearly independent (Dedekind), so equality of two probability families
+forces equality of the per-frequency coefficients over the union of the
+two gap sets, and positivity makes the supports --- the gap sets ---
+coincide. \(\square\)
+
+\textbf{The dimensional obstruction.} Theorem B.7.5a is what the gap
+equation of §B.4 consumes, and it is less than a reconstruction of
+\(H\). The unitary \(U(t)\) is dimensionless, and \(\hbar\) enters only
+through \(\hat{H} = i\hbar\,\partial_t U\, U^\dagger\). The transition
+probabilities are dimensionless functions of \(t\) and determine
+temporal frequencies; converting a frequency to an energy requires the
+action scale \(\hbar\) itself, so no amount of transition data fixes it.
+The residual ambiguities in passing from frequencies to a Hamiltonian
+carry no scale either: diagonal rephasing \(H \mapsto DHD^\dagger\)
+moves no modulus, the energy origin \(H \mapsto H + E_0\) contributes
+only the global phase \(e^{-iE_0 t}\), the antiunitary reflection
+\(H \mapsto -\bar{H}\) satisfies
+\(e^{-i(-\bar{H})t} = \overline{e^{-iHt}}\) entrywise and so preserves
+every \(|U_{ij}(t)|^2\) exactly, and Theorem B.7.5c below excludes
+further ambiguities conditional on its stated classification hypothesis.
+The thermal self-consistency of §B.4, Step 4, is therefore the
+mathematically obligatory entry point for the dimensionful input.
+
+\textbf{Lemma B.7.5b (Real-to-integer transfer).} \emph{Let \(E, E'\) be
+real spectra on \(n\) modes, each with distinct directed gaps ---
+\(E_b - E_a = E_d - E_c\) with \(a \neq b\) and \(c \neq d\) only when
+\((a, b) = (c, d)\) --- and with equal gap sets. Then \(E'\) is, after
+relabeling its modes, a translate \(E + E_0\) of \(E\) or a translate
+\(-E + E_0\) of its reflection; or else there are relabelings of the two
+spectra and strictly increasing integer rulers \(F, F'\) on \(n\) marks,
+each with distinct positive differences, with equal difference sets, and
+neither a translate nor a reflection of the other, such that every
+integer gap identity \(F'_d - F'_c = F_b - F_a\) with \(a \neq b\) holds
+for the relabeled real spectra as well.}
+
+The lemma assumes no classification hypothesis. It is proved in the
+framework's Lean formalization (kernel:
+\texttt{real\_to\_integer\_surrogate} in
+\texttt{OIBridge/TurnpikeScopeTransfer.lean}), and it is the step
+through which a classification of integer rulers, such as H-BG below,
+applies to real spectra.
+
+\textbf{Theorem B.7.5c (D-gauge completeness, two-branch form).}
+\emph{Assume H-BG: every non-congruent pair of strictly ordered integer
+rulers with distinct positive differences and equal difference sets has
+six marks and, after relabeling, realizes either \(\mu\) or its global
+reversal, where \(\mu\) sends each ascending mark pair of
+\(\{0,1,4,10,12,17\}\) to the ascending mark pair of
+\(\{0,1,8,11,13,17\}\) with the same difference. The orientation is
+chosen once for the whole pair. Let \(H,H'\) act on the same finite
+configuration space of dimension \(m\ge3\), with distinct nonzero energy
+gaps and non-vanishing configuration-basis overlaps for both
+Hamiltonians. If \(|U'_{ij}(t)|^2 = |U_{ij}(t)|^2\) for all \(i,j,t\),
+then \(H' = DHD^\dagger + E_0\) or \(H' = -D\bar{H}D^\dagger + E_0\),
+for a time-independent diagonal unitary \(D\) and a real \(E_0\).}
+
+\emph{Conditional proof.} Equality of the probability families forces
+equality of the per-frequency coefficients of
+\(|U_{ij}(t)|^2 = \sum_{a,b} V_{ia} V_{ja}^* V_{ib}^* V_{jb}\, e^{-i(E_a-E_b)t}\).
+Under the stated overlap and gap hypotheses, the spectra have equal
+difference sets and the coefficient matching induces a bijection of
+ordered mode pairs preserving directed gaps. A fixed correspondence can
+be transferred from real to integer spectra while preserving its gap
+identities, strict order, distinct differences and non-congruence (Lemma
+B.7.5b): its realization constraints are homogeneous rational-linear
+equalities, strict inequalities and inequations, and rational
+approximation in the equality subspace followed by denominator clearing
+preserves the finite list of strict conditions. H-BG then supplies a
+congruent pair or one of the two globally oriented exceptional
+correspondences. For congruent spectra, diagonal-line rigidity fixes the
+moduli and the phase-coboundary relation fixes the phases, giving
+\(W_{i,\tau a}=d_i\beta_a V_{ia}\) with \(d,\beta\) unimodular. The
+column phases cancel in the reconstructed Hamiltonian. Reflection
+congruence applies this argument to \((\bar V,-E)\) and gives the second
+branch. For the positive exceptional correspondence \(\mu\), the
+coefficient identities force flat moduli and constrain the phase data to
+a graph of maximum clique three, excluding the six orthogonal rows
+required by unitarity. For the reversed correspondence, reversing the
+source mode pair conjugates its coefficient tensor; applying the same
+obstruction to the conjugated source eigenbasis excludes that
+orientation as well. Thus the two Hamiltonian branches follow
+conditional on H-BG. \(\square\)
+
+\emph{Scope.} The complete comparison of H-BG with the published integer
+classification of Bekir and Golomb {[}A. Bekir and S. W. Golomb, IEEE
+Trans. Inform. Theory 53 (2007) 2864--2867{]}, including all
+normalizations and exceptional orientations, is open. The unsigned
+formal premise \texttt{BGIntegerClassification} of the Lean
+formalization is false: the strictly ordered rulers \((0,1,4,10,12,17)\)
+and \((0,4,6,9,16,17)\) have distinct positive differences and equal
+difference sets, are neither translates nor reflections of one another,
+and satisfy the reversed exceptional correspondence while admitting no
+relabelings with the required positive orientation. The kernel
+implication \texttt{twoBranch\_of\_BGClassification} therefore does not
+establish reconstruction from the physical hypotheses. The example
+contradicts that formal premise, not the published classification.
+Bohr-frequency completeness, the real-to-integer transfer, congruent
+reconstruction and the positive six-mode obstruction are kernel-proved
+independently of it. The listed ambiguities are exactly invisible:
+\(H+E_0\) contributes only a global phase, while \(-\bar H\) conjugates
+the propagator entrywise. The gap condition is used where coefficient
+matching induces a bijection of ordered mode pairs: with degenerate gaps
+one frequency's coefficient is a sum over several mode pairs. The
+\(C_4\) ring of {[}SM{]} Proposition 20 has distinct eigenvalues,
+uniform overlaps and degenerate gaps; its conjugate \(\bar H\)
+reproduces every \(|U_{ij}(t)|^2\) and conjugates the loop product
+\(H_{01}H_{12}H_{23}H_{30}\), which no diagonal conjugation changes. The
+ring therefore does not exhibit a failure, without the gap condition, of
+the two-branch form conditional on H-BG: \(\bar H\) lies in the
+reflection branch, \(\bar H = -D_s\bar H D_s^\dagger\) with
+\(D_s = \mathrm{diag}(1,-1,1,-1)\). The raw frequency set alone cannot
+distinguish the non-congruent homometric rulers; reconstruction uses
+coefficient-labelled frequency data.
+
+\textbf{Corollary B.7.5d (Operational antiunitary invariance).}
+\emph{Transposing the preparation, every operation, and the effect
+simultaneously --- \(\rho \mapsto \rho^T\),
+\(\mathcal{G} \mapsto T \circ \mathcal{G} \circ T\), \(E \mapsto E^T\)
+--- preserves every finite circuit probability, for arbitrary operations
+and arbitrary finite sequences, hence for every fixed outcome branch of
+any adaptive instrument strategy; the transformation carries Kraus
+operations to Kraus operations with conjugated operators, preserves the
+trace normalization, and on unitary evolution is exactly the branch map
+\(H \mapsto -\bar{H}\).}
+
+Enlarging the data from transition probabilities to arbitrary
+preparations, instruments, adaptive finite circuits, and effects
+therefore cannot remove the second branch: at the purely operational
+level the two branches are not two empirically distinguishable theories
+but two antiunitarily related reconstructions of the same complete
+circuit statistics, and they become physically distinct only once an
+oriented structure is fixed ({[}GR §3.3{]}). (kernel:
+\texttt{circuit\_invariance}, \texttt{string\_invariance},
+\texttt{transposeMap\_kraus}, \texttt{kraus\_normalization},
+\texttt{unitary\_channel\_transpose} in
+\texttt{OIBridge/AntiunitaryInvariance.lean})
 
 \textbf{Theorem B.7.6 (Characterization theorem).} \emph{In the
 redefined form of {[}Main §3.4{]}: accessible non-Markovianity of the
@@ -30318,4 +30486,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: bd20a09a3a84bbe2e11861626356397de14192a532cfa6c39be36214ce309cae
+% source-sha256: a17d8302b985c545b3a7060941c59198609c64600e6ab023a6d532db4cec6d6f

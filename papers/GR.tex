@@ -1187,7 +1187,7 @@ time-independent diagonal unitary \(D\) and a real \(E_0\).}
 
 \emph{Conditional proof.} Equality of the probability families forces
 equality of the per-frequency coefficients of
-\(|U_{ij}(t)|^2 = \sum_{a,b} V_{ia} V_{ja}^* V_{ib}^* V_{jb}\, e^{-i(E_b-E_a)t}\).
+\(|U_{ij}(t)|^2 = \sum_{a,b} V_{ia} V_{ja}^* V_{ib}^* V_{jb}\, e^{-i(E_a-E_b)t}\).
 Under the stated overlap and gap hypotheses, the spectra have equal
 difference sets and the coefficient matching induces a bijection of
 ordered mode pairs preserving directed gaps. A fixed correspondence can
@@ -1225,15 +1225,25 @@ required positive orientation. The kernel implication
 \texttt{twoBranch\_of\_BGClassification} therefore does not establish
 reconstruction from the physical hypotheses. The example contradicts
 that formal premise, not the published classification. Bohr-frequency
-completeness, congruent reconstruction and the positive six-mode
-obstruction remain kernel-proved independently of it. The listed
-ambiguities are exactly invisible: \(H+E_0\) contributes only a global
-phase, while \(-\bar H\) conjugates the propagator entrywise. Omitting
-the gap condition fails on the \(C_4\) ring of {[}SM{]} Proposition 20,
-whose distinct eigenvalues have degenerate gaps and whose loop phase is
-not preserved by diagonal conjugation. The raw frequency set alone
-cannot distinguish the non-congruent homometric rulers; reconstruction
-uses coefficient-labelled frequency data.
+completeness, the real-to-integer transfer (kernel:
+\texttt{real\_to\_integer\_surrogate} in
+\texttt{OIBridge/TurnpikeScopeTransfer.lean}), congruent reconstruction
+and the positive six-mode obstruction remain kernel-proved independently
+of it. The listed ambiguities are exactly invisible: \(H+E_0\)
+contributes only a global phase, while \(-\bar H\) conjugates the
+propagator entrywise. The gap condition is used where coefficient
+matching induces a bijection of ordered mode pairs: with degenerate gaps
+one frequency's coefficient is a sum over several mode pairs. The
+\(C_4\) ring of {[}SM{]} Proposition 20 has distinct eigenvalues,
+uniform overlaps and degenerate gaps; its conjugate \(\bar H\)
+reproduces every \(|U_{ij}(t)|^2\) and conjugates the loop product
+\(H_{01}H_{12}H_{23}H_{30}\), which no diagonal conjugation changes. The
+ring therefore does not exhibit a failure, without the gap condition, of
+the two-branch form conditional on H-BG: \(\bar H\) lies in the
+reflection branch, \(\bar H = -D_s\bar H D_s^\dagger\) with
+\(D_s = \mathrm{diag}(1,-1,1,-1)\). The raw frequency set alone cannot
+distinguish the non-congruent homometric rulers; reconstruction uses
+coefficient-labelled frequency data.
 
 \textbf{Corollary (operational antiunitary invariance).}
 \emph{Transposing the preparation, every operation, and the effect
@@ -5115,4 +5125,4 @@ arXiv:hep-th/0409024.
 \emph{JCAP} \textbf{09} (2013) 028; arXiv:1301.4995.
 
 \end{document}
-% source-sha256: 0f520135a29733945c154e79e82d6460c8cb97286def9eebf980e310731dc4a2
+% source-sha256: c3eeb5e5227f5b135d1359786455cfb50397a17acc48535b0f7e0a4c72e5ede8
