@@ -32,7 +32,7 @@
   ],
   "mutants": "mutants/run_mutants.py and its output mutants/mutants.out",
   "plan_commit": "1dfec979721336cc9f0ce703b544f9d6be8e906c",
-  "plan_commit_note": "committed at 1dfec979 (2026-10-25 03:52:56 UTC), a single-parent child of #911's head 49e1a119, touching PLAN.md alone. Correction: PLAN.md's sentence that it was committed \"alone before any computation of this round\" is inaccurate. One floating-point exploration ran before it: a floor-truncated rescaling decoder with a fixed-width m-bit register (B=1..4, m=0..8). That decoder has bounded state, so it is a member of the bounded-state class, though not of the RS family. Qualitatively it showed several closed classes and absorbing states, stationary agreement defects that did not shrink steadily with m, and at B=2, m=4 a class matching frequency 4/5 to float precision while differing in run masses at n>=2. It steered the choice of tested family away from that decoder to RS(B,k). It touched neither RS(B,k), the census populations nor the decision rule. The decoder is recomputed exactly, post-review, as the second concrete class member.",
+  "plan_commit_note": "committed at 1dfec979 (2026-10-25 03:52:56 UTC), a single-parent child of #911's head 49e1a119, touching PLAN.md alone. Correction: PLAN.md's sentence that it was committed \"alone before any computation of this round\" is inaccurate. One floating-point exploration ran before it: a floor-truncated rescaling decoder with a fixed-width m-bit register (B=1..4, m=0..8), a finite-state member of the bounded-state class, not of the RS family. Qualitatively it showed several closed classes and absorbing states, stationary agreement defects that did not shrink steadily with m, and at B=2, m=4 a class matching frequency 4/5 to float precision while differing in run masses at n>=2. It steered the choice of tested family to RS(B,k). It may have informed K5, the run-mass proof route, the census populations, the small-n mismatch expectation and the choice to compute exact stationary laws; that influence cannot be measured after the fact, and the order in which the proof route and the exploration arose cannot be established from the repository. It did not compute on RS(B,k), on the census populations or on the decision rule. The decoder is recomputed exactly, post-review, as the second concrete class member.",
   "plan_path": "verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8/PLAN.md",
   "plan_sha256": "b7f7eaae58de13b9eb348bb4e31e92a7bce6741be64553c9ba496af9a2c6a275",
   "post_plan": [
@@ -59,6 +59,17 @@
       "mutants M19 and M20 disable the other independent constraints in turn, so each constraint is shown to catch the consistent exponent error by itself"
     ],
     "review": "independent re-check of fb05dea8 on #911, ACCEPT WITH NITS; owner request on control independence"
+  },
+  "post_recheck2": {
+    "changes": [
+      "independent certificate audit: integer-only block laws, integer square-root BC enclosure that must overlap the enclosure used, every reported depth recomputed from its definition with separate integer code, and certificate-level exact checks for every member and n*k<=16 and at k=1",
+      "mutants M21-M25 (re-check W1a, W1b, W3, W4, and W4 with the recomputation disabled)",
+      "control descriptions narrowed to the demonstrated mutant set; k=1 range dependence on the shared enclosure through n_half stated",
+      "disclosure: \"did not compute on\"; extended influence list mirrored into plan_commit_note",
+      "reviewer W-set and earlier scripts rerun on copies",
+      "certificate-level exact checks use the reported depths; in a first version they used the audit's own recomputed depths and mutant M25 passed"
+    ],
+    "review": "independent second re-check of aee64f2c on #911, BLOCK on the control-independence test; no reported value was wrong"
   },
   "post_review": {
     "changes": [

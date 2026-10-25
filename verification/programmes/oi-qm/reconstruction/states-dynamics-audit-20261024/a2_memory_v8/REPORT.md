@@ -226,10 +226,11 @@ This is not a statement about the best bounded-memory controller.
 | K4 base-5 countercontrol | with one fair five-valued symbol per slot, 1 of 6 one-state chains and 209 classes among 3,136 two-state chains match (4/5)^n for every n ≤ \|C\|, with χ(4)=0; the counts are checked in closed form | green |
 | K5 frequency insufficiency | 182 dyadic classes have exact stationary frequency 4/5; each mismatches at n=2 | green |
 | K6 unbounded memory | the unrestarted state machine equals the retained-seed law (B=2 h=6, B=3 h=4); every block TV is below 1/(2^B − 2); three checks on retained values (RS(4,1) is the 13/16 reset, two engines agree, its T(4096) display equals the retained one) | green |
-| K7 enclosures | square-root endpoints checked by squaring; Le Cam inequalities 1 − BC ≤ TV ≤ sqrt(1 − BC²) for every block; for n·k ≤ 16 the exact product TV lies inside the preregistered and power-rule brackets; every certified depth is minimal or maximal for its rule; the power-rule lower bound 1 − BC_upper^n is one function, used by the depth search, the k=1 exact check and the product check, so a consistent change to it is judged by the exact computations; at k=1, exact T(h) ≥ 1 − BC_upper^h and T(h) ≤ min(sqrt(1 − BC_lower^(2h)), h·T_1), for every h ≤ 600, every multiple of 1024 up to twice the preregistered depth, and n_hp ± 1; the depths checked do not depend on the power-rule depth (B=2,3: every h ≤ 600; B=4: 618 depths to h=15,360) | green |
+| K7 enclosures | square-root endpoints checked by squaring; Le Cam inequalities 1 − BC ≤ TV ≤ sqrt(1 − BC²) for every block; for n·k ≤ 16 the exact product TV lies inside the preregistered and power-rule brackets; every certified depth is minimal or maximal for its rule; the power-rule lower bound 1 − BC_upper^n is one function, used by the depth search, the k=1 exact check and the product check; at k=1, exact T(h) ≥ 1 − BC_upper^h and T(h) ≤ min(sqrt(1 − BC_lower^(2h)), h·T_1), for every h ≤ 600, every multiple of 1024 up to twice the preregistered depth, and n_hp ± 1; the depths checked do not depend on the power-rule depth except for the points n_hp ± 1, but their upper end, twice n_half, depends on the shared BC enclosure through n_half, which the independent audit recomputes (B=2,3: every h ≤ 600; B=4: 618 depths to h=15,360) | green |
 | K8 restart mechanics | an explicit state machine (seed register, exact interval, phase, clearing), enumerated over every fresh-bit string, and its chain form both equal the product of block laws (B,k,h) = (2,2,8), (2,3,7), (3,2,5), (4,3,4) | green |
 | counts | census chain counts in closed form; memory column bounds the persistent-state count; that count equals the explicit chain size for RS(2,2), RS(2,3), RS(3,2) | green |
-| power-rule independence | the power-rule depths are constrained by code paths they do not share. (i) Exact T(h) at k=1, from the binomial engine `tv_iid`, must be ≥ the bound at every checked h, and the exact first crossing must lie at or before the reported depth. (ii) For n·k ≤ 16, the exact product TV from enumerated block laws must lie inside the power-rule bracket. (iii) The reported depth must be no later than the separately coded preregistered nc/(1+nc) depth, which the power bound dominates. (iv) The upper certificate (from BC_lower and T_k) must certify T ≤ 1/2 only at depths before the lower certificate's. Too strong a bound fails (i) or (ii); too weak a bound fails (iii); a wrong threshold fails the exact crossing in (i) or fails (iv) | green |
+| power-rule cross-checks | (i) exact T(h) at k=1 from the binomial engine `tv_iid` must be ≥ the bound at every checked h, and the exact first crossing must lie at or before the reported depth; (ii) for n·k ≤ 16, the exact product TV must lie inside the power-rule bracket; (iii) the reported depth must be no later than the preregistered nc/(1+nc) depth; (iv) T ≤ 1/2 may be certified only at depths before T > 1/2 is. (i)–(iv) all read the same BC enclosure, and (i) and (ii) are one-sided with slack, so they catch only errors large enough to cross them; the independent audit below is what checks the enclosure and the exact depths | green |
+| independent certificate audit | separately written code that shares no helper with the main computation. It builds integer-only block laws in absolute coordinates (the block TV digest must match), and an integer square-root enclosure of BC that must overlap the enclosure every reported depth was built from. It recomputes every reported depth from its stated definition with its own integer powers: the preregistered half and tenth depths, and the power-rule half and upper depths; each must equal the reported value. It checks every certificate against exact TV where exact TV is enumerable: for every member and every n with n·k ≤ 16, from its own product enumeration, T(nk) > 1/2 when n ≥ n_hp or n ≥ n_half, T ≤ 1/2 when n ≤ n_lp, and T ≤ 1/10 when n ≤ n_tenth; and at k=1 the same at the reported depths, with `tv_iid`. In all, 48 members and 212 certificate checks | green |
 | comparators | the nearest-dyadic agreement is distance-minimal over 2^-B Z; its exact crossing is no earlier than the other neighbour's; the fails-before and outlasts lists in `family_verdict` are recomputed from the stored depths and the nearest-dyadic crossing and must equal the per-member flags | green |
 
 **Mutants** (`mutants/run_mutants.py`, output in `mutants/mutants.out`). The unmodified checker first reproduces
@@ -257,21 +258,39 @@ first line begins with VOID and the targeted control's label.
 - M20 is M15 with the product-loop and consistency checks disabled (caught by the exact k=1 TV alone). In a first
   version the k=1 range was tied to the mutated power-rule depth and M20 passed; the range now uses the
   preregistered depth
+- M21, M22 BC enclosure scaled by 0.9999 and by 1 − 10^-6 (independent BC enclosure)
+- M23 shared bound 1 − BC^(n+⌊n/20⌋) (independent depth recomputation)
+- M24 depth search and its minimality check one block early (independent depth recomputation)
+- M25 is M24 with the depth recomputation disabled (certificate-level exact check). In a first version the
+  certificate checks used the audit's own recomputed depths, not the reported ones, and M25 passed; they now use
+  the reported depths
 
 M11–M14 re-implement the review's mutants R1, R4, R10 and R15. M15 and M16 re-implement the re-check's D1 and D5.
 
-**Consistent wrong-bound mutants.** M15, M17 and M18 each change the depth computation and the check that restates
-it together. So the reported depths change, and no self-consistency check can see the change. Each is still caught
-by an independent constraint:
-- M15 (too strong) first by the exact product TV of enumerated block laws. It is also caught by the upper/lower
-  certificate consistency alone (M19), and by the exact k=1 TV alone (M20);
-- M17 (wrong threshold) by the exact crossing;
-- M18 (too weak) by the preregistered rule.
+**Consistent wrong-bound mutants.** M15, M17, M18 and M21–M25 each change the bound, the enclosure or the depth
+search together with every check that restates it. The reported depths change, so no self-consistency check can see
+the change.
+- M15 is caught first by the exact product TV. It is also caught by certificate consistency alone (M19), and by
+  the exact k=1 TV alone (M20).
+- M17 is caught by the exact crossing.
+- M18 is caught by the preregistered-rule comparison.
+- M21 and M22 (the BC enclosure scaled down by 10^-4 and 10^-6, the re-check's W1a and W1b) are caught by the
+  independent BC enclosure.
+- M23 (bound 5% too strong, W3) and M24 (every depth one block early, W4) are caught by the independent depth
+  recomputation.
+- M25 is M24 with that recomputation disabled. It is caught by the certificate-level exact check at a depth the
+  checker enumerates exactly.
+
+These results hold for the mutants listed; they do not show that every possible error is caught. Before the audit
+was added, the re-check found that W1a, W1b, W3 and W4 passed every control, and that W4 reported a false
+certificate: T > 1/2 for h ≥ 10 at RS(2,5), whose exact T(10) is 0.4637.
 
 The reviewers' scripts were rerun on copies against this revision:
 - **The first round's script** (15 code mutants and one tampered input). Its R1 targets a line the shared function
   replaced, so the copy's R1 strings were adapted to the new line.
 - **The re-check's script** (D1, D4, D5). Its D1 strings were adapted to the shared function.
+- **The second re-check's scripts** (the first-round set with R1 adapted, and W1a, W1b, W2–W5) were run
+  unmodified.
 - Results are given with this revision.
 
 Two controls were reordered so that M3 and M4 fail on their targeted labels and not on a later-added check: the
@@ -297,7 +316,7 @@ and PLAN.md is left as committed.
     mismatches at small n, and the choice to compute exact stationary laws rather than frequencies.
   - These are disclosed as possible influences. How much influence there was cannot be measured after the fact,
     and the repository cannot establish the order in which the proof route and the exploration arose.
-  - It touched neither RS(B,k), the census populations nor the decision rule.
+  - It did not compute on RS(B,k), on the census populations or on the decision rule.
 - **The exact recomputation:** after the review, the decoder is recomputed exactly as the second concrete member.
   The B=2, m=4 class has frequency exactly 4/5 and mismatches at n=2.
 
@@ -340,6 +359,14 @@ and PLAN.md is left as committed.
   removed;
 - the post-review label on the floor-decoder counts inside `class_verdict`.
 
+**Post-re-check 2:**
+- the independent certificate audit (integer block laws, integer BC enclosure, depth recomputation, and
+  certificate-level exact checks);
+- mutants M21–M25;
+- the control descriptions narrowed to what the demonstrated mutants show;
+- the k=1 range's dependence on the shared enclosure stated;
+- the disclosure wording ("did not compute on"), mirrored into PROVENANCE.
+
 ## What this does not show
 
 - A rate of failure, or a computed h*(|Σ|, B), for the bounded-state class.
@@ -352,8 +379,8 @@ and PLAN.md is left as committed.
 
 ## Replay
 
-Timings on the author's container: about 3 minutes for the checker, normal or -O, and about 10 minutes for the mutant
-run. From an empty working directory, with the repository root as R and
+Timings on the author's container: about 3 minutes for the checker, normal or -O, and about 28 minutes for the mutant
+run (measured while other runs shared the machine). From an empty working directory, with the repository root as R and
 D = R/verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8:
 
     python3 -I -B D/checks.py > out.json && cmp out.json D/result.json

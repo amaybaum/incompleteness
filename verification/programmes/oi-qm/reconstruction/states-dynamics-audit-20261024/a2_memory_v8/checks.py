@@ -622,6 +622,7 @@ def power_rule_exact_k1(p, bl, bh, Tk, n_hp, n_half):
 
 def family(Bs=(2, 3, 4), kmax=16):
     rows = {}
+    encl = {}
     for B in Bs:
         base_half = None
         p_mem, cross_mem = memoryless_crossing(ceiling_rounded(B))
@@ -642,6 +643,7 @@ def family(Bs=(2, 3, 4), kmax=16):
             if B >= 2:
                 check(Tk < Q(1, (1 << B) - 2), 'K6 block TV below the all-depth retained-seed bound')
             bl, bh = bc_enclosure(law)
+            encl[B, k] = (bl, bh)
             check(1 - bh <= Tk and bl * bl <= 1 - Tk * Tk, 'K7 Le Cam inequalities between TV and BC')
             c_low, c_up = 1 - bh, 1 - bl          # c_low <= 1-BC <= c_up
             null_q = sum((qmass(r) for r, p in law.items() if p == 0), Q(0))
@@ -715,7 +717,7 @@ def family(Bs=(2, 3, 4), kmax=16):
             'ceiling_rounded_reset_RS_B_1': {'agreement': str(p_mem), 'exact_first_depth_T_above_half': cross_mem},
             'nearest_dyadic_reset': {'agreement': str(p_near), 'exact_first_depth_T_above_half': cross_near},
             'other_neighbour_reset_post_recheck': {'agreement': str(p_other), 'exact_first_depth_T_above_half': cross_other}}
-    return rows
+    return rows, encl
 
 
 # ---------- K8: explicit state machine for RS(B,k) ----------
@@ -849,6 +851,137 @@ def floor_decoder_member():
     return out
 
 
+# ---------- independent certificate audit (post-recheck-2) ----------
+# Separately written: integer-only block laws in absolute coordinates, integer square-root summation for BC,
+# integer exact TV, and every reported depth recomputed from its stated definition. Shares no helper with
+# retained_seed_runs, block_law, bc_enclosure, root_lo/root_hi, power_rule_lower, least_n_above,
+# least_power_below or tv_of. Reads only the reported family entries.
+
+AUDIT_R = 1 << 200
+
+
+def audit_block_counts(B, k):
+    """Record -> seed count over 2^(B*k), from integer intervals: the quantum interval of a record of length t is
+    [L, H) / 5^t, and agree at read t+1 iff prefix * 5^(t+1) < (L + 4H) * 2^((t+1)B)."""
+    out = {}
+
+    def go(t, a, b, L, H, rec):
+        if t == k:
+            out[rec] = b - a
+            return
+        a2, b2 = a << B, b << B
+        C = L + 4 * H
+        num, den = C << ((t + 1) * B), 5 ** (t + 1)
+        m = min(max(-((-num) // den), a2), b2)
+        go(t + 1, a2, m, 5 * L, C, rec + (1,))
+        go(t + 1, m, b2, C, 5 * H, rec + (0,))
+    go(0, 0, 1, 0, 1, ())
+    if sum(out.values()) != 1 << (B * k) or len(out) != 1 << k:
+        raise Void('audit block law complete')
+    return out
+
+
+def audit_bc_and_tv(B, k, counts):
+    """Integer enclosure [Lnum, Unum]/Dn of the Bhattacharyya coefficient and exact TV as Tnum/Tden."""
+    S, F = 1 << (B * k), 5 ** k
+    Dn = AUDIT_R * S * F
+    Lnum = Unum = 0
+    tnum = 0
+    for rec, c in counts.items():
+        a = sum(rec)
+        s = isqrt(c * F * S * AUDIT_R * AUDIT_R)
+        Lnum += (1 << a) * s
+        Unum += (1 << a) * (s + (0 if s * s == c * F * S * AUDIT_R * AUDIT_R else 1))
+        tnum += abs(c * F - (4 ** a) * S)
+    return Lnum, Unum, Dn, tnum, 2 * S * F
+
+
+def audit_least(pred, guess):
+    """Least n >= 1 with pred(n), for pred monotone false-then-true, starting from an estimate; exact steps."""
+    n = max(1, guess)
+    while n > 1 and pred(n - 1):
+        n -= 1
+    while not pred(n):
+        n += 1
+    return n
+
+
+def audit_estimate(x, target):
+    """Float estimate of log(target)/log(x) used only to seed the exact search."""
+    from math import log, ceil
+    if x <= 0 or x >= 1:
+        return 1
+    return max(1, int(ceil(log(target) / log(x))))
+
+
+def audit_product_tv(B, k, counts, n):
+    S, F = 1 << (B * k), 5 ** k
+    items = list(counts.items())
+    tot = 0
+    for combo in product(items, repeat=n):
+        c, a = 1, 0
+        for rec, ci in combo:
+            c *= ci
+            a += sum(rec)
+        tot += abs(c * F ** n - (4 ** a) * S ** n)
+    return Q(tot, 2 * (S * F) ** n)
+
+
+def independent_audit(fam, encl, Bs=(2, 3, 4), kmax=16):
+    n_members = n_cert = 0
+    for B in Bs:
+        for k in range(1, kmax + 1):
+            e = fam[f'B{B}_k{k}']
+            pp = e['post_plan']
+            counts = audit_block_counts(B, k)
+            Lnum, Unum, Dn, tnum, tden = audit_bc_and_tv(B, k, counts)
+            check(digest(Q(tnum, tden)) == e['block_tv_exact_sha256'], 'audit block TV equals reported')
+            bl_rep, bh_rep = encl[B, k]                       # the enclosure every reported depth was built from
+            check(Q(Lnum, Dn) <= bh_rep and bl_rep <= Q(Unum, Dn),
+                  'audit independent BC enclosure overlaps the reported enclosure')
+            # depths recomputed from their stated definitions
+            cl = Dn - Unum                                    # Dn * (1 - BC_upper)
+            n_half = Dn // cl + 1
+            n_hp = audit_least(lambda n: 2 * Unum ** n < Dn ** n, audit_estimate(Unum / Dn, 0.5))
+            n1 = audit_least(lambda n: 4 * Lnum ** (2 * n) < 3 * Dn ** (2 * n), audit_estimate((Lnum / Dn) ** 2, 0.75)) - 1
+            n_lp = max(n1, tden // (2 * tnum))
+            n_tenth = max(tden // (10 * tnum), Dn // (200 * (Dn - Lnum)))
+            for field, val in (('certified_T_above_half_for_h_at_least', k * n_half),
+                               ('certified_T_at_most_tenth_for_h_at_most', k * n_tenth)):
+                check(e[field] == val, 'audit recomputed depth equals reported (' + field + ')')
+            for field, val in (('power_rule_T_above_half_for_h_at_least', k * n_hp),
+                               ('power_rule_T_at_most_half_for_h_at_most', k * n_lp)):
+                check(pp[field] == val, 'audit recomputed depth equals reported (' + field + ')')
+            # certificate-level exact checks wherever exact TV is enumerable, at the depths as reported
+            n_hp, n_half = pp['power_rule_T_above_half_for_h_at_least'] // k, e['certified_T_above_half_for_h_at_least'] // k
+            n_lp, n_tenth = pp['power_rule_T_at_most_half_for_h_at_most'] // k, e['certified_T_at_most_tenth_for_h_at_most'] // k
+            n = 1
+            while n * k <= 16:
+                T = Q(tnum, tden) if n == 1 else audit_product_tv(B, k, counts, n)
+                if n >= n_hp or n >= n_half:
+                    check(T > HALF, 'audit certificate T>1/2 contradicted by exact TV')
+                    n_cert += 1
+                if n <= n_lp:
+                    check(T <= HALF, 'audit certificate T<=1/2 contradicted by exact TV')
+                    n_cert += 1
+                if n <= n_tenth:
+                    check(T <= TENTH, 'audit certificate T<=1/10 contradicted by exact TV')
+                    n_cert += 1
+                n += 1
+            if k == 1:
+                p = Q(counts[(1,)], 1 << B)
+                for nn, up in ((n_hp, False), (n_half, False), (n_lp, True)):
+                    if nn >= 1:
+                        T = tv_iid(p, nn)
+                        check((T <= HALF if up else T > HALF), 'audit k=1 certificate contradicted by exact TV')
+                        n_cert += 1
+                if n_tenth >= 1:
+                    check(tv_iid(p, n_tenth) <= TENTH, 'audit k=1 certificate T<=1/10 contradicted by exact TV')
+                    n_cert += 1
+            n_members += 1
+    return {'members': n_members, 'certificates_checked_against_exact_tv': n_cert}
+
+
 # ---------- main ----------
 
 def run():
@@ -865,7 +998,8 @@ def run():
     cc = base5_countercontrol()
     floor_member = floor_decoder_member()
     mech = restart_mechanics()
-    fam = family()
+    fam, encl = family()
+    audit = independent_audit(fam, encl)
     members = {k: v for k, v in fam.items() if 'memoryless' not in k}
     n_floor_classes = sum(len(v['class_sizes']) for v in floor_member.values())
     certified = {k: v['certified_T_above_half_for_h_at_least'] for k, v in members.items()}
@@ -925,7 +1059,7 @@ def run():
                 'the a2_depth_v7 retained-seed reset granted the target cuts, keeps T<=1/(2^B-2) at every depth for '
                 'B>=2. The least sufficient growth rate is not determined here.')
     out = {
-        'schema': 'oi.a2-bounded-memory-v8.v3',
+        'schema': 'oi.a2-bounded-memory-v8.v4',
         'protocol': 'prepare X+, then reads a,X,a,X,...; quantum agreement 4/5 per read; complete public record',
         'class_hypothesis': ('finite persistent state (carrier, private memory, any clock or record registers read); '
                              'time-independent deterministic update from state, one fresh block of B fair bits and '
@@ -939,6 +1073,7 @@ def run():
         'family_RS': fam,
         'restart_mechanics': mech,
         'floor_truncated_decoder_member_post_review': floor_member,
+        'independent_certificate_audit_post_recheck2': audit,
         'controls': {
             'K1_memoryless_reproduction': 'digest, A, B, exact T(1..4), T digests h<=64 equal; generic engine equal h<=12',
             'K2_retained_seed_values_matched': k2,
