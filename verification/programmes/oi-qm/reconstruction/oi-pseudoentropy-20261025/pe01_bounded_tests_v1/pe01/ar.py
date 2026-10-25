@@ -51,6 +51,32 @@ def kcx_of(gen):
     return lo // 2, lo == hi, lo, hi
 
 
+def kcx_independent(gen):
+    """K_cx by a separately coded census: each state's orbit is walked with scalar steps of the
+    generator (not the permutation table), and the mu-median taken by counting."""
+    n = gen.n
+    sig = [gen.sig[0].tolist(), gen.sig[1].tolist()]
+    f = gen.f.tolist()
+    S = 2 << n
+    length = [0] * S
+    for s0 in range(S):
+        if length[s0]:
+            continue
+        x, h = s0 & 1, s0 >> 1
+        orbit = [s0]
+        while True:
+            h = sig[x][h]
+            x = x ^ f[h]
+            s = x | (h << 1)
+            if s == s0:
+                break
+            orbit.append(s)
+        for s in orbit:
+            length[s] = len(orbit)
+    srt = sorted(length)
+    return srt[(S - 1) // 2] // 2, srt[(S - 1) // 2], srt[S // 2]
+
+
 def footprint(m, K):
     return m + clock_bits(K) + 1
 
@@ -96,7 +122,7 @@ def parse_plan_tables(text):
     return Zt, tables
 
 
-def ar_check(plan_text, theta_fn):
+def ar_check(plan_text):
     """Recompute Z, K_cx and both regions; compare with the plan cell for cell."""
     rec = {"checkpoint": "AR", "reasons": []}
     Zt, tables = parse_plan_tables(plan_text)
@@ -109,8 +135,16 @@ def ar_check(plan_text, theta_fn):
             kcx, uniq, lo, hi = kcx_of(gs[nm])
             Zm[(nm, n)] = z
             Km[(nm, n)] = kcx
+            rec.setdefault("l_med", {}).setdefault(nm, []).append(lo)
             if not uniq:
                 rec["reasons"].append("median orbit length not unique for %s n=%d" % (nm, n))
+            # independent K_cx: closed form for G_lin and G_filt (two fixed points (x, 0), every other
+            # state on a cycle of length 2^n - 1, since a balanced output sums to 0 over a period),
+            # a separately coded orbit census for G_clk
+            ind, l1, l2 = kcx_independent(gs[nm])
+            want = (1 << (n - 1)) - 1 if nm in ("G_lin", "G_filt") else ind
+            if kcx != want or ind != want or l1 != l2:
+                rec["reasons"].append("K_cx(%s, n=%d) = %d disagrees with the independent value %d" % (nm, n, kcx, want))
     rec["Z"] = {nm: [Zm[(nm, n)] for n in range(3, 9)] for nm in names}
     rec["K_cx"] = {nm: [Km[(nm, n)] for n in range(3, 9)] for nm in names}
     for nm in names:

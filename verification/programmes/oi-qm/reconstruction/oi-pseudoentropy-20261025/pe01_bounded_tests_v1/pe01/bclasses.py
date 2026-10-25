@@ -105,9 +105,13 @@ def b1_curve(law, b=None):
         rows_int, piv = _rref_dirs([law], law.kcap)
         for K in range(b.ktop + 1, law.kcap + 1):
             T = null_test(rows_int, piv, K)
-            curve[K] = bias_of_positions(law, T) if T is not None else Fraction(0)
-            exact[K] = bool(rk["affine_uniform"][K])
-            arg[K] = None if T is None else "T=%s" % T
+            v = bias_of_positions(law, T) if T is not None else Fraction(0)
+            # the class is monotone in K: a test on X_{0:K-1} is a test on X_{0:K}
+            if v >= curve[K - 1]:
+                curve[K], arg[K] = v, (None if T is None else "T=%s" % T)
+            else:
+                curve[K], arg[K] = curve[K - 1], arg[K - 1]
+            exact[K] = bool(rk["affine_uniform"][K]) or curve[K] == Fraction(1, 2)
     return curve, exact, arg, b
 
 
@@ -210,12 +214,16 @@ def b1_k0(laws, named_out=None):
             T = null_test(rows_int, piv, K)
             allx = all(p["affine_uniform"][K] for p in profs)
             if T is None:
-                worst[K] = {"value": Fraction(0), "exact": bool(allx), "test": None, "per_phi": None}
-                avg[K] = {"value": Fraction(0), "exact": False, "test": None, "per_phi": None}
+                worst[K] = dict(worst[K - 1], exact=False)
+                avg[K] = dict(avg[K - 1], exact=False)
                 continue
             pp = [bias_of_positions(l, T) for l in laws]
-            worst[K] = {"value": min(pp), "exact": bool(allx), "test": "T=%s" % T, "per_phi": pp}
-            avg[K] = {"value": sum(pp) / F, "exact": bool(allx), "test": "T=%s" % T, "per_phi": pp}
+            for store, val in ((worst, min(pp)), (avg, sum(pp) / F)):
+                prev = store[K - 1]
+                if val >= prev["value"]:
+                    store[K] = {"value": val, "exact": bool(allx), "test": "T=%s" % T, "per_phi": pp}
+                else:
+                    store[K] = dict(prev, exact=bool(allx))
     return worst, avg
 
 
@@ -403,6 +411,105 @@ def b3_window_k1(law, wmax=B3_WMAX):
         curve[K] = Fraction(best, 2 * M * (1 << wmax))
         arg[K] = ba
     return curve, arg
+
+
+def window_marginals(law, wmax=B3_WMAX):
+    """For each w <= wmax: the window law of X_{s..s+w-1} (pattern -> count) at s = 0, and whether
+    every window of that length inside [0, kcap] has exactly the same law (stationarity)."""
+    X = law.X.astype(np.int64)
+    S, L = X.shape
+    out = {}
+    key = np.zeros((S, L), dtype=np.int64)
+    for w in range(1, min(wmax, L) + 1):
+        key = key[:, :L - w + 1] + (X[:, w - 1:] << (w - 1))
+        srt = np.sort(key, axis=0)
+        stationary = bool((srt == srt[:, :1]).all())
+        pat, cnt = np.unique(key[:, 0], return_counts=True)
+        out[w] = {"patterns": pat, "counts": cnt, "stationary": stationary}
+    return out
+
+
+def b3_window_k0(laws, wmax=B3_WMAX):
+    """B3 window class at K0 over a family (open item B3W-K0).
+
+    mu is phi-invariant (phi a bijection, mu uniform), so every window of length w has the same
+    marginal for a given phi; this is checked exactly for every window used. Then, per w:
+      average: max_D mean_phi |Delta_phi(D)| = (1/F) max_s sum_z (sum_phi s_phi Delta_phi(z))_+,
+               over sign patterns s modulo a global flip (sum_z of the inner sum is 0), with the
+               points outside the union of supports in closed form; exact.
+      worst:   exact for w <= 4 by enumerating all 2^(2^w) tests; for w >= 5 the interval
+               [1 - |U_w| 2^-w (the test D_union), min_phi TV_w].
+    Values are combined over w <= min(16, K+1) (the class is monotone in w)."""
+    F = len(laws)
+    M = laws[0].M
+    margs = [window_marginals(l, wmax) for l in laws]
+    stationary = all(mg[w]["stationary"] for mg in margs for w in mg)
+    wtop = min(len(m) for m in margs)
+    per_w = {}
+    for w in range(1, wtop + 1):
+        U = np.unique(np.concatenate([mg[w]["patterns"] for mg in margs]))
+        nU = len(U)
+        D = np.full((F, nU), -M, dtype=np.int64)            # delta_phi(z) * 2^w ... = c 2^w - M
+        tv = []
+        for f, mg in enumerate(margs):
+            pos = np.searchsorted(U, mg[w]["patterns"])
+            D[f, pos] = mg[w]["counts"].astype(np.int64) * (1 << w) - M
+            tv.append(Fraction(int(np.abs(mg[w]["counts"] * (1 << w) - M).sum()) + ((1 << w) - len(mg[w]["counts"])) * M,
+                               2 * M * (1 << w)))
+        outside = (1 << w) - nU
+        # average: Gray-code walk over s with s_0 = +1
+        y = D.sum(axis=0)
+        ssum = F
+        best, best_s = None, None
+        s = np.ones(F, dtype=np.int64)
+        for g in range(1 << (F - 1)):
+            if g:
+                j = (g & -g).bit_length()          # flips coordinate j in 1..F-1
+                s[j] = -s[j]
+                y += 2 * s[j] * D[j]
+                ssum += 2 * int(s[j])
+            val = int(y[y > 0].sum()) + outside * max(0, -M * ssum)
+            if best is None or val > best:
+                best, best_s = val, s.copy()
+        # the maximising test and its exact value on every phi
+        yb = (D * best_s[:, None]).sum(axis=0)
+        inA = yb > 0
+        out_in = (-M * int(best_s.sum())) > 0
+        pp = []
+        for f in range(F):
+            num = int(D[f, inA].sum()) + (outside * (-M) if out_in else 0)
+            pp.append(Fraction(abs(num), M << w))
+        rec = {"avg": Fraction(best, F * (M << w)), "avg_test": "w=%d,s=%s,outside=%s" % (w, "".join("+" if x > 0 else "-" for x in best_s), out_in),
+               "avg_per_phi": pp, "union": nU, "tv": tv}
+        if w <= 4:
+            npts = 1 << w
+            Dfull = np.full((F, npts), -M, dtype=np.int64)
+            for f, mg in enumerate(margs):
+                Dfull[f, mg[w]["patterns"]] = mg[w]["counts"].astype(np.int64) * npts - M
+            ss = np.abs(subset_sums(Dfull))                 # (F, 2^(2^w)) |Delta| * M 2^w
+            mn = ss.min(axis=0)
+            t = int(np.argmax(mn))
+            rec["worst_exact"] = Fraction(int(mn[t]), M << w)
+            rec["worst_test"] = "w=%d,A=%d" % (w, t)
+            rec["worst_per_phi"] = [Fraction(int(x), M << w) for x in ss[:, t]]
+            # brute force of the average over every test (independent of the sign-pattern path)
+            rec["avg_brute"] = Fraction(int(ss.sum(axis=0).max()), F * (M << w))
+        else:
+            rec["worst_lower"] = 1 - Fraction(nU, 1 << w)
+            rec["worst_upper"] = min(tv)
+        per_w[w] = rec
+    kcap = min(l.kcap for l in laws)
+    avg, worst = {}, {}
+    for K in range(kcap + 1):
+        wk = min(wtop, K + 1)
+        wa = max(range(1, wk + 1), key=lambda w: (per_w[w]["avg"], -w))
+        avg[K] = {"value": per_w[wa]["avg"], "exact": True, "test": per_w[wa]["avg_test"], "per_phi": per_w[wa]["avg_per_phi"]}
+        we = max(range(1, min(wk, 4) + 1), key=lambda w: (per_w[w]["worst_exact"], -w))
+        E_ = per_w[we]["worst_exact"]
+        lo = max([E_] + [per_w[w]["worst_lower"] for w in range(5, wk + 1)])
+        hi = max([E_] + [per_w[w]["worst_upper"] for w in range(5, wk + 1)])
+        worst[K] = (lo, hi, per_w[we]["worst_per_phi"] if lo == E_ else None, per_w[we]["worst_test"] if lo == E_ else "D_union on a window")
+    return {"stationary": stationary, "per_w": per_w, "average": avg, "worst": worst}
 
 
 # ---------------------------------------------------------------- B4

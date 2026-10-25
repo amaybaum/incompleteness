@@ -10,7 +10,8 @@ from fractions import Fraction
 
 import numpy as np
 
-RAT = re.compile(r"^-?[0-9]+(/([0-9]+|2\^[0-9]+))?$")
+# p, p/q, p/2^e, and the complement form 1-p/2^e (lossless; short for dyadic values near 1)
+RAT = re.compile(r"^(1-)?-?[0-9]+(/([0-9]+|2\^[0-9]+))?$")
 
 
 class ExactnessError(AssertionError):
@@ -24,18 +25,27 @@ def ex3(v, where=""):
     return v
 
 
+def _dy(v):
+    d = v.denominator
+    if d == 1:
+        return str(v.numerator)
+    if d > 65536 and d & (d - 1) == 0:
+        return "%d/2^%d" % (v.numerator, d.bit_length() - 1)
+    return "%d/%d" % (v.numerator, d)
+
+
 def q(v, where=""):
-    """Serialize an exact number."""
+    """Serialize an exact number (lossless; the shorter of v and 1-(1-v) for dyadic v)."""
     if isinstance(v, (np.integer,)):
         v = int(v)
     ex3(v, where)
     if isinstance(v, Fraction):
-        d = v.denominator
-        if d == 1:
-            return str(v.numerator)
-        if d > 65536 and d & (d - 1) == 0:
-            return "%d/2^%d" % (v.numerator, d.bit_length() - 1)
-        return "%d/%d" % (v.numerator, d)
+        a = _dy(v)
+        if Fraction(1, 2) < v < 1 and v.denominator & (v.denominator - 1) == 0:
+            b = "1-" + _dy(1 - v)
+            if len(b) < len(a):
+                return b
+        return a
     return str(v)
 
 
@@ -43,10 +53,30 @@ def parse(s, where=""):
     """Parse an exact number serialized by q(); refuses anything else (EX3 on the read side)."""
     if not isinstance(s, str) or not RAT.match(s):
         raise ExactnessError("EX3: non-exact serialized value at %s: %r" % (where, s))
+    if s.startswith("1-"):
+        return 1 - parse(s[2:], where)
     if "/2^" in s:
         a, e = s.split("/2^")
         return Fraction(int(a), 1 << int(e))
     return Fraction(s)
+
+
+def rle(seq):
+    """Lossless run-length encoding: [[item, count], ...]."""
+    out = []
+    for x in seq:
+        if out and out[-1][0] == x:
+            out[-1][1] += 1
+        else:
+            out.append([x, 1])
+    return out
+
+
+def unrle(runs):
+    out = []
+    for x, c in runs:
+        out.extend([x] * c)
+    return out
 
 
 def walk_display_free(obj, path="$"):

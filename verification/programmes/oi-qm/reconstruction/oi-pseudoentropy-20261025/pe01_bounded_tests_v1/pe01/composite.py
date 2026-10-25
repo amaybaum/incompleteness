@@ -21,6 +21,14 @@ def clock_bits(K):
     return (K).bit_length() if K > 0 else 0   # = ceil(log2(K + 1))
 
 
+def clock_bits_independent(K):
+    """The least c with 2^c >= K + 1, written independently of clock_bits (FP's reference)."""
+    c = 0
+    while (1 << c) < K + 1:
+        c += 1
+    return c
+
+
 class Layout:
     def __init__(self, m, c, H):
         self.m, self.c, self.H = m, c, H
@@ -143,11 +151,18 @@ class Witness:
         self.F = F
         self.maps = {"readout": t_readout(L, F, K), "rho": t_rho(L, R), "act": t_act(L, a),
                      "gen": t_gen(L, gen), "tick": t_tick(L)}
-        self.phi = compose(self.maps["readout"], self.maps["rho"], self.maps["act"], self.maps["gen"],
-                           self.maps["tick"])
+        # a map that leaves the declared state space is a failed EX1, not a crash
+        self.in_range = all(T.min() >= 0 and T.max() < L.S for T in self.maps.values())
+        if self.in_range:
+            self.phi = compose(self.maps["readout"], self.maps["rho"], self.maps["act"], self.maps["gen"],
+                               self.maps["tick"])
+        else:
+            self.phi = np.arange(L.S, dtype=np.int64)
 
     def checks(self):
         L = self.L
+        if not self.in_range:
+            return {"EX1": False, "EX8": False, "EX7": False, "prior": None, "reason": "a map leaves the state space"}
         ex1 = all(is_perm(T) for T in self.maps.values()) and is_perm(self.phi) and len(self.phi) == L.S
         ex8 = all(ex8_observer_map(L, self.maps[k]) for k in ("readout", "rho", "act", "tick")) \
             and ex8_generator_map(L, self.maps["gen"])
@@ -158,8 +173,12 @@ class Witness:
     def simulate(self):
         """Full-state simulation through the composite table: every prior seed's full state is
         iterated by phi'. Returns hits[t] = #seeds with x_t = chi(v_t) (t = 0..K), the number with
-        out = 1 after K + 1 applications, and M."""
+        out = 1 after K + 1 applications, and M. The values at t < K are read from this K-clocked
+        composite's (v, x) registers; that equals reading a t-clocked composite, because the readout
+        changes only the output register. An out-of-range composite returns hits of -1."""
         L = self.L
+        if not self.in_range:
+            return [-1] * (self.K + 1), -2, int(self.gen.seed_w.sum())
         g = self.gen
         z = np.zeros_like(g.seed_h)
         s = L.enc(g.seed_x.astype(np.int64), z, z, z, g.seed_h)

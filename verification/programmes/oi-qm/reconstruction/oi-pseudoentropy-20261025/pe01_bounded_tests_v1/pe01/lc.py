@@ -63,8 +63,9 @@ def enumerate_bm_levels(Nmax):
     """Vectorized BM over all of {0,1}^N, level by level, for N <= Nmax (Nmax <= 20).
 
     Returns (counts[N] = {L: count}, markov_ok, details): markov_ok certifies, at every prefix,
-    that its two one-symbol extensions have discrepancies 0 and 1 (one each) and that the new L
-    follows the rule L -> i+1-L iff discrepancy 1 and 2L <= i. That is the Markov premise of the DP.
+    that its two one-symbol extensions have discrepancies 0 and 1 (one each): the discrepancy is a
+    fair bit independent of the past, the Markov premise of the DP. That BM's length update is the
+    linear complexity is IM1's check against brute force.
     """
     assert Nmax <= 20
     C = np.array([1], dtype=np.int64)
@@ -95,10 +96,6 @@ def enumerate_bm_levels(Nmax):
         Ln = np.where(grow, i + 1 - L2, L2)
         Bn = np.where(grow, T, B2)
         mn = np.where(grow, 1, m2 + 1)
-        rule = np.where((d == 1) & (2 * L2 <= i), i + 1 - L2, L2)
-        if not np.array_equal(rule, Ln):
-            ok = False
-            bad.append(("length-rule", i))
         C, B, L, m, R = Cn, Bn, Ln, mn, R2
         vals, cnts = np.unique(L, return_counts=True)
         counts[i + 1] = {int(a): int(b) for a, b in zip(vals, cnts)}
