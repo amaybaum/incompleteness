@@ -172,7 +172,7 @@
   "replay_commands": {
     "all_groups": "python3 -I -B replay.py",
     "latest_groups": "python3 -I -B replay.py --latest",
-    "working_directory": "any; replay.py locates this directory from its own path"
+    "working_directory": "this directory, as written; from elsewhere give the path to replay.py, which locates this directory from its own path"
   },
   "requirements": [
     "Python 3 standard library",

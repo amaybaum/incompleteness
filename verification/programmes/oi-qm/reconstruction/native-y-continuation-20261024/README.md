@@ -2,10 +2,14 @@
 
 Bounded research on native instruments for the OI-to-QM reconstruction
 programme: the actual masked phase of the native-Y construction and scoped
-native tests on it, each package with its plan, result and a separate-agent
-internal review. [CURRENT-HANDOFF.md](CURRENT-HANDOFF.md) states the results
-and their scope. [EQUIVALENCE-OBLIGATIONS.md](EQUIVALENCE-OBLIGATIONS.md)
-places them among the programme's reconstruction paths and open gates.
+native tests on it. Every package has a separate-agent internal review
+(that of `continuation/` is in `parallel_v3/review/`). The packages from
+`reset_v7/` on carry a plan (`PLAN.md` or `PROBE-PLAN.md`); the five
+earlier packages, `continuation/`, `parallel_v3/`, `junction_v4/`,
+`six_source_v5/` and `outward_v6/`, carry none.
+[CURRENT-HANDOFF.md](CURRENT-HANDOFF.md) states the results and their scope.
+[EQUIVALENCE-OBLIGATIONS.md](EQUIVALENCE-OBLIGATIONS.md) places them among
+the programme's reconstruction paths and open gates.
 CHECKPOINT-CHECKS.json records the checks run on this directory.
 
 The native tests exhibit useful physical coupling and close precise shortcut
@@ -30,7 +34,10 @@ every Python file, and runs each checker group on a temporary copy of this
 directory, normally and with `-O`, comparing its output byte for byte with
 the recorded output. Without arguments it runs all 60 groups; `--latest`
 runs the seven groups of `native_gate_v13/`, `native_route_v13/`,
-`native_decode_v14/` and `native_vread_v15/`, reviews included.
+`native_decode_v14/` and `native_vread_v15/`, with the v13 and v14 reviews.
+Each checker run is limited to 180 s; on a heavily loaded host a
+`TimeoutExpired` stop is that limit, not an output mismatch, and the run can
+be repeated.
 
 The whole-V read's own commands add its mutant campaign and nested manifest,
 which `replay.py` does not run:
@@ -57,10 +64,11 @@ checkout of `main`.
   inherited report itself is not retained.
 - `parallel_v3/new_geometry/SOURCE-GEOMETRY.json`,
   `parallel_v3/history_control/SOURCE-GEOMETRY.json` and
-  `parallel_v3/direct_reset/herald.json` are retained input data. Their
-  generator (`compiler.py` and `AUTHOR-DATA.json` in the combined handoff) is
+  `parallel_v3/direct_reset/herald.json` are retained input data. The
+  two `SOURCE-GEOMETRY.json` files are taken from `AUTHOR-DATA.json` and
+  `herald.json` comes from `compiler.py`, both in the combined handoff and
   not in the repository. The checks establish the stated properties of the
-  retained data; that the data is the geometry that generator produces is
+  retained data; that the data is what those handoff files give is
   provenance, not re-derived here.
 - The programme synthesis these tests start from is on #885's preserved
   branch, as provenance (CURRENT-HANDOFF.md).

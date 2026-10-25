@@ -18,6 +18,8 @@ failed and the exit status. `round1/make_mutants.py` rebuilds the mutants.
 `replay.py` runs `round1/review_checks.py` and compares it with
 `round1/out/review_checks.out`.
 
-Not kept: the exit-status and timing lines of the author runs and of the
-reviewer's `replay.py --latest` run. The run times are those in
-`round1/REPORT.md`, and `replay.py` reproduces that replay's five group lines.
+Redaction: line 21 of `round3/REPORT.md` named the reviewer's absolute
+scratchpad path and reads "`rev910b/` in the reviewer's session scratchpad".
+Original sha256
+`8e349b808f4e1bf67d81985262ec77d234148d3ccee40aa4cbd98576075ee6c4`, retained
+copy sha256 `90bdb52893e027b06a9e755da2af6675570017ea1b7ff5033ae7bc06c9e5db1f`.
