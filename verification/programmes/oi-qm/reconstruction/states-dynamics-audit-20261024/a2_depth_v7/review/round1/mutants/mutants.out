@@ -1,0 +1,8 @@
+M1_slot_parity: CAUGHT rc=1 RuntimeError: record enumeration agrees
+M2_wrong_grid_order: CAUGHT rc=1 RuntimeError: rebuilt counts equal executed a2 controller
+M3_sign_drop: CAUGHT rc=1 RuntimeError: sign-independent agreement
+M4_certdepth_offby1: SURVIVED (green, output differs)
+M5_class_depth_drop1: SURVIVED (green, output differs)
+M6_tvfast_inc_flip: CAUGHT rc=1 RuntimeError: fast and direct TV agree
+M7_hellinger_d2: SURVIVED (output identical)
+M8_recenum_ignores_parity: CAUGHT rc=1 RuntimeError: record enumeration agrees

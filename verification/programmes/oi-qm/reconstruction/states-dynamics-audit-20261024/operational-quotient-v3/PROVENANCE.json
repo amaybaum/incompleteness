@@ -1,0 +1,36 @@
+{
+  "AGENTS_main_blob": "0fe9a4c5a6b7a40f83ec4cb772bc3acd639fddc7",
+  "author_thread": "states_v4",
+  "claims_not_made": [
+    "native lattice realization",
+    "A1 equivalence",
+    "general OI A2 error floor",
+    "premise or access adoption",
+    "Lean or CI attestation"
+  ],
+  "fresh_checks": [
+    "normal exact replay",
+    "optimized exact replay",
+    "byte-identical structured result",
+    "source compilation"
+  ],
+  "independent_review": "pending pushed author checkpoint",
+  "input_sha256": {
+    "AGENTS_main_unchanged": "1cbb2ded21db92d2183f242a59d8fec51c17fb8bd05f03466db618c8cd62d97f",
+    "current_native_equivalence_map": "87b2e25393e26fa4f07764e3fda3bf17d5c510eca8007a40f4c01340015a053c",
+    "preceding_states_report": "b6e6208423fd251b924bcd5a05e1e83af8a9423a72748383e0aa5b23e13bfc9d"
+  },
+  "native_checkpoint": "71d291297d0a662cbb9377ab48eef7aa4b839e77",
+  "plan_first_publication": "4fc87c1dd19e676400bdd181ffbc81d9fedf2952",
+  "plan_nonclifford_fork_publication": "76c8c6339b8c7b92fea3f8613129ed63babf5fef",
+  "preceding_reviewed_head": "81bc53e482158072869b916116a4fc0f8b28f99e",
+  "primary_literature": {
+    "read_scope": "abstract and PDF pp.2-3; standard eight-sign model and contextuality boundary",
+    "url": "https://arxiv.org/abs/1802.06121",
+    "version": "v2"
+  },
+  "programme_read_only": "2d555f17c23bea31d32b3f5eb4c49d245b413a76",
+  "research_only": true,
+  "schema": "oi-operational-quotient-provenance-v3.1",
+  "source_pr": 911
+}

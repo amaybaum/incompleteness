@@ -1,0 +1,36 @@
+{
+  "all_six_remote_git_blobs_verified": true,
+  "author_commit": "fb0f799d94b621cdb82a8e06183f07afc070f14c",
+  "author_normal_optimized_retained_output_equal": true,
+  "literature_primary_source": "https://arxiv.org/pdf/1802.06121v2",
+  "repository": "amaybaum/incompleteness",
+  "review_engine": "Independent standard-library exact checker; no imports from author code",
+  "review_normal_optimized_output_equal": true,
+  "source_files": {
+    "PLAN.md": {
+      "git_blob_sha": "0c96ad0cfa07e5cae1479e6e6dd3ef9769089a5b",
+      "sha256": "367c895bd0a2cace5feb8049a9a769fa12aabc2ea63d3d294537f14cae0fb53a"
+    },
+    "PROVENANCE.json": {
+      "git_blob_sha": "d157fa7aad629de198476ce6bb499d13c7dd77b8",
+      "sha256": "c18cd367ac4c000159a3c3d248ba88f686fda44fa3bdab6bc798c1e96f22fecd"
+    },
+    "REPORT.md": {
+      "git_blob_sha": "ee73ac6b653abc459e5195d7ba8c68b84e890d20",
+      "sha256": "b4f3bf4d49641d96697619d1f6ae9b7e00928dfae41c2a3c6f9b85805ab88744"
+    },
+    "SHA256SUMS": {
+      "git_blob_sha": "6ec5e50278ef6d4604f5dac0d184291a392ac45a",
+      "sha256": "804208389907bc076622090e8c362ce11d77021b824e66b4f745336af64ae957"
+    },
+    "checks.py": {
+      "git_blob_sha": "857f4c134446adea3d9da5b70da88b1c25403d46",
+      "sha256": "4f491ad6d140f1835693fe21f956d27cf4cfad007d0c63eb794830ade5aeeef6"
+    },
+    "result.json": {
+      "git_blob_sha": "765eb86b323f98d91edb15b76aae37aeaf5bee21",
+      "sha256": "653d71c2e09a8b45e3105b424a3c39588ba3436a3f05c63e97368cee3e12d59e"
+    }
+  },
+  "source_prefix": "verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/operational-quotient-v3/"
+}

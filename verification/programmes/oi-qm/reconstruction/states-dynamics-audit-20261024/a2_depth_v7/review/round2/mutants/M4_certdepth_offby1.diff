@@ -1,0 +1,11 @@
+--- a/checks.py
++++ b/M4_certdepth_offby1.py
+@@ -301,7 +301,7 @@
+             hi = m
+         else:
+             lo = m
+-    return hi
++    return hi - 1
+ 
+ 
+ # ---------- class statement ----------

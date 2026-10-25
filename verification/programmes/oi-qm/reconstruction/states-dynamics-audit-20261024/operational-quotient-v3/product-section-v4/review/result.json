@@ -1,0 +1,23 @@
+{
+  "Clifford_product_closure_controls": 20,
+  "all_binary_response_controls": 256,
+  "all_controls_pass": true,
+  "author_commit": "d6966ce055f6f1d872080328023fc37d68d17533",
+  "blockers": [],
+  "determinant": "1/531441",
+  "forced_binary_response_range": [
+    "-1/5",
+    "6/5"
+  ],
+  "independent_spectral_matrix_controls": 64,
+  "mixture_xy_correlation": "-4/9",
+  "optimal_deterministic_responses": 6,
+  "prep_label_input_tv": "1",
+  "rank_certificate": 8,
+  "schema": "oi-product-section-v4-review-1",
+  "source_pair_tv": "2/3",
+  "spanning_product_priors": 8,
+  "target_pair_tv": "14/15",
+  "tight_pair_error_floor": "2/15",
+  "verdict": "ACCEPT_WITHIN_SCOPE"
+}

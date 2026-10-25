@@ -1,0 +1,34 @@
+{
+  "schema": "oi.code-bridge-v6.review-inputs.v1",
+  "reviewed_author_revision": "0449d85910aed0f838b629ee683061ce9960cc2d",
+  "reviewed_prefix": "verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/native-code-bridge-v6",
+  "author_files": {
+    "PLAN.md": {
+      "sha256": "f1b033673566d53c35757455336a8ad400aedc8c0aaaaddbaf22a4ded0e7fef0",
+      "git_blob": "9c8b223bbfdd045a7e6265e5e4408ae28886da95"
+    },
+    "REPORT.md": {
+      "sha256": "3750aa7411266a08ef7ba8d67fed38153eeb72d74d02802c10ec2486d51ce26b",
+      "git_blob": "4e290e97412ab692ac558a98099b3488037e8995"
+    },
+    "checks.py": {
+      "sha256": "449e1d32edcd07a764a0e6784e3a9308bf9ce2226408041c5c410645bafc3be1",
+      "git_blob": "c9303df60292ee52447af8b75a6b9a89aad24333"
+    },
+    "result.json": {
+      "sha256": "24a55b0679232d24cf6a2e139b270b9f63fc99706dec4e723aa570731ec1ec76",
+      "git_blob": "4ff487f98dab5cb82151f7ab55c0eff4e22fc9bc"
+    },
+    "PROVENANCE.json": {
+      "sha256": "0d081ae1d3a17a21a27186c3e7ef335edc6b023831e6f29b1b9a51a0e65f0432",
+      "git_blob": "1a1879fc76498201bd14695867ffbd7b43d8dac2"
+    },
+    "SHA256SUMS": {
+      "sha256": "2e77ff627d176e30945843e1e839918353ee6b4563fcbde63bafeba1a44c2c6d",
+      "git_blob": "94875317db09c6400e867973bf0ae0caa38458da"
+    }
+  },
+  "review_level": "separate-agent internal; no native autonomous-code assumption adopted",
+  "initial_author_revision": "2601628dddbdcd51f3d1b1543659f568c93bc941",
+  "forward_delta": "Wording-only post-X target/native acceptance distinction; checker, result and plan unchanged."
+}

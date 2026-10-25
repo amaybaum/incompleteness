@@ -1,0 +1,35 @@
+{
+  "all_six_remote_git_blobs_verified": true,
+  "author_commit": "d6966ce055f6f1d872080328023fc37d68d17533",
+  "author_normal_optimized_retained_equal": true,
+  "repository": "amaybaum/incompleteness",
+  "review_engine": "Independent exact Fourier diagonalization and final-binary-effect reconstruction; no author imports",
+  "review_normal_optimized_equal": true,
+  "source_files": {
+    "PLAN.md": {
+      "git_blob_sha": "472838b18596c21de893c9266c3367f2661b4d54",
+      "sha256": "cc6e2f746f5a58bc4e098dfb5209d8439feba0b27ba4605ff897bfe29b614d89"
+    },
+    "PROVENANCE.json": {
+      "git_blob_sha": "8177b7cf2504834b5e224f6c44bb11a090837898",
+      "sha256": "a753f31a93d7fbb6f948367f9f35d95a7ef7f81c95b0f48242d8ef184edec791"
+    },
+    "REPORT.md": {
+      "git_blob_sha": "9e756719502d6809a2f08842c6fc93b5b908f7e9",
+      "sha256": "3400f86a5a5150a1f216ddcb31561af0cabe2685c7d987cf0d2032eab69fcb6a"
+    },
+    "SHA256SUMS": {
+      "git_blob_sha": "abc6fedaa68b989a5594629a5130cf3859a604c4",
+      "sha256": "72d5baf8ea8211a5ed5c243b3de3fc3c6226facb614f11f25b34b7c603de44eb"
+    },
+    "checks.py": {
+      "git_blob_sha": "143af5baacb9a78cb16f37d2d1956d1ad1b873e5",
+      "sha256": "ca0150c586a4a595a4e113d3f8667993fc4685c83e27f8d76eba1f5ce890bf67"
+    },
+    "result.json": {
+      "git_blob_sha": "adf39f98f18e906742eac9e06a30a490065ef8c8",
+      "sha256": "7937e2138413777737e3f892f1fc6995f81107f03a96431e5bf5be2a8e5afa9d"
+    }
+  },
+  "source_prefix": "verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/operational-quotient-v3/product-section-v4/"
+}

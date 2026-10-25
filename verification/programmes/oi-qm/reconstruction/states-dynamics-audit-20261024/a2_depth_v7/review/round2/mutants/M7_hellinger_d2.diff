@@ -1,0 +1,11 @@
+--- a/checks.py
++++ b/M7_hellinger_d2.py
+@@ -236,7 +236,7 @@
+     S = (na * da * da + nb * db * db) / 4
+     if not with_product:                      # product form is too large to expand at huge h
+         return S / (1 + S), None, na * da + nb * db
+-    hell = 1 - (1 - da * da / 4) ** na * (1 - db * db / 4) ** nb
++    hell = 1 - (1 - da * da * 4) ** na * (1 - db * db * 4) ** nb
+     return S / (1 + S), hell, na * da + nb * db
+ 
+ 

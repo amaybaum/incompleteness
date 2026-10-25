@@ -1,0 +1,11 @@
+--- a/checks.py
++++ b/N4_recenum_pole_fixed.py
+@@ -418,7 +418,7 @@
+                 src *= mass[ax, s, o]
+                 pole = tuple(s * x for x in AXES[ax])
+                 qm *= (1 + o * sum((x * y for x, y in zip(pole, AXES[read])), Q(0))) / 2
+-                ax, s = read, o
++                ax, s = read, 1
+             tv += abs(src - qm)
+         tv /= 2
+         check(tv == tv_fast(pa, pb, h), 'actual controller records equal product engine')

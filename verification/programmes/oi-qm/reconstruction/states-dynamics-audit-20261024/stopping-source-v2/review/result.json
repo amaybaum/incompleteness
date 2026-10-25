@@ -1,0 +1,111 @@
+{
+  "cutoffs": [
+    {
+      "cutoff": 1,
+      "expected_capped_queries": "1",
+      "joint_tv": "1/2",
+      "output1_timeout_zero": "1/2",
+      "tail": "1/2"
+    },
+    {
+      "cutoff": 2,
+      "expected_capped_queries": "3/2",
+      "joint_tv": "3/4",
+      "output1_timeout_zero": "3/4",
+      "tail": "1/4"
+    },
+    {
+      "cutoff": 3,
+      "expected_capped_queries": "7/4",
+      "joint_tv": "7/8",
+      "output1_timeout_zero": "3/4",
+      "tail": "1/8"
+    },
+    {
+      "cutoff": 4,
+      "expected_capped_queries": "15/8",
+      "joint_tv": "15/16",
+      "output1_timeout_zero": "13/16",
+      "tail": "1/16"
+    },
+    {
+      "cutoff": 5,
+      "expected_capped_queries": "31/16",
+      "joint_tv": "31/32",
+      "output1_timeout_zero": "27/32",
+      "tail": "1/32"
+    },
+    {
+      "cutoff": 6,
+      "expected_capped_queries": "63/32",
+      "joint_tv": "63/64",
+      "output1_timeout_zero": "27/32",
+      "tail": "1/64"
+    },
+    {
+      "cutoff": 7,
+      "expected_capped_queries": "127/64",
+      "joint_tv": "127/128",
+      "output1_timeout_zero": "109/128",
+      "tail": "1/128"
+    },
+    {
+      "cutoff": 8,
+      "expected_capped_queries": "255/128",
+      "joint_tv": "255/256",
+      "output1_timeout_zero": "109/128",
+      "tail": "1/256"
+    },
+    {
+      "cutoff": 9,
+      "expected_capped_queries": "511/256",
+      "joint_tv": "511/512",
+      "output1_timeout_zero": "437/512",
+      "tail": "1/512"
+    },
+    {
+      "cutoff": 10,
+      "expected_capped_queries": "1023/512",
+      "joint_tv": "1023/1024",
+      "output1_timeout_zero": "437/512",
+      "tail": "1/1024"
+    },
+    {
+      "cutoff": 11,
+      "expected_capped_queries": "2047/1024",
+      "joint_tv": "2047/2048",
+      "output1_timeout_zero": "437/512",
+      "tail": "1/2048"
+    },
+    {
+      "cutoff": 12,
+      "expected_capped_queries": "4095/2048",
+      "joint_tv": "4095/4096",
+      "output1_timeout_zero": "437/512",
+      "tail": "1/4096"
+    },
+    {
+      "cutoff": 32,
+      "expected_capped_queries": "4294967295/2147483648",
+      "joint_tv": "4294967295/4294967296",
+      "output1_timeout_zero": "3665983897/4294967296",
+      "tail": "1/4294967296"
+    },
+    {
+      "cutoff": 64,
+      "expected_capped_queries": "18446744073709551615/9223372036854775808",
+      "joint_tv": "18446744073709551615/18446744073709551616",
+      "output1_timeout_zero": "7872640474760583457/9223372036854775808",
+      "tail": "1/18446744073709551616"
+    }
+  ],
+  "dilations": 720,
+  "hadamard_offdiagonal": "-1/2",
+  "hidden_inputs_per_dilation": 3,
+  "matrix_unit_comparisons": 8640,
+  "partial_permutation_shapes": 7,
+  "refinement_positive_control": true,
+  "schema": "oi-stopping-source-independent-review-v2",
+  "scope": "exact bounded controls plus separate written limit argument; no native implementation",
+  "verdict": "PASS"
+}

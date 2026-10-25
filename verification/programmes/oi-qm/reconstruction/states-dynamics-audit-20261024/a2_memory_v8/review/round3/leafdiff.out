@@ -1,0 +1,18 @@
+old 1157 new 1163 changed 11 removed 0 added 6
+CHANGED class_verdict | BOUNDED_STATE_CLASS_NO_ESCAPE: every bounded-state controller with B f -> BOUNDED_STATE_CLASS_NO_ESCAPE: every bounded-state controller with B f
+CHANGED family_RS/B2_k1/post_plan/power_rule_exact_checks_at_k1/all_h_up_to | 14 -> 600
+CHANGED family_RS/B2_k1/post_plan/power_rule_exact_checks_at_k1/depths_checked | 14 -> 600
+CHANGED family_RS/B2_k1/post_plan/power_rule_exact_checks_at_k1/max_h | 14 -> 600
+CHANGED family_RS/B3_k1/post_plan/power_rule_exact_checks_at_k1/all_h_up_to | 266 -> 600
+CHANGED family_RS/B3_k1/post_plan/power_rule_exact_checks_at_k1/depths_checked | 266 -> 600
+CHANGED family_RS/B3_k1/post_plan/power_rule_exact_checks_at_k1/max_h | 266 -> 600
+CHANGED family_RS/B4_k1/post_plan/power_rule_exact_checks_at_k1/depths_checked | 644 -> 618
+CHANGED family_RS/B4_k1/post_plan/power_rule_exact_checks_at_k1/max_h | 11008 -> 15360
+CHANGED family_verdict | RS_FAMILY_FINITE_FAILURE_DEPTH_EVERY_TESTED_MEMBER: preregistered rule -> RS_FAMILY_FINITE_FAILURE_DEPTH_EVERY_TESTED_MEMBER: preregistered rule
+CHANGED schema | oi.a2-bounded-memory-v8.v2 -> oi.a2-bounded-memory-v8.v3
+ADDED family_RS/B2_memoryless_comparators_post_plan/other_neighbour_reset_post_recheck/agreement = 1
+ADDED family_RS/B2_memoryless_comparators_post_plan/other_neighbour_reset_post_recheck/exact_first_depth_T_above_half = 4
+ADDED family_RS/B3_memoryless_comparators_post_plan/other_neighbour_reset_post_recheck/agreement = 7/8
+ADDED family_RS/B3_memoryless_comparators_post_plan/other_neighbour_reset_post_recheck/exact_first_depth_T_above_half = 45
+ADDED family_RS/B4_memoryless_comparators_post_plan/other_neighbour_reset_post_recheck/agreement = 3/4
+ADDED family_RS/B4_memoryless_comparators_post_plan/other_neighbour_reset_post_recheck/exact_first_depth_T_above_half = 127

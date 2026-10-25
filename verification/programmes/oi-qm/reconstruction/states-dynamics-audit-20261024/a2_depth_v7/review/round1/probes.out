@@ -1,0 +1,19 @@
+retention counterexample (B fresh bits/slot, reset reads retained earlier bits):
+ B=1 h=14: T=0.651708 (union bound sum_t 2^(t-1-tB) <= inf); P(agree2|agree1)=3/4 in 2^-B Z: False; memoryless best-B sampler T=0.95602
+ B=2 h=8: T=0.281845 (union bound sum_t 2^(t-1-tB) <= 0.5); P(agree2|agree1)=11/16 in 2^-B Z: False; memoryless best-B sampler T=0.136236
+ B=3 h=6: T=0.0904617 (union bound sum_t 2^(t-1-tB) <= 0.166667); P(agree2|agree1)=41/56 in 2^-B Z: False; memoryless best-B sampler T=0.121424
+ B=4 h=4: T=0.0146959 (union bound sum_t 2^(t-1-tB) <= 0.0714286); P(agree2|agree1)=41/52 in 2^-B Z: False; memoryless best-B sampler T=0.0262063
+ plateau, B=4 (retention) vs memoryless nearest-dyadic 4-bit sampler:
+  h=1: retention T=0.0125  memoryless T=0.0125
+  h=2: retention T=0.0125  memoryless T=0.0201563
+  h=3: retention T=0.0137734  memoryless T=0.024377
+  h=4: retention T=0.0146959  memoryless T=0.0262063
+  h=5: retention T=0.0148096  memoryless T=0.0264126
+ memoryless B=4: T(64)=0.1012 T(4096)=0.6886
+ memoryless B=1: T(14)=0.9560 T(200)=1.0000 ; retention keeps T<=(1/2)/(2^(B-1)-1) for all h, B>=2
+discrepancy attribution (dA, dB) x 1e4:
+ M=16 W=16: dA=2.9625 dB=1.7596
+ M=16 W=40: dA=2.9219 dB=1.7203
+ M=32 W=16: dA=0.7601 dB=0.4883
+ M=32 W=40: dA=0.7291 dB=0.4567
+ M=64 W=40: dA=0.1813 dB=0.1140

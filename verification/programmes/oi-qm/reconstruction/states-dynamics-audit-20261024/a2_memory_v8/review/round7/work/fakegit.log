@@ -1,0 +1,2 @@
+git invoked: -C <clone>/verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8 cat-file -e 1dfec979721336cc9f0ce703b544f9d6be8e906c^{commit}
+git invoked: -C <clone>/verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8 show 1dfec979721336cc9f0ce703b544f9d6be8e906c:./PLAN.md

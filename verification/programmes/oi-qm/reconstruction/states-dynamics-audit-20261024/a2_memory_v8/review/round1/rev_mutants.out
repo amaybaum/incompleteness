@@ -1,0 +1,16 @@
+R1_power_rule_exponent: exit 0; same_as_result=False; {"class_hypothesis":"finite persistent state (carrier, private memory, any clock or record registers read); ti
+R2_run_comparator_shift: exit 2; same_as_result=False; VOID: K5 exact-frequency class mismatches at n>=2
+R3_chi_lambda_off: exit 2; same_as_result=False; VOID: K4 exact match has eigenvalue 4
+R4_drop_closedness: exit 1; same_as_result=False; STDERR:StopIteration
+R5_K5_vacuous: exit 2; same_as_result=False; VOID: K5 a dyadic chain with exact stationary frequency 4/5 exists
+R6_rs_cut: exit 2; same_as_result=False; VOID: K2 retained-seed coupling gap equals a2_depth_v7
+R7_inflate_c_low: exit 2; same_as_result=False; VOID: K7 exact product TV inside certified bracket
+R8_inflate_c_low_x1.2: exit 2; same_as_result=False; VOID: K7 exact product TV inside certified bracket
+R9_uniform_pi: exit 2; same_as_result=False; VOID: step4 stationary equation
+R10_fewer_chains: exit 0; same_as_result=False; {"class_hypothesis":"finite persistent state (carrier, private memory, any clock or record registers read); ti
+R11_K3_wrong_source: exit 2; same_as_result=False; VOID: K3 exact base-5 source gives zero TV
+R12_power_upper_exponent: exit 2; same_as_result=False; VOID: K7 half-upper depth valid
+R13_restart_off_by_one: exit 2; same_as_result=False; VOID: K8 state machine equals product of block laws
+R14_quantum_3_4: exit 2; same_as_result=False; VOID: K1 exact T(1..4) equal a2_depth_v7
+R15_memory_formula: exit 0; same_as_result=False; {"class_hypothesis":"finite persistent state (carrier, private memory, any clock or record registers read); ti
+I1_tampered_v7_input: exit 2; same_as_result=False; VOID: K1/K2 pinned a2_depth_v7 result.json hash
