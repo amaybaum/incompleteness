@@ -100,14 +100,15 @@ jobs:
         timeout-minutes: 330
         run: python3 -I -B "$PKG/run.py" shard "${{ matrix.shard }}" --mode "${{ inputs.mode }}" --out out
       - name: Record an incomplete shard (keeps its completed cells and controls)
-        if: failure() || cancelled()
+        # only if the shard step started; a job that fails before it leaves the shard "not run"
+        if: (failure() || cancelled()) && steps.shard.outcome != 'skipped' && steps.shard.outcome != ''
         run: python3 -I -B "$PKG/run.py" incomplete "${{ matrix.shard }}" --out out --reason "job ${{ job.status }} (step outcome ${{ steps.shard.outcome }})"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4.6.2
         if: always()
         with:
           name: shard-${{ matrix.shard }}
           path: out/
-          if-no-files-found: error
+          if-no-files-found: warn
 
   m3:
     needs: plan
@@ -131,14 +132,15 @@ jobs:
         timeout-minutes: 330
         run: python3 -I -B "$PKG/run.py" shard "${{ matrix.shard }}" --mode "${{ inputs.mode }}" --out out
       - name: Record an incomplete shard (keeps its completed cells and controls)
-        if: failure() || cancelled()
+        # only if the shard step started; a job that fails before it leaves the shard "not run"
+        if: (failure() || cancelled()) && steps.shard.outcome != 'skipped' && steps.shard.outcome != ''
         run: python3 -I -B "$PKG/run.py" incomplete "${{ matrix.shard }}" --out out --reason "job ${{ job.status }} (step outcome ${{ steps.shard.outcome }})"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4.6.2
         if: always()
         with:
           name: shard-${{ matrix.shard }}
           path: out/
-          if-no-files-found: error
+          if-no-files-found: warn
 
   replay:
     needs: [plan, primary]

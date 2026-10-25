@@ -110,8 +110,12 @@ def collect(src, out, mode):
                     add("MO", ok, "n%d-%s %s" % (n, fam, msg))
     pf0 = (data.get("controls") or next(iter(data.values())))["preflight"] if data else None
     th = pf0["TH"]["theta_by_n"] if pf0 else None
-    cxs = cx.selftest(th) if th else {"pass": False}
-    add("CX", cxs["pass"], "collect self-test", [] if cxs["pass"] else [json.dumps(cxs)[:300]])
+    if th:
+        cxs = cx.selftest(th)
+        add("CX", cxs["pass"], "collect self-test", [] if cxs["pass"] else [json.dumps(cxs)[:300]])
+    else:
+        cxs = {"pass": None, "status": "not evaluated: no complete shard records theta"}
+
     arr = data["controls"]["measurements"]["AR"] if "controls" in data else None
     witnesses = []
     for sid, d in sorted(data.items()):
@@ -121,11 +125,18 @@ def collect(src, out, mode):
                 want = arr["K_cx"][w["generator"]][w["n"] - 3]
                 add("CX", w["K_cx"] == want, "witness K_cx vs AR", ["%s n=%d: %s vs %s" % (w["generator"], w["n"], w["K_cx"], want)])
             witnesses.append(w)
+    vdata = dict(data)          # the shards whose cells carry verdict inputs
     if mode == "result":
         for sid in data:
             rp = shards[sid].get("replay_identical")
             if rp is None:
-                unevaluated.append("RP %s (no replay record)" % sid)
+                if sid.endswith("-m3"):
+                    # A1: an m = 3 shard's own cells become incomplete; the stage is not held
+                    shards[sid]["status"] = "incomplete"
+                    shards[sid]["reason"] = "no replay record"
+                    vdata.pop(sid)
+                else:
+                    unevaluated.append("RP %s (no replay record)" % sid)
             else:
                 add("RP", rp is True, sid, ["replay differs"])
     scope = REQUIRED if mode != "smoke" else SMOKE_SCOPE
@@ -163,11 +174,11 @@ def collect(src, out, mode):
         "cx_selftest": cxs,
         "AR": arr,
         "pending": pf0 and next(iter(data.values()))["pending"],
-        "horizons": horizon_entries(data),
-        "windows": {sid: d["measurements"].get("windows", {}) for sid, d in sorted(data.items()) if "windows" in d["measurements"]},
+        "horizons": horizon_entries(vdata),
+        "windows": {sid: d["measurements"].get("windows", {}) for sid, d in sorted(vdata.items()) if "windows" in d["measurements"]},
         "shard_info": {sid: {k: d["measurements"].get(k) for k in ("n", "family", "K_max", "K_cap", "K_cx", "scope", "smoke_scope")}
-                       for sid, d in sorted(data.items()) if sid not in ("controls", "tape")},
-        "witnesses": witnesses,
+                       for sid, d in sorted(vdata.items()) if sid not in ("controls", "tape")},
+        "witnesses": [w for w in witnesses if w["shard"] in vdata],
     }
     os.makedirs(out, exist_ok=True)
     b = canonical(meas)

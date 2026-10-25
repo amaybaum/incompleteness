@@ -38,6 +38,8 @@ for _m in (1, 2, 3, 4):
 
 def limitation(theta_by_n):
     """The §7 limitation sentence for the theta the measurements record."""
+    if not theta_by_n:
+        return "The horizon bound K < 2^(theta-m-1) (theta not recorded) " + CORE
     off = {int(n) - v for n, v in theta_by_n.items()}
     if off == {-1}:
         return "The horizon bound K < 2^(n-m) (theta = n+1) " + CORE
@@ -241,19 +243,32 @@ def generate(meas):
                 L.append("  %s n=%d %s%s: windows at %d K values (first K = %d); family-wide windows at %d K values. %s." % (
                     gname, n, sub, tagr, len(rows), rows[0][0], len(fam_rows), cell_s))
                 kinds = []
+                byK = {}
                 for w in sorted(ws, key=lambda x: x["K"]):
-                    kind, fails = cx.classify(w, th, green, rd)
-                    if "d" in fails and rd not in w.get("found_under", []):
+                    byK.setdefault(w["K"], []).append(w)
+                for K in sorted(byK):
+                    # one line per K: the candidate found under this reading if any, else the first that
+                    # meets (d) under it; every candidate at K still enters the COUNTEREXAMPLE test
+                    cands = byK[K]
+                    graded = [(w,) + cx.classify(w, th, green, rd) for w in cands]
+                    for w, kind, fails in graded:
+                        if "d" not in fails:
+                            kinds.append(kind)          # every candidate meeting (d) enters attribution
+                        if kind == "COUNTEREXAMPLE":
+                            counter.append((rd, w))
+                    shown = [g for g in graded if rd in g[0].get("found_under", []) or g[1] == "COUNTEREXAMPLE"] or \
+                        [g for g in graded if "d" not in g[2]]
+                    if not shown:
                         continue
-                    kinds.append(kind)
-                    L.append("    K=%d: %s (failed: %s); Pr - 1/2 at K'=%s: %s; footprint %d (theta %d); table size %d "
-                             "bits; K_cx=%d; K0 status: %s; windows in subclass at K: %s, family-wide: %s; %s." % (
-                                 w["K"], kind, ",".join(fails) or "none", w["window"], ", ".join(w["pred_minus_half"]),
-                                 w["footprint"], th[str(n)], w["table_size_bits"], w["K_cx"],
+                    w, kind, fails = next((g for g in shown if g[1] == "COUNTEREXAMPLE"), shown[0])
+                    L.append("    K=%d: %s (failed: %s); found under reading(s) %s; Pr - 1/2 at K'=%s: %s; footprint %d "
+                             "(theta %d); table size %d bits; K_cx=%d; K0 status: %s; windows in subclass at K: %s, "
+                             "family-wide: %s; %s." % (
+                                 w["K"], kind, ",".join(fails) or "none", "+".join(w.get("found_under", [])),
+                                 w["window"], ", ".join(w["pred_minus_half"]), w["footprint"], th[str(n)],
+                                 w["table_size_bits"], w["K_cx"],
                                  "witness on every phi of the family" if w["K0_status"][rd] else "not family-wide",
                                  w["window_count_in_subclass"][rd], w["family_window_count"][rd], w["realization"]))
-                    if kind == "COUNTEREXAMPLE":
-                        counter.append((rd, w))
                 if "COUNTEREXAMPLE" not in kinds:
                     if "unrestricted-footprint witness" in kinds:
                         L.append("    Attribution%s: unpredictability in this combination is attributed to resources; "
@@ -313,26 +328,30 @@ def vg_selftest(meas, text):
 
 def main(argv):
     src = argv[0]
+    out = argv[argv.index("--out") + 1] if "--out" in argv else None
     raw = open(src, "rb").read()
     meas = json.loads(raw)
-    cls, text = generate(meas)
-    vg = vg_selftest(meas, text)
-    if not vg["pass"]:
-        prev = void_names(text) if cls == "VOID" else []
-        cls, text = "VOID", "VOID: failed checkpoint(s): %s\n" % ", ".join(prev + ["VG"])
+    try:
+        cls, text = generate(meas)
+        vg = vg_selftest(meas, text)
+        if not vg["pass"]:
+            prev = void_names(text) if cls == "VOID" else []
+            cls, text = "VOID", "VOID: failed checkpoint(s): %s\n" % ", ".join(prev + ["VG"])
+    except Exception as e:      # the verdict is never silently missing
+        cls, vg = "INCOMPLETE", {"pass": False, "error": "%s: %s" % (type(e).__name__, e)}
+        text = "INCOMPLETE (no verdict): verdict generation failed: %s: %s\n" % (type(e).__name__, e)
     if "--check" in argv:
         print(json.dumps({"class": cls, "VG": vg}, indent=1, sort_keys=True))
-        return 0 if vg["pass"] else 1
-    out = argv[argv.index("--out") + 1]
+        return 0 if vg.get("pass") else 1
     os.makedirs(out, exist_ok=True)
     with open(os.path.join(out, "verdict.json"), "w") as f:
         json.dump({"class": cls, "text": text, "VG": vg, "measurements_sha256": hashlib.sha256(raw).hexdigest(),
-                   "measurements_commit": meas["commit"], "run": meas["run"]}, f, sort_keys=True, indent=1)
+                   "measurements_commit": meas.get("commit"), "run": meas.get("run")}, f, sort_keys=True, indent=1)
         f.write("\n")
     with open(os.path.join(out, "verdict.txt"), "w") as f:
         f.write(text)
     print(cls)
-    return 0
+    return 1 if "error" in vg else 0
 
 
 if __name__ == "__main__":

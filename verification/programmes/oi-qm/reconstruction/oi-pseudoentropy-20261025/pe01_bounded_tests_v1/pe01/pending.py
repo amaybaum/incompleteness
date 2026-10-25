@@ -27,7 +27,10 @@ PENDING = {
         "§6 item 5, COVERED-literature: the mechanical form of the four closed forms. Computed as L1-L4 "
         "(B1 fires on G_lin at n+1; B2 at lambda = n+1 equals 1 - Pr_Q[LC <= n+1] with its K_delta; the "
         "B4 counting horizon, subsumed by COVERED-corpus; a curve equal to max(0, 1 - 2^(n-K))), "
-        "COVERED-corpus first."
+        "COVERED-corpus first. L2 as computed compares the B2 K1 horizons (maximum over lambda) with the "
+        "closed form at lambda = n+1; that is conservative (it never gives a false COVERED tag) and tags "
+        "only where lambda = n+1 is the earliest to fire. The exact comparison would use the closed-form "
+        "K1 maximum over lambda; reading 'L1-L4' is the conservative form."
     ),
     "D-SIGN": (
         "Condition (d): |adv| (the literal §2 definition) lets a fixed chi alternate orientation across "
