@@ -1,6 +1,7 @@
 # Independent review of the PE-01 stage plan
 
-These are the review records of `../../PLAN.md`, from its first version to revision 5. The files are byte-identical to
+These are the review records of `../../PLAN.md`, from its first version to revision 4. The check of revision 5 and of
+amendment A1 is `PRECHECK-A1.md`. The files are byte-identical to
 the reviewer's own, at the sha256 values in `SHA256SUMS`. They review the plan only. The independent review of PE-01's
 results will go in `../`, as the plan's §11 states.
 
