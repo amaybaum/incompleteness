@@ -53,7 +53,8 @@ None of these is a manuscript change made here.
 ## Unresolved literature and scope questions
 
 - Whether the recurrence-plus-readback indivisibility result (the audit's
-  C8, kernel-checked in `RecurrenceHorizon.lean`) is already known.
+  C8, kernel-checked in `RecurrenceHorizon.lean` except for its C4 step,
+  which is argued in prose) is already known.
 - Every reference the novelty audit cites from memory, including the
   radiation-entropy factor β ≈ 1.48 and the bibliographic details of Hardy
   2004 and Vidyasagar 2011.
@@ -62,7 +63,8 @@ None of these is a manuscript change made here.
   stays open until its sources are checked (#917 bears on it).
 - Components the audit did not examine: `papers/Main.md:624`,
   `papers/Main.md:308` and the Bell bound at `papers/Main.md:22`.
-- The audit's further fidelity notes F3–F6 on `papers/Main.md`.
+- The audit's further fidelity notes F3–F8 on `papers/Main.md` and F9 on
+  `book/ch07-gravity.md` §7.6.
 
 ## Open decisions
 

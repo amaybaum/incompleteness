@@ -1,9 +1,10 @@
-> **Status: unreviewed audit record.** Its classifications, confidence levels and
-> recommendations are provisional until an independent review compares the actual
-> theorem statements and proofs; no verdict in it is an established result.
-> References cited from memory are unverified. Apart from this block, the file is
-> byte-identical to the auditor's report (sha256
-> 9f8a0ef3ec7d1e62bf671dd38c82500ad5857ba375924a96fe35d531f51fcf3c). See `README.md`.
+> **Status: unreviewed audit record.** Its classifications, confidence levels
+> and recommendations are provisional until an independent review compares the
+> actual theorem statements and proofs; no verdict in it is an established
+> result. References cited from memory are unverified. Apart from this block,
+> the file is byte-identical to the auditor's report (sha256
+> 9f8a0ef3ec7d1e62bf671dd38c82500ad5857ba375924a96fe35d531f51fcf3c). See
+> `README.md`.
 
 # Novelty and fidelity audit — introductory paper (PR #918)
 

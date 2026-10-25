@@ -1,8 +1,8 @@
-> **Status: unreviewed audit record.** Its findings are provisional until reviewed.
-> Apart from this block, it differs from the auditor's report (sha256
-> f2fedace546787037101196ebf4fd7152a7f84e00b28d857083a69c351a57685) only in three
-> scratch-directory phrases replaced by relative descriptions. See `README.md`,
-> which also lists two errata in it.
+> **Status: unreviewed audit record.** Its findings are provisional until
+> reviewed. Apart from this block, it differs from the auditor's report
+> (sha256 f2fedace546787037101196ebf4fd7152a7f84e00b28d857083a69c351a57685)
+> only in three scratch-directory phrases replaced by relative descriptions.
+> See `README.md`, which also lists two errata in it.
 
 # Audit: what replacing `papers/Explainer.md` would lose
 
