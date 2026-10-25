@@ -15,6 +15,7 @@ from fractions import Fraction
 import numpy as np
 
 W = 3            # window parameter w of §6 (4 steps K-3..K)
+READINGS = ("abs", "signed")   # the two readings of condition (d) (open item D-SIGN)
 DELTA_CX_NUM, DELTA_CX_DEN = 1, 8
 
 
@@ -230,7 +231,7 @@ class Sweep:
         self.k1p = {(s, gi): {} for s in subclasses for gi in range(len(gens))}
         self.k0w = {s: {} for s in subclasses}
         self.k0a = {s: {} for s in subclasses}
-        self.win = {(s, gi): {} for s in subclasses for gi in primaries}
+        self.win = {(rd, s, gi): {} for rd in READINGS for s in subclasses for gi in primaries}
         self.lpdata = {}
         self.ex2_q = True
         self.im3_ok = True
@@ -267,7 +268,7 @@ class Sweep:
         submask = {s: m[idx] for s, m in self.sub.items()}
         nchi = 1 << V
         track = (set(self.primaries) | set(self.fam)) if self.primaries else set()
-        runs = {gi: np.zeros((len(idx), nchi), dtype=np.int16) for gi in track}
+        runs = {(rd, gi): np.zeros((len(idx), nchi), dtype=np.int16) for gi in track for rd in READINGS}
         im3 = self.im3(obs, idx, gens) if self.im3 is not None else None
         for K in range(kmax + 1):
             beta_p, rem_p, den = q.split(M)
@@ -297,45 +298,54 @@ class Sweep:
                     self._merge(self.k1d[(s, gi)], K, num, int(idx[rows[a]]))
                     j = int(np.argmax(pred[rows]))
                     self._merge(self.k1p[(s, gi)], K, int(pred[rows][j]), int(idx[rows[j]]))
-            # prediction windows (same O and chi at K-3..K), for primaries and the family
-            for gi in runs:
+            # prediction windows: the same O and chi at every K' in K-3..K, under both readings of (d):
+            # 'abs'    |Pr[chi = X_K'] - 1/2| >= 1/8, i.e. 4 |2S - M| >= M   (S = sum_v C[v, chi(v)])
+            # 'signed' Pr[chi = X_K'] - 1/2 >= 1/8,   i.e. 4 (2S - M) >= M
+            for gi in track:
                 if gi not in Cs:
                     continue
                 C = Cs[gi]
-                # |8 S - 4M| >= M with S = sum_v C[v, chi(v)], i.e. |2 S - M| >= M / 4
                 base = C[:, :, 0].sum(axis=1).astype(np.int16)[:, None]
                 ss = subset_sums_small(C[:, :, 1] - C[:, :, 0]) + base
-                ok = 4 * np.abs(2 * ss.astype(np.int32) - M) >= M
-                r = runs[gi]
-                r += 1
-                r[~ok] = 0
+                d2 = 2 * ss.astype(np.int32) - M
+                for rd, ok in (("abs", 4 * np.abs(d2) >= M), ("signed", 4 * d2 >= M)):
+                    r = runs[(rd, gi)]
+                    r += 1
+                    r[~ok] = 0
             for gi in self.primaries:
                 if gi not in Cs or K < W or K > self.window_cap[gi]:
                     continue
-                wg = runs[gi] >= W + 1
-                famw = None
-                famg = [f for f in self.fam if gens[f].family == gens[gi].family and f in Cs]
-                if famg:
-                    famw = np.ones_like(wg)
-                    for f in famg:
-                        famw &= runs[f] >= W + 1
-                for s, msk in submask.items():
-                    w2 = wg & msk[:, None]
-                    cnt = int(w2.sum())
-                    if not cnt:
-                        continue
-                    rec = self.win[(s, gi)].setdefault(K, {"count": 0, "first": None, "count_family": 0, "first_family": None})
-                    rec["count"] += cnt
-                    if rec["first"] is None:
-                        o, ch = np.unravel_index(int(np.argmax(w2.reshape(-1))), w2.shape)
-                        rec["first"] = (int(idx[o]), int(ch))
-                    if famw is not None:
-                        wf = w2 & famw
-                        cf = int(wf.sum())
-                        rec["count_family"] += cf
-                        if cf and rec["first_family"] is None:
-                            o, ch = np.unravel_index(int(np.argmax(wf.reshape(-1))), wf.shape)
-                            rec["first_family"] = (int(idx[o]), int(ch))
+                same = [f for f in self.fam if gens[f].family == gens[gi].family]
+                famg = [f for f in same if f in Cs]
+                for rd in READINGS:
+                    wg = runs[(rd, gi)] >= W + 1
+                    famw = None
+                    if famg and len(famg) == len(same):
+                        famw = np.ones_like(wg)
+                        for f in famg:
+                            famw &= runs[(rd, f)] >= W + 1
+                    for s, msk in submask.items():
+                        w2 = wg & msk[:, None]
+                        cnt = int(w2.sum())
+                        rec = self.win[(rd, s, gi)].setdefault(K, {"count": 0, "first": None, "count_family": 0,
+                                                                   "first_family": None,
+                                                                   "family_checked": famw is not None,
+                                                                   "count_member": [0] * len(famg)})
+                        for j, f in enumerate(famg):
+                            rec["count_member"][j] += int(((runs[(rd, f)] >= W + 1) & msk[:, None]).sum())
+                        if not cnt:
+                            continue
+                        rec["count"] += cnt
+                        if rec["first"] is None:
+                            o, ch = np.unravel_index(int(np.argmax(w2.reshape(-1))), w2.shape)
+                            rec["first"] = (int(idx[o]), int(ch))
+                        if famw is not None:
+                            wf = w2 & famw
+                            cf = int(wf.sum())
+                            rec["count_family"] += cf
+                            if cf and rec["first_family"] is None:
+                                o, ch = np.unravel_index(int(np.argmax(wf.reshape(-1))), wf.shape)
+                                rec["first_family"] = (int(idx[o]), int(ch))
             # K0
             if self.k0cap is not None and K <= self.k0cap and all(f in Cs for f in self.fam):
                 if self.k0_kind == "det":
