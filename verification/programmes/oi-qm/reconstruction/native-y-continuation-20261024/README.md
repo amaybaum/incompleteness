@@ -2,7 +2,7 @@
 
 Bounded research on native instruments for the OI-to-QM reconstruction
 programme: the actual masked phase of the native-Y construction and scoped
-native tests on it. Every package has a separate-agent internal review
+native tests on it. Every result package has a separate-agent internal review
 (that of `continuation/` is in `parallel_v3/review/`). The packages from
 `reset_v7/` on carry a plan (`PLAN.md` or `PROBE-PLAN.md`); the five
 earlier packages, `continuation/`, `parallel_v3/`, `junction_v4/`,
