@@ -93,8 +93,8 @@ regenerates its round-2 mutant summaries.
   that first published the contract. The provenance file is pinned by its
   review and is not edited. The F9 plan commit it and `REPORT.md` cite,
   `757e766b`, changes no file. The package's `PLAN.md` is committed at
-  `91cc787e`; #910's `1b729355`, with the same subject as `757e766b`, adds
-  Native A's `native_x_v12/PLAN.md` and is cited as
+  `91cc787e`; #910's `1b729355`, with the same subject as `757e766b`, adds the
+  third-source fork to Native A's `native_x_v12/PLAN.md` and is cited as
   `native_A_source_plan_publication`.
 - `REPORT.md`, `native-x-v2/REPORT.md` and `review/REVIEW.md` cite the
   programme's acceptance rule at commit `2d555f17`, on #885's branch
