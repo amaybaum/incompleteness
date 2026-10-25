@@ -11,7 +11,8 @@ covered by `Structure.md:1256` and `Main.md` §3.4 (`../README.md`, "What the co
 
 **Purpose (owner).** The stage tests whether apparent randomness is unpredictable because of the observations
 available, or only because the observer lacks resources. Wherever unpredictability is traced to a lack of resources, it
-is reported as a limitation of the resource model (§7), not as a property of observation.
+is reported as a limitation of the resource model (§7), not as a property of observation. Attribution follows the rule
+in §6, item 4.
 
 ## 1. Objects
 
@@ -269,11 +270,13 @@ Every numerical row is computed in exact integer or `Fraction` arithmetic. Faili
 | Complement symmetry | SY | §4 |
 | Inclusions | MO | Each passive class is at most U. K0 worst case is at most $\min_\varphi$ K1; K0 average is at most $\mathbb{E}_\nu$ K1. 𝒫ᵉᵐᵇ(m) is at most 𝒫ᵉᵐᵇ(m+1). Passive is at most active. B4 at $d=1$ exists iff B1 has a bias-$\pm1$ test. All are checked pointwise. |
 | The footprint is measured | FP | For every witness, the printed footprint equals the total bit width of the visible registers of its clocked composite (the one checked by EX1, EX8 and IM3), less the system bit. It is computed from the composite and compared with the formula of §3. |
-| The counterexample conditions are evaluated mechanically | CX | For every candidate witness, the JSON records: the exact $\mathrm{adv}^{\rm pred}_O(\varphi, K')$ at each $K' \in [K-3, K]$, from full-state simulation of the clocked composite (the IM3 path); $K_{\rm cx}(\varphi)$; the FP footprint; EX6. The checker evaluates (a)–(f) of §6 from those fields alone. A COUNTEREXAMPLE is printed only if all hold. Self-test: three mutant witnesses must each be refused, and reported as a measurement, on their own condition: one $K'$ in the window at $1/8 - 2^{-K-2}$; footprint $\theta + 1$; and $K = K_{\rm cx} + 1$. A refusal counts only if it names that condition. |
+| The counterexample conditions are evaluated mechanically | CX | For every candidate witness, the JSON records: the exact $\mathrm{adv}^{\rm pred}_O(\varphi, K')$ at each $K' \in [K-3, K]$, from full-state simulation of the clocked composite (the IM3 path); $K_{\rm cx}(\varphi)$; the FP footprint; EX6; the per-witness EX1, EX7, EX8 and IM3 flags; and the global control flag. The checker evaluates (a)–(f) of §6 from those fields alone. A COUNTEREXAMPLE is printed only if all hold. Self-test: three mutant witnesses must each be refused, and reported as a measurement, on their own condition: one $K'$ in the window at $1/8 - 2^{-K-2}$; footprint $\theta + 1$; and $K = K_{\rm cx} + 1$. A refusal counts only if it names that condition. |
 | The K0 test is chosen before $\varphi$ | K0 | each K0 record names one test id, evaluated across all of $\mathfrak{F}$ |
 | Deterministic replay (§A.26) | RP | a rerun's measurement JSON is byte-identical |
 | The plan precedes the code | PIN | the measurement JSON records this file's blob id, and this commit is an ancestor of every code commit |
-| Verdicts are generated from measurements | VG | the verdict is regenerated from the JSON and compared. A copy with any control flag flipped must yield VOID (self-test). |
+| Verdicts are generated from measurements | VG | The verdict is regenerated from the JSON and compared. Self-test: a copy with any control flag flipped must yield VOID. A verdict text lacking the resource-model limitation sentence of §7 must fail. |
+| The admissible region is derived, not reprinted | AR | Z(φ) (§7) is computed by exhaustive equidistribution over all control sequences, at every $n$ and for all three primary generators. Z(`G_lin`) $= n$ is cross-checked against PC. The region is recomputed from Z(φ), $K_{\rm cx}(\varphi)$ and $\theta$, and must equal the §7 tables cell for cell. The verdict prints the recomputed region. |
+| Runs wait for the fixed thresholds | TH | The measurement JSON records $\theta$, $K_{\rm LP}$ and the blob id of the amendment that fixes them. That amendment's commit must be an ancestor of every run commit, checked as PIN is. A run without that record refuses to start. |
 
 ## 6. Decision rule and outcome classes (fixed before computation)
 
@@ -302,7 +305,7 @@ Every numerical row is computed in exact integer or `Fraction` arithmetic. Faili
    - (f) the footprint (FP) is at most $\theta$.
 
    A **bounded-resource claim** is a COUNTEREXAMPLE meeting (a)–(f). The threshold $\theta$ is the one open owner
-   decision (§10), and no run starts before it is fixed. Witnesses meeting (a)–(e) but not (f) are reported for
+   decision (§10). No run starts before both $\theta$ and $K_{\rm LP}$ are fixed by amendment (TH). Witnesses meeting (a)–(e) but not (f) are reported for
    comparison as unrestricted-footprint witnesses. They are not COUNTEREXAMPLEs.
 
    Knowledge level: $O$ may depend on $\varphi$, so the witness is K1. The verdict also reports its K0 status, that is,
@@ -312,7 +315,8 @@ Every numerical row is computed in exact integer or `Fraction` arithmetic. Faili
    - the footprint $m + \lceil \log_2(K+1) \rceil + 1$ (memory, clock, output), as measured by FP;
    - the table size;
    - the admissibility result (f). Condition (f) implements the embedded-memory condition of `../README.md:155–159`;
-   - the resource-model limitation of §7, together with the admissible-region table for the chosen $\theta$;
+   - the resource-model limitation sentence of §7, and the admissible region for the chosen $\theta$, recomputed (AR)
+     from the measured Z(φ) and $K_{\rm cx}(\varphi)$;
    - the realization conditions the witness satisfies, in the form "T-level (C1) holds; C2–C4 not checked". The
      refuted statement is therefore exactly the one tested.
 
@@ -324,6 +328,11 @@ Every numerical row is computed in exact integer or `Fraction` arithmetic. Faili
      properties depend on unpredictability"). For 𝒫ᵉᵐᵇ, Yao's reduction from distinguishing to prediction does not stay
      inside the class.
    - No finite result here establishes the universal form (`../README.md`, Question).
+
+   **Attribution.** The verdict attributes unpredictability to resources if and only if some witness meets (a)–(e) but
+   fails (f). That case is reported as a limitation of the resource model. In every other case without a
+   COUNTEREXAMPLE, the verdict states "no witness within the enumerated scope at any footprint". It never states that
+   the record is unpredictable because of the observations available on the strength of a finite enumeration.
 5. **Productivity tag (§A.31).** Each result also gets one tag:
    - **COVERED-corpus:** class U, anything implied by the support bound or by PC, and B4 at or beyond its counting
      horizon (§3);
@@ -373,38 +382,69 @@ Every numerical row is computed in exact integer or `Fraction` arithmetic. Faili
 - **Resource-model limitation.** The horizon bound $K < 2^{\,n-m-1}$ ($\theta = n$), or $K < 2^{\,n-m}$ ($\theta = n+1$),
   is a consequence of the selected resource model: memory + clock + output $\le \theta$. It is not a limit OI imposes on
   observers. The generated verdict text repeats this sentence.
-  - The admissible horizons for a COUNTEREXAMPLE combine the clock bound, the window (d) and $K \le K_{\rm cx}$. For
-    `G_lin`, PC forces $K - 3 \ge n+1$.
-  - For `G_filt` and `G_clk` no PC zero is claimed, so the lower end is only the window floor $K = 3$.
-  - The tables were design-checked at drafting, and the verdict reprints them.
+  - **Universal zero horizon.** Let Z(φ) be the largest $k$ such that, for every control sequence $c_0, \dots, c_{k-1}$,
+    the increments $f(\sigma_{c_0} h), f(\sigma_{c_1}\sigma_{c_0} h), \dots$ (the first $k$) are jointly uniform under
+    uniform $h$.
+  - **The zero holds for every observer.** For every 𝒫ᵉᵐᵇ observer, passive or adaptive, $\mathrm{adv}^{\rm pred} = 0$
+    exactly at every $K' \le$ Z(φ):
+    - The control at round $t$ is $c_t = x_t \oplus a(v_{t+1})$. Given $x_0$, it is a function of the earlier increments
+      only.
+    - So $\Pr[Y_{0:k-1} = z \mid x_0]$ equals the probability, for the fixed sequence $c(z)$, that the increments equal
+      $z$. That is $2^{-k}$.
+    - $x_{K'} = c_{K'-1} \oplus Y_{K'-1}$, and the guess $\chi(v_{K'})$ is a function of $X_{0:K'-1}$. The guess is
+      therefore correct with probability exactly $1/2$.
+    - $K' = 0$ is zero trivially.
+    - The argument uses the product prior, under which $x_0$ is independent of $h$.
+  - **Window floor.** Condition (d) therefore needs $K \ge$ Z(φ) $+ 4$ for every generator. Together with the clock bound
+    and $K \le K_{\rm cx}(\varphi)$, that gives the region below.
+  - **Drafting-time values.** The Z values at drafting are:
 
-  Each cell gives `G_lin` / `G_filt`, `G_clk`; – means empty.
+    | | $n=3$ | 4 | 5 | 6 | 7 | 8 |
+    |---|---|---|---|---|---|---|
+    | Z(`G_lin`) | 3 | 4 | 5 | 6 | 7 | 8 |
+    | Z(`G_filt`) | 2 | 2 | 3 | 4 | 5 | 6 |
+    | Z(`G_clk`) | 2 | 3 | 3 | 4 | 4 | 5 |
+
+    Z(`G_lin`) $= n$ is the PC floor. These values and the tables below are drafting-time values, not results. AR
+    re-derives them, and any difference halts the stage.
+  - **Reading a cell.** A cell outside the region is structurally excluded. A cell inside it is not a claim that a
+    witness exists.
+
+  Each cell gives `G_lin` | `G_filt` | `G_clk`; – means empty.
 
   $\theta = n$:
 
   | $n$ | $m=1$ | $m=2$ | $m=3$ | $m=4$ |
   |---|---|---|---|---|
-  | 3 | – / – | – / – | – / – | – / – |
-  | 4 | – / [3,3] | – / – | – / – | – / – |
-  | 5 | – / [3,7] | – / [3,3] | – / – | – / – |
-  | 6 | [10,15] / [3,15] | – / [3,7] | – / [3,3] | – / – |
-  | 7 | [11,31] / [3,31] | [11,15] / [3,15] | – / [3,7] | – / [3,3] |
-  | 8 | [12,63] / [3,63] | [12,31] / [3,31] | [12,15] / [3,15] | – / [3,7] |
+  | 3 | – \| – \| – | – \| – \| – | – \| – \| – | – \| – \| – |
+  | 4 | – \| – \| – | – \| – \| – | – \| – \| – | – \| – \| – |
+  | 5 | – \| [7,7] \| [7,7] | – \| – \| – | – \| – \| – | – \| – \| – |
+  | 6 | [10,15] \| [8,15] \| [8,15] | – \| – \| – | – \| – \| – | – \| – \| – |
+  | 7 | [11,31] \| [9,31] \| [8,31] | [11,15] \| [9,15] \| [8,15] | – \| – \| – | – \| – \| – |
+  | 8 | [12,63] \| [10,63] \| [9,63] | [12,31] \| [10,31] \| [9,31] | [12,15] \| [10,15] \| [9,15] | – \| – \| – |
 
   $\theta = n+1$:
 
   | $n$ | $m=1$ | $m=2$ | $m=3$ | $m=4$ |
   |---|---|---|---|---|
-  | 3 | – / [3,3] | – / – | – / – | – / – |
-  | 4 | – / [3,7] | – / [3,3] | – / – | – / – |
-  | 5 | [9,15] / [3,15] | – / [3,7] | – / [3,3] | – / – |
-  | 6 | [10,31] / [3,31] | [10,15] / [3,15] | – / [3,7] | – / [3,3] |
-  | 7 | [11,63] / [3,63] | [11,31] / [3,31] | [11,15] / [3,15] | – / [3,7] |
-  | 8 | [12,127] / [3,127] | [12,63] / [3,63] | [12,31] / [3,31] | [12,15] / [3,15] |
+  | 3 | – \| – \| – | – \| – \| – | – \| – \| – | – \| – \| – |
+  | 4 | – \| [6,7] \| [7,7] | – \| – \| – | – \| – \| – | – \| – \| – |
+  | 5 | [9,15] \| [7,15] \| [7,15] | – \| [7,7] \| [7,7] | – \| – \| – | – \| – \| – |
+  | 6 | [10,31] \| [8,31] \| [8,31] | [10,15] \| [8,15] \| [8,15] | – \| – \| – | – \| – \| – |
+  | 7 | [11,63] \| [9,63] \| [8,63] | [11,31] \| [9,31] \| [8,31] | [11,15] \| [9,15] \| [8,15] | – \| – \| – |
+  | 8 | [12,127] \| [10,127] \| [9,127] | [12,63] \| [10,63] \| [9,63] | [12,31] \| [10,31] \| [9,31] | [12,15] \| [10,15] \| [9,15] |
 
-  At $\theta = n$, `G_lin` has no admissible region for $n \le 5$. On `G_lin`, the passive $m = 3$ sweep ($n \le 6$)
-  and the linear-filter $m = 4$ sweep can never yield an admissible witness. On `G_filt` and `G_clk`, the window floor
-  leaves some $m \ge 3$ cells non-empty.
+  Consequences, the same for all three generators:
+  - **At $\theta = n$:**
+    - the region is empty for $n \le 4$;
+    - at $n = 5$ only $m = 1$, $K = 7$ survives, on `G_filt` and `G_clk`;
+    - $m = 3$ is non-empty only at $n = 8$;
+    - every $m = 4$ cell is empty.
+  - **At $\theta = n+1$:**
+    - $m = 3$ is non-empty only from $n = 7$;
+    - $m = 4$ is non-empty only at $n = 8$.
+  - **The two sweeps.** The passive $m = 3$ sweep ($n \le 6$) can yield no admissible witness at either $\theta$. The
+    linear-filter $m = 4$ sweep can do so only at $n = 8$ with $\theta = n+1$.
 
 ## 8. Resources and CI (§A.40)
 
@@ -488,11 +528,15 @@ The owner has decided the following, and they replace the earlier defaults:
 **Open owner decision: the value of $\theta$.** The candidates are $\theta = n$, the hidden register, and
 $\theta = n+1 = \log_2|\mathcal{C}_V \times \mathcal{C}_H|$, the whole generator. The consequences are in the §7
 tables:
-- At $\theta = n$, the admissible region on `G_lin` is empty for $n \le 5$. There, the passive $m = 3$ and linear $m = 4$
-  sweeps can never be admissible.
-- At $\theta = n+1$, the region is wider.
+- **At $\theta = n$:**
+  - the region is empty for $n \le 4$ on every generator;
+  - at $n = 5$ it is only $m = 1$, $K = 7$, on `G_filt` and `G_clk`;
+  - every $m = 4$ cell is empty;
+  - $m = 3$ is non-empty only at $n = 8$.
+- **At $\theta = n+1$:** the region is wider, with $m = 3$ from $n = 7$ and $m = 4$ at $n = 8$.
+- **The two sweeps.** The passive $m = 3$ sweep ($n \le 6$) is not admissible under either value.
 
-No PE-01 run starts before $\theta$ is fixed in an amendment to this plan.
+No PE-01 run starts before both $\theta$ and $K_{\rm LP}$ are fixed in an amendment to this plan (TH).
 
 ## 11. Package
 
