@@ -1,0 +1,29 @@
+{
+ "record": "verification/programmes/black-hole-information/bh02_scramble_v1",
+ "programme": "OI-BH-1 (../PROGRAMME.md), items BH-02 and BH-04, lane 3",
+ "drafting_snapshot_D": "809fac52cdf207d24eccc63c734996bcb9d073a0",
+ "preregistration_commits": {
+  "PLAN.md": "6bf2d4b8",
+  "amendments/A1-shell-cases.md": "ff7b5c85",
+  "amendments/A2-mutant-criterion.md": "836a661e"
+ },
+ "generated_on_parent": "836a661ea50535d4da7dd97c46c8b9078bfd0942",
+ "form": "complete",
+ "kind": "local run; not a CI run and not a check-run attestation",
+ "interpreter": "CPython 3.13.16, standard library only",
+ "recipe": {
+  "working_directory": "verification/programmes/black-hole-information/bh02_scramble_v1",
+  "result": "python3 -I -B checks.py > result.json",
+  "result_replay": ["python3 -I -B checks.py | cmp - result.json", "python3 -I -B -O checks.py | cmp - result.json"],
+  "mutants": "python3 -I -B mutants.py > mutants-output.txt",
+  "report": "python3 -I -B report.py > REPORT.md",
+  "exit_status": "checks.py prints VOID and exits 2 on any failed control; mutants.py exits 2 unless every mutant is caught; report.py exits 2 if result.json records a failed control"
+ },
+ "determinism": "result.json reproduced byte for byte by two runs under -I -B and one under -I -B -O on the recorded interpreter; REPORT.md reproduced byte for byte; mutants-output.txt from one run of the final code",
+ "seeds": "fixed in checks.py (SEEDS) and echoed in result.json",
+ "literature_inputs": [
+  {"source": "D. N. Page, Time Dependence of Hawking Radiation Entropy, JCAP 09 (2013) 028, arXiv:1301.4995", "values": "beta = 1.4847 (photons and gravitons, from Page 1976), turnover at 53.81% of the evaporation time, 40.25% of the initial Bekenstein-Hawking entropy lost", "how_obtained": "abstract and database-record text via web search on 2026-10-25; full text not accessed", "use": "external control K-page2013 only"},
+  {"source": "D. N. Page, Phys. Rev. Lett. 71, 1291 (1993); proofs by Foong-Kanno (1994), Sanchez-Ruiz (1995), Sen (1996)", "use": "exact Haar mean entropy formula, cross-checked by Monte Carlo (K-page-mc)"},
+  {"source": "E. Bianchi and P. Dona, Phys. Rev. D 100, 105010 (2019)", "use": "form of the sector-decomposition average, diagnostic only, cross-checked by Monte Carlo"}
+ ]
+}
