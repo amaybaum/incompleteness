@@ -71,27 +71,32 @@ The earlier unchanged-prefix causal argument does not cover these delays.
 ## Delayed old-port history for the frozen carrier
 
 `delayed_history_v7/` (plan `d72ea524586b84e285c4723bf47a377df3ecb8a9`,
-committed before computation; head `656502989dd34ef64ba63d54328e13966517444b`;
-separate review retained under its `review/`) treats them for the frozen
-logical v6 carrier within the same hypothetical serial alignment. Conditional
-on the Native A source contract, the supplied `history_v11` bank and G
-priors, v6's isolated logical storage and v6's candidate access contract
-with the eight old ports added, the complete public record through any
-L < H <= 2L is distributed jointly with the outgoing selected carrier as the
-v6 law tensored with an independent uniform tail of 24(H-L) bits. The public
-record is the eight raw port streams, the old whole-q9 record, the whole-V
-record and the pointer prefix; Q8, Q10, M, the other neighbours, the pool
-and the phase and workspace wires are private.
+committed before computation; head
+`656502989dd34ef64ba63d54328e13966517444b`; separate review retained under
+its `review/`) treats them for the frozen logical v6 carrier within the same
+hypothetical serial alignment. Conditional on the Native A source contract,
+the supplied `history_v11` bank and G priors, v6's isolated logical storage
+and v6's candidate access contract with the eight old ports added, the
+complete public record through any L < H <= 2L is distributed jointly with
+the outgoing selected carrier as the v6 law tensored with an independent
+uniform tail of 24(H-L) bits. The public record is the eight raw port
+streams, the old whole-q9 record, the single whole-V record and the pointer
+prefix; Q8, Q10, M, the other neighbours, the pool and the phase and
+workspace wires are private.
 
 At actual L this is a written conditional corollary of exact integer
-geometry (no tail triple reaches a carrier site-time, minimum slack 76) and
-the inherited Native A and `history_v11` results. The exhaustive check of
-the complete joint law, cell by cell with zero cells, is a scaled control
-(n=3, k=2, one port). Tail triples first reach the carrier sites from L+77,
-so a natively stored carrier could depend on them; in the scaled control,
-q8 left to native dynamics does. The result concerns the joint record law
-only: it adopts no observer-access rule or access closure and establishes
-no native storage, arbitrary composition or reusable measurement instrument.
+geometry (no tail triple reaches a carrier site-time, minimum slack 76; G
+reaches no port by L+2; both horizons lie within 2L) and the inherited
+Native A and `history_v11` results. The exhaustive check of the complete
+joint law, cell by cell with zero cells, is a scaled control (n=3, k=2) and
+does not establish the actual-L statement: there G reaches a single port,
+whereas at actual L F8 and F10/F9 each reach ports 3 and 5 at the same tick,
+and its horizon, 8, exceeds 2n. Tail triples first reach the carrier sites
+from L+77, so a natively stored carrier could depend on them; in the scaled
+control, q8 left to native dynamics does. The result concerns the joint
+record law only: it adopts no observer-access rule or access closure and
+establishes no native storage, arbitrary composition or reusable measurement
+instrument.
 
 ## Related work and next gate
 
@@ -106,6 +111,7 @@ neither supplies native gates or access closure.
 The next gate is native compilation or a cheaper native predicate with
 actual operand delivery, preserved/re-encoded carrier, full pointer metadata
 and complete delayed history for a natively stored carrier. General
-instruments, composites/Bell and full A1/A2 reconstruction remain in #913. Author and review replay normally and
-with -O; no full-suite, Lean or exact-head attestation, premise/access adoption,
-F/E designation, dispatch, merge or equivalence verdict follows.
+instruments, composites/Bell and full A1/A2 reconstruction remain in #913.
+Author and review replay normally and with -O; no full-suite, Lean or
+exact-head attestation, premise/access adoption, F/E designation, dispatch,
+merge or equivalence verdict follows.
