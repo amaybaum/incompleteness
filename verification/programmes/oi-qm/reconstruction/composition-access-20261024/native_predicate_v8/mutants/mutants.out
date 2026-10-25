@@ -50,6 +50,15 @@
       "admissible_common_R": null,
       "caught": true,
       "exit_status": 2,
+      "failed_control": "x4_planted_negatives_rejected_and_encodings_accepted",
+      "mutant": "m4c_law_checks_block_sizes_only",
+      "target": "x4_planted_negatives_rejected_and_encodings_accepted",
+      "verdict": "VOID"
+    },
+    {
+      "admissible_common_R": null,
+      "caught": true,
+      "exit_status": 2,
       "failed_control": "x5_reduction_equals_brute_force",
       "mutant": "m5_reduction_allows_uncovered_v",
       "target": "x5_reduction_equals_brute_force",
@@ -89,6 +98,24 @@
       "failed_control": "x2_seven_site_inverse",
       "mutant": "m8_bitsliced_rule_or",
       "target": "x2|x1",
+      "verdict": "VOID"
+    },
+    {
+      "admissible_common_R": null,
+      "caught": true,
+      "exit_status": 2,
+      "failed_control": "x0_scope_parameters",
+      "mutant": "m10_region_radius_3",
+      "target": "x0_scope_parameters",
+      "verdict": "VOID"
+    },
+    {
+      "admissible_common_R": null,
+      "caught": true,
+      "exit_status": 2,
+      "failed_control": "x0_scope_parameters",
+      "mutant": "m11_reads_to_L_plus_9",
+      "target": "x0_scope_parameters",
       "verdict": "VOID"
     },
     {

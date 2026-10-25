@@ -635,8 +635,9 @@ def main():
     controls = {}
     result = {
         'schema': 'oi-passive-native-readout-predicate-v8.0',
-        'scope': ('class C(4,16): any set of whole native triples within distance 4 of q9, '
-                  'read through L+17, with the single whole-V record; scaled dirty families, '
+        'scope': ('class C(%d,%d): any set of whole native triples within distance %d of q9, '
+                  'read through L+%d, with the single whole-V record; scaled dirty families, '
+                  % (RHO, TAU, RHO, TEND-NS) +
                   'conditional on C0; no gates, pads or added sources'),
         'scaled_parameters': {'n': NS, 'rho': RHO, 'tau_max': TAU, 'last_read_slice': TEND,
                               'dirty_initial_radius': R0, 'region_sites': len(REGION),
@@ -645,8 +646,17 @@ def main():
         'native_storage_or_compilation_established': False,
         'observer_access_rule_adopted': False,
         'post_plan_rows': ['nontrivial_two_block_cells_reported_only, per family, reported only'],
+        'post_review_rows': ['x0_scope_parameters control pins the preregistered C(4,16) domain; '
+                             'scope string generated from the parameters'],
     }
     try:
+        # x0 (post-review): the searched domain is the preregistered C(4,16),
+        # n=6: 129 region sites, 3,225 site-times, reads through L+17.
+        controls['x0_scope_parameters'] = (
+            NS == 6 and RHO == 4 and TAU == 16 and TEND-NS == 17 and R0 == RHO+TEND
+            and len(REGION) == 129 and len(SITE_TIMES) == 3225
+            and SITE_TIMES == [(x, t) for t in range(-1, NS+18) for x in sorted(ball(4))])
+        control(controls['x0_scope_parameters'], 'x0_scope_parameters')
         geo = actual_geometry()
         controls['x6_carrier_first_tail_table_equals_v7'] = (
             geo['carrier_first_tail_minus_L'] == V7_FIRST_TAIL)

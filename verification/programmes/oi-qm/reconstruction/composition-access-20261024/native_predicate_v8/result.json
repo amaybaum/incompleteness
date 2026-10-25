@@ -1120,7 +1120,11 @@
   "post_plan_rows": [
     "nontrivial_two_block_cells_reported_only, per family, reported only"
   ],
+  "post_review_rows": [
+    "x0_scope_parameters control pins the preregistered C(4,16) domain; scope string generated from the parameters"
+  ],
   "required_controls": {
+    "x0_scope_parameters": true,
     "x1_scalar_evaluator_agrees": true,
     "x2_native_A_pool_and_inverse": true,
     "x3_planted_positive_found": true,

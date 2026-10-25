@@ -16,7 +16,7 @@
     "Native A scaled source offsets (-(n+1),0,-1), (-(n+1),0,1), (-(n+2),0,0)",
     "the xorshift background generator of v7's scaled control, with a ball-shaped dirty region"
   ],
-  "mutant_command": "python3 -I -B mutants/run_mutants.py checks.py <empty work directory>",
+  "mutant_command": "mkdir mut && python3 -I -B mutants/run_mutants.py checks.py mut (the work directory may be relative; exits 1 unless every mutant is caught)",
   "native_storage_or_compilation_established": false,
   "new_physical_premise_adopted": false,
   "normal_command": "python3 -I -B checks.py",
@@ -27,6 +27,14 @@
     "family_search reports an admissible R by its nontrivial cells; cells constant for every V value can be added to any R and are omitted (efficiency change, same decision)",
     "the checker's run_family takes an optional injection argument, used only by the injection mutant m9",
     "mutant m4a (direct proportionality test accepts all) added to target x4, after the first mutant run showed that m4b (law statistic accepts any two-block split) is caught by the family search cap before x4 is reached; both are retained"
+  ],
+  "post_review_changes": [
+    "review of 375a29e4 (accept with nits); changes in the following commit",
+    "F1: run_mutants.py makes the work directory absolute and exits 1 unless every mutant is caught; an unparsed mutant records no stderr text; the documented command was verified from an empty directory with a relative work directory",
+    "F2: required control x0_scope_parameters pins n=6, rho=4, tau_max=16, reads through L+17, 129 region sites and 3,225 site-times; the scope string is generated from the parameters (text unchanged); mutants m10 (radius 3) and m11 (reads to L+9), the reviewer's R1 and R8, now give VOID at x0",
+    "F3: mutant m4c, the reviewer's R7 (law statistic checks 20/44 block sizes only), added; caught at x4",
+    "F4, F5, F6, F8: REPORT wording only (the V cell in the given-V-trivial count; 'scaled' in the opening result and the choice paragraph; pads and mixtures over backgrounds as one open branch; the scaled-to-actual G-arrival check confirms transcription, not dynamics)",
+    "result.json leaf changes: required_controls.x0_scope_parameters=true and post_review_rows added; every other leaf unchanged"
   ],
   "published_plan_commit": "631bec0ca55eacbf6a7cf7e72d72c673dfe430da",
   "published_plan_path": "verification/programmes/oi-qm/reconstruction/composition-access-20261024/native_predicate_v8/PLAN.md",

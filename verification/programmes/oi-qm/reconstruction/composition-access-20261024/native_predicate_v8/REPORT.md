@@ -6,7 +6,8 @@ computation at `631bec0ca55eacbf6a7cf7e72d72c673dfe430da`, whose parent is
 
 ## Result and scope
 
-Verdict, generated from the measured values: `NEGATIVE_FOR_CONSTRUCTION`.
+Verdict, generated from the measured values: `NEGATIVE_FOR_CONSTRUCTION`, in
+the scaled control.
 
 The construction class is C(4, 16). The public record is v6's candidate contract
 (old whole-q9 record, single whole-V record, the eight old ports), with v6's
@@ -23,8 +24,10 @@ measured obstruction is sharper than the absence of a common rule:
 - For every family and every value of V, the number of two-block partitions of
   the 64 worlds with that V that carry the target law is zero, among all 3,225
   read site-times.
-- Per family, 2,224 to 2,226 site-times are constant given C0. G has not reached
-  them yet, or they are at the opposite time parity to G's arrival. Of the
+- Per family, 2,224 to 2,226 site-times carry no information beyond V given C0.
+  This count includes the V cell itself, q9 at n+2; the others are constant
+  given C0, because G has not reached them yet or they are at the opposite time
+  parity to G's arrival. Of the
   roughly 1,000 G-dependent site-times, 921 to 925 split some V value into all
   eight triple values. Only 2 to 6 split every V value into at most two blocks,
   and none of those splits has the target law for any V value.
@@ -56,6 +59,11 @@ It does not exclude any of the following:
   specified prior;
 - a predicate at actual L in its actual background.
 
+The two exclusions on pads and on mixtures over backgrounds are one open
+branch. Conditioning on the whole background C0 is exactly what prevents
+background bits from acting as v6-style fair pads. A cell such as (A, Y XOR c, ·),
+with c a fair background bit, leaks Y given C0 but not on average over c.
+
 It establishes no native storage of the outgoing carrier, which stays v6's
 supplied logical storage. It adopts no observer-access rule, clock or premise,
 and makes no A1/A2 statement.
@@ -72,7 +80,8 @@ becomes whether the decoder is available, which is a compilation question. (b)
 is upstream: if native dynamics supplied an admissible flag before the tail
 arrives, the 89-tick serial circuit, and its overlap with the L+77 arrival,
 would not be needed. Its cheapest form is passive readout, with no gates and no
-added resources. This test settles that form for the class above.
+added resources. This test settles that form for the class above, in the scaled
+control.
 
 ## Delayed history
 
@@ -94,7 +103,10 @@ here.
   this region could continue to L+73 before the tail can reach them. The scaled
   control covers only L−7..L+17 of that window.
 - G first reaches the region at L−2. For every one of the 129 offsets, the
-  scaled G arrival equals the actual arrival minus (L−n) (x7).
+  scaled G arrival equals the actual arrival minus (L−n) (x7). This holds by
+  construction, since the offsets are the same and the region lies where the
+  distance to each source is linear. It confirms that the source offsets were
+  transcribed correctly, not that the scaled dynamics are faithful to actual L.
 - The carrier first-tail-arrival table reproduces v7's (x6): q8, m, q9+x and
   q9+y at L+77; q9 at L+78; q10 and q9−y at L+79.
 
@@ -120,6 +132,7 @@ by subset; 28 of the subsets pass.
 
 | control | result |
 | --- | --- |
+| x0 | The searched domain is the preregistered one: n = 6, 129 region sites, 3,225 site-times, reads through L+17. The scope string in `result.json` is generated from these parameters. Added after review. |
 | x1 | An independent scalar evaluator (dict-based, explicit Boolean H) agrees on all 3,225 read site-times, on three worlds per family. |
 | x2 | In every family the pool (q8, q10, m) at n+1 is a bijection of G on 512 values, the seven-site inverse recovers old q9 in every world, the phase sign equals old q9.B, and V is uniform. |
 | x3 | A planted (0, A, 0), passed through the full search, is admissible in every family, common to all, and passes the direct check. |
@@ -131,7 +144,9 @@ by subset; 28 of the subsets pass.
 ## Mutants
 
 `mutants/run_mutants.py` applies one textual mutation at a time and runs the
-mutant checker; `mutants/mutants.out` is its output. Each control mutant must
+mutant checker; `mutants/mutants.out` is its output. m4c, m10 and m11 were added
+after review; they correspond to the reviewer's mutants R7, R1 and R8. The
+script exits 1 unless every mutant is caught. Each control mutant must
 exit 2 with verdict `VOID` naming its target. The injection mutant must turn the
 verdict to `HOLDS_WITHIN_SCOPE`.
 
@@ -142,11 +157,14 @@ verdict to `HOLDS_WITHIN_SCOPE`.
 | m3 | law statistic rejects everything | VOID, x3 |
 | m4a | direct proportionality test accepts everything | VOID, x4 |
 | m4b | law statistic accepts any two-block split | VOID, at the family search cap, before x4 |
+| m4c | law statistic checks block sizes 20/44 only | VOID, x4 (the permuted-threshold plant also splits 20/44) |
 | m5 | reduction allows an uncovered V value | VOID, x5 |
 | m6 | tail window shifted by one tick | VOID, x6 |
 | m7a | actual F9 moved one site | VOID, x7 (geometry) |
 | m7b | early-constancy check includes the arrival slice | VOID, x7 (early samples) |
 | m8 | bit-sliced native rule uses OR | VOID, x2 |
+| m10 | region radius 3 | VOID, x0 |
+| m11 | reads end at L+9 | VOID, x0 |
 | m9 | (0, A, 0) injected into the native cell (4, 0, 0) at its first G arrival, slice 12 | `HOLDS_WITHIN_SCOPE`, with the stream of (4, 0, 0) through slice 13 |
 
 m9 shows that the native search itself, and not only the planted pool, finds an
@@ -186,7 +204,8 @@ The list of them was added after the plan.
       && cmp mutants.out "$D/mutants/mutants.out"
 
 Run from an empty working directory. Each checker run takes about 75 seconds,
-and the mutant run about five minutes. If a required control fails, the checker
+and the mutant run about six minutes. The mutant command was verified from an
+empty directory with the relative work directory `mut`. If a required control fails, the checker
 prints `VOID` and exits with status 2. The checker uses the standard library
 only, imports no author engine and reads no repository file. `SHA256SUMS` lists
 `PLAN.md`, `REPORT.md`, `checks.py`, `result.json`, `PROVENANCE.json`,
