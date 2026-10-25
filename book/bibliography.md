@@ -144,7 +144,7 @@ Jacobson, T. (1995). Thermodynamics of spacetime: The Einstein equation of state
 
 Jiao, Y., et al. (2023). Detection of the Keplerian decline in the Milky Way rotation curve. *Astronomy & Astrophysics* 678: A208.
 
-Abac, A. G., et al. (LIGO Scientific, Virgo, and KAGRA Collaborations) (2025). GW250114: Testing Hawking's Area Law and the Kerr Nature of Black Holes. *Physical Review Letters*, published September 10, 2025. DOI: 10.1103/kw5g-d732.
+Abac, A. G., et al. (LIGO Scientific, Virgo, and KAGRA Collaborations) (2025). GW250114: Testing Hawking's Area Law and the Kerr Nature of Black Holes. *Physical Review Letters* 135: 111403. DOI: 10.1103/kw5g-d732.
 
 LUX-ZEPLIN Collaboration (2025). New search for WIMP dark matter with 417 live days of LUX-ZEPLIN data. Announcement December 8, 2025, with preprint and submission to *Physical Review Letters*. Based on the largest dataset ever collected by a dark matter detector: 417 live days of data from March 2023 to April 2025, probing WIMP masses between 3 and 9 GeV/$c^2$. Earlier (2024) LZ results: J. Aalbers et al. (LZ Collaboration), "Dark Matter Search Results from 4.2 Tonne-Years of Exposure of the LUX-ZEPLIN (LZ) Experiment," *Physical Review Letters* 135: 011802 (2025), arXiv:2410.17036.
 
