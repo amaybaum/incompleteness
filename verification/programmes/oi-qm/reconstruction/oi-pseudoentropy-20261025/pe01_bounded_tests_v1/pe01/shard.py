@@ -374,6 +374,56 @@ def pred_bruteforce(ctl, n, fam, obs, Kc, chi_k0, label):
     ctl.add("IM3", not bad, "prediction path vs brute force %s n=%d %s K<=%d: %s" % (label, n, fam, Kc, bad[:3]))
 
 
+class _SynLaw:
+    """A synthetic record law for the B3 window self-test: seeds x positions, weight 1 each."""
+
+    def __init__(self, X):
+        self.X = X
+        self.w = np.ones(X.shape[0], dtype=np.int64)
+        self.M = X.shape[0]
+        self.kcap = X.shape[1] - 1
+
+
+def b3w_selftest(ctl, cases=48):
+    """The exact B3 window average (b3_window_k0) against an all-tests brute force written here, on
+    synthetic families with 3-6 members and 4-8 seeds, where supports are small (the off-support term
+    is active) and the Gray walk makes several flips. Deterministically seeded."""
+    rs = np.random.RandomState(20261026)
+    bad = []
+    active_out = 0
+    for case in range(cases):
+        F = 3 + case % 4
+        M = 4 + (case // 4) % 5
+        L = 6
+        X = [rs.randint(0, 2, size=(M, L)).astype(np.uint8) for _ in range(F)]
+        res = B.b3_window_k0([_SynLaw(x) for x in X], wmax=4)
+        for w in ((1, 2, 3, 4) if case % 3 == 0 else (1, 2, 3)):
+            pts = 1 << w
+            counts = []
+            for x in X:
+                c = [0] * pts
+                for row in x.tolist():
+                    c[sum(row[i] << i for i in range(w))] += 1
+                counts.append(c)
+            if any(cc == 0 for c in counts for cc in c):
+                active_out += 1
+            # integer form: |P_phi(A) - Q(A)| * M * 2^w = |2^w * sum_{z in A} c(z) - |A| * M|
+            best = -1
+            for A in range(1 << pts):
+                members = [z for z in range(pts) if (A >> z) & 1]
+                k = len(members)
+                tot = 0
+                for c in counts:
+                    tot += abs(pts * sum(c[z] for z in members) - k * M)
+                if tot > best:
+                    best = tot
+            want = Fraction(best, F * M * pts)
+            if res["per_w"][w]["avg"] != want:
+                bad.append((case, w, str(res["per_w"][w]["avg"]), str(want)))
+    ctl.add("K0", not bad and active_out > 0,
+            "B3 window average vs all-tests brute force on %d synthetic families (%s)" % (cases, bad[:3]))
+
+
 def lp_selftest(ctl, n, fam, Ks):
     """The cutting-plane LP against the full game over every test (o, F), m = 1."""
     gens = G.family(fam, n)
@@ -508,6 +558,7 @@ def shard_controls(mode, ctl):
     sel = np.zeros(o3.n, bool)
     sel[rs.choice(o3.n, 40, replace=False)] = True
     pred_bruteforce(ctl, 3, "filt", o3.subset(sel, "sample"), 9, None, "passive m=3 sample")
+    b3w_selftest(ctl)
     progress("embedded brute force", out)
     if not smoke:
         embedded_bruteforce(ctl, 5, "clk", 1, 12)
@@ -1338,6 +1389,7 @@ def shard_m3(n, fam, mode, ctl, timing):
         r1, r8 = Cm.exhaustive_readout(3, allg[prim], range(1 << 16), K=3)
         ctl.add("EX1", r1, "readout m=3")
         ctl.add("EX8", r8, "readout m=3")
+        progress("m=3 exhaustive composites", out)
     sw = E.Sweep(obs, allg, [cap if gi in named_idx else 0 for gi in range(len(allg))], list(range(len(famlist))),
                  [prim], cap, "pred", {"passive": np.ones(obs.n, bool)}, window_cap={prim: cap}, chunk=4096,
                  im3=Cm.FullState if n <= 4 else None).run()
@@ -1355,6 +1407,7 @@ def shard_m3(n, fam, mode, ctl, timing):
                                    "test_class": "prediction tests, every chi"}
     out["windows"]["emb_m3_passive"] = window_summary(sw, "passive", prim)
     out["witnesses"] = witnesses_from(sw, "passive", obs, "emb_m3_passive", 3, allg, prim, famlist, kcx, ctl)
+    progress("m=3 sweep and witnesses", out)
     # U on the named generators, for MO (m = 3 passive <= U)
     for gi in named_idx:
         tv, _ = LW.u_k1_curve(LW.Law(allg[gi], cap))
@@ -1371,5 +1424,6 @@ def shard_m3(n, fam, mode, ctl, timing):
         ctl.add("MO", all(x <= y for x, y in zip(b_, u_)), "m3 passive <= U %s" % gname)
     k0_record_checks(ctl, out, len(famlist))
     k0_vs_k1(ctl, out, None, {g.name: j for j, g in enumerate(allg) if g.name in out["named"] and g.family == fam})
+    progress("m=3 sweep", out)
     timing["m3"] = time.time() - t0
     return out
