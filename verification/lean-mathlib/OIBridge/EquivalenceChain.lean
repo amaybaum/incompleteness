@@ -12,11 +12,12 @@
       then it is a permutation matrix.
 
   It is the step that turns "the marginal process is not a permutation" into "the process is
-  P-indivisible", so the whole indivisibility argument rests on it. The proof below is the
-  manuscript's own, step for step: the vanishing off-diagonal entries of `A * B` force every row of
-  `B` indexed by the support of a row of `A` to be a basis vector; two such rows would coincide,
-  which a nonzero determinant forbids; so each row of `A` carries a single unit entry, and the
-  occupied columns are distinct.
+  P-indivisible" in the manuscript's argument, which rests on it.
+  `OIBridge/RecurrenceHorizon.lean` reaches the matrix-level no-go by total-variation contraction
+  instead and does not use it. The proof below is the manuscript's own, step for step: the
+  vanishing off-diagonal entries of `A * B` force every row of `B` indexed by the support of a row
+  of `A` to be a basis vector; two such rows would coincide, which a nonzero determinant forbids;
+  so each row of `A` carries a single unit entry, and the occupied columns are distinct.
 
   PERMUTATION UNITARITY (Main §3.2):
 
