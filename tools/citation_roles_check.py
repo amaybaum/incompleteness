@@ -85,14 +85,19 @@ commit's:
         holds the word "conditionally" or "conditional"; or one of its comma-separated clauses
         begins with a conditional or restriction word (if, unless, when, whenever, while, for,
         under, assuming, assume, provided, given, only, except, excluding, restricted, whether,
-        suppose, supposing, below, above, with), or with "at" or "in" and holds a comparator,
-        and holds a bound: a comparator, a parenthesized named condition such as "(C2)", a
-        one-letter variable other than "a" and "i", a labelled token such as "h1", or a number
-        word (two to twelve, twenty, hundred, thousand, million); or the prefix ends with "that"
-        after a negation (not, no, never, false, longer, cannot, fails) in its last clause ("it
-        is not shown that"). A digit alone does not narrow. So an opener ("Indeed,", "In
-        Section 3,", "For completeness,", "As noted above,") leaves the claim standing, and a
-        condition put first, "if ..., then ..." and a negated "that" make a new statement;
+        suppose, supposing, below, above) and holds a bound: a comparator, a parenthesized
+        named condition such as "(C2)", a one-letter variable other than "a" and "i", a
+        labelled token such as "h1", or a number word (two to twelve, twenty, hundred,
+        thousand, million); or begins with "at" or "in" and holds a comparator, or with "with"
+        and holds a comparator or a named condition; or the prefix's last clause ends with
+        "that" and negates an assertion: it holds "false", or a negation (not, no, never,
+        longer, cannot, fails) followed within three words by an assertion word (shown,
+        established, proved, proven, known, true, case, claim, claimed, clear, demonstrated,
+        supported, confirmed, derived, settled, hold, holds, valid, correct), as in "it is not
+        shown that". A digit alone does not narrow, and neither does a negation idiom ("There
+        is no doubt that", "It cannot be denied that"). So an opener ("Indeed,", "In Section
+        3,", "For completeness,", "As noted above,") leaves the claim standing, and a
+        condition put first, "if ..., then ..." and a negated assertion make a new statement;
       - needs at least three words of claim besides the reference.
 
 Independently of main, a record fails while any line of the tree hashes to its
@@ -166,12 +171,12 @@ Limitations:
     "via Lemma 2". So does a condition ended by a colon ("For n <= 4: ..."), the colon read as
     a label. These fail closed and can be reworded ("when T = 300", "for n <= 4, ...").
   - The prefix rule reads form, not meaning. It fails closed on a narrowing with no bound or
-    no conditional word ("On the lattice,", "In 3D,", "In dimension three,"), which reads as
-    the claim standing and can be reworded ("for d = 3,", "if n <= 4,"). An opener built in
+    no conditional word ("On the lattice,", "In 3D,", "In dimension three,"), or a negation
+    of an unlisted predicate ("It is not obvious that"), which reads as the claim standing and
+    can be reworded ("for d = 3,", "if n <= 4,", "it is not shown that"). An opener built in
     the rule's form passes as a narrowing with a record: a conditional clause holding a
     one-letter word or a labelled token ("When we ran it on h1,", "If n is anything,"), or a
-    negation idiom ending in "that" ("There is no doubt that", "It is no surprise that").
-    Review decides those.
+    negated assertion word used as an idiom ("It is not clear that"). Review decides those.
   - A record may sit in any manifest of the commit, so removing every manifest of the tree
     leaves nowhere to record a downgrade, and such a commit fails.
   - An unrelated record that newly lists a downgraded support id as provenance needs a
@@ -550,14 +555,18 @@ class Claim:
 PREFIX_MAX = 300
 BLOCK_START = re.compile(r' *(?:[-*+>#|]|\d+[.)])')
 # a clause narrows a statement when it begins with a conditional or restriction word and holds a
-# bound; "at" and "in" begin one only with a comparator; a negation narrows a statement it
-# introduces with "that"
+# bound; "at" and "in" begin one only with a comparator, "with" only with a comparator or a named
+# condition; a negated assertion narrows a statement it introduces with "that"
 CONDITIONS = frozenset((
     'if', 'unless', 'when', 'whenever', 'while', 'for', 'under', 'assuming', 'assume', 'provided',
     'given', 'only', 'except', 'excluding', 'restricted', 'whether', 'suppose', 'supposing',
-    'below', 'above', 'with'))
+    'below', 'above'))
 LOCATIVES = frozenset(('at', 'in'))
 NEGATIONS = frozenset(('not', 'no', 'never', 'false', 'longer', 'cannot', 'fails'))
+ASSERTIONS = frozenset((
+    'shown', 'established', 'proved', 'proven', 'known', 'true', 'case', 'claim', 'claimed',
+    'clear', 'demonstrated', 'supported', 'confirmed', 'derived', 'settled', 'hold', 'holds',
+    'valid', 'correct'))
 NUMBER_WORDS = frozenset((
     'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve',
     'twenty', 'hundred', 'thousand', 'million'))
@@ -591,12 +600,14 @@ def statement_prefix(norm, i):
 
 def narrowing(prefix):
     """Whether a statement's prefix narrows it. It does when it holds the word conditionally or
-    conditional; when one of its comma-separated clauses begins with a word of CONDITIONS, or
-    with "at" or "in" and holds a comparator, and holds a bound: a comparator, a parenthesized
-    named condition such as "(C2)", a one-letter variable other than "a" and "i", a labelled
-    token such as "h1", or a number word; or when it ends with "that" after a negation in the
-    same clause ("it is not shown that"). Any other prefix ("Indeed,", "In Section 3,", "For
-    completeness,") leaves the statement standing; a digit alone does not narrow it."""
+    conditional; when one of its comma-separated clauses begins with a word of CONDITIONS and
+    holds a bound: a comparator, a parenthesized named condition such as "(C2)", a one-letter
+    variable other than "a" and "i", a labelled token such as "h1", or a number word; when one
+    begins with "at" or "in" and holds a comparator, or with "with" and holds a comparator or a
+    named condition; or when its last clause ends with "that" and holds "false", or a negation
+    followed within three words by a word of ASSERTIONS ("it is not shown that"). Any other
+    prefix ("Indeed,", "In Section 3,", "For completeness,", "There is no doubt that") leaves
+    the statement standing; a digit alone does not narrow it."""
     prefix = FULL_ID.sub('', prefix)
     clauses = [CLAUSE_WORD.findall(c) for c in prefix.split(',')]
     if any({'conditionally', 'conditional'} & set(w) for w in clauses):
@@ -604,14 +615,19 @@ def narrowing(prefix):
     for clause, w in zip(prefix.split(','), clauses):
         if not w:
             continue
-        if w[0] in CONDITIONS or w[0] in LOCATIVES and COMPARATOR.search(clause):
-            if COMPARATOR.search(clause) or NAMED_CONDITION.search(clause) \
-                    or set(w[1:]) & NUMBER_WORDS or any(
-                        len(x) == 1 and x.isalpha() and x not in 'ai' or LABELLED.fullmatch(x)
-                        for x in w[1:]):
+        marked = COMPARATOR.search(clause) or NAMED_CONDITION.search(clause)
+        if w[0] in LOCATIVES and COMPARATOR.search(clause) or w[0] == 'with' and marked:
+            return True
+        if w[0] in CONDITIONS:
+            if marked or set(w[1:]) & NUMBER_WORDS or any(
+                    len(x) == 1 and x.isalpha() and x not in 'ai' or LABELLED.fullmatch(x)
+                    for x in w[1:]):
                 return True
     last = clauses[-1] if clauses else []
-    return len(last) > 1 and last[-1] == 'that' and bool(set(last[:-1]) & NEGATIONS)
+    if len(last) < 2 or last[-1] != 'that':
+        return False
+    return 'false' in last or any(x in NEGATIONS and set(last[k + 1:k + 4]) & ASSERTIONS
+                                  for k, x in enumerate(last[:-1]))
 
 
 class _Lines:
@@ -1497,8 +1513,12 @@ def self_test():
                           'claim_sha256': line_sha256(('The bound holds at %s.'
                                                        % d0).encode())}},
                     retired={m0: dg0})), (), 'D0', set()),
-            ('recorded, a fragment claim kept after a negation', rec(
-                note('Not that the bound holds at'), _manifest({}, retired={m0: dict(
+            ('recorded, a fragment claim after a bare "not that": fail-closed, no assertion word',
+             rec(note('Not that the bound holds at'), _manifest({}, retired={m0: dict(
+                 dg0, from_claim_sha256=line_sha256(('the bound holds at %s' % m0).encode()))})),
+             (), 'DQ', {SD}),
+            ('recorded, a fragment claim kept after a negated assertion', rec(
+                note('It is not true that the bound holds at'), _manifest({}, retired={m0: dict(
                     dg0, from_claim_sha256=line_sha256(('the bound holds at %s' % m0).encode()))})),
              (), 'DQ', set()),
             ('retired, re-pinned on a line after one holding only a short id', rec(
@@ -1743,12 +1763,24 @@ def self_test():
                        'When I ran it, ', 'For a moment, ', 'Not only that, but ',
                        'Unconditionally, ', 'Step 2: ', 'Theorem 4: ', 'Finally, ',
                        'In short, ', 'Once again, ', 'Not surprisingly ', 'No doubt ',
-                       'Not surprisingly, we find that ', 'Like the run with h1, '):
+                       'Not surprisingly, we find that ', 'Like the run with h1, ',
+                       # negation idioms affirm the claim; "with" needs a comparator or condition
+                       'There is no doubt that ', 'It is no surprise that ',
+                       'It is not surprising that ', 'We do not doubt that ',
+                       'It cannot be denied that ', 'No one disputes that ',
+                       'It is no coincidence that ', 'There is no question that ',
+                       'It is not by chance that ', 'Nobody doubts that ', 'With x in hand, ',
+                       'For example, ', 'For instance, ', 'Under the hood, ', 'Given this, ',
+                       'As shown in Section 3, ', 'There is no doubt it is true that ',
+                       'It is not clear why ', 'Not least, it holds that ', 'In (A1), ',
+                       'Like the run for h1, '):
             dcases.append(('recorded, the claim kept after the opener %r' % opener, rec(note(
                 opener + 'the bound holds at %s.' % m0, hist), {m0: prov(dg0)}), (), 'D0', {SD}))
         for cond in ('For n <= 4, ', 'If n <= 4, then ', 'Conditionally, ', 'Under H1, ',
                      'Only for n <= 4 ', 'Assuming (C2), ', 'Unless n > 4, ',
                      'It is not shown that ', 'It is false that ', 'We no longer claim that ',
+                     'It is not established that ', 'It is not true that ',
+                     'It has not been proved that ', 'It is not the case that ', 'With n = 3, ',
                      'For even n, ', 'When n is even, ', 'Provided (C2) holds, ',
                      'At T = 300 K, ', 'Except at n = 4, ', 'Below n = 4, ', 'Given two lattices, ',
                      'Given three lattices, ', 'For lattices of size <= 4, ',
@@ -1770,6 +1802,16 @@ def self_test():
         dcases.append(('retired, a record whose line stands with its id inside a longer run', rec(
             note(run_line), _manifest({}, retired={m0: [dg0, dict(
                 dg0, from_claim_sha256=line_sha256(run_line.encode()))]})), (), 'D0', {SD}))
+        # records of two ids, the claim of only one standing: each id is indexed, either way
+        for standing, other in ((m0, s), (s, m0)):
+            line = 'the run %s stands' % standing
+            dcases.append(('retired, records of two ids, the claim of %s standing outside' % (
+                'the downgraded id' if standing == m0 else 'the other id'), rec(note(), _manifest(
+                    {}, retired={standing: [dict(dg0, from_claim_sha256=line_sha256(
+                        line.encode()))] + ([dg0] if standing == m0 else []),
+                        other: [dict(dg0, from_claim_sha256=line_sha256(b'zz'))]
+                        + ([dg0] if other == m0 else [])}),
+                    {b'evidence/x.md': ('100644', (line + '\n').encode())}), (), 'D0', {SD}))
         two_line = 'runs %s and %s agree' % (s, m0)
         dcases.append(('retired, a record whose line stands outside, after another record\'s id',
                        rec(note(), _manifest({}, retired={
@@ -1778,7 +1820,7 @@ def self_test():
                            {b'evidence/x.md': ('100644', (two_line + '\n').encode())}), (), 'D0',
                        {SD}))
         # the rule reads form: an opener in a narrowing's form passes with a record (Limitations)
-        for opener in ('There is no doubt that ', 'When we ran it on h1, '):
+        for opener in ('It is not clear that ', 'When we ran it on h1, '):
             dcases.append(('limitation: the claim after %r, read as narrowed' % opener, rec(note(
                 opener + 'the bound holds at %s.' % m0, hist), {m0: prov(dg0)}), (), 'D0', set()))
         # a full id in a prefix is no bound, though one of letters then digits reads as a token
