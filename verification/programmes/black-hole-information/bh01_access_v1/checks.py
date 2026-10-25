@@ -270,6 +270,12 @@ def run_controls():
             if r < 0 or ps != Fraction(2 ** r, 2 ** k):
                 ok = False
     c["K5"] = {"identity_cases": ok}
+    # K7 (post-review): item F reference value and cubic mass scaling.
+    c["K7"] = item_f_controls()[0]
+    # K8 (post-review): the monotonicity test used by D1 and D2 is not vacuous.
+    c["K8"] = {"detects_decrease": not nondecreasing([Fraction(1), Fraction(0)]),
+               "accepts_increase": nondecreasing([Fraction(0), Fraction(1)]),
+               "accepts_constant": nondecreasing([Fraction(1, 2), Fraction(1, 2)])}
     return c
 
 
@@ -293,7 +299,8 @@ def s8_classes():
     out = {
         "count": len(perms),
         "MP1": {"C1_violations_t3": 0, "tv_t2_hist": {}, "tv_profile_hist": {},
-                "C2_violations": 0, "D1_violations": 0, "zero_adv_t2_example": None},
+                "C2_violations": 0, "D1_violations": 0, "zero_adv_t2_example": None,
+                "not_exact_t2": 0},
         "MP1_static": {"C1_violations_t3": 0, "C2_violations": 0, "D1_violations": 0,
                        "tv_profile_hist": {}},
         "MP2": {"C1_violations_t3": 0, "C2_violations": 0, "psucc_t2_hist": {},
@@ -302,7 +309,11 @@ def s8_classes():
         "nested": {"tv_t3_hist": {}, "E_violations": 0, "E_zero_adv_instances": 0},
         "nested_W_endpoint": {"recover": 0, "not_recover": 0, "product_maps": 0,
                               "product_maps_not_recover": 0, "C3_violations": 0,
-                              "nonproduct_not_recover_example": None},
+                              "nonproduct_not_recover_example": None,
+                              "post_review": {"nonproduct_recover": 0, "recover_with_D_dependent_W_update": 0,
+                                              "D_dependent_W_update_recover_example": None,
+                                              "w_autonomous_maps": 0, "w_autonomous_nonproduct": 0,
+                                              "w_autonomous_not_recover": 0, "C3w_violations": 0}},
     }
     ident = tuple(range(8))
     w_sp = Space([2, 2])
@@ -321,6 +332,8 @@ def s8_classes():
                 o["C2_violations"] += 1
         if not nondecreasing([f["tv"] for f in fig]) or not nondecreasing([f["psucc"] for f in fig]):
             o["D1_violations"] += 1
+        if not fig[2]["recoverable"]:
+            o["not_exact_t2"] += 1
         if fig[2]["tv"] == 0 and o["zero_adv_t2_example"] is None and p != ident:
             o["zero_adv_t2_example"] = list(p)
         # MP1_static: one scramble, then static emission.
@@ -378,23 +391,40 @@ def s8_classes():
         fig = figures(msgs, N, res, "nested_W")
         rec = fig[3]["recoverable"]
         o["recover" if rec else "not_recover"] += 1
-        G = product_factor(sp, p)
-        if G is not None:
+        pr = o["post_review"]
+        Gw = w_factor(sp, p)
+        Gp = product_factor(sp, p)
+        if Gw is None:
+            if rec:
+                pr["recover_with_D_dependent_W_update"] += 1
+                if pr["D_dependent_W_update_recover_example"] is None:
+                    pr["D_dependent_W_update_recover_example"] = list(p)
+        else:
+            # C3 (W-dynamics independent of D; the product maps are a subset): records equal the W-only model.
+            check_bij(Gw, "C3:G")
+            msgs_w, N_w, res_w = evaluate(w_sp, (1,), {0: "blank"}, [Gw] * 3,
+                                          [(), (0,), (0,), (0, 1)], "cumulative")
+            same = all({y: Fraction(c, N) for y, c in res[t][m].items()}
+                       == {y: Fraction(c, N_w) for y, c in res_w[t][m].items()}
+                       for t in range(4) for m in msgs)
+            pr["w_autonomous_maps"] += 1
+            if not same:
+                pr["C3w_violations"] += 1
+            if not rec:
+                pr["w_autonomous_not_recover"] += 1
+            if Gp is None:
+                pr["w_autonomous_nonproduct"] += 1
+        if Gp is not None:
             o["product_maps"] += 1
             if not rec:
                 o["product_maps_not_recover"] += 1
-            # C3: record distribution equals the W-only model with G.
-            msgs_w, N_w, res_w = evaluate(w_sp, (1,), {0: "blank"}, [G] * 3,
-                                          [(), (0,), (0,), (0, 1)], "cumulative")
-            check_bij(G, "C3:G")
-            for t in range(4):
-                for m in msgs:
-                    a = {y: Fraction(c, N) for y, c in res[t][m].items()}
-                    b = {y: Fraction(c, N_w) for y, c in res_w[t][m].items()}
-                    if a != b:
-                        o["C3_violations"] += 1
-        elif not rec and o["nonproduct_not_recover_example"] is None:
-            o["nonproduct_not_recover_example"] = list(p)
+            if Gp != Gw or not same:
+                o["C3_violations"] += 1
+        else:
+            if rec:
+                pr["nonproduct_recover"] += 1
+            elif o["nonproduct_not_recover_example"] is None:
+                o["nonproduct_not_recover_example"] = list(p)
     for key in ("MP1", "MP1_static", "MP2", "nested", "nested_W_endpoint"):
         for hk in list(out[key]):
             if hk.endswith("_hist"):
@@ -411,6 +441,17 @@ def product_factor(sp, p):
         w, dd = (d[0], d[1]), d[2]
         w2, dd2 = (e[0], e[1]), e[2]
         if G.setdefault(w, w2) != w2 or H.setdefault(dd, dd2) != dd2:
+            return None
+    return tuple(G[(i & 1, i >> 1)][0] + 2 * G[(i & 1, i >> 1)][1] for i in range(4))
+
+
+def w_factor(sp, p):
+    """If the W = (V,B) part of p(x) depends only on the W part of x, return that W-map as a
+    table on the 2-bit W space, else None (D may still depend on W)."""
+    G = {}
+    for idx, d in enumerate(sp.digits):
+        e = sp.digits[p[idx]]
+        if G.setdefault((d[0], d[1]), (e[0], e[1])) != (e[0], e[1]):
             return None
     return tuple(G[(i & 1, i >> 1)][0] + 2 * G[(i & 1, i >> 1)][1] for i in range(4))
 
@@ -644,8 +685,9 @@ def structured_families():
 # Item F: endpoint-decoupling arithmetic (rational interval bounds)
 # ---------------------------------------------------------------------------
 
-def sci(x, digits=2):
-    """Format a positive Fraction as d.dd x 10^e using integers only (truncated)."""
+def sci(x, digits=2, up=False):
+    """Format a positive Fraction as d.dd x 10^e using integers only: truncated, or rounded up
+    when up=True (used for upper bounds, so that a printed upper bound is a bound)."""
     x = Fraction(x)
     e = 0
     while x >= 10:
@@ -654,7 +696,11 @@ def sci(x, digits=2):
     while x < 1:
         x *= 10
         e -= 1
-    m = int(x * 10 ** digits)
+    y = x * 10 ** digits
+    m = -(-y.numerator // y.denominator) if up else y.numerator // y.denominator
+    if len(str(m)) > digits + 1:
+        m = -(-m // 10)
+        e += 1
     s = str(m)
     return "%s.%se%d" % (s[0], s[1:], e)
 
@@ -672,33 +718,57 @@ def icbrt_floor(n):
     return lo
 
 
+C_LIGHT = Fraction(299792458)
+HBAR = Fraction(1054571817, 10 ** 43)
+G_LO, G_HI = Fraction(667415, 10 ** 16), Fraction(667445, 10 ** 16)
+GM_SUN = Fraction(13271244) * 10 ** 13
+PI_LO, PI_HI = Fraction(333, 106), Fraction(355, 113)
+JULIAN_YEAR = Fraction(31557600)
+
+
+def evap_time(GM, gam_lo, gam_hi):
+    """Rational bounds on t_evap = 5120 pi G^2 M^3/(hbar c^4 Gamma) = 5120 pi (GM)^3/(G hbar c^4 Gamma)."""
+    lo = 5120 * PI_LO * GM ** 3 / (G_HI * HBAR * C_LIGHT ** 4 * gam_hi)
+    hi = 5120 * PI_HI * GM ** 3 / (G_LO * HBAR * C_LIGHT ** 4 * gam_lo)
+    return lo, hi
+
+
+def item_f_controls():
+    """K7: reference value (Gamma = 1, 1 M_sun: about 2.1e67 yr; accepted window [2.0e67, 2.2e67] yr)
+    and cubic mass scaling of evap_time."""
+    lo, hi = evap_time(GM_SUN, Fraction(1), Fraction(1))
+    ref_ok = Fraction(20, 10) * 10 ** 67 <= lo / JULIAN_YEAR and hi / JULIAN_YEAR <= Fraction(22, 10) * 10 ** 67
+    lo2, hi2 = evap_time(2 * GM_SUN, Fraction(1), Fraction(1))
+    scale_ok = lo2 == 8 * lo and hi2 == 8 * hi
+    return {"reference_1Msun_gamma1": ref_ok, "cubic_mass_scaling": scale_ok}, [sci(lo / JULIAN_YEAR, 3),
+                                                                                 sci(hi / JULIAN_YEAR, 3, up=True)]
+
+
 def item_f():
-    c = Fraction(299792458)
-    hbar = Fraction(1054571817, 10 ** 43)
-    G_lo, G_hi = Fraction(667415, 10 ** 16), Fraction(667445, 10 ** 16)
-    GMsun = Fraction(13271244) * 10 ** 13
-    pi_lo, pi_hi = Fraction(3), Fraction(22, 7)
     gam_lo, gam_hi = Fraction(1, 100), Fraction(1000)
     tau_lo, tau_hi = Fraction(10 ** 16), Fraction(10 ** 19)
-    GM = 30 * GMsun
-    t_lo = 5120 * pi_lo * GM ** 3 / (G_hi * hbar * c ** 4 * gam_hi)
-    t_hi = 5120 * pi_hi * GM ** 3 / (G_lo * hbar * c ** 4 * gam_lo)
+    t_lo, t_hi = evap_time(30 * GM_SUN, gam_lo, gam_hi)
     r_lo, r_hi = t_lo / tau_hi, t_hi / tau_lo
     status = "contradicted" if r_lo > 1 else ("supported" if r_hi < 1 else "undecided")
-    m3_lo = tau_lo * hbar * c ** 4 * gam_lo / (5120 * pi_hi * G_hi ** 2)
-    m3_hi = tau_hi * hbar * c ** 4 * gam_hi / (5120 * pi_lo * G_lo ** 2)
+    m3_lo = tau_lo * HBAR * C_LIGHT ** 4 * gam_lo / (5120 * PI_HI * G_HI ** 2)
+    m3_hi = tau_hi * HBAR * C_LIGHT ** 4 * gam_hi / (5120 * PI_LO * G_LO ** 2)
     ms_lo = icbrt_floor(m3_lo.numerator // m3_lo.denominator)
     ms_hi = icbrt_floor(m3_hi.numerator // m3_hi.denominator) + 1
     floor_log10 = len(str(r_lo.numerator // r_lo.denominator)) - 1 if r_lo >= 1 else None
+    # Page time t_P = (1 - 2^(-3/2)) t_evap >= (646/1000) t_evap, since (354/1000)^2 >= 1/8.
+    tp_factor_ok = Fraction(354, 1000) ** 2 >= Fraction(1, 8)
+    tp_lo = Fraction(646, 1000) * r_lo if tp_factor_ok else None
     return {
-        "inputs": {"c_m_per_s": fr(c), "hbar_J_s": "1.054571817e-34", "G_interval": ["6.67415e-11", "6.67445e-11"],
-                   "GM_sun_m3_per_s2": "1.3271244e20", "mass": "30 M_sun", "pi_interval": ["3", "22/7"],
+        "inputs": {"c_m_per_s": fr(C_LIGHT), "hbar_J_s": "1.054571817e-34", "G_interval": ["6.67415e-11", "6.67445e-11"],
+                   "GM_sun_m3_per_s2": "1.3271244e20", "mass": "30 M_sun", "pi_interval": ["333/106", "355/113"],
                    "Gamma_interval": ["1/100", "1000"], "tau_B_D_interval_s": ["1e16", "1e19"]},
-        "t_evap_s_interval": [sci(t_lo), sci(t_hi)],
-        "ratio_t_evap_over_tau_interval": [sci(r_lo), sci(r_hi)],
+        "t_evap_s_interval": [sci(t_lo, 3), sci(t_hi, 3, up=True)],
+        "ratio_t_evap_over_tau_interval": [sci(r_lo, 3), sci(r_hi, 3, up=True)],
         "ratio_lower_bound_floor_log10": floor_log10,
         "A7_decoupling_statement_at_30_Msun": status,
-        "crossover_mass_kg_interval": [sci(ms_lo), sci(ms_hi)],
+        "crossover_mass_kg_interval": [sci(ms_lo, 3), sci(ms_hi, 3, up=True)],
+        "page_time_over_tau_lower_bound": sci(tp_lo, 3) if tp_lo is not None else None,
+        "printed_bounds": "lower bounds truncated, upper bounds rounded up",
     }
 
 
@@ -731,7 +801,8 @@ def decide(s8, am, gl, st, nm):
                    "bijections_zero_advantage_nested_t3": s8["nested"]["tv_t3_hist"].get("0", 0),
                    "nonbijective_maps_exact_recovery_complete_access": nonbij_rec,
                    "swap_into_remnant_tv": nm["swap_into_remnant"]["tv_t1"],
-                   "erase_and_copy_tv": nm["erase_and_copy"]["tv_t1"]}
+                   "erase_and_copy_tv": nm["erase_and_copy"]["tv_t1"],
+                   "post_review_MP1_t2_exact_recovery_with_mode_unread": s8["MP1"]["tv_t2_hist"].get("1", 0)}
     # B
     b = {}
     for key, prof in st["B1_swap"].items():
@@ -744,15 +815,21 @@ def decide(s8, am, gl, st, nm):
     b["B3:GL42_all_recover_at_end"] = all(
         all(k.split(",")[-1] == kk for k in gl["by_k"][kk]["r_profile_hist"]) for kk in ("1", "2"))
     claims["B"] = {"verdict": HOLDS if all(b.values()) else NEG, "models_failing": sorted(k for k, v in b.items() if not v),
-                   "models_tested": len(b)}
+                   "models_tested": len(b),
+                   "parameter_settings": {"swap_cascade": len(st["B1_swap"]), "swap_cascade_wide_alphabet":
+                                          len(st["B1_swap_wide"]), "cnot_cascade": len(st["B2_cnot"]),
+                                          "GL42_scramble_class": 1}}
     # C1
     c1_viol = (s8["MP1"]["C1_violations_t3"] + s8["MP1_static"]["C1_violations_t3"]
                + s8["MP2"]["C1_violations_t3"] + am["AM1_complete_access"]["bij_norec"])
     cc_nobij = am["AM1_complete_access"]["nonbij_norec"]
-    cc_noaccess = s8["MP1"]["tv_t2_hist"].get("0", 0) + s8["nested_W_endpoint"]["not_recover"]
+    cc_noaccess = {"MP1_t2_one_mode_unread_not_exact": s8["MP1"]["not_exact_t2"],
+                   "nested_D_unread_not_exact": s8["nested_W_endpoint"]["not_recover"]}
     claims["C1"] = {"verdict": HOLDS if c1_viol == 0 else NEG, "violations": c1_viol,
                     "countercontrol_without_bijectivity_violations": cc_nobij,
-                    "countercontrol_without_complete_access_violations": cc_noaccess}
+                    "countercontrol_without_complete_access_not_exact": cc_noaccess,
+                    "countercontrol_without_complete_access_not_exact_total": sum(cc_noaccess.values()),
+                    "MP1_t2_one_mode_unread_zero_advantage": s8["MP1"]["tv_t2_hist"].get("0", 0)}
     # C2
     c2_viol = (s8["MP1"]["C2_violations"] + s8["MP1_static"]["C2_violations"] + s8["MP2"]["C2_violations"]
                + am["AM2_remnant_bound"]["bij_violate"] + gl["by_k"]["1"]["C2_violations"]
@@ -770,7 +847,16 @@ def decide(s8, am, gl, st, nm):
                     "product_maps": nw["product_maps"], "violations": c3_viol,
                     "countercontrol_B_D_leak_tv": nm["B_D_leak"]["tv_t2_W_read"],
                     "no_leak_reference_tv": nm["no_leak_reference"]["tv_t2_W_read"],
-                    "countercontrol_nonproduct_not_recover": nw["not_recover"]}
+                    "countercontrol_nonproduct_not_recover": nw["not_recover"],
+                    "post_review_W_autonomous": {"maps": nw["post_review"]["w_autonomous_maps"],
+                                                 "nonproduct": nw["post_review"]["w_autonomous_nonproduct"],
+                                                 "C3w_violations": nw["post_review"]["C3w_violations"],
+                                                 "not_recover": nw["post_review"]["w_autonomous_not_recover"]},
+                    "post_review_necessity_diagnostics": {
+                        "recover_with_D_unread": nw["recover"],
+                        "nonproduct_recover": nw["post_review"]["nonproduct_recover"],
+                        "recover_with_D_dependent_W_update": nw["post_review"]["recover_with_D_dependent_W_update"],
+                        "D_dependent_W_update_recover_example": nw["post_review"]["D_dependent_W_update_recover_example"]}}
     # C4
     c4_viol = gl["by_k"]["1"]["C4_violations"] + gl["by_k"]["2"]["C4_violations"]
     claims["C4"] = {"verdict": HOLDS if c4_viol == 0 else NEG, "violations": c4_viol,
@@ -793,67 +879,92 @@ def decide(s8, am, gl, st, nm):
     # E
     e_ok = s8["nested"]["E_violations"] == 0 and s8["nested"]["E_zero_adv_instances"] > 0
     claims["E"] = {"verdict": HOLDS if e_ok else NEG, "violations": s8["nested"]["E_violations"],
-                   "zero_advantage_bijections_satisfying_A1": s8["nested"]["E_zero_adv_instances"]}
+                   "zero_advantage_bijections_satisfying_A1": s8["nested"]["E_zero_adv_instances"],
+                   "note": "a Fubini identity for every map; the enumeration exhibits it on all bijections"}
+    tags = {"A": "COUNTEREXAMPLE", "B": "DEMONSTRATED_EXAMPLES", "C1": "PROVED", "C2": "PROVED",
+            "C3": "PROVED (sufficiency only)", "C4": "PROVED", "D1": "PROVED", "D2": "COUNTEREXAMPLE",
+            "D3": "PROVED (conjunction of C1, C2, D1)", "E": "PROVED (identity)"}
+    for k, v in claims.items():
+        v["programme_tag"] = tags[k] if v["verdict"] == HOLDS else "REFUTED_IN_TESTED_CLASS"
     return claims
 
 
 def verdict_lines(claims, f, overall):
     L = []
-    L.append("Overall: %s (each claim is the plan's hypothesis; see PLAN.md section 3)." % overall)
+    L.append("Preregistered hypotheses: %s. Each claim is a hypothesis of PLAN.md section 3 tested in "
+             "finite toy classes; this is not a verdict on the framework's resolution of the paradox." % (
+                 "all confirmed in the tested finite classes" if overall == HOLDS else overall))
     a = claims["A"]
     if a["verdict"] == HOLDS:
-        reading = "bijectivity alone does not imply recovery from the accessible records in the tested class"
+        reading = ("bijectivity does not imply recovery from the accessible records (counterexamples), "
+                   "and is not necessary for it")
     else:
         reading = "no bijective instance without accessible recovery was found in the tested class"
     if claims["C1"]["verdict"] == HOLDS and claims["C2"]["verdict"] == HOLDS:
-        reading += ("; with bijectivity, complete endpoint access gives exact recovery and an inaccessible "
-                    "endpoint set K bounds the loss by P_succ >= 1/|K|")
-    L.append("Reading: " + reading + ".")
-    L.append("A (%s): %d of 40320 bijections of {0,1}^3 give zero accessible advantage with one mode "
-             "unread after two emissions; %d give zero advantage in the nested V/B/D layout with V read; "
-             "%d non-injective maps of {0,1}^2 recover the message exactly under complete access."
-             % (a["verdict"], a["bijections_zero_advantage_MP1_t2"], a["bijections_zero_advantage_nested_t3"],
-                a["nonbijective_maps_exact_recovery_complete_access"]))
+        reading += ("; with bijectivity, complete endpoint access is sufficient for exact recovery, and an "
+                    "inaccessible endpoint set K bounds the loss by P_succ >= 1/|K|")
+    L.append("Headline: " + reading + ".")
+    L.append("A [%s] (%s): %d of 40320 bijections of {0,1}^3 give zero accessible advantage with one mode "
+             "unread after two emissions (|K| = |M| = 2); %d give zero advantage in the nested V/B/D layout "
+             "with V read; %d non-injective maps of {0,1}^2 recover the message exactly under complete access."
+             % (a["programme_tag"], a["verdict"], a["bijections_zero_advantage_MP1_t2"],
+                a["bijections_zero_advantage_nested_t3"], a["nonbijective_maps_exact_recovery_complete_access"]))
     b = claims["B"]
-    L.append("B (%s): %d transport models tested; failing: %s." % (
-        b["verdict"], b["models_tested"], ", ".join(b["models_failing"]) or "none"))
+    ps = b["parameter_settings"]
+    L.append("B [%s] (%s): three parametric families (swap %d, wide-alphabet swap %d, CNOT %d settings) and "
+             "the GL(4,2) scramble class, %d items; failing: %s." % (
+                 b["programme_tag"], b["verdict"], ps["swap_cascade"], ps["swap_cascade_wide_alphabet"],
+                 ps["cnot_cascade"], b["models_tested"], ", ".join(b["models_failing"]) or "none"))
     c1 = claims["C1"]
-    L.append("C1 (%s): %d violations of exact recovery under bijectivity plus complete endpoint access; "
-             "dropping bijectivity gives %d failures, dropping complete access gives %d failures."
-             % (c1["verdict"], c1["violations"], c1["countercontrol_without_bijectivity_violations"],
-                c1["countercontrol_without_complete_access_violations"]))
+    cc = c1["countercontrol_without_complete_access_not_exact"]
+    L.append("C1 [%s] (%s): %d violations of exact recovery under bijectivity plus complete endpoint access; "
+             "dropping bijectivity gives %d non-recovering maps; dropping complete access gives %d bijections "
+             "without exact recovery with one mode unread and %d with D unread."
+             % (c1["programme_tag"], c1["verdict"], c1["violations"], c1["countercontrol_without_bijectivity_violations"],
+                cc["MP1_t2_one_mode_unread_not_exact"], cc["nested_D_unread_not_exact"]))
     c2 = claims["C2"]
-    L.append("C2 (%s): %d violations of P_succ >= 1/|K|; two-bit message with a one-bit inaccessible "
+    L.append("C2 [%s] (%s): %d violations of P_succ >= 1/|K|; two-bit message with a one-bit inaccessible "
              "remnant: minimum P_succ over S_8 = %s (bound %s, blind guess %s, %d instances attain the "
              "bound, %d at blind guess); without bijectivity %d maps violate the bound."
-             % (c2["verdict"], c2["violations"], fr(c2["MP2_min_psucc_t2"]), fr(c2["MP2_bound_t2"]),
-                fr(c2["MP2_blind_guess"]), c2["MP2_instances_attaining_bound"], c2["MP2_instances_at_blind_guess"],
-                c2["countercontrol_without_bijectivity_violations"]))
+             % (c2["programme_tag"], c2["verdict"], c2["violations"], fr(c2["MP2_min_psucc_t2"]),
+                fr(c2["MP2_bound_t2"]), fr(c2["MP2_blind_guess"]), c2["MP2_instances_attaining_bound"],
+                c2["MP2_instances_at_blind_guess"], c2["countercontrol_without_bijectivity_violations"]))
     c3 = claims["C3"]
-    L.append("C3 (%s): %d product maps W x D, %d violations; with B-D coupling the leak model has "
+    w = c3["post_review_W_autonomous"]
+    L.append("C3 [%s] (%s): %d product maps W x D, %d violations; post-review, %d maps with W-dynamics "
+             "independent of D (%d of them not products), %d violations; with B-D coupling the leak model has "
              "advantage %s with all of W read (reference without leak: %s)."
-             % (c3["verdict"], c3["product_maps"], c3["violations"], fr(c3["countercontrol_B_D_leak_tv"]),
-                fr(c3["no_leak_reference_tv"])))
+             % (c3["programme_tag"], c3["verdict"], c3["product_maps"], c3["violations"], w["maps"], w["nonproduct"],
+                w["C3w_violations"], fr(c3["countercontrol_B_D_leak_tv"]), fr(c3["no_leak_reference_tv"])))
+    nd = c3["post_review_necessity_diagnostics"]
+    L.append("Necessity diagnostics (post-review): with D never read, %d bijections recover exactly, %d of "
+             "them not products and %d with a W-update that depends on D; %d bijections recover exactly with "
+             "one mode unread. The endpoint conditions are sufficient, not necessary."
+             % (nd["recover_with_D_unread"], nd["nonproduct_recover"], nd["recover_with_D_dependent_W_update"],
+                a["post_review_MP1_t2_exact_recovery_with_mode_unread"]))
     c4 = claims["C4"]
-    L.append("C4 (%s): %d violations of max(0, t-(n-k)) <= r_t <= min(k, t) over GL(4,2); late-emergence "
+    L.append("C4 [%s] (%s): %d violations of max(0, t-(n-k)) <= r_t <= min(k, t) over GL(4,2); late-emergence "
              "profiles k=1: %d, k=2: %d; early-emergence profiles k=1: %d, k=2: %d."
-             % (c4["verdict"], c4["violations"], c4["late_emergence"]["1"], c4["late_emergence"]["2"],
-                c4["early_emergence"]["1"], c4["early_emergence"]["2"]))
-    L.append("D1 (%s): %d violations of monotone accessible advantage under cumulative records."
-             % (claims["D1"]["verdict"], claims["D1"]["violations"]))
-    L.append("D2 (%s): %d bijections with decreasing snapshot advantage; swap-in/swap-out snapshot "
+             % (c4["programme_tag"], c4["verdict"], c4["violations"], c4["late_emergence"]["1"],
+                c4["late_emergence"]["2"], c4["early_emergence"]["1"], c4["early_emergence"]["2"]))
+    L.append("D1 [%s] (%s): %d violations of nondecreasing accessible advantage under cumulative records."
+             % (claims["D1"]["programme_tag"], claims["D1"]["verdict"], claims["D1"]["violations"]))
+    L.append("D2 [%s] (%s): %d bijections with decreasing snapshot advantage; swap-in/swap-out snapshot "
              "advantage %s, cumulative %s." % (
-                 claims["D2"]["verdict"], claims["D2"]["bijections_with_decreasing_snapshot_tv"],
+                 claims["D2"]["programme_tag"], claims["D2"]["verdict"],
+                 claims["D2"]["bijections_with_decreasing_snapshot_tv"],
                  ",".join(fr(v) for v in claims["D2"]["swap_in_swap_out_snapshot_tv"]),
                  ",".join(fr(v) for v in claims["D2"]["swap_in_swap_out_cumulative_tv"])))
-    L.append("D3 (%s): conjunction of C1, C2, D1." % claims["D3"]["verdict"])
-    L.append("E (%s): %d violations of GR Theorem A.1 equality; %d zero-advantage bijections satisfy it."
-             % (claims["E"]["verdict"], claims["E"]["violations"], claims["E"]["zero_advantage_bijections_satisfying_A1"]))
-    L.append("F (audit): GR A.7 decoupling statement at 30 M_sun is %s; t_evap/tau_B^D lies in [%s, %s]; "
-             "t_evap = tau_B^D at a mass in [%s, %s] kg." % (
+    L.append("D3 [%s] (%s): conjunction of C1, C2, D1." % (claims["D3"]["programme_tag"], claims["D3"]["verdict"]))
+    L.append("E [%s] (%s): GR Theorem A.1 equality is a Fubini identity for every map; %d violations over S_8; "
+             "%d zero-advantage bijections satisfy it." % (
+                 claims["E"]["programme_tag"], claims["E"]["verdict"], claims["E"]["violations"],
+                 claims["E"]["zero_advantage_bijections_satisfying_A1"]))
+    L.append("F [audit observation]: GR A.7 decoupling statement at 30 M_sun is %s; t_evap/tau_B^D lies in "
+             "[%s, %s]; t_evap = tau_B^D at a mass in [%s, %s] kg; t_P/tau_B^D >= %s." % (
                  f["A7_decoupling_statement_at_30_Msun"], f["ratio_t_evap_over_tau_interval"][0],
                  f["ratio_t_evap_over_tau_interval"][1], f["crossover_mass_kg_interval"][0],
-                 f["crossover_mass_kg_interval"][1]))
+                 f["crossover_mass_kg_interval"][1], f["page_time_over_tau_lower_bound"]))
     return L
 
 
@@ -897,6 +1008,7 @@ def main(argv):
     f = item_f()
     refuted = sorted(k for k, v in claims.items() if v["verdict"] != HOLDS)
     overall = HOLDS if not refuted else NEG + " (" + ", ".join(refuted) + ")"
+    f["reference_value_1Msun_gamma1_yr"] = item_f_controls()[1]
     lines = verdict_lines(claims, f, overall)
     result = {
         "schema": "bh01-access-v1/result",
@@ -907,6 +1019,8 @@ def main(argv):
         "claims": claims,
         "item_F": f,
         "overall": overall,
+        "overall_scope_note": ("the token reports the preregistered hypotheses A-E of PLAN.md tested in finite toy "
+                               "classes; claim A is a non-implication; no verdict on the framework's resolution"),
         "verdict_text": lines,
     }
     data = json.dumps(to_json(result), sort_keys=True, indent=1, ensure_ascii=True) + "\n"

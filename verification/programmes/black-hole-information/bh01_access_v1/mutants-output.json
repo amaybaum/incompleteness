@@ -1,7 +1,7 @@
 {
  "all_caught": true,
- "caught": 10,
- "count": 10,
+ "caught": 12,
+ "count": 12,
  "mutants": [
   {
    "baseline_control_passes": true,
@@ -58,6 +58,22 @@
    "mutant": "records not accumulated",
    "mutant_control_passes": false,
    "target": "D1 on swap_in_swap_out"
+  },
+  {
+   "baseline_control_passes": true,
+   "caught": true,
+   "kind": "in-process",
+   "mutant": "item F evaporation time uses M^2 in place of M^3 (post-review)",
+   "mutant_control_passes": false,
+   "target": "K7 reference value and cubic scaling"
+  },
+  {
+   "baseline_control_passes": true,
+   "caught": true,
+   "kind": "in-process",
+   "mutant": "nondecreasing() made vacuous (post-review)",
+   "mutant_control_passes": false,
+   "target": "K8 detects_decrease"
   },
   {
    "caught": true,

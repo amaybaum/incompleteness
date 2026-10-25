@@ -90,6 +90,19 @@ def patch_record(mod):
     mod.make_record = lambda dtraj, schedule, t, mode: orig(dtraj, schedule, t, "snapshot")
 
 
+def patch_evap_square(mod):
+    def mutant(GM, gam_lo, gam_hi):
+        lo = 5120 * mod.PI_LO * GM ** 2 / (mod.G_HI * mod.HBAR * mod.C_LIGHT ** 4 * gam_hi)
+        hi = 5120 * mod.PI_HI * GM ** 2 / (mod.G_LO * mod.HBAR * mod.C_LIGHT ** 4 * gam_lo)
+        return lo, hi
+    mod.evap_time = mutant
+
+
+def k7_probe(mod):
+    c = mod.run_controls()["K7"]
+    return c["reference_1Msun_gamma1"] and c["cubic_mass_scaling"]
+
+
 def run_copy(src, flags, workdir, tag):
     path = os.path.join(workdir, tag + "_checks.py")
     with open(path, "w", encoding="utf-8", newline="\n") as fh:
@@ -172,6 +185,11 @@ def main(argv):
                              patch_rank, lambda m: m.run_controls()["K5"]["identity_cases"]))
     results.append(inprocess("records not accumulated", "D1 on swap_in_swap_out",
                              patch_record, d1_probe))
+    results.append(inprocess("item F evaporation time uses M^2 in place of M^3 (post-review)",
+                             "K7 reference value and cubic scaling", patch_evap_square, k7_probe))
+    results.append(inprocess("nondecreasing() made vacuous (post-review)", "K8 detects_decrease",
+                             lambda m: setattr(m, "nondecreasing", lambda seq: True),
+                             lambda m: m.run_controls()["K8"]["detects_decrease"]))
     results.extend(source_mutants())
     all_caught = all(r.get("caught") for r in results)
     doc = {"schema": "bh01-access-v1/mutants", "mutants": results, "all_caught": all_caught,
