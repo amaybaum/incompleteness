@@ -80,5 +80,10 @@
    "MANUSCRIPT-AUDIT.md": "f035579619d49b59489cf69143893959230f982d58e1fa7f88ed3037aaf97f16",
    "note": "byte content retrievable from commit 91e2230a"
   }
+ },
+ "post_review_3": {
+  "review": "re-check of 1f1aec6f: ACCEPT, with one hazard to remove before landing",
+  "change": "mutants.py --only is validated before any run: an unknown name, an empty selection or a missing argument prints VOID and exits 2; a full run and a valid targeted run print the same lines as before",
+  "verified": "--only M-bogus, --only ',', --only with no argument, --only M-canonical,M-bogus each exit 2; --only M-canonical reproduces its line of mutants-targeted-output.txt; mutants-output.txt, mutants-targeted-output.txt and result.json unchanged; result.json replays byte for byte under -I -B"
  }
 }

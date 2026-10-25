@@ -170,7 +170,23 @@ def run_one(i):
     return (name, target, "clean", failed, caught)
 
 
+def select():
+    """Validate --only before any run: an unknown name or an empty selection is VOID."""
+    if "--only" not in sys.argv:
+        return None
+    pos = sys.argv.index("--only") + 1
+    names = [x for x in (sys.argv[pos].split(",") if pos < len(sys.argv) else []) if x]
+    known = [m[0] for m in MUTANTS]
+    unknown = [x for x in names if x not in known]
+    if unknown or not names:
+        print("VOID: --only needs one or more known mutant names; %s"
+              % ("unknown: " + ", ".join(unknown) if unknown else "empty selection"))
+        sys.exit(2)
+    return [i for i, m in enumerate(MUTANTS) if m[0] in names]
+
+
 def main():
+    sel = select()
     base = fresh()
     _, controls = base.run()
     unmod_failed = sorted(k for k, v in controls.items() if not v)
@@ -178,11 +194,10 @@ def main():
     if unmod_failed:
         print("VOID: unmodified run fails; mutants not run")
         sys.exit(2)
-    sel = list(range(len(MUTANTS)))
-    if "--only" in sys.argv:
-        names = sys.argv[sys.argv.index("--only") + 1].split(",")
-        sel = [i for i, m in enumerate(MUTANTS) if m[0] in names]
+    if sel is not None:
         print("targeted run: %s" % ", ".join(MUTANTS[i][0] for i in sel))
+    else:
+        sel = list(range(len(MUTANTS)))
     with multiprocessing.Pool(4) as pool:
         rows = pool.map(run_one, sel)
     allc = True
