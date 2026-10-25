@@ -1,9 +1,9 @@
 # States and dynamics: current research handoff
 
-24 October 2026. #911 retains separate exact-architecture and finite
-approximation paths. The latest results are internally reviewed research,
-not native availability, probability selection, premise/access adoption or
-full OI-to-QM equivalence. #885 remains read-only for this effort.
+This directory holds separate exact-architecture and finite-approximation
+research paths. Its results are internally reviewed research. None of them
+establishes native availability, probability selection, premise or access
+adoption, or full OI-to-QM equivalence.
 
 ## Executed finite-menu approximation
 
@@ -33,10 +33,10 @@ including complete public records and decoded outgoing states, begun at the
 fixed decoded input. Exact finite envelopes, fresh-reset induction and
 quantum trace-distance contraction supply the proof. Independently evaluated
 protocol trees and seed/access mutants are controls, not an enumeration of
-all adaptive policies. M=8 fails the prescribed0.1 target; M=16 passes, so
+all adaptive policies. M=8 fails the prescribed 0.1 target; M=16 passes, so
 M=32/64 were not executed. No unexecuted grid supports this certificate.
 
-Resources include96 initially fair bits excluding mixtures, at most 130560
+Resources include 96 initially fair bits excluding mixtures, at most 130560
 word-tagged carrier labels (17 bits), a 2-bit clock, CDF tables up to 460800
 bits, optional response tables up to 522240 bits and up to 3 retained old
 carrier registers. Blank workspace, table descriptions and non-dyadic
@@ -44,7 +44,7 @@ mixture sources are additional. This is not a 96-bit total-device claim.
 
 The prior `finite-a2-v5/` all-menu geometric theorem and its conservative
 billion-label example remain unchanged. The new certificate gains from a
-narrower exhaustive menu/horizon envelope and its verified positive3/2
+narrower exhaustive menu/horizon envelope and its verified positive 3/2
 decoder. It is not an improved universal convergence theorem. Enlarged menus
 or horizons need recertification. Geometric priors, reset, private access,
 clock and reversible gate scheduling remain supplied rather than native.
@@ -53,7 +53,10 @@ clock and reversible gate scheduling remain supplied rather than native.
 
 `a2_depth_v7/`, author head `2668343631ba7e80bc3588219578b1b7362fddb7`, has
 separate-engine internal reviews retained under `a2_depth_v7/review/`: two
-blocking rounds and a third, accepting round. On the in-menu protocol "prepare
+blocking rounds and a third, accepting round. Its `REPORT.md` was later edited
+at `dc210283` and `49e1a119` to restate the lower bound for the executed
+extension in three lines. The checker and every number are unchanged; no
+retained review round covers that restatement. On the in-menu protocol "prepare
 X+, then read a, X, a, X, ...", the executed M=16, W=16, B=24 controller,
 extended by one fresh 24-bit block per slot, has complete-record TV from the
 quantum protocol tending to 1 with depth (certified TV>1/2 for h>=67382091).
@@ -95,7 +98,7 @@ exactly through h = 12). The h=3 certificate above is unchanged.
 an accepting separate-engine internal review retained at
 `bdd897852d3f44089a5476205a949c8ecc54f981`. The credited Montina two-vector
 model has a correct two-time quantum transition. Iterating the tested fixed
-vectors and bit update from Z+ gives X then Z record masses1/3,1/6,1/3,1/6,
+vectors and bit update from Z+ gives X then Z record masses 1/3,1/6,1/3,1/6,
 where the quantum masses are all 1/4. Final Z+ is 2/3 instead of 1/2 and
 record TV is 1/6. Longer alternating reads have only four possible paths.
 
@@ -112,7 +115,7 @@ The declared bit map is two-to-one even with its record; an explicit total
 reversible lift retains one garbage bit per invocation. That repairs
 invertibility without repairing the reused conditional source law. Supplied
 independent pair renewal restores the full finite-adaptive record/state law,
-using2(h+1) initially provisioned sphere points for this particular repair.
+using 2(h+1) initially provisioned sphere points for this particular repair.
 It is sufficient, not minimal or native. Continuous preparation/reset,
 private retained vectors, access and timing remain explicit resources.
 
@@ -124,20 +127,33 @@ records/outgoing states under its supplied continuum/reset/access contract.
 Its known reproduction is not a new quantum theory or native source theorem.
 
 `native-code-bridge-v6/` exactly matches the calibrated post-X/Y target
-measures to sign projections of that sphere model. Its sharp1/10 pair error
+measures to sign projections of that sphere model. Its sharp 1/10 pair error
 for a broader rational read assumes an autonomous common twelve-code input
 with the same independent continuation. The actual native full phase,
 history/clock tags and response memory are outside that exclusion. Selected
 signs alone do not establish universal native operation coverage.
 
-#910 now has native masked nonlinear products and a changed two-front
-operand route. #912 has an explicit89-tick reversible acceptance specification
-with full pointer law, conditional on supplied gate/storage/isolation access.
-Native compilation and complete delayed history/carrier closure remain open.
-Calibration selection, initialization, general instruments, arbitrary depth,
-composites/Bell and full A1/A2 coverage remain separate gates in #913.
+Native construction is in `../native-y-continuation-20261024/` (#910).
+Complete-record composition is developed on #912 and wider gates are tracked
+in Issue #913; their results are not established here. Calibration selection,
+initialization, general instruments, arbitrary depth, composites/Bell and
+full A1/A2 coverage remain open.
 
-The four new author/reviewer groups replay normally and with -O against
-retained outputs. Earlier scientific modules remain unchanged and are not
-freshly rerun. No full-suite/Lean/exact-head attestation, F/E designation,
-dispatch, merge or new physical premise follows.
+## Packages and replay
+
+The top-level `REPORT.md`, `PROBE-SPEC.md`, `checks.py` and `result.json`,
+with their independent review in `review/`, are the exactness and sourcing
+audit. The packages are `stopping-source-v2/`, `operational-quotient-v3/`
+(with `product-section-v4/`), `history-architecture-v5/`, `finite-a2-v5/`,
+`native-code-bridge-v6/`, `a1_reset_v6/`, `a2_efficiency_v6/`,
+`a2_depth_v7/` and `a2_memory_v8/`. Each holds its checker, its structured
+output, a `SHA256SUMS` manifest and its retained review. Each `REPORT.md`
+gives the package's replay recipe. Every checker reproduces its retained
+`result.json` byte for byte under `python3 -I -B`, normally and with `-O`.
+The full mutant campaigns are recorded in their packages and are not part of
+that replay.
+
+The top-level `REPORT.md` and `stopping-source-v2/REPORT.md` cite programme
+snapshot `2d555f17` on branch `research/missing-component-20261020` as
+provenance. The claims there rest on Lean declarations at `de6fe293`, which
+is on `main`, and on their own checkers.
