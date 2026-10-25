@@ -66,10 +66,8 @@ unconstrained. A retained-seed reset lies outside the class and escapes the
 obstruction on this protocol, with TV<=1/(2^B-2) at every depth for B>=2; it
 is a protocol-specific sampler, not a geometric controller.
 
-`a2_memory_v8/`, author head `12058945cdeb94233a79afad57ceab300d22e92d`, has
-internal reviews retained under `a2_memory_v8/review/`: five rounds, two of
-them blocking; the last, of `a97c852a`, accepts with nits, which the author
-head addresses and which are not yet re-reviewed. It proves that every
+`a2_memory_v8/`, author head `03a31cf9029582162bc82508a4eacf28e098701f`, has
+internal reviews retained under `a2_memory_v8/review/`. It proves that every
 controller whose whole persistent state is finite, with a time-independent
 update and B fair fresh bits per slot, also has T(h)->1 on this protocol, for
 any initial law. The obstruction is arithmetic: dyadic fresh randomness
@@ -78,13 +76,14 @@ randomness across slots, whatever their record dependence (`a2_depth_v7/`),
 and for every controller with finite whole state (`a2_memory_v8/`). The
 retained-seed reset, granted the target cuts, escapes it with linearly
 growing private memory. Restarted every k reads (B=2,3,4, k<=16), that reset
-has a certified finite failure depth for every tested member. Arbitrary depth
-remains open for bounded private memory with unbounded public state (an
-unbounded clock, time-dependent updates or full-record dependence), for
-growing per-slot blocks, and for the least memory growth that keeps T
-bounded. The class result does not cover non-dyadic fresh sources; a
-memoryless fair five-valued source reproduces the quantum agreement law
-exactly. The h=3 certificate above is unchanged.
+is certified to have T>1/2 beyond a finite depth for every tested member.
+Arbitrary depth remains open for bounded private memory with unbounded public
+state (an unbounded clock or full-record dependence), for time-dependent
+updates, for growing per-slot blocks, and for the least memory growth that
+keeps T bounded. The class result does not cover non-dyadic fresh sources.
+For a fair five-valued source the arithmetic argument fails (lambda = 4), and
+a memoryless sampler that agrees on four of five values gives T = 0 (computed
+exactly through h = 12). The h=3 certificate above is unchanged.
 
 ## Exact reset-resource audit
 
