@@ -103,7 +103,7 @@ def generate(meas):
     scope = meas["control_scope"]
     failed = sorted(k for k in scope if ctl[k]["pass"] is not True)
     if failed or not meas["controls_green"]:
-        return "VOID", "VOID: failed checkpoint(s): %s" % ", ".join(failed or ["controls_green"])
+        return "VOID", "VOID: failed checkpoint(s): %s\n" % ", ".join(failed or ["controls_green"])
     smoke = meas["mode"] != "result"
     L = []
     if smoke:
@@ -223,15 +223,25 @@ def generate(meas):
     return ("SMOKE" if smoke else ("COUNTEREXAMPLE" if counter else "NO-COUNTEREXAMPLE")), "\n".join(L) + "\n"
 
 
+def void_names(text):
+    head = "VOID: failed checkpoint(s):"
+    if not text.startswith(head):
+        return []
+    return [x.strip() for x in text[len(head):].strip().split(",") if x.strip()]
+
+
 def vg_selftest(meas, text):
     out = {"regenerated_identical": generate(meas)[1] == text, "flips": {}, "text_check": {}}
     for k in meas["control_scope"]:
+        if meas["controls"][k]["pass"] is not True:
+            continue          # already failing: the verdict is VOID and names it
         m2 = copy.deepcopy(meas)
-        m2["controls"][k]["pass"] = not m2["controls"][k]["pass"] if m2["controls"][k]["pass"] is not None else False
+        m2["controls"][k]["pass"] = False
         cls, t2 = generate(m2)
-        out["flips"][k] = cls == "VOID" and k in t2
-    out["text_check"]["accepts_generated"] = check_text(text)
-    out["text_check"]["rejects_without_sentence"] = not check_text(text.replace(LIMITATION, ""))
+        out["flips"][k] = cls == "VOID" and k in void_names(t2)
+    probe = text if not text.startswith("VOID") else "PE-01 verdict (probe).\n3. " + LIMITATION + "\n"
+    out["text_check"]["accepts_generated"] = check_text(text) and check_text(probe)
+    out["text_check"]["rejects_without_sentence"] = not check_text(probe.replace(LIMITATION, ""))
     out["pass"] = (out["regenerated_identical"] and all(out["flips"].values())
                    and out["text_check"]["accepts_generated"] and out["text_check"]["rejects_without_sentence"])
     return out
@@ -243,7 +253,8 @@ def main(argv):
     cls, text = generate(meas)
     vg = vg_selftest(meas, text)
     if not vg["pass"]:
-        cls, text = "VOID", "VOID: failed checkpoint(s): VG\n"
+        prev = void_names(text) if cls == "VOID" else []
+        cls, text = "VOID", "VOID: failed checkpoint(s): %s\n" % ", ".join(prev + ["VG"])
     if "--check" in argv:
         print(json.dumps({"class": cls, "VG": vg}, indent=1, sort_keys=True))
         return 0 if vg["pass"] else 1
