@@ -1,5 +1,9 @@
 # Manuscript audit for BH-02 / BH-04 (wording proposals only)
 
+The proposals below concern the text at `809fac52`. `book/ch07-gravity.md` §7.6 and
+`papers/GR.md` Appendix A were since corrected on `main` (merge `c37700ad`), so line numbers and
+wording must be re-checked against `main` before any proposal is used.
+
 Not a manuscript edit. Line numbers are at `809fac52`. Every book chapter line cited has an
 identical mirror line in `book/The-Incompleteness-of-Observation-FULL.md`, given as `FULL:n`;
 §A.14 and §A.25 require any adopted change to land in both and in every restatement listed under

@@ -228,15 +228,15 @@ Printed lower bounds are truncated and upper bounds rounded up. Results:
 - At the A.5 example mass `30 M_sun`, `t_evap / tau_B^D` lies in
   `[1.785 x 10^57, 1.786 x 10^65]`.
 - `t_evap = tau_B^D` at a mass in `[1.059 x 10^10, 4.918 x 10^12]` kg.
-- `t_P / tau_B^D >= 1.153 x 10^57`.
+- `t_P / tau_B^D >= 1.153 x 10^57` (`t_P` at β = 1).
 
-The independent review obtained `[1.785 x 10^57, 1.787 x 10^65]` and `[1.06 x 10^10,
+The independent review (`review/REVIEW.md`) obtained `[1.785 x 10^57, 1.787 x 10^65]` and `[1.06 x 10^10,
 4.92 x 10^12]` kg with independent constants. The intervals for `Gamma` and `tau_B^D` were
 chosen after the plan; given the margin, the conclusion does not depend on them.
 
 **What item F shows.** It removes the stated support for treating `D` as decoupled over the
 evaporation, and therefore for applying [GR Theorem A.7], and through it A.9, out to
-`t_P = 0.646 t_evap` and `t_evap`. That is the support condition R2 would draw on.
+the Page time `t_P` (`0.646 t_evap` at β = 1) and `t_evap`. That is the support condition R2 would draw on.
 
 **What item F does not show:**
 
@@ -339,7 +339,8 @@ Second post-review round (after the re-check of `95458016`):
 
 ## Replay from an empty directory
 
-With a clone of the repository at `REPO` and this directory's commit `COMMIT` (`git archive`
+With a clone of the repository at `REPO` and `COMMIT` a commit that contains this directory,
+for example `f6698781` or the merge that lands it (`git archive`
 omits this directory: `verification/programmes` is `export-ignore` in `.gitattributes`):
 
 ```sh

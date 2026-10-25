@@ -1462,7 +1462,7 @@ def run_C7(controls, res):
         "species factor cancels. COUNTEREXAMPLE to the unconditional reading: an M-dependent "
         "effective coefficient changes the fraction (power law p=1/2 gives %s; step model up "
         "to %s for the cases computed), and with Page's coarse-grained accounting beta=1.4847 "
-        "the fraction is %s, reproducing Page 2013 Eq. (8); beta itself is computed from the "
+        "the fraction is %s, reproducing Page 2013 Eq. (8); in Page 2013, beta itself is computed from the "
         "species' greybody factors."
         % (dec(lo, 6), pl["p=1/2"][0][:8], max(s["value_8dp"] for s in steps)[:8],
            dec(flo, 4)))

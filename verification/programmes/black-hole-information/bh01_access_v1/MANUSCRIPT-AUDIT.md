@@ -1,5 +1,9 @@
 # BH-01 manuscript audit: sentences depending on accessible recovery
 
+The proposals below concern the text at `809fac52`. `book/ch07-gravity.md` §7.6 and
+`papers/GR.md` Appendix A were since corrected on `main` (merge `c37700ad`), so line numbers and
+wording must be re-checked against `main` before any proposal is used.
+
 Status: audit notes with wording proposals for later review. This file is not a
 manuscript edit and authorizes none. Line numbers are at base commit `809fac52`
 (`book/ch07-gravity.md` blob `2876061f`, `papers/GR.md` blob `90268f3b`). Each book

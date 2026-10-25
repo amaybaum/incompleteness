@@ -1,6 +1,6 @@
 # OI-BH-1 — Hawking radiation, Page curve, and observer-access audit
 
-Status: exploratory research / unreviewed. No manuscript amendment, theorem designation, or merge authorization.
+Status: exploratory research. BH-01 (`bh01_access_v1/`) and BH-02 with BH-04 (`bh02_scramble_v1/`) are executed, each with a separate-agent internal review retained in its `review/` directory; BH-03 and BH-05 to BH-07 have not been run. No manuscript amendment or theorem designation follows from this programme.
 
 ## Source and scope
 
@@ -8,7 +8,7 @@ Primary manuscript: `book/ch07-gravity.md` §7.6 (as inspected 2026-10-25), incl
 
 Do not conflate finite observation-horizon results in the foundations with physical event horizons. This research track does not modify A1/A2 exact-QM targets or adopt a new C5.
 
-## Preliminary audit findings (not yet independently reproduced)
+## Preliminary audit findings (BH-01, BH-02 and BH-04 are executed in the packages; the others are not yet reproduced)
 
 **BH-01, microscopic versus radiative information:** Bijectivity of the substratum map implies injective microscopic evolution, not injectivity of the restricted radiation channel. A finite example is `F(b,r)=(b,r)` with all input information in `b` and unchanged radiation `r`: perfectly reversible dynamics but radiation cannot reveal `b`. Require a theorem on transfer of distinguishing information to *accessible joint radiation records*, not just persistence in the global state. Extend to a fully evaporated endpoint with explicit late remnant/hidden-sector assumptions.
 
