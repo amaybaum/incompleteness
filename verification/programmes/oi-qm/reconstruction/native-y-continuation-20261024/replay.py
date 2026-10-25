@@ -69,6 +69,9 @@ def main():
     latest = [(folder, 'checks', [], 'result.json') for folder in (
         'native_gate_v13', 'native_gate_v13/review',
         'native_route_v13', 'native_route_v13/review', 'native_decode_v14')]
+    latest += [('native_decode_v14/review/round1', 'review_checks', ['.'],
+                'out/review_checks.out'),
+               ('native_vread_v15', 'checks', [], 'result.json')]
     tests = latest if sys.argv[1:] == ['--latest'] else tests + retained_v10 + retained_v11 + retained_v12 + latest
     with tempfile.TemporaryDirectory(prefix='native-y-replay-') as directory:
         work = Path(directory) / 'checkpoint'

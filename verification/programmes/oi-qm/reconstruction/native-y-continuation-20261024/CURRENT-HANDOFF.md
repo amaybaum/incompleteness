@@ -1,18 +1,18 @@
-# Native instruments: current research handoff
+# Native instruments: results and the open native connection
 
-24 October 2026. This continuation retains the actual masked phase and adds
-scoped native tests, an explicit logical acceptance specification, an
-exact reset-resource audit and an executed finite-menu approximation. These
-are research results on #910, #911 and #912. No physical premise, access rule,
-operational map, native gate availability or full equivalence is adopted.
-#885 is read-only for this effort; #913 retains the wider open gates.
+This directory retains the actual masked phase of the native-Y construction
+and adds scoped native tests: a small-family nonlinear product, an
+actual-scale second-front route, fixed q10 readouts and a one-tick whole-V
+read. No physical premise, access rule, operational map, native gate
+availability or full equivalence is adopted. The wider open gates are listed
+in [#913](https://github.com/amaybaum/incompleteness/issues/913).
 
-The owner-accepted programme synthesis remains
-`2d555f17c23bea31d32b3f5eb4c49d245b413a76`. The separately observed #885
-draft is `fd18205b47649ff4bd43857b908f6f646941e89f`; it is not substituted
-for that accepted baseline. Its retained-evidence and commissioned independent
-transport-review gates remain distinct from these separate-agent internal
-reviews. No new owner acceptance or formal certification is inferred.
+The programme synthesis these tests start from is commit
+`2d555f17c23bea31d32b3f5eb4c49d245b413a76` of #885, on that pull request's
+preserved branch `research/missing-component-20261020`; the later draft
+`fd18205b47649ff4bd43857b908f6f646941e89f` on the same branch is not used as a
+baseline. Both ids are provenance. The separate-agent internal reviews here do
+not discharge that programme's retained-evidence or transport-review gates.
 
 ## Retained actual phase
 
@@ -36,7 +36,7 @@ The intended acceptance is A=[K<n(Y XOR s,Rsign XOR s)] with thresholds
 with fair Z. Parent failures remain terminal. Native dynamics has not yet
 implemented this correlated acceptance flag or a reusable outgoing interface.
 
-## New native nonlinear and pointer result
+## Native nonlinear and pointer result
 
 `native_gate_v13/`, author
 `8ae927163c0fa340b312d634fc352df73753314f`, evolves seven small original-time
@@ -60,7 +60,7 @@ quantum A2 error floors. Distributed circuits, later times, other layouts
 and actual-L availability are outside the exclusion. Separate-engine review
 is retained under `native_gate_v13/review/`.
 
-## New actual-scale second-front route
+## Actual-scale second-front route
 
 `native_route_v13/`, author
 `753fe4f69392ca940754489468e8c8235f6aa583`, changes Native B's q10-ready
@@ -138,65 +138,26 @@ Multi-tick routes, other reads or ports, other layouts, readiness
 extensions, Native A's own pool, the acceptance predicate, a carrier law and
 A1/A2 are untested; this is no OI-wide no-go.
 
-## Explicit acceptance specification and the native delay gap
+## Related paths
 
-#912 author `1cb224db6c17e083849a0f82768e991beac39399`, under
-`composition_flag_v6/`, gives an 89-gate NOT/CNOT/Toffoli compute/copy/uncompute
-circuit on the actual21 logical phase wires. Seven clean temporaries,
-one clean flag bit and two fair pointer fields give31 core register bits.
-The logical phase and workspace are restored. The complete90-sample whole
-pointer prefix, accepted carrier, old record, failures and zero cells have
-the correct conditional joint law. An optional explicit recording dilation
-uses 270 additional clean bits and 359 total logical ticks.
+The logical acceptance specification and its delayed-history audit are
+developed on [#912](https://github.com/amaybaum/incompleteness/pull/912); the
+exact reset-resource audit, the sign-code bridge and the finite-menu
+approximation on [#911](https://github.com/amaybaum/incompleteness/pull/911).
+Their results are not established in this directory.
 
-Logical storage, gate access, clock and workspace isolation are supplied.
-They are not an implementation in the native H lattice. Under a hypothetical
-serial one-gate/native-tick alignment from L+2, the core finishes L+91;
-F8 can reach an old receiver at L+77 and F10/F9 at L+79. The unchanged-prefix
-causal proof therefore does not cover that duration. This is a required joint
-history/carrier audit, not proof of leakage or a native runtime lower bound.
-The recorded dilation would extend that hypothetical deadline to L+361.
-
-Extra private-key/workspace access and uncontrolled native delay have explicit
-failing controls. Reusing unused pointer pads only violates the chosen
-independent-noise reference; a changed correlated-noise contract is separate.
-
-## Exact and approximate architecture paths
-
-#911 keeps the credited KS sphere model as a supplied mathematical comparison.
-The new `a1_reset_v6/` fixed-vector reuse audit, author
-`41992cc0b7f8901195f70ff47b34f1a0ed5eba5e`, finds Z+ then X then Z gives
-final Z+2/3 instead of 1/2, complete-record TV1/6. This preserves Montina's
-original two-time result. Supplied independent-pair renewal repairs the
-record/state law; the continuous-resource gap remains explicit.
-
-The new `a2_efficiency_v6/`, author
-`bff7b58d951babd4064b60699281ee0a7f3e9f45`, executes a 1536-label finite
-geometric controller. For its declared menu and total h=3 horizon, one fixed
-positive input/output decoder has complete record/state CQ error at most
-17239332625914280559/230584300921369395200 <0.074764. It uses 96 initial
-fair bits plus clock/word, tables, blank registers and retained workspace.
-This narrower certificate does not replace the old broader all-menu theorem.
-Both new architecture paths have accepting separate-agent internal reviews.
-
-## Next gate and verification scope
+## Next native test
 
 Construct a source-compatible native gate or cheaper distributed predicate,
-deliver the actual operands, preserve/re-encode the carrier throughout its
+deliver the actual operands, preserve or re-encode the carrier throughout its
 latency, and prove its full physical pointer/history law. The small native
-product, the q10.A sign delivery and the logical acceptance circuit are
-distinct pieces; none alone supplies their missing native connection. A
-concrete next test is a native stage taking q10.A to a cleaned operand while
-its s-carrying B and D fields are accounted for; the one-tick route into the
-whole-V read gives no fixed readout equal to s for every complement value,
-for its construction (`native_vread_v15/`).
+product and the q10.A sign delivery are distinct pieces; neither supplies the
+missing native connection. A concrete next test is a native stage taking
+q10.A to a cleaned operand while its s-carrying B and D fields are accounted
+for; the one-tick route into the whole-V read gives no fixed readout equal to
+s for every complement value, for its construction (`native_vread_v15/`).
+Wider calibration, initialization/access, arbitrary-depth/menu,
+composites/Bell and full A1/A2 reconstruction remain open.
 
-`python3 replay.py --latest` checks the four reviewed v13 native groups and
-the v14 fixed-readout author group normally and with -O, Python compilation
-and the full manifest. The driver retains 58 groups; the preceding 53
-scientific groups are unchanged and are not freshly rerun. Four current #911 groups and two #912 groups
-are checked separately. CHECKPOINT-CHECKS.json records measured scope.
-No full-suite, Lean or exact-head attestation is claimed. Wider calibration,
-initialization/access, arbitrary-depth/menu, composites/Bell and full A1/A2
-reconstruction remain open. No unattended work, dispatch, merge or branch
-deletion is scheduled.
+[README.md](README.md) gives the replay commands; CHECKPOINT-CHECKS.json
+records the checks run on this directory.
