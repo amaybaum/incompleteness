@@ -1,0 +1,8 @@
+["R1_region_shrunk", 0, "NEGATIVE_FOR_CONSTRUCTION", null, [], 1575]
+["R2_Y_consistently_wrong", 2, "VOID", "x3_planted_positive_found", null, 3225]
+["R3_target_sign_flipped", 2, "VOID", "x3_planted_positive_found", null, 3225]
+["R4_law_one_orientation", 2, "VOID", "x3_planted_positive_found", null, 3225]
+["R5_inject_A_permuted_native", 0, "NEGATIVE_FOR_CONSTRUCTION", null, [], 3225]
+["R6_inject_A_xor_VB_native", 0, "HOLDS_WITHIN_SCOPE", null, [["((4, 0, 0), -1)", "((4, 0, 0), 0)", "((4, 0, 0), 1)", "((4, 0, 0), 10)", "((4, 0, 0), 11)", "((4, 0, 0), 12)", "((4, 0, 0), 13)", "((4, 0, 0), 2)", "((4, 0, 0), 3)", "((4, 0, 0), 4)", "((4, 0, 0), 5)", "((4, 0, 0), 6)", "((4, 0, 0), 7)", "((4, 0, 0), 8)", "((4, 0, 0), 9)"]], 3225]
+["R7_law_checks_block_sizes_only", 2, "VOID", "x4_planted_negatives_rejected_and_encodings_accepted", null, 3225]
+["R8_tend_shrunk", 0, "NEGATIVE_FOR_CONSTRUCTION", null, [], 2193]

@@ -98,6 +98,30 @@ record law only: it adopts no observer-access rule or access closure and
 establishes no native storage, arbitrary composition or reusable measurement
 instrument.
 
+## Passive native readout as the acceptance flag
+
+`native_predicate_v8/` (plan `631bec0ca55eacbf6a7cf7e72d72c673dfe430da`,
+committed before computation; head `fc452ea825b986a3babab5d110626e0019c39847`;
+separate review retained under its `review/`) tests the cheapest native
+replacement for the logical circuit, class C(4, 16): v6's public contract with
+the pointer replaced by the whole raw triples of any set of native site-times
+within Manhattan distance 4 of q9, read through L+17, with no gate, pad or added
+source, and any predicate of that record as the flag. Conditional on the
+complement C0, the complete v6 law requires every V value's 64 worlds to split
+into exactly two blocks carrying the 20 accepted and 44 rejected target counts.
+In the scaled control (n = 6, sixteen dirty old-success families, 3,225 read
+site-times each) no read set gives such a split for any V value in any family:
+`NEGATIVE_FOR_CONSTRUCTION` for that class, in the scaled control. The operands
+are delivered; once G arrives a native cell almost always carries more than one
+bit of pool information given V.
+
+This does not exclude native predicates with fresh pads, prepared sources or
+gates, larger regions or later reads, a law that holds only on average over
+private backgrounds (with fresh pads, one open branch, since conditioning on C0
+is what stops background bits acting as fair pads), or a predicate at actual L
+in its actual background. It adopts no access rule and leaves the carrier in
+v6's supplied logical storage.
+
 ## Related work and next gate
 
 The preceding `native-coupling-v5/` conditional law and wrong-flag controls
@@ -108,10 +132,11 @@ binary code. Distributed/richer encodings remain open. #911 adds a reviewed
 finite-menu approximation and a scoped fixed-vector reset-reuse failure;
 neither supplies native gates or access closure.
 
-The next gate is native compilation or a cheaper native predicate with
-actual operand delivery, preserved/re-encoded carrier, full pointer metadata
-and complete delayed history for a natively stored carrier. General
-instruments, composites/Bell and full A1/A2 reconstruction remain in #913.
-Author and review replay normally and with -O; no full-suite, Lean or
-exact-head attestation, premise/access adoption, F/E designation, dispatch,
-merge or equivalence verdict follows.
+The next gate is native compilation or a cheaper native predicate, for
+example a native readout masked by fresh pads, with actual operand delivery,
+preserved/re-encoded carrier, full pointer metadata and complete delayed
+history for a natively stored carrier. General instruments, composites/Bell
+and full A1/A2 reconstruction remain in #913. Author and review replay
+normally and with -O; no full-suite, Lean or exact-head attestation,
+premise/access adoption, F/E designation, dispatch, merge or equivalence
+verdict follows.

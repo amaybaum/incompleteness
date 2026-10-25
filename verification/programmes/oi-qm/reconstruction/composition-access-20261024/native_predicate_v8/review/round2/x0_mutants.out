@@ -1,0 +1,6 @@
+["X1_region_shifted_same_size", 2, "VOID", "x0_scope_parameters"]
+["X2_slices_shifted_same_count", 2, "VOID", "x0_scope_parameters"]
+["X3_site_list_reordered", 2, "VOID", "x0_scope_parameters"]
+["X4_one_site_swapped", 2, "VOID", "x0_scope_parameters"]
+["X5_ball_itself_shifted", 1, "UNPARSED", ["KeyError: (0, 0, 0)"]]
+["X6_n_seven", 2, "VOID", "x0_scope_parameters"]
