@@ -19,5 +19,12 @@ K6_f9_cell_shifted           exit=2 CAUGHT   VOID: K6 Native A f9 public slack 7
 K6_shell_bound               exit=2 CAUGHT   VOID: K6 shell bank count 8/4
 K6_v14_index                 exit=2 CAUGHT   VOID: K6 v14 q10.A law count
 G_uniform_table              exit=2 CAUGHT   VOID: G uniform key gives uniform V on table rows
+K1_route_checks_pin          exit=2 CAUGHT   VOID: K1 input pin native_route_v13/checks.py
+K2_propagation_drops_old_local exit=2 CAUGHT   VOID: K2 propagated keys are the axial cells of both slices
+K3_counter_per_n             exit=2 CAUGHT   VOID: K3 countercontrol: off-axis cell must change two neighbors for every n
+K3_previous_key_shifted      exit=2 CAUGHT   VOID: K3 V is a permutation of the previous-slice key
+K5_E_moved                   exit=2 CAUGHT   VOID: K5 anchor E,N are their declared sources
+K5_ready_list_retyped        exit=2 CAUGHT   VOID: K5 ready list equals native_route_v13 geometry()
+K5_previous_radius           exit=2 CAUGHT   VOID: K5 anchor previous N position free
 D1_formula                   exit=2 CAUGHT   VOID: D1 V field formulas
-caught 21 of 21 mutants
+caught 28 of 28 mutants

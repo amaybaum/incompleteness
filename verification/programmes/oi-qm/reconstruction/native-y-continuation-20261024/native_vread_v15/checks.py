@@ -5,6 +5,7 @@ control raises ControlFailure; main() then prints VOID and exits with status 2.
 Inputs are read as data from the retained native package and pinned by hash.
 """
 import argparse
+import ast
 from collections import Counter
 from functools import lru_cache
 import hashlib
@@ -44,6 +45,8 @@ PINS = {
         'd8e7c1f5841192165beefb3fe35b069cc14cc93f2faa2bd68619aa7748b3db2f',
     'parallel_v3/history_control/SOURCE-GEOMETRY.json':
         '2642e1a68825faa5d3bb1049e8722adec1ec33bd3f56b9e4416b2c902a85ec5d',
+    'native_route_v13/checks.py':
+        '8c1bbc37f47b6ff7ad7ee67d719f058067e2e15e9a6a967adfb78ef57d1ed856',
 }
 TABLE_SHA256 = 'b2f32466113dede2fa9e43469f5c209fde5d610180ed748dcd025d4cd2a4b3cc'
 FEWEST_LAW = (1, 5, 1, 4, 1, 5)
@@ -86,7 +89,8 @@ def load_inputs(root):
     for rel, digest in sorted(PINS.items()):
         raw = (root/rel).read_bytes()
         need(hashlib.sha256(raw).hexdigest() == digest, 'K1 input pin '+rel)
-        data[rel] = json.loads(raw.decode('utf-8'))
+        text = raw.decode('utf-8')
+        data[rel] = json.loads(text) if rel.endswith('.json') else text
     route = data['native_route_v13/result.json']
     table = route['q10_table_hex']
     need(len(table) == 4096, 'K1 q10 table length')
@@ -101,7 +105,8 @@ def load_inputs(root):
     need(len(sources) == 1479, 'K1 inherited source inventory')
     return {'q10': [int(c, 16) for c in table], 'q9hex': q9hex,
             'sources': [tuple(row['position']) for row in sources],
-            'v14': data['native_decode_v14/result.json']}
+            'v14': data['native_decode_v14/result.json'],
+            'route_checks': data['native_route_v13/checks.py']}
 
 
 def q10_index(x, u, my, mr, a, b, e, n):
@@ -144,6 +149,64 @@ def reaches(c, w, t):
     return d <= t and (t-d) % 2 == 0
 
 
+def dependency_keys(nmax):
+    """Dependency sets propagated through the second-order rule itself.
+
+    dep(t,p) is the set of initial cells (slice,pos), slice 0 current and -1
+    previous, on which U_t(p) can depend: U_t(p) reads U_(t-2)(p) and the six
+    U_(t-1) neighbors.
+    """
+    memo = {}
+
+    def dep(t, p):
+        if (t, p) in memo:
+            return memo[t, p]
+        if t == 0:
+            out = frozenset({(0, p)})
+        elif t == -1:
+            out = frozenset({(-1, p)})
+        else:
+            acc = set(dep(t-2, p))
+            for step in STEPS:
+                acc |= dep(t-1, add(p, step))
+            out = frozenset(acc)
+        memo[t, p] = out
+        return out
+    origin = (0, 0, 0)
+    shared = mismatches = tested = 0
+    for n in range(1, nmax+1):
+        own = dep(n-1, origin)
+        nb = {e: dep(n, e) for e in STEPS}
+        keys = set()
+        for e in STEPS:
+            rest = set(own)
+            for f in STEPS:
+                if f != e:
+                    rest |= nb[f]
+            keys |= nb[e]-rest
+        need(keys == {(0, tuple((n+1)*v for v in e)) for e in STEPS} |
+             {(-1, tuple(n*v for v in e)) for e in STEPS},
+             'K2 propagated keys are the axial cells of both slices')
+        for c in small_ball(n+2):
+            if dist(c, origin) == n+1 and len([v for v in c if v]) > 1:
+                shared += sum(1 for e in STEPS if (0, c) in nb[e]) >= 2
+            for w, tt in [(origin, n-1)]+[(e, n) for e in STEPS]:
+                s = dep(tt, w)
+                tested += 1
+                mismatches += ((0, c) in s) != reaches(c, w, tt)
+                mismatches += ((-1, c) in s) != reaches_previous(c, w, tt)
+    need(mismatches == 0, 'K2 propagated cones equal the cone formula')
+    need(shared > 0, 'K2 propagated countercontrol: shared off-axis cell not found')
+    return {'n_range': [1, nmax], 'cells_times_targets_compared': tested,
+            'current_keys_axial_(n+1)e_previous_keys_axial_ne': True,
+            'shared_offaxis_current_cells': shared}
+
+
+def reaches_previous(c, w, t):
+    d = dist(c, w)
+    return d <= t-1 and (t-1-d) % 2 == 0
+
+
 def key_lemma():
     origin = (0, 0, 0)
     shared_seen = 0
@@ -179,17 +242,22 @@ def background(kind, seed, t, p):
             ^ (x*z+3*seed*t+y*seed+(x*y*z))) & 7
 
 
-def packed_world(kind, n, seed, cells):
+def packed_world(kind, n, seed, cells, previous_cells=None):
     """Bit-parallel native evaluation; cells maps a t=0 position to its lane values."""
-    lanes = len(next(iter(cells.values())))
+    previous_cells = previous_cells or {}
+    lanes = len(next(iter(list(cells.values())+list(previous_cells.values()))))
     full = (1 << lanes)-1
     planted = {p: tuple(sum(((vals[i] >> (2-k)) & 1) << i for i in range(lanes))
                         for k in range(3)) for p, vals in cells.items()}
+    planted_previous = {p: tuple(sum(((vals[i] >> (2-k)) & 1) << i for i in range(lanes))
+                                 for k in range(3)) for p, vals in previous_cells.items()}
 
     @lru_cache(None)
     def get(t, p):
         if t == 0 and p in planted:
             return planted[p]
+        if t == -1 and p in planted_previous:
+            return planted_previous[p]
         if t in (-1, 0):
             v = background(kind, seed, t, p)
             return tuple(full if (v >> (2-k)) & 1 else 0 for k in range(3))
@@ -208,11 +276,15 @@ def packed_world(kind, n, seed, cells):
     return value
 
 
-def scalar_world(kind, n, seed, assignment):
+def scalar_world(kind, n, seed, assignment, previous_assignment=None):
+    previous_assignment = previous_assignment or {}
+
     @lru_cache(None)
     def get(t, p):
         if t == 0 and p in assignment:
             return assignment[p]
+        if t == -1 and p in previous_assignment:
+            return previous_assignment[p]
         if t in (-1, 0):
             return background(kind, seed, t, p)
         acc = 0
@@ -224,7 +296,7 @@ def scalar_world(kind, n, seed, assignment):
 
 def native_key_controls():
     origin = (0, 0, 0)
-    worlds = scalar_rows = 0
+    worlds = scalar_rows = previous_worlds = 0
     counter = {kind: [] for kind in BACKGROUNDS}
     for kind, n, seed in product(BACKGROUNDS, range(1, 5), (0, 3, 8)):
         for e in STEPS:
@@ -238,13 +310,27 @@ def native_key_controls():
             need(len(set(nb[e])) == 8, 'K3 own neighbor is a permutation of the key')
             need(all(len(set(nb[w])) == 1 for w in STEPS if w != e),
                  'K3 other neighbors independent of key')
-            for lane in (0, 3, 6):
+            for lane in range(8):
                 get = scalar_world(kind, n, seed, {key: lane})
                 need(get(n+1, origin) == V[lane] and get(n-1, origin) == old[lane] and
                      all(get(n, w) == nb[w][lane] for w in STEPS),
                      'K3 scalar and packed evaluators agree')
                 scalar_rows += 1
             worlds += 1
+            # Previous-slice key n*e at t=-1.
+            pkey = tuple(n*v for v in e)
+            value = packed_world(kind, n, seed, {}, {pkey: list(range(8))})
+            V = value(n+1, origin)
+            need(len(set(V)) == 8, 'K3 V is a permutation of the previous-slice key')
+            need(len(set(value(n-1, origin))) == 1, 'K3 old-local q9 independent of previous-slice key')
+            need(len(set(value(n, e))) == 8, 'K3 own neighbor permutes the previous-slice key')
+            need(all(len(set(value(n, w))) == 1 for w in STEPS if w != e),
+                 'K3 other neighbors independent of previous-slice key')
+            for lane in range(8):
+                get = scalar_world(kind, n, seed, {}, {pkey: lane})
+                need(get(n+1, origin) == V[lane], 'K3 scalar and packed evaluators agree (previous)')
+                scalar_rows += 1
+            previous_worlds += 1
         off = (-n, 0, -1)
         value = packed_world(kind, n, seed, {off: list(range(8))})
         changed = [w for w in STEPS if len(set(value(n, w))) > 1]
@@ -255,8 +341,11 @@ def native_key_controls():
     # native data: the off-axis cell has to change two neighbors in at least
     # one world. Per-world counts are reported for both background families.
     need(any(counter['sha256']), 'K3 countercontrol: off-axis cell must change two neighbors')
+    need(all(any(counter['sha256'][3*i:3*i+3]) for i in range(4)),
+         'K3 countercontrol: off-axis cell must change two neighbors for every n')
     return {'worlds_two_backgrounds_n1_to_4_three_seeds_six_keys': worlds,
-            'scalar_comparisons': scalar_rows,
+            'previous_slice_key_worlds': previous_worlds,
+            'scalar_comparisons_all_8_lanes': scalar_rows,
             'offaxis_cell_changes_two_neighbors_worlds': {
                 kind: '%d of %d' % (sum(v), len(v)) for kind, v in counter.items()}}
 
@@ -300,6 +389,58 @@ def ready_balls():
     balls += [((-48*L, 0, 0), L)]
     need(len(balls) == 24, 'K5 inherited ready-ball count')
     return balls, balls+[(Q10, L+1)]
+
+
+def safe_value(node, env):
+    """Evaluate a literal geometry expression without executing any code."""
+    if isinstance(node, ast.Constant) and type(node.value) is int:
+        return node.value
+    if isinstance(node, ast.Name):
+        need(node.id in env, 'K5 route geometry: unknown name '+node.id)
+        return env[node.id]
+    if isinstance(node, (ast.Tuple, ast.List)):
+        items = [safe_value(x, env) for x in node.elts]
+        return tuple(items) if isinstance(node, ast.Tuple) else items
+    if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+        return -safe_value(node.operand, env)
+    if isinstance(node, ast.BinOp) and type(node.op) in (ast.Add, ast.Sub, ast.Mult):
+        a, b = safe_value(node.left, env), safe_value(node.right, env)
+        return a+b if isinstance(node.op, ast.Add) else a-b if isinstance(node.op, ast.Sub) else a*b
+    if (isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and not node.keywords
+            and node.func.id in ('list', 'zip', 'range')):
+        args = [safe_value(x, env) for x in node.args]
+        if node.func.id == 'range':
+            need(len(args) == 1 and 0 <= args[0] <= 100, 'K5 route geometry: range bound')
+            return list(range(args[0]))
+        if node.func.id == 'zip':
+            return list(zip(*args))
+        return list(args[0])
+    if isinstance(node, ast.ListComp) and len(node.generators) == 1:
+        g = node.generators[0]
+        need(isinstance(g.target, ast.Name) and not g.ifs, 'K5 route geometry: comprehension form')
+        return [safe_value(node.elt, dict(env, **{g.target.id: v})) for v in safe_value(g.iter, env)]
+    raise ControlFailure('K5 route geometry: unsupported expression')
+
+
+def route_geometry(text):
+    """Read native_route_v13's ready list, ports, deadlines and directions as data."""
+    tree = ast.parse(text)
+    function = [f for f in tree.body if isinstance(f, ast.FunctionDef) and f.name == 'geometry']
+    need(len(function) == 1, 'K5 route geometry: one geometry() function')
+    env = {'T': T, 'P': P, 'S': S, 'R': R, 'L': L}
+    found = {}
+    for stmt in function[0].body:
+        if (isinstance(stmt, ast.Assign) and len(stmt.targets) == 1 and isinstance(stmt.targets[0], ast.Name)
+                and stmt.targets[0].id in ('target', 'deadline', 'ports', 'deadlines', 'ready', 'directions')):
+            found[stmt.targets[0].id] = safe_value(stmt.value, env)
+            env[stmt.targets[0].id] = found[stmt.targets[0].id]
+        elif (isinstance(stmt, ast.AugAssign) and isinstance(stmt.target, ast.Name)
+              and stmt.target.id == 'ready' and isinstance(stmt.op, ast.Add)):
+            found['ready'] = found['ready']+safe_value(stmt.value, env)
+            env['ready'] = found['ready']
+    need(set(found) == {'target', 'deadline', 'ports', 'deadlines', 'ready', 'directions'},
+         'K5 route geometry: all lists found')
+    return found
 
 
 def local_sources():
@@ -366,8 +507,26 @@ def receiver_info(cell):
     return nearest, text, slack <= 2
 
 
-def geometry(inventory):
+def classify_previous(cell, balls):
+    # Previous-slice readiness is the ball of radius one less about each
+    # centre (native_route_v13/PLAN.md; native_v11 'smaller previous ready
+    # regions'). Sources and bank coordinates are current-slice triples.
+    for center, radius in balls:
+        if dist(cell, center) <= radius-1:
+            return 'PINNED', 'previous ready ball'
+    return 'FREE', 'complement'
+
+
+def geometry(inventory, route_text):
     inherited, balls = ready_balls()
+    route = route_geometry(route_text)
+    need([tuple(x) for x in route['ready']] == inherited,
+         'K5 ready list equals native_route_v13 geometry()')
+    need(route['target'] == Q10 and route['deadline'] == L+1,
+         'K5 q10 extension equals native_route_v13 geometry()')
+    need(route['ports'] == [p for p, _, _ in PORTS] and route['deadlines'] == [dl for _, _, dl in PORTS]
+         and route['directions'] == [d for _, d, _ in PORTS],
+         'K5 ports, deadlines and bank directions equal native_route_v13 geometry()')
     inv = set(inventory)
     anchors = {
         'q10_axial': classify(add(Q10, (0, 0, 1), L+1), inv, balls),
@@ -378,13 +537,21 @@ def geometry(inventory):
         'port0_bank_T+2': classify((0, -2, 0), inv, balls),
         'q10_ready_interior': classify((0, S, 78+L), inv, balls),
     }
-    need(anchors['q10_axial'][0] == 'PINNED', 'K5 anchor q10 axial pinned')
-    need(anchors['E'][0] == 'PINNED' and anchors['N'][0] == 'PINNED', 'K5 anchor E,N pinned')
-    need(anchors['F10_position'][0] == 'PINNED', 'K5 anchor F10 pinned')
+    need(tuple(anchors['q10_axial']) == ('PINNED', 'source N'), 'K5 anchor q10 axial is source N')
+    need(tuple(anchors['E']) == ('PINNED', 'source E') and tuple(anchors['N']) == ('PINNED', 'source N'),
+         'K5 anchor E,N are their declared sources')
+    need(tuple(anchors['F10_position']) == ('PINNED', 'source F10_pin'), 'K5 anchor F10 is its pin')
     need(anchors['F8_position'][0] == 'FREE', 'K5 anchor F8 free')
     need(anchors['port0_bank_T+2'][0] == 'BANK', 'K5 anchor port-0 bank')
     need(tuple(anchors['q10_ready_interior']) == ('PINNED', 'ready ball'), 'K5 anchor q10 ready ball')
     need(receiver_info((0, -2, 0))[2], 'K5 anchor receiver reached by a port-0 bank cell')
+    previous_anchors = {'previous_q9': classify_previous(Q9, balls),
+                        'previous_N_position': classify_previous((0, S, S+156), balls)}
+    need(tuple(previous_anchors['previous_q9']) == ('PINNED', 'previous ready ball'),
+         'K5 anchor previous q9 pinned')
+    need(tuple(previous_anchors['previous_N_position']) == ('FREE', 'complement'),
+         'K5 anchor previous N position free')
+    anchors.update(previous_anchors)
     need(receiver_info((-(L+1), S, 76))[1:] == ('L+77', False), 'K6 Native A f8 public slack 77')
     # K6: E and N avoid every inherited ready ball, as native_route_v13 checks.
     for pos in ((0, -78, 78), (0, S, S+156)):
@@ -400,10 +567,31 @@ def geometry(inventory):
         keys.append({'direction': STEP_NAMES[e], 'cell': key_text(e),
                      'ready_balls_containing': [i for i, (c, r) in enumerate(balls)
                                                 if dist(cell, c) <= r],
+                     'ready_margin': min(dist(cell, c)-r for c, r in balls),
+                     'balls_at_ready_margin': [i for i, (c, r) in enumerate(balls)
+                                               if dist(cell, c)-r == min(dist(cell, cc)-rr
+                                                                         for cc, rr in balls)],
                      'status': status, 'reason': reason,
                      'nearest_receiver': nearest, 'nearest_receiver_distance': near_text,
                      'receiver_reached_by_L+2': reached,
                      'operand_cell': e == (0, 0, 1)})
+    previous_keys = []
+    for e in STEPS:
+        cell = add(Q9, e, L+1)
+        need(dist(cell, add(Q9, e)) == L and dist(cell, Q9) == L+1 and
+             all(dist(cell, add(Q9, f)) == L+2 for f in STEPS if f != e), 'G previous key private')
+        status, reason = classify_previous(cell, balls)
+        nearest = min(range(len(RECEIVERS)), key=lambda i: dist(cell, RECEIVERS[i]))
+        distance = dist(cell, RECEIVERS[nearest])
+        previous_keys.append({
+            'direction': STEP_NAMES[e], 'cell': key_text(e).replace('(L+2)', '(L+1)'),
+            'status': status, 'reason': reason,
+            'previous_ready_margin': min(dist(cell, c)-(r-1) for c, r in balls),
+            'nearest_receiver': nearest,
+            'nearest_receiver_distance': ('L%+d' % (distance-L)) if abs(distance-L) < 10**6 else str(distance),
+            # A previous-slice cell influences (t,w) only if dist <= t-1.
+            'receiver_reached_by_L+2': distance <= L+1,
+            'operand_cell': e == (0, 0, 1)})
     f9 = add(Q9, (-1, 0, 0), L+2)
     need(min(dist(f9, p) for p, _, _ in PORTS)-L == 79, 'K6 Native A f9 public slack 79')
     banks = shell_banks()
@@ -411,6 +599,8 @@ def geometry(inventory):
     need(all(b['distance_to_q9_over_L'] == 2 for b in banks if b['active']), 'K6 active banks at L+2')
     q10_ports = [(i, dist(Q10, p)) for i, (p, _, _) in enumerate(PORTS) if dist(Q10, p) < 10**6]
     return {'anchors': {k: list(v) for k, v in anchors.items()}, 'keys': keys,
+            'previous_slice_keys': previous_keys,
+            'ready_list_equals_native_route_v13_geometry': True,
             'ready_ball_order': 'ports 0-7 with their deadlines; (T,0,0),(-T,0,0),(4T,0,0) radius T; '
                                 '((0,S,-68),R); ((-12R,0,0),R); ((0,S,68+k),R+k) for k=0..9; '
                                 '((-48L,0,0),L); B_(L+1)(q10)',
@@ -485,48 +675,67 @@ def read_algebra():
 
 # ------------------------------------------------------------------- verdict
 
+def plural(n, one, many):
+    return '%d %s' % (n, one if n == 1 else many)
+
+
+def key_list(keys):
+    return ', '.join('%s key %s' % (k['direction'], k['cell']) for k in keys)
+
+
 def verdict(geo):
     others = [k for k in geo['keys'] if not k['operand_cell']]
     clean = [k for k in others if k['status'] == 'FREE' and not k['receiver_reached_by_L+2']]
     public = [k for k in others if k['status'] == 'FREE' and k['receiver_reached_by_L+2']]
     banks = [k for k in others if k['status'] == 'BANK']
+    previous = [k for k in geo['previous_slice_keys'] if not k['operand_cell'] and k['status'] == 'FREE']
     base = {'free_keys_unseen_by_public_records': [k['direction'] for k in clean],
             'free_keys_reaching_a_public_port_by_L+2': [k['direction'] for k in public],
-            'bank_keys': [k['direction'] for k in banks]}
+            'bank_keys': [k['direction'] for k in banks],
+            'free_previous_slice_keys': [k['direction'] for k in previous],
+            'outcome_rule_uses': 'current-slice keys, as preregistered'}
     if not clean:
         base.update({'outcome': 'NOT_DECIDED_BY_THIS_PLAN',
-                     'statement': 'No non-q10 key cell is a free complement variable unseen by '
-                                  'the public records through L+2; delivery and leakage need the '
-                                  'full native V kernel, which this plan does not compute.'})
+                     'statement': 'No non-q10 current-slice key cell is a free complement variable '
+                                  'unseen by the public records through L+2; delivery and leakage '
+                                  'need the full native V kernel, which this plan does not compute.'})
         return base
     names = ', '.join('%s key %s (nearest public receiver at distance %s)'
                       % (k['direction'], k['cell'], k['nearest_receiver_distance']) for k in clean)
-    extra = ''
+    text = (
+        '%s of the 5 non-q10 current-slice key cells of q9 at L+2 %s free complement '
+        'variables under the native_route_v13 contract that no permitted record through L+2 '
+        'depends on: %s. For each such key and every fixed value of all other initial '
+        'variables, V=U_(L+2)(q9) is a permutation of the key triple, while the old q9 record '
+        'and every other permitted record through L+2 do not depend on it (nor does the private '
+        'cell q10 at L+1). (i) No fixed readout of the whole V equals s for every complement '
+        'value. (ii) If such a key is uniform given all other initial variables, V is uniform '
+        'and independent of q10.A, s, the seeds and every other permitted record through L+2: '
+        'under a uniform free key the read is harmless and carries no operand. (iii) Delivery '
+        'through this read needs the %s known, by pinning (a preparation change) or by reading '
+        'the q9 %s at L+1 (an access change).') % (
+            len(clean), 'is a' if len(clean) == 1 else 'are', names,
+            plural(len(clean), 'unseen free key', 'unseen free keys'),
+            'neighbor' if len(clean) == 1 else 'neighbors')
     if public:
-        extra = (' The %s key %s is also a free complement variable but reaches public port %d '
-                 'at distance %s, so it couples V to that port record; their joint law is not '
-                 'computed here.') % (public[0]['direction'], public[0]['cell'],
-                                      public[0]['nearest_receiver'],
-                                      public[0]['nearest_receiver_distance'])
-        if len(public) > 1:
-            extra += ' %d further such keys exist.' % (len(public)-1)
-    every = len(clean)+len(public)
-    base.update({
-        'outcome': 'NEGATIVE_FOR_CONSTRUCTION',
-        'statement': (
-            '%d of the 5 non-q10 key cells of q9 at L+2 are free complement variables under '
-            'the native_route_v13 contract that no permitted record through L+2 depends on: '
-            '%s. For each such key and every fixed value of all other initial variables, '
-            'V=U_(L+2)(q9) is a permutation of the key triple, while the old q9 record, q10 at '
-            'L+1 and every other permitted record through L+2 do not depend on it. (i) No '
-            'nonconstant fixed readout of the whole V equals s for every complement value. '
-            '(ii) If such a key is uniform given all other initial variables, V is uniform and '
-            'independent of q10.A, s, the seeds and every other permitted record through L+2: '
-            'the read is harmless and carries no operand. (iii) Delivery through this read '
-            'needs at least these %d free key cells known (necessary, not sufficient: shared '
-            'complement cells also enter V): pinning them (a preparation change) or reading '
-            'their q9 neighbors at L+1 (an access change). Neither is adopted; the test stops '
-            'there.%s') % (len(clean), names, every, extra)})
+        text += (' The %s %s also free and %s a public port by L+2 (%s); %s must also be '
+                 'determined, by pinning, by reading the q9 %s at L+1, or from the permitted port '
+                 'record, which is not computed here. If an unseen free key is uniform, V is '
+                 'independent of that port record by (ii); otherwise their joint law is not '
+                 'computed.') % (
+            key_list(public), 'is' if len(public) == 1 else 'are',
+            'reaches' if len(public) == 1 else 'reach',
+            ', '.join('port %d at distance %s' % (k['nearest_receiver'], k['nearest_receiver_distance'])
+                      for k in public),
+            'it' if len(public) == 1 else 'they',
+            'neighbor' if len(public) == 1 else 'neighbors')
+    if previous:
+        text += (' The previous-slice %s %s also free; %s must also be determined in one of '
+                 'these ways.') % (key_list(previous), 'is' if len(previous) == 1 else 'are',
+                                   'it' if len(previous) == 1 else 'each')
+    text += (' These are necessary conditions, not sufficient: shared complement cells also '
+             'enter V. Neither change is adopted; the test stops there.')
+    base.update({'outcome': 'NEGATIVE_FOR_CONSTRUCTION', 'statement': text})
     return base
 
 
@@ -538,9 +747,10 @@ def main():
     try:
         data = load_inputs(args.source_root)
         controls = {'K2_key_lemma': key_lemma(),
+                    'K2_dependency_propagation': dependency_keys(6),
                     'K3_native_key_permutation': native_key_controls(),
                     'K4_delivery_detector': detector_controls()}
-        geo = geometry(data['sources'])
+        geo = geometry(data['sources'], data['route_checks'])
         table = table_checks(data)
         algebra = read_algebra()
     except ControlFailure as failure:
@@ -566,7 +776,7 @@ def main():
         'not_established': [
             'privacy of the V read under a complement law in which no free key is uniform',
             'multi-tick stages, other reads, other layouts, readiness extensions',
-            'previous-slice key cells (not classified by this plan)',
+            'previous-slice keys enter (iii) only; the outcome rule uses current-slice keys',
             'Native A geometry with its own pool; acceptance predicate; carrier law',
             'any access rule or preparation change; A1 or A2 reconstruction; OI generally'],
     }
