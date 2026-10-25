@@ -1,0 +1,86 @@
+"""Mutants for a2_memory_v8/checks.py: each must fail cleanly on the control it targets.
+
+Standard library only. The unmodified checker runs first and must reproduce result.json byte for byte;
+then each mutant is written to a temporary directory (with the checker's own directory substituted for
+its location, so the pinned input still resolves) and run with python3 -I -B. A mutant counts as caught
+only when it exits 2 and its first output line begins with VOID and the targeted control's label. The report is deterministic.
+"""
+import os
+import subprocess
+import sys
+import tempfile
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+TARGET = os.path.normpath(os.path.join(HERE, '..'))
+CHECKS = os.path.join(TARGET, 'checks.py')
+RESULT = os.path.join(TARGET, 'result.json')
+
+MUTANTS = [
+    ('M1_grid_constant', 'K1 memoryless reproduction',
+     'g = Grid(16, 16, 24)', 'g = Grid(16, 17, 24)', 'K1 rebuilt counts equal executed a2 controller'),
+    ('M2_cut_rounding', 'K2 retained-seed reproduction',
+     'j = -((-x.numerator) // x.denominator)        # ceil', 'j = x.numerator // x.denominator',
+     'K2 retained-seed TV equals a2_depth_v7'),
+    ('M3_mismatch_range_n1', 'K5 marginal insufficiency / step (4)',
+     'RUN_RANGE = None', 'RUN_RANGE = 1', 'step4 dyadic chain without run mismatch'),
+    ('M4_base5_to_base4', 'K4 base-5 countercontrol',
+     "for D0, D1 in enumerate_chains(n, 5):\n            chains += 1\n            for cl in class_analysis(n, D0, D1, 5):",
+     "for D0, D1 in enumerate_chains(n, 4):\n            chains += 1\n            for cl in class_analysis(n, D0, D1, 4):",
+     'K4 base-5 countercontrol finds an exact match'),
+    ('M5_root_rounding', 'K7 certified enclosures',
+     'hi = Q(k, d) if Q(k, d) ** 2 >= x else Q(k + 1, d)', 'hi = Q(k, d)', 'K7 square-root upper enclosure'),
+    ('M6_missing_restart', 'K8 restart mechanics',
+     'if self.clear and self.j == self.k:', 'if False:', 'K8 state machine equals product of block laws'),
+    ('M7_half_depth_off_by_one', 'K7 depth minimality',
+     'n_half = floor_q(1 / c_low) + 1', 'n_half = floor_q(1 / c_low) + 2', 'K7 half-depth minimal for its rule'),
+    ('M8_wrong_initial_phase', 'K1 generic engine',
+     "chain = {'n': 4, 'init': {idx['X', 1]: Q(1)}, 'D': D}", "chain = {'n': 4, 'init': {idx['a', 1]: Q(1)}, 'D': D}",
+     'K1 generic engine equals product engine'),
+    ('M9_pinned_hash', 'pinned input',
+     "V7_RESULT_SHA256 = '2e8988de", "V7_RESULT_SHA256 = '2e8988df", 'K1/K2 pinned a2_depth_v7 result.json hash'),
+    ('M10_memoryless_rounding', 'K6 RS(4,1) memoryless identity',
+     'p4 = Q(-((-4 * 16) // 5), 16)', 'p4 = Q((4 * 16) // 5, 16)', 'K6 RS(4,1) is the memoryless 4-bit reset'),
+]
+
+LOCATION = 'HERE = os.path.dirname(os.path.abspath(__file__))'
+
+
+def run(path):
+    p = subprocess.run([sys.executable, '-I', '-B', path], capture_output=True, text=True)
+    return p.returncode, p.stdout
+
+
+def main():
+    with open(CHECKS) as f:
+        src = f.read()
+    lines = []
+    code, out = run(CHECKS)
+    with open(RESULT) as f:
+        ref = f.read()
+    if code != 0 or out != ref:
+        print('VOID: unmodified checker does not reproduce result.json')
+        sys.exit(2)
+    lines.append('unmodified: exit 0, output equals result.json')
+    caught_all = True
+    with tempfile.TemporaryDirectory() as tmp:
+        for name, control, old, new, label in MUTANTS:
+            if src.count(old) != 1 or src.count(LOCATION) != 1:
+                print(f'VOID: mutant {name} does not apply exactly once')
+                sys.exit(2)
+            mutated = src.replace(old, new).replace(LOCATION, f'HERE = {TARGET!r}')
+            path = os.path.join(tmp, name + '.py')
+            with open(path, 'w') as f:
+                f.write(mutated)
+            code, out = run(path)
+            first = out.splitlines()[0] if out else ''
+            caught = code == 2 and first.startswith('VOID: ' + label)
+            caught_all &= caught
+            lines.append(f'{name}: targets {control}; exit {code}; {first[:120]}; '
+                         + ('CAUGHT' if caught else 'NOT CAUGHT'))
+    lines.append('all mutants caught' if caught_all else 'SOME MUTANT NOT CAUGHT')
+    print('\n'.join(lines))
+    sys.exit(0 if caught_all else 1)
+
+
+if __name__ == '__main__':
+    main()

@@ -1,0 +1,12 @@
+unmodified: exit 0, output equals result.json
+M1_grid_constant: targets K1 memoryless reproduction; exit 2; VOID: K1 rebuilt counts equal executed a2 controller; CAUGHT
+M2_cut_rounding: targets K2 retained-seed reproduction; exit 2; VOID: K2 retained-seed TV equals a2_depth_v7; CAUGHT
+M3_mismatch_range_n1: targets K5 marginal insufficiency / step (4); exit 2; VOID: step4 dyadic chain without run mismatch (n=2, B=2): proof route contradicted; CAUGHT
+M4_base5_to_base4: targets K4 base-5 countercontrol; exit 2; VOID: K4 base-5 countercontrol finds an exact match; CAUGHT
+M5_root_rounding: targets K7 certified enclosures; exit 2; VOID: K7 square-root upper enclosure; CAUGHT
+M6_missing_restart: targets K8 restart mechanics; exit 2; VOID: K8 state machine equals product of block laws; CAUGHT
+M7_half_depth_off_by_one: targets K7 depth minimality; exit 2; VOID: K7 half-depth minimal for its rule; CAUGHT
+M8_wrong_initial_phase: targets K1 generic engine; exit 2; VOID: K1 generic engine equals product engine (h<=12); CAUGHT
+M9_pinned_hash: targets pinned input; exit 2; VOID: K1/K2 pinned a2_depth_v7 result.json hash; CAUGHT
+M10_memoryless_rounding: targets K6 RS(4,1) memoryless identity; exit 2; VOID: K6 RS(4,1) is the memoryless 4-bit reset; CAUGHT
+all mutants caught

@@ -1,0 +1,47 @@
+{
+  "authority": "Research only; A2 (finite-precision operational approximation) only. No native implementation, map/access/premise adoption, A1 statement, total-randomness bound or OI equivalence.",
+  "comparison": "Complete public record of the alternating a/X read protocol from X+, source versus quantum projective instrument, for (i) every controller with finite persistent state, a time-independent update and one fresh block of B fair bits per slot, and (ii) the a2_depth_v7 retained-seed reset restarted every k reads, RS(B,k).",
+  "contextual_source_sha256_relative_to_source_prefix": {
+    "CURRENT-HANDOFF.md": "a8a1c52a44765c9895598784a60e900a120589b9638fc7959a3d11d13e0ea361",
+    "a2_depth_v7/REPORT.md": "b5fa4728b3502189458f572d27aec72526301af6c90bb5342abdffeb9093c103",
+    "a2_depth_v7/checks.py": "9c23fab7a4054ed7cb9899aa20064f2df74baf32d5c4bba1e70195e4767dc164"
+  },
+  "engine": "Self-contained standard-library exact integer/rational engine; imports no prior checker; rebuilds the executed grid and checks it against the retained a2 count digest; reads a2_depth_v7/result.json after checking its pinned SHA-256 and uses its values only as reproduction targets.",
+  "guiding_pr": 911,
+  "input_read_by_checker": {
+    "path": "a2_depth_v7/result.json",
+    "sha256": "2e8988de7285cf1ae6781fbed37eb4e869ecf16511b374a923b5dcdbfed589a7",
+    "values_used": [
+      "controller.A_reset_a_read_X",
+      "controller.B_reset_X_read_a",
+      "exact_tv_h1_to_4",
+      "exact_tv_table.<1..64>.sha256",
+      "class_statement.limiting_counterexample_retained_seed_reset"
+    ]
+  },
+  "literature": [
+    {
+      "scope_used": "standard facts used in the proof in REPORT.md: Cayley-Hamilton theorem; rational root theorem for monic integer polynomials; strong law of large numbers for i.i.d. sequences; ergodic theorem for irreducible finite Markov chains; total variation on an increasing generating sequence of algebras; Bhattacharyya bounds 1-TV <= BC and TV <= sqrt(1-BC^2)"
+    },
+    {
+      "authors": "Shizuo Kakutani",
+      "scope_used": "credited, as in a2_depth_v7, for the separation of infinite products of nonidentical laws",
+      "title": "On equivalence of infinite product measures",
+      "venue": "Annals of Mathematics 49 (1948) 214-224"
+    }
+  ],
+  "mutants": "mutants/run_mutants.py and its output mutants/mutants.out",
+  "plan_commit_before_computation": "1dfec979721336cc9f0ce703b544f9d6be8e906c",
+  "plan_commit_note": "committed at 1dfec979 (2026-10-25 03:52:56 UTC), a single-parent child of #911's head 49e1a119, before any computation on the tested class or family; one earlier floating-point exploration of a different candidate (a floor-truncated rescaling decoder, not adopted and not reported) preceded the plan",
+  "plan_path": "verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8/PLAN.md",
+  "plan_sha256": "b7f7eaae58de13b9eb348bb4e31e92a7bce6741be64553c9ba496af9a2c6a275",
+  "replay": [
+    "python3 -I -B verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8/checks.py > out.json && cmp out.json verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8/result.json",
+    "python3 -I -B -O verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8/checks.py > out.json && cmp out.json verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8/result.json",
+    "python3 -I -B verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8/mutants/run_mutants.py > m.out && cmp m.out verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8/mutants/mutants.out",
+    "paths are relative to the repository root; run from an empty working directory with those paths made absolute"
+  ],
+  "schema": "oi.a2-bounded-memory-v8.provenance.v1",
+  "source_head": "49e1a1191c9ea5c303883afd2d8d3c28a233f9e5",
+  "source_prefix": "verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/"
+}
