@@ -442,7 +442,7 @@ P-indivisibility is a precise property of stochastic processes that requires unp
 $$T(t_3, t_1) = \Lambda(t_3, t_2) \cdot T(t_2, t_1),$$
 where $\Lambda(t_3, t_2)$ is a valid stochastic matrix — non-negative entries, rows summing to one. P-divisibility expresses the natural intuition that probabilistic dynamics should compose: the probability of going from $x_i$ to $x_k$ over the long interval $[t_1, t_3]$ should be obtainable by chaining the probability of going from $x_i$ to some intermediate state $x_j$ over $[t_1, t_2]$ with the probability of continuing from $x_j$ to $x_k$ over $[t_2, t_3]$. Classical Markov processes satisfy this property trivially because the future depends only on the present state, not on history. P-indivisibility means the factorization fails: the candidate intermediate propagator $\Lambda(t_3, t_2)$ that would make the equation hold has negative entries, and no valid stochastic matrix exists.
 
-Breuer, Laine, and Piilo [9] showed that P-indivisibility is equivalent to a more directly interpretable property: *information backflow*. In a P-divisible process, the distinguishability of any two initial conditions can only decrease over time — the future loses information about the past monotonically, as in any classical Markov chain reaching equilibrium. In a P-indivisible process, distinguishability can rebound: information about the initial condition that appeared lost can return to the visible sector at a later time. The system is not memoryless. The "memory" lives in the hidden sector, where correlations laid down by the visible sector's history are preserved and later read back.
+Breuer, Laine, and Piilo (2009) introduced a more directly interpretable signature of non-Markovian dynamics: *information backflow*. In a P-divisible process, the distinguishability of any two initial conditions can only decrease over time — the future loses information about the past monotonically, as in any classical Markov chain reaching equilibrium. In a P-indivisible process, distinguishability can rebound: information about the initial condition that appeared lost can return to the visible sector at a later time. The system is not memoryless. The "memory" lives in the hidden sector, where correlations laid down by the visible sector's history are preserved and later read back. The signature runs one way: a rebound certifies P-indivisibility, but a P-indivisible process need not produce one — some keep the distinguishability of every pair of initial distributions non-increasing ([Main §2.3]) — so the absence of backflow does not establish P-divisibility.
 
 The proof of the theorem uses the total variation distance between probability distributions,
 $$d(p, q) = \tfrac{1}{2} \sum_k |p_k - q_k|.$$
@@ -6795,6 +6795,8 @@ Maybaum, A. (2026). *The Observational Incompleteness Framework*. Zenodo, concep
 ## Foundations of quantum mechanics and interpretation
 
 Arnold, V. I. (1989). *Mathematical Methods of Classical Mechanics* (2nd ed., Graduate Texts in Mathematics 60). Springer-Verlag.
+
+Breuer, H.-P., Laine, E.-M., & Piilo, J. (2009). Measure for the degree of non-Markovian behavior of quantum processes in open systems. *Physical Review Letters* 103: 210401. arXiv:0908.0238.
 
 Breuer, T. (1995). The impossibility of accurate state self-measurements. *Philosophy of Science* 62(2): 197–214.
 

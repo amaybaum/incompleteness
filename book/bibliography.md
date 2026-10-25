@@ -14,6 +14,8 @@ Maybaum, A. (2026). *The Observational Incompleteness Framework*. Zenodo, concep
 
 Arnold, V. I. (1989). *Mathematical Methods of Classical Mechanics* (2nd ed., Graduate Texts in Mathematics 60). Springer-Verlag.
 
+Breuer, H.-P., Laine, E.-M., & Piilo, J. (2009). Measure for the degree of non-Markovian behavior of quantum processes in open systems. *Physical Review Letters* 103: 210401. arXiv:0908.0238.
+
 Breuer, T. (1995). The impossibility of accurate state self-measurements. *Philosophy of Science* 62(2): 197–214.
 
 Engel, K.-J., & Nagel, R. (2000). *One-Parameter Semigroups for Linear Evolution Equations* (Graduate Texts in Mathematics 194). Springer-Verlag.

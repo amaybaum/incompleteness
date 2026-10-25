@@ -145,7 +145,7 @@ $$T(t_3, t_1) = \Lambda(t_3, t_2) \cdot T(t_2, t_1)$$
 
 where Λ has non-negative entries and rows summing to 1. "P-indivisible" means this fails — the "intermediate propagator" would need negative entries, which means it's not a valid probability matrix.
 
-Breuer, Laine, and Piilo proved that P-indivisibility is equivalent to "information backflow" — the system's distinguishability can *increase* over time. In a classical Markov process, you can only lose information (mixing). In a P-indivisible process, information comes back. This is exactly what quantum systems do — interference, revivals, and non-classical correlations all involve information returning from where it was stored.
+Breuer, Laine, and Piilo introduced "information backflow" — the system's distinguishability *increasing* over time — as the signature of non-Markovian dynamics. In a classical Markov process, you can only lose information (mixing); the same holds in any P-divisible process, so backflow certifies P-indivisibility, though a P-indivisible process need not show it. Where it does, information comes back. This is exactly what quantum systems do — interference, revivals, and non-classical correlations all involve information returning from where it was stored.
 
 **The setup.** We work on finite sets (Lemma 1). The visible sector has states C_V = {x_1, x_2, ...} with |C_V| ≥ 2. The hidden sector has states C_H = {h_1, h_2, ...}. The total dynamics is a bijection φ on C_V × C_H. The transition matrix is:
 
