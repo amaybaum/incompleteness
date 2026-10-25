@@ -1,0 +1,276 @@
+{
+ "base": "bef79f6f3daec0b734a7d9c6a9423ed634852818",
+ "candidate_stage": "unchanged native update V=U_L(q9) XOR H(XOR of six q9 neighbors at L+1)",
+ "controls": {
+  "K2_key_lemma": {
+   "keys_equal_six_axial_cells": true,
+   "lattice_sizes_n": [
+    2,
+    7
+   ],
+   "shared_offaxis_cells_seen": 772
+  },
+  "K3_native_key_permutation": {
+   "offaxis_cell_changes_two_neighbors_worlds": {
+    "polynomial": "6 of 12",
+    "sha256": "11 of 12"
+   },
+   "scalar_comparisons": 432,
+   "worlds_two_backgrounds_n1_to_4_three_seeds_six_keys": 144
+  },
+  "K4_delivery_detector": {
+   "detector_rows": 1536,
+   "pinned_key_TV": 1,
+   "uniform_key_TV": 0
+  }
+ },
+ "diagnostic_read_algebra": {
+  "V.A": "p.A XOR Sigma.B",
+  "V.B": "p.B XOR Sigma.D",
+  "V.D": "p.D XOR Sigma.A XOR Sigma.B*Sigma.D",
+  "given_p_V_determines_whole_Sigma": true
+ },
+ "geometry": {
+  "anchors": {
+   "E": [
+    "PINNED",
+    "source E"
+   ],
+   "F10_position": [
+    "PINNED",
+    "source F10_pin"
+   ],
+   "F8_position": [
+    "FREE",
+    "complement"
+   ],
+   "N": [
+    "PINNED",
+    "source N"
+   ],
+   "port0_bank_T+2": [
+    "BANK",
+    "port 0 index deadline+2"
+   ],
+   "q10_axial": [
+    "PINNED",
+    "source N"
+   ],
+   "q10_ready_interior": [
+    "PINNED",
+    "ready ball"
+   ]
+  },
+  "inherited_ready_balls": 24,
+  "inherited_sources": 1479,
+  "keys": [
+   {
+    "cell": "((L+2),S,77)",
+    "direction": "+x",
+    "nearest_receiver": 4,
+    "nearest_receiver_distance": "L-476",
+    "operand_cell": false,
+    "ready_balls_containing": [
+     4
+    ],
+    "reason": "ready ball",
+    "receiver_reached_by_L+2": true,
+    "status": "PINNED"
+   },
+   {
+    "cell": "(-(L+2),S,77)",
+    "direction": "-x",
+    "nearest_receiver": 3,
+    "nearest_receiver_distance": "L+79",
+    "operand_cell": false,
+    "ready_balls_containing": [],
+    "reason": "complement",
+    "receiver_reached_by_L+2": false,
+    "status": "FREE"
+   },
+   {
+    "cell": "(0,S+(L+2),77)",
+    "direction": "+y",
+    "nearest_receiver": 5,
+    "nearest_receiver_distance": "L+79",
+    "operand_cell": false,
+    "ready_balls_containing": [],
+    "reason": "complement",
+    "receiver_reached_by_L+2": false,
+    "status": "FREE"
+   },
+   {
+    "cell": "(0,S-(L+2),77)",
+    "direction": "-y",
+    "nearest_receiver": 0,
+    "nearest_receiver_distance": "341",
+    "operand_cell": false,
+    "ready_balls_containing": [],
+    "reason": "complement",
+    "receiver_reached_by_L+2": true,
+    "status": "FREE"
+   },
+   {
+    "cell": "(0,S,77+(L+2))",
+    "direction": "+z",
+    "nearest_receiver": 5,
+    "nearest_receiver_distance": "L+79",
+    "operand_cell": true,
+    "ready_balls_containing": [
+     24
+    ],
+    "reason": "source N",
+    "receiver_reached_by_L+2": false,
+    "status": "PINNED"
+   },
+   {
+    "cell": "(0,S,77-(L+2))",
+    "direction": "-z",
+    "nearest_receiver": 5,
+    "nearest_receiver_distance": "L-75",
+    "operand_cell": false,
+    "ready_balls_containing": [
+     11
+    ],
+    "reason": "ready ball",
+    "receiver_reached_by_L+2": true,
+    "status": "PINNED"
+   }
+  ],
+  "ports_within_10^6_of_q10": [
+   [
+    2,
+    448
+   ],
+   [
+    3,
+    448
+   ],
+   [
+    4,
+    1003
+   ],
+   [
+    5,
+    78
+   ]
+  ],
+  "ready_ball_order": "ports 0-7 with their deadlines; (T,0,0),(-T,0,0),(4T,0,0) radius T; ((0,S,-68),R); ((-12R,0,0),R); ((0,S,68+k),R+k) for k=0..9; ((-48L,0,0),L); B_(L+1)(q10)",
+  "shell_banks": [
+   {
+    "active": false,
+    "distance_to_q9_over_L": 1,
+    "index_over_deadline": 1,
+    "port": 0,
+    "q9_neighbors_reached_by_L+1": []
+   },
+   {
+    "active": true,
+    "distance_to_q9_over_L": 2,
+    "index_over_deadline": 2,
+    "port": 0,
+    "q9_neighbors_reached_by_L+1": [
+     "-y",
+     "-z"
+    ]
+   },
+   {
+    "active": false,
+    "distance_to_q9_over_L": 1,
+    "index_over_deadline": 1,
+    "port": 2,
+    "q9_neighbors_reached_by_L+1": []
+   },
+   {
+    "active": true,
+    "distance_to_q9_over_L": 2,
+    "index_over_deadline": 2,
+    "port": 2,
+    "q9_neighbors_reached_by_L+1": [
+     "+x",
+     "+y",
+     "-z"
+    ]
+   },
+   {
+    "active": false,
+    "distance_to_q9_over_L": 1,
+    "index_over_deadline": 1,
+    "port": 3,
+    "q9_neighbors_reached_by_L+1": []
+   },
+   {
+    "active": true,
+    "distance_to_q9_over_L": 2,
+    "index_over_deadline": 2,
+    "port": 3,
+    "q9_neighbors_reached_by_L+1": [
+     "-x",
+     "+y",
+     "-z"
+    ]
+   },
+   {
+    "active": false,
+    "distance_to_q9_over_L": 1,
+    "index_over_deadline": 1,
+    "port": 5,
+    "q9_neighbors_reached_by_L+1": []
+   },
+   {
+    "active": true,
+    "distance_to_q9_over_L": 2,
+    "index_over_deadline": 2,
+    "port": 5,
+    "q9_neighbors_reached_by_L+1": [
+     "+y",
+     "-z"
+    ]
+   }
+  ]
+ },
+ "inputs_sha256": {
+  "branch_v10/local-controller/symmetric-result.json": "d8e7c1f5841192165beefb3fe35b069cc14cc93f2faa2bd68619aa7748b3db2f",
+  "native_decode_v14/result.json": "3172e7d013c09cdcdf638a7ace68e0eff98bb3cd0411e8666b76a8226ad59034",
+  "native_route_v13/result.json": "762b9799db7448c4eecf2c994c8c68ff94e1be83a7f6884b4a36385505df5a02",
+  "native_route_v13/review/result.json": "73780def8505d68d1967936116a88a49d471eb32aeb83d528ff3cd41025ae6e4",
+  "parallel_v3/history_control/SOURCE-GEOMETRY.json": "2642e1a68825faa5d3bb1049e8722adec1ec33bd3f56b9e4416b2c902a85ec5d"
+ },
+ "not_established": [
+  "privacy of the V read under a complement law in which no free key is uniform",
+  "multi-tick stages, other reads, other layouts, readiness extensions",
+  "previous-slice key cells (not classified by this plan)",
+  "Native A geometry with its own pool; acceptance predicate; carrier law",
+  "any access rule or preparation change; A1 or A2 reconstruction; OI generally"
+ ],
+ "permitted_reads_used": [
+  "eight old public ports, full raw triples at every tick through L+2",
+  "old whole-q9 terminal record at L",
+  "Native A single whole-V read: whole q9 triple at L+2"
+ ],
+ "q10_table_sha256": "b2f32466113dede2fa9e43469f5c209fde5d610180ed748dcd025d4cd2a4b3cc",
+ "schema": "oi.native-vread.v15",
+ "table": {
+  "accepted_old_q9_rows": 48,
+  "fewest_law_distinct_q10_codes_s0_s1": [
+   4,
+   4
+  ],
+  "fewest_law_q10A_xor_pD_equals_a_xor_b_rows": 48,
+  "fewest_law_rows_q10A_equals_s": 48,
+  "uniform_key_table_rows_x_residuals": 384,
+  "v14_q10A_law_count": 1456
+ },
+ "verdict": {
+  "bank_keys": [],
+  "free_keys_reaching_a_public_port_by_L+2": [
+   "-y"
+  ],
+  "free_keys_unseen_by_public_records": [
+   "-x",
+   "+y"
+  ],
+  "outcome": "NEGATIVE_FOR_CONSTRUCTION",
+  "statement": "2 of the 5 non-q10 key cells of q9 at L+2 are free complement variables under the native_route_v13 contract that no permitted record through L+2 depends on: -x key (-(L+2),S,77) (nearest public receiver at distance L+79), +y key (0,S+(L+2),77) (nearest public receiver at distance L+79). For each such key and every fixed value of all other initial variables, V=U_(L+2)(q9) is a permutation of the key triple, while the old q9 record, q10 at L+1 and every other permitted record through L+2 do not depend on it. (i) No nonconstant fixed readout of the whole V equals s for every complement value. (ii) If such a key is uniform given all other initial variables, V is uniform and independent of q10.A, s, the seeds and every other permitted record through L+2: the read is harmless and carries no operand. (iii) Delivery through this read needs at least these 3 free key cells known (necessary, not sufficient: shared complement cells also enter V): pinning them (a preparation change) or reading their q9 neighbors at L+1 (an access change). Neither is adopted; the test stops there. The -y key (0,S-(L+2),77) is also a free complement variable but reaches public port 0 at distance 341, so it couples V to that port record; their joint law is not computed here."
+ }
+}

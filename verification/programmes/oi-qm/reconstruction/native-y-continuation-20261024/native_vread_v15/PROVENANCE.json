@@ -1,0 +1,31 @@
+{
+  "schema": "native-vread-v15-provenance-1",
+  "repository": "amaybaum/incompleteness",
+  "guiding_pr": 910,
+  "plan_base": "bef79f6f3daec0b734a7d9c6a9423ed634852818",
+  "plan_commit": "ead2c38842222786c68551484b708c19f29c83ab",
+  "plan_sha256": "e24c16322a06d35aab6465c40e1dfcf5c08b6a3d8e4ffed93c0d3afb73a7c985",
+  "inputs": {
+    "native_route_v13/result.json": "762b9799db7448c4eecf2c994c8c68ff94e1be83a7f6884b4a36385505df5a02",
+    "native_route_v13/review/result.json": "73780def8505d68d1967936116a88a49d471eb32aeb83d528ff3cd41025ae6e4",
+    "native_decode_v14/result.json": "3172e7d013c09cdcdf638a7ace68e0eff98bb3cd0411e8666b76a8226ad59034",
+    "branch_v10/local-controller/symmetric-result.json": "d8e7c1f5841192165beefb3fe35b069cc14cc93f2faa2bd68619aa7748b3db2f",
+    "parallel_v3/history_control/SOURCE-GEOMETRY.json": "2642e1a68825faa5d3bb1049e8722adec1ec33bd3f56b9e4416b2c902a85ec5d"
+  },
+  "q10_table_sha256": "b2f32466113dede2fa9e43469f5c209fde5d610180ed748dcd025d4cd2a4b3cc",
+  "input_roles": "Retained q10 table at L+1 (native_route_v13 author 753fe4f69392ca940754489468e8c8235f6aa583) and its separate-engine digest; v14 fewest-seed q10.A law and law count; old q9 table at L; inherited source inventory. All read as data; no earlier engine imported.",
+  "cited_written_results": [
+    "native_v11/REPORT.md, Native proof in arbitrary background: unique axial first arrival is a permutation of the source triple",
+    "native_x_v12/REPORT.md section 4: permitted public past through L+2 and the proposed single whole-V read",
+    "history_v9/REPORT.md, Fixed dynamics, ports and bank: port records exposed at every tick; bank rays",
+    "shared_v12/INTERFACE-CONTRACT.md: old whole-q9 terminal X record at L",
+    "native_route_v13/checks.py geometry(): the ready-ball and source inventory used for classification"
+  ],
+  "post_plan_changes": [
+    "K2 and the reach predicate include the parity condition of the second-order rule (a current-slice cell influences (t,w) only when t-dist is even); the first implementation omitted it and K2 failed on the inactive axial cells at distance n, before any verdict was produced.",
+    "K3/K4 use two background families, SHA-256 and low-degree polynomial; the first implementation used the polynomial family only, under which the off-axis countercontrol cell changed only one neighbor for even n. The K3 countercontrol is implemented as observed in at least one SHA-256 world, with per-world counts reported for both families.",
+    "K5 adds anchors for a B_(L+1)(q10) interior cell and for the receiver threshold; K6 adds Native A's f8 public slack 77.",
+    "Mutant K6_q9_row_order swaps a and b; an x/u swap was an equivalent mutant because q9 at L depends on x XOR u."
+  ],
+  "scope": "One native tick from q10 at L+1 into Native A's declared whole-V read, in the native_route_v13 source geometry; not a native gate, acceptance predicate, carrier law, access rule, preparation change or equivalence claim."
+}
