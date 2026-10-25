@@ -98,7 +98,8 @@
       "the git-blob comparison against 1dfec979 moved to the opt-in --verify-plan-commit mode (full history needed; VOID on mismatch or unreachable commit; lazy fetch disabled); the default run starts no git process",
       "default output checked byte-identical between the repository checkout and a git-less export",
       "targeted mutants rerun: T3 and MT2 in the default run, MT3 with --verify-plan-commit",
-      "REPORT: the reviewer-script reruns are stated as against a97c852a"
+      "REPORT: the reviewer-script reruns are stated as against a97c852a",
+      "review retention: duplicate round2/rev_mutants.py removed; cited per-mutant numbers retained as review/per_mutant_numbers.json"
     ],
     "review": "independent fifth re-check of 70faede0 on #911: BLOCK on 12058945 (result.json environment-dependent); review retention and handoff accept with nits"
   },
@@ -126,6 +127,7 @@
     "paths are relative to the repository root; run from an empty working directory with those paths made absolute"
   ],
   "review_retention": {
+    "deduplicated": "review/round2/rev_mutants.py was byte-identical to review/round1/rev_mutants.py (sha256 cbe2d6a11d17e5cf961564ff9bde432ee1fe77880a798512c01e9f5705ccd222) and is removed; the round2 report and review/round2/rev_mutants.out refer to that one script",
     "files": [
       {
         "original_sha256": "c564300ef255448812c1b5b0b1c94cf0149e25c7b64982c765e9b19dd7d0bd37",
@@ -222,14 +224,6 @@
         "retained_sha256": "8b7f93b6002ebca51d370a93ce0cde79a3109b6da39af33bfbb1db15050bccec",
         "round": "re-check of fb05dea8",
         "source": "reviewer scratch: review directory/recheck/leafmap.out"
-      },
-      {
-        "original_sha256": "cbe2d6a11d17e5cf961564ff9bde432ee1fe77880a798512c01e9f5705ccd222",
-        "redaction": "none",
-        "retained": "review/round2/rev_mutants.py",
-        "retained_sha256": "cbe2d6a11d17e5cf961564ff9bde432ee1fe77880a798512c01e9f5705ccd222",
-        "round": "re-check of fb05dea8",
-        "source": "reviewer scratch: review directory/recheck/rev_mutants.py"
       },
       {
         "original_sha256": "0744631363eac95dd51e6df20241ea45cd4578fae0b8773463332193b0a735ff",
@@ -518,6 +512,14 @@
         "retained_sha256": "9d3c161416631a3cdd73bf600bd5a4955447d66c7558534b6b6a388a673f6df2",
         "round": "author reruns of the reviewer scripts against a97c852a (copies adapted to copy PLAN.md, and R1/D1 strings to the shared function)",
         "source": "author scratch: rc5_D.out"
+      },
+      {
+        "original_sha256": "f94fc71734388386ff2bfed42f9b8913f45269aefe0b8b2d0b68147f8f9855c3",
+        "redaction": "none; derived file",
+        "retained": "review/per_mutant_numbers.json",
+        "retained_sha256": "f94fc71734388386ff2bfed42f9b8913f45269aefe0b8b2d0b68147f8f9855c3",
+        "round": "rounds 3 and 4",
+        "source": "author extraction from the reviewers per-mutant outputs (round3 work/rmut3/*/run2/out.json, round4 work/rmut5/*/run/out.json; not retained), with each source digest recorded inside"
       }
     ],
     "location": "review/, in the form of a2_depth_v7/review/ (one directory per review round, with review/SHA256SUMS)",
@@ -525,7 +527,8 @@
     "not_retained": [
       "the reviewers tree/ exports (byte copies of package files at the reviewed commits, recoverable from git)",
       "the reviewers work/ directories (mutant working copies and full per-mutant JSON outputs; the claims cite the summary .out files, which are retained)",
-      "the first review exp/ directory (an exported package copy)"
+      "the first review exp/ directory (an exported package copy)",
+      "the reviewers full per-mutant outputs; the numbers the reports cite from them are in review/per_mutant_numbers.json with the source digests, and are regenerable with the retained scripts at the named commits"
     ],
     "review_SHA256SUMS_sha256": "efd5cbb6aa2b28e46d38735a9a70f620ce5c28d5d957e37128f6c62810b190b1",
     "rounds": {

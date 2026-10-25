@@ -449,5 +449,6 @@ The default output is identical in a repository checkout and in a git-less expor
 **Review records.** `review/round1`–`review/round5` hold the five internal reviews of this package. Each holds
 the review report and the scripts and summary outputs its claims cite. `review/author_reruns_a97c852a` holds the
 author's reruns of the reviewer scripts against `a97c852a`, on which this report's statements of those results
-rest. `review/SHA256SUMS` lists them. PROVENANCE.json records, for each file, its source, its digest and any
+rest. `review/per_mutant_numbers.json` keeps the few per-mutant numbers the round 3 and 4 reports cite from outputs
+that are not retained, with the digests of those outputs. `review/SHA256SUMS` lists them. PROVENANCE.json records, for each file, its source, its digest and any
 rename; no content was redacted.
