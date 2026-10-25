@@ -2990,8 +2990,9 @@ of finite reversible deterministic systems under incomplete
 observation;} \emph{(\(Q_{\mathrm{fb}}\)) the laws realizable by
 finite-dimensional unitary systems with Born-rule readout in a fixed
 basis, measured projectively in that basis at every step from an initial
-state diagonal in it --- the fixed-basis unitary Born representations.}
-(kernel: \texttt{finite\_horizon\_equivalence}, \texttt{S\_imp\_D} in
+state diagonal in it, the visible record a fixed function of each
+outcome --- the fixed-basis unitary Born representations.} (kernel:
+\texttt{finite\_horizon\_equivalence}, \texttt{S\_imp\_D} in
 \texttt{OIBridge/Equivalence.lean}; the permutation-unitarity and
 diagonal-preservation lemmas \texttt{permMatrix\_mem\_unitaryGroup},
 \texttt{isDiag\_Phi} in \texttt{OIBridge/EquivalenceChain.lean})
@@ -3680,11 +3681,11 @@ unreachable at any fixed stage (the classical-dimension Proposition).}
 claims, each with its exact status. (1)
 \(S \iff D \iff Q_{\mathrm{fb}}\) --- proved, all finite laws. (2)
 \(M_t > 0 \iff\) readout-relevant hidden predictive memory in every
-faithful completion --- clauses (a)--(c) of the theorem below proved in
-the kernel for a joint law of history, present and hidden state, with
-the reading of a realization's time-\(t\) law as that joint law not
-formalized; the biconditional restates the pushforward identity (a), its
-converse applying (a) in one faithful completion, which exists
+faithful completion --- proved: clauses (a)--(c) of the theorem below
+proved in the kernel for a joint law of history, present and hidden
+state, with the reading of a realization's time-\(t\) law as that joint
+law not formalized; the biconditional restates the pushforward identity
+(a), its converse applying (a) in one faithful completion, which exists
 (\(S \Rightarrow D\)), and both directions using the vanishing criterion
 for conditional mutual information, which is not formalized. (3) No
 fixed finite classical carrier reproduces full qubit operational
@@ -5318,4 +5319,4 @@ limitations of measurement,'' in W. C. Myrvold and J. Christian (eds.),
 Circle} (Springer, 2009).
 
 \end{document}
-% source-sha256: 3de4ad921722071d4e3219ddb75ba543687a46c6a20803c4dea52d1cbced7dec
+% source-sha256: 0088a82a5b01add9c6b4f45ded93f9a017d6458dce7ec2361a3cf7da541ff702
