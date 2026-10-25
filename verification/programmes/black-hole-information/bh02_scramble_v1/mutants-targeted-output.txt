@@ -1,0 +1,6 @@
+unmodified run: failed controls = none
+targeted run: M-page2013, M-ode, M-canonical
+M-page2013      target=K-page2013      run=clean caught=True failed=[K-page2013]
+M-ode           target=K-ode           run=clean caught=True failed=[K-ode]
+M-canonical     target=K-shell         run=clean caught=True failed=[K-shell]
+ALL MUTANTS CAUGHT

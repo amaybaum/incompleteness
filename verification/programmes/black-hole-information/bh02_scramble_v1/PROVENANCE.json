@@ -1,0 +1,118 @@
+{
+ "record": "verification/programmes/black-hole-information/bh02_scramble_v1",
+ "programme": "OI-BH-1 (../PROGRAMME.md), items BH-02 and BH-04, lane 3",
+ "drafting_snapshot_D": "809fac52cdf207d24eccc63c734996bcb9d073a0",
+ "preregistration_commits": {
+  "PLAN.md": "6bf2d4b8",
+  "amendments/A1-shell-cases.md": "ff7b5c85",
+  "amendments/A2-mutant-criterion.md": "836a661e"
+ },
+ "generated_on_parent": "ee2d4e689c7bd67343c2bd4215e4711b9e765af2",
+ "form": "complete",
+ "kind": "local run; not a CI run and not a check-run attestation",
+ "interpreter": "CPython 3.13.16, standard library only",
+ "recipe": {
+  "working_directory": "verification/programmes/black-hole-information/bh02_scramble_v1",
+  "result": "python3 -I -B checks.py > result.json",
+  "result_replay": [
+   "python3 -I -B checks.py | cmp - result.json",
+   "python3 -I -B -O checks.py | cmp - result.json"
+  ],
+  "mutants": "python3 -I -B mutants.py > mutants-output.txt",
+  "report": "python3 -I -B report.py > REPORT.md",
+  "exit_status": "checks.py prints VOID and exits 2 on any failed control; mutants.py exits 2 unless every mutant is caught; report.py exits 2 if result.json records a failed control"
+ },
+ "determinism": "result.json reproduced byte for byte by two runs under -I -B and one under -I -B -O on the recorded interpreter; REPORT.md reproduced byte for byte; mutants-output.txt from one run of the final code",
+ "seeds": "fixed in checks.py (SEEDS) and echoed in result.json",
+ "literature_inputs": [
+  {
+   "source": "D. N. Page, Time Dependence of Hawking Radiation Entropy, JCAP 09 (2013) 028, arXiv:1301.4995",
+   "values": "beta = 1.4847 (photons and gravitons, from Page 1976), turnover at 53.81% of the evaporation time, 40.25% of the initial Bekenstein-Hawking entropy lost",
+   "how_obtained": "abstract and database-record text via web search on 2026-10-25; full text not accessed",
+   "use": "external control K-page2013 only",
+   "full_text_read_later": "see post_review_4"
+  },
+  {
+   "source": "D. N. Page, Phys. Rev. Lett. 71, 1291 (1993); proofs by Foong-Kanno (1994), Sanchez-Ruiz (1995), Sen (1996)",
+   "use": "exact Haar mean entropy formula, cross-checked by Monte Carlo (K-page-mc)"
+  },
+  {
+   "source": "E. Bianchi and P. Dona, Phys. Rev. D 100, 105010 (2019)",
+   "use": "form of the sector-decomposition average, diagnostic only, cross-checked by Monte Carlo"
+  }
+ ],
+ "post_review": {
+  "review": "independent review of 1739f4e0: ACCEPT WITH NITS (findings F1-F9 and one assumption-watch observation)",
+  "preregistration_unchanged": "PLAN.md, amendments/A1-shell-cases.md and amendments/A2-mutant-criterion.md are byte-identical to their own commits",
+  "changes": [
+   "F1: shell results reworded from 'below' to a shell-dependent difference; post-review result C6(c) diagonal shell span{|i>|i>}, exact Haar mean H_m - 1 > S_Page(m,m) for m = 2, 3, 4, 8, 16, with Monte Carlo control K-diag; C6(c) verdict, REPORT and audit items 4 and 13 updated",
+   "F2: audit item 19 proposal: 'an equidistribution hypothesis on the orbit over pure states, which ergodicity over configurations does not supply' replaces 'stronger than ergodicity'",
+   "F3: new control K-shell: canonical entropy recomputed by explicit basis-state enumeration (exact spectrum match and float entropy inside the rigorous interval) and Monte Carlo mean <= canonical upper bound + 4 se; reviewer mutant R5 added as M-canonical",
+   "F4: CC5 state changed to (24/25|0>+7/25|1>)^7 (x) |0>, H(p0) = 1.9239 below the Page-like band, with the implication checked (H_p0_below_page_like_band)",
+   "F5: REPORT finding 1 attributes 'can ... visit only product states' to book/ch07-gravity.md:126 (FULL:2001) and cites GR:837",
+   "F6: audit items 1, 3, 9 keyed to 'contradicts (definite configuration, aligned split); otherwise conditions / not supported'; item 5 narrowed (mode counting supplies S proportional to M^2 and beta = 1; bijectivity and 'distinctive' do not hold)",
+   "F7: REPORT finding 2: the entanglement any permutation can produce is bounded by H(p0) and F of the supplied state; reaching the bound needs a mixing permutation",
+   "F8: audit item 20 added (ch07:114 / FULL:1989); item 4 lines 130-132 (FULL:2005-2007); item 13 lines 823-827; item 14 quotes both 0.886 (large-dimension display, GR:829) and 0.922 (exact)",
+   "F9: analytic finite-size limit S_Page(m,m) - ln m = -1/2 + 7/(12 m^2) + O(m^-4) with a check at m = 32; K-ode restricted to the Simpson integration and the exact Q(sqrt2) check (C7(a), (c) recorded as algebraic identities); rk4_page_time renamed simpson_page_time; report.py reads Page-table, literature and half-filling values from result.json; C6(b) wording; C4 verdict notes that only the endpoint is controlled",
+   "assumption-watch note added to REPORT (GR A.6(iii) maximally mixed hidden sector versus A.6(i)/A.7 pure total state), not a package claim",
+   "mutants: M-canonical (target K-shell) and M-diag (target K-diag) added; 17 mutants"
+  ],
+  "superseded_outputs_at_1739f4e0": {
+   "result.json": "a9ee4e3188ab5d614eebd02864b5fa45c341c8f53400f8e35cc547d2b848494c",
+   "REPORT.md": "80dac7f216ccfa9b0f469f5d9fed14e320ce268a6d57990b941c1afe47f008f1",
+   "mutants-output.txt": "0a6096aa562222d668464c8cd77190ea990d0ed9a35763a07ede7e45920b8665",
+   "MANUSCRIPT-AUDIT.md": "7b920e74b46efc426fc8c7f61833b3c5796a7a962df91c802b88f8c250e2445a",
+   "note": "byte content retrievable from commit 1739f4e0"
+  },
+  "result_json_leaf_changes": "only additions and the CC5, C4-verdict, C6(a), C6(b), C6(c)-verdict fields; no previously reported numerical or exact value other than CC5 changed"
+ },
+ "post_review_2": {
+  "review": "re-check of 91e2230a: ACCEPT WITH NITS (two nits)",
+  "changes": [
+   "MANUSCRIPT-AUDIT.md: header 'Literature values pending' and a per-site label '[Page 2013 abstract value; full text unverified]' on every use of beta = 1.4847, 0.5381 / 0.538, 40.25% / about 40%; proposals using them (items 1, 5, 17, 20) are not to be adopted before the full text is checked (owner ruling)",
+   "C7 verdict: 'reproducing the literature value' -> 'reproducing the value quoted in the abstract of Page 2013 (full text unverified)'; REPORT Page-time paragraph labels the quoted values the same way",
+   "K-shell: canonical_by_enumeration also checks sum(counts) == comb(n, w) == D",
+   "mutants.py: optional --only selection; targeted rerun of M-canonical, M-page2013, M-ode recorded in mutants-targeted-output.txt (all caught); mutants-output.txt is the full campaign at 91e2230a and was not rerun (section A.40)"
+  ],
+  "result_json_leaf_changes": "only /C7/verdict (text)",
+  "superseded_outputs_at_91e2230a": {
+   "result.json": "af43da4fce43f8112c8ca9b6052681b4bcc4551c8b2bfad607fa3334b6e73443",
+   "REPORT.md": "4f8c927089a26f528e7514374fc3c91d3a440b3ff62fd17781d341575386bdc6",
+   "MANUSCRIPT-AUDIT.md": "f035579619d49b59489cf69143893959230f982d58e1fa7f88ed3037aaf97f16",
+   "note": "byte content retrievable from commit 91e2230a"
+  }
+ },
+ "post_review_3": {
+  "review": "re-check of 1f1aec6f: ACCEPT, with one hazard to remove before landing",
+  "change": "mutants.py --only is validated before any run: an unknown name, an empty selection or a missing argument prints VOID and exits 2; a full run and a valid targeted run print the same lines as before",
+  "verified": "--only M-bogus, --only ',', --only with no argument, --only M-canonical,M-bogus each exit 2; --only M-canonical reproduces its line of mutants-targeted-output.txt; mutants-output.txt, mutants-targeted-output.txt and result.json unchanged; result.json replays byte for byte under -I -B"
+ },
+ "post_review_4": {
+  "trigger": "full text of Page 2013 read and the reading independently reviewed (ACCEPT WITH NITS)",
+  "sources_read_in_full": {
+   "page2013": {
+    "ref": "D. N. Page, Time Dependence of Hawking Radiation Entropy, JCAP 09 (2013) 028, arXiv:1301.4995v3",
+    "pdf_sha256": "43ba2ce2374ec93577e2c2d75648af6fa6f421140c97e8b0571e48a12200211a",
+    "values": "beta = 1.48472 Eq. (2) p.6 (computed from Page's 1976 photon and graviton rates; constant alpha = 0.000037474, Eq. (1) p.5); t* = 0.53810 t_decay Eq. (8) p.11; 40.25% of S_BH lost p.12; 1/(1+beta) = tau_12 at f = 0, Eq. (14) p.19"
+   },
+   "page2005": {
+    "ref": "D. N. Page, Hawking Radiation and Black Hole Thermodynamics, New J. Phys. 7 (2005) 203, arXiv:hep-th/0409024v3",
+    "pdf_sha256": "cc977f7f2aa651ffa9e0d6cef155b655eeb62108299f537fc67b95b1ba754be1",
+    "values": "per-mode entropy production for emission into empty space, Eqs. (5)-(10) pp.10-11; species rates Eqs. (19)-(21) p.13"
+   }
+  },
+  "not_read": "Page 1976 (PRD 13, 198; PRD 14, 3260): read only through Page 2013 and Page 2005",
+  "changes": [
+   "MANUSCRIPT-AUDIT.md: 'Literature values pending' header replaced by a sourced statement; each '[Page 2013 abstract value; full text unverified]' tag replaced by its equation/page citation; proposals 1, 5, 17, 20 adoptable as far as the sources support (that species content, constant alpha, emission into empty space)",
+   "item 1: '(0.5381 at constant alpha with Page's photon-and-graviton beta = 1.4847 [Page 2013, Eqs. (2), (8)])'",
+   "item 5 proposal: the 0.538 parenthetical attaches only to the entropy-accounting clause (Page holds alpha constant); the coarse-grained-entropy clause is limited to emission into empty space and cites Page 2005 Eqs. (5)-(10)",
+   "items 17 and 20: wording kept, citations added",
+   "C7 verdict: 'reproducing the value quoted in the abstract of Page 2013 (full text unverified)' -> 'reproducing Page 2013 Eq. (8)'; e_literature_control.source cites Eq. (2) p.6, Eq. (8) p.11, p.12; REPORT Page-time paragraph and limitation updated"
+  ],
+  "result_json_leaf_changes": "/C7/verdict and /C7/e_literature_control/source (text only)",
+  "mutants": "targeted rerun of M-page2013 only (the C7 literature-control area): unmodified run no failed controls; 'M-page2013      target=K-page2013      run=clean caught=True failed=[K-page2013]'; mutants-output.txt and mutants-targeted-output.txt not rerun",
+  "superseded_outputs_at_ee2d4e68": {
+   "note": "byte content retrievable from commit ee2d4e68"
+  }
+ }
+}

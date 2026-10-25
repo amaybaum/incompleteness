@@ -1,0 +1,1065 @@
+{
+ "C1": {
+  "CC1_bell_rank": 2,
+  "CC2_rotation_cnot_rank": 2,
+  "q2_n2": {
+   "bipartitions": 2,
+   "mode": "exhaustive over Sym(X)",
+   "permutations": 24,
+   "rank_gt_1": 0,
+   "state_checks": 96
+  },
+  "q2_n3": {
+   "bipartitions": 6,
+   "mode": "exhaustive over Sym(X)",
+   "permutations": 40320,
+   "rank_gt_1": 0,
+   "state_checks": 322560
+  },
+  "q2_n4_sample": {
+   "bipartitions": 14,
+   "mode": "seeded sample, full orbits",
+   "permutations": 500,
+   "rank_gt_1": 0,
+   "state_checks": 67806
+  },
+  "q3_n2": {
+   "bipartitions": 2,
+   "mode": "exhaustive over Sym(X)",
+   "permutations": 362880,
+   "rank_gt_1": 0,
+   "state_checks": 3265920
+  },
+  "total_rank_gt_1": 0,
+  "verdict": "PROVED: P_pi maps configuration basis vectors to configuration basis vectors, so every state on the orbit of a configuration is a product basis state, Schmidt rank 1, S(R)=0 exactly, at every aligned bipartition. Exhaustive check: 24, 40320 and 362880 permutations at (q,n)=(2,2),(2,3),(3,2); 500 sampled at (2,4) with full orbits; 0 states of rank > 1; countercontrols CC1, CC2 detected with rank 2, 2."
+ },
+ "C2": {
+  "CC3": {
+   "F_after": "49/200",
+   "F_before": "1/8",
+   "rank_after": 2,
+   "support_before": 1
+  },
+  "exact_violations_(i)_(iii)": 0,
+  "min_margin_(ii)_NUMERICAL": "0.000000000000",
+  "s1_(3/5,4/5)^3": {
+   "F0": "117649/125000",
+   "H_p0_nats": "1.960255",
+   "distinct_states": 1120,
+   "max_S_minus_H_p0": "-1.740233642",
+   "permutations": 40320,
+   "support": 8
+  },
+  "s2_(3/5,4/5)(5/13,12/13)|0>": {
+   "F0": "14161/33800",
+   "H_p0_nats": "1.072518",
+   "distinct_states": 1680,
+   "max_S_minus_H_p0": "-0.383485287",
+   "permutations": 40320,
+   "support": 4
+  },
+  "s3_entangled_(1/3,2/3,-2/3)": {
+   "F0": "1/72",
+   "H_p0_nats": "0.964963",
+   "distinct_states": 336,
+   "max_S_minus_H_p0": "-0.278001346",
+   "permutations": 40320,
+   "support": 3
+  },
+  "tightness_witness": {
+   "n4_k2": {
+    "S_equals": "2 ln 2 = H(p0)",
+    "flat_spectrum_certified": true,
+    "purity": "1/4",
+    "rank": 4
+   },
+   "n6_k3": {
+    "S_equals": "3 ln 2 = H(p0)",
+    "flat_spectrum_certified": true,
+    "purity": "1/8",
+    "rank": 8
+   }
+  },
+  "verdict": "PROVED: under any permutation the amplitude multiset, the overlap F=|<+^n|psi>|^2 and the support size are conserved; hence at every step and aligned bipartition Schmidt rank <= |supp psi0|, S(R) <= min(H(p_R),H(p_B)) <= H(p0), lambda_max(rho_R) >= F, S_2 <= -2 ln F. Exact sweep over all 40320 permutations at n=3 for three rational states: 0 violations of (i),(iii); (ii) NUMERICAL, minimum margin 0.000000000000 nats. Bound attained exactly (S = k ln 2 = H(p0)) by a CNOT network on |+>^k|0>^(n-k) for (n,k)=(4,2),(6,3)."
+ },
+ "C3": {
+  "CC4_plus_state": {
+   "invariant_under_50_perms": true,
+   "max_half_cut_rank": 1,
+   "page_like": false
+  },
+  "CC5_low_entropy_product": {
+   "H_p0_below_page_like_band": true,
+   "H_p0_nats": "1.923909",
+   "S_Page_16_16": "2.274865",
+   "max_S_minus_H_p0_NUMERICAL": "-0.392944620",
+   "page_like_half_cut": 0,
+   "samples": 40,
+   "state": "(24/25|0>+7/25|1>)^7 (x) |0>"
+  },
+  "CT1_haar_attainability": {
+   "page_like_all_cuts": 10,
+   "samples": 10
+  },
+  "n10_random_perms_half_cut": {
+   "S_Page_32_32_exact_10dp": "2.9663054768",
+   "mean_S_NUMERICAL": "2.979222",
+   "min_S_NUMERICAL": "2.948667",
+   "page_like": 20,
+   "samples": 20
+  },
+  "n8_iterated_fixed_perm_emission_curve": {
+   "curve": [
+    {
+     "S": "0 (exact: empty or full R of a pure state)",
+     "r": 0,
+     "t": 0
+    },
+    {
+     "S_NUMERICAL": "0.685314",
+     "S_Page_exact_10dp": "0.6872916202",
+     "page_like": true,
+     "r": 1,
+     "t": 1
+    },
+    {
+     "S_NUMERICAL": "1.363780",
+     "S_Page_exact_10dp": "1.3570165591",
+     "page_like": true,
+     "r": 2,
+     "t": 2
+    },
+    {
+     "S_NUMERICAL": "2.002007",
+     "S_Page_exact_10dp": "1.9564747673",
+     "page_like": true,
+     "r": 3,
+     "t": 3
+    },
+    {
+     "S_NUMERICAL": "2.320897",
+     "S_Page_exact_10dp": "2.2748659695",
+     "page_like": true,
+     "r": 4,
+     "t": 4
+    },
+    {
+     "S_NUMERICAL": "1.960117",
+     "S_Page_exact_10dp": "1.9564747673",
+     "page_like": true,
+     "r": 5,
+     "t": 5
+    },
+    {
+     "S_NUMERICAL": "1.373636",
+     "S_Page_exact_10dp": "1.3570165591",
+     "page_like": true,
+     "r": 6,
+     "t": 6
+    },
+    {
+     "S_NUMERICAL": "0.692659",
+     "S_Page_exact_10dp": "0.6872916202",
+     "page_like": true,
+     "r": 7,
+     "t": 7
+    },
+    {
+     "S": "0 (exact: empty or full R of a pure state)",
+     "r": 8,
+     "t": 8
+    }
+   ],
+   "page_like_all_interior": true
+  },
+  "n8_local_reversible_3bit_brickwork_DIAGNOSTIC": {
+   "depth_1": {
+    "max": "0.000000",
+    "mean_S_half_NUMERICAL": "0.000000",
+    "min": "0.000000"
+   },
+   "depth_16": {
+    "max": "2.316410",
+    "mean_S_half_NUMERICAL": "2.273575",
+    "min": "2.210537"
+   },
+   "depth_2": {
+    "max": "0.000000",
+    "mean_S_half_NUMERICAL": "0.000000",
+    "min": "0.000000"
+   },
+   "depth_32": {
+    "max": "2.330066",
+    "mean_S_half_NUMERICAL": "2.302564",
+    "min": "2.279764"
+   },
+   "depth_4": {
+    "max": "2.033438",
+    "mean_S_half_NUMERICAL": "1.272566",
+    "min": "0.000000"
+   },
+   "depth_8": {
+    "max": "2.320170",
+    "mean_S_half_NUMERICAL": "2.166757",
+    "min": "1.798450"
+   }
+  },
+  "n8_random_perms": {
+   "S_Page_16_16_exact_10dp": "2.2748659695",
+   "haar_mean_purity_16_16": "32/257",
+   "iid_sign_mean_purity_16_16": "31/256",
+   "initial_state": "|->|+>^7 (SUPPLIED superposition)",
+   "max_abs_dev_from_S_Page_nats_NUMERICAL": "0.141388",
+   "mean_S_half_NUMERICAL": "2.291668",
+   "mean_purity_half_exact": "0.120832519531",
+   "page_like_all_cuts": 193,
+   "page_like_half_cut": 194,
+   "samples": 200
+  },
+  "verdict": "COUNTEREXAMPLE (scoped) to 'permutation dynamics cannot produce Page-like entanglement': from the SUPPLIED superposition |->|+>^7, 193/200 random permutations give Page-like states at every cut and 194/200 at the half cut (n=8, tolerance 0.10 nats, NUMERICAL S with exact purity control); 20/20 at the n=10 half cut; a fixed permutation iterated with r(t)=t gives a Page-like emission curve: yes. Scope: the entanglement is bounded by the supplied initial state's basis entropy (C2); from a configuration state it is exactly zero (C1). This is not a derivation of H-scramble."
+ },
+ "C4": {
+  "H_p0": "4.498681",
+  "curve": [
+   {
+    "H_R_NUMERICAL": "-0.000000",
+    "t": 0
+   },
+   {
+    "H_R_NUMERICAL": "0.692848",
+    "t": 1
+   },
+   {
+    "H_R_NUMERICAL": "1.297728",
+    "t": 2
+   },
+   {
+    "H_R_NUMERICAL": "1.948865",
+    "t": 3
+   },
+   {
+    "H_R_NUMERICAL": "2.665488",
+    "t": 4
+   },
+   {
+    "H_R_NUMERICAL": "3.140783",
+    "t": 5
+   },
+   {
+    "H_R_NUMERICAL": "3.786557",
+    "t": 6
+   },
+   {
+    "H_R_NUMERICAL": "4.201834",
+    "t": 7
+   },
+   {
+    "H_R_NUMERICAL": "4.498681",
+    "t": 8
+   }
+  ],
+  "final_equals_H_p0": true,
+  "n": 8,
+  "p0": "Bernoulli(1/4)^8 over configurations",
+  "verdict": "PROVED: H(p_R) <= H(p_t) = H(p0) = H(p_final); the classical marginal-entropy curve ends at its maximum H(p0) (it may dip in between; only the endpoint is controlled) and cannot turn over to zero (demonstration: 0 violations, final value 4.498681 = H(p0))",
+  "violations": 0
+ },
+ "C5": {
+  "GR_quoted_gap_at_4x4": "0.886 (GR uses ln 4 - 1/2)",
+  "S_Page_2_2": "1/3",
+  "S_Page_4_4_rational": "664789/720720",
+  "finite_size_at_equal_dims": [
+   {
+    "S_Page_minus_ln_m_10dp": "-0.3598138473",
+    "m": 2
+   },
+   {
+    "S_Page_minus_ln_m_10dp": "-0.4638987013",
+    "m": 4
+   },
+   {
+    "S_Page_minus_ln_m_10dp": "-0.4909077809",
+    "m": 8
+   },
+   {
+    "S_Page_minus_ln_m_10dp": "-0.4977227527",
+    "m": 16
+   },
+   {
+    "S_Page_minus_ln_m_10dp": "-0.4994304260",
+    "m": 32
+   }
+  ],
+  "finite_size_check_m32_(S-ln m+1/2)*m^2_10dp": "0.5832438188",
+  "finite_size_limit_analytic": "H_N = ln N + gamma + 1/(2N) - 1/(12N^2) + O(N^-4) gives S_Page(m,m) - ln m = -1/2 + 7/(12 m^2) + O(m^-4)",
+  "monte_carlo_control": {
+   "2x2": {
+    "S_Page": "0.333333",
+    "haar_purity": "0.800000",
+    "mean_S": "0.336487",
+    "mean_purity": "0.797459",
+    "ok": true,
+    "real_exact_purity": "0.833333",
+    "real_rejected": true,
+    "real_sampler_mean_purity": "0.829770",
+    "se_S": "0.002861",
+    "se_purity": "0.002096"
+   },
+   "2x4": {
+    "S_Page": "0.509524",
+    "haar_purity": "0.666667",
+    "mean_S": "0.510065",
+    "mean_purity": "0.666196",
+    "ok": true,
+    "real_exact_purity": "0.700000",
+    "real_rejected": true,
+    "real_sampler_mean_purity": "0.699088",
+    "se_S": "0.001900",
+    "se_purity": "0.001596"
+   },
+   "4x4": {
+    "S_Page": "0.922396",
+    "haar_purity": "0.470588",
+    "mean_S": "0.924088",
+    "mean_purity": "0.469187",
+    "ok": true,
+    "real_exact_purity": "0.500000",
+    "real_rejected": true,
+    "real_sampler_mean_purity": "0.501899",
+    "se_S": "0.001812",
+    "se_purity": "0.001061"
+   }
+  },
+  "page_table": [
+   {
+    "GR_approx_ln_m_minus_m_over_2k_10dp": "0.1931471805",
+    "S_Page_exact_10dp": "0.3333333333",
+    "exact_minus_approx_10dp": "0.1401861527",
+    "k": 2,
+    "m": 2
+   },
+   {
+    "GR_approx_ln_m_minus_m_over_2k_10dp": "0.4431471805",
+    "S_Page_exact_10dp": "0.5095238095",
+    "exact_minus_approx_10dp": "0.0663766289",
+    "k": 4,
+    "m": 2
+   },
+   {
+    "GR_approx_ln_m_minus_m_over_2k_10dp": "0.5681471805",
+    "S_Page_exact_10dp": "0.6003718503",
+    "exact_minus_approx_10dp": "0.0322246698",
+    "k": 8,
+    "m": 2
+   },
+   {
+    "GR_approx_ln_m_minus_m_over_2k_10dp": "0.6306471805",
+    "S_Page_exact_10dp": "0.6465162022",
+    "exact_minus_approx_10dp": "0.0158690216",
+    "k": 16,
+    "m": 2
+   },
+   {
+    "GR_approx_ln_m_minus_m_over_2k_10dp": "0.6618971805",
+    "S_Page_exact_10dp": "0.6697707082",
+    "exact_minus_approx_10dp": "0.0078735277",
+    "k": 32,
+    "m": 2
+   },
+   {
+    "GR_approx_ln_m_minus_m_over_2k_10dp": "0.6775221805",
+    "S_Page_exact_10dp": "0.6814436888",
+    "exact_minus_approx_10dp": "0.0039215083",
+    "k": 64,
+    "m": 2
+   },
+   {
+    "GR_approx_ln_m_minus_m_over_2k_10dp": "0.6853346805",
+    "S_Page_exact_10dp": "0.6872916202",
+    "exact_minus_approx_10dp": "0.0019569396",
+    "k": 128,
+    "m": 2
+   },
+   {
+    "GR_approx_ln_m_minus_m_over_2k_10dp": "0.6892409305",
+    "S_Page_exact_10dp": "0.6902184467",
+    "exact_minus_approx_10dp": "0.0009775161",
+    "k": 256,
+    "m": 2
+   },
+   {
+    "GR_approx_ln_m_minus_m_over_2k_10dp": "0.6911940555",
+    "S_Page_exact_10dp": "0.6916825752",
+    "exact_minus_approx_10dp": "0.0004885196",
+    "k": 512,
+    "m": 2
+   },
+   {
+    "GR_approx_ln_m_minus_m_over_2k_10dp": "0.8862943611",
+    "S_Page_exact_10dp": "0.9223956598",
+    "exact_minus_approx_10dp": "0.0361012987",
+    "k": 4,
+    "m": 4
+   },
+   {
+    "GR_approx_ln_m_minus_m_over_2k_10dp": "1.1362943611",
+    "S_Page_exact_10dp": "1.1531380525",
+    "exact_minus_approx_10dp": "0.0168436914",
+    "k": 8,
+    "m": 4
+   },
+   {
+    "GR_approx_ln_m_minus_m_over_2k_10dp": "1.2612943611",
+    "S_Page_exact_10dp": "1.2694119104",
+    "exact_minus_approx_10dp": "0.0081175493",
+    "k": 16,
+    "m": 4
+   },
+   {
+    "GR_approx_ln_m_minus_m_over_2k_10dp": "1.3237943611",
+    "S_Page_exact_10dp": "1.3277768971",
+    "exact_minus_approx_10dp": "0.0039825360",
+    "k": 32,
+    "m": 4
+   },
+   {
+    "GR_approx_ln_m_minus_m_over_2k_10dp": "1.3550443611",
+    "S_Page_exact_10dp": "1.3570165591",
+    "exact_minus_approx_10dp": "0.0019721979",
+    "k": 64,
+    "m": 4
+   },
+   {
+    "GR_approx_ln_m_minus_m_over_2k_10dp": "1.3706693611",
+    "S_Page_exact_10dp": "1.3716506919",
+    "exact_minus_approx_10dp": "0.0009813308",
+    "k": 128,
+    "m": 4
+   },
+   {
+    "GR_approx_ln_m_minus_m_over_2k_10dp": "1.3784818611",
+    "S_Page_exact_10dp": "1.3789713344",
+    "exact_minus_approx_10dp": "0.0004894733",
+    "k": 256,
+    "m": 4
+   },
+   {
+    "GR_approx_ln_m_minus_m_over_2k_10dp": "1.5794415416",
+    "S_Page_exact_10dp": "1.5885337608",
+    "exact_minus_approx_10dp": "0.0090922191",
+    "k": 8,
+    "m": 8
+   },
+   {
+    "GR_approx_ln_m_minus_m_over_2k_10dp": "1.8294415416",
+    "S_Page_exact_10dp": "1.8336680993",
+    "exact_minus_approx_10dp": "0.0042265576",
+    "k": 16,
+    "m": 8
+   },
+   {
+    "GR_approx_ln_m_minus_m_over_2k_10dp": "1.9544415416",
+    "S_Page_exact_10dp": "1.9564747673",
+    "exact_minus_approx_10dp": "0.0020332257",
+    "k": 32,
+    "m": 8
+   },
+   {
+    "GR_approx_ln_m_minus_m_over_2k_10dp": "2.0169415416",
+    "S_Page_exact_10dp": "2.0179381308",
+    "exact_minus_approx_10dp": "0.0009965891",
+    "k": 64,
+    "m": 8
+   },
+   {
+    "GR_approx_ln_m_minus_m_over_2k_10dp": "2.0481915416",
+    "S_Page_exact_10dp": "2.0486848296",
+    "exact_minus_approx_10dp": "0.0004932880",
+    "k": 128,
+    "m": 8
+   },
+   {
+    "GR_approx_ln_m_minus_m_over_2k_10dp": "2.2725887222",
+    "S_Page_exact_10dp": "2.2748659695",
+    "exact_minus_approx_10dp": "0.0022772473",
+    "k": 16,
+    "m": 16
+   },
+   {
+    "GR_approx_ln_m_minus_m_over_2k_10dp": "2.5225887222",
+    "S_Page_exact_10dp": "2.5236463391",
+    "exact_minus_approx_10dp": "0.0010576168",
+    "k": 32,
+    "m": 16
+   },
+   {
+    "GR_approx_ln_m_minus_m_over_2k_10dp": "2.6475887222",
+    "S_Page_exact_10dp": "2.6480972685",
+    "exact_minus_approx_10dp": "0.0005085463",
+    "k": 64,
+    "m": 16
+   },
+   {
+    "GR_approx_ln_m_minus_m_over_2k_10dp": "2.9657359027",
+    "S_Page_exact_10dp": "2.9663054768",
+    "exact_minus_approx_10dp": "0.0005695740",
+    "k": 32,
+    "m": 32
+   }
+  ],
+  "supplied_haar_brickwork_n8": {
+   "S_Page_16_16": "2.274866",
+   "depth_curve": [
+    {
+     "S_half_NUMERICAL": "0.000000",
+     "depth": 1
+    },
+    {
+     "S_half_NUMERICAL": "0.732471",
+     "depth": 2
+    },
+    {
+     "S_half_NUMERICAL": "0.732471",
+     "depth": 3
+    },
+    {
+     "S_half_NUMERICAL": "1.347864",
+     "depth": 4
+    },
+    {
+     "S_half_NUMERICAL": "1.745621",
+     "depth": 6
+    },
+    {
+     "S_half_NUMERICAL": "1.914092",
+     "depth": 8
+    },
+    {
+     "S_half_NUMERICAL": "2.157244",
+     "depth": 12
+    },
+    {
+     "S_half_NUMERICAL": "2.211226",
+     "depth": 16
+    },
+    {
+     "S_half_NUMERICAL": "2.270813",
+     "depth": 24
+    }
+   ],
+   "emission_curve_at_depth_24": [
+    {
+     "S_NUMERICAL": "0.690437",
+     "S_Page_exact_10dp": "0.6872916202",
+     "r": 1
+    },
+    {
+     "S_NUMERICAL": "1.346289",
+     "S_Page_exact_10dp": "1.3570165591",
+     "r": 2
+    },
+    {
+     "S_NUMERICAL": "1.941403",
+     "S_Page_exact_10dp": "1.9564747673",
+     "r": 3
+    },
+    {
+     "S_NUMERICAL": "2.270813",
+     "S_Page_exact_10dp": "2.2748659695",
+     "r": 4
+    },
+    {
+     "S_NUMERICAL": "1.958585",
+     "S_Page_exact_10dp": "1.9564747673",
+     "r": 5
+    },
+    {
+     "S_NUMERICAL": "1.352444",
+     "S_Page_exact_10dp": "1.3570165591",
+     "r": 6
+    },
+    {
+     "S_NUMERICAL": "0.689549",
+     "S_Page_exact_10dp": "0.6872916202",
+     "r": 7
+    }
+   ],
+   "initial": "|0>^8",
+   "label": "SUPPLIED quantum circuit, not an OI mechanism",
+   "max_unitarity_dev_le_1e-12": true
+  }
+ },
+ "C6": {
+  "a_satisfiability_in_configuration_setting": "PROVED (from C1): with B/R aligned to configuration coordinates and a definite initial configuration (GR Theorem A.7 proof: 'deterministic evolution from a definite initial state'; Theorem A.8 counts initial conditions on the shell by |Sigma_E| and averages over configurations s in C_j), every state on the orbit is a product basis state, so H-scramble fails for every bijection phi in that setting.",
+  "b_finding": "The value S_Page enters Theorem A.8 only through the Haar ensemble that H-scramble posits for the orbit; the bijection's cycle structure contributes exact averaging bookkeeping and the trivial bound ln d_min. The Page value therefore follows from the hypothesis H-scramble on the orbit, not from bijectivity or the cycle decomposition; a dynamics that satisfied H-scramble would produce it.",
+  "b_proof_trace_TEXTUAL": [
+   {
+    "step": "phi restricts to a bijection of the finite shell; cycle decomposition",
+    "supplies": "no d-dependent value"
+   },
+   {
+    "step": "cycle time average equals orbit average (exact)",
+    "supplies": "no d-dependent value"
+   },
+   {
+    "step": "PSW/Page: Haar measure on the shell concentrates at S_Page",
+    "supplies": "S_Page enters here, as a property of Haar measure"
+   },
+   {
+    "step": "H-scramble: orbit counting measure ~ Haar on the shell",
+    "supplies": "transfers the Haar value to the orbit"
+   },
+   {
+    "step": "bad-cycle counting with deviation bound ln d_min",
+    "supplies": "only the trivial bound ln d_min"
+   }
+  ],
+  "c_diagnostics_agree": true,
+  "c_post_review_diagonal_shell": {
+   "above_in_all_rows": true,
+   "formula": "E[S] = H_m - 1 (expected Shannon entropy of a uniform point of the simplex)",
+   "rows": [
+    {
+     "MC_agrees": true,
+     "MC_mean_NUMERICAL": "0.504127",
+     "MC_se": "0.002933",
+     "S_Page_m_m_10dp": "0.3333333333",
+     "above_S_Page": true,
+     "haar_mean_on_diagonal_shell_exact": "1/2",
+     "m": 2,
+     "value_10dp": "0.5000000000"
+    },
+    {
+     "S_Page_m_m_10dp": "0.6623015873",
+     "above_S_Page": true,
+     "haar_mean_on_diagonal_shell_exact": "5/6",
+     "m": 3,
+     "value_10dp": "0.8333333333"
+    },
+    {
+     "MC_agrees": true,
+     "MC_mean_NUMERICAL": "1.083508",
+     "MC_se": "0.002997",
+     "S_Page_m_m_10dp": "0.9223956598",
+     "above_S_Page": true,
+     "haar_mean_on_diagonal_shell_exact": "13/12",
+     "m": 4,
+     "value_10dp": "1.0833333333"
+    },
+    {
+     "MC_agrees": true,
+     "MC_mean_NUMERICAL": "1.717918",
+     "MC_se": "0.002530",
+     "S_Page_m_m_10dp": "1.5885337608",
+     "above_S_Page": true,
+     "haar_mean_on_diagonal_shell_exact": "481/280",
+     "m": 8,
+     "value_10dp": "1.7178571428"
+    },
+    {
+     "S_Page_m_m_10dp": "2.2748659695",
+     "above_S_Page": true,
+     "haar_mean_on_diagonal_shell_exact": "1715839/720720",
+     "m": 16,
+     "value_10dp": "2.3807289932"
+    }
+   ],
+   "shell": "span{|i>_B|i>_R}, i = 1..m (d_B = d_R = m); rho_R = diag(|c_i|^2), c Haar on C^m, so the spectrum is uniform on the simplex"
+  },
+  "c_sector_formula_below_in_all_cases": true,
+  "c_shell_cases": [
+   {
+    "MC_agrees_sector_formula": true,
+    "MC_mean_le_canonical_upper_plus_4se": true,
+    "MC_se": "0.002936",
+    "R": 3,
+    "S_Page_full_dims_exact_10dp": "1.5885337608",
+    "S_canonical_interval_10dp": [
+     "2.0069812137",
+     "2.0069812138"
+    ],
+    "canonical_by_enumeration_NUMERICAL": "2.0069812138",
+    "canonical_spectrum_matches_enumeration_exact": true,
+    "concavity_status": "certified above S_Page (concavity bound inconclusive)",
+    "full_dim": 64,
+    "haar_on_shell_MC_mean_NUMERICAL": "1.546889",
+    "n": 6,
+    "per_mode_log_dim_ln_C_over_n": "0.499289",
+    "preregistered": true,
+    "sector_formula_below_S_Page_exact_given_formula": true,
+    "sector_formula_mean_DIAGNOSTIC": "1.547740",
+    "shell_dim": 20,
+    "w": 3
+   },
+   {
+    "MC_agrees_sector_formula": true,
+    "MC_mean_le_canonical_upper_plus_4se": true,
+    "MC_se": "0.001626",
+    "R": 4,
+    "S_Page_full_dims_exact_10dp": "2.2748659695",
+    "S_canonical_interval_10dp": [
+     "2.6932843785",
+     "2.6932843786"
+    ],
+    "canonical_by_enumeration_NUMERICAL": "2.6932843785",
+    "canonical_spectrum_matches_enumeration_exact": true,
+    "concavity_status": "certified above S_Page (concavity bound inconclusive)",
+    "full_dim": 256,
+    "haar_on_shell_MC_mean_NUMERICAL": "2.207694",
+    "n": 8,
+    "per_mode_log_dim_ln_C_over_n": "0.531062",
+    "preregistered": true,
+    "sector_formula_below_S_Page_exact_given_formula": true,
+    "sector_formula_mean_DIAGNOSTIC": "2.206170",
+    "shell_dim": 70,
+    "w": 4
+   },
+   {
+    "MC_agrees_sector_formula": true,
+    "MC_mean_le_canonical_upper_plus_4se": true,
+    "MC_se": "0.000854",
+    "R": 5,
+    "S_Page_full_dims_exact_10dp": "2.9663054768",
+    "S_canonical_interval_10dp": [
+     "3.3826476818",
+     "3.3826476819"
+    ],
+    "canonical_by_enumeration_NUMERICAL": "3.3826476819",
+    "canonical_spectrum_matches_enumeration_exact": true,
+    "concavity_status": "certified above S_Page (concavity bound inconclusive)",
+    "full_dim": 1024,
+    "haar_on_shell_MC_mean_NUMERICAL": "2.885696",
+    "n": 10,
+    "per_mode_log_dim_ln_C_over_n": "0.552943",
+    "preregistered": true,
+    "sector_formula_below_S_Page_exact_given_formula": true,
+    "sector_formula_mean_DIAGNOSTIC": "2.886563",
+    "shell_dim": 252,
+    "w": 5
+   },
+   {
+    "MC_agrees_sector_formula": true,
+    "MC_mean_le_canonical_upper_plus_4se": true,
+    "MC_se": "0.001704",
+    "R": 4,
+    "S_Page_full_dims_exact_10dp": "2.2748659695",
+    "S_canonical_interval_10dp": [
+     "2.1560878461",
+     "2.1560878462"
+    ],
+    "canonical_by_enumeration_NUMERICAL": "2.1560878461",
+    "canonical_spectrum_matches_enumeration_exact": true,
+    "concavity_status": "certified below S_Page",
+    "full_dim": 256,
+    "haar_on_shell_MC_mean_NUMERICAL": "1.471953",
+    "n": 8,
+    "per_mode_log_dim_ln_C_over_n": "0.416526",
+    "preregistered": false,
+    "sector_formula_below_S_Page_exact_given_formula": true,
+    "sector_formula_mean_DIAGNOSTIC": "1.472409",
+    "shell_dim": 28,
+    "w": 2
+   },
+   {
+    "MC_agrees_sector_formula": true,
+    "MC_mean_le_canonical_upper_plus_4se": true,
+    "MC_se": "0.001338",
+    "R": 5,
+    "S_Page_full_dims_exact_10dp": "2.9663054768",
+    "S_canonical_interval_10dp": [
+     "2.4008447399",
+     "2.4008447400"
+    ],
+    "canonical_by_enumeration_NUMERICAL": "2.4008447400",
+    "canonical_spectrum_matches_enumeration_exact": true,
+    "concavity_status": "certified below S_Page",
+    "full_dim": 1024,
+    "haar_on_shell_MC_mean_NUMERICAL": "1.602267",
+    "n": 10,
+    "per_mode_log_dim_ln_C_over_n": "0.380666",
+    "preregistered": false,
+    "sector_formula_below_S_Page_exact_given_formula": true,
+    "sector_formula_mean_DIAGNOSTIC": "1.602444",
+    "shell_dim": 45,
+    "w": 2
+   },
+   {
+    "MC_agrees_sector_formula": true,
+    "MC_mean_le_canonical_upper_plus_4se": true,
+    "MC_se": "0.000546",
+    "R": 6,
+    "S_Page_full_dims_exact_10dp": "3.6590254932",
+    "S_canonical_interval_10dp": [
+     "3.2804570199",
+     "3.2804570200"
+    ],
+    "canonical_by_enumeration_NUMERICAL": "3.2804570200",
+    "canonical_spectrum_matches_enumeration_exact": true,
+    "concavity_status": "certified below S_Page",
+    "full_dim": 4096,
+    "haar_on_shell_MC_mean_NUMERICAL": "2.468321",
+    "n": 12,
+    "per_mode_log_dim_ln_C_over_n": "0.449469",
+    "preregistered": false,
+    "sector_formula_below_S_Page_exact_given_formula": true,
+    "sector_formula_mean_DIAGNOSTIC": "2.467701",
+    "shell_dim": 220,
+    "w": 3
+   }
+  ],
+  "c_verdict": "CONDITIONAL: Theorem A.8 states the Page value with the full factor dimensions while positing equidistribution on a shell subspace, and the Haar-on-shell mean differs from that value in a direction that depends on the shell. For a conserved Hamming weight it lies below S_Page(d_R,d_B), certified (concavity, rigorous log intervals) in cases (n,w,|R|)=(8,2,4), (n,w,|R|)=(10,2,5), (n,w,|R|)=(12,3,6) (all added by amendment A1; the preregistered half-filling cases are not certified by this bound). For the diagonal shell span{|i>|i>} it is exactly H_m - 1, above S_Page(m,m) for m = 2, 3, 4, 8, 16 (post-review result): all rows above. The unstated hypothesis is that the shell is the full product space, or that d_B, d_R are replaced by the shell's own typical value.",
+  "d_time_average_vs_instantaneous": "OPEN proof obligation (textual): Theorem A.8 bounds a cycle time-average at a fixed bipartition on a fixed shell; Theorem A.9 applies it at each t along one trajectory with a changing bipartition, starting from a definite state, which C1 shows has S=0 in the configuration factorization. No computation here settles it."
+ },
+ "C7": {
+  "a_c_note": "a and c are algebraic identities checked at rational points; not counted as controls",
+  "a_cubic_law": {
+   "exact_ok": true,
+   "statement": "dM/dt=-a/M^2, a const => d(M^3)/dt=-3a, t_evap=M0^3/(3a), t/t_evap=1-(M/M0)^3"
+  },
+  "b_half_entropy": {
+   "check_8(1-x)^2": "1 + (0)*sqrt(2)",
+   "interval_12dp": [
+    "0.646446609406",
+    "0.646446609407"
+   ],
+   "t_P_over_t_evap": "1 + (-1/4)*sqrt(2)"
+  },
+  "b_numerical_control": "0.6464466094",
+  "c_multiplicative_greybody": {
+   "exact_ok": true,
+   "statement": "t_P/t_evap = (1-(M_P/M0)^3) for every constant a: a cancels"
+  },
+  "d_power_law_a_propto_M^-p": {
+   "p=0": [
+    "0.64644660",
+    "0.64644661"
+   ],
+   "p=1": "3/4",
+   "p=1/2": [
+    "0.70269822",
+    "0.70269823"
+   ]
+  },
+  "d_power_law_numerical_control_p=1/2": "0.7026982212",
+  "d_step_model": [
+   {
+    "a2_over_a1": "3/2",
+    "exact": "3000000/2999999 + (-750000/2999999)*sqrt(2)",
+    "mu=M*/M0": "1/100",
+    "numerical_control": "0.646447",
+    "value_8dp": "0.64644682"
+   },
+   {
+    "a2_over_a1": "3/2",
+    "exact": "3000/2999 + (-750/2999)*sqrt(2)",
+    "mu=M*/M0": "1/10",
+    "numerical_control": "0.646662",
+    "value_8dp": "0.64666216"
+   },
+   {
+    "a2_over_a1": "3/2",
+    "exact": "24/23 + (-6/23)*sqrt(2)",
+    "mu=M*/M0": "1/2",
+    "numerical_control": "0.674560",
+    "value_8dp": "0.67455298"
+   },
+   {
+    "a2_over_a1": "3/2",
+    "exact": "1 + (-32/165)*sqrt(2)",
+    "mu=M*/M0": "3/4",
+    "numerical_control": "0.725746",
+    "value_8dp": "0.72572827"
+   },
+   {
+    "a2_over_a1": "3/2",
+    "exact": "1 + (-500/2271)*sqrt(2)",
+    "mu=M*/M0": "9/10",
+    "numerical_control": "0.688679",
+    "value_8dp": "0.68863637"
+   },
+   {
+    "a2_over_a1": "2",
+    "exact": "2000000/1999999 + (-500000/1999999)*sqrt(2)",
+    "mu=M*/M0": "1/100",
+    "numerical_control": "0.646447",
+    "value_8dp": "0.64644693"
+   },
+   {
+    "a2_over_a1": "2",
+    "exact": "2000/1999 + (-500/1999)*sqrt(2)",
+    "mu=M*/M0": "1/10",
+    "numerical_control": "0.646770",
+    "value_8dp": "0.64676999"
+   },
+   {
+    "a2_over_a1": "2",
+    "exact": "16/15 + (-4/15)*sqrt(2)",
+    "mu=M*/M0": "1/2",
+    "numerical_control": "0.689555",
+    "value_8dp": "0.68954305"
+   },
+   {
+    "a2_over_a1": "2",
+    "exact": "1 + (-16/101)*sqrt(2)",
+    "mu=M*/M0": "3/4",
+    "numerical_control": "0.775997",
+    "value_8dp": "0.77596616"
+   },
+   {
+    "a2_over_a1": "2",
+    "exact": "1 + (-250/1271)*sqrt(2)",
+    "mu=M*/M0": "9/10",
+    "numerical_control": "0.721909",
+    "value_8dp": "0.72183053"
+   },
+   {
+    "a2_over_a1": "4",
+    "exact": "4000000/3999997 + (-1000000/3999997)*sqrt(2)",
+    "mu=M*/M0": "1/100",
+    "numerical_control": "0.646447",
+    "value_8dp": "0.64644709"
+   },
+   {
+    "a2_over_a1": "4",
+    "exact": "4000/3997 + (-1000/3997)*sqrt(2)",
+    "mu=M*/M0": "1/10",
+    "numerical_control": "0.646932",
+    "value_8dp": "0.64693180"
+   },
+   {
+    "a2_over_a1": "4",
+    "exact": "32/29 + (-8/29)*sqrt(2)",
+    "mu=M*/M0": "1/2",
+    "numerical_control": "0.713339",
+    "value_8dp": "0.71332039"
+   },
+   {
+    "a2_over_a1": "4",
+    "exact": "1 + (-16/175)*sqrt(2)",
+    "mu=M*/M0": "3/4",
+    "numerical_control": "0.870761",
+    "value_8dp": "0.87070047"
+   },
+   {
+    "a2_over_a1": "4",
+    "exact": "1 + (-250/1813)*sqrt(2)",
+    "mu=M*/M0": "9/10",
+    "numerical_control": "0.805168",
+    "value_8dp": "0.80498985"
+   }
+  ],
+  "e_beta_accounting": [
+   {
+    "BH_entropy_lost_fraction": "0.500000",
+    "S_BH_over_S0_at_turnover": "0.500000",
+    "beta": "1",
+    "t_P_over_t_evap_8dp": "0.64644660"
+   },
+   {
+    "BH_entropy_lost_fraction": "0.428571",
+    "S_BH_over_S0_at_turnover": "0.571428",
+    "beta": "4/3",
+    "t_P_over_t_evap_8dp": "0.56804060"
+   },
+   {
+    "BH_entropy_lost_fraction": "0.402463",
+    "S_BH_over_S0_at_turnover": "0.597536",
+    "beta": "14847/10000",
+    "t_P_over_t_evap_8dp": "0.53810089"
+   },
+   {
+    "BH_entropy_lost_fraction": "0.400000",
+    "S_BH_over_S0_at_turnover": "0.600000",
+    "beta": "3/2",
+    "t_P_over_t_evap_8dp": "0.53524199"
+   },
+   {
+    "BH_entropy_lost_fraction": "0.333333",
+    "S_BH_over_S0_at_turnover": "0.666666",
+    "beta": "2",
+    "t_P_over_t_evap_8dp": "0.45566894"
+   }
+  ],
+  "e_literature_control": {
+   "computed_entropy_lost_4dp": "0.4025",
+   "computed_t_fraction_4dp": "0.5381",
+   "quoted_entropy_lost": "0.4025",
+   "quoted_t_fraction": "0.5381",
+   "reproduced": true,
+   "resolution": "4 decimal places; confirms the beta formula is Page's accounting, not an independent physics test",
+   "source": "Page 2013 (arXiv:1301.4995v3, read in full): beta = 1.48472 Eq. (2) p.6; t* = 0.53810 t_decay Eq. (8) p.11; 40.25% of S_BH lost p.12"
+  },
+  "verdict": "CONDITIONAL: t_P/t_evap = 1 - 2^{-3/2} = 0.646446 holds exactly given (i) constant a in dM/dt=-a/M^2, (ii) turnover at half the initial black-hole entropy, i.e. radiation entropy equal to the black-hole entropy lost (beta=1, the identification n_R(t)=n_B(0)-n_B(t)), (iii) S_BH proportional to M^2. PROVED: a constant multiplicative greybody or species factor cancels. COUNTEREXAMPLE to the unconditional reading: an M-dependent effective coefficient changes the fraction (power law p=1/2 gives 0.702698; step model up to 0.870700 for the cases computed), and with Page's coarse-grained accounting beta=1.4847 the fraction is 0.5381, reproducing Page 2013 Eq. (8); beta itself is computed from the species' greybody factors."
+ },
+ "K_eig": {
+  "diagonalizations": 56405,
+  "max_purity_dev_le_1e-12": true,
+  "max_trace_dev_le_1e-12": true,
+  "min_eig_ge_-1e-12": true,
+  "tolerance_for_VOID": 1e-10
+ },
+ "K_eig_cross_complex_vs_embedding_le_1e-10": true,
+ "K_ln": [
+  {
+   "contains_float_log": true,
+   "lo_15dp": "0.693147180559945",
+   "x": "2"
+  },
+  {
+   "contains_float_log": true,
+   "lo_15dp": "1.098612288668109",
+   "x": "3"
+  },
+  {
+   "contains_float_log": true,
+   "lo_15dp": "1.897119984885881",
+   "x": "20/3"
+  },
+  {
+   "contains_float_log": true,
+   "lo_15dp": "3.806662489770319",
+   "x": "45"
+  },
+  {
+   "contains_float_log": true,
+   "lo_15dp": "0.154150679827258",
+   "x": "7/6"
+  }
+ ],
+ "controls": {
+  "CC5": true,
+  "CT1": true,
+  "K-bij": true,
+  "K-classical": true,
+  "K-diag": true,
+  "K-eig": true,
+  "K-ln": true,
+  "K-ode": true,
+  "K-overlap": true,
+  "K-page-formula": true,
+  "K-page-mc": true,
+  "K-page2013": true,
+  "K-plus": true,
+  "K-rank": true,
+  "K-shell": true,
+  "K-tight": true,
+  "K-unitary": true
+ },
+ "page_like_tolerance_nats": 0.1,
+ "schema": "bh02_scramble_v1",
+ "seeds": {
+  "C1_sample_q2n4": 20261025,
+  "C3_haar_ct1": 917005,
+  "C3_iterated": 917003,
+  "C3_local": 917004,
+  "C3_lowH": 917006,
+  "C3_perm_n10": 917002,
+  "C3_perm_n8": 917001,
+  "C4_classical": 917007,
+  "C5_circuit": 917010,
+  "C5_mc": 917008,
+  "C5_mc_real": 917009,
+  "C6_diag_mc": 917012,
+  "C6_shell_mc": 917011
+ }
+}
