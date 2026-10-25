@@ -3,85 +3,165 @@
 Research thread, opened 25 October 2026 from `main` at
 `c37700ad7d1bf099c59010e941ca06ffc4c12e3d` (the drafting snapshot). Exploratory research only.
 
-This thread is not a native V3 round. It introduces no postulate and adopts no premise.
+This thread is not a native V3 round. It introduces no postulate and adopts no premise. Corpus line numbers below are at
+the drafting snapshot.
 
 ## Question
 
-Under a finite reversible substratum, the visible record is a deterministic function of the initial state. The thread
-asks four things:
-- whether such a record can be indistinguishable from a genuinely random source to a restricted observer;
-- for which observers, at which horizons, and at what resource cost;
-- how this relates to computational pseudoentropy;
-- whether a persistent hidden seed can stand in for independently supplied randomness across repeated measurements.
+The visible record of a finite reversible substratum is a deterministic function of the initial state. Within a fixed
+horizon, the corpus already settles exact reproduction. This thread asks what happens for **one fixed realization**
+$(\mathcal{C}_V \times \mathcal{C}_H, \varphi, \mu)$ as the horizon or the protocol class grows:
+- For which observers is the record indistinguishable from a genuinely random reference source?
+- How far, and at what resource cost?
+- Does that indistinguishability survive repeated and adaptive measurement?
+- How does it relate to computational pseudoentropy?
 
-## Anchors in the corpus
+The corpus claim under audit is `book/ch18-beyond.md:114` (mirrored at `FULL.md:4932`): "The randomness is unpredictable
+by any embedded observer regardless of its origin, so the cryptographic properties depend on unpredictability rather
+than on ontic vs epistemic status." The thread treats this sentence as a claim to test, not as a premise.
+- Tests against finite, explicit observer classes can refute its universal form. They cannot establish it.
+- A positive result is stated only for the observer class it was computed for.
 
-These are the statements the thread tests or depends on. The thread changes none of them.
+## What the corpus already settles
 
-- **The book's claim of unpredictability.** `book/ch18-beyond.md:104–114` and its mirror at `FULL.md:4922–4932`:
-  - outcome randomness is the observer's reduced description of a deterministic bijection;
-  - "the randomness is unpredictable by any embedded observer regardless of its origin, so the cryptographic properties
-    depend on unpredictability rather than on ontic vs epistemic status".
-  - PE-01 to PE-03 test the second sentence against explicit observer classes.
-- **The fair-coin realization.** `papers/Main.md:172`: the fair coin is realized by the §3.4 dilation construction, on a
-  finite horizon, from a hidden tape.
-- **The capacity condition.** `papers/Main.md:78`, (C3): $\log_2|\mathcal{C}_H| \ge I^*$. It is a data-processing bound
-  and is saturated.
-- **The finite-horizon scope.** `papers/Main.md:82`: every theorem quoted there holds on a fixed finite accessible
-  horizon.
-- **Bounded persistent memory.** The research under #911 (`a2_memory_v8/`, not on `main`) proves the following, on one
-  protocol, for controllers with finite whole state, a time-independent update and B fresh fair bits per slot: complete-
-  record total variation from quantum theory tends to 1. PE-03 coordinates with it and adopts none of its controller
-  constructions as OI mechanisms.
+These are the baseline. The thread restates none of them as new.
+
+- **Record entropy is bounded.** `papers/Structure.md:1256` gives the sharp form:
+  - the visible factor of a finite reversible substratum has zero entropy rate under every invariant prior;
+  - the randomness an embedded observer records is bounded by $\log|\mathcal{C}_V \times \mathcal{C}_H|$;
+  - that randomness is exhausted at recurrence scale.
+- **Exact reproduction within a horizon.** `papers/Main.md:496–500` (finite-horizon process dilation, with the
+  response-table extension for arbitrary priors) reproduces any finite-horizon law exactly, so its total variation is 0
+  against every observer. The hidden tape $\mathbb{Z}_D^K$ grows with the horizon $K$. `papers/Main.md:172` uses this
+  construction for the fair coin, at "arbitrarily long accessible horizons", one realization per horizon.
+- **The per-horizon qualifier is load-bearing.**
+  - `papers/Main.md:476` and `:538`: the equivalence chooses the realization per finite-horizon law.
+  - `papers/Main.md:536–538`: no fixed finite realization hosts generic combs as the horizon grows, and no fixed
+    $N$-state model reproduces the qubit exactly.
+  - `papers/Main.md:82`:
+    - layer (1) holds per horizon;
+    - layer (3) includes approximation to arbitrary finite accuracy;
+    - layer (4) is conditional, not a theorem.
+- **Pre-loaded seeds and approximation.**
+  - `papers/Main.md:544–560`: finite realization and gluing, in ε-form. It uses uniform pre-loaded seeds and a
+    read-only program register charged as a resource.
+  - `papers/Main.md:576`: uniform continuum realization to mutual ε-density at fixed $d$, $m$, $K$ and $\varepsilon$.
+- **Capacity.** `papers/Main.md:78` and `:492`, (C3): $\log_2|\mathcal{C}_H| \ge I^*$, where
+  $I^* = \sup_t I(X_{<t}; X_{>t} \mid X_t)$ is a conditional mutual information, not a record entropy. The bound is tight:
+  some realizations attain it.
+
+## Related corpus statements the thread bears on
+
+- **Predicted correlations.** `book/ch18-beyond.md:56–58` predicts correlations between successive outcomes at order
+  $\tau_S/\tau_B \approx 10^{-32}$. This is the "10^{-32} level" the claim under audit cites.
+- **Bell.** `book/ch18-beyond.md:110`: the framework keeps measurement independence and takes ontic parameter
+  dependence. That matters for certified randomness, which relies on no-signalling against the adversary.
+- **Colbeck–Renner.** `book/appendix-c-objections.md:58–62`: the framework's response to Colbeck–Renner.
+- **The observer's computational model.** `papers/Computation.md:15–17`: the conditional BQP observer model, and the
+  framework's silence on asymptotic complexity.
+- **The choice of μ.** `papers/Main.md:708`: the posit ledger, including the maximal-entropy measure posit.
+- **#911's bounded-memory result.** Reported, unlanded, internally reviewed:
+  `verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8/REPORT.md` at
+  `bafb38d672cbc63f9bf9ef26225ad995fa02c5c9`. It concerns finite-precision approximation of quantum theory, not OI
+  (its line 7). Its claims:
+  - On one protocol, a controller with finite whole state, a time-independent update and B fresh fair bits per slot has
+    complete-record total variation from quantum theory tending to 1.
+  - The obstruction is arithmetic: dyadic fresh bits against a run law with ratio 4/5.
+  - Escaping it needs unboundedly many persistent states. A retained-seed reset escapes; bounded private memory with
+    unbounded public state is open.
+  - Its fresh bits are an instance of the independently supplied randomness PE-03 compares with a fixed seed. PE-03
+    adopts none of its controllers as an OI mechanism.
 
 ## Three notions, kept distinct
 
-Let a finite bijection $\varphi$ act on $\mathcal{C}_V \times \mathcal{C}_H$, and let $\mu$ be an initial law on it.
-The visible record is $X_{0:K}$.
+Let a finite bijection $\varphi$ act on $\mathcal{C}_V \times \mathcal{C}_H$, with an initial law $\mu$. The record
+$R_K$ is the visible trajectory $X_{0:K}$, plus the settings when a protocol supplies them.
 
-1. **Shannon entropy.** The record is a function of the initial state, so
-   $H(X_{0:K}) \le H(\mu) \le \log_2|\mathcal{C}_V \times \mathcal{C}_H|$ for every $K$. PE-01 states and checks this
-   bound and its consequences. It is elementary and is not claimed as new.
-2. **Computational pseudoentropy.** These are the established definitions, used as stated in their sources:
-   - HILL (Håstad–Impagliazzo–Levin–Luby): indistinguishability, at size $s$ and advantage $\varepsilon$, from some
-     distribution of min-entropy at least $k$;
-   - the metric and Yao variants (Barak–Shaltiel–Wigderson).
+**1. Information-theoretic.**
+- For a passive record, $R_K$ is a function of the initial state. So
+  $H_\infty(R_K) \le H(R_K) \le H(\mu) \le \log_2|\mathrm{supp}\,\mu|$.
+- With external settings the bound holds conditional on them.
+- With a prepared visible $x_0$, the relevant support is $\mathcal{C}_H$.
+- Against a reference law uniform on an alphabet $A$, the unrestricted distinguisher has
+  $\mathrm{TV} \ge 1 - |\mathrm{supp}\,\mu|/|A|^K$.
+- This rules out exact fair randomness beyond $H(\mu)$ bits. It does **not** make the output predictable to a bounded
+  observer: a secure pseudorandom generator, under its assumptions, stretches a short seed into a much longer output that
+  bounded tests cannot tell from random. Keeping these two facts apart is the core of PE-01 and PE-02.
 
-   Asymptotic statements need families indexed by a security parameter. A finite instance supports only concrete
-   $(s, \varepsilon)$ statements, and the thread makes no others.
-3. **OI observational indistinguishability.** For a stated class $\mathcal{P}$ of permitted protocols on the visible
-   sector, the advantage is $\max_{p \in \mathcal{P}} \mathrm{TV}$ between the record laws. The access restriction is
-   informational: $h$ is not read. A computational bound is a separate, additional hypothesis.
+**2. Computational (pseudorandomness and pseudoentropy).** Each notion is used as its source states it, with the entropy
+measure, the quantifier order and the distinguisher class named:
+- **HILL** (Håstad–Impagliazzo–Levin–Luby 1999).
+  - Shannon entropy: there exists $Y$ with $H(Y) \ge k$ such that, for every distinguisher of size $s$, the advantage is
+    at most $\varepsilon$.
+  - The min-entropy form is due to Barak–Shaltiel–Wigderson.
+- **Metric** (Barak–Shaltiel–Wigderson 2003). The quantifiers are reversed: for every distinguisher there exists some
+  $Y$ of high min-entropy. Its relation to HILL against bounded circuits is treated by Barak–Shaltiel–Wigderson and by
+  Reingold–Trevisan–Tulsiani–Vadhan 2008.
+- **Yao** (Yao 1982). Defined by incompressibility.
+- **Pseudorandomness** is the special case of indistinguishability from the uniform law itself.
 
-The thread never identifies any two of these without an explicit formal map (AGENTS.md, Code Review Rules: bridge and
-no-go scope).
+Each use states whether distinguishers are Boolean or [0,1]-valued, classical or quantum (Chen–Chung–Lai–Vadhan–Wu), and
+how many samples they receive. A finite instance supports only concrete $(s, \varepsilon)$ statements, and the thread
+makes no asymptotic claim from one.
+
+**3. OI observational indistinguishability.** For a stated protocol class $\mathcal{P}$ and a named reference law $Q$,
+the advantage is
+$\mathrm{adv}_{\mathcal{P}}(\mu, Q) = \max_{p \in \mathcal{P}} \mathrm{TV}(P^{\varphi,\mu}_p, Q_p)$.
+- $P^{\varphi,\mu}_p$ is the record law of protocol $p$ under the realization.
+- $Q_p$ is the record law under the reference: independent fair outcomes, or the quantum prediction for $p$.
+
+Every use states:
+- whether $Q$ is a fixed law (a pseudorandomness-type notion) or ranges over a high-entropy class (a pseudoentropy-type
+  notion, compared with item 2);
+- one run or $r$ independent runs;
+- whether settings are part of the record, and that settings are chosen measurement-independently of the hidden state;
+- **whether the observer knows $\varphi$ and $\mu$.**
+
+The access restriction is informational: $h$ is never read. A computational bound is a separate, additional hypothesis.
+- Suppose an observer knows $\varphi$, is computationally unbounded, and records up to recurrence length. Then zero
+  entropy rate means it can predict the record perfectly.
+- Whether the claim under audit assumes that the observer lacks one of these is the thread's first assumption-watch
+  item.
+
+The thread never identifies any two of the three notions without an explicit formal map (AGENTS.md, Code Review Rules:
+bridge and no-go scope).
 
 ## Stages
 
-**PE-01: a minimal deterministic model.**
+**PE-01: one fixed generator, three observer classes.**
 - Build a finite reversible generator. Each of the following is given explicitly: the hidden seed, the visible output
-  map, the initial law, and the observer classes.
-- Exact results, in rational arithmetic or by exhaustive enumeration: the record entropy, and the distinguishing
-  advantage for each observer class at each horizon.
+  map, $\mu$, the horizon range and the reference law.
+- Compute, exactly, the record entropies and the advantage of each of the following against the same generator:
+  - an unrestricted observer, which knows $\varphi$ and has no computational bound;
+  - a computationally bounded observer, with its class stated: circuit size, or a named structured class such as linear
+    tests via Berlekamp–Massey;
+  - a physically restricted OI observer, given by a stated protocol class $\mathcal{P}$ on the visible sector.
 - Controls:
-  - a positive control, an observer class whose advantage is provably 0 at the stated horizons;
-  - a negative control, an observer class that distinguishes, with its advantage computed exactly;
-  - an exactness control, which checks that the generator is a bijection and that the enumerated laws sum to 1.
+  - **Positive control.** A non-trivial observer class, one that contains a test which fires on some other stated
+    generator, whose advantage on this generator is provably 0. A constant test does not count.
+  - **Negative control.** An observer class that distinguishes for its stated reason, for example support size or linear
+    complexity, with the advantage computed exactly. A mutant that removes that reason must remove the advantage.
+  - **Exactness control.** The generator is a bijection, and the enumerated laws sum to 1.
+- The stage's own plan carries the §A.41 invariant→checkpoint table.
 
 **PE-02: computational versus physical observers.**
-- State when indistinguishability against a size-$s$ circuit class implies indistinguishability against a protocol
+- State when indistinguishability against a stated distinguisher class implies indistinguishability against a protocol
   class $\mathcal{P}$, and the converse. Each direction is a separate question with its own status (§A.34).
 - Each claim names its witnesses in both directions.
 - Cryptographic results are cited, never rederived as OI results.
 
 **PE-03: persistent hidden memory.** Prospective; it begins only after PE-01 and PE-02 are reviewed.
-- Compare a fixed hidden seed with independently supplied randomness across repeated measurements.
-- Compare complete joint-record laws over increasing depth, together with the resources each side uses.
+- Compare one fixed hidden seed with independently supplied randomness, across repeated and adaptive measurements.
+- Compare complete joint-record laws over increasing depth, together with the resources each side uses: seed length, the
+  program register, workspace.
 
 **PE-04: implications for quantum reconstruction.** Prospective, as PE-03.
-- Test whether a mechanism that survives PE-03 meets the complete-record, adaptive-measurement and outgoing-carrier
-  requirements of #910 to #912.
-- Keep finite-precision approximation separate from exact quantum equivalence.
+- Test whether a mechanism that survives PE-03 meets the requirements below. The stage plan cites each requirement by PR
+  and path before it is used:
+  - complete-record composition (#912);
+  - adaptive measurement and the outgoing carrier (#911 and #912);
+  - native construction (#910).
+- Keep finite-precision approximation (`Main.md:576`) separate from exact quantum equivalence.
 
 ## Decision rules (stated before any computation)
 
@@ -90,8 +170,10 @@ no-go scope).
 - **Verdict text is generated from the measured values.** A verdict printed over a failed or vacuous control is void.
 - **Classification of each result:** PROVED, CONDITIONAL (its hypothesis named), COUNTEREXAMPLE (an explicit finite
   instance), or OPEN.
-- **Productivity test (§A.31).** A result counts only if it is strictly stronger than the restatement "a deterministic
-  record has bounded entropy", and it either constrains a corpus claim or exposes a hidden assumption.
+- **Productivity test (§A.31).** A result counts only if it is strictly stronger than what the corpus already settles,
+  that is, the zero-entropy-rate bound of `Structure.md:1256` and the dilation and gluing theorems of `Main.md` §3.4. It
+  must also either constrain a corpus claim or expose a hidden assumption. A result that only re-derives those is
+  record-only.
 - **Favorable branches get the most scrutiny.** When a branch favors the framework, it is pressure-tested hardest.
 - **Each stage's results are its own package**, under this directory, with a plan pinned before execution, structured
   outputs and an independent review.
@@ -99,16 +181,32 @@ no-go scope).
 ## Literature to read in full before any closure claim
 
 None of these is relied on yet.
+
+Pseudorandomness and pseudoentropy:
 - J. Håstad, R. Impagliazzo, L. Levin, M. Luby, "A pseudorandom generator from any one-way function", SIAM J. Comput.
-  28 (1999).
-- B. Barak, R. Shaltiel, A. Wigderson, "Computational analogues of entropy", RANDOM-APPROX 2003.
-- S. Vadhan, C. J. Zheng, "Characterizing pseudoentropy and simplifying pseudorandom generator constructions", STOC 2012.
-- J. L. Massey, "Shift-register synthesis and BCH decoding", IEEE Trans. Inf. Theory 15 (1969). This is the
-  linear-complexity distinguisher for linear generators.
-- Z. Ji, Y.-K. Liu, F. Song, "Pseudorandom quantum states", CRYPTO 2018.
+  28(4):1364–1396 (1999).
+- A. C. Yao, "Theory and applications of trapdoor functions", FOCS 1982.
+- B. Barak, R. Shaltiel, A. Wigderson, "Computational analogues of entropy", RANDOM-APPROX 2003, pp. 200–215.
+- O. Reingold, L. Trevisan, M. Tulsiani, S. Vadhan, "Dense subsets of pseudorandom sets", FOCS 2008.
+- S. Vadhan, C. J. Zheng, "Characterizing pseudoentropy and simplifying pseudorandom generator constructions", STOC 2012,
+  pp. 817–836.
+- J. L. Massey, "Shift-register synthesis and BCH decoding", IEEE Trans. Inf. Theory IT-15(1):122–127 (1969). This is the
+  linear-complexity distinguisher.
+
+Quantum distinguishers and quantum pseudorandomness:
+- Y.-H. Chen, K.-M. Chung, C.-Y. Lai, S. Vadhan, X. Wu, "Computational notions of quantum min-entropy",
+  arXiv:1704.07309.
+- Z. Ji, Y.-K. Liu, F. Song, "Pseudorandom quantum states", CRYPTO 2018, arXiv:1711.00385.
 - S. Aaronson et al., "Quantum pseudoentanglement", arXiv:2211.00747.
-- A. Bouland, B. Fefferman, U. Vazirani, "Computational pseudorandomness, the wormhole growth paradox, and constraints
-  on the AdS/CFT duality", arXiv:1910.14646. It is relevant to the black-hole audit under #917.
+
+Certified randomness:
+- R. Colbeck, R. Renner, "No extension of quantum theory can have improved predictive power", Nat. Commun. 2, 411 (2011),
+  arXiv:1005.5173.
+- S. Pironio et al., "Random numbers certified by Bell's theorem", Nature 464, 1021 (2010), arXiv:0911.3427.
+
+Black holes:
+- A. Bouland, B. Fefferman, U. Vazirani, "Computational pseudorandomness, the wormhole growth paradox, and constraints on
+  the AdS/CFT duality", arXiv:1910.14646. It is relevant to the black-hole audit under #917.
 
 ## Authority limits
 
@@ -118,9 +216,11 @@ This thread does not claim any of the following:
 - that pseudoentropy reproduces quantum mechanics or solves the native measurement problem.
 
 The thread involves no manuscript change, special workflow dispatch, theorem designation or merge without separate
-owner approval.
+owner approval. A finding about `ch18:114` is reported here; any correction to the book is a separate, owner-approved
+change.
 
 ## First milestone
 
-PE-01 and PE-02. The goal is an independently reviewed finite example that separates actual entropy from
-observer-relative unpredictability, together with an explicit counterexample showing where the analogy fails.
+PE-01 and PE-02, for one fixed generator. The question: for which of the three observer classes is the record
+indistinguishable from the named reference law, at which horizons, and with which knowledge of $\varphi$? The outcome
+rule: each class's advantage is reported as computed, with its controls, and classified by the rules above.
