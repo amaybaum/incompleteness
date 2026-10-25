@@ -1,0 +1,127 @@
+"""PE-01 runner.
+
+  python3 -I -B run.py list [--mode result]            shard ids, one per line (the CI matrix)
+  python3 -I -B run.py shard ID --mode smoke|result --out DIR
+        writes DIR/ID.json (deterministic measurement: commit, recipe, preflight, controls,
+        measurements) and DIR/ID.provenance.json (run id, timings: not part of the replay)
+  python3 -I -B run.py replay ID --mode M --against DIR --out DIR2
+        reruns a shard and requires its measurement JSON to be byte-identical (RP)
+  python3 -I -B run.py collect DIR --mode M --out DIR2  merges shards into measurements.json
+
+A run refuses to start if TH or PIN fails (PLAN.md §5). In result mode it also refuses while any
+item of pe01/pending.py is open.
+"""
+import json
+import os
+import sys
+import time
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+
+from pe01 import collect as COL  # noqa: E402
+from pe01 import params as P  # noqa: E402
+from pe01 import pending  # noqa: E402
+from pe01 import shard as S  # noqa: E402
+from pe01.exact import canonical  # noqa: E402
+
+
+def recipe(argv):
+    return "python3 -I -B %s/run.py %s" % (P.REL, " ".join(argv))
+
+
+def refuse(msg):
+    sys.stderr.write("REFUSED: %s\n" % msg)
+    sys.exit(3)
+
+
+def preflight(mode):
+    pf = P.preflight(mode)
+    if not pf["pass"]:
+        refuse("; ".join(pf["reasons"]))
+    if mode == "result" and pending.open_items():
+        refuse("open plan items without an amendment: %s" % ", ".join(pending.open_items()))
+    return pf
+
+
+def run_shard(sid, mode):
+    pf = preflight(mode)
+    ctl = S.Controls()
+    timing = {}
+    t0 = time.time()
+    if sid == "controls":
+        meas = S.shard_controls(mode, ctl)
+    elif sid == "tape":
+        meas = S.shard_tape(mode, ctl)
+    else:
+        parts = sid.split("-")
+        n = int(parts[0][1:])
+        fam = parts[1]
+        if mode == "smoke" and n > 5:
+            refuse("smoke mode covers n <= 5 only")
+        if len(parts) == 3 and parts[2] == "m3":
+            if mode == "smoke":
+                refuse("the m = 3 sweep is not part of the smoke scope")
+            meas = S.shard_m3(n, fam, mode, ctl, timing)
+        else:
+            meas = S.shard_family(n, fam, mode, ctl, timing)
+    timing["total"] = time.time() - t0
+    payload = {
+        "schema": "pe01-shard/1",
+        "shard": sid,
+        "mode": mode,
+        "commit": pf["PIN"]["run_commit"],
+        "tree": pf["PIN"]["run_tree"],
+        "recipe": recipe(["shard", sid, "--mode", mode, "--out", "<dir>"]),
+        "preflight": {"TH": pf["TH"], "PIN": {k: v for k, v in pf["PIN"].items() if k != "code_tree_clean"},
+                      "code_tree_clean": pf["PIN"]["code_tree_clean"]},
+        "pending": pending.PENDING,
+        "controls": ctl.rec,
+        "measurements": meas,
+    }
+    return payload, timing
+
+
+def main(argv):
+    if not argv:
+        print(__doc__)
+        return 2
+    cmd = argv[0]
+    mode = argv[argv.index("--mode") + 1] if "--mode" in argv else "result"
+    if cmd == "list":
+        for sid in S.shard_ids():
+            print(sid)
+        return 0
+    if cmd in ("shard", "replay"):
+        sid = argv[1]
+        out = argv[argv.index("--out") + 1]
+        os.makedirs(out, exist_ok=True)
+        payload, timing = run_shard(sid, mode)
+        data = canonical(payload)
+        with open(os.path.join(out, sid + ".json"), "wb") as f:
+            f.write(data)
+        prov = {"shard": sid, "run_id": os.environ.get("GITHUB_RUN_ID", "local"),
+                "run_attempt": os.environ.get("GITHUB_RUN_ATTEMPT", "local"),
+                "job": os.environ.get("GITHUB_JOB", "local"), "commit": payload["commit"],
+                "recipe": payload["recipe"], "display_timing_seconds": timing}
+        with open(os.path.join(out, sid + ".provenance.json"), "w") as f:
+            json.dump(prov, f, sort_keys=True, indent=1)
+            f.write("\n")
+        if cmd == "replay":
+            ref = os.path.join(argv[argv.index("--against") + 1], sid + ".json")
+            same = open(ref, "rb").read() == data
+            print("RP %s: %s" % (sid, "byte-identical" if same else "DIFFERS"))
+            return 0 if same else 1
+        fails = [k for k, v in payload["controls"].items() if not v["pass"]]
+        print("%s: %s (%.1fs)" % (sid, "controls green" if not fails else "FAILED " + ",".join(fails), timing["total"]))
+        return 0 if not fails else 1
+    if cmd == "collect":
+        src = argv[1]
+        out = argv[argv.index("--out") + 1]
+        return COL.collect(src, out, mode)
+    print(__doc__)
+    return 2
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))
