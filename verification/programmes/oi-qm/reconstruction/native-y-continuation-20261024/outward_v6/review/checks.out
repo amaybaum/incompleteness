@@ -1,0 +1,4 @@
+O2: unique axial pivot,1479 old sources,15 ready/old-history regions,all-index bank slack formulas and unchanged informative prefix; all128 update identities give delta output=(0,u,u*old_output.A): PASS
+O1: signed L14 two-source strip, 1720 direct positions x16 lanes; actual incoming permutations=[[3, 6, 5, 0, 2, 4, 7, 1], [7, 0, 5, 4, 3, 2, 1, 6]]; old local triple111; unique correction Q=[000,101]: PASS
+O3: independent full eight-step q7 assembly; all32 original/corrected qY and q2 diagnostic triples; corrected native code00y, qY diagnostic D=p, no raw q2-only field: PASS
+SCOPE: ACCEPT modified initial q7 readout and stated readiness geometry; private access and147 extra old-port fair bits remain required. No arbitrary-input clean socket, joint-record certification, or native reset.

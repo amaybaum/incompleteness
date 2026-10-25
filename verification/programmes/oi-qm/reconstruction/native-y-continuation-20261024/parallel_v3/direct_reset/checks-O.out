@@ -1,0 +1,9 @@
+M1: all8 arbitrary triples and both seeds; native first-arrival formula and inverse: PASS
+M2: independent3D recursion,L12,256 lanes,3 receivers,blank prefixes: PASS
+G1: L2700 source ownership,7832 herald entries,single Q,old unknown excluded: PASS
+H1: all2700 native wing/axis steps,32 cases; raw herald=(0,G,0),10/32 success: PASS
+P1:4 histories,256 seed cases; entire tagged-carrier law5:3:2; success5/16,failure11/16: PASS
+P2: entire X/R cell determined by public(x,y) and designated sign; no other fresh-seed leak: PASS
+C1: swapped5:2:3 caught by R(TV1/10;1/32 withfailure); strict common raw encoding fails(TV1); old-seed reuse fails: PASS
+P3:8192 two-encounter seed cases,all failure records; both success25/256; older5/8 selector gives125/2048: PASS
+SCOPE: conditional standalone prepared native socket; tagged law is candidate, no encoding relaxation adopted; actual q2 integration remains open.

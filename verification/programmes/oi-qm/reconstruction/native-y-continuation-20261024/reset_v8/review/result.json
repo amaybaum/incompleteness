@@ -1,0 +1,80 @@
+{
+  "forcing_blocks": [
+    {
+      "order": 1,
+      "permutation": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "order": 1,
+      "permutation": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    }
+  ],
+  "independent_scalar_path_rows": 6144,
+  "input_sha256": {
+    "../reset_v7/inherited_correction_model.py": "81fb9162229409e42d4383274c91988b94c8727dc70d9398cc1ca1ac51a38ee4",
+    "../reset_v7/inherited_model.py": "dfb056bfe91372b44787d962e63d83ae7109802b38034b661e1c3275a63e146b",
+    "../reset_v7/probe.py": "1b00605540c71e499a6a7b3b4f59f965f140e2620c287b4321c74c2cd2554b72",
+    "probe.py": "7557844c8934ebaec2dfb1472208317c3e7141ad94be2def15a18174c454110a",
+    "results.json": "5ac68df56388b9978b9db351dca0e29e99db3c8cccc567eb30bc61b665629a0f"
+  },
+  "isolated_superposition_counterexamples": 4,
+  "late_input_counterexamples": [
+    {
+      "outputs_by_x": [
+        0,
+        1
+      ],
+      "p": 0,
+      "u": 0
+    },
+    {
+      "outputs_by_x": [
+        3,
+        2
+      ],
+      "p": 1,
+      "u": 0
+    }
+  ],
+  "matched_table_rows": 1536,
+  "native_clean_G_by_u": [
+    3,
+    5
+  ],
+  "native_clean_W": 7,
+  "native_common_encoding_count": 32,
+  "public_record_law": "not_established",
+  "q7_common_encoding_count": 0,
+  "reset": "not_constructed",
+  "scalar_full_diamond_spots": 8,
+  "schema": "oi.workspace-reset.v8.independent-review",
+  "unique_entry": [
+    [
+      -1,
+      [
+        0,
+        -9,
+        8
+      ]
+    ]
+  ],
+  "verdict": "PASS"
+}

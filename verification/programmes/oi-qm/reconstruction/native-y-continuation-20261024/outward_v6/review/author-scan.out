@@ -1,0 +1,9 @@
+OUT1: 4536 scalar upper-pulse comparisons;252 strip entries, n0..8, bothu: PASS
+OUT2: actualP divisible by universal exponent12*840^24; reduced axial coordinates stay positive: PASS
+OUT3: all17748 old-source/k pairs, actual boundary geometry, frontiers and upper budgets<=2k: PASS
+OUT4: all32 assignments recover retained k1/k2/k3 formulas and newk7 formula: PASS
+OUT5: all384 diagnostic endpoint assignments are selector-mask independent; all192 native rows match retained tables: PASS
+OUT6:72 endpoint field/complement candidates: exactlyk2.A andk7.D are rawp; no fullY-only triple amongk1..12: PASS
+OUT7: nativek7=(0,u,y) has4 history codes; earliest prefixR-7=(u,u,1) remains informative: PASS
+SCOPE: exact straight-outward endpoint family only; no clean reusable socket, reset, native access mechanism or joint-law certification.
+OUT8: q2.A intervention is not forwarded raw by any later endpoint k3..12; k7 counterexample retained: PASS

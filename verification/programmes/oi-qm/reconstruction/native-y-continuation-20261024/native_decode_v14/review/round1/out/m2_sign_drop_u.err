@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/m2_sign_drop_u/checks.py", line 644, in <module>
+    main()
+    ~~~~^^
+  File "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/m2_sign_drop_u/checks.py", line 492, in main
+    need(planted_coeffs in found_a, 'solver A recovers planted law')
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/m2_sign_drop_u/checks.py", line 29, in need
+    raise RuntimeError('control failed: ' + label)
+RuntimeError: control failed: solver A recovers planted law
+rc=1

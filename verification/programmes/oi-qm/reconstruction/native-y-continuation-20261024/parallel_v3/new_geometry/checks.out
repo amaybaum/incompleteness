@@ -1,0 +1,9 @@
+GEO1: 936 direct 3-D comparisons; all8 triples, n0..8, all13 strip entries: PASS
+GEO2: triangular strip map has explicit inverse;512 arbitrary-state inverse identities: PASS
+GEO3: exact pulse periods3600/2940, no transient; actualR residue253 for both: PASS
+GEO4: all1479 old sources; initial depth3 extension, old banks and opposite pulse excluded: PASS
+GEO5:32 actual x/u/mY/mR/p assignments match complete third-step formula; second-step unchanged: PASS
+GEO6: native q3,R+3=(u,xu,u); earliest q3 prefix,R-3=(u,1,u): PASS
+GEO7:96 site-times,576 field/complement candidates,32 assignments each: only old qY.D and q2.A retain rawp: PASS
+GEO8: treating q3 as rawY or cleanY fails; early sample leak weight5/32 under inherited success law: PASS
+SCOPE: exact depth3 private transport extension; no reset, no public shutter, no general geometry no-go.

@@ -1,0 +1,21 @@
+{
+  "accepted_plane_counts": [
+    5,
+    0,
+    3,
+    2
+  ],
+  "affine_seed_rank": 5,
+  "controls_passed": true,
+  "failure": "11/16",
+  "full_wing_seed_comparisons": 85952,
+  "full_wing_steps": 2686,
+  "identity_states": 8,
+  "predicate_assignments": 32,
+  "schema": "synchronized-herald-review-v1",
+  "shared_z_joint_TV": "1/2",
+  "small_3D_seed_cases": 96,
+  "success": "5/16",
+  "terminal_source_omission_mutants_detected": 3,
+  "verdict": "PASS_CONDITIONAL_REMOTE_HERALD_AND_Z"
+}

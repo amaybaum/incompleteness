@@ -1,0 +1,70 @@
+{
+  "all_branch_local_controls": {
+    "accepted_joint_cell_checks": 3072,
+    "all_old_complement_truth_rows": 32768,
+    "failure_physical_measure_retained": true,
+    "native_reference_acceptance_flag_constructed": false,
+    "reference_acceptance": "5/16",
+    "reference_failure": "11/16",
+    "whole_V_each_symbol_probability": "1/8"
+  },
+  "geometry": {
+    "active_shell_bank_exceptions": 4,
+    "inherited_source_comparisons": 4437,
+    "minimum_public_arrival_offsets_over_L": [
+      77,
+      79,
+      79
+    ],
+    "needs_new_zero_readiness": false,
+    "new_initial_fair_bits": 3,
+    "public_cone_exclusions": 24,
+    "ready_exclusions": 72,
+    "reserved_eight_stream_bank_untouched_through_2L": true,
+    "source_formulas": [
+      "(-(L+1),S,76)",
+      "(-(L+1),S,78)",
+      "(-(L+2),S,77)"
+    ],
+    "target_offsets_over_L": [
+      [
+        1,
+        3,
+        1
+      ],
+      [
+        3,
+        1,
+        1
+      ],
+      [
+        3,
+        3,
+        1
+      ]
+    ],
+    "total_frontier_fair_bits": 9,
+    "zero_shell_old_bank_exceptions": 8
+  },
+  "native_controls": {
+    "complete_native_worlds": 6144,
+    "inverse_decoder_rows": 6144,
+    "native_world_families": 12,
+    "old_triples_observed_in_smoke": [
+      0,
+      2,
+      3,
+      4,
+      6
+    ],
+    "omitted_or_shared_F9_joint_TV": "7/8",
+    "scalar_independent_comparisons": 288,
+    "uniform_joint_pool_V_support_each_family": 512,
+    "without_oldlocal_update_failures": 4096,
+    "without_shared_neighbor_inverse_failures": 5376
+  },
+  "schema": "oi.native-masked-X-coupling.v12",
+  "scope": "Explicit three-initial-bit resource extension and fixed local phase code; no clean operand/native predicate/reusable instrument.",
+  "source_revision": "00e85e748cf8e5ada75f4e1a22aef87eb0a823a2",
+  "verdict": "PASS_CONDITIONAL_NATIVE_MASKED_X_COUPLING"
+}

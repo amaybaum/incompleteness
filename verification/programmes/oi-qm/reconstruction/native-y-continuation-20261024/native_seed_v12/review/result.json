@@ -1,0 +1,73 @@
+{
+  "actual_gap76_lower_front_checks": 531,
+  "all_controls_pass": true,
+  "all_coupled_W_entries_omission_q10_mismatches": 416,
+  "author_commit": "1c91d3158e13eaa69c7fd1710932c9995d0288d7",
+  "blockers": [],
+  "broken_x_reflection_witnesses": 10,
+  "complete_public_history_equality_claimed": false,
+  "geometry": {
+    "W_front_entries": 3,
+    "bank_ray_intervals": 8,
+    "compiled_sources": 1479,
+    "earlier_ready_regions": 24,
+    "minimum_bank_slack": 1,
+    "upper_lower_minimum_separation_minus_2R": 0
+  },
+  "independent_q10_rows": 512,
+  "independent_upper_packed_native_checks": 1782,
+  "native_instrument_or_full_boundary_no_go_claimed": false,
+  "old_qY_q7_q8_q9_preserved_rows": 512,
+  "q10_table_sha256": "8bc1462854ce5fb80c18a48e8208037eb6bd613aa5babb28721e186aec3387f9",
+  "schema": "oi-native-seed-v12-review-1",
+  "signed_upper_nodes": 891,
+  "small_full_3D_lower_controls": 30,
+  "table_obstructions": {
+    "accepted_derivative_pairs": 192,
+    "accepted_pad_sensitive_rows": 80,
+    "accepted_sign_loss_pairs": 32,
+    "affine_families": [
+      {
+        "common_injective_s_codes": 0,
+        "tested": 64
+      },
+      {
+        "common_injective_s_codes": 0,
+        "tested": 512
+      }
+    ],
+    "known_contexts": 24,
+    "own_N_permutation_contexts": 64,
+    "pad_flip_pairs": 64,
+    "pad_sensitive_rows": 144,
+    "pair_intersection_prefix_sizes": [
+      8,
+      8,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "third_lower_layer_omission_q10_mismatches": 0,
+  "upper_distinct_parameter_assignments_per_packed_check": 64,
+  "verdict": "ACCEPT_WITHIN_SCOPE"
+}

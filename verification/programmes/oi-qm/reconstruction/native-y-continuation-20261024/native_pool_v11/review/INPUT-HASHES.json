@@ -1,0 +1,25 @@
+{
+  "author_files": {
+    "PLAN.md": "14659c25411543496e23e9c5800484b655edcef62bda2189a1d097c16602d7ad",
+    "PROVENANCE.json": "db1e58dfa96793551a73b8685e1bfb969f311146e8364c205b65320d4234cc35",
+    "REPORT.md": "2c9d74e687f19de6730617ea5e3522396714c75a74c7ad8ea07cd52442b2d6a0",
+    "SHA256SUMS": "0d43e0dbf691d766516e874b5cdfe808a936b7d8cd630a6c4589c69d4597744e",
+    "checks.py": "65c16c05988a504b1cdfbc126a393ac91213deed82c587ba1b8520f03818f385",
+    "result.json": "e7e16099b322a9b44ade9f296d9ec9ad1dec9dc2e5807e836ff479043dcfe9c9"
+  },
+  "author_revision": "6e9a3ec567a1f3472bad3ed23c48b8111d2f0515",
+  "native_files": {
+    "PLAN.md": "cc09f423c1807edb912cd22a02c5c4c30a7d426866043873369c9824a5df3aac",
+    "PROVENANCE.json": "ea76d8dbacc503fedba69083494c975187a4bf0c9fc9cd9d717454337bb63acf",
+    "REPORT.md": "eba6a93de9f784649da61f778eec6be4626df61f23c05fc71981c9ebace17deb",
+    "SHA256SUMS": "003cd7b35d3a8ee6e1fc109a9f5653942102ab3f2f02a346781174b2297179a6",
+    "checks.py": "262f70bf45a49d2e95e66082c65c5ca4f5335cbce71d126f713f4148e2c8ad1e",
+    "result.json": "de03b82b0c4b9c16f979c547c92a6946e401a05dc6b989bfb5436b3de879b5b9"
+  },
+  "native_source_revision": "7ec3f8234a148cadb58ebc6c8212b3b0233acabe",
+  "retained_source_revision": "71d291297d0a662cbb9377ab48eef7aa4b839e77",
+  "source_files": {
+    "branch_v10/local-controller/symmetric-result.json": "d8e7c1f5841192165beefb3fe35b069cc14cc93f2faa2bd68619aa7748b3db2f",
+    "parallel_v3/direct_reset/herald.json": "406befa2c8d1f663856a78ca6cb632e9c61d1233b02a9d532c7cb43d6261ce64"
+  }
+}

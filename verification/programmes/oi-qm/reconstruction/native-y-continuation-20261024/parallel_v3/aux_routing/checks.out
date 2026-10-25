@@ -1,0 +1,7 @@
+A1: all8 raw triples; full native causal recursion equals independent first-arrival shell; prefix blank; endpoint (0,A,0): PASS
+A2: all4 native histories plus8 A-only diagnostic interventions; B,D held fixed: PASS
+G1: single unknown input;3 fixed sources; current/previous cones5/4; readiness1077 fixed bits: PASS
+T1: full15^3 torus,2 dense arbitrary exteriors,all8 inputs,all6 receiver ticks; complete5-step inverse recovers initial phase: PASS
+I1: actual old neighbor at q2+e_x is (0,1 XOR u XOR mY,mY), generally nonblank; controlled dirty-socket example flips result: PASS
+SCOPE: conditional native5-tick extractor proved; no late socket loading, native Y reset, joint instrument composition, or native access closure claimed.
+C1: two-tick B-copy passes native equal-A/B codes but fails actual-A intervention; rejected as substitute: PASS

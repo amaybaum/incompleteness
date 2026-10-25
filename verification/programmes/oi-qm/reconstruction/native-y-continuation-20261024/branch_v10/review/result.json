@@ -1,0 +1,138 @@
+{
+  "accepted_only_max_codes": 2,
+  "affine_functions": 4096,
+  "all_mask_max_codes": 2,
+  "anf_bitmasks_u_a_b": [
+    [
+      1,
+      3,
+      4,
+      7
+    ],
+    [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    [
+      1,
+      5,
+      6,
+      7
+    ]
+  ],
+  "common_counts": {
+    "accepted_only_common": 32,
+    "all_masks_common": 32
+  },
+  "degree": 3,
+  "quadratic_success_inputs": 6,
+  "schema": "oi-branch-v10-independent-review-v1",
+  "scope": "finite table deduction; nonlinear prior, previous-field access and spatial fork not supplied",
+  "source_sha256": "4bddbbeec267c831f31d8d578e9768e18f64c1319388bf9512563cae35aa6ac4",
+  "spatial_arrival_slacks": [
+    [
+      0,
+      2,
+      2
+    ],
+    [
+      2,
+      0,
+      2
+    ],
+    [
+      2,
+      2,
+      0
+    ]
+  ],
+  "three_accepted_mask_solutions": 0,
+  "u_coefficient_group_sizes": {
+    "0": 2,
+    "3": 2,
+    "5": 2,
+    "6": 2
+  },
+  "unique_J": [
+    {
+      "J": 0,
+      "a": 0,
+      "b": 0,
+      "u": 0
+    },
+    {
+      "J": 6,
+      "a": 0,
+      "b": 1,
+      "u": 0
+    },
+    {
+      "J": 2,
+      "a": 1,
+      "b": 0,
+      "u": 0
+    },
+    {
+      "J": 7,
+      "a": 1,
+      "b": 1,
+      "u": 0
+    },
+    {
+      "J": 5,
+      "a": 0,
+      "b": 0,
+      "u": 1
+    },
+    {
+      "J": 0,
+      "a": 0,
+      "b": 1,
+      "u": 1
+    },
+    {
+      "J": 1,
+      "a": 1,
+      "b": 0,
+      "u": 1
+    },
+    {
+      "J": 2,
+      "a": 1,
+      "b": 1,
+      "u": 1
+    }
+  ],
+  "unspecified_physical_failure_extensions": [
+    {
+      "cubic": [
+        1,
+        1,
+        0
+      ],
+      "quadratic": [
+        1,
+        0,
+        1
+      ],
+      "u": 0
+    },
+    {
+      "cubic": [
+        0,
+        0,
+        0
+      ],
+      "quadratic": [
+        1,
+        1,
+        0
+      ],
+      "u": 1
+    }
+  ],
+  "verdict": "PASS"
+}
