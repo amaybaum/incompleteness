@@ -188,8 +188,8 @@ product, the q10.A sign delivery and the logical acceptance circuit are
 distinct pieces; none alone supplies their missing native connection. A
 concrete next test is a native stage taking q10.A to a cleaned operand while
 its s-carrying B and D fields are accounted for; the one-tick route into the
-whole-V read gives no fixed readout equal to s for its construction
-(`native_vread_v15/`).
+whole-V read gives no fixed readout equal to s for every complement value,
+for its construction (`native_vread_v15/`).
 
 `python3 replay.py --latest` checks the four reviewed v13 native groups and
 the v14 fixed-readout author group normally and with -O, Python compilation

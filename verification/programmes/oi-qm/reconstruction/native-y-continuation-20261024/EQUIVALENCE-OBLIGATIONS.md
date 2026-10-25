@@ -9,7 +9,7 @@ and A2 finite operational approximation keep separate targets.
 | Active path | Current result | Missing connection / next useful test |
 | --- | --- | --- |
 | Native nonlinear processing (#910) | Actual old-sign/pool products in seven small original-time families; no tested passive single-cell flag in the fixed short window | Isolate or control a useful native gate on the actual distributed operands; no huge-L extrapolation |
-| Native operand delivery (#910) | A second original-time E front restores 32 common raw X response pairs at actual scale; no jointly affine E/N controller selects one, but 1456 such laws make the single field q10.A of the q10 cell equal s, which is not a permitted read under Native A; in a hybrid test with neither contract adopted, one native tick into the whole-V read gives no fixed readout equal to s, two current-slice key cells being free and unseen (conditional on the declared inventory) | A native stage using q10.A while its s-carrying B/D fields are accounted for; another layout |
+| Native operand delivery (#910) | A second original-time E front restores 32 common raw X response pairs at actual scale; no jointly affine E/N controller selects one, but 1456 such laws make the single field q10.A of the q10 cell equal s, which is not a permitted read under Native A; in a hybrid test with neither contract adopted, one native tick into the whole-V read gives no fixed readout equal to s for every complement value, two current-slice key cells being free and unseen (conditional on the declared inventory) | A native stage using q10.A while its s-carrying B/D fields are accounted for; another layout |
 | Exact architecture/reset (#911) | Credited KS single-qubit comparison remains valid with supplied reset; fixed-vector Montina iteration fails repeated reads by exact public-record witness | Supply conditional source renewal or a different invariant update, with all memory/access/clock resources; preserve the original two-time theorem |
 | Finite A2 (#911) | Executed 1,536-label controller has complete fixed-decoder CQ error <0.074764 for the specified finite menu and h=3 | Native sourcing/implementation; recertify enlarged menus/horizons separately; no universal cost improvement inferred |
 | Complete-record composition (#912) | Explicit 89-tick logical acceptance circuit restores phase/workspace and has the right complete pointer/carrier law | Compile gates, storage and isolation under native H; check all delayed old/new public histories jointly |
@@ -39,10 +39,11 @@ Each plan was committed before its computation. Native plans are at
 `cf1855ed1576adf446fbc505c027928bce4c4cb7`; composition plan at
 `b355f81e550c7c6328837c5423bfe2d903b2a008`; the fixed-readout plan at
 `36213be6354ef15442b4f3040ecdb511fd0b5641`; the whole-V read plan at
-`ead2c38842222786c68551484b708c19f29c83ab`. The earlier native reviews pin
-their exact six-file author input; the whole-V read pins its inputs by hash.
-Each review uses a separate engine. Git identities, SHA-256, normal/-O
-outputs and scoped commands are retained with each review.
+`ead2c38842222786c68551484b708c19f29c83ab`. The v13 and earlier native
+reviews pin their exact six-file author input; the v14 review checks the
+manifest and plan hashes; the whole-V read pins its inputs by hash. Each
+review uses a separate engine. Git identities, SHA-256, normal/-O outputs
+and scoped commands are retained with each review.
 
 ## Native integration boundary
 
@@ -65,15 +66,14 @@ The actual-scale E route is a different readiness/source variant replacing
 optional uniform F10. It may not inherit Native A's six-bit pool unchanged.
 The affine-source obstruction concerns a common raw binary code. A fixed
 single-field readout of the q10 cell succeeds under jointly affine E/N:
-q10.A carries s, and, per the separate review, more generally x XOR f(k)
-for each affine f of the known seeds under a law depending on f, with B
-and D jointly carrying s beside it. q10 is not a
-permitted read under Native A. Distribution-level quantum instruments are
-untested.
-The small pointer census concerns its seven declared families/window only.
-One native tick into the whole-V read gives no fixed readout equal to s for
-its construction only (`native_vread_v15/`). None of these exclusions is an
-OI-wide no-go.
+q10.A carries s, and, per the separate review, more generally x XOR f(k) for
+each affine f of the known seeds under a law depending on f, with B and D
+jointly carrying s beside it. q10 is not a permitted read under Native A.
+Distribution-level quantum instruments are untested. The small pointer
+census concerns its seven declared families/window only. One native tick
+into the whole-V read gives no fixed readout equal to s for every complement
+value, for its construction only (`native_vread_v15/`). None of these
+exclusions is an OI-wide no-go.
 
 ## Architecture and approximation boundary
 
