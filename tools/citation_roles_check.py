@@ -80,15 +80,19 @@ commit's:
       - reads the prefix of the statement that holds the match: the text back to a paragraph
         break, a sentence end, a colon, a semicolon or a table bar, or to a line break that
         begins a block (a list, quote, heading or table line, or the line after a heading or
-        table row), at most 300 characters. The claim stands after any prefix unless the
-        prefix holds a restrictive operator: a conditional, restriction, exception or negation
-        from a closed set (if, unless, when, whenever, while, for, under, assuming, assume,
-        provided, given, only, except, excluding, conditionally, conditional, not, no, never,
-        false, longer, cannot, fails, restricted, whether, suppose, supposing, below, above), a
-        quantity written as a word (two to twelve, twenty, hundred, thousand, million), a digit
-        or comparator, or a parenthesized named condition such as "(C2)". So an opener
-        ("Indeed,", "We find that") leaves the claim standing, and a condition put first, "if
-        ..., then ..." and a negation make a new statement;
+        table row), at most 300 characters, a leading enumerator ("(i)", "a)") aside. The claim
+        stands after any prefix unless the prefix narrows it, by a closed rule: the prefix
+        holds the word "conditionally" or "conditional"; or one of its comma-separated clauses
+        begins with a conditional or restriction word (if, unless, when, whenever, while, for,
+        under, assuming, assume, provided, given, only, except, excluding, restricted, whether,
+        suppose, supposing, below, above, with), or with "at" or "in" and holds a comparator,
+        and holds a bound: a comparator, a parenthesized named condition such as "(C2)", a
+        one-letter variable other than "a" and "i", a labelled token such as "h1", or a number
+        word (two to twelve, twenty, hundred, thousand, million); or the prefix ends with "that"
+        after a negation (not, no, never, false, longer, cannot, fails) in its last clause ("it
+        is not shown that"). A digit alone does not narrow. So an opener ("Indeed,", "In
+        Section 3,", "For completeness,", "As noted above,") leaves the claim standing, and a
+        condition put first, "if ..., then ..." and a negated "that" make a new statement;
       - needs at least three words of claim besides the reference.
 
 Independently of main, a record fails while any line of the tree hashes to its
@@ -161,10 +165,13 @@ Limitations:
     stands and its downgrade fails although it is a narrowing: "at T=300", "at n=4", "in 3D",
     "via Lemma 2". So does a condition ended by a colon ("For n <= 4: ..."), the colon read as
     a label. These fail closed and can be reworded ("when T = 300", "for n <= 4, ...").
-  - The prefix rule fails closed: a narrowing whose prefix holds no operator word ("On the
-    lattice, ...") reads as the claim standing, and can be reworded with "for" or "if". An
-    opener that happens to hold an operator word ("For completeness,", "Not surprisingly,",
-    "Given the data,") reads as a narrowing and, with a record, passes; review decides.
+  - The prefix rule reads form, not meaning. It fails closed on a narrowing with no bound or
+    no conditional word ("On the lattice,", "In 3D,", "In dimension three,"), which reads as
+    the claim standing and can be reworded ("for d = 3,", "if n <= 4,"). An opener built in
+    the rule's form passes as a narrowing with a record: a conditional clause holding a
+    one-letter word or a labelled token ("When we ran it on h1,", "If n is anything,"), or a
+    negation idiom ending in "that" ("There is no doubt that", "It is no surprise that").
+    Review decides those.
   - A record may sit in any manifest of the commit, so removing every manifest of the tree
     leaves nowhere to record a downgrade, and such a commit fails.
   - An unrelated record that newly lists a downgraded support id as provenance needs a
@@ -183,12 +190,16 @@ Limitations:
     entry naming the new name is not refused as this repository (external-in-repository still
     refuses an object this repository holds).
   - When a claim record of main is downgraded or the commit holds a record, the check reads the
-    tree's blobs once (one `git cat-file --batch`), scans for the id the files that hold it, and
-    normalizes only the files of the downgraded records' directories. Each step is linear in
-    what it reads: normalization, and the search for a claim in a file, with each candidate's
-    reference slot and prefix read within 300 characters; for each downgraded record, the files
-    of its directory are searched once. The self-test takes about 25 s and runs before every
-    check.
+    tree's blobs once (one `git cat-file --batch`) and normalizes only the files of the
+    downgraded records' directories. The verbatim test indexes, in one pass over the tree, the
+    lines that carry any record's id by their hash, so its cost is the tree's size plus the
+    number of records. Normalization, and the search for a claim in a file, are linear in the
+    file, each candidate's reference slot and prefix read within 300 characters. The
+    own-directory test is not linear in the records: for each downgraded claim record of main,
+    the files of its directory are searched once, so its cost is that number times the
+    directory's size. Each id also costs a few git calls of its own (its type, its
+    reachability, its claimed blob), so a manifest of thousands of support ids takes minutes.
+    The self-test takes about 30 s and runs before every check.
   - An `external` entry's repository is the author's declaration: an id that names no object
     here, with a qualifier naming any repository, passes.
   - A 40-hex value that names no git object of any repository (a SHA-1 file digest) has no role.
@@ -366,6 +377,7 @@ def claim_problem(repo, files, d, mp, entry, oid):
 FULL_ID = re.compile(r'(?<![0-9A-Fa-f])[0-9a-f]{40}(?![0-9A-Fa-f])')
 SHORT_HEX = re.compile(r'(?<![0-9A-Za-z])[0-9A-Fa-f]{4,6}(?![0-9A-Za-z])')
 BREAK = re.compile(r'\n[ \t\r\f\v]*\n\s*')
+HEX_RUN_BYTES = re.compile(rb'[0-9a-f]{40,}')
 WORD = re.compile(r'[^\W\d_]{2,}')
 MIN_WORDS = 3
 LINK = re.compile(r'\[([^\[\]\n]*)\]\(([^()\[\]\s]*)\)')
@@ -537,23 +549,31 @@ class Claim:
 
 PREFIX_MAX = 300
 BLOCK_START = re.compile(r' *(?:[-*+>#|]|\d+[.)])')
-OPERATORS = frozenset((
-    # conditionals, restrictions, exceptions and negations: the words that narrow a statement
+# a clause narrows a statement when it begins with a conditional or restriction word and holds a
+# bound; "at" and "in" begin one only with a comparator; a negation narrows a statement it
+# introduces with "that"
+CONDITIONS = frozenset((
     'if', 'unless', 'when', 'whenever', 'while', 'for', 'under', 'assuming', 'assume', 'provided',
-    'given', 'only', 'except', 'excluding', 'conditionally', 'conditional', 'not', 'no', 'never',
-    'false', 'longer', 'cannot', 'fails', 'restricted', 'whether', 'suppose', 'supposing',
-    'below', 'above',
-    # quantities written as words, as a digit is one
+    'given', 'only', 'except', 'excluding', 'restricted', 'whether', 'suppose', 'supposing',
+    'below', 'above', 'with'))
+LOCATIVES = frozenset(('at', 'in'))
+NEGATIONS = frozenset(('not', 'no', 'never', 'false', 'longer', 'cannot', 'fails'))
+NUMBER_WORDS = frozenset((
     'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve',
     'twenty', 'hundred', 'thousand', 'million'))
-NARROWING_MARK = re.compile(r'[0-9<>=\u2264\u2265]|\([^\s()]{1,8}\)')
+COMPARATOR = re.compile(r'[<>=\u2264\u2265]')
+NAMED_CONDITION = re.compile(r'\([^\s()]{1,8}\)')
+LABELLED = re.compile(r'[^\W\d_]+\d+')
+ENUMERATOR = re.compile(r'\(?(?:[0-9]{1,3}|[a-z]|[ivx]{1,5})\) *')
+CLAUSE_WORD = re.compile(r'[^\W_]+')
 
 
 def statement_prefix(norm, i):
     """The text before position `i` within its statement: back to a paragraph break, a sentence
     end, a colon, a semicolon or a table bar, or to a line break that begins a block (a list,
     quote, heading or table line, or the line after a heading or table row); at most PREFIX_MAX
-    characters, list and quote markers, quotes and brackets aside."""
+    characters, list and quote markers, quotes, brackets and a leading enumerator ("(i)", "a)",
+    "(1)") aside."""
     lo, j = max(0, i - PREFIX_MAX), i
     while j > lo:
         c = norm[j - 1]
@@ -564,15 +584,34 @@ def statement_prefix(norm, i):
             if BLOCK_START.match(norm, j) or prev[:1] in ('#', '|'):
                 break
         j -= 1
-    return norm[j:i].strip(' \n-*+>#"\'([{`')
+    prefix = norm[j:i].strip(' \n-*+>#"\'([{`')
+    m = ENUMERATOR.match(prefix)
+    return prefix[m.end():] if m else prefix
 
 
 def narrowing(prefix):
-    """Whether a statement's prefix narrows it: it holds a restrictive operator (OPERATORS), a
-    digit or comparator, or a parenthesized named condition. Any other prefix ("Indeed,",
-    "We find that") leaves the statement standing."""
+    """Whether a statement's prefix narrows it. It does when it holds the word conditionally or
+    conditional; when one of its comma-separated clauses begins with a word of CONDITIONS, or
+    with "at" or "in" and holds a comparator, and holds a bound: a comparator, a parenthesized
+    named condition such as "(C2)", a one-letter variable other than "a" and "i", a labelled
+    token such as "h1", or a number word; or when it ends with "that" after a negation in the
+    same clause ("it is not shown that"). Any other prefix ("Indeed,", "In Section 3,", "For
+    completeness,") leaves the statement standing; a digit alone does not narrow it."""
     prefix = FULL_ID.sub('', prefix)
-    return bool(set(WORD.findall(prefix)) & OPERATORS) or bool(NARROWING_MARK.search(prefix))
+    clauses = [CLAUSE_WORD.findall(c) for c in prefix.split(',')]
+    if any({'conditionally', 'conditional'} & set(w) for w in clauses):
+        return True
+    for clause, w in zip(prefix.split(','), clauses):
+        if not w:
+            continue
+        if w[0] in CONDITIONS or w[0] in LOCATIVES and COMPARATOR.search(clause):
+            if COMPARATOR.search(clause) or NAMED_CONDITION.search(clause) \
+                    or set(w[1:]) & NUMBER_WORDS or any(
+                        len(x) == 1 and x.isalpha() and x not in 'ai' or LABELLED.fullmatch(x)
+                        for x in w[1:]):
+                return True
+    last = clauses[-1] if clauses else []
+    return len(last) > 1 and last[-1] == 'that' and bool(set(last[:-1]) & NEGATIONS)
 
 
 class _Lines:
@@ -605,6 +644,7 @@ class TreeText:
     def __init__(self, repo, files):
         self.repo, self.files = repo, files
         self._data, self._norm = None, {}
+        self._sorted = sorted((p, st) for p, st in files.items() if st[0] != '160000')
 
     def data(self, obj):
         if self._data is None:
@@ -623,21 +663,30 @@ class TreeText:
                 self._data[o], at = out[nl + 1:nl + 1 + size], nl + 2 + size
         return self._data[obj]
 
-    def strict(self, oid, sha, claimed):
-        """`path:line` of a line anywhere in the commit's tree whose normalized text hashes to
-        `sha`, other than a line a support record of the same claim claims, or None. Such a line
-        carries the id, so only files holding it are read."""
-        for p, (mode, obj) in sorted(self.files.items()):
-            if mode == '160000':
-                continue
+    def verbatim(self, oids):
+        """{(id, hash): [(path, line), ...]} for the lines of the commit's tree that carry one of
+        `oids`, by the hash of each line's normalized text, in path and line order. Each file is
+        read once, whatever the number of ids: only its runs of 40 or more lowercase hexadecimal
+        characters are looked at, each 40-character window of a run against the set."""
+        wanted, index = {o.encode() for o in oids}, {}
+        if not wanted:
+            return index
+        for p, (_mode, obj) in self._sorted:
             data = self.data(obj)
-            if oid.encode() not in data:
-                continue
-            for i, line in enumerate(data.split(b'\n')):
-                if oid.encode() in line and line_sha256(line) == sha \
-                        and (p, i + 1) not in claimed:
-                    return '%s:%d' % (p.decode('utf-8', 'replace'), i + 1)
-        return None
+            n, at, end = 1, 0, -1
+            for m in HEX_RUN_BYTES.finditer(data):
+                if m.start() > end:                     # the first run on its line
+                    n, at = n + data.count(b'\n', at, m.start()), m.start()
+                    start = data.rfind(b'\n', 0, m.start()) + 1
+                    end = data.find(b'\n', m.start())
+                    end, sha, seen = len(data) if end < 0 else end, None, set()
+                for k in range(m.start(), m.end() - 39):
+                    o = data[k:k + 40]
+                    if o in wanted and o not in seen:
+                        seen.add(o)
+                        sha = sha or line_sha256(data[start:end])
+                        index.setdefault((o.decode(), sha), []).append((p, n))
+        return index
 
     def anchored(self, d, claim, claimed_at):
         """`path:line` of a statement, in a file under the record's directory `d`, of `claim` with
@@ -645,9 +694,9 @@ class TreeText:
         statement's own lines, or None. `claimed_at` maps an id to the (path, line) its support
         records claim. A statement whose prefix narrows it is a new one. A file
         holding a NUL byte is not read."""
-        for p, (mode, obj) in sorted(self.files.items()):
-            if mode == '160000' or not p.startswith(d):
-                continue
+        for p, (_mode, obj) in self._sorted[bisect.bisect_left(self._sorted, (d,)):]:
+            if not p.startswith(d):
+                break
             data = self.data(obj)
             if b'\0' in data:
                 continue
@@ -670,13 +719,16 @@ class TreeText:
         return None
 
 
-def old_line(repo, files, claim):
-    """The text a tree holds at `path:line`, or None."""
+def old_line(repo, files, claim, cache):
+    """The text a tree holds at `path:line`, or None; each blob is read and split once, into
+    `cache`."""
     path, n = CLAIM.fullmatch(claim).groups()
     st = files.get(path.encode())
     if st is None or st[0] == '160000':
         return None
-    lines = repo.blob(st[1]).split(b'\n')
+    lines = cache.get(st[1])
+    if lines is None:
+        lines = cache[st[1]] = repo.blob(st[1]).split(b'\n')
     return lines[int(n) - 1] if int(n) <= len(lines) else None
 
 
@@ -777,7 +829,8 @@ def downgrades(repo, files, main_files, main_entries, main_support, loaded, brok
                      for k, e in ids.items() if 'downgrade' in e)
     records += [(mp, k, r) for mp, (_i, retired) in sorted(loaded.items())
                 for k, rs in sorted(retired.items()) for r in rs]
-    text = TreeText(repo, files)
+    recorded = {(k, r['from_claim'], r['from_claim_sha256']) for _m, k, r in records}
+    text, main_lines = TreeText(repo, files), {}
     downgraded = []
     for mp, oid, e in main_support:
         if mp in broken:
@@ -787,11 +840,11 @@ def downgrades(repo, files, main_files, main_entries, main_support, loaded, brok
             continue                                    # the same claim record
         downgraded.append((mp, oid, e))
         name = mp.decode('utf-8', 'replace')
-        if not any(k == oid and matches(r, e) for _m, k, r in records):
+        if (oid, e['claim'], e['claim_sha256']) not in recorded:
             out.append((name, 'support-downgrade', oid,
                         'no downgrade record for the support record of %s' % e['claim']))
         # a verbatim copy anywhere is the record test's, below; here the claim's own directory
-        where, line = None, old_line(repo, main_files, e['claim'])
+        where, line = None, old_line(repo, main_files, e['claim'], main_lines)
         if line is not None and line_sha256(line) == e['claim_sha256']:
             claim = Claim(oid, line)
             if claim.eligible:
@@ -819,12 +872,14 @@ def downgrades(repo, files, main_files, main_entries, main_support, loaded, brok
                 out.append((name, 'support-downgrade', oid, '%s record for the support record of %s'
                             % ('no downgrade' if dg is None else 'a non-matching downgrade',
                                need[0]['claim'])))
+    verbatim = text.verbatim({oid for _m, oid, _r in records})
     for mp, oid, r in records:
-        where = text.strict(oid, r['from_claim_sha256'],
-                            claimed.get((oid, r['from_claim_sha256']), ()))
+        key = (oid, r['from_claim_sha256'])
+        where = next((x for x in verbatim.get(key, ()) if x not in claimed.get(key, ())), None)
         if where:
             out.append((mp.decode('utf-8', 'replace'), 'support-downgrade', oid,
-                        'the claim of %s stands at %s' % (r['from_claim'], where)))
+                        'the claim of %s stands at %s:%d' % (
+                            r['from_claim'], where[0].decode('utf-8', 'replace'), where[1])))
     return out
 
 
@@ -1138,7 +1193,15 @@ def self_test():
                  set()),
                 ('support claim naming a submodule entry', rec('see %s\n' % m0, {m0: {
                     'role': 'support', 'claim': 'rec/mod:1', 'claim_sha256': 'f' * 64}}),
-                 {'claim-file-absent'})):
+                 {'claim-file-absent'}),
+                ('a record beside a submodule entry: the tree read skips it', rec(
+                    'see %s\n' % m0, {m0: 'support'}), None)):
+            if want is None:
+                sets[b'rec/CITATIONS.json'] = ('100644', _manifest(json.loads(
+                    sets[b'rec/CITATIONS.json'][1])['ids'], retired={gone: {
+                        'from_claim': 'rec/NOTE.md:1', 'from_claim_sha256': 'f' * 64,
+                        'reason': 'withdrawn'}}))
+                want = set()
             got = gitlink('G-' + name, sets)
             if got != want:
                 fails.append('%s: expected %s, got %s' % (name, sorted(want), sorted(got)))
@@ -1226,6 +1289,9 @@ def self_test():
         sc.commit('DP', ['M0'], 'M0', rec(note(paren_line), {m0: 'support'}), [])
         # DD: D0 with the same claim also supported in rec2/; DQ: a claim that is no sentence
         sc.commit('DD', ['D0'], 'D0', rec(d0_text, {m0: 'support'}, d='rec2'), [])
+        # DT: D0 with another claim of the same id supported in rec2/
+        gap_line = 'The gap closes at %s.' % m0
+        sc.commit('DT', ['D0'], 'D0', rec(note(gap_line), {m0: 'support'}, d='rec2'), [])
         sc.commit('DQ', ['M0'], 'M0', rec(note('the bound holds at %s' % m0), {m0: 'support'}),
                   [])
         sc.commit('DW', ['M0'], 'M0', rec(note('Bound holds at %s.' % m0), {m0: 'support'}), [])
@@ -1580,6 +1646,20 @@ def self_test():
                 note(hist), {m0: prov(dict(dg0, from_claim='rec/NOTE.md:3'))}, {
                     b'other/CITATIONS.json': ('100644', _manifest({}, retired={m0: dg0}))}), (),
              'D0', {SD}),
+            ('relabelled in place with a downgrade of another hash, retired elsewhere', rec(
+                note(hist), {m0: prov(dict(dg0, from_claim_sha256=h_stale))}, {
+                    b'other/CITATIONS.json': ('100644', _manifest({}, retired={m0: dg0}))}), (),
+             'D0', {SD}),
+            ('two claims downgraded in two files, the second reflowed in its directory', {
+                **rec(note(hist), {m0: prov(dg0)}), **rec(note('The gap', 'closes at %s.' % m0), {
+                    m0: prov(dict(dg0, from_claim='rec2/NOTE.md:2',
+                                  from_claim_sha256=line_sha256(gap_line.encode())))},
+                    d='rec2')}, (), 'DT', {SD}),
+            ('two claims downgraded in two files, both withdrawn', {
+                **rec(note(hist), {m0: prov(dg0)}), **rec(note(hist), {
+                    m0: prov(dict(dg0, from_claim='rec2/NOTE.md:2',
+                                  from_claim_sha256=line_sha256(gap_line.encode())))},
+                    d='rec2')}, (), 'DT', set()),
             ('a malformed manifest over a support record', {
                 b'rec/CITATIONS.json': ('100644', b'{\n')}, (), 'D0', {'malformed'}),
             # relabel in place while the id is support in another manifest
@@ -1650,20 +1730,65 @@ def self_test():
         for opener in ('Indeed, ', 'Moreover ', 'Moreover, ', 'Thus, ', 'Hence, ',
                        'In particular, ', 'Note that ', 'We find that ', 'It follows that ',
                        'Therefore ', 'Clearly, ', 'As expected, ', 'Again, ', 'Crucially, ',
-                       'In summary, ', 'Recall that ', 'We show that ', 'Here, ', 'So ', 'And '):
+                       'In summary, ', 'Recall that ', 'We show that ', 'Here, ', 'So ', 'And ',
+                       # a number, a section or a date, "above" or "below", and operator words
+                       # used idiomatically, do not narrow a statement
+                       'In Section 3, ', 'In Table 2, ', 'By Lemma 2, ', 'From Table 1, ',
+                       'Section 3 shows that ', 'In 2026, ', 'As of 2026-10-24, ', 'Per #885, ',
+                       '(1) ', 'As noted above, ', 'As discussed below, ', '(see above) ',
+                       'For completeness, ', 'Not surprisingly, ', 'Given the data, ',
+                       'No doubt, ', 'Only then ', 'Two things follow, and ',
+                       'As we noted (not shown), ', 'Like the run that never finished, ',
+                       'As before, and not\nunexpectedly, ', '(a) ', '(i) ', 'a) ',
+                       'When I ran it, ', 'For a moment, ', 'Not only that, but ',
+                       'Unconditionally, ', 'Step 2: ', 'Theorem 4: ', 'Finally, ',
+                       'In short, ', 'Once again, ', 'Not surprisingly ', 'No doubt ',
+                       'Not surprisingly, we find that ', 'Like the run with h1, '):
             dcases.append(('recorded, the claim kept after the opener %r' % opener, rec(note(
                 opener + 'the bound holds at %s.' % m0, hist), {m0: prov(dg0)}), (), 'D0', {SD}))
         for cond in ('For n <= 4, ', 'If n <= 4, then ', 'Conditionally, ', 'Under H1, ',
                      'Only for n <= 4 ', 'Assuming (C2), ', 'Unless n > 4, ',
-                     'In dimension three, ', 'It is not shown that ', 'It is false that ',
-                     'We no longer claim that ',
-                     'For even n, ', 'When n is even, ', 'Provided (C2) holds, '):
+                     'It is not shown that ', 'It is false that ', 'We no longer claim that ',
+                     'For even n, ', 'When n is even, ', 'Provided (C2) holds, ',
+                     'At T = 300 K, ', 'Except at n = 4, ', 'Below n = 4, ', 'Given two lattices, ',
+                     'Given three lattices, ', 'For lattices of size <= 4, ',
+                     'If the lattice has at most n <= 4 sites in each direction, ',
+                     'Indeed, if n <= 4, ', '(i) If n <= 4, ', 'a) If n <= 4, ',
+                     '- (ii) If n <= 4, ', '> (b) If n <= 4, ', '(If n <= 4, '):
             dcases.append(('recorded, the claim narrowed by %r' % cond, rec(note(
                 cond + 'the bound holds at %s.' % m0, hist), {m0: prov(dg0)}), (), 'D0', set()))
-        for cond in ('In 3D, ', 'At T > T_c, ', 'With (EM), '):
-            dcases.append(('recorded, the claim narrowed by %r: a digit, comparator or condition'
+        for cond in ('At T > T_c, ', 'With (EM), '):
+            dcases.append(('recorded, the claim narrowed by %r: a comparator or condition'
                            % cond, rec(note(cond + 'the bound holds at %s.' % m0, hist),
                                        {m0: prov(dg0)}), (), 'D0', set()))
+        # a setting with no bound is read as an opener: the rule fails closed on it
+        for cond in ('In 3D, ', 'In dimension three, ', 'On the lattice, '):
+            dcases.append(('recorded, the claim after %r: fail-closed, no bound' % cond, rec(note(
+                cond + 'the bound holds at %s.' % m0, hist), {m0: prov(dg0)}), (), 'D0', {SD}))
+        # a record's line stands wherever its id sits in the line, inside a longer run included
+        run_line = 'x ab%s' % m0
+        dcases.append(('retired, a record whose line stands with its id inside a longer run', rec(
+            note(run_line), _manifest({}, retired={m0: [dg0, dict(
+                dg0, from_claim_sha256=line_sha256(run_line.encode()))]})), (), 'D0', {SD}))
+        two_line = 'runs %s and %s agree' % (s, m0)
+        dcases.append(('retired, a record whose line stands outside, after another record\'s id',
+                       rec(note(), _manifest({}, retired={
+                           m0: [dg0, dict(dg0, from_claim_sha256=line_sha256(two_line.encode()))],
+                           s: dict(dg0, from_claim_sha256=line_sha256(b'zz'))}),
+                           {b'evidence/x.md': ('100644', (two_line + '\n').encode())}), (), 'D0',
+                       {SD}))
+        # the rule reads form: an opener in a narrowing's form passes with a record (Limitations)
+        for opener in ('There is no doubt that ', 'When we ran it on h1, '):
+            dcases.append(('limitation: the claim after %r, read as narrowed' % opener, rec(note(
+                opener + 'the bound holds at %s.' % m0, hist), {m0: prov(dg0)}), (), 'D0', set()))
+        # a full id in a prefix is no bound, though one of letters then digits reads as a token
+        if narrowing('for %s' % ('abc' + '1' * 37)) or not narrowing('for h1'):
+            fails.append('downgrade, narrowing: a full id read as a bound, or "h1" not read')
+        # a prefix is read for at most 300 characters: a condition further back is not the
+        # statement's
+        dcases.append(('recorded, a condition more than 300 characters back', rec(note(
+            'If n <= 4, ' + 'x ' * 160 + 'the bound holds at %s.' % m0, hist), {m0: prov(dg0)}),
+            (), 'D0', {SD}))
         for label, text in (
                 ('an opener citing another commit', 'As in %s, the bound holds at %s.' % (s, m0)),
                 ('a negation in the paragraph before', 'It is not shown that\n\nthe bound holds '
@@ -1675,7 +1800,18 @@ def self_test():
                  % m0),
                 ('a condition in the table cell before', '| for n | The bound holds at %s. |' % m0),
                 ('an operator word on the line before a list item', 'Notes for review\n- the bound '
-                 'holds at %s.' % m0)):
+                 'holds at %s.' % m0),
+                # a condition that opens an earlier statement is not this one's
+                ('a sentence before that opens with a condition',
+                 'If n <= 4 it was run twice. The bound holds at %s.' % m0),
+                ('a question before that opens with a condition',
+                 'If n <= 4, does it hold? The bound holds at %s.' % m0),
+                ('a condition ended by a colon, read as a label', 'For n <= 4: the bound holds at '
+                 '%s.' % m0),
+                ('a clause before a semicolon that opens with a condition',
+                 'If n <= 4 we reran it; the bound holds at %s.' % m0),
+                ('a condition on the line before a list item', 'If n <= 4\n- the bound holds at '
+                 '%s.' % m0)):
             dcases.append(('recorded, the claim kept after %s' % label, rec(note(text, hist), dict(
                 {m0: prov(dg0)}, **({s: 'provenance'} if s in text else {}))), (), 'D0', {SD}))
         dcases.append(('recorded, a negation on the line before, in the same sentence', rec(note(
@@ -1799,6 +1935,33 @@ def self_test():
                 fails.append('downgrade, %s: %s in %.1f s' % (label, sorted(got),
                                                               time.monotonic() - t0))
             n_down += 1
+        # a prefix is read back at most 300 characters and a reference slot at most 300, so 5,000
+        # narrowed statements in one sentence, or in one paragraph each after its slot, cost
+        # linear time; and the verbatim test reads the tree once for any number of records
+        many = 5000
+        recs = [dg0] + [dict(dg0, from_claim='rec/NOTE.md:%d' % (k + 2),
+                             from_claim_sha256=line_sha256(b'%d' % k)) for k in range(1, many)]
+        for label, fixture, blobs, records in (
+                ('5,000 narrowed statements in one sentence', 'DQ', {b'rec/long.md': (
+                    ''.join('if n <= %d, the bound holds at run #%d, ' % (k, k)
+                            for k in range(many)) + '\n\nthe bound holds at run #0\n')}, None),
+                ('5,000 narrowed statements in one paragraph, each after its slot', 'DL', {
+                    b'rec/long.md': ''.join('If n <= %d, #%d: the bound holds.\n' % (k, k)
+                                            for k in range(many))
+                    + '\nrun #0: the bound holds.\n'}, None),
+                ('5,000 records of one id, 5,000 lines carrying it elsewhere', 'D0', {
+                    b'evidence/runs.md': ''.join('run %d at %s\n' % (k, m0)
+                                                 for k in range(many))}, recs)):
+            h = json.loads(sc.files[fixture][b'rec/CITATIONS.json'][1])['ids'][m0]['claim_sha256']
+            body = rec(note(), _manifest({}, retired={m0: records or dict(
+                dg0, from_claim_sha256=h)}), {f: ('100644', t.encode()) for f, t in blobs.items()})
+            t0 = time.monotonic()
+            got = case('D-bounded time: ' + label, body, main=sc.labels[fixture], parent=fixture)
+            want = set() if records else {SD}
+            if got != want or time.monotonic() - t0 > 10:
+                fails.append('downgrade, bounded time, %s: %s in %.1f s' % (
+                    label, sorted(got), time.monotonic() - t0))
+            n_down += 1
         dl = sc.labels['D-record, the claim removed']
         for name, sets, want in (
                 ('after a landed downgrade', {b'rec/more.md': ('100644', b'more\n')}, set()),
@@ -1831,7 +1994,7 @@ def self_test():
     for f in fails:
         print('SELF-TEST  FAIL  %s' % f)
     print('citation_roles_check: self-test %s (%d mutants, %d positives, 3 negative controls, '
-          '6 landing, 2 submodule, %d downgrade and 4 main-ref cases)' % (
+          '6 landing, 3 submodule, %d downgrade and 4 main-ref cases)' % (
               'OK' if not fails else 'FAILED', len(mutants), len(positives), n_down))
     return not fails
 
