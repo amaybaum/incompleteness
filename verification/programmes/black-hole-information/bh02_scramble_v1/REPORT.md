@@ -14,10 +14,10 @@ none is an OI mechanism. NUMERICAL marks double-precision quantities, each contr
 - **C1 non-scrambling control.** PROVED: P_pi maps configuration basis vectors to configuration basis vectors, so every state on the orbit of a configuration is a product basis state, Schmidt rank 1, S(R)=0 exactly, at every aligned bipartition. Exhaustive check: 24, 40320 and 362880 permutations at (q,n)=(2,2),(2,3),(3,2); 500 sampled at (2,4) with full orbits; 0 states of rank > 1; countercontrols CC1, CC2 detected with rank 2, 2.
 - **C2 entropy budget.** PROVED: under any permutation the amplitude multiset, the overlap F=|<+^n|psi>|^2 and the support size are conserved; hence at every step and aligned bipartition Schmidt rank <= |supp psi0|, S(R) <= min(H(p_R),H(p_B)) <= H(p0), lambda_max(rho_R) >= F, S_2 <= -2 ln F. Exact sweep over all 40320 permutations at n=3 for three rational states: 0 violations of (i),(iii); (ii) NUMERICAL, minimum margin 0.000000000000 nats. Bound attained exactly (S = k ln 2 = H(p0)) by a CNOT network on |+>^k|0>^(n-k) for (n,k)=(4,2),(6,3).
 - **C3 supplied superposition.** COUNTEREXAMPLE (scoped) to 'permutation dynamics cannot produce Page-like entanglement': from the SUPPLIED superposition |->|+>^7, 193/200 random permutations give Page-like states at every cut and 194/200 at the half cut (n=8, tolerance 0.10 nats, NUMERICAL S with exact purity control); 20/20 at the n=10 half cut; a fixed permutation iterated with r(t)=t gives a Page-like emission curve: yes. Scope: the entanglement is bounded by the supplied initial state's basis entropy (C2); from a configuration state it is exactly zero (C1). This is not a derivation of H-scramble.
-- **C4 classical-ignorance analogue.** PROVED: H(p_R) <= H(p_t) = H(p0) = H(p_final); the classical marginal-entropy curve ends at its maximum H(p0) and cannot turn over to zero (demonstration: 0 violations, final value 4.498681 = H(p0))
-- **C6(a) H-scramble in the configuration setting.** PROVED (from C1): with B/R aligned to configuration coordinates and a definite initial configuration (GR Theorem A.7 proof: 'deterministic evolution from a definite initial state'), every state on the orbit is a product basis state, so H-scramble fails for every bijection phi in that setting.
-- **C6(b) where the Page value enters.** The value S_Page enters Theorem A.8 only through the SUPPLIED Haar ensemble that H-scramble posits for the orbit; the bijection's cycle structure contributes exact averaging bookkeeping and the trivial bound ln d_min. Under H-scramble the Page value is imported with the ensemble, not produced by phi.
-- **C6(c) shell factorization.** CONDITIONAL: Theorem A.8 states the Page value with the full factor dimensions while positing equidistribution on a shell subspace; for a conserved Hamming weight the Haar-on-shell mean entropy is certified (concavity, rigorous log intervals) strictly below S_Page(d_R,d_B) in cases (n,w,|R|)=(8,2,4), (n,w,|R|)=(10,2,5), (n,w,|R|)=(12,3,6) (all added by amendment A1; the preregistered half-filling cases are not certified by this bound). The unstated hypothesis is that the shell is the full product space, or that d_B, d_R are replaced by shell-effective quantities.
+- **C4 classical-ignorance analogue.** PROVED: H(p_R) <= H(p_t) = H(p0) = H(p_final); the classical marginal-entropy curve ends at its maximum H(p0) (it may dip in between; only the endpoint is controlled) and cannot turn over to zero (demonstration: 0 violations, final value 4.498681 = H(p0))
+- **C6(a) H-scramble in the configuration setting.** PROVED (from C1): with B/R aligned to configuration coordinates and a definite initial configuration (GR Theorem A.7 proof: 'deterministic evolution from a definite initial state'; Theorem A.8 counts initial conditions on the shell by |Sigma_E| and averages over configurations s in C_j), every state on the orbit is a product basis state, so H-scramble fails for every bijection phi in that setting.
+- **C6(b) where the Page value enters.** The value S_Page enters Theorem A.8 only through the Haar ensemble that H-scramble posits for the orbit; the bijection's cycle structure contributes exact averaging bookkeeping and the trivial bound ln d_min. The Page value therefore follows from the hypothesis H-scramble on the orbit, not from bijectivity or the cycle decomposition; a dynamics that satisfied H-scramble would produce it.
+- **C6(c) shell factorization.** CONDITIONAL: Theorem A.8 states the Page value with the full factor dimensions while positing equidistribution on a shell subspace, and the Haar-on-shell mean differs from that value in a direction that depends on the shell. For a conserved Hamming weight it lies below S_Page(d_R,d_B), certified (concavity, rigorous log intervals) in cases (n,w,|R|)=(8,2,4), (n,w,|R|)=(10,2,5), (n,w,|R|)=(12,3,6) (all added by amendment A1; the preregistered half-filling cases are not certified by this bound). For the diagonal shell span{|i>|i>} it is exactly H_m - 1, above S_Page(m,m) for m = 2, 3, 4, 8, 16 (post-review result): all rows above. The unstated hypothesis is that the shell is the full product space, or that d_B, d_R are replaced by the shell's own typical value.
 - **C6(d) time average versus instantaneous value.** OPEN proof obligation (textual): Theorem A.8 bounds a cycle time-average at a fixed bipartition on a fixed shell; Theorem A.9 applies it at each t along one trajectory with a changing bipartition, starting from a definite state, which C1 shows has S=0 in the configuration factorization. No computation here settles it.
 - **C7 Page-time fraction.** CONDITIONAL: t_P/t_evap = 1 - 2^{-3/2} = 0.646446 holds exactly given (i) constant a in dM/dt=-a/M^2, (ii) turnover at half the initial black-hole entropy, i.e. radiation entropy equal to the black-hole entropy lost (beta=1, the identification n_R(t)=n_B(0)-n_B(t)), (iii) S_BH proportional to M^2. PROVED: a constant multiplicative greybody or species factor cancels. COUNTEREXAMPLE to the unconditional reading: an M-dependent effective coefficient changes the fraction (power law p=1/2 gives 0.702698; step model up to 0.870700 for the cases computed), and with Page's coarse-grained accounting beta=1.4847 the fraction is 0.5381, reproducing the literature value; beta itself is computed from the species' greybody factors.
 
@@ -52,9 +52,9 @@ none is an OI mechanism. NUMERICAL marks double-precision quantities, each contr
 - C3 local reversible 3-bit brickwork (DIAGNOSTIC, same initial state): half-cut mean S at depth 1, 2, 4, 8, 16, 32 = 0.000000, 0.000000, 1.272566, 2.166757, 2.273575, 2.302564.
   At depths 1 and 2 every gate that straddles the cut acts on `|+++⟩`, which every 3-bit
   permutation fixes (the local form of CC4), so S = 0 there.
-- C3 CC4: `|+^n⟩` invariant under all 50 permutations tested, half-cut rank 1; CC5 low-entropy product state: H(p0) = 2.198753 < S_Page(16,16) = 2.274865, Page-like at the half cut 0/40.
+- C3 CC4: `|+^n⟩` invariant under all 50 permutations tested, half-cut rank 1; CC5 low-entropy product state: H(p0) = 1.923909 < S_Page(16,16) = 2.274865, Page-like at the half cut 0/40.
 - C5: S_Page(2,2) = 1/3, S_Page(4,4) = 664789/720720 exactly; the approximation `ln m − m/(2k)` used in GR Theorem A.8 gives 0.8862943611 at 4×4 against the exact 0.9223956598.
-  S_Page(m,m) − ln m for m = 2, 4, 8, 16, 32: -0.3598138473, -0.4638987013, -0.4909077809, -0.4977227527, -0.4994304260 (tending to −1/2).
+  S_Page(m,m) − ln m for m = 2, 4, 8, 16, 32: -0.3598138473, -0.4638987013, -0.4909077809, -0.4977227527, -0.4994304260. Analytically, H_N = ln N + gamma + 1/(2N) - 1/(12N^2) + O(N^-4) gives S_Page(m,m) - ln m = -1/2 + 7/(12 m^2) + O(m^-4); at m = 32, (S_Page − ln m + 1/2)·m² = 0.5832438188 (7/12 = 0.5833…).
 - C5 SUPPLIED Haar brickwork, n=8 from `|0⟩^8`: half-cut S by depth 1: 0.000000, 2: 0.732471, 3: 0.732471, 4: 1.347864, 6: 1.745621, 8: 1.914092, 12: 2.157244, 16: 2.211226, 24: 2.270813; S_Page(16,16) = 2.274866.
 - C6(c) shell cases (canonical entropy interval / Haar-on-shell MC mean / exact full-dims S_Page):
   - (n,w,|R|)=(6,3,3): [2.0069812137, 2.0069812138] / 1.546889 ± 0.002936 / 1.5885337608 — certified above S_Page (concavity bound inconclusive); sector formula 1.547740
@@ -63,6 +63,7 @@ none is an OI mechanism. NUMERICAL marks double-precision quantities, each contr
   - (n,w,|R|)=(8,2,4) [A1]: [2.1560878461, 2.1560878462] / 1.471953 ± 0.001704 / 2.2748659695 — certified below S_Page; sector formula 1.472409
   - (n,w,|R|)=(10,2,5) [A1]: [2.4008447399, 2.4008447400] / 1.602267 ± 0.001338 / 2.9663054768 — certified below S_Page; sector formula 1.602444
   - (n,w,|R|)=(12,3,6) [A1]: [3.2804570199, 3.2804570200] / 2.468321 ± 0.000546 / 3.6590254932 — certified below S_Page; sector formula 2.467701
+- C6(c) post-review, diagonal shell span{|i>_B|i>_R}, i = 1..m (d_B = d_R = m): exact Haar mean E[S] = H_m - 1; values 1/2, 5/6, 13/12, 481/280, 1715839/720720 against S_Page(m,m) 0.3333333333, 0.6623015873, 0.9223956598, 1.5885337608, 2.2748659695 for m = 2, 3, 4, 8, 16; Monte Carlo agrees (K-diag).
 - C7: t_P/t_evap = 1 + (-1/4)*sqrt(2), interval [0.646446609406, 0.646446609407]; with β (radiation coarse-grained entropy per unit black-hole entropy lost):
   - β = 1: S_BH/S_0 at turnover 0.500000, t_P/t_evap = 0.64644660
   - β = 4/3: S_BH/S_0 at turnover 0.571428, t_P/t_evap = 0.56804060
@@ -78,24 +79,31 @@ states on the shell, in the sense of an approximate unitary design or comparable
 property". Its ensemble is the orbit of the state under `U_φ` with counting (time) measure; its
 target is Haar measure on the unit sphere of the energy-shell subspace.
 
-1. In the setting the appendix itself uses — a definite initial configuration (Theorem A.7)
-   and the B/R factorization of configurations — H-scramble is false for every bijection
-   (C1, exact). The appendix's sentence that a bijection "can" visit only product states
-   understates this: acting on a configuration it must.
+1. In the setting the appendix itself uses — a definite initial configuration (Theorem A.7;
+   Theorem A.8 counts initial conditions by |Σ_E| and averages over configurations) and the
+   B/R factorization of configurations — H-scramble is false for every bijection (C1, exact).
+   GR:837 shows this for one long cycle ("every visited state is a product state");
+   book/ch07-gravity.md:126 (FULL:2001) says a bijection "can" visit only product states.
+   Acting on a configuration, every bijection must.
 2. Satisfying it requires an ingredient outside `φ`: an initial superposition, or a tensor
    factorization of the emergent Hilbert space not aligned with configurations. With a supplied
    superposition, permutations do produce Page-like states (C3), but the entanglement available
    is capped by the initial state's configuration-basis entropy `H(p_0)` for every permutation
-   and every time (C2). The capacity to scramble is a property of the supplied initial state,
-   not of `φ`.
+   and every time (C2), together with the conserved overlap F. The entanglement any permutation
+   can produce is bounded by these properties of the supplied initial state; reaching the bound
+   also needs a permutation that mixes the state's phase pattern across the cut (`|+^n⟩` is
+   never entangled, CC4, and shallow local permutations of `|−⟩|+⟩^7` give S = 0).
 3. The number `S_Page` enters Theorem A.8 only through the Haar ensemble that H-scramble posits;
    the cycle decomposition supplies exact averaging bookkeeping and the trivial bound `ln d_min`
-   (C6(b)). Under H-scramble the Page value is imported with the supplied ensemble rather than
-   produced by the substratum dynamics. H-scramble is stronger than the conclusion it serves
+   (C6(b)). The Page value therefore follows from the hypothesis H-scramble on the orbit, not
+   from bijectivity or the cycle decomposition; a dynamics that satisfied H-scramble would
+   produce it. H-scramble is stronger than the conclusion it serves
    (it constrains the whole distribution, not one functional), so it does not literally restate
    the Page entropy; it supplies it.
 4. Even granting H-scramble on an energy shell, Theorem A.8's value uses the full factor
-   dimensions. For a conserved Hamming weight the shell-typical entropy lies below
+   dimensions, and the shell-typical entropy differs from it in a direction that depends on the
+   shell. For the diagonal shell `span{|i⟩|i⟩}` it is exactly `H_m − 1`, above S_Page(m,m)
+   (post-review result). For a conserved Hamming weight the shell-typical entropy lies below
    `S_Page(d_R, d_B)`: certified by concavity in 3 of the six cases, all off half filling,
    where the gap is leading-order (MC mean 1.602267 against 2.9663054768 nats at n=10, w=2); at half filling
    the gap is smaller (MC 2.885696, sector formula 2.886563, against 2.9663054768 at n=10, w=5) and the concavity
@@ -116,17 +124,24 @@ claim can carry. Two changes move the fraction: an M-dependent effective coeffic
 thresholds), which makes it depend on `M_0` through `M_*/M_0` with corrections of order
 `(M_*/M_0)^3` for `M_0 ≫ M_*`; and the radiation-entropy accounting. With Page's coarse-grained
 accounting for photons and gravitons from a large Schwarzschild hole (β = 1.4847, Page 1976 as used
-in Page 2013, arXiv:1301.4995) the turnover is at 0.5381 of the evaporation time with 40.25% of
-the entropy lost, which the β formula reproduces (K-page2013); β itself is computed from the
+in Page 2013, arXiv:1301.4995) the turnover is at 0.5381 of the evaporation time with a fraction 0.4025
+of the entropy lost; the β formula gives 0.5381 and 0.4025 (K-page2013, 4 decimal places; confirms the beta formula is Page's accounting, not an independent physics test). β itself is computed from the
 emitted species' greybody factors. The derivation uses only the exponents in the mass-loss law
 and in `S_BH ∝ M²`, not their coefficients, so no OI-specific quantity (σ, q, ε, the 1/4
 coefficient, bijectivity) enters the fraction; it is the same number in any model with these
 three inputs. A comparison of Page times with QES/island computations
 therefore requires that both use the same radiation-entropy accounting; none was carried out here.
 
+## Assumption-watch (reviewer observation; not a claim of this package)
+
+GR A.6(iii) takes the hidden sectors maximally mixed (the uniform prior, making the channel
+unital), while A.6(i) and A.7 take the total state pure from a definite initial state. Under the
+uniform-prior trace-out the B∪R state is mixed, and the relevant curve is then the classical
+one of C4, which ends at its maximum and does not return to zero. Recorded for BH-02 follow-up.
+
 ## Controls and mutants
 
-Controls (all must pass for any verdict to print): CC5=pass, CT1=pass, K-bij=pass, K-classical=pass, K-eig=pass, K-ln=pass, K-ode=pass, K-overlap=pass, K-page-formula=pass, K-page-mc=pass, K-page2013=pass, K-plus=pass, K-rank=pass, K-tight=pass, K-unitary=pass.
+Controls (all must pass for any verdict to print): CC5=pass, CT1=pass, K-bij=pass, K-classical=pass, K-diag=pass, K-eig=pass, K-ln=pass, K-ode=pass, K-overlap=pass, K-page-formula=pass, K-page-mc=pass, K-page2013=pass, K-plus=pass, K-rank=pass, K-shell=pass, K-tight=pass, K-unitary=pass.
 K-eig: 56405 diagonalizations; trace, purity and positivity within 1e-12: True, True, True; complex Jacobi against real embedding within 1e-10: True.
 
 Mutants (`mutants.py`; caught iff the run fails cleanly with the targeted control among the
@@ -139,16 +154,18 @@ M-rank          target=K-rank          run=clean caught=True failed=[K-overlap, 
 M-overlap       target=K-overlap       run=clean caught=True failed=[K-overlap]
 M-tight         target=K-tight         run=clean caught=True failed=[K-tight]
 M-eig           target=K-eig           run=clean caught=True failed=[K-eig]
-M-page-mc       target=K-page-mc       run=clean caught=True failed=[K-page-mc]
+M-page-mc       target=K-page-mc       run=clean caught=True failed=[K-diag, K-page-mc]
 M-page-formula  target=K-page-formula  run=clean caught=True failed=[CT1, K-page-formula]
 M-unitary       target=K-unitary       run=clean caught=True failed=[K-unitary, section-C5-completed]
-M-ln            target=K-ln            run=clean caught=True failed=[K-ln]
+M-ln            target=K-ln            run=clean caught=True failed=[K-ln, K-shell]
 M-plus          target=K-plus          run=clean caught=True failed=[K-plus]
 M-page2013      target=K-page2013      run=clean caught=True failed=[K-page2013]
 M-ode           target=K-ode           run=clean caught=True failed=[K-ode]
 M-classical     target=K-classical     run=clean caught=True failed=[K-classical]
 M-cc5           target=CC5             run=clean caught=True failed=[CC5]
 M-ct1           target=CT1             run=clean caught=True failed=[CT1]
+M-canonical     target=K-shell         run=clean caught=True failed=[K-shell]
+M-diag          target=K-diag          run=clean caught=True failed=[K-diag]
 ALL MUTANTS CAUGHT
 ```
 
@@ -162,9 +179,14 @@ ALL MUTANTS CAUGHT
   entanglement. Its initial state is SUPPLIED; a random permutation of `2^n` configurations is
   a global, nonlocal map; the local 3-bit circuit is a diagnostic. Sizes n ≤ 10.
 - C5 and the Haar comparisons are SUPPLIED ensembles; they test nothing about OI.
-- C6(c) uses a Hamming-weight shell as a toy energy. The sector-formula values rest on the
-  formula's form (Bianchi–Donà 2019) and are cross-checked by Monte Carlo only; the certified
-  statement rests on concavity alone.
+- C6(c) uses Hamming-weight and diagonal shells as toy energies. The sector-formula values rest
+  on the formula's form (Bianchi–Donà 2019) and are cross-checked by Monte Carlo only; the
+  certified statement rests on concavity, with the canonical entropy computed by two routes
+  (sector multiplicities and explicit basis-state counts; K-shell). The Monte Carlo ≤ canonical
+  part of K-shell is a weak check here, because the margins are large; the second route is the
+  decisive one.
+- C7(a) and (c) are algebraic identities checked at rational points; K-ode is the independent
+  Simpson-rule integration of the ODE.
 - C7 uses literature values (β = 1.4847, 0.5381, 40.25%) as read from the abstract of Page 2013
   and its database record; the full text and Page 1976 were not consulted here. The step and
   power-law models are parametric, not fitted to Standard Model thresholds.
@@ -173,7 +195,7 @@ ALL MUTANTS CAUGHT
 - No specific substratum map was tested: C3 uses uniformly random permutations, not the
   framework's lattice dynamics. Whether a structured map (for instance a linear map of
   configurations) acting on a supplied superposition reaches Page-like values is untested.
-- `mutants.py` reruns the full suite once per mutant (15 mutants, about 14 minutes wall time on a
+- `mutants.py` reruns the full suite once per mutant (17 mutants, about 27 minutes wall time on a
   shared 4-core container); repeated mutation campaigns belong in CI (§A.40). The final
   `mutants-output.txt` was produced by one run of the final code.
 - Nothing here is a statement about physical black holes.
@@ -187,7 +209,7 @@ cd verification/programmes/black-hole-information/bh02_scramble_v1
 sha256sum -c SHA256SUMS
 python3 -I -B checks.py | cmp - result.json        # about 1 minute
 python3 -I -B -O checks.py | cmp - result.json
-python3 -I -B mutants.py | cmp - mutants-output.txt   # about 15 minutes, 4 processes
+python3 -I -B mutants.py | cmp - mutants-output.txt   # about 30 minutes on a loaded host, 4 processes
 python3 -I -B report.py | cmp - REPORT.md
 ```
 

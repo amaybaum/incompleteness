@@ -29,6 +29,7 @@ SEEDS = {
     "C5_mc_real": 917009,
     "C5_circuit": 917010,
     "C6_shell_mc": 917011,
+    "C6_diag_mc": 917012,
 }
 PAGE_TOL = 0.10          # nats, preregistered (PLAN §1)
 EIG_TOL = 1e-10          # K-eig tolerance (PLAN §1)
@@ -725,12 +726,16 @@ def xprod_scaled(n):
 
 
 def low_entropy_state(n):
-    """(24/25|0> + 7/25|1>)^n, exact rational amplitudes."""
+    """(24/25|0> + 7/25|1>)^(n-1) (x) |0>, exact rational amplitudes (post-review: H(p0) below
+    the Page-like band at the half cut, so C2 implies 'not Page-like')."""
     cth, sth = Fr(24, 25), Fr(7, 25)
     out = []
     for x in range(2 ** n):
+        if x & 1:
+            out.append(Fr(0))
+            continue
         amp = Fr(1)
-        for i in range(n):
+        for i in range(n - 1):
             amp *= sth if (x >> (n - 1 - i)) & 1 else cth
         out.append(amp)
     return out
@@ -874,11 +879,13 @@ def run_C3(controls, res):
         worst = max(worst, S - H0)
         if abs(S - pagef[4]) <= PAGE_TOL:
             page_like_low += 1
-    out["CC5_low_entropy_product"] = {"state": "(24/25|0>+7/25|1>)^8", "H_p0_nats": fx(H0),
+    implied = H0 < pagef[4] - PAGE_TOL
+    out["CC5_low_entropy_product"] = {"state": "(24/25|0>+7/25|1>)^7 (x) |0>", "H_p0_nats": fx(H0),
+                                      "H_p0_below_page_like_band": implied,
                                       "S_Page_16_16": dec(page[4], 6),
                                       "max_S_minus_H_p0_NUMERICAL": fx(worst, 9),
                                       "page_like_half_cut": page_like_low, "samples": 40}
-    cc5_ok = worst <= 1e-9 and page_like_low == 0
+    cc5_ok = implied and worst <= 1e-9 and page_like_low == 0
     # CT1: Haar states attain criterion
     rng6 = random.Random(SEEDS["C3_haar_ct1"])
     ct_ok = 0
@@ -948,7 +955,8 @@ def run_C4(controls, res):
     res["C4"] = {"n": n, "p0": "Bernoulli(1/4)^8 over configurations", "H_p0": fx(H0),
                  "curve": curve, "violations": viol, "final_equals_H_p0": final_eq,
                  "verdict": ("PROVED: H(p_R) <= H(p_t) = H(p0) = H(p_final); the classical "
-                             "marginal-entropy curve ends at its maximum H(p0) and cannot turn "
+                             "marginal-entropy curve ends at its maximum H(p0) (it may dip in between; "
+                             "only the endpoint is controlled) and cannot turn "
                              "over to zero (demonstration: %d violations, final value %s = H(p0))"
                              % (viol, curve[-1]["H_R_NUMERICAL"]))
                  if viol == 0 and final_eq else "VOID"}
@@ -1019,6 +1027,12 @@ def run_C5(controls, res):
         lnm = ln_interval(Fr(m))
         fs.append({"m": m, "S_Page_minus_ln_m_10dp": dec(P - lnm[1])})
     out["finite_size_at_equal_dims"] = fs
+    out["finite_size_limit_analytic"] = ("H_N = ln N + gamma + 1/(2N) - 1/(12N^2) + O(N^-4) gives "
+                                         "S_Page(m,m) - ln m = -1/2 + 7/(12 m^2) + O(m^-4)")
+    m = 32
+    lnm = ln_interval(Fr(m))
+    resid = (page_exact(m, m) - lnm[1] + Fr(1, 2)) * m * m
+    out["finite_size_check_m32_(S-ln m+1/2)*m^2_10dp"] = dec(resid, 10)
     controls["K-page-formula"] = (anchor == Fr(1, 3) and fbounds_ok and agree_ok)
     # (b) Monte Carlo control
     rng = random.Random(SEEDS["C5_mc"])
@@ -1092,13 +1106,44 @@ def comb(a, b):
     return math.comb(a, b) if 0 <= b <= a else 0
 
 
+def canonical_entropy_interval(D, secs):
+    """Entropy of Tr_B Pi_w / D: eigenvalue b_j/D with multiplicity a_j (rigorous interval)."""
+    lo = Fr(0)
+    hi = Fr(0)
+    for (j, a, b) in secs:
+        l1, h1 = ln_interval(Fr(D, b))
+        lo += a * Fr(b, D) * l1
+        hi += a * Fr(b, D) * h1
+    return lo, hi
+
+
+def canonical_by_enumeration(n, w, k, D, secs):
+    """Second route: count weight-w configurations per R-configuration; exact spectrum
+    comparison with the sector multiset, and a float entropy (NUMERICAL)."""
+    counts = {}
+    for x in range(2 ** n):
+        if bin(x).count("1") == w:
+            r = x >> (n - k)
+            counts[r] = counts.get(r, 0) + 1
+    spec = sorted(Fr(c, D) for c in counts.values())
+    expect = sorted(Fr(b, D) for (j, a, b) in secs for _ in range(a))
+    s = -sum((c / D) * math.log(c / D) for c in counts.values())
+    return spec == expect, s
+
+
+def diag_shell_mean(m):
+    """Exact Haar mean entropy on span{|i>|i>}: H_m - 1."""
+    return harmonic(m) - 1
+
+
 def run_C6(controls, res, c1_proved):
     t0 = time.perf_counter()
     out = {}
     out["a_satisfiability_in_configuration_setting"] = (
         "PROVED (from C1): with B/R aligned to configuration coordinates and a definite initial "
         "configuration (GR Theorem A.7 proof: 'deterministic evolution from a definite initial "
-        "state'), every state on the orbit is a product basis state, so H-scramble fails for "
+        "state'; Theorem A.8 counts initial conditions on the shell by |Sigma_E| and averages "
+        "over configurations s in C_j), every state on the orbit is a product basis state, so H-scramble fails for "
         "every bijection phi in that setting." if c1_proved else "VOID (C1 not proved)")
     # (b) textual proof trace
     steps = [
@@ -1110,29 +1155,28 @@ def run_C6(controls, res, c1_proved):
     ]
     out["b_proof_trace_TEXTUAL"] = [{"step": s, "supplies": v} for s, v in steps]
     only_haar = all(("S_Page" not in v) or ("Haar" in v) for _, v in steps)
-    out["b_finding"] = ("The value S_Page enters Theorem A.8 only through the SUPPLIED Haar "
-                        "ensemble that H-scramble posits for the orbit; the bijection's cycle "
-                        "structure contributes exact averaging bookkeeping and the trivial bound "
-                        "ln d_min. Under H-scramble the Page value is imported with the ensemble, "
-                        "not produced by phi." if only_haar else "trace inconclusive")
+    out["b_finding"] = ("The value S_Page enters Theorem A.8 only through the Haar ensemble "
+                        "that H-scramble posits for the orbit; the bijection's cycle structure "
+                        "contributes exact averaging bookkeeping and the trivial bound ln d_min. "
+                        "The Page value therefore follows from the hypothesis H-scramble on the "
+                        "orbit, not from bijectivity or the cycle decomposition; a dynamics that "
+                        "satisfied H-scramble would produce it." if only_haar else "trace inconclusive")
     # (c) shell factorization
     rng = random.Random(SEEDS["C6_shell_mc"])
     cases = [(6, 3, 3), (8, 4, 4), (10, 5, 5), (8, 2, 4), (10, 2, 5), (12, 3, 6)]
     rows = []
     certified = []
     diag_ok = True
+    shell_ok = True
     for (n, w, k) in cases:
         D = comb(n, w)
         secs = []
         for j in range(max(0, w - (n - k)), min(k, w) + 1):
             secs.append((j, comb(k, j), comb(n - k, w - j)))
-        # canonical entropy interval: eigenvalue b_j/D with multiplicity a_j
-        lo = Fr(0)
-        hi = Fr(0)
-        for (j, a, b) in secs:
-            l1, h1 = ln_interval(Fr(D, b))
-            lo += a * Fr(b, D) * l1
-            hi += a * Fr(b, D) * h1
+        lo, hi = canonical_entropy_interval(D, secs)
+        # independent route (post-review): explicit basis-state counts of Tr_B Pi_w / D
+        spec_ok, s_indep = canonical_by_enumeration(n, w, k, D, secs)
+        indep_ok = spec_ok and float(lo) - 1e-12 <= s_indep <= float(hi) + 1e-12
         Pfull = page_exact(2 ** k, 2 ** (n - k))
         if hi < Pfull:
             status = "certified below S_Page"
@@ -1183,6 +1227,8 @@ def run_C6(controls, res, c1_proved):
         se = math.sqrt(sum((s - mu) ** 2 for s in Ss) / (len(Ss) - 1) / len(Ss))
         agree = abs(mu - float(sf)) <= 4 * se
         diag_ok = diag_ok and agree
+        mc_le_canon = mu <= float(hi) + 4 * se
+        shell_ok = shell_ok and indep_ok and mc_le_canon
         rows.append({"n": n, "w": w, "R": k, "shell_dim": D, "full_dim": 2 ** n,
                      "per_mode_log_dim_ln_C_over_n": fx(math.log(D) / n),
                      "S_canonical_interval_10dp": [dec(lo), dec(hi + Fr(1, 10 ** 10))],
@@ -1192,20 +1238,58 @@ def run_C6(controls, res, c1_proved):
                      "sector_formula_below_S_Page_exact_given_formula": sf < Pfull,
                      "haar_on_shell_MC_mean_NUMERICAL": fx(mu), "MC_se": fx(se),
                      "MC_agrees_sector_formula": agree,
+                     "canonical_by_enumeration_NUMERICAL": fx(s_indep, 10),
+                     "canonical_spectrum_matches_enumeration_exact": spec_ok,
+                     "MC_mean_le_canonical_upper_plus_4se": mc_le_canon,
                      "preregistered": (n, w, k) in [(6, 3, 3), (8, 4, 4), (10, 5, 5)]})
     out["c_shell_cases"] = rows
     out["c_sector_formula_below_in_all_cases"] = all(r["sector_formula_below_S_Page_exact_given_formula"] for r in rows)
     out["c_diagnostics_agree"] = diag_ok
+    controls["K-shell"] = shell_ok
+    # post-review: diagonal shell span{|i>|i>} (energy = Hamming distance of b and r, E = 0)
+    drows = []
+    above_all = True
+    rngd = random.Random(SEEDS["C6_diag_mc"])
+    diag_mc_ok = True
+    for m in (2, 3, 4, 8, 16):
+        dm = diag_shell_mean(m)
+        P = page_exact(m, m)
+        above = dm > P
+        above_all = above_all and above
+        row = {"m": m, "haar_mean_on_diagonal_shell_exact": str(dm),
+               "value_10dp": dec(dm), "S_Page_m_m_10dp": dec(P), "above_S_Page": above}
+        if m in (2, 4, 8):
+            Ss = []
+            for _ in range(4000):
+                c = haar_state(m, rngd)
+                Ss.append(shannon([abs(z) ** 2 for z in c]))
+            mu = sum(Ss) / len(Ss)
+            se = math.sqrt(sum((x - mu) ** 2 for x in Ss) / (len(Ss) - 1) / len(Ss))
+            ok = abs(mu - float(dm)) <= 4 * se
+            diag_mc_ok = diag_mc_ok and ok
+            row.update({"MC_mean_NUMERICAL": fx(mu), "MC_se": fx(se), "MC_agrees": ok})
+        drows.append(row)
+    out["c_post_review_diagonal_shell"] = {
+        "shell": "span{|i>_B|i>_R}, i = 1..m (d_B = d_R = m); rho_R = diag(|c_i|^2), "
+                 "c Haar on C^m, so the spectrum is uniform on the simplex",
+        "formula": "E[S] = H_m - 1 (expected Shannon entropy of a uniform point of the simplex)",
+        "rows": drows, "above_in_all_rows": above_all}
+    controls["K-diag"] = diag_mc_ok
+    certified_above = above_all
     if certified:
         out["c_verdict"] = ("CONDITIONAL: Theorem A.8 states the Page value with the full factor "
-                            "dimensions while positing equidistribution on a shell subspace; for "
-                            "a conserved Hamming weight the Haar-on-shell mean entropy is "
-                            "certified (concavity, rigorous log intervals) strictly below "
-                            "S_Page(d_R,d_B) in cases %s (all added by amendment A1; the "
-                            "preregistered half-filling cases are not certified by this bound). "
-                            "The unstated hypothesis is that the shell is the full product space, "
-                            "or that d_B, d_R are replaced by shell-effective quantities."
-                            % ", ".join("(n,w,|R|)=(%d,%d,%d)" % c for c in certified))
+                            "dimensions while positing equidistribution on a shell subspace, and "
+                            "the Haar-on-shell mean differs from that value in a direction that "
+                            "depends on the shell. For a conserved Hamming weight it lies below "
+                            "S_Page(d_R,d_B), certified (concavity, rigorous log intervals) in "
+                            "cases %s (all added by amendment A1; the preregistered half-filling "
+                            "cases are not certified by this bound). For the diagonal shell "
+                            "span{|i>|i>} it is exactly H_m - 1, above S_Page(m,m) for m = 2, 3, 4, "
+                            "8, 16 (post-review result): %s. The unstated hypothesis is that the "
+                            "shell is the full product space, or that d_B, d_R are replaced by "
+                            "the shell's own typical value."
+                            % (", ".join("(n,w,|R|)=(%d,%d,%d)" % c for c in certified),
+                               "all rows above" if certified_above else "not all rows above"))
     else:
         out["c_verdict"] = "no finding: no case certified"
     out["d_time_average_vs_instantaneous"] = (
@@ -1256,7 +1340,7 @@ def page_fraction_beta(beta):
     return 1 - y * hi, 1 - y * lo, y
 
 
-def rk4_page_time(alpha_of_M, turnover_M2, steps=200000):
+def simpson_page_time(alpha_of_M, turnover_M2, steps=200000):
     """NUMERICAL control: integrate dM/dt = -alpha(M)/M^2 from M=1; return t(M^2=turnover)/t_evap."""
     # integrate in M instead of t: dt/dM = -M^2/alpha(M); t(M) = int_M^1 m^2/alpha(m) dm
     def integ(a, b):
@@ -1299,7 +1383,7 @@ def run_C7(controls, res):
                              "interval_12dp": [dec(lo, 12), dec(hi + Fr(1, 10 ** 12), 12)]}
     ok_b = chk.a == 1 and chk.b == 0
     # numerical control
-    num_b = rk4_page_time(lambda m: 1.0, 0.5, steps=20000)
+    num_b = simpson_page_time(lambda m: 1.0, 0.5, steps=20000)
     out["b_numerical_control"] = fx(num_b, 10)
     ok_b = ok_b and abs(num_b - float(lo)) < 1e-9
     # (c) multiplicative factor cancels
@@ -1325,7 +1409,7 @@ def run_C7(controls, res):
     pl["p=1/2"] = [dec(1 - s4hi / 4, 8), dec(1 - s4lo / 4 + Fr(1, 10 ** 8), 8)]
     pl["p=1"] = str(Fr(3, 4))
     out["d_power_law_a_propto_M^-p"] = pl
-    num_p = rk4_page_time(lambda m: m ** -0.5 if m > 0 else 1e300, 0.5, steps=20000)
+    num_p = simpson_page_time(lambda m: m ** -0.5 if m > 0 else 1e300, 0.5, steps=20000)
     out["d_power_law_numerical_control_p=1/2"] = fx(num_p, 10)
     ok_d = abs(num_p - float(1 - s4hi / 4)) < 1e-7
     steps = []
@@ -1340,7 +1424,7 @@ def run_C7(controls, res):
                 val = Q2(1 - m3 + rho * m3, -rho / 4).div_rational(Dn)
             vlo, vhi = val.interval()
             alpha = (lambda mu_, r_: (lambda m: 1.0 if m > float(mu_) else float(r_)))(mu, ratio)
-            num = rk4_page_time(alpha, 0.5, steps=4000)
+            num = simpson_page_time(alpha, 0.5, steps=4000)
             ok_d = ok_d and abs(num - float(vlo)) < 2e-3
             steps.append({"a2_over_a1": str(ratio), "mu=M*/M0": str(mu), "exact": val.s(),
                           "value_8dp": dec(vlo, 8), "numerical_control": fx(num, 6)})
@@ -1358,11 +1442,18 @@ def run_C7(controls, res):
            and dec(1 - y + Fr(5, 100000), 4) == "0.4025")
     out["e_beta_accounting"] = beta_rows
     out["e_literature_control"] = {"source": "Page 2013 (arXiv:1301.4995): 53.81% of evaporation time, 40.25% of S_BH lost, beta=1.4847",
+                                   "quoted_t_fraction": "0.5381", "quoted_entropy_lost": "0.4025",
+                                   "computed_t_fraction_4dp": dec(flo + Fr(5, 100000), 4),
+                                   "computed_entropy_lost_4dp": dec(1 - y + Fr(5, 100000), 4),
+                                   "resolution": "4 decimal places; confirms the beta formula is Page's accounting, not an independent physics test",
                                    "reproduced": lit}
     controls["K-page2013"] = lit
-    controls["K-ode"] = ok_a and ok_b and ok_c and ok_d
+    # (a) and (c) are algebraic identities checked at rational points, not controls;
+    # K-ode is the independent Simpson integration of the ODE (b, d) plus the exact Q(sqrt2) check.
+    controls["K-ode"] = ok_b and ok_d
+    out["a_c_note"] = "a and c are algebraic identities checked at rational points; not counted as controls"
     # verdict
-    out["verdict"] = (
+    out["verdict"] = "VOID (algebraic identity check failed)" if not (ok_a and ok_c) else (
         "CONDITIONAL: t_P/t_evap = 1 - 2^{-3/2} = %s holds exactly given (i) constant a in "
         "dM/dt=-a/M^2, (ii) turnover at half the initial black-hole entropy, i.e. radiation "
         "entropy equal to the black-hole entropy lost (beta=1, the identification "

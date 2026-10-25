@@ -102,7 +102,7 @@ def m_ode(c):
             return sum(h * (f(a + i * h) + 4 * f(a + i * h + h / 2) + f(a + i * h + h)) / 6
                        for i in range(steps))
         return integ(math.sqrt(turnover_M2), 1.0) / integ(0.0, 1.0)
-    c.rk4_page_time = rk
+    c.simpson_page_time = rk
 
 
 def m_classical(c):
@@ -118,6 +118,18 @@ def m_cc5(c):
     Fr = c.Fr
     c.low_entropy_state = lambda n: [Fr(-1 if (x >> (n - 1)) & 1 else 1, 2 ** (n // 2))
                                      for x in range(2 ** n)]
+
+
+def m_canonical(c):
+    orig = c.canonical_entropy_interval
+    def ci(D, secs):
+        lo, hi = orig(D, secs)
+        return lo * c.Fr(9, 10), hi * c.Fr(9, 10)    # reviewer mutant R5
+    c.canonical_entropy_interval = ci
+
+
+def m_diag(c):
+    c.diag_shell_mean = lambda m: c.harmonic(m) - c.Fr(1, 2)
 
 
 def m_ct1(c):
@@ -140,6 +152,8 @@ MUTANTS = [
     ("M-classical", "K-classical", m_classical),
     ("M-cc5", "CC5", m_cc5),
     ("M-ct1", "CT1", m_ct1),
+    ("M-canonical", "K-shell", m_canonical),
+    ("M-diag", "K-diag", m_diag),
 ]
 
 

@@ -98,11 +98,15 @@ def main():
       % (c3["CC4_plus_state"]["max_half_cut_rank"], c3["CC5_low_entropy_product"]["H_p0_nats"],
          c3["CC5_low_entropy_product"]["S_Page_16_16"],
          c3["CC5_low_entropy_product"]["page_like_half_cut"]))
+    t44 = [x for x in c5["page_table"] if x["m"] == 4 and x["k"] == 4][0]
     w("- C5: S_Page(2,2) = %s, S_Page(4,4) = %s exactly; the approximation `ln m − m/(2k)` used in"
-      " GR Theorem A.8 gives 0.8862943611 at 4×4 against the exact 0.9223956598." %
-      (c5["S_Page_2_2"], c5["S_Page_4_4_rational"]))
-    w("  S_Page(m,m) − ln m for m = 2, 4, 8, 16, 32: %s (tending to −1/2)."
-      % ", ".join(x["S_Page_minus_ln_m_10dp"] for x in c5["finite_size_at_equal_dims"]))
+      " GR Theorem A.8 gives %s at 4×4 against the exact %s." %
+      (c5["S_Page_2_2"], c5["S_Page_4_4_rational"], t44["GR_approx_ln_m_minus_m_over_2k_10dp"],
+       t44["S_Page_exact_10dp"]))
+    w("  S_Page(m,m) − ln m for m = 2, 4, 8, 16, 32: %s. Analytically, %s; at m = 32,"
+      " (S_Page − ln m + 1/2)·m² = %s (7/12 = 0.5833…)."
+      % (", ".join(x["S_Page_minus_ln_m_10dp"] for x in c5["finite_size_at_equal_dims"]),
+         c5["finite_size_limit_analytic"], c5["finite_size_check_m32_(S-ln m+1/2)*m^2_10dp"]))
     hb = c5["supplied_haar_brickwork_n8"]
     w("- C5 SUPPLIED Haar brickwork, n=8 from `|0⟩^8`: half-cut S by depth %s; S_Page(16,16) = %s."
       % (", ".join("%d: %s" % (x["depth"], x["S_half_NUMERICAL"]) for x in hb["depth_curve"]),
@@ -115,6 +119,12 @@ def main():
              row["haar_on_shell_MC_mean_NUMERICAL"], row["MC_se"],
              row["S_Page_full_dims_exact_10dp"], row["concavity_status"],
              row["sector_formula_mean_DIAGNOSTIC"]))
+    dsh = c6["c_post_review_diagonal_shell"]
+    w("- C6(c) post-review, diagonal shell %s: exact Haar mean %s; values %s against S_Page(m,m) %s"
+      " for m = %s; Monte Carlo agrees (K-diag)." % (dsh["shell"].split(";")[0], dsh["formula"].split(" (")[0],
+          ", ".join(r["haar_mean_on_diagonal_shell_exact"] for r in dsh["rows"]),
+          ", ".join(r["S_Page_m_m_10dp"] for r in dsh["rows"]),
+          ", ".join(str(r["m"]) for r in dsh["rows"])))
     w("- C7: t_P/t_evap = %s, interval [%s, %s]; with β (radiation coarse-grained entropy per unit"
       " black-hole entropy lost):" % (c7["b_half_entropy"]["t_P_over_t_evap"],
                                       c7["b_half_entropy"]["interval_12dp"][0],
@@ -134,27 +144,36 @@ def main():
     w("property\". Its ensemble is the orbit of the state under `U_φ` with counting (time) measure; its")
     w("target is Haar measure on the unit sphere of the energy-shell subspace.")
     w("")
-    w("1. In the setting the appendix itself uses — a definite initial configuration (Theorem A.7)")
-    w("   and the B/R factorization of configurations — H-scramble is false for every bijection")
-    w("   (C1, exact). The appendix's sentence that a bijection \"can\" visit only product states")
-    w("   understates this: acting on a configuration it must.")
+    w("1. In the setting the appendix itself uses — a definite initial configuration (Theorem A.7;")
+    w("   Theorem A.8 counts initial conditions by |Σ_E| and averages over configurations) and the")
+    w("   B/R factorization of configurations — H-scramble is false for every bijection (C1, exact).")
+    w("   GR:837 shows this for one long cycle (\"every visited state is a product state\");")
+    w("   book/ch07-gravity.md:126 (FULL:2001) says a bijection \"can\" visit only product states.")
+    w("   Acting on a configuration, every bijection must.")
     w("2. Satisfying it requires an ingredient outside `φ`: an initial superposition, or a tensor")
     w("   factorization of the emergent Hilbert space not aligned with configurations. With a supplied")
     w("   superposition, permutations do produce Page-like states (C3), but the entanglement available")
     w("   is capped by the initial state's configuration-basis entropy `H(p_0)` for every permutation")
-    w("   and every time (C2). The capacity to scramble is a property of the supplied initial state,")
-    w("   not of `φ`.")
+    w("   and every time (C2), together with the conserved overlap F. The entanglement any permutation")
+    w("   can produce is bounded by these properties of the supplied initial state; reaching the bound")
+    w("   also needs a permutation that mixes the state's phase pattern across the cut (`|+^n⟩` is")
+    w("   never entangled, CC4, and shallow local permutations of `|−⟩|+⟩^7` give S = 0).")
     w("3. The number `S_Page` enters Theorem A.8 only through the Haar ensemble that H-scramble posits;")
     w("   the cycle decomposition supplies exact averaging bookkeeping and the trivial bound `ln d_min`")
-    w("   (C6(b)). Under H-scramble the Page value is imported with the supplied ensemble rather than")
-    w("   produced by the substratum dynamics. H-scramble is stronger than the conclusion it serves")
+    w("   (C6(b)). The Page value therefore follows from the hypothesis H-scramble on the orbit, not")
+    w("   from bijectivity or the cycle decomposition; a dynamics that satisfied H-scramble would")
+    w("   produce it. H-scramble is stronger than the conclusion it serves")
     w("   (it constrains the whole distribution, not one functional), so it does not literally restate")
     w("   the Page entropy; it supplies it.")
     w("4. Even granting H-scramble on an energy shell, Theorem A.8's value uses the full factor")
-    w("   dimensions. For a conserved Hamming weight the shell-typical entropy lies below")
+    w("   dimensions, and the shell-typical entropy differs from it in a direction that depends on the")
+    w("   shell. For the diagonal shell `span{|i⟩|i⟩}` it is exactly `H_m − 1`, above S_Page(m,m)")
+    w("   (post-review result). For a conserved Hamming weight the shell-typical entropy lies below")
     sh = {(x["n"], x["w"]): x for x in c6["c_shell_cases"]}
-    ncert = sum(1 for x in c6["c_shell_cases"] if x["concavity_status"] == "certified below S_Page")
-    w("   `S_Page(d_R, d_B)`: certified by concavity in %d of the six cases, all off half filling," % ncert)
+    cert = [x for x in c6["c_shell_cases"] if x["concavity_status"] == "certified below S_Page"]
+    off = all(2 * x["w"] != x["n"] for x in cert)
+    w("   `S_Page(d_R, d_B)`: certified by concavity in %d of the six cases%s,"
+      % (len(cert), ", all off half filling" if off else ""))
     w("   where the gap is leading-order (MC mean %s against %s nats at n=10, w=2); at half filling"
       % (sh[(10, 2)]["haar_on_shell_MC_mean_NUMERICAL"], sh[(10, 2)]["S_Page_full_dims_exact_10dp"]))
     w("   the gap is smaller (MC %s, sector formula %s, against %s at n=10, w=5) and the concavity"
@@ -176,14 +195,24 @@ def main():
     w("claim can carry. Two changes move the fraction: an M-dependent effective coefficient (species")
     w("thresholds), which makes it depend on `M_0` through `M_*/M_0` with corrections of order")
     w("`(M_*/M_0)^3` for `M_0 ≫ M_*`; and the radiation-entropy accounting. With Page's coarse-grained")
+    lit = c7["e_literature_control"]
     w("accounting for photons and gravitons from a large Schwarzschild hole (β = 1.4847, Page 1976 as used")
-    w("in Page 2013, arXiv:1301.4995) the turnover is at 0.5381 of the evaporation time with 40.25% of")
-    w("the entropy lost, which the β formula reproduces (K-page2013); β itself is computed from the")
+    w("in Page 2013, arXiv:1301.4995) the turnover is at %s of the evaporation time with a fraction %s"
+      % (lit["quoted_t_fraction"], lit["quoted_entropy_lost"]))
+    w("of the entropy lost; the β formula gives %s and %s (K-page2013, %s). β itself is computed from the"
+      % (lit["computed_t_fraction_4dp"], lit["computed_entropy_lost_4dp"], lit["resolution"]))
     w("emitted species' greybody factors. The derivation uses only the exponents in the mass-loss law")
     w("and in `S_BH ∝ M²`, not their coefficients, so no OI-specific quantity (σ, q, ε, the 1/4")
     w("coefficient, bijectivity) enters the fraction; it is the same number in any model with these")
     w("three inputs. A comparison of Page times with QES/island computations")
     w("therefore requires that both use the same radiation-entropy accounting; none was carried out here.")
+    w("")
+    w("## Assumption-watch (reviewer observation; not a claim of this package)")
+    w("")
+    w("GR A.6(iii) takes the hidden sectors maximally mixed (the uniform prior, making the channel")
+    w("unital), while A.6(i) and A.7 take the total state pure from a definite initial state. Under the")
+    w("uniform-prior trace-out the B∪R state is mixed, and the relevant curve is then the classical")
+    w("one of C4, which ends at its maximum and does not return to zero. Recorded for BH-02 follow-up.")
     w("")
     w("## Controls and mutants")
     w("")
@@ -212,9 +241,14 @@ def main():
     w("  entanglement. Its initial state is SUPPLIED; a random permutation of `2^n` configurations is")
     w("  a global, nonlocal map; the local 3-bit circuit is a diagnostic. Sizes n ≤ 10.")
     w("- C5 and the Haar comparisons are SUPPLIED ensembles; they test nothing about OI.")
-    w("- C6(c) uses a Hamming-weight shell as a toy energy. The sector-formula values rest on the")
-    w("  formula's form (Bianchi–Donà 2019) and are cross-checked by Monte Carlo only; the certified")
-    w("  statement rests on concavity alone.")
+    w("- C6(c) uses Hamming-weight and diagonal shells as toy energies. The sector-formula values rest")
+    w("  on the formula's form (Bianchi–Donà 2019) and are cross-checked by Monte Carlo only; the")
+    w("  certified statement rests on concavity, with the canonical entropy computed by two routes")
+    w("  (sector multiplicities and explicit basis-state counts; K-shell). The Monte Carlo ≤ canonical")
+    w("  part of K-shell is a weak check here, because the margins are large; the second route is the")
+    w("  decisive one.")
+    w("- C7(a) and (c) are algebraic identities checked at rational points; K-ode is the independent")
+    w("  Simpson-rule integration of the ODE.")
     w("- C7 uses literature values (β = 1.4847, 0.5381, 40.25%) as read from the abstract of Page 2013")
     w("  and its database record; the full text and Page 1976 were not consulted here. The step and")
     w("  power-law models are parametric, not fitted to Standard Model thresholds.")
@@ -223,7 +257,7 @@ def main():
     w("- No specific substratum map was tested: C3 uses uniformly random permutations, not the")
     w("  framework's lattice dynamics. Whether a structured map (for instance a linear map of")
     w("  configurations) acting on a supplied superposition reaches Page-like values is untested.")
-    w("- `mutants.py` reruns the full suite once per mutant (15 mutants, about 14 minutes wall time on a")
+    w("- `mutants.py` reruns the full suite once per mutant (17 mutants, about 27 minutes wall time on a")
     w("  shared 4-core container); repeated mutation campaigns belong in CI (§A.40). The final")
     w("  `mutants-output.txt` was produced by one run of the final code.")
     w("- Nothing here is a statement about physical black holes.")
@@ -237,7 +271,7 @@ def main():
     w("sha256sum -c SHA256SUMS")
     w("python3 -I -B checks.py | cmp - result.json        # about 1 minute")
     w("python3 -I -B -O checks.py | cmp - result.json")
-    w("python3 -I -B mutants.py | cmp - mutants-output.txt   # about 15 minutes, 4 processes")
+    w("python3 -I -B mutants.py | cmp - mutants-output.txt   # about 30 minutes on a loaded host, 4 processes")
     w("python3 -I -B report.py | cmp - REPORT.md")
     w("```")
     w("")

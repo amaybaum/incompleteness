@@ -6,18 +6,25 @@ identical mirror line in `book/The-Incompleteness-of-Observation-FULL.md`, given
 "Propagation" below. Evidence labels C1–C7 refer to `REPORT.md` / `result.json` in this
 directory. Assessments: **supports**, **conditions** (true only under a hypothesis the sentence
 does not state), **contradicts** (a computed or proved result here is inconsistent with the
-sentence as written). Proposals for `papers/` are written in the neutral register of §A.32–§A.33.
+sentence as written). Where a contradiction holds only in a stated setting, the setting is named:
+"definite configuration, aligned split" means a definite initial configuration with the B/R
+factorization along configuration coordinates (the setting of GR Theorems A.7–A.8). Outside it,
+a permutation acting on a superposition can produce Page-like states (C3), so the same sentence
+is conditional on a superposed initial state with configuration-basis entropy `H(p_0)` at least the
+target entropy (C2), which A.7's "definite initial state" excludes, and on H-scramble. Proposals
+for `papers/` are written in the neutral register of §A.32–§A.33. Revised after independent
+review (post-review changes listed in `PROVENANCE.json`).
 
 ## book/ch07-gravity.md
 
 **1. Chapter overview, line 12 (FULL:1887).**
 > "the Page curve is derived from cycle typicality with structural Page time $t_P \approx 0.646\, t_{\text{evap}}$ independent of mass and greybody factors, matching the quantum-extremal-surface and entanglement-island programs through a substantially different mechanism."
 
-- "derived from cycle typicality": **contradicts.** The cycle structure of `φ` contributes no
-  entanglement: acting on a definite configuration, every bijection visits only product basis
-  states (C1); on any superposition it cannot exceed the superposition's configuration-basis
-  entropy (C2). The Page value enters only through the Haar ensemble posited by H-scramble
-  (C6(b)), and §7.6 itself states that H-scramble is not established.
+- "derived from cycle typicality": **contradicts (definite configuration, aligned split)**; otherwise
+  **conditions**. Acting on a definite configuration, every bijection visits only product basis
+  states (C1); on a superposition it cannot exceed the superposition's configuration-basis entropy
+  (C2). The Page value follows from the Haar ensemble posited by H-scramble, not from the cycle
+  structure (C6(b)), and §7.6 itself states that H-scramble is not established.
 - "independent of mass and greybody factors": **conditions** (C7). Exact for a constant
   mass-loss coefficient, turnover at half the initial black-hole entropy (radiation entropy equal
   to black-hole entropy lost) and `S ∝ M²`; a constant greybody factor cancels; an M-dependent
@@ -47,8 +54,10 @@ sentence as written). Proposals for `papers/` are written in the neutral registe
 > "for a bipartite quantum system in a generic pure state, the marginal entropy of the smaller subsystem is approximately maximal, with corrections that vanish exponentially in the dimension of the larger subsystem."
 > "a finite bijection can count its energy-shell cycles uniformly while visiting only product states ([GR Appendix A]); the condition is named, not established."
 
-- First sentence: **contradicts** (C1, C2, C6(b)): the combinatorial structure supplies averaging
-  bookkeeping, not the entropy value.
+- First sentence: **contradicts (definite configuration, aligned split)**; otherwise **conditions**
+  (C1, C2, C3, C6(b)): in Theorem A.8 the combinatorial structure supplies averaging bookkeeping,
+  and the entropy value comes from H-scramble; a permutation produces Page-like entanglement only
+  from a supplied superposition.
 - Second sentence: **contradicts** (C5). Page's exact Haar mean deficit from `ln m` is about
   `m/(2k)`, which at equal dimensions tends to 1/2 nat, not to zero (exact: −0.4994 at m = k = 32);
   what is exponentially small is the probability of a large deviation (concentration), not the
@@ -63,13 +72,14 @@ sentence as written). Proposals for `papers/` are written in the neutral registe
   than the superposition's configuration-basis entropy; the condition therefore needs an input
   beyond the bijection, and it is named, not established."
 
-**4. Lines 130–131 (FULL:2005–2006).**
+**4. Lines 130–132 (FULL:2005–2007).**
 > "For the typical state on the energy shell — typical in the sense of Popescu-Short-Winter measure concentration applied to the bijection's cycle structure, which is what H-scramble supplies — the radiation's entanglement entropy is approximately $S_{\text{rad}}(t) = \min(n_R(t), n_B(t)) \cdot \ln q,$ … and the corrections are exponentially small."
 
-- **Conditions** (C6(c)): Haar typicality on a proper energy-shell subspace gives the shell's
-  typical value, below `min(n_R, n_B) ln q` (certified for Hamming-weight shells off half
-  filling; leading-order gap there). The formula needs the shell to be the full product space, or
-  the dimensions replaced by shell-effective ones.
+- **Conditions** (C6(c)): Haar typicality on a proper energy-shell subspace gives the shell's own
+  typical value, which differs from `min(n_R, n_B) ln q`. For the Hamming-weight shells tested it
+  lies below (certified in three cases off half filling, with a leading-order gap there); for the
+  diagonal shell `span{|i⟩|i⟩}` it is exactly `H_m − 1`, above `S_Page(m,m)`. The formula needs the
+  shell to be the full product space, or the dimensions replaced by the shell's own typical value.
 - "corrections are exponentially small": **contradicts** at and near the turnover (C5; GR A.9
   itself gives −1/2 at `n_R = n_B`).
 - Proposal: "… is approximately $\min(n_R(t), n_B(t)) \cdot \ln q$ when the shell is the full
@@ -83,10 +93,11 @@ sentence as written). Proposals for `papers/` are written in the neutral registe
 - Turnover at `n_B(0)/2`: **conditions** — it is the identification `n_R(t) = n_B(0) − n_B(t)`,
   i.e. radiation entropy equal to black-hole entropy lost (β = 1, C7(e)).
 - Independence: **conditions** (C7(c)–(e)), as in item 1.
-- "distinctive content … fixed by … bijectivity and … boundary-mode counting": **contradicts**
-  (C7). The fraction uses only the exponents of the mass-loss law and of `S ∝ M²`; neither
-  bijectivity nor any OI coefficient (σ, q, ε, the 1/4) enters. It is the same number in any
-  model with these inputs.
+- "distinctive content … fixed by … bijectivity and … boundary-mode counting": partly
+  **supports**, partly **contradicts** (C7). The boundary-mode counting does supply `S ∝ M²` and,
+  through `n_R(t) = n_B(0) − n_B(t)`, the β = 1 turnover. Bijectivity does not enter the fraction,
+  and no OI coefficient (σ, q, ε, the 1/4) does; the fraction is the same number in any model with
+  these inputs, so "distinctive content" is not supported.
 - Proposal: "… $t_P = (1 - 2^{-3/2})\,t_{\text{evap}} \approx 0.646\,t_{\text{evap}}$, for a
   constant mass-loss coefficient and with the radiation's entropy equal to the black-hole entropy
   lost; a constant greybody factor cancels from the fraction, while mass-dependent emission (new
@@ -124,9 +135,11 @@ sentence as written). Proposals for `papers/` are written in the neutral registe
 **9. Line 147 (FULL:2022).**
 > "The framework's content here is that the typicality-providing ingredient need not be gravitational at all; it can be combinatorial, on the substratum side of the trace-out. This constitutes a microscopic realization of the entanglement-island construction."
 
-- **Contradicts** (C1, C2, C6(b)): the typicality-providing ingredient in this argument is a
-  quantum-ensemble hypothesis, not a combinatorial property. "Microscopic realization" requires
-  the explicit map of observables and replicas that BH-06 asks for; none exists.
+- "can be combinatorial": **contradicts (definite configuration, aligned split)**; otherwise **not
+  supported** (C1, C2, C3, C6(b)). In Theorem A.8 the typicality-providing ingredient is a
+  quantum-ensemble hypothesis (H-scramble); a permutation reaches Page-like values only from a
+  supplied superposition. "Microscopic realization" is **not supported**: it requires the explicit
+  map of observables and replicas that BH-06 asks for, and none exists.
 - Proposal: replace both sentences with "In the framework's argument the ingredient is H-scramble,
   a quantum-typicality condition on the substratum orbit that permutation dynamics on
   configuration states does not satisfy; the correspondence with island saddles is conjectural."
@@ -139,6 +152,18 @@ sentence as written). Proposals for `papers/` are written in the neutral registe
   "sharp quantitative target", or restate the 0.646 with its two hypotheses.
 
 **11. Line 282 (FULL:2157).** "and the Page curve requires H-scramble" — **supports.**
+
+**20. Line 114 (FULL:1989), added after review.**
+> "The Page time occurs at approximately half the black hole's entropy has been radiated; the curve's turnover is the empirical signature of unitarity."
+
+- **Conditions** (C7(e)). Half the entropy holds when the radiation's entropy equals the black-hole
+  entropy lost (β = 1). With the definition given in the same sentence (radiation entropy equal to
+  the remaining black hole's entropy) and Page's coarse-grained accounting for photon and graviton
+  emission, the turnover comes when about 40.25% has been lost (Page 2013).
+- Proposal: "The Page time occurs when the black hole has lost a fraction $1/(1+\beta)$ of its
+  initial entropy, where $\beta$ is the entropy carried off by the radiation per unit of
+  black-hole entropy lost: one half for $\beta = 1$, about 40% for photon and graviton emission
+  from a large Schwarzschild hole."
 
 ## papers/GR.md (Appendix A and its summary)
 
@@ -153,23 +178,27 @@ sentence as written). Proposals for `papers/` are written in the neutral registe
   $t_P = (1-2^{-3/2})\,t_{\text{evap}}$ for a constant mass-loss coefficient and radiation entropy
   equal to the black-hole entropy lost (a constant greybody factor cancels) …"
 
-**13. Line 823 (Theorem A.8 statement).**
+**13. Lines 823–827 (Theorem A.8 statement; the dimensions are defined at line 827).**
 > "For the dynamics $\varphi$ on the energy shell $\Sigma_E \subset \mathcal{H}_B \otimes \mathcal{H}_R$, the time-averaged entanglement entropy of the radiation equals the Page value … where $d_B = |\mathcal{C}_B(t)|$, $d_R = |\mathcal{C}_R(t)|$"
 
-- **Conditions** (C6(c)). Haar on a proper shell gives a value strictly below
-  `S_Page(d_B, d_R)` with these full dimensions (certified in three Hamming-weight cases). The
-  statement needs `Σ_E` equal to the full product `C_B × C_R`, or shell-adapted dimensions.
+- **Conditions** (C6(c)). Haar on a proper shell gives a mean that differs from `S_Page(d_B, d_R)`
+  with these full dimensions, in a shell-dependent direction: below for the Hamming-weight shells
+  tested (certified in three cases), above for the diagonal shell `span{|i⟩|i⟩}` (exactly
+  `H_m − 1`; 1/2 against 1/3 at m = 2, 13/12 against 0.9224 at m = 4). The statement needs `Σ_E`
+  equal to the full product `C_B × C_R`, or the shell's own Haar mean in place of `S_Page`.
 - Proposal: add the hypothesis "(the shell is the full product $\mathcal{C}_B \times \mathcal{C}_R$;
   for a proper shell the Page value is replaced by the Haar-on-shell mean)".
 
 **14. Line 837.**
 > "let $\varphi$ be one long cycle permuting it … every visited state is a product state with $S(\rho_R)=0$, while the Page value is $\ln d_{\min}-d_{\min}/(2d_{\max})>0$ for $d_B,d_R>1$ — a gap of $0.886$ nats already at $d_B=d_R=4$."
 
-- **Supports, understated.** It holds for every bijection, not only one long cycle (C1), and the
-  exact Haar mean at 4×4 is 664789/720720 ≈ 0.922 nats (0.886 is the large-dimension
-  approximation; C5).
+- **Supports, understated.** It holds for every bijection, not only one long cycle (C1). The figure
+  0.886 is the large-dimension form displayed in Theorem A.8 (line 829); the exact Haar mean at 4×4
+  is 664789/720720 ≈ 0.922 nats (C5).
 - Proposal: "… for every bijection $\varphi$ of the shell, and in particular for one long cycle, …
-  a gap of $0.922$ nats at $d_B = d_R = 4$ (Page's exact mean)."
+  a gap of $0.886$ nats in the large-dimension form of the Page value ($0.922$ nats for Page's
+  exact mean) at $d_B = d_R = 4$." Alternatively, display Page's exact mean
+  $\sum_{k=d_{\max}+1}^{d_{\min} d_{\max}} 1/k - (d_{\min}-1)/(2 d_{\max})$ at line 829 and quote 0.922.
 
 **15. Line 839 (definition of H-scramble).**
 > "What the argument needs is a separate condition, **H-scramble**: the orbit ensemble equidistributes over quantum pure states on the shell, in the sense of an approximate unitary design or comparable scrambling property."
@@ -209,12 +238,15 @@ part of the hypothesis, or restate A.9 for time averages.
 
 - "quantitatively matches", "same Page time": **not supported** (item 6).
 - "invokes only Popescu-Short-Winter … no ergodicity assumption": **contradicts** Theorem A.8 as
-  stated two paragraphs earlier, which requires H-scramble; H-scramble (equidistribution of the
-  orbit over pure states) is stronger than ergodicity.
+  stated two paragraphs earlier, which requires H-scramble, an equidistribution hypothesis on the
+  orbit over pure states. Ergodicity over configurations does not supply it: one long cycle is
+  ergodic on the shell and has S = 0 throughout (C1). No ordering between the two properties is
+  claimed here.
 - "microscopic realization": **contradicts / not supported** (item 9).
 - Proposal: "Under H-scramble, the argument of Theorem A.8 uses Popescu-Short-Winter
   concentration with no replica trick and no gravitational path integral; H-scramble is itself an
-  equidistribution hypothesis, stronger than ergodicity. The correspondence between island saddles
+  equidistribution hypothesis on the orbit over pure states, which ergodicity over configurations
+  does not supply. The correspondence between island saddles
   and the post-turnover regime, and between replica wormholes and substratum cycles, is
   conjectural."
 

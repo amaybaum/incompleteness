@@ -89,12 +89,13 @@
    "page_like": false
   },
   "CC5_low_entropy_product": {
-   "H_p0_nats": "2.198753",
+   "H_p0_below_page_like_band": true,
+   "H_p0_nats": "1.923909",
    "S_Page_16_16": "2.274865",
-   "max_S_minus_H_p0_NUMERICAL": "-0.606358264",
+   "max_S_minus_H_p0_NUMERICAL": "-0.392944620",
    "page_like_half_cut": 0,
    "samples": 40,
-   "state": "(24/25|0>+7/25|1>)^8"
+   "state": "(24/25|0>+7/25|1>)^7 (x) |0>"
   },
   "CT1_haar_attainability": {
    "page_like_all_cuts": 10,
@@ -260,7 +261,7 @@
   "final_equals_H_p0": true,
   "n": 8,
   "p0": "Bernoulli(1/4)^8 over configurations",
-  "verdict": "PROVED: H(p_R) <= H(p_t) = H(p0) = H(p_final); the classical marginal-entropy curve ends at its maximum H(p0) and cannot turn over to zero (demonstration: 0 violations, final value 4.498681 = H(p0))",
+  "verdict": "PROVED: H(p_R) <= H(p_t) = H(p0) = H(p_final); the classical marginal-entropy curve ends at its maximum H(p0) (it may dip in between; only the endpoint is controlled) and cannot turn over to zero (demonstration: 0 violations, final value 4.498681 = H(p0))",
   "violations": 0
  },
  "C5": {
@@ -289,6 +290,8 @@
     "m": 32
    }
   ],
+  "finite_size_check_m32_(S-ln m+1/2)*m^2_10dp": "0.5832438188",
+  "finite_size_limit_analytic": "H_N = ln N + gamma + 1/(2N) - 1/(12N^2) + O(N^-4) gives S_Page(m,m) - ln m = -1/2 + 7/(12 m^2) + O(m^-4)",
   "monte_carlo_control": {
    "2x2": {
     "S_Page": "0.333333",
@@ -587,8 +590,8 @@
   }
  },
  "C6": {
-  "a_satisfiability_in_configuration_setting": "PROVED (from C1): with B/R aligned to configuration coordinates and a definite initial configuration (GR Theorem A.7 proof: 'deterministic evolution from a definite initial state'), every state on the orbit is a product basis state, so H-scramble fails for every bijection phi in that setting.",
-  "b_finding": "The value S_Page enters Theorem A.8 only through the SUPPLIED Haar ensemble that H-scramble posits for the orbit; the bijection's cycle structure contributes exact averaging bookkeeping and the trivial bound ln d_min. Under H-scramble the Page value is imported with the ensemble, not produced by phi.",
+  "a_satisfiability_in_configuration_setting": "PROVED (from C1): with B/R aligned to configuration coordinates and a definite initial configuration (GR Theorem A.7 proof: 'deterministic evolution from a definite initial state'; Theorem A.8 counts initial conditions on the shell by |Sigma_E| and averages over configurations s in C_j), every state on the orbit is a product basis state, so H-scramble fails for every bijection phi in that setting.",
+  "b_finding": "The value S_Page enters Theorem A.8 only through the Haar ensemble that H-scramble posits for the orbit; the bijection's cycle structure contributes exact averaging bookkeeping and the trivial bound ln d_min. The Page value therefore follows from the hypothesis H-scramble on the orbit, not from bijectivity or the cycle decomposition; a dynamics that satisfied H-scramble would produce it.",
   "b_proof_trace_TEXTUAL": [
    {
     "step": "phi restricts to a bijection of the finite shell; cycle decomposition",
@@ -612,10 +615,62 @@
    }
   ],
   "c_diagnostics_agree": true,
+  "c_post_review_diagonal_shell": {
+   "above_in_all_rows": true,
+   "formula": "E[S] = H_m - 1 (expected Shannon entropy of a uniform point of the simplex)",
+   "rows": [
+    {
+     "MC_agrees": true,
+     "MC_mean_NUMERICAL": "0.504127",
+     "MC_se": "0.002933",
+     "S_Page_m_m_10dp": "0.3333333333",
+     "above_S_Page": true,
+     "haar_mean_on_diagonal_shell_exact": "1/2",
+     "m": 2,
+     "value_10dp": "0.5000000000"
+    },
+    {
+     "S_Page_m_m_10dp": "0.6623015873",
+     "above_S_Page": true,
+     "haar_mean_on_diagonal_shell_exact": "5/6",
+     "m": 3,
+     "value_10dp": "0.8333333333"
+    },
+    {
+     "MC_agrees": true,
+     "MC_mean_NUMERICAL": "1.083508",
+     "MC_se": "0.002997",
+     "S_Page_m_m_10dp": "0.9223956598",
+     "above_S_Page": true,
+     "haar_mean_on_diagonal_shell_exact": "13/12",
+     "m": 4,
+     "value_10dp": "1.0833333333"
+    },
+    {
+     "MC_agrees": true,
+     "MC_mean_NUMERICAL": "1.717918",
+     "MC_se": "0.002530",
+     "S_Page_m_m_10dp": "1.5885337608",
+     "above_S_Page": true,
+     "haar_mean_on_diagonal_shell_exact": "481/280",
+     "m": 8,
+     "value_10dp": "1.7178571428"
+    },
+    {
+     "S_Page_m_m_10dp": "2.2748659695",
+     "above_S_Page": true,
+     "haar_mean_on_diagonal_shell_exact": "1715839/720720",
+     "m": 16,
+     "value_10dp": "2.3807289932"
+    }
+   ],
+   "shell": "span{|i>_B|i>_R}, i = 1..m (d_B = d_R = m); rho_R = diag(|c_i|^2), c Haar on C^m, so the spectrum is uniform on the simplex"
+  },
   "c_sector_formula_below_in_all_cases": true,
   "c_shell_cases": [
    {
     "MC_agrees_sector_formula": true,
+    "MC_mean_le_canonical_upper_plus_4se": true,
     "MC_se": "0.002936",
     "R": 3,
     "S_Page_full_dims_exact_10dp": "1.5885337608",
@@ -623,6 +678,8 @@
      "2.0069812137",
      "2.0069812138"
     ],
+    "canonical_by_enumeration_NUMERICAL": "2.0069812138",
+    "canonical_spectrum_matches_enumeration_exact": true,
     "concavity_status": "certified above S_Page (concavity bound inconclusive)",
     "full_dim": 64,
     "haar_on_shell_MC_mean_NUMERICAL": "1.546889",
@@ -636,6 +693,7 @@
    },
    {
     "MC_agrees_sector_formula": true,
+    "MC_mean_le_canonical_upper_plus_4se": true,
     "MC_se": "0.001626",
     "R": 4,
     "S_Page_full_dims_exact_10dp": "2.2748659695",
@@ -643,6 +701,8 @@
      "2.6932843785",
      "2.6932843786"
     ],
+    "canonical_by_enumeration_NUMERICAL": "2.6932843785",
+    "canonical_spectrum_matches_enumeration_exact": true,
     "concavity_status": "certified above S_Page (concavity bound inconclusive)",
     "full_dim": 256,
     "haar_on_shell_MC_mean_NUMERICAL": "2.207694",
@@ -656,6 +716,7 @@
    },
    {
     "MC_agrees_sector_formula": true,
+    "MC_mean_le_canonical_upper_plus_4se": true,
     "MC_se": "0.000854",
     "R": 5,
     "S_Page_full_dims_exact_10dp": "2.9663054768",
@@ -663,6 +724,8 @@
      "3.3826476818",
      "3.3826476819"
     ],
+    "canonical_by_enumeration_NUMERICAL": "3.3826476819",
+    "canonical_spectrum_matches_enumeration_exact": true,
     "concavity_status": "certified above S_Page (concavity bound inconclusive)",
     "full_dim": 1024,
     "haar_on_shell_MC_mean_NUMERICAL": "2.885696",
@@ -676,6 +739,7 @@
    },
    {
     "MC_agrees_sector_formula": true,
+    "MC_mean_le_canonical_upper_plus_4se": true,
     "MC_se": "0.001704",
     "R": 4,
     "S_Page_full_dims_exact_10dp": "2.2748659695",
@@ -683,6 +747,8 @@
      "2.1560878461",
      "2.1560878462"
     ],
+    "canonical_by_enumeration_NUMERICAL": "2.1560878461",
+    "canonical_spectrum_matches_enumeration_exact": true,
     "concavity_status": "certified below S_Page",
     "full_dim": 256,
     "haar_on_shell_MC_mean_NUMERICAL": "1.471953",
@@ -696,6 +762,7 @@
    },
    {
     "MC_agrees_sector_formula": true,
+    "MC_mean_le_canonical_upper_plus_4se": true,
     "MC_se": "0.001338",
     "R": 5,
     "S_Page_full_dims_exact_10dp": "2.9663054768",
@@ -703,6 +770,8 @@
      "2.4008447399",
      "2.4008447400"
     ],
+    "canonical_by_enumeration_NUMERICAL": "2.4008447400",
+    "canonical_spectrum_matches_enumeration_exact": true,
     "concavity_status": "certified below S_Page",
     "full_dim": 1024,
     "haar_on_shell_MC_mean_NUMERICAL": "1.602267",
@@ -716,6 +785,7 @@
    },
    {
     "MC_agrees_sector_formula": true,
+    "MC_mean_le_canonical_upper_plus_4se": true,
     "MC_se": "0.000546",
     "R": 6,
     "S_Page_full_dims_exact_10dp": "3.6590254932",
@@ -723,6 +793,8 @@
      "3.2804570199",
      "3.2804570200"
     ],
+    "canonical_by_enumeration_NUMERICAL": "3.2804570200",
+    "canonical_spectrum_matches_enumeration_exact": true,
     "concavity_status": "certified below S_Page",
     "full_dim": 4096,
     "haar_on_shell_MC_mean_NUMERICAL": "2.468321",
@@ -735,10 +807,11 @@
     "w": 3
    }
   ],
-  "c_verdict": "CONDITIONAL: Theorem A.8 states the Page value with the full factor dimensions while positing equidistribution on a shell subspace; for a conserved Hamming weight the Haar-on-shell mean entropy is certified (concavity, rigorous log intervals) strictly below S_Page(d_R,d_B) in cases (n,w,|R|)=(8,2,4), (n,w,|R|)=(10,2,5), (n,w,|R|)=(12,3,6) (all added by amendment A1; the preregistered half-filling cases are not certified by this bound). The unstated hypothesis is that the shell is the full product space, or that d_B, d_R are replaced by shell-effective quantities.",
+  "c_verdict": "CONDITIONAL: Theorem A.8 states the Page value with the full factor dimensions while positing equidistribution on a shell subspace, and the Haar-on-shell mean differs from that value in a direction that depends on the shell. For a conserved Hamming weight it lies below S_Page(d_R,d_B), certified (concavity, rigorous log intervals) in cases (n,w,|R|)=(8,2,4), (n,w,|R|)=(10,2,5), (n,w,|R|)=(12,3,6) (all added by amendment A1; the preregistered half-filling cases are not certified by this bound). For the diagonal shell span{|i>|i>} it is exactly H_m - 1, above S_Page(m,m) for m = 2, 3, 4, 8, 16 (post-review result): all rows above. The unstated hypothesis is that the shell is the full product space, or that d_B, d_R are replaced by the shell's own typical value.",
   "d_time_average_vs_instantaneous": "OPEN proof obligation (textual): Theorem A.8 bounds a cycle time-average at a fixed bipartition on a fixed shell; Theorem A.9 applies it at each t along one trajectory with a changing bipartition, starting from a definite state, which C1 shows has S=0 in the configuration factorization. No computation here settles it."
  },
  "C7": {
+  "a_c_note": "a and c are algebraic identities checked at rational points; not counted as controls",
   "a_cubic_law": {
    "exact_ok": true,
    "statement": "dM/dt=-a/M^2, a const => d(M^3)/dt=-3a, t_evap=M0^3/(3a), t/t_evap=1-(M/M0)^3"
@@ -908,7 +981,12 @@
    }
   ],
   "e_literature_control": {
+   "computed_entropy_lost_4dp": "0.4025",
+   "computed_t_fraction_4dp": "0.5381",
+   "quoted_entropy_lost": "0.4025",
+   "quoted_t_fraction": "0.5381",
    "reproduced": true,
+   "resolution": "4 decimal places; confirms the beta formula is Page's accounting, not an independent physics test",
    "source": "Page 2013 (arXiv:1301.4995): 53.81% of evaporation time, 40.25% of S_BH lost, beta=1.4847"
   },
   "verdict": "CONDITIONAL: t_P/t_evap = 1 - 2^{-3/2} = 0.646446 holds exactly given (i) constant a in dM/dt=-a/M^2, (ii) turnover at half the initial black-hole entropy, i.e. radiation entropy equal to the black-hole entropy lost (beta=1, the identification n_R(t)=n_B(0)-n_B(t)), (iii) S_BH proportional to M^2. PROVED: a constant multiplicative greybody or species factor cancels. COUNTEREXAMPLE to the unconditional reading: an M-dependent effective coefficient changes the fraction (power law p=1/2 gives 0.702698; step model up to 0.870700 for the cases computed), and with Page's coarse-grained accounting beta=1.4847 the fraction is 0.5381, reproducing the literature value; beta itself is computed from the species' greybody factors."
@@ -953,6 +1031,7 @@
   "CT1": true,
   "K-bij": true,
   "K-classical": true,
+  "K-diag": true,
   "K-eig": true,
   "K-ln": true,
   "K-ode": true,
@@ -962,6 +1041,7 @@
   "K-page2013": true,
   "K-plus": true,
   "K-rank": true,
+  "K-shell": true,
   "K-tight": true,
   "K-unitary": true
  },
@@ -979,6 +1059,7 @@
   "C5_circuit": 917010,
   "C5_mc": 917008,
   "C5_mc_real": 917009,
+  "C6_diag_mc": 917012,
   "C6_shell_mc": 917011
  }
 }
