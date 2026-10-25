@@ -83,7 +83,7 @@ These properties contain no quantum postulates. The claim is that quantum mechan
 
 ### 1.4 Partition-Relativity
 
-**Lemma (partition-relativity under the canonical invariant measure).** *Under the canonical measure of Lemma 3, the emergent description is uniquely determined by the partition; any parameters of the emergent theory depend only on the geometric and thermodynamic properties of the partition boundary. For the abstract representation theorems the prior is a third datum: canonically $T = T(\varphi, \mathcal{P}, \mu_{\text{inv}})$, in general $T = T(\varphi, \mathcal{P}, \mu_H)$ (§1.3 Remark).*
+**Lemma (partition-relativity under the canonical invariant measure).** *Under the canonical measure of Lemma 3, the emergent description is uniquely determined by the partition; any parameters of the emergent theory depend only on the geometric and thermodynamic properties of the partition boundary. For the abstract representation theorems the prior is a third datum: canonically $T = T(\varphi, \mathcal{P}, \mu_{\text{inv}})$, in general $T = T(\varphi, \mathcal{P}, \mu_H)$ (§1.2, Remark on the measure as a realization datum).*
 
 *Proof.* By Lemma 3, the Hamiltonian flow $\phi_t$ is unique. By Lemma 2, the partition is fixed. By Lemma 3, the observer uses the Liouville measure $\mu$ — the maximal-entropy invariant measure on the full phase space. (An embedded observer with incomplete knowledge of the total energy averages over energies with a smooth prior, recovering Liouville on a phase-space band — the continuum form of Lemma 3's maximal-entropy selection; singular invariant measures concentrated on atypical short orbits correspond to observer-lacking substrata and are outside scope by the same lemma.) Letting $\pi_V$ denote projection onto the visible sector, the marginalized transition probabilities
 
@@ -519,7 +519,7 @@ The framework's side supplies $\mathcal{C}_V$, the accessible times, the per-hor
 
 *(ii) $\mathcal{S}$ is non-Markovian on accessible timescales: at some order $k$ with $k\tau_S \ll t_R$, the conditional mutual information $I(X_{<k}; X_{k+1} \mid X_k)$ is strictly positive — the visible past carries information about the visible future beyond the present.*
 
-*(iii) For every finite accessible horizon long enough to contain a memory witness — every $K \geq k+1$, with $k$ an order at which (ii)'s conditional mutual information is positive — $\mathcal{S}$ arises from marginalizing a deterministic bijection on $\mathcal{C}_V \times \mathcal{C}_H$ — the hidden space may grow with the horizon — with (C1) non-trivial coupling, (C3) sufficient capacity, and (C4) history readback at such a $k$ — with a fixed hidden prior $\mu_H$ carried as part of the realization datum (§1.4 Remark).*
+*(iii) For every finite accessible horizon long enough to contain a memory witness — every $K \geq k+1$, with $k$ an order at which (ii)'s conditional mutual information is positive — $\mathcal{S}$ arises from marginalizing a deterministic bijection on $\mathcal{C}_V \times \mathcal{C}_H$ — the hidden space may grow with the horizon — with (C1) non-trivial coupling, (C3) sufficient capacity, and (C4) history readback at such a $k$ — with a fixed hidden prior $\mu_H$ carried as part of the realization datum (§1.2, Remark on the measure as a realization datum).*
 
 *The two theorems the equivalence turns on follow, with their own proofs; the characterization's proof comes after them.*
 
