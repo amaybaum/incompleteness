@@ -118,10 +118,21 @@ Every use states:
 - **whether the observer knows $\varphi$ and $\mu$.**
 
 The access restriction is informational: $h$ is never read. A computational bound is a separate, additional hypothesis.
-- Suppose an observer knows $\varphi$, is computationally unbounded, and records up to recurrence length. Then zero
-  entropy rate means it can predict the record perfectly.
-- Whether the claim under audit assumes that the observer lacks one of these is the thread's first assumption-watch
-  item.
+
+Knowing the law is not knowing the seed. Every use names the observer's knowledge as one of three levels:
+- **(K0)** It knows neither $\varphi$ nor $\mu$.
+- **(K1)** It knows $\varphi$ and $\mu$, but not the initial state. It conditions $\mu$ on the record it has seen. What it
+  can predict at horizon $K$ is fixed by that posterior, and the thread computes it; it is not assumed.
+  - Every visible trajectory of a finite bijection is periodic. Its period divides the length of the initial state's
+    orbit, so it is at most $L$, the maximal orbit length, and $L \le |\mathcal{C}_V \times \mathcal{C}_H|$.
+  - By Fine–Wilf, two such trajectories that agree on $2L$ consecutive symbols agree everywhere.
+  - A computationally unbounded K1 observer therefore predicts perfectly from that length on. Shorter records may leave
+    it uncertain.
+- **(K2)** It knows the initial state. That amounts to reading $h$, which is outside the observer classes this thread
+  considers.
+
+What the claim under audit assumes about observer knowledge and record length is the thread's first assumption-watch
+item.
 
 The thread never identifies any two of the three notions without an explicit formal map (AGENTS.md, Code Review Rules:
 bridge and no-go scope).
@@ -132,7 +143,7 @@ bridge and no-go scope).
 - Build a finite reversible generator. Each of the following is given explicitly: the hidden seed, the visible output
   map, $\mu$, the horizon range and the reference law.
 - Compute, exactly, the record entropies and the advantage of each of the following against the same generator:
-  - an unrestricted observer, which knows $\varphi$ and has no computational bound;
+  - an unrestricted observer, with no computational bound, at knowledge level K0 and at K1;
   - a computationally bounded observer, with its class stated: circuit size, or a named structured class such as linear
     tests via Berlekamp–Massey;
   - a physically restricted OI observer, given by a stated protocol class $\mathcal{P}$ on the visible sector.
@@ -221,6 +232,12 @@ change.
 
 ## First milestone
 
-PE-01 and PE-02, for one fixed generator. The question: for which of the three observer classes is the record
-indistinguishable from the named reference law, at which horizons, and with which knowledge of $\varphi$? The outcome
-rule: each class's advantage is reported as computed, with its controls, and classified by the rules above.
+PE-01 and PE-02, for one fixed generator. The question: for which of the three observer classes, at which knowledge
+level, is the record indistinguishable from the named reference law, and at which horizons?
+
+The outcome rule: each class's advantage is reported as computed, with its controls, and classified by the rules
+above. The milestone closes with exactly one of three outcomes, all equally admissible:
+- a new bounded theorem;
+- a counterexample to the universal form of `ch18:114`;
+- a documented finding that the distinction is already covered by the existing OI mathematics (`Structure.md:1256`,
+  `Main.md` §3.4), with the covering statement cited.
