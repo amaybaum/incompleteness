@@ -209,12 +209,15 @@ arithmetic on the manuscript's own timescales; it does not show that information
 
 ## Replay from an empty directory
 
-With a clone of the repository at `REPO` and this directory's commit `COMMIT`:
+With a clone of the repository at `REPO` and this directory's commit `COMMIT` (`git archive`
+omits this directory: `verification/programmes` is `export-ignore` in `.gitattributes`):
 
 ```sh
 mkdir bh01 && cd bh01
-git -C REPO archive COMMIT verification/programmes/black-hole-information/bh01_access_v1 \
-  | tar -x --strip-components=4
+D=verification/programmes/black-hole-information/bh01_access_v1
+for f in $(git -C REPO ls-tree --name-only COMMIT "$D/"); do
+  git -C REPO show "COMMIT:$f" > "$(basename "$f")"
+done
 python3 -I -B checks.py          # rewrites result.json in place; exit 0
 sha256sum -c SHA256SUMS          # every file: OK
 mkdir o && python3 -I -B -O checks.py --out o && cmp result.json o/result.json
