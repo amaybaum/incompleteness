@@ -29,7 +29,7 @@
  "measured_on_execution_host": {
   "result_json_identical_under_B_and_O": true,
   "checks_wall_seconds": "77 to 110 on a shared four-core host",
-  "mutants_wall_seconds": "360 to 550 with six child processes on a shared four-core host",
+  "mutants_wall_seconds": "360 to 570 with six child processes on a shared four-core host",
   "note": "timings vary with host load and are informational; they are not part of result.json"
  },
  "determinism": "result.json and mutants-output.json contain no timestamps, durations or host data; dictionaries are serialized with sorted keys",
@@ -50,5 +50,17 @@
    "result.json, mutants-output.json, SHA256SUMS regenerated"
   ],
   "verdict_decisions_unchanged": "every preregistered claim verdict (A-E) and the item F status are unchanged; only text, diagnostics and new controls were added"
+ },
+ "post_review_round_2": {
+  "review_of": "954580165a7a1ea9fd58812afc1f23cf71e9af70",
+  "review_verdict": "ACCEPT WITH NITS",
+  "plan_md_unchanged": true,
+  "changes": [
+   "checks.py: the W-autonomous C3 counts get their own post_review_verdict field and generated line, marked bears_on_C3_verdict false; the C3 verdict remains the preregistered product-map check",
+   "REPORT.md: R3 noted as more than C1 and C2 need; turnover-window mass fraction stated as a computed upper bound (below 1.9e-58); C3 proof note on the separate field; second-round change list",
+   "MANUSCRIPT-AUDIT.md: ch19 L334 reclassified as holds under unstated conditions (H-scramble), noting the mismatch with ch19 L72; the L12 proposal points to item F for its decoupling condition",
+   "result.json, mutants-output.json, SHA256SUMS regenerated"
+  ],
+  "verdict_decisions_unchanged": "every preregistered claim verdict (A-E) and the item F status are unchanged"
  }
 }

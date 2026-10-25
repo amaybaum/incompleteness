@@ -53,9 +53,12 @@
    "no_leak_reference_tv": "1",
    "post_review_W_autonomous": {
     "C3w_violations": 0,
+    "bears_on_C3_verdict": false,
     "maps": 384,
     "nonproduct": 336,
-    "not_recover": 0
+    "not_recover": 0,
+    "note": "post-review check, not preregistered; the C3 verdict is the preregistered product-map check",
+    "post_review_verdict": "HOLDS_WITHIN_SCOPE"
    },
    "post_review_necessity_diagnostics": {
     "D_dependent_W_update_recover_example": [
@@ -775,7 +778,8 @@
   "B [DEMONSTRATED_EXAMPLES] (HOLDS_WITHIN_SCOPE): three parametric families (swap 30, wide-alphabet swap 8, CNOT 10 settings) and the GL(4,2) scramble class, 49 items; failing: none.",
   "C1 [PROVED] (HOLDS_WITHIN_SCOPE): 0 violations of exact recovery under bijectivity plus complete endpoint access; dropping bijectivity gives 172 non-recovering maps; dropping complete access gives 25824 bijections without exact recovery with one mode unread and 3904 with D unread.",
   "C2 [PROVED] (HOLDS_WITHIN_SCOPE): 0 violations of P_succ >= 1/|K|; two-bit message with a one-bit inaccessible remnant: minimum P_succ over S_8 = 1/2 (bound 1/2, blind guess 1/4, 2368 instances attain the bound, 0 at blind guess); without bijectivity 32 maps violate the bound.",
-  "C3 [PROVED (sufficiency only)] (HOLDS_WITHIN_SCOPE): 48 product maps W x D, 0 violations; post-review, 384 maps with W-dynamics independent of D (336 of them not products), 0 violations; with B-D coupling the leak model has advantage 0 with all of W read (reference without leak: 1).",
+  "C3 [PROVED (sufficiency only)] (HOLDS_WITHIN_SCOPE): preregistered check over 48 product maps W x D, 0 violations; with B-D coupling the leak model has advantage 0 with all of W read (reference without leak: 1).",
+  "C3w (post-review, not preregistered, does not bear on the C3 verdict) (HOLDS_WITHIN_SCOPE): 384 bijections with W-dynamics independent of D (336 of them not products), 0 record-distribution violations, 0 failing to recover.",
   "Necessity diagnostics (post-review): with D never read, 36416 bijections recover exactly, 36368 of them not products and 36032 with a W-update that depends on D; 14496 bijections recover exactly with one mode unread. The endpoint conditions are sufficient, not necessary.",
   "C4 [PROVED] (HOLDS_WITHIN_SCOPE): 0 violations of max(0, t-(n-k)) <= r_t <= min(k, t) over GL(4,2); late-emergence profiles k=1: 10752, k=2: 9216; early-emergence profiles k=1: 1344, k=2: 576.",
   "D1 [PROVED] (HOLDS_WITHIN_SCOPE): 0 violations of nondecreasing accessible advantage under cumulative records.",

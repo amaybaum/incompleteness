@@ -19,7 +19,8 @@ not a verdict on the framework's resolution of the information paradox.
 - B [DEMONSTRATED_EXAMPLES] (HOLDS_WITHIN_SCOPE): three parametric families (swap 30, wide-alphabet swap 8, CNOT 10 settings) and the GL(4,2) scramble class, 49 items; failing: none.
 - C1 [PROVED] (HOLDS_WITHIN_SCOPE): 0 violations of exact recovery under bijectivity plus complete endpoint access; dropping bijectivity gives 172 non-recovering maps; dropping complete access gives 25824 bijections without exact recovery with one mode unread and 3904 with D unread.
 - C2 [PROVED] (HOLDS_WITHIN_SCOPE): 0 violations of P_succ >= 1/|K|; two-bit message with a one-bit inaccessible remnant: minimum P_succ over S_8 = 1/2 (bound 1/2, blind guess 1/4, 2368 instances attain the bound, 0 at blind guess); without bijectivity 32 maps violate the bound.
-- C3 [PROVED (sufficiency only)] (HOLDS_WITHIN_SCOPE): 48 product maps W x D, 0 violations; post-review, 384 maps with W-dynamics independent of D (336 of them not products), 0 violations; with B-D coupling the leak model has advantage 0 with all of W read (reference without leak: 1).
+- C3 [PROVED (sufficiency only)] (HOLDS_WITHIN_SCOPE): preregistered check over 48 product maps W x D, 0 violations; with B-D coupling the leak model has advantage 0 with all of W read (reference without leak: 1).
+- C3w (post-review, not preregistered, does not bear on the C3 verdict) (HOLDS_WITHIN_SCOPE): 384 bijections with W-dynamics independent of D (336 of them not products), 0 record-distribution violations, 0 failing to recover.
 - Necessity diagnostics (post-review): with D never read, 36416 bijections recover exactly, 36368 of them not products and 36032 with a W-update that depends on D; 14496 bijections recover exactly with one mode unread. The endpoint conditions are sufficient, not necessary.
 - C4 [PROVED] (HOLDS_WITHIN_SCOPE): 0 violations of max(0, t-(n-k)) <= r_t <= min(k, t) over GL(4,2); late-emergence profiles k=1: 10752, k=2: 9216; early-emergence profiles k=1: 1344, k=2: 576.
 - D1 [PROVED] (HOLDS_WITHIN_SCOPE): 0 violations of nondecreasing accessible advantage under cumulative records.
@@ -69,8 +70,9 @@ guarantee the stated recovery:
   `|M|` joint values (C2: `P_succ >= 1/|K| > 1/|M|`);
 - (R2) the `W`-dynamics does not depend on `D` over the whole evolution, so that `D` can be
   left out of `K` (C3), or `D` is read;
-- (R3) the observer keeps cumulative joint records of the registers it reads (D1; the C1 and
-  C2 proofs use the joint endpoint snapshot);
+- (R3) the observer keeps cumulative joint records of the registers it reads. This is more
+  than C1 and C2 need: their proofs use only the joint endpoint snapshot. Cumulative records
+  are what D1's monotonicity needs;
 - (R4) the endpoint access covers all of `V`, not only the radiation registers: an unread
   register of `V` belongs to `K`, and C1 then no longer applies.
 
@@ -114,9 +116,11 @@ information).
 forces `G_t` to be a bijection.) Then `w_t = G_t o ... o G_1(w_0)` does not depend on `d_0`;
 a record that reads only `W` registers is a function of `w_0`; and with
 `mu_m = mu_m^W (x) mu^D` its distribution is the pushforward of `mu_m^W`, which is the
-`W`-only model. C1 and C2 then apply in `W` with `K_W = K \ D`. QED. The preregistered check
-covers the 48 product maps; the post-review check covers all 384 `W`-autonomous bijections.
-The converse is false (see the necessity diagnostics above).
+`W`-only model. C1 and C2 then apply in `W` with `K_W = K \ D`. QED. The preregistered check,
+which carries the C3 verdict, covers the 48 product maps. A post-review check covers all 384
+`W`-autonomous bijections; its result is reported in its own field
+(`post_review_W_autonomous.post_review_verdict`) and does not enter the C3 verdict. The
+converse is false (see the necessity diagnostics above).
 
 **C4 (Lemma L).** Linear bijection `G` on `GF(2)^n`, `x = (m, h)` with `h` uniform on
 `GF(2)^(n-k)`; after `t` emissions the record is `y = G_t x = A_t m + C_t h` (`G_t` the first
@@ -265,9 +269,11 @@ R1-R4 suffices, and that bijectivity alone does not.
 - **Error term.** The proof of [GR Theorem A.7] states an error `O(tau_S/tau_B^D)`
   independent of `t`, while A.5(i) derives the frozen-`D` correction as `O(t/tau_B^D)`,
   which accumulates with `t`.
-- **Turnover window.** Within A.7's window `t << tau_B^D <= 10^19` s, the black hole loses at
-  most a fraction of order `10^-57` of its mass at stellar masses, so the Page turnover lies
-  outside that window (`t_P/tau_B^D >= 1.153 x 10^57`, item F).
+- **Turnover window.** Within A.7's window `t << tau_B^D <= 10^19` s, at `30 M_sun`,
+  `x = t/t_evap <= 10^19 s / 1.785 x 10^76 s < 5.61 x 10^-58`. With `M = M_0 (1 - x)^(1/3)`,
+  the fractional mass loss `1 - (1 - x)^(1/3)` is at most `x/(3 (1 - x)^(2/3))`, which is
+  below `1.9 x 10^-58`. So the Page turnover lies outside that window
+  (`t_P/tau_B^D >= 1.153 x 10^57`, item F).
 - **Coupling chain.** Theorem A.5 assumes the chain `V <-> B <-> D` (no direct `V`-`D`
   coupling). A.1 places `V` between the black-hole horizon and the cosmological horizon,
   with `B` the black-hole interior, so spatial locality would suggest `B <-> V <-> D`. The
@@ -322,6 +328,14 @@ R1-R4 suffices, and that bijectivity alone does not.
   softened, the L155 proposal withdrawn in favour of a diagnosis, and five missed sites
   added.
 - `PLAN.md` is unchanged.
+
+Second post-review round (after the re-check of `95458016`):
+
+- The `W`-autonomous C3 counts get their own post-review verdict field and generated line,
+  marked as not bearing on the C3 verdict.
+- R3 is noted as more than C1 and C2 need.
+- The turnover-window mass fraction is stated as a computed upper bound.
+- `MANUSCRIPT-AUDIT.md`: ch19 L334 reclassified, and the L12 proposal points to item F.
 
 ## Replay from an empty directory
 

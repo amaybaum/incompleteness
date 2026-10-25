@@ -851,7 +851,14 @@ def decide(s8, am, gl, st, nm):
                     "post_review_W_autonomous": {"maps": nw["post_review"]["w_autonomous_maps"],
                                                  "nonproduct": nw["post_review"]["w_autonomous_nonproduct"],
                                                  "C3w_violations": nw["post_review"]["C3w_violations"],
-                                                 "not_recover": nw["post_review"]["w_autonomous_not_recover"]},
+                                                 "not_recover": nw["post_review"]["w_autonomous_not_recover"],
+                                                 "post_review_verdict": HOLDS if (
+                                                     nw["post_review"]["C3w_violations"] == 0
+                                                     and nw["post_review"]["w_autonomous_not_recover"] == 0
+                                                     and nw["post_review"]["w_autonomous_maps"] > 0) else NEG,
+                                                 "bears_on_C3_verdict": False,
+                                                 "note": ("post-review check, not preregistered; the C3 verdict "
+                                                          "is the preregistered product-map check")},
                     "post_review_necessity_diagnostics": {
                         "recover_with_D_unread": nw["recover"],
                         "nonproduct_recover": nw["post_review"]["nonproduct_recover"],
@@ -931,11 +938,14 @@ def verdict_lines(claims, f, overall):
                 c2["MP2_instances_at_blind_guess"], c2["countercontrol_without_bijectivity_violations"]))
     c3 = claims["C3"]
     w = c3["post_review_W_autonomous"]
-    L.append("C3 [%s] (%s): %d product maps W x D, %d violations; post-review, %d maps with W-dynamics "
-             "independent of D (%d of them not products), %d violations; with B-D coupling the leak model has "
-             "advantage %s with all of W read (reference without leak: %s)."
-             % (c3["programme_tag"], c3["verdict"], c3["product_maps"], c3["violations"], w["maps"], w["nonproduct"],
-                w["C3w_violations"], fr(c3["countercontrol_B_D_leak_tv"]), fr(c3["no_leak_reference_tv"])))
+    L.append("C3 [%s] (%s): preregistered check over %d product maps W x D, %d violations; with B-D coupling "
+             "the leak model has advantage %s with all of W read (reference without leak: %s)."
+             % (c3["programme_tag"], c3["verdict"], c3["product_maps"], c3["violations"],
+                fr(c3["countercontrol_B_D_leak_tv"]), fr(c3["no_leak_reference_tv"])))
+    L.append("C3w (post-review, not preregistered, does not bear on the C3 verdict) (%s): %d bijections with "
+             "W-dynamics independent of D (%d of them not products), %d record-distribution violations, %d "
+             "failing to recover." % (w["post_review_verdict"], w["maps"], w["nonproduct"], w["C3w_violations"],
+                                      w["not_recover"]))
     nd = c3["post_review_necessity_diagnostics"]
     L.append("Necessity diagnostics (post-review): with D never read, %d bijections recover exactly, %d of "
              "them not products and %d with a W-update that depends on D; %d bijections recover exactly with "

@@ -42,6 +42,10 @@ curve is derived from cycle typicality ..."
   information, and states sufficient conditions under which the radiation records carry
   it: no remnant, the trans-cosmological sector decoupled, and joint access to the full
   visible record."
+- On the proposal's second condition: item F of `REPORT.md` removes the stated support
+  ([GR Appendix A.7], `tau_evap << tau_B^D`) for treating the trans-cosmological sector as
+  decoupled over the evaporation, for every black hole above about `5 x 10^12` kg. The
+  proposal names a condition the manuscript does not presently establish.
 
 ## Section 7.6, opening paragraph
 
@@ -202,8 +206,9 @@ substratum bijection $\varphi$ is bijective; information is never lost."
 **ch19 L334 [FULL L5502].** Status table row "| BH information paradox | Hawking vs unitarity
 | Resolved (Page curve from typicality) | Ch 7 §7.6 |".
 
-- **not supported by bijectivity alone**, and inconsistent with ch19 L72, which states the
-  Page curve as conditional on H-scramble.
+- **holds under unstated conditions (H-scramble)**. The cell does not invoke bijectivity;
+  "Resolved (Page curve from typicality)" omits the H-scramble condition, which ch19 L72
+  states. The status table and L72 therefore disagree.
 - Proposal, in the table's own two-word register (§A.30): "Conditional (H-scramble)".
 
 ## Dependencies in the gravity companion (listed for review; outside the requested scope)
