@@ -215,8 +215,9 @@ complete state. This paper establishes an exact finite-horizon
 equivalence between three descriptions of what such an observer can
 record: finite stochastic laws (\(S\)), visible marginals of finite
 reversible deterministic systems (\(D\)), and finite-dimensional unitary
-systems with fixed-basis Born-rule readout (\(Q_{\mathrm{fb}}\)). Thus
-\[
+systems read out by projective Born-rule measurement in one fixed basis
+at every step, from an initial state diagonal in that basis
+(\(Q_{\mathrm{fb}}\)). Thus \[
 S\iff D\iff Q_{\mathrm{fb}}
 \] at the finite observable-law level. The quantum representation is
 exact, not merely approximate; it is also universal, so representability
@@ -2950,8 +2951,9 @@ observable law \(P(x_0, \ldots, x_K)\) coincide:}
 of finite reversible deterministic systems under incomplete
 observation;} \emph{(\(Q_{\mathrm{fb}}\)) the laws realizable by
 finite-dimensional unitary systems with Born-rule readout in a fixed
-basis --- the fixed-basis unitary Born representations.} (kernel:
-\texttt{finite\_horizon\_equivalence}, \texttt{S\_imp\_D} in
+basis, measured projectively in that basis at every step from an initial
+state diagonal in it --- the fixed-basis unitary Born representations.}
+(kernel: \texttt{finite\_horizon\_equivalence}, \texttt{S\_imp\_D} in
 \texttt{OIBridge/Equivalence.lean}; the permutation-unitarity and
 diagonal-preservation lemmas \texttt{permMatrix\_mem\_unitaryGroup},
 \texttt{isDiag\_Phi} in \texttt{OIBridge/EquivalenceChain.lean})
@@ -5261,4 +5263,4 @@ limitations of measurement,'' in W. C. Myrvold and J. Christian (eds.),
 Circle} (Springer, 2009).
 
 \end{document}
-% source-sha256: e308e93c6e835ca48da4e0e66be7a0dc84f1b0744960e233d05da93ab297e27e
+% source-sha256: a5e926e060839783d0370788e3d9c7069df14e909ef7c2d1554b8f081aea29bf

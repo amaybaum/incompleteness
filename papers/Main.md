@@ -13,7 +13,7 @@
 
 ## ABSTRACT
 
-An observer embedded in a finite deterministic system cannot access the complete state. This paper establishes an exact finite-horizon equivalence between three descriptions of what such an observer can record: finite stochastic laws ($S$), visible marginals of finite reversible deterministic systems ($D$), and finite-dimensional unitary systems with fixed-basis Born-rule readout ($Q_{\mathrm{fb}}$). Thus
+An observer embedded in a finite deterministic system cannot access the complete state. This paper establishes an exact finite-horizon equivalence between three descriptions of what such an observer can record: finite stochastic laws ($S$), visible marginals of finite reversible deterministic systems ($D$), and finite-dimensional unitary systems read out by projective Born-rule measurement in one fixed basis at every step, from an initial state diagonal in that basis ($Q_{\mathrm{fb}}$). Thus
 $$
 S\iff D\iff Q_{\mathrm{fb}}
 $$
@@ -527,7 +527,7 @@ The framework's side supplies $\mathcal{C}_V$, the accessible times, the per-hor
 
 *(S) the finite stochastic laws;*
 *(D) the visible marginals of finite reversible deterministic systems under incomplete observation;*
-*($Q_{\mathrm{fb}}$) the laws realizable by finite-dimensional unitary systems with Born-rule readout in a fixed basis — the fixed-basis unitary Born representations.* (kernel: `finite_horizon_equivalence`, `S_imp_D` in `OIBridge/Equivalence.lean`; the permutation-unitarity and diagonal-preservation lemmas `permMatrix_mem_unitaryGroup`, `isDiag_Phi` in `OIBridge/EquivalenceChain.lean`)
+*($Q_{\mathrm{fb}}$) the laws realizable by finite-dimensional unitary systems with Born-rule readout in a fixed basis, measured projectively in that basis at every step from an initial state diagonal in it — the fixed-basis unitary Born representations.* (kernel: `finite_horizon_equivalence`, `S_imp_D` in `OIBridge/Equivalence.lean`; the permutation-unitarity and diagonal-preservation lemmas `permMatrix_mem_unitaryGroup`, `isDiag_Phi` in `OIBridge/EquivalenceChain.lean`)
 
 *Proof.* (S $\Rightarrow$ D) is the response-table construction of §3.4, which reproduces the whole multi-time law, not merely the one-step matrices. (D $\Rightarrow$ $Q_{\mathrm{fb}}$) is internal and needs no imported correspondence: for a bijection $\varphi$ on $\mathcal{C}_V \times \mathcal{C}_H$ set $U_\varphi |x, h\rangle = |\varphi(x,h)\rangle$ and take the hidden prior diagonal. A permutation unitary preserves diagonality, so sequential projective measurements in the configuration basis do not disturb the state, and the measured record reproduces $P(x_0, \ldots, x_K)$ exactly; $U_\varphi = e^{-i\hat H}$ for a Hermitian $\hat H$, giving a fixed autonomous generator at integer times. ($Q_{\mathrm{fb}}$ $\Rightarrow$ S) is the Born rule: the record of any finite quantum experiment is a finite stochastic law. $\square$ (D $\Rightarrow$ $Q_{\mathrm{fb}}$ certified over 1{,}488 realizations at horizons 3 and 4 in `sdq_probes.py`.)
 
