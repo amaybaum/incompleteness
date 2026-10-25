@@ -230,7 +230,7 @@ This is not a statement about the best bounded-memory controller.
 | K8 restart mechanics | an explicit state machine (seed register, exact interval, phase, clearing), enumerated over every fresh-bit string, and its chain form both equal the product of block laws (B,k,h) = (2,2,8), (2,3,7), (3,2,5), (4,3,4) | green |
 | counts | census chain counts in closed form; memory column bounds the persistent-state count; that count equals the explicit chain size for RS(2,2), RS(2,3), RS(3,2) | green |
 | power-rule cross-checks | (i) exact T(h) at k=1 from the binomial engine `tv_iid` must be ≥ the bound at every checked h, and the exact first crossing must lie at or before the reported depth; (ii) for n·k ≤ 16, the exact product TV must lie inside the power-rule bracket; (iii) the reported depth must be no later than the preregistered nc/(1+nc) depth; (iv) T ≤ 1/2 may be certified only at depths before T > 1/2 is. (i)–(iv) all read the same BC enclosure, and (i) and (ii) are one-sided with slack, so they catch only errors large enough to cross them; the independent audit below is what checks the enclosure and the exact depths | green |
-| preregistered scope | the RS scope (B ∈ {2,3,4}, k = 1..16) and the thresholds 1/2 and 1/10 are parsed from PLAN.md after checking its pinned SHA-256, not taken from code defaults. The reported member set, the enclosure set and the audited member set must each equal that 48-member set; a missing, extra or mismatched member, or a lookup failure anywhere, prints VOID and exits 2. Each member's block law must have 2^k records of length k. The PLAN.md pin must equal PROVENANCE.json's `plan_sha256` and the SHA-256 of the PLAN.md blob at `1dfec979`; a mismatch is a control failure. A source absent from the running environment (a copy outside the repository) is recorded as unavailable, and in this package both are recorded as matching | green |
+| preregistered scope | the RS scope (B ∈ {2,3,4}, k = 1..16) and the thresholds 1/2 and 1/10 are parsed from PLAN.md after checking its pinned SHA-256, not taken from code defaults. The reported member set, the enclosure set and the audited member set must each equal that 48-member set; a missing, extra or mismatched member, or a lookup failure anywhere, prints VOID and exits 2. Each member's block law must have 2^k records of length k. The PLAN.md pin must equal PROVENANCE.json's `plan_sha256` and `plan_commit` (both package files). The opt-in mode `--verify-plan-commit` also requires the pin to equal the SHA-256 of PLAN.md as committed at `1dfec979`. That mode needs a checkout with the full history: an unreachable commit is a control failure in it. The default run starts no git process, and its output depends on the package files alone | green |
 | independent certificate audit | separately written code. It does not call `retained_seed_runs`, `block_law`, `bc_enclosure`, `root_lo`/`root_hi`, `power_rule_lower`, `least_n_above`, `least_power_below` or `tv_of`. It does share `tv_iid` (for the k=1 certificates), `digest`, the constants `HALF` and `TENTH`, `check`, `Q` and the standard-library `isqrt` and `product`, and it reads the reported entries and the reported enclosure. Single edits to the shared pieces are caught elsewhere in the review's mutants A1 (`HALF`), A2 (`digest`), A3 (`isqrt`) and A6 (`tv_iid`). The audit builds integer-only block laws in absolute coordinates (the block TV digest must match), and an integer square-root enclosure of BC that must overlap the enclosure every reported depth was built from. It recomputes every reported depth from its stated definition with its own integer powers: the preregistered half and tenth depths, and the power-rule half and upper depths; each must equal the reported value. It checks every certificate against exact TV where exact TV is enumerable: for every member and every n with n·k ≤ 16, from its own product enumeration, T(nk) > 1/2 when n ≥ n_hp or n ≥ n_half, T ≤ 1/2 when n ≤ n_lp, and T ≤ 1/10 when n ≤ n_tenth; and at k=1 the same at the reported depths, with `tv_iid`. In all, 48 members and 212 certificate checks. The T > 1/2 certificate is checked against exact TV for 7 of the 48 members (B=2, k=1..5; B=3, k=1; B=4, k=1); for the other 41 the T > 1/2 depth lies beyond the enumerable range and rests on the independent BC enclosure and depth recomputation | green |
 | comparators | the nearest-dyadic agreement is distance-minimal over 2^-B Z; its exact crossing is no earlier than the other neighbour's; the fails-before and outlasts lists in `family_verdict` are recomputed from the stored depths and the nearest-dyadic crossing and must equal the per-member flags | green |
 
@@ -292,7 +292,7 @@ implementation cannot detect it. Only an exact certificate inside the affected r
 was added, the re-check found that W1a, W1b, W3 and W4 passed every control, and that W4 reported a false
 certificate: T > 1/2 for h ≥ 10 at RS(2,5), whose exact T(10) is 0.4637.
 
-The reviewers' scripts were rerun on copies against this revision:
+The reviewers' scripts were rerun on copies against `a97c852a`:
 - **The first round's script** (15 code mutants and one tampered input). Its R1 targets a line the shared function
   replaced, so the copy's R1 strings were adapted to the new line.
 - **The re-check's script** (D1, D4, D5). Its D1 strings were adapted to the shared function.
@@ -301,7 +301,7 @@ The reviewers' scripts were rerun on copies against this revision:
   in them was changed.
 - **The second re-check's scripts** (the first-round set with R1 adapted, and W1a, W1b, W2–W5) were run with
   the same PLAN.md adaptation.
-- Results are given with this revision.
+- The results are those of `a97c852a`; `review/author_reruns_a97c852a/` holds the copies and their outputs.
 
 Two controls were reordered so that M3 and M4 fail on their targeted labels and not on a later-added check: the
 floor-decoder member now runs after the census, and the K4 count check after the exact-match check.
@@ -386,7 +386,8 @@ it), the author reports the following.
 **Post-re-check 4:**
 - a named check that each member's block-law records have length k (the review's T3 now fails on it rather than
   on the catch-all);
-- the PLAN.md pin cross-checked against PROVENANCE.json and the PLAN.md blob at `1dfec979`;
+- the PLAN.md pin cross-checked against PROVENANCE.json in every run, and against the PLAN.md blob at `1dfec979` in
+  the opt-in `--verify-plan-commit` mode only, so that the default output does not depend on the environment;
 - the attribution wording;
 - three targeted mutants, run in place of a full campaign (section A.40).
 
@@ -423,15 +424,23 @@ Timings on the author's container:
 - `mutants/targeted_r4.out` records the review's T3 and one targeted mutant for each new check, run against the
   current checker:
   - T3 is caught by "scope: block-law record length equals member k";
-  - a consistently edited PLAN.md and pin is caught by "scope: plan pin equals PROVENANCE plan_sha256";
-  - the same with PROVENANCE also edited is caught by "scope: plan pin equals the PLAN.md blob of 1dfec979".
+  - a consistently edited PLAN.md and pin is caught by "scope: plan pin equals PROVENANCE plan_sha256" in the
+    default run;
+  - the same with PROVENANCE also edited is caught by "plan commit: PLAN.md blob of 1dfec979 equals the pin", run
+    with `--verify-plan-commit`.
+
+  Without that mode, an edit of PLAN.md, the pin and PROVENANCE.json together that keeps 48 members is not caught
+  by the package alone. It is visible against `1dfec979` and the package SHA256SUMS.
 
 From an empty working directory, with the repository root as R and
 D = R/verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8:
 
     python3 -I -B D/checks.py > out.json && cmp out.json D/result.json
     python3 -I -B -O D/checks.py > out.json && cmp out.json D/result.json
+    python3 -I -B D/checks.py --verify-plan-commit > out.json && cmp out.json D/result.json   # full history needed
     python3 -I -B D/mutants/targeted_r4.py > t.out && cmp t.out D/mutants/targeted_r4.out
+
+The default output is identical in a repository checkout and in a git-less export of the package files.
 
 `SHA256SUMS` lists `PLAN.md`, `REPORT.md`, `checks.py`, `result.json`, `PROVENANCE.json`,
 `mutants/run_mutants.py`, `mutants/mutants.out`, `mutants/targeted_r4.py`, `mutants/targeted_r4.out` and

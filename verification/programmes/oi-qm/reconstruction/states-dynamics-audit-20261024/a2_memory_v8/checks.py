@@ -936,30 +936,30 @@ def audit_product_tv(B, k, counts, n):
     return Q(tot, 2 * (S * F) ** n)
 
 
-def plan_pin_crosschecks():
-    """The PLAN.md pin must equal PROVENANCE.json's plan_sha256 and the PLAN.md blob of the plan commit. A source
-    that is absent in the running environment (a copy outside the repository) is recorded as unavailable; a
-    mismatch is a control failure."""
-    status = {}
+def provenance_pin_check():
+    """The PLAN.md pin must equal PROVENANCE.json's plan_sha256 and plan_commit; both are package files."""
     try:
         with open(PROVENANCE, 'rb') as f:
             prov = json.loads(f.read())
     except OSError:
-        status['provenance_plan_sha256'] = 'unavailable'
-    else:
-        check(prov.get('plan_sha256') == PLAN_SHA256 and prov.get('plan_commit') == PLAN_COMMIT,
-              'scope: plan pin equals PROVENANCE plan_sha256')
-        status['provenance_plan_sha256'] = 'matches'
+        raise Void('scope: PROVENANCE.json readable')
+    check(prov.get('plan_sha256') == PLAN_SHA256 and prov.get('plan_commit') == PLAN_COMMIT,
+          'scope: plan pin equals PROVENANCE plan_sha256')
+
+
+def verify_plan_commit():
+    """Opt-in (--verify-plan-commit): the pin must equal the SHA-256 of PLAN.md as committed at the plan commit.
+    Needs a repository checkout with the full history; an unreachable commit or a missing blob is a control
+    failure in this mode. The default run never starts a git process. Lazy fetching is disabled."""
+    env = dict(os.environ, GIT_NO_LAZY_FETCH='1')
     try:
-        p = subprocess.run(['git', '-C', GIT_DIR, 'show', PLAN_COMMIT + ':./PLAN.md'], capture_output=True)
+        c = subprocess.run(['git', '-C', GIT_DIR, 'cat-file', '-e', PLAN_COMMIT + '^{commit}'], capture_output=True, env=env)
+        p = subprocess.run(['git', '-C', GIT_DIR, 'show', PLAN_COMMIT + ':./PLAN.md'], capture_output=True, env=env)
     except OSError:
-        p = None
-    if p is None or p.returncode != 0:
-        status['plan_commit_blob'] = 'unavailable'
-    else:
-        check(hashlib.sha256(p.stdout).hexdigest() == PLAN_SHA256, 'scope: plan pin equals the PLAN.md blob of 1dfec979')
-        status['plan_commit_blob'] = 'matches'
-    return status
+        raise Void('plan commit: git available for --verify-plan-commit')
+    check(c.returncode == 0 and p.returncode == 0, 'plan commit: 1dfec979 and its PLAN.md reachable (needs full history)')
+    check(hashlib.sha256(p.stdout).hexdigest() == PLAN_SHA256, 'plan commit: PLAN.md blob of 1dfec979 equals the pin')
+    sys.stderr.write('plan commit 1dfec979: PLAN.md blob equals the pinned SHA-256\n')
 
 
 def preregistered_scope():
@@ -968,7 +968,7 @@ def preregistered_scope():
     with open(PLAN, 'rb') as f:
         raw = f.read()
     check(hashlib.sha256(raw).hexdigest() == PLAN_SHA256, 'scope: pinned PLAN.md hash')
-    pin_status = plan_pin_crosschecks()
+    provenance_pin_check()
     text = raw.decode()
     m = re.search(r'\*\*The family RS\(B,k\), B in \{([0-9,]+)\}, k = 1\.\.([0-9]+)\*\*', text)
     check(m is not None, 'scope: preregistered family line present in PLAN.md')
@@ -979,7 +979,7 @@ def preregistered_scope():
     check(HALF == Q(1, 2) and TENTH == Q(1, 10), 'scope: threshold constants equal the preregistered 1/2 and 1/10')
     keys = {f'B{B}_k{k}' for B in Bs for k in range(1, kmax + 1)}
     check(len(keys) == 48, 'scope: preregistered set has 48 members')
-    return Bs, kmax, keys, pin_status
+    return Bs, kmax, keys
 
 
 def independent_audit(fam, encl, Bs=(2, 3, 4), kmax=16):
@@ -1061,7 +1061,7 @@ def run():
     floor_member = floor_decoder_member()
     mech = restart_mechanics()
     fam, encl = family()
-    sB, skmax, scope_keys, pin_status = preregistered_scope()
+    sB, skmax, scope_keys = preregistered_scope()
     reported_keys = {key for key in fam if '_k' in key}
     check(reported_keys == scope_keys and set(f'B{B}_k{k}' for (B, k) in encl) == scope_keys,
           'scope: reported members equal the preregistered B x k set')
@@ -1070,7 +1070,7 @@ def run():
     check(audited_keys == scope_keys and audit['members'] == len(scope_keys),
           'scope: audited members equal the preregistered B x k set')
     audit['scope'] = {'source': 'PLAN.md, SHA-256 pinned', 'B': list(sB), 'k': [1, skmax],
-                      'members': len(scope_keys), 'thresholds': ['1/2', '1/10'], 'plan_pin_crosschecks': pin_status}
+                      'members': len(scope_keys), 'thresholds': ['1/2', '1/10']}
     members = {k: v for k, v in fam.items() if 'memoryless' not in k}
     n_floor_classes = sum(len(v['class_sizes']) for v in floor_member.values())
     certified = {k: v['certified_T_above_half_for_h_at_least'] for k, v in members.items()}
@@ -1130,7 +1130,7 @@ def run():
                 'the a2_depth_v7 retained-seed reset granted the target cuts, keeps T<=1/(2^B-2) at every depth for '
                 'B>=2. The least sufficient growth rate is not determined here.')
     out = {
-        'schema': 'oi.a2-bounded-memory-v8.v6',
+        'schema': 'oi.a2-bounded-memory-v8.v7',
         'protocol': 'prepare X+, then reads a,X,a,X,...; quantum agreement 4/5 per read; complete public record',
         'class_hypothesis': ('finite persistent state (carrier, private memory, any clock or record registers read); '
                              'time-independent deterministic update from state, one fresh block of B fair bits and '
@@ -1173,6 +1173,8 @@ def run():
 
 def main():
     try:
+        if '--verify-plan-commit' in sys.argv:
+            verify_plan_commit()
         out = run()
     except Void as e:
         print('VOID: ' + str(e))

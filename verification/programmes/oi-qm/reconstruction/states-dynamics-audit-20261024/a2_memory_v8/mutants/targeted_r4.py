@@ -41,13 +41,14 @@ def main():
             ('T3_label_remap_k_plus_1', 'record-length check (review T3)',
              [('            law = block_law(B, k)\n', '            law = block_law(B, k + 1 if k < 16 else k)\n')],
              'scope: block-law record length equals member k'),
-            ('MT2_plan_and_pin_edited', 'PROVENANCE cross-check', rescope,
+            ('MT2_plan_and_pin_edited', 'PROVENANCE cross-check (default run)', rescope,
              'scope: plan pin equals PROVENANCE plan_sha256'),
-            ('MT3_plan_pin_and_provenance_edited', 'plan-commit blob cross-check',
+            ('MT3_plan_pin_and_provenance_edited', 'plan-commit blob check (--verify-plan-commit)',
              rescope + [("PROVENANCE = os.path.join(HERE, 'PROVENANCE.json')", f'PROVENANCE = {prov_path!r}')],
-             'scope: plan pin equals the PLAN.md blob of 1dfec979'),
+             'plan commit: PLAN.md blob of 1dfec979 equals the pin'),
         ]
         for name, control, pairs, label in mutants:
+            args = ['--verify-plan-commit'] if name.startswith('MT3') else []
             m = src
             for o, n in pairs:
                 if m.count(o) != 1:
@@ -57,7 +58,7 @@ def main():
             m = m.replace(LOCATION, f'HERE = {TARGET!r}')
             path = os.path.join(tmp, name + '.py')
             open(path, 'w').write(m)
-            p = subprocess.run([sys.executable, '-I', '-B', path], capture_output=True, text=True)
+            p = subprocess.run([sys.executable, '-I', '-B', path] + args, capture_output=True, text=True)
             first = p.stdout.splitlines()[0] if p.stdout else ''
             caught = p.returncode == 2 and first.startswith('VOID: ' + label)
             ok &= caught
