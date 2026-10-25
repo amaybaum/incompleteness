@@ -75,12 +75,20 @@ commit's:
         and via; any identifier-shaped token (one holding a digit or / # @, so a url, a run or
         pull-request number or a short id), optionally after one label word ("run #12345",
         "from <id>"); a hexadecimal word of 4 or more characters; a -suffix. The slot is read
-        as whitespace-separated chunks, at most 8 of them within 300 characters, each checked in
-        turn, so its cost is linear. Sentence punctuation stays part of the claim;
-      - when main's claimed line is a full sentence, matches only a statement that begins a line,
-        a paragraph, a sentence, a label colon, a semicolon, a table cell, or a quoted or
-        bracketed text (list and quote markers aside), so a condition put first, "if ..., then
-        ..." and a negation are new statements;
+        as whitespace-separated chunks within 300 characters, each checked in turn. Sentence
+        punctuation stays part of the claim;
+      - reads the prefix of the statement that holds the match: the text back to a paragraph
+        break, a sentence end, a colon, a semicolon or a table bar, or to a line break that
+        begins a block (a list, quote, heading or table line, or the line after a heading or
+        table row), at most 300 characters. The claim stands after any prefix unless the
+        prefix holds a restrictive operator: a conditional, restriction, exception or negation
+        from a closed set (if, unless, when, whenever, while, for, under, assuming, assume,
+        provided, given, only, except, excluding, conditionally, conditional, not, no, never,
+        false, longer, cannot, fails, restricted, whether, suppose, supposing, below, above), a
+        quantity written as a word (two to twelve, twenty, hundred, thousand, million), a digit
+        or comparator, or a parenthesized named condition such as "(C2)". So an opener
+        ("Indeed,", "We find that") leaves the claim standing, and a condition put first, "if
+        ..., then ..." and a negation make a new statement;
       - needs at least three words of claim besides the reference.
 
 Independently of main, a record fails while any line of the tree hashes to its
@@ -148,11 +156,15 @@ Limitations:
   - The reference slot reads only the tokens named above: a reference written with more than
     one word before it ("as shown by <id>"), or markup inside the claim (emphasis), reads as a
     different statement and, with a record, passes. Without a record, every such change fails
-    as a missing record. An identifier-shaped token or hexadecimal word placed directly after
-    the reference is read as part of it.
-  - A full-sentence claim is matched only where a statement begins: one opened by a word and a
-    comma or by a conjunction ("Indeed, ...", "Moreover ...") is read as a new statement, and a
-    condition introduced by a colon ("For n <= 4: ...") as a label, so the claim stands.
+    as a missing record.
+  - A value written where the reference stood reads as a replacement reference, so the claim
+    stands and its downgrade fails although it is a narrowing: "at T=300", "at n=4", "in 3D",
+    "via Lemma 2". So does a condition ended by a colon ("For n <= 4: ..."), the colon read as
+    a label. These fail closed and can be reworded ("when T = 300", "for n <= 4, ...").
+  - The prefix rule fails closed: a narrowing whose prefix holds no operator word ("On the
+    lattice, ...") reads as the claim standing, and can be reworded with "for" or "if". An
+    opener that happens to hold an operator word ("For completeness,", "Not surprisingly,",
+    "Given the data,") reads as a narrowing and, with a record, passes; review decides.
   - A record may sit in any manifest of the commit, so removing every manifest of the tree
     leaves nowhere to record a downgrade, and such a commit fails.
   - An unrelated record that newly lists a downgraded support id as provenance needs a
@@ -172,13 +184,17 @@ Limitations:
     refuses an object this repository holds).
   - When a claim record of main is downgraded or the commit holds a record, the check reads the
     tree's blobs once (one `git cat-file --batch`), scans for the id the files that hold it, and
-    normalizes only the files of the downgraded records' directories. The self-test takes about
-    15-20 s and runs before every check.
+    normalizes only the files of the downgraded records' directories. Each step is linear in
+    what it reads: normalization, and the search for a claim in a file, with each candidate's
+    reference slot and prefix read within 300 characters; for each downgraded record, the files
+    of its directory are searched once. The self-test takes about 25 s and runs before every
+    check.
   - An `external` entry's repository is the author's declaration: an id that names no object
     here, with a qualifier naming any repository, passes.
   - A 40-hex value that names no git object of any repository (a SHA-1 file digest) has no role.
   - The checker forces a reviewable statement per id; whether a reason is honest, or a claim
     really rests on its id, is for review."""
+import bisect
 import hashlib
 import json
 import os
@@ -352,7 +368,7 @@ SHORT_HEX = re.compile(r'(?<![0-9A-Za-z])[0-9A-Fa-f]{4,6}(?![0-9A-Za-z])')
 BREAK = re.compile(r'\n[ \t\r\f\v]*\n\s*')
 WORD = re.compile(r'[^\W\d_]{2,}')
 MIN_WORDS = 3
-LINK = re.compile(r'\[([^\]\n]*)\]\(([^)\s]*)\)')
+LINK = re.compile(r'\[([^\[\]\n]*)\]\(([^()\[\]\s]*)\)')
 _CF = []
 
 
@@ -394,7 +410,7 @@ IDENT = re.compile(r'[0-9/#@]')
 HEXWORD = re.compile(r'[0-9a-f]{4,}')
 SUFFIX = re.compile(r'-\w+')
 WORDCHUNK = re.compile(r'[^\W\d_]+')
-MAX_CHUNKS, MAX_GAP = 8, 300
+MAX_GAP = 300
 
 
 def _ident(chunk):
@@ -412,9 +428,9 @@ def _plain(chunk):
 
 def reference_chunks(chunks):
     """How many leading chunks form a reference: each identifier-shaped, plain, or a word before
-    an identifier-shaped chunk; at most MAX_CHUNKS."""
+    an identifier-shaped chunk."""
     n = 0
-    while n < min(len(chunks), MAX_CHUNKS):
+    while n < len(chunks):
         c = chunks[n]
         if not (_ident(c) or _plain(c) or WORDCHUNK.fullmatch(c) and n + 1 < len(chunks)
                 and _ident(chunks[n + 1])):
@@ -459,8 +475,8 @@ class Claim:
     """A support claim's line, read for comparison: `cores`, its fixed pieces with the reference
     around each id taken out, matched in normalized text by regexes; between two pieces, where an
     id stood, a reference slot that is_reference validates. `slots` are the slots that held
-    `oid`. `sentence` says the line is a full sentence, whose statement must begin where
-    sentence_start says. `literal` is its longest word."""
+    `oid`. `literal` is its longest word. A statement of it whose prefix narrows it
+    (statement_prefix, narrowing) is a new statement."""
 
     def __init__(self, oid, line):
         text = normalize(line.decode('utf-8', 'replace'))
@@ -477,8 +493,6 @@ class Claim:
         words = WORD.findall(' '.join(cores))
         self.literal = max(' '.join(cores).split(), key=len) if words else ''
         self.eligible = bool(self.slots) and len(words) >= MIN_WORDS
-        self.sentence = bool(re.match(r'[\W]*[^\W\d_]', cores[0] or ' ')) \
-            and bool(re.search(r'[.!?]["\')\]]*\Z', cores[-1]))
 
     def finditer(self, norm):
         """(start, end, slot texts) of each statement of the claim in normalized text."""
@@ -507,7 +521,7 @@ class Claim:
                     head = re.split(PARA, norm[max(0, start - MAX_GAP):start])[-1]
                     chunks = list(re.finditer(r'\S+', head))[::-1]
                     n = 0
-                    while n < min(len(chunks), MAX_CHUNKS):
+                    while n < len(chunks):
                         c = chunks[n].group()
                         if not (_ident(c) or _plain(c) or WORDCHUNK.fullmatch(c) and n > 0
                                 and _ident(chunks[n - 1].group())):
@@ -521,12 +535,67 @@ class Claim:
                 yield start, pos, gaps
 
 
-def sentence_start(norm, i):
-    """Whether position `i` of normalized text begins a line, a paragraph, a sentence, a label
-    colon, a semicolon, a table cell or a quoted or bracketed statement, list and quote markers
-    aside."""
-    before = re.sub(r'[ \-*+>#]*\Z', '', norm[:i])
-    return not before or before[-1] in '\n.!?:;|"\'([{`' + PARA
+PREFIX_MAX = 300
+BLOCK_START = re.compile(r' *(?:[-*+>#|]|\d+[.)])')
+OPERATORS = frozenset((
+    # conditionals, restrictions, exceptions and negations: the words that narrow a statement
+    'if', 'unless', 'when', 'whenever', 'while', 'for', 'under', 'assuming', 'assume', 'provided',
+    'given', 'only', 'except', 'excluding', 'conditionally', 'conditional', 'not', 'no', 'never',
+    'false', 'longer', 'cannot', 'fails', 'restricted', 'whether', 'suppose', 'supposing',
+    'below', 'above',
+    # quantities written as words, as a digit is one
+    'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve',
+    'twenty', 'hundred', 'thousand', 'million'))
+NARROWING_MARK = re.compile(r'[0-9<>=\u2264\u2265]|\([^\s()]{1,8}\)')
+
+
+def statement_prefix(norm, i):
+    """The text before position `i` within its statement: back to a paragraph break, a sentence
+    end, a colon, a semicolon or a table bar, or to a line break that begins a block (a list,
+    quote, heading or table line, or the line after a heading or table row); at most PREFIX_MAX
+    characters, list and quote markers, quotes and brackets aside."""
+    lo, j = max(0, i - PREFIX_MAX), i
+    while j > lo:
+        c = norm[j - 1]
+        if c in '.!?;:|' + PARA:
+            break
+        if c == '\n':
+            prev = norm[norm.rfind('\n', lo, j - 1) + 1:j - 1].lstrip(' ')
+            if BLOCK_START.match(norm, j) or prev[:1] in ('#', '|'):
+                break
+        j -= 1
+    return norm[j:i].strip(' \n-*+>#"\'([{`')
+
+
+def narrowing(prefix):
+    """Whether a statement's prefix narrows it: it holds a restrictive operator (OPERATORS), a
+    digit or comparator, or a parenthesized named condition. Any other prefix ("Indeed,",
+    "We find that") leaves the statement standing."""
+    prefix = FULL_ID.sub('', prefix)
+    return bool(set(WORD.findall(prefix)) & OPERATORS) or bool(NARROWING_MARK.search(prefix))
+
+
+class _Lines:
+    """Line numbers of positions in a file's normalized text: the file's paragraph start lines,
+    and the positions of paragraph marks and line breaks, built once, read by bisection."""
+
+    def __init__(self, raw, norm):
+        starts = [0] + [b.end() for b in BREAK.finditer(raw)]
+        self.firsts, n, prev = [], 0, 0
+        for x in starts:
+            n, prev = n + raw.count('\n', prev, x), x
+            self.firsts.append(n + 1)
+        self.paras = [m.start() for m in re.finditer(PARA, norm)]
+        self.breaks = [m.start() for m in re.finditer('\n', norm)]
+
+    def lines(self, begin, end):
+        """(first, last) line of the text from `begin` to `end`."""
+        k = bisect.bisect_left(self.paras, begin)
+        top = self.paras[k - 1] + 1 if k else 0
+        first = self.firsts[min(k, len(self.firsts) - 1)] \
+            + bisect.bisect_left(self.breaks, begin) - bisect.bisect_left(self.breaks, top)
+        return first, first + bisect.bisect_left(self.breaks, end) \
+            - bisect.bisect_left(self.breaks, begin)
 
 
 class TreeText:
@@ -574,8 +643,8 @@ class TreeText:
         """`path:line` of a statement, in a file under the record's directory `d`, of `claim` with
         a slot of its id holding no id that a current support record claims on one of the
         statement's own lines, or None. `claimed_at` maps an id to the (path, line) its support
-        records claim. A full-sentence claim must begin where sentence_start says. A file holding
-        a NUL byte is not read."""
+        records claim. A statement whose prefix narrows it is a new one. A file
+        holding a NUL byte is not read."""
         for p, (mode, obj) in sorted(self.files.items()):
             if mode == '160000' or not p.startswith(d):
                 continue
@@ -587,19 +656,13 @@ class TreeText:
                 norm = self._norm[obj] = normalize(data.decode('utf-8', 'replace'))
             if claim.literal not in norm:
                 continue
-            spans = None
+            index = None
             for begin, end, gaps in claim.finditer(norm):
-                if claim.sentence and not sentence_start(norm, begin):
+                if narrowing(statement_prefix(norm, begin)):
                     continue
-                if spans is None:
-                    raw = data.decode('utf-8', 'replace')
-                    starts = [0] + [b.end() for b in BREAK.finditer(raw)]
-                    first = [raw.count('\n', 0, x) + 1 for x in starts]
-                    spans = list(zip(first, first[1:] + [raw.count('\n') + 2]))
-                lo, _hi = spans[min(norm.count(PARA, 0, begin), len(spans) - 1)]
-                top = norm.rfind(PARA, 0, begin) + 1
-                first = lo + norm.count('\n', top, begin)
-                last = first + norm.count('\n', begin, end)
+                if index is None:
+                    index = _Lines(data.decode('utf-8', 'replace'), norm)
+                first, last = index.lines(begin, end)
                 if all(any((p, n) in claimed_at.get(y, ()) for y in FULL_ID.findall(gaps[s])
                            for n in range(first, last + 1)) for s in claim.slots):
                     continue
@@ -1362,6 +1425,16 @@ def self_test():
                        'claim_sha256': line_sha256(('The bound holds at %s. See %s.'
                                                     % (d0, m0)).encode())}},
                  retired={m0: dg0}), other_sup), (), 'D0', {SD}),
+            ('retired, re-pinned in the second paragraph of a file', rec(
+                note('', 'The bound holds at %s.' % d0), _manifest(
+                    {d0: {'role': 'support', 'claim': 'rec/NOTE.md:3',
+                          'claim_sha256': line_sha256(('The bound holds at %s.'
+                                                       % d0).encode())}},
+                    retired={m0: dg0})), (), 'D0', set()),
+            ('recorded, a fragment claim kept after a negation', rec(
+                note('Not that the bound holds at'), _manifest({}, retired={m0: dict(
+                    dg0, from_claim_sha256=line_sha256(('the bound holds at %s' % m0).encode()))})),
+             (), 'DQ', set()),
             ('retired, re-pinned on a line after one holding only a short id', rec(
                 note(m0[:7], 'The bound holds at %s.' % d0), _manifest(
                     {d0: {'role': 'support', 'claim': 'rec/NOTE.md:3',
@@ -1573,6 +1646,69 @@ def self_test():
             man = _manifest(ids, retired=None if ids else {m0: dg0})
             dcases.append(('recorded, the reference given as %s' % label, rec(note(text), man), (),
                            'D0', {SD}))
+        # openers leave a statement standing; a restrictive operator in its prefix narrows it
+        for opener in ('Indeed, ', 'Moreover ', 'Moreover, ', 'Thus, ', 'Hence, ',
+                       'In particular, ', 'Note that ', 'We find that ', 'It follows that ',
+                       'Therefore ', 'Clearly, ', 'As expected, ', 'Again, ', 'Crucially, ',
+                       'In summary, ', 'Recall that ', 'We show that ', 'Here, ', 'So ', 'And '):
+            dcases.append(('recorded, the claim kept after the opener %r' % opener, rec(note(
+                opener + 'the bound holds at %s.' % m0, hist), {m0: prov(dg0)}), (), 'D0', {SD}))
+        for cond in ('For n <= 4, ', 'If n <= 4, then ', 'Conditionally, ', 'Under H1, ',
+                     'Only for n <= 4 ', 'Assuming (C2), ', 'Unless n > 4, ',
+                     'In dimension three, ', 'It is not shown that ', 'It is false that ',
+                     'We no longer claim that ',
+                     'For even n, ', 'When n is even, ', 'Provided (C2) holds, '):
+            dcases.append(('recorded, the claim narrowed by %r' % cond, rec(note(
+                cond + 'the bound holds at %s.' % m0, hist), {m0: prov(dg0)}), (), 'D0', set()))
+        for cond in ('In 3D, ', 'At T > T_c, ', 'With (EM), '):
+            dcases.append(('recorded, the claim narrowed by %r: a digit, comparator or condition'
+                           % cond, rec(note(cond + 'the bound holds at %s.' % m0, hist),
+                                       {m0: prov(dg0)}), (), 'D0', set()))
+        for label, text in (
+                ('an opener citing another commit', 'As in %s, the bound holds at %s.' % (s, m0)),
+                ('a negation in the paragraph before', 'It is not shown that\n\nthe bound holds '
+                 'at %s.' % m0),
+                ('a negation in the sentence before',
+                 'This is not new. The bound holds at %s.' % m0),
+                ('a negation before a label colon', 'Not new: the bound holds at %s.' % m0),
+                ('a negation before a semicolon', 'We did not rerun it; the bound holds at %s.'
+                 % m0),
+                ('a condition in the table cell before', '| for n | The bound holds at %s. |' % m0),
+                ('an operator word on the line before a list item', 'Notes for review\n- the bound '
+                 'holds at %s.' % m0)):
+            dcases.append(('recorded, the claim kept after %s' % label, rec(note(text, hist), dict(
+                {m0: prov(dg0)}, **({s: 'provenance'} if s in text else {}))), (), 'D0', {SD}))
+        dcases.append(('recorded, a negation on the line before, in the same sentence', rec(note(
+            'It is not shown that', 'the bound holds at %s.' % m0, hist), {m0: prov(dg0)}), (),
+            'D0', set()))
+        dcases.append(('recorded, an operator word in the heading above: not the statement\'s',
+                       rec(note('the bound holds at %s.' % m0, hist).replace(
+                           '# Note', '# Notes for review'), {m0: prov(dg0)}), (), 'D0', {SD}))
+        dcases.append(('recorded, a long reference slot of ten markers', rec(note(
+            'The bound holds at # # # # # # # # # #.', hist), {m0: prov(dg0)}), (), 'D0', {SD}))
+        dcases.append(('retired, a claim ending with its id, the reference moved to the next '
+                       'paragraph', rec('# Note\nthe bound holds at\n\n%s\n' % sc.labels['DQ'],
+                                        _manifest({sc.labels['DQ']: {
+                                            'role': 'support', 'claim': 'rec/NOTE.md:4',
+                                            'claim_sha256': line_sha256(
+                                                sc.labels['DQ'].encode())}}, retired={m0: dict(
+                                            dg0, from_claim_sha256=line_sha256((
+                                                'the bound holds at %s' % m0).encode()))})), (),
+                       'DQ', {SD}))
+        # a reference slot ends at a paragraph break: past one, line numbers in the next paragraph
+        # would be read off by the blank line, and a claimed line there taken for the statement's
+        for fixture, text, line, base in (
+                ('DQ', '# Note\nthe bound holds at\n\n%s\n%s\n%s\n', 4, 'the bound holds at %s'),
+                ('DL', '# Note\n%s\n%s\n%s\n\n: the bound holds.\n', 2, '%s: the bound holds.')):
+            to = sc.labels[fixture]
+            dcases.append((
+                'retired, a claim %s its id, a three-line reference paragraph %s it' % (
+                    ('ending with', 'after') if fixture == 'DQ' else ('beginning with', 'before')),
+                rec(text % (to, to, to), _manifest(
+                    {to: {'role': 'support', 'claim': 'rec/NOTE.md:%d' % line,
+                          'claim_sha256': line_sha256(to.encode())}},
+                    retired={m0: dict(dg0, from_claim_sha256=line_sha256(
+                        (base % m0).encode()))})), (), fixture, {SD}))
         n_down = len(dcases) + 5
         for name, sets, dels, parent, want in dcases:
             got = case('D-' + name, sets, main=sc.labels[parent], parent=parent, dels=dels)
@@ -1649,6 +1785,20 @@ def self_test():
             fails.append('downgrade, long identifier lines: %s in %.1f s' % (
                 sorted(got), time.monotonic() - t0))
         n_down += 1
+        # neither the link reduction nor a statement's prefix rescans what came before it
+        for label, blob in (('a 100,000-bracket line', '[' * 100000 + '\nThe bound holds.\n'),
+                            ('a 40,000-character marker run before 200 statements',
+                             '-' * 40000 + ' x\n' + ''.join(
+                                 'If n <= %d, the bound holds at run #%d.\n' % (k, k)
+                                 for k in range(200)) + 'The bound holds.\n')):
+            t0 = time.monotonic()
+            got = case('D-long input: ' + label, rec(note(), _manifest(
+                {}, retired={m0: dg0}), {b'rec/long.md': ('100644', blob.encode())}),
+                main=sc.labels['D0'], parent='D0')
+            if got != {SD} or time.monotonic() - t0 > 10:
+                fails.append('downgrade, %s: %s in %.1f s' % (label, sorted(got),
+                                                              time.monotonic() - t0))
+            n_down += 1
         dl = sc.labels['D-record, the claim removed']
         for name, sets, want in (
                 ('after a landed downgrade', {b'rec/more.md': ('100644', b'more\n')}, set()),
