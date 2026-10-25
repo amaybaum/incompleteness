@@ -147,13 +147,14 @@ audit. The packages are `stopping-source-v2/`, `operational-quotient-v3/`
 (with `product-section-v4/`), `history-architecture-v5/`, `finite-a2-v5/`,
 `native-code-bridge-v6/`, `a1_reset_v6/`, `a2_efficiency_v6/`,
 `a2_depth_v7/` and `a2_memory_v8/`. Each holds its checker, its structured
-output, a `SHA256SUMS` manifest and its retained review. Each `REPORT.md`
-gives the package's replay recipe. Every checker reproduces its retained
+output, a `SHA256SUMS` manifest and its retained review. Each `REPORT.md`,
+or its review, gives the package's replay recipe. Every checker reproduces its retained
 `result.json` byte for byte under `python3 -I -B`, normally and with `-O`.
 The full mutant campaigns are recorded in their packages and are not part of
 that replay.
 
-The top-level `REPORT.md` and `stopping-source-v2/REPORT.md` cite programme
-snapshot `2d555f17` on branch `research/missing-component-20261020` as
-provenance. The claims there rest on Lean declarations at `de6fe293`, which
+The top-level `REPORT.md`, `stopping-source-v2/REPORT.md`, `review/REVIEW.md`
+and the `PROVENANCE.json` of `operational-quotient-v3/` and
+`history-architecture-v5/` cite programme snapshot `2d555f17` on branch
+`research/missing-component-20261020` as provenance. The claims there rest on Lean declarations at `de6fe293`, which
 is on `main`, and on their own checkers.
