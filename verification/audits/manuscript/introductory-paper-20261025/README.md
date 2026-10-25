@@ -28,6 +28,14 @@ verdict in either is an established result.
   `explainer-tools/`; and `papers/Explainer.md` has 41 displayed `$$…$$`
   equations, not 42 (`eqs.py` prints 41).
 
+- `novelty-v5/`: revision 5 of the novelty and fidelity audit, read at
+  `main` `ebf98d83`. **Status: work-in-progress evidence record.** r1 was
+  independently reviewed (BLOCK, on wording only) and r2 re-checked (ACCEPT
+  WITH NITS). r3 applies those nits and changes no classification. For
+  drafting it supersedes `NOVELTY-AUDIT.md`. Its source-coverage limits,
+  attribution corrections and the manuscript defects it records are
+  summarized in `novelty-v5/README.md`.
+
 ## Findings carried forward for separate work
 
 - `papers/Main.md:98` displays "finite-horizon non-Markovianity ⟺ ∃ finite
