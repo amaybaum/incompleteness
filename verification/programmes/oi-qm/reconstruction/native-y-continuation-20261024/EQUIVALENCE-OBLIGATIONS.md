@@ -9,7 +9,7 @@ and A2 finite operational approximation keep separate targets.
 | Active path | Current result | Missing connection / next useful test |
 | --- | --- | --- |
 | Native nonlinear processing (#910) | Actual old-sign/pool products in seven small original-time families; no tested passive single-cell flag in the fixed short window | Isolate or control a useful native gate on the actual distributed operands; no huge-L extrapolation |
-| Native operand delivery (#910) | A second original-time E front restores 32 common raw X response pairs at actual scale; no jointly affine E/N controller selects one, but 1456 such laws make the single field q10.A of the q10 cell equal s, which is not a permitted read under Native A | A native stage using q10.A while its s-carrying B/D fields are accounted for; another layout |
+| Native operand delivery (#910) | A second original-time E front restores 32 common raw X response pairs at actual scale; no jointly affine E/N controller selects one, but 1456 such laws make the single field q10.A of the q10 cell equal s, which is not a permitted read under Native A; one native tick into the whole-V read delivers nothing, its key cells being free, under a complete declared inventory | A native stage using q10.A while its s-carrying B/D fields are accounted for; key recovery from the port-0 record; another layout |
 | Exact architecture/reset (#911) | Credited KS single-qubit comparison remains valid with supplied reset; fixed-vector Montina iteration fails repeated reads by exact public-record witness | Supply conditional source renewal or a different invariant update, with all memory/access/clock resources; preserve the original two-time theorem |
 | Finite A2 (#911) | Executed 1,536-label controller has complete fixed-decoder CQ error <0.074764 for the specified finite menu and h=3 | Native sourcing/implementation; recertify enlarged menus/horizons separately; no universal cost improvement inferred |
 | Complete-record composition (#912) | Explicit 89-tick logical acceptance circuit restores phase/workspace and has the right complete pointer/carrier law | Compile gates, storage and isolation under native H; check all delayed old/new public histories jointly |
@@ -23,6 +23,10 @@ and A2 finite operational approximation keep separate targets.
 - Fixed q10 readout author: `7f843073d9245635d5b2bbeb0cfdc9f42dc7db0a`,
   `native_decode_v14/`, plan `36213be6354ef15442b4f3040ecdb511fd0b5641`;
   review retained in its `review/` subdirectory.
+- One-tick whole-V read: `native_vread_v15/`, plan
+  `ead2c38842222786c68551484b708c19f29c83ab`, head
+  `ca7d06de349e83cbfa253cbd4887b7708a0705cc`; review retained in its
+  `review/` subdirectory.
 - Exact reset-resource author: `41992cc0b7f8901195f70ff47b34f1a0ed5eba5e`,
   `a1_reset_v6/` on #911; review `bdd897852d3f44089a5476205a949c8ecc54f981`.
 - Finite-menu A2 author: `bff7b58d951babd4064b60699281ee0a7f3e9f45`,

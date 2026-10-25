@@ -78,6 +78,10 @@
     "A": "Retains uniform F8/F10 and adds independent affine F9; no new blank shell",
     "B": "Replaces optional F10 with original-time q10 readiness and one boundary source"
   },
+  "native_vread_v15_head": "ca7d06de349e83cbfa253cbd4887b7708a0705cc",
+  "native_vread_v15_plan": "ead2c38842222786c68551484b708c19f29c83ab",
+  "native_vread_v15_review": "native_vread_v15/review/",
+  "native_vread_v15_scope": "One native tick from q10 into the whole-V read at L+2 in the native_route_v13 geometry: NEGATIVE_FOR_CONSTRUCTION; -x and +y keys free and unseen by permitted records, V a permutation of each; independence under a uniform free key; -y key reaches port 0 (recovery not computed); conditional on the declared inventory being complete.",
   "native_x_v12_new_initial_mask_bits": 3,
   "native_x_v12_reviewed_author": "f24a57a7c23cc1818c04265cec7604f8bc2f410d",
   "native_x_v12_total_local_resource_bits": 9,

@@ -109,6 +109,31 @@ No native stage that consumes q10.A while tolerating B and D, no Y operand,
 acceptance flag or joint history/carrier law follows. Separate review is
 retained under `native_decode_v14/review/`.
 
+## One native tick into the whole-V read
+
+`native_vread_v15/` (plan `ead2c38842222786c68551484b708c19f29c83ab`,
+committed before computation; head `ca7d06de349e83cbfa253cbd4887b7708a0705cc`;
+separate review retained under its `review/`) tests the cheapest native stage
+from q10.A towards a permitted read: one tick from q10 at L+1 into Native A's
+single whole-V read at L+2, applied to the native_route_v13 geometry as a
+hybrid test case, with neither contract adopted. Result:
+`NEGATIVE_FOR_CONSTRUCTION`. Two of the five non-q10 key cells of q9 at L+2,
+the -x key (-(L+2),S,77) and the +y key (0,S+(L+2),77), are free complement
+variables that no permitted record through L+2 depends on, and V is a
+permutation of each, so no fixed readout of V equals s for every complement
+value. Under a uniform free key V is uniform and independent of q10.A, s,
+the seeds and every other permitted record through L+2. Delivery through
+this read needs those keys known, by pinning (a preparation change) or by
+reading their q9 neighbours (an access change); neither is adopted. The -y
+key also reaches public port 0 at distance 341; recovering it from that
+record is not computed.
+
+The classification is conditional on the declared ready-cone, source and
+bank inventory shared with native_route_v13 being complete; a separate
+enumeration from the primary declarations in the separate review agrees.
+Multi-tick routes, other layouts, readiness extensions, Native A's own pool,
+the acceptance predicate and A1/A2 are untested; this is no OI-wide no-go.
+
 ## Explicit acceptance specification and the native delay gap
 
 #912 author `1cb224db6c17e083849a0f82768e991beac39399`, under
@@ -158,7 +183,9 @@ latency, and prove its full physical pointer/history law. The small native
 product, the q10.A sign delivery and the logical acceptance circuit are
 distinct pieces; none alone supplies their missing native connection. A
 concrete next test is a native stage taking q10.A to a cleaned operand
-while its s-carrying B and D fields are accounted for.
+while its s-carrying B and D fields are accounted for; the one-tick route
+into the whole-V read is excluded for its construction (`native_vread_v15/`),
+and recovering its -y key from the permitted port-0 record is untested.
 
 `python3 replay.py --latest` checks the four reviewed v13 native groups and
 the v14 fixed-readout author group normally and with -O, Python compilation
