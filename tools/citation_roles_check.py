@@ -89,15 +89,21 @@ commit's:
         named condition such as "(C2)", a one-letter variable other than "a" and "i", a
         labelled token such as "h1", or a number word (two to twelve, twenty, hundred,
         thousand, million); or begins with "at" or "in" and holds a comparator, or with "with"
-        and holds a comparator or a named condition; or the prefix's last clause ends with
-        "that" and negates an assertion: it holds "false", or a negation (not, no, never,
-        longer, cannot, fails) followed within three words by an assertion word (shown,
-        established, proved, proven, known, true, case, claim, claimed, clear, demonstrated,
-        supported, confirmed, derived, settled, hold, holds, valid, correct), as in "it is not
-        shown that". A digit alone does not narrow, and neither does a negation idiom ("There
-        is no doubt that", "It cannot be denied that"). So an opener ("Indeed,", "In Section
-        3,", "For completeness,", "As noted above,") leaves the claim standing, and a
-        condition put first, "if ..., then ..." and a negated assertion make a new statement;
+        and holds a comparator or a named condition; or the prefix's last clause, before a
+        final "that", is exactly one negated assertion from a closed list (NEGATED_ASSERTION):
+        "it/this is/was not <A>" or "... no longer <A>" with A one of shown, established,
+        proved, proven, known, true, clear, demonstrated, supported, confirmed, derived,
+        settled, valid, correct, claimed; "it/this has/had not been <P>" and "it/this cannot
+        be <P>" with P a participle of that list; "it/this is/was not the case"; "it/this
+        is/was false"; "<S> does/do/did not claim", "<S> no longer claims", "<S> cannot
+        claim", "<S> makes no claim" and "<S> is not a claim", with S one of it, this, we, or
+        the/this paper, note, record, round, framework, section, text, document, result; "no
+        claim is made"; and "what is not <P> is". Nothing else is a negated assertion: an added
+        limiter, a second negation or any other word ("It is not only true that", "It is not
+        false that", "There is no doubt that") leaves the claim standing, and so does a digit
+        alone. So an opener ("Indeed,", "In Section 3,", "For completeness,", "As noted
+        above,") leaves the claim standing, and a condition put first, "if ..., then ..." and
+        a negated assertion make a new statement;
       - needs at least three words of claim besides the reference.
 
 Independently of main, a record fails while any line of the tree hashes to its
@@ -171,12 +177,16 @@ Limitations:
     "via Lemma 2". So does a condition ended by a colon ("For n <= 4: ..."), the colon read as
     a label. These fail closed and can be reworded ("when T = 300", "for n <= 4, ...").
   - The prefix rule reads form, not meaning. It fails closed on a narrowing with no bound or
-    no conditional word ("On the lattice,", "In 3D,", "In dimension three,"), or a negation
-    of an unlisted predicate ("It is not obvious that"), which reads as the claim standing and
-    can be reworded ("for d = 3,", "if n <= 4,", "it is not shown that"). An opener built in
-    the rule's form passes as a narrowing with a record: a conditional clause holding a
-    one-letter word or a labelled token ("When we ran it on h1,", "If n is anything,"), or a
-    negated assertion word used as an idiom ("It is not clear that"). Review decides those.
+    no conditional word ("On the lattice,", "In 3D,", "In dimension three,"), and on any
+    negation outside the closed list: another predicate ("It is not obvious that"), another
+    subject ("Nobody has shown that", "The referee does not claim that"), or an added word
+    ("It is not yet shown that", "Thus it is not shown that"). These read as the claim
+    standing and can be reworded ("for d = 3,", "if n <= 4,", "it is not shown that"). An
+    opener built in the rule's form passes as a narrowing with a record: a conditional clause
+    holding a one-letter word or a labelled token ("When we ran it on h1,", "If n is
+    anything,"), or a listed negation used as a hedge ("It is not clear that"). The prefix
+    alone is read, so a claim negated in its prefix and reaffirmed after it ("It is not shown
+    that the bound holds at <id>; it does.") passes with a record. Review decides those.
   - A record may sit in any manifest of the commit, so removing every manifest of the tree
     leaves nowhere to record a downgrade, and such a commit fails.
   - An unrelated record that newly lists a downgraded support id as provenance needs a
@@ -204,7 +214,7 @@ Limitations:
     the files of its directory are searched once, so its cost is that number times the
     directory's size. Each id also costs a few git calls of its own (its type, its
     reachability, its claimed blob), so a manifest of thousands of support ids takes minutes.
-    The self-test takes about 30 s and runs before every check.
+    The self-test takes about 45 s and runs before every check.
   - An `external` entry's repository is the author's declaration: an id that names no object
     here, with a qualifier naming any repository, passes.
   - A 40-hex value that names no git object of any repository (a SHA-1 file digest) has no role.
@@ -556,17 +566,25 @@ PREFIX_MAX = 300
 BLOCK_START = re.compile(r' *(?:[-*+>#|]|\d+[.)])')
 # a clause narrows a statement when it begins with a conditional or restriction word and holds a
 # bound; "at" and "in" begin one only with a comparator, "with" only with a comparator or a named
-# condition; a negated assertion narrows a statement it introduces with "that"
+# condition
 CONDITIONS = frozenset((
     'if', 'unless', 'when', 'whenever', 'while', 'for', 'under', 'assuming', 'assume', 'provided',
     'given', 'only', 'except', 'excluding', 'restricted', 'whether', 'suppose', 'supposing',
     'below', 'above'))
 LOCATIVES = frozenset(('at', 'in'))
-NEGATIONS = frozenset(('not', 'no', 'never', 'false', 'longer', 'cannot', 'fails'))
-ASSERTIONS = frozenset((
-    'shown', 'established', 'proved', 'proven', 'known', 'true', 'case', 'claim', 'claimed',
-    'clear', 'demonstrated', 'supported', 'confirmed', 'derived', 'settled', 'hold', 'holds',
-    'valid', 'correct'))
+# a negated assertion narrows the statement it introduces with "that": the clause before "that"
+# is exactly one of these templates, one negation, nothing added
+_STATE = ('shown|established|proved|proven|known|true|clear|demonstrated|supported|confirmed|'
+          'derived|settled|valid|correct|claimed')
+_PART = 'shown|established|proved|proven|demonstrated|supported|confirmed|derived|settled|claimed'
+_SELF = 'it|this|we|(?:the|this) (?:paper|note|record|round|framework|section|text|document|result)'
+NEGATED_ASSERTION = re.compile(
+    r'(?:it|this) (?:is|was) (?:not|no longer) (?:{s})|(?:it|this) (?:has|had) not been (?:{p})'
+    r'|(?:it|this) (?:is|was) not the case|(?:it|this) (?:is|was) false'
+    r'|(?:it|this) cannot be (?:{p})'
+    r'|(?:{w}) (?:(?:does|do|did) not|no longer|cannot) claims?|(?:{w}) (?:makes?|made) no claim'
+    r'|(?:{w}) (?:is|was) not a claim|no claim is made|what is not (?:{p}) is'.format(
+        s=_STATE, p=_PART, w=_SELF))
 NUMBER_WORDS = frozenset((
     'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve',
     'twenty', 'hundred', 'thousand', 'million'))
@@ -604,10 +622,10 @@ def narrowing(prefix):
     holds a bound: a comparator, a parenthesized named condition such as "(C2)", a one-letter
     variable other than "a" and "i", a labelled token such as "h1", or a number word; when one
     begins with "at" or "in" and holds a comparator, or with "with" and holds a comparator or a
-    named condition; or when its last clause ends with "that" and holds "false", or a negation
-    followed within three words by a word of ASSERTIONS ("it is not shown that"). Any other
-    prefix ("Indeed,", "In Section 3,", "For completeness,", "There is no doubt that") leaves
-    the statement standing; a digit alone does not narrow it."""
+    named condition; or when its last clause is exactly a template of NEGATED_ASSERTION
+    followed by "that" ("it is not shown that"). Any other prefix ("Indeed,", "In Section 3,",
+    "For completeness,", "There is no doubt that", "It is not only true that") leaves the
+    statement standing; a digit alone does not narrow it."""
     prefix = FULL_ID.sub('', prefix)
     clauses = [CLAUSE_WORD.findall(c) for c in prefix.split(',')]
     if any({'conditionally', 'conditional'} & set(w) for w in clauses):
@@ -624,10 +642,8 @@ def narrowing(prefix):
                     for x in w[1:]):
                 return True
     last = clauses[-1] if clauses else []
-    if len(last) < 2 or last[-1] != 'that':
-        return False
-    return 'false' in last or any(x in NEGATIONS and set(last[k + 1:k + 4]) & ASSERTIONS
-                                  for k, x in enumerate(last[:-1]))
+    return len(last) > 1 and last[-1] == 'that' \
+        and bool(NEGATED_ASSERTION.fullmatch(' '.join(last[:-1])))
 
 
 class _Lines:
@@ -1773,7 +1789,16 @@ def self_test():
                        'For example, ', 'For instance, ', 'Under the hood, ', 'Given this, ',
                        'As shown in Section 3, ', 'There is no doubt it is true that ',
                        'It is not clear why ', 'Not least, it holds that ', 'In (A1), ',
-                       'Like the run for h1, '):
+                       'Like the run for h1, ',
+                       # affirmations built from a negation
+                       'It is not only true that ', 'It is not just established that ',
+                       'It is not simply true that ', 'It is not merely the case that ',
+                       'It is not only clear but also shown that ', 'It is never false that ',
+                       'It is not false that ', 'There is no doubt it has been shown that ',
+                       'No longer is it in doubt that ', 'It has never been clearer that ',
+                       'It cannot be denied that it holds that ', 'It is not unknown that ',
+                       'It is no longer unclear that ', 'It is not less true that ',
+                       'Not everyone has shown that ', 'It is not clear but certain that '):
             dcases.append(('recorded, the claim kept after the opener %r' % opener, rec(note(
                 opener + 'the bound holds at %s.' % m0, hist), {m0: prov(dg0)}), (), 'D0', {SD}))
         for cond in ('For n <= 4, ', 'If n <= 4, then ', 'Conditionally, ', 'Under H1, ',
@@ -1781,6 +1806,12 @@ def self_test():
                      'It is not shown that ', 'It is false that ', 'We no longer claim that ',
                      'It is not established that ', 'It is not true that ',
                      'It has not been proved that ', 'It is not the case that ', 'With n = 3, ',
+                     'It cannot be claimed that ', 'It is no longer claimed that ',
+                     'It is not known that ', 'It is not clear that ', 'It is not correct that ',
+                     'It does not claim that ', 'We do not claim that ', 'No claim is made that ',
+                     'The round does not claim that ', 'This note makes no claim that ',
+                     'It is not a claim that ', 'What is not established is that ',
+                     'Indeed, it is not shown that ',
                      'For even n, ', 'When n is even, ', 'Provided (C2) holds, ',
                      'At T = 300 K, ', 'Except at n = 4, ', 'Below n = 4, ', 'Given two lattices, ',
                      'Given three lattices, ', 'For lattices of size <= 4, ',
@@ -1794,8 +1825,12 @@ def self_test():
                            % cond, rec(note(cond + 'the bound holds at %s.' % m0, hist),
                                        {m0: prov(dg0)}), (), 'D0', set()))
         # a setting with no bound is read as an opener: the rule fails closed on it
-        for cond in ('In 3D, ', 'In dimension three, ', 'On the lattice, '):
-            dcases.append(('recorded, the claim after %r: fail-closed, no bound' % cond, rec(note(
+        for cond in ('In 3D, ', 'In dimension three, ', 'On the lattice, ',
+                     # a negation outside the closed list
+                     'It is not yet shown that ', 'Nobody has shown that ',
+                     'It is not obvious that ', 'The referee does not claim that ',
+                     'Thus it is not shown that ', 'It is not shown '):
+            dcases.append(('recorded, the claim after %r: fail-closed' % cond, rec(note(
                 cond + 'the bound holds at %s.' % m0, hist), {m0: prov(dg0)}), (), 'D0', {SD}))
         # a record's line stands wherever its id sits in the line, inside a longer run included
         run_line = 'x ab%s' % m0
@@ -1820,7 +1855,7 @@ def self_test():
                            {b'evidence/x.md': ('100644', (two_line + '\n').encode())}), (), 'D0',
                        {SD}))
         # the rule reads form: an opener in a narrowing's form passes with a record (Limitations)
-        for opener in ('It is not clear that ', 'When we ran it on h1, '):
+        for opener in ('When we ran it on h1, ', 'If n is anything, '):
             dcases.append(('limitation: the claim after %r, read as narrowed' % opener, rec(note(
                 opener + 'the bound holds at %s.' % m0, hist), {m0: prov(dg0)}), (), 'D0', set()))
         # a full id in a prefix is no bound, though one of letters then digits reads as a token
