@@ -66,8 +66,12 @@ unconstrained. A retained-seed reset lies outside the class and escapes the
 obstruction on this protocol, with TV<=1/(2^B-2) at every depth for B>=2; it
 is a protocol-specific sampler, not a geometric controller.
 
-`a2_memory_v8/`, author head `03a31cf9029582162bc82508a4eacf28e098701f`, has
-internal reviews retained under `a2_memory_v8/review/`. It proves that every
+`a2_memory_v8/`, whose checker was last changed at
+`5beb12b78747c2c752b6abca2cb94ac491d06441` and whose `result.json` at
+`03a31cf9029582162bc82508a4eacf28e098701f`, has internal reviews retained
+under `a2_memory_v8/review/`; the last retained round reviews
+`70faede0..3ca0d8ba`, which contains package commits `03a31cf9` and
+`12863de8`. It proves that every
 controller whose whole persistent state is finite, with a time-independent
 update and B fair fresh bits per slot, also has T(h)->1 on this protocol, for
 any initial law. The obstruction is arithmetic: dyadic fresh randomness
