@@ -1,0 +1,6 @@
+W1a_bc_enclosure_scaled_1e-4: exit 0; same_as_result=False; {"class_hypothesis":"finite persistent state (carrier, private memory, any clock or record registers read); ti
+W1b_bc_enclosure_scaled_1e-6: exit 0; same_as_result=False; {"class_hypothesis":"finite persistent state (carrier, private memory, any clock or record registers read); ti
+W2_prereg_constant_and_bound: exit 2; same_as_result=False; VOID: K7 exact product TV inside power-rule bracket
+W3_bound_5pct_strong: exit 0; same_as_result=False; {"class_hypothesis":"finite persistent state (carrier, private memory, any clock or record registers read); ti
+W4_depth_one_block_early: exit 0; same_as_result=False; {"class_hypothesis":"finite persistent state (carrier, private memory, any clock or record registers read); ti
+W5_prereg_x1.5_and_bound_x1.5: exit 2; same_as_result=False; VOID: K7 exact product TV inside power-rule bracket

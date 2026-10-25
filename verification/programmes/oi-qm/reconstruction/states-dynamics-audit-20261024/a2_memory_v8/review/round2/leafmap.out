@@ -1,0 +1,27 @@
+old leaves 939 new leaves 1157
+unchanged in place 554 moved and identical 378 changed 7 unmapped old 0 new-only 218
+CHANGED class_verdict | BOUNDED_STATE_CLASS_NO_ESCAPE: every bounded-state controller with B fair fresh bits per s -> BOUNDED_STATE_CLASS_NO_ESCAPE: every bounded-state controller with B fair fresh bits per s
+CHANGED controls/K2_retained_seed_values_matched | 43 -> 41
+CHANGED controls/K6 | RS(B,k>=h) equals the retained-seed reset; block TV below 1/(2^B-2); RS(4,1) memoryless va -> the unrestarted state machine equals the retained-seed law (B=2 h=6, B=3 h=4); block TV be
+CHANGED controls/K7 | square-root endpoints verified by squaring; exact product TV inside both brackets for n*k< -> square-root endpoints verified by squaring; Le Cam inequalities; exact product TV inside t
+CHANGED family_verdict | RS_FAMILY_FINITE_FAILURE_DEPTH_EVERY_TESTED_MEMBER: B=2: memoryless reset first exceeds T= -> RS_FAMILY_FINITE_FAILURE_DEPTH_EVERY_TESTED_MEMBER: preregistered rule: B=2: each k=1..16 
+CHANGED resource_statement | With B fair fresh bits per slot and a time-independent update, T(h)->1 whenever the persis -> Necessity: with B fair fresh bits per slot and a time-independent update, T(h)->1 whenever
+CHANGED schema | oi.a2-bounded-memory-v8.v1 -> oi.a2-bounded-memory-v8.v2
+ADDED 1 controls/K6_retained_value_checks
+ADDED 1 controls/counts
+ADDED 1 family_RS/B2_memoryless_comparators_post_plan/nearest_dyadic_reset/agreement
+ADDED 1 family_RS/B2_memoryless_comparators_post_plan/nearest_dyadic_reset/exact_first_depth_T_above_half
+ADDED 1 family_RS/B3_memoryless_comparators_post_plan/nearest_dyadic_reset/agreement
+ADDED 1 family_RS/B3_memoryless_comparators_post_plan/nearest_dyadic_reset/exact_first_depth_T_above_half
+ADDED 1 family_RS/B4_memoryless_comparators_post_plan/nearest_dyadic_reset/agreement
+ADDED 1 family_RS/B4_memoryless_comparators_post_plan/nearest_dyadic_reset/exact_first_depth_T_above_half
+ADDED 48 family_RS/persistent_states
+ADDED 45 family_RS/post_plan/certified_fails_before_nearest_dyadic_reset
+ADDED 45 family_RS/post_plan/certified_outlasts_nearest_dyadic_reset
+ADDED 3 family_RS/post_plan/power_rule_exact_checks_at_k1/all_h_up_to
+ADDED 3 family_RS/post_plan/power_rule_exact_checks_at_k1/depths_checked
+ADDED 3 family_RS/post_plan/power_rule_exact_checks_at_k1/max_h
+ADDED 16 floor_truncated_decoder_member_post_review/class_sizes
+ADDED 16 floor_truncated_decoder_member_post_review/least_mismatch
+ADDED 15 floor_truncated_decoder_member_post_review/states
+ADDED 16 floor_truncated_decoder_member_post_review/stationary_agreement_frequency

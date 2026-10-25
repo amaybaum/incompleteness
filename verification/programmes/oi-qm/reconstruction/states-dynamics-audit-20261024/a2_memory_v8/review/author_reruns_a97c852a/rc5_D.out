@@ -1,0 +1,3 @@
+D1_power_rule_exponent_consistent: exit 2; same_as_result=False; VOID: K7 exact product TV inside power-rule bracket
+D4_nearest_dyadic_wrong_neighbour: exit 2; same_as_result=False; VOID: nearest-dyadic i.i.d. reset crosses no earlier than the other neighbour
+D5_lists_against_ceiling: exit 2; same_as_result=False; VOID: comparison flags recomputed from stored depths and the nearest-dyadic crossing

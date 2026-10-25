@@ -434,4 +434,11 @@ D = R/verification/programmes/oi-qm/reconstruction/states-dynamics-audit-2026102
     python3 -I -B D/mutants/targeted_r4.py > t.out && cmp t.out D/mutants/targeted_r4.out
 
 `SHA256SUMS` lists `PLAN.md`, `REPORT.md`, `checks.py`, `result.json`, `PROVENANCE.json`,
-`mutants/run_mutants.py`, `mutants/mutants.out`, `mutants/targeted_r4.py` and `mutants/targeted_r4.out`.
+`mutants/run_mutants.py`, `mutants/mutants.out`, `mutants/targeted_r4.py`, `mutants/targeted_r4.out` and
+`review/SHA256SUMS`.
+
+**Review records.** `review/round1`–`review/round5` hold the five internal reviews of this package. Each holds
+the review report and the scripts and summary outputs its claims cite. `review/author_reruns_a97c852a` holds the
+author's reruns of the reviewer scripts against `a97c852a`, on which this report's statements of those results
+rest. `review/SHA256SUMS` lists them. PROVENANCE.json records, for each file, its source, its digest and any
+rename; no content was redacted.

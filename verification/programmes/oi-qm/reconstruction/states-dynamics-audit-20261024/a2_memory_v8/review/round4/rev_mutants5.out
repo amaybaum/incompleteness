@@ -1,0 +1,7 @@
+L1_k_range_15_both: exit 0; same_as_result=False; {"class_hypothesis":"finite persistent state (carrier, private memory, any clock or record registers read); ti
+L2_k_range_15_main_only: exit 1; same_as_result=False; STDERR:KeyError: 'B2_k16'
+L3_members_swapped: exit 2; same_as_result=False; VOID: audit block TV equals reported
+L3b_member_deleted: exit 1; same_as_result=False; STDERR:KeyError: 'B4_k16'
+L4_tenth_threshold: exit 2; same_as_result=False; VOID: audit recomputed depth equals reported (certified_T_at_most_tenth_for_h_at_most)
+L5_B_range_both: exit 0; same_as_result=False; {"class_hypothesis":"finite persistent state (carrier, private memory, any clock or record registers read); ti
+L6_audit_subset_only: exit 0; same_as_result=False; {"class_hypothesis":"finite persistent state (carrier, private memory, any clock or record registers read); ti
