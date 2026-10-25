@@ -164,6 +164,14 @@
         {
           "file": "papers/GR.md",
           "anchor": "thermodynamic orientation"
+        },
+        {
+          "file": "book/appendix-b-derivations.md",
+          "anchor": "Thus the two Hamiltonian branches follow conditional on H-BG"
+        },
+        {
+          "file": "book/The-Incompleteness-of-Observation-FULL.md",
+          "anchor": "Thus the two Hamiltonian branches follow conditional on H-BG"
         }
       ],
       "note": "GR 3.3: Bohr-frequency completeness, congruent reconstruction, positive six-mode obstruction, antiunitary invariance and thermodynamic orientation are independent kernel results. Full two-branch reconstruction is conditional on the open global sign-aware classification; the unsigned BGIntegerClassification is refuted. The design package landed with #842 is pre-freeze design evidence, not adopted certification."
