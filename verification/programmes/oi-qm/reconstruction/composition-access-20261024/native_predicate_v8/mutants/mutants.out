@@ -1,0 +1,122 @@
+{
+  "all_caught": true,
+  "mutants": [
+    {
+      "admissible_common_R": null,
+      "caught": true,
+      "exit_status": 2,
+      "failed_control": "x1_scalar_evaluator_agrees",
+      "mutant": "m1_scalar_H_or",
+      "target": "x1_scalar_evaluator_agrees",
+      "verdict": "VOID"
+    },
+    {
+      "admissible_common_R": null,
+      "caught": true,
+      "exit_status": 2,
+      "failed_control": "x2_seven_site_inverse",
+      "mutant": "m2_inverse_offset",
+      "target": "x2_seven_site_inverse",
+      "verdict": "VOID"
+    },
+    {
+      "admissible_common_R": null,
+      "caught": true,
+      "exit_status": 2,
+      "failed_control": "x3_planted_positive_found",
+      "mutant": "m3_law_rejects_all",
+      "target": "x3_planted_positive_found",
+      "verdict": "VOID"
+    },
+    {
+      "admissible_common_R": null,
+      "caught": true,
+      "exit_status": 2,
+      "failed_control": "x4_planted_negatives_rejected_and_encodings_accepted",
+      "mutant": "m4a_direct_statistic_accepts_all",
+      "target": "x4_planted_negatives_rejected_and_encodings_accepted",
+      "verdict": "VOID"
+    },
+    {
+      "admissible_common_R": null,
+      "caught": true,
+      "exit_status": 2,
+      "failed_control": "search_decided_family",
+      "mutant": "m4b_law_accepts_any_two_blocks",
+      "target": "search_decided_family|x4",
+      "verdict": "VOID"
+    },
+    {
+      "admissible_common_R": null,
+      "caught": true,
+      "exit_status": 2,
+      "failed_control": "x5_reduction_equals_brute_force",
+      "mutant": "m5_reduction_allows_uncovered_v",
+      "target": "x5_reduction_equals_brute_force",
+      "verdict": "VOID"
+    },
+    {
+      "admissible_common_R": null,
+      "caught": true,
+      "exit_status": 2,
+      "failed_control": "x6",
+      "mutant": "m6_tail_window_shift",
+      "target": "x6",
+      "verdict": "VOID"
+    },
+    {
+      "admissible_common_R": null,
+      "caught": true,
+      "exit_status": 2,
+      "failed_control": "x7_geometry",
+      "mutant": "m7a_actual_source_moved",
+      "target": "x7_geometry",
+      "verdict": "VOID"
+    },
+    {
+      "admissible_common_R": null,
+      "caught": true,
+      "exit_status": 2,
+      "failed_control": "x7_pre_arrival_samples_constant",
+      "mutant": "m7b_arrival_check_late",
+      "target": "x7_pre_arrival_samples_constant",
+      "verdict": "VOID"
+    },
+    {
+      "admissible_common_R": null,
+      "caught": true,
+      "exit_status": 2,
+      "failed_control": "x2_seven_site_inverse",
+      "mutant": "m8_bitsliced_rule_or",
+      "target": "x2|x1",
+      "verdict": "VOID"
+    },
+    {
+      "admissible_common_R": [
+        [
+          "((4, 0, 0), -1)",
+          "((4, 0, 0), 0)",
+          "((4, 0, 0), 1)",
+          "((4, 0, 0), 10)",
+          "((4, 0, 0), 11)",
+          "((4, 0, 0), 12)",
+          "((4, 0, 0), 13)",
+          "((4, 0, 0), 2)",
+          "((4, 0, 0), 3)",
+          "((4, 0, 0), 4)",
+          "((4, 0, 0), 5)",
+          "((4, 0, 0), 6)",
+          "((4, 0, 0), 7)",
+          "((4, 0, 0), 8)",
+          "((4, 0, 0), 9)"
+        ]
+      ],
+      "caught": true,
+      "exit_status": 0,
+      "failed_control": null,
+      "mutant": "m9_inject_A_at_first_G_arrival",
+      "target": "HOLDS_WITHIN_SCOPE",
+      "verdict": "HOLDS_WITHIN_SCOPE"
+    }
+  ]
+}

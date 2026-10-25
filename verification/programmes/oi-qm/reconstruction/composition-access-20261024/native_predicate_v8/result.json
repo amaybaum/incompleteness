@@ -1,0 +1,1202 @@
+{
+  "actual_astronomical_time_simulated": false,
+  "actual_geometry": {
+    "carrier_first_tail_minus_L": {
+      "m": 77,
+      "q10": 79,
+      "q8": 77,
+      "q9": 78,
+      "q9+x": 77,
+      "q9+y": 77,
+      "q9-y": 79
+    },
+    "last_read_actual_time_minus_L": 17,
+    "region_max_first_tail_minus_L": 82,
+    "region_min_first_G_minus_L": -2,
+    "region_min_first_tail_minus_L": 74,
+    "scaled_G_arrival_equals_actual_minus_L_plus_n": true
+  },
+  "all_required_controls_pass": true,
+  "common_stream_closed_admissible_R": [],
+  "common_stream_closed_candidates": 0,
+  "families": [
+    {
+      "admissible_R_count": 0,
+      "admissible_R_exists": false,
+      "heralded_single_site_times": 0,
+      "law_good_partitions_per_v": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "max_blocks_given_V_histogram": {
+        "1": 2224,
+        "2": 3,
+        "3": 6,
+        "4": 16,
+        "5": 24,
+        "6": 26,
+        "7": 3,
+        "8": 923
+      },
+      "native_table_sha256": "91962af8d9c8d8446d296c5b881089accb9296e05de43dc064cbad1cbf93f0f7",
+      "nontrivial_two_block_cells_reported_only": [
+        {
+          "G_arrival_slice": 6,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            -2,
+            -1,
+            -1
+          ],
+          "slice": 6
+        },
+        {
+          "G_arrival_slice": 6,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            -2,
+            0,
+            0
+          ],
+          "slice": 6
+        },
+        {
+          "G_arrival_slice": 10,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            2,
+            0,
+            0
+          ],
+          "slice": 10
+        }
+      ],
+      "nontrivial_two_block_or_trivial_cells": 3,
+      "old_q9": 1,
+      "old_sign": 0,
+      "read_site_times": 3225,
+      "seed": 3,
+      "two_block_or_trivial_cells": 2227,
+      "v6_A_function_of_V_and_single_site_time": 0,
+      "worlds": 512,
+      "x1_scalar_worlds": 3
+    },
+    {
+      "admissible_R_count": 0,
+      "admissible_R_exists": false,
+      "heralded_single_site_times": 0,
+      "law_good_partitions_per_v": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "max_blocks_given_V_histogram": {
+        "1": 2224,
+        "2": 2,
+        "3": 3,
+        "4": 19,
+        "5": 29,
+        "6": 26,
+        "8": 922
+      },
+      "native_table_sha256": "67365e0cdbb0741b9a59c08d7ac1b7dcaa4a25caaaea2ea20c329b54dbd71329",
+      "nontrivial_two_block_cells_reported_only": [
+        {
+          "G_arrival_slice": 6,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            -2,
+            0,
+            0
+          ],
+          "slice": 6
+        },
+        {
+          "G_arrival_slice": 10,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            2,
+            0,
+            0
+          ],
+          "slice": 10
+        }
+      ],
+      "nontrivial_two_block_or_trivial_cells": 2,
+      "old_q9": 3,
+      "old_sign": 1,
+      "read_site_times": 3225,
+      "seed": 6,
+      "two_block_or_trivial_cells": 2226,
+      "v6_A_function_of_V_and_single_site_time": 0,
+      "worlds": 512,
+      "x1_scalar_worlds": 3
+    },
+    {
+      "admissible_R_count": 0,
+      "admissible_R_exists": false,
+      "heralded_single_site_times": 0,
+      "law_good_partitions_per_v": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "max_blocks_given_V_histogram": {
+        "1": 2224,
+        "2": 2,
+        "3": 3,
+        "4": 21,
+        "5": 33,
+        "6": 19,
+        "7": 1,
+        "8": 922
+      },
+      "native_table_sha256": "a2a613ef18d6af094ee2d45d081a6d1ed6e7f8a095478520f9dd73e3a74fed2e",
+      "nontrivial_two_block_cells_reported_only": [
+        {
+          "G_arrival_slice": 6,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            -2,
+            0,
+            0
+          ],
+          "slice": 6
+        },
+        {
+          "G_arrival_slice": 10,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            2,
+            0,
+            0
+          ],
+          "slice": 10
+        }
+      ],
+      "nontrivial_two_block_or_trivial_cells": 2,
+      "old_q9": 2,
+      "old_sign": 1,
+      "read_site_times": 3225,
+      "seed": 7,
+      "two_block_or_trivial_cells": 2226,
+      "v6_A_function_of_V_and_single_site_time": 0,
+      "worlds": 512,
+      "x1_scalar_worlds": 3
+    },
+    {
+      "admissible_R_count": 0,
+      "admissible_R_exists": false,
+      "heralded_single_site_times": 0,
+      "law_good_partitions_per_v": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "max_blocks_given_V_histogram": {
+        "1": 2224,
+        "2": 3,
+        "3": 2,
+        "4": 17,
+        "5": 29,
+        "6": 24,
+        "7": 4,
+        "8": 922
+      },
+      "native_table_sha256": "579d2fa63d77121a42677ee7f5ad5a1fad4a866e219bc30959ebaa5bea0dfb9a",
+      "nontrivial_two_block_cells_reported_only": [
+        {
+          "G_arrival_slice": 6,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            -2,
+            0,
+            -2
+          ],
+          "slice": 6
+        },
+        {
+          "G_arrival_slice": 6,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            -2,
+            0,
+            0
+          ],
+          "slice": 6
+        },
+        {
+          "G_arrival_slice": 10,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            2,
+            0,
+            0
+          ],
+          "slice": 10
+        }
+      ],
+      "nontrivial_two_block_or_trivial_cells": 3,
+      "old_q9": 2,
+      "old_sign": 1,
+      "read_site_times": 3225,
+      "seed": 8,
+      "two_block_or_trivial_cells": 2227,
+      "v6_A_function_of_V_and_single_site_time": 0,
+      "worlds": 512,
+      "x1_scalar_worlds": 3
+    },
+    {
+      "admissible_R_count": 0,
+      "admissible_R_exists": false,
+      "heralded_single_site_times": 0,
+      "law_good_partitions_per_v": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "max_blocks_given_V_histogram": {
+        "1": 2224,
+        "2": 4,
+        "3": 5,
+        "4": 17,
+        "5": 30,
+        "6": 23,
+        "7": 1,
+        "8": 921
+      },
+      "native_table_sha256": "380e1f0534bc6cc59fa0b29278f8ab8fce5ce985dd995966cfd44fdbfe9aea4d",
+      "nontrivial_two_block_cells_reported_only": [
+        {
+          "G_arrival_slice": 6,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            -2,
+            -1,
+            -1
+          ],
+          "slice": 6
+        },
+        {
+          "G_arrival_slice": 6,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            -2,
+            0,
+            0
+          ],
+          "slice": 6
+        },
+        {
+          "G_arrival_slice": 6,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            -2,
+            1,
+            -1
+          ],
+          "slice": 6
+        },
+        {
+          "G_arrival_slice": 10,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            2,
+            0,
+            0
+          ],
+          "slice": 10
+        }
+      ],
+      "nontrivial_two_block_or_trivial_cells": 4,
+      "old_q9": 2,
+      "old_sign": 1,
+      "read_site_times": 3225,
+      "seed": 9,
+      "two_block_or_trivial_cells": 2228,
+      "v6_A_function_of_V_and_single_site_time": 0,
+      "worlds": 512,
+      "x1_scalar_worlds": 3
+    },
+    {
+      "admissible_R_count": 0,
+      "admissible_R_exists": false,
+      "heralded_single_site_times": 0,
+      "law_good_partitions_per_v": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "max_blocks_given_V_histogram": {
+        "1": 2224,
+        "2": 2,
+        "3": 8,
+        "4": 22,
+        "5": 29,
+        "6": 16,
+        "7": 2,
+        "8": 922
+      },
+      "native_table_sha256": "51b07f7a8843d2c28bfad52894ce677f27ec134d23ab462823e05e9537b44886",
+      "nontrivial_two_block_cells_reported_only": [
+        {
+          "G_arrival_slice": 6,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            -2,
+            0,
+            0
+          ],
+          "slice": 6
+        },
+        {
+          "G_arrival_slice": 10,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            2,
+            0,
+            0
+          ],
+          "slice": 10
+        }
+      ],
+      "nontrivial_two_block_or_trivial_cells": 2,
+      "old_q9": 0,
+      "old_sign": 0,
+      "read_site_times": 3225,
+      "seed": 10,
+      "two_block_or_trivial_cells": 2226,
+      "v6_A_function_of_V_and_single_site_time": 0,
+      "worlds": 512,
+      "x1_scalar_worlds": 3
+    },
+    {
+      "admissible_R_count": 0,
+      "admissible_R_exists": false,
+      "heralded_single_site_times": 0,
+      "law_good_partitions_per_v": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "max_blocks_given_V_histogram": {
+        "1": 2226,
+        "2": 6,
+        "3": 5,
+        "4": 19,
+        "5": 30,
+        "6": 13,
+        "7": 1,
+        "8": 925
+      },
+      "native_table_sha256": "0ca5a291e9a5df1a99d15e9aa9d645cbace45b2ada82dabc859934b72ddda156",
+      "nontrivial_two_block_cells_reported_only": [
+        {
+          "G_arrival_slice": 6,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            -2,
+            -1,
+            -1
+          ],
+          "slice": 6
+        },
+        {
+          "G_arrival_slice": 6,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            -2,
+            0,
+            0
+          ],
+          "slice": 6
+        },
+        {
+          "G_arrival_slice": 9,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            0,
+            -2,
+            -1
+          ],
+          "slice": 9
+        },
+        {
+          "G_arrival_slice": 10,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            0,
+            0,
+            4
+          ],
+          "slice": 10
+        },
+        {
+          "G_arrival_slice": 10,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            2,
+            0,
+            0
+          ],
+          "slice": 10
+        },
+        {
+          "G_arrival_slice": 10,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            2,
+            0,
+            2
+          ],
+          "slice": 10
+        }
+      ],
+      "nontrivial_two_block_or_trivial_cells": 6,
+      "old_q9": 0,
+      "old_sign": 0,
+      "read_site_times": 3225,
+      "seed": 14,
+      "two_block_or_trivial_cells": 2232,
+      "v6_A_function_of_V_and_single_site_time": 0,
+      "worlds": 512,
+      "x1_scalar_worlds": 3
+    },
+    {
+      "admissible_R_count": 0,
+      "admissible_R_exists": false,
+      "heralded_single_site_times": 0,
+      "law_good_partitions_per_v": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "max_blocks_given_V_histogram": {
+        "1": 2224,
+        "2": 2,
+        "3": 4,
+        "4": 12,
+        "5": 28,
+        "6": 27,
+        "7": 7,
+        "8": 921
+      },
+      "native_table_sha256": "b90da54cd0b2b8bbcc7c56b5d2a33830952d51ed9ca576a6bc6a585646f82d0f",
+      "nontrivial_two_block_cells_reported_only": [
+        {
+          "G_arrival_slice": 6,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            -2,
+            0,
+            0
+          ],
+          "slice": 6
+        },
+        {
+          "G_arrival_slice": 10,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            2,
+            0,
+            0
+          ],
+          "slice": 10
+        }
+      ],
+      "nontrivial_two_block_or_trivial_cells": 2,
+      "old_q9": 0,
+      "old_sign": 0,
+      "read_site_times": 3225,
+      "seed": 15,
+      "two_block_or_trivial_cells": 2226,
+      "v6_A_function_of_V_and_single_site_time": 0,
+      "worlds": 512,
+      "x1_scalar_worlds": 3
+    },
+    {
+      "admissible_R_count": 0,
+      "admissible_R_exists": false,
+      "heralded_single_site_times": 0,
+      "law_good_partitions_per_v": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "max_blocks_given_V_histogram": {
+        "1": 2224,
+        "2": 2,
+        "3": 4,
+        "4": 19,
+        "5": 31,
+        "6": 21,
+        "7": 2,
+        "8": 922
+      },
+      "native_table_sha256": "f250e2b9f2c3fe831b563db8da6692c100838420d8d159c12c23b8f8785fbd35",
+      "nontrivial_two_block_cells_reported_only": [
+        {
+          "G_arrival_slice": 6,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            -2,
+            0,
+            0
+          ],
+          "slice": 6
+        },
+        {
+          "G_arrival_slice": 10,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            2,
+            0,
+            0
+          ],
+          "slice": 10
+        }
+      ],
+      "nontrivial_two_block_or_trivial_cells": 2,
+      "old_q9": 3,
+      "old_sign": 1,
+      "read_site_times": 3225,
+      "seed": 16,
+      "two_block_or_trivial_cells": 2226,
+      "v6_A_function_of_V_and_single_site_time": 0,
+      "worlds": 512,
+      "x1_scalar_worlds": 3
+    },
+    {
+      "admissible_R_count": 0,
+      "admissible_R_exists": false,
+      "heralded_single_site_times": 0,
+      "law_good_partitions_per_v": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "max_blocks_given_V_histogram": {
+        "1": 2224,
+        "2": 2,
+        "3": 3,
+        "4": 19,
+        "5": 34,
+        "6": 11,
+        "7": 9,
+        "8": 923
+      },
+      "native_table_sha256": "63a700c89ece3f123d65d72ff5848ee353eca35fa3a518906545b83bf5a56ceb",
+      "nontrivial_two_block_cells_reported_only": [
+        {
+          "G_arrival_slice": 6,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            -2,
+            0,
+            0
+          ],
+          "slice": 6
+        },
+        {
+          "G_arrival_slice": 10,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            2,
+            0,
+            0
+          ],
+          "slice": 10
+        }
+      ],
+      "nontrivial_two_block_or_trivial_cells": 2,
+      "old_q9": 1,
+      "old_sign": 0,
+      "read_site_times": 3225,
+      "seed": 18,
+      "two_block_or_trivial_cells": 2226,
+      "v6_A_function_of_V_and_single_site_time": 0,
+      "worlds": 512,
+      "x1_scalar_worlds": 3
+    },
+    {
+      "admissible_R_count": 0,
+      "admissible_R_exists": false,
+      "heralded_single_site_times": 0,
+      "law_good_partitions_per_v": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "max_blocks_given_V_histogram": {
+        "1": 2224,
+        "2": 2,
+        "3": 4,
+        "4": 14,
+        "5": 33,
+        "6": 25,
+        "7": 2,
+        "8": 921
+      },
+      "native_table_sha256": "5734d71bbe37e18e66288f04c8d4c580d6df7804142a3938a9d3a002034dbc44",
+      "nontrivial_two_block_cells_reported_only": [
+        {
+          "G_arrival_slice": 6,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            -2,
+            0,
+            0
+          ],
+          "slice": 6
+        },
+        {
+          "G_arrival_slice": 10,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            2,
+            0,
+            0
+          ],
+          "slice": 10
+        }
+      ],
+      "nontrivial_two_block_or_trivial_cells": 2,
+      "old_q9": 2,
+      "old_sign": 1,
+      "read_site_times": 3225,
+      "seed": 20,
+      "two_block_or_trivial_cells": 2226,
+      "v6_A_function_of_V_and_single_site_time": 0,
+      "worlds": 512,
+      "x1_scalar_worlds": 3
+    },
+    {
+      "admissible_R_count": 0,
+      "admissible_R_exists": false,
+      "heralded_single_site_times": 0,
+      "law_good_partitions_per_v": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "max_blocks_given_V_histogram": {
+        "1": 2224,
+        "2": 3,
+        "3": 4,
+        "4": 20,
+        "5": 32,
+        "6": 18,
+        "7": 2,
+        "8": 922
+      },
+      "native_table_sha256": "77336cff70b51b3482dce09a04e3b15eb7934e032181b418f17fe7cf0f6e8fc1",
+      "nontrivial_two_block_cells_reported_only": [
+        {
+          "G_arrival_slice": 6,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            -2,
+            0,
+            0
+          ],
+          "slice": 6
+        },
+        {
+          "G_arrival_slice": 9,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            0,
+            -2,
+            -1
+          ],
+          "slice": 9
+        },
+        {
+          "G_arrival_slice": 10,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            2,
+            0,
+            0
+          ],
+          "slice": 10
+        }
+      ],
+      "nontrivial_two_block_or_trivial_cells": 3,
+      "old_q9": 3,
+      "old_sign": 1,
+      "read_site_times": 3225,
+      "seed": 28,
+      "two_block_or_trivial_cells": 2227,
+      "v6_A_function_of_V_and_single_site_time": 0,
+      "worlds": 512,
+      "x1_scalar_worlds": 3
+    },
+    {
+      "admissible_R_count": 0,
+      "admissible_R_exists": false,
+      "heralded_single_site_times": 0,
+      "law_good_partitions_per_v": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "max_blocks_given_V_histogram": {
+        "1": 2224,
+        "2": 3,
+        "3": 3,
+        "4": 19,
+        "5": 27,
+        "6": 23,
+        "7": 4,
+        "8": 922
+      },
+      "native_table_sha256": "4be4ec778aa0020f0b656bac7b5dd9458b61fb49b397aa6ee8a2eadd945e699a",
+      "nontrivial_two_block_cells_reported_only": [
+        {
+          "G_arrival_slice": 6,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            -2,
+            0,
+            0
+          ],
+          "slice": 6
+        },
+        {
+          "G_arrival_slice": 6,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            -2,
+            0,
+            2
+          ],
+          "slice": 6
+        },
+        {
+          "G_arrival_slice": 10,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            2,
+            0,
+            0
+          ],
+          "slice": 10
+        }
+      ],
+      "nontrivial_two_block_or_trivial_cells": 3,
+      "old_q9": 0,
+      "old_sign": 0,
+      "read_site_times": 3225,
+      "seed": 31,
+      "two_block_or_trivial_cells": 2227,
+      "v6_A_function_of_V_and_single_site_time": 0,
+      "worlds": 512,
+      "x1_scalar_worlds": 3
+    },
+    {
+      "admissible_R_count": 0,
+      "admissible_R_exists": false,
+      "heralded_single_site_times": 0,
+      "law_good_partitions_per_v": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "max_blocks_given_V_histogram": {
+        "1": 2224,
+        "2": 2,
+        "3": 3,
+        "4": 13,
+        "5": 30,
+        "6": 25,
+        "7": 5,
+        "8": 923
+      },
+      "native_table_sha256": "207cc2db8ad69a701659d8f7634b14a7080dae5d47559568ddce4d5a11a9a0b2",
+      "nontrivial_two_block_cells_reported_only": [
+        {
+          "G_arrival_slice": 6,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            -2,
+            0,
+            0
+          ],
+          "slice": 6
+        },
+        {
+          "G_arrival_slice": 10,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            2,
+            0,
+            0
+          ],
+          "slice": 10
+        }
+      ],
+      "nontrivial_two_block_or_trivial_cells": 2,
+      "old_q9": 0,
+      "old_sign": 0,
+      "read_site_times": 3225,
+      "seed": 32,
+      "two_block_or_trivial_cells": 2226,
+      "v6_A_function_of_V_and_single_site_time": 0,
+      "worlds": 512,
+      "x1_scalar_worlds": 3
+    },
+    {
+      "admissible_R_count": 0,
+      "admissible_R_exists": false,
+      "heralded_single_site_times": 0,
+      "law_good_partitions_per_v": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "max_blocks_given_V_histogram": {
+        "1": 2224,
+        "2": 4,
+        "3": 3,
+        "4": 22,
+        "5": 24,
+        "6": 19,
+        "7": 6,
+        "8": 923
+      },
+      "native_table_sha256": "71f673af7520cf1d879e2be5abe87a9cc249fe010b83ca76de21c30ea1b91639",
+      "nontrivial_two_block_cells_reported_only": [
+        {
+          "G_arrival_slice": 6,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            -2,
+            0,
+            -2
+          ],
+          "slice": 6
+        },
+        {
+          "G_arrival_slice": 6,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            -2,
+            0,
+            0
+          ],
+          "slice": 6
+        },
+        {
+          "G_arrival_slice": 9,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            0,
+            -1,
+            2
+          ],
+          "slice": 9
+        },
+        {
+          "G_arrival_slice": 10,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            2,
+            0,
+            0
+          ],
+          "slice": 10
+        }
+      ],
+      "nontrivial_two_block_or_trivial_cells": 4,
+      "old_q9": 0,
+      "old_sign": 0,
+      "read_site_times": 3225,
+      "seed": 33,
+      "two_block_or_trivial_cells": 2228,
+      "v6_A_function_of_V_and_single_site_time": 0,
+      "worlds": 512,
+      "x1_scalar_worlds": 3
+    },
+    {
+      "admissible_R_count": 0,
+      "admissible_R_exists": false,
+      "heralded_single_site_times": 0,
+      "law_good_partitions_per_v": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "max_blocks_given_V_histogram": {
+        "1": 2224,
+        "2": 3,
+        "3": 3,
+        "4": 16,
+        "5": 34,
+        "6": 20,
+        "7": 2,
+        "8": 923
+      },
+      "native_table_sha256": "059538b4d04cc8a56612e180daece75768898df99de137c5990efe009b0acea8",
+      "nontrivial_two_block_cells_reported_only": [
+        {
+          "G_arrival_slice": 6,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            -2,
+            -1,
+            -1
+          ],
+          "slice": 6
+        },
+        {
+          "G_arrival_slice": 6,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            -2,
+            0,
+            0
+          ],
+          "slice": 6
+        },
+        {
+          "G_arrival_slice": 10,
+          "V_values_split": 8,
+          "V_values_with_target_law": 0,
+          "offset": [
+            2,
+            0,
+            0
+          ],
+          "slice": 10
+        }
+      ],
+      "nontrivial_two_block_or_trivial_cells": 3,
+      "old_q9": 2,
+      "old_sign": 1,
+      "read_site_times": 3225,
+      "seed": 37,
+      "two_block_or_trivial_cells": 2227,
+      "v6_A_function_of_V_and_single_site_time": 0,
+      "worlds": 512,
+      "x1_scalar_worlds": 3
+    }
+  ],
+  "families_with_no_admissible_R": 16,
+  "native_storage_or_compilation_established": false,
+  "observer_access_rule_adopted": false,
+  "planted_controls": {
+    "x3_planted_positive_found": true,
+    "x4_planted_negatives_rejected_and_encodings_accepted": true,
+    "x5_passing_subsets": 28,
+    "x5_reduction_equals_brute_force": true,
+    "x5_subsets_compared": 2046
+  },
+  "post_plan_rows": [
+    "nontrivial_two_block_cells_reported_only, per family, reported only"
+  ],
+  "required_controls": {
+    "x1_scalar_evaluator_agrees": true,
+    "x2_native_A_pool_and_inverse": true,
+    "x3_planted_positive_found": true,
+    "x4_planted_negatives_rejected_and_encodings_accepted": true,
+    "x5_reduction_equals_brute_force": true,
+    "x6_carrier_first_tail_table_equals_v7": true,
+    "x7_pre_arrival_samples_constant": true,
+    "x7_reads_tail_free_at_actual_L": true
+  },
+  "scaled_parameters": {
+    "dirty_initial_radius": 27,
+    "last_read_slice": 23,
+    "n": 6,
+    "read_site_times": 3225,
+    "region_sites": 129,
+    "rho": 4,
+    "tau_max": 16
+  },
+  "schema": "oi-passive-native-readout-predicate-v8.0",
+  "scope": "class C(4,16): any set of whole native triples within distance 4 of q9, read through L+17, with the single whole-V record; scaled dirty families, conditional on C0; no gates, pads or added sources",
+  "verdict": "NEGATIVE_FOR_CONSTRUCTION",
+  "zero_background_diagnostic": {
+    "admissible_R_count": 0,
+    "admissible_R_exists": false,
+    "heralded_single_site_times": 0,
+    "law_good_partitions_per_v": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "max_blocks_given_V_histogram": {
+      "1": 2280,
+      "2": 2,
+      "4": 2,
+      "5": 2,
+      "7": 2,
+      "8": 937
+    },
+    "native_table_sha256": "79763150529edfcb20e8a66402029a6c126e24ccea619daf3476e70e347b4aeb",
+    "nontrivial_two_block_cells_reported_only": [
+      {
+        "G_arrival_slice": 6,
+        "V_values_split": 8,
+        "V_values_with_target_law": 0,
+        "offset": [
+          -2,
+          0,
+          0
+        ],
+        "slice": 6
+      },
+      {
+        "G_arrival_slice": 10,
+        "V_values_split": 8,
+        "V_values_with_target_law": 0,
+        "offset": [
+          2,
+          0,
+          0
+        ],
+        "slice": 10
+      }
+    ],
+    "nontrivial_two_block_or_trivial_cells": 2,
+    "old_q9": 0,
+    "old_sign": 0,
+    "read_site_times": 3225,
+    "seed": 0,
+    "two_block_or_trivial_cells": 2282,
+    "v6_A_function_of_V_and_single_site_time": 0,
+    "worlds": 512,
+    "x1_scalar_worlds": 3
+  }
+}
