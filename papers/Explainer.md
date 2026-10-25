@@ -1,11 +1,6 @@
 # The Incompleteness of Observation
 
-*[Status note, 2026-07-26: this companion overview is superseded by the book, `book/`, which
-now carries its content in maintained form, and is frozen at this revision — it will not be
-updated in subsequent releases, and where it and the book disagree, the book is authoritative.
-Two elements are for now available only here: the D-gauge walkthrough (§5.3
-below) and the mathematical summary tables of the appendix, pending their incorporation into
-the book.]*
+*[Document status. This Explainer is retained as a supplementary historical exposition. The maintained book and technical papers supersede it as authoritative statements of the theory. Where formulations differ, consult those sources and their cited verification records.]*
 
 ### Why Physics' Biggest Contradiction Might Not Be a Contradiction at All
 ### With Complete Mathematical Detail
