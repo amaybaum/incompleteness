@@ -1,0 +1,4 @@
+old 1183 new 1181 changed 1 removed 2 added 0
+CHANGED schema | oi.a2-bounded-memory-v8.v6 -> oi.a2-bounded-memory-v8.v7
+REMOVED independent_certificate_audit_post_recheck2/scope/plan_pin_crosschecks/plan_commit_blob
+REMOVED independent_certificate_audit_post_recheck2/scope/plan_pin_crosschecks/provenance_plan_sha256

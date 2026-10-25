@@ -107,7 +107,8 @@
     "changes": [
       "--verify-plan-commit reads only objects already in the local store (git cat-file --batch-all-objects lists them without fetching; commit, trees and blob are read only after being found there); a missing object is VOID; GIT_NO_LAZY_FETCH alone is not relied on (git 2.43 ignores it)",
       "targeted mutant MT4 (PLAN.md blob treated as absent locally) added; the targeted runner checks that the object store is unchanged by every mutant run",
-      "REPORT: the SHA256SUMS clause dropped; the git history at 1dfec979 is the independent anchor"
+      "REPORT: the SHA256SUMS clause dropped; the git history at 1dfec979 is the independent anchor",
+      "review retention: round2/rev_mutants.py restored byte-identical with the duplication noted; re-checks 5 and 6 retained as round6 and round7 with path redactions recorded; redundant outputs compared and not retained"
     ],
     "review": "independent sixth re-check of 70faede0..3ca0d8ba on #911, ACCEPT WITH NITS"
   },
@@ -135,7 +136,7 @@
     "paths are relative to the repository root; run from an empty working directory with those paths made absolute"
   ],
   "review_retention": {
-    "deduplicated": "review/round2/rev_mutants.py was byte-identical to review/round1/rev_mutants.py (sha256 cbe2d6a11d17e5cf961564ff9bde432ee1fe77880a798512c01e9f5705ccd222) and is removed; the round2 report and review/round2/rev_mutants.out refer to that one script",
+    "duplication_noted": "review/round2/rev_mutants.py is byte-identical to review/round1/rev_mutants.py (sha256 cbe2d6a11d17e5cf961564ff9bde432ee1fe77880a798512c01e9f5705ccd222); both are kept as retained, the round2 copy having been removed in 12863de8 and restored byte-identical at the same path",
     "files": [
       {
         "original_sha256": "c564300ef255448812c1b5b0b1c94cf0149e25c7b64982c765e9b19dd7d0bd37",
@@ -528,6 +529,246 @@
         "retained_sha256": "f94fc71734388386ff2bfed42f9b8913f45269aefe0b8b2d0b68147f8f9855c3",
         "round": "rounds 3 and 4",
         "source": "author extraction from the reviewers per-mutant outputs (round3 work/rmut3/*/run2/out.json, round4 work/rmut5/*/run/out.json; not retained), with each source digest recorded inside"
+      },
+      {
+        "original_sha256": "cbe2d6a11d17e5cf961564ff9bde432ee1fe77880a798512c01e9f5705ccd222",
+        "redaction": "none",
+        "retained": "review/round2/rev_mutants.py",
+        "retained_sha256": "cbe2d6a11d17e5cf961564ff9bde432ee1fe77880a798512c01e9f5705ccd222",
+        "round": "re-check of fb05dea8",
+        "source": "reviewer scratch: review directory/recheck/rev_mutants.py"
+      },
+      {
+        "original_sha256": "dd1eb55a8ffacc982a72b2394420dbad680cc2cef4c81ea52d7f77e96e8bc6da",
+        "redaction": "none; renamed from REVIEW.md",
+        "retained": "review/round6/REPORT.md",
+        "retained_sha256": "dd1eb55a8ffacc982a72b2394420dbad680cc2cef4c81ea52d7f77e96e8bc6da",
+        "round": "re-check 5 of 70faede0",
+        "source": "reviewer scratch: review directory/recheck5/REVIEW.md"
+      },
+      {
+        "original_sha256": "2202db639c06df7155d22b3ce45369e27d4e075245bce05a54ea99e808fc845b",
+        "redaction": "none",
+        "retained": "review/round6/leafdiff.out",
+        "retained_sha256": "2202db639c06df7155d22b3ce45369e27d4e075245bce05a54ea99e808fc845b",
+        "round": "re-check 5 of 70faede0",
+        "source": "reviewer scratch: review directory/recheck5/leafdiff.out"
+      },
+      {
+        "original_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "redaction": "none",
+        "retained": "review/round6/work/A/st.txt",
+        "retained_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "round": "re-check 5 of 70faede0",
+        "source": "reviewer scratch: review directory/recheck5/work/A/st.txt"
+      },
+      {
+        "original_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "redaction": "none",
+        "retained": "review/round6/work/B/st.txt",
+        "retained_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "round": "re-check 5 of 70faede0",
+        "source": "reviewer scratch: review directory/recheck5/work/B/st.txt"
+      },
+      {
+        "original_sha256": "fe8b363f973e8bc55843a5412ef031378624b518ccf3e5a20d417e86f31fe9d7",
+        "redaction": "scratch paths replaced: '<scratch>/rev911d/recheck5/tree/' -> '<review export of the reviewed commit>/'",
+        "retained": "review/round6/work/Cx/st.txt",
+        "retained_sha256": "78c5fe7b8536ebd2461e2b4768ad182c7a7d6a894aaf2c584c3d69dfac8c1787",
+        "round": "re-check 5 of 70faede0",
+        "source": "reviewer scratch: review directory/recheck5/work/Cx/st.txt"
+      },
+      {
+        "original_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "redaction": "none",
+        "retained": "review/round6/work/Dt/st.txt",
+        "retained_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "round": "re-check 5 of 70faede0",
+        "source": "reviewer scratch: review directory/recheck5/work/Dt/st.txt"
+      },
+      {
+        "original_sha256": "1226cb984a3e14dbe5ec7b99d9080de9606f4e7634ca7e3d43aa57e8ed20e491",
+        "redaction": "none",
+        "retained": "review/round6/work/Dt/t.out",
+        "retained_sha256": "1226cb984a3e14dbe5ec7b99d9080de9606f4e7634ca7e3d43aa57e8ed20e491",
+        "round": "re-check 5 of 70faede0",
+        "source": "reviewer scratch: review directory/recheck5/work/Dt/t.out"
+      },
+      {
+        "original_sha256": "0c6868c2c44f053619cef1cc383e1d530743b574ca192ace9168a9ccf46a86e3",
+        "redaction": "none",
+        "retained": "review/round6/work/Et/st.txt",
+        "retained_sha256": "0c6868c2c44f053619cef1cc383e1d530743b574ca192ace9168a9ccf46a86e3",
+        "round": "re-check 5 of 70faede0",
+        "source": "reviewer scratch: review directory/recheck5/work/Et/st.txt"
+      },
+      {
+        "original_sha256": "ff6205a63bb902d2c94b05909149e1003d4c0043e8fb0b7f71e64c2d7ed5023c",
+        "redaction": "none",
+        "retained": "review/round6/work/Et/t.out",
+        "retained_sha256": "ff6205a63bb902d2c94b05909149e1003d4c0043e8fb0b7f71e64c2d7ed5023c",
+        "round": "re-check 5 of 70faede0",
+        "source": "reviewer scratch: review directory/recheck5/work/Et/t.out"
+      },
+      {
+        "original_sha256": "e48ab0e7703e68876a85758d438c2640e1ec6e6d9f66c95261ceb353ad982020",
+        "redaction": "none; renamed from REVIEW.md",
+        "retained": "review/round7/REPORT.md",
+        "retained_sha256": "e48ab0e7703e68876a85758d438c2640e1ec6e6d9f66c95261ceb353ad982020",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/REVIEW.md"
+      },
+      {
+        "original_sha256": "ff79249aed2ee9e5d7be126410e05e7225aca8d4e65fdd2f88e02a1add57a14d",
+        "redaction": "none",
+        "retained": "review/round7/check_pmn.py",
+        "retained_sha256": "ff79249aed2ee9e5d7be126410e05e7225aca8d4e65fdd2f88e02a1add57a14d",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/check_pmn.py"
+      },
+      {
+        "original_sha256": "9093ccb903c6231997c7980496eab26e83611c01d5b53d29e06739070af6ffa6",
+        "redaction": "none",
+        "retained": "review/round7/leafdiff.out",
+        "retained_sha256": "9093ccb903c6231997c7980496eab26e83611c01d5b53d29e06739070af6ffa6",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/leafdiff.out"
+      },
+      {
+        "original_sha256": "29f6f863ff62e6ffc19936f5d97458f77de0b42876f7f624de9e4a8973fa2cf9",
+        "redaction": "scratch paths replaced: '<scratch>/rev911d/recheck6/work/' -> '<review work directory>/'; '<scratch>/p911/repo/' -> '<clone>/'",
+        "retained": "review/round7/fakebin/git",
+        "retained_sha256": "4991d1a677757324861f259d4e5766deccc611ead38f84f4c02c4127c03d8124",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/fakebin/git"
+      },
+      {
+        "original_sha256": "8a19aa4020df84d009cacb372f146ee30b7800415314ae7468865f0a0a5059ef",
+        "redaction": "scratch paths replaced: '<scratch>/rev911d/recheck6/work/' -> '<review work directory>/'; '<scratch>/p911/repo/' -> '<clone>/'",
+        "retained": "review/round7/work/fakegit.log",
+        "retained_sha256": "a3b369f2a5ca08c525b9a5b3871c7107d46b7c60792b3db130fe46b1948e25bb",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/fakegit.log"
+      },
+      {
+        "original_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "redaction": "none",
+        "retained": "review/round7/work/cN/st.txt",
+        "retained_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/cN/st.txt"
+      },
+      {
+        "original_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "redaction": "none",
+        "retained": "review/round7/work/cO/st.txt",
+        "retained_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/cO/st.txt"
+      },
+      {
+        "original_sha256": "a664aa78198d80e999c26b92bb106ccf405c72d2b19411b6e669a5ad1b921d15",
+        "redaction": "none",
+        "retained": "review/round7/work/eN/st.txt",
+        "retained_sha256": "a664aa78198d80e999c26b92bb106ccf405c72d2b19411b6e669a5ad1b921d15",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/eN/st.txt"
+      },
+      {
+        "original_sha256": "a664aa78198d80e999c26b92bb106ccf405c72d2b19411b6e669a5ad1b921d15",
+        "redaction": "none",
+        "retained": "review/round7/work/eO/st.txt",
+        "retained_sha256": "a664aa78198d80e999c26b92bb106ccf405c72d2b19411b6e669a5ad1b921d15",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/eO/st.txt"
+      },
+      {
+        "original_sha256": "6f0a69cce28176ef9e4a7b1c295e72aa6497ff9682cdf8b390960f6bc1df7c64",
+        "redaction": "none",
+        "retained": "review/round7/work/optC/err.txt",
+        "retained_sha256": "6f0a69cce28176ef9e4a7b1c295e72aa6497ff9682cdf8b390960f6bc1df7c64",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/optC/err.txt"
+      },
+      {
+        "original_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "redaction": "none",
+        "retained": "review/round7/work/optC/st.txt",
+        "retained_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/optC/st.txt"
+      },
+      {
+        "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "redaction": "none",
+        "retained": "review/round7/work/optE/err.txt",
+        "retained_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/optE/err.txt"
+      },
+      {
+        "original_sha256": "f3b50325bc76f71f56c8accf4719e3b2126f29398454424efa7d228906cae44f",
+        "redaction": "none",
+        "retained": "review/round7/work/optE/out.txt",
+        "retained_sha256": "f3b50325bc76f71f56c8accf4719e3b2126f29398454424efa7d228906cae44f",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/optE/out.txt"
+      },
+      {
+        "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "redaction": "none",
+        "retained": "review/round7/work/optF/err.txt",
+        "retained_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/optF/err.txt"
+      },
+      {
+        "original_sha256": "f3b50325bc76f71f56c8accf4719e3b2126f29398454424efa7d228906cae44f",
+        "redaction": "none",
+        "retained": "review/round7/work/optF/out.txt",
+        "retained_sha256": "f3b50325bc76f71f56c8accf4719e3b2126f29398454424efa7d228906cae44f",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/optF/out.txt"
+      },
+      {
+        "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "redaction": "none",
+        "retained": "review/round7/work/optG/err.txt",
+        "retained_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/optG/err.txt"
+      },
+      {
+        "original_sha256": "24de095bd45f3dd9c6027a232c18eeb83a3f75920f4f290a8f07a38e9489d36e",
+        "redaction": "none",
+        "retained": "review/round7/work/optG/out.txt",
+        "retained_sha256": "24de095bd45f3dd9c6027a232c18eeb83a3f75920f4f290a8f07a38e9489d36e",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/optG/out.txt"
+      },
+      {
+        "original_sha256": "f94fc71734388386ff2bfed42f9b8913f45269aefe0b8b2d0b68147f8f9855c3",
+        "redaction": "none",
+        "retained": "review/round7/work/pmn.json",
+        "retained_sha256": "f94fc71734388386ff2bfed42f9b8913f45269aefe0b8b2d0b68147f8f9855c3",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/pmn.json"
+      },
+      {
+        "original_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "redaction": "none",
+        "retained": "review/round7/work/tgt/st.txt",
+        "retained_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/tgt/st.txt"
+      },
+      {
+        "original_sha256": "45e9a86df8f2dabe79ba509a26ec4ce6dca4ef3dab4d75bc1414f1c029f7c1d0",
+        "redaction": "none",
+        "retained": "review/round7/work/tgt/t.out",
+        "retained_sha256": "45e9a86df8f2dabe79ba509a26ec4ce6dca4ef3dab4d75bc1414f1c029f7c1d0",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/tgt/t.out"
       }
     ],
     "location": "review/, in the form of a2_depth_v7/review/ (one directory per review round, with review/SHA256SUMS)",
@@ -536,7 +777,26 @@
       "the reviewers tree/ exports (byte copies of package files at the reviewed commits, recoverable from git)",
       "the reviewers work/ directories (mutant working copies and full per-mutant JSON outputs; the claims cite the summary .out files, which are retained)",
       "the first review exp/ directory (an exported package copy)",
-      "the reviewers full per-mutant outputs; the numbers the reports cite from them are in review/per_mutant_numbers.json with the source digests, and are regenerable with the retained scripts at the named commits"
+      "the reviewers full per-mutant outputs; the numbers the reports cite from them are in review/per_mutant_numbers.json with the source digests, and are regenerable with the retained scripts at the named commits",
+      "the re-check 5 and 6 tree/, export/ and working copies of the package (recoverable from git)"
+    ],
+    "redundant_not_retained": [
+      {
+        "compared_with": "result.json at 70faede0 (git show 70faede0:<package>/result.json)",
+        "comparison": "byte-identical",
+        "item": "re-check 5 work/A/out.json and work/B/out.json (clone default runs at 70faede0)"
+      },
+      {
+        "commit": "12058945cdeb94233a79afad57ceab300d22e92d",
+        "comparison": "regenerated and byte-identical (sha256 669602532e57dfa5fc03d899f6eb06bbcd6f07bd8e2cf1e5ade0c078631a2f09)",
+        "item": "re-check 5 work/Cx/out.json (default run of 12058945 in a git-less export)",
+        "recipe": "export 12058945 a2_memory_v8 and a2_depth_v7/result.json with a temporary index into a directory outside any repository; python3 -I -B <export>/a2_memory_v8/checks.py > out.json"
+      },
+      {
+        "compared_with": "result.json at 3ca0d8ba",
+        "comparison": "byte-identical",
+        "item": "re-check 6 work/{cN,cO,eN,eO,optC}/out.json (clone and export runs at 3ca0d8ba)"
+      }
     ],
     "review_SHA256SUMS_sha256": "efd5cbb6aa2b28e46d38735a9a70f620ce5c28d5d957e37128f6c62810b190b1",
     "rounds": {
@@ -545,9 +805,11 @@
       "round2": "re-check of fb05dea8",
       "round3": "re-check 2 of aee64f2c",
       "round4": "re-check 3 of 19a33d6f",
-      "round5": "re-check 4 of a97c852a"
+      "round5": "re-check 4 of a97c852a",
+      "round6": "re-check 5 of 70faede0",
+      "round7": "re-check 6 of 70faede0..3ca0d8ba"
     },
-    "secret_scan": "absolute paths, e-mail addresses, IP addresses, tokens, keys and signed URLs scanned for; none found, so no content was redacted; files renamed are listed per entry"
+    "secret_scan": "absolute paths, e-mail addresses, IP addresses, tokens, keys and signed URLs scanned for; scratch paths in three round 6-7 files (round6 work/Cx/st.txt, round7 fakebin/git, round7 work/fakegit.log) replaced with relative descriptions, each recorded with its original and retained sha256; no other redaction"
   },
   "schema": "oi.a2-bounded-memory-v8.provenance.v2",
   "source_head": "49e1a1191c9ea5c303883afd2d8d3c28a233f9e5",
