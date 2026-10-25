@@ -1,7 +1,7 @@
 # Independent review of the PE-01 stage plan
 
 These are the review records of `../../PLAN.md`, from its first version to revision 4. The check of revision 5 and of
-amendment A1 is `PRECHECK-A1.md`. The files are byte-identical to
+amendment A1 is `PRECHECK-A1.md`; its last nit, N-d, is applied in `1e025b67`. The files are byte-identical to
 the reviewer's own, at the sha256 values in `SHA256SUMS`. They review the plan only. The independent review of PE-01's
 results will go in `../`, as the plan's §11 states.
 
@@ -12,6 +12,8 @@ results will go in `../`, as the plan's §11 states.
 | `67a5cbe1` (revision 2) | `RECHECK-67a5cbe1.md` | BLOCK (narrowly), admissible-region floor and attribution rule |
 | `fee98794` (revision 3) | `RECHECK-fee98794.md` | ACCEPT WITH NITS, N1–N5 |
 | `1cbfba61` (revision 4) | `RECHECK-fee98794.md`, addendum | ACCEPT WITH NITS, N6 |
+| `af38dc2d` (revision 5) and `ced675cc` (A1) | `PRECHECK-A1.md` | BLOCK (narrowly), P1–P2 |
+| `7b8ca727` (A1, revised) | `PRECHECK-A1.md`, addendum | ACCEPT WITH NITS, N-d and N-e |
 
 Revision 5 (`af38dc2d`) applies N6 and rewraps lines. It changes no other words, as a whitespace-insensitive word diff
 of `1cbfba61..af38dc2d` shows. The owner's three open decisions are fixed in `../../amendments/A1-owner-decisions.md`.
