@@ -61,7 +61,8 @@ stopping rules stand as reviewed.
 ## Parameters read by the checker
 
 The TH checkpoint reads the values below from this file, and records them in the measurement JSON with this file's
-blob id. The checker evaluates each formula at every $n$ and compares the result with the explicit per-$n$ values.
+blob id. The checker evaluates each formula at every $n$ with an explicit value ($\theta$: $n = 3..8$; $K_{\rm LP}$:
+$n = 3..6$) and compares the result with that value.
 A run refuses to start if:
 - any formula and its per-$n$ values disagree;
 - its parameters differ from this block;
