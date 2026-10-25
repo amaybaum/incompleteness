@@ -12,6 +12,7 @@ import hashlib
 import json
 import os
 import re
+import subprocess
 import sys
 
 
@@ -29,6 +30,9 @@ V7_RESULT = os.path.join(HERE, '..', 'a2_depth_v7', 'result.json')
 V7_RESULT_SHA256 = '2e8988de7285cf1ae6781fbed37eb4e869ecf16511b374a923b5dcdbfed589a7'
 PLAN = os.path.join(HERE, 'PLAN.md')
 PLAN_SHA256 = 'b7f7eaae58de13b9eb348bb4e31e92a7bce6741be64553c9ba496af9a2c6a275'
+PLAN_COMMIT = '1dfec979721336cc9f0ce703b544f9d6be8e906c'
+PROVENANCE = os.path.join(HERE, 'PROVENANCE.json')
+GIT_DIR = HERE
 A2_DIGEST = '0637f0089fc5ce666d17ddaf828cc98bf317d46e3ea3cd22851bc21eb893a6a1'
 
 QUANTUM = Q(4, 5)          # agreement probability for poles at a.X = 3/5
@@ -640,6 +644,8 @@ def family(Bs=(2, 3, 4), kmax=16):
               'nearest dyadic minimal over 2^-B Z')            # the best i.i.d. B-bit memoryless law
         for k in range(1, kmax + 1):
             law = block_law(B, k)
+            check(len(law) == 1 << k and all(len(rec) == k for rec in law),
+                  'scope: block-law record length equals member k')
             check(sum(law.values()) == 1, 'family block law normalized')
             Tk = tv_of(law)
             check(Tk > 0, 'family dyadic block law differs from quantum')
@@ -930,12 +936,39 @@ def audit_product_tv(B, k, counts, n):
     return Q(tot, 2 * (S * F) ** n)
 
 
+def plan_pin_crosschecks():
+    """The PLAN.md pin must equal PROVENANCE.json's plan_sha256 and the PLAN.md blob of the plan commit. A source
+    that is absent in the running environment (a copy outside the repository) is recorded as unavailable; a
+    mismatch is a control failure."""
+    status = {}
+    try:
+        with open(PROVENANCE, 'rb') as f:
+            prov = json.loads(f.read())
+    except OSError:
+        status['provenance_plan_sha256'] = 'unavailable'
+    else:
+        check(prov.get('plan_sha256') == PLAN_SHA256 and prov.get('plan_commit') == PLAN_COMMIT,
+              'scope: plan pin equals PROVENANCE plan_sha256')
+        status['provenance_plan_sha256'] = 'matches'
+    try:
+        p = subprocess.run(['git', '-C', GIT_DIR, 'show', PLAN_COMMIT + ':./PLAN.md'], capture_output=True)
+    except OSError:
+        p = None
+    if p is None or p.returncode != 0:
+        status['plan_commit_blob'] = 'unavailable'
+    else:
+        check(hashlib.sha256(p.stdout).hexdigest() == PLAN_SHA256, 'scope: plan pin equals the PLAN.md blob of 1dfec979')
+        status['plan_commit_blob'] = 'matches'
+    return status
+
+
 def preregistered_scope():
     """The RS scope and thresholds as preregistered, parsed from PLAN.md after checking its pinned SHA-256; not
     taken from any code default."""
     with open(PLAN, 'rb') as f:
         raw = f.read()
     check(hashlib.sha256(raw).hexdigest() == PLAN_SHA256, 'scope: pinned PLAN.md hash')
+    pin_status = plan_pin_crosschecks()
     text = raw.decode()
     m = re.search(r'\*\*The family RS\(B,k\), B in \{([0-9,]+)\}, k = 1\.\.([0-9]+)\*\*', text)
     check(m is not None, 'scope: preregistered family line present in PLAN.md')
@@ -946,7 +979,7 @@ def preregistered_scope():
     check(HALF == Q(1, 2) and TENTH == Q(1, 10), 'scope: threshold constants equal the preregistered 1/2 and 1/10')
     keys = {f'B{B}_k{k}' for B in Bs for k in range(1, kmax + 1)}
     check(len(keys) == 48, 'scope: preregistered set has 48 members')
-    return Bs, kmax, keys
+    return Bs, kmax, keys, pin_status
 
 
 def independent_audit(fam, encl, Bs=(2, 3, 4), kmax=16):
@@ -1028,7 +1061,7 @@ def run():
     floor_member = floor_decoder_member()
     mech = restart_mechanics()
     fam, encl = family()
-    sB, skmax, scope_keys = preregistered_scope()
+    sB, skmax, scope_keys, pin_status = preregistered_scope()
     reported_keys = {key for key in fam if '_k' in key}
     check(reported_keys == scope_keys and set(f'B{B}_k{k}' for (B, k) in encl) == scope_keys,
           'scope: reported members equal the preregistered B x k set')
@@ -1037,7 +1070,7 @@ def run():
     check(audited_keys == scope_keys and audit['members'] == len(scope_keys),
           'scope: audited members equal the preregistered B x k set')
     audit['scope'] = {'source': 'PLAN.md, SHA-256 pinned', 'B': list(sB), 'k': [1, skmax],
-                      'members': len(scope_keys), 'thresholds': ['1/2', '1/10']}
+                      'members': len(scope_keys), 'thresholds': ['1/2', '1/10'], 'plan_pin_crosschecks': pin_status}
     members = {k: v for k, v in fam.items() if 'memoryless' not in k}
     n_floor_classes = sum(len(v['class_sizes']) for v in floor_member.values())
     certified = {k: v['certified_T_above_half_for_h_at_least'] for k, v in members.items()}
@@ -1097,7 +1130,7 @@ def run():
                 'the a2_depth_v7 retained-seed reset granted the target cuts, keeps T<=1/(2^B-2) at every depth for '
                 'B>=2. The least sufficient growth rate is not determined here.')
     out = {
-        'schema': 'oi.a2-bounded-memory-v8.v5',
+        'schema': 'oi.a2-bounded-memory-v8.v6',
         'protocol': 'prepare X+, then reads a,X,a,X,...; quantum agreement 4/5 per read; complete public record',
         'class_hypothesis': ('finite persistent state (carrier, private memory, any clock or record registers read); '
                              'time-independent deterministic update from state, one fresh block of B fair bits and '

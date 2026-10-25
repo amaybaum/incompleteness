@@ -32,7 +32,7 @@
   ],
   "mutants": "mutants/run_mutants.py and its output mutants/mutants.out",
   "plan_commit": "1dfec979721336cc9f0ce703b544f9d6be8e906c",
-  "plan_commit_note": "committed at 1dfec979 (2026-10-25 03:52:56 UTC), a single-parent child of #911's head 49e1a119, touching PLAN.md alone. The repository establishes that PLAN.md was committed alone before any other file of this package and that the execution code postdates it. Correction: PLAN.md's sentence that it was committed \"alone before any computation of this round\" is inaccurate. By the author's account (no artifact of the exploration is retained; the repository cannot corroborate it): one floating-point exploration ran before the plan, of a floor-truncated rescaling decoder with a fixed-width m-bit register (B=1..4, m=0..8), a finite-state member of the bounded-state class, not of the RS family; qualitatively it showed several closed classes and absorbing states, stationary agreement defects that did not shrink steadily with m, and at B=2, m=4 a class matching frequency 4/5 to float precision while differing in run masses at n>=2; it steered the choice of tested family to RS(B,k); and it did not compute on RS(B,k), on the census populations or on the decision rule. It may have informed K5, the run-mass proof route, the census populations, the small-n mismatch expectation and the choice to compute exact stationary laws; that influence cannot be measured after the fact, and the order in which the proof route and the exploration arose cannot be established. The decoder is recomputed exactly, post-review, as the second concrete class member.",
+  "plan_commit_note": "committed at 1dfec979 (2026-10-25 03:52:56 UTC), a single-parent child of #911's head 49e1a119, touching PLAN.md alone. The repository establishes that PLAN.md was committed alone before any other file of this package and that the execution code was first committed after it. Correction: PLAN.md's sentence that it was committed \"alone before any computation of this round\" is inaccurate. By the author's account (no artifact of the exploration is retained; the repository cannot corroborate it), the author reports that one floating-point exploration ran before the plan, of a floor-truncated rescaling decoder with a fixed-width m-bit register (B=1..4, m=0..8), a finite-state member of the bounded-state class, not of the RS family; qualitatively it showed several closed classes and absorbing states, stationary agreement defects that did not shrink steadily with m, and at B=2, m=4 a class matching frequency 4/5 to float precision while differing in run masses at n>=2; it steered the choice of tested family to RS(B,k); and it did not compute on RS(B,k), on the census populations or on the decision rule. It may have informed K5, the run-mass proof route, the census populations, the small-n mismatch expectation and the choice to compute exact stationary laws; that influence cannot be measured after the fact, and the order in which the proof route and the exploration arose cannot be established. The decoder is recomputed exactly, post-review, as the second concrete class member.",
   "plan_path": "verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8/PLAN.md",
   "plan_sha256": "b7f7eaae58de13b9eb348bb4e31e92a7bce6741be64553c9ba496af9a2c6a275",
   "post_plan": [
@@ -82,6 +82,15 @@
       "exploration account attributed to the author, with what the repository establishes, in REPORT and plan_commit_note"
     ],
     "review": "independent third re-check of 19a33d6f on #911, BLOCK on scope identification and disclosure attribution; no reported value was wrong"
+  },
+  "post_recheck4": {
+    "changes": [
+      "named check that each member block law has 2^k records of length k (review T3)",
+      "PLAN.md pin cross-checked against PROVENANCE plan_sha256 and plan_commit and against the PLAN.md blob of 1dfec979; absent sources recorded as unavailable, mismatches VOID",
+      "attribution wording: \"the author reports the following\"; \"was first committed after it\"",
+      "targeted mutants only (T3, MT2, MT3) in mutants/targeted_r4.py and .out; the full campaign in mutants/mutants.out refers to a97c852a and was not rerun (section A.40)"
+    ],
+    "review": "independent fourth re-check of a97c852a on #911, ACCEPT WITH NITS"
   },
   "post_review": {
     "changes": [

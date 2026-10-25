@@ -230,7 +230,7 @@ This is not a statement about the best bounded-memory controller.
 | K8 restart mechanics | an explicit state machine (seed register, exact interval, phase, clearing), enumerated over every fresh-bit string, and its chain form both equal the product of block laws (B,k,h) = (2,2,8), (2,3,7), (3,2,5), (4,3,4) | green |
 | counts | census chain counts in closed form; memory column bounds the persistent-state count; that count equals the explicit chain size for RS(2,2), RS(2,3), RS(3,2) | green |
 | power-rule cross-checks | (i) exact T(h) at k=1 from the binomial engine `tv_iid` must be ≥ the bound at every checked h, and the exact first crossing must lie at or before the reported depth; (ii) for n·k ≤ 16, the exact product TV must lie inside the power-rule bracket; (iii) the reported depth must be no later than the preregistered nc/(1+nc) depth; (iv) T ≤ 1/2 may be certified only at depths before T > 1/2 is. (i)–(iv) all read the same BC enclosure, and (i) and (ii) are one-sided with slack, so they catch only errors large enough to cross them; the independent audit below is what checks the enclosure and the exact depths | green |
-| preregistered scope | the RS scope (B ∈ {2,3,4}, k = 1..16) and the thresholds 1/2 and 1/10 are parsed from PLAN.md after checking its pinned SHA-256, not taken from code defaults. The reported member set, the enclosure set and the audited member set must each equal that 48-member set; a missing, extra or mismatched member, or a lookup failure anywhere, prints VOID and exits 2 | green |
+| preregistered scope | the RS scope (B ∈ {2,3,4}, k = 1..16) and the thresholds 1/2 and 1/10 are parsed from PLAN.md after checking its pinned SHA-256, not taken from code defaults. The reported member set, the enclosure set and the audited member set must each equal that 48-member set; a missing, extra or mismatched member, or a lookup failure anywhere, prints VOID and exits 2. Each member's block law must have 2^k records of length k. The PLAN.md pin must equal PROVENANCE.json's `plan_sha256` and the SHA-256 of the PLAN.md blob at `1dfec979`; a mismatch is a control failure. A source absent from the running environment (a copy outside the repository) is recorded as unavailable, and in this package both are recorded as matching | green |
 | independent certificate audit | separately written code. It does not call `retained_seed_runs`, `block_law`, `bc_enclosure`, `root_lo`/`root_hi`, `power_rule_lower`, `least_n_above`, `least_power_below` or `tv_of`. It does share `tv_iid` (for the k=1 certificates), `digest`, the constants `HALF` and `TENTH`, `check`, `Q` and the standard-library `isqrt` and `product`, and it reads the reported entries and the reported enclosure. Single edits to the shared pieces are caught elsewhere in the review's mutants A1 (`HALF`), A2 (`digest`), A3 (`isqrt`) and A6 (`tv_iid`). The audit builds integer-only block laws in absolute coordinates (the block TV digest must match), and an integer square-root enclosure of BC that must overlap the enclosure every reported depth was built from. It recomputes every reported depth from its stated definition with its own integer powers: the preregistered half and tenth depths, and the power-rule half and upper depths; each must equal the reported value. It checks every certificate against exact TV where exact TV is enumerable: for every member and every n with n·k ≤ 16, from its own product enumeration, T(nk) > 1/2 when n ≥ n_hp or n ≥ n_half, T ≤ 1/2 when n ≤ n_lp, and T ≤ 1/10 when n ≤ n_tenth; and at k=1 the same at the reported depths, with `tv_iid`. In all, 48 members and 212 certificate checks. The T > 1/2 certificate is checked against exact TV for 7 of the 48 members (B=2, k=1..5; B=3, k=1; B=4, k=1); for the other 41 the T > 1/2 depth lies beyond the enumerable range and rests on the independent BC enclosure and depth recomputation | green |
 | comparators | the nearest-dyadic agreement is distance-minimal over 2^-B Z; its exact crossing is no earlier than the other neighbour's; the fails-before and outlasts lists in `family_verdict` are recomputed from the stored depths and the nearest-dyadic crossing and must equal the per-member flags | green |
 
@@ -312,10 +312,10 @@ floor-decoder member now runs after the census, and the K4 count check after the
 and PLAN.md is left as committed.
 
 **What the repository establishes:** PLAN.md was committed alone at `1dfec979`, before any other file of this
-package, and the execution code postdates it.
+package, and the execution code was first committed after it.
 
 **By the author's account** (no artifact of the exploration is retained, and the repository cannot corroborate
-it), the following holds.
+it), the author reports the following.
 - **What ran before the plan:** one floating-point exploration of the floor-truncated rescaling decoder with a
   fixed-width m-bit register (B=1..4, m=0..8). It is a finite-state member of the bounded-state class, not a member
   of the RS family.
@@ -383,6 +383,13 @@ it), the following holds.
 - the k=1 range's dependence on the shared enclosure stated;
 - the disclosure wording ("did not compute on"), mirrored into PROVENANCE.
 
+**Post-re-check 4:**
+- a named check that each member's block-law records have length k (the review's T3 now fails on it rather than
+  on the catch-all);
+- the PLAN.md pin cross-checked against PROVENANCE.json and the PLAN.md blob at `1dfec979`;
+- the attribution wording;
+- three targeted mutants, run in place of a full campaign (section A.40).
+
 **Post-re-check 3:**
 - the preregistered scope parsed from the hash-pinned PLAN.md, with reported, enclosure and audited member sets
   required to equal it;
@@ -405,13 +412,26 @@ it), the following holds.
 
 ## Replay
 
-Timings on the author's container: about 3 minutes for the checker, normal or -O, on a lightly loaded machine (7 minutes
-measured under heavy shared load), and about 95 minutes for the 30-mutant run under that load. From an empty working directory, with the repository root as R and
+Timings on the author's container:
+- the checker, normal or -O: about 3 minutes (7 minutes measured under heavy shared load);
+- `mutants/targeted_r4.py`: about 6 minutes.
+
+**The mutant records.**
+- `mutants/mutants.out` records the full M1–M30 campaign against the checker of commit `a97c852a`. It took about
+  95 minutes under heavy load, which exceeds the local budget of section A.40, and it was not rerun after the
+  re-check-4 additions. Its first line ("output equals result.json") refers to that commit's `result.json`.
+- `mutants/targeted_r4.out` records the review's T3 and one targeted mutant for each new check, run against the
+  current checker:
+  - T3 is caught by "scope: block-law record length equals member k";
+  - a consistently edited PLAN.md and pin is caught by "scope: plan pin equals PROVENANCE plan_sha256";
+  - the same with PROVENANCE also edited is caught by "scope: plan pin equals the PLAN.md blob of 1dfec979".
+
+From an empty working directory, with the repository root as R and
 D = R/verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8:
 
     python3 -I -B D/checks.py > out.json && cmp out.json D/result.json
     python3 -I -B -O D/checks.py > out.json && cmp out.json D/result.json
-    python3 -I -B D/mutants/run_mutants.py > m.out && cmp m.out D/mutants/mutants.out
+    python3 -I -B D/mutants/targeted_r4.py > t.out && cmp t.out D/mutants/targeted_r4.out
 
 `SHA256SUMS` lists `PLAN.md`, `REPORT.md`, `checks.py`, `result.json`, `PROVENANCE.json`,
-`mutants/run_mutants.py` and `mutants/mutants.out`.
+`mutants/run_mutants.py`, `mutants/mutants.out`, `mutants/targeted_r4.py` and `mutants/targeted_r4.out`.
