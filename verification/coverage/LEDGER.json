@@ -239,10 +239,10 @@
     {
       "id": "GR:T-a.6",
       "paper": "papers/GR.md",
-      "line": 793,
+      "line": 799,
       "kind": "Theorem",
       "label": "A.6",
-      "fingerprint": "d2f6e40dab0088fc",
+      "fingerprint": "fd35b8eacfa217f3",
       "area": "gr",
       "assumptions": "see the statement",
       "checks": [],
