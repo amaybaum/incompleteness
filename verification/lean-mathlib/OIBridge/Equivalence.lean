@@ -345,7 +345,10 @@ theorem D_imp_Qfb {K : ℕ} (P : Traj V K → ℝ) (h : RevRealizable P) : QfbRe
 
 This is the direction to audit hardest, and the one the rank-4 one-step ancilla dilation does NOT
 supply: a one-step representation says nothing about `P(x_0, …, x_K)` as a joint law. What is built
-here is the manuscript's multi-time response-table carrier, from scratch.
+here is a multi-time carrier, from scratch: a clock with the complete trajectory record, whose
+initial law may correlate the hidden and visible coordinates. It is not the manuscript's
+response-table construction, whose product prior is independent of the visible initial state;
+that form is not formalized here (see the `RevReal` docstring).
 
 The hidden sector is a CLOCK together with a COMPLETE TRAJECTORY RECORD, `Fin (K+1) × Traj V K`.
 The coherent states are those whose visible value agrees with the record at the clock's reading,
