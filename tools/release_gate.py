@@ -62,7 +62,7 @@ another. Each exists because a real defect shipped past the others:
                        commit no longer has needs a downgrade record matching
                        it, and its claim may not stand verbatim in the tree,
                        or, in its record's directory, reformatted or without a
-                       reference that a support record claims beside it.
+                       reference that a support record claims on its own line.
 
 Post-packaging, verify the DECLARED checksum against the shipped archive:
     python3 tools/baseline_label_check.py --verify-archive PATH --root TRANSFER
