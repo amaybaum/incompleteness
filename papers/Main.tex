@@ -3003,7 +3003,7 @@ correlate the hidden and visible coordinates). (D \(\Rightarrow\)
 \(Q_{\mathrm{fb}}\)) is internal and needs no imported correspondence:
 for a bijection \(\varphi\) on \(\mathcal{C}_V \times \mathcal{C}_H\)
 set \(U_\varphi |x, h\rangle = |\varphi(x,h)\rangle\) and take the
-hidden prior diagonal. A permutation unitary preserves diagonality, so
+initial law diagonal. A permutation unitary preserves diagonality, so
 sequential projective measurements in the configuration basis do not
 disturb the state, and the measured record reproduces
 \(P(x_0, \ldots, x_K)\) exactly; \(U_\varphi = e^{-i\hat H}\) for a
@@ -3680,7 +3680,9 @@ claims, each with its exact status. (1)
 \(S \iff D \iff Q_{\mathrm{fb}}\) --- proved, all finite laws. (2)
 \(M_t > 0 \iff\) readout-relevant hidden predictive memory in every
 faithful completion --- clauses (a)--(c) of the theorem below proved in
-the kernel; the biconditional restates the pushforward identity (a), its
+the kernel for a joint law of history, present and hidden state, with
+the reading of a realization's time-\(t\) law as that joint law not
+formalized; the biconditional restates the pushforward identity (a), its
 converse applying (a) in one faithful completion, which exists
 (\(S \Rightarrow D\)), and both directions using the vanishing criterion
 for conditional mutual information, which is not formalized. (3) No
@@ -3719,7 +3721,9 @@ sharing the endpoint \(x\), the observed gap obeys
 \(M_t := I(X_{<t}; X_{t+1} \mid X_t) \leq I(X_{<t}; H_t \mid X_t) \leq \log_2 |\mathcal{C}_H|\).}
 (kernel: \texttt{unavoidable\_hidden\_predictive\_memory},
 \texttt{distinguishability\_floor}, \texttt{capacity\_floor} in
-\texttt{OIBridge/HiddenMemory.lean})
+\texttt{OIBridge/HiddenMemory.lean}, for a joint law of history, present
+and hidden state; reading a realization's time-\(t\) law as that joint
+law is a step not formalized)
 
 \emph{Proof.} (a) Determinism makes \(X_{t+1}\) a function of
 \((X_t, H_t)\), so conditioning on \(p\) and pushing \(\mu_p\) through
@@ -5313,4 +5317,4 @@ limitations of measurement,'' in W. C. Myrvold and J. Christian (eds.),
 Circle} (Springer, 2009).
 
 \end{document}
-% source-sha256: 0f89ebcb41a3c02119c8f36248c16b2318d5bfb508775d82f7c49a3b93a9add8
+% source-sha256: 9f5b3dcac7b65f7777335b688770b66354ecf0a2ee8c8c31147183244e71b71a
