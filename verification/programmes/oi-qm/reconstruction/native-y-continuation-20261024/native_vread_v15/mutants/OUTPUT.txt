@@ -26,5 +26,9 @@ K3_previous_key_shifted      exit=2 CAUGHT   VOID: K3 V is a permutation of the 
 K5_E_moved                   exit=2 CAUGHT   VOID: K5 anchor E,N are their declared sources
 K5_ready_list_retyped        exit=2 CAUGHT   VOID: K5 ready list equals native_route_v13 geometry()
 K5_previous_radius           exit=2 CAUGHT   VOID: K5 anchor previous N position free
+K5_reader_walk_disabled      exit=2 CAUGHT   VOID: K5 reader countercontrol: mutated route copy accepted
+K5_reader_skips_method_calls exit=2 CAUGHT   VOID: K5 reader countercontrol: mutated route copy accepted
+K5_reader_skips_alias        exit=2 CAUGHT   VOID: K5 reader countercontrol: mutated route copy accepted
+K5_selector_4T_dropped       exit=2 CAUGHT   VOID: K5 anchor junction_v4 selector and reset pulse are declared sources
 D1_formula                   exit=2 CAUGHT   VOID: D1 V field formulas
-caught 28 of 28 mutants
+caught 32 of 32 mutants

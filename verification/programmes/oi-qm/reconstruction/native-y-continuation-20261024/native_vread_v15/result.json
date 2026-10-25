@@ -77,6 +77,14 @@
    "q10_ready_interior": [
     "PINNED",
     "ready ball"
+   ],
+   "reset_opposite": [
+    "PINNED",
+    "source reset_opposite"
+   ],
+   "selector_4T": [
+    "PINNED",
+    "source selector_4T"
    ]
   },
   "inherited_ready_balls": 24,
@@ -182,6 +190,8 @@
     "status": "PINNED"
    }
   ],
+  "largest_ready_radius_over_L": 1,
+  "local_sources_declared": 17,
   "ports_within_10^6_of_q10": [
    [
     2,
@@ -270,6 +280,7 @@
   ],
   "ready_ball_order": "ports 0-7 with their deadlines; (T,0,0),(-T,0,0),(4T,0,0) radius T; ((0,S,-68),R); ((-12R,0,0),R); ((0,S,68+k),R+k) for k=0..9; ((-48L,0,0),L); B_(L+1)(q10)",
   "ready_list_equals_native_route_v13_geometry": true,
+  "route_reader_mutated_copies_refused": 8,
   "shell_banks": [
    {
     "active": false,
@@ -352,6 +363,7 @@
   "parallel_v3/history_control/SOURCE-GEOMETRY.json": "2642e1a68825faa5d3bb1049e8722adec1ec33bd3f56b9e4416b2c902a85ec5d"
  },
  "not_established": [
+  "completeness of the declared ready-cone, source and bank inventory shared with native_route_v13 (no undeclared readiness, preparation or correlation; no record in the lineage with a deadline beyond L+1); the outcome is conditional on it",
   "privacy of the V read under a complement law in which no free key is uniform",
   "multi-tick stages, other reads, other layouts, readiness extensions",
   "previous-slice keys enter (iii) only; the outcome rule uses current-slice keys",
@@ -392,6 +404,6 @@
   ],
   "outcome": "NEGATIVE_FOR_CONSTRUCTION",
   "outcome_rule_uses": "current-slice keys, as preregistered",
-  "statement": "2 of the 5 non-q10 current-slice key cells of q9 at L+2 are free complement variables under the native_route_v13 contract that no permitted record through L+2 depends on: -x key (-(L+2),S,77) (nearest public receiver at distance L+79), +y key (0,S+(L+2),77) (nearest public receiver at distance L+79). For each such key and every fixed value of all other initial variables, V=U_(L+2)(q9) is a permutation of the key triple, while the old q9 record and every other permitted record through L+2 do not depend on it (nor does the private cell q10 at L+1). (i) No fixed readout of the whole V equals s for every complement value. (ii) If such a key is uniform given all other initial variables, V is uniform and independent of q10.A, s, the seeds and every other permitted record through L+2: under a uniform free key the read is harmless and carries no operand. (iii) Delivery through this read needs the 2 unseen free keys known, by pinning (a preparation change) or by reading the q9 neighbors at L+1 (an access change). The -y key (0,S-(L+2),77) is also free and reaches a public port by L+2 (port 0 at distance 341); it must also be determined, by pinning, by reading the q9 neighbor at L+1, or from the permitted port record, which is not computed here. If an unseen free key is uniform, V is independent of that port record by (ii); otherwise their joint law is not computed. The previous-slice -x key (-(L+1),S,77), +y key (0,S+(L+1),77), -y key (0,S-(L+1),77) are also free; each must also be determined in one of these ways. These are necessary conditions, not sufficient: shared complement cells also enter V. Neither change is adopted; the test stops there."
+  "statement": "2 of the 5 non-q10 current-slice key cells of q9 at L+2 are free complement variables under the native_route_v13 contract that no permitted record through L+2 depends on: -x key (-(L+2),S,77) (nearest public receiver at distance L+79), +y key (0,S+(L+2),77) (nearest public receiver at distance L+79). For each such key and every fixed value of all other initial variables, V=U_(L+2)(q9) is a permutation of the key triple, while the old q9 record and every other permitted record through L+2 do not depend on it (nor does the private cell q10 at L+1). (i) No fixed readout of the whole V equals s for every complement value. (ii) If such a key is uniform given all other initial variables, V is uniform and independent of q10.A, s, the seeds and every other permitted record through L+2: under a uniform free key the read is harmless and carries no operand. (iii) Delivery through this read needs the 2 unseen free keys known, by pinning (a preparation change) or by reading the q9 neighbors at L+1 (an access change). The -y key (0,S-(L+2),77) is also free and reaches a public port by L+2 (port 0 at distance 341); it must also be determined, by pinning, by reading the q9 neighbor at L+1, or from the permitted port record, which is not computed here. If an unseen free key is uniform, V is independent of that port record by (ii); otherwise their joint law is not computed. The previous-slice -x key (-(L+1),S,77), +y key (0,S+(L+1),77), -y key (0,S-(L+1),77) are also free; each must also be determined in one of these ways. These are necessary conditions, not sufficient: shared complement cells also enter V. Neither change is adopted; the test stops there. The classification, and so the outcome, is conditional on the declared ready-cone, source and bank inventory shared with native_route_v13 being complete: no undeclared readiness, preparation or correlation, and no record in the lineage with a deadline beyond L+1 (the largest declared ready radius used). Part (ii) is conditional in addition on a uniform free key, which the inherited independent-uniform complement prior of junction_v4 supplies."
  }
 }

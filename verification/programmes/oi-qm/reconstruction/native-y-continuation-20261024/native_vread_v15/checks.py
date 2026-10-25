@@ -440,7 +440,98 @@ def route_geometry(text):
             env['ready'] = found['ready']
     need(set(found) == {'target', 'deadline', 'ports', 'deadlines', 'ready', 'directions'},
          'K5 route geometry: all lists found')
+    route_writes_closed(function[0])
     return found
+
+
+TRACKED = ('target', 'deadline', 'ports', 'deadlines', 'ready', 'directions')
+
+
+def target_names(node):
+    if isinstance(node, ast.Name):
+        return {node.id}
+    if isinstance(node, (ast.Tuple, ast.List)):
+        out = set()
+        for x in node.elts:
+            out |= target_names(x)
+        return out
+    if isinstance(node, ast.Starred):
+        return target_names(node.value)
+    if isinstance(node, (ast.Subscript, ast.Attribute)):
+        return target_names(node.value)
+    return set()
+
+
+def route_writes_closed(function):
+    """Fail closed unless the tracked lists are written only by the top-level
+    statements route_geometry reads: no other assignment, augmented
+    assignment, loop or comprehension target, deletion, walrus, method call
+    (append, extend, insert, ...), parameter, alias or scope declaration."""
+    read = set()
+    for stmt in function.body:
+        if (isinstance(stmt, ast.Assign) and len(stmt.targets) == 1 and isinstance(stmt.targets[0], ast.Name)
+                and stmt.targets[0].id in TRACKED):
+            read.add(id(stmt))
+        elif (isinstance(stmt, ast.AugAssign) and isinstance(stmt.target, ast.Name)
+              and stmt.target.id == 'ready' and isinstance(stmt.op, ast.Add)):
+            read.add(id(stmt))
+    tracked = set(TRACKED)
+    for node in ast.walk(function):
+        written = set()
+        if isinstance(node, (ast.Assign, ast.AugAssign, ast.AnnAssign)) and id(node) not in read:
+            for target in (node.targets if isinstance(node, ast.Assign) else [node.target]):
+                written |= target_names(target)
+            # An alias such as r = ready (or r = ready[0]) would let a later
+            # write escape the name check.
+            if node.value is not None and isinstance(node.value, (ast.Name, ast.Subscript, ast.Attribute)):
+                written |= target_names(node.value)
+        elif isinstance(node, (ast.For, ast.AsyncFor, ast.comprehension)):
+            written |= target_names(node.target)
+        elif isinstance(node, ast.NamedExpr):
+            written |= target_names(node.target)
+        elif isinstance(node, ast.Delete):
+            for target in node.targets:
+                written |= target_names(target)
+        elif isinstance(node, ast.withitem) and node.optional_vars is not None:
+            written |= target_names(node.optional_vars)
+        elif isinstance(node, (ast.Global, ast.Nonlocal)):
+            written |= set(node.names)
+        elif isinstance(node, ast.arg):
+            written.add(node.arg)
+        elif isinstance(node, ast.ExceptHandler) and node.name:
+            written.add(node.name)
+        elif isinstance(node, (ast.Import, ast.ImportFrom)):
+            written |= {(a.asname or a.name).split('.')[0] for a in node.names}
+        elif isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute):
+            written |= target_names(node.func.value)
+        need(not (written & tracked), 'K5 route geometry: tracked list written outside the read statements')
+
+
+READER_COUNTERCONTROLS = (
+    'if deadline:\n        ready += [((0,0,0),1)]',
+    'ready.append(((0,0,0),1))',
+    'ready.extend([((0,0,0),1)])',
+    'ready.insert(0,((0,0,0),1))',
+    'ports[0]=(0,0,0)',
+    'deadlines += [1]',
+    'for directions in [[]]: pass',
+    'alias = ready',
+)
+
+
+def reader_countercontrols(text):
+    """Mutated in-memory copies of the pinned file must each be refused."""
+    anchor = '    ready += [((-48*L,0,0),L)]\n'
+    need(text.count(anchor) == 1, 'K5 reader countercontrol anchor line')
+    refused = 0
+    for insert in READER_COUNTERCONTROLS:
+        copy = text.replace(anchor, anchor+'    '+insert+'\n')
+        try:
+            route_geometry(copy)
+        except ControlFailure as failure:
+            refused += str(failure) == 'K5 route geometry: tracked list written outside the read statements'
+    need(refused == len(READER_COUNTERCONTROLS), 'K5 reader countercontrol: mutated route copy accepted')
+    return refused
 
 
 def local_sources():
@@ -449,7 +540,10 @@ def local_sources():
             'Kplus': (1, S, S+153), 'Kminus': (-1, S, S+153),
             'selector_y': (0, 2*S, 0), 'selector_plus': (T, S+P, 0),
             'selector_minus': (-T, S+P, 0), 'F10_pin': (-(L+1), S, 78),
-            'z_source': (-48*L, -L, 0)}
+            'z_source': (-48*L, -L, 0),
+            # junction_v4 selector controls and reset pulses: the fourth
+            # selector and the opposite pulse (Q is the other pulse).
+            'selector_4T': (4*T, S+P, 0), 'reset_opposite': (0, S, -S-136)}
 
 
 def bank_index(cell):
@@ -522,6 +616,7 @@ def geometry(inventory, route_text):
     route = route_geometry(route_text)
     need([tuple(x) for x in route['ready']] == inherited,
          'K5 ready list equals native_route_v13 geometry()')
+    refused_copies = reader_countercontrols(route_text)
     need(route['target'] == Q10 and route['deadline'] == L+1,
          'K5 q10 extension equals native_route_v13 geometry()')
     need(route['ports'] == [p for p, _, _ in PORTS] and route['deadlines'] == [dl for _, _, dl in PORTS]
@@ -536,11 +631,16 @@ def geometry(inventory, route_text):
         'F8_position': classify((-(L+1), S, 76), inv, balls),
         'port0_bank_T+2': classify((0, -2, 0), inv, balls),
         'q10_ready_interior': classify((0, S, 78+L), inv, balls),
+        'selector_4T': classify((4*T, S+P, 0), inv, balls),
+        'reset_opposite': classify((0, S, -S-136), inv, balls),
     }
     need(tuple(anchors['q10_axial']) == ('PINNED', 'source N'), 'K5 anchor q10 axial is source N')
     need(tuple(anchors['E']) == ('PINNED', 'source E') and tuple(anchors['N']) == ('PINNED', 'source N'),
          'K5 anchor E,N are their declared sources')
     need(tuple(anchors['F10_position']) == ('PINNED', 'source F10_pin'), 'K5 anchor F10 is its pin')
+    need(tuple(anchors['selector_4T']) == ('PINNED', 'source selector_4T') and
+         tuple(anchors['reset_opposite']) == ('PINNED', 'source reset_opposite'),
+         'K5 anchor junction_v4 selector and reset pulse are declared sources')
     need(anchors['F8_position'][0] == 'FREE', 'K5 anchor F8 free')
     need(anchors['port0_bank_T+2'][0] == 'BANK', 'K5 anchor port-0 bank')
     need(tuple(anchors['q10_ready_interior']) == ('PINNED', 'ready ball'), 'K5 anchor q10 ready ball')
@@ -601,6 +701,9 @@ def geometry(inventory, route_text):
     return {'anchors': {k: list(v) for k, v in anchors.items()}, 'keys': keys,
             'previous_slice_keys': previous_keys,
             'ready_list_equals_native_route_v13_geometry': True,
+            'route_reader_mutated_copies_refused': refused_copies,
+            'largest_ready_radius_over_L': max(r for _, r in balls)-L,
+            'local_sources_declared': len(local_sources()),
             'ready_ball_order': 'ports 0-7 with their deadlines; (T,0,0),(-T,0,0),(4T,0,0) radius T; '
                                 '((0,S,-68),R); ((-12R,0,0),R); ((0,S,68+k),R+k) for k=0..9; '
                                 '((-48L,0,0),L); B_(L+1)(q10)',
@@ -734,7 +837,13 @@ def verdict(geo):
                  'these ways.') % (key_list(previous), 'is' if len(previous) == 1 else 'are',
                                    'it' if len(previous) == 1 else 'each')
     text += (' These are necessary conditions, not sufficient: shared complement cells also '
-             'enter V. Neither change is adopted; the test stops there.')
+             'enter V. Neither change is adopted; the test stops there. The classification, and '
+             'so the outcome, is conditional on the declared ready-cone, source and bank inventory '
+             'shared with native_route_v13 being complete: no undeclared readiness, preparation or '
+             'correlation, and no record in the lineage with a deadline beyond L%+d (the largest '
+             'declared ready radius used). Part (ii) is conditional in addition on a uniform free '
+             'key, which the inherited independent-uniform complement prior of junction_v4 '
+             'supplies.') % geo['largest_ready_radius_over_L']
     base.update({'outcome': 'NEGATIVE_FOR_CONSTRUCTION', 'statement': text})
     return base
 
@@ -774,6 +883,9 @@ def main():
         'diagnostic_read_algebra': algebra,
         'verdict': verdict(geo),
         'not_established': [
+            'completeness of the declared ready-cone, source and bank inventory shared with '
+            'native_route_v13 (no undeclared readiness, preparation or correlation; no record '
+            'in the lineage with a deadline beyond L+1); the outcome is conditional on it',
             'privacy of the V read under a complement law in which no free key is uniform',
             'multi-tick stages, other reads, other layouts, readiness extensions',
             'previous-slice keys enter (iii) only; the outcome rule uses current-slice keys',

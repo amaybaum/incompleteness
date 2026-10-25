@@ -40,6 +40,13 @@
     "K3: scalar and bit-parallel evaluators compared on all 8 key values (2304 comparisons, previously 432 on 3 values).",
     "K2: key lemma also checked by dependency-set propagation through the rule for n=1..6 over both initial slices, compared cell by cell with the cone formula.",
     "Previous-slice keys q9+(L+1)e classified with previous ready radius r-1 and checked in 144 small native worlds; -x, +y, -y free, +x and -z pinned, +z inside the previous q10 ball. They enter verdict (iii) only; the outcome rule keeps the preregistered current-slice keys.",
-    "Seven further mutants (28 in all)."
-  ]
+    "Seven further mutants (28 in all).",
+    "Re-check of 74541cf1 (accept with nits) addressed in the commit after it; the outcome is unchanged.",
+    "R1: the generated verdict, Scope and not_established state that the classification and outcome are conditional on the declared ready-cone, source and bank inventory shared with native_route_v13 being complete (no undeclared readiness, preparation or correlation; no record in the lineage with a deadline beyond L+1, the largest declared ready radius used), and that part (ii) is conditional in addition on a uniform free key.",
+    "R2: local_sources() adds junction_v4's fourth selector (4T,P+S,0) and opposite reset pulse (0,S,-S-136), with strict anchors; no key or other anchor classification changes.",
+    "R3: the native_route_v13 geometry reader fails closed if a tracked list (target, deadline, ports, deadlines, ready, directions) is assigned, augmented, aliased, used as a loop or comprehension target, deleted, declared global or nonlocal, or receives a method call anywhere other than the top-level statements it reads. Eight mutated in-memory copies of the pinned file (nested +=, append, extend, insert, subscript assignment, extra +=, loop target, alias) are refused in the checker itself; the pinned-hash check is unchanged.",
+    "R4: REPORT cites junction_v4's inherited independent-uniform complement prior, which satisfies the hypothesis of (ii).",
+    "Four further mutants (32 in all)."
+  ],
+  "second_review_fix_commit_parent": "74541cf18bfd9e986039cf86d5cf4bf2152b3105"
 }

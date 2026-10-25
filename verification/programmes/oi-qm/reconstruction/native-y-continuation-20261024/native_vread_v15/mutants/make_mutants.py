@@ -69,6 +69,15 @@ MUTANTS = [
      'balls += [((T, 0, 0), T+1), ((-T, 0, 0), T)', 'K5 ready list equals native_route_v13 geometry()'),
     ('K5_previous_radius', 'if dist(cell, center) <= radius-1:', 'if dist(cell, center) <= radius:',
      'K5 anchor previous N position free'),
+    ('K5_reader_walk_disabled', '    route_writes_closed(function[0])\n', '',
+     'K5 reader countercontrol: mutated route copy accepted'),
+    ('K5_reader_skips_method_calls', 'elif isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute):',
+     'elif False:', 'K5 reader countercontrol: mutated route copy accepted'),
+    ('K5_reader_skips_alias',
+     'if node.value is not None and isinstance(node.value, (ast.Name, ast.Subscript, ast.Attribute)):',
+     'if False:', 'K5 reader countercontrol: mutated route copy accepted'),
+    ('K5_selector_4T_dropped', "'selector_4T': (4*T, S+P, 0), ", '',
+     'K5 anchor junction_v4 selector and reset pulse'),
     ('D1_formula', 'pd ^ sa ^ (sb & sd)', 'pd ^ sa ^ (sa & sd)', 'D1 V field formulas'),
 ]
 
