@@ -24,7 +24,7 @@ I did not rerun the mutant campaign. mutants.py is unchanged, and the checks.py 
 
 Hygiene is clean: no absolute paths, secrets or e-mail addresses. `duplicate_check`, `voice_check` and `artifact_placement_check` all print OK, and the worktree was unchanged afterwards.
 
-Files are in the reviewer's working directory (not retained):
+Files are in [local path removed]/:
 - REVIEW.md
 - window.py
 - window-output.txt

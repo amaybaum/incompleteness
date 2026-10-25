@@ -7,7 +7,7 @@
   "amendments/A1-shell-cases.md": "ff7b5c85",
   "amendments/A2-mutant-criterion.md": "836a661e"
  },
- "generated_on_parent": "ee2d4e689c7bd67343c2bd4215e4711b9e765af2",
+ "generated_on_parent": "f6698781445fc40ada5af8404536f6fb626a7d80",
  "form": "complete",
  "kind": "local run; not a CI run and not a check-run attestation",
  "interpreter": "CPython 3.13.16, standard library only",
@@ -114,5 +114,16 @@
   "superseded_outputs_at_ee2d4e68": {
    "note": "byte content retrievable from commit ee2d4e68"
   }
+ },
+ "post_review_5": {
+  "trigger": "scoped landing audit of f6698781 (READY WITH NITS) and its re-check",
+  "changes": [
+   "checks.py: C7 verdict attributes the beta computation to Page 2013 ('in Page 2013, beta itself is computed from the species' greybody factors'); result.json changes only at /C7/verdict",
+   "report.py: status line names the retained review; GR:837 marked '(at 809fac52)'; replay recipe names f6698781 or a later commit; the full mutant campaign line notes it was recorded at 91e2230a",
+   "MANUSCRIPT-AUDIT.md: header notes the proposals concern the 809fac52 text, since corrected on main at c37700ad",
+   "review/REVIEW.md and review/README.md retained; SHA256SUMS regenerated"
+  ],
+  "superseded_result_json_sha256": "ee26de70895cbc030fd6e1d86ec5f0c175c23ccff0f637a4c0539a032448c25b",
+  "verified": "checks.py byte-identical under -I -B and -I -B -O; report.py reproduces REPORT.md; mutants.py --only M-canonical,M-page2013,M-ode reproduces mutants-targeted-output.txt"
  }
 }
