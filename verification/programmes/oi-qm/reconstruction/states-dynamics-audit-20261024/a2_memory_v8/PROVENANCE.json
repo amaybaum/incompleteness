@@ -46,6 +46,20 @@
     "mutants M9 and M10",
     "mutant-runner prefix match"
   ],
+  "post_recheck": {
+    "changes": [
+      "comparator wording narrowed to the nearest-dyadic i.i.d. reset; other neighbour exact crossing as a control; ordering sentence limited to certified members with undetermined cases named; same in generated family_verdict",
+      "one shared power-rule lower-bound function constrained by independent code paths: exact k=1 TV and exact crossing, exact product TV for n*k<=16, comparison with the separately coded preregistered rule, upper/lower certificate consistency",
+      "comparison flags recomputed from stored depths and the nearest-dyadic crossing",
+      "mutants M15-M18: D1 and D5 re-implemented; M17 and M18 further consistent wrong-bound mutants",
+      "preregistration correction extended: possible influence on K5, the run-mass proof route, the census populations, the small-n mismatch expectation and the exact-stationary-law method, stated as not measurable after the fact; unverifiable working-record sentence removed",
+      "post-review label on the floor-decoder counts inside class_verdict",
+      "reviewer scripts rerun on copies; the first round R1 and the re-check D1 strings adapted to the shared function",
+      "k=1 exact power-rule check range made independent of the power-rule depth (every h<=600, multiples of 1024 up to twice the preregistered depth, n_hp+-1); with the range tied to the mutated depth, mutant M20 passed",
+      "mutants M19 and M20 disable the other independent constraints in turn, so each constraint is shown to catch the consistent exponent error by itself"
+    ],
+    "review": "independent re-check of fb05dea8 on #911, ACCEPT WITH NITS; owner request on control independence"
+  },
   "post_review": {
     "changes": [
       "F1: nearest-dyadic memoryless comparator added for every B; RS(B,1) named the ceiling-rounded reset; comparison lists and family_verdict regenerated against the nearest-dyadic comparator",

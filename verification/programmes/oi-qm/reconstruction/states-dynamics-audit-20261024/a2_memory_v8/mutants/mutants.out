@@ -9,8 +9,14 @@ M7_half_depth_off_by_one: targets K7 depth minimality; exit 2; VOID: K7 half-dep
 M8_wrong_initial_phase: targets K1 generic engine; exit 2; VOID: K1 generic engine equals product engine (h<=12); CAUGHT
 M9_pinned_hash: targets pinned input; exit 2; VOID: K1/K2 pinned a2_depth_v7 result.json hash; CAUGHT
 M10_memoryless_rounding: targets K6 RS(4,1) memoryless identity; exit 2; VOID: K6 RS(4,1) is the memoryless 4-bit reset; CAUGHT
-M11_power_rule_exponent: targets K7 power-rule control; exit 2; VOID: K7 power-rule depth is the least n with BC_upper^n < 1/2; CAUGHT
+M11_power_rule_exponent: targets K7 power-rule control; exit 2; VOID: K7 power-rule depth is the least n with lower bound above 1/2; CAUGHT
 M12_drop_closedness: targets step-5 class analysis; exit 2; VOID: step4 nonsingular stationary system; CAUGHT
 M13_fewer_chains: targets census count; exit 2; VOID: census chain count equals C(2^B+2n-1,2n-1)^n; CAUGHT
 M14_memory_formula: targets memory column; exit 2; VOID: memory column bounds the persistent-state count; CAUGHT
+M15_power_rule_exponent_consistent: targets K7 exact power-rule check; exit 2; VOID: K7 exact product TV inside power-rule bracket; CAUGHT
+M16_lists_against_ceiling: targets comparison-flag recomputation; exit 2; VOID: comparison flags recomputed from stored depths and the nearest-dyadic crossing; CAUGHT
+M17_threshold_consistent: targets exact ceiling-rounded crossing at k=1; exit 2; VOID: K7 power rule brackets the exact ceiling-rounded crossing; CAUGHT
+M18_weaker_bound_consistent: targets preregistered-rule comparison; exit 2; VOID: K7 power-rule depth no later than the preregistered depth; CAUGHT
+M19_consistent_exponent_consistency_only: targets certificate consistency; exit 2; VOID: K7 upper and lower half-level certificates consistent; CAUGHT
+M20_consistent_exponent_exact_k1_only: targets K7 exact k=1 check alone; exit 2; VOID: K7 exact T(h) >= power-rule lower bound at k=1; CAUGHT
 all mutants caught

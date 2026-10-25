@@ -42,8 +42,9 @@ MUTANTS = [
      'p4 = Q(-((-4 * 16) // 5), 16)', 'p4 = Q((4 * 16) // 5, 16)', 'K6 RS(4,1) is the memoryless 4-bit reset'),
     # added after the independent review (its mutants R1, R4, R10, R15)
     ('M11_power_rule_exponent', 'K7 power-rule control',
-     'n_hp = least_power_below(bh, HALF)', 'n_hp = least_power_below(bh * bh, HALF)',
-     'K7 power-rule depth is the least n with BC_upper^n < 1/2'),
+     'n_hp = least_n_above(lambda n: power_rule_lower(bh, n), HALF)',
+     'n_hp = least_n_above(lambda n: power_rule_lower(bh * bh, n), HALF)',
+     'K7 power-rule depth is the least n with lower bound above 1/2'),
     ('M12_drop_closedness', 'step-5 class analysis',
      'if all(i in reach[j] for j in reach[i]):', 'if True:', 'step4 nonsingular stationary system'),
     ('M13_fewer_chains', 'census count',
@@ -52,6 +53,32 @@ MUTANTS = [
     ('M14_memory_formula', 'memory column',
      "'memory_bits_upper': (k - 1) * B + (k - 1) + (k - 1).bit_length()",
      "'memory_bits_upper': (k - 1) * B + (k - 1).bit_length()", 'memory column bounds the persistent-state count'),
+    # added after the re-check (its double mutant D1 and report-level mutant D5)
+    ('M15_power_rule_exponent_consistent', 'K7 exact power-rule check',
+     '    return 1 - bc ** n\n', '    return 1 - bc ** (2 * n)\n', 'K7 exact product TV inside power-rule bracket'),
+    ('M16_lists_against_ceiling', 'comparison-flag recomputation',
+     "post['certified_fails_before_nearest_dyadic_reset'] = k * n_hp < cross_near",
+     "post['certified_fails_before_nearest_dyadic_reset'] = k * n_hp < cross_mem",
+     'comparison flags recomputed from stored depths and the nearest-dyadic crossing'),
+    # added at the owner's request: further consistent wrong-bound mutants (implementation and its own check changed together)
+    ('M17_threshold_consistent', 'exact ceiling-rounded crossing at k=1',
+     'n_hp = least_n_above(lambda n: power_rule_lower(bh, n), HALF)\n                check(power_rule_lower(bh, n_hp) > HALF and (n_hp == 1 or power_rule_lower(bh, n_hp - 1) <= HALF),',
+     'n_hp = least_n_above(lambda n: power_rule_lower(bh, n), Q(1, 4))\n                check(power_rule_lower(bh, n_hp) > Q(1, 4) and (n_hp == 1 or power_rule_lower(bh, n_hp - 1) <= Q(1, 4)),',
+     'K7 power rule brackets the exact ceiling-rounded crossing'),
+    ('M18_weaker_bound_consistent', 'preregistered-rule comparison',
+     '    return 1 - bc ** n\n', '    return 1 - bc ** ((n + 1) // 2)\n',
+     'K7 power-rule depth no later than the preregistered depth'),
+    # M15 with independent constraints disabled one at a time: each remaining one must still catch it
+    ('M19_consistent_exponent_consistency_only', 'certificate consistency',
+     [('    return 1 - bc ** n\n', '    return 1 - bc ** (2 * n)\n'),
+      ('check(T >= power_rule_lower(bh, n) and T * T <= 1 - (bl * bl) ** n,', 'check(True,'),
+      ("check(T >= power_rule_lower(bh, h), 'K7 exact T(h) >= power-rule lower bound at k=1')", 'pass')],
+     None, 'K7 upper and lower half-level certificates consistent'),
+    ('M20_consistent_exponent_exact_k1_only', 'K7 exact k=1 check alone',
+     [('    return 1 - bc ** n\n', '    return 1 - bc ** (2 * n)\n'),
+      ('check(T >= power_rule_lower(bh, n) and T * T <= 1 - (bl * bl) ** n,', 'check(True,'),
+      ("check(n_lp < n_hp, 'K7 upper and lower half-level certificates consistent')", 'pass')],
+     None, 'K7 exact T(h) >= power-rule lower bound at k=1'),
 ]
 
 LOCATION = 'HERE = os.path.dirname(os.path.abspath(__file__))'
@@ -76,10 +103,14 @@ def main():
     caught_all = True
     with tempfile.TemporaryDirectory() as tmp:
         for name, control, old, new, label in MUTANTS:
-            if src.count(old) != 1 or src.count(LOCATION) != 1:
-                print(f'VOID: mutant {name} does not apply exactly once')
-                sys.exit(2)
-            mutated = src.replace(old, new).replace(LOCATION, f'HERE = {TARGET!r}')
+            pairs = old if isinstance(old, list) else [(old, new)]
+            mutated = src
+            for o, n in pairs:
+                if mutated.count(o) != 1 or src.count(LOCATION) != 1:
+                    print(f'VOID: mutant {name} does not apply exactly once')
+                    sys.exit(2)
+                mutated = mutated.replace(o, n)
+            mutated = mutated.replace(LOCATION, f'HERE = {TARGET!r}')
             path = os.path.join(tmp, name + '.py')
             with open(path, 'w') as f:
                 f.write(mutated)

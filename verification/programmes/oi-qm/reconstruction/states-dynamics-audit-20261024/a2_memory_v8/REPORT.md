@@ -15,11 +15,11 @@ variation from quantum theory, in which every read agrees in sign with the prece
 The verdicts, quoted verbatim from `result.json` (`class_verdict`, `family_verdict`, `resource_statement`):
 
 ```
-BOUNDED_STATE_CLASS_NO_ESCAPE: every bounded-state controller with B fair fresh bits per slot and a time-independent update has T(h)->1 on this protocol (proof in REPORT.md); finite step checked on 38329 enumerated dyadic chains (39425 closed classes, 182 with exact stationary frequency 4/5, least run mismatch at most n=2), on the executed controller chain, on three RS chains and on 15 floor-truncated decoder chains (16 closed classes); base-5 countercontrol matches exactly
+BOUNDED_STATE_CLASS_NO_ESCAPE: every bounded-state controller with B fair fresh bits per slot and a time-independent update has T(h)->1 on this protocol (proof in REPORT.md); finite step checked on 38329 enumerated dyadic chains (39425 closed classes, 182 with exact stationary frequency 4/5, least run mismatch at most n=2), on the executed controller chain and on three RS chains (post-review: also on 15 floor-truncated decoder chains, 16 closed classes); base-5 countercontrol matches exactly
 ```
 
 ```
-RS_FAMILY_FINITE_FAILURE_DEPTH_EVERY_TESTED_MEMBER: preregistered rule: B=2: each k=1..16 certified T>1/2 beyond a finite depth (nc/(1+nc) rule), largest h=64 (k=16); B=3: each k=1..16 certified T>1/2 beyond a finite depth (nc/(1+nc) rule), largest h=244 (k=2); B=4: each k=1..16 certified T>1/2 beyond a finite depth (nc/(1+nc) rule), largest h=9196 (k=2) | post-plan (power rule, exact memoryless comparators): B=2: power-rule depths from h=7 (k=1, 0 memory bits) to h=48 (k=16); nearest-dyadic memoryless reset (agreement 3/4) first exceeds T=1/2 at h=127 (exact); certified to fail before it for k in [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]; certified to outlast it for k in []; undetermined for k in []; ceiling-rounded reset RS(B,1) (agreement 1) first exceeds 1/2 at h=4; B=3: power-rule depths from h=60 (k=6, 23 memory bits) to h=170 (k=2); nearest-dyadic memoryless reset (agreement 3/4) first exceeds T=1/2 at h=127 (exact); certified to fail before it for k in [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]; certified to outlast it for k in []; undetermined for k in [2, 16]; ceiling-rounded reset RS(B,1) (agreement 7/8) first exceeds 1/2 at h=45; B=4: power-rule depths from h=742 (k=14, 69 memory bits) to h=6374 (k=2); nearest-dyadic memoryless reset (agreement 13/16) first exceeds T=1/2 at h=1819 (exact); certified to fail before it for k in [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]; certified to outlast it for k in []; undetermined for k in [2, 3]; ceiling-rounded reset RS(B,1) (agreement 13/16) first exceeds 1/2 at h=1819
+RS_FAMILY_FINITE_FAILURE_DEPTH_EVERY_TESTED_MEMBER: preregistered rule: B=2: each k=1..16 certified T>1/2 beyond a finite depth (nc/(1+nc) rule), largest h=64 (k=16); B=3: each k=1..16 certified T>1/2 beyond a finite depth (nc/(1+nc) rule), largest h=244 (k=2); B=4: each k=1..16 certified T>1/2 beyond a finite depth (nc/(1+nc) rule), largest h=9196 (k=2) | post-plan (power rule, exact memoryless comparators): B=2: power-rule depths from h=7 (k=1, 0 memory bits) to h=48 (k=16); nearest-dyadic i.i.d. reset (agreement 3/4; best i.i.d. B-bit law at this B by first crossing, other neighbour 1 crossing at h=4; not compared with record-dependent or time-varying controllers) first exceeds T=1/2 at h=127 (exact); certified to fail before it for k in [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]; certified to outlast it for k in []; ordering undetermined for k in []; ceiling-rounded reset RS(B,1) (agreement 1) first exceeds 1/2 at h=4; B=3: power-rule depths from h=60 (k=6, 23 memory bits) to h=170 (k=2); nearest-dyadic i.i.d. reset (agreement 3/4; best i.i.d. B-bit law at this B by first crossing, other neighbour 7/8 crossing at h=45; not compared with record-dependent or time-varying controllers) first exceeds T=1/2 at h=127 (exact); certified to fail before it for k in [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]; certified to outlast it for k in []; ordering undetermined for k in [2, 16]; ceiling-rounded reset RS(B,1) (agreement 7/8) first exceeds 1/2 at h=45; B=4: power-rule depths from h=742 (k=14, 69 memory bits) to h=6374 (k=2); nearest-dyadic i.i.d. reset (agreement 13/16; best i.i.d. B-bit law at this B by first crossing, other neighbour 3/4 crossing at h=127; not compared with record-dependent or time-varying controllers) first exceeds T=1/2 at h=1819 (exact); certified to fail before it for k in [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]; certified to outlast it for k in []; ordering undetermined for k in [2, 3]; ceiling-rounded reset RS(B,1) (agreement 13/16) first exceeds 1/2 at h=1819
 ```
 
 ```
@@ -162,8 +162,15 @@ at the 1/10 level. Every member is certified T > 1/2 beyond a finite depth (`fam
 - the exact memoryless comparators;
 - the comparisons and the mechanism paragraph.
 
-The memoryless comparators: the **nearest-dyadic** reset, the best memoryless B-bit law, has agreement 3/4 at B=2
-and B=3 and 13/16 at B=4. Its exact first depths with T > 1/2 are 127, 127 and 1819.
+**The memoryless comparator** is the **nearest-dyadic i.i.d. reset**: the multiple of 2^-B nearest to 4/5 in
+distance, used at every read.
+- Its agreement is 3/4 at B=2 and B=3, and 13/16 at B=4. Its exact first depths with T > 1/2 are 127, 127 and 1819.
+- **Why it is the best i.i.d. law at these B.** For i.i.d. laws, T(h) is nondecreasing as the agreement moves away
+  from 4/5 on either side, by the monotone likelihood ratio. So the best i.i.d. B-bit law in the first-crossing
+  sense is one of the two neighbours of 4/5. The checker computes the other neighbour's exact crossing and requires
+  it to be no later: 1 at B=2 crosses at 4, 7/8 at B=3 at 45, and 12/16 at B=4 at 127.
+- **Its limit.** It is best among i.i.d. B-bit laws at the tested B only. It is not compared with the
+  record-dependent or time-varying controllers of the `a2_depth_v7/` memoryless class.
 
 Selected rows (all 48 members are in `result.json`; decimals are truncated toward zero; the last two columns are
 post-plan):
@@ -183,17 +190,20 @@ post-plan):
 | 2 | 1 | 0 | 0.200000000000 | 0.105572809000 | 7 | 2 |
 | 2 | 16 | 49 | 0.283262294945 | 0.278560939924 | 48 | 16 |
 
-**Against the nearest-dyadic memoryless reset** (post-plan):
+**Against the nearest-dyadic i.i.d. reset** (post-plan):
 - B=2: every k = 2..16 is certified to exceed T = 1/2 before it does (by h ≤ 48 < 127).
 - B=3: k = 3..15 are certified to fail before it; k = 2 (170) and k = 16 (128) are undetermined.
 - B=4: k = 4..16 are certified to fail before it; for example RS(4,8), holding up to 38 memory bits, by h = 776,
   and RS(4,14) by h = 742. k = 2, 3 are undetermined.
 - No tested member is certified to outlast it.
 
-On the certified depths, retaining seed bits within blocks makes the record law worse than the best memoryless
-reset at the same fresh-bit rate, at every tested B. Against the suboptimal ceiling-rounded reset (crossings 4,
-45, 1819) some members outlast it (B=2: every k ≥ 2; B=3: k ≥ 9). That comparison is recorded in `result.json`
-but does not compare RS with the best memoryless law.
+So, on the certified depths, retaining seed bits within blocks makes the record law worse than the nearest-dyadic
+i.i.d. reset at the same fresh-bit rate, for every member whose ordering is certified. That is all members except
+B=3, k=2 and 16, and B=4, k=2 and 3, whose ordering is undetermined. None is certified to outlast it.
+
+Against the suboptimal ceiling-rounded reset (crossings 4, 45, 1819), some members outlast it (B=2: every k ≥ 2;
+B=3: k ≥ 9). That comparison is recorded in `result.json`, but it does not compare RS with the nearest-dyadic
+i.i.d. reset.
 
 **Why bounded retained seeds can hurt** (post-plan, measured for the RS family only). Repeated blocks compound
 through the Bhattacharyya coefficient, not through total variation.
@@ -216,9 +226,11 @@ This is not a statement about the best bounded-memory controller.
 | K4 base-5 countercontrol | with one fair five-valued symbol per slot, 1 of 6 one-state chains and 209 classes among 3,136 two-state chains match (4/5)^n for every n ≤ \|C\|, with χ(4)=0; the counts are checked in closed form | green |
 | K5 frequency insufficiency | 182 dyadic classes have exact stationary frequency 4/5; each mismatches at n=2 | green |
 | K6 unbounded memory | the unrestarted state machine equals the retained-seed law (B=2 h=6, B=3 h=4); every block TV is below 1/(2^B − 2); three checks on retained values (RS(4,1) is the 13/16 reset, two engines agree, its T(4096) display equals the retained one) | green |
-| K7 enclosures | square-root endpoints checked by squaring; Le Cam inequalities 1 − BC ≤ TV ≤ sqrt(1 − BC²) for every block; for n·k ≤ 16 the exact product TV lies inside the preregistered and power-rule brackets; every certified depth is minimal or maximal for its rule, including the power-rule depth as the least n with BC_upper^n < 1/2; at k=1, exact T(h) ≥ 1 − BC_upper^h and T(h) ≤ min(sqrt(1 − BC_lower^(2h)), h·T_1), for every h ≤ min(2·n_hp, 600) and, beyond that, every multiple of 256 up to 2·n_hp and n_hp ± 1 (B=4: 644 depths to h=11,008; B=2,3: every h ≤ 2·n_hp) | green |
+| K7 enclosures | square-root endpoints checked by squaring; Le Cam inequalities 1 − BC ≤ TV ≤ sqrt(1 − BC²) for every block; for n·k ≤ 16 the exact product TV lies inside the preregistered and power-rule brackets; every certified depth is minimal or maximal for its rule; the power-rule lower bound 1 − BC_upper^n is one function, used by the depth search, the k=1 exact check and the product check, so a consistent change to it is judged by the exact computations; at k=1, exact T(h) ≥ 1 − BC_upper^h and T(h) ≤ min(sqrt(1 − BC_lower^(2h)), h·T_1), for every h ≤ 600, every multiple of 1024 up to twice the preregistered depth, and n_hp ± 1; the depths checked do not depend on the power-rule depth (B=2,3: every h ≤ 600; B=4: 618 depths to h=15,360) | green |
 | K8 restart mechanics | an explicit state machine (seed register, exact interval, phase, clearing), enumerated over every fresh-bit string, and its chain form both equal the product of block laws (B,k,h) = (2,2,8), (2,3,7), (3,2,5), (4,3,4) | green |
 | counts | census chain counts in closed form; memory column bounds the persistent-state count; that count equals the explicit chain size for RS(2,2), RS(2,3), RS(3,2) | green |
+| power-rule independence | the power-rule depths are constrained by code paths they do not share. (i) Exact T(h) at k=1, from the binomial engine `tv_iid`, must be ≥ the bound at every checked h, and the exact first crossing must lie at or before the reported depth. (ii) For n·k ≤ 16, the exact product TV from enumerated block laws must lie inside the power-rule bracket. (iii) The reported depth must be no later than the separately coded preregistered nc/(1+nc) depth, which the power bound dominates. (iv) The upper certificate (from BC_lower and T_k) must certify T ≤ 1/2 only at depths before the lower certificate's. Too strong a bound fails (i) or (ii); too weak a bound fails (iii); a wrong threshold fails the exact crossing in (i) or fails (iv) | green |
+| comparators | the nearest-dyadic agreement is distance-minimal over 2^-B Z; its exact crossing is no earlier than the other neighbour's; the fails-before and outlasts lists in `family_verdict` are recomputed from the stored depths and the nearest-dyadic crossing and must equal the per-member flags | green |
 
 **Mutants** (`mutants/run_mutants.py`, output in `mutants/mutants.out`). The unmodified checker first reproduces
 `result.json` byte for byte. Each mutant is then run separately. It counts as caught only if it exits 2 and its
@@ -237,11 +249,30 @@ first line begins with VOID and the targeted control's label.
 - M12 closedness test removed (singular-system VOID)
 - M13 one composition dropped (census count)
 - M14 record bits dropped from the memory column (memory control)
+- M15 exponent doubled inside the shared power-rule lower bound (exact product TV)
+- M16 comparison flags computed against the ceiling-rounded crossing (flag recomputation)
+- M17 threshold 1/2 → 1/4 changed in the depth search and in its own minimality check together (exact crossing)
+- M18 weaker bound 1 − BC^⌈n/2⌉ inside the shared function (preregistered-rule comparison)
+- M19 is M15 with the product-loop and k=1 exact checks disabled (caught by certificate consistency alone)
+- M20 is M15 with the product-loop and consistency checks disabled (caught by the exact k=1 TV alone). In a first
+  version the k=1 range was tied to the mutated power-rule depth and M20 passed; the range now uses the
+  preregistered depth
 
-M11–M14 re-implement the review's mutants R1, R4, R10 and R15.
+M11–M14 re-implement the review's mutants R1, R4, R10 and R15. M15 and M16 re-implement the re-check's D1 and D5.
 
-The review's own script (15 code mutants and one tampered input) was rerun on a copy against this revision. All 16
-now exit 2 with VOID, including R1, R4, R10 and R15, which the earlier revision missed.
+**Consistent wrong-bound mutants.** M15, M17 and M18 each change the depth computation and the check that restates
+it together. So the reported depths change, and no self-consistency check can see the change. Each is still caught
+by an independent constraint:
+- M15 (too strong) first by the exact product TV of enumerated block laws. It is also caught by the upper/lower
+  certificate consistency alone (M19), and by the exact k=1 TV alone (M20);
+- M17 (wrong threshold) by the exact crossing;
+- M18 (too weak) by the preregistered rule.
+
+The reviewers' scripts were rerun on copies against this revision:
+- **The first round's script** (15 code mutants and one tampered input). Its R1 targets a line the shared function
+  replaced, so the copy's R1 strings were adapted to the new line.
+- **The re-check's script** (D1, D4, D5). Its D1 strings were adapted to the shared function.
+- Results are given with this revision.
 
 Two controls were reordered so that M3 and M4 fail on their targeted labels and not on a later-added check: the
 floor-decoder member now runs after the census, and the K4 count check after the exact-match check.
@@ -257,9 +288,16 @@ and PLAN.md is left as committed.
   - several closed classes and absorbing states;
   - stationary agreement defects that did not shrink steadily with m;
   - at B=2, m=4, a class matching frequency 4/5 to float precision while its run masses differed at n ≥ 2.
-- **What it influenced:** it steered the choice of tested family away from that decoder to RS(B,k). It touched
-  neither RS(B,k), the census populations nor the decision rule. In the author's working record, the Cayley–Hamilton
-  route on run masses was sketched before that run.
+- **What it influenced:**
+  - It steered the choice of tested family away from that decoder to RS(B,k).
+  - Its frequency-4/5 class with differing run masses may have informed K5 (the preregistered expectation that
+    exact-frequency dyadic classes exist and mismatch at some n ≥ 2). It may also have informed the choice of run
+    masses rather than frequency in the proof route.
+  - It may equally have informed the census populations, the expectation behind computation 3 that every class
+    mismatches at small n, and the choice to compute exact stationary laws rather than frequencies.
+  - These are disclosed as possible influences. How much influence there was cannot be measured after the fact,
+    and the repository cannot establish the order in which the proof route and the exploration arose.
+  - It touched neither RS(B,k), the census populations nor the decision rule.
 - **The exact recomputation:** after the review, the decoder is recomputed exactly as the second concrete member.
   The B=2, m=4 class has frequency exactly 4/5 and mismatches at n=2.
 
@@ -291,6 +329,17 @@ and PLAN.md is left as committed.
 - wording on necessity versus sufficiency, verbatim verdicts, proof step 3 and attribution;
 - the K2/K6 count split (41 and 3), the corrected K6 string, a faster exact `tv_iid`, and mutants M11–M14.
 
+**Post-re-check:**
+- the comparator wording narrowed to the nearest-dyadic i.i.d. reset, with the other neighbour's exact crossing
+  as a control;
+- the ordering sentence limited to members whose ordering is certified;
+- one shared power-rule lower-bound function, constrained independently (exact k=1 TV and crossing, exact product
+  TV, the preregistered-rule comparison, upper/lower certificate consistency);
+- the flag-recomputation control, and mutants M15–M18;
+- K5 and the run-mass route added to what the exploration may have informed, with the unverifiable sentence
+  removed;
+- the post-review label on the floor-decoder counts inside `class_verdict`.
+
 ## What this does not show
 
 - A rate of failure, or a computed h*(|Σ|, B), for the bounded-state class.
@@ -303,7 +352,7 @@ and PLAN.md is left as committed.
 
 ## Replay
 
-Timings on the author's container: about 3 minutes for the checker, normal or -O, and about 5 minutes for the mutant
+Timings on the author's container: about 3 minutes for the checker, normal or -O, and about 10 minutes for the mutant
 run. From an empty working directory, with the repository root as R and
 D = R/verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8:
 

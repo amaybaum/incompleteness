@@ -586,16 +586,38 @@ def memoryless_crossing(p):
     return p, hi
 
 
-def power_rule_exact_k1(p, bl, bh, Tk, n_hp):
-    """K7 for the post-plan power rule at k=1: exact T(h) against 1-BC_upper^h, sqrt(1-BC_lower^(2h)) and
-    h*T_1, for every h <= min(2 n_hp, 600), and beyond that every multiple of 256 up to 2 n_hp and n_hp-1..n_hp+1."""
-    top = 2 * n_hp
-    hs = sorted(set(range(1, min(top, 600) + 1)) | set(range(256, top + 1, 256)) | {max(1, n_hp - 1), n_hp, n_hp + 1})
+def power_rule_lower(bc, n):
+    """Post-plan power-rule lower bound: T(nk) >= 1 - BC_k^n for n independent blocks. The depth search, the k=1
+    exact check and the n*k<=16 product check all use this one function."""
+    return 1 - bc ** n
+
+
+def least_n_above(f, level):
+    """Least n >= 1 with f(n) > level, for f nondecreasing in n, by exact doubling and bisection."""
+    hi = 1
+    while f(hi) <= level:
+        hi *= 2
+    lo = hi // 2
+    while hi - lo > 1:
+        m = (lo + hi) // 2
+        if f(m) > level:
+            hi = m
+        else:
+            lo = m
+    return hi
+
+
+def power_rule_exact_k1(p, bl, bh, Tk, n_hp, n_half):
+    """K7 for the post-plan power rule at k=1: exact T(h) from the binomial engine against the shared power-rule
+    lower bound, sqrt(1-BC_lower^(2h)) and h*T_1. The depths checked do not depend on the power-rule depth: every
+    h <= 600, every multiple of 1024 up to twice the preregistered depth n_half, and n_hp-1..n_hp+1."""
+    top = 2 * n_half
+    hs = sorted(set(range(1, 601)) | set(range(1024, top + 1, 1024)) | {max(1, n_hp - 1), n_hp, n_hp + 1})
     for h in hs:
         T = tv_iid(p, h)
-        check(T >= 1 - bh ** h, 'K7 exact T(h) >= 1 - BC_upper^h at k=1')
+        check(T >= power_rule_lower(bh, h), 'K7 exact T(h) >= power-rule lower bound at k=1')
         check(T * T <= 1 - (bl * bl) ** h and T <= h * Tk, 'K7 exact T(h) inside power-rule upper bounds at k=1')
-    return {'depths_checked': len(hs), 'all_h_up_to': min(top, 600), 'max_h': hs[-1]}
+    return {'depths_checked': len(hs), 'all_h_up_to': 600, 'max_h': hs[-1]}
 
 
 def family(Bs=(2, 3, 4), kmax=16):
@@ -604,6 +626,12 @@ def family(Bs=(2, 3, 4), kmax=16):
         base_half = None
         p_mem, cross_mem = memoryless_crossing(ceiling_rounded(B))
         p_near, cross_near = memoryless_crossing(nearest_dyadic(B))
+        lo_n = Q((4 << B) // 5, 1 << B)
+        p_other = lo_n + Q(1, 1 << B) if p_near == lo_n else lo_n
+        p_other, cross_other = memoryless_crossing(p_other)
+        # TV of Bernoulli(p)^h against Bernoulli(4/5)^h is nondecreasing as p moves away from 4/5 on either side
+        # (monotone likelihood ratio), so among i.i.d. B-bit laws the first crossing is maximal at a neighbour.
+        check(cross_near >= cross_other, 'nearest-dyadic i.i.d. reset crosses no earlier than the other neighbour')
         check(all(abs(Q(x, 1 << B) - QUANTUM) >= abs(p_near - QUANTUM) for x in range((1 << B) + 1)),
               'nearest dyadic minimal over 2^-B Z')            # the best i.i.d. B-bit memoryless law
         for k in range(1, kmax + 1):
@@ -639,17 +667,22 @@ def family(Bs=(2, 3, 4), kmax=16):
                 entry['half_depth_per_memory_bit'] = (display(Q(k * n_half, entry['memory_bits_upper']), 3)
                                                       if entry['memory_bits_upper'] else None)
                 # Power rule (post-plan): T(nk) >= 1 - BC^n and T(nk) <= sqrt(1 - BC^(2n)) or n*T_k.
-                n_hp = least_power_below(bh, HALF)
-                check(bh ** n_hp < HALF and (n_hp == 1 or bh ** (n_hp - 1) >= HALF),
-                      'K7 power-rule depth is the least n with BC_upper^n < 1/2')
+                n_hp = least_n_above(lambda n: power_rule_lower(bh, n), HALF)
+                check(power_rule_lower(bh, n_hp) > HALF and (n_hp == 1 or power_rule_lower(bh, n_hp - 1) <= HALF),
+                      'K7 power-rule depth is the least n with lower bound above 1/2')
                 n_lp = max(least_power_below(bl * bl, Q(3, 4)) - 1, floor_q(HALF / Tk))
                 check(n_lp * Tk <= HALF or (bl * bl) ** n_lp >= Q(3, 4), 'K7 half-upper depth valid')
+                # Independent constraints on the power-rule depth (post-recheck), from code paths it does not share:
+                # the separately coded preregistered rule (1 - BC^n >= nc/(1+nc), so the power depth is no later),
+                # and the upper certificates computed from BC_lower and T_k (T <= 1/2 certified only earlier).
+                check(n_hp <= n_half, 'K7 power-rule depth no later than the preregistered depth')
+                check(n_lp < n_hp, 'K7 upper and lower half-level certificates consistent')
                 post = {'power_rule_T_above_half_for_h_at_least': k * n_hp,
                         'power_rule_T_at_most_half_for_h_at_most': k * n_lp}
                 if k == 1:
                     check(law[(1,)] == p_mem, 'K6 RS(B,1) is the ceiling-rounded B-bit reset')
                     check(k * n_lp < cross_mem <= k * n_hp, 'K7 power rule brackets the exact ceiling-rounded crossing')
-                    post['power_rule_exact_checks_at_k1'] = power_rule_exact_k1(p_mem, bl, bh, Tk, n_hp)
+                    post['power_rule_exact_checks_at_k1'] = power_rule_exact_k1(p_mem, bl, bh, Tk, n_hp, n_half)
                 else:
                     post['certified_fails_before_nearest_dyadic_reset'] = k * n_hp < cross_near
                     post['certified_outlasts_nearest_dyadic_reset'] = k * n_lp >= cross_near
@@ -674,12 +707,14 @@ def family(Bs=(2, 3, 4), kmax=16):
                 lower = n * c_low / (1 + n * c_low)
                 check(lower <= T <= n * Tk, 'K7 exact product TV inside certified bracket')
                 check(T * T <= 2 * n * c_up, 'K7 exact product TV inside Hellinger upper bound')
-                check(T >= 1 - bh ** n and T * T <= 1 - (bl * bl) ** n, 'K7 exact product TV inside power-rule bracket')
+                check(T >= power_rule_lower(bh, n) and T * T <= 1 - (bl * bl) ** n,
+                      'K7 exact product TV inside power-rule bracket')
                 n += 1
             rows[f'B{B}_k{k}'] = entry
         rows[f'B{B}_memoryless_comparators_post_plan'] = {
             'ceiling_rounded_reset_RS_B_1': {'agreement': str(p_mem), 'exact_first_depth_T_above_half': cross_mem},
-            'nearest_dyadic_reset': {'agreement': str(p_near), 'exact_first_depth_T_above_half': cross_near}}
+            'nearest_dyadic_reset': {'agreement': str(p_near), 'exact_first_depth_T_above_half': cross_near},
+            'other_neighbour_reset_post_recheck': {'agreement': str(p_other), 'exact_first_depth_T_above_half': cross_other}}
     return rows
 
 
@@ -843,8 +878,9 @@ def run():
                      'and a time-independent update has T(h)->1 on this protocol (proof in REPORT.md); finite step '
                      f'checked on {n_chains} enumerated dyadic chains ({n_classes} closed classes, {n_freq} with '
                      f'exact stationary frequency 4/5, least run mismatch at most n={worst}), on the executed '
-                     f'controller chain, on three RS chains and on {len(floor_member)} floor-truncated decoder chains '
-                     f'({n_floor_classes} closed classes); base-5 countercontrol matches exactly')
+                     f'controller chain and on three RS chains (post-review: also on {len(floor_member)} '
+                     f'floor-truncated decoder chains, {n_floor_classes} closed classes); base-5 countercontrol '
+                     'matches exactly')
     by_B = {}
     for key, v in members.items():
         B = int(key[1:key.index('_')])
@@ -864,13 +900,20 @@ def run():
                              key=lambda x: (x[1], -x[0]))
         before = [k for k, v in rows if k > 1 and v['post_plan']['certified_fails_before_nearest_dyadic_reset']]
         outlast = [k for k, v in rows if k > 1 and v['post_plan']['certified_outlasts_nearest_dyadic_reset']]
+        cn = near['exact_first_depth_T_above_half']
+        check(before == [k for k, v in rows if k > 1 and v['post_plan']['power_rule_T_above_half_for_h_at_least'] < cn]
+              and outlast == [k for k, v in rows if k > 1 and v['post_plan']['power_rule_T_at_most_half_for_h_at_most'] >= cn],
+              'comparison flags recomputed from stored depths and the nearest-dyadic crossing')
         undet = [k for k, v in rows if k > 1 and k not in before and k not in outlast]
         post.append(f'B={B}: power-rule depths from h={best} (k={best_k}, {dict(rows)[best_k]["memory_bits_upper"]} '
-                    f'memory bits) to h={worst} (k={worst_k}); nearest-dyadic memoryless reset (agreement '
-                    f'{near["agreement"]}) first exceeds T=1/2 at h={near["exact_first_depth_T_above_half"]} (exact); '
+                    f'memory bits) to h={worst} (k={worst_k}); nearest-dyadic i.i.d. reset (agreement '
+                    f'{near["agreement"]}; best i.i.d. B-bit law at this B by first crossing, other neighbour '
+                    f'{comp["other_neighbour_reset_post_recheck"]["agreement"]} crossing at '
+                    f'h={comp["other_neighbour_reset_post_recheck"]["exact_first_depth_T_above_half"]}; not compared '
+                    f'with record-dependent or time-varying controllers) first exceeds T=1/2 at h={cn} (exact); '
                     f'certified to fail before it for k in {before}; certified to outlast it for k in {outlast}; '
-                    f'undetermined for k in {undet}; ceiling-rounded reset RS(B,1) (agreement {ceil_["agreement"]}) '
-                    f'first exceeds 1/2 at h={ceil_["exact_first_depth_T_above_half"]}')
+                    f'ordering undetermined for k in {undet}; ceiling-rounded reset RS(B,1) (agreement '
+                    f'{ceil_["agreement"]}) first exceeds 1/2 at h={ceil_["exact_first_depth_T_above_half"]}')
     family_verdict = (('RS_FAMILY_FINITE_FAILURE_DEPTH_EVERY_TESTED_MEMBER: ' if all_cert else
                        'RS_FAMILY_PARTIAL_CERTIFICATION: ') + 'preregistered rule: ' + '; '.join(pre)
                       + ' | post-plan (power rule, exact memoryless comparators): ' + '; '.join(post))
@@ -882,7 +925,7 @@ def run():
                 'the a2_depth_v7 retained-seed reset granted the target cuts, keeps T<=1/(2^B-2) at every depth for '
                 'B>=2. The least sufficient growth rate is not determined here.')
     out = {
-        'schema': 'oi.a2-bounded-memory-v8.v2',
+        'schema': 'oi.a2-bounded-memory-v8.v3',
         'protocol': 'prepare X+, then reads a,X,a,X,...; quantum agreement 4/5 per read; complete public record',
         'class_hypothesis': ('finite persistent state (carrier, private memory, any clock or record registers read); '
                              'time-independent deterministic update from state, one fresh block of B fair bits and '
