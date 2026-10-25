@@ -46,7 +46,17 @@
     "R2: local_sources() adds junction_v4's fourth selector (4T,P+S,0) and opposite reset pulse (0,S,-S-136), with strict anchors; no key or other anchor classification changes.",
     "R3: the native_route_v13 geometry reader fails closed if a tracked list (target, deadline, ports, deadlines, ready, directions) is assigned, augmented, aliased, used as a loop or comprehension target, deleted, declared global or nonlocal, or receives a method call anywhere other than the top-level statements it reads. Eight mutated in-memory copies of the pinned file (nested +=, append, extend, insert, subscript assignment, extra +=, loop target, alias) are refused in the checker itself; the pinned-hash check is unchanged.",
     "R4: REPORT cites junction_v4's inherited independent-uniform complement prior, which satisfies the hypothesis of (ii).",
-    "Four further mutants (32 in all)."
+    "Four further mutants (32 in all).",
+    "Check of 96bfc56c (accept with nits) addressed in the commit after it, wording only; no checker logic changed and the outcome is unchanged.",
+    "N1: the R3 entry above overstates the reader. What is enforced: outside the top-level statements it reads, the reader refuses the listed write forms on a tracked name (assignment, augmented assignment, direct aliases, loop or comprehension targets, deletion, walrus, method calls on a tracked name, parameters and scope declarations). Indirect writes (list.extend(ready, ...), a container alias, a lambda argument) are not detected; the hash pin of native_route_v13/checks.py is what guarantees that the list read is the list used. REPORT and the checker docstring now say this.",
+    "N2: the generated verdict says the junction_v4 prior supplies the uniform key 'where that inherited prior is retained'; this changes verdict.statement and so result.json, and nothing else in it.",
+    "N3: the Scope paragraph is re-wrapped."
   ],
-  "second_review_fix_commit_parent": "74541cf18bfd9e986039cf86d5cf4bf2152b3105"
+  "second_review_fix_commit_parent": "74541cf18bfd9e986039cf86d5cf4bf2152b3105",
+  "result_json_sha256_by_revision": {
+    "2c43d615a440c2b837dc19f410759d01a47e5362": "9bf28d326caeb0b38d4d2de31ddbda592696fba2fb90cd7f49aa8b101422d314",
+    "74541cf18bfd9e986039cf86d5cf4bf2152b3105": "110ea9c3539407a8bc217c474cf160709d1c955d549c3682cd295e541384c66d",
+    "96bfc56c8d4edc9d332d15b470976a28f528dfe7": "71c594e628cf61f463fec400273481ba51e517e745a3058a82f80aeed8cf9914",
+    "this revision": "56509ae6c7dcc40bbbcdd3a62c8b73bf03e0c5ed20052a226eb63bdda1606d04"
+  }
 }

@@ -463,10 +463,13 @@ def target_names(node):
 
 
 def route_writes_closed(function):
-    """Fail closed unless the tracked lists are written only by the top-level
-    statements route_geometry reads: no other assignment, augmented
-    assignment, loop or comprehension target, deletion, walrus, method call
-    (append, extend, insert, ...), parameter, alias or scope declaration."""
+    """Refuse the listed write forms on a tracked name outside the top-level
+    statements route_geometry reads: assignment, augmented assignment, direct
+    aliases, loop or comprehension targets, deletion, walrus, method calls on
+    a tracked name, parameters and scope declarations. Indirect writes (for
+    example list.extend(ready, ...), a container alias or a lambda argument)
+    are not detected; the hash pin of native_route_v13/checks.py is what
+    guarantees that the list read is the list used."""
     read = set()
     for stmt in function.body:
         if (isinstance(stmt, ast.Assign) and len(stmt.targets) == 1 and isinstance(stmt.targets[0], ast.Name)
@@ -843,7 +846,7 @@ def verdict(geo):
              'correlation, and no record in the lineage with a deadline beyond L%+d (the largest '
              'declared ready radius used). Part (ii) is conditional in addition on a uniform free '
              'key, which the inherited independent-uniform complement prior of junction_v4 '
-             'supplies.') % geo['largest_ready_radius_over_L']
+             'supplies where that inherited prior is retained.') % geo['largest_ready_radius_over_L']
     base.update({'outcome': 'NEGATIVE_FOR_CONSTRUCTION', 'statement': text})
     return base
 
