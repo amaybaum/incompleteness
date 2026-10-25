@@ -17,6 +17,10 @@ PLAN_PATH = REL + "/PLAN.md"
 A1_PATH = REL + "/amendments/A1-owner-decisions.md"
 PLAN_COMMIT = "af38dc2dde0fbdd190a67debf700ab5c370f92d9"   # revision 5, the plan A1 amends
 A1_COMMIT = "1e025b672bdeb56e52f32d668f46320e8c4be06e"     # carries A1's final blob
+# Amendment A2 resolves the open items of pending.py. It does not exist yet; when it lands, the
+# commit carrying its final blob is pinned here, exactly as A1 is.
+A2_PATH = REL + "/amendments/A2-open-items.md"
+A2_COMMIT = None
 CODE_PATHS = [REL + "/pe01", REL + "/verdict.py", REL + "/run.py", ".github/workflows/pe01-bounded-tests.yml"]
 
 # --- the parameters this code runs with (TH compares them with A1's block) ---
@@ -155,6 +159,7 @@ def is_ancestor(a, b):
 # ---------------------------------------------------------------- TH
 
 BLOCK = re.compile(r"```json pe01-parameters\n(.*?)\n```", re.S)
+RES_BLOCK = re.compile(r"```json pe01-resolutions\n(.*?)\n```", re.S)
 
 
 def parse_block(text):
@@ -250,12 +255,58 @@ def pin_check():
     return rec
 
 
+def a2_check(mode):
+    """A2's resolutions. result mode: only a pinned A2 (A2_COMMIT set, blob unchanged, an ancestor of
+    the run commit, A1's commit an ancestor of it) resolves items. test mode: a local stub named by
+    the environment variable PE01_TEST_A2, recorded as an unpinned stub (never a result)."""
+    from . import pending
+    rec = {"checkpoint": "TH-A2", "reasons": [], "resolutions": {}, "a2_blob": None, "a2_commit": A2_COMMIT}
+    text = None
+    if mode == "test":
+        p = os.environ.get("PE01_TEST_A2")
+        if not p:
+            rec["reasons"].append("test mode needs PE01_TEST_A2")
+        else:
+            text = open(p, encoding="utf-8").read()
+            rec["source"] = "unpinned local stub (test mode)"
+            rec["a2_blob"] = git("hash-object", p)
+    elif A2_COMMIT is not None:
+        h = head()
+        b_head = blob_at(h, A2_PATH)
+        if b_head != blob_at(A2_COMMIT, A2_PATH) or worktree_blob(A2_PATH) != b_head:
+            rec["reasons"].append("A2 blob changed since %s" % A2_COMMIT[:8])
+        if not is_ancestor(A2_COMMIT, h) or not is_ancestor(A1_COMMIT, A2_COMMIT):
+            rec["reasons"].append("A2 commit ancestry fails")
+        rec["a2_blob"] = b_head
+        rec["source"] = "pinned"
+        text = open(os.path.join(repo_root(), A2_PATH), encoding="utf-8").read()
+    elif os.path.exists(os.path.join(repo_root(), A2_PATH)):
+        rec["reasons"].append("A2 exists but is not pinned in params.A2_COMMIT")
+    if text is not None:
+        m = RES_BLOCK.search(text)
+        if not m:
+            rec["reasons"].append("A2: the pe01-resolutions block cannot be read")
+        else:
+            blk = json.loads(m.group(1))
+            if blk.get("amendment") != "A2":
+                rec["reasons"].append("A2 block does not name amendment A2")
+            rec["resolutions"] = blk.get("resolves", {})
+    rec["open_items"] = pending.open_items(rec["resolutions"])
+    rec["pass"] = not rec["reasons"]
+    return rec
+
+
 def preflight(mode):
-    """TH and PIN together. In 'result' mode a dirty code tree also refuses the run."""
+    """TH (A1 and A2) and PIN together. Result and test modes also refuse on a dirty code tree."""
     ok, th = th_check()
     th = th_git(th)
+    a2 = a2_check(mode)
+    th["A2"] = a2
     pin = pin_check()
-    reasons = list(th["reasons"]) + list(pin["reasons"])
-    if mode == "result" and not pin["code_tree_clean"]:
+    reasons = list(th["reasons"]) + list(a2["reasons"]) + list(pin["reasons"])
+    if mode in ("result", "test") and not pin["code_tree_clean"]:
         reasons.append("code tree not clean at the run commit")
+    if mode in ("result", "test") and a2["open_items"]:
+        reasons.append("open plan items without an amendment: %s" % ", ".join(a2["open_items"]))
+    th["pass"] = th["pass"] and a2["pass"]
     return {"TH": th, "PIN": pin, "pass": not reasons, "reasons": reasons}
