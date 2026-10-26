@@ -40,6 +40,36 @@ confers no protection, and "the framework needs this to be true" is never an arg
 
 ## Code Review Rules
 
+### Whole-framework scope
+
+- `papers/Main.md` presents the framework's central results; it is not the
+  complete proof corpus. Proofs, derivations, hypotheses and scope
+  qualifications also live in the companion papers, the book's appendices, the
+  Lean modules under `verification/lean/` and `verification/lean-mathlib/`, and
+  the verification records under `verification/`. A review of what OI has
+  established audits that whole corpus, not Main alone.
+
+- Trace each claim to where it is actually proved or derived, with its
+  dependencies and assumptions across documents, before classifying it. A
+  proof's absence from Main is not evidence that the result is unproved: "the
+  framework does not establish X" is a negative claim and needs the corpus-wide
+  search of §A.19.
+
+- Classify what the trace finds by the layer that supports it: kernel-checked
+  formal proof, mathematical derivation on paper, result conditional on a named
+  hypothesis, exhaustive finite computation, numerical evidence, or conjecture.
+  A claim earns the status its strongest supporting source establishes, with that
+  source's hypotheses carried along, and no more (see "Claim/evidence boundary").
+
+- Check cross-document consistency without assuming that Main supersedes a more
+  detailed proof elsewhere. Where documents differ, the maintained, most careful
+  derivation is the authoritative anchor (§A.25 step 2), and the difference is a
+  finding to propagate.
+
+- This applies with particular force to the quantum equivalence, the
+  gravitational results and the Standard Model reconstruction, whose supporting
+  arguments are distributed across several papers and verification programmes.
+
 ### Claim/evidence boundary
 
 - Flag a review blocker when a changed mathematical, physical, or status claim is
