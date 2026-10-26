@@ -27,4 +27,4 @@ Lines that #936 edits are listed as owned by #936 and are not proposed for edit 
 Paths written `S/…` refer to the session's scratch directory, which is not part of the repository. The PDG review
 read for the comparison is identified in `AUDIT.md` by its digest and is not committed.
 
-Status: verification audit, under independent review. No manuscript text is changed yet.
+`REVIEW.md` is the independent review of the audit (ACCEPT WITH CHANGES). All 13 INCORRECT findings stand, four replacements are corrected, and it lists missed sites; `review/quarter3.py` is its third, independent check of the 1/4. The audit's mechanical record errors (a scratch path, a truncated digest, a stale #936 head) are corrected in place. No manuscript text is changed yet.

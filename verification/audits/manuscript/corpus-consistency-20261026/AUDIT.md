@@ -1,12 +1,12 @@
 # Independent verification of suspected overclaims (owner scope, 2026-10-26)
 
 Read-only. Corpus: `main` at `687e885b` (worktree `S/cc2/wt`, branch `fix/corpus-consistency-20261026`, full
-history of 3,720 commits, not shallow). Nothing in the repository was edited, committed or pushed. Every git command
+history of 3,720 commits, not shallow). The audit edited no manuscript; this record was committed afterwards for review. Every git command
 ran with `-c gc.auto=0 -c maintenance.auto=false`, and no gc, prune or maintenance was run. Untrusted Python was run
-with `python3 -I`. `S` = `S`.
+with `python3 -I`. `S` is the session scratch directory (absolute prefix elided).
 
 Input under test: `S/paper/apps/AUDIT.md`, §9 and its hidden-assumption notes. I treated every item there as a claim
-to verify, and I did not reuse its scripts. My own checks are in `S/cc2/scripts/`:
+to verify, and I did not reuse its scripts. My own checks are committed beside this record in `scripts/`:
 
 | Script | Output | What it settles | Layer |
 |---|---|---|---|
@@ -17,10 +17,10 @@ to verify, and I did not reuse its scripts. My own checks are in `S/cc2/scripts/
 
 External source read first-hand: PDG *Review of Particle Physics* 2025, ch. 12 "CKM Quark-Mixing Matrix", revised April
 2024 by A. Ceccucci, Z. Ligeti and Y. Sakai. Downloaded from `https://pdg.lbl.gov/2025/reviews/rpp2025-rev-ckm-matrix.pdf`
-into `S/cc2/pdg/` (sha256 `a0a78578…610a`; text extracted with pdftotext). WebFetch could not resolve the host; curl
+into `S/cc2/pdg/` (sha256 `a0a78578971f38ff89c6fc5579bc608de41ec383a205dc25cba1d26f7145610a`; text extracted with pdftotext). WebFetch could not resolve the host; curl
 through the agent proxy reached it.
 
-Ownership: PR #936 (`fix/bh-consistency-20261026`, head `4c0d705e`) changes these lines, numbered at `687e885b`:
+Ownership: PR #936 (`fix/bh-consistency-20261026`, head `4c0d705e` when this audit ran; `b61cbaa9` also changes ch07:147 and GR:833, which no edit here touches) changes these lines, numbered at `687e885b`:
 GR 605, 611, 717, 805–869, 1007; ch07 12, 110, 116, 118, 126, 130–132, 143, 149, 157–161, 288; ch09 108, 127;
 ch18 146–158 (even lines); ch19 72, 334; glossary 113; appendix-a 103, 116; book/README 64; and their FULL mirrors
 1889, 1987–2038, 2165, 2588, 2607, 4966–4978, 5248, 5510, 5656, 5669, 6735. I propose no edit to any of these lines;
