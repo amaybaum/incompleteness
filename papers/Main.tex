@@ -1956,15 +1956,19 @@ theorem. (Certified exactly over \(\mathbb{Q}(\sqrt{2})\) in
 
 By the Breuer-Laine-Piilo criterion {[}63{]}, CP-indivisibility is
 witnessed by non-monotonic distinguishability, but the correct witness
-is the \emph{ancilla-assisted} one {[}4{]}: monotonicity of
-system-plus-ancilla distinguishability characterizes CP-divisibility,
-while ordinary system trace distance is a strictly weaker witness and
-can stay monotone on a CP-indivisible family. The classical analogue is
-exact and is certified here: a family can be P-indivisible while
-total-variation distance is non-increasing for every pair of visible
-distributions (\texttt{translation\_probes.py}, §2.3). Backflow in the
-system alone is therefore sufficient evidence of indivisibility, never
-necessary.
+is \emph{ancilla-assisted}: the entanglement of the system with a
+shielded, maximally entangled ancilla decreases monotonically under
+CP-divisible evolution, so its increase witnesses CP-indivisibility
+{[}4{]}, and for bijective (invertible) dynamical maps on
+\(\mathbb{C}^d\), CP-divisibility is equivalent to monotonic
+non-increase of the trace distance between every pair of equiprobable
+states of the system and a \((d+1)\)-dimensional ancilla {[}9{]};
+ordinary system trace distance is a strictly weaker witness and can stay
+monotone on a CP-indivisible family. The classical analogue is exact and
+is certified here: a family can be P-indivisible while total-variation
+distance is non-increasing for every pair of visible distributions
+(\texttt{translation\_probes.py}, §2.3). Backflow in the system alone is
+therefore sufficient evidence of indivisibility, never necessary.
 
 \emph{Remark (three notions, kept apart).} Three distinct things travel
 under nearby names, and this paper uses them in fixed senses. (1)
@@ -3898,7 +3902,8 @@ the strictly stronger property; the strictness is witnessed by an
 explicit family --- \(X_1\) uniform independent of \(X_0\),
 \(X_2 = X_0 \oplus X_1\) --- with maximal conditional memory
 (\(I(X_0; X_2 \mid X_1) = 1\) bit) whose matrix family factors through
-\(\Lambda = I\) (\texttt{review4\_probes.py}). The framework's
+\(\Lambda = I\) (\texttt{review4\_probes.py}; up to flipping the final
+bit, the process of {[}5{]}, Eq. (15)). The framework's
 accessible-timescale claim is (ii). P-indivisibility enters as the
 stronger property in two ways: unconditionally at the recurrence scale
 from a non-permutation one-step witness (§2.3), and empirically ---
@@ -5326,4 +5331,4 @@ degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
 \end{document}
-% source-sha256: 09dad693a9f5dfc44b485c08280d44e93eef8a4f8ca2b015284ac5c1293ab503
+% source-sha256: f694baeb3b9d59b2098ad87ef61172841ca9fa0bc89088150030527ef23098d3
