@@ -1,0 +1,10 @@
+Context(V8,A)                                           refused
+Context(V8,G)                                           refused
+num_records(V8)                                         refused
+record_at(V8,0)                                         refused
+record_samples(V8,())                                   refused
+num_records(clone of V8)                                NOT refused
+record_at(clone of V8, 0)                               NOT refused
+Context(clone of V8, (), A) [constructed, not run]      NOT refused
+s0ref.ref_context(v8 params) [context only]             NOT refused
+Context(V8 after V8.v8=False) [constructed, not run]    NOT refused

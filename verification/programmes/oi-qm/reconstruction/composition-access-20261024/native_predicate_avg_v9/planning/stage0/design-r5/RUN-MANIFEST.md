@@ -1,0 +1,36 @@
+# Stage 0 run manifest (r5)
+
+Python 3.13.16 on Linux-6.18.44-fc-v153-x86_64-with-glibc2.39.
+
+Stage 0 design evidence (r5; not frozen code: the implementation is Layer 2; the full mutant campaign is not run locally, under AGENTS.md A.40 it runs in CI): toys, planted sets, generic random backgrounds, small exhaustive windows, the S6 reference structure and v8 configuration combinatorics (counts, orbits) only; no closure on v8's configuration class (s0geom refuses it).
+
+| step | command | exit | s | -O identical | stdout SHA-256 |
+| --- | --- | --- | --- | --- | --- |
+| controls_frozen_full | `python3 -I -B stage0/code-r5/s0controls.py` | 0 | 134 | True | `124ca8960f0190161dea0ecbcc7588a8de95c76645178681e3e23c5cd80c18ee` |
+| s6_po8_proofcheck | `python3 -I -B stage0/code-r5/s0s6.py` | 0 | 18 | True | `0f0bca68f34aa498e5026952cda77637ca7cfe8cb69c3eec0e96768aaa939c5d` |
+| symcheck_v8_combinatorics | `python3 -I -B stage0/code-r5/s0symcheck.py` | 0 | 20 | True | `76779524835103d032eda1d2170a6c1a4e57d5fb9cdb342835f5c03056c2d8b5` |
+| mutants_quick | `python3 -I -B stage0/code-r5/s0mutants.py` | 0 | 880 | n/a | `85ddb4f14cf626e7077ff4ba6609f473634a41115f47655d9d058615903f15db` |
+| toy_rerun_L4 | `python3 -I -B stage0/design-r5/rerun.py stage0/design-r5` | 0 | 9 | True | `cb843f0fdf42944041f12f19e904b9893b436db0f1e87cb0db9e8f4e739e825f` |
+| toy_planted | `python3 -I -B stage0/design-r5/planted.py stage0/design-r5` | 0 | 0 | True | `8a4ebd8cd4c04b681a8515f79f197a093cabf90304570b785531cf5d4e7106d8` |
+| toy_radius_mutants | `python3 -I -B stage0/design-r5/radius_mutants.py stage0/design-r5` | 0 | 0 | True | `5d826a8415a4a5ca7c51dd19c5abd8d237502225b9cc01a0d65b112a040b9ff7` |
+| toy_exact_small | `python3 -I -B stage0/design-r5/exact_small.py stage0/design-r5` | 0 | 142 | True | `a0455a8889639109e5327feb40756c2acedf107bed78124ee9a31770d514cb6c` |
+| review_guard_probe | `python3 -I -B stage0/design-r5/guard_probe.py stage0/code-r5` | 0 | 0 | True | `31ffc4484153d3e7d2fdeb841e4ca2fa298d5704b63119122944b42bfff4fc3d` |
+| review_frame_adjacent | `python3 -I -B stage0/design-r5/frame_adjacent.py stage0/code-r5` | 0 | 0 | True | `6e3ac33e3556e8470e7065088407491fc9ed63e829ad0d890495bd394a042bdf` |
+
+| file | SHA-256 |
+| --- | --- |
+| stage0/code-r5/s0controls.py | `e8c40a5d7f7ab88e0608be5dad628b611477bf0a42d428fc61cd344610f91a43` |
+| stage0/code-r5/s0geom.py | `1b076aead860f7f5479125c721a7b878726fc0e58d0103b9d7dc2a40d291a867` |
+| stage0/code-r5/s0mutants.py | `59054334ef2ab1b440245fe7be9b590780d715a2a7c60c429ec5ea7e66c8d243` |
+| stage0/code-r5/s0native.py | `4206549e8c01d62c684d4375fb11ae79e2fe69ef059c61600ae3db04570c8526` |
+| stage0/code-r5/s0ref.py | `39ef1d46981cdf8351f8fd24f603d01551dbae1cabe081db4d2977565089b227` |
+| stage0/code-r5/s0run.py | `e6eb587aa31f2783f70294945a9a8046c7f640cbfec305ab595606db949dd93e` |
+| stage0/code-r5/s0s6.py | `110f275cd83edb759b40c249900bc397e1fc3accc9571add50fa8bac3e42289a` |
+| stage0/code-r5/s0symcheck.py | `ffe390ae7a7491ab32a2e08c2d739c1be3028b465cf571842198c3c487f618f2` |
+| stage0/design-r5/exact_small.py | `8196ab1598437e929bfedac9d818c620fc19cce48e4ddc286b137e02d4fa6d3a` |
+| stage0/design-r5/frame_adjacent.py | `ebe33e33199fc5587562c421be16f4ccd89da52dda860352af9d3e493b9e613d` |
+| stage0/design-r5/guard_probe.py | `16635e86ea030c74effcae1b6f83d45f64fc668a01e38e3ce90b4af446c1d03b` |
+| stage0/design-r5/planted.py | `36753f3cb12365ae35dad624f22c3f5df227242521eed42076f3918a1427a6c9` |
+| stage0/design-r5/proto.py | `24806c62c5e3b123e405183fddd717a264be73014bb38c9aa2ee1dfaae3f4ec8` |
+| stage0/design-r5/radius_mutants.py | `b6362a43f9c0d910c1c97938c1c5e059f9ea2a25264c386a8dcfeafb6503d270` |
+| stage0/design-r5/rerun.py | `a208f10cfcb75ca359ed23d7c6a1ea3c1bae729d3a9d99ba35794be392dd8b83` |

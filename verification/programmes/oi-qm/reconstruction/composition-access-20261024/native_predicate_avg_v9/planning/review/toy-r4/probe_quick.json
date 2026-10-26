@@ -1,0 +1,120 @@
+{
+ "frozen": {
+  "exit": 0,
+  "failed": [],
+  "C11_i": {
+   "table_mismatches": 0,
+   "decision_inconsistent": 0
+  },
+  "C11_ii": {
+   "pa_dir_violations": 0,
+   "pa_aggregate_violations": 0,
+   "planted_retained": 24
+  },
+  "C11_iii": {
+   "failures": 0,
+   "adjacent_failures": 0,
+   "first": []
+  },
+  "counts_identical_to_frozen": true
+ },
+ "rv_decide_ignore_fixed_y": {
+  "exit": 2,
+  "failed": [
+   "C11_dir_tables",
+   "C11_planted"
+  ],
+  "C11_i": {
+   "table_mismatches": 0,
+   "decision_inconsistent": 8
+  },
+  "C11_ii": {
+   "pa_dir_violations": 0,
+   "pa_aggregate_violations": 0,
+   "planted_retained": 16
+  },
+  "C11_iii": {
+   "failures": 8,
+   "adjacent_failures": 8,
+   "first": [
+    [
+     "adjPhi_A_F_d1",
+     "not retained",
+     0,
+     6
+    ],
+    [
+     "adjPhi_A_B_d1",
+     "not retained",
+     0,
+     6
+    ],
+    [
+     "adjPhi_A_F_d2",
+     "not retained",
+     0,
+     11
+    ]
+   ]
+  },
+  "counts_identical_to_frozen": true
+ },
+ "rv_decide_blind_y": {
+  "exit": 2,
+  "failed": [
+   "C11_dir_tables",
+   "C11_planted",
+   "C11_props"
+  ],
+  "C11_i": {
+   "table_mismatches": 0,
+   "decision_inconsistent": 12
+  },
+  "C11_ii": {
+   "pa_dir_violations": 12,
+   "pa_aggregate_violations": 0,
+   "planted_retained": 36
+  },
+  "C11_iii": {
+   "failures": 12,
+   "adjacent_failures": 0,
+   "first": [
+    [
+     "A_F_d1_minus(0, -1, 0)",
+     "not eliminated",
+     7
+    ],
+    [
+     "A_B_d1_minus(0, -1, 0)",
+     "not eliminated",
+     7
+    ],
+    [
+     "G_F_d1_minus(0, -1, 0)",
+     "not eliminated",
+     7
+    ]
+   ]
+  },
+  "counts_identical_to_frozen": true
+ },
+ "rv_decide_inelig_free_mx": {
+  "exit": 0,
+  "failed": [],
+  "C11_i": {
+   "table_mismatches": 0,
+   "decision_inconsistent": 0
+  },
+  "C11_ii": {
+   "pa_dir_violations": 0,
+   "pa_aggregate_violations": 0,
+   "planted_retained": 24
+  },
+  "C11_iii": {
+   "failures": 0,
+   "adjacent_failures": 0,
+   "first": []
+  },
+  "counts_identical_to_frozen": true
+ }
+}

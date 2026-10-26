@@ -1,0 +1,42 @@
+{
+ "R": 41625,
+ "S": 128,
+ "contiguous": [
+  {
+   "shard": 0,
+   "reps": 325,
+   "seconds": 8.5
+  },
+  {
+   "shard": 74,
+   "reps": 325,
+   "seconds": 139.4
+  }
+ ],
+ "interleaved": [
+  {
+   "shard": 0,
+   "reps": 326,
+   "not_canonical": 0,
+   "seconds": 52.2
+  },
+  {
+   "shard": 37,
+   "reps": 325,
+   "not_canonical": 0,
+   "seconds": 54.8
+  },
+  {
+   "shard": 74,
+   "reps": 325,
+   "not_canonical": 0,
+   "seconds": 53.4
+  },
+  {
+   "shard": 111,
+   "reps": 325,
+   "not_canonical": 0,
+   "seconds": 50.7
+  }
+ ]
+}

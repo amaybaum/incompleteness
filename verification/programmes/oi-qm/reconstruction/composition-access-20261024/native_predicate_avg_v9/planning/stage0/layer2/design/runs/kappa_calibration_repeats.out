@@ -1,0 +1,78 @@
+{
+ "C7_F_G_coefficient": {
+  "cv": 0.0354,
+  "max_over_median": 1.0627,
+  "median": 0.303,
+  "min_over_median": 0.9472,
+  "n": 10
+ },
+ "calibration_summary": {
+  "O_over_normal": {
+   "cv": 0.1399,
+   "max_over_median": 1.6679,
+   "median": 1.0058500000000001,
+   "min_over_median": 0.5363,
+   "n": 180
+  },
+  "cv_by_table": {
+   "closure_ns_A": {
+    "max": 0.1827,
+    "median": 0.04
+   },
+   "closure_ns_G": {
+    "max": 0.284,
+    "median": 0.0939
+   },
+   "ref_c7_ns_A": {
+    "max": 0.1704,
+    "median": 0.121
+   },
+   "ref_c7_ns_G": {
+    "max": 0.0968,
+    "median": 0.0405
+   }
+  },
+  "max_over_median_by_table": {
+   "closure_ns_A": 1.4761,
+   "closure_ns_G": 1.802,
+   "ref_c7_ns_A": 1.4298,
+   "ref_c7_ns_G": 1.2206
+  }
+ },
+ "ratio_of_independent_calibrations": {
+  "empirical_p99": 1.1852,
+  "max_over_min": 1.1852,
+  "normal_p99_of_ratio": 1.2151,
+  "ordered_pairs": 90,
+  "sigma_log": 0.0592
+ },
+ "repeats": 5,
+ "toy": {
+  "cache_effect_pass1_over_mean_pass2_3": {
+   "A": 1.0308,
+   "G": 1.0353,
+   "refA": 1.0205,
+   "refG": 1.0379
+  },
+  "measured_over_calibration_prediction": {
+   "A": 0.9481,
+   "G": 0.1222,
+   "refA": 0.0657,
+   "refG": 0.0162
+  },
+  "pass2_3_spread": {
+   "A": 0.0089,
+   "G": 0.0001,
+   "refA": 0.0112,
+   "refG": 0.0149
+  }
+ },
+ "v8_known_plus_C7_set4": {
+  "cv": 0.057,
+  "max_over_median": 1.1308,
+  "median": 64783.5,
+  "min_over_median": 0.954,
+  "n": 10
+ },
+ "written": "calibration-repeats.json"
+}

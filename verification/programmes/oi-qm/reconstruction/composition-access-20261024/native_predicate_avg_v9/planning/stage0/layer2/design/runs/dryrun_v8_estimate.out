@@ -1,0 +1,402 @@
+{
+ "C7_populations": "not computed (requires authorization)",
+ "calib_sha256": "7f33278e3b96423a13f5a1c7e3c041e8281155720ff5b93bf8430ff5ce3c46b8",
+ "closures_computed": 0,
+ "config_sha256": "326b15611f39d61b1b54a331ad76b2336f766261531866c31856c8ce36b06734",
+ "context_quantities_pairs": {
+  "10": 225584,
+  "11": 258620,
+  "12": 291584,
+  "13": 324523,
+  "14": 357038,
+  "15": 388516,
+  "16": 401173,
+  "17": 373194,
+  "18": 339888,
+  "19": 305960,
+  "20": 270268,
+  "21": 236800,
+  "22": 203776,
+  "23": 170752,
+  "24": 137730,
+  "25": 104716,
+  "26": 71931,
+  "27": 39831,
+  "28": 9102,
+  "29": 666,
+  "3": 3570,
+  "4": 22270,
+  "5": 56320,
+  "6": 89680,
+  "7": 124436,
+  "8": 159560,
+  "9": 192512
+ },
+ "context_quantities_singles": {
+  "10": 258,
+  "11": 258,
+  "12": 258,
+  "13": 257,
+  "14": 254,
+  "15": 248,
+  "16": 37,
+  "3": 85,
+  "4": 264,
+  "5": 258,
+  "6": 262,
+  "7": 270,
+  "8": 258,
+  "9": 258
+ },
+ "contexts_constructed": 0,
+ "cost": {
+  "C7": {
+   "coefficients_seconds_per_record_central": {
+    "F_G": 0.316,
+    "I_A": 0.000712,
+    "I_G": 0.003153
+   },
+   "inputs": {
+    "E_G_information_only": "not computed (requires authorization)",
+    "F_G": "not computed (requires authorization)",
+    "F_G_orbits": "not computed (requires authorization)",
+    "H1000_expected_records": "206529/40",
+    "I_A": "not computed (requires authorization)",
+    "I_G": "not computed (requires authorization)",
+    "N": 5163225,
+    "Surv_A": "bounded by the survivor cap (term survivor_gates_cap): at most cap x shards x 8 records",
+    "Surv_G": "bounded by the survivor cap (term survivor_gates_cap): at most cap x shards x 8 records"
+   },
+   "per_record_seconds": {
+    "A": {
+     "central": 0.072,
+     "upper_at_m_max": 0.148
+    },
+    "G": {
+     "central": 0.316,
+     "upper_at_m_max": 0.594
+    }
+   },
+   "per_record_seconds_note": "central: the record-weighted mean over the context-size histogram; upper_at_m_max: at the largest context size",
+   "reference_form": "full_s0ref",
+   "scope": "E1-F3",
+   "seconds": "not computed (requires authorization)",
+   "set4_seconds_central": 1996,
+   "sets": {
+    "1_Surv": "within survivor_gates_cap (every survivor record of a gated orbit; beyond the cap the run is INCOMPLETE)",
+    "2_set2_A": "0 beyond set 1 (T_A within Surv_A)",
+    "2_set2_G": "|F_G| x c7_G (the part of set 2 outside Surv_G is within F_G)",
+    "3_I_and_H100": "(|I_A| / 100) x c7_A + (|I_G| / 100) x c7_G (expected sample sizes)",
+    "4_H1000": "(N / 1000) x (c7_A + c7_G) (expected sample size)"
+   },
+   "trivial_upper_bound_not_an_estimate": {
+    "assumes": "|F_G| = |I_A| = |I_G| = N (the largest values the definitions allow)",
+    "seconds_at_m_max": 3108541
+   }
+  },
+  "budget_runner_seconds": 86400,
+  "campaign_jobs": 62,
+  "campaign_known_runner_seconds": 4092,
+  "campaign_runner_seconds": {
+   "calibration": 220,
+   "count_pass": "not computed",
+   "execution_overhead": "not computed",
+   "mutant_campaign": 3872,
+   "primary_run": "not computed",
+   "retries": "not computed"
+  },
+  "campaign_status": {
+   "calibration": "modelled: 20 calibrations x the local calib_ci.py time (11 s, this machine); guard and aggregate jobs carry only execution overhead",
+   "count_pass": "site-pair count: local measurement on the analogues, under a second; the population count (AMENDMENT-PROPOSAL-V8-COUNT.md, unadopted) is not measured (design/midsize_validation.py times its analogue)",
+   "execution_overhead": "62 jobs x the per-job fixed overhead: not measured: the CI calibration measures it (CI-5: job duration minus script time); until then the campaign total is not computed",
+   "mutant_campaign": "modelled: the rule mutants from the r3 local measurement (L1 section 10, about 33 min); the machinery mutants x one full self-test each (the mutant count is pinned to l2selftest.MUTANTS by L2-LEDGER; the self-test time is the local measurement of the r5 run)",
+   "primary_run": "l2plan.estimate (the cost model; unvalidated)",
+   "retries": "owner placeholder (planned allowance); measured retries replace it in the ledger"
+  },
+  "campaign_total_runner_seconds": "not computed (count_pass, execution_overhead, primary_run, retries)",
+  "ceiling_status": "owner-fixed ceiling per complete experimental campaign (aggregate compute runtime, not wall-clock); every campaign component and the reserve inside it",
+  "formulas": {
+   "C7_scope": "|F_G| x c7_G + (|I_A|/100) x c7_A + (|I_G|/100) x c7_G + (N/1000) x (c7_A + c7_G), with c7_c = 2 x [t_c(m) + r_c(m)] per record (direct production closure and full s0ref reference, normal and -O); set 1 is in survivor_gates_cap",
+   "closures": "2 x overhead x sum_m count(m) x (orbits/N) x 2 [t_A(m) + t_G(m)]; overhead = 2 is an unmeasured judgement (design/overhead/ reports a local measurement)",
+   "merge": "2 x stated allowance (l2config budget.merge_seconds)",
+   "preflight": "stated allowance (l2config budget.preflight_seconds)",
+   "s1a": "2 x [2 (t_A + t_G)(|U|) + 3 streams x 2 rules x (r_A + r_G)(m_cal) x |U| / m_cal + sum_lines (t_A + t_G)(m_line)]",
+   "sampled_gates": "2 x [(1/R_C11i + 1/R_C17 + 1/R_C18) x orbits x (r_A + r_G)(m_mean) + (1/R_C8) x orbits x 8 x 2 (t_A + t_G)(m_mean)]",
+   "survivor_gates_cap": "2 x cap x shards x 8 x [2 (t_A + t_G) + 4 (r_A + r_G)](m_max), which includes C7 on set 1; cap is owner-set for v8"
+  },
+  "job_timeouts_seconds": {
+   "merge": 1200,
+   "preflight": 1800,
+   "s1a": 2400,
+   "shard": 2400
+  },
+  "kappa": "not fixed (method approved: u_cal x u_model)",
+  "kappa_rule": {
+   "method": "kappa = u_cal x u_model, rounded up to one decimal; fixed before any v8 count",
+   "u_cal": "OWNER-PLACEHOLDER",
+   "u_model": "OWNER-PLACEHOLDER"
+  },
+  "known_terms_plus_C7_set4_runner_seconds": 64453,
+  "known_terms_runner_seconds": 62458,
+  "launch_decision": "not decided: kappa, reserve, total, job shard not available",
+  "launch_not_decided_because": [
+   "kappa is not fixed: u_cal or u_model is an OWNER placeholder (method approved, no value)",
+   "the reserve is an OWNER placeholder; no default exists",
+   "the C7 term needs |F_G|, |I_A| and |I_G|: not computed (requires authorization)",
+   "the survivor cap is an OWNER placeholder; no default exists",
+   "the heaviest shard needs the representatives per shard: on v8 they come only from the site-pair count (l2sitepairs), conditionally approved and not dispatched",
+   "campaign component count_pass: site-pair count: local measurement on the analogues, under a second; the population count (AMENDMENT-PROPOSAL-V8-COUNT.md, unadopted) is not measured (design/midsize_validation.py times its analogue)",
+   "campaign component execution_overhead: 62 jobs x the per-job fixed overhead: not measured: the CI calibration measures it (CI-5: job duration minus script time); until then the campaign total is not computed",
+   "campaign component retries: owner placeholder (planned allowance); measured retries replace it in the ledger"
+  ],
+  "launch_rule": "launch iff kappa x (calibration + count pass + primary run + mutant campaign + retries + execution overhead) + reserve <= ceiling (24 runner-hours per complete campaign, aggregate compute time) and kappa x each job, the heaviest shard included, <= its timeout; otherwise not undertaken for cost (a new reviewed design, or infeasible under this budget); kappa is never lowered and timeouts are never raised to fit",
+  "launch_within_budget": null,
+  "max_context_size": 29,
+  "mean_context_size_bucket_input": 16,
+  "overhead_factor": {
+   "status": "unmeasured judgement; local measurement reported in design/overhead/",
+   "value": 2
+  },
+  "per_job_seconds": {
+   "merge": 600,
+   "preflight": 300,
+   "s1a": 484,
+   "shard": "not computed (needs the C7 inputs, the survivor cap and, for shards, the representatives per shard)"
+  },
+  "reserve_runner_seconds": "OWNER placeholder",
+  "shard_job_bounds": {
+   "mean_shard_known_terms_seconds": 1909,
+   "note": "closures and sampled gates only (C7 sets 2-3 and the survivor term excluded), split evenly over the shards: a lower bound on the heaviest shard under any plan"
+  },
+  "slack_runner_seconds": null,
+  "survivor_cap_per_shard": "OWNER-PLACEHOLDER",
+  "survivor_gates_seconds_per_cap_unit": 736,
+  "terms_runner_seconds": {
+   "C7_scope": "not computed (requires authorization)",
+   "closures": 58722,
+   "merge": 600,
+   "preflight": 300,
+   "s1a": 484,
+   "sampled_gates": 2353,
+   "survivor_gates_cap": "not computed (owner placeholder: the survivor cap)"
+  },
+  "total_runner_seconds": "not computed (needs the C7 inputs and the survivor cap)",
+  "universe_quantities": 1584
+ },
+ "engine_imported": "l2plan imports no engine",
+ "expected_checks": {
+  "group_order": true,
+  "orbits": true,
+  "records": true
+ },
+ "group_order": 8,
+ "index_even_plan_representatives_per_shard_diagnostic": "not computed (requires authorization)",
+ "max_context_quantities": 29,
+ "max_context_with_fixed": 37,
+ "orbits": 816050,
+ "pair_orbits": 815175,
+ "pass": true,
+ "profile": "v8",
+ "records": 5163225,
+ "representatives_per_shard": "not computed (requires authorization)",
+ "schema": "np-avg-1/stage0/layer2/dryrun/2",
+ "shard_plan": {
+  "kind": "index_even (diagnostic only)",
+  "reason": "the v8 site-pair count is not available (conditionally approved, not dispatched)"
+ },
+ "shards": [
+  {
+   "count": 161350,
+   "hi": 161350,
+   "lo": 0,
+   "shard": 0
+  },
+  {
+   "count": 161351,
+   "hi": 322701,
+   "lo": 161350,
+   "shard": 1
+  },
+  {
+   "count": 161351,
+   "hi": 484052,
+   "lo": 322701,
+   "shard": 2
+  },
+  {
+   "count": 161351,
+   "hi": 645403,
+   "lo": 484052,
+   "shard": 3
+  },
+  {
+   "count": 161350,
+   "hi": 806753,
+   "lo": 645403,
+   "shard": 4
+  },
+  {
+   "count": 161351,
+   "hi": 968104,
+   "lo": 806753,
+   "shard": 5
+  },
+  {
+   "count": 161351,
+   "hi": 1129455,
+   "lo": 968104,
+   "shard": 6
+  },
+  {
+   "count": 161351,
+   "hi": 1290806,
+   "lo": 1129455,
+   "shard": 7
+  },
+  {
+   "count": 161351,
+   "hi": 1452157,
+   "lo": 1290806,
+   "shard": 8
+  },
+  {
+   "count": 161350,
+   "hi": 1613507,
+   "lo": 1452157,
+   "shard": 9
+  },
+  {
+   "count": 161351,
+   "hi": 1774858,
+   "lo": 1613507,
+   "shard": 10
+  },
+  {
+   "count": 161351,
+   "hi": 1936209,
+   "lo": 1774858,
+   "shard": 11
+  },
+  {
+   "count": 161351,
+   "hi": 2097560,
+   "lo": 1936209,
+   "shard": 12
+  },
+  {
+   "count": 161350,
+   "hi": 2258910,
+   "lo": 2097560,
+   "shard": 13
+  },
+  {
+   "count": 161351,
+   "hi": 2420261,
+   "lo": 2258910,
+   "shard": 14
+  },
+  {
+   "count": 161351,
+   "hi": 2581612,
+   "lo": 2420261,
+   "shard": 15
+  },
+  {
+   "count": 161351,
+   "hi": 2742963,
+   "lo": 2581612,
+   "shard": 16
+  },
+  {
+   "count": 161351,
+   "hi": 2904314,
+   "lo": 2742963,
+   "shard": 17
+  },
+  {
+   "count": 161350,
+   "hi": 3065664,
+   "lo": 2904314,
+   "shard": 18
+  },
+  {
+   "count": 161351,
+   "hi": 3227015,
+   "lo": 3065664,
+   "shard": 19
+  },
+  {
+   "count": 161351,
+   "hi": 3388366,
+   "lo": 3227015,
+   "shard": 20
+  },
+  {
+   "count": 161351,
+   "hi": 3549717,
+   "lo": 3388366,
+   "shard": 21
+  },
+  {
+   "count": 161350,
+   "hi": 3711067,
+   "lo": 3549717,
+   "shard": 22
+  },
+  {
+   "count": 161351,
+   "hi": 3872418,
+   "lo": 3711067,
+   "shard": 23
+  },
+  {
+   "count": 161351,
+   "hi": 4033769,
+   "lo": 3872418,
+   "shard": 24
+  },
+  {
+   "count": 161351,
+   "hi": 4195120,
+   "lo": 4033769,
+   "shard": 25
+  },
+  {
+   "count": 161351,
+   "hi": 4356471,
+   "lo": 4195120,
+   "shard": 26
+  },
+  {
+   "count": 161350,
+   "hi": 4517821,
+   "lo": 4356471,
+   "shard": 27
+  },
+  {
+   "count": 161351,
+   "hi": 4679172,
+   "lo": 4517821,
+   "shard": 28
+  },
+  {
+   "count": 161351,
+   "hi": 4840523,
+   "lo": 4679172,
+   "shard": 29
+  },
+  {
+   "count": 161351,
+   "hi": 5001874,
+   "lo": 4840523,
+   "shard": 30
+  },
+  {
+   "count": 161351,
+   "hi": 5163225,
+   "lo": 5001874,
+   "shard": 31
+  }
+ ],
+ "single_orbits": 875
+}

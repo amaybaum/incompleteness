@@ -1,0 +1,20 @@
+{
+ "code_r5_exit": 0,
+ "code_r5_refusal": {
+  "of": 36,
+  "pass": true,
+  "refused": 36
+ },
+ "differing_keys": [
+  "V8_refused"
+ ],
+ "keys_compared": 25,
+ "layer2_refusal": {
+  "layer2_attempts": 10,
+  "layer2_attempts_refused": 10,
+  "of": 46,
+  "pass": true,
+  "refused": 46
+ },
+ "pass": true
+}

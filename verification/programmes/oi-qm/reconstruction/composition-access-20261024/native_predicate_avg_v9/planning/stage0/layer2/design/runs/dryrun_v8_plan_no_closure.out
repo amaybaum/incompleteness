@@ -1,0 +1,267 @@
+{
+ "C7_populations": "not computed (requires authorization)",
+ "closures_computed": 0,
+ "config_sha256": "326b15611f39d61b1b54a331ad76b2336f766261531866c31856c8ce36b06734",
+ "context_quantities_pairs": {
+  "10": 225584,
+  "11": 258620,
+  "12": 291584,
+  "13": 324523,
+  "14": 357038,
+  "15": 388516,
+  "16": 401173,
+  "17": 373194,
+  "18": 339888,
+  "19": 305960,
+  "20": 270268,
+  "21": 236800,
+  "22": 203776,
+  "23": 170752,
+  "24": 137730,
+  "25": 104716,
+  "26": 71931,
+  "27": 39831,
+  "28": 9102,
+  "29": 666,
+  "3": 3570,
+  "4": 22270,
+  "5": 56320,
+  "6": 89680,
+  "7": 124436,
+  "8": 159560,
+  "9": 192512
+ },
+ "context_quantities_singles": {
+  "10": 258,
+  "11": 258,
+  "12": 258,
+  "13": 257,
+  "14": 254,
+  "15": 248,
+  "16": 37,
+  "3": 85,
+  "4": 264,
+  "5": 258,
+  "6": 262,
+  "7": 270,
+  "8": 258,
+  "9": 258
+ },
+ "contexts_constructed": 0,
+ "engine_imported": "l2plan imports no engine",
+ "expected_checks": {
+  "group_order": true,
+  "orbits": true,
+  "records": true
+ },
+ "group_order": 8,
+ "index_even_plan_representatives_per_shard_diagnostic": "not computed (requires authorization)",
+ "max_context_quantities": 29,
+ "max_context_with_fixed": 37,
+ "orbits": 816050,
+ "pair_orbits": 815175,
+ "pass": true,
+ "profile": "v8",
+ "records": 5163225,
+ "representatives_per_shard": "not computed (requires authorization)",
+ "schema": "np-avg-1/stage0/layer2/dryrun/2",
+ "shard_plan": {
+  "kind": "index_even (diagnostic only)",
+  "reason": "the v8 site-pair count is not available (conditionally approved, not dispatched)"
+ },
+ "shards": [
+  {
+   "count": 161350,
+   "hi": 161350,
+   "lo": 0,
+   "shard": 0
+  },
+  {
+   "count": 161351,
+   "hi": 322701,
+   "lo": 161350,
+   "shard": 1
+  },
+  {
+   "count": 161351,
+   "hi": 484052,
+   "lo": 322701,
+   "shard": 2
+  },
+  {
+   "count": 161351,
+   "hi": 645403,
+   "lo": 484052,
+   "shard": 3
+  },
+  {
+   "count": 161350,
+   "hi": 806753,
+   "lo": 645403,
+   "shard": 4
+  },
+  {
+   "count": 161351,
+   "hi": 968104,
+   "lo": 806753,
+   "shard": 5
+  },
+  {
+   "count": 161351,
+   "hi": 1129455,
+   "lo": 968104,
+   "shard": 6
+  },
+  {
+   "count": 161351,
+   "hi": 1290806,
+   "lo": 1129455,
+   "shard": 7
+  },
+  {
+   "count": 161351,
+   "hi": 1452157,
+   "lo": 1290806,
+   "shard": 8
+  },
+  {
+   "count": 161350,
+   "hi": 1613507,
+   "lo": 1452157,
+   "shard": 9
+  },
+  {
+   "count": 161351,
+   "hi": 1774858,
+   "lo": 1613507,
+   "shard": 10
+  },
+  {
+   "count": 161351,
+   "hi": 1936209,
+   "lo": 1774858,
+   "shard": 11
+  },
+  {
+   "count": 161351,
+   "hi": 2097560,
+   "lo": 1936209,
+   "shard": 12
+  },
+  {
+   "count": 161350,
+   "hi": 2258910,
+   "lo": 2097560,
+   "shard": 13
+  },
+  {
+   "count": 161351,
+   "hi": 2420261,
+   "lo": 2258910,
+   "shard": 14
+  },
+  {
+   "count": 161351,
+   "hi": 2581612,
+   "lo": 2420261,
+   "shard": 15
+  },
+  {
+   "count": 161351,
+   "hi": 2742963,
+   "lo": 2581612,
+   "shard": 16
+  },
+  {
+   "count": 161351,
+   "hi": 2904314,
+   "lo": 2742963,
+   "shard": 17
+  },
+  {
+   "count": 161350,
+   "hi": 3065664,
+   "lo": 2904314,
+   "shard": 18
+  },
+  {
+   "count": 161351,
+   "hi": 3227015,
+   "lo": 3065664,
+   "shard": 19
+  },
+  {
+   "count": 161351,
+   "hi": 3388366,
+   "lo": 3227015,
+   "shard": 20
+  },
+  {
+   "count": 161351,
+   "hi": 3549717,
+   "lo": 3388366,
+   "shard": 21
+  },
+  {
+   "count": 161350,
+   "hi": 3711067,
+   "lo": 3549717,
+   "shard": 22
+  },
+  {
+   "count": 161351,
+   "hi": 3872418,
+   "lo": 3711067,
+   "shard": 23
+  },
+  {
+   "count": 161351,
+   "hi": 4033769,
+   "lo": 3872418,
+   "shard": 24
+  },
+  {
+   "count": 161351,
+   "hi": 4195120,
+   "lo": 4033769,
+   "shard": 25
+  },
+  {
+   "count": 161351,
+   "hi": 4356471,
+   "lo": 4195120,
+   "shard": 26
+  },
+  {
+   "count": 161350,
+   "hi": 4517821,
+   "lo": 4356471,
+   "shard": 27
+  },
+  {
+   "count": 161351,
+   "hi": 4679172,
+   "lo": 4517821,
+   "shard": 28
+  },
+  {
+   "count": 161351,
+   "hi": 4840523,
+   "lo": 4679172,
+   "shard": 29
+  },
+  {
+   "count": 161351,
+   "hi": 5001874,
+   "lo": 4840523,
+   "shard": 30
+  },
+  {
+   "count": 161351,
+   "hi": 5163225,
+   "lo": 5001874,
+   "shard": 31
+  }
+ ],
+ "single_orbits": 875
+}

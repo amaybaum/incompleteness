@@ -1,0 +1,43 @@
+{
+ "aggregate": {
+  "calibrations": 20,
+  "exit_two_commits": 2,
+  "exit_with_19": 2,
+  "exit_with_20": 0
+ },
+ "calibration_records": {
+  "cpu_model": true,
+  "run_identity": true,
+  "wall_clock_utc": true
+ },
+ "equivalence_exit": 0,
+ "equivalence_mismatches": 0,
+ "forbidden_names": true,
+ "ordinary_exit": 0,
+ "pass": true,
+ "postrun": {
+  "holds_exit": 0,
+  "u_cal": "1.085",
+  "verdict": "HOLDS",
+  "wrong_sha_exit": 2,
+  "wrong_sha_verdict": "VOID"
+ },
+ "tripwire": {
+  "exit": 2,
+  "file_written": false,
+  "label": "VOID"
+ },
+ "workflow": {
+  "actions_pinned_to_commits": true,
+  "aggregate_always_after_guard": true,
+  "concurrency": true,
+  "every_job_has_timeout": true,
+  "max_parallel_4": true,
+  "no_other_trigger": true,
+  "no_self_pin": true,
+  "pins_match_files": true,
+  "push_branch_only": true,
+  "read_only": true,
+  "twenty_calibrations": true
+ }
+}

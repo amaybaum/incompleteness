@@ -1,0 +1,747 @@
+{
+ "C7_scope_coverage_toy": {
+  "A": {
+   "1_Surv": {
+    "orbits_touched": 0,
+    "records": 0,
+    "sum_of_touched_orbit_sizes": 0
+   },
+   "2_set2": {
+    "orbits_touched": 0,
+    "records": 0,
+    "sum_of_touched_orbit_sizes": 0
+   },
+   "3_I_and_H100": {
+    "orbits_touched": 12,
+    "records": 12,
+    "sum_of_touched_orbit_sizes": 45
+   },
+   "4_H1000": {
+    "orbits_touched": 1,
+    "records": 1,
+    "sum_of_touched_orbit_sizes": 4
+   }
+  },
+  "G": {
+   "1_Surv": {
+    "orbits_touched": 0,
+    "records": 0,
+    "sum_of_touched_orbit_sizes": 0
+   },
+   "2_set2": {
+    "orbits_touched": 283,
+    "records": 595,
+    "sum_of_touched_orbit_sizes": 595
+   },
+   "3_I_and_H100": {
+    "orbits_touched": 6,
+    "records": 6,
+    "sum_of_touched_orbit_sizes": 24
+   },
+   "4_H1000": {
+    "orbits_touched": 1,
+    "records": 1,
+    "sum_of_touched_orbit_sizes": 4
+   }
+  }
+ },
+ "added_counts": [
+  "A:deg:masking_equivalent:survivor=True",
+  "A:deg:nontrivial_stabilizer:survivor=True",
+  "G:deg:masking_equivalent:survivor=True",
+  "G:deg:nontrivial_stabilizer:survivor=True"
+ ],
+ "checks": {
+  "A.quotes_at_stated_lines": {
+   "detail": {
+    "not_found": [],
+    "per_file": {
+     "analysis": 8,
+     "e1review": 5,
+     "freeze": 2,
+     "r5": 44,
+     "review": 15
+    },
+    "quotes": 74
+   },
+   "pass": true
+  },
+  "A.r5_sha256_equals_freeze_record": {
+   "detail": "1a30188e70804644a6ff65b3114ab82f8be40a2b056d0e2862ce595a8982847e",
+   "pass": true
+  },
+  "B.C8_list_has_54": {
+   "detail": 54,
+   "pass": true
+  },
+  "B.C8_list_leaves_exactly_four_open": {
+   "detail": [
+    [
+     "nontrivial_stabilizer",
+     "A"
+    ],
+    [
+     "nontrivial_stabilizer",
+     "G"
+    ],
+    [
+     "masking_equivalent",
+     "A"
+    ],
+    [
+     "masking_equivalent",
+     "G"
+    ]
+   ],
+   "pass": true
+  },
+  "B.E1_list_has_58_and_closes": {
+   "detail": {
+    "added": [
+     "A:deg:masking_equivalent:survivor=True",
+     "A:deg:nontrivial_stabilizer:survivor=True",
+     "G:deg:masking_equivalent:survivor=True",
+     "G:deg:nontrivial_stabilizer:survivor=True"
+    ],
+    "undetermined": []
+   },
+   "pass": true
+  },
+  "B.countercontrol_drop_one_added_count_reopens": {
+   "detail": [
+    "A:deg:masking_equivalent:survivor=True",
+    "A:deg:nontrivial_stabilizer:survivor=True",
+    "G:deg:masking_equivalent:survivor=True",
+    "G:deg:nontrivial_stabilizer:survivor=True"
+   ],
+   "pass": true
+  },
+  "B.layer2_crosstab_set_is_section3_minus_two": {
+   "detail": [
+    "item_at_phi_site",
+    "item_at_port_site",
+    "item_at_q9",
+    "item_on_z_axis",
+    "item_t_eq_minus1",
+    "item_t_le_0",
+    "last_sample_odd",
+    "pair_on_common_axis"
+   ],
+   "pass": true
+  },
+  "B.section3_lists_ten_degeneracies": {
+   "detail": null,
+   "pass": true
+  },
+  "C.added_counts_full_equal_orbit_reduced": {
+   "detail": {
+    "full": {
+     "A:deg:masking_equivalent:survivor=True": 0,
+     "A:deg:nontrivial_stabilizer:survivor=True": 0,
+     "G:deg:masking_equivalent:survivor=True": 0,
+     "G:deg:nontrivial_stabilizer:survivor=True": 0
+    },
+    "orbit_reduced": {
+     "A:deg:masking_equivalent:survivor=True": 0,
+     "A:deg:nontrivial_stabilizer:survivor=True": 0,
+     "G:deg:masking_equivalent:survivor=True": 0,
+     "G:deg:nontrivial_stabilizer:survivor=True": 0
+    },
+    "records": 1400,
+    "representatives": 488
+   },
+   "pass": true
+  },
+  "C.indicators_constant_on_orbits": {
+   "detail": 0,
+   "pass": true
+  },
+  "C.marginal_equals_sum_of_cells": {
+   "detail": {
+    "A:masking_equivalent": [
+     1398,
+     0,
+     1398
+    ],
+    "A:nontrivial_stabilizer": [
+     1176,
+     0,
+     1176
+    ],
+    "G:masking_equivalent": [
+     1398,
+     0,
+     1398
+    ],
+    "G:nontrivial_stabilizer": [
+     1176,
+     0,
+     1176
+    ]
+   },
+   "pass": true
+  },
+  "C.pipeline_reproduces_toy_run": {
+   "detail": {
+    "compared": 36,
+    "differences": {}
+   },
+   "pass": true
+  },
+  "D.planted_full_equal_orbit_reduced": {
+   "detail": {
+    "full": {
+     "A:deg:masking_equivalent:survivor=True": 8,
+     "A:deg:nontrivial_stabilizer:survivor=True": 12,
+     "G:deg:masking_equivalent:survivor=True": 8,
+     "G:deg:nontrivial_stabilizer:survivor=True": 12
+    },
+    "orbit_reduced": {
+     "A:deg:masking_equivalent:survivor=True": 8,
+     "A:deg:nontrivial_stabilizer:survivor=True": 12,
+     "G:deg:masking_equivalent:survivor=True": 8,
+     "G:deg:nontrivial_stabilizer:survivor=True": 12
+    }
+   },
+   "pass": true
+  },
+  "D.planted_marginal_equals_sum_of_cells": {
+   "detail": {
+    "A:masking_equivalent": [
+     8,
+     8,
+     0
+    ],
+    "A:nontrivial_stabilizer": [
+     12,
+     12,
+     0
+    ],
+    "G:masking_equivalent": [
+     8,
+     8,
+     0
+    ],
+    "G:nontrivial_stabilizer": [
+     12,
+     12,
+     0
+    ]
+   },
+   "pass": true
+  },
+  "D.planted_non_vacuity": {
+   "detail": {
+    "A:deg:masking_equivalent:survivor=True": 8,
+    "A:deg:nontrivial_stabilizer:survivor=True": 12,
+    "G:deg:masking_equivalent:survivor=True": 8,
+    "G:deg:nontrivial_stabilizer:survivor=True": 12
+   },
+   "pass": true
+  },
+  "E.countercontrol_noninvariant_predicate_breaks_reduction": {
+   "detail": {
+    "full": {
+     "A:deg:masking_equivalent:survivor=True": 392,
+     "A:deg:nontrivial_stabilizer:survivor=True": 280,
+     "G:deg:masking_equivalent:survivor=True": 392,
+     "G:deg:nontrivial_stabilizer:survivor=True": 280
+    },
+    "orbit_reduced": {
+     "A:deg:masking_equivalent:survivor=True": 128,
+     "A:deg:nontrivial_stabilizer:survivor=True": 128,
+     "G:deg:masking_equivalent:survivor=True": 128,
+     "G:deg:nontrivial_stabilizer:survivor=True": 128
+    }
+   },
+   "pass": true
+  },
+  "F.initial_shared_tip_count_matches_toy_run": {
+   "detail": {
+    "recomputed": 739,
+    "toy_run_representative_conventions": 739
+   },
+   "pass": true
+  },
+  "F.shared_near_tip_equals_section4_shared_tip": {
+   "detail": {
+    "first_disagreements": [],
+    "pair_direction_cases": 230268
+   },
+   "pass": true
+  },
+  "G.L3_values_equal_s1a_reported": {
+   "detail": {
+    "L_A": 15,
+    "L_G": 7
+   },
+   "pass": true
+  },
+  "G.T1_T5_L3prime_values_equal_s1a": {
+   "detail": {
+    "recomputed": {
+     "L3": {
+      "L_A": 15,
+      "L_G": 7,
+      "L_G_tip_reading": 0
+     },
+     "L3prime": {
+      "L_A": 15,
+      "L_G": 7,
+      "L_G_tip_reading": 0
+     }
+    },
+    "s1a": [
+     15,
+     7
+    ]
+   },
+   "pass": true
+  },
+  "G.T1_bounds_nested": {
+   "detail": null,
+   "pass": true
+  },
+  "G.T5_tip_reading_is_zero": {
+   "detail": null,
+   "pass": true
+  },
+  "G.source_cells_are_in_frame": {
+   "detail": null,
+   "pass": true
+  },
+  "H.planted.G_D_L3_production_equals_In_union_W_Out_near_only": {
+   "detail": 0,
+   "pass": true
+  },
+  "H.planted.G_D_L3prime_production_equals_In_union_W_Out": {
+   "detail": 0,
+   "pass": true
+  },
+  "H.planted.G_D_form_equals_full_reference": {
+   "detail": 0,
+   "pass": true
+  },
+  "H.planted.Surv_A_subset_I_A_(P_A)": {
+   "detail": [
+    12,
+    12
+   ],
+   "pass": true
+  },
+  "H.planted.Surv_G_subset_E_G_(P_G)": {
+   "detail": [
+    12,
+    12
+   ],
+   "pass": true
+  },
+  "H.planted.T_A_subset_Surv_A": {
+   "detail": [
+    12,
+    12
+   ],
+   "pass": true
+  },
+  "H.planted.T_G_eligible_subset_Surv_G": {
+   "detail": [
+    12,
+    12
+   ],
+   "pass": true
+  },
+  "H.planted.T_G_equals_(T_G_and_Surv_G)_union_F_G": {
+   "detail": [
+    12,
+    12
+   ],
+   "pass": true
+  },
+  "H.planted_has_G_survivors_and_seed_parts": {
+   "detail": {
+    "E_G": 12,
+    "E_G_and_F_G": 0,
+    "F_G": 0,
+    "I_A": 12,
+    "I_G": 12,
+    "Surv_A": 12,
+    "Surv_G": 12,
+    "T_A": 12,
+    "T_G": 12,
+    "T_G_eligible": 12,
+    "records": 12
+   },
+   "pass": true
+  },
+  "H.toy.G_D_L3_production_equals_In_union_W_Out_near_only": {
+   "detail": 0,
+   "pass": true
+  },
+  "H.toy.G_D_L3prime_production_equals_In_union_W_Out": {
+   "detail": 0,
+   "pass": true
+  },
+  "H.toy.G_D_form_equals_full_reference": {
+   "detail": 0,
+   "pass": true
+  },
+  "H.toy.Surv_A_subset_I_A_(P_A)": {
+   "detail": [
+    0,
+    1071
+   ],
+   "pass": true
+  },
+  "H.toy.Surv_G_subset_E_G_(P_G)": {
+   "detail": [
+    0,
+    12
+   ],
+   "pass": true
+  },
+  "H.toy.T_A_subset_Surv_A": {
+   "detail": [
+    0,
+    0
+   ],
+   "pass": true
+  },
+  "H.toy.T_G_eligible_subset_Surv_G": {
+   "detail": [
+    0,
+    0
+   ],
+   "pass": true
+  },
+  "H.toy.T_G_equals_(T_G_and_Surv_G)_union_F_G": {
+   "detail": [
+    595,
+    595
+   ],
+   "pass": true
+  },
+  "I.F1_affects_records": {
+   "detail": 595,
+   "pass": true
+  },
+  "I.F1_caught_on_every_affected_record_of_set2": {
+   "detail": {
+    "E1_F3_set2_direct_caught": 595,
+    "affected": 595,
+    "computed_closure_mutant_caught": 0,
+    "orbit_reduced_representatives_caught": 283,
+    "set2_records": 595,
+    "wrong_reported": 595
+   },
+   "pass": true
+  },
+  "I.F1_computed_closure_mutant_killed": {
+   "detail": {
+    "E1_F3_set2_direct_caught": 595,
+    "affected": 595,
+    "computed_closure_mutant_caught": 0,
+    "orbit_reduced_representatives_caught": 283,
+    "set2_records": 595,
+    "wrong_reported": 595
+   },
+   "pass": true
+  },
+  "I.F2_caught_by_direct_per_record_check": {
+   "detail": {
+    "E1_F3_set2_direct_caught": 312,
+    "affected": 312,
+    "computed_closure_mutant_caught": 0,
+    "orbit_reduced_representatives_caught": 0,
+    "set2_records": 595,
+    "wrong_reported": 0
+   },
+   "pass": true
+  },
+  "I.F2_invisible_in_reported_results": {
+   "detail": {
+    "E1_F3_set2_direct_caught": 312,
+    "affected": 312,
+    "computed_closure_mutant_caught": 0,
+    "orbit_reduced_representatives_caught": 0,
+    "set2_records": 595,
+    "wrong_reported": 0
+   },
+   "pass": true
+  },
+  "I.F2_missed_by_orbit_reduced_check": {
+   "detail": {
+    "E1_F3_set2_direct_caught": 312,
+    "affected": 312,
+    "computed_closure_mutant_caught": 0,
+    "orbit_reduced_representatives_caught": 0,
+    "set2_records": 595,
+    "wrong_reported": 0
+   },
+   "pass": true
+  },
+  "J.matches_reviewer_analysis_populations": {
+   "detail": [
+    [
+     12,
+     12
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     6,
+     6
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     595,
+     595
+    ]
+   ],
+   "pass": true
+  },
+  "J.samples_deterministic": {
+   "detail": null,
+   "pass": true
+  },
+  "J.samples_drawn_over_record_indices_include_non_representatives": {
+   "detail": {
+    "H100": 9,
+    "H1000": 1
+   },
+   "pass": true
+  },
+  "J.streams_distinct": {
+   "detail": null,
+   "pass": true
+  },
+  "K.L3_values_reported_equal": {
+   "detail": null,
+   "pass": true
+  },
+  "K.case_2d_reference_recomputation_agrees": {
+   "detail": {
+    "production": {
+     "L3": [
+      15,
+      7
+     ],
+     "L3prime": [
+      15,
+      7
+     ]
+    },
+    "reference": {
+     "L3": [
+      15,
+      7
+     ],
+     "L3prime": [
+      15,
+      7
+     ]
+    }
+   },
+   "pass": true
+  },
+  "K.countercontrol_perturbed_count_fires_2d": {
+   "detail": null,
+   "pass": true
+  },
+  "K.rule_T_not_evaluated_when_sigma_not_OK": {
+   "detail": null,
+   "pass": true
+  },
+  "K.sigma_OK_never_overrides_a_failing_label": {
+   "detail": {
+    "labels": {
+     "INCOMPLETE": "INCOMPLETE",
+     "MISMATCH": "MISMATCH",
+     "VOID": "VOID"
+    },
+    "rule_T_evaluated_with_sigma_OK": true
+   },
+   "pass": true
+  },
+  "L.D0_phrase_present": {
+   "detail": null,
+   "pass": true
+  },
+  "L.D6_rows_present": {
+   "detail": {
+    "missing": [],
+    "rows": 8
+   },
+   "pass": true
+  },
+  "L.departure_GD_permission_not_carried": {
+   "detail": "- Under G, the reference may compute W(Out(R)) ∪ In(R) by Lemma G-D. Layer 2 the",
+   "pass": true
+  },
+  "L.section_D_blocks_verbatim": {
+   "detail": {
+    "blocks": 10,
+    "missing": []
+   },
+   "pass": true
+  },
+  "M.G_D_not_executing_and_status_updated": {
+   "detail": [],
+   "pass": true
+  },
+  "M.nits_N1_N4_N5_N6_O1_present": {
+   "detail": [],
+   "pass": true
+  },
+  "M.owner_rulings_quoted": {
+   "detail": [],
+   "pass": true
+  }
+ },
+ "failed": [],
+ "lemma_G_D": {
+  "planted": {
+   "E_G": 12,
+   "E_G_and_F_G": 0,
+   "F_G": 0,
+   "I_A": 12,
+   "I_G": 12,
+   "Surv_A": 12,
+   "Surv_G": 12,
+   "T_A": 12,
+   "T_G": 12,
+   "T_G_eligible": 12,
+   "records": 12
+  },
+  "toy": {
+   "E_G": 12,
+   "E_G_and_F_G": 12,
+   "F_G": 595,
+   "I_A": 1071,
+   "I_G": 667,
+   "Surv_A": 0,
+   "Surv_G": 0,
+   "T_A": 0,
+   "T_G": 595,
+   "T_G_eligible": 0,
+   "records": 1400
+  }
+ },
+ "pass": true,
+ "planted": {
+  "note": "planted 7-item records in the toy geometry; not records of the k <= 2 space",
+  "per_base_record": {
+   "block": {
+    "masking_equivalent": true,
+    "nontrivial_stabilizer": true,
+    "orbit_size": 4,
+    "survivor_A": true,
+    "survivor_G": true
+   },
+   "block_minus_top": {
+    "masking_equivalent": false,
+    "nontrivial_stabilizer": true,
+    "orbit_size": 4,
+    "survivor_A": true,
+    "survivor_G": true
+   },
+   "block_top_odd": {
+    "masking_equivalent": true,
+    "nontrivial_stabilizer": true,
+    "orbit_size": 4,
+    "survivor_A": true,
+    "survivor_G": true
+   }
+  },
+  "records": 12,
+  "representatives": 3
+ },
+ "planted_faults_G": {
+  "F1": {
+   "E1_F3_set2_direct_caught": 595,
+   "affected": 595,
+   "computed_closure_mutant_caught": 0,
+   "orbit_reduced_representatives_caught": 283,
+   "set2_records": 595,
+   "wrong_reported": 595
+  },
+  "F2": {
+   "E1_F3_set2_direct_caught": 312,
+   "affected": 312,
+   "computed_closure_mutant_caught": 0,
+   "orbit_reduced_representatives_caught": 0,
+   "set2_records": 595,
+   "wrong_reported": 0
+  }
+ },
+ "section_D_departures": [
+  [
+   375,
+   378,
+   "'Shared near tip: as drafted' and 'Q0(R): as drafted': the drafted definitions are written out"
+  ],
+  [
+   388,
+   388,
+   "'Computed closure: as drafted': the drafted definition is written out"
+  ],
+  [
+   416,
+   418,
+   "the reference may use the Lemma G-D form: recast as an open owner decision (section 9)"
+  ],
+  [
+   470,
+   471,
+   "'Every list carries rank 3': the frozen 54 carries rank 1 for D = 6, 9; corrected"
+  ]
+ ],
+ "toy_C7_scope_predicates": {
+  "L3prime_closure_retains_shared_near_tip": {
+   "A": 0,
+   "G": 595
+  },
+  "L3prime_closure_retains_shared_near_tip_seed_only": {
+   "A": 0,
+   "G": 0
+  },
+  "initial_context_shared_near_tip": {
+   "A": 1071,
+   "G": 667
+  },
+  "note": "toy class only; says nothing about v8 frequencies",
+  "records": 1400
+ },
+ "toy_S1a": {
+  "L3": {
+   "L_A": 15,
+   "L_G": 7,
+   "L_G_tip_reading": 0
+  },
+  "L3prime": {
+   "L_A": 15,
+   "L_G": 7,
+   "L_G_tip_reading": 0
+  },
+  "note": "toy geometry; says nothing about v8"
+ },
+ "toy_class": {
+  "added_counts": {
+   "A:deg:masking_equivalent:survivor=True": 0,
+   "A:deg:nontrivial_stabilizer:survivor=True": 0,
+   "G:deg:masking_equivalent:survivor=True": 0,
+   "G:deg:nontrivial_stabilizer:survivor=True": 0
+  },
+  "note": "no survivors on the toy class: the added counts are 0 here",
+  "records": 1400,
+  "representatives": 488,
+  "survivors": {
+   "A": 0,
+   "G": 0
+  }
+ }
+}

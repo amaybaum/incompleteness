@@ -1,0 +1,282 @@
+{
+ "attempts": 9,
+ "decide_on_fabricated_inputs_documented_limit": "ok",
+ "forgeries": "9 of 9 refused",
+ "forgeries_refused": {
+  "RefGrant_direct_bound": true,
+  "RefGrant_direct_unbound": true,
+  "RefGrant_r1_signature": true,
+  "V8Grant_direct_guard_bound": true,
+  "V8Grant_direct_guard_unbound": true,
+  "V8Grant_direct_num_records_bound": true,
+  "V8Grant_direct_num_records_unbound": true,
+  "V8Grant_direct_record_at_unbound": true,
+  "rebind_other_digests": true
+ },
+ "pass": true,
+ "refused": 9,
+ "results": {
+  "no_artifact/l2enum": {
+   "certificate_item": 6,
+   "exit": 2,
+   "files_written": [],
+   "label": "VOID",
+   "refused": true
+  },
+  "no_artifact/l2preflight": {
+   "certificate_item": 6,
+   "exit": 2,
+   "files_written": [],
+   "label": "VOID",
+   "refused": true
+  },
+  "no_artifact/l2s1a": {
+   "certificate_item": 6,
+   "exit": 2,
+   "files_written": [],
+   "label": "VOID",
+   "refused": true
+  },
+  "not_owner/l2enum": {
+   "certificate_item": 6,
+   "exit": 2,
+   "files_written": [],
+   "label": "VOID",
+   "refused": true
+  },
+  "not_owner/l2preflight": {
+   "certificate_item": 6,
+   "exit": 2,
+   "files_written": [],
+   "label": "VOID",
+   "refused": true
+  },
+  "not_owner/l2s1a": {
+   "certificate_item": 6,
+   "exit": 2,
+   "files_written": [],
+   "label": "VOID",
+   "refused": true
+  },
+  "other_commit/l2enum": {
+   "certificate_item": 6,
+   "exit": 2,
+   "files_written": [],
+   "label": "VOID",
+   "refused": true
+  },
+  "other_commit/l2preflight": {
+   "certificate_item": 6,
+   "exit": 2,
+   "files_written": [],
+   "label": "VOID",
+   "refused": true
+  },
+  "other_commit/l2s1a": {
+   "certificate_item": 6,
+   "exit": 2,
+   "files_written": [],
+   "label": "VOID",
+   "refused": true
+  }
+ },
+ "v8_dry_run_plan": {
+  "C7_populations": "not computed (requires authorization)",
+  "closures_computed": 0,
+  "contexts_constructed": 0,
+  "exit": 0,
+  "expected_checks": {
+   "group_order": true,
+   "orbits": true,
+   "records": true
+  },
+  "group_order": 8,
+  "max_context_quantities": 29,
+  "max_context_with_fixed": 37,
+  "orbits": 816050,
+  "pair_orbits": 815175,
+  "records": 5163225,
+  "shards": [
+   [
+    0,
+    0,
+    161350
+   ],
+   [
+    1,
+    161350,
+    322701
+   ],
+   [
+    2,
+    322701,
+    484052
+   ],
+   [
+    3,
+    484052,
+    645403
+   ],
+   [
+    4,
+    645403,
+    806753
+   ],
+   [
+    5,
+    806753,
+    968104
+   ],
+   [
+    6,
+    968104,
+    1129455
+   ],
+   [
+    7,
+    1129455,
+    1290806
+   ],
+   [
+    8,
+    1290806,
+    1452157
+   ],
+   [
+    9,
+    1452157,
+    1613507
+   ],
+   [
+    10,
+    1613507,
+    1774858
+   ],
+   [
+    11,
+    1774858,
+    1936209
+   ],
+   [
+    12,
+    1936209,
+    2097560
+   ],
+   [
+    13,
+    2097560,
+    2258910
+   ],
+   [
+    14,
+    2258910,
+    2420261
+   ],
+   [
+    15,
+    2420261,
+    2581612
+   ],
+   [
+    16,
+    2581612,
+    2742963
+   ],
+   [
+    17,
+    2742963,
+    2904314
+   ],
+   [
+    18,
+    2904314,
+    3065664
+   ],
+   [
+    19,
+    3065664,
+    3227015
+   ],
+   [
+    20,
+    3227015,
+    3388366
+   ],
+   [
+    21,
+    3388366,
+    3549717
+   ],
+   [
+    22,
+    3549717,
+    3711067
+   ],
+   [
+    23,
+    3711067,
+    3872418
+   ],
+   [
+    24,
+    3872418,
+    4033769
+   ],
+   [
+    25,
+    4033769,
+    4195120
+   ],
+   [
+    26,
+    4195120,
+    4356471
+   ],
+   [
+    27,
+    4356471,
+    4517821
+   ],
+   [
+    28,
+    4517821,
+    4679172
+   ],
+   [
+    29,
+    4679172,
+    4840523
+   ],
+   [
+    30,
+    4840523,
+    5001874
+   ],
+   [
+    31,
+    5001874,
+    5163225
+   ]
+  ],
+  "single_orbits": 875
+ },
+ "v8_shared_tips_refused": {
+  "exit": 2,
+  "function_refuses": true,
+  "output": {
+   "label": "VOID",
+   "reason": "not computed (requires authorization)",
+   "refused": "--shared-tips on v8"
+  },
+  "refused": true
+ },
+ "v8_site_pair_count_refused": {
+  "decide_refuses": true,
+  "exit": 2,
+  "file_written": false,
+  "forged_file_exit": 2,
+  "forged_file_output": "{\"label\": \"VOID\", \"reason\": \"the v8 site-pair count file is not a valid authorized count of this module\", \"refused\": \"--site-pair-counts\"}",
+  "output": "{\"label\": \"VOID\", \"refused\": \"v8 site-pair count\", \"reason\": \"refused: no authorization for the v8 site-pair count (default)\"}",
+  "refused": true
+ }
+}

@@ -1,0 +1,15 @@
+V8 Context A                                       refused
+fresh copy Context A                               refused
+fresh copy, sources reordered                      refused
+V8 with flag flipped                               refused
+ref_context v8 (A)                                 refused
+ref_context v8 (G)                                 refused
+port as list [0,0,-3]                              error TypeError
+ref_context port as list                           error TypeError
+sources empty (closure identical under A)          NOT refused
+sources one changed                                NOT refused
+rho = 5 (superset of v8 region)                    NOT refused
+tlast = 24 (superset of v8 slices)                 NOT refused
+rho=5 record_at -> a v8 record [index only]        NOT refused
+V8_PARAMS rebound                                  NOT refused
+ref V8_REF rebound                                 NOT refused

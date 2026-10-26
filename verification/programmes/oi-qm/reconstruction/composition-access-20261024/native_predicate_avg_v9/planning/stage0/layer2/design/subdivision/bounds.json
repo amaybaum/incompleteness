@@ -1,0 +1,216 @@
+{
+ "count_module_resource_limit": {
+  "address_space_bytes": 1073741824,
+  "cpu_seconds": 60,
+  "job_timeout_minutes": 5
+ },
+ "profiles": {
+  "ball1": {
+   "S=32": {
+    "accounting": {
+     "exact_cover": true,
+     "records_sum": true,
+     "representatives_sum": true,
+     "stated_representatives": true
+    },
+    "empty_shards_index_even": 15,
+    "model_cost_heaviest_over_mean": {
+     "index_even": 3.519,
+     "subdivision": 1.485
+    },
+    "reps_heaviest_over_mean": {
+     "index_even": 2.958,
+     "subdivision": 1.003
+    },
+    "reps_per_shard_range_subdivision": [
+     140,
+     141
+    ]
+   },
+   "count_module": {
+    "peak_rss_kB": 22020,
+    "representatives_agree": true,
+    "seconds": 0.0
+   },
+   "flags_vs_engine_canon": {
+    "every_block_indices_checked": 91,
+    "every_block_mismatches": 0,
+    "in_pair_cases": {
+     "all": 6,
+     "none": 13,
+     "strict": 0,
+     "upper": 2
+    },
+    "indices_checked": 13300,
+    "mismatches": 0,
+    "seconds": 0.2,
+    "stride": 1
+   },
+   "records": 13300,
+   "representatives": 4500,
+   "sites": 7
+  },
+  "ball2": {
+   "S=32": {
+    "accounting": {
+     "exact_cover": true,
+     "records_sum": true,
+     "representatives_sum": true,
+     "stated_representatives": true
+    },
+    "empty_shards_index_even": 14,
+    "model_cost_heaviest_over_mean": {
+     "index_even": 3.744,
+     "subdivision": 1.094
+    },
+    "reps_heaviest_over_mean": {
+     "index_even": 3.706,
+     "subdivision": 1.0
+    },
+    "reps_per_shard_range_subdivision": [
+     1300,
+     1301
+    ]
+   },
+   "count_module": {
+    "peak_rss_kB": 22020,
+    "representatives_agree": true,
+    "seconds": 0.001
+   },
+   "flags_vs_engine_canon": {
+    "every_block_indices_checked": 1225,
+    "every_block_mismatches": 0,
+    "in_pair_cases": {
+     "all": 61,
+     "none": 229,
+     "strict": 0,
+     "upper": 10
+    },
+    "indices_checked": 188125,
+    "mismatches": 0,
+    "seconds": 3.8,
+    "stride": 1
+   },
+   "records": 188125,
+   "representatives": 41625,
+   "sites": 25
+  },
+  "ball3": {
+   "S=32": {
+    "accounting": {
+     "exact_cover": true,
+     "records_sum": true,
+     "representatives_sum": true,
+     "stated_representatives": true
+    },
+    "empty_shards_index_even": 16,
+    "model_cost_heaviest_over_mean": {
+     "index_even": 5.149,
+     "subdivision": 1.037
+    },
+    "reps_heaviest_over_mean": {
+     "index_even": 5.033,
+     "subdivision": 1.0
+    },
+    "reps_per_shard_range_subdivision": [
+     6794,
+     6795
+    ]
+   },
+   "count_module": {
+    "peak_rss_kB": 22020,
+    "representatives_agree": true,
+    "seconds": 0.003
+   },
+   "flags_vs_engine_canon": {
+    "every_block_indices_checked": 7875,
+    "every_block_mismatches": 0,
+    "in_pair_cases": {
+     "all": 331,
+     "none": 1591,
+     "strict": 1,
+     "upper": 30
+    },
+    "indices_checked": 3048,
+    "mismatches": 0,
+    "seconds": 0.2,
+    "stride": 401
+   },
+   "records": 1222200,
+   "representatives": 217425,
+   "sites": 63
+  },
+  "toy": {
+   "S=32": {
+    "accounting": {
+     "exact_cover": true,
+     "records_sum": true,
+     "representatives_sum": true,
+     "stated_representatives": true
+    },
+    "empty_shards_index_even": 15,
+    "model_cost_heaviest_over_mean": {
+     "index_even": 2.885,
+     "subdivision": 1.049
+    },
+    "reps_heaviest_over_mean": {
+     "index_even": 2.885,
+     "subdivision": 1.049
+    },
+    "reps_per_shard_range_subdivision": [
+     15,
+     16
+    ]
+   },
+   "S=4": {
+    "accounting": {
+     "exact_cover": true,
+     "records_sum": true,
+     "representatives_sum": true,
+     "stated_representatives": true
+    },
+    "empty_shards_index_even": 0,
+    "model_cost_heaviest_over_mean": {
+     "index_even": 2.131,
+     "subdivision": 1.0
+    },
+    "reps_heaviest_over_mean": {
+     "index_even": 2.131,
+     "subdivision": 1.0
+    },
+    "reps_per_shard_range_subdivision": [
+     122,
+     122
+    ]
+   },
+   "count_module": {
+    "peak_rss_kB": 22020,
+    "representatives_agree": true,
+    "seconds": 0.001
+   },
+   "flags_vs_engine_canon": {
+    "every_block_indices_checked": 91,
+    "every_block_mismatches": 0,
+    "in_pair_cases": {
+     "all": 6,
+     "none": 13,
+     "strict": 0,
+     "upper": 2
+    },
+    "indices_checked": 1400,
+    "mismatches": 0,
+    "seconds": 0.0,
+    "stride": 1
+   },
+   "records": 1400,
+   "representatives": 488,
+   "sites": 7
+  }
+ },
+ "shards": 32,
+ "v8_region_size": {
+  "note": "not run: the count module refuses v8 without its own authorization",
+  "site_pairs": 8256,
+  "sites": 129
+ }
+}

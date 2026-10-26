@@ -1,0 +1,8 @@
+1D: 2097152 worlds, 80 trials; exactness violations: {'L3': 0, "L3'": 0, 'wrong far tip': 8}; L3' not within L3: 0
+2D: 262144 worlds, 120 trials; exactness violations: {'L3': 0, "L3'": 0, 'wrong far tip': 3}; L3' not within L3: 0
+  2D block              L3             retained 6 of 6; exact: True
+  2D block minus centre L3             retained 5 of 5; exact: True
+  2D block              L3'            retained 6 of 6; exact: True
+  2D block minus centre L3'            retained 0 of 5; exact: True
+  2D block              wrong far tip  retained 0 of 6; exact: False
+  2D block minus centre wrong far tip  retained 0 of 5; exact: True

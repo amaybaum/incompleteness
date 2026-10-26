@@ -1,0 +1,443 @@
+{
+ "C7_scope": {
+  "definition": "E1-F3 sets 1-4, per record, every record index; full s0ref reference",
+  "reference_form": "full_s0ref",
+  "samples": {
+   "H100": {
+    "rate": 100,
+    "stream": "C7_H100"
+   },
+   "H1000": {
+    "rate": 1000,
+    "stream": "C7_H1000"
+   }
+  }
+ },
+ "C7_scope_coverage": {
+  "A": {
+   "1_Surv": {
+    "orbits_touched": 0,
+    "records_checked": 0,
+    "records_failed": 0,
+    "skipped_beyond_survivor_cap": 0,
+    "sum_touched_orbit_sizes": 0
+   },
+   "2_set2": {
+    "orbits_touched": 0,
+    "records_checked": 0,
+    "records_failed": 0,
+    "skipped_beyond_survivor_cap": 0,
+    "sum_touched_orbit_sizes": 0
+   },
+   "3_I_and_H100": {
+    "orbits_touched": 12,
+    "records_checked": 12,
+    "records_failed": 0,
+    "skipped_beyond_survivor_cap": 0,
+    "sum_touched_orbit_sizes": 45
+   },
+   "4_H1000": {
+    "orbits_touched": 1,
+    "records_checked": 1,
+    "records_failed": 0,
+    "skipped_beyond_survivor_cap": 0,
+    "sum_touched_orbit_sizes": 4
+   }
+  },
+  "G": {
+   "1_Surv": {
+    "orbits_touched": 0,
+    "records_checked": 0,
+    "records_failed": 0,
+    "skipped_beyond_survivor_cap": 0,
+    "sum_touched_orbit_sizes": 0
+   },
+   "2_set2": {
+    "orbits_touched": 283,
+    "records_checked": 595,
+    "records_failed": 0,
+    "skipped_beyond_survivor_cap": 0,
+    "sum_touched_orbit_sizes": 595
+   },
+   "3_I_and_H100": {
+    "orbits_touched": 6,
+    "records_checked": 6,
+    "records_failed": 0,
+    "skipped_beyond_survivor_cap": 0,
+    "sum_touched_orbit_sizes": 24
+   },
+   "4_H1000": {
+    "orbits_touched": 1,
+    "records_checked": 1,
+    "records_failed": 0,
+    "skipped_beyond_survivor_cap": 0,
+    "sum_touched_orbit_sizes": 4
+   }
+  }
+ },
+ "S1a": {
+  "L_A": 15,
+  "L_G": 7,
+  "L_reference": {
+   "L3": {
+    "L_A": 15,
+    "L_G": 7
+   },
+   "L3prime": {
+    "L_A": 15,
+    "L_G": 7
+   }
+  },
+  "L_reported_L3": {
+   "L_A": 15,
+   "L_G": 7
+  },
+  "bound_sizes": {
+   "A:L3": {
+    "context_quantities": 22,
+    "eliminated": 7,
+    "retained": 15
+   },
+   "A:L3prime": {
+    "context_quantities": 22,
+    "eliminated": 7,
+    "retained": 15
+   },
+   "G:L3": {
+    "context_quantities": 22,
+    "eliminated": 0,
+    "retained": 22
+   },
+   "G:L3prime": {
+    "context_quantities": 22,
+    "eliminated": 0,
+    "retained": 22
+   }
+  },
+  "n_lines": 15,
+  "status": "OK",
+  "status_kind": "diagnostic (E1-T2): it adds reasons to the run label and never replaces it",
+  "status_reasons": {
+   "INCOMPLETE": [],
+   "MISMATCH": [],
+   "VOID": []
+  }
+ },
+ "accepted_readings": {
+  "F1": "BASE_RESIDUE is reachable only after the MISMATCH-resolution amendment L1 section 5 requires",
+  "F10": "the engine implementing the frozen rule; guard and memo edits leave geometry and closure unchanged",
+  "F11": "C6 execution instances, C10 (ii) and C12 on v8 run in the authorized pre-flight",
+  "F4": "residual support as defined in LAYER2-PLAN.md section 4, reported only",
+  "F5": "masking equivalence by equal even-class contexts (L1 text); code-r5 reading reported",
+  "F7": "C12 per-record clause checked on the universe (PO-L2-9)",
+  "F8": "C11 (i), C17 and C18 sampled 1 in 1,000 (L1 N6: Layer-2 configuration constants)",
+  "source": "review/LAYER2-REVIEW.md (a63db7ba), section 5"
+ },
+ "authorization": null,
+ "base_precondition": {
+  "collapsed": true,
+  "source": "preflight.json base_collapsed"
+ },
+ "base_relative_survivor_records": null,
+ "ci_run": null,
+ "code_digest": "46f858396ad5e6465f562e136af0dc9d50e4844ad468aee237d86479d0d49c82",
+ "commit": "bc042a61052696b72c1b76ef52c83cfe41bc4237",
+ "commits": {
+  "preflight.json": "bc042a61052696b72c1b76ef52c83cfe41bc4237",
+  "s1a.json": "bc042a61052696b72c1b76ef52c83cfe41bc4237",
+  "shards": [
+   "bc042a61052696b72c1b76ef52c83cfe41bc4237"
+  ]
+ },
+ "config_sha256": "326b15611f39d61b1b54a331ad76b2336f766261531866c31856c8ce36b06734",
+ "count_list": "E1-F6: the 54 of L1 C8 and four survivor cells",
+ "counts": {
+  "A:L3_vs_L3prime_disagree": 0,
+  "A:b_has_J_cell": 376,
+  "A:b_has_nonJ_phi_cell": 688,
+  "A:deg:item_at_phi_site:survivor=False": 1392,
+  "A:deg:item_at_phi_site:survivor=True": 0,
+  "A:deg:item_at_port_site:survivor=False": 0,
+  "A:deg:item_at_port_site:survivor=True": 0,
+  "A:deg:item_at_q9:survivor=False": 392,
+  "A:deg:item_at_q9:survivor=True": 0,
+  "A:deg:item_on_z_axis:survivor=False": 984,
+  "A:deg:item_on_z_axis:survivor=True": 0,
+  "A:deg:item_t_eq_minus1:survivor=False": 322,
+  "A:deg:item_t_eq_minus1:survivor=True": 0,
+  "A:deg:item_t_le_0:survivor=False": 602,
+  "A:deg:item_t_le_0:survivor=True": 0,
+  "A:deg:last_sample_odd:survivor=False": 1036,
+  "A:deg:last_sample_odd:survivor=True": 0,
+  "A:deg:masking_equivalent:survivor=True": 0,
+  "A:deg:nontrivial_stabilizer:survivor=True": 0,
+  "A:deg:pair_on_common_axis:survivor=False": 576,
+  "A:deg:pair_on_common_axis:survivor=True": 0,
+  "A:j_linked": 0,
+  "A:observer_classes": 22,
+  "A:observer_classes_collapsed": 22,
+  "A:observer_classes_survivors": 0,
+  "A:phi_linked": 0,
+  "A:survivors": 0,
+  "A:survivors_J_linked": 0,
+  "A:survivors_phi_linked_not_J": 0,
+  "A:survivors_unlinked": 0,
+  "G:L3_vs_L3prime_disagree": 0,
+  "G:b_has_source_cell": 0,
+  "G:deg:item_at_phi_site:survivor=False": 1392,
+  "G:deg:item_at_phi_site:survivor=True": 0,
+  "G:deg:item_at_port_site:survivor=False": 0,
+  "G:deg:item_at_port_site:survivor=True": 0,
+  "G:deg:item_at_q9:survivor=False": 392,
+  "G:deg:item_at_q9:survivor=True": 0,
+  "G:deg:item_on_z_axis:survivor=False": 984,
+  "G:deg:item_on_z_axis:survivor=True": 0,
+  "G:deg:item_t_eq_minus1:survivor=False": 322,
+  "G:deg:item_t_eq_minus1:survivor=True": 0,
+  "G:deg:item_t_le_0:survivor=False": 602,
+  "G:deg:item_t_le_0:survivor=True": 0,
+  "G:deg:last_sample_odd:survivor=False": 1036,
+  "G:deg:last_sample_odd:survivor=True": 0,
+  "G:deg:masking_equivalent:survivor=True": 0,
+  "G:deg:nontrivial_stabilizer:survivor=True": 0,
+  "G:deg:pair_on_common_axis:survivor=False": 576,
+  "G:deg:pair_on_common_axis:survivor=True": 0,
+  "G:observer_classes": 173,
+  "G:observer_classes_collapsed": 173,
+  "G:observer_classes_survivors": 0,
+  "G:survivors": 0,
+  "G:survivors_G_linked": 0,
+  "G:survivors_G_unlinked": 0,
+  "masking_equivalent_records": 1398,
+  "nontrivial_stabilizer": 1176
+ },
+ "coverage": {
+  "exact_disjoint_union": true,
+  "orbit_weight_sum": 1400,
+  "orbits_burnside": 488,
+  "records": 1400,
+  "representatives": 488,
+  "shards_accepted": 4,
+  "shards_expected": 4
+ },
+ "coverage_limits": [
+  "k <= 2 stream items; v8's region and slices; the scaled control.",
+  "One port; no later reads, unless S3 extends them.",
+  "Conventions A and G, with the declared frame.",
+  "L3prime and L3 only; survivors are not shown to be informative.",
+  "No law computed, apart from the S6 proof-check on Phi's reference structure.",
+  "Nothing at actual L; no A1/A2 statement; no claim about OI beyond the class."
+ ],
+ "in_run_gates": {
+  "C0_context": {
+   "checked": 1584,
+   "failed": 0
+  },
+  "C10i": {
+   "checked": 1952,
+   "failed": 0
+  },
+  "C11i": {
+   "checked": 976,
+   "failed": 0,
+   "tables": 5328
+  },
+  "C11ii": {
+   "checked": 0,
+   "failed": 0
+  },
+  "C17": {
+   "checked": 976,
+   "failed": 0
+  },
+  "C18": {
+   "checked": 976,
+   "failed": 0
+  },
+  "C7": {
+   "carried_vs_direct_failed": 0,
+   "checked": 608,
+   "direct_vs_reference_failed": 0,
+   "failed": 0,
+   "shared_tip_reps": 739
+  },
+  "C8": {
+   "checked": 488,
+   "failed": 0
+  },
+  "C9": {
+   "checked": 2800,
+   "failed": 0
+  },
+  "index_roundtrip": {
+   "checked": 1400,
+   "failed": 0
+  }
+ },
+ "incomplete_reasons": [],
+ "inputs": {
+  "dryrun.json": "ce7d066a0b11cfcbdd9f9fa011952c8ba57cd2f1f78367ccd696f20c8bc9447f",
+  "preflight.json": "e42c316849955371ac25e01fdf51e70209176f2fc94838d9b67689251e7c450c",
+  "s1a.json": "f6d9376796609d4e8e7740036d7bc273faa590f8b06cbc80c233100824fe36c1",
+  "shard-0.json": "8032d20e10230913919206ec443d47ec8e4ffb2e32477e54a50f70c4227155b4",
+  "shard-1.json": "27204083a3574e0abcef3a07503d8f48c711b9fadbd96d00ff78b24a9bbf38fc",
+  "shard-2.json": "25fc915cba2622de1ed2db36a4082fba2aceb1edf9c6358f802e38215a706303",
+  "shard-3.json": "07d2cd9e7e26017e6dfca924b87b5489177e74d193d50a0c7c3948f9570b2635"
+ },
+ "label": "COLLAPSE_ALL",
+ "label_source": "merge of structured files",
+ "label_text": "toy profile: design evidence only, no statement",
+ "masking_equivalent_records_record_sample_reading": 1398,
+ "minimal_witness": null,
+ "mismatch_reasons": [],
+ "n_counts": 58,
+ "owner_rulings": {
+  "F3": {
+   "question": "C7 scope",
+   "ruling": "E1-F3: sets 1-4, every record index, per record, full s0ref reference"
+  },
+  "F6": {
+   "question": "C8 list (54) or 4-count erratum (58)",
+   "ruling": "58 counts (E1-F6: four added survivor cross-tabulations)"
+  },
+  "G_D": {
+   "layer2_reading": "not implemented; the full s0ref closure is the only reference form",
+   "owner_answer": "Conditionally approved; non-executing until the owner confirms the proof",
+   "question": "Lemma G-D reference form in C7 (E1 section 9); decided after the count, before the full run",
+   "ruling": "OWNER-PLACEHOLDER"
+  },
+  "O1": {
+   "layer2_reading": "not adopted: E_G is not a check set",
+   "question": "E_G as a fifth C7 set under G (E1 section 9; optional); decided after the count, before the full run",
+   "ruling": "OWNER-PLACEHOLDER"
+  },
+  "T1": {
+   "question": "rule T bound: L3prime or L3",
+   "ruling": "L3prime bound; L3 values reported only (E1-T1, \"Approve erratum\")"
+  },
+  "T2": {
+   "question": "S1a status",
+   "ruling": "sigma, S1a's own diagnostic status, cases 1-4 of E1-T2 with case 2 (d); rule T evaluated iff sigma = OK; sigma never overrides the run label (\"Give S1a its own diagnostic status, not an overriding success label\"; \"Add it\")"
+  },
+  "T5": {
+   "question": "L_G wording",
+   "ruling": "L_G counts quantities with a seed tip whose own cone contains a source cell (E1-T5)"
+  },
+  "T6": {
+   "question": "standing of rule T's L_A = L_G = 0 consequence",
+   "ruling": "geometric fact only, approved with qualification (E1-T6)"
+  },
+  "budget_ceiling": {
+   "included_costs_ruling": "Include calibration, count pass, primary run, mutant campaign, retries, and execution overhead",
+   "over_ceiling_ruling": "If the calibrated runtime exceeds 24 hours, the experiment must be reduced through a new reviewed design or declared infeasible under this budget - not run with an artificially smaller margin.",
+   "question": "budget ceiling",
+   "reading_ruling": "The 24-hour ceiling is an aggregate compute-runtime budget across the campaign, not a 24-hour wall-clock deadline. Record all measured compute time consistently, including failed jobs and retries.",
+   "ruling": "24 hours maximum, including all run overhead, with an explicit reserve.",
+   "scope_ruling": "Per complete experimental campaign, not per individual run"
+  },
+  "ci_calibration": {
+   "question": "CI timing calibration",
+   "ruling": "authorized conditionally: a separate, planted-set-only CI timing calibration, provided it cannot access v8 and its exact workflow and resource limits are reviewed before dispatch. This is not authorization to dispatch the existing full experimental workflow.",
+   "status": "workflow proposed in layer2/ci/, not placed under .github/, not dispatched"
+  },
+  "kappa": {
+   "calibration_ruling": "Require at least 20 independent timing calibrations on the relevant CI runner class.",
+   "method_ruling": "Approve the proposed method, kappa = u_cal x u_model, but not a final numerical value.",
+   "model_uncertainty_ruling": "Retain as an explicitly judgment-based factor, subject to sensitivity analysis.",
+   "question": "the numerical value of kappa (its components u_cal, u_model)",
+   "ruling": "OWNER-PLACEHOLDER"
+  },
+  "reserve": {
+   "layer2_reading": "none: no default; KAPPA-PROPOSAL.md proposes a size",
+   "question": "the explicit reserve inside the 24-hour ceiling",
+   "ruling": "OWNER-PLACEHOLDER"
+  },
+  "retry_allowance": {
+   "layer2_reading": "none: no default; KAPPA-PROPOSAL.md proposes a size",
+   "question": "the planned allowance for retries inside the campaign ledger (measured retries replace it as they occur)",
+   "ruling": "OWNER-PLACEHOLDER"
+  },
+  "sequencing": {
+   "after_the_count": "G_D and O1, before the full run",
+   "question": "order of the launch decisions",
+   "ruling": "Approved. Fix kappa, the survivor cap, and budget ceiling before any v8 count."
+  },
+  "shard_imbalance": {
+   "ruling": "a genuine design blocker. Do not compensate by lowering kappa or simply increasing job timeouts. Instead, investigate deterministic subdivision of heavy site pairs into smaller shards, maintaining exact accounting and reproducibility.",
+   "status": "r5: l2plan.subdivision_cuts (shard k starts at the representative of rank floor(kR/S)); L2-SHARDPLAN, L2-SPLIT"
+  },
+  "site_pair_count": {
+   "dispatch": "This is not authorization to dispatch the count yet. Return with the exact reviewed implementation and its resource limit for authorization.",
+   "restrictions": "Access only the minimum v8 index metadata required to count records by site pair. No survivor evaluation, statistical estimation, outcome inspection, or experimental computation. No persistence of individual v8 records or hidden result information. Publish the exact counting algorithm and its permitted outputs before dispatch. Obtain independent review and green tests of the count-only implementation.",
+   "ruling": "Conditionally approved as a separate, strictly count-only diagnostic, after independent review of its exact implementation",
+   "status": "l2sitepairs.py (r5), unreviewed; v8 refused without its own authorization"
+  },
+  "source": "stage0/amendments/E1-LAYER1-ERRATUM.md (in effect), amaybaum 2026-10-26",
+  "survivor_cap": {
+   "layer2_reading": "none: no default for v8 (SURVIVOR-CAP-PROPOSAL.md); the toy profile uses 10 for design evidence only",
+   "owner_request": "Request a reasoned proposal based on shard distribution, memory consumption, and failure probability; do not use the placeholder 10.",
+   "owner_request_r5": "The survivor cap should likewise follow from a justified resource and completeness analysis, not a convenient placeholder.",
+   "question": "survivor representatives per shard gated before the run is INCOMPLETE (v8 profile; a resource constant fixed before any v8 count)",
+   "ruling": "OWNER-PLACEHOLDER"
+  },
+  "v8_count": {
+   "question": "combinatorial-only v8 count of I_A, I_G, F_G, E_G",
+   "ruling": "not authorized pending its Layer-2 amendment and review",
+   "status": "AMENDMENT-PROPOSAL-V8-COUNT.md, unadopted"
+  }
+ },
+ "owner_rulings_pending": [
+  "/budget/campaign/retry_allowance_runner_seconds",
+  "/budget/kappa_rule/u_cal",
+  "/budget/kappa_rule/u_model",
+  "/budget/reserve_runner_seconds",
+  "/owner_rulings/G_D/ruling",
+  "/owner_rulings/O1/ruling",
+  "/owner_rulings/kappa/ruling",
+  "/owner_rulings/reserve/ruling",
+  "/owner_rulings/retry_allowance/ruling",
+  "/owner_rulings/survivor_cap/ruling",
+  "/profiles/v8/survivor_cap_per_shard"
+ ],
+ "profile": "toy",
+ "residue_file": null,
+ "rule_T": {
+  "L_A": 15,
+  "L_G": 7,
+  "L_reported_L3": {
+   "L_A": 15,
+   "L_G": 7
+  },
+  "S1b_S1c": "S1b put to the owner as a new preregistration",
+  "bound_rule": "L3prime",
+  "cost_clause": "not evaluable in Stage 0 (E1-T3)",
+  "evaluated": true,
+  "outcome": "L_A > 0 or L_G > 0",
+  "rulings": {
+   "T1": "L3prime bound; L3 values reported only (E1-T1, \"Approve erratum\")",
+   "T2": "sigma, S1a's own diagnostic status, cases 1-4 of E1-T2 with case 2 (d); rule T evaluated iff sigma = OK; sigma never overrides the run label (\"Give S1a its own diagnostic status, not an overriding success label\"; \"Add it\")",
+   "T5": "L_G counts quantities with a seed tip whose own cone contains a source cell (E1-T5)",
+   "T6": "geometric fact only, approved with qualification (E1-T6)"
+  },
+  "run_label": "COLLAPSE_ALL",
+  "s1a_status": "OK",
+  "statement_scope": "not applicable (outcome: L_A > 0 or L_G > 0)",
+  "text": "S1b (the minimal self-supporting record search, m <= 4, restricted to the global bound) is put to the owner as a new preregistration. S1c is taken up only if S1b's own preregistered rule calls for it.",
+  "wording_status": "confirmed with qualification (E1-T6, amaybaum 2026-10-26)"
+ },
+ "schema": "np-avg-1/stage0/layer2/result/1",
+ "statement_scope": "Survivor counts are counts of configurations; collapse established by the exact closure computation under the frozen rule, with the required controls green; see section 5 of the Layer-1 plan for what each label licenses.",
+ "structure": {
+  "L3_only_survivor_records": {
+   "A": 0,
+   "G": 0
+  }
+ },
+ "survivor_gates_incomplete": {
+  "flag": false,
+  "note": "the counts cover every record; survivor gates and residue detail stop at the survivor cap, and the run is INCOMPLETE",
+  "shards_over_cap": []
+ },
+ "void_reasons": [],
+ "witness_candidates_seen": 0
+}

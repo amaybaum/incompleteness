@@ -1,0 +1,6 @@
+far-slice axis extreme at distance d-1: non-bijective 0 of 200 (forward)
+far-slice OFF-axis cell at distance d-1: non-bijective 87 of 100 (expected > 0)
+constraint block: L3 retains 8, L3prime retains 8 (of 8)
+block minus centre: L3 retains 7, L3prime retains 0
+depth-2 planted: L3prime retains 13 of 13; off-axis mutant retains 0
+L3prime retains a superset of L3 in 0/300 random toy sets (expected 0)

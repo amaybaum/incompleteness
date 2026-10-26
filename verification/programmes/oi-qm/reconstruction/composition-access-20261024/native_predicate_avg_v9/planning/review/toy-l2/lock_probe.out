@@ -1,0 +1,9 @@
+default: num_records(v8)                                       refused
+authorized_v8=True                                             refused
+V8Grant subclass                                               refused
+duck-typed grant                                               refused
+V8Grant with bad hex                                           refused
+FORGED V8Grant (direct construction), num_records only         NOT refused -> 5163225
+FORGED V8Grant, record_at(0) only                              NOT refused -> (((-4, 0, 0), -1),)
+FORGED RefGrant: s0ref._ref_granted                            NOT refused -> True
+decide(fabricated artifact, fabricated owner check)            ok

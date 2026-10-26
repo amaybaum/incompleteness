@@ -1,0 +1,125 @@
+{
+ "deterministic": false,
+ "measured_planted": {
+  "detail_bytes": {
+   "max": 4337,
+   "median": 3647.0
+  },
+  "kept_bytes": {
+   "max": 520568,
+   "median": 369064.0
+  },
+  "max_context_quantities": 29,
+  "peak_transient_bytes": {
+   "max": 2023882,
+   "median": 1753683.0
+  },
+  "seconds_per_gated_orbit_toy": {
+   "max": 2.4708,
+   "median": 1.8638
+  },
+  "survivor_orbits": 24
+ },
+ "model": {
+  "P_some_shard_exceeds_cap_uniform": {
+   "12": {
+    "1": 0.0,
+    "128": 0.00642,
+    "16": 4.45e-16,
+    "256": 0.91,
+    "32": 1.72e-10,
+    "64": 2.55e-06,
+    "8": 0.0
+   },
+   "16": {
+    "1": 0.0,
+    "128": 1.87e-05,
+    "16": 0.0,
+    "256": 0.0983,
+    "32": 2.99e-16,
+    "64": 2.8e-10,
+    "8": 0.0
+   },
+   "24": {
+    "1": 0.0,
+    "128": 8.22e-12,
+    "16": 0.0,
+    "256": 2.11e-05,
+    "32": 2.05e-30,
+    "64": 9.19e-20,
+    "8": 0.0
+   },
+   "32": {
+    "1": 0.0,
+    "128": 1.58e-19,
+    "16": 0.0,
+    "256": 2.88e-10,
+    "32": 0.0,
+    "64": 4.68e-31,
+    "8": 0.0
+   },
+   "4": {
+    "1": 0.0,
+    "128": 1.0,
+    "16": 0.00312,
+    "256": 1.0,
+    "32": 0.0927,
+    "64": 0.861,
+    "8": 4.93e-05
+   },
+   "8": {
+    "1": 0.0,
+    "128": 0.495,
+    "16": 8.52e-09,
+    "256": 1.0,
+    "32": 1.33e-05,
+    "64": 0.00528,
+    "8": 0.0
+   }
+  },
+  "cost_by_cap": {
+   "4": {
+    "kept_memory_bytes_at_max": 2082272,
+    "per_replica_job_seconds": 47.8,
+    "per_shard_job_seconds_both_copies": 95.5,
+    "survivor_term_runner_seconds": 3056.0
+   },
+   "8": {
+    "kept_memory_bytes_at_max": 4164544,
+    "per_replica_job_seconds": 95.5,
+    "per_shard_job_seconds_both_copies": 191.0,
+    "survivor_term_runner_seconds": 6112.0
+   },
+   "12": {
+    "kept_memory_bytes_at_max": 6246816,
+    "per_replica_job_seconds": 143.2,
+    "per_shard_job_seconds_both_copies": 286.5,
+    "survivor_term_runner_seconds": 9168.0
+   },
+   "16": {
+    "kept_memory_bytes_at_max": 8329088,
+    "per_replica_job_seconds": 191.0,
+    "per_shard_job_seconds_both_copies": 382.0,
+    "survivor_term_runner_seconds": 12224.0
+   },
+   "24": {
+    "kept_memory_bytes_at_max": 12493632,
+    "per_replica_job_seconds": 286.5,
+    "per_shard_job_seconds_both_copies": 573.0,
+    "survivor_term_runner_seconds": 18336.0
+   },
+   "32": {
+    "kept_memory_bytes_at_max": 16658176,
+    "per_replica_job_seconds": 382.0,
+    "per_shard_job_seconds_both_copies": 764.0,
+    "survivor_term_runner_seconds": 24448.0
+   }
+  },
+  "shards": 32,
+  "v8_survivor_term_per_cap_unit_runner_seconds_median": 764.0,
+  "weights": "uniform (1/S); a concentrated case exceeds iff X > c"
+ },
+ "note": "planted toy-geometry records; the time per orbit at v8 sizes is the estimate's, from the planted calibration at m_max; nothing on v8",
+ "python": "3.13.16",
+ "schema": "np-avg-1/stage0/layer2/survivor-cap/1"
+}

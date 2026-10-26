@@ -1,0 +1,9 @@
+HC hand instance closure: [] (hand: empty)
+toy pool size 75
+toy self-supporting sets (sizes 1-3): 0 search 4.1s
+toy block |Q|=14 retained 8
+symmetric radii: retains strictly more in 160/400; ever retains less: 0
+off-axis mutant: differs from correct closure in 0/400
+native: max influencing distance (earlier, later) by depth: {1: (0, 1), 2: (1, 2), 3: (2, 3), 4: (3, 4)} (expect k-1, k)
+native: axis-tip bijection failures 0 of 300
+timing: 2.65 ms per closure on 30 synthetic quantities + 8 fixed

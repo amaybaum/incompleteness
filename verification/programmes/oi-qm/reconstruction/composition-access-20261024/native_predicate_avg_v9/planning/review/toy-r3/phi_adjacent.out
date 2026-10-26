@@ -1,0 +1,82 @@
+{
+ "frozen": [
+  {
+   "d": 1,
+   "family_nonfixed": 0,
+   "retained": 0,
+   "frozen_retained": 0,
+   "pa_dir_violations": 0
+  },
+  {
+   "d": 2,
+   "family_nonfixed": 11,
+   "retained": 11,
+   "frozen_retained": 11,
+   "pa_dir_violations": 0
+  }
+ ],
+ "rv_dir_ignore_fixed": [
+  {
+   "d": 1,
+   "family_nonfixed": 0,
+   "retained": 0,
+   "frozen_retained": 0,
+   "pa_dir_violations": 0
+  },
+  {
+   "d": 2,
+   "family_nonfixed": 11,
+   "retained": 0,
+   "frozen_retained": 11,
+   "pa_dir_violations": 0
+  }
+ ],
+ "rv_decide_ignore_fixed_y": [
+  {
+   "d": 1,
+   "family_nonfixed": 0,
+   "retained": 0,
+   "frozen_retained": 0,
+   "pa_dir_violations": 0
+  },
+  {
+   "d": 2,
+   "family_nonfixed": 11,
+   "retained": 0,
+   "frozen_retained": 11,
+   "pa_dir_violations": 0
+  }
+ ],
+ "blind_dir_minus_y": [
+  {
+   "d": 1,
+   "family_nonfixed": 0,
+   "retained": 0,
+   "frozen_retained": 0,
+   "pa_dir_violations": 0
+  },
+  {
+   "d": 2,
+   "family_nonfixed": 11,
+   "retained": 11,
+   "frozen_retained": 11,
+   "pa_dir_violations": 0
+  }
+ ],
+ "rv_decide_blind_y": [
+  {
+   "d": 1,
+   "family_nonfixed": 0,
+   "retained": 0,
+   "frozen_retained": 0,
+   "pa_dir_violations": 0
+  },
+  {
+   "d": 2,
+   "family_nonfixed": 11,
+   "retained": 11,
+   "frozen_retained": 11,
+   "pa_dir_violations": 0
+  }
+ ]
+}

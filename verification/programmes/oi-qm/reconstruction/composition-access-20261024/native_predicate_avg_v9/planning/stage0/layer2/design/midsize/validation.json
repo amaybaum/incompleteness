@@ -1,0 +1,152 @@
+{
+ "A3_crosscheck": {
+  "disagreeing_indices": [],
+  "disagreements": 0,
+  "frame_equals_production_frame": true,
+  "records_checked": 1940,
+  "scope": "Q0 and I_A, I_G against the production context; the frame against the production frame on the C12 box (F_G and E_G use that frame and the same tip code; their reference check is L2-SCOPE on the toy class)"
+ },
+ "A4_population_count": {
+  "populations": {
+   "E_G": {
+    "orbits": 5273,
+    "records": 15603
+   },
+   "F_G": {
+    "orbits": 22709,
+    "records": 75431
+   },
+   "I_A": {
+    "orbits": 23614,
+    "records": 78891
+   },
+   "I_G": {
+    "orbits": 22709,
+    "records": 75431
+   }
+  },
+  "records": 188125,
+  "seconds": 115.1,
+  "seconds_per_million_records": 612.0
+ },
+ "dry_run": {
+  "C7_populations_fraction_of_N": {
+   "E_G": 0.0829,
+   "F_G": 0.401,
+   "I_A": 0.4194,
+   "I_G": 0.401
+  },
+  "accounting": {
+   "exact_cover": true,
+   "records_sum": true,
+   "representatives_sum": true,
+   "stated_representatives": true
+  },
+  "model_heaviest_over_mean_cost": 1.344,
+  "model_terms_both_copies_seconds": {
+   "C7_scope": 24443,
+   "closures": 3068,
+   "sampled_gates": 199
+  },
+  "plan_kind": "representative_balanced",
+  "records": 188125,
+  "representatives": 41625
+ },
+ "overhead_at_mid_sizes": {
+  "configured_factor": 2,
+  "context_quantities": [
+   12,
+   27
+  ],
+  "ratio_median": 2.24,
+  "ratio_p90": 3.46,
+  "representatives": 24
+ },
+ "profile": "mid",
+ "real_shards": [
+  {
+   "actual_over_predicted": 0.13,
+   "planned_representatives": 325,
+   "representatives": 325,
+   "scanned": 700,
+   "seconds_actual_normal_mode": 7.9,
+   "seconds_predicted_single_copy": 60.4,
+   "shard": 0,
+   "survivor_orbits": 0,
+   "survivor_orbits_by_site_pair": {}
+  },
+  {
+   "actual_over_predicted": 0.9,
+   "planned_representatives": 325,
+   "representatives": 325,
+   "scanned": 3450,
+   "seconds_actual_normal_mode": 131.6,
+   "seconds_predicted_single_copy": 145.5,
+   "shard": 74,
+   "survivor_orbits": 0,
+   "survivor_orbits_by_site_pair": {}
+  },
+  {
+   "actual_over_predicted": 0.3,
+   "planned_representatives": 325,
+   "representatives": 325,
+   "scanned": 325,
+   "seconds_actual_normal_mode": 18.5,
+   "seconds_predicted_single_copy": 62.3,
+   "shard": 111,
+   "survivor_orbits": 0,
+   "survivor_orbits_by_site_pair": {}
+  },
+  {
+   "actual_over_predicted": 0.08,
+   "planned_representatives": 325,
+   "representatives": 325,
+   "scanned": 619,
+   "seconds_actual_normal_mode": 8.5,
+   "seconds_predicted_single_copy": 110.8,
+   "shard": 82,
+   "survivor_orbits": 0,
+   "survivor_orbits_by_site_pair": {}
+  }
+ ],
+ "real_shards_summary": {
+  "actual_over_predicted": [
+   0.13,
+   0.9,
+   0.3,
+   0.08
+  ],
+  "heaviest_actual_over_mean_actual_of_these": 3.16,
+  "note": "predicted: the cost model on the planted calibration, shared terms only, normal copy; actual: this machine, normal mode, every gate at the mid profile's (v8's) rates"
+ },
+ "seconds_total": 362.3,
+ "setup": {
+  "dim": 3,
+  "n": 6,
+  "port": [
+   0,
+   0,
+   -2
+  ],
+  "rho": 2,
+  "sources": [
+   [
+    -8,
+    0,
+    0
+   ],
+   [
+    -7,
+    0,
+    -1
+   ],
+   [
+    -7,
+    0,
+    1
+   ]
+  ],
+  "tlast": 23
+ },
+ "shards": 128
+}

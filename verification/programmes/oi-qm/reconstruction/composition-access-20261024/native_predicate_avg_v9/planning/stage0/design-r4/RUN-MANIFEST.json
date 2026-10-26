@@ -1,0 +1,109 @@
+{
+ "code_sha256": {
+  "stage0/code-r4/s0controls.py": "bbbe2ade9e20a79e24f5b929792666222aa5f75997245ff99d1ce458f4acecf1",
+  "stage0/code-r4/s0geom.py": "d70afe3ada0f43ebf1b7b5543b91253e5f60406df61a99738a7a7ce2473c765f",
+  "stage0/code-r4/s0mutants.py": "3f7ef7ada2c1539ab8d445b4d90aa4f6f3779af08b2b1017b53d58eff299fcae",
+  "stage0/code-r4/s0native.py": "4206549e8c01d62c684d4375fb11ae79e2fe69ef059c61600ae3db04570c8526",
+  "stage0/code-r4/s0ref.py": "ec94de8198d0cf430fdb6234df3e4f12767b81089105641dc303dc4b25ede548",
+  "stage0/code-r4/s0run.py": "462951f7b61f6c0c02efd4699168b026a23db3d66a3d671c322566e7696ec96a",
+  "stage0/code-r4/s0s6.py": "110f275cd83edb759b40c249900bc397e1fc3accc9571add50fa8bac3e42289a",
+  "stage0/code-r4/s0symcheck.py": "19588aa494445bafb1d62a8ead02dd2e05f3f4aaf76acbc7aae42e5b3b63c282",
+  "stage0/design-r4/exact_small.py": "8196ab1598437e929bfedac9d818c620fc19cce48e4ddc286b137e02d4fa6d3a",
+  "stage0/design-r4/planted.py": "36753f3cb12365ae35dad624f22c3f5df227242521eed42076f3918a1427a6c9",
+  "stage0/design-r4/proto.py": "24806c62c5e3b123e405183fddd717a264be73014bb38c9aa2ee1dfaae3f4ec8",
+  "stage0/design-r4/radius_mutants.py": "b6362a43f9c0d910c1c97938c1c5e059f9ea2a25264c386a8dcfeafb6503d270",
+  "stage0/design-r4/rerun.py": "a208f10cfcb75ca359ed23d7c6a1ea3c1bae729d3a9d99ba35794be392dd8b83"
+ },
+ "note": "Stage 0 design evidence (r4; not frozen code: the implementation is Layer 2; the full mutant campaign is not run locally, under AGENTS.md A.40 it runs in CI): toys, planted sets, generic random backgrounds, small exhaustive windows, the S6 reference structure and v8 configuration combinatorics (counts, orbits) only; no closure on v8's configuration class (s0geom refuses it)",
+ "platform": "Linux-6.18.44-fc-v153-x86_64-with-glibc2.39",
+ "python": "3.13.16",
+ "steps": [
+  {
+   "O_mode_identical": true,
+   "command": "python3 -I -B stage0/code-r4/s0controls.py",
+   "exit": 0,
+   "retained_stderr": "stage0/design-r4/runs/controls_frozen_full.err",
+   "retained_stdout": "stage0/design-r4/runs/controls_frozen_full.out",
+   "seconds": 133,
+   "stderr_tail": "",
+   "stdout_sha256": "a556e3247f559fa7b4665ae92716127ed10ebc82c833fc33859faec047b8e589",
+   "step": "controls_frozen_full"
+  },
+  {
+   "O_mode_identical": true,
+   "command": "python3 -I -B stage0/code-r4/s0s6.py",
+   "exit": 0,
+   "retained_stderr": "stage0/design-r4/runs/s6_po8_proofcheck.err",
+   "retained_stdout": "stage0/design-r4/runs/s6_po8_proofcheck.out",
+   "seconds": 19,
+   "stderr_tail": "",
+   "stdout_sha256": "0f0bca68f34aa498e5026952cda77637ca7cfe8cb69c3eec0e96768aaa939c5d",
+   "step": "s6_po8_proofcheck"
+  },
+  {
+   "O_mode_identical": true,
+   "command": "python3 -I -B stage0/code-r4/s0symcheck.py",
+   "exit": 0,
+   "retained_stderr": "stage0/design-r4/runs/symcheck_v8_combinatorics.err",
+   "retained_stdout": "stage0/design-r4/runs/symcheck_v8_combinatorics.out",
+   "seconds": 19,
+   "stderr_tail": "",
+   "stdout_sha256": "76779524835103d032eda1d2170a6c1a4e57d5fb9cdb342835f5c03056c2d8b5",
+   "step": "symcheck_v8_combinatorics"
+  },
+  {
+   "command": "python3 -I -B stage0/code-r4/s0mutants.py",
+   "exit": 0,
+   "retained_stderr": "stage0/design-r4/runs/mutants_quick.err",
+   "retained_stdout": "stage0/design-r4/runs/mutants_quick.out",
+   "seconds": 845,
+   "stderr_tail": "",
+   "stdout_sha256": "8971d628bd3d026e9f5860054a1b27fd87e77cb64776b8e01c57e18cd31b66ca",
+   "step": "mutants_quick"
+  },
+  {
+   "O_mode_identical": true,
+   "command": "python3 -I -B stage0/design-r4/rerun.py stage0/design-r4",
+   "exit": 0,
+   "retained_stderr": "stage0/design-r4/runs/toy_rerun_L4.err",
+   "retained_stdout": "stage0/design-r4/runs/toy_rerun_L4.out",
+   "seconds": 10,
+   "stderr_tail": "L3 search 3.0s\nL3' search 3.7s\ntiming: L3' 3.52 ms per closure (30 quantities + 8 fixed)\n",
+   "stdout_sha256": "cb843f0fdf42944041f12f19e904b9893b436db0f1e87cb0db9e8f4e739e825f",
+   "step": "toy_rerun_L4"
+  },
+  {
+   "O_mode_identical": true,
+   "command": "python3 -I -B stage0/design-r4/planted.py stage0/design-r4",
+   "exit": 0,
+   "retained_stderr": "stage0/design-r4/runs/toy_planted.err",
+   "retained_stdout": "stage0/design-r4/runs/toy_planted.out",
+   "seconds": 0,
+   "stderr_tail": "",
+   "stdout_sha256": "8a4ebd8cd4c04b681a8515f79f197a093cabf90304570b785531cf5d4e7106d8",
+   "step": "toy_planted"
+  },
+  {
+   "O_mode_identical": true,
+   "command": "python3 -I -B stage0/design-r4/radius_mutants.py stage0/design-r4",
+   "exit": 0,
+   "retained_stderr": "stage0/design-r4/runs/toy_radius_mutants.err",
+   "retained_stdout": "stage0/design-r4/runs/toy_radius_mutants.out",
+   "seconds": 0,
+   "stderr_tail": "",
+   "stdout_sha256": "5d826a8415a4a5ca7c51dd19c5abd8d237502225b9cc01a0d65b112a040b9ff7",
+   "step": "toy_radius_mutants"
+  },
+  {
+   "O_mode_identical": true,
+   "command": "python3 -I -B stage0/design-r4/exact_small.py stage0/design-r4",
+   "exit": 0,
+   "retained_stderr": "stage0/design-r4/runs/toy_exact_small.err",
+   "retained_stdout": "stage0/design-r4/runs/toy_exact_small.out",
+   "seconds": 141,
+   "stderr_tail": "",
+   "stdout_sha256": "a0455a8889639109e5327feb40756c2acedf107bed78124ee9a31770d514cb6c",
+   "step": "toy_exact_small"
+  }
+ ]
+}

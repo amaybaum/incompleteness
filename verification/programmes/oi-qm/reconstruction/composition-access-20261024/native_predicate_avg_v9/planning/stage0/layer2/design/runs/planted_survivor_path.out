@@ -1,0 +1,377 @@
+{
+ "negative_C9": {
+  "dropped_from_A_bound": [
+   [
+    4,
+    0,
+    0
+   ],
+   0
+  ],
+  "gates_C9": {
+   "checked": 16,
+   "failed": 2
+  },
+  "minimal_witness": {
+   "conditions": [
+    "C9:A"
+   ],
+   "index": -2,
+   "key": [
+    7,
+    31,
+    [
+     [
+      [
+       4,
+       0,
+       0
+      ],
+      4
+     ],
+     [
+      [
+       5,
+       -1,
+       0
+      ],
+      4
+     ],
+     [
+      [
+       5,
+       0,
+       -1
+      ],
+      4
+     ],
+     [
+      [
+       5,
+       0,
+       0
+      ],
+      4
+     ],
+     [
+      [
+       5,
+       0,
+       1
+      ],
+      4
+     ],
+     [
+      [
+       5,
+       1,
+       0
+      ],
+      4
+     ],
+     [
+      [
+       6,
+       0,
+       0
+      ],
+      4
+     ]
+    ]
+   ]
+  },
+  "pass": true,
+  "witness_candidates_seen": 2
+ },
+ "pass": true,
+ "planted_records": {
+  "block": [
+   [
+    [
+     4,
+     0,
+     0
+    ],
+    4
+   ],
+   [
+    [
+     5,
+     -1,
+     0
+    ],
+    4
+   ],
+   [
+    [
+     5,
+     0,
+     -1
+    ],
+    4
+   ],
+   [
+    [
+     5,
+     0,
+     0
+    ],
+    5
+   ],
+   [
+    [
+     5,
+     0,
+     1
+    ],
+    4
+   ],
+   [
+    [
+     5,
+     1,
+     0
+    ],
+    4
+   ],
+   [
+    [
+     6,
+     0,
+     0
+    ],
+    4
+   ]
+  ],
+  "block_minus_top": [
+   [
+    [
+     4,
+     0,
+     0
+    ],
+    4
+   ],
+   [
+    [
+     5,
+     -1,
+     0
+    ],
+    4
+   ],
+   [
+    [
+     5,
+     0,
+     -1
+    ],
+    4
+   ],
+   [
+    [
+     5,
+     0,
+     0
+    ],
+    4
+   ],
+   [
+    [
+     5,
+     0,
+     1
+    ],
+    4
+   ],
+   [
+    [
+     5,
+     1,
+     0
+    ],
+    4
+   ],
+   [
+    [
+     6,
+     0,
+     0
+    ],
+    4
+   ]
+  ]
+ },
+ "positive": {
+  "C7_scope_coverage": {
+   "A": {
+    "1_Surv": {
+     "orbits_touched": 2,
+     "records_checked": 8,
+     "records_failed": 0,
+     "skipped_beyond_survivor_cap": 0,
+     "sum_touched_orbit_sizes": 8
+    },
+    "2_set2": {
+     "orbits_touched": 2,
+     "records_checked": 8,
+     "records_failed": 0,
+     "skipped_beyond_survivor_cap": 0,
+     "sum_touched_orbit_sizes": 8
+    },
+    "3_I_and_H100": {
+     "orbits_touched": 0,
+     "records_checked": 0,
+     "records_failed": 0,
+     "skipped_beyond_survivor_cap": 0,
+     "sum_touched_orbit_sizes": 0
+    },
+    "4_H1000": {
+     "orbits_touched": 0,
+     "records_checked": 0,
+     "records_failed": 0,
+     "skipped_beyond_survivor_cap": 0,
+     "sum_touched_orbit_sizes": 0
+    }
+   },
+   "G": {
+    "1_Surv": {
+     "orbits_touched": 2,
+     "records_checked": 8,
+     "records_failed": 0,
+     "skipped_beyond_survivor_cap": 0,
+     "sum_touched_orbit_sizes": 8
+    },
+    "2_set2": {
+     "orbits_touched": 2,
+     "records_checked": 8,
+     "records_failed": 0,
+     "skipped_beyond_survivor_cap": 0,
+     "sum_touched_orbit_sizes": 8
+    },
+    "3_I_and_H100": {
+     "orbits_touched": 0,
+     "records_checked": 0,
+     "records_failed": 0,
+     "skipped_beyond_survivor_cap": 0,
+     "sum_touched_orbit_sizes": 0
+    },
+    "4_H1000": {
+     "orbits_touched": 0,
+     "records_checked": 0,
+     "records_failed": 0,
+     "skipped_beyond_survivor_cap": 0,
+     "sum_touched_orbit_sizes": 0
+    }
+   }
+  },
+  "counts_nonzero": {
+   "A:b_has_nonJ_phi_cell": 8,
+   "A:deg:last_sample_odd:survivor=True": 4,
+   "A:deg:nontrivial_stabilizer:survivor=True": 8,
+   "A:phi_linked": 8,
+   "A:survivors": 8,
+   "A:survivors_phi_linked_not_J": 8,
+   "G:b_has_source_cell": 2,
+   "G:deg:last_sample_odd:survivor=True": 4,
+   "G:deg:nontrivial_stabilizer:survivor=True": 8,
+   "G:survivors": 8,
+   "G:survivors_G_linked": 2,
+   "G:survivors_G_unlinked": 6,
+   "nontrivial_stabilizer": 8
+  },
+  "gates": {
+   "C0_context": {
+    "checked": 32,
+    "failed": 0
+   },
+   "C10i": {
+    "checked": 8,
+    "failed": 0
+   },
+   "C11i": {
+    "checked": 16,
+    "failed": 0,
+    "tables": 376
+   },
+   "C11ii": {
+    "checked": 16,
+    "failed": 0
+   },
+   "C17": {
+    "checked": 16,
+    "failed": 0
+   },
+   "C18": {
+    "checked": 16,
+    "failed": 0
+   },
+   "C7": {
+    "carried_vs_direct_failed": 0,
+    "checked": 16,
+    "direct_vs_reference_failed": 0,
+    "failed": 0,
+    "shared_tip_reps": 4
+   },
+   "C8": {
+    "checked": 2,
+    "failed": 0
+   },
+   "C9": {
+    "checked": 16,
+    "failed": 0
+   },
+   "index_roundtrip": {
+    "checked": 0,
+    "failed": 0
+   }
+  },
+  "orbit_members": 8,
+  "pass": true,
+  "summary": [
+   {
+    "A": {
+     "cover_components": [
+      22
+     ],
+     "exceeds_S_max": true,
+     "n_survivor": 22,
+     "phi_linked": true,
+     "residual_support_bits": 405,
+     "rule_dependence": "both",
+     "shared_aligned_tips": 24,
+     "survivor": true
+    },
+    "G": {
+     "n_survivor": 21,
+     "rule_dependence": "both",
+     "survivor": true
+    },
+    "index": -1,
+    "orbit_size": 4
+   },
+   {
+    "A": {
+     "cover_components": [
+      21
+     ],
+     "exceeds_S_max": true,
+     "n_survivor": 21,
+     "phi_linked": true,
+     "residual_support_bits": 405,
+     "rule_dependence": "both",
+     "shared_aligned_tips": 18,
+     "survivor": true
+    },
+    "G": {
+     "n_survivor": 14,
+     "rule_dependence": "both",
+     "survivor": true
+    },
+    "index": -2,
+    "orbit_size": 4
+   }
+  ],
+  "survivor_representatives": 2
+ }
+}

@@ -1,0 +1,13 @@
+core [((-1, 0, 0), 3), ((0, -1, 0), 3), ((0, 0, -1), 3), ((0, 0, 0), 2), ((0, 0, 0), 4), ((0, 0, 1), 3), ((0, 1, 0), 3), ((1, 0, 0), 3)]
+core is a fixed point: True
+off-axis mutant on core retains 8 of 8
+symmetric radii on block retains 8 vs 8
+  remove ((-1, 0, 0), 3) -> retained 0
+  remove ((0, -1, 0), 3) -> retained 0
+  remove ((0, 0, -1), 3) -> retained 0
+  remove ((0, 0, 0), 2) -> retained 7
+  remove ((0, 0, 0), 4) -> retained 0
+  remove ((0, 0, 1), 3) -> retained 0
+  remove ((0, 1, 0), 3) -> retained 0
+  remove ((1, 0, 0), 3) -> retained 0
+core without Phi analogue retains 8
