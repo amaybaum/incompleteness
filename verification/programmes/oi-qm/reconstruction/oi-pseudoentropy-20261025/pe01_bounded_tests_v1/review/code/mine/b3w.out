@@ -1,0 +1,21 @@
+synthetic (F=3..5, small supports, outside term active): 160 cases, 0 mismatches
+real n=3 clk F=2 w=1: theirs 0 mine 0 OK
+real n=3 clk F=2 w=2: theirs 0 mine 0 OK
+real n=3 clk F=2 w=3: theirs 0 mine 0 OK
+real n=3 clk F=2 w=4: theirs 1/8 mine 1/8 OK
+real n=3 clk F=2 w=5: theirs 5/16 mine 5/16 OK
+   stationary: True
+real n=3 filt F=2 w=4: theirs 1/4 mine 1/4 OK
+   stationary: True
+real n=4 clk F=2 w=4: theirs 0 mine 0 OK
+real n=4 clk F=2 w=5: theirs 3/16 mine 3/16 OK
+   stationary: True
+real n=4 filt F=2 w=4: theirs 1/8 mine 1/8 OK
+   stationary: True
+real n=5 filt F=6 w=3: theirs 0 mine 0 OK
+real n=5 filt F=6 w=4: theirs 0 mine 0 OK
+   stationary: True
+real n=5 clk F=6 w=4: theirs 0 mine 0 OK
+   stationary: True
+real n=6 clk F=6 w=4: theirs 0 mine 0 OK
+   stationary: True
