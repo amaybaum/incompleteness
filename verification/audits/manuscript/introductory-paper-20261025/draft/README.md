@@ -219,6 +219,12 @@ overfull boxes and no dropped glyphs.
 
 **Before the draft lands as `papers/Introduction.md`:**
 - **open landing gate (owner, 2026-10-26):** Weinberg 1989 must be supplied and read first-hand and checked;
-- the confirmation of r12 against the final review;
 - the direct check of the Lean identifiers at the landing commit;
 - `papers/introduction_repro/` reaches `main` no later than the paper.
+
+## r13: the confirmation's nits
+
+`review/scientific/CONFIRM-r12.md` confirms all ten findings of the final scientific review in r12 (ACCEPT WITH NITS).
+r13 applies its two nits (`CHANGES-r13.md`): Theorem 4's discard clause keeps the outcome family, and the Code section
+says why the Lean pin and the corpus pin differ. `Introduction-r13.md` is the current draft. The landing gates are
+those listed above for r12.
