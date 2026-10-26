@@ -1,6 +1,6 @@
 # PE-02 drafting notes (revision 3)
 
-**Status: WIP / UNREVIEWED; planning only; no execution authorized.**
+**Status: decisions recorded; frozen pending independent confirmation.** Planning only; no execution authorized.
 
 Companion to `PLAN.md`. It records:
 - the sources the draft rests on;
@@ -26,6 +26,8 @@ Nothing here is a result. Revision 2's edits are mapped item by item in `CHANGES
 - **Revision 3** (`PLAN.md`, this file, `CHANGES-r3.md`, and the new `design/charge_ranges.*` and
   `design/linear_class_code.*`) is drafted on `5b2ae247`. It is uncommitted at the time of writing. Committing it is the
   caller's or the owner's choice, and authorizes nothing (§A.43).
+- **Revision 3** was committed at `b339c4b2`, and its diff-only re-check at `7a283d39` (`review/RECHECK-r3.md`: ACCEPT
+  WITH NITS, P1–P3). P1–P3 are applied in place as part of revision 3 (`CHANGES-r3.md`, last section).
 - **`main`:** `c967d6a931c294e456053be5e3bf5bb4f2d9ad1c`. The scoped ch18 sentence entered at `4d8ff648` (#933).
 - **Owner direction (2026-10-26):** "PE-02 — Continue planning independently. No experimental authorization."
   NP-AVG-1 (#929, #935) has planning priority (§5).
@@ -191,7 +193,17 @@ values the parameters block carries, and every cell at n ≤ 8 with a non-empty 
 
 ## 6. Owner decisions, with recommendations
 
-The review's recommendation is given for each item; the drafter agrees unless stated.
+**Decided.** The owner (amaybaum, 2026-10-26) approved all eleven decisions as recommended: "I approve all eleven PE-02
+decisions (O1–O10, including O4b) as recommended, subject to the final nit confirmation and exact-version checks before
+freezing the plan." The rulings are recorded in `PLAN.md` §9 and in the parameters block's `decisions`. The approval
+"authorizes specification freeze, not experimental execution".
+
+**O8's application is held.** "PE-04" already names the thread README's stage "implications for quantum
+reconstruction" (`../README.md:199`, and the thread review's `../review/REVIEW.md:51, :83`). Renaming this stage to
+PE-04 would give one identifier to two stages, the defect O8 was meant to remove; the review's "next unused identifier,
+PE-04" overlooked README's PE-03 and PE-04. The identifier goes back to the owner (`CHANGES-r3.md`, last section).
+
+The record below keeps each item's recommendation as it was put to the owner; the drafter agrees unless stated.
 
 - **O1, θ under charged models.** Recommended: option (i), $\theta = n + 1$ for U, R and E.
   - **Correction of revision 1.** Revision 1 said that option (ii), $\theta = n + 1 + D_C(\varphi)$, "admits almost
@@ -310,4 +322,6 @@ The owner asked (#934) what a PE-02 plan adds beyond the 2006 clock-control faul
 - No PE-02 code. No simulation. No computation of any advantage, window, $Z(\varphi)$ or $K_{\rm cx}$. No PE-01 cell
   recomputed.
 - No literature read for PE-02 beyond what PE-01's annex records.
-- Revision 3 has not been rechecked. The re-review requires a diff-only recheck before any freeze.
+- The owner's decisions are recorded. Freeze still needs: the identifier for O8 confirmed and the rename applied; the
+  owner's other freeze conditions (nit confirmation, coverage of every option-dependent control by TH, exact-version
+  checks); and an independent confirmation, with the freeze SHA recorded by the coordinator.

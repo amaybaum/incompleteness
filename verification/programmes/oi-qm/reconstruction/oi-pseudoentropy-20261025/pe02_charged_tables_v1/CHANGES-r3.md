@@ -40,3 +40,49 @@ The sha256 values are in NOTES §4.
 
 - No experiment was run, no PE-01 cell was recomputed, and the drafter committed nothing.
 - No owner choice was made.
+
+## Re-check nits P1–P3 (`review/RECHECK-r3.md`, ACCEPT WITH NITS)
+
+Applied in place, on `7a283d39`, as part of revision 3.
+
+| Item | Re-check's requirement | Edit |
+|---|---|---|
+| P1 | Put the body content that depends on O1, O10 and O5 under TH's `assumes` check | **New `dependent` entries,** each tagged `["O1:i", "O10:full"]`: `CH_IFF_boundary_records` (the eight records), `PL_E_boundary`, `INC_RE_checkpoint`, `E_void_rule` and `search_range_R_contains_E`. Also new: `EN_meaning`, tagged `["O10:full"]`, and `secondary_comparisons`, tagged O5, O7 and O9. **O5 tag added** to `secondary_n`, `secondary_population` and `sim_reporting`. **Body pointers:** each item in §1.3 (PL), §3.4, §5 (CH-IFF, EN, INC-RE) and §6 item 4 now names its block entry and the decisions it holds under. **§9 table:** the O1 (ii), O5 and O10 rows name the entries that must be restated. The block parses as JSON with 22 `dependent` entries, every one carrying `assumes`. |
+| P2 | Remove the stale "(this file, uncommitted)" from PLAN's header | The header now says "Revision 3 (this file)", notes that commit identifiers for the file live in the CHANGES files and the branch history, and adds `7a283d39` as the base of the P1–P3 edits. |
+| P3 | Schema ids and the block tag survive O8 | **§5:** a "Fixed identifiers" bullet. `pe02-shard/1`, `pe02-measurements/1`, `pe02-verdict/1`, `pe02-rp01/1` and `pe02-parameters` are fixed identifiers, not stage labels or ordinals. They stay unchanged whatever O8 decides and are never reused. **§9:** the O8 row says so. |
+
+NOTES §1 and §10 now record the re-check, so that they no longer say revision 3 is unchecked. The design scripts were
+replayed after these edits, and all four outputs are byte-identical (`cmp`).
+
+## Owner decisions recorded (2026-10-26); the O8 rename held
+
+**The approval.** The owner (amaybaum, 2026-10-26): "I approve all eleven PE-02 decisions (O1–O10, including O4b) as
+recommended, subject to the final nit confirmation and exact-version checks before freezing the plan." It "authorizes
+specification freeze, not experimental execution".
+
+**Decisions recorded.**
+- **PLAN status:** "decisions recorded; frozen pending independent confirmation". The coordinator records the freeze.
+- **Placeholders:** each `[OWNER: Ox]` is replaced by "Decided (Ox) (owner, amaybaum, 2026-10-26)" with the ruling, in
+  §1.2 (O5), §2.1 (O10), §2.2 (O3), §2.3 (O1), §3.3 (O9), §3.4 (O4, O4b, O6) and §4.3 (O7).
+- **§9:** the approval is quoted, and the last column is now the owner's ruling, quoted.
+- **The block:**
+  - `decisions` holds the rulings in the tags' `Ox:value` form, with `decided_by`;
+  - `amendment` reads "none: decisions recorded in PLAN.md before freeze";
+  - two entries close gaps in option-dependent coverage: `reported_models` (O2) and `ablation_controls` (CA-EQ and
+    ACT-SIM on the clock-ablated generators, O5).
+- **TH check, emulated on the block** (scratch script, not committed): it parses, has no `OPEN` value, and every one of
+  the 24 `dependent` entries carries `assumes`, each item equal to a recorded `Ox:value`. Result: PASS.
+- **Wording:** the TH row, the no-extension clause, the shard `params` field and the not-chosen option texts are reworded
+  for decisions recorded in the plan rather than in a later amendment.
+
+**O8 not applied, and why.**
+- "PE-04" is already the thread README's stage "implications for quantum reconstruction" (`../README.md:199`). It is
+  also cited as PE-04 in the retained thread review (`../review/REVIEW.md:51, :83`).
+- The review's "next unused identifier, PE-04" overlooked the README's PE-03 and PE-04.
+- Applying the ruling as written would give one identifier to two stages. That is the collision O8 was meant to remove,
+  and it would fail the owner's freeze condition that the rename be consistent across the PR, plan, references and
+  retained records.
+- The directory is not moved, and "PE-02" still means the stage of #934 in this package.
+- **Proposed instead, for the owner:** the next unused identifier, PE-05, with the same mechanics: `git mv` to
+  `pe05_charged_tables_v1/`, update references, add `review/README.md` mapping old to new paths, and keep the schema ids
+  and `pe02-parameters` as fixed identifiers.
