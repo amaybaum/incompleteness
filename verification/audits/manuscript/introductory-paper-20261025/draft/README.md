@@ -228,3 +228,16 @@ overfull boxes and no dropped glyphs.
 r13 applies its two nits (`CHANGES-r13.md`): Theorem 4's discard clause keeps the outcome family, and the Code section
 says why the Lean pin and the corpus pin differ. `Introduction-r13.md` is the current draft. The landing gates are
 those listed above for r12.
+
+## r14: the Weinberg gate cleared
+
+On 2026-10-26 the owner supplied a third-party hosted copy of Weinberg 1989. The final scientific referee read it
+first-hand: it is *Rev. Mod. Phys.* **61**, 1–23 (1989), complete and legible, and it supports §4's first sentence
+in substance (`review/references/WEI89.md`). The copy is not committed. `Introduction-r14.md` (with
+`CHANGES-r14.md`; generated from r13 by `scripts/build_r14.py`) cites [Wei89] for what Weinberg states, leaves the
+cutoff-convention clause uncited, and removes the marker. Three VERIFY markers remain (CT06, Har04, Sha79); none gates
+landing. `Introduction-r14.md` is the current draft.
+
+**Before the draft lands as `papers/Introduction.md`:**
+- the direct check of the Lean identifiers at the landing commit;
+- an exact-commit review of the landing.
