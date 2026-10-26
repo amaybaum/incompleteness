@@ -177,13 +177,11 @@
 \section{The Incompleteness of
 Observation}\label{the-incompleteness-of-observation}}
 
-\emph{{[}Status note, 2026-07-26: this companion overview is superseded
-by the book, \texttt{book/}, which now carries its content in maintained
-form, and is frozen at this revision --- it will not be updated in
-subsequent releases, and where it and the book disagree, the book is
-authoritative. Two elements are for now available only here: the D-gauge
-walkthrough (§5.3 below) and the mathematical summary tables of the
-appendix, pending their incorporation into the book.{]}}
+\emph{{[}Document status. This Explainer is retained as a supplementary
+historical exposition. The maintained book and technical papers
+supersede it as authoritative statements of the theory. Where
+formulations differ, consult those sources and their cited verification
+records.{]}}
 
 \hypertarget{why-physics-biggest-contradiction-might-not-be-a-contradiction-at-all}{%
 \subsubsection{Why Physics' Biggest Contradiction Might Not Be a
@@ -1575,16 +1573,19 @@ probability families have equal gap sets.
 three, under G1--G3 for both Hamiltonians and the global sign-aware
 integer classification H-BG of {[}GR §3.3{]}, matching probabilities
 imply H' = DHD† + E₀ or H' = −DH̄D† + E₀. H-BG allows the exceptional
-six-mark correspondence or its global reversal; its complete derivation
-from the published classification remains open. The unsigned formal
+six-mark correspondence or its global reversal; its complete comparison
+with the published classification remains open. The unsigned formal
 premise \texttt{BGIntegerClassification} is refuted by reflecting one of
 the homometric six-mark rulers. Each displayed ambiguity is exactly
-invisible, and dropping the gap condition fails on the C₄ ring of
-{[}SM{]} Proposition 20. Bohr-frequency completeness, the
-real-to-integer realization transfer, congruent reconstruction and the
-positive six-mode obstruction are established independently; they do not
-by themselves prove the complete classification. The double-difference
-condition
+invisible. The C₄ ring of {[}SM{]} Proposition 20 has degenerate gaps;
+its conjugate H̄ reproduces every transition probability and lies in the
+reflection branch, H̄ = −D\_s H̄ D\_s† with D\_s = diag(1, −1, 1, −1), so
+this exhibited partner does not show a failure, without the gap
+condition, of the two-branch form conditional on H-BG. Bohr-frequency
+completeness, the real-to-integer realization transfer, congruent
+reconstruction and the positive six-mode obstruction are established
+independently; they do not by themselves prove the complete
+classification. The double-difference condition
 
 \[\delta_{ik} - \delta_{il} - \delta_{jk} + \delta_{jl} = 0 \pmod{2\pi}\]
 
@@ -3868,39 +3869,50 @@ corrections of order (εκ/c²)². For the cosmological horizon at σ = 1:
 \textasciitilde{} 10⁻¹²². Negligible, but a lattice-native proof of the
 KMS condition would strengthen the argument.
 
-\textbf{3. The D-gauge reconstruction requires genericity, and is stated
-as a claim.}
+\textbf{3. The D-gauge reconstruction requires genericity and is a
+conditional theorem.}
 
 The phase-locking argument assumes non-degenerate spectrum,
 non-degenerate energy gaps, and non-vanishing overlaps (conditions
-G1--G3); the conditional two-branch reconstruction also requires H-BG
-and these conditions for both Hamiltonians; Bohr-frequency completeness
-itself needs only the spectrum and overlap conditions. These fail on a
-measure-zero set of Hamiltonians. For the cosmological realization, a
-stronger argument applies to G1 specifically: the genericity conditions
-concern the \emph{effective} visible-sector Hamiltonian
-\(\hat{H}_{\text{eff}}\) (after the trace-out), not the total
-Hamiltonian \(H_{\text{tot}}\). The relevant distinction is whether a
-symmetry of \(H_{\text{tot}}\) preserves the visible/hidden
-factorization. The spatial symmetries an observer-centered partition
-breaks --- translation, rotation about distant points, boost --- are
-\emph{factorization-breaking} (they map boundary visible sites to hidden
-sites across the cosmological horizon), so they have no action on the
-visible factor alone and the degeneracies they protect are lifted in
-\(\hat{H}_{\text{eff}}\). Factorization-preserving symmetries
-\(S_V\otimes S_H\), by contrast, descend to a visible symmetry \(S_V\)
-of \(\hat{H}_{\text{eff}}\) (the uniform-bath trace-out is invariant
-under any unitary on the hidden factor); the visible-internal ones among
-these are the gauge symmetries of the emergent QFT, which correspond to
-physically equivalent states and don't affect the phase-locking
-argument. G2 (non-degenerate gaps) is not symmetry-protected and rests
-on genericity directly; it holds for generic \(\hat{H}_{\text{eff}}\)
-and can fail only on a measure-zero set, with no known structural
-feature of the substratum forcing systematic failure (single-cycle
-hidden dynamics in particular does not, since the Hermitian
-\(\hat{H}_{\text{eff}}\) --- unlike the unitary cycle operator's
-equally-spaced phases --- has unequally-spaced real eigenvalues and
-retains non-degenerate gaps after the trace-out).
+G1--G3); the two-branch reconstruction is a conditional theorem of {[}GR
+§3.3{]}: for two Hamiltonians on the same finite configuration space of
+dimension at least three, each with distinct nonzero energy gaps and
+non-vanishing configuration-basis overlaps, equal transition
+probabilities imply H' = DHD† + E₀ or H' = −DH̄D† + E₀, for a
+time-independent diagonal unitary D and a real E₀, conditional on H-BG
+--- every non-congruent pair of strictly ordered integer rulers with
+distinct positive differences and equal difference sets has six marks
+and, after relabeling, realizes either μ or its global reversal, where μ
+sends each ascending mark pair of \{0,1,4,10,12,17\} to the ascending
+mark pair of \{0,1,8,11,13,17\} with the same difference, the
+orientation chosen once for the whole pair. The complete comparison of
+H-BG with the published integer classification of Bekir and Golomb is
+open; Bohr-frequency completeness itself needs only the spectrum and
+overlap conditions. These fail on a measure-zero set of Hamiltonians.
+For the cosmological realization, a stronger argument applies to G1
+specifically: the genericity conditions concern the \emph{effective}
+visible-sector Hamiltonian \(\hat{H}_{\text{eff}}\) (after the
+trace-out), not the total Hamiltonian \(H_{\text{tot}}\). The relevant
+distinction is whether a symmetry of \(H_{\text{tot}}\) preserves the
+visible/hidden factorization. The spatial symmetries an
+observer-centered partition breaks --- translation, rotation about
+distant points, boost --- are \emph{factorization-breaking} (they map
+boundary visible sites to hidden sites across the cosmological horizon),
+so they have no action on the visible factor alone and the degeneracies
+they protect are lifted in \(\hat{H}_{\text{eff}}\).
+Factorization-preserving symmetries \(S_V\otimes S_H\), by contrast,
+descend to a visible symmetry \(S_V\) of \(\hat{H}_{\text{eff}}\) (the
+uniform-bath trace-out is invariant under any unitary on the hidden
+factor); the visible-internal ones among these are the gauge symmetries
+of the emergent QFT, which correspond to physically equivalent states
+and don't affect the phase-locking argument. G2 (non-degenerate gaps) is
+not symmetry-protected and rests on genericity directly; it holds for
+generic \(\hat{H}_{\text{eff}}\) and can fail only on a measure-zero
+set, with no known structural feature of the substratum forcing
+systematic failure (single-cycle hidden dynamics in particular does not,
+since the Hermitian \(\hat{H}_{\text{eff}}\) --- unlike the unitary
+cycle operator's equally-spaced phases --- has unequally-spaced real
+eigenvalues and retains non-degenerate gaps after the trace-out).
 
 \textbf{4. Why doesn't the deep sector matter?}
 
@@ -3919,4 +3931,4 @@ The final text and all scientific claims were reviewed and verified by
 the author.
 
 \end{document}
-% source-sha256: 4e6b975c0387c7c3217261ed8653f999f2175b1b6d927634fcd62eb8d088eef2
+% source-sha256: faa732edb9fa7cfec37530d4392e3c0e8d852b0e4a8bde58086c0b5e45f4f758
