@@ -28,3 +28,5 @@ Paths written `S/…` refer to the session's scratch directory, which is not par
 read for the comparison is identified in `AUDIT.md` by its digest and is not committed.
 
 `REVIEW.md` is the independent review of the audit (ACCEPT WITH CHANGES). All 13 INCORRECT findings stand, four replacements are corrected, and it lists missed sites; `review/quarter3.py` is its third, independent check of the 1/4. The audit's mechanical record errors (a scratch path, a truncated digest, a stale #936 head) are corrected in place. No manuscript text is changed yet.
+
+`review/DIFF-REVIEW.md` is the independent review of the manuscript edits at `22cb6da0` (ACCEPT WITH CHANGES): the merge, mirrors, generated `.tex` and counts check out; it requires five corrections (R1–R5) and leaves three decisions to the owner.
