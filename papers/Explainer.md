@@ -408,7 +408,7 @@ where H is the Hubble parameter. This implements Lemma 2 naturally: Γ_V = every
 
 ### 4.3 Application
 
-With the cosmological horizon satisfying the definition and all conditions, the characterization theorem applies. The observer's reduced description is non-Markovian — P-indivisible in the recurrence regimes — and admits a unitarily evolving quantum representation ([Main §3.4]). The value of ℏ is determined by the partition geometry — which is what Section 5 derives.
+With the cosmological horizon satisfying the definition and all conditions, the characterization theorem applies. The observer's reduced description is non-Markovian — P-indivisible in the recurrence regimes — and admits a unitarily evolving quantum representation ([Main §3.4]). The action scale ℏ is fixed by the partition geometry in terms of the discreteness scale — which is what Section 5 derives.
 
 ***
 
@@ -474,7 +474,7 @@ This fixes β = 1/(4σ).
 
 **Why this is not circular.** The KMS temperature T_Q contains ℏ as an *unknown*. The classical temperature T_cl contains no ℏ at all. The non-circularity is structural: Part I establishes that a QFT emerges with *some* action scale ℏ; §5 determines *which* ℏ, using the independent classical temperature that Part I neither requires nor produces. If T_cl had depended on the deep hidden-sector volume (it doesn't — the boundary-only lemma excludes it), or if T_Q had been state-dependent (it isn't — the KMS temperature is kinematic in its parameter, conditional on H-balance in its class), the matching wouldn't work. That neither pathology obtains makes the gap equation a genuine determination.
 
-**What the gap equation fixes.** The gap equation relates one free geometric parameter (ε), at given σ, to one output (ℏ). The specific relationship ℏ = c³ε²/(4Gσ) enters three later results — the Bekenstein-Hawking factor 1/4 (§6), the compression ratio of the conditional CC dissolution (§7.3), and the Type II RVM dark-energy reading (§8.1). The three share the calibration; they are consequences of it, not independent checks of it. See Appendix item 1 for the detailed discussion.
+**What the gap equation fixes.** The gap equation, conditional on the infrared detailed-balance condition H-slope with the horizon and frame conditions [GR §3.2], relates one free geometric parameter (ε), at given σ, to one output (ℏ). The specific relationship ℏ = c³ε²/(4Gσ) enters three later results — the Bekenstein-Hawking factor 1/4 (§6), the compression ratio of the conditional CC dissolution (§7.3), and the Type II RVM dark-energy reading (§8.1). The three share the calibration; they are consequences of it, not independent checks of it. See Appendix item 1 for the detailed discussion.
 
 ***
 
@@ -659,7 +659,7 @@ What is genuinely new is the *combination*: accepting Bohr's complementarity whi
 ## Frequently Asked Questions
 
 **"Isn't this just another interpretation of quantum mechanics?"**
-No. Interpretations (Copenhagen, Many-Worlds, Bohmian mechanics) accept the quantum formalism and disagree about what it *means*. This framework *derives* the quantum formalism from non-quantum premises and proves the derivation is the only possible one. It makes quantitative predictions — the value of ℏ and dark energy evolution — that interpretations do not, and it accounts for the dark-sector concordance as an automatic consequence.
+No. Interpretations (Copenhagen, Many-Worlds, Bohmian mechanics) accept the quantum formalism and disagree about what it *means*. This framework *derives* the quantum formalism from non-quantum premises and proves the derivation is the only possible one. It relates ℏ to the discreteness scale and carries a running-vacuum reading of dark energy whose falsifiable content is the Type II channel ([GR §7.1]) — content that interpretations do not have — and it accounts for the dark-sector concordance as an automatic consequence.
 
 **"Doesn't Bell's theorem rule out hidden variable theories?"**
 Bell's theorem applies directly to the deterministic completion. If its response-complete hidden state is measurement-independent and parameter-independent, the model is Bell-local and obeys $|S_{\rm CHSH}|\le2$. The Bell mechanism is separate from temporal indivisibility: the framework retains measurement independence, gives up ontic parameter independence for Bell-violating substrata, and separately requires operational no-signaling. The $2\sqrt2$ Tsirelson theorem belongs to the weaker stochastic causal-local construction, not to a Bell-local deterministic completion.
@@ -989,7 +989,7 @@ And the incompleteness family extends one step further: Gödel showed that proof
 
 ***
 
-*This is a companion overview to the framework's five core papers: "The Incompleteness of Observation" (Maybaum, [Main]), which presents the foundational embedded-observation theorems with detailed derivations; "The Standard Model from a Cubic Lattice" (Maybaum, [SM]), which derives the Standard Model's gauge group, matter content, and chiral structure from lattice dynamics; "The Gravitational Sector from the Cosmological Horizon" (Maybaum, [GR]), which derives ℏ, the Bekenstein-Hawking area law, and dark-sector phenomenology; "The Substratum: Reconstruction Theorem and Gauge Group" (Maybaum, [Substratum]), which addresses the ontological status of the lattice and proves the framework's reconstruction theorem; and "Hierarchical Structural Realism and Universality Classes of Embedded Observers" (Maybaum, [Structure]), which articulates the framework's two-dimensional hierarchical structure and develops its relationship to other unification programs. The philosophical lineage section draws on a systematic analysis mapping the framework's claims against the major traditions in Western, Eastern, and contemporary philosophy of science.*
+*This is a companion overview to the framework's five core papers: "The Incompleteness of Observation" (Maybaum, [Main]), which presents the foundational embedded-observation theorems with detailed derivations; "The Standard Model from a Cubic Lattice" (Maybaum, [SM]), which derives the Standard Model's gauge group, matter content, and chiral structure from lattice dynamics; "The Gravitational Sector from the Cosmological Horizon" (Maybaum, [GR]), which relates ℏ to the discreteness scale, recovers the Bekenstein-Hawking area law, and develops dark-sector phenomenology; "The Substratum: Reconstruction Theorem and Gauge Group" (Maybaum, [Substratum]), which addresses the ontological status of the lattice and proves the framework's reconstruction theorem; and "Hierarchical Structural Realism and Universality Classes of Embedded Observers" (Maybaum, [Structure]), which articulates the framework's two-dimensional hierarchical structure and develops its relationship to other unification programs. The philosophical lineage section draws on a systematic analysis mapping the framework's claims against the major traditions in Western, Eastern, and contemporary philosophy of science.*
 
 ***
 

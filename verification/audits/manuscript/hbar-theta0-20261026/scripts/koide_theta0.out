@@ -1,0 +1,23 @@
+== PDG 2024 (SM.md:903 inputs)
+   theta_0 = 0.2222247619 +- 6.26e-6   A^2 = 1.99998678   mu = 17.71583848 MeV^(1/2)
+   (theta_0 - 2/9)/(2/9) = 0.001143 %   pull = 0.406 sigma
+   Q = 0.666664463415 +- 5.08e-6   (Q - 2/3)/(2/3) = -0.0003305 %   pull = -0.434 sigma
+   controls: {'C1 round trip': 'PASS', 'C2 Q identity': 'PASS', 'C3 known point': 'PASS', 'C4a cyclic relabel': 'PASS', 'C4b reflection': 'PASS'}
+== PDG 2016-2022 (1776.86 +- 0.12)
+   theta_0 = 0.2222296315 +- 8.35e-6   A^2 = 1.999963069   mu = 17.71556171 MeV^(1/2)
+   (theta_0 - 2/9)/(2/9) = 0.003334 %   pull = 0.888 sigma
+   Q = 0.666660511477 +- 6.77e-6   (Q - 2/3)/(2/3) = -0.0009233 %   pull = -0.909 sigma
+== PDG 2012-2014 (1776.82 +- 0.16)
+   theta_0 = 0.2222324142 +- 1.11e-5   A^2 = 1.999949519   mu = 17.71540355 MeV^(1/2)
+   (theta_0 - 2/9)/(2/9) = 0.004586 %   pull = 0.916 sigma
+   Q = 0.666658253155 +- 9.03e-6   (Q - 2/3)/(2/3) = -0.001262 %   pull = -0.931 sigma
+== Predicted masses, Q = 2/3 (A^2 = 2), theta_0 = 2/9, m_tau input
+   m_tau = 1776.93: m_e = 0.51098314 MeV (-0.00309 %), m_mu = 105.656146 MeV (-0.00211 %)
+   m_tau = 1776.86: m_e = 0.51096301 MeV (-0.00703 %), m_mu = 105.651984 MeV (-0.00605 %)
+== Other quantities that could be quoted as a 'theta_0 match'
+   rounded observed 0.2227 (SM.md:928, :934): deviation of 2/9 = 0.215 %
+   observed 0.22227: deviation of 2/9 = 0.0215 %
+   theta_0 from m_e/m_tau, A^2 = 2: 0.2222216184  deviation of 2/9 = -0.0002717 %
+   theta_0 from m_mu/m_tau, A^2 = 2: 0.2222265138  deviation of 2/9 = 0.001931 %
+== VERDICT
+   theta_0(PDG 2024) deviates from 2/9 by 0.00114 % (0.41 sigma); quoted as '0.001%' to one significant figure, and '0.02%' is inconsistent with it.
