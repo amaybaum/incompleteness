@@ -1,4 +1,4 @@
-# PE-02 plan: changes from revision 2 to revision 3
+# PE-05 plan: changes from revision 2 to revision 3
 
 **Status: WIP / UNREVIEWED; planning only; no execution authorized.**
 
@@ -86,3 +86,26 @@ specification freeze, not experimental execution".
 - **Proposed instead, for the owner:** the next unused identifier, PE-05, with the same mechanics: `git mv` to
   `pe05_charged_tables_v1/`, update references, add `review/README.md` mapping old to new paths, and keep the schema ids
   and `pe02-parameters` as fixed identifiers.
+
+## O8 applied: the stage is PE-05 (2026-10-26)
+
+**The ruling.** The owner (amaybaum, 2026-10-26): "Approved: rename the new stage to PE-05. PE-04 remains reserved for quantum reconstruction."
+
+**What changed.**
+- **Directory:** `git mv pe02_charged_tables_v1 pe05_charged_tables_v1`.
+- **Renamed references:** every reference to this stage changes from "PE-02" to "PE-05", and every old path changes to
+  the new one, in `PLAN.md`, `NOTES.md`, both CHANGES files and the four design scripts' header docstrings. The scripts'
+  outputs are unchanged.
+- **Kept as written:**
+  - the other stage named PE-02 (computational versus physical);
+  - verbatim owner quotations;
+  - places that discuss the name itself as it then stood. These are records.
+- **PLAN:** the header and §9's O8 row now record PE-05 with the owner's words. The parameters block reads
+  `"O8": "PE-05"`. One line records that PE-04 was found taken. The "application held" text is removed.
+- **Fixed identifiers (P3):** `pe02-shard/1`, `pe02-measurements/1`, `pe02-verdict/1`, `pe02-rp01/1` and
+  `pe02-parameters` are unchanged.
+- **Thread README:** a PE-05 entry is added after PE-04. Nothing is renumbered, and the README's own PE-02 is
+  untouched.
+- **`review/`:** the retained files are byte-unchanged. A new `review/README.md` records the working name and maps the
+  old paths to the new ones.
+- **Not done here:** retitling Issue #934 on GitHub. It is outside this working tree.

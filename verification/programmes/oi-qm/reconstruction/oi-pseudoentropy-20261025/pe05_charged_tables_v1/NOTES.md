@@ -1,4 +1,4 @@
-# PE-02 drafting notes (revision 3)
+# PE-05 drafting notes (revision 3)
 
 **Status: decisions recorded; frozen pending independent confirmation.** Planning only; no execution authorized.
 
@@ -48,8 +48,8 @@ Nothing here is a result. Revision 2's edits are mapped item by item in `CHANGES
 | PE-01 measurements | `results/measurements.json` | `f17109f10379d648fcb055c2a1868666205fae8499b35ca65ecedae7a41f067a` |
 | PE-01 witness shard | `results/shards/n5-clk.json` | `3f6121e83e75ed7ed5d43817bb8fc63dc73ad5fbf7acd763c3261e11d972a963` |
 | ch18 on `main` | `book/ch18-beyond.md:114`; mirror `FULL.md:4932` | `11e9948ba634ae9145b0a8894789b24a0260ee7ab4c372d98466212fdda55340` (whole file) |
-| PE-02 review (r1) | `review/REVIEW.md`, with `toy_checks.*` and `tightness.*` | as in §1 and `review/REVIEW.md` |
-| PE-02 re-review (r2) | `review/RECHECK-r2.md`, with `r2_checks.*` | committed at `5b2ae247` |
+| PE-05 review (r1) | `review/REVIEW.md`, with `toy_checks.*` and `tightness.*` | as in §1 and `review/REVIEW.md` |
+| PE-05 re-review (r2) | `review/RECHECK-r2.md`, with `r2_checks.*` | committed at `5b2ae247` |
 
 Also read:
 - `results/README.md` and `SHA256SUMS`;
@@ -118,19 +118,22 @@ advantage, a window or a witness.
   replay once committed.
 - EX4, AR-C and TH re-derive the values at run time.
 
+**Rename.** The scripts' header docstrings changed from "PE-02" to "PE-05" with the rename (O8), so the `.py` digests
+below are the renamed files. Their outputs are unchanged, and replay byte-identically from the new path.
+
 **Replay for revision 3.** All four were run with `python3 -I` (local Python 3.13; standard library only). The two
 committed outputs are byte-identical on rerun (`cmp`). The two new scripts were run twice, and each output is
 byte-identical to the first run.
 
 | File | sha256 |
 |---|---|
-| `design/least_primitive.py` | `7dc983fbb54016096def7a879036f269e5398730bb6d4ef336174bcc5c71df27` |
+| `design/least_primitive.py` | `202787c91d849a15f5648ecfd4c40a3b2622f515cbc2365d9882eac9e162b2b6` |
 | `design/least_primitive.out` | `f4c880f48bc0d0c132f226546e7d8feaa301297f57ea1e87b243949339fac5ec` |
-| `design/charge_arith.py` | `45f37a47deb6b688e5dfd60ded3f83ca7f8a7a461bfbb6e45198a89979e3c256` |
+| `design/charge_arith.py` | `33422c019a3d7e297d21f7d4b99e2c7e06e298620522b16f89349de03befd997` |
 | `design/charge_arith.out` | `51aa19de3e0521a26fffe6890e53e41140ecd684630d54f4a0a03e6f86fe67ea` |
-| `design/charge_ranges.py` | `8c63311f96f5ef8d621bd99bff5cc71c2e91879bc5a156349d90f9cd48d5b2f2` |
+| `design/charge_ranges.py` | `895c197d885e82831a7644ba1982f00ac87f642269ab51c983111ea4b8991c87` |
 | `design/charge_ranges.out` | `e2359f73fb8ca987180a645590e4601bbc8b6ab12e5204d55b29a03e75f13ff6` |
-| `design/linear_class_code.py` | `08840902881da0e3daaca31144b39307a0e6b491368bad8d423edebf6bc516b1` |
+| `design/linear_class_code.py` | `b70cf1d6518cf1e1102af30fbbe10d41046b3149d08c59cdae191851c7db8c0a` |
 | `design/linear_class_code.out` | `895da4bc4a78f5e26fe3b1f5c28a4cda43073c4c8b316e55975a8da97769e795` |
 
 **D1. The polynomial rule.** `least_primitive.py 24` finds the least primitive polynomial of each degree by integer
@@ -178,7 +181,7 @@ values the parameters block carries, and every cell at n ≤ 8 with a non-empty 
 
 - NP-AVG-1 (#929) declares one background prior, i.i.d. fair on every non-source initial variable, as a named,
   supplied assumption. It owns any convention about averaging over backgrounds.
-- PE-02 adopts no background-prior convention. Its priors are the stated laws of finite toy generators:
+- PE-05 adopts no background-prior convention. Its priors are the stated laws of finite toy generators:
   - $\mu$ uniform on $\mathcal{C}_V \times \mathcal{C}_H$, i.e. i.i.d. fair bits, as in PE-01 and consistent with
     NP-AVG-1;
   - `G_clkfix_u`: i.i.d. fair, also consistent;
@@ -187,9 +190,9 @@ values the parameters block carries, and every cell at n ≤ 8 with a non-empty 
     control.
   - If the owner sees a conflict, O5's "uniform only" removes the first. The planted control can move to a uniform
     prior with a different weak generator.
-- PE-02 does not depend on any NP-AVG-1 outcome, and it stays meaningful if NP-AVG-1 finds no masking advantage
-  (owner, #934). NP-AVG-1's geometry results may refine PE-02 only through a PE-02 amendment before freeze.
-- PE-02 uses none of NP-AVG-1's terms: no "background", "pad", "freshness" or "cone".
+- PE-05 does not depend on any NP-AVG-1 outcome, and it stays meaningful if NP-AVG-1 finds no masking advantage
+  (owner, #934). NP-AVG-1's geometry results may refine PE-05 only through a PE-05 amendment before freeze.
+- PE-05 uses none of NP-AVG-1's terms: no "background", "pad", "freshness" or "cone".
 
 ## 6. Owner decisions, with recommendations
 
@@ -198,10 +201,9 @@ decisions (O1–O10, including O4b) as recommended, subject to the final nit con
 freezing the plan." The rulings are recorded in `PLAN.md` §9 and in the parameters block's `decisions`. The approval
 "authorizes specification freeze, not experimental execution".
 
-**O8's application is held.** "PE-04" already names the thread README's stage "implications for quantum
-reconstruction" (`../README.md:199`, and the thread review's `../review/REVIEW.md:51, :83`). Renaming this stage to
-PE-04 would give one identifier to two stages, the defect O8 was meant to remove; the review's "next unused identifier,
-PE-04" overlooked README's PE-03 and PE-04. The identifier goes back to the owner (`CHANGES-r3.md`, last section).
+**O8 applied: PE-05.** The owner (amaybaum, 2026-10-26): "Approved: rename the new stage to PE-05. PE-04 remains reserved for quantum reconstruction." The stage was
+renamed from its working name PE-02, and its directory moved from `pe02_charged_tables_v1/` to
+`pe05_charged_tables_v1/`. PE-04 had been found taken by the README's quantum-reconstruction stage.
 
 The record below keeps each item's recommendation as it was put to the owner; the drafter agrees unless stated.
 
@@ -239,7 +241,7 @@ The record below keeps each item's recommendation as it was put to the owner; th
 - **O8, the stage name.** The review recommends renaming this stage to PE-04 and retitling #934 and this directory
   before freeze. PE-01's frozen PLAN binds "PE-02" to the computational-versus-physical stage, and frozen text cannot
   change. Revision 2 keeps "PE-02" with a placeholder note, at the coordinator's instruction. The drafter agrees that
-  renaming is cleaner while nothing is frozen.
+  renaming is cleaner while nothing is frozen. **Ruling:** PE-05 (above); PE-04 was found taken.
 - **O9, Lemma A-SIM.** Recommended: adopt, with the review's added bijectivity step (applied in revision 2).
   - It gives PE-01's target T2 an upper bound, $m' \le m + 1$, on autonomous generators.
   - Minimality is open, and the review's toy cases show $m' = m$ does not suffice in general. Revision 1's NOTES said
@@ -253,7 +255,8 @@ The record below keeps each item's recommendation as it was put to the owner; th
 
 ## 7. Ambiguities in #934
 
-- **A1. The PE-02 label** collides with the README's PE-02 (O8).
+- **A1. The stage label.** #934's working label PE-02 collided with the README's PE-02 (computational versus
+  physical observers). Resolved by O8: this stage is PE-05.
 - **A2. The outcome classes mix two kinds of label and are not exhaustive.**
   - `SURVIVES_CHARGED`, `UNCHARGED_ONLY` and `NO_WITNESS_IN_SCOPE` compare accounting models within one activity
     level. `ACTIVE_ONLY` compares activity levels within one model.
@@ -262,10 +265,10 @@ The record below keeps each item's recommendation as it was put to the owner; th
 - **A3. "Per factor combination."** Accounting is the outcome axis. Revision 2 computes every factor outcome per $n$,
   so that U-witnesses and C-cells are never compared across different $n$ (R8).
 - **A4. "A positive result under a charged model does not establish ch18's untested narrower claim."** "Positive"
-  could mean either outcome. Nothing in PE-02 establishes the narrower claim under either reading (`PLAN.md` §7).
+  could mean either outcome. Nothing in PE-05 establishes the narrower claim under either reading (`PLAN.md` §7).
 - **A5. "The same tables with interventions disabled."** It could mean $a \equiv 0$, or actions that still enter the
   record but no longer reach the generator. The second is the `G_clkfix` comparison, so both readings are covered.
-- **A6. "PE-02 does not re-run" PE-01, against "a byte-identical replay".** The replay is read as a one-shard control.
+- **A6. "PE-05 does not re-run" PE-01, against "a byte-identical replay".** The replay is read as a one-shard control.
   PE-01 cells are recomputed only for the secondary population and UX.
 - **A7. θ for the ablated generators.** It is settled by the support rule (§1.2): $n + 1$ for `G_clkfix`, and both
   values for `G_clkfix_u` (O5).
@@ -278,7 +281,7 @@ The record below keeps each item's recommendation as it was put to the owner; th
   - In finite-state prediction and bounded-memory learning (Feder–Merhav–Gutman; Raz), the resource is states or bits
     of state, and the transition function is not charged. PE-01's uncharged convention is that standard one.
   - `Main.md:560` charges a program register for its own construction.
-  - The scoped ch18 sentence says "observers of bounded memory" without fixing which convention it means. PE-02
+  - The scoped ch18 sentence says "observers of bounded memory" without fixing which convention it means. PE-05
     measures what turns on that choice. Any wording change is a separate owner decision.
 - **M2. Activity on autonomous generators** is worth at most one memory bit (A-SIM, an upper bound). PE-01's REPORT ties
   its witness to "an active observer and G_clk's backaction". On autonomous generators the activity half of that
@@ -307,21 +310,21 @@ The record below keeps each item's recommendation as it was put to the owner; th
   cross-check. The general marker: a search bound derived from a quantity is only as sound as that quantity's
   computation.
 
-## 9. What PE-02 would add beyond the two covered-in-kind results
+## 9. What PE-05 would add beyond the two covered-in-kind results
 
-The owner asked (#934) what a PE-02 plan adds beyond the 2006 clock-control fault attack and AGHP's mechanism.
+The owner asked (#934) what a PE-05 plan adds beyond the 2006 clock-control fault attack and AGHP's mechanism.
 - **The fault attack** reruns a separately clocked generator from one state, with unbounded computation, and recovers
-  state. PE-02 asks a resource question that work does not pose: does a within-trajectory prediction witness survive
+  state. PE-05 asks a resource question that work does not pose: does a within-trajectory prediction witness survive
   when the observer pays for its own description, and does its advantage need the clock to respond?
-- **AGHP** fixes when passive linear statistics are exactly unbiased. PE-02 asks whether passive observers of any
+- **AGHP** fixes when passive linear statistics are exactly unbiased. PE-05 asks whether passive observers of any
   accounted size gain on these generators, including on `G_clkfix`, where AGHP does not apply.
 - Neither question is claimed new before the A3-rule reading of `PLAN.md` §11.
 
 ## 10. Not done
 
-- No PE-02 code. No simulation. No computation of any advantage, window, $Z(\varphi)$ or $K_{\rm cx}$. No PE-01 cell
+- No PE-05 code. No simulation. No computation of any advantage, window, $Z(\varphi)$ or $K_{\rm cx}$. No PE-01 cell
   recomputed.
-- No literature read for PE-02 beyond what PE-01's annex records.
+- No literature read for PE-05 beyond what PE-01's annex records.
 - The owner's decisions are recorded. Freeze still needs: the identifier for O8 confirmed and the rename applied; the
   owner's other freeze conditions (nit confirmation, coverage of every option-dependent control by TH, exact-version
   checks); and an independent confirmation, with the freeze SHA recorded by the coordinator.

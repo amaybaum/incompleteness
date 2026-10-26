@@ -1,10 +1,10 @@
-# PE-02 stage plan: charged observer tables, activity and backaction (revision 3, decisions recorded)
+# PE-05 stage plan: charged observer tables, activity and backaction (revision 3, decisions recorded)
 
 **Status: decisions recorded; frozen pending independent confirmation.** Planning only; no execution authorized. The
 owner's approval "authorizes specification freeze, not experimental execution"; the freeze itself is recorded by the
 coordinator, not in this file.
 
-Stage plan for Issue #934 in thread OI-PE-1 (`../README.md`). No PE-02 code exists.
+Stage plan for Issue #934 in thread OI-PE-1 (`../README.md`). No PE-05 code exists.
 - **Revision 1:** `902c4c0d`, reviewed at `2bb45e0b` (`review/REVIEW.md`: ACCEPT WITH CHANGES, R1–R15).
 - **Revision 2:** `58441eb2`, which applies R1–R5, R7–R15, R6's reporting change and UX (`CHANGES-r2.md`). Its
   diff-only re-review is `review/RECHECK-r2.md` at `5b2ae247`: REVISE, narrowly, with N1–N3 required and N4–N7 nits.
@@ -18,15 +18,14 @@ Stage plan for Issue #934 in thread OI-PE-1 (`../README.md`). No PE-02 code exis
   The corpus sentence it bears on is read on `main` at `c967d6a931c294e456053be5e3bf5bb4f2d9ad1c`.
 - The drafter's sources and readings of #934 are in `NOTES.md`.
 
-**Decided (O8) (owner, amaybaum, 2026-10-26): rename to PE-04 and retitle #934 before freeze.** The rename is not yet applied in
-this file: "PE-04" is already the thread README's stage "implications for quantum reconstruction" (`../README.md:199`),
-so applying the ruling as written would give one identifier to two stages, the defect the rename was meant to remove.
-The identifier is returned to the owner for confirmation (`CHANGES-r3.md`, last section). Until then, "PE-02" in this
-file means the stage of #934. PE-01's frozen PLAN (§3, §7, §10 item 5) and the thread README use "PE-02" for the
-computational-versus-physical stage.
+**Decided (O8) (owner, amaybaum, 2026-10-26): this stage is PE-05.** "Approved: rename the new stage to PE-05. PE-04
+remains reserved for quantum reconstruction." The stage was drafted under the working name PE-02, in
+`pe02_charged_tables_v1/`. PE-04, first recommended, was found taken by the thread README's quantum-reconstruction
+stage. PE-01's frozen PLAN (§3, §7, §10 item 5) and the thread README use "PE-02" for the
+computational-versus-physical stage, which this plan does not touch.
 
 PE-01 (`../pe01_bounded_tests_v1/`) is an immutable reference. Its plan, amendments A1–A3, results, verdict and
-reviews are read, never edited. PE-02 neither re-runs PE-01 as a study nor optimizes it. It does three things with it:
+reviews are read, never edited. PE-05 neither re-runs PE-01 as a study nor optimizes it. It does three things with it:
 - reads PE-01's retained measurements;
 - replays one PE-01 shard byte for byte as a control (§5, RP-01);
 - recomputes PE-01 cells only where the secondary question needs the full witness population (§4.3), cross-checked
@@ -58,7 +57,7 @@ The template, `G_lin`, `G_filt`, `G_clk`, the Fibonacci companion map $L_p$, $\e
 $g(h) = h_0 \oplus h_1 h_2$, the initial law $\mu$ uniform on $\mathcal{C}_V \times \mathcal{C}_H$, the record $X_{0:K}$
 and the increments $Y_t$ are exactly those of PE-01 `PLAN.md` §1.
 
-**Polynomials beyond n = 8.** PE-02 extends $n$ for the charged sweep (§3.4). The rule is fixed now.
+**Polynomials beyond n = 8.** PE-05 extends $n$ for the charged sweep (§3.4). The rule is fixed now.
 - $p_n$ is the least primitive polynomial of degree $n$ by integer value, in PE-01's convention
   $p(z) = z^n + \sum_i c_i z^i$ with new bit $\sum_i c_i h_i$. $p'_n$ is its reciprocal.
 - The rule reproduces PE-01's $p_n$ and $p'_n$ for $n = 3,\dots,8$ (`design/least_primitive.py`; EX4 checks both
@@ -267,19 +266,19 @@ the stage.
 - **E's region lies inside R's for $m \le 1$ (INC-RE).**
   - $T_E - T_R = |\gamma(K{+}1)| - c(K)$ at $m = 0$, which is $\ge 1$ for $K \ge 1$.
   - $T_E - T_R = |\gamma(K{+}1)| - c(K) - 1$ at $m = 1$, which is $\ge 0$ for $K \ge 1$.
-  - So $F_E \ge F_R$, and every E-admissible witness with $m \le 1$ is R-admissible. Within PE-02's computed scope no
+  - So $F_E \ge F_R$, and every E-admissible witness with $m \le 1$ is R-admissible. Within PE-05's computed scope no
     E-only witness can arise. E adds an independent verdict only where it is stricter, which the per-witness $F_E$
     shows. E is shorter than $S_R$ only for $m \ge 2$, where every region in scope is empty.
 - **Consequences, as facts about the accounting models:**
-  - at $n \le 8$ and $\theta = n + 1$, every charged region is empty, for every observer class of PE-01 and PE-02:
+  - at $n \le 8$ and $\theta = n + 1$, every charged region is empty, for every observer class of PE-01 and PE-05:
     the cheapest case, $m = 0$ under R, needs $2c + 4 \le 9$, so $K \le 3$;
-  - the one exception among PE-02's θ values is `G_clkfix_u` at $\theta = n + 2 = 10$ ($n = 8$), where $m = 0$ under R
+  - the one exception among PE-05's θ values is `G_clkfix_u` at $\theta = n + 2 = 10$ ($n = 8$), where $m = 0$ under R
     admits $K = 4..7$. M0 covers that region, and the cell is computed in Part A ($1 \le K \le K_{\rm cx}$), so its
     status is `NONE` (a computed, proved zero), not `REGION_EMPTY`. No other charged region at $n \le 8$ is non-empty
     at either θ (`design/charge_ranges.out`);
   - for $m \ge 2$, every charged region is empty below $n = 31$ (E) or $36$ (R), beyond the reach of exact
-    enumeration, and PE-02 does not compute there;
-  - with M0, a charged witness in PE-02's scope can only have $m = 1$: at $\theta = n + 1$, at $n \ge 17$ (R) or
+    enumeration, and PE-05 does not compute there;
+  - with M0, a charged witness in PE-05's scope can only have $m = 1$: at $\theta = n + 1$, at $n \ge 17$ (R) or
     $n \ge 18$ (E); for `G_clkfix_u` at $\theta = n + 2$, at $n \ge 16$ (R) or $n \ge 17$ (E).
 - **Reading.** An empty region is reported as a property of the accounting model, never as a measurement and never as
   "no witness found" (PE-01 §6 item 5). M0 is a proved zero with a computational check, not a search result.
@@ -306,7 +305,7 @@ clocked readout, and no hidden-sector access.
   planted observer of PL.
 - **Activity is a property of the table, not of the class name.** Factor reporting (§6) splits `emb_m*_all` into its
   active ($a \not\equiv 0$) and passive ($a \equiv 0$) members. PE-01's per-subclass cells stay as recorded.
-- **Prediction tests only bear on verdicts**, as in PE-01. Distinguishing tests are not computed in PE-02.
+- **Prediction tests only bear on verdicts**, as in PE-01. Distinguishing tests are not computed in PE-05.
 
 ### 3.2 The intervention-ablated observer
 
@@ -397,7 +396,7 @@ Consequences used by the plan:
 - **K0. Decided (O6) (owner, amaybaum, 2026-10-26): K0 beyond n = 8 is explicitly marked not computed.** Family status is reported as
   in PE-01 at $n \le 8$, including for $\mathfrak{F}_{\rm clkfix}(n)$. At $n > 8$ every K0 field is printed as
   "not computed (O6)". It bears on no outcome.
-- **Not run in PE-02:** PE-01's unrestricted class and classes B1–B4, distinguishing tests, $r > 1$ runs and
+- **Not run in PE-05:** PE-01's unrestricted class and classes B1–B4, distinguishing tests, $r > 1$ runs and
   class-$\mathcal{Q}$ references.
 
 ## 4. Advantage, witnesses and the secondary population
@@ -426,7 +425,7 @@ PE-01's conditions (a)–(f) stand, except as stated here, each with its reason.
   under the generator's own prior. Unchanged except for that clause, which `G_clkfix` and `G_weak` need.
 - **(d)** Unchanged: the same $O$ and $\chi$ give $\mathrm{adv}^{\rm pred} \ge \delta_{\rm cx} = 1/8$ exactly at every
   $K' \in [K - 3, K]$, $K \ge 3$. `abs` governs and `signed` is the sensitivity analysis.
-- **(e)** Every PE-02 checkpoint (§5) is green.
+- **(e)** Every PE-05 checkpoint (§5) is green.
 - **(f$_C$)** $F_C(O,K) \le \theta$, for the model $C$ under which the witness is stated (§2.3).
 
 A witness meeting (a′)–(e) and (f$_C$) is **admissible under C**.
@@ -472,7 +471,7 @@ fix below).
   `G_clk`$(p_n)$, $n = 3,\dots,8$, meeting (a′)–(e). Condition (f) is not required for membership; each member records
   whether it meets (f$_U$).
 - **What PE-01's retained data already fix,** stated in advance from the `windows` entries of `results/shards/n*-clk*.json`
-  for $K \le K_{\rm cx}$. UX confirms each of these against PE-02's own computation.
+  for $K \le K_{\rm cx}$. UX confirms each of these against PE-05's own computation.
   - `emb_m1_all` has no window on `G_clk` at any $n$; $m = 0$ is zero (M0).
   - Active `emb_m2_all` windows exist only at $n = 4$ ($K = 7, 8, 9$; $K_{\rm cx} = 9$) and at $n = 5$ ($K = 7, 10$;
     $K_{\rm cx} = 20$). So $W_{\rm act}$ is $m = 2$ at $n \in \{4, 5\}$ only.
@@ -581,7 +580,7 @@ Every numerical row is exact integer or `Fraction` arithmetic. A failed or uneva
 | Invariant | Checkpoint | Measured by |
 |---|---|---|
 | PE-01's witness and verdict are reproduced exactly, in PE-01's environment | RP-01 | control 1: the step conclusion, the sha256 of the replayed shard, the verdict regeneration; the job pins Python 3.12 and numpy 2.2.6, and its own `rp01_env.json` records `sys.version` and `numpy.__version__`, which must match the pins. The replayed shard is not modified |
-| PE-02's own code agrees with PE-01 where both compute | UX | For `G_clk`, $n = 3..8$, $K \le K_{\rm cx}$, under both `abs` and `signed`: PE-02's window counts for the full subclasses `emb_m1_all` and `emb_m2_all` (active plus passive), and for `emb_m1_passive` and `emb_m2_passive`, equal PE-01's `windows[subclass]` entries K by K. The witness curve equals RP-01's. The §4.3 statements about PE-01's data are confirmed or the stage halts |
+| PE-05's own code agrees with PE-01 where both compute | UX | For `G_clk`, $n = 3..8$, $K \le K_{\rm cx}$, under both `abs` and `signed`: PE-05's window counts for the full subclasses `emb_m1_all` and `emb_m2_all` (active plus passive), and for `emb_m1_passive` and `emb_m2_passive`, equal PE-01's `windows[subclass]` entries K by K. The witness curve equals RP-01's. The §4.3 statements about PE-01's data are confirmed or the stage halts |
 | Admissibility under C holds iff $F_C \le \theta$, given the other conditions | CH-IFF | control 2 |
 | A planted passive witness is found, and its mutant gives none | PL | control 3 |
 | The charge is not inert | MUT-NC | control 4 |
@@ -614,7 +613,7 @@ Every numerical row is exact integer or `Fraction` arithmetic. A failed or uneva
 | The witness conditions are evaluated mechanically | CX | As PE-01 §5 CX, with (f) evaluated per model. Self-test mutants, each refused on its own condition: a window value $1/8 - 2^{-K-2}$ (d); $F_U = \theta + 1$ (f$_U$); $F_R = \theta + 1$ with $F_U \le \theta$ (f$_R$); $F_E = \theta + 1$ with $F_U \le \theta$ (f$_E$); $K = K_{\rm cx} + 1$ (c) |
 | The admissible regions are derived | AR-C | $Z(\varphi)$ by the §4.2 methods, and $K_{\rm cx}(\varphi)$, for every generator and $n$ used. The regions under U, R and E are recomputed from them and from the measured footprints, at each generator's θ values ($n + 1$; both $n + 1$ and $n + 2$ for `G_clkfix_u`), and must equal §2.4's statements (including its `G_clkfix_u` exception) and the §9 per-$n$ values at the matching θ. Each cell's status (`REGION_EMPTY`, `NOT_IN_SEARCH_RANGE`, searched) is derived from the recomputed region and the searched range |
 | The workflow cannot be launched by a push | WF | the workflow file is parsed, and its `on:` key has `workflow_dispatch` as its only trigger |
-| Deterministic replay | RP | every PE-02 shard's measurement JSON is byte-identical on rerun |
+| Deterministic replay | RP | every PE-05 shard's measurement JSON is byte-identical on rerun |
 | The plan precedes the code | PIN | the measurement JSON records this file's blob and the commit that froze it, and that commit is an ancestor of every code commit |
 | Runs wait for the fixed parameters | TH | The measurement JSON records the `pe02-parameters` block of this file as frozen, with its blob and the freezing commit. Each formula is evaluated at every $n$ that has an explicit value and compared with it, as PE-01 A1. Each entry under `dependent` carries `assumes`, the decisions it was computed under; TH requires every `assumes` item to equal the recorded `Ox:value` in `decisions` and refuses on any mismatch. A run refuses to start without the block, on any `OPEN` value, or on any disagreement |
 | Verdicts are generated from measurements | VG | As PE-01: the regeneration is byte-identical; a copy with any control flag flipped yields VOID; a verdict lacking the §7 resource-model sentence fails. The verdict's inputs are exactly the files named under "Structured evidence" |
@@ -693,7 +692,7 @@ Every numerical row is exact integer or `Fraction` arithmetic. A failed or uneva
    - Choices that lean the same way are printed beside the outcome they affect: θ option (i), the charge scope (O10),
      and the fixed clock charge.
 10. **Productivity test (§A.31), fixed now.** PE-01's REPORT already states that charging the 31 table bits would put
-    its witness outside θ. A PE-02 result is a candidate gem only if it is strictly stronger than that sentence, and it
+    its witness outside θ. A PE-05 result is a candidate gem only if it is strictly stronger than that sentence, and it
     either constrains `book/ch18-beyond.md:114` as scoped on `main` or exposes a hidden assumption.
     - Recorded only, because they restate PE-01 or the definitions: `UNCHARGED_ONLY[structural]`, the arithmetic of
       §2.4, M0, INC-RE, and the `INTERVENTION_NEEDED` labels.
@@ -703,7 +702,7 @@ Every numerical row is exact integer or `Fraction` arithmetic. A failed or uneva
 - No statement about the actual world's hidden sector, nor about the $10^{-32}$ statement (`ch18-beyond.md:56–58`).
 - No cryptographic, circuit-security or distinguishing claim.
 - A negative result covers only the enumerated class, generators, $n$, $K$, accounting model and charge scope.
-- No PE-02 outcome establishes the narrower claim the scoped ch18 sentence leaves open, about observers of bounded
+- No PE-05 outcome establishes the narrower claim the scoped ch18 sentence leaves open, about observers of bounded
   memory that only read the source. A charged witness, its absence and the ablation counts are each stated for their
   class only.
 - Results under E are about E; no result is stated as one about description complexity.
@@ -743,7 +742,7 @@ changed. Ranges are from `design/charge_ranges.out` and `design/linear_class_cod
 | O5 | Clock-ablated prior, and θ for `G_clkfix_u` | Matched primary with uniform variant. Matched only: drop `G_clkfix_u` and its $\theta = n+2$ ranges. Uniform only: drop `G_clkfix`, so CA-EQ, SIM-P1 and the §4.3 backaction comparison lose their matched basis (`dependent.secondary_comparisons` and the secondary entries are restated). θ for `_u` (n+2 or n+1 governing) does not change the search, which runs at n+2 while both are reported | "the matched prior governs; the uniform prior is reported and searched as specified." θ for `_u`: n+2 governing, n+1 reported, as recommended |
 | O6 | K0 status at $n > 8$ | Not computed. Computed on a fixed subfamily: adds K0 runs at $n > 8$; no witness range changes | "K0 beyond n = 8 is explicitly marked not computed." |
 | O7 | Secondary population | All active (a′)–(e) members. Admissible (f$_U$) only: the population is the $n = 5$, $K = 7$ cell (36 pairs); the computation range is unchanged | "all qualifying active witnesses (m = 2, G_clk, n ∈ {4, 5})." |
-| O8 | Stage name | Keep "PE-02", or rename (e.g. PE-04) and retitle #934 before freeze. No range changes. The schema identifiers and the block tag stay as they are (§5, P3) | "rename to PE-04 and retitle #934 before freeze." Application held: PE-04 already names the README's quantum-reconstruction stage (header) |
+| O8 | Stage name | Keep "PE-02", or rename (e.g. PE-04) and retitle #934 before freeze. No range changes. The schema identifiers and the block tag stay as they are (§5, P3) | "Approved: rename the new stage to PE-05. PE-04 remains reserved for quantum reconstruction." (2026-10-26). PE-04, ruled first, was found taken by the README's quantum-reconstruction stage |
 | O9 | Lemma A-SIM | Adopt. Drop: SIM-P1 and the twin-footprint reporting are removed; ACT-SIM stays as a computation with no interpretation; no range changes | "adopt Lemma A-SIM in its revised upper-bound formulation." |
 | O10 | Charge scope | Full description governs. Transition and action only: all charged regions change (§2.1). $m = 1$ enters at $n = 8$ (E sum) and $n = 10$ (R); $m = 2$ at $n = 19$ (E sum). Part A gets non-empty charged cells, Part B gets `emb_m2_all` at $n \ge 19$, and INC-RE fails. Every `dependent` entry is restated, including `CH_IFF_boundary_records`, `PL_E_boundary`, `INC_RE_checkpoint`, `E_void_rule`, `search_range_R_contains_E` and `EN_meaning` (E would no longer be a code of the charged description) | "the full observer description governs; tables-only costs are reported separately." |
 
@@ -757,7 +756,7 @@ meets the bound.
 ```json pe02-parameters
 {
   "amendment": "none: decisions recorded in PLAN.md before freeze",
-  "decided_by": "amaybaum, 2026-10-26",
+  "decided_by": "amaybaum, 2026-10-26 (O8: PE-05, PE-04 found taken)",
   "decisions": {
     "O1": "i",
     "O2": "R+E",
@@ -767,7 +766,7 @@ meets the bound.
     "O5": "matched+uniform, theta_u=n+2",
     "O6": "not-computed",
     "O7": "all",
-    "O8": "rename PE-04",
+    "O8": "PE-05",
     "O9": "adopt",
     "O10": "full"
   },
@@ -904,7 +903,7 @@ PE-01's own timings scale them: its `n8-clk` shard took about 1150 s and `n8-clk
 ## 11. Literature (cited, not rederived)
 
 - **Tagging rule.** PE-01 amendment A3's rule applies. It is fixed now, before any of the works below is read, with its
-  scope set to PE-02's results: admissible witnesses under R or E, the §4.3 counts, and Lemma A-SIM.
+  scope set to PE-05's results: admissible witnesses under R or E, the §4.3 counts, and Lemma A-SIM.
   - COVERED-literature needs a first-hand reading that states or directly implies the result, for the same kind of
     generator and observer.
   - Coverage in kind is recorded as such.
@@ -914,7 +913,7 @@ PE-01's own timings scale them: its `n8-clk` shard took about 1150 s and `n8-clk
   - Gollmann–Chambers, "Clock-controlled shift registers: a review", IEEE JSAC 7(4):525–533 (1989);
   - the works PE-01's tag annex lists as unread: Chambers–Gollmann 1988; Beth–Piper 1984; Meier–Staffelbach 1989 and
     1994; Golić–O'Connor 1994; Živković 1991; Kholosha 2001; Gomułkiewicz et al., WEA 2005 and 2006.
-- **What PE-02 must add beyond the two covered-in-kind results** (owner, #934):
+- **What PE-05 must add beyond the two covered-in-kind results** (owner, #934):
   - beyond the 2006 clock-control fault attack (Gomułkiewicz–Kutyłowski–Wlaź): whether the PE-01 witness survives an
     explicit charge on the observer's description, and whether its advantage needs the clock to respond;
   - beyond AGHP's mechanism: whether passive observers of any accounted size gain on these generators, including on

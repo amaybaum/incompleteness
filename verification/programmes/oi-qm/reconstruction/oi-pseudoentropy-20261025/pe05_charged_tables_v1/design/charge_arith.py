@@ -1,4 +1,4 @@
-"""PE-02 design-only arithmetic: footprints under the accounting models U, R, E of PLAN.md §2.
+"""PE-05 design-only arithmetic: footprints under the accounting models U, R, E of PLAN.md §2.
 Pure formula evaluation; no generator or observer is simulated."""
 from math import ceil, log2, factorial
 

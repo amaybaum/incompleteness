@@ -1,4 +1,4 @@
-"""PE-02 design-only check: fix p_n = least primitive polynomial of degree n by integer value.
+"""PE-05 design-only check: fix p_n = least primitive polynomial of degree n by integer value.
 Verifies the rule reproduces PE-01's p_3..p_8 and lists p_n, p'_n for n = 3..24. No measurement."""
 import sys
 

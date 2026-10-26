@@ -204,6 +204,12 @@ bridge and no-go scope).
   - native construction (#910).
 - Keep finite-precision approximation (`Main.md:576`) separate from exact quantum equivalence.
 
+**PE-05: charged observer tables, activity and backaction.** Planning; specification freeze pending (#934).
+- Ask whether a prediction witness of PE-01's kind survives when the observer's description is charged against the
+  footprint threshold, and whether its advantage needs the generator's clock to respond to the observer's
+  interventions.
+- The stage plan is `pe05_charged_tables_v1/PLAN.md`.
+
 ## Decision rules (stated before any computation)
 
 - **Advantages are exact.** They are computed exactly where an exact computation is available. Floating point never

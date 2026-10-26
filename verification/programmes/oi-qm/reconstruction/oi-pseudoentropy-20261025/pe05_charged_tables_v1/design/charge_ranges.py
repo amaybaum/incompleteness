@@ -1,4 +1,4 @@
-"""PE-02 design-only arithmetic (revision 3): admissible K ranges per n under PLAN.md §2.
+"""PE-05 design-only arithmetic (revision 3): admissible K ranges per n under PLAN.md §2.
 
 For theta = n + d (d = 1, 2), charge scope full (PLAN §2.1) or TA (transition-and-action component sums, PLAN §2.1
 and O10), models R and E, memory m = 0..4 and n = 3..24, it prints the largest K >= 1 with F <= theta (window floor

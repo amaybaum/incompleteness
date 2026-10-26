@@ -1,4 +1,4 @@
-"""PE-02 design-only arithmetic (revision 3, for owner decision O3): a class-specific code for the passive
+"""PE-05 design-only arithmetic (revision 3, for owner decision O3): a class-specific code for the passive
 linear-filter observers plin_m (PLAN.md §2.2), and the K ranges it would admit.
 
 Code: selector (1 bit) | gamma(m+1) | index of A in GL(m,2) (ceil(log2 |GL(m,2)|) bits) | b (m bits) |

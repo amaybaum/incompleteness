@@ -1,4 +1,4 @@
-# PE-02 plan: changes from revision 1 to revision 2
+# PE-05 plan: changes from revision 1 to revision 2
 
 **Status: WIP / UNREVIEWED; planning only; no execution authorized.**
 
