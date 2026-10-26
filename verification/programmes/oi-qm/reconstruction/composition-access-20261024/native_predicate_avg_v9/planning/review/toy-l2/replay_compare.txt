@@ -1,0 +1,52 @@
+code hashes equal: True
+manifest_verify              exit 0/0  O-ident True/True  stdout IDENTICAL
+l2_selftest                  exit 0/0  O-ident True/True  stdout IDENTICAL
+dryrun_toy                   exit 0/0  O-ident True/True  stdout IDENTICAL
+dryrun_v8_plan_no_closure    exit 0/0  O-ident True/True  stdout IDENTICAL
+calibration_planted          exit 0/0  O-ident None/None  stdout differs (REAL DIFF)
+dryrun_v8_estimate           exit 0/0  O-ident None/None  stdout differs (REAL DIFF)
+preflight_toy_quick          exit 0/0  O-ident None/None  stdout IDENTICAL
+mutants_quick                exit 0/0  O-ident None/None  stdout IDENTICAL
+s1a_toy                      exit 0/0  O-ident True/True  stdout IDENTICAL
+shard_toy_0                  exit 0/0  O-ident True/True  stdout differs (REAL DIFF)
+shard_toy_1                  exit 0/0  O-ident True/True  stdout differs (REAL DIFF)
+shard_toy_2                  exit 0/0  O-ident True/True  stdout differs (REAL DIFF)
+shard_toy_3                  exit 0/0  O-ident True/True  stdout differs (REAL DIFF)
+merge_toy                    exit 0/0  O-ident True/True  stdout IDENTICAL
+certificate_toy              exit 0/0  O-ident True/True  stdout IDENTICAL
+crosscheck_toy_counts        exit 0/0  O-ident True/True  stdout IDENTICAL
+code_r5_equivalence_quick    exit 0/0  O-ident None/None  stdout IDENTICAL
+planted_survivor_path        exit 0/0  O-ident True/True  stdout IDENTICAL
+refusal_probe_v8             exit 0/0  O-ident True/True  stdout IDENTICAL
+toyrun calib.json                 DIFF
+toyrun certificate.json           DIFF
+toyrun dryrun.json                IDENTICAL
+toyrun expected-controls.json     IDENTICAL
+toyrun mutant-campaign.json       IDENTICAL
+toyrun preflight.json             equal modulo commit
+toyrun result.O.json              DIFF
+toyrun result.json                DIFF
+toyrun s1a.O.json                 DIFF
+toyrun s1a.json                   DIFF
+toyrun shard-0.O.json             DIFF
+toyrun shard-0.json               DIFF
+toyrun shard-1.O.json             DIFF
+toyrun shard-1.json               DIFF
+toyrun shard-2.O.json             DIFF
+toyrun shard-2.json               DIFF
+toyrun shard-3.O.json             DIFF
+toyrun shard-3.json               DIFF
+s1a.json equal modulo commit/digests
+   committed commit = 217f7a401906070ac39878966c836e8a73fdbfda  replay commit = None
+shard-0.json equal modulo commit/digests
+   committed commit = 217f7a401906070ac39878966c836e8a73fdbfda  replay commit = None
+shard-1.json equal modulo commit/digests
+   committed commit = 217f7a401906070ac39878966c836e8a73fdbfda  replay commit = None
+shard-2.json equal modulo commit/digests
+   committed commit = 217f7a401906070ac39878966c836e8a73fdbfda  replay commit = None
+shard-3.json equal modulo commit/digests
+   committed commit = 217f7a401906070ac39878966c836e8a73fdbfda  replay commit = None
+result.json equal modulo commit/digests
+   committed commit = 217f7a401906070ac39878966c836e8a73fdbfda  replay commit = None
+certificate.json equal modulo commit/digests
+   committed commit = 217f7a401906070ac39878966c836e8a73fdbfda  replay commit = None
