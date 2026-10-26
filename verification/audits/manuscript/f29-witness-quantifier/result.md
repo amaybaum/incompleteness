@@ -25,8 +25,9 @@ history readback at $k$. The proof is unchanged:
 - (ii) $\Rightarrow$ (iii) is the finite-horizon process dilation at each $K$, for an order $k$
   at which (ii) holds.
 
-The remark on the horizon restriction states that any order satisfying (iii) is a memory witness.
-No other claim changes.
+The remark on the horizon restriction gains two sentences: any order satisfying (iii) is a memory
+witness, and the order is bound within (iii) rather than taken from (ii), since otherwise (iii)
+would hold vacuously for a Markov law. No other claim changes.
 
 ## Acceptance test
 
@@ -35,6 +36,10 @@ strict inequalities). For a memoryless process M and two processes with accessib
 witnesses, N1 (witnesses at orders 1 and 2) and N2 (order 2 only), it builds the process
 dilation of the constructive proof from each target's kernels at every horizon $K \leq 3$ and
 checks faithfulness, bijectivity, the pushforward identity, (C1), (C3) and (C4) at each order.
+
+**Scope.** Binary visible alphabet, $x_0$ uniform, horizons $K \leq 3$, orders 1–2, one dilation
+per (process, $K$). N2 is not time-homogeneous; the equivalence (ii) $\iff$ (iii) does not use
+homogeneity.
 
 | Process | Witness orders | (ii) | corrected (iii) | universal reading of the old (iii) |
 |---|---|---|---|---|
@@ -46,12 +51,17 @@ checks faithfulness, bijectivity, the pushforward identity, (C1), (C3) and (C4) 
   faithful and carries (C1), (C3) and (C4) at $k$.
 - (iii) $\Rightarrow$ (ii): at every (C4) gap observed, the readback bound
   $I(X_{<k}; X_{k+1} \mid X_k) \geq p_0\delta^2/\ln 2 > 0$ holds.
-- For M, the dilation is faithful and carries (C1) but no (C4) gap at any order: the existence
+- For M, the dilation is faithful and carries (C1) but no (C4) gap at orders 1–2: the existence
   of a realization alone does not distinguish non-Markovian laws, as `Main.md` §3.4 states.
 - Controls: every realization reproduces its target joint law exactly and is a bijection; the
   pushforward identity holds on every history; a mutated quantile step is detected as unfaithful
   in every case; the gap detector finds orders 1 and 2 for N1, order 2 only for N2, and nothing
-  for an i.i.d. process.
+  for an i.i.d. process or for a second, non-i.i.d. Markov chain.
+- What follows by construction: once a dilation is faithful, the (ii) and corrected-(iii)
+  columns come from the same gap detector, so their agreement is not independent evidence; the
+  old-reading column is vacuous for M by construction; (C3) cannot fail at these sizes; prior
+  independence is built in. The measured content is faithfulness, bijectivity, the mutant
+  countercontrol, the pushforward identity, (C1), and the readback bound at the four gaps observed.
 
 Run: `python3 -I verification/audits/manuscript/f29-witness-quantifier/acceptance.py`. Output:
 
@@ -83,6 +93,7 @@ control N2.K3.pushforward: PASS
 control detector.N1_orders_1_2: PASS
 control detector.N2_order2_only: PASS
 control detector.iid_clean: PASS
+control detector.markov_clean: PASS
 
 M: witness orders W = []; CMI_k (bits) = k=1: 0.000000, k=2: 0.000000; I* = 0.000000
   K=2: |C_H|=432, faithful=True, C1=True, C3=True, C4: k=1: none
@@ -109,5 +120,5 @@ N2: witness orders W = [2]; CMI_k (bits) = k=1: 0.000000, k=2: 1.000000; I* = 1.
   (ii) => (iii) via dilation at every witness order: True; (iii) => (ii) readback bound at every observed gap: True
   original universal-over-witness reading of (iii) = True
 
-VERDICT: ACCEPT - the corrected (iii) agrees with (ii) on the memoryless process and on both processes with an accessible memory witness, with both proof directions exercised.
+VERDICT: ACCEPT - corrected (iii) agrees with (ii) on 3 of 3 processes (M, N1, N2); expected values and both proof directions hold.
 ```

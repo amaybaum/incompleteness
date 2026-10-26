@@ -17,7 +17,7 @@ kernels alone (history ledger, randomness tape, clock, conditional-quantile step
 lexicographic completion), and checks on the realization:
   faithful   the realized joint law through K equals the target's, exactly, for each x_0;
   bijective  the completed map is a permutation of the finite product;
-  prior      the hidden prior does not depend on x_0 (by construction; asserted);
+  prior      the hidden prior does not depend on x_0 (built in by the construction, not tested);
   pushfwd    universal theorem (a): for every visible history p ending in x, the hidden
              posterior mu_p pushed through f_x equals the realized next-step law;
   C4@k       a readback gap at k: two histories of length k+1 (X_0..X_k), common
@@ -215,10 +215,13 @@ def cmi_bits(P, a_idx, b_idx, c_idx):
     return s
 
 
-def c1(phi, post):
-    """Two reachable states with the same visible value and different next visible value."""
+def c1(phi, post, K):
+    """Two reachable states with the same visible value and different next visible value,
+    at steps inside the horizon (the step after X_K is the arbitrary completion)."""
     by_x = {}
     for key, d in post.items():
+        if len(key) > K:
+            continue
         x = key[-1]
         for h in d:
             by_x.setdefault(x, set()).add(phi[(x,) + h][0])
@@ -264,7 +267,7 @@ for name, kern in PROCESSES.items():
         phi, prior, mH, bij = build_dilation(kern, 2, K, D)
         joint, post = realized(phi, prior, 2, K)
         rec = {"faithful": joint == PK, "bijective": bij, "pushfwd": pushforward_ok(phi, post, joint, 2, K),
-               "C1": c1(phi, post), "C3": mH >= 2 ** Istar, "mH": mH}
+               "C1": c1(phi, post, K), "C3": mH >= 2 ** Istar, "mH": mH}
         for k in range(1, K):
             g = gap(joint, 2, k)
             rec[f"C4@{k}"] = g
@@ -304,6 +307,9 @@ controls["detector.N1_orders_1_2"] = rows["N1"]["W"] == [1, 2]  # x_2 = x_0, x_3
 controls["detector.N2_order2_only"] = rows["N2"]["W"] == [2]
 iid = target_joint(lambda past: (F(1, 2), F(1, 2)), 2, KMAX)
 controls["detector.iid_clean"] = not any(gap(iid, 2, k) for k in range(1, KMAX))
+# A Markov, non-i.i.d. chain: catches a detector that ignores the common-endpoint condition.
+mk2 = target_joint(markov_kernel([[F(1, 3), F(2, 3)], [F(3, 4), F(1, 4)]]), 2, KMAX)
+controls["detector.markov_clean"] = not any(gap(mk2, 2, k) for k in range(1, KMAX))
 
 ok = all(controls.values())
 for c, v in sorted(controls.items()):
@@ -336,7 +342,9 @@ for name, r in rows.items():
     print(f"  original universal-over-witness reading of (iii) = {r['old_univ']}"
           + ("  (vacuous: no witness order)" if not r["W"] else ""))
 
+agree = [n for n, r in rows.items() if r["ii"] == r["iiiA"]]
 print("\nVERDICT: " + ("ACCEPT" if all_ok else "REJECT")
-      + " - the corrected (iii) agrees with (ii) on the memoryless process and on both "
-        "processes with an accessible memory witness, with both proof directions exercised.")
+      + f" - corrected (iii) agrees with (ii) on {len(agree)} of {len(rows)} processes "
+        f"({', '.join(agree) or 'none'}); expected values and both proof directions "
+      + ("hold." if all_ok else "do not all hold."))
 sys.exit(0 if all_ok else 1)
