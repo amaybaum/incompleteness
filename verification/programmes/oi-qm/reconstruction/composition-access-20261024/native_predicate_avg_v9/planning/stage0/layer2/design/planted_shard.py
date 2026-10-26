@@ -1,0 +1,86 @@
+"""Layer-2 design evidence: the survivor path of the production shard code (l2enum.Shard.rep)
+on planted records of the toy geometry. The toy class has no survivors, so its enumeration
+never reaches the per-survivor gates (C7, C8 on the full orbit, C11 (i) and (ii), C17, C18 on
+survivors), the residue detail or the minimal-witness path. This script drives them with
+planted records of the toy setup (not records of the toy index space, and not v8's class):
+
+- the constraint-block record: the item (c0, L + 1) together with the six items (c0 + e, L),
+  for the toy A pair (E, L) = (3, 4) and c0 = (5, 0, 0) (C3's block, read as a 7-item record);
+- the same with the item (c0, L) in place of (c0, L + 1) (the block without its top).
+
+Positive run: the bound is the union of the planted contexts, so C9 holds by construction;
+every gate must hold. Negative control: the same record with one retained quantity removed
+from the A bound; C9 must fail and a minimal-witness candidate, confirmed by direct closure,
+must be emitted. Usage: python3 -I -B planted_shard.py <layer2/code>. Prints JSON; exit 0 iff
+both runs behave as stated.
+"""
+import json
+import sys
+
+sys.path.insert(0, sys.argv[1])
+import s0geom as G        # noqa: E402
+import l2analysis as AN   # noqa: E402
+import l2enum as ENUM     # noqa: E402
+import l2config as CFG    # noqa: E402
+
+setup = CFG.make_setup(G, 'toy')
+grp = AN.group(setup)
+pairA = G.Pair(setup.n + 1)
+c0 = (5, 0, 0)
+L = pairA.L
+blk = tuple(sorted([(c0, L + 1)] + [(G.vadd(c0, e), L) for e in G.axes(3)]))
+blk_minus_top = tuple(sorted([(c0, L)] + [(G.vadd(c0, e), L) for e in G.axes(3)]))
+records = [(-1, blk), (-2, blk_minus_top)]
+
+
+def universe(recs):
+    out = {}
+    for conv in ('A', 'G'):
+        qs = set()
+        for _, r in recs:
+            for m in AN.orbit(r, grp):
+                qs |= G.Context(setup, m, conv).quants
+        out[(conv, 'L3prime')] = set(qs)
+        out[(conv, 'L3')] = set(qs)
+    return out
+
+
+def run(bound):
+    base = {conv: set(G.Context(setup, (), conv).run()) for conv in ('A', 'G')}
+    sh = ENUM.Shard(setup, CFG.profile('toy'), bound, base, None, None)
+    for idx, r in records:
+        sh.rep(idx, r, AN.orbit(r, grp))
+    return sh
+
+
+pos = run(universe(records))
+po = pos.output()
+summary = []
+for det in po['survivors']:
+    summary.append({'index': det['index'], 'orbit_size': det['orbit_size'],
+                    'A': {k: det['A'][k] for k in ('survivor', 'n_survivor', 'rule_dependence', 'cover_components',
+                                                   'residual_support_bits', 'exceeds_S_max', 'phi_linked')}
+                    | {'shared_aligned_tips': len(det['A']['shared_aligned_tips'])},
+                    'G': {k: det['G'][k] for k in ('survivor', 'n_survivor', 'rule_dependence')}})
+pos_ok = len(po['survivors']) >= 1 and all(v['failed'] == 0 for v in po['gates'].values()) and \
+    po['gates']['C11ii']['checked'] > 0 and po['gates']['C8']['checked'] >= 1 and po['gates']['C7']['checked'] >= 1
+
+# negative control: remove one retained quantity of the block from the A bound
+retA = G.Context(setup, blk, 'A').run()
+drop = sorted(retA)[0]
+bound = universe(records)
+bound[('A', 'L3prime')].discard(drop)
+bound[('A', 'L3')].discard(drop)
+neg = run(bound).output()
+neg_ok = neg['gates']['C9']['failed'] > 0 and len(neg['witness_candidates']) > 0 and \
+    all(any(c.startswith('C9') for c in w['conditions']) for w in neg['witness_candidates'])
+import l2merge as MERGE  # noqa: E402
+w = MERGE.minimal_witness(neg['witness_candidates'])
+out = {'planted_records': {'block': [[list(x), t] for x, t in blk], 'block_minus_top': [[list(x), t] for x, t in blk_minus_top]},
+       'positive': {'gates': po['gates'], 'survivor_representatives': len(po['survivors']), 'summary': summary,
+                    'counts_nonzero': {k: v for k, v in po['counts_additive'].items() if v}, 'pass': pos_ok},
+       'negative_C9': {'dropped_from_A_bound': [list(drop[0]), drop[1]], 'gates_C9': neg['gates']['C9'],
+                       'witness_candidates': len(neg['witness_candidates']), 'minimal_witness': w, 'pass': neg_ok},
+       'pass': pos_ok and neg_ok}
+print(json.dumps(out, sort_keys=True, indent=1))
+sys.exit(0 if out['pass'] else 2)

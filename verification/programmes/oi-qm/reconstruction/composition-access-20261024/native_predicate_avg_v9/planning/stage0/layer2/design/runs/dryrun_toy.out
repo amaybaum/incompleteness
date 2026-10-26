@@ -1,0 +1,63 @@
+{
+ "closures_computed": 0,
+ "config_sha256": "61c6e0e64b4c67b130ff3dfbb9d98cf73e6710d190f980e701f2b932838b22db",
+ "context_quantities_pairs": {
+  "3": 12,
+  "4": 156,
+  "5": 408,
+  "6": 456,
+  "7": 252,
+  "8": 60
+ },
+ "context_quantities_singles": {
+  "2": 1,
+  "3": 18,
+  "4": 25,
+  "5": 12
+ },
+ "contexts_constructed": 0,
+ "engine_imported": "l2plan imports no engine",
+ "expected_checks": {
+  "group_order": true,
+  "orbits": true,
+  "records": true
+ },
+ "group_order": 8,
+ "masking_equivalent_records": 1398,
+ "masking_equivalent_records_record_sample_reading": 1398,
+ "max_context_quantities": 8,
+ "max_context_with_fixed": 16,
+ "orbits": 488,
+ "pair_orbits": 456,
+ "pass": true,
+ "profile": "toy",
+ "records": 1400,
+ "schema": "np-avg-1/stage0/layer2/dryrun/1",
+ "shards": [
+  {
+   "count": 350,
+   "hi": 350,
+   "lo": 0,
+   "shard": 0
+  },
+  {
+   "count": 350,
+   "hi": 700,
+   "lo": 350,
+   "shard": 1
+  },
+  {
+   "count": 350,
+   "hi": 1050,
+   "lo": 700,
+   "shard": 2
+  },
+  {
+   "count": 350,
+   "hi": 1400,
+   "lo": 1050,
+   "shard": 3
+  }
+ ],
+ "single_orbits": 32
+}

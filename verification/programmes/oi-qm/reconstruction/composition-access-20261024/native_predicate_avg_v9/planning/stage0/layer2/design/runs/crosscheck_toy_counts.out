@@ -1,0 +1,13 @@
+{
+ "compared": 54,
+ "counts_identically_zero": 32,
+ "counts_nonzero": 22,
+ "differences": {},
+ "keys_only_in_merge": [],
+ "label": "COLLAPSE_ALL",
+ "pass": true,
+ "record_sample_reading_vs_code_r5": [
+  1398,
+  1398
+ ]
+}

@@ -1,0 +1,843 @@
+{
+ "S6_result": {
+  "label": "proof-check of PO8; not a result",
+  "negative_control_permuted_flag_nontarget_classes": 64,
+  "pass": true,
+  "per_subset": {
+   "m": {
+    "classes": 256,
+    "target_law_classes": 0
+   },
+   "m+o1": {
+    "classes": 2048,
+    "target_law_classes": 0
+   },
+   "m+o2": {
+    "classes": 2048,
+    "target_law_classes": 0
+   },
+   "m+o3": {
+    "classes": 2048,
+    "target_law_classes": 0
+   },
+   "none": {
+    "classes": 32,
+    "target_law_classes": 0
+   },
+   "o1": {
+    "classes": 256,
+    "target_law_classes": 0
+   },
+   "o1+o2": {
+    "classes": 2048,
+    "target_law_classes": 0
+   },
+   "o1+o3": {
+    "classes": 2048,
+    "target_law_classes": 0
+   },
+   "o2": {
+    "classes": 256,
+    "target_law_classes": 0
+   },
+   "o2+o3": {
+    "classes": 2048,
+    "target_law_classes": 0
+   },
+   "o3": {
+    "classes": 256,
+    "target_law_classes": 0
+   },
+   "q10": {
+    "classes": 256,
+    "target_law_classes": 0
+   },
+   "q10+m": {
+    "classes": 2048,
+    "target_law_classes": 0
+   },
+   "q10+o1": {
+    "classes": 2048,
+    "target_law_classes": 0
+   },
+   "q10+o2": {
+    "classes": 2048,
+    "target_law_classes": 0
+   },
+   "q10+o3": {
+    "classes": 2048,
+    "target_law_classes": 0
+   },
+   "q8": {
+    "classes": 256,
+    "target_law_classes": 0
+   },
+   "q8+m": {
+    "classes": 2048,
+    "target_law_classes": 0
+   },
+   "q8+o1": {
+    "classes": 2048,
+    "target_law_classes": 0
+   },
+   "q8+o2": {
+    "classes": 2048,
+    "target_law_classes": 0
+   },
+   "q8+o3": {
+    "classes": 2048,
+    "target_law_classes": 0
+   },
+   "q8+q10": {
+    "classes": 2048,
+    "target_law_classes": 0
+   }
+  },
+  "positive_control_flag_A_all_target": true,
+  "subsets": 22,
+  "worlds": 2097152
+ },
+ "base_collapsed": {
+  "A": true,
+  "G": true
+ },
+ "code_digest": "5428eaa42cb1d9a4b5cadbd7b26662547c7b3df96ad9ae760cca6f6e135307eb",
+ "commit": "217f7a401906070ac39878966c836e8a73fdbfda",
+ "config_sha256": "61c6e0e64b4c67b130ff3dfbb9d98cf73e6710d190f980e701f2b932838b22db",
+ "controls": {
+  "C0_context_sizes": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C0_v8_combinatorics": {
+   "class": "VOID",
+   "exit": 0,
+   "pass": true
+  },
+  "C10_fixed": {
+   "class": "MISMATCH",
+   "pass": true
+  },
+  "C11_dir_tables": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C11_nonvacuity_blind_dir_minus_y": {
+   "class": "VOID",
+   "exit": 2,
+   "failed": [
+    "C11_dir_tables",
+    "C11_planted",
+    "C11_props"
+   ],
+   "pass": true
+  },
+  "C11_nonvacuity_ignore_fixed_minus_y": {
+   "class": "VOID",
+   "exit": 2,
+   "failed": [
+    "C11_dir_tables",
+    "C11_planted"
+   ],
+   "pass": true
+  },
+  "C11_planted": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C11_props": {
+   "class": "MISMATCH",
+   "pass": true
+  },
+  "C12_frame": {
+   "class": "MISMATCH",
+   "pass": true
+  },
+  "C12_universe": {
+   "V_cone_even_cells": 129,
+   "class": "MISMATCH",
+   "frame_even_cells": 129,
+   "in_frame_cone_leaves_frame": [],
+   "in_frame_quantities_checked": 15,
+   "pass": true,
+   "universe_quantities": 22
+  },
+  "C13_coverage": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C13_coverage_skip_mutant_detected": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C14_static": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C15_exact": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C16_witness": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C17_fixed_point": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C18_audit": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C1_cones": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C2_tips": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C3_planted": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C6_hand": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C7_reference": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C8_symmetry": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C9_monotone": {
+   "class": "MISMATCH",
+   "pass": true
+  },
+  "L2_selftest": {
+   "class": "VOID",
+   "exit": 0,
+   "failed": [],
+   "pass": true
+  },
+  "S6": {
+   "class": "VOID",
+   "exit": 0,
+   "pass": true
+  },
+  "V8_refused": {
+   "class": "VOID",
+   "pass": true
+  },
+  "native_self_test": {
+   "class": "VOID",
+   "pass": true
+  },
+  "s0controls_exit": {
+   "class": "VOID",
+   "exit": 0,
+   "pass": true
+  }
+ },
+ "controls_counts_C8": {
+  "A:L3_vs_L3prime_disagree": 0,
+  "A:b_has_J_cell": 376,
+  "A:b_has_nonJ_phi_cell": 688,
+  "A:deg:item_at_phi_site:survivor=False": 1392,
+  "A:deg:item_at_phi_site:survivor=True": 0,
+  "A:deg:item_at_port_site:survivor=False": 0,
+  "A:deg:item_at_port_site:survivor=True": 0,
+  "A:deg:item_at_q9:survivor=False": 392,
+  "A:deg:item_at_q9:survivor=True": 0,
+  "A:deg:item_on_z_axis:survivor=False": 984,
+  "A:deg:item_on_z_axis:survivor=True": 0,
+  "A:deg:item_t_eq_minus1:survivor=False": 322,
+  "A:deg:item_t_eq_minus1:survivor=True": 0,
+  "A:deg:item_t_le_0:survivor=False": 602,
+  "A:deg:item_t_le_0:survivor=True": 0,
+  "A:deg:last_sample_odd:survivor=False": 1036,
+  "A:deg:last_sample_odd:survivor=True": 0,
+  "A:deg:pair_on_common_axis:survivor=False": 576,
+  "A:deg:pair_on_common_axis:survivor=True": 0,
+  "A:j_linked": 0,
+  "A:observer_classes": 22,
+  "A:observer_classes_collapsed": 22,
+  "A:observer_classes_survivors": 0,
+  "A:phi_linked": 0,
+  "A:survivors": 0,
+  "A:survivors_J_linked": 0,
+  "A:survivors_phi_linked_not_J": 0,
+  "A:survivors_unlinked": 0,
+  "G:L3_vs_L3prime_disagree": 0,
+  "G:b_has_source_cell": 0,
+  "G:deg:item_at_phi_site:survivor=False": 1392,
+  "G:deg:item_at_phi_site:survivor=True": 0,
+  "G:deg:item_at_port_site:survivor=False": 0,
+  "G:deg:item_at_port_site:survivor=True": 0,
+  "G:deg:item_at_q9:survivor=False": 392,
+  "G:deg:item_at_q9:survivor=True": 0,
+  "G:deg:item_on_z_axis:survivor=False": 984,
+  "G:deg:item_on_z_axis:survivor=True": 0,
+  "G:deg:item_t_eq_minus1:survivor=False": 322,
+  "G:deg:item_t_eq_minus1:survivor=True": 0,
+  "G:deg:item_t_le_0:survivor=False": 602,
+  "G:deg:item_t_le_0:survivor=True": 0,
+  "G:deg:last_sample_odd:survivor=False": 1036,
+  "G:deg:last_sample_odd:survivor=True": 0,
+  "G:deg:pair_on_common_axis:survivor=False": 576,
+  "G:deg:pair_on_common_axis:survivor=True": 0,
+  "G:observer_classes": 173,
+  "G:observer_classes_collapsed": 173,
+  "G:observer_classes_survivors": 0,
+  "G:survivors": 0,
+  "G:survivors_G_linked": 0,
+  "G:survivors_G_unlinked": 0,
+  "masking_equivalent_records": 1398,
+  "nontrivial_stabilizer": 1176
+ },
+ "l2selftest_result": {
+  "L2-AUTH": {
+   "accepted_defects": [],
+   "pass": true,
+   "refusal_cases": 17,
+   "valid_case": "ok"
+  },
+  "L2-C16": {
+   "pass": true
+  },
+  "L2-CFG": {
+   "pass": true
+  },
+  "L2-GATES": {
+   "C10i": [
+    true
+   ],
+   "C9": [
+    true,
+    true,
+    true
+   ],
+   "pass": true
+  },
+  "L2-GUARD": {
+   "pass": true,
+   "refused": 2
+  },
+  "L2-LBL": {
+   "cases": 11,
+   "pass": true,
+   "wrong": []
+  },
+  "L2-MAN": {
+   "pass": true,
+   "verify": {
+    "added_file": false,
+    "changed_byte": false,
+    "clean": true,
+    "removed_file": false
+   }
+  },
+  "L2-MASK": {
+   "analytic_vs_brute": {
+    "toy_k1_context": [
+     54,
+     54
+    ],
+    "toy_k1_record_samples": [
+     54,
+     54
+    ],
+    "toy_k2_context": [
+     1398,
+     1398
+    ],
+    "toy_k2_record_samples": [
+     1398,
+     1398
+    ],
+    "toy_t4_k1_context": [
+     41,
+     41
+    ],
+    "toy_t4_k1_record_samples": [
+     40,
+     40
+    ]
+   },
+   "pass": true,
+   "readings_differ_on_t4": true
+  },
+  "L2-MRG": {
+   "labels": {
+    "O_differs": "INCOMPLETE",
+    "digest": "INCOMPLETE",
+    "missing": "INCOMPLETE",
+    "overlap": "INCOMPLETE",
+    "tamper": "INCOMPLETE",
+    "valid": "COLLAPSE_ALL",
+    "weight": "INCOMPLETE"
+   },
+   "pass": true,
+   "valid_incomplete_reasons": []
+  },
+  "L2-ORB": {
+   "orbit_weight": 1400,
+   "orbits": 488,
+   "pass": true,
+   "representatives": 488,
+   "scanned": 1400
+  },
+  "L2-PLAN": {
+   "orbits": 488,
+   "pass": true,
+   "records": 1400
+  },
+  "L2-POST": {
+   "differences": 0,
+   "pass": true
+  },
+  "L2-RT": {
+   "C9_failure_outcome": "not_evaluated",
+   "pass": true,
+   "through_merge": {
+    "BASE_RESIDUE": "L_A = L_G = 0",
+    "COLLAPSE_ALL": "L_A = L_G = 0",
+    "RESIDUE": "L_A = L_G = 0",
+    "RESIDUE_UNLINKED": "L_A = L_G = 0"
+   },
+   "wrong": []
+  },
+  "L2-S1_static": {
+   "findings": [],
+   "pass": true
+  },
+  "L2-SAMPLE": {
+   "pass": true,
+   "selected_of_10000": 984
+  },
+  "L2-SHTIP": {
+   "engine": {
+    "A": 1071,
+    "G": 667
+   },
+   "pass": true,
+   "plan": {
+    "A": 1071,
+    "G": 667
+   }
+  },
+  "failed": [],
+  "pass": true
+ },
+ "mode": "quick",
+ "pass": true,
+ "profile": "toy",
+ "s0controls_result": {
+  "C0_context_sizes": {
+   "mismatches": 0,
+   "pass": true
+  },
+  "C10_fixed": {
+   "code_invariant_fixed_eliminated": 0,
+   "pass": true,
+   "port_not_in_frame": 0,
+   "port_samples_checked": 2
+  },
+  "C11_dir_tables": {
+   "decision_inconsistent": 0,
+   "first": [],
+   "pass": true,
+   "table_mismatches": 0,
+   "tables_checked": 4193
+  },
+  "C11_planted": {
+   "adjacent_failures": 0,
+   "failed_set_kinds": [],
+   "failures": 0,
+   "first": [],
+   "pass": true,
+   "planted_sets": 96
+  },
+  "C11_props": {
+   "first_pa_dir": [],
+   "pa_aggregate_violations": 0,
+   "pa_dir_violation_set_kinds": [],
+   "pa_dir_violations": 0,
+   "pass": true,
+   "planted_retained": 24,
+   "sets_checked": 24,
+   "toy_survivors": {
+    "A": 0,
+    "G": 0
+   }
+  },
+  "C12_frame": {
+   "frame_even_cells": 129,
+   "pass": true
+  },
+  "C13_coverage": {
+   "N": 1400,
+   "independent": 1400,
+   "pass": true
+  },
+  "C13_coverage_skip_mutant_detected": {
+   "pass": true
+  },
+  "C14_static": {
+   "findings": [],
+   "pass": true
+  },
+  "C15_exact": {
+   "1D": {
+    "trials": 25,
+    "violations_A": 0,
+    "violations_G": 0,
+    "worlds": 2097152
+   },
+   "2D": {
+    "trials": 40,
+    "violations_A": 0,
+    "violations_G": 0,
+    "worlds": 262144
+   },
+   "pass": true
+  },
+  "C16_witness": {
+   "pass": true,
+   "witnesses": [
+    [
+     [
+      [
+       0,
+       0,
+       0
+      ],
+      1
+     ]
+    ],
+    [
+     [
+      [
+       0,
+       0,
+       -1
+      ],
+      0
+     ],
+     [
+      [
+       1,
+       0,
+       0
+      ],
+      -1
+     ]
+    ]
+   ]
+  },
+  "C17_fixed_point": {
+   "pass": true,
+   "records_with_unapplied_elimination": 0
+  },
+  "C18_audit": {
+   "pass": true,
+   "unjustified": 0
+  },
+  "C1_cones": {
+   "outside_cone": [],
+   "pass": true,
+   "perturbations": 5000,
+   "radius_mismatch": []
+  },
+  "C2_tips": {
+   "nonbijective_tips": [],
+   "offaxis_nonbijective": 8,
+   "pass": true,
+   "tips_tested": 133
+  },
+  "C3_planted": {
+   "block": [
+    8,
+    0
+   ],
+   "nonsurvivors": [
+    [
+     "A",
+     "F",
+     1,
+     0
+    ],
+    [
+     "A",
+     "F",
+     2,
+     0
+    ],
+    [
+     "A",
+     "F",
+     3,
+     0
+    ],
+    [
+     "A",
+     "F",
+     4,
+     0
+    ],
+    [
+     "A",
+     "B",
+     1,
+     0
+    ],
+    [
+     "A",
+     "B",
+     2,
+     0
+    ],
+    [
+     "A",
+     "B",
+     3,
+     0
+    ],
+    [
+     "A",
+     "B",
+     4,
+     0
+    ],
+    [
+     "G",
+     "F",
+     1,
+     0
+    ],
+    [
+     "G",
+     "F",
+     2,
+     0
+    ],
+    [
+     "G",
+     "F",
+     3,
+     0
+    ],
+    [
+     "G",
+     "F",
+     4,
+     0
+    ]
+   ],
+   "pass": true,
+   "survivors": [
+    [
+     "A",
+     "F",
+     1,
+     8,
+     8
+    ],
+    [
+     "A",
+     "F",
+     2,
+     13,
+     13
+    ],
+    [
+     "A",
+     "F",
+     3,
+     13,
+     13
+    ],
+    [
+     "A",
+     "F",
+     4,
+     13,
+     13
+    ],
+    [
+     "A",
+     "B",
+     1,
+     8,
+     8
+    ],
+    [
+     "A",
+     "B",
+     2,
+     13,
+     13
+    ],
+    [
+     "A",
+     "B",
+     3,
+     13,
+     13
+    ],
+    [
+     "A",
+     "B",
+     4,
+     13,
+     13
+    ],
+    [
+     "G",
+     "F",
+     1,
+     8,
+     8
+    ],
+    [
+     "G",
+     "F",
+     2,
+     13,
+     13
+    ],
+    [
+     "G",
+     "F",
+     3,
+     13,
+     13
+    ],
+    [
+     "G",
+     "F",
+     4,
+     13,
+     13
+    ]
+   ],
+   "vacuity_contrast": [
+    [
+     1,
+     8,
+     8
+    ],
+    [
+     2,
+     12,
+     12
+    ]
+   ]
+  },
+  "C6_hand": {
+   "axis_pair_retained": 0,
+   "pass": true,
+   "toy_base_survivor": {
+    "A": false,
+    "G": false
+   }
+  },
+  "C7_reference": {
+   "differences": 0,
+   "first": [],
+   "pass": true,
+   "records": 200
+  },
+  "C8_symmetry": {
+   "count_mismatches": [],
+   "counts": {
+    "A:L3_vs_L3prime_disagree": 0,
+    "A:b_has_J_cell": 376,
+    "A:b_has_nonJ_phi_cell": 688,
+    "A:deg:item_at_phi_site:survivor=False": 1392,
+    "A:deg:item_at_phi_site:survivor=True": 0,
+    "A:deg:item_at_port_site:survivor=False": 0,
+    "A:deg:item_at_port_site:survivor=True": 0,
+    "A:deg:item_at_q9:survivor=False": 392,
+    "A:deg:item_at_q9:survivor=True": 0,
+    "A:deg:item_on_z_axis:survivor=False": 984,
+    "A:deg:item_on_z_axis:survivor=True": 0,
+    "A:deg:item_t_eq_minus1:survivor=False": 322,
+    "A:deg:item_t_eq_minus1:survivor=True": 0,
+    "A:deg:item_t_le_0:survivor=False": 602,
+    "A:deg:item_t_le_0:survivor=True": 0,
+    "A:deg:last_sample_odd:survivor=False": 1036,
+    "A:deg:last_sample_odd:survivor=True": 0,
+    "A:deg:pair_on_common_axis:survivor=False": 576,
+    "A:deg:pair_on_common_axis:survivor=True": 0,
+    "A:j_linked": 0,
+    "A:observer_classes": 22,
+    "A:observer_classes_collapsed": 22,
+    "A:observer_classes_survivors": 0,
+    "A:phi_linked": 0,
+    "A:survivors": 0,
+    "A:survivors_J_linked": 0,
+    "A:survivors_phi_linked_not_J": 0,
+    "A:survivors_unlinked": 0,
+    "G:L3_vs_L3prime_disagree": 0,
+    "G:b_has_source_cell": 0,
+    "G:deg:item_at_phi_site:survivor=False": 1392,
+    "G:deg:item_at_phi_site:survivor=True": 0,
+    "G:deg:item_at_port_site:survivor=False": 0,
+    "G:deg:item_at_port_site:survivor=True": 0,
+    "G:deg:item_at_q9:survivor=False": 392,
+    "G:deg:item_at_q9:survivor=True": 0,
+    "G:deg:item_on_z_axis:survivor=False": 984,
+    "G:deg:item_on_z_axis:survivor=True": 0,
+    "G:deg:item_t_eq_minus1:survivor=False": 322,
+    "G:deg:item_t_eq_minus1:survivor=True": 0,
+    "G:deg:item_t_le_0:survivor=False": 602,
+    "G:deg:item_t_le_0:survivor=True": 0,
+    "G:deg:last_sample_odd:survivor=False": 1036,
+    "G:deg:last_sample_odd:survivor=True": 0,
+    "G:deg:pair_on_common_axis:survivor=False": 576,
+    "G:deg:pair_on_common_axis:survivor=True": 0,
+    "G:observer_classes": 173,
+    "G:observer_classes_collapsed": 173,
+    "G:observer_classes_survivors": 0,
+    "G:survivors": 0,
+    "G:survivors_G_linked": 0,
+    "G:survivors_G_unlinked": 0,
+    "masking_equivalent_records": 1398,
+    "nontrivial_stabilizer": 1176
+   },
+   "counts_compared": 54,
+   "equivariance_violations": 0,
+   "g_linked_records_per_record": 0,
+   "group_order": 8,
+   "orbits": 488,
+   "pass": true,
+   "records": 1400
+  },
+  "C9_monotone": {
+   "gcb_size_A": 15,
+   "gcb_size_G": 22,
+   "pass": true,
+   "violations": 0
+  },
+  "V8_refused": {
+   "layer2_attempts": 10,
+   "layer2_attempts_refused": 10,
+   "of": 46,
+   "pass": true,
+   "refused": 46
+  },
+  "failed": [],
+  "native_self_test": {
+   "mismatches": 0,
+   "pass": true
+  },
+  "quick": true,
+  "rule": "frozen"
+ },
+ "schema": "np-avg-1/stage0/layer2/preflight/1"
+}

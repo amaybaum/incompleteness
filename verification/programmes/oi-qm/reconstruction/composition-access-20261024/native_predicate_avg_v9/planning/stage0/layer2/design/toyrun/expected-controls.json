@@ -1,0 +1,160 @@
+{
+ "expected": {
+  "group_order": 8,
+  "orbits": 488,
+  "records": 1400,
+  "reported_counts": 54
+ },
+ "expected_controls_full": {
+  "C11i_tables": 16831,
+  "C11ii_retained_sets": 24,
+  "C11iii_planted_sets": 96,
+  "C1_perturbations": 301640,
+  "C2_offaxis_contrasts": 39,
+  "C2_tips": 541,
+  "S6_subsets": 22,
+  "S6_target_law_classes": 0,
+  "refusal_attempts": 46
+ },
+ "observed_preflight": {
+  "C0_context_sizes": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C0_v8_combinatorics": {
+   "class": "VOID",
+   "exit": 0,
+   "pass": true
+  },
+  "C10_fixed": {
+   "class": "MISMATCH",
+   "pass": true
+  },
+  "C11_dir_tables": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C11_nonvacuity_blind_dir_minus_y": {
+   "class": "VOID",
+   "exit": 2,
+   "failed": [
+    "C11_dir_tables",
+    "C11_planted",
+    "C11_props"
+   ],
+   "pass": true
+  },
+  "C11_nonvacuity_ignore_fixed_minus_y": {
+   "class": "VOID",
+   "exit": 2,
+   "failed": [
+    "C11_dir_tables",
+    "C11_planted"
+   ],
+   "pass": true
+  },
+  "C11_planted": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C11_props": {
+   "class": "MISMATCH",
+   "pass": true
+  },
+  "C12_frame": {
+   "class": "MISMATCH",
+   "pass": true
+  },
+  "C12_universe": {
+   "V_cone_even_cells": 129,
+   "class": "MISMATCH",
+   "frame_even_cells": 129,
+   "in_frame_cone_leaves_frame": [],
+   "in_frame_quantities_checked": 15,
+   "pass": true,
+   "universe_quantities": 22
+  },
+  "C13_coverage": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C13_coverage_skip_mutant_detected": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C14_static": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C15_exact": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C16_witness": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C17_fixed_point": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C18_audit": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C1_cones": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C2_tips": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C3_planted": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C6_hand": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C7_reference": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C8_symmetry": {
+   "class": "VOID",
+   "pass": true
+  },
+  "C9_monotone": {
+   "class": "MISMATCH",
+   "pass": true
+  },
+  "L2_selftest": {
+   "class": "VOID",
+   "exit": 0,
+   "failed": [],
+   "pass": true
+  },
+  "S6": {
+   "class": "VOID",
+   "exit": 0,
+   "pass": true
+  },
+  "V8_refused": {
+   "class": "VOID",
+   "pass": true
+  },
+  "native_self_test": {
+   "class": "VOID",
+   "pass": true
+  },
+  "s0controls_exit": {
+   "class": "VOID",
+   "exit": 0,
+   "pass": true
+  }
+ },
+ "profile": "toy",
+ "schema": "np-avg-1/stage0/layer2/expected-controls/1"
+}

@@ -1,0 +1,316 @@
+{
+ "code_digest": "5428eaa42cb1d9a4b5cadbd7b26662547c7b3df96ad9ae760cca6f6e135307eb",
+ "killed": 30,
+ "machinery_mutants": {
+  "M_auth_no_commit": {
+   "exit": 2,
+   "failed": [
+    "L2-AUTH"
+   ],
+   "killed": true,
+   "named_case": "L2-AUTH: authorization for another commit accepted"
+  },
+  "M_c9_off": {
+   "exit": 2,
+   "failed": [
+    "L2-GATES"
+   ],
+   "killed": true,
+   "named_case": "L2-GATES: C9 gate never fails"
+  },
+  "M_every_record_rep": {
+   "exit": 2,
+   "failed": [
+    "L2-ORB",
+    "L2-PLAN"
+   ],
+   "killed": true,
+   "named_case": "L2-ORB: orbit reduction off: representatives exceed orbits"
+  },
+  "M_guard_truthy": {
+   "exit": 2,
+   "failed": [
+    "L2-GUARD"
+   ],
+   "killed": true,
+   "named_case": "L2-GUARD: engine accepts a truthy authorization"
+  },
+  "M_label_mismatch_first": {
+   "exit": 2,
+   "failed": [
+    "L2-LBL"
+   ],
+   "killed": true,
+   "named_case": "L2-LBL: MISMATCH ranked above VOID"
+  },
+  "M_manifest_blind": {
+   "exit": 2,
+   "failed": [
+    "L2-MAN"
+   ],
+   "killed": true,
+   "named_case": "L2-MAN: changed code passes the manifest"
+  },
+  "M_mask_no_merge": {
+   "exit": 2,
+   "failed": [
+    "L2-MASK"
+   ],
+   "killed": true,
+   "named_case": "L2-MASK: masking equivalence ignores E1 merges"
+  },
+  "M_merge_no_coverage": {
+   "exit": 2,
+   "failed": [
+    "L2-MRG"
+   ],
+   "killed": true,
+   "named_case": "L2-MRG: overlapping or short coverage accepted"
+  },
+  "M_post_no_in_clear": {
+   "exit": 2,
+   "failed": [
+    "L2-POST"
+   ],
+   "killed": true,
+   "named_case": "L2-POST: carried public set drops Phi in clear"
+  },
+  "M_ruleT_or": {
+   "exit": 2,
+   "failed": [
+    "L2-RT"
+   ],
+   "killed": true,
+   "named_case": "L2-RT: rule T zero branch on L_A = 0 or L_G = 0"
+  },
+  "M_sampler_never": {
+   "exit": 2,
+   "failed": [
+    "L2-SAMPLE"
+   ],
+   "killed": true,
+   "named_case": "L2-SAMPLE: deterministic sample empty"
+  },
+  "M_skip_index": {
+   "exit": 2,
+   "failed": [
+    "L2-ORB"
+   ],
+   "killed": true,
+   "named_case": "L2-ORB: coverage scan misses one index"
+  },
+  "M_witness_max": {
+   "exit": 2,
+   "failed": [
+    "L2-C16"
+   ],
+   "killed": true,
+   "named_case": "L2-C16: witness selection not minimal"
+  }
+ },
+ "manifest_ok": true,
+ "mode": "quick",
+ "not_run_in_quick": {
+  "equivalent mutants": [
+   "parity_dropped(equivalent)",
+   "symmetric_blind(equivalent)"
+  ],
+  "full-depth controls": "C1 F 0-15/B 0-8/G 0-23, C2, C3 full ranges, C15 full trials",
+  "status": "pending: the full campaign runs in CI on owner-approved dispatch",
+  "whole-suite runs of the non-demonstration rule mutants": [
+   "blind_B_minus_y",
+   "blind_G_minus_y",
+   "decide_blind_minus_y",
+   "decide_frame_ignore_minus_x",
+   "decide_ignore_fixed_minus_y",
+   "far_cone_deleted",
+   "keep_odd",
+   "near_only",
+   "offaxis_B",
+   "offaxis_all",
+   "radius_minus2",
+   "radius_plus2",
+   "swapped",
+   "unapplied_elimination",
+   "wrong_far"
+  ]
+ },
+ "pass": true,
+ "rule_mutants": {
+  "blind_B_minus_y": {
+   "exit": 2,
+   "failed": [
+    "C11_props"
+   ],
+   "killed": true,
+   "named_case": "C11_props: P_A-dir violation on a B planted set",
+   "run": "named control only"
+  },
+  "blind_G_minus_y": {
+   "exit": 2,
+   "failed": [
+    "C11_props"
+   ],
+   "killed": true,
+   "named_case": "C11_props: P_G-dir violation on a G planted set",
+   "run": "named control only"
+  },
+  "blind_dir_minus_y": {
+   "demo": {
+    "fails_C11": true,
+    "other_controls_failed": [],
+    "pass": true,
+    "reported_counts_identical_to_frozen": true
+   },
+   "exit": 2,
+   "failed": [
+    "C11_dir_tables",
+    "C11_planted",
+    "C11_props"
+   ],
+   "killed": true,
+   "named_case": "C11_dir_tables: table mismatch",
+   "run": "whole suite"
+  },
+  "decide_blind_minus_y": {
+   "exit": 2,
+   "failed": [
+    "C11_dir_tables"
+   ],
+   "killed": true,
+   "named_case": "C11_dir_tables: decision inconsistent with table",
+   "run": "named control only"
+  },
+  "decide_frame_ignore_minus_x": {
+   "exit": 2,
+   "failed": [
+    "C11_planted"
+   ],
+   "killed": true,
+   "named_case": "C11_planted: frame-adjacent G family eliminated",
+   "run": "named control only"
+  },
+  "decide_ignore_fixed_minus_y": {
+   "exit": 2,
+   "failed": [
+    "C11_dir_tables"
+   ],
+   "killed": true,
+   "named_case": "C11_dir_tables: decision inconsistent with table",
+   "run": "named control only"
+  },
+  "far_cone_deleted": {
+   "exit": 2,
+   "failed": [
+    "C1_cones"
+   ],
+   "killed": true,
+   "named_case": "C1_cones: dependence outside the cone",
+   "run": "named control only"
+  },
+  "ignore_fixed_minus_y": {
+   "demo": {
+    "fails_C11": true,
+    "other_controls_failed": [],
+    "pass": true,
+    "reported_counts_identical_to_frozen": true
+   },
+   "exit": 2,
+   "failed": [
+    "C11_dir_tables",
+    "C11_planted"
+   ],
+   "killed": true,
+   "named_case": "C11_planted: Phi-adjacent family eliminated",
+   "run": "whole suite"
+  },
+  "keep_odd": {
+   "exit": 2,
+   "failed": [
+    "C0_context_sizes"
+   ],
+   "killed": true,
+   "named_case": "C0_context_sizes: context differs from the reference",
+   "run": "named control only"
+  },
+  "near_only": {
+   "exit": 2,
+   "failed": [
+    "C3_planted"
+   ],
+   "killed": true,
+   "named_case": "C3_planted: block minus centre retained",
+   "run": "named control only"
+  },
+  "offaxis_B": {
+   "exit": 2,
+   "failed": [
+    "C2_tips"
+   ],
+   "killed": true,
+   "named_case": "C2_tips: an emitted B-type tip is not bijective",
+   "run": "named control only"
+  },
+  "offaxis_all": {
+   "exit": 2,
+   "failed": [
+    "C2_tips"
+   ],
+   "killed": true,
+   "named_case": "C2_tips: an emitted tip is not bijective",
+   "run": "named control only"
+  },
+  "radius_minus2": {
+   "exit": 2,
+   "failed": [
+    "C1_cones"
+   ],
+   "killed": true,
+   "named_case": "C1_cones: dependence outside the cone",
+   "run": "named control only"
+  },
+  "radius_plus2": {
+   "exit": 2,
+   "failed": [
+    "C1_cones"
+   ],
+   "killed": true,
+   "named_case": "C1_cones: claimed radius not attained",
+   "run": "named control only"
+  },
+  "swapped": {
+   "exit": 2,
+   "failed": [
+    "C1_cones"
+   ],
+   "killed": true,
+   "named_case": "C1_cones: cone mismatch",
+   "run": "named control only"
+  },
+  "unapplied_elimination": {
+   "exit": 2,
+   "failed": [
+    "C17_fixed_point"
+   ],
+   "killed": true,
+   "named_case": "C17_fixed_point: retained quantity with a free tip",
+   "run": "named control only"
+  },
+  "wrong_far": {
+   "exit": 2,
+   "failed": [
+    "C15_exact"
+   ],
+   "killed": true,
+   "named_case": "C15_exact: exactness violation",
+   "run": "named control only"
+  }
+ },
+ "schema": "np-avg-1/stage0/layer2/mutant-campaign/1",
+ "total": 30,
+ "unmodified_suite": {
+  "mode": "quick",
+  "passed": true,
+  "source": "preflight.json"
+ }
+}
