@@ -1,0 +1,246 @@
+name: PE-01 bounded tests
+
+# OI-PE-1 stage PE-01 (verification/programmes/oi-qm/reconstruction/oi-pseudoentropy-20261025/
+# pe01_bounded_tests_v1/PLAN.md §8, amendment A1). workflow_dispatch only: there is no push or
+# pull_request trigger, so no push launches it. Dispatching it needs owner approval (AGENTS.md
+# §A.43 item 4).
+#
+# Jobs:
+#   plan     preflight (TH, PIN, open plan items) and the shard lists, from run.py
+#   primary  one job per shard: controls, tape, and every (n, family) for n = 3..8
+#   m3       the passive m = 3 sweep, one job per (n, family), separate from the primary sweeps (A1)
+#   replay   every complete shard is recomputed in its own job and must be byte-identical (RP)
+#   collect  merges the shards into measurements.json and generates the verdict from it
+#
+# Every shard writes <id>.json (deterministic: commit, recipe, preflight, controls, measurements)
+# and <id>.provenance.json (run id, attempt, job, timings). While it runs it keeps <id>.partial.json
+# current; a shard that starts and does not finish leaves <id>.incomplete.json with its reason, its
+# completed cells and its controls (A1). All of them are uploaded as artifacts; the reviewed outputs
+# are committed to the package's results/ afterwards (PLAN.md §8, §11). Actions are pinned by commit.
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "result (the preregistered run) or smoke (n <= 5 smoke scope)"
+        required: true
+        default: result
+        type: choice
+        options: [result, smoke]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pe01-bounded-tests-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  PKG: verification/programmes/oi-qm/reconstruction/oi-pseudoentropy-20261025/pe01_bounded_tests_v1
+  PYTHON_VERSION: "3.12"
+  NUMPY_VERSION: "2.2.6"
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      primary: ${{ steps.lists.outputs.primary }}
+      m3: ${{ steps.lists.outputs.m3 }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - run: pip install "numpy==${NUMPY_VERSION}"
+      - name: Preflight (TH with A1 and A2, PIN, open plan items)
+        run: |
+          python3 -I -B - <<'PY'
+          import os, sys
+          sys.path.insert(0, os.environ["PKG"])
+          from pe01 import params
+          pf = params.preflight("${{ inputs.mode }}")   # TH (A1, A2), PIN, open items in result mode
+          if not pf["pass"]:
+              sys.exit("REFUSED: " + "; ".join(pf["reasons"]))
+          print("preflight green")
+          PY
+      - name: Shard lists
+        id: lists
+        run: |
+          python3 -I -B "$PKG/run.py" list > shards.txt
+          python3 -I -B - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          ids = open("shards.txt").read().split()
+          mode = "${{ inputs.mode }}"
+          if mode == "smoke":
+              ids = [i for i in ids if i in ("controls", "tape") or (i[1] in "345" and not i.endswith("-m3"))]
+          print("primary=" + json.dumps([i for i in ids if not i.endswith("-m3")]))
+          print("m3=" + json.dumps([i for i in ids if i.endswith("-m3")]))
+          PY
+
+  primary:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: ${{ fromJSON(needs.plan.outputs.primary) }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - run: pip install "numpy==${NUMPY_VERSION}"
+      - name: Shard ${{ matrix.shard }}
+        id: shard
+        timeout-minutes: 330
+        run: python3 -I -B "$PKG/run.py" shard "${{ matrix.shard }}" --mode "${{ inputs.mode }}" --out out
+      - name: Record an incomplete shard (keeps its completed cells and controls)
+        # only if the shard step started; a job that fails before it leaves the shard "not run"
+        if: (failure() || cancelled()) && steps.shard.outcome != 'skipped' && steps.shard.outcome != ''
+        run: python3 -I -B "$PKG/run.py" incomplete "${{ matrix.shard }}" --out out --reason "job ${{ job.status }} (step outcome ${{ steps.shard.outcome }})"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4.6.2
+        if: always()
+        with:
+          name: shard-${{ matrix.shard }}
+          path: out/
+          if-no-files-found: warn
+
+  m3:
+    needs: plan
+    if: ${{ needs.plan.outputs.m3 != '[]' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: ${{ fromJSON(needs.plan.outputs.m3) }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - run: pip install "numpy==${NUMPY_VERSION}"
+      - name: Shard ${{ matrix.shard }}
+        id: shard
+        timeout-minutes: 330
+        run: python3 -I -B "$PKG/run.py" shard "${{ matrix.shard }}" --mode "${{ inputs.mode }}" --out out
+      - name: Record an incomplete shard (keeps its completed cells and controls)
+        # only if the shard step started; a job that fails before it leaves the shard "not run"
+        if: (failure() || cancelled()) && steps.shard.outcome != 'skipped' && steps.shard.outcome != ''
+        run: python3 -I -B "$PKG/run.py" incomplete "${{ matrix.shard }}" --out out --reason "job ${{ job.status }} (step outcome ${{ steps.shard.outcome }})"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4.6.2
+        if: always()
+        with:
+          name: shard-${{ matrix.shard }}
+          path: out/
+          if-no-files-found: warn
+
+  replay:
+    needs: [plan, primary]
+    if: ${{ always() && needs.plan.result == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: ${{ fromJSON(needs.plan.outputs.primary) }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - run: pip install "numpy==${NUMPY_VERSION}"
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4.3.0
+        with:
+          name: shard-${{ matrix.shard }}
+          path: first
+      - name: Replay ${{ matrix.shard }}
+        run: |
+          mkdir -p rp
+          if [ -f "first/${{ matrix.shard }}.json" ]; then
+            if python3 -I -B "$PKG/run.py" replay "${{ matrix.shard }}" --mode "${{ inputs.mode }}" --against first --out second; then ok=true; else ok=false; fi
+            echo "{\"shard\": \"${{ matrix.shard }}\", \"identical\": $ok}" > "rp/${{ matrix.shard }}.rp.json"
+          fi
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4.6.2
+        with:
+          name: rp-${{ matrix.shard }}
+          path: rp/
+          if-no-files-found: ignore
+
+  replay-m3:
+    needs: [plan, m3]
+    if: ${{ always() && needs.plan.result == 'success' && needs.plan.outputs.m3 != '[]' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: ${{ fromJSON(needs.plan.outputs.m3) }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - run: pip install "numpy==${NUMPY_VERSION}"
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4.3.0
+        with:
+          name: shard-${{ matrix.shard }}
+          path: first
+      - name: Replay ${{ matrix.shard }}
+        run: |
+          mkdir -p rp
+          if [ -f "first/${{ matrix.shard }}.json" ]; then
+            if python3 -I -B "$PKG/run.py" replay "${{ matrix.shard }}" --mode "${{ inputs.mode }}" --against first --out second; then ok=true; else ok=false; fi
+            echo "{\"shard\": \"${{ matrix.shard }}\", \"identical\": $ok}" > "rp/${{ matrix.shard }}.rp.json"
+          fi
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4.6.2
+        with:
+          name: rp-${{ matrix.shard }}
+          path: rp/
+          if-no-files-found: ignore
+
+  collect:
+    needs: [plan, primary, m3, replay, replay-m3]
+    if: ${{ always() && needs.plan.result == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - run: pip install "numpy==${NUMPY_VERSION}"
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4.3.0
+        with:
+          path: art
+      - name: Gather shard and replay records
+        run: |
+          mkdir -p shards
+          find art -name '*.json' -exec cp {} shards/ \;
+          ls shards
+      - name: Collect
+        run: python3 -I -B "$PKG/run.py" collect shards --mode "${{ inputs.mode }}" --out results
+      - name: Verdict (from measurements.json alone; VG self-test)
+        run: python3 -I -B "$PKG/verdict.py" results/measurements.json --out results
+      - name: Marker - the verdict is neither VOID nor INCOMPLETE
+        run: |
+          python3 -I -B -c "import json,sys; v=json.load(open('results/verdict.json')); print(v['class']); sys.exit(1 if v['class'] in ('VOID', 'INCOMPLETE') else 0)"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4.6.2
+        if: always()
+        with:
+          name: pe01-results
+          path: results/
+          if-no-files-found: warn
