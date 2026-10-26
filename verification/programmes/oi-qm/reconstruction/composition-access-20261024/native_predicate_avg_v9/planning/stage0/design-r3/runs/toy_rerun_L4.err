@@ -1,0 +1,3 @@
+L3 search 3.0s
+L3' search 3.8s
+timing: L3' 2.81 ms per closure (30 quantities + 8 fixed)

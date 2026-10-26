@@ -1,0 +1,9 @@
+O_h order 48
+masking geometry without port: order 48
+masking geometry with port (0,0,-3): order 8
+labelled roles (q8, q10 fixed; m and others permuted): order 8
+ball counts r=0..11 equal crystal-ball formula; |ball(4)|=129 |ball(8)|=833
+items 3225
+records: singles 3225 pairs 5160000
+single orbits: direct 875 Burnside 875
+pair orbits:   direct 815175 Burnside 815175

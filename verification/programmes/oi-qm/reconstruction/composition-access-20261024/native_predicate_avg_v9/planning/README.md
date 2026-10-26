@@ -35,3 +35,16 @@ the question. The branch is based on #912's head `2af1d5d5`, which contains v8 a
   `stage0/design-r2/` the regenerated design evidence and `RUN-MANIFEST`. Everything ran on toy, planted and
   small-window instances and S6's carrier structure only; nothing on v8's configuration class. Unreviewed, not frozen.
 
+- `review/STAGE0-RECHECK-r2.md`: the independent review of Stage 0 r2 (ACCEPT WITH CHANGES, R1–R9 and S11; not a
+  clean accept, so no freeze).
+- `stage0/r3/`: the Stage 0 revision applying the r2 review and the owner decisions of 2026-10-26:
+  - **Two-layer freeze.** Layer 1, the scientific specification, is the object to be frozen. Layer 2 (the production
+    enumerator, controls, configuration hashes and execution certificate) is finalized only after Layer 1 passes
+    independent review.
+  - **Per-direction check.** It is a required control, not a diagnostic. A mutant blind in one direction leaves every
+    aggregate count unchanged; it is caught by the per-direction control and missed by the aggregate check.
+
+  `stage0/code-r3/` is design-evidence code, not frozen. `stage0/design-r3/` holds the regenerated evidence, its
+  `RUN-MANIFEST` and the retained stdout/stderr of every step. Everything ran on toy, planted and small-window
+  instances; nothing ran on v8's configuration class, and the v8 enumeration is not authorized. Under independent
+  review; not frozen.
