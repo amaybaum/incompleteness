@@ -229,7 +229,7 @@ def witness_lines(meas, th, green, readings, tagged, restrict):
                         L.append("    Attribution%s: unpredictability in this combination is attributed to resources; "
                                  "a limitation of the resource model (§7)." % tagr)
                     else:
-                        L.append("    Attribution%s: no witness meeting (a)-(f) within the enumerated scope at any footprint." % tagr)
+                        L.append("    Attribution%s: no witness meeting (a)-(e) within the enumerated scope at any footprint." % tagr)
     return L, counter
 
 
