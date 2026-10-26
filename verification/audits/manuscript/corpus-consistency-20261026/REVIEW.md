@@ -6,7 +6,7 @@ Reviewer: independent of the audit's author. Read-only: nothing in the repositor
 - Every git command ran with `-c gc.auto=0 -c maintenance.auto=false`. Python ran with `python3 -I`.
 - My own scripts are in `S/cc2/review/` (`mine/quarter3.py`; `run/` holds the replays).
 
-`S` = `S`.
+`S` is the session scratch directory (absolute prefix elided).
 
 ## Overall verdict: ACCEPT WITH CHANGES
 

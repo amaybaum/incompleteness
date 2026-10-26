@@ -1,6 +1,6 @@
 # Change note: corpus-consistency corrections (draft PR #937)
 
-The edits are in the worktree `S/cc2/wt` (branch `fix/corpus-consistency-20261026`, head `5221b53e`, base main `687e885b`). They are uncommitted. They implement `verification/audits/manuscript/corpus-consistency-20261026/AUDIT.md` as corrected by `REVIEW.md`, within the owner's scope of 2026-10-26. Where REVIEW and AUDIT differ, REVIEW governs. Line numbers below are those at HEAD, and `[n]` gives the FULL.md mirror line.
+The edits are on branch `fix/corpus-consistency-20261026` (draft PR #937). They were committed as `20ceef33` on base main `687e885b`; main `17b830bc` (#936) was then merged in as `a40d8830`, and the §8 follow-ups were committed as `22cb6da0`. The independent review of those edits is `review/DIFF-REVIEW.md` (`6f257cda`); §9 records the changes applied from it. The edits implement `verification/audits/manuscript/corpus-consistency-20261026/AUDIT.md` as corrected by `REVIEW.md`, within the owner's scope of 2026-10-26. Where REVIEW and AUDIT differ, REVIEW governs. Line numbers in §§1–7 are those at `20ceef33`, §8 and §9 state their own bases, and `[n]` gives the FULL.md mirror line.
 
 ## Changed files
 
@@ -388,7 +388,7 @@ Counts are occurrences in `papers/*.md`, `book/*.md` (excluding FULL) and README
   Other "seven" survivors name different sets: ch02:54 and Explainer:860 "seven structural inputs/predictions"; ch07:12 "seven structural results" (#936's line); ch09:158.
 - **"parameter-free" (91):**
   - 28 are the new count wording;
-  - 20 are the JUNO sin²θ₁₃₂ value ("parameter-free retrodiction", no fitted parameter; L through Cond 2);
+  - 20 are the JUNO sin²θ₁₂ value ("parameter-free retrodiction", no fitted parameter; L through Cond 2);
   - 6 are definitional or negative ("strictly parameter-free", "not a parameter-free …");
   - 3 are the deferred a₀;
   - 19 are other legitimate uses: the S legend, "not a parameter-free first principle", ch09's comparisons with other programs, Complexity's chemistry chain, "parameter-free retrodictions" as Class B's name, ch06's "four Layer-1 relations are parameter-free" (true: no fitted input).
@@ -413,7 +413,7 @@ Counts are occurrences in `papers/*.md`, `book/*.md` (excluding FULL) and README
 
 ## 8. Follow-ups on #936's lines, applied after the merge (base `a40d8830`)
 
-My edits were committed as `20ceef33`, and main `17b830bc` (#936) was merged in as `a40d8830`. On that base I applied the five §5 follow-ups, uncommitted. Each one uses the exact current text at `a40d8830`; every quote was verified unique in its chapter and, where mirrored, in FULL.md.
+My edits were committed as `20ceef33`, and main `17b830bc` (#936) was merged in as `a40d8830`. On that base I applied the five §5 follow-ups, committed as `22cb6da0`. Each one uses the exact current text at `a40d8830`; every quote was verified unique in its chapter and, where mirrored, in FULL.md.
 
 | # | Site [FULL at a40d8830] | Change |
 |---|---|---|
@@ -458,3 +458,153 @@ My edits were committed as `20ceef33`, and main `17b830bc` (#936) was merged in 
 - **Changed:**
   - "factor derived" goes from 1 / 0 to 0 / 0.
   - "dissolves the cosmological" goes from 2 / 2 to 1 / 1. The survivor is appendix-c:315, inside a quoted objection ("**Ambition.** 'The framework identifies QM with embedded observation, dissolves the cosmological constant problem, …'"). It reports a critic's words, not the manuscript's claim, so it is legitimate.
+
+***
+
+## 9. Changes applied from the independent review (base `6f257cda`)
+
+The review is `review/DIFF-REVIEW.md` (verdict ACCEPT WITH CHANGES). This section applies its R1, R2, R4 and R5, and R3 option (a) after the owner's decision. Line numbers are those after these changes; `[n]` gives the FULL.md mirror line. Every chapter edit is mirrored in FULL.md.
+
+### Owner decisions (2026-10-26, verbatim)
+
+- Headline: "Accept 2 + 5".
+- S reading: "Relative to Tier 2". That is, S means no open link specific to the entry, and the Tier-2 condition is stated once. This is the R1 text.
+- R3: "(a) Retire G1 and G3". G2 is not retired and stays as it is.
+
+### R1 — the headline word "unconditional"
+
+SM:32 places every downstream Standard-Model result on the conditional Tier-2 branch, so the word was false for both S entries.
+
+| Site | Old | New |
+|---|---|---|
+| Explainer:679, :862; Structure:197, :944; Substratum:198, :228; ch00:97 [333]; ch02:228 [871]; ch03:42 [918]; ch05:13 [1342], :196 [1525]; ch07:8 [1887]; ch08:272 [2475]; ch09:8 [2488], :231 [2711], :325 [2805]; ch17:234 [4815]; ch19:362 [5524]; appendix-c:8 [6256], :273 [6521] (17 sources + 14 FULL) | "two unconditional and five conditional parameter-free structural" | "two parameter-free structural and five conditional structural" |
+| ch00:89 [325] | "two unconditional and five conditional parameter-free entries" | "two parameter-free structural and five conditional structural entries" |
+| ch04:204 [1323] | "two unconditional and five conditional structural entries" | "two structural and five conditional structural entries" |
+| Explainer:858 | "two are unconditional and five conditional parameter-free structural retrodictions" | "two are parameter-free structural and five conditional structural retrodictions" |
+| ch00:21 [257] | "two as unconditional parameter-free structural retrodictions and five as conditional ones" | "two as parameter-free structural retrodictions and five as conditional structural ones" |
+| preface:7 [78] | "two of the Standard Model set as unconditional parameter-free retrodictions and five as conditional ones" | "two of the Standard Model set as parameter-free structural retrodictions and five as conditional structural ones" |
+| ch00:77 [313] | "two as unconditional parameter-free structural retrodictions, five as conditional ones" | "two as parameter-free structural retrodictions, five as conditional structural ones" |
+| appendix-a:94 [5633] | "*two* unconditional and *five* conditional parameter-free structural predictions" | "*two* parameter-free structural and *five* conditional structural predictions" |
+| appendix-a:225 [5764] | "two are unconditional parameter-free structural retrodictions, five are conditional structural retrodictions" | "two are parameter-free structural retrodictions, five are conditional structural retrodictions" |
+| ch18:335 [5155] | "two are unconditional parameter-free structural retrodictions and five are conditional ones" | "two are parameter-free structural retrodictions and five are conditional structural ones" |
+| SM:1298 | "**2 are unconditional parameter-free structural predictions** (**S**, …)" | "**2 are parameter-free structural predictions with no open link of their own** (**S**, …)"; after the C clause, added: "Both classes are assigned on the conditional physical-carrier chain of Tier 2 (H-spin' and H-χ' for the matter-sector reading), which every matter-sector entry shares." |
+| SM:1255 (legend) | "**S** = parameter-free structural (no fitted input; …" | "**S** = parameter-free structural (no fitted input and no open link specific to the entry; …" |
+| SM:1426 | "items marked **S** are unconditional structural (Layer 0 or Layer 1, fully derived)" | "items marked **S** are structural with no open link specific to the entry (Layer 0 or Layer 1)" |
+| ch04:132 [1251] | "*Class B-S (unconditional structural).* These are layer-0 or layer-1 retrodictions with no open assumptions in their derivation." | "*Class B-S (structural).* These are layer-0 or layer-1 retrodictions with no open link specific to the entry; like every Class B entry they rest on the matter-sector hypotheses H-spin' and H-χ'." The heading change goes beyond the review's text: kept, it would assert "unconditional" against the new sentence (§A.30). |
+| ch04:142 [1261] | "one prediction is unconditional structural (B-S)" | "one prediction is structural with no open link of its own (B-S)" |
+
+### R2 — SM:1310
+
+| Old | New |
+|---|---|
+| "; until that closure both are classified **C** in §7.6." | "; until that closure the entries that carry these links — the Cabibbo $\lambda$ with $\|V_{cb}\|$ and $\sin^2\theta_{13}$, and Koide $Q$ and $\theta_0$ — are classified **C** in §7.6." |
+
+Wolfenstein A, which the same sentence groups with the Cabibbo family, stays **S**.
+
+### R3 (a) — G1 and G3 retired
+
+The horizon calibration ($\epsilon = 2\sqrt{\sigma}\,l_p$ and $\hbar = c^3\epsilon^2/(4G\sigma)$, algebraically one relation) is a self-consistency condition (GR:310, ch07 §7.4). It stays described where it is derived and is no longer counted as a prediction. G1 and G3 are retired as G4 was: not reused, successors not renumbered, gap not annotated. G2 is unchanged.
+
+| Site | Old | New |
+|---|---|---|
+| appendix-a A.4.2 [FULL 5645 ff.] | rows G1 (discreteness scale) and G3 (Planck constant from gap eqn) | deleted |
+| appendix-a:115 [5654] | "Counts: 8 C + 2 L. Total: 10." | "Counts: 6 C + 2 L. Total: 8." |
+| appendix-a:117 [5656] | "Three gravitational-sector results are consistency relations rather than predictions, …" | "Four gravitational-sector results are consistency or descriptive relations rather than predictions, …", then the review's sentence: "The horizon calibration — the discreteness scale $\epsilon = 2\sqrt{\sigma}\,l_p$ and the action scale $\hbar = c^3\epsilon^2/(4G\sigma)$, algebraically one relation — is a self-consistency condition that fixes only $\epsilon/\sqrt{\sigma} = 2\,l_p$, not an independent determination (Ch 7 §7.3–§7.4)." |
+| appendix-a:102 [5641] | "The horizon calibration and radiation entries inherit H-slope …" | "The horizon and radiation entries inherit H-slope …" (no calibration entry remains in the table) |
+| appendix-a:30 [5569] | C examples: "the horizon calibration under H-slope and the frame/state conditions, the $A\cdot B$ extrapolation …" | "the $A\cdot B$ extrapolation …" (the calibration is no longer a counted conditional prediction) |
+| appendix-a:225 [5764] | "the ten gravitational-sector entries comprise eight conditional results and two layered estimates" | "the eight gravitational-sector entries comprise six conditional results and two layered estimates" |
+| appendix-a:8 [5547]; preface:7 [78]; appendix-c:8 [6256], :273 [6521]; ch08:272 [2475]; ch09:8 [2488], :325 [2805]; ch18:335 [5155]; ch19:362 [5524] | "ten gravitational-sector entries" | "eight gravitational-sector entries" |
+| ch17:234 [4815] | "ten gravitational entries" | "eight gravitational entries" |
+| ch07 §7.10 table [2171 ff.] | rows "$\hbar = c^3\epsilon^2/(4G\sigma)$ … identity (given $\epsilon = 2\sqrt{\sigma}\,l_p$)" and "$\epsilon = 2\sqrt{\sigma}\,l_p$ … structural" | deleted (12 → 10 rows) |
+| ch07:305 [2184] | "Two horizon results are consistency relations rather than predictions and are stated here rather than tabulated." | "Three horizon results … tabulated. The calibration $\hbar = c^3 \epsilon^2 / (4G\sigma)$, equivalently $\epsilon = 2\sqrt{\sigma}\, l_p$, conditional on H-slope, is a self-consistency condition that fixes only the ratio $\epsilon/\sqrt{\sigma} = 2\,l_p$, not an independent determination of $\hbar$ (Sections 7.3–7.4)." |
+| ch07:321 [2200] | "the twelve entries in this chapter's table" | "the ten entries in this chapter's table" |
+| GR §7.4 table | rows "Emergent action scale … structural" and "Discreteness scale … structural" | deleted (8 → 6 rows) |
+| GR:551 | "Two further horizon results are consistency relations rather than predictions and are not tabulated: the Bekenstein-Hawking coefficient …, and the vacuum-energy normalization …" | "Three further horizon results …: the calibration $\hbar = c^3\epsilon^2/(4G\sigma)$, equivalently $\epsilon = 2\sqrt{\sigma}\,l_p$, a self-consistency condition fixing only $\epsilon/\sqrt{\sigma}$ (§4); the Bekenstein-Hawking coefficient …; and the vacuum-energy normalization …" |
+
+The statement in §5 above that "the ħ calibration identity remains in the ch07 table" describes `22cb6da0`; after R3 (a) it is stated after that table instead.
+
+### R4 — cosmological-constant "dissolves" and the value of ħ
+
+| Site | Old | New |
+|---|---|---|
+| ch09:63 [2543] | "The cosmological constant dissolution is determined at the structural-properties level: the two-level description of the framework dissolves the conventional discrepancy regardless of the specific bijection." | "The descriptive distinction behind the proposed cosmological constant dissolution is determined at the structural-properties level, regardless of the specific bijection; the dissolution itself is conditional on the coupling step that [GR §6.2] leaves open." |
+| GR:454 | "conditional on the same geometry-first ordering that dissolves the CC problem in §6.2" | "conditional on the same geometry-first ordering that underlies the conditional dissolution of the CC problem in §6.2" |
+| Explainer:699 | "it reproduces the Bekenstein-Hawking $1/4$ factor and the value of $\hbar$ as consistency relations of its horizon calibration" | "it reproduces the Bekenstein-Hawking $1/4$ factor as a consistency relation of its horizon calibration, which relates $\hbar$ to the discreteness scale" |
+| ch07:36 [1915] (paraphrase of the Explainer:699 claim) | "fixed by self-consistency in Section 7.4 to $\epsilon = 2\sqrt{\sigma}\, l_p$, recovering the observed value of $\hbar$ exactly." | "fixed by self-consistency in Section 7.4 to $\epsilon = 2\sqrt{\sigma}\, l_p$; the two relations together fix only the ratio $\epsilon/\sqrt{\sigma} = 2\,l_p$, a self-consistency condition rather than an independent determination of the value of $\hbar$." |
+
+### R5 — two defects inside edited sentences
+
+| Site | Old | New |
+|---|---|---|
+| ch06:179 [1705] | "The $1/d$ amplitude is therefore forced by the framework's structural commitments rather than chosen empirically. The Koide prediction is Class B-C, Layer 1: the magnitude normalization is conditional on the substrate-eigenvalue criterion that selects a loop without a time direction (below), and the Koide amplitude $A^2 = C_2$ is not yet derived from the dynamics (SM §7.2)." | "The $1/d$ amplitude is therefore fixed by the framework's structural commitments rather than chosen empirically, conditional on the substrate-eigenvalue criterion that selects a loop without a time direction (below). The Koide prediction is Class B-C, Layer 1, because the Koide amplitude $A^2 = C_2$ is not yet derived from the dynamics (SM §7.2)." |
+| ch00:77 [313] | "the observed value is $0.666661 \pm 0.000007$, a $0.02\%$ match." | "the observed value is $0.666661 \pm 0.000007$, a match to better than $0.001\%$ ($0.8\sigma$)." |
+
+The Koide Q figure: $(2/3 - 0.666661)/(2/3) = 8.5\times10^{-6}$, i.e. $0.00085\%$, and the pull is $0.81\sigma$ against $\pm 0.000007$ (exact rational arithmetic). This agrees with SM:895 ("holds to $0.001\%$") and the SM §7.6 table ("$< 0.01\%$"). The $0.02\%$ figure is θ₀'s.
+
+### Propagation of the S-class change (§A.25)
+
+Under the owner's "Relative to Tier 2", S means no open link specific to the entry. These sites carried the earlier S class or a sibling overclaim.
+
+| Site | Old | New |
+|---|---|---|
+| ch06:318 [1844] | "(S = unconditional structural; C = conditional; …" | "(S = parameter-free structural: no fitted input and no open link specific to the entry; C = conditional; …" (aligned with SM:1255) |
+| Substratum §6, Class B (:435–:480) | B-S "(unconditional structural)": four entries (Cabibbo λ, Wolfenstein A, m_d/m_s, Koide θ₀); B-L six, including the Bekenstein-Hawking coefficient; "four sub-classes"; "**4 are unconditional structural** (B-S) … Total 14 … The empirical match holds for all 14 within ~1% or ~1σ"; "sin²θ₁₃ … is in Class B-S"; "would move B-L predictions to B-S" | B-S "(structural)": Wolfenstein A only, "no open link specific to the entry; like every Class B entry it rests on the matter-sector hypotheses H-spin' and H-χ'"; new B-C: Cabibbo λ (the identification leaves the emergent-theory dressing open) and Koide θ₀ (conditional with the Koide amplitude, whose value $A^2 = C_2$ is not yet derived from the dynamics); m_d/m_s moved to B-L (its conversion runs through the Gatto–Sartori–Tonin relation, an external empirical relation whose status the chain inherits, as SM:1298 states); the Bekenstein-Hawking bullet moved out of the count into a paragraph after the summary as a consistency relation of the horizon calibration, its derivation content kept; "five sub-classes"; "**1 is structural with no open link of its own** (B-S), **2 are conditional structural** (B-C), **6** B-L, **2** B-M, **2** B-R. Total 13 … Their empirical standing is assessed entry by entry: the gauge couplings match by construction, and the quoted precision of a measured comparison does not apply to every entry."; "sin²θ₁₃ is independent of Cond 2; it inherits the Cabibbo λ and is conditional with it ([SM §7.6])"; "would move B-C and B-L predictions to B-S" |
+| Juno:395 | "… and remains Layer 1 unconditional structural." | "… and is Layer 1 conditional structural: it inherits the Cabibbo scale λ², whose identification leaves the emergent-theory dressing open ([18, §7.1])." |
+| Juno:417 | "The reactor angle sin²θ₁₃ = 4/(18π²) is unconditional structural (Layer 1 per the classification of §3.4), based on the representation-theoretic identity …" | "… is conditional structural (Layer 1 per the classification of §3.4): its form rests on the representation-theoretic identity …, and it is conditional through the Cabibbo λ it inherits, whose identification leaves the emergent-theory dressing open ([18, §7.1])." The open-link wording is SM:1298's. |
+| glossary:97 [6699] | "the match is $0.02\%$." | "the match is better than $0.001\%$ ($0.8\sigma$)." (as ch00:77) |
+| appendix-a:28 [5567] | "The framework's content fully determines the prediction's content from substratum-level commitments." … "they are *first-principles derivations* from structural commitments." | "The framework's structural commitments fix the prediction's value with no fitted input and no open link specific to the entry; matter-sector entries rest, as every matter-sector result does, on the conditional physical-carrier chain (H-spin' and H-χ')." … "they are derivations from structural commitments with no open link of their own." |
+| appendix-a:42 [5581] (paraphrase of :28 in the same appendix) | "S-class predictions (first-principles structural derivations matching empirical values)" | "S-class predictions (structural derivations with no open link of their own, matching empirical values)" |
+| Medicine:554 | "The same mechanism that dissolves the hierarchy and cosmological-constant naturalness problems in physics" | "The same mechanism that underlies the framework's treatment of the hierarchy problem and its conditional dissolution of the cosmological-constant problem in physics" (the R4 pattern of GR:454) |
+
+
+Three further sites contradicted a classification this PR sets; applied on the coordinator's instruction:
+
+| Site | Old | New |
+|---|---|---|
+| ch04:42 [1161] | "A prediction is S-class if its derivation chain walks end-to-end with all links solid, no fitted parameters at any step." | "A prediction is S-class if its derivation chain has no fitted parameter at any step and no open link specific to the entry; matter-sector entries rest, as every matter-sector result does, on the conditional physical-carrier chain (H-spin' and H-χ')." (as SM:1255 and appendix-a:28) |
+| ch06:196 [1722] | Koide $Q$ "is Class B-S Layer 1 …"; $\theta_0$ "is Class B-S Layer 1 …, with the amplitude prefactor computed equal to one (SM §7.2)." | both "Class B-C Layer 1", plus "; both are conditional on the dynamical closure of the Koide amplitude, whose value $A^2 = C_2$ is not yet derived from the dynamics." (as ch04:134, ch06:14, ch06:179) |
+| ch07:106 [1985] | "The Bekenstein-Hawking $1/4$ derivation is Class B-L per Chapter 4 §4.5 — conditional structural at the universality-class level," | "The Bekenstein-Hawking $1/4$ is a consistency relation of the horizon calibration, not a counted Class B prediction (Chapter 4 §4.5) — conditional at the universality-class level," |
+
+ch06:196 still derives $Q = 2/3$ "from the cubic-group Casimir $C_2(T_1)/d^2 = 2/9$", which is θ₀'s formula ($Q$ follows from $A^2 = C_2$, SM:895); the wording is left for the Koide-figure follow-up (§4).
+
+**Substratum count.** Substratum's Class B was a copy of ch04's Class B at `17b830bc`: the same four B-S members, the same six B-L members including the Bekenstein-Hawking coefficient, and the same 4 + 6 + 2 + 2 = 14. ch04 now has 1 B-S + 2 B-C + 6 B-L + 2 B-M + 2 B-R = 13, so the Substratum section was brought into line with it rather than only losing the word.
+
+**Juno:59** is unchanged. Its "unconditional structural" qualifies the Cabibbo corner geometry and the chirality-forced 1/|q| power, the two links SM:849 grades solid, and the same sentence states the identification as a hypothesis. It is not a class assignment of an observable.
+
+**Sparse checkout.** `papers/Juno.{tex,pdf}` and `papers/Medicine.{tex,pdf}` were appended to the worktree-local `info/sparse-checkout` (previous file saved at `S/cc2/sparse-checkout.before-r6`), so that their rebuilt artifacts can be committed.
+
+### Recounts after R1–R5 and the S-class propagation
+
+| Inventory | Count |
+|---|---|
+| SM §7.6 (22) | 2 S + 5 C + 6 L + 3 R + 2 E + 3 M + 1 P (unchanged) |
+| appendix-a A.4.1 (23) | 3 S + 7 C + 8 L + 1 M + 2 R + 2 E (unchanged) |
+| appendix-a A.4.2 | **6 C + 2 L = 8** (was 8 C + 2 L = 10) |
+| appendix-a A.4.3 (7) | 1 S + 1 C + 5 L (unchanged) |
+| appendix-a A.4.4 (14) | 12 S + 2 C (unchanged) |
+| ch06 §6.8 table (24) | 3 S + 6 C + 5 L + 4 M + 3 R + 2 E + 1 unclassified (unchanged) |
+| ch04 Class B (13) | 1 B-S + 2 B-C + 6 B-L + 2 B-M + 2 B-R (unchanged) |
+| ch07 §7.10 table | **10** (was 12) |
+| GR §7.4 table | **6** (was 8) |
+| Substratum Class B | **1 B-S + 2 B-C + 6 B-L + 2 B-M + 2 B-R = 13** (was 4 B-S + 6 B-L + 2 B-M + 2 B-R = 14), now equal to ch04 |
+
+R1, R2, R4 and R5 change no count. The SM, appendix-a, ch06 and ch04 inventories above were recounted from their tables after the S-class propagation and are unchanged by it.
+
+### Build and checks
+
+- `sh ./build.sh SM GR Explainer Structure Substratum Juno Medicine` and `sh ./build.sh --book`: OK, no dropped glyphs. Pages: SM 146, GR 87, Explainer 69, Structure 98, Substratum 52, Medicine 30 and book 555, all unchanged; Juno 21 → 22, the last page holding 216 characters of overflow (median 2722 → 2726 characters per page). Median characters per page: SM 3119, GR 3185, Explainer 2864, Structure 2971, Substratum 3268, Medicine 2616, book 3054.
+- `staleness_check`: OK (9 matched). `mirror_check`: 0 absent. `claims_check`, `voice_check` (40 files), `duplicate_check`: OK. `coverage_check`: OK (128 statements). `lean_manuscript_census`, `dependency_label_check --strict`, `artifact_placement_check`: OK. `citation_check`: 112, 0 broken. `architecture_check`: 0 violations.
+- §A.32/§A.33 scan of the added words (word diff): no meta-commentary, reader instruction, caps emphasis or history phrase.
+
+### Re-grep (sources / FULL)
+
+"ten gravitational" 0 / 0; "eight gravitational" 11 / 11; "twelve entries" 0 / 0; "8 C + 2 L" 0 / 0; "two unconditional" 0 / 0; "unconditional parameter-free" 0 / 0; "until that closure both" 0 / 0; "dissolves the conventional discrepancy" 0 / 0; "recovering the observed value" 0 / 0; "Total 14", "four sub-classes", "first-principles derivations", "dissolves the hierarchy", "all links solid", "Class B-S Layer 1", "derivation is Class B-L" 0 / 0. "unconditional" in `book/*.md` chapters 21 and in FULL 21. Every survivor predates this PR, none is the headline count, and "unconditional structural" survives only at Juno:59 (above).
+
+### Noticed, deferred to the owner
+
+- **The framing of ħ as derived:** ch07:36 (the opening of the paragraph), ch00:97, ch02:110, :228, ch04:204, ch06:348, ch09:14, :48, :71, :92, :118, appendix-b:16, :173, :471, appendix-c:236–263, glossary:73, GR:18, SM:1350, :1576, Substratum:178, Main:684.
+- **glossary:127** (Rett window "pre-registered prediction"), as in the review.
+- **The review's non-blocking recommendations:** GR:320 numbered references for Bekenstein (1973) and Hawking (1975); ch19:28 "consistency relations" against GR:358's "comparisons with data"; ch03:42 dropping the 1/4 from the Level D list; the A.4.2 paragraph title "Consistency and descriptive relations".
+- **Koide figures:** ch09:169 and Structure:940 quote Koide Q at $0.02\%$ (θ₀'s figure); Substratum's B-C bullet quotes θ₀ at $0.02\%$ against $0.001\%$ in ch04:134 and the SM §7.6 table (the table disagreements of §4).
+- **SM §8.8:** SM:1528 "OI's framework dissolves all three through the same mechanism" and SM:1536 "dissolve naturalness problems", against SM:1524 (strong CP is "the pattern's missing instance") and the conditional SM:1534. This is the source Medicine:554 paraphrased.
+- **Substratum:472** "these classifications are honest" (pre-existing §A.32 self-assessment).
