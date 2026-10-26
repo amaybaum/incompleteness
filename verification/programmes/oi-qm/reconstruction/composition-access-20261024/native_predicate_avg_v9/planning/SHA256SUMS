@@ -8,6 +8,7 @@ a28618f0370f760a20295a890fe7c6eb2140cc21c5ce18d82ba1e2e0c9775e89  ./README.md
 00c13da2cdbb8e5d09068a1b5fc11c8d2b06bec2ea60569abcaf00da7be26047  ./review/E1-REVIEW.md
 3e4f086a537a28dab7797efa5ba987f02430f6670442f49da9fe950ca2a981b1  ./review/LAYER2-R3-REVIEW.md
 fa266e3be21e3b79316e270e3d49432f3fe8230337a3002dfd146041349e4005  ./review/LAYER2-R4-REVIEW.md
+c5eed2df9f4d2f175e33fb42606a5c67a89b058fb512c484eb4120e10bbcbb8a  ./review/LAYER2-R5-REVIEW.md
 77264fad9a9ac485e2049bc6dca8e2d4cbe6ccf4edec46d8b3247d164fd7f1eb  ./review/LAYER2-REVIEW.md
 676ecc085d3c2f329df6a05426550f8d6a914092bc553d678f844066f935d7a7  ./review/RECHECK-r2.md
 4d77c7c23d6b08d3467b0096a08365fe9ee7cce27f432de5018819bd723583dd  ./review/REVIEW.md
@@ -35,6 +36,11 @@ ca5c164491d24b0f8aabe7ae9400f4c29c3cfef14802132bf84512d33ba84988  ./review/toy-l
 82a94147678c51eda44e535f2b6cdddbaa0de3f946d87831393f45f135e2ef3c  ./review/toy-l2r4/calib_audit.py
 8f3b3670324345475ead1c944d48e0ec9ac3ae0534937299b13a304ed036831a  ./review/toy-l2r4/rep_concentration.py
 4facf07a4b94dde914d6d5d12c2340e0a4a998c16c24ef18a00e6e447c396b86  ./review/toy-l2r4/ucal_sim.py
+ad5c9a9563a0bd371eef1286519c82ea756f7480e578524c4e619c606d3ab02f  ./review/toy-l2r5/attrib_mid.py
+29a4967b2f864f9eff180eaba31a3bcd0d2546e3f557297ecbec19d75c67f512  ./review/toy-l2r5/calib.json
+f67afbd9652e941078db018a94734741f0bd797768d3b4f9a3b5a07b0b368604  ./review/toy-l2r5/interleave.json
+959fedd4c2bf413a05cbe7d78a3f6ec5f8a33ec463f4d59505a94b88f4e3588c  ./review/toy-l2r5/interleave_mid.py
+dfc24d41b8e50e439ba9d5135abacd2dacdd9784fe0cec5f02ed3354df794307  ./review/toy-l2r5/sitepair_bruteforce.py
 8318fca387a60dccf579e46147be5e91e13888df8c324c47a45255669693fc8d  ./review/toy-r3/cone_y.json
 e1da19c7f97be96dc0ae97010442e60e83c5cfc288500f69cef75b4e74eb29de  ./review/toy-r3/guard_probe.out
 1fc68d5d438c14e6d1e990b564f641aacf3dffc91ee2ffc1defe69585dafdbba  ./review/toy-r3/guard_probe.py
