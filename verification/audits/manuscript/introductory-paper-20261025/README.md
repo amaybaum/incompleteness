@@ -19,6 +19,9 @@ verdict in either is an established result.
 - `design/`: the Introduction paper's outline and contribution statement (r4), with its independent reviews
   (r4 ACCEPT). See `design/README.md`.
 - `explainer-review/`: the re-verification of `EXPLAINER-AUDIT.md` at `main` `687e885b` (HOLDS WITH CORRECTIONS).
+- `draft/`: the Introduction paper's working draft (WIP) and its independent scientific and editorial reviews.
+- `retirement/`: the Explainer content-migration audit and retirement plan (r3), with its independent review and
+  re-check.
 - `EXPLAINER-AUDIT.md`: what replacing `papers/Explainer.md` would lose,
   what is stale there, and what a replacement must change in the same commit.
   The search scripts it used are in `explainer-tools/`; each takes one
