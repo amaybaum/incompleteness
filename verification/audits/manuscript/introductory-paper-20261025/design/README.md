@@ -61,3 +61,24 @@ Horizon thermodynamics is presented as consistency, not prediction.
   budgets, a register of every claim beyond r4 with its status and dating, a change map from r4, and the corpus
   overclaims r5 must not lean on (these go to separate manuscript-consistency changes). Independent outline review is
   in progress.
+
+## Revision 6: one idea, two consequences
+
+The independent review of the r5 design (`review/r5/REVIEW.md`, with its checks in `review/r5/chk/`) returned ACCEPT
+WITH CHANGES: 19 required wording changes. The structure stood. It confirmed by its own code that the 1/4 is a
+calibration identity and that Theorem A.8's Page value holds on the full product space but not in general on a proper
+shell. `applications-audit/CORRECTIONS.md` records the four audit errors it found.
+
+On 2026-10-26 the owner then narrowed the paper. Quantum emergence is the central thesis, with two applications: the
+cosmological constant (leading) and black-hole information (preservation versus accessible recovery). Everything else
+is removed: horizon entropy, Cabibbo, JUNO, the Page time, PE-01, the arrow of time and the measurement reading. The
+target is 10–12 pages, with 2–3 for the applications. The paper states that neither application is a demonstrated
+resolution, and it cites the technical papers for derivations instead of re-deriving them.
+
+`OUTLINE-r6.md`, `CLAIMS-r6.md`, `CHANGES-r6.md` and `DEPENDENCIES-r6.md` are that design:
+- about 10.4 main-text pages, with 2.65 for the two applications;
+- a results register, one row per result, giving the exact statement, status and layer, the reference, and a witness
+  for each direction of every equivalence;
+- every r5-review change on retained content applied, and the rest recorded as moot.
+
+Independent re-check is in progress.
