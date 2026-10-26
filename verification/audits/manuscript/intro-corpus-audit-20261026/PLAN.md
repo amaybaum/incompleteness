@@ -87,7 +87,12 @@ The method follows the owner's six requirements.
    - **conjecture;**
    - **open problem.**
 
-   Where the Introduction's wording implies a different status from the source's, that is a finding.
+   Conditionality is recorded separately from the layer of support: a kernel proof or a paper derivation can each be
+   conditional on named hypotheses. Each link of a claim's chain takes the strongest support it has anywhere in the
+   corpus, and the claim takes its weakest link and every link's hypotheses. A source supports only what its own proof
+   establishes for the statement as made. An equivalence is traced one direction at a time (AGENTS.md §A.34). Where the
+   Introduction's wording implies a different status from the source's, that is a finding. So is a corpus document
+   that asserts more than its own proof reaches.
 4. **Cross-paper consistency.** For each traced claim, compare its formulations across the corpus. Record each:
    - conflicting statement;
    - missing assumption;
