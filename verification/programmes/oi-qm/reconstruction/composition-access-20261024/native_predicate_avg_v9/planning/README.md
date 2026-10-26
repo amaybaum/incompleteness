@@ -26,3 +26,12 @@ the question. The branch is based on #912's head `2af1d5d5`, which contains v8 a
   geometry-only preregistration of the masking structure. Not reviewed, not frozen; the enumeration is not authorized.
   `stage0/design/` holds the cheap design controls the owner approved (configuration combinatorics, and toy
   geometries only; nothing computed on v8's class), with their outputs.
+- `review/STAGE0-REVIEW.md` and `review/toy0/`: the independent review of the Stage 0 draft (ACCEPT WITH CHANGES; L3′
+  sound; required changes R1–R9) and its toy checks.
+- `stage0/r2/`: the Stage 0 revision applying R1–R9 and the owner decisions of 2026-10-26 (S6 approved as a labelled
+  proof-check; global closure bound included, larger searches deferred; symmetry reduction with the corrected control;
+  the five named works checked before any novelty claim), with the owner's three safeguards (soundness,
+  completeness, non-vacuity). `stage0/code/` holds the production closure and the independent reference code;
+  `stage0/design-r2/` the regenerated design evidence and `RUN-MANIFEST`. Everything ran on toy, planted and
+  small-window instances and S6's carrier structure only; nothing on v8's configuration class. Unreviewed, not frozen.
+

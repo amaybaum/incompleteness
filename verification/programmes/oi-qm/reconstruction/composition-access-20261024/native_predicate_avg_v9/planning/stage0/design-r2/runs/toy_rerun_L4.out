@@ -1,0 +1,14 @@
+L 4 parity of fixed set [0]
+HC: L3 closure [] L3' closure []
+pool 67
+L3 self-supporting sets of size 1-3 with Phi active: 0 (2.8s)
+L3' self-supporting sets of size 1-3 with Phi active: 0 (3.4s)
+block: L3 8, L3prime 8 of 8; minus centre: L3 7, L3prime 0
+symmetric radii: strictly more 0/400, ever less 0
+off-axis mutant differs on random sets: 0/400
+parity-dropped mutant differs on even-class sets (Phi even): 0/400 (equivalent if 0)
+L3' retained not within L3: 0/400
+native max influence distance by (depth, slice): {(2, 'near'): 2, (3, 'near'): 3, (4, 'far'): 3, (4, 'near'): 4} (expect near d, far d-1)
+native near-tip bijection failures 0, far-tip failures 0 (of 200 each, fwd+bwd mixed)
+native off-axis far cell non-bijective (d>=3 cases): 82
+timing: L3' 2.90 ms per closure (30 quantities + 8 fixed)

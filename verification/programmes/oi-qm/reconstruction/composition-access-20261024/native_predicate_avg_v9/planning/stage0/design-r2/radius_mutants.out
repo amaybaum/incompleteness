@@ -1,0 +1,9 @@
+symmetric parity-blind   random sets: retains something extra 0/400, loses something 0/400
+far cone deleted         random sets: retains something extra 0/400, loses something 0/400
+radius -2                random sets: retains something extra 0/400, loses something 0/400
+radius +2                random sets: retains something extra 400/400, loses something 0/400
+correct                  HC 0 (want 0)  block-minus-centre 0 (want 0)  depth-2 family 13 (want 13)
+symmetric parity-blind   HC 0 (want 0)  block-minus-centre 0 (want 0)  depth-2 family 13 (want 13)
+far cone deleted         HC 0 (want 0)  block-minus-centre 0 (want 0)  depth-2 family 0 (want 13)
+radius -2                HC 0 (want 0)  block-minus-centre 0 (want 0)  depth-2 family 0 (want 13)
+radius +2                HC 2 (want 0)  block-minus-centre 7 (want 0)  depth-2 family 13 (want 13)
