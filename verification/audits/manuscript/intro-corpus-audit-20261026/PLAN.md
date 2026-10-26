@@ -106,7 +106,7 @@ The method follows the owner's requirements.
    results the corpus establishes that are stronger than, or absent from, what the Introduction states. Each such
    omission is a finding, with its source and status, together with whether the Introduction's scope should carry it.
    The aim is neither to exaggerate OI's achievements nor to understate what the framework has established.
-6. **Independent review.** A reviewer who did not take part in steps 1–4 reviews the complete audit, and then any
+6. **Independent review.** A reviewer who did not take part in steps 1–5 reviews the complete audit, and then any
    Introduction revisions that follow from it.
 7. **Final landing gate.** The revised Introduction is re-checked at its exact commit: its Lean references, its corpus
    pointers, and CI on that head. Only then is fresh merge authorization requested.
