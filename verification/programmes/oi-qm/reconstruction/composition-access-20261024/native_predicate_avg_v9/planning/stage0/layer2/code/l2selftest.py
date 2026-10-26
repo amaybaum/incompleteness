@@ -154,7 +154,7 @@ def t_orbits():
     sp = PLAN.Space(CFG.profile('toy'))
     N = sp.n_records()
     gorder, so, po = sp.orbits_burnside()
-    plan = PLAN.shard_plan(N, CFG.profile('toy')['shards'])
+    plan = PLAN.dry_shard_plan(sp, CFG.profile('toy')['shards'])[0]
     scanned, weight, nreps, stab_bad = 0, 0, 0, 0
     for sh in plan:
         n, reps = ENUM.scan(setup, sh['lo'], sh['hi'], grp, None)
@@ -1065,7 +1065,11 @@ def t_index_inrun():
 def t_launch():
     """L2-LAUNCH (the owner's rulings of 2026-10-26): kappa comes only from u_cal x u_model, rounded up
     to one decimal; launch iff kappa x total + reserve <= the 24-hour ceiling and kappa x each job <= its
-    timeout; otherwise 'not undertaken for cost', with kappa unchanged. Synthetic estimates only."""
+    timeout; otherwise 'not undertaken for cost', with kappa unchanged. Synthetic estimates only.
+    r5 (LAYER2-R4-REVIEW L-a, L-b): kappa 1.21 x 1.0 rounds up to 1.3 (to nearest it would be 1.2); a
+    per-shard list is compared element by element, so a heaviest shard over its timeout refuses the
+    launch while the mean is under it; per_shard_jobs splits the shared terms by representatives and
+    adds the per-shard survivor allowance whole."""
     from fractions import Fraction as F
     k = PLAN.kappa_from_rule({'u_cal': '1.25', 'u_model': '1.25'})
     ceil = 24*3600
@@ -1080,9 +1084,16 @@ def t_launch():
         got[name] = [launch, exp, text == 'launch admitted' if exp else text == PLAN.NOT_UNDERTAKEN]
     undecided = PLAN.launch_decision(F(1), jobs, None, F(0), ceil, tmo)[0] is None and \
         PLAN.launch_decision(F(1), jobs, k, None, ceil, tmo)[0] is None
+    k2 = PLAN.kappa_from_rule({'u_cal': '1.21', 'u_model': '1.0'})
+    heavy = [F(1000)]*3 + [F(1600)]          # mean 1,150 <= 2,400/1.6 = 1,500 < heaviest 1,600
+    hv = PLAN.launch_decision(F(40000), dict(jobs, shard=heavy), k, F(10000), ceil, tmo)
+    even = PLAN.launch_decision(F(40000), dict(jobs, shard=[F(1150)]*4), k, F(10000), ceil, tmo)
+    split = PLAN.per_shard_jobs(F(400), F(10), [3, 1, 0, 0])
     ok = k == F(16, 10) and all(a == b and c for a, b, c in got.values()) and undecided and \
-        PLAN.kappa_from_rule({'u_cal': CFG.OWNER, 'u_model': '1.25'}) is None
-    return {'pass': ok, 'kappa': str(k), 'cases': got}
+        PLAN.kappa_from_rule({'u_cal': CFG.OWNER, 'u_model': '1.25'}) is None and k2 == F(13, 10) and \
+        hv[0] is False and hv[1] == PLAN.NOT_UNDERTAKEN and even[0] is True and split == [310, 110, 10, 10]
+    return {'pass': ok, 'kappa': str(k), 'kappa_1.21x1.0': str(k2), 'cases': got, 'heaviest_over_mean_under': hv[0],
+            'even_shards': even[0], 'per_shard_split': [str(x) for x in split]}
 
 
 def t_placeholders():
@@ -1093,9 +1104,11 @@ def t_placeholders():
     open, even when the authorization step passes (simulated here by a decision that constructs no
     grant; no context exists)."""
     paths = CFG.placeholders()
-    want = ['/budget/kappa_rule/u_cal', '/budget/kappa_rule/u_model', '/budget/reserve_runner_seconds',
+    want = ['/budget/campaign/retry_allowance_runner_seconds', '/budget/kappa_rule/u_cal',
+            '/budget/kappa_rule/u_model', '/budget/reserve_runner_seconds',
             '/owner_rulings/G_D/ruling', '/owner_rulings/O1/ruling', '/owner_rulings/kappa/ruling',
-            '/owner_rulings/reserve/ruling', '/owner_rulings/survivor_cap/ruling', '/profiles/v8/survivor_cap_per_shard']
+            '/owner_rulings/reserve/ruling', '/owner_rulings/retry_allowance/ruling',
+            '/owner_rulings/survivor_cap/ruling', '/profiles/v8/survivor_cap_per_shard']
     kap = [CFG.CONFIG['budget']['kappa_rule']['u_cal'], CFG.CONFIG['budget']['kappa_rule']['u_model'],
            CFG.CONFIG['budget']['reserve_runner_seconds'], CFG.CONFIG['owner_rulings']['kappa']['ruling'],
            CFG.profile('v8')['survivor_cap_per_shard'], CFG.CONFIG['owner_rulings']['survivor_cap']['ruling']]
@@ -1121,6 +1134,257 @@ def t_placeholders():
     return {'pass': ok, 'placeholders': paths, 'v8_startup_refused_at_item': item}
 
 
+def t_shardplan():
+    """L2-SHARDPLAN (r5; LAYER2-R4-REVIEW K1; owner 2026-10-26, shard imbalance): the representative
+    flags that the deterministic subdivision derives from the site-pair counts (l2plan.RepIndex) equal
+    the engine's canonical-image test (l2analysis.canon) on every toy record index; the toy dry-run plan
+    passes every accounting check and holds floor or ceil of R/S representatives per shard; shard_of
+    inverts the cuts on every index; on a ball(3) analogue (not v8's region), every single site and
+    every site pair at the slice pairs (0, 0), (0, 1), (1, 0), (2, 1), which separate the four in-pair
+    cases, agrees with the engine's test (the case t1 < t2 occurs there and not on the toy); and on v8
+    no count is computed (site_pair_counts returns None without an authorized count file, and the
+    dry-run plan is the index-even diagnostic)."""
+    setup = toy()
+    grp = AN.group(setup)
+    sp = PLAN.Space(CFG.profile('toy'))
+    ri = PLAN.RepIndex(PLAN.site_pair_counts(sp))
+    recs = toy_records(setup)
+    flag_bad = sum((AN.canon(r, grp) == r) != ri.is_rep(i) for i, r in enumerate(recs))
+    S = CFG.profile('toy')['shards']
+    plan, reps, _, info = PLAN.dry_shard_plan(sp, S)
+    cuts = [sh['lo'] for sh in plan] + [plan[-1]['hi']]
+    inv_bad = sum(not (plan[PLAN.shard_of(i, cuts)]['lo'] <= i < plan[PLAN.shard_of(i, cuts)]['hi'])
+                  for i in range(len(recs)))
+    acc = PLAN.plan_accounting(ri, plan)
+    lo, hi = ri.R//S, -(-ri.R//S)
+    balanced = all(lo <= r <= hi for r in reps)
+    v8 = PLAN.Space(CFG.profile('v8'))
+    v8_none = PLAN.site_pair_counts(v8) is None and PLAN.dry_shard_plan(v8, 32)[1] is None
+    b3 = {'setup': {'dim': 3, 'n': 5, 'rho': 3, 'tlast': 23, 'port': [0, 0, -2], 'sources': []}, 'k': 2}
+    sp3 = PLAN.Space(b3)
+    ri3 = PLAN.RepIndex(PLAN.site_pair_counts(sp3))
+    s3 = G.Setup(3, 5, 3, 23, (0, 0, -2), ())
+    g3 = AN.group(s3)
+    nt3, ns3 = len(sp3.slices), len(sp3.region)
+    idx3 = list(range(0, ns3*nt3, nt3)) + [ns3*nt3 + p*nt3*nt3 + a*nt3 + b for p in range(ns3*(ns3 - 1)//2)
+                                           for a, b in ((0, 0), (0, 1), (1, 0), (2, 1))]
+    b3_bad = sum((AN.canon(r, g3) == r) != ri3.is_rep(i) for i in idx3
+                 for r in [tuple(sorted(G.record_at(s3, i)))])
+    strict = sum(1 for b in ri3.blocks if b[2] == 'strict')
+    ok = flag_bad == 0 and inv_bad == 0 and all(acc.values()) and balanced and info['kind'] == 'representative_balanced' \
+        and v8_none and ri.R == sum(sp.orbits_burnside()[1:]) and b3_bad == 0 and strict > 0
+    return {'pass': ok, 'flag_mismatches': flag_bad, 'shard_of_mismatches': inv_bad, 'accounting': acc,
+            'representatives_per_shard': reps, 'v8_not_computed': v8_none, 'ball3_block_mismatches': b3_bad,
+            'ball3_strict_pairs': strict}
+
+
+def _combine(outs):
+    """Shard.output() over several shards combined as l2merge combines them (sums, the class-key union,
+    the running witness minimum), for comparison."""
+    tot = {'counts': Counter(), 'gates': Counter(), 'c7': Counter(), 'classes': {}, 'base_rel': Counter(),
+           'l3_only': Counter(), 'survivor_reps': 0, 'survivor_indices': [], 'witness': None, 'seen': 0}
+    for o in outs:
+        tot['counts'].update(o['counts_additive'])
+        for g, d in o['gates'].items():
+            for k, v in d.items():
+                tot['gates'][(g, k)] += v
+        for conv, d in o['C7_scope_coverage'].items():
+            for st, e in d.items():
+                for k, v in e.items():
+                    tot['c7'][(conv, st, k)] += v
+        for ck, lst in o['class_keys'].items():         # a union, as in l2merge (the value is the orbit size)
+            for k, v in lst:
+                tot['classes'][(ck, json.dumps(k))] = v
+        tot['base_rel'].update(o['base_relative_survivor_records'])
+        tot['l3_only'].update(o['L3_only_survivor_records'])
+        tot['survivor_reps'] += o['survivor_representatives']
+        tot['survivor_indices'] += [d['index'] for d in o['survivors']]
+        tot['seen'] += o['witness_candidates_seen']
+        w = o['witness_min']
+        if w is not None and (tot['witness'] is None or ENUM.c16_order(w['key']) < ENUM.c16_order(tot['witness']['key'])):
+            tot['witness'] = w
+    tot['survivor_indices'] = sorted(tot['survivor_indices'])
+    return tot
+
+
+def t_split():
+    """L2-SPLIT (r5; owner 2026-10-26: a planted heavy pair split and re-merged with identical results):
+    on the toy class, the heaviest site pair is split into three sub-shards by representative rank
+    (l2plan.subdivision_cuts with planted ranks, plan_from_cuts, plan_accounting), every sub-shard is
+    run through l2enum.Shard, and the additive results re-merged equal those of one shard over the whole
+    index space; every record is scanned exactly once and each sub-shard holds the representatives its
+    plan states."""
+    setup = toy()
+    prof = dict(_quiet_prof(), survivor_cap_per_shard=10**6)
+    sp = PLAN.Space(CFG.profile('toy'))
+    ri = PLAN.RepIndex(PLAN.site_pair_counts(sp))
+    k = max((b for b in range(len(ri.blocks)) if ri.blocks[b][1] - ri.blocks[b][0] > ri.nt),
+            key=lambda b: (ri.blocks[b][3], -b))
+    rb, n = ri.prefix[k], ri.blocks[k][3]
+    cuts = sorted(set(PLAN.subdivision_cuts(ri, 0, ranks=[rb, rb + n//3, rb + 2*n//3, rb + n])))
+    plan = PLAN.plan_from_cuts(ri, cuts)
+    acc = PLAN.plan_accounting(ri, plan)
+    s1a = S1A.run('toy', None, None)
+    bound = ENUM.load_bound(s1a, setup, None)
+    base = {c: set(G.Context(setup, (), c).run()) for c in ('A', 'G')}
+
+    def run(lo, hi):
+        sh = ENUM.Shard(setup, prof, bound, base, None, None)
+        scanned, reps = ENUM.scan(setup, lo, hi, sh.grp, None)
+        for i, r, o in reps:
+            sh.rep(i, r, o)
+        return scanned, len(reps), sh.output()
+    whole = run(0, ri.N)
+    parts = [run(sh['lo'], sh['hi']) for sh in plan]
+    split_heavy = sum(1 for sh in plan if ri.blocks[k][0] < sh['hi'] and sh['lo'] < ri.blocks[k][1]) >= 3
+    scanned_ok = sum(p[0] for p in parts) == whole[0] == ri.N
+    reps_ok = [p[1] for p in parts] == [sh['representatives'] for sh in plan]
+    same = _combine([whole[2]]) == _combine([p[2] for p in parts])
+    ok = all(acc.values()) and split_heavy and scanned_ok and reps_ok and same
+    return {'pass': ok, 'accounting': acc, 'heavy_pair_block': list(ri.blocks[k][:2]), 'sub_shards': len(plan),
+            'heavy_pair_split': split_heavy, 'scanned_once': scanned_ok, 'stated_representatives': reps_ok,
+            'remerged_identical': same}
+
+
+_COUNT_MUTANT = None
+# count-module weakenings, applied in the child process (the child must not import this module)
+COUNT_MUTATIONS = {
+    'guard_off': 'C._install_guard = lambda out, st: None',
+    'validate_lax': 'C.validate = lambda o, s: True',
+    'v8_unrefused': 'C.decide = lambda a, o, f: "ok"',
+    'drop_pair': ('_c = C.count\n'
+                  'def _d(s):\n'
+                  '    c = _c(s); p = list(c["pairs_representatives"]); i = max(range(len(p)), key=lambda j: p[j])\n'
+                  '    p[i] = 0; c["pairs_representatives"] = p; c["representatives_total"] = sum(c["singles_'
+                  'representatives"]) + sum(p); return c\n'
+                  'C.count = _d'),
+}
+# planted violations of the owner's restrictions, each of which the guard must refuse
+COUNT_ATTACKS = {
+    'persist_record_in_output': ('_c = C.count\n'
+                                 'C.count = lambda s: dict(_c(s), records=[[[0, 0, 0], -1]])'),
+    'write_side_file': ('_c = C.count\n'
+                        'def _w(s):\n'
+                        '    open(SIDE, "w").write("[[0, 0, 0], -1]")\n'
+                        '    return _c(s)\n'
+                        'C.count = _w'),
+    'read_outcome_data': ('_c = C.count\n'
+                          'def _r(s):\n'
+                          '    open(OUTCOME).read()\n'
+                          '    return _c(s)\n'
+                          'C.count = _r'),
+    'evaluate_survivor_via_engine': ('_c = C.count\n'
+                                     'def _e(s):\n'
+                                     '    import s0geom\n'
+                                     '    return _c(s)\n'
+                                     'C.count = _e'),
+    'print_record': ('_c = C.count\n'
+                     'def _p(s):\n'
+                     '    print([[0, 0, 0], -1])\n'
+                     '    return _c(s)\n'
+                     'C.count = _p'),
+}
+
+
+def _count_child(profile, attack=None, sentinel=False):
+    """Run l2sitepairs.main in a fresh python3 -I -B process (the guard's audit hook cannot be removed,
+    so it never runs in this process). Returns (exit, stdout, out_written, side_written)."""
+    import subprocess
+    d = tempfile.mkdtemp(prefix='l2spc-')
+    try:
+        out, side, outcome = os.path.join(d, 'counts.json'), os.path.join(d, 'side.json'), os.path.join(d, 'result.json')
+        with open(outcome, 'w') as f:
+            f.write('{"planted": "outcome data"}')
+        code = ['import sys', 'sys.path.insert(0, %r)' % HERE, 'import l2sitepairs as C',
+                'SIDE, OUTCOME = %r, %r' % (side, outcome)]
+        if _COUNT_MUTANT:
+            code.append(COUNT_MUTATIONS[_COUNT_MUTANT])
+        if attack:
+            code.append(COUNT_ATTACKS[attack])
+        if sentinel:
+            code.append('C.count = lambda s: sys.exit(99)')     # v8: a refusal must come before any count
+        code.append('sys.exit(C.main(["--profile", %r, "--out", %r]))' % (profile, out))
+        p = subprocess.run([sys.executable, '-I', '-B', '-c', '\n'.join(code)], capture_output=True, text=True,
+                           timeout=120)
+        return p.returncode, p.stdout, os.path.exists(out), os.path.exists(side)
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+
+
+def t_countonly():
+    """L2-COUNTONLY (r5; owner 2026-10-26, the site-pair count): l2sitepairs imports only its allowed
+    modules (static); a clean toy count exits 0, writes exactly the permitted outputs, and equals the
+    representative flags of the engine's canonical-image test (via L2-SHARDPLAN's RepIndex); each planted
+    violation (a record persisted in the output, a side file, reading outcome data, importing the
+    engine, printing a record) is refused with VOID, nothing written; v8 without the count's own
+    authorization is refused before any count (a sentinel replaces the count and must not run)."""
+    import l2sitepairs as SPC
+    with open(os.path.join(HERE, 'l2sitepairs.py')) as f:
+        tree = ast.parse(f.read())
+    names = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            names |= {a.name.split('.')[0] for a in node.names}
+        elif isinstance(node, ast.ImportFrom):
+            names.add(node.module.split('.')[0])
+    static_ok = names <= SPC.ALLOWED_IMPORTS and not names & set(SPC.FORBIDDEN_MODULES)
+    rc, so, wrote, _ = _count_child('toy')
+    try:
+        got = json.loads(so)
+    except ValueError:
+        got = {}
+    sp = PLAN.Space(CFG.profile('toy'))
+    setup = {'dim': sp.dim, 'rho': sp.rho, 'tlast': sp.tlast, 'port': sp.port}
+    expect = SPC.count(setup)
+    clean_ok = rc == 0 and wrote and SPC.validate(got, setup) and \
+        got['pairs_representatives'] == expect['pairs_representatives'] and \
+        got['representatives_total'] == sum(sp.orbits_burnside()[1:])
+    attacks = {}
+    for a in sorted(COUNT_ATTACKS):
+        rc_a, so_a, wrote_a, side_a = _count_child('toy', attack=a)
+        lines = [ln for ln in so_a.splitlines() if ln.strip()]
+        try:
+            void = rc_a == 2 and len(lines) == 1 and json.loads(lines[0]).get('label') == 'VOID'
+        except ValueError:
+            void = False
+        attacks[a] = void and not wrote_a and not side_a
+    rc_v, so_v, wrote_v, _ = _count_child('v8', sentinel=True)
+    v8_ok = rc_v == 2 and not wrote_v and '"refused"' in so_v
+    ok = static_ok and clean_ok and all(attacks.values()) and v8_ok
+    return {'pass': ok, 'static_imports': sorted(names), 'clean_toy': clean_ok, 'attacks_refused': attacks,
+            'v8_refused_before_count': v8_ok}
+
+
+def t_ledger():
+    """L2-LEDGER (r5; owner 2026-10-26, the campaign ledger): every ledger entry's compute time counts,
+    failed, cancelled and timed-out jobs and retries included; a retry (attempt > 1) is charged to
+    retries; the campaign decision is kappa x (measured + planned) + reserve <= 24 h, with kappa on the
+    whole campaign; malformed entries leave it undecided; the ceiling's scope is the owner's six
+    components; and the configured machinery-mutant count equals l2selftest.MUTANTS."""
+    from fractions import Fraction as F
+
+    def e(comp, attempt, status, sec):
+        return {'job': 'j', 'component': comp, 'attempt': attempt, 'status': status, 'compute_seconds': sec,
+                'started_at': 't0', 'ended_at': 't1', 'run': 'r'}
+    entries = [e('calibration', 1, 'success', 1000), e('calibration', 1, 'failure', 300),
+               e('count_pass', 1, 'timed_out', 200), e('count_pass', 2, 'success', 250)]
+    spent, bad = PLAN.ledger_spent(entries)
+    spent_ok = not bad and spent == {'calibration': 1300, 'count_pass': 200, 'retries': 250}
+    k = F(16, 10)
+    plan = {'primary_run': F(40000), 'mutant_campaign': F(5000), 'retries': F(2000), 'execution_overhead': F(3000)}
+    d1 = PLAN.campaign_decision(entries, plan, k, F(10000), 86400)          # 1.6 x 51,750 + 10,000 = 92,800
+    d2 = PLAN.campaign_decision(entries, dict(plan, primary_run=F(35000)), k, F(10000), 86400)   # 84,800
+    d3 = PLAN.campaign_decision(entries + [{'job': 'x'}], plan, k, F(0), 86400)
+    d4 = PLAN.campaign_decision(entries, dict(plan, retries=None), k, F(0), 86400)
+    scope_ok = CFG.CONFIG['budget']['ceiling_scope'] == ['calibration', 'count_pass', 'primary_run', 'mutant_campaign',
+                                                          'retries', 'execution_overhead']
+    mut_ok = CFG.CONFIG['budget']['campaign']['mutant_campaign']['machinery_mutants'] == len(MUTANTS)
+    ok = spent_ok and d1[0] is False and d1[1] == PLAN.NOT_UNDERTAKEN and d2[0] is True and d3[0] is None and \
+        d4[0] is None and scope_ok and mut_ok
+    return {'pass': ok, 'spent': spent, 'over': d1[0], 'within': d2[0], 'malformed': d3[0], 'unplanned': d4[0],
+            'scope': scope_ok, 'mutant_count_pinned': mut_ok}
+
+
 CASES = [('L2-S1_static', t_static), ('L2-GUARD', t_guard), ('L2-POST', t_post), ('L2-ORB', t_orbits),
          ('L2-AUTH', t_auth), ('L2-MAN', t_manifest), ('L2-MRG', t_merge), ('L2-LBL', t_labels), ('L2-RT', t_rule_t),
          ('L2-C16', t_witness), ('L2-WIT', t_witness_running), ('L2-SURV', t_survivor_gates),
@@ -1129,7 +1393,8 @@ CASES = [('L2-S1_static', t_static), ('L2-GUARD', t_guard), ('L2-POST', t_post),
          ('L2-INDEX', t_index), ('L2-SCOPE', t_scope), ('L2-C7COV', t_c7_coverage), ('L2-F1', t_f1), ('L2-F2', t_f2),
          ('L2-SIGMA', t_sigma), ('L2-PREC', t_precedence), ('L2-T1', t_rule_t_l3), ('L2-T5', t_t5), ('L2-2D', t_2d),
          ('L2-COUNTS', t_counts58), ('L2-V8COUNTS', t_v8_counts), ('L2-T6', t_statement_scope),
-         ('L2-PLACEHOLDER', t_placeholders), ('L2-IDXRUN', t_index_inrun), ('L2-LAUNCH', t_launch)]
+         ('L2-PLACEHOLDER', t_placeholders), ('L2-IDXRUN', t_index_inrun), ('L2-LAUNCH', t_launch),
+         ('L2-SHARDPLAN', t_shardplan), ('L2-SPLIT', t_split), ('L2-COUNTONLY', t_countonly), ('L2-LEDGER', t_ledger)]
 
 
 # --- machinery mutants (monkeypatches in this process only) --------------------------------
@@ -1357,6 +1622,75 @@ def _m_index_check_off():
     ENUM.Shard.index_check = lambda self, idx, m, j: None
 
 
+def _m_launch_mean_shard():
+    orig = PLAN.launch_decision
+
+    def ld(total, jobs, kappa, reserve, ceiling, timeouts):
+        jobs = {k: (sum(v)/len(v) if isinstance(v, list) and v and None not in v else v) for k, v in jobs.items()}
+        return orig(total, jobs, kappa, reserve, ceiling, timeouts)
+    PLAN.launch_decision = ld
+
+
+def _m_kappa_round_nearest():
+    from fractions import Fraction as F
+
+    def kr(rule):
+        uc, um = PLAN._frac(rule.get('u_cal')), PLAN._frac(rule.get('u_model'))
+        if uc is None or um is None:
+            return None
+        return F(round(uc*um*10), 10)
+    PLAN.kappa_from_rule = kr
+
+
+def _m_subdiv_drop_record():
+    orig = PLAN.plan_from_cuts
+
+    def pf(ri, cuts):
+        plan = orig(ri, cuts)
+        if len(plan) > 1 and plan[0]['hi'] > plan[0]['lo']:
+            plan[0] = dict(plan[0], hi=plan[0]['hi'] - 1, count=plan[0]['count'] - 1)     # one record in no shard
+        return plan
+    PLAN.plan_from_cuts = pf
+
+
+def _m_subdiv_dup_record():
+    orig = PLAN.plan_from_cuts
+
+    def pf(ri, cuts):
+        plan = orig(ri, cuts)
+        if len(plan) > 1 and plan[1]['lo'] > 0:
+            plan[1] = dict(plan[1], lo=plan[1]['lo'] - 1, count=plan[1]['count'] + 1)     # one record in two shards
+        return plan
+    PLAN.plan_from_cuts = pf
+
+
+def _m_ledger_skip_failed():
+    orig = PLAN.ledger_spent
+    PLAN.ledger_spent = lambda entries: orig([e for e in entries if not isinstance(e, dict) or 'status' not in e
+                                              or e['status'] == 'success'])
+
+
+def _m_count_inpair_order():
+    import l2sitepairs as SPC
+    orig = SPC.count
+
+    def c(setup):                       # the in-pair rule without the second site's order (t1 <= t2 only)
+        out = orig(setup)
+        nt = out['nt']
+        out['pairs_representatives'] = [nt*(nt + 1)//2 if v == nt*(nt - 1)//2 else v
+                                         for v in out['pairs_representatives']]
+        out['representatives_total'] = sum(out['singles_representatives']) + sum(out['pairs_representatives'])
+        return out
+    SPC.count = c
+
+
+def _count_mutant(name):
+    def f():
+        global _COUNT_MUTANT
+        _COUNT_MUTANT = name
+    return f
+
+
 MUTANTS = {
     'M_skip_index': (_m_skip_index, 'L2-ORB', 'coverage scan misses one index'),
     'M_every_record_rep': (_m_every_rep, 'L2-ORB', 'orbit reduction off: representatives exceed orbits'),
@@ -1401,6 +1735,22 @@ MUTANTS = {
     'M_launch_no_reserve': (_m_launch_no_reserve, 'L2-LAUNCH', 'the explicit reserve left out of the launch rule'),
     'M_index_check_off': (_m_index_check_off, 'L2-IDXRUN', 'in-run record_at(index_of(m)) check disabled '
                                                            '(LAYER2-R3-REVIEW R3)'),
+    'M_launch_mean_shard': (_m_launch_mean_shard, 'L2-LAUNCH', 'the mean shard, not the heaviest, decides the job '
+                                                               'inequality (LAYER2-R4-REVIEW L-b)'),
+    'M_kappa_round_nearest': (_m_kappa_round_nearest, 'L2-LAUNCH', 'kappa rounded to nearest, not up '
+                                                                   '(LAYER2-R4-REVIEW L-a)'),
+    'M_subdiv_drop_record': (_m_subdiv_drop_record, 'L2-SPLIT', 'the subdivision leaves one record in no shard'),
+    'M_subdiv_dup_record': (_m_subdiv_dup_record, 'L2-SPLIT', 'the subdivision puts one record in two shards'),
+    'M_ledger_skip_failed': (_m_ledger_skip_failed, 'L2-LEDGER', 'failed jobs and retries left out of the campaign '
+                                                                 'ledger'),
+    'M_count_inpair_order': (_m_count_inpair_order, 'L2-SHARDPLAN', 'the in-pair case t1 < t2 (a < j) counted as '
+                                                                    't1 <= t2'),
+    'M_count_guard_off': (_count_mutant('guard_off'), 'L2-COUNTONLY', 'the count-only guard not installed'),
+    'M_count_validate_lax': (_count_mutant('validate_lax'), 'L2-COUNTONLY', 'any output accepted as the permitted '
+                                                                            'outputs'),
+    'M_count_v8_unrefused': (_count_mutant('v8_unrefused'), 'L2-COUNTONLY', 'v8 counted without the count\'s own '
+                                                                            'authorization'),
+    'M_count_drop_pair': (_count_mutant('drop_pair'), 'L2-COUNTONLY', 'one site pair\'s representatives dropped'),
 }
 
 

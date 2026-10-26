@@ -14,7 +14,9 @@ The dry run (l2plan) is also run for v8: it imports no engine, constructs no con
 computes no closure, and must report closures_computed = 0. Its record-enumerating option
 --shared-tips (the shared-tip and F_G counts of C7's scope) must be refused for v8 before anything
 is computed (exit 2, a refusal object); each enumerating function also refuses v8 at entry, so a
-broken command-line check would end in that refusal, not in an enumeration.
+broken command-line check would end in that refusal, not in an enumeration. r5: the count-only
+site-pair count (l2sitepairs.py) must refuse v8 without its own authorization (exit 2, no file), and
+the dry run must refuse a forged v8 count file (exit 2).
 Usage: python3 -I -B refusal_probe.py <layer2/code> <scratch dir>. Prints JSON; exit 0 iff
 every attempt is refused and the dry run computed no closure."""
 import json
@@ -142,7 +144,31 @@ if fn_refused:
         st = None
 shared_refused = fn_refused and code_st == 2 and bool(st) and st.get('label') == 'VOID' and bool(st.get('refused'))
 ok &= shared_refused
+# r5: the count-only site-pair count (l2sitepairs) on v8 without its own authorization; the command-line
+# attempt runs only after the pure decision is confirmed to refuse, so no attempt can reach a count
+import l2sitepairs as SPC  # noqa: E402
+spc = {'decide_refuses': SPC.decide(None, None, {}).startswith('refused')}
+if spc['decide_refuses']:
+    outp = os.path.join(scratch, 'v8-site-pair-counts.json')
+    p = subprocess.run([py, '-I', '-B', os.path.join(code, 'l2sitepairs.py'), '--profile', 'v8', '--out', outp],
+                       capture_output=True, text=True, timeout=60)
+    spc.update(exit=p.returncode, output=p.stdout.strip(), file_written=os.path.exists(outp))
+    # a forged count file (internally consistent toy-shaped numbers claiming an authorization) is refused by
+    # the dry run: it does not match v8's index space, or this module's digest
+    forged = os.path.join(scratch, 'forged-counts.json')
+    with open(forged, 'w') as f:
+        json.dump({'schema': SPC.SCHEMA, 'profile': 'v8', 'setup': {'dim': 3, 'rho': 4, 'tlast': 23, 'port': [0, 0, -3]},
+                   'nt': 25, 'sites': 1, 'site_pairs': 0, 'singles_representatives': [25], 'pairs_representatives': [],
+                   'records_total': 25, 'representatives_total': 25, 'burnside_orbits': 25,
+                   'module_sha256': '0'*64, 'authorization': 'ok'}, f)
+    p = subprocess.run([py, '-I', '-B', os.path.join(code, 'l2plan.py'), '--profile', 'v8', '--site-pair-counts', forged],
+                       capture_output=True, text=True, timeout=60)
+    spc.update(forged_file_exit=p.returncode, forged_file_output=p.stdout.strip()[:200])
+spc['refused'] = spc['decide_refuses'] and spc.get('exit') == 2 and '"refused"' in spc.get('output', '') and \
+    not spc.get('file_written') and spc.get('forged_file_exit') == 2
+ok &= spc['refused']
 print(json.dumps({'attempts': len(results), 'refused': sum(r['refused'] for r in results.values()),
+                  'v8_site_pair_count_refused': spc,
                   'v8_shared_tips_refused': {'function_refuses': fn_refused, 'exit': code_st, 'output': st,
                                              'refused': shared_refused},
                   'results': results, 'forgeries_refused': forge,

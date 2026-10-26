@@ -1,28 +1,29 @@
 {
- "commit": "a782aa549061ad5417d939da932fa1c7f66ac022",
+ "commit": "bc042a61052696b72c1b76ef52c83cfe41bc4237",
  "holds": true,
  "items": {
   "1_manifest": {
-   "code_digest": "a0c6c3dfb0b3a350259e63d960083c15b14df359d3e5aa79e9238d96cf7ade4c",
-   "config_sha256": "5811cc585b93b684cd1da68939fd4ba500e0ee4be9d439c6a67c7aead86dee92",
+   "code_digest": "46f858396ad5e6465f562e136af0dc9d50e4844ad468aee237d86479d0d49c82",
+   "config_sha256": "326b15611f39d61b1b54a331ad76b2336f766261531866c31856c8ce36b06734",
    "differences": [],
    "files": {
     "l2analysis.py": "0c61690071848022c6c78e6eccab1533ede41240b70aac85459876b3168e25fc",
     "l2auth.py": "e1be779494f3f553ccdb7102c22f394a0c122cb63502ccb398ee16aa836bcb91",
     "l2calib.py": "48427e257d350a279ea4430feebb9bfafe376c5e9af725c16ea49cb21a45b0e5",
-    "l2cert.py": "37a8bda45bf1f1d73ac67d82697b419366fd157b7ff76616ce7b9aaabffa3a83",
-    "l2config.py": "0268ba764d0b8f18ee4c9e334e4d177a113533f0cced0ff011c3612cee6af5d8",
+    "l2cert.py": "597af5217c58c39cad233c68837d50a7539723e9c80b06266fbd25fe13278128",
+    "l2config.py": "b4042bc72b1a740c5aa07a179e9a7bff8c88a6886dd835a0df8e76d8ae7b8de8",
     "l2enum.py": "ab4e8120a14ddb936b63619cd160198982ad2785f6ed6dda034631d3ce15ad5b",
     "l2landing.py": "0af56760310ee4bf255bc9b5bc26be9b15d8ff2662486ba1778a2fe170c0644f",
     "l2manifest.py": "d30c92f4eac252992c8ecbb03cb89bbb39a6a968b57f4ab359f331beceb4dea0",
-    "l2merge.py": "53b86107966877b10aaf5ef08664d3a90c19be0fff66ad9f6493d29b35e5af74",
+    "l2merge.py": "65d55d89215455aa1feae75f73cd9f8e2f705dd0fc94d09f69e98a2754c2e21a",
     "l2mutants.py": "73c5e2fa733844ec21af149daa81d37cb7f650453fc41504658f2563c45a90ad",
-    "l2plan.py": "26727c440fc0497bf9802224e592574d7a2bcf6044ea74e9d3fcca41d1562cf2",
+    "l2plan.py": "7c70e046c635b5b8e45a92f448bb3cfb44ed2d903f419707d2a3c18b4c5f7820",
     "l2preflight.py": "ee50c6e4f1cb1b5d7b8cf044999b43009792bb26a54bfb13c34ddc9770a18671",
     "l2refcheck.py": "0049d2103fa03b6a1141212da74b9945e145eeea5ebcb26b5916d78f88b07d46",
-    "l2run.py": "8c092a6a1a7f120b02984e376d230521c580d65c64e91eab70f806bffc3ae9d4",
+    "l2run.py": "3e19694ca7c2dadac51e7f9122ad09639195e2e68dc5140aef3e5c2cb83aacc0",
     "l2s1a.py": "2ef4073d8913e02f98ba01102c43053196482ffebdf873617aa7766b7d913f48",
-    "l2selftest.py": "f386bf9e7bf05e90253db40b2abebcd28a16cfab043eac22e9e49ebeba0d5cee",
+    "l2selftest.py": "78456076c870f925e13cfed9cbb37f37f2478ec9a8ccd903b7dbdbdd5a2d5a51",
+    "l2sitepairs.py": "fbd4b65061d7e1101e573ad3cb34499288990e1f88f4bfe76c87ac2977b6ac3b",
     "s0controls.py": "81994f1b8375c988f0d622d202a0896e44338ac8d08c888eaa119c3ef7f103cb",
     "s0geom.py": "9ab0d64cbf7efef231355a46d9264658735f314a325c02067fffabd15eba8e13",
     "s0native.py": "4206549e8c01d62c684d4375fb11ae79e2fe69ef059c61600ae3db04570c8526",
@@ -176,12 +177,12 @@
     }
    },
    "holds": true,
-   "sha256": "34ad72266efd50d70eb7999b2c564f9906afcd723443fa0e016cb90f28811b09"
+   "sha256": "e42c316849955371ac25e01fdf51e70209176f2fc94838d9b67689251e7c450c"
   },
   "3_mutant_campaign": {
    "holds": true,
    "mode": "quick",
-   "sha256": "57fa55a3acfd27285fad379d52b04e273f266dc9aea60997fc5fda5c5abd1069"
+   "sha256": "20b0db90bb812f8c4e2e134bd6f1fcfd742503cb3397dc817f6a2bb5a8d5237f"
   },
   "4_in_run_gates": {
    "gates": {
@@ -253,22 +254,22 @@
   },
   "7_determinism": {
    "commits": {
-    "preflight.json": "a782aa549061ad5417d939da932fa1c7f66ac022",
-    "result.O.json": "a782aa549061ad5417d939da932fa1c7f66ac022",
-    "result.json": "a782aa549061ad5417d939da932fa1c7f66ac022",
-    "s1a.O.json": "a782aa549061ad5417d939da932fa1c7f66ac022",
-    "s1a.json": "a782aa549061ad5417d939da932fa1c7f66ac022",
-    "shard-0.O.json": "a782aa549061ad5417d939da932fa1c7f66ac022",
-    "shard-0.json": "a782aa549061ad5417d939da932fa1c7f66ac022",
-    "shard-1.O.json": "a782aa549061ad5417d939da932fa1c7f66ac022",
-    "shard-1.json": "a782aa549061ad5417d939da932fa1c7f66ac022",
-    "shard-2.O.json": "a782aa549061ad5417d939da932fa1c7f66ac022",
-    "shard-2.json": "a782aa549061ad5417d939da932fa1c7f66ac022",
-    "shard-3.O.json": "a782aa549061ad5417d939da932fa1c7f66ac022",
-    "shard-3.json": "a782aa549061ad5417d939da932fa1c7f66ac022"
+    "preflight.json": "bc042a61052696b72c1b76ef52c83cfe41bc4237",
+    "result.O.json": "bc042a61052696b72c1b76ef52c83cfe41bc4237",
+    "result.json": "bc042a61052696b72c1b76ef52c83cfe41bc4237",
+    "s1a.O.json": "bc042a61052696b72c1b76ef52c83cfe41bc4237",
+    "s1a.json": "bc042a61052696b72c1b76ef52c83cfe41bc4237",
+    "shard-0.O.json": "bc042a61052696b72c1b76ef52c83cfe41bc4237",
+    "shard-0.json": "bc042a61052696b72c1b76ef52c83cfe41bc4237",
+    "shard-1.O.json": "bc042a61052696b72c1b76ef52c83cfe41bc4237",
+    "shard-1.json": "bc042a61052696b72c1b76ef52c83cfe41bc4237",
+    "shard-2.O.json": "bc042a61052696b72c1b76ef52c83cfe41bc4237",
+    "shard-2.json": "bc042a61052696b72c1b76ef52c83cfe41bc4237",
+    "shard-3.O.json": "bc042a61052696b72c1b76ef52c83cfe41bc4237",
+    "shard-3.json": "bc042a61052696b72c1b76ef52c83cfe41bc4237"
    },
    "commits_bound": true,
-   "dryrun_sha256": "fcc6cacd4e296aba3624d8c2dd261a3ee514ae8be734a089664254e35c9db329",
+   "dryrun_sha256": "ce7d066a0b11cfcbdd9f9fa011952c8ba57cd2f1f78367ccd696f20c8bc9447f",
    "holds": true,
    "normal_vs_O_identical": {
     "result.json": true,
@@ -297,13 +298,13 @@
   "8_labels": {
    "holds": true,
    "inputs": {
-    "dryrun.json": "fcc6cacd4e296aba3624d8c2dd261a3ee514ae8be734a089664254e35c9db329",
-    "preflight.json": "34ad72266efd50d70eb7999b2c564f9906afcd723443fa0e016cb90f28811b09",
-    "s1a.json": "e29a1a04b29c83cd698ab6b4139c8c706b3cb850b3ee055d953ee090232a1053",
-    "shard-0.json": "2e2e027740878067c809c332911a2304d4ace08d2b78354fc2bc79a086a5b830",
-    "shard-1.json": "636488ac368f3498ab5654bb7b57959a44b3374d998c1320ee18ca7de49a3bfb",
-    "shard-2.json": "996460bef399654a3821452768dd8c54ec6788fe9f5912c23cefe7f07fc3aef0",
-    "shard-3.json": "17bda8d0582066c0ea98d7a60eace81212e75fd51fb43f11869807869cf1750b"
+    "dryrun.json": "ce7d066a0b11cfcbdd9f9fa011952c8ba57cd2f1f78367ccd696f20c8bc9447f",
+    "preflight.json": "e42c316849955371ac25e01fdf51e70209176f2fc94838d9b67689251e7c450c",
+    "s1a.json": "f6d9376796609d4e8e7740036d7bc273faa590f8b06cbc80c233100824fe36c1",
+    "shard-0.json": "8032d20e10230913919206ec443d47ec8e4ffb2e32477e54a50f70c4227155b4",
+    "shard-1.json": "27204083a3574e0abcef3a07503d8f48c711b9fadbd96d00ff78b24a9bbf38fc",
+    "shard-2.json": "25fc915cba2622de1ed2db36a4082fba2aceb1edf9c6358f802e38215a706303",
+    "shard-3.json": "07d2cd9e7e26017e6dfca924b87b5489177e74d193d50a0c7c3948f9570b2635"
    },
    "label": "COLLAPSE_ALL"
   }

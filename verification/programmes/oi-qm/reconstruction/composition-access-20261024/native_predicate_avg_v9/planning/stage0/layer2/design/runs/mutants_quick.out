@@ -1,6 +1,6 @@
 {
- "code_digest": "a0c6c3dfb0b3a350259e63d960083c15b14df359d3e5aa79e9238d96cf7ade4c",
- "killed": 51,
+ "code_digest": "46f858396ad5e6465f562e136af0dc9d50e4844ad468aee237d86479d0d49c82",
+ "killed": 61,
  "machinery_mutants": {
   "M_C7_carried_only": {
    "exit": 2,
@@ -65,6 +65,51 @@
    "named_case": "L2-CERT: certificate ignores differing commits (R5)",
    "run": "named case only"
   },
+  "M_count_drop_pair": {
+   "exit": 2,
+   "failed": [
+    "L2-COUNTONLY"
+   ],
+   "killed": true,
+   "named_case": "L2-COUNTONLY: one site pair's representatives dropped",
+   "run": "named case only"
+  },
+  "M_count_guard_off": {
+   "exit": 2,
+   "failed": [
+    "L2-COUNTONLY"
+   ],
+   "killed": true,
+   "named_case": "L2-COUNTONLY: the count-only guard not installed",
+   "run": "named case only"
+  },
+  "M_count_inpair_order": {
+   "exit": 2,
+   "failed": [
+    "L2-SHARDPLAN"
+   ],
+   "killed": true,
+   "named_case": "L2-SHARDPLAN: the in-pair case t1 < t2 (a < j) counted as t1 <= t2",
+   "run": "named case only"
+  },
+  "M_count_v8_unrefused": {
+   "exit": 2,
+   "failed": [
+    "L2-COUNTONLY"
+   ],
+   "killed": true,
+   "named_case": "L2-COUNTONLY: v8 counted without the count's own authorization",
+   "run": "named case only"
+  },
+  "M_count_validate_lax": {
+   "exit": 2,
+   "failed": [
+    "L2-COUNTONLY"
+   ],
+   "killed": true,
+   "named_case": "L2-COUNTONLY: any output accepted as the permitted outputs",
+   "run": "named case only"
+  },
   "M_counts_54": {
    "exit": 2,
    "failed": [
@@ -110,6 +155,15 @@
    "named_case": "L2-IDXRUN: in-run record_at(index_of(m)) check disabled (LAYER2-R3-REVIEW R3)",
    "run": "named case only"
   },
+  "M_kappa_round_nearest": {
+   "exit": 2,
+   "failed": [
+    "L2-LAUNCH"
+   ],
+   "killed": true,
+   "named_case": "L2-LAUNCH: kappa rounded to nearest, not up (LAYER2-R4-REVIEW L-a)",
+   "run": "named case only"
+  },
   "M_label_mismatch_first": {
    "exit": 2,
    "failed": [
@@ -128,6 +182,15 @@
    "named_case": "L2-LAUNCH: kappa lowered to fit the ceiling (owner ruling)",
    "run": "named case only"
   },
+  "M_launch_mean_shard": {
+   "exit": 2,
+   "failed": [
+    "L2-LAUNCH"
+   ],
+   "killed": true,
+   "named_case": "L2-LAUNCH: the mean shard, not the heaviest, decides the job inequality (LAYER2-R4-REVIEW L-b)",
+   "run": "named case only"
+  },
   "M_launch_no_reserve": {
    "exit": 2,
    "failed": [
@@ -135,6 +198,15 @@
    ],
    "killed": true,
    "named_case": "L2-LAUNCH: the explicit reserve left out of the launch rule",
+   "run": "named case only"
+  },
+  "M_ledger_skip_failed": {
+   "exit": 2,
+   "failed": [
+    "L2-LEDGER"
+   ],
+   "killed": true,
+   "named_case": "L2-LEDGER: failed jobs and retries left out of the campaign ledger",
    "run": "named case only"
   },
   "M_manifest_blind": {
@@ -272,6 +344,24 @@
    "named_case": "L2-ORB: coverage scan misses one index",
    "run": "named case only"
   },
+  "M_subdiv_drop_record": {
+   "exit": 2,
+   "failed": [
+    "L2-SPLIT"
+   ],
+   "killed": true,
+   "named_case": "L2-SPLIT: the subdivision leaves one record in no shard",
+   "run": "named case only"
+  },
+  "M_subdiv_dup_record": {
+   "exit": 2,
+   "failed": [
+    "L2-SPLIT"
+   ],
+   "killed": true,
+   "named_case": "L2-SPLIT: the subdivision puts one record in two shards",
+   "run": "named case only"
+  },
   "M_survivor_rep_only": {
    "exit": 2,
    "failed": [
@@ -320,14 +410,22 @@
    "M_auth_no_commit",
    "M_c9_off",
    "M_commits_unbound",
+   "M_count_drop_pair",
+   "M_count_guard_off",
+   "M_count_inpair_order",
+   "M_count_v8_unrefused",
+   "M_count_validate_lax",
    "M_counts_54",
    "M_every_record_rep",
    "M_grant_unbound",
    "M_guard_truthy",
    "M_index_check_off",
+   "M_kappa_round_nearest",
    "M_label_mismatch_first",
    "M_launch_fit_kappa",
+   "M_launch_mean_shard",
    "M_launch_no_reserve",
+   "M_ledger_skip_failed",
    "M_manifest_blind",
    "M_mask_no_merge",
    "M_merge_no_coverage",
@@ -343,6 +441,8 @@
    "M_sigma_no_2d",
    "M_sigma_overrides_label",
    "M_skip_index",
+   "M_subdiv_drop_record",
+   "M_subdiv_dup_record",
    "M_survivor_rep_only",
    "M_v8_counts_unrefused",
    "M_witness_first",
@@ -544,7 +644,7 @@
   }
  },
  "schema": "np-avg-1/stage0/layer2/mutant-campaign/1",
- "total": 51,
+ "total": 61,
  "unmodified_suite": {
   "mode": "quick",
   "passed": true,

@@ -269,5 +269,14 @@
    "refused": "--shared-tips on v8"
   },
   "refused": true
+ },
+ "v8_site_pair_count_refused": {
+  "decide_refuses": true,
+  "exit": 2,
+  "file_written": false,
+  "forged_file_exit": 2,
+  "forged_file_output": "{\"label\": \"VOID\", \"reason\": \"the v8 site-pair count file is not a valid authorized count of this module\", \"refused\": \"--site-pair-counts\"}",
+  "output": "{\"label\": \"VOID\", \"refused\": \"v8 site-pair count\", \"reason\": \"refused: no authorization for the v8 site-pair count (default)\"}",
+  "refused": true
  }
 }

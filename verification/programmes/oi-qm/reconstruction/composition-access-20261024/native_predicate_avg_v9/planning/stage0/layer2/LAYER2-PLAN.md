@@ -1,11 +1,13 @@
-# NP-AVG-1 Stage 0, Layer 2: implementation plan (r4, for re-review)
+# NP-AVG-1 Stage 0, Layer 2: implementation plan (r5, for re-review)
 
 **Status: WIP / UNREVIEWED, not frozen. The v8 enumeration is not authorized.** Nothing in this
 directory has run on v8's configuration class. v8 setups are constructed only to check that they
 are refused, and v8's record space is used only for combinatorics (counts, orbits, shard ranges and
 context sizes), with no context constructed and no closure computed. No shared-tip, F_G or other
-record-enumerating count is computed on v8: the dry run refuses it (§3.6). No grant for v8 is
-constructed; the only grants built are deliberate forgeries, which must be refused (§7).
+record-enumerating count is computed on v8: the dry run refuses it (§3.6). The site-pair count on v8's
+index space is implemented for review (`SITE-PAIR-COUNT.md`) and refuses v8 without an authorization of
+its own, which does not exist. No grant for v8 is constructed; the only grants built are deliberate
+forgeries, which must be refused (§7).
 
 **This revision.** r1 (`99a9797e`) was reviewed in `../../review/LAYER2-REVIEW.md` (`a63db7ba`):
 ACCEPT WITH CHANGES. r2 (`4a51c675`) applied L2-R1 to L2-R8 and the accepted part of L2-R9, with
@@ -23,6 +25,29 @@ the v8 survivor cap, the Lemma G-D reference form and O1. The production entry p
 profile while any of them is open. Advisory documents for the owner, setting nothing:
 `KAPPA-PROPOSAL.md` (κ and the reserve), `SURVIVOR-CAP-PROPOSAL.md`, `ci/CI-CALIBRATION-PROPOSAL.md`
 (with the workflow, not placed under `.github/`) and `AMENDMENT-PROPOSAL-V8-COUNT.md` (unadopted).
+
+**r5.** r4 (`4a4d8bc1`) was reviewed in `../../review/LAYER2-R4-REVIEW.md` (`bc042a61`): ACCEPT WITH
+CHANGES. r5 applies it, with the owner's decisions of 2026-10-26 on the three questions the review
+collected and on the shard imbalance (§4.2); `CHANGES-L2-r5.md` maps each item to its edit, control
+and mutant. In brief:
+- **K1, L-b, and the owner's "deterministic subdivision of heavy site pairs":** the shard plan is a
+  deterministic subdivision by representative rank, with exact accounting (§3.5, PO-L2-25), and the
+  launch rule takes the heaviest shard (PO-L2-24). On v8 the plan needs the site-pair count, which is
+  implemented for review and not dispatched (`SITE-PAIR-COUNT.md`, PO-L2-26).
+- **The campaign ledger:** the 24-hour ceiling covers the whole campaign (calibration, count pass,
+  primary run, mutant campaign, retries, execution overhead), every job's measured compute time
+  counted, failed jobs and retries included (§3.5, PO-L2-27). The retry allowance is a new owner
+  placeholder.
+- **K2 and the cap:** the survivor cap is derived from a resource and completeness analysis, with its
+  assumptions stated (`SURVIVOR-CAP-PROPOSAL.md`).
+- **K3, B1–B4:** the affordable κ is stated beside, never in place of, the justified κ; measured and
+  modelled numbers are labelled (`KAPPA-PROPOSAL.md`, §3.6).
+- **L-a:** a rounding case and its mutant.
+- **CI-1 to CI-7, isolation, trigger:** `ci/CI-CALIBRATION-PROPOSAL.md`; u_cal is preregistered as an
+  upper confidence bound.
+- **A1–A4:** `AMENDMENT-PROPOSAL-V8-COUNT.md`.
+- **The review's validation step:** run locally on a mid-size analogue (§3.6, §12).
+- **Feasibility:** `FEASIBILITY-AND-REDESIGN.md` (r5).
 
 **Authority.** The owner, 2026-10-26: "NP-AVG-1 — Yes, write Layer 2 for independent review. Keep
 the v8 lock intact and run no v8 experiments. Retain rule T's current wording provisionally, with
@@ -63,7 +88,7 @@ this plan; the r1 review's verdict is cited where it exists, and the r2 and r3 a
 | `l2landing.py` | the post-hoc check of the owner's designation against the host at landing (item 6, L2-R4 c) |
 | `l2analysis.py` | C4v group, canonical representatives, orbits, `post_closure`, degeneracies, the r5 list of 54 counts and the reported list of 58 (E1-F6), structure attributes |
 | `l2refcheck.py` | reference gates C7, C11 (i), C11 (ii), C17, C18, their streamed forms (near-only for L3), and the reference recomputation of L_A and L_G (E1-T2 case 2 (d)); imports only `s0ref` |
-| `l2plan.py` | the dry run: index space, Burnside orbit count, shard plan, context sizes, the complete cost estimate; the record index (`Space.index_of`), the closure-free C7 predicates of E1-F3 (Q⁰, In/Out, F_G, I_c, E_G) and the per-record masking-equivalence test (E1-F6); refuses every record-enumerating count on v8; imports no engine |
+| `l2plan.py` | the dry run: index space, Burnside orbit count, the shard plan (the deterministic subdivision, §3.5), context sizes, the complete cost estimate and the campaign ledger; the record index (`Space.index_of`), the closure-free C7 predicates of E1-F3 (Q⁰, In/Out, F_G, I_c, E_G) and the per-record masking-equivalence test (E1-F6); refuses every record-enumerating count on v8; imports no engine |
 | `l2calib.py` | timing calibration on planted sets for the estimate |
 | `l2preflight.py` | pre-flight controls (item 2) |
 | `l2mutants.py` | the mutant campaign, quick (local) and full (CI) (item 3) |
@@ -71,21 +96,27 @@ this plan; the r1 review's verdict is cited where it exists, and the r2 and r3 a
 | `l2enum.py` | the record driver and per-record analysis, one shard per run |
 | `l2merge.py` | the merge, S1a's diagnostic status σ (E1-T2), the label generator, rule T and its record |
 | `l2cert.py` | start-up checks and the certificate builder (items 1–8) |
-| `l2selftest.py` | controls of the Layer-2 machinery (36 cases) and its 34 machinery mutants; `--only` runs named cases |
+| `l2sitepairs.py` | the count-only site-pair count (r5; `SITE-PAIR-COUNT.md`): per-site and per-site-pair representative counts from the index metadata, with its guards and its own v8 authorization; used by `l2plan` for non-v8 profiles |
+| `l2selftest.py` | controls of the Layer-2 machinery (40 cases) and its 44 machinery mutants; `--only` runs named cases |
 | `l2run.py` | the bounded local evidence driver |
 
 `design/`: the design-evidence scripts (`planted_shard.py`, `refusal_probe.py`, `crosscheck.py`,
-`r5_equivalence.py`, `e1check_replay.py`, `kappa_calibration.py`, `overhead_measure.py`), the retained
-stdout and stderr of every step in `runs/`, the toy run's structured files in `toyrun/`, the κ
-calibration repeats in `kappa/` and the overhead measurement in `overhead/` (timing data), and `RUN-MANIFEST.json` and `.md` (commands, exit codes, `-O` identity,
+`r5_equivalence.py`, `e1check_replay.py`, `kappa_calibration.py`, `overhead_measure.py`,
+`survivor_cap_measure.py`, `ci_local_check.py`; r5: `subdivision_bounds.py`, `midsize_validation.py`,
+`survivor_cap_derive.py`), the retained stdout and stderr of every step in `runs/`, the toy run's
+structured files in `toyrun/`, the κ calibration repeats in `kappa/`, the overhead and survivor-cap
+measurements in `overhead/`, the subdivision's bounds in `subdivision/` and the mid-size validation in
+`midsize/` (timing data except `subdivision/`), and `RUN-MANIFEST.json` and `.md` (commands, exit codes, `-O` identity,
 SHA-256 values of code, outputs, toy-run and calibration files, and the commit caveat of §12).
 
 Beside this plan, advisory and setting nothing: `KAPPA-PROPOSAL.md` (κ by the approved method, the
 cost model, the calibration spread, the u_model sensitivity, the reserve); `SURVIVOR-CAP-PROPOSAL.md`
-(the cap, from the shard distribution, the memory per survivor and the failure probability);
-`AMENDMENT-PROPOSAL-V8-COUNT.md` (the unadopted design of the v8 count-only pass). `ci/` holds the
-proposed planted-set CI calibration: the workflow, `calib_ci.py`, `calib_aggregate.py` and
-`CI-CALIBRATION-PROPOSAL.md`. `design/` adds `survivor_cap_measure.py` and `ci_local_check.py`.
+(the cap, derived from a resource and completeness analysis);
+`AMENDMENT-PROPOSAL-V8-COUNT.md` (the unadopted design of the v8 population count);
+`FEASIBILITY-AND-REDESIGN.md` (the campaign against the ceiling, and redesigns); `SITE-PAIR-COUNT.md`
+(the site-pair count, for review and the owner's authorization). `ci/` holds the
+proposed planted-set CI calibration: the workflow, `calib_ci.py`, `calib_aggregate.py`, `postrun.py`
+(local, after a launch) and `CI-CALIBRATION-PROPOSAL.md`.
 
 ## 2. Provenance of the copied code
 
@@ -242,7 +273,7 @@ L3 values recomputed and any difference reported only; the bound closures' logs 
 quantities; and ret_L3′(U) ⊆ ret_L3(U). The reference checks stream one explicit cone at a time
 (`l2refcheck.cover_index`), since the bound has 1,584 non-fixed quantities.
 
-### 3.5 Sharding and the stop rule (S7)
+### 3.5 Sharding, the campaign ledger and the stop rule (S7)
 
 | job | timeout |
 | --- | --- |
@@ -254,39 +285,106 @@ quantities; and ret_L3′(U) ⊆ ret_L3(U). The reference checks stream one expl
 
 The timeouts sum to 23 h (1,380 runner-minutes), within S7's 24 runner-hours over at most 32 shards.
 The normal and `-O` runs of a shard may also be run as two replica jobs of 20 minutes each; they are
-replicas of one shard, not additional shards, and total runner time is unchanged.
+replicas of one shard, not additional shards, and total runner time is unchanged. In either form a
+shard's two copies together are compared with 40 minutes (LAYER2-R4-REVIEW K1). The owner: "Do not
+compensate by lowering κ or simply increasing job timeouts."
+
+**The shard plan: a deterministic subdivision by representative rank** (r5; LAYER2-R4-REVIEW K1; the
+owner, 2026-10-26: "investigate deterministic subdivision of heavy site pairs into smaller shards,
+maintaining exact accounting and reproducibility").
+- **The rule.** With R representatives and S shards, shard k starts at the representative of rank
+  ⌊kR/S⌋ (rank in record-index order), shard 0 at index 0, and the last ends at N
+  (`l2plan.subdivision_cuts`). Each shard holds exactly ⌊(k+1)R/S⌋ − ⌊kR/S⌋ representatives, so a
+  heavy site pair is split wherever a cut falls inside it. A record's shard is a pure function of its
+  index (`shard_of`).
+- **Its inputs** are the per-site and per-site-pair representative counts (`l2sitepairs`), from which
+  the representatives within a block follow (all, none, t1 ≤ t2 or t1 < t2; `l2plan.RepIndex`): region,
+  slices and group only, frozen in the configuration. Reproducible from them.
+- **Exact accounting** (`plan_accounting`; PO-L2-25): contiguous from 0 to N, each record in exactly one
+  shard, the representatives summing to R, and each shard's stated count equal to the count from the
+  site-pair counts. The dry run records every check, `l2cert.startup` refuses a run whose dry-run plan is
+  not the profile's subdivision or fails a check (item 7), and the merge refuses a shard whose
+  representatives differ from the plan's (r5).
+- **Controls.** L2-SHARDPLAN (the derived representative flags equal the engine's canonical-image test
+  on every toy index and on every site and site pair of a ball(3) analogue at four slice pairs that
+  separate the in-pair cases; balance ⌊R/S⌋ or ⌈R/S⌉; v8 not computed); L2-SPLIT (the heaviest toy site
+  pair split into three sub-shards, each run through `l2enum.Shard`, re-merged identical to one shard
+  over the whole space; every record scanned once); mutants M_subdiv_drop_record and
+  M_subdiv_dup_record (killed at L2-SPLIT), M_count_inpair_order (killed at L2-SHARDPLAN).
+- **On v8** the counts come only from the site-pair count, which the owner has conditionally approved and
+  not dispatched (`SITE-PAIR-COUNT.md`). Without its file the v8 dry run prints the index-even plan as a
+  diagnostic, the per-job estimate is not computed, and `l2cert` refuses the plan.
+- **What it achieves** (`design/subdivision/bounds.json`; S = 32). Representatives: heaviest/mean 1.00
+  on ball(2) and ball(3) analogues (1.05 on the toy at 4 shards), against 2.9, 3.0, 3.7 and 5.0 for the
+  index-even plan on the toy, ball(1), ball(2) and ball(3). Modelled closure cost: heaviest/mean 1.49,
+  1.09 and 1.04 on ball(1), ball(2) and ball(3), against 3.5, 3.7 and 5.1. **Measured cost is not
+  balanced:** on the mid-size analogue four shards of 325 representatives each took 8–132 s (§3.6).
+
+**The campaign ledger** (the owner, 2026-10-26: the ceiling is "Per complete experimental campaign, not
+per individual run"; "Include calibration, count pass, primary run, mutant campaign, retries, and
+execution overhead"; "The 24-hour ceiling is an aggregate compute-runtime budget across the campaign,
+not a 24-hour wall-clock deadline. Record all measured compute time consistently, including failed jobs
+and retries.").
+- **One ledger.** Every job of the campaign has an entry: job, component (one of the six), attempt,
+  status (success, failure, cancelled, timed out), compute seconds, start and end, run. Every entry
+  counts, whatever its status; an attempt after the first is charged to retries (`l2plan.ledger_spent`).
+- **The rule.** Before each component starts: continue iff κ · (measured so far + planned for every
+  component not yet complete) + reserve ≤ 24 runner-hours (`campaign_decision`). κ multiplies the whole
+  campaign, measured and planned, as the owner's formula states. Otherwise "not undertaken for cost".
+- **Planned values** (`budget.campaign`; the dry run prints each with its status): calibration
+  (modelled), count pass (the site-pair count, measured on analogues; the population count, unmeasured
+  on v8), primary run (the cost model below), mutant campaign (modelled from local timings), retries (an
+  owner placeholder, `retry_allowance_runner_seconds`), execution overhead (jobs × the per-job fixed
+  overhead, which the CI calibration measures; until then not computed). The reserve stays an owner
+  placeholder.
+- **Splitting the run into several launches no longer escapes the ceiling** (FEASIBILITY-AND-REDESIGN
+  D1): every launch's compute time is in the one ledger. It only spreads wall-clock time.
+- **Controls.** L2-LEDGER (failed and timed-out jobs and retries counted; κ on the whole campaign; a
+  malformed entry or an unplanned component leaves the decision open; the ceiling's scope is the six
+  components); mutant M_ledger_skip_failed.
 
 The stop rule:
 1. **Before launch** (`l2plan.launch_decision`; the owner's rulings of 2026-10-26). Launch iff
 
-   κ · total + reserve ≤ 24 runner-hours, and κ · (each job's estimate) ≤ that job's timeout.
+   κ · (calibration + count pass + primary run + mutant campaign + retries + execution overhead) +
+   reserve ≤ 24 runner-hours, and κ · (each job's estimate) ≤ that job's timeout, the heaviest shard
+   included.
 
    - The ceiling: "24 hours maximum, including all run overhead, with an explicit reserve"
-     (`budget.runner_hours = 24`, owner-fixed). The reserve is an explicit term, an OWNER
-     placeholder (`budget.reserve_runner_seconds`); `KAPPA-PROPOSAL.md` proposes its size.
+     (`budget.runner_hours = 24`, owner-fixed), per complete campaign. The reserve is an explicit
+     term, an OWNER placeholder (`budget.reserve_runner_seconds`); `KAPPA-PROPOSAL.md` proposes its
+     size.
    - κ by the approved method: "Approve the proposed method, κ = u_cal × u_model, but not a final
      numerical value." `l2plan.kappa_from_rule` computes κ = u_cal × u_model, rounded up to one
      decimal, from `budget.kappa_rule`, whose two components are OWNER placeholders: u_cal from at
-     least 20 independent calibrations on the CI runner class ("Require at least 20 independent timing
-     calibrations on the relevant CI runner class"), u_model "an explicitly judgment-based factor,
-     subject to sensitivity analysis".
+     least 20 independent calibrations on the CI runner class, by the statistic preregistered in
+     `ci/CI-CALIBRATION-PROPOSAL.md` §4; u_model "an explicitly judgment-based factor, subject to
+     sensitivity analysis".
+   - **The job inequality takes every shard's estimate, so the heaviest decides** (LAYER2-R4-REVIEW
+     L-b): `launch_decision` accepts a per-shard list and compares each element; the estimate passes
+     the per-shard list (§3.6). L2-LAUNCH: a heaviest shard over its timeout with the mean under it
+     refuses the launch (mutant M_launch_mean_shard); κ = 1.21 × 1.0 rounds up to 1.3 (mutant
+     M_kappa_round_nearest, LAYER2-R4-REVIEW L-a).
    - Otherwise the outcome is "not undertaken for cost": "If the calibrated runtime exceeds 24 hours,
      the experiment must be reduced through a new reviewed design or declared infeasible under this
-     budget — not run with an artificially smaller margin." `launch_decision` never changes κ; there
-     is no other source of κ (L2-LAUNCH; mutants M_launch_fit_kappa and M_launch_no_reserve).
+     budget — not run with an artificially smaller margin." `launch_decision` never changes κ or a
+     timeout; there is no other source of κ (L2-LAUNCH; mutants M_launch_fit_kappa and
+     M_launch_no_reserve).
    - Sequencing: "Approved. Fix κ, the survivor cap, and budget ceiling before any v8 count." G_D and
      O1 are decided after the count, before the full run.
 
    With any placeholder open, no launch decision is computed and `l2cert.startup` refuses the v8
-   profile. The decision also needs the C7 term, whose v8 inputs are not computed (§3.6).
+   profile. The decision also needs the C7 term and the per-shard representatives, whose v8 inputs are
+   not computed (§3.6), and the measured per-job overhead.
 2. **During the run.** A shard that reaches its timeout is cancelled by the host; its file is
    missing, and the merge labels the run INCOMPLETE. A shard that exceeds the survivor cap is
-   INCOMPLETE. Nothing is retried automatically.
-3. **After a stop.** A re-dispatch is a new owner decision (§A.43 item 4).
+   INCOMPLETE. Nothing is retried automatically. Every job's compute time, cancelled and failed jobs
+   included, enters the ledger.
+3. **After a stop.** A re-dispatch is a new owner decision (§A.43 item 4), charged to retries.
 
-The full mutant campaign is a separate dispatch with its own budget: about 33 minutes locally on the
-r3 measurements (L1 §10), plus the 34 machinery mutants, each running every self-test case (about half a minute each). It is not counted in
-the 24 hours.
+The full mutant campaign is a separate dispatch inside the same ledger: about 33 minutes locally on the
+r3 measurements for the rule mutants (L1 §10), plus 44 machinery mutants each running every self-test
+case (43 s locally), about 3,900 s modelled before execution overhead.
 
 ### 3.6 Dry run and the complete cost estimate
 
@@ -298,7 +396,10 @@ formulas are checked against the engine on the toy class (L2-PLAN, L2-MASK, L2-S
 L2-SCOPE).
 
 It prints:
-- N, the Burnside orbit count and the shard plan;
+- N, the Burnside orbit count and the shard plan: the deterministic subdivision (§3.5), with its kind,
+  rule, accounting checks and representatives per shard, and the index-even plan's representatives per
+  shard as a diagnostic; on v8 without an authorized site-pair count file (`--site-pair-counts`), the
+  index-even plan as a diagnostic only, which `l2cert` refuses;
 - the histogram of non-fixed context sizes over all records, from per-item sample counts by
   convolution, with no record enumerated;
 - for the toy profile only, the masking-equivalent count (on v8 the merge computes it);
@@ -321,12 +422,13 @@ production closure times and r_A(m), r_G(m) the calibrated full-reference closur
 non-fixed quantities (`l2calib.py`, planted sets only; beyond the largest calibrated size scaled
 quadratically), m̄ the mean context size and m_max the largest; each run-time term is doubled for
 the `-O` copy. `dryrun.json` carries each term's formula beside its value (`cost.formulas`):
-1. **closures:** Σ_m count(m) · (orbits/N) · [2 t_A(m) + 2 t_G(m)] · overhead. overhead = 2 is an
-   **unmeasured judgement** (LAYER2-R3-REVIEW R5) covering analysis and member attributes. A local,
-   bounded measurement (`design/overhead_measure.py`, toy geometry: every toy orbit and 120 planted
-   records) gives 2.87–2.93 as a ratio of totals (§12), so on that evidence the factor 2 under-states
-   this term by about 45 %; the factor is left at 2 pending the owner's and the review's decision, and
-   is not adjusted here (model error is u_model's, `KAPPA-PROPOSAL.md`);
+1. **closures:** Σ_m count(m) · (orbits/N) · [2 t_A(m) + 2 t_G(m)] · overhead. overhead = 2 is a
+   **judgement** (LAYER2-R3-REVIEW R5) covering analysis and member attributes. Local, bounded
+   measurements: 2.87–2.89 as a ratio of totals on toy geometry (`design/overhead_measure.py`: every toy
+   orbit and 120 planted records, contexts up to 24), and a median of 2.24 (90th percentile 3.46) on 24
+   representatives of the mid-size analogue at contexts of 12–27 (`design/midsize_validation.py`). How
+   either transfers to v8's records is not measured (LAYER2-R4-REVIEW B2). The factor is left at 2 and is
+   not adjusted here (model error is u_model's, `KAPPA-PROPOSAL.md`);
 2. **sampled gates on representatives:** (1/1,000 for each of C11 (i), C17, C18) · orbits ·
    [r_A(m̄) + r_G(m̄)], and C8 on 1 in 100 orbits · 8 members · [2 t_A(m̄) + 2 t_G(m̄)];
 3. **C7 on its E1-F3 scope**, per record: c7_c = 2 · [t_c(m) + r_c(m)] (a direct production closure
@@ -350,19 +452,45 @@ the `-O` copy. `dryrun.json` carries each term's formula beside its value (`cost
    2 (d) recomputation), each costed as a reference closure at the largest calibrated size scaled
    linearly to the universe size; and two closures per axis line.
 
+**Per job (r5; LAYER2-R4-REVIEW K1, L-b).** The shard job's estimate is a list, one per shard of the
+plan: the shared terms (closures, sampled gates, C7) split in proportion to each shard's modelled
+closure cost (`shard_context_weights`: Σ over the shard's representatives of t_A(m) + t_G(m) at each
+representative's context size, from the site-pair counts and the per-site item sets; no record formed),
+plus the per-shard survivor allowance (cap × the per-orbit cost, a per-shard maximum, whole). The
+launch rule compares every element (§3.5). `cost.shard_job_bounds` prints the mean shard's known terms
+(closures and sampled gates over S), a lower bound on the heaviest under any plan, and, where the plan
+is computed, the heaviest's known terms and the heaviest/mean ratio in representatives and in modelled
+cost. On v8 the per-shard list is not computed (no site-pair count file); the lower bound is (about
+1,910 s in the retained run).
+
+**The campaign (r5).** `cost.campaign_runner_seconds` gives the six components of the campaign ledger
+(§3.5) with `cost.campaign_status`; the launch decision is on their total, which is not computed while
+the retry allowance is a placeholder, the per-job fixed overhead is unmeasured, the population count is
+not authorized, and the primary run's C7 term and cap are open.
+
 No value is assumed for an uncomputed input. On v8 the total, the shard job's estimate and the
 launch decision are "not computed"; `cost.known_terms_runner_seconds` and
 `cost.known_terms_plus_C7_set4_runner_seconds` give the sum of the terms that are known.
 `launch_within_budget` is `null`, with the reasons listed (`launch_not_decided_because`): κ and the
 survivor cap are placeholders, and the C7 inputs are not computed. The local figures are in §12.
 
-**The model is not validated** (LAYER2-R3-REVIEW §5, R5). Its only actual-against-estimate comparison
-is the toy class: across runs the toy dry run predicts a C7 term of 191–229 s and a known total of
-2,197–2,453 s, while all four toy shards, with every representative-sampled gate at rate 1 and C7 on 608 records,
-ran in about 9 s. Toy contexts are small (at most 8 quantities), so this over-prediction does not
-transfer to v8; in the other direction the measured overhead (about 2.9 against 2) suggests the
-closures term is under-stated. Every statement drawn from the estimate, including "κ above about
-1.18 does not fit S7", holds under the cost model only.
+**The model is not validated** (LAYER2-R3-REVIEW §5, R5; LAYER2-R4-REVIEW §5).
+- **The toy class.** Across runs the toy dry run predicts a C7 term of about 200 s and a primary total of
+  about 2,200–2,450 s, while all four toy shards, with every representative-sampled gate at rate 1 and C7
+  on 608 records, ran in about 9 s. Most of the gap is fixed allowances, the survivor bound and contexts
+  below the smallest calibrated size. r4 said this over-prediction "does not transfer to v8"; that was
+  an untested explanation (LAYER2-R4-REVIEW B3).
+- **The mid-size analogue (r5; the review's validation step).** `design/midsize_validation.py` runs the
+  dry run on the design-only profile `mid` (v8's dim, n, slices, sources and gate rates; region ball(2);
+  port (0, 0, −2): not v8's class) at 128 shards and four real shards through `l2enum.Shard`, normal mode:
+  shard 0, the model's heaviest, its lightest and its median. Actual 7.9, 131.6, 18.5 and 8.5 s against
+  predicted 60.4, 145.5, 62.3 and 110.8 s (single copy): actual/predicted 0.13, 0.90, 0.30 and 0.08. The
+  model is near on the heaviest shard, over-predicts the others by 3 to 13 ×, and models a heaviest/mean
+  spread of 1.34 where the four measured shards spread 3.2 × their mean. On that analogue C7 dominates the
+  model (24,443 of 27,710 s, both copies), with F_G 40.1 % of the records.
+- **So every statement drawn from the estimate holds under the cost model only,** and the model is not
+  validated as a per-shard predictor or as a total. The affordable κ under the model is stated beside,
+  never in place of, the justified κ (`KAPPA-PROPOSAL.md` §c; `FEASIBILITY-AND-REDESIGN.md` §1).
 
 ### 3.7 Merge, labels and rule T (items 5–8)
 
@@ -452,6 +580,12 @@ remains (certificate item 1; L2-PLACEHOLDER), and `result.json` lists them.
 | budget ceiling | "24 hours maximum, including all run overhead, with an explicit reserve." and "If the calibrated runtime exceeds 24 hours, the experiment must be reduced through a new reviewed design or declared infeasible under this budget — not run with an artificially smaller margin." | `budget.runner_hours = 24`; `budget.reserve_runner_seconds` (placeholder); `l2plan.launch_decision` |
 | CI calibration | authorized conditionally: "a separate, planted-set-only CI timing calibration, provided it cannot access v8 and its exact workflow and resource limits are reviewed before dispatch. This is not authorization to dispatch the existing full experimental workflow." | `ci/`, proposed, not placed under `.github/`, not dispatched |
 | v8 count-only pass | not authorized, pending its Layer-2 amendment and review | `AMENDMENT-PROPOSAL-V8-COUNT.md`, unadopted |
+| the ceiling's scope | "Per complete experimental campaign, not per individual run" | the campaign ledger (§3.5); `budget.ceiling_status` |
+| included costs | "Include calibration, count pass, primary run, mutant campaign, retries, and execution overhead" | `budget.ceiling_scope`; `budget.campaign`; `l2plan.campaign_components`, `campaign_decision` |
+| its reading | "The 24-hour ceiling is an aggregate compute-runtime budget across the campaign, not a 24-hour wall-clock deadline. Record all measured compute time consistently, including failed jobs and retries." | `l2plan.ledger_spent` (every entry counts; L2-LEDGER) |
+| v8 site-pair count | "Conditionally approved as a separate, strictly count-only diagnostic, after independent review of its exact implementation", with five restrictions; "This is not authorization to dispatch the count yet. Return with the exact reviewed implementation and its resource limit for authorization." | `code/l2sitepairs.py` and `SITE-PAIR-COUNT.md`; v8 refused without its own authorization (L2-COUNTONLY, `refusal_probe`) |
+| shard imbalance | "a genuine design blocker. Do not compensate by lowering κ or simply increasing job timeouts. Instead, investigate deterministic subdivision of heavy site pairs into smaller shards, maintaining exact accounting and reproducibility." | §3.5 (L2-SHARDPLAN, L2-SPLIT) |
+| survivor cap (r5) | "The survivor cap should likewise follow from a justified resource and completeness analysis, not a convenient placeholder." | `SURVIVOR-CAP-PROPOSAL.md` (r5): derived, with its assumptions; the v8 cap stays a placeholder |
 
 **Erratum E1's rulings:**
 
@@ -468,6 +602,8 @@ remains (certificate item 1; L2-PLACEHOLDER), and `result.json` lists them.
 | --- | --- | --- |
 | κ's value (u_cal, u_model) | the method is approved; the value is not | no value anywhere; no launch decision is computed; the v8 profile is refused. `KAPPA-PROPOSAL.md` is advisory |
 | the reserve | the explicit reserve inside the 24-hour ceiling | no value; `KAPPA-PROPOSAL.md` proposes one |
+| the retry allowance (r5) | the planned allowance for retries in the campaign ledger, before measured retries replace it | no value (`budget.campaign.retry_allowance_runner_seconds`); `KAPPA-PROPOSAL.md` proposes one |
+| the site-pair count's dispatch | the authorization of `l2sitepairs.py` on v8, after its review | refused without it; `SITE-PAIR-COUNT.md` gives the algorithm, outputs, guards and resource limit |
 | survivor cap (v8) | survivor orbits per shard gated before the run is INCOMPLETE; a resource constant (LAYER2-R3-REVIEW R2); the owner asked for a reasoned proposal | no value for v8; the estimate's survivor term is not computed; the v8 profile is refused. `SURVIVOR-CAP-PROPOSAL.md`. The toy profile uses 10 for design evidence only |
 | G_D | Lemma G-D in C7's reference computation (E1 §9: conditionally approved; non-executing until the owner confirms the proof); decided after the count, before the full run | not implemented; the full `s0ref` closure is the only reference form |
 | O1 | E_G as a fifth C7 set under G (E1 §9; optional, not adopted); decided after the count, before the full run | not a check set; |E_G| is reported for information on the toy profile |
@@ -652,7 +788,7 @@ record has a linked survivor.
 
 | id | statement | status |
 | --- | --- | --- |
-| PO-L2-1 | `record_at` is a bijection from [0, N) onto the record space, and the shard ranges are a disjoint exact cover of [0, N) | **Proved here; review: valid.** Ranges: ⌊sN/S⌋ is non-decreasing from 0 to N. Bijection: standard unranking (singles; divmod by 25²; lexicographic pair decoding). **Checked:** toy, C13 recount and L2-ORB; v8 indirectly by the merge's recount |
+| PO-L2-1 | `record_at` is a bijection from [0, N) onto the record space, and the shard ranges are a disjoint exact cover of [0, N) | **Proved here; review: valid (r4's index-even ranges).** r5's ranges are the subdivision's cuts, non-decreasing from 0 to N (PO-L2-25). Bijection: standard unranking (singles; divmod by 25²; lexicographic pair decoding). **Checked:** toy, C13 recount and L2-ORB; v8 indirectly by the merge's recount |
 | PO-L2-2 | Keeping exactly the records equal to their canonical image keeps one record per C4v orbit; the orbit weights sum to N, and the representatives number the orbits | **Proved here; review: valid.** **Checked** in every run by the merge's recount against Burnside's count; toy: 488 and 1,400 |
 | PO-L2-3 | Equivariance of the true closure: ret(gR) = g·ret(R) for g ∈ C4v, under A and G, for L3′ and L3 | **Proved here from L1 PO4 and §1 E4; review: valid for the true closure.** **Checked** in-run by C8 on sampled, flagged and survivor orbits; on toy, all 488 orbits |
 | PO-L2-4 | `post_closure(ctx_gR, g·ret(R))` equals `analyse(ctx_gR)` | **Follows from PO-L2-3 as code identity; review: valid.** **Checked:** L2-POST, all toy records, both conventions, both rules; C8 in-run |
@@ -674,7 +810,10 @@ record has a linked survivor.
 | PO-L2-20 | **New (E1-F6).** The per-record masking-equivalence test: R is masking-equivalent iff the number of records of the space with R's canonical form (PO-L2-6), less one if R is in the space, is at least one | **Proved here** from PO-L2-6's canonical form: a class is empty-form (empty items only), one site (one non-empty item, the other item, if any, empty at another site) or two sites (two non-empty items), with the counts c_x(m), E_x and E_tot of PO-L2-6. **Checked:** L2-MASK, against brute force on every record of three toy variants |
 | PO-L2-21 | **New (E1-F6).** The four added counts are preserved by the orbit-reduced computation | **Proved here given PO-L2-3:** each is a per-member contribution from the member's own record (stabilizer order, masking key) and its carried survivor status, both C4v-invariant (E1-F6), as the other degeneracy cells; in-run C8 compares every contribution, these four included, on directly closed orbits. **Checked:** `crosscheck_toy_counts` (58 equal, the four against an independent computation; all four are 0 on the toy class, which has no survivors); L2-COUNTS (a planted survivor orbit with a nontrivial stabilizer gives N_ST = 4 under A and G); `planted_survivor_path` |
 | PO-L2-22 | **New (E1-F3).** H₁₀₀ and H₁₀₀₀ are deterministic functions of the record index, on two distinct streams, frozen in the configuration digest | **Proved here by construction** (`c7_sampled` hashes (salt, stream, `index_of(R)`)). **Checked:** L2-C7COV (the sampled records equal an independent hash over [0, N), and include non-representative records); L2-SAMPLE; mutant M_C7_sample_rep_index |
-| PO-L2-24 | **New (r4; the owner's rulings).** The launch rule: κ comes only from u_cal × u_model (rounded up to one decimal); launch iff κ · total + reserve ≤ 24 runner-hours and κ · each job ≤ its timeout; otherwise "not undertaken for cost", with κ unchanged; with any input open, no decision | **Proved here by construction** (`l2plan.kappa_from_rule`, `launch_decision`; the estimate calls no other κ). **Checked:** L2-LAUNCH (fits; over the total; decided by the reserve; over a job's timeout; open inputs), L2-PLACEHOLDER; mutants M_launch_fit_kappa, M_launch_no_reserve. **Not claimed:** that the estimate is right; it holds under the cost model (§3.6) |
+| PO-L2-24 | **New (r4; the owner's rulings; r5: the campaign and the heaviest shard).** The launch rule: κ comes only from u_cal × u_model (rounded up to one decimal); launch iff κ · (the campaign's six components) + reserve ≤ 24 runner-hours and κ · each job ≤ its timeout, every shard compared; otherwise "not undertaken for cost", with κ and the timeouts unchanged; with any input open, no decision | **Proved here by construction** (`l2plan.kappa_from_rule`, `launch_decision`, `per_shard_jobs`; the estimate calls no other κ). **Checked:** L2-LAUNCH (fits; over the total; decided by the reserve; over a job's timeout; open inputs; the heaviest shard over with the mean under; 1.21 × 1.0 → 1.3; the per-shard split), L2-PLACEHOLDER; mutants M_launch_fit_kappa, M_launch_no_reserve, M_launch_mean_shard, M_kappa_round_nearest. **Not claimed:** that the estimate is right; it holds under the cost model (§3.6) |
+| PO-L2-25 | **New (r5).** The deterministic subdivision: the representative flags derived from the site-pair counts equal the canonical-image test; the cuts are non-decreasing from 0 to N, so the ranges are a disjoint exact cover; shard k holds exactly ⌊(k+1)R/S⌋ − ⌊kR/S⌋ representatives | **Proved here.** Flags: the in-pair case analysis of `l2sitepairs` (an image precedes its record iff its first site is smaller, or equal with a smaller slice, or equal slices and a smaller second site); the four counts identify the case. Cover: `index_of_rank` is increasing in the rank, ⌊kR/S⌋ is non-decreasing. Counts: the representatives in [cut_k, cut_{k+1}) are the ranks ⌊kR/S⌋ … ⌊(k+1)R/S⌋ − 1. **Checked:** L2-SHARDPLAN (every toy index; a ball(3) analogue at every site and site pair; `plan_accounting`); L2-SPLIT (planted split and re-merge); `subdivision_bounds` (every index of the toy, ball(1) and ball(2); every 401st of ball(3)); merge (each shard's representatives against the plan); mutants M_subdiv_drop_record, M_subdiv_dup_record, M_count_inpair_order |
+| PO-L2-26 | **New (r5).** The site-pair count is count-only: its outputs are exactly the permitted ones, it reads only the index metadata, evaluates no survivor, inspects no outcome and persists no record; on v8 it runs only under its own authorization | **Proved here by construction, within the runtime guard's stated limit** (`SITE-PAIR-COUNT.md` §4): inputs dim, rho, tlast, port; static import whitelist; an audit hook refusing imports, every file but the one output, processes, network, removals; sealed standard streams; a validator of the exact outputs; `decide()`. **Checked:** L2-COUNTONLY (static imports; a clean toy count; five planted violations refused; v8 refused before a sentinel count); `refusal_probe` (command line; forged count file refused by the dry run); mutants M_count_guard_off, M_count_validate_lax, M_count_v8_unrefused, M_count_drop_pair |
+| PO-L2-27 | **New (r5).** The campaign ledger counts every measured job, failed jobs and retries included, and decides κ · (measured + planned) + reserve ≤ 24 h over the owner's six components | **Proved here by construction** (`ledger_spent`, `campaign_decision`, `campaign_components`). **Checked:** L2-LEDGER; mutant M_ledger_skip_failed. **Not claimed:** the planned values; they are the cost model's or measurements on this machine |
 | PO-L2-23 | **New.** No record-enumerating count runs on v8's configuration class: `--shared-tips`, `shared_tip_records`, `c7_populations` and the record generator refuse a space whose (dim, n, port) are v8's before any record is formed | **Proved here by construction** (the first statement of each). **Checked:** L2-V8COUNTS (with a sentinel in place of the record generator, so that a missing refusal is detected without enumerating), `refusal_probe` (the command line, after the in-process refusal is confirmed); mutant M_v8_counts_unrefused |
 
 Nothing in this table is claimed beyond its status. "Checked" items are evidence on the instances
@@ -796,9 +935,14 @@ failure.
 | C7's sample index is each member's own record index, in-run | gate `index_roundtrip`; L2-IDXRUN; M_index_check_off |
 | `statement_scope` asserts the zero-branch statement only in the zero branch | L2-T6; M_scope_every_outcome |
 | a cap-exceeded run is INCOMPLETE, with complete counts and a flag; no v8 cap is set | L2-MRG, L2-PLACEHOLDER |
-| the v8 profile is refused while κ's components, the reserve, the survivor cap, G_D or O1 is open, with no value for any of them anywhere | L2-PLACEHOLDER; M_placeholders_ignored |
+| the v8 profile is refused while κ's components, the reserve, the retry allowance, the survivor cap, G_D or O1 is open, with no value for any of them anywhere | L2-PLACEHOLDER; M_placeholders_ignored |
 | the launch rule is the owner's: κ = u_cal × u_model, the 24-hour ceiling with an explicit reserve, κ never lowered to fit | L2-LAUNCH; M_launch_fit_kappa, M_launch_no_reserve |
 | the proposed CI calibration cannot reach v8, runs at least 20 calibrations, and is bounded | `ci_calibration_local_check` (equivalence, tripwire, aggregator minimum, workflow limits) |
+| the CI result binds to the owner-named SHA; u_cal is the preregistered upper bound | `ci_calibration_local_check` (`postrun.py` holds on a synthetic launch, VOID on another SHA; the aggregator refuses two commits) |
+| the shard plan is the deterministic subdivision, with exact accounting, reproducible from frozen inputs | L2-SHARDPLAN, L2-SPLIT; dry run `expected_checks` (`shard_plan_*`); `l2cert` item 7; merge (representatives against the plan); `subdivision_bounds`; M_subdiv_drop_record, M_subdiv_dup_record, M_count_inpair_order |
+| the job inequality uses the heaviest shard; κ rounds up | L2-LAUNCH; M_launch_mean_shard, M_kappa_round_nearest |
+| the site-pair count is count-only and refuses v8 without its own authorization | L2-COUNTONLY, `refusal_probe`; M_count_guard_off, M_count_validate_lax, M_count_v8_unrefused, M_count_drop_pair |
+| every job's compute time, failed jobs and retries included, is in the campaign ledger, and the ceiling covers the six components | L2-LEDGER; M_ledger_skip_failed; L2-PLACEHOLDER (the retry allowance) |
 | the Layer-2 code and toy run keep every value E1-check verified | `e1check_replay` (output identical to `e1_check.out`) |
 | masking count reading | L2-MASK (three toy variants, both readings); M_mask_no_merge |
 | behaviour of the copied engine preserved | `code_r5_equivalence_quick` |
@@ -819,7 +963,7 @@ The two workflows below are dispatch-only, each launched only on the owner's sep
 - **Jobs:**
   - `preflight-toy`: `l2preflight.py --profile toy`, full mode.
   - `mutants`: `l2mutants.py --full`, which needs the first job's `preflight.json`. The 17 rule
-    mutants run the whole full suite, the 2 equivalents run, and the 34 machinery mutants run
+    mutants run the whole full suite, the 2 equivalents run, and the 44 machinery mutants run
     `l2selftest.py`. A matrix by mutant is possible; the aggregation step then rebuilds
     `mutant-campaign.json` from the per-mutant JSON objects.
 - **Output:** `mutant-campaign.json` (mode `full`, `code_digest`). A marker step,
@@ -839,11 +983,13 @@ The two workflows below are dispatch-only, each launched only on the owner's sep
        SHA-256, the exact-line test computed in the step, the commit.
      - Marker step: "owner designation verified".
   2. `dryrun` (10 min).
-     - `l2calib.py`, then `l2plan.py --profile v8 --calib calib.json --out dryrun.json`.
-       `--shared-tips` is refused on v8 in this revision, so the C7 term's inputs (|F_G|, |I_A|,
-       |I_G|) are "not computed" and `launch_within_budget` is `null`: this workflow cannot launch
-       until a separate owner decision authorizes a combinatorial-only count of them and a Layer-2
-       amendment adds a grant-gated path for it (see `KAPPA-PROPOSAL.md` §4 for the sequence).
+     - `l2calib.py`, then `l2plan.py --profile v8 --calib calib.json --site-pair-counts
+       <retained count file> --out dryrun.json`. `--shared-tips` is refused on v8 in this revision,
+       so the C7 term's inputs (|F_G|, |I_A|, |I_G|) are "not computed" and `launch_within_budget` is
+       `null`: this workflow cannot launch until a separate owner decision authorizes a
+       combinatorial-only count of them and a Layer-2 amendment adds a grant-gated path for it
+       (`KAPPA-PROPOSAL.md` §e). Without an authorized site-pair count file the plan is the
+       index-even diagnostic and `l2cert` refuses it.
      - Output `launch` = `cost.launch_within_budget`, under the owner's κ.
      - If `launch` is not true, no later job runs except `report-not-undertaken`, which writes the
        estimate as the result.
@@ -870,7 +1016,7 @@ The two workflows below are dispatch-only, each launched only on the owner's sep
 
 ## 12. Local evidence (`design/`)
 
-Run by `code/l2run.py` with `python3 -I -B` on Python 3.13.16, in about ten minutes. Every step's
+Run by `code/l2run.py` with `python3 -I -B` on Python 3.13.16, in about twenty minutes. Every step's
 stdout and stderr is in `runs/`. `RUN-MANIFEST.json` records:
 - commands, exit codes and durations;
 - `-O` identity, by stdout or by the files written;
@@ -878,33 +1024,36 @@ stdout and stderr is in `runs/`. `RUN-MANIFEST.json` records:
 - the HEAD at run time and whether the Layer-2 tree was clean.
 
 **Commit caveat (L2-R5).** The evidence was produced on an uncommitted working tree. The structured
-files record the HEAD at run time (`a782aa54`) and `tree_clean = false`; the commit binding holds
+files record the HEAD at run time (`bc042a61`) and `tree_clean = false`; the commit binding holds
 among them (one commit throughout), but that commit does not contain these files. They are design
 evidence only. At the Layer-2 freeze the evidence is regenerated at a recorded commit.
 
 | step | result |
 | --- | --- |
 | `manifest_verify` | the manifest matches |
-| `l2_selftest` | 36 cases pass: the 20 of r2; L2-INDEX, L2-SCOPE, L2-C7COV, L2-F1, L2-F2, L2-SIGMA, L2-PREC, L2-T1, L2-T5, L2-2D, L2-COUNTS, L2-V8COUNTS, L2-T6 and L2-PLACEHOLDER of r3 (L2-T6, L2-MRG and L2-PLACEHOLDER extended in r4); and L2-IDXRUN and L2-LAUNCH of r4 |
+| `l2_selftest` | 40 cases pass: the 20 of r2; L2-INDEX, L2-SCOPE, L2-C7COV, L2-F1, L2-F2, L2-SIGMA, L2-PREC, L2-T1, L2-T5, L2-2D, L2-COUNTS, L2-V8COUNTS, L2-T6 and L2-PLACEHOLDER of r3 (L2-T6, L2-MRG and L2-PLACEHOLDER extended in r4); L2-IDXRUN and L2-LAUNCH of r4 (L2-LAUNCH extended in r5); and L2-SHARDPLAN, L2-SPLIT, L2-COUNTONLY and L2-LEDGER of r5 (L2-ORB now on the subdivision's plan; L2-PLACEHOLDER with the retry allowance) |
 | `calibration_planted` | timings on planted sets (not deterministic) |
-| `dryrun_toy` | 1,400 records, 488 orbits, 4 shards; masking-equivalent 1,398 in both readings; C7 populations I_A 1,071 (432 orbits), I_G 667 (307), F_G 595 (283), E_G 12 (6); the complete estimate with the C7 term evaluated; launch not decided (κ's components and the reserve are placeholders) |
-| `dryrun_v8_plan_no_closure` | v8 shard plan without enumeration or closure: 5,163,225 records, 816,050 orbits (875 + 815,175), group order 8, 32 ranges; non-fixed context sizes up to 29 (37 with the fixed quantities); `closures_computed = 0`; C7 populations "not computed (requires authorization)" |
+| `dryrun_toy` | 1,400 records, 488 orbits, 4 shards by the deterministic subdivision (122 representatives each, every accounting check true; the index-even plan's 260/36/162/30 as a diagnostic); masking-equivalent 1,398 in both readings; C7 populations I_A 1,071 (432 orbits), I_G 667 (307), F_G 595 (283), E_G 12 (6); the complete estimate with the C7 term evaluated; launch not decided (κ's components and the reserve are placeholders) |
+| `dryrun_v8_plan_no_closure` | v8 combinatorics without enumeration or closure: 5,163,225 records, 816,050 orbits (875 + 815,175), group order 8; the shard plan is the index-even diagnostic (no site-pair count file), the representatives per shard "not computed"; non-fixed context sizes up to 29 (37 with the fixed quantities); `closures_computed = 0`; C7 populations "not computed (requires authorization)" |
 | `dryrun_v8_estimate` | see below |
 | `preflight_toy_quick` | every pre-flight control passes (quick mode): refusal 46 of 46; C11 (iii) 0 failures; both direction mutants fail C11; S6 pass; the Layer-2 self-test; C12 on the toy universe, with `l2plan`'s frame equal to the production frame (129 cells) |
-| `mutants_quick` | 51 of 51 killed at their named cases: 17 rule mutants (L1 §6 table) and 34 machinery mutants. They include the twelve r3 mutants (M_C7_set2_computed, M_C7_carried_only, M_C7_sample_rep_index, M_ruleT_ignores_sigma, M_sigma_overrides_label, M_proposal_on_failed_label, M_sigma_no_2d, M_ruleT_reads_L3, M_LG_tip_reading, M_counts_54, M_v8_counts_unrefused, M_placeholders_ignored) and the four r4 mutants: M_scope_every_outcome (L2-T6), M_index_check_off (L2-IDXRUN), M_launch_fit_kappa and M_launch_no_reserve (L2-LAUNCH). Machinery mutants run against their named case only in the quick campaign. The two demonstrations fail C11 only, with counts equal to the frozen rule's |
+| `mutants_quick` | 61 of 61 killed at their named cases: 17 rule mutants (L1 §6 table) and 44 machinery mutants. They include the twelve r3 mutants (M_C7_set2_computed, M_C7_carried_only, M_C7_sample_rep_index, M_ruleT_ignores_sigma, M_sigma_overrides_label, M_proposal_on_failed_label, M_sigma_no_2d, M_ruleT_reads_L3, M_LG_tip_reading, M_counts_54, M_v8_counts_unrefused, M_placeholders_ignored), the four r4 mutants (M_scope_every_outcome, M_index_check_off, M_launch_fit_kappa, M_launch_no_reserve) and the ten r5 mutants: M_launch_mean_shard and M_kappa_round_nearest (L2-LAUNCH), M_subdiv_drop_record and M_subdiv_dup_record (L2-SPLIT), M_ledger_skip_failed (L2-LEDGER), M_count_inpair_order (L2-SHARDPLAN), M_count_guard_off, M_count_validate_lax, M_count_v8_unrefused and M_count_drop_pair (L2-COUNTONLY). Machinery mutants run against their named case only in the quick campaign. The two demonstrations fail C11 only, with counts equal to the frozen rule's |
 | `s1a_toy` | σ fields all clean (status OK); L_A = 15, L_G = 7, equal to their `s0ref` recomputation, L3 values likewise (toy geometry, not a statement about v8) |
-| `shard_toy_0`…`3` | 488 representatives; C0 1,584, C7 608 records (per record, sets 1–4), index round trip 1,400 of 1,400, C8 488 orbits, C9 2,800, C10 (i) 1,952, C11 (i) 976 (5,328 tables), C17 976, C18 976; 0 failures; no survivors. C7 coverage, records / orbits touched / sum of their sizes: A set 3 12 / 12 / 45, set 4 1 / 1 / 4; G set 2 595 / 283 / 595, set 3 6 / 6 / 24, set 4 1 / 1 / 4; sets 1, and set 2 under A, empty. These equal E1-check part J's populations |
+| `shard_toy_0`…`3` | 488 representatives, 122 per shard as planned; C0 1,584, C7 608 records (per record, sets 1–4), index round trip 1,400 of 1,400, C8 488 orbits, C9 2,800, C10 (i) 1,952, C11 (i) 976 (5,328 tables), C17 976, C18 976; 0 failures; no survivors. C7 coverage, records / orbits touched / sum of their sizes: A set 3 12 / 12 / 45, set 4 1 / 1 / 4; G set 2 595 / 283 / 595, set 3 6 / 6 / 24, set 4 1 / 1 / 4; sets 1, and set 2 under A, empty. These equal E1-check part J's populations |
 | `merge_toy` | COLLAPSE_ALL on the toy class (design evidence, no statement); 58 counts; `survivor_gates_incomplete` not flagged; σ OK; rule T evaluated (toy L_A = 15 > 0: the S1b branch; toy geometry), with `statement_scope` "not applicable (outcome: L_A > 0 or L_G > 0)"; coverage exact; recount 1,400 and 488; residue complete |
 | `certificate_toy` | items 1–8 hold, including the commit binding (item 3 with the quick campaign, which the toy profile admits) |
 | `crosscheck_toy_counts` | all 58 merged counts equal full per-record computations: the 54 against code-r5's control suite, the four added against an independent computation with `code-r5/s0ref.py` (all 0: the toy class has no survivors); the marginals 1,398 and 1,176 likewise; 36 counts identically zero |
-| `e1check_replay` | E1-check, run against r4's code and toy run, exits 0 and prints output byte-identical to `e1_check.out` (SHA-256 `d2297fb7…8542`) |
+| `e1check_replay` | E1-check, run against r5's code and toy run, exits 0 and prints output byte-identical to `e1_check.out` (SHA-256 `d2297fb7…8542`); the replay's own output is byte-identical to r4's (`9b0be14f…`) |
 | `code_r5_equivalence_quick` | the quick suite equals code-r5's except the extended refusal block |
 | `planted_survivor_path` | the survivor path on planted toy records (two orbits of 4): C7 on set 1 runs on all 8 members in both conventions (16), with its C0 check; C11 (i), C17, C18 16 each, C0 32, 0 failures; N_ST = 8 under A and under G; negative control: a bound missing one retained quantity gives C9 failures and a running-minimum witness |
-| `refusal_probe_v8` | 9 of 9 entry-point attempts refused with VOID and item 6, before any file is written; 9 of 9 forgeries refused; `l2plan --profile v8 --shared-tips` refused (exit 2), after the function-level refusal is confirmed in-process; `decide()` on fabricated inputs returns `ok`, recorded as the documented limit |
-| `kappa_calibration_repeats` | timing data for `KAPPA-PROPOSAL.md`: 5 normal and 5 `-O` calibrations; the v8 estimate's known terms across them (median 64,029 s, CV 9.2 %); the ratio between independent calibrations (90 ordered pairs: empirical p99 1.37, normal approximation 1.35, σ_log 0.091); toy-record timings (not deterministic) |
-| `overhead_measure` | the overhead factor measured (R5): Shard.rep against four bare closures, ratio of totals 2.93 on every toy orbit and 2.87 on 120 planted records (medians 2.9–3.0, 90th percentile about 4); configured value 2 (not deterministic) |
-| `survivor_cap_measure` | for `SURVIVOR-CAP-PROPOSAL.md`: 24 planted survivor orbits (contexts up to 29): residue detail 3.6–4.3 kB, kept memory ≤ 0.55 MB and peak transient ≤ 2.0 MB per orbit; the exact uniform-shard P(cap exceeded); the v8 survivor term per unit of cap, 767 s (not deterministic) |
-| `ci_calibration_local_check` | the proposed CI calibration (`ci/`): the extracted closure equals `s0geom.closure` on every planted set (0 mismatches); a planted v8-keyed object makes `calib_ci.py` exit 2 with VOID and no file; an ordinary run passes; the aggregator refuses 19 calibrations and accepts 20; the workflow has a single push trigger on its dedicated branch, read-only permissions, concurrency, 20 calibrations at `max-parallel: 4` and a timeout on every job |
+| `refusal_probe_v8` | 9 of 9 entry-point attempts refused with VOID and item 6, before any file is written; 9 of 9 forgeries refused; `l2plan --profile v8 --shared-tips` refused (exit 2), after the function-level refusal is confirmed in-process; `l2sitepairs --profile v8` refused (exit 2, no file), after its `decide()` is confirmed to refuse in-process; a forged v8 count file refused by the dry run (exit 2); `decide()` on fabricated inputs returns `ok`, recorded as the documented limit |
+| `subdivision_bounds` | toy, ball(1), ball(2), ball(3) analogues (not v8's region), 32 shards: representatives heaviest/mean 1.05, 1.00, 1.00, 1.00 under the subdivision against 2.89, 2.96, 3.71, 5.03 index-even; modelled closure cost 1.05, 1.49, 1.09, 1.04 against 2.89, 3.52, 3.74, 5.15; every accounting check true; the derived representative flags equal the engine's canonical-image test at every index of the toy, ball(1) and ball(2), every 401st of ball(3), and every site and site pair at four slice pairs (0 mismatches); the site-pair count in its own process: ≤ 0.01 s, about 22 MB |
+| `midsize_validation` | the review's validation step on the design-only profile `mid` (§3.6): four real shards actual/predicted 0.13, 0.90, 0.30, 0.08; measured spread 3.2 × against the model's 1.34; overhead median 2.24 (p90 3.46) at contexts 12–27; A4: the population count about 115 s for 188,125 records; A3: 1,940 records, 0 disagreements in Q⁰, I_A, I_G, and the frame equal to the production frame (timing data) |
+| `kappa_calibration_repeats` | timing data for `KAPPA-PROPOSAL.md`: 5 normal and 5 `-O` calibrations; the v8 estimate's known terms across them (median 64,784 s, CV 5.7 %); the ratio between independent calibrations (90 ordered pairs: empirical p99 1.19, normal approximation 1.22, σ_log 0.059; r4's run gave 1.37); toy-record timings (not deterministic) |
+| `overhead_measure` | the overhead factor measured (R5): Shard.rep against four bare closures, ratio of totals 2.87 on every toy orbit and 2.89 on 120 planted records (medians 2.85–3.02, 90th percentile 3.9); configured value 2 (not deterministic) |
+| `survivor_cap_measure` | for `SURVIVOR-CAP-PROPOSAL.md`: 24 planted survivor orbits (contexts up to 29): residue detail 3.6–4.3 kB, kept memory ≤ 0.55 MB and peak transient ≤ 2.0 MB per orbit; the exact uniform-shard P(cap exceeded); the v8 survivor term per unit of cap, 764 s (not deterministic) |
+| `survivor_cap_derive` | the cap's derivation (`SURVIVOR-CAP-PROPOSAL.md` r5): exact P(INCOMPLETE by the cap) for X survivor orbits in clusters of b over 32 equally weighted shards; the derived cap c*(X, b, α); resources by cap |
+| `ci_calibration_local_check` | the proposed CI calibration (`ci/`): the extracted closure equals `s0geom.closure` on every planted set (0 mismatches); a planted v8-keyed object makes `calib_ci.py` exit 2 with VOID and no file; an ordinary run passes and records its CPU model, wall-clock start and end, and run identity; the aggregator refuses 19 calibrations, accepts 20, and refuses 20 from two commits; `postrun.py` holds on a synthetic launch and is VOID on another SHA; `FORBIDDEN` names `V8_KEY`, `V8_REF`, `NO_V8`; the workflow has a single push trigger on its dedicated branch, read-only permissions, concurrency, 20 calibrations at `max-parallel: 4`, a timeout on every job, no self-pin, file pins equal to the files, every action pinned to a commit SHA, and `aggregate` under `always()` and the guard's success |
 
 Every deterministic step is `-O`-identical.
 
@@ -913,7 +1062,10 @@ Every deterministic step is `-O`-identical.
   machinery mutant, and the equivalent mutants. It is CI-only and needs an owner-approved dispatch.
 - The full-depth control suite (C1 F 0–15, B 0–8, G 0–23, …). It runs in CI pre-flight.
 - The planted-set CI calibration: proposed in `ci/`, not placed under `.github/`, not launched.
-- Any shared-tip, F_G or other record-enumerating count on v8 (refused; §3.6).
+- Any shared-tip, F_G or other record-enumerating count on v8 (refused; §3.6), and the site-pair count on
+  v8 (implemented; refused without its own authorization).
+- All 128 shards of the mid-size analogue (four were run; the rest are proposed for CI or a longer
+  bounded run).
 - Everything on v8's class.
 
 **The v8 cost estimate** from the step's calibration (planted sets on this machine; timings vary
@@ -921,22 +1073,33 @@ between runs; `runs/dryrun_v8_estimate.out`), in runner-seconds:
 
 | term | runner-seconds |
 | --- | --- |
-| closures (with overhead 2, an unmeasured judgement, and the `-O` copy) | 61,377 |
-| sampled gates (C11 (i), C17, C18 at 1 in 1,000; C8 at 1 in 100) | 2,401 |
-| S1a | 593 |
+| closures (with overhead 2, a judgement, and the `-O` copy) | 58,722 |
+| sampled gates (C11 (i), C17, C18 at 1 in 1,000; C8 at 1 in 100) | 2,353 |
+| S1a | 484 |
 | pre-flight | 300 |
 | merge | 600 |
-| **known terms** | **65,270 (about 18.1 h)** |
-| C7 set 4 (H₁₀₀₀, expected size N/1,000) | 2,062 |
-| survivor gates | not computed (owner placeholder: the survivor cap); 739 s per unit of cap |
-| C7 sets 2 and 3 | not computed (requires authorization): 0.317 s per F_G record, 0.000823 s per I_A record and 0.00317 s per I_G record (central) |
+| **known terms** | **62,458 (about 17.3 h)** |
+| C7 set 4 (H₁₀₀₀, expected size N/1,000) | 1,995 |
+| survivor gates | not computed (owner placeholder: the survivor cap); 736 s per unit of cap |
+| C7 sets 2 and 3 | not computed (requires authorization): 0.316 s per F_G record, 0.00071 s per I_A record and 0.0032 s per I_G record (central) |
+| the mean shard's known terms (a lower bound on the heaviest shard) | 1,909 |
+| campaign components | calibration 220, mutant campaign 3,872; count pass, retries, execution overhead not computed |
 
-**Under the cost model** (§3.6: not validated; the overhead factor measured at about 2.9 against
-2), the known terms plus the survivor term and the proposed reserve exceed what the 24-hour ceiling
-admits for every u_model from 1.0 to 1.5, before C7's sets 2 and 3 (`KAPPA-PROPOSAL.md` §c). By the
-owner's ruling, the outcome would then be "not undertaken for cost": a new reviewed design, or
-infeasible under this budget. No launch decision is computed: κ's components, the reserve and the
-survivor cap are placeholders, and the C7 inputs are not computed.
+**Under the cost model** (§3.6: not validated), two inequalities fail independently
+(`FEASIBILITY-AND-REDESIGN.md` §2, §4; `KAPPA-PROPOSAL.md` §c, on the median of the 10 calibrations of
+`kappa_calibration_repeats`):
+- **the campaign:** its known terms at cap 16 (84,261 s) times any κ the rule can give, plus the proposed
+  reserve, exceed 86,400 s, before C7's sets 2 and 3, execution overhead and retries;
+- **the job:** the heaviest shard's modelled estimate exceeds 2,400 s at every κ above 1.17 with no survivor
+  allowance, and at κ = 1 with cap 16.
+
+**The affordable κ, beside and never in place of the justified κ** (LAYER2-R4-REVIEW K3): 1.07 at cap 8
+and 0.98 at cap 16 for the primary run with r4's reserve (the review's figures on r4's calibration:
+1.08 and 0.99); 1.11 and 1.03 for the campaign's known terms with no reserve. The justified κ is at least
+1.3 by the method. By the owner's ruling the outcome would be "not undertaken for cost": a new reviewed
+design, or infeasible under this budget. No launch decision is computed: κ's components, the reserve,
+the retry allowance and the survivor cap are placeholders, and the C7 inputs, the per-shard
+representatives and the per-job overhead are not computed.
 
 ## 13. Findings: status after the review and erratum E1
 
@@ -948,11 +1111,32 @@ implements them as §4.2 states.
 - **F1:** accepted reading (§4.1).
 - **F2:** moot while F1 holds; to be fixed in any BASE_RESIDUE amendment.
 - **F4, F5, F7, F8, F10, F11:** accepted readings (§4.1).
-- **F9 / κ:** open owner decision on κ and the budget (S7). `KAPPA-PROPOSAL.md` sets out the cost
-  model, the calibration spread and a proposed value for the owner; it sets nothing.
+- **F9 / κ:** κ's method is ruled; its value is open. `KAPPA-PROPOSAL.md` sets out the cost model,
+  the calibration spread, the sensitivity analysis and the affordable κ beside the justified κ; it
+  sets nothing.
 
-**Open owner decisions** (placeholders; the v8 profile is refused while any is open): κ, the v8
-survivor cap, G_D, O1.
+**LAYER2-R4-REVIEW (r5).**
+- **K1, the per-job inequality.** Both copies of a shard are compared with its 40 minutes, the launch
+  rule takes the heaviest shard, and the plan is the deterministic subdivision (§3.5). Under the cost
+  model the job inequality still fails at S = 32: the mean shard's known terms alone are about 1,900 s
+  (both copies), so with any survivor allowance the heaviest shard exceeds 2,400 s at every κ the rule
+  can give, and at cap 16 even at κ = 1 (`FEASIBILITY-AND-REDESIGN.md` §2). The shard count (S7's "at
+  most 32 shards", Layer 1) is a lever; timeouts are not raised (owner).
+- **K2, the cap:** derived from a resource and completeness analysis, model-conditional, with the
+  survivor clustering a stated parameter (no available class has a survivor to measure it on).
+- **K3, B1–B4:** applied in `KAPPA-PROPOSAL.md`, `SURVIVOR-CAP-PROPOSAL.md` and §3.6.
+- **The cost model on the mid-size analogue** (§3.6): per-shard actual/predicted from 0.08 to
+  0.9 over four shards, and a measured spread between equally balanced shards of more than threefold
+  that the model does not show. The model is not validated as a per-shard predictor.
+
+**The three questions LAYER2-R4-REVIEW §5 collected are decided** (owner, 2026-10-26; §4.2): the ceiling
+is per complete campaign; it includes calibration, count pass, primary run, mutant campaign, retries
+and execution overhead; the site-pair count on v8's index space is conditionally approved as a
+separate count-only diagnostic, after review of its exact implementation, and not yet dispatched.
+
+**Open owner decisions** (placeholders; the v8 profile is refused while any is open): κ's components,
+the reserve, the retry allowance, the v8 survivor cap, G_D, O1; and the dispatch of the site-pair
+count.
 
 **Points where E1 is ambiguous, or not implementable as written now** (reported, not resolved):
 1. **The dry run's |F_G| on v8.** E1-F3's checkpoint says "The dry run computes |F_G|, records and
@@ -988,9 +1172,9 @@ survivor cap, G_D, O1.
 
 ## 14. Freezing Layer 2
 
-After the re-review of r4, and once the owner has fixed κ's components, the reserve and the v8
-survivor cap (before any v8 count, as ruled), then, after an authorized count under the reviewed
-amendment, G_D and O1:
+After the re-review of r5, and once the owner has fixed κ's components, the reserve, the retry
+allowance and the v8 survivor cap (before any v8 count, as ruled), then, after an authorized
+site-pair count and an authorized population count under the reviewed amendment, G_D and O1:
 1. Replace the placeholders in `l2config` with the decisions, and apply any accepted changes.
 2. Regenerate `LAYER2-MANIFEST.json`, commit, and re-run `l2run.py` at that recorded commit, so that
    the design evidence's commit is the freeze commit's parent or the freeze commit itself, as the

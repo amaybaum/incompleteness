@@ -50,6 +50,11 @@ CONFIG = {
             # flagged survivor_gates_incomplete). An owner-set resource constant, like kappa, fixed
             # before any v8 result; no default (LAYER2-R3-REVIEW R2).
             'survivor_cap_per_shard': OWNER,
+            # LAYER2-R4-REVIEW K1: shard boundaries balanced by representative count, so that the
+            # heaviest shard, not the mean, meets the per-job timeout. On v8 the plan needs the
+            # representatives per index range, a computation on v8's index space that waits on the
+            # owner (whether the dry run's standing permission covers it).
+            'shard_plan': 'representative_balanced',
         },
         'toy': {
             'setup': {'dim': 3, 'n': 2, 'rho': 1, 'tlast': 6, 'port': [0, 0, -2],
@@ -61,6 +66,25 @@ CONFIG = {
             'shards': 4,
             'C7_scope': 'E1-F3',
             'survivor_cap_per_shard': 10,     # toy design evidence only
+            'shard_plan': 'representative_balanced',
+        },
+        # design evidence only (LAYER2-R4-REVIEW section 5 item 3): a mid-size analogue with v8's
+        # dim, n, slices, sources and gate rates but region ball(2) and port (0, 0, -2), so its
+        # (dim, n, port) is not v8's and every content-keyed guard admits it. Used by
+        # design/midsize_validation.py to test the cost model at v8-like context sizes; it is never a
+        # run profile.
+        'mid': {
+            'setup': {'dim': 3, 'n': 6, 'rho': 2, 'tlast': 23, 'port': [0, 0, -2],
+                      'sources': [[-8, 0, 0], [-7, 0, -1], [-7, 0, 1]]},
+            'k': 2,
+            'requires_authorization': False,
+            'sampling': {'C8_orbits': 100, 'C11i': 1000, 'C17': 1000, 'C18': 1000},
+            'C7_samples': {'H100': {'stream': 'C7_H100', 'rate': 100}, 'H1000': {'stream': 'C7_H1000', 'rate': 1000}},
+            'shards': 32,
+            'C7_scope': 'E1-F3',
+            'survivor_cap_per_shard': 16,
+            'shard_plan': 'representative_balanced',
+            'design_only': True,
         },
     },
     'v8_key': [3, 6, [0, 0, -3]],
@@ -87,11 +111,43 @@ CONFIG = {
     'S_max_bits': 27,
     'budget': {
         # the owner's ceiling (2026-10-26): "24 hours maximum, including all run overhead, with an
-        # explicit reserve". Launch iff kappa x total + reserve <= ceiling and kappa x each job <= its
-        # timeout; otherwise "not undertaken for cost" (a new reviewed design, or infeasible under this
-        # budget). kappa is never lowered to fit (l2plan.launch_decision).
+        # explicit reserve", "per complete experimental campaign, not per individual run", including
+        # "calibration, count pass, primary run, mutant campaign, retries, and execution overhead": an
+        # aggregate compute-runtime budget, not a wall-clock deadline. One campaign ledger: launch iff
+        # kappa x (calibration + count pass + primary run + mutant campaign + retries + execution
+        # overhead) + reserve <= ceiling and kappa x each job <= its timeout; otherwise "not undertaken
+        # for cost" (a new reviewed design, or infeasible under this budget). kappa is never lowered to
+        # fit and timeouts are not raised to fit (l2plan.launch_decision, l2plan.campaign_decision).
         'runner_hours': 24,
-        'ceiling_status': 'owner-fixed ceiling, all run overhead included',
+        'ceiling_status': 'owner-fixed ceiling per complete experimental campaign (aggregate compute runtime, not '
+                          'wall-clock); every campaign component and the reserve inside it',
+        'ceiling_scope': ['calibration', 'count_pass', 'primary_run', 'mutant_campaign', 'retries',
+                          'execution_overhead'],
+        # campaign components other than the primary run (which l2plan.estimate models term by term).
+        # Each value is labelled: a local measurement, a model, an owner placeholder, or not yet measured
+        # (None). The ledger (l2plan.campaign_decision) replaces a planned value by the measured compute
+        # time of every job of that component, failed jobs and retries included, as the jobs run.
+        'campaign': {
+            'calibration': {'jobs': 22, 'calibrations': 20, 'launches': 1,
+                            'script_seconds_per_calibration': 11,
+                            'status': 'modelled: 20 calibrations x the local calib_ci.py time (11 s, this machine); '
+                                      'guard and aggregate jobs carry only execution overhead'},
+            'count_pass': {'site_pair_count_seconds': 1, 'site_pair_count_jobs': 1,
+                           'population_count_seconds': None, 'population_count_jobs': 1,
+                           'status': 'site-pair count: local measurement on the analogues, under a second; the '
+                                     'population count (AMENDMENT-PROPOSAL-V8-COUNT.md, unadopted) is not measured '
+                                     '(design/midsize_validation.py times its analogue)'},
+            'mutant_campaign': {'rule_mutants_seconds': 1980, 'machinery_mutants': 44,
+                                'selftest_seconds': 43, 'jobs': 2,
+                                'status': 'modelled: the rule mutants from the r3 local measurement (L1 section 10, '
+                                          'about 33 min); the machinery mutants x one full self-test each (the '
+                                          'mutant count is pinned to l2selftest.MUTANTS by L2-LEDGER; the self-test '
+                                          'time is the local measurement of the r5 run)'},
+            'retry_allowance_runner_seconds': OWNER,
+            'per_job_fixed_overhead_seconds': None,
+            'per_job_fixed_overhead_status': 'not measured: the CI calibration measures it (CI-5: job duration minus '
+                                             'script time); until then the campaign total is not computed',
+        },
         'reserve_runner_seconds': OWNER,
         'max_shards': 32,
         'timeout_minutes': {'dryrun': 10, 'preflight': 30, 's1a': 40, 'shard': 40, 'merge': 20},
@@ -159,16 +215,27 @@ CONFIG = {
         'sequencing': {'ruling': 'Approved. Fix kappa, the survivor cap, and budget ceiling before any v8 count.',
                        'question': 'order of the launch decisions', 'after_the_count': 'G_D and O1, before the full run'},
         'budget_ceiling': {'ruling': '24 hours maximum, including all run overhead, with an explicit reserve.',
+                           'scope_ruling': 'Per complete experimental campaign, not per individual run',
+                           'included_costs_ruling': 'Include calibration, count pass, primary run, mutant campaign, '
+                                                    'retries, and execution overhead',
+                           'reading_ruling': 'The 24-hour ceiling is an aggregate compute-runtime budget across the '
+                                             'campaign, not a 24-hour wall-clock deadline. Record all measured '
+                                             'compute time consistently, including failed jobs and retries.',
                            'over_ceiling_ruling': 'If the calibrated runtime exceeds 24 hours, the experiment must be '
                                                   'reduced through a new reviewed design or declared infeasible under '
                                                   'this budget - not run with an artificially smaller margin.',
                            'question': 'budget ceiling'},
+        'retry_allowance': {'ruling': OWNER, 'question': 'the planned allowance for retries inside the campaign ledger '
+                                                         '(measured retries replace it as they occur)',
+                            'layer2_reading': 'none: no default; KAPPA-PROPOSAL.md proposes a size'},
         'reserve': {'ruling': OWNER, 'question': 'the explicit reserve inside the 24-hour ceiling',
                     'layer2_reading': 'none: no default; KAPPA-PROPOSAL.md proposes a size'},
         'survivor_cap': {'ruling': OWNER, 'question': 'survivor representatives per shard gated before the run is '
                          'INCOMPLETE (v8 profile; a resource constant fixed before any v8 count)',
                          'owner_request': 'Request a reasoned proposal based on shard distribution, memory '
                                           'consumption, and failure probability; do not use the placeholder 10.',
+                         'owner_request_r5': 'The survivor cap should likewise follow from a justified resource and '
+                                             'completeness analysis, not a convenient placeholder.',
                          'layer2_reading': 'none: no default for v8 (SURVIVOR-CAP-PROPOSAL.md); the toy profile uses 10 '
                                            'for design evidence only'},
         'ci_calibration': {'ruling': 'authorized conditionally: a separate, planted-set-only CI timing calibration, '
@@ -177,6 +244,23 @@ CONFIG = {
                                      'experimental workflow.',
                            'question': 'CI timing calibration', 'status': 'workflow proposed in layer2/ci/, not placed '
                                                                          'under .github/, not dispatched'},
+        'site_pair_count': {'ruling': 'Conditionally approved as a separate, strictly count-only diagnostic, after '
+                                      'independent review of its exact implementation',
+                            'restrictions': 'Access only the minimum v8 index metadata required to count records by '
+                                            'site pair. No survivor evaluation, statistical estimation, outcome '
+                                            'inspection, or experimental computation. No persistence of individual v8 '
+                                            'records or hidden result information. Publish the exact counting '
+                                            'algorithm and its permitted outputs before dispatch. Obtain independent '
+                                            'review and green tests of the count-only implementation.',
+                            'dispatch': 'This is not authorization to dispatch the count yet. Return with the exact '
+                                        'reviewed implementation and its resource limit for authorization.',
+                            'status': 'l2sitepairs.py (r5), unreviewed; v8 refused without its own authorization'},
+        'shard_imbalance': {'ruling': 'a genuine design blocker. Do not compensate by lowering kappa or simply '
+                                      'increasing job timeouts. Instead, investigate deterministic subdivision of heavy '
+                                      'site pairs into smaller shards, maintaining exact accounting and '
+                                      'reproducibility.',
+                            'status': 'r5: l2plan.subdivision_cuts (shard k starts at the representative of rank '
+                                      'floor(kR/S)); L2-SHARDPLAN, L2-SPLIT'},
         'v8_count': {'ruling': 'not authorized pending its Layer-2 amendment and review',
                      'question': 'combinatorial-only v8 count of I_A, I_G, F_G, E_G',
                      'status': 'AMENDMENT-PROPOSAL-V8-COUNT.md, unadopted'},

@@ -14,6 +14,17 @@ It cannot construct a v8 setup, by construction:
   Context or grant, or carries v8's (dim, n, port) = (3, 6, (0, 0, -3)).
 A failure prints {"label": "VOID", ...}, writes no output file and exits 2.
 
+Where isolation rests (LAYER2-R4-REVIEW section 6). The extracted closure has no guard of its own, so
+v8 isolation rests on this reviewed, pinned script, which builds only planted sets from constants; it
+does not rest on the engine's v8 lock. The tripwire is a backstop that catches objects (a Setup, a
+Context, a grant, or anything carrying v8's key), not raw tuples. The extraction is a whitelist with an
+exact-set check, so FORBIDDEN is a second line, not the first.
+
+Recorded with every calibration (r5, CI-4, CI-5, CI-1): the CPU model (/proc/cpuinfo 'model name', the
+only file read beyond the six above), the script's wall-clock start and end (UTC), and the run's
+identity from the host's environment (GITHUB_SHA, GITHUB_RUN_ID, GITHUB_RUN_ATTEMPT, GITHUB_JOB,
+GITHUB_REF), which ci/postrun.py compares with the owner-named SHA after the run.
+
 The procedure is l2calib.py's (whose SHA-256 is also checked): planted quantity sets of sizes
 8-40, 12 sets per size, seed 20261026, ball(4) displaced to (40, 0, 0), slices -1..23, pairs
 (7, 8) and (-1, 0), the eleven-quantity planted frame; timings only, no retained set. Locally,
@@ -40,11 +51,12 @@ ENGINE = ('axes', 'vadd', 'l1', 'lball', 'Rule', 'FROZEN', 'Pair', '_slices', 'i
           'closure')
 REFERENCE = ('unit', 'shift', 'cells_within', 'RefGeometry', 'self_supporting', 'greatest')
 CACHED = ('CachedGeo',)
-FORBIDDEN = {'Setup', 'V8', 'V8_PARAMS', 'V8Grant', 'RefGrant', 'Context', 'record_at', 'num_records',
-             'record_samples', 'ref_context', 'ref_retained', '_guard', 'bind_running_digests', 'analyse'}
+FORBIDDEN = {'Setup', 'V8', 'V8_PARAMS', 'V8_KEY', 'V8_REF', 'NO_V8', 'V8Grant', 'RefGrant', 'Context',
+             'record_at', 'num_records', 'record_samples', 'ref_context', 'ref_retained', '_guard',
+             'bind_running_digests', 'analyse'}
 FORBIDDEN_MODULES = ('s0geom', 's0ref', 's0native', 's0controls', 'l2refcheck', 'l2config', 'l2plan', 'l2enum',
                      'l2auth', 'l2cert', 'l2calib', 'l2s1a', 'l2merge', 'l2preflight', 'l2analysis')
-V8_KEY = (3, 6, (0, 0, -3))
+TRIPWIRE_KEY = (3, 6, (0, 0, -3))   # the key the tripwire looks for (not an extracted name)
 SIZES = (8, 12, 16, 20, 24, 28, 32, 36, 40)
 
 
@@ -104,7 +116,23 @@ def tripwire(namespaces):
         void('tripwire: %s' % sorted(set(bad))[:5])
 
 
+def cpu_model():
+    try:
+        with open('/proc/cpuinfo') as f:
+            for line in f:
+                if line.startswith('model name'):
+                    return line.split(':', 1)[1].strip()
+    except OSError:
+        pass
+    return None
+
+
+def utc_now():
+    return time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+
+
 def main():
+    started = utc_now()
     args = sys.argv[1:]
     nsets = int(args[args.index('--sets') + 1]) if '--sets' in args else 12
     out_path = args[args.index('--out') + 1]
@@ -118,7 +146,7 @@ def main():
     if '--tripwire-selftest' in args:
         class Setup:                      # noqa: D401  a planted v8-keyed object: the tripwire must fire
             def __init__(self):
-                self.dim, self.n, self.port = V8_KEY[0], V8_KEY[1], V8_KEY[2]
+                self.dim, self.n, self.port = TRIPWIRE_KEY[0], TRIPWIRE_KEY[1], TRIPWIRE_KEY[2]
         planted = Setup()                 # noqa: F841
     tripwire((Gns, Rns, Cns))
     rng = random.Random(20261026)
@@ -139,7 +167,10 @@ def main():
            'index': args[args.index('--index') + 1] if '--index' in args else None,
            'runner': {'platform': platform.platform(), 'cpu_count': os.cpu_count(),
                       'RUNNER_OS': os.environ.get('RUNNER_OS'), 'RUNNER_ARCH': os.environ.get('RUNNER_ARCH'),
-                      'ImageOS': os.environ.get('ImageOS'), 'ImageVersion': os.environ.get('ImageVersion')},
+                      'ImageOS': os.environ.get('ImageOS'), 'ImageVersion': os.environ.get('ImageVersion'),
+                      'cpu_model': cpu_model()},
+           'run_identity': {k: os.environ.get(k) for k in ('GITHUB_SHA', 'GITHUB_RUN_ID', 'GITHUB_RUN_ATTEMPT',
+                                                           'GITHUB_JOB', 'GITHUB_REF')},
            'procedure': 'l2calib.py, transcribed; engine definitions executed from hash-checked sources'}
     check = '--check-equivalence' in args
     if check:
@@ -165,6 +196,7 @@ def main():
         out['equivalence_with_engine'] = {'mismatches': mism}
     else:
         tripwire((Gns, Rns, Cns))
+    out['wall_clock_utc'] = {'script_start': started, 'script_end': utc_now()}
     with open(out_path, 'w') as f:
         f.write(json.dumps(out, indent=1, sort_keys=True) + '\n')
     print(json.dumps({'written': os.path.basename(out_path), 'pass': not mism}, sort_keys=True))

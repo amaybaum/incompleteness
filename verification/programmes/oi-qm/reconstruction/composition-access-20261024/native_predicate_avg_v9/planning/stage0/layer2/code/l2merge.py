@@ -226,6 +226,10 @@ def merge(pname, workdir):
             why.append('range differs from the plan')
         if sh.get('range') and sh.get('scanned') != sh['range'][1] - sh['range'][0]:
             why.append('scanned count')
+        # r5: under the deterministic subdivision every shard's representatives are fixed by the plan
+        if dry and (dry.get('shard_plan') or {}).get('kind') == 'representative_balanced' and \
+                sh.get('representatives') != dry['shards'][s].get('representatives'):
+            why.append('representatives differ from the plan')
         if rawO != raw:
             why.append('normal and -O outputs differ or -O output missing')
         if why:

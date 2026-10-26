@@ -26,11 +26,15 @@ concurrency:
 
 env:
   PLANNING: verification/programmes/oi-qm/reconstruction/composition-access-20261024/native_predicate_avg_v9/planning
-  # pinned at review: SHA-256 of every file the calibration reads or runs; the guard job fails otherwise
-  PIN_CALIB_CI: 'TO-BE-PINNED-AT-REVIEW'
-  PIN_CALIB_AGGREGATE: 'TO-BE-PINNED-AT-REVIEW'
-  PIN_MANIFEST: 'TO-BE-PINNED-AT-REVIEW'
-  PIN_WORKFLOW: 'TO-BE-PINNED-AT-REVIEW'   # of the copy placed on the branch, without this line's value
+  # SHA-256 of every file the calibration reads or runs; the guard job fails otherwise. These pins live
+  # in the pushed commit, so they detect drift, not substitution: the binding is the owner's
+  # authorization naming the exact head SHA, checked after the run by ci/postrun.py against the run's
+  # head_sha and every calibration's GITHUB_SHA (CI-1). The workflow file pins no hash of itself.
+  PIN_CALIB_CI: '096a16f06092ae76256764260e39de1472eb8af26b1d48ab221c7e4b7a9f5547'
+  PIN_CALIB_AGGREGATE: '6fb6afa254b560427a2903a0ee9d22f1ed29455c4b1419b3379340a9d76cd1e1'
+  PIN_MANIFEST: '8927293504af370800546c05a77c17b163eca78771cce3d76d414cac5a2e89d2'
+  # in actions/python-versions' versions-manifest.json for ubuntu 24.04 x64 when read on 2026-10-26
+  # (CI-CALIBRATION-PROPOSAL.md section 3); setup-python fails the job if it is not available
   PYTHON_VERSION: '3.13.16'
 
 jobs:
@@ -38,7 +42,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4          # pinned to a commit SHA at review
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1   # v7.0.1
         with:
           persist-credentials: false
       - name: Exact ref and pinned files (fail closed)
@@ -49,9 +53,7 @@ jobs:
           echo "$PIN_CALIB_CI  $L/ci/calib_ci.py" | sha256sum -c -
           echo "$PIN_CALIB_AGGREGATE  $L/ci/calib_aggregate.py" | sha256sum -c -
           echo "$PIN_MANIFEST  $L/code/LAYER2-MANIFEST.json" | sha256sum -c -
-          # the workflow that runs must be the reviewed file (pinned); other workflows on the branch are
-          # main's, whose triggers do not match this push (CI-CALIBRATION-PROPOSAL.md section 2)
-          echo "$PIN_WORKFLOW  .github/workflows/np-avg-1-stage0-planted-calibration.yml" | sha256sum -c -
+          echo "head: $GITHUB_SHA run: $GITHUB_RUN_ID attempt: $GITHUB_RUN_ATTEMPT"
 
   calibrate:
     needs: guard
@@ -63,10 +65,10 @@ jobs:
       matrix:
         index: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
     steps:
-      - uses: actions/checkout@v4          # pinned to a commit SHA at review
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1   # v7.0.1
         with:
           persist-credentials: false
-      - uses: actions/setup-python@v5      # pinned to a commit SHA at review
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0   # v7.1.0
         with:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: One calibration (planted sets only; fails closed on any v8-capable object)
@@ -74,7 +76,7 @@ jobs:
           set -eu
           python3 -I -B "$PLANNING/stage0/layer2/ci/calib_ci.py" --index "${{ matrix.index }}" \
             --out "calib-${{ matrix.index }}.json"
-      - uses: actions/upload-artifact@v4   # pinned to a commit SHA at review
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9   # v7.0.2
         with:
           name: calib-${{ matrix.index }}
           path: calib-${{ matrix.index }}.json
@@ -82,24 +84,28 @@ jobs:
           if-no-files-found: error
 
   aggregate:
-    needs: calibrate
+    needs: [guard, calibrate]
+    # runs when calibrations failed, to print VOID with the number found (CI-7); never when the guard failed
+    if: ${{ always() && needs.guard.result == 'success' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4          # pinned to a commit SHA at review
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1   # v7.0.1
         with:
           persist-credentials: false
-      - uses: actions/setup-python@v5      # pinned to a commit SHA at review
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0   # v7.1.0
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-      - uses: actions/download-artifact@v4 # pinned to a commit SHA at review
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333   # v8.0.2
+        continue-on-error: true              # no artifact at all: the aggregator prints VOID with 0 found
         with:
           pattern: calib-*
           merge-multiple: true
           path: calibs
-      - name: Aggregate (at least 20 calibrations, or VOID)
+      - name: Aggregate (at least 20 calibrations from one commit, or VOID)
         run: python3 -I -B "$PLANNING/stage0/layer2/ci/calib_aggregate.py" calibs --out aggregate.json
-      - uses: actions/upload-artifact@v4   # pinned to a commit SHA at review
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9   # v7.0.2
+        if: always()
         with:
           name: calibration-aggregate
           path: |

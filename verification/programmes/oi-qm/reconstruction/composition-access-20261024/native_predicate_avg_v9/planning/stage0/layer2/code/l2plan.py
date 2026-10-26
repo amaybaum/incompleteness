@@ -15,7 +15,11 @@ without any closure, so that a fault in the production closure cannot remove a r
 the set that is meant to catch it.
 
 Usage: python3 -I -B l2plan.py --profile toy|v8 [--calib calib.json] [--out dryrun.json]
-                               [--shared-tips]
+                               [--shared-tips] [--site-pair-counts FILE]
+The shard plan is the deterministic subdivision by representative rank (subdivision_cuts), from
+the site-pair counts of l2sitepairs: computed here for a non-v8 profile; on v8 read only from
+FILE, a count l2sitepairs wrote under its own authorization (none exists: without FILE the v8 plan
+is the index-even diagnostic and the per-job estimate is not computed).
 --shared-tips enumerates the record space combinatorially (no closure) to count the C7
 populations: I_A, I_G (initial-context shared near tip), F_G (in-frame shared near tip) and,
 for information, E_G (records, and orbits). On v8's configuration class this enumeration is
@@ -214,7 +218,187 @@ class Space:
 
 
 def shard_plan(N, S):
+    """The index-even plan: S contiguous ranges of equal record count (r1-r4's plan; now a diagnostic)."""
     return [{'shard': s, 'lo': s*N//S, 'hi': (s + 1)*N//S, 'count': (s + 1)*N//S - s*N//S} for s in range(S)]
+
+
+def site_pair_counts(sp, counts_file=None):
+    """The per-site and per-site-pair representative counts (l2sitepairs' permitted outputs). For a
+    non-v8 profile they are computed here by l2sitepairs.count (index metadata only). On v8 they are
+    never computed here: they are read from a count file that l2sitepairs wrote under its own
+    authorization (owner ruling 2026-10-26: conditionally approved, not dispatched), checked against
+    the setup, N and Burnside's orbit count; without one, None."""
+    import l2sitepairs as SPC
+    _, so, po = sp.orbits_burnside()
+    if sp.key == V8_KEY_LITERAL:
+        if counts_file is None:
+            return None
+        with open(counts_file) as f:
+            c = json.load(f)
+        setup = {'dim': sp.dim, 'rho': sp.rho, 'tlast': sp.tlast, 'port': sp.port}
+        if not SPC.validate(c, setup) or c['profile'] != 'v8' or c['authorization'] != 'ok' or \
+                c['module_sha256'] != SPC.module_sha256():
+            raise ValueError('the v8 site-pair count file is not a valid authorized count of this module')
+    else:
+        c = SPC.count({'dim': sp.dim, 'rho': sp.rho, 'tlast': sp.tlast, 'port': sp.port})
+    if c['records_total'] != sp.n_records() or c['representatives_total'] != so + po or c['nt'] != len(sp.slices):
+        raise ValueError('site-pair counts disagree with the index space')
+    return c
+
+
+class RepIndex:
+    """Representative ranks over the record index space, from the site-pair counts alone. Within a
+    block the representatives are fixed by the block's count: a single site's nt records are all or
+    none; a site pair's nt^2 records are all (count nt^2), none (0), those with t1 <= t2 (count
+    nt(nt + 1)/2, 'upper') or those with t1 < t2 (nt(nt - 1)/2, 'strict'), at offsets
+    (t1 - slice0)*nt + (t2 - slice0) (l2sitepairs' docstring derives the four cases)."""
+
+    def __init__(self, c):
+        self.nt = nt = c['nt']
+        self.blocks = []            # (lo, hi, kind, reps)
+        lo = 0
+        for n in c['singles_representatives']:
+            self.blocks.append((lo, lo + nt, 'all' if n else 'none', n))
+            lo += nt
+        for n in c['pairs_representatives']:
+            kind = 'all' if n == nt*nt else 'none' if n == 0 else 'upper' if n == nt*(nt + 1)//2 else \
+                'strict' if n == nt*(nt - 1)//2 else None
+            if kind is None:
+                raise ValueError('a site-pair count is not 0, nt(nt - 1)/2, nt(nt + 1)/2 or nt^2')
+            self.blocks.append((lo, lo + nt*nt, kind, n))
+            lo += nt*nt
+        self.N = lo
+        self.R = sum(b[3] for b in self.blocks)
+        self.prefix = [0]
+        for b in self.blocks:
+            self.prefix.append(self.prefix[-1] + b[3])
+        self.starts = [b[0] for b in self.blocks]
+
+    def _within(self, kind, off):
+        """Representatives at offsets < off within a block of the given kind."""
+        if kind == 'none':
+            return 0
+        if kind == 'all':
+            return off
+        nt = self.nt
+        t1, t2 = divmod(off, nt)
+        if kind == 'upper':
+            return sum(nt - t for t in range(t1)) + max(0, t2 - t1)
+        return sum(nt - 1 - t for t in range(t1)) + max(0, t2 - t1 - 1)
+
+    def is_rep(self, idx):
+        return self.before(idx + 1) - self.before(idx) == 1
+
+    def before(self, idx):
+        """Representatives with record index < idx."""
+        if idx >= self.N:
+            return self.R
+        from bisect import bisect_right
+        k = bisect_right(self.starts, idx) - 1
+        lo, hi, kind, _ = self.blocks[k]
+        return self.prefix[k] + self._within(kind, idx - lo)
+
+    def index_of_rank(self, q):
+        """The record index of the representative of rank q (0-based); N for q = R."""
+        if q >= self.R:
+            return self.N
+        from bisect import bisect_right
+        k = bisect_right(self.prefix, q) - 1
+        while self.blocks[k][3] == 0:
+            k += 1
+        lo, hi, kind, _ = self.blocks[k]
+        r = q - self.prefix[k]
+        if kind == 'all':
+            return lo + r
+        nt, d = self.nt, (0 if kind == 'upper' else 1)
+        for t1 in range(nt):
+            if r < nt - t1 - d:
+                return lo + t1*nt + t1 + d + r
+            r -= nt - t1 - d
+        raise AssertionError('rank outside its block')
+
+
+def subdivision_cuts(ri, S, ranks=None):
+    """The deterministic subdivision (r5, owner 2026-10-26): shard k starts at the representative of
+    rank floor(k R / S), so shard k holds exactly floor((k+1)R/S) - floor(kR/S) representatives,
+    whichever site pairs that splits; shard 0 starts at index 0 and the last ends at N. A pure function
+    of the frozen inputs (region, slices, group, S). ranks: explicit cut ranks (a planted split)."""
+    if ranks is None:
+        ranks = [k*ri.R//S for k in range(1, S)]
+    return [0] + [ri.index_of_rank(q) for q in ranks] + [ri.N]
+
+
+def shard_of(index, cuts):
+    """The shard holding a record index: the k with cuts[k] <= index < cuts[k + 1] (last such k)."""
+    from bisect import bisect_right
+    return bisect_right(cuts, index) - 1
+
+
+def plan_from_cuts(ri, cuts):
+    return [{'shard': k, 'lo': cuts[k], 'hi': cuts[k + 1], 'count': cuts[k + 1] - cuts[k],
+             'representatives': ri.before(cuts[k + 1]) - ri.before(cuts[k])} for k in range(len(cuts) - 1)]
+
+
+def plan_accounting(ri, plan):
+    """The exact accounting of a shard plan: contiguous, from 0 to N, every record in exactly one
+    shard (the counts sum to N), the representatives sum to R, and each shard's stated count of
+    representatives is the count from the site-pair counts."""
+    ok_cover = bool(plan) and plan[0]['lo'] == 0 and plan[-1]['hi'] == ri.N and all(
+        plan[k]['hi'] == plan[k + 1]['lo'] for k in range(len(plan) - 1)) and all(
+        sh['lo'] <= sh['hi'] and sh['count'] == sh['hi'] - sh['lo'] for sh in plan)
+    reps = [ri.before(sh['hi']) - ri.before(sh['lo']) for sh in plan]
+    return {'exact_cover': ok_cover, 'records_sum': sum(sh['count'] for sh in plan) == ri.N,
+            'representatives_sum': sum(reps) == ri.R,
+            'stated_representatives': all(sh.get('representatives') == r for sh, r in zip(plan, reps))}
+
+
+def shard_context_weights(sp, ri, plan, weight):
+    """For each shard of plan, the sum of weight(m) over its representatives, m being the record's
+    number of non-fixed context quantities (port samples plus each item's samples; closure-free, the
+    quantity of context_histogram). Uses the site-pair counts (ri) and the per-site item-set sizes
+    only: no record, context or closure is formed. The cost model's per-representative closure cost is
+    weight = t_A(m) + t_G(m) (estimate); here any weight function of m."""
+    base = len(sp.port_even - sp.fixed)
+    nt, ns = len(sp.slices), len(sp.region)
+    a = [[len(sp.item_set(x, t)) for t in sp.slices] for x in sp.region]
+    pair_sites = [(i, j) for i in range(ns) for j in range(i + 1, ns)]
+    out = []
+    for sh in plan:
+        w = 0
+        for k, (lo, hi, kind, n) in enumerate(ri.blocks):
+            if n == 0 or hi <= sh['lo'] or lo >= sh['hi']:
+                continue
+            o1, o2 = max(lo, sh['lo']) - lo, min(hi, sh['hi']) - lo
+            if k < ns:
+                w += sum(weight(base + a[k][t]) for t in range(o1, o2))
+                continue
+            i, j = pair_sites[k - ns]
+            for off in range(o1, o2):
+                t1, t2 = divmod(off, nt)
+                if kind == 'all' or (kind == 'upper' and t1 <= t2) or (kind == 'strict' and t1 < t2):
+                    w += weight(base + a[i][t1] + a[j][t2])
+        out.append(w)
+    return out
+
+
+def dry_shard_plan(sp, S, counts_file=None):
+    """The dry run's shard plan: the deterministic subdivision where the site-pair counts are
+    available; on v8 without an authorized count file the index-even plan is returned as a diagnostic
+    only, with reps None, which leaves the per-job estimate, hence the launch, undecided (and
+    l2cert refuses a run whose dry-run plan is not the profile's)."""
+    c = site_pair_counts(sp, counts_file)
+    if c is None:
+        return shard_plan(sp.n_records(), S), None, None, {
+            'kind': 'index_even (diagnostic only)',
+            'reason': 'the v8 site-pair count is not available (conditionally approved, not dispatched)'}
+    ri = RepIndex(c)
+    plan = plan_from_cuts(ri, subdivision_cuts(ri, S))
+    acc = plan_accounting(ri, plan)
+    even = shard_plan(sp.n_records(), S)
+    reps_even = [ri.before(sh['hi']) - ri.before(sh['lo']) for sh in even]
+    return plan, [sh['representatives'] for sh in plan], reps_even, {
+        'kind': 'representative_balanced', 'rule': 'shard k starts at the representative of rank floor(kR/S)',
+        'accounting': acc, 'site_pair_counts': 'l2sitepairs.count' if 'module_sha256' not in c else c['module_sha256']}
 
 
 def context_histogram(sp):
@@ -455,17 +639,94 @@ NOT_UNDERTAKEN = ('not undertaken for cost: the experiment must be reduced throu
 
 def launch_decision(total, jobs, kappa, reserve, ceiling, timeouts):
     """The launch rule: launch iff kappa x total + reserve <= ceiling and kappa x each job <= its
-    timeout. Returns (launch, decision text, the slack). Inputs are exact; kappa comes from
-    kappa_from_rule and is never changed here. Any None input gives (None, reason)."""
+    timeout. A job value is one estimate or a list of per-shard estimates; for a list every element is
+    compared, so the heaviest shard decides (LAYER2-R4-REVIEW L-b). Returns (launch, decision text,
+    the slack). Inputs are exact; kappa comes from kappa_from_rule and is never changed here. Any None
+    input gives (None, reason)."""
     missing = [n for n, v in (('kappa', kappa), ('reserve', reserve), ('total', total)) if v is None]
-    missing += ['job %s' % k for k, v in jobs.items() if v is None]
+    missing += ['job %s' % k for k, v in jobs.items() if v is None or (isinstance(v, list) and None in v)]
     if missing:
         return None, 'not decided: %s not available' % ', '.join(missing), None
     slack = ceiling - (kappa*total + reserve)
-    jobs_ok = all(kappa*v <= timeouts[k] for k, v in jobs.items())
+    jobs_ok = all(kappa*x <= timeouts[k] for k, v in jobs.items() for x in (v if isinstance(v, list) else [v]))
     if slack >= 0 and jobs_ok:
         return True, 'launch admitted', slack
     return False, NOT_UNDERTAKEN, slack
+
+
+def per_shard_jobs(shared, per_shard_fixed, weights):
+    """Per-shard job estimates: the representative-borne terms (closures, sampled gates, C7) split in
+    proportion to each shard's weight, plus the per-shard survivor allowance (cap orbits, a per-shard
+    maximum, not divided). The dry run's weights are the cost model's closure cost of each shard's
+    representatives at their context sizes (shard_context_weights with t_A(m) + t_G(m)); a model
+    assumption, stated in LAYER2-PLAN.md section 3.6, that the other shared terms follow the closures."""
+    W = sum(weights)
+    return [Fraction(shared)*w/W + per_shard_fixed for w in weights]
+
+
+LEDGER_SCHEMA = 'np-avg-1/stage0/layer2/campaign-ledger/1'
+LEDGER_KEYS = {'job', 'component', 'attempt', 'status', 'compute_seconds', 'started_at', 'ended_at', 'run'}
+LEDGER_STATUS = {'success', 'failure', 'cancelled', 'timed_out'}
+
+
+def ledger_spent(entries):
+    """The campaign's measured compute time per component, from ledger entries (one per job attempt:
+    job, component, attempt, status, compute_seconds, started_at, ended_at, run). Every entry counts,
+    whatever its status: failed, cancelled and timed-out jobs and every retry (owner, 2026-10-26:
+    "Record all measured compute time consistently, including failed jobs and retries"). Returns
+    ({component: seconds}, problems)."""
+    spent, bad = {}, []
+    comps = set(CFG.CONFIG['budget']['ceiling_scope'])
+    for i, e in enumerate(entries):
+        if type(e) is not dict or set(e) != LEDGER_KEYS or e['component'] not in comps or \
+                e['status'] not in LEDGER_STATUS or type(e['compute_seconds']) is not int or e['compute_seconds'] < 0:
+            bad.append(i)
+            continue
+        c = 'retries' if e['attempt'] > 1 else e['component']
+        spent[c] = spent.get(c, 0) + e['compute_seconds']
+    return spent, bad
+
+
+def campaign_decision(entries, planned, kappa, reserve, ceiling):
+    """The campaign ledger's rule: projected = measured compute time so far (every entry) + the planned
+    cost of every component not yet complete; continue iff kappa x projected + reserve <= ceiling.
+    planned: {component: seconds or None} for the components still to run (retries: the allowance
+    still unused). kappa multiplies the whole campaign, measured and planned, as the owner's formula
+    states. Returns (decision True/False/None, text, projected)."""
+    spent, bad = ledger_spent(entries)
+    if bad:
+        return None, 'not decided: malformed ledger entries %s' % bad, None
+    if kappa is None or reserve is None or any(v is None for v in planned.values()):
+        return None, 'not decided: kappa, the reserve or a planned component is not available', None
+    projected = sum(spent.values()) + sum(Fraction(v) for v in planned.values())
+    if kappa*projected + reserve <= ceiling:
+        return True, 'within the campaign ceiling', projected
+    return False, NOT_UNDERTAKEN, projected
+
+
+def campaign_components(primary_total, n_jobs_primary):
+    """The planned campaign components (runner-seconds), each with its status; None where an input is
+    an owner placeholder or not yet measured."""
+    cam = CFG.CONFIG['budget']['campaign']
+    ov = cam['per_job_fixed_overhead_seconds']
+    cal, cnt, mut = cam['calibration'], cam['count_pass'], cam['mutant_campaign']
+    jobs = cal['jobs']*cal['launches'] + cnt['site_pair_count_jobs'] + cnt['population_count_jobs'] + \
+        mut['jobs'] + n_jobs_primary
+    comp = {
+        'calibration': Fraction(cal['calibrations']*cal['launches']*cal['script_seconds_per_calibration']),
+        'count_pass': None if cnt['population_count_seconds'] is None else
+        Fraction(cnt['site_pair_count_seconds'] + cnt['population_count_seconds']),
+        'primary_run': primary_total,
+        'mutant_campaign': Fraction(mut['rule_mutants_seconds'] + mut['machinery_mutants']*mut['selftest_seconds']),
+        'retries': _frac(cam['retry_allowance_runner_seconds']),
+        'execution_overhead': None if ov is None else Fraction(ov*jobs),
+    }
+    status = {'calibration': cal['status'], 'count_pass': cnt['status'],
+              'primary_run': 'l2plan.estimate (the cost model; unvalidated)', 'mutant_campaign': mut['status'],
+              'retries': 'owner placeholder (planned allowance); measured retries replace it in the ledger',
+              'execution_overhead': '%d jobs x the per-job fixed overhead: %s' % (jobs, cam['per_job_fixed_overhead_status']
+                                                                                 if ov is None else 'measured')}
+    return comp, status, jobs
 
 
 def _wmean(table, allm, nrec):
@@ -473,7 +734,7 @@ def _wmean(table, allm, nrec):
     return Fraction(sum(c*_t(table, m) for m, c in allm), nrec)
 
 
-def estimate(sp, hist, orbits, N, calib, prof, pops=None):
+def estimate(sp, hist, orbits, N, calib, prof, pops=None, shard_reps=None, ri=None, plan=None):
     """The complete cost estimate in runner-seconds (L2-R6, E1-F3), term by term; LAYER2-PLAN.md
     section 3.6 states each term and its formula. Fractions are exact and rounded up at the end.
 
@@ -481,6 +742,11 @@ def estimate(sp, hist, orbits, N, calib, prof, pops=None):
     (their enumeration needs an authorization that does not exist), so the C7 term is reported
     as a formula with its coefficients, its uncomputed inputs are reported as NOT_COMPUTED, and
     no total, per-job estimate or launch decision is computed from an assumed value.
+    shard_reps, ri, plan: representatives per shard of the dry run's plan, its RepIndex and the plan
+    (dry_shard_plan), or None where the site-pair counts are not available (v8 without an authorized
+    count file); the per-job shard input is then not computed, and the mean shard is reported only as a
+    lower bound on the heaviest. With them, the shared terms are split by each shard's modelled closure
+    cost (shard_context_weights), so the heaviest shard is the heaviest in the model, not in reps.
     The launch decision also needs kappa (owner-set, L2-R7); while kappa is an OWNER
     placeholder, launch_within_budget is None with the reason stated."""
     bud = CFG.CONFIG['budget']
@@ -589,9 +855,25 @@ def estimate(sp, hist, orbits, N, calib, prof, pops=None):
                        'sum_lines (t_A + t_G)(m_line)]')
     unknown = sorted(k for k, v in terms.items() if v is None)
     total = None if unknown else sum(terms.values())
-    shard_job = None if terms['C7_scope'] is None or terms['survivor_gates_cap'] is None else \
-        (terms['closures'] + terms['sampled_gates'] + terms['C7_scope'] + terms['survivor_gates_cap'])/S
-    jobs = {'shard': shard_job, 's1a': terms['s1a'], 'preflight': terms['preflight'], 'merge': terms['merge']}
+    shared = None if terms['C7_scope'] is None else terms['closures'] + terms['sampled_gates'] + terms['C7_scope']
+    fixed = None if terms['survivor_gates_cap'] is None else terms['survivor_gates_cap']/S
+    weights = None if shard_reps is None else shard_context_weights(sp, ri, plan, lambda m: _t(tA, m) + _t(tG, m))
+    if shared is None or fixed is None or weights is None:
+        shard_jobs = None
+    else:
+        shard_jobs = per_shard_jobs(shared, fixed, weights)
+    jobs = {'shard': shard_jobs, 's1a': terms['s1a'], 'preflight': terms['preflight'], 'merge': terms['merge']}
+    # the known shard-borne terms (closures and sampled gates; no C7 sets 2-3, no survivor term): their
+    # mean per shard is a lower bound on the heaviest shard whatever the plan
+    known_shared = terms['closures'] + terms['sampled_gates']
+    shard_lb = {'mean_shard_known_terms_seconds': _ceil(known_shared/S),
+                'note': 'closures and sampled gates only (C7 sets 2-3 and the survivor term excluded), split '
+                        'evenly over the shards: a lower bound on the heaviest shard under any plan'}
+    if weights is not None:
+        R, W = sum(shard_reps), sum(weights)
+        shard_lb['heaviest_shard_known_terms_seconds'] = _ceil(known_shared*max(weights)/W)
+        shard_lb['heaviest_over_mean_representatives'] = str(Fraction(max(shard_reps)*len(shard_reps), R)) if R else None
+        shard_lb['heaviest_over_mean_model_cost'] = '%.3f' % (max(weights)*len(weights)/W) if W else None
     tmo = {k: bud['timeout_minutes'][k]*60 for k in jobs}
     kappa = kappa_from_rule(bud['kappa_rule'])
     reserve = _frac(bud['reserve_runner_seconds'])
@@ -605,7 +887,18 @@ def estimate(sp, hist, orbits, N, calib, prof, pops=None):
         reasons.append('the C7 term needs |F_G|, |I_A| and |I_G|: %s' % NOT_COMPUTED)
     if terms['survivor_gates_cap'] is None:
         reasons.append('the survivor cap is an OWNER placeholder; no default exists')
-    launch, decision, slack = launch_decision(total, jobs, kappa, reserve, ceiling, tmo)
+    if shard_reps is None:
+        reasons.append('the heaviest shard needs the representatives per shard: on v8 they come only from the '
+                       'site-pair count (l2sitepairs), conditionally approved and not dispatched')
+    # the campaign ledger (owner, 2026-10-26): the primary run is one of six components
+    n_primary_jobs = S + 4      # shards (normal and -O in one job), pre-flight, S1a, merge, certificate
+    comp, comp_status, n_jobs = campaign_components(total, n_primary_jobs)
+    missing_comp = sorted(k for k, v in comp.items() if v is None)
+    campaign_total = None if missing_comp else sum(comp.values())
+    for k in missing_comp:
+        if k != 'primary_run':
+            reasons.append('campaign component %s: %s' % (k, comp_status[k]))
+    launch, decision, slack = launch_decision(campaign_total, jobs, kappa, reserve, ceiling, tmo)
     known = sum(v for v in terms.values() if v is not None)
     why_none = {'C7_scope': NOT_COMPUTED, 'survivor_gates_cap': 'not computed (owner placeholder: the survivor cap)'}
     return {'terms_runner_seconds': {k: (why_none[k] if v is None else _ceil(v)) for k, v in terms.items()},
@@ -614,8 +907,11 @@ def estimate(sp, hist, orbits, N, calib, prof, pops=None):
             else _ceil(total),
             'known_terms_runner_seconds': _ceil(known),
             'known_terms_plus_C7_set4_runner_seconds': _ceil(known + (known_c7 if terms['C7_scope'] is None else 0)),
-            'per_job_seconds': {k: ('not computed (needs the C7 inputs and the survivor cap)' if v is None else _ceil(v))
-                                for k, v in jobs.items()},
+            'per_job_seconds': {k: ('not computed (needs the C7 inputs, the survivor cap and, for shards, the '
+                                    'representatives per shard)' if v is None else
+                                    {'heaviest': _ceil(max(v)), 'per_shard': [_ceil(x) for x in v]}
+                                    if isinstance(v, list) else _ceil(v)) for k, v in jobs.items()},
+            'shard_job_bounds': shard_lb,
             'job_timeouts_seconds': tmo, 'budget_runner_seconds': ceiling, 'ceiling_status': bud['ceiling_status'],
             'reserve_runner_seconds': 'OWNER placeholder' if reserve is None else _ceil(reserve),
             'kappa': 'not fixed (method approved: u_cal x u_model)' if kappa is None else str(kappa),
@@ -623,9 +919,16 @@ def estimate(sp, hist, orbits, N, calib, prof, pops=None):
             'universe_quantities': mU, 'survivor_cap_per_shard': cap,
             'survivor_gates_seconds_per_cap_unit': _ceil(per_cap_unit),
             'overhead_factor': {'value': bud['gate_overhead_factor'], 'status': bud['gate_overhead_factor_status']},
-            'launch_rule': 'launch iff kappa x total + reserve <= ceiling (24 runner-hours, everything included) '
-                           'and kappa x each job <= its timeout; otherwise not undertaken for cost (a new reviewed '
-                           'design, or infeasible under this budget); kappa is never lowered to fit',
+            'campaign_runner_seconds': {k: ('not computed' if v is None else _ceil(v)) for k, v in comp.items()},
+            'campaign_status': comp_status, 'campaign_jobs': n_jobs,
+            'campaign_total_runner_seconds': 'not computed (%s)' % ', '.join(missing_comp) if campaign_total is None
+            else _ceil(campaign_total),
+            'campaign_known_runner_seconds': _ceil(sum(v for v in comp.values() if v is not None)),
+            'launch_rule': 'launch iff kappa x (calibration + count pass + primary run + mutant campaign + retries + '
+                           'execution overhead) + reserve <= ceiling (24 runner-hours per complete campaign, aggregate '
+                           'compute time) and kappa x each job, the heaviest shard included, <= its timeout; otherwise '
+                           'not undertaken for cost (a new reviewed design, or infeasible under this budget); kappa is '
+                           'never lowered and timeouts are never raised to fit',
             'launch_within_budget': launch, 'launch_decision': decision,
             'slack_runner_seconds': None if slack is None else _ceil(slack) if slack >= 0 else -_ceil(-slack),
             'launch_not_decided_because': reasons}
@@ -644,10 +947,19 @@ def main():
     N = sp.n_records()
     gorder, so, po = sp.orbits_burnside()
     S = prof['shards']
+    cfile = args[args.index('--site-pair-counts') + 1] if '--site-pair-counts' in args else None
+    try:
+        plan, reps_s, reps_even, plan_info = dry_shard_plan(sp, S, cfile)
+    except (ValueError, KeyError, TypeError, OSError) as e:
+        print(json.dumps({'label': 'VOID', 'refused': '--site-pair-counts', 'reason': str(e)}, sort_keys=True))
+        sys.exit(2)
     singles, pairs = context_histogram(sp)
     out = {'schema': 'np-avg-1/stage0/layer2/dryrun/2', 'profile': pname, 'records': N,
            'group_order': gorder, 'orbits': so + po, 'single_orbits': so, 'pair_orbits': po,
-           'shards': shard_plan(N, S), 'context_quantities_singles': {str(k): v for k, v in sorted(singles.items())},
+           'shards': plan, 'shard_plan': plan_info,
+           'representatives_per_shard': reps_s if reps_s is not None else NOT_COMPUTED,
+           'index_even_plan_representatives_per_shard_diagnostic': reps_even if reps_even is not None
+           else NOT_COMPUTED, 'context_quantities_singles': {str(k): v for k, v in sorted(singles.items())},
            'context_quantities_pairs': {str(k): v for k, v in sorted(pairs.items())},
            'max_context_quantities': max(list(singles) + list(pairs)),
            'max_context_with_fixed': max(list(singles) + list(pairs)) + len(sp.fixed),
@@ -665,6 +977,8 @@ def main():
             checks[k_exp] = exp[k_exp] == out[k_out]
     out['expected_checks'] = checks
     pops = None
+    if reps_s is not None:
+        checks.update({'shard_plan_' + k: v for k, v in plan_info['accounting'].items()})
     if '--shared-tips' in args:
         out['shared_tip_records'] = shared_tip_records(sp)
         pops = out['C7_populations'] = c7_populations(sp)
@@ -675,7 +989,8 @@ def main():
             raw = f.read()
         calib = json.loads(raw)
         out['calib_sha256'] = hashlib.sha256(raw).hexdigest()
-        out['cost'] = estimate(sp, (singles, pairs), so + po, N, calib, prof, pops)
+        ri = RepIndex(site_pair_counts(sp, cfile)) if reps_s is not None else None
+        out['cost'] = estimate(sp, (singles, pairs), so + po, N, calib, prof, pops, reps_s, ri, plan)
     out['pass'] = all(checks.values())
     text = json.dumps(out, sort_keys=True, indent=1)
     if '--out' in args:

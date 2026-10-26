@@ -8,13 +8,14 @@ startup(): run by every computing entry point (l2s1a, l2enum) before anything is
   item 1  for a profile that requires authorization, no OWNER placeholder remains in the
           configuration. Erratum E1 filled T1, T2, T5, T6, F3 and F6, and the owner's rulings of
           2026-10-26 fixed the kappa method, the sequencing and the 24-hour ceiling; the open
-          placeholders are kappa's components u_cal and u_model, the reserve, the v8 survivor cap,
-          G_D (the Lemma G-D reference form) and O1 (E_G as a C7 set), so the v8 profile is refused
-          while any of them is open;
+          placeholders are kappa's components u_cal and u_model, the reserve, the retry allowance
+          (r5, the campaign ledger), the v8 survivor cap, G_D (the Lemma G-D reference form) and O1
+          (E_G as a C7 set), so the v8 profile is refused while any of them is open;
   item 2  preflight.json exists for this code_digest and profile and passed;
   item 3  mutant-campaign.json exists for this code_digest and passed ('full' for v8);
-  item 7  dryrun.json exists for this configuration and computed no closure; for a profile that
-          requires authorization, its complete cost estimate admits the launch under kappa.
+  item 7  dryrun.json exists for this configuration and computed no closure, its shard plan is the
+          profile's deterministic subdivision with every accounting check true (r5); for a profile
+          that requires authorization, its complete cost estimate admits the launch under kappa.
 On any failure it prints {"label": "VOID", ...} and exits 2.
 
 build (python3 -I -B l2cert.py --build --profile P --workdir DIR): assembles
@@ -116,6 +117,9 @@ def startup(pname, workdir, args, need=ALL):
         if not dr or dr.get('profile') != pname or dr.get('config_sha256') != CFG.config_sha256() or \
                 dr.get('closures_computed') != 0 or dr.get('pass') is not True:
             void(7, 'the dry run is mandatory before the real run')
+        if (dr.get('shard_plan') or {}).get('kind') != prof['shard_plan'] or \
+                not all((dr.get('shard_plan') or {}).get('accounting', {}).values() or [False]):
+            void(7, 'the dry run\'s shard plan is not the profile\'s deterministic subdivision, or its accounting fails')
         if prof['requires_authorization'] and (dr.get('cost') or {}).get('launch_within_budget') is not True:
             void(7, 'the complete cost estimate does not admit the launch under kappa')
     return st

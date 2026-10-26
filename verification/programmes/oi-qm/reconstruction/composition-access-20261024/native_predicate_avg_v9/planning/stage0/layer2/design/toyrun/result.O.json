@@ -140,16 +140,16 @@
  },
  "base_relative_survivor_records": null,
  "ci_run": null,
- "code_digest": "a0c6c3dfb0b3a350259e63d960083c15b14df359d3e5aa79e9238d96cf7ade4c",
- "commit": "a782aa549061ad5417d939da932fa1c7f66ac022",
+ "code_digest": "46f858396ad5e6465f562e136af0dc9d50e4844ad468aee237d86479d0d49c82",
+ "commit": "bc042a61052696b72c1b76ef52c83cfe41bc4237",
  "commits": {
-  "preflight.json": "a782aa549061ad5417d939da932fa1c7f66ac022",
-  "s1a.json": "a782aa549061ad5417d939da932fa1c7f66ac022",
+  "preflight.json": "bc042a61052696b72c1b76ef52c83cfe41bc4237",
+  "s1a.json": "bc042a61052696b72c1b76ef52c83cfe41bc4237",
   "shards": [
-   "a782aa549061ad5417d939da932fa1c7f66ac022"
+   "bc042a61052696b72c1b76ef52c83cfe41bc4237"
   ]
  },
- "config_sha256": "5811cc585b93b684cd1da68939fd4ba500e0ee4be9d439c6a67c7aead86dee92",
+ "config_sha256": "326b15611f39d61b1b54a331ad76b2336f766261531866c31856c8ce36b06734",
  "count_list": "E1-F6: the 54 of L1 C8 and four survivor cells",
  "counts": {
   "A:L3_vs_L3prime_disagree": 0,
@@ -276,13 +276,13 @@
  },
  "incomplete_reasons": [],
  "inputs": {
-  "dryrun.json": "fcc6cacd4e296aba3624d8c2dd261a3ee514ae8be734a089664254e35c9db329",
-  "preflight.json": "34ad72266efd50d70eb7999b2c564f9906afcd723443fa0e016cb90f28811b09",
-  "s1a.json": "e29a1a04b29c83cd698ab6b4139c8c706b3cb850b3ee055d953ee090232a1053",
-  "shard-0.json": "2e2e027740878067c809c332911a2304d4ace08d2b78354fc2bc79a086a5b830",
-  "shard-1.json": "636488ac368f3498ab5654bb7b57959a44b3374d998c1320ee18ca7de49a3bfb",
-  "shard-2.json": "996460bef399654a3821452768dd8c54ec6788fe9f5912c23cefe7f07fc3aef0",
-  "shard-3.json": "17bda8d0582066c0ea98d7a60eace81212e75fd51fb43f11869807869cf1750b"
+  "dryrun.json": "ce7d066a0b11cfcbdd9f9fa011952c8ba57cd2f1f78367ccd696f20c8bc9447f",
+  "preflight.json": "e42c316849955371ac25e01fdf51e70209176f2fc94838d9b67689251e7c450c",
+  "s1a.json": "f6d9376796609d4e8e7740036d7bc273faa590f8b06cbc80c233100824fe36c1",
+  "shard-0.json": "8032d20e10230913919206ec443d47ec8e4ffb2e32477e54a50f70c4227155b4",
+  "shard-1.json": "27204083a3574e0abcef3a07503d8f48c711b9fadbd96d00ff78b24a9bbf38fc",
+  "shard-2.json": "25fc915cba2622de1ed2db36a4082fba2aceb1edf9c6358f802e38215a706303",
+  "shard-3.json": "07d2cd9e7e26017e6dfca924b87b5489177e74d193d50a0c7c3948f9570b2635"
  },
  "label": "COLLAPSE_ALL",
  "label_source": "merge of structured files",
@@ -328,9 +328,12 @@
    "ruling": "geometric fact only, approved with qualification (E1-T6)"
   },
   "budget_ceiling": {
+   "included_costs_ruling": "Include calibration, count pass, primary run, mutant campaign, retries, and execution overhead",
    "over_ceiling_ruling": "If the calibrated runtime exceeds 24 hours, the experiment must be reduced through a new reviewed design or declared infeasible under this budget - not run with an artificially smaller margin.",
    "question": "budget ceiling",
-   "ruling": "24 hours maximum, including all run overhead, with an explicit reserve."
+   "reading_ruling": "The 24-hour ceiling is an aggregate compute-runtime budget across the campaign, not a 24-hour wall-clock deadline. Record all measured compute time consistently, including failed jobs and retries.",
+   "ruling": "24 hours maximum, including all run overhead, with an explicit reserve.",
+   "scope_ruling": "Per complete experimental campaign, not per individual run"
   },
   "ci_calibration": {
    "question": "CI timing calibration",
@@ -349,15 +352,31 @@
    "question": "the explicit reserve inside the 24-hour ceiling",
    "ruling": "OWNER-PLACEHOLDER"
   },
+  "retry_allowance": {
+   "layer2_reading": "none: no default; KAPPA-PROPOSAL.md proposes a size",
+   "question": "the planned allowance for retries inside the campaign ledger (measured retries replace it as they occur)",
+   "ruling": "OWNER-PLACEHOLDER"
+  },
   "sequencing": {
    "after_the_count": "G_D and O1, before the full run",
    "question": "order of the launch decisions",
    "ruling": "Approved. Fix kappa, the survivor cap, and budget ceiling before any v8 count."
   },
+  "shard_imbalance": {
+   "ruling": "a genuine design blocker. Do not compensate by lowering kappa or simply increasing job timeouts. Instead, investigate deterministic subdivision of heavy site pairs into smaller shards, maintaining exact accounting and reproducibility.",
+   "status": "r5: l2plan.subdivision_cuts (shard k starts at the representative of rank floor(kR/S)); L2-SHARDPLAN, L2-SPLIT"
+  },
+  "site_pair_count": {
+   "dispatch": "This is not authorization to dispatch the count yet. Return with the exact reviewed implementation and its resource limit for authorization.",
+   "restrictions": "Access only the minimum v8 index metadata required to count records by site pair. No survivor evaluation, statistical estimation, outcome inspection, or experimental computation. No persistence of individual v8 records or hidden result information. Publish the exact counting algorithm and its permitted outputs before dispatch. Obtain independent review and green tests of the count-only implementation.",
+   "ruling": "Conditionally approved as a separate, strictly count-only diagnostic, after independent review of its exact implementation",
+   "status": "l2sitepairs.py (r5), unreviewed; v8 refused without its own authorization"
+  },
   "source": "stage0/amendments/E1-LAYER1-ERRATUM.md (in effect), amaybaum 2026-10-26",
   "survivor_cap": {
    "layer2_reading": "none: no default for v8 (SURVIVOR-CAP-PROPOSAL.md); the toy profile uses 10 for design evidence only",
    "owner_request": "Request a reasoned proposal based on shard distribution, memory consumption, and failure probability; do not use the placeholder 10.",
+   "owner_request_r5": "The survivor cap should likewise follow from a justified resource and completeness analysis, not a convenient placeholder.",
    "question": "survivor representatives per shard gated before the run is INCOMPLETE (v8 profile; a resource constant fixed before any v8 count)",
    "ruling": "OWNER-PLACEHOLDER"
   },
@@ -368,6 +387,7 @@
   }
  },
  "owner_rulings_pending": [
+  "/budget/campaign/retry_allowance_runner_seconds",
   "/budget/kappa_rule/u_cal",
   "/budget/kappa_rule/u_model",
   "/budget/reserve_runner_seconds",
@@ -375,6 +395,7 @@
   "/owner_rulings/O1/ruling",
   "/owner_rulings/kappa/ruling",
   "/owner_rulings/reserve/ruling",
+  "/owner_rulings/retry_allowance/ruling",
   "/owner_rulings/survivor_cap/ruling",
   "/profiles/v8/survivor_cap_per_shard"
  ],

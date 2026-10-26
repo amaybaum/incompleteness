@@ -103,9 +103,9 @@
   "G": true
  },
  "ci_run": null,
- "code_digest": "a0c6c3dfb0b3a350259e63d960083c15b14df359d3e5aa79e9238d96cf7ade4c",
- "commit": "a782aa549061ad5417d939da932fa1c7f66ac022",
- "config_sha256": "5811cc585b93b684cd1da68939fd4ba500e0ee4be9d439c6a67c7aead86dee92",
+ "code_digest": "46f858396ad5e6465f562e136af0dc9d50e4844ad468aee237d86479d0d49c82",
+ "commit": "bc042a61052696b72c1b76ef52c83cfe41bc4237",
+ "config_sha256": "326b15611f39d61b1b54a331ad76b2336f766261531866c31856c8ce36b06734",
  "controls": {
   "C0_context_sizes": {
    "class": "VOID",
@@ -396,6 +396,28 @@
   "L2-CFG": {
    "pass": true
   },
+  "L2-COUNTONLY": {
+   "attacks_refused": {
+    "evaluate_survivor_via_engine": true,
+    "persist_record_in_output": true,
+    "print_record": true,
+    "read_outcome_data": true,
+    "write_side_file": true
+   },
+   "clean_toy": true,
+   "pass": true,
+   "static_imports": [
+    "hashlib",
+    "itertools",
+    "json",
+    "l2config",
+    "os",
+    "resource",
+    "subprocess",
+    "sys"
+   ],
+   "v8_refused_before_count": true
+  },
   "L2-COUNTS": {
    "N_ST_planted": [
     4,
@@ -499,13 +521,36 @@
      true
     ]
    },
+   "even_shards": true,
+   "heaviest_over_mean_under": false,
    "kappa": "8/5",
-   "pass": true
+   "kappa_1.21x1.0": "13/10",
+   "pass": true,
+   "per_shard_split": [
+    "310",
+    "110",
+    "10",
+    "10"
+   ]
   },
   "L2-LBL": {
    "cases": 11,
    "pass": true,
    "wrong": []
+  },
+  "L2-LEDGER": {
+   "malformed": null,
+   "mutant_count_pinned": true,
+   "over": false,
+   "pass": true,
+   "scope": true,
+   "spent": {
+    "calibration": 1300,
+    "count_pass": 200,
+    "retries": 250
+   },
+   "unplanned": null,
+   "within": true
   },
   "L2-MAN": {
    "pass": true,
@@ -574,6 +619,7 @@
   "L2-PLACEHOLDER": {
    "pass": true,
    "placeholders": [
+    "/budget/campaign/retry_allowance_runner_seconds",
     "/budget/kappa_rule/u_cal",
     "/budget/kappa_rule/u_model",
     "/budget/reserve_runner_seconds",
@@ -581,6 +627,7 @@
     "/owner_rulings/O1/ruling",
     "/owner_rulings/kappa/ruling",
     "/owner_rulings/reserve/ruling",
+    "/owner_rulings/retry_allowance/ruling",
     "/owner_rulings/survivor_cap/ruling",
     "/profiles/v8/survivor_cap_per_shard"
    ],
@@ -641,6 +688,26 @@
     }
    }
   },
+  "L2-SHARDPLAN": {
+   "accounting": {
+    "exact_cover": true,
+    "records_sum": true,
+    "representatives_sum": true,
+    "stated_representatives": true
+   },
+   "ball3_block_mismatches": 0,
+   "ball3_strict_pairs": 1,
+   "flag_mismatches": 0,
+   "pass": true,
+   "representatives_per_shard": [
+    122,
+    122,
+    122,
+    122
+   ],
+   "shard_of_mismatches": 0,
+   "v8_not_computed": true
+  },
   "L2-SHTIP": {
    "engine": {
     "A": 1071,
@@ -656,6 +723,24 @@
    "cases": 10,
    "pass": true,
    "wrong": {}
+  },
+  "L2-SPLIT": {
+   "accounting": {
+    "exact_cover": true,
+    "records_sum": true,
+    "representatives_sum": true,
+    "stated_representatives": true
+   },
+   "heavy_pair_block": [
+    120,
+    184
+   ],
+   "heavy_pair_split": true,
+   "pass": true,
+   "remerged_identical": true,
+   "scanned_once": true,
+   "stated_representatives": true,
+   "sub_shards": 5
   },
   "L2-SURV": {
    "checked": {

@@ -6,17 +6,17 @@
    "median": 3647.0
   },
   "kept_bytes": {
-   "max": 548752,
-   "median": 358648.0
+   "max": 520568,
+   "median": 369064.0
   },
   "max_context_quantities": 29,
   "peak_transient_bytes": {
-   "max": 2020290,
-   "median": 1752842.0
+   "max": 2023882,
+   "median": 1753683.0
   },
   "seconds_per_gated_orbit_toy": {
-   "max": 2.4294,
-   "median": 1.9279
+   "max": 2.4708,
+   "median": 1.8638
   },
   "survivor_orbits": 24
  },
@@ -79,44 +79,44 @@
   },
   "cost_by_cap": {
    "4": {
-    "kept_memory_bytes_at_max": 2195008,
-    "per_replica_job_seconds": 47.9,
-    "per_shard_job_seconds_both_copies": 95.9,
-    "survivor_term_runner_seconds": 3068.0
+    "kept_memory_bytes_at_max": 2082272,
+    "per_replica_job_seconds": 47.8,
+    "per_shard_job_seconds_both_copies": 95.5,
+    "survivor_term_runner_seconds": 3056.0
    },
    "8": {
-    "kept_memory_bytes_at_max": 4390016,
-    "per_replica_job_seconds": 95.9,
-    "per_shard_job_seconds_both_copies": 191.8,
-    "survivor_term_runner_seconds": 6136.0
+    "kept_memory_bytes_at_max": 4164544,
+    "per_replica_job_seconds": 95.5,
+    "per_shard_job_seconds_both_copies": 191.0,
+    "survivor_term_runner_seconds": 6112.0
    },
    "12": {
-    "kept_memory_bytes_at_max": 6585024,
-    "per_replica_job_seconds": 143.8,
-    "per_shard_job_seconds_both_copies": 287.6,
-    "survivor_term_runner_seconds": 9204.0
+    "kept_memory_bytes_at_max": 6246816,
+    "per_replica_job_seconds": 143.2,
+    "per_shard_job_seconds_both_copies": 286.5,
+    "survivor_term_runner_seconds": 9168.0
    },
    "16": {
-    "kept_memory_bytes_at_max": 8780032,
-    "per_replica_job_seconds": 191.8,
-    "per_shard_job_seconds_both_copies": 383.5,
-    "survivor_term_runner_seconds": 12272.0
+    "kept_memory_bytes_at_max": 8329088,
+    "per_replica_job_seconds": 191.0,
+    "per_shard_job_seconds_both_copies": 382.0,
+    "survivor_term_runner_seconds": 12224.0
    },
    "24": {
-    "kept_memory_bytes_at_max": 13170048,
-    "per_replica_job_seconds": 287.6,
-    "per_shard_job_seconds_both_copies": 575.2,
-    "survivor_term_runner_seconds": 18408.0
+    "kept_memory_bytes_at_max": 12493632,
+    "per_replica_job_seconds": 286.5,
+    "per_shard_job_seconds_both_copies": 573.0,
+    "survivor_term_runner_seconds": 18336.0
    },
    "32": {
-    "kept_memory_bytes_at_max": 17560064,
-    "per_replica_job_seconds": 383.5,
-    "per_shard_job_seconds_both_copies": 767.0,
-    "survivor_term_runner_seconds": 24544.0
+    "kept_memory_bytes_at_max": 16658176,
+    "per_replica_job_seconds": 382.0,
+    "per_shard_job_seconds_both_copies": 764.0,
+    "survivor_term_runner_seconds": 24448.0
    }
   },
   "shards": 32,
-  "v8_survivor_term_per_cap_unit_runner_seconds_median": 767.0,
+  "v8_survivor_term_per_cap_unit_runner_seconds_median": 764.0,
   "weights": "uniform (1/S); a concentrated case exceeds iff X > c"
  },
  "note": "planted toy-geometry records; the time per orbit at v8 sizes is the estimate's, from the planted calibration at m_max; nothing on v8",

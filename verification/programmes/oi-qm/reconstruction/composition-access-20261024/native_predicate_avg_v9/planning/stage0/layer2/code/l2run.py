@@ -3,8 +3,9 @@ instances, S6's carrier, and v8 configuration combinatorics; never a closure on 
 
 Usage: python3 -I -B l2run.py <layer2/design>
 Runs every step in order, retains each step's stdout and stderr in design/runs/, keeps the
-toy run's structured files in design/toyrun/, the kappa calibration repeats in design/kappa/ and the
-overhead measurement in design/overhead/, compares normal and -O runs where the output is
+toy run's structured files in design/toyrun/, the kappa calibration repeats in design/kappa/, the
+overhead and survivor-cap measurements in design/overhead/, the subdivision bounds in
+design/subdivision/ and the mid-size validation in design/midsize/, compares normal and -O runs where the output is
 deterministic (stdout, or the files a step writes), and writes design/RUN-MANIFEST.json and
 .md with the commands, exit codes, durations, -O identity and SHA-256 values. Verdicts in the
 manifest are exit statuses; the structured files carry the detail.
@@ -34,7 +35,8 @@ def main():
     ev = os.path.abspath(sys.argv[1])
     runs, W, K, OV = (os.path.join(ev, 'runs'), os.path.join(ev, 'toyrun'), os.path.join(ev, 'kappa'),
                       os.path.join(ev, 'overhead'))
-    for d in (runs, W, K, OV):
+    SUB, MID = os.path.join(ev, 'subdivision'), os.path.join(ev, 'midsize')
+    for d in (runs, W, K, OV, SUB, MID):
         if os.path.isdir(d):
             shutil.rmtree(d)
         os.makedirs(d)
@@ -71,11 +73,17 @@ def main():
         ('code_r5_equivalence_quick', dz('r5_equivalence.py', R5, W), False),
         ('planted_survivor_path', dz('planted_shard.py', CODE), True),
         ('refusal_probe_v8', dz('refusal_probe.py', CODE, scratch), True),
+        ('subdivision_bounds', dz('subdivision_bounds.py', CODE, os.path.join(W, 'calib.json'),
+                                  os.path.join(SUB, 'bounds.json')), True),
+        ('midsize_validation', dz('midsize_validation.py', CODE, os.path.join(W, 'calib.json'),
+                                  os.path.join(MID, 'validation.json')), False),
         ('kappa_calibration_repeats', dz('kappa_calibration.py', CODE, os.path.join(K, 'calibration-repeats.json')),
          False),
         ('overhead_measure', dz('overhead_measure.py', CODE, os.path.join(OV, 'overhead.json')), False),
         ('survivor_cap_measure', dz('survivor_cap_measure.py', CODE, os.path.join(K, 'calibration-repeats.json'),
                                     os.path.join(OV, 'survivor-cap.json')), False),
+        ('survivor_cap_derive', dz('survivor_cap_derive.py', os.path.join(OV, 'survivor-cap.json'),
+                                   os.path.join(OV, 'survivor-cap-derivation.json')), True),
         ('ci_calibration_local_check', dz('ci_local_check.py', CI, scratch), True),
     ]
     env = dict(os.environ, TMPDIR=scratch)
@@ -134,13 +142,17 @@ def main():
     toy = {'stage0/layer2/design/toyrun/' + fn: sha(os.path.join(W, fn)) for fn in sorted(os.listdir(W))}
     kap = {'stage0/layer2/design/kappa/' + fn: sha(os.path.join(K, fn)) for fn in sorted(os.listdir(K))}
     kap.update({'stage0/layer2/design/overhead/' + fn: sha(os.path.join(OV, fn)) for fn in sorted(os.listdir(OV))})
+    for d, label in ((SUB, 'subdivision'), (MID, 'midsize')):
+        kap.update({'stage0/layer2/design/%s/' % label + fn: sha(os.path.join(d, fn)) for fn in sorted(os.listdir(d))})
     manifest = {'python': sys.version.split()[0], 'platform': platform.platform(),
                 'note': 'NP-AVG-1 Stage 0 Layer 2 design evidence (WIP / UNREVIEWED, not frozen): toy, planted and '
-                        'small-window instances, S6\'s carrier and v8 configuration combinatorics only; no closure '
+                        'small-window instances, the mid-size analogue (not v8\'s class), S6\'s carrier and v8 '
+                        'configuration combinatorics only; no closure '
                         'on v8\'s configuration class (the v8 profile is refused without an authorization artifact). '
                         'The quick mutant campaign is local; the full campaign is CI-only and pending owner-approved '
                         'dispatch. Timing steps (calibration_planted, dryrun_v8_estimate, kappa_calibration_repeats, overhead_measure, '
-                        'survivor_cap_measure) '
+                        'survivor_cap_measure, midsize_validation; subdivision_bounds\'s cost ratios use this run\'s '
+                        'calibration) '
                         'are not deterministic. Commit caveat (L2-R5): this evidence was produced on an uncommitted working tree; '
                         'the structured files record the HEAD at run time (field commit) and tree_clean = false, '
                         'so they are design evidence only. At the Layer-2 freeze the evidence is regenerated at a '

@@ -6,17 +6,17 @@
    "median": 3647.0
   },
   "kept_bytes": {
-   "max": 548752,
-   "median": 358648.0
+   "max": 520568,
+   "median": 369064.0
   },
   "max_context_quantities": 29,
   "peak_transient_bytes": {
-   "max": 2020290,
-   "median": 1752842.0
+   "max": 2023882,
+   "median": 1753683.0
   },
   "seconds_per_gated_orbit_toy": {
-   "max": 2.4294,
-   "median": 1.9279
+   "max": 2.4708,
+   "median": 1.8638
   },
   "survivor_orbits": 24
  },
@@ -79,44 +79,44 @@
   },
   "cost_by_cap": {
    "4": {
-    "kept_memory_bytes_at_max": 2195008,
-    "per_replica_job_seconds": 47.9,
-    "per_shard_job_seconds_both_copies": 95.9,
-    "survivor_term_runner_seconds": 3068.0
+    "kept_memory_bytes_at_max": 2082272,
+    "per_replica_job_seconds": 47.8,
+    "per_shard_job_seconds_both_copies": 95.5,
+    "survivor_term_runner_seconds": 3056.0
    },
    "8": {
-    "kept_memory_bytes_at_max": 4390016,
-    "per_replica_job_seconds": 95.9,
-    "per_shard_job_seconds_both_copies": 191.8,
-    "survivor_term_runner_seconds": 6136.0
+    "kept_memory_bytes_at_max": 4164544,
+    "per_replica_job_seconds": 95.5,
+    "per_shard_job_seconds_both_copies": 191.0,
+    "survivor_term_runner_seconds": 6112.0
    },
    "12": {
-    "kept_memory_bytes_at_max": 6585024,
-    "per_replica_job_seconds": 143.8,
-    "per_shard_job_seconds_both_copies": 287.6,
-    "survivor_term_runner_seconds": 9204.0
+    "kept_memory_bytes_at_max": 6246816,
+    "per_replica_job_seconds": 143.2,
+    "per_shard_job_seconds_both_copies": 286.5,
+    "survivor_term_runner_seconds": 9168.0
    },
    "16": {
-    "kept_memory_bytes_at_max": 8780032,
-    "per_replica_job_seconds": 191.8,
-    "per_shard_job_seconds_both_copies": 383.5,
-    "survivor_term_runner_seconds": 12272.0
+    "kept_memory_bytes_at_max": 8329088,
+    "per_replica_job_seconds": 191.0,
+    "per_shard_job_seconds_both_copies": 382.0,
+    "survivor_term_runner_seconds": 12224.0
    },
    "24": {
-    "kept_memory_bytes_at_max": 13170048,
-    "per_replica_job_seconds": 287.6,
-    "per_shard_job_seconds_both_copies": 575.2,
-    "survivor_term_runner_seconds": 18408.0
+    "kept_memory_bytes_at_max": 12493632,
+    "per_replica_job_seconds": 286.5,
+    "per_shard_job_seconds_both_copies": 573.0,
+    "survivor_term_runner_seconds": 18336.0
    },
    "32": {
-    "kept_memory_bytes_at_max": 17560064,
-    "per_replica_job_seconds": 383.5,
-    "per_shard_job_seconds_both_copies": 767.0,
-    "survivor_term_runner_seconds": 24544.0
+    "kept_memory_bytes_at_max": 16658176,
+    "per_replica_job_seconds": 382.0,
+    "per_shard_job_seconds_both_copies": 764.0,
+    "survivor_term_runner_seconds": 24448.0
    }
   },
   "shards": 32,
-  "v8_survivor_term_per_cap_unit_runner_seconds_median": 767.0,
+  "v8_survivor_term_per_cap_unit_runner_seconds_median": 764.0,
   "weights": "uniform (1/S); a concentrated case exceeds iff X > c"
  },
  "note": "planted toy-geometry records; the time per orbit at v8 sizes is the estimate's, from the planted calibration at m_max; nothing on v8",
@@ -125,194 +125,194 @@
   {
    "context_quantities": 24,
    "detail_bytes": 3563,
-   "kept_bytes": 393482,
-   "ns": 1094441922,
+   "kept_bytes": 395490,
+   "ns": 1064243566,
    "orbit_size": 4,
-   "peak_transient_bytes": 1413700
+   "peak_transient_bytes": 1382366
   },
   {
    "context_quantities": 27,
    "detail_bytes": 3688,
-   "kept_bytes": 323144,
-   "ns": 1052274993,
+   "kept_bytes": 324664,
+   "ns": 1110837537,
    "orbit_size": 4,
-   "peak_transient_bytes": 1307196
+   "peak_transient_bytes": 1307180
   },
   {
    "context_quantities": 29,
    "detail_bytes": 4323,
-   "kept_bytes": 388392,
-   "ns": 2245920544,
+   "kept_bytes": 419176,
+   "ns": 2119792650,
    "orbit_size": 8,
-   "peak_transient_bytes": 1971154
+   "peak_transient_bytes": 1994594
   },
   {
    "context_quantities": 23,
    "detail_bytes": 3008,
-   "kept_bytes": 205808,
-   "ns": 874220985,
+   "kept_bytes": 208076,
+   "ns": 865137282,
    "orbit_size": 4,
    "peak_transient_bytes": 1055396
   },
   {
    "context_quantities": 26,
    "detail_bytes": 3132,
-   "kept_bytes": 343288,
-   "ns": 981140087,
+   "kept_bytes": 347312,
+   "ns": 1058906863,
    "orbit_size": 4,
-   "peak_transient_bytes": 1162498
+   "peak_transient_bytes": 1166458
   },
   {
    "context_quantities": 28,
    "detail_bytes": 3775,
-   "kept_bytes": 548752,
-   "ns": 2160846863,
+   "kept_bytes": 463440,
+   "ns": 2201986972,
    "orbit_size": 8,
-   "peak_transient_bytes": 2020290
+   "peak_transient_bytes": 2023882
   },
   {
    "context_quantities": 23,
    "detail_bytes": 3434,
-   "kept_bytes": 304336,
-   "ns": 1637021336,
+   "kept_bytes": 262032,
+   "ns": 1675995510,
    "orbit_size": 8,
-   "peak_transient_bytes": 1619668
+   "peak_transient_bytes": 1614164
   },
   {
    "context_quantities": 26,
    "detail_bytes": 3606,
-   "kept_bytes": 316568,
-   "ns": 2117828697,
+   "kept_bytes": 320984,
+   "ns": 1996477196,
    "orbit_size": 8,
-   "peak_transient_bytes": 1762154
+   "peak_transient_bytes": 1752938
   },
   {
    "context_quantities": 28,
    "detail_bytes": 3773,
-   "kept_bytes": 492440,
-   "ns": 2044182971,
+   "kept_bytes": 508864,
+   "ns": 2043516296,
    "orbit_size": 8,
-   "peak_transient_bytes": 1962730
+   "peak_transient_bytes": 1982354
   },
   {
    "context_quantities": 24,
    "detail_bytes": 3961,
-   "kept_bytes": 270744,
-   "ns": 1877566389,
+   "kept_bytes": 288840,
+   "ns": 1819549775,
    "orbit_size": 8,
-   "peak_transient_bytes": 1744842
+   "peak_transient_bytes": 1754428
   },
   {
    "context_quantities": 27,
    "detail_bytes": 4133,
-   "kept_bytes": 379152,
-   "ns": 2110109278,
+   "kept_bytes": 401456,
+   "ns": 2086654939,
    "orbit_size": 8,
-   "peak_transient_bytes": 1864828
+   "peak_transient_bytes": 1881532
   },
   {
    "context_quantities": 29,
    "detail_bytes": 4300,
-   "kept_bytes": 408232,
-   "ns": 2321833817,
+   "kept_bytes": 520568,
+   "ns": 2470754020,
    "orbit_size": 8,
-   "peak_transient_bytes": 1976434
+   "peak_transient_bytes": 1976274
   },
   {
    "context_quantities": 23,
    "detail_bytes": 3402,
-   "kept_bytes": 244152,
-   "ns": 1697537231,
+   "kept_bytes": 248184,
+   "ns": 1759555528,
    "orbit_size": 8,
-   "peak_transient_bytes": 1588116
+   "peak_transient_bytes": 1584492
   },
   {
    "context_quantities": 26,
    "detail_bytes": 3574,
-   "kept_bytes": 315672,
-   "ns": 1978212455,
+   "kept_bytes": 342712,
+   "ns": 1920559662,
    "orbit_size": 8,
-   "peak_transient_bytes": 1761244
+   "peak_transient_bytes": 1775580
   },
   {
    "context_quantities": 28,
    "detail_bytes": 3741,
-   "kept_bytes": 376496,
-   "ns": 2119825716,
+   "kept_bytes": 374944,
+   "ns": 2013008748,
    "orbit_size": 8,
-   "peak_transient_bytes": 1852786
+   "peak_transient_bytes": 1834682
   },
   {
    "context_quantities": 24,
    "detail_bytes": 3570,
-   "kept_bytes": 369448,
-   "ns": 974580290,
+   "kept_bytes": 373368,
+   "ns": 936978775,
    "orbit_size": 4,
-   "peak_transient_bytes": 1247018
+   "peak_transient_bytes": 1250874
   },
   {
    "context_quantities": 27,
    "detail_bytes": 3694,
-   "kept_bytes": 478736,
-   "ns": 1191552745,
+   "kept_bytes": 483232,
+   "ns": 1166578372,
    "orbit_size": 4,
-   "peak_transient_bytes": 1403444
+   "peak_transient_bytes": 1409572
   },
   {
    "context_quantities": 29,
    "detail_bytes": 4337,
-   "kept_bytes": 379096,
-   "ns": 2429370653,
+   "kept_bytes": 378360,
+   "ns": 2231122312,
    "orbit_size": 8,
-   "peak_transient_bytes": 1999436
+   "peak_transient_bytes": 1972252
   },
   {
    "context_quantities": 23,
    "detail_bytes": 3392,
-   "kept_bytes": 218856,
-   "ns": 1711667566,
+   "kept_bytes": 225000,
+   "ns": 1759207849,
    "orbit_size": 8,
-   "peak_transient_bytes": 1559284
+   "peak_transient_bytes": 1550756
   },
   {
    "context_quantities": 26,
    "detail_bytes": 3564,
-   "kept_bytes": 411568,
-   "ns": 2088831508,
+   "kept_bytes": 382888,
+   "ns": 1908011259,
    "orbit_size": 8,
-   "peak_transient_bytes": 1760842
+   "peak_transient_bytes": 1761738
   },
   {
    "context_quantities": 28,
    "detail_bytes": 3731,
-   "kept_bytes": 389024,
-   "ns": 2421225405,
+   "kept_bytes": 394888,
+   "ns": 2031648623,
    "orbit_size": 8,
-   "peak_transient_bytes": 1876474
+   "peak_transient_bytes": 1850844
   },
   {
    "context_quantities": 23,
    "detail_bytes": 2993,
-   "kept_bytes": 225596,
-   "ns": 917030576,
+   "kept_bytes": 231104,
+   "ns": 847417006,
    "orbit_size": 4,
-   "peak_transient_bytes": 1038876
+   "peak_transient_bytes": 1044380
   },
   {
    "context_quantities": 26,
    "detail_bytes": 3117,
-   "kept_bytes": 299952,
-   "ns": 1010670949,
+   "kept_bytes": 305392,
+   "ns": 986917853,
    "orbit_size": 4,
    "peak_transient_bytes": 1168018
   },
   {
    "context_quantities": 28,
    "detail_bytes": 3741,
-   "kept_bytes": 347848,
-   "ns": 2251075642,
+   "kept_bytes": 364760,
+   "ns": 2139619364,
    "orbit_size": 8,
-   "peak_transient_bytes": 1885306
+   "peak_transient_bytes": 1901498
   }
  ],
  "schema": "np-avg-1/stage0/layer2/survivor-cap/1"

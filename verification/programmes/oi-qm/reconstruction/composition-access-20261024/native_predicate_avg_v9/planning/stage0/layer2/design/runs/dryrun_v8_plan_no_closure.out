@@ -1,7 +1,7 @@
 {
  "C7_populations": "not computed (requires authorization)",
  "closures_computed": 0,
- "config_sha256": "5811cc585b93b684cd1da68939fd4ba500e0ee4be9d439c6a67c7aead86dee92",
+ "config_sha256": "326b15611f39d61b1b54a331ad76b2336f766261531866c31856c8ce36b06734",
  "context_quantities_pairs": {
   "10": 225584,
   "11": 258620,
@@ -55,6 +55,7 @@
   "records": true
  },
  "group_order": 8,
+ "index_even_plan_representatives_per_shard_diagnostic": "not computed (requires authorization)",
  "max_context_quantities": 29,
  "max_context_with_fixed": 37,
  "orbits": 816050,
@@ -62,7 +63,12 @@
  "pass": true,
  "profile": "v8",
  "records": 5163225,
+ "representatives_per_shard": "not computed (requires authorization)",
  "schema": "np-avg-1/stage0/layer2/dryrun/2",
+ "shard_plan": {
+  "kind": "index_even (diagnostic only)",
+  "reason": "the v8 site-pair count is not available (conditionally approved, not dispatched)"
+ },
  "shards": [
   {
    "count": 161350,

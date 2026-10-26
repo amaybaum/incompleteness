@@ -1,104 +1,128 @@
-# NP-AVG-1 Stage 0, Layer 2: a proposal for the v8 survivor cap (advisory)
+# NP-AVG-1 Stage 0, Layer 2: the v8 survivor cap, derived (advisory; r5)
 
 **Status: advisory. It sets nothing.** The v8 survivor cap is an `OWNER-PLACEHOLDER`
 (`l2config` `profiles.v8.survivor_cap_per_shard`), with no default. The toy profile's 10 is design
 evidence only.
 
-**The owner's request** (amaybaum, 2026-10-26): "Request a reasoned proposal based on shard
-distribution, memory consumption, and failure probability; do not use the placeholder 10." The
-cap is fixed before any v8 count ("Fix κ, the survivor cap, and budget ceiling before any v8
-count").
+**The owner's requests** (amaybaum, 2026-10-26): "Request a reasoned proposal based on shard
+distribution, memory consumption, and failure probability; do not use the placeholder 10." and, after
+the r4 review, "The survivor cap should likewise follow from a justified resource and completeness
+analysis, not a convenient placeholder." The cap is fixed before any v8 count.
 
-**Nothing here ran on v8.** The measurements are on planted records of the toy geometry
-(`design/survivor_cap_measure.py`, retained output `design/overhead/survivor-cap.json`; timing and
-memory data). The per-cap cost is the v8 estimate's, from the local calibration
-(`design/kappa/calibration-repeats.json`).
+**r5 (LAYER2-R4-REVIEW K1, K2).** r4's justification used a concentration factor f ≈ 2 for the shard
+distribution, which the analogues showed to be understated (heaviest shard 2.9–5.0 × the mean under
+the index-even plan), assumed survivors independent, and stated that the cap fitted the job inequality,
+which was wrong. r5 replaces the index-even plan by the deterministic subdivision, which makes the
+representatives per shard exactly equal (to within one), derives the cap from the resulting model with
+the clustering of survivors as an explicit parameter, and states the job inequality correctly.
 
-## 1. What the cap does
+**Nothing here ran on v8.** Sources: `design/overhead/survivor-cap.json` (step `survivor_cap_measure`:
+memory and time on planted toy-geometry survivor orbits; the v8 survivor term per unit of cap from the
+planted calibration), `design/overhead/survivor-cap-derivation.json` (step `survivor_cap_derive`,
+deterministic given its input), `design/subdivision/bounds.json` and `design/midsize/validation.json`.
 
-Per shard, the first c survivor orbits get their survivor gates (C0, C7 on set 1, C11 (i), C17, C18
-on every member, both conventions) and their residue detail. A shard that meets more survivor orbits:
-- still computes and counts every record;
-- sets `survivor_cap_exceeded`.
+## 1. What the cap does (unchanged; the scientific justification)
 
-The run is then INCOMPLETE, with its 58 counts complete and `survivor_gates_incomplete` flagged
-(LAYER2-R3-REVIEW R2; PO-L2-15).
+Per shard, the first c survivor orbits get their survivor gates (C0, C7 on set 1, C11 (i), C17, C18 on
+every member, both conventions) and their residue detail. A shard that meets more survivor orbits still
+computes and counts every record and sets `survivor_cap_exceeded`; the run is then INCOMPLETE, with its
+58 counts complete and `survivor_gates_incomplete` flagged (PO-L2-15).
 
-The cap therefore decides one thing only: whether a survivor-rich outcome can reach a label other
-than INCOMPLETE. It never changes a count, never moves a verdict towards collapse, and never drops a
-counterexample silently. Its cost is the survivor-gate term of the estimate.
+The cap never changes a count, never moves a verdict towards collapse and never drops a counterexample
+silently. It decides one thing: whether a survivor-rich outcome can reach a label other than
+INCOMPLETE. **It is a resource and completeness parameter, not a scientific one,** and this holds
+without any v8 count (LAYER2-R4-REVIEW K2).
 
-## 2. Memory and time per retained survivor (measured)
+## 2. Resources per survivor orbit
 
-**Measurement.** 24 planted survivor orbits of the toy setup: constraint blocks at eight centres,
-some with extra items, with contexts of up to 29 non-fixed quantities, v8's maximum.
-
-| quantity | median | max |
+| quantity | value | status |
 | --- | --- | --- |
-| residue detail per survivor orbit (canonical JSON) | 3.6 kB | 4.3 kB |
-| memory the shard keeps after one gated orbit (tracemalloc; includes the engine's caches, so an upper bound for the detail) | 0.36 MB | 0.55 MB |
-| peak transient memory while one orbit is gated | 1.75 MB | 2.0 MB |
-| time of one gated survivor orbit, toy geometry, under tracemalloc | 1.9 s | 2.4 s |
+| residue detail per orbit | 3.6–4.3 kB | measured, planted toy-geometry orbits, contexts up to 29 (v8's maximum) |
+| memory kept per gated orbit (an upper bound: includes the engine's caches) | ≤ 0.55 MB | measured, the same |
+| peak transient memory per orbit | ≤ 2.0 MB | measured, the same |
+| time per gated orbit per shard, both copies, at v8 sizes | about 24 s (the survivor term per cap unit, 764 s, over 32 shards) | **modelled**: the planted calibration at m_max |
 
-**At v8 sizes.** The estimate prices one survivor orbit at m_max as 767 s / 32 ≈ 24 s per shard, both
-copies, from the planted calibration (`survivor_gates_seconds_per_cap_unit`, median of 10). That is
-about 12 s per replica job.
+**Memory does not bind:** at c = 64 a shard keeps at most about 35 MB. **Time** adds c × 24 s to a
+shard's job and c × 764 s to the campaign.
 
-**Memory.** At any cap below 100 the shard keeps at most 100 × 0.55 MB = 55 MB. That is negligible
-against a hosted runner's memory, which the CI review states for the runner class. **Memory does not
-bind the cap.**
+## 3. The shard distribution under the deterministic subdivision
 
-## 3. The shard distribution
+Every shard holds ⌊R/32⌋ or ⌈R/32⌉ representatives (`LAYER2-PLAN.md` §3.5; on v8, R/32 ≈ 25,500, once
+the site-pair count gives the cut points). So if survivor orbits are spread over representatives
+independently of their index, each orbit's shard is uniform over the 32 shards: the review's "uniform
+row" applies exactly.
 
-Survivor orbits are processed in the shard of their representative's index. The shard plan splits the
-index range evenly, but representatives are not spread evenly. A representative is the minimal image
-of its orbit, and the index order runs singles first, then pairs by site pair, so representatives
-cluster at low indices.
-- **On the toy class**, the four shards hold 260, 36, 162 and 30 of the 488 representatives: shard 0
-  holds 53 %, against 25 % if they were uniform.
-- **On v8** the representatives per shard are not computed here. They are part of the count-only
-  pass (`AMENDMENT-PROPOSAL-V8-COUNT.md` §1), which by the owner's sequencing comes after the cap is
-  fixed.
+**The clustering of survivors is not measured.** Survivors come from geometric constraint blocks, and
+the planted ones clustered; neither the toy class nor the four mid-size shards run in r5 has a survivor,
+so no available class measures it. The derivation therefore takes it as a parameter: X survivor orbits
+arrive as X/b clusters of b orbits, each cluster wholly in one shard (a site pair holds at most 625
+representatives, under 3 % of a v8 shard, so a cluster inside one site pair falls in one shard or
+straddles two; one shard is the conservative case), the clusters uniform and independent.
 
-The model therefore uses a concentration factor f. A quarter of the shards (8 of 32) each carry f/32
-of the representatives, and the rest share what remains. f = 1 is uniform; the toy class corresponds
-to roughly f = 2.
+## 4. P(INCOMPLETE by the cap)
 
-**The failure probability** is P(cap exceeded): the probability that some shard receives more than c
-of X survivor orbits, the orbits placed independently with the shard weights. It is computed exactly
-for uniform weights (`survivor-cap.json`), and by an independent-Poisson approximation for f = 2 and 4.
+Exact (rational arithmetic over the 32 shards), from `survivor-cap-derivation.json`:
 
-| c | X = 32 survivor orbits (f = 1 / 2 / 4) | X = 64 (f = 1 / 2 / 4) | X = 128 (f = 1 / 2 / 4) | survivor term (s; h) | per replica job (s) |
+| X survivor orbits, cluster size b | c = 8 | c = 12 | c = 16 | c = 24 | c = 32 |
 | --- | --- | --- | --- | --- | --- |
-| 8 | 1.3e-5 / 1.9e-3 / 0.16 | 5.3e-3 / 0.16 / 0.98 | 0.50 / 0.99 / 1 | 6,136 (1.7) | 96 |
-| 12 | 1.7e-10 / 1.7e-6 / 2.2e-3 | 2.6e-6 / 2.2e-3 / 0.41 | 6.4e-3 / 0.41 / 1 | 9,204 (2.6) | 144 |
-| 16 | ≈ 0 / 4.5e-10 / 9.1e-6 | 2.8e-10 / 9.1e-6 / 0.029 | 1.9e-5 / 0.029 / 0.99 | 12,272 (3.4) | 192 |
-| 24 | ≈ 0 / ≈ 0 / 1.3e-11 | ≈ 0 / 1.3e-11 / 9.4e-6 | 8.2e-12 / 9.4e-6 / 0.17 | 18,408 (5.1) | 288 |
+| X = 32, b = 1 | 1.3e-5 | 1.7e-10 | ≈ 0 | ≈ 0 | ≈ 0 |
+| X = 32, b = 4 | 0.048 | 1.9e-3 | 4.9e-5 | 7.2e-9 | 0 |
+| X = 32, b = 8 | 0.18 | 0.18 | 3.8e-3 | 3.1e-5 | 0 |
+| X = 64, b = 1 | 5.3e-3 | 2.6e-6 | 2.8e-10 | ≈ 0 | ≈ 0 |
+| X = 64, b = 4 | 0.36 | 0.041 | 3.1e-3 | 8.3e-6 | 8.5e-9 |
+| X = 64, b = 8 | 0.61 | 0.61 | 0.048 | 1.9e-3 | 4.9e-5 |
+| X = 128, b = 4 | 0.97 | 0.45 | 0.093 | 1.6e-3 | 1.3e-5 |
+| X = 128, b = 8 | 0.99 | 0.99 | 0.36 | 0.041 | 3.1e-3 |
 
-**How large X might be.**
-- The Stage-0 collapse argument (`RECHECK-r2.md` §1) predicts X = 0 at k ≤ 2. The cap matters only if
-  that prediction fails.
-- 64 survivor orbits are at most 512 survivor records, about 0.01 % of N. Beyond that, the residue is
-  large enough to call for Stage 1 or a redesign in any case. An INCOMPLETE run that reports complete
-  counts and the flag is then an informative outcome, not a lost one.
+**The derived cap** c*(X, b, α), the smallest c with P ≤ α:
 
-## 4. Proposal
+| α | X = 32: b = 1 / 4 / 8 | X = 64: b = 1 / 4 / 8 | X = 128: b = 1 / 4 / 8 |
+| --- | --- | --- | --- |
+| 1 % | 6 / 12 / 16 | 8 / 16 / 24 | 12 / 24 / 32 |
+| 5 % | 5 / 8 / 16 | 7 / 12 / 16 | 11 / 20 / 24 |
 
-**c = 16 survivor orbits per shard**, reasoned as follows:
-- **Failure probability.** For up to 64 survivor orbits, P(cap exceeded) is at most about 1e-5 with
-  concentration up to twice the uniform share (about the toy class's), and about 3 % at four times.
-  For up to 32 orbits it is below 1e-5 even at f = 4. c = 12 reaches 41 % at X = 64 under f = 4; c = 8
-  reaches 16 % at f = 2.
-- **Memory.** About 9 MB kept and 2 MB transient per shard: negligible.
-- **Time per job.** About 192 s per replica job at m_max. That fits the job inequality: about 1,138 s
-  per replica job before C7, × κ = 1.6, gives 1,821 s against 2,400 s.
-- **Cost.** 12,272 runner-seconds (3.4 h) of the 24-hour ceiling under the cost model. Under the
-  model the full run does not fit the ceiling at any cap (`KAPPA-PROPOSAL.md` §c). The cap's share of
-  the overrun is c × 767 s, so the owner may prefer a smaller cap and accept a higher INCOMPLETE
-  probability under concentration. c = 8 saves 6,136 s.
+**The judgements this rests on**, each the owner's to accept or change:
+- **α**, the acceptable probability that a survivor-rich run ends INCOMPLETE because of the cap. Such a
+  run still reports complete counts and the flag, so a cap failure is benign: it costs a re-run with a
+  larger cap, not a wrong result.
+- **X, the reference number of survivor orbits.** The Stage-0 collapse argument predicts X = 0 at
+  k ≤ 2; the cap matters only if that fails. 64 orbits are at most 512 survivor records, about 0.01 %
+  of N; beyond that the residue calls for Stage 1 or a redesign whatever the label.
+- **b, the cluster size.** Not measured (§3).
 
-**Recommended review step.** If the owner allows a site-pair-level combinatorial count of
-representatives per shard before the cap is fixed, the concentration factor would be measured rather
-than assumed. That count needs no record, no context and no closure, but it is still a computation
-on v8's geometry, and it is not authorized here. Otherwise c = 16 holds under f ≤ 2 with a wide
-margin.
+## 5. Proposal
+
+**c = 16 survivor orbits per shard,** derived as the smallest cap with P(INCOMPLETE by the cap) ≤ 5 % at
+X = 64 survivor orbits in clusters of up to 8, and ≤ 1 % at X = 64 with clusters of up to 4 or at
+X = 32 with clusters of up to 8. **At α = 1 %, X = 64, b = 8 the derived cap is 24.** The owner chooses
+the envelope; the numbers above give the cap for each.
+
+**Its resources:** about 8 MB kept and 2 MB transient per shard; about 380 s per shard job (both copies)
+and 12,224 runner-seconds in the campaign (c = 24: about 570 s and 18,336 s). Memory measured; time
+modelled, from the planted calibration.
+
+**The job inequality, correctly stated** (LAYER2-R4-REVIEW K1). A shard job runs both copies against its
+40 minutes. Under the cost model, the mean shard's known terms (closures and sampled gates, both copies)
+are already about 1,900 s; with the subdivision's modelled cost spread (heaviest about 1.04 × the mean
+on the ball(3) analogue) and C7's set 4, about 2,050 s before any survivor allowance. **c = 16 adds about
+380 s: about 2,435 s, over 2,400 s at κ = 1.** Above κ = 1.17 the job inequality fails with no survivor
+allowance at all. So under the model no cap value satisfies the job inequality at 32 shards and any κ
+the rule can give; the cap is not the binding term. The levers are the shard count (S7's "at most 32
+shards", a Layer-1 amendment), the per-shard work (`FEASIBILITY-AND-REDESIGN.md`), or the model's error
+(the mid-size validation finds it over-predicts every shard measured, the heaviest by about 10 %); never κ or the timeouts (owner).
+With more shards the per-shard cap can stay at the derived value, but the survivor term grows with the
+shard count (c × S × 24 s).
+
+**Cost in the campaign:** c × 764 s of the 24-hour campaign ceiling, under the model. The campaign does
+not fit at any cap under the model (`FEASIBILITY-AND-REDESIGN.md`); the cap's share of the overrun is that
+term.
+
+## 6. What would replace the judgements with measurements
+
+- **b:** any class with survivors. A planted survivor population on the mid-size analogue (constraint
+  blocks placed at several centres, as `planted_shard.py` does on the toy geometry) would measure how
+  survivor orbits cluster in representative rank. Proposed as a bounded design step; not run in r5.
+- **The time per orbit at v8 sizes:** the mid-size analogue's real shards measure per-representative
+  cost at v8-like contexts, but not per survivor orbit (no survivors there).
+- **The representatives per shard on v8:** the site-pair count (`SITE-PAIR-COUNT.md`), conditionally
+  approved and not dispatched. It makes §3's uniform weights exact for v8.
