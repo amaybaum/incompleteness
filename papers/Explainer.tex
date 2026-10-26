@@ -592,13 +592,15 @@ where Λ has non-negative entries and rows summing to 1.
 would need negative entries, which means it's not a valid probability
 matrix.
 
-Breuer, Laine, and Piilo proved that P-indivisibility is equivalent to
-``information backflow'' --- the system's distinguishability can
-\emph{increase} over time. In a classical Markov process, you can only
-lose information (mixing). In a P-indivisible process, information comes
-back. This is exactly what quantum systems do --- interference,
-revivals, and non-classical correlations all involve information
-returning from where it was stored.
+Breuer, Laine, and Piilo introduced ``information backflow'' --- the
+system's distinguishability \emph{increasing} over time --- as the
+signature of non-Markovian dynamics. In a classical Markov process, you
+can only lose information (mixing); the same holds in any P-divisible
+process, so backflow certifies P-indivisibility, though a P-indivisible
+process need not show it. Where it does, information comes back. This is
+exactly what quantum systems do --- interference, revivals, and
+non-classical correlations all involve information returning from where
+it was stored.
 
 \textbf{The setup.} We work on finite sets (Lemma 1). The visible sector
 has states C\_V = \{x\_1, x\_2, \ldots\} with \textbar C\_V\textbar{} ≥
@@ -1076,12 +1078,12 @@ logical chain:
   conditional physical-memory theorem)
 \item
   Combined: \textbf{accessible non-Markovianity ⟺ embedded observation
-  under C1, C3, C4 (per finite horizon) --- C2 is not needed for the
-  equivalence and carries its physical content separately, through the
-  conditional physical-memory theorem --- with a fixed-basis unitary
-  quantum representation internal and universal ({[}Main §3.4{]}), the
-  compressed form supplied across the correspondence's class under (T),
-  nontrivially where the dynamics is P-indivisible}
+  under C1, C3, C4 (per finite accessible horizon) --- C2 is not needed
+  for the equivalence and carries its physical content separately,
+  through the conditional physical-memory theorem --- with a fixed-basis
+  unitary quantum representation internal and universal ({[}Main
+  §3.4{]}), the compressed form supplied across the correspondence's
+  class under (T), nontrivially where the dynamics is P-indivisible}
 \end{itemize}
 
 \textbf{Necessity of C1 (coupling).} With no hidden influence at any
@@ -1127,11 +1129,11 @@ states.
 
 \textbf{The complete characterization.} For \textbar C\_V\textbar{} ≥ 2:
 the process is non-Markovian on accessible timescales ⟺ it arises, on
-each finite horizon, from marginalizing a deterministic bijection under
-C1, C3, C4 (C2 sits outside the equivalence: the existential realization
-satisfies it trivially with a static bath). Both directions are the
-foundational paper's own theorems; every finite-horizon law admits the
-fixed-basis unitary quantum representation
+each finite accessible horizon, from marginalizing a deterministic
+bijection under C1, C3, C4 (C2 sits outside the equivalence: the
+existential realization satisfies it trivially with a static bath). Both
+directions are the foundational paper's own theorems; every
+finite-horizon law admits the fixed-basis unitary quantum representation
 (\(S \iff D \iff Q_{\mathrm{fb}}\), internal --- the compressed form for
 the correspondence's class under (T)), and the fixed-Ĥ form is
 constructive for every realized process. The old three-way biconditional
@@ -3806,10 +3808,10 @@ Markov → P-divisible \\
 §3.3: Necessity of C3 & Accessible memory requires capacity & I ≤ log₂ m
 bounds memory \\
 §3.4: Characterization theorem & non-Markovianity ⟺ C1, C3, C4 per
-horizon (C2 separate, conditional); representation equivalence
-\(S \iff D \iff Q_{\mathrm{fb}}\) --- internal, universal; universal
-hidden-memory theorem & Biconditional + internal permutation unitary
-(compressed form imported under (T)) \\
+accessible horizon (C2 separate, conditional); representation
+equivalence \(S \iff D \iff Q_{\mathrm{fb}}\) --- internal, universal;
+universal hidden-memory theorem & Biconditional + internal permutation
+unitary (compressed form imported under (T)) \\
 §4: Cosmological horizon & The universe satisfies the definition & C1 ✓,
 C2 ✓, C3 ✓, C4 ✓ \\
 §5.1: Classical temperature & T\_cl = c²ε²κ/(8πGk\_Bσ) & No ℏ \\
@@ -3931,4 +3933,4 @@ The final text and all scientific claims were reviewed and verified by
 the author.
 
 \end{document}
-% source-sha256: faa732edb9fa7cfec37530d4392e3c0e8d852b0e4a8bde58086c0b5e45f4f758
+% source-sha256: e1167acd5277eb081e313a91f76340b8deb411a26e1e29034472beac53ce9d83

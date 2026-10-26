@@ -949,17 +949,18 @@ of C1-violating bijections super-exponentially fast.
 
 \textbf{Relation to prior work.} The P-indivisibility phenomenon is
 well-documented in the open-systems literature: reduced dynamics need
-not preserve positivity {[}6{]}; divisibility failure is equivalent to
-information backflow {[}4, 5{]}; process-tensor Markovianity provides an
-alternative characterization {[}7{]}; non-Markovian reduced dynamics
-arise in the slow-bath regime {[}8{]}. The Bylicka-Johansson-Acín
-equivalence between CP-divisibility and distinguishability monotonicity
-{[}9{]} narrows the gap between divisibility and non-Markovianity, but
-only for \emph{invertible} reduced dynamics; the marginal \(T(t)\) here
-is generally non-invertible, so the load-bearing property for the
-general argument remains P-indivisibility of the marginal process. Milz
-et al.~{[}10{]} confirm CP-divisibility does not imply Markovianity in
-the process-tensor sense.
+not preserve positivity {[}6{]}; information backflow witnesses
+divisibility failure {[}4, 5{]}, and divisibility can fail without it
+(§2.3, §3.2); process-tensor Markovianity provides an alternative
+characterization {[}7{]}; non-Markovian reduced dynamics arise in the
+slow-bath regime {[}8{]}. The Bylicka-Johansson-Acín equivalence between
+CP-divisibility and distinguishability monotonicity {[}9{]} narrows the
+gap between divisibility and non-Markovianity, but only for
+\emph{invertible} reduced dynamics; the marginal \(T(t)\) here is
+generally non-invertible, so the load-bearing property for the general
+argument remains P-indivisibility of the marginal process. Milz et
+al.~{[}10{]} confirm CP-divisibility does not imply Markovianity in the
+process-tensor sense.
 
 \textbf{Continuous-time extension.} The Hamiltonian flow on
 finite-dimensional phase space preserves Liouville measure on compact
@@ -1953,16 +1954,17 @@ the framework's channels are in that class, which is what licenses the
 theorem. (Certified exactly over \(\mathbb{Q}(\sqrt{2})\) in
 \texttt{c1\_cp\_scope\_probes.py}.)
 
-By the Breuer-Laine-Piilo criterion {[}3, 4{]}, CP-indivisibility is
+By the Breuer-Laine-Piilo criterion {[}63{]}, CP-indivisibility is
 witnessed by non-monotonic distinguishability, but the correct witness
-is the ANCILLA-ASSISTED one: monotonicity of system-plus-ancilla
-distinguishability characterizes CP-divisibility, while ordinary system
-trace distance is a strictly weaker witness and can stay monotone on a
-CP-indivisible family. The classical analogue is exact and is certified
-here: a family can be P-indivisible while total-variation distance is
-non-increasing for every pair of visible distributions
-(\texttt{translation\_probes.py}, §2.3). Backflow in the system alone is
-therefore sufficient evidence of indivisibility, never necessary.
+is the \emph{ancilla-assisted} one {[}4{]}: monotonicity of
+system-plus-ancilla distinguishability characterizes CP-divisibility,
+while ordinary system trace distance is a strictly weaker witness and
+can stay monotone on a CP-indivisible family. The classical analogue is
+exact and is certified here: a family can be P-indivisible while
+total-variation distance is non-increasing for every pair of visible
+distributions (\texttt{translation\_probes.py}, §2.3). Backflow in the
+system alone is therefore sufficient evidence of indivisibility, never
+necessary.
 
 \emph{Remark (three notions, kept apart).} Three distinct things travel
 under nearby names, and this paper uses them in fixed senses. (1)
@@ -4429,15 +4431,16 @@ partition, with all derived from the same deterministic substratum.
 \hypertarget{scope}{%
 \subsubsection{4.2 Scope}\label{scope}}
 
-The characterization theorem's equivalence is (ii) \(\iff\) (iii) under
-(C1)--(C4), both directions in-house; the quantum representation follows
-for the source's finite-configuration class, and observed Bell-class
-dynamics --- indivisible, hence non-Markovian a fortiori --- certify
-(ii) directly; representability alone is strictly weaker
-(diagonal-\(\hat{H}\), §3.4 Remark). The theorem does not identify which
-physical systems satisfy the conditions; this is an empirical question.
-Universality in our universe follows from the shared causal partition
-defined by null geodesics.
+The characterization theorem's equivalence is (ii) \(\iff\) (iii), with
+(iii) carrying (C1), (C3) and (C4) and (C2) outside it, both directions
+in-house; the quantum representation follows for the source's
+finite-configuration class, and observed Bell-class dynamics ---
+indivisible, hence non-Markovian a fortiori --- certify (ii) directly;
+representability alone is strictly weaker (diagonal-\(\hat{H}\), §3.4
+Remark). The theorem does not identify which physical systems satisfy
+the conditions; this is an empirical question. Universality in our
+universe follows from the shared causal partition defined by null
+geodesics.
 
 \hypertarget{the-status-of-the-discreteness-scale}{%
 \subsubsection{4.3 The Status of the Discreteness
@@ -5318,5 +5321,9 @@ limitations of measurement,'' in W. C. Myrvold and J. Christian (eds.),
 \emph{Quantum Reality, Relativistic Causality, and Closing the Epistemic
 Circle} (Springer, 2009).
 
+{[}63{]} H.-P. Breuer, E.-M. Laine, and J. Piilo, ``Measure for the
+degree of non-Markovian behavior of quantum processes in open systems,''
+\emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
+
 \end{document}
-% source-sha256: 0088a82a5b01add9c6b4f45ded93f9a017d6458dce7ec2361a3cf7da541ff702
+% source-sha256: 09dad693a9f5dfc44b485c08280d44e93eef8a4f8ca2b015284ac5c1293ab503

@@ -14,6 +14,8 @@ Maybaum, A. (2026). *The Observational Incompleteness Framework*. Zenodo, concep
 
 Arnold, V. I. (1989). *Mathematical Methods of Classical Mechanics* (2nd ed., Graduate Texts in Mathematics 60). Springer-Verlag.
 
+Breuer, H.-P., Laine, E.-M., & Piilo, J. (2009). Measure for the degree of non-Markovian behavior of quantum processes in open systems. *Physical Review Letters* 103: 210401. arXiv:0908.0238.
+
 Breuer, T. (1995). The impossibility of accurate state self-measurements. *Philosophy of Science* 62(2): 197–214.
 
 Engel, K.-J., & Nagel, R. (2000). *One-Parameter Semigroups for Linear Evolution Equations* (Graduate Texts in Mathematics 194). Springer-Verlag.
@@ -112,6 +114,8 @@ Wu, C. S., Ambler, E., Hayward, R. W., Hoppes, D. D., & Hudson, R. P. (1957). Ex
 
 Abedi, J., Dykaar, H., & Afshordi, N. (2017). Echoes from the abyss: Tentative evidence for Planck-scale structure at black hole horizons. *Physical Review D* 96: 082004. arXiv:1612.00266.
 
+Bao, N., Carroll, S. M., & Singh, A. (2017). The Hilbert space of quantum gravity is locally finite-dimensional. *International Journal of Modern Physics D* 26(12): 1743013. arXiv:1704.00066.
+
 Bekenstein, J. D. (1981). Universal upper bound on the entropy-to-energy ratio for bounded systems. *Physical Review D* 23: 287-298.
 
 Bertini, N. R., Novaes, M. H., von Marttens, R., & Shapiro, I. L. (2025). Renormalization group corrections to ΛCDM model and observational consequences for H₀ tension. arXiv:2509.24026 [astro-ph.CO; gr-qc; hep-th]. [Lead author initial in earlier in-text references was given as "S." — correct lead author is Nicolas R. Bertini.]
@@ -140,7 +144,7 @@ Jacobson, T. (1995). Thermodynamics of spacetime: The Einstein equation of state
 
 Jiao, Y., et al. (2023). Detection of the Keplerian decline in the Milky Way rotation curve. *Astronomy & Astrophysics* 678: A208.
 
-Abac, A. G., et al. (LIGO Scientific, Virgo, and KAGRA Collaborations) (2025). GW250114: Testing Hawking's Area Law and the Kerr Nature of Black Holes. *Physical Review Letters*, published September 10, 2025. DOI: 10.1103/kw5g-d732.
+Abac, A. G., et al. (LIGO Scientific, Virgo, and KAGRA Collaborations) (2025). GW250114: Testing Hawking's Area Law and the Kerr Nature of Black Holes. *Physical Review Letters* 135: 111403. DOI: 10.1103/kw5g-d732.
 
 LUX-ZEPLIN Collaboration (2025). New search for WIMP dark matter with 417 live days of LUX-ZEPLIN data. Announcement December 8, 2025, with preprint and submission to *Physical Review Letters*. Based on the largest dataset ever collected by a dark matter detector: 417 live days of data from March 2023 to April 2025, probing WIMP masses between 3 and 9 GeV/$c^2$. Earlier (2024) LZ results: J. Aalbers et al. (LZ Collaboration), "Dark Matter Search Results from 4.2 Tonne-Years of Exposure of the LUX-ZEPLIN (LZ) Experiment," *Physical Review Letters* 135: 011802 (2025), arXiv:2410.17036.
 

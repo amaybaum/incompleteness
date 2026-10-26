@@ -1569,10 +1569,10 @@ providing a finite minimal cell volume.}
 
 Any observer bounded by a finite-area surface couples to only finitely
 many modes across that boundary; independent support comes from
-holographic entropy bounds {[}2{]}. The scale \(\epsilon\) is left
-unspecified here; Chapter 2 will show that self-consistency ties
-\(\epsilon\) to the Planck length, \(\epsilon = 2 \ell_P\) at one nat of
-entropy per boundary mode.
+holographic entropy bounds (Bao, Carroll, and Singh 2017). The scale
+\(\epsilon\) is left unspecified here; Chapter 2 will show that
+self-consistency ties \(\epsilon\) to the Planck length,
+\(\epsilon = 2 \ell_P\) at one nat of entropy per boundary mode.
 
 \textbf{Lemma 2 (Causal partition).} \emph{The phase space decomposes as
 \(\Gamma = \Gamma_V \times \Gamma_H\), with
@@ -1829,8 +1829,8 @@ partition's geometric and thermodynamic features. Chapter 7 shows that
 the cosmological partition produces \(\hbar\) as a thermodynamic
 identity at the horizon surface, with \(1/4\) Bekenstein-Hawking entropy
 following under the horizon conditions named there --- with GW250114
-confirming the classical area theorem at \(99.999\%\); the entropy
-coefficient itself has no direct test {[}8{]}.
+confirming the classical area theorem at \(99.999\%\) (Abac et
+al.~2025); the entropy coefficient itself has no direct test.
 
 Partition-relativity establishes that the emergent description is
 well-defined. The next question is what kind of description it is ---
@@ -1881,17 +1881,21 @@ intermediate propagator \(\Lambda(t_3, t_2)\) that would make the
 equation hold has negative entries, and no valid stochastic matrix
 exists.
 
-Breuer, Laine, and Piilo {[}9{]} showed that P-indivisibility is
-equivalent to a more directly interpretable property: \emph{information
-backflow}. In a P-divisible process, the distinguishability of any two
-initial conditions can only decrease over time --- the future loses
-information about the past monotonically, as in any classical Markov
-chain reaching equilibrium. In a P-indivisible process,
-distinguishability can rebound: information about the initial condition
-that appeared lost can return to the visible sector at a later time. The
-system is not memoryless. The ``memory'' lives in the hidden sector,
-where correlations laid down by the visible sector's history are
-preserved and later read back.
+Breuer, Laine, and Piilo (2009) introduced a more directly interpretable
+signature of non-Markovian dynamics: \emph{information backflow}. In a
+P-divisible process, the distinguishability of any two initial
+conditions can only decrease over time --- the future loses information
+about the past monotonically, as in any classical Markov chain reaching
+equilibrium. In a P-indivisible process, distinguishability can rebound:
+information about the initial condition that appeared lost can return to
+the visible sector at a later time. The system is not memoryless. The
+``memory'' lives in the hidden sector, where correlations laid down by
+the visible sector's history are preserved and later read back. The
+signature runs one way: a rebound certifies P-indivisibility, but a
+P-indivisible process need not produce one --- some keep the
+distinguishability of every pair of initial distributions non-increasing
+({[}Main §2.3{]}) --- so the absence of backflow does not establish
+P-divisibility.
 
 The proof of the theorem uses the total variation distance between
 probability distributions,
@@ -6502,9 +6506,10 @@ construction, inaccessible to that observer.
 
 These silences are structural rather than methodological. They follow
 from the characterization theorem's identification of accessible
-non-Markovian observation with embedded observation under C1--C4
-(quantum for the source's finite-configuration class), and from the
-observer-selection theorem's restriction of observers to the
+non-Markovian observation with embedded observation under C1, C3 and C4
+(quantum for the source's finite-configuration class; C2's necessity for
+physical hidden sectors conditional on the mixing hypothesis), and from
+the observer-selection theorem's restriction of observers to the
 non-equilibrium phase. The framework's silence on these regimes is not a
 gap in its content but a feature of its structural commitments: it is
 committed to the regime where embedded observers exist and the regime is
@@ -25967,16 +25972,16 @@ of the coupling matrix's eigenvalue multiplicities into \((3, 2, 1)\)
 
 \emph{B.7 The lemma chain for the characterization.} The framework's
 characterization theorem --- accessible non-Markovianity ⟺ C1/C3/C4
-realization per horizon, with the quantum representation internal and
-universal (\(S \iff D \iff Q_{\mathrm{fb}}\), {[}Main §3.4{]}) ---
-relies on a chain of intermediate lemmas: partition-relativity, emergent
-stochasticity, P-indivisibility from a non-permutation witness,
-accessible-timescale backflow, and phase-locking, together with the
-results on which phase-locking rests: Bohr-frequency completeness, the
-real-to-integer transfer and the two-branch classification conditional
-on H-BG. This appendix collects these lemmas with their proofs in
-compact form, providing the reader a self-contained reference for the
-framework's logical structure.
+realization per accessible horizon, with the quantum representation
+internal and universal (\(S \iff D \iff Q_{\mathrm{fb}}\), {[}Main
+§3.4{]}) --- relies on a chain of intermediate lemmas:
+partition-relativity, emergent stochasticity, P-indivisibility from a
+non-permutation witness, accessible-timescale backflow, and
+phase-locking, together with the results on which phase-locking rests:
+Bohr-frequency completeness, the real-to-integer transfer and the
+two-branch classification conditional on H-BG. This appendix collects
+these lemmas with their proofs in compact form, providing the reader a
+self-contained reference for the framework's logical structure.
 
 The appendix's content is \emph{complete derivations}, not exposition.
 Each derivation gives the algebraic steps, the lemmas invoked, and the
@@ -27229,11 +27234,12 @@ mechanics}\label{b.7-the-lemma-chain-for-emergent-quantum-mechanics}}
 \emph{Main-text reference: Chapter 1 §§1.5-1.9.}
 
 The framework's characterization theorem --- accessible non-Markovianity
-⟺ C1/C3/C4 realization per horizon, the quantum representation internal
-and universal (\(S \iff D \iff Q_{\mathrm{fb}}\), {[}Main §3.4{]}) ---
-relies on a chain of intermediate lemmas. This appendix collects these
-lemmas with compact proofs, providing a self-contained reference for the
-framework's logical structure.
+⟺ C1/C3/C4 realization per accessible horizon, the quantum
+representation internal and universal
+(\(S \iff D \iff Q_{\mathrm{fb}}\), {[}Main §3.4{]}) --- relies on a
+chain of intermediate lemmas. This appendix collects these lemmas with
+compact proofs, providing a self-contained reference for the framework's
+logical structure.
 
 \textbf{Lemma B.7.1 (Partition relativity).} \emph{The same physical
 substratum admits different visible/hidden partitions, with each
@@ -27534,16 +27540,16 @@ oriented structure is fixed ({[}GR §3.3{]}). (kernel:
 \texttt{unitary\_channel\_transpose} in
 \texttt{OIBridge/AntiunitaryInvariance.lean})
 
-\textbf{Theorem B.7.6 (Characterization theorem).} \emph{In the
-redefined form of {[}Main §3.4{]}: accessible non-Markovianity of the
-visible process is equivalent, on each finite horizon, to embedded
-observation under C1, C3, C4 (C2 outside the equivalence, carried by the
-conditional physical-memory theorem); the unitary quantum representation
-is internal and universal --- \(S \iff D \iff Q_{\mathrm{fb}}\), the
-realization's permutation unitary, the compressed form under (T) ---
-nontrivial at the recurrence scale where the dynamics is P-indivisible,
-with the fixed-\(\hat{H}\) form constructive for realized processes:}
-\[\text{Accessible non-Markovianity on } V \iff \text{Embedded observation of } (S, \varphi) \text{ with C1, C3, C4, per finite horizon}\]
+\textbf{Theorem B.7.6 (Characterization theorem).} \emph{In the form of
+{[}Main §3.4{]}: accessible non-Markovianity of the visible process is
+equivalent, on each finite accessible horizon, to embedded observation
+under C1, C3, C4 (C2 outside the equivalence, carried by the conditional
+physical-memory theorem); the unitary quantum representation is internal
+and universal --- \(S \iff D \iff Q_{\mathrm{fb}}\), the realization's
+permutation unitary, the compressed form under (T) --- nontrivial at the
+recurrence scale where the dynamics is P-indivisible, with the
+fixed-\(\hat{H}\) form constructive for realized processes:}
+\[\text{Accessible non-Markovianity on } V \iff \text{Embedded observation of } (S, \varphi) \text{ with C1, C3, C4, per finite accessible horizon}\]
 
 \emph{Proof structure.} The forward direction (sufficiency) follows from
 Lemmas B.7.1-B.7.5 combined with the Stinespring construction (§B.2):
@@ -29212,23 +29218,29 @@ domain as fast subsystem and the regulatory/association domain as slow
 hidden sector. Pathological \(\tau_B\) shifts produce the framework's
 account of neurodegeneration. Discussed in Chapter 16 §16.4.
 
-\textbf{Characterization theorem.} The framework's central result, in
-per-horizon form: an embedded observer's reduced description is
-non-Markovian on accessible horizons if and only if some finite-horizon
-deterministic realization satisfies the four conditions
-\emph{C1}--\emph{C4}. A fixed-basis unitarily evolving quantum
-representation exists for every finite-horizon law --- internal and
-universal, by the finite-horizon equivalence
+\textbf{Characterization theorem.} The per-horizon characterization of
+the memory-bearing sector: an embedded observer's reduced description is
+non-Markovian on accessible horizons if and only if every finite
+accessible horizon containing a memory witness admits a deterministic
+realization satisfying \emph{C1}, \emph{C3} and \emph{C4}; \emph{C2}
+lies outside the equivalence, its physical content carried by the
+conditional physical-memory theorem. A fixed-basis unitarily evolving
+quantum representation exists for every finite-horizon law --- internal
+and universal, by the finite-horizon equivalence
 \(S \iff D \iff Q_{\mathrm{fb}}\) ({[}Main §3.4{]}); the compressed
 representation is supplied across the correspondence's class through the
 imported stochastic--quantum correspondence, nontrivially where the
 dynamics is P-indivisible, under the translation hypothesis \emph{(T)}
 --- a separate conditional bridge, not part of the equivalence. Forward
-direction (sufficiency): C1--C4 \(\Longrightarrow\) accessible
-non-Markovianity. Reverse direction (necessity): condition-by-condition
-theorems, with \emph{C2}'s necessity conditional on the quantitative
-mixing hypothesis. Developed in Chapter 1 §§1.8-1.9, with necessity
-proofs in Appendix C §C.5.
+direction (sufficiency): a realization with \emph{C1}, \emph{C3} and
+\emph{C4} \(\Longrightarrow\) accessible non-Markovianity, the \emph{C4}
+readback gap forcing positive conditional memory. Reverse direction
+(necessity): accessible non-Markovianity \(\Longrightarrow\) such a
+realization on each accessible witness horizon, by the finite-horizon
+process dilation, with \emph{C1}, \emph{C3} and \emph{C4} each necessary
+and \emph{C2}'s necessity for physical hidden sectors conditional on the
+quantitative mixing hypothesis. Developed in Chapter 1 §§1.8-1.9, with
+necessity proofs in Appendix C §C.5.
 
 \textbf{Chk1 (Checkpoint kinase 1).} A serine/threonine kinase
 regulating cell-cycle checkpoint responses to DNA damage. The framework
@@ -29784,6 +29796,10 @@ interpretation}\label{foundations-of-quantum-mechanics-and-interpretation}}
 Arnold, V. I. (1989). \emph{Mathematical Methods of Classical Mechanics}
 (2nd ed., Graduate Texts in Mathematics 60). Springer-Verlag.
 
+Breuer, H.-P., Laine, E.-M., \& Piilo, J. (2009). Measure for the degree
+of non-Markovian behavior of quantum processes in open systems.
+\emph{Physical Review Letters} 103: 210401. arXiv:0908.0238.
+
 Breuer, T. (1995). The impossibility of accurate state
 self-measurements. \emph{Philosophy of Science} 62(2): 197--214.
 
@@ -29966,6 +29982,10 @@ Abedi, J., Dykaar, H., \& Afshordi, N. (2017). Echoes from the abyss:
 Tentative evidence for Planck-scale structure at black hole horizons.
 \emph{Physical Review D} 96: 082004. arXiv:1612.00266.
 
+Bao, N., Carroll, S. M., \& Singh, A. (2017). The Hilbert space of
+quantum gravity is locally finite-dimensional. \emph{International
+Journal of Modern Physics D} 26(12): 1743013. arXiv:1704.00066.
+
 Bekenstein, J. D. (1981). Universal upper bound on the entropy-to-energy
 ratio for bounded systems. \emph{Physical Review D} 23: 287-298.
 
@@ -30028,8 +30048,8 @@ Way rotation curve. \emph{Astronomy \& Astrophysics} 678: A208.
 
 Abac, A. G., et al.~(LIGO Scientific, Virgo, and KAGRA Collaborations)
 (2025). GW250114: Testing Hawking's Area Law and the Kerr Nature of
-Black Holes. \emph{Physical Review Letters}, published September 10,
-2025. DOI: 10.1103/kw5g-d732.
+Black Holes. \emph{Physical Review Letters} 135: 111403. DOI:
+10.1103/kw5g-d732.
 
 LUX-ZEPLIN Collaboration (2025). New search for WIMP dark matter with
 417 live days of LUX-ZEPLIN data. Announcement December 8, 2025, with
@@ -30517,4 +30537,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: dd451f0855262662a51f0319796ce4878c669863884160187b4b806809fdfdec
+% source-sha256: 4f3591df482d5bd8978047945c2aad8ea6784018e030d4ed620c3ccf004fd21c
