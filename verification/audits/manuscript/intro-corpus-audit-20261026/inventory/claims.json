@@ -1,0 +1,6228 @@
+[
+ {
+  "id": "I-001",
+  "section": "Abstract",
+  "line": 12,
+  "text": "Observational incompleteness (OI) is the hypothesis that every physical observer is a proper part of a finite reversible deterministic system and records only the visible marginals of its dynamics",
+  "claim": "OI is defined as the hypothesis that every physical observer is a proper part of a finite reversible deterministic system and records only visible marginals.",
+  "type": "definition-used",
+  "status_as_stated": {
+   "level": "conjecture",
+   "hypotheses": [
+    "OI (physical hypothesis)"
+   ],
+   "note": "stated as a hypothesis, not established"
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-002",
+  "section": "Abstract",
+  "line": 12,
+  "text": "At every finite horizon, three classes of law on visible trajectories coincide: all finite stochastic laws, the visible marginals of finite reversible dynamics, and the fixed-basis Born records of finite unitary systems",
+  "claim": "Abstract form of Theorem 1: at every finite horizon, finite stochastic laws = visible marginals of finite reversible dynamics = fixed-basis Born records of finite unitary systems.",
+  "type": "theorem-statement",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [],
+   "note": "abstract carries no status; body (§2.2) states machine-checked"
+  },
+  "cited": [],
+  "direction": {
+   "kind": "set-equality (three classes; each inclusion is one direction)",
+   "sub_claims": [
+    {
+     "label": "S_K ⊆ D_K",
+     "claim": "Every finite-horizon law has a faithful finite reversible realization.",
+     "status_as_stated": "unstated",
+     "cited": [
+      "`S_imp_D`"
+     ],
+     "id": "I-002.a"
+    },
+    {
+     "label": "D_K ⊆ Q_K",
+     "claim": "Every visible law of a finite bijection is a fixed-basis Born record of a finite unitary system.",
+     "status_as_stated": "unstated",
+     "cited": [
+      "`D_imp_Qfb`"
+     ],
+     "id": "I-002.b"
+    },
+    {
+     "label": "Q_K ⊆ S_K",
+     "claim": "Every fixed-basis Born record law is a probability law on visible trajectories.",
+     "status_as_stated": "unstated",
+     "cited": [
+      "`Qfb_imp_S`"
+     ],
+     "id": "I-002.c"
+    }
+   ]
+  }
+ },
+ {
+  "id": "I-003",
+  "section": "Abstract",
+  "line": 12,
+  "text": "The components of this correspondence are known, from the trajectory-labelling realization of Egri et al. and Barandes's treatment of permutation dynamics as unistochastic processes",
+  "claim": "The components of the correspondence are known from Egri et al.'s trajectory-labelling realization and Barandes's treatment of permutation dynamics as unistochastic.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [],
+   "note": "authors named without bracket citations in the abstract"
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-004",
+  "section": "Abstract",
+  "line": 12,
+  "text": "Each class contains the Markov laws",
+  "claim": "Each of the three classes contains the Markov laws.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-005",
+  "section": "Abstract",
+  "line": 12,
+  "text": "so representability does not distinguish a law with memory from one without",
+  "claim": "Representability (realization / fixed-basis unitary representation) does not distinguish laws with memory from Markov laws.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-006",
+  "section": "Abstract",
+  "line": 12,
+  "text": "and the Born exponent is not selected",
+  "claim": "The correspondence does not select the Born exponent.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-007",
+  "section": "Abstract",
+  "line": 12,
+  "text": "The discriminating content concerns memory",
+  "claim": "The discriminating content of OI concerns memory.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-008",
+  "section": "Abstract",
+  "line": 12,
+  "text": "every deterministic completion carries the visible memory in its hidden state",
+  "claim": "Every deterministic completion (faithful realization) carries the visible law's memory in its hidden state.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": [],
+   "note": "abstract: machine-checked except one step (\"each with one step not machine-checked\"); weakest link therefore proved on paper"
+  },
+  "cited": [],
+  "direction": null,
+  "attention": "Abstract says 'every deterministic completion carries the visible memory'; body (Theorem 2, Corollary) says readout-relevant hidden memory exists in every faithful realization exactly when M_t>0. Mapper: confirm 'deterministic completion' = 'faithful realization' and that the claim is conditional on M_t>0."
+ },
+ {
+  "id": "I-009",
+  "section": "Abstract",
+  "line": 12,
+  "text": "on a fixed finite reversible system finite recurrence turns history readback into stochastic indivisibility somewhere in the recurrence cycle",
+  "claim": "On a fixed finite reversible system, finite recurrence plus history readback (C4) forces stochastic indivisibility somewhere in the recurrence cycle.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": [
+    "(C4) history readback",
+    "fixed finite reversible system"
+   ],
+   "note": "abstract: machine-checked except one step; body: machine-checked from routed-readback (C4), on paper from history-level (C4)"
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-010",
+  "section": "Abstract",
+  "line": 12,
+  "text": "(each with one step not machine-checked)",
+  "claim": "The two preceding abstract results are each machine-checked except for one step.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null,
+  "attention": "'one step' is unspecified. For Theorem 2 the body names two unchecked ingredients (time-t identification and the CMI vanishing criterion, line 82); for readback the unchecked step is history-level (C4). Mapper: check that 'one step' is accurate for each."
+ },
+ {
+  "id": "I-011",
+  "section": "Abstract",
+  "line": 12,
+  "text": "Exact finite operational quantum mechanics is characterized by five completion conditions",
+  "claim": "Exact finite operational QM is characterized (iff) by five completion conditions (Theorem 4).",
+  "type": "theorem-statement",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [],
+   "note": "abstract carries no status; body (§3.2) states both directions machine-checked"
+  },
+  "cited": [],
+  "direction": {
+   "kind": "equivalence (characterization)",
+   "sub_claims": [
+    {
+     "label": "⇒",
+     "claim": "If the available families are exactly the normalized finite Kraus instruments, conditions (i)–(v) hold.",
+     "status_as_stated": "unstated",
+     "cited": [],
+     "id": "I-011.a"
+    },
+    {
+     "label": "⇐",
+     "claim": "If conditions (i)–(v) hold, the available families are exactly the normalized finite Kraus instruments.",
+     "status_as_stated": "unstated",
+     "cited": [],
+     "id": "I-011.b"
+    }
+   ]
+  }
+ },
+ {
+  "id": "I-012",
+  "section": "Abstract",
+  "line": 12,
+  "text": "none implied by OI alone",
+  "claim": "None of the five completion conditions is implied by OI alone.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-013",
+  "section": "Abstract",
+  "line": 12,
+  "text": "Open are which of conditions (iii)–(v) a physical substratum supplies",
+  "claim": "Which of conditions (iii)–(v) a physical substratum supplies is open.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-014",
+  "section": "Abstract",
+  "line": 12,
+  "text": "the selection of the evolution relating two times",
+  "claim": "Selection of the evolution relating two times is open.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-015",
+  "section": "Abstract",
+  "line": 12,
+  "text": "and any test of the hypothesis",
+  "claim": "Any test of the OI hypothesis is open.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-016",
+  "section": "Abstract",
+  "line": 12,
+  "text": "Applied to the cosmological constant, OI places the zero-point sum and the effective cosmological constant at different levels of description",
+  "claim": "OI places the zero-point sum and the effective cosmological constant at different levels of description.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-017",
+  "section": "Abstract",
+  "line": 12,
+  "text": "whether the zero-point sum sources curvature depends on covariant field equations that are not derived",
+  "claim": "Whether the zero-point sum sources curvature depends on covariant field equations that are not derived.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": [
+    "covariant field equations (not derived)"
+   ]
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-018",
+  "section": "Abstract",
+  "line": 12,
+  "text": "so this is a proposal, not a resolution",
+  "claim": "The cosmological-constant treatment is a proposal, not a resolution.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "conjecture",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-019",
+  "section": "Abstract",
+  "line": 12,
+  "text": "Applied to black-hole information, finite computations separate the conservation of information under bijective dynamics from its recovery by an observer with restricted access",
+  "claim": "Finite computations separate information conservation under bijective dynamics from recovery by an observer with restricted access.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "numerical",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-020",
+  "section": "Abstract",
+  "line": 12,
+  "text": "the framework's Page curve is not established",
+  "claim": "The framework's Page curve is not established.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-021",
+  "section": "Abstract",
+  "line": 12,
+  "text": "the information problem is not resolved",
+  "claim": "The black-hole information problem is not resolved.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-022",
+  "section": "§1.1",
+  "line": 18,
+  "text": "Embedded observation is modelled by a triple $(S,\\varphi,V)$ [Main §1.2]: a finite total system $S=\\mathcal C_V\\times\\mathcal C_H$ of observer configurations $\\mathcal C_V$ and complement configurations $\\mathcal C_H$, a bijection $\\varphi$ of $S$, and an observer $V$ that registers $x\\in\\mathcal C_V$ and not $h\\in\\mathcal C_H$.",
+  "claim": "Embedded observation is modelled by (S, φ, V): finite S = C_V × C_H, a bijection φ of S, and an observer registering x ∈ C_V and not h ∈ C_H.",
+  "type": "definition-used",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §1.2]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-023",
+  "section": "§1.1",
+  "line": 20,
+  "text": "The bijection $\\varphi$ is the reversible representative of the hidden dynamics, motivated by observed near-unitarity",
+  "claim": "Taking φ bijective (reversible representative of the hidden dynamics) is a posit motivated by observed near-unitarity.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "conjecture",
+   "hypotheses": [],
+   "note": "posit, motivated empirically"
+  },
+  "cited": [
+   "[Main §1.2, Remark (status of the early commitments)] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-024",
+  "section": "§1.1",
+  "line": 20,
+  "text": "finiteness of all of $S$ is posited [Main §1.2, Remark (status of the early commitments)]",
+  "claim": "Finiteness of all of S is a posit.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "conjecture",
+   "hypotheses": [],
+   "note": "posit"
+  },
+  "cited": [
+   "[Main §1.2, Remark (status of the early commitments)]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-025",
+  "section": "§1.1",
+  "line": 20,
+  "text": "Hidden states compatible with the same $x$ send it to different futures, so the visible sector evolves stochastically although the whole evolves deterministically.",
+  "claim": "Hidden states compatible with the same x send it to different futures, so the visible sector evolves stochastically though the whole is deterministic.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null,
+  "attention": "Stated universally; it holds only when f_x is non-constant on the support of the hidden posterior. Mapper: read as 'can send'."
+ },
+ {
+  "id": "I-026",
+  "section": "§1.1",
+  "line": 22,
+  "text": "Observational incompleteness (OI) is the physical hypothesis that every physical observer is in this situation.",
+  "claim": "OI is the physical hypothesis that every physical observer is in the (S, φ, V) situation.",
+  "type": "definition-used",
+  "status_as_stated": {
+   "level": "conjecture",
+   "hypotheses": [
+    "OI (physical hypothesis)"
+   ]
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-027",
+  "section": "§1.1",
+  "line": 22,
+  "text": "Identifying nature with such a system is a representation choice, motivated empirically",
+  "claim": "Identifying nature with such a system is an empirically motivated representation choice.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "conjecture",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §4.5] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-028",
+  "section": "§1.1",
+  "line": 22,
+  "text": "the theorems below are mathematical",
+  "claim": "The paper's theorems are mathematical (not tests of the physical identification).",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §4.5] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-029",
+  "section": "§1.1",
+  "line": 22,
+  "text": "no test of the identification at the level of memory witnesses is established [Main §4.5]",
+  "claim": "No test of the identification at the level of memory witnesses is established.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §4.5]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-030",
+  "section": "§1.1",
+  "line": 22,
+  "text": "The incompleteness is inaccessibility of the hidden sector, not joint unsharpness of non-commuting observables",
+  "claim": "OI's incompleteness is inaccessibility of the hidden sector, not joint unsharpness of non-commuting observables.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.4] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-031",
+  "section": "§1.1",
+  "line": 22,
+  "text": "it is present for a single fixed readout",
+  "claim": "The incompleteness is present for a single fixed readout.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.4] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-032",
+  "section": "§1.1",
+  "line": 22,
+  "text": "no uncertainty relation constrains fixed-readout visible laws [Main §3.4]",
+  "claim": "No uncertainty relation constrains fixed-readout visible laws.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.4]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-033",
+  "section": "§1.2",
+  "line": 26,
+  "text": "Marginalizing a reversible dynamics over an unobserved register produces stochastic laws",
+  "claim": "Marginalizing reversible dynamics over an unobserved register yields stochastic visible laws.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-034",
+  "section": "§1.2",
+  "line": 26,
+  "text": "conditional memory",
+  "claim": "Marginalizing reversible dynamics can produce conditional memory.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null,
+  "attention": "'produces' read as 'can produce' for memory and divisibility failure (not every marginal has them)."
+ },
+ {
+  "id": "I-035",
+  "section": "§1.2",
+  "line": 26,
+  "text": "and failures of stochastic divisibility, in which no stochastic intermediate transition map exists",
+  "claim": "Marginalizing reversible dynamics can produce failures of stochastic divisibility (no stochastic intermediate map exists).",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-036",
+  "section": "§1.2",
+  "line": 26,
+  "text": "(where the candidate intermediate matrix exists, it has negative entries)",
+  "claim": "In a divisibility failure, where the candidate intermediate matrix exists, it has negative entries.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [],
+   "note": "holds when Γ_s is invertible: Γ_s^{-1}Γ_t has unit row sums, so non-stochastic means a negative entry"
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-037",
+  "section": "§1.2",
+  "line": 26,
+  "text": "The stochastic–quantum correspondence relates these features to quantum theory [Bar23; Bar25].",
+  "claim": "The stochastic–quantum correspondence relates stochastic laws, memory and indivisibility to quantum theory.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Bar23; Bar25]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-038",
+  "section": "§1.2",
+  "line": 26,
+  "text": "At the level of finite-horizon observable laws the correspondence of §2 (Theorem 1) is exact and universal",
+  "claim": "Theorem 1's correspondence is exact and universal at the level of finite-horizon observable laws.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-039",
+  "section": "§1.2",
+  "line": 26,
+  "text": "so the content lies in where the memory of a law must sit (§2.4) and what finite recurrence does with it (§2.5)",
+  "claim": "Because the correspondence is universal, the content lies in where memory must sit and what finite recurrence does with it.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-040",
+  "section": "§1.2",
+  "line": 26,
+  "text": "its foundation and quantum-emergence results, which stop short of operational quantum mechanics (§§2–3)",
+  "claim": "OI's foundation and quantum-emergence results stop short of operational quantum mechanics.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-041",
+  "section": "§1.2",
+  "line": 26,
+  "text": "Neither application is a demonstrated resolution of its problem",
+  "claim": "Neither the cosmological-constant nor the black-hole application is a demonstrated resolution.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-042",
+  "section": "§1.2",
+  "line": 26,
+  "text": "Proofs, the status ledger and the probe code are in [Main], which this paper introduces",
+  "claim": "The proofs, status ledger and probe code are in [Main].",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main]"
+  ],
+  "direction": null,
+  "attention": "Theorem 4 and §3.2 are cited to [GR §3.3]; §5's results to [BHa; BHb] and [GR App. A]; line 28 says §3.2–§3.3 results are proved in [GR] and [Main]. 'Proofs ... are in [Main]' is broader than the citations support."
+ },
+ {
+  "id": "I-043",
+  "section": "§1.2 Contributions",
+  "line": 28,
+  "text": "The paper claims no new theorem or physical result; its contribution is expository.",
+  "claim": "The paper claims no new theorem or physical result; it is expository.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-044",
+  "section": "§1.2 Contributions",
+  "line": 28,
+  "text": "The black-hole results of §5 are reported from unpublished repository research records [BHa; BHb]",
+  "claim": "The §5 black-hole results come from unpublished repository research records.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[BHa; BHb]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-045",
+  "section": "§1.2 Contributions",
+  "line": 28,
+  "text": "with written proofs and exact or exhaustive checks",
+  "claim": "The §5 black-hole results have written proofs and exact or exhaustive checks.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": [],
+   "note": "also numerical (exact/exhaustive checks)"
+  },
+  "cited": [
+   "[BHa; BHb]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-046",
+  "section": "§1.2 Contributions",
+  "line": 28,
+  "text": "whose novelty has not been established",
+  "claim": "The novelty of the §5 black-hole results has not been established.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-047",
+  "section": "§1.2 Contributions",
+  "line": 28,
+  "text": "The components of Theorem 1 are known [EGGH26; Bar23; Bar25; Bar26; SGD19]",
+  "claim": "The components of Theorem 1 are known in the literature.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[EGGH26; Bar23; Bar25; Bar26; SGD19]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-048",
+  "section": "§1.2 Contributions",
+  "line": 28,
+  "text": "the paper states them as one theorem with each direction attributed",
+  "claim": "Each direction of Theorem 1 is attributed to prior literature.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null,
+  "attention": "Check that every inclusion has a literature attribution: Q_K ⊆ S_K is attributed only as 'the Born rule' (line 58) and [SGD19] (line 60)."
+ },
+ {
+  "id": "I-049",
+  "section": "§1.2 Contributions",
+  "line": 28,
+  "text": "The memory bounds of §2.4 are forms of the data-processing and Pinsker inequalities.",
+  "claim": "The §2.4 memory bounds are forms of the data-processing and Pinsker inequalities.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-050",
+  "section": "§1.2 Contributions",
+  "line": 28,
+  "text": "The recurrence argument of §2.5 combines finite order with the known contraction criterion for divisibility [RHP14; BD16]",
+  "claim": "The §2.5 recurrence argument combines finite order with the known contraction criterion for divisibility.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[RHP14; BD16]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-051",
+  "section": "§1.2 Contributions",
+  "line": 28,
+  "text": "stated concurrently by Doukas [Dou26]",
+  "claim": "Doukas states the recurrence argument concurrently.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Dou26]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-052",
+  "section": "§1.2 Contributions",
+  "line": 28,
+  "text": "The results of §3.2–§3.3 are proved in [GR] and [Main].",
+  "claim": "The §3.2–§3.3 results are proved in [GR] and [Main].",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": [],
+   "note": "wording 'proved' does not name the layer; Appendix A lists kernel declarations for §3.2–§3.3"
+  },
+  "cited": [
+   "[GR]",
+   "[Main]"
+  ],
+  "direction": null,
+  "attention": "The §3.2–§3.3 kernel declarations are OIBridge modules; check that [GR]/[Main] actually carry these results (especially §3.3's coherent-lift results and the qubit independence)."
+ },
+ {
+  "id": "I-053",
+  "section": "§1.2 Conventions",
+  "line": 30,
+  "text": "\"Machine-checked\" means checked in Lean 4/Mathlib [dMU21; Mathlib20] at commit `17b830bc` by the recipe under \"Code, data and formal verification\" (declarations in Appendix A)",
+  "claim": "'Machine-checked' means checked in Lean 4/Mathlib at commit 17b830bc by the stated recipe, declarations in Appendix A.",
+  "type": "definition-used",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[dMU21; Mathlib20]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-054",
+  "section": "§1.2 Conventions",
+  "line": 30,
+  "text": "an \"exact probe\" is an exhaustive computation in exact rational arithmetic at small size",
+  "claim": "An 'exact probe' is an exhaustive exact-rational computation at small size.",
+  "type": "definition-used",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null,
+  "attention": "Mapper: each 'with exact probes' claim (lines 56, 84) must be backed by probes that are exhaustive and exact-rational, per this definition."
+ },
+ {
+  "id": "I-055",
+  "section": "§1.2 Conventions",
+  "line": 30,
+  "text": "A *faithful realization* of a law is a bijection $\\varphi$ of $\\mathcal C_V\\times\\mathcal C_H$ with an initial law under which the visible trajectory has that law",
+  "claim": "A faithful realization of a law is a bijection φ of C_V × C_H with an initial law under which the visible trajectory has that law.",
+  "type": "definition-used",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-056",
+  "section": "§1.2 Conventions",
+  "line": 30,
+  "text": "the finite reversible system $(S,\\varphi)$ is the *substratum*",
+  "claim": "The finite reversible system (S, φ) is called the substratum.",
+  "type": "definition-used",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null,
+  "attention": "Corpus usage of 'substratum' (e.g. AGENTS.md: bijection on a cubic lattice with coupling matrix) is more specific; check consistency with Main/GR."
+ },
+ {
+  "id": "I-057",
+  "section": "§2.1",
+  "line": 38,
+  "text": "The visible law of a realization depends on the dynamics, the partition and the initial law",
+  "claim": "A realization's visible law depends on the dynamics, the partition and the initial law.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §1.2, Remark (the measure as a realization datum)] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-058",
+  "section": "§2.1",
+  "line": 38,
+  "text": "the prior is part of the realization datum, not selected by invariance under $\\varphi$",
+  "claim": "The prior is part of the realization datum and is not selected by φ-invariance.",
+  "type": "definition-used",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §1.2, Remark (the measure as a realization datum)] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-059",
+  "section": "§2.1",
+  "line": 38,
+  "text": "the counting measure is a maximal-entropy default [Main §1.2, Remark (the measure as a realization datum)]",
+  "claim": "The counting measure is a maximal-entropy default, not a derived prior.",
+  "type": "definition-used",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §1.2, Remark (the measure as a realization datum)]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-060",
+  "section": "§2.1",
+  "line": 42,
+  "text": "**$\\mathsf S_K$**: all probability distributions on $\\mathcal C_V^{K+1}$.",
+  "claim": "S_K is the set of all probability distributions on C_V^{K+1}.",
+  "type": "definition-used",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.4] (list heading, line 40)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-061",
+  "section": "§2.1",
+  "line": 43,
+  "text": "**$\\mathsf D_K$**: the visible trajectory laws of a bijection of $\\mathcal C_V\\times\\mathcal C_H$, for some finite $\\mathcal C_H$, under an initial law that may correlate the visible and hidden coordinates.",
+  "claim": "D_K is the set of visible trajectory laws of a bijection of C_V × C_H, some finite C_H, with an initial law that may correlate visible and hidden coordinates.",
+  "type": "definition-used",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.4] (list heading, line 40)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-062",
+  "section": "§2.1",
+  "line": 44,
+  "text": "**$\\mathsf Q_K$**: the laws of finite-dimensional unitary systems read out by projective Born measurement in one fixed basis at every step, from an initial state diagonal in that basis, the record being a fixed function of each outcome.",
+  "claim": "Q_K is the set of laws of finite-dimensional unitary systems with projective Born measurement in one fixed basis at every step, initial state diagonal in that basis, record a fixed function of each outcome.",
+  "type": "definition-used",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.4] (list heading, line 40)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-063",
+  "section": "§2.2",
+  "line": 48,
+  "line_end": 52,
+  "text": "**Theorem 1** (finite-horizon stochastic–reversible–unitary equivalence [Main §3.4]). *For every finite visible alphabet and every finite horizon $K$,*\n$$\n\\mathsf S_K=\\mathsf D_K=\\mathsf Q_K ,\n$$\n*so each class is the set of all probability laws on $\\mathcal C_V^{K+1}$.*",
+  "claim": "Theorem 1: for every finite visible alphabet and finite horizon K, S_K = D_K = Q_K (= all probability laws on C_V^{K+1}).",
+  "type": "theorem-statement",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": [
+    "finite C_V (|C_V| ≥ 2, line 36)",
+    "finite horizon K"
+   ],
+   "note": "status from line 54 (machine-checked)"
+  },
+  "cited": [
+   "[Main §3.4]"
+  ],
+  "direction": {
+   "kind": "set-equality (three classes; each inclusion is one direction)",
+   "sub_claims": [
+    {
+     "label": "S_K ⊆ D_K",
+     "claim": "Every finite-horizon law has a faithful finite reversible realization.",
+     "status_as_stated": "proved-kernel",
+     "cited": [
+      "[Main §3.4]",
+      "`S_imp_D`"
+     ],
+     "id": "I-063.a"
+    },
+    {
+     "label": "D_K ⊆ Q_K",
+     "claim": "Every visible law of a finite bijection is a fixed-basis Born record of a finite unitary system.",
+     "status_as_stated": "proved-kernel",
+     "cited": [
+      "[Main §3.4]",
+      "`D_imp_Qfb`"
+     ],
+     "id": "I-063.b"
+    },
+    {
+     "label": "Q_K ⊆ S_K",
+     "claim": "Every fixed-basis Born record law is a probability law on visible trajectories.",
+     "status_as_stated": "proved-kernel",
+     "cited": [
+      "[Main §3.4]",
+      "`Qfb_imp_S`"
+     ],
+     "id": "I-063.c"
+    }
+   ]
+  }
+ },
+ {
+  "id": "I-064",
+  "section": "§2.2",
+  "line": 54,
+  "text": "Theorem 1 is machine-checked as `finite_horizon_equivalence`",
+  "claim": "Theorem 1 is machine-checked as finite_horizon_equivalence.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`finite_horizon_equivalence`"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-065",
+  "section": "§2.2",
+  "line": 54,
+  "text": "$\\mathsf S_K\\subseteq\\mathsf D_K$ (`S_imp_D`)",
+  "claim": "S_K ⊆ D_K is machine-checked as S_imp_D.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`S_imp_D`"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-066",
+  "section": "§2.2",
+  "line": 54,
+  "text": "$\\mathsf D_K\\subseteq\\mathsf Q_K$ (`D_imp_Qfb`)",
+  "claim": "D_K ⊆ Q_K is machine-checked as D_imp_Qfb.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`D_imp_Qfb`"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-067",
+  "section": "§2.2",
+  "line": 54,
+  "text": "$\\mathsf Q_K\\subseteq\\mathsf S_K$ (`Qfb_imp_S`)",
+  "claim": "Q_K ⊆ S_K is machine-checked as Qfb_imp_S.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`Qfb_imp_S`"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-068",
+  "section": "§2.2",
+  "line": 54,
+  "text": "and the reverse inclusions as their compositions",
+  "claim": "The reverse inclusions are machine-checked as compositions of the three.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-069",
+  "section": "§2.2",
+  "line": 54,
+  "text": "no construction enters as a hypothesis",
+  "claim": "No realization or representation construction enters Theorem 1 as a hypothesis.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-070",
+  "section": "§2.2",
+  "line": 56,
+  "text": "For $\\mathsf S_K\\subseteq\\mathsf D_K$ the realization stores a sampled trajectory, with a clock, in the hidden register [Main §3.4, Theorem (finite-horizon stochastic–reversible–unitary equivalence); EGGH26, Prop. 13]",
+  "claim": "The S_K ⊆ D_K realization stores a sampled trajectory, with a clock, in the hidden register.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.4, Theorem (finite-horizon stochastic–reversible–unitary equivalence)]",
+   "[EGGH26, Prop. 13]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-071",
+  "section": "§2.2",
+  "line": 56,
+  "text": "For a law with rational probabilities, a realization whose hidden prior is independent of $x_0$ also exists [Main §3.4, Theorem (finite-horizon process dilation)]",
+  "claim": "For rational-probability laws, a realization with hidden prior independent of x_0 exists.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": [
+    "rational probabilities"
+   ],
+   "note": "'it is proved on paper, with exact probes' (same line)"
+  },
+  "cited": [
+   "[Main §3.4, Theorem (finite-horizon process dilation)]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-072",
+  "section": "§2.2",
+  "line": 58,
+  "text": "For $\\mathsf D_K\\subseteq\\mathsf Q_K$ the representation is the permutation unitary $U_\\varphi|x,h\\rangle=|\\varphi(x,h)\\rangle$, read out in the configuration basis at every step [Main §3.4]",
+  "claim": "The D_K ⊆ Q_K representation is the permutation unitary U_φ read out in the configuration basis at every step.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.4]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-073",
+  "section": "§2.2",
+  "line": 58,
+  "text": "$\\mathsf Q_K\\subseteq\\mathsf S_K$ is the Born rule",
+  "claim": "Q_K ⊆ S_K is the Born rule.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-074",
+  "section": "§2.2",
+  "line": 60,
+  "text": "The trajectory-labelling realization is that of Egri et al. [EGGH26, Prop. 13], packaged as one iterated bijection",
+  "claim": "The trajectory-labelling realization is Egri et al.'s Prop. 13, packaged as one iterated bijection.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[EGGH26, Prop. 13]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-075",
+  "section": "§2.2",
+  "line": 60,
+  "text": "the independent-prior form is their Prop. 16, without reversibility",
+  "claim": "The independent-prior form is EGGH26 Prop. 16, which lacks reversibility.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[EGGH26] Prop. 16 ('their')"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-076",
+  "section": "§2.2",
+  "line": 60,
+  "text": "its Markov one-step case is the random-mapping representation [LP17, Prop. 1.5]",
+  "claim": "The Markov one-step case of the independent-prior form is the random-mapping representation.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[LP17, Prop. 1.5]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-077",
+  "section": "§2.2",
+  "line": 60,
+  "text": "A permutation dynamics is a special case of a unistochastic process [Bar25, p. 12; Bar23 §4.3; Bar26 §4]",
+  "claim": "A permutation dynamics is a special case of a unistochastic process.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Bar25, p. 12; Bar23 §4.3; Bar26 §4]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-078",
+  "section": "§2.2",
+  "line": 60,
+  "text": "the one-step $n^2$-dimensional ancilla dilation of [Main §3.1] coincides with the constructions of Barandes [Bar26, Thm 3.3] and Schmidt [Sch21, Thm 2]",
+  "claim": "Main §3.1's one-step n²-dimensional ancilla dilation coincides with Barandes's and Schmidt's constructions.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [],
+   "note": "'n' is not defined in the Introduction"
+  },
+  "cited": [
+   "[Main §3.1]",
+   "[Bar26, Thm 3.3]",
+   "[Sch21, Thm 2]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-079",
+  "section": "§2.2",
+  "line": 60,
+  "text": "The every-step projectively measured record as a probability law is in [SGD19, Eq. (3)]",
+  "claim": "The every-step projectively measured record as a probability law appears in SGD19 Eq. (3).",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[SGD19, Eq. (3)]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-080",
+  "section": "§2.2",
+  "line": 60,
+  "text": "that work and [Milz20] study whether such records are consistent with omitting measurements",
+  "claim": "SGD19 and Milz20 study whether such records are consistent with omitting measurements.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[SGD19]",
+   "[Milz20]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-081",
+  "section": "§2.2",
+  "line": 60,
+  "text": "a question $\\mathsf Q_K$, which measures at every step, does not meet",
+  "claim": "Q_K, measuring at every step, does not meet the measurement-omission (classicality) question.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-082",
+  "section": "§2.3",
+  "line": 64,
+  "text": "Markov laws lie in all three classes.",
+  "claim": "Markov laws lie in S_K, D_K and Q_K.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-083",
+  "section": "§2.3",
+  "line": 64,
+  "text": "So neither a finite reversible realization nor a fixed-basis unitary representation distinguishes a law with memory from one without [Main §3.4, Remark (the conditions are diagnostics, not hypotheses)]",
+  "claim": "Neither a finite reversible realization nor a fixed-basis unitary representation distinguishes a law with memory from one without.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.4, Remark (the conditions are diagnostics, not hypotheses)]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-084",
+  "section": "§2.3",
+  "line": 66,
+  "text": "The relation $p=|U|^2$ is part of the definition of $\\mathsf Q_K$, not an output.",
+  "claim": "p = |U|² is part of Q_K's definition, not an output.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-085",
+  "section": "§2.3",
+  "line": 66,
+  "text": "The unitaries supplied are permutations, with entries 0 and 1",
+  "claim": "The unitaries supplied by the correspondence are permutations with entries 0 and 1.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-086",
+  "section": "§2.3",
+  "line": 66,
+  "text": "so the recovered table is the same for $|U|^p$ at every $p>0$",
+  "claim": "The recovered transition table is the same for |U|^p at every p > 0.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-087",
+  "section": "§2.3",
+  "line": 66,
+  "text": "The quadratic exponent is therefore not selected [Main §3.4; Bar26, Thm 3.1].",
+  "claim": "The correspondence does not select the quadratic (Born) exponent.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.4; Bar26, Thm 3.1]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-088",
+  "section": "§2.3",
+  "line": 68,
+  "text": "A finite bijection has finite order $L$",
+  "claim": "A finite bijection has finite order L.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.4] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-089",
+  "section": "§2.3",
+  "line": 68,
+  "text": "so one fixed realization has an $L$-periodic multi-time law",
+  "claim": "One fixed realization has an L-periodic multi-time law.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.4] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-090",
+  "section": "§2.3",
+  "line": 68,
+  "text": "the correspondence holds per horizon",
+  "claim": "The correspondence holds per horizon (not for all times at once).",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.4] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-091",
+  "section": "§2.3",
+  "line": 68,
+  "text": "a nonperiodic law has no exact all-time realization by one fixed finite substratum [Main §3.4]",
+  "claim": "A nonperiodic law has no exact all-time realization by one fixed finite substratum.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.4]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-092",
+  "section": "§2.4",
+  "line": 72,
+  "text": "Write $M_t := I(X_{<t};X_{t+1}\\mid X_t)$ for the conditional memory at time $t$.",
+  "claim": "Conditional memory M_t := I(X_{<t}; X_{t+1} | X_t).",
+  "type": "definition-used",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-093",
+  "section": "§2.4",
+  "line": 76,
+  "text": "*(a) $P(X_{t+1}\\mid p,x)=(f_x)_\\#\\mu_p$;*",
+  "claim": "Theorem 2(a): the next-step law after history p ending at x is the pushforward of the hidden posterior μ_p under f_x.",
+  "type": "theorem-statement",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": [
+    "faithful realization"
+   ],
+   "note": "line 80: machine-checked for a joint law of history, present and hidden state; identification with a realization's time-t law not machine-checked; written proof in Main"
+  },
+  "cited": [
+   "[Main §3.4] (Theorem 2 header)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-094",
+  "section": "§2.4",
+  "line": 77,
+  "text": "*(b) for histories $p,p'$ ending at $x$, $\\|P(X_{t+1}\\mid p,x)-P(X_{t+1}\\mid p',x)\\|_{\\mathrm{TV}}\\le\\|\\mu_p-\\mu_{p'}\\|_{\\mathrm{TV}}$;*",
+  "claim": "Theorem 2(b): TV distance between next-step laws of two histories ending at x is at most the TV distance between their hidden posteriors.",
+  "type": "theorem-statement",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": [
+    "faithful realization"
+   ],
+   "note": "line 80: machine-checked for a joint law of history, present and hidden state; identification with a realization's time-t law not machine-checked; written proof in Main"
+  },
+  "cited": [
+   "[Main §3.4] (Theorem 2 header)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-095",
+  "section": "§2.4",
+  "line": 78,
+  "text": "*(c) $M_t\\le I(X_{<t};H_t\\mid X_t)",
+  "claim": "Theorem 2(c), first inequality: M_t ≤ I(X_{<t}; H_t | X_t).",
+  "type": "theorem-statement",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": [
+    "faithful realization"
+   ],
+   "note": "line 80: machine-checked for a joint law of history, present and hidden state; identification with a realization's time-t law not machine-checked; written proof in Main"
+  },
+  "cited": [
+   "[Main §3.4] (Theorem 2 header)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-096",
+  "section": "§2.4",
+  "line": 78,
+  "text": "\\le\\log_2|\\mathcal C_H|$",
+  "claim": "Theorem 2(c), second inequality: I(X_{<t}; H_t | X_t) ≤ log₂|C_H|.",
+  "type": "theorem-statement",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": [
+    "faithful realization"
+   ],
+   "note": "line 80: machine-checked for a joint law of history, present and hidden state; identification with a realization's time-t law not machine-checked; written proof in Main"
+  },
+  "cited": [
+   "[Main §3.4] (Theorem 2 header)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-097",
+  "section": "§2.4",
+  "line": 80,
+  "text": "(a)–(c) are machine-checked for a joint law of history, present and hidden state.",
+  "claim": "Theorem 2(a)–(c) are machine-checked for a joint law of history, present and hidden state.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "Appendix A: `pushforward_identity`, `distinguishability_floor`, `capacity_floor`, `unavoidable_hidden_predictive_memory`"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-098",
+  "section": "§2.4",
+  "line": 80,
+  "text": "Their identification with a realization's time-$t$ law is not machine-checked.",
+  "claim": "The identification of that joint law with a realization's time-t law is not machine-checked.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-099",
+  "section": "§2.4",
+  "line": 80,
+  "text": "The written proof is in [Main §3.4, Theorem (unavoidable hidden predictive memory)]",
+  "claim": "Theorem 2 has a written proof in Main §3.4.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.4, Theorem (unavoidable hidden predictive memory)]",
+   "[CT06] ('see also')"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-100",
+  "section": "§2.4",
+  "line": 82,
+  "text": "**Corollary** (proved on paper [Main §1.5]). $M_t>0$ holds exactly when every faithful realization carries readout-relevant hidden memory at $t$, that is, a pair of posteriors with different pushforwards.",
+  "claim": "Corollary: M_t > 0 iff every faithful realization carries readout-relevant hidden memory at t (two posteriors with different pushforwards).",
+  "type": "theorem-statement",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": [],
+   "note": "'proved on paper'; vanishing criterion and time-t identification not machine-checked"
+  },
+  "cited": [
+   "[Main §1.5]"
+  ],
+  "direction": {
+   "kind": "equivalence ('exactly when')",
+   "sub_claims": [
+    {
+     "label": "⇒ (forward)",
+     "claim": "If M_t > 0, every faithful realization has two hidden posteriors with different f_x-pushforwards at t.",
+     "status_as_stated": "proved-paper",
+     "cited": [
+      "[Main §1.5]",
+      "Theorem 2(a)",
+      "[CT06]"
+     ],
+     "note": "rests on Theorem 2(a) in each realization and the CMI vanishing criterion",
+     "id": "I-100.a"
+    },
+    {
+     "label": "⇐ (converse)",
+     "claim": "If every faithful realization carries readout-relevant hidden memory at t, then M_t > 0.",
+     "status_as_stated": "proved-paper",
+     "cited": [
+      "[Main §1.5]",
+      "Theorem 2(a)",
+      "`S_imp_D`",
+      "[CT06]"
+     ],
+     "note": "rests on Theorem 2(a) in one realization, whose existence Theorem 1 supplies (S_imp_D), and the CMI vanishing criterion",
+     "id": "I-100.b"
+    }
+   ]
+  },
+  "attention": "Mapper: confirm Main §1.5 is the Corollary's location (Theorem 2 is cited to Main §3.4)."
+ },
+ {
+  "id": "I-101",
+  "section": "§2.4",
+  "line": 82,
+  "text": "both use the standard vanishing criterion for conditional mutual information [CT06], which, like the time-$t$ identification, is not machine-checked",
+  "claim": "Both Corollary directions use the CMI vanishing criterion, which (like the time-t identification) is not machine-checked.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": []
+  },
+  "cited": [
+   "[CT06]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-102",
+  "section": "§2.4",
+  "line": 84,
+  "text": "A realization of a law whose conditional past–future information reaches $I^*$ needs $|\\mathcal C_H|\\ge2^{I^*}$ (machine-checked in the same form as Theorem 2)",
+  "claim": "A realization of a law whose conditional past–future information reaches I* needs |C_H| ≥ 2^{I*}.",
+  "type": "theorem-statement",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": [
+    "faithful realization"
+   ],
+   "note": "'machine-checked in the same form as Theorem 2', i.e. for a joint law; realization identification not machine-checked"
+  },
+  "cited": [
+   "Appendix A: `c3_necessity`, `card_hidden_ge_two_pow_Istar`"
+  ],
+  "direction": null,
+  "attention": "'conditional past–future information' is not defined in the Introduction (M_t? I(X_{<t};X_{>t}|X_t)?), and 'in the same form as Theorem 2' leaves the checked statement implicit. Mapper: pin down the quantity and the checked form."
+ },
+ {
+  "id": "I-103",
+  "section": "§2.4",
+  "line": 84,
+  "text": "If two values of $X_{<k}$ followed by a common present state $X_k$, each of joint probability at least $p_0$, induce next-step laws at total-variation distance at least $\\delta$, then $I(X_{<k};X_{k+1}\\mid X_k)\\ge p_0\\delta^2/\\ln2$ (in bits), by Pinsker's inequality (proved on paper, with exact probes) [Main §2.3; CT06].",
+  "claim": "If two histories with common present, each of joint probability ≥ p0, induce next-step laws at TV distance ≥ δ, then I(X_{<k}; X_{k+1} | X_k) ≥ p0 δ²/ln 2 bits (Pinsker).",
+  "type": "theorem-statement",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": [],
+   "note": "'proved on paper, with exact probes'"
+  },
+  "cited": [
+   "[Main §2.3; CT06]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-104",
+  "section": "§2.4",
+  "line": 86,
+  "text": "[Main §1.3] names four conditions on a hidden sector: (C1) influence, (C2) persistence of records, (C3) capacity, and (C4) history readback, in which two histories with the same present induce different next-step laws.",
+  "claim": "Main §1.3 names four hidden-sector conditions: (C1) influence, (C2) persistence of records, (C3) capacity, (C4) history readback (two histories with the same present induce different next-step laws).",
+  "type": "definition-used",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §1.3]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-105",
+  "section": "§2.4",
+  "line": 86,
+  "text": "In a faithful realization (C4) coincides with $M_t>0$ by the vanishing criterion [CT06]",
+  "claim": "In a faithful realization, (C4) holds iff M_t > 0.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[CT06]"
+  ],
+  "direction": {
+   "kind": "equivalence ('coincides with')",
+   "sub_claims": [
+    {
+     "label": "(C4) ⇒ M_t>0",
+     "claim": "Two positive-probability histories with the same present and different next-step laws give M_t > 0.",
+     "status_as_stated": "unstated",
+     "cited": [
+      "[CT06]"
+     ],
+     "id": "I-105.a"
+    },
+    {
+     "label": "M_t>0 ⇒ (C4)",
+     "claim": "M_t > 0 gives two histories with the same present and different next-step laws.",
+     "status_as_stated": "unstated",
+     "cited": [
+      "[CT06]"
+     ],
+     "id": "I-105.b"
+    }
+   ]
+  },
+  "attention": "(C4) as defined on line 86 is a property of the visible law, so 'in a faithful realization' is idle here; line 96 also uses a realization clause ('routed readback'). Mapper: check which (C4) Main §1.3 defines and at which t."
+ },
+ {
+  "id": "I-106",
+  "section": "§2.4",
+  "line": 86,
+  "text": "the Corollary places it in the hidden state",
+  "claim": "Via the Corollary, (C4) is carried in the hidden state of every faithful realization.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-107",
+  "section": "§2.4",
+  "line": 86,
+  "text": "(C1) and (C3) follow from it",
+  "claim": "(C1) influence follows from (C4).",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-108",
+  "section": "§2.4",
+  "line": 86,
+  "text": "(C1) and (C3) follow from it",
+  "claim": "(C3) capacity follows from (C4).",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-109",
+  "section": "§2.4",
+  "line": 86,
+  "text": "(C2) is a physical-regime premise",
+  "claim": "(C2) persistence of records is a physical-regime premise, not derived.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "conjecture",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null,
+  "attention": "§6.3 item (4) lists '(C2) necessity' as open and conditional on a mixing hypothesis; check the two statements agree with Main."
+ },
+ {
+  "id": "I-110",
+  "section": "§2.4",
+  "line": 86,
+  "text": "The conditions are diagnostics of a realization, not hypotheses of Theorem 1.",
+  "claim": "(C1)–(C4) are diagnostics of a realization, not hypotheses of Theorem 1.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-111",
+  "section": "§2.5",
+  "line": 90,
+  "text": "The family is *P-divisible on $\\{0,\\dots,n\\}$* if for all $s<t\\le n$ some stochastic $\\Lambda$ satisfies $\\Gamma_t=\\Gamma_s\\Lambda$.",
+  "claim": "Rooted P-divisibility on {0..n}: for all s < t ≤ n some stochastic Λ has Γ_t = Γ_s Λ (Γ_t rooted at time 0, rows x_0).",
+  "type": "definition-used",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null,
+  "attention": "This is a rooted (from time 0) divisibility; [RHP14]/[BD16] criteria are for two-time divisibility. Mapper: check the attribution on line 90 applies to the rooted form."
+ },
+ {
+  "id": "I-112",
+  "section": "§2.5",
+  "line": 90,
+  "text": "A stochastic divisor contracts total variation, so under P-divisibility",
+  "claim": "Under P-divisibility, TV distance between rows of Γ_t cannot increase in t.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-113",
+  "section": "§2.5",
+  "line": 90,
+  "text": "This is the divisibility criterion of [RHP14, Thm 2.4] and the data-processing direction of [BD16, Prop. 1].",
+  "claim": "The TV-contraction criterion is RHP14 Thm 2.4 and the data-processing direction of BD16 Prop. 1.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[RHP14, Thm 2.4]",
+   "[BD16, Prop. 1]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-114",
+  "section": "§2.5",
+  "line": 92,
+  "text": "**Theorem 3** (recurrence and overlap [Main §2.3]). *Let $\\varphi$ be a bijection of $\\mathcal C_V\\times\\mathcal C_H$ with a fixed hidden prior. If two rows of $\\Gamma_s$ overlap in a column and $\\Gamma_n=I$ for some $n>s$, the family is not P-divisible on $\\{0,\\dots,n\\}$.*",
+  "claim": "Theorem 3: for a bijection with fixed hidden prior, if two rows of Γ_s overlap in a column and Γ_n = I for some n > s, the family is not P-divisible on {0..n}.",
+  "type": "theorem-statement",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": [
+    "bijection of C_V × C_H",
+    "fixed hidden prior",
+    "rows of Γ_s overlap",
+    "Γ_n = I, n > s"
+   ],
+   "note": "line 94: machine-checked in its rooted form"
+  },
+  "cited": [
+   "[Main §2.3]"
+  ],
+  "direction": null,
+  "attention": "'fixed hidden prior' is ambiguous (fixed in time? independent of x_0?). Mapper: match against the Lean hypothesis."
+ },
+ {
+  "id": "I-115",
+  "section": "§2.5",
+  "line": 94,
+  "text": "Theorem 3 is machine-checked in its rooted form",
+  "claim": "Theorem 3 is machine-checked in rooted form.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "Appendix A: `pIndivisible_of_rooted_identity_return_of_overlap`"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-116",
+  "section": "§2.5",
+  "line": 94,
+  "text": "Doukas states the same overlap-and-return argument concurrently [Dou26, Prop. 1]",
+  "claim": "Doukas states the same overlap-and-return argument concurrently.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Dou26, Prop. 1]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-117",
+  "section": "§2.5",
+  "line": 94,
+  "text": "Monotone distance is necessary for P-divisibility",
+  "claim": "Monotone TV distance is necessary for P-divisibility.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §2.3] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-118",
+  "section": "§2.5",
+  "line": 94,
+  "text": "but not sufficient [Main §2.3]",
+  "claim": "Monotone TV distance is not sufficient for P-divisibility.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §2.3]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-119",
+  "section": "§2.5",
+  "line": 96,
+  "text": "A finite square stochastic matrix with a stochastic one-sided inverse is a permutation matrix [BB12, Problem 23] (machine-checked).",
+  "claim": "A finite square stochastic matrix with a stochastic one-sided inverse is a permutation matrix.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "[BB12, Problem 23]",
+   "Appendix A: `isPermMatrix_of_stochastic_inverse`"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-120",
+  "section": "§2.5",
+  "line": 96,
+  "text": "With this lemma, on a fixed finite reversible substratum, history readback forces indivisibility somewhere in the recurrence cycle [Main §2.3, Theorem (history readback + finite recurrence implies indivisibility)]",
+  "claim": "On a fixed finite reversible substratum, history readback (C4) forces indivisibility somewhere in the recurrence cycle.",
+  "type": "theorem-statement",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": [
+    "fixed finite reversible substratum",
+    "(C4) history readback"
+   ],
+   "note": "machine-checked from routed-readback (C4); on paper from history-level (C4)"
+  },
+  "cited": [
+   "[Main §2.3, Theorem (history readback + finite recurrence implies indivisibility)]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-121",
+  "section": "§2.5",
+  "line": 96,
+  "text": "The conclusion is machine-checked, by the route of Theorem 3, from a routed-readback form of (C4), in which a visible-history record written into the hidden state is read back later [Main §1.3, the realization clause of (C4)]",
+  "claim": "The readback-forces-indivisibility conclusion is machine-checked, via Theorem 3, from routed-readback (C4).",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": [
+    "routed-readback (C4)"
+   ]
+  },
+  "cited": [
+   "[Main §1.3, the realization clause of (C4)]",
+   "Appendix A: `routed_forces_indivisible_somewhere`"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-122",
+  "section": "§2.5",
+  "line": 96,
+  "text": "from history-level (C4) it is proved on paper",
+  "claim": "From history-level (C4), readback-forces-indivisibility is proved on paper.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-123",
+  "section": "§2.5",
+  "line": 98,
+  "text": "a minimal model of Theorem 3 with six hidden states",
+  "claim": "Appendix B.1 is a minimal model of Theorem 3 with six hidden states.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null,
+  "attention": "'minimal model' (6 hidden states) sits beside 'the smallest realization of Theorem 3' (the card game, 2 hidden values). The sense of 'minimal' is unstated."
+ },
+ {
+  "id": "I-124",
+  "section": "§2.5",
+  "line": 98,
+  "text": "a two-card game, the smallest realization of Theorem 3",
+  "claim": "The two-card game is the smallest realization of Theorem 3.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null,
+  "attention": "Minimality claim with no proof or citation and no stated measure of size; check Main/Book."
+ },
+ {
+  "id": "I-125",
+  "section": "§3.1",
+  "line": 104,
+  "text": "The indivisibility of §2.5 is global: it occurs somewhere in the recurrence cycle, not on every window.",
+  "claim": "The §2.5 indivisibility occurs somewhere in the recurrence cycle, not on every window.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-126",
+  "section": "§3.1",
+  "line": 104,
+  "text": "Conditional memory does not force short-window indivisibility (Appendix B).",
+  "claim": "Conditional memory does not force short-window indivisibility.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "(Appendix B)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-127",
+  "section": "§3.1",
+  "line": 106,
+  "text": "Three notions are distinct, and no unconditional implication holds among them [Main §3.2, Remark (three notions, kept apart)]",
+  "claim": "Accessible memory, P-indivisibility, and quantum non-Markovianity are distinct, with no unconditional implication among them.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [],
+   "note": "six directed implications are denied; 'unconditional' scope"
+  },
+  "cited": [
+   "[Main §3.2, Remark (three notions, kept apart)]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-128",
+  "section": "§3.1",
+  "line": 106,
+  "text": "Tracing out a permutation unitary from a diagonal hidden state gives channels that preserve diagonal states",
+  "claim": "Tracing out a permutation unitary from a diagonal hidden state gives diagonal-preserving channels.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.2, Theorem (CP-indivisibility, framework scope)] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-129",
+  "section": "§3.1",
+  "line": 106,
+  "text": "and for them (2) implies CP-indivisibility [Main §3.2, Theorem (CP-indivisibility, framework scope)]",
+  "claim": "For diagonal-preserving channel families, P-indivisibility of populations implies CP-indivisibility.",
+  "type": "theorem-statement",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.2, Theorem (CP-indivisibility, framework scope)]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-130",
+  "section": "§3.1",
+  "line": 106,
+  "text": "Outside that class the implication fails: with $\\Phi_{t_1}$ conjugation by the Hadamard gate and $\\Phi_{t_2}=\\mathrm{id}$ the family is CP-divisible, while its computational-basis populations, $\\tfrac12J\\to I$ with $J$ the all-ones matrix, are P-indivisible [Main §3.2, Remark (scope: P-indivisibility is not quantum non-Markovianity)]",
+  "claim": "Outside the diagonal-preserving class, P-indivisibility does not imply CP-indivisibility (Hadamard-then-identity family: CP-divisible, populations ½J → I P-indivisible).",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.2, Remark (scope: P-indivisibility is not quantum non-Markovianity)]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-131",
+  "section": "§3.1",
+  "line": 106,
+  "text": "Distinguishability backflow witnesses divisibility failure in one direction only [BLP09]",
+  "claim": "Distinguishability backflow implies divisibility failure but not conversely.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[BLP09]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-132",
+  "section": "§3.1",
+  "line": 106,
+  "text": "for bijective dynamical maps on a $d$-dimensional system, CP-divisibility is equivalent to monotone distinguishability with a $(d+1)$-dimensional ancilla [BJA17]",
+  "claim": "For bijective dynamical maps on a d-dim system, CP-divisibility ⇔ monotone distinguishability with a (d+1)-dim ancilla.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[BJA17]"
+  ],
+  "direction": {
+   "kind": "equivalence (literature)",
+   "sub_claims": [
+    {
+     "label": "⇒",
+     "claim": "CP-divisible bijective dynamical maps give monotone distinguishability with a (d+1)-dimensional ancilla.",
+     "status_as_stated": "unstated",
+     "cited": [
+      "[BJA17]"
+     ],
+     "id": "I-132.a"
+    },
+    {
+     "label": "⇐",
+     "claim": "Monotone distinguishability with a (d+1)-dimensional ancilla implies CP-divisibility for bijective dynamical maps.",
+     "status_as_stated": "unstated",
+     "cited": [
+      "[BJA17]"
+     ],
+     "id": "I-132.b"
+    }
+   ]
+  }
+ },
+ {
+  "id": "I-133",
+  "section": "§3.1",
+  "line": 108,
+  "text": "Theorem 1 is a representation result: it states which laws admit realizations and quantum representations, not why a physical system exhibits a law with memory [Main §3.4, Remark (representation, not explanation)]",
+  "claim": "Theorem 1 states which laws admit realizations/representations, not why a physical system exhibits memory.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.4, Remark (representation, not explanation)]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-134",
+  "section": "§3.1",
+  "line": 108,
+  "text": "Calvo states a proof of the six axioms of textbook quantum mechanics from the single axiom that every physical system evolves according to a generally indivisible stochastic law [Cal26]",
+  "claim": "Calvo states a proof of textbook QM's six axioms from the single axiom of generally indivisible stochastic evolution.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Cal26]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-135",
+  "section": "§3.1",
+  "line": 108,
+  "text": "Theorem 1 is a correspondence between classes of law and derives no such axioms.",
+  "claim": "Theorem 1 derives no quantum axioms.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-136",
+  "section": "§3.2",
+  "line": 112,
+  "text": "Operational quantum mechanics requires, beyond Theorem 1's fixed-basis statistics, coherent preparations, noncommuting interventions and composites represented by one instrument theory.",
+  "claim": "Operational QM requires coherent preparations, noncommuting interventions and composites in one instrument theory, beyond fixed-basis statistics.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-137",
+  "section": "§3.2",
+  "line": 114,
+  "text": "Fix a nonempty finite system and an operational theory specifying which finite outcome families of linear maps are available on the system and at every ancilla level. The theory contains the identity and is closed under coarse-graining of outcomes and, at every ancilla level, under outcome-conditioned composition; it has an available preparation of a uniformly mixed ancilla, which an available operation may follow, an available spectator-independent local readout of the ancilla, and ancilla discard: an available preparation followed by an available instrument, with the ancilla then discarded, is an available instrument on the system with the same outcomes [GR §3.3].",
+  "claim": "Standing structure for Theorem 4: identity, coarse-graining and outcome-conditioned composition closure, uniformly mixed ancilla preparation, spectator-independent local ancilla readout, and ancilla discard.",
+  "type": "definition-used",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[GR §3.3]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-138",
+  "section": "§3.2",
+  "line": 114,
+  "text": "The five conditions are: (i) available families send positive states to positive states and their outcome traces sum to the input trace; (ii) operations remain available with a one-state ancilla adjoined; (iii) an untouched independent system can be adjoined without changing an intervention; (iv) every finite unitary on every composite is available; (v) attaching a fresh uniformly prepared ancilla to a composite, acting, and discarding it gives an available operation.",
+  "claim": "Conditions (i) positivity/trace, (ii) one-state ancilla, (iii) untouched independent system, (iv) all finite unitaries on composites, (v) fresh uniformly prepared ancilla attach-act-discard.",
+  "type": "definition-used",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[GR §3.3] (preceding sentence)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-139",
+  "section": "§3.2",
+  "line": 116,
+  "text": "**Theorem 4** (operational-completion characterization [GR §3.3]). *For every nonempty finite system, the available outcome families on the system and at every positive ancilla level are exactly the normalized finite Kraus instruments if and only if conditions (i)–(v) hold.*",
+  "claim": "Theorem 4: for every nonempty finite system, available families on the system and at every positive ancilla level are exactly the normalized finite Kraus instruments iff (i)–(v) hold.",
+  "type": "theorem-statement",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": [
+    "standing structure of line 114",
+    "nonempty finite system"
+   ],
+   "note": "line 118: both directions machine-checked"
+  },
+  "cited": [
+   "[GR §3.3]"
+  ],
+  "direction": {
+   "kind": "equivalence (iff)",
+   "sub_claims": [
+    {
+     "label": "⇒",
+     "claim": "Exactly Kraus instruments at every level ⇒ conditions (i)–(v).",
+     "status_as_stated": "proved-kernel",
+     "cited": [
+      "[GR §3.3]",
+      "`physical_of_exactAll`"
+     ],
+     "id": "I-139.a"
+    },
+    {
+     "label": "⇐",
+     "claim": "Conditions (i)–(v) ⇒ exactly Kraus instruments at every level.",
+     "status_as_stated": "proved-kernel",
+     "cited": [
+      "[GR §3.3]",
+      "`exactAll_of_physical_general`"
+     ],
+     "id": "I-139.b"
+    }
+   ]
+  },
+  "attention": "Line 114 says 'at every ancilla level'; Theorem 4 says 'at every positive ancilla level'. Mapper: check which the Lean statement uses."
+ },
+ {
+  "id": "I-140",
+  "section": "§3.2",
+  "line": 118,
+  "text": "Both directions are machine-checked, $\\Rightarrow$ as `physical_of_exactAll`",
+  "claim": "Theorem 4 ⇒ is machine-checked as physical_of_exactAll.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`physical_of_exactAll`"
+  ],
+  "direction": null,
+  "attention": "Appendix A places physical_of_exactAll in PhysicalCharacterization, not GeneralCarrier; check it holds 'for every nonempty finite carrier' as line 118 states."
+ },
+ {
+  "id": "I-141",
+  "section": "§3.2",
+  "line": 118,
+  "text": "and $\\Leftarrow$ as `exactAll_of_physical_general`, for every nonempty finite carrier",
+  "claim": "Theorem 4 ⇐ is machine-checked as exactAll_of_physical_general for every nonempty finite carrier.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`exactAll_of_physical_general`"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-142",
+  "section": "§3.2",
+  "line": 120,
+  "text": "On the qubit, each condition is independent of the other four and of a fixed finite observation process satisfying (C1)–(C4).",
+  "claim": "On the qubit, each of (i)–(v) is independent of the other four and of a fixed finite observation process satisfying (C1)–(C4).",
+  "type": "result",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": [],
+   "note": "body sentence carries no status; Appendix A lists it as machine-checked"
+  },
+  "cited": [
+   "[GR §3.3] (end of paragraph)",
+   "Appendix A: `five_way_minimality`"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-143",
+  "section": "§3.2",
+  "line": 120,
+  "text": "For each condition there is a qubit theory that realizes that process and the other four conditions, and fails it.",
+  "claim": "For each condition, some qubit theory realizes the observation process and the other four conditions but fails it.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "Appendix A: `five_way_minimality`"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-144",
+  "section": "§3.2",
+  "line": 120,
+  "text": "In particular, a qubit theory that never creates coherence realizes the observation process and is not quantum.",
+  "claim": "A qubit theory that never creates coherence realizes the observation process and is not quantum.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "Appendix A: `oi_alone_not_qm`"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-145",
+  "section": "§3.2",
+  "line": 120,
+  "text": "So OI alone does not imply quantum mechanics.",
+  "claim": "OI alone does not imply quantum mechanics.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": [],
+   "note": "non-implication by qubit witness; 'OI' here = a fixed finite observation process satisfying (C1)–(C4)"
+  },
+  "cited": [
+   "Appendix A: `oi_alone_not_qm`"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-146",
+  "section": "§3.2",
+  "line": 120,
+  "text": "Which of (iii)–(v) a physical substratum supplies is open [GR §3.3].",
+  "claim": "Which of (iii)–(v) a physical substratum supplies is open.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [
+   "[GR §3.3]"
+  ],
+  "direction": null,
+  "attention": "Implicitly treats (i) and (ii) as supplied or not at issue; the Introduction gives no statement or citation for that."
+ },
+ {
+  "id": "I-147",
+  "section": "§3.3",
+  "line": 122,
+  "text": "The evolution relating two times is not selected",
+  "claim": "The evolution relating two times is not selected (heading).",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-148",
+  "section": "§3.3",
+  "line": 124,
+  "text": "Representability does not fix the unitary evolution relating two times [Main §3.4, Remark (scope: representability, not selection of the relating evolution)].",
+  "claim": "Representability does not fix the unitary evolution relating two times.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.4, Remark (scope: representability, not selection of the relating evolution)]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-149",
+  "section": "§3.3",
+  "line": 124,
+  "text": "Two coherent lifts of one visible family, unitary dilations that reproduce the visible law at every time and compose exactly across times, can differ by a time-dependent right action invisible to the visible law and then have different relating evolutions",
+  "claim": "Two coherent lifts of one visible family can differ by a time-dependent right action invisible to the visible law and have different relating evolutions.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": [],
+   "note": "'(both machine-checked)'"
+  },
+  "cited": [
+   "Appendix A: `gl2_strong_gauge_moves_relative_candidate`"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-150",
+  "section": "§3.3",
+  "line": 124,
+  "text": "while a constant deformation cancels from every relating evolution (both machine-checked)",
+  "claim": "A constant deformation cancels from every relating evolution.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "Appendix A: `gl3_constant_gauge_preserves_relative`"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-151",
+  "section": "§3.3",
+  "line": 126,
+  "text": "Take a lift with trivial ancilla at one time, and form the fixed-basis datum whose evolution is the lift's unitary, with uniform initial law and identity readout.",
+  "claim": "Setting for the bridge results: fixed-basis datum from a lift with trivial ancilla at one time, uniform initial law, identity readout.",
+  "type": "definition-used",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-152",
+  "section": "§3.3",
+  "line": 126,
+  "text": "If two such data have the same one-step visible matrix, their root-conditioned trajectory laws agree at every horizon (`bridge_traj`)",
+  "claim": "Same one-step visible matrix ⇒ same root-conditioned trajectory laws at every horizon.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`bridge_traj`"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-153",
+  "section": "§3.3",
+  "line": 126,
+  "text": "conversely, if their rooted families agree, their one-step visible matrices are equal (`rooted_eq_iff_slice_eq`, forward direction)",
+  "claim": "Equal rooted families ⇒ equal one-step visible matrices.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`rooted_eq_iff_slice_eq` (forward direction)"
+  ],
+  "direction": {
+   "kind": "converse pair presented with the preceding entry ('conversely')",
+   "sub_claims": [
+    {
+     "label": "one-step ⇒ trajectory laws",
+     "claim": "Same one-step visible matrix ⇒ same root-conditioned trajectory laws at every horizon.",
+     "status_as_stated": "proved-kernel",
+     "cited": [
+      "`bridge_traj`"
+     ],
+     "id": "I-153.a"
+    },
+    {
+     "label": "rooted family ⇒ one-step",
+     "claim": "Same rooted family ⇒ same one-step visible matrix.",
+     "status_as_stated": "proved-kernel",
+     "cited": [
+      "`rooted_eq_iff_slice_eq` (forward direction)"
+     ],
+     "id": "I-153.b"
+    }
+   ]
+  },
+  "attention": "§A.34: the 'converse' has a different middle term (rooted families vs root-conditioned trajectory laws at every horizon), so the two cited results do not form an iff unless the mapper shows the two notions coincide. Also only the forward direction of an iff declaration is cited."
+ },
+ {
+  "id": "I-154",
+  "section": "§3.3",
+  "line": 126,
+  "text": "Each such trajectory law is fixed-basis realizable",
+  "claim": "Each such trajectory law is fixed-basis realizable.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`realData_traj_stochastic`"
+  ],
+  "direction": null,
+  "attention": "The declaration name suggests stochasticity only; check it also establishes fixed-basis realizability."
+ },
+ {
+  "id": "I-155",
+  "section": "§3.3",
+  "line": 126,
+  "text": "and stochastic (`realData_traj_stochastic`)",
+  "claim": "Each such trajectory law is stochastic.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`realData_traj_stochastic`"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-156",
+  "section": "§3.3",
+  "line": 126,
+  "text": "The fixed-basis correspondence therefore acts on the quotient by visible equality.",
+  "claim": "The fixed-basis correspondence acts on the quotient by visible equality.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-157",
+  "section": "§3.3",
+  "line": 126,
+  "text": "A selection condition beyond representability and ordinary coherence would be needed",
+  "claim": "Selecting the relating evolution would require a condition beyond representability and ordinary coherence.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-158",
+  "section": "§3.3",
+  "line": 126,
+  "text": "and none is supplied here",
+  "claim": "No such selection condition is supplied.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-159",
+  "section": "§3.4",
+  "line": 128,
+  "text": "No fixed finite carrier reproduces a qubit",
+  "claim": "No fixed finite carrier reproduces a qubit (heading).",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": [
+    "imported unboundedness [GH03; Mon08; Har04; HKLP24]"
+   ]
+  },
+  "cited": [],
+  "direction": null,
+  "attention": "Heading is broader than the body ('the full prepare-and-measure theory of a qubit exactly'); 'carrier' is also used for Theorem 4's system ('every nonempty finite carrier', line 118)."
+ },
+ {
+  "id": "I-160",
+  "section": "§3.4",
+  "line": 130,
+  "text": "A fixed finite realization with $N$ ontic configurations generates only behaviour matrices that factor nonnegatively through $N$ states.",
+  "claim": "A fixed finite realization with N ontic configurations yields only behaviour matrices with nonnegative factorization through N states.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": [],
+   "note": "'the factorization is proved' (same line)"
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-161",
+  "section": "§3.4",
+  "line": 130,
+  "text": "Simulating a qubit's prepare-and-measure statistics needs classical memory unbounded over finite experiments",
+  "claim": "Simulating a qubit's prepare-and-measure statistics needs classical memory unbounded over finite experiments.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [],
+   "note": "imported ('the unboundedness is imported')"
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-162",
+  "section": "§3.4",
+  "line": 130,
+  "text": "explicit tasks are given by Galvão and Hardy [GH03] and Montina [Mon08]",
+  "claim": "Galvão–Hardy and Montina give explicit tasks showing unbounded classical memory.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[GH03]",
+   "[Mon08]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-163",
+  "section": "§3.4",
+  "line": 130,
+  "text": "Montina reports Hardy's result that the number of ontic states cannot be finite [Mon08; Har04]",
+  "claim": "Montina reports Hardy's result that the number of ontic states cannot be finite.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [],
+   "note": "[Har04] reference carries a VERIFY comment: content not read, cited as reported in [Mon08]"
+  },
+  "cited": [
+   "[Mon08; Har04]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-164",
+  "section": "§3.4",
+  "line": 130,
+  "text": "So no fixed finite realization reproduces the full prepare-and-measure theory of a qubit exactly",
+  "claim": "No fixed finite realization reproduces the full prepare-and-measure theory of a qubit exactly.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": [
+    "imported unboundedness"
+   ]
+  },
+  "cited": [
+   "[Main §3.4, Proposition (finite-substratum operational obstruction — classical-dimension form); HKLP24, Thm 4] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-165",
+  "section": "§3.4",
+  "line": 130,
+  "text": "the factorization is proved, and the unboundedness is imported [Main §3.4, Proposition (finite-substratum operational obstruction — classical-dimension form); HKLP24, Thm 4]",
+  "claim": "The factorization step is proved; the unboundedness step is imported.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.4, Proposition (finite-substratum operational obstruction — classical-dimension form)]",
+   "[HKLP24, Thm 4]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-166",
+  "section": "§3.4",
+  "line": 130,
+  "text": "The obstruction does not touch Theorem 1, whose realization is chosen per law.",
+  "claim": "The finite-carrier obstruction does not affect Theorem 1, whose realization is chosen per law.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-167",
+  "section": "§3.5",
+  "line": 134,
+  "text": "The origin of the quadratic Born exponent, which the correspondence does not select (§2.3), is open [Main §3.4; Bar26, Thm 3.1].",
+  "claim": "The origin of the quadratic Born exponent is open.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.4; Bar26, Thm 3.1]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-168",
+  "section": "§3.5",
+  "line": 136,
+  "text": "A deterministic completion that keeps pointwise causal cones and a setting-independent pre-setting ensemble is Bell-local, $|S_{\\mathrm{CHSH}}|\\le2$ [Bel64; CHSH69; Main §3.3]",
+  "claim": "A deterministic completion with pointwise causal cones and a setting-independent ensemble satisfies |S_CHSH| ≤ 2.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Bel64; CHSH69; Main §3.3]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-169",
+  "section": "§3.5",
+  "line": 136,
+  "text": "so a deterministic completion reproducing quantum Bell correlations must give up one of the two",
+  "claim": "A deterministic completion reproducing quantum Bell correlations must give up pointwise causal cones or measurement independence.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-170",
+  "section": "§3.5",
+  "line": 136,
+  "text": "The framework keeps measurement independence and adopts ontic parameter dependence, in which one wing's microstate response depends on the remote setting without operational signalling",
+  "claim": "The framework keeps measurement independence and adopts ontic parameter dependence (remote-setting-dependent microstate response, no operational signalling).",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "conjecture",
+   "hypotheses": [
+    "H-Bell"
+   ],
+   "note": "framework posit"
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-171",
+  "section": "§3.5",
+  "line": 136,
+  "text": "the compatibility of that choice with operational no-signalling and the gravitational continuum limit of the substratum's spatial coupling graph is the open hypothesis H-Bell [Main §3.3]",
+  "claim": "Compatibility of ontic parameter dependence with operational no-signalling and the gravitational continuum limit of the spatial coupling graph is the open hypothesis H-Bell.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": [
+    "H-Bell"
+   ]
+  },
+  "cited": [
+   "[Main §3.3]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-172",
+  "section": "§4",
+  "line": 140,
+  "text": "Summing zero-point energies of the quantum fields up to a Planck-scale cutoff gives a vacuum energy density some 120 orders of magnitude above the observational value [Wei89, §I; §III, Eqs. (3.4)–(3.6)]",
+  "claim": "Summing zero-point energies to a Planck cutoff gives a vacuum energy density ~120 orders of magnitude above the observed value.",
+  "type": "numerical",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Wei89, §I; §III, Eqs. (3.4)–(3.6)]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-173",
+  "section": "§4",
+  "line": 140,
+  "text": "the exact power depending on the cutoff convention",
+  "claim": "The exact power of the mismatch depends on the cutoff convention.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-174",
+  "section": "§4",
+  "line": 140,
+  "text": "if that density sources curvature, it must be cancelled to that accuracy [Wei89, §III]",
+  "claim": "If the zero-point density sources curvature, it must be cancelled to ~120 orders.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Wei89, §III]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-175",
+  "section": "§4",
+  "line": 142,
+  "text": "In OI (§1.1) the zero-point sum of the emergent quantum description (§§2–3) and the effective cosmological constant are defined at different levels of description.",
+  "claim": "In OI the zero-point sum (emergent description) and the effective cosmological constant are defined at different levels.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-176",
+  "section": "§4",
+  "line": 142,
+  "text": "A uniform shift of the emergent Hamiltonian changes no visible transition probability",
+  "claim": "A uniform shift of the emergent Hamiltonian changes no visible transition probability.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[GR §6.2] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-177",
+  "section": "§4",
+  "line": 142,
+  "text": "so the offset has no content in the visible statistics of the quantum description [GR §6.2]",
+  "claim": "The zero-point offset has no content in the visible statistics.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[GR §6.2]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-178",
+  "section": "§4",
+  "line": 142,
+  "text": "The invariance is the familiar statement that no non-gravitational measurement sees the absolute vacuum energy",
+  "claim": "No non-gravitational measurement sees the absolute vacuum energy (standard).",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [],
+   "note": "no citation given"
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-179",
+  "section": "§4",
+  "line": 142,
+  "text": "OI's proposal is that the mismatch requires no cancellation",
+  "claim": "OI proposes that the vacuum-energy mismatch requires no cancellation.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "conjecture",
+   "hypotheses": [
+    "covariant field equations (open; line 144)"
+   ],
+   "note": "'proposal'; line 144 makes it conditional"
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-180",
+  "section": "§4",
+  "line": 142,
+  "text": "and its content lies in how the two levels couple to geometry",
+  "claim": "The proposal's content lies in how the two levels couple to geometry.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-181",
+  "section": "§4",
+  "line": 144,
+  "text": "Whether the offset also fails to source curvature is a separate coupling question.",
+  "claim": "Whether the offset fails to source curvature is a separate coupling question.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-182",
+  "section": "§4",
+  "line": 144,
+  "text": "Settling it requires covariant field equations derived from the substratum, with their coupling to sources (Level G3 of [GR])",
+  "claim": "Settling the coupling question requires covariant field equations derived from the substratum, with source coupling (GR Level G3).",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "Level G3 of [GR]",
+   "[GR §6.2] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-183",
+  "section": "§4",
+  "line": 144,
+  "text": "which are open [GR §6.2]",
+  "claim": "The covariant field equations with source coupling (GR Level G3) are open.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [
+   "[GR §6.2]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-184",
+  "section": "§4",
+  "line": 144,
+  "text": "The quantum description therefore does not decide between gravitational completions that differ by a term $\\rho_C\\,g_{\\mu\\nu}$, such as $\\mathcal G_{\\mu\\nu}=8\\pi G\\,T^{\\rm cl}_{\\mu\\nu}$ and $\\mathcal G_{\\mu\\nu}=8\\pi G\\,(T^{\\rm cl}_{\\mu\\nu}-\\rho_C\\,g_{\\mu\\nu})$, with $\\mathcal G_{\\mu\\nu}$ the gravitational side of the field equations (the Einstein tensor in general relativity), $T^{\\rm cl}_{\\mu\\nu}$ the classical stress-energy of the substratum and $\\rho_C$ the energy density of the offset [GR §6.2].",
+  "claim": "The quantum description does not decide between gravitational completions differing by ρ_C g_μν.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[GR §6.2]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-185",
+  "section": "§4",
+  "line": 144,
+  "text": "The proposal that the mismatch requires no cancellation is therefore conditional on that open step.",
+  "claim": "The no-cancellation proposal is conditional on the open field-equation step.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": [
+    "covariant field equations with source coupling"
+   ]
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-186",
+  "section": "§4",
+  "line": 146,
+  "text": "the form [GR] targets, $E_{\\mu\\nu}[g,\\mathrm{OI}]=8\\pi G\\,(T_{\\mu\\nu}-\\mathcal F[g,T]\\,g_{\\mu\\nu})$",
+  "claim": "GR targets field equations E_μν[g,OI] = 8πG(T_μν − F[g,T] g_μν) with the substratum's classical stress-energy as source.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[GR]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-187",
+  "section": "§4",
+  "line": 146,
+  "text": "the zero-point sum of the emergent description is not a source and needs no cancellation",
+  "claim": "If the field equations take GR's target form, the zero-point sum is not a source and needs no cancellation.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": [
+    "field equations of GR's target form",
+    "classical substratum stress-energy as source"
+   ]
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-188",
+  "section": "§4",
+  "line": 146,
+  "text": "the vacuum term that remains, from the substratum's classical energy density and from $\\mathcal F$, is not computed",
+  "claim": "The remaining vacuum term (substratum classical energy density and F) is not computed.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-189",
+  "section": "§4",
+  "line": 146,
+  "text": "It does not explain the observed value of Λ",
+  "claim": "The proposal does not explain the observed value of Λ.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-190",
+  "section": "§4",
+  "line": 146,
+  "text": "which enters as a cosmological input",
+  "claim": "The observed value of Λ enters as a cosmological input.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "calibration",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-191",
+  "section": "§4",
+  "line": 146,
+  "text": "The scale $\\rho\\sim H_{\\rm Hub}^2/G$, with $H_{\\rm Hub}$ the Hubble rate, is the Friedmann normalization of the total density",
+  "claim": "The scale ρ ~ H²/G is the Friedmann normalization of the total density.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-192",
+  "section": "§4",
+  "line": 146,
+  "text": "and the fraction carried by Λ is an input",
+  "claim": "The fraction of the density carried by Λ is an input.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "calibration",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-193",
+  "section": "§4",
+  "line": 148,
+  "text": "With a Planck-scale cutoff the mismatch equals the de Sitter entropy up to a numerical factor fixed by the cutoff convention",
+  "claim": "With a Planck cutoff, the mismatch equals the de Sitter entropy up to a cutoff-convention factor.",
+  "type": "numerical",
+  "status_as_stated": {
+   "level": "calibration",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-194",
+  "section": "§4",
+  "line": 148,
+  "text": "this is a dimensional identity, not an independent prediction",
+  "claim": "The mismatch–de Sitter entropy relation is a dimensional identity, not an independent prediction.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "calibration",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-195",
+  "section": "§4",
+  "line": 148,
+  "text": "How the energy of electroweak and QCD vacuum transitions couples to gravity is not fixed by the descriptive distinction",
+  "claim": "The descriptive distinction does not fix how electroweak/QCD vacuum-transition energy couples to gravity.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-196",
+  "section": "§4",
+  "line": 148,
+  "text": "and requires the same open coupling step",
+  "claim": "The coupling of vacuum-transition energy requires the same open coupling step.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-197",
+  "section": "§4",
+  "line": 150,
+  "text": "Removing the vacuum energy of matter as a source of curvature is also the aim of the trace-free Einstein equations",
+  "claim": "Trace-free Einstein equations aim to remove matter vacuum energy as a curvature source.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[EvEMU11] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-198",
+  "section": "§4",
+  "line": 150,
+  "text": "which leave the observed value of Λ unexplained [EvEMU11]",
+  "claim": "Trace-free Einstein equations leave the observed Λ unexplained.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[EvEMU11]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-199",
+  "section": "§4",
+  "line": 150,
+  "text": "and of vacuum-energy sequestering",
+  "claim": "Vacuum-energy sequestering aims to remove matter vacuum energy as a curvature source.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[KP14] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-200",
+  "section": "§4",
+  "line": 150,
+  "text": "which also renders contributions from phase transitions small [KP14]",
+  "claim": "Sequestering renders phase-transition contributions small.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[KP14]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-201",
+  "section": "§4",
+  "line": 150,
+  "text": "Volovik argues from the thermodynamics of quantum many-body ground states that the ultraviolet zero-point sum does not set the vacuum energy [Vol06]",
+  "claim": "Volovik argues from quantum many-body ground-state thermodynamics that the UV zero-point sum does not set the vacuum energy.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Vol06]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-202",
+  "section": "§4",
+  "line": 150,
+  "text": "The present proposal differs in locating the gravitational source in the substratum microstate",
+  "claim": "The OI proposal differs from these by locating the gravitational source in the substratum microstate.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-203",
+  "section": "§4",
+  "line": 150,
+  "text": "and its coupling step is open",
+  "claim": "The OI proposal's coupling step is open.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-204",
+  "section": "§4",
+  "line": 152,
+  "text": "A derivation of the covariant field equations, with their conservation and source coupling, from the substratum would turn the proposal into a theorem or refute it.",
+  "claim": "Deriving covariant field equations (conservation, source coupling) from the substratum would decide the proposal.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-205",
+  "section": "§4",
+  "line": 152,
+  "text": "Until then the proposal reinterprets the problem and does not resolve it.",
+  "claim": "The proposal reinterprets the cosmological constant problem and does not resolve it.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-206",
+  "section": "§5",
+  "line": 156,
+  "text": "The black-hole information problem asks whether the radiation of an evaporating black hole carries the information of what formed it [Haw76; Pag93; Pag13].",
+  "claim": "The BH information problem asks whether evaporating-BH radiation carries the information of what formed it.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Haw76; Pag93; Pag13]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-207",
+  "section": "§5",
+  "line": 156,
+  "text": "Because the dynamics of OI is a bijection observed through a partition (§1.1), two questions separate: whether information is conserved in the global reversible dynamics, and whether it can be recovered from the records an observer can access, its *access class*",
+  "claim": "Since OI dynamics is a bijection observed through a partition, global conservation and accessible recovery are separate questions.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-208",
+  "section": "§5",
+  "line": 156,
+  "text": "The results below are finite computations in toy models of configurations, permutations and configuration reads.",
+  "claim": "The §5 results are finite computations in toy models of configurations, permutations and configuration reads.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "numerical",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-209",
+  "section": "§5",
+  "line": 156,
+  "text": "They concern the framework's nested-partition construction [GR App. A; Book §7.6], not a particular black hole.",
+  "claim": "The §5 results concern the framework's nested-partition construction, not a particular black hole.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[GR App. A; Book §7.6]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-210",
+  "section": "§5",
+  "line": 158,
+  "text": "Under OI, information is conserved in the global reversible dynamics because the dynamics is a bijection, which is a premise of the framework.",
+  "claim": "Under OI, information is conserved globally because the dynamics is a bijection (a premise).",
+  "type": "result",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": [
+    "bijective dynamics (framework premise)"
+   ]
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-211",
+  "section": "§5",
+  "line": 158,
+  "text": "Conservation neither implies",
+  "claim": "Global conservation does not imply recovery from accessible records.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "numerical",
+   "hypotheses": []
+  },
+  "cited": [
+   "[BHa] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-212",
+  "section": "§5",
+  "line": 158,
+  "text": "nor is necessary for recovery from the records an observer can access",
+  "claim": "Global conservation is not necessary for recovery from accessible records.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "numerical",
+   "hypotheses": []
+  },
+  "cited": [
+   "[BHa] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-213",
+  "section": "§5",
+  "line": 158,
+  "text": "finite exhaustive computations exhibit bijections with no accessible advantage, that is, no gain in success probability over a blind guess",
+  "claim": "Exhaustive finite computations exhibit bijections with zero accessible advantage over a blind guess.",
+  "type": "numerical",
+  "status_as_stated": {
+   "level": "numerical",
+   "hypotheses": []
+  },
+  "cited": [
+   "[BHa] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-214",
+  "section": "§5",
+  "line": 158,
+  "text": "and non-injective maps with exact recovery [BHa]",
+  "claim": "Exhaustive finite computations exhibit non-injective maps with exact recovery.",
+  "type": "numerical",
+  "status_as_stated": {
+   "level": "numerical",
+   "hypotheses": []
+  },
+  "cited": [
+   "[BHa]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-215",
+  "section": "§5",
+  "line": 160,
+  "text": "Of the 40,320 bijections of $\\{0,1\\}^3$, 1,376 give zero accessible advantage for a binary message with one register unread after two emissions.",
+  "claim": "Of the 40,320 bijections of {0,1}³, 1,376 give zero accessible advantage (binary message, one register unread, two emissions).",
+  "type": "numerical",
+  "status_as_stated": {
+   "level": "numerical",
+   "hypotheses": [],
+   "note": "40,320 = 8!"
+  },
+  "cited": [
+   "[BHa] (end of next sentence)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-216",
+  "section": "§5",
+  "line": 160,
+  "text": "For bijective dynamics, complete endpoint access gives exact recovery",
+  "claim": "For bijective dynamics, complete endpoint access gives exact recovery.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[BHa] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-217",
+  "section": "§5",
+  "line": 160,
+  "text": "with $\\mathcal U$ inaccessible $P_{\\mathrm{succ}}\\ge1/|\\mathcal U|$",
+  "claim": "For bijective dynamics with the unread registers U inaccessible, P_succ ≥ 1/|U|.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[BHa] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-218",
+  "section": "§5",
+  "line": 160,
+  "text": "so zero advantage in a bijective instance requires $|\\mathcal U|\\ge|\\mathcal M|$",
+  "claim": "Zero accessible advantage in a bijective instance requires |U| ≥ |M|.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[BHa] (sentence-final)"
+  ],
+  "direction": null,
+  "attention": "Derivation needs the blind-guess baseline 1/|M| (uniform message prior); the prior is not stated in the Introduction."
+ },
+ {
+  "id": "I-219",
+  "section": "§5",
+  "line": 160,
+  "text": "32 non-injective maps of $\\{0,1\\}^2$ violate the bound on $P_{\\mathrm{succ}}$ [BHa]",
+  "claim": "32 non-injective maps of {0,1}² violate the P_succ ≥ 1/|U| bound.",
+  "type": "numerical",
+  "status_as_stated": {
+   "level": "numerical",
+   "hypotheses": []
+  },
+  "cited": [
+   "[BHa]"
+  ],
+  "direction": null,
+  "attention": "Population counted (maps {0,1}²→{0,1}²? which register unread?) is unspecified."
+ },
+ {
+  "id": "I-220",
+  "section": "§5",
+  "line": 160,
+  "text": "These endpoint guarantees are sufficient, not necessary.",
+  "claim": "The endpoint guarantees are sufficient conditions, not necessary ones.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null,
+  "attention": "Ambiguous: sufficient/necessary for what (recovery? the bound?) is not stated."
+ },
+ {
+  "id": "I-221",
+  "section": "§5",
+  "line": 160,
+  "text": "The bound is the remnant-capacity form of a known fact",
+  "claim": "The P_succ bound is the remnant-capacity form of a known fact.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[BHa; Sha79] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-222",
+  "section": "§5",
+  "line": 160,
+  "text": "and its linear case is the secret-sharing threshold [BHa; Sha79]",
+  "claim": "The bound's linear case is the secret-sharing threshold.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [],
+   "note": "[Sha79] reference carries a VERIFY comment: content not read"
+  },
+  "cited": [
+   "[BHa; Sha79]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-223",
+  "section": "§5",
+  "line": 162,
+  "text": "The Page-curve calculation of [GR App. A] addresses recovery under its own conditions and is a conditional result [Book §7.6, §18.5].",
+  "claim": "GR App. A's Page-curve calculation is a conditional result.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": []
+  },
+  "cited": [
+   "[GR App. A]",
+   "[Book §7.6, §18.5]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-224",
+  "section": "§5",
+  "line": 162,
+  "text": "Its configuration space is $\\mathcal C_V\\times\\mathcal C_B\\times\\mathcal C_D$, with $V$ the exterior visible region, $B$ the black-hole interior and $D$ the sector beyond the cosmological horizon; the radiation $R$, a subsystem of $V$, is emitted from $B$ [GR App. A.1, A.7].",
+  "claim": "The Page-curve configuration space is C_V × C_B × C_D (exterior, interior, beyond the cosmological horizon); the radiation R ⊂ V is emitted from B.",
+  "type": "definition-used",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[GR App. A.1, A.7]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-225",
+  "section": "§5",
+  "line": 162,
+  "text": "For all but an exponentially negligible fraction of initial conditions, the full-cycle time average of the radiation's entanglement entropy, at the bipartition of each stage held fixed, equals the Page value $S_{\\rm Page}(d_B,d_R)$ for factor dimensions $d_B,d_R$, up to the correction term of Theorem A.8 [Pag93; GR, Thms A.8–A.9].",
+  "claim": "For all but an exponentially negligible fraction of initial conditions, the full-cycle time-averaged radiation entanglement entropy at fixed bipartition equals S_Page(d_B,d_R) up to Theorem A.8's correction.",
+  "type": "theorem-statement",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": [
+    "H-scramble",
+    "H-decouple",
+    "single energy shell C_B × C_R"
+   ]
+  },
+  "cited": [
+   "[Pag93; GR, Thms A.8–A.9]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-226",
+  "section": "§5",
+  "line": 162,
+  "text": "This holds under the scrambling hypothesis H-scramble, that the orbit ensemble equidistributes over quantum pure states on the shell",
+  "claim": "The Page-value result holds under H-scramble (orbit ensemble equidistributes over pure states on the shell).",
+  "type": "status",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": [
+    "H-scramble"
+   ]
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-227",
+  "section": "§5",
+  "line": 162,
+  "text": "H-scramble fails for every bijection acting on a definite initial configuration with the bipartition aligned to the configuration coordinates",
+  "claim": "H-scramble fails for every bijection acting on a definite initial configuration with configuration-aligned bipartition.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[GR App. A.7; BHb, C1, C6(a)–(b)] (sentence-final)"
+  ],
+  "direction": null,
+  "attention": "Universal 'for every bijection' claim attributed to an unpublished record; check whether BHb C1 proves it or checks it finitely."
+ },
+ {
+  "id": "I-228",
+  "section": "§5",
+  "line": 162,
+  "text": "and is not established [GR App. A.7; BHb, C1, C6(a)–(b)]",
+  "claim": "H-scramble is not established.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [
+   "[GR App. A.7; BHb, C1, C6(a)–(b)]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-229",
+  "section": "§5",
+  "line": 162,
+  "text": "It also needs the decoupling condition H-decouple: $B\\cup R$ evolves with no coupling to $D$ or to the rest of the visible sector, $V\\setminus R$, and its joint state is pure, over whole cycles of the dynamics",
+  "claim": "The Page-value result also needs H-decouple: B ∪ R uncoupled from D and V∖R, jointly pure, over whole cycles.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": [
+    "H-decouple"
+   ]
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-230",
+  "section": "§5",
+  "line": 162,
+  "text": "timescale ordering does not supply it [BHa, item F]",
+  "claim": "Timescale ordering does not supply H-decouple.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[BHa, item F]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-231",
+  "section": "§5",
+  "line": 162,
+  "text": "and it is not established [GR App. A.7]",
+  "claim": "H-decouple is not established.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [
+   "[GR App. A.7]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-232",
+  "section": "§5",
+  "line": 162,
+  "text": "Theorem A.8 of [GR] takes the whole configuration space $\\mathcal C_B\\times\\mathcal C_R$ as a single energy shell.",
+  "claim": "GR Theorem A.8 takes all of C_B × C_R as a single energy shell.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "Theorem A.8 of [GR]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-233",
+  "section": "§5",
+  "line": 162,
+  "text": "That requires the energy to be constant there, so that energy conservation places no constraint on the orbit",
+  "claim": "A single shell requires constant energy on C_B × C_R, so conservation does not constrain the orbit.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-234",
+  "section": "§5",
+  "line": 162,
+  "text": "and it does not follow from the conservation of a Hamiltonian that takes more than one value there",
+  "claim": "The single-shell assumption does not follow from conservation of a Hamiltonian taking more than one value there.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-235",
+  "section": "§5",
+  "line": 162,
+  "text": "An evaporating black hole whose radiation carries away its energy is in the proper-shell case",
+  "claim": "An evaporating BH whose radiation carries away its energy is in the proper-shell case.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[GR App. A.7; BHb, C6(c)] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-236",
+  "section": "§5",
+  "line": 162,
+  "text": "where the mean entropy depends on the shell and in general differs from the Page value",
+  "claim": "On a proper shell the mean entropy depends on the shell and in general differs from the Page value.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[GR App. A.7; BHb, C6(c)] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-237",
+  "section": "§5",
+  "line": 162,
+  "text": "that case is open [GR App. A.7; BHb, C6(c)]",
+  "claim": "The proper-shell case is open.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [
+   "[GR App. A.7; BHb, C6(c)]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-238",
+  "section": "§5",
+  "line": 162,
+  "text": "The result is a time average at a fixed bipartition",
+  "claim": "The Page-value result is a time average at a fixed bipartition.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-239",
+  "section": "§5",
+  "line": 162,
+  "text": "whether the entropy along a single trajectory follows the same curve is open [GR App. A.7; BHb, C6(d)]",
+  "claim": "Whether single-trajectory entropy follows the Page curve is open.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [
+   "[GR App. A.7; BHb, C6(d)]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-240",
+  "section": "§5",
+  "line": 162,
+  "text": "In the dependency ladder of [GR] the Page curve is also conditional on the covariant field equations.",
+  "claim": "In GR's dependency ladder the Page curve is conditional on the covariant field equations.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": [
+    "covariant field equations"
+   ]
+  },
+  "cited": [
+   "[GR]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-241",
+  "section": "§5",
+  "line": 162,
+  "text": "The generalized second law is not derived [GR App. A.6]",
+  "claim": "The generalized second law is not derived.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [
+   "[GR App. A.6]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-242",
+  "section": "§5",
+  "line": 162,
+  "text": "agreement with quantum-extremal-surface computations [Pen20] is not established",
+  "claim": "Agreement with quantum-extremal-surface computations is not established.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Pen20]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-243",
+  "section": "§5",
+  "line": 162,
+  "text": "the correspondence between islands and substratum cycles is conjectural [Book §7.6]",
+  "claim": "The islands ↔ substratum-cycles correspondence is conjectural.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "conjecture",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Book §7.6]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-244",
+  "section": "§5",
+  "line": 162,
+  "text": "The Page curve of [GR App. A] is therefore not established",
+  "claim": "The Page curve of GR App. A is not established.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [
+   "[GR App. A]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-245",
+  "section": "§5",
+  "line": 162,
+  "text": "and the black-hole information problem is not resolved here",
+  "claim": "The BH information problem is not resolved.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-246",
+  "section": "§6.1",
+  "line": 168,
+  "text": "If the hypothesis holds, the fixed-basis statistics of quantum theory are the visible laws of an embedded observer",
+  "claim": "If OI holds, quantum fixed-basis statistics are the visible laws of an embedded observer.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": [
+    "OI (physical hypothesis)"
+   ]
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-247",
+  "section": "§6.1",
+  "line": 168,
+  "text": "and their departures from Markov behaviour are memory carried in an inaccessible sector",
+  "claim": "If OI holds, departures from Markov behaviour are memory carried in an inaccessible sector.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": [
+    "OI (physical hypothesis)"
+   ]
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-248",
+  "section": "§6.1",
+  "line": 168,
+  "text": "whether the rest of operational quantum mechanics follows depends on completion conditions that OI does not imply (§3.2)",
+  "claim": "The rest of operational QM depends on completion conditions OI does not imply.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-249",
+  "section": "§6.1",
+  "line": 168,
+  "text": "Quantum Bell correlations are not accounted for by memory alone",
+  "claim": "Memory alone does not account for quantum Bell correlations.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-250",
+  "section": "§6.1",
+  "line": 168,
+  "text": "with measurement independence kept, they need ontic parameter dependence",
+  "claim": "With measurement independence kept, quantum Bell correlations need ontic parameter dependence.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-251",
+  "section": "§6.1",
+  "line": 168,
+  "text": "whose compatibility with operational no-signalling and the continuum limit is the open hypothesis H-Bell (§3.5)",
+  "claim": "Compatibility of ontic parameter dependence with no-signalling and the continuum limit is the open hypothesis H-Bell.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": [
+    "H-Bell"
+   ]
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-252",
+  "section": "§6.2",
+  "line": 172,
+  "text": "No derivation of quantum mechanics",
+  "claim": "The paper does not derive quantum mechanics.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-253",
+  "section": "§6.2",
+  "line": 172,
+  "text": "Theorem 1 contains every finite law",
+  "claim": "Theorem 1's classes contain every finite law.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-254",
+  "section": "§6.2",
+  "line": 172,
+  "text": "and the Born exponent is not selected",
+  "claim": "The Born exponent is not selected.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-255",
+  "section": "§6.2",
+  "line": 173,
+  "text": "No unique selection of the operational theory",
+  "claim": "The operational theory is not uniquely selected.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-256",
+  "section": "§6.2",
+  "line": 173,
+  "text": "conditions (i)–(v) are not implied by OI alone",
+  "claim": "Conditions (i)–(v) are not implied by OI alone.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-257",
+  "section": "§6.2",
+  "line": 173,
+  "text": "their independence is shown on the qubit",
+  "claim": "Independence of (i)–(v) is shown on the qubit.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-258",
+  "section": "§6.2",
+  "line": 173,
+  "text": "which of (iii)–(v) a physical substratum supplies is open",
+  "claim": "Which of (iii)–(v) a physical substratum supplies is open.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-259",
+  "section": "§6.2",
+  "line": 173,
+  "text": "the visible law does not fix the relating evolution",
+  "claim": "The visible law does not fix the relating evolution.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-260",
+  "section": "§6.2",
+  "line": 174,
+  "text": "No characterization of memory by the existence of a realization (§2.3)",
+  "claim": "Memory is not characterized by existence of a realization.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-261",
+  "section": "§6.2",
+  "line": 174,
+  "text": "no identification of P-indivisibility with quantum non-Markovianity",
+  "claim": "P-indivisibility is not identified with quantum non-Markovianity.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-262",
+  "section": "§6.2",
+  "line": 174,
+  "text": "no claim that memory forces indivisibility on short windows (§3.1)",
+  "claim": "No claim that memory forces short-window indivisibility.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-263",
+  "section": "§6.2",
+  "line": 175,
+  "text": "No resolution of the black-hole information problem",
+  "claim": "No resolution of the BH information problem.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-264",
+  "section": "§6.2",
+  "line": 175,
+  "text": "the Page curve of [GR App. A] is not established (§5)",
+  "claim": "The GR App. A Page curve is not established.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [
+   "[GR App. A]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-265",
+  "section": "§6.2",
+  "line": 175,
+  "text": "the results of §5 reported from [BHa; BHb] concern finite toy models, each proved on paper or checked exhaustively at small size or by exact arithmetic",
+  "claim": "The §5 results from BHa/BHb concern finite toy models, each proved on paper or checked exhaustively or by exact arithmetic.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": [],
+   "note": "mixed proved-paper / numerical per result"
+  },
+  "cited": [
+   "[BHa; BHb]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-266",
+  "section": "§6.2",
+  "line": 175,
+  "text": "No claim is made that information reaches $D$",
+  "claim": "No claim that information reaches D.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-267",
+  "section": "§6.2",
+  "line": 175,
+  "text": "that [GR, Thm A.7] fails within its stated scope",
+  "claim": "No claim that GR Thm A.7 fails within its stated scope.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[GR, Thm A.7]"
+  ],
+  "direction": null,
+  "attention": "Cites GR Thm A.7, while the Page-value result is cited as GR Thms A.8–A.9 (line 162). Mapper: identify GR Thm A.7 (decoupling?) and confirm the intended theorem."
+ },
+ {
+  "id": "I-268",
+  "section": "§6.2",
+  "line": 175,
+  "text": "or that no other decoupling argument exists",
+  "claim": "No claim that no other decoupling argument exists.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-269",
+  "section": "§6.2",
+  "line": 176,
+  "text": "No claim that the physical hypothesis is established or tested.",
+  "claim": "The OI hypothesis is neither established nor tested.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-270",
+  "section": "§6.2",
+  "line": 177,
+  "text": "No claim that the card game (Appendix B) produces quantum rather than classical statistics",
+  "claim": "No claim that the card game produces quantum statistics.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-271",
+  "section": "§6.2",
+  "line": 177,
+  "text": "on card inputs its statistics are classical stochastic ones",
+  "claim": "On card inputs the card game's statistics are classical stochastic.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-272",
+  "section": "§6.2",
+  "line": 177,
+  "text": "under the unitary embedding its one-step channel is entanglement-breaking",
+  "claim": "Under the unitary embedding, the card game's one-step channel is entanglement-breaking.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-273",
+  "section": "§6.2",
+  "line": 177,
+  "text": "its two-step family admits a classical-memory decomposition",
+  "claim": "The card game's two-step family admits a classical-memory decomposition.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-274",
+  "section": "§6.2",
+  "line": 177,
+  "text": "it violates no Bell inequality",
+  "claim": "The card game violates no Bell inequality.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-275",
+  "section": "§6.2",
+  "line": 178,
+  "text": "No prediction of the value of Λ or $\\Omega_\\Lambda$",
+  "claim": "No prediction of Λ or Ω_Λ.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-276",
+  "section": "§6.2",
+  "line": 178,
+  "text": "no resolution of the cosmological constant problem",
+  "claim": "No resolution of the cosmological constant problem.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-277",
+  "section": "§6.2",
+  "line": 178,
+  "text": "§4 is conditional on the covariant field equations",
+  "claim": "§4 is conditional on the covariant field equations.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": [
+    "covariant field equations"
+   ]
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-278",
+  "section": "§6.2",
+  "line": 179,
+  "text": "No claim that the viewpoint is new",
+  "claim": "No claim that the viewpoint is new.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-279",
+  "section": "§6.2",
+  "line": 179,
+  "text": "deterministic systems analysed with quantum methods have been studied before, for example in [tH14]",
+  "claim": "Deterministic systems analysed with quantum methods have been studied before (e.g. 't Hooft).",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[tH14]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-280",
+  "section": "§6.2",
+  "line": 179,
+  "text": "What the paper states are the cited theorems and their scopes.",
+  "claim": "Everything the paper states is a cited theorem with its scope.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-281",
+  "section": "§6.3",
+  "line": 183,
+  "text": "whether a physical substratum supplies completion conditions (iii)–(v)",
+  "claim": "Whether a physical substratum supplies (iii)–(v) is an open decisive test.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-282",
+  "section": "§6.3",
+  "line": 183,
+  "text": "whether history readback (C4) holds at the cosmological partition [GR §2.2]",
+  "claim": "Whether (C4) holds at the cosmological partition is open.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [
+   "[GR §2.2]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-283",
+  "section": "§6.3",
+  "line": 183,
+  "text": "no experiment distinguishing OI from standard quantum theory",
+  "claim": "No experiment distinguishing OI from standard QM is established.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §4.5] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-284",
+  "section": "§6.3",
+  "line": 183,
+  "text": "and no memory-witness constraint, is established [Main §4.5]",
+  "claim": "No memory-witness constraint is established.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §4.5]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-285",
+  "section": "§6.3",
+  "line": 183,
+  "text": "For the cosmological constant: a derivation of the covariant field equations with their source coupling.",
+  "claim": "The decisive open test for the cosmological constant is deriving covariant field equations with source coupling.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-286",
+  "section": "§6.3",
+  "line": 183,
+  "text": "whether H-scramble and H-decouple hold",
+  "claim": "Whether H-scramble and H-decouple hold is open.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": [
+    "H-scramble",
+    "H-decouple"
+   ]
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-287",
+  "section": "§6.3",
+  "line": 183,
+  "text": "the Page value on a proper energy shell and along a single trajectory",
+  "claim": "The Page value on a proper shell and along a single trajectory is open.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-288",
+  "section": "§6.3",
+  "line": 183,
+  "text": "and, in [GR]'s ladder, the covariant field equations",
+  "claim": "In GR's ladder the covariant field equations are an open test for BH information.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [
+   "[GR]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-289",
+  "section": "§6.3",
+  "line": 185,
+  "text": "(1) machine checks of the steps of §2.2, §2.4 and §2.5 that lack one",
+  "claim": "Machine checks of the unchecked steps of §2.2, §2.4, §2.5 are open.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-290",
+  "section": "§6.3",
+  "line": 185,
+  "text": "(2) whether the minimal hidden predictive memory equals $M_t$ once ledger bits that cannot influence the future are quotiented",
+  "claim": "Whether minimal hidden predictive memory equals M_t after quotienting non-influencing ledger bits is open.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.4] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-291",
+  "section": "§6.3",
+  "line": 185,
+  "text": "(the fixed-dimension form is false)",
+  "claim": "The fixed-dimension form of the minimal-memory = M_t statement is false.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.4] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-292",
+  "section": "§6.3",
+  "line": 185,
+  "text": "(3) exact gluing for recurrent target families",
+  "claim": "Exact gluing for recurrent target families is open.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.4] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-293",
+  "section": "§6.3",
+  "line": 185,
+  "text": "and approximation on windows short compared with the recurrence time [Main §3.4]",
+  "claim": "Approximation on windows short compared with the recurrence time is open.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.4]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-294",
+  "section": "§6.3",
+  "line": 185,
+  "text": "(4) (C2) necessity",
+  "claim": "(C2) necessity is open.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.4] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-295",
+  "section": "§6.3",
+  "line": 185,
+  "text": "which is conditional on a hidden-sector mixing hypothesis motivated by eigenstate thermalization [Main §3.4]",
+  "claim": "(C2) necessity is conditional on a hidden-sector mixing hypothesis motivated by ETH.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": [
+    "hidden-sector mixing hypothesis (ETH-motivated)"
+   ]
+  },
+  "cited": [
+   "[Main §3.4]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-296",
+  "section": "§6.4",
+  "line": 189,
+  "text": "At every finite horizon the laws an embedded observer of a finite reversible system can record are exactly the finite stochastic laws",
+  "claim": "At every finite horizon, the laws an embedded observer of a finite reversible system can record are exactly the finite stochastic laws (D_K = S_K).",
+  "type": "theorem-statement",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": {
+   "kind": "equivalence ('exactly')",
+   "sub_claims": [
+    {
+     "label": "D_K ⊆ S_K",
+     "claim": "Every recordable law is a finite stochastic law.",
+     "status_as_stated": "unstated",
+     "cited": [],
+     "id": "I-296.a"
+    },
+    {
+     "label": "S_K ⊆ D_K",
+     "claim": "Every finite stochastic law is recordable by an embedded observer of some finite reversible system.",
+     "status_as_stated": "unstated",
+     "cited": [],
+     "id": "I-296.b"
+    }
+   ]
+  }
+ },
+ {
+  "id": "I-297",
+  "section": "§6.4",
+  "line": 189,
+  "text": "and exactly the fixed-basis unitary Born laws",
+  "claim": "The recordable laws are exactly the fixed-basis unitary Born laws (D_K = Q_K).",
+  "type": "theorem-statement",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": {
+   "kind": "equivalence ('exactly')",
+   "sub_claims": [
+    {
+     "label": "D_K ⊆ Q_K",
+     "claim": "Every recordable law is a fixed-basis unitary Born law.",
+     "status_as_stated": "unstated",
+     "cited": [],
+     "id": "I-297.a"
+    },
+    {
+     "label": "Q_K ⊆ D_K",
+     "claim": "Every fixed-basis unitary Born law is recordable.",
+     "status_as_stated": "unstated",
+     "cited": [],
+     "id": "I-297.b"
+    }
+   ]
+  }
+ },
+ {
+  "id": "I-298",
+  "section": "§6.4",
+  "line": 189,
+  "text": "because the representation is universal, the discriminating content lies in memory",
+  "claim": "Because the representation is universal, the discriminating content lies in memory.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-299",
+  "section": "§6.4",
+  "line": 189,
+  "text": "which every deterministic completion carries in its hidden state",
+  "claim": "Every deterministic completion carries the memory in its hidden state.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null,
+  "attention": "Repeats the abstract's 'every deterministic completion' claim (I-008); in the body the hidden memory is readout-relevant exactly when M_t>0."
+ },
+ {
+  "id": "I-300",
+  "section": "§6.4",
+  "line": 189,
+  "text": "Exact operational quantum mechanics is reached only under completion conditions",
+  "claim": "Exact operational QM is reached only under the completion conditions (Theorem 4, ⇒ direction).",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-301",
+  "section": "§6.4",
+  "line": 189,
+  "text": "that OI alone does not imply",
+  "claim": "OI alone does not imply the completion conditions.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-302",
+  "section": "§6.4",
+  "line": 189,
+  "text": "representability does not select the evolution relating two times",
+  "claim": "Representability does not select the evolution relating two times.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-303",
+  "section": "§6.4",
+  "line": 191,
+  "text": "Applied to vacuum energy, OI proposes that the zero-point sum of the emergent description is not a gravitational source",
+  "claim": "OI proposes the emergent zero-point sum is not a gravitational source.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "conjecture",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-304",
+  "section": "§6.4",
+  "line": 191,
+  "text": "conditional on covariant field equations that are not derived",
+  "claim": "The vacuum-energy proposal is conditional on underived covariant field equations.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": [
+    "covariant field equations"
+   ]
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-305",
+  "section": "§6.4",
+  "line": 191,
+  "text": "applied to black-hole information, it separates conservation from accessible recovery",
+  "claim": "OI separates information conservation from accessible recovery.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "numerical",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-306",
+  "section": "§6.4",
+  "line": 191,
+  "text": "while the framework's Page curve is not established",
+  "claim": "The framework's Page curve is not established.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-307",
+  "section": "§6.4",
+  "line": 191,
+  "text": "Neither application is a demonstrated resolution of its problem.",
+  "claim": "Neither application is a demonstrated resolution.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-308",
+  "section": "Code, data and formal verification",
+  "line": 195,
+  "text": "The declarations in Appendix A were checked in Lean 4.33.0 with Mathlib v4.33.0 at commit 17b830bcd0ecc36e10eff5b9eeca03bdd7198d86",
+  "claim": "Appendix A declarations were checked with Lean 4.33.0 / Mathlib v4.33.0 at commit 17b830bc.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null,
+  "attention": "Mapper: confirm toolchain versions (lean-toolchain, lake manifest) at 17b830bc."
+ },
+ {
+  "id": "I-309",
+  "section": "Code, data and formal verification",
+  "line": 195,
+  "text": "whose Lean sources are identical at the corpus commit `b64919cd`",
+  "claim": "The Lean sources at 17b830bc are identical to those at corpus commit b64919cd.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-310",
+  "section": "Code, data and formal verification",
+  "line": 195,
+  "text": "whose `lean-axioms` step requires every `#print axioms` report to lie within `propext`, `Classical.choice` and `Quot.sound`",
+  "claim": "The release gate's lean-axioms step requires every #print axioms report to lie within propext, Classical.choice, Quot.sound.",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-311",
+  "section": "Code, data and formal verification",
+  "line": 195,
+  "text": "Each declaration in Appendix A reports exactly these three",
+  "claim": "Every Appendix A declaration's axiom report is exactly {propext, Classical.choice, Quot.sound}.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null,
+  "attention": "'exactly these three' is stronger than 'within'; check every declaration's report, including small lemmas that may use fewer."
+ },
+ {
+  "id": "I-312",
+  "section": "Code, data and formal verification",
+  "line": 195,
+  "text": "the expected result and the comparison recipe are in `papers/introduction_repro/`",
+  "claim": "The expected result and comparison recipe are retained in papers/introduction_repro/.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-313",
+  "section": "Appendix A",
+  "line": 208,
+  "text": "`finite_horizon_equivalence` (Equivalence:462)",
+  "claim": "`finite_horizon_equivalence` (Equivalence:462) is a machine-checked declaration for Theorem 1.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`finite_horizon_equivalence` (Equivalence:462)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-314",
+  "section": "Appendix A",
+  "line": 208,
+  "text": "`S_imp_D` (:422)",
+  "claim": "`S_imp_D` (Equivalence:422) is a machine-checked declaration for S_K ⊆ D_K.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`S_imp_D` (Equivalence:422)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-315",
+  "section": "Appendix A",
+  "line": 208,
+  "text": "`D_imp_Qfb` (:294)",
+  "claim": "`D_imp_Qfb` (Equivalence:294) is a machine-checked declaration for D_K ⊆ Q_K.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`D_imp_Qfb` (Equivalence:294)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-316",
+  "section": "Appendix A",
+  "line": 208,
+  "text": "`Qfb_imp_S` (:245)",
+  "claim": "`Qfb_imp_S` (Equivalence:245) is a machine-checked declaration for Q_K ⊆ S_K.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`Qfb_imp_S` (Equivalence:245)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-317",
+  "section": "Appendix A",
+  "line": 208,
+  "text": "compositions :466–468",
+  "claim": "The reverse inclusions are machine-checked as compositions at Equivalence:466–468.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "Equivalence:466–468"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-318",
+  "section": "Appendix A",
+  "line": 208,
+  "text": "supporting `permMatrix_mem_unitaryGroup` (EquivalenceChain:179)",
+  "claim": "`permMatrix_mem_unitaryGroup` (EquivalenceChain:179) is a machine-checked declaration for the permutation matrix being unitary (supporting Theorem 1).",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`permMatrix_mem_unitaryGroup` (EquivalenceChain:179)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-319",
+  "section": "Appendix A",
+  "line": 208,
+  "text": "Prior independence is proved on paper.",
+  "claim": "The independent-prior realization is proved on paper (not machine-checked).",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-320",
+  "section": "Appendix A",
+  "line": 209,
+  "text": "`pushforward_identity`",
+  "claim": "`pushforward_identity` (HiddenMemory:83) is a machine-checked declaration for Theorem 2 (joint-law form; presumably (a)).",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`pushforward_identity` (HiddenMemory:83)"
+  ],
+  "direction": null,
+  "attention": "Appendix A does not say which declaration proves which part of Theorem 2; mapper to assign."
+ },
+ {
+  "id": "I-321",
+  "section": "Appendix A",
+  "line": 209,
+  "text": "`distinguishability_floor`",
+  "claim": "`distinguishability_floor` (HiddenMemory:114) is a machine-checked declaration for Theorem 2 (joint-law form; presumably (b)).",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`distinguishability_floor` (HiddenMemory:114)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-322",
+  "section": "Appendix A",
+  "line": 209,
+  "text": "`capacity_floor`",
+  "claim": "`capacity_floor` (HiddenMemory:170) is a machine-checked declaration for Theorem 2 (joint-law form; presumably (c)).",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`capacity_floor` (HiddenMemory:170)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-323",
+  "section": "Appendix A",
+  "line": 209,
+  "text": "`unavoidable_hidden_predictive_memory`",
+  "claim": "`unavoidable_hidden_predictive_memory` (HiddenMemory:185) is a machine-checked declaration for Theorem 2 (joint-law form; combined).",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`unavoidable_hidden_predictive_memory` (HiddenMemory:185)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-324",
+  "section": "Appendix A",
+  "line": 209,
+  "text": "the time-$t$ identification and the standard vanishing criterion for conditional mutual information [CT06] are not machine-checked",
+  "claim": "The time-t identification and the CMI vanishing criterion are not machine-checked.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": []
+  },
+  "cited": [
+   "[CT06]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-325",
+  "section": "Appendix A",
+  "line": 210,
+  "text": "`c3_necessity`",
+  "claim": "`c3_necessity` (C3Necessity:80) is a machine-checked declaration for the capacity bound |C_H| ≥ 2^{I*}.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`c3_necessity` (C3Necessity:80)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-326",
+  "section": "Appendix A",
+  "line": 210,
+  "text": "`card_hidden_ge_two_pow_Istar`",
+  "claim": "`card_hidden_ge_two_pow_Istar` (C3Necessity:117) is a machine-checked declaration for the capacity bound |C_H| ≥ 2^{I*}.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`card_hidden_ge_two_pow_Istar` (C3Necessity:117)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-327",
+  "section": "Appendix A",
+  "line": 211,
+  "text": "`isPermMatrix_of_stochastic_inverse` (EquivalenceChain:110)",
+  "claim": "`isPermMatrix_of_stochastic_inverse` (EquivalenceChain:110) is a machine-checked declaration for the stochastic-inverse lemma.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`isPermMatrix_of_stochastic_inverse` (EquivalenceChain:110)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-328",
+  "section": "Appendix A",
+  "line": 211,
+  "text": "`pIndivisible_of_rooted_identity_return_of_overlap` (RecurrenceHorizon:148)",
+  "claim": "`pIndivisible_of_rooted_identity_return_of_overlap` (RecurrenceHorizon:148) is a machine-checked declaration for Theorem 3 (rooted form).",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`pIndivisible_of_rooted_identity_return_of_overlap` (RecurrenceHorizon:148)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-329",
+  "section": "Appendix A",
+  "line": 212,
+  "text": "`routed_forces_indivisible_somewhere` (PhysicalC4Discharge:122) for routed readback",
+  "claim": "`routed_forces_indivisible_somewhere` (PhysicalC4Discharge:122) is a machine-checked declaration for readback forces indivisibility (routed readback).",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`routed_forces_indivisible_somewhere` (PhysicalC4Discharge:122)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-330",
+  "section": "Appendix A",
+  "line": 212,
+  "text": "on paper for (C4)",
+  "claim": "Readback forces indivisibility is proved on paper for history-level (C4).",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-331",
+  "section": "Appendix A",
+  "line": 213,
+  "text": "`gl2_strong_gauge_moves_relative_candidate`",
+  "claim": "`gl2_strong_gauge_moves_relative_candidate` (CoherentLiftGauge:537) is a machine-checked declaration for time-dependent right action changing the relating evolution.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`gl2_strong_gauge_moves_relative_candidate` (CoherentLiftGauge:537)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-332",
+  "section": "Appendix A",
+  "line": 213,
+  "text": "`gl3_constant_gauge_preserves_relative`",
+  "claim": "`gl3_constant_gauge_preserves_relative` (CoherentLiftGauge:451) is a machine-checked declaration for constant deformation cancelling from the relating evolution.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`gl3_constant_gauge_preserves_relative` (CoherentLiftGauge:451)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-333",
+  "section": "Appendix A",
+  "line": 213,
+  "text": "`bridge_traj`",
+  "claim": "`bridge_traj` (TrackBQfbBridge:276) is a machine-checked declaration for same one-step matrix ⇒ same root-conditioned trajectory laws.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`bridge_traj` (TrackBQfbBridge:276)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-334",
+  "section": "Appendix A",
+  "line": 213,
+  "text": "`rooted_eq_iff_slice_eq` (forward direction)",
+  "claim": "`rooted_eq_iff_slice_eq` (TrackBQfbBridge:180) is a machine-checked declaration for equal rooted families ⇒ equal one-step matrices (forward direction only cited).",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`rooted_eq_iff_slice_eq` (TrackBQfbBridge:180)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-335",
+  "section": "Appendix A",
+  "line": 213,
+  "text": "`realData_traj_stochastic`",
+  "claim": "`realData_traj_stochastic` (TrackBQfbBridge:286) is a machine-checked declaration for fixed-basis realizability and stochasticity of the trajectory laws.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`realData_traj_stochastic` (TrackBQfbBridge:286)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-336",
+  "section": "Appendix A",
+  "line": 214,
+  "text": "`exactAll_iff_physical_general` (GeneralCarrier:100)",
+  "claim": "`exactAll_iff_physical_general` (GeneralCarrier:100) is a machine-checked declaration for Theorem 4 (both directions).",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`exactAll_iff_physical_general` (GeneralCarrier:100)"
+  ],
+  "direction": {
+   "kind": "equivalence (iff declaration)",
+   "sub_claims": [
+    {
+     "label": "⇒",
+     "claim": "exactAll ⇒ physical (conditions (i)–(v)).",
+     "status_as_stated": "proved-kernel",
+     "cited": [
+      "`physical_of_exactAll` (PhysicalCharacterization:301)"
+     ],
+     "id": "I-336.a"
+    },
+    {
+     "label": "⇐",
+     "claim": "physical ⇒ exactAll.",
+     "status_as_stated": "proved-kernel",
+     "cited": [
+      "`exactAll_of_physical_general` (GeneralCarrier:93)"
+     ],
+     "id": "I-336.b"
+    }
+   ]
+  },
+  "attention": "The body (line 118) names only the two directional declarations; Appendix A adds the iff declaration. Mapper: check the iff is assembled from these two directions."
+ },
+ {
+  "id": "I-337",
+  "section": "Appendix A",
+  "line": 214,
+  "text": "$\\Rightarrow$ `physical_of_exactAll` (PhysicalCharacterization:301)",
+  "claim": "`physical_of_exactAll` (PhysicalCharacterization:301) is a machine-checked declaration for Theorem 4 ⇒.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`physical_of_exactAll` (PhysicalCharacterization:301)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-338",
+  "section": "Appendix A",
+  "line": 214,
+  "text": "$\\Leftarrow$ `exactAll_of_physical_general` (GeneralCarrier:93)",
+  "claim": "`exactAll_of_physical_general` (GeneralCarrier:93) is a machine-checked declaration for Theorem 4 ⇐.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`exactAll_of_physical_general` (GeneralCarrier:93)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-339",
+  "section": "Appendix A",
+  "line": 214,
+  "text": "`krausSoundExt_of_validity_inert` (OperationalValidity:124)",
+  "claim": "`krausSoundExt_of_validity_inert` (OperationalValidity:124) is a machine-checked declaration for a step of Theorem 4 ⇐.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`krausSoundExt_of_validity_inert` (OperationalValidity:124)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-340",
+  "section": "Appendix A",
+  "line": 214,
+  "text": "`compositeCompleteness_unconditional` (IsometryExtension:179",
+  "claim": "`compositeCompleteness_unconditional` (IsometryExtension:179) is a machine-checked declaration for a step of Theorem 4 ⇐ (composite completeness).",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`compositeCompleteness_unconditional` (IsometryExtension:179)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-341",
+  "section": "Appendix A",
+  "line": 214,
+  "text": "premise discharged by `finiteIsometryExtensionSF_discharged`, :116)",
+  "claim": "`finiteIsometryExtensionSF_discharged` (IsometryExtension:116) is a machine-checked declaration for discharging the premise of compositeCompleteness_unconditional.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`finiteIsometryExtensionSF_discharged` (IsometryExtension:116)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-342",
+  "section": "Appendix A",
+  "line": 214,
+  "text": "`exactAll_of_levelOne` (LevelOneSeam:196)",
+  "claim": "`exactAll_of_levelOne` (LevelOneSeam:196) is a machine-checked declaration for a step of Theorem 4 ⇐ (level one to all levels).",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`exactAll_of_levelOne` (LevelOneSeam:196)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-343",
+  "section": "Appendix A",
+  "line": 215,
+  "text": "`five_way_minimality` (RankGapTheory:702)",
+  "claim": "`five_way_minimality` (RankGapTheory:702) is a machine-checked declaration for independence of (i)–(v) on the qubit.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`five_way_minimality` (RankGapTheory:702)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-344",
+  "section": "Appendix A",
+  "line": 215,
+  "text": "`oi_alone_not_qm` (GeneralCarrier:160)",
+  "claim": "`oi_alone_not_qm` (GeneralCarrier:160) is a machine-checked declaration for OI alone does not imply QM (qubit).",
+  "type": "status",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "cited": [
+   "`oi_alone_not_qm` (GeneralCarrier:160)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-345",
+  "section": "Appendix B.1",
+  "line": 221,
+  "text": "Let $\\mathcal C_V=\\{0,1\\}$ and $\\mathcal C_H=\\{1,\\dots,6\\}$ [Main §2.4]. For $h\\in\\{1,2\\}$, $\\varphi$ swaps $(0,h)$ with $(1,h)$. It flips the visible bit and keeps $h$, which then records the flip. At fixed $x$, $\\varphi$ swaps $h=3$ with $4$, and $5$ with $6$.",
+  "claim": "B.1 model: C_V={0,1}, C_H={1..6}; for h∈{1,2} φ flips x and keeps h (recording the flip); for fixed x, φ swaps h 3↔4 and 5↔6.",
+  "type": "definition-used",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §2.4]"
+  ],
+  "direction": null,
+  "attention": "B.1 is cited to [Main §2.4] while Theorem 3 is cited to [Main §2.3]; check the model's location in Main."
+ },
+ {
+  "id": "I-346",
+  "section": "Appendix B.1",
+  "line": 221,
+  "text": "A second application reads the record and flips the bit back.",
+  "claim": "Applying φ twice returns the visible bit (Γ_2 = I).",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-347",
+  "section": "Appendix B.1",
+  "line": 223,
+  "text": "\\Gamma_1=\\begin{pmatrix}2/3&1/3\\\\1/3&2/3\\end{pmatrix}",
+  "claim": "B.1: with h uniform, Γ_1 = [[2/3,1/3],[1/3,2/3]].",
+  "type": "numerical",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [
+    "h uniform"
+   ]
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-348",
+  "section": "Appendix B.1",
+  "line": 223,
+  "text": "\\Gamma_2=I",
+  "claim": "B.1: Γ_2 = I.",
+  "type": "numerical",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [
+    "h uniform"
+   ]
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-349",
+  "section": "Appendix B.1",
+  "line": 224,
+  "text": "\\Gamma_1^{-1}\\Gamma_2=\\begin{pmatrix}2&-1\\\\-1&2\\end{pmatrix}",
+  "claim": "B.1: Γ_1^{-1}Γ_2 = [[2,-1],[-1,2]].",
+  "type": "numerical",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-350",
+  "section": "Appendix B.1",
+  "line": 226,
+  "text": "The only candidate divisor has negative entries, so the family is P-indivisible.",
+  "claim": "B.1's only candidate divisor has negative entries, so the family is P-indivisible.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-351",
+  "section": "Appendix B.1",
+  "line": 226,
+  "text": "A Markov chain with the same one-step matrix would instead give $\\Gamma_1^2$, with diagonal entries 5/9 and off-diagonal entries 4/9.",
+  "claim": "A Markov chain with B.1's one-step matrix gives Γ_1² with diagonal 5/9, off-diagonal 4/9.",
+  "type": "numerical",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-352",
+  "section": "Appendix B.1",
+  "line": 228,
+  "text": "With $x_0$ uniform and independent of $h$, $P(x_2{=}0\\mid x_1{=}1,x_0{=}0)=1$",
+  "claim": "B.1 with x_0 uniform and independent of h: P(x_2=0 | x_1=1, x_0=0) = 1.",
+  "type": "numerical",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [
+    "x_0 uniform, independent of h"
+   ]
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-353",
+  "section": "Appendix B.1",
+  "line": 228,
+  "text": "while $P(x_2{=}0\\mid x_1{=}1)=1/3$",
+  "claim": "B.1: P(x_2=0 | x_1=1) = 1/3.",
+  "type": "numerical",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [
+    "x_0 uniform, independent of h"
+   ]
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-354",
+  "section": "Appendix B.1",
+  "line": 228,
+  "text": "For $P(x_0{=}0)=a$, the second value is $a/(2-a)$.",
+  "claim": "B.1: for P(x_0=0)=a, P(x_2=0 | x_1=1) = a/(2−a).",
+  "type": "numerical",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-355",
+  "section": "Appendix B.2",
+  "line": 232,
+  "text": "Every two-time transition matrix is $\\tfrac12J$",
+  "claim": "B.2 (X_2 = X_0 ⊕ X_1): every two-time transition matrix is ½J.",
+  "type": "numerical",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-356",
+  "section": "Appendix B.2",
+  "line": 232,
+  "text": "so the family factors through $\\Lambda=I$ and is P-divisible",
+  "claim": "B.2's family factors through Λ = I and is P-divisible.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-357",
+  "section": "Appendix B.2",
+  "line": 232,
+  "text": "Yet $I(X_0;X_2\\mid X_1)=1$ bit.",
+  "claim": "B.2: I(X_0; X_2 | X_1) = 1 bit.",
+  "type": "numerical",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-358",
+  "section": "Appendix B.2",
+  "line": 232,
+  "text": "Up to flipping the final bit, this is the process of [RHP14, Eq. (15)]",
+  "claim": "B.2 is, up to a final bit flip, RHP14 Eq. (15).",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[RHP14, Eq. (15)]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-359",
+  "section": "Appendix B.2",
+  "line": 232,
+  "text": "it appears concurrently in [Dou26, App. A]",
+  "claim": "B.2's process appears concurrently in Doukas App. A.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Dou26, App. A]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-360",
+  "section": "Appendix B.3",
+  "line": 236,
+  "text": "The two-card game of [Book §1.11] uses two cards, each red or black: a visible *hole card* $h$, and a face-down *burn card* $b$, uniform and independent of $h$. A *street* is one shuffle step, in which the two cards trade places: $\\varphi(h,b)=(b,h)$. A *peek* reveals the hole card and overwrites the burn card, which holds the record, with a fresh card drawn uniformly and independently.",
+  "claim": "Card game: visible hole card h, face-down burn card b uniform and independent; a street swaps them; a peek reveals h and overwrites b with a fresh uniform card.",
+  "type": "definition-used",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Book §1.11]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-361",
+  "section": "Appendix B.3",
+  "line": 242,
+  "text": "| one shuffle | 1/2 |",
+  "claim": "Card game: P(showdown hole card = dealt) after one shuffle = 1/2.",
+  "type": "numerical",
+  "status_as_stated": {
+   "level": "numerical",
+   "hypotheses": [],
+   "note": "'obtained by exact enumeration of the equally likely cases' (line 238)"
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-362",
+  "section": "Appendix B.3",
+  "line": 243,
+  "text": "| two shuffles | 1 |",
+  "claim": "Card game: after two shuffles = 1.",
+  "type": "numerical",
+  "status_as_stated": {
+   "level": "numerical",
+   "hypotheses": [],
+   "note": "'obtained by exact enumeration of the equally likely cases' (line 238)"
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-363",
+  "section": "Appendix B.3",
+  "line": 244,
+  "text": "| two shuffles, with a peek between them | 1/2 |",
+  "claim": "Card game: two shuffles with a peek between = 1/2.",
+  "type": "numerical",
+  "status_as_stated": {
+   "level": "numerical",
+   "hypotheses": [],
+   "note": "'obtained by exact enumeration of the equally likely cases' (line 238)"
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-364",
+  "section": "Appendix B.3",
+  "line": 245,
+  "text": "| Markov prediction for two shuffles, $\\Gamma_1^2$ | 1/2 |",
+  "claim": "Card game: Markov prediction Γ_1² for two shuffles = 1/2.",
+  "type": "numerical",
+  "status_as_stated": {
+   "level": "numerical",
+   "hypotheses": [],
+   "note": "'obtained by exact enumeration of the equally likely cases' (line 238)"
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-365",
+  "section": "Appendix B.3",
+  "line": 247,
+  "text": "Here $\\Gamma_1=\\tfrac12J$ and $\\Gamma_2=I$.",
+  "claim": "Card game: Γ_1 = ½J, Γ_2 = I.",
+  "type": "numerical",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-366",
+  "section": "Appendix B.3",
+  "line": 247,
+  "text": "The two rows of $\\Gamma_1$ are equal, so for every $\\Lambda$ the two rows of $\\Gamma_1\\Lambda$ are equal and $\\Gamma_1\\Lambda\\neq I$: the family is P-indivisible.",
+  "claim": "Card game: equal rows of Γ_1 make Γ_1Λ ≠ I for every Λ, so the family is P-indivisible.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-367",
+  "section": "Appendix B.3",
+  "line": 249,
+  "text": "if the peek only reveals or replaces the hole card, the probability is 1",
+  "claim": "If the peek only reveals or replaces the hole card, the two-shuffle probability is 1.",
+  "type": "numerical",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-368",
+  "section": "Appendix B.3",
+  "line": 249,
+  "text": "so the 1/2 comes from overwriting the record, not from looking",
+  "claim": "The 1/2 with a peek is due to overwriting the record, not to observation.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-369",
+  "section": "Appendix B.3",
+  "line": 249,
+  "text": "With anticorrelated cards ($b=1-h$), $\\Gamma_1$ is a permutation and the game is divisible.",
+  "claim": "With anticorrelated cards, Γ_1 is a permutation and the game is divisible.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-370",
+  "section": "Appendix B.3",
+  "line": 251,
+  "text": "On card inputs the game is a classical stochastic process",
+  "claim": "On card inputs the game is a classical stochastic process.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-371",
+  "section": "Appendix B.3",
+  "line": 251,
+  "text": "and its P-indivisibility is notion (2) of §3.1",
+  "claim": "The game's P-indivisibility is notion (2) (stochastic P-indivisibility).",
+  "type": "scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-372",
+  "section": "Appendix B.3",
+  "line": 251,
+  "text": "The one-step channel is then the constant channel $\\rho\\mapsto\\operatorname{tr}(\\rho)\\,I/2$",
+  "claim": "Under the permutation-unitary embedding with uniform diagonal burn card, the one-step channel is ρ ↦ tr(ρ) I/2.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.2] (preceding sentence)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-373",
+  "section": "Appendix B.3",
+  "line": 251,
+  "text": "which is entanglement-breaking [Main §3.2, Remark (failure of (C1))]",
+  "claim": "The constant one-step channel is entanglement-breaking.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.2, Remark (failure of (C1))]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-374",
+  "section": "Appendix B.3",
+  "line": 251,
+  "text": "The two-step map is the identity channel.",
+  "claim": "The card game's two-step map is the identity channel.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-375",
+  "section": "Appendix B.3",
+  "line": 251,
+  "text": "The family is therefore CP-indivisible [Main §3.2, Theorem (CP-indivisibility, framework scope)].",
+  "claim": "The embedded card-game family is CP-indivisible.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §3.2, Theorem (CP-indivisibility, framework scope)]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-376",
+  "section": "Appendix B.3",
+  "line": 253,
+  "text": "Following Bäcker, Beyer and Strunz [BBS24], a two-step process has classical memory when the second map can be written as an instrument realizing the first map, followed by channels conditioned on its outcome.",
+  "claim": "BBS24: a two-step process has classical memory when the second map is an instrument realizing the first map followed by outcome-conditioned channels.",
+  "type": "attribution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[BBS24]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-377",
+  "section": "Appendix B.3",
+  "line": 253,
+  "text": "With the hidden slot initialized to a fixed card instead, the swap has the maps $\\rho\\mapsto|0\\rangle\\langle0|$ and $\\rho\\mapsto\\rho$",
+  "claim": "With a fixed hidden card, the swap's one- and two-step maps are ρ ↦ |0⟩⟨0| and ρ ↦ ρ.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §4.5] (sentence-final)"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-378",
+  "section": "Appendix B.3",
+  "line": 253,
+  "text": "and admits no such decomposition [Main §4.5]",
+  "claim": "The fixed-card swap admits no classical-memory decomposition.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Main §4.5]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-379",
+  "section": "Appendix B.3",
+  "line": 253,
+  "text": "With the uniform burn card it does",
+  "claim": "With the uniform burn card, the swap admits a classical-memory decomposition.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-380",
+  "section": "Appendix B.3",
+  "line": 253,
+  "text": "the instrument $\\rho\\mapsto\\tfrac14\\sigma_o\\rho\\sigma_o$, $o\\in\\{0,x,y,z\\}$, sums to the one-step map",
+  "claim": "The Pauli instrument ρ ↦ ¼σ_oρσ_o sums to the one-step map.",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-381",
+  "section": "Appendix B.3",
+  "line": 253,
+  "text": "the identity $\\sum_o\\sigma_oX\\sigma_o=2\\operatorname{tr}(X)\\,I$",
+  "claim": "Σ_o σ_o X σ_o = 2 tr(X) I (Pauli twirl identity).",
+  "type": "numerical",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-382",
+  "section": "Appendix B.3",
+  "line": 253,
+  "text": "and the channels $\\rho\\mapsto\\sigma_o\\rho\\sigma_o$, conditioned on $o$, return $\\rho$",
+  "claim": "Conditioning on o and applying σ_o returns ρ (two-step map = identity).",
+  "type": "result",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [],
+  "direction": null
+ },
+ {
+  "id": "I-383",
+  "section": "Appendix B.3",
+  "line": 255,
+  "text": "A card arrangement violates no Bell inequality [Book §1.11; Main §3.3].",
+  "claim": "No card arrangement violates a Bell inequality.",
+  "type": "negative",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[Book §1.11; Main §3.3]"
+  ],
+  "direction": null,
+  "attention": "'A card arrangement' read as 'any card arrangement'."
+ },
+ {
+  "id": "I-384",
+  "section": "References",
+  "line": 267,
+  "text": "unpublished research record, internally reviewed",
+  "claim": "[BHa] is an unpublished, internally reviewed research record.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[BHa]"
+  ],
+  "direction": null
+ },
+ {
+  "id": "I-385",
+  "section": "References",
+  "line": 269,
+  "text": "unpublished research record, internally reviewed",
+  "claim": "[BHb] is an unpublished, internally reviewed research record.",
+  "type": "status",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "cited": [
+   "[BHb]"
+  ],
+  "direction": null
+ }
+]
