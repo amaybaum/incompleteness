@@ -20,7 +20,7 @@ A1_COMMIT = "1e025b672bdeb56e52f32d668f46320e8c4be06e"     # carries A1's final 
 # Amendment A2 resolves the open items of pending.py. It does not exist yet; when it lands, the
 # commit carrying its final blob is pinned here, exactly as A1 is.
 A2_PATH = REL + "/amendments/A2-open-items.md"
-A2_COMMIT = None
+A2_COMMIT = "bda77523a6e67bca16c653ec4134402628457721"
 CODE_PATHS = [REL + "/pe01", REL + "/verdict.py", REL + "/run.py", ".github/workflows/pe01-bounded-tests.yml"]
 
 # --- the parameters this code runs with (TH compares them with A1's block) ---
