@@ -99,3 +99,54 @@ There are 55 checks in all. All pass, the run exits 0, and the output is byte-id
 - Add the self-tests and the computed-closure mutant named in §10.
 - Align `LAYER2-PLAN.md` §4.3 with E1-T2.
 - Extend the count keys to 58.
+
+## Revision 3: the re-check's nits (E1 in effect)
+
+**Revision 2:** `E1-LAYER1-ERRATUM.md` at `d2d5e92f`, SHA-256
+`4db591adda83cd19eb2cfff13fd1bc1aef67f5ad0548781012cd26d7312fce8b`.
+
+Its diff-only re-check is `../../review/E1-RECHECK-r2.md`, SHA-256
+`98f092f3a722d12a3fc43ece2a85daa189362ceb6f5d7b3ae92e0ba132120e5e`. Its verdict was ACCEPT WITH
+NITS, and it accepts all four departures listed above (its §1). Revision 3 applies N1–N6 and the
+owner's rulings of 2026-10-26 that were given during the re-check. No definition, population,
+count or label changes.
+
+| nit or ruling | edit |
+| --- | --- |
+| N1, the owner's decisions | §1. Five rows quote the rulings, with author and date: C7 per-record evaluation ("Approved. Retain per-record evaluation …"); the revised check set ("Approved in principle …"), whose condition `E1-RECHECK-r2.md` §4 meets; Lemma G-D ("Conditionally approved …"); counts and S1a ("Approved. Retain 58 counts …"); the four departures ("Independent review required …"), accepted in the re-check's §1. §7's ruling line also quotes the per-record ruling |
+| N1, §9's G-D bullet | The re-check's text is used verbatim up to "guards them." The bullet then reads that the full form remains the default, and that the G-D form stays a non-executing optimization proposal until the owner confirms that the proof meets the bar, a confirmation taken together with κ. §7's check bullet and the §10 row ("when the G-D form is enabled") agree |
+| N2 | §7 "What changes": "(with the closure code's retained/logged partition of Q⁰, a code invariant)" |
+| N3 | §7 "Orbit reduction": "sets 1 and 2, and I_c, are unions of orbits; the record-index samples H₁₀₀ and H₁₀₀₀ are not, which is one reason C7 is computed per record" |
+| N4 | §7, after Lemma G-D's ∎: the pointer to `E1-ANALYSIS.md` §E, verbatim |
+| N5 | §7 "What changes": the residual over-elimination escape, verbatim. §9 adds owner decision O1 (E_G as set 5), optional and not adopted |
+| N6 | Status line: "in effect", under `LAYER1-FREEZE.md`, citing the review, the re-check and N1–N6. The title drops "(revision 2)" |
+| standalone note | §0 cites `E1-NOTE-symmetry-and-G-D.md`, which holds the orbit-reduction result and Lemma G-D outside the specification, as the re-check recommends |
+
+**One departure from the re-check's text.** N1's proposed §9 bullet ends: "The full form remains
+the default; the G-D form executes only when Layer 2 enables it with that cross-check." That would
+let the shortcut run once Layer 2 enables it. The owner's ruling allows the shortcut "only after
+proving its equivalence … including failure behavior", and otherwise keeps it "as a non-executing
+optimization proposal". The re-check's proof covers production faults, but not faults in the
+reference code itself; those fail safe. Whether that meets the bar is the owner's confirmation, to
+be taken with κ. So the closing sentence is replaced, and `E1-check` part M checks that the
+erratum does not contain it.
+
+**Other edits.**
+- §0 cites the re-check with its SHA-256.
+- §9 is retitled "Owner decisions: conditional and open".
+- §11 describes the check's revision-3 parts.
+
+**`E1-check`.**
+- **Part H** adds E_G, with Surv_G ⊆ E_G (P_G) and Surv_A ⊆ I_A (P_A), on the toy class and on the
+  planted records. Toy: E_G has 12 records, all in F_G, equal to the reviewer's `eg_probe`.
+- **Part L** checks §D after N2's and N3's substitutions. Block 421–459 is split around N5's
+  insertion, giving ten blocks.
+- **Part M** is new. It checks that the erratum carries N1's §9 text (up to "guards them."), N4,
+  N5, N6, O1 and the five rulings, and that the G-D form is not stated as executing.
+- **Not checkable against the repository.** The re-check and the relayed rulings are not in the
+  repository. The new owner quotations, and the nit texts, are therefore checked against the
+  script's own transcription, not against a repository source. Once `E1-RECHECK-r2.md` is
+  committed at `../../review/E1-RECHECK-r2.md` with the pinned SHA-256, part M's transcriptions
+  can be re-pointed to it.
+
+All 62 checks pass, the run exits 0, and the output is byte-identical under `-O`.

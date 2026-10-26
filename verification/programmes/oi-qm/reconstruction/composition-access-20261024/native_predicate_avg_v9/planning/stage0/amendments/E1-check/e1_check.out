@@ -322,6 +322,20 @@
    "detail": 0,
    "pass": true
   },
+  "H.planted.Surv_A_subset_I_A_(P_A)": {
+   "detail": [
+    12,
+    12
+   ],
+   "pass": true
+  },
+  "H.planted.Surv_G_subset_E_G_(P_G)": {
+   "detail": [
+    12,
+    12
+   ],
+   "pass": true
+  },
   "H.planted.T_A_subset_Surv_A": {
    "detail": [
     12,
@@ -345,7 +359,10 @@
   },
   "H.planted_has_G_survivors_and_seed_parts": {
    "detail": {
+    "E_G": 12,
+    "E_G_and_F_G": 0,
     "F_G": 0,
+    "I_A": 12,
     "I_G": 12,
     "Surv_A": 12,
     "Surv_G": 12,
@@ -366,6 +383,20 @@
   },
   "H.toy.G_D_form_equals_full_reference": {
    "detail": 0,
+   "pass": true
+  },
+  "H.toy.Surv_A_subset_I_A_(P_A)": {
+   "detail": [
+    0,
+    1071
+   ],
+   "pass": true
+  },
+  "H.toy.Surv_G_subset_E_G_(P_G)": {
+   "detail": [
+    0,
+    12
+   ],
    "pass": true
   },
   "H.toy.T_A_subset_Surv_A": {
@@ -553,16 +584,31 @@
   },
   "L.section_D_blocks_verbatim": {
    "detail": {
-    "blocks": 9,
+    "blocks": 10,
     "missing": []
    },
+   "pass": true
+  },
+  "M.G_D_not_executing_and_status_updated": {
+   "detail": [],
+   "pass": true
+  },
+  "M.nits_N1_N4_N5_N6_O1_present": {
+   "detail": [],
+   "pass": true
+  },
+  "M.owner_rulings_quoted": {
+   "detail": [],
    "pass": true
   }
  },
  "failed": [],
  "lemma_G_D": {
   "planted": {
+   "E_G": 12,
+   "E_G_and_F_G": 0,
    "F_G": 0,
+   "I_A": 12,
    "I_G": 12,
    "Surv_A": 12,
    "Surv_G": 12,
@@ -572,7 +618,10 @@
    "records": 12
   },
   "toy": {
+   "E_G": 12,
+   "E_G_and_F_G": 12,
    "F_G": 595,
+   "I_A": 1071,
    "I_G": 667,
    "Surv_A": 0,
    "Surv_G": 0,

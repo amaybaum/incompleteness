@@ -2,8 +2,9 @@
 9f05edfa8c7f3413c1e80f08c1837222e4f42df3d62ba173277de0cdce23b661  ./NOTES.md
 b0be3278757c193e76465601793cda6d70e777d5f49f38296a8dac1c348d9b00  ./PLAN-r1.md
 c9d8dbf86ab4b9add0fa030a157aeaab67df9d728e8baa22b99bfd85a05842c2  ./PLAN-r2.md
-a7f90b983a64da9a90599dfed19213e0ec5c60d759bc2f90e5d3526bd244b4fc  ./README.md
+298b93777b3844b068db8535f70938a9acc8a1eb8958657df43dead55493b081  ./README.md
 0cfd5afc6df5e0859dfd704ebcde2011355ee115e18b9740bb7ec4e9911c5743  ./review/E1-ANALYSIS.md
+98f092f3a722d12a3fc43ece2a85daa189362ceb6f5d7b3ae92e0ba132120e5e  ./review/E1-RECHECK-r2.md
 00c13da2cdbb8e5d09068a1b5fc11c8d2b06bec2ea60569abcaf00da7be26047  ./review/E1-REVIEW.md
 77264fad9a9ac485e2049bc6dca8e2d4cbe6ccf4edec46d8b3247d164fd7f1eb  ./review/LAYER2-REVIEW.md
 676ecc085d3c2f329df6a05426550f8d6a914092bc553d678f844066f935d7a7  ./review/RECHECK-r2.md
@@ -18,6 +19,8 @@ c9822a436b3496acd915402fa65fb3d0c56ec9b09c7447ad5d727ca25c8031c6  ./review/e1-an
 059739e4ca65d78802a5390ef46835ca2a966070ee1e6bb2c1b198b92bdae4a3  ./review/e1-analysis/e1_analysis.py
 76a8c4f8b27f606e03cc9a4426ebb19b350aa72a754880b438fc1652a7c1d161  ./review/e1-analysis/timing_toy.out
 65bf23cb92d10fc5d53f13ab4d80972f76c8090469be3a8cf2bb918c2fe9c278  ./review/e1-analysis/timing_toy.py
+f7c621c8648316db60acebf5dba63bd544946f91f86d54c3f4e22edba3e285dd  ./review/e1-recheck-r2/eg_probe.out
+13b593c5f49419141517ee5433245ee805d2c80655edc30d2ff8dbf015d06510  ./review/e1-recheck-r2/eg_probe.py
 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  ./review/toy-l2/dryrun_trap.err
 c1451147515d301e584915022cb5d5eba644176f3bc51a942cc545d271389df4  ./review/toy-l2/dryrun_trap.out
 813dcdade86b5f3109774f34882ff53e1e94959c3012ae68488ef457f35be23d  ./review/toy-l2/dryrun_trap.py
@@ -57,10 +60,11 @@ bf7f2c229b649a3ec1bd9d64da3145f2e84acf3fc1db47d3aae85a11612131df  ./review/toy0/
 42979ceeacf0e6438a96d810868438877d2bfe81fd35d04f527c44adbcbb39b2  ./stage0/LAYER1-FREEZE.md
 7198f612c973db72557476d96ef48199c72904851e8b7efb0ef7b6fb167dd8a7  ./stage0/STAGE0-NOTES.md
 4720ac77ecaa40aa16012eb4949743ac87fbed2c7f2f16cab80f4a9255471429  ./stage0/STAGE0-PLAN.md
-d08b888f4e85d3ab4388a6df9ac8e77da2ed6322905a565dc5ed313e2e568237  ./stage0/amendments/E1-CHANGES-r2.md
-4db591adda83cd19eb2cfff13fd1bc1aef67f5ad0548781012cd26d7312fce8b  ./stage0/amendments/E1-LAYER1-ERRATUM.md
-15261d850e86903a6a0e6c722c7730602de32ded9335617870ca54434446ce20  ./stage0/amendments/E1-check/e1_check.out
-0aff51b78ace94f609168eb891a93729f322921fce29a19290d7210396d59ea7  ./stage0/amendments/E1-check/e1_check.py
+73ee63bc849901618e0d15783de2611376a136c81c155658010f41b6c31a2c8c  ./stage0/amendments/E1-CHANGES-r2.md
+603fdf1ece56901afecaeeb687b8285e6d9dcc33597ab660181049b7a77bd9c9  ./stage0/amendments/E1-LAYER1-ERRATUM.md
+2f5d996b1366de82cfcf6f48ff321d33cffea033542c6ec9ebe5082f33627fbc  ./stage0/amendments/E1-NOTE-symmetry-and-G-D.md
+d2297fb70f9414fb2f0b29454fe35ab1722d611d8a07ef56452eb14ccf3a8542  ./stage0/amendments/E1-check/e1_check.out
+bf96fb94a7c70837f03edc09101175dc4b4eaa5f043e1d39132a31d1f91ced91  ./stage0/amendments/E1-check/e1_check.py
 bc07ccf2a381400c3a688413d4c872a1cf5243cb3f72793f36fbf17014d01d38  ./stage0/code-r3/s0controls.py
 bb6ef25d37c9826a7984c57e76c7cceef78356b639d97884192e0159b9e1459e  ./stage0/code-r3/s0geom.py
 6f5e1c9f27de74a781259a3d229deaf214eb2fd649541566c792c397b111f982  ./stage0/code-r3/s0mutants.py

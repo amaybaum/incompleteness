@@ -43,7 +43,14 @@ E1-ANALYSIS.md and ../../../review/e1-analysis/e1_analysis.out, and ../E1-LAYER1
   raw and orbit-level coverage per C7 set; populations equal to the reviewer's analysis.
 - K, sigma: case 2 (d) (L_A and L_G recomputed with s0ref's cones and tips) with a perturbed-count
   countercontrol; Layer 2 r2's label and rule_T keep a failing label while sigma = OK.
-- L, E1-ANALYSIS section D applied verbatim, apart from the departures listed in the output.
+- L, E1-ANALYSIS section D applied verbatim (after the re-check's substitutions N2 and N3),
+  apart from the departures listed in the output.
+
+Revision 3 (the re-check's nits) adds:
+- H: E_G = {R : Out(R) has a shared eligible near tip}, with Surv_G within E_G (P_G) and Surv_A
+  within I_A (P_A), on the toy class and the planted records.
+- M: the re-check's nits N1 (section 9), N4, N5, N6 and O1, and the owner's rulings of the
+  re-check, are carried by the erratum, and the G-D form is not stated as executing.
 """
 import hashlib
 import json
@@ -629,12 +636,18 @@ def part_h():
         check('H.%s.G_D_form_equals_full_reference' % name, badref == 0, badref)
         SA, TA, _, _, _ = sets_of(recs, data, 'A', setup.dim)
         SG, TG, TeG, IG, FG = sets_of(recs, data, 'G', setup.dim)
+        _, _, _, IA, _ = sets_of(recs, data, 'A', setup.dim)
+        EG = {r for r in recs if shared_near(data[('G', r)]['Out'], data[('G', r)]['pair'], setup.dim,
+                                             data[('G', r)]['elig'])}
+        check('H.%s.Surv_G_subset_E_G_(P_G)' % name, SG <= EG, [len(SG), len(EG)])
+        check('H.%s.Surv_A_subset_I_A_(P_A)' % name, SA <= IA, [len(SA), len(IA)])
         check('H.%s.T_A_subset_Surv_A' % name, TA <= SA, [len(TA), len(SA)])
         check('H.%s.T_G_eligible_subset_Surv_G' % name, TeG <= SG, [len(TeG), len(SG)])
         check('H.%s.T_G_equals_(T_G_and_Surv_G)_union_F_G' % name, TG == ((TG & SG) | FG),
               [len(TG), len((TG & SG) | FG)])
         summary[name] = {'records': len(recs), 'Surv_A': len(SA), 'Surv_G': len(SG), 'T_A': len(TA),
-                         'T_G': len(TG), 'T_G_eligible': len(TeG), 'F_G': len(FG), 'I_G': len(IG)}
+                         'T_G': len(TG), 'T_G_eligible': len(TeG), 'F_G': len(FG), 'I_G': len(IG),
+                         'E_G': len(EG), 'E_G_and_F_G': len(EG & FG), 'I_A': len(IA)}
     check('H.planted_has_G_survivors_and_seed_parts', summary['planted']['Surv_G'] > 0, summary['planted'])
     OUT['lemma_G_D'] = summary
 
@@ -784,9 +797,18 @@ def part_k():
 # 375-378 and 388 ('as drafted', replaced by the drafted definitions), 416-418 (the Lemma G-D
 # reference form, an open owner decision), 470-471 (the rank sentence, corrected).
 VERBATIM = [('D0', 309, 310), ('D1', 316, 325), ('D2', 328, 370), ('D4.in_out_lemma', 379, 387),
-            ('D4.scope_samples_check', 390, 415), ('D4.void', 419, 419), ('D4.reduction_to_end', 421, 459),
+            ('D4.scope_samples_check', 390, 415), ('D4.void', 419, 419), ('D4.reduction_to_what_changes', 421, 439),
+            ('D4.checkpoint_to_end', 441, 459),
             ('D5.convention', 462, 469), ('D5.table_note', 473, 480)]
 D0_PHRASE = 'with odd-class samples dropped (equivalence E2) and identity merges applied (equivalence E1)'
+# The re-check's nits N2 and N3 replace text inside section D blocks (E1-RECHECK-r2.md, SHA-256
+# 98f092f3..., lines 213-219; transcribed here, since that file is outside the repository).
+NIT_SUBST = [("On a record where C0, C17 and C18 all run, C7 is implied by them (proved).",
+              "On a record where C0, C17 and C18 all run (with the closure code's retained/logged partition of "
+              "Q⁰, a code invariant), C7 is implied by them (proved)."),
+             ("sets are unions of orbits",
+              "sets 1 and 2, and I_c, are unions of orbits; the record-index samples H₁₀₀ and H₁₀₀₀ are not, "
+              "which is one reason C7 is computed per record")]
 DEPARTURES = [[375, 378, "'Shared near tip: as drafted' and 'Q0(R): as drafted': the drafted definitions are written out"],
               [388, 388, "'Computed closure: as drafted': the drafted definition is written out"],
               [416, 418, 'the reference may use the Lemma G-D form: recast as an open owner decision (section 9)'],
@@ -805,7 +827,10 @@ def part_l():
         er = norm(f.read())
     missing = []
     for name, lo, hi in VERBATIM:
-        if norm(' '.join(strip_q(x) for x in al[lo - 1:hi])) not in er:
+        txt = norm(' '.join(strip_q(x) for x in al[lo - 1:hi]))
+        for old, new in NIT_SUBST:
+            txt = txt.replace(norm(old), norm(new))
+        if txt not in er:
             missing.append(name)
     rows = [x for x in al[485:493] if x.startswith('|')]
     bad_rows = []
@@ -821,6 +846,56 @@ def part_l():
     OUT['section_D_departures'] = DEPARTURES
 
 
+
+# ---------------------------------------------------------------- M. the re-check's nits and the owner's quotes
+# Transcribed from E1-RECHECK-r2.md (N1 section 9 text up to "guards them.", N4, N5, O1) and from
+# the owner's rulings of 2026-10-26 as relayed; neither source is in the repository, so this part
+# checks that the erratum carries the transcribed text, not the transcription itself.
+NITS = {
+    'N1_section9': "Conditionally approved (amaybaum, 2026-10-26): \"Keep full reference computation as the default. "
+                   "Permit the shortcut only after proving its equivalence to the reference computation over the "
+                   "complete specified domain, including failure behavior.\" The proof: by Lemma G-D, for every R ∈ ℛ "
+                   "and both rules, In(R) ∪ W(Out(R)) = GSS(Ctx(R)), using only PO7 and the frame's definition, which "
+                   "hold on the whole domain; so for every production output P, faulty or not, C7's verdict is the "
+                   "same under either reference form, and production faults are detected identically. The "
+                   "equivalence does not cover faults in the reference implementation itself; these fail safe (a "
+                   "spurious C7 failure, VOID), and the cross-check of the G-D form against the full form, on the "
+                   "whole toy class and on every record of sets 3 and 4, guards them.",
+    'N4': "(Its classification under §A.31 — ELABORATING, a corollary of PO7 and L1 §2 — and the toy observations "
+          "are in `../../review/E1-ANALYSIS.md` §E.)",
+    'N5': "Over-elimination of a true survivor without an in-frame tie removes its record from sets 1 and 2; in-run "
+          "it is caught only by sets 3 and 4 and the sampled C11 (i), C17 and C18, and in pre-flight by C3, C11 "
+          "(iii) and C15 (L1 §4's asymmetry).",
+    'N6': "**Status: in effect.**",
+    'O1': "Add E_G = {R : Out(R) has a shared eligible near tip} to C7's scope under G, as set 5. It is "
+          "closure-free and contains Surv_G by P_G.",
+}
+OWNER = [
+    "Approved. Retain per-record evaluation across all 595 G-convention records. The planted-fault evidence "
+    "demonstrates why representative-only evaluation is insufficient.",
+    "Approved in principle … The reviewer must confirm that the revised definition is mathematically justified "
+    "and does not merely target the planted example.",
+    "Conditionally approved. Keep full reference computation as the default. Permit the shortcut only after "
+    "proving its equivalence to the reference computation over the complete specified domain, including failure "
+    "behavior. Otherwise, retain it as a non-executing optimization proposal.",
+    "Approved. Retain 58 counts, independent S1a diagnostic status, and the reference recomputation of L_A and L_G.",
+    "Independent review required. All four must be explicitly accepted …",
+]
+NOT_ALLOWED = ["the G-D form executes only when Layer 2 enables it with that cross-check",
+               "draft, append-only, not in effect"]
+
+
+def part_m():
+    with open(ERRATUM, encoding='utf-8') as f:
+        er = norm(f.read())
+    miss = [k for k, v in NITS.items() if norm(v) not in er]
+    check('M.nits_N1_N4_N5_N6_O1_present', not miss, miss)
+    om = [i for i, q in enumerate(OWNER) if norm(q) not in er]
+    check('M.owner_rulings_quoted', not om, om)
+    bad = [x for x in NOT_ALLOWED if norm(x) in er]
+    check('M.G_D_not_executing_and_status_updated', not bad, bad)
+
+
 def main():
     part_a()
     part_b()
@@ -832,6 +907,7 @@ def main():
     part_j()
     part_k()
     part_l()
+    part_m()
     OUT['pass'] = not FAILS
     OUT['failed'] = FAILS
     print(json.dumps(OUT, indent=1, sort_keys=True, ensure_ascii=False, default=str))

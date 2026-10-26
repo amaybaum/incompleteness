@@ -1,10 +1,11 @@
-# NP-AVG-1 Stage 0, Layer 1: erratum E1 (revision 2)
+# NP-AVG-1 Stage 0, Layer 1: erratum E1
 
-**Status: draft, append-only, not in effect.** It takes effect once a diff-only re-check accepts
-this revision (`../../review/E1-REVIEW.md`, owner decision 6). It governs the frozen Layer-1
-specification where it applies, as stated below. No v8 result exists: S1a has not run on v8's
-configuration class, and no v8 closure, count or shared-tip count has been computed.
-`E1-CHANGES-r2.md` maps each review item and ruling to its edit.
+**Status: in effect.** E1 takes effect under `../LAYER1-FREEZE.md` with this text: its independent
+review (`../../review/E1-REVIEW.md`), the diff-only re-check of its second revision
+(`../../review/E1-RECHECK-r2.md`, ACCEPT WITH NITS), and that re-check's nits N1–N6, applied here.
+It governs the frozen Layer-1 specification where it applies, as stated below. No v8 result
+exists: S1a has not run on v8's configuration class, and no v8 closure, count or shared-tip count
+has been computed. `E1-CHANGES-r2.md` maps each review item, nit and ruling to its edit.
 
 ## 0. Relation to the freeze
 
@@ -19,9 +20,12 @@ configuration class, and no v8 closure, count or shared-tip count has been compu
   passage. All other frozen text governs unchanged. Tags of the form E1-T1, E1-F3 … name items of
   this erratum. The equivalences of r5 §1 are written "equivalence E1" … "equivalence E4".
 - **Its review.** `LAYER1-FREEZE.md` states: "A change is an append-only amendment, with its own
-  independent review." The independent review of E1 is `../../review/E1-REVIEW.md`, and its
-  follow-up analysis of the owner's rulings is `../../review/E1-ANALYSIS.md`. A later change, once
-  E1 is in effect, is a new amendment, not an edit of E1.
+  independent review." The independent review of E1 is `../../review/E1-REVIEW.md`; its
+  follow-up analysis of the owner's rulings is `../../review/E1-ANALYSIS.md`; the diff-only
+  re-check of the second revision is `../../review/E1-RECHECK-r2.md` (SHA-256
+  `98f092f3a722d12a3fc43ece2a85daa189362ceb6f5d7b3ae92e0ba132120e5e`). The orbit-reduction result
+  and Lemma G-D are also set out, outside the specification, in `E1-NOTE-symmetry-and-G-D.md`. A
+  later change is a new amendment, not an edit of E1.
 - **Timing and neutrality.** The rulings were given, and E1 is fixed, before any S1a or k ≤ 2
   output exists on v8, as rule T's neutrality clause (L1 lines 1013–1016) and owner decision O-b
   (L1 lines 88–90) require. The toy-class values cited below (for example the toy S1a's L_A = 15
@@ -35,8 +39,9 @@ configuration class, and no v8 closure, count or shared-tip count has been compu
 
 All rulings are by the owner, amaybaum, on 2026-10-26. The first four answered the owner decisions
 of `../../review/LAYER2-REVIEW.md` (lines 283–304), adopting the review's recommendations at the
-lines cited in each item. The others answered `../../review/E1-REVIEW.md` (lines 180–204) and are
-quoted, where `../../review/E1-ANALYSIS.md` quotes them, as it quotes them.
+lines cited in each item. The next ones answered `../../review/E1-REVIEW.md` (lines 180–204) and
+are quoted, where `../../review/E1-ANALYSIS.md` quotes them, as it quotes them. The last five rows
+were given during the re-check of the second revision (`../../review/E1-RECHECK-r2.md`).
 
 | question | answer, verbatim |
 | --- | --- |
@@ -50,7 +55,11 @@ quoted, where `../../review/E1-ANALYSIS.md` quotes them, as it quotes them.
 | S1a's status | "Give S1a its own diagnostic status, not an overriding success label" |
 | the reference recomputation of L_A and L_G in σ | "Add it" |
 | the "geometric fact only" wording of rule T's zero branch | "Approved, with qualification. Rule T may be used as a geometric property of the specified closure. It must not be presented as a probabilistic result, empirical observation, or independent theorem about the full model" |
-| Lemma G-D in C7's reference computation | open: to be decided with κ, once the dry run reports \|F_G\| (§9) |
+| C7, per-record evaluation | "Approved. Retain per-record evaluation across all 595 G-convention records. The planted-fault evidence demonstrates why representative-only evaluation is insufficient." |
+| the revised C7 check set (set 2 closure-free under G) | "Approved in principle … The reviewer must confirm that the revised definition is mathematically justified and does not merely target the planted example." Confirmed: `E1-RECHECK-r2.md` §4 proves T_G = F_G ∪ (T_G ∩ Surv_G) for every record, from Lemma G-D and L1 §3 alone |
+| Lemma G-D in C7's reference computation | "Conditionally approved. Keep full reference computation as the default. Permit the shortcut only after proving its equivalence to the reference computation over the complete specified domain, including failure behavior. Otherwise, retain it as a non-executing optimization proposal." (§9) |
+| counts and S1a | "Approved. Retain 58 counts, independent S1a diagnostic status, and the reference recomputation of L_A and L_G." |
+| the four departures of the second revision from `E1-ANALYSIS.md` §D | "Independent review required. All four must be explicitly accepted …" Accepted: `E1-RECHECK-r2.md` §1 |
 
 ## 2. Notation used below
 
@@ -294,7 +303,8 @@ re-decided with the corrected facts of `E1-REVIEW.md` (lines 103–118, 182–19
 required results, including multiplicities, ties, and failure detection … If it is redundant,
 document that finding rather than silently removing the check." and "Every record index"
 (amaybaum, 2026-10-26). `E1-ANALYSIS.md` §A3 proves that orbit reduction does not preserve failure
-detection (fault F2), so the population is kept in full.
+detection (fault F2), so the population is kept in full: "Approved. Retain per-record evaluation
+across all 595 G-convention records." (amaybaum, 2026-10-26; §1).
 
 **Definitions.**
 - *Shared near tip*: for a set Q of non-fixed quantities, a convention c and an axis direction e,
@@ -313,7 +323,9 @@ detection (fault F2), so the population is kept in full.
   (L1 §2); the cones of the fixed quantities lie inside it by its definition, and those of In(R)
   by PO7 (t ≥ 0) or because a slice −1 quantity's cone is itself at |c| ≤ 7; so neither covers an
   eligible tip; quantities of In(R) have no eligible tip and are never eliminated; hence Out(R)
-  is reduced exactly to W(Out(R)). The same holds for L3. ∎
+  is reduced exactly to W(Out(R)). The same holds for L3. ∎ (Its classification under §A.31 —
+  ELABORATING, a corollary of PO7 and L1 §2 — and the toy observations are in
+  `../../review/E1-ANALYSIS.md` §E.)
 - *Computed closure*: ret^{L3′}_c(R) as the production run assigns it: the closure of R's orbit
   representative carried to R by the group action (S4), or R's direct closure where the run
   computes one. Since the group maps e-tips to (g·e)-tips, "the computed closure has a shared near
@@ -346,14 +358,17 @@ streams are distinct.
 - C7 fails on R if they differ, or if the run's reported (carried) result for R differs from R's
   direct closure.
 - The reference closure is the full `s0ref` closure. Computing it under G as W(Out(R)) ∪ In(R),
-  by Lemma G-D, is an open owner decision (§9). If the owner approves it, Layer 2 checks this form
+  by Lemma G-D, is conditionally approved and does not execute until the owner confirms the proof
+  recorded in §9. Once it is confirmed and Layer 2 enables the G-D form, Layer 2 checks this form
   against the full `s0ref` closure on the whole toy class and on every record of sets 3 and 4, and
   a difference is a C7 failure.
 - A C7 failure is VOID under L1 §5. C7 may run on further records.
 
 **Orbit reduction.** Orbit representatives may replace records only where an equivalence is
 proved for every required result. For C7 verdicts on reported results, multiplicities and
-set membership it is proved (C4v-equivariance of the specification; sets are unions of orbits).
+set membership it is proved (C4v-equivariance of the specification; sets 1 and 2, and I_c, are
+unions of orbits; the record-index samples H₁₀₀ and H₁₀₀₀ are not, which is one reason C7 is
+computed per record).
 For failure detection it is not: a fault confined to a non-representative member changes no
 carried result. C7 on its scope is therefore computed per record, as above.
 
@@ -367,9 +382,13 @@ convention:
 law, the domain and the labels do not change. Since T_c ⊆ I_c, the scope is the frozen literal
 scope except that the records of I_c outside sets 1 and 2 are checked at 1 in 100. C11 (i) and
 C18 still re-check eliminations on their samples and on every survivor, and C17 the fixed point.
-On a record where C0, C17 and C18 all run, C7 is implied by them (proved). C7's distinct
+On a record where C0, C17 and C18 all run (with the closure code's retained/logged partition of
+Q⁰, a code invariant), C7 is implied by them (proved). C7's distinct
 contribution is its independent algorithm and its coverage of sets 1–4. This redundancy is
 recorded, not grounds for removal.
+Over-elimination of a true survivor without an in-frame tie removes its record from sets 1 and
+2; in-run it is caught only by sets 3 and 4 and the sampled C11 (i), C17 and C18, and in
+pre-flight by C3, C11 (iii) and C15 (L1 §4's asymmetry).
 
 **Checkpoint (§A.41).**
 - The per-set tallies above.
@@ -505,16 +524,30 @@ counts, and a discrepancy on any of them is a C8 failure, VOID.
     equals the sum of its two cells;
   - part D, the planted non-vacuity.
 
-## 9. Open owner decisions, not governed by E1
+## 9. Owner decisions: conditional and open
 
 - **κ and S7.** The launch margin κ and S7's budget (L1 line 1042) are not changed by E1. The
   owner's answer was "Decide later".
-- **Lemma G-D in C7's reference computation.** Open, to be taken with κ once the dry run reports
-  |F_G| (records and orbits, computed without any closure). The specified default is the full
-  `s0ref` reference closure on every record of C7's scope. The G-D form, W(Out(R)) ∪ In(R) under
-  G, is proved equal to it on every record (Lemma G-D, E1-F3), so it is a cost-only alternative:
-  either choice gives the same closures, verdicts and counts. Using it needs the owner's approval,
-  and then carries the checks stated in E1-F3.
+- **Lemma G-D in C7's reference computation.** Conditionally approved (amaybaum, 2026-10-26):
+  "Keep full reference computation as the default. Permit the shortcut only after proving its
+  equivalence to the reference computation over the complete specified domain, including failure
+  behavior." The proof: by Lemma G-D, for every R ∈ ℛ and both rules, In(R) ∪ W(Out(R)) =
+  GSS(Ctx(R)), using only PO7 and the frame's definition, which hold on the whole domain; so for
+  every production output P, faulty or not, C7's verdict is the same under either reference
+  form, and production faults are detected identically. The equivalence does not cover faults in
+  the reference implementation itself; these fail safe (a spurious C7 failure, VOID), and the
+  cross-check of the G-D form against the full form, on the whole toy class and on every record
+  of sets 3 and 4, guards them. The full form remains the default. The G-D form stays a
+  non-executing optimization proposal ("Otherwise, retain it as a non-executing optimization
+  proposal") until the owner confirms that this proof meets the bar, a confirmation taken
+  together with κ once the dry run reports |F_G| (records and orbits, computed without any
+  closure). Only then may Layer 2 enable it, with that cross-check.
+- **O1, optional, not adopted: closing the residual escape under G** (`E1-RECHECK-r2.md`, owner
+  decision O1). Add E_G = {R : Out(R) has a shared eligible near tip} to C7's scope under G, as
+  set 5. It is closure-free and contains Surv_G by P_G. On the toy class it is 12 of 1,400
+  records; v8's size is unknown and computable without any closure in the dry run. It would be a
+  further amendment, not part of E1. Under A the analogous superset, I_A, is the frozen literal
+  scope, which the ruling samples at 1 in 100.
 
 ## 10. Invariant → checkpoint (§A.41)
 
@@ -530,7 +563,7 @@ counts, and a discrepancy on any of them is a C8 failure, VOID.
 | "shared near tip" is the shared tip of PO3 (b) | `E1-check` part F (every pair of every toy context, under A and G) |
 | the count list has 58 counts and cross-tabulates every §3 degeneracy with survivor status | `E1-check` part B, with the drop-one countercontrol |
 | the four added counts are preserved by orbit reduction | C8 (pre-flight and in-run); `E1-check` parts C and D, and the non-invariant countercontrol of part E |
-| Lemma G-D | the toy whole-class check (`E1-check` part H, both rules); the per-record check of sets 3–4 (when the G-D form is approved, §9) |
+| Lemma G-D | the toy whole-class check (`E1-check` part H, both rules); the per-record check of sets 3–4 (when the G-D form is enabled, §9) |
 | set 2 is closure-free under G | F1 self-test and the computed-closure mutant (`E1-check` part I) |
 | per-record C7 detects member-only faults | F2 self-test (`E1-check` part I) |
 | σ is diagnostic and never overrides the run label | Layer-2 label self-test: σ = OK with another failing check gives that check's label (`E1-check` part K, on Layer 2 r2's `label` and `rule_T`) |
@@ -554,7 +587,10 @@ counts, and a discrepancy on any of them is a C8 failure, VOID.
   records (all of them A- and G-survivors), ret_G = In ∪ W(Out) for L3′ and for L3, with W
   computed by `s0ref` without the fixed and in-frame quantities, and the G-D form equals the full
   `s0ref` closure. T_A ⊆ Surv_A, T_G restricted to eligible tips ⊆ Surv_G, and
-  T_G = (T_G ∩ Surv_G) ∪ F_G hold on both (toy: T_G = F_G = 595, no survivors).
+  T_G = (T_G ∩ Surv_G) ∪ F_G hold on both (toy: T_G = F_G = 595, no survivors). So do the
+  closure-free supersets of the survivors given by P_G and P_A: Surv_G ⊆ E_G, with
+  E_G = {R : Out(R) has a shared eligible near tip}, and Surv_A ⊆ I_A (toy: E_G has 12 records,
+  all in F_G; I_A has 1,071).
 - **Part I, planted faults (toy, G).** F1 drops every retained in-frame quantity whose near tip is
   shared; F2 does so on non-representative members only.
 
@@ -573,10 +609,16 @@ counts, and a discrepancy on any of them is a C8 failure, VOID.
   15 and 7, equal to the production values (the L3 values likewise), and a perturbed production
   count fires case 2 (d). On Layer 2 r2's `label` and `rule_T`, a run with σ = OK and a failing
   VOID, MISMATCH or INCOMPLETE reason keeps that label while rule T is evaluated.
-- **Part L, the text of `E1-ANALYSIS.md` §D.** Nine blocks of §D and the eight §10 rows stand in
-  this erratum verbatim (blockquote markers and line breaks aside). The output lists the four
-  departures, each with its reason; the G-D permission text is confirmed absent.
+- **Part L, the text of `E1-ANALYSIS.md` §D.** Ten blocks of §D, after the re-check's
+  substitutions N2 and N3, and the eight §10 rows stand in this erratum verbatim (blockquote
+  markers and line breaks aside). The output lists the four departures, each with its reason; the
+  G-D permission text of §D is confirmed absent.
+- **Part M, the re-check's nits and the owner's rulings.** The erratum carries N1's §9 text (up to
+  "guards them."), N4, N5, N6 and O1, and the five rulings of the re-check, quoted. It does not
+  state that the G-D form executes. The source of these texts, `E1-RECHECK-r2.md` and the relayed
+  rulings, is not in the repository, so part M checks the erratum against the check's own
+  transcription.
 
 SHA-256 values:
-- `e1_check.py`: `0aff51b78ace94f609168eb891a93729f322921fce29a19290d7210396d59ea7`;
-- `e1_check.out`: `15261d850e86903a6a0e6c722c7730602de32ded9335617870ca54434446ce20`.
+- `e1_check.py`: `bf96fb94a7c70837f03edc09101175dc4b4eaa5f043e1d39132a31d1f91ced91`;
+- `e1_check.out`: `d2297fb70f9414fb2f0b29454fe35ab1722d611d8a07ef56452eb14ccf3a8542`.
