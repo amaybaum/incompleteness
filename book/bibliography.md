@@ -150,6 +150,8 @@ LUX-ZEPLIN Collaboration (2025). New search for WIMP dark matter with 417 live d
 
 Maldacena, J. (2024). Real observers solving imaginary problems. *arXiv*:2412.14014.
 
+Page, D. N. (1993). Average entropy of a subsystem. *Physical Review Letters* 71: 1291-1294. arXiv:gr-qc/9305007.
+
 Page, D. N. (2005). Hawking radiation and black hole thermodynamics. *New Journal of Physics* 7: 203. arXiv:hep-th/0409024.
 
 Page, D. N. (2013). Time dependence of Hawking radiation entropy. *Journal of Cosmology and Astroparticle Physics* 2013(09): 028. arXiv:1301.4995.
@@ -159,6 +161,8 @@ Penington, G. (2019). Entanglement wedge reconstruction and the information para
 Planck Collaboration (2018). Planck 2018 results. VI. Cosmological parameters. *Astronomy & Astrophysics* 641: A6.
 
 Planck Collaboration (2020). Planck 2018 results. IX. Constraints on primordial non-Gaussianity. *Astronomy & Astrophysics* 641: A9.
+
+Popescu, S., Short, A. J., & Winter, A. (2006). Entanglement and the foundations of statistical mechanics. *Nature Physics* 2: 754-758. arXiv:quant-ph/0511225.
 
 Susskind, L. (1995). The world as a hologram. *Journal of Mathematical Physics* 36: 6377-6396.
 
