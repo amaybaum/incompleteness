@@ -9,7 +9,7 @@
 **Summary.**
 
 - 358 of 409 rows are FAITHFUL after the synthesis and the independent review re-rated some rows (`matrix/resolutions.json`). The 51 others, the seven completeness rows recommended *add* or *strengthen*, and the two rows whose mapper disagreement resolved against the Introduction (I-013, I-008) reduce to **34 required changes** (part a; R-33 and R-34 were added by the independent review), deduplicated across the abstract, the body, §6.2 and §6.3.
-- **25 optional changes** (part b) and **15 owner decisions** (part c).
+- **23 optional changes** (part b; O-7 and O-12 of the 25 listed there have moved into R-01 and R-07) and **15 owner decisions** (part c).
 - The **corpus corrections** outside the Introduction fall into eight proposed pull requests (part d).
 - **Length.** The main text runs through p. 12 at 4,966 words, about 414 words a page. After the independent review the required changes add about 610 words in full form (R-01, R-02 and R-07 lengthened; R-33 and R-34 added; the short forms withdrawn); cuts C-1 to C-8 bring the net to about +400 words, roughly one page (part c, OD-13). Page count is measured by building (`sh ./build.sh`), not estimated.
 
@@ -285,9 +285,9 @@ Severity inside a tier runs from first to last. Where a matrix verdict is IMPREC
 - **Evidence.** Once R-06 and R-07 land, the framework's quantum-reconstruction results read: exact at the fixed-basis level (Theorem 1, kernel); ε-exact for every finite operational experiment (Main §3.4, paper); exact operational quantum mechanics exactly when one control resource is added, which OI does not supply (GR §3.3, kernel, for the substratum class as formalized). "Stop short of operational quantum mechanics" omits the second and third.
 - **Proposed text.**
 
-  > **Current (L26).** results … which stop short of operational quantum mechanics
+  > **Current (L26).** its foundation and quantum-emergence results, which stop short of operational quantum mechanics (§§2–3)
   >
-  > **Proposed.** …its foundation and quantum-emergence results, which reach the fixed-basis statistics exactly and every finite quantum experiment to any stated accuracy, while exact operational quantum mechanics needs completion conditions OI does not imply.
+  > **Proposed.** its foundation and quantum-emergence results, which reach the fixed-basis statistics exactly and every finite quantum experiment to any stated accuracy, while exact operational quantum mechanics needs completion conditions OI does not imply (§§2–3)
 
   Align the abstract (with R-07's clause) and §6.4's second sentence with that wording.
 - **Length:** about +20 words.
@@ -723,7 +723,7 @@ Each decision gives the options, a recommendation and the reason.
 **OD-2. Whether and how to report the substratum-sourcing results (R-06).**
 - **Recommendation.** Report them: the full L120 text, the abstract sentence, the narrowed §6.2/§6.3 items, and the Appendix A declarations.
 - **Reason.** The owner's goal names "what remains open". The corpus has narrowed this open question with kernel results, and L120, L173, L183 and the abstract state it as if nothing were known (CMP-02, high). The converse clause (CMP-03) also guards against an overclaim: it says that Theorem 4 classifies and does not derive.
-- **Short form for L120**, if the budget forces it (+63 words instead of +103): "Conversely, every qubit theory satisfying (iv) realizes that process, so Theorem 4 classifies the completions compatible with embedded observation and does not derive quantum mechanics from it. The substratum as stated supplies neither the phases nor continuously tunable state mixing, and on the qubit its theory fails (iv); with both added, it yields exact finite operational quantum mechanics on every nonempty finite carrier (machine-checked) [GR §3.3]. Whether a physical substratum supplies them is open."
+- **Short form withdrawn.** After the independent review, required content is not shortened for budget (OD-13), and the earlier short L120 form lacked the permutation-operator premise and the "as formalized" label (RC-4).
 - **Do not cite** `frozen_sourcing_verdict`: its census family is kernel-only.
 
 **OD-3. The ε-realization addition (R-07).**
@@ -788,7 +788,7 @@ Each decision gives the options, a recommendation and the reason.
 - **Recommendation.** Leave out OI⁺ (O-9), which restates Theorem 4. Add the coherent-completion classification (O-1) only if the budget allows, with its existence caveat.
 
 **OD-13. The length budget.**
-- **The numbers.** The required changes add about +468 words in full form (+365 with the short forms of OD-2 and OD-3), against 4,966 words in 12 pages.
+- **The numbers.** The main text has 4,966 words in 12 pages.
 - **Candidate cuts**, each checked to remove no claim the audit needs:
 
 | Cut | Line | Words | What goes |
@@ -841,7 +841,7 @@ These are proposals for separate PRs; this audit edits no corpus file. Rows mark
 
 The record shows a careful paper whose defects are local.
 
-- **Overall.** 364 of 409 rows are FAITHFUL. There is one OVERCLAIM verdict (R-02), and no central claim is too weak to stand (COMPLETENESS.md: the deliberate limits are all borne out). Those limits are: no derivation of QM, the Born exponent not selected, Λ a proposal, and the Page curve not established.
+- **Overall.** 358 of 409 rows are FAITHFUL. There are two OVERCLAIM verdicts (R-01 and R-02), and no central claim is too weak to stand (COMPLETENESS.md: the deliberate limits are all borne out). Those limits are: no derivation of QM, the Born exponent not selected, Λ a proposal, and the Page curve not established.
 - **Theorem 1.** Exactly as stated: each inclusion is kernel-proved by its own declaration (`S_imp_D`, `D_imp_Qfb`, `Qfb_imp_S`), and the Lean classes match §2.1's definitions, including the correlated initial law of D_K and the every-step fixed-basis readout of Q_K (B1, B5).
 - **Theorem 4.** Kernel-proved in both directions, with separate witnesses for each (§A.34; `exactAll_iff_physical_general` is literally the pair), for every nonempty finite carrier. Its standing structure matches the kernel's fields more completely than GR's own prose (CON-48).
 - **Status splits.** The Introduction states the kernel/paper division precisely where it matters: Theorem 2 for a joint law, with the time-t identification on paper; the Corollary's two unchecked ingredients; and readback in routed form.
