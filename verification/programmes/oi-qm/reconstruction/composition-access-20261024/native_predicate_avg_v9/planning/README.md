@@ -22,3 +22,7 @@ the question. The branch is based on #912's head `2af1d5d5`, which contains v8 a
   - Recommended next step: a two-stage plan. Stage 0 writes up the collapse argument and runs a preregistered
     geometry-only enumeration of every record's L3 closure; Stage 1 runs the law machinery only on a non-empty
     residue.
+- `stage0/STAGE0-PLAN.md` and `stage0/STAGE0-NOTES.md`: the Stage 0 draft (owner-approved drafting, 2026-10-26), a
+  geometry-only preregistration of the masking structure. Not reviewed, not frozen; the enumeration is not authorized.
+  `stage0/design/` holds the cheap design controls the owner approved (configuration combinatorics, and toy
+  geometries only; nothing computed on v8's class), with their outputs.
