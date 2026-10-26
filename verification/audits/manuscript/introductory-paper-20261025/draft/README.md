@@ -98,4 +98,11 @@ ACCEPT WITH NITS. `Introduction-r7.md` applies four of those nits as exact singl
 - a comma;
 - a term used before its definition.
 
-A confirmation of the four-line diff is in progress.
+The confirmation of the four-line diff (`review/scientific/RECHECK-r7.md`) is ACCEPT, with no changes.
+`Introduction-r7.md` is the accepted draft. It does not land as `papers/Introduction.md` until these gates clear:
+- the black-hole corrections (#936) have merged;
+- the §A.42 expected result of the Lean check is retained;
+- Weinberg 1989 is read first-hand;
+- the VERIFY markers are resolved;
+- the owner's layout choices (title hyphenation; the raw group's scope) are made;
+- the Lean identifiers are re-checked directly at landing.
