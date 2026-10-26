@@ -53,7 +53,7 @@ In a separate program [Main, SM, GR, Substratum], the Incompleteness of Observat
 (iii) *Deep-sector enlargement/reduction.* The hidden sector beyond the boundary layer admits arbitrary cardinality.
 (iv) *Graph isomorphism (up to statistical isotropy).* Coupling graphs sharing dimension, spectral dimension, and statistical isotropy are gauge-equivalent.
 
-The framework's structural-realism stance is that the equivalence class $[(S, \varphi)]/\mathcal{G}_{\rm sub}$ — not any particular substratum representative — is what physics determines. Twenty-two classified SM observables, including the Cabibbo angle $1/(\pi\sqrt{2})$ matching observation at $0.12\sigma$ and the Koide ratio $2/3$ matching at 0.02% (both conditional structural, [SM §7.6]), and the Bekenstein-Hawking $1/4$ coefficient as a consistency relation (conditional on the horizon conditions of [GR §2, §8.5]; GW250114 confirms the classical area theorem, the coefficient untested directly), follow as consequences of the equivalence class under the conditions named at each step.
+The framework's structural-realism stance is that the equivalence class $[(S, \varphi)]/\mathcal{G}_{\rm sub}$ — not any particular substratum representative — is what physics determines. Twenty-two classified SM observables, including the Cabibbo angle $1/(\pi\sqrt{2})$ matching observation at $0.12\sigma$ and the Koide ratio $2/3$ matching to better than 0.001% (both conditional structural, [SM §7.6]), and the Bekenstein-Hawking $1/4$ coefficient as a consistency relation (conditional on the horizon conditions of [GR §2, §8.5]; GW250114 confirms the classical area theorem, the coefficient untested directly), follow as consequences of the equivalence class under the conditions named at each step.
 
 ### 1.4 Question 1: the equivalence-class proposal
 
@@ -937,7 +937,7 @@ Level 3 confirmations are confirmations of OI's universality class but not of OI
 | Feature | Empirical status | Reference |
 |---|---|---|
 | Cabibbo angle $\sin\theta_C = 1/(\pi\sqrt{2}) \approx 0.2251$ | Confirmed at $0.04\sigma$ | [SM §7.2] |
-| Koide ratio $Q = 2/3$ | Confirmed at $0.02\%$ | [SM §7.3] |
+| Koide ratio $Q = 2/3$ | Confirmed to better than $0.001\%$ | [SM §7.3] |
 | JUNO $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ | Retrodictive match at $0.07\sigma$; exact value gives a pre-registered forward test at JUNO design precision | [Juno] |
 | Higgs structural ratio $A = \sqrt{2/3}$ | Consistent with current data | [SM §7.4] |
 | Higgs quartic $\lambda(M_{\text{Pl}}) = 0$ (composite-scalar prediction) | Confirmed at $0.6\sigma$ | [SM §7.4] |

@@ -573,6 +573,31 @@ ch06:196 still derives $Q = 2/3$ "from the cubic-group Casimir $C_2(T_1)/d^2 = 2
 
 **Sparse checkout.** `papers/Juno.{tex,pdf}` and `papers/Medicine.{tex,pdf}` were appended to the worktree-local `info/sparse-checkout` (previous file saved at `S/cc2/sparse-checkout.before-r6`), so that their rebuilt artifacts can be committed.
 
+### Re-check fixes (`S/cc2/DIFF-RECHECK.md`, base `4fe0ebff`)
+
+The independent re-check of `6f257cda..4fe0ebff` returned REVISE with four required fixes (F1–F4) and nits (F5–F7). They are applied with the re-check's text and FULL mirrors.
+
+| # | Site | Old | New |
+|---|---|---|---|
+| F1 | appendix-a:225 [FULL] | "with three consistency relations stated beside them" | "with four consistency or descriptive relations stated beside them" (as A.4.2) |
+| F2 | ch09 Tier 1 table [FULL] | rows "$S = A/(4 l_p^2)$ \| conditional on H-slope; no direct test" and "CC dissolution (descriptive) \| …" | deleted (7 → 5 rows), as in the ch07 and GR §7.4 tables |
+| F2 | ch09:130 [FULL] | "Seven universality-class entries …: one confirmed at high precision (the area law), the $1/4$ coefficient without a direct test and conditional on H-slope, and the remainder … (the descriptive dissolution, information preservation, …)." | "Five universality-class entries …: one confirmed at high precision (the area law) and the remainder … (information preservation, dark sector budget, no DM particle, no proton decay). The Bekenstein-Hawking coefficient and the descriptive vacuum-energy distinction are consistency relations (Chapter 7 §7.10) and are not tabulated." |
+| F2 | ch09:177 [FULL] | "Tier 1 has seven entries: the area theorem is measured, the conditional entropy coefficient has no direct test, and the remaining entries" | "Tier 1 has five entries: the area theorem is measured, and the remaining entries" |
+| F2 | ch09:179 [FULL] | "The three tiers contain twenty-two entries" | "The three tiers contain twenty entries" (5 + 7 + 8) |
+| F3 | appendix-a:79 [FULL] | entry 10 Koide $Q$ "**0.02%**" | "**<0.001%**" |
+| F3 | appendix-a:98 [FULL] | "Koide $Q = 2/3$ at **0.02%**" | "Koide $Q = 2/3$ to better than **0.001%**" |
+| F3 | appendix-a:211 [FULL] | "Koide $Q$ at 0.02%" | "Koide $Q$ to better than 0.001%" |
+| F3 | appendix-a:215 [FULL] | "Koide $Q = 2/3$ at 0.02% (entry 10)" | "Koide $Q = 2/3$ to better than 0.001% (entry 10)" |
+| F3 | ch09:167 [FULL] | "\| Koide relation $Q = 2/3$ \| $0.02\%$ \|" | "\| Koide relation $Q = 2/3$ \| $<0.001\%$ \|" |
+| F3 | Structure:56 | "the Koide ratio $2/3$ matching at 0.02%" | "the Koide ratio $2/3$ matching to better than 0.001%" |
+| F3 | Structure:940 | "Confirmed at $0.02\%$" | "Confirmed to better than $0.001\%$" |
+| F4 | ch06:196 [FULL] | "the Koide relation $Q = 2/3$ is Class B-C Layer 1 from the cubic-group Casimir $C_2(T_1)/d^2 = 2/9$; the phase input $\theta_0 = 2/9$ is Class B-C Layer 1 from the same Casimir structure, …" | "the Koide relation $Q = \tfrac13 + \tfrac{A^2}{6} = 2/3$ is Class B-C Layer 1 from the cubic-group Casimir through the amplitude $A^2 = C_2(T_1) = 2$; the phase input $\theta_0 = C_2(T_1)/d^2 = 2/9$ is Class B-C Layer 1 from the same Casimir structure, …" (rest unchanged) |
+| F5 | Substratum B-S (:441) | "A move outside $3\sigma$ on precision upgrade falsifies the framework directly with no recoverable error mode." | "A global-fit $A$ outside $\sqrt{2/3}\,(1 \pm \lambda^2)$ would strain the leading-order identification, while the protected $\sin\theta_{13} = A^2\lambda$ comparison tests the geometry directly ([SM §7.1])." (SM:865's wording) |
+| F6 | Substratum PMNS bullet (:455) | "it inherits the Cabibbo $\lambda$ and is conditional with it ([SM §7.6])." | "it inherits the Cabibbo $\lambda$ and is conditional with it (class C in [SM §7.6]; not counted separately in Class B)." The re-check's "as in Chapter 4" is omitted: Substratum cites no book chapter. |
+| F7 (part) | ch06:205 [FULL] | "the charged-lepton Koide $Q = 2/3$ from $C_2(T_1)/d^2$;" | "the charged-lepton Koide $Q = \tfrac13 + \tfrac{A^2}{6} = 2/3$ through the amplitude $A^2 = C_2(T_1) = 2$;" (as F4) |
+
+Every θ₀ "0.02%" site is unchanged (SM:14, :1318, :1572; Juno:401; ch06 table θ₀; Substratum's θ₀ bullet; README:62; ch08:68, :177, :210; ch05:196).
+
 ### Recounts after R1–R5 and the S-class propagation
 
 | Inventory | Count |
@@ -587,24 +612,29 @@ ch06:196 still derives $Q = 2/3$ "from the cubic-group Casimir $C_2(T_1)/d^2 = 2
 | ch07 §7.10 table | **10** (was 12) |
 | GR §7.4 table | **6** (was 8) |
 | Substratum Class B | **1 B-S + 2 B-C + 6 B-L + 2 B-M + 2 B-R = 13** (was 4 B-S + 6 B-L + 2 B-M + 2 B-R = 14), now equal to ch04 |
+| ch09 tier inventory | **Tier 1: 5** (was 7), Tier 2: 7, Tier 3: 8; **20** in all (was 22) |
 
 R1, R2, R4 and R5 change no count. The SM, appendix-a, ch06 and ch04 inventories above were recounted from their tables after the S-class propagation and are unchanged by it.
 
 ### Build and checks
 
-- `sh ./build.sh SM GR Explainer Structure Substratum Juno Medicine` and `sh ./build.sh --book`: OK, no dropped glyphs. Pages: SM 146, GR 87, Explainer 69, Structure 98, Substratum 52, Medicine 30 and book 555, all unchanged; Juno 21 → 22, the last page holding 216 characters of overflow (median 2722 → 2726 characters per page). Median characters per page: SM 3119, GR 3185, Explainer 2864, Structure 2971, Substratum 3268, Medicine 2616, book 3054.
+- `sh ./build.sh SM GR Explainer Structure Substratum Juno Medicine` and `sh ./build.sh --book`: OK, no dropped glyphs. Pages: SM 146, GR 87, Explainer 69, Structure 98, Substratum 52, Medicine 30 and book 555, all unchanged (Structure, Substratum and the book rebuilt again after the re-check fixes: 98, 52 and 555); Juno 21 → 22, the last page holding 216 characters of overflow (median 2722 → 2726 characters per page). Median characters per page: SM 3119, GR 3185, Explainer 2864, Structure 2971, Substratum 3268, Medicine 2616, book 3054.
 - `staleness_check`: OK (9 matched). `mirror_check`: 0 absent. `claims_check`, `voice_check` (40 files), `duplicate_check`: OK. `coverage_check`: OK (128 statements). `lean_manuscript_census`, `dependency_label_check --strict`, `artifact_placement_check`: OK. `citation_check`: 112, 0 broken. `architecture_check`: 0 violations.
 - §A.32/§A.33 scan of the added words (word diff): no meta-commentary, reader instruction, caps emphasis or history phrase.
 
 ### Re-grep (sources / FULL)
 
-"ten gravitational" 0 / 0; "eight gravitational" 11 / 11; "twelve entries" 0 / 0; "8 C + 2 L" 0 / 0; "two unconditional" 0 / 0; "unconditional parameter-free" 0 / 0; "until that closure both" 0 / 0; "dissolves the conventional discrepancy" 0 / 0; "recovering the observed value" 0 / 0; "Total 14", "four sub-classes", "first-principles derivations", "dissolves the hierarchy", "all links solid", "Class B-S Layer 1", "derivation is Class B-L" 0 / 0. "unconditional" in `book/*.md` chapters 21 and in FULL 21. Every survivor predates this PR, none is the headline count, and "unconditional structural" survives only at Juno:59 (above).
+"ten gravitational" 0 / 0; "eight gravitational" 11 / 11; "twelve entries" 0 / 0; "8 C + 2 L" 0 / 0; "two unconditional" 0 / 0; "unconditional parameter-free" 0 / 0; "until that closure both" 0 / 0; "dissolves the conventional discrepancy" 0 / 0; "recovering the observed value" 0 / 0; "Total 14", "four sub-classes", "first-principles derivations", "dissolves the hierarchy", "all links solid", "Class B-S Layer 1", "derivation is Class B-L", "three consistency relations", "Seven universality-class", "twenty-two entries", "Koide $Q$ at 0.02", "Koide $Q = 2/3$ at", "$Q = 2/3$ from $C_2(T_1)/d^2$" 0 / 0. No Koide $Q$ figure of 0.02% remains. "unconditional" in `book/*.md` chapters 21 and in FULL 21. Every survivor predates this PR, none is the headline count, and "unconditional structural" survives only at Juno:59 (above).
 
 ### Noticed, deferred to the owner
 
 - **The framing of ħ as derived:** ch07:36 (the opening of the paragraph), ch00:97, ch02:110, :228, ch04:204, ch06:348, ch09:14, :48, :71, :92, :118, appendix-b:16, :173, :471, appendix-c:236–263, glossary:73, GR:18, SM:1350, :1576, Substratum:178, Main:684.
 - **glossary:127** (Rett window "pre-registered prediction"), as in the review.
 - **The review's non-blocking recommendations:** GR:320 numbered references for Bekenstein (1973) and Hawking (1975); ch19:28 "consistency relations" against GR:358's "comparisons with data"; ch03:42 dropping the 1/4 from the Level D list; the A.4.2 paragraph title "Consistency and descriptive relations".
-- **Koide figures:** ch09:169 and Structure:940 quote Koide Q at $0.02\%$ (θ₀'s figure); Substratum's B-C bullet quotes θ₀ at $0.02\%$ against $0.001\%$ in ch04:134 and the SM §7.6 table (the table disagreements of §4).
+- **Koide θ₀ figure:** the SM §7.6 table gives θ₀ $0.001\%$ (SM:1268) and ch04:134 matches it, against $0.02\%$ in SM:1318, the ch06 table, Substratum's θ₀ bullet, SM:14, SM:1572 and Juno:401 (pre-existing).
+- **Koide labels:** ch05:196 "the Koide relation $2/9$" and ch08:68 "Koide at $0.02\%$" name the relation where the angle θ₀ is meant.
+- **ch04:142** "in honest summary" (book register, exempt from §A.32).
 - **SM §8.8:** SM:1528 "OI's framework dissolves all three through the same mechanism" and SM:1536 "dissolve naturalness problems", against SM:1524 (strong CP is "the pattern's missing instance") and the conditional SM:1534. This is the source Medicine:554 paraphrased.
 - **Substratum:472** "these classifications are honest" (pre-existing §A.32 self-assessment).
+
+**Coordinator fix, same paragraph as F7 (ch06:205, FULL mirrored; book rebuilt).** "These four relations are all derived from cubic-group representation theory with no free parameters." → "These four relations take their forms from cubic-group representation theory with no free parameters; their classifications are those given above, with Koide $Q$ and $\theta_0$ conditional on the dynamical closure of the Koide amplitude." The paragraph is edited by this PR, and the old sentence called conditional entries derived.

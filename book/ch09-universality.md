@@ -121,15 +121,13 @@ These six commitments define the framework's universality class. Any finite dete
 
 | Tier 1 prediction | Empirical match | Source chapter |
 |-------------------|-----------------|----------------|
-| $S = A/(4 l_p^2)$ | conditional on H-slope; no direct test | Ch 7 §7.5 |
 | Area law $dA \geq 0$ | GW250114 area increase at $99.999\%$ | Ch 7 §7.5 |
-| CC dissolution (descriptive) | $\rho_{\text{obs}} \sim H^2/G$ consistent; dynamical form conditional on the coupling theorem | Ch 7 §7.7 |
 | BH information preserved | Page curve conditional on H-scramble and H-decouple, on the full product space; $t_P \approx 0.646\, t_{\text{evap}}$ at unit radiation-to-horizon entropy ratio | Ch 7 §7.6 |
 | Dark sector budget $\sim 95\%$ | $\Omega_{\text{dark}} \approx 0.95$ concordance | Ch 7 §7.9 |
 | No dark matter particle | XENON, LUX, etc. null | Ch 7 §7.9 |
 | No GUT-mediated proton decay | $\tau_p > 10^{34}$ yr | Ch 6 §6.4 |
 
-Seven universality-class entries tested against current empirical evidence: one confirmed at high precision (the area law), the $1/4$ coefficient without a direct test and conditional on H-slope, and the remainder consistent with the empirical record at concordance level (the descriptive dissolution, information preservation, dark sector budget, no DM particle, no proton decay). The Type II running-vacuum form is not in the table: its local expansion is shared by every smooth model, so it is non-discriminating (Chapter 7 §7.8), and the falsifiable content is the magnitude $|\nu| \sim 10^{-32}$ at Tier 2. The framework's universality-class content is therefore consistent with observation rather than sharply tested — the framework belongs to a universality class whose members must produce these results under the stated conditions, and the empirical record is consistent with the framework being in this class.
+Five universality-class entries tested against current empirical evidence: one confirmed at high precision (the area law) and the remainder consistent with the empirical record at concordance level (information preservation, dark sector budget, no DM particle, no proton decay). The Bekenstein-Hawking coefficient and the descriptive vacuum-energy distinction are consistency relations (Chapter 7 §7.10) and are not tabulated. The Type II running-vacuum form is not in the table: its local expansion is shared by every smooth model, so it is non-discriminating (Chapter 7 §7.8), and the falsifiable content is the magnitude $|\nu| \sim 10^{-32}$ at Tier 2. The framework's universality-class content is therefore consistent with observation rather than sharply tested — the framework belongs to a universality class whose members must produce these results under the stated conditions, and the empirical record is consistent with the framework being in this class.
 
 The next section develops the corresponding Tier 2 and Tier 3 content and traces the empirical record at the substratum-properties and bijection-specific levels.
 
@@ -166,7 +164,7 @@ The empirical record at Tier 3 summarizes as follows.
 | Tier 3 prediction | Empirical match | Source chapter |
 |-------------------|-----------------|----------------|
 | Cabibbo angle $\lambda = 1/(\pi\sqrt{2})$ | $0.04\%$ | Ch 6 §6.5 |
-| Koide relation $Q = 2/3$ | $0.02\%$ | Ch 6 §6.5 |
+| Koide relation $Q = 2/3$ | $<0.001\%$ | Ch 6 §6.5 |
 | $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ | $0.07\sigma$ from post-JUNO global fit | Ch 8 §8.6 |
 | $\sin^2\theta_{13} = 4/(18\pi^2)$ | $1.01\sigma$ from NuFIT 6.0 | Ch 8 §8.6 |
 | $\sin^2\theta_{23} = 1/2 + 1/(2\pi^2)$ | $0.74\sigma$ from NuFIT 6.0 | Ch 8 §8.6 |
@@ -176,9 +174,9 @@ The empirical record at Tier 3 summarizes as follows.
 
 The eight Tier 3 entries comprise six numerical flavor comparisons, one fitted coupling entry and one conditional interpolation comparison. The flavor comparisons test the stated cubic-lattice relations at the precisions listed. The fitted couplings supply no independent confirmation, and the interpolation comparison retains the open transition-kernel obligation.
 
-**Why the tier stratification matters.** The stratification separates the objects tested at each level. Tier 1 has seven entries: the area theorem is measured, the conditional entropy coefficient has no direct test, and the remaining entries have the conditions and empirical standing listed above. Tier 2 has seven entries concerning the substratum's properties, including conditional gravitational formulas and observational consistency checks. Tier 3 has eight entries concerning the specific-bijection account, with the numerical, fitted and conditional comparisons distinguished above.
+**Why the tier stratification matters.** The stratification separates the objects tested at each level. Tier 1 has five entries: the area theorem is measured, and the remaining entries have the conditions and empirical standing listed above. Tier 2 has seven entries concerning the substratum's properties, including conditional gravitational formulas and observational consistency checks. Tier 3 has eight entries concerning the specific-bijection account, with the numerical, fitted and conditional comparisons distinguished above.
 
-The three tiers contain twenty-two entries of unequal evidential weight. Numerical retrodictions, fitted quantities, conditional formulas and untested results remain distinct; a count of entries is not a count of independent confirmations. The tier assignment identifies the level at which each statement is made, while its conditions and empirical standing determine what its comparison tests.
+The three tiers contain twenty entries of unequal evidential weight. Numerical retrodictions, fitted quantities, conditional formulas and untested results remain distinct; a count of entries is not a count of independent confirmations. The tier assignment identifies the level at which each statement is made, while its conditions and empirical standing determine what its comparison tests.
 
 ## 9.5 The framework's relationship to string theory
 
