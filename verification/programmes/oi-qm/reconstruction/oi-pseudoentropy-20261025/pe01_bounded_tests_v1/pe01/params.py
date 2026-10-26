@@ -17,10 +17,10 @@ PLAN_PATH = REL + "/PLAN.md"
 A1_PATH = REL + "/amendments/A1-owner-decisions.md"
 PLAN_COMMIT = "af38dc2dde0fbdd190a67debf700ab5c370f92d9"   # revision 5, the plan A1 amends
 A1_COMMIT = "1e025b672bdeb56e52f32d668f46320e8c4be06e"     # carries A1's final blob
-# Amendment A2 resolves the open items of pending.py. It does not exist yet; when it lands, the
-# commit carrying its final blob is pinned here, exactly as A1 is.
+# Amendment A2 resolves the open items of pending.py; the commit carrying its final blob is pinned
+# here, exactly as A1 is.
 A2_PATH = REL + "/amendments/A2-open-items.md"
-A2_COMMIT = "bda77523a6e67bca16c653ec4134402628457721"
+A2_COMMIT = "826bd9babd92645b668e37735aee0dafd08cf4bc"
 CODE_PATHS = [REL + "/pe01", REL + "/verdict.py", REL + "/run.py", ".github/workflows/pe01-bounded-tests.yml"]
 
 # --- the parameters this code runs with (TH compares them with A1's block) ---
