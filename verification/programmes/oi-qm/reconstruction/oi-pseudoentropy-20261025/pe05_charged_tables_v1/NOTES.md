@@ -201,7 +201,7 @@ values the parameters block carries, and every cell at n ≤ 8 with a non-empty 
 The rulings are recorded in `PLAN.md` §9, summarized from the owner's approval table, and in the parameters block's
 `decisions`. Later the same day the owner wrote: "This authorizes the specification freeze, not experimental execution."
 
-**O8 applied: PE-05.** The owner's approval table read "O8 — Rename to PE-04 and retitle #934 before freeze". Later the
+**O8 applied: PE-05.** In the owner's approval table, the row "O8 — Stage naming" carried the ruling "Rename to PE-04 and retitle #934 before freeze". Later the
 same day the owner (amaybaum, 2026-10-26) wrote: "Approved: rename the new stage to PE-05." / "PE-04 remains reserved
 for quantum reconstruction. Apply the rename consistently to #934, its plan, citations, and retained records. Freeze
 after the three reviewer nits and independent confirmation pass." The stage was
@@ -332,8 +332,9 @@ The owner asked (#934) what a PE-05 plan adds beyond the 2006 clock-control faul
   - **Decisions:** all eleven are recorded in `PLAN.md` §9 and the parameters block, and TH covers every
     option-dependent value.
   - **Exact-version checks, both readings applied:**
-    - **(a) pinned execution environment:** `fixed.PE05_env` (Python 3.12, numpy 2.2.6, GitHub-hosted ubuntu-24.04,
-      x86_64), recorded by every shard and enforced by TH and the ENV checkpoint, as RP-01 is by `fixed.RP01_env`;
+    - **(a) pinned execution environment:** `fixed.PE05_env`, recorded by every shard and enforced in result mode
+      only by TH and the ENV checkpoint: Python major.minor equals 3.12, `numpy.__version__` equals 2.2.6, `ImageOS` equals `ubuntu24` and `RUNNER_ARCH` equals `X64`; `ImageVersion` and the full `sys.version` are recorded and never compared. The non-standard-library imports are measured by IMP and must be
+      exactly numpy. RP-01 is pinned by `fixed.RP01_env`;
     - **(b) version check of the plan itself:** the freeze record on #923 names the exact freeze commit and the
       sha256 of `PLAN.md`, `NOTES.md` and the `pe02-parameters` block as confirmed.
   - **Nits and independent confirmation:** recorded on #923 with the freeze. No commit identifier or digest of the

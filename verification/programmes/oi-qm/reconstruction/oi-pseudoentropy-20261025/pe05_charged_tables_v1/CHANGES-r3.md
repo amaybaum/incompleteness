@@ -1,6 +1,6 @@
 # PE-05 plan: changes from revision 2 to revision 3
 
-**Status: WIP / UNREVIEWED; planning only; no execution authorized.**
+**Change log (r3).** Planning only; no execution authorized.
 
 - **From:** revision 2, committed at `58441eb2`.
 - **Re-review:** `review/RECHECK-r2.md`, committed at `5b2ae247`. Verdict: REVISE, narrowly. N1–N3 are required and
@@ -90,7 +90,7 @@ replayed after these edits, and all four outputs are byte-identical (`cmp`).
 **The ruling.** The owner (amaybaum, 2026-10-26), later the same day: "Approved: rename the new stage to PE-05." / "PE-04
 remains reserved for quantum reconstruction. Apply the rename consistently to #934, its plan, citations, and retained
 records. Freeze after the three reviewer nits and independent confirmation pass." / "This authorizes the specification freeze, not experimental execution." It superseded the approval
-table's "O8 — Rename to PE-04 and retitle #934 before freeze".
+table's row "O8 — Stage naming", whose ruling read "Rename to PE-04 and retitle #934 before freeze".
 
 **What changed.**
 - **Directory:** `git mv pe02_charged_tables_v1 pe05_charged_tables_v1`.
@@ -124,3 +124,19 @@ Applied on `7b469183`, in the commit proposed as the freeze commit.
 | C4 | **Verbatim quotes.** The 18:54 UTC approval is quoted verbatim, without the paraphrased "authorizes specification freeze". The authorization sentence is quoted as the owner wrote it later the same day, "This authorizes the specification freeze, not experimental execution.". The rename ruling is quoted in its separate parts. The §9 ruling cells are marked as summaries of the approval table, not quotations. The table's O8 entry is quoted, together with its supersession by PE-05. |
 | C5 | The #934 retitle is recorded above. |
 | C6 | Left as it is. |
+
+## Freeze-candidate confirmation nits E1–E3 and the O8 table quote (`review-confirm-PE05-F`)
+
+Applied on `7736a1ce`.
+
+| Item | Edit |
+|---|---|
+| E1 | **One runner rule,** stated identically in the ENV row, `PE05_env.check` and §10. In result mode, refuse unless Python major.minor is 3.12, numpy is 2.2.6, `ImageOS == "ubuntu24"` and `RUNNER_ARCH == "X64"`. `ImageVersion` and the full `sys.version` are recorded and never compared. `PE05_env` gains `ImageOS`, `RUNNER_ARCH` and `modes_checked`. |
+| E2 | **Mode scope.** A "Run modes" bullet in §5 follows PE-01's runner: smoke, test and result. ENV and IMP refuse only in result mode; smoke and test runs record the environment and are never results. RP is scoped to result-mode shards. |
+| E3 | **Import claim measured.** New checkpoint IMP. Each shard records its top-level `sys.modules` names outside `sys.stdlib_module_names`, excluding `__main__` and the stage's own code package, whose name is fixed in the code commits and recorded. In result mode, collect refuses any set other than exactly `{"numpy"}`, including the empty set. The block's `imports` now points to IMP. |
+| O8 quote | The approval table is quoted as its two cells, row "O8 — Stage naming" and ruling "Rename to PE-04 and retitle #934 before freeze", in PLAN §9 (text and O8 row), NOTES §6 and this file. |
+| Header | This file's status line is now "Change log (r3)". |
+
+**Deviation from the instruction.** E3 excludes `__main__` and the stage's own package from the import set. `__main__`
+is always in `sys.modules` and is not in `sys.stdlib_module_names`. The package's own top-level name would also appear.
+Without these two exclusions the rule would refuse every shard.

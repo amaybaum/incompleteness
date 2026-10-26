@@ -512,6 +512,10 @@ Every numerical row is exact integer or `Fraction` arithmetic. A failed or uneva
   `<id>.provenance.json` holds the run id and timings and is not part of the replay. `collect` writes
   `measurements.json` (`pe02-measurements/1`); `verdict.py` writes `verdict.json` (`pe02-verdict/1`) and
   `verdict.txt`. The field lists may be completed by amendment before code, and not after.
+- **Run modes,** as in PE-01's runner: `smoke` (the §10 local row, $n \le 5$), `test` (the result scope, never a
+  result) and `result` (the preregistered run). The mode is recorded in every shard. ENV and IMP refuse only in result
+  mode, so the local smoke run and the §A.40 pre-push checks can run on any local Python. Only result-mode shards
+  enter `measurements.json`.
 - **Fixed identifiers.** The schema identifiers `pe02-shard/1`, `pe02-measurements/1`, `pe02-verdict/1` and
   `pe02-rp01/1`, and the parameters block tag `pe02-parameters`, are fixed identifiers, not stage labels or ordinals.
   They stay unchanged whatever O8 decides about the stage's name, and are never reused for another stage.
@@ -613,8 +617,9 @@ Every numerical row is exact integer or `Fraction` arithmetic. A failed or uneva
 | The witness conditions are evaluated mechanically | CX | As PE-01 §5 CX, with (f) evaluated per model. Self-test mutants, each refused on its own condition: a window value $1/8 - 2^{-K-2}$ (d); $F_U = \theta + 1$ (f$_U$); $F_R = \theta + 1$ with $F_U \le \theta$ (f$_R$); $F_E = \theta + 1$ with $F_U \le \theta$ (f$_E$); $K = K_{\rm cx} + 1$ (c) |
 | The admissible regions are derived | AR-C | $Z(\varphi)$ by the §4.2 methods, and $K_{\rm cx}(\varphi)$, for every generator and $n$ used. The regions under U, R and E are recomputed from them and from the measured footprints, at each generator's θ values ($n + 1$; both $n + 1$ and $n + 2$ for `G_clkfix_u`), and must equal §2.4's statements (including its `G_clkfix_u` exception) and the §9 per-$n$ values at the matching θ. Each cell's status (`REGION_EMPTY`, `NOT_IN_SEARCH_RANGE`, searched) is derived from the recomputed region and the searched range |
 | The workflow cannot be launched by a push | WF | the workflow file is parsed, and its `on:` key has `workflow_dispatch` as its only trigger |
-| Every PE-05 job runs in the pinned environment | ENV | every shard records `sys.version`, `numpy.__version__` and the runner image name and version (`ImageOS`, `ImageVersion`); TH refuses to start, and the collect job refuses a shard, whose Python major.minor, numpy version or runner image differs from `fixed.PE05_env`. The workflow pins the same values |
-| Deterministic replay | RP | every PE-05 shard's measurement JSON is byte-identical on rerun in the `PE05_env` environment |
+| Every result-mode PE-05 job runs in the pinned environment | ENV | Every shard, in every mode, records `sys.version`, `numpy.__version__`, `ImageOS`, `ImageVersion` and `RUNNER_ARCH`. **In result mode only,** TH refuses to start, and the collect job refuses a shard, unless Python major.minor equals 3.12, `numpy.__version__` equals 2.2.6, `ImageOS` equals `ubuntu24` and `RUNNER_ARCH` equals `X64`; `ImageVersion` and the full `sys.version` are recorded and never compared (`fixed.PE05_env`). Smoke and test runs record the environment, are not checked against it, and are never results. The workflow pins the same values |
+| The code imports only the standard library and numpy | IMP | Every shard, in every mode, records the set of top-level names in `sys.modules` at its end that are not in `sys.stdlib_module_names`, excluding `__main__` and the stage's own code package (its name is fixed in the code commits and recorded beside the set). **In result mode,** collect refuses a shard whose set is not exactly `{"numpy"}`, including an empty set |
+| Deterministic replay | RP | every result-mode PE-05 shard's measurement JSON is byte-identical on rerun in the `PE05_env` environment |
 | The plan precedes the code | PIN | the measurement JSON records this file's blob and the commit that froze it, and that commit is an ancestor of every code commit |
 | Runs wait for the fixed parameters | TH | The measurement JSON records the `pe02-parameters` block of this file as frozen, with its blob and the freezing commit. Each formula is evaluated at every $n$ that has an explicit value and compared with it, as PE-01 A1. Each entry under `dependent` carries `assumes`, the decisions it was computed under; TH requires every `assumes` item to equal the recorded `Ox:value` in `decisions` and refuses on any mismatch. A run refuses to start without the block, on any `OPEN` value, or on any disagreement |
 | Verdicts are generated from measurements | VG | As PE-01: the regeneration is byte-identical; a copy with any control flag flipped yields VOID; a verdict lacking the §7 resource-model sentence fails. The verdict's inputs are exactly the files named under "Structured evidence" |
@@ -729,8 +734,7 @@ The computation does not stand in for the proof, and the proof does not stand in
 the same day, with the O8 ruling: "This authorizes the specification freeze, not experimental execution."
 
 The rulings in the last column below summarize the owner's approval table as relayed; they are not quotations. The
-approval table's O8 entry read "O8 — Rename to PE-04 and retitle #934 before freeze"; the owner's later ruling
-replaced it with PE-05.
+the approval table's row "O8 — Stage naming" carried the ruling "Rename to PE-04 and retitle #934 before freeze"; the owner's later ruling replaced it with PE-05.
 
 The decisions are recorded here, before freeze, in this plan's own `pe02-parameters` block, which TH reads from the
 frozen file; no amendment is needed. The third column keeps, for the record, what each option not chosen would have
@@ -746,7 +750,7 @@ changed. Ranges are from `design/charge_ranges.out` and `design/linear_class_cod
 | O5 | Clock-ablated prior, and θ for `G_clkfix_u` | Matched primary with uniform variant. Matched only: drop `G_clkfix_u` and its $\theta = n+2$ ranges. Uniform only: drop `G_clkfix`, so CA-EQ, SIM-P1 and the §4.3 backaction comparison lose their matched basis (`dependent.secondary_comparisons` and the secondary entries are restated). θ for `_u` (n+2 or n+1 governing) does not change the search, which runs at n+2 while both are reported | the matched prior governs; the uniform prior is reported and searched as specified; θ for `_u`: n+2 governing, n+1 reported, as recommended |
 | O6 | K0 status at $n > 8$ | Not computed. Computed on a fixed subfamily: adds K0 runs at $n > 8$; no witness range changes | K0 beyond n = 8 explicitly marked not computed |
 | O7 | Secondary population | All active (a′)–(e) members. Admissible (f$_U$) only: the population is the $n = 5$, $K = 7$ cell (36 pairs); the computation range is unchanged | all qualifying active witnesses (m = 2, G_clk, n ∈ {4, 5}) |
-| O8 | Stage name | Keep "PE-02", or rename (e.g. PE-04) and retitle #934 before freeze. No range changes. The schema identifiers and the block tag stay as they are (§5, P3) | PE-05. The approval table's "O8 — Rename to PE-04 and retitle #934 before freeze" was superseded the same day by "Approved: rename the new stage to PE-05." (PE-04 was found taken by the README's quantum-reconstruction stage) |
+| O8 | Stage name | Keep "PE-02", or rename (e.g. PE-04) and retitle #934 before freeze. No range changes. The schema identifiers and the block tag stay as they are (§5, P3) | PE-05. The approval table's row "O8 — Stage naming", ruling "Rename to PE-04 and retitle #934 before freeze", was superseded the same day by "Approved: rename the new stage to PE-05." (PE-04 was found taken by the README's quantum-reconstruction stage) |
 | O9 | Lemma A-SIM | Adopt. Drop: SIM-P1 and the twin-footprint reporting are removed; ACT-SIM stays as a computation with no interpretation; no range changes | adopt Lemma A-SIM in its revised upper-bound formulation |
 | O10 | Charge scope | Full description governs. Transition and action only: all charged regions change (§2.1). $m = 1$ enters at $n = 8$ (E sum) and $n = 10$ (R); $m = 2$ at $n = 19$ (E sum). Part A gets non-empty charged cells, Part B gets `emb_m2_all` at $n \ge 19$, and INC-RE fails. Every `dependent` entry is restated, including `CH_IFF_boundary_records`, `PL_E_boundary`, `INC_RE_checkpoint`, `E_void_rule`, `search_range_R_contains_E` and `EN_meaning` (E would no longer be a code of the charged description) | the full observer description governs; tables-only costs reported separately |
 
@@ -874,9 +878,11 @@ meets the bound.
     "d_rule": "abs",
     "d_sensitivity": "signed",
     "RP01_env": {"python": "3.12", "numpy": "2.2.6", "pe01_head": "549641460b8ddb536178f95fac2ec9390e84a987"},
-    "PE05_env": {"python": "3.12", "numpy": "2.2.6", "imports": ["python standard library", "numpy"],
+    "PE05_env": {"python": "3.12", "numpy": "2.2.6", "ImageOS": "ubuntu24", "RUNNER_ARCH": "X64",
                  "runner": "GitHub-hosted ubuntu-24.04, x86_64",
-                 "check": "python major.minor and numpy exact; full sys.version, numpy.__version__ and the runner image name and version recorded in every shard"}
+                 "imports": {"allowed_non_stdlib": ["numpy"], "checkpoint": "IMP"},
+                 "modes_checked": ["result"],
+                 "check": "result mode only: refuse unless python major.minor == 3.12, numpy.__version__ == 2.2.6, ImageOS == ubuntu24 and RUNNER_ARCH == X64; ImageVersion and the full sys.version are recorded and never compared; smoke and test runs record the environment and are never results"}
   }
 }
 ```
@@ -901,8 +907,9 @@ PE-01's own timings scale them: its `n8-clk` shard took about 1150 s and `n8-clk
 | AR-C at $n > 8$: Z by the §4.2 methods, and cycle decomposition for $K_{\rm cx}$ | under 1 h | CI, with the Part B shards |
 | INT on verdict-bearing witnesses | minutes | CI |
 
-- Every PE-05 job runs in `fixed.PE05_env` (Python 3.12, numpy 2.2.6, GitHub-hosted ubuntu-24.04, x86_64; ENV), and
-  RP-01 in `fixed.RP01_env`.
+- Every result-mode PE-05 job runs in `fixed.PE05_env` (ENV): Python major.minor equals 3.12, `numpy.__version__` equals 2.2.6, `ImageOS` equals `ubuntu24` and `RUNNER_ARCH` equals `X64`; `ImageVersion` and the full `sys.version` are recorded and never compared. Smoke and test runs, including the local smoke row
+  above, record the environment and are never results. RP-01 runs in `fixed.RP01_env`. Each result-mode shard also
+  records its non-standard-library imports, which must be exactly numpy (IMP).
 - The workflow's only trigger is `workflow_dispatch` (WF), and it is part of the code commits, so no push launches it.
   Every dispatch needs owner approval (§A.43 item 4).
 - Shard outputs are committed as the structured files of §5, recording the commit, the recipe and the run id
