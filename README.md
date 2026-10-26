@@ -13,6 +13,7 @@ The framework is inspired by the same broad kind of self-reference constraint th
 
 | If you want | Start with |
 | --- | --- |
+| A self-contained introduction to the framework and its formal results | [`papers/Introduction.md`](papers/Introduction.md) |
 | The foundational finite-observer result | [`papers/Main.md`](papers/Main.md) |
 | A short, self-contained phenomenology paper | [`papers/Juno.md`](papers/Juno.md) |
 | The current formal-verification programme | [`verification/README.md`](verification/README.md) |
