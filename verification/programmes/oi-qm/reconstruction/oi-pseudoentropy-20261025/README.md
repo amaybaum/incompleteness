@@ -204,12 +204,6 @@ bridge and no-go scope).
   - native construction (#910).
 - Keep finite-precision approximation (`Main.md:576`) separate from exact quantum equivalence.
 
-**PE-05: charged observer tables, activity and backaction.** Planning; specification freeze pending (#934).
-- Ask whether a prediction witness of PE-01's kind survives when the observer's description is charged against the
-  footprint threshold, and whether its advantage needs the generator's clock to respond to the observer's
-  interventions.
-- The stage plan is `pe05_charged_tables_v1/PLAN.md`.
-
 ## Decision rules (stated before any computation)
 
 - **Advantages are exact.** They are computed exactly where an exact computation is available. Floating point never
@@ -281,3 +275,12 @@ above. The milestone closes with one or more of the following outcomes, all equa
 
 A failed control makes the milestone VOID, regardless of any other outcome. Otherwise, if none of these is reached, it
 closes as OPEN.
+
+## Stages added after the first milestone
+
+**PE-05: charged observer tables, activity and backaction** (#934). Specification; frozen at the commit named in the
+freeze record on #923. No execution is authorized.
+- Asks whether a prediction witness of PE-01's kind survives when the observer's description is charged against the
+  footprint threshold, and whether its advantage needs the generator's clock to respond to the observer's
+  interventions.
+- The stage plan is `pe05_charged_tables_v1/PLAN.md`.

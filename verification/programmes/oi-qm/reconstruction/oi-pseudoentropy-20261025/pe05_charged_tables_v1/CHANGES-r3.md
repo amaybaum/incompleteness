@@ -56,9 +56,7 @@ replayed after these edits, and all four outputs are byte-identical (`cmp`).
 
 ## Owner decisions recorded (2026-10-26); the O8 rename held
 
-**The approval.** The owner (amaybaum, 2026-10-26): "I approve all eleven PE-02 decisions (O1–O10, including O4b) as
-recommended, subject to the final nit confirmation and exact-version checks before freezing the plan." It "authorizes
-specification freeze, not experimental execution".
+**The approval.** The owner (amaybaum, 2026-10-26, 18:54 UTC): "I approve all eleven PE-02 decisions (O1–O10, including O4b) as recommended, subject to the final nit confirmation and exact-version checks before freezing the plan."
 
 **Decisions recorded.**
 - **PLAN status:** "decisions recorded; frozen pending independent confirmation". The coordinator records the freeze.
@@ -89,7 +87,10 @@ specification freeze, not experimental execution".
 
 ## O8 applied: the stage is PE-05 (2026-10-26)
 
-**The ruling.** The owner (amaybaum, 2026-10-26): "Approved: rename the new stage to PE-05. PE-04 remains reserved for quantum reconstruction."
+**The ruling.** The owner (amaybaum, 2026-10-26), later the same day: "Approved: rename the new stage to PE-05." / "PE-04
+remains reserved for quantum reconstruction. Apply the rename consistently to #934, its plan, citations, and retained
+records. Freeze after the three reviewer nits and independent confirmation pass." / "This authorizes the specification freeze, not experimental execution." It superseded the approval
+table's "O8 — Rename to PE-04 and retitle #934 before freeze".
 
 **What changed.**
 - **Directory:** `git mv pe02_charged_tables_v1 pe05_charged_tables_v1`.
@@ -108,4 +109,18 @@ specification freeze, not experimental execution".
   untouched.
 - **`review/`:** the retained files are byte-unchanged. A new `review/README.md` records the working name and maps the
   old paths to the new ones.
-- **Not done here:** retitling Issue #934 on GitHub. It is outside this working tree.
+- **Issue #934:** retitled to PE-05 on GitHub, with its body updated and a rename comment posted
+  (issuecomment-6425664988), outside this working tree.
+
+## Independent confirmation nits C1–C5 (`review-confirm-PE05`, ACCEPT WITH NITS)
+
+Applied on `7b469183`, in the commit proposed as the freeze commit.
+
+| Item | Edit |
+|---|---|
+| C1 | **Thread README.** The PE-05 entry moves from after PE-04 to the end of the file, under "Stages added after the first milestone". Lines 1–277 are byte-identical to `a611f943` (`cmp`), so PE-01's frozen citations `README.md:265`, `:268–277` and `:252–261` resolve at the current head as well. |
+| C2 | **Timeless status lines.** PLAN and NOTES now read "Specification; frozen at the commit named in the freeze record on #923", and the README entry says the same. NOTES §10's "Freeze still needs …" becomes a statement of how each freeze condition is met. No freeze commit or digest is written into the files. |
+| C3 | **(a)** `fixed.PE05_env` is added (Python 3.12, numpy 2.2.6, GitHub-hosted ubuntu-24.04, x86_64), with an ENV checkpoint row, TH refusal on a mismatch, and a §10 line. **(b)** The freeze record names the exact commit and the sha256 of PLAN, NOTES and the parameters block. NOTES §10 records that both readings are applied. |
+| C4 | **Verbatim quotes.** The 18:54 UTC approval is quoted verbatim, without the paraphrased "authorizes specification freeze". The authorization sentence is quoted as the owner wrote it later the same day, "This authorizes the specification freeze, not experimental execution.". The rename ruling is quoted in its separate parts. The §9 ruling cells are marked as summaries of the approval table, not quotations. The table's O8 entry is quoted, together with its supersession by PE-05. |
+| C5 | The #934 retitle is recorded above. |
+| C6 | Left as it is. |

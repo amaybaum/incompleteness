@@ -1,8 +1,8 @@
 # PE-05 stage plan: charged observer tables, activity and backaction (revision 3, decisions recorded)
 
-**Status: decisions recorded; frozen pending independent confirmation.** Planning only; no execution authorized. The
-owner's approval "authorizes specification freeze, not experimental execution"; the freeze itself is recorded by the
-coordinator, not in this file.
+**Status: specification; frozen at the commit named in the freeze record on #923.** Planning only; no execution
+authorized. The owner (amaybaum, 2026-10-26): "This authorizes the specification freeze, not experimental execution." The freeze commit and the digests
+confirmed at freeze are recorded on #923, not in this file.
 
 Stage plan for Issue #934 in thread OI-PE-1 (`../README.md`). No PE-05 code exists.
 - **Revision 1:** `902c4c0d`, reviewed at `2bb45e0b` (`review/REVIEW.md`: ACCEPT WITH CHANGES, R1–R15).
@@ -18,8 +18,8 @@ Stage plan for Issue #934 in thread OI-PE-1 (`../README.md`). No PE-05 code exis
   The corpus sentence it bears on is read on `main` at `c967d6a931c294e456053be5e3bf5bb4f2d9ad1c`.
 - The drafter's sources and readings of #934 are in `NOTES.md`.
 
-**Decided (O8) (owner, amaybaum, 2026-10-26): this stage is PE-05.** "Approved: rename the new stage to PE-05. PE-04
-remains reserved for quantum reconstruction." The stage was drafted under the working name PE-02, in
+**Decided (O8) (owner, amaybaum, 2026-10-26): this stage is PE-05.** "Approved: rename the new stage to PE-05." /
+"PE-04 remains reserved for quantum reconstruction." The stage was drafted under the working name PE-02, in
 `pe02_charged_tables_v1/`. PE-04, first recommended, was found taken by the thread README's quantum-reconstruction
 stage. PE-01's frozen PLAN (§3, §7, §10 item 5) and the thread README use "PE-02" for the
 computational-versus-physical stage, which this plan does not touch.
@@ -613,7 +613,8 @@ Every numerical row is exact integer or `Fraction` arithmetic. A failed or uneva
 | The witness conditions are evaluated mechanically | CX | As PE-01 §5 CX, with (f) evaluated per model. Self-test mutants, each refused on its own condition: a window value $1/8 - 2^{-K-2}$ (d); $F_U = \theta + 1$ (f$_U$); $F_R = \theta + 1$ with $F_U \le \theta$ (f$_R$); $F_E = \theta + 1$ with $F_U \le \theta$ (f$_E$); $K = K_{\rm cx} + 1$ (c) |
 | The admissible regions are derived | AR-C | $Z(\varphi)$ by the §4.2 methods, and $K_{\rm cx}(\varphi)$, for every generator and $n$ used. The regions under U, R and E are recomputed from them and from the measured footprints, at each generator's θ values ($n + 1$; both $n + 1$ and $n + 2$ for `G_clkfix_u`), and must equal §2.4's statements (including its `G_clkfix_u` exception) and the §9 per-$n$ values at the matching θ. Each cell's status (`REGION_EMPTY`, `NOT_IN_SEARCH_RANGE`, searched) is derived from the recomputed region and the searched range |
 | The workflow cannot be launched by a push | WF | the workflow file is parsed, and its `on:` key has `workflow_dispatch` as its only trigger |
-| Deterministic replay | RP | every PE-05 shard's measurement JSON is byte-identical on rerun |
+| Every PE-05 job runs in the pinned environment | ENV | every shard records `sys.version`, `numpy.__version__` and the runner image name and version (`ImageOS`, `ImageVersion`); TH refuses to start, and the collect job refuses a shard, whose Python major.minor, numpy version or runner image differs from `fixed.PE05_env`. The workflow pins the same values |
+| Deterministic replay | RP | every PE-05 shard's measurement JSON is byte-identical on rerun in the `PE05_env` environment |
 | The plan precedes the code | PIN | the measurement JSON records this file's blob and the commit that froze it, and that commit is an ancestor of every code commit |
 | Runs wait for the fixed parameters | TH | The measurement JSON records the `pe02-parameters` block of this file as frozen, with its blob and the freezing commit. Each formula is evaluated at every $n$ that has an explicit value and compared with it, as PE-01 A1. Each entry under `dependent` carries `assumes`, the decisions it was computed under; TH requires every `assumes` item to equal the recorded `Ox:value` in `decisions` and refuses on any mismatch. A run refuses to start without the block, on any `OPEN` value, or on any disagreement |
 | Verdicts are generated from measurements | VG | As PE-01: the regeneration is byte-identical; a copy with any control flag flipped yields VOID; a verdict lacking the §7 resource-model sentence fails. The verdict's inputs are exactly the files named under "Structured evidence" |
@@ -724,27 +725,30 @@ The computation does not stand in for the proof, and the proof does not stand in
 
 ## 9. Owner decisions, and the parameters block
 
-**The owner's approval** (amaybaum, 2026-10-26): "I approve all eleven PE-02 decisions (O1–O10, including O4b) as
-recommended, subject to the final nit confirmation and exact-version checks before freezing the plan." The approval
-"authorizes specification freeze, not experimental execution".
+**The owner's approval** (amaybaum, 2026-10-26, 18:54 UTC): "I approve all eleven PE-02 decisions (O1–O10, including O4b) as recommended, subject to the final nit confirmation and exact-version checks before freezing the plan." Later
+the same day, with the O8 ruling: "This authorizes the specification freeze, not experimental execution."
+
+The rulings in the last column below summarize the owner's approval table as relayed; they are not quotations. The
+approval table's O8 entry read "O8 — Rename to PE-04 and retitle #934 before freeze"; the owner's later ruling
+replaced it with PE-05.
 
 The decisions are recorded here, before freeze, in this plan's own `pe02-parameters` block, which TH reads from the
 frozen file; no amendment is needed. The third column keeps, for the record, what each option not chosen would have
 changed. Ranges are from `design/charge_ranges.out` and `design/linear_class_code.out`.
 
-| Id | Decision | Options, and their effect on search ranges and dependent values | Owner's ruling (amaybaum, 2026-10-26) |
+| Id | Decision | Options, and their effect on search ranges and dependent values | Owner's ruling (amaybaum, 2026-10-26; summarized, not quoted) |
 |---|---|---|---|
-| O1 | θ under charged models | (i) $n+1$ for U, R, E (`G_clkfix_u`: O5). (ii) $n+1+D_C(\varphi)$: admits a superset of (i). It needs a fixed generator encoding $D_C$, which this plan does not define; every θ, K range and cap must then be recomputed and restated, together with the `dependent` entries `CH_IFF_boundary_records`, `PL_E_boundary`, `INC_RE_checkpoint`, `E_void_rule` and `search_range_R_contains_E` | "θ = n+1 for every model." Option (i) |
-| O2 | Which charged models govern | R and E, separately. R only, or E only: the search range is unchanged (the R range contains the E range, INC-RE), and only the reported labels change | "R and E, reported separately." |
-| O3 | Description-complexity proxy | Information only (§2.2). A third, class-code model: `plin_m2` must be searched at $n = 22..24$, $K = 4..7$, and `plin_m1` at $n = 16$, $K = 4..6$ (θ = n+1; more at θ = n+2 for `G_clkfix_u`); `partB_search_classes` changes | "informational only; no class-code search." |
-| O4 | $N_{\max}$ | 24. 22: drop $n = 23, 24$ from Part B. 8: no Part B; every charged question is answered by §2.4's arithmetic | "N_max = 24, with no extension without a new authorization." |
-| O4b | $m = 0$ in Part B | (a) M0 control only, $1 \le K \le 63$, with coverage beyond by proof, stated in the verdict. (b) Search $m = 0$ to $K^{R}_{\max}(n, 0; \theta_{\max})$ (≤ 1023; ≤ 2047 for `G_clkfix_u`), at a cost of about $10^{11}$–$10^{12}$ updates at $n = 24$; `M0_K_max_partB` is replaced by the per-$n$ ranges | "memoryless observers are excluded from the main search; the exact-zero control runs through K = 63, and coverage beyond relies on the proof." Option (a) |
-| O5 | Clock-ablated prior, and θ for `G_clkfix_u` | Matched primary with uniform variant. Matched only: drop `G_clkfix_u` and its $\theta = n+2$ ranges. Uniform only: drop `G_clkfix`, so CA-EQ, SIM-P1 and the §4.3 backaction comparison lose their matched basis (`dependent.secondary_comparisons` and the secondary entries are restated). θ for `_u` (n+2 or n+1 governing) does not change the search, which runs at n+2 while both are reported | "the matched prior governs; the uniform prior is reported and searched as specified." θ for `_u`: n+2 governing, n+1 reported, as recommended |
-| O6 | K0 status at $n > 8$ | Not computed. Computed on a fixed subfamily: adds K0 runs at $n > 8$; no witness range changes | "K0 beyond n = 8 is explicitly marked not computed." |
-| O7 | Secondary population | All active (a′)–(e) members. Admissible (f$_U$) only: the population is the $n = 5$, $K = 7$ cell (36 pairs); the computation range is unchanged | "all qualifying active witnesses (m = 2, G_clk, n ∈ {4, 5})." |
-| O8 | Stage name | Keep "PE-02", or rename (e.g. PE-04) and retitle #934 before freeze. No range changes. The schema identifiers and the block tag stay as they are (§5, P3) | "Approved: rename the new stage to PE-05. PE-04 remains reserved for quantum reconstruction." (2026-10-26). PE-04, ruled first, was found taken by the README's quantum-reconstruction stage |
-| O9 | Lemma A-SIM | Adopt. Drop: SIM-P1 and the twin-footprint reporting are removed; ACT-SIM stays as a computation with no interpretation; no range changes | "adopt Lemma A-SIM in its revised upper-bound formulation." |
-| O10 | Charge scope | Full description governs. Transition and action only: all charged regions change (§2.1). $m = 1$ enters at $n = 8$ (E sum) and $n = 10$ (R); $m = 2$ at $n = 19$ (E sum). Part A gets non-empty charged cells, Part B gets `emb_m2_all` at $n \ge 19$, and INC-RE fails. Every `dependent` entry is restated, including `CH_IFF_boundary_records`, `PL_E_boundary`, `INC_RE_checkpoint`, `E_void_rule`, `search_range_R_contains_E` and `EN_meaning` (E would no longer be a code of the charged description) | "the full observer description governs; tables-only costs are reported separately." |
+| O1 | θ under charged models | (i) $n+1$ for U, R, E (`G_clkfix_u`: O5). (ii) $n+1+D_C(\varphi)$: admits a superset of (i). It needs a fixed generator encoding $D_C$, which this plan does not define; every θ, K range and cap must then be recomputed and restated, together with the `dependent` entries `CH_IFF_boundary_records`, `PL_E_boundary`, `INC_RE_checkpoint`, `E_void_rule` and `search_range_R_contains_E` | θ = n+1 for every model: option (i) |
+| O2 | Which charged models govern | R and E, separately. R only, or E only: the search range is unchanged (the R range contains the E range, INC-RE), and only the reported labels change | R and E, reported separately |
+| O3 | Description-complexity proxy | Information only (§2.2). A third, class-code model: `plin_m2` must be searched at $n = 22..24$, $K = 4..7$, and `plin_m1` at $n = 16$, $K = 4..6$ (θ = n+1; more at θ = n+2 for `G_clkfix_u`); `partB_search_classes` changes | informational only; no class-code search |
+| O4 | $N_{\max}$ | 24. 22: drop $n = 23, 24$ from Part B. 8: no Part B; every charged question is answered by §2.4's arithmetic | N_max = 24, with no extension without a new authorization |
+| O4b | $m = 0$ in Part B | (a) M0 control only, $1 \le K \le 63$, with coverage beyond by proof, stated in the verdict. (b) Search $m = 0$ to $K^{R}_{\max}(n, 0; \theta_{\max})$ (≤ 1023; ≤ 2047 for `G_clkfix_u`), at a cost of about $10^{11}$–$10^{12}$ updates at $n = 24$; `M0_K_max_partB` is replaced by the per-$n$ ranges | option (a): memoryless observers excluded from the main search; the exact-zero control runs through K = 63, and coverage beyond relies on the proof |
+| O5 | Clock-ablated prior, and θ for `G_clkfix_u` | Matched primary with uniform variant. Matched only: drop `G_clkfix_u` and its $\theta = n+2$ ranges. Uniform only: drop `G_clkfix`, so CA-EQ, SIM-P1 and the §4.3 backaction comparison lose their matched basis (`dependent.secondary_comparisons` and the secondary entries are restated). θ for `_u` (n+2 or n+1 governing) does not change the search, which runs at n+2 while both are reported | the matched prior governs; the uniform prior is reported and searched as specified; θ for `_u`: n+2 governing, n+1 reported, as recommended |
+| O6 | K0 status at $n > 8$ | Not computed. Computed on a fixed subfamily: adds K0 runs at $n > 8$; no witness range changes | K0 beyond n = 8 explicitly marked not computed |
+| O7 | Secondary population | All active (a′)–(e) members. Admissible (f$_U$) only: the population is the $n = 5$, $K = 7$ cell (36 pairs); the computation range is unchanged | all qualifying active witnesses (m = 2, G_clk, n ∈ {4, 5}) |
+| O8 | Stage name | Keep "PE-02", or rename (e.g. PE-04) and retitle #934 before freeze. No range changes. The schema identifiers and the block tag stay as they are (§5, P3) | PE-05. The approval table's "O8 — Rename to PE-04 and retitle #934 before freeze" was superseded the same day by "Approved: rename the new stage to PE-05." (PE-04 was found taken by the README's quantum-reconstruction stage) |
+| O9 | Lemma A-SIM | Adopt. Drop: SIM-P1 and the twin-footprint reporting are removed; ACT-SIM stays as a computation with no interpretation; no range changes | adopt Lemma A-SIM in its revised upper-bound formulation |
+| O10 | Charge scope | Full description governs. Transition and action only: all charged regions change (§2.1). $m = 1$ enters at $n = 8$ (E sum) and $n = 10$ (R); $m = 2$ at $n = 19$ (E sum). Part A gets non-empty charged cells, Part B gets `emb_m2_all` at $n \ge 19$, and INC-RE fails. Every `dependent` entry is restated, including `CH_IFF_boundary_records`, `PL_E_boundary`, `INC_RE_checkpoint`, `E_void_rule`, `search_range_R_contains_E` and `EN_meaning` (E would no longer be a code of the charged description) | the full observer description governs; tables-only costs reported separately |
 
 **The block.** `decisions` records the owner's rulings, in the same `Ox:value` form the tags use. Each entry under
 `dependent` was computed under the decisions listed in its `assumes`. TH refuses any entry whose `assumes` is not
@@ -869,7 +873,10 @@ meets the bound.
     "w": 3,
     "d_rule": "abs",
     "d_sensitivity": "signed",
-    "RP01_env": {"python": "3.12", "numpy": "2.2.6", "pe01_head": "549641460b8ddb536178f95fac2ec9390e84a987"}
+    "RP01_env": {"python": "3.12", "numpy": "2.2.6", "pe01_head": "549641460b8ddb536178f95fac2ec9390e84a987"},
+    "PE05_env": {"python": "3.12", "numpy": "2.2.6", "imports": ["python standard library", "numpy"],
+                 "runner": "GitHub-hosted ubuntu-24.04, x86_64",
+                 "check": "python major.minor and numpy exact; full sys.version, numpy.__version__ and the runner image name and version recorded in every shard"}
   }
 }
 ```
@@ -894,6 +901,8 @@ PE-01's own timings scale them: its `n8-clk` shard took about 1150 s and `n8-clk
 | AR-C at $n > 8$: Z by the §4.2 methods, and cycle decomposition for $K_{\rm cx}$ | under 1 h | CI, with the Part B shards |
 | INT on verdict-bearing witnesses | minutes | CI |
 
+- Every PE-05 job runs in `fixed.PE05_env` (Python 3.12, numpy 2.2.6, GitHub-hosted ubuntu-24.04, x86_64; ENV), and
+  RP-01 in `fixed.RP01_env`.
 - The workflow's only trigger is `workflow_dispatch` (WF), and it is part of the code commits, so no push launches it.
   Every dispatch needs owner approval (§A.43 item 4).
 - Shard outputs are committed as the structured files of §5, recording the commit, the recipe and the run id

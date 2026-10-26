@@ -1,6 +1,7 @@
 # PE-05 drafting notes (revision 3)
 
-**Status: decisions recorded; frozen pending independent confirmation.** Planning only; no execution authorized.
+**Status: specification; frozen at the commit named in the freeze record on #923.** Planning only; no execution
+authorized.
 
 Companion to `PLAN.md`. It records:
 - the sources the draft rests on;
@@ -196,12 +197,14 @@ values the parameters block carries, and every cell at n ≤ 8 with a non-empty 
 
 ## 6. Owner decisions, with recommendations
 
-**Decided.** The owner (amaybaum, 2026-10-26) approved all eleven decisions as recommended: "I approve all eleven PE-02
-decisions (O1–O10, including O4b) as recommended, subject to the final nit confirmation and exact-version checks before
-freezing the plan." The rulings are recorded in `PLAN.md` §9 and in the parameters block's `decisions`. The approval
-"authorizes specification freeze, not experimental execution".
+**Decided.** The owner (amaybaum, 2026-10-26, 18:54 UTC) approved all eleven decisions as recommended: "I approve all eleven PE-02 decisions (O1–O10, including O4b) as recommended, subject to the final nit confirmation and exact-version checks before freezing the plan."
+The rulings are recorded in `PLAN.md` §9, summarized from the owner's approval table, and in the parameters block's
+`decisions`. Later the same day the owner wrote: "This authorizes the specification freeze, not experimental execution."
 
-**O8 applied: PE-05.** The owner (amaybaum, 2026-10-26): "Approved: rename the new stage to PE-05. PE-04 remains reserved for quantum reconstruction." The stage was
+**O8 applied: PE-05.** The owner's approval table read "O8 — Rename to PE-04 and retitle #934 before freeze". Later the
+same day the owner (amaybaum, 2026-10-26) wrote: "Approved: rename the new stage to PE-05." / "PE-04 remains reserved
+for quantum reconstruction. Apply the rename consistently to #934, its plan, citations, and retained records. Freeze
+after the three reviewer nits and independent confirmation pass." The stage was
 renamed from its working name PE-02, and its directory moved from `pe02_charged_tables_v1/` to
 `pe05_charged_tables_v1/`. PE-04 had been found taken by the README's quantum-reconstruction stage.
 
@@ -325,6 +328,13 @@ The owner asked (#934) what a PE-05 plan adds beyond the 2006 clock-control faul
 - No PE-05 code. No simulation. No computation of any advantage, window, $Z(\varphi)$ or $K_{\rm cx}$. No PE-01 cell
   recomputed.
 - No literature read for PE-05 beyond what PE-01's annex records.
-- The owner's decisions are recorded. Freeze still needs: the identifier for O8 confirmed and the rename applied; the
-  owner's other freeze conditions (nit confirmation, coverage of every option-dependent control by TH, exact-version
-  checks); and an independent confirmation, with the freeze SHA recorded by the coordinator.
+- **The owner's freeze conditions and how they are met.**
+  - **Decisions:** all eleven are recorded in `PLAN.md` §9 and the parameters block, and TH covers every
+    option-dependent value.
+  - **Exact-version checks, both readings applied:**
+    - **(a) pinned execution environment:** `fixed.PE05_env` (Python 3.12, numpy 2.2.6, GitHub-hosted ubuntu-24.04,
+      x86_64), recorded by every shard and enforced by TH and the ENV checkpoint, as RP-01 is by `fixed.RP01_env`;
+    - **(b) version check of the plan itself:** the freeze record on #923 names the exact freeze commit and the
+      sha256 of `PLAN.md`, `NOTES.md` and the `pe02-parameters` block as confirmed.
+  - **Nits and independent confirmation:** recorded on #923 with the freeze. No commit identifier or digest of the
+    frozen files is written into them.
