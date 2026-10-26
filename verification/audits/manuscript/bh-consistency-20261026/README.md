@@ -15,6 +15,7 @@ strength of their support. The change was made separately from the Introduction 
 - `DIFF-RECHECK.md`: the confirmation re-check of the applied review (ACCEPT WITH NITS; the nits are in these
   records).
 - `A8-REVIEW.md`: the independent review of the Theorem A.8 restriction (BLOCK, narrowly, on the physical interpretation; the three fixes it gives are applied, see `CHANGE-NOTE.md` §8).
+- `A8-RECHECK.md`: the verbatim check of those fixes (ACCEPT); the owner's three questions on the restriction are all answered yes.
 - `probes/`: the investigator's and reviewer's exact checks (evaporation timescales, Page's mean entropy, the Page-time
   fraction for a mass-dependent emission coefficient), with outputs where they were kept.
 
