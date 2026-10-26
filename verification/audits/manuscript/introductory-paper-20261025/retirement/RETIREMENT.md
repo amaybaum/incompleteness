@@ -233,7 +233,7 @@ Checks on the wording:
    - (i) Re-add one Explainer anchor object to a copy of the census JSON. `lean_manuscript_census.py
      --root <copy>` must fail with `ANCHOR file papers/Explainer.md … does not exist`.
    - (ii) Insert one forbidden phrase into a copy of `papers/Introduction.md`, e.g.
-     `reversible implementation locality` for R7-MSP, or `qm requires oi` for R7-OINN. The
+     `reversible implementation locality` for R7-MSP, or `qm requires oi` for R7-OINN (a reading it forbids: only core containment is proved). The
      corresponding R7 check must fail. This shows the §2.3 substitution is live.
    - (iii) Restore one deleted LEDGER entry in a copy. `coverage_check.py --ledger <copy>` must
      fail with "ledger entry names no canonical statement".

@@ -30,7 +30,7 @@ Nits of the review also applied:
 - the P7(d) path.
 
 New risks R13–R16 are present. R16 is right: only `_a12p_m3` reads the Explainer. The
-countercontrol phrase `qm requires oi` in §4.1(4)(ii) is in the R7-OINN loop at probe :3115, so the
+countercontrol phrase `qm requires oi` (a reading the guard forbids: only core containment is proved) in §4.1(4)(ii) is in the R7-OINN loop at probe :3115, so the
 countercontrol is live.
 
 ## Nits

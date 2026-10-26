@@ -35,7 +35,7 @@ What needs changing:
 
 ## 1. MIGRATION completeness (check 1)
 
-### Confirmed
+### Confirmed (migration)
 
 These rows were spot-checked against the cited sources at `687e885b`. Each holds in substance.
 
@@ -136,7 +136,7 @@ precondition for any book table.
 - Either way, §2.4's "Nothing else" survivor list and the §4.1(5) re-grep expectation are currently
   wrong.
 
-### Confirmed
+### Confirmed (retirement)
 
 - **Probe.** 58 lines name the Explainer. The plan also covers every alias line, which a grep for
   "explainer" does not find:
