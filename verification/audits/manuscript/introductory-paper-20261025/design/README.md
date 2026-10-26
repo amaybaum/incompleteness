@@ -82,3 +82,17 @@ resolution, and it cites the technical papers for derivations instead of re-deri
 - every r5-review change on retained content applied, and the rest recorded as moot.
 
 Independent re-check is in progress.
+
+## Revision 7
+
+The independent re-check of r6 (`review/r6/RECHECK.md`, with its page-budget check in `review/r6/chk/`) returned
+ACCEPT WITH CHANGES. The re-scoping is faithful, and both applications are stated as not demonstrated resolutions.
+It confirmed that r6 neither cites nor leans on any of the corpus sites found incorrect in #937. Its six required
+changes are applied in `OUTLINE-r7.md`, `CLAIMS-r7.md`, `CHANGES-r7.md` and `DEPENDENCIES-r7.md`:
+- Theorem A.8's Page value holds on the full product space and fails in general on a proper shell;
+- bijectivity is restored to the black-hole success bound;
+- "the quantum description" is limited to the fixed-basis statistics;
+- two theorem rows get back a dropped hypothesis each;
+- the page budget is corrected to about 11.2 main-text pages, with about 2.4 for the applications.
+
+Reading Weinberg 1989 first-hand is a landing gate. A confirmation re-check of the r6→r7 diff is in progress.
