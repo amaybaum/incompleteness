@@ -20,5 +20,8 @@ The repository's default build gives 20 pages; with one-inch margins, 14 (page f
   notation, structure, bibliography form, and a cut list to reach 15 pages in the default format;
   `scripts/cutprobe*.py` are its cut probes).
 
-A revision applying both reviews is in preparation.
+`Introduction-r2.md` (with `DRAFT-NOTES-r2.md` and `CHANGES-r2.md`) applies both reviews: 15 pages in the
+repository's default build, no dropped glyphs, `voice_check` and `claims_check` pass. Its owner markers list the
+decisions still open; the paper does not land while any R11 site is uncorrected or the §A.42 expected result is not
+retained. Re-checks of r2 are in progress.
 

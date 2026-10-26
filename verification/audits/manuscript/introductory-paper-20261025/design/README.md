@@ -34,3 +34,12 @@ line is cited at `main` `687e885b`.
   `../explainer-review/`; `S/pintro/repo/` is this repository at the PR head. The literature studies the novelty audit
   relies on and their reviews (`S/introaudit/lit-*`, `S/revlitcorr/`, `S/revlitbh/`) are not in the repository;
   whether to retain them is owner decision 3 in `SOURCES-r4.md`.
+
+## Erratum
+
+`ERRATUM-r4.md` corrects one clause in the r4 records (OUTLINE-r4 §5-h, SOURCES-r4 §5-h, CONTRIBUTION-r4 non-claim 13,
+and the RC-A row of `review/RECHECK-r4.md`): "admits no classical-memory decomposition (Main:702)" holds for the swap
+with an initialized hidden slot, not for the card game's uniform, independent burn card, whose two-step identity map
+decomposes through classical memory. The r4 files are kept as reviewed; the erratum gives the corrected wording and the
+exact check behind it (`../draft/review/scientific/probe/card_exact.py`).
+
