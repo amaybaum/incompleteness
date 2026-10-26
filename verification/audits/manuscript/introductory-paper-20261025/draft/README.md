@@ -136,4 +136,11 @@ nits:
 - a referent is restored for §6.2 item 4;
 - six VERIFY markers are cleared by the first-hand reading.
 
-Three VERIFY markers remain, for unreachable sources. A confirmation of r9 is in progress.
+Three VERIFY markers remain, for unreachable sources. Its confirmation (`review/scientific/RECHECK-r9.md`) is ACCEPT. `Introduction-r9.md` is the accepted draft. Before
+it lands as `papers/Introduction.md`:
+- Weinberg 1989 must be read first-hand (owner gate);
+- the §A.42 expected result of the Lean check must be retained;
+- the owner must make the layout choices (title hyphenation; the scope of the raw group);
+- the Lean identifiers must be re-checked directly at landing.
+
+The three remaining VERIFY markers (CT06, Har04, Sha79) record sources that are unreachable from this environment.
