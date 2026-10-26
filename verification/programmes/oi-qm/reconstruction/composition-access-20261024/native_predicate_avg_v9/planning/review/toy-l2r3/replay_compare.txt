@@ -1,0 +1,40 @@
+code hashes equal: True
+manifest_verify              IDENTICAL
+l2_selftest                  IDENTICAL
+calibration_planted          differs; non-volatile diffs: ['/ref_c7_ns_A/24', '/ref_c7_ns_A/36', '/ref_c7_ns_A/8', '/ref_c7_ns_A/20', '/ref_c7_ns_A/40', '/ref_c7_ns_A/32']
+dryrun_toy                   differs; non-volatile diffs: ['/calib_sha256', '/cost/total_runner_seconds', '/cost/known_terms_runner_seconds', '/cost/C7/seconds/central', '/cost/C7/per_record_seconds/A/upper_at_m_max', '/cost/C7/per_record_seconds/A/central']
+dryrun_v8_plan_no_closure    IDENTICAL
+dryrun_v8_estimate           differs; non-volatile diffs: ['/calib_sha256', '/cost/known_terms_runner_seconds', '/cost/C7/coefficients_seconds_per_record_central/F_G', '/cost/C7/coefficients_seconds_per_record_central/I_A', '/cost/C7/coefficients_seconds_per_record_central/I_G', '/cost/C7/trivial_upper_bound_not_an_estimate/seconds_at_m_max']
+preflight_toy_quick          IDENTICAL
+mutants_quick                IDENTICAL
+s1a_toy                      IDENTICAL
+shard_toy_0                  differs; non-volatile diffs: []
+shard_toy_1                  differs; non-volatile diffs: []
+shard_toy_2                  differs; non-volatile diffs: []
+shard_toy_3                  differs; non-volatile diffs: []
+merge_toy                    IDENTICAL
+certificate_toy              differs; non-volatile diffs: ['/items/2_preflight', '/items/7_determinism', '/holds']
+crosscheck_toy_counts        IDENTICAL
+e1check_replay               IDENTICAL
+code_r5_equivalence_quick    IDENTICAL
+planted_survivor_path        IDENTICAL
+refusal_probe_v8             IDENTICAL
+kappa_calibration_repeats    differs; non-volatile diffs: ['/C7_F_G_coefficient/cv', '/C7_F_G_coefficient/max_over_median', '/C7_F_G_coefficient/median', '/C7_F_G_coefficient/min_over_median', '/v8_known_plus_C7_set4/cv', '/v8_known_plus_C7_set4/max_over_median']
+toyrun calib.json                 non-volatile diffs: ['/ref_c7_ns_A/24', '/ref_c7_ns_A/36', '/ref_c7_ns_A/8', '/ref_c7_ns_A/20', '/ref_c7_ns_A/40', '/ref_c7_ns_A/32']
+toyrun certificate.json           non-volatile diffs: ['/items/2_preflight/holds', '/items/7_determinism/commits_bound', '/items/7_determinism/holds', '/holds']
+toyrun dryrun.json                non-volatile diffs: ['/calib_sha256', '/cost/total_runner_seconds', '/cost/known_terms_runner_seconds', '/cost/C7/seconds/central', '/cost/C7/per_record_seconds/A/upper_at_m_max', '/cost/C7/per_record_seconds/A/central']
+toyrun expected-controls.json     IDENTICAL
+toyrun mutant-campaign.json       IDENTICAL
+toyrun preflight.json             non-volatile diffs: []
+toyrun result.O.json              non-volatile diffs: []
+toyrun result.json                non-volatile diffs: []
+toyrun s1a.O.json                 non-volatile diffs: []
+toyrun s1a.json                   non-volatile diffs: []
+toyrun shard-0.O.json             non-volatile diffs: []
+toyrun shard-0.json               non-volatile diffs: []
+toyrun shard-1.O.json             non-volatile diffs: []
+toyrun shard-1.json               non-volatile diffs: []
+toyrun shard-2.O.json             non-volatile diffs: []
+toyrun shard-2.json               non-volatile diffs: []
+toyrun shard-3.O.json             non-volatile diffs: []
+toyrun shard-3.json               non-volatile diffs: []
