@@ -105,7 +105,7 @@ The framework's universality-class commitments — the conditions that define me
 
 *Finiteness.* The substratum $S$ has finite cardinality. This is load-bearing for the recurrence route specifically: the recurrence theorem (Chapter 18 §18.7) requires finiteness for Poincaré recurrence, which supplies recurrence-scale P-indivisibility. It is not required for accessible non-Markovianity, which has its own finite-horizon route through readback, nor for the imported representation, which is gated by (T).
 
-*Deterministic bijection.* The substratum dynamics $\varphi: S \to S$ is a bijection. Bijectivity is load-bearing because it preserves information at the substratum level (resolving the BH information paradox in Chapter 7 §7.6) and produces the recurrence structure (Chapter 18 §18.7).
+*Deterministic bijection.* The substratum dynamics $\varphi: S \to S$ is a bijection. Bijectivity is load-bearing because it preserves information at the substratum level (the information-preservation half of Chapter 7 §7.6) and produces the recurrence structure (Chapter 18 §18.7).
 
 *Causal partition.* The configuration space partitions as $S = \mathcal{C}_V \times \mathcal{C}_H$ for an embedded observer, with the partition determined by causal structure at the cosmological horizon. This is load-bearing because the partition is the framework's marker for the nontrivially indivisible sector, whose laws admit the quantum representation.
 
@@ -124,7 +124,7 @@ These six commitments define the framework's universality class. Any finite dete
 | $S = A/(4 l_p^2)$ | conditional on H-slope; no direct test | Ch 7 §7.5 |
 | Area law $dA \geq 0$ | GW250114 area increase at $99.999\%$ | Ch 7 §7.5 |
 | CC dissolution (descriptive) | $\rho_{\text{obs}} \sim H^2/G$ consistent; dynamical form conditional on the coupling theorem | Ch 7 §7.7 |
-| BH information preserved | Page curve conditional on H-scramble; $t_P \approx 0.646\, t_{\text{evap}}$ at unit radiation-to-horizon entropy ratio | Ch 7 §7.6 |
+| BH information preserved | Page curve conditional on H-scramble and H-decouple, on the full product space; $t_P \approx 0.646\, t_{\text{evap}}$ at unit radiation-to-horizon entropy ratio | Ch 7 §7.6 |
 | Dark sector budget $\sim 95\%$ | $\Omega_{\text{dark}} \approx 0.95$ concordance | Ch 7 §7.9 |
 | No dark matter particle | XENON, LUX, etc. null | Ch 7 §7.9 |
 | No GUT-mediated proton decay | $\tau_p > 10^{34}$ yr | Ch 6 §6.4 |
