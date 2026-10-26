@@ -116,6 +116,8 @@ Abedi, J., Dykaar, H., & Afshordi, N. (2017). Echoes from the abyss: Tentative e
 
 Bao, N., Carroll, S. M., & Singh, A. (2017). The Hilbert space of quantum gravity is locally finite-dimensional. *International Journal of Modern Physics D* 26(12): 1743013. arXiv:1704.00066.
 
+Bekenstein, J. D. (1973). Black holes and entropy. *Physical Review D* 7: 2333-2346.
+
 Bekenstein, J. D. (1981). Universal upper bound on the entropy-to-energy ratio for bounded systems. *Physical Review D* 23: 287-298.
 
 Bertini, N. R., Novaes, M. H., von Marttens, R., & Shapiro, I. L. (2025). Renormalization group corrections to ΛCDM model and observational consequences for H₀ tension. arXiv:2509.24026 [astro-ph.CO; gr-qc; hep-th]. [Lead author initial in earlier in-text references was given as "S." — correct lead author is Nicolas R. Bertini.]
@@ -135,6 +137,8 @@ DESI Collaboration (2025). DESI DR2 results II: Measurements of baryon acoustic 
 Genzel, R., Förster Schreiber, N. M., Übler, H., Lang, P., Naab, T., Bender, R., et al. (2017). Strongly baryon-dominated disk galaxies at the peak of galaxy formation ten billion years ago. *Nature* 543: 397-401.
 
 Gralla, S. E., & Wei, H. (2024). Decoherence from horizons: General formulation and rotating black holes. *Physical Review D* 109: 065031. arXiv:2311.11461.
+
+Hawking, S. W. (1975). Particle creation by black holes. *Communications in Mathematical Physics* 43: 199-220.
 
 Hawking, S. W. (1976). Breakdown of predictability in gravitational collapse. *Physical Review D* 14: 2460-2473.
 

@@ -1,0 +1,10 @@
+1. S/(A/lp^2) = b/a | depends on eps,sigma,km: False
+   at GR constants a=8pi, b=2pi: 1/4
+2. calibration forces eta = b/a / l_p^2  (GR consts: 1/4 )
+   => eps = [2*sqrt(sigma)] * l_p  (only eps/sqrt(sigma) fixed)
+3. arbitrary eta=f(eps,sigma): b/a
+4. 50 random rational mode densities give coefficient set: {1/4}
+5. a=16pi -> 1/8 ; b=pi -> 1/8
+6. no calibration, eps=l_p, sigma=1: S/(A/lp^2) = 1
+7. Hawking route dS/dA * l_p^2 = b/a -> GR consts: 1/4
+8. hbar = c**3*epsilon**2/(4*G*sigma)  matches GR box c^3 eps^2/(4 G sigma): True
