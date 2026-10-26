@@ -110,7 +110,6 @@ for each $K$, the $K$-law has memory iff it has a C1/C3/C4 realization.
 
 | Location |
 |---|
-| `papers/Explainer.md:353` |
 | `papers/Explainer.md:1021` |
 | `papers/Substratum.md:111` |
 | `papers/Substratum.md:126` |
@@ -181,3 +180,6 @@ The count lists each mirror line separately.
 - "length-$k$ histories" occurs only at `:170`.
 - "common endpoint" occurs only at `:167` and `:170`.
 - No paper or book file paraphrases the lemma's hypothesis. GR:20 cites the lemma by name.
+
+**Reclassified after review:** `papers/Explainer.md:353` is a theorem statement whose parenthetical "(per finite
+accessible horizon)" admits the every-horizon reading; it is corrected in this change (CHANGE-NOTE, review fixes).

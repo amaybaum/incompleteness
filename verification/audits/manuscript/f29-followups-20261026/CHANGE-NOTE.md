@@ -30,10 +30,13 @@ This change carries out the two items that Issue #931 left open after #932 (`0e1
 > bijection under C1, C3, C4, with the readback at k (C2 …
 
 The same line also changes "The old three-way biconditional is retired: representability …"
-to "No three-way biconditional holds: representability …". The old sentence was not part of
-the defect. It is changed because the §A.32/§A.33 added-lines battery flags the
-revision-history phrase on any line the diff adds. The mathematical content is unchanged:
-representability does not force memory, and memory does not force P-indivisibility.
+to "No two of representability, memory and P-indivisibility are equivalent: representability …".
+The old sentence was not part of the defect; it is changed because the §A.32/§A.33 added-lines
+battery flags the revision-history phrase on any line the diff adds. The replacement is the
+independent review's (`review/REVIEW.md`, finding 1): an unqualified "no three-way
+biconditional holds" would be false beside the S⟺D⟺Q_fb biconditional the same paragraph
+asserts. Every finite law is representable, while memory and P-indivisibility are not
+universal, and memory does not force P-indivisibility, so no two of the three are equivalent.
 
 ### 2. `book/appendix-b-derivations.md:454`, mirrored at `FULL.md:6221`
 
@@ -126,3 +129,16 @@ result.
 ## Correctness bands
 
 Bands unchanged. These are consistency corrections, and they add no new evidence.
+
+## Review fixes (independent review of `2b660c93`, `review/REVIEW.md`)
+
+- **Explainer:373** — the wording above (finding 1).
+- **Explainer:353** (finding 2) — "⟺ embedded observation under C1, C3, C4 (per finite accessible horizon)" →
+  "⟺ embedded observation under C1, C3, C4 (for some accessible order $k$, on each finite accessible horizon
+  $K \geq k+1$, with the readback at $k$)". It is a theorem statement twenty lines above :373, and its parenthetical
+  admitted the every-horizon reading this change corrects. The citation-list slogans (Substratum:111 and :126,
+  Explainer:1021, appendix-b:22 and :406, appendix-c:106, ch02:90) stay as classified in `SEARCH.md`.
+- **Coverage ledger** — `verification/coverage/LEDGER.json`, entry `MAIN:L-accessible-backflow-from-readback`: the
+  readback lemma's statement at Main:167 changed, so its fingerprint moves (`1bf64869e7938d80` → `afbdefe369fdd5a0`).
+  Re-affirmed: the mapping to `c4_backflow_probes.py` ("readback lemma") holds under the corrected convention, the
+  level stays P, and the delta stays "no Lean statement" (the lemma is not in the kernel).
