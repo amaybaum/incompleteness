@@ -1,0 +1,11 @@
+--- a/checks.py
++++ b/N5.py
+@@ -647,7 +647,7 @@
+         cond = Q(law[(1, 1)], p1)
+         check((cond * (1 << B)).denominator != 1, 'retained-seed conditional law leaves 2^-B Z')
+         entry = {'conditional_agree2_given_agree1': str(cond),
+-                             'all_depth_union_bound': str(Q(1, (1 << B) - 2))}
++                             'all_depth_union_bound': str(Q(1, (1 << B) - 1))}
+         total = union_sum(B)
+         check(Q(entry['all_depth_union_bound']) == total, 'union-bound label derived from the series')
+         tvs, gaps = {}, {}

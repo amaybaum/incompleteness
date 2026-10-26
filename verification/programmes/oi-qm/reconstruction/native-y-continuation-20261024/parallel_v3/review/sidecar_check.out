@@ -1,0 +1,10 @@
+R1: 560 independent direct-native comparisons across all pulse triples: PASS
+R2: independent actual-pulse orbit periods720/84 and large-integer phases: PASS
+R3: independent memoized polynomial stencil derives full20-control formula and y=1 => A=1,B XOR D=x: PASS
+R4: geometric support argument checked on 2640 entire plane-boundary source positions; symbolic triangle proof in report: PASS
+R5: both total interface permutations, inverses, native restriction and clean-workspace claim: PASS
+SCOPE: ACCEPT v2 local algebra and relaxed-plane obstruction; native integrated reset and wider transport proof remain OPEN.
+H1: actual sidecar U_(R+1)(0,-1,2)=(0,1 XOR y,x), all masks: PASS
+H2: x sidecar survives arbitrary qY operand replacement p; its y-related B field is NOT a diagnostic transfer of p: PASS
+H3: sidecar prefix through R is blank under retained ready cone; pulse front at R-1 cancels and R has wrong parity: PASS
+H4: sidecar is a specific earlier spacetime register; simultaneous control access and native gate integration remain unproved.

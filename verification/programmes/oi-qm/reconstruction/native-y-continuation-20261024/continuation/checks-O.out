@@ -1,0 +1,7 @@
+I1: both four-bit maps and explicit inverses checked on all16 states; all4 native rows; reversible workspace recycling: PASS
+G1:20 exact source/parity witnesses; complete relaxed plane-shell controls; no full-apparatus compatibility claim: PASS
+N1:16,777,216 input/control lanes agree with exact formula; all old mask assignments: PASS
+N2: on y=1, A=1 and B XOR D=x for every control setting: PASS
+N3:33,554,432 diagnostic lanes retain A=p; no mid-run interventions in native claim: PASS
+C1:wrong-phase, discarded-garbage, and missing-control counterchecks detected: PASS
+SCOPE: exact local algebra and scoped boundary-control obstruction; native reset and transport-proof review remain open.

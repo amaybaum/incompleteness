@@ -1,0 +1,28 @@
+{
+  "upstream_commit": "3f440c59660d7255aa8a727ff8b5de8289004f80",
+  "dependency": "../parallel_v3/direct_reset/herald.json",
+  "dependency_sha256": "406befa2c8d1f663856a78ca6cb632e9c61d1233b02a9d532c7cb43d6261ce64",
+  "base_predicate_steps": [
+    0,
+    2683
+  ],
+  "identity_steps": [
+    2684,
+    2689
+  ],
+  "seed_order": [
+    "a",
+    "b",
+    "k0",
+    "k1",
+    "k2"
+  ],
+  "preserved_parameters": [
+    "T=185",
+    "P=12*840^185",
+    "S=T+P",
+    "R=S+68"
+  ],
+  "target_deadline": "R+9",
+  "scope": "Explicit finite initial-source schedule; no giant support materialization or long-time simulation"
+}

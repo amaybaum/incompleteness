@@ -1,0 +1,5 @@
+H1:16 native assignments and32 diagnostics; exact sidecar and six-neighbour proof table: PASS
+H2:sidecar prefix is zero throughR; arrivalR+1; no pre-R disclosure: PASS
+H3:nexttick previous-input/frontier boundary; all1479 old sources checked; clean-nuisance output H²(g): PASS
+H4:240 direct previous-pulse first-arrival cases including dense opposite-parity backgrounds: PASS
+SCOPE:native one-tick sidecar accepted locally; persistent memory, joint nexttick record and G implementation remain open.

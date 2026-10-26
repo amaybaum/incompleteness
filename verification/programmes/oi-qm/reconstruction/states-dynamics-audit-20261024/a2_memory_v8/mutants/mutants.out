@@ -1,0 +1,32 @@
+unmodified: exit 0, output equals result.json
+M1_grid_constant: targets K1 memoryless reproduction; exit 2; VOID: K1 rebuilt counts equal executed a2 controller; CAUGHT
+M2_cut_rounding: targets K2 retained-seed reproduction; exit 2; VOID: K2 retained-seed TV equals a2_depth_v7; CAUGHT
+M3_mismatch_range_n1: targets K5 marginal insufficiency / step (4); exit 2; VOID: step4 dyadic chain without run mismatch (n=2, B=2): proof route contradicted; CAUGHT
+M4_base5_to_base4: targets K4 base-5 countercontrol; exit 2; VOID: K4 base-5 countercontrol finds an exact match; CAUGHT
+M5_root_rounding: targets K7 certified enclosures; exit 2; VOID: K7 square-root upper enclosure; CAUGHT
+M6_missing_restart: targets K8 restart mechanics; exit 2; VOID: K8 state machine equals product of block laws; CAUGHT
+M7_half_depth_off_by_one: targets K7 depth minimality; exit 2; VOID: K7 half-depth minimal for its rule; CAUGHT
+M8_wrong_initial_phase: targets K1 generic engine; exit 2; VOID: K1 generic engine equals product engine (h<=12); CAUGHT
+M9_pinned_hash: targets pinned input; exit 2; VOID: K1/K2 pinned a2_depth_v7 result.json hash; CAUGHT
+M10_memoryless_rounding: targets K6 RS(4,1) memoryless identity; exit 2; VOID: K6 RS(4,1) is the memoryless 4-bit reset; CAUGHT
+M11_power_rule_exponent: targets K7 power-rule control; exit 2; VOID: K7 power-rule depth is the least n with lower bound above 1/2; CAUGHT
+M12_drop_closedness: targets step-5 class analysis; exit 2; VOID: step4 nonsingular stationary system; CAUGHT
+M13_fewer_chains: targets census count; exit 2; VOID: census chain count equals C(2^B+2n-1,2n-1)^n; CAUGHT
+M14_memory_formula: targets memory column; exit 2; VOID: memory column bounds the persistent-state count; CAUGHT
+M15_power_rule_exponent_consistent: targets K7 exact power-rule check; exit 2; VOID: K7 exact product TV inside power-rule bracket; CAUGHT
+M16_lists_against_ceiling: targets comparison-flag recomputation; exit 2; VOID: comparison flags recomputed from stored depths and the nearest-dyadic crossing; CAUGHT
+M17_threshold_consistent: targets exact ceiling-rounded crossing at k=1; exit 2; VOID: K7 power rule brackets the exact ceiling-rounded crossing; CAUGHT
+M18_weaker_bound_consistent: targets preregistered-rule comparison; exit 2; VOID: K7 power-rule depth no later than the preregistered depth; CAUGHT
+M19_consistent_exponent_consistency_only: targets certificate consistency; exit 2; VOID: K7 upper and lower half-level certificates consistent; CAUGHT
+M20_consistent_exponent_exact_k1_only: targets K7 exact k=1 check alone; exit 2; VOID: K7 exact T(h) >= power-rule lower bound at k=1; CAUGHT
+M21_bc_enclosure_scaled_1e-4: targets independent BC recomputation; exit 2; VOID: audit independent BC enclosure overlaps the reported enclosure; CAUGHT
+M22_bc_enclosure_scaled_1e-6: targets independent BC recomputation; exit 2; VOID: audit independent BC enclosure overlaps the reported enclosure; CAUGHT
+M23_bound_5pct_strong: targets independent depth recomputation; exit 2; VOID: audit recomputed depth equals reported (power_rule_T_above_half_for_h_at_least); CAUGHT
+M24_depth_one_block_early: targets independent depth recomputation; exit 2; VOID: audit recomputed depth equals reported (power_rule_T_above_half_for_h_at_least); CAUGHT
+M25_depth_one_block_early_certificates_only: targets certificate-level exact checks alone; exit 2; VOID: audit certificate T>1/2 contradicted by exact TV; CAUGHT
+M26_k_range_15_both: targets preregistered scope; exit 2; VOID: scope: reported members equal the preregistered B x k set; CAUGHT
+M27_k_range_15_main_only: targets preregistered scope; exit 2; VOID: scope: reported members equal the preregistered B x k set; CAUGHT
+M28_member_deleted: targets preregistered scope; exit 2; VOID: scope: reported members equal the preregistered B x k set; CAUGHT
+M29_B_range_both: targets preregistered scope; exit 2; VOID: scope: reported members equal the preregistered B x k set; CAUGHT
+M30_audit_subset_only: targets preregistered scope; exit 2; VOID: scope: audited members equal the preregistered B x k set; CAUGHT
+all mutants caught

@@ -1,0 +1,70 @@
+grid digest matches v6: 0637f0089fc5ce666d17ddaf828cc98bf317d46e3ea3cd22851bc21eb893a6a1
+A(+)= 13426743/16777216  A(-)= 13426743/16777216  B(+)= 13424725/16777216  B(-)= 13424725/16777216  zero-response mass 0
+dA= 24851/83886080  dB= 14761/83886080  kappa=6419131/419430400 ok: True
+h= 1 T=0.000175964832  exact 14761/83886080  literal=match
+h= 2 T=0.000377821599  exact 2658683146379/7036874417766400  literal=match
+h= 3 T=0.000414941255  exact 244938084610979995331/590295810358705651712000  literal=match
+h= 4 T=0.000500180187  exact 24767723195574940618231305351/49517601571415210995964968960000  literal=match
+h= 5 T=0.000532935517  literal=match
+h= 6 T=0.000596386177  literal=match
+h= 7 T=0.000626323807  literal=match
+h= 8 T=0.000703504926  literal=match
+h= 9 T=0.000725042135  literal=match
+h=10 T=0.000763822812  literal=match
+h=11 T=0.000794835461 
+h=12 T=0.000852467327 
+h=  64 T=0.001947297178 sha_match=True disp_match=True (0.0s)
+h= 256 T=0.003890566446 sha_match=True disp_match=True (0.0s)
+h=1024 T=0.007778599060 sha_match=True disp_match=True (1.0s)
+h=2048 T=0.010999882464 sha_match=True disp_match=True (5.2s)
+tabulated rows checked: 69  mismatches: []
+certified depths: {'1/10': 7486900, '1/2': 67382091, '9/10': 606438812}
+Hellinger d^2/4 bound violations on 19,701 rational pairs: 0
+exp(S)-1-S >= 0 on S>=0 (sympy minimum): 0
+dist formula holds B=1..200; proof: 2^(B+2) mod 5 = +-1 (B even), +-2 (B odd) since 4 = -1 mod 5
+B=24 distance 1/83886080
+class: n reads constrained needed for S>1: n >= 28147497671065601 ; if the first read (preparation) is unconstrained, h >= 28147497671065602 ; author: 28147497671065601
+best 24-bit sampler coupling T<=1/10 through h = 8388608
+growing sampler h=1 T=1/320
+growing sampler h=2 T=1/320
+growing sampler h=4 T=1/320
+growing sampler h=8 T=1/320
+growing sampler h=12 T=1/320
+fresh bits through h=12: 138
+growing sampler sum d_t <= 0.004687523841130315 (exact limit 3/640); author bound 1/80 valid: True
+fixed B0=6 h=12 T=0.011050219194 author=0.011050219194
+fixed B0=6 h=256 T=0.049751479020 author=0.049751479020
+fixed B0=6 h=2048 T=0.139918379698 author=0.139918379698
+fixed B0=6 certified T>1/2 from h = 409601
+ALL REVIEW CONTROLS GREEN
+=== probes.py ===
+retention counterexample (B fresh bits/slot, reset reads retained earlier bits):
+ B=1 h=14: T=0.651708 (union bound sum_t 2^(t-1-tB) <= inf); P(agree2|agree1)=3/4 in 2^-B Z: False; memoryless best-B sampler T=0.95602
+ B=2 h=8: T=0.281845 (union bound sum_t 2^(t-1-tB) <= 0.5); P(agree2|agree1)=11/16 in 2^-B Z: False; memoryless best-B sampler T=0.136236
+ B=3 h=6: T=0.0904617 (union bound sum_t 2^(t-1-tB) <= 0.166667); P(agree2|agree1)=41/56 in 2^-B Z: False; memoryless best-B sampler T=0.121424
+ B=4 h=4: T=0.0146959 (union bound sum_t 2^(t-1-tB) <= 0.0714286); P(agree2|agree1)=41/52 in 2^-B Z: False; memoryless best-B sampler T=0.0262063
+ plateau, B=4 (retention) vs memoryless nearest-dyadic 4-bit sampler:
+  h=1: retention T=0.0125  memoryless T=0.0125
+  h=2: retention T=0.0125  memoryless T=0.0201563
+  h=3: retention T=0.0137734  memoryless T=0.024377
+  h=4: retention T=0.0146959  memoryless T=0.0262063
+  h=5: retention T=0.0148096  memoryless T=0.0264126
+ memoryless B=4: T(64)=0.1012 T(4096)=0.6886
+ memoryless B=1: T(14)=0.9560 T(200)=1.0000 ; retention keeps T<=(1/2)/(2^(B-1)-1) for all h, B>=2
+discrepancy attribution (dA, dB) x 1e4:
+ M=16 W=16: dA=2.9625 dB=1.7596
+ M=16 W=40: dA=2.9219 dB=1.7203
+ M=32 W=16: dA=0.7601 dB=0.4883
+ M=32 W=40: dA=0.7291 dB=0.4567
+ M=64 W=40: dA=0.1813 dB=0.1140
+=== author-checker mutants ===
+M1_slot_parity: CAUGHT rc=1 RuntimeError: record enumeration agrees
+M2_wrong_grid_order: CAUGHT rc=1 RuntimeError: rebuilt counts equal executed a2 controller
+M3_sign_drop: CAUGHT rc=1 RuntimeError: sign-independent agreement
+M4_certdepth_offby1: SURVIVED (green, output differs)
+M5_class_depth_drop1: SURVIVED (green, output differs)
+M6_tvfast_inc_flip: CAUGHT rc=1 RuntimeError: fast and direct TV agree
+M7_hellinger_d2: SURVIVED (output identical)
+M8_recenum_ignores_parity: CAUGHT rc=1 RuntimeError: record enumeration agrees
+=== author replay ===
+normal: byte-identical; -O: byte-identical; SHA256SUMS: 5/5 OK

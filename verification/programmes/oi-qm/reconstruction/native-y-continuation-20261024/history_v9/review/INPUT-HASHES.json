@@ -1,0 +1,12 @@
+{
+  "author_sha256": {
+    "PLAN.md": "30a4f02535637725469f1a4ee7018740dd7bfd71dfc3b54ff09785006cf65f47",
+    "PROVENANCE.json": "9611ea662987b71066eedfa4371af497e9aa7a8a29f9d74c3c1cc5766502ce76",
+    "REPORT.md": "2125314d49e14abdac8b62ddbaa1f89f1c0ec693dd14744fca4b79a0b38c6997",
+    "SHA256SUMS": "8c46053fa076dd775278889f319ddd09d762b3c7c00e0504835cf77cfbfb4dfe",
+    "SOURCE-EXCERPTS.json": "36e3f7b3b56d983ed2f8b077f6b9ec9a93d1a06b5384db1d87e1b029d2c66e9e",
+    "checks.py": "81523abb92ca61ff8e9be02a6fd3a5a23b9712fc8966f5892b8b70dc24b71e3d",
+    "results.json": "7e8611be276c8945bd0f4ab992e5cc7bff3ef0ec5c69093a5f3e0327b1beb57a"
+  },
+  "reviewed_commit": "96e7b6249eedc221a364b79d996a080f0b850438"
+}

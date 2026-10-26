@@ -1,0 +1,21 @@
+{
+  "author_files": {
+    "PLAN.md": "d730a531302fa1458e01fb1511706169e5fe3b0e3e7dc479b52281c3f82370e9",
+    "PROVENANCE.json": "4edd1ee12cf3ea29172910ce25b5d2cb5ce4b1df44916f9c29b8714e8a4b293c",
+    "REPORT.md": "0898bcda042e0b64c841508f4c83aa7e695d53736a2f351ddd5f96a14857b550",
+    "SHA256SUMS": "73b937b170778bd4853ec911e598d5111e8747165e3af62e5557840acf63be19",
+    "checks.py": "cd4e35a156a1eba51f98d51ac9b69d7b56e15681e7e68a6e68dd6d752009af79",
+    "result.json": "a39bab58e98154498f1506541a4e2148a050b2ca08e48732d03dfe2faa2e0fb0"
+  },
+  "author_repository_module": "history-architecture-v5/",
+  "author_revision": "51d8956100cf76d24b6810f1853c9f714f596c35",
+  "primary_source_reviewed": {
+    "credit": "Ruebeck, Lillystone and Emerson credit Kochen and Specker; no novelty or native realization claimed",
+    "sections": [
+      "2.3 rank-one re-preparation",
+      "4.1.1 Eq16 Kochen-Specker qubit model"
+    ],
+    "url": "https://arxiv.org/html/1812.08218v3"
+  },
+  "runtime_dependencies": "Python standard library only, no author imports or internet retrieval"
+}

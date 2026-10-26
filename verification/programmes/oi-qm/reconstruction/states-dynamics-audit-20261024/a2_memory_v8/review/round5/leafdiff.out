@@ -1,0 +1,18 @@
+old 1165 new 1181 changed 1 removed 0 added 16
+CHANGED schema | oi.a2-bounded-memory-v8.v4 -> oi.a2-bounded-memory-v8.v5
+ADDED independent_certificate_audit_post_recheck2/members_with_T_above_half_certificate_checked_against_exact_tv/0 = B2_k1
+ADDED independent_certificate_audit_post_recheck2/members_with_T_above_half_certificate_checked_against_exact_tv/1 = B2_k2
+ADDED independent_certificate_audit_post_recheck2/members_with_T_above_half_certificate_checked_against_exact_tv/2 = B2_k3
+ADDED independent_certificate_audit_post_recheck2/members_with_T_above_half_certificate_checked_against_exact_tv/3 = B2_k4
+ADDED independent_certificate_audit_post_recheck2/members_with_T_above_half_certificate_checked_against_exact_tv/4 = B2_k5
+ADDED independent_certificate_audit_post_recheck2/members_with_T_above_half_certificate_checked_against_exact_tv/5 = B3_k1
+ADDED independent_certificate_audit_post_recheck2/members_with_T_above_half_certificate_checked_against_exact_tv/6 = B4_k1
+ADDED independent_certificate_audit_post_recheck2/scope/B/0 = 2
+ADDED independent_certificate_audit_post_recheck2/scope/B/1 = 3
+ADDED independent_certificate_audit_post_recheck2/scope/B/2 = 4
+ADDED independent_certificate_audit_post_recheck2/scope/k/0 = 1
+ADDED independent_certificate_audit_post_recheck2/scope/k/1 = 16
+ADDED independent_certificate_audit_post_recheck2/scope/members = 48
+ADDED independent_certificate_audit_post_recheck2/scope/source = PLAN.md, SHA-256 pinned
+ADDED independent_certificate_audit_post_recheck2/scope/thresholds/0 = 1/2
+ADDED independent_certificate_audit_post_recheck2/scope/thresholds/1 = 1/10

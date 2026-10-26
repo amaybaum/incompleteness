@@ -1,0 +1,14 @@
+M1_slot_parity: CAUGHT RuntimeError: record enumeration agrees
+M2_wrong_grid_order: CAUGHT RuntimeError: rebuilt counts equal executed a2 controller
+M3_sign_drop: CAUGHT RuntimeError: sign-independent agreement
+M4_certdepth_offby1: CAUGHT RuntimeError: certified depth is minimal
+M5_class_depth_drop1: CAUGHT RuntimeError: class depth is minimal
+M6_tvfast_inc_flip: CAUGHT RuntimeError: fast and direct TV agree
+M7_hellinger_d2: CAUGHT RuntimeError: bracket constant within certified H^2 (B read)
+M8_recenum_ignores_parity: CAUGHT RuntimeError: record enumeration agrees
+N1_rs_memoryless: CAUGHT RuntimeError: range walk equals seed enumeration
+N2_closed_form_parity: CAUGHT RuntimeError: closed-form dyadic distance
+N3_class_depth_plus1: CAUGHT RuntimeError: class depth is minimal
+N4_recenum_pole_fixed: SURVIVED identical
+N5_union_bound_label: SURVIVED differs
+N6_rs_walk_scale: CAUGHT RuntimeError: range walk equals seed enumeration

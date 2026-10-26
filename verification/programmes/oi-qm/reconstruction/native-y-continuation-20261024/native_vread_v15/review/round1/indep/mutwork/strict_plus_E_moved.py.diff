@@ -1,0 +1,20 @@
+--- checks.py
++++ checks.py
+@@ -303,7 +303,7 @@
+ 
+ 
+ def local_sources():
+-    return {'O': (0, 0, 0), 'W': (0, -76, 76), 'E': (0, -78, 78), 'N': (0, S, S+156),
++    return {'O': (0, 0, 0), 'W': (0, -76, 76), 'E': (0, -78, 79), 'N': (0, S, S+156),
+             'Q': (0, S, S+136), 'C': (0, S, S+150), 'G': (0, S, S+152), 'J': (0, S, S+154),
+             'Kplus': (1, S, S+153), 'Kminus': (-1, S, S+153),
+             'selector_y': (0, 2*S, 0), 'selector_plus': (T, S+P, 0),
+@@ -379,7 +379,7 @@
+         'q10_ready_interior': classify((0, S, 78+L), inv, balls),
+     }
+     need(anchors['q10_axial'][0] == 'PINNED', 'K5 anchor q10 axial pinned')
+-    need(anchors['E'][0] == 'PINNED' and anchors['N'][0] == 'PINNED', 'K5 anchor E,N pinned')
++    need(tuple(anchors['E']) == ('PINNED','source E') and tuple(anchors['N']) == ('PINNED','source N'), 'K5 anchor E,N pinned')
+     need(anchors['F10_position'][0] == 'PINNED', 'K5 anchor F10 pinned')
+     need(anchors['F8_position'][0] == 'FREE', 'K5 anchor F8 free')
+     need(anchors['port0_bank_T+2'][0] == 'BANK', 'K5 anchor port-0 bank')

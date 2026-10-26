@@ -1,0 +1,7 @@
+(rho_P/rho_crit)/S_dS = 8/3
+cutoff at eps: (rho_eps/rho_crit)/S_dS = 8*G**2*hbar**2/(3*c**6*epsilon**4) ; at eps=2 l_p: 1/6
+zero-point sum / (hbar c/eps^4) = 1/(16*pi**2) ; (rho_zp/rho_crit)/S_dS at eps=2 l_p: 1/(96*pi**2)
+H appears in (rho_P/rho_crit)/S_dS: False
+rho_crit [J/m^3] = 7.669e-10
+Omega_L*rho_crit [J/m^3] (Omega_L=0.685) = 5.253e-10
+S_dS = 2.265e+122 ; rho_P/rho_crit = 6.041e+122

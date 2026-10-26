@@ -215,8 +215,9 @@ complete state. This paper establishes an exact finite-horizon
 equivalence between three descriptions of what such an observer can
 record: finite stochastic laws (\(S\)), visible marginals of finite
 reversible deterministic systems (\(D\)), and finite-dimensional unitary
-systems with fixed-basis Born-rule readout (\(Q_{\mathrm{fb}}\)). Thus
-\[
+systems read out by projective Born-rule measurement in one fixed basis
+at every step, from an initial state diagonal in that basis
+(\(Q_{\mathrm{fb}}\)). Thus \[
 S\iff D\iff Q_{\mathrm{fb}}
 \] at the finite observable-law level. The quantum representation is
 exact, not merely approximate; it is also universal, so representability
@@ -289,11 +290,13 @@ the hidden sector. Whether a description obtained this way can be
 considered complete is the question Einstein, Podolsky, and Rosen posed
 of quantum mechanics {[}46{]}; it returns here with the opposite valence
 --- incompleteness is derived as a structural property of embedded
-observation, and quantum mechanics is identified as its form. This
-incompleteness is inaccessibility of the hidden sector, a statement
-distinct from the uncertainty relations of quantum theory (§3.4). The
-question is what this reduction imposes on the form of the observer's
-physical laws.
+observation, and the finite observable laws an embedded observer records
+are identified exactly with fixed-basis unitary Born representations
+(§3.4); whether the full operational theory of quantum mechanics follows
+is the separate completion question stated there. This incompleteness is
+inaccessibility of the hidden sector, a statement distinct from the
+uncertainty relations of quantum theory (§3.4). The question is what
+this reduction imposes on the form of the observer's physical laws.
 
 Prior work (QBism, relational QM, 't Hooft's cellular automaton {[}1{]})
 takes observer-dependence as an interpretive starting point or derives
@@ -494,8 +497,9 @@ distinction that has occurred. For states differing only in the hidden
 sector, a merge is either statistically observable or removable: a merge
 whose successor configurations differ visibly breaks the double
 stochasticity of the marginalized process at some step order (the
-marginal of a bijection under the uniform prior is doubly stochastic by
-Birkhoff--von Neumann, §3.2, and unitary emergent statistics are
+marginal of a bijection under the uniform prior is doubly stochastic,
+since each set \(\{x_j\} \times \mathcal{C}_H\) has exactly
+\(|\mathcal{C}_H|\) preimages, §3.2, and unitary emergent statistics are
 unistochastic), so it is excluded wherever the observed statistics are
 of that doubly stochastic class under the uniform prior; a merge that
 leaves no statistical trace is removable, since any map on a finite set
@@ -719,7 +723,8 @@ the emergent theory depend only on the geometric and thermodynamic
 properties of the partition boundary. For the abstract representation
 theorems the prior is a third datum: canonically
 \(T = T(\varphi, \mathcal{P}, \mu_{\text{inv}})\), in general
-\(T = T(\varphi, \mathcal{P}, \mu_H)\) (§1.3 Remark).}
+\(T = T(\varphi, \mathcal{P}, \mu_H)\) (§1.2, Remark on the measure as a
+realization datum).}
 
 \emph{Proof.} By Lemma 3, the Hamiltonian flow \(\phi_t\) is unique. By
 Lemma 2, the partition is fixed. By Lemma 3, the observer uses the
@@ -746,18 +751,47 @@ stochastic process --- and hence any emergent quantum description (§3.1)
 The results organize into four layers, and every claim should be read at
 its layer. \textbf{Layer 1 --- reversible dilation} (§2.2, §3.4): exact
 mathematics, no quantum claim ---
-\[\text{finite-horizon non-Markovianity} \iff \exists\ \text{finite reversible hidden-state realization},\]
-the paper's core. \textbf{Layer 2 --- memory and capacity} (§2.3): (C4)
-forces positive conditional memory; the (C3) information bound; the
-physical-memory theorem ((C2), conditional on mixing). \textbf{Layer 3
---- quantum representation} (§3.1, §3.4): the imported correspondence
-(Q1) and the in-house uncompressed form (Q2), scopes separated.
-\textbf{Layer 4 --- physical and operational realization} (§3.2, §4,
-companions): interventions (classical comb closed, §3.4; quantum
-instruments open), coherent preparation, Bell and free-choice structure,
-H-spin' and H-χ', the cosmological realization --- where the named
-hypotheses live. A Layer-1 result does not by itself establish any
-Layer-4 claim.
+\[\begin{gathered}\{\text{finite-horizon visible laws}\}\\ =\ \{\text{visible marginals of finite reversible hidden-state systems}\},\end{gathered}\]
+that is \(S \iff D\), Markov laws included, so the existence of a
+realization does not distinguish non-Markovian laws (kernel:
+\texttt{S\_imp\_D} for \(\subseteq\); \texttt{D\_imp\_Qfb} with
+\texttt{Qfb\_imp\_S} for \(\supseteq\); assembled in
+\texttt{finite\_horizon\_equivalence}). Non-Markovianity is instead
+recorded in every realization (§3.4, unavoidable hidden predictive
+memory). Here a faithful realization is a system as in class (D): a
+bijection \(\varphi\) of \(\mathcal{C}_V \times \mathcal{C}_H\) with an
+initial law on \(\mathcal{C}_V \times \mathcal{C}_H\), which may
+correlate the hidden and visible coordinates, under which the visible
+trajectory \((x_0, \ldots, x_K)\) has the given law. In every faithful
+realization the next-step law after a positive-probability history \(p\)
+ending at \(x\) is the pushforward \((f_x)_\#\mu_p\) of its hidden
+posterior \(\mu_p\) through \(f_x(h) = \pi_V(\varphi(x,h))\), and
+next-step laws a total-variation distance \(\delta\) apart force
+posteriors at least \(\delta\) apart (kernel:
+\texttt{pushforward\_identity}, \texttt{distinguishability\_floor}, for
+a joint law of history, present and hidden state; reading a
+realization's time-\(t\) law as that joint law is a step not
+formalized). Hence a finite-horizon law has a memory witness at \(t\)
+--- two positive-probability histories ending at the same \(x_t\) with
+different next-step laws, equivalently
+\(M_t := I(X_{<t}; X_{t+1} \mid X_t) > 0\) by the standard vanishing
+criterion for conditional mutual information, which is not formalized
+--- exactly when every faithful realization carries readout-relevant
+hidden memory at \(t\), a pair of such posteriors with different
+pushforwards: the forward direction is the pushforward identity applied
+in each realization, the converse the same identity applied in one
+realization, which exists (kernel: \texttt{S\_imp\_D}). The equivalence
+\(S \iff D\) and this universal statement are the paper's core.
+\textbf{Layer 2 --- memory and capacity} (§2.3): (C4) forces positive
+conditional memory; the (C3) information bound; the physical-memory
+theorem ((C2), conditional on mixing). \textbf{Layer 3 --- quantum
+representation} (§3.1, §3.4): the imported correspondence (Q1) and the
+in-house uncompressed form (Q2), scopes separated. \textbf{Layer 4 ---
+physical and operational realization} (§3.2, §4, companions):
+interventions (classical comb closed, §3.4; quantum instruments open),
+coherent preparation, Bell and free-choice structure, H-spin' and H-χ',
+the cosmological realization --- where the named hypotheses live. A
+Layer-1 result does not by itself establish any Layer-4 claim.
 
 \hypertarget{emergent-stochasticity-and-p-indivisibility}{%
 \subsection{2. EMERGENT STOCHASTICITY AND
@@ -915,17 +949,18 @@ of C1-violating bijections super-exponentially fast.
 
 \textbf{Relation to prior work.} The P-indivisibility phenomenon is
 well-documented in the open-systems literature: reduced dynamics need
-not preserve positivity {[}6{]}; divisibility failure is equivalent to
-information backflow {[}4, 5{]}; process-tensor Markovianity provides an
-alternative characterization {[}7{]}; non-Markovian reduced dynamics
-arise in the slow-bath regime {[}8{]}. The Bylicka-Johansson-Acín
-equivalence between CP-divisibility and distinguishability monotonicity
-{[}9{]} narrows the gap between divisibility and non-Markovianity, but
-only for \emph{invertible} reduced dynamics; the marginal \(T(t)\) here
-is generally non-invertible, so the load-bearing property for the
-general argument remains P-indivisibility of the marginal process. Milz
-et al.~{[}10{]} confirm CP-divisibility does not imply Markovianity in
-the process-tensor sense.
+not preserve positivity {[}6{]}; information backflow witnesses
+divisibility failure {[}4, 5{]}, and divisibility can fail without it
+(§2.3, §3.2); process-tensor Markovianity provides an alternative
+characterization {[}7{]}; non-Markovian reduced dynamics arise in the
+slow-bath regime {[}8{]}. The Bylicka-Johansson-Acín equivalence between
+CP-divisibility and distinguishability monotonicity {[}9{]} narrows the
+gap between divisibility and non-Markovianity, but only for
+\emph{invertible} reduced dynamics; the marginal \(T(t)\) here is
+generally non-invertible, so the load-bearing property for the general
+argument remains P-indivisibility of the marginal process. Milz et
+al.~{[}10{]} confirm CP-divisibility does not imply Markovianity in the
+process-tensor sense.
 
 \textbf{Continuous-time extension.} The Hamiltonian flow on
 finite-dimensional phase space preserves Liouville measure on compact
@@ -990,11 +1025,11 @@ before it can be read, (C4) fails, and it is (C4)'s failure that the
 characterization registers. (C2) is the mechanism; (C4) is the
 exclusion.
 
-\textbf{Lemma (accessible backflow from readback).} \emph{Under
-(C1)--(C3), suppose (C4) holds with a gap at order \(k\) in the
-accessible window: two visible histories \(p \neq p'\) of length \(k\)
-with a common endpoint, each of probability at least \(p_0\), induce
-next-step laws at total-variation distance at least \(\delta\). Then}
+\textbf{Lemma (accessible backflow from readback).} \emph{Suppose the
+visible process has a gap at order \(k\) in the accessible window, as
+(C4) asserts: two visible histories \(p \neq p'\) of length \(k\) with a
+common endpoint, each of probability at least \(p_0\), induce next-step
+laws at total-variation distance at least \(\delta\). Then}
 \[I(X_{<k};\,X_{k+1} \mid X_k)\ \geq\ \frac{p_0\,\delta^2}{\ln 2}\ >\ 0.\]
 
 \emph{Proof.} Condition on the common endpoint \(c\) and let \(w_a\) be
@@ -1919,14 +1954,19 @@ the framework's channels are in that class, which is what licenses the
 theorem. (Certified exactly over \(\mathbb{Q}(\sqrt{2})\) in
 \texttt{c1\_cp\_scope\_probes.py}.)
 
-By the Breuer-Laine-Piilo criterion {[}3, 4{]}, CP-indivisibility is
+By the Breuer-Laine-Piilo criterion {[}63{]}, CP-indivisibility is
 witnessed by non-monotonic distinguishability, but the correct witness
-is the ANCILLA-ASSISTED one: monotonicity of system-plus-ancilla
-distinguishability characterizes CP-divisibility, while ordinary system
-trace distance is a strictly weaker witness and can stay monotone on a
-CP-indivisible family. The classical analogue is exact and is certified
-here: a family can be P-indivisible while total-variation distance is
-non-increasing for every pair of visible distributions
+is \emph{ancilla-assisted}: the entanglement of the system with a
+shielded, maximally entangled ancilla decreases monotonically under
+CP-divisible evolution, so its increase witnesses CP-indivisibility
+{[}4{]}, and for bijective (invertible) dynamical maps on
+\(\mathbb{C}^d\), CP-divisibility is equivalent to monotonic
+non-increase of the trace distance between every pair of equiprobable
+states of the system and a \((d+1)\)-dimensional ancilla {[}9{]};
+ordinary system trace distance is a strictly weaker witness and can stay
+monotone on a CP-indivisible family. The classical analogue is exact and
+is certified here: a family can be P-indivisible while total-variation
+distance is non-increasing for every pair of visible distributions
 (\texttt{translation\_probes.py}, §2.3). Backflow in the system alone is
 therefore sufficient evidence of indivisibility, never necessary.
 
@@ -2779,7 +2819,12 @@ including the §3.2 revival family and a non-Markovian kernel set with
 \(T^{(2)} \neq (T^{(1)})^2\) --- by
 \texttt{process\_dilation\_probes.py} (full-joint equality in exact
 rational arithmetic; permutation control silent). \(\square\) (kernel:
-\texttt{S\_imp\_D} in \texttt{OIBridge/Equivalence.lean})
+\texttt{S\_imp\_D} in \texttt{OIBridge/Equivalence.lean}, for the
+realization of the full multi-time law from an initial law on
+\(\mathcal{C}_V \times \mathcal{C}_H\) that may correlate the hidden and
+visible coordinates; the independence of \(\mu_H\) from the visible
+initial state rests on the construction above and the cited probes and
+is not formalized)
 
 \emph{Remark (prior structure).} The realization uses a structured prior
 --- uniform on the initialized ledger/clock sector times the tape. The
@@ -2928,15 +2973,13 @@ information \(I(X_{<k}; X_{k+1} \mid X_k)\) is strictly positive --- the
 visible past carries information about the visible future beyond the
 present.}
 
-\emph{(iii) For every finite accessible horizon long enough to contain a
-memory witness --- every \(K \geq k+1\), with \(k\) an order at which
-(ii)'s conditional mutual information is positive --- \(\mathcal{S}\)
-arises from marginalizing a deterministic bijection on
-\(\mathcal{C}_V \times \mathcal{C}_H\) --- the hidden space may grow
-with the horizon --- with (C1) non-trivial coupling, (C3) sufficient
-capacity, and (C4) history readback at such a \(k\) --- with a fixed
-hidden prior \(\mu_H\) carried as part of the realization datum (§1.4
-Remark).}
+\emph{(iii) For some accessible order \(k\) and every finite accessible
+horizon \(K \geq k+1\), \(\mathcal{S}\) arises from marginalizing a
+deterministic bijection on \(\mathcal{C}_V \times \mathcal{C}_H\) ---
+the hidden space may grow with the horizon --- with (C1) non-trivial
+coupling, (C3) sufficient capacity, and (C4) history readback at \(k\)
+--- with a fixed hidden prior \(\mu_H\) carried as part of the
+realization datum (§1.2, Remark on the measure as a realization datum).}
 
 \emph{The two theorems the equivalence turns on follow, with their own
 proofs; the characterization's proof comes after them.}
@@ -2950,7 +2993,9 @@ observable law \(P(x_0, \ldots, x_K)\) coincide:}
 of finite reversible deterministic systems under incomplete
 observation;} \emph{(\(Q_{\mathrm{fb}}\)) the laws realizable by
 finite-dimensional unitary systems with Born-rule readout in a fixed
-basis --- the fixed-basis unitary Born representations.} (kernel:
+basis, measured projectively in that basis at every step from an initial
+state diagonal in it, the visible record a fixed function of each
+outcome --- the fixed-basis unitary Born representations.} (kernel:
 \texttt{finite\_horizon\_equivalence}, \texttt{S\_imp\_D} in
 \texttt{OIBridge/Equivalence.lean}; the permutation-unitarity and
 diagonal-preservation lemmas \texttt{permMatrix\_mem\_unitaryGroup},
@@ -2958,11 +3003,13 @@ diagonal-preservation lemmas \texttt{permMatrix\_mem\_unitaryGroup},
 
 \emph{Proof.} (S \(\Rightarrow\) D) is the response-table construction
 of §3.4, which reproduces the whole multi-time law, not merely the
-one-step matrices. (D \(\Rightarrow\) \(Q_{\mathrm{fb}}\)) is internal
-and needs no imported correspondence: for a bijection \(\varphi\) on
-\(\mathcal{C}_V \times \mathcal{C}_H\) set
-\(U_\varphi |x, h\rangle = |\varphi(x,h)\rangle\) and take the hidden
-prior diagonal. A permutation unitary preserves diagonality, so
+one-step matrices (kernel: \texttt{S\_imp\_D}, by a different carrier, a
+clock with the complete trajectory record, whose initial law may
+correlate the hidden and visible coordinates). (D \(\Rightarrow\)
+\(Q_{\mathrm{fb}}\)) is internal and needs no imported correspondence:
+for a bijection \(\varphi\) on \(\mathcal{C}_V \times \mathcal{C}_H\)
+set \(U_\varphi |x, h\rangle = |\varphi(x,h)\rangle\) and take the
+initial law diagonal. A permutation unitary preserves diagonality, so
 sequential projective measurements in the configuration basis do not
 disturb the state, and the measured record reproduces
 \(P(x_0, \ldots, x_K)\) exactly; \(U_\varphi = e^{-i\hat H}\) for a
@@ -3637,21 +3684,28 @@ unreachable at any fixed stage (the classical-dimension Proposition).}
 \textbf{Summary (the equivalence at maximum proved strength).} Four
 claims, each with its exact status. (1)
 \(S \iff D \iff Q_{\mathrm{fb}}\) --- proved, all finite laws. (2)
-\(M_t > 0 \iff\) unavoidable readout-relevant hidden predictive memory
---- proved, every faithful completion. (3) No fixed finite classical
-carrier reproduces full qubit operational behavior --- proved under the
-stated operational interface, the unbounded-dimension half imported
-{[}55{]}. (4) Every \(d\)-dimensional quantum experiment of horizon
-\(K\) has a finite reversible deterministic \(\varepsilon\)-realization
---- proved unconditionally at exact arithmetic AND at finite \(b\) (the
-instrument-level Rounding Lemma, fixed-point dyadic model), covering
-general instruments, mixed conditionals, incompatible measurements, and
-adaptive protocols, with explicit controlled-model resources and one
-controlled dynamics serving all protocols. Per (3), density is the
-maximum: the equivalence cannot be strengthened to exact class identity
-at any fixed carrier, so what remains is precisely selection --- route
-(ii). This is the maximal equivalence available to a fixed finite
-substratum under the stated operational interface.
+\(M_t > 0 \iff\) readout-relevant hidden predictive memory in every
+faithful completion --- proved: clauses (a)--(c) of the theorem below
+proved in the kernel for a joint law of history, present and hidden
+state, with the reading of a realization's time-\(t\) law as that joint
+law not formalized; the biconditional restates the pushforward identity
+(a), its converse applying (a) in one faithful completion, which exists
+(\(S \Rightarrow D\)), and both directions using the vanishing criterion
+for conditional mutual information, which is not formalized. (3) No
+fixed finite classical carrier reproduces full qubit operational
+behavior --- proved under the stated operational interface, the
+unbounded-dimension half imported {[}55{]}. (4) Every \(d\)-dimensional
+quantum experiment of horizon \(K\) has a finite reversible
+deterministic \(\varepsilon\)-realization --- proved unconditionally at
+exact arithmetic AND at finite \(b\) (the instrument-level Rounding
+Lemma, fixed-point dyadic model), covering general instruments, mixed
+conditionals, incompatible measurements, and adaptive protocols, with
+explicit controlled-model resources and one controlled dynamics serving
+all protocols. Per (3), density is the maximum: the equivalence cannot
+be strengthened to exact class identity at any fixed carrier, so what
+remains is precisely selection --- route (ii). This is the maximal
+equivalence available to a fixed finite substratum under the stated
+operational interface.
 
 \textbf{Theorem (unavoidable hidden predictive memory).} \emph{Let
 \(\mathcal{S}\) be a visible process and let \(\mathcal{R}\) be ANY
@@ -3673,7 +3727,9 @@ sharing the endpoint \(x\), the observed gap obeys
 \(M_t := I(X_{<t}; X_{t+1} \mid X_t) \leq I(X_{<t}; H_t \mid X_t) \leq \log_2 |\mathcal{C}_H|\).}
 (kernel: \texttt{unavoidable\_hidden\_predictive\_memory},
 \texttt{distinguishability\_floor}, \texttt{capacity\_floor} in
-\texttt{OIBridge/HiddenMemory.lean})
+\texttt{OIBridge/HiddenMemory.lean}, for a joint law of history, present
+and hidden state; reading a realization's time-\(t\) law as that joint
+law is a step not formalized)
 
 \emph{Proof.} (a) Determinism makes \(X_{t+1}\) a function of
 \((X_t, H_t)\), so conditioning on \(p\) and pushing \(\mu_p\) through
@@ -3844,7 +3900,8 @@ the strictly stronger property; the strictness is witnessed by an
 explicit family --- \(X_1\) uniform independent of \(X_0\),
 \(X_2 = X_0 \oplus X_1\) --- with maximal conditional memory
 (\(I(X_0; X_2 \mid X_1) = 1\) bit) whose matrix family factors through
-\(\Lambda = I\) (\texttt{review4\_probes.py}). The framework's
+\(\Lambda = I\) (\texttt{review4\_probes.py}; up to flipping the final
+bit, the process of {[}5{]}, Eq. (15)). The framework's
 accessible-timescale claim is (ii). P-indivisibility enters as the
 stronger property in two ways: unconditionally at the recurrence scale
 from a non-permutation one-step witness (§2.3), and empirically ---
@@ -3874,29 +3931,38 @@ conditional-mixing-curve hypothesis with finite
 \(\tau_B(\varepsilon_0)\) (Remark, §3.4; ETH {[}17, 18{]} the
 motivation; no smallness of \(\varepsilon\) at the coupling time is
 assumed); (C3) from the data-processing bound in per-process form
-(\(m \geq 2^{I^*}\)). Both directions of the equivalence are theorems of
-this paper. Finally, a unitarily evolving representation is available
-for \(\mathcal{S}\) regardless --- internally by the permutation unitary
-of any realization (the equivalence above), and under (T) by the
-imported correspondence {[}11, 12{]}, which represents it by a unitarily
-evolving quantum system; under the time-homogeneity restriction the
-representation takes the fixed-\(\hat{H}\) ancilla-marginal form of (i)
-(scope Remark) --- the paper's single external import, sitting outside
-the equivalence. \(\square\)
+(\(m \geq 2^{I^*}\)). Both directions are proved here in prose and
+neither is formalized in the kernel; since (C4) coincides with (ii) in
+every faithful realization (Remark, \emph{the conditions are
+diagnostics, not hypotheses}), what (ii) \(\implies\) (iii) adds to (ii)
+is the existence of a realization, and (iii) \(\implies\) (ii) is the
+readback lemma. Finally, a unitarily evolving representation is
+available for \(\mathcal{S}\) regardless --- internally by the
+permutation unitary of any realization (the equivalence above), and
+under (T) by the imported correspondence {[}11, 12{]}, which represents
+it by a unitarily evolving quantum system; under the time-homogeneity
+restriction the representation takes the fixed-\(\hat{H}\)
+ancilla-marginal form of (i) (scope Remark) --- the paper's single
+external import, sitting outside the equivalence. \(\square\)
 
 \emph{Remark (the horizon restriction is forced).} The witness-anchored
-quantifier in (iii) is not a courtesy. A horizon ending before the first
-memory witness restricts \(\mathcal{S}\) to a Markovian law, and by the
-universal theorem's biconditional no faithful realization of a
-memory-free law carries a readback gap --- so the unrestricted
-every-horizon form of (iii) is false, while every horizon containing a
-witness supports the construction. The strong per-witness form is exact:
-\(M_t > 0\) \(\iff\) for every \(K \geq t+1\) there is a faithful
-realization of the law through \(K\) with readback biting at \(t\) ---
-the forward direction by dilation of the \(K\)-law, whose restriction
-contains the \(t\)-witness, the converse because a readback gap in any
-faithful realization \emph{is} a differing next-step conditional
-(universal theorem, (a)).
+quantifier in (iii) is not a courtesy. Any order \(k\) satisfying (iii)
+is a memory witness: a (C4) gap at \(k\) in a faithful realization is a
+differing next-step conditional of \(\mathcal{S}\) itself (universal
+theorem, (a)). The order is bound within (iii) and not taken from (ii):
+quantified over every order at which (ii)'s conditional mutual
+information is positive, (iii) would hold vacuously for a Markov law,
+which has none. A horizon ending before the first memory witness
+restricts \(\mathcal{S}\) to a Markovian law, and by the universal
+theorem's biconditional no faithful realization of a memory-free law
+carries a readback gap --- so the unrestricted every-horizon form of
+(iii) is false, while every horizon containing a witness supports the
+construction. The strong per-witness form is exact: \(M_t > 0\) \(\iff\)
+for every \(K \geq t+1\) there is a faithful realization of the law
+through \(K\) with readback biting at \(t\) --- the forward direction by
+dilation of the \(K\)-law, whose restriction contains the \(t\)-witness,
+the converse because a readback gap in any faithful realization
+\emph{is} a differing next-step conditional (universal theorem, (a)).
 
 \emph{Remark (retired direction).} (i) alone does not imply (ii): a
 diagonal Hamiltonian satisfies the definition with \(T(t) = I\) for all
@@ -4373,15 +4439,16 @@ partition, with all derived from the same deterministic substratum.
 \hypertarget{scope}{%
 \subsubsection{4.2 Scope}\label{scope}}
 
-The characterization theorem's equivalence is (ii) \(\iff\) (iii) under
-(C1)--(C4), both directions in-house; the quantum representation follows
-for the source's finite-configuration class, and observed Bell-class
-dynamics --- indivisible, hence non-Markovian a fortiori --- certify
-(ii) directly; representability alone is strictly weaker
-(diagonal-\(\hat{H}\), §3.4 Remark). The theorem does not identify which
-physical systems satisfy the conditions; this is an empirical question.
-Universality in our universe follows from the shared causal partition
-defined by null geodesics.
+The characterization theorem's equivalence is (ii) \(\iff\) (iii), with
+(iii) carrying (C1), (C3) and (C4) and (C2) outside it, both directions
+in-house; the quantum representation follows for the source's
+finite-configuration class, and observed Bell-class dynamics ---
+indivisible, hence non-Markovian a fortiori --- certify (ii) directly;
+representability alone is strictly weaker (diagonal-\(\hat{H}\), §3.4
+Remark). The theorem does not identify which physical systems satisfy
+the conditions; this is an empirical question. Universality in our
+universe follows from the shared causal partition defined by null
+geodesics.
 
 \hypertarget{the-status-of-the-discreteness-scale}{%
 \subsubsection{4.3 The Status of the Discreteness
@@ -4457,9 +4524,11 @@ established separately --- and supplies the fixed-basis representation
 itself internally (\(S \iff D \iff Q_{\mathrm{fb}}\), §3.4), retaining
 the import for compression and interpretation. The three earlier
 programs identified emergent QM as a legitimate research target; what
-the present framework adds is an equivalence with necessary and
-sufficient conditions --- (ii) \(\iff\) (iii) with representability as a
-one-way consequence (§3.4) --- and a constructive derivation chain that
+the present framework adds is an exact finite-horizon representation
+equivalence, \(S \iff D \iff Q_{\mathrm{fb}}\), holding for every finite
+law, a characterization (ii) \(\iff\) (iii) whose conditions are
+diagnostics of a realization, (C4) coinciding with (ii) in every
+faithful realization (§3.4), and a constructive derivation chain that
 does not require independent quantization conditions or equilibrium
 ensembles.
 
@@ -5260,5 +5329,9 @@ limitations of measurement,'' in W. C. Myrvold and J. Christian (eds.),
 \emph{Quantum Reality, Relativistic Causality, and Closing the Epistemic
 Circle} (Springer, 2009).
 
+{[}63{]} H.-P. Breuer, E.-M. Laine, and J. Piilo, ``Measure for the
+degree of non-Markovian behavior of quantum processes in open systems,''
+\emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
+
 \end{document}
-% source-sha256: e308e93c6e835ca48da4e0e66be7a0dc84f1b0744960e233d05da93ab297e27e
+% source-sha256: 026fc189592269c75bb272649cd9dca3261f66d66d53c8eb0fbd6dfaaf0d1a4c

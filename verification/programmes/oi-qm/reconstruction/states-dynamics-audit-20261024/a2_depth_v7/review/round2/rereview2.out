@@ -1,0 +1,25 @@
+PASS dist(4/5,2^-B Z) = 2^-B*(2/5 odd, 1/5 even), B=1..300, residue form 2^(B+2) mod 5
+PASS B=24 class depth 28147497671065602 is least h with (h-1)d^2/4>1
+INFO NUMERIC: 1-(1-c)^(h-1)>1/2 from h ~ 1.9510e+16 (rule-specific depth, not minimal TV depth)
+PASS certified depth 1/10 = 7486900 minimal
+PASS certified depth 1/2 = 67382091 minimal
+PASS certified depth 9/10 = 606438812 minimal
+PASS coupling depth 8388608
+PASS sympy: 2H^2 = sum of squared root differences (Bernoulli)
+PASS 40 random adaptive class members: every conditional after read 1 in 2^-B Z
+PASS joint-record TV >= 1-(1-dist^2/4)^(h-1) >= S/(1+S) for every member (exact)
+PASS joint-record TV <= sum_t sup_past d_t (sequential coupling) for every member (exact)
+PASS joint BC <= prod sup_past BC_t and TV >= 1-BC_joint (certified 2^-200 enclosures)
+PASS retained-seed B=2 P(agree2|agree1)=11/16, outside 2^-B Z
+PASS retained-seed B=3 P(agree2|agree1)=41/56, outside 2^-B Z
+PASS retained-seed B=4 P(agree2|agree1)=41/52, outside 2^-B Z
+PASS B=4 h=1 joint TV=1/80 = result; TV <= P(coupled records differ)=1/80 <= union 1/16 <= 1/14
+PASS B=4 h=2 joint TV=1/80 = result; TV <= P(coupled records differ)=9/640 <= union 9/128 <= 1/14
+PASS B=4 h=3 joint TV=1763/128000 = result; TV <= P(coupled records differ)=151/10240 <= union 73/1024 <= 1/14
+PASS B=4 h=4 joint TV=120389/8192000 = result; TV <= P(coupled records differ)=971/65536 <= union 585/8192 <= 1/14
+PASS B=4 h=5 joint TV=24264001/1638400000 = result; TV <= P(coupled records differ)=77721/5242880 <= union 4681/65536 <= 1/14
+PASS B=2 h=1..8: joint TV <= coupling gap <= partial union sum <= 1/(2^B-2)
+PASS B=3 h=1..6: joint TV <= coupling gap <= partial union sum <= 1/(2^B-2)
+PASS partial union sums < 1/(2^B-2); geometric series 2^-B/(1-2^(1-B)) = 1/(2^B-2) exactly
+PASS closed form of the infinite union sum, B=2..59
+FAILS: []

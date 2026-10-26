@@ -1,0 +1,122 @@
+{
+ "regions": 32,
+ "keys": {
+  "current +x": {
+   "status": "PINNED",
+   "pinned_by": [
+    "junction transported 3",
+    "port 4 ready"
+   ],
+   "sources": [],
+   "bank": null,
+   "min_margin": -399,
+   "nearest": "junction transported 3"
+  },
+  "current -x": {
+   "status": "FREE",
+   "pinned_by": [],
+   "sources": [],
+   "bank": null,
+   "min_margin": 2,
+   "nearest": "Native B q10 extension"
+  },
+  "current +y": {
+   "status": "FREE",
+   "pinned_by": [],
+   "sources": [],
+   "bank": null,
+   "min_margin": 2,
+   "nearest": "Native B q10 extension"
+  },
+  "current -y": {
+   "status": "FREE",
+   "pinned_by": [],
+   "sources": [],
+   "bank": null,
+   "min_margin": 2,
+   "nearest": "Native B q10 extension"
+  },
+  "current +z": {
+   "status": "PINNED",
+   "pinned_by": [
+    "Native B q10 extension"
+   ],
+   "sources": [
+    "N"
+   ],
+   "bank": null,
+   "min_margin": 0,
+   "nearest": "Native B q10 extension"
+  },
+  "current -z": {
+   "status": "PINNED",
+   "pinned_by": [
+    "R collision"
+   ],
+   "sources": [],
+   "bank": null,
+   "min_margin": -134,
+   "nearest": "R collision"
+  },
+  "previous +x": {
+   "status": "PINNED",
+   "pinned_by": [
+    "junction transported 3",
+    "port 4 ready"
+   ],
+   "sources": [],
+   "bank": null,
+   "min_margin": -399,
+   "nearest": "junction transported 3"
+  },
+  "previous -x": {
+   "status": "FREE",
+   "pinned_by": [],
+   "sources": [],
+   "bank": null,
+   "min_margin": 2,
+   "nearest": "Native B q10 extension"
+  },
+  "previous +y": {
+   "status": "FREE",
+   "pinned_by": [],
+   "sources": [],
+   "bank": null,
+   "min_margin": 2,
+   "nearest": "Native B q10 extension"
+  },
+  "previous -y": {
+   "status": "FREE",
+   "pinned_by": [],
+   "sources": [],
+   "bank": null,
+   "min_margin": 2,
+   "nearest": "Native B q10 extension"
+  },
+  "previous +z": {
+   "status": "PINNED",
+   "pinned_by": [
+    "Native B q10 extension"
+   ],
+   "sources": [],
+   "bank": null,
+   "min_margin": 0,
+   "nearest": "Native B q10 extension"
+  },
+  "previous -z": {
+   "status": "PINNED",
+   "pinned_by": [
+    "R collision"
+   ],
+   "sources": [],
+   "bank": null,
+   "min_margin": -134,
+   "nearest": "R collision"
+  }
+ },
+ "late_record_slack": {
+  "-x": 2,
+  "+y": 2,
+  "-y": 2
+ }
+}

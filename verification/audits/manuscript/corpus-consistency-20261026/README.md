@@ -1,0 +1,34 @@
+# Corpus consistency audit: horizon entropy, cosmological constant, prediction counts, Cabibbo, echoes
+
+The owner directed this audit on 2026-10-26, as a dedicated corpus-consistency change separate from the black-hole
+correction (#936) and the Introduction paper (#918). The rules:
+- each flagged claim is independently verified before any edit;
+- original wording is preserved in this record, with citations and a rationale for each correction;
+- incorrect claims are distinguished from statements that only need a qualification.
+
+`AUDIT.md` verifies, item by item at `main` `687e885b`, the overclaims first flagged by the Introduction's
+applications audit (#918, `design/applications-audit/AUDIT.md` §9). For each item it gives:
+- the source and original wording;
+- the support behind it;
+- the defect class: INCORRECT, OVERSTATED, NEEDS-QUALIFICATION or CONSISTENT;
+- the status class, in the owner's six-class scheme (Derived, Conditional, Consistency, Postdiction, Forward test,
+  Open), with the corpus's S/C/L/R/P/M/E class where relevant;
+- the minimal replacement and its rationale;
+- every mirror and paraphrase.
+
+Lines that #936 edits are listed as owned by #936 and are not proposed for edit here.
+
+`scripts/` holds the auditor's independent checks:
+- `quarter_indep.py`: the Bekenstein–Hawking 1/4 as the ratio of two normalizations, with non-vacuity controls;
+- `cc_indep.py`: the 10¹²² ratio against the de Sitter entropy as a dimensional identity;
+- `cabibbo_cmp.py`: 1/(π√2) against the PDG 2025 values;
+- `mirror.sh`: a book-to-FULL mirror lookup helper.
+
+Paths written `S/…` refer to the session's scratch directory, which is not part of the repository. The PDG review
+read for the comparison is identified in `AUDIT.md` by its digest and is not committed.
+
+`REVIEW.md` is the independent review of the audit (ACCEPT WITH CHANGES). All 13 INCORRECT findings stand, four replacements are corrected, and it lists missed sites; `review/quarter3.py` is its third, independent check of the 1/4. The audit's mechanical record errors (a scratch path, a truncated digest, a stale #936 head) are corrected in place. No manuscript text is changed yet.
+
+`review/DIFF-REVIEW.md` is the independent review of the manuscript edits at `22cb6da0` (ACCEPT WITH CHANGES): the merge, mirrors, generated `.tex` and counts check out; it requires five corrections (R1–R5) and leaves three decisions to the owner.
+
+`review/DIFF-RECHECK.md` re-checks the corrections at `4fe0ebff` (REVISE: four mechanical fixes F1–F4, two nits); `review/DIFF-CONFIRM.md` confirms the fixes at `f0cc2e94` (ACCEPT WITH NITS, nits applied). `CHANGE-NOTE.md` §9 lists every site and the items deferred to the owner.

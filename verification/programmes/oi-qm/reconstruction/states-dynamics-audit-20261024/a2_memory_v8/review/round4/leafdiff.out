@@ -1,0 +1,4 @@
+old 1163 new 1165 changed 1 removed 0 added 2
+CHANGED schema | oi.a2-bounded-memory-v8.v3 -> oi.a2-bounded-memory-v8.v4
+ADDED independent_certificate_audit_post_recheck2/certificates_checked_against_exact_tv = 212
+ADDED independent_certificate_audit_post_recheck2/members = 48

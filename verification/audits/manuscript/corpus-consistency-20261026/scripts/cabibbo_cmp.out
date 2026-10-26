@@ -1,0 +1,9 @@
+1/(pi sqrt2) = 0.225079079039
+global fit lambda, CKMfitter method (12.26)    0.22501 ± 0.00068 pull  0.102 sigma  rel 0.0307 %
+global fit lambda, UTfit prescription          0.22497 ± 0.0007  pull  0.156 sigma  rel 0.0485 %
+|Vus| K_l3 (f+(0) Nf=2+1+1)                     0.2233 ± 0.0005  pull   3.56 sigma  rel  0.797 %
+|Vus| K_mu2/pi_mu2 (fK/fpi)                      0.225 ± 0.0004  pull  0.198 sigma  rel 0.0351 %
+|Vus| PDG average (12.8), err scaled           0.22431 ± 0.00085 pull  0.905 sigma  rel  0.343 %
+|Vus| hyperon                                    0.225 ± 0.0027  pull 0.0293 sigma  rel 0.0351 %
+|Vus| tau (incl+excl)                           0.2207 ± 0.0014  pull   3.13 sigma  rel   1.98 %
+SM.md cited (PDG-2022)                           0.225 ± 0.00067 pull  0.118 sigma  rel 0.0351 %

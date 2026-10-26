@@ -1,0 +1,408 @@
+{
+  "endpoint_maps": [
+    {
+      "cycle_length_counts": {
+        "1": 8
+      },
+      "delta": 11,
+      "payload_maps": [
+        [
+          0,
+          2,
+          4,
+          6,
+          1,
+          7,
+          3,
+          5
+        ],
+        [
+          0,
+          2,
+          4,
+          6,
+          1,
+          7,
+          3,
+          5
+        ]
+      ]
+    },
+    {
+      "cycle_length_counts": {
+        "1": 8
+      },
+      "delta": 12,
+      "payload_maps": [
+        [
+          0,
+          2,
+          4,
+          6,
+          1,
+          7,
+          3,
+          5
+        ],
+        [
+          0,
+          2,
+          4,
+          6,
+          1,
+          7,
+          3,
+          5
+        ]
+      ]
+    },
+    {
+      "cycle_length_counts": {
+        "1": 2,
+        "3": 2
+      },
+      "delta": 13,
+      "payload_maps": [
+        [
+          0,
+          1,
+          3,
+          6,
+          2,
+          7,
+          4,
+          5
+        ],
+        [
+          5,
+          2,
+          1,
+          0,
+          3,
+          7,
+          4,
+          6
+        ]
+      ]
+    },
+    {
+      "cycle_length_counts": {
+        "1": 8
+      },
+      "delta": 14,
+      "payload_maps": [
+        [
+          0,
+          2,
+          4,
+          6,
+          1,
+          7,
+          3,
+          5
+        ],
+        [
+          0,
+          2,
+          4,
+          6,
+          1,
+          7,
+          3,
+          5
+        ]
+      ]
+    },
+    {
+      "cycle_length_counts": {
+        "1": 8
+      },
+      "delta": 15,
+      "payload_maps": [
+        [
+          0,
+          2,
+          4,
+          6,
+          1,
+          7,
+          3,
+          5
+        ],
+        [
+          0,
+          2,
+          4,
+          6,
+          1,
+          7,
+          3,
+          5
+        ]
+      ]
+    },
+    {
+      "cycle_length_counts": {
+        "1": 8
+      },
+      "delta": 16,
+      "payload_maps": [
+        [
+          0,
+          2,
+          4,
+          6,
+          1,
+          7,
+          3,
+          5
+        ],
+        [
+          0,
+          2,
+          4,
+          6,
+          1,
+          7,
+          3,
+          5
+        ]
+      ]
+    },
+    {
+      "cycle_length_counts": {
+        "1": 2,
+        "3": 2
+      },
+      "delta": 17,
+      "payload_maps": [
+        [
+          0,
+          1,
+          3,
+          6,
+          2,
+          7,
+          4,
+          5
+        ],
+        [
+          7,
+          3,
+          4,
+          6,
+          2,
+          5,
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "cycle_length_counts": {
+        "1": 8
+      },
+      "delta": 18,
+      "payload_maps": [
+        [
+          0,
+          2,
+          4,
+          6,
+          1,
+          7,
+          3,
+          5
+        ],
+        [
+          0,
+          2,
+          4,
+          6,
+          1,
+          7,
+          3,
+          5
+        ]
+      ]
+    },
+    {
+      "cycle_length_counts": {
+        "1": 8
+      },
+      "delta": 19,
+      "payload_maps": [
+        [
+          0,
+          2,
+          4,
+          6,
+          1,
+          7,
+          3,
+          5
+        ],
+        [
+          0,
+          2,
+          4,
+          6,
+          1,
+          7,
+          3,
+          5
+        ]
+      ]
+    },
+    {
+      "cycle_length_counts": {
+        "1": 8
+      },
+      "delta": 20,
+      "payload_maps": [
+        [
+          0,
+          2,
+          4,
+          6,
+          1,
+          7,
+          3,
+          5
+        ],
+        [
+          0,
+          2,
+          4,
+          6,
+          1,
+          7,
+          3,
+          5
+        ]
+      ]
+    },
+    {
+      "cycle_length_counts": {
+        "1": 2,
+        "3": 2
+      },
+      "delta": 21,
+      "payload_maps": [
+        [
+          0,
+          1,
+          3,
+          6,
+          2,
+          7,
+          4,
+          5
+        ],
+        [
+          5,
+          2,
+          1,
+          0,
+          3,
+          7,
+          4,
+          6
+        ]
+      ]
+    },
+    {
+      "cycle_length_counts": {
+        "1": 8
+      },
+      "delta": 22,
+      "payload_maps": [
+        [
+          0,
+          2,
+          4,
+          6,
+          1,
+          7,
+          3,
+          5
+        ],
+        [
+          0,
+          2,
+          4,
+          6,
+          1,
+          7,
+          3,
+          5
+        ]
+      ]
+    },
+    {
+      "cycle_length_counts": {
+        "1": 8
+      },
+      "delta": 23,
+      "payload_maps": [
+        [
+          0,
+          2,
+          4,
+          6,
+          1,
+          7,
+          3,
+          5
+        ],
+        [
+          0,
+          2,
+          4,
+          6,
+          1,
+          7,
+          3,
+          5
+        ]
+      ]
+    },
+    {
+      "cycle_length_counts": {
+        "1": 8
+      },
+      "delta": 24,
+      "payload_maps": [
+        [
+          0,
+          2,
+          4,
+          6,
+          1,
+          7,
+          3,
+          5
+        ],
+        [
+          0,
+          2,
+          4,
+          6,
+          1,
+          7,
+          3,
+          5
+        ]
+      ]
+    }
+  ],
+  "frontier_family_tests": 98,
+  "independent_scalar_cases": 64,
+  "original_source_tests": 20706,
+  "period_coordinates": 176,
+  "period_divisor": "384*840^176",
+  "schema": "oi-alternate-layout-independent-review-v1",
+  "scope": "four-history full-raw-law obstruction for the stated 14-endpoint product family",
+  "shortcut_mismatches": 16,
+  "verdict": "PASS"
+}

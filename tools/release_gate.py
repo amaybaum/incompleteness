@@ -52,6 +52,17 @@ another. Each exists because a real defect shipped past the others:
                        this step is where a native round whose receipt does not
                        hold, or whose records were rewritten after it held, can
                        reject a build.
+  citation-roles       a research record cited commits reachable only from an
+                       unmerged branch as the support of its checkpoint rows,
+                       and no step read reachability (Issue #915). A record that
+                       carries CITATIONS.json declares each full object id it
+                       cites as support, provenance or external; a support id
+                       must be a commit reachable from the commit under check.
+                       Each support entry of main is a claim record; one the
+                       commit no longer has needs a downgrade record matching
+                       it, and its claim may not stand verbatim in the tree,
+                       or, in its record's directory, reformatted or without a
+                       reference that a support record claims on its own line.
 
 Post-packaging, verify the DECLARED checksum against the shipped archive:
     python3 tools/baseline_label_check.py --verify-archive PATH --root TRANSFER
@@ -161,6 +172,13 @@ def main():
         # history, so the workflow's Mathlib bridge job checks out with fetch-depth: 0.
         ("v3-receipts",
                       [sys.executable, "tools/v3_verifier.py", "--receipts", head]),
+        # citation-roles: AGENTS §A.42 items 2-3 for records that carry CITATIONS.json. A support id
+        # is a commit reachable from the commit under check; a claim record of main the commit no
+        # longer has needs a matching downgrade record, its claim no longer standing; and a
+        # provenance id names an object when it lands.
+        # Reachability needs full history, as v3-receipts does.
+        ("citation-roles",
+                      [sys.executable, "tools/citation_roles_check.py", head]),
     ]
     # baselines are named in the TRANSFER's docs, not the manuscript tree, so
     # point the label check there when a transfer path is supplied

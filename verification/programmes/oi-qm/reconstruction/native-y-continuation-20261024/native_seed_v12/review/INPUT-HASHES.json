@@ -1,0 +1,25 @@
+{
+  "all_six_remote_git_blob_identities_verified": true,
+  "author_commit": "1c91d3158e13eaa69c7fd1710932c9995d0288d7",
+  "author_normal_optimized_retained_replay_equal": true,
+  "author_sha256": {
+    "PLAN.md": "774adfccdfca3ea178fa1c46ad141d1b027849a7ad8e3c81e508cb9df2a9eb70",
+    "PROVENANCE.json": "faa8276720fa2a7bdbf27017ad7924b622d36fa22c327788a8d5ac7849e52e06",
+    "REPORT.md": "7fb515126a6835a2c10031b3000077d62fd8ac3af4af860dc40721cb47b39c52",
+    "SHA256SUMS": "cb60b755ca2aed4bdd2763271bcbbbd1f903c33de64eb5a079d0945120ea1142",
+    "checks.py": "236438fc59188deb6575bf29d1236de10130bd78576db0c5308f4604426fc3b3",
+    "result.json": "4628cc9f241b0ab71f62d96fbdb2e99f5c5991cce66725f9f86c82ddcb46a28d"
+  },
+  "inherited_sha256": {
+    "branch_v10/local-controller/REPORT.md": "cdc9600cb467e54184b811166c71d9a73e8b5d89d4b813d516100eb27eff19db",
+    "branch_v10/local-controller/symmetric-result.json": "d8e7c1f5841192165beefb3fe35b069cc14cc93f2faa2bd68619aa7748b3db2f",
+    "parallel_v3/history_control/SOURCE-GEOMETRY.json": "2642e1a68825faa5d3bb1049e8722adec1ec33bd3f56b9e4416b2c902a85ec5d",
+    "reset_v9/checks.py": "55659ae57662ba687dba49fabf9766b0583d72f5bd441999edb0342162ac9685",
+    "six_source_v5/period/REPORT.md": "7743ee8fccb5e39df674bb7ada6fcd6ce45582b801d4d58d77af5162420cf360"
+  },
+  "inherited_source_revision": "00e85e748cf8e5ada75f4e1a22aef87eb0a823a2",
+  "repository": "amaybaum/incompleteness",
+  "review_engine": "Independent interleaved3-bit native evaluator with signedx ANDy, separate2D monotone lower-front DP and explicit full scalar3D controls; no author imports",
+  "review_normal_optimized_equal": true,
+  "source_prefix": "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/native_seed_v12/"
+}

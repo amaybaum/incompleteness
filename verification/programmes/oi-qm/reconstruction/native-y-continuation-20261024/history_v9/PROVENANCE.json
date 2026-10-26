@@ -1,0 +1,15 @@
+{
+  "upstream_head": "f264dff4eacae84959b4a4419be204fb8c31c9e3",
+  "repository_prefix": "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024",
+  "upstream_results": [
+    "reset_v8/REPORT.md",
+    "reset_v8/review/REPORT.md"
+  ],
+  "source_excerpts_sha256": "36e3f7b3b56d983ed2f8b077f6b9ec9a93d1a06b5384db1d87e1b029d2c66e9e",
+  "runtime_dependencies": "Python 3 standard library only; no imported predecessor code or scratch data.",
+  "replay_commands": [
+    "python3 checks.py",
+    "python3 -O checks.py"
+  ],
+  "result": "results.json"
+}

@@ -1,0 +1,41 @@
+{
+  "schema": "oi.native-reset.q7-interface.v1",
+  "checks": {
+    "G_endpoint_permutations": 32,
+    "actual_period_divisibility": true,
+    "actual_q7_interface_rows": 64,
+    "apparatus_source_pairs_per_encoding_test": 64,
+    "direct_scalar_comparisons": 9120,
+    "extension_diagnostic_rows": 768,
+    "first_arrival_and_old_regions": true,
+    "independent_dipole_comparisons": 560,
+    "inherited_hashes": true,
+    "native_incoming_formula_rows": 16,
+    "q7_intervention_formula_rows": 256,
+    "readiness_source_geometry_entries": 1479
+  },
+  "measurements": {
+    "common_two_code_G_pairs": {
+      "q7": [],
+      "qY": []
+    },
+    "native_route_G_by_u": {
+      "0": [],
+      "1": []
+    },
+    "q7_socket_G_by_u": {
+      "0": [],
+      "1": []
+    }
+  },
+  "verdict": {
+    "native_common_two_code_in_G_u_family": "excluded",
+    "native_route_in_G_u_family": "excluded",
+    "q7_common_two_code_socket_in_G_u_family": "excluded",
+    "q7_input_socket_in_G_u_family": "excluded",
+    "reset_5_3_2": "not_constructed",
+    "unprepared_q8": "underdetermined_by_q7_ready_region"
+  },
+  "normal_optimized_byte_match": true,
+  "results_sha256": "6fb3ed95948f9900f1ec9f40ef740d26d7792c7dae549a37644210e8a9e1eb43"
+}

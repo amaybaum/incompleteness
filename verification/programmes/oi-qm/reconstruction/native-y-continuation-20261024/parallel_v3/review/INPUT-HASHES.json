@@ -1,0 +1,20 @@
+{
+  "continuation/REPORT.md": "d069573516587d7cf93662fcbadc077ccb9ec2b116982225aa5330f9e0f418e7",
+  "continuation/core.py": "b16155925700321abdb6f59260bc510e8e6c1d039f30c9eadc0c4320de89c941",
+  "continuation/model.py": "f2ead0346c31ecff3d05f097f7aacd83cb371c427489a5f2941e77a89de32c6a",
+  "continuation/symbolic.py": "fd5a9b6ac57c3ccb12979d3afad3114ef844def604103b00e25c7591a328adf0",
+  "continuation/patterns.json": "af72ee6e6b1f020d5234a4663308df8ae3cd9b5245b929850ab3322013f91a82",
+  "parallel_v3/aux_routing/checks.py": "4ebfb57e55812c7c1e8fa82e60d9fc65ef020146e2b7cd38c5c5dfc82b531b64",
+  "parallel_v3/new_geometry/diamond_strip.py": "968af8d44b0767cca4f8d0de2218adc8c99b39016f0b7396b214c2e0b2c63626",
+  "parallel_v3/new_geometry/third_step.py": "81936562f6e9f9dabadbaa4e19a9cd37460c077503063a898f3605a62e27861f",
+  "parallel_v3/integration/tagged_contract.py": "fbaea23d1deccc017d14fd0fa27c9eeb6dd9b315d334e7760c0ee2b9ec8141c9",
+  "parallel_v3/integration/REPORT.md": "ce9b61ea45ab496027fa52e42e600e2813b958280dd4b4845c2d000789d8b068",
+  "parallel_v3/direct_reset/REPORT.md": "2a20c51226a2ffc229f1806b7876432300aba92c026a1c38a7b0866ad199c2cc",
+  "parallel_v3/direct_reset/checks.py": "8543af0ac25da122c9a6aa6b72ab491d5a850ad370fd83bb1293998389fd8827",
+  "parallel_v3/direct_reset/herald.json": "406befa2c8d1f663856a78ca6cb632e9c61d1233b02a9d532c7cb43d6261ce64",
+  "parallel_v3/direct_reset/compiler.py": "c0057e953656e26493e9a92b1cd8d4795a77c95def6ed97480e89f541581daa3",
+  "parallel_v3/direct_reset/derive_herald.py": "de4e788e9f2ad3eaff80bbf4fd9906cf8e0446802b47b8b2add6ac8ab09a2026",
+  "parallel_v3/aux_routing/REPORT.md": "dca8b9aeca96aec01e4c56c23964fdadacb3314b31198873f6b7d68550a7c3b7",
+  "parallel_v3/history_control/REPORT.md": "aad8d9adf833784f6f32f74528df0eeb1dd71424bfb95a073a2521dec57719ea",
+  "parallel_v3/new_geometry/REPORT.md": "61483ff9fc4b8b57ddfa7e851db9f27cc46b179518849e8d921ce6c5dc8a3ffb"
+}

@@ -1,0 +1,393 @@
+ACCEPT WITH NITS — 74541cf18bfd9e986039cf86d5cf4bf2152b3105 (review fixes on 2c43d615a440c2b837dc19f410759d01a47e5362; outcome unchanged)
+
+Overall verdict on ead2c38842222786c68551484b708c19f29c83ab..74541cf18bfd9e986039cf86d5cf4bf2152b3105:
+ACCEPT WITH NITS. The plan was committed first, and its decision rule yields NEGATIVE_FOR_CONSTRUCTION.
+The central claim is independently verified. The −x and +y keys are free. This holds against the
+lineage's declared regions and sources, which I enumerated separately from primary declarations, and
+the claim stays conditional on that inventory being complete, as stated below. All controls can fail,
+and the replay is byte-identical. The nits that remain are listed under R1–R4.
+
+This is a read-only re-check. All files were exported from 74541cf1 with `git show` into `tree/`. All
+Python ran with `-I -B` from `empty/`. Reviewer material in this directory: `indep_inventory.py` and
+`indep_inventory_out.json`, `asttest/`, `mutwork/`, `rev_mutants_out.txt`, and `replay/`. The first
+review is `../REVIEW.md`.
+
+## Commit and diff
+
+- 74541cf1 has a single parent, 2c43d615.
+- It touches only the package's checks.py, result.json, REPORT.md, PROVENANCE.json, SHA256SUMS and
+  mutants/*, plus the 7 package lines of the directory SHA256SUMS.
+- PLAN.md is byte-identical: the diff is empty.
+
+## Findings 1–9 of the first review
+
+| # | Finding | Status |
+| --- | --- | --- |
+| 1 | REPORT summary stated the OTP/harmlessness unconditionally | **Resolved.** The Result paragraph now says that under the contract alone only (i) holds, and that the one-time pad and harmlessness hold "under a uniform free key". Scope says the same. |
+| 2 | Verdict generator wording | **Resolved.** It names "the 2 unseen free keys". −y lists three routes (pinning, reading, or inference from port 0's record, not computed). The joint-law clause is conditional ("If an unseen free key is uniform … by (ii); otherwise … not computed"). Plurals are handled. "nonconstant" is dropped. q10 at L+1 is named as private. REPORT's quote equals result.json's statement exactly. |
+| 3 | Vacuous K5 anchors | **Resolved.** The full (status, reason) pairs are compared. My K5_E_moved now VOIDs ("K5 anchor E,N are their declared sources"), and it is part of the author's set. |
+| 4 | Inventory not tied to native_route_v13 | **Resolved as consistency** (see A). native_route_v13/checks.py is pinned at 8c1bbc37…d856, which matches the file at both bef79f6f and 74541cf1. Its geometry() lists are read with ast and compared. Margins are recorded: −x, +y and −y are at 2 against balls 22 (the q9 L-ball) and 24 (B_(L+1)(q10)). |
+| 5 | Countercontrol strength | **Resolved.** It now needs at least one SHA-256 world for every n. PROVENANCE records that the polynomial family alone would have passed the earlier rule. |
+| 6 | 3 of 8 lanes | **Resolved.** All 8 key values are compared: 2304 comparisons = (144 current + 144 previous worlds) × 8. |
+| 7 | K2 from the formula | **Resolved.** Propagated dependency sets for n=1..6 over both slices, with 15456 comparisons. I recomputed 15456 = 7·Σ_{r=3..8}\|B_r\| = 7·2208 and 532 = Σ_{r=2..7}(4r²−4). |
+| 8 | Previous-slice keys | **Resolved.** They are classified and checked in 144 native worlds. They enter (iii) only, and the outcome rule stays on current-slice keys as preregistered. |
+| 9 | Cosmetic | **Resolved.** "nonconstant" is gone, q10 is named as private, and the recipe clones by branch. |
+
+## result.json leaf diff
+
+- All changes are additions, except one renamed counter (`scalar_comparisons` 432 →
+  `scalar_comparisons_all_8_lanes` 2304) and the rewritten statement and not_established item.
+- Added: K2_dependency_propagation; previous_slice_key_worlds; previous anchors;
+  ready_margin/balls_at_ready_margin; previous_slice_keys (6); the route_v13 equality flag; the new pin;
+  free_previous_slice_keys; outcome_rule_uses.
+- **The outcome is unchanged:** NEGATIVE_FOR_CONSTRUCTION, unseen free keys −x and +y, public-reaching
+  key −y. This matches the description.
+
+## The ast reading of native_route_v13/checks.py
+
+- **No code is executed.** The reader uses `ast.parse` plus a whitelist evaluator: int constants, five
+  names, tuples/lists, unary minus, + − ×, list/zip/range calls, and a single-generator ListComp. There
+  is no eval/exec/compile/import. I injected `__import__('os').system('touch MARKER')` and an IfExp
+  calling `open(...)` into a copy, with its pin updated. Both VOID with "unsupported expression", and no
+  marker file was created.
+- **It really compares.** I changed one radius in the route copy (T→T+1, pin updated). The result is
+  VOID "K5 ready list equals native_route_v13 geometry()".
+- **Limit.** Only top-level `ready=` and `ready +=` statements are read. A `ready +=` nested in an `if`,
+  or a `ready.append(...)`, is ignored: both exit 0 in my test. The pinned file mutates `ready` only at
+  top-level lines 262–265 (grep), so this is harmless under the pin (R3).
+
+## Margin 2 vs 1
+
+This is a difference of radius convention, and both statements are correct. A previous-slice cell at
+distance r+1 from a centre has margin 1 against the current radius r. It has margin 2 against the
+previous radius r−1. history_v9 uses r−1 ("previous ready ball B_(L−1)(q8)"), which is the radius a
+previous-slice cell needs to reach the target by the deadline (dist ≤ t−1). Under either convention the
+previous −x, +y and −y keys are free.
+
+## A. Completeness, enumerated independently (owner item 1)
+
+I built the inventory in `indep_inventory.py` from the primary declarations of the lineage. It does not
+start from either existing list.
+
+- **Ready regions, 32 entries with duplicates:**
+  - junction_v4 §1 table: the 15 base regions with their stated centres and radii (originals radius T,
+    transported radius S, the two collisions, q2, q3, remote herald and Z);
+  - the outward chain q4..q9 at (0,S,68+k), radius R+k. These balls are nested, and their union is
+    B_L(q9);
+  - herald_v10's two cones at ±48L, radius L;
+  - Native B's B_(R+10)(q10);
+  - the 8 ports with their deadlines and bank rays (deadline, 2L].
+- **Previous radius:** r−1.
+- **Sources:** the 1479-entry table; junction_v4's four selector controls and two reset pulses; O, W, E;
+  Q, C, G, J, K±, N; the F10 pin; the z source; the herald family (x ≥ 47L); the remote blocks
+  (|x| ≥ 11R).
+
+**Result.** Classification is identical for all 12 keys. Current and previous −x, +y and −y are free at
+margin 2, nearest B_(R+10)(q10). +x and −z are pinned (transported (4T,P,0); R collision). +z is pinned
+(N / the q10 extension). No key is a source or bank cell.
+
+**List-free bound.** A cell can be pinned by readiness only inside the cone of a declared record with
+deadline ≥ its distance to that record. I grepped the lineage for deadlines beyond L+1 and for
+B_(L+2)-type extensions and found none. The latest records are q10 (L+1), and q9, herald and Z (L).
+Every −x/+y/−y key has slack exactly 2 against these.
+
+**What the negative verdict is conditional on:**
+- (a) The contract's fixed initial data are exactly the declared ready cones (current radius = record
+  deadline, previous = deadline−1), the declared source points and families, and the bank rays. No
+  undeclared readiness, preparation or correlation exists, and no record has a deadline ≥ L+2.
+- (b) For (ii) only: a uniform free key. junction_v4 and the sidecar reports state an
+  independent-uniform product complement prior, under which (ii) applies. The history proof holds for
+  any law.
+
+**Gap in the REPORT wording.** REPORT.md states the condition in "Key cells" ("Completeness of that
+inventory remains an input: a ready region missing from it would change the classification of a key").
+This revision dropped the sentence from Scope, and the generated verdict text and not_established do
+not carry it (R1).
+
+**Side observation.** v15's `local_sources()` omits two declared sources: the fourth selector
+(4T,P+S,0) and the opposite reset pulse (0,S,−S−136). Neither coincides with a key or an anchor, so
+this has no effect (R2).
+
+## B. The two surviving reviewer mutants (owner item 2)
+
+- **STRENGTHEN_counter_every_n: genuinely equivalent.** It inserts a copy of the per-n SHA-256 check
+  that 74541cf1 already contains, so the program is unchanged in effect.
+- **STRENGTHEN_counter_polynomial_only: not a weakening, and outside the mutation contract.**
+  - It replaces `any(sha256)` with `any(polynomial)`. The retained per-n check
+    `all(any(sha256[3i:3i+3]))` is ordered by n (product order BACKGROUNDS × n × seeds), so it implies
+    `any(sha256)`. The mutant therefore removes no constraint. It adds one, `any(polynomial)`, which
+    holds on the data (6 of 12).
+  - It is strictly at least as strong as the original. It cannot admit an outcome the original
+    rejects, and it does not touch the computed claim.
+  - No killing case is needed. It is not a real gap.
+
+All 23 other reviewer mutants exit 2 on their own labels. This includes the two missing-region mutants,
+which now VOID at the route_v13 comparison, and the receiver mutant, which VOIDs at K6. The author's
+28 mutants reproduce OUTPUT.txt byte for byte (42 s).
+
+## Replay, sums, hygiene
+
+- **Replay.** Normal and `-O` runs are byte-identical to result.json (2.0 s).
+- **Sums.** The package SHA256SUMS (7 entries) verifies. The directory SHA256SUMS verifies: 389 entries,
+  the set equals all files except itself, and only the 7 package lines changed.
+- **Recipe.** The REPORT recipe (shallow clone of the branch, HEAD 74541cf1) passes checker normal and
+  `-O`, the mutants and `sha256sum -c`. `git status --ignored` is clean and there is no `__pycache__`.
+- **Hygiene.** No absolute paths, secrets, e-mail or IP addresses. Run from the clone root,
+  duplicate_check (whole tree and package), voice_check and artifact_placement_check (self-test) all
+  report OK. The worktree is clean afterwards and HEAD is unchanged.
+
+## New overclaims
+
+None found.
+- Result: "does not make the q10.A transport accessible" rests on (i), which holds for every complement
+  value.
+- (iii) for the unseen keys is correctly limited to pinning or reading, since no permitted record
+  depends on them.
+- The process narration in REPORT ("separate review … accepted it with nits") is in a research record
+  under verification/, not in manuscript prose.
+
+## Remaining nits (none blocking)
+
+- **R1.** Restore the completeness condition to Scope, add it to not_established, and preferably add it
+  to the generated statement. Suggested Scope wording: "The classification, and so the outcome, is
+  conditional on the declared ready-cone, source and bank inventory shared with native_route_v13 being
+  complete; no record in the lineage has a deadline beyond L+1."
+- **R2.** Add the fourth selector (4T,P+S,0) and the opposite reset pulse (0,S,−S−136) to
+  `local_sources()`, or say that the list is limited to sources near the keys.
+- **R3.** In `route_geometry`, also walk the whole function body. Fail if `ready` (or ports, deadlines,
+  directions) is assigned or mutated anywhere other than the extracted top-level statements, including
+  method calls such as `.append` and `.extend`.
+- **R4 (optional).** Cite junction_v4's independent-uniform product complement prior where REPORT says
+  "route_v13 does not specify that law". That prior is the inherited one, and it satisfies (ii)'s
+  hypothesis.
+
+***
+
+# Check of 96bfc56c
+
+ACCEPT WITH NITS — 96bfc56c8d4edc9d332d15b470976a28f528dfe7 (re-check fixes R1–R4 on 74541cf18bfd9e986039cf86d5cf4bf2152b3105; outcome unchanged)
+
+Overall verdict on ead2c38842222786c68551484b708c19f29c83ab..96bfc56c8d4edc9d332d15b470976a28f528dfe7:
+ACCEPT WITH NITS.
+- The negative verdict NEGATIVE_FOR_CONSTRUCTION holds. The free keys are −x and +y, and the −y key
+  reaches public port 0.
+- It is conditional, as the package now says consistently in all four places:
+  - on the shared ready-cone, source and bank inventory being complete;
+  - and, for part (ii), on a uniform free key.
+- One wording nit remains, N1: the reader is described as failing closed more broadly than it does.
+  Under the hash pin it has no effect.
+
+Files were exported from 96bfc56c into `tree3/` and run from `empty3/`. Reviewer artefacts:
+`asttest3/`, `mutwork3/`, `rev_mutants3.txt`, `mut3.txt`, `replay3/`.
+
+## Changed-file inventory, ead2c388..96bfc56c
+
+Paths are relative to native-y-continuation-20261024/. Every commit has a single parent.
+
+| Commit | Files |
+| --- | --- |
+| ead2c388 | A native_vread_v15/PLAN.md; M SHA256SUMS (1 line added) |
+| 2c43d615 | A PROVENANCE.json, REPORT.md, SHA256SUMS, checks.py, mutants/OUTPUT.txt, mutants/make_mutants.py, result.json; M SHA256SUMS (7 lines) |
+| 74541cf1 | M the same 7 package files; M SHA256SUMS (only the 7 package lines) |
+| 96bfc56c | M the same 7 package files; M SHA256SUMS (only the 7 package lines) |
+
+No file outside the new directory changed, apart from the directory SHA256SUMS. PLAN.md is
+byte-identical from ead2c388 through 96bfc56c.
+
+## R1: the completeness condition is stated, and stated consistently (owner item 4)
+
+The condition appears in all three places:
+- **The generated verdict.** It ends with: "The classification, and so the outcome, is conditional on
+  the declared ready-cone, source and bank inventory shared with native_route_v13 being complete: no
+  undeclared readiness, preparation or correlation, and no record in the lineage with a deadline beyond
+  L+1 (the largest declared ready radius used). Part (ii) is conditional in addition on a uniform free
+  key, which the inherited independent-uniform complement prior of junction_v4 supplies."
+  - L+1 is computed: `largest_ready_radius_over_L` = 1.
+  - This sentence states a condition. It does not claim the lineage has no such record. My grep of the
+    lineage, done for the previous check, also found none.
+- **Scope.** It now opens with the same condition and the uniform-key condition, and lists
+  "the completeness of that inventory" under not established.
+- **not_established.** Its first entry is the completeness item.
+
+REPORT's quoted verdict, unwrapped, equals result.json's statement exactly.
+
+All four statements agree: Scope, the limitations in Key cells ("Completeness of that inventory
+remains an input"), not_established and the verdict. Each states both assumptions, and
+"Under the native_route_v13 contract alone … what is established is (i)" is retained.
+
+Small wording tension, not blocking: the verdict says the junction_v4 prior "supplies" the uniform key,
+while the Result paragraph calls the route_v13 complement law "unrestricted". Writing "supplies where
+that inherited prior is retained" would remove it. REPORT's "route_v13 states no law of its own; the
+complement prior inherited in this lineage is independent and uniform" is accurate, and native_v11
+agrees.
+
+## R2: the two new sources change nothing (owner item 1)
+
+- The two added sources match their declaration in junction_v4/checks.py `controls`: (4T,P+S,0) and
+  (0,S,−S−2·68) = (0,S,−S−136). `local_sources()` now has 17 entries.
+- Each is anchored strictly as (PINNED, "source …"), and the author's `K5_selector_4T_dropped` mutant
+  is caught.
+- Neither coincides with any of the 12 keys or with any other anchor. Sources are pinned points only,
+  so they cannot change a ball classification.
+- My own primary-declaration inventory (`indep_inventory.py`, previous check) already contained both,
+  and it gave the same free-key result.
+
+## Key blocks, leaf by leaf, 74541cf1 vs 96bfc56c (owner item 2)
+
+- `geometry.keys` (6 blocks, 66 leaves) and `geometry.previous_slice_keys` (6 blocks, 54 leaves) are
+  identical. Status, reason, ready margins, balls at the margin, receivers and distances all match.
+  - Current slice: −x, +y and −y are FREE at margin 2. +x and −z are pinned by a ready ball, and +z is
+    pinned as source N.
+  - Previous slice: −x, +y and −y are FREE at margin 2 against r−1. +x, −z and +z are pinned.
+- These are also identical: all other anchors; `controls`, the numbers of K2, K3 and K4; `table`;
+  `diagnostic_read_algebra`; and every verdict list.
+- The complete result.json leaf diff is:
+  - 5 new geometry fields: the anchors `selector_4T` and `reset_opposite`,
+    `largest_ready_radius_over_L` = 1, `local_sources_declared` = 17, and
+    `route_reader_mutated_copies_refused` = 8;
+  - one new first entry in not_established, with the rest unchanged;
+  - verdict/statement, whose old text is an exact prefix of the new one with the condition sentences
+    appended.
+
+  This matches the description.
+
+## R3: the reader refuses a modified region list (owner item 3)
+
+- The pinned file is still accepted, with exit 0 and the same outcome.
+- Of my own 7 write forms, each applied to a copy with its pin updated, 4 are refused, all with VOID
+  "tracked list written outside the read statements":
+  - slice assignment `ready[0:0]=[…]`;
+  - `ready.__iadd__([…])`;
+  - a tuple-unpacking target `ready, x = …`;
+  - a nested `def` that appends to `ready`.
+- 3 forms escape, and the copy is accepted with an unchanged outcome:
+  - `list.extend(ready, […])`, an unbound method with `ready` passed as an argument;
+  - a container alias, `box=[ready]; box[0].append(…)`;
+  - `(lambda r: r.append(…))(ready)`.
+- Every one of these changes `ready` in place, which the literal reader does not see.
+- **N1.** REPORT and PROVENANCE say the reader "fails closed if a tracked list is written anywhere but
+  the top-level statements it reads". That is broader than what it does. Under the hash pin there is no
+  effect, because the pinned file contains none of these forms.
+  - *Fix, either of:*
+    - (a) refuse any Load of a tracked name except as the iterable of a for or comprehension, or as an
+      argument to `zip`/`all`/`len`;
+    - (b) word the claim as "refuses the listed write forms; the hash pin is the guarantee".
+
+## R4: the citation is accurate
+
+junction_v4/REPORT.md §1 (lines 59–60) reads "Under the inherited independent-uniform-complement prior
+it is a uniform triple". REPORT quotes this correctly; the only difference is the line break.
+
+## Numerical results, controls and retained outputs (owner item 5)
+
+- **Numbers and controls.** Every numerical result and control number is unchanged from 74541cf1 (see
+  the key-block comparison above). This revision changes only the inventory checks and the text.
+- **Mutants.** The author's 32 mutants reproduce the new OUTPUT.txt byte for byte. My 25 give 23 exit 2
+  on their own labels. The two STRENGTHEN mutants exit 0, for the reasons given in section B above:
+  one is genuinely equivalent and the other is not a weakening.
+- **Replay.** Normal and -O runs are byte-identical to the new result.json.
+- **Sums.** The package SHA256SUMS verifies, and so does the directory SHA256SUMS (389 entries; the set
+  equals the files present). Only package lines changed.
+- **Recipe.** The REPORT recipe passes in a fresh shallow clone of the branch at HEAD 96bfc56c.
+- **How the changed outputs are handled.**
+  - result.json and mutants/OUTPUT.txt changed in this revision. Their new digests, `71c594e6…` and
+    `0113eb08…`, are retained in both the package and the directory SHA256SUMS.
+  - REPORT's replay compares regenerated output against the package's current result.json and
+    OUTPUT.txt.
+  - REPORT and PROVENANCE make no claim that the earlier result.json is reproduced byte for byte. They
+    say only that the outcome and the decision rule are unchanged, and that is true.
+  - Optional: record each revision's result.json digest in PROVENANCE: 9bf28d32… at 2c43d615 and
+    71c594e6… at 96bfc56c, plus 74541cf1's.
+
+## Hygiene
+
+- No absolute paths, secrets, e-mail or IP addresses.
+- Run from the clone root, duplicate_check (whole tree and package), voice_check and
+  artifact_placement_check (self-test passed) all report OK.
+- The clone's worktree is clean and HEAD is unchanged. No `__pycache__` was produced.
+
+## Remaining nits (none blocking)
+
+- **N1.** Narrow the reader's "fails closed" wording, or close the three write forms that escape
+  (above).
+- **N2.** Write "supplies where that inherited prior is retained" in the verdict sentence on the
+  junction_v4 prior.
+- **N3 (cosmetic).** In REPORT, the Scope sentence beginning "Within those conditions…" is not
+  re-wrapped.
+
+***
+
+# Check of ca7d06de
+
+ACCEPT — ca7d06de349e83cbfa253cbd4887b7708a0705cc (wording-only fixes N1–N3 on 96bfc56c8d4edc9d332d15b470976a28f528dfe7)
+
+Overall verdict on ead2c38842222786c68551484b708c19f29c83ab..ca7d06de349e83cbfa253cbd4887b7708a0705cc:
+ACCEPT. The result is NEGATIVE_FOR_CONSTRUCTION: −x and +y are free unseen keys, and the −y key
+reaches public port 0. It is stated only for this construction and is conditional on two things, both
+stated in the verdict, Scope and not_established:
+- the declared ready-cone, source and bank inventory being complete;
+- and, for part (ii), a uniform free key.
+
+All review findings are resolved, and no open nits remain. Files were exported from ca7d06de into
+`c4/tree/` and run from `c4/empty/`.
+
+## Changed-file inventory, full chain
+
+Paths are relative to native-y-continuation-20261024/. Every commit has a single parent.
+
+| Commit | Changes |
+| --- | --- |
+| ead2c388 (plan) | A native_vread_v15/PLAN.md; M SHA256SUMS |
+| 2c43d615 (execution) | A PROVENANCE.json, REPORT.md, SHA256SUMS, checks.py, mutants/OUTPUT.txt, mutants/make_mutants.py, result.json; M SHA256SUMS |
+| 74541cf1 | M those 7 package files; M SHA256SUMS |
+| 96bfc56c | M those 7 package files; M SHA256SUMS |
+| ca7d06de | M PROVENANCE.json, REPORT.md, SHA256SUMS, checks.py, result.json; M SHA256SUMS. mutants/OUTPUT.txt, mutants/make_mutants.py and PLAN.md are unchanged. |
+
+Across the chain, nothing outside native_vread_v15/ changed except the directory SHA256SUMS, and every
+change to that file is a package line. PLAN.md is byte-identical from ead2c388 to ca7d06de.
+
+## Verification
+
+- **checks.py is text-only.**
+  - I parsed both versions with ast, blanked every string constant (docstrings included), and compared
+    `ast.dump`: they are equal.
+  - The textual diff is exactly two spans: the `route_writes_closed` docstring, and the verdict string's
+    last clause, which became "supplies where that inherited prior is retained."
+- **result.json.**
+  - The leaf diff (dicts and lists recursed) is exactly `/verdict/statement`.
+  - The new statement equals the old one with "supplies." replaced by
+    "supplies where that inherited prior is retained.".
+  - REPORT's quote equals the new statement.
+- **OUTPUT.txt.** It is unchanged in git. `make_mutants.py` run against ca7d06de reproduces it byte for
+  byte, with 32 of 32 caught.
+- **N1 wording.** REPORT K5, the docstring and PROVENANCE now list only forms the reader enforces:
+  assignment, augmented assignment, direct aliases, loop or comprehension targets, deletion, walrus,
+  method calls on a tracked name, parameters and scope declarations.
+  - The code also refuses `with … as`, `except … as` and import names. Leaving these out understates the
+    reader, so they claim nothing extra.
+  - They name my three undetected indirect forms: `list.extend(ready, …)`, a container alias, and a
+    lambda argument. They state that the hash pin is the guarantee.
+  - The earlier R3 PROVENANCE entry is kept, with the N1 correction recorded after it. That preserves
+    the provenance.
+- **N2.** The verdict says the junction_v4 prior "supplies" the uniform key "where that inherited prior
+  is retained". This is accurate, and consistent with "complement law unrestricted" under route_v13
+  alone.
+- **N3.** The Scope paragraph is re-wrapped and its text is unchanged.
+- **Per-revision result.json digests in PROVENANCE.** Each matches `git show <rev>:…/result.json | sha256sum`:
+
+  | Revision | result.json SHA-256 |
+  | --- | --- |
+  | 2c43d615 | 9bf28d32… |
+  | 74541cf1 | 110ea9c3… |
+  | 96bfc56c | 71c594e6… |
+  | ca7d06de | 56509ae6c7dcc40bbbcdd3a62c8b73bf03e0c5ed20052a226eb63bdda1606d04 |
+
+- **Replay.** Normal and -O runs are byte-identical to result.json.
+- **Checksums.**
+  - The package SHA256SUMS verifies.
+  - The directory SHA256SUMS verifies. It has 389 entries, and they cover exactly the files present.
+  - Only the 5 changed package lines differ.
+- **Recipe.** The REPORT recipe passes in a fresh shallow clone of the branch at HEAD ca7d06de.
+- **Hygiene.** No absolute paths, secrets, e-mail or IP addresses. duplicate_check (tree and package),
+  voice_check and artifact_placement_check all report OK. The clone's worktree is clean, HEAD is
+  unchanged, and no `__pycache__` was produced.

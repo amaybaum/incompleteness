@@ -56,6 +56,10 @@
 % Included via: pandoc ... --include-in-header=unicode-fix.tex
 \usepackage{newunicodechar}
 \usepackage{pifont}
+\usepackage{graphicx} % unicode-math's smallsetminus uses rotatebox
+% Use the Computer Modern-compatible set-difference construction; the large
+% Unicode glyph selected by TeX Live 2022 is absent from Latin Modern Math.
+\AtBeginDocument{\let\setminus\smallsetminus}
 % --- Greek letters -> math (Latin Modern Math; consistent with CM body text) ---
 \newunicodechar{α}{\ensuremath{\alpha}}
 \newunicodechar{β}{\ensuremath{\beta}}
@@ -1868,10 +1872,11 @@ extends to biology in the form developed in §9.1: biological
 ``fine-tuning'' of \(\tau_B / \tau_S\) ratios at memory layers is the
 persistence requirement (C2) in biological realization --- the \(\tau\)
 ratio one route --- rather than evolutionarily contingent. The same
-mechanism that dissolves the hierarchy and cosmological-constant
-naturalness problems in physics --- substratum-level structural
-constraints forcing specific values of emergent parameters --- operates
-at the biological memory layers.
+mechanism that underlies the framework's treatment of the hierarchy
+problem and its conditional dissolution of the cosmological-constant
+problem in physics --- substratum-level structural constraints forcing
+specific values of emergent parameters --- operates at the biological
+memory layers.
 
 The same structural picture applied to computational analysis methods is
 developed in the companion Bioinformatics paper {[}18{]}, which
@@ -1966,4 +1971,4 @@ replication control,'' \emph{PNAS} \textbf{105}, 20752 (2008).
 Biology,'' companion paper (2026).
 
 \end{document}
-% source-sha256: b375f6e4a5a8b32864400d73e9e2bfca35c0da4d9835644a7ce34c79e2c768e2
+% source-sha256: b8ee46b42e095711f8cf4c16ada13e6066b7dd04ab2b95e1ad0db8bd93eded6d

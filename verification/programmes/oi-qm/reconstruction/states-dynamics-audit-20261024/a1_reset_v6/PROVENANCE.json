@@ -1,0 +1,57 @@
+{
+  "checker_runtime_dependencies": "Python standard library only; no input files or other engines imported",
+  "guiding_pr": 911,
+  "limits": [
+    "Research only; no native lattice availability",
+    "Original two-time result preserved",
+    "Fixed-vector all-depth extension fails; not an OI no-go",
+    "Renewal is a supplied sufficient repair, not a minimality theorem",
+    "No F/E designation, special launch, merge, #885 write or full equivalence"
+  ],
+  "literature": [
+    {
+      "authors": "Alberto Montina",
+      "doi": "10.1103/PhysRevLett.108.160501",
+      "scope_used": "Model2 equations3,4,7-12 and explicit two-consecutive-measurement scope",
+      "title": "Dynamics of a qubit as a classical stochastic process with time-correlated noise: minimal measurement invasiveness",
+      "url": "https://arxiv.org/abs/1108.5138v3",
+      "version": "arXiv:1108.5138v3"
+    },
+    {
+      "authors": "Joshua B. Ruebeck, Piers Lillystone, Joseph Emerson",
+      "doi": "10.22331/q-2020-03-16-242",
+      "scope_used": "section4.1.2 Eq17 maps, tested here under their stated fixed-vector iteration",
+      "title": "psi-epistemic interpretations of quantum theory have a measurement problem",
+      "url": "https://arxiv.org/html/1812.08218v3",
+      "version": "arXiv:1812.08218v3"
+    }
+  ],
+  "prior_architecture_author": "51d8956100cf76d24b6810f1853c9f714f596c35",
+  "prior_architecture_review": "988d090d0901f9369b644bda4361ea1af003073e",
+  "published_plan_commit": "cf1855ed1576adf446fbc505c027928bce4c4cb7",
+  "published_plan_sha256": "40f5627e3e3cd99f553e2d666e0730bc157f661934b799f5636fdf8825d18373",
+  "replay": [
+    "python3 checks.py",
+    "python3 -O checks.py"
+  ],
+  "schema": "oi-exact-reset-resource-provenance-v6.1",
+  "source_files": {
+    "architecture_v5/REPORT.md": {
+      "role": "contextual comparison, not imported by checker",
+      "sha256": "0898bcda042e0b64c841508f4c83aa7e695d53736a2f351ddd5f96a14857b550"
+    },
+    "architecture_v5/checks.py": {
+      "role": "contextual comparison, not imported by checker",
+      "sha256": "cd4e35a156a1eba51f98d51ac9b69d7b56e15681e7e68a6e68dd6d752009af79"
+    },
+    "code_bridge_v6/REPORT.md": {
+      "role": "contextual comparison, not imported by checker",
+      "sha256": "3750aa7411266a08ef7ba8d67fed38153eeb72d74d02802c10ec2486d51ce26b"
+    },
+    "coordination_v12/states-handoff.md": {
+      "role": "contextual comparison, not imported by checker",
+      "sha256": "e5e152a2101ada6e5b31882a39f472ade775d38d5c9c1621d0bef74a608e2a4a"
+    }
+  },
+  "starting_head": "f2426f16d0054943ca4937648a9ff9613d08f960"
+}

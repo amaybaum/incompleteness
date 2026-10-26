@@ -1,0 +1,15 @@
+m=n= 2  S_Page-ln m = -0.3598138472   (large-dim form ln m - m/2n gives -0.5)
+m=n= 4  S_Page-ln m = -0.4638987012   (large-dim form ln m - m/2n gives -0.5)
+m=n= 8  S_Page-ln m = -0.4909077808   (large-dim form ln m - m/2n gives -0.5)
+m=n=16  S_Page-ln m = -0.4977227527   (large-dim form ln m - m/2n gives -0.5)
+m=n=32  S_Page-ln m = -0.4994304260   (large-dim form ln m - m/2n gives -0.5)
+m=4,n=  4  ln m - S_Page = 0.463899   m/(2n) = 0.500000
+m=4,n= 16  ln m - S_Page = 0.116882   m/(2n) = 0.125000
+m=4,n= 64  ln m - S_Page = 0.029278   m/(2n) = 0.031250
+m=4,n=256  ln m - S_Page = 0.007323   m/(2n) = 0.007812
+p=0  t_P/t_evap = 0.64644661
+p=1/2  t_P/t_evap = 0.70269822
+p=1  t_P/t_evap = 0.75000000
+beta=1  t_P/t_evap = 0.646447
+beta=4/3  t_P/t_evap = 0.568041
+beta=14847/10000  t_P/t_evap = 0.538101

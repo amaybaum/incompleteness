@@ -1,0 +1,817 @@
+{
+  "authority": "Research only; A2 (finite-precision operational approximation) only. No native implementation, map/access/premise adoption, A1 statement, total-randomness bound or OI equivalence.",
+  "comparison": "Complete public record of the alternating a/X read protocol from X+, source versus quantum projective instrument, for (i) every controller with finite persistent state, a time-independent update and one fresh block of B fair bits per slot, and (ii) the a2_depth_v7 retained-seed reset restarted every k reads, RS(B,k).",
+  "contextual_source_sha256_relative_to_source_prefix": {
+    "CURRENT-HANDOFF.md": "a8a1c52a44765c9895598784a60e900a120589b9638fc7959a3d11d13e0ea361",
+    "a2_depth_v7/REPORT.md": "b5fa4728b3502189458f572d27aec72526301af6c90bb5342abdffeb9093c103",
+    "a2_depth_v7/checks.py": "9c23fab7a4054ed7cb9899aa20064f2df74baf32d5c4bba1e70195e4767dc164"
+  },
+  "engine": "Self-contained standard-library exact integer/rational engine; imports no prior checker; rebuilds the executed grid and checks it against the retained a2 count digest; reads a2_depth_v7/result.json after checking its pinned SHA-256 and uses its values only as reproduction targets.",
+  "guiding_pr": 911,
+  "input_read_by_checker": {
+    "path": "a2_depth_v7/result.json",
+    "sha256": "2e8988de7285cf1ae6781fbed37eb4e869ecf16511b374a923b5dcdbfed589a7",
+    "values_used": [
+      "controller.A_reset_a_read_X",
+      "controller.B_reset_X_read_a",
+      "exact_tv_h1_to_4",
+      "exact_tv_table.<1..64>.sha256",
+      "class_statement.limiting_counterexample_retained_seed_reset"
+    ]
+  },
+  "literature": [
+    {
+      "scope_used": "standard facts used in the proof in REPORT.md: Cayley-Hamilton theorem; rational root theorem for monic integer polynomials; strong law of large numbers for i.i.d. sequences; ergodic theorem for irreducible finite Markov chains; total variation on an increasing generating sequence of algebras; Bhattacharyya bounds 1-TV <= BC and TV <= sqrt(1-BC^2)"
+    },
+    {
+      "authors": "Shizuo Kakutani",
+      "scope_used": "credited, as in a2_depth_v7, for the separation of infinite products of nonidentical laws",
+      "title": "On equivalence of infinite product measures",
+      "venue": "Annals of Mathematics 49 (1948) 214-224"
+    }
+  ],
+  "mutants": "mutants/run_mutants.py and its output mutants/mutants.out",
+  "plan_commit": "1dfec979721336cc9f0ce703b544f9d6be8e906c",
+  "plan_commit_note": "committed at 1dfec979 (2026-10-25 03:52:56 UTC), a single-parent child of #911's head 49e1a119, touching PLAN.md alone. The repository establishes that PLAN.md was committed alone before any other file of this package and that the execution code was first committed after it. Correction: PLAN.md's sentence that it was committed \"alone before any computation of this round\" is inaccurate. By the author's account (no artifact of the exploration is retained; the repository cannot corroborate it), the author reports that one floating-point exploration ran before the plan, of a floor-truncated rescaling decoder with a fixed-width m-bit register (B=1..4, m=0..8), a finite-state member of the bounded-state class, not of the RS family; qualitatively it showed several closed classes and absorbing states, stationary agreement defects that did not shrink steadily with m, and at B=2, m=4 a class matching frequency 4/5 to float precision while differing in run masses at n>=2; it steered the choice of tested family to RS(B,k); and it did not compute on RS(B,k), on the census populations or on the decision rule. It may have informed K5, the run-mass proof route, the census populations, the small-n mismatch expectation and the choice to compute exact stationary laws; that influence cannot be measured after the fact, and the order in which the proof route and the exploration arose cannot be established. The decoder is recomputed exactly, post-review, as the second concrete class member.",
+  "plan_path": "verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8/PLAN.md",
+  "plan_sha256": "b7f7eaae58de13b9eb348bb4e31e92a7bce6741be64553c9ba496af9a2c6a275",
+  "post_plan": [
+    "power-rule depths",
+    "the T<=1/2 threshold for the upper depth (plan: 1/10)",
+    "exact memoryless crossings and every fails-before/outlasts comparison",
+    "Le Cam checks",
+    "trailing-disagreement diagnostic",
+    "the mechanism paragraph in REPORT.md",
+    "the changed K6 implementation",
+    "mutants M9 and M10",
+    "mutant-runner prefix match"
+  ],
+  "post_recheck": {
+    "changes": [
+      "comparator wording narrowed to the nearest-dyadic i.i.d. reset; other neighbour exact crossing as a control; ordering sentence limited to certified members with undetermined cases named; same in generated family_verdict",
+      "one shared power-rule lower-bound function constrained by independent code paths: exact k=1 TV and exact crossing, exact product TV for n*k<=16, comparison with the separately coded preregistered rule, upper/lower certificate consistency",
+      "comparison flags recomputed from stored depths and the nearest-dyadic crossing",
+      "mutants M15-M18: D1 and D5 re-implemented; M17 and M18 further consistent wrong-bound mutants",
+      "preregistration correction extended: possible influence on K5, the run-mass proof route, the census populations, the small-n mismatch expectation and the exact-stationary-law method, stated as not measurable after the fact; unverifiable working-record sentence removed",
+      "post-review label on the floor-decoder counts inside class_verdict",
+      "reviewer scripts rerun on copies; the first round R1 and the re-check D1 strings adapted to the shared function",
+      "k=1 exact power-rule check range made independent of the power-rule depth (every h<=600, multiples of 1024 up to twice the preregistered depth, n_hp+-1); with the range tied to the mutated depth, mutant M20 passed",
+      "mutants M19 and M20 disable the other independent constraints in turn, so each constraint is shown to catch the consistent exponent error by itself"
+    ],
+    "review": "independent re-check of fb05dea8 on #911, ACCEPT WITH NITS; owner request on control independence"
+  },
+  "post_recheck2": {
+    "changes": [
+      "independent certificate audit: integer-only block laws, integer square-root BC enclosure that must overlap the enclosure used, every reported depth recomputed from its definition with separate integer code, and certificate-level exact checks for every member and n*k<=16 and at k=1",
+      "mutants M21-M25 (re-check W1a, W1b, W3, W4, and W4 with the recomputation disabled)",
+      "control descriptions narrowed to the demonstrated mutant set; k=1 range dependence on the shared enclosure through n_half stated",
+      "disclosure: \"did not compute on\"; extended influence list mirrored into plan_commit_note",
+      "reviewer W-set and earlier scripts rerun on copies",
+      "certificate-level exact checks use the reported depths; in a first version they used the audit's own recomputed depths and mutant M25 passed"
+    ],
+    "review": "independent second re-check of aee64f2c on #911, BLOCK on the control-independence test; no reported value was wrong"
+  },
+  "post_recheck3": {
+    "changes": [
+      "preregistered RS scope (B in {2,3,4}, k=1..16) and thresholds 1/2, 1/10 parsed from PLAN.md after checking its pinned SHA-256",
+      "reported, enclosure and audited member sets must each equal the 48-member preregistered set",
+      "lookup and similar internal failures converted to VOID (exit 2)",
+      "mutants M26-M30 (re-check L1, L2, L3b, L5, L6)",
+      "audit shared and unshared helpers listed; inherent limit shown by the review mutant A5 stated",
+      "members whose T>1/2 certificate is checked against exact TV listed in result.json (7 of 48)",
+      "exploration account attributed to the author, with what the repository establishes, in REPORT and plan_commit_note"
+    ],
+    "review": "independent third re-check of 19a33d6f on #911, BLOCK on scope identification and disclosure attribution; no reported value was wrong"
+  },
+  "post_recheck4": {
+    "changes": [
+      "named check that each member block law has 2^k records of length k (review T3)",
+      "PLAN.md pin cross-checked against PROVENANCE plan_sha256 and plan_commit and against the PLAN.md blob of 1dfec979; absent sources recorded as unavailable, mismatches VOID",
+      "attribution wording: \"the author reports the following\"; \"was first committed after it\"",
+      "targeted mutants only (T3, MT2, MT3) in mutants/targeted_r4.py and .out; the full campaign in mutants/mutants.out refers to a97c852a and was not rerun (section A.40)"
+    ],
+    "review": "independent fourth re-check of a97c852a on #911, ACCEPT WITH NITS"
+  },
+  "post_recheck5": {
+    "changes": [
+      "plan_pin_crosschecks removed from result.json; the PROVENANCE plan_sha256/plan_commit cross-check is a plain check (VOID on mismatch or unreadable PROVENANCE)",
+      "the git-blob comparison against 1dfec979 moved to the opt-in --verify-plan-commit mode (full history needed; VOID on mismatch or unreachable commit; lazy fetch disabled); the default run starts no git process",
+      "default output checked byte-identical between the repository checkout and a git-less export",
+      "targeted mutants rerun: T3 and MT2 in the default run, MT3 with --verify-plan-commit",
+      "REPORT: the reviewer-script reruns are stated as against a97c852a",
+      "review retention: duplicate round2/rev_mutants.py removed; cited per-mutant numbers retained as review/per_mutant_numbers.json"
+    ],
+    "review": "independent fifth re-check of 70faede0 on #911: BLOCK on 12058945 (result.json environment-dependent); review retention and handoff accept with nits"
+  },
+  "post_recheck6": {
+    "changes": [
+      "--verify-plan-commit reads only objects already in the local store (git cat-file --batch-all-objects lists them without fetching; commit, trees and blob are read only after being found there); a missing object is VOID; GIT_NO_LAZY_FETCH alone is not relied on (git 2.43 ignores it)",
+      "targeted mutant MT4 (PLAN.md blob treated as absent locally) added; the targeted runner checks that the object store is unchanged by every mutant run",
+      "REPORT: the SHA256SUMS clause dropped; the git history at 1dfec979 is the independent anchor",
+      "review retention: round2/rev_mutants.py restored byte-identical with the duplication noted; re-checks 5 and 6 retained as round6 and round7 with path redactions recorded; redundant outputs compared and not retained"
+    ],
+    "review": "independent sixth re-check of 70faede0..3ca0d8ba on #911, ACCEPT WITH NITS"
+  },
+  "post_review": {
+    "changes": [
+      "F1: nearest-dyadic memoryless comparator added for every B; RS(B,1) named the ceiling-rounded reset; comparison lists and family_verdict regenerated against the nearest-dyadic comparator",
+      "F2: preregistration correction recorded here and in REPORT.md; key plan_commit_before_computation renamed plan_commit; post-plan items labelled, including inside family_verdict",
+      "F3: power-rule controls (least-n check, exact T(h) at k=1, power-rule bracket in the n*k<=16 loop)",
+      "F4: necessity/sufficiency wording; finite initial support",
+      "F5: verdicts quoted verbatim in REPORT.md",
+      "F6: proof step 3 applies the strong law to each residue class mod n",
+      "nits: singular stationary system is a VOID control failure; K6 string; K2/K6 counts split (41 and 3); closed-form census counts and memory-column controls; second concrete class member (floor-truncated decoder, exact); faster exact tv_iid",
+      "mutants M11-M14 re-implement reviewer mutants R1, R4, R10, R15",
+      "attribution wording adopted from the review in REPORT.md",
+      "controls reordered (floor-decoder member after the census; K4 count after the exact-match check) so that M3 and M4 fail on their targeted labels"
+    ],
+    "review": "independent internal review of 200fcd9f on #911, ACCEPT WITH NITS; reviewer code not imported",
+    "reviewer_mutants_rerun": "the review script rerun on a copy against this revision: all 15 code mutants and the tampered input exit 2 with VOID"
+  },
+  "preregistered": "class, hypothesis H and its proof route, census populations, K1-K8, RS(B,k) for B=2,3,4 and k=1..16, the nc/(1+nc) and min(nT_k, sqrt(2nc)) depth rules with thresholds 1/2 and 1/10, memory bits, VOID rule, verdict labels",
+  "replay": [
+    "python3 -I -B verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8/checks.py > out.json && cmp out.json verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8/result.json",
+    "python3 -I -B -O verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8/checks.py > out.json && cmp out.json verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8/result.json",
+    "python3 -I -B verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8/mutants/run_mutants.py > m.out && cmp m.out verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_memory_v8/mutants/mutants.out",
+    "paths are relative to the repository root; run from an empty working directory with those paths made absolute"
+  ],
+  "review_retention": {
+    "duplication_noted": "review/round2/rev_mutants.py is byte-identical to review/round1/rev_mutants.py (sha256 cbe2d6a11d17e5cf961564ff9bde432ee1fe77880a798512c01e9f5705ccd222); both are kept as retained, the round2 copy having been removed in 12863de8 and restored byte-identical at the same path",
+    "files": [
+      {
+        "original_sha256": "c564300ef255448812c1b5b0b1c94cf0149e25c7b64982c765e9b19dd7d0bd37",
+        "redaction": "none; renamed from REVIEW.md",
+        "retained": "review/round1/REPORT.md",
+        "retained_sha256": "c564300ef255448812c1b5b0b1c94cf0149e25c7b64982c765e9b19dd7d0bd37",
+        "round": "review of 200fcd9f",
+        "source": "reviewer scratch: review directory/REVIEW.md"
+      },
+      {
+        "original_sha256": "c9924d63ef151e57e71751e4a45eb4e0f233693d27bb4939b6e056e0341afcde",
+        "redaction": "none",
+        "retained": "review/round1/indep.py",
+        "retained_sha256": "c9924d63ef151e57e71751e4a45eb4e0f233693d27bb4939b6e056e0341afcde",
+        "round": "review of 200fcd9f",
+        "source": "reviewer scratch: review directory/indep.py"
+      },
+      {
+        "original_sha256": "61dda18e7eb59e40ef464b9644f7c8d70c550dad1af2327a8b0700e99b63a819",
+        "redaction": "none",
+        "retained": "review/round1/indep.out",
+        "retained_sha256": "61dda18e7eb59e40ef464b9644f7c8d70c550dad1af2327a8b0700e99b63a819",
+        "round": "review of 200fcd9f",
+        "source": "reviewer scratch: review directory/indep.out"
+      },
+      {
+        "original_sha256": "057e7fca62e4cee93b9e64e9d6125868ac078de73dca4faee4590cd4489190f1",
+        "redaction": "none",
+        "retained": "review/round1/pow_probe.py",
+        "retained_sha256": "057e7fca62e4cee93b9e64e9d6125868ac078de73dca4faee4590cd4489190f1",
+        "round": "review of 200fcd9f",
+        "source": "reviewer scratch: review directory/pow_probe.py"
+      },
+      {
+        "original_sha256": "cbe2d6a11d17e5cf961564ff9bde432ee1fe77880a798512c01e9f5705ccd222",
+        "redaction": "none",
+        "retained": "review/round1/rev_mutants.py",
+        "retained_sha256": "cbe2d6a11d17e5cf961564ff9bde432ee1fe77880a798512c01e9f5705ccd222",
+        "round": "review of 200fcd9f",
+        "source": "reviewer scratch: review directory/rev_mutants.py"
+      },
+      {
+        "original_sha256": "9a407355aac9f4cdb2bc691c5980a7d2754c246149e315906e8da8e9364ea681",
+        "redaction": "none",
+        "retained": "review/round1/rev_mutants.out",
+        "retained_sha256": "9a407355aac9f4cdb2bc691c5980a7d2754c246149e315906e8da8e9364ea681",
+        "round": "review of 200fcd9f",
+        "source": "reviewer scratch: review directory/rev_mutants.out"
+      },
+      {
+        "original_sha256": "c3a2045856c3210b728ee260dc383ab516cc5e1629ba9955a52ff79ba77afdab",
+        "redaction": "none",
+        "retained": "review/round1/rs_exact_small.py",
+        "retained_sha256": "c3a2045856c3210b728ee260dc383ab516cc5e1629ba9955a52ff79ba77afdab",
+        "round": "review of 200fcd9f",
+        "source": "reviewer scratch: review directory/rs_exact_small.py"
+      },
+      {
+        "original_sha256": "26122bfbe15563f90c3fe3a152cc785603354676f3f25efa482050aae66ba425",
+        "redaction": "none; renamed from REVIEW.md",
+        "retained": "review/round2/REPORT.md",
+        "retained_sha256": "26122bfbe15563f90c3fe3a152cc785603354676f3f25efa482050aae66ba425",
+        "round": "re-check of fb05dea8",
+        "source": "reviewer scratch: review directory/recheck/REVIEW.md"
+      },
+      {
+        "original_sha256": "5ac4108cf2a049b18088fd871f5836c7e4f15af6fb21f4a68d25f8fd340f5f8b",
+        "redaction": "none",
+        "retained": "review/round2/fd_and_lists.py",
+        "retained_sha256": "5ac4108cf2a049b18088fd871f5836c7e4f15af6fb21f4a68d25f8fd340f5f8b",
+        "round": "re-check of fb05dea8",
+        "source": "reviewer scratch: review directory/recheck/fd_and_lists.py"
+      },
+      {
+        "original_sha256": "2a67c7af8e1d1dbc205c1d016e9ba653965d95e5c62c6cf4e5ee5287a756a235",
+        "redaction": "none",
+        "retained": "review/round2/fd_and_lists.out",
+        "retained_sha256": "2a67c7af8e1d1dbc205c1d016e9ba653965d95e5c62c6cf4e5ee5287a756a235",
+        "round": "re-check of fb05dea8",
+        "source": "reviewer scratch: review directory/recheck/fd_and_lists.out"
+      },
+      {
+        "original_sha256": "551012c2df14f58504667bee72b526864d79c96d4342b1955d19087926d75f01",
+        "redaction": "none",
+        "retained": "review/round2/leafmap.py",
+        "retained_sha256": "551012c2df14f58504667bee72b526864d79c96d4342b1955d19087926d75f01",
+        "round": "re-check of fb05dea8",
+        "source": "reviewer scratch: review directory/recheck/leafmap.py"
+      },
+      {
+        "original_sha256": "8b7f93b6002ebca51d370a93ce0cde79a3109b6da39af33bfbb1db15050bccec",
+        "redaction": "none",
+        "retained": "review/round2/leafmap.out",
+        "retained_sha256": "8b7f93b6002ebca51d370a93ce0cde79a3109b6da39af33bfbb1db15050bccec",
+        "round": "re-check of fb05dea8",
+        "source": "reviewer scratch: review directory/recheck/leafmap.out"
+      },
+      {
+        "original_sha256": "0744631363eac95dd51e6df20241ea45cd4578fae0b8773463332193b0a735ff",
+        "redaction": "none",
+        "retained": "review/round2/rev_mutants.out",
+        "retained_sha256": "0744631363eac95dd51e6df20241ea45cd4578fae0b8773463332193b0a735ff",
+        "round": "re-check of fb05dea8",
+        "source": "reviewer scratch: review directory/recheck/rev_mutants.out"
+      },
+      {
+        "original_sha256": "ce1655174342bad8b4d043728b0a2943268ecfc13f3dfe7e32c5334e92ff9844",
+        "redaction": "none",
+        "retained": "review/round2/rev_mutants2.py",
+        "retained_sha256": "ce1655174342bad8b4d043728b0a2943268ecfc13f3dfe7e32c5334e92ff9844",
+        "round": "re-check of fb05dea8",
+        "source": "reviewer scratch: review directory/recheck/rev_mutants2.py"
+      },
+      {
+        "original_sha256": "914bc140f6d005dabc48127a9121c05606643a1e78ffd07d80e2a9a104bffcf6",
+        "redaction": "none",
+        "retained": "review/round2/rev_mutants2.out",
+        "retained_sha256": "914bc140f6d005dabc48127a9121c05606643a1e78ffd07d80e2a9a104bffcf6",
+        "round": "re-check of fb05dea8",
+        "source": "reviewer scratch: review directory/recheck/rev_mutants2.out"
+      },
+      {
+        "original_sha256": "94647436fd0b0c19675ea27845110b264273c3509331e23ff1a06e6a53532ec6",
+        "redaction": "none; renamed from REVIEW.md",
+        "retained": "review/round3/REPORT.md",
+        "retained_sha256": "94647436fd0b0c19675ea27845110b264273c3509331e23ff1a06e6a53532ec6",
+        "round": "re-check 2 of aee64f2c",
+        "source": "reviewer scratch: review directory/recheck2/REVIEW.md"
+      },
+      {
+        "original_sha256": "c01babca5231b09cb4bf112260c917be2327f5262f4f304309d9ba1ac311ce84",
+        "redaction": "none",
+        "retained": "review/round3/leafdiff.py",
+        "retained_sha256": "c01babca5231b09cb4bf112260c917be2327f5262f4f304309d9ba1ac311ce84",
+        "round": "re-check 2 of aee64f2c",
+        "source": "reviewer scratch: review directory/recheck2/leafdiff.py"
+      },
+      {
+        "original_sha256": "6e752985a24fef2d889c451ac8eff59c50f7948d42fec6b26d0060a45c0405c7",
+        "redaction": "none",
+        "retained": "review/round3/leafdiff.out",
+        "retained_sha256": "6e752985a24fef2d889c451ac8eff59c50f7948d42fec6b26d0060a45c0405c7",
+        "round": "re-check 2 of aee64f2c",
+        "source": "reviewer scratch: review directory/recheck2/leafdiff.out"
+      },
+      {
+        "original_sha256": "cd7db5be2f2bd622bf7b5931e8a7a296353b04b63e517a6e9b142f2d50783b6b",
+        "redaction": "none",
+        "retained": "review/round3/rev_mutants1_adapted.py",
+        "retained_sha256": "cd7db5be2f2bd622bf7b5931e8a7a296353b04b63e517a6e9b142f2d50783b6b",
+        "round": "re-check 2 of aee64f2c",
+        "source": "reviewer scratch: review directory/recheck2/rev_mutants1_adapted.py"
+      },
+      {
+        "original_sha256": "1da6f1cf5f8959eff5a48fd4bb112ed6e9ff828c0bd242db98f71dcdd87e198d",
+        "redaction": "none",
+        "retained": "review/round3/rev_mutants1.out",
+        "retained_sha256": "1da6f1cf5f8959eff5a48fd4bb112ed6e9ff828c0bd242db98f71dcdd87e198d",
+        "round": "re-check 2 of aee64f2c",
+        "source": "reviewer scratch: review directory/recheck2/rev_mutants1.out"
+      },
+      {
+        "original_sha256": "6e173521c5737658fd3c01c6bee53b3ddaaeac7db050479094a3751cb03a0519",
+        "redaction": "none",
+        "retained": "review/round3/rev_mutants3.py",
+        "retained_sha256": "6e173521c5737658fd3c01c6bee53b3ddaaeac7db050479094a3751cb03a0519",
+        "round": "re-check 2 of aee64f2c",
+        "source": "reviewer scratch: review directory/recheck2/rev_mutants3.py"
+      },
+      {
+        "original_sha256": "59814563c55846712a866de3c1dc87f5ae4dcec30b53436ea9ed1466e95273e5",
+        "redaction": "none",
+        "retained": "review/round3/rev_mutants3.out",
+        "retained_sha256": "59814563c55846712a866de3c1dc87f5ae4dcec30b53436ea9ed1466e95273e5",
+        "round": "re-check 2 of aee64f2c",
+        "source": "reviewer scratch: review directory/recheck2/rev_mutants3.out"
+      },
+      {
+        "original_sha256": "c661336e4b7a2dd06082c8334450147c8c465fdc57a63229d96a408794e989d4",
+        "redaction": "none",
+        "retained": "review/round3/rs25_exact.py",
+        "retained_sha256": "c661336e4b7a2dd06082c8334450147c8c465fdc57a63229d96a408794e989d4",
+        "round": "re-check 2 of aee64f2c",
+        "source": "reviewer scratch: review directory/recheck2/rs25_exact.py"
+      },
+      {
+        "original_sha256": "eda5ad9237651ce13f2ed3abf8cba61ec39c3f49cc0ad86c7d7078faff383118",
+        "redaction": "none; renamed from REVIEW.md",
+        "retained": "review/round4/REPORT.md",
+        "retained_sha256": "eda5ad9237651ce13f2ed3abf8cba61ec39c3f49cc0ad86c7d7078faff383118",
+        "round": "re-check 3 of 19a33d6f",
+        "source": "reviewer scratch: review directory/recheck3/REVIEW.md"
+      },
+      {
+        "original_sha256": "da2643ebcd8799ba12400d79a934e28398965bf636d7a9fba151fc3dd41b922c",
+        "redaction": "none",
+        "retained": "review/round4/count_certs.py",
+        "retained_sha256": "da2643ebcd8799ba12400d79a934e28398965bf636d7a9fba151fc3dd41b922c",
+        "round": "re-check 3 of 19a33d6f",
+        "source": "reviewer scratch: review directory/recheck3/count_certs.py"
+      },
+      {
+        "original_sha256": "b5d0b8b444f122cd3874850fcc469db30ae325eb23e420fcf3935a2f10e0b653",
+        "redaction": "none",
+        "retained": "review/round4/leafdiff.out",
+        "retained_sha256": "b5d0b8b444f122cd3874850fcc469db30ae325eb23e420fcf3935a2f10e0b653",
+        "round": "re-check 3 of 19a33d6f",
+        "source": "reviewer scratch: review directory/recheck3/leafdiff.out"
+      },
+      {
+        "original_sha256": "1da6f1cf5f8959eff5a48fd4bb112ed6e9ff828c0bd242db98f71dcdd87e198d",
+        "redaction": "none",
+        "retained": "review/round4/rev_mutants1.out",
+        "retained_sha256": "1da6f1cf5f8959eff5a48fd4bb112ed6e9ff828c0bd242db98f71dcdd87e198d",
+        "round": "re-check 3 of 19a33d6f",
+        "source": "reviewer scratch: review directory/recheck3/rev_mutants1.out"
+      },
+      {
+        "original_sha256": "7a8462e913c01493a481f9c497b17cf451c15d3740e0f6f4d785706dbbb192f4",
+        "redaction": "none",
+        "retained": "review/round4/rev_mutants3.out",
+        "retained_sha256": "7a8462e913c01493a481f9c497b17cf451c15d3740e0f6f4d785706dbbb192f4",
+        "round": "re-check 3 of 19a33d6f",
+        "source": "reviewer scratch: review directory/recheck3/rev_mutants3.out"
+      },
+      {
+        "original_sha256": "70817e4982bed13b50904789f3ff392a73d48aba44b55bd9f433352ded205a3c",
+        "redaction": "none",
+        "retained": "review/round4/rev_mutants4.py",
+        "retained_sha256": "70817e4982bed13b50904789f3ff392a73d48aba44b55bd9f433352ded205a3c",
+        "round": "re-check 3 of 19a33d6f",
+        "source": "reviewer scratch: review directory/recheck3/rev_mutants4.py"
+      },
+      {
+        "original_sha256": "1260618f54952dd9d80812ade160f91742b65c305933821b87f2c5c5bafdac04",
+        "redaction": "none",
+        "retained": "review/round4/rev_mutants4.out",
+        "retained_sha256": "1260618f54952dd9d80812ade160f91742b65c305933821b87f2c5c5bafdac04",
+        "round": "re-check 3 of 19a33d6f",
+        "source": "reviewer scratch: review directory/recheck3/rev_mutants4.out"
+      },
+      {
+        "original_sha256": "b2fbcb858c4c91dd7cd4bf36140407eba5041c95e5d4f330fdc701b2e32ef506",
+        "redaction": "none",
+        "retained": "review/round4/rev_mutants5.py",
+        "retained_sha256": "b2fbcb858c4c91dd7cd4bf36140407eba5041c95e5d4f330fdc701b2e32ef506",
+        "round": "re-check 3 of 19a33d6f",
+        "source": "reviewer scratch: review directory/recheck3/rev_mutants5.py"
+      },
+      {
+        "original_sha256": "f62f5712a1c4701b6473ed35d63cb39a5ca746ff8bf1e40712d7c94f3a4d3728",
+        "redaction": "none",
+        "retained": "review/round4/rev_mutants5.out",
+        "retained_sha256": "f62f5712a1c4701b6473ed35d63cb39a5ca746ff8bf1e40712d7c94f3a4d3728",
+        "round": "re-check 3 of 19a33d6f",
+        "source": "reviewer scratch: review directory/recheck3/rev_mutants5.out"
+      },
+      {
+        "original_sha256": "a7a1a32d1ff0657fe6de8de069677ea3b8fd61f4de48afda94c5683a5ec49ab9",
+        "redaction": "none; renamed from REVIEW.md",
+        "retained": "review/round5/REPORT.md",
+        "retained_sha256": "a7a1a32d1ff0657fe6de8de069677ea3b8fd61f4de48afda94c5683a5ec49ab9",
+        "round": "re-check 4 of a97c852a",
+        "source": "reviewer scratch: review directory/recheck4/REVIEW.md"
+      },
+      {
+        "original_sha256": "54ce7300fea119d6b493a2a3d45e0646fe358f1675a05654d2502bec2ac4a813",
+        "redaction": "none",
+        "retained": "review/round5/leafdiff.out",
+        "retained_sha256": "54ce7300fea119d6b493a2a3d45e0646fe358f1675a05654d2502bec2ac4a813",
+        "round": "re-check 4 of a97c852a",
+        "source": "reviewer scratch: review directory/recheck4/leafdiff.out"
+      },
+      {
+        "original_sha256": "d8fc93da39cff6b7736bcc9328c4feaaf141c46f10bc490ab0bd52f15a72e3af",
+        "redaction": "none",
+        "retained": "review/round5/mut6.py",
+        "retained_sha256": "d8fc93da39cff6b7736bcc9328c4feaaf141c46f10bc490ab0bd52f15a72e3af",
+        "round": "re-check 4 of a97c852a",
+        "source": "reviewer scratch: review directory/recheck4/mut6.py"
+      },
+      {
+        "original_sha256": "485e5834d590ca18e1fe6ec14d9d906ce53346b4f364a5aa160a074939547d38",
+        "redaction": "none; renamed from work/m6/T1_reported_depths_edited.out",
+        "retained": "review/round5/m6_T1_reported_depths_edited.out",
+        "retained_sha256": "485e5834d590ca18e1fe6ec14d9d906ce53346b4f364a5aa160a074939547d38",
+        "round": "re-check 4 of a97c852a",
+        "source": "reviewer scratch: review directory/recheck4/work/m6/T1_reported_depths_edited.out"
+      },
+      {
+        "original_sha256": "637719052c80222af415ebfe111a089781e047887220574c62c1a17ae87a4853",
+        "redaction": "none; renamed from work/m6/T2_prereg_depth_one_block_early.out",
+        "retained": "review/round5/m6_T2_prereg_depth_one_block_early.out",
+        "retained_sha256": "637719052c80222af415ebfe111a089781e047887220574c62c1a17ae87a4853",
+        "round": "re-check 4 of a97c852a",
+        "source": "reviewer scratch: review directory/recheck4/work/m6/T2_prereg_depth_one_block_early.out"
+      },
+      {
+        "original_sha256": "4e980d0e87f338f576b7796a7944117a9861a6fc5ef6a51cf6b57dcedcb4eb55",
+        "redaction": "none; renamed from work/m6/T3_label_remap_k_plus_1.out",
+        "retained": "review/round5/m6_T3_label_remap_k_plus_1.out",
+        "retained_sha256": "4e980d0e87f338f576b7796a7944117a9861a6fc5ef6a51cf6b57dcedcb4eb55",
+        "round": "re-check 4 of a97c852a",
+        "source": "reviewer scratch: review directory/recheck4/work/m6/T3_label_remap_k_plus_1.out"
+      },
+      {
+        "original_sha256": "524297c6129c6ac98f641f67bbe9d3a794681a300f7101205056fe83f1c5ca00",
+        "redaction": "none",
+        "retained": "review/author_reruns_a97c852a/rc5_L.py",
+        "retained_sha256": "524297c6129c6ac98f641f67bbe9d3a794681a300f7101205056fe83f1c5ca00",
+        "round": "author reruns of the reviewer scripts against a97c852a (copies adapted to copy PLAN.md, and R1/D1 strings to the shared function)",
+        "source": "author scratch: rc5_L.py"
+      },
+      {
+        "original_sha256": "dfd52dd064abd21cfab2430c3ca8abe9879ca14689dfe5cea4fe6864f7d98446",
+        "redaction": "none",
+        "retained": "review/author_reruns_a97c852a/rc5_L.out",
+        "retained_sha256": "dfd52dd064abd21cfab2430c3ca8abe9879ca14689dfe5cea4fe6864f7d98446",
+        "round": "author reruns of the reviewer scripts against a97c852a (copies adapted to copy PLAN.md, and R1/D1 strings to the shared function)",
+        "source": "author scratch: rc5_L.out"
+      },
+      {
+        "original_sha256": "1fee91cbdc792eb31a439064fa7ef82ccb9cd76d15a6d93860262bad8ad2cca0",
+        "redaction": "none",
+        "retained": "review/author_reruns_a97c852a/rc5_A.py",
+        "retained_sha256": "1fee91cbdc792eb31a439064fa7ef82ccb9cd76d15a6d93860262bad8ad2cca0",
+        "round": "author reruns of the reviewer scripts against a97c852a (copies adapted to copy PLAN.md, and R1/D1 strings to the shared function)",
+        "source": "author scratch: rc5_A.py"
+      },
+      {
+        "original_sha256": "1260618f54952dd9d80812ade160f91742b65c305933821b87f2c5c5bafdac04",
+        "redaction": "none",
+        "retained": "review/author_reruns_a97c852a/rc5_A.out",
+        "retained_sha256": "1260618f54952dd9d80812ade160f91742b65c305933821b87f2c5c5bafdac04",
+        "round": "author reruns of the reviewer scripts against a97c852a (copies adapted to copy PLAN.md, and R1/D1 strings to the shared function)",
+        "source": "author scratch: rc5_A.out"
+      },
+      {
+        "original_sha256": "03de0c7478ea7077f873b6a238447b4ecd2752b305b1bce55afd3d9201f89686",
+        "redaction": "none",
+        "retained": "review/author_reruns_a97c852a/rc5_R.py",
+        "retained_sha256": "03de0c7478ea7077f873b6a238447b4ecd2752b305b1bce55afd3d9201f89686",
+        "round": "author reruns of the reviewer scripts against a97c852a (copies adapted to copy PLAN.md, and R1/D1 strings to the shared function)",
+        "source": "author scratch: rc5_R.py"
+      },
+      {
+        "original_sha256": "1da6f1cf5f8959eff5a48fd4bb112ed6e9ff828c0bd242db98f71dcdd87e198d",
+        "redaction": "none",
+        "retained": "review/author_reruns_a97c852a/rc5_R.out",
+        "retained_sha256": "1da6f1cf5f8959eff5a48fd4bb112ed6e9ff828c0bd242db98f71dcdd87e198d",
+        "round": "author reruns of the reviewer scripts against a97c852a (copies adapted to copy PLAN.md, and R1/D1 strings to the shared function)",
+        "source": "author scratch: rc5_R.out"
+      },
+      {
+        "original_sha256": "1f87c16f7b30c8fb1cd9a416fb03d8de238eac8c7933d7108478df076d62d0a1",
+        "redaction": "none",
+        "retained": "review/author_reruns_a97c852a/rc5_W.py",
+        "retained_sha256": "1f87c16f7b30c8fb1cd9a416fb03d8de238eac8c7933d7108478df076d62d0a1",
+        "round": "author reruns of the reviewer scripts against a97c852a (copies adapted to copy PLAN.md, and R1/D1 strings to the shared function)",
+        "source": "author scratch: rc5_W.py"
+      },
+      {
+        "original_sha256": "7a8462e913c01493a481f9c497b17cf451c15d3740e0f6f4d785706dbbb192f4",
+        "redaction": "none",
+        "retained": "review/author_reruns_a97c852a/rc5_W.out",
+        "retained_sha256": "7a8462e913c01493a481f9c497b17cf451c15d3740e0f6f4d785706dbbb192f4",
+        "round": "author reruns of the reviewer scripts against a97c852a (copies adapted to copy PLAN.md, and R1/D1 strings to the shared function)",
+        "source": "author scratch: rc5_W.out"
+      },
+      {
+        "original_sha256": "1b12afb705eb7868bb4b836ab2d5bebfc6806d9cf8d9a8e898c3baa52385e2bd",
+        "redaction": "none",
+        "retained": "review/author_reruns_a97c852a/rc5_D.py",
+        "retained_sha256": "1b12afb705eb7868bb4b836ab2d5bebfc6806d9cf8d9a8e898c3baa52385e2bd",
+        "round": "author reruns of the reviewer scripts against a97c852a (copies adapted to copy PLAN.md, and R1/D1 strings to the shared function)",
+        "source": "author scratch: rc5_D.py"
+      },
+      {
+        "original_sha256": "9d3c161416631a3cdd73bf600bd5a4955447d66c7558534b6b6a388a673f6df2",
+        "redaction": "none",
+        "retained": "review/author_reruns_a97c852a/rc5_D.out",
+        "retained_sha256": "9d3c161416631a3cdd73bf600bd5a4955447d66c7558534b6b6a388a673f6df2",
+        "round": "author reruns of the reviewer scripts against a97c852a (copies adapted to copy PLAN.md, and R1/D1 strings to the shared function)",
+        "source": "author scratch: rc5_D.out"
+      },
+      {
+        "original_sha256": "f94fc71734388386ff2bfed42f9b8913f45269aefe0b8b2d0b68147f8f9855c3",
+        "redaction": "none; derived file",
+        "retained": "review/per_mutant_numbers.json",
+        "retained_sha256": "f94fc71734388386ff2bfed42f9b8913f45269aefe0b8b2d0b68147f8f9855c3",
+        "round": "rounds 3 and 4",
+        "source": "author extraction from the reviewers per-mutant outputs (round3 work/rmut3/*/run2/out.json, round4 work/rmut5/*/run/out.json; not retained), with each source digest recorded inside"
+      },
+      {
+        "original_sha256": "cbe2d6a11d17e5cf961564ff9bde432ee1fe77880a798512c01e9f5705ccd222",
+        "redaction": "none",
+        "retained": "review/round2/rev_mutants.py",
+        "retained_sha256": "cbe2d6a11d17e5cf961564ff9bde432ee1fe77880a798512c01e9f5705ccd222",
+        "round": "re-check of fb05dea8",
+        "source": "reviewer scratch: review directory/recheck/rev_mutants.py"
+      },
+      {
+        "original_sha256": "dd1eb55a8ffacc982a72b2394420dbad680cc2cef4c81ea52d7f77e96e8bc6da",
+        "redaction": "none; renamed from REVIEW.md",
+        "retained": "review/round6/REPORT.md",
+        "retained_sha256": "dd1eb55a8ffacc982a72b2394420dbad680cc2cef4c81ea52d7f77e96e8bc6da",
+        "round": "re-check 5 of 70faede0",
+        "source": "reviewer scratch: review directory/recheck5/REVIEW.md"
+      },
+      {
+        "original_sha256": "2202db639c06df7155d22b3ce45369e27d4e075245bce05a54ea99e808fc845b",
+        "redaction": "none",
+        "retained": "review/round6/leafdiff.out",
+        "retained_sha256": "2202db639c06df7155d22b3ce45369e27d4e075245bce05a54ea99e808fc845b",
+        "round": "re-check 5 of 70faede0",
+        "source": "reviewer scratch: review directory/recheck5/leafdiff.out"
+      },
+      {
+        "original_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "redaction": "none",
+        "retained": "review/round6/work/A/st.txt",
+        "retained_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "round": "re-check 5 of 70faede0",
+        "source": "reviewer scratch: review directory/recheck5/work/A/st.txt"
+      },
+      {
+        "original_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "redaction": "none",
+        "retained": "review/round6/work/B/st.txt",
+        "retained_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "round": "re-check 5 of 70faede0",
+        "source": "reviewer scratch: review directory/recheck5/work/B/st.txt"
+      },
+      {
+        "original_sha256": "fe8b363f973e8bc55843a5412ef031378624b518ccf3e5a20d417e86f31fe9d7",
+        "redaction": "scratch paths replaced: '<scratch>/rev911d/recheck5/tree/' -> '<review export of the reviewed commit>/'",
+        "retained": "review/round6/work/Cx/st.txt",
+        "retained_sha256": "78c5fe7b8536ebd2461e2b4768ad182c7a7d6a894aaf2c584c3d69dfac8c1787",
+        "round": "re-check 5 of 70faede0",
+        "source": "reviewer scratch: review directory/recheck5/work/Cx/st.txt"
+      },
+      {
+        "original_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "redaction": "none",
+        "retained": "review/round6/work/Dt/st.txt",
+        "retained_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "round": "re-check 5 of 70faede0",
+        "source": "reviewer scratch: review directory/recheck5/work/Dt/st.txt"
+      },
+      {
+        "original_sha256": "1226cb984a3e14dbe5ec7b99d9080de9606f4e7634ca7e3d43aa57e8ed20e491",
+        "redaction": "none",
+        "retained": "review/round6/work/Dt/t.out",
+        "retained_sha256": "1226cb984a3e14dbe5ec7b99d9080de9606f4e7634ca7e3d43aa57e8ed20e491",
+        "round": "re-check 5 of 70faede0",
+        "source": "reviewer scratch: review directory/recheck5/work/Dt/t.out"
+      },
+      {
+        "original_sha256": "0c6868c2c44f053619cef1cc383e1d530743b574ca192ace9168a9ccf46a86e3",
+        "redaction": "none",
+        "retained": "review/round6/work/Et/st.txt",
+        "retained_sha256": "0c6868c2c44f053619cef1cc383e1d530743b574ca192ace9168a9ccf46a86e3",
+        "round": "re-check 5 of 70faede0",
+        "source": "reviewer scratch: review directory/recheck5/work/Et/st.txt"
+      },
+      {
+        "original_sha256": "ff6205a63bb902d2c94b05909149e1003d4c0043e8fb0b7f71e64c2d7ed5023c",
+        "redaction": "none",
+        "retained": "review/round6/work/Et/t.out",
+        "retained_sha256": "ff6205a63bb902d2c94b05909149e1003d4c0043e8fb0b7f71e64c2d7ed5023c",
+        "round": "re-check 5 of 70faede0",
+        "source": "reviewer scratch: review directory/recheck5/work/Et/t.out"
+      },
+      {
+        "original_sha256": "e48ab0e7703e68876a85758d438c2640e1ec6e6d9f66c95261ceb353ad982020",
+        "redaction": "none; renamed from REVIEW.md",
+        "retained": "review/round7/REPORT.md",
+        "retained_sha256": "e48ab0e7703e68876a85758d438c2640e1ec6e6d9f66c95261ceb353ad982020",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/REVIEW.md"
+      },
+      {
+        "original_sha256": "ff79249aed2ee9e5d7be126410e05e7225aca8d4e65fdd2f88e02a1add57a14d",
+        "redaction": "none",
+        "retained": "review/round7/check_pmn.py",
+        "retained_sha256": "ff79249aed2ee9e5d7be126410e05e7225aca8d4e65fdd2f88e02a1add57a14d",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/check_pmn.py"
+      },
+      {
+        "original_sha256": "9093ccb903c6231997c7980496eab26e83611c01d5b53d29e06739070af6ffa6",
+        "redaction": "none",
+        "retained": "review/round7/leafdiff.out",
+        "retained_sha256": "9093ccb903c6231997c7980496eab26e83611c01d5b53d29e06739070af6ffa6",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/leafdiff.out"
+      },
+      {
+        "original_sha256": "29f6f863ff62e6ffc19936f5d97458f77de0b42876f7f624de9e4a8973fa2cf9",
+        "redaction": "scratch paths replaced: '<scratch>/rev911d/recheck6/work/' -> '<review work directory>/'; '<scratch>/p911/repo/' -> '<clone>/'",
+        "retained": "review/round7/fakebin/git",
+        "retained_sha256": "4991d1a677757324861f259d4e5766deccc611ead38f84f4c02c4127c03d8124",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/fakebin/git"
+      },
+      {
+        "original_sha256": "8a19aa4020df84d009cacb372f146ee30b7800415314ae7468865f0a0a5059ef",
+        "redaction": "scratch paths replaced: '<scratch>/rev911d/recheck6/work/' -> '<review work directory>/'; '<scratch>/p911/repo/' -> '<clone>/'",
+        "retained": "review/round7/work/fakegit.log",
+        "retained_sha256": "a3b369f2a5ca08c525b9a5b3871c7107d46b7c60792b3db130fe46b1948e25bb",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/fakegit.log"
+      },
+      {
+        "original_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "redaction": "none",
+        "retained": "review/round7/work/cN/st.txt",
+        "retained_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/cN/st.txt"
+      },
+      {
+        "original_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "redaction": "none",
+        "retained": "review/round7/work/cO/st.txt",
+        "retained_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/cO/st.txt"
+      },
+      {
+        "original_sha256": "a664aa78198d80e999c26b92bb106ccf405c72d2b19411b6e669a5ad1b921d15",
+        "redaction": "none",
+        "retained": "review/round7/work/eN/st.txt",
+        "retained_sha256": "a664aa78198d80e999c26b92bb106ccf405c72d2b19411b6e669a5ad1b921d15",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/eN/st.txt"
+      },
+      {
+        "original_sha256": "a664aa78198d80e999c26b92bb106ccf405c72d2b19411b6e669a5ad1b921d15",
+        "redaction": "none",
+        "retained": "review/round7/work/eO/st.txt",
+        "retained_sha256": "a664aa78198d80e999c26b92bb106ccf405c72d2b19411b6e669a5ad1b921d15",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/eO/st.txt"
+      },
+      {
+        "original_sha256": "6f0a69cce28176ef9e4a7b1c295e72aa6497ff9682cdf8b390960f6bc1df7c64",
+        "redaction": "none",
+        "retained": "review/round7/work/optC/err.txt",
+        "retained_sha256": "6f0a69cce28176ef9e4a7b1c295e72aa6497ff9682cdf8b390960f6bc1df7c64",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/optC/err.txt"
+      },
+      {
+        "original_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "redaction": "none",
+        "retained": "review/round7/work/optC/st.txt",
+        "retained_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/optC/st.txt"
+      },
+      {
+        "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "redaction": "none",
+        "retained": "review/round7/work/optE/err.txt",
+        "retained_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/optE/err.txt"
+      },
+      {
+        "original_sha256": "f3b50325bc76f71f56c8accf4719e3b2126f29398454424efa7d228906cae44f",
+        "redaction": "none",
+        "retained": "review/round7/work/optE/out.txt",
+        "retained_sha256": "f3b50325bc76f71f56c8accf4719e3b2126f29398454424efa7d228906cae44f",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/optE/out.txt"
+      },
+      {
+        "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "redaction": "none",
+        "retained": "review/round7/work/optF/err.txt",
+        "retained_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/optF/err.txt"
+      },
+      {
+        "original_sha256": "f3b50325bc76f71f56c8accf4719e3b2126f29398454424efa7d228906cae44f",
+        "redaction": "none",
+        "retained": "review/round7/work/optF/out.txt",
+        "retained_sha256": "f3b50325bc76f71f56c8accf4719e3b2126f29398454424efa7d228906cae44f",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/optF/out.txt"
+      },
+      {
+        "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "redaction": "none",
+        "retained": "review/round7/work/optG/err.txt",
+        "retained_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/optG/err.txt"
+      },
+      {
+        "original_sha256": "24de095bd45f3dd9c6027a232c18eeb83a3f75920f4f290a8f07a38e9489d36e",
+        "redaction": "none",
+        "retained": "review/round7/work/optG/out.txt",
+        "retained_sha256": "24de095bd45f3dd9c6027a232c18eeb83a3f75920f4f290a8f07a38e9489d36e",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/optG/out.txt"
+      },
+      {
+        "original_sha256": "f94fc71734388386ff2bfed42f9b8913f45269aefe0b8b2d0b68147f8f9855c3",
+        "redaction": "none",
+        "retained": "review/round7/work/pmn.json",
+        "retained_sha256": "f94fc71734388386ff2bfed42f9b8913f45269aefe0b8b2d0b68147f8f9855c3",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/pmn.json"
+      },
+      {
+        "original_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "redaction": "none",
+        "retained": "review/round7/work/tgt/st.txt",
+        "retained_sha256": "5861f910fb9eff1d296c90fb7b8a79085553e8be6201fc58d070785a61f2ad1c",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/tgt/st.txt"
+      },
+      {
+        "original_sha256": "45e9a86df8f2dabe79ba509a26ec4ce6dca4ef3dab4d75bc1414f1c029f7c1d0",
+        "redaction": "none",
+        "retained": "review/round7/work/tgt/t.out",
+        "retained_sha256": "45e9a86df8f2dabe79ba509a26ec4ce6dca4ef3dab4d75bc1414f1c029f7c1d0",
+        "round": "re-check 6 of 70faede0..3ca0d8ba",
+        "source": "reviewer scratch: review directory/recheck6/work/tgt/t.out"
+      }
+    ],
+    "location": "review/, in the form of a2_depth_v7/review/ (one directory per review round, with review/SHA256SUMS)",
+    "necessity": "retained: each review report and the scripts and summary outputs its claims cite, and the author rerun outputs that REPORT.md statements rest on (AGENTS section A.42 item 8)",
+    "not_retained": [
+      "the reviewers tree/ exports (byte copies of package files at the reviewed commits, recoverable from git)",
+      "the reviewers work/ directories (mutant working copies and full per-mutant JSON outputs; the claims cite the summary .out files, which are retained)",
+      "the first review exp/ directory (an exported package copy)",
+      "the reviewers full per-mutant outputs; the numbers the reports cite from them are in review/per_mutant_numbers.json with the source digests, and are regenerable with the retained scripts at the named commits",
+      "the re-check 5 and 6 tree/, export/ and working copies of the package (recoverable from git)"
+    ],
+    "redundant_not_retained": [
+      {
+        "compared_with": "result.json at 70faede0 (git show 70faede0:<package>/result.json)",
+        "comparison": "byte-identical",
+        "item": "re-check 5 work/A/out.json and work/B/out.json (clone default runs at 70faede0)"
+      },
+      {
+        "commit": "12058945cdeb94233a79afad57ceab300d22e92d",
+        "comparison": "regenerated and byte-identical (sha256 669602532e57dfa5fc03d899f6eb06bbcd6f07bd8e2cf1e5ade0c078631a2f09)",
+        "item": "re-check 5 work/Cx/out.json (default run of 12058945 in a git-less export)",
+        "recipe": "export 12058945 a2_memory_v8 and a2_depth_v7/result.json with a temporary index into a directory outside any repository; python3 -I -B <export>/a2_memory_v8/checks.py > out.json"
+      },
+      {
+        "compared_with": "result.json at 3ca0d8ba",
+        "comparison": "byte-identical",
+        "item": "re-check 6 work/{cN,cO,eN,eO,optC}/out.json (clone and export runs at 3ca0d8ba)"
+      }
+    ],
+    "review_SHA256SUMS_sha256": "efd5cbb6aa2b28e46d38735a9a70f620ce5c28d5d957e37128f6c62810b190b1",
+    "rounds": {
+      "author_reruns_a97c852a": "author reruns of the reviewer scripts against a97c852a, on which REPORT.md statements of those scripts results rest",
+      "round1": "review of 200fcd9f",
+      "round2": "re-check of fb05dea8",
+      "round3": "re-check 2 of aee64f2c",
+      "round4": "re-check 3 of 19a33d6f",
+      "round5": "re-check 4 of a97c852a",
+      "round6": "re-check 5 of 70faede0",
+      "round7": "re-check 6 of 70faede0..3ca0d8ba"
+    },
+    "secret_scan": "absolute paths, e-mail addresses, IP addresses, tokens, keys and signed URLs scanned for; scratch paths in three round 6-7 files (round6 work/Cx/st.txt, round7 fakebin/git, round7 work/fakegit.log) replaced with relative descriptions, each recorded with its original and retained sha256; no other redaction"
+  },
+  "schema": "oi.a2-bounded-memory-v8.provenance.v2",
+  "source_head": "49e1a1191c9ea5c303883afd2d8d3c28a233f9e5",
+  "source_prefix": "verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/"
+}

@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/m5_readout_drop_s0/checks.py", line 644, in <module>
+    main()
+    ~~~~^^
+  File "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/m5_readout_drop_s0/checks.py", line 511, in main
+    need(ca == bf_counts and cb == bf_counts, 'brute force per-readout counts %s %s' % (label, chosen))
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/m5_readout_drop_s0/checks.py", line 29, in need
+    raise RuntimeError('control failed: ' + label)
+RuntimeError: control failed: brute force per-readout counts real (0, 1)
+rc=1

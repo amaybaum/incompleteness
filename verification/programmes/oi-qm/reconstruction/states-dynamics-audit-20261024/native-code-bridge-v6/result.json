@@ -1,0 +1,17 @@
+{
+  "best_deterministic_pair_error": "3/20",
+  "continuous_pure_pair_tv_squared": "1/2",
+  "deterministic_responses_checked": 4096,
+  "full_native_sphere_pushforwards": 4,
+  "independent_five_value_apparatus_inverse_cases": 120,
+  "labelled_source_tv": "1",
+  "old_menu_projector_comparisons": 16,
+  "same_cell_opposite_new_sign_witnesses": 2,
+  "schema": "oi.native-code-bridge.v6",
+  "scope": "Common selected twelve-code interface and common independent apparatus only; actual native full phase/history/response memory not excluded.",
+  "sharp_stochastic_pair_error": "1/10",
+  "source_codes": 12,
+  "source_pair_tv": "1/2",
+  "target_new_read_pair_tv": "7/10",
+  "verdict": "PASS_SCOPED_COARSE_CODE_BRIDGE_AND_ERROR_BOUND"
+}

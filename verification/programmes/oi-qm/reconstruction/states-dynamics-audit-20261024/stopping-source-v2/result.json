@@ -1,0 +1,160 @@
+{
+  "cutoffs": [
+    {
+      "cutoff": 1,
+      "expected_min_T_cutoff": "1",
+      "joint_TY_total_variation": "1/2",
+      "p_truncated_output1_probability": "1/2",
+      "prefixes_per_threshold": 2,
+      "time_marginal_total_variation": "0",
+      "timeout_probability": "1/2"
+    },
+    {
+      "cutoff": 2,
+      "expected_min_T_cutoff": "3/2",
+      "joint_TY_total_variation": "3/4",
+      "p_truncated_output1_probability": "3/4",
+      "prefixes_per_threshold": 4,
+      "time_marginal_total_variation": "0",
+      "timeout_probability": "1/4"
+    },
+    {
+      "cutoff": 3,
+      "expected_min_T_cutoff": "7/4",
+      "joint_TY_total_variation": "7/8",
+      "p_truncated_output1_probability": "3/4",
+      "prefixes_per_threshold": 8,
+      "time_marginal_total_variation": "0",
+      "timeout_probability": "1/8"
+    },
+    {
+      "cutoff": 4,
+      "expected_min_T_cutoff": "15/8",
+      "joint_TY_total_variation": "15/16",
+      "p_truncated_output1_probability": "13/16",
+      "prefixes_per_threshold": 16,
+      "time_marginal_total_variation": "0",
+      "timeout_probability": "1/16"
+    },
+    {
+      "cutoff": 5,
+      "expected_min_T_cutoff": "31/16",
+      "joint_TY_total_variation": "31/32",
+      "p_truncated_output1_probability": "27/32",
+      "prefixes_per_threshold": 32,
+      "time_marginal_total_variation": "0",
+      "timeout_probability": "1/32"
+    },
+    {
+      "cutoff": 6,
+      "expected_min_T_cutoff": "63/32",
+      "joint_TY_total_variation": "63/64",
+      "p_truncated_output1_probability": "27/32",
+      "prefixes_per_threshold": 64,
+      "time_marginal_total_variation": "0",
+      "timeout_probability": "1/64"
+    },
+    {
+      "cutoff": 7,
+      "expected_min_T_cutoff": "127/64",
+      "joint_TY_total_variation": "127/128",
+      "p_truncated_output1_probability": "109/128",
+      "prefixes_per_threshold": 128,
+      "time_marginal_total_variation": "0",
+      "timeout_probability": "1/128"
+    },
+    {
+      "cutoff": 8,
+      "expected_min_T_cutoff": "255/128",
+      "joint_TY_total_variation": "255/256",
+      "p_truncated_output1_probability": "109/128",
+      "prefixes_per_threshold": 256,
+      "time_marginal_total_variation": "0",
+      "timeout_probability": "1/256"
+    },
+    {
+      "cutoff": 9,
+      "expected_min_T_cutoff": "511/256",
+      "joint_TY_total_variation": "511/512",
+      "p_truncated_output1_probability": "437/512",
+      "prefixes_per_threshold": 512,
+      "time_marginal_total_variation": "0",
+      "timeout_probability": "1/512"
+    },
+    {
+      "cutoff": 10,
+      "expected_min_T_cutoff": "1023/512",
+      "joint_TY_total_variation": "1023/1024",
+      "p_truncated_output1_probability": "437/512",
+      "prefixes_per_threshold": 1024,
+      "time_marginal_total_variation": "0",
+      "timeout_probability": "1/1024"
+    },
+    {
+      "cutoff": 11,
+      "expected_min_T_cutoff": "2047/1024",
+      "joint_TY_total_variation": "2047/2048",
+      "p_truncated_output1_probability": "437/512",
+      "prefixes_per_threshold": 2048,
+      "time_marginal_total_variation": "0",
+      "timeout_probability": "1/2048"
+    },
+    {
+      "cutoff": 12,
+      "expected_min_T_cutoff": "4095/2048",
+      "joint_TY_total_variation": "4095/4096",
+      "p_truncated_output1_probability": "437/512",
+      "prefixes_per_threshold": 4096,
+      "time_marginal_total_variation": "0",
+      "timeout_probability": "1/4096"
+    }
+  ],
+  "exact_parameters": {
+    "coefficient_basis": [
+      "1",
+      "sqrt(2)"
+    ],
+    "complement": [
+      "1/2",
+      "-1/4"
+    ],
+    "p": [
+      "1/2",
+      "1/4"
+    ]
+  },
+  "fixed_G3_cone_controls": {
+    "Hadamard_negative_entry": "-1/2",
+    "all_offdiagonal_entries_zero": true,
+    "operator_norm_gap_lower_bound": "1/2",
+    "partial_permutations_including_zero": 7
+  },
+  "prefix_comparisons": 16380,
+  "refinement_controls": {
+    "candidate_kappa_Y1_T1_at_complement": [
+      "0",
+      "0"
+    ],
+    "candidate_kappa_Y1_T1_at_p": [
+      "2",
+      "-1"
+    ],
+    "common_kappa_rejected": true,
+    "independent_time_positive_control": [
+      "1/2",
+      "0"
+    ]
+  },
+  "schema": "oi-stopping-candidate-v2",
+  "scope": "abstract almost-sure sampler and fixed-identification controls; not native implementation",
+  "verdict": "PASS",
+  "written_limit_claims": {
+    "eventual_output1_probability": "(2+sqrt(2))/4",
+    "expected_coin_queries": "2",
+    "finite_enumeration_is_not_limit_proof": true,
+    "joint_TY_total_variation": "1",
+    "output_Y_total_variation": "sqrt(2)/2",
+    "time_T_total_variation": "0",
+    "zero_probability_nontermination": true
+  }
+}

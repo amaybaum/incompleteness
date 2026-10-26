@@ -1,0 +1,3 @@
+#!/bin/sh
+echo "git invoked: $*" >> <review work directory>/fakegit.log
+exit 1

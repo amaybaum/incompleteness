@@ -1,0 +1,13 @@
+{
+  "adaptation_credit": "Signed upper strip, native collision evaluator and source/bank geometry adapted from Native B v12, author 1c91d3158e13eaa69c7fd1710932c9995d0288d7; new lower E first-front and affine-controller engine here.",
+  "inputs": {
+    "branch_v10/local-controller/symmetric-result.json": "d8e7c1f5841192165beefb3fe35b069cc14cc93f2faa2bd68619aa7748b3db2f",
+    "native_seed_v12/REPORT.md": "7fb515126a6835a2c10031b3000077d62fd8ac3af4af860dc40721cb47b39c52",
+    "native_seed_v12/checks.py": "236438fc59188deb6575bf29d1236de10130bd78576db0c5308f4604426fc3b3",
+    "native_seed_v12/result.json": "4628cc9f241b0ab71f62d96fbdb2e99f5c5991cce66725f9f86c82ddcb46a28d",
+    "parallel_v3/history_control/SOURCE-GEOMETRY.json": "2642e1a68825faa5d3bb1049e8722adec1ec33bd3f56b9e4416b2c902a85ec5d",
+    "six_source_v5/period/REPORT.md": "7743ee8fccb5e39df674bb7ada6fcd6ce45582b801d4d58d77af5162420cf360"
+  },
+  "published_plan_revision": "9e92ff42cdb254e0de23202409888c3f5034bf39",
+  "source_revision": "16b154cefe3acd40d5a60d507905709c3cfc19ca"
+}

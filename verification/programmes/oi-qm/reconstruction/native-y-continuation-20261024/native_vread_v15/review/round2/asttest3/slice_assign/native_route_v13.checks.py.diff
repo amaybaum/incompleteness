@@ -1,0 +1,10 @@
+--- native_route_v13/checks.py
++++ native_route_v13/checks.py
+@@ -263,6 +263,7 @@
+     ready += [((T,0,0),T),((-T,0,0),T),((4*T,0,0),T),((0,S,-68),R),((-12*R,0,0),R)]
+     ready += [((0,S,68+k),R+k) for k in range(10)]
+     ready += [((-48*L,0,0),L)]
++    ready[0:0]=[((-(L+2),S,77),0)]
+     for source in (epos,npos):
+         need(all(dist(source,c)>r for c,r in ready),'new source avoids old ready pins')
+         need(all(dist(source,c)>r for c,r in zip(ports,deadlines)),'all informative records preserved at own deadlines')

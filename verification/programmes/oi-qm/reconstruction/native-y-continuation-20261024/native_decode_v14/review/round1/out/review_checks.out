@@ -1,0 +1,250 @@
+{
+ "Q1": {
+  "E_forced_000_any_readout": 0,
+  "constant_sources_qA": 0,
+  "constant_sources_total_solutions": 0,
+  "qA_depends_on_x_rows_of_1536": 768,
+  "qA_target_counts_x_xor_f": {
+   "000000": 992,
+   "000001": 1376,
+   "000010": 1376,
+   "000011": 992,
+   "000100": 512,
+   "000101": 512,
+   "000110": 512,
+   "000111": 512,
+   "001000": 2016,
+   "001001": 2016,
+   "001010": 2016,
+   "001011": 2016,
+   "001100": 512,
+   "001101": 512,
+   "001110": 512,
+   "001111": 512,
+   "010000": 912,
+   "010001": 1456,
+   "010010": 1456,
+   "010011": 912,
+   "010100": 512,
+   "010101": 512,
+   "010110": 512,
+   "010111": 512,
+   "011000": 2016,
+   "011001": 2016,
+   "011010": 2016,
+   "011011": 2016,
+   "011100": 512,
+   "011101": 512,
+   "011110": 512,
+   "011111": 512,
+   "100000": 1376,
+   "100001": 992,
+   "100010": 992,
+   "100011": 1376,
+   "100100": 512,
+   "100101": 512,
+   "100110": 512,
+   "100111": 512,
+   "101000": 2016,
+   "101001": 2016,
+   "101010": 2016,
+   "101011": 2016,
+   "101100": 512,
+   "101101": 512,
+   "101110": 512,
+   "101111": 512,
+   "110000": 1456,
+   "110001": 912,
+   "110010": 912,
+   "110011": 1456,
+   "110100": 512,
+   "110101": 512,
+   "110110": 512,
+   "110111": 512,
+   "111000": 2016,
+   "111001": 2016,
+   "111010": 2016,
+   "111011": 2016,
+   "111100": 512,
+   "111101": 512,
+   "111110": 512,
+   "111111": 512
+  },
+  "qA_targets_x_xor_affine_seed_fn_nonzero": 64,
+  "s_dependent_sources_qA_laws_of_2^42": 25160,
+  "s_only_sources_qA_laws": 0,
+  "sign_erased_diagnostic": 0,
+  "sign_erased_total": 0
+ },
+ "Q3": {
+  "laws": 1456,
+  "laws_BD_reveal_s_on_all_24_contexts": 24,
+  "laws_with_BD_sign_free_all_contexts": 0,
+  "laws_with_B_sign_free_all_contexts": 8,
+  "laws_with_D_sign_free_all_contexts": 0,
+  "min_max_contexts_BD_depend_on_s": [
+   12,
+   24
+  ],
+  "min_max_contexts_B_depends_on_s": [
+   0,
+   24
+  ],
+  "min_max_contexts_D_depends_on_s": [
+   4,
+   16
+  ]
+ },
+ "author_per_readout_counts_equal": true,
+ "controls": {
+  "brute_force_label_features_total_readouts_diagnostic": [
+   [
+    "real",
+    [
+     "1",
+     "u"
+    ],
+    0,
+    0,
+    2560
+   ],
+   [
+    "real",
+    [
+     "1",
+     "u",
+     "a"
+    ],
+    0,
+    0,
+    143360
+   ],
+   [
+    "real",
+    [
+     "1",
+     "mY",
+     "mR"
+    ],
+    4,
+    2,
+    45568
+   ],
+   [
+    "real",
+    [
+     "1",
+     "a",
+     "b"
+    ],
+    0,
+    0,
+    150528
+   ],
+   [
+    "planted",
+    [
+     "1",
+     "u",
+     "a"
+    ],
+    804,
+    64,
+    146944
+   ],
+   [
+    "planted",
+    [
+     "1",
+     "mY",
+     "b"
+    ],
+    89,
+    65,
+    115968
+   ]
+  ],
+  "planted_full_rank_qA_count": 1489,
+  "raw_pair": {
+   "affine_E_maps": 16,
+   "common_injective_pairs": 32,
+   "joint": 0
+  }
+ },
+ "degree_one_counts": {
+  "A": 1456,
+  "A^B": 384,
+  "A^B^D": 0,
+  "A^D": 24,
+  "B": 0,
+  "B^D": 8,
+  "D": 0,
+  "NOT A": 912,
+  "NOT A^B": 424,
+  "NOT A^B^D": 0,
+  "NOT A^D": 16,
+  "NOT B": 0,
+  "NOT B^D": 4,
+  "NOT D": 0
+ },
+ "degree_one_total": 14,
+ "diagnostic_const_E001_N000_distinct_pairs": 6,
+ "diagnostic_const_E001_N000_ok": true,
+ "diagnostic_count_full": 9827254272,
+ "mY_only_law_present": true,
+ "native_table": {
+  "E0_rows_match_native_B": 512,
+  "lower_exact_period": 1152,
+  "rows": 4096,
+  "separation_cells": 3608,
+  "sha256": "b2f32466113dede2fa9e43469f5c209fde5d610180ed748dcd025d4cd2a4b3cc",
+  "upper_nodes": 383207,
+  "upper_requests": 3608
+ },
+ "positive_by_degree": {
+  "1": 8,
+  "2": 29,
+  "3": 41
+ },
+ "qA_equals_s_laws": 1456,
+ "qA_seed_support_sizes": {
+  "1": 2,
+  "2": 54,
+  "3": 318,
+  "4": 938,
+  "5": 144
+ },
+ "qA_single_seed_laws": [
+  [
+   [
+    "mY"
+   ],
+   [
+    1,
+    5,
+    1,
+    4,
+    1,
+    5
+   ]
+  ],
+  [
+   [
+    "mY"
+   ],
+   [
+    1,
+    5,
+    5,
+    4,
+    5,
+    1
+   ]
+  ]
+ ],
+ "readouts_with_solutions": 78,
+ "solutions_E_constant": 40,
+ "solutions_E_identically_000": 0,
+ "solutions_N_constant": 0,
+ "total_solutions": 7464
+}

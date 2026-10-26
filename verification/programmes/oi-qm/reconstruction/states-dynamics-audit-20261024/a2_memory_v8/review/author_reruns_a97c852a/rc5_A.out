@@ -1,0 +1,7 @@
+A1_shared_HALF_quarter: exit 2; same_as_result=False; VOID: K7 power rule brackets the exact ceiling-rounded crossing
+A2_shared_digest_constant: exit 2; same_as_result=False; VOID: K1 T(h) digests h<=64 equal a2_depth_v7
+A3_shared_isqrt_biased: exit 2; same_as_result=False; VOID: K7 square-root lower enclosure
+A4_main_and_audit_one_block_early: exit 2; same_as_result=False; VOID: audit certificate T>1/2 contradicted by exact TV
+A5_main_and_audit_bound_5pct: exit 0; same_as_result=False; {"class_hypothesis":"finite persistent state (carrier, private memory, any clock or record registers read); ti
+A6_shared_tv_iid_scaled: exit 2; same_as_result=False; VOID: K6 iid and alternating engines agree
+A7_reported_enclosure_widened: exit 2; same_as_result=False; VOID: audit recomputed depth equals reported (certified_T_above_half_for_h_at_least)
