@@ -13,9 +13,13 @@ the toy profile as well, so that the toy run's per-set C7 coverage can be compar
 erratum's independent computation (E1-check part J).
 
 Owner rulings (erratum E1, in effect, amendments/E1-LAYER1-ERRATUM.md) are filled in below.
-Three owner decisions remain open placeholders: kappa (the launch margin, S7), the Lemma G-D
-reference form (E1 section 9) and O1 (E_G as a fifth C7 set, E1 section 9). l2cert.startup
-refuses the v8 profile while any placeholder remains. No value for kappa is set anywhere.
+The owner's rulings of 2026-10-26 on the launch rule are recorded in owner_rulings: the kappa
+method (kappa = u_cal x u_model, no value), the sequencing, the budget ceiling (24 runner-hours,
+everything included, with an explicit reserve) and the rule that a run over the ceiling is reduced
+by a new reviewed design or declared infeasible, never run with a smaller margin. Open
+placeholders: u_cal and u_model (kappa's components), the reserve, the survivor cap of the v8
+profile, the Lemma G-D reference form and O1. l2cert.startup refuses the v8 profile while any
+placeholder remains. No value for kappa, the reserve or the v8 survivor cap is set anywhere.
 """
 import hashlib
 import json
@@ -41,6 +45,11 @@ CONFIG = {
             'C7_samples': {'H100': {'stream': 'C7_H100', 'rate': 100}, 'H1000': {'stream': 'C7_H1000', 'rate': 1000}},
             'shards': 32,
             'C7_scope': 'E1-F3',
+            # survivor representatives per shard whose gates and residue detail are computed; beyond
+            # it the shard records survivor_cap_exceeded and the run is INCOMPLETE (counts complete,
+            # flagged survivor_gates_incomplete). An owner-set resource constant, like kappa, fixed
+            # before any v8 result; no default (LAYER2-R3-REVIEW R2).
+            'survivor_cap_per_shard': OWNER,
         },
         'toy': {
             'setup': {'dim': 3, 'n': 2, 'rho': 1, 'tlast': 6, 'port': [0, 0, -2],
@@ -51,6 +60,7 @@ CONFIG = {
             'C7_samples': {'H100': {'stream': 'C7_H100', 'rate': 100}, 'H1000': {'stream': 'C7_H1000', 'rate': 1000}},
             'shards': 4,
             'C7_scope': 'E1-F3',
+            'survivor_cap_per_shard': 10,     # toy design evidence only
         },
     },
     'v8_key': [3, 6, [0, 0, -3]],
@@ -76,21 +86,26 @@ CONFIG = {
            'per_record': True},
     'S_max_bits': 27,
     'budget': {
+        # the owner's ceiling (2026-10-26): "24 hours maximum, including all run overhead, with an
+        # explicit reserve". Launch iff kappa x total + reserve <= ceiling and kappa x each job <= its
+        # timeout; otherwise "not undertaken for cost" (a new reviewed design, or infeasible under this
+        # budget). kappa is never lowered to fit (l2plan.launch_decision).
         'runner_hours': 24,
+        'ceiling_status': 'owner-fixed ceiling, all run overhead included',
+        'reserve_runner_seconds': OWNER,
         'max_shards': 32,
         'timeout_minutes': {'dryrun': 10, 'preflight': 30, 's1a': 40, 'shard': 40, 'merge': 20},
-        # kappa: the launch margin, an owner-set resource constant (not a Layer-1 requirement),
-        # fixed with its basis before the complete estimate is computed. Launch iff
-        # kappa * total <= budget and kappa * each job's estimate <= that job's timeout.
-        'kappa': OWNER,
+        # kappa: the launch margin, by the owner's approved method kappa = u_cal x u_model (rounded up to
+        # one decimal); "not a final numerical value": both components are placeholders. u_cal: the
+        # 99th percentile of the ratio of two independent calibrations, from at least 20 calibrations on
+        # the CI runner class; u_model: an explicit judgement, with a sensitivity analysis.
+        'kappa_rule': {'method': 'kappa = u_cal x u_model, rounded up to one decimal; fixed before any v8 count',
+                       'u_cal': OWNER, 'u_model': OWNER},
+        # analysis and member-attribute work per representative, as a multiple of its four bare
+        # closures. A judgement, not a measurement (LAYER2-R3-REVIEW R5); the local planted and toy
+        # measurement is design/overhead/ (step overhead_measure), reported beside the estimate.
         'gate_overhead_factor': 2,
-        # survivor representatives per shard whose gates and residue detail are computed; beyond
-        # it the shard records survivor_cap_exceeded and the merge labels the run INCOMPLETE.
-        # Layer-2 value, bounding the survivor-gate term of the estimate; the owner may revise it.
-        # Basis: on the planted calibration a survivor orbit costs about 14 runner-seconds per run
-        # (up to 8 members x (4 closures + 8 reference gates) at the largest context), so 10 per
-        # shard bounds the term at about 9,000 runner-seconds with the -O copy.
-        'survivor_cap_per_shard': 10,
+        'gate_overhead_factor_status': 'unmeasured judgement; local measurement reported in design/overhead/',
         # fixed job costs used by the estimate (seconds), with their basis
         'preflight_seconds': 300,
         'preflight_basis': 'design-r5 full suite 134 s, S6 18 s, symcheck 20 s, plus self-test and C11 mutants',
@@ -134,12 +149,43 @@ CONFIG = {
                'question': 'C7 scope'},
         'F6': {'ruling': '58 counts (E1-F6: four added survivor cross-tabulations)',
                'question': 'C8 list (54) or 4-count erratum (58)'},
-        'kappa': {'ruling': OWNER, 'question': 'launch margin and budget (S7)', 'layer2_reading': 'none: no default',
-                  'owner_answer': 'Decide later'},
-        'G_D': {'ruling': OWNER, 'question': 'Lemma G-D reference form in C7 (E1 section 9)',
+        'kappa': {'ruling': OWNER, 'question': 'the numerical value of kappa (its components u_cal, u_model)',
+                  'method_ruling': 'Approve the proposed method, kappa = u_cal x u_model, but not a final numerical '
+                                   'value.',
+                  'calibration_ruling': 'Require at least 20 independent timing calibrations on the relevant CI '
+                                        'runner class.',
+                  'model_uncertainty_ruling': 'Retain as an explicitly judgment-based factor, subject to sensitivity '
+                                              'analysis.'},
+        'sequencing': {'ruling': 'Approved. Fix kappa, the survivor cap, and budget ceiling before any v8 count.',
+                       'question': 'order of the launch decisions', 'after_the_count': 'G_D and O1, before the full run'},
+        'budget_ceiling': {'ruling': '24 hours maximum, including all run overhead, with an explicit reserve.',
+                           'over_ceiling_ruling': 'If the calibrated runtime exceeds 24 hours, the experiment must be '
+                                                  'reduced through a new reviewed design or declared infeasible under '
+                                                  'this budget - not run with an artificially smaller margin.',
+                           'question': 'budget ceiling'},
+        'reserve': {'ruling': OWNER, 'question': 'the explicit reserve inside the 24-hour ceiling',
+                    'layer2_reading': 'none: no default; KAPPA-PROPOSAL.md proposes a size'},
+        'survivor_cap': {'ruling': OWNER, 'question': 'survivor representatives per shard gated before the run is '
+                         'INCOMPLETE (v8 profile; a resource constant fixed before any v8 count)',
+                         'owner_request': 'Request a reasoned proposal based on shard distribution, memory '
+                                          'consumption, and failure probability; do not use the placeholder 10.',
+                         'layer2_reading': 'none: no default for v8 (SURVIVOR-CAP-PROPOSAL.md); the toy profile uses 10 '
+                                           'for design evidence only'},
+        'ci_calibration': {'ruling': 'authorized conditionally: a separate, planted-set-only CI timing calibration, '
+                                     'provided it cannot access v8 and its exact workflow and resource limits are '
+                                     'reviewed before dispatch. This is not authorization to dispatch the existing full '
+                                     'experimental workflow.',
+                           'question': 'CI timing calibration', 'status': 'workflow proposed in layer2/ci/, not placed '
+                                                                         'under .github/, not dispatched'},
+        'v8_count': {'ruling': 'not authorized pending its Layer-2 amendment and review',
+                     'question': 'combinatorial-only v8 count of I_A, I_G, F_G, E_G',
+                     'status': 'AMENDMENT-PROPOSAL-V8-COUNT.md, unadopted'},
+        'G_D': {'ruling': OWNER, 'question': 'Lemma G-D reference form in C7 (E1 section 9); decided after the count, '
+                                             'before the full run',
                 'layer2_reading': 'not implemented; the full s0ref closure is the only reference form',
                 'owner_answer': 'Conditionally approved; non-executing until the owner confirms the proof'},
-        'O1': {'ruling': OWNER, 'question': 'E_G as a fifth C7 set under G (E1 section 9; optional)',
+        'O1': {'ruling': OWNER, 'question': 'E_G as a fifth C7 set under G (E1 section 9; optional); decided after '
+                                            'the count, before the full run',
                'layer2_reading': 'not adopted: E_G is not a check set'},
     },
     'accepted_readings': {

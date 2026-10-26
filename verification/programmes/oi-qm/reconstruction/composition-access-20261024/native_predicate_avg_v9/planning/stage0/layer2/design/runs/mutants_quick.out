@@ -1,6 +1,6 @@
 {
- "code_digest": "d858dacee48c133a4c3bd54a418bd79a40b1ff5604987c4ed9bf6fb04ffb695e",
- "killed": 47,
+ "code_digest": "a0c6c3dfb0b3a350259e63d960083c15b14df359d3e5aa79e9238d96cf7ade4c",
+ "killed": 51,
  "machinery_mutants": {
   "M_C7_carried_only": {
    "exit": 2,
@@ -101,6 +101,15 @@
    "named_case": "L2-GUARD: engine accepts a truthy authorization",
    "run": "named case only"
   },
+  "M_index_check_off": {
+   "exit": 2,
+   "failed": [
+    "L2-IDXRUN"
+   ],
+   "killed": true,
+   "named_case": "L2-IDXRUN: in-run record_at(index_of(m)) check disabled (LAYER2-R3-REVIEW R3)",
+   "run": "named case only"
+  },
   "M_label_mismatch_first": {
    "exit": 2,
    "failed": [
@@ -108,6 +117,24 @@
    ],
    "killed": true,
    "named_case": "L2-LBL: MISMATCH ranked above VOID",
+   "run": "named case only"
+  },
+  "M_launch_fit_kappa": {
+   "exit": 2,
+   "failed": [
+    "L2-LAUNCH"
+   ],
+   "killed": true,
+   "named_case": "L2-LAUNCH: kappa lowered to fit the ceiling (owner ruling)",
+   "run": "named case only"
+  },
+  "M_launch_no_reserve": {
+   "exit": 2,
+   "failed": [
+    "L2-LAUNCH"
+   ],
+   "killed": true,
+   "named_case": "L2-LAUNCH: the explicit reserve left out of the launch rule",
    "run": "named case only"
   },
   "M_manifest_blind": {
@@ -209,6 +236,15 @@
    "named_case": "L2-SAMPLE: deterministic sample empty",
    "run": "named case only"
   },
+  "M_scope_every_outcome": {
+   "exit": 2,
+   "failed": [
+    "L2-T6"
+   ],
+   "killed": true,
+   "named_case": "L2-T6: the zero-branch statement recorded in a non-zero outcome (LAYER2-R3-REVIEW R1)",
+   "run": "named case only"
+  },
   "M_sigma_no_2d": {
    "exit": 2,
    "failed": [
@@ -288,7 +324,10 @@
    "M_every_record_rep",
    "M_grant_unbound",
    "M_guard_truthy",
+   "M_index_check_off",
    "M_label_mismatch_first",
+   "M_launch_fit_kappa",
+   "M_launch_no_reserve",
    "M_manifest_blind",
    "M_mask_no_merge",
    "M_merge_no_coverage",
@@ -300,6 +339,7 @@
    "M_ruleT_or",
    "M_ruleT_reads_L3",
    "M_sampler_never",
+   "M_scope_every_outcome",
    "M_sigma_no_2d",
    "M_sigma_overrides_label",
    "M_skip_index",
@@ -504,7 +544,7 @@
   }
  },
  "schema": "np-avg-1/stage0/layer2/mutant-campaign/1",
- "total": 47,
+ "total": 51,
  "unmodified_suite": {
   "mode": "quick",
   "passed": true,

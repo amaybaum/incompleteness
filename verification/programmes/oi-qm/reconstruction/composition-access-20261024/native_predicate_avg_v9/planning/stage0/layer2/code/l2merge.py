@@ -27,7 +27,7 @@ import l2manifest as MAN  # noqa: E402
 import l2plan as PLAN     # noqa: E402
 import l2analysis as AN   # noqa: E402
 
-VOID_GATES = ('C0_context', 'C7', 'C8', 'C11i', 'C17', 'C18')
+VOID_GATES = ('C0_context', 'C7', 'C8', 'C11i', 'C17', 'C18', 'index_roundtrip')
 MISMATCH_GATES = ('C9', 'C10i', 'C11ii')
 SHARD_SCHEMA = 'np-avg-1/stage0/layer2/shard/3'
 FAILED_LABELS = ('VOID', 'MISMATCH', 'INCOMPLETE')
@@ -136,14 +136,18 @@ def rule_T(s1a_status, L_A, L_G):
     (neutrality)."""
     T = CFG.CONFIG['rule_T']
     base = {'wording_status': T['wording_status'], 'L_A': L_A, 'L_G': L_G, 's1a_status': s1a_status,
-            'bound_rule': T['bound_rule'], 'statement_scope': T['zero_text'], 'cost_clause': T['cost_clause'],
+            'bound_rule': T['bound_rule'], 'cost_clause': T['cost_clause'],
             'rulings': {k: CFG.CONFIG['owner_rulings'][k]['ruling'] for k in ('T1', 'T2', 'T5', 'T6')}}
+    # E1-T6's statement is the zero branch's: recorded as statement_scope only there (LAYER2-R3-REVIEW R1)
     if s1a_status != 'OK':
-        return dict(base, evaluated=False, outcome='not_evaluated', S1b_S1c='not proposed', text=T['not_evaluated_text'])
+        return dict(base, evaluated=False, outcome='not_evaluated', S1b_S1c='not proposed', text=T['not_evaluated_text'],
+                    statement_scope='not applicable (outcome: not_evaluated)')
     if L_A == 0 and L_G == 0:
-        return dict(base, evaluated=True, outcome='L_A = L_G = 0', S1b_S1c='not undertaken', text=T['zero_text'])
+        return dict(base, evaluated=True, outcome='L_A = L_G = 0', S1b_S1c='not undertaken', text=T['zero_text'],
+                    statement_scope=T['zero_text'])
     return dict(base, evaluated=True, outcome='L_A > 0 or L_G > 0', S1b_S1c='S1b put to the owner as a new '
-                'preregistration', text=T['positive_text'])
+                'preregistration', text=T['positive_text'],
+                statement_scope='not applicable (outcome: L_A > 0 or L_G > 0)')
 
 
 def rule_T_inputs(s1a):
@@ -198,7 +202,7 @@ def merge(pname, workdir):
     # shards (certificate item 5)
     S = len(dry['shards']) if dry else prof['shards']
     N = dry['records'] if dry else None
-    shards, commits = [], set()
+    shards, commits, cap_exceeded = [], set(), []
     for s in range(S):
         raw, sh = read(os.path.join(workdir, 'shard-%d.json' % s))
         rawO, _ = read(os.path.join(workdir, 'shard-%d.O.json' % s))
@@ -227,6 +231,8 @@ def merge(pname, workdir):
         if why:
             inc.append('shard %d refused: %s' % (s, ', '.join(why)))
             continue
+        if sh.get('survivor_cap_exceeded'):
+            cap_exceeded.append(s)
         if not residue_complete(sh):
             inc.append('shard %d: residue incomplete (survivor cap %s exceeded: %s; %d listed of %s survivor '
                        'representatives)' % (s, sh.get('survivor_cap'), sh.get('survivor_cap_exceeded'),
@@ -309,7 +315,10 @@ def merge(pname, workdir):
            'void_reasons': void, 'mismatch_reasons': mism, 'incomplete_reasons': inc,
            'base_precondition': {'collapsed': base_collapsed, 'source': 'preflight.json base_collapsed'},
            'base_relative_survivor_records': base_rel if lab == 'BASE_RESIDUE' else None,
-           'counts': counts, 'n_counts': len(counts), 'count_list': 'E1-F6: the 54 of L1 C8 and four survivor cells',
+           'counts': counts, 'n_counts': len(counts),
+           'survivor_gates_incomplete': {'flag': bool(cap_exceeded), 'shards_over_cap': cap_exceeded,
+                                         'note': 'the counts cover every record; survivor gates and residue detail '
+                                                 'stop at the survivor cap, and the run is INCOMPLETE'}, 'count_list': 'E1-F6: the 54 of L1 C8 and four survivor cells',
            'masking_equivalent_records_record_sample_reading': PLAN.masking_equivalent(sp, False),
            'structure': {'L3_only_survivor_records': l3only},
            'in_run_gates': gates, 'C7_scope_coverage': c7cov,

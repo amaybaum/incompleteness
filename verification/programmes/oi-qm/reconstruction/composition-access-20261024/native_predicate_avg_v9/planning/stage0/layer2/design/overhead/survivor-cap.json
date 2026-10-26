@@ -1,0 +1,319 @@
+{
+ "deterministic": false,
+ "measured_planted": {
+  "detail_bytes": {
+   "max": 4337,
+   "median": 3647.0
+  },
+  "kept_bytes": {
+   "max": 548752,
+   "median": 358648.0
+  },
+  "max_context_quantities": 29,
+  "peak_transient_bytes": {
+   "max": 2020290,
+   "median": 1752842.0
+  },
+  "seconds_per_gated_orbit_toy": {
+   "max": 2.4294,
+   "median": 1.9279
+  },
+  "survivor_orbits": 24
+ },
+ "model": {
+  "P_some_shard_exceeds_cap_uniform": {
+   "12": {
+    "1": 0.0,
+    "128": 0.00642,
+    "16": 4.45e-16,
+    "256": 0.91,
+    "32": 1.72e-10,
+    "64": 2.55e-06,
+    "8": 0.0
+   },
+   "16": {
+    "1": 0.0,
+    "128": 1.87e-05,
+    "16": 0.0,
+    "256": 0.0983,
+    "32": 2.99e-16,
+    "64": 2.8e-10,
+    "8": 0.0
+   },
+   "24": {
+    "1": 0.0,
+    "128": 8.22e-12,
+    "16": 0.0,
+    "256": 2.11e-05,
+    "32": 2.05e-30,
+    "64": 9.19e-20,
+    "8": 0.0
+   },
+   "32": {
+    "1": 0.0,
+    "128": 1.58e-19,
+    "16": 0.0,
+    "256": 2.88e-10,
+    "32": 0.0,
+    "64": 4.68e-31,
+    "8": 0.0
+   },
+   "4": {
+    "1": 0.0,
+    "128": 1.0,
+    "16": 0.00312,
+    "256": 1.0,
+    "32": 0.0927,
+    "64": 0.861,
+    "8": 4.93e-05
+   },
+   "8": {
+    "1": 0.0,
+    "128": 0.495,
+    "16": 8.52e-09,
+    "256": 1.0,
+    "32": 1.33e-05,
+    "64": 0.00528,
+    "8": 0.0
+   }
+  },
+  "cost_by_cap": {
+   "4": {
+    "kept_memory_bytes_at_max": 2195008,
+    "per_replica_job_seconds": 47.9,
+    "per_shard_job_seconds_both_copies": 95.9,
+    "survivor_term_runner_seconds": 3068.0
+   },
+   "8": {
+    "kept_memory_bytes_at_max": 4390016,
+    "per_replica_job_seconds": 95.9,
+    "per_shard_job_seconds_both_copies": 191.8,
+    "survivor_term_runner_seconds": 6136.0
+   },
+   "12": {
+    "kept_memory_bytes_at_max": 6585024,
+    "per_replica_job_seconds": 143.8,
+    "per_shard_job_seconds_both_copies": 287.6,
+    "survivor_term_runner_seconds": 9204.0
+   },
+   "16": {
+    "kept_memory_bytes_at_max": 8780032,
+    "per_replica_job_seconds": 191.8,
+    "per_shard_job_seconds_both_copies": 383.5,
+    "survivor_term_runner_seconds": 12272.0
+   },
+   "24": {
+    "kept_memory_bytes_at_max": 13170048,
+    "per_replica_job_seconds": 287.6,
+    "per_shard_job_seconds_both_copies": 575.2,
+    "survivor_term_runner_seconds": 18408.0
+   },
+   "32": {
+    "kept_memory_bytes_at_max": 17560064,
+    "per_replica_job_seconds": 383.5,
+    "per_shard_job_seconds_both_copies": 767.0,
+    "survivor_term_runner_seconds": 24544.0
+   }
+  },
+  "shards": 32,
+  "v8_survivor_term_per_cap_unit_runner_seconds_median": 767.0,
+  "weights": "uniform (1/S); a concentrated case exceeds iff X > c"
+ },
+ "note": "planted toy-geometry records; the time per orbit at v8 sizes is the estimate's, from the planted calibration at m_max; nothing on v8",
+ "python": "3.13.16",
+ "rows": [
+  {
+   "context_quantities": 24,
+   "detail_bytes": 3563,
+   "kept_bytes": 393482,
+   "ns": 1094441922,
+   "orbit_size": 4,
+   "peak_transient_bytes": 1413700
+  },
+  {
+   "context_quantities": 27,
+   "detail_bytes": 3688,
+   "kept_bytes": 323144,
+   "ns": 1052274993,
+   "orbit_size": 4,
+   "peak_transient_bytes": 1307196
+  },
+  {
+   "context_quantities": 29,
+   "detail_bytes": 4323,
+   "kept_bytes": 388392,
+   "ns": 2245920544,
+   "orbit_size": 8,
+   "peak_transient_bytes": 1971154
+  },
+  {
+   "context_quantities": 23,
+   "detail_bytes": 3008,
+   "kept_bytes": 205808,
+   "ns": 874220985,
+   "orbit_size": 4,
+   "peak_transient_bytes": 1055396
+  },
+  {
+   "context_quantities": 26,
+   "detail_bytes": 3132,
+   "kept_bytes": 343288,
+   "ns": 981140087,
+   "orbit_size": 4,
+   "peak_transient_bytes": 1162498
+  },
+  {
+   "context_quantities": 28,
+   "detail_bytes": 3775,
+   "kept_bytes": 548752,
+   "ns": 2160846863,
+   "orbit_size": 8,
+   "peak_transient_bytes": 2020290
+  },
+  {
+   "context_quantities": 23,
+   "detail_bytes": 3434,
+   "kept_bytes": 304336,
+   "ns": 1637021336,
+   "orbit_size": 8,
+   "peak_transient_bytes": 1619668
+  },
+  {
+   "context_quantities": 26,
+   "detail_bytes": 3606,
+   "kept_bytes": 316568,
+   "ns": 2117828697,
+   "orbit_size": 8,
+   "peak_transient_bytes": 1762154
+  },
+  {
+   "context_quantities": 28,
+   "detail_bytes": 3773,
+   "kept_bytes": 492440,
+   "ns": 2044182971,
+   "orbit_size": 8,
+   "peak_transient_bytes": 1962730
+  },
+  {
+   "context_quantities": 24,
+   "detail_bytes": 3961,
+   "kept_bytes": 270744,
+   "ns": 1877566389,
+   "orbit_size": 8,
+   "peak_transient_bytes": 1744842
+  },
+  {
+   "context_quantities": 27,
+   "detail_bytes": 4133,
+   "kept_bytes": 379152,
+   "ns": 2110109278,
+   "orbit_size": 8,
+   "peak_transient_bytes": 1864828
+  },
+  {
+   "context_quantities": 29,
+   "detail_bytes": 4300,
+   "kept_bytes": 408232,
+   "ns": 2321833817,
+   "orbit_size": 8,
+   "peak_transient_bytes": 1976434
+  },
+  {
+   "context_quantities": 23,
+   "detail_bytes": 3402,
+   "kept_bytes": 244152,
+   "ns": 1697537231,
+   "orbit_size": 8,
+   "peak_transient_bytes": 1588116
+  },
+  {
+   "context_quantities": 26,
+   "detail_bytes": 3574,
+   "kept_bytes": 315672,
+   "ns": 1978212455,
+   "orbit_size": 8,
+   "peak_transient_bytes": 1761244
+  },
+  {
+   "context_quantities": 28,
+   "detail_bytes": 3741,
+   "kept_bytes": 376496,
+   "ns": 2119825716,
+   "orbit_size": 8,
+   "peak_transient_bytes": 1852786
+  },
+  {
+   "context_quantities": 24,
+   "detail_bytes": 3570,
+   "kept_bytes": 369448,
+   "ns": 974580290,
+   "orbit_size": 4,
+   "peak_transient_bytes": 1247018
+  },
+  {
+   "context_quantities": 27,
+   "detail_bytes": 3694,
+   "kept_bytes": 478736,
+   "ns": 1191552745,
+   "orbit_size": 4,
+   "peak_transient_bytes": 1403444
+  },
+  {
+   "context_quantities": 29,
+   "detail_bytes": 4337,
+   "kept_bytes": 379096,
+   "ns": 2429370653,
+   "orbit_size": 8,
+   "peak_transient_bytes": 1999436
+  },
+  {
+   "context_quantities": 23,
+   "detail_bytes": 3392,
+   "kept_bytes": 218856,
+   "ns": 1711667566,
+   "orbit_size": 8,
+   "peak_transient_bytes": 1559284
+  },
+  {
+   "context_quantities": 26,
+   "detail_bytes": 3564,
+   "kept_bytes": 411568,
+   "ns": 2088831508,
+   "orbit_size": 8,
+   "peak_transient_bytes": 1760842
+  },
+  {
+   "context_quantities": 28,
+   "detail_bytes": 3731,
+   "kept_bytes": 389024,
+   "ns": 2421225405,
+   "orbit_size": 8,
+   "peak_transient_bytes": 1876474
+  },
+  {
+   "context_quantities": 23,
+   "detail_bytes": 2993,
+   "kept_bytes": 225596,
+   "ns": 917030576,
+   "orbit_size": 4,
+   "peak_transient_bytes": 1038876
+  },
+  {
+   "context_quantities": 26,
+   "detail_bytes": 3117,
+   "kept_bytes": 299952,
+   "ns": 1010670949,
+   "orbit_size": 4,
+   "peak_transient_bytes": 1168018
+  },
+  {
+   "context_quantities": 28,
+   "detail_bytes": 3741,
+   "kept_bytes": 347848,
+   "ns": 2251075642,
+   "orbit_size": 8,
+   "peak_transient_bytes": 1885306
+  }
+ ],
+ "schema": "np-avg-1/stage0/layer2/survivor-cap/1"
+}

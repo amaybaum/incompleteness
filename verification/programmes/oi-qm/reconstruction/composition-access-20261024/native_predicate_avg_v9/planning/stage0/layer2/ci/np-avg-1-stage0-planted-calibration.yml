@@ -1,0 +1,108 @@
+# NP-AVG-1 Stage 0 Layer 2: planted-set-only CI timing calibration. PROPOSAL, for review.
+# It lives in stage0/layer2/ci/, not under .github/workflows/, and is not active. Placing it on the
+# dedicated branch below and pushing that branch is a launch (AGENTS.md section A.43 item 4) and
+# needs the owner's separate authorization after this file, its scripts and its limits are reviewed
+# (owner, 2026-10-26: "a separate, planted-set-only CI timing calibration, provided it cannot access
+# v8 and its exact workflow and resource limits are reviewed before dispatch. This is not
+# authorization to dispatch the existing full experimental workflow").
+#
+# Trigger: a push to the dedicated branch ci-calibration/np-avg-1-stage0 only (CI-CALIBRATION-PROPOSAL.md
+# section 2 states the trade-offs against workflow_dispatch on main and against pull_request).
+# Placement on that branch: .github/workflows/np-avg-1-stage0-planted-calibration.yml, with PLANNING set
+# to the planning directory's path on the branch.
+name: np-avg-1-stage0-planted-calibration
+
+on:
+  push:
+    branches:
+      - 'ci-calibration/np-avg-1-stage0'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: np-avg-1-stage0-planted-calibration
+  cancel-in-progress: false
+
+env:
+  PLANNING: verification/programmes/oi-qm/reconstruction/composition-access-20261024/native_predicate_avg_v9/planning
+  # pinned at review: SHA-256 of every file the calibration reads or runs; the guard job fails otherwise
+  PIN_CALIB_CI: 'TO-BE-PINNED-AT-REVIEW'
+  PIN_CALIB_AGGREGATE: 'TO-BE-PINNED-AT-REVIEW'
+  PIN_MANIFEST: 'TO-BE-PINNED-AT-REVIEW'
+  PIN_WORKFLOW: 'TO-BE-PINNED-AT-REVIEW'   # of the copy placed on the branch, without this line's value
+  PYTHON_VERSION: '3.13.16'
+
+jobs:
+  guard:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4          # pinned to a commit SHA at review
+        with:
+          persist-credentials: false
+      - name: Exact ref and pinned files (fail closed)
+        run: |
+          set -eu
+          test "$GITHUB_REF" = "refs/heads/ci-calibration/np-avg-1-stage0"
+          L="$PLANNING/stage0/layer2"
+          echo "$PIN_CALIB_CI  $L/ci/calib_ci.py" | sha256sum -c -
+          echo "$PIN_CALIB_AGGREGATE  $L/ci/calib_aggregate.py" | sha256sum -c -
+          echo "$PIN_MANIFEST  $L/code/LAYER2-MANIFEST.json" | sha256sum -c -
+          # the workflow that runs must be the reviewed file (pinned); other workflows on the branch are
+          # main's, whose triggers do not match this push (CI-CALIBRATION-PROPOSAL.md section 2)
+          echo "$PIN_WORKFLOW  .github/workflows/np-avg-1-stage0-planted-calibration.yml" | sha256sum -c -
+
+  calibrate:
+    needs: guard
+    runs-on: ubuntu-24.04                    # the runner class the enumeration would use
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        index: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+    steps:
+      - uses: actions/checkout@v4          # pinned to a commit SHA at review
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5      # pinned to a commit SHA at review
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: One calibration (planted sets only; fails closed on any v8-capable object)
+        run: |
+          set -eu
+          python3 -I -B "$PLANNING/stage0/layer2/ci/calib_ci.py" --index "${{ matrix.index }}" \
+            --out "calib-${{ matrix.index }}.json"
+      - uses: actions/upload-artifact@v4   # pinned to a commit SHA at review
+        with:
+          name: calib-${{ matrix.index }}
+          path: calib-${{ matrix.index }}.json
+          retention-days: 30
+          if-no-files-found: error
+
+  aggregate:
+    needs: calibrate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4          # pinned to a commit SHA at review
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5      # pinned to a commit SHA at review
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - uses: actions/download-artifact@v4 # pinned to a commit SHA at review
+        with:
+          pattern: calib-*
+          merge-multiple: true
+          path: calibs
+      - name: Aggregate (at least 20 calibrations, or VOID)
+        run: python3 -I -B "$PLANNING/stage0/layer2/ci/calib_aggregate.py" calibs --out aggregate.json
+      - uses: actions/upload-artifact@v4   # pinned to a commit SHA at review
+        with:
+          name: calibration-aggregate
+          path: |
+            aggregate.json
+            calibs/
+          retention-days: 30

@@ -1,70 +1,77 @@
 {
  "C7_F_G_coefficient": {
-  "cv": 0.0553,
-  "max_over_median": 1.1419,
-  "median": 0.3135,
-  "min_over_median": 0.9665,
+  "cv": 0.0692,
+  "max_over_median": 1.1534,
+  "median": 0.313,
+  "min_over_median": 0.9137,
   "n": 10
  },
  "calibration_summary": {
   "O_over_normal": {
-   "cv": 0.1583,
-   "max_over_median": 1.7635,
-   "median": 0.9936,
-   "min_over_median": 0.6325,
+   "cv": 0.2087,
+   "max_over_median": 1.9496,
+   "median": 1.01395,
+   "min_over_median": 0.5416,
    "n": 180
   },
   "cv_by_table": {
    "closure_ns_A": {
-    "max": 0.186,
-    "median": 0.1142
+    "max": 0.2572,
+    "median": 0.0916
    },
    "closure_ns_G": {
-    "max": 0.2297,
-    "median": 0.0813
+    "max": 0.235,
+    "median": 0.0616
    },
    "ref_c7_ns_A": {
-    "max": 0.1642,
-    "median": 0.1053
+    "max": 0.1551,
+    "median": 0.0371
    },
    "ref_c7_ns_G": {
-    "max": 0.1749,
-    "median": 0.0616
+    "max": 0.0835,
+    "median": 0.0729
    }
   },
   "max_over_median_by_table": {
-   "closure_ns_A": 1.4948,
-   "closure_ns_G": 1.5829,
-   "ref_c7_ns_A": 1.4525,
-   "ref_c7_ns_G": 1.4683
+   "closure_ns_A": 1.7287,
+   "closure_ns_G": 1.6238,
+   "ref_c7_ns_A": 1.39,
+   "ref_c7_ns_G": 1.1743
   }
+ },
+ "ratio_of_independent_calibrations": {
+  "empirical_p99": 1.3722,
+  "max_over_min": 1.3722,
+  "normal_p99_of_ratio": 1.3488,
+  "ordered_pairs": 90,
+  "sigma_log": 0.091
  },
  "repeats": 5,
  "toy": {
   "cache_effect_pass1_over_mean_pass2_3": {
-   "A": 1.0402,
-   "G": 1.0575,
-   "refA": 1.0449,
-   "refG": 1.0496
+   "A": 0.9563,
+   "G": 0.947,
+   "refA": 0.9539,
+   "refG": 0.9548
   },
   "measured_over_calibration_prediction": {
-   "A": 0.9285,
-   "G": 0.1188,
-   "refA": 0.0622,
-   "refG": 0.0168
+   "A": 1.0283,
+   "G": 0.1229,
+   "refA": 0.0652,
+   "refG": 0.0184
   },
   "pass2_3_spread": {
-   "A": 0.0339,
-   "G": 0.0177,
-   "refA": 0.0079,
-   "refG": 0.0345
+   "A": 0.1027,
+   "G": 0.1096,
+   "refA": 0.0933,
+   "refG": 0.0936
   }
  },
  "v8_known_plus_C7_set4": {
-  "cv": 0.0578,
-  "max_over_median": 1.1609,
-  "median": 72977.0,
-  "min_over_median": 0.9622,
+  "cv": 0.0921,
+  "max_over_median": 1.2969,
+  "median": 64029.0,
+  "min_over_median": 0.9451,
   "n": 10
  },
  "written": "calibration-repeats.json"

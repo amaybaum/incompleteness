@@ -1,4 +1,4 @@
-# NP-AVG-1 Stage 0, Layer 2: implementation plan (r3, for re-review)
+# NP-AVG-1 Stage 0, Layer 2: implementation plan (r4, for re-review)
 
 **Status: WIP / UNREVIEWED, not frozen. The v8 enumeration is not authorized.** Nothing in this
 directory has run on v8's configuration class. v8 setups are constructed only to check that they
@@ -12,10 +12,17 @@ ACCEPT WITH CHANGES. r2 (`4a51c675`) applied L2-R1 to L2-R8 and the accepted par
 every owner ruling left as a placeholder. r3 implements erratum E1 (`../amendments/E1-LAYER1-ERRATUM.md`),
 in effect under `../LAYER1-FREEZE.md`, which carries the owner's rulings; its follow-ups for Layer 2
 are listed in `../amendments/E1-CHANGES-r2.md`. `CHANGES-L2-r3.md` maps each E1 item and follow-up to
-its edit, control and mutant. The rulings on T1, T2, T5, T6, F3 and F6 are filled in (§4.2). Three
-owner decisions stay open placeholders, with no default: κ (the launch margin), the Lemma G-D
-reference form and O1 (E_G as a C7 set). The production entry points refuse the v8 profile while any
-of them is open. `KAPPA-PROPOSAL.md` is an advisory proposal on κ for the owner; it sets nothing.
+its edit, control and mutant. r3 (`47cf942d`) was reviewed in `../../review/LAYER2-R3-REVIEW.md`
+(`a782aa54`): ACCEPT WITH CHANGES, R1–R6. r4 applies R1–R6 in place; `CHANGES-L2-r4.md` maps each to
+its edit. r4 also records the owner's rulings of 2026-10-26 on the launch rule (§4.2): the κ method,
+the calibration requirement, the model-uncertainty factor, the sequencing, the 24-hour ceiling with
+an explicit reserve, and the conditional authorization of a planted-set-only CI calibration. The
+rulings on T1, T2, T5, T6, F3 and F6 are filled in. Open placeholders, with no default: κ's two
+components u_cal and u_model (the method is approved, "not a final numerical value"), the reserve,
+the v8 survivor cap, the Lemma G-D reference form and O1. The production entry points refuse the v8
+profile while any of them is open. Advisory documents for the owner, setting nothing:
+`KAPPA-PROPOSAL.md` (κ and the reserve), `SURVIVOR-CAP-PROPOSAL.md`, `ci/CI-CALIBRATION-PROPOSAL.md`
+(with the workflow, not placed under `.github/`) and `AMENDMENT-PROPOSAL-V8-COUNT.md` (unadopted).
 
 **Authority.** The owner, 2026-10-26: "NP-AVG-1 — Yes, write Layer 2 for independent review. Keep
 the v8 lock intact and run no v8 experiments. Retain rule T's current wording provisionally, with
@@ -64,17 +71,21 @@ this plan; the r1 review's verdict is cited where it exists, and the r2 and r3 a
 | `l2enum.py` | the record driver and per-record analysis, one shard per run |
 | `l2merge.py` | the merge, S1a's diagnostic status σ (E1-T2), the label generator, rule T and its record |
 | `l2cert.py` | start-up checks and the certificate builder (items 1–8) |
-| `l2selftest.py` | controls of the Layer-2 machinery (34 cases) and its 30 machinery mutants; `--only` runs named cases |
+| `l2selftest.py` | controls of the Layer-2 machinery (36 cases) and its 34 machinery mutants; `--only` runs named cases |
 | `l2run.py` | the bounded local evidence driver |
 
 `design/`: the design-evidence scripts (`planted_shard.py`, `refusal_probe.py`, `crosscheck.py`,
-`r5_equivalence.py`, `e1check_replay.py`, `kappa_calibration.py`), the retained stdout and stderr of
-every step in `runs/`, the toy run's structured files in `toyrun/`, the κ calibration repeats in
-`kappa/` (timing data), and `RUN-MANIFEST.json` and `.md` (commands, exit codes, `-O` identity,
+`r5_equivalence.py`, `e1check_replay.py`, `kappa_calibration.py`, `overhead_measure.py`), the retained
+stdout and stderr of every step in `runs/`, the toy run's structured files in `toyrun/`, the κ
+calibration repeats in `kappa/` and the overhead measurement in `overhead/` (timing data), and `RUN-MANIFEST.json` and `.md` (commands, exit codes, `-O` identity,
 SHA-256 values of code, outputs, toy-run and calibration files, and the commit caveat of §12).
 
-`KAPPA-PROPOSAL.md` (beside this plan): an advisory proposal on κ, with the cost model and the
-calibration spread; it sets no value.
+Beside this plan, advisory and setting nothing: `KAPPA-PROPOSAL.md` (κ by the approved method, the
+cost model, the calibration spread, the u_model sensitivity, the reserve); `SURVIVOR-CAP-PROPOSAL.md`
+(the cap, from the shard distribution, the memory per survivor and the failure probability);
+`AMENDMENT-PROPOSAL-V8-COUNT.md` (the unadopted design of the v8 count-only pass). `ci/` holds the
+proposed planted-set CI calibration: the workflow, `calib_ci.py`, `calib_aggregate.py` and
+`CI-CALIBRATION-PROPOSAL.md`. `design/` adds `survivor_cap_measure.py` and `ci_local_check.py`.
 
 ## 2. Provenance of the copied code
 
@@ -136,6 +147,7 @@ dependence.
 | gate | runs on | verdict class on failure |
 | --- | --- | --- |
 | C0 (contexts) | every record on which a reference gate or C7 runs: production context equals `s0ref`'s for that record | VOID |
+| index round trip | every member whose C7 sample membership is evaluated: `record_at(index_of(m)) == m` (R3) | VOID |
 | C7 | per record, on every record of E1-F3's sets 1–4 (§3.3a), both conventions; never through orbit representatives | VOID |
 | C8 | every survivor orbit, every orbit with a computed MISMATCH, and a 1-in-100 sample of orbits: every member's closures computed directly and compared with the carried ones, attribute by attribute, and its count contributions compared | VOID |
 | C9 | every record (every member, carried): ret_L3′ ⊆ ret_L3, and each within the S1a bound of its rule | MISMATCH |
@@ -149,10 +161,13 @@ and the closure computed directly for that member (L2-R2), so L1's "every surviv
 an equivariance assumption on the reference (PO-L2-14 states what remains assumed). C7 on survivors
 is set 1 of §3.3a.
 
-**The survivor cap** (L2-R3, L2-R6). Survivor gates and residue detail run for at most
-`survivor_cap_per_shard` (10) survivor orbits per shard. A shard that meets more records
-`survivor_cap_exceeded = true`, still computes and counts every record, and the merge labels the run
-INCOMPLETE: no survivor is left without its gates, and none is dropped from the residue silently.
+**The survivor cap** (L2-R3, L2-R6; LAYER2-R3-REVIEW R2). Survivor gates and residue detail run for
+at most `survivor_cap_per_shard` survivor orbits per shard. On the v8 profile the cap is an owner-set
+resource constant, an `OWNER-PLACEHOLDER` with no default, fixed before any v8 result like κ; the
+toy profile uses 10. A shard that meets more records `survivor_cap_exceeded = true` and still
+computes and counts every record; the merge labels the run INCOMPLETE, reports the 58 counts
+complete, and flags `survivor_gates_incomplete` with the shards over the cap. The cap can only make a
+run INCOMPLETE; it never changes a count, a verdict or a label towards collapse (PO-L2-15).
 
 **Samples** are deterministic: index i is sampled on stream X at rate R iff SHA-256(salt | X | i),
 read as a big-endian integer from its first eight bytes, is 0 mod R. The salt, the stream names and
@@ -193,6 +208,11 @@ not adopted).
 **The survivor cap.** Set-1 records of a survivor orbit beyond the survivor cap are not checked; they
 are tallied as `skipped_beyond_survivor_cap`, and the shard's `survivor_cap_exceeded` makes the run
 INCOMPLETE (§3.7), so no survivor is left unchecked in a run that is not INCOMPLETE.
+
+**The record index, checked in-run** (LAYER2-R3-REVIEW R3). For every member whose sample membership
+is evaluated, the shard checks `record_at(index_of(m)) == m` (gate `index_roundtrip`, VOID on
+failure), so that on v8 the samples are drawn over each record's own index by a check, not only by
+PO-L2-19's proof and the toy test.
 
 **Coverage reporting.** Each shard writes, per convention and set, records checked and failed,
 orbits touched, the sum of the touched orbits' sizes, and the skipped count; `result.json` sums them
@@ -237,20 +257,35 @@ The normal and `-O` runs of a shard may also be run as two replica jobs of 20 mi
 replicas of one shard, not additional shards, and total runner time is unchanged.
 
 The stop rule:
-1. **Before launch.** The dry run's complete estimate (§3.6) must satisfy κ · total ≤ S7's budget
-   and κ · (each job's estimate) ≤ that job's timeout. κ is the launch margin, an owner-set resource
-   constant fixed with its basis before the complete estimate is computed (L2-R7; review §6). The
-   owner's answer was "Decide later" (E1 §9). It is an OWNER placeholder with no default value
-   anywhere in code or configuration, so no launch decision can be computed, and `l2cert.startup`
-   refuses the v8 profile. `KAPPA-PROPOSAL.md` is an advisory proposal for that decision. The launch
-   decision also needs the C7 term, whose v8 inputs are not computed (§3.6).
+1. **Before launch** (`l2plan.launch_decision`; the owner's rulings of 2026-10-26). Launch iff
+
+   κ · total + reserve ≤ 24 runner-hours, and κ · (each job's estimate) ≤ that job's timeout.
+
+   - The ceiling: "24 hours maximum, including all run overhead, with an explicit reserve"
+     (`budget.runner_hours = 24`, owner-fixed). The reserve is an explicit term, an OWNER
+     placeholder (`budget.reserve_runner_seconds`); `KAPPA-PROPOSAL.md` proposes its size.
+   - κ by the approved method: "Approve the proposed method, κ = u_cal × u_model, but not a final
+     numerical value." `l2plan.kappa_from_rule` computes κ = u_cal × u_model, rounded up to one
+     decimal, from `budget.kappa_rule`, whose two components are OWNER placeholders: u_cal from at
+     least 20 independent calibrations on the CI runner class ("Require at least 20 independent timing
+     calibrations on the relevant CI runner class"), u_model "an explicitly judgment-based factor,
+     subject to sensitivity analysis".
+   - Otherwise the outcome is "not undertaken for cost": "If the calibrated runtime exceeds 24 hours,
+     the experiment must be reduced through a new reviewed design or declared infeasible under this
+     budget — not run with an artificially smaller margin." `launch_decision` never changes κ; there
+     is no other source of κ (L2-LAUNCH; mutants M_launch_fit_kappa and M_launch_no_reserve).
+   - Sequencing: "Approved. Fix κ, the survivor cap, and budget ceiling before any v8 count." G_D and
+     O1 are decided after the count, before the full run.
+
+   With any placeholder open, no launch decision is computed and `l2cert.startup` refuses the v8
+   profile. The decision also needs the C7 term, whose v8 inputs are not computed (§3.6).
 2. **During the run.** A shard that reaches its timeout is cancelled by the host; its file is
    missing, and the merge labels the run INCOMPLETE. A shard that exceeds the survivor cap is
    INCOMPLETE. Nothing is retried automatically.
 3. **After a stop.** A re-dispatch is a new owner decision (§A.43 item 4).
 
 The full mutant campaign is a separate dispatch with its own budget: about 33 minutes locally on the
-r3 measurements (L1 §10), plus the 30 machinery mutants, each running every self-test case (about half a minute each). It is not counted in
+r3 measurements (L1 §10), plus the 34 machinery mutants, each running every self-test case (about half a minute each). It is not counted in
 the 24 hours.
 
 ### 3.6 Dry run and the complete cost estimate
@@ -286,8 +321,12 @@ production closure times and r_A(m), r_G(m) the calibrated full-reference closur
 non-fixed quantities (`l2calib.py`, planted sets only; beyond the largest calibrated size scaled
 quadratically), m̄ the mean context size and m_max the largest; each run-time term is doubled for
 the `-O` copy. `dryrun.json` carries each term's formula beside its value (`cost.formulas`):
-1. **closures:** Σ_m count(m) · (orbits/N) · [2 t_A(m) + 2 t_G(m)] · overhead (2, a configuration
-   constant covering analysis and member attributes);
+1. **closures:** Σ_m count(m) · (orbits/N) · [2 t_A(m) + 2 t_G(m)] · overhead. overhead = 2 is an
+   **unmeasured judgement** (LAYER2-R3-REVIEW R5) covering analysis and member attributes. A local,
+   bounded measurement (`design/overhead_measure.py`, toy geometry: every toy orbit and 120 planted
+   records) gives 2.87–2.93 as a ratio of totals (§12), so on that evidence the factor 2 under-states
+   this term by about 45 %; the factor is left at 2 pending the owner's and the review's decision, and
+   is not adjusted here (model error is u_model's, `KAPPA-PROPOSAL.md`);
 2. **sampled gates on representatives:** (1/1,000 for each of C11 (i), C17, C18) · orbits ·
    [r_A(m̄) + r_G(m̄)], and C8 on 1 in 100 orbits · 8 members · [2 t_A(m̄) + 2 t_G(m̄)];
 3. **C7 on its E1-F3 scope**, per record: c7_c = 2 · [t_c(m) + r_c(m)] (a direct production closure
@@ -303,7 +342,8 @@ the `-O` copy. `dryrun.json` carries each term's formula beside its value (`cost
    authorization)". A trivial upper bound (|F_G| = |I_A| = |I_G| = N, at m_max) is printed and
    labelled "not an estimate";
 4. **survivor gates, capped:** cap · S · 8 · [2 t_A + 2 t_G + 4 (r_A + r_G)] at m_max, which includes
-   C7 on set 1;
+   C7 on set 1. On v8 the cap is an owner placeholder, so the term is "not computed (owner
+   placeholder: the survivor cap)" and its coefficient per unit of cap is printed;
 5. **pre-flight** (300 s) and **merge** (300 s per run): stated allowances with their basis in
    `l2config`;
 6. **S1a:** four bound closures; per bound, three streamed reference passes (C17, C18 and the case
@@ -313,8 +353,16 @@ the `-O` copy. `dryrun.json` carries each term's formula beside its value (`cost
 No value is assumed for an uncomputed input. On v8 the total, the shard job's estimate and the
 launch decision are "not computed"; `cost.known_terms_runner_seconds` and
 `cost.known_terms_plus_C7_set4_runner_seconds` give the sum of the terms that are known.
-`launch_within_budget` is `null`, with the reasons listed (`launch_not_decided_because`): κ is a
-placeholder, and the C7 inputs are not computed. The local figures are in §12.
+`launch_within_budget` is `null`, with the reasons listed (`launch_not_decided_because`): κ and the
+survivor cap are placeholders, and the C7 inputs are not computed. The local figures are in §12.
+
+**The model is not validated** (LAYER2-R3-REVIEW §5, R5). Its only actual-against-estimate comparison
+is the toy class: across runs the toy dry run predicts a C7 term of 191–229 s and a known total of
+2,197–2,453 s, while all four toy shards, with every representative-sampled gate at rate 1 and C7 on 608 records,
+ran in about 9 s. Toy contexts are small (at most 8 quantities), so this over-prediction does not
+transfer to v8; in the other direction the measured overhead (about 2.9 against 2) suggests the
+closures term is under-stated. Every statement drawn from the estimate, including "κ above about
+1.18 does not fit S7", holds under the cost model only.
 
 ### 3.7 Merge, labels and rule T (items 5–8)
 
@@ -376,10 +424,10 @@ open; the accepted readings. **Rule T** is evaluated iff σ = OK, and recorded a
 | C6 execution instances, C10 (ii), C12 on v8 | run in the authorized pre-flight only | accepted (F11) | `l2preflight` |
 | BASE_RESIDUE | reachable only after the MISMATCH-resolution amendment L1 §5 requires; §5's precedence is implemented | accepted (F1) | `l2merge.label` |
 | base-relative survivors | literal text; reported only under BASE_RESIDUE | moot while F1 holds (F2) | `l2enum` |
-| E1-F3 "computed closure" for set membership | the carried result (the representative's closure carried by the group action); on orbits closed directly (survivor, flagged and C8-sampled orbits), C8 compares carried and direct results and fails VOID on any difference, so the choice cannot hide a failure there | r3 reading, unreviewed | `l2enum.Shard.c7_orbit` |
-| E1-F3 set 1 beyond the survivor cap | set-1 records of an orbit beyond the cap are tallied as skipped; the run is INCOMPLETE (L2-R3) | r3 reading, unreviewed | `l2enum`, `l2merge` |
-| E1-T2 case 1 (a) | `s1a.json` missing, unreadable, or lacking a field σ reads | r3 reading, unreviewed | `l2merge.sigma` |
-| E1-T6 `rule_T.statement_scope` | recorded in every outcome, as the standing of rule T's consequence; the zero branch's text is the same | r3 reading, unreviewed | `l2merge.rule_T` |
+| E1-F3 "computed closure" for set membership | the carried result (the representative's closure carried by the group action); on orbits closed directly (survivor, flagged and C8-sampled orbits), C8 compares carried and direct results and fails VOID on any difference, so the choice cannot hide a failure there | review: acceptable | `l2enum.Shard.c7_orbit` |
+| E1-F3 set 1 beyond the survivor cap | set-1 records of an orbit beyond the cap are tallied as skipped; the run is INCOMPLETE, counts complete, `survivor_gates_incomplete` flagged; the v8 cap is an owner decision (R2) | review: acceptable as fail-closed | `l2enum`, `l2merge` |
+| E1-T2 case 1 (a) | `s1a.json` missing, unreadable, or lacking a field σ reads | review: acceptable (fail-closed) | `l2merge.sigma` |
+| E1-T6 `rule_T.statement_scope` | E1-T6's text only when the outcome is L_A = L_G = 0; "not applicable (outcome: …)" otherwise (LAYER2-R3-REVIEW R1) | r4, as the review requires | `l2merge.rule_T` |
 | C7 sample rates on the toy profile | 100 and 1,000, as on v8, so that the toy run's coverage is comparable with E1-check part J | r3 design choice | `l2config` |
 
 The accepted readings are also recorded in `l2config.CONFIG['accepted_readings']` and echoed into
@@ -390,6 +438,22 @@ The accepted readings are also recorded in `l2config.CONFIG['accepted_readings']
 E1's rulings are recorded in `l2config.CONFIG['owner_rulings']` and echoed into `result.json`. The
 open decisions are `OWNER-PLACEHOLDER` values; `l2cert.startup` refuses the v8 profile while any
 remains (certificate item 1; L2-PLACEHOLDER), and `result.json` lists them.
+
+**The owner's rulings of 2026-10-26 on the launch rule** (amaybaum; recorded in `l2config`
+`owner_rulings`):
+
+| question | ruling, verbatim | implemented as |
+| --- | --- | --- |
+| κ | "Approve the proposed method, κ = u_cal × u_model, but not a final numerical value." | `budget.kappa_rule`: the method, with u_cal and u_model OWNER placeholders; `l2plan.kappa_from_rule` |
+| calibration | "Require at least 20 independent timing calibrations on the relevant CI runner class." | `ci/calib_aggregate.py` refuses fewer than 20; the proposed workflow runs 20 |
+| model uncertainty | "Retain as an explicitly judgment-based factor, subject to sensitivity analysis." | u_model a placeholder; `KAPPA-PROPOSAL.md` §c gives the sensitivity table |
+| sequencing | "Approved. Fix κ, the survivor cap, and budget ceiling before any v8 count." | §3.5; G_D and O1 after the count, before the full run |
+| survivor cap | "Request a reasoned proposal based on shard distribution, memory consumption, and failure probability; do not use the placeholder 10." | the v8 cap stays a placeholder; `SURVIVOR-CAP-PROPOSAL.md` |
+| budget ceiling | "24 hours maximum, including all run overhead, with an explicit reserve." and "If the calibrated runtime exceeds 24 hours, the experiment must be reduced through a new reviewed design or declared infeasible under this budget — not run with an artificially smaller margin." | `budget.runner_hours = 24`; `budget.reserve_runner_seconds` (placeholder); `l2plan.launch_decision` |
+| CI calibration | authorized conditionally: "a separate, planted-set-only CI timing calibration, provided it cannot access v8 and its exact workflow and resource limits are reviewed before dispatch. This is not authorization to dispatch the existing full experimental workflow." | `ci/`, proposed, not placed under `.github/`, not dispatched |
+| v8 count-only pass | not authorized, pending its Layer-2 amendment and review | `AMENDMENT-PROPOSAL-V8-COUNT.md`, unadopted |
+
+**Erratum E1's rulings:**
 
 | ruling | E1 item | implemented as |
 | --- | --- | --- |
@@ -402,9 +466,11 @@ remains (certificate item 1; L2-PLACEHOLDER), and `result.json` lists them.
 
 | open decision | question | what the code does meanwhile |
 | --- | --- | --- |
-| κ | the launch margin and budget (S7); the owner: "Decide later" | no value anywhere; no launch decision is computed; the v8 profile is refused. `KAPPA-PROPOSAL.md` is advisory |
-| G_D | Lemma G-D in C7's reference computation (E1 §9: conditionally approved; non-executing until the owner confirms the proof) | not implemented; the full `s0ref` closure is the only reference form |
-| O1 | E_G as a fifth C7 set under G (E1 §9; optional, not adopted) | not a check set; |E_G| is reported for information on the toy profile |
+| κ's value (u_cal, u_model) | the method is approved; the value is not | no value anywhere; no launch decision is computed; the v8 profile is refused. `KAPPA-PROPOSAL.md` is advisory |
+| the reserve | the explicit reserve inside the 24-hour ceiling | no value; `KAPPA-PROPOSAL.md` proposes one |
+| survivor cap (v8) | survivor orbits per shard gated before the run is INCOMPLETE; a resource constant (LAYER2-R3-REVIEW R2); the owner asked for a reasoned proposal | no value for v8; the estimate's survivor term is not computed; the v8 profile is refused. `SURVIVOR-CAP-PROPOSAL.md`. The toy profile uses 10 for design evidence only |
+| G_D | Lemma G-D in C7's reference computation (E1 §9: conditionally approved; non-executing until the owner confirms the proof); decided after the count, before the full run | not implemented; the full `s0ref` closure is the only reference form |
+| O1 | E_G as a fifth C7 set under G (E1 §9; optional, not adopted); decided after the count, before the full run | not a check set; |E_G| is reported for information on the toy profile |
 
 ### 4.3 S1a's status σ (E1-T2)
 
@@ -450,7 +516,7 @@ schema names are recorded in each file.
 | `mutant-campaign.json` | `…/mutant-campaign/1` | mode, `code_digest`, the unmodified-suite precondition, per mutant {named case, exit, failed, killed, run}, demonstration fields, killed/total, `pass` |
 | `s1a.json` | `…/s1a/2` | bounds per (convention, rule) as flat integer lists, sizes, L_A, L_G (`L_bound_rule` L3′), `L_reported_L3`, `L_reference` (L3′ and L3, case 2 (d)), `L_reference_L3_differs`, linked quantities, per-line results, reference checks per convention and rule, `fixed_in_log`, `L3prime_within_L3`, `status` (from these fields; the merge re-derives σ), reasons, digests, `commit`, `tree_clean`, `ci_run`, `sha256` |
 | `shard-<s>.json` | `…/shard/3` | profile, shard, range, records, scanned, representatives, orbit weight, digests (code, config, dry run, S1a), `commit`, `tree_clean`, `ci_run`, authorization echo {decision, artifact, owner check, CI run}, base retained sets, additive counts, canonical class keys with orbit sizes, base-relative and L3-only tallies, gate tallies and first failures (diagnostics), `witness_min`, `witness_candidates_seen`, `survivor_representatives`, `survivor_cap`, `survivor_cap_exceeded`, survivor detail, `C7_scope_coverage` {convention: {set: records checked and failed, orbits touched, sum of touched orbit sizes, skipped beyond the cap}}, `sha256` (of the canonical JSON without it) |
-| `result.json` | `…/result/1` | label, `label_source`, VOID/MISMATCH/INCOMPLETE reasons, base precondition, 58 counts (`n_counts`, `count_list`), record-sample masking reading, structure tallies, in-run gate totals, `C7_scope_coverage` and `C7_scope` (definition, reference form, samples), minimal witness and candidates seen, coverage, S1a {status σ, `status_reasons` by case, `status_kind`, L_A, L_G, `L_reference`, L3 values, bound sizes, lines}, `rule_T` {evaluated, outcome, `bound_rule`, `statement_scope` (E1-T6 verbatim), `cost_clause`, rulings, `run_label`, `beside_label` and "no proposal" when the label is not passing, `L_reported_L3`}, authorization echo, `ci_run`, `commits` {pre-flight, S1a, shards}, `owner_rulings`, `owner_rulings_pending`, `accepted_readings`, digests, coverage limits (L1 §11), input digests, residue file digest |
+| `result.json` | `…/result/1` | label, `label_source`, VOID/MISMATCH/INCOMPLETE reasons, base precondition, 58 counts (`n_counts`, `count_list`), `survivor_gates_incomplete` {flag, shards over the cap}, record-sample masking reading, structure tallies, in-run gate totals, `C7_scope_coverage` and `C7_scope` (definition, reference form, samples), minimal witness and candidates seen, coverage, S1a {status σ, `status_reasons` by case, `status_kind`, L_A, L_G, `L_reference`, L3 values, bound sizes, lines}, `rule_T` {evaluated, outcome, `bound_rule`, `statement_scope` (E1-T6 verbatim in the zero branch, "not applicable (outcome: …)" otherwise), `cost_clause`, rulings, `run_label`, `beside_label` and "no proposal" when the label is not passing, `L_reported_L3`}, authorization echo, `ci_run`, `commits` {pre-flight, S1a, shards}, `owner_rulings`, `owner_rulings_pending`, `accepted_readings`, digests, coverage limits (L1 §11), input digests, residue file digest |
 | `expected-controls.json` | `…/expected-controls/1` | the hand-derived and recorded expected values (`l2config.CONFIG['expected']`) and the observed pre-flight results |
 | `residue.json` | `…/residue/1` | survivor representatives with the §3 structure (only when survivors exist) |
 | `certificate.json` | `…/certificate/1` | items 1–8, each with `holds` and its evidence, including the commit binding and the landing requirement; `holds` overall |
@@ -544,9 +610,11 @@ quantities of ret^{L3′}_G(U) with a seed tip whose own cone contains a source 
 `l2merge.rule_T_record` writes the outcome into `result.json` with the run's label beside it. When
 the outcome is evaluated and the label is VOID, MISMATCH or INCOMPLETE, it records `beside_label`
 and replaces the S1b proposal by "no proposal from this run (label …); the owner's separate
-decision is needed" (E1-T2). `rule_T.statement_scope` carries E1-T6's text verbatim in every outcome;
-the zero branch's statement is that text and must not be presented as a probabilistic result, an
-empirical observation or an independent theorem about the full model. The L3 values are recorded in
+decision is needed" (E1-T2). `rule_T.statement_scope` carries E1-T6's text verbatim only when the
+outcome is L_A = L_G = 0; for `not_evaluated` and "L_A > 0 or L_G > 0" it reads "not applicable
+(outcome: …)" (LAYER2-R3-REVIEW R1), so that no run asserts the zero branch's statement where it is
+not established. That statement must not be presented as a probabilistic result, an empirical
+observation or an independent theorem about the full model. The L3 values are recorded in
 `rule_T.L_reported_L3`, never as inputs. `rule_T.cost_clause` reads "not evaluable in Stage 0"
 (E1-T3). `wording_status` reads "confirmed with qualification (E1-T6)".
 
@@ -590,7 +658,7 @@ record has a linked survivor.
 | PO-L2-4 | `post_closure(ctx_gR, g·ret(R))` equals `analyse(ctx_gR)` | **Follows from PO-L2-3 as code identity; review: valid.** **Checked:** L2-POST, all toy records, both conventions, both rules; C8 in-run |
 | PO-L2-5 | The merged counts equal the full per-record computation (additive counts; observer classes as Σ \|orbit(K)\| over distinct canonical public sets) | **Proved here given PO-L2-3; review: valid (for 54).** The four E1-F6 cells are additive per member like the other degeneracy cells (PO-L2-21). **Checked:** toy, all 58 counts: the 54 against code-r5's full computation, the four against an independent per-record computation with code-r5's `s0ref` (`crosscheck_toy_counts`) |
 | PO-L2-6 | Masking-equivalence canonical form and the analytic class count | **Proved here; review: valid.** **Checked:** brute force on three toy variants, both readings (L2-MASK) |
-| PO-L2-7 | Rule T's L_A = L_G = 0 consequence (§8) | **Review: valid under the T1, T2 and T5 readings**, from L1 §1, §2, PO4 and PO7; those readings are now E1's rulings (E1-T1, E1-T2, E1-T5), and E1-T4 records the four facts. Its standing is E1-T6's: a geometric property of the specified closure. Not re-reviewed in r3 |
+| PO-L2-7 | Rule T's L_A = L_G = 0 consequence (§8) | **Re-reviewed (`LAYER2-R3-REVIEW.md` §3): valid** under E1-T1, E1-T5 and E1-T4's four facts (L1 §1 nesting, PO4 monotonicity with a record-independent frame, PO7); standing E1-T6's, a geometric property of the specified closure |
 | PO-L2-8 | Memoizing the G eligibility per (pair, frame sources) does not change any result | **Proved here; review: valid.** **Checked:** quick suite identical to code-r5's except the refusal block |
 | PO-L2-9 | C12 on the universe covers every record | **Proved here; review: valid** |
 | PO-L2-10 | **Restated (L2-R1).** The witness is minimal among the records whose computed results — carried, or directly recomputed on flagged and sampled orbits — meet a MISMATCH condition. Precisely: the candidates are the members of every orbit closed directly (survivor orbits, orbits whose carried results meet a MISMATCH condition, and the 1-in-100 C8 sample), each confirmed on its direct results; the shard keeps the running minimum over all of them and the merge the minimum over the shards | **Proved here (by construction: every candidate is compared, nothing is capped).** **Checked:** L2-WIT (300 candidates in random order), L2-C16, the planted negative control. **Not claimed:** minimality over records whose fault is seen neither in the carried results nor in a directly recomputed orbit; that would need the computed closure to be equivariant, which is sampled (C8), not proved |
@@ -598,14 +666,15 @@ record has a linked survivor.
 | PO-L2-12 | The S1a bounds are C9 bounds: ret(R) ⊆ ret(U) for every record, for L3′ and for L3 | **Follows from L1 PO4** (PO-L2-7 steps 1–2); review: valid. Both bounds are reference-checked (L2-R8) |
 | PO-L2-13 | The dry run's formulas (N, Burnside, context histogram, shared-tip count, the C7 populations) equal the engine's | **Checked on toy only** (L2-PLAN, L2-SHTIP, L2-SCOPE: I_A 1,071, I_G 667, F_G 595 in 283 orbits, E_G 12, equal to E1-check parts H and J); review: N and Burnside on v8 independently confirmed by `s0symcheck`. The populations are not computed on v8 (§3.6) |
 | PO-L2-14 | **(L2-R2; r3: C7 by set 1.)** Survivor-gate coverage: C0, C7, C11 (i), C17 and C18 run on every record the computation classifies as a survivor, each with its own reference context and its own direct closure | **Proved here for the orbits whose representative is a survivor:** every member is closed directly and gated (up to the cap; beyond it the run is INCOMPLETE); C7 runs on every survivor record as set 1 of §3.3a. A member that would be a survivor under direct closure in an orbit whose representative's computed closure is collapsed is reached only through the 1-in-100 C8 sample; its absence rests on the equivariance of the computed closure, which is sampled (C8), not proved. No equivariance of the reference is assumed. **Checked:** L2-SURV (4 members × 2 conventions on the planted block orbit); `planted_survivor_path` |
-| PO-L2-15 | **New (L2-R3).** Residue completeness: a label other than INCOMPLETE implies that every survivor representative counted by a shard has its detail in the residue | **Proved here:** the merge's `residue_complete` requires, per accepted shard, `survivor_cap_exceeded = false` and exactly `survivor_representatives` details; the shard appends one detail per gated survivor representative and sets the flag when it meets one beyond the cap. **Checked:** L2-MRG (truncated residue and exceeded cap give INCOMPLETE); M_residue_ignored |
+| PO-L2-15 | **(L2-R3; r4: LAYER2-R3-REVIEW R2.)** Residue completeness: a label other than INCOMPLETE implies that every survivor representative counted by a shard has its detail in the residue. The survivor cap affects completeness only: a shard over the cap still computes and counts every record, so a cap-exceeded run is INCOMPLETE with its 58 counts complete and `survivor_gates_incomplete` flagged; the cap changes no count, verdict or label other than to INCOMPLETE. On v8 the cap is an owner-set resource constant fixed before any result | **Proved here:** the merge's `residue_complete` requires, per accepted shard, `survivor_cap_exceeded = false` and exactly `survivor_representatives` details; the shard appends one detail per gated survivor representative and sets the flag when it meets one beyond the cap. **Checked:** L2-MRG (truncated residue and exceeded cap give INCOMPLETE; the cap-exceeded run reports 58 counts and the flag); M_residue_ignored; L2-PLACEHOLDER (no v8 cap) |
 | PO-L2-16 | **New (E1-F3).** C7's per-record scope: for every record R and convention c, if R is in set 1, 2, 3 or 4 of §3.3a, the shard closes R directly with the production engine and with the full `s0ref` reference in R's own reference context, and C7 fails on R iff the two closures differ or R's carried result differs from its direct closure; the only exception is a set-1 record of an orbit beyond the survivor cap, which is tallied as skipped in a run that is then INCOMPLETE. No orbit representative substitutes for a member | **Proved here by construction:** `Shard.c7_orbit` iterates every member of every orbit it processes, each orbit is processed exactly once (PO-L2-2), and `c7_record` computes both closures for the member itself. **Checked:** L2-C7COV (the toy run's per-set coverage equals an independent computation with `s0ref`, an independent hash and `l2plan`'s group action, sampled non-representative records included: A set 3 12/12/45, set 4 1/1/4; G set 2 595/283/595, set 3 6/6/24, set 4 1/1/4, as E1-check part J); L2-F1 (F1 caught on all 595 affected records of set 2); L2-F2 (F2, invisible in every carried result, caught on all 312 affected records); mutants M_C7_set2_computed, M_C7_carried_only, M_C7_sample_rep_index. **Not claimed:** that the production engine computes the specified closure on v8's records; that is what C7 tests there |
 | PO-L2-17 | **New (E1-F3).** Set 2 under G is closure-free: the shard's set 2 is (T_G ∩ Surv_G) ∪ F_G, with F_G evaluated by `l2plan` from Q⁰(R) and the frame alone; under the specification it equals T_G | **The equality is E1's** (Lemma G-D, proved in E1-F3 and `E1-NOTE-symmetry-and-G-D.md`, Corollary 2; confirmed in `E1-RECHECK-r2.md` §4). **Closure-freeness is proved here by construction:** `Space.c7_flags` reads Q⁰(R), its own cone and tip code and the frame (the union of the G cones of the fixed quantities and even port samples), and no closure. **Checked, toy only:** L2-SCOPE (on every toy record `l2plan`'s I_A, I_G, F_G, E_G equal those computed with `s0ref`'s contexts, tips and frame, and I_c equals the production context's); L2-F1. **The frame:** pre-flight `C12_universe` requires `l2plan`'s frame to equal the production frame on the box of radius n + 6 at slices −1 and 0 (toy: 129 cells, equal; on v8 this runs only in the authorized pre-flight, with B8's 833 cells). **Not checked on v8 in this revision:** the per-record predicates, beyond what the frame equality and the toy class show |
 | PO-L2-18 | **New (E1-T2).** σ is derived as E1-T2 defines it: first matching case of 1 (a)–(c), 2 (a)–(d), 3 (a)–(c), else OK; every holding condition enters the label's reason lists; rule T is evaluated iff σ = OK; a rule-T outcome evaluated in a VOID, MISMATCH or INCOMPLETE run is recorded beside the label with no S1b proposal | **Proved here by construction** (`l2merge.sigma`, `rule_T`, `rule_T_record`; the label is computed by `label` from every reason list, and σ is not one of its inputs). The fields σ reads under case 2 are produced by `l2refcheck`, which imports only `s0ref` (L2-S1). That σ = OK certifies the bound is E1-T2's argument ("Why σ = OK certifies the bound"), which rests on C0, C17, C18, case 2 (d) and the closure code's retained/logged partition (a code invariant). **Checked:** L2-SIGMA (each of the ten conditions gives its case and `not_evaluated`; the valid run gives OK and an evaluated rule T), L2-PREC (σ = OK with a failing VOID gate, MISMATCH control or missing shard keeps that label, with the outcome beside it and no proposal), L2-2D, L2-T1; mutants M_ruleT_ignores_sigma, M_sigma_overrides_label, M_proposal_on_failed_label, M_sigma_no_2d, M_ruleT_reads_L3 |
-| PO-L2-19 | **New (E1-F3).** `l2plan.Space.index_of` is the inverse of `s0geom.record_at` on the record space | **Proved here:** a closed form of the same order (singles by (site, slice); pairs by the lexicographic rank of the site pair i < j, i(n_s − 1) − i(i − 1)/2 + (j − i − 1), then (t1, t2)). **Checked, toy only:** L2-INDEX (every index, k = 2 and k = 1). Not checked on v8, which would need `record_at` on v8 |
+| PO-L2-19 | **New (E1-F3).** `l2plan.Space.index_of` is the inverse of `s0geom.record_at` on the record space | **Proved here:** a closed form of the same order (singles by (site, slice); pairs by the lexicographic rank of the site pair i < j, i(n_s − 1) − i(i − 1)/2 + (j − i − 1), then (t1, t2)). **Checked:** L2-INDEX on toy (every index, k = 2 and k = 1); **in-run on v8** (LAYER2-R3-REVIEW R3): `record_at(index_of(m)) == m` for every member whose sample membership is evaluated, VOID on failure (gate `index_roundtrip`; L2-IDXRUN, with a planted off-by-one index; mutant M_index_check_off) |
 | PO-L2-20 | **New (E1-F6).** The per-record masking-equivalence test: R is masking-equivalent iff the number of records of the space with R's canonical form (PO-L2-6), less one if R is in the space, is at least one | **Proved here** from PO-L2-6's canonical form: a class is empty-form (empty items only), one site (one non-empty item, the other item, if any, empty at another site) or two sites (two non-empty items), with the counts c_x(m), E_x and E_tot of PO-L2-6. **Checked:** L2-MASK, against brute force on every record of three toy variants |
 | PO-L2-21 | **New (E1-F6).** The four added counts are preserved by the orbit-reduced computation | **Proved here given PO-L2-3:** each is a per-member contribution from the member's own record (stabilizer order, masking key) and its carried survivor status, both C4v-invariant (E1-F6), as the other degeneracy cells; in-run C8 compares every contribution, these four included, on directly closed orbits. **Checked:** `crosscheck_toy_counts` (58 equal, the four against an independent computation; all four are 0 on the toy class, which has no survivors); L2-COUNTS (a planted survivor orbit with a nontrivial stabilizer gives N_ST = 4 under A and G); `planted_survivor_path` |
 | PO-L2-22 | **New (E1-F3).** H₁₀₀ and H₁₀₀₀ are deterministic functions of the record index, on two distinct streams, frozen in the configuration digest | **Proved here by construction** (`c7_sampled` hashes (salt, stream, `index_of(R)`)). **Checked:** L2-C7COV (the sampled records equal an independent hash over [0, N), and include non-representative records); L2-SAMPLE; mutant M_C7_sample_rep_index |
+| PO-L2-24 | **New (r4; the owner's rulings).** The launch rule: κ comes only from u_cal × u_model (rounded up to one decimal); launch iff κ · total + reserve ≤ 24 runner-hours and κ · each job ≤ its timeout; otherwise "not undertaken for cost", with κ unchanged; with any input open, no decision | **Proved here by construction** (`l2plan.kappa_from_rule`, `launch_decision`; the estimate calls no other κ). **Checked:** L2-LAUNCH (fits; over the total; decided by the reserve; over a job's timeout; open inputs), L2-PLACEHOLDER; mutants M_launch_fit_kappa, M_launch_no_reserve. **Not claimed:** that the estimate is right; it holds under the cost model (§3.6) |
 | PO-L2-23 | **New.** No record-enumerating count runs on v8's configuration class: `--shared-tips`, `shared_tip_records`, `c7_populations` and the record generator refuse a space whose (dim, n, port) are v8's before any record is formed | **Proved here by construction** (the first statement of each). **Checked:** L2-V8COUNTS (with a sentinel in place of the record generator, so that a missing refusal is detected without enumerating), `refusal_probe` (the command line, after the in-process refusal is confirmed); mutant M_v8_counts_unrefused |
 
 Nothing in this table is claimed beyond its status. "Checked" items are evidence on the instances
@@ -653,7 +722,7 @@ local evidence (§12).
 | integer-only, no repository read in the engine | — | C14 (extended) | pass |
 | minimal witness well defined | `l2enum.Shard.add_witness`, `l2merge.minimal_witness` | C16; L2-WIT; L2-C16; planted negative control | M_witness_first and M_witness_max killed |
 | distinguishability classes (a)–(c) | `l2analysis.post_closure`, canonical keys | C8 (invariant parts), C7 | toy |
-| every control can fail | — | the mutant campaign, quick now and full in CI | 47/47 quick |
+| every control can fail | — | the mutant campaign, quick now and full in CI | 51/51 quick |
 
 **Layer-1 controls** (L1 §6). For each: the implementing code, where it runs, and its class on
 failure.
@@ -700,7 +769,7 @@ failure.
 | per-record C7 detects member-only faults | F2 self-test (`E1-check` part I) | L2-F2 (312 of 312, with no carried result wrong); M_C7_carried_only | L2-F2 passes; mutant killed |
 | σ is diagnostic and never overrides the run label | label self-test: σ = OK with another failing check gives that check's label (`E1-check` part K) | L2-PREC; M_sigma_overrides_label, M_proposal_on_failed_label | L2-PREC passes; mutants killed |
 | L_A and L_G reference recomputation | case 2 (d) self-test with a perturbed production count (`E1-check` part K) | `l2s1a` `L_reference`; `l2merge.sigma` case 2 (d); L2-2D (both at the S1a and at the merge level); M_sigma_no_2d | L2-2D passes; toy recomputation 15 and 7 |
-| rule T's statement scope | `result.json` `rule_T.statement_scope` | L2-T6: E1-T6's text verbatim in `l2config` and in `result.json` | L2-T6 passes |
+| rule T's statement scope | `result.json` `rule_T.statement_scope` | L2-T6: E1-T6's text verbatim in `l2config`, recorded only in the zero branch (R1); M_scope_every_outcome | L2-T6 passes; mutant killed |
 | record-index sampling | sampling self-test (`E1-check` part J) | L2-C7COV, L2-SAMPLE; M_C7_sample_rep_index | passes; mutant killed |
 | coverage reporting, raw and orbit-level | shard and `result.json` fields; `E1-check` part J | `C7_scope_coverage` (records checked and failed, orbits touched, sum of sizes, skipped beyond the cap) | toy `result.json` |
 
@@ -724,23 +793,33 @@ failure.
 | sampling is deterministic and non-empty | L2-SAMPLE; M_sampler_never |
 | C7's samples are over record indices | L2-C7COV, L2-INDEX; M_C7_sample_rep_index |
 | no record-enumerating count runs on v8 | L2-V8COUNTS, `refusal_probe`; M_v8_counts_unrefused |
-| the v8 profile is refused while κ, G_D or O1 is open, with no value for κ anywhere | L2-PLACEHOLDER; M_placeholders_ignored |
+| C7's sample index is each member's own record index, in-run | gate `index_roundtrip`; L2-IDXRUN; M_index_check_off |
+| `statement_scope` asserts the zero-branch statement only in the zero branch | L2-T6; M_scope_every_outcome |
+| a cap-exceeded run is INCOMPLETE, with complete counts and a flag; no v8 cap is set | L2-MRG, L2-PLACEHOLDER |
+| the v8 profile is refused while κ's components, the reserve, the survivor cap, G_D or O1 is open, with no value for any of them anywhere | L2-PLACEHOLDER; M_placeholders_ignored |
+| the launch rule is the owner's: κ = u_cal × u_model, the 24-hour ceiling with an explicit reserve, κ never lowered to fit | L2-LAUNCH; M_launch_fit_kappa, M_launch_no_reserve |
+| the proposed CI calibration cannot reach v8, runs at least 20 calibrations, and is bounded | `ci_calibration_local_check` (equivalence, tripwire, aggregator minimum, workflow limits) |
 | the Layer-2 code and toy run keep every value E1-check verified | `e1check_replay` (output identical to `e1_check.out`) |
 | masking count reading | L2-MASK (three toy variants, both readings); M_mask_no_merge |
 | behaviour of the copied engine preserved | `code_r5_equivalence_quick` |
 
 ## 11. CI workflow design (proposal only; no file is added under `.github/`)
 
-Two dispatch-only workflows, each launched only on the owner's separate approval (§A.43 item 4), on
-a branch whose head is the frozen Layer-2 commit, after the open decisions of §4.2 (κ, G_D, O1) are
-recorded.
+**The planted-set CI calibration** (authorized conditionally by the owner) is a separate, third
+workflow, proposed in `ci/` with its trigger mechanics, runner class, 20 calibrations, timeouts,
+concurrency and limits (`ci/CI-CALIBRATION-PROPOSAL.md`). It is not placed under `.github/` and not
+dispatched; placing it and pushing its trigger branch follow its review and the owner's authorization.
+
+The two workflows below are dispatch-only, each launched only on the owner's separate approval
+(§A.43 item 4), on a branch whose head is the frozen Layer-2 commit, after the open decisions of
+§4.2 are recorded.
 
 **A. `np-avg-1-stage0-mutants` (the full campaign, item 3).**
 - **Inputs:** none.
 - **Jobs:**
   - `preflight-toy`: `l2preflight.py --profile toy`, full mode.
   - `mutants`: `l2mutants.py --full`, which needs the first job's `preflight.json`. The 17 rule
-    mutants run the whole full suite, the 2 equivalents run, and the 30 machinery mutants run
+    mutants run the whole full suite, the 2 equivalents run, and the 34 machinery mutants run
     `l2selftest.py`. A matrix by mutant is possible; the aggregation step then rebuilds
     `mutant-campaign.json` from the per-mutant JSON objects.
 - **Output:** `mutant-campaign.json` (mode `full`, `code_digest`). A marker step,
@@ -799,30 +878,33 @@ stdout and stderr is in `runs/`. `RUN-MANIFEST.json` records:
 - the HEAD at run time and whether the Layer-2 tree was clean.
 
 **Commit caveat (L2-R5).** The evidence was produced on an uncommitted working tree. The structured
-files record the HEAD at run time (`53786e6e`) and `tree_clean = false`; the commit binding holds
+files record the HEAD at run time (`a782aa54`) and `tree_clean = false`; the commit binding holds
 among them (one commit throughout), but that commit does not contain these files. They are design
 evidence only. At the Layer-2 freeze the evidence is regenerated at a recorded commit.
 
 | step | result |
 | --- | --- |
 | `manifest_verify` | the manifest matches |
-| `l2_selftest` | 34 cases pass: the 20 of r2 and L2-INDEX, L2-SCOPE, L2-C7COV, L2-F1, L2-F2, L2-SIGMA, L2-PREC, L2-T1, L2-T5, L2-2D, L2-COUNTS, L2-V8COUNTS, L2-T6, L2-PLACEHOLDER |
+| `l2_selftest` | 36 cases pass: the 20 of r2; L2-INDEX, L2-SCOPE, L2-C7COV, L2-F1, L2-F2, L2-SIGMA, L2-PREC, L2-T1, L2-T5, L2-2D, L2-COUNTS, L2-V8COUNTS, L2-T6 and L2-PLACEHOLDER of r3 (L2-T6, L2-MRG and L2-PLACEHOLDER extended in r4); and L2-IDXRUN and L2-LAUNCH of r4 |
 | `calibration_planted` | timings on planted sets (not deterministic) |
-| `dryrun_toy` | 1,400 records, 488 orbits, 4 shards; masking-equivalent 1,398 in both readings; C7 populations I_A 1,071 (432 orbits), I_G 667 (307), F_G 595 (283), E_G 12 (6); the complete estimate with the C7 term evaluated; launch not decided (κ is a placeholder) |
+| `dryrun_toy` | 1,400 records, 488 orbits, 4 shards; masking-equivalent 1,398 in both readings; C7 populations I_A 1,071 (432 orbits), I_G 667 (307), F_G 595 (283), E_G 12 (6); the complete estimate with the C7 term evaluated; launch not decided (κ's components and the reserve are placeholders) |
 | `dryrun_v8_plan_no_closure` | v8 shard plan without enumeration or closure: 5,163,225 records, 816,050 orbits (875 + 815,175), group order 8, 32 ranges; non-fixed context sizes up to 29 (37 with the fixed quantities); `closures_computed = 0`; C7 populations "not computed (requires authorization)" |
 | `dryrun_v8_estimate` | see below |
 | `preflight_toy_quick` | every pre-flight control passes (quick mode): refusal 46 of 46; C11 (iii) 0 failures; both direction mutants fail C11; S6 pass; the Layer-2 self-test; C12 on the toy universe, with `l2plan`'s frame equal to the production frame (129 cells) |
-| `mutants_quick` | 47 of 47 killed at their named cases: 17 rule mutants (L1 §6 table) and 30 machinery mutants, including the twelve r3 mutants M_C7_set2_computed (L2-F1), M_C7_carried_only (L2-F2), M_C7_sample_rep_index (L2-C7COV), M_ruleT_ignores_sigma (L2-SIGMA), M_sigma_overrides_label and M_proposal_on_failed_label (L2-PREC), M_sigma_no_2d (L2-2D), M_ruleT_reads_L3 (L2-T1), M_LG_tip_reading (L2-T5), M_counts_54 (L2-COUNTS), M_v8_counts_unrefused (L2-V8COUNTS) and M_placeholders_ignored (L2-PLACEHOLDER). Machinery mutants run against their named case only in the quick campaign. The two demonstrations fail C11 only, with counts equal to the frozen rule's |
+| `mutants_quick` | 51 of 51 killed at their named cases: 17 rule mutants (L1 §6 table) and 34 machinery mutants. They include the twelve r3 mutants (M_C7_set2_computed, M_C7_carried_only, M_C7_sample_rep_index, M_ruleT_ignores_sigma, M_sigma_overrides_label, M_proposal_on_failed_label, M_sigma_no_2d, M_ruleT_reads_L3, M_LG_tip_reading, M_counts_54, M_v8_counts_unrefused, M_placeholders_ignored) and the four r4 mutants: M_scope_every_outcome (L2-T6), M_index_check_off (L2-IDXRUN), M_launch_fit_kappa and M_launch_no_reserve (L2-LAUNCH). Machinery mutants run against their named case only in the quick campaign. The two demonstrations fail C11 only, with counts equal to the frozen rule's |
 | `s1a_toy` | σ fields all clean (status OK); L_A = 15, L_G = 7, equal to their `s0ref` recomputation, L3 values likewise (toy geometry, not a statement about v8) |
-| `shard_toy_0`…`3` | 488 representatives; C0 1,584, C7 608 records (per record, sets 1–4), C8 488 orbits, C9 2,800, C10 (i) 1,952, C11 (i) 976 (5,328 tables), C17 976, C18 976; 0 failures; no survivors. C7 coverage, records / orbits touched / sum of their sizes: A set 3 12 / 12 / 45, set 4 1 / 1 / 4; G set 2 595 / 283 / 595, set 3 6 / 6 / 24, set 4 1 / 1 / 4; sets 1, and set 2 under A, empty. These equal E1-check part J's populations |
-| `merge_toy` | COLLAPSE_ALL on the toy class (design evidence, no statement); 58 counts; σ OK; rule T evaluated (toy L_A = 15 > 0, so its outcome is the S1b branch; toy geometry); coverage exact; recount 1,400 and 488; residue complete |
+| `shard_toy_0`…`3` | 488 representatives; C0 1,584, C7 608 records (per record, sets 1–4), index round trip 1,400 of 1,400, C8 488 orbits, C9 2,800, C10 (i) 1,952, C11 (i) 976 (5,328 tables), C17 976, C18 976; 0 failures; no survivors. C7 coverage, records / orbits touched / sum of their sizes: A set 3 12 / 12 / 45, set 4 1 / 1 / 4; G set 2 595 / 283 / 595, set 3 6 / 6 / 24, set 4 1 / 1 / 4; sets 1, and set 2 under A, empty. These equal E1-check part J's populations |
+| `merge_toy` | COLLAPSE_ALL on the toy class (design evidence, no statement); 58 counts; `survivor_gates_incomplete` not flagged; σ OK; rule T evaluated (toy L_A = 15 > 0: the S1b branch; toy geometry), with `statement_scope` "not applicable (outcome: L_A > 0 or L_G > 0)"; coverage exact; recount 1,400 and 488; residue complete |
 | `certificate_toy` | items 1–8 hold, including the commit binding (item 3 with the quick campaign, which the toy profile admits) |
 | `crosscheck_toy_counts` | all 58 merged counts equal full per-record computations: the 54 against code-r5's control suite, the four added against an independent computation with `code-r5/s0ref.py` (all 0: the toy class has no survivors); the marginals 1,398 and 1,176 likewise; 36 counts identically zero |
-| `e1check_replay` | E1-check, run against r3's code and toy run, exits 0 and prints output byte-identical to `e1_check.out` (SHA-256 `d2297fb7…8542`) |
+| `e1check_replay` | E1-check, run against r4's code and toy run, exits 0 and prints output byte-identical to `e1_check.out` (SHA-256 `d2297fb7…8542`) |
 | `code_r5_equivalence_quick` | the quick suite equals code-r5's except the extended refusal block |
 | `planted_survivor_path` | the survivor path on planted toy records (two orbits of 4): C7 on set 1 runs on all 8 members in both conventions (16), with its C0 check; C11 (i), C17, C18 16 each, C0 32, 0 failures; N_ST = 8 under A and under G; negative control: a bound missing one retained quantity gives C9 failures and a running-minimum witness |
 | `refusal_probe_v8` | 9 of 9 entry-point attempts refused with VOID and item 6, before any file is written; 9 of 9 forgeries refused; `l2plan --profile v8 --shared-tips` refused (exit 2), after the function-level refusal is confirmed in-process; `decide()` on fabricated inputs returns `ok`, recorded as the documented limit |
-| `kappa_calibration_repeats` | timing data for `KAPPA-PROPOSAL.md`: 5 normal and 5 `-O` calibrations, the v8 estimate's spread across them, and toy-record timings (not deterministic) |
+| `kappa_calibration_repeats` | timing data for `KAPPA-PROPOSAL.md`: 5 normal and 5 `-O` calibrations; the v8 estimate's known terms across them (median 64,029 s, CV 9.2 %); the ratio between independent calibrations (90 ordered pairs: empirical p99 1.37, normal approximation 1.35, σ_log 0.091); toy-record timings (not deterministic) |
+| `overhead_measure` | the overhead factor measured (R5): Shard.rep against four bare closures, ratio of totals 2.93 on every toy orbit and 2.87 on 120 planted records (medians 2.9–3.0, 90th percentile about 4); configured value 2 (not deterministic) |
+| `survivor_cap_measure` | for `SURVIVOR-CAP-PROPOSAL.md`: 24 planted survivor orbits (contexts up to 29): residue detail 3.6–4.3 kB, kept memory ≤ 0.55 MB and peak transient ≤ 2.0 MB per orbit; the exact uniform-shard P(cap exceeded); the v8 survivor term per unit of cap, 767 s (not deterministic) |
+| `ci_calibration_local_check` | the proposed CI calibration (`ci/`): the extracted closure equals `s0geom.closure` on every planted set (0 mismatches); a planted v8-keyed object makes `calib_ci.py` exit 2 with VOID and no file; an ordinary run passes; the aggregator refuses 19 calibrations and accepts 20; the workflow has a single push trigger on its dedicated branch, read-only permissions, concurrency, 20 calibrations at `max-parallel: 4` and a timeout on every job |
 
 Every deterministic step is `-O`-identical.
 
@@ -830,6 +912,7 @@ Every deterministic step is `-O`-identical.
 - The full mutant campaign: the full suite for every rule mutant, every self-test case for every
   machinery mutant, and the equivalent mutants. It is CI-only and needs an owner-approved dispatch.
 - The full-depth control suite (C1 F 0–15, B 0–8, G 0–23, …). It runs in CI pre-flight.
+- The planted-set CI calibration: proposed in `ci/`, not placed under `.github/`, not launched.
 - Any shared-tip, F_G or other record-enumerating count on v8 (refused; §3.6).
 - Everything on v8's class.
 
@@ -838,20 +921,22 @@ between runs; `runs/dryrun_v8_estimate.out`), in runner-seconds:
 
 | term | runner-seconds |
 | --- | --- |
-| closures (with overhead 2 and the `-O` copy) | 65,383 |
-| sampled gates (C11 (i), C17, C18 at 1 in 1,000; C8 at 1 in 100) | 2,495 |
-| survivor gates, capped at 10 orbits per shard (includes C7 set 1) | 7,587 |
-| S1a | 536 |
+| closures (with overhead 2, an unmeasured judgement, and the `-O` copy) | 61,377 |
+| sampled gates (C11 (i), C17, C18 at 1 in 1,000; C8 at 1 in 100) | 2,401 |
+| S1a | 593 |
 | pre-flight | 300 |
 | merge | 600 |
-| **known terms** | **76,900 (about 21.4 h)** |
-| C7 set 4 (H₁₀₀₀, expected size N/1,000) | 1,968 |
-| C7 sets 2 and 3 | not computed (requires authorization): 0.309 s per F_G record, 0.000727 s per I_A record and 0.003084 s per I_G record (central) |
+| **known terms** | **65,270 (about 18.1 h)** |
+| C7 set 4 (H₁₀₀₀, expected size N/1,000) | 2,062 |
+| survivor gates | not computed (owner placeholder: the survivor cap); 739 s per unit of cap |
+| C7 sets 2 and 3 | not computed (requires authorization): 0.317 s per F_G record, 0.000823 s per I_A record and 0.00317 s per I_G record (central) |
 
-Over the ten calibrations of `kappa_calibration_repeats` the known terms plus set 4 have median
-72,977 s, CV 5.8 % and max/median 1.161. Even with every unknown input at zero they leave the launch
-rule room only for κ ≤ 1.18 under S7's 24 runner-hours (`KAPPA-PROPOSAL.md` §c). No launch decision is
-computed: κ is a placeholder and the C7 inputs are not computed.
+**Under the cost model** (§3.6: not validated; the overhead factor measured at about 2.9 against
+2), the known terms plus the survivor term and the proposed reserve exceed what the 24-hour ceiling
+admits for every u_model from 1.0 to 1.5, before C7's sets 2 and 3 (`KAPPA-PROPOSAL.md` §c). By the
+owner's ruling, the outcome would then be "not undertaken for cost": a new reviewed design, or
+infeasible under this budget. No launch decision is computed: κ's components, the reserve and the
+survivor cap are placeholders, and the C7 inputs are not computed.
 
 ## 13. Findings: status after the review and erratum E1
 
@@ -866,7 +951,8 @@ implements them as §4.2 states.
 - **F9 / κ:** open owner decision on κ and the budget (S7). `KAPPA-PROPOSAL.md` sets out the cost
   model, the calibration spread and a proposed value for the owner; it sets nothing.
 
-**Open owner decisions** (placeholders; the v8 profile is refused while any is open): κ, G_D, O1.
+**Open owner decisions** (placeholders; the v8 profile is refused while any is open): κ, the v8
+survivor cap, G_D, O1.
 
 **Points where E1 is ambiguous, or not implementable as written now** (reported, not resolved):
 1. **The dry run's |F_G| on v8.** E1-F3's checkpoint says "The dry run computes |F_G|, records and
@@ -884,18 +970,27 @@ implements them as §4.2 states.
    closure as the carried one "or R's direct closure where the run computes one". Layer 2 uses the
    carried result for set membership; on directly closed orbits C8 fails VOID on any difference, so
    the two readings give the same failure outcome (§4.1).
-4. **Set 1 and the survivor cap.** E1 asks for every survivor; Layer 2's cap (L2-R3) skips set-1 C7
-   beyond the cap and makes the run INCOMPLETE. No survivor goes unchecked in a run that is not
-   INCOMPLETE, but a capped run checks fewer than every survivor (§4.1).
-5. **Where `rule_T.statement_scope` is recorded.** E1-T6 says `result.json` records the text under
-   that field; Layer 2 records it in every outcome, not only the zero branch (§4.1).
+4. **Set 1 and the survivor cap: an owner decision** (LAYER2-R3-REVIEW R2). E1 asks for every
+   survivor; the cap skips set-1 C7 beyond it and makes the run INCOMPLETE, with the counts complete
+   and `survivor_gates_incomplete` flagged. Because the cap decides whether a survivor-rich outcome
+   can reach any label but INCOMPLETE, and sets the survivor-gate cost term, it is now an owner
+   placeholder on v8, to be fixed before any v8 result (§4.2, PO-L2-15).
+5. **Where `rule_T.statement_scope` is recorded: fixed** (R1). It carries E1-T6's text only in the
+   zero branch, and reads "not applicable (outcome: …)" otherwise.
 6. **σ case 1 (a)** names a missing output and a refused start; Layer 2 also treats an output
-   lacking a field σ reads as case 1 (a) (§4.1).
+   lacking a field σ reads as case 1 (a) (§4.1; review: acceptable, fail-closed).
+7. **The κ timing** (LAYER2-R3-REVIEW §4 item 7, R6). The r1 review asks that κ be fixed before the
+   corrected estimate; E1 §9 takes the G-D confirmation "together with κ once the dry run reports
+   |F_G|". **Decided by the owner, 2026-10-26:** "Approved. Fix κ, the survivor cap, and budget ceiling
+   before any v8 count", with G_D and O1 after the count, before the full run. E1 §9's phrase is
+   among its open decisions, so the recorded ruling settles it; a one-line append-only E2 would make
+   E1's text match, if the owner wants that.
 
 ## 14. Freezing Layer 2
 
-After the re-review of r3, and once the owner has decided κ, G_D and O1 (and, for the C7 term, any
-authorization of a combinatorial-only v8 count of F_G and I_c, with the Layer-2 amendment it needs):
+After the re-review of r4, and once the owner has fixed κ's components, the reserve and the v8
+survivor cap (before any v8 count, as ruled), then, after an authorized count under the reviewed
+amendment, G_D and O1:
 1. Replace the placeholders in `l2config` with the decisions, and apply any accepted changes.
 2. Regenerate `LAYER2-MANIFEST.json`, commit, and re-run `l2run.py` at that recorded commit, so that
    the design evidence's commit is the freeze commit's parent or the freeze commit itself, as the

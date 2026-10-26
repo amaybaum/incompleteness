@@ -140,16 +140,16 @@
  },
  "base_relative_survivor_records": null,
  "ci_run": null,
- "code_digest": "d858dacee48c133a4c3bd54a418bd79a40b1ff5604987c4ed9bf6fb04ffb695e",
- "commit": "53786e6e9e6f59347d20cac9f9875fdf7b4d8f67",
+ "code_digest": "a0c6c3dfb0b3a350259e63d960083c15b14df359d3e5aa79e9238d96cf7ade4c",
+ "commit": "a782aa549061ad5417d939da932fa1c7f66ac022",
  "commits": {
-  "preflight.json": "53786e6e9e6f59347d20cac9f9875fdf7b4d8f67",
-  "s1a.json": "53786e6e9e6f59347d20cac9f9875fdf7b4d8f67",
+  "preflight.json": "a782aa549061ad5417d939da932fa1c7f66ac022",
+  "s1a.json": "a782aa549061ad5417d939da932fa1c7f66ac022",
   "shards": [
-   "53786e6e9e6f59347d20cac9f9875fdf7b4d8f67"
+   "a782aa549061ad5417d939da932fa1c7f66ac022"
   ]
  },
- "config_sha256": "c16f090cf185aa3285863f42331c67c4d9fa3e6d774a8275787ba5ca9067b252",
+ "config_sha256": "5811cc585b93b684cd1da68939fd4ba500e0ee4be9d439c6a67c7aead86dee92",
  "count_list": "E1-F6: the 54 of L1 C8 and four survivor cells",
  "counts": {
   "A:L3_vs_L3prime_disagree": 0,
@@ -268,17 +268,21 @@
   "C9": {
    "checked": 2800,
    "failed": 0
+  },
+  "index_roundtrip": {
+   "checked": 1400,
+   "failed": 0
   }
  },
  "incomplete_reasons": [],
  "inputs": {
-  "dryrun.json": "47a53d8277e3316cd1e8e6f482f5d4b646b8fc9db3576828d01fd9791ad0bc64",
-  "preflight.json": "aeb5a340ecc51e7b8503a1fd808a5782bde3175db27885386d0095fe4d0553cf",
-  "s1a.json": "811633ce3b6b930d80d55ed224896a4796441dbf4064fdf172d96e300bab38ef",
-  "shard-0.json": "99c22d0f8b1a20d68406bd266f9701cd8be824f520427561ba9958d76a853489",
-  "shard-1.json": "126ea9132adee97d6b0962273b90296c289906fb40c805d27628cd19062748fe",
-  "shard-2.json": "c8c0e2be7b2950fc06157a12f5637184a72a95ae089ebc1d3876f2ce4f00f13b",
-  "shard-3.json": "68d320bd437246e3234e4931b0bc7cab702d84d680d85805c17003f2d07261fe"
+  "dryrun.json": "fcc6cacd4e296aba3624d8c2dd261a3ee514ae8be734a089664254e35c9db329",
+  "preflight.json": "34ad72266efd50d70eb7999b2c564f9906afcd723443fa0e016cb90f28811b09",
+  "s1a.json": "e29a1a04b29c83cd698ab6b4139c8c706b3cb850b3ee055d953ee090232a1053",
+  "shard-0.json": "2e2e027740878067c809c332911a2304d4ace08d2b78354fc2bc79a086a5b830",
+  "shard-1.json": "636488ac368f3498ab5654bb7b57959a44b3374d998c1320ee18ca7de49a3bfb",
+  "shard-2.json": "996460bef399654a3821452768dd8c54ec6788fe9f5912c23cefe7f07fc3aef0",
+  "shard-3.json": "17bda8d0582066c0ea98d7a60eace81212e75fd51fb43f11869807869cf1750b"
  },
  "label": "COLLAPSE_ALL",
  "label_source": "merge of structured files",
@@ -299,12 +303,12 @@
   "G_D": {
    "layer2_reading": "not implemented; the full s0ref closure is the only reference form",
    "owner_answer": "Conditionally approved; non-executing until the owner confirms the proof",
-   "question": "Lemma G-D reference form in C7 (E1 section 9)",
+   "question": "Lemma G-D reference form in C7 (E1 section 9); decided after the count, before the full run",
    "ruling": "OWNER-PLACEHOLDER"
   },
   "O1": {
    "layer2_reading": "not adopted: E_G is not a check set",
-   "question": "E_G as a fifth C7 set under G (E1 section 9; optional)",
+   "question": "E_G as a fifth C7 set under G (E1 section 9; optional); decided after the count, before the full run",
    "ruling": "OWNER-PLACEHOLDER"
   },
   "T1": {
@@ -323,19 +327,56 @@
    "question": "standing of rule T's L_A = L_G = 0 consequence",
    "ruling": "geometric fact only, approved with qualification (E1-T6)"
   },
+  "budget_ceiling": {
+   "over_ceiling_ruling": "If the calibrated runtime exceeds 24 hours, the experiment must be reduced through a new reviewed design or declared infeasible under this budget - not run with an artificially smaller margin.",
+   "question": "budget ceiling",
+   "ruling": "24 hours maximum, including all run overhead, with an explicit reserve."
+  },
+  "ci_calibration": {
+   "question": "CI timing calibration",
+   "ruling": "authorized conditionally: a separate, planted-set-only CI timing calibration, provided it cannot access v8 and its exact workflow and resource limits are reviewed before dispatch. This is not authorization to dispatch the existing full experimental workflow.",
+   "status": "workflow proposed in layer2/ci/, not placed under .github/, not dispatched"
+  },
   "kappa": {
-   "layer2_reading": "none: no default",
-   "owner_answer": "Decide later",
-   "question": "launch margin and budget (S7)",
+   "calibration_ruling": "Require at least 20 independent timing calibrations on the relevant CI runner class.",
+   "method_ruling": "Approve the proposed method, kappa = u_cal x u_model, but not a final numerical value.",
+   "model_uncertainty_ruling": "Retain as an explicitly judgment-based factor, subject to sensitivity analysis.",
+   "question": "the numerical value of kappa (its components u_cal, u_model)",
    "ruling": "OWNER-PLACEHOLDER"
   },
-  "source": "stage0/amendments/E1-LAYER1-ERRATUM.md (in effect), amaybaum 2026-10-26"
+  "reserve": {
+   "layer2_reading": "none: no default; KAPPA-PROPOSAL.md proposes a size",
+   "question": "the explicit reserve inside the 24-hour ceiling",
+   "ruling": "OWNER-PLACEHOLDER"
+  },
+  "sequencing": {
+   "after_the_count": "G_D and O1, before the full run",
+   "question": "order of the launch decisions",
+   "ruling": "Approved. Fix kappa, the survivor cap, and budget ceiling before any v8 count."
+  },
+  "source": "stage0/amendments/E1-LAYER1-ERRATUM.md (in effect), amaybaum 2026-10-26",
+  "survivor_cap": {
+   "layer2_reading": "none: no default for v8 (SURVIVOR-CAP-PROPOSAL.md); the toy profile uses 10 for design evidence only",
+   "owner_request": "Request a reasoned proposal based on shard distribution, memory consumption, and failure probability; do not use the placeholder 10.",
+   "question": "survivor representatives per shard gated before the run is INCOMPLETE (v8 profile; a resource constant fixed before any v8 count)",
+   "ruling": "OWNER-PLACEHOLDER"
+  },
+  "v8_count": {
+   "question": "combinatorial-only v8 count of I_A, I_G, F_G, E_G",
+   "ruling": "not authorized pending its Layer-2 amendment and review",
+   "status": "AMENDMENT-PROPOSAL-V8-COUNT.md, unadopted"
+  }
  },
  "owner_rulings_pending": [
-  "/budget/kappa",
+  "/budget/kappa_rule/u_cal",
+  "/budget/kappa_rule/u_model",
+  "/budget/reserve_runner_seconds",
   "/owner_rulings/G_D/ruling",
   "/owner_rulings/O1/ruling",
-  "/owner_rulings/kappa/ruling"
+  "/owner_rulings/kappa/ruling",
+  "/owner_rulings/reserve/ruling",
+  "/owner_rulings/survivor_cap/ruling",
+  "/profiles/v8/survivor_cap_per_shard"
  ],
  "profile": "toy",
  "residue_file": null,
@@ -359,7 +400,7 @@
   },
   "run_label": "COLLAPSE_ALL",
   "s1a_status": "OK",
-  "statement_scope": "No record whose items lie in Reg \u00d7 {\u22121, \u2026, 23}, of any size, has a linked survivor under the specified closure (L3\u2032, the declared conventions and frame). This is a geometric property of that closure. It is not a probabilistic result, an empirical observation, or an independent theorem about the full model, and no law statement is made beyond k \u2264 2.",
+  "statement_scope": "not applicable (outcome: L_A > 0 or L_G > 0)",
   "text": "S1b (the minimal self-supporting record search, m <= 4, restricted to the global bound) is put to the owner as a new preregistration. S1c is taken up only if S1b's own preregistered rule calls for it.",
   "wording_status": "confirmed with qualification (E1-T6, amaybaum 2026-10-26)"
  },
@@ -370,6 +411,11 @@
    "A": 0,
    "G": 0
   }
+ },
+ "survivor_gates_incomplete": {
+  "flag": false,
+  "note": "the counts cover every record; survivor gates and residue detail stop at the survivor cap, and the run is INCOMPLETE",
+  "shards_over_cap": []
  },
  "void_reasons": [],
  "witness_candidates_seen": 0

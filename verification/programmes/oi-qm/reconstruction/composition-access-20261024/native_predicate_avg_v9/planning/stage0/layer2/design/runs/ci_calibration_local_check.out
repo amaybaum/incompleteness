@@ -1,0 +1,25 @@
+{
+ "aggregate": {
+  "calibrations": 20,
+  "exit_with_19": 2,
+  "exit_with_20": 0
+ },
+ "equivalence_exit": 0,
+ "equivalence_mismatches": 0,
+ "ordinary_exit": 0,
+ "pass": true,
+ "tripwire": {
+  "exit": 2,
+  "file_written": false,
+  "label": "VOID"
+ },
+ "workflow": {
+  "concurrency": true,
+  "every_job_has_timeout": true,
+  "max_parallel_4": true,
+  "no_other_trigger": true,
+  "push_branch_only": true,
+  "read_only": true,
+  "twenty_calibrations": true
+ }
+}

@@ -1,178 +1,201 @@
-# NP-AVG-1 Stage 0, Layer 2: a proposal for the launch margin κ (advisory)
+# NP-AVG-1 Stage 0, Layer 2: κ, the reserve and the launch rule (advisory, r4)
 
-**Status: a proposal for the owner. It sets nothing.** κ stays an `OWNER-PLACEHOLDER` in `l2config`,
-with no default anywhere in code or configuration, and the v8 profile is refused while it is open
-(`LAYER2-PLAN.md` §3.5, §4.2). The owner's answer on κ and S7 so far is "Decide later" (erratum E1
-§9). Nothing here ran on v8's configuration class: v8 enters only through the dry run's
-combinatorics (counts and the context-size histogram; no context, no closure, no shared-tip or F_G
-count).
+**Status: advisory. It sets nothing.** κ's two components, u_cal and u_model, and the reserve are
+`OWNER-PLACEHOLDER` values in `l2config`, with no default anywhere in code or configuration. The v8
+profile is refused while any of them is open (`LAYER2-PLAN.md` §3.5, §4.2). Nothing here ran on v8's
+configuration class: v8 enters only through the dry run's combinatorics (counts and the context-size
+histogram; no context, no closure, no shared-tip or F_G count).
 
-**The question.** The owner asked for "the proposed κ value and its statistical and computational
-justification". The launch rule (`LAYER2-PLAN.md` §3.5; review `LAYER2-REVIEW.md` §6) is:
+**What changed from r3.** r3 proposed κ = 1.5, with u_cal = 1.2 taken as the max/median of single
+local calibrations. The review (`../../review/LAYER2-R3-REVIEW.md` §6) showed that this answers the
+wrong question. The relevant statistic is the ratio between two *independent* calibrations: one
+produces the estimate, and the run is another draw. That correction raised the provisional value
+from 1.5 to about 1.6. **The change comes from the corrected statistic, not from any budget fit.**
+The owner has since ruled that κ has an approved method and no numerical value yet, so this document
+now gives the method, the current evidence and a sensitivity analysis, not a value.
 
-> launch iff κ · (total estimate) ≤ S7's budget, and κ · (each job's estimate) ≤ that job's timeout,
+## The owner's rulings (amaybaum, 2026-10-26)
 
-with S7's budget 24 runner-hours (86,400 runner-seconds) over at most 32 shards, and a 40-minute shard
-job timeout (2,400 s). κ is a resource margin for the error of the estimate, fixed with its basis
-before the complete estimate is computed.
+- **κ:** "Approve the proposed method, κ = u_cal × u_model, but not a final numerical value."
+- **Calibration:** "Require at least 20 independent timing calibrations on the relevant CI runner
+  class."
+- **Model uncertainty:** "Retain as an explicitly judgment-based factor, subject to sensitivity
+  analysis."
+- **Sequencing:** "Approved. Fix κ, the survivor cap, and budget ceiling before any v8 count." G-D and
+  O1 are decided after the count, before the full run.
+- **Budget ceiling:** "24 hours maximum, including all run overhead, with an explicit reserve." and
+  "If the calibrated runtime exceeds 24 hours, the experiment must be reduced through a new reviewed
+  design or declared infeasible under this budget — not run with an artificially smaller margin."
+- **The CI calibration:** authorized conditionally, as "a separate, planted-set-only CI timing
+  calibration, provided it cannot access v8 and its exact workflow and resource limits are reviewed
+  before dispatch. This is not authorization to dispatch the existing full experimental workflow"
+  (`ci/CI-CALIBRATION-PROPOSAL.md`).
 
-**Sources.** All numbers below are read from `design/kappa/calibration-repeats.json` (step
-`kappa_calibration_repeats` of `design/RUN-MANIFEST.json`; timing data, not deterministic) and
-`design/runs/dryrun_v8_estimate.out`. They were measured on one machine (Python 3.13.16), not on a
-CI runner.
+**The launch rule as implemented** (`l2plan.kappa_from_rule`, `l2plan.launch_decision`; L2-LAUNCH):
+- κ = u_cal × u_model, rounded up to one decimal; there is no other source of κ.
+- Launch iff κ · total + reserve ≤ 86,400 runner-seconds (24 h) and κ · each job ≤ its timeout.
+- Otherwise the decision is "not undertaken for cost: the experiment must be reduced through a new
+  reviewed design or declared infeasible under this budget". κ is never lowered to fit; mutants that
+  lower κ, or that drop the reserve, are killed.
+
+**Sources.** Every number below is read from `design/kappa/calibration-repeats.json` (step
+`kappa_calibration_repeats`), `design/overhead/overhead.json`, `design/overhead/survivor-cap.json` and
+`design/runs/dryrun_v8_estimate.out` in `design/RUN-MANIFEST.json`. These are timing data, measured
+locally on one machine (Python 3.13.16), not on a CI runner.
 
 ## (a) The cost model
 
 Every term is in runner-seconds and includes the `-O` copy (factor 2), as `l2plan.estimate` computes
-it (`LAYER2-PLAN.md` §3.6; each term's formula is printed in `dryrun.json` under `cost.formulas`).
-t_c(m) and r_c(m) are the calibrated production-closure and full-reference times at m non-fixed
-quantities; m̄ = 16 is the mean v8 context size and m_max = 29 the largest (combinatorics).
+it. Each term's formula is printed in `dryrun.json` under `cost.formulas`. The values are medians over
+the 10 local calibrations.
 
-| term | formula | v8 value (median of 10 calibrations) |
+| term | formula (abridged) | v8 value |
 | --- | --- | --- |
-| closures | 2 · overhead · Σ_m count(m) · (orbits/N) · 2 [t_A(m) + t_G(m)], overhead = 2 (an unmeasured allowance) | 58,836 |
-| sampled gates | 2 · [(1/1,000) · 3 · orbits · (r_A + r_G)(m̄) + (1/100) · orbits · 8 · 2 (t_A + t_G)(m̄)] | 2,504 |
-| survivor gates (cap 10 orbits per shard) | 2 · 10 · 32 · 8 · [2 (t_A + t_G) + 4 (r_A + r_G)](m_max); includes C7 on set 1 | 8,069 |
-| S1a | 2 · [bound closures + 3 streamed reference passes per bound + per-line closures] | 558 |
-| pre-flight, merge | stated allowances, 300 + 2 · 300 | 900 |
-| C7, set 4 (H₁₀₀₀) | (N / 1,000) · (c7_A + c7_G) | 1,990 (expected sample size 5,163.2) |
-| **known terms** | sum of the above | **72,977 (20.3 h)** |
-| C7, set 2 under G | \|F_G\| · c7_G | **unknown** |
-| C7, set 3 (I_c ∩ H₁₀₀) | (\|I_A\| / 100) · c7_A + (\|I_G\| / 100) · c7_G | **unknown** |
+| closures | 2 · overhead · Σ_m count(m) · (orbits/N) · 2 [t_A(m) + t_G(m)]; **overhead = 2 is an unmeasured judgement** | 58,235 |
+| sampled gates | C11 (i), C17, C18 at 1 in 1,000 orbits; C8 at 1 in 100 orbits | 2,354 |
+| S1a | bound closures, three streamed reference passes per bound, per-line closures | 548 |
+| pre-flight, merge | stated allowances | 900 |
+| C7 set 4 (H₁₀₀₀) | (N / 1,000) · (c7_A + c7_G), with c7_A = 0.0715 s and c7_G = 0.313 s per record | about 1,990 |
+| **known terms** | sum of the above | **64,029 (17.8 h)** |
+| survivor gates | cap · 767 s (both copies, all shards; includes C7 set 1) | owner's cap: 6,136 at 8, 12,272 at 16 |
+| C7 sets 2 and 3 | \|F_G\| · c7_G + (\|I_A\| / 100) · c7_A + (\|I_G\| / 100) · c7_G | **unknown: v8 count not authorized** |
 
-c7_c = 2 · [t_c(m) + r_c(m)] per record: a direct production closure and a full `s0ref` reference
-closure. Median over the 10 calibrations: c7_A = 0.072 s and c7_G = 0.3135 s at the record-weighted
-mean context size; 0.157 s and 0.642 s at m_max.
+**The unknown inputs.** |F_G|, |I_A| and |I_G| each lie in [0, N], with N = 5,163,225, and
+F_G ⊆ I_G. On the toy class they are 42.5 %, 76.5 % and 47.6 % of N, which carries no information
+about v8. They become known only through the count-only pass, whose amendment is unadopted
+(`AMENDMENT-PROPOSAL-V8-COUNT.md`).
 
-**The unknown inputs.** They need the record space of v8 enumerated, which is not authorized; the
-v8 dry run reports each as "not computed (requires authorization)".
+**The model is not validated** (review §5; plan §3.6).
+- **The toy comparison.** The toy dry run predicts a C7 term of 191–229 s and a total of
+  2,197–2,453 s, across runs. All four toy shards ran in about 9 s. The over-prediction comes mostly
+  from fixed allowances and from contexts smaller than any calibrated size, so it does not transfer
+  to v8.
+- **The overhead factor.** It is set at 2. Measured locally (`overhead_measure`) as Shard.rep time
+  against four bare closures, it is 2.93 on every toy orbit and 2.87 on 120 planted records (medians
+  2.9–3.0, 90th percentile about 4). On that evidence the closures term is under-stated by about
+  45 %, which would raise the known terms to about 90,000 s.
+- **Every conclusion below is therefore "under the cost model".** u_model is the explicit place for
+  that error. It is not also absorbed by a second factor: the overhead factor stays at its stated
+  value, and the measurement is reported beside it.
 
-| input | what it is | admissible range | the toy class (no information about v8) | how it would be measured |
-| --- | --- | --- | --- | --- |
-| \|F_G\| | records whose in-frame quantities have a shared near tip | 0 ≤ \|F_G\| ≤ \|I_G\| ≤ N = 5,163,225 | 595 of 1,400 (42.5 %) | `l2plan.c7_populations` (combinatorial, no closure) under an authorization: records and orbits |
-| \|I_A\|, \|I_G\| | records whose initial context has a shared near tip under A, G | 0 to N | 1,071 (76.5 %), 667 (47.6 %) | the same enumeration |
-| \|Surv_A\|, \|Surv_G\| | survivor records | bounded in a complete run by the cap: at most 10 · 32 · 8 = 2,560 per convention, inside the survivor-gate term | 0 | the run itself; beyond the cap the run is INCOMPLETE |
+## (b) The calibration data and u_cal's statistic
 
-Structural facts bound where F_G can lie but not its size: two quantities share an e-tip only if
-their sites lie on a line parallel to e, so a tie in Q⁰(R) needs two items on a common axis line, or
-an item on the port's axis line (the z-axis), with compatible slices; two samples of one item never
-share a tip. On the toy class the region lies entirely inside the frame, which favours in-frame ties;
-on v8 a sample is in the frame only while |x| + s ≤ 8, so the v8 fraction could be much smaller. No
-number is proposed for it.
+**u_cal, as the review defines it,** is the 99th percentile of the ratio between two independent
+calibrations. `kappa_calibration.py` computes it over every ordered pair (90 pairs) of the 10 local
+calibrations (5 normal, 5 `-O`, each in a fresh process), on the v8 estimate's known terms.
 
-## (b) The calibration data and the spread
+| local run | σ of log(known terms) | normal-approximation p99 of the ratio, exp(2.326 · √2 · σ) | empirical p99 (= max/min) |
+| --- | --- | --- | --- |
+| r3 (review's re-read) | 0.06 | 1.22 | 1.21 |
+| r4, interim | 0.082 | 1.31 | 1.29 |
+| r4, final (retained) | 0.091 | 1.35 | 1.37 |
 
-`l2calib.py` was run 10 times in fresh processes, 5 normally and 5 under `-O` (planted quantity sets
-of 8 to 40 quantities, 12 sets per size), and the v8 estimate was rebuilt from each calibration.
+**What the table shows.** The statistic moves from 1.21 to 1.37 between three local repeats of the
+same 10-calibration procedure. With n = 10 on one machine it is not stable enough to fix u_cal. This
+is direct support for the owner's requirement of at least 20 calibrations on the runner class. The
+CI calibration (`ci/`) is designed to measure it there.
 
-| quantity | median | CV | max / median | min / median |
-| --- | --- | --- | --- | --- |
-| known terms of the v8 estimate (10 calibrations) | 72,977 s | 5.8 % | 1.161 | 0.962 |
-| closures term | 58,836 s | 6.6 % | 1.182 | 0.963 |
-| C7 coefficient for F_G (c7_G) | 0.3135 s | 5.5 % | 1.142 | 0.967 |
+**Other sources of spread** (final run):
+- **Per table entry:** the median CV is 4–9 %, and max/median reaches 1.17–1.73.
+- **Cache:** pass 1 over the toy records is 0.95–0.96 of passes 2–3 this time (1.04–1.06 in r3), so
+  in-process caching effects are a few per cent either way.
+- **`-O` duplication:** the paired `-O`/normal ratio has median 1.01, so the `-O` copy is a full
+  duplicate. It is a deterministic factor 2 inside the estimate, not part of κ.
+- **CI-runner heterogeneity:** not measured. This is what the CI calibration measures.
 
-Per calibrated size (normal runs only), the CV of a single table entry has a median of 6–11 % and a
-maximum of 16–23 %, and max/median reaches 1.45–1.58. The estimate is a sum over sizes, so its spread
-is smaller than that of a single entry.
+**For the sensitivity analysis only,** u_cal is taken at two values:
+- 1.25, the review's provisional value;
+- 1.35, the final local run's normal approximation.
 
-**The sources of the spread.**
-- **Runner variance (one machine).** The repeat-to-repeat spread above: CV 5.8 % on the known terms.
-  Variance *between* CI runners is not measured: every repeat ran on one machine.
-- **Cache.** On every toy record, timed in three passes in one process, pass 1 is 1.04–1.06 times the
-  mean of passes 2 and 3 (the in-process eligibility memo and explicit cones); passes 2 and 3 differ
-  by 0.8–3.5 %. Each shard job is one process, so this effect is a few per cent at most.
-- **`-O` duplication.** The `-O` copy is not faster: the paired `-O`/normal ratio over 180 table
-  entries has median 0.994 (CV 16 %, per-entry noise). The `-O` run is therefore a full duplicate,
-  a deterministic factor 2 that the estimate already contains; it is not part of κ. Running the two
-  copies as separate replica jobs halves each job's time and leaves the total unchanged.
-- **Model error, planted sets to real records.** Not measurable without timing real v8 records. On
-  the toy class, the measured time of every record's closures against the calibration's prediction
-  at its context size is 0.93 (A closures), 0.12 (G closures), 0.06 (A reference) and 0.017 (G
-  reference). Toy contexts have at most 8 quantities, below or at the smallest calibrated size, and
-  most of their quantities are in the frame, so their G tips are rarely eligible. The direction
-  (the planted calibration over-predicts) is suggestive for the G terms but does not transfer to v8.
-- **Unmeasured allowances inside the estimate.** The overhead factor 2 on the closures term and the
-  pre-flight and merge allowances are stated, not measured.
+Neither is proposed as the value; the value is to come from the CI calibration.
 
-## (c) A proposed κ, and how the launch inequality plays out
+## (c) Sensitivity analysis: u_model, κ and the launch inequality
 
-**Proposal: κ = 1.5**, as the product of a measured factor and a stated one:
-- **u_cal = 1.2** for calibration spread. Over 10 calibrations the known terms' max/median is 1.161;
-  a normal approximation with CV 5.8 % gives 1 + 2.326 · 0.058 = 1.13 at the 99th percentile. 1.2 is
-  the empirical maximum rounded up. With n = 10 repeats, the maximum exceeds one further draw with
-  probability about n/(n + 1) ≈ 0.91; the rounding adds margin beyond that.
-- **u_model = 1.25** for what is not measured: CI-runner heterogeneity and the planted-to-record model
-  error. This factor is a judgement, not a statistic. It should be replaced by measurements (§d,
-  steps 2 and 5) before launch, and κ recomputed by the same rule: κ = u_cal × u_model, each the
-  upper value of its measured ratio, rounded up to one decimal.
+u_model is "an explicitly judgment-based factor, subject to sensitivity analysis" (owner). It covers
+the planted-to-record model error, including the overhead factor's, and anything else the
+calibration does not see. The table gives, for each pair (u_cal, u_model):
+- κ, rounded up to one decimal;
+- the largest admissible total T_max = (86,400 − reserve) / κ, with the reserve at the proposed
+  10,800 s (§d);
+- the room left for C7's sets 2 and 3 after the known terms (64,029 s) and the survivor term at a
+  cap of 8 or 16.
 
-κ is a margin on the error of the estimate, not on the size of the workload, so it can be fixed
-before |F_G| is known. Fixing it first keeps it from being fitted to the estimate (the review's
-condition, `LAYER2-REVIEW.md` §6 item 2).
+| u_cal | u_model | κ | T_max (s) | room for C7 sets 2–3, cap 8 (s) | room, cap 16 (s) |
+| --- | --- | --- | --- | --- | --- |
+| 1.25 | 1.0 | 1.3 | 58,154 | −12,011 | −18,147 |
+| 1.25 | 1.1 | 1.4 | 54,000 | −16,165 | −22,301 |
+| 1.25 | 1.25 | 1.6 | 47,250 | −22,915 | −29,051 |
+| 1.25 | 1.4 | 1.8 | 42,000 | −28,165 | −34,301 |
+| 1.25 | 1.5 | 1.9 | 39,789 | −30,376 | −36,512 |
+| 1.35 | 1.0 | 1.4 | 54,000 | −16,165 | −22,301 |
+| 1.35 | 1.1 | 1.5 | 50,400 | −19,765 | −25,901 |
+| 1.35 | 1.25 | 1.7 | 44,471 | −25,694 | −31,830 |
+| 1.35 | 1.4 | 1.9 | 39,789 | −30,376 | −36,512 |
+| 1.35 | 1.5 | 2.1 | 36,000 | −34,165 | −40,301 |
 
-**The launch inequality under S7's current budget.** With κ = 1.5 the total must be at most
-86,400 / 1.5 = 57,600 s. The known terms alone are 72,977 s (median), so **no launch is admitted for
-any value of |F_G|, |I_A| or |I_G|, including zero**. The largest κ the current budget admits, with
-every unknown input at zero, is 86,400 / 72,977 = 1.18 (median calibration) or 1.02 (the slowest of
-the 10 calibrations). The table gives the median estimate for a range of input fractions
-f_F = |F_G| / N and (f_IA, f_IG) = (|I_A|, |I_G|) / N; the middle row of each group uses the toy
-class's I fractions only as an illustration.
+**What it shows, under the cost model.**
+- For every u_model from 1.0 to 1.5, at either u_cal, the known terms and the survivor term already
+  exceed T_max, before C7's sets 2 and 3 add anything (and they add |F_G| · 0.313 s). Even κ = 1,
+  which the method cannot produce since u_cal > 1, leaves 5,435 s at cap 8 and −701 s at cap 16.
+- With the measured overhead (about 2.9 instead of 2), the known terms rise to about 90,000 s, and
+  the gap widens.
+- **Per job.** As normal and `-O` replicas, a shard job is about 1,043 s (cap 8) or 1,138 s (cap 16)
+  before C7. At κ = 1.6 that is 1,669 s and 1,821 s against the 2,400 s timeout; the job inequality is
+  not the binding one.
 
-| f_F | (f_IA, f_IG) | C7 beyond set 4 (s) | total (s, h) | largest κ the 24 h budget admits | shard job (s): one job / two replicas | budget needed at κ = 1.5 (h) |
-| --- | --- | --- | --- | --- | --- | --- |
-| 0 | (0, 0) | 0 | 72,977 (20.3) | 1.18 | 2,235 / 1,117 | 30.4 |
-| 0 | (0.765, 0.476) | 10,549 | 83,526 (23.2) | 1.03 | 2,564 / 1,282 | 34.8 |
-| 0 | (1, 1) | 19,904 | 92,881 (25.8) | 0.93 | 2,857 / 1,428 | 38.7 |
-| 0.001 | (0.765, 0.476) | 12,167 | 85,144 (23.7) | 1.01 | 2,615 / 1,308 | 35.5 |
-| 0.01 | (0, 0) | 16,187 | 89,164 (24.8) | 0.97 | 2,741 / 1,370 | 37.2 |
-| 0.01 | (0.765, 0.476) | 26,735 | 99,712 (27.7) | 0.87 | 3,070 / 1,535 | 41.5 |
-| 0.05 | (0.765, 0.476) | 91,482 | 164,459 (45.7) | 0.53 | 5,094 / 2,547 | 68.5 |
-| 0.10 | (0.765, 0.476) | 172,416 | 245,393 (68.2) | 0.35 | 7,623 / 3,811 | 102.2 |
-| 0.425 (the toy fraction) | (0.765, 0.476) | 698,484 | 771,461 (214.3) | 0.11 | 24,062 / 12,031 | 321.4 |
-| 1 (trivial bound) | (1, 1) | about 1.64 million at the mean size; about 3.36 million at m_max | — | — | — | — |
+**Consequence, by the owner's ruling.** If the calibrated estimate confirms this, the full Stage-0
+run "must be reduced through a new reviewed design or declared infeasible under this budget — not run
+with an artificially smaller margin". Layer 2 encodes that outcome as "not undertaken for cost".
+Whether to reduce, and how, is the owner's decision. The largest model terms are the closures, which
+contain the `-O` duplication (L1 §5b item 7) and the overhead factor. Reducing either is a design
+change that needs review, and for item 7 a Layer-1 amendment. Nothing here proposes one.
 
-**The job inequality.** A shard job's timeout is 2,400 s. Run as one job holding both copies, the
-shard job is 2,235 s with every unknown at zero, so it admits κ ≤ 1.07 only. As two replica jobs
-(normal and `-O`), it is 1,117 s, and κ = 1.5 admits a C7 term of up to 64 · 1,600 − 71,513 ≈
-30,900 s, about |F_G| ≤ 98,500 records (1.9 % of N) with |I_c| = 0.
+**What the sensitivity does not settle.** It is conditional on the local calibration and the
+unvalidated model. The CI calibration replaces the first. The second is improved only by an authorized
+timing sample of real v8 records, which is a v8 computation and not proposed here.
 
-**What follows for the owner's decisions.**
-- Under S7's 24 runner-hours, the enumeration cannot launch with any κ above about 1.0–1.2, whatever
-  |F_G| turns out to be; at κ = 1.5 it needs a budget of at least 30.4 runner-hours plus 1.5 times
-  the C7 term. S7's budget is a resource decision of its own, recorded with its reason.
-- The shard jobs should run as normal and `-O` replicas (the review's §6 item 3).
-- |F_G| decides whether C7's set 2 is affordable. Above about 5 % of N, the full-reference cost of
-  set 2 dominates every other term; the Lemma G-D reference form (owner decision G_D) was measured
-  at about ten times cheaper per toy record (`E1-ANALYSIS.md` §A3), and the toy proxy above suggests
-  that the full G reference on in-frame-heavy records may cost far less than the planted
-  calibration predicts. Neither is measured on v8.
+## (d) A proposed reserve (advisory)
 
-## (d) What is not known until an authorized count, and a recommended sequence
+The ceiling covers "all run overhead"; the reserve is the explicit term for what the estimate does
+not model.
 
-**Not known.** |F_G| (records and orbits), |I_A| and |I_G|, hence the C7 term, the total, the shard
-job's estimate and the launch decision; the planted-to-record model error on v8 contexts; CI-runner
-heterogeneity. |E_G| (owner decision O1) is not known either.
+| item | basis | runner-seconds |
+| --- | --- | --- |
+| per-job fixed overhead | about 69 jobs (owner check, dry run, pre-flight, S1a, 64 shard replicas, merge) × about 1.5 min each for checkout, Python setup and artifact transfer. A judgement; the CI calibration's job durations, read from the host's structured job records, would measure it | about 6,200 |
+| one job lost to its timeout | a hung or slow job is cancelled at its timeout and makes the run INCOMPLETE, but its runner time is spent: one 40-minute job | 2,400 |
+| setup variance and rounding | about 20 % of the above | about 2,200 |
+| **proposed reserve** | rounded | **10,800 (3 h)** |
 
-**Recommended sequence**, each step a separate owner decision:
-1. **Fix κ now, on calibration grounds only**, before any v8 count exists: κ = 1.5 as proposed, or the
-   rule κ = 1.2 × u_model with u_model measured in steps 2 and 5. E1 §9 takes the G-D confirmation
-   "together with κ once the dry run reports |F_G|"; the review asks that κ be fixed before the
-   corrected estimate. Fixing κ first and G-D after the count satisfies both.
-2. **Optionally, measure runner heterogeneity**: an owner-approved CI dispatch of `l2calib.py`
-   repeats on the runner class (planted sets only; nothing on v8).
-3. **Authorize a combinatorial-only v8 count** of I_A, I_G, F_G and E_G (records and orbits): no
-   context, no closure, no grant for the engine. This revision refuses it
-   (`l2plan --shared-tips` is refused on v8, PO-L2-23), so it needs a Layer-2 amendment adding a
-   grant-gated path for exactly this count, with its own review. Its cost, extrapolated from the toy
-   enumeration (about 0.3 ms per record at toy context sizes) and not measured on v8, is of the order
-   of one to two single-core hours over 5,163,225 records; it shards like the enumeration.
-4. **With |F_G| known**, decide G_D (a cost decision: it does not change any verdict, E1 §9) and O1.
-5. **Optionally, measure the model error** with an authorized timing sample of real v8 closures (a v8
-   computation, separately authorized), and replace u_model.
-6. **Decide S7's budget** as a resource decision, recorded with its reason, then compute the complete
-   estimate. Launch iff κ · total ≤ budget and κ · each job ≤ its timeout; otherwise the enumeration is
-   reported as not undertaken for cost.
+The reserve is not a margin on the estimate's error; κ is. The two do not overlap. A larger reserve
+would only move the launch further out of reach under the current model.
 
-**Reproduce.** `python3 -I -B design/kappa_calibration.py code design/kappa/calibration-repeats.json`
-from `stage0/layer2/` (about 2.5 minutes); the tables above are medians over its
-`v8_estimate_spread.per_calibration` entries. Timing output varies between runs and machines.
+## (e) What is not known, and the decision sequence (the review's §6, with the owner's rulings)
+
+**Not known:**
+- |F_G|, |I_A|, |I_G| and |E_G| on v8;
+- the representatives per shard on v8 (`SURVIVOR-CAP-PROPOSAL.md`);
+- the runner-class calibration;
+- the model error on v8 contexts.
+
+**Sequence.** Steps 1–4 come before any v8 count, by the owner's ruling.
+1. **κ's method:** approved, κ = u_cal × u_model.
+2. **u_cal:** from the CI calibration (at least 20 runner-class calibrations; the 99th percentile of
+   the ratio of independent calibrations). This needs the workflow's review, then the owner's
+   authorization of its launch.
+3. **u_model:** a recorded judgement, using the sensitivity table above.
+4. **The survivor cap and the reserve.** The ceiling is fixed at 24 h. Proposals:
+   `SURVIVOR-CAP-PROPOSAL.md` and §d above.
+5. **The v8 count-only pass:** after the reviewed amendment (`AMENDMENT-PROPOSAL-V8-COUNT.md`) and
+   the owner's authorization.
+6. **G_D and O1:** after the count, before the full run.
+7. **The complete estimate and the launch rule.** Launch iff κ · total + reserve ≤ 24 h and every
+   job fits. Otherwise not undertaken for cost: a new reviewed design, or infeasible under this
+   budget.
+
+**Reproduce.** From `stage0/layer2/`:
+- `python3 -I -B design/kappa_calibration.py code design/kappa/calibration-repeats.json` (about
+  2.5 minutes);
+- `design/overhead_measure.py code design/overhead/overhead.json`;
+- `design/survivor_cap_measure.py code design/kappa/calibration-repeats.json design/overhead/survivor-cap.json`.
+
+Timing output varies between runs and machines.

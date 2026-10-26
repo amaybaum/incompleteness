@@ -1,40 +1,48 @@
 {
  "code_sha256": {
-  "stage0/layer2/code/LAYER2-MANIFEST.json": "a6b8d9b67941d2bfafada142b466458913870137d66907c4428cb4ce1f2eaf9e",
+  "stage0/layer2/ci/calib_aggregate.py": "4a00736e34b8483cd5dc260446989c43b8a636e6431326d5765278dc8144fd3f",
+  "stage0/layer2/ci/calib_ci.py": "305a86c6fc7b095718a955f431642970c2e8efa52645c340b5736e1f2fd9829f",
+  "stage0/layer2/ci/np-avg-1-stage0-planted-calibration.yml": "59d66f723978e670967fce38ca97daca2b31ae670a52d9d5c573ba4d2281351a",
+  "stage0/layer2/code/LAYER2-MANIFEST.json": "65e70d91b7f7c34cd22b282ca1804445cf5cc93ba7b8a4b33f93a21297a52260",
   "stage0/layer2/code/l2analysis.py": "0c61690071848022c6c78e6eccab1533ede41240b70aac85459876b3168e25fc",
   "stage0/layer2/code/l2auth.py": "e1be779494f3f553ccdb7102c22f394a0c122cb63502ccb398ee16aa836bcb91",
   "stage0/layer2/code/l2calib.py": "48427e257d350a279ea4430feebb9bfafe376c5e9af725c16ea49cb21a45b0e5",
-  "stage0/layer2/code/l2cert.py": "021a4d50d946e456e7f6e801b2bea9b19690cb7467c40932ed7f434f732ece30",
-  "stage0/layer2/code/l2config.py": "d5455e3e2ec72280b95e568a847918d33eb114ab686e9309a2f54a0c1f708f10",
-  "stage0/layer2/code/l2enum.py": "7c7f78472a589dc2f57ef3067bfb67d5cc2b580e7d8b9bb45c01beee88c439d8",
+  "stage0/layer2/code/l2cert.py": "37a8bda45bf1f1d73ac67d82697b419366fd157b7ff76616ce7b9aaabffa3a83",
+  "stage0/layer2/code/l2config.py": "0268ba764d0b8f18ee4c9e334e4d177a113533f0cced0ff011c3612cee6af5d8",
+  "stage0/layer2/code/l2enum.py": "ab4e8120a14ddb936b63619cd160198982ad2785f6ed6dda034631d3ce15ad5b",
   "stage0/layer2/code/l2landing.py": "0af56760310ee4bf255bc9b5bc26be9b15d8ff2662486ba1778a2fe170c0644f",
   "stage0/layer2/code/l2manifest.py": "d30c92f4eac252992c8ecbb03cb89bbb39a6a968b57f4ab359f331beceb4dea0",
-  "stage0/layer2/code/l2merge.py": "881bda621718ef4f885566797f9894cc180b341e14962ce387bf6b20ae59ee77",
+  "stage0/layer2/code/l2merge.py": "53b86107966877b10aaf5ef08664d3a90c19be0fff66ad9f6493d29b35e5af74",
   "stage0/layer2/code/l2mutants.py": "73c5e2fa733844ec21af149daa81d37cb7f650453fc41504658f2563c45a90ad",
-  "stage0/layer2/code/l2plan.py": "67e0603f1ed877649e6361b25aaacbb01dd1de1325c7b71b2a59ad0201513516",
+  "stage0/layer2/code/l2plan.py": "26727c440fc0497bf9802224e592574d7a2bcf6044ea74e9d3fcca41d1562cf2",
   "stage0/layer2/code/l2preflight.py": "ee50c6e4f1cb1b5d7b8cf044999b43009792bb26a54bfb13c34ddc9770a18671",
   "stage0/layer2/code/l2refcheck.py": "0049d2103fa03b6a1141212da74b9945e145eeea5ebcb26b5916d78f88b07d46",
-  "stage0/layer2/code/l2run.py": "f271571480a5beab8e93ff4cd65d1ece640b0c6d3c41ce650975aa363cb1f0af",
+  "stage0/layer2/code/l2run.py": "8c092a6a1a7f120b02984e376d230521c580d65c64e91eab70f806bffc3ae9d4",
   "stage0/layer2/code/l2s1a.py": "2ef4073d8913e02f98ba01102c43053196482ffebdf873617aa7766b7d913f48",
-  "stage0/layer2/code/l2selftest.py": "fe73112ab74667267f172d286a776ed001950cd76f2c6655981d33ae02cf2b32",
+  "stage0/layer2/code/l2selftest.py": "f386bf9e7bf05e90253db40b2abebcd28a16cfab043eac22e9e49ebeba0d5cee",
   "stage0/layer2/code/s0controls.py": "81994f1b8375c988f0d622d202a0896e44338ac8d08c888eaa119c3ef7f103cb",
   "stage0/layer2/code/s0geom.py": "9ab0d64cbf7efef231355a46d9264658735f314a325c02067fffabd15eba8e13",
   "stage0/layer2/code/s0native.py": "4206549e8c01d62c684d4375fb11ae79e2fe69ef059c61600ae3db04570c8526",
   "stage0/layer2/code/s0ref.py": "4aa701f44309d15546182f47625c8a0d5fff060e0273c9e8b85324560d473859",
   "stage0/layer2/code/s0s6.py": "110f275cd83edb759b40c249900bc397e1fc3accc9571add50fa8bac3e42289a",
   "stage0/layer2/code/s0symcheck.py": "ffe390ae7a7491ab32a2e08c2d739c1be3028b465cf571842198c3c487f618f2",
+  "stage0/layer2/design/ci_local_check.py": "c9b895a39c0d01791d3c8f396727780001f88cf7ee8e6a90002efe9168ca8117",
   "stage0/layer2/design/crosscheck.py": "bc9157104b5cc7967eb8a764c8c076b90c5b422b023a0f5ea10c6cafe505370d",
   "stage0/layer2/design/e1check_replay.py": "edf282712115413b7e8c9b7c0c46ea6638053c1b0c834424acc25aa6f64d8516",
-  "stage0/layer2/design/kappa_calibration.py": "7c804037619344be5e90a5db45e34c662207355cf1ffdf7b72726aeccd53d498",
+  "stage0/layer2/design/kappa_calibration.py": "076f2cafa94217b2fac82875621b07bfff32463cfe0739d98974594bea8120a4",
+  "stage0/layer2/design/overhead_measure.py": "5362455b72f3320439faf5b0e8677e0a52ea1d3a0e5c98e89bca877773f0adfe",
   "stage0/layer2/design/planted_shard.py": "f64186f30655cff5589cc07271f31bc0332a0373f8ecbe0444558c166fc22d8c",
   "stage0/layer2/design/r5_equivalence.py": "ca2ee6be0d6d918683e2f67072fb526459ff7a1c91ac3a8eb9502cdc7f10fc71",
-  "stage0/layer2/design/refusal_probe.py": "32ebcfde74341725797e2a69a6df251c5ee9d94c40053ecc5c29de01ce4e35ba"
+  "stage0/layer2/design/refusal_probe.py": "32ebcfde74341725797e2a69a6df251c5ee9d94c40053ecc5c29de01ce4e35ba",
+  "stage0/layer2/design/survivor_cap_measure.py": "37f58c4a737d9c2c85c84096b2fb773445b63def831f07332d744ddd3bbbbaba"
  },
- "head_at_run": "53786e6e9e6f59347d20cac9f9875fdf7b4d8f67",
+ "head_at_run": "a782aa549061ad5417d939da932fa1c7f66ac022",
  "kappa_sha256": {
-  "stage0/layer2/design/kappa/calibration-repeats.json": "5a34c122e58c231c0eb464d29bafde99c89e3ffbedef1952cf8b1ea69b822815"
+  "stage0/layer2/design/kappa/calibration-repeats.json": "9bf67c670a68a979cb49561a6d9490959511e1fc9a4549c65a48583deb23a710",
+  "stage0/layer2/design/overhead/overhead.json": "a8978345cb2ed3a8990d5cba5e443b03bfbe1398c83c4984ddd34e390891eae6",
+  "stage0/layer2/design/overhead/survivor-cap.json": "1cd10da2f9ff21987f95de3295b8bd0208130f9575712776e845ef9dc45e1213"
  },
- "note": "NP-AVG-1 Stage 0 Layer 2 design evidence (WIP / UNREVIEWED, not frozen): toy, planted and small-window instances, S6's carrier and v8 configuration combinatorics only; no closure on v8's configuration class (the v8 profile is refused without an authorization artifact). The quick mutant campaign is local; the full campaign is CI-only and pending owner-approved dispatch. Timing steps (calibration_planted, dryrun_v8_estimate, kappa_calibration_repeats) are not deterministic. Commit caveat (L2-R5): this evidence was produced on an uncommitted working tree; the structured files record the HEAD at run time (field commit) and tree_clean = false, so they are design evidence only. At the Layer-2 freeze the evidence is regenerated at a recorded commit.",
+ "note": "NP-AVG-1 Stage 0 Layer 2 design evidence (WIP / UNREVIEWED, not frozen): toy, planted and small-window instances, S6's carrier and v8 configuration combinatorics only; no closure on v8's configuration class (the v8 profile is refused without an authorization artifact). The quick mutant campaign is local; the full campaign is CI-only and pending owner-approved dispatch. Timing steps (calibration_planted, dryrun_v8_estimate, kappa_calibration_repeats, overhead_measure, survivor_cap_measure) are not deterministic. Commit caveat (L2-R5): this evidence was produced on an uncommitted working tree; the structured files record the HEAD at run time (field commit) and tree_clean = false, so they are design evidence only. At the Layer-2 freeze the evidence is regenerated at a recorded commit.",
  "platform": "Linux-6.18.44-fc-v153-x86_64-with-glibc2.39",
  "python": "3.13.16",
  "steps": [
@@ -46,7 +54,7 @@
    "retained_stdout": "stage0/layer2/design/runs/manifest_verify.out",
    "seconds": 0,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "stdout_sha256": "b988132bbbd77961eb228792ee45149d0a189d8164a06cf501f2b6cf4b683725",
+   "stdout_sha256": "27ef5c7f4aaeab195a947e57c5e2cb66c007a14485386495ef1189c3e61e893d",
    "step": "manifest_verify"
   },
   {
@@ -55,9 +63,9 @@
    "exit": 0,
    "retained_stderr": "stage0/layer2/design/runs/l2_selftest.err",
    "retained_stdout": "stage0/layer2/design/runs/l2_selftest.out",
-   "seconds": 33,
+   "seconds": 37,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "stdout_sha256": "47811dce746544869b2ac2ab4a3eccad2e512444cd0e0b935a3c17a03cff5d82",
+   "stdout_sha256": "6b804eaaa934f32aa1ed032c8f9940f6f2163be8b5f6b26a06922f64a3a516fe",
    "step": "l2_selftest"
   },
   {
@@ -65,9 +73,9 @@
    "exit": 0,
    "retained_stderr": "stage0/layer2/design/runs/calibration_planted.err",
    "retained_stdout": "stage0/layer2/design/runs/calibration_planted.out",
-   "seconds": 10,
+   "seconds": 11,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "stdout_sha256": "2416d8729c9a4d8e7655c09f83b8ccf78741d86adb8ab28a5bbc1bcfa198a484",
+   "stdout_sha256": "eed82d0199ef7ce54f288261f8f56dbe81bc149463a7800c5745ca4d10d7b9f3",
    "step": "calibration_planted"
   },
   {
@@ -78,7 +86,7 @@
    "retained_stdout": "stage0/layer2/design/runs/dryrun_toy.out",
    "seconds": 1,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "stdout_sha256": "47a53d8277e3316cd1e8e6f482f5d4b646b8fc9db3576828d01fd9791ad0bc64",
+   "stdout_sha256": "fcc6cacd4e296aba3624d8c2dd261a3ee514ae8be734a089664254e35c9db329",
    "step": "dryrun_toy"
   },
   {
@@ -89,7 +97,7 @@
    "retained_stdout": "stage0/layer2/design/runs/dryrun_v8_plan_no_closure.out",
    "seconds": 0,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "stdout_sha256": "358c4d93c51d0a4ef99e8358a0bcaf9326b82c229402783d4d9482e493540270",
+   "stdout_sha256": "60d1b4e56b75769d74fb482b4cb9faa22bf936c22ed28274e8323ea5d4947609",
    "step": "dryrun_v8_plan_no_closure"
   },
   {
@@ -99,7 +107,7 @@
    "retained_stdout": "stage0/layer2/design/runs/dryrun_v8_estimate.out",
    "seconds": 0,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "stdout_sha256": "1e2616cb5928627f6ab05b473e668d65b7b8c22f531525def43f2143e42dc02d",
+   "stdout_sha256": "8d876c3559341dc824f7028e185c7a76f9ae6d458c04bd92b490c8e9bd15adef",
    "step": "dryrun_v8_estimate"
   },
   {
@@ -107,7 +115,7 @@
    "exit": 0,
    "retained_stderr": "stage0/layer2/design/runs/preflight_toy_quick.err",
    "retained_stdout": "stage0/layer2/design/runs/preflight_toy_quick.out",
-   "seconds": 125,
+   "seconds": 131,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
    "stdout_sha256": "c1527f157c99afe9546dc8ee99b66f5cd9ad240521a3cfdbd0e4defb08d28dc6",
    "step": "preflight_toy_quick"
@@ -117,9 +125,9 @@
    "exit": 0,
    "retained_stderr": "stage0/layer2/design/runs/mutants_quick.err",
    "retained_stdout": "stage0/layer2/design/runs/mutants_quick.out",
-   "seconds": 145,
+   "seconds": 150,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "stdout_sha256": "41428d159e31601d4ef6481844d0d73f7b6c42741526cb71a338058b7cdd8663",
+   "stdout_sha256": "57fa55a3acfd27285fad379d52b04e273f266dc9aea60997fc5fda5c5abd1069",
    "step": "mutants_quick"
   },
   {
@@ -153,7 +161,7 @@
    "retained_stdout": "stage0/layer2/design/runs/shard_toy_0.out",
    "seconds": 6,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "stdout_sha256": "40185fe3c0d30b626b74fd0aa902955c725009c71203994ae21ca2e1513853d4",
+   "stdout_sha256": "7523465b3b2fc69b9e63be43f338875c5b655a6072291882a33a05e527cb753d",
    "step": "shard_toy_0"
   },
   {
@@ -170,7 +178,7 @@
    "retained_stdout": "stage0/layer2/design/runs/shard_toy_1.out",
    "seconds": 1,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "stdout_sha256": "0c6f7129038629aec8ab04b687c0873b7dff683684a8844d8f9ab19463b65063",
+   "stdout_sha256": "2640d854c124e07324a965746f407791d077ad273753d6cbb6e4352da4b540ab",
    "step": "shard_toy_1"
   },
   {
@@ -187,7 +195,7 @@
    "retained_stdout": "stage0/layer2/design/runs/shard_toy_2.out",
    "seconds": 2,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "stdout_sha256": "c536021b2489fe55584f9ecdf72c8f5d078fbf1b754ca8a67be12cce228aefa9",
+   "stdout_sha256": "36caa01d8b5a7f43539cdfd7c33fbf9b3ca49572c3380a458ead5f18b53e8201",
    "step": "shard_toy_2"
   },
   {
@@ -204,7 +212,7 @@
    "retained_stdout": "stage0/layer2/design/runs/shard_toy_3.out",
    "seconds": 0,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "stdout_sha256": "fbc36339987012806c1af1fd5598f48344369dd753a9c1244027281f016e7b1b",
+   "stdout_sha256": "dc995839e7132e9509d1cdba01f0ecb62072e84eeed5976abca4700632029c56",
    "step": "shard_toy_3"
   },
   {
@@ -241,7 +249,7 @@
    "exit": 0,
    "retained_stderr": "stage0/layer2/design/runs/crosscheck_toy_counts.err",
    "retained_stdout": "stage0/layer2/design/runs/crosscheck_toy_counts.out",
-   "seconds": 8,
+   "seconds": 9,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
    "stdout_sha256": "e04859f9b1b820e914ad9ef0418eb33e55c40cc8e564c6033537101e980e8a05",
    "step": "crosscheck_toy_counts"
@@ -252,7 +260,7 @@
    "exit": 0,
    "retained_stderr": "stage0/layer2/design/runs/e1check_replay.err",
    "retained_stdout": "stage0/layer2/design/runs/e1check_replay.out",
-   "seconds": 18,
+   "seconds": 19,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
    "stdout_sha256": "9b0be14fd1f35ea1edd00da5b04674cac0a424d60bfc69774cd6adbbe0487656",
    "step": "e1check_replay"
@@ -262,7 +270,7 @@
    "exit": 0,
    "retained_stderr": "stage0/layer2/design/runs/code_r5_equivalence_quick.err",
    "retained_stdout": "stage0/layer2/design/runs/code_r5_equivalence_quick.out",
-   "seconds": 43,
+   "seconds": 42,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
    "stdout_sha256": "cca1570baa43bff143db2fba8e2980cc768304406a36439b6b27d8a9ce6c7f5a",
    "step": "code_r5_equivalence_quick"
@@ -275,7 +283,7 @@
    "retained_stdout": "stage0/layer2/design/runs/planted_survivor_path.out",
    "seconds": 1,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "stdout_sha256": "8655262044849e40e6106ea3e45280388073e46679bbb4ec2c2e902c40d81824",
+   "stdout_sha256": "f601b2226b0e3a06d38cb6ef10463c9b4473341651936620e5e09b80cfdcd247",
    "step": "planted_survivor_path"
   },
   {
@@ -294,31 +302,62 @@
    "exit": 0,
    "retained_stderr": "stage0/layer2/design/runs/kappa_calibration_repeats.err",
    "retained_stdout": "stage0/layer2/design/runs/kappa_calibration_repeats.out",
-   "seconds": 137,
+   "seconds": 136,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "stdout_sha256": "1c11007ed377540e16d65fce82c9532cd13ad2c21e2ab215c377f0a8b17c7f57",
+   "stdout_sha256": "f3710dc655289690f71013f3dd49afd47c2f7e7c07c7b50f23b22311f4f4d3f9",
    "step": "kappa_calibration_repeats"
+  },
+  {
+   "command": "python3 -I -B stage0/layer2/design/overhead_measure.py stage0/layer2/code stage0/layer2/design/overhead/overhead.json",
+   "exit": 0,
+   "retained_stderr": "stage0/layer2/design/runs/overhead_measure.err",
+   "retained_stdout": "stage0/layer2/design/runs/overhead_measure.out",
+   "seconds": 7,
+   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "stdout_sha256": "a8978345cb2ed3a8990d5cba5e443b03bfbe1398c83c4984ddd34e390891eae6",
+   "step": "overhead_measure"
+  },
+  {
+   "command": "python3 -I -B stage0/layer2/design/survivor_cap_measure.py stage0/layer2/code stage0/layer2/design/kappa/calibration-repeats.json stage0/layer2/design/overhead/survivor-cap.json",
+   "exit": 0,
+   "retained_stderr": "stage0/layer2/design/runs/survivor_cap_measure.err",
+   "retained_stdout": "stage0/layer2/design/runs/survivor_cap_measure.out",
+   "seconds": 46,
+   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "stdout_sha256": "0057668bc0d8ca551b77869aa1bcb79700b4f5fa6acd04c05f775bc266a6ae5d",
+   "step": "survivor_cap_measure"
+  },
+  {
+   "O_mode_identical": true,
+   "command": "python3 -I -B stage0/layer2/design/ci_local_check.py stage0/layer2/ci <scratch>",
+   "exit": 0,
+   "retained_stderr": "stage0/layer2/design/runs/ci_calibration_local_check.err",
+   "retained_stdout": "stage0/layer2/design/runs/ci_calibration_local_check.out",
+   "seconds": 11,
+   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "stdout_sha256": "71f7bc57e4e1c221c31320028eaa6e19d2efd9f3e829097cd1cdf41c377db4ff",
+   "step": "ci_calibration_local_check"
   }
  ],
  "toyrun_sha256": {
-  "stage0/layer2/design/toyrun/calib.json": "2416d8729c9a4d8e7655c09f83b8ccf78741d86adb8ab28a5bbc1bcfa198a484",
-  "stage0/layer2/design/toyrun/certificate.json": "2006d16951f52007ba3afbff0631fcb029d04b83ffab9f46a986114cbca8b1b1",
-  "stage0/layer2/design/toyrun/dryrun.json": "47a53d8277e3316cd1e8e6f482f5d4b646b8fc9db3576828d01fd9791ad0bc64",
+  "stage0/layer2/design/toyrun/calib.json": "eed82d0199ef7ce54f288261f8f56dbe81bc149463a7800c5745ca4d10d7b9f3",
+  "stage0/layer2/design/toyrun/certificate.json": "66f0633f132e78e2449ddde03972df4842beb8d4c99b2e63bbf4c079e05dc4cc",
+  "stage0/layer2/design/toyrun/dryrun.json": "fcc6cacd4e296aba3624d8c2dd261a3ee514ae8be734a089664254e35c9db329",
   "stage0/layer2/design/toyrun/expected-controls.json": "9b422c543d3b37df988358db3d5ff2e6246427a906d925caaa80b9bafb20a14e",
-  "stage0/layer2/design/toyrun/mutant-campaign.json": "41428d159e31601d4ef6481844d0d73f7b6c42741526cb71a338058b7cdd8663",
-  "stage0/layer2/design/toyrun/preflight.json": "aeb5a340ecc51e7b8503a1fd808a5782bde3175db27885386d0095fe4d0553cf",
-  "stage0/layer2/design/toyrun/result.O.json": "16b45f87a199e01642578f9d1ed20ba3a980d1ce0654ef446c3a1274f3fde17f",
-  "stage0/layer2/design/toyrun/result.json": "16b45f87a199e01642578f9d1ed20ba3a980d1ce0654ef446c3a1274f3fde17f",
-  "stage0/layer2/design/toyrun/s1a.O.json": "811633ce3b6b930d80d55ed224896a4796441dbf4064fdf172d96e300bab38ef",
-  "stage0/layer2/design/toyrun/s1a.json": "811633ce3b6b930d80d55ed224896a4796441dbf4064fdf172d96e300bab38ef",
-  "stage0/layer2/design/toyrun/shard-0.O.json": "2f514f5f3c5b6cae2e042816c37f9ded245390cd27eface9d802f72f247cd82a",
-  "stage0/layer2/design/toyrun/shard-0.json": "2f514f5f3c5b6cae2e042816c37f9ded245390cd27eface9d802f72f247cd82a",
-  "stage0/layer2/design/toyrun/shard-1.O.json": "728522ab91a3ae703eea05bac76e8ded18960f80809ad9563a608368a3b11da8",
-  "stage0/layer2/design/toyrun/shard-1.json": "728522ab91a3ae703eea05bac76e8ded18960f80809ad9563a608368a3b11da8",
-  "stage0/layer2/design/toyrun/shard-2.O.json": "c4ba882347f8c51c759665f9986387082f119c477ce38fcd448b4adfd8854961",
-  "stage0/layer2/design/toyrun/shard-2.json": "c4ba882347f8c51c759665f9986387082f119c477ce38fcd448b4adfd8854961",
-  "stage0/layer2/design/toyrun/shard-3.O.json": "067f7658d7db07f79741ff79d613e897cd58b964ed7addde2885c3b89a5c0a2b",
-  "stage0/layer2/design/toyrun/shard-3.json": "067f7658d7db07f79741ff79d613e897cd58b964ed7addde2885c3b89a5c0a2b"
+  "stage0/layer2/design/toyrun/mutant-campaign.json": "57fa55a3acfd27285fad379d52b04e273f266dc9aea60997fc5fda5c5abd1069",
+  "stage0/layer2/design/toyrun/preflight.json": "34ad72266efd50d70eb7999b2c564f9906afcd723443fa0e016cb90f28811b09",
+  "stage0/layer2/design/toyrun/result.O.json": "b63b25164f3eb1ac98628739a5a7712a9f4da88e335c9cf8bf44889e3f842c33",
+  "stage0/layer2/design/toyrun/result.json": "b63b25164f3eb1ac98628739a5a7712a9f4da88e335c9cf8bf44889e3f842c33",
+  "stage0/layer2/design/toyrun/s1a.O.json": "e29a1a04b29c83cd698ab6b4139c8c706b3cb850b3ee055d953ee090232a1053",
+  "stage0/layer2/design/toyrun/s1a.json": "e29a1a04b29c83cd698ab6b4139c8c706b3cb850b3ee055d953ee090232a1053",
+  "stage0/layer2/design/toyrun/shard-0.O.json": "ebf20219ac16cfa7930fb85f6a2443632121c053fc1e8abead4b1a3a2e53e72f",
+  "stage0/layer2/design/toyrun/shard-0.json": "ebf20219ac16cfa7930fb85f6a2443632121c053fc1e8abead4b1a3a2e53e72f",
+  "stage0/layer2/design/toyrun/shard-1.O.json": "949a7257346776cd76bdcbb73f79b44746b13c82a04eaff116a6b0df7dc0d909",
+  "stage0/layer2/design/toyrun/shard-1.json": "949a7257346776cd76bdcbb73f79b44746b13c82a04eaff116a6b0df7dc0d909",
+  "stage0/layer2/design/toyrun/shard-2.O.json": "742a82dc61126480c362480cb7de3304cea24376a182ae0d9b4d7b045dd510f6",
+  "stage0/layer2/design/toyrun/shard-2.json": "742a82dc61126480c362480cb7de3304cea24376a182ae0d9b4d7b045dd510f6",
+  "stage0/layer2/design/toyrun/shard-3.O.json": "8ea77fa3030be4825b76c715a879a8da39910ac1ba40e18b91bb64ec3abf1f5d",
+  "stage0/layer2/design/toyrun/shard-3.json": "8ea77fa3030be4825b76c715a879a8da39910ac1ba40e18b91bb64ec3abf1f5d"
  },
  "tree_clean_at_run": false
 }

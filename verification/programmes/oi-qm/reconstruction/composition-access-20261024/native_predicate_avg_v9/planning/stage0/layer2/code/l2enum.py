@@ -163,14 +163,14 @@ class Shard:
         self.grp = AN.group(setup)
         self.rates = prof['sampling']
         self.sp = PLAN.Space(prof)
-        self.cap = CFG.CONFIG['budget']['survivor_cap_per_shard']
+        self.cap = prof['survivor_cap_per_shard']     # owner-set for v8 (startup refuses a placeholder)
         self.counts = {k: 0 for k in AN.reported_count_keys() if k.split(':')[-1] not in AN.CLASS_KEYS
                        and k != 'masking_equivalent_records'}
         self.classes = {(conv, cat): {} for conv in ('A', 'G') for cat in ('all', 'survivors', 'collapsed')}
         self.base_relative = {'A': 0, 'G': 0}
         self.l3_only = {'A': 0, 'G': 0}
         self.gates = {g: {'checked': 0, 'failed': 0} for g in
-                      ('C0_context', 'C7', 'C8', 'C9', 'C10i', 'C11i', 'C11ii', 'C17', 'C18')}
+                      ('C0_context', 'C7', 'C8', 'C9', 'C10i', 'C11i', 'C11ii', 'C17', 'C18', 'index_roundtrip')}
         self.gates['C11i']['tables'] = 0
         self.gates['C7'].update(shared_tip_reps=0, direct_vs_reference_failed=0, carried_vs_direct_failed=0)
         self.c7 = {conv: {st: {'records_checked': 0, 'records_failed': 0, 'orbits_touched': 0,
@@ -248,11 +248,20 @@ class Shard:
         """The production closure C7 compares with the reference: the record's direct closure."""
         return ctx.retained
 
+    def index_check(self, idx, m, j):
+        """LAYER2-R3-REVIEW R3: the record index C7 samples by is the member's own: record_at(index_of(m))
+        must be m, for every member whose sample membership is evaluated (VOID on failure)."""
+        self.gates['index_roundtrip']['checked'] += 1
+        if tuple(sorted(G.record_at(self.setup, j, self.grant))) != tuple(sorted(m)):
+            self.fail('index_roundtrip', idx, [[list(x), t] for x, t in m])
+
     def c7_orbit(self, idx, orb, member_views, gated, dcache):
         """E1-F3 on every member of one orbit, both conventions (see the module docstring)."""
         touched = {}
         for m in sorted(orb):
             j = self.sp.index_of(m) if self.sp.in_space(m) else None
+            if j is not None:
+                self.index_check(idx, m, j)
             flags = self.sp.c7_flags(m)
             for conv, E in (('A', self.setup.n + 1), ('G', -1)):
                 carried = member_views[m][0][conv][1]

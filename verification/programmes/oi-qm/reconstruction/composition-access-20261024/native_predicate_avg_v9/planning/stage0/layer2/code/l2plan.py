@@ -432,6 +432,42 @@ def universe_sizes(sp):
     return len(U), sizes
 
 
+def _frac(x):
+    """An exact rational from an integer or a decimal string ('1.25'); None for a placeholder."""
+    if x == CFG.OWNER or x is None:
+        return None
+    return Fraction(x)
+
+
+def kappa_from_rule(rule):
+    """kappa by the owner's approved method: u_cal x u_model, rounded up to one decimal. None while
+    either component is a placeholder. The only source of kappa in Layer 2: launch_decision takes
+    kappa from here and never adjusts it."""
+    uc, um = _frac(rule.get('u_cal')), _frac(rule.get('u_model'))
+    if uc is None or um is None:
+        return None
+    return Fraction(_ceil(uc*um*10), 10)
+
+
+NOT_UNDERTAKEN = ('not undertaken for cost: the experiment must be reduced through a new reviewed design or '
+                  'declared infeasible under this budget (owner, 2026-10-26); kappa is not lowered to fit')
+
+
+def launch_decision(total, jobs, kappa, reserve, ceiling, timeouts):
+    """The launch rule: launch iff kappa x total + reserve <= ceiling and kappa x each job <= its
+    timeout. Returns (launch, decision text, the slack). Inputs are exact; kappa comes from
+    kappa_from_rule and is never changed here. Any None input gives (None, reason)."""
+    missing = [n for n, v in (('kappa', kappa), ('reserve', reserve), ('total', total)) if v is None]
+    missing += ['job %s' % k for k, v in jobs.items() if v is None]
+    if missing:
+        return None, 'not decided: %s not available' % ', '.join(missing), None
+    slack = ceiling - (kappa*total + reserve)
+    jobs_ok = all(kappa*v <= timeouts[k] for k, v in jobs.items())
+    if slack >= 0 and jobs_ok:
+        return True, 'launch admitted', slack
+    return False, NOT_UNDERTAKEN, slack
+
+
 def _wmean(table, allm, nrec):
     """The record-weighted mean over the context-size histogram of a calibrated time (ns)."""
     return Fraction(sum(c*_t(table, m) for m, c in allm), nrec)
@@ -465,7 +501,9 @@ def estimate(sp, hist, orbits, N, calib, prof, pops=None):
     # 1. four closures per representative, analysis overhead, normal and -O
     base = sum(c*(2*_t(tA, m) + 2*_t(tG, m)) for m, c in allm)
     terms['closures'] = Fraction(base, NS)*scale*bud['gate_overhead_factor']*2
-    formulas['closures'] = '2 x overhead x sum_m count(m) x (orbits/N) x 2 [t_A(m) + t_G(m)]'
+    formulas['closures'] = ('2 x overhead x sum_m count(m) x (orbits/N) x 2 [t_A(m) + t_G(m)]; overhead = %d is an '
+                            'unmeasured judgement (design/overhead/ reports a local measurement)'
+                            % bud['gate_overhead_factor'])
     # 2. sampled gates on representatives: C11 (i), C17, C18 at their rates, each costed as one
     #    reference closure per convention at the mean size; C8 on 1 in R orbits: 8 members x 4 closures
     rates = prof['sampling']
@@ -530,9 +568,11 @@ def estimate(sp, hist, orbits, N, calib, prof, pops=None):
     # 4. survivor gates, bounded by the survivor cap per shard: per survivor orbit, up to 8 members
     #    x (4 closures + 2 conventions x 4 reference gates: C7 (set 1), C11 (i), C17, C18) at m_max
     per_orbit = 8*(2*_t(tA, mmax) + 2*_t(tG, mmax) + 4*(_t(rA, mmax) + _t(rG, mmax)))
-    terms['survivor_gates_cap'] = Fraction(bud['survivor_cap_per_shard']*S*per_orbit, NS)*2
+    cap = prof['survivor_cap_per_shard']
+    per_cap_unit = Fraction(S*per_orbit, NS)*2
+    terms['survivor_gates_cap'] = None if cap == CFG.OWNER else cap*per_cap_unit
     formulas['survivor_gates_cap'] = ('2 x cap x shards x 8 x [2 (t_A + t_G) + 4 (r_A + r_G)](m_max), which '
-                                      'includes C7 on set 1')
+                                      'includes C7 on set 1; cap is owner-set for v8')
     # 5. pre-flight and merge: stated allowances
     terms['preflight'] = Fraction(bud['preflight_seconds'])
     terms['merge'] = Fraction(bud['merge_seconds'])*2
@@ -549,32 +589,46 @@ def estimate(sp, hist, orbits, N, calib, prof, pops=None):
                        'sum_lines (t_A + t_G)(m_line)]')
     unknown = sorted(k for k, v in terms.items() if v is None)
     total = None if unknown else sum(terms.values())
-    shard_job = None if terms['C7_scope'] is None else \
+    shard_job = None if terms['C7_scope'] is None or terms['survivor_gates_cap'] is None else \
         (terms['closures'] + terms['sampled_gates'] + terms['C7_scope'] + terms['survivor_gates_cap'])/S
     jobs = {'shard': shard_job, 's1a': terms['s1a'], 'preflight': terms['preflight'], 'merge': terms['merge']}
     tmo = {k: bud['timeout_minutes'][k]*60 for k in jobs}
-    kappa = bud['kappa']
+    kappa = kappa_from_rule(bud['kappa_rule'])
+    reserve = _frac(bud['reserve_runner_seconds'])
+    ceiling = bud['runner_hours']*3600
     reasons = []
-    if kappa == CFG.OWNER:
-        reasons.append('kappa is an OWNER placeholder (L2-R7); no default exists')
-    if total is None:
+    if kappa is None:
+        reasons.append('kappa is not fixed: u_cal or u_model is an OWNER placeholder (method approved, no value)')
+    if reserve is None:
+        reasons.append('the reserve is an OWNER placeholder; no default exists')
+    if terms['C7_scope'] is None:
         reasons.append('the C7 term needs |F_G|, |I_A| and |I_G|: %s' % NOT_COMPUTED)
-    if reasons:
-        launch = None
-    else:
-        launch = kappa*total <= bud['runner_hours']*3600 and all(kappa*v <= tmo[k] for k, v in jobs.items())
+    if terms['survivor_gates_cap'] is None:
+        reasons.append('the survivor cap is an OWNER placeholder; no default exists')
+    launch, decision, slack = launch_decision(total, jobs, kappa, reserve, ceiling, tmo)
     known = sum(v for v in terms.values() if v is not None)
-    return {'terms_runner_seconds': {k: (NOT_COMPUTED if v is None else _ceil(v)) for k, v in terms.items()},
+    why_none = {'C7_scope': NOT_COMPUTED, 'survivor_gates_cap': 'not computed (owner placeholder: the survivor cap)'}
+    return {'terms_runner_seconds': {k: (why_none[k] if v is None else _ceil(v)) for k, v in terms.items()},
             'formulas': formulas,
-            'total_runner_seconds': NOT_COMPUTED if total is None else _ceil(total),
+            'total_runner_seconds': 'not computed (needs the C7 inputs and the survivor cap)' if total is None
+            else _ceil(total),
             'known_terms_runner_seconds': _ceil(known),
-            'known_terms_plus_C7_set4_runner_seconds': _ceil(known + (known_c7 if total is None else 0)),
-            'per_job_seconds': {k: (NOT_COMPUTED if v is None else _ceil(v)) for k, v in jobs.items()},
-            'job_timeouts_seconds': tmo, 'budget_runner_seconds': bud['runner_hours']*3600,
-            'kappa': kappa, 'C7': c7, 'mean_context_size_bucket_input': mbar, 'max_context_size': mmax,
-            'universe_quantities': mU, 'survivor_cap_per_shard': bud['survivor_cap_per_shard'],
-            'launch_rule': 'launch iff kappa x total <= budget and kappa x each job <= its timeout',
-            'launch_within_budget': launch, 'launch_not_decided_because': reasons}
+            'known_terms_plus_C7_set4_runner_seconds': _ceil(known + (known_c7 if terms['C7_scope'] is None else 0)),
+            'per_job_seconds': {k: ('not computed (needs the C7 inputs and the survivor cap)' if v is None else _ceil(v))
+                                for k, v in jobs.items()},
+            'job_timeouts_seconds': tmo, 'budget_runner_seconds': ceiling, 'ceiling_status': bud['ceiling_status'],
+            'reserve_runner_seconds': 'OWNER placeholder' if reserve is None else _ceil(reserve),
+            'kappa': 'not fixed (method approved: u_cal x u_model)' if kappa is None else str(kappa),
+            'kappa_rule': bud['kappa_rule'], 'C7': c7, 'mean_context_size_bucket_input': mbar, 'max_context_size': mmax,
+            'universe_quantities': mU, 'survivor_cap_per_shard': cap,
+            'survivor_gates_seconds_per_cap_unit': _ceil(per_cap_unit),
+            'overhead_factor': {'value': bud['gate_overhead_factor'], 'status': bud['gate_overhead_factor_status']},
+            'launch_rule': 'launch iff kappa x total + reserve <= ceiling (24 runner-hours, everything included) '
+                           'and kappa x each job <= its timeout; otherwise not undertaken for cost (a new reviewed '
+                           'design, or infeasible under this budget); kappa is never lowered to fit',
+            'launch_within_budget': launch, 'launch_decision': decision,
+            'slack_runner_seconds': None if slack is None else _ceil(slack) if slack >= 0 else -_ceil(-slack),
+            'launch_not_decided_because': reasons}
 
 
 def main():

@@ -308,7 +308,7 @@ def _case(mods):
                 continue
             counts = {k: 0 for k in keys}
             gates = {g: {'checked': 1, 'failed': 0} for g in ('C0_context', 'C7', 'C8', 'C9', 'C10i', 'C11i', 'C11ii',
-                                                              'C17', 'C18')}
+                                                              'C17', 'C18', 'index_roundtrip')}
             for g in mods.get('gate_fail', ()):
                 gates[g]['failed'] = 1
             if s == 0:
@@ -362,9 +362,13 @@ def t_merge():
         out[name] = _case(mods)
         exp[name] = 'INCOMPLETE'
     got = {k: v['label'] for k, v in out.items()}
+    cap = out['survivor_cap_exceeded']
+    flagged = cap['survivor_gates_incomplete']['flag'] is True and cap['n_counts'] == 58 and \
+        out['valid']['survivor_gates_incomplete']['flag'] is False
     ok = not out['valid']['incomplete_reasons'] and not out['residue_complete']['incomplete_reasons'] and \
-        all(got[k] == e for k, e in exp.items() if e)
-    return {'pass': ok, 'labels': got, 'valid_incomplete_reasons': out['valid']['incomplete_reasons'][:3]}
+        all(got[k] == e for k, e in exp.items() if e) and flagged
+    return {'pass': ok, 'labels': got, 'cap_exceeded_flagged_with_58_counts': flagged,
+            'valid_incomplete_reasons': out['valid']['incomplete_reasons'][:3]}
 
 
 def t_labels():
@@ -1009,26 +1013,92 @@ def t_v8_counts():
 
 
 def t_statement_scope():
-    """L2-T6 (E1-T6): rule T's statement scope is the erratum's text, verbatim, and is recorded in
-    result.json's rule_T.statement_scope; the zero branch's text is the same."""
+    """L2-T6 (E1-T6; LAYER2-R3-REVIEW R1): the zero branch's statement is the erratum's text, verbatim,
+    and result.json records it under rule_T.statement_scope only when the outcome is L_A = L_G = 0;
+    for the other outcomes the field reads 'not applicable (outcome: ...)'."""
     path = os.path.join(HERE, '..', '..', 'amendments', 'E1-LAYER1-ERRATUM.md')
     with open(path, encoding='utf-8') as f:
         er = ' '.join(f.read().split())
     text = CFG.CONFIG['rule_T']['zero_text']
-    r = _case({})
-    return {'pass': ' '.join(text.split()) in er and r['rule_T']['statement_scope'] == text and
-            MERGE.rule_T('OK', 0, 0)['text'] == text}
+    zero = _case({})['rule_T']
+    pos = _case({'L_A': 2})['rule_T']
+    ne = _case({'sigma': '2d'})['rule_T']
+    direct = {o: MERGE.rule_T(*a)['statement_scope'] for o, a in (('zero', ('OK', 0, 0)), ('positive', ('OK', 0, 3)),
+                                                                   ('not_evaluated', ('VOID', 0, 0)))}
+    ok = ' '.join(text.split()) in er and zero['outcome'] == 'L_A = L_G = 0' and zero['statement_scope'] == text \
+        and pos['statement_scope'] == 'not applicable (outcome: L_A > 0 or L_G > 0)' \
+        and ne['statement_scope'] == 'not applicable (outcome: not_evaluated)' and direct['zero'] == text \
+        and all(v.startswith('not applicable') for k, v in direct.items() if k != 'zero')
+    return {'pass': ok, 'positive_outcome_scope': pos['statement_scope'], 'not_evaluated_scope': ne['statement_scope']}
+
+
+def t_index_inrun():
+    """L2-IDXRUN (LAYER2-R3-REVIEW R3): the shard checks record_at(index_of(m)) == m for every member
+    whose C7 sample membership it evaluates; on toy orbits every check passes, and an index function
+    off by one (planted) fails the gate, which the merge reads as VOID."""
+    setup = toy()
+    grp = AN.group(setup)
+    _, reps = ENUM.scan(setup, 0, 120, grp, None)
+    base = {c: set(G.Context(setup, (), c).run()) for c in ('A', 'G')}
+    bound = {(c, r): set(base[c]) for c in ('A', 'G') for r in ('L3prime', 'L3')}
+
+    def run():
+        sh = ENUM.Shard(setup, _quiet_prof(), bound, base, None, None)
+        for i, r, o in reps:
+            sh.c7_orbit(i, o, {m: ({'A': (None, {'survivor': False, 'retained': []}, None),
+                                    'G': (None, {'survivor': False, 'retained': []}, None)}, None) for m in o},
+                        False, {})
+        return sh.gates['index_roundtrip']
+    members = sum(len(o) for _, _, o in reps)
+    clean = dict(run())
+    orig = PLAN.Space.index_of
+    PLAN.Space.index_of = lambda self, rec: orig(self, rec) + 1 if orig(self, rec) + 1 < 1400 else 0
+    try:
+        bad = dict(run())
+    finally:
+        PLAN.Space.index_of = orig
+    r = _case({'gate_fail': ['index_roundtrip']})
+    ok = clean == {'checked': members, 'failed': 0} and bad['failed'] > 0 and r['label'] == 'VOID'
+    return {'pass': ok, 'members': members, 'clean': clean, 'off_by_one': bad, 'merge_label': r['label']}
+
+
+def t_launch():
+    """L2-LAUNCH (the owner's rulings of 2026-10-26): kappa comes only from u_cal x u_model, rounded up
+    to one decimal; launch iff kappa x total + reserve <= the 24-hour ceiling and kappa x each job <= its
+    timeout; otherwise 'not undertaken for cost', with kappa unchanged. Synthetic estimates only."""
+    from fractions import Fraction as F
+    k = PLAN.kappa_from_rule({'u_cal': '1.25', 'u_model': '1.25'})
+    ceil = 24*3600
+    tmo = {'shard': 2400, 's1a': 2400}
+    jobs = {'shard': F(1000), 's1a': F(500)}
+    cases = {'fits': (F(40000), F(10000), True), 'over_total': (F(50000), F(10000), False),
+             'reserve_decides': (F(46000), F(13000), False), 'job_over': (F(40000), F(0), False)}
+    got = {}
+    for name, (tot, res, exp) in cases.items():
+        jb = dict(jobs, shard=F(1600)) if name == 'job_over' else jobs
+        launch, text, _ = PLAN.launch_decision(tot, jb, k, res, ceil, tmo)
+        got[name] = [launch, exp, text == 'launch admitted' if exp else text == PLAN.NOT_UNDERTAKEN]
+    undecided = PLAN.launch_decision(F(1), jobs, None, F(0), ceil, tmo)[0] is None and \
+        PLAN.launch_decision(F(1), jobs, k, None, ceil, tmo)[0] is None
+    ok = k == F(16, 10) and all(a == b and c for a, b, c in got.values()) and undecided and \
+        PLAN.kappa_from_rule({'u_cal': CFG.OWNER, 'u_model': '1.25'}) is None
+    return {'pass': ok, 'kappa': str(k), 'cases': got}
 
 
 def t_placeholders():
-    """L2-PLACEHOLDER: the open owner decisions are exactly kappa, G_D and O1, with no value for kappa
-    anywhere in the configuration; the C7 reference form is the full s0ref closure (the G-D form is
+    """L2-PLACEHOLDER: the open owner decisions are exactly kappa's two components, the reserve, the v8
+    survivor cap, G_D and O1, with no value for any of them anywhere in the configuration, and the
+    budget ceiling is the owner's 24 runner-hours; the C7 reference form is the full s0ref closure (the G-D form is
     not implemented); and l2cert.startup refuses the v8 profile at certificate item 1 while any is
     open, even when the authorization step passes (simulated here by a decision that constructs no
     grant; no context exists)."""
     paths = CFG.placeholders()
-    want = ['/budget/kappa', '/owner_rulings/G_D/ruling', '/owner_rulings/O1/ruling', '/owner_rulings/kappa/ruling']
-    kap = [CFG.CONFIG['budget']['kappa'], CFG.CONFIG['owner_rulings']['kappa']['ruling']]
+    want = ['/budget/kappa_rule/u_cal', '/budget/kappa_rule/u_model', '/budget/reserve_runner_seconds',
+            '/owner_rulings/G_D/ruling', '/owner_rulings/O1/ruling', '/owner_rulings/kappa/ruling',
+            '/owner_rulings/reserve/ruling', '/owner_rulings/survivor_cap/ruling', '/profiles/v8/survivor_cap_per_shard']
+    kap = [CFG.CONFIG['budget']['kappa_rule']['u_cal'], CFG.CONFIG['budget']['kappa_rule']['u_model'],
+           CFG.CONFIG['budget']['reserve_runner_seconds'], CFG.CONFIG['owner_rulings']['kappa']['ruling'],
+           CFG.profile('v8')['survivor_cap_per_shard'], CFG.CONFIG['owner_rulings']['survivor_cap']['ruling']]
     orig = AUTH.issue_grant
     AUTH.issue_grant = lambda art, own, here: ('ok', None, None, {'decision': 'ok', 'artifact': None,
                                                                  'owner_check': None})
@@ -1046,6 +1116,7 @@ def t_placeholders():
         AUTH.issue_grant = orig
         shutil.rmtree(d)
     ok = paths == want and all(k == CFG.OWNER for k in kap) and CFG.CONFIG['C7']['reference_form'] == 'full_s0ref' \
+        and CFG.CONFIG['budget']['runner_hours'] == 24 and PLAN.kappa_from_rule(CFG.CONFIG['budget']['kappa_rule']) is None \
         and item == 1
     return {'pass': ok, 'placeholders': paths, 'v8_startup_refused_at_item': item}
 
@@ -1058,7 +1129,7 @@ CASES = [('L2-S1_static', t_static), ('L2-GUARD', t_guard), ('L2-POST', t_post),
          ('L2-INDEX', t_index), ('L2-SCOPE', t_scope), ('L2-C7COV', t_c7_coverage), ('L2-F1', t_f1), ('L2-F2', t_f2),
          ('L2-SIGMA', t_sigma), ('L2-PREC', t_precedence), ('L2-T1', t_rule_t_l3), ('L2-T5', t_t5), ('L2-2D', t_2d),
          ('L2-COUNTS', t_counts58), ('L2-V8COUNTS', t_v8_counts), ('L2-T6', t_statement_scope),
-         ('L2-PLACEHOLDER', t_placeholders)]
+         ('L2-PLACEHOLDER', t_placeholders), ('L2-IDXRUN', t_index_inrun), ('L2-LAUNCH', t_launch)]
 
 
 # --- machinery mutants (monkeypatches in this process only) --------------------------------
@@ -1259,6 +1330,33 @@ def _m_placeholders_ignored():
     CFG.placeholders = lambda *a, **k: []
 
 
+def _m_scope_every_outcome():
+    orig = MERGE.rule_T
+    MERGE.rule_T = lambda st, a, b: dict(orig(st, a, b), statement_scope=CFG.CONFIG['rule_T']['zero_text'])
+
+
+def _m_launch_fit_kappa():
+    orig = PLAN.launch_decision
+
+    def ld(total, jobs, kappa, reserve, ceiling, timeouts):
+        out = orig(total, jobs, kappa, reserve, ceiling, timeouts)
+        if out[0] is False and kappa is not None and total:
+            kappa = max(min(kappa, (ceiling - reserve)/total), 1)    # lowers kappa to fit
+            out = orig(total, jobs, kappa, reserve, ceiling, timeouts)
+        return out
+    PLAN.launch_decision = ld
+
+
+def _m_launch_no_reserve():
+    orig = PLAN.launch_decision
+    PLAN.launch_decision = lambda total, jobs, kappa, reserve, ceiling, timeouts: \
+        orig(total, jobs, kappa, 0 if reserve is not None else None, ceiling, timeouts)
+
+
+def _m_index_check_off():
+    ENUM.Shard.index_check = lambda self, idx, m, j: None
+
+
 MUTANTS = {
     'M_skip_index': (_m_skip_index, 'L2-ORB', 'coverage scan misses one index'),
     'M_every_record_rep': (_m_every_rep, 'L2-ORB', 'orbit reduction off: representatives exceed orbits'),
@@ -1297,6 +1395,12 @@ MUTANTS = {
                                                                      'refused (caught before any enumeration)'),
     'M_placeholders_ignored': (_m_placeholders_ignored, 'L2-PLACEHOLDER', 'the v8 profile starts with kappa, G_D '
                                                                           'and O1 open'),
+    'M_scope_every_outcome': (_m_scope_every_outcome, 'L2-T6', 'the zero-branch statement recorded in a non-zero '
+                                                               'outcome (LAYER2-R3-REVIEW R1)'),
+    'M_launch_fit_kappa': (_m_launch_fit_kappa, 'L2-LAUNCH', 'kappa lowered to fit the ceiling (owner ruling)'),
+    'M_launch_no_reserve': (_m_launch_no_reserve, 'L2-LAUNCH', 'the explicit reserve left out of the launch rule'),
+    'M_index_check_off': (_m_index_check_off, 'L2-IDXRUN', 'in-run record_at(index_of(m)) check disabled '
+                                                           '(LAYER2-R3-REVIEW R3)'),
 }
 
 

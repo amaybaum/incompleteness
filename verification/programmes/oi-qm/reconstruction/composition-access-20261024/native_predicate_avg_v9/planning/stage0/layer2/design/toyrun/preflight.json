@@ -103,9 +103,9 @@
   "G": true
  },
  "ci_run": null,
- "code_digest": "d858dacee48c133a4c3bd54a418bd79a40b1ff5604987c4ed9bf6fb04ffb695e",
- "commit": "53786e6e9e6f59347d20cac9f9875fdf7b4d8f67",
- "config_sha256": "c16f090cf185aa3285863f42331c67c4d9fa3e6d774a8275787ba5ca9067b252",
+ "code_digest": "a0c6c3dfb0b3a350259e63d960083c15b14df359d3e5aa79e9238d96cf7ade4c",
+ "commit": "a782aa549061ad5417d939da932fa1c7f66ac022",
+ "config_sha256": "5811cc585b93b684cd1da68939fd4ba500e0ee4be9d439c6a67c7aead86dee92",
  "controls": {
   "C0_context_sizes": {
    "class": "VOID",
@@ -456,11 +456,50 @@
     "true_num_records": true
    }
   },
+  "L2-IDXRUN": {
+   "clean": {
+    "checked": 312,
+    "failed": 0
+   },
+   "members": 312,
+   "merge_label": "VOID",
+   "off_by_one": {
+    "checked": 312,
+    "failed": 312
+   },
+   "pass": true
+  },
   "L2-INDEX": {
    "pass": true
   },
   "L2-LAND": {
    "accepted_defects": [],
+   "pass": true
+  },
+  "L2-LAUNCH": {
+   "cases": {
+    "fits": [
+     true,
+     true,
+     true
+    ],
+    "job_over": [
+     false,
+     false,
+     true
+    ],
+    "over_total": [
+     false,
+     false,
+     true
+    ],
+    "reserve_decides": [
+     false,
+     false,
+     true
+    ]
+   },
+   "kappa": "8/5",
    "pass": true
   },
   "L2-LBL": {
@@ -509,6 +548,7 @@
    "readings_differ_on_t4": true
   },
   "L2-MRG": {
+   "cap_exceeded_flagged_with_58_counts": true,
    "labels": {
     "O_differs": "INCOMPLETE",
     "digest": "INCOMPLETE",
@@ -534,10 +574,15 @@
   "L2-PLACEHOLDER": {
    "pass": true,
    "placeholders": [
-    "/budget/kappa",
+    "/budget/kappa_rule/u_cal",
+    "/budget/kappa_rule/u_model",
+    "/budget/reserve_runner_seconds",
     "/owner_rulings/G_D/ruling",
     "/owner_rulings/O1/ruling",
-    "/owner_rulings/kappa/ruling"
+    "/owner_rulings/kappa/ruling",
+    "/owner_rulings/reserve/ruling",
+    "/owner_rulings/survivor_cap/ruling",
+    "/profiles/v8/survivor_cap_per_shard"
    ],
    "v8_startup_refused_at_item": 1
   },
@@ -634,7 +679,9 @@
    "pass": true
   },
   "L2-T6": {
-   "pass": true
+   "not_evaluated_scope": "not applicable (outcome: not_evaluated)",
+   "pass": true,
+   "positive_outcome_scope": "not applicable (outcome: L_A > 0 or L_G > 0)"
   },
   "L2-V8COUNTS": {
    "attempts": {

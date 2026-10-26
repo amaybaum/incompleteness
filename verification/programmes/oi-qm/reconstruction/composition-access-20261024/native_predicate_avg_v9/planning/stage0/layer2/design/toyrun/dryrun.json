@@ -17,9 +17,9 @@
    "records": 667
   }
  },
- "calib_sha256": "2416d8729c9a4d8e7655c09f83b8ccf78741d86adb8ab28a5bbc1bcfa198a484",
+ "calib_sha256": "eed82d0199ef7ce54f288261f8f56dbe81bc149463a7800c5745ca4d10d7b9f3",
  "closures_computed": 0,
- "config_sha256": "c16f090cf185aa3285863f42331c67c4d9fa3e6d774a8275787ba5ca9067b252",
+ "config_sha256": "5811cc585b93b684cd1da68939fd4ba500e0ee4be9d439c6a67c7aead86dee92",
  "context_quantities_pairs": {
   "3": 12,
   "4": 156,
@@ -50,19 +50,19 @@
    },
    "per_record_seconds": {
     "A": {
-     "central": 0.07,
-     "upper_at_m_max": 0.07
+     "central": 0.083,
+     "upper_at_m_max": 0.083
     },
     "G": {
-     "central": 0.316,
-     "upper_at_m_max": 0.316
+     "central": 0.378,
+     "upper_at_m_max": 0.378
     }
    },
    "per_record_seconds_note": "central: the record-weighted mean over the context-size histogram; upper_at_m_max: at the largest context size",
    "reference_form": "full_s0ref",
    "scope": "E1-F3",
    "seconds": {
-    "central": 191
+    "central": 229
    },
    "set4_seconds_central": 1,
    "sets": {
@@ -74,14 +74,15 @@
    }
   },
   "budget_runner_seconds": 86400,
+  "ceiling_status": "owner-fixed ceiling, all run overhead included",
   "formulas": {
    "C7_scope": "|F_G| x c7_G + (|I_A|/100) x c7_A + (|I_G|/100) x c7_G + (N/1000) x (c7_A + c7_G), with c7_c = 2 x [t_c(m) + r_c(m)] per record (direct production closure and full s0ref reference, normal and -O); set 1 is in survivor_gates_cap",
-   "closures": "2 x overhead x sum_m count(m) x (orbits/N) x 2 [t_A(m) + t_G(m)]",
+   "closures": "2 x overhead x sum_m count(m) x (orbits/N) x 2 [t_A(m) + t_G(m)]; overhead = 2 is an unmeasured judgement (design/overhead/ reports a local measurement)",
    "merge": "2 x stated allowance (l2config budget.merge_seconds)",
    "preflight": "stated allowance (l2config budget.preflight_seconds)",
    "s1a": "2 x [2 (t_A + t_G)(|U|) + 3 streams x 2 rules x (r_A + r_G)(m_cal) x |U| / m_cal + sum_lines (t_A + t_G)(m_line)]",
    "sampled_gates": "2 x [(1/R_C11i + 1/R_C17 + 1/R_C18) x orbits x (r_A + r_G)(m_mean) + (1/R_C8) x orbits x 8 x 2 (t_A + t_G)(m_mean)]",
-   "survivor_gates_cap": "2 x cap x shards x 8 x [2 (t_A + t_G) + 4 (r_A + r_G)](m_max), which includes C7 on set 1"
+   "survivor_gates_cap": "2 x cap x shards x 8 x [2 (t_A + t_G) + 4 (r_A + r_G)](m_max), which includes C7 on set 1; cap is owner-set for v8"
   },
   "job_timeouts_seconds": {
    "merge": 1200,
@@ -89,33 +90,47 @@
    "s1a": 2400,
    "shard": 2400
   },
-  "kappa": "OWNER-PLACEHOLDER",
-  "known_terms_plus_C7_set4_runner_seconds": 2197,
-  "known_terms_runner_seconds": 2197,
+  "kappa": "not fixed (method approved: u_cal x u_model)",
+  "kappa_rule": {
+   "method": "kappa = u_cal x u_model, rounded up to one decimal; fixed before any v8 count",
+   "u_cal": "OWNER-PLACEHOLDER",
+   "u_model": "OWNER-PLACEHOLDER"
+  },
+  "known_terms_plus_C7_set4_runner_seconds": 2453,
+  "known_terms_runner_seconds": 2453,
+  "launch_decision": "not decided: kappa, reserve not available",
   "launch_not_decided_because": [
-   "kappa is an OWNER placeholder (L2-R7); no default exists"
+   "kappa is not fixed: u_cal or u_model is an OWNER placeholder (method approved, no value)",
+   "the reserve is an OWNER placeholder; no default exists"
   ],
-  "launch_rule": "launch iff kappa x total <= budget and kappa x each job <= its timeout",
+  "launch_rule": "launch iff kappa x total + reserve <= ceiling (24 runner-hours, everything included) and kappa x each job <= its timeout; otherwise not undertaken for cost (a new reviewed design, or infeasible under this budget); kappa is never lowered to fit",
   "launch_within_budget": null,
   "max_context_size": 8,
   "mean_context_size_bucket_input": 6,
+  "overhead_factor": {
+   "status": "unmeasured judgement; local measurement reported in design/overhead/",
+   "value": 2
+  },
   "per_job_seconds": {
    "merge": 600,
    "preflight": 300,
    "s1a": 5,
-   "shard": 324
+   "shard": 387
   },
+  "reserve_runner_seconds": "OWNER placeholder",
+  "slack_runner_seconds": null,
   "survivor_cap_per_shard": 10,
+  "survivor_gates_seconds_per_cap_unit": 59,
   "terms_runner_seconds": {
-   "C7_scope": 191,
-   "closures": 12,
+   "C7_scope": 229,
+   "closures": 15,
    "merge": 600,
    "preflight": 300,
    "s1a": 5,
-   "sampled_gates": 601,
-   "survivor_gates_cap": 490
+   "sampled_gates": 721,
+   "survivor_gates_cap": 585
   },
-  "total_runner_seconds": 2197,
+  "total_runner_seconds": 2453,
   "universe_quantities": 22
  },
  "engine_imported": "l2plan imports no engine",

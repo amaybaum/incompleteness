@@ -6,9 +6,11 @@ startup(): run by every computing entry point (l2s1a, l2enum) before anything is
           the engine and the reference (a grant must carry them, L2-R4 d);
   item 6  for a profile that requires it, the v8 authorization is granted (l2auth);
   item 1  for a profile that requires authorization, no OWNER placeholder remains in the
-          configuration. Erratum E1 filled T1, T2, T5, T6, F3 and F6; the open placeholders are
-          kappa (the launch margin), G_D (the Lemma G-D reference form) and O1 (E_G as a C7 set),
-          so the v8 profile is refused while any of them is open;
+          configuration. Erratum E1 filled T1, T2, T5, T6, F3 and F6, and the owner's rulings of
+          2026-10-26 fixed the kappa method, the sequencing and the 24-hour ceiling; the open
+          placeholders are kappa's components u_cal and u_model, the reserve, the v8 survivor cap,
+          G_D (the Lemma G-D reference form) and O1 (E_G as a C7 set), so the v8 profile is refused
+          while any of them is open;
   item 2  preflight.json exists for this code_digest and profile and passed;
   item 3  mutant-campaign.json exists for this code_digest and passed ('full' for v8);
   item 7  dryrun.json exists for this configuration and computed no closure; for a profile that

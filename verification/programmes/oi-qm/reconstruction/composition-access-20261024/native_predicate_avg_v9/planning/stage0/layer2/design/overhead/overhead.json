@@ -1,0 +1,27 @@
+{
+ "configured_overhead_factor": 2,
+ "definition": "Shard.rep time (gates off, C7 closures excluded) / four bare closures of the representative",
+ "deterministic": false,
+ "measured": {
+  "planted": {
+   "max": 5.273,
+   "max_context_quantities": 24,
+   "median": 3.036,
+   "orbits": 120,
+   "p90": 3.884,
+   "ratio_of_totals": 2.873
+  },
+  "toy_class": {
+   "max": 9.343,
+   "max_context_quantities": 8,
+   "median": 2.932,
+   "orbits": 488,
+   "p90": 4.0,
+   "ratio_of_totals": 2.925
+  }
+ },
+ "note": "toy geometry only; contexts below v8 sizes (v8 mean 16, max 29); says nothing certain about v8",
+ "python": "3.13.16",
+ "schema": "np-avg-1/stage0/layer2/overhead/1",
+ "seconds": 7
+}

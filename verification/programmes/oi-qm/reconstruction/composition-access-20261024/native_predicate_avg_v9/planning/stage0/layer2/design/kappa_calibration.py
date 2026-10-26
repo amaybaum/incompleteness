@@ -8,8 +8,12 @@ v8 estimate step does.
    R times under -O, each in a fresh process. Per table and size: median, coefficient of variation
    (CV), max/median and min/median across the normal runs; the paired -O/normal ratio.
 2. Estimate spread: l2plan.estimate on the v8 profile (pops = None: the C7 inputs are not
-   computed) for each of the 2R calibrations: the known terms, the C7 set-4 term, the per-record C7
-   coefficients; their CV and max/median.
+   computed; the survivor cap is an owner placeholder, so the survivor-gate term is reported per
+   unit of cap) for each of the 2R calibrations: the known terms, the C7 set-4 term, the per-record
+   C7 coefficients; their CV and max/median; and the statistic LAYER2-R3-REVIEW section 6 asks for,
+   the ratio between two independent calibrations: every ordered pair i != j, its empirical 99th
+   percentile and maximum (max/min), and the normal-approximation 99th percentile
+   exp(2.326 x sqrt(2) x sigma_log).
 3. Toy records: on every record of the toy class, the production L3prime closure and the full
    s0ref reference closure under A and G are timed, three passes in one process. Pass 1 against
    passes 2-3 measures the in-process cache effect (eligibility memo, explicit cones); the measured
@@ -81,8 +85,15 @@ for mode in ('normal', 'O'):
                     'terms': {k: v for k, v in e['terms_runner_seconds'].items() if isinstance(v, int)},
                     'c7_per_record_central': e['C7']['per_record_seconds'],
                     'c7_FG_coefficient': e['C7']['coefficients_seconds_per_record_central']['F_G'],
+                    'survivor_gates_seconds_per_cap_unit': e['survivor_gates_seconds_per_cap_unit'],
                     's1a': e['per_job_seconds']['s1a']})
 known = [x['known_plus_C7_set4'] for x in est]
+import math    # noqa: E402
+pairs = sorted(a/b for i, a in enumerate(known) for j, b in enumerate(known) if i != j)
+sig = statistics.stdev([math.log(x) for x in known])
+ratio_stat = {'ordered_pairs': len(pairs), 'empirical_p99': r4(pairs[min(len(pairs) - 1, math.ceil(0.99*len(pairs)) - 1)]),
+              'max_over_min': r4(max(known)/min(known)), 'sigma_log': r4(sig),
+              'normal_p99_of_ratio': r4(math.exp(2.326*math.sqrt(2)*sig))}
 fg = [x['c7_FG_coefficient'] for x in est]
 closures = [x['terms']['closures'] for x in est]
 # 3. toy records: production closure and full reference, A and G, three passes in one process
@@ -131,6 +142,9 @@ out = {'schema': 'np-avg-1/stage0/layer2/kappa-calibration/1', 'deterministic': 
                                'max_over_median_by_table': {tb: max(v) for tb, v in mm_all.items()},
                                'O_over_normal': spread(O_all)},
        'v8_estimate_spread': {'per_calibration': est, 'known_plus_C7_set4': spread(known),
+                              'ratio_of_independent_calibrations': ratio_stat,
+                              'survivor_gates_seconds_per_cap_unit': spread([x['survivor_gates_seconds_per_cap_unit']
+                                                                             for x in est]),
                               'closures_term': spread(closures), 'C7_F_G_coefficient_seconds_per_record': spread(fg)},
        'toy_records': toy}
 with open(outp, 'w') as f:
@@ -139,6 +153,7 @@ with open(outp, 'w') as f:
 print(json.dumps({'written': os.path.basename(outp), 'repeats': R,
                   'calibration_summary': out['calibration_summary'],
                   'v8_known_plus_C7_set4': out['v8_estimate_spread']['known_plus_C7_set4'],
+                  'ratio_of_independent_calibrations': ratio_stat,
                   'C7_F_G_coefficient': out['v8_estimate_spread']['C7_F_G_coefficient_seconds_per_record'],
                   'toy': {k: toy[k] for k in ('cache_effect_pass1_over_mean_pass2_3', 'pass2_3_spread',
                                               'measured_over_calibration_prediction')}}, indent=1, sort_keys=True))
