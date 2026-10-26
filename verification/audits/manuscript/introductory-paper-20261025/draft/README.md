@@ -198,3 +198,27 @@ NITS for both. The package's two required fixes are applied: the recipe's compar
 the repository root, and the cache statement says that `lake exe cache get` still fetches Mathlib's prebuilt files.
 The recipe also states its prerequisites. The expected result no longer lists line positions in the CI log
 (§A.42 item 4), and its comparison still holds against the job's extracted text with the sources at `17b830bc`.
+
+## Final scientific review of r11, and r12
+
+`review/scientific/FINAL-REVIEW-r11.md` is the final scientific review of r11. Its verdict is REVISE (minimal), with
+two blocking findings and eight nits:
+- **B1:** Theorem 4 was stated without the structural hypotheses of the kernel's `FiniteOperationalTheory`.
+- **B2:** the corpus pin `17b830bc` predates #937, so at that commit [GR] contradicts §4 on Λ.
+
+`Introduction-r12.md` (with `CHANGES-r12.md`; generated from r11 by `scripts/build_r12.py`) applies all ten findings:
+- **B1:** Theorem 4's setup now lists every field of the structure, checked against `OperationalAssembly.lean:594`.
+- **B2:** the corpus is repinned to `main` `c967d6a9`. Every cited pointer was checked there, and none moved. The Lean
+  pins stay at `17b830bc`, because the Lean tree, `tools/`, `papers/Main.md` and the black-hole programme are
+  identical between the two commits.
+- **N1–N8:** applied, including [HKLP24], which was read first-hand, for the imported unboundedness, and the release
+  archive's exclusion of the black-hole computations.
+
+One page-budget trim, §6.1's repeated closing sentence, keeps the main text at 11.90 pages. Like r11, r12 has no
+overfull boxes and no dropped glyphs.
+
+**Before the draft lands as `papers/Introduction.md`:**
+- **open landing gate (owner, 2026-10-26):** Weinberg 1989 must be supplied and read first-hand and checked;
+- the confirmation of r12 against the final review;
+- the direct check of the Lean identifiers at the landing commit;
+- `papers/introduction_repro/` reaches `main` no later than the paper.
