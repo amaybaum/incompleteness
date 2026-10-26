@@ -1,10 +1,9 @@
-# BH manuscript-consistency correction — change note (draft, uncommitted)
+# BH manuscript-consistency correction — change note (record of the change)
 
 - **Worktree:** `bhfix/wt`, branch `fix/bh-consistency-20261026`, base `main` 687e885b.
 - **Inputs:** `paper/r11/FINDINGS.md`, plus `paper/r11/REVIEW.md`, which governs wherever the two differ.
 - **Edit script:** `bhfix/apply_edits.py`. It makes 47 exact-match replacements, and each `old` string must
   occur exactly once in every target. Chapter edits are applied identically to FULL.md.
-- **Nothing is committed.**
 
 Files changed (`git diff --stat`):
 - **Manuscript:** papers/GR.md; book/ch07, ch09, ch18, ch19, glossary, appendix-a, bibliography, README;
@@ -278,8 +277,8 @@ Survivors of the "resol" re-grep:
   GR only.
 
 **Known open error, not fixed in this PR (owner choice, separate change).**
-- **The error.** Theorem A.8's value S_Page(d_B, d_R) is correct only when the energy shell is the full product
-  space H_B⊗H_R. The DIFF-REVIEW §6 settles this by exact algebra:
+- **The error.** Theorem A.8's value S_Page(d_B, d_R) does not hold in general when the energy shell is a proper
+  subspace; it holds when the shell is the full product space H_B⊗H_R. The DIFF-REVIEW §6 settles this by exact algebra:
   - On the diagonal shell span{|i⟩|i⟩}, the Haar mean is H_m − 1. At m = 2 it is ½, against Page's 1/3 and
     the displayed ln 2 − ½.
   - On Hamming-weight shells BH-02 certifies values below S_Page (n=10, w=2: 1.60 against 2.97).

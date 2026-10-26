@@ -9,9 +9,14 @@ strength of their support. The change was made separately from the Introduction 
   Theorem A.7's proof, and listed missed sites.
 - `CHANGE-NOTE.md`: the change itself, site by site, with the defaults applied for the owner's open decisions, build
   and check results, and re-grep counts.
-- `DIFF-REVIEW.md`: the independent review of the diff. It also settles by exact algebra that Theorem A.8's value
-  holds only when the energy shell is the full product space; that error is left to a separate change.
+- `DIFF-REVIEW.md`: the independent review of the diff. It also shows, by exact algebra, that Theorem A.8's value
+  does not hold in general when the energy shell is a proper subspace; it holds when the shell is the full product
+  space. That error is left to a separate change.
+- `DIFF-RECHECK.md`: the confirmation re-check of the applied review (ACCEPT WITH NITS; the nits are in these
+  records).
 - `probes/`: the investigator's and reviewer's exact checks (evaporation timescales, Page's mean entropy, the Page-time
   fraction for a mass-dependent emission coefficient), with outputs where they were kept.
 
-Paths written `S/…` refer to the session's scratch directory, which is not part of the repository.
+Relative paths such as `paper/r11/…`, `r11/rev/…` and `bhfix/…` refer to the session's scratch directory, which is not
+part of the repository; the reviewer's `r11/rev/{evap,page,r12}.py` are committed as
+`probes/review-{evap,page,r12}.py`.
