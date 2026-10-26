@@ -1,0 +1,222 @@
+{
+ "checks": {
+  "A1.C7_agrees_on_every_toy_record_both_conventions": {
+   "detail": 2800,
+   "pass": true
+  },
+  "A1.C7_verdict_member_equals_representative": {
+   "detail": 0,
+   "pass": true
+  },
+  "A1.production_equivariant_on_all_toy_records": {
+   "detail": 0,
+   "pass": true
+  },
+  "A1.reference_equivariant_on_all_toy_records": {
+   "detail": 0,
+   "pass": true
+  },
+  "A2.A.T_eligible_subset_Surv": {
+   "detail": 0,
+   "pass": true
+  },
+  "A2.A.T_subset_I": {
+   "detail": null,
+   "pass": true
+  },
+  "A2.A.T_subset_Surv": {
+   "detail": 0,
+   "pass": true
+  },
+  "A2.A.sets_are_unions_of_orbits": {
+   "detail": {
+    "F": true,
+    "I": true,
+    "Surv": true,
+    "T": true,
+    "T_eligible": true
+   },
+   "pass": true
+  },
+  "A2.G.T_eligible_subset_Surv": {
+   "detail": 0,
+   "pass": true
+  },
+  "A2.G.T_equals_(T_and_Surv)_union_F": {
+   "detail": [
+    595,
+    595
+   ],
+   "pass": true
+  },
+  "A2.G.T_subset_I": {
+   "detail": null,
+   "pass": true
+  },
+  "A2.G.sets_are_unions_of_orbits": {
+   "detail": {
+    "F": true,
+    "I": true,
+    "Surv": true,
+    "T": true,
+    "T_eligible": true
+   },
+   "pass": true
+  },
+  "A3.G_closure_equals_inframe_union_GSS_of_seed_part_without_fixed": {
+   "detail": 0,
+   "pass": true
+  },
+  "A3.G_fixed_cones_contain_no_eligible_cell": {
+   "detail": 0,
+   "pass": true
+  },
+  "A3.G_inframe_cones_contain_no_eligible_cell": {
+   "detail": 0,
+   "pass": true
+  },
+  "A4.F1_caught_by_closure_free_set2_on_every_affected_record": {
+   "detail": null,
+   "pass": true
+  },
+  "A4.F1_escapes_set2_as_drafted": {
+   "detail": "a fault that destroys the tie removes the record from its own check",
+   "pass": true
+  },
+  "A4.F2_caught_only_by_direct_member_computation": {
+   "detail": null,
+   "pass": true
+  },
+  "A4.F2_invisible_in_reported_results": {
+   "detail": null,
+   "pass": true
+  },
+  "B.A.masking_equivalent.marginal_identity": {
+   "detail": null,
+   "pass": true
+  },
+  "B.A.nontrivial_stabilizer.marginal_identity": {
+   "detail": null,
+   "pass": true
+  },
+  "B.G.masking_equivalent.marginal_identity": {
+   "detail": null,
+   "pass": true
+  },
+  "B.G.nontrivial_stabilizer.marginal_identity": {
+   "detail": null,
+   "pass": true
+  },
+  "B.both_predicates_C4v_invariant": {
+   "detail": null,
+   "pass": true
+  },
+  "B.masking_equivalent_brute_force_equals_toy_run": {
+   "detail": 1398,
+   "pass": true
+  },
+  "B.nontrivial_stabilizer_two_definitions_agree": {
+   "detail": [
+    1176,
+    1176
+   ],
+   "pass": true
+  },
+  "B.survivor_status_constant_on_masking_classes": {
+   "detail": null,
+   "pass": true
+  }
+ },
+ "count_rank_argument": "per degeneracy D and convention c: cells n(D,c,T), n(D,c,F); marginal n(D). Identities n(D,c,T)+n(D,c,F)=n(D) for c=A,G. 54+4 (58) lists n(D), n(D,A,T), n(D,G,T): 3 numbers, rank 3. 62 adds n(D,A,F), n(D,G,F): 5 numbers, rank 3. 60 lists the 4 cells: rank 3.",
+ "count_tables_toy": {
+  "A:masking_equivalent": {
+   "marginal (plain count)": 1398,
+   "survivor=False": 1398,
+   "survivor=True": 0
+  },
+  "A:nontrivial_stabilizer": {
+   "marginal (plain count)": 1176,
+   "survivor=False": 1176,
+   "survivor=True": 0
+  },
+  "G:masking_equivalent": {
+   "marginal (plain count)": 1398,
+   "survivor=False": 1398,
+   "survivor=True": 0
+  },
+  "G:nontrivial_stabilizer": {
+   "marginal (plain count)": 1176,
+   "survivor=False": 1176,
+   "survivor=True": 0
+  }
+ },
+ "failed": [],
+ "group_order": 8,
+ "pass": true,
+ "planted_faults_G": {
+  "F1_equivariant_inframe_tie_drop": {
+   "detected_by": {
+    "C11i/C17/C18 1-in-1000 (rep index)": 0,
+    "C8 1-in-100 orbits (direct member recomputation)": 0,
+    "set1_Surv (computed)": 0,
+    "set2_F_union_TS closure-free, direct per member (recommended)": 595,
+    "set2_T computed closure, orbit-reduced (E1 as drafted)": 0,
+    "set3_I_and_H100 (record index)": 6,
+    "set4_H1000 (record index)": 1
+   },
+   "records_with_wrong_direct_result": 595,
+   "records_with_wrong_reported_result": 595
+  },
+  "F2_member_only": {
+   "detected_by": {
+    "C11i/C17/C18 1-in-1000 (rep index)": 0,
+    "C8 1-in-100 orbits (direct member recomputation)": 0,
+    "set1_Surv (computed)": 0,
+    "set2_F_union_TS closure-free, direct per member (recommended)": 312,
+    "set2_T computed closure, orbit-reduced (E1 as drafted)": 0,
+    "set3_I_and_H100 (record index)": 0,
+    "set4_H1000 (record index)": 0
+   },
+   "records_with_wrong_direct_result": 312,
+   "records_with_wrong_reported_result": 0
+  }
+ },
+ "populations": {
+  "A": {
+   "F (in-frame tie, closure-free)": 0,
+   "H1000 (records)": 1,
+   "I (initial-context tie)": 1071,
+   "I minus (Surv or T)": 1071,
+   "I_and_H100 (records)": 12,
+   "Surv": 0,
+   "T (set 2, any tip)": 0,
+   "T eligible tips only": 0,
+   "T minus Surv": 0,
+   "sampled sets: orbits touched": {
+    "H1000": 1,
+    "I_and_H100": 12
+   },
+   "set 2 orbits (representatives)": 0,
+   "set 2 records = sum of orbit sizes": 0
+  },
+  "G": {
+   "F (in-frame tie, closure-free)": 595,
+   "H1000 (records)": 1,
+   "I (initial-context tie)": 667,
+   "I minus (Surv or T)": 72,
+   "I_and_H100 (records)": 6,
+   "Surv": 0,
+   "T (set 2, any tip)": 595,
+   "T eligible tips only": 0,
+   "T minus Surv": 595,
+   "sampled sets: orbits touched": {
+    "H1000": 1,
+    "I_and_H100": 6
+   },
+   "set 2 orbits (representatives)": 283,
+   "set 2 records = sum of orbit sizes": 595
+  }
+ },
+ "profile": "toy",
+ "records": 1400
+}
