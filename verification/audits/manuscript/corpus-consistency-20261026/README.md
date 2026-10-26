@@ -30,3 +30,5 @@ read for the comparison is identified in `AUDIT.md` by its digest and is not com
 `REVIEW.md` is the independent review of the audit (ACCEPT WITH CHANGES). All 13 INCORRECT findings stand, four replacements are corrected, and it lists missed sites; `review/quarter3.py` is its third, independent check of the 1/4. The audit's mechanical record errors (a scratch path, a truncated digest, a stale #936 head) are corrected in place. No manuscript text is changed yet.
 
 `review/DIFF-REVIEW.md` is the independent review of the manuscript edits at `22cb6da0` (ACCEPT WITH CHANGES): the merge, mirrors, generated `.tex` and counts check out; it requires five corrections (R1–R5) and leaves three decisions to the owner.
+
+`review/DIFF-RECHECK.md` re-checks the corrections at `4fe0ebff` (REVISE: four mechanical fixes F1–F4, two nits); `review/DIFF-CONFIRM.md` confirms the fixes at `f0cc2e94` (ACCEPT WITH NITS, nits applied). `CHANGE-NOTE.md` §9 lists every site and the items deferred to the owner.

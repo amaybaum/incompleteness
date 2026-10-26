@@ -638,3 +638,7 @@ R1, R2, R4 and R5 change no count. The SM, appendix-a, ch06 and ch04 inventories
 - **Substratum:472** "these classifications are honest" (pre-existing §A.32 self-assessment).
 
 **Coordinator fix, same paragraph as F7 (ch06:205, FULL mirrored; book rebuilt).** "These four relations are all derived from cubic-group representation theory with no free parameters." → "These four relations take their forms from cubic-group representation theory with no free parameters; their classifications are those given above, with Koide $Q$ and $\theta_0$ conditional on the dynamical closure of the Koide amplitude." The paragraph is edited by this PR, and the old sentence called conditional entries derived.
+
+**Confirmation nits (4fe0ebff..f0cc2e94 confirmed ACCEPT WITH NITS, `review/DIFF-CONFIRM.md`), FULL mirrored:**
+- ch06:205: "their classifications are those given above" → "their classifications are those of the Section 6.8 table".
+- ch08:68: "Koide at $0.02\%$" → "the Koide angle at $0.02\%$", the figure being $\theta_0$'s, as at ch08:177 and :210.
