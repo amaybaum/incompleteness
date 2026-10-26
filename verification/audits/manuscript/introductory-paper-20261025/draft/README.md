@@ -51,5 +51,12 @@ E1–E4.
 
 `Introduction-r4.md` (with `CHANGES-r4.md`) applies those nits. It is 16 pages in the default build: §1–§7 end on
 p. 12, and the code note, Appendix A and the references take pp. 13–16. There are no overfull boxes and no dropped
-glyphs. The title hyphenation on p. 1 is an open owner decision. Confirmation re-checks of r4 are in progress.
+glyphs. The title hyphenation on p. 1 is an open owner decision.
+
+Confirmation re-checks of r4: `review/scientific/RECHECK-r4.md` and `review/editorial/RECHECK-r4.md`, both ACCEPT
+WITH NITS, all nits optional. Layout options are recorded there for the final layout pass: the 16th page, which a
+smaller font in the approved raw group recovers with identical text, and the orphaned last line of §4's lead
+sentence. Landing remains gated by the R11/R12 markers (a separate, reviewed manuscript-consistency change), the
+§A.42 retention of the Lean axiom-check expected result, the five VERIFY markers, and a direct re-check of the Lean
+identifiers at landing, since the census tool does not cover this paper.
 
