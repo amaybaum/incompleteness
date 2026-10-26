@@ -106,3 +106,26 @@ The confirmation of the four-line diff (`review/scientific/RECHECK-r7.md`) is AC
 - the VERIFY markers are resolved;
 - the owner's layout choices (title hyphenation; the raw group's scope) are made;
 - the Lean identifiers are re-checked directly at landing.
+
+## Reference check, and r8
+
+`review/references/FINDINGS.md` is a first-hand check of every VERIFY-marked citation r7 keeps.
+- **Supported, with no wording change needed:** six (BBS24, Cal26, EvEMU11, KP14, tH14, Vol06). The Har04 sentence is
+  supported through Mon08.
+- **Unreachable, VERIFY kept:** four (CT06, Har04 itself, Sha79, Weinberg 1989). The Weinberg landing gate stays
+  open.
+
+The source PDFs are third-party and not committed.
+
+`Introduction-r8.md` (with `CHANGES-r8.md`; generated from r7 by `scripts/build_r8.py`) aligns §5 with #936, merged
+as `17b830bc`, and follows the owner's direction of 2026-10-26. §5 leads with conservation versus operationally
+accessible recovery. The Page-curve calculation is one conditional supporting paragraph, in main's merged wording,
+listing its open conditions:
+- H-scramble;
+- H-decouple;
+- Theorem A.8's full-product-space scope, which removes the energy constraint;
+- the time-average-only form;
+- dependence on the covariant field equations.
+
+All six R11 markers are removed, since every site they named is corrected on main. Main text is 11.73 pages. A
+scientific confirmation of r8 is in progress.
