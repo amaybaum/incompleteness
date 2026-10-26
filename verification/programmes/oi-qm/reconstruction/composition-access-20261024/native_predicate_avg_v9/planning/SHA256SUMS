@@ -57,9 +57,10 @@ bf7f2c229b649a3ec1bd9d64da3145f2e84acf3fc1db47d3aae85a11612131df  ./review/toy0/
 42979ceeacf0e6438a96d810868438877d2bfe81fd35d04f527c44adbcbb39b2  ./stage0/LAYER1-FREEZE.md
 7198f612c973db72557476d96ef48199c72904851e8b7efb0ef7b6fb167dd8a7  ./stage0/STAGE0-NOTES.md
 4720ac77ecaa40aa16012eb4949743ac87fbed2c7f2f16cab80f4a9255471429  ./stage0/STAGE0-PLAN.md
-c00b448659d1df4a48c843c3a2eb85ae6e2b35d683896f0780c2cd48de1512ab  ./stage0/amendments/E1-LAYER1-ERRATUM.md
-b12159a12a573d6abc93ac96895f6ec806c6963cf48d25b362a5466238da816f  ./stage0/amendments/E1-check/e1_check.out
-fdcd7d264076f812be8f072b2e7aab25c8952daf4bcdea02350d545098edd6b0  ./stage0/amendments/E1-check/e1_check.py
+d08b888f4e85d3ab4388a6df9ac8e77da2ed6322905a565dc5ed313e2e568237  ./stage0/amendments/E1-CHANGES-r2.md
+4db591adda83cd19eb2cfff13fd1bc1aef67f5ad0548781012cd26d7312fce8b  ./stage0/amendments/E1-LAYER1-ERRATUM.md
+15261d850e86903a6a0e6c722c7730602de32ded9335617870ca54434446ce20  ./stage0/amendments/E1-check/e1_check.out
+0aff51b78ace94f609168eb891a93729f322921fce29a19290d7210396d59ea7  ./stage0/amendments/E1-check/e1_check.py
 bc07ccf2a381400c3a688413d4c872a1cf5243cb3f72793f36fbf17014d01d38  ./stage0/code-r3/s0controls.py
 bb6ef25d37c9826a7984c57e76c7cceef78356b639d97884192e0159b9e1459e  ./stage0/code-r3/s0geom.py
 6f5e1c9f27de74a781259a3d229deaf214eb2fd649541566c792c397b111f982  ./stage0/code-r3/s0mutants.py

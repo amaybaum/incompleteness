@@ -31,6 +31,19 @@ Parts:
   context; the toy frequencies of the three C7 scope predicates are reported.
 - G, T1 and T5 on the toy S1a bound: L_A and L_G recomputed from s1a.json's bounds under the
   quantity-cone reading equal s1a.json's values; the tip-cone reading gives 0.
+Revision 2 adds (also reading ../../layer2/code/s0ref.py and l2merge.py, ../../../review/
+E1-ANALYSIS.md and ../../../review/e1-analysis/e1_analysis.out, and ../E1-LAYER1-ERRATUM.md):
+- H, Lemma G-D on the toy class and the planted records, for L3prime and L3, against the
+  production closure and the full s0ref closure; corollaries T_A within Surv_A, eligible T_G
+  within Surv_G, and T_G = (T_G and Surv_G) union F_G.
+- I, planted faults under G: F1 (equivariant in-frame tie drop) and F2 (F1 on non-representative
+  members only); the computed-closure mutant of set 2 is killed by F1; the closure-free set 2
+  with the direct per-record check catches both on every affected record.
+- J, record-index sampling (deterministic, distinct streams, non-representatives included) and
+  raw and orbit-level coverage per C7 set; populations equal to the reviewer's analysis.
+- K, sigma: case 2 (d) (L_A and L_G recomputed with s0ref's cones and tips) with a perturbed-count
+  countercontrol; Layer 2 r2's label and rule_T keep a failing label while sigma = OK.
+- L, E1-ANALYSIS section D applied verbatim, apart from the departures listed in the output.
 """
 import hashlib
 import json
@@ -152,11 +165,37 @@ QUOTES = [
     ('review', 'T4_row', 87, 87, "**T4**, citations"),
     ('review', 'T5_row', 88, 88, '**T5**, "seed tip whose cone"'),
     ('review', 'owner_heading', 283, 283, "## Owner decisions (only the owner can make these)"),
+    ('r5', 'T6_zero_branch', 1001, 1004,
+     "**L_A = 0 and L_G = 0.** No record whose items lie in Reg × {−1, …, 23}, of any size, has a linked survivor "
+     "(PO4). The report states this geometric fact only; law failure beyond k ≤ 2 is not claimed, since PO8 covers "
+     "at most two Φ triples in clear (R4-5; the wording is pending owner confirmation, §12). S1b and S1c are not "
+     "undertaken."),
+    ('r5', 'T6_pending', 1033, 1035,
+     "**Pending owner:** rule T's L_A = L_G = 0 consequence is the geometric statement only (the default above). "
+     "A law statement for k > 2 would need a new proof obligation generalising PO8."),
+    ('e1review', 'owner_decisions', 180, 180, "## Owner decisions"),
+    ('e1review', 'decision6', 203, 203, "E1 takes effect only after R1–R5 and decisions 1–2 are applied, with a diff-only re-check;"),
+    ('e1review', 'F3_facts', 103, 104, "**E1-F3: faithful to the ruling's letter, but the ruled scope needs re-decision (R2, owner 1).**"),
+    ('e1review', 'decision1', 182, 182, "**C7 set 2 (re-decision with corrected facts).**"),
+    ('e1review', 'decision2', 193, 193, "**The sampling unit of H₁₀₀ and H₁₀₀₀.** Recommended: every record index (R1)."),
+    ('analysis', 'A3', 163, 163, "### A3. Orbit reduction: what it preserves"),
+    ('analysis', 'B', 220, 220, "## B. Count semantics"),
+    ('analysis', 'owner_T6', 316, 319,
+     "\"Approved, with qualification. Rule T may be used as a geometric property of the specified closure. It must "
+     "not be presented as a probabilistic result, empirical observation, or independent theorem about the full model\" "
+     "(amaybaum, 2026-10-26)"),
+    ('analysis', 'owner_sigma', 329, 330, "\"Give S1a its own diagnostic status, not an overriding success label\""),
+    ('analysis', 'owner_add_it', 344, 344, "(ruling: \"Add it\")"),
+    ('analysis', 'owner_595', 399, 399, "(\"Retain the approved shared-tip closure scope, including G's 595 records\")"),
+    ('analysis', 'owner_index', 405, 405, "(R1; the owner: \"Every record index\")"),
+    ('analysis', 'owner_counts', 462, 462, "(the owner: \"explicit count definitions and a reconciliation table\")"),
 ]
 
 
 FILES = {'r5': R5, 'freeze': os.path.join(STAGE0, 'LAYER1-FREEZE.md'),
-         'review': os.path.join(STAGE0, '..', 'review', 'LAYER2-REVIEW.md')}
+         'review': os.path.join(STAGE0, '..', 'review', 'LAYER2-REVIEW.md'),
+         'e1review': os.path.join(STAGE0, '..', 'review', 'E1-REVIEW.md'),
+         'analysis': os.path.join(STAGE0, '..', 'review', 'E1-ANALYSIS.md')}
 
 
 def part_a():
@@ -170,7 +209,7 @@ def part_a():
             lines[k] = f.read().split('\n')
     bad = []
     for fk, name, lo, hi, q in QUOTES:
-        if norm(q) not in norm(' '.join(lines[fk][lo - 1:hi])):
+        if norm(q) not in norm(' '.join(strip_q(x) for x in lines[fk][lo - 1:hi])):
             bad.append([fk, name, lo, hi])
     per = {k: sum(1 for x in QUOTES if x[0] == k) for k in FILES}
     check('A.quotes_at_stated_lines', not bad, {'quotes': len(QUOTES), 'per_file': per, 'not_found': bad})
@@ -469,12 +508,330 @@ def part_g():
     OUT['toy_S1a'] = dict(vals, note='toy geometry; says nothing about v8')
 
 
+# ---------------------------------------------------------------- revision 2: shared toy data
+import s0ref as REF       # noqa: E402  independent reference (toy contexts only)
+
+ANALYSIS = os.path.join(STAGE0, '..', 'review', 'E1-ANALYSIS.md')
+ANALYSIS_OUT = os.path.join(STAGE0, '..', 'review', 'e1-analysis', 'e1_analysis.out')
+ERRATUM = os.path.join(STAGE0, 'amendments', 'E1-LAYER1-ERRATUM.md')
+L3RULE = G.Rule(far=False)
+
+
+def ref_tips(q, geo):
+    """{(e, 'near'|'far'): cell} from the plan text, by s0ref's geometry."""
+    c = q[0]
+    _, d, near, far = geo.kind(q)
+    out = {}
+    for i in range(geo.dim):
+        for s in (1, -1):
+            e = REF.unit(geo.dim, i, s)
+            out[(e, 'near')] = (REF.shift(c, e, d), near)
+            if d >= 1:
+                out[(e, 'far')] = (REF.shift(c, e, d - 1), far)
+    return out
+
+
+class NearOnly:
+    """s0ref's geometry with near tips only (rule L3: L3prime without far tips, same cones)."""
+
+    def __init__(self, geo):
+        self.geo, self.dim = geo, geo.dim
+
+    def kind(self, q):
+        return self.geo.kind(q)
+
+    def cone(self, q):
+        return self.geo.cone(q)
+
+    def tipset(self, q):
+        return {u for (e, k), u in ref_tips(q, self.geo).items() if k == 'near'}
+
+
+def per_record(setup, r, conv):
+    """Production closures (L3prime, L3), survivor status, s0ref context and full reference
+    closure, and under G the In/Out split, for one toy or planted record."""
+    ctx = G.Context(setup, r, conv, G.FROZEN)
+    a = G.analyse(ctx)
+    prod = frozenset(a['retained'])
+    prod3 = frozenset(G.Context(setup, r, conv, L3RULE).run())
+    port = None if setup.port is None else tuple(setup.port)
+    fixed, quants, geo, elig = REF.ref_context(setup.dim, setup.n, port, r, conv)
+    ref, _ = REF.greatest(fixed, quants, geo, elig, 8)
+    Q0 = frozenset(set(quants) - set(fixed))
+    out = {'prod': prod, 'prod3': prod3, 'ref': frozenset(ref), 'Q0': Q0, 'surv': a['survivor'],
+           'geo': geo, 'elig': elig, 'pair': ctx.pair, 'fixed': frozenset(fixed)}
+    if conv == 'G':
+        seed = frozenset(q for q in Q0 if any(elig(u) for u in ref_tips(q, geo).values()))
+        out['In'], out['Out'] = Q0 - seed, seed
+    return out
+
+
+_TOY = {}
+
+
+def toy_data():
+    if _TOY:
+        return _TOY
+    setup = toy_setup()
+    grp = AN.group(setup)
+    N = G.num_records(setup)
+    recs = [tuple(sorted(G.record_at(setup, i))) for i in range(N)]
+    canon = {r: AN.canon(r, grp) for r in recs}
+    orbit_of, g_to = {}, {}
+    for r in recs:
+        orbit_of.setdefault(canon[r], []).append(r)
+    for rep in orbit_of:
+        for m, g in AN.orbit(rep, grp).items():
+            g_to[m] = g
+    data = {(c, r): per_record(setup, r, c) for c in CONVS for r in recs}
+    _TOY.update(setup=setup, grp=grp, N=N, recs=recs, index={r: i for i, r in enumerate(recs)},
+                canon=canon, orbit_of=orbit_of, g_to=g_to, data=data)
+    return _TOY
+
+
+def planted_records(setup, grp):
+    pairA = G.Pair(setup.n + 1)
+    c0, L = (5, 0, 0), pairA.L
+    six = [(G.vadd(c0, e), L) for e in G.axes(3)]
+    base = [tuple(sorted([(c0, L + 1)] + six)), tuple(sorted([(c0, L + 2)] + six)),
+            tuple(sorted([(c0, L)] + six))]
+    return sorted({m for r in base for m in AN.orbit(r, grp)})
+
+
+def sets_of(recs, data, conv, dim):
+    S = {r for r in recs if data[(conv, r)]['surv']}
+    T = {r for r in recs if shared_near(data[(conv, r)]['prod'], data[(conv, r)]['pair'], dim)}
+    Te = {r for r in recs if shared_near(data[(conv, r)]['prod'], data[(conv, r)]['pair'], dim,
+                                         data[(conv, r)]['elig'])}
+    I = {r for r in recs if shared_near(data[(conv, r)]['Q0'], data[(conv, r)]['pair'], dim)}
+    F = {r for r in recs if shared_near(data[(conv, r)]['In'], data[(conv, r)]['pair'], dim)} if conv == 'G' else set()
+    return S, T, Te, I, F
+
+
+# ---------------------------------------------------------------- H. Lemma G-D and its corollaries
+def part_h():
+    td = toy_data()
+    setup, grp = td['setup'], td['grp']
+    prec = planted_records(setup, grp)
+    pdata = {(c, r): per_record(setup, r, c) for c in CONVS for r in prec}
+    summary = {}
+    for name, recs, data in (('toy', td['recs'], td['data']), ('planted', prec, pdata)):
+        bad3p, bad3, badref = 0, 0, 0
+        for r in recs:
+            d = data[('G', r)]
+            W, _ = REF.greatest(set(), d['Out'], d['geo'], d['elig'], 8)
+            W3, _ = REF.greatest(set(), d['Out'], NearOnly(d['geo']), d['elig'], 8)
+            bad3p += d['prod'] != (d['In'] | frozenset(W))
+            bad3 += d['prod3'] != (d['In'] | frozenset(W3))
+            badref += d['ref'] != (d['In'] | frozenset(W))
+        check('H.%s.G_D_L3prime_production_equals_In_union_W_Out' % name, bad3p == 0, bad3p)
+        check('H.%s.G_D_L3_production_equals_In_union_W_Out_near_only' % name, bad3 == 0, bad3)
+        check('H.%s.G_D_form_equals_full_reference' % name, badref == 0, badref)
+        SA, TA, _, _, _ = sets_of(recs, data, 'A', setup.dim)
+        SG, TG, TeG, IG, FG = sets_of(recs, data, 'G', setup.dim)
+        check('H.%s.T_A_subset_Surv_A' % name, TA <= SA, [len(TA), len(SA)])
+        check('H.%s.T_G_eligible_subset_Surv_G' % name, TeG <= SG, [len(TeG), len(SG)])
+        check('H.%s.T_G_equals_(T_G_and_Surv_G)_union_F_G' % name, TG == ((TG & SG) | FG),
+              [len(TG), len((TG & SG) | FG)])
+        summary[name] = {'records': len(recs), 'Surv_A': len(SA), 'Surv_G': len(SG), 'T_A': len(TA),
+                         'T_G': len(TG), 'T_G_eligible': len(TeG), 'F_G': len(FG), 'I_G': len(IG)}
+    check('H.planted_has_G_survivors_and_seed_parts', summary['planted']['Surv_G'] > 0, summary['planted'])
+    OUT['lemma_G_D'] = summary
+
+
+# ---------------------------------------------------------------- I. planted faults F1 and F2
+def part_i():
+    td = toy_data()
+    recs, data, canon, g_to, dim = td['recs'], td['data'], td['canon'], td['g_to'], td['setup'].dim
+
+    def fault_f1(r, prod):
+        d = data[('G', r)]
+        tips = {}
+        for q in prod:
+            for (e, k), u in ref_tips(q, d['geo']).items():
+                if k == 'near':
+                    tips.setdefault((e, u), set()).add(q)
+        drop = set()
+        for qs in tips.values():
+            if len(qs) > 1:
+                drop |= {q for q in qs if q in d['In']}
+        return frozenset(prod - drop)
+
+    def fault_f2(r, prod):
+        return prod if canon[r] == r else fault_f1(r, prod)
+    SG, _, _, _, FG = sets_of(recs, data, 'G', dim)
+    res = {}
+    for fname, fault in (('F1', fault_f1), ('F2', fault_f2)):
+        direct = {r: fault(r, data[('G', r)]['prod']) for r in recs}
+        reported = {r: frozenset(AN.act_set(g_to[r], direct[canon[r]])) for r in recs}
+        ref = {r: data[('G', r)]['ref'] for r in recs}
+        affected = {r for r in recs if direct[r] != ref[r] or reported[r] != direct[r]}
+        # the computed-closure mutant: set 2 by the computed (reported) closure, checked on reported results
+        mut_set = {r for r in recs if shared_near(reported[r], data[('G', r)]['pair'], dim)}
+        mut_caught = {r for r in mut_set if reported[r] != ref[r]}
+        # E1-F3: closure-free set 2, direct per-record check
+        set2 = FG | ({r for r in recs if shared_near(reported[r], data[('G', r)]['pair'], dim)} & SG)
+        caught = {r for r in set2 if direct[r] != ref[r] or reported[r] != direct[r]}
+        # orbit-reduced check: representatives only, reported vs reference
+        rep_caught = {r for r in set2 if canon[r] == r and reported[r] != ref[r]}
+        res[fname] = {'affected': len(affected), 'wrong_reported': sum(1 for r in recs if reported[r] != ref[r]),
+                      'computed_closure_mutant_caught': len(mut_caught), 'E1_F3_set2_direct_caught': len(caught),
+                      'orbit_reduced_representatives_caught': len(rep_caught), 'set2_records': len(set2)}
+    f1, f2 = res['F1'], res['F2']
+    check('I.F1_affects_records', f1['affected'] > 0, f1['affected'])
+    check('I.F1_computed_closure_mutant_killed', f1['computed_closure_mutant_caught'] == 0 < f1['affected'], f1)
+    check('I.F1_caught_on_every_affected_record_of_set2', f1['E1_F3_set2_direct_caught'] == f1['affected'], f1)
+    check('I.F2_invisible_in_reported_results', f2['wrong_reported'] == 0 < f2['affected'], f2)
+    check('I.F2_missed_by_orbit_reduced_check', f2['orbit_reduced_representatives_caught'] == 0, f2)
+    check('I.F2_caught_by_direct_per_record_check', f2['E1_F3_set2_direct_caught'] == f2['affected'], f2)
+    OUT['planted_faults_G'] = res
+
+
+# ---------------------------------------------------------------- J. record-index sampling and coverage
+STREAMS = {'H100': ('C7_H100', 100), 'H1000': ('C7_H1000', 1000)}
+
+
+def draw(salt, stream, rate, N):
+    out = set()
+    for i in range(N):
+        h = hashlib.sha256(('%s|%s|%d' % (salt, stream, i)).encode()).digest()
+        if int.from_bytes(h[:8], 'big') % rate == 0:
+            out.add(i)
+    return out
+
+
+def part_j():
+    td = toy_data()
+    recs, data, canon, orbit_of, index, N, dim = (td['recs'], td['data'], td['canon'], td['orbit_of'],
+                                                    td['index'], td['N'], td['setup'].dim)
+    salt = CFG.CONFIG['sampling_salt']
+    H = {k: draw(salt, s, rate, N) for k, (s, rate) in STREAMS.items()}
+    again = {k: draw(salt, s, rate, N) for k, (s, rate) in STREAMS.items()}
+    check('J.samples_deterministic', H == again)
+    check('J.streams_distinct', STREAMS['H100'][0] != STREAMS['H1000'][0])
+    nonrep = {k: sum(1 for i in v if canon[recs[i]] != recs[i]) for k, v in H.items()}
+    check('J.samples_drawn_over_record_indices_include_non_representatives', nonrep['H100'] > 0, nonrep)
+    cov = {}
+    for c in CONVS:
+        S, T, _, I, F = sets_of(recs, data, c, dim)
+        set2 = T if c == 'A' else ((T & S) | F)
+        sets = {'1_Surv': S, '2_set2': set2, '3_I_and_H100': {r for r in I if index[r] in H['H100']},
+                '4_H1000': {recs[i] for i in H['H1000']}}
+        cov[c] = {}
+        for name, X in sets.items():
+            orbits = {canon[r] for r in X}
+            cov[c][name] = {'records': len(X), 'orbits_touched': len(orbits),
+                            'sum_of_touched_orbit_sizes': sum(len(orbit_of[o]) for o in orbits)}
+    OUT['C7_scope_coverage_toy'] = cov
+    with open(ANALYSIS_OUT) as f:
+        an = json.load(f)['populations']
+    pairs = []
+    for c in CONVS:
+        pairs.append([cov[c]['3_I_and_H100']['records'], an[c]['I_and_H100 (records)']])
+        pairs.append([cov[c]['4_H1000']['records'], an[c]['H1000 (records)']])
+    pairs.append([cov['G']['2_set2']['records'], an['G']['F (in-frame tie, closure-free)']])
+    check('J.matches_reviewer_analysis_populations', all(a == b for a, b in pairs), pairs)
+
+
+# ---------------------------------------------------------------- K. sigma: case 2 (d) and precedence
+def part_k():
+    setup = toy_setup()
+    with open(os.path.join(TOYRUN, 's1a.json')) as f:
+        s1a = json.load(f)
+    dim = setup.dim
+
+    def dec(flat):
+        return {(tuple(flat[i:i + dim]), flat[i + dim]) for i in range(0, len(flat), dim + 1)}
+    U = tuple((x, setup.tlast) for x in setup.region)
+    port = tuple(setup.port)
+    _, _, geoA, _ = REF.ref_context(dim, setup.n, port, U, 'A')
+    _, _, geoG, eligG = REF.ref_context(dim, setup.n, port, U, 'G')
+    six, V, _ = setup.phi()
+    phi = set(six) | {V}
+    src = [(x, 0) for x in setup.sources]
+
+    def ref_LA(bound):
+        return sum(1 for q in bound if geoA.cone(q) & phi)
+
+    def ref_LG(bound):
+        return sum(1 for q in bound if any(eligG(u) for u in geoG.tipset(q)) and any(c in geoG.cone(q) for c in src))
+    b = {k: dec(v) for k, v in s1a['bound'].items()}
+    ref = {'L3prime': [ref_LA(b['A:L3prime']), ref_LG(b['G:L3prime'])], 'L3': [ref_LA(b['A:L3']), ref_LG(b['G:L3'])]}
+    prod = {'L3prime': [s1a['L_A'], s1a['L_G']], 'L3': [s1a['L_reported_L3']['L_A'], s1a['L_reported_L3']['L_G']]}
+
+    def case_2d(p, r):
+        return p != r
+    check('K.case_2d_reference_recomputation_agrees', not case_2d(prod['L3prime'], ref['L3prime']),
+          {'production': prod, 'reference': ref})
+    check('K.L3_values_reported_equal', prod['L3'] == ref['L3'])
+    check('K.countercontrol_perturbed_count_fires_2d',
+          case_2d([prod['L3prime'][0] + 1, prod['L3prime'][1]], ref['L3prime']) and
+          case_2d([prod['L3prime'][0], prod['L3prime'][1] + 1], ref['L3prime']))
+    import l2merge as MRG
+    labs = {'VOID': MRG.label(['x'], [], [], True, 0, 0, 0, 0),
+            'MISMATCH': MRG.label([], ['x'], [], True, 0, 0, 0, 0),
+            'INCOMPLETE': MRG.label([], [], ['x'], True, 0, 0, 0, 0)}
+    tok = MRG.rule_T('OK', 0, 0)
+    tno = MRG.rule_T('VOID', 0, 0)
+    check('K.sigma_OK_never_overrides_a_failing_label', all(k == v for k, v in labs.items()) and tok['evaluated'],
+          {'labels': labs, 'rule_T_evaluated_with_sigma_OK': tok['evaluated']})
+    check('K.rule_T_not_evaluated_when_sigma_not_OK', tno['evaluated'] is False)
+
+
+# ---------------------------------------------------------------- L. E1-ANALYSIS section D applied verbatim
+# (lo, hi) line ranges of E1-ANALYSIS.md whose text E1 revision 2 carries verbatim (leading '> '
+# stripped, whitespace normalized). The ranges omitted are E1's declared departures:
+# 375-378 and 388 ('as drafted', replaced by the drafted definitions), 416-418 (the Lemma G-D
+# reference form, an open owner decision), 470-471 (the rank sentence, corrected).
+VERBATIM = [('D0', 309, 310), ('D1', 316, 325), ('D2', 328, 370), ('D4.in_out_lemma', 379, 387),
+            ('D4.scope_samples_check', 390, 415), ('D4.void', 419, 419), ('D4.reduction_to_end', 421, 459),
+            ('D5.convention', 462, 469), ('D5.table_note', 473, 480)]
+D0_PHRASE = 'with odd-class samples dropped (equivalence E2) and identity merges applied (equivalence E1)'
+DEPARTURES = [[375, 378, "'Shared near tip: as drafted' and 'Q0(R): as drafted': the drafted definitions are written out"],
+              [388, 388, "'Computed closure: as drafted': the drafted definition is written out"],
+              [416, 418, 'the reference may use the Lemma G-D form: recast as an open owner decision (section 9)'],
+              [470, 471, "'Every list carries rank 3': the frozen 54 carries rank 1 for D = 6, 9; corrected"]]
+
+
+def strip_q(line):
+    s = line.lstrip()
+    return s[1:] if s.startswith('>') else line
+
+
+def part_l():
+    with open(ANALYSIS, encoding='utf-8') as f:
+        al = f.read().split('\n')
+    with open(ERRATUM, encoding='utf-8') as f:
+        er = norm(f.read())
+    missing = []
+    for name, lo, hi in VERBATIM:
+        if norm(' '.join(strip_q(x) for x in al[lo - 1:hi])) not in er:
+            missing.append(name)
+    rows = [x for x in al[485:493] if x.startswith('|')]
+    bad_rows = []
+    for row in rows:
+        cells = [c.strip() for c in row.strip().strip('|').split('|')]
+        if norm(cells[0]) not in er or any(norm(p) not in er for p in cells[1].split('; ')):
+            bad_rows.append(cells[0])
+    check('L.section_D_blocks_verbatim', not missing, {'blocks': len(VERBATIM), 'missing': missing})
+    check('L.D0_phrase_present', norm(D0_PHRASE) in er and '(E2) and identity merges applied (E1)' not in er)
+    check('L.D6_rows_present', len(rows) == 8 and not bad_rows, {'rows': len(rows), 'missing': bad_rows})
+    gd = norm(' '.join(strip_q(x) for x in al[415:418]))
+    check('L.departure_GD_permission_not_carried', gd not in er and norm(D0_PHRASE) in er, gd[:80])
+    OUT['section_D_departures'] = DEPARTURES
+
+
 def main():
     part_a()
     part_b()
     part_cef()
     part_d()
     part_g()
+    part_h()
+    part_i()
+    part_j()
+    part_k()
+    part_l()
     OUT['pass'] = not FAILS
     OUT['failed'] = FAILS
     print(json.dumps(OUT, indent=1, sort_keys=True, ensure_ascii=False, default=str))

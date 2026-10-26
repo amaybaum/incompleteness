@@ -1,8 +1,10 @@
-# NP-AVG-1 Stage 0, Layer 1: erratum E1
+# NP-AVG-1 Stage 0, Layer 1: erratum E1 (revision 2)
 
-**Status: draft, append-only, awaiting its independent review.** It governs the frozen Layer-1
+**Status: draft, append-only, not in effect.** It takes effect once a diff-only re-check accepts
+this revision (`../../review/E1-REVIEW.md`, owner decision 6). It governs the frozen Layer-1
 specification where it applies, as stated below. No v8 result exists: S1a has not run on v8's
 configuration class, and no v8 closure, count or shared-tip count has been computed.
+`E1-CHANGES-r2.md` maps each review item and ruling to its edit.
 
 ## 0. Relation to the freeze
 
@@ -10,47 +12,61 @@ configuration class, and no v8 closure, count or shared-tip count has been compu
   `1a30188e70804644a6ff65b3114ab82f8be40a2b056d0e2862ce595a8982847e`, frozen at
   `f33d8d63a14b3bbaa3c1eb1e52aeffcb55b0c966` (`../LAYER1-FREEZE.md`). Line numbers below ("L1
   line n") refer to that file. `r5/`, `code-r5/`, `design-r5/` and `LAYER1-FREEZE.md` are not
-  edited and stay byte-identical; `E1-check/` verifies the plan's SHA-256 and every quotation below
+  edited and stay byte-identical. `E1-check/` verifies the plan's SHA-256 and every quotation below
   at its stated lines.
 - **How E1 governs.** Each item quotes the frozen text it governs and gives a replacement or an
   added definition. Where an item applies, its text is read in place of, or beside, the quoted
-  passage. All other frozen text governs unchanged.
+  passage. All other frozen text governs unchanged. Tags of the form E1-T1, E1-F3 … name items of
+  this erratum. The equivalences of r5 §1 are written "equivalence E1" … "equivalence E4".
 - **Its review.** `LAYER1-FREEZE.md` states: "A change is an append-only amendment, with its own
-  independent review." E1 takes effect when that review accepts it. A later change is a new
-  amendment, not an edit of E1.
+  independent review." The independent review of E1 is `../../review/E1-REVIEW.md`, and its
+  follow-up analysis of the owner's rulings is `../../review/E1-ANALYSIS.md`. A later change, once
+  E1 is in effect, is a new amendment, not an edit of E1.
 - **Timing and neutrality.** The rulings were given, and E1 is fixed, before any S1a or k ≤ 2
   output exists on v8, as rule T's neutrality clause (L1 lines 1013–1016) and owner decision O-b
   (L1 lines 88–90) require. The toy-class values cited below (for example the toy S1a's L_A = 15
-  and L_G = 7) are toy geometry. They carry no information about v8.
+  and L_G = 7, and the 595 toy records of F_G) are toy geometry. They carry no information about
+  v8.
 - **Not touched.** The masking law (§2), the geometry, the equivalences E1–E4, the search domain
   (§1, §12 S1), the survivor definitions (§3), the propositions and proof obligations (§4), and
   the labels and their precedence (§5). Each item states what it does change.
 
 ## 1. The owner's rulings
 
-The owner, amaybaum, 2026-10-26, answered the owner decisions of `../../review/LAYER2-REVIEW.md`
-(lines 283–304), adopting the review's recommendations at the lines cited in each item:
+All rulings are by the owner, amaybaum, on 2026-10-26. The first four answered the owner decisions
+of `../../review/LAYER2-REVIEW.md` (lines 283–304), adopting the review's recommendations at the
+lines cited in each item. The others answered `../../review/E1-REVIEW.md` (lines 180–204) and are
+quoted, where `../../review/E1-ANALYSIS.md` quotes them, as it quotes them.
 
 | question | answer, verbatim |
 | --- | --- |
 | Rule T: an append-only Layer-1 erratum fixing T1, T2 and T5, with T3 and T4 as notes | "Approve erratum" |
 | F3: C7's scope | "Reviewer's scope" |
 | F6: the degeneracy cross-tabulations | "Erratum: add 4 counts" |
-| κ: the launch margin and budget (S7) | "Decide later" |
+| κ: the launch margin and budget (S7) | "Decide later" (κ and S7 remain undecided) |
+| C7 set 2, re-decided | "Preserve the full 595-record G-convention population unless the reviewer proves that orbit reduction preserves all required results, including multiplicities, ties, and failure detection … If it is redundant, document that finding rather than silently removing the check."; "Retain the approved shared-tip closure scope, including G's 595 records" |
+| the sampling unit of H₁₀₀ and H₁₀₀₀ | "Every record index" |
+| the counts | "Treat 58 as the current baseline unless the reconciliation establishes that additional nonredundant cells are mathematically required."; "explicit count definitions and a reconciliation table" |
+| S1a's status | "Give S1a its own diagnostic status, not an overriding success label" |
+| the reference recomputation of L_A and L_G in σ | "Add it" |
+| the "geometric fact only" wording of rule T's zero branch | "Approved, with qualification. Rule T may be used as a geometric property of the specified closure. It must not be presented as a probabilistic result, empirical observation, or independent theorem about the full model" |
+| Lemma G-D in C7's reference computation | open: to be decided with κ, once the dry run reports \|F_G\| (§9) |
 
 ## 2. Notation used below
 
 - **U** = {(x, 23) : x ∈ Reg}. Its context Ctx(U) is the union of every item's samples, since the
   samples of (x, t) are those of (x, 23) at slices up to t (L1 §1); this is the context of S1a
   (L1 lines 985–986).
+- **ℛ** is the record space of L1 §1 (singles, and pairs at distinct sites; k ≤ 2), with N
+  records indexed by `record_at` over [0, N) (L1 §5b item 1).
 - **ret^ρ_c(R)** is the retained set of record R under convention c ∈ {A, G} and rule
   ρ ∈ {L3′, L3} (L1 §2). It contains non-fixed quantities only.
 - **Pair of c:** (7, 8) under A, (−1, 0) under G (L1 §2).
 - **e-tip** and **reach in e:** as L1 §4 defines them (L1 lines 268–272): for q = (c, t) of type
   T and depth d, and an axis direction e, the e-tip of q is its near tip c + d·e on q's near slice
   (q itself when d = 0), and its reach in e is c·e + d.
-- **Source cells:** the site-times ((−8, 0, 0), 0), ((−7, 0, −1), 0) and ((−7, 0, 1), 0) (L1 §1
-  E4; "a source cell at slice 0", L1 line 228).
+- **Source cells:** the site-times ((−8, 0, 0), 0), ((−7, 0, −1), 0) and ((−7, 0, 1), 0) (L1 §1,
+  equivalence E4; "a source cell at slice 0", L1 line 228).
 
 ## 3. Item E1-T1: the bound rule T reads
 
@@ -94,61 +110,69 @@ L3′ outcome. `E1-check` part G recomputes all four values from the toy `s1a.js
 The frozen text defines none of the three statuses for S1a.
 
 **Ruling:** "Approve erratum" (amaybaum, 2026-10-26), adopting the review's T2 recommendation
-(`LAYER2-REVIEW.md` lines 85 and 287): "S1a's status as Layer 2 §4 defines it". The definition
-below states Layer 2's, as implemented in `layer2/code/l2s1a.py` (`run`) and `l2merge.py`
-(`merge`), in Layer-1 terms.
+(`LAYER2-REVIEW.md` lines 85 and 287): "S1a's status as Layer 2 §4 defines it"; then "Give S1a its
+own diagnostic status, not an overriding success label" and, for the reference recomputation of
+L_A and L_G, "Add it" (amaybaum, 2026-10-26).
 
-**Added definition.** S1a's status σ is one of OK, VOID, MISMATCH and INCOMPLETE. The merge
-computes it from structured files only (certificate item 8). The first matching case applies:
+**Added definition.** S1a's status σ ∈ {OK, VOID, MISMATCH, INCOMPLETE} is a diagnostic status
+of the S1a computation (the owner, 2026-10-26: "Give S1a its own diagnostic status, not an
+overriding success label"). It transcribes Layer 2 r2 (`4a51c675`, `l2s1a.run` and
+`l2merge.merge`), including the reference checks of the L3 bound that L2-R8 added; those only add
+non-OK cases. The first matching case applies:
 
-1. **INCOMPLETE** if any of the following holds:
-   - (a) S1a's structured output is missing. That includes every case in which S1a refused to
-     start: S1a computes only after certificate item 1 (the manifest), item 2 (a passing
-     pre-flight for the same code digest), item 3 (a passing mutant campaign), item 6 (the v8
-     authorization) and the mandatory dry run (item 7) have passed;
-   - (b) its normal and `-O` outputs are not byte-identical, or one of them is missing;
-   - (c) its code digest or configuration digest differs from the frozen Layer-2 manifest.
-2. **VOID** if a reference check fails on any of the four bound closures ret^ρ_c(U), for
-   c ∈ {A, G} and ρ ∈ {L3′, L3}:
-   - (a) C0: the production context of U differs from `s0ref`'s context of U;
-   - (b) C17: by `s0ref`'s cone and tip code, a quantity of the bound has a free eligible tip;
-   - (c) C18: a logged elimination of the bound's closure is not justified by `s0ref`, that is,
-     its tip is not a valid, eligible tip of the eliminated quantity uncovered by every quantity
-     alive at that moment.
+1. **INCOMPLETE** if (a) S1a's structured output is missing, which includes every case in which
+   S1a refused to start for want of certificate items 1, 2, 3, 6 or the dry run (item 7); or
+   (b) its normal and `-O` outputs are not byte-identical, or one is missing; or (c) its code or
+   configuration digest differs from the frozen Layer-2 manifest.
+2. **VOID** if, on any of the four bound closures ret^ρ_c(U) (c ∈ {A, G}, ρ ∈ {L3′, L3}):
+   - (a) C0 fails: the production context of U differs from `s0ref`'s;
+   - (b) C17 fails: by `s0ref`'s cones and tips, a quantity of the bound has a free eligible tip;
+   - (c) C18 fails: a logged elimination is not justified by `s0ref`;
 
-   For the L3 closures, (b) and (c) use near tips only, since L3 is L3′ without the far tips
-   (L1 line 182).
-3. **MISMATCH** if any of the following holds:
-   - (a) C10 (i) on S1a: a fixed quantity appears in the elimination log of one of the four bound
-     closures;
-   - (b) C9 on U: ret^{L3′}_c(U) ⊄ ret^{L3}_c(U) for c = A or G;
-   - (c) the in-run C9 gate fails on some record R of some accepted shard, under either
-     convention: ret^{L3′}_c(R) ⊄ ret^{L3}_c(R), or ret^{L3′}_c(R) ⊄ ret^{L3′}_c(U), or
-     ret^{L3}_c(R) ⊄ ret^{L3}_c(U).
+   or if (d) L_A or L_G, recomputed from the L3′ bounds with `s0ref`'s explicit cones and tips,
+   differs from the production value (ruling: "Add it"). The L3 values are recomputed the same
+   way and any difference is reported; it is not a σ condition, since the ruling names L_A and
+   L_G. For the L3 closures,
+   (b) and (c) use near tips only.
+3. **MISMATCH** if (a) a fixed quantity appears in the elimination log of a bound closure; or
+   (b) ret^{L3′}_c(U) ⊄ ret^{L3}_c(U); or (c) the in-run C9 gate fails on a record R of an
+   accepted shard. In (c), ret_c(R) is the run's computed closure of R (E1-F3), and the gate fails
+   if ret^{L3′}_c(R) ⊄ ret^{L3}_c(R), or ret^{L3′}_c(R) ⊄ ret^{L3′}_c(U), or
+   ret^{L3}_c(R) ⊄ ret^{L3}_c(U).
 4. **OK** otherwise.
 
-Rule T reads only whether σ = OK. The order of cases 1–3 decides only the name under which a
-non-OK status is recorded.
+σ reads C9 only on accepted shards. Shard completeness is not an input of σ; it determines the
+run's INCOMPLETE label under L1 §5. The order of cases 1–3 fixes only the recorded name.
 
-**Consequences, stated so that none is inferred.**
-- σ depends only on S1a's own computation and on the shards' C9 results. The other in-run gate
-  failures on shards (C0, C7, C8, C10 (i), C11 (i) and (ii), C17, C18) give the run a VOID or
-  MISMATCH label under L1 §5, but leave σ unchanged. Rule T can therefore be evaluated in a run whose label is VOID
-  for reasons outside S1a.
-- Case 3 (c) coincides with the run's MISMATCH condition "a retained set lies outside the global
-  closure bound" (L1 line 339) or "L3′ retains something L3 does not" (L1 line 338).
+**Precedence.** Rule T is evaluated iff σ = OK. σ never overrides the run's label, which L1 §5
+generates from every mandatory check. A failure in case 1, 2 or 3 enters that label as an
+INCOMPLETE, VOID or MISMATCH reason respectively. A run cannot pass because σ = OK if any other
+mandatory check fails (the owner, 2026-10-26). When rule T is evaluated in a run whose label is
+VOID, MISMATCH or INCOMPLETE, its outcome is recorded with that label beside it. No S1b proposal
+is made from such a run without the owner's separate decision.
+
+**Why σ = OK certifies the bound** (the argument the precedence rests on). C0 gives
+Ctx_prod(U) = Ctx_ref(U). The closure code partitions Q⁰ into the retained and the logged (a
+code invariant). C18 then gives that no logged elimination removed a member of the greatest
+self-supporting subset (GSS), so GSS ⊆ computed. C17 gives that the computed bound is
+self-supporting, so computed ⊆ GSS. With 2 (d), the inputs of rule T are certified by `s0ref`
+independently of the production code and of the records' closures.
 
 **What changes.** The frozen line 1010 is given a definite meaning. The inputs of σ are validity
-facts about S1a's computation and the bound's consistency with the records' closures. A C9
-failure means some record retains a quantity outside the bound, against PO4, so the bound rule T
-reads is not a valid bound. σ does not read the k ≤ 2 label, whether any survivor appears, or the
-direction of any result, so the neutrality clause (L1 lines 1013–1016) holds. No masking law,
-domain or label changes.
+facts about S1a's computation and the bound's consistency with the records' closures. σ does not
+read the k ≤ 2 label, whether any survivor appears, or the direction of any result, so the
+neutrality clause (L1 lines 1013–1016) holds. σ is diagnostic: it adds reasons to the run's label
+under L1 §5 and never replaces it. No masking law, domain or label changes.
 
-**Checkpoint (§A.41).** `result.json` records σ and the reasons, under `S1a.status`. Layer-2
-self-test cases cover each of the conditions 1 (a)–(c), 2 (a)–(c) and 3 (a)–(c), each giving
-`not_evaluated`, and a mutant that evaluates rule T on a non-OK status must be killed at one of
-them.
+**Checkpoint (§A.41).**
+- `result.json` records σ and the reasons, under `S1a.status`.
+- Layer-2 self-test cases cover each of the conditions 1 (a)–(c), 2 (a)–(d) and 3 (a)–(c), each
+  giving `not_evaluated`; a mutant that evaluates rule T on a non-OK status must be killed at one
+  of them.
+- Case 2 (d): a self-test with a perturbed production count gives VOID.
+- A Layer-2 label self-test: σ = OK with another failing check gives that check's label.
+- `E1-check` part K recomputes L_A and L_G from the toy L3′ bounds with `s0ref`'s cones and tips,
+  and checks that a perturbed production count fires case 2 (d).
 
 ## 5. Item E1-T5: the quantity counted by L_G
 
@@ -222,10 +246,34 @@ has a linked survivor. Nothing changes.
 Checkpoint: a document property, checked by E1's independent review, and by the re-review of
 Layer 2's PO-L2-7.
 
-**Not governed by E1.** E1 neither confirms nor changes the wording of the L_A = L_G = 0
-consequence, which the frozen text marks as pending owner confirmation (L1 lines 1001–1004 and
-1033–1035; `LAYER1-FREEZE.md`, "Not frozen, and not authorized"). The rulings above do not
-address it.
+## 6a. Item E1-T6: the standing of rule T's consequence
+
+**Frozen text** (L1 lines 1001–1004):
+> **L_A = 0 and L_G = 0.** No record whose items lie in Reg × {−1, …, 23}, of any size, has a
+> linked survivor (PO4). The report states this geometric fact only; law failure beyond k ≤ 2
+> is not claimed, since PO8 covers at most two Φ triples in clear (R4-5; the wording is
+> pending owner confirmation, §12). S1b and S1c are not undertaken.
+
+and (L1 lines 1033–1035): "**Pending owner:** rule T's L_A = L_G = 0 consequence is the geometric
+statement only (the default above). A law statement for k > 2 would need a new proof obligation
+generalising PO8."
+
+**E1-T6, the standing of rule T's consequence.** Ruling: "geometric fact only": "Approved, with
+qualification. Rule T may be used as a geometric property of the specified closure. It must not
+be presented as a probabilistic result, empirical observation, or independent theorem about the
+full model" (amaybaum, 2026-10-26). The pending-owner marks at L1 lines 1001–1004 and 1033–1035
+are resolved accordingly. The L_A = L_G = 0 branch reads: "No record whose items lie in
+Reg × {−1, …, 23}, of any size, has a linked survivor under the specified closure (L3′, the
+declared conventions and frame). This is a geometric property of that closure. It is not a
+probabilistic result, an empirical observation, or an independent theorem about the full model,
+and no law statement is made beyond k ≤ 2." `result.json` records this text under
+`rule_T.statement_scope`.
+
+**What changes.** The text of the zero branch's statement and its standing; "S1b and S1c are not
+undertaken" stands. The trigger, its inputs, the masking law, the domain and the labels do not
+change.
+
+**Checkpoint (§A.41).** `result.json` `rule_T.statement_scope` carries the text above verbatim.
 
 ## 7. Item E1-F3: C7's scope
 
@@ -240,85 +288,108 @@ The following frozen text also refers to C7's scope:
 - L1 line 475 (certificate item 4): "- C7 on its sample;".
 - L1 lines 463–464 (certificate item 1): "including C7's 1-in-1,000 and C8's 1-in-100 (N6)".
 
-**Ruling:** "Reviewer's scope" (amaybaum, 2026-10-26), adopting `LAYER2-REVIEW.md` lines 292–300.
+**Ruling:** "Reviewer's scope" (amaybaum, 2026-10-26), adopting `LAYER2-REVIEW.md` lines 292–300;
+re-decided with the corrected facts of `E1-REVIEW.md` (lines 103–118, 182–193): "Preserve the full
+595-record G-convention population unless the reviewer proves that orbit reduction preserves all
+required results, including multiplicities, ties, and failure detection … If it is redundant,
+document that finding rather than silently removing the check." and "Every record index"
+(amaybaum, 2026-10-26). `E1-ANALYSIS.md` §A3 proves that orbit reduction does not preserve failure
+detection (fault F2), so the population is kept in full.
 
 **Definitions.**
-- **Shared near tip.** For a convention c and a set Q of non-fixed quantities, Q *has a shared
-  near tip under c* iff there are q ≠ q′ in Q and an axis direction e such that the e-tip of q
-  equals the e-tip of q′, in the pair of c. Eligibility plays no part in this definition.
-- **Equivalence with the frozen notion.** Two distinct quantities have equal e-tips iff they have
-  the same type, equal reach in e, and sites that differ by a nonzero multiple of e. This is
-  PO3 (b)'s "shared tip" (L1 line 302) and the sharing of L1 P_A and P_A-dir (L1 lines 274–280).
-  Near tips of F and B type lie on different slices of the pair, so equal e-tips imply equal type.
-  `E1-check` part F verifies the equivalence on every pair of quantities in every context of the
-  toy class, under A and G: 230,268 (pair, direction) cases. Fixed quantities are excluded from
-  Q. A tip at a Φ site-time is treated separately by P_A-dir and PO5, not as a shared tip.
-- **Initial context.** Q⁰(R), the non-fixed quantities of Ctx(R): the record samples after E1
-  and E2, and the port samples.
-- **Computed closure.** ret^{L3′}_c(R) as the production run assigns it: the closure of R's orbit
+- *Shared near tip*: for a set Q of non-fixed quantities, a convention c and an axis direction e,
+  Q has a shared near tip under c iff there are q ≠ q′ in Q such that the e-tip of q equals the
+  e-tip of q′, in the pair of c. Eligibility plays no part. Two distinct quantities have equal
+  e-tips iff they have the same type, equal reach in e, and sites that differ by a nonzero
+  multiple of e; this is PO3 (b)'s "shared tip" (L1 line 302) and the sharing of P_A and P_A-dir
+  (L1 lines 274–280). Fixed quantities are excluded from Q.
+- *Q⁰(R)*: the non-fixed quantities of Ctx(R): the record samples after equivalences E1 and E2,
+  and the port samples.
+- *In(R), Out(R)* (convention G): the quantities of Q⁰(R) without, respectively with, a seed tip.
+  By PO7, q = (c, t) is in Out(R) iff |c| + t > 8 for t ≥ 0, or |c| > 7 for t = −1.
+- *Lemma G-D* (proved here; a proof obligation of this erratum): for every R and both rules,
+  ret_G(R) = In(R) ⊔ W(Out(R)), where W(X) is the greatest subset of X whose every eligible tip
+  lies in the cone of another of its elements. *Proof:* eligible tips lie outside the frame
+  (L1 §2); the cones of the fixed quantities lie inside it by its definition, and those of In(R)
+  by PO7 (t ≥ 0) or because a slice −1 quantity's cone is itself at |c| ≤ 7; so neither covers an
+  eligible tip; quantities of In(R) have no eligible tip and are never eliminated; hence Out(R)
+  is reduced exactly to W(Out(R)). The same holds for L3. ∎
+- *Computed closure*: ret^{L3′}_c(R) as the production run assigns it: the closure of R's orbit
   representative carried to R by the group action (S4), or R's direct closure where the run
-  computes one. Where the two differ, C8 fails and the run is VOID. Since the group maps e-tips to
-  (g·e)-tips, "the computed closure has a shared near tip" is constant on each orbit.
+  computes one. Since the group maps e-tips to (g·e)-tips, "the computed closure has a shared near
+  tip" is constant on each orbit.
 
-**Replacement for L1 lines 556–558.** For each convention c, C7 runs under c on every record of
-the following four sets. Its pass condition (L1 lines 553–555 and 392) is unchanged: on each such
-record, `s0ref`'s greatest self-supporting subset equals the production retained set the run
-assigns to that record.
-1. **Surv_c:** every record that is a survivor under c (L1 §3).
-2. **T_c:** every record whose computed closure ret^{L3′}_c(R) has a shared near tip under c.
+**The scope.** For each convention c, C7 runs on every record of the following sets. The
+population is the record space ℛ, indexed by `record_at`, with every record counted:
+1. **Surv_c:** every record that the run computes to be a survivor under c.
+2. **Set 2:**
+   - under A: T_A, the records whose computed closure has a shared near tip. T_A ⊆ Surv_A,
+     because ret_A contains non-fixed quantities only (proved), so set 2 adds no record under A;
+   - under G: (T_G ∩ Surv_G) ∪ F_G, where F_G = {R : In(R) has a shared near tip}. By Lemma G-D
+     this equals T_G under the specification. F_G is computed from Q⁰(R) without any closure,
+     so a fault that destroys a tie cannot remove its record from the set. The ruling retains
+     these records ("Retain the approved shared-tip closure scope, including G's 595 records"),
+     although their ties are inert by Lemma G-D.
 3. **I_c ∩ H₁₀₀:** every record whose initial context Q⁰(R) has a shared near tip under c and
-   which lies in the 1-in-100 sample H₁₀₀.
-4. **H₁₀₀₀:** every record in the existing 1-in-1,000 sample (L1 lines 557–558).
+   whose record index lies in the 1-in-100 sample H₁₀₀.
+4. **H₁₀₀₀:** every record whose record index lies in the 1-in-1,000 sample H₁₀₀₀.
 
-In sets 1 and 2, "every record" includes every member of every orbit, each with its own reference
-context, in the reading Layer 2 applies to "every survivor" (`LAYER2-REVIEW.md` L2-R2). C7 may
-also run on further records. A disagreement on any record on which C7 runs is a C7 failure, VOID
-under L1 §5.
+**The samples** (R1; the owner: "Every record index"). H₁₀₀ and H₁₀₀₀ are drawn over every record
+index i ∈ [0, N). Record i is in the sample of stream X at rate r iff the first eight bytes of
+SHA-256(salt | X | i), read as a big-endian integer, are 0 mod r. The salt and the stream names
+are configuration constants under certificate item 1, frozen before any v8 output; the two
+streams are distinct.
 
-**The sample H₁₀₀.** It is drawn as C7's existing sample is drawn:
-- deterministically, as a fixed function of the record's enumeration index (`record_at`, L1 §5b
-  item 1) and of a salt and a stream name frozen in the Layer-2 configuration;
-- at rate 1 in 100, on its own stream, distinct from the 1-in-1,000 stream, so that the two
-  samples are separate draws;
-- before, and independently of, any closure result.
+**The check on each record R of the scope.**
+- R's production closure is computed directly on R.
+- R's reference closure is computed in R's own reference context.
+- C7 fails on R if they differ, or if the run's reported (carried) result for R differs from R's
+  direct closure.
+- The reference closure is the full `s0ref` closure. Computing it under G as W(Out(R)) ∪ In(R),
+  by Lemma G-D, is an open owner decision (§9). If the owner approves it, Layer 2 checks this form
+  against the full `s0ref` closure on the whole toy class and on every record of sets 3 and 4, and
+  a difference is a C7 failure.
+- A C7 failure is VOID under L1 §5. C7 may run on further records.
 
-The rate, the salt and the stream name are configuration constants under certificate item 1. They
-are added to the list at L1 lines 463–464 and frozen with the Layer-2 manifest before any v8
-output. The rule the Layer-2 draft uses for its other samples (`LAYER2-PLAN.md` §3.3) is this: an
-index i is in the sample of stream X at rate R iff the first eight bytes of
-SHA-256(salt | X | i), read as a big-endian integer, are 0 mod R. H₁₀₀ is drawn over the same
-unit as H₁₀₀₀. The frozen text leaves the sampling rule, its unit included, to the Layer-2
-configuration (L1 lines 558–559). The Layer-2 draft draws its C7 samples over the indices of orbit
-representatives.
+**Orbit reduction.** Orbit representatives may replace records only where an equivalence is
+proved for every required result. For C7 verdicts on reported results, multiplicities and
+set membership it is proved (C4v-equivariance of the specification; sets are unions of orbits).
+For failure detection it is not: a fault confined to a non-representative member changes no
+carried result. C7 on its scope is therefore computed per record, as above.
 
-**Consequential replacements.**
-- L1 line 1041 (S5) reads: "C7 sampling: every survivor; every record whose computed closure has
-  a shared near tip; a deterministic 1-in-100 sample of the records whose initial context has a
-  shared near tip; and the deterministic 1-in-1,000 sample (E1-F3)".
-- L1 line 475 reads: "C7 on its scope (E1-F3);".
+**Coverage reporting.** Each shard writes, and `result.json` sums, per set 1–4 and per
+convention:
+- records checked and failed;
+- orbits touched;
+- the sum of the touched orbits' sizes.
 
-**What changes.** This changes C7's pass condition, by changing the set of records on which
-agreement is required. It changes no masking law, domain or label. Since ret^{L3′}_c(R) ⊆ Q⁰(R),
-T_c ⊆ I_c. The new scope is therefore the frozen literal scope (Surv_c ∪ I_c, plus the base
-sample), except that the records of I_c outside Surv_c ∪ T_c are checked at 1 in 100 instead of
-all. A C7 disagreement confined to unsampled records of that set is no longer seen. C11 (i) and
-C18 still re-check individual eliminations on their samples and on every survivor (L1 lines
-662–664 and 481), and C17 checks the fixed point.
-
-Under G, set 2 includes records whose shared near tips lie in the frame, since in-frame quantities
-are retained with every tip ineligible. On the toy class, 595 of the 1,400 records have a G closure
-with a shared near tip, and in none of them is the shared tip eligible; under A the count is 0
-(`E1-check` part F; toy only).
+**What changes.** C7's pass condition changes: it now applies on the scope above. The masking
+law, the domain and the labels do not change. Since T_c ⊆ I_c, the scope is the frozen literal
+scope except that the records of I_c outside sets 1 and 2 are checked at 1 in 100. C11 (i) and
+C18 still re-check eliminations on their samples and on every survivor, and C17 the fixed point.
+On a record where C0, C17 and C18 all run, C7 is implied by them (proved). C7's distinct
+contribution is its independent algorithm and its coverage of sets 1–4. This redundancy is
+recorded, not grounds for removal.
 
 **Checkpoint (§A.41).**
-- Each shard writes, and `result.json` sums, C7's tallies per set 1–4 (checked, failed).
-- The configuration digest includes H₁₀₀'s rate, salt and stream (certificate item 1).
-- Layer-2 self-tests: the H₁₀₀ draw is deterministic and non-empty on the toy class; a planted
-  record whose computed closure has a shared near tip is C7-checked; and a mutant that skips set 2
-  is killed there.
-- The dry run's C7 cost term is computed under this scope (L2-R6).
-- `E1-check` part F checks the definition's equivalence with PO3 (b), and reports the toy
-  frequencies.
+- The per-set tallies above.
+- The configuration digest covers the salt, the streams and the rates (certificate item 1).
+- The dry run computes |F_G|, records and orbits, without any closure, and the C7 cost term from
+  it (L2-R6).
+- Layer-2 self-tests:
+  - the samples are deterministic over record indices;
+  - Lemma G-D's form equals the full reference on the toy class;
+  - a planted fault that removes in-frame tied quantities (F1) is caught on every affected record
+    of set 2;
+  - a fault on non-representative members only (F2) is caught by the direct per-record check;
+  - a mutant that defines set 2 by the computed closure is killed by F1's case.
+
+**Consequential replacements.**
+- L1 line 1041 (S5) reads: "C7 sampling: every survivor; set 2 of E1-F3 (under G, every record
+  with an in-frame shared near tip, or a survivor whose computed closure has a shared near tip);
+  a deterministic 1-in-100 sample, over record indices, of the records whose initial context has
+  a shared near tip; and the deterministic 1-in-1,000 sample over record indices (E1-F3)".
+- L1 line 475 reads: "C7 on its scope (E1-F3), per record;".
 
 ## 8. Item E1-F6: four added counts
 
@@ -342,7 +413,10 @@ and (L1 lines 576–577 and 586–588, C8):
 and L1 line 776 (§7): "(the closed list of §6 C8: 54 counts on the toy class, closed against §3)".
 
 **Ruling:** "Erratum: add 4 counts" (amaybaum, 2026-10-26), adopting `LAYER2-REVIEW.md` lines 187
-and 304.
+and 304; then "Treat 58 as the current baseline unless the reconciliation establishes that
+additional nonredundant cells are mathematically required." and "explicit count definitions and a
+reconciliation table" (amaybaum, 2026-10-26). The reconciliation (`E1-ANALYSIS.md` §B) finds no
+additional nonredundant cell, so 58 stands.
 
 **Which four.** §3 lists ten degeneracies:
 1. items at q9;
@@ -365,17 +439,37 @@ A and under G.
 - **N_ME,c** = #{R : R is masking-equivalent and R is a survivor under c};
 - **N_ST,c** = #{R : R has a nontrivial stabilizer and R is a survivor under c}.
 
-Here R ranges over the record space of L1 §1: 3,225 singles and 5,160,000 pairs on v8, and 1,400
-records on the toy class.
+Here R ranges over the record space ℛ of L1 §1: 3,225 singles and 5,160,000 pairs on v8, and
+1,400 records on the toy class.
 - R is **masking-equivalent** iff some record R′ ≠ R of that space has an equal even-class
-  context: Ctx(R′) = Ctx(R), with odd-class samples dropped (E2) and identity merges applied (E1)
-  (L1 lines 128–132).
+  context: Ctx(R′) = Ctx(R), with odd-class samples dropped (equivalence E2) and identity merges
+  applied (equivalence E1) (L1 lines 128–132).
 - R's **stabilizer** is {g ∈ C4v : g·R = R}, R being read as an unordered set of items. It is
   **nontrivial** iff it contains an element other than the identity.
 - **Survivor under c** is as L1 §3 defines it, with L3′.
 
 The plain counts stay on the list. With them each added cross-tabulation is complete: its
 non-survivor cell is the plain count minus N_ME,c or N_ST,c.
+
+**Count convention** (the owner: "explicit count definitions and a reconciliation table"). For a
+record predicate D on ℛ:
+- n(D) = #{R ∈ ℛ : D(R)};
+- n(D, c, v) = #{R ∈ ℛ : D(R) ∧ s_c(R) = v}, with s_c the survivor status under c (L1 §3, L3′).
+
+The eight degeneracies of C8's list are reported as n(D, c, True) and n(D, c, False), with n(D)
+implied. For D = nontrivial stabilizer and D = masking-equivalent, the list reports n(D) (frozen)
+and n(D, A, True), n(D, G, True) (added). n(D, c, False) = n(D) − n(D, c, True) is determined.
+The lists of 58 and of 62 counts both carry rank 3 per degeneracy (the frozen list of 54 carries
+rank 1 for D = 6 and D = 9), so 58 is complete and the four non-survivor cells would be redundant.
+
+| list | for D ∈ {6, 9} | rank per D | redundant listed |
+| --- | --- | --- | --- |
+| r5 (54) | n(D) | 1 | 0 |
+| E1 (58) | n(D), n(D, A, T), n(D, G, T) | 3 | 0 |
+| 62 (not adopted) | n(D) and four cells | 3 | 2 |
+
+Masking equivalence is defined relative to ℛ (some R′ ≠ R in ℛ has an equal context); the other
+nine degeneracies are intrinsic to R.
 
 **Replacements in C8 and §7.**
 - L1 line 577 reads "(58 on the toy class; on v8 the same list)".
@@ -411,65 +505,78 @@ counts, and a discrepancy on any of them is a C8 failure, VOID.
     equals the sum of its two cells;
   - part D, the planted non-vacuity.
 
-## 9. Not governed: κ and S7
+## 9. Open owner decisions, not governed by E1
 
-The launch margin κ and S7's budget (L1 line 1042) are not changed by E1. The owner's answer was
-"Decide later".
+- **κ and S7.** The launch margin κ and S7's budget (L1 line 1042) are not changed by E1. The
+  owner's answer was "Decide later".
+- **Lemma G-D in C7's reference computation.** Open, to be taken with κ once the dry run reports
+  |F_G| (records and orbits, computed without any closure). The specified default is the full
+  `s0ref` reference closure on every record of C7's scope. The G-D form, W(Out(R)) ∪ In(R) under
+  G, is proved equal to it on every record (Lemma G-D, E1-F3), so it is a cost-only alternative:
+  either choice gives the same closures, verdicts and counts. Using it needs the owner's approval,
+  and then carries the checks stated in E1-F3.
 
 ## 10. Invariant → checkpoint (§A.41)
 
 | invariant asserted by E1 | checkpoint |
 | --- | --- |
-| the frozen files are unchanged and every quotation stands at its stated lines | `E1-check` part A: the SHA-256 of `STAGE0-PLAN-r5.md`, and 59 quotations (42 from the plan, 2 from `LAYER1-FREEZE.md`, 15 from `LAYER2-REVIEW.md`); the git tree identifiers recorded in `LAYER1-FREEZE.md` |
+| the frozen files are unchanged and every quotation stands at its stated lines | `E1-check` part A: the SHA-256 of `STAGE0-PLAN-r5.md`, and the quotations it lists (from the plan, `LAYER1-FREEZE.md`, `LAYER2-REVIEW.md`, `E1-REVIEW.md` and `E1-ANALYSIS.md`); the git tree identifiers recorded in `LAYER1-FREEZE.md` |
 | rule T reads L_A and L_G from the L3′ bound; the L3 values are reported only (E1-T1) | `result.json` `rule_T` fields; Layer-2 self-test with differing L3′ and L3 outcomes; `E1-check` part G |
-| rule T is evaluated iff σ = OK, with σ as in E1-T2 | `result.json` `S1a.status` and reasons; Layer-2 self-test cases 1 (a)–(c), 2 (a)–(c), 3 (a)–(c); a status-ignoring mutant killed |
+| rule T is evaluated iff σ = OK, with σ as in E1-T2 | `result.json` `S1a.status` and reasons; Layer-2 self-test cases 1 (a)–(c), 2 (a)–(d), 3 (a)–(c); a status-ignoring mutant killed |
 | L_G counts by the quantity's cone (E1-T5) | `s1a.json` L_G; Layer-2 planted-bound self-test with a tip-reading mutant killed; `E1-check` part G (toy: 7, and 0 under the tip reading) |
 | the cost clause is recorded as not evaluable in Stage 0 (E1-T3) | `result.json` `rule_T.cost_clause` |
 | the consequence rests on §1, §2, PO4 and PO7 (E1-T4) | document property; E1's independent review |
-| C7 runs on sets 1–4 of E1-F3, with H₁₀₀ deterministic and frozen before any v8 output | per-set C7 tallies in the shards and `result.json`; configuration digest (certificate item 1); Layer-2 self-tests and a skip-set-2 mutant |
+| C7 runs per record on sets 1–4 of E1-F3, with H₁₀₀ and H₁₀₀₀ deterministic over record indices and frozen before any v8 output | per-set C7 tallies in the shards and `result.json`; configuration digest (certificate item 1); Layer-2 self-tests; `E1-check` part J |
 | "shared near tip" is the shared tip of PO3 (b) | `E1-check` part F (every pair of every toy context, under A and G) |
 | the count list has 58 counts and cross-tabulates every §3 degeneracy with survivor status | `E1-check` part B, with the drop-one countercontrol |
 | the four added counts are preserved by orbit reduction | C8 (pre-flight and in-run); `E1-check` parts C and D, and the non-invariant countercontrol of part E |
+| Lemma G-D | the toy whole-class check (`E1-check` part H, both rules); the per-record check of sets 3–4 (when the G-D form is approved, §9) |
+| set 2 is closure-free under G | F1 self-test and the computed-closure mutant (`E1-check` part I) |
+| per-record C7 detects member-only faults | F2 self-test (`E1-check` part I) |
+| σ is diagnostic and never overrides the run label | Layer-2 label self-test: σ = OK with another failing check gives that check's label (`E1-check` part K, on Layer 2 r2's `label` and `rule_T`) |
+| L_A and L_G reference recomputation | case 2 (d) self-test with a perturbed production count (`E1-check` part K) |
+| rule T's statement scope | `result.json` `rule_T.statement_scope` |
+| record-index sampling | sampling self-test (`E1-check` part J) |
+| coverage reporting, raw and orbit-level | shard and `result.json` fields; `E1-check` part J reports both on the toy class |
 
 ## 11. The consistency check (`E1-check/`)
 
-- **Command:** `python3 -I -B e1_check.py`, from `E1-check/`. It reads the frozen plan and Layer
-  2's toy-run outputs, and it imports Layer 2's engine on the toy profile only. It refuses v8's
-  (dim, n, port), and nothing in it touches v8's class.
+- **Command:** `python3 -I -B e1_check.py`, from `E1-check/`. It reads the frozen plan, the review
+  documents and Layer 2's toy-run outputs, and it imports Layer 2's engine and reference on the
+  toy profile only. It refuses v8's (dim, n, port), and nothing in it touches v8's class.
 - **Output:** `e1_check.out`. Exit 0. Every check passes. The output is byte-identical under
   `python3 -I -B -O`.
-- **Part B.** C8's list of 54 leaves exactly four (degeneracy, convention) cross-tabulations
-  undetermined: degeneracies 6 and 9 under A and G. With the four added counts the list has 58,
-  and none is undetermined. Dropping any one added count reopens the gap, and the countercontrol
-  catches each of the four.
-- **Part C, the toy class.** The per-record pipeline reproduces the toy run's 32 degeneracy cells,
-  its two survivor counts and its two plain counts (masking-equivalent 1,398, nontrivial
-  stabilizer 1,176). The added counts are 0 in full and 0 orbit-reduced, because the toy class has
-  no survivors, and each plain count equals the sum of its cells.
-- **Part D, planted non-vacuity.** The records are three planted 7-item records in the toy
-  geometry and their orbits, 12 records: C3's constraint block, the block with its top item one
-  slice later on an odd-class slice (masking-equivalent to the block), and the block with its top
-  one slice earlier. They are not records of the k ≤ 2 space. The decision rule, fixed before the
-  run, was: non-vacuity is shown iff an added count is nonzero there. Every record survives under
-  A and G. The added counts are N_ME = 8 and N_ST = 12 under each convention, equal in full and
-  orbit-reduced, and the 2×2 tables close.
-- **Part E, the countercontrol.** A predicate that is not C4v-invariant, put in place of survivor
-  status, makes the orbit-reduced values differ from the full ones (392 against 128, and 280
-  against 128). The orbit-reduction comparison can therefore fail.
-- **Part F.** The definition's equivalence with PO3 (b) holds on all 230,268 cases, and the
-  recomputed count of initial-context shared tips equals the toy run's (739 representative ×
-  convention cases). The toy frequencies, over 1,400 records, are toy only:
+- **Parts A–G** are as in the first revision: quotations; the closure of the 58-count list against
+  §3; the toy class's counts; planted non-vacuity (N_ME = 8 and N_ST = 12 under each convention on
+  12 planted block records); the non-invariant countercontrol; the shared-near-tip definition;
+  and T1 and T5 on the toy S1a bounds.
+- **Part H, Lemma G-D and its corollaries.** On all 1,400 toy records, and on the 12 planted
+  records (all of them A- and G-survivors), ret_G = In ∪ W(Out) for L3′ and for L3, with W
+  computed by `s0ref` without the fixed and in-frame quantities, and the G-D form equals the full
+  `s0ref` closure. T_A ⊆ Surv_A, T_G restricted to eligible tips ⊆ Surv_G, and
+  T_G = (T_G ∩ Surv_G) ∪ F_G hold on both (toy: T_G = F_G = 595, no survivors).
+- **Part I, planted faults (toy, G).** F1 drops every retained in-frame quantity whose near tip is
+  shared; F2 does so on non-representative members only.
 
-  | predicate | A | G |
-  | --- | --- | --- |
-  | initial context has a shared near tip | 1,071 | 667 |
-  | L3′ closure has a shared near tip | 0 | 595 |
-  | the same, counting eligible tips only | 0 | 0 |
+  | fault | records affected | computed-closure mutant (set 2 by the computed closure, reported results) | E1-F3 (closure-free set 2, direct per-record check) | representatives only |
+  | --- | --- | --- | --- | --- |
+  | F1 | 595 | 0 | 595 | 283 |
+  | F2 | 312 (no reported result wrong) | 0 | 312 | 0 |
 
-- **Part G.** On the toy `s1a.json` bounds, L_A = 15 and L_G = 7 under L3′, equal to `s1a.json`;
-  the L3 values are the same, 15 and 7. The tip reading of L_G gives 0 on both bounds, the source
-  cells are in the frame, and the L3′ bounds lie inside the L3 bounds.
+  The mutant is killed by F1's case, and only the direct per-record check catches F2.
+- **Part J, record-index sampling.** H₁₀₀ and H₁₀₀₀ are drawn over all 1,400 toy record indices,
+  on distinct streams. The draws are deterministic and include non-representative records.
+  Coverage per set, as records / orbits touched / sum of their sizes: under A, set 3 12 / 12 / 45
+  and set 4 1 / 1 / 4; under G, set 2 595 / 283 / 595, set 3 6 / 6 / 24 and set 4 1 / 1 / 4;
+  sets 1, and set 2 under A, are empty. The populations equal those of the reviewer's analysis.
+- **Part K, σ.** L_A and L_G recomputed from the toy L3′ bounds with `s0ref`'s cones and tips are
+  15 and 7, equal to the production values (the L3 values likewise), and a perturbed production
+  count fires case 2 (d). On Layer 2 r2's `label` and `rule_T`, a run with σ = OK and a failing
+  VOID, MISMATCH or INCOMPLETE reason keeps that label while rule T is evaluated.
+- **Part L, the text of `E1-ANALYSIS.md` §D.** Nine blocks of §D and the eight §10 rows stand in
+  this erratum verbatim (blockquote markers and line breaks aside). The output lists the four
+  departures, each with its reason; the G-D permission text is confirmed absent.
 
 SHA-256 values:
-- `e1_check.py`: `fdcd7d264076f812be8f072b2e7aab25c8952daf4bcdea02350d545098edd6b0`;
-- `e1_check.out`: `b12159a12a573d6abc93ac96895f6ec806c6963cf48d25b362a5466238da816f`.
+- `e1_check.py`: `0aff51b78ace94f609168eb891a93729f322921fce29a19290d7210396d59ea7`;
+- `e1_check.out`: `15261d850e86903a6a0e6c722c7730602de32ded9335617870ca54434446ce20`.
