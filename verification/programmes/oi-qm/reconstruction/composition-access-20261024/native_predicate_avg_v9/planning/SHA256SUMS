@@ -7,6 +7,7 @@ b5355ac93cda7d957b7842661f304ca9782b5467b9955bf42bf00aa7e186b090  ./README.md
 98f092f3a722d12a3fc43ece2a85daa189362ceb6f5d7b3ae92e0ba132120e5e  ./review/E1-RECHECK-r2.md
 00c13da2cdbb8e5d09068a1b5fc11c8d2b06bec2ea60569abcaf00da7be26047  ./review/E1-REVIEW.md
 3e4f086a537a28dab7797efa5ba987f02430f6670442f49da9fe950ca2a981b1  ./review/LAYER2-R3-REVIEW.md
+fa266e3be21e3b79316e270e3d49432f3fe8230337a3002dfd146041349e4005  ./review/LAYER2-R4-REVIEW.md
 77264fad9a9ac485e2049bc6dca8e2d4cbe6ccf4edec46d8b3247d164fd7f1eb  ./review/LAYER2-REVIEW.md
 676ecc085d3c2f329df6a05426550f8d6a914092bc553d678f844066f935d7a7  ./review/RECHECK-r2.md
 4d77c7c23d6b08d3467b0096a08365fe9ee7cce27f432de5018819bd723583dd  ./review/REVIEW.md
@@ -30,6 +31,10 @@ ca5c164491d24b0f8aabe7ae9400f4c29c3cfef14802132bf84512d33ba84988  ./review/toy-l
 254bcfc0f9369da962fe9c48a7d15926bb5bfc2046d6183c40997eb0d264163a  ./review/toy-l2/replay_compare.txt
 17e44ff1bc92d8bc359969fc2c487ea6fff0978ef864ded85638cc3e3e3368ab  ./review/toy-l2r3/lock_probe.py
 9c1bb80905e855e76fc956c6d974aa89ece1c5fd266ef71c340a9f9e0e2dd7ad  ./review/toy-l2r3/replay_compare.txt
+7ba3607839d450194e3edd8b6cac747aed9314f11dd4d66f3d4cce4ca008b3e9  ./review/toy-l2r4/calib-audit-out.json
+82a94147678c51eda44e535f2b6cdddbaa0de3f946d87831393f45f135e2ef3c  ./review/toy-l2r4/calib_audit.py
+8f3b3670324345475ead1c944d48e0ec9ac3ae0534937299b13a304ed036831a  ./review/toy-l2r4/rep_concentration.py
+4facf07a4b94dde914d6d5d12c2340e0a4a998c16c24ef18a00e6e447c396b86  ./review/toy-l2r4/ucal_sim.py
 8318fca387a60dccf579e46147be5e91e13888df8c324c47a45255669693fc8d  ./review/toy-r3/cone_y.json
 e1da19c7f97be96dc0ae97010442e60e83c5cfc288500f69cef75b4e74eb29de  ./review/toy-r3/guard_probe.out
 1fc68d5d438c14e6d1e990b564f641aacf3dffc91ee2ffc1defe69585dafdbba  ./review/toy-r3/guard_probe.py
@@ -211,6 +216,7 @@ d737ad9e3597f9a7068926729a996d323b90e76a3769a975767833fd1fa4fa45  ./stage0/desig
 59092cba6f4c0bfc937ef1e316863431b8cb0468f769e1d3c7e2e1a5bb1da564  ./stage0/layer2/CHANGES-L2-r2.md
 8ebc082f8632e6cb1772058e82553f978a350ce3d7a9fbb0d13f9aa378571d8e  ./stage0/layer2/CHANGES-L2-r3.md
 fc1a3bcf9c823581556634d0a11c13aff34470389bf03ed650a6a08e59216bb1  ./stage0/layer2/CHANGES-L2-r4.md
+c3bfc46d85332835be098fb3f4cdc236e37f65b0c89eaf83590901b966b5a5f4  ./stage0/layer2/FEASIBILITY-AND-REDESIGN.md
 c940f4a4e01efbd74edc372891f68a1da5fbd28dccff7c42c47391ca36e8ae0a  ./stage0/layer2/KAPPA-PROPOSAL.md
 9452e304312ace745a53957725fded0172d3e88d845d3e922b55d86995f1aed3  ./stage0/layer2/LAYER2-PLAN.md
 b8f4817628e6f39a1d02a89e57f216d7663aedb74a53269ae3cce902fbaee0c8  ./stage0/layer2/README.md
