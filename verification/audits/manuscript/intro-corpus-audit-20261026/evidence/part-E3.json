@@ -1,0 +1,786 @@
+[
+ {
+  "item": "E3-01",
+  "type": "ci-receipt",
+  "what": "Lean pin 17b830bc resolves to 17b830bcd0ecc36e10eff5b9eeca03bdd7198d86 (main, \"Merge #936\"), an ancestor of main 02e73e56.",
+  "claims": [
+   "I-053",
+   "I-308"
+  ],
+  "sources": [
+   "papers/Introduction.md:30@4a260ca9",
+   "papers/Introduction.md:195@4a260ca9"
+  ],
+  "check": "git rev-parse 17b830bc^{commit}; git merge-base --is-ancestor 17b830bc origin/main (origin/main = 02e73e56); gh api commits listing via get_workflow_run head_sha.",
+  "outcome": "pass",
+  "evidence_level": "certificate-checked",
+  "limits": "Ancestry checked in a shallow worktree; the ancestry query succeeded, and the run API independently reports head_branch main for this SHA.",
+  "notes": ""
+ },
+ {
+  "item": "E3-02",
+  "type": "ci-receipt",
+  "what": "Run 40330683786 (workflow verify, event push, attempt 1) concluded success at head_sha 17b830bc; job 121598983127 \"Mathlib bridge\" concluded success, with steps Build (5) and Release gate (6) success.",
+  "claims": [
+   "I-053",
+   "I-308",
+   "I-310",
+   "I-311",
+   "I-312"
+  ],
+  "sources": [
+   "run 40330683786",
+   "job 121598983127",
+   "papers/introduction_repro/README.md@4a260ca9"
+  ],
+  "check": "GitHub MCP actions_get get_workflow_run 40330683786 and get_workflow_job 121598983127 (status, conclusion, head_sha, per-step conclusions); gh api runs/40330683786/jobs: 25 success, 1 skipped.",
+  "outcome": "pass",
+  "evidence_level": "certificate-checked",
+  "limits": "Host attestation read from the GitHub API on 2026-10-26; a push run on main, not a workflow_dispatch exact-head attestation in the §A.39 sense (none is required for a paper).",
+  "notes": ""
+ },
+ {
+  "item": "E3-03",
+  "type": "ci-receipt",
+  "what": "The retained expected result papers/introduction_repro/results-121598983127.json is derived faithfully from job 121598983127: the whole log (43064 lines) has the recorded sha256 bc2291bc…0c81; its lines 1–38918 (through the gate verdict) have the recorded served_sha256 1a83921f…09df; the frozen extractor (48b18ac5, blob e6f69713) on that text, compared by the frozen comparator with --tree at 17b830bc, gives REPRODUCTION HOLDS (0 failures).",
+  "claims": [
+   "I-053",
+   "I-308",
+   "I-310",
+   "I-311",
+   "I-312"
+  ],
+  "sources": [
+   "job 121598983127 log (REST actions/jobs/121598983127/logs, fetched 2026-10-26)",
+   "papers/introduction_repro/results-121598983127.json@4a260ca9",
+   "verification/audits/evidence-retention/{extract_result,compare_result}.py@48b18ac5"
+  ],
+  "check": "gh api repos/amaybaum/incompleteness/actions/jobs/121598983127/logs > LOG; python3 -I evidence/scripts/E3_joblog_check.py TOOLS EXPECTED TREE17B LOG (sha256 of whole log and of the cut; extract_result.py on the cut; compare_result.py EXPECTED REP --tree TREE17B). Countercontrols: (a) every \"[propext, Classical.choice, Quot.sound]\" report rewritten to include sorryAx: FAILS, 479 failures (C3 axiom outside the three, C4 sorryAx markers); (b) the finite_horizon_equivalence report line deleted: FAILS (C3 report missing, 8 of 9 prints); (c) a log from an earlier main (8dc36d55, before #916 added the citation-roles gate step): FAILS on that gate step only. compare_result.py --self-test EXPECTED: OK.",
+  "outcome": "pass",
+  "evidence_level": "certificate-checked",
+  "limits": "This re-derives the expected result from the original log; it is not a rebuild. The log will expire under GitHub log retention (not checked; default 90 days); after that only the recipe (a fresh build) can check the result.",
+  "notes": ""
+ },
+ {
+  "item": "E3-04",
+  "type": "ci-receipt",
+  "what": "Each of the 28 Appendix A declarations is declared at the stated module:line in the OIBridge sources at 17b830bc, and the retained expected result carries exactly one #print axioms report for it, with axioms exactly [propext, Classical.choice, Quot.sound]; build_success true; markers sorryAx, Lean.ofReduceBool, \"declaration uses 'sorry'\", \"error:\" all 0; release gate PASS 22/22.",
+  "claims": [
+   "I-311",
+   "I-313",
+   "I-314",
+   "I-315",
+   "I-316",
+   "I-317",
+   "I-318",
+   "I-320",
+   "I-321",
+   "I-322",
+   "I-323",
+   "I-325",
+   "I-326",
+   "I-327",
+   "I-328",
+   "I-329",
+   "I-331",
+   "I-332",
+   "I-333",
+   "I-334",
+   "I-335",
+   "I-336",
+   "I-336.a",
+   "I-336.b",
+   "I-337",
+   "I-338",
+   "I-339",
+   "I-340",
+   "I-341",
+   "I-342",
+   "I-343",
+   "I-344"
+  ],
+  "sources": [
+   "papers/Introduction.md:202-215@4a260ca9",
+   "papers/introduction_repro/results-121598983127.json@4a260ca9",
+   "lean:verification/lean-mathlib/OIBridge/*.lean@17b830bc"
+  ],
+  "check": "git archive 17b830bc verification/lean-mathlib/OIBridge | tar -x -C TREE17B; python3 -I evidence/scripts/E3_appendix_a_check.py INTRO EXPECTED TREE17B → 28 checked, 0 failures. Countercontrol: an Intro copy with Equivalence:462→463 and oi_alone_not_qm→oi_alone_not_qmX gives exactly those 2 failures.",
+  "outcome": "pass",
+  "evidence_level": "certificate-checked",
+  "limits": "Checks names, lines and axiom reports, not that each Lean statement says what the prose says (formal-coverage is another part). \"compositions :466–468\" are inside finite_horizon_equivalence's proof term, covered by its report.",
+  "notes": ""
+ },
+ {
+  "item": "E3-05",
+  "type": "ci-receipt",
+  "what": "Toolchain and Mathlib of the check: the job printed Lean 4.33.0 (commit d8b18978…); lake resolved mathlib to db584cd6d46c92f209a44c0f1c829460d327499d; lean-toolchain at 17b830bc is leanprover/lean4:v4.33.0 and lakefile.toml requires mathlib rev \"v4.33.0\"; the mathlib4 tag v4.33.0 resolves today to db584cd6.",
+  "claims": [
+   "I-308"
+  ],
+  "sources": [
+   "job 121598983127 log lines 630, 633",
+   "verification/lean-mathlib/lean-toolchain@17b830bc",
+   "verification/lean-mathlib/lakefile.toml@17b830bc"
+  ],
+  "check": "grep of the digest-checked log; git show 17b830bc:verification/lean-mathlib/{lean-toolchain,lakefile.toml}; git ls-remote https://github.com/leanprover-community/mathlib4.git refs/tags/v4.33.0*.",
+  "outcome": "pass",
+  "evidence_level": "certificate-checked",
+  "limits": "No lake-manifest.json is committed, so Mathlib and its dependencies are pinned by tag, not commit; a reproduction resolves the same commits only while the tags do not move (true on 2026-10-26).",
+  "notes": ""
+ },
+ {
+  "item": "E3-06",
+  "type": "ci-receipt",
+  "what": "The Lean sources are identical at 687e885b, 17b830bc, c967d6a9, b64919cd, eae01647, 02e73e56 and #918's head 4a260ca9: verification/lean-mathlib tree 8624ba39… and verification/lean tree 277d2822… at each.",
+  "claims": [
+   "I-309"
+  ],
+  "sources": [
+   "git trees at 687e885b, 17b830bc, c967d6a9, b64919cd, eae01647, 02e73e56, 4a260ca9"
+  ],
+  "check": "git rev-parse <c>:verification/lean-mathlib and <c>:verification/lean for each commit; git diff --stat 17b830bc <c> -- verification/lean verification/lean-mathlib is empty for each.",
+  "outcome": "pass",
+  "evidence_level": "reproduced",
+  "limits": "Tree identity of the sources only; the build environment (Mathlib by tag, runner image) is not part of the tree.",
+  "notes": ""
+ },
+ {
+  "item": "E3-07",
+  "type": "ci-receipt",
+  "what": "Main CI at b64919cd (#938; corpus pin cited by the Introduction (L195, L259) and #918's base): run 40381936365 (verify, push, attempt 1) concluded success at that exact head_sha, 25 jobs success and 1 skipped (the matrix placeholder \"A42 exclusion\"); the only workflow run at that SHA. Job 121780174745 \"Mathlib bridge\": release gate PASS 22/22 (lean-axioms 6082 named results; legacy-records 303 intact; v3-receipts 52 hold), no failure markers, and its reports for the 14 Appendix A modules equal the retained expected result exactly.",
+  "claims": [
+   "I-308",
+   "I-309",
+   "I-311"
+  ],
+  "sources": [
+   "run 40381936365",
+   "job 121780174745",
+   "commit b64919cd"
+  ],
+  "check": "gh api actions/runs?head_sha=<full sha>; gh api actions/runs/40381936365 and runs/40381936365/jobs (conclusions grouped); gh api actions/jobs/121780174745/logs; python3 -I evidence/scripts/E3_joblog_check.py TOOLS EXPECTED TREE17B LOG → REPRODUCTION HOLDS (0 failures).",
+  "outcome": "pass",
+  "evidence_level": "certificate-checked",
+  "limits": "The build in this job replayed every OIBridge module from the Actions cache (0 Built, 226 Replayed); see the fresh-elaboration item. Log retention not checked.",
+  "notes": ""
+ },
+ {
+  "item": "E3-08",
+  "type": "ci-receipt",
+  "what": "Main CI at eae01647 (#939; the corpus commit the audit's mappers read): run 40395660130 (verify, push, attempt 1) concluded success at that exact head_sha, 25 jobs success and 1 skipped (the matrix placeholder \"A42 exclusion\"); the only workflow run at that SHA. Job 121827872751 \"Mathlib bridge\": release gate PASS 22/22 (lean-axioms 6082 named results; legacy-records 303 intact; v3-receipts 52 hold), no failure markers, and its reports for the 14 Appendix A modules equal the retained expected result exactly.",
+  "claims": [
+   "I-308",
+   "I-309",
+   "I-311"
+  ],
+  "sources": [
+   "run 40395660130",
+   "job 121827872751",
+   "commit eae01647"
+  ],
+  "check": "gh api actions/runs?head_sha=<full sha>; gh api actions/runs/40395660130 and runs/40395660130/jobs (conclusions grouped); gh api actions/jobs/121827872751/logs; python3 -I evidence/scripts/E3_joblog_check.py TOOLS EXPECTED TREE17B LOG → REPRODUCTION HOLDS (0 failures).",
+  "outcome": "pass",
+  "evidence_level": "certificate-checked",
+  "limits": "The build in this job replayed every OIBridge module from the Actions cache (0 Built, 226 Replayed); see the fresh-elaboration item. Log retention not checked.",
+  "notes": ""
+ },
+ {
+  "item": "E3-09",
+  "type": "ci-receipt",
+  "what": "Main CI at 02e73e56 (#940; current main (adds only AGENTS.md text over eae01647)): run 40399411290 (verify, push, attempt 1) concluded success at that exact head_sha, 25 jobs success and 1 skipped (the matrix placeholder \"A42 exclusion\"); the only workflow run at that SHA. Job 121840956899 \"Mathlib bridge\": release gate PASS 22/22 (lean-axioms 6082 named results; legacy-records 303 intact; v3-receipts 52 hold), no failure markers, and its reports for the 14 Appendix A modules equal the retained expected result exactly.",
+  "claims": [
+   "I-308",
+   "I-309",
+   "I-311"
+  ],
+  "sources": [
+   "run 40399411290",
+   "job 121840956899",
+   "commit 02e73e56"
+  ],
+  "check": "gh api actions/runs?head_sha=<full sha>; gh api actions/runs/40399411290 and runs/40399411290/jobs (conclusions grouped); gh api actions/jobs/121840956899/logs; python3 -I evidence/scripts/E3_joblog_check.py TOOLS EXPECTED TREE17B LOG → REPRODUCTION HOLDS (0 failures).",
+  "outcome": "pass",
+  "evidence_level": "certificate-checked",
+  "limits": "The build in this job replayed every OIBridge module from the Actions cache (0 Built, 226 Replayed); see the fresh-elaboration item. Log retention not checked.",
+  "notes": ""
+ },
+ {
+  "item": "E3-10",
+  "type": "ci-receipt",
+  "what": "Main CI at c967d6a9 (#937; listed in the brief; not cited by the Introduction at 4a260ca9, matrix.json or FINDINGS.md): run 40349617228 (verify, push, attempt 1) concluded success at that exact head_sha, 25 jobs success and 1 skipped (the matrix placeholder \"A42 exclusion\"); the only workflow run at that SHA. Job 121665778275 \"Mathlib bridge\": release gate PASS 22/22 (lean-axioms 6082 named results; legacy-records 303 intact; v3-receipts 52 hold), no failure markers, and its reports for the 14 Appendix A modules equal the retained expected result exactly.",
+  "claims": [],
+  "sources": [
+   "run 40349617228",
+   "job 121665778275",
+   "commit c967d6a9"
+  ],
+  "check": "gh api actions/runs?head_sha=<full sha>; gh api actions/runs/40349617228 and runs/40349617228/jobs (conclusions grouped); gh api actions/jobs/121665778275/logs; python3 -I evidence/scripts/E3_joblog_check.py TOOLS EXPECTED TREE17B LOG → REPRODUCTION HOLDS (0 failures).",
+  "outcome": "pass",
+  "evidence_level": "certificate-checked",
+  "limits": "The build in this job replayed every OIBridge module from the Actions cache (0 Built, 226 Replayed); see the fresh-elaboration item. Log retention not checked.",
+  "notes": ""
+ },
+ {
+  "item": "E3-11",
+  "type": "ci-receipt",
+  "what": "Fresh elaboration of the Appendix A modules: every checked job at 17b830bc, c967d6a9, b64919cd, eae01647 and 02e73e56 restored the same cache key (oibridge-Linux-324962b2…-5a98e256…) and replayed all 226 OIBridge modules without elaborating any. That key was saved by run 40218014178 / job 121243270140 at 8dc36d55 (#922, the last change to the Lean trees, identical trees), which elaborated 48 modules afresh, including 5 of the 14 Appendix A modules (Equivalence, EquivalenceChain, PhysicalC4Discharge, CoherentLiftGauge, TrackBQfbBridge), and whose reports for all 14 modules equal the retained result. The other 9 (HiddenMemory, C3Necessity, RecurrenceHorizon, GeneralCarrier, PhysicalCharacterization, OperationalValidity, IsometryExtension, LevelOneSeam, RankGapTheory) were replayed there too, from an earlier cache.",
+  "claims": [
+   "I-053",
+   "I-308",
+   "I-311"
+  ],
+  "sources": [
+   "run 40218014178",
+   "job 121243270140",
+   "jobs 121598983127, 121665778275, 121780174745, 121827872751, 121840956899"
+  ],
+  "check": "Counted \"Built OIBridge.<M> (\" and \"Replayed OIBridge\" lines in each log up to the gate verdict; matched the \"Cache restored from key\" and \"Cache saved with key\" lines; ran E3_joblog_check.py on job 121243270140 (only failure: the citation-roles gate step, added later by #916).",
+  "outcome": "partial",
+  "evidence_level": "certificate-checked",
+  "limits": "Lake replays a module only when its source and dependency trace hashes match, so a replayed report belongs to these sources (the README says so). But no log examined shows a fresh elaboration of 9 of the 14 modules at these sources, and the retained result rests on replayed messages. The recipe (empty .lake/build) would elaborate all 226 modules: that is a CI reproduction needing owner authorization.",
+  "notes": "Not a defect of the claim as worded (\"checked … by building … and running the release gate\"), which the README discloses as a replay; recorded so the evidence level is not read as a fresh build."
+ },
+ {
+  "item": "E3-12",
+  "type": "ci-receipt",
+  "what": "#918's head is 4a260ca9 (draft, open, base b64919cd, which is an ancestor of 4a260ca9); the Introduction and papers/introduction_repro/ exist only there, not on main. The only CI at 4a260ca9 is pull_request run 40391463077 (success; 25 success, 1 skipped; Mathlib bridge 121813230623 success).",
+  "claims": [
+   "I-312"
+  ],
+  "sources": [
+   "PR #918 head 4a260ca9",
+   "run 40391463077"
+  ],
+  "check": "GitHub MCP pull_request_read get 918; gh api actions/runs?head_sha=4a260ca9…; git merge-base --is-ancestor b64919cd 4a260ca9.",
+  "outcome": "partial",
+  "evidence_level": "certificate-checked",
+  "limits": "A pull_request run tests the synthetic merge, not the exact head (§A.39). Main was b64919cd when it ran (19:58Z, before #939 at 20:26Z) and b64919cd is an ancestor of 4a260ca9, so that merge has 4a260ca9's tree, but the run is not an exact-head attestation; plan step 8 still requires CI on the revised Introduction's exact head. The retained result must land on main with the paper (§A.42 item 2).",
+  "notes": ""
+ },
+ {
+  "item": "E3-13",
+  "type": "ci-receipt",
+  "what": "The evidence-retention archive's R4 well-formedness check passes on the retained expected result (schema oi-evidence-result v1, kind bridge; run id, 40-hex head_sha and job id present; extractor and recipe recorded; build success).",
+  "claims": [
+   "I-312"
+  ],
+  "sources": [
+   "verification/audits/evidence-retention/check_retention.py@48b18ac5",
+   "papers/introduction_repro/results-121598983127.json@4a260ca9"
+  ],
+  "check": "python3 -I evidence/scripts/E3_r4_check.py CHECK_RETENTION EXPECTED: no failure; countercontrols \"no build\", \"short head id\", \"no recipe\" each caught. Tree mode does not apply: the archive left the tree at 5c4e5087 and papers/introduction_repro/ is not an archive entry (README \"Location\").",
+  "outcome": "pass",
+  "evidence_level": "certificate-checked",
+  "limits": "R4 only; R8 (entry files) was not re-run. check_retention.py history/--gate mode needs full history (this worktree is shallow) and does not cover this file.",
+  "notes": ""
+ },
+ {
+  "item": "E3-14",
+  "type": "ci-receipt",
+  "what": "Kernel declarations cited by matrix.json or by FINDINGS.md replacement texts that lie outside the 14 retained modules: each has exactly one report with the three axioms in the digest-checked log of job 121598983127 (17b830bc) and in job 121827872751 (eae01647), at the cited line. Matrix links (12 claims: I-009, I-088, I-112, I-117, I-120, I-121, I-125, I-146, I-246, I-258, I-281, I-292): tv_mul_le, frozen_sourcing_verdict, routedAtStorage_forces_indivisible_somewhere, qStar_not_subset_finiteRootedRealizable, readWriteSourced_not_control, readWriteSourced_not_qm, rootedMap_periodic, finiteRootedRealizable_iff_pper, substratum_extension_quantum_iff_drives, substratum_plus_control_qm, substratum_residual. FINDINGS additions: realizesSealedOICore_of_control (OIRealization:252), permClass_onesFixing (PhaseSource:79), onesFixing_not_phasesAvailable (:52), substratumClass_not_onesFixing (:196), substratumClass_not_drivesElementary (StructuralClosure:370), monomialSource_not_control (SubstratumInterface:186), routedAtStorage_forces_indivisible_somewhere (PhysicalC4StorageReadback:256), finiteRootedRealizable_iff_pper (RootedClassificationAllTime:192), determinism_reversibility_selected_measure (CanonicalMeasure:276).",
+  "claims": [
+   "I-009",
+   "I-088",
+   "I-112",
+   "I-117",
+   "I-120",
+   "I-121",
+   "I-125",
+   "I-146",
+   "I-246",
+   "I-258",
+   "I-281",
+   "I-292",
+   "R-06",
+   "R-09",
+   "R-13",
+   "O-5"
+  ],
+  "sources": [
+   "job 121598983127",
+   "job 121827872751",
+   "lean:verification/lean-mathlib/OIBridge/*.lean@17b830bc"
+  ],
+  "check": "python3 -I evidence/scripts/E3_kernel_coverage.py matrix.json EXPECTED EXTRACTION(job 121598983127) — every kernel-layer link's declaration: report count, axioms, retained or log-only; FINDINGS declarations checked the same way against both extractions and their source lines.",
+  "outcome": "partial",
+  "evidence_level": "certificate-checked",
+  "limits": "Their only evidence is CI job logs, which expire; no retained expected result carries them (FINDINGS OD-15 records this for R-06, R-13 and O-5, not for the matrix-only links or R-09). The digest-checked log already contains these reports, so the expected result can be re-derived with a larger module table from the same log, without a rebuild, while the log is available. 14 matrix kernel identifiers are definitions or structures with no report (e.g. PDivisible, RevReal, RoutedReadback); FiniteEntropy.cmi_nonneg is a theorem with no #print axioms (cited only beside the paper-only claim I-324).",
+  "notes": "Flag: claims whose only machine-check evidence is an expiring CI log."
+ },
+ {
+  "item": "E3-15",
+  "type": "ci-receipt",
+  "what": "V3 receipts and legacy records: the release gate's v3-receipts step (\"RECEIPTS 52 receipt(s), all hold\"), v3-self-test, v3-corpus and legacy-records (\"303 record(s) in 75 closed namespace(s), all intact\") pass in the Mathlib bridge job at 17b830bc, c967d6a9, b64919cd, eae01647 and 02e73e56. No Introduction claim's chain cites a receipt directly; the Appendix A modules were governed by native rounds (track-b acts 12–15 and 45, C4-1/2/3, recurrence-scaling, finite-protocol, pair-maxcone) whose receipts are among those verified.",
+  "claims": [
+   "I-053",
+   "I-308"
+  ],
+  "sources": [
+   "jobs 121598983127, 121665778275, 121780174745, 121827872751, 121840956899 (gate block)",
+   "verification/receipts/ (52 files)@eae01647"
+  ],
+  "check": "Gate steps read from the extractions of the digest-checked logs; git grep for OIBridge/<Module>.lean in verification/receipts and programme preregistrations at eae01647.",
+  "outcome": "pass",
+  "evidence_level": "certificate-checked",
+  "limits": "tools/v3_verifier.py --receipts was not run locally: this worktree is shallow and the check reads full history.",
+  "notes": ""
+ },
+ {
+  "item": "E3-16",
+  "type": "ci-receipt",
+  "what": "Code and data paths of L197–200 at the corpus commit b64919cd: papers/oi_lattice_code/foundations/ (41 files) and verification/programmes/black-hole-information/ (bh01 15 files, bh02 15 files) exist; LICENSE is MIT; .gitattributes marks verification/programmes export-ignore, so the black-hole computations are not in the release archive, as stated. The black-hole directory is identical at b64919cd and eae01647.",
+  "claims": [
+   "I-044"
+  ],
+  "sources": [
+   "papers/Introduction.md:197-200@4a260ca9",
+   "LICENSE@b64919cd",
+   ".gitattributes:3@b64919cd"
+  ],
+  "check": "git ls-tree -r b64919cd <path> | wc -l; git show b64919cd:LICENSE; git show b64919cd:.gitattributes; git diff --stat b64919cd eae01647 -- <paths> (empty).",
+  "outcome": "pass",
+  "evidence_level": "reproduced",
+  "limits": "The concept DOI 10.5281/zenodo.19060318 and the release archive contents were not checked.",
+  "notes": ""
+ },
+ {
+  "item": "E3-17",
+  "type": "ci-receipt",
+  "what": "BH-01 (BHa) review chain: 587d4196, 95458016 and df2ea6f5 resolve and are ancestors of main. review/ holds REVIEW.md (of 587d4196, BLOCK on wording only), RECHECK-95458016(-full).md (ACCEPT WITH NITS) and RECHECK-df2ea6f5(-full).md (ACCEPT, no remaining findings); every sha256 in review/README.md matches the file. The package's SHA256SUMS verifies 14/14 at eae01647. Changes after df2ea6f5 (606c98d8, 84aca6b0) touch REPORT.md (wording: β = 1 qualifier, review pointer, replay commit), MANUSCRIPT-AUDIT.md (+4 lines), SHA256SUMS and review/ only; result.json and checks.py are unchanged. A replay of checks.py at eae01647 (52 s) reproduces result.json byte for byte, including 1376 of 40320 zero-advantage bijections, 60 non-injective exact-recovery maps and 32 countercontrol violations, the counts L160 states.",
+  "claims": [
+   "I-019",
+   "I-044",
+   "I-045",
+   "I-207",
+   "I-208",
+   "I-210",
+   "I-211",
+   "I-212",
+   "I-213",
+   "I-214",
+   "I-215",
+   "I-216",
+   "I-217",
+   "I-218",
+   "I-219",
+   "I-220",
+   "I-230",
+   "I-265",
+   "I-305"
+  ],
+  "sources": [
+   "verification/programmes/black-hole-information/bh01_access_v1/@eae01647",
+   "commits 587d4196, 95458016, df2ea6f5, 606c98d8, 84aca6b0"
+  ],
+  "check": "git merge-base --is-ancestor <sha> origin/main; files extracted with git show (git archive omits export-ignore paths); sha256sum review/*.md vs README; sha256sum -c SHA256SUMS; git diff --stat df2ea6f5 eae01647 -- bh01_access_v1; cp package to scratch; python3 -I -B checks.py --out OUT; cmp result.json OUT/result.json → identical.",
+  "outcome": "pass",
+  "evidence_level": "reproduced",
+  "limits": "Reproduced: the package's replay (its own code). Not checked: mutants.py (10 mutants; recorded output only), the written proofs, the reviewers' working files (not retained). The reviews are separate-agent internal reviews, not external validation (README says so). No CI runs these checks: verify.yml does not reference the programme.",
+  "notes": ""
+ },
+ {
+  "item": "E3-18",
+  "type": "ci-receipt",
+  "what": "BH-02/04 (BHb) review chain: 1739f4e0, 91e2230a, 1f1aec6f and ce7937d2 resolve and are ancestors of main. review/REVIEW.md (sha256 4ec1052b…, matching review/README.md) holds the review of 1739f4e0 (ACCEPT WITH NITS) and the re-checks of 91e2230a (ACCEPT WITH NITS), 1f1aec6f and ce7937d2. SHA256SUMS verifies 14/14. Changes after ce7937d2: one verdict string in result.json (/C7/verdict: \"in Page 2013, beta itself is computed…\"), the same string in checks.py, report.py's status line and replay recipe, PROVENANCE.json, REPORT.md and MANUSCRIPT-AUDIT.md wording. A replay of checks.py at eae01647 (29 s) reproduces result.json byte for byte.",
+  "claims": [
+   "I-020",
+   "I-044",
+   "I-045",
+   "I-208",
+   "I-209",
+   "I-225",
+   "I-227",
+   "I-228",
+   "I-236",
+   "I-237",
+   "I-239",
+   "I-265",
+   "I-286",
+   "I-287"
+  ],
+  "sources": [
+   "verification/programmes/black-hole-information/bh02_scramble_v1/@eae01647",
+   "commits 1739f4e0, 91e2230a, 1f1aec6f, ce7937d2, 606c98d8"
+  ],
+  "check": "As for BH-01; git diff ce7937d2 eae01647 -- bh02_scramble_v1/{result.json,checks.py,report.py}; python3 -I -B checks.py > OUT/result.json; cmp → identical.",
+  "outcome": "pass",
+  "evidence_level": "reproduced",
+  "limits": "Not checked: mutants.py (about 30 min; recorded outputs only), the -O replay, the numerical (double-precision) items C2(ii) and C3 beyond byte-identical replay, the literature values. The post-ce7937d2 landing audit and its re-check are not retained in review/ (recorded only in PROVENANCE.json post_review_5 and commit messages); the change they cover is wording only, which the diff confirms.",
+  "notes": "The retained record says less than \"reviewed\" for the final landed state: the last retained review is of ce7937d2, not of 606c98d8/84aca6b0. Low severity, since the diff since is wording and one verdict string."
+ },
+ {
+  "item": "E3-19",
+  "type": "ci-receipt",
+  "what": "CI at the black-hole landing: #917 landed at main ebf98d83 (push run 40222504044, success). Its merge message says \"exact-head CI green\" for 84aca6b0, but the only run at 84aca6b0 is pull_request run 40217353591 (success), a synthetic merge, not an exact-head run. No workflow executes the black-hole checks.",
+  "claims": [
+   "I-044",
+   "I-045"
+  ],
+  "sources": [
+   "run 40222504044",
+   "run 40217353591",
+   "commit ebf98d83 message"
+  ],
+  "check": "gh api actions/runs?head_sha=<sha> for 84aca6b0, ebf98d83, df2ea6f5 (none), ce7937d2 (none); grep of verify.yml at eae01647 for the programme (none).",
+  "outcome": "pass",
+  "evidence_level": "certificate-checked",
+  "limits": "The black-hole claims do not rest on CI. Their evidence is the retained replay outputs and reviews (items above), which the audit reproduced.",
+  "notes": "Commit-message wording only; history is not rewritten (Code Review Rules, provenance)."
+ },
+ {
+  "item": "E3-20",
+  "type": "open-obligation",
+  "what": "H-scramble (GR Theorem A.8: orbit ensemble equidistributes over quantum pure states on the shell). Corpus status: conditional hypothesis of GR Thms A.8–A.9 (inventory: \"conditional hypothesis\"); settled negatively in the setting the appendix uses (definite initial configuration, aligned bipartition: fails for every bijection, BHb C1/C6(a), proved and replayed byte-identically); open otherwise (needs an initial superposition or a non-aligned bipartition). No ROADMAP row.",
+  "claims": [
+   "I-020",
+   "I-041",
+   "I-226",
+   "I-227",
+   "I-228",
+   "I-244",
+   "I-286",
+   "R-01"
+  ],
+  "sources": [
+   "papers/GR.md:817,833,835,845@eae01647",
+   "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:14-21@eae01647",
+   "inventory/proofs.json hypotheses[H-scramble]"
+  ],
+  "check": "Read the ROADMAP queue (verification/ROADMAP.md:59-77, :1521-1538, :1585-1594 at eae01647; identical to tree939), inventory/proofs.json hypotheses and obligations, and the cited paper lines at eae01647; grep of the Introduction at 4a260ca9 for the obligation; FINDINGS.md for its replacement text. Where the Introduction relies on the obligation: Named at L162 (\"fails for every bijection acting on a definite initial configuration … and is not established\") and L183 (\"whether H-scramble and H-decouple hold\"). L183 treats as open a hypothesis already refuted in the aligned configuration setting; FINDINGS R-01 (I-286) narrows it to \"whether the substratum supplies an initial superposition or a non-aligned bipartition on which H-scramble holds\".",
+  "outcome": "partial",
+  "evidence_level": "traced-only",
+  "limits": "Status traced to the corpus's own status records; the audit did not re-prove any open or conditional result. Kernel results named here are certificate-checked in the CI items.",
+  "notes": "Flag (settled vs open): the corpus records the negative half as settled; L183 alone reads it as wholly open; resolved by R-01."
+ },
+ {
+  "item": "E3-21",
+  "type": "open-obligation",
+  "what": "H-decouple (B∪R evolves uncoupled to D and V\\R, pure joint state, over whole cycles). Corpus status: conditional hypothesis of GR Thm A.9 (inventory); GR A.7 does not establish it (GR.md:809, :815); BHa item F removes the timescale support at 30 M_sun (interval bounds; replayed). Open. No ROADMAP row.",
+  "claims": [
+   "I-020",
+   "I-229",
+   "I-230",
+   "I-231",
+   "I-267",
+   "I-268",
+   "I-286"
+  ],
+  "sources": [
+   "papers/GR.md:809,815,845@eae01647",
+   "bh01_access_v1/REPORT.md:211-239@eae01647"
+  ],
+  "check": "Read the ROADMAP queue (verification/ROADMAP.md:59-77, :1521-1538, :1585-1594 at eae01647; identical to tree939), inventory/proofs.json hypotheses and obligations, and the cited paper lines at eae01647; grep of the Introduction at 4a260ca9 for the obligation; FINDINGS.md for its replacement text. Where the Introduction relies on the obligation: Named at L162 (definition; \"timescale ordering does not supply it [BHa, item F], and it is not established\") and L183.",
+  "outcome": "pass",
+  "evidence_level": "traced-only",
+  "limits": "Status traced to the corpus's own status records; the audit did not re-prove any open or conditional result. Kernel results named here are certificate-checked in the CI items.",
+  "notes": ""
+ },
+ {
+  "item": "E3-22",
+  "type": "open-obligation",
+  "what": "Page value on a proper energy shell; single-trajectory entropy; generalized second law; QES agreement; islands. Corpus status: BHb C6(c) conditional (shell-dependent mean), C6(d) open; GR App. A.6 GSL open (GR.md:803); QES agreement and the island correspondence not established / conjectural.",
+  "claims": [
+   "I-235",
+   "I-236",
+   "I-237",
+   "I-239",
+   "I-240",
+   "I-241",
+   "I-242",
+   "I-243",
+   "I-244",
+   "I-287"
+  ],
+  "sources": [
+   "papers/GR.md:803,817@eae01647",
+   "bh02_scramble_v1/REPORT.md:20-21@eae01647"
+  ],
+  "check": "Read the ROADMAP queue (verification/ROADMAP.md:59-77, :1521-1538, :1585-1594 at eae01647; identical to tree939), inventory/proofs.json hypotheses and obligations, and the cited paper lines at eae01647; grep of the Introduction at 4a260ca9 for the obligation; FINDINGS.md for its replacement text. Where the Introduction relies on the obligation: Named at L162 (each, with its source) and L183.",
+  "outcome": "pass",
+  "evidence_level": "traced-only",
+  "limits": "Status traced to the corpus's own status records; the audit did not re-prove any open or conditional result. Kernel results named here are certificate-checked in the CI items.",
+  "notes": ""
+ },
+ {
+  "item": "E3-23",
+  "type": "open-obligation",
+  "what": "G3: covariant field equations with source coupling (covariant matter→boundary coupling, the G3 map). Corpus status: OPEN: ROADMAP.md:75 (P2); GR.md:356 (\"dynamical decoupling conditional on G3\"), GR.md:637.",
+  "claims": [
+   "I-015",
+   "I-017",
+   "I-018",
+   "I-041",
+   "I-179",
+   "I-183",
+   "I-185",
+   "I-187",
+   "I-196",
+   "I-203",
+   "I-205",
+   "I-240",
+   "I-276",
+   "I-277",
+   "I-285",
+   "I-288",
+   "I-303",
+   "I-304",
+   "I-306",
+   "I-307"
+  ],
+  "sources": [
+   "verification/ROADMAP.md:75@eae01647",
+   "papers/GR.md:356,637@eae01647"
+  ],
+  "check": "Read the ROADMAP queue (verification/ROADMAP.md:59-77, :1521-1538, :1585-1594 at eae01647; identical to tree939), inventory/proofs.json hypotheses and obligations, and the cited paper lines at eae01647; grep of the Introduction at 4a260ca9 for the obligation; FINDINGS.md for its replacement text. Where the Introduction relies on the obligation: Named at L12, L144 (\"Level G3 of [GR] … open\"), L146, L152, L162 (Page curve conditional on it), L178, L183, L191.",
+  "outcome": "pass",
+  "evidence_level": "traced-only",
+  "limits": "Status traced to the corpus's own status records; the audit did not re-prove any open or conditional result. Kernel results named here are certificate-checked in the CI items.",
+  "notes": "The corpus side (GR §6.2 asserting Einstein's equations while G3 is open) is CON-06."
+ },
+ {
+  "item": "E3-24",
+  "type": "open-obligation",
+  "what": "H-Bell (compatibility of ontic parameter dependence with operational no-signalling and the continuum limit). Corpus status: OPEN: ROADMAP.md:67 (P1) and §\"P1 — H-Bell\" (:955–:1019; K2 does not discharge it); inventory \"open\"; Main.md:394 (§3.3), Substratum.md:130.",
+  "claims": [
+   "I-170",
+   "I-171",
+   "I-251"
+  ],
+  "sources": [
+   "verification/ROADMAP.md:67,955-1019@eae01647",
+   "papers/Main.md:394@eae01647"
+  ],
+  "check": "Read the ROADMAP queue (verification/ROADMAP.md:59-77, :1521-1538, :1585-1594 at eae01647; identical to tree939), inventory/proofs.json hypotheses and obligations, and the cited paper lines at eae01647; grep of the Introduction at 4a260ca9 for the obligation; FINDINGS.md for its replacement text. Where the Introduction relies on the obligation: Named at L136 and L168 as \"the open hypothesis H-Bell\".",
+  "outcome": "pass",
+  "evidence_level": "traced-only",
+  "limits": "Status traced to the corpus's own status records; the audit did not re-prove any open or conditional result. Kernel results named here are certificate-checked in the CI items.",
+  "notes": "Clause differences between Main and Substratum are CON-45."
+ },
+ {
+  "item": "E3-25",
+  "type": "open-obligation",
+  "what": "(C2) necessity and the hidden-sector mixing hypothesis. Corpus status: Necessity proved on paper under the mixing hypothesis (Main.md:433; ledger Main.md:720 \"conditional\"); the hypothesis is a declared input (ROADMAP.md:1585–1594), not a queue item. The hypothesis is open; the necessity, given it, is proved.",
+  "claims": [
+   "I-109",
+   "I-294",
+   "I-295",
+   "R-26"
+  ],
+  "sources": [
+   "papers/Main.md:433,720@eae01647",
+   "verification/ROADMAP.md:1585-1594@eae01647",
+   "inventory/proofs.json hypotheses[mixing hypothesis]"
+  ],
+  "check": "Read the ROADMAP queue (verification/ROADMAP.md:59-77, :1521-1538, :1585-1594 at eae01647; identical to tree939), inventory/proofs.json hypotheses and obligations, and the cited paper lines at eae01647; grep of the Introduction at 4a260ca9 for the obligation; FINDINGS.md for its replacement text. Where the Introduction relies on the obligation: Named at L185 item (4), but as \"(C2) necessity, which is conditional\", so the open item reads as the necessity rather than the hypothesis; L86 calls (C2) a physical-regime premise. FINDINGS R-26 restates it.",
+  "outcome": "partial",
+  "evidence_level": "traced-only",
+  "limits": "Status traced to the corpus's own status records; the audit did not re-prove any open or conditional result. Kernel results named here are certificate-checked in the CI items.",
+  "notes": "Imprecise, not a status conflict; resolved by R-26."
+ },
+ {
+  "item": "E3-26",
+  "type": "open-obligation",
+  "what": "Physical (C4) discharge at the cosmological and lattice cuts. Corpus status: OPEN: ROADMAP.md:66 (P1, made exact per cut by round C4-1); inventory (C4) \"physical discharge … OPEN\".",
+  "claims": [
+   "I-282",
+   "O-11"
+  ],
+  "sources": [
+   "verification/ROADMAP.md:66@eae01647"
+  ],
+  "check": "Read the ROADMAP queue (verification/ROADMAP.md:59-77, :1521-1538, :1585-1594 at eae01647; identical to tree939), inventory/proofs.json hypotheses and obligations, and the cited paper lines at eae01647; grep of the Introduction at 4a260ca9 for the obligation; FINDINGS.md for its replacement text. Where the Introduction relies on the obligation: Cosmological cut named at L183 (\"whether history readback (C4) holds at the cosmological partition\"); lattice cut not named (FINDINGS O-11, optional, as the Introduction does not use the lattice construction).",
+  "outcome": "pass",
+  "evidence_level": "traced-only",
+  "limits": "Status traced to the corpus's own status records; the audit did not re-prove any open or conditional result. Kernel results named here are certificate-checked in the CI items.",
+  "notes": ""
+ },
+ {
+  "item": "E3-27",
+  "type": "open-obligation",
+  "what": "F2 / substratum sourcing of completion conditions (iii)–(v): phases and dense state-mixing control. Corpus status: F2 OPEN (ROADMAP.md:69: \"the present architecture is settled negatively … no extension principle is adopted\"); the present architecture is settled negatively: ROADMAP.md:1528–1531 INDEPENDENT (source of phases; dense/nonclassical control; executable intermediate flow; observer-level lift), kernel results PhaseSource, StructuralClosure, SubstratumInterface, ReadWriteControl (reports present in the CI logs, item above); positive half substratum_plus_control_qm.",
+  "claims": [
+   "I-013",
+   "I-146",
+   "I-258",
+   "I-281",
+   "R-06"
+  ],
+  "sources": [
+   "verification/ROADMAP.md:69,1521-1538@eae01647",
+   "papers/GR.md:228,260-266@eae01647"
+  ],
+  "check": "Read the ROADMAP queue (verification/ROADMAP.md:59-77, :1521-1538, :1585-1594 at eae01647; identical to tree939), inventory/proofs.json hypotheses and obligations, and the cited paper lines at eae01647; grep of the Introduction at 4a260ca9 for the obligation; FINDINGS.md for its replacement text. Where the Introduction relies on the obligation: L12, L120, L173 and L183 say only \"which of (iii)–(v) a physical substratum supplies is open\", without the settled negative result for the stated substratum. FINDINGS R-06 replaces all four.",
+  "outcome": "partial",
+  "evidence_level": "traced-only",
+  "limits": "Status traced to the corpus's own status records; the audit did not re-prove any open or conditional result. Kernel results named here are certificate-checked in the CI items.",
+  "notes": "Flag (settled vs open): the corpus records the stated architecture as settled negatively; the Introduction presents the whole question as open. Resolved by R-06."
+ },
+ {
+  "item": "E3-28",
+  "type": "open-obligation",
+  "what": "P0: the structure that determines the relative quantum evolution (relating evolution). Corpus status: OPEN, localized: ROADMAP.md:63 (GL2 proved: the visible family does not fix it; TG2/SH1/RO1 classify the per-slice gauge exactly; what remains is cross-time selection and threading).",
+  "claims": [
+   "I-014",
+   "I-148",
+   "I-149",
+   "I-150",
+   "I-157",
+   "I-158"
+  ],
+  "sources": [
+   "verification/ROADMAP.md:63@eae01647"
+  ],
+  "check": "Read the ROADMAP queue (verification/ROADMAP.md:59-77, :1521-1538, :1585-1594 at eae01647; identical to tree939), inventory/proofs.json hypotheses and obligations, and the cited paper lines at eae01647; grep of the Introduction at 4a260ca9 for the obligation; FINDINGS.md for its replacement text. Where the Introduction relies on the obligation: Named at L12 (\"the selection of the evolution relating two times\"), L124–126 (GL2/GL3, the bridge lemmas; \"none is supplied here\"), L173 and L189. Consistent with OPEN; the localization (TG2, SH1, RO1) is not reported, which is an omission, not a status conflict.",
+  "outcome": "pass",
+  "evidence_level": "traced-only",
+  "limits": "Status traced to the corpus's own status records; the audit did not re-prove any open or conditional result. Kernel results named here are certificate-checked in the CI items.",
+  "notes": ""
+ },
+ {
+  "item": "E3-29",
+  "type": "open-obligation",
+  "what": "H-∞: finite operational theory → continuum / infinite-dimensional completion. Corpus status: OPEN: ROADMAP.md:71 (P1); GR.md:262 (\"The scope is finite and endomorphic\").",
+  "claims": [
+   "I-139",
+   "R-10"
+  ],
+  "sources": [
+   "verification/ROADMAP.md:71,938@eae01647",
+   "papers/GR.md:262@eae01647"
+  ],
+  "check": "Read the ROADMAP queue (verification/ROADMAP.md:59-77, :1521-1538, :1585-1594 at eae01647; identical to tree939), inventory/proofs.json hypotheses and obligations, and the cited paper lines at eae01647; grep of the Introduction at 4a260ca9 for the obligation; FINDINGS.md for its replacement text. Where the Introduction relies on the obligation: Theorem 4 is stated \"for every nonempty finite system\" (L116), so no claim depends on it; the open extension is not named. FINDINGS R-10 adds it to §6.3.",
+  "outcome": "partial",
+  "evidence_level": "traced-only",
+  "limits": "Status traced to the corpus's own status records; the audit did not re-prove any open or conditional result. Kernel results named here are certificate-checked in the CI items.",
+  "notes": "Omission only; resolved by R-10."
+ },
+ {
+  "item": "E3-30",
+  "type": "open-obligation",
+  "what": "K: pre-quantum kinematics (from operational premises to the complex matrix kinematics Theorem 4 assumes). Corpus status: OPEN: ROADMAP.md:68 (P1; K1, K3 conditional, K2 and K∞ open). No manuscript states the kinematics assumption (CON-15).",
+  "claims": [
+   "I-137",
+   "I-139",
+   "R-10"
+  ],
+  "sources": [
+   "verification/ROADMAP.md:68@eae01647"
+  ],
+  "check": "Read the ROADMAP queue (verification/ROADMAP.md:59-77, :1521-1538, :1585-1594 at eae01647; identical to tree939), inventory/proofs.json hypotheses and obligations, and the cited paper lines at eae01647; grep of the Introduction at 4a260ca9 for the obligation; FINDINGS.md for its replacement text. Where the Introduction relies on the obligation: Not named; L114 fixes the setting as \"linear maps\", so Theorem 4 assumes it silently. FINDINGS R-10 item (5) names it.",
+  "outcome": "partial",
+  "evidence_level": "traced-only",
+  "limits": "Status traced to the corpus's own status records; the audit did not re-prove any open or conditional result. Kernel results named here are certificate-checked in the CI items.",
+  "notes": "Omission; resolved by R-10 (citation depends on CON-15 or OD-14)."
+ },
+ {
+  "item": "E3-31",
+  "type": "open-obligation",
+  "what": "Stochastic observer interface: sourcing (Obs, μ) from the stated architecture. Corpus status: OPEN, with the present architecture bounded negatively: ROADMAP.md:70; ensemble_underdetermined and waveSubstratum_stochastic_interface_gap (StochasticInterface; reports with the three axioms in job 121598983127).",
+  "claims": [
+   "I-057",
+   "I-058",
+   "I-059",
+   "O-11"
+  ],
+  "sources": [
+   "verification/ROADMAP.md:70@eae01647"
+  ],
+  "check": "Read the ROADMAP queue (verification/ROADMAP.md:59-77, :1521-1538, :1585-1594 at eae01647; identical to tree939), inventory/proofs.json hypotheses and obligations, and the cited paper lines at eae01647; grep of the Introduction at 4a260ca9 for the obligation; FINDINGS.md for its replacement text. Where the Introduction relies on the obligation: L38 states that the prior is a realization datum, not selected by invariance, and the counting measure a default, which matches the negative half; the obligation itself is not named (FINDINGS O-11, optional).",
+  "outcome": "pass",
+  "evidence_level": "traced-only",
+  "limits": "Status traced to the corpus's own status records; the audit did not re-prove any open or conditional result. Kernel results named here are certificate-checked in the CI items.",
+  "notes": ""
+ },
+ {
+  "item": "E3-32",
+  "type": "open-obligation",
+  "what": "Origin of the quadratic Born exponent. Corpus status: Open: Main.md:20 and :534 (\"does not select the quadratic exponent\"; \"a frontier item about the dictionary's origin\"). No ROADMAP queue row (only the unprioritized double-slit benchmark, ROADMAP.md:1575). Book ch18:34 and ch19:126 frame it as not an open question (CON-44); Main:220 \"the Born rule is the equilibrium distribution\" (CON-12).",
+  "claims": [
+   "I-006",
+   "I-167",
+   "I-254"
+  ],
+  "sources": [
+   "papers/Main.md:20,534@eae01647",
+   "book/ch18-beyond.md:34@eae01647"
+  ],
+  "check": "Read the ROADMAP queue (verification/ROADMAP.md:59-77, :1521-1538, :1585-1594 at eae01647; identical to tree939), inventory/proofs.json hypotheses and obligations, and the cited paper lines at eae01647; grep of the Introduction at 4a260ca9 for the obligation; FINDINGS.md for its replacement text. Where the Introduction relies on the obligation: Named at L12, L134 (\"is open [Main §3.4; Bar26, Thm 3.1]\") and L172.",
+  "outcome": "pass",
+  "evidence_level": "traced-only",
+  "limits": "Status traced to the corpus's own status records; the audit did not re-prove any open or conditional result. Kernel results named here are certificate-checked in the CI items.",
+  "notes": "Corpus tracking gap: an obligation the Introduction states as open has no ROADMAP row."
+ },
+ {
+  "item": "E3-33",
+  "type": "open-obligation",
+  "what": "H-slope (and H-frame, H-state, H-Hawking): state conditions of the ħ and 1/4 calibration. Corpus status: CONDITIONAL: ROADMAP.md:74 (P2); GR.md:470; inventory H-slope \"conditional\".",
+  "claims": [],
+  "sources": [
+   "verification/ROADMAP.md:74@eae01647",
+   "papers/GR.md:470@eae01647"
+  ],
+  "check": "Read the ROADMAP queue (verification/ROADMAP.md:59-77, :1521-1538, :1585-1594 at eae01647; identical to tree939), inventory/proofs.json hypotheses and obligations, and the cited paper lines at eae01647; grep of the Introduction at 4a260ca9 for the obligation; FINDINGS.md for its replacement text. Where the Introduction relies on the obligation: No Introduction claim uses the ħ or 1/4 calibration or T_dS (ħ appears only in [GR]'s title; L148's de Sitter entropy comparison is called a dimensional identity), so none depends on H-slope and it correctly goes unnamed.",
+  "outcome": "pass",
+  "evidence_level": "traced-only",
+  "limits": "Status traced to the corpus's own status records; the audit did not re-prove any open or conditional result. Kernel results named here are certificate-checked in the CI items.",
+  "notes": ""
+ },
+ {
+  "item": "E3-34",
+  "type": "open-obligation",
+  "what": "Steps proved only on paper inside machine-checked results. Corpus status: Open (no formalization): Theorem 2's time-t identification and the CMI vanishing criterion; prior independence; history-level (C4) → indivisibility; also §3.1's Hadamard counterexample and §3.4's factorization half (matrix I-289 note).",
+  "claims": [
+   "I-289",
+   "I-319",
+   "I-324",
+   "I-330",
+   "R-27"
+  ],
+  "sources": [
+   "papers/Introduction.md:185,208-212@4a260ca9"
+  ],
+  "check": "Read the ROADMAP queue (verification/ROADMAP.md:59-77, :1521-1538, :1585-1594 at eae01647; identical to tree939), inventory/proofs.json hypotheses and obligations, and the cited paper lines at eae01647; grep of the Introduction at 4a260ca9 for the obligation; FINDINGS.md for its replacement text. Where the Introduction relies on the obligation: Appendix A names the first three (L208, L209, L212); L185 item (1) lists §2.2, §2.4, §2.5 only. FINDINGS R-27 widens the list.",
+  "outcome": "partial",
+  "evidence_level": "traced-only",
+  "limits": "Status traced to the corpus's own status records; the audit did not re-prove any open or conditional result. Kernel results named here are certificate-checked in the CI items.",
+  "notes": "Omission; resolved by R-27."
+ },
+ {
+  "item": "E3-35",
+  "type": "open-obligation",
+  "what": "Exact gluing for recurrent target families. Corpus status: Rooted families settled positively in the kernel: finiteRootedRealizable_iff_pper (RootedClassificationAllTime:192; report with the three axioms in the CI logs) — kernel-only, stated in no manuscript; the multi-time-law form open (Main.md:618; ROADMAP.md:1569 lists it as not prioritized).",
+  "claims": [
+   "I-292",
+   "R-09"
+  ],
+  "sources": [
+   "papers/Main.md:618@eae01647",
+   "verification/ROADMAP.md:1569@eae01647"
+  ],
+  "check": "Read the ROADMAP queue (verification/ROADMAP.md:59-77, :1521-1538, :1585-1594 at eae01647; identical to tree939), inventory/proofs.json hypotheses and obligations, and the cited paper lines at eae01647; grep of the Introduction at 4a260ca9 for the obligation; FINDINGS.md for its replacement text. Where the Introduction relies on the obligation: L185 item (3) lists exact gluing as open without restriction. FINDINGS R-09 narrows it to multi-time laws.",
+  "outcome": "partial",
+  "evidence_level": "traced-only",
+  "limits": "Status traced to the corpus's own status records; the audit did not re-prove any open or conditional result. Kernel results named here are certificate-checked in the CI items.",
+  "notes": "Flag (settled vs open): the kernel settles the rooted case that L185 treats as open; Main and ROADMAP lag the kernel too (CON-28)."
+ },
+ {
+  "item": "E3-36",
+  "type": "open-obligation",
+  "what": "An empirical test of OI (memory witnesses; direct access to the hidden sector). Corpus status: OPEN: ROADMAP.md:76 (P2); Main §4.5.",
+  "claims": [
+   "I-029",
+   "I-269",
+   "I-283",
+   "I-284"
+  ],
+  "sources": [
+   "verification/ROADMAP.md:76@eae01647",
+   "papers/Main.md:698@eae01647"
+  ],
+  "check": "Read the ROADMAP queue (verification/ROADMAP.md:59-77, :1521-1538, :1585-1594 at eae01647; identical to tree939), inventory/proofs.json hypotheses and obligations, and the cited paper lines at eae01647; grep of the Introduction at 4a260ca9 for the obligation; FINDINGS.md for its replacement text. Where the Introduction relies on the obligation: Named at L22, L176 and L183.",
+  "outcome": "pass",
+  "evidence_level": "traced-only",
+  "limits": "Status traced to the corpus's own status records; the audit did not re-prove any open or conditional result. Kernel results named here are certificate-checked in the CI items.",
+  "notes": ""
+ }
+]
