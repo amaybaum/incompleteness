@@ -408,3 +408,53 @@ Counts are occurrences in `papers/*.md`, `book/*.md` (excluding FULL) and README
   - Explainer:880: the chemistry chain;
   - Explainer:671 and glossary:103: a₀, deferred item 13.
 - **"preregistered":** Main:478 is a preregistered probe ensemble, correct as stated.
+
+***
+
+## 8. Follow-ups on #936's lines, applied after the merge (base `a40d8830`)
+
+My edits were committed as `20ceef33`, and main `17b830bc` (#936) was merged in as `a40d8830`. On that base I applied the five §5 follow-ups, uncommitted. Each one uses the exact current text at `a40d8830`; every quote was verified unique in its chapter and, where mirrored, in FULL.md.
+
+| # | Site [FULL at a40d8830] | Change |
+|---|---|---|
+| F1 | book/README.md:64 (not mirrored) | "the 1/4 factor derived" → "recovered as a consistency relation of the horizon calibration"; "the dissolution of the 10¹²² … discrepancy" → "the conditional dissolution … (descriptive distinction established, gravitational decoupling conditional on the open coupling step)" |
+| F2a | ch07:12 [1891] | "Section 7.5 derives … by direct boundary-mode counting, with the 1/4 coefficient emerging as the ratio …" → "recovers …: with the calibration the boundary-mode count reproduces it, the 1/4 coefficient being the ratio … that the calibration matches, under the same conditions" |
+| F2b | ch07:12 [1891] | "Section 7.7 dissolves …" → "proposes a dissolution …; the descriptive distinction is established, and the dissolution is conditional on the covariant coupling step that [GR §6.2] leaves open" |
+| F3 | ch07:110 [1989] | "the same mechanism that produced the cosmological constant dissolution in §7.7 below" → "… that underlies the conditional cosmological constant dissolution in §7.7 below" |
+| F4 | ch18:146 [4968] | the same change, for "… dissolution. The framework" |
+| F5′ | ch18:158 [4980] | "The cosmological constant ratio is a substratum quantity (the de Sitter entropy) …" → "On the framework's reading, conditional on the coupling step, … (the de Sitter entropy, up to a convention-dependent factor) …" |
+
+**#936's qualifiers are preserved.**
+- Each replacement substitutes only the quoted 1/4 or cosmological-constant fragment. Everything #936 wrote around it is untouched:
+  - conservation versus recovery ("how much of that information an observer can recover …", "whether the radiation carries it …");
+  - the cycle-averaged Page curve on the full product space;
+  - H-scramble and H-decouple;
+  - "(the 1/4 coefficient itself has no direct test)".
+- FULL.md occurrence counts before → after are unchanged:
+
+| Phrase in FULL.md | Before | After |
+|---|---|---|
+| "H-decouple" | 12 | 12 |
+| "H-scramble" | 13 | 13 |
+| "full product space" | 10 | 10 |
+| "whether the radiation carries it" | 2 | 2 |
+| "how much of that information an observer can recover" | 1 | 1 |
+
+**Build and checks:**
+- `sh ./build.sh --book`: OK, 555 pages (unchanged from `a40d8830`), no dropped glyphs. GR was not touched, so it was not rebuilt.
+- mirror_check: 0 divergences. staleness: OK (7 matched). voice, claims, duplicate: OK. coverage: OK (128 statements).
+
+**Re-grep** (sources / FULL, at `a40d8830` → after):
+- **Unchanged:**
+  - "seven parameter-free", "thirteen gravitational", "Thirteen gravitational", "F5" and "recovered as a prediction": all 0 / 0;
+  - "twenty-two" 43 / 31;
+  - "Twenty-two" 8 / 5;
+  - "parameter-free" 91 / 70;
+  - "prediction, not" 7 / 5;
+  - "echo" 17 / 13;
+  - "does not gravitate" 6 / 4;
+  - "no fitted parameters" 9 / 6;
+  - "preregistered" 1 / 0.
+- **Changed:**
+  - "factor derived" goes from 1 / 0 to 0 / 0.
+  - "dissolves the cosmological" goes from 2 / 2 to 1 / 1. The survivor is appendix-c:315, inside a quoted objection ("**Ambition.** 'The framework identifies QM with embedded observation, dissolves the cosmological constant problem, …'"). It reports a critic's words, not the manuscript's claim, so it is legitimate.
