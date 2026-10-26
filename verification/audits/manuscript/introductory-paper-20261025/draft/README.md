@@ -129,3 +129,11 @@ listing its open conditions:
 
 All six R11 markers are removed, since every site they named is corrected on main. Main text is 11.73 pages. A
 scientific confirmation of r8 is in progress.
+
+`review/scientific/RECHECK-r8.md`: ACCEPT WITH NITS. `Introduction-r9.md` (with `CHANGES-r9.md`) applies the three
+nits:
+- the Page value is stated up to Theorem A.8's correction term;
+- a referent is restored for §6.2 item 4;
+- six VERIFY markers are cleared by the first-hand reading.
+
+Three VERIFY markers remain, for unreachable sources. A confirmation of r9 is in progress.
