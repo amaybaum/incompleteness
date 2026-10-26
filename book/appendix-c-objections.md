@@ -17,7 +17,7 @@ Sections C.4-C.6 engage the foundational concerns: the role of the stochastic-qu
 
 Section C.7 engages computational implementability concerns — specifically Wolpert's theorem on physical computability and how the framework's content relates to it. Section C.8 engages the framework's relationship to standard interpretations of quantum mechanics: Many-Worlds (MWI), Bohmian mechanics, and QBism.
 
-Sections C.9-C.11 engage framework-specific concerns: the substratum-emergent operator distinction (whether the framework's distinction between substratum and emergent operators is a substantive structural feature or just renaming) together with the parallel question whether observational incompleteness is the uncertainty principle renamed (C.9.1), circularity concerns (particularly around the gap equation deriving $\hbar$), and the framework's epistemic status as a structural framework rather than a competing physical theory.
+Sections C.9-C.11 engage framework-specific concerns: the substratum-emergent operator distinction (whether the framework's distinction between substratum and emergent operators is a substantive structural feature or just renaming) together with the parallel question whether observational incompleteness is the uncertainty principle renamed (C.9.1), circularity concerns (particularly around the gap equation for $\hbar$), and the framework's epistemic status as a structural framework rather than a competing physical theory.
 
 Section C.12 engages meta-objections: credentials, scope, and the framework's ambition. The appendix closes with a brief discussion of which objections the framework cannot address (acknowledging genuine limits of the framework's reach) and which objections turn out to be category errors (where the framework's structural commitments dissolve apparent puzzles by relocating them).
 
@@ -233,13 +233,13 @@ The framework's content is therefore that the substratum-emergent operator disti
 
 **The relation summarized.** The two are different statements. The uncertainty-type obstruction is proved and classified as non-discriminating. Deriving from embedded observation the non-commutative structure that gives the uncertainty relations their content is open, as part of the selection problem.
 
-## C.10 Circularity concerns: the gap equation deriving $\hbar$
+## C.10 Circularity concerns: the gap equation for $\hbar$
 
-A specific technical objection concerns the framework's gap equation in Chapter 7 §7.4, which derives the Planck constant $\hbar$ from the cosmological horizon's geometric properties. Critics object that the derivation appears circular.
+A specific technical objection concerns the framework's gap equation in Chapter 7 §7.3, which relates the Planck constant $\hbar$ to the discreteness scale through the cosmological horizon's thermodynamics. Critics object that the derivation appears circular.
 
 **The objection.** "The gap equation equates a classical temperature to a quantum temperature to derive $\hbar$. But the quantum temperature already assumes $\hbar$ exists. The derivation is therefore circular — you are using $\hbar$ to derive $\hbar$."
 
-**The framework's response.** The logical chain in Chapter 7 §7.4 has four steps that show the derivation is *not* circular.
+**The framework's response.** The logical chain in Chapter 7 §7.3 has four steps that show the derivation is *not* circular.
 
 *Step 1.* Under the canonical measure of Lemma 3 of Chapter 1, the framework's partition-relativity result proves that $\hbar$ is determined by the partition geometry. This is a structural claim about the framework's setup, not a quantum assumption.
 
@@ -254,13 +254,13 @@ A specific technical objection concerns the framework's gap equation in Chapter 
 The structure of the derivation is therefore:
 - Geometry → KMS periodicity (no $\hbar$ used).
 - Emergent QFT → temperature from KMS periodicity (with $\hbar$ as unknown).
-- Classical-temperature matching → $\hbar$ fixed.
+- Classical-temperature matching → $\hbar$ fixed in terms of $\epsilon$ (conditional on H-slope, Chapter 7 §7.3).
 
 The $\hbar$ being "derived" enters only in the second step (as an unknown to be determined), not in the first step (which provides the geometric input independent of $\hbar$). The derivation is therefore non-circular.
 
 **The lattice-KMS concern.** A related concern is that the KMS periodicity assumes a continuous spacetime, while the framework's substratum is a lattice at $\epsilon = 2\sqrt{\sigma}\, l_p$. The lattice introduces corrections to the KMS periodicity of order $(\epsilon\kappa/c^2)^2 \sim 10^{-122}$ at $\sigma = 1$ — far below any observable threshold.
 
-The framework's response: trans-Planckian insensitivity (Jacobson, 't Hooft, Verlinde, and others) ensures the result is robust against UV modifications. The continuum KMS periodicity is the dominant contribution; the lattice corrections are negligible at the relevant scales. The framework's derivation of $\hbar$ is therefore consistent with the lattice structure rather than requiring strict continuum spacetime.
+The framework's response: trans-Planckian insensitivity (Jacobson, 't Hooft, Verlinde, and others) ensures the result is robust against UV modifications. The continuum KMS periodicity is the dominant contribution; the lattice corrections are negligible at the relevant scales. The gap equation is therefore consistent with the lattice structure rather than requiring strict continuum spacetime.
 
 ## C.11 The framework's epistemic status as a structural framework
 
