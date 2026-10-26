@@ -106,9 +106,29 @@ The method follows the owner's requirements.
    results the corpus establishes that are stronger than, or absent from, what the Introduction states. Each such
    omission is a finding, with its source and status, together with whether the Introduction's scope should carry it.
    The aim is neither to exaggerate OI's achievements nor to understate what the framework has established.
-6. **Independent review.** A reviewer who did not take part in steps 1–5 reviews the complete audit, and then any
+6. **Independent review.** A reviewer who did not take part in steps 1–5 reviews the complete audit, including the evidence verification of step 7, and then any
    Introduction revisions that follow from it.
-7. **Final landing gate.** The revised Introduction is re-checked at its exact commit: its Lean references, its corpus
+7. **Evidence verification.** Tracing a claim to a source is not the same as verifying the evidence behind it
+   (owner, 2026-10-26). For every result the Introduction cites, the audit checks the evidence itself, by type:
+
+   | Evidence type | Required verification |
+   |---|---|
+   | Lean certificates | Theorem names, axioms and dependencies, and whether kernel checking succeeded |
+   | Formal proof coverage | The manuscript claim matches the precise Lean statement |
+   | Exhaustive computations | Search domain, completeness, and retained certificates or witnesses |
+   | Numerical results | Input data, precision, error bounds and reproducibility |
+   | CI and verification receipts | Exact commit SHAs, test outcomes and retained evidence |
+   | Open obligations | Assumptions or missing results that limit claims |
+
+   Each claim in the matrix records its **evidence level**:
+   - **reproduced:** the audit regenerated the result itself and compared it;
+   - **certificate-checked:** checked against a retained certificate, expected result or kernel output;
+   - **traced-only:** traced to an existing report whose evidence the audit did not check.
+
+   Historical experiments are not all re-run. A bounded result is reproduced where that is cheap (§A.40). A heavy one
+   is checked against its retained evidence, or proposed for a CI reproduction that needs the owner's authorization.
+   Every claim must end in a verifiable chain to trustworthy evidence, or its evidence level says why not.
+8. **Final landing gate.** The revised Introduction is re-checked at its exact commit: its Lean references, its corpus
    pointers, and CI on that head. Only then is fresh merge authorization requested.
 
 ## Outputs
@@ -123,6 +143,7 @@ All outputs go in this directory:
 | `CONSISTENCY.md` | Cross-paper findings, each with its sites, the anchor and a proposed resolution |
 | `COMPLETENESS.md` | Established results the Introduction omits or understates, each with its source, status and a recommendation |
 | `FINDINGS.md` | The audit's findings for the Introduction, ranked: overclaims, understatements and omissions. Each says what the Introduction should change, or that it is faithful as written |
+| `EVIDENCE.md` and `evidence.json` | The evidence verification of step 7: each cited result, its evidence type, the check made, the outcome and the evidence level |
 | `review/` | The independent review of the audit |
 
 ## What counts as done
@@ -130,7 +151,9 @@ All outputs go in this directory:
 The audit is complete when:
 - every claim in `claims.json` has a mapping and a status;
 - every finding has a disposition;
-- the independent review accepts the audit.
+- every claim has an evidence level and every cited result has passed the evidence verification of step 7, or is
+  recorded as not passing it;
+- the independent review accepts the audit, including the evidence verification.
 
 The Introduction is then revised on #918 from `FINDINGS.md`. Each revision is reviewed, and the landing gate is run
 again.
