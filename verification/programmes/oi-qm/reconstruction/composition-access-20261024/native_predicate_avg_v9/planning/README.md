@@ -67,3 +67,11 @@ the question. The branch is based on #912's head `2af1d5d5`, which contains v8 a
   - The toy demonstration's limits are disclosed in plan §9.
 
   Nothing ran on v8's class. The v8 enumeration is not authorized, and the full campaign belongs in CI.
+- `review/STAGE0-RECHECK-r4.md`: the independent review of the r3→r4 diff, with probes in `review/toy-r4/`. Verdict:
+  ACCEPT WITH CHANGES (R4-1 to R4-7, all bounded), so not a clean accept and no freeze.
+  - Every rerun replays byte for byte, and all 16 quick mutants are killed.
+  - The owner's five checks pass, with these exceptions:
+    - the G planted family is fully covered by its own tip quantity;
+    - the v8 refusal can be bypassed by a setup with changed sources or a larger region;
+    - PO6 (G) and PO7 have wording defects;
+    - one disclosure sentence is false.
