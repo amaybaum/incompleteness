@@ -618,7 +618,7 @@ Every numerical row is exact integer or `Fraction` arithmetic. A failed or uneva
 | The admissible regions are derived | AR-C | $Z(\varphi)$ by the §4.2 methods, and $K_{\rm cx}(\varphi)$, for every generator and $n$ used. The regions under U, R and E are recomputed from them and from the measured footprints, at each generator's θ values ($n + 1$; both $n + 1$ and $n + 2$ for `G_clkfix_u`), and must equal §2.4's statements (including its `G_clkfix_u` exception) and the §9 per-$n$ values at the matching θ. Each cell's status (`REGION_EMPTY`, `NOT_IN_SEARCH_RANGE`, searched) is derived from the recomputed region and the searched range |
 | The workflow cannot be launched by a push | WF | the workflow file is parsed, and its `on:` key has `workflow_dispatch` as its only trigger |
 | Every result-mode PE-05 job runs in the pinned environment | ENV | Every shard, in every mode, records `sys.version`, `numpy.__version__`, `ImageOS`, `ImageVersion` and `RUNNER_ARCH`. **In result mode only,** TH refuses to start, and the collect job refuses a shard, unless Python major.minor equals 3.12, `numpy.__version__` equals 2.2.6, `ImageOS` equals `ubuntu24` and `RUNNER_ARCH` equals `X64`; `ImageVersion` and the full `sys.version` are recorded and never compared (`fixed.PE05_env`). Smoke and test runs record the environment, are not checked against it, and are never results. The workflow pins the same values |
-| The code imports only the standard library and numpy | IMP | Every shard, in every mode, records the set of top-level names in `sys.modules` at its end that are not in `sys.stdlib_module_names`, excluding `__main__` and the stage's own code package (its name is fixed in the code commits and recorded beside the set). **In result mode,** collect refuses a shard whose set is not exactly `{"numpy"}`, including an empty set |
+| The code imports only the standard library and numpy | IMP | **Startup snapshot:** the shard's entry module, as its first statement and before numpy or any stage import, records the top-level names in `sys.modules`. That startup set, which may hold modules loaded through `site`, `.pth` files or `sitecustomize` (for example `_distutils_hack`), is recorded separately and never compared. **Measured set:** at the shard's end, the top-level names in `sys.modules` that are not in the startup set and not in `sys.stdlib_module_names`, excluding `__main__` and the stage's own code package. The package name is fixed in the code commits and recorded. **Package location:** every loaded module whose top-level name is the stage package has `__file__` inside the stage's code directory, and the shard records the check. Every shard records all three, in every mode. **In result mode,** collect refuses a shard whose measured set is not exactly `{"numpy"}` (an empty set included), or whose package-location check fails |
 | Deterministic replay | RP | every result-mode PE-05 shard's measurement JSON is byte-identical on rerun in the `PE05_env` environment |
 | The plan precedes the code | PIN | the measurement JSON records this file's blob and the commit that froze it, and that commit is an ancestor of every code commit |
 | Runs wait for the fixed parameters | TH | The measurement JSON records the `pe02-parameters` block of this file as frozen, with its blob and the freezing commit. Each formula is evaluated at every $n$ that has an explicit value and compared with it, as PE-01 A1. Each entry under `dependent` carries `assumes`, the decisions it was computed under; TH requires every `assumes` item to equal the recorded `Ox:value` in `decisions` and refuses on any mismatch. A run refuses to start without the block, on any `OPEN` value, or on any disagreement |
@@ -733,8 +733,8 @@ The computation does not stand in for the proof, and the proof does not stand in
 **The owner's approval** (amaybaum, 2026-10-26, 18:54 UTC): "I approve all eleven PE-02 decisions (O1–O10, including O4b) as recommended, subject to the final nit confirmation and exact-version checks before freezing the plan." Later
 the same day, with the O8 ruling: "This authorizes the specification freeze, not experimental execution."
 
-The rulings in the last column below summarize the owner's approval table as relayed; they are not quotations. The
-the approval table's row "O8 — Stage naming" carried the ruling "Rename to PE-04 and retitle #934 before freeze"; the owner's later ruling replaced it with PE-05.
+The rulings in the last column below summarize the owner's approval table as relayed; they are not quotations. In
+the approval table, the row "O8 — Stage naming" carried the ruling "Rename to PE-04 and retitle #934 before freeze"; the owner's later ruling replaced it with PE-05.
 
 The decisions are recorded here, before freeze, in this plan's own `pe02-parameters` block, which TH reads from the
 frozen file; no amendment is needed. The third column keeps, for the record, what each option not chosen would have
@@ -880,7 +880,10 @@ meets the bound.
     "RP01_env": {"python": "3.12", "numpy": "2.2.6", "pe01_head": "549641460b8ddb536178f95fac2ec9390e84a987"},
     "PE05_env": {"python": "3.12", "numpy": "2.2.6", "ImageOS": "ubuntu24", "RUNNER_ARCH": "X64",
                  "runner": "GitHub-hosted ubuntu-24.04, x86_64",
-                 "imports": {"allowed_non_stdlib": ["numpy"], "checkpoint": "IMP"},
+                 "imports": {"allowed_non_stdlib": ["numpy"], "checkpoint": "IMP",
+                             "measured": "top-level sys.modules names added after the entry module's startup snapshot, outside sys.stdlib_module_names, excluding __main__ and the stage package",
+                             "startup_set": "recorded, never compared",
+                             "package_location": "every loaded stage-package module's __file__ lies inside the stage code directory; result shards refused otherwise"},
                  "modes_checked": ["result"],
                  "check": "result mode only: refuse unless python major.minor == 3.12, numpy.__version__ == 2.2.6, ImageOS == ubuntu24 and RUNNER_ARCH == X64; ImageVersion and the full sys.version are recorded and never compared; smoke and test runs record the environment and are never results"}
   }
@@ -909,7 +912,8 @@ PE-01's own timings scale them: its `n8-clk` shard took about 1150 s and `n8-clk
 
 - Every result-mode PE-05 job runs in `fixed.PE05_env` (ENV): Python major.minor equals 3.12, `numpy.__version__` equals 2.2.6, `ImageOS` equals `ubuntu24` and `RUNNER_ARCH` equals `X64`; `ImageVersion` and the full `sys.version` are recorded and never compared. Smoke and test runs, including the local smoke row
   above, record the environment and are never results. RP-01 runs in `fixed.RP01_env`. Each result-mode shard also
-  records its non-standard-library imports, which must be exactly numpy (IMP).
+  records the non-standard-library modules it imports after its startup snapshot, which must be exactly numpy, and
+  that every stage-package module loaded from the stage's code directory (IMP).
 - The workflow's only trigger is `workflow_dispatch` (WF), and it is part of the code commits, so no push launches it.
   Every dispatch needs owner approval (§A.43 item 4).
 - Shard outputs are committed as the structured files of §5, recording the commit, the recipe and the run id

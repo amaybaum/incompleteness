@@ -333,8 +333,10 @@ The owner asked (#934) what a PE-05 plan adds beyond the 2006 clock-control faul
     option-dependent value.
   - **Exact-version checks, both readings applied:**
     - **(a) pinned execution environment:** `fixed.PE05_env`, recorded by every shard and enforced in result mode
-      only by TH and the ENV checkpoint: Python major.minor equals 3.12, `numpy.__version__` equals 2.2.6, `ImageOS` equals `ubuntu24` and `RUNNER_ARCH` equals `X64`; `ImageVersion` and the full `sys.version` are recorded and never compared. The non-standard-library imports are measured by IMP and must be
-      exactly numpy. RP-01 is pinned by `fixed.RP01_env`;
+      only by TH and the ENV checkpoint: Python major.minor equals 3.12, `numpy.__version__` equals 2.2.6, `ImageOS` equals `ubuntu24` and `RUNNER_ARCH` equals `X64`; `ImageVersion` and the full `sys.version` are recorded and never compared. The non-standard-library modules imported after the entry
+      module's startup snapshot are measured by IMP and must be exactly numpy. Startup modules loaded through `site`,
+      `.pth` files or `sitecustomize` are recorded but not compared. Every stage-package module must load from the
+      stage's code directory. RP-01 is pinned by `fixed.RP01_env`;
     - **(b) version check of the plan itself:** the freeze record on #923 names the exact freeze commit and the
       sha256 of `PLAN.md`, `NOTES.md` and the `pe02-parameters` block as confirmed.
   - **Nits and independent confirmation:** recorded on #923 with the freeze. No commit identifier or digest of the

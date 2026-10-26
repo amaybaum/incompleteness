@@ -140,3 +140,12 @@ Applied on `7736a1ce`.
 **Deviation from the instruction.** E3 excludes `__main__` and the stage's own package from the import set. `__main__`
 is always in `sys.modules` and is not in `sys.stdlib_module_names`. The package's own top-level name would also appear.
 Without these two exclusions the rule would refuse every shard.
+
+## Last glance items (`review-confirm-PE05-F2`)
+
+Applied on `d6fc056a`.
+
+| Item | Edit |
+|---|---|
+| IMP-1 | **IMP is redefined.** The entry module takes a startup snapshot of the top-level `sys.modules` names as its first statement, before numpy or any stage import. IMP measures only the top-level non-stdlib names added after that snapshot, still excluding `__main__` and the stage package. The startup set, which may include modules loaded through `site`, `.pth` files or `sitecustomize` such as `_distutils_hack`, is recorded and never compared. Result mode still refuses unless the measured set is exactly `{"numpy"}`. **Added check:** every loaded stage-package module has `__file__` inside the stage's code directory, and a result shard is refused otherwise. Updated in the IMP row, the block's `imports` entry, §10 and NOTES §10. |
+| Typo | PLAN §9: "The / the approval table's row" now reads "In the approval table, the row". |
