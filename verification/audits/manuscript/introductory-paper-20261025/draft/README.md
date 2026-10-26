@@ -75,3 +75,16 @@ boxes and no dropped glyphs. `voice_check`, `claims_check` and `duplicate_check`
 resolve. `CHANGES-r5.md` maps every paragraph to its outline item and source, and lists the ten places (F1–F10) that
 go beyond reviewed text. `scripts/build_r5.py` assembles the draft and asserts that every carried r4 sentence is
 verbatim. Independent scientific and editorial reviews are in progress. r4 stays the accepted earlier draft.
+
+## Reviews of r5, and r6
+
+- `review/scientific/REVIEW-r5.md`: ACCEPT WITH CHANGES. Two one-line changes. Both applications keep every
+  conditional, and nothing reads as a resolution. The black-hole section matches #936's accepted corrections. F7's
+  "with measurement independence kept" is confirmed.
+- `review/editorial/REVIEW-r5.md`: ACCEPT WITH CHANGES. It checks definitions before use, symbols in §4–§5, flow and
+  length, and confirms the two raw lines change layout only.
+
+`Introduction-r6.md` (with `CHANGES-r6.md`) applies both reviews. Science governs content and the editorial review
+governs presentation; each overlap is recorded. `scripts/build_r6.py` generates it from r5 by exact-once replacements.
+Main text is 11.73 pages, with no overfull boxes and no dropped glyphs, and the checks pass. Confirmation re-checks of
+r6 are in progress.
