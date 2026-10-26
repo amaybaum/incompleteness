@@ -6,7 +6,7 @@
 - **Owner decisions of 2026-10-26:** title without a hyphen; main text at most 12 pp, shortened only by cutting
   repetition, transitions and nonessential explanation; Weinberg 1989 explicitly marked as not read first-hand; the
   "Code, data and formal verification" section left as it is.
-- **Method.** `S/paper/draft/scripts5/build_r10.py` applies 7 edits, each an exact, uniquely matching
+- **Method.** `draft/scripts/build_r10.py` applies 7 edits, each an exact, uniquely matching
   replacement. Every sentence it does not touch is byte-identical to r9. r10 adds no section, application or claim.
 
 ## 1. Title

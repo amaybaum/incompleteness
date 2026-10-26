@@ -144,3 +144,43 @@ it lands as `papers/Introduction.md`:
 - the Lean identifiers must be re-checked directly at landing.
 
 The three remaining VERIFY markers (CT06, Har04, Sha79) record sources that are unreachable from this environment.
+
+## r10 and r11: publication readiness
+
+`Introduction-r10.md` (with `CHANGES-r10.md`; generated from r9 by `scripts/build_r10.py`) applies the owner's
+publication-readiness decisions of 2026-10-26:
+- **Title:** a pandoc title block replaces the `#` heading. The title sets on three lines with no hyphen, so the
+  title-hyphenation decision is resolved.
+- **Length:** five trims of repetition, transitions and nonessential explanation (T1–T5), each listed with its old
+  and new text. They keep the main text within 12 pages.
+- **Weinberg 1989:** the owner gate becomes a VERIFY marker stating that the source is not read first-hand.
+
+Its re-check, `review/scientific/RECHECK-r10.md`, is ACCEPT WITH NITS.
+
+`Introduction-r11.md` (with `CHANGES-r11.md`; generated from r10 by `scripts/build_r11.py`) applies those nits:
+- **T3** is reverted.
+- **T4** is kept, and its reversal of the r2 editorial fix (F10) is recorded.
+- **The Weinberg marker** reads "only after the source is read and checked". On the owner's decision of 2026-10-26
+  ("Keep as landing gate") it also states that it gates landing: the paper does not land until Weinberg 1989 is read
+  first-hand and checked.
+
+It also states the Lean evidence:
+- The §A.42 expected result of the Lean check is retained at `papers/introduction_repro/` (main `17b830bc`).
+- The Conventions and the code note cite that commit, the toolchain (Lean 4.33.0, Mathlib v4.33.0), the build and
+  release-gate recipe, and the retained result.
+- Both §A.42 OWNER markers are removed.
+- One commit is used throughout: the Conventions, the code note, Appendix A's line numbers and the Corpus entry all
+  name `17b830bc`. Every corpus pointer the paper cites was checked there, and none moved (`CHANGES-r11.md`).
+
+r11 measures 17 pages, 11.82 of them main text, with no overfull boxes and no dropped glyphs.
+
+**Current markers:**
+- No OWNER markers.
+- Four VERIFY markers: CT06, Har04, Sha79 and Weinberg 1989. Each records a source that has not been read
+  first-hand. The Weinberg marker is an open landing gate; the other three do not gate landing.
+
+**Before the draft lands as `papers/Introduction.md`:**
+- **open landing gate (owner, 2026-10-26):** a copy of Weinberg 1989 must be supplied and read first-hand and
+  checked;
+- the final scientific review;
+- the direct check of the Lean identifiers at the landing commit.
