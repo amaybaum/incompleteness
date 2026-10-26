@@ -61,7 +61,7 @@ are in scope only where the Introduction or a core paper relies on them.
 
 ## Method
 
-The method follows the owner's six requirements.
+The method follows the owner's requirements.
 
 1. **Proof inventory.** Index the theorems, derivations, hypotheses and supporting evidence the core corpus contains,
    using the corpus's own tools wherever they apply:
@@ -90,7 +90,8 @@ The method follows the owner's six requirements.
    Conditionality is recorded separately from the layer of support: a kernel proof or a paper derivation can each be
    conditional on named hypotheses. Each link of a claim's chain takes the strongest support it has anywhere in the
    corpus, and the claim takes its weakest link and every link's hypotheses. A source supports only what its own proof
-   establishes for the statement as made. An equivalence is traced one direction at a time (AGENTS.md §A.34). Where the
+   establishes for the statement as made. Rigor decides, not detail: a more detailed document does not outrank a less
+   detailed but more rigorous one. An equivalence is traced one direction at a time (AGENTS.md §A.34). Where the
    Introduction's wording implies a different status from the source's, that is a finding. So is a corpus document
    that asserts more than its own proof reaches.
 4. **Cross-paper consistency.** For each traced claim, compare its formulations across the corpus. Record each:
@@ -101,9 +102,13 @@ The method follows the owner's six requirements.
 
    The authoritative anchor for a discrepancy is the maintained, most careful derivation (AGENTS.md §A.25 step 2).
    Discrepancies outside the Introduction are recorded as corpus findings for separate correction, not fixed here.
-5. **Independent review.** A reviewer who did not take part in steps 1–4 reviews the complete audit, and then any
+5. **Completeness.** The audit checks for understatement as well as overclaim (owner, 2026-10-26). It identifies
+   results the corpus establishes that are stronger than, or absent from, what the Introduction states. Each such
+   omission is a finding, with its source and status, together with whether the Introduction's scope should carry it.
+   The aim is neither to exaggerate OI's achievements nor to understate what the framework has established.
+6. **Independent review.** A reviewer who did not take part in steps 1–4 reviews the complete audit, and then any
    Introduction revisions that follow from it.
-6. **Final landing gate.** The revised Introduction is re-checked at its exact commit: its Lean references, its corpus
+7. **Final landing gate.** The revised Introduction is re-checked at its exact commit: its Lean references, its corpus
    pointers, and CI on that head. Only then is fresh merge authorization requested.
 
 ## Outputs
@@ -114,9 +119,10 @@ All outputs go in this directory:
 |---|---|
 | `inventory/claims.json` | The Introduction's claims, with IDs, lines and verbatim text |
 | `inventory/proofs.json` | The proof inventory |
-| `MAPPING.md` | Claim → source chain, hypotheses and status for every claim; `mapping.json` holds the same |
+| `MATRIX.md` and `matrix.json` | The claim-to-proof matrix. For each claim: its ID and text; its strongest verified source (the chain, link by link, with the layer of each link); the required assumptions; its proof status; any contradiction elsewhere in the corpus; and the status the Introduction's wording implies |
 | `CONSISTENCY.md` | Cross-paper findings, each with its sites, the anchor and a proposed resolution |
-| `FINDINGS.md` | The audit's findings for the Introduction, ranked. Each says what the Introduction should change, or that it is faithful as written |
+| `COMPLETENESS.md` | Established results the Introduction omits or understates, each with its source, status and a recommendation |
+| `FINDINGS.md` | The audit's findings for the Introduction, ranked: overclaims, understatements and omissions. Each says what the Introduction should change, or that it is faithful as written |
 | `review/` | The independent review of the audit |
 
 ## What counts as done
