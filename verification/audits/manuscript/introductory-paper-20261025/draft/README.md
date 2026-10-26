@@ -179,6 +179,12 @@ r11 measures 17 pages, 11.82 of them main text, with no overfull boxes and no dr
 - Four VERIFY markers: CT06, Har04, Sha79 and Weinberg 1989. Each records a source that has not been read
   first-hand. The Weinberg marker is an open landing gate; the other three do not gate landing.
 
+**Owner decision (amaybaum, 2026-10-26), on the "decision 2" wording:** "Accept 'machine-checked' with its existing
+restricted definition. It must refer only to statements actually formalized and checked, not to the entire physical
+theory or its empirical interpretation." r11 defines it in the Conventions paragraph as checked in Lean 4/Mathlib at
+`17b830bc` by the stated recipe, for the declarations in Appendix A; the final scientific review checks every use
+against that scope.
+
 **Before the draft lands as `papers/Introduction.md`:**
 - **open landing gate (owner, 2026-10-26):** a copy of Weinberg 1989 must be supplied and read first-hand and
   checked;
