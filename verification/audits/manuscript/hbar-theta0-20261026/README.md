@@ -14,3 +14,5 @@ from the PDG 2024 masses in high-precision arithmetic, with controls; their outp
 No manuscript text is changed yet. The audit is reviewed independently before the owner decides and any edit is made.
 
 `review/REVIEW.md` is the independent review of the audit (ACCEPT WITH CHANGES): the ħ account and the θ₀ figures are confirmed, six missed sites are added, one audit claim (the 105.74 MeV figure) is corrected, and each owner decision O1–O7 carries a recommendation. `review/mine/` holds the reviewer's own θ₀ computation.
+
+`decisions/DECISIONS.md` gives the owner decisions O1–O7 in exact form: for each option, every site with its old and new text (FULL mirrors included), what it changes in any count, bound or classification, and a recommendation; and the complete set of corrections that need no decision. All text is checked against `main` `b64919cd`. `decisions/entries.py` holds the exact edits, `gen.py` the checks and `sim.py` the simulation that applied the recommended set to a copy of `main`.
