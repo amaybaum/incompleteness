@@ -260,3 +260,205 @@ were fetched read-only and diffed against `ebf98d83`.
 - #925 does not change Main:212, :680, :149 or :332.
 
 **No classification changed.**
+
+***
+
+# Revision 5, r3 → r4 (re-base and first-hand literature reading)
+
+**What r4 starts from.**
+- r3 is kept unchanged as `AUDIT-r3.md` (sha256 `6dae22ac…99f9`), copied
+  from branch `draft/oi-introductory-paper-20261025` at `3fcf210f`.
+- The owner approved r4 ("Proceed with the re-base and publication to
+  #918").
+- r4 has had no separate review.
+
+**1. Re-base to `origin/main` `83d1da1b`** (§0.1, §1, §4).
+- **Merges covered.** #925 (`8b5e8681`), #926 (`c1cade86`), #927
+  (`03eb1395`) and #928 (`83d1da1b`, a CI workflow only).
+- **How it was checked.** Every F-note site was read at `a411bf46` and at
+  `83d1da1b`. Each fix is attributed to a commit on the merge's
+  second-parent history.
+- **Line maps** are stated in §0.1. Explainer is −5 after line 8; ch01 is
+  +2 after line 83; FULL is +2, +4 or +6 by range. Main, GR, ch07,
+  appendix-b, glossary, Substratum and README are unchanged.
+- **Unchanged kernel inputs.** No kernel module, census,
+  `arc-b-rooted-classification/result.md` or `oi_lattice_code/` file
+  changed after `a411bf46`.
+- **Fidelity-note status:**
+  - **Fixed:** F6, F10, F12, F21, F22, F23, F24, F25, F27.
+  - **Changed, with part still open:**
+    - F3: the $e^{-i\hat H}$ remark at Main:532;
+    - F4: the title, Main:2;
+    - F5: Explainer:373;
+    - F8: only BLP is now cited.
+  - **Open:** F7, F14–F20, F26.
+  - **Kept separate:** F13. Its sites are unchanged; the Explainer ones
+    are renumbered :282, :1015.
+- **F28 added.** Main:332 cites [4] for "monotonicity of system-plus-ancilla
+  distinguishability characterizes CP-divisibility".
+  - Introduced by `6250782a` (#927).
+  - RHP 2010 gives an entanglement witness and a Choi-norm criterion. The
+    distinguishability characterization is BJA [9] (bijective maps), or
+    BD.
+  - A correction PR was then being prepared. It landed as #930 (see "r4
+    re-check" below).
+- **C12 sites restated.** Main:608 now carries the reduction and "neither
+  is formalized". GR:20 and the glossary are fixed. Explainer:373 (F5,
+  F26) and Substratum:126 (the C12/C10-B conflation) stay open.
+- **Other §3 updates from the re-base:**
+  - C5's Internal (F10 fixed);
+  - C9's Internal (F12 fixed);
+  - C10-B (F6 fixed);
+  - (e)'s mirrors (F23 fixed; F4's title open);
+  - C16d's propagation list (FULL renumbered; F27 fixed).
+
+**2. First-hand full-text reading** (§0.2, §8; new class FT-r4).
+- **What was read.** 19 open documents: arXiv, plus two free-access
+  Cambridge Core publisher PDFs. Each is identified by URL and sha256,
+  with the PDF page and quoted passage.
+- **Not retained.** No PDF or extraction is retained.
+- **Unread primary texts.** Each is listed with its reason (§0.2):
+  - bot challenge: Project Euclid (Blackwell; Feller and Heller, on the
+    same host, not attempted) and SciELO (van Kampen 1998);
+  - HTTP 403: ScienceDirect (Cohen et al., Rabin, Carlyle);
+  - paywall: Anderson, Vidyasagar, Davis, Bennett, Fine, König;
+  - book: Paz, Kallenberg, Breuer–Petruccione, Parzen, van Kampen,
+    Cover–Thomas.
+- **Bibliographic upgrades.** Blackwell 1953, Cohen et al. 1993, Feller
+  1959, Heller 1965 and König 1916 are now [REC, Crossref]; their content
+  is still unread.
+
+**3. Classification changes.**
+- **XOR example: KNOWN, PROVISIONAL → KNOWN (FT-r4).**
+  - RHP 2014 (Main [5]) Eq. (15), p. 7, is the same process up to
+    relabelling the final bit.
+  - Capela et al. 2019, p. 6, give the four-time parity version.
+  - Milz et al. 2019 (Main [10]) is not a source for it.
+  - Feller 1959 is unread (not attempted; same host as Blackwell's bot
+    challenge), and the first statement of the example is unverified.
+- **C3: REFRAMING, PROVISIONAL → REFRAMING (FT-r4)**, from
+  Strasberg–García Díaz, p. 2, Eq. (3).
+- **C8: KNOWN.** Its evidence now includes RHP 2014 Thm 2.4 (p. 8), the
+  classical divisibility form, in Main's own [5].
+  - The r3 "Needed" item asking Main:121 for a classical source is
+    withdrawn, since [5] is one.
+  - Cohen et al. and Blackwell become optional.
+- **C4: PARTLY KNOWN; packaging part still PROVISIONAL**, now on one named
+  area (the comb-realization theorem).
+  - Milz et al. 2020 and Strasberg 2019 were read.
+  - They study Kolmogorov consistency of projective records, a different
+    question. Neither states S ⊆ $Q_{\mathrm{fb}}$.
+- **C5: PARTLY KNOWN.** The construction is now FT-r4 (Johnson, Dulmage
+  and Mendelsohn 1960, p. 4).
+  - The rationality of the weights is this audit's one-line inference.
+  - An explicit statement is still unlocated, and stays PROVISIONAL.
+- **C8-R: NOVEL-CANDIDATE, novelty unverified, no priority sentence.
+  Unchanged.**
+  - P1.3 is read.
+  - P1.1 and P1.2 are read only in open surveys (Monràs–Winter; Ohta;
+    Antonelli et al.). Their primary texts are unread.
+  - The gate is narrowed to P1.1 and P1.2 in primary text, plus BD's
+    forward citations.
+- **C8-D: PARTLY KNOWN, PROVISIONAL. Unchanged.** RHP 2014 Thm 2.4 is
+  added for (B). No recurrence-forced dichotomy was found.
+- **C1, C1′: unchanged.** Their decisive sources are paywalled or books.
+
+**4. §7 wording.**
+- **Divisibility credit.** "in the divisibility form of Buscemi and Datta
+  2016" becomes "in its divisibility form (Rivas, Huelga and Plenio 2014,
+  Thm 2.4; Buscemi and Datta 2016)". This supersedes Rc2:N2.
+- **C8-R stated as a candidate.** It is stated explicitly as a candidate,
+  not a novelty claim. The admissible "not located" wording is scoped to
+  the literature actually read.
+- **Correct versus original.** A table of correctness against originality
+  is added (also §0.4 and the header).
+- **Related work** gains the FT-r4 sources.
+
+**5. §5 restated.** Items read in r4 are marked read, and each unread
+primary text carries its reason. New item: the quantum-comb realization
+theorem (P2.1). P3.6 (XOR) is satisfied for attribution.
+
+**Unresolved:**
+- the P1.1 and P1.2 primary texts and BD's forward citations (C8-R gate);
+- Cohen et al. and Blackwell (optional);
+- the comb-realization theorem (C4);
+- König 1916 (C5);
+- Feller 1959 and who first stated the XOR example;
+- Fine, Bennett and Kallenberg (C1, C1′);
+- #917's records (C16-S).
+
+## r4 re-check applied (`revnov5/RECHECK-r4.md`, ACCEPT WITH NITS)
+
+The re-check is cited as `Rc4:Rn` and `Rc4:Nn`. It is retained as
+`review/RECHECK-r4.md`. Every item was verified at `origin/main`
+`52e2db40` before it was applied.
+
+**Re-base to `52e2db40`.**
+- #916 (`61930e90`) changes only `tools/citation_roles_check.py` and
+  `tools/release_gate.py`.
+- #930 (`52e2db40`, commit `4c5554ce`) changes Main:332, Main:606,
+  appendix-b:96 and FULL:5885, one line each, with their `.tex`/`.pdf`.
+- The §0.1 blob table now gives Main `d59e5b5f8735`, appendix-b
+  `d963a1c4698b` and FULL `5b94af0bd743`. Every other blob is unchanged
+  from `83d1da1b`.
+- Line numbering is unchanged.
+
+**R1, F28.**
+- §4 marks F28 **fixed** by #930. The fix:
+  - Main:332 now attributes the entanglement witness to [4] and the
+    distinguishability characterization to [9], "for bijective
+    (invertible) dynamical maps on $\mathbb{C}^d$ … a
+    $(d+1)$-dimensional ancilla". This was checked against BJA's abstract
+    and p. 1.
+  - The mirror at appendix-b:96 / FULL:5885 is restricted to bijective
+    maps, and its pointer is corrected from "[Main §3.4]" to
+    "[Main §3.2]". Main:332 lies in §3.2, Main:258–353.
+- r4's "carry no misattribution of their own" is corrected. It missed the
+  mirror's missing scope and wrong pointer.
+- The XOR "Needed" item records #930's addition at Main:606: "up to
+  flipping the final bit, the process of [5], Eq. (15)".
+- §1 gains rows for #916 and #930. The README is updated.
+
+**R2, the parent `README.md`.** "Findings carried forward" and
+"Unresolved literature and scope questions" are updated item by item,
+each verified at `52e2db40`:
+- Main:98's bare form: fixed by #922. Main:98–99 now reads "that is
+  $S \iff D$, Markov laws included".
+- The `S_imp_D` / `RevReal` docstring item: resolved by #922. Main:500
+  scopes the prior independence as "not formalized", and
+  `Equivalence.lean`'s docstring says so too.
+- Explainer:120's dark-energy splice: removed by #919. It is present at
+  `a411bf46^1` and absent at `a411bf46`.
+- The D-gauge migration: done by #921. appendix-b:432 and :444 carry
+  "Bohr frequencies and the D-gauge classification" and Theorem B.7.5c.
+- Page time: by #920, ch07:137–143 states 0.646 as the β = 1 value of
+  $1-(\beta/(1+\beta))^{3/2}$. GR:863 and ch07:143 give "β ≈ 1.485 and
+  t_P ≈ 0.538 t_evap" from Page [60]. The numeric 1.485 was not
+  re-checked against Page here.
+- C8: classified KNOWN.
+- F3–F9: pointed to `novelty-v5/AUDIT.md` §4.
+- The other items are kept, with their current status.
+
+**Nits.**
+- **N1, page indices.** RHP 2010's Fig. 1 and "no longer constrained" are
+  on PDF p. 1. Milz 2020's Thm 4 statement is on p. 20, and its proof
+  sentence on p. 21. Corrected in C4, F28 and §8.
+- **N2, Feller and Heller.** Both are now "not attempted (same host as
+  Blackwell 1953's bot challenge)", consistently in §0.2, C8-R, §3 XOR,
+  §5, the README and the r4 section above.
+- **N3, F29.** Added under C12 as a candidate owner F-note, with a
+  candidate row in §4. The phrase "containing a memory witness" was
+  found at glossary:39, FULL:6661 and GR:20 only. Explainer:353 and :373
+  use "per/each finite accessible horizon", so the re-check's mention of
+  them is narrowed.
+- **N4, the C8 row.** It now qualifies "kernel" as matrix and routed
+  levels, with the step from history-level (C4) in prose.
+- **N5, venues.** Crossref records were read for Strasberg–García Díaz
+  (PRA 100, 022120), Milz et al. (PRX 10, 041049), Capela et al. (PRR 2,
+  013350) and Milz–Modi (PRX Quantum 2, 030201). All are now [REC].
+- **N6, Egri.** The parenthetical is replaced. No "Egri" occurs; the
+  case-insensitive hits are substrings of "integrity".
+- **N7, F28's scope defect.** F28 now names both defects: the citation
+  and the missing bijective scope.
+
+**No classification changed.**
