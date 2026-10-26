@@ -124,7 +124,7 @@ These six commitments define the framework's universality class. Any finite dete
 | $S = A/(4 l_p^2)$ | conditional on H-slope; no direct test | Ch 7 §7.5 |
 | Area law $dA \geq 0$ | GW250114 area increase at $99.999\%$ | Ch 7 §7.5 |
 | CC dissolution (descriptive) | $\rho_{\text{obs}} \sim H^2/G$ consistent; dynamical form conditional on the coupling theorem | Ch 7 §7.7 |
-| BH information preserved | Page curve conditional on H-scramble and H-decouple; $t_P \approx 0.646\, t_{\text{evap}}$ at unit radiation-to-horizon entropy ratio | Ch 7 §7.6 |
+| BH information preserved | Page curve conditional on H-scramble and H-decouple, on the full product space; $t_P \approx 0.646\, t_{\text{evap}}$ at unit radiation-to-horizon entropy ratio | Ch 7 §7.6 |
 | Dark sector budget $\sim 95\%$ | $\Omega_{\text{dark}} \approx 0.95$ concordance | Ch 7 §7.9 |
 | No dark matter particle | XENON, LUX, etc. null | Ch 7 §7.9 |
 | No GUT-mediated proton decay | $\tau_p > 10^{34}$ yr | Ch 6 §6.4 |

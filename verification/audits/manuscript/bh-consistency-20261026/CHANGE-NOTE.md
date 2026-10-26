@@ -376,3 +376,48 @@ sufficiency, and the restriction narrows scope without adding a condition they w
 - **All OK:** mirror_check (0 chapter lines absent; all 9 changed chapter lines occur exactly once in FULL),
   voice_check, claims_check, duplicate_check, dependency_label_check --strict, lean_manuscript_census,
   architecture_check (259 invariants), citation_check.
+
+## 8. A8-REVIEW (head 2d13792d): BLOCK, narrowly; A1–A3 applied
+
+**Why it blocked.** The review confirmed the mathematics, A.9, H-decouple, the LEDGER and the mirrors. It blocked
+on the owner's requirement that the manuscript say explicitly two things:
+- treating the whole configuration space as one shell removes the nontrivial energy-shell restriction;
+- that case is not established by energy conservation.
+
+**How applied.** With `bhfix/apply_edits4.py`, using the review's exact text. Chapter edits are mirrored into FULL.
+
+| Item | Site | Change |
+|---|---|---|
+| A1 | GR, A.8 proof, first sentence | "The bijection φ conserves energy (the wave equation is Hamiltonian), so φ restricts to a bijection on each energy shell, here on Σ_E = C_B × C_R." → "By hypothesis the energy is constant on C_B × C_R, so energy conservation places no constraint on the orbit and φ acts as a bijection of Σ_E = C_B × C_R." |
+| A2a | GR, "Proper energy shells" paragraph | The paragraph now says A.8's hypothesis requires the energy to be constant on C_B × C_R, so energy conservation places no constraint on the orbit of B∪R. That hypothesis does not follow from conserving a Hamiltonian that takes more than one value there, whose shells all span proper subspaces. An evaporating black hole whose radiation carries away its energy is in that proper-shell case. |
+| A2b | ch07:126 +FULL | "…takes the shell to be the full product space of the black hole and its radiation, which places no energy constraint on them; an evaporating black hole whose radiation carries away its energy is the energy-shell case, and that version is open ([GR Appendix A])." |
+| A3 | ch09:127 +FULL | "Page curve conditional on H-scramble and H-decouple, on the full product space;" |
+| A3 | book/README.md:64 (no mirror) | "a cycle-averaged Page curve on the full product space of the black hole and its radiation, conditional on …" |
+| nit | GR, diagonal-shell parenthetical | "… an energy depending only on b − r and taking its value at b = r nowhere else" |
+| nit | ch18:148, ch19:72 +FULL (both mirrors) | "cycle typicality on the energy shell rather than replica wormhole computation" → "… on the configuration space …" |
+
+**§7's classification of ch09:127 and README:64 is withdrawn.**
+- §7 said these two sites "assert no sufficiency". The review overruled that: in this corpus "conditional on" is
+  the sufficiency label.
+- The classification still holds for ch07:288 and appendix-a:103 ("requires …"), which stay unchanged.
+- §7 is kept as written, as the record of the earlier judgement.
+
+**Checks.**
+- **coverage_check:** OK (128 statements). A1 and A2a lie outside A.8's statement, and the census fingerprints
+  are unchanged (A.8 31eafe29…, A.9 e3222fa7…), so no LEDGER edit and no countercontrol were needed.
+- **Builds,** in two calls:
+  - `sh ./build.sh GR`: 87 pages, median 3199 characters per page;
+  - `sh ./build.sh --book`: 554 pages, median 3071 characters per page;
+  - no dropped glyphs.
+- **All OK:** mirror_check (0 lines absent; the 4 changed chapter lines each occur once in FULL),
+  staleness_check (GR and book stamps match), voice_check, claims_check, duplicate_check,
+  dependency_label_check --strict, lean_manuscript_census, architecture_check.
+
+**Re-grep.**
+- **"the wave equation is Hamiltonian), so":** 0 hits.
+- **"conditional on H-scramble and H-decouple"** and its long form: every hit carries the full-space scope.
+  - GR:605 carries it in the same clause.
+  - ch09:127 and README:64 carry it after A3.
+  - ch07:116 carries it in the next sentence ("Under those conditions, and taking the energy shell … to be their
+    full product space").
+  - There are no necessity-form hits of this phrase.

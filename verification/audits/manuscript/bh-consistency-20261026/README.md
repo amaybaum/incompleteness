@@ -14,6 +14,7 @@ strength of their support. The change was made separately from the Introduction 
   space. On the owner's decision of 2026-10-26 the change restricts A.8 to the full product space and states the proper-shell version as open (`CHANGE-NOTE.md` §7).
 - `DIFF-RECHECK.md`: the confirmation re-check of the applied review (ACCEPT WITH NITS; the nits are in these
   records).
+- `A8-REVIEW.md`: the independent review of the Theorem A.8 restriction (BLOCK, narrowly, on the physical interpretation; the three fixes it gives are applied, see `CHANGE-NOTE.md` §8).
 - `probes/`: the investigator's and reviewer's exact checks (evaporation timescales, Page's mean entropy, the Page-time
   fraction for a mass-dependent emission coefficient), with outputs where they were kept.
 

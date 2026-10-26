@@ -4731,9 +4731,9 @@ where \(d_B = |\mathcal{C}_B(t)|\), \(d_R = |\mathcal{C}_R(t)|\),
 \emph{the large-dimension form of Page's mean entropy for Haar-random
 pure states of \(\mathcal{H}_B \otimes \mathcal{H}_R\).}
 
-\emph{Proof.} The bijection \(\varphi\) conserves energy (the wave
-equation is Hamiltonian), so \(\varphi\) restricts to a bijection on
-each energy shell, here on
+\emph{Proof.} By hypothesis the energy is constant on
+\(\mathcal{C}_B \times \mathcal{C}_R\), so energy conservation places no
+constraint on the orbit and \(\varphi\) acts as a bijection of
 \(\Sigma_E = \mathcal{C}_B \times \mathcal{C}_R\). Since \(\Sigma_E\) is
 finite, this restricted bijection decomposes into disjoint cycles
 \(C_1, \ldots, C_k\) with lengths \(L_1, \ldots, L_k\) summing to
@@ -4810,20 +4810,27 @@ fraction of initial conditions, the time-averaged entanglement entropy
 equals the Page value. \(\square\)
 
 \textbf{Proper energy shells.} Theorem A.8 is stated for the full
-product space. When energy conservation confines the orbit to a shell
-whose span is a proper subspace of
+product space. Its hypothesis requires the energy to be constant on
+\(\mathcal{C}_B \times \mathcal{C}_R\), so that energy conservation
+places no constraint on the orbit of \(B \cup R\); it does not follow
+from the conservation of a Hamiltonian that takes more than one value
+there, whose energy shells all span proper subspaces. An evaporating
+black hole whose radiation carries away its energy is in that
+proper-shell case. When energy conservation confines the orbit to a
+shell whose span is a proper subspace of
 \(\mathcal{H}_B \otimes \mathcal{H}_R\), measure concentration on that
 subspace concentrates the entropy about the subspace's own Haar mean,
 which depends on the shell and in general differs from
 \(S_{\text{Page}}(d_B, d_R)\). For the diagonal shell spanned by
 \(|i\rangle_B \otimes |i\rangle_R\), \(i = 1, \ldots, m\) (an energy
-shell for an energy depending only on \(b - r\)), the Schmidt
-probabilities of a Haar-random state are uniformly distributed on the
-simplex and the mean entanglement entropy is exactly \(H_m - 1\), with
-\(H_m\) the \(m\)-th harmonic number: \(1/2\) at \(m = 2\), against
-Page's mean \(1/3\) for \(d_B = d_R = 2\). For shells of fixed Hamming
-weight the value can lie below \(S_{\text{Page}}(d_B, d_R)\). Theorem
-A.8 on a proper energy shell, with the shell's own Haar mean in place of
+shell for an energy depending only on \(b - r\) and taking its value at
+\(b = r\) nowhere else), the Schmidt probabilities of a Haar-random
+state are uniformly distributed on the simplex and the mean entanglement
+entropy is exactly \(H_m - 1\), with \(H_m\) the \(m\)-th harmonic
+number: \(1/2\) at \(m = 2\), against Page's mean \(1/3\) for
+\(d_B = d_R = 2\). For shells of fixed Hamming weight the value can lie
+below \(S_{\text{Page}}(d_B, d_R)\). Theorem A.8 on a proper energy
+shell, with the shell's own Haar mean in place of
 \(S_{\text{Page}}(d_B, d_R)\), and the Page curve of Theorem A.9 on such
 a shell, are open.
 
@@ -5229,4 +5236,4 @@ entanglement,'' \emph{Commun. Math. Phys.} \textbf{265}, 95--117 (2006);
 arXiv:quant-ph/0407049.
 
 \end{document}
-% source-sha256: 0905f76788840b0c664daba0e180f414c0635814cca3867c0c492529c3db9e71
+% source-sha256: b8b63d37d34f2a927daade8304da98ef530b6148a9c35b8d9e3f0e225a0d0e9f
