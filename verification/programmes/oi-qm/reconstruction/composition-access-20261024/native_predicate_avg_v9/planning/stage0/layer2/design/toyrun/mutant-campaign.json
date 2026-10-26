@@ -1,14 +1,51 @@
 {
- "code_digest": "3590d12364f9dc8f5e0a28f1b96d387b31d20c8aaad3f9d8bc7b25dcf03e73f5",
- "killed": 35,
+ "code_digest": "d858dacee48c133a4c3bd54a418bd79a40b1ff5604987c4ed9bf6fb04ffb695e",
+ "killed": 47,
  "machinery_mutants": {
+  "M_C7_carried_only": {
+   "exit": 2,
+   "failed": [
+    "L2-F2"
+   ],
+   "killed": true,
+   "named_case": "L2-F2: C7 compares the carried result with the reference, no direct per-record closure (E1-F3)",
+   "run": "named case only"
+  },
+  "M_C7_sample_rep_index": {
+   "exit": 2,
+   "failed": [
+    "L2-C7COV"
+   ],
+   "killed": true,
+   "named_case": "L2-C7COV: C7 samples drawn over representative indices, not record indices (E1-F3)",
+   "run": "named case only"
+  },
+  "M_C7_set2_computed": {
+   "exit": 2,
+   "failed": [
+    "L2-F1"
+   ],
+   "killed": true,
+   "named_case": "L2-F1: C7 set 2 under G defined by the computed closure (E1-F3)",
+   "run": "named case only"
+  },
+  "M_LG_tip_reading": {
+   "exit": 2,
+   "failed": [
+    "L2-T5"
+   ],
+   "killed": true,
+   "named_case": "L2-T5: L_G counted by the tip's cone (E1-T5)",
+   "run": "named case only"
+  },
   "M_auth_no_commit": {
    "exit": 2,
    "failed": [
     "L2-AUTH"
    ],
    "killed": true,
-   "named_case": "L2-AUTH: authorization for another commit accepted"
+   "named_case": "L2-AUTH: authorization for another commit accepted",
+   "run": "named case only"
   },
   "M_c9_off": {
    "exit": 2,
@@ -16,7 +53,8 @@
     "L2-GATES"
    ],
    "killed": true,
-   "named_case": "L2-GATES: C9 gate never fails"
+   "named_case": "L2-GATES: C9 gate never fails",
+   "run": "named case only"
   },
   "M_commits_unbound": {
    "exit": 2,
@@ -24,16 +62,26 @@
     "L2-CERT"
    ],
    "killed": true,
-   "named_case": "L2-CERT: certificate ignores differing commits (R5)"
+   "named_case": "L2-CERT: certificate ignores differing commits (R5)",
+   "run": "named case only"
+  },
+  "M_counts_54": {
+   "exit": 2,
+   "failed": [
+    "L2-COUNTS"
+   ],
+   "killed": true,
+   "named_case": "L2-COUNTS: the four added counts dropped (E1-F6)",
+   "run": "named case only"
   },
   "M_every_record_rep": {
    "exit": 2,
    "failed": [
-    "L2-ORB",
-    "L2-PLAN"
+    "L2-ORB"
    ],
    "killed": true,
-   "named_case": "L2-ORB: orbit reduction off: representatives exceed orbits"
+   "named_case": "L2-ORB: orbit reduction off: representatives exceed orbits",
+   "run": "named case only"
   },
   "M_grant_unbound": {
    "exit": 2,
@@ -41,7 +89,8 @@
     "L2-GUARD"
    ],
    "killed": true,
-   "named_case": "L2-GUARD: grant accepted without the running digests (R4 d)"
+   "named_case": "L2-GUARD: grant accepted without the running digests (R4 d)",
+   "run": "named case only"
   },
   "M_guard_truthy": {
    "exit": 2,
@@ -49,7 +98,8 @@
     "L2-GUARD"
    ],
    "killed": true,
-   "named_case": "L2-GUARD: engine accepts a truthy authorization"
+   "named_case": "L2-GUARD: engine accepts a truthy authorization",
+   "run": "named case only"
   },
   "M_label_mismatch_first": {
    "exit": 2,
@@ -57,7 +107,8 @@
     "L2-LBL"
    ],
    "killed": true,
-   "named_case": "L2-LBL: MISMATCH ranked above VOID"
+   "named_case": "L2-LBL: MISMATCH ranked above VOID",
+   "run": "named case only"
   },
   "M_manifest_blind": {
    "exit": 2,
@@ -65,7 +116,8 @@
     "L2-MAN"
    ],
    "killed": true,
-   "named_case": "L2-MAN: changed code passes the manifest"
+   "named_case": "L2-MAN: changed code passes the manifest",
+   "run": "named case only"
   },
   "M_mask_no_merge": {
    "exit": 2,
@@ -73,7 +125,8 @@
     "L2-MASK"
    ],
    "killed": true,
-   "named_case": "L2-MASK: masking equivalence ignores E1 merges"
+   "named_case": "L2-MASK: masking equivalence ignores E1 merges",
+   "run": "named case only"
   },
   "M_merge_no_coverage": {
    "exit": 2,
@@ -81,7 +134,17 @@
     "L2-MRG"
    ],
    "killed": true,
-   "named_case": "L2-MRG: overlapping or short coverage accepted"
+   "named_case": "L2-MRG: overlapping or short coverage accepted",
+   "run": "named case only"
+  },
+  "M_placeholders_ignored": {
+   "exit": 2,
+   "failed": [
+    "L2-PLACEHOLDER"
+   ],
+   "killed": true,
+   "named_case": "L2-PLACEHOLDER: the v8 profile starts with kappa, G_D and O1 open",
+   "run": "named case only"
   },
   "M_post_no_in_clear": {
    "exit": 2,
@@ -89,7 +152,17 @@
     "L2-POST"
    ],
    "killed": true,
-   "named_case": "L2-POST: carried public set drops Phi in clear"
+   "named_case": "L2-POST: carried public set drops Phi in clear",
+   "run": "named case only"
+  },
+  "M_proposal_on_failed_label": {
+   "exit": 2,
+   "failed": [
+    "L2-PREC"
+   ],
+   "killed": true,
+   "named_case": "L2-PREC: S1b proposed from a VOID, MISMATCH or INCOMPLETE run (E1-T2)",
+   "run": "named case only"
   },
   "M_residue_ignored": {
    "exit": 2,
@@ -97,7 +170,17 @@
     "L2-MRG"
    ],
    "killed": true,
-   "named_case": "L2-MRG: truncated residue or exceeded cap accepted (R3)"
+   "named_case": "L2-MRG: truncated residue or exceeded cap accepted (R3)",
+   "run": "named case only"
+  },
+  "M_ruleT_ignores_sigma": {
+   "exit": 2,
+   "failed": [
+    "L2-SIGMA"
+   ],
+   "killed": true,
+   "named_case": "L2-SIGMA: rule T evaluated on a non-OK sigma (E1-T2)",
+   "run": "named case only"
   },
   "M_ruleT_or": {
    "exit": 2,
@@ -105,7 +188,17 @@
     "L2-RT"
    ],
    "killed": true,
-   "named_case": "L2-RT: rule T zero branch on L_A = 0 or L_G = 0"
+   "named_case": "L2-RT: rule T zero branch on L_A = 0 or L_G = 0",
+   "run": "named case only"
+  },
+  "M_ruleT_reads_L3": {
+   "exit": 2,
+   "failed": [
+    "L2-T1"
+   ],
+   "killed": true,
+   "named_case": "L2-T1: rule T reads the L3 bound's values (E1-T1)",
+   "run": "named case only"
   },
   "M_sampler_never": {
    "exit": 2,
@@ -113,7 +206,26 @@
     "L2-SAMPLE"
    ],
    "killed": true,
-   "named_case": "L2-SAMPLE: deterministic sample empty"
+   "named_case": "L2-SAMPLE: deterministic sample empty",
+   "run": "named case only"
+  },
+  "M_sigma_no_2d": {
+   "exit": 2,
+   "failed": [
+    "L2-2D"
+   ],
+   "killed": true,
+   "named_case": "L2-2D: sigma ignores the reference recomputation of L_A and L_G (E1-T2 2 (d))",
+   "run": "named case only"
+  },
+  "M_sigma_overrides_label": {
+   "exit": 2,
+   "failed": [
+    "L2-PREC"
+   ],
+   "killed": true,
+   "named_case": "L2-PREC: the label ignores every failing check but sigma's (E1-T2)",
+   "run": "named case only"
   },
   "M_skip_index": {
    "exit": 2,
@@ -121,7 +233,8 @@
     "L2-ORB"
    ],
    "killed": true,
-   "named_case": "L2-ORB: coverage scan misses one index"
+   "named_case": "L2-ORB: coverage scan misses one index",
+   "run": "named case only"
   },
   "M_survivor_rep_only": {
    "exit": 2,
@@ -129,7 +242,17 @@
     "L2-SURV"
    ],
    "killed": true,
-   "named_case": "L2-SURV: reference gates on the representative only (R2)"
+   "named_case": "L2-SURV: reference gates on the representative only (R2)",
+   "run": "named case only"
+  },
+  "M_v8_counts_unrefused": {
+   "exit": 2,
+   "failed": [
+    "L2-V8COUNTS"
+   ],
+   "killed": true,
+   "named_case": "L2-V8COUNTS: v8 shared-tip and F_G enumeration not refused (caught before any enumeration)",
+   "run": "named case only"
   },
   "M_witness_first": {
    "exit": 2,
@@ -137,23 +260,54 @@
     "L2-WIT"
    ],
    "killed": true,
-   "named_case": "L2-WIT: shard keeps the first candidate, not the minimum (R1)"
+   "named_case": "L2-WIT: shard keeps the first candidate, not the minimum (R1)",
+   "run": "named case only"
   },
   "M_witness_max": {
    "exit": 2,
    "failed": [
-    "L2-C16",
-    "L2-LBL",
-    "L2-MRG",
-    "L2-RT"
+    "L2-C16"
    ],
    "killed": true,
-   "named_case": "L2-C16: witness selection not minimal"
+   "named_case": "L2-C16: witness selection not minimal",
+   "run": "named case only"
   }
  },
  "manifest_ok": true,
  "mode": "quick",
  "not_run_in_quick": {
+  "all-case self-test runs of the machinery mutants": [
+   "M_C7_carried_only",
+   "M_C7_sample_rep_index",
+   "M_C7_set2_computed",
+   "M_LG_tip_reading",
+   "M_auth_no_commit",
+   "M_c9_off",
+   "M_commits_unbound",
+   "M_counts_54",
+   "M_every_record_rep",
+   "M_grant_unbound",
+   "M_guard_truthy",
+   "M_label_mismatch_first",
+   "M_manifest_blind",
+   "M_mask_no_merge",
+   "M_merge_no_coverage",
+   "M_placeholders_ignored",
+   "M_post_no_in_clear",
+   "M_proposal_on_failed_label",
+   "M_residue_ignored",
+   "M_ruleT_ignores_sigma",
+   "M_ruleT_or",
+   "M_ruleT_reads_L3",
+   "M_sampler_never",
+   "M_sigma_no_2d",
+   "M_sigma_overrides_label",
+   "M_skip_index",
+   "M_survivor_rep_only",
+   "M_v8_counts_unrefused",
+   "M_witness_first",
+   "M_witness_max"
+  ],
   "equivalent mutants": [
    "parity_dropped(equivalent)",
    "symmetric_blind(equivalent)"
@@ -350,7 +504,7 @@
   }
  },
  "schema": "np-avg-1/stage0/layer2/mutant-campaign/1",
- "total": 35,
+ "total": 47,
  "unmodified_suite": {
   "mode": "quick",
   "passed": true,

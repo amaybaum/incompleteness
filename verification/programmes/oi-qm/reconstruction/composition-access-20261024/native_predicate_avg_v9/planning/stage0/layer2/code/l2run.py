@@ -3,7 +3,7 @@ instances, S6's carrier, and v8 configuration combinatorics; never a closure on 
 
 Usage: python3 -I -B l2run.py <layer2/design>
 Runs every step in order, retains each step's stdout and stderr in design/runs/, keeps the
-toy run's structured files in design/toyrun/, compares normal and -O runs where the output is
+toy run's structured files in design/toyrun/ and the kappa calibration repeats in design/kappa/, compares normal and -O runs where the output is
 deterministic (stdout, or the files a step writes), and writes design/RUN-MANIFEST.json and
 .md with the commands, exit codes, durations, -O identity and SHA-256 values. Verdicts in the
 manifest are exit statuses; the structured files carry the detail.
@@ -20,6 +20,7 @@ import time
 
 CODE = os.path.dirname(os.path.abspath(__file__))
 R5 = os.path.join(os.path.dirname(os.path.dirname(CODE)), 'code-r5')
+E1CHECK = os.path.join(os.path.dirname(os.path.dirname(CODE)), 'amendments', 'E1-check')
 
 
 def sha(path):
@@ -29,8 +30,8 @@ def sha(path):
 
 def main():
     ev = os.path.abspath(sys.argv[1])
-    runs, W = os.path.join(ev, 'runs'), os.path.join(ev, 'toyrun')
-    for d in (runs, W):
+    runs, W, K = os.path.join(ev, 'runs'), os.path.join(ev, 'toyrun'), os.path.join(ev, 'kappa')
+    for d in (runs, W, K):
         if os.path.isdir(d):
             shutil.rmtree(d)
         os.makedirs(d)
@@ -62,10 +63,13 @@ def main():
     steps += [
         ('merge_toy', c('l2merge.py', '--profile', 'toy', '--workdir', W), [('result.json', 'result.O.json')]),
         ('certificate_toy', c('l2cert.py', '--profile', 'toy', '--workdir', W), True),
-        ('crosscheck_toy_counts', dz('crosscheck.py', W), True),
+        ('crosscheck_toy_counts', dz('crosscheck.py', W, R5), True),
+        ('e1check_replay', dz('e1check_replay.py', E1CHECK), True),
         ('code_r5_equivalence_quick', dz('r5_equivalence.py', R5, W), False),
         ('planted_survivor_path', dz('planted_shard.py', CODE), True),
         ('refusal_probe_v8', dz('refusal_probe.py', CODE, scratch), True),
+        ('kappa_calibration_repeats', dz('kappa_calibration.py', CODE, os.path.join(K, 'calibration-repeats.json')),
+         False),
     ]
     env = dict(os.environ, TMPDIR=scratch)
     g = ['git', '-c', 'gc.auto=0', '-c', 'maintenance.auto=false', '-C', CODE]
@@ -77,6 +81,8 @@ def main():
     def rel(x):
         if x.startswith(R5):
             return 'stage0/code-r5' + x[len(R5):]
+        if x.startswith(E1CHECK):
+            return 'stage0/amendments/E1-check' + x[len(E1CHECK):]
         if x.startswith(CODE):
             return 'stage0/layer2/code' + x[len(CODE):]
         if x.startswith(ev):
@@ -117,17 +123,19 @@ def main():
             if fn.endswith('.py') or fn == 'LAYER2-MANIFEST.json':
                 files[label + '/' + fn] = sha(os.path.join(d, fn))
     toy = {'stage0/layer2/design/toyrun/' + fn: sha(os.path.join(W, fn)) for fn in sorted(os.listdir(W))}
+    kap = {'stage0/layer2/design/kappa/' + fn: sha(os.path.join(K, fn)) for fn in sorted(os.listdir(K))}
     manifest = {'python': sys.version.split()[0], 'platform': platform.platform(),
                 'note': 'NP-AVG-1 Stage 0 Layer 2 design evidence (WIP / UNREVIEWED, not frozen): toy, planted and '
                         'small-window instances, S6\'s carrier and v8 configuration combinatorics only; no closure '
                         'on v8\'s configuration class (the v8 profile is refused without an authorization artifact). '
                         'The quick mutant campaign is local; the full campaign is CI-only and pending owner-approved '
-                        'dispatch. Commit caveat (L2-R5): this evidence was produced on an uncommitted working tree; '
+                        'dispatch. Timing steps (calibration_planted, dryrun_v8_estimate, kappa_calibration_repeats) '
+                        'are not deterministic. Commit caveat (L2-R5): this evidence was produced on an uncommitted working tree; '
                         'the structured files record the HEAD at run time (field commit) and tree_clean = false, '
                         'so they are design evidence only. At the Layer-2 freeze the evidence is regenerated at a '
                         'recorded commit.',
                 'head_at_run': head, 'tree_clean_at_run': clean,
-                'code_sha256': files, 'toyrun_sha256': toy, 'steps': rec}
+                'code_sha256': files, 'toyrun_sha256': toy, 'kappa_sha256': kap, 'steps': rec}
     with open(os.path.join(ev, 'RUN-MANIFEST.json'), 'w') as f:
         json.dump(manifest, f, indent=1, sort_keys=True)
         f.write('\n')
@@ -140,6 +148,7 @@ def main():
                                                             e.get('O_mode_identical', 'n/a'), e['stdout_sha256']))
     lines += ['', '| file | SHA-256 |', '| --- | --- |'] + ['| %s | `%s` |' % kv for kv in files.items()]
     lines += ['', '| toy-run file | SHA-256 |', '| --- | --- |'] + ['| %s | `%s` |' % kv for kv in toy.items()]
+    lines += ['', '| kappa calibration file | SHA-256 |', '| --- | --- |'] + ['| %s | `%s` |' % kv for kv in kap.items()]
     with open(os.path.join(ev, 'RUN-MANIFEST.md'), 'w') as f:
         f.write('\n'.join(lines) + '\n')
 

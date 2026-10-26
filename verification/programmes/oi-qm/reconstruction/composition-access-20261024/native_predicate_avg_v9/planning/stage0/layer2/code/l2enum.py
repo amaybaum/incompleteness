@@ -13,10 +13,26 @@ orbit is counted as scanned and skipped; a representative's closures are compute
 (A and G, L3prime and L3) and carried to every orbit member by the group action, and every
 attribute of a member is then computed from the member's own record and its carried
 retained set (l2analysis.post_closure). Source-dependent attributes are therefore computed
-per record. In-run gates (C7, C8, C9, C10 i, C11 i and ii, C17, C18) run on the
-representatives and samples the configuration fixes, and on every member of every survivor orbit
-(L2-R2), up to the survivor cap, beyond which the run is INCOMPLETE (L2-R3); their tallies are written to the shard
+per record. In-run gates (C8, C9, C10 i, C11 i and ii, C17, C18) run on the representatives and
+samples the configuration fixes, and on every member of every survivor orbit (L2-R2), up to the
+survivor cap, beyond which the run is INCOMPLETE (L2-R3); their tallies are written to the shard
 file, and the merge turns them into labels (section 5).
+
+C7 (erratum E1, item E1-F3) runs per record, never through orbit representatives. For each
+member R of each orbit and each convention c, R is in C7's scope if it is in
+  1. Surv_c: the run computes R to be a survivor under c (carried result);
+  2. set 2: under A, the carried closure has a shared near tip (T_A, within Surv_A); under G,
+     F_G (In(R) has a shared near tip, computed from Q0(R) without any closure, l2plan) or a
+     survivor whose carried closure has a shared near tip;
+  3. I_c and H100: Q0(R) has a shared near tip under c (closure-free) and R's record index is
+     in the 1-in-100 sample of stream C7_H100;
+  4. H1000: R's record index is in the 1-in-1,000 sample of stream C7_H1000.
+Samples are drawn over R's own record index (l2plan.Space.index_of), on their own streams. Every
+record in scope is closed directly by the production engine and by the full s0ref reference in
+its own reference context; C7 fails on R if the two differ or if R's carried result differs from
+its direct closure. Coverage is tallied per convention and set: records checked and failed,
+orbits touched and the sum of their sizes. The Lemma G-D reference form is not implemented
+(E1 section 9: a non-executing proposal pending the owner).
 """
 import hashlib
 import json
@@ -30,17 +46,35 @@ import s0ref as REF       # noqa: E402  independent reference (contexts for the 
 import l2analysis as AN   # noqa: E402
 import l2refcheck as RC   # noqa: E402
 import l2config as CFG    # noqa: E402
+import l2plan as PLAN     # noqa: E402  closure-free C7 predicates and the record index (no engine)
 
 L3 = G.Rule(far=False)
+C7_SETS = ('1_Surv', '2_set2', '3_I_and_H100', '4_H1000')
 WITNESS_CAP = 100      # diagnostics only (first gate failures); witnesses keep a running minimum
 
 
 def sampled(name, idx, rate):
-    """Deterministic 1-in-rate sample of representatives by index (configuration salt)."""
+    """Deterministic 1-in-rate sample by index on stream name (configuration salt): index idx is
+    sampled iff the first eight bytes of SHA-256(salt | name | idx), as a big-endian integer, are
+    0 mod rate."""
     if rate == 1:
         return True
     h = hashlib.sha256(('%s|%s|%d' % (CFG.CONFIG['sampling_salt'], name, idx)).encode()).digest()
     return int.from_bytes(h[:8], 'big') % rate == 0
+
+
+def c7_sampled(prof, which, record_index):
+    """E1-F3: record index record_index is in C7's sample 'H100' or 'H1000' (own stream, own rate)."""
+    smp = prof['C7_samples'][which]
+    return record_index is not None and sampled(smp['stream'], record_index, smp['rate'])
+
+
+def c7_set2(conv, flags, carried, pair_E):
+    """E1-F3 set 2 for one record: under A, T_A (the carried closure has a shared near tip); under
+    G, F_G (closure-free) or a survivor whose carried closure has a shared near tip."""
+    if conv == 'A':
+        return PLAN.shared_near(carried['retained'], pair_E)
+    return flags['F_G'] or (carried['survivor'] and PLAN.shared_near(carried['retained'], pair_E))
 
 
 def iter_indices(lo, hi):
@@ -91,11 +125,21 @@ def props_violations(setup, S, conv, r, refgrant):
     return len(vd) + len(va)
 
 
-def direct(setup, m, grant):
+def direct1(setup, m, conv, grant, cache):
+    """The direct production L3prime closure of record m under conv, (ctx, analysis), cached per
+    orbit so that C7 and C8 close a member once."""
+    key = (m, conv)
+    if key not in cache:
+        ctx = G.Context(setup, m, conv, G.FROZEN, grant)
+        cache[key] = (ctx, G.analyse(ctx))
+    return cache[key]
+
+
+def direct(setup, m, grant, cache=None):
+    cache = {} if cache is None else cache
     out = {}
     for conv in ('A', 'G'):
-        ctx = G.Context(setup, m, conv, G.FROZEN, grant)
-        a = G.analyse(ctx)
+        ctx, a = direct1(setup, m, conv, grant, cache)
         ctx3 = G.Context(setup, m, conv, L3, grant)
         a3 = G.analyse(ctx3)
         out[conv] = (ctx, a, ctx3, a3)
@@ -118,9 +162,9 @@ class Shard:
         self.grant, self.refgrant = grant, refgrant
         self.grp = AN.group(setup)
         self.rates = prof['sampling']
-        self.c7_scope = prof['C7_scope']
+        self.sp = PLAN.Space(prof)
         self.cap = CFG.CONFIG['budget']['survivor_cap_per_shard']
-        self.counts = {k: 0 for k in AN.count_keys() if k.split(':')[-1] not in AN.CLASS_KEYS
+        self.counts = {k: 0 for k in AN.reported_count_keys() if k.split(':')[-1] not in AN.CLASS_KEYS
                        and k != 'masking_equivalent_records'}
         self.classes = {(conv, cat): {} for conv in ('A', 'G') for cat in ('all', 'survivors', 'collapsed')}
         self.base_relative = {'A': 0, 'G': 0}
@@ -128,7 +172,10 @@ class Shard:
         self.gates = {g: {'checked': 0, 'failed': 0} for g in
                       ('C0_context', 'C7', 'C8', 'C9', 'C10i', 'C11i', 'C11ii', 'C17', 'C18')}
         self.gates['C11i']['tables'] = 0
-        self.gates['C7']['shared_tip_reps'] = 0
+        self.gates['C7'].update(shared_tip_reps=0, direct_vs_reference_failed=0, carried_vs_direct_failed=0)
+        self.c7 = {conv: {st: {'records_checked': 0, 'records_failed': 0, 'orbits_touched': 0,
+                               'sum_touched_orbit_sizes': 0, 'skipped_beyond_survivor_cap': 0}
+                          for st in C7_SETS} for conv in ('A', 'G')}
         self.survivors, self.first_fail = [], []
         self.survivor_reps = 0
         self.survivor_cap_exceeded = False
@@ -146,19 +193,14 @@ class Shard:
         if self.witness_min is None or c16_order(cand['key']) < c16_order(self.witness_min['key']):
             self.witness_min = cand
 
-    def ref_gates(self, idx, rec, conv, ctx, do7, do11, do17, do18):
-        """C0 (context), C7, C11 (i), C17 and C18 on one record, with that record's own reference
+    def ref_gates(self, idx, rec, conv, ctx, do11, do17, do18):
+        """C0 (context), C11 (i), C17 and C18 on one record, with that record's own reference
         context and the production closure computed for that record."""
         setup = self.setup
         fixed, quants, geo, elig = ref_ctx(setup, rec, conv, self.refgrant)
         self.gates['C0_context']['checked'] += 1
         if ctx.quants != quants or ctx.fixed != fixed:
             self.fail('C0_context', idx, conv)
-        if do7:
-            self.gates['C7']['checked'] += 1
-            same, _ = RC.c7(fixed, quants, ctx.retained, geo, elig, CFG.CONFIG['C7_brute_limit'])
-            if not same:
-                self.fail('C7', idx, conv)
         if do11:
             n, mism, inc = RC.c11i(fixed, quants, ctx.log, ctx.final_tables, geo, elig)
             self.gates['C11i']['checked'] += 1
@@ -175,9 +217,64 @@ class Shard:
                 self.fail('C18', idx, conv)
 
     def member_ref_gates(self, idx, m, d):
-        """L2-R2: every gate on one member of a survivor orbit, both conventions."""
+        """L2-R2: C0, C11 (i), C17 and C18 on one member of a survivor orbit, both conventions (C7
+        on survivors is set 1 of the per-record C7 path)."""
         for conv in ('A', 'G'):
-            self.ref_gates(idx, m, conv, d[conv][0], True, True, True, True)
+            self.ref_gates(idx, m, conv, d[conv][0], True, True, True)
+
+    def c7_record(self, idx, m, conv, carried, dcache):
+        """E1-F3's check on one record of the scope: R's production closure computed directly on R,
+        R's reference closure (full s0ref) in R's own reference context, and R's carried result
+        against its direct closure. Returns True iff C7 holds on R."""
+        ctx, _ = direct1(self.setup, m, conv, self.grant, dcache)
+        fixed, quants, geo, elig = ref_ctx(self.setup, m, conv, self.refgrant)
+        self.gates['C0_context']['checked'] += 1
+        if ctx.quants != quants or ctx.fixed != fixed:
+            self.fail('C0_context', idx, conv)
+        self.gates['C7']['checked'] += 1
+        same, _ = RC.c7(fixed, quants, self.c7_production(ctx, carried), geo, elig, CFG.CONFIG['C7_brute_limit'])
+        carried_ok = set(carried['retained']) == set(ctx.retained)
+        if not same:
+            self.gates['C7']['direct_vs_reference_failed'] += 1
+        if not carried_ok:
+            self.gates['C7']['carried_vs_direct_failed'] += 1
+        if not (same and carried_ok):
+            self.fail('C7', idx, [conv, [[list(x), t] for x, t in m], {'direct_vs_reference': same,
+                                                                       'carried_vs_direct': carried_ok}])
+        return same and carried_ok
+
+    @staticmethod
+    def c7_production(ctx, carried):
+        """The production closure C7 compares with the reference: the record's direct closure."""
+        return ctx.retained
+
+    def c7_orbit(self, idx, orb, member_views, gated, dcache):
+        """E1-F3 on every member of one orbit, both conventions (see the module docstring)."""
+        touched = {}
+        for m in sorted(orb):
+            j = self.sp.index_of(m) if self.sp.in_space(m) else None
+            flags = self.sp.c7_flags(m)
+            for conv, E in (('A', self.setup.n + 1), ('G', -1)):
+                carried = member_views[m][0][conv][1]
+                ins = {'1_Surv': carried['survivor'],
+                       '2_set2': c7_set2(conv, flags, carried, E),
+                       '3_I_and_H100': flags['I_' + conv] and c7_sampled(self.prof, 'H100', j),
+                       '4_H1000': c7_sampled(self.prof, 'H1000', j)}
+                if ins['1_Surv'] and not gated:
+                    self.c7[conv]['1_Surv']['skipped_beyond_survivor_cap'] += 1
+                    ins['1_Surv'] = False
+                hit = [st for st in C7_SETS if ins[st]]
+                if not hit:
+                    continue
+                ok = self.c7_record(idx, m, conv, carried, dcache)
+                for st in hit:
+                    t = self.c7[conv][st]
+                    t['records_checked'] += 1
+                    t['records_failed'] += not ok
+                    touched[(conv, st)] = True
+        for conv, st in touched:
+            self.c7[conv][st]['orbits_touched'] += 1
+            self.c7[conv][st]['sum_touched_orbit_sizes'] += len(orb)
 
     def mismatch_conditions(self, m, d):
         conds = []
@@ -191,9 +288,15 @@ class Shard:
                 conds.append('C11ii:' + conv)
         return conds
 
+    def flags(self, m, survivor_any, orb):
+        """(masking-equivalent, nontrivial stabilizer) of record m (E1-F6). Masking equivalence is
+        evaluated only where it can contribute, on survivors."""
+        return (survivor_any and self.sp.masking_equivalent_record(m)), len(self.grp)//len(orb) > 1
+
     def rep(self, idx, r, orb):
         setup, grant = self.setup, self.grant
-        reps = direct(setup, r, grant)
+        dcache = {}
+        reps = direct(setup, r, grant, dcache)
         surv_any = reps['A'][1]['survivor'] or reps['G'][1]['survivor']
         gated = surv_any and self.survivor_reps < self.cap
         if surv_any:
@@ -233,7 +336,9 @@ class Shard:
                     self.base_relative[conv] += 1
                 if a3m['survivor_L3'] and not am['survivor']:
                     self.l3_only[conv] += 1
-            contrib = AN.member_contributions(setup, m, view['A'][1], view['G'][1], view['A'][2], view['G'][2])
+            me, st = self.flags(m, view['A'][1]['survivor'] or view['G'][1]['survivor'], orb)
+            contrib = AN.member_contributions(setup, m, view['A'][1], view['G'][1], view['A'][2], view['G'][2],
+                                              me, st)
             for k, v in contrib.items():
                 self.counts[k] += v
             member_views[m] = (view, contrib)
@@ -247,28 +352,29 @@ class Shard:
             cat = 'survivors' if a['survivor'] else 'collapsed'
             self.classes[(conv, 'all')][k] = osz
             self.classes[(conv, cat)][k] = osz
-        # reference gates on the representative: shared tip (scope), samples (non-survivor orbits)
+        # C7 (E1-F3): per record, on every member of the orbit, both conventions
+        self.c7_orbit(idx, orb, member_views, gated, dcache)
+        # sampled reference gates on the representative (non-survivor orbits; C7 is per record above)
         for conv in ('A', 'G'):
             ctx = reps[conv][0]
-            shared = AN.shared_near_tip(ctx.quants, ctx.pair, setup.dim)
-            if shared:
-                self.gates['C7']['shared_tip_reps'] += 1
+            if AN.shared_near_tip(ctx.quants, ctx.pair, setup.dim):
+                self.gates['C7']['shared_tip_reps'] += 1     # diagnostic: initial-context ties
             if surv_any:
                 continue        # survivor orbits: every member below (L2-R2)
-            do7 = (shared and self.c7_scope == 'initial_context') or sampled('C7', idx, self.rates['C7'])
             do11 = sampled('C11i', idx, self.rates['C11i'])
             do17 = sampled('C17', idx, self.rates['C17'])
             do18 = sampled('C18', idx, self.rates['C18'])
-            if do7 or do11 or do17 or do18:
-                self.ref_gates(idx, r, conv, ctx, do7, do11, do17, do18)
+            if do11 or do17 or do18:
+                self.ref_gates(idx, r, conv, ctx, do11, do17, do18)
         # direct closure of every member on survivor, mismatch and sampled orbits (C8; L2-R2)
         if gated or mismatch_here or sampled('C8_orbits', idx, self.rates['C8_orbits']):
             self.gates['C8']['checked'] += 1
             bad = 0
             for m, (view, contrib) in sorted(member_views.items()):
-                d = reps if m == r else direct(setup, m, grant)
+                d = reps if m == r else direct(setup, m, grant, dcache)
                 dA, dG = d['A'][1], d['G'][1]
-                c_direct = AN.member_contributions(setup, m, dA, dG, d['A'][3], d['G'][3])
+                me, st = self.flags(m, dA['survivor'] or dG['survivor'], orb)
+                c_direct = AN.member_contributions(setup, m, dA, dG, d['A'][3], d['G'][3], me, st)
                 bad += c_direct != contrib
                 for conv in ('A', 'G'):
                     am, dd = view[conv][1], d[conv][1]
@@ -316,7 +422,8 @@ class Shard:
                 'L3_only_survivor_records': self.l3_only, 'gates': self.gates, 'gate_failures_first': self.first_fail,
                 'witness_min': self.witness_min, 'witness_candidates_seen': self.witness_seen,
                 'survivor_representatives': self.survivor_reps, 'survivor_cap': self.cap,
-                'survivor_cap_exceeded': self.survivor_cap_exceeded, 'survivors': self.survivors}
+                'survivor_cap_exceeded': self.survivor_cap_exceeded, 'survivors': self.survivors,
+                'C7_scope_coverage': self.c7}
 
 
 def load_bound(s1a, setup, grant):
@@ -351,7 +458,7 @@ def run_shard(pname, s, workdir, st):
         sh.rep(idx, r, orb)
     import l2manifest as MAN
     ok, _, man = MAN.verify(HERE)
-    out = {'schema': 'np-avg-1/stage0/layer2/shard/2', 'profile': pname, 'shard': s, 'shards': len(dry['shards']),
+    out = {'schema': 'np-avg-1/stage0/layer2/shard/3', 'profile': pname, 'shard': s, 'shards': len(dry['shards']),
            'range': [lo, hi], 'records': dry['records'], 'scanned': scanned, 'representatives': len(reps),
            'orbit_weight': sum(len(o) for _, _, o in reps), 'group_order': len(sh.grp),
            'code_digest': man.get('code_digest') if man else None, 'config_sha256': CFG.config_sha256(),

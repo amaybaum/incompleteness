@@ -2,11 +2,18 @@
 structured files and static checks only; no context of v8's class is constructed, except
 the single refused construction of L2-GUARD, which raises before any context exists).
 
-Usage: python3 -I -B l2selftest.py [--mutant NAME]
+Usage: python3 -I -B l2selftest.py [--mutant NAME] [--only CASE[,CASE...]]
 Prints one JSON object {case: {pass, ...}, failed, pass}; exit 0 iff every case passes, 2
 otherwise. With --mutant, the named monkeypatch (MUTANTS below) is applied in this process
 before the cases run; l2mutants.py counts a mutant as killed only when this exits 2 with
-parseable output and its named case failed.
+parseable output and its named case failed. With --only, only the named cases run (the quick
+campaign runs each machinery mutant against its named case only; the full campaign runs every
+case).
+
+Toy-class passes of the shard driver (_toy_pass) run every representative of the toy class
+through l2enum.Shard.rep with the representative-sampled gates switched off, so that the C7
+path of erratum E1 (item E1-F3) is exercised alone; F1 and F2 are planted production faults
+installed on s0geom.Context.run in this process only and removed afterwards.
 """
 import ast
 import hashlib
@@ -30,6 +37,7 @@ import s0ref as REF       # noqa: E402
 import l2manifest as MAN  # noqa: E402
 import l2cert as CERT     # noqa: E402
 import l2landing as LAND  # noqa: E402
+import l2s1a as S1A       # noqa: E402
 
 PRODUCTION = ('l2enum.py', 'l2s1a.py', 'l2merge.py', 'l2preflight.py', 'l2analysis.py', 'l2plan.py', 'l2cert.py', 'l2landing.py',
               'l2calib.py', 'l2refcheck.py')
@@ -234,6 +242,39 @@ def _write(d, name, obj, canonical=True):
     return text + '\n'
 
 
+def _s1a_synthetic(mods, cd):
+    """A synthetic s1a.json with every field sigma reads, valid unless mods change it."""
+    chk = {conv: {r: {'C0_context_equal': True, 'C17_free_tips': 0, 'C18_unjustified': 0} for r in ('L3prime', 'L3')}
+           for conv in ('A', 'G')}
+    L_A, L_G = mods.get('L_A', 0), mods.get('L_G', 0)
+    s1a = {'bound': {}, 'L_A': L_A, 'L_G': L_G, 'L_bound_rule': 'L3prime',
+           'L_reported_L3': mods.get('L3', {'L_A': L_A, 'L_G': L_G}),
+           'L_reference': {'L3prime': {'L_A': L_A, 'L_G': L_G}, 'L3': mods.get('L3', {'L_A': L_A, 'L_G': L_G})},
+           'checks': chk, 'fixed_in_log': [], 'L3prime_within_L3': {'A': True, 'G': True},
+           'code_digest': cd, 'config_sha256': CFG.config_sha256(), 'status': 'OK', 'status_reasons': []}
+    sig = mods.get('sigma')
+    if sig == '1c':
+        s1a['code_digest'] = 'f'*64
+    elif sig == '2a':
+        chk['A']['L3prime']['C0_context_equal'] = False
+    elif sig == '2b':
+        chk['G']['L3']['C17_free_tips'] = 1
+    elif sig == '2c':
+        chk['A']['L3']['C18_unjustified'] = 2
+    elif sig == '2d':
+        s1a['L_reference']['L3prime']['L_A'] = L_A + 1
+    elif sig == '3a':
+        s1a['fixed_in_log'] = ['G:L3prime']
+    elif sig == '3b':
+        s1a['L3prime_within_L3']['G'] = False
+    return s1a
+
+
+def _c7cov():
+    return {conv: {st: {'records_checked': 0, 'records_failed': 0, 'orbits_touched': 0, 'sum_touched_orbit_sizes': 0,
+                        'skipped_beyond_survivor_cap': 0} for st in ENUM.C7_SETS} for conv in ('A', 'G')}
+
+
 def _case(mods):
     """Build a toy workdir from a valid synthetic run, apply mods, merge in-process."""
     d = tempfile.mkdtemp(prefix='l2merge-')
@@ -245,20 +286,22 @@ def _case(mods):
         plan = PLAN.shard_plan(N, prof['shards'])
         if 'overlap' in mods:
             plan[1]['lo'] -= 5
-        dry = {'schema': 'np-avg-1/stage0/layer2/dryrun/1', 'profile': 'toy', 'records': N, 'orbits': so + po,
+        dry = {'schema': 'np-avg-1/stage0/layer2/dryrun/2', 'profile': 'toy', 'records': N, 'orbits': so + po,
                'shards': plan, 'closures_computed': 0, 'config_sha256': CFG.config_sha256(), 'pass': True}
         draw = _write(d, 'dryrun.json', dry)
         cd = MAN.load(HERE)['code_digest']
-        s1a = {'status': mods.get('s1a_status', 'OK'), 'L_A': mods.get('L_A', 0), 'L_G': mods.get('L_G', 0),
-               'code_digest': cd, 'config_sha256': CFG.config_sha256(), 'status_reasons': []}
+        s1a = _s1a_synthetic(mods, cd)
         sraw = _write(d, 's1a.json', s1a)
-        _write(d, 's1a.O.json', s1a)
+        if mods.get('sigma') == '1a':
+            os.remove(os.path.join(d, 's1a.json'))
+        if mods.get('sigma') != '1b':
+            _write(d, 's1a.O.json', s1a)
         pf = {'code_digest': cd, 'controls': {'X': {'pass': True, 'class': 'VOID'}},
               'base_collapsed': {'A': True, 'G': 'base' not in mods}, 'pass': True, 'profile': 'toy'}
         if 'preflight_mismatch' in mods:
             pf['controls']['C12_universe'] = {'pass': False, 'class': 'MISMATCH'}
         _write(d, 'preflight.json', pf)
-        keys = [k for k in AN.count_keys() if k.split(':')[-1] not in AN.CLASS_KEYS
+        keys = [k for k in AN.reported_count_keys() if k.split(':')[-1] not in AN.CLASS_KEYS
                 and k != 'masking_equivalent_records']
         for s, pl in enumerate(plan):
             if mods.get('missing') == s:
@@ -273,7 +316,7 @@ def _case(mods):
                 counts['G:survivors'] = mods.get('surv_G', 0)
                 counts['A:survivors_J_linked'] = mods.get('linked_A', 0)
                 counts['G:survivors_G_linked'] = mods.get('linked_G', 0)
-            sh = {'schema': 'np-avg-1/stage0/layer2/shard/2', 'profile': 'toy', 'shard': s, 'shards': len(plan),
+            sh = {'schema': ENUM_SHARD_SCHEMA, 'profile': 'toy', 'shard': s, 'shards': len(plan),
                   'range': [pl['lo'], pl['hi']], 'records': N, 'scanned': pl['hi'] - pl['lo'],
                   'representatives': (so + po) if s == 0 else 0,
                   'orbit_weight': (N + mods.get('weight_off', 0)) if s == 0 else 0, 'group_order': 8,
@@ -286,7 +329,7 @@ def _case(mods):
                   'survivors': [{'index': 0}]*(mods.get('listed', 1) if s == 0 and 'surv_rep' in mods else 0),
                   'survivor_representatives': mods.get('surv_rep', 0) if s == 0 else 0,
                   'survivor_cap': 10, 'survivor_cap_exceeded': bool(mods.get('cap_exceeded')) and s == 0,
-                  'tree_clean': False, 'ci_run': None}
+                  'tree_clean': False, 'ci_run': None, 'C7_scope_coverage': _c7cov()}
             sh['sha256'] = hashlib.sha256(CFG.canonical(sh).encode()).hexdigest()
             if mods.get('tamper') == s:
                 sh['counts_additive']['A:survivors'] += 1
@@ -298,6 +341,9 @@ def _case(mods):
         return res
     finally:
         shutil.rmtree(d)
+
+
+ENUM_SHARD_SCHEMA = 'np-avg-1/stage0/layer2/shard/3'
 
 
 def t_merge():
@@ -418,7 +464,8 @@ def t_survivor_gates():
     sh.rep(-1, blk, orb)
     n = 2*len(orb)
     g = sh.gates
-    ok = all(g[k]['checked'] == n for k in ('C0_context', 'C7', 'C11i', 'C17', 'C18')) and \
+    # C7 runs per record (E1-F3, set 1) and carries its own C0 check, beside the member gates' C0
+    ok = all(g[k]['checked'] == n for k in ('C7', 'C11i', 'C17', 'C18')) and g['C0_context']['checked'] == 2*n and \
         all(v['failed'] == 0 for v in g.values()) and g['C8']['checked'] == 1 and sh.survivor_reps == 1 and \
         len(sh.survivors) == 1
     return {'pass': ok, 'orbit_size': len(orb), 'checked': {k: g[k]['checked'] for k in ('C0_context', 'C7', 'C11i',
@@ -491,9 +538,12 @@ def t_mask():
     """L2-MASK: the analytic masking-equivalence count equals brute force, in both readings:
     contexts with E1 merges (the plan's) and record samples alone (code-r5's). On the toy class
     (k = 2 and k = 1) the readings coincide; on the toy geometry with last slice 4 (k = 1) they
-    differ, since (q9, 4)'s samples above slice 0 are p and V in clear."""
+    differ, since (q9, 4)'s samples above slice 0 are p and V in clear. E1-F6: the per-record
+    predicate l2plan.Space.masking_equivalent_record equals brute force on every record of each
+    variant (some other record of the space has an equal context)."""
     res = {}
     ok = True
+    per_record_bad = 0
     for tag, tlast, k in (('toy_k2', 6, 2), ('toy_k1', 6, 1), ('toy_t4_k1', 4, 1)):
         base = CFG.profile('toy')
         prof = dict(base, k=k, setup=dict(base['setup'], tlast=tlast))
@@ -503,18 +553,23 @@ def t_mask():
         recs = toy_records(setup) if k == 2 else [r for r in toy_records(setup) if len(r) == 1]
         for reading, merge_fixed in (('context', True), ('record_samples', False)):
             keys = Counter()
+            kof = {}
             for r in recs:
                 if merge_fixed:
                     ctx = G.Context(setup, r, 'A')
-                    keys[tuple(sorted(ctx.quants | ctx.fixed))] += 1
+                    kof[r] = tuple(sorted(ctx.quants | ctx.fixed))
                 else:
-                    keys[tuple(sorted(G.record_samples(setup, r)))] += 1
+                    kof[r] = tuple(sorted(G.record_samples(setup, r)))
+                keys[kof[r]] += 1
             brute = sum(v for v in keys.values() if v > 1)
             ana = PLAN.masking_equivalent(sp, merge_fixed)
             res['%s_%s' % (tag, reading)] = [ana, brute]
             ok &= ana == brute
+            if merge_fixed:
+                per_record_bad += sum(1 for r in recs if sp.masking_equivalent_record(r) != (keys[kof[r]] > 1))
     differ = res['toy_t4_k1_context'][1] != res['toy_t4_k1_record_samples'][1]
-    return {'pass': ok and differ, 'analytic_vs_brute': res, 'readings_differ_on_t4': differ}
+    return {'pass': ok and differ and per_record_bad == 0, 'analytic_vs_brute': res, 'readings_differ_on_t4': differ,
+            'per_record_disagreements': per_record_bad}
 
 
 def t_plan():
@@ -572,11 +627,438 @@ def t_rule_config():
     return {'pass': CERT.rule_fields_ok()}
 
 
+# --- r3: erratum E1 (C7 per record, sigma, rule T, 58 counts) ------------------------------------
+
+_TOYPASS = {}
+
+
+def _quiet_prof():
+    """The toy profile with the representative-sampled gates off (rate far above the toy class), so
+    that a toy pass exercises the per-record C7 path alone."""
+    off = 10**12
+    return dict(CFG.profile('toy'), sampling={'C8_orbits': off, 'C11i': off, 'C17': off, 'C18': off})
+
+
+def _toy_pass(tag):
+    """Every toy representative through l2enum.Shard.rep (bound from l2s1a on the toy class)."""
+    if tag in _TOYPASS:
+        return _TOYPASS[tag]
+    setup = toy()
+    s1a = S1A.run('toy', None, None)
+    bound = ENUM.load_bound(s1a, setup, None)
+    base = {c: set(G.Context(setup, (), c).run()) for c in ('A', 'G')}
+    sh = ENUM.Shard(setup, _quiet_prof(), bound, base, None, None)
+    _, reps = ENUM.scan(setup, 0, G.num_records(setup), sh.grp, None)
+    for i, r, o in reps:
+        sh.rep(i, r, o)
+    if tag == 'clean':
+        _TOYPASS[tag] = sh
+    return sh
+
+
+def _install_fault(only_nonrep):
+    """F1 (E1-check part I): the production closure under G drops every retained in-frame quantity
+    whose near tip is shared with another retained quantity. F2: the same on non-representative
+    records only. Installed on s0geom.Context.run; returns the original to restore."""
+    orig = G.Context.run
+    grp = AN.group(toy())
+
+    def run(self):
+        ret = orig(self)
+        if self.conv != 'G' or self.rule is not G.FROZEN:
+            return ret
+        rec = tuple(sorted(self.record))
+        if only_nonrep and AN.canon(rec, grp) == rec:
+            return ret
+        dim = self.setup.dim
+        inn = {q for q in ret if not any(self.eligible(u) for u in G.tips(q, self.pair, dim))}
+        tips = {}
+        for q in ret:
+            for lab, u in G.tip_labels(q, self.pair, dim):
+                if lab[1] == 'near':
+                    tips.setdefault((lab[0], u), set()).add(q)
+        drop = set()
+        for qs in tips.values():
+            if len(qs) > 1:
+                drop |= qs & inn
+        self.retained = set(ret) - drop
+        return self.retained
+    G.Context.run = run
+    return orig
+
+
+def _fault_case(only_nonrep):
+    setup = toy()
+    recs = toy_records(setup)
+    grp = AN.group(setup)
+    true = {r: frozenset(G.Context(setup, r, 'G').run()) for r in recs}
+    orig = _install_fault(only_nonrep)
+    try:
+        faulty = {r: frozenset(G.Context(setup, r, 'G').run()) for r in recs}
+        sh = _toy_pass('fault')
+    finally:
+        G.Context.run = orig
+    affected = [r for r in recs if faulty[r] != true[r]]
+    nonrep = sum(1 for r in affected if AN.canon(r, grp) != r)
+    return sh, len(affected), nonrep
+
+
+def t_f1():
+    """L2-F1 (E1-F3): a planted equivariant fault that removes retained in-frame tied quantities (F1)
+    is caught by C7 on every affected record of set 2, because set 2 under G is F_G, computed from
+    Q0(R) without any closure. (A set 2 defined by the computed closure loses these records: the
+    fault destroys the tie; mutant M_C7_set2_computed.)"""
+    sh, n_aff, _ = _fault_case(False)
+    s2 = sh.c7['G']['2_set2']
+    return {'pass': n_aff > 0 and s2['records_failed'] == n_aff and s2['records_checked'] >= n_aff,
+            'affected_records': n_aff, 'set2_G': s2}
+
+
+def t_f2():
+    """L2-F2 (E1-F3): a fault on non-representative members only (F2) changes no carried result; it is
+    caught by C7's direct per-record check on every affected record of set 2, in both of its
+    comparisons (direct against reference, carried against direct)."""
+    sh, n_aff, nonrep = _fault_case(True)
+    s2 = sh.c7['G']['2_set2']
+    g = sh.gates['C7']
+    return {'pass': n_aff > 0 and nonrep == n_aff and s2['records_failed'] == n_aff and
+            g['direct_vs_reference_failed'] >= n_aff and g['carried_vs_direct_failed'] >= n_aff,
+            'affected_records': n_aff, 'affected_non_representative': nonrep, 'set2_G': s2,
+            'C7_failures': {k: g[k] for k in ('direct_vs_reference_failed', 'carried_vs_direct_failed')}}
+
+
+def _ref_sets():
+    """An independent computation of C7's sets on the toy class: s0ref contexts, full reference
+    closures, s0ref tips; record indices from s0geom.record_at's order; samples by an independent
+    hash; orbits by l2plan's own group action."""
+    if 'ref' in _TOYPASS:
+        return _TOYPASS['ref']
+    setup = toy()
+    prof = CFG.profile('toy')
+    sp = PLAN.Space(prof)
+    grp = sp.group()
+    salt = CFG.CONFIG['sampling_salt']
+
+    def hs(stream, rate, i):
+        return int.from_bytes(hashlib.sha256(('%s|%s|%d' % (salt, stream, i)).encode()).digest()[:8], 'big') % rate == 0
+
+    def canon(r):
+        return min(tuple(sorted((g(x), t) for x, t in r)) for g in grp)
+    port = tuple(setup.port)
+    out = {'A': {}, 'G': {}}
+    per = {}
+    recs = toy_records(setup)
+    for i, r in enumerate(recs):
+        per[r] = {'index': i, 'canon': canon(r)}
+        for conv in ('A', 'G'):
+            fixed, quants, geo, elig = REF.ref_context(setup.dim, setup.n, port, r, conv)
+            ret, _ = REF.greatest(fixed, quants, geo, elig, CFG.CONFIG['C7_brute_limit'])
+
+            def near(q):
+                _, d, nr, _ = geo.kind(q)
+                return {(REF.unit(geo.dim, a, sg), (REF.shift(q[0], REF.unit(geo.dim, a, sg), d), nr))
+                        for a in range(geo.dim) for sg in (1, -1)}
+
+            def shared(qs, el=None):
+                seen = {}
+                for q in sorted(qs):
+                    for k in near(q):
+                        if el is not None and not el(k[1]):
+                            continue
+                        if k in seen and seen[k] != q:
+                            return True
+                        seen[k] = q
+                return False
+            seed = {q for q in quants if any(elig(u) for u in geo.tipset(q))}
+            surv = bool(ret) if conv == 'A' else bool(ret & seed)
+            inn = set(quants) - seed
+            f = {'I': shared(quants), 'F_G': shared(inn) if conv == 'G' else False,
+                 'E_G': shared(seed, elig) if conv == 'G' else False}
+            s2 = shared(ret) if conv == 'A' else (f['F_G'] or (surv and shared(ret)))
+            per[r][conv] = dict(f, surv=surv)
+            out[conv][r] = {'1_Surv': surv, '2_set2': s2, '3_I_and_H100': f['I'] and hs('C7_H100', 100, i),
+                            '4_H1000': hs('C7_H1000', 1000, i)}
+    _TOYPASS['ref'] = (out, per)
+    return out, per
+
+
+def t_c7_coverage():
+    """L2-C7COV (E1-F3): on the toy class, the shard driver's per-set C7 coverage (records checked,
+    orbits touched, sum of their sizes) equals an independent computation (_ref_sets); the samples
+    are drawn over every record index and include non-representative records; no C7 failure."""
+    sh = _toy_pass('clean')
+    sets, per = _ref_sets()
+    exp, nonrep = {}, {}
+    for conv in ('A', 'G'):
+        exp[conv] = {}
+        for st in ENUM.C7_SETS:
+            X = [r for r, v in sets[conv].items() if v[st]]
+            orbs = {per[r]['canon'] for r in X}
+            size = {o: sum(1 for r in per if per[r]['canon'] == o) for o in orbs}
+            exp[conv][st] = {'records_checked': len(X), 'orbits_touched': len(orbs),
+                             'sum_touched_orbit_sizes': sum(size.values())}
+            nonrep['%s:%s' % (conv, st)] = sum(1 for r in X if per[r]['canon'] != r)
+    got = {conv: {st: {k: sh.c7[conv][st][k] for k in ('records_checked', 'orbits_touched',
+                                                       'sum_touched_orbit_sizes')} for st in ENUM.C7_SETS}
+           for conv in ('A', 'G')}
+    fails = sum(sh.c7[c][st]['records_failed'] for c in ('A', 'G') for st in ENUM.C7_SETS)
+    samples_nonrep = nonrep['A:3_I_and_H100'] + nonrep['G:3_I_and_H100'] + nonrep['A:4_H1000'] + nonrep['G:4_H1000']
+    return {'pass': got == exp and fails == 0 and sh.gates['C7']['failed'] == 0 and samples_nonrep > 0,
+            'coverage': got, 'independent': exp if got != exp else 'equal',
+            'sampled_non_representative_records': nonrep}
+
+
+def t_scope():
+    """L2-SCOPE (E1-F3): l2plan's closure-free predicates (I_A, I_G, F_G, E_G) equal the same
+    predicates computed with s0ref's contexts, tips and frame, and I_c equals the production
+    context's shared near tip, on every toy record; the populations are the erratum's (E1-check
+    parts H and J: I_A 1,071, I_G 667, F_G 595 in 283 orbits, E_G 12)."""
+    setup = toy()
+    sp = PLAN.Space(CFG.profile('toy'))
+    _, per = _ref_sets()
+    bad = []
+    for r in toy_records(setup):
+        f = sp.c7_flags(r)
+        ref = {'I_A': per[r]['A']['I'], 'I_G': per[r]['G']['I'], 'F_G': per[r]['G']['F_G'], 'E_G': per[r]['G']['E_G']}
+        prod = {}
+        for conv in ('A', 'G'):
+            ctx = G.Context(setup, r, conv)
+            prod['I_' + conv] = AN.shared_near_tip(ctx.quants, ctx.pair, setup.dim)
+        if f != ref or any(f[k] != v for k, v in prod.items()) or sp.q0(r) != G.Context(setup, r, 'A').quants:
+            bad.append([[list(x), t] for x, t in r])
+    pops = PLAN.c7_populations(sp)
+    exp = {'I_A': 1071, 'I_G': 667, 'F_G': 595, 'E_G': 12}
+    ok = not bad and all(pops[k]['records'] == v for k, v in exp.items()) and pops['F_G']['orbits'] == 283
+    return {'pass': ok, 'disagreeing_records': bad[:3], 'populations': pops}
+
+
+def t_index():
+    """L2-INDEX: l2plan.Space.index_of inverts s0geom.record_at on every toy index (k = 2 and k = 1),
+    so that C7's samples are drawn over each record's own index."""
+    ok = True
+    for k in (2, 1):
+        prof = dict(CFG.profile('toy'), k=k)
+        sp = PLAN.Space(prof)
+        setup = toy()
+        n = G.num_records(setup, k)
+        ok &= all(sp.index_of(G.record_at(setup, i)) == i and sp.in_space(G.record_at(setup, i)) for i in range(n))
+    _, blk = _planted_block()
+    return {'pass': ok and not PLAN.Space(CFG.profile('toy')).in_space(blk)}
+
+
+def t_sigma():
+    """L2-SIGMA (E1-T2): each of sigma's conditions 1 (a)-(c), 2 (a)-(d), 3 (a)-(c) on a synthetic run
+    gives sigma = its case, enters the run label as a reason of that class, and leaves rule T
+    'not_evaluated'; the valid run gives sigma = OK and rule T evaluated."""
+    exp = {'1a': 'INCOMPLETE', '1b': 'INCOMPLETE', '1c': 'INCOMPLETE', '2a': 'VOID', '2b': 'VOID', '2c': 'VOID',
+           '2d': 'VOID', '3a': 'MISMATCH', '3b': 'MISMATCH'}
+    got = {}
+    for k in exp:
+        r = _case({'sigma': k})
+        got[k] = [r['S1a']['status'], r['rule_T']['outcome'], r['label']]
+    r = _case({'gate_fail': ['C9']})
+    got['3c'] = [r['S1a']['status'], r['rule_T']['outcome'], r['label']]
+    exp['3c'] = 'MISMATCH'
+    ok_case = _case({})
+    wrong = {k: v for k, v in got.items() if v[0] != exp[k] or v[1] != 'not_evaluated' or v[2] != exp[k]}
+    ok = not wrong and ok_case['S1a']['status'] == 'OK' and ok_case['rule_T']['evaluated'] is True
+    return {'pass': ok, 'cases': len(got), 'wrong': wrong}
+
+
+def t_precedence():
+    """L2-PREC (E1-T2): sigma never overrides the run label. With sigma = OK, a failing VOID gate,
+    MISMATCH pre-flight control or missing shard gives that label; rule T is still evaluated and
+    its outcome is recorded beside the label, with no S1b proposal. A clean run with L_A > 0 puts
+    S1b to the owner."""
+    rows = {'void_gate': ({'gate_fail': ['C7'], 'L_A': 2}, 'VOID'),
+            'mismatch_preflight': ({'preflight_mismatch': 1, 'L_A': 2}, 'MISMATCH'),
+            'incomplete_shard': ({'missing': 2, 'L_A': 2}, 'INCOMPLETE')}
+    bad = {}
+    for name, (mods, lab) in rows.items():
+        r = _case(mods)
+        T = r['rule_T']
+        if not (r['S1a']['status'] == 'OK' and r['label'] == lab and T['evaluated'] and T.get('beside_label') == lab
+                and T['S1b_S1c'].startswith('no proposal')):
+            bad[name] = [r['S1a']['status'], r['label'], T.get('beside_label'), T['S1b_S1c']]
+    clean = _case({'L_A': 2})
+    ok = not bad and clean['label'] == 'COLLAPSE_ALL' and clean['rule_T']['S1b_S1c'].startswith('S1b put') and \
+        'beside_label' not in clean['rule_T']
+    return {'pass': ok, 'wrong': bad, 'clean_run_rule_T': clean['rule_T']['S1b_S1c']}
+
+
+def t_rule_t_l3():
+    """L2-T1 (E1-T1): rule T reads L_A and L_G from the L3prime bound. A run whose L3prime values are
+    0 and whose L3 values are positive gives the L3prime outcome; the L3 values are recorded in a
+    separate field."""
+    r = _case({'L_A': 0, 'L_G': 0, 'L3': {'L_A': 4, 'L_G': 1}})
+    T = r['rule_T']
+    return {'pass': T['outcome'] == 'L_A = L_G = 0' and T['L_reported_L3'] == {'L_A': 4, 'L_G': 1} and
+            T['bound_rule'] == 'L3prime', 'outcome': T['outcome']}
+
+
+def t_t5():
+    """L2-T5 (E1-T5): on a planted bound (the toy class's L3prime global bound) L_G, counted by the
+    quantity's own cone, is nonzero and equals its s0ref recomputation; the tip-cone reading would
+    give 0 (mutant M_LG_tip_reading)."""
+    o = S1A.run('toy', None, None)
+    return {'pass': o['L_G'] > 0 and o['L_G'] == o['L_reference']['L3prime']['L_G'] and o['status'] == 'OK',
+            'L_G': o['L_G'], 'L_G_reference': o['L_reference']['L3prime']['L_G']}
+
+
+def t_2d():
+    """L2-2D (E1-T2 case 2 (d)): on the toy bound, l2s1a's s0ref recomputation of L_A and L_G equals
+    the production values; a perturbed production count makes l2s1a's status VOID, and a synthetic
+    s1a.json whose recorded reference differs from its production values makes sigma VOID in the
+    merge, which then does not evaluate rule T."""
+    o = S1A.run('toy', None, None)
+    agree = [o['L_A'], o['L_G']] == [o['L_reference']['L3prime']['L_A'], o['L_reference']['L3prime']['L_G']]
+    orig = S1A.linked_counts
+
+    def plus_one(ctx, ret, setup):
+        n, sel = orig(ctx, ret, setup)
+        return n + 1, sel
+    S1A.linked_counts = plus_one
+    try:
+        p = S1A.run('toy', None, None)
+    finally:
+        S1A.linked_counts = orig
+    m = _case({'sigma': '2d'})
+    ok = agree and o['status'] == 'OK' and p['status'] == 'VOID' and 'reference_L:L3prime' in p['status_reasons'] \
+        and m['S1a']['status'] == 'VOID' and m['label'] == 'VOID' and m['rule_T']['outcome'] == 'not_evaluated'
+    return {'pass': ok, 'toy': [o['L_A'], o['L_G']], 'perturbed_status': p['status'], 'merge_sigma': m['S1a']['status']}
+
+
+def t_counts58():
+    """L2-COUNTS (E1-F6): the reported list has 58 keys, the r5 54 and the four survivor cells; with
+    the plain counts n(6) and n(9) every section 3 degeneracy has rank 3 per convention; a planted
+    survivor orbit with a nontrivial stabilizer contributes to N_ST under A and G through the shard;
+    the merge reports 58 counts."""
+    keys = AN.reported_count_keys()
+    added = [k for k in keys if k not in AN.count_keys()]
+    degs = list(AN.DEGENERACIES) + ['masking_equivalent', 'nontrivial_stabilizer']
+    marg = {'masking_equivalent': 'masking_equivalent_records', 'nontrivial_stabilizer': 'nontrivial_stabilizer'}
+    ks = set(keys)
+    open_cells = []
+    for d in degs:
+        for c in ('A', 'G'):
+            t, f = '%s:deg:%s:survivor=True' % (c, d) in ks, '%s:deg:%s:survivor=False' % (c, d) in ks
+            if not ((t and f) or (marg.get(d) in ks and (t or f))):
+                open_cells.append([d, c])
+    setup, blk = _planted_block()
+    grp = AN.group(setup)
+    orb = AN.orbit(blk, grp)
+    bound = {}
+    for conv in ('A', 'G'):
+        qs = set()
+        for m in orb:
+            qs |= G.Context(setup, m, conv).quants
+        bound[(conv, 'L3prime')] = bound[(conv, 'L3')] = qs
+    base = {conv: set(G.Context(setup, (), conv).run()) for conv in ('A', 'G')}
+    sh = ENUM.Shard(setup, CFG.profile('toy'), bound, base, None, None)
+    sh.rep(-1, blk, orb)
+    nst = [sh.counts['%s:deg:nontrivial_stabilizer:survivor=True' % c] for c in ('A', 'G')]
+    merged = _case({})
+    ok = len(keys) == 58 == len(set(keys)) and len(AN.count_keys()) == 54 and sorted(added) == sorted(AN.ADDED_E1_F6) \
+        and not open_cells and all(v == len(orb) for v in nst) and merged['n_counts'] == 58
+    return {'pass': ok, 'n_keys': len(keys), 'open_cells': open_cells, 'N_ST_planted': nst, 'orbit_size': len(orb)}
+
+
+def t_v8_counts():
+    """L2-V8COUNTS: the record-enumerating counts (--shared-tips, F_G and the other C7 populations)
+    are refused on v8's configuration class before any record is enumerated: by the dry run's
+    command line and by each function. A sentinel replaces the record generator while this runs,
+    so that a missing refusal is detected without enumerating anything."""
+    v8 = PLAN.Space(CFG.profile('v8'))
+    orig = PLAN._records
+
+    def sentinel(sp):
+        raise RuntimeError('record enumeration reached')
+    PLAN._records = sentinel
+    res = {}
+    try:
+        for name, fn in (('shared_tip_records', PLAN.shared_tip_records), ('c7_populations', PLAN.c7_populations)):
+            try:
+                fn(v8)
+                res[name] = 'returned'
+            except PermissionError:
+                res[name] = 'refused'
+            except RuntimeError:
+                res[name] = 'reached'
+        import io
+        import contextlib
+        argv = sys.argv
+        sys.argv = ['l2plan.py', '--profile', 'v8', '--shared-tips']
+        buf = io.StringIO()
+        try:
+            with contextlib.redirect_stdout(buf):
+                PLAN.main()
+            res['cli'] = 'returned'
+        except SystemExit as e:
+            out = json.loads(buf.getvalue() or '{}')
+            res['cli'] = 'refused' if e.code == 2 and out.get('refused') else 'exit %s' % e.code
+        except PermissionError:
+            res['cli'] = 'refused by function'
+        except RuntimeError:
+            res['cli'] = 'reached'
+        finally:
+            sys.argv = argv
+    finally:
+        PLAN._records = orig
+    return {'pass': res == {'shared_tip_records': 'refused', 'c7_populations': 'refused', 'cli': 'refused'},
+            'attempts': res}
+
+
+def t_statement_scope():
+    """L2-T6 (E1-T6): rule T's statement scope is the erratum's text, verbatim, and is recorded in
+    result.json's rule_T.statement_scope; the zero branch's text is the same."""
+    path = os.path.join(HERE, '..', '..', 'amendments', 'E1-LAYER1-ERRATUM.md')
+    with open(path, encoding='utf-8') as f:
+        er = ' '.join(f.read().split())
+    text = CFG.CONFIG['rule_T']['zero_text']
+    r = _case({})
+    return {'pass': ' '.join(text.split()) in er and r['rule_T']['statement_scope'] == text and
+            MERGE.rule_T('OK', 0, 0)['text'] == text}
+
+
+def t_placeholders():
+    """L2-PLACEHOLDER: the open owner decisions are exactly kappa, G_D and O1, with no value for kappa
+    anywhere in the configuration; the C7 reference form is the full s0ref closure (the G-D form is
+    not implemented); and l2cert.startup refuses the v8 profile at certificate item 1 while any is
+    open, even when the authorization step passes (simulated here by a decision that constructs no
+    grant; no context exists)."""
+    paths = CFG.placeholders()
+    want = ['/budget/kappa', '/owner_rulings/G_D/ruling', '/owner_rulings/O1/ruling', '/owner_rulings/kappa/ruling']
+    kap = [CFG.CONFIG['budget']['kappa'], CFG.CONFIG['owner_rulings']['kappa']['ruling']]
+    orig = AUTH.issue_grant
+    AUTH.issue_grant = lambda art, own, here: ('ok', None, None, {'decision': 'ok', 'artifact': None,
+                                                                 'owner_check': None})
+    d = tempfile.mkdtemp(prefix='l2ph-')
+    import io
+    import contextlib
+    buf = io.StringIO()
+    item = None
+    try:
+        with contextlib.redirect_stdout(buf):
+            CERT.startup('v8', d, [])
+    except SystemExit:
+        item = json.loads(buf.getvalue() or '{}').get('certificate_item')
+    finally:
+        AUTH.issue_grant = orig
+        shutil.rmtree(d)
+    ok = paths == want and all(k == CFG.OWNER for k in kap) and CFG.CONFIG['C7']['reference_form'] == 'full_s0ref' \
+        and item == 1
+    return {'pass': ok, 'placeholders': paths, 'v8_startup_refused_at_item': item}
+
+
 CASES = [('L2-S1_static', t_static), ('L2-GUARD', t_guard), ('L2-POST', t_post), ('L2-ORB', t_orbits),
          ('L2-AUTH', t_auth), ('L2-MAN', t_manifest), ('L2-MRG', t_merge), ('L2-LBL', t_labels), ('L2-RT', t_rule_t),
          ('L2-C16', t_witness), ('L2-WIT', t_witness_running), ('L2-SURV', t_survivor_gates),
          ('L2-CERT', t_cert_commits), ('L2-LAND', t_landing), ('L2-SAMPLE', t_sample), ('L2-MASK', t_mask), ('L2-PLAN', t_plan),
-         ('L2-SHTIP', t_shared_tips), ('L2-GATES', t_gates), ('L2-CFG', t_rule_config)]
+         ('L2-SHTIP', t_shared_tips), ('L2-GATES', t_gates), ('L2-CFG', t_rule_config),
+         ('L2-INDEX', t_index), ('L2-SCOPE', t_scope), ('L2-C7COV', t_c7_coverage), ('L2-F1', t_f1), ('L2-F2', t_f2),
+         ('L2-SIGMA', t_sigma), ('L2-PREC', t_precedence), ('L2-T1', t_rule_t_l3), ('L2-T5', t_t5), ('L2-2D', t_2d),
+         ('L2-COUNTS', t_counts58), ('L2-V8COUNTS', t_v8_counts), ('L2-T6', t_statement_scope),
+         ('L2-PLACEHOLDER', t_placeholders)]
 
 
 # --- machinery mutants (monkeypatches in this process only) --------------------------------
@@ -686,6 +1168,97 @@ def _m_grant_unbound():
                             and G._hex(getattr(a, 'commit', None), 40))
 
 
+def _m_c7_set2_computed():
+    def set2(conv, flags, carried, pair_E):
+        return PLAN.shared_near(carried['retained'], pair_E)
+    ENUM.c7_set2 = set2
+
+
+def _m_c7_carried_only():
+    def c7_record(self, idx, m, conv, carried, dcache):
+        fixed, quants, geo, elig = ENUM.ref_ctx(self.setup, m, conv, self.refgrant)
+        self.gates['C7']['checked'] += 1
+        same, _ = ENUM.RC.c7(fixed, quants, carried['retained'], geo, elig, CFG.CONFIG['C7_brute_limit'])
+        if not same:
+            self.gates['C7']['direct_vs_reference_failed'] += 1
+            self.fail('C7', idx, conv)
+        return same
+    ENUM.Shard.c7_record = c7_record
+
+
+def _m_c7_sample_rep_index():
+    orig = ENUM.Shard.c7_orbit
+
+    def c7_orbit(self, idx, orb, member_views, gated, dcache):
+        keep = self.sp.index_of
+        self.sp.index_of = lambda m: idx
+        try:
+            return orig(self, idx, orb, member_views, gated, dcache)
+        finally:
+            self.sp.index_of = keep
+    ENUM.Shard.c7_orbit = c7_orbit
+
+
+def _m_ruleT_ignores_sigma():
+    orig = MERGE.rule_T
+    MERGE.rule_T = lambda st, a, b: orig('OK', a, b)
+
+
+def _m_sigma_overrides_label():
+    orig = MERGE.label
+
+    def lab(void, mismatch, incomplete, *rest):
+        only = [w for w in void + mismatch + incomplete if w.startswith('S1a ')]
+        return orig([w for w in void if w in only], [w for w in mismatch if w in only],
+                    [w for w in incomplete if w in only], *rest)
+    MERGE.label = lab
+
+
+def _m_proposal_on_failed_label():
+    MERGE.rule_T_record = lambda T, label_, L3: dict(T, run_label=label_, L_reported_L3=L3)
+
+
+def _m_sigma_no_2d():
+    orig = MERGE.sigma
+
+    def sig(s1a, *a):
+        if s1a is not None and 'L_reference' in s1a:
+            s1a = dict(s1a, L_reference=dict(s1a['L_reference'], L3prime={'L_A': s1a.get('L_A'),
+                                                                           'L_G': s1a.get('L_G')}))
+        return orig(s1a, *a)
+    MERGE.sigma = sig
+
+
+def _m_ruleT_reads_L3():
+    MERGE.rule_T_inputs = lambda s1a: ((s1a.get('L_reported_L3') or {}).get('L_A'),
+                                       (s1a.get('L_reported_L3') or {}).get('L_G')) if s1a else (None, None)
+
+
+def _m_LG_tip_reading():
+    orig = S1A.linked_counts
+
+    def lc(ctx, ret, setup):
+        if ctx.conv == 'A':
+            return orig(ctx, ret, setup)
+        src = [(x, 0) for x in setup.sources]
+        sel = [q for q in sorted(ret) if any(ctx.eligible(u) and any(G.in_cone(c, u, ctx.pair) for c in src)
+                                             for u in G.tips(q, ctx.pair, setup.dim))]
+        return len(sel), sel
+    S1A.linked_counts = lc
+
+
+def _m_counts_54():
+    AN.reported_count_keys = AN.count_keys
+
+
+def _m_v8_counts_unrefused():
+    PLAN.refuse_v8_enumeration = lambda sp: None
+
+
+def _m_placeholders_ignored():
+    CFG.placeholders = lambda *a, **k: []
+
+
 MUTANTS = {
     'M_skip_index': (_m_skip_index, 'L2-ORB', 'coverage scan misses one index'),
     'M_every_record_rep': (_m_every_rep, 'L2-ORB', 'orbit reduction off: representatives exceed orbits'),
@@ -705,6 +1278,25 @@ MUTANTS = {
     'M_residue_ignored': (_m_residue_ignored, 'L2-MRG', 'truncated residue or exceeded cap accepted (R3)'),
     'M_commits_unbound': (_m_commits_unbound, 'L2-CERT', 'certificate ignores differing commits (R5)'),
     'M_grant_unbound': (_m_grant_unbound, 'L2-GUARD', 'grant accepted without the running digests (R4 d)'),
+    'M_C7_set2_computed': (_m_c7_set2_computed, 'L2-F1', 'C7 set 2 under G defined by the computed closure (E1-F3)'),
+    'M_C7_carried_only': (_m_c7_carried_only, 'L2-F2', 'C7 compares the carried result with the reference, '
+                                                      'no direct per-record closure (E1-F3)'),
+    'M_C7_sample_rep_index': (_m_c7_sample_rep_index, 'L2-C7COV', 'C7 samples drawn over representative '
+                                                                  'indices, not record indices (E1-F3)'),
+    'M_ruleT_ignores_sigma': (_m_ruleT_ignores_sigma, 'L2-SIGMA', 'rule T evaluated on a non-OK sigma (E1-T2)'),
+    'M_sigma_overrides_label': (_m_sigma_overrides_label, 'L2-PREC', 'the label ignores every failing check but '
+                                                                     'sigma\'s (E1-T2)'),
+    'M_proposal_on_failed_label': (_m_proposal_on_failed_label, 'L2-PREC', 'S1b proposed from a VOID, MISMATCH or '
+                                                                           'INCOMPLETE run (E1-T2)'),
+    'M_sigma_no_2d': (_m_sigma_no_2d, 'L2-2D', 'sigma ignores the reference recomputation of L_A and L_G (E1-T2 '
+                                               '2 (d))'),
+    'M_ruleT_reads_L3': (_m_ruleT_reads_L3, 'L2-T1', 'rule T reads the L3 bound\'s values (E1-T1)'),
+    'M_LG_tip_reading': (_m_LG_tip_reading, 'L2-T5', 'L_G counted by the tip\'s cone (E1-T5)'),
+    'M_counts_54': (_m_counts_54, 'L2-COUNTS', 'the four added counts dropped (E1-F6)'),
+    'M_v8_counts_unrefused': (_m_v8_counts_unrefused, 'L2-V8COUNTS', 'v8 shared-tip and F_G enumeration not '
+                                                                     'refused (caught before any enumeration)'),
+    'M_placeholders_ignored': (_m_placeholders_ignored, 'L2-PLACEHOLDER', 'the v8 profile starts with kappa, G_D '
+                                                                          'and O1 open'),
 }
 
 
@@ -715,7 +1307,10 @@ def main():
         m = args[args.index('--mutant') + 1]
         MUTANTS[m][0]()
         out['mutant'] = m
+    only = set(args[args.index('--only') + 1].split(',')) if '--only' in args else None
     for name, fn in CASES:
+        if only is not None and name not in only:
+            continue
         try:
             out[name] = fn()
         except Exception as e:      # a case that raises fails cleanly, with its exception type

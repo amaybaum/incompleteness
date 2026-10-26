@@ -11,7 +11,10 @@ in this process, since their digests are not the running ones (L2-R4 d). The pur
 also run on a fabricated artifact and owner check against fabricated facts; it returns ok, which
 is the documented limit that the host re-verification at landing (l2landing) addresses.
 The dry run (l2plan) is also run for v8: it imports no engine, constructs no context and
-computes no closure, and must report closures_computed = 0.
+computes no closure, and must report closures_computed = 0. Its record-enumerating option
+--shared-tips (the shared-tip and F_G counts of C7's scope) must be refused for v8 before anything
+is computed (exit 2, a refusal object); each enumerating function also refuses v8 at entry, so a
+broken command-line check would end in that refusal, not in an enumeration.
 Usage: python3 -I -B refusal_probe.py <layer2/code> <scratch dir>. Prints JSON; exit 0 iff
 every attempt is refused and the dry run computed no closure."""
 import json
@@ -119,7 +122,29 @@ dry = {k: dr[k] for k in ('records', 'orbits', 'single_orbits', 'pair_orbits', '
 dry['shards'] = [[s['shard'], s['lo'], s['hi']] for s in dr['shards']]
 dry['exit'] = p.returncode
 ok &= p.returncode == 0 and dr['closures_computed'] == 0
+dry['C7_populations'] = dr['C7_populations']
+# the command-line attempt runs only after the function-level refusal is confirmed in this process,
+# so that no attempt here can reach an enumeration of v8's record space
+import l2plan as PLAN      # noqa: E402
+try:
+    PLAN.refuse_v8_enumeration(PLAN.Space(CFG.profile('v8')))
+    fn_refused = False
+except PermissionError:
+    fn_refused = True
+st, code_st = None, None
+if fn_refused:
+    p = subprocess.run([py, '-I', '-B', os.path.join(code, 'l2plan.py'), '--profile', 'v8', '--shared-tips'],
+                       capture_output=True, text=True, timeout=60)
+    code_st = p.returncode
+    try:
+        st = json.loads(p.stdout)
+    except ValueError:
+        st = None
+shared_refused = fn_refused and code_st == 2 and bool(st) and st.get('label') == 'VOID' and bool(st.get('refused'))
+ok &= shared_refused
 print(json.dumps({'attempts': len(results), 'refused': sum(r['refused'] for r in results.values()),
+                  'v8_shared_tips_refused': {'function_refuses': fn_refused, 'exit': code_st, 'output': st,
+                                             'refused': shared_refused},
                   'results': results, 'forgeries_refused': forge,
                   'forgeries': '%d of %d refused' % (sum(forge.values()), len(forge)),
                   'decide_on_fabricated_inputs_documented_limit': decide_fabricated,

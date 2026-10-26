@@ -1,7 +1,93 @@
 {
+ "C7_scope": {
+  "definition": "E1-F3 sets 1-4, per record, every record index; full s0ref reference",
+  "reference_form": "full_s0ref",
+  "samples": {
+   "H100": {
+    "rate": 100,
+    "stream": "C7_H100"
+   },
+   "H1000": {
+    "rate": 1000,
+    "stream": "C7_H1000"
+   }
+  }
+ },
+ "C7_scope_coverage": {
+  "A": {
+   "1_Surv": {
+    "orbits_touched": 0,
+    "records_checked": 0,
+    "records_failed": 0,
+    "skipped_beyond_survivor_cap": 0,
+    "sum_touched_orbit_sizes": 0
+   },
+   "2_set2": {
+    "orbits_touched": 0,
+    "records_checked": 0,
+    "records_failed": 0,
+    "skipped_beyond_survivor_cap": 0,
+    "sum_touched_orbit_sizes": 0
+   },
+   "3_I_and_H100": {
+    "orbits_touched": 12,
+    "records_checked": 12,
+    "records_failed": 0,
+    "skipped_beyond_survivor_cap": 0,
+    "sum_touched_orbit_sizes": 45
+   },
+   "4_H1000": {
+    "orbits_touched": 1,
+    "records_checked": 1,
+    "records_failed": 0,
+    "skipped_beyond_survivor_cap": 0,
+    "sum_touched_orbit_sizes": 4
+   }
+  },
+  "G": {
+   "1_Surv": {
+    "orbits_touched": 0,
+    "records_checked": 0,
+    "records_failed": 0,
+    "skipped_beyond_survivor_cap": 0,
+    "sum_touched_orbit_sizes": 0
+   },
+   "2_set2": {
+    "orbits_touched": 283,
+    "records_checked": 595,
+    "records_failed": 0,
+    "skipped_beyond_survivor_cap": 0,
+    "sum_touched_orbit_sizes": 595
+   },
+   "3_I_and_H100": {
+    "orbits_touched": 6,
+    "records_checked": 6,
+    "records_failed": 0,
+    "skipped_beyond_survivor_cap": 0,
+    "sum_touched_orbit_sizes": 24
+   },
+   "4_H1000": {
+    "orbits_touched": 1,
+    "records_checked": 1,
+    "records_failed": 0,
+    "skipped_beyond_survivor_cap": 0,
+    "sum_touched_orbit_sizes": 4
+   }
+  }
+ },
  "S1a": {
   "L_A": 15,
   "L_G": 7,
+  "L_reference": {
+   "L3": {
+    "L_A": 15,
+    "L_G": 7
+   },
+   "L3prime": {
+    "L_A": 15,
+    "L_G": 7
+   }
+  },
   "L_reported_L3": {
    "L_A": 15,
    "L_G": 7
@@ -29,7 +115,13 @@
    }
   },
   "n_lines": 15,
-  "status": "OK"
+  "status": "OK",
+  "status_kind": "diagnostic (E1-T2): it adds reasons to the run label and never replaces it",
+  "status_reasons": {
+   "INCOMPLETE": [],
+   "MISMATCH": [],
+   "VOID": []
+  }
  },
  "accepted_readings": {
   "F1": "BASE_RESIDUE is reachable only after the MISMATCH-resolution amendment L1 section 5 requires",
@@ -48,16 +140,17 @@
  },
  "base_relative_survivor_records": null,
  "ci_run": null,
- "code_digest": "3590d12364f9dc8f5e0a28f1b96d387b31d20c8aaad3f9d8bc7b25dcf03e73f5",
- "commit": "a63db7ba5852969b324c1932d4f2495fe601dcdb",
+ "code_digest": "d858dacee48c133a4c3bd54a418bd79a40b1ff5604987c4ed9bf6fb04ffb695e",
+ "commit": "53786e6e9e6f59347d20cac9f9875fdf7b4d8f67",
  "commits": {
-  "preflight.json": "a63db7ba5852969b324c1932d4f2495fe601dcdb",
-  "s1a.json": "a63db7ba5852969b324c1932d4f2495fe601dcdb",
+  "preflight.json": "53786e6e9e6f59347d20cac9f9875fdf7b4d8f67",
+  "s1a.json": "53786e6e9e6f59347d20cac9f9875fdf7b4d8f67",
   "shards": [
-   "a63db7ba5852969b324c1932d4f2495fe601dcdb"
+   "53786e6e9e6f59347d20cac9f9875fdf7b4d8f67"
   ]
  },
- "config_sha256": "2cafd18ce73744c9a1a99b91ecf350ed7cc0f75403407f66972da022a414d093",
+ "config_sha256": "c16f090cf185aa3285863f42331c67c4d9fa3e6d774a8275787ba5ca9067b252",
+ "count_list": "E1-F6: the 54 of L1 C8 and four survivor cells",
  "counts": {
   "A:L3_vs_L3prime_disagree": 0,
   "A:b_has_J_cell": 376,
@@ -76,6 +169,8 @@
   "A:deg:item_t_le_0:survivor=True": 0,
   "A:deg:last_sample_odd:survivor=False": 1036,
   "A:deg:last_sample_odd:survivor=True": 0,
+  "A:deg:masking_equivalent:survivor=True": 0,
+  "A:deg:nontrivial_stabilizer:survivor=True": 0,
   "A:deg:pair_on_common_axis:survivor=False": 576,
   "A:deg:pair_on_common_axis:survivor=True": 0,
   "A:j_linked": 0,
@@ -103,6 +198,8 @@
   "G:deg:item_t_le_0:survivor=True": 0,
   "G:deg:last_sample_odd:survivor=False": 1036,
   "G:deg:last_sample_odd:survivor=True": 0,
+  "G:deg:masking_equivalent:survivor=True": 0,
+  "G:deg:nontrivial_stabilizer:survivor=True": 0,
   "G:deg:pair_on_common_axis:survivor=False": 576,
   "G:deg:pair_on_common_axis:survivor=True": 0,
   "G:observer_classes": 173,
@@ -133,7 +230,7 @@
  ],
  "in_run_gates": {
   "C0_context": {
-   "checked": 976,
+   "checked": 1584,
    "failed": 0
   },
   "C10i": {
@@ -158,7 +255,9 @@
    "failed": 0
   },
   "C7": {
-   "checked": 976,
+   "carried_vs_direct_failed": 0,
+   "checked": 608,
+   "direct_vs_reference_failed": 0,
    "failed": 0,
    "shared_tip_reps": 739
   },
@@ -173,13 +272,13 @@
  },
  "incomplete_reasons": [],
  "inputs": {
-  "dryrun.json": "b0c06aceb0038628381a84283816e9b760c34942b5788478df8d91d68ebc5675",
-  "preflight.json": "cd411d0f6e9727d5432fa76c4ab8f35ff7fe251f2e0d8d90ccb111e12bbf773e",
-  "s1a.json": "73cc58f1da7f58c262632dda60bfb21d6cab04439e22926e05784a90a6a19a2d",
-  "shard-0.json": "f7cc81e8f8a712516e0108187205c03ab35e92bbdaeb1cd50dac63e7c3f76e59",
-  "shard-1.json": "66f967f6e7c21e6cb62198f62997241b48eb505751887baf5a1afa98b1721958",
-  "shard-2.json": "46aaf3607b147b53a96c4916a3da4ff5c2f7af52c15121f3d19a3169106980ff",
-  "shard-3.json": "c7e0194726dfc506787e1c335a6618072a4054cc4166294afda57ac657a5e07b"
+  "dryrun.json": "47a53d8277e3316cd1e8e6f482f5d4b646b8fc9db3576828d01fd9791ad0bc64",
+  "preflight.json": "aeb5a340ecc51e7b8503a1fd808a5782bde3175db27885386d0095fe4d0553cf",
+  "s1a.json": "811633ce3b6b930d80d55ed224896a4796441dbf4064fdf172d96e300bab38ef",
+  "shard-0.json": "99c22d0f8b1a20d68406bd266f9701cd8be824f520427561ba9958d76a853489",
+  "shard-1.json": "126ea9132adee97d6b0962273b90296c289906fb40c805d27628cd19062748fe",
+  "shard-2.json": "c8c0e2be7b2950fc06157a12f5637184a72a95ae089ebc1d3876f2ce4f00f13b",
+  "shard-3.json": "68d320bd437246e3234e4931b0bc7cab702d84d680d85805c17003f2d07261fe"
  },
  "label": "COLLAPSE_ALL",
  "label_source": "merge of structured files",
@@ -187,43 +286,82 @@
  "masking_equivalent_records_record_sample_reading": 1398,
  "minimal_witness": null,
  "mismatch_reasons": [],
- "n_counts": 54,
+ "n_counts": 58,
+ "owner_rulings": {
+  "F3": {
+   "question": "C7 scope",
+   "ruling": "E1-F3: sets 1-4, every record index, per record, full s0ref reference"
+  },
+  "F6": {
+   "question": "C8 list (54) or 4-count erratum (58)",
+   "ruling": "58 counts (E1-F6: four added survivor cross-tabulations)"
+  },
+  "G_D": {
+   "layer2_reading": "not implemented; the full s0ref closure is the only reference form",
+   "owner_answer": "Conditionally approved; non-executing until the owner confirms the proof",
+   "question": "Lemma G-D reference form in C7 (E1 section 9)",
+   "ruling": "OWNER-PLACEHOLDER"
+  },
+  "O1": {
+   "layer2_reading": "not adopted: E_G is not a check set",
+   "question": "E_G as a fifth C7 set under G (E1 section 9; optional)",
+   "ruling": "OWNER-PLACEHOLDER"
+  },
+  "T1": {
+   "question": "rule T bound: L3prime or L3",
+   "ruling": "L3prime bound; L3 values reported only (E1-T1, \"Approve erratum\")"
+  },
+  "T2": {
+   "question": "S1a status",
+   "ruling": "sigma, S1a's own diagnostic status, cases 1-4 of E1-T2 with case 2 (d); rule T evaluated iff sigma = OK; sigma never overrides the run label (\"Give S1a its own diagnostic status, not an overriding success label\"; \"Add it\")"
+  },
+  "T5": {
+   "question": "L_G wording",
+   "ruling": "L_G counts quantities with a seed tip whose own cone contains a source cell (E1-T5)"
+  },
+  "T6": {
+   "question": "standing of rule T's L_A = L_G = 0 consequence",
+   "ruling": "geometric fact only, approved with qualification (E1-T6)"
+  },
+  "kappa": {
+   "layer2_reading": "none: no default",
+   "owner_answer": "Decide later",
+   "question": "launch margin and budget (S7)",
+   "ruling": "OWNER-PLACEHOLDER"
+  },
+  "source": "stage0/amendments/E1-LAYER1-ERRATUM.md (in effect), amaybaum 2026-10-26"
+ },
  "owner_rulings_pending": [
   "/budget/kappa",
-  "/owner_rulings/F3/ruling",
-  "/owner_rulings/F6/ruling",
-  "/owner_rulings/T1/ruling",
-  "/owner_rulings/T2/ruling",
-  "/owner_rulings/T5/ruling",
-  "/owner_rulings/kappa/ruling",
-  "/profiles/v8/C7_scope"
+  "/owner_rulings/G_D/ruling",
+  "/owner_rulings/O1/ruling",
+  "/owner_rulings/kappa/ruling"
  ],
  "profile": "toy",
  "residue_file": null,
  "rule_T": {
   "L_A": 15,
   "L_G": 7,
+  "L_reported_L3": {
+   "L_A": 15,
+   "L_G": 7
+  },
   "S1b_S1c": "S1b put to the owner as a new preregistration",
-  "cost_clause": "not evaluable in Stage 0: the clause refers to the dry-run cost estimate of the search (S1b or S1c), and no such dry run exists before S1b is preregistered",
+  "bound_rule": "L3prime",
+  "cost_clause": "not evaluable in Stage 0 (E1-T3)",
   "evaluated": true,
   "outcome": "L_A > 0 or L_G > 0",
-  "readings": {
-   "T1": {
-    "layer2_reading": "L3prime, L3 reported",
-    "owner_ruling": "OWNER-PLACEHOLDER"
-   },
-   "T2": {
-    "layer2_reading": "LAYER2-PLAN.md section 4",
-    "owner_ruling": "OWNER-PLACEHOLDER"
-   },
-   "T5": {
-    "layer2_reading": "a quantity with a seed tip, whose cone contains a source cell",
-    "owner_ruling": "OWNER-PLACEHOLDER"
-   }
+  "rulings": {
+   "T1": "L3prime bound; L3 values reported only (E1-T1, \"Approve erratum\")",
+   "T2": "sigma, S1a's own diagnostic status, cases 1-4 of E1-T2 with case 2 (d); rule T evaluated iff sigma = OK; sigma never overrides the run label (\"Give S1a its own diagnostic status, not an overriding success label\"; \"Add it\")",
+   "T5": "L_G counts quantities with a seed tip whose own cone contains a source cell (E1-T5)",
+   "T6": "geometric fact only, approved with qualification (E1-T6)"
   },
+  "run_label": "COLLAPSE_ALL",
   "s1a_status": "OK",
+  "statement_scope": "No record whose items lie in Reg \u00d7 {\u22121, \u2026, 23}, of any size, has a linked survivor under the specified closure (L3\u2032, the declared conventions and frame). This is a geometric property of that closure. It is not a probabilistic result, an empirical observation, or an independent theorem about the full model, and no law statement is made beyond k \u2264 2.",
   "text": "S1b (the minimal self-supporting record search, m <= 4, restricted to the global bound) is put to the owner as a new preregistration. S1c is taken up only if S1b's own preregistered rule calls for it.",
-  "wording_status": "provisional: retained pending owner confirmation (owner decision 2026-10-26)"
+  "wording_status": "confirmed with qualification (E1-T6, amaybaum 2026-10-26)"
  },
  "schema": "np-avg-1/stage0/layer2/result/1",
  "statement_scope": "Survivor counts are counts of configurations; collapse established by the exact closure computation under the frozen rule, with the required controls green; see section 5 of the Layer-1 plan for what each label licenses.",

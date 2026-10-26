@@ -203,14 +203,78 @@
   ]
  },
  "positive": {
+  "C7_scope_coverage": {
+   "A": {
+    "1_Surv": {
+     "orbits_touched": 2,
+     "records_checked": 8,
+     "records_failed": 0,
+     "skipped_beyond_survivor_cap": 0,
+     "sum_touched_orbit_sizes": 8
+    },
+    "2_set2": {
+     "orbits_touched": 2,
+     "records_checked": 8,
+     "records_failed": 0,
+     "skipped_beyond_survivor_cap": 0,
+     "sum_touched_orbit_sizes": 8
+    },
+    "3_I_and_H100": {
+     "orbits_touched": 0,
+     "records_checked": 0,
+     "records_failed": 0,
+     "skipped_beyond_survivor_cap": 0,
+     "sum_touched_orbit_sizes": 0
+    },
+    "4_H1000": {
+     "orbits_touched": 0,
+     "records_checked": 0,
+     "records_failed": 0,
+     "skipped_beyond_survivor_cap": 0,
+     "sum_touched_orbit_sizes": 0
+    }
+   },
+   "G": {
+    "1_Surv": {
+     "orbits_touched": 2,
+     "records_checked": 8,
+     "records_failed": 0,
+     "skipped_beyond_survivor_cap": 0,
+     "sum_touched_orbit_sizes": 8
+    },
+    "2_set2": {
+     "orbits_touched": 2,
+     "records_checked": 8,
+     "records_failed": 0,
+     "skipped_beyond_survivor_cap": 0,
+     "sum_touched_orbit_sizes": 8
+    },
+    "3_I_and_H100": {
+     "orbits_touched": 0,
+     "records_checked": 0,
+     "records_failed": 0,
+     "skipped_beyond_survivor_cap": 0,
+     "sum_touched_orbit_sizes": 0
+    },
+    "4_H1000": {
+     "orbits_touched": 0,
+     "records_checked": 0,
+     "records_failed": 0,
+     "skipped_beyond_survivor_cap": 0,
+     "sum_touched_orbit_sizes": 0
+    }
+   }
+  },
   "counts_nonzero": {
    "A:b_has_nonJ_phi_cell": 8,
    "A:deg:last_sample_odd:survivor=True": 4,
+   "A:deg:nontrivial_stabilizer:survivor=True": 8,
    "A:phi_linked": 8,
    "A:survivors": 8,
    "A:survivors_phi_linked_not_J": 8,
    "G:b_has_source_cell": 2,
    "G:deg:last_sample_odd:survivor=True": 4,
+   "G:deg:nontrivial_stabilizer:survivor=True": 8,
    "G:survivors": 8,
    "G:survivors_G_linked": 2,
    "G:survivors_G_unlinked": 6,
@@ -218,7 +282,7 @@
   },
   "gates": {
    "C0_context": {
-    "checked": 16,
+    "checked": 32,
     "failed": 0
    },
    "C10i": {
@@ -243,7 +307,9 @@
     "failed": 0
    },
    "C7": {
+    "carried_vs_direct_failed": 0,
     "checked": 16,
+    "direct_vs_reference_failed": 0,
     "failed": 0,
     "shared_tip_reps": 4
    },

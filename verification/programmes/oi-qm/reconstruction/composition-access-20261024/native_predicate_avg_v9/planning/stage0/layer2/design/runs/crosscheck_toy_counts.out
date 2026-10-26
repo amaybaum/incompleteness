@@ -1,13 +1,25 @@
 {
- "compared": 54,
- "counts_identically_zero": 32,
+ "compared": 58,
+ "counts_identically_zero": 36,
  "counts_nonzero": 22,
  "differences": {},
+ "from_control_suite": 54,
+ "independent_added": {
+  "A:deg:masking_equivalent:survivor=True": 0,
+  "A:deg:nontrivial_stabilizer:survivor=True": 0,
+  "G:deg:masking_equivalent:survivor=True": 0,
+  "G:deg:nontrivial_stabilizer:survivor=True": 0
+ },
+ "independent_marginals": {
+  "masking_equivalent_records": 1398,
+  "nontrivial_stabilizer": 1176
+ },
  "keys_only_in_merge": [],
  "label": "COLLAPSE_ALL",
  "pass": true,
  "record_sample_reading_vs_code_r5": [
   1398,
   1398
- ]
+ ],
+ "records": 1400
 }

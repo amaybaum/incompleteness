@@ -1,7 +1,25 @@
 {
- "calib_sha256": "60e2a38a4e55e5409c6a4d6f24d8fcb6eb6542161f18f96bb4d4abcb693f8cff",
+ "C7_populations": {
+  "E_G": {
+   "orbits": 6,
+   "records": 12
+  },
+  "F_G": {
+   "orbits": 283,
+   "records": 595
+  },
+  "I_A": {
+   "orbits": 432,
+   "records": 1071
+  },
+  "I_G": {
+   "orbits": 307,
+   "records": 667
+  }
+ },
+ "calib_sha256": "2416d8729c9a4d8e7655c09f83b8ccf78741d86adb8ab28a5bbc1bcfa198a484",
  "closures_computed": 0,
- "config_sha256": "2cafd18ce73744c9a1a99b91ecf350ed7cc0f75403407f66972da022a414d093",
+ "config_sha256": "c16f090cf185aa3285863f42331c67c4d9fa3e6d774a8275787ba5ca9067b252",
  "context_quantities_pairs": {
   "3": 12,
   "4": 156,
@@ -19,21 +37,52 @@
  "contexts_constructed": 0,
  "cost": {
   "C7": {
-   "by_scope_seconds": {
-    "initial_context": 108,
-    "sampled_initial_context_1_in_100": 2
+   "inputs": {
+    "E_G_information_only": 12,
+    "F_G": 595,
+    "F_G_orbits": 283,
+    "H1000_expected_records": "7/5",
+    "I_A": 1071,
+    "I_G": 667,
+    "N": 1400,
+    "Surv_A": "bounded by the survivor cap (term survivor_gates_cap): at most cap x shards x 8 records",
+    "Surv_G": "bounded by the survivor cap (term survivor_gates_cap): at most cap x shards x 8 records"
    },
-   "scope": "initial_context",
-   "seconds_per_percent_of_representatives": {
-    "A": 1,
-    "G": 2
+   "per_record_seconds": {
+    "A": {
+     "central": 0.07,
+     "upper_at_m_max": 0.07
+    },
+    "G": {
+     "central": 0.316,
+     "upper_at_m_max": 0.316
+    }
    },
-   "shared_tip_representatives_estimated": {
-    "A": 374,
-    "G": 233
+   "per_record_seconds_note": "central: the record-weighted mean over the context-size histogram; upper_at_m_max: at the largest context size",
+   "reference_form": "full_s0ref",
+   "scope": "E1-F3",
+   "seconds": {
+    "central": 191
+   },
+   "set4_seconds_central": 1,
+   "sets": {
+    "1_Surv": "within survivor_gates_cap (every survivor record of a gated orbit; beyond the cap the run is INCOMPLETE)",
+    "2_set2_A": "0 beyond set 1 (T_A within Surv_A)",
+    "2_set2_G": "|F_G| x c7_G (the part of set 2 outside Surv_G is within F_G)",
+    "3_I_and_H100": "(|I_A| / 100) x c7_A + (|I_G| / 100) x c7_G (expected sample sizes)",
+    "4_H1000": "(N / 1000) x (c7_A + c7_G) (expected sample size)"
    }
   },
   "budget_runner_seconds": 86400,
+  "formulas": {
+   "C7_scope": "|F_G| x c7_G + (|I_A|/100) x c7_A + (|I_G|/100) x c7_G + (N/1000) x (c7_A + c7_G), with c7_c = 2 x [t_c(m) + r_c(m)] per record (direct production closure and full s0ref reference, normal and -O); set 1 is in survivor_gates_cap",
+   "closures": "2 x overhead x sum_m count(m) x (orbits/N) x 2 [t_A(m) + t_G(m)]",
+   "merge": "2 x stated allowance (l2config budget.merge_seconds)",
+   "preflight": "stated allowance (l2config budget.preflight_seconds)",
+   "s1a": "2 x [2 (t_A + t_G)(|U|) + 3 streams x 2 rules x (r_A + r_G)(m_cal) x |U| / m_cal + sum_lines (t_A + t_G)(m_line)]",
+   "sampled_gates": "2 x [(1/R_C11i + 1/R_C17 + 1/R_C18) x orbits x (r_A + r_G)(m_mean) + (1/R_C8) x orbits x 8 x 2 (t_A + t_G)(m_mean)]",
+   "survivor_gates_cap": "2 x cap x shards x 8 x [2 (t_A + t_G) + 4 (r_A + r_G)](m_max), which includes C7 on set 1"
+  },
   "job_timeouts_seconds": {
    "merge": 1200,
    "preflight": 1800,
@@ -41,28 +90,32 @@
    "shard": 2400
   },
   "kappa": "OWNER-PLACEHOLDER",
-  "launch_rule": "kappa is an OWNER placeholder (L2-R7)",
+  "known_terms_plus_C7_set4_runner_seconds": 2197,
+  "known_terms_runner_seconds": 2197,
+  "launch_not_decided_because": [
+   "kappa is an OWNER placeholder (L2-R7); no default exists"
+  ],
+  "launch_rule": "launch iff kappa x total <= budget and kappa x each job <= its timeout",
   "launch_within_budget": null,
   "max_context_size": 8,
   "mean_context_size_bucket_input": 6,
   "per_job_seconds": {
    "merge": 600,
    "preflight": 300,
-   "s1a": 2,
-   "shard": 384
+   "s1a": 5,
+   "shard": 324
   },
   "survivor_cap_per_shard": 10,
   "terms_runner_seconds": {
-   "C7_scope": 108,
-   "closures": 11,
+   "C7_scope": 191,
+   "closures": 12,
    "merge": 600,
    "preflight": 300,
-   "s1a": 2,
-   "sampled_gates": 871,
-   "survivor_gates_cap": 546
+   "s1a": 5,
+   "sampled_gates": 601,
+   "survivor_gates_cap": 490
   },
-  "total_runner_seconds": 2436,
-  "total_without_C7_scope_term": 2329,
+  "total_runner_seconds": 2197,
   "universe_quantities": 22
  },
  "engine_imported": "l2plan imports no engine",
@@ -81,7 +134,7 @@
  "pass": true,
  "profile": "toy",
  "records": 1400,
- "schema": "np-avg-1/stage0/layer2/dryrun/1",
+ "schema": "np-avg-1/stage0/layer2/dryrun/2",
  "shards": [
   {
    "count": 350,

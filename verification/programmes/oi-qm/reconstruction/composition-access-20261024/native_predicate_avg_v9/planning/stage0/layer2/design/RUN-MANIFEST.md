@@ -2,79 +2,87 @@
 
 Python 3.13.16 on Linux-6.18.44-fc-v153-x86_64-with-glibc2.39.
 
-NP-AVG-1 Stage 0 Layer 2 design evidence (WIP / UNREVIEWED, not frozen): toy, planted and small-window instances, S6's carrier and v8 configuration combinatorics only; no closure on v8's configuration class (the v8 profile is refused without an authorization artifact). The quick mutant campaign is local; the full campaign is CI-only and pending owner-approved dispatch. Commit caveat (L2-R5): this evidence was produced on an uncommitted working tree; the structured files record the HEAD at run time (field commit) and tree_clean = false, so they are design evidence only. At the Layer-2 freeze the evidence is regenerated at a recorded commit.
+NP-AVG-1 Stage 0 Layer 2 design evidence (WIP / UNREVIEWED, not frozen): toy, planted and small-window instances, S6's carrier and v8 configuration combinatorics only; no closure on v8's configuration class (the v8 profile is refused without an authorization artifact). The quick mutant campaign is local; the full campaign is CI-only and pending owner-approved dispatch. Timing steps (calibration_planted, dryrun_v8_estimate, kappa_calibration_repeats) are not deterministic. Commit caveat (L2-R5): this evidence was produced on an uncommitted working tree; the structured files record the HEAD at run time (field commit) and tree_clean = false, so they are design evidence only. At the Layer-2 freeze the evidence is regenerated at a recorded commit.
 
-HEAD at run: `a63db7ba5852969b324c1932d4f2495fe601dcdb`; Layer-2 tree clean at run: False.
+HEAD at run: `53786e6e9e6f59347d20cac9f9875fdf7b4d8f67`; Layer-2 tree clean at run: False.
 
 | step | command | exit | s | -O identical | stdout SHA-256 |
 | --- | --- | --- | --- | --- | --- |
-| manifest_verify | `python3 -I -B stage0/layer2/code/l2manifest.py --verify` | 0 | 0 | True | `4dc246f0a8352311272e522f7a872fddaa3848b87d4272f67d186b00e4d14af0` |
-| l2_selftest | `python3 -I -B stage0/layer2/code/l2selftest.py` | 0 | 5 | True | `4d84403b34e52d2e4edc27461d136fcfc933d9d4aaad3eaf556b45cf85f8a9c8` |
-| calibration_planted | `python3 -I -B stage0/layer2/code/l2calib.py --out stage0/layer2/design/toyrun/calib.json` | 0 | 11 | n/a | `60e2a38a4e55e5409c6a4d6f24d8fcb6eb6542161f18f96bb4d4abcb693f8cff` |
-| dryrun_toy | `python3 -I -B stage0/layer2/code/l2plan.py --profile toy --calib stage0/layer2/design/toyrun/calib.json --shared-tips --out stage0/layer2/design/toyrun/dryrun.json` | 0 | 0 | True | `b0c06aceb0038628381a84283816e9b760c34942b5788478df8d91d68ebc5675` |
-| dryrun_v8_plan_no_closure | `python3 -I -B stage0/layer2/code/l2plan.py --profile v8` | 0 | 0 | True | `f32cf58a2e810a85aaf336c94deb87bd2867c6284a095d38ad10e7a0e39e3df5` |
-| dryrun_v8_estimate | `python3 -I -B stage0/layer2/code/l2plan.py --profile v8 --calib stage0/layer2/design/toyrun/calib.json` | 0 | 0 | n/a | `22ba0a01b1575a94936589ba8353d0556a4092370a5509d0e2d51f9285990923` |
-| preflight_toy_quick | `python3 -I -B stage0/layer2/code/l2preflight.py --profile toy --workdir stage0/layer2/design/toyrun --quick` | 0 | 95 | n/a | `c1527f157c99afe9546dc8ee99b66f5cd9ad240521a3cfdbd0e4defb08d28dc6` |
-| mutants_quick | `python3 -I -B stage0/layer2/code/l2mutants.py --workdir stage0/layer2/design/toyrun` | 0 | 197 | n/a | `cd8d07c7cc2102cdfd0cfa983945103a0a4ca5d65c500a16e68c279aa6a2400c` |
+| manifest_verify | `python3 -I -B stage0/layer2/code/l2manifest.py --verify` | 0 | 0 | True | `b988132bbbd77961eb228792ee45149d0a189d8164a06cf501f2b6cf4b683725` |
+| l2_selftest | `python3 -I -B stage0/layer2/code/l2selftest.py` | 0 | 33 | True | `47811dce746544869b2ac2ab4a3eccad2e512444cd0e0b935a3c17a03cff5d82` |
+| calibration_planted | `python3 -I -B stage0/layer2/code/l2calib.py --out stage0/layer2/design/toyrun/calib.json` | 0 | 10 | n/a | `2416d8729c9a4d8e7655c09f83b8ccf78741d86adb8ab28a5bbc1bcfa198a484` |
+| dryrun_toy | `python3 -I -B stage0/layer2/code/l2plan.py --profile toy --calib stage0/layer2/design/toyrun/calib.json --shared-tips --out stage0/layer2/design/toyrun/dryrun.json` | 0 | 1 | True | `47a53d8277e3316cd1e8e6f482f5d4b646b8fc9db3576828d01fd9791ad0bc64` |
+| dryrun_v8_plan_no_closure | `python3 -I -B stage0/layer2/code/l2plan.py --profile v8` | 0 | 0 | True | `358c4d93c51d0a4ef99e8358a0bcaf9326b82c229402783d4d9482e493540270` |
+| dryrun_v8_estimate | `python3 -I -B stage0/layer2/code/l2plan.py --profile v8 --calib stage0/layer2/design/toyrun/calib.json` | 0 | 0 | n/a | `1e2616cb5928627f6ab05b473e668d65b7b8c22f531525def43f2143e42dc02d` |
+| preflight_toy_quick | `python3 -I -B stage0/layer2/code/l2preflight.py --profile toy --workdir stage0/layer2/design/toyrun --quick` | 0 | 125 | n/a | `c1527f157c99afe9546dc8ee99b66f5cd9ad240521a3cfdbd0e4defb08d28dc6` |
+| mutants_quick | `python3 -I -B stage0/layer2/code/l2mutants.py --workdir stage0/layer2/design/toyrun` | 0 | 145 | n/a | `41428d159e31601d4ef6481844d0d73f7b6c42741526cb71a338058b7cdd8663` |
 | s1a_toy | `python3 -I -B stage0/layer2/code/l2s1a.py --profile toy --workdir stage0/layer2/design/toyrun` | 0 | 0 | True | `feddf9338991f35c1003a592a486e2abb270c0bd03ac7b19c7680c29b6591b94` |
-| shard_toy_0 | `python3 -I -B stage0/layer2/code/l2enum.py --profile toy --shard 0 --workdir stage0/layer2/design/toyrun` | 0 | 5 | True | `51790128a65249b33abf7e757b737842d6213ffcdb0862c74c746a952d671d31` |
-| shard_toy_1 | `python3 -I -B stage0/layer2/code/l2enum.py --profile toy --shard 1 --workdir stage0/layer2/design/toyrun` | 0 | 1 | True | `2df7e7fc93b031964f52720eeedc6adff4343f7625ca9f3012f19f3998088177` |
-| shard_toy_2 | `python3 -I -B stage0/layer2/code/l2enum.py --profile toy --shard 2 --workdir stage0/layer2/design/toyrun` | 0 | 1 | True | `55a1cb8ac3e51fbe85b9ff47801edc8bc1c6fef67f5bb3b2ff23c21389728367` |
-| shard_toy_3 | `python3 -I -B stage0/layer2/code/l2enum.py --profile toy --shard 3 --workdir stage0/layer2/design/toyrun` | 0 | 0 | True | `9148d0133142cd637daf95771638d3e4afcaeb40db5badd4c2d09548ed03c6b2` |
+| shard_toy_0 | `python3 -I -B stage0/layer2/code/l2enum.py --profile toy --shard 0 --workdir stage0/layer2/design/toyrun` | 0 | 6 | True | `40185fe3c0d30b626b74fd0aa902955c725009c71203994ae21ca2e1513853d4` |
+| shard_toy_1 | `python3 -I -B stage0/layer2/code/l2enum.py --profile toy --shard 1 --workdir stage0/layer2/design/toyrun` | 0 | 1 | True | `0c6f7129038629aec8ab04b687c0873b7dff683684a8844d8f9ab19463b65063` |
+| shard_toy_2 | `python3 -I -B stage0/layer2/code/l2enum.py --profile toy --shard 2 --workdir stage0/layer2/design/toyrun` | 0 | 2 | True | `c536021b2489fe55584f9ecdf72c8f5d078fbf1b754ca8a67be12cce228aefa9` |
+| shard_toy_3 | `python3 -I -B stage0/layer2/code/l2enum.py --profile toy --shard 3 --workdir stage0/layer2/design/toyrun` | 0 | 0 | True | `fbc36339987012806c1af1fd5598f48344369dd753a9c1244027281f016e7b1b` |
 | merge_toy | `python3 -I -B stage0/layer2/code/l2merge.py --profile toy --workdir stage0/layer2/design/toyrun` | 0 | 0 | True | `bd8ca82536afe94368203567f5a13a60e6bfa692b148c5eb63ebaea7fabf3d36` |
 | certificate_toy | `python3 -I -B stage0/layer2/code/l2cert.py --profile toy --workdir stage0/layer2/design/toyrun` | 0 | 0 | True | `0776b2911d40238f8064d68f7c1e378fa7cb05dc83b19b02ba58a31acedb396a` |
-| crosscheck_toy_counts | `python3 -I -B stage0/layer2/design/crosscheck.py stage0/layer2/design/toyrun` | 0 | 0 | True | `695ab124ecc42b2c774f99501527674903778acac128c46a31c889b55389e534` |
-| code_r5_equivalence_quick | `python3 -I -B stage0/layer2/design/r5_equivalence.py stage0/code-r5 stage0/layer2/design/toyrun` | 0 | 39 | n/a | `cca1570baa43bff143db2fba8e2980cc768304406a36439b6b27d8a9ce6c7f5a` |
-| planted_survivor_path | `python3 -I -B stage0/layer2/design/planted_shard.py stage0/layer2/code` | 0 | 1 | True | `e0cc6cb7dc099458ddfe468eb3b2516573137e26e571cdaef09dd2b800d37a43` |
-| refusal_probe_v8 | `python3 -I -B stage0/layer2/design/refusal_probe.py stage0/layer2/code <scratch>` | 0 | 1 | True | `5685420a3c41e18a37e26dd562255209a8cadd3ea8baf2666bab89d8c8b7336f` |
+| crosscheck_toy_counts | `python3 -I -B stage0/layer2/design/crosscheck.py stage0/layer2/design/toyrun stage0/code-r5` | 0 | 8 | True | `e04859f9b1b820e914ad9ef0418eb33e55c40cc8e564c6033537101e980e8a05` |
+| e1check_replay | `python3 -I -B stage0/layer2/design/e1check_replay.py stage0/amendments/E1-check` | 0 | 18 | True | `9b0be14fd1f35ea1edd00da5b04674cac0a424d60bfc69774cd6adbbe0487656` |
+| code_r5_equivalence_quick | `python3 -I -B stage0/layer2/design/r5_equivalence.py stage0/code-r5 stage0/layer2/design/toyrun` | 0 | 43 | n/a | `cca1570baa43bff143db2fba8e2980cc768304406a36439b6b27d8a9ce6c7f5a` |
+| planted_survivor_path | `python3 -I -B stage0/layer2/design/planted_shard.py stage0/layer2/code` | 0 | 1 | True | `8655262044849e40e6106ea3e45280388073e46679bbb4ec2c2e902c40d81824` |
+| refusal_probe_v8 | `python3 -I -B stage0/layer2/design/refusal_probe.py stage0/layer2/code <scratch>` | 0 | 1 | True | `1682b6cda6d4b4c080d2c6caaad1187386fa667a0d750286a4ed8eb885d29f64` |
+| kappa_calibration_repeats | `python3 -I -B stage0/layer2/design/kappa_calibration.py stage0/layer2/code stage0/layer2/design/kappa/calibration-repeats.json` | 0 | 137 | n/a | `1c11007ed377540e16d65fce82c9532cd13ad2c21e2ab215c377f0a8b17c7f57` |
 
 | file | SHA-256 |
 | --- | --- |
-| stage0/layer2/code/LAYER2-MANIFEST.json | `5769320f3752ff5a5971162e3a19938049a829c2df543a0b27607e93d28caeb9` |
-| stage0/layer2/code/l2analysis.py | `2b58a175b24ba3f6d63e6eade4f0fa02cc07fcfd18f18a29b4c692d97d92dc7d` |
+| stage0/layer2/code/LAYER2-MANIFEST.json | `a6b8d9b67941d2bfafada142b466458913870137d66907c4428cb4ce1f2eaf9e` |
+| stage0/layer2/code/l2analysis.py | `0c61690071848022c6c78e6eccab1533ede41240b70aac85459876b3168e25fc` |
 | stage0/layer2/code/l2auth.py | `e1be779494f3f553ccdb7102c22f394a0c122cb63502ccb398ee16aa836bcb91` |
 | stage0/layer2/code/l2calib.py | `48427e257d350a279ea4430feebb9bfafe376c5e9af725c16ea49cb21a45b0e5` |
-| stage0/layer2/code/l2cert.py | `d39b3856b998f42716c846ab6cba2bb116e173e966789e10327feef371c603bd` |
-| stage0/layer2/code/l2config.py | `c5e3a24954501b95c36d54e53c87eebee6b3514760f69c7adf5c8622357182c5` |
-| stage0/layer2/code/l2enum.py | `51ef53bfa4dfd15997320cafe8b24da1a41f8c76448e004f8acb79a0d24d411e` |
+| stage0/layer2/code/l2cert.py | `021a4d50d946e456e7f6e801b2bea9b19690cb7467c40932ed7f434f732ece30` |
+| stage0/layer2/code/l2config.py | `d5455e3e2ec72280b95e568a847918d33eb114ab686e9309a2f54a0c1f708f10` |
+| stage0/layer2/code/l2enum.py | `7c7f78472a589dc2f57ef3067bfb67d5cc2b580e7d8b9bb45c01beee88c439d8` |
 | stage0/layer2/code/l2landing.py | `0af56760310ee4bf255bc9b5bc26be9b15d8ff2662486ba1778a2fe170c0644f` |
 | stage0/layer2/code/l2manifest.py | `d30c92f4eac252992c8ecbb03cb89bbb39a6a968b57f4ab359f331beceb4dea0` |
-| stage0/layer2/code/l2merge.py | `80b5aa92411c660469ef5d99a9611b8156d73466727fa90b98ada009b55772cc` |
-| stage0/layer2/code/l2mutants.py | `99b0645ef96446a855943fb508dc43711741d2b7ec15bdba62e9573012dec9e8` |
-| stage0/layer2/code/l2plan.py | `52ff47469ad6fe5fe6e8457517b366f53bc8c5ad8fe11dc149608e516b66549d` |
-| stage0/layer2/code/l2preflight.py | `ec919bbd14da0731433de4df0c4723035fbadfb934b757b6fe15603c71babadb` |
-| stage0/layer2/code/l2refcheck.py | `0f80b0afa068170088e3ed0f853301afd01d0df98b3d3c4726586512b52317a8` |
-| stage0/layer2/code/l2run.py | `17f744a9ee0a71176a51e5ab887c46a86b98ae9bd1a0a42f01743d5aed157f3a` |
-| stage0/layer2/code/l2s1a.py | `d6ee05e082db7982e180097037014f24befcc380c101a37257ef9b8f7cc29385` |
-| stage0/layer2/code/l2selftest.py | `1e820347d8d3cc5298caf1080ac025a3360376076cd496daa7315aa2c6d11345` |
+| stage0/layer2/code/l2merge.py | `881bda621718ef4f885566797f9894cc180b341e14962ce387bf6b20ae59ee77` |
+| stage0/layer2/code/l2mutants.py | `73c5e2fa733844ec21af149daa81d37cb7f650453fc41504658f2563c45a90ad` |
+| stage0/layer2/code/l2plan.py | `67e0603f1ed877649e6361b25aaacbb01dd1de1325c7b71b2a59ad0201513516` |
+| stage0/layer2/code/l2preflight.py | `ee50c6e4f1cb1b5d7b8cf044999b43009792bb26a54bfb13c34ddc9770a18671` |
+| stage0/layer2/code/l2refcheck.py | `0049d2103fa03b6a1141212da74b9945e145eeea5ebcb26b5916d78f88b07d46` |
+| stage0/layer2/code/l2run.py | `f271571480a5beab8e93ff4cd65d1ece640b0c6d3c41ce650975aa363cb1f0af` |
+| stage0/layer2/code/l2s1a.py | `2ef4073d8913e02f98ba01102c43053196482ffebdf873617aa7766b7d913f48` |
+| stage0/layer2/code/l2selftest.py | `fe73112ab74667267f172d286a776ed001950cd76f2c6655981d33ae02cf2b32` |
 | stage0/layer2/code/s0controls.py | `81994f1b8375c988f0d622d202a0896e44338ac8d08c888eaa119c3ef7f103cb` |
 | stage0/layer2/code/s0geom.py | `9ab0d64cbf7efef231355a46d9264658735f314a325c02067fffabd15eba8e13` |
 | stage0/layer2/code/s0native.py | `4206549e8c01d62c684d4375fb11ae79e2fe69ef059c61600ae3db04570c8526` |
 | stage0/layer2/code/s0ref.py | `4aa701f44309d15546182f47625c8a0d5fff060e0273c9e8b85324560d473859` |
 | stage0/layer2/code/s0s6.py | `110f275cd83edb759b40c249900bc397e1fc3accc9571add50fa8bac3e42289a` |
 | stage0/layer2/code/s0symcheck.py | `ffe390ae7a7491ab32a2e08c2d739c1be3028b465cf571842198c3c487f618f2` |
-| stage0/layer2/design/crosscheck.py | `a3b963ad40966f268d117c4737530fc68f8c20f7c4ba7f374dca027b037d9d0a` |
-| stage0/layer2/design/planted_shard.py | `e86df3d274540b43e8db73e738a12a8dbe6ba0b74578bd305a1dd827e5a4a340` |
+| stage0/layer2/design/crosscheck.py | `bc9157104b5cc7967eb8a764c8c076b90c5b422b023a0f5ea10c6cafe505370d` |
+| stage0/layer2/design/e1check_replay.py | `edf282712115413b7e8c9b7c0c46ea6638053c1b0c834424acc25aa6f64d8516` |
+| stage0/layer2/design/kappa_calibration.py | `7c804037619344be5e90a5db45e34c662207355cf1ffdf7b72726aeccd53d498` |
+| stage0/layer2/design/planted_shard.py | `f64186f30655cff5589cc07271f31bc0332a0373f8ecbe0444558c166fc22d8c` |
 | stage0/layer2/design/r5_equivalence.py | `ca2ee6be0d6d918683e2f67072fb526459ff7a1c91ac3a8eb9502cdc7f10fc71` |
-| stage0/layer2/design/refusal_probe.py | `3384a3847e47a5a2eb8a3055625f6bccf9bad580a0ae3a7daaf6afeecd70b7d2` |
+| stage0/layer2/design/refusal_probe.py | `32ebcfde74341725797e2a69a6df251c5ee9d94c40053ecc5c29de01ce4e35ba` |
 
 | toy-run file | SHA-256 |
 | --- | --- |
-| stage0/layer2/design/toyrun/calib.json | `60e2a38a4e55e5409c6a4d6f24d8fcb6eb6542161f18f96bb4d4abcb693f8cff` |
-| stage0/layer2/design/toyrun/certificate.json | `d00017cf9807606cd537aba55e97fa1d724c16ea236ba7a06cc151a4f3d1f791` |
-| stage0/layer2/design/toyrun/dryrun.json | `b0c06aceb0038628381a84283816e9b760c34942b5788478df8d91d68ebc5675` |
-| stage0/layer2/design/toyrun/expected-controls.json | `40c5dfb8ac2d4463de93de1faa8dd3c74cac76e08a92fd2f1e39cd6284ed97ac` |
-| stage0/layer2/design/toyrun/mutant-campaign.json | `cd8d07c7cc2102cdfd0cfa983945103a0a4ca5d65c500a16e68c279aa6a2400c` |
-| stage0/layer2/design/toyrun/preflight.json | `cd411d0f6e9727d5432fa76c4ab8f35ff7fe251f2e0d8d90ccb111e12bbf773e` |
-| stage0/layer2/design/toyrun/result.O.json | `d427f4523f1f3371f97317e4930fc8e01462bc77a81c83fa5936ec1236071213` |
-| stage0/layer2/design/toyrun/result.json | `d427f4523f1f3371f97317e4930fc8e01462bc77a81c83fa5936ec1236071213` |
-| stage0/layer2/design/toyrun/s1a.O.json | `73cc58f1da7f58c262632dda60bfb21d6cab04439e22926e05784a90a6a19a2d` |
-| stage0/layer2/design/toyrun/s1a.json | `73cc58f1da7f58c262632dda60bfb21d6cab04439e22926e05784a90a6a19a2d` |
-| stage0/layer2/design/toyrun/shard-0.O.json | `f7f70fe48269d226e07262d8d59547d7557cb50aa48fac65a85bad62de45604a` |
-| stage0/layer2/design/toyrun/shard-0.json | `f7f70fe48269d226e07262d8d59547d7557cb50aa48fac65a85bad62de45604a` |
-| stage0/layer2/design/toyrun/shard-1.O.json | `a87584fd2336266b41cb0fe3024bcd3ceebf4ee9755c09129ed3472a716557e3` |
-| stage0/layer2/design/toyrun/shard-1.json | `a87584fd2336266b41cb0fe3024bcd3ceebf4ee9755c09129ed3472a716557e3` |
-| stage0/layer2/design/toyrun/shard-2.O.json | `2c674bfa9e4447c82d17756300161eed71832054e47cc3198e054873ec696c21` |
-| stage0/layer2/design/toyrun/shard-2.json | `2c674bfa9e4447c82d17756300161eed71832054e47cc3198e054873ec696c21` |
-| stage0/layer2/design/toyrun/shard-3.O.json | `d73dc1f723326fbf529d6572ad9ff032912209818668e5440ef5807141dd8a3b` |
-| stage0/layer2/design/toyrun/shard-3.json | `d73dc1f723326fbf529d6572ad9ff032912209818668e5440ef5807141dd8a3b` |
+| stage0/layer2/design/toyrun/calib.json | `2416d8729c9a4d8e7655c09f83b8ccf78741d86adb8ab28a5bbc1bcfa198a484` |
+| stage0/layer2/design/toyrun/certificate.json | `2006d16951f52007ba3afbff0631fcb029d04b83ffab9f46a986114cbca8b1b1` |
+| stage0/layer2/design/toyrun/dryrun.json | `47a53d8277e3316cd1e8e6f482f5d4b646b8fc9db3576828d01fd9791ad0bc64` |
+| stage0/layer2/design/toyrun/expected-controls.json | `9b422c543d3b37df988358db3d5ff2e6246427a906d925caaa80b9bafb20a14e` |
+| stage0/layer2/design/toyrun/mutant-campaign.json | `41428d159e31601d4ef6481844d0d73f7b6c42741526cb71a338058b7cdd8663` |
+| stage0/layer2/design/toyrun/preflight.json | `aeb5a340ecc51e7b8503a1fd808a5782bde3175db27885386d0095fe4d0553cf` |
+| stage0/layer2/design/toyrun/result.O.json | `16b45f87a199e01642578f9d1ed20ba3a980d1ce0654ef446c3a1274f3fde17f` |
+| stage0/layer2/design/toyrun/result.json | `16b45f87a199e01642578f9d1ed20ba3a980d1ce0654ef446c3a1274f3fde17f` |
+| stage0/layer2/design/toyrun/s1a.O.json | `811633ce3b6b930d80d55ed224896a4796441dbf4064fdf172d96e300bab38ef` |
+| stage0/layer2/design/toyrun/s1a.json | `811633ce3b6b930d80d55ed224896a4796441dbf4064fdf172d96e300bab38ef` |
+| stage0/layer2/design/toyrun/shard-0.O.json | `2f514f5f3c5b6cae2e042816c37f9ded245390cd27eface9d802f72f247cd82a` |
+| stage0/layer2/design/toyrun/shard-0.json | `2f514f5f3c5b6cae2e042816c37f9ded245390cd27eface9d802f72f247cd82a` |
+| stage0/layer2/design/toyrun/shard-1.O.json | `728522ab91a3ae703eea05bac76e8ded18960f80809ad9563a608368a3b11da8` |
+| stage0/layer2/design/toyrun/shard-1.json | `728522ab91a3ae703eea05bac76e8ded18960f80809ad9563a608368a3b11da8` |
+| stage0/layer2/design/toyrun/shard-2.O.json | `c4ba882347f8c51c759665f9986387082f119c477ce38fcd448b4adfd8854961` |
+| stage0/layer2/design/toyrun/shard-2.json | `c4ba882347f8c51c759665f9986387082f119c477ce38fcd448b4adfd8854961` |
+| stage0/layer2/design/toyrun/shard-3.O.json | `067f7658d7db07f79741ff79d613e897cd58b964ed7addde2885c3b89a5c0a2b` |
+| stage0/layer2/design/toyrun/shard-3.json | `067f7658d7db07f79741ff79d613e897cd58b964ed7addde2885c3b89a5c0a2b` |
+
+| kappa calibration file | SHA-256 |
+| --- | --- |
+| stage0/layer2/design/kappa/calibration-repeats.json | `5a34c122e58c231c0eb464d29bafde99c89e3ffbedef1952cf8b1ea69b822815` |

@@ -1,28 +1,28 @@
 {
- "commit": "a63db7ba5852969b324c1932d4f2495fe601dcdb",
+ "commit": "53786e6e9e6f59347d20cac9f9875fdf7b4d8f67",
  "holds": true,
  "items": {
   "1_manifest": {
-   "code_digest": "3590d12364f9dc8f5e0a28f1b96d387b31d20c8aaad3f9d8bc7b25dcf03e73f5",
-   "config_sha256": "2cafd18ce73744c9a1a99b91ecf350ed7cc0f75403407f66972da022a414d093",
+   "code_digest": "d858dacee48c133a4c3bd54a418bd79a40b1ff5604987c4ed9bf6fb04ffb695e",
+   "config_sha256": "c16f090cf185aa3285863f42331c67c4d9fa3e6d774a8275787ba5ca9067b252",
    "differences": [],
    "files": {
-    "l2analysis.py": "2b58a175b24ba3f6d63e6eade4f0fa02cc07fcfd18f18a29b4c692d97d92dc7d",
+    "l2analysis.py": "0c61690071848022c6c78e6eccab1533ede41240b70aac85459876b3168e25fc",
     "l2auth.py": "e1be779494f3f553ccdb7102c22f394a0c122cb63502ccb398ee16aa836bcb91",
     "l2calib.py": "48427e257d350a279ea4430feebb9bfafe376c5e9af725c16ea49cb21a45b0e5",
-    "l2cert.py": "d39b3856b998f42716c846ab6cba2bb116e173e966789e10327feef371c603bd",
-    "l2config.py": "c5e3a24954501b95c36d54e53c87eebee6b3514760f69c7adf5c8622357182c5",
-    "l2enum.py": "51ef53bfa4dfd15997320cafe8b24da1a41f8c76448e004f8acb79a0d24d411e",
+    "l2cert.py": "021a4d50d946e456e7f6e801b2bea9b19690cb7467c40932ed7f434f732ece30",
+    "l2config.py": "d5455e3e2ec72280b95e568a847918d33eb114ab686e9309a2f54a0c1f708f10",
+    "l2enum.py": "7c7f78472a589dc2f57ef3067bfb67d5cc2b580e7d8b9bb45c01beee88c439d8",
     "l2landing.py": "0af56760310ee4bf255bc9b5bc26be9b15d8ff2662486ba1778a2fe170c0644f",
     "l2manifest.py": "d30c92f4eac252992c8ecbb03cb89bbb39a6a968b57f4ab359f331beceb4dea0",
-    "l2merge.py": "80b5aa92411c660469ef5d99a9611b8156d73466727fa90b98ada009b55772cc",
-    "l2mutants.py": "99b0645ef96446a855943fb508dc43711741d2b7ec15bdba62e9573012dec9e8",
-    "l2plan.py": "52ff47469ad6fe5fe6e8457517b366f53bc8c5ad8fe11dc149608e516b66549d",
-    "l2preflight.py": "ec919bbd14da0731433de4df0c4723035fbadfb934b757b6fe15603c71babadb",
-    "l2refcheck.py": "0f80b0afa068170088e3ed0f853301afd01d0df98b3d3c4726586512b52317a8",
-    "l2run.py": "17f744a9ee0a71176a51e5ab887c46a86b98ae9bd1a0a42f01743d5aed157f3a",
-    "l2s1a.py": "d6ee05e082db7982e180097037014f24befcc380c101a37257ef9b8f7cc29385",
-    "l2selftest.py": "1e820347d8d3cc5298caf1080ac025a3360376076cd496daa7315aa2c6d11345",
+    "l2merge.py": "881bda621718ef4f885566797f9894cc180b341e14962ce387bf6b20ae59ee77",
+    "l2mutants.py": "73c5e2fa733844ec21af149daa81d37cb7f650453fc41504658f2563c45a90ad",
+    "l2plan.py": "67e0603f1ed877649e6361b25aaacbb01dd1de1325c7b71b2a59ad0201513516",
+    "l2preflight.py": "ee50c6e4f1cb1b5d7b8cf044999b43009792bb26a54bfb13c34ddc9770a18671",
+    "l2refcheck.py": "0049d2103fa03b6a1141212da74b9945e145eeea5ebcb26b5916d78f88b07d46",
+    "l2run.py": "f271571480a5beab8e93ff4cd65d1ece640b0c6d3c41ce650975aa363cb1f0af",
+    "l2s1a.py": "2ef4073d8913e02f98ba01102c43053196482ffebdf873617aa7766b7d913f48",
+    "l2selftest.py": "fe73112ab74667267f172d286a776ed001950cd76f2c6655981d33ae02cf2b32",
     "s0controls.py": "81994f1b8375c988f0d622d202a0896e44338ac8d08c888eaa119c3ef7f103cb",
     "s0geom.py": "9ab0d64cbf7efef231355a46d9264658735f314a325c02067fffabd15eba8e13",
     "s0native.py": "4206549e8c01d62c684d4375fb11ae79e2fe69ef059c61600ae3db04570c8526",
@@ -86,9 +86,11 @@
     "C12_universe": {
      "V_cone_even_cells": 129,
      "class": "MISMATCH",
+     "frame_cells_in_box": 129,
      "frame_even_cells": 129,
      "in_frame_cone_leaves_frame": [],
      "in_frame_quantities_checked": 15,
+     "l2plan_frame_equals_production_frame": true,
      "pass": true,
      "universe_quantities": 22
     },
@@ -174,17 +176,17 @@
     }
    },
    "holds": true,
-   "sha256": "cd411d0f6e9727d5432fa76c4ab8f35ff7fe251f2e0d8d90ccb111e12bbf773e"
+   "sha256": "aeb5a340ecc51e7b8503a1fd808a5782bde3175db27885386d0095fe4d0553cf"
   },
   "3_mutant_campaign": {
    "holds": true,
    "mode": "quick",
-   "sha256": "cd8d07c7cc2102cdfd0cfa983945103a0a4ca5d65c500a16e68c279aa6a2400c"
+   "sha256": "41428d159e31601d4ef6481844d0d73f7b6c42741526cb71a338058b7cdd8663"
   },
   "4_in_run_gates": {
    "gates": {
     "C0_context": {
-     "checked": 976,
+     "checked": 1584,
      "failed": 0
     },
     "C10i": {
@@ -209,7 +211,9 @@
      "failed": 0
     },
     "C7": {
-     "checked": 976,
+     "carried_vs_direct_failed": 0,
+     "checked": 608,
+     "direct_vs_reference_failed": 0,
      "failed": 0,
      "shared_tip_reps": 739
     },
@@ -245,22 +249,22 @@
   },
   "7_determinism": {
    "commits": {
-    "preflight.json": "a63db7ba5852969b324c1932d4f2495fe601dcdb",
-    "result.O.json": "a63db7ba5852969b324c1932d4f2495fe601dcdb",
-    "result.json": "a63db7ba5852969b324c1932d4f2495fe601dcdb",
-    "s1a.O.json": "a63db7ba5852969b324c1932d4f2495fe601dcdb",
-    "s1a.json": "a63db7ba5852969b324c1932d4f2495fe601dcdb",
-    "shard-0.O.json": "a63db7ba5852969b324c1932d4f2495fe601dcdb",
-    "shard-0.json": "a63db7ba5852969b324c1932d4f2495fe601dcdb",
-    "shard-1.O.json": "a63db7ba5852969b324c1932d4f2495fe601dcdb",
-    "shard-1.json": "a63db7ba5852969b324c1932d4f2495fe601dcdb",
-    "shard-2.O.json": "a63db7ba5852969b324c1932d4f2495fe601dcdb",
-    "shard-2.json": "a63db7ba5852969b324c1932d4f2495fe601dcdb",
-    "shard-3.O.json": "a63db7ba5852969b324c1932d4f2495fe601dcdb",
-    "shard-3.json": "a63db7ba5852969b324c1932d4f2495fe601dcdb"
+    "preflight.json": "53786e6e9e6f59347d20cac9f9875fdf7b4d8f67",
+    "result.O.json": "53786e6e9e6f59347d20cac9f9875fdf7b4d8f67",
+    "result.json": "53786e6e9e6f59347d20cac9f9875fdf7b4d8f67",
+    "s1a.O.json": "53786e6e9e6f59347d20cac9f9875fdf7b4d8f67",
+    "s1a.json": "53786e6e9e6f59347d20cac9f9875fdf7b4d8f67",
+    "shard-0.O.json": "53786e6e9e6f59347d20cac9f9875fdf7b4d8f67",
+    "shard-0.json": "53786e6e9e6f59347d20cac9f9875fdf7b4d8f67",
+    "shard-1.O.json": "53786e6e9e6f59347d20cac9f9875fdf7b4d8f67",
+    "shard-1.json": "53786e6e9e6f59347d20cac9f9875fdf7b4d8f67",
+    "shard-2.O.json": "53786e6e9e6f59347d20cac9f9875fdf7b4d8f67",
+    "shard-2.json": "53786e6e9e6f59347d20cac9f9875fdf7b4d8f67",
+    "shard-3.O.json": "53786e6e9e6f59347d20cac9f9875fdf7b4d8f67",
+    "shard-3.json": "53786e6e9e6f59347d20cac9f9875fdf7b4d8f67"
    },
    "commits_bound": true,
-   "dryrun_sha256": "b0c06aceb0038628381a84283816e9b760c34942b5788478df8d91d68ebc5675",
+   "dryrun_sha256": "47a53d8277e3316cd1e8e6f482f5d4b646b8fc9db3576828d01fd9791ad0bc64",
    "holds": true,
    "normal_vs_O_identical": {
     "result.json": true,
@@ -289,13 +293,13 @@
   "8_labels": {
    "holds": true,
    "inputs": {
-    "dryrun.json": "b0c06aceb0038628381a84283816e9b760c34942b5788478df8d91d68ebc5675",
-    "preflight.json": "cd411d0f6e9727d5432fa76c4ab8f35ff7fe251f2e0d8d90ccb111e12bbf773e",
-    "s1a.json": "73cc58f1da7f58c262632dda60bfb21d6cab04439e22926e05784a90a6a19a2d",
-    "shard-0.json": "f7cc81e8f8a712516e0108187205c03ab35e92bbdaeb1cd50dac63e7c3f76e59",
-    "shard-1.json": "66f967f6e7c21e6cb62198f62997241b48eb505751887baf5a1afa98b1721958",
-    "shard-2.json": "46aaf3607b147b53a96c4916a3da4ff5c2f7af52c15121f3d19a3169106980ff",
-    "shard-3.json": "c7e0194726dfc506787e1c335a6618072a4054cc4166294afda57ac657a5e07b"
+    "dryrun.json": "47a53d8277e3316cd1e8e6f482f5d4b646b8fc9db3576828d01fd9791ad0bc64",
+    "preflight.json": "aeb5a340ecc51e7b8503a1fd808a5782bde3175db27885386d0095fe4d0553cf",
+    "s1a.json": "811633ce3b6b930d80d55ed224896a4796441dbf4064fdf172d96e300bab38ef",
+    "shard-0.json": "99c22d0f8b1a20d68406bd266f9701cd8be824f520427561ba9958d76a853489",
+    "shard-1.json": "126ea9132adee97d6b0962273b90296c289906fb40c805d27628cd19062748fe",
+    "shard-2.json": "c8c0e2be7b2950fc06157a12f5637184a72a95ae089ebc1d3876f2ce4f00f13b",
+    "shard-3.json": "68d320bd437246e3234e4931b0bc7cab702d84d680d85805c17003f2d07261fe"
    },
    "label": "COLLAPSE_ALL"
   }

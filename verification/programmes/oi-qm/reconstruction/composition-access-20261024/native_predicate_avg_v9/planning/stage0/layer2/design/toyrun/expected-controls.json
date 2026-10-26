@@ -3,7 +3,7 @@
   "group_order": 8,
   "orbits": 488,
   "records": 1400,
-  "reported_counts": 54
+  "reported_counts": 58
  },
  "expected_controls_full": {
   "C11i_tables": 16831,
@@ -68,9 +68,11 @@
   "C12_universe": {
    "V_cone_even_cells": 129,
    "class": "MISMATCH",
+   "frame_cells_in_box": 129,
    "frame_even_cells": 129,
    "in_frame_cone_leaves_frame": [],
    "in_frame_quantities_checked": 15,
+   "l2plan_frame_equals_production_frame": true,
    "pass": true,
    "universe_quantities": 22
   },

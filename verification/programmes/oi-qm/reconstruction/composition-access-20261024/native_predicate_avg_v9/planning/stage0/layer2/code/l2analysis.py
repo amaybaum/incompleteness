@@ -8,8 +8,12 @@ s0geom.Context.run. Functions:
   analyse by l2selftest on every toy record and by the in-run C8 gate on sampled orbits);
 - the degeneracies of section 3, shared near tips, shared aligned tips, the cover graph and
   the residual support (Layer-2 definitions, stated in LAYER2-PLAN.md section 4);
-- member_contributions: the closed list of 54 reported counts (plan section 6, C8),
-  contributed by one record.
+- member_contributions: the additive part of the 58 reported counts (L1 section 6, C8, with
+  erratum E1's item E1-F6), contributed by one record.
+
+count_keys() is the r5 list of 54 (L1 C8, frozen); reported_count_keys() is the list of 58 that
+Layer 2 reports (E1-F6: the 54 plus the survivor cells of masking equivalence and of a
+nontrivial stabilizer, per convention). E1-check part B reads count_keys() as the r5 list.
 """
 from itertools import permutations, product
 
@@ -153,16 +157,30 @@ def count_keys():
     return keys
 
 
+# E1-F6: for D = masking-equivalent and D = nontrivial stabilizer, the list reports n(D) (frozen)
+# and n(D, c, True) for c in {A, G} (added); n(D, c, False) = n(D) - n(D, c, True) is determined.
+ADDED_E1_F6 = ['%s:deg:%s:survivor=True' % (c, d) for c in ('A', 'G')
+               for d in ('masking_equivalent', 'nontrivial_stabilizer')]
+
+
+def reported_count_keys():
+    """The 58 reported counts (E1-F6): the r5 list of 54 and the four added survivor cells."""
+    return count_keys() + ADDED_E1_F6
+
+
 # Counts that are sums of per-record contributions. The observer-class counts are
 # cardinalities of sets of public sets, and masking_equivalent_records is a property of
 # the record space; both are formed by the merge.
 CLASS_KEYS = ('observer_classes', 'observer_classes_survivors', 'observer_classes_collapsed')
 
 
-def member_contributions(setup, r, aA, aG, a3A, a3G):
+def member_contributions(setup, r, aA, aG, a3A, a3G, masking_equivalent, nontrivial_stabilizer):
     """Per-record contributions to the additive reported counts, from the analysis
     dictionaries of record r (L3prime: aA, aG; L3: a3A, a3G). Mirrors code-r5
-    s0controls._reported_counts term by term."""
+    s0controls._reported_counts term by term for the r5 list, and adds E1-F6's four survivor
+    cells from the record's two flags (masking-equivalent relative to the record space;
+    nontrivial stabilizer). The plain count nontrivial_stabilizer is added per orbit by the
+    shard; masking_equivalent_records is formed by the merge."""
     out = {}
     deg = degeneracies(setup, r)
     for conv, a, a3 in (('A', aA, a3A), ('G', aG, a3G)):
@@ -183,6 +201,8 @@ def member_contributions(setup, r, aA, aG, a3A, a3G):
         for k in DEGENERACIES:
             for sv in (False, True):
                 out['%s:deg:%s:survivor=%s' % (conv, k, sv)] = int(deg[k] and a['survivor'] == sv)
+        out['%s:deg:masking_equivalent:survivor=True' % conv] = int(bool(masking_equivalent) and a['survivor'])
+        out['%s:deg:nontrivial_stabilizer:survivor=True' % conv] = int(bool(nontrivial_stabilizer) and a['survivor'])
     return out
 
 

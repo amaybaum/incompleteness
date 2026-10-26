@@ -10,7 +10,9 @@ planted records of the toy setup (not records of the toy index space, and not v8
 
 Positive run: the bound is the union of the planted contexts, so C9 holds by construction;
 every gate must hold, and the reference gates must run on every member of each survivor orbit
-in both conventions (L2-R2). Negative control: the same record with one retained quantity
+in both conventions (L2-R2); C7 runs per record on set 1 (erratum E1, item E1-F3), each with its
+own C0 check, and the shard reports the per-set coverage. The planted orbits have a nontrivial
+stabilizer, so E1-F6's survivor cell N_ST is nonzero under A and G (non-vacuity of that path). Negative control: the same record with one retained quantity
 removed from the A bound; C9 must fail, and the shard's running minimum witness (L2-R1),
 confirmed by direct closure, must be the C16-minimal record among the candidates. Usage: python3 -I -B planted_shard.py <layer2/code>. Prints JSON; exit 0 iff
 both runs behave as stated.
@@ -67,7 +69,10 @@ members = sum(len(AN.orbit(r, grp)) for _, r in records)
 pos_ok = len(po['survivors']) == po['survivor_representatives'] >= 1 and \
     all(v['failed'] == 0 for v in po['gates'].values()) and po['gates']['C11ii']['checked'] > 0 and \
     po['gates']['C8']['checked'] >= 1 and \
-    all(po['gates'][k]['checked'] == 2*members for k in ('C0_context', 'C7', 'C11i', 'C17', 'C18'))
+    all(po['gates'][k]['checked'] == 2*members for k in ('C7', 'C11i', 'C17', 'C18')) and \
+    po['gates']['C0_context']['checked'] == 4*members and \
+    all(po['C7_scope_coverage'][c]['1_Surv']['records_checked'] == members for c in ('A', 'G')) and \
+    all(po['counts_additive']['%s:deg:nontrivial_stabilizer:survivor=True' % c] == members for c in ('A', 'G'))
 
 # negative control: remove one retained quantity of the block from the A bound
 retA = G.Context(setup, blk, 'A').run()
@@ -81,6 +86,7 @@ neg_ok = neg['gates']['C9']['failed'] > 0 and neg['witness_candidates_seen'] > 0
     any(c.startswith('C9') for c in w['conditions'])
 out = {'planted_records': {'block': [[list(x), t] for x, t in blk], 'block_minus_top': [[list(x), t] for x, t in blk_minus_top]},
        'positive': {'gates': po['gates'], 'survivor_representatives': po['survivor_representatives'],
+                    'C7_scope_coverage': po['C7_scope_coverage'],
                     'orbit_members': members, 'summary': summary,
                     'counts_nonzero': {k: v for k, v in po['counts_additive'].items() if v}, 'pass': pos_ok},
        'negative_C9': {'dropped_from_A_bound': [list(drop[0]), drop[1]], 'gates_C9': neg['gates']['C9'],

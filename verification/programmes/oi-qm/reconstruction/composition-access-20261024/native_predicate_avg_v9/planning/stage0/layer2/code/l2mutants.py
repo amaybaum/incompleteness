@@ -16,9 +16,10 @@ QUICK (local design evidence): each Layer-1 rule mutant runs s0controls.py --qui
 <its named control>; the two non-vacuity mutants (blind -y; -y ignores fixed covers) run the
 whole quick suite, since their demonstration is that C11 fails and every other control stays
 green, with the reported counts equal to the frozen rule's. The Layer-2 machinery mutants run
-l2selftest.py --mutant M. The two equivalent mutants are not run in QUICK.
-FULL (CI only, owner-approved dispatch): every rule mutant runs the full suite, and the
-equivalent mutants run as well.
+l2selftest.py --mutant M --only <its named case>. The two equivalent mutants are not run in
+QUICK.
+FULL (CI only, owner-approved dispatch): every rule mutant runs the full suite, every machinery
+mutant runs every self-test case, and the equivalent mutants run as well.
 """
 import json
 import os
@@ -120,10 +121,12 @@ def main():
         ok &= hit
     import l2selftest as ST
     for m, (_, case, desc) in ST.MUTANTS.items():
-        code, res = run([py, '-I', '-B', os.path.join(HERE, 'l2selftest.py'), '--mutant', m])
+        code, res = run([py, '-I', '-B', os.path.join(HERE, 'l2selftest.py'), '--mutant', m] +
+                        ([] if full else ['--only', case]))
         hit = res is not None and code == 2 and case in res.get('failed', [])
         out['machinery_mutants'][m] = {'exit': code, 'failed': res['failed'] if res else 'unparseable',
-                                       'named_case': '%s: %s' % (case, desc), 'killed': hit}
+                                       'named_case': '%s: %s' % (case, desc), 'killed': hit,
+                                       'run': 'every self-test case' if full else 'named case only'}
         ok &= hit
     if full:
         out['equivalent'] = {}
@@ -135,6 +138,7 @@ def main():
     else:
         out['not_run_in_quick'] = {'equivalent mutants': EQUIVALENT,
                                    'whole-suite runs of the non-demonstration rule mutants': sorted(set(CASES) - set(DEMO)),
+                                   'all-case self-test runs of the machinery mutants': sorted(ST.MUTANTS),
                                    'full-depth controls': 'C1 F 0-15/B 0-8/G 0-23, C2, C3 full ranges, C15 full trials',
                                    'status': 'pending: the full campaign runs in CI on owner-approved dispatch'}
     out['killed'] = sum(e['killed'] for e in out['rule_mutants'].values()) + \

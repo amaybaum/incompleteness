@@ -103,9 +103,9 @@
   "G": true
  },
  "ci_run": null,
- "code_digest": "3590d12364f9dc8f5e0a28f1b96d387b31d20c8aaad3f9d8bc7b25dcf03e73f5",
- "commit": "a63db7ba5852969b324c1932d4f2495fe601dcdb",
- "config_sha256": "2cafd18ce73744c9a1a99b91ecf350ed7cc0f75403407f66972da022a414d093",
+ "code_digest": "d858dacee48c133a4c3bd54a418bd79a40b1ff5604987c4ed9bf6fb04ffb695e",
+ "commit": "53786e6e9e6f59347d20cac9f9875fdf7b4d8f67",
+ "config_sha256": "c16f090cf185aa3285863f42331c67c4d9fa3e6d774a8275787ba5ca9067b252",
  "controls": {
   "C0_context_sizes": {
    "class": "VOID",
@@ -158,9 +158,11 @@
   "C12_universe": {
    "V_cone_even_cells": 129,
    "class": "MISMATCH",
+   "frame_cells_in_box": 129,
    "frame_even_cells": 129,
    "in_frame_cone_leaves_frame": [],
    "in_frame_quantities_checked": 15,
+   "l2plan_frame_equals_production_frame": true,
    "pass": true,
    "universe_quantities": 22
   },
@@ -302,6 +304,15 @@
   "nontrivial_stabilizer": 1176
  },
  "l2selftest_result": {
+  "L2-2D": {
+   "merge_sigma": "VOID",
+   "pass": true,
+   "perturbed_status": "VOID",
+   "toy": [
+    15,
+    7
+   ]
+  },
   "L2-AUTH": {
    "accepted_defects": [],
    "pass": true,
@@ -310,6 +321,66 @@
   },
   "L2-C16": {
    "pass": true
+  },
+  "L2-C7COV": {
+   "coverage": {
+    "A": {
+     "1_Surv": {
+      "orbits_touched": 0,
+      "records_checked": 0,
+      "sum_touched_orbit_sizes": 0
+     },
+     "2_set2": {
+      "orbits_touched": 0,
+      "records_checked": 0,
+      "sum_touched_orbit_sizes": 0
+     },
+     "3_I_and_H100": {
+      "orbits_touched": 12,
+      "records_checked": 12,
+      "sum_touched_orbit_sizes": 45
+     },
+     "4_H1000": {
+      "orbits_touched": 1,
+      "records_checked": 1,
+      "sum_touched_orbit_sizes": 4
+     }
+    },
+    "G": {
+     "1_Surv": {
+      "orbits_touched": 0,
+      "records_checked": 0,
+      "sum_touched_orbit_sizes": 0
+     },
+     "2_set2": {
+      "orbits_touched": 283,
+      "records_checked": 595,
+      "sum_touched_orbit_sizes": 595
+     },
+     "3_I_and_H100": {
+      "orbits_touched": 6,
+      "records_checked": 6,
+      "sum_touched_orbit_sizes": 24
+     },
+     "4_H1000": {
+      "orbits_touched": 1,
+      "records_checked": 1,
+      "sum_touched_orbit_sizes": 4
+     }
+    }
+   },
+   "independent": "equal",
+   "pass": true,
+   "sampled_non_representative_records": {
+    "A:1_Surv": 0,
+    "A:2_set2": 0,
+    "A:3_I_and_H100": 7,
+    "A:4_H1000": 1,
+    "G:1_Surv": 0,
+    "G:2_set2": 312,
+    "G:3_I_and_H100": 3,
+    "G:4_H1000": 1
+   }
   },
   "L2-CERT": {
    "cases": {
@@ -324,6 +395,43 @@
   },
   "L2-CFG": {
    "pass": true
+  },
+  "L2-COUNTS": {
+   "N_ST_planted": [
+    4,
+    4
+   ],
+   "n_keys": 58,
+   "open_cells": [],
+   "orbit_size": 4,
+   "pass": true
+  },
+  "L2-F1": {
+   "affected_records": 595,
+   "pass": true,
+   "set2_G": {
+    "orbits_touched": 283,
+    "records_checked": 595,
+    "records_failed": 595,
+    "skipped_beyond_survivor_cap": 0,
+    "sum_touched_orbit_sizes": 595
+   }
+  },
+  "L2-F2": {
+   "C7_failures": {
+    "carried_vs_direct_failed": 312,
+    "direct_vs_reference_failed": 312
+   },
+   "affected_non_representative": 312,
+   "affected_records": 312,
+   "pass": true,
+   "set2_G": {
+    "orbits_touched": 283,
+    "records_checked": 595,
+    "records_failed": 312,
+    "skipped_beyond_survivor_cap": 0,
+    "sum_touched_orbit_sizes": 595
+   }
   },
   "L2-GATES": {
    "C10i": [
@@ -347,6 +455,9 @@
     "true_context": true,
     "true_num_records": true
    }
+  },
+  "L2-INDEX": {
+   "pass": true
   },
   "L2-LAND": {
    "accepted_defects": [],
@@ -394,6 +505,7 @@
     ]
    },
    "pass": true,
+   "per_record_disagreements": 0,
    "readings_differ_on_t4": true
   },
   "L2-MRG": {
@@ -419,6 +531,16 @@
    "representatives": 488,
    "scanned": 1400
   },
+  "L2-PLACEHOLDER": {
+   "pass": true,
+   "placeholders": [
+    "/budget/kappa",
+    "/owner_rulings/G_D/ruling",
+    "/owner_rulings/O1/ruling",
+    "/owner_rulings/kappa/ruling"
+   ],
+   "v8_startup_refused_at_item": 1
+  },
   "L2-PLAN": {
    "orbits": 488,
    "pass": true,
@@ -427,6 +549,11 @@
   "L2-POST": {
    "differences": 0,
    "pass": true
+  },
+  "L2-PREC": {
+   "clean_run_rule_T": "S1b put to the owner as a new preregistration",
+   "pass": true,
+   "wrong": {}
   },
   "L2-RT": {
    "C9_failure_outcome": "not_evaluated",
@@ -447,6 +574,28 @@
    "pass": true,
    "selected_of_10000": 984
   },
+  "L2-SCOPE": {
+   "disagreeing_records": [],
+   "pass": true,
+   "populations": {
+    "E_G": {
+     "orbits": 6,
+     "records": 12
+    },
+    "F_G": {
+     "orbits": 283,
+     "records": 595
+    },
+    "I_A": {
+     "orbits": 432,
+     "records": 1071
+    },
+    "I_G": {
+     "orbits": 307,
+     "records": 667
+    }
+   }
+  },
   "L2-SHTIP": {
    "engine": {
     "A": 1071,
@@ -458,9 +607,14 @@
     "G": 667
    }
   },
+  "L2-SIGMA": {
+   "cases": 10,
+   "pass": true,
+   "wrong": {}
+  },
   "L2-SURV": {
    "checked": {
-    "C0_context": 8,
+    "C0_context": 16,
     "C11i": 8,
     "C17": 8,
     "C18": 8,
@@ -468,6 +622,26 @@
     "C8": 1
    },
    "orbit_size": 4,
+   "pass": true
+  },
+  "L2-T1": {
+   "outcome": "L_A = L_G = 0",
+   "pass": true
+  },
+  "L2-T5": {
+   "L_G": 7,
+   "L_G_reference": 7,
+   "pass": true
+  },
+  "L2-T6": {
+   "pass": true
+  },
+  "L2-V8COUNTS": {
+   "attempts": {
+    "c7_populations": "refused",
+    "cli": "refused",
+    "shared_tip_records": "refused"
+   },
    "pass": true
   },
   "L2-WIT": {

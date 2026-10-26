@@ -13,7 +13,9 @@ Writes DIR/preflight.json. Every check is read from an exit status and a JSON ob
 - l2selftest.py (the Layer-2 machinery controls);
 - C12 on the profile's universe: the frame's even part equals V's cone in the pair (-1, 0)
   (B8 for v8: 833 cells), and every quantity of the universe (every even sample of every
-  item, and the port samples) with no seed tip has its whole cone inside the frame;
+  item, and the port samples) with no seed tip has its whole cone inside the frame; and the
+  frame computed by l2plan's own cone code (which selects C7's closure-free set 2 and set 3,
+  erratum E1 item E1-F3) equals the production frame on the same box (PO-L2-17);
 - for v8 only, with the grant: C6's execution-time instances (the base context and the
   single item (q9, 9), against the hand derivations in l2config), C10 (ii) on v8's port
   samples.
@@ -30,6 +32,7 @@ sys.path.insert(0, HERE)
 import s0geom as G        # noqa: E402
 import l2config as CFG    # noqa: E402
 import l2analysis as AN   # noqa: E402
+import l2plan as PLAN     # noqa: E402
 
 MISMATCH_CONTROLS = {'C9_monotone', 'C10_fixed', 'C11_props', 'C12_frame', 'C12_universe', 'C6_execution',
                      'C10ii_v8'}
@@ -43,7 +46,7 @@ def run_json(cmd):
         return p.returncode, None
 
 
-def c12_universe(setup, grant):
+def c12_universe(setup, grant, prof):
     ctx = G.Context(setup, (), 'G', G.FROZEN, grant)
     pair = ctx.pair
     V = (setup.origin, setup.n + 2)
@@ -52,6 +55,8 @@ def c12_universe(setup, grant):
     ev = [u for u in box if G.even(u)]
     frame = {u for u in ev if not ctx.eligible(u)}
     vcone = {u for u in ev if G.in_cone(u, V, pair)}
+    plan_frame = {u for u in box if u in PLAN.Space(prof).frame()}
+    prod_frame_all = {u for u in box if not ctx.eligible(u)}
     U = tuple((x, setup.tlast) for x in setup.region)
     uni = (G.record_samples(setup, U, G.FROZEN, grant) | ctx.port) - ctx.fixed
     bad = []
@@ -60,7 +65,9 @@ def c12_universe(setup, grant):
             continue
         if any(ctx.eligible(u) for u in AN.cone_cells(q, pair, setup.dim)):
             bad.append(q)
-    return {'pass': frame == vcone and not bad, 'frame_even_cells': len(frame), 'V_cone_even_cells': len(vcone),
+    return {'pass': frame == vcone and not bad and plan_frame == prod_frame_all, 'frame_even_cells': len(frame),
+            'V_cone_even_cells': len(vcone), 'l2plan_frame_equals_production_frame': plan_frame == prod_frame_all,
+            'frame_cells_in_box': len(prod_frame_all),
             'universe_quantities': len(uni), 'in_frame_quantities_checked': sum(
                 1 for q in uni if not any(ctx.eligible(u) for u in G.tips(q, pair, setup.dim))),
             'in_frame_cone_leaves_frame': [[list(c), t] for c, t in bad[:5]]}
@@ -131,7 +138,7 @@ def main():
     controls['L2_selftest'] = {'pass': codes == 0 and bool(rs) and rs.get('pass') is True, 'class': 'VOID',
                                'exit': codes, 'failed': rs.get('failed') if rs else 'unparseable'}
     setup = CFG.make_setup(G, pname)
-    c12 = c12_universe(setup, st['grant'])
+    c12 = c12_universe(setup, st['grant'], prof)
     controls['C12_universe'] = dict(c12, **{'class': 'MISMATCH'})
     if pname == 'v8':
         ex, base_col = v8_execution(setup, st['grant'])

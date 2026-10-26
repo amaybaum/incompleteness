@@ -133,3 +133,17 @@ def c18_stream(log, fixed, quants, geo, elig, near_only=False):
             bad += 1
         alive.discard(q)
     return bad
+
+
+def ref_linked_counts(bound, phi_cells, src_cells, conv, geo, elig):
+    """E1-T2 case 2 (d): L_A or L_G recomputed from a bound with s0ref's explicit cones and tips.
+    Under A, the quantities of bound whose reference cone contains a Phi cell (phi_cells: the six
+    slice-(n+1) cells and V's cell, read from the reference context). Under G, the quantities with
+    a reference tip (near or far) that is eligible, whose own reference cone contains a source
+    cell (E1-T5). One explicit cone is held at a time (cover_index)."""
+    cells = set(phi_cells) if conv == 'A' else set(src_cells)
+    idx = cover_index(cells, bound, geo)
+    covering = {q for u in cells for q in idx[u]}
+    if conv == 'A':
+        return len(covering)
+    return sum(1 for q in covering if any(elig(u) for u in geo.tipset(q)))

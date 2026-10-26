@@ -81,6 +81,7 @@
   }
  },
  "v8_dry_run_plan": {
+  "C7_populations": "not computed (requires authorization)",
   "closures_computed": 0,
   "contexts_constructed": 0,
   "exit": 0,
@@ -258,5 +259,15 @@
    ]
   ],
   "single_orbits": 875
+ },
+ "v8_shared_tips_refused": {
+  "exit": 2,
+  "function_refuses": true,
+  "output": {
+   "label": "VOID",
+   "reason": "not computed (requires authorization)",
+   "refused": "--shared-tips on v8"
+  },
+  "refused": true
  }
 }
