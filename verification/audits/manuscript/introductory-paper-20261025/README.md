@@ -16,6 +16,9 @@ verdict in either is an established result.
   statements and proofs. Its literature tags mark which references it could
   confirm and which it cites from memory. No full text could be opened.
   References cited from memory are unverified.
+- `design/`: the Introduction paper's outline and contribution statement (r4), with its independent reviews
+  (r4 ACCEPT). See `design/README.md`.
+- `explainer-review/`: the re-verification of `EXPLAINER-AUDIT.md` at `main` `687e885b` (HOLDS WITH CORRECTIONS).
 - `EXPLAINER-AUDIT.md`: what replacing `papers/Explainer.md` would lose,
   what is stale there, and what a replacement must change in the same commit.
   The search scripts it used are in `explainer-tools/`; each takes one
@@ -33,7 +36,8 @@ verdict in either is an established result.
   - r1 was independently reviewed (BLOCK, on wording only), and r2 was
     re-checked (ACCEPT WITH NITS). r3 applied those nits.
   - r4 re-bases the audit after #925–#928 and adds a first-hand
-    full-text literature reading. It has had no separate review.
+    full-text literature reading. Its re-check (`novelty-v5/review/RECHECK-r4.md`)
+    returned ACCEPT WITH NITS, and its required items and nits are applied.
   - For drafting it supersedes `NOVELTY-AUDIT.md`.
   - `novelty-v5/README.md` summarizes its source-coverage limits,
     attribution corrections and the manuscript defects it records.
@@ -103,12 +107,16 @@ These were recorded at `c91bf5dd`; current status as stated.
   - F3, F4, F5 and F8 are partly fixed.
   - F7 is open.
 
-## Open decisions
+## Decisions
 
-- Final positioning of the paper (research article or technical
-  perspective). `novelty-v5/AUDIT.md` §7 recommends a technical
-  perspective or pedagogical review.
-- Whether the appendix summary tables are rebuilt as navigation aids.
-- The Explainer's retirement, after `papers/Introduction.md` is accepted,
-  with its CI probe, census registry, coverage ledger and cross-references
-  changed together.
+- **Decided (owner, 2026-10-26).** The paper is positioned as a technical
+  perspective with original mathematical components. It replaces the
+  Explainer as the primary short-form presentation (Introduction → Main →
+  Book); the Explainer is retired as a legacy document preserved for
+  provenance, only after the Introduction passes independent scientific and
+  editorial review, with its CI probe, census registry, coverage ledger and
+  cross-references changed together.
+- **Open.** The owner decisions listed in `design/SOURCES-r4.md` (scope and
+  the corpus sites to correct first; the wording of the Lean-check claim;
+  retention of the design inputs; census registration; a separate check of
+  GR:226; page format).
