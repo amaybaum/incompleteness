@@ -2973,15 +2973,13 @@ information \(I(X_{<k}; X_{k+1} \mid X_k)\) is strictly positive --- the
 visible past carries information about the visible future beyond the
 present.}
 
-\emph{(iii) For every finite accessible horizon long enough to contain a
-memory witness --- every \(K \geq k+1\), with \(k\) an order at which
-(ii)'s conditional mutual information is positive --- \(\mathcal{S}\)
-arises from marginalizing a deterministic bijection on
-\(\mathcal{C}_V \times \mathcal{C}_H\) --- the hidden space may grow
-with the horizon --- with (C1) non-trivial coupling, (C3) sufficient
-capacity, and (C4) history readback at such a \(k\) --- with a fixed
-hidden prior \(\mu_H\) carried as part of the realization datum (§1.2,
-Remark on the measure as a realization datum).}
+\emph{(iii) For some accessible order \(k\) and every finite accessible
+horizon \(K \geq k+1\), \(\mathcal{S}\) arises from marginalizing a
+deterministic bijection on \(\mathcal{C}_V \times \mathcal{C}_H\) ---
+the hidden space may grow with the horizon --- with (C1) non-trivial
+coupling, (C3) sufficient capacity, and (C4) history readback at \(k\)
+--- with a fixed hidden prior \(\mu_H\) carried as part of the
+realization datum (§1.2, Remark on the measure as a realization datum).}
 
 \emph{The two theorems the equivalence turns on follow, with their own
 proofs; the characterization's proof comes after them.}
@@ -3948,18 +3946,23 @@ ancilla-marginal form of (i) (scope Remark) --- the paper's single
 external import, sitting outside the equivalence. \(\square\)
 
 \emph{Remark (the horizon restriction is forced).} The witness-anchored
-quantifier in (iii) is not a courtesy. A horizon ending before the first
-memory witness restricts \(\mathcal{S}\) to a Markovian law, and by the
-universal theorem's biconditional no faithful realization of a
-memory-free law carries a readback gap --- so the unrestricted
-every-horizon form of (iii) is false, while every horizon containing a
-witness supports the construction. The strong per-witness form is exact:
-\(M_t > 0\) \(\iff\) for every \(K \geq t+1\) there is a faithful
-realization of the law through \(K\) with readback biting at \(t\) ---
-the forward direction by dilation of the \(K\)-law, whose restriction
-contains the \(t\)-witness, the converse because a readback gap in any
-faithful realization \emph{is} a differing next-step conditional
-(universal theorem, (a)).
+quantifier in (iii) is not a courtesy. Any order \(k\) satisfying (iii)
+is a memory witness: a (C4) gap at \(k\) in a faithful realization is a
+differing next-step conditional of \(\mathcal{S}\) itself (universal
+theorem, (a)). The order is bound within (iii) and not taken from (ii):
+quantified over every order at which (ii)'s conditional mutual
+information is positive, (iii) would hold vacuously for a Markov law,
+which has none. A horizon ending before the first memory witness
+restricts \(\mathcal{S}\) to a Markovian law, and by the universal
+theorem's biconditional no faithful realization of a memory-free law
+carries a readback gap --- so the unrestricted every-horizon form of
+(iii) is false, while every horizon containing a witness supports the
+construction. The strong per-witness form is exact: \(M_t > 0\) \(\iff\)
+for every \(K \geq t+1\) there is a faithful realization of the law
+through \(K\) with readback biting at \(t\) --- the forward direction by
+dilation of the \(K\)-law, whose restriction contains the \(t\)-witness,
+the converse because a readback gap in any faithful realization
+\emph{is} a differing next-step conditional (universal theorem, (a)).
 
 \emph{Remark (retired direction).} (i) alone does not imply (ii): a
 diagonal Hamiltonian satisfies the definition with \(T(t) = I\) for all
@@ -5331,4 +5334,4 @@ degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
 \end{document}
-% source-sha256: f694baeb3b9d59b2098ad87ef61172841ca9fa0bc89088150030527ef23098d3
+% source-sha256: 026fc189592269c75bb272649cd9dca3261f66d66d53c8eb0fbd6dfaaf0d1a4c
