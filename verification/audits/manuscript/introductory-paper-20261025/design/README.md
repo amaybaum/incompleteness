@@ -43,3 +43,21 @@ with an initialized hidden slot, not for the card game's uniform, independent bu
 decomposes through classical memory. The r4 files are kept as reviewed; the erratum gives the corrected wording and the
 exact check behind it (`../draft/review/scientific/probe/card_exact.py`).
 
+
+## Revision 5: the applications scope (WIP, under review)
+
+On 2026-10-26 the owner widened the paper's scope: "ambitious in its scientific implications but conservative in its
+claims", organized around three questions (what OI is; what it might explain; what remains to be proved), with about
+four pages of "Applications and Potential Resolutions". The cosmological constant leads, as a proposal conditional on
+the open covariant field equations. Black-hole information is treated as preservation versus accessible recovery.
+Horizon thermodynamics is presented as consistency, not prediction.
+
+- `applications-audit/`: the read-only audit of each candidate application against the corpus at `687e885b`
+  (`AUDIT.md`), with its symbolic and numerical checks:
+  - `quarter.py`: the Bekenstein–Hawking 1/4 is fixed by the calibration of two normalizations, for every mode density;
+  - `cc.py`: the 10¹²² ratio against the de Sitter entropy at a Planck cutoff;
+  - `lookelse.py`: the look-elsewhere count for simple closed forms near the Cabibbo value.
+- `OUTLINE-r5.md`, `CLAIMS-r5.md`, `CHANGES-r5.md`, `DEPENDENCIES-r5.md`: the r5 design. It has a section plan with page
+  budgets, a register of every claim beyond r4 with its status and dating, a change map from r4, and the corpus
+  overclaims r5 must not lean on (these go to separate manuscript-consistency changes). Independent outline review is
+  in progress.
