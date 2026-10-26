@@ -3802,10 +3802,11 @@ A. The nested formalism is a self-consistency exercise: it shows that
 the framework's emergent description is well-defined when multiple
 boundaries coexist. Appendix A also obtains a cycle-averaged Page curve,
 conditional on the scrambling condition H-scramble and the decoupling
-condition H-decouple, and leaves the generalized second law open. It is
-\emph{not} a claim that external observers' emergent quantum
-descriptions acquire BH-horizon-specific features; under
-partition-relativity (above), the cosmological horizon remains the
+condition H-decouple and taking the energy shell of the black hole and
+its radiation to be their full product space, and leaves the generalized
+second law open. It is \emph{not} a claim that external observers'
+emergent quantum descriptions acquire BH-horizon-specific features;
+under partition-relativity (above), the cosmological horizon remains the
 primary partition. Appendix A develops the formal nested-partition
 machinery in three layers.
 
@@ -3847,14 +3848,17 @@ turnover occurs at the Page time
 mass and of the emission coefficient when that coefficient is
 mass-independent); and the Page value is recovered, as a cycle average,
 for all but an exponentially negligible fraction (\(\sim e^{-10^{77}}\)
-for \(30 M_\odot\)) of initial conditions --- from measure concentration
+for \(30 M_\odot\)) of initial conditions, when the energy shell of
+\(B \cup R\) is the full product space
+\(\mathcal{H}_B \otimes \mathcal{H}_R\) --- from measure concentration
 {[}29, 61{]} carried to the orbit by the scrambling condition H-scramble
 of Appendix A, which is not established there (uniformity over classical
 microstates is not uniformity over quantum pure states), the cycle
-decomposition on the finite energy shell supplying exact time averages,
-and conditional also on the decoupling condition H-decouple of Appendix
-A, which timescale ordering does not supply. The greybody factor is
-solution-specific.
+decomposition of the finite configuration space supplying exact time
+averages, and conditional also on the decoupling condition H-decouple of
+Appendix A, which timescale ordering does not supply. On a proper energy
+shell the value differs in general, and the corresponding statement is
+open. The greybody factor is solution-specific.
 
 Laboratory tests of the characterization theorem may be possible in
 analogue gravity systems where the hidden sector capacity is tunable.
@@ -4391,9 +4395,9 @@ This appendix develops the nested-partition formalism for the framework,
 establishing the self-consistency of multiple coexisting causal
 boundaries (typically a black hole horizon inside a cosmological
 horizon), deriving a cycle-averaged Page curve under the scrambling
-condition H-scramble and the decoupling condition H-decouple, and
-stating the entropy inequality the formalism supplies toward the
-generalized second law.
+condition H-scramble and the decoupling condition H-decouple when the
+energy shell is the full product space, and stating the entropy
+inequality the formalism supplies toward the generalized second law.
 
 \hypertarget{a.1-setup}{%
 \subsubsection{A.1 Setup}\label{a.1-setup}}
@@ -4669,16 +4673,18 @@ The evaporation is far longer: the trajectory below gives
 \(t_{\text{evap}} > \tau_B^D\) for every black hole heavier than about
 \(10^{11}\) kg. Theorem A.7 is stated for \(t \ll \tau_B^D\). Theorems
 A.8--A.9 treat \(B \cup R\) as a closed system, on which \(\varphi\)
-acts as a bijection of an energy shell
-\(\Sigma_E \subset \mathcal{H}_B \otimes \mathcal{H}_R\), so that a pure
-joint state of \(B\) and \(R\) stays pure; applied to the black hole and
-its radiation, they therefore rely on the decoupling condition
-\textbf{H-decouple}: \(B \cup R\) evolves with no coupling to the
-trans-cosmological sector \(D\) or to the rest of the visible sector,
-\(V \setminus R\), and its joint state is pure. The full-cycle averages
-of Theorem A.9 use H-decouple over whole cycles of the dynamics, not
-only over the evaporation. Timescale ordering does not supply it, and
-H-decouple is not established here.
+acts as a bijection of its configuration space
+\(\mathcal{C}_B \times \mathcal{C}_R\) (in Theorem A.8 a single energy
+shell, whose span is the full product space
+\(\mathcal{H}_B \otimes \mathcal{H}_R\)), so that a pure joint state of
+\(B\) and \(R\) stays pure; applied to the black hole and its radiation,
+they therefore rely on the decoupling condition \textbf{H-decouple}:
+\(B \cup R\) evolves with no coupling to the trans-cosmological sector
+\(D\) or to the rest of the visible sector, \(V \setminus R\), and its
+joint state is pure. The full-cycle averages of Theorem A.9 use
+H-decouple over whole cycles of the dynamics, not only over the
+evaporation. Timescale ordering does not supply it, and H-decouple is
+not established here.
 
 \textbf{Theorem A.7} (Effective pure state). \emph{On timescales
 \(t \ll \tau_B^D\), the joint state of \(V\) and \(B\) is effectively
@@ -4705,10 +4711,13 @@ to be a closed system in a pure joint state on
 H-decouple.
 
 \textbf{Theorem A.8} (Cycle typicality, conditional on H-scramble).
-\emph{For the dynamics \(\varphi\) on the energy shell
-\(\Sigma_E \subset \mathcal{H}_B \otimes \mathcal{H}_R\), the
-time-averaged entanglement entropy of the radiation equals the Page
-value {[}32{]}:}
+\emph{Let \(\varphi\) act on \(B \cup R\) with its whole configuration
+space as a single energy shell,
+\(\Sigma_E = \mathcal{C}_B \times \mathcal{C}_R\), whose span is the
+full product space \(\mathcal{H}_B \otimes \mathcal{H}_R\), and let
+H-scramble hold over the pure states of
+\(\mathcal{H}_B \otimes \mathcal{H}_R\). Then the time-averaged
+entanglement entropy of the radiation equals the Page value {[}32{]}:}
 
 \[\overline{S(\rho_R)} = S_{\text{Page}}(d_B, d_R) + \mathcal{O}(\epsilon)\]
 
@@ -4719,18 +4728,23 @@ where \(d_B = |\mathcal{C}_B(t)|\), \(d_R = |\mathcal{C}_R(t)|\),
 
 \[S_{\text{Page}}(d_B, d_R) = \ln(\min(d_B, d_R)) - \frac{\min(d_B, d_R)}{2\max(d_B, d_R)}\]
 
+\emph{the large-dimension form of Page's mean entropy for Haar-random
+pure states of \(\mathcal{H}_B \otimes \mathcal{H}_R\).}
+
 \emph{Proof.} The bijection \(\varphi\) conserves energy (the wave
 equation is Hamiltonian), so \(\varphi\) restricts to a bijection on
-each energy shell \(\Sigma_E\). Since \(\Sigma_E\) is finite, this
-restricted bijection decomposes into disjoint cycles
+each energy shell, here on
+\(\Sigma_E = \mathcal{C}_B \times \mathcal{C}_R\). Since \(\Sigma_E\) is
+finite, this restricted bijection decomposes into disjoint cycles
 \(C_1, \ldots, C_k\) with lengths \(L_1, \ldots, L_k\) summing to
 \(|\Sigma_E|\). On each cycle \(C_j\), the time average of any
 observable \(f\) is exact:
 
 \[\overline{f}_{C_j} = \frac{1}{L_j} \sum_{s \in C_j} f(s)\]
 
-By measure concentration for Haar-random pure states (Lévy's lemma
-applied to the entanglement entropy, as in Hayden-Leung-Winter {[}61{]};
+By measure concentration for Haar-random pure states of
+\(\mathcal{H}_B \otimes \mathcal{H}_R\) (Lévy's lemma applied to the
+entanglement entropy, as in Hayden-Leung-Winter {[}61{]};
 Popescu-Short-Winter {[}29{]} give the corresponding bound for the
 distance of the reduced state from its canonical form), the set of
 atypical states --- those with
@@ -4760,18 +4774,19 @@ orbit. So finite bijectivity, energy conservation and uniform cycle
 counting together do not give Page typicality.
 
 What the argument needs is a separate condition, \textbf{H-scramble}:
-the orbit ensemble equidistributes over quantum pure states on the
-shell, in the sense of an approximate unitary design or comparable
-scrambling property. Under H-scramble the counting step below goes
-through with \(\eta|\Sigma_E|\) as written. By the preceding paragraph,
-H-scramble fails for every bijection in the setting of Theorem A.7's
-proof, a definite initial configuration with the bipartition aligned to
-the configuration coordinates: it requires an initial superposition of
-configurations or a bipartition not aligned with them, and which of
-these the substratum supplies is open. H-scramble is not established
-here, and the lesson generalizes: uniformity over classical microstates
-is not uniformity over quantum pure states. The same distinction governs
-H-state in §2.
+the orbit ensemble equidistributes over quantum pure states on the shell
+--- in Theorem A.8, over the pure states of
+\(\mathcal{H}_B \otimes \mathcal{H}_R\) --- in the sense of an
+approximate unitary design or comparable scrambling property. Under
+H-scramble the counting step below goes through with \(\eta|\Sigma_E|\)
+as written. By the preceding paragraph, H-scramble fails for every
+bijection in the setting of Theorem A.7's proof, a definite initial
+configuration with the bipartition aligned to the configuration
+coordinates: it requires an initial superposition of configurations or a
+bipartition not aligned with them, and which of these the substratum
+supplies is open. H-scramble is not established here, and the lesson
+generalizes: uniformity over classical microstates is not uniformity
+over quantum pure states. The same distinction governs H-state in §2.
 
 Call a cycle \emph{bad} if its time-averaged entropy deviates from
 \(S_{\text{Page}}\) by more than \(2\epsilon\). Every state's deviation
@@ -4794,12 +4809,32 @@ concentration. For a \(30 M_\odot\) black hole,
 fraction of initial conditions, the time-averaged entanglement entropy
 equals the Page value. \(\square\)
 
+\textbf{Proper energy shells.} Theorem A.8 is stated for the full
+product space. When energy conservation confines the orbit to a shell
+whose span is a proper subspace of
+\(\mathcal{H}_B \otimes \mathcal{H}_R\), measure concentration on that
+subspace concentrates the entropy about the subspace's own Haar mean,
+which depends on the shell and in general differs from
+\(S_{\text{Page}}(d_B, d_R)\). For the diagonal shell spanned by
+\(|i\rangle_B \otimes |i\rangle_R\), \(i = 1, \ldots, m\) (an energy
+shell for an energy depending only on \(b - r\)), the Schmidt
+probabilities of a Haar-random state are uniformly distributed on the
+simplex and the mean entanglement entropy is exactly \(H_m - 1\), with
+\(H_m\) the \(m\)-th harmonic number: \(1/2\) at \(m = 2\), against
+Page's mean \(1/3\) for \(d_B = d_R = 2\). For shells of fixed Hamming
+weight the value can lie below \(S_{\text{Page}}(d_B, d_R)\). Theorem
+A.8 on a proper energy shell, with the shell's own Haar mean in place of
+\(S_{\text{Page}}(d_B, d_R)\), and the Page curve of Theorem A.9 on such
+a shell, are open.
+
 \textbf{Theorem A.9} (The cycle-averaged Page curve; conditional on A.8,
 hence on H-scramble, and on H-decouple). \emph{At each stage \(t\) of
 the evaporation, take the bipartition of Theorem A.8 with
-\(d_B = q^{n_B(t)}\) and \(d_R = q^{n_R(t)}\), held fixed. For all but
-the fraction of initial conditions excluded in Theorem A.8, and up to
-its \(\mathcal{O}(\epsilon)\), the full-cycle time average of the
+\(d_B = q^{n_B(t)}\) and \(d_R = q^{n_R(t)}\), held fixed, and the
+energy shell of Theorem A.8, the full configuration space of
+\(B \cup R\) at that stage. For all but the fraction of initial
+conditions excluded in Theorem A.8, and up to its
+\(\mathcal{O}(\epsilon)\), the full-cycle time average of the
 radiation's entanglement entropy at that bipartition is:}
 
 \[\overline{S}_{\text{rad}}(t) = \begin{cases} n_R(t) \cdot \ln q - \frac{q^{n_R(t)}}{2\,q^{n_B(t)}} & \text{for } n_R(t) < n_B(t) \quad \text{(early: before Page time)} \\ n_B(t) \cdot \ln q - \frac{q^{n_B(t)}}{2\,q^{n_R(t)}} & \text{for } n_R(t) > n_B(t) \quad \text{(late: after Page time)} \end{cases}\]
@@ -4904,34 +4939,36 @@ are essential to obtaining the saturating Page curve at late times.
 The derivation here obtains a cycle-averaged Page curve of the same form
 through the cycle-typicality argument of Theorem A.8, which applies
 measure concentration {[}29, 61{]} to the deterministic substratum
-dynamics on the energy shell under H-scramble, with no replica trick and
-no gravitational path integral; H-scramble is an equidistribution
-hypothesis on the orbit over pure states, which ergodicity over
-configurations does not supply. In the QES computation the turnover
-occurs where the island saddle's generalized entropy, at leading order
-the remaining Bekenstein-Hawking entropy, falls below the semiclassical
-entropy of the radiation. The two Page times coincide when that
-semiclassical entropy grows one-for-one with the horizon entropy lost,
-the \(\beta = 1\) of the mode counting; \(\beta > 1\) in the
-semiclassical regime defined above ({[}59{]}; for the QES setting,
-{[}41{]}, §2), so agreement on the Page time and the Page entropy is not
-established. The ``island'' in the QES formulation is conjectured to
-correspond, in the present construction, to the post-Page-time regime in
-which the BH boundary modes form the smaller subsystem, and the
-``replica wormhole'' geometries to the substratum's cycle structure on
-the energy shell. This correspondence --- replica wormholes ↔ substratum
-cycles --- is conjectural; making it precise would require constructing
-the gravitational path integral as an effective description of the
-substratum dynamics in the appropriate limit. What the present
-derivation establishes --- under H-scramble and H-decouple, at the G1
+dynamics on the full configuration space of \(B \cup R\) under
+H-scramble, with no replica trick and no gravitational path integral;
+H-scramble is an equidistribution hypothesis on the orbit over pure
+states, which ergodicity over configurations does not supply. In the QES
+computation the turnover occurs where the island saddle's generalized
+entropy, at leading order the remaining Bekenstein-Hawking entropy,
+falls below the semiclassical entropy of the radiation. The two Page
+times coincide when that semiclassical entropy grows one-for-one with
+the horizon entropy lost, the \(\beta = 1\) of the mode counting;
+\(\beta > 1\) in the semiclassical regime defined above ({[}59{]}; for
+the QES setting, {[}41{]}, §2), so agreement on the Page time and the
+Page entropy is not established. The ``island'' in the QES formulation
+is conjectured to correspond, in the present construction, to the
+post-Page-time regime in which the BH boundary modes form the smaller
+subsystem, and the ``replica wormhole'' geometries to the substratum's
+cycle structure on the energy shell. This correspondence --- replica
+wormholes ↔ substratum cycles --- is conjectural; making it precise
+would require constructing the gravitational path integral as an
+effective description of the substratum dynamics in the appropriate
+limit. What the present derivation establishes --- under H-scramble and
+H-decouple, with the full product space as the energy shell, at the G1
 register --- is that a cycle-averaged Page curve with turnover at
 \(d_R = d_B\) is reproducible from a finite deterministic substratum
 without invoking the replica machinery.
 
 Both approaches require \emph{something} to play the role of typicality
-(PSW measure-concentration here, replica saddles in QES + islands), and
-both place the turnover where the radiation's entropy reaches the black
-hole's remaining entropy. If the conjectured correspondence holds, the
+(measure concentration on the full product space, carried to the orbit
+by H-scramble, here; replica saddles in QES + islands), and both place
+the turnover where the radiation's entropy reaches the black hole's
+remaining entropy. If the conjectured correspondence holds, the
 typicality-providing ingredient need not be gravitational --- it can be
 combinatorial, on the substratum side of the trace-out --- and the
 derivation here is a microscopic realization of the entanglement-island
@@ -5192,4 +5229,4 @@ entanglement,'' \emph{Commun. Math. Phys.} \textbf{265}, 95--117 (2006);
 arXiv:quant-ph/0407049.
 
 \end{document}
-% source-sha256: 6e33f5fdf7794f55d2b24ae572f725bca126df6bd28098dc61c123c8bfc2e416
+% source-sha256: 0905f76788840b0c664daba0e180f414c0635814cca3867c0c492529c3db9e71

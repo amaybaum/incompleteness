@@ -65,9 +65,9 @@ changed chapter line was confirmed present once in FULL with `grep -cxF`, and mi
 | GR:869 last s. | "under Theorem A.8's typicality and horizon-factorization hypotheses … a Page curve" | "under H-scramble and H-decouple, at the G1 register — … a cycle-averaged Page curve" | R9 wording; O-5; O-1 |
 | GR refs | — | [61] P. Hayden, D. W. Leung, A. Winter, "Aspects of generic entanglement," CMP 265, 95–117 (2006); quant-ph/0407049 | R M7 |
 
-## 2. PENDING OWNER: defaults applied, with alternatives
+## 2. Owner decisions: defaults, accepted by the owner on 2026-10-26 (§7)
 
-The manuscript text carries none of these markers.
+The manuscript text carries no decision markers. The alternatives below are kept as the record of what was decided against.
 
 - **O-1 (H-decouple).**
   - *Default applied.* The condition is named **H-decouple** and defined once, at GR §A.7 (:811), which states
@@ -268,7 +268,7 @@ Survivors of the "resol" re-grep:
 | optional | GR:869 | "applies Popescu-Short-Winter [29]" → "applies measure concentration [29, 61]" |
 | optional | GR:605 | "Appendix A resolves the formal nested-partition machinery" → "develops" |
 
-**Effect on the PENDING OWNER list (§2).**
+**Effect on the decision list (§2).**
 - **O-1a** is settled by the review: H-decouple is the closure A.8 presupposes, which adds no assumption.
 - **O-2:** the C6(a) consequence is now stated, per the review, which classes it as a fact. Only the *remedy* (a
   superposed initial state or a non-aligned bipartition) remains the owner's, and it is stated as open.
@@ -276,7 +276,7 @@ Survivors of the "resol" re-grep:
 - **GR:605's "resolves"** is gone from the §4 survivors list, so the "resol" survivor count drops by one in
   GR only.
 
-**Known open error, not fixed in this PR (owner choice, separate change).**
+**Theorem A.8 on a proper energy shell: restriction applied in this change (§7); the shell version is open.**
 - **The error.** Theorem A.8's value S_Page(d_B, d_R) does not hold in general when the energy shell is a proper
   subspace; it holds when the shell is the full product space H_B⊗H_R. The DIFF-REVIEW §6 settles this by exact algebra:
   - On the diagonal shell span{|i⟩|i⟩}, the Haar mean is H_m − 1. At m = 2 it is ½, against Page's 1/3 and
@@ -285,11 +285,9 @@ Survivors of the "resol" re-grep:
 - **What inherits it.** The cycle-averaged A.9, the turnover at d_R = d_B, the min·ln q form, and every
   sufficiency statement "under H-scramble and H-decouple" (GR:869 last sentence, A.9's label, ch07:116, ch07:149,
   ch19:72).
-- **Remedies, for the owner:**
-  1. restrict A.8–A.9 to Σ_E = H_B⊗H_R as an explicit hypothesis; or
-  2. use the Haar-on-shell mean and restate the turnover in shell terms.
-- **This diff** leaves A.8's statement untouched and does not worsen the gap. ch07:149's list of open steps is
-  non-exhaustive.
+- **Remedy applied (owner decision, 2026-10-26):** remedy 1, restricting A.8–A.9 to Σ_E = C_B × C_R, whose span
+  is H_B⊗H_R, as an explicit hypothesis (§7). Remedy 2, using the Haar-on-shell mean and restating the turnover in
+  shell terms, was not attempted. The shell-restricted version is stated as open in GR and the book.
 
 **Introduction draft.** Left alone, as the coordinator instructed; it is handled separately.
 
@@ -304,3 +302,77 @@ Survivors of the "resol" re-grep:
 - **Re-grep, all 0 hits** (papers + book, FULL included): "keeps the black hole", "throughout the
   evaporation", "arrives at a Page curve", "Applying it to the substratum".
 - **Mirrors.** All 3 changed ch07 lines occur exactly once in FULL.
+
+## 7. Owner decisions (2026-10-26) and the Theorem A.8 restriction
+
+**Owner decisions on #936, 2026-10-26 (the owner's table, verbatim).**
+
+| Decision | Recommendation |
+|---|---|
+| O-1 | Retain the named H-decouple condition |
+| A.9 | State the time-averaged result, not pointwise typicality |
+| O-2 | Leave the scrambling mechanism open |
+| O-3 | Distinguish conservation from observable recovery |
+| O-4 | Remove the empty falsifier |
+| O-6 | Use "Preserved; Page curve conditional" |
+- **Required before merge, verbatim:** "restrict Theorem A.8 to the domain where its Page-entropy expression is
+  actually justified, or prove the appropriate energy-shell version. Do not leave the known mathematical error
+  unresolved before release."
+- **Option taken: the restriction.** No energy-shell proof was attempted.
+
+**Applied with `bhfix/apply_edits3.py`.** It makes 22 exact-once replacements and one follow-up wording fix at
+GR:611, with chapter edits mirrored into FULL.
+
+| Site | Change |
+|---|---|
+| GR Thm A.8 (statement) | The theorem now assumes φ acts on B∪R with its whole configuration space as a single energy shell, Σ_E = C_B × C_R, whose span is the full product space H_B⊗H_R, and that H-scramble holds over the pure states of H_B⊗H_R. S_Page(d_B,d_R) is stated as the large-dimension form of Page's mean entropy for Haar-random pure states of H_B⊗H_R. |
+| GR Thm A.8 (proof) | "restricts to a bijection on each energy shell, here on Σ_E = C_B × C_R"; the concentration step is for "Haar-random pure states of H_B⊗H_R". |
+| GR H-scramble definition | "… over quantum pure states on the shell — in Theorem A.8, over the pure states of H_B⊗H_R — …" |
+| GR, new paragraph after A.8's proof ("Proper energy shells.") | Measure concentration on a proper shell subspace concentrates about that subspace's own Haar mean, which depends on the shell and in general differs from S_Page. The paragraph gives the exact diagonal-shell example: mean H_m − 1, which is ½ at m = 2, against Page's 1/3. It notes that Hamming-weight shells can give values below S_Page. A.8 on a proper shell (with the shell's own Haar mean) and A.9 on such a shell are stated as open. Sources: BH-02 C6(c); DIFF-REVIEW §6; DIFF-RECHECK §5 N1, which keeps "fails in general", not "only when". |
+| GR Thm A.9 (statement) | The stage-t bipartition is taken together with "the energy shell of Theorem A.8, the full configuration space of B ∪ R at that stage". |
+| GR:811 (H-decouple) | "bijection of an energy shell Σ_E ⊂ H_B⊗H_R" → "bijection of its configuration space C_B × C_R (in Theorem A.8 a single energy shell, whose span is the full product space H_B⊗H_R)". Closure (no coupling to D or V∖R), purity, and the whole-cycles sentence are unchanged. |
+| GR:605, :717 | The cycle-averaged Page curve is now qualified "taking the energy shell … to be their full product space" and "when the energy shell is the full product space". These are sufficiency surfaces added to the list per §A.25. |
+| GR:611 | The Page value is now stated "when the energy shell of B ∪ R is the full product space H_B⊗H_R". "Cycle decomposition on the finite energy shell" → "of the finite configuration space". Adds: "On a proper energy shell the value differs in general, and the corresponding statement is open." |
+| GR:869 (now :877) | The argument now applies concentration "on the full configuration space of B ∪ R"; "What the present derivation establishes" is now "with the full product space as the energy shell". |
+| GR:871 (now :879) | "(PSW measure-concentration here …)" → "(measure concentration on the full product space, carried to the orbit by H-scramble, here; …)" |
+| ch07:12, :116 +FULL | The cycle-averaged Page curve is qualified "taking the energy shell of the black hole and its radiation to be their full product space". These are sufficiency surfaces added per §A.25. |
+| ch07:126 +FULL | New sentence: the results concern Haar-random states of the full product space; on a proper energy shell the mean entropy depends on the shell and in general differs from Page's value; the derivation takes the shell to be the full product space, and the energy-shell version is open ([GR Appendix A]). |
+| ch07:130 +FULL | "… to the orbit of the bijection on the full product space of the black hole and its radiation …" |
+| ch07:147 +FULL | "… substratum dynamics on the full product space of the black hole and its radiation …" |
+| ch07:149 +FULL | "under H-scramble and H-decouple and with the full product space as the energy shell"; "the value on a proper energy shell" is added to the open steps. |
+| ch19:72 +FULL | The dynamics is "on the full product space of the black hole and its radiation …; on a proper energy shell the value is open." |
+| glossary:113 +FULL | "obtains a cycle-averaged Page curve on the full product space of black hole and radiation, under …" |
+| appendix-a G11 +FULL | Formula "Nested trace-out, H-scramble, H-decouple; full product space"; status "Scrambling, decoupling, proper-shell value open". Class C is unchanged, so no count moves. |
+| verification/coverage/LEDGER.json | A.8 fingerprint 17e40e97… → 31eafe29…; A.9 fingerprint ed567edf… → e3222fa7…, and its `line` 843 → 847. Both entries stay GAP, with no checks and delta "not formalized". |
+| README.md (this directory) | "That error is left to a separate change" is corrected to state that the restriction is applied and the proper-shell version is open. |
+
+**Left unchanged.** ch09:127, ch07:288, appendix-a:103 and book/README:64. These are necessity-form or
+"conditional" status surfaces ("requires H-scramble and H-decouple", "conditional on …"); they assert no
+sufficiency, and the restriction narrows scope without adding a condition they would understate.
+
+**Re-grep** (papers/*.md and book/*.md, FULL separate).
+- **"Σ_E"** (`\Sigma_E`): 6 lines, all in GR §A.7 (A.8's statement and proof, the H-scramble paragraph), where
+  Σ_E is defined as C_B × C_R. FULL: 0.
+- **`S_{\text{Page}}`:** GR:821, :825 (A.8's display and definition), :833 (the one-long-cycle example), :839
+  (the bad-cycle step, ×2), and :845 (the proper-shells paragraph, ×3). All are inside A.8, its proof, or the
+  restriction paragraph. FULL: 0.
+- **"Page's average":** 0.
+- **"energy shell":** 20 non-FULL lines, 7 in FULL.
+  - New scope qualifiers and open-shell statements: GR:605, :611, :717, :811, :819, :829, :845, :847, :877;
+    ch07:12, :116, :126, :149; ch19:72.
+  - Mechanism descriptions that remain accurate when the shell is the full space: ch18:148 and ch19:72,
+    "cycle typicality on the energy shell rather than replica wormhole computation"; and GR:877 / ch07:147,
+    the conjectured "cycle structure on the energy shell" correspondence.
+  - Unrelated: GR:58 (horizon temperature); SM:292, :294, :795.
+- **"full product space":** 17 non-FULL lines, 9 in FULL. Every one is a new scope qualifier.
+
+**Round-3 build and checks.**
+- **Builds.** `sh ./build.sh GR` gives 87 pages, median 3200 characters per page. `sh ./build.sh --book` gives
+  554 pages, median 3076 characters per page. No dropped glyphs. `staleness_check` OK: GR and book stamps match
+  their sources.
+- **coverage_check.** Countercontrol first: with the old fingerprints it FAILs, "STALE entry GR:T-a.8
+  (17e40e97… → 31eafe29…)" and "STALE entry GR:T-a.9 (ed567edf… → e3222fa7…)". With the new fingerprints it is
+  OK (128 canonical statements).
+- **All OK:** mirror_check (0 chapter lines absent; all 9 changed chapter lines occur exactly once in FULL),
+  voice_check, claims_check, duplicate_check, dependency_label_check --strict, lean_manuscript_census,
+  architecture_check (259 invariants), citation_check.
