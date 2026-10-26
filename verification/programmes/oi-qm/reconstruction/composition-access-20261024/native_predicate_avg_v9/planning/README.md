@@ -1,8 +1,8 @@
-# NP-AVG-1 planning (Issue #929) — WIP / UNVERIFIED, not frozen
+# NP-AVG-1 planning (Issue #929): Stage 0 Layer 1 frozen; Layer 2 and the enumeration not authorized
 
 Planning drafts for NP-AVG-1: does `native_predicate_v8`'s negative depend on the pointwise background convention?
-Nothing here is a preregistration, a result or an authorization. No checker exists and nothing has been computed on
-the question. The branch is based on #912's head `2af1d5d5`, which contains v8 at `fc452ea8`.
+Nothing here is a result or an authorization to run. Stage 0 Layer 1, the scientific specification, is frozen at
+`f33d8d63` (`stage0/LAYER1-FREEZE.md`); nothing has been computed on v8's configuration class. The branch is based on #912's head `2af1d5d5`, which contains v8 at `fc452ea8`.
 
 ## Files
 
@@ -88,3 +88,10 @@ the question. The branch is based on #912's head `2af1d5d5`, which contains v8 a
 
   Nothing ran on v8's class. Under O-a, the r4→r5 diff goes to independent review, and the freeze follows only a
   clean acceptance.
+- `review/STAGE0-RECHECK-r5.md`: the independent diff-only re-check of r4→r5. Verdict: ACCEPT, no required changes.
+  Every output replays byte for byte, the owner's five standing checks are met, and rule T's wording awaits the owner.
+  The reviewer's probes are in `review/toy-r5/`.
+- `stage0/LAYER1-FREEZE.md`: the freeze record. Layer 1 is frozen at `f33d8d63` under the owner's decision of
+  2026-10-26, with the specification's hash, the trees of `r5/`, `code-r5/` and `design-r5/`, and the test evidence.
+  Layer 2, the v8 enumeration, its workflow and every dispatch are not authorized; the enumeration proposal goes to
+  the owner separately.

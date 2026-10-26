@@ -1,0 +1,10 @@
+float port (0.0,0.0,-3.0)                                                   refused
+n = 6.0                                                                     refused
+port as generator                                                           refused
+rho=10, tlast=40, sources empty                                             refused
+record_samples on rho=5 copy                                                refused
+ref_context float port                                                      refused
+ref_retained v8 (A) [guarded via ref_context; refused before any closure]   refused
+Setup subclass overriding key() [deliberate tampering]                      NOT refused
+port None, v8 n and region [different configuration: no port]               NOT refused
+port moved to (0,0,-2) [different configuration]                            NOT refused
