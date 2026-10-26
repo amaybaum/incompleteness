@@ -1,0 +1,450 @@
+C = "@eae01647"
+I = "papers/Introduction.md:{}@4a260ca9"
+
+def m(f, l):
+    return f"{f}:{l}{C}"
+
+ROWS = [
+ dict(
+  id="CMP-01", priority="high", topic="quantum emergence and operational QM",
+  result=("Finite operational realization and gluing (epsilon-form), uniform continuum realization and finite-test density. "
+          "For a d-dimensional system, a finite family of finite-Kraus instruments, a horizon K and a grid G, one finite reversible "
+          "deterministic realization reproduces the outcome-sequence law of every adaptive protocol within K(|O_max|-1)/G in total "
+          "variation (plus a fixed-point term 12 K^2 C_{d,R} 2^-b), with gluing by restriction, one fixed map per instrument, "
+          "sequential and product composition, and hidden capacity linear in K up to logarithms; one controlled dynamics serves every "
+          "protocol. Applied to a delta-net of <=m-outcome instruments, the realized and the quantum operational theories are mutually "
+          "epsilon-dense at horizon K, so Q_operational^(d,m) lies in the finite-test closure of D_finite^(d,m). Density, not identity: "
+          "the same machinery realizes non-quantum instrument families. Main's own summary calls this 'the maximal equivalence "
+          "available to a fixed finite substratum'."),
+  sources=[m("papers/Main.md",544), m("papers/Main.md",556), m("papers/Main.md",560), m("papers/Main.md",562),
+           m("papers/Main.md",574), m("papers/Main.md",576), m("papers/Main.md",578), m("papers/Main.md",580),
+           m("papers/Main.md",22), m("book/ch01-observation.md",195)],
+  proof_location="Main:558 (construction and bound), Rounding Lemma proof inside Main:556, Main:574 (telescoping lemma), Main:576 and :578 (proofs closed inside the statements); exact probes opglue_probes.py checks 8-16.",
+  status=dict(proof_status="proved-paper", layer="paper-derivation + exact probes", kernel="none",
+              ledger="MAIN:T-finite-operational-realization-gluing-form P; MAIN:T-uniform-continuum-realization-mutual-density P; Rounding Lemma, the two corollaries and the density corollary have no ledger row",
+              hypotheses=["finite dimension d", "finite instrument family, each instrument finitely many Kraus operators", "finite horizon K",
+                          "fixed accuracy; density at fixed (d, m) only, the union over (d, m) not taken",
+                          "standard volumetric bound on the instrument net (cited)"],
+              weakest_link="the instrument-level Rounding Lemma in the fixed-point dyadic model (paper proof, instance-certified); no kernel check of any clause"),
+  intro_treatment=dict(kind="weaker",
+                       sites=[I.format(130), I.format(12), I.format(185)],
+                       note=("§3.4 states only the negative half (no fixed finite carrier reproduces a qubit's full prepare-and-measure theory). "
+                             "The positive half, which Main places in its abstract and its 'Summary (the equivalence at maximum proved strength)', "
+                             "is absent; open problem (3) at L185 names a different question (windows short compared with recurrence).")),
+  scope="Yes. It is Main's central operational result on the Introduction's own topic (§3.4 'No fixed finite carrier reproduces a qubit'); without it the Introduction reads the obstruction as the whole story.",
+  recommendation="strengthen",
+  proposed_text=("Add to §3.4 after the obstruction: \"Approximately, the converse holds: for fixed dimension, a finite instrument family, a horizon "
+                 "and an accuracy ε, one finite reversible realization reproduces the outcome law of every adaptive protocol to within ε in total "
+                 "variation, and with an ε-net of instruments the realized and the quantum operational theories are mutually ε-dense at that horizon "
+                 "(proved on paper, with exact probes) [Main §3.4, Theorems (finite operational realization and gluing — ε-form) and (uniform "
+                 "continuum realization)]. This is density, not identity: the same construction also realizes non-quantum instrument families.\""),
+  notes="Pressure-tested: Main:562 itself limits the result (no uniqueness, non-quantum families realized); the proposed text keeps both limits. Rigor is paper-level only, so the text must not say machine-checked."
+ ),
+ dict(
+  id="CMP-02", priority="high", topic="quantum emergence and operational QM",
+  result=("Substratum-source form and its limits. (a) The stated substratum class — bijective (permutation) operators, with a relative-phase "
+          "intervention stated as an assumption — is closed under composition, coarse-graining, ancilla blocks, uncoupled spectators, relabelling "
+          "and the adjoint, and contains the exchanges and the phases. (b) It does not supply continuously tunable state mixing: a theory whose "
+          "available reversible operations are permutation matrices has no composite unitary control and is not finite operational QM; bijective "
+          "dynamics with the stated observer access does not source the phases (ones-fixing) and executes no layer flow at intermediate times. "
+          "(c) Adding continuous off-diagonal controllability to the substratum class gives exactly finite endomorphic operational QM on every "
+          "nonempty finite carrier (a structurally closed extension is quantum iff it drives the elementary transitions). ROADMAP records the "
+          "corresponding resources as settled negatively (INDEPENDENT) for the present architecture."),
+  sources=[m("papers/GR.md",260), m("papers/GR.md",262), m("papers/GR.md",264), m("papers/GR.md",266), m("papers/GR.md",272),
+           m("papers/Main.md",568), m("book/ch19-open-problems.md",126), m("verification/ROADMAP.md",1521), m("verification/ROADMAP.md",1531),
+           "lean:OIBridge/StructuralClosure.lean:316:substratumClass_structurallyClosed",
+           "lean:OIBridge/StructuralClosure.lean:414:substratum_plus_control_qm",
+           "lean:OIBridge/ReadWriteControl.lean:174:readWriteSourced_not_qm",
+           "lean:OIBridge/PhaseSource.lean:196:substratumClass_not_onesFixing",
+           "lean:OIBridge/ExecSource.lean:129:obs_not_layerFlowExecutable",
+           "lean:OIBridge/DerivedQ3.lean:222:derivedOI_qm_iff_layerFlowExecutable'",
+           "lean:OIBridge/FrozenSourcing.lean:318:frozen_sourcing_verdict",
+           "lean:OIBridge/StructuralClosure.lean:383:substratum_residual",
+           m("verification/ROADMAP.md",1529), m("verification/ROADMAP.md",1538), m("verification/ROADMAP.md",69)],
+  proof_location="kernel only (GR §3.3 states and cites; no paper proof); every cited declaration has #print axioms in source, gated by tools/lean_axiom_check.py.",
+  status=dict(proof_status="proved-kernel", layer="kernel", kernel="StructuralClosure, ReadWriteControl, PhaseSource, ExecSource, DerivedQ3, LiftSource",
+              ledger="no census statement (prose in GR §3.3); declarations resolve in the census registry",
+              hypotheses=["the substratum's reversible operations are modelled as permutation/monomial operators (definitions ReadWriteSourced, substratumClass) — a modelling identification, not derived",
+                          "the relative-phase intervention is assumed, not derived",
+                          "finite, endomorphic carriers (the typed form removes 'endomorphic'); readWriteSourced_not_qm is stated on the qubit carrier Fin 2"],
+              weakest_link="the identification of the physical substratum's accessible operations with the stated class; the not-QM direction is close to definitional once that identification is granted"),
+  intro_treatment=dict(kind="weaker",
+                       sites=[I.format(120), I.format(12), I.format(173), I.format(183)],
+                       note="The Introduction says only that which of (iii)–(v) a physical substratum supplies is open. The corpus settles the question for the substratum as stated: (iv) is not supplied without an added controllability resource, and that one resource plus an assumed phase intervention suffices."),
+  scope="Yes. It is the most specific established statement about the Introduction's central open question (which completion conditions a substratum supplies); omitting it understates what is known and leaves the open question broader than it is.",
+  recommendation="strengthen",
+  proposed_text=("Replace the last sentence of §3.2 (L120) with: \"For the substratum as stated — finite bijective dynamics with the observer's read and "
+                 "write access — part of this is settled: its operations satisfy the structural closure rules, but a theory whose reversible operations "
+                 "are permutations has no composite unitary control and is not quantum, so condition (iv) is not supplied; with a relative-phase "
+                 "intervention assumed and one continuously tunable state-mixing operation added, the substratum yields exact finite operational quantum "
+                 "mechanics on every nonempty finite carrier (machine-checked) [GR §3.3]. Whether a physical substratum supplies that operation, or the "
+                 "phases, is open.\" Make the abstract's and §6.3's open item read \"whether a physical substratum supplies continuous state-mixing "
+                 "control and the phases\". Add substratumClass_structurallyClosed, readWriteSourced_not_qm, substratum_plus_control_qm to Appendix A."),
+  notes=("Pressure-tested against the Lean: readWriteSourced_not_qm assumes every available composite conjugation is a permutation matrix; frozen_sourcing_verdict is stated for permTheory (Fin 2) "
+         "(no phases, no dense unitary control); both are only as physical as that modelling premise, which the proposed text names ('as stated'). ROADMAP:1529/:1538 record the resource as INDEPENDENT "
+         "for the present architecture and ROADMAP F2 (:69) keeps the extension open. Confirms mapper B4's item.")
+ ),
+ dict(
+  id="CMP-03", priority="medium", topic="quantum emergence and operational QM (what OI reaches)",
+  result=("The converse containment: every theory with full reversible control realizes the sealed OI core (realizesSealedOICore_of_control), "
+          "exact finite QM realizes it (qm_implies_oiCore), and the OI-core conjunct of completed OI is redundant once full control holds "
+          "(completedOI_iff_physical). Hence Theorem 4 classifies completions compatible with embedded observation; it does not derive QM from it."),
+  sources=[m("papers/GR.md",228), m("papers/GR.md",240), m("papers/Main.md",570),
+           "lean:OIBridge/OIRealization.lean:252:realizesSealedOICore_of_control", "lean:OIBridge/CompletedOI.lean:549:qm_implies_oiCore"],
+  proof_location="kernel only.",
+  status=dict(proof_status="proved-kernel", layer="kernel", kernel="OIRealization, CompletedOI", ledger="prose in GR §3.3 and Main §3.4",
+              hypotheses=["the sealed OI core is one specific qubit C1–C4 process with its visible readout (GR:240)", "finite carriers"],
+              weakest_link="none beyond the scope (qubit core)"),
+  intro_treatment=dict(kind="absent", sites=[I.format(120), I.format(172)],
+                       note="The Introduction gives the half 'OI alone does not imply QM' (oi_alone_not_qm) but not the other half, that QM trivially satisfies the OI core, which is what makes Theorem 4 a classification rather than a derivation."),
+  scope="Yes, as one clause: it fixes how much work the OI hypothesis does inside Theorem 4, a claim about OI's reach.",
+  recommendation="add",
+  proposed_text="After \"So OI alone does not imply quantum mechanics\" (L120), add: \"Conversely, every theory with full reversible control realizes that observation process (machine-checked), so Theorem 4 classifies the completions compatible with embedded observation and does not derive quantum mechanics from it [GR §3.3].\"",
+  notes="Guards against overclaim as much as underclaim."
+ ),
+ dict(
+  id="CMP-04", priority="low", topic="quantum emergence and operational QM",
+  result=("OI⁺ and its refinements: conditions (iii)–(v) restated as observational independence, reversible richness and observer recursion, "
+          "OI⁺ ⟺ exact finite endomorphic operational QM on every nonempty finite carrier, each added principle independent of the OI core and the other two; "
+          "primitive-source form (implementation locality, phase-free richness, embedded observation); typed form removing 'endomorphic'."),
+  sources=[m("papers/GR.md",230), m("papers/GR.md",240), m("papers/GR.md",246), m("papers/GR.md",276), m("papers/Main.md",564), m("papers/Main.md",568),
+           "lean:OIBridge/CarrierGeneralOIPlus.lean:213:carrier_general_oiPlus", "lean:OIBridge/CarrierGeneralOIPlus.lean:230:oiPlus_independence",
+           "lean:OIBridge/TypedCompletion.lean:850:typed_determined_iff"],
+  proof_location="kernel only.",
+  status=dict(proof_status="proved-kernel", layer="kernel", kernel="CarrierGeneralOIPlus, MinimalRepertoire, PositivePackage, TypedCompletion", ledger="prose",
+              hypotheses=["finite carriers", "added principles are hypotheses, not consequences of OI (GR:242)"], weakest_link="none (scope only)"),
+  intro_treatment=dict(kind="absent", sites=[I.format(114), I.format(116)], note="Theorem 4 is given in its five-condition form only."),
+  scope="Optional. It is a re-expression of Theorem 4, not a stronger result about OI; including it risks being read as a derivation.",
+  recommendation="leave out",
+  proposed_text=None,
+  notes="If the owner wants it, one clause in §3.2: \"(iii)–(v) can be restated as observational independence, reversible richness and observer recursion, each independent of the OI core [GR §3.3]\"."
+ ),
+ dict(
+  id="CMP-05", priority="medium", topic="selection of the relating evolution; operational QM",
+  result=("Coherent-completion classification and the orientation no-go. Existence can fail: an explicit finite carrier admits no visible-local CPTP coherent lift. "
+          "Where completions exist, two that carry identical complete operational data are related by a unitary or by one global transpose (antiunitary) map; "
+          "transposition preserves all operational data, so no selector depending only on that data fixes the orientation."),
+  sources=[m("papers/GR.md",194), m("papers/GR.md",198), m("papers/GR.md",204), m("papers/GR.md",208), m("papers/GR.md",214),
+           "lean:OIBridge/JordanClassification.lean:1109:sameData_unitary_or_transpose",
+           "lean:OIBridge/OrientationSelection.lean:139:operational_orientation_noGo",
+           "lean:OIBridge/TwoByTwoNoGo.lean:606:twoByTwo_no_local_lift"],
+  proof_location="kernel only (GR:198, GR:204: ledger 'kernel-only').",
+  status=dict(proof_status="proved-kernel", layer="kernel", kernel="JordanClassification, OrientationSelection, OrientationClosure, TwoByTwoNoGo",
+              ledger="GR:T-coherent-completion-classification K3; GR:T-operational-orientation-no-go K3",
+              hypotheses=["existence of the completions", "Hermitian accessible menus spanning the full matrix algebra with a common unit",
+                          "separating, cone-generating state families", "finite visible dimension"],
+              weakest_link="existence: not every carrier admits a coherent completion, and whether the OI substratum does is open (GR:214)"),
+  intro_treatment=dict(kind="absent", sites=[I.format(124), I.format(126), I.format(173)],
+                       note="§3.3 shows non-selection from visible data; the corpus also shows that complete operational data select the completion up to one antiunitary, and that the visible law is far from complete data."),
+  scope="Yes, as one or two sentences in §3.3: it locates the non-selection precisely (visible data are incomplete; complete data leave only the orientation).",
+  recommendation="cite",
+  proposed_text=("Add to §3.3: \"Where coherent completions exist — on some finite carriers none does — two completions with the same complete operational data "
+                 "are related by a unitary or by one global antiunitary, and no selector that reads only those data fixes which (machine-checked) [GR §3.3]; "
+                 "the freedom above arises because the visible law is not complete operational data.\""),
+  notes="State the existence caveat with the classification so the result is not read as 'OI determines QM up to orientation'."
+ ),
+ dict(
+  id="CMP-06", priority="low", topic="selection of the relating evolution",
+  result=("Bohr-frequency completeness: for U(t)=e^{-iHt} with non-degenerate eigenvalues and non-vanishing overlaps, the transition probabilities fix the Bohr-frequency set. "
+          "Two-branch D-gauge completeness and the phase-locking lemma: the probabilities fix H up to diagonal rephasing, energy shift and H→−H̄, conditional on H-BG; "
+          "the unsigned kernel premise BGIntegerClassification is false and the sign-aware classification is open."),
+  sources=[m("papers/GR.md",172), m("papers/GR.md",178), m("papers/GR.md",182), m("papers/Main.md",224), m("book/appendix-b-derivations.md",434),
+           "lean:OIBridge/BohrFrequency.lean:291:bohr_frequency_completeness"],
+  proof_location="GR:174 (paper proof) and kernel for Bohr-frequency completeness; GR:180 conditional proof for the two-branch form.",
+  status=dict(proof_status="conditional", conditional_on=["H-BG (open; kernel unsigned premise refuted)"], layer="kernel (Bohr frequencies) / paper (two-branch, conditional)",
+              kernel="BohrFrequency (K3); twoBranch_of_BGClassification rests on a refuted premise (K1)", ledger="GR:T-bohr-frequency-completeness K3; GR:T-d-gauge-completeness-two-branch K1",
+              hypotheses=["trivial ancilla (strict T=|U|^2)", "continuous-time data", "non-degenerate spectrum and gaps, non-vanishing overlaps", "H-BG for the two-branch form"],
+              weakest_link="H-BG"),
+  intro_treatment=dict(kind="absent", sites=[I.format(124)], note="§3.3 treats dilated lifts at discrete times; the trivial-ancilla continuous-time case, where the data fix more, is not mentioned."),
+  scope="Optional. The Introduction works with discrete-time fixed-basis laws; the result needs continuous-time data and a trivial ancilla, and its strong half rests on an open hypothesis.",
+  recommendation="leave out",
+  proposed_text=None,
+  notes="If cited, cite only the kernel-proved frequency statement and give H-BG as open; never cite the two-branch form as established."
+ ),
+ dict(
+  id="CMP-07", priority="low", topic="selection of the relating evolution",
+  result=("Exact one-time classification of lift freedom: two lifts are related by the two-sided uniform invisible action iff their fibre-Gram data agree modulo anchored phases; "
+          "the visible law is exactly the diagonal of those data, every PSD rank-bounded identity-summing family with that diagonal is realized, and the off-diagonal residue is "
+          "neither empty nor inert (lifts in different classes can differ in relating evolution). Across time, both the trajectory and the threading questions are open."),
+  sources=[m("papers/Main.md",624), m("book/ch01-observation.md",185), m("verification/ROADMAP.md",63),
+           "lean:OIBridge/TwoSidedGauge.lean:115:fibreGram_apply"],
+  proof_location="Main:624 states the result without proof or kernel identifier; ROADMAP P0 (acts 12–13) records SH1 'both directions at kernel level' and TG2; the TwoSidedGauge module exists, but its declarations are not cited by any manuscript.",
+  status=dict(proof_status="proved-kernel", layer="kernel (programme record)", kernel="TwoSidedGauge (not in the census registry's manuscript citations)",
+              ledger="none", hypotheses=["one time slice", "the stated uniform two-sided action"], weakest_link="manuscript-to-kernel citation missing: Main:624 gives no declaration"),
+  intro_treatment=dict(kind="weaker", sites=[I.format(124)], note="The Introduction says lifts 'can differ by a time-dependent right action'; the corpus classifies the one-time freedom exactly."),
+  scope="Optional; one sentence would sharpen §3.3 without new claims.",
+  recommendation="cite",
+  proposed_text="Add to §3.3: \"At one time the freedom is classified exactly: what the visible law leaves free is the off-diagonal part of the fibre-Gram data modulo phases, and lifts differing there can differ in relating evolution [Main §3.4, Remark (scope: representability, not selection of the relating evolution)].\"",
+  notes="Do not call it machine-checked in the Introduction until Main cites the declarations (census contract, AGENTS §A.35). Act 17's cross-time findings (no coupling between slices from coherence; class-level selection impossibility for four named candidates) are record-only and should stay out."
+ ),
+ dict(
+  id="CMP-08", priority="medium", topic="quantum emergence (interventions)",
+  result=("Intervention dilation: for any finite action alphabet and horizon, one finite realization with permutation instruments reproduces any action-labelled conditional family "
+          "(the classical comb), including Leggett–Garg-violating statistics (K=3/2 reproduced exactly). No fixed finite realization carries the whole instrument algebra, and generic "
+          "action-labelled combs are not hostable on any fixed passive representation as the horizon grows (d ~ (n_V|A|)^{K/4})."),
+  sources=[m("papers/Main.md",460), m("papers/Main.md",464), m("papers/Main.md",466), m("papers/Main.md",472), m("papers/Main.md",474), m("papers/Main.md",536)],
+  proof_location="Main:462 (construction), Main:466 and :472 (arguments closed inside the statements); exact probes intervention_probes.py, lg_comb_probes.py, repconsistency_probes.py.",
+  status=dict(proof_status="proved-paper", layer="paper-derivation + exact probes", kernel="none",
+              ledger="MAIN:T-intervention-dilation-finite-classical-action P; MAIN:P-no-horizon-independent-intervened-representation P; no-uniform-finite-realization has no ledger row",
+              hypotheses=["finite action alphabet", "finite horizon", "classical action labels; permutation (invasive) instruments"], weakest_link="paper construction (no kernel)"),
+  intro_treatment=dict(kind="absent", sites=[I.format(130), I.format(185)], note="Interventions are not discussed; §3.4 covers only prepare-and-measure."),
+  scope="Yes, folded into the CMP-01 sentence: it is the classical rung of the same operational question.",
+  recommendation="add",
+  proposed_text="Fold into the CMP-01 addition: \"... including adaptive interventions; for classical action labels the realization is exact [Main §3.4, Theorem (intervention dilation)], while no fixed representation dimension hosts generic intervention families as the horizon grows.\"",
+  notes=None
+ ),
+ dict(
+  id="CMP-09", priority="low", topic="Bell",
+  result=("Bell, the other horn and the countercontrol. With setting-dependent ontic ensembles, S_CHSH ≤ min{4, 2+4√(2 ln2 I_ont)}, so the quantum value needs I_ont ≥ 0.0309 bits "
+          "(a necessary bound, not achievable or tight). Without the spatial and intervention structure, bare finite OI representability realizes PR-box behaviour, so causal locality, not representability, selects."),
+  sources=[m("papers/Main.md",356), m("papers/Main.md",396), m("papers/Main.md",398), m("papers/Methodology.md",393)],
+  proof_location="Main:396 (data processing + Pinsker + Jensen, in the statement paragraph); PR-box: Main:356 by the response-table construction; check 11 of equivalence_recovery_probes.py.",
+  status=dict(proof_status="proved-paper", layer="paper-derivation", kernel="none", ledger="no ledger row",
+              hypotheses=["response-complete ontic variable (Main:398)", "Z=(A,B) uniform"], weakest_link="paper derivation"),
+  intro_treatment=dict(kind="absent", sites=[I.format(136)], note="§3.5 names the dichotomy but not the quantitative cost of the horn not taken, nor the PR-box control."),
+  scope="Optional; one clause in §3.5.",
+  recommendation="cite",
+  proposed_text="Add to §3.5: \"Giving up measurement independence instead costs at least 0.031 bits of setting–microstate mutual information for the quantum CHSH value (a necessary bound) [Main §3.3]; without the spatial structure, the realizations of Theorem 1 also produce PR-box correlations, so locality and not representability is what bounds them.\"",
+  notes=None
+ ),
+ dict(
+  id="CMP-10", priority="medium", topic="finite-horizon correspondence (Main's Characterization theorem)",
+  result=("Main's Characterization theorem (Main:516, proof Main:608): for a time-homogeneous process on a finite C_V with |C_V|≥2, on accessible timescales, (ii) accessible non-Markovianity "
+          "(I(X_<k;X_k+1|X_k)>0 at some accessible k) ⟺ (iii) for some accessible k and every horizon K≥k+1 a realization by a bijection of C_V×C_H with C1, C3 and C4 at k and a fixed hidden prior; "
+          "and, under (T), (i) a ≤n^3-dimensional unitarily evolving representation (fixed-Ĥ ancilla-marginal form)."),
+  sources=[m("papers/Main.md",516), m("papers/Main.md",518), m("papers/Main.md",520), m("papers/Main.md",522), m("papers/Main.md",608), m("papers/Main.md",610),
+           m("papers/Main.md",504), m("papers/Main.md",508), m("book/appendix-b-derivations.md",454)],
+  proof_location="Main:608: (iii)⟹(ii) by the readback lemma (Main:167, Pinsker); (ii)⟹(iii) by finite-horizon process dilation (Main:496, kernel S_imp_D for the correlated-prior form); both 'proved here in prose and neither is formalized'; (i) imported from Barandes [11,12] under (T), (T) checked by tuple_probes.py at (2,2),(2,3),(3,2).",
+  status=dict(proof_status="conditional", conditional_on=["(T) and Barandes [11,12] for clause (i) only", "time-homogeneity for the fixed-Ĥ form of (i)"],
+              layer="paper-derivation ((ii)⟺(iii)); literature + probes ((i))", kernel="the ingredients only: S_imp_D, HiddenMemory; the biconditional itself is not formalized",
+              ledger="no ledger row (signal S1); supporting theorems have rows",
+              hypotheses=["time-homogeneous S", "|C_V|≥2", "accessible timescales t ≪ t_R", "witness-anchored order k", "every horizon K≥k+1", "fixed hidden prior as realization datum", "C2 outside the equivalence"],
+              weakest_link="(ii)⟺(iii): paper proof resting on the vanishing criterion for conditional mutual information and the time-t identification (both not formalized); (i): the imported correspondence under (T)"),
+  intro_treatment=dict(kind="deferred-to-citation (piecewise)", sites=[I.format(48), I.format(82), I.format(84), I.format(86)],
+                       note=("The Introduction does not name the theorem, but carries its proved content at equal or higher rigor: (ii)⟹(iii) existence via Theorem 1 (kernel S_imp_D) "
+                             "with C4 = M_t>0 and C1, C3 following (L86); (iii)⟹(ii) via the Pinsker bound (L84); the per-witness biconditional is the Corollary (L82); the fixed-basis "
+                             "representation (Theorem 1, kernel) supersedes (i) in rigor. What is omitted is only (i)'s compressed ≤n^3 form under (T) and the fixed-Ĥ generator form.")),
+  scope="Partly. The Introduction's choice of Theorem 1 + Corollary over the Characterization theorem is sound (kernel over prose; Q_fb internal over (i) imported). It need not be named; if named, its status must be stated.",
+  recommendation="leave out",
+  proposed_text=("Optional, one sentence in §2.4 if the owner wants the named result: \"Assembled, these give Main's characterization theorem: a time-homogeneous law has accessible memory at some order k exactly "
+                 "when, at every horizon beyond k, it has a finite reversible realization with (C1), (C3) and (C4) at k (proved on paper; not machine-checked) [Main §3.4].\""),
+  notes=("Pressure-tested: stating the Characterization theorem as an equivalence would need both directions' status (§A.34): (iii)⟹(ii) Main:167 + Main:608 (paper); (ii)⟹(iii) Main:496 + Main:608 (paper, kernel only for the correlated-prior realization). "
+         "Related corpus findings: CON-04 (Main:72 vs :76 naming), CON-05 (no ledger row, S1), CON-06 (appendix B restatement).")
+ ),
+ dict(
+  id="CMP-11", priority="low", topic="finite-horizon correspondence; relating evolution",
+  result=("Fixed-Ĥ form for realized processes: Ĥ := i log U_φ reproduces every realized law exactly at integer horizon times (uniform, slice and weighted priors). "
+          "The continuous-time interpolation is not unique: two Hermitian generators can agree at every integer time and differ at t=1/2 (kernel)."),
+  sources=[m("papers/Main.md",510), m("papers/Main.md",268), m("papers/GR.md",292), "lean:OIBridge/RegionLimit.lean:296:continuous_extension_not_unique"],
+  proof_location="Main:512 (paper proof, review4_probes.py); kernel for non-uniqueness.",
+  status=dict(proof_status="proved-paper", layer="paper-derivation (fixed-Ĥ); kernel (non-uniqueness)", kernel="RegionLimit",
+              ledger="MAIN:L-fixed-hat-h-form-realized P", hypotheses=["integer times", "fixed bijection and prior"], weakest_link="paper proof"),
+  intro_treatment=dict(kind="absent", sites=[I.format(58), I.format(124)], note=None),
+  scope="Optional.", recommendation="leave out", proposed_text=None,
+  notes="If §3.3 is extended, the kernel non-uniqueness of continuous interpolation is a second, independent non-selection result that could be cited in one clause."
+ ),
+ dict(
+  id="CMP-12", priority="low", topic="hidden memory",
+  result=("Canonical predictive quotient: the tail object T(P) completes P, admits a reversible ledger extension, and is the terminal predictive quotient of the category of faithful realizations; "
+          "any two faithful realizations of P share it, while their hidden fibres can differ (completions are not unique up to relabelling)."),
+  sources=[m("papers/Main.md",600), m("papers/Main.md",596)],
+  proof_location="Main:600 (inline proof); purification_probes.py exhaustive at (2,2),(2,3),(3,2).",
+  status=dict(proof_status="proved-paper", layer="paper-derivation + exhaustive computation", kernel="none", ledger="MAIN:T-canonical-predictive-quotient-purification-ingredient P",
+              hypotheses=["finite horizon", "faithful deterministic realizations; morphisms visible-preserving"], weakest_link="paper proof"),
+  intro_treatment=dict(kind="weaker", sites=[I.format(185)], note="Open problem (2) speaks of quotienting ledger bits; the corpus has constructed the quotient and leaves only the value question open."),
+  scope="Yes, as a citation in open problem (2).", recommendation="cite",
+  proposed_text="Open problem (2): \"... whether the minimal hidden predictive memory over realizations reduced to the canonical predictive quotient [Main §3.4] equals M_t (the fixed-dimension form is false) ...\"",
+  notes=None
+ ),
+ dict(
+  id="CMP-13", priority="low", topic="embedded observation (incompleteness vs uncertainty)",
+  result=("Passive observation: complete passive observation of a finite-dimensional algebra is possible iff it is commutative; passive incompleteness holds in every finite operational theory on ≥2 states "
+          "and so does not discriminate the OI core; a passive internal observer can only read an existing record."),
+  sources=[m("papers/Main.md",570), m("papers/Main.md",572), "lean:OIBridge/CentralObservation.lean:620:complete_passive_iff_commutative", "lean:OIBridge/PassiveIndependence.lean:269:passive_nondiscriminating"],
+  proof_location="kernel only.",
+  status=dict(proof_status="proved-kernel", layer="kernel", kernel="CentralObservation, PassiveObservation, PassiveIndependence, InternalObserver", ledger="prose",
+              hypotheses=["finite dimension", "block-diagonal passive instruments"], weakest_link="none (scope)"),
+  intro_treatment=dict(kind="deferred-to-citation", sites=[I.format(22)], note="L22 states the contrast with uncertainty relations and cites [Main §3.4]; the kernel results behind it are not mentioned."),
+  scope="Optional.", recommendation="leave out", proposed_text=None,
+  notes="The Introduction's sentence is faithful as written; adding 'machine-checked' would need the declarations in Appendix A."
+ ),
+ dict(
+  id="CMP-14", priority="low", topic="embedded observation (the measure)",
+  result=("Lemma 3 in the kernel: on each accessible orbit the invariant law is unique and uniform; the counting measure is invariant and has maximal entropy among invariant laws; invariance alone does not select a measure."),
+  sources=[m("papers/Main.md",56), m("papers/Main.md",60), "lean:OIBridge/CanonicalMeasure.lean:276:determinism_reversibility_selected_measure", "lean:OIBridge/CanonicalMeasure.lean:242:invariance_does_not_select"],
+  proof_location="kernel (ledger MAIN:L-3 K3); Main:62 Remark.",
+  status=dict(proof_status="proved-kernel", layer="kernel", kernel="CanonicalMeasure", ledger="MAIN:L-3 K3", hypotheses=["φ a permutation of a finite set (taken as given)"], weakest_link="none"),
+  intro_treatment=dict(kind="deferred-to-citation", sites=[I.format(38)], note="L38 states 'not selected by invariance' and 'maximal-entropy default' with a Main citation, without marking it machine-checked."),
+  scope="Optional.", recommendation="cite",
+  proposed_text="L38: append \"(machine-checked)\" after \"maximal-entropy default\" and list determinism_reversibility_selected_measure (CanonicalMeasure:276) in Appendix A.",
+  notes="Low value; only if Appendix A is being revised anyway."
+ ),
+ dict(
+  id="CMP-15", priority="low", topic="embedded observation (finiteness posit)",
+  result=("Deep-sector cardinality is gauge: within the leading-order accessible-timescale transition law, systems differing only in an uncoupled or slowly coupled deep sector are indistinguishable; "
+          "total finiteness is scoped as the choice of the minimal finite representative, and accessible-timescale conclusions transfer across the gauge class."),
+  sources=[m("papers/GR.md",136), m("papers/GR.md",138), m("papers/Substratum.md",262), m("papers/Main.md",708)],
+  proof_location="GR:138 (paper proof); Substratum:262 (argument in the statement).",
+  status=dict(proof_status="proved-paper", layer="paper-derivation", kernel="none", ledger="GR:C-deep-sector-cardinality-gauge GAP; SUBSTRATUM:C-effective-finiteness-gauge-class-transfer GAP",
+              hypotheses=["leading order in τ_S/τ_B", "accessible timescales", "recurrence-scale conclusions excluded"], weakest_link="paper argument (ledger GAP)"),
+  intro_treatment=dict(kind="weaker", sites=[I.format(20)], note="L20: 'finiteness of all of S is posited'. Faithful to Main:62; the corpus shows the posit is largely a gauge choice for accessible-timescale content."),
+  scope="Optional.", recommendation="leave out", proposed_text=None,
+  notes="Theorem 3 and §2.5 use recurrence, which needs the finite representative; adding the gauge statement would need that exception stated, so the gain is small."
+ ),
+ dict(
+  id="CMP-16", priority="low", topic="quantum emergence (coherence)",
+  result=("Separability threshold: an abelian Weyl twirl is entanglement-breaking iff its order is maximal; for the F_2 lattice update the one-step visible channel is not entanglement-breaking iff w<κ, "
+          "in particular whenever the region has a non-empty bulk."),
+  sources=[m("papers/Main.md",308), m("papers/Main.md",312), m("papers/Main.md",314), "lean:OIBridge/WeylLift.lean:652:entanglementBreaking_twirl"],
+  proof_location="Main:310 (paper) and kernel.",
+  status=dict(proof_status="proved-kernel", layer="kernel + paper", kernel="WeylLift, WeylTwirl, Separability", ledger="MAIN:T-separability-threshold K3; corollaries GAP",
+              hypotheses=["the specific linear F_2 update", "one step", "uniform hidden state"], weakest_link="corollaries GAP; single-step, realization-specific"),
+  intro_treatment=dict(kind="absent", sites=[I.format(251)], note="Appendix B.3 shows the card game's channel is entanglement-breaking; the corpus shows a lattice realization whose channel is not."),
+  scope="No: realization-specific (lattice), one step, and the Introduction avoids the lattice construction.", recommendation="leave out", proposed_text=None, notes=None
+ ),
+ dict(
+  id="CMP-17", priority="medium", topic="what remains open (operational QM)",
+  result=("Open obligations the Introduction's open list (§6.3) omits: (a) Theorem 4 and its refinements take complex matrix kinematics as given; deriving that kinematics from field-neutral operational premises "
+          "is open (ROADMAP P1 'K'); (b) all operational-completion results are finite-dimensional; no theorem extends them to infinite-dimensional or field-theoretic systems (H-∞), the quasilocal "
+          "region completion settling only the algebra, states and discrete dynamics; (c) the stochastic observer interface — which observation map and ensemble (Obs, μ) define the physical law — is unsourced "
+          "(ROADMAP P1); (d) the physical (C4) discharge is open at the lattice cut as well as the cosmological one (ROADMAP P1). The selection of the relating evolution (P0) and the origin of the Born exponent are "
+          "stated as open in §3.3 and §3.5 but are not repeated in §6.3."),
+  sources=[m("verification/ROADMAP.md",68), m("verification/ROADMAP.md",71), m("verification/ROADMAP.md",70), m("verification/ROADMAP.md",66), m("verification/ROADMAP.md",63),
+           m("papers/GR.md",276), m("papers/GR.md",288), m("papers/Main.md",568)],
+  proof_location="ROADMAP rows (status OPEN); GR:288 scope sentence.",
+  status=dict(proof_status="open", layer="none", kernel="partial results only (K1, K3 conditional; quasilocal completion kernel)", ledger="ROADMAP P1 OPEN",
+              hypotheses=[], weakest_link="open"),
+  intro_treatment=dict(kind="absent", sites=[I.format(114), I.format(183), I.format(185)], note="Theorem 4 is stated over 'finite outcome families of linear maps'; the Introduction does not say that the matrix kinematics is assumed or that the results stop at finite dimension."),
+  scope="Yes, one clause: the owner asked for 'what remains open'; (b) also bounds Theorem 4's reach.",
+  recommendation="add",
+  proposed_text=("§6.3: add \"(5) the complex matrix kinematics that Theorem 4 assumes, and the extension of the finite operational results to infinite-dimensional systems; (6) which observation map and ensemble "
+                 "define the physical visible law\" [GR §3.3; ROADMAP], and widen the (C4) item to \"at the cosmological and lattice partitions\". Optionally repeat the relating-evolution and Born-exponent items so §6.3 is complete."),
+  notes="Items (a) and (c) are stated only in ROADMAP, not in any manuscript: see CON-28 (missing assumption in GR §3.3 and Main §3.4). Folds in mapper B4's 'open items §6.3 omits'."
+ ),
+ dict(
+  id="CMP-18", priority="low", topic="OI's reach (matter sector)",
+  result=("SM exact geometry: the six signed simple-cubic links decompose exactly as 3⊕2⊕1 (kernel theorem_7), with the physical-carrier reading conditional on H-link; tastes 4=1⊕3 (kernel); "
+          "Yang–Mills coupling dimensionless iff d=3 (kernel)."),
+  sources=[m("papers/SM.md",372), m("papers/SM.md",432), m("papers/SM.md",587), m("book/ch19-open-problems.md",337)],
+  proof_location="SM inline proofs + kernel (ledger K3).",
+  status=dict(proof_status="proved-kernel", layer="kernel", kernel="LinkDecomposition, QuarterTurn, TasteBranching, GaugeDimension", ledger="SM:T-7, T-8, T-16 K3",
+              hypotheses=["physical reading needs H-link and H-cust"], weakest_link="H-link (physical identification)"),
+  intro_treatment=dict(kind="absent", sites=[I.format(26)], note="The Introduction limits itself to foundations, Λ and black holes, and points to [GR] and [Book]."),
+  scope="No: outside the deliberate scope; the physical readings are conditional and would need H-link.",
+  recommendation="leave out", proposed_text=None,
+  notes="If the owner wants OI's reach acknowledged, one pointer sentence citing [SM] with 'conditional on the carrier hypothesis H-link' would suffice."
+ ),
+ dict(
+  id="CMP-19", priority="low", topic="black-hole information",
+  result=("Further proved black-hole results: nested-partition consistency (Theorems A.1–A.5), the sector-entropy inequality (Theorem A.6, subadditivity), the effective pure state (A.7), "
+          "and the Page-time dependence t_P=[1−(β/(1+β))^{3/2}]t_evap on the radiation's entropy ratio β (conditional on A.9)."),
+  sources=[m("papers/GR.md",729), m("papers/GR.md",797), m("papers/GR.md",811), m("papers/GR.md",857)],
+  proof_location="GR App. A inline proofs (ledger GAP; A.3 K2).",
+  status=dict(proof_status="proved-paper", layer="paper-derivation", kernel="A.3 only (K2)", ledger="GR:T-a.1…T-a.9 GAP",
+              hypotheses=["A.8–A.9: H-scramble, H-decouple, full product space as shell"], weakest_link="for the Page-time result: H-scramble and H-decouple"),
+  intro_treatment=dict(kind="absent", sites=[I.format(162)], note="§5 reports A.8–A.9 with their conditions and that the GSL is not derived."),
+  scope="No: none bears on recovery by an observer; adding the Page time would lend a conditional curve more weight than §5 gives it.",
+  recommendation="leave out", proposed_text=None, notes=None
+ ),
+ dict(
+  id="CMP-20", priority="low", topic="cosmological constant",
+  result=("GR's further CC claims: the 10^122 ratio read as the de Sitter entropy and 'non-adjudicability follows from the equivalence itself' (GR §6.3); four routes (thermodynamic, closure, Lovelock, spin-2) "
+          "said to converge on Einstein–Hilbert dynamics given the emergent cone, matter content and a spin-2 mode (GR:166)."),
+  sources=[m("papers/GR.md",364), m("papers/GR.md",166)],
+  proof_location="argument only; external theorems cited.",
+  status=dict(proof_status="conditional", conditional_on=["the coupling step G3", "the emergent cone, matter content and spin-2 mode (GR:166)"], layer="literature + paper argument", kernel="none", ledger="none",
+              hypotheses=[], weakest_link="G3 open"),
+  intro_treatment=dict(kind="absent", sites=[I.format(142), I.format(148)], note="The Introduction keeps the identity ('a dimensional identity, not an independent prediction') and drops the reading."),
+  scope="No: interpretive and conditional on the open G3 step; including them would overstate (see CON-12).",
+  recommendation="leave out", proposed_text=None, notes=None
+ ),
+ dict(
+  id="CMP-21", priority="low", topic="recurrence and indivisibility",
+  result="Genericity of the non-permutation witness: the fraction of bijections with permutation T is n_V!(n_H!)^{n_V}/(n_V n_H)!, decaying like n_V^{-n_V n_H}.",
+  sources=[m("papers/Main.md",143)],
+  proof_location="Main:143 (counting argument).",
+  status=dict(proof_status="proved-paper", layer="exact-algebra", kernel="none", ledger="none", hypotheses=["uniform counting over bijections"], weakest_link="none"),
+  intro_treatment=dict(kind="absent", sites=[I.format(92)], note=None),
+  scope="No: it bears on a measure over bijections, which the Introduction does not use.",
+  recommendation="leave out", proposed_text=None, notes=None
+ ),
+]
+
+BH = "verification/programmes/black-hole-information"
+ROWS += [
+ dict(
+  id="CMP-22", priority="medium", topic="finite-horizon correspondence (realization)",
+  result=("Independent-prior realization for every finite-horizon law, not only rational ones: the response-table extension replaces the uniform tape by a response coordinate u=(u_c) over the horizon's "
+          "history contexts with product prior ∏_c kern_c(u_c), independent of the visible initial state, and reproduces the full multi-time law for arbitrary real kernels; 'rationality tracks the prior, not the mechanism'."),
+  sources=[m("papers/Main.md",496), m("papers/Main.md",498), m("papers/Main.md",715)],
+  proof_location="Main:498 (construction in the Extension paragraph; review4_probes.py P-G); the correlated-prior realization is kernel (S_imp_D).",
+  status=dict(proof_status="proved-paper", layer="paper-derivation + probe", kernel="S_imp_D covers only the correlated-prior form",
+              ledger="MAIN:T-finite-horizon-process-dilation P", hypotheses=["finite visible alphabet", "finite horizon", "finite hidden set C_V^{contexts} × ledger × clock"],
+              weakest_link="paper construction (independence of the prior from x_0 is not formalized)"),
+  intro_treatment=dict(kind="weaker", sites=[I.format(56), I.format(60)],
+                       note="L56: 'For a law with rational probabilities, a realization whose hidden prior is independent of x_0 also exists'. Main's response-table extension removes the rationality restriction."),
+  scope="Yes; it is a one-word correction to a sentence the Introduction already carries.",
+  recommendation="strengthen",
+  proposed_text="L56: \"For every law, a realization whose hidden prior is independent of x_0 also exists [Main §3.4, Theorem (finite-horizon process dilation) and its response-table extension]; it is proved on paper, with probes.\"",
+  notes="Confirms mapper B1's underclaim I-071. The attribution sentence at L60 (EGGH26 Prop. 16, without reversibility) is unaffected. The probe for the arbitrary-prior form (P-G) is not exhaustive exact arithmetic over all laws, so 'exact probes' should not be claimed for it."
+ ),
+ dict(
+  id="CMP-23", priority="medium", topic="finite-horizon correspondence (all-time scope)",
+  result=("Exact all-time classification for rooted families (kernel only): a rooted family Γ (Γ_0=I, row-stochastic) is realized at every time by one finite reversible system exactly when it is periodic "
+          "(finiteRootedRealizable_iff_pper); some family in the fixed-basis quantum class Q* is not finitely rooted-realizable (qStar_not_subset_finiteRootedRealizable)."),
+  sources=["lean:OIBridge/RootedClassificationAllTime.lean:192:finiteRootedRealizable_iff_pper", "lean:OIBridge/QuantumRepresentationT2.lean:163:qStar_not_subset_finiteRootedRealizable",
+           m("papers/Main.md",618)],
+  proof_location="kernel only; no manuscript cites either declaration (grep of papers/ and book/ at eae01647 finds none).",
+  status=dict(proof_status="proved-kernel", layer="kernel", kernel="RootedClassification, RootedClassificationAllTime, QuantumRepresentationT2", ledger="none (not in the census registry)",
+              hypotheses=["finite visible carrier", "rooted families (one-time marginal maps from time 0), not full multi-time laws"], weakest_link="scope: rooted families only"),
+  intro_treatment=dict(kind="weaker", sites=[I.format(68), I.format(185)],
+                       note="L68 gives the necessity half for multi-time laws (finite order ⇒ periodic); open problem (3) lists 'exact gluing for recurrent target families' as open. At the rooted-family level the kernel settles both directions."),
+  scope="Yes in substance, but the manuscript layer does not carry it: Main:618 still lists recurrent-family gluing as open.",
+  recommendation="cite",
+  proposed_text=("After Main carries it (census contract §A.35), L68: \"... and for the rooted maps Γ_t the converse holds: a rooted family is realized at every time by one finite reversible system exactly when it is periodic (machine-checked)\"; "
+                 "narrow open problem (3) to multi-time laws."),
+  notes="Confirms mapper B4's item. Until Main or another manuscript states it, the Introduction would be the only publication-facing site; that is a corpus-propagation decision for the owner. Corpus side: CON-29."
+ ),
+ dict(
+  id="CMP-24", priority="low", topic="hidden memory ((C2) necessity)",
+  result=("(C2) necessity is proved on paper under the conditional-mixing hypothesis: ||T^(k)−T^k|| ≤ (k−1)ε with optimal constant, and the process form I(X_<k;X_k+1|X_k) ≤ 2[ε log(n_V−1)+h(ε)], so observed memory forces ε ≥ ε_min(I*,n_V)."),
+  sources=[m("papers/Main.md",433), m("papers/Main.md",447), m("papers/Main.md",720)],
+  proof_location="Main:439, Main:451 (paper proofs; c2_mixing_probes.py).",
+  status=dict(proof_status="conditional", conditional_on=["hidden-sector conditional-mixing hypothesis (ETH-motivated)"], layer="paper-derivation", kernel="none",
+              ledger="MAIN:T-c2-necessity-quantitative-mixing-form P; MAIN:T-physical-memory-c2-process-form P", hypotheses=["mixing hypothesis"], weakest_link="the mixing hypothesis"),
+  intro_treatment=dict(kind="weaker", sites=[I.format(185), I.format(86)],
+                       note="Open problem (4) lists '(C2) necessity, which is conditional on a hidden-sector mixing hypothesis' among open problems; the theorem is proved, and what is open is the hypothesis."),
+  scope="Yes; wording only.", recommendation="strengthen",
+  proposed_text="Open problem (4): \"whether the hidden-sector mixing hypothesis, under which (C2) necessity is proved [Main §3.4], holds for a physical hidden sector (it is motivated by eigenstate thermalization)\".",
+  notes="Confirms mapper B4's item."
+ ),
+ dict(
+  id="CMP-25", priority="low", topic="black-hole information",
+  result=("BHb C2 (entropy budget): under any permutation the amplitude multiset, the overlap F=|<+^n|ψ>|^2 and the support are conserved, so at every step and aligned bipartition the Schmidt rank is at most |supp ψ0|, "
+          "S(R) ≤ min(H(p_R),H(p_B)) ≤ H(p0), λ_max(ρ_R) ≥ F and S_2 ≤ −2 ln F; tight (CNOT network). Page-like entanglement therefore requires the initial state to carry it in its basis entropy."),
+  sources=[f"{BH}/bh02_scramble_v1/REPORT.md:15{C}", f"{BH}/bh02_scramble_v1/REPORT.md:30{C}", f"{BH}/bh02_scramble_v1/REPORT.md:40{C}"],
+  proof_location="BHb REPORT.md 'Proofs of the exact statements' C2(i)–(iii); exhaustive exact check over S_8 at n=3.",
+  status=dict(proof_status="proved-paper", layer="paper-derivation + exhaustive computation", kernel="none", ledger="research record, internally reviewed, not adopted",
+              hypotheses=["permutation unitaries on a configuration-basis Hilbert space", "aligned bipartitions"], weakest_link="unpublished research record"),
+  intro_treatment=dict(kind="absent", sites=[I.format(162)], note="§5 cites BHb C1 and C6(a)–(b) for the failure of H-scramble on definite configurations; C2 is its quantitative form for every initial state."),
+  scope="Optional, one clause; it sharpens the H-scramble caveat that §5 already carries.",
+  recommendation="cite",
+  proposed_text="§5, after the H-scramble failure: \"more generally, under a permutation the entanglement at an aligned bipartition never exceeds the basis entropy of the initial state [BHb, C2]\".",
+  notes="From mapper B3's list; verified in the record. Relevant also to CON-31 (A.8's own setting)."
+ ),
+ dict(
+  id="CMP-26", priority="low", topic="black-hole information",
+  result=("BHa D1 and D2: under cumulative records the accessible advantage is nondecreasing (written proof: refinement of the record), while snapshot advantage can decrease (21,632 bijections; swap-in/swap-out 0,1,0). "
+          "BHa C4 (Lemma L): for linear bijections over GF(2), P_succ = 2^{r_t−k} with max(0,t−(n−k)) ≤ r_t ≤ min(k,t)."),
+  sources=[f"{BH}/bh01_access_v1/REPORT.md:25{C}", f"{BH}/bh01_access_v1/REPORT.md:26{C}", f"{BH}/bh01_access_v1/REPORT.md:27{C}",
+           f"{BH}/bh01_access_v1/REPORT.md:125{C}", f"{BH}/bh01_access_v1/REPORT.md:134{C}"],
+  proof_location="BHa REPORT.md 'Proofs' (C4 Lemma L, D1); exhaustive over GL(4,2) and S_8; independent review confirms D1's proof.",
+  status=dict(proof_status="proved-paper", layer="paper-derivation + exhaustive computation", kernel="none", ledger="research record",
+              hypotheses=["finite toy classes", "cumulative (not snapshot) records for D1", "linear dynamics for C4"], weakest_link="unpublished research record"),
+  intro_treatment=dict(kind="weaker", sites=[I.format(160)], note="The Introduction cites the linear case as 'the secret-sharing threshold' (C4 carried); D1/D2 absent."),
+  scope="Optional; D1 is a clean statement about accessible recovery over time, but the Introduction's §5 is already long.",
+  recommendation="leave out",
+  proposed_text=None,
+  notes="From mapper B3's list; verified. If added: \"accessible advantage cannot decrease as records accumulate, though advantage from the current records alone can [BHa, D1–D2]\"."
+ ),
+]
