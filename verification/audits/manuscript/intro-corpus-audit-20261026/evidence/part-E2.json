@@ -1,0 +1,430 @@
+[
+ {
+  "item": "E2-01",
+  "type": "exhaustive-computation",
+  "what": "BHa claim A: of the 40,320 bijections of {0,1}^3 (moving-partition layout: message register 0, registers 1,2 hidden-uniform, map applied homogeneously, cumulative reads of reg 2 at t=1 and regs 1,2 at t=2), 1,376 give zero accessible advantage (TV = 0) at t=2; full histogram delta = 0 / 1/2 / 3/4 / 1: 1376 / 12672 / 11776 / 14496. Nested V/B/D layout (V read t=1..3): 2688 zero-advantage bijections.",
+  "claims": [
+   "I-019",
+   "I-045",
+   "I-211",
+   "I-213",
+   "I-215",
+   "I-265",
+   "I-305",
+   "R-20",
+   "R-21"
+  ],
+  "sources": [
+   "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647",
+   "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:148-150@eae01647",
+   "verification/programmes/black-hole-information/bh01_access_v1/result.json@eae01647",
+   "verification/programmes/black-hole-information/bh01_access_v1/checks.py:322-338@eae01647",
+   "verification/programmes/black-hole-information/bh01_access_v1/PLAN.md:20-66@eae01647"
+  ],
+  "check": "Independent re-implementation from PLAN.md section 2 definitions, importing nothing from checks.py, integer arithmetic only (2N*TV, |M|N*P_succ): python3 -I evidence/scripts/E2_bh01_counts.py out.json (about 6 s). Plus byte-for-byte replay of the corpus script: python3 -I -B checks.py --out <dir> at eae01647 (53 s, exit 0); result.json sha256 0f08dd56...4ea7, byte-identical to the retained result.json and to SHA256SUMS.",
+  "outcome": "pass",
+  "evidence_level": "reproduced",
+  "limits": "Exhaustive over S_8 in the stated layout only: T<=3, time-homogeneous maps, uniform message prior, hidden-uniform unread data, full-register reads. Counting measure on maps carries no physical weight. Maps are arbitrary bijections, not the substratum dynamics (surrogate scope, BHa REPORT:288-292). Not in CI: no workflow at eae01647 runs the BH programme.",
+  "notes": "Records identical at b64919cd (the Introduction's corpus commit), eae01647 and main 02e73e56 (empty git diff). Retained controls K1-K8 pass in result.json; mutants-output.json records 12/12 mutants caught (not re-run here)."
+ },
+ {
+  "item": "E2-02",
+  "type": "exhaustive-computation",
+  "what": "BHa C2 countercontrol: among the 256 maps {0,1}^2 -> {0,1}^2 with a two-bit message in both registers, one step, register 1 read (|U| = 2, bound 1/2), 0 bijective and 32 non-injective maps violate P_succ >= 1/2; the 32 are exactly the maps whose read register is constant (P_succ = 1/4).",
+  "claims": [
+   "I-219",
+   "R-20"
+  ],
+  "sources": [
+   "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:21@eae01647",
+   "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:155@eae01647",
+   "verification/programmes/black-hole-information/bh01_access_v1/checks.py:506-513@eae01647"
+  ],
+  "check": "E2_bh01_counts.py (exhaustive over all 256 maps, integer arithmetic); constant-read-register characterization counted directly (32 = 2*16); replay of checks.py byte-identical (E2-01).",
+  "outcome": "pass",
+  "evidence_level": "reproduced",
+  "limits": "Single step, no hidden data (message occupies both registers). The bound's general form (any |U|, uniform message and unread data) rests on the written proof C2, not on this enumeration.",
+  "notes": "Supports R-20's narrowed wording (two-bit message, one register unread, 'fall below 1/2')."
+ },
+ {
+  "item": "E2-03",
+  "type": "exhaustive-computation",
+  "what": "BHa necessity diagnostics: 14,496 bijections (moving-partition layout) recover exactly with one mode unread at t=2; nested layout with all of W read at the endpoint and D never read: 36,416 of 40,320 recover exactly, 36,368 of them not products and 36,032 with a W-update depending on D.",
+  "claims": [
+   "I-220",
+   "R-20"
+  ],
+  "sources": [
+   "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:24@eae01647",
+   "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:82-86@eae01647",
+   "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:151-152@eae01647"
+  ],
+  "check": "E2_bh01_counts.py; replay byte-identical (E2-01).",
+  "outcome": "pass",
+  "evidence_level": "reproduced",
+  "limits": "Post-review diagnostics, not preregistered; same layout limits as E2-01.",
+  "notes": "Establishes that the endpoint conditions are sufficient, not necessary, in the tested class."
+ },
+ {
+  "item": "E2-04",
+  "type": "exhaustive-computation",
+  "what": "BHa claim A converse and C1: among the 256 maps of {0,1}^2 (message in B, R hidden-uniform, both read at t=1), 24 bijective maps all recover, 60 non-injective maps recover exactly, 172 fail; 0 violations of exact recovery under bijectivity plus complete endpoint access in S_8 (MP1 at t=3).",
+  "claims": [
+   "I-212",
+   "I-214",
+   "I-216"
+  ],
+  "sources": [
+   "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18-20@eae01647",
+   "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:153@eae01647"
+  ],
+  "check": "E2_bh01_counts.py (AM1_* and MP1_C1_t3_violations); replay byte-identical.",
+  "outcome": "pass",
+  "evidence_level": "reproduced",
+  "limits": "Universality of C1 rests on the written proof (REPORT:98-102); the enumeration is a finite check.",
+  "notes": ""
+ },
+ {
+  "item": "E2-05",
+  "type": "exhaustive-computation",
+  "what": "BHa C2 tightness: two-bit message with one-bit inaccessible remnant over all of S_8: min P_succ = 1/2 (bound 1/2, blind 1/4), attained by 2,368 bijections, none at the blind value; 0 violations of P_succ >= 1/|K| in MP1.",
+  "claims": [
+   "I-218",
+   "I-216"
+  ],
+  "sources": [
+   "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:21@eae01647",
+   "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:154@eae01647"
+  ],
+  "check": "E2_bh01_counts.py (MP2_t2_*, MP1_C2_violations).",
+  "outcome": "pass",
+  "evidence_level": "reproduced",
+  "limits": "Checked at t=2 in the stated layouts only; general bound rests on the written proof.",
+  "notes": ""
+ },
+ {
+  "item": "E2-06",
+  "type": "numerical",
+  "what": "BHa item F: at 30 M_sun, t_evap/tau_B^D in [1.785e57, 1.786e65]; t_evap = tau_B^D at a mass in [1.059e10, 4.918e12] kg; reference 1 M_sun, Gamma=1 gives t_evap ~ 2.1e67 yr.",
+  "claims": [
+   "I-230",
+   "I-265",
+   "I-267"
+  ],
+  "sources": [
+   "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:30@eae01647",
+   "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:211-235@eae01647"
+  ],
+  "check": "Independent rational-interval computation (Fractions; h, c exact SI; CODATA 2018 G interval; IAU nominal GM_sun; pi in [333/106, 355/113]; Gamma in [1/100,1000]; tau in [1e16,1e19] s): python3 -I evidence/scripts/E2_itemF.py. Got [1.78534e57, 1.78552e65] and [1.0593e10, 4.9173e12] kg; reference [2.0953e67, 2.0955e67] yr. All printed bounds are valid (lower truncated, upper rounded up).",
+  "outcome": "pass",
+  "evidence_level": "reproduced",
+  "limits": "Inputs Gamma and tau_B^D ranges were chosen after BHa's plan (REPORT:233-235); margin is ~40 orders so the conclusion does not depend on them. Removes the timescale support for H-decouple only; shows nothing about information reaching D.",
+  "notes": ""
+ },
+ {
+  "item": "E2-07",
+  "type": "exhaustive-computation",
+  "what": "BHb C1: under any permutation, the orbit of a configuration basis state stays a configuration basis state, so S(R) = 0 at every aligned bipartition; exhaustive sweeps 24 / 40,320 / 362,880 permutations at (q,n) = (2,2), (2,3), (3,2).",
+  "claims": [
+   "I-225",
+   "I-227",
+   "I-265",
+   "I-286"
+  ],
+  "sources": [
+   "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:14@eae01647",
+   "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:48@eae01647",
+   "verification/programmes/black-hole-information/bh02_scramble_v1/result.json@eae01647"
+  ],
+  "check": "python3 -I evidence/scripts/E2_bh02.py: exhaustive at (2,2) and (2,3): 24 and 40,320 permutations, 0 orbit states with more than one nonzero amplitude at any aligned cut. (3,2) not re-run.",
+  "outcome": "partial",
+  "evidence_level": "reproduced",
+  "limits": "The universal claim rests on the one-line proof (P_pi maps basis vectors to basis vectors); the sweep is near-tautological and my re-run carries no countercontrol (BHb's CC1, CC2 are recorded passing in result.json, not re-run). (3,2) sweep not reproduced; BHb checks.py not replayed (cost unmeasured; see CI proposal).",
+  "notes": "Partial only for the unreplayed (3,2) sweep and countercontrols; the proof makes the claim certain."
+ },
+ {
+  "item": "E2-08",
+  "type": "exhaustive-computation",
+  "what": "BHb C6(c): on the diagonal shell span{|i>|i>} the Haar mean entropy is exactly H_m - 1, above S_Page(m,m) for m = 2,3,4,8,16 (1/2, 5/6, 13/12, 481/280, 1715839/720720); on Hamming-weight shells the concavity bound S(E rho_R) certifies the mean below S_Page in (n,w,|R|) = (8,2,4), (10,2,5), (12,3,6), and is inconclusive at half filling (6,3,3), (8,4,4), (10,5,5).",
+  "claims": [
+   "I-236"
+  ],
+  "sources": [
+   "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:20@eae01647",
+   "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:59-66@eae01647"
+  ],
+  "check": "E2_bh02.py: exact rational H_m - 1 vs exact Page formula sum_{k=n+1}^{mn} 1/k - (m-1)/(2n); concavity bound E rho_R = sum_k C(n-r,w-k)/C(n,w) P_k evaluated with mpmath interval arithmetic (dps 50) against exact S_Page. All six canonical-entropy values match the report's intervals to 10 digits; the three 'below' cases are certified, the three half-filling cases have the bound above S_Page.",
+  "outcome": "pass",
+  "evidence_level": "reproduced",
+  "limits": "The Haar mean formula H_m - 1 for |c_i|^2 of a Haar vector is taken as a standard input, not re-derived; Monte Carlo means not reproduced (not needed for the claims).",
+  "notes": "Supports L162: on a proper shell the mean depends on the shell and in general differs from the Page value, in both directions."
+ },
+ {
+  "item": "E2-09",
+  "type": "numerical",
+  "what": "L84 Pinsker readback bound, probe c4_backflow_probes.py: instances Q1 (gap family, I = 1 bit, p0 = 1/4, delta = 1), Q2 (revival, I = 2/3 bit, p0 = 1/6, delta = 1), Q3 (coin, I = 0), Q4 (dilation inherits the gap), Q5 (small gap, p0 = 1/4, delta = 1/4) satisfy I >= p0 delta^2/ln 2.",
+  "claims": [
+   "I-054",
+   "I-103"
+  ],
+  "sources": [
+   "papers/oi_lattice_code/foundations/c4_backflow_probes.py:15-24@eae01647",
+   "papers/oi_lattice_code/foundations/c4_backflow_probes.py:52@eae01647",
+   "papers/Main.md:170@eae01647"
+  ],
+  "check": "Replay python3 -I -B c4_backflow_probes.py at eae01647: exit 0. Independent exact/interval re-evaluation: python3 -I evidence/scripts/E2_c4_exact.py. Exact CMI as log2(Q)/D with Q rational: Q1 I = 1 exactly, Q2 I = 2/3 exactly, Q3 trajectory law exactly i.i.d. uniform so I = 0 exactly at every order, Q5 bound certified with mpmath interval enclosure of ln Q (I in [0.045566, 0.045566] vs bound 0.022542).",
+  "outcome": "pass",
+  "evidence_level": "reproduced",
+  "limits": "Five hand-chosen instances; the lemma itself is a paper proof (Pinsker). This item certifies the instance values only; see E2-10 for the evidence tag.",
+  "notes": "The instance values are now certified exactly/rigorously by the audit script, not by the corpus probe."
+ },
+ {
+  "item": "E2-10",
+  "type": "numerical",
+  "what": "Evidence form of L30/L56/L84: L30 defines an 'exact probe' as 'an exhaustive computation in exact rational arithmetic at small size'; L84 tags the Pinsker bound 'with exact probes'; Main.md:170 says 'Certified exactly'.",
+  "claims": [
+   "I-054",
+   "I-103",
+   "R-03"
+  ],
+  "sources": [
+   "papers/oi_lattice_code/foundations/c4_backflow_probes.py:23@eae01647",
+   "papers/oi_lattice_code/foundations/c4_backflow_probes.py:52@eae01647",
+   "papers/oi_lattice_code/foundations/c4_backflow_probes.py:63@eae01647",
+   "papers/oi_lattice_code/foundations/c4_backflow_probes.py:97@eae01647",
+   "papers/Introduction.md:30@4a260ca9",
+   "papers/Introduction.md:84@4a260ca9"
+  ],
+  "check": "Read the probe: laws are exact Fractions, but I(A;B|C) is accumulated as float(p)*log2(float(...)) (line 23), bound divided by float LN2, and every verdict is a float comparison with tolerance (abs(I-1.0)<1e-12 at :52; 1e-9 at :63; <1e-12 at :97), on five named instances, none exhaustive over a class.",
+  "outcome": "fail",
+  "evidence_level": "failed",
+  "limits": "Fails only as evidence for the stated tag; the instance values themselves hold (E2-09).",
+  "notes": "Confirms R-03 and CON-25: drop 'with exact probes' at L84 (or narrow L30); Main.md:170 'Certified exactly' is not what the probe does."
+ },
+ {
+  "item": "E2-11",
+  "type": "exhaustive-computation",
+  "what": "L56 independent-prior realization 'proved on paper, with exact probes': process_dilation_probes.py P1-P5 (exact full-joint equality for XOR, non-Markov, revival and permutation laws at K=3, hidden prior uniform on tapes and independent of x0, constructed phi checked bijective); review4_probes.py P-G (response-table law equals the non-Markov target, exact, one instance).",
+  "claims": [
+   "I-054",
+   "I-071",
+   "R-03",
+   "R-08"
+  ],
+  "sources": [
+   "papers/oi_lattice_code/foundations/process_dilation_probes.py:1-16@eae01647",
+   "papers/oi_lattice_code/foundations/process_dilation_probes.py:87@eae01647",
+   "papers/oi_lattice_code/foundations/review4_probes.py:170-222@eae01647",
+   "papers/Main.md:496-500@eae01647"
+  ],
+  "check": "Replayed both at eae01647 (exit 0; outputs: P1-P4 'reproduced EXACTLY', P2 T2 != T1^2, P3 revival, P4 control silent, P-G exact). Read the code: Fraction arithmetic throughout, bijectivity asserted (sorted image == domain).",
+  "outcome": "partial",
+  "evidence_level": "reproduced",
+  "limits": "Replay of corpus code, not an independent implementation. Named instances, not exhaustive: satisfies R-03's narrowed definition ('exact rational arithmetic on stated small instances') but not L30's 'exhaustive'. P-G checks only the response-table law identity on one rational instance; it builds no bijection (no ledger/clock completion) and no irrational kernel, so R-08's 'for every law' rests on the paper Extension (Main.md:498). P6 capacity line is float (info only). Not in CI.",
+  "notes": ""
+ },
+ {
+  "item": "E2-12",
+  "type": "exhaustive-computation",
+  "what": "Appendix B (L219-L253): B.1 Gamma_1 = [[2/3,1/3],[1/3,2/3]], Gamma_2 = I, Gamma_1^-1 Gamma_2 = [[2,-1],[-1,2]], Gamma_1^2 = [[5/9,4/9],[4/9,5/9]], P(x2=0|x1=1,x0=0) = 1, P(x2=0|x1=1) = 1/3 and a/(2-a); B.2 all two-time matrices J/2, P-divisible via Lambda = I, I(X0;X2|X1) = 1 bit; B.3 table 1/2, 1, 1/2, 1/2, reveal/replace peeks 1, anticorrelated cards divisible, one-step channel tr(rho)I/2, two-step identity, Pauli identity and instrument decomposition, fixed-card map tr(rho)|0><0|.",
+  "claims": [
+   "I-345",
+   "I-346",
+   "I-347",
+   "I-348",
+   "I-349",
+   "I-350",
+   "I-351",
+   "I-352",
+   "I-353",
+   "I-354",
+   "I-355",
+   "I-356",
+   "I-357",
+   "I-358",
+   "I-361",
+   "I-362",
+   "I-363",
+   "I-364",
+   "I-365",
+   "I-366",
+   "I-367",
+   "I-369",
+   "I-372",
+   "I-374",
+   "I-377",
+   "I-380",
+   "I-381",
+   "I-382"
+  ],
+  "sources": [
+   "papers/Introduction.md:219-253@4a260ca9",
+   "papers/Main.md:178-198@eae01647"
+  ],
+  "check": "Independent script python3 -I evidence/scripts/E2_appendixB.py (Fractions; a-dependence as exact linear polynomials; B.2 CMI evaluated exactly in bits on a dyadic law; sympy for the 2x2 operator identities). All checks true. Cross-checked against the audit's matrix/scripts/b5_check.py: same values.",
+  "outcome": "pass",
+  "evidence_level": "reproduced",
+  "limits": "The Bell statement (L255) and the BBS24 'admits no such decomposition' for the fixed card are not computational and not checked here.",
+  "notes": "Defect in the audit's own b5_check.py: B.2's I(X0;X2|X1) is hard-coded as '1 - 0' (not computed), and the three-hidden variant's a/(2-a) is not computed although FINDINGS R-04 claims it; E2_appendixB.py computes both."
+ },
+ {
+  "item": "E2-13",
+  "type": "exhaustive-computation",
+  "what": "FINDINGS R-04 re-check: a three-hidden-state model (h=1 flips x; h=2,3 swap) reproduces every B.1 number; with one hidden value no bijection is a Theorem 3 witness; at (|V|,|H|) = (2,2), 16 of 24 bijections are witnesses; the card swap and (v xor h, h) are witnesses.",
+  "claims": [
+   "I-123",
+   "I-124",
+   "R-04"
+  ],
+  "sources": [
+   "verification/audits/manuscript/intro-corpus-audit-20261026/FINDINGS.md (R-04)@c97ffb5e"
+  ],
+  "check": "E2_appendixB.py: the B.1 battery on the 3-hidden model (Gamma_1, Gamma_2, divisor, Gamma_1^2, both conditionals, a/(2-a)) all hold; Theorem 3 census exhaustive over all bijections and, unlike b5_check (uniform prior only), over every prior support (witness status depends only on the support): 2x1 0/2, 3x1 0/6, 2x2 16/24, 2x3 648/720, 3x2 672/720, identical for full support and for some support.",
+  "outcome": "pass",
+  "evidence_level": "reproduced",
+  "limits": "Witness search uses Theorem 3's sufficient hypothesis (overlap + return), not P-indivisibility itself.",
+  "notes": "'Minimal' (six hidden states) is false as a size claim; the card game realizes Theorem 3 at the smallest alphabet sizes (2,2) but is not unique."
+ },
+ {
+  "item": "E2-14",
+  "type": "numerical",
+  "what": "Main.md:594 (L185 open problem 2, 'the fixed-dimension form is false'): at (n_V,|C_H|) = (2,3) the minimum of I(X<t;H_t|X_t) over same-dimension realizations equals M_t for 1 of 15 processes, residuals up to 0.667 bits (memory_probes.py, uniform prior, float); the audit's B4 recheck over arbitrary priors (Nelder-Mead) reported 2 of 16.",
+  "claims": [
+   "I-290",
+   "I-291",
+   "CON-26"
+  ],
+  "sources": [
+   "papers/Main.md:594@eae01647",
+   "papers/oi_lattice_code/foundations/memory_probes.py:94-118@eae01647",
+   "verification/audits/manuscript/intro-corpus-audit-20261026/matrix/scripts/b4probe/fixeddim.py@c97ffb5e"
+  ],
+  "check": "Replayed memory_probes.py (exit 0, prints 1 of 15). Exact re-derivation python3 -I evidence/scripts/E2_memory_exact.py using I(X<2;H2|X2) - M_2 = I(X<2;H2|X2,X3), zero iff an exact Fraction conditional-independence test holds; for arbitrary priors, attainment iff some permutation has every path of the law as a class and the H2-value sets of supported classes intersect for each (x2,x3) (infimum attained on a compact set). Results: 15 signature groups with M_t > 0, exactly 1 attained (uniform prior); 16 distinct full laws, exactly 2 attained at uniform prior and exactly 2 over all priors; the single signature group that merges two full laws contains both attaining laws; M_t is constant within each group; max residual 0.6667 bits (float diagnostic).",
+  "outcome": "pass",
+  "evidence_level": "reproduced",
+  "limits": "Horizon t=2 (predict X3), (2,3) only. Residual 0.667 is a float diagnostic.",
+  "notes": "Resolves CON-26: '1 of 15' and '2 of 16' are the same fact counted by t=2 conditional signature versus by full law; arbitrary priors attain nothing beyond the uniform prior, so Main's counterexample holds over all priors, exactly. fixeddim.py is unseeded (np.random without seed) and therefore not reproducible; E2_memory_exact.py replaces it. Main.md:590's '1,464 cases' (Theorem 2 instances) uses float with 1e-12 tolerance for part (c) and uniform priors only; not cited by the Introduction."
+ },
+ {
+  "item": "E2-15",
+  "type": "numerical",
+  "what": "R-07 epsilon-realization (Main.md:544-580): opglue_probes.py checks on a qubit, K=2,3, family {Z,X,H,R}: TV <= K/G at G = 8, 128, 1024, noncommutativity, injectivity on 672 reachable states, telescoping and off-net density, rounding-lemma instances.",
+  "claims": [
+   "R-07",
+   "R-03"
+  ],
+  "sources": [
+   "papers/oi_lattice_code/foundations/opglue_probes.py:114-120@eae01647",
+   "papers/oi_lattice_code/foundations/opglue_probes.py:161@eae01647",
+   "papers/oi_lattice_code/foundations/opglue_probes.py:176@eae01647",
+   "papers/oi_lattice_code/foundations/opglue_probes.py:181@eae01647",
+   "papers/oi_lattice_code/foundations/opglue_probes.py:193@eae01647",
+   "papers/oi_lattice_code/foundations/opglue_probes.py:279-309@eae01647"
+  ],
+  "check": "Replayed at eae01647 (1.2 s, all 25 checks PASS). Read the code: TV is computed exactly in Q(sqrt2) and converted to float before comparison with tolerance 1e-15 (:120, :161, :181, :193); checks 8-9 (telescoping, off-net density) compute in float with math.cos/atan2 (:279-309).",
+  "outcome": "partial",
+  "evidence_level": "reproduced",
+  "limits": "Replay, not independent. Instance illustrations of a paper theorem; final comparisons in floating point (large margins, e.g. 1.5e-2 <= 2.5e-1, so the verdicts are not at risk). Not in CI.",
+  "notes": "Confirms R-07: drop 'exact probes' for the epsilon-realization; 'proved on paper' is the correct tag."
+ },
+ {
+  "item": "E2-16",
+  "type": "exhaustive-computation",
+  "what": "Small exact witnesses: L94 monotone TV not sufficient for P-divisibility (translation_probes witnesses, n=2 and n=3); L106 Hadamard family CP-divisible with P-indivisible populations J/2 -> I; L66 |U|^p table independent of p for permutation unitaries; L106 diagonal preservation (c1_cp_scope P3).",
+  "claims": [
+   "I-086",
+   "I-118",
+   "I-130",
+   "I-254",
+   "I-261"
+  ],
+  "sources": [
+   "papers/oi_lattice_code/foundations/translation_probes.py:45-70@eae01647",
+   "papers/oi_lattice_code/foundations/c1_cp_scope_probes.py@eae01647",
+   "papers/oi_lattice_code/foundations/equivalence_recovery_probes.py@eae01647",
+   "papers/Main.md:121@eae01647",
+   "papers/Main.md:330@eae01647",
+   "papers/Main.md:534@eae01647"
+  ],
+  "check": "Independent: python3 -I evidence/scripts/E2_small_exact.py (sympy exact): n=2 divisor min -1/5, contraction 2/5; n=3 min -1/6, contraction 1 (so TV monotone for all pairs by the Dobrushin bound); H^2 = I, Ad_H o Ad_H = id, T(t1) = J/2 singular, T(t2) = I; permutation |U|^p = |U|^2. Replays: translation, c1_cp_scope, equivalence_recovery (13/13 PASS, 14 s) all exit 0.",
+  "outcome": "pass",
+  "evidence_level": "reproduced",
+  "limits": "Witness instances; the general statements are paper or kernel results.",
+  "notes": ""
+ },
+ {
+  "item": "E2-17",
+  "type": "numerical",
+  "what": "Section 4 numbers: 'some 120 orders of magnitude' (L140); Weinberg Eq. (3.6) <rho> = 2^-10 pi^-4 G^-2 ~ 2e71 GeV^4 against 1e-47 GeV^4 (118 places); G^-2 gives ~123; the mismatch equals the de Sitter entropy up to a convention factor (L148).",
+  "claims": [
+   "I-173",
+   "I-193",
+   "I-194"
+  ],
+  "sources": [
+   "papers/Introduction.md:140@4a260ca9",
+   "papers/Introduction.md:148@4a260ca9",
+   "verification/audits/manuscript/introductory-paper-20261025/draft/review/references/WEI89.md@4a260ca9",
+   "papers/GR.md:366@eae01647"
+  ],
+  "check": "python3 -I evidence/scripts/E2_s4_numbers.py with PDG 2024 G/(hbar c) = 6.70883e-39 GeV^-2 and Planck 2018 h = 0.6736, Omega_L = 0.6847: (8 pi G)^-1/2 = 2.435e18 GeV; <rho> = 2.23e71 GeV^4 (closed form agrees); log10 ratios 118.3 (vs 1e-47) and 123.3 (G^-2); against measured rho_L = 2.52e-47 GeV^4: 117.9 and 122.9; S_dS = 2.27e122 and (M_Pl^4/rho_L)/S_dS = 3.89 = (8/3)/Omega_L.",
+  "outcome": "pass",
+  "evidence_level": "reproduced",
+  "limits": "Float arithmetic on measured inputs; claims are orders of magnitude. Weinberg's passages themselves were read first-hand by the earlier audit (WEI89.md), not re-read here.",
+  "notes": ""
+ },
+ {
+  "item": "E2-18",
+  "type": "numerical",
+  "what": "GR.md:366 and book ch07:193: (rho_QFT/rho_classical)/S_dS 'holding up to a convention-dependent factor between 1/(96 pi^2) and 8/3' 'for any theory with a Planck cutoff'.",
+  "claims": [
+   "I-193",
+   "I-194"
+  ],
+  "sources": [
+   "papers/GR.md:366@eae01647",
+   "book/ch07-gravity.md:193@eae01647"
+  ],
+  "check": "E2_s4_numbers.py, exact sympy factors over cutoff {M_Pl/2 (= 1/eps at sigma=1), M_Pl, (8 pi G)^-1/2}, normalization {1/(16 pi^2), 1}, rho_classical {3H^2/(8 pi G), H^2/G}, S_dS = pi/(G H^2). With cutoff in {M_Pl/2, M_Pl} and the critical density the range is exactly [1/(96 pi^2), 8/3]. With rho_classical = H^2/G (the form GR itself writes) the factor reaches 1/(256 pi^3); with Weinberg's cutoff it is 1/(384 pi^4).",
+  "outcome": "partial",
+  "evidence_level": "reproduced",
+  "limits": "The range is reproduced only under conventions GR:366 does not state (critical density; cutoff between M_Pl/2 and M_Pl). 'Any theory with a Planck cutoff' is broader than the range. The Introduction's own sentence (L148) states no range and is unaffected.",
+  "notes": "Corpus item for the owner (GR:366, book ch07:193, FULL:2072): state the conventions or widen the range."
+ },
+ {
+  "item": "E2-19",
+  "type": "exhaustive-computation",
+  "what": "L195: the Lean sources are identical at 17b830bc and the corpus commit b64919cd; the probes and black-hole records are at the stated paths at the corpus commit (L197-L200).",
+  "claims": [
+   "I-309"
+  ],
+  "sources": [
+   "git 17b830bc..b64919cd",
+   "git b64919cd..eae01647",
+   "git eae01647..02e73e56"
+  ],
+  "check": "git diff --stat 17b830bc b64919cd -- verification/lean verification/lean-mathlib: empty (also to eae01647). git diff b64919cd eae01647 and eae01647 02e73e56 over papers/oi_lattice_code/foundations and verification/programmes/black-hole-information: empty. b64919cd is an ancestor of eae01647, which is an ancestor of main 02e73e56.",
+  "outcome": "pass",
+  "evidence_level": "reproduced",
+  "limits": "Byte identity of sources only; says nothing about the build.",
+  "notes": ""
+ },
+ {
+  "item": "E2-20",
+  "type": "ci-receipt",
+  "what": "Whether CI runs the cited computations.",
+  "claims": [
+   "I-045",
+   "I-054",
+   "I-103"
+  ],
+  "sources": [
+   ".github/workflows/verify.yml:651-680@eae01647"
+  ],
+  "check": "Read verify.yml at eae01647: the 'Numerical probes / foundations' job runs 12 named foundations probes, none of those the Introduction relies on (c4_backflow, process_dilation, review4, translation, c1_cp_scope, equivalence_recovery, memory, opglue); no workflow runs the black-hole programme's checks.py.",
+  "outcome": "partial",
+  "evidence_level": "traced-only",
+  "limits": "No CI attestation exists for any E2 result; the evidence chain is the local replays and independent scripts above. GitHub run history was not queried (session ended).",
+  "notes": "Proposal: add the eight cited probes (~20 s total) to the foundations job, owner decision."
+ }
+]
