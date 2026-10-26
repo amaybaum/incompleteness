@@ -51,3 +51,19 @@ the question. The branch is based on #912's head `2af1d5d5`, which contains v8 a
 - `review/STAGE0-RECHECK-r3.md`: the independent review of Stage 0 r3 (ACCEPT WITH CHANGES; RC1–RC10, all bounded
   text edits, so not a clean accept and no freeze), with the reviewer's mutants and probes in `review/toy-r3/`. Every
   cheap control replayed byte for byte, and the quick mutant campaign matched its recorded hash.
+- `stage0/r4/`: the Stage 0 revision applying the r3 review's RC1–RC10 and nits, and the owner decisions of
+  2026-10-26:
+  - O-a: the r3→r4 diff is reviewed independently, and the freeze follows only a clean acceptance;
+  - O-b: an outcome-neutral S1b/S1c trigger, Rule T in §12, preregistered before any S1 result;
+  - O-c: PO6 is restored in full;
+  - O-d: the new planted families and mutants run on toy instances only.
+
+  `stage0/code-r4/` is design-evidence code, and `stage0/design-r4/` holds the regenerated evidence with its
+  `RUN-MANIFEST` and retained outputs.
+  - Every control passes.
+  - The configuration-based v8 refusal is exercised 13 ways.
+  - The quick mutant campaign catches all 16 mutants at their named case. These include decision-level mutants and
+    the B-type, G and Φ-adjacent planted families.
+  - The toy demonstration's limits are disclosed in plan §9.
+
+  Nothing ran on v8's class. The v8 enumeration is not authorized, and the full campaign belongs in CI.
