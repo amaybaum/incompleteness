@@ -238,6 +238,15 @@ in substance (`review/references/WEI89.md`). The copy is not committed. `Introdu
 cutoff-convention clause uncited, and removes the marker. Three VERIFY markers remain (CT06, Har04, Sha79); none gates
 landing. `Introduction-r14.md` is the current draft.
 
-**Before the draft lands as `papers/Introduction.md`:**
-- the direct check of the Lean identifiers at the landing commit;
-- an exact-commit review of the landing.
+## r15 and the landing
+
+`review/scientific/LANDING-REVIEW-r14.md` is the exact-commit landing review of r14 at `9925f683`. Its verdict is
+REVISE (minimal). All 28 Lean declarations of Appendix A resolve at that commit, and the Lean tree is identical to
+`17b830bc`. One clause on line 84 is restated as Main:167 states it at `b64919cd`, and five coverage-ledger rows are
+required for the landing.
+
+`Introduction-r15.md` (with `CHANGES-r15.md`; generated from r14 by `scripts/build_r15.py`) applies the review: the
+readback clause, the corpus repinned to `b64919cd`, and full repository paths in the provenance comments. The landing
+commit copies r15 to `papers/Introduction.md` byte for byte, builds its `.tex` and `.pdf`, and adds the five MIRROR
+rows to the coverage ledger, a README entry and the `build.sh` count. The landing head is checked by an exact-commit
+confirmation and by CI before merge approval is requested.
