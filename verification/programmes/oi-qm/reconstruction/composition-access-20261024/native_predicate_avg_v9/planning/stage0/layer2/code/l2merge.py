@@ -70,15 +70,27 @@ def recount_ok(weight, N, nreps, orbits):
 
 
 def minimal_witness(cands):
-    """C16 order: k, then the number of even-class context quantities, then the sorted items."""
-    return min(cands, key=lambda w: (w['key'][0], w['key'][1], w['key'][2])) if cands else None
+    """C16 order: k, then the number of even-class context quantities, then the sorted items.
+    cands: the shards' running minima (L2-R1)."""
+    cands = [c for c in cands if c]
+    return min(cands, key=lambda w: (w['key'][0], w['key'][1], tuple((tuple(x), t) for x, t in w['key'][2]))) \
+        if cands else None
+
+
+def residue_complete(sh):
+    """L2-R3: the shard's survivor detail lists every survivor representative it counted, and
+    the survivor cap was not exceeded."""
+    return sh.get('survivor_cap_exceeded') is False and len(sh.get('survivors', [])) == sh.get('survivor_representatives')
 
 
 def rule_T(s1a_status, L_A, L_G):
     """Rule T (section 12), exactly as frozen. Its only inputs are S1a's validity and the two
     counts; the k <= 2 label is not an argument (neutrality)."""
     T = CFG.CONFIG['rule_T']
+    rul = CFG.CONFIG['owner_rulings']
     base = {'wording_status': T['wording_status'], 'L_A': L_A, 'L_G': L_G, 's1a_status': s1a_status,
+            'readings': {k: {'layer2_reading': rul[k]['layer2_reading'], 'owner_ruling': rul[k]['ruling']}
+                         for k in ('T1', 'T2', 'T5')},
             'cost_clause': 'not evaluable in Stage 0: the clause refers to the dry-run cost estimate of the search '
                            '(S1b or S1c), and no such dry run exists before S1b is preregistered'}
     if s1a_status != 'OK':
@@ -151,7 +163,7 @@ def merge(pname, workdir):
         why = []
         if claimed != sha_bytes(CFG.canonical(body).encode()):
             why.append('self-digest')
-        if sh.get('schema') != 'np-avg-1/stage0/layer2/shard/1' or sh.get('profile') != pname or sh.get('shard') != s:
+        if sh.get('schema') != 'np-avg-1/stage0/layer2/shard/2' or sh.get('profile') != pname or sh.get('shard') != s:
             why.append('identity')
         if sh.get('code_digest') != cd or sh.get('config_sha256') != CFG.config_sha256():
             why.append('code or configuration digest')
@@ -168,6 +180,10 @@ def merge(pname, workdir):
         if why:
             inc.append('shard %d refused: %s' % (s, ', '.join(why)))
             continue
+        if not residue_complete(sh):
+            inc.append('shard %d: residue incomplete (survivor cap %s exceeded: %s; %d listed of %s survivor '
+                       'representatives)' % (s, sh.get('survivor_cap'), sh.get('survivor_cap_exceeded'),
+                                             len(sh.get('survivors', [])), sh.get('survivor_representatives')))
         commits.add(sh.get('commit'))
         shards.append(sh)
         inputs['shard-%d.json' % s] = claimed
@@ -192,7 +208,7 @@ def merge(pname, workdir):
     gates = {}
     base_rel = {'A': 0, 'G': 0}
     l3only = {'A': 0, 'G': 0}
-    witnesses, survivors, auth = [], [], None
+    witnesses, survivors, auth, seen = [], [], None, 0
     for sh in shards:
         for k, v in sh['counts_additive'].items():
             counts[k] += v
@@ -207,7 +223,8 @@ def merge(pname, workdir):
         for conv in ('A', 'G'):
             base_rel[conv] += sh['base_relative_survivor_records'][conv]
             l3only[conv] += sh['L3_only_survivor_records'][conv]
-        witnesses += sh['witness_candidates']
+        witnesses.append(sh['witness_min'])
+        seen += sh['witness_candidates_seen']
         survivors += sh['survivors']
         auth = sh.get('authorization')
     for conv in ('A', 'G'):
@@ -240,7 +257,12 @@ def merge(pname, workdir):
            'counts': counts, 'n_counts': len(counts),
            'masking_equivalent_records_record_sample_reading': PLAN.masking_equivalent(sp, False),
            'structure': {'L3_only_survivor_records': l3only},
-           'in_run_gates': gates, 'minimal_witness': witness, 'coverage': cov,
+           'in_run_gates': gates, 'minimal_witness': witness, 'witness_candidates_seen': seen, 'coverage': cov,
+           'commits': {'preflight.json': (pf or {}).get('commit'), 's1a.json': (s1a or {}).get('commit'),
+                       'shards': sorted(c for c in commits if c) + ([None] if None in commits else [])},
+           'ci_run': (auth or {}).get('ci_run'),
+           'owner_rulings_pending': CFG.placeholders(),
+           'accepted_readings': CFG.CONFIG['accepted_readings'],
            'S1a': {'status': s1a_status, 'L_A': s1a.get('L_A') if s1a else None, 'L_G': s1a.get('L_G') if s1a else None,
                    'L_reported_L3': s1a.get('L_reported_L3') if s1a else None,
                    'bound_sizes': s1a.get('sizes') if s1a else None, 'n_lines': s1a.get('n_lines') if s1a else None},

@@ -97,13 +97,15 @@
   "subsets": 22,
   "worlds": 2097152
  },
+ "authorization": null,
  "base_collapsed": {
   "A": true,
   "G": true
  },
- "code_digest": "5428eaa42cb1d9a4b5cadbd7b26662547c7b3df96ad9ae760cca6f6e135307eb",
- "commit": "217f7a401906070ac39878966c836e8a73fdbfda",
- "config_sha256": "61c6e0e64b4c67b130ff3dfbb9d98cf73e6710d190f980e701f2b932838b22db",
+ "ci_run": null,
+ "code_digest": "3590d12364f9dc8f5e0a28f1b96d387b31d20c8aaad3f9d8bc7b25dcf03e73f5",
+ "commit": "a63db7ba5852969b324c1932d4f2495fe601dcdb",
+ "config_sha256": "2cafd18ce73744c9a1a99b91ecf350ed7cc0f75403407f66972da022a414d093",
  "controls": {
   "C0_context_sizes": {
    "class": "VOID",
@@ -309,6 +311,17 @@
   "L2-C16": {
    "pass": true
   },
+  "L2-CERT": {
+   "cases": {
+    "all_null": false,
+    "other_auth": false,
+    "preflight_other": false,
+    "same": true,
+    "same_auth": true,
+    "shard_other": false
+   },
+   "pass": true
+  },
   "L2-CFG": {
    "pass": true
   },
@@ -325,7 +338,19 @@
   },
   "L2-GUARD": {
    "pass": true,
-   "refused": 2
+   "refused": {
+    "forged_bound": true,
+    "forged_ref_bound": true,
+    "forged_ref_unbound": true,
+    "forged_unbound": true,
+    "rebind_refused": true,
+    "true_context": true,
+    "true_num_records": true
+   }
+  },
+  "L2-LAND": {
+   "accepted_defects": [],
+   "pass": true
   },
   "L2-LBL": {
    "cases": 11,
@@ -377,6 +402,9 @@
     "digest": "INCOMPLETE",
     "missing": "INCOMPLETE",
     "overlap": "INCOMPLETE",
+    "residue_complete": "COLLAPSE_ALL",
+    "residue_truncated": "INCOMPLETE",
+    "survivor_cap_exceeded": "INCOMPLETE",
     "tamper": "INCOMPLETE",
     "valid": "COLLAPSE_ALL",
     "weight": "INCOMPLETE"
@@ -429,6 +457,22 @@
     "A": 1071,
     "G": 667
    }
+  },
+  "L2-SURV": {
+   "checked": {
+    "C0_context": 8,
+    "C11i": 8,
+    "C17": 8,
+    "C18": 8,
+    "C7": 8,
+    "C8": 1
+   },
+   "orbit_size": 4,
+   "pass": true
+  },
+  "L2-WIT": {
+   "pass": true,
+   "seen": 300
   },
   "failed": [],
   "pass": true
@@ -839,5 +883,6 @@
   "quick": true,
   "rule": "frozen"
  },
- "schema": "np-avg-1/stage0/layer2/preflight/1"
+ "schema": "np-avg-1/stage0/layer2/preflight/1",
+ "tree_clean": false
 }

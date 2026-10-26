@@ -1,8 +1,10 @@
 """NP-AVG-1 Stage 0 independent reference closure (C7). Written from the plan text;
 imports nothing from s0geom. Layer 2 copy of stage0/code-r5/s0ref.py (blob 62c6dfb0 at
 f33d8d63); the only change is that ref_context's v8 refusal is lifted by a RefGrant
-instance (exact type) instead of a truthy value. A RefGrant is constructed only by
-l2auth.issue_grant (static check L2-S1). Cones are explicit cell sets; tips are enumerated
+instance (exact type) whose digests equal the running digests bound once per process by
+bind_running_digests, instead of a truthy value. No repository file other than l2auth
+constructs a RefGrant (static check L2-S1); a grant can be forged in-process, so this lock
+prevents accidental runs only. Cones are explicit cell sets; tips are enumerated
 from the definitions; the greatest self-supporting subset is found by brute force
 over subsets (small contexts) or by synchronous deletion (larger ones).
 Standard library, exact integers."""
@@ -109,18 +111,36 @@ V8_REF = (3, 6, (0, 0, -3))   # v8's (dim, n, port): refused by content (ref_con
 
 
 class RefGrant:
-    """Reference-side authorization token; constructed only by l2auth.issue_grant."""
-    __slots__ = ('key', 'commit')
+    """Reference-side authorization token; no repository file other than l2auth constructs one."""
+    __slots__ = ('key', 'commit', 'code_digest', 'config_sha256')
 
-    def __init__(self, commit):
+    def __init__(self, commit, code_digest, config_sha256):
         self.key = (3, 6, (0, 0, -3))
-        self.commit = commit
+        self.commit, self.code_digest, self.config_sha256 = commit, code_digest, config_sha256
+
+
+_REF_RUNNING = {}
+
+
+def _ishex(s, n):
+    return type(s) is str and len(s) == n and all(ch in '0123456789abcdef' for ch in s)
+
+
+def bind_running_digests(code_digest, config_sha256):
+    """Reference-side binding of the running digests, once per process (l2cert.startup)."""
+    if not (_ishex(code_digest, 64) and _ishex(config_sha256, 64)):
+        raise ValueError('malformed digests')
+    new = (code_digest, config_sha256)
+    if _REF_RUNNING.get('digests', new) != new:
+        raise PermissionError('running digests already bound to other values')
+    _REF_RUNNING['digests'] = new
 
 
 def _ref_granted(a):
-    c = getattr(a, 'commit', None)
-    return (type(a) is RefGrant and getattr(a, 'key', None) == (3, 6, (0, 0, -3)) and type(c) is str
-            and len(c) == 40 and all(ch in '0123456789abcdef' for ch in c))
+    bound = _REF_RUNNING.get('digests')
+    return (bound is not None and type(a) is RefGrant and getattr(a, 'key', None) == (3, 6, (0, 0, -3))
+            and _ishex(getattr(a, 'commit', None), 40)
+            and (getattr(a, 'code_digest', None), getattr(a, 'config_sha256', None)) == bound)
 
 
 def ref_context(dim, n, port, record, conv, authorized_v8=False):

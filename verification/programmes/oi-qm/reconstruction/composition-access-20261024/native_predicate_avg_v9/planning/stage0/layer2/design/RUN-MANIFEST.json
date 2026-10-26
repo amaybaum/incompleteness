@@ -1,33 +1,35 @@
 {
  "code_sha256": {
-  "stage0/layer2/code/LAYER2-MANIFEST.json": "5f38b7adeeeb95a1d11f93f9adbba51333a5543ad6ee0f5e2b54dd838e6a3e30",
+  "stage0/layer2/code/LAYER2-MANIFEST.json": "5769320f3752ff5a5971162e3a19938049a829c2df543a0b27607e93d28caeb9",
   "stage0/layer2/code/l2analysis.py": "2b58a175b24ba3f6d63e6eade4f0fa02cc07fcfd18f18a29b4c692d97d92dc7d",
-  "stage0/layer2/code/l2auth.py": "6f8aadfc59921d1f7975a2fb31fffd4f522da594412fce4ebe4099fcdc43631a",
+  "stage0/layer2/code/l2auth.py": "e1be779494f3f553ccdb7102c22f394a0c122cb63502ccb398ee16aa836bcb91",
   "stage0/layer2/code/l2calib.py": "48427e257d350a279ea4430feebb9bfafe376c5e9af725c16ea49cb21a45b0e5",
-  "stage0/layer2/code/l2cert.py": "ff4d84544b393b5729d85cfc9fbfc24f8ece9850d201a126af701e22360fc700",
-  "stage0/layer2/code/l2config.py": "da8122819389b72b3cc38b45ebe82231d2430bd8051ee83e0f5a2ed73058af69",
-  "stage0/layer2/code/l2enum.py": "eb6f328b8659cfd307bd8194920836f6cad77cb5308e48efaafe6c0e4a548561",
+  "stage0/layer2/code/l2cert.py": "d39b3856b998f42716c846ab6cba2bb116e173e966789e10327feef371c603bd",
+  "stage0/layer2/code/l2config.py": "c5e3a24954501b95c36d54e53c87eebee6b3514760f69c7adf5c8622357182c5",
+  "stage0/layer2/code/l2enum.py": "51ef53bfa4dfd15997320cafe8b24da1a41f8c76448e004f8acb79a0d24d411e",
+  "stage0/layer2/code/l2landing.py": "0af56760310ee4bf255bc9b5bc26be9b15d8ff2662486ba1778a2fe170c0644f",
   "stage0/layer2/code/l2manifest.py": "d30c92f4eac252992c8ecbb03cb89bbb39a6a968b57f4ab359f331beceb4dea0",
-  "stage0/layer2/code/l2merge.py": "647201ef1a663f2aeb079bc41b48eb54d6459db8bfcf01a318c16843153bf563",
+  "stage0/layer2/code/l2merge.py": "80b5aa92411c660469ef5d99a9611b8156d73466727fa90b98ada009b55772cc",
   "stage0/layer2/code/l2mutants.py": "99b0645ef96446a855943fb508dc43711741d2b7ec15bdba62e9573012dec9e8",
-  "stage0/layer2/code/l2plan.py": "33b71572111e9dfe8ce0bffce77c91d365ceba200f4b46ed80ff9e932985491b",
-  "stage0/layer2/code/l2preflight.py": "7a66757cf911bc45555909ee20773b3c33fe34ec0c28b975547bc45bcf27e6f5",
-  "stage0/layer2/code/l2refcheck.py": "b4f9dfdb8331c42e5ae6779b6ff332f6593052dc39edd307fabb3d482a6d750c",
-  "stage0/layer2/code/l2run.py": "a194f22ccbfc0a43c170c1819c646004877402ebdcd1d81bc411dccce6dd3ef2",
-  "stage0/layer2/code/l2s1a.py": "dbae348c82d1a929e3e28d8a9eabad57baa678ec276f3bfbb9ebf5990618a26d",
-  "stage0/layer2/code/l2selftest.py": "76e1ee13daa67a02e700eddb5b403cdfdd4d9e7357ce2ee4f1f696a6ad62c2dd",
+  "stage0/layer2/code/l2plan.py": "52ff47469ad6fe5fe6e8457517b366f53bc8c5ad8fe11dc149608e516b66549d",
+  "stage0/layer2/code/l2preflight.py": "ec919bbd14da0731433de4df0c4723035fbadfb934b757b6fe15603c71babadb",
+  "stage0/layer2/code/l2refcheck.py": "0f80b0afa068170088e3ed0f853301afd01d0df98b3d3c4726586512b52317a8",
+  "stage0/layer2/code/l2run.py": "17f744a9ee0a71176a51e5ab887c46a86b98ae9bd1a0a42f01743d5aed157f3a",
+  "stage0/layer2/code/l2s1a.py": "d6ee05e082db7982e180097037014f24befcc380c101a37257ef9b8f7cc29385",
+  "stage0/layer2/code/l2selftest.py": "1e820347d8d3cc5298caf1080ac025a3360376076cd496daa7315aa2c6d11345",
   "stage0/layer2/code/s0controls.py": "81994f1b8375c988f0d622d202a0896e44338ac8d08c888eaa119c3ef7f103cb",
-  "stage0/layer2/code/s0geom.py": "3d0888fe653b091153ffe302eb9ea7980182ffa31f6cb4314ae60fc9a91c8a88",
+  "stage0/layer2/code/s0geom.py": "9ab0d64cbf7efef231355a46d9264658735f314a325c02067fffabd15eba8e13",
   "stage0/layer2/code/s0native.py": "4206549e8c01d62c684d4375fb11ae79e2fe69ef059c61600ae3db04570c8526",
-  "stage0/layer2/code/s0ref.py": "491bc4df2c298814024932a1dcbd22c7e869200903f2fb1e92a7d47fc41055a8",
+  "stage0/layer2/code/s0ref.py": "4aa701f44309d15546182f47625c8a0d5fff060e0273c9e8b85324560d473859",
   "stage0/layer2/code/s0s6.py": "110f275cd83edb759b40c249900bc397e1fc3accc9571add50fa8bac3e42289a",
   "stage0/layer2/code/s0symcheck.py": "ffe390ae7a7491ab32a2e08c2d739c1be3028b465cf571842198c3c487f618f2",
   "stage0/layer2/design/crosscheck.py": "a3b963ad40966f268d117c4737530fc68f8c20f7c4ba7f374dca027b037d9d0a",
-  "stage0/layer2/design/planted_shard.py": "40e3ef512fb1da4f12544e843e35278064c428f01c67e3c3fb404a3809adc45b",
+  "stage0/layer2/design/planted_shard.py": "e86df3d274540b43e8db73e738a12a8dbe6ba0b74578bd305a1dd827e5a4a340",
   "stage0/layer2/design/r5_equivalence.py": "ca2ee6be0d6d918683e2f67072fb526459ff7a1c91ac3a8eb9502cdc7f10fc71",
-  "stage0/layer2/design/refusal_probe.py": "29670a0a6f6dbb8d6b54919922136d1669f3f1583740675d156e3f476a9cc149"
+  "stage0/layer2/design/refusal_probe.py": "3384a3847e47a5a2eb8a3055625f6bccf9bad580a0ae3a7daaf6afeecd70b7d2"
  },
- "note": "NP-AVG-1 Stage 0 Layer 2 design evidence (WIP / UNREVIEWED, not frozen): toy, planted and small-window instances, S6's carrier and v8 configuration combinatorics only; no closure on v8's configuration class (the v8 profile is refused without an authorization artifact). The quick mutant campaign is local; the full campaign is CI-only and pending owner-approved dispatch.",
+ "head_at_run": "a63db7ba5852969b324c1932d4f2495fe601dcdb",
+ "note": "NP-AVG-1 Stage 0 Layer 2 design evidence (WIP / UNREVIEWED, not frozen): toy, planted and small-window instances, S6's carrier and v8 configuration combinatorics only; no closure on v8's configuration class (the v8 profile is refused without an authorization artifact). The quick mutant campaign is local; the full campaign is CI-only and pending owner-approved dispatch. Commit caveat (L2-R5): this evidence was produced on an uncommitted working tree; the structured files record the HEAD at run time (field commit) and tree_clean = false, so they are design evidence only. At the Layer-2 freeze the evidence is regenerated at a recorded commit.",
  "platform": "Linux-6.18.44-fc-v153-x86_64-with-glibc2.39",
  "python": "3.13.16",
  "steps": [
@@ -39,7 +41,7 @@
    "retained_stdout": "stage0/layer2/design/runs/manifest_verify.out",
    "seconds": 0,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "stdout_sha256": "0a3180b65a29688328e21a1227ed6e02e2b12d42df7064d6009aa131b17f9d8f",
+   "stdout_sha256": "4dc246f0a8352311272e522f7a872fddaa3848b87d4272f67d186b00e4d14af0",
    "step": "manifest_verify"
   },
   {
@@ -50,18 +52,28 @@
    "retained_stdout": "stage0/layer2/design/runs/l2_selftest.out",
    "seconds": 5,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "stdout_sha256": "6f8f47e30d58edb84237ee3c6171236998f88f241a9277ab2c3b489129add20d",
+   "stdout_sha256": "4d84403b34e52d2e4edc27461d136fcfc933d9d4aaad3eaf556b45cf85f8a9c8",
    "step": "l2_selftest"
   },
   {
+   "command": "python3 -I -B stage0/layer2/code/l2calib.py --out stage0/layer2/design/toyrun/calib.json",
+   "exit": 0,
+   "retained_stderr": "stage0/layer2/design/runs/calibration_planted.err",
+   "retained_stdout": "stage0/layer2/design/runs/calibration_planted.out",
+   "seconds": 11,
+   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "stdout_sha256": "60e2a38a4e55e5409c6a4d6f24d8fcb6eb6542161f18f96bb4d4abcb693f8cff",
+   "step": "calibration_planted"
+  },
+  {
    "O_mode_identical": true,
-   "command": "python3 -I -B stage0/layer2/code/l2plan.py --profile toy --out stage0/layer2/design/toyrun/dryrun.json",
+   "command": "python3 -I -B stage0/layer2/code/l2plan.py --profile toy --calib stage0/layer2/design/toyrun/calib.json --shared-tips --out stage0/layer2/design/toyrun/dryrun.json",
    "exit": 0,
    "retained_stderr": "stage0/layer2/design/runs/dryrun_toy.err",
    "retained_stdout": "stage0/layer2/design/runs/dryrun_toy.out",
    "seconds": 0,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "stdout_sha256": "c2a8dfe911a548c30ef392fcf0028fa075eb5b9eeae9402698304a7a55a75834",
+   "stdout_sha256": "b0c06aceb0038628381a84283816e9b760c34942b5788478df8d91d68ebc5675",
    "step": "dryrun_toy"
   },
   {
@@ -72,18 +84,8 @@
    "retained_stdout": "stage0/layer2/design/runs/dryrun_v8_plan_no_closure.out",
    "seconds": 0,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "stdout_sha256": "c1451147515d301e584915022cb5d5eba644176f3bc51a942cc545d271389df4",
+   "stdout_sha256": "f32cf58a2e810a85aaf336c94deb87bd2867c6284a095d38ad10e7a0e39e3df5",
    "step": "dryrun_v8_plan_no_closure"
-  },
-  {
-   "command": "python3 -I -B stage0/layer2/code/l2calib.py --out stage0/layer2/design/toyrun/calib.json",
-   "exit": 0,
-   "retained_stderr": "stage0/layer2/design/runs/calibration_planted.err",
-   "retained_stdout": "stage0/layer2/design/runs/calibration_planted.out",
-   "seconds": 11,
-   "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "stdout_sha256": "f94d41fda14310722a59c6a0dab234395462bfd9cca023b3512e0780e0e0f672",
-   "step": "calibration_planted"
   },
   {
    "command": "python3 -I -B stage0/layer2/code/l2plan.py --profile v8 --calib stage0/layer2/design/toyrun/calib.json",
@@ -92,7 +94,7 @@
    "retained_stdout": "stage0/layer2/design/runs/dryrun_v8_estimate.out",
    "seconds": 0,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "stdout_sha256": "46ff4abd24173ad55fbdba6b8d5c60f169a2db82db9ce85bb23a87b4d30729ce",
+   "stdout_sha256": "22ba0a01b1575a94936589ba8353d0556a4092370a5509d0e2d51f9285990923",
    "step": "dryrun_v8_estimate"
   },
   {
@@ -100,7 +102,7 @@
    "exit": 0,
    "retained_stderr": "stage0/layer2/design/runs/preflight_toy_quick.err",
    "retained_stdout": "stage0/layer2/design/runs/preflight_toy_quick.out",
-   "seconds": 99,
+   "seconds": 95,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
    "stdout_sha256": "c1527f157c99afe9546dc8ee99b66f5cd9ad240521a3cfdbd0e4defb08d28dc6",
    "step": "preflight_toy_quick"
@@ -110,9 +112,9 @@
    "exit": 0,
    "retained_stderr": "stage0/layer2/design/runs/mutants_quick.err",
    "retained_stdout": "stage0/layer2/design/runs/mutants_quick.out",
-   "seconds": 180,
+   "seconds": 197,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "stdout_sha256": "239d884d3ecd3435529a393c341ca9c6a5f260e9e3a486c87978bcc5b23dd9bf",
+   "stdout_sha256": "cd8d07c7cc2102cdfd0cfa983945103a0a4ca5d65c500a16e68c279aa6a2400c",
    "step": "mutants_quick"
   },
   {
@@ -144,9 +146,9 @@
    "exit": 0,
    "retained_stderr": "stage0/layer2/design/runs/shard_toy_0.err",
    "retained_stdout": "stage0/layer2/design/runs/shard_toy_0.out",
-   "seconds": 6,
+   "seconds": 5,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "stdout_sha256": "9e8049052abb9ff0d01edfe4de66d17df57131912d53ce564b6bb43ab16cc69e",
+   "stdout_sha256": "51790128a65249b33abf7e757b737842d6213ffcdb0862c74c746a952d671d31",
    "step": "shard_toy_0"
   },
   {
@@ -163,7 +165,7 @@
    "retained_stdout": "stage0/layer2/design/runs/shard_toy_1.out",
    "seconds": 1,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "stdout_sha256": "d80e3bcdfdae647e5fbe3c574c3ffc15fc96afb00b9c866295da049c83519fc4",
+   "stdout_sha256": "2df7e7fc93b031964f52720eeedc6adff4343f7625ca9f3012f19f3998088177",
    "step": "shard_toy_1"
   },
   {
@@ -178,9 +180,9 @@
    "exit": 0,
    "retained_stderr": "stage0/layer2/design/runs/shard_toy_2.err",
    "retained_stdout": "stage0/layer2/design/runs/shard_toy_2.out",
-   "seconds": 2,
+   "seconds": 1,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "stdout_sha256": "580feba77b2c5f5633b92066eb130b2c5c4bbbbf6c642412bcd79326d422cc5c",
+   "stdout_sha256": "55a1cb8ac3e51fbe85b9ff47801edc8bc1c6fef67f5bb3b2ff23c21389728367",
    "step": "shard_toy_2"
   },
   {
@@ -197,7 +199,7 @@
    "retained_stdout": "stage0/layer2/design/runs/shard_toy_3.out",
    "seconds": 0,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "stdout_sha256": "9595d5a4aaea50e2667838543fabb74f4e93a6897eca0a51620a6f87a460b7a1",
+   "stdout_sha256": "9148d0133142cd637daf95771638d3e4afcaeb40db5badd4c2d09548ed03c6b2",
    "step": "shard_toy_3"
   },
   {
@@ -244,7 +246,7 @@
    "exit": 0,
    "retained_stderr": "stage0/layer2/design/runs/code_r5_equivalence_quick.err",
    "retained_stdout": "stage0/layer2/design/runs/code_r5_equivalence_quick.out",
-   "seconds": 42,
+   "seconds": 39,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
    "stdout_sha256": "cca1570baa43bff143db2fba8e2980cc768304406a36439b6b27d8a9ce6c7f5a",
    "step": "code_r5_equivalence_quick"
@@ -257,7 +259,7 @@
    "retained_stdout": "stage0/layer2/design/runs/planted_survivor_path.out",
    "seconds": 1,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "stdout_sha256": "d33a4cf31036c079294710b81a333c29466f288f4a51fe203d94132320b665c9",
+   "stdout_sha256": "e0cc6cb7dc099458ddfe468eb3b2516573137e26e571cdaef09dd2b800d37a43",
    "step": "planted_survivor_path"
   },
   {
@@ -268,28 +270,29 @@
    "retained_stdout": "stage0/layer2/design/runs/refusal_probe_v8.out",
    "seconds": 1,
    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "stdout_sha256": "6188755b634d40e1a85ba4a5a683fe1521265b328370a1f9d148600d4b0ea94c",
+   "stdout_sha256": "5685420a3c41e18a37e26dd562255209a8cadd3ea8baf2666bab89d8c8b7336f",
    "step": "refusal_probe_v8"
   }
  ],
  "toyrun_sha256": {
-  "stage0/layer2/design/toyrun/calib.json": "f94d41fda14310722a59c6a0dab234395462bfd9cca023b3512e0780e0e0f672",
-  "stage0/layer2/design/toyrun/certificate.json": "ecfc46cd6a73e0a6e1190717a59a8b41a5a943d0772cb856b213a693058e8093",
-  "stage0/layer2/design/toyrun/dryrun.json": "c2a8dfe911a548c30ef392fcf0028fa075eb5b9eeae9402698304a7a55a75834",
+  "stage0/layer2/design/toyrun/calib.json": "60e2a38a4e55e5409c6a4d6f24d8fcb6eb6542161f18f96bb4d4abcb693f8cff",
+  "stage0/layer2/design/toyrun/certificate.json": "d00017cf9807606cd537aba55e97fa1d724c16ea236ba7a06cc151a4f3d1f791",
+  "stage0/layer2/design/toyrun/dryrun.json": "b0c06aceb0038628381a84283816e9b760c34942b5788478df8d91d68ebc5675",
   "stage0/layer2/design/toyrun/expected-controls.json": "40c5dfb8ac2d4463de93de1faa8dd3c74cac76e08a92fd2f1e39cd6284ed97ac",
-  "stage0/layer2/design/toyrun/mutant-campaign.json": "239d884d3ecd3435529a393c341ca9c6a5f260e9e3a486c87978bcc5b23dd9bf",
-  "stage0/layer2/design/toyrun/preflight.json": "529fd601b8f7a0ee7cc781ee3b99746dc8afe92162d39c1c674b4d0342831c87",
-  "stage0/layer2/design/toyrun/result.O.json": "f89daaca5eb5265b373c732854956c78eaeb4afeaed4cf410ad63a127990be4a",
-  "stage0/layer2/design/toyrun/result.json": "f89daaca5eb5265b373c732854956c78eaeb4afeaed4cf410ad63a127990be4a",
-  "stage0/layer2/design/toyrun/s1a.O.json": "3aa6206a737a47af788dbc5bcf470df7ed2da3f4896e17c810936c40c2478e1d",
-  "stage0/layer2/design/toyrun/s1a.json": "3aa6206a737a47af788dbc5bcf470df7ed2da3f4896e17c810936c40c2478e1d",
-  "stage0/layer2/design/toyrun/shard-0.O.json": "0066eb0e117f50c44f058410cb712959309cebdb6d6d0d41b1f329bb7e542b66",
-  "stage0/layer2/design/toyrun/shard-0.json": "0066eb0e117f50c44f058410cb712959309cebdb6d6d0d41b1f329bb7e542b66",
-  "stage0/layer2/design/toyrun/shard-1.O.json": "79c3ee2e252aab7c95c8eb530267e5a20f24a4ea762cf6e162a4321f8bf114dd",
-  "stage0/layer2/design/toyrun/shard-1.json": "79c3ee2e252aab7c95c8eb530267e5a20f24a4ea762cf6e162a4321f8bf114dd",
-  "stage0/layer2/design/toyrun/shard-2.O.json": "207048694ffa62a00b4e8c04d0c843d1609695b721193604ae8561aa5393334c",
-  "stage0/layer2/design/toyrun/shard-2.json": "207048694ffa62a00b4e8c04d0c843d1609695b721193604ae8561aa5393334c",
-  "stage0/layer2/design/toyrun/shard-3.O.json": "9a7ffd99ebf1c81be1f8c0724b97dbad929dd26c9222267cf41c04ab28b95cdd",
-  "stage0/layer2/design/toyrun/shard-3.json": "9a7ffd99ebf1c81be1f8c0724b97dbad929dd26c9222267cf41c04ab28b95cdd"
- }
+  "stage0/layer2/design/toyrun/mutant-campaign.json": "cd8d07c7cc2102cdfd0cfa983945103a0a4ca5d65c500a16e68c279aa6a2400c",
+  "stage0/layer2/design/toyrun/preflight.json": "cd411d0f6e9727d5432fa76c4ab8f35ff7fe251f2e0d8d90ccb111e12bbf773e",
+  "stage0/layer2/design/toyrun/result.O.json": "d427f4523f1f3371f97317e4930fc8e01462bc77a81c83fa5936ec1236071213",
+  "stage0/layer2/design/toyrun/result.json": "d427f4523f1f3371f97317e4930fc8e01462bc77a81c83fa5936ec1236071213",
+  "stage0/layer2/design/toyrun/s1a.O.json": "73cc58f1da7f58c262632dda60bfb21d6cab04439e22926e05784a90a6a19a2d",
+  "stage0/layer2/design/toyrun/s1a.json": "73cc58f1da7f58c262632dda60bfb21d6cab04439e22926e05784a90a6a19a2d",
+  "stage0/layer2/design/toyrun/shard-0.O.json": "f7f70fe48269d226e07262d8d59547d7557cb50aa48fac65a85bad62de45604a",
+  "stage0/layer2/design/toyrun/shard-0.json": "f7f70fe48269d226e07262d8d59547d7557cb50aa48fac65a85bad62de45604a",
+  "stage0/layer2/design/toyrun/shard-1.O.json": "a87584fd2336266b41cb0fe3024bcd3ceebf4ee9755c09129ed3472a716557e3",
+  "stage0/layer2/design/toyrun/shard-1.json": "a87584fd2336266b41cb0fe3024bcd3ceebf4ee9755c09129ed3472a716557e3",
+  "stage0/layer2/design/toyrun/shard-2.O.json": "2c674bfa9e4447c82d17756300161eed71832054e47cc3198e054873ec696c21",
+  "stage0/layer2/design/toyrun/shard-2.json": "2c674bfa9e4447c82d17756300161eed71832054e47cc3198e054873ec696c21",
+  "stage0/layer2/design/toyrun/shard-3.O.json": "d73dc1f723326fbf529d6572ad9ff032912209818668e5440ef5807141dd8a3b",
+  "stage0/layer2/design/toyrun/shard-3.json": "d73dc1f723326fbf529d6572ad9ff032912209818668e5440ef5807141dd8a3b"
+ },
+ "tree_clean_at_run": false
 }

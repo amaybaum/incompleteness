@@ -1,7 +1,7 @@
 {
- "calib_sha256": "f94d41fda14310722a59c6a0dab234395462bfd9cca023b3512e0780e0e0f672",
+ "calib_sha256": "60e2a38a4e55e5409c6a4d6f24d8fcb6eb6542161f18f96bb4d4abcb693f8cff",
  "closures_computed": 0,
- "config_sha256": "61c6e0e64b4c67b130ff3dfbb9d98cf73e6710d190f980e701f2b932838b22db",
+ "config_sha256": "2cafd18ce73744c9a1a99b91ecf350ed7cc0f75403407f66972da022a414d093",
  "context_quantities_pairs": {
   "10": 225584,
   "11": 258620,
@@ -49,12 +49,46 @@
  },
  "contexts_constructed": 0,
  "cost": {
+  "C7": {
+   "by_scope_seconds": null,
+   "pending": "the shared-tip count (l2plan --shared-tips) is not computed",
+   "scope": "OWNER-PLACEHOLDER",
+   "seconds_per_percent_of_representatives": {
+    "A": 350,
+    "G": 1495
+   }
+  },
   "budget_runner_seconds": 86400,
-  "estimate_per_shard_seconds": 1967,
-  "estimate_runner_seconds": 62937,
-  "excludes": "the C7 reference on shared-tip records and every per-survivor gate (survivor count unknown before the run); see LAYER2-PLAN.md section 3",
-  "launch_within_budget": false,
-  "shard_timeout_seconds": 2400
+  "job_timeouts_seconds": {
+   "merge": 1200,
+   "preflight": 1800,
+   "s1a": 2400,
+   "shard": 2400
+  },
+  "kappa": "OWNER-PLACEHOLDER",
+  "launch_rule": "kappa is an OWNER placeholder (L2-R7)",
+  "launch_within_budget": null,
+  "max_context_size": 29,
+  "mean_context_size_bucket_input": 16,
+  "per_job_seconds": {
+   "merge": 600,
+   "preflight": 300,
+   "s1a": 348,
+   "shard": null
+  },
+  "survivor_cap_per_shard": 10,
+  "terms_runner_seconds": {
+   "C7_scope": null,
+   "closures": 59190,
+   "merge": 600,
+   "preflight": 300,
+   "s1a": 348,
+   "sampled_gates": 2591,
+   "survivor_gates_cap": 7794
+  },
+  "total_runner_seconds": null,
+  "total_without_C7_scope_term": 70821,
+  "universe_quantities": 1584
  },
  "engine_imported": "l2plan imports no engine",
  "expected_checks": {

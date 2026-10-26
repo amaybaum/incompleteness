@@ -11,10 +11,13 @@ The v8 configuration is refused by content, not by an object flag (R4-2): any Se
 (PermissionError) by Context, num_records, record_at and record_samples. The comparison is
 against a literal, so rebinding the module constant V8_KEY does not disable it. In Layer 2
 the refusal is lifted only by a V8Grant instance (exact type, not a subclass, not a truthy
-value): authorized_v8=True is refused. A V8Grant is constructed only by
-l2auth.issue_grant, after it has verified an owner-designated authorization artifact
-against the exact commit, the Layer-2 manifest and the configuration digest; static check
-L2-S1 verifies that no other module constructs one. The guard is a module function that
+value) whose manifest and configuration digests equal the running ones, bound once per
+process by bind_running_digests (called by l2cert.startup after it has verified the
+manifest); with nothing bound, every grant is refused. authorized_v8=True is refused. No
+file in the repository other than l2auth constructs a grant (static check L2-S1); a grant can
+be forged in-process, so the lock prevents accidental runs, and the authoritative gate is the
+CI owner-check job and the post-hoc verification of the designation at landing (Layer-2
+plan, section 7). The guard is a module function that
 reads the Setup's attributes directly and accepts only the exact Setup type, so a subclass
 overriding key() or guard() is refused. The geometry primitives (in_cone, tips, closure)
 take no setup and are not guarded; the Layer-2 manifest (certificate item 1) is the gate
@@ -255,10 +258,11 @@ class Setup:
 
 
 class V8Grant:
-    """Authorization token for v8's configuration class. Constructed only by
-    l2auth.issue_grant (static check L2-S1). The engine checks its exact type, its key and
-    the shape of its fields; the binding to the commit, the manifest and the configuration
-    is verified by l2auth before construction."""
+    """Authorization token for v8's configuration class. No repository file other than
+    l2auth constructs one (static check L2-S1). The engine checks its exact type, its key, the
+    shape of its fields, and that its digests equal the running digests bound by
+    bind_running_digests; the binding to the commit and the owner's designation is verified by
+    l2auth before construction."""
     __slots__ = ('key', 'commit', 'manifest_sha256', 'config_sha256', 'designation')
 
     def __init__(self, commit, manifest_sha256, config_sha256, designation):
@@ -271,10 +275,26 @@ def _hex(s, n):
     return type(s) is str and len(s) == n and all(ch in '0123456789abcdef' for ch in s)
 
 
+_RUNNING = {}
+
+
+def bind_running_digests(code_digest, config_sha256):
+    """Bind the running manifest's code_digest and the configuration digest, once per process
+    (l2cert.startup, after manifest verification). A second binding to other values raises."""
+    if not (_hex(code_digest, 64) and _hex(config_sha256, 64)):
+        raise ValueError('malformed digests')
+    new = (code_digest, config_sha256)
+    if _RUNNING.get('digests', new) != new:
+        raise PermissionError('running digests already bound to other values')
+    _RUNNING['digests'] = new
+
+
 def _granted(a):
-    return (type(a) is V8Grant and getattr(a, 'key', None) == (3, 6, (0, 0, -3))
+    bound = _RUNNING.get('digests')
+    return (bound is not None and type(a) is V8Grant and getattr(a, 'key', None) == (3, 6, (0, 0, -3))
             and _hex(getattr(a, 'commit', None), 40) and _hex(getattr(a, 'manifest_sha256', None), 64)
-            and _hex(getattr(a, 'config_sha256', None), 64))
+            and _hex(getattr(a, 'config_sha256', None), 64)
+            and (a.manifest_sha256, a.config_sha256) == bound)
 
 
 def _guard(setup, authorized_v8):

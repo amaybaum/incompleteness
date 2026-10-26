@@ -26,9 +26,12 @@ import l2plan as PLAN     # noqa: E402
 import l2enum as ENUM     # noqa: E402
 import l2merge as MERGE   # noqa: E402
 import l2auth as AUTH     # noqa: E402
+import s0ref as REF       # noqa: E402
 import l2manifest as MAN  # noqa: E402
+import l2cert as CERT     # noqa: E402
+import l2landing as LAND  # noqa: E402
 
-PRODUCTION = ('l2enum.py', 'l2s1a.py', 'l2merge.py', 'l2preflight.py', 'l2analysis.py', 'l2plan.py', 'l2cert.py',
+PRODUCTION = ('l2enum.py', 'l2s1a.py', 'l2merge.py', 'l2preflight.py', 'l2analysis.py', 'l2plan.py', 'l2cert.py', 'l2landing.py',
               'l2calib.py', 'l2refcheck.py')
 GUARDED = {'Context': 4, 'record_at': 2, 'num_records': 2, 'record_samples': 3, 'ref_context': 5}
 
@@ -59,6 +62,8 @@ def t_static():
                     (node.func.attr if isinstance(node.func, ast.Attribute) else None)
                 if fname in ('V8Grant', 'RefGrant') and fn != 'l2auth.py':
                     bad.append((fn, 'grant constructed', node.lineno))
+                if fname == 'bind_running_digests' and fn not in ('l2cert.py', 'l2selftest.py'):
+                    bad.append((fn, 'running digests bound', node.lineno))
                 if fn in PRODUCTION and fname in GUARDED:
                     pos = GUARDED[fname]
                     vals = [kw.value for kw in node.keywords if kw.arg == 'authorized_v8']
@@ -80,17 +85,43 @@ def t_static():
     return {'pass': not bad, 'findings': bad[:5]}
 
 
+def _forged_grant():
+    """A well-formed V8Grant built without l2auth (the review's forgery), with all-zero fields;
+    built through __new__ so that it is not a constructor call (L2-S1)."""
+    g = G.V8Grant.__new__(G.V8Grant)
+    g.key, g.commit, g.manifest_sha256, g.config_sha256, g.designation = (3, 6, (0, 0, -3)), '0'*40, '0'*64, \
+        '0'*64, 'forged'
+    r = REF.RefGrant.__new__(REF.RefGrant)
+    r.key, r.commit, r.code_digest, r.config_sha256 = (3, 6, (0, 0, -3)), '0'*40, '0'*64, '0'*64
+    return g, r
+
+
+def _refused(f):
+    try:
+        f()
+        return False
+    except PermissionError:
+        return True
+
+
 def t_guard():
-    """L2-GUARD: a fresh copy of v8's setup is refused with authorized_v8=True (construction
-    only: the guard raises before any context exists)."""
+    """L2-GUARD: a fresh copy of v8's setup is refused with authorized_v8=True; a forged
+    well-formed grant (review section 4) is refused while no digests are bound, and still refused
+    once the running digests are bound, since its digests differ (L2-R4 d); a second binding to
+    other values is refused. Only the guard predicates run: no context exists."""
     fresh = G.Setup(3, 6, 4, 23, (0, 0, -3), ((-8, 0, 0), (-7, 0, -1), (-7, 0, 1)))
-    refused = 0
-    for f in (lambda: G.Context(fresh, (), 'A', authorized_v8=True), lambda: G.num_records(fresh, authorized_v8=True)):
-        try:
-            f()
-        except PermissionError:
-            refused += 1
-    return {'pass': refused == 2, 'refused': refused}
+    g, r = _forged_grant()
+    res = {'true_context': _refused(lambda: G.Context(fresh, (), 'A', authorized_v8=True)),
+           'true_num_records': _refused(lambda: G.num_records(fresh, authorized_v8=True)),
+           'forged_unbound': _refused(lambda: G._guard(fresh, g)),
+           'forged_ref_unbound': not REF._ref_granted(r)}
+    cd = MAN.load(HERE)['code_digest']
+    G.bind_running_digests(cd, CFG.config_sha256())
+    REF.bind_running_digests(cd, CFG.config_sha256())
+    res['forged_bound'] = _refused(lambda: G._guard(fresh, g))
+    res['forged_ref_bound'] = not REF._ref_granted(r)
+    res['rebind_refused'] = _refused(lambda: G.bind_running_digests('1'*64, '1'*64))
+    return {'pass': all(res.values()), 'refused': res}
 
 
 def t_post():
@@ -242,7 +273,7 @@ def _case(mods):
                 counts['G:survivors'] = mods.get('surv_G', 0)
                 counts['A:survivors_J_linked'] = mods.get('linked_A', 0)
                 counts['G:survivors_G_linked'] = mods.get('linked_G', 0)
-            sh = {'schema': 'np-avg-1/stage0/layer2/shard/1', 'profile': 'toy', 'shard': s, 'shards': len(plan),
+            sh = {'schema': 'np-avg-1/stage0/layer2/shard/2', 'profile': 'toy', 'shard': s, 'shards': len(plan),
                   'range': [pl['lo'], pl['hi']], 'records': N, 'scanned': pl['hi'] - pl['lo'],
                   'representatives': (so + po) if s == 0 else 0,
                   'orbit_weight': (N + mods.get('weight_off', 0)) if s == 0 else 0, 'group_order': 8,
@@ -251,8 +282,11 @@ def _case(mods):
                   's1a_sha256': hashlib.sha256(sraw.encode()).hexdigest(), 'authorization': None,
                   'base_retained': {}, 'counts_additive': counts, 'class_keys': {},
                   'base_relative_survivor_records': {'A': 0, 'G': 0}, 'L3_only_survivor_records': {'A': 0, 'G': 0},
-                  'gates': gates, 'gate_failures_first': [], 'witness_candidates': [], 'survivors': [],
-                  'survivors_truncated': False}
+                  'gates': gates, 'gate_failures_first': [], 'witness_min': None, 'witness_candidates_seen': 0,
+                  'survivors': [{'index': 0}]*(mods.get('listed', 1) if s == 0 and 'surv_rep' in mods else 0),
+                  'survivor_representatives': mods.get('surv_rep', 0) if s == 0 else 0,
+                  'survivor_cap': 10, 'survivor_cap_exceeded': bool(mods.get('cap_exceeded')) and s == 0,
+                  'tree_clean': False, 'ci_run': None}
             sh['sha256'] = hashlib.sha256(CFG.canonical(sh).encode()).hexdigest()
             if mods.get('tamper') == s:
                 sh['counts_additive']['A:survivors'] += 1
@@ -267,17 +301,23 @@ def _case(mods):
 
 
 def t_merge():
-    """L2-MRG: a valid synthetic run merges with no incomplete reason; a missing shard, an
-    overlapping plan, a code-digest mismatch, a tampered shard, a normal/-O difference and a
-    wrong orbit weight each give INCOMPLETE."""
+    """L2-MRG: a valid synthetic run, and one with a complete residue, merge with no incomplete
+    reason; a missing shard, an overlapping plan, a code-digest mismatch, a tampered shard, a
+    normal/-O difference, a wrong orbit weight, a truncated residue and an exceeded survivor cap
+    (L2-R3) each give INCOMPLETE."""
     out = {'valid': _case({})}
     exp = {'valid': None}
+    out['residue_complete'] = _case({'surv_rep': 2, 'listed': 2})
+    exp['residue_complete'] = None
     for name, mods in (('missing', {'missing': 2}), ('overlap', {'overlap': 1}), ('digest', {'digest': 1}),
-                       ('tamper', {'tamper': 3}), ('O_differs', {'O_differs': 0}), ('weight', {'weight_off': -1})):
+                       ('tamper', {'tamper': 3}), ('O_differs', {'O_differs': 0}), ('weight', {'weight_off': -1}),
+                       ('residue_truncated', {'surv_rep': 3, 'listed': 1}),
+                       ('survivor_cap_exceeded', {'surv_rep': 1, 'listed': 1, 'cap_exceeded': 1})):
         out[name] = _case(mods)
         exp[name] = 'INCOMPLETE'
     got = {k: v['label'] for k, v in out.items()}
-    ok = not out['valid']['incomplete_reasons'] and all(got[k] == e for k, e in exp.items() if e)
+    ok = not out['valid']['incomplete_reasons'] and not out['residue_complete']['incomplete_reasons'] and \
+        all(got[k] == e for k, e in exp.items() if e)
     return {'pass': ok, 'labels': got, 'valid_incomplete_reasons': out['valid']['incomplete_reasons'][:3]}
 
 
@@ -335,6 +375,104 @@ def t_witness():
                 best = c
         ok &= w['key'] == best['key']
     return {'pass': ok}
+
+
+def t_witness_running():
+    """L2-WIT (L2-R1): the shard keeps the running minimum by the C16 key over every candidate,
+    whatever their order and number, and counts them."""
+    import random
+    rng = random.Random(11)
+    sh = ENUM.Shard.__new__(ENUM.Shard)
+    sh.witness_min, sh.witness_seen = None, 0
+    cands = [{'key': [rng.randint(1, 2), rng.randint(5, 40), [[[rng.randint(-3, 3), rng.randint(-3, 3), 0],
+                                                               rng.randint(-1, 23)]]], 'i': i} for i in range(300)]
+    for c in cands:
+        sh.add_witness(c)
+    best = min(cands, key=lambda c: (c['key'][0], c['key'][1], tuple((tuple(x), t) for x, t in c['key'][2])))
+    return {'pass': sh.witness_min is best and sh.witness_seen == 300, 'seen': sh.witness_seen}
+
+
+def _planted_block():
+    setup = toy()
+    pairA = G.Pair(setup.n + 1)
+    c0, L = (5, 0, 0), pairA.L
+    return setup, tuple(sorted([(c0, L + 1)] + [(G.vadd(c0, e), L) for e in G.axes(3)]))
+
+
+def t_survivor_gates():
+    """L2-SURV (L2-R2): on a planted survivor orbit (the constraint-block record of the toy
+    geometry), C0, C7, C11 (i), C17 and C18 run on every member, in both conventions, each with
+    the member's own reference context; C8 closes every member directly."""
+    setup, blk = _planted_block()
+    grp = AN.group(setup)
+    orb = AN.orbit(blk, grp)
+    bound = {}
+    for conv in ('A', 'G'):
+        qs = set()
+        for m in orb:
+            qs |= G.Context(setup, m, conv).quants
+        bound[(conv, 'L3prime')] = set(qs)
+        bound[(conv, 'L3')] = set(qs)
+    base = {conv: set(G.Context(setup, (), conv).run()) for conv in ('A', 'G')}
+    sh = ENUM.Shard(setup, CFG.profile('toy'), bound, base, None, None)
+    sh.rep(-1, blk, orb)
+    n = 2*len(orb)
+    g = sh.gates
+    ok = all(g[k]['checked'] == n for k in ('C0_context', 'C7', 'C11i', 'C17', 'C18')) and \
+        all(v['failed'] == 0 for v in g.values()) and g['C8']['checked'] == 1 and sh.survivor_reps == 1 and \
+        len(sh.survivors) == 1
+    return {'pass': ok, 'orbit_size': len(orb), 'checked': {k: g[k]['checked'] for k in ('C0_context', 'C7', 'C11i',
+                                                                                         'C17', 'C18', 'C8')}}
+
+
+def t_cert_commits():
+    """L2-CERT (L2-R5): the certificate's commit binding. Files with one commit hold; a pre-flight
+    at another commit (the r1 toy certificate's case) fails; a shard at another commit fails; an
+    authorization naming another commit fails."""
+    d = tempfile.mkdtemp(prefix='l2cert-')
+    try:
+        def write(c_pf, c_s1a, c_sh, c_res):
+            for n, c in (('preflight.json', c_pf), ('s1a.json', c_s1a), ('s1a.O.json', c_s1a), ('shard-0.json', c_sh),
+                         ('shard-0.O.json', c_sh), ('shard-1.json', c_sh), ('result.json', c_res)):
+                with open(os.path.join(d, n), 'w') as f:
+                    json.dump({'commit': c}, f)
+        a, b = 'a'*40, 'b'*40
+        write(a, a, a, a)
+        same = CERT.commits_consistent(d)[0]
+        same_auth = CERT.commits_consistent(d, a)[0]
+        other_auth = CERT.commits_consistent(d, b)[0]
+        write(b, a, a, a)
+        pf_other = CERT.commits_consistent(d)[0]
+        write(a, a, b, a)
+        sh_other = CERT.commits_consistent(d)[0]
+        write(None, None, None, None)
+        nulls = CERT.commits_consistent(d)[0]
+    finally:
+        shutil.rmtree(d)
+    res = {'same': same, 'same_auth': same_auth, 'other_auth': other_auth, 'preflight_other': pf_other,
+           'shard_other': sh_other, 'all_null': nulls}
+    return {'pass': same and same_auth and not other_auth and not pf_other and not sh_other and not nulls,
+            'cases': res}
+
+
+def t_landing():
+    """L2-LAND (L2-R4 c): the post-hoc designation check accepts the echoed designation re-fetched
+    unchanged, and refuses another author, a changed body, another comment, a missing required
+    line, a missing CI run identity and a result with no owner check."""
+    url = AUTH.REPO_URL + 'pull/935#issuecomment-1'
+    res = {'commit': 'a'*40, 'authorization': {'decision': 'ok', 'ci_run': {'run_id': '1'},
+           'artifact': {'commit': 'a'*40, 'designation_url': url},
+           'owner_check': {'comment_url': url, 'author_login': 'amaybaum', 'body_sha256': 'd'*64, 'commit': 'a'*40}}}
+    good = {'schema': LAND.FETCH_SCHEMA, 'comment_url': url, 'author_login': 'amaybaum', 'body_sha256': 'd'*64,
+            'body_contains_required_line': True}
+    bad = {'author': dict(good, author_login='x'), 'body': dict(good, body_sha256='e'*64),
+           'comment': dict(good, comment_url=url + '2'), 'line': dict(good, body_contains_required_line=False)}
+    ok = LAND.verify(res, good) == []
+    wrong = [k for k, f in bad.items() if not LAND.verify(res, f)]
+    no_run = dict(res, authorization=dict(res['authorization'], ci_run=None))
+    no_own = dict(res, authorization=dict(res['authorization'], owner_check=None))
+    return {'pass': ok and not wrong and bool(LAND.verify(no_run, good)) and bool(LAND.verify(no_own, good)),
+            'accepted_defects': wrong}
 
 
 def t_sample():
@@ -436,7 +574,8 @@ def t_rule_config():
 
 CASES = [('L2-S1_static', t_static), ('L2-GUARD', t_guard), ('L2-POST', t_post), ('L2-ORB', t_orbits),
          ('L2-AUTH', t_auth), ('L2-MAN', t_manifest), ('L2-MRG', t_merge), ('L2-LBL', t_labels), ('L2-RT', t_rule_t),
-         ('L2-C16', t_witness), ('L2-SAMPLE', t_sample), ('L2-MASK', t_mask), ('L2-PLAN', t_plan),
+         ('L2-C16', t_witness), ('L2-WIT', t_witness_running), ('L2-SURV', t_survivor_gates),
+         ('L2-CERT', t_cert_commits), ('L2-LAND', t_landing), ('L2-SAMPLE', t_sample), ('L2-MASK', t_mask), ('L2-PLAN', t_plan),
          ('L2-SHTIP', t_shared_tips), ('L2-GATES', t_gates), ('L2-CFG', t_rule_config)]
 
 
@@ -522,6 +661,31 @@ def _m_guard_truthy():
     G._granted = lambda a: bool(a)
 
 
+def _m_witness_first():
+    def add(self, cand):
+        self.witness_seen += 1
+        if self.witness_min is None:
+            self.witness_min = cand
+    ENUM.Shard.add_witness = add
+
+
+def _m_survivor_rep_only():
+    ENUM.Shard.member_ref_gates = lambda self, idx, m, d: None
+
+
+def _m_residue_ignored():
+    MERGE.residue_complete = lambda sh: True
+
+
+def _m_commits_unbound():
+    CERT.commits_consistent = lambda workdir, auth_commit=None: (True, {})
+
+
+def _m_grant_unbound():
+    G._granted = lambda a: (type(a) is G.V8Grant and getattr(a, 'key', None) == (3, 6, (0, 0, -3))
+                            and G._hex(getattr(a, 'commit', None), 40))
+
+
 MUTANTS = {
     'M_skip_index': (_m_skip_index, 'L2-ORB', 'coverage scan misses one index'),
     'M_every_record_rep': (_m_every_rep, 'L2-ORB', 'orbit reduction off: representatives exceed orbits'),
@@ -536,6 +700,11 @@ MUTANTS = {
     'M_c9_off': (_m_c9_off, 'L2-GATES', 'C9 gate never fails'),
     'M_witness_max': (_m_witness_max, 'L2-C16', 'witness selection not minimal'),
     'M_guard_truthy': (_m_guard_truthy, 'L2-GUARD', 'engine accepts a truthy authorization'),
+    'M_witness_first': (_m_witness_first, 'L2-WIT', 'shard keeps the first candidate, not the minimum (R1)'),
+    'M_survivor_rep_only': (_m_survivor_rep_only, 'L2-SURV', 'reference gates on the representative only (R2)'),
+    'M_residue_ignored': (_m_residue_ignored, 'L2-MRG', 'truncated residue or exceeded cap accepted (R3)'),
+    'M_commits_unbound': (_m_commits_unbound, 'L2-CERT', 'certificate ignores differing commits (R5)'),
+    'M_grant_unbound': (_m_grant_unbound, 'L2-GUARD', 'grant accepted without the running digests (R4 d)'),
 }
 
 

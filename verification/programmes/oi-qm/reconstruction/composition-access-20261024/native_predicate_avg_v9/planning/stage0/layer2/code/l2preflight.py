@@ -143,6 +143,10 @@ def main():
         base_col = {'A': tb.get('A') is False, 'G': tb.get('G') is False}
     out = {'schema': 'np-avg-1/stage0/layer2/preflight/1', 'profile': pname, 'mode': 'quick' if quick else 'full',
            'code_digest': st['code_digest'], 'config_sha256': CFG.config_sha256(), 'commit': st['head'],
+           'tree_clean': st['tree_clean'], 'ci_run': st['ci_run'],
+           'authorization': None if st['echo'] is None else {'decision': st['echo']['decision'],
+                                                            'artifact': st['echo']['artifact'],
+                                                            'owner_check': st['echo']['owner_check']},
            'controls': controls, 'base_collapsed': base_col,
            'controls_counts_C8': (res or {}).get('C8_symmetry', {}).get('counts'),
            's0controls_result': res, 'l2selftest_result': rs, 'S6_result': r6,

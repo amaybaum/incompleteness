@@ -81,7 +81,7 @@
    ]
   },
   "pass": true,
-  "witness_candidates": 2
+  "witness_candidates_seen": 2
  },
  "pass": true,
  "planted_records": {
@@ -218,7 +218,7 @@
   },
   "gates": {
    "C0_context": {
-    "checked": 4,
+    "checked": 16,
     "failed": 0
    },
    "C10i": {
@@ -226,24 +226,24 @@
     "failed": 0
    },
    "C11i": {
-    "checked": 4,
+    "checked": 16,
     "failed": 0,
-    "tables": 94
+    "tables": 376
    },
    "C11ii": {
     "checked": 16,
     "failed": 0
    },
    "C17": {
-    "checked": 4,
+    "checked": 16,
     "failed": 0
    },
    "C18": {
-    "checked": 4,
+    "checked": 16,
     "failed": 0
    },
    "C7": {
-    "checked": 4,
+    "checked": 16,
     "failed": 0,
     "shared_tip_reps": 4
    },
@@ -256,6 +256,7 @@
     "failed": 0
    }
   },
+  "orbit_members": 8,
   "pass": true,
   "summary": [
    {

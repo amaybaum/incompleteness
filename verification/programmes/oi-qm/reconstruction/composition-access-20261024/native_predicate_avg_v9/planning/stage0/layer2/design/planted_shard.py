@@ -9,9 +9,10 @@ planted records of the toy setup (not records of the toy index space, and not v8
 - the same with the item (c0, L) in place of (c0, L + 1) (the block without its top).
 
 Positive run: the bound is the union of the planted contexts, so C9 holds by construction;
-every gate must hold. Negative control: the same record with one retained quantity removed
-from the A bound; C9 must fail and a minimal-witness candidate, confirmed by direct closure,
-must be emitted. Usage: python3 -I -B planted_shard.py <layer2/code>. Prints JSON; exit 0 iff
+every gate must hold, and the reference gates must run on every member of each survivor orbit
+in both conventions (L2-R2). Negative control: the same record with one retained quantity
+removed from the A bound; C9 must fail, and the shard's running minimum witness (L2-R1),
+confirmed by direct closure, must be the C16-minimal record among the candidates. Usage: python3 -I -B planted_shard.py <layer2/code>. Prints JSON; exit 0 iff
 both runs behave as stated.
 """
 import json
@@ -62,8 +63,11 @@ for det in po['survivors']:
                                                    'residual_support_bits', 'exceeds_S_max', 'phi_linked')}
                     | {'shared_aligned_tips': len(det['A']['shared_aligned_tips'])},
                     'G': {k: det['G'][k] for k in ('survivor', 'n_survivor', 'rule_dependence')}})
-pos_ok = len(po['survivors']) >= 1 and all(v['failed'] == 0 for v in po['gates'].values()) and \
-    po['gates']['C11ii']['checked'] > 0 and po['gates']['C8']['checked'] >= 1 and po['gates']['C7']['checked'] >= 1
+members = sum(len(AN.orbit(r, grp)) for _, r in records)
+pos_ok = len(po['survivors']) == po['survivor_representatives'] >= 1 and \
+    all(v['failed'] == 0 for v in po['gates'].values()) and po['gates']['C11ii']['checked'] > 0 and \
+    po['gates']['C8']['checked'] >= 1 and \
+    all(po['gates'][k]['checked'] == 2*members for k in ('C0_context', 'C7', 'C11i', 'C17', 'C18'))
 
 # negative control: remove one retained quantity of the block from the A bound
 retA = G.Context(setup, blk, 'A').run()
@@ -72,15 +76,16 @@ bound = universe(records)
 bound[('A', 'L3prime')].discard(drop)
 bound[('A', 'L3')].discard(drop)
 neg = run(bound).output()
-neg_ok = neg['gates']['C9']['failed'] > 0 and len(neg['witness_candidates']) > 0 and \
-    all(any(c.startswith('C9') for c in w['conditions']) for w in neg['witness_candidates'])
-import l2merge as MERGE  # noqa: E402
-w = MERGE.minimal_witness(neg['witness_candidates'])
+w = neg['witness_min']
+neg_ok = neg['gates']['C9']['failed'] > 0 and neg['witness_candidates_seen'] > 0 and w is not None and \
+    any(c.startswith('C9') for c in w['conditions'])
 out = {'planted_records': {'block': [[list(x), t] for x, t in blk], 'block_minus_top': [[list(x), t] for x, t in blk_minus_top]},
-       'positive': {'gates': po['gates'], 'survivor_representatives': len(po['survivors']), 'summary': summary,
+       'positive': {'gates': po['gates'], 'survivor_representatives': po['survivor_representatives'],
+                    'orbit_members': members, 'summary': summary,
                     'counts_nonzero': {k: v for k, v in po['counts_additive'].items() if v}, 'pass': pos_ok},
        'negative_C9': {'dropped_from_A_bound': [list(drop[0]), drop[1]], 'gates_C9': neg['gates']['C9'],
-                       'witness_candidates': len(neg['witness_candidates']), 'minimal_witness': w, 'pass': neg_ok},
+                       'witness_candidates_seen': neg['witness_candidates_seen'], 'minimal_witness': w,
+                       'pass': neg_ok},
        'pass': pos_ok and neg_ok}
 print(json.dumps(out, sort_keys=True, indent=1))
 sys.exit(0 if out['pass'] else 2)

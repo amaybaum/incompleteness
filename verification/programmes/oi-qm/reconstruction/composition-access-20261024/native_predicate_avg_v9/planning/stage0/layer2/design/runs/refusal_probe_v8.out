@@ -1,5 +1,18 @@
 {
  "attempts": 9,
+ "decide_on_fabricated_inputs_documented_limit": "ok",
+ "forgeries": "9 of 9 refused",
+ "forgeries_refused": {
+  "RefGrant_direct_bound": true,
+  "RefGrant_direct_unbound": true,
+  "RefGrant_r1_signature": true,
+  "V8Grant_direct_guard_bound": true,
+  "V8Grant_direct_guard_unbound": true,
+  "V8Grant_direct_num_records_bound": true,
+  "V8Grant_direct_num_records_unbound": true,
+  "V8Grant_direct_record_at_unbound": true,
+  "rebind_other_digests": true
+ },
  "pass": true,
  "refused": 9,
  "results": {

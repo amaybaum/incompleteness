@@ -10,7 +10,8 @@ formulas are checked against the engine on the toy profile by l2selftest (L2-PLA
 Usage: python3 -I -B l2plan.py --profile toy|v8 [--calib calib.json] [--out dryrun.json]
                                [--shared-tips]
 --shared-tips enumerates the record space combinatorially (no closure) to count records with
-a shared near tip (C7's scope); it is run in the authorized CI dry run, not locally on v8.
+a shared near tip (C7's scope). For v8 it is part of the owner's F3 decision and is not run
+locally; the estimate then states the C7 term per percent of representatives.
 """
 import hashlib
 import json
@@ -205,34 +206,120 @@ def shared_tip_records(sp):
     return out
 
 
-def estimate(sp, hist, orbits, N, calib, prof):
-    """Cost estimate in runner-seconds, as an exact fraction rounded up: representatives per
-    context size (records scaled by orbits/N) x [2 tA(m) + 2 tG(m)] (four closures per
-    representative) x the gate overhead factor x 2 (normal and -O runs)."""
+def _ceil(fr):
+    fr = Fraction(fr)
+    return -((-fr.numerator)//fr.denominator)
+
+
+def _t(table, m):
+    """Calibrated time (ns) at size m: the smallest calibrated size >= m; beyond the largest,
+    scaled quadratically (the closure's cover computation is tips x quantities)."""
+    ks = sorted(table)
+    hi = [k for k in ks if k >= m]
+    if hi:
+        return table[hi[0]]
+    return table[ks[-1]]*m*m//(ks[-1]*ks[-1])
+
+
+def universe_sizes(sp):
+    """Non-fixed quantities of the S1a contexts: the global union, and each axis line."""
+    port_q = sp.port_even - sp.fixed
+    U = set(port_q)
+    for x in sp.region:
+        U |= sp.item_set(x, sp.tlast)
+    lines = {}
+    for x in sp.region:
+        for i in range(sp.dim):
+            lines.setdefault((i, tuple(x[j] for j in range(sp.dim) if j != i)), []).append(x)
+    sizes = []
+    for sites in lines.values():
+        q = set(port_q)
+        for x in sites:
+            q |= sp.item_set(x, sp.tlast)
+        sizes.append(len(q))
+    return len(U), sizes
+
+
+def estimate(sp, hist, orbits, N, calib, prof, shared=None):
+    """The complete cost estimate in runner-seconds (L2-R6), term by term; LAYER2-PLAN.md section
+    3.6 states each term. Fractions are exact and rounded up at the end. The launch decision needs
+    kappa (owner-set, L2-R7) and the C7 term under the chosen scope (F3); while either is an OWNER
+    placeholder, launch_within_budget is None and the reason is stated."""
     bud = CFG.CONFIG['budget']
     singles, pairs = hist
     tA = {int(k): v for k, v in calib['closure_ns_A'].items()}
     tG = {int(k): v for k, v in calib['closure_ns_G'].items()}
-
-    def t_of(table, m):
-        ks = sorted(table)
-        hi = [k for k in ks if k >= m]
-        return table[hi[0]] if hi else table[ks[-1]]*m//ks[-1]
-    ns = 0
-    for m, cnt in list(singles.items()) + list(pairs.items()):
-        ns += cnt*(2*t_of(tA, m) + 2*t_of(tG, m))
-    ns = Fraction(ns*orbits, N)*bud['gate_overhead_factor']*2
-    seconds = -((-ns.numerator)//(ns.denominator*10**9))
-    budget_s = bud['runner_hours']*3600
-    shard_s = bud['timeout_minutes']['shard']*60
-    per_shard = -((-seconds)//prof['shards'])
-    frac_ok = seconds*bud['launch_if_estimate_at_most_denominator'] <= budget_s*bud['launch_if_estimate_at_most_numerator']
-    shard_ok = per_shard*bud['launch_if_estimate_at_most_denominator'] <= shard_s*bud['launch_if_estimate_at_most_numerator']
-    return {'estimate_runner_seconds': seconds, 'estimate_per_shard_seconds': per_shard,
-            'budget_runner_seconds': budget_s, 'shard_timeout_seconds': shard_s,
-            'launch_within_budget': frac_ok and shard_ok,
-            'excludes': 'the C7 reference on shared-tip records and every per-survivor gate (survivor count '
-                        'unknown before the run); see LAYER2-PLAN.md section 3'}
+    rA = {int(k): v for k, v in calib['ref_c7_ns_A'].items()}
+    rG = {int(k): v for k, v in calib['ref_c7_ns_G'].items()}
+    NS = 10**9
+    scale = Fraction(orbits, N)
+    allm = list(singles.items()) + list(pairs.items())
+    nrec = sum(c for _, c in allm)
+    mbar = _ceil(Fraction(sum(m*c for m, c in allm), nrec))
+    mmax = max(m for m, _ in allm)
+    reps = Fraction(orbits)
+    S = prof['shards']
+    terms = {}
+    # 1. four closures per representative, analysis overhead, normal and -O
+    base = sum(c*(2*_t(tA, m) + 2*_t(tG, m)) for m, c in allm)
+    terms['closures'] = Fraction(base, NS)*scale*bud['gate_overhead_factor']*2
+    # 2. sampled gates: C7, C11 (i), C17, C18 at their rates, each costed as one reference closure
+    #    per convention at the mean size; C8 on 1 in R orbits: 8 members x 4 closures
+    rates = prof['sampling']
+    ref_mean = _t(rA, mbar) + _t(rG, mbar)
+    samp = sum(Fraction(1, rates[g]) for g in ('C7', 'C11i', 'C17', 'C18'))*reps*ref_mean
+    c8 = Fraction(1, rates['C8_orbits'])*reps*8*(2*_t(tA, mbar) + 2*_t(tG, mbar))
+    terms['sampled_gates'] = (samp + c8)/NS*2
+    # 3. C7 on shared-tip representatives, by scope (F3)
+    per_pct = {'A': Fraction(reps*_t(rA, mbar), 100*NS)*2, 'G': Fraction(reps*_t(rG, mbar), 100*NS)*2}
+    c7 = {'seconds_per_percent_of_representatives': {k: _ceil(v) for k, v in per_pct.items()}}
+    scope = prof['C7_scope']
+    c7['scope'] = scope
+    if shared is not None:
+        shr = {conv: Fraction(shared[conv])*scale for conv in ('A', 'G')}
+        by = {'initial_context': (shr['A']*_t(rA, mbar) + shr['G']*_t(rG, mbar))/NS*2}
+        by['sampled_initial_context_1_in_100'] = by['initial_context']/100
+        c7['by_scope_seconds'] = {k: _ceil(v) for k, v in by.items()}
+        c7['shared_tip_representatives_estimated'] = {k: _ceil(v) for k, v in shr.items()}
+        terms['C7_scope'] = by.get(scope)
+    else:
+        c7['by_scope_seconds'] = None
+        c7['pending'] = 'the shared-tip count (l2plan --shared-tips) is not computed'
+        terms['C7_scope'] = None
+    # 4. survivor gates, bounded by the survivor cap per shard: per survivor orbit, up to 8 members
+    #    x (4 closures + 2 conventions x 4 reference gates) at the largest context size
+    per_orbit = 8*(2*_t(tA, mmax) + 2*_t(tG, mmax) + 4*(_t(rA, mmax) + _t(rG, mmax)))
+    terms['survivor_gates_cap'] = Fraction(bud['survivor_cap_per_shard']*S*per_orbit, NS)*2
+    # 5. pre-flight and merge: stated allowances
+    terms['preflight'] = Fraction(bud['preflight_seconds'])
+    terms['merge'] = Fraction(bud['merge_seconds'])*2
+    # 6. S1a: 4 bound closures and 4 streamed reference checks at the universe size, and the
+    #    per-line closures (2 per line), normal and -O
+    mU, lsizes = universe_sizes(sp)
+    ks = max(rA)
+    s1a = 2*_t(tA, mU) + 2*_t(tG, mU) + 2*(rA[ks] + rG[ks])*mU//ks + sum(_t(tA, m) + _t(tG, m) for m in lsizes)
+    terms['s1a'] = Fraction(s1a, NS)*2
+    total = None if any(v is None for v in terms.values()) else sum(terms.values())
+    shard_job = None if terms['C7_scope'] is None else \
+        (terms['closures'] + terms['sampled_gates'] + terms['C7_scope'] + terms['survivor_gates_cap'])/S
+    jobs = {'shard': shard_job, 's1a': terms['s1a'], 'preflight': terms['preflight'], 'merge': terms['merge']}
+    tmo = {k: bud['timeout_minutes'][k]*60 for k in jobs}
+    kappa = bud['kappa']
+    if kappa == CFG.OWNER:
+        launch, why = None, 'kappa is an OWNER placeholder (L2-R7)'
+    elif total is None:
+        launch, why = None, 'the C7 term under the chosen scope is not available'
+    else:
+        launch = kappa*total <= bud['runner_hours']*3600 and all(kappa*v <= tmo[k] for k, v in jobs.items())
+        why = 'kappa * total <= budget and kappa * each job <= its timeout'
+    return {'terms_runner_seconds': {k: (None if v is None else _ceil(v)) for k, v in terms.items()},
+            'total_runner_seconds': None if total is None else _ceil(total),
+            'total_without_C7_scope_term': _ceil(sum(v for k, v in terms.items() if k != 'C7_scope')),
+            'per_job_seconds': {k: (None if v is None else _ceil(v)) for k, v in jobs.items()},
+            'job_timeouts_seconds': tmo, 'budget_runner_seconds': bud['runner_hours']*3600,
+            'kappa': kappa, 'C7': c7, 'mean_context_size_bucket_input': mbar, 'max_context_size': mmax,
+            'universe_quantities': mU, 'survivor_cap_per_shard': bud['survivor_cap_per_shard'],
+            'launch_within_budget': launch, 'launch_rule': why}
 
 
 def main():
@@ -263,14 +350,15 @@ def main():
         if k_exp in exp:
             checks[k_exp] = exp[k_exp] == out[k_out]
     out['expected_checks'] = checks
+    shared = None
     if '--shared-tips' in args:
-        out['shared_tip_records'] = shared_tip_records(sp)
+        shared = out['shared_tip_records'] = shared_tip_records(sp)
     if '--calib' in args:
         with open(args[args.index('--calib') + 1], 'rb') as f:
             raw = f.read()
         calib = json.loads(raw)
         out['calib_sha256'] = hashlib.sha256(raw).hexdigest()
-        out['cost'] = estimate(sp, (singles, pairs), so + po, N, calib, prof)
+        out['cost'] = estimate(sp, (singles, pairs), so + po, N, calib, prof, shared)
     out['pass'] = all(checks.values())
     text = json.dumps(out, sort_keys=True, indent=1)
     if '--out' in args:

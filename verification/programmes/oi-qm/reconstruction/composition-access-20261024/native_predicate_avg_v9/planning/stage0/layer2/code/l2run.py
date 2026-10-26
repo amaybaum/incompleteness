@@ -47,9 +47,10 @@ def main():
     steps = [
         ('manifest_verify', c('l2manifest.py', '--verify'), True),
         ('l2_selftest', c('l2selftest.py'), True),
-        ('dryrun_toy', c('l2plan.py', '--profile', 'toy', '--out', os.path.join(W, 'dryrun.json')), True),
-        ('dryrun_v8_plan_no_closure', c('l2plan.py', '--profile', 'v8'), True),
         ('calibration_planted', c('l2calib.py', '--out', os.path.join(W, 'calib.json')), False),
+        ('dryrun_toy', c('l2plan.py', '--profile', 'toy', '--calib', os.path.join(W, 'calib.json'), '--shared-tips',
+                         '--out', os.path.join(W, 'dryrun.json')), True),
+        ('dryrun_v8_plan_no_closure', c('l2plan.py', '--profile', 'v8'), True),
         ('dryrun_v8_estimate', c('l2plan.py', '--profile', 'v8', '--calib', os.path.join(W, 'calib.json')), False),
         ('preflight_toy_quick', c('l2preflight.py', '--profile', 'toy', '--workdir', W, '--quick'), False),
         ('mutants_quick', c('l2mutants.py', '--workdir', W), False),
@@ -67,6 +68,10 @@ def main():
         ('refusal_probe_v8', dz('refusal_probe.py', CODE, scratch), True),
     ]
     env = dict(os.environ, TMPDIR=scratch)
+    g = ['git', '-c', 'gc.auto=0', '-c', 'maintenance.auto=false', '-C', CODE]
+    head = subprocess.run(g + ['rev-parse', 'HEAD'], capture_output=True, text=True).stdout.strip() or None
+    clean = subprocess.run(g + ['status', '--porcelain', '--untracked-files=all', '--', os.path.dirname(CODE)],
+                           capture_output=True, text=True).stdout.strip() == ''
     rec = []
 
     def rel(x):
@@ -117,13 +122,18 @@ def main():
                         'small-window instances, S6\'s carrier and v8 configuration combinatorics only; no closure '
                         'on v8\'s configuration class (the v8 profile is refused without an authorization artifact). '
                         'The quick mutant campaign is local; the full campaign is CI-only and pending owner-approved '
-                        'dispatch.',
+                        'dispatch. Commit caveat (L2-R5): this evidence was produced on an uncommitted working tree; '
+                        'the structured files record the HEAD at run time (field commit) and tree_clean = false, '
+                        'so they are design evidence only. At the Layer-2 freeze the evidence is regenerated at a '
+                        'recorded commit.',
+                'head_at_run': head, 'tree_clean_at_run': clean,
                 'code_sha256': files, 'toyrun_sha256': toy, 'steps': rec}
     with open(os.path.join(ev, 'RUN-MANIFEST.json'), 'w') as f:
         json.dump(manifest, f, indent=1, sort_keys=True)
         f.write('\n')
     lines = ['# Stage 0 Layer 2 run manifest (design evidence)', '',
              'Python %s on %s.' % (manifest['python'], manifest['platform']), '', manifest['note'], '',
+             'HEAD at run: `%s`; Layer-2 tree clean at run: %s.' % (head, clean), '',
              '| step | command | exit | s | -O identical | stdout SHA-256 |', '| --- | --- | --- | --- | --- | --- |']
     for e in rec:
         lines.append('| %s | `%s` | %d | %d | %s | `%s` |' % (e['step'], e['command'], e['exit'], e['seconds'],

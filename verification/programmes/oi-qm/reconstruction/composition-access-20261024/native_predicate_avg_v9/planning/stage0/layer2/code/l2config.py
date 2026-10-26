@@ -12,6 +12,10 @@ every in-run gate is exercised on the design evidence.
 import hashlib
 import json
 
+# An owner ruling that does not yet exist. Every production entry point refuses the v8 profile
+# while any value in the configuration equals it (l2cert.startup, certificate item 1).
+OWNER = 'OWNER-PLACEHOLDER'
+
 CONFIG = {
     'schema': 'np-avg-1/stage0/layer2/config/1',
     'layer1': {
@@ -27,6 +31,7 @@ CONFIG = {
             'requires_authorization': True,
             'sampling': {'C7': 1000, 'C8_orbits': 100, 'C11i': 1000, 'C17': 1000, 'C18': 1000},
             'shards': 32,
+            'C7_scope': OWNER,
         },
         'toy': {
             'setup': {'dim': 3, 'n': 2, 'rho': 1, 'tlast': 6, 'port': [0, 0, -2],
@@ -35,6 +40,7 @@ CONFIG = {
             'requires_authorization': False,
             'sampling': {'C7': 1, 'C8_orbits': 1, 'C11i': 1, 'C17': 1, 'C18': 1},
             'shards': 4,
+            'C7_scope': 'initial_context',
         },
     },
     'v8_key': [3, 6, [0, 0, -3]],
@@ -48,16 +54,29 @@ CONFIG = {
     },
     'depth_ranges': {'A_F': [0, 15], 'A_B': [0, 8], 'G_F': [0, 23], 'G_B': [0, 0]},
     'sampling_salt': 'np-avg-1/stage0/layer2/sample/1',
-    'C7_shared_tip_scope': 'initial_context',
     'C7_brute_limit': 8,
     'S_max_bits': 27,
     'budget': {
         'runner_hours': 24,
         'max_shards': 32,
         'timeout_minutes': {'dryrun': 10, 'preflight': 30, 's1a': 40, 'shard': 40, 'merge': 20},
-        'launch_if_estimate_at_most_numerator': 1,
-        'launch_if_estimate_at_most_denominator': 2,
+        # kappa: the launch margin, an owner-set resource constant (not a Layer-1 requirement),
+        # fixed with its basis before the complete estimate is computed. Launch iff
+        # kappa * total <= budget and kappa * each job's estimate <= that job's timeout.
+        'kappa': OWNER,
         'gate_overhead_factor': 2,
+        # survivor representatives per shard whose gates and residue detail are computed; beyond
+        # it the shard records survivor_cap_exceeded and the merge labels the run INCOMPLETE.
+        # Layer-2 value, bounding the survivor-gate term of the estimate; the owner may revise it.
+        # Basis: on the planted calibration a survivor orbit costs about 14 runner-seconds per run
+        # (up to 8 members x (4 closures + 8 reference gates) at the largest context), so 10 per
+        # shard bounds the term at about 9,000 runner-seconds with the -O copy.
+        'survivor_cap_per_shard': 10,
+        # fixed job costs used by the estimate (seconds), with their basis
+        'preflight_seconds': 300,
+        'preflight_basis': 'design-r5 full suite 134 s, S6 18 s, symcheck 20 s, plus self-test and C11 mutants',
+        'merge_seconds': 300,
+        'merge_basis': 'not measured on v8: 32 shard files and the class-key union; a stated allowance per run',
     },
     'group': 'C4v: the stabilizer in O_h of {Reg, q9, Phi site set, port}, fixing q8 and q10',
     'expected': {
@@ -79,6 +98,25 @@ CONFIG = {
         'controls_full': {'C1_perturbations': 301640, 'C2_tips': 541, 'C2_offaxis_contrasts': 39,
                           'C11i_tables': 16831, 'C11iii_planted_sets': 96, 'C11ii_retained_sets': 24,
                           'refusal_attempts': 46, 'S6_subsets': 22, 'S6_target_law_classes': 0},
+    },
+    'owner_rulings': {
+        'T1': {'ruling': OWNER, 'question': 'rule T bound: L3prime or L3', 'layer2_reading': 'L3prime, L3 reported'},
+        'T2': {'ruling': OWNER, 'question': 'S1a status', 'layer2_reading': 'LAYER2-PLAN.md section 4'},
+        'T5': {'ruling': OWNER, 'question': 'L_G wording', 'layer2_reading':
+               'a quantity with a seed tip, whose cone contains a source cell'},
+        'F3': {'ruling': OWNER, 'question': 'C7 shared-tip scope', 'layer2_reading': 'none for v8 (placeholder)'},
+        'kappa': {'ruling': OWNER, 'question': 'launch margin and budget (S7)', 'layer2_reading': 'none'},
+        'F6': {'ruling': OWNER, 'question': 'C8 list (54) or 4-count erratum (58)', 'layer2_reading': 'C8 list, 54'},
+    },
+    'accepted_readings': {
+        'source': 'review/LAYER2-REVIEW.md (a63db7ba), section 5',
+        'F1': 'BASE_RESIDUE is reachable only after the MISMATCH-resolution amendment L1 section 5 requires',
+        'F4': 'residual support as defined in LAYER2-PLAN.md section 4, reported only',
+        'F5': 'masking equivalence by equal even-class contexts (L1 text); code-r5 reading reported',
+        'F7': 'C12 per-record clause checked on the universe (PO-L2-9)',
+        'F8': 'C11 (i), C17 and C18 sampled 1 in 1,000 (L1 N6: Layer-2 configuration constants)',
+        'F10': 'the engine implementing the frozen rule; guard and memo edits leave geometry and closure unchanged',
+        'F11': 'C6 execution instances, C10 (ii) and C12 on v8 run in the authorized pre-flight',
     },
     'rule_T': {
         'inputs': 'L_A: non-fixed quantities of the L3prime global bound under A whose cone contains a Phi cell; '
@@ -109,6 +147,20 @@ CONFIG = {
 
 def canonical(obj):
     return json.dumps(obj, sort_keys=True, separators=(',', ':'))
+
+
+def placeholders(obj=CONFIG, path=''):
+    """Paths of every OWNER placeholder in the configuration."""
+    out = []
+    if isinstance(obj, dict):
+        for k, v in sorted(obj.items()):
+            out += placeholders(v, path + '/' + str(k))
+    elif isinstance(obj, list):
+        for i, v in enumerate(obj):
+            out += placeholders(v, path + '/' + str(i))
+    elif obj == OWNER:
+        out.append(path)
+    return out
 
 
 def config_sha256():

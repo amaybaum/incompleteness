@@ -14,7 +14,8 @@ orbit is counted as scanned and skipped; a representative's closures are compute
 attribute of a member is then computed from the member's own record and its carried
 retained set (l2analysis.post_closure). Source-dependent attributes are therefore computed
 per record. In-run gates (C7, C8, C9, C10 i, C11 i and ii, C17, C18) run on the
-representatives and samples the configuration fixes; their tallies are written to the shard
+representatives and samples the configuration fixes, and on every member of every survivor orbit
+(L2-R2), up to the survivor cap, beyond which the run is INCOMPLETE (L2-R3); their tallies are written to the shard
 file, and the merge turns them into labels (section 5).
 """
 import hashlib
@@ -31,7 +32,7 @@ import l2refcheck as RC   # noqa: E402
 import l2config as CFG    # noqa: E402
 
 L3 = G.Rule(far=False)
-WITNESS_CAP = 100
+WITNESS_CAP = 100      # diagnostics only (first gate failures); witnesses keep a running minimum
 
 
 def sampled(name, idx, rate):
@@ -106,12 +107,19 @@ def c16_key(setup, r, grant):
     return [len(r), len(ctx.quants | ctx.fixed), [[list(x), t] for x, t in sorted(r)]]
 
 
+def c16_order(key):
+    """The C16 order: k, then the number of even-class context quantities, then the sorted items."""
+    return (key[0], key[1], tuple((tuple(x), t) for x, t in key[2]))
+
+
 class Shard:
     def __init__(self, setup, prof, bound, base_ret, grant, refgrant):
         self.setup, self.prof, self.bound, self.base_ret = setup, prof, bound, base_ret
         self.grant, self.refgrant = grant, refgrant
         self.grp = AN.group(setup)
         self.rates = prof['sampling']
+        self.c7_scope = prof['C7_scope']
+        self.cap = CFG.CONFIG['budget']['survivor_cap_per_shard']
         self.counts = {k: 0 for k in AN.count_keys() if k.split(':')[-1] not in AN.CLASS_KEYS
                        and k != 'masking_equivalent_records'}
         self.classes = {(conv, cat): {} for conv in ('A', 'G') for cat in ('all', 'survivors', 'collapsed')}
@@ -121,17 +129,77 @@ class Shard:
                       ('C0_context', 'C7', 'C8', 'C9', 'C10i', 'C11i', 'C11ii', 'C17', 'C18')}
         self.gates['C11i']['tables'] = 0
         self.gates['C7']['shared_tip_reps'] = 0
-        self.survivors, self.witnesses, self.first_fail = [], [], []
+        self.survivors, self.first_fail = [], []
+        self.survivor_reps = 0
+        self.survivor_cap_exceeded = False
+        self.witness_min, self.witness_seen = None, 0
 
     def fail(self, gate, idx, extra=None):
+        # first failures are diagnostics only; the labels read the 'failed' counts
         self.gates[gate]['failed'] += 1
         if len(self.first_fail) < WITNESS_CAP:
             self.first_fail.append([gate, idx, extra])
+
+    def add_witness(self, cand):
+        """L2-R1: a running minimum by the C16 key over every candidate; the count is kept."""
+        self.witness_seen += 1
+        if self.witness_min is None or c16_order(cand['key']) < c16_order(self.witness_min['key']):
+            self.witness_min = cand
+
+    def ref_gates(self, idx, rec, conv, ctx, do7, do11, do17, do18):
+        """C0 (context), C7, C11 (i), C17 and C18 on one record, with that record's own reference
+        context and the production closure computed for that record."""
+        setup = self.setup
+        fixed, quants, geo, elig = ref_ctx(setup, rec, conv, self.refgrant)
+        self.gates['C0_context']['checked'] += 1
+        if ctx.quants != quants or ctx.fixed != fixed:
+            self.fail('C0_context', idx, conv)
+        if do7:
+            self.gates['C7']['checked'] += 1
+            same, _ = RC.c7(fixed, quants, ctx.retained, geo, elig, CFG.CONFIG['C7_brute_limit'])
+            if not same:
+                self.fail('C7', idx, conv)
+        if do11:
+            n, mism, inc = RC.c11i(fixed, quants, ctx.log, ctx.final_tables, geo, elig)
+            self.gates['C11i']['checked'] += 1
+            self.gates['C11i']['tables'] += n
+            if mism or inc:
+                self.fail('C11i', idx, [conv, mism, inc])
+        if do17:
+            self.gates['C17']['checked'] += 1
+            if not RC.c17(ctx.retained, fixed, geo, elig):
+                self.fail('C17', idx, conv)
+        if do18:
+            self.gates['C18']['checked'] += 1
+            if not RC.c18(ctx.log, fixed, quants, geo, elig):
+                self.fail('C18', idx, conv)
+
+    def member_ref_gates(self, idx, m, d):
+        """L2-R2: every gate on one member of a survivor orbit, both conventions."""
+        for conv in ('A', 'G'):
+            self.ref_gates(idx, m, conv, d[conv][0], True, True, True, True)
+
+    def mismatch_conditions(self, m, d):
+        conds = []
+        for conv in ('A', 'G'):
+            ctx, a, ctx3, a3 = d[conv]
+            if not (c10i_ok(ctx) and c10i_ok(ctx3)):
+                conds.append('C10i:' + conv)
+            if not c9_ok(a['retained'], a3['retained'], self.bound, conv):
+                conds.append('C9:' + conv)
+            if a['survivor'] and props_violations(self.setup, a['survivors'], conv, m, self.refgrant):
+                conds.append('C11ii:' + conv)
+        return conds
 
     def rep(self, idx, r, orb):
         setup, grant = self.setup, self.grant
         reps = direct(setup, r, grant)
         surv_any = reps['A'][1]['survivor'] or reps['G'][1]['survivor']
+        gated = surv_any and self.survivor_reps < self.cap
+        if surv_any:
+            self.survivor_reps += 1
+            if not gated:
+                self.survivor_cap_exceeded = True
         mismatch_here = False
         # C10 (i): code invariant; a failure is the MISMATCH 'a fixed quantity is eliminated'
         for conv in ('A', 'G'):
@@ -148,8 +216,7 @@ class Shard:
                 ctx, a, ctx3, a3 = reps[conv]
                 ctx_m = G.Context(setup, m, conv, G.FROZEN, grant)
                 am = AN.post_closure(ctx_m, AN.act_set(g, a['retained']))
-                a3m = {'retained': AN.act_set(g, a3['retained']),
-                       'survivor_L3': None}
+                a3m = {'retained': AN.act_set(g, a3['retained']), 'survivor_L3': None}
                 ctx3_m = G.Context(setup, m, conv, L3, grant)
                 a3m['survivor_L3'] = AN.post_closure(ctx3_m, a3m['retained'])['survivor']
                 view[conv] = (ctx_m, am, a3m)
@@ -180,48 +247,26 @@ class Shard:
             cat = 'survivors' if a['survivor'] else 'collapsed'
             self.classes[(conv, 'all')][k] = osz
             self.classes[(conv, cat)][k] = osz
-        # reference gates on the representative
+        # reference gates on the representative: shared tip (scope), samples (non-survivor orbits)
         for conv in ('A', 'G'):
-            ctx, a, ctx3, a3 = reps[conv]
+            ctx = reps[conv][0]
             shared = AN.shared_near_tip(ctx.quants, ctx.pair, setup.dim)
             if shared:
                 self.gates['C7']['shared_tip_reps'] += 1
-            do7 = surv_any or (shared and CFG.CONFIG['C7_shared_tip_scope'] == 'initial_context') or \
-                sampled('C7', idx, self.rates['C7'])
-            do11 = surv_any or sampled('C11i', idx, self.rates['C11i'])
-            do17 = surv_any or sampled('C17', idx, self.rates['C17'])
-            do18 = surv_any or sampled('C18', idx, self.rates['C18'])
-            if not (do7 or do11 or do17 or do18):
-                continue
-            fixed, quants, geo, elig = ref_ctx(setup, r, conv, self.refgrant)
-            self.gates['C0_context']['checked'] += 1
-            if ctx.quants != quants or ctx.fixed != fixed:
-                self.fail('C0_context', idx, conv)
-            if do7:
-                self.gates['C7']['checked'] += 1
-                same, _ = RC.c7(fixed, quants, ctx.retained, geo, elig, CFG.CONFIG['C7_brute_limit'])
-                if not same:
-                    self.fail('C7', idx, conv)
-            if do11:
-                n, mism, inc = RC.c11i(fixed, quants, ctx.log, ctx.final_tables, geo, elig)
-                self.gates['C11i']['checked'] += 1
-                self.gates['C11i']['tables'] += n
-                if mism or inc:
-                    self.fail('C11i', idx, [conv, mism, inc])
-            if do17:
-                self.gates['C17']['checked'] += 1
-                if not RC.c17(ctx.retained, fixed, geo, elig):
-                    self.fail('C17', idx, conv)
-            if do18:
-                self.gates['C18']['checked'] += 1
-                if not RC.c18(ctx.log, fixed, quants, geo, elig):
-                    self.fail('C18', idx, conv)
-        # C8: direct closure of every member on sampled and survivor orbits
-        if surv_any or mismatch_here or sampled('C8_orbits', idx, self.rates['C8_orbits']):
+            if surv_any:
+                continue        # survivor orbits: every member below (L2-R2)
+            do7 = (shared and self.c7_scope == 'initial_context') or sampled('C7', idx, self.rates['C7'])
+            do11 = sampled('C11i', idx, self.rates['C11i'])
+            do17 = sampled('C17', idx, self.rates['C17'])
+            do18 = sampled('C18', idx, self.rates['C18'])
+            if do7 or do11 or do17 or do18:
+                self.ref_gates(idx, r, conv, ctx, do7, do11, do17, do18)
+        # direct closure of every member on survivor, mismatch and sampled orbits (C8; L2-R2)
+        if gated or mismatch_here or sampled('C8_orbits', idx, self.rates['C8_orbits']):
             self.gates['C8']['checked'] += 1
             bad = 0
             for m, (view, contrib) in sorted(member_views.items()):
-                d = direct(setup, m, grant)
+                d = reps if m == r else direct(setup, m, grant)
                 dA, dG = d['A'][1], d['G'][1]
                 c_direct = AN.member_contributions(setup, m, dA, dG, d['A'][3], d['G'][3])
                 bad += c_direct != contrib
@@ -232,23 +277,15 @@ class Shard:
                          else ('g_linked', 'source_cells', 'truncated'))
                     bad += any(am[k] != dd[k] for k in keys)
                     bad += view[conv][2]['retained'] != d[conv][3]['retained']
-                if mismatch_here:
-                    # minimal-witness candidates (C16), each confirmed by direct closure
-                    conds = []
-                    for conv in ('A', 'G'):
-                        ctx, a, ctx3, a3 = d[conv]
-                        if not (c10i_ok(ctx) and c10i_ok(ctx3)):
-                            conds.append('C10i:' + conv)
-                        if not c9_ok(a['retained'], a3['retained'], self.bound, conv):
-                            conds.append('C9:' + conv)
-                        if a['survivor'] and props_violations(setup, a['survivors'], conv, m, self.refgrant):
-                            conds.append('C11ii:' + conv)
-                    if conds and len(self.witnesses) < WITNESS_CAP:
-                        self.witnesses.append({'key': c16_key(setup, m, grant), 'conditions': conds, 'index': idx})
+                if gated:
+                    self.member_ref_gates(idx, m, d)
+                conds = self.mismatch_conditions(m, d)
+                if conds:
+                    self.add_witness({'key': c16_key(setup, m, grant), 'conditions': conds, 'index': idx})
             if bad:
                 self.fail('C8', idx, bad)
-        # survivor detail (the classified residue, section 3)
-        if surv_any:
+        # survivor detail (the classified residue, section 3), up to the survivor cap
+        if gated:
             det = {'index': idx, 'record': [[list(x), t] for x, t in r], 'orbit_size': len(orb),
                    'members': [[[list(x), t] for x, t in m] for m in sorted(orb)]}
             for conv in ('A', 'G'):
@@ -277,15 +314,15 @@ class Shard:
             cls['%s:%s' % (conv, cat)] = [[list(k), v] for k, v in sorted(d.items())]
         return {'counts_additive': self.counts, 'class_keys': cls, 'base_relative_survivor_records': self.base_relative,
                 'L3_only_survivor_records': self.l3_only, 'gates': self.gates, 'gate_failures_first': self.first_fail,
-                'witness_candidates': self.witnesses, 'survivors': self.survivors[:WITNESS_CAP*100],
-                'survivors_truncated': len(self.survivors) > WITNESS_CAP*100}
+                'witness_min': self.witness_min, 'witness_candidates_seen': self.witness_seen,
+                'survivor_representatives': self.survivor_reps, 'survivor_cap': self.cap,
+                'survivor_cap_exceeded': self.survivor_cap_exceeded, 'survivors': self.survivors}
 
 
 def load_bound(s1a, setup, grant):
     b = {}
-    for key, enc_list in s1a['bound'].items():
+    for key, flat in s1a['bound'].items():
         conv, rule = key.split(':')
-        flat = enc_list
         qs = set()
         step = setup.dim + 1
         for i in range(0, len(flat), step):
@@ -294,7 +331,8 @@ def load_bound(s1a, setup, grant):
     return b
 
 
-def run_shard(pname, s, workdir, grant, refgrant, echo, head):
+def run_shard(pname, s, workdir, st):
+    grant, refgrant, echo = st['grant'], st['refgrant'], st['echo']
     prof = CFG.profile(pname)
     setup = CFG.make_setup(G, pname)
     with open(os.path.join(workdir, 'dryrun.json'), 'rb') as f:
@@ -313,13 +351,14 @@ def run_shard(pname, s, workdir, grant, refgrant, echo, head):
         sh.rep(idx, r, orb)
     import l2manifest as MAN
     ok, _, man = MAN.verify(HERE)
-    out = {'schema': 'np-avg-1/stage0/layer2/shard/1', 'profile': pname, 'shard': s, 'shards': len(dry['shards']),
+    out = {'schema': 'np-avg-1/stage0/layer2/shard/2', 'profile': pname, 'shard': s, 'shards': len(dry['shards']),
            'range': [lo, hi], 'records': dry['records'], 'scanned': scanned, 'representatives': len(reps),
            'orbit_weight': sum(len(o) for _, _, o in reps), 'group_order': len(sh.grp),
            'code_digest': man.get('code_digest') if man else None, 'config_sha256': CFG.config_sha256(),
-           'commit': head, 'dryrun_sha256': hashlib.sha256(draw).hexdigest(),
-           's1a_sha256': hashlib.sha256(sraw).hexdigest(),
-           'authorization': None if echo is None else {'decision': echo['decision'], 'artifact': echo['artifact']},
+           'commit': st['head'], 'tree_clean': st['tree_clean'], 'ci_run': st['ci_run'],
+           'dryrun_sha256': hashlib.sha256(draw).hexdigest(), 's1a_sha256': hashlib.sha256(sraw).hexdigest(),
+           'authorization': None if echo is None else {'decision': echo['decision'], 'artifact': echo['artifact'],
+                                                       'owner_check': echo['owner_check'], 'ci_run': st['ci_run']},
            'base_retained': {conv: enc(sorted(v)) for conv, v in base_ret.items()}}
     out.update(sh.output())
     body = CFG.canonical(out)
@@ -334,11 +373,12 @@ def main():
     workdir = args[args.index('--workdir') + 1]
     import l2cert as CERT
     st = CERT.startup(pname, workdir, args)
-    out = run_shard(pname, s, workdir, st['grant'], st['refgrant'], st['echo'], st['head'])
+    out = run_shard(pname, s, workdir, st)
     name = 'shard-%d%s.json' % (s, '.O' if sys.flags.optimize else '')
     with open(os.path.join(workdir, name), 'w') as f:
         f.write(CFG.canonical(out) + '\n')
-    print(json.dumps({'shard': s, 'written': name, 'sha256': out['sha256'], 'representatives': out['representatives'],
+    print(json.dumps({'shard': s, 'written': 'shard-%d' % s, 'sha256': out['sha256'],
+                      'representatives': out['representatives'],
                       'gates_failed': {k: v['failed'] for k, v in out['gates'].items() if v['failed']}}, sort_keys=True))
 
 

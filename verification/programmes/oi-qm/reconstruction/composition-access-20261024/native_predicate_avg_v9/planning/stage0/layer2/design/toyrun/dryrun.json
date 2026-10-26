@@ -1,6 +1,7 @@
 {
+ "calib_sha256": "60e2a38a4e55e5409c6a4d6f24d8fcb6eb6542161f18f96bb4d4abcb693f8cff",
  "closures_computed": 0,
- "config_sha256": "61c6e0e64b4c67b130ff3dfbb9d98cf73e6710d190f980e701f2b932838b22db",
+ "config_sha256": "2cafd18ce73744c9a1a99b91ecf350ed7cc0f75403407f66972da022a414d093",
  "context_quantities_pairs": {
   "3": 12,
   "4": 156,
@@ -16,6 +17,54 @@
   "5": 12
  },
  "contexts_constructed": 0,
+ "cost": {
+  "C7": {
+   "by_scope_seconds": {
+    "initial_context": 108,
+    "sampled_initial_context_1_in_100": 2
+   },
+   "scope": "initial_context",
+   "seconds_per_percent_of_representatives": {
+    "A": 1,
+    "G": 2
+   },
+   "shared_tip_representatives_estimated": {
+    "A": 374,
+    "G": 233
+   }
+  },
+  "budget_runner_seconds": 86400,
+  "job_timeouts_seconds": {
+   "merge": 1200,
+   "preflight": 1800,
+   "s1a": 2400,
+   "shard": 2400
+  },
+  "kappa": "OWNER-PLACEHOLDER",
+  "launch_rule": "kappa is an OWNER placeholder (L2-R7)",
+  "launch_within_budget": null,
+  "max_context_size": 8,
+  "mean_context_size_bucket_input": 6,
+  "per_job_seconds": {
+   "merge": 600,
+   "preflight": 300,
+   "s1a": 2,
+   "shard": 384
+  },
+  "survivor_cap_per_shard": 10,
+  "terms_runner_seconds": {
+   "C7_scope": 108,
+   "closures": 11,
+   "merge": 600,
+   "preflight": 300,
+   "s1a": 2,
+   "sampled_gates": 871,
+   "survivor_gates_cap": 546
+  },
+  "total_runner_seconds": 2436,
+  "total_without_C7_scope_term": 2329,
+  "universe_quantities": 22
+ },
  "engine_imported": "l2plan imports no engine",
  "expected_checks": {
   "group_order": true,
@@ -59,5 +108,9 @@
    "shard": 3
   }
  ],
+ "shared_tip_records": {
+  "A": 1071,
+  "G": 667
+ },
  "single_orbits": 32
 }

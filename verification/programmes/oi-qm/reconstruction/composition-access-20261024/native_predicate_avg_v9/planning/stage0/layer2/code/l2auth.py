@@ -12,9 +12,12 @@ issue_grant, and only when every check of decide() passes on:
   verification and the configuration digest.
 
 decide() is a pure function of those three inputs, so every refusal path is tested without
-minting a grant (l2selftest L2-AUTH). This module is the only one that constructs a grant
-(static check L2-S1). In-process tampering is outside what any Python check can exclude;
-the manifest (item 1) and the host-side checks are the gate against it.
+minting a grant (l2selftest L2-AUTH). No repository file other than this one constructs a
+grant (static check L2-S1). A grant, or an owner-check file, can be forged in-process: the
+lock prevents accidental runs, and the authoritative gates are the CI owner-check job and the
+post-hoc re-verification of the designation at landing (l2landing.py). The engine and the
+reference accept a grant only if its digests equal the running digests that l2cert.startup
+binds after verifying the manifest.
 """
 import json
 import os
@@ -116,5 +119,5 @@ def issue_grant(art_path, own_path, code_dir):
     import s0geom as G
     import s0ref as REF
     grant = G.V8Grant(art['commit'], facts['code_digest'], facts['config_sha256'], art['designation_url'])
-    refgrant = REF.RefGrant(art['commit'])
+    refgrant = REF.RefGrant(art['commit'], facts['code_digest'], facts['config_sha256'])
     return decision, grant, refgrant, echo

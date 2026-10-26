@@ -10,8 +10,9 @@ closures: the same for the items of every axis-parallel line meeting Reg (L3prim
 reported only, N5). L_A and L_G (rule T's inputs) are read from the L3prime bounds; the L3
 values are reported beside them.
 
-S1a's own validity (a Layer-2 reading, LAYER2-PLAN.md section 6): C17 and C18 with the
-reference code on the L3prime bound closures (VOID on failure); C10 (i) and
+S1a's own validity (a Layer-2 reading, LAYER2-PLAN.md section 4): C17 and C18 with the
+reference code on the L3prime and the L3 bound closures, the L3 ones with near tips only
+(L2-R8; VOID on failure); C10 (i) and
 ret_L3prime within ret_L3 on the bounds (MISMATCH on failure). Rule T itself is evaluated by
 the merge, which also folds in the shards' C9 results against this bound.
 """
@@ -58,7 +59,7 @@ def linked_counts(ctx, ret, setup):
 def run(pname, grant, refgrant):
     setup = CFG.make_setup(G, pname)
     U = tuple((x, setup.tlast) for x in setup.region)
-    out = {'schema': 'np-avg-1/stage0/layer2/s1a/1', 'profile': pname, 'bound': {}, 'sizes': {}, 'checks': {}}
+    out = {'schema': 'np-avg-1/stage0/layer2/s1a/2', 'profile': pname, 'bound': {}, 'sizes': {}, 'checks': {}}
     rets, ctxs = {}, {}
     for conv in ('A', 'G'):
         for rname, rule in (('L3prime', G.FROZEN), ('L3', L3)):
@@ -87,13 +88,16 @@ def run(pname, grant, refgrant):
             mism.append('C9:%s:L3prime_not_within_L3' % conv)
         port = None if setup.port is None else tuple(setup.port)
         fixed, quants, geo, elig = REF.ref_context(setup.dim, setup.n, port, U, conv, refgrant)
-        ctx = ctxs[(conv, 'L3prime')]
-        c0 = ctx.quants == quants and ctx.fixed == fixed
-        b17 = RC.c17_stream(rets[(conv, 'L3prime')], fixed, geo, elig)
-        b18 = RC.c18_stream(ctx.log, fixed, quants, geo, elig)
-        out['checks'][conv] = {'C0_context_equal': c0, 'C17_free_tips': b17, 'C18_unjustified': b18}
-        if not c0 or b17 or b18:
-            void.append('reference:%s' % conv)
+        chk = {}
+        for rname, near_only in (('L3prime', False), ('L3', True)):
+            ctx = ctxs[(conv, rname)]
+            c0 = ctx.quants == quants and ctx.fixed == fixed
+            b17 = RC.c17_stream(rets[(conv, rname)], fixed, geo, elig, near_only)
+            b18 = RC.c18_stream(ctx.log, fixed, quants, geo, elig, near_only)
+            chk[rname] = {'C0_context_equal': c0, 'C17_free_tips': b17, 'C18_unjustified': b18}
+            if not c0 or b17 or b18:
+                void.append('reference:%s:%s' % (conv, rname))
+        out['checks'][conv] = chk
     out['lines'] = []
     for (axis, rest), sites in lines(setup).items():
         rec = tuple((x, setup.tlast) for x in sites)
@@ -121,6 +125,8 @@ def main():
     import l2manifest as MAN
     out['code_digest'] = MAN.load(HERE).get('code_digest')
     out['commit'] = st['head']
+    out['tree_clean'] = st['tree_clean']
+    out['ci_run'] = st['ci_run']
     out['sha256'] = hashlib.sha256(CFG.canonical(out).encode()).hexdigest()
     name = 's1a%s.json' % ('.O' if sys.flags.optimize else '')
     with open(os.path.join(workdir, name), 'w') as f:

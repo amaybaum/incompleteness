@@ -105,23 +105,30 @@ def cover_index(cells, pool, geo):
     return out
 
 
-def c17_stream(ret, fixed, geo, elig):
-    tips = {u for q in ret for u in geo.tipset(q) if elig(u)}
+def tipset(q, geo, near_only=False):
+    """The reference tips of q: near and far (L3prime), or near only (L3)."""
+    if not near_only:
+        return geo.tipset(q)
+    return {cell for lab, cell in ref_tip_cells(q, geo).items() if lab[1] == 'near'}
+
+
+def c17_stream(ret, fixed, geo, elig, near_only=False):
+    tips = {u for q in ret for u in tipset(q, geo, near_only) if elig(u)}
     idx = cover_index(tips, set(ret) | set(fixed), geo)
     bad = 0
     for q in sorted(ret):
-        if any(elig(u) and not any(o != q for o in idx[u]) for u in geo.tipset(q)):
+        if any(elig(u) and not any(o != q for o in idx[u]) for u in tipset(q, geo, near_only)):
             bad += 1
     return bad
 
 
-def c18_stream(log, fixed, quants, geo, elig):
+def c18_stream(log, fixed, quants, geo, elig, near_only=False):
     alive = set(quants) | set(fixed)
     logged = {u for _, u, _ in log}
     idx = cover_index(logged, alive, geo)
     bad = 0
     for q, u, _ in log:
-        if q not in alive or u not in geo.tipset(q) or not elig(u) or \
+        if q not in alive or u not in tipset(q, geo, near_only) or not elig(u) or \
                 any(o != q and o in alive for o in idx[u]):
             bad += 1
         alive.discard(q)
