@@ -138,23 +138,53 @@ The verdict refutes the universal form for one construction. It does not show an
 
 ## Literature
 
-- **The phenomenon is probably known in kind.**
-  - Clock-controlled and self-clocked LFSRs are a studied class in stream-cipher cryptanalysis.
-  - Rueppel's self-decimated LFSR (Eurocrypt '87), whose own output selects a clocking step of 1 or 2, is essentially
-    G_clk's clocking.
-  - Agievich–Solovey (arXiv math/0505660, read in full) confirms that construction and Rueppel's period result. It does
-    not address prediction.
-  - Any claim that the literature covers this predictability therefore rests on references not read here.
-- **No novelty is claimed.** No candidate-NEW tag is assigned. None should be assigned for the n = 5 `G_clk` `emb_m2`
-  horizons before Rueppel 1987 and Gollmann–Chambers 1989 are read.
-- **The COVERED-literature tag (§6 item 5) cannot be assigned mechanically.**
-  - RSV, as stated in its abstract (the only part read), treats oblivious read-once permutation branching programs,
-    that is, passive tests.
-  - AGHP and BDVY were not read. On the reviewer's understanding, not reading, they treat passive tests and small-bias
-    inputs.
-  - On that basis, none of the citations the plan admits covers an adaptive observer.
-  - Whether to extend the admissible list is an owner decision. Tags bear on no verdict.
-- **Unread:** Rueppel 1987, Gollmann–Chambers 1989, Meier–Staffelbach 1989, AGHP and BDVY.
+- **Tags.** Literature tags under amendment A3 are in `review/literature/TAGS-r2.md`, which has been independently
+  reviewed (`review/literature/`). They bear on no verdict.
+- **The counterexample is covered in kind, not in its parameters.**
+  - Gomułkiewicz–Kutyłowski–Wlaź, "Fault jumping attacks against shrinking generator" (Dagstuhl Seminar
+    Proceedings 06111, 2006; read in full), outline an attack in which one bit flip in the control register of a
+    shrinking generator changes its clocking. Comparing the faulty output with the correct one gives linear
+    equations for the control register.
+  - That generator is clocked by a separate register. The attack reruns from the same state, uses unbounded
+    computation, and recovers state rather than predicting. No parameter of the `G_clk`, n = 5, `emb_m2_all` cell
+    is covered.
+  - Rueppel's self-decimated LFSR (Eurocrypt '87, not read here) shares G_clk's step set {1, 2}, and in both the
+    clock is set by the generator itself rather than by a separate register. The clock selector differs.
+    - Agievich–Solovey (arXiv math/0505660, p. 2) describe Rueppel's step at time t as 1 if σ_t = 0 and 2 if
+      σ_t = 1, where σ is a linear recurrence sequence. With their eq. (3), the step is a function of the
+      register's current state.
+    - In G_clk the hidden register steps by L_p when the visible bit x is 0 and by L_p² when it is 1
+      (`pe01/generators.py:49–51, 107–108`). That bit is the running parity x_t = x_0 ⊕ Y_0 ⊕ … ⊕ Y_{t−1} of the
+      output stream, and under μ it is independent of the hidden state.
+    - In the embedded protocol the observer's action a(v) is added to x before each step
+      (`pe01/embedded.py:179–182`), so the observer selects the step.
+  - Agievich–Solovey (read in full) state Rueppel's period result without proof and do not address prediction.
+  - No work read treats a self-clocked generator under an adversary that influences its clocking, or an adaptive
+    bounded-memory observer acting within one trajectory.
+- **Passive horizons of linear statistics on the linear generators are covered in kind.**
+  - Alon–Goldreich–Håstad–Peralta (1992; §1–§3 read) give the mechanism, in the proof of Proposition 1 and in
+    Lemma 1 (Vazirani). For a fixed feedback polynomial and a uniform start, a parity of the register output is
+    exactly unbiased or constant, and it is constant iff the polynomial divides its test polynomial.
+  - This governs every PROVED row on `G_lin`, `G_lin_sib` and 𝔉_lin whose statistic is linear in the record: B1 K0
+    (n = 3, 4), B3k, B3w, the linear-filter observers and the m = 1 passive observers.
+  - The horizon values also need the order of the polynomial, the filters' test polynomials or a divisor count,
+    and the paper does not state these. They are not COVERED-literature.
+  - The B1 K1 rows keep their mechanical tag (A2, L1).
+- **The branching-program results do not cover the passive horizons.**
+  - Reingold–Steinke–Vadhan (RANDOM 2013) and Bogdanov–Dvir–Verbin–Yehudayoff (ToC 2013) treat the observer model
+    of the passive classes: oblivious read-once permutation branching programs, and width 2.
+  - At zero bias their bounds give only K_zero(class) ≥ K_zero(U). Beyond that point they are vacuous on the
+    `G_lin` record.
+- **What PE-01 contributes.** A verified, bounded counterexample to the universal form of `ch18-beyond.md:114`
+  under its declared model and resource accounting. It claims no new cryptanalytic technique.
+- **No novelty is claimed.** No candidate-NEW tag is assigned. Under A3 it is not assignable to the counterexample or
+  to any untagged passive horizon while the works below are unread.
+- **Unread:**
+  - Rueppel 1987, Gollmann–Chambers 1989 and Chambers–Gollmann 1988;
+  - Beth–Piper 1984, and Meier–Staffelbach 1989 and 1994;
+  - Kholosha 2001, Golić–O'Connor 1994, Živković 1991 and Kanso;
+  - Gomułkiewicz et al., WEA 2005 (A5/1) and WEA 2006.
+  - The annex records why each was not obtained.
 
 ## Bearing on the corpus
 
