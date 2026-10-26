@@ -70,7 +70,10 @@ confers no protection, and "the framework needs this to be true" is never an arg
 - Check cross-document consistency without assuming that Main supersedes a more
   detailed proof elsewhere, or the reverse. Where documents differ, the
   maintained, most careful statement is the authoritative anchor (§A.25 step 2),
-  and the difference is a finding to propagate.
+  and the difference is a finding to propagate. Rigor decides, not detail: a
+  source determines what is established only when its actual proof, assumptions
+  and dependencies support the claim, and a more detailed document does not
+  outrank a less detailed but more rigorous one.
 
 - This applies with particular force to the quantum equivalence, the
   gravitational results and the Standard Model reconstruction, whose supporting
