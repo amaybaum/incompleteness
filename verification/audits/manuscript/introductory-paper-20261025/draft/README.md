@@ -38,5 +38,18 @@ retained.
 that change layout only, and the conservative handling of D1–D3. 15 pages in the default build, no overfull boxes,
 no dropped glyphs. `CHANGES-r3.md` records where r3 departs from a reviewer's suggested text and why. The R11
 markers, the §A.42 retention marker and five VERIFY markers still gate landing. `../design/ERRATUM-r4.md` applies
-E1–E4. Re-checks of r3 are in progress.
+E1–E4.
+
+## Re-checks of r3, and r4
+
+- `review/scientific/RECHECK-r3.md`: ACCEPT WITH NITS. It confirms R2-1 to R2-4, and confirms r3's departure from the
+  suggested N2 text: routed readback implies history-level (C4), and the converse fails on a kernel carrier, so no
+  step from history-level (C4) to the routed form is proved.
+- `review/editorial/RECHECK-r3.md`: ACCEPT WITH NITS. The two raw lines change layout only; the extracted text is
+  identical with and without them. It found that `lean_manuscript_census` checks only `(kernel: …)` parentheticals,
+  which this paper does not use, and checked the 28 Lean identifiers and Appendix A line numbers directly.
+
+`Introduction-r4.md` (with `CHANGES-r4.md`) applies those nits. It is 16 pages in the default build: §1–§7 end on
+p. 12, and the code note, Appendix A and the references take pp. 13–16. There are no overfull boxes and no dropped
+glyphs. The title hyphenation on p. 1 is an open owner decision. Confirmation re-checks of r4 are in progress.
 
