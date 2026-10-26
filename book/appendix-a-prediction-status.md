@@ -77,7 +77,7 @@ The reference table combines Standard Model observables, coupling-sector inputs 
 | 8 | $m_d/m_s$ | $\lambda^2$ | L | 1 | Structural $\lambda$; GST empirical | Ch 6 §6.5 |
 | 9 | Jarlskog $J$ | $\eta/(12\pi^6)$ | E | 2(b) | Empirical $\eta$ | Ch 6 §6.4 |
 | 10 | Koide $Q$ | $2/3$ | C | 1 | **<0.001%** | Ch 6 §6.5 |
-| 11 | Koide $\theta_0$ | $C_2/d^2 = 2/9$ | C | 1 | Within 1% | Ch 6 §6.5 |
+| 11 | Koide $\theta_0$ | $C_2/d^2 = 2/9$ | C | 1 | 0.001% | Ch 6 §6.5 |
 | 12 | $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | L | 1+2(b)ᶠ | **0.07$\sigma$ JUNO** | Ch 8 |
 | 13 | $\sin^2\theta_{13}$ | $4/(18\pi^2)$ | C | 1 | Within 1% | Ch 8 |
 | 14 | $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | L | 1+2(b)ᶠ | Within 1$\sigma$ | Ch 8 |
@@ -95,7 +95,7 @@ The reference table combines Standard Model observables, coupling-sector inputs 
 
 **ᶠ** *Layer 2(b) (sin²θ_12, sin²θ_23, PMNS sum rule).* The Layer 1 component is structurally protected against the $A_1$ perturbation by the cosines-dressing of the TBM sum rule (cubic geometry alone). The remaining Layer 2 component is the $A_2$ Wilson-coefficient ratio $b_{23}/(b_{12}+b_{13}) = 4/3 = 4(d-1)/(2d)$, equivalent to the substrate-level relation $b_{23}^\text{sub} = (4/3)(b_{12}^\text{sub}+b_{13}^\text{sub}) + 1/9$. The ratio's 2(a)-tractable period — the label meaning the residual question was sharply specified and admitted definite outcomes from substrate calculations — has ended: the calculation was performed. It does *not* mean the answer is forced by representation theory alone — the May 6, 2026 audit (§B.2.2) established that the natural Higgs-democratic spurion does not produce this ratio (instead giving $b_{12}:b_{13}:b_{23} \approx 17:1:1$ in the heavy-quark hierarchy, off by factor ~24 from the required 4/3), and the relation requires substrate amplitudes with the non-natural scaling $\delta M_{ij}^\text{sub} \propto m_{\max(i,j)}$ plus a channel-specific enhancement factor $K_{23}/K_{12} \approx 2.8$. The substantive content is bijection-specific — Layer 2(b) — and the sharply specified verification path has since been executed: the §7.3 routing computation excludes the second-order route (the two-hop operator is a pure spin-taste monomial, orthogonal to every mass channel), leaving the recorded $O(\lambda^3)$ construction as the one unpursued analytical route. The empirical match at 0.07$\sigma$ (JUNO) and 0.6$\sigma$ (sum rule) confirms the bijection has the required structure; the $7/6$ sum rule remains the direct experimental test.
 
-**Distinctive empirical content.** Three predictions stand out as the framework's strongest empirical content. (i) JUNO $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2) = 0.3080$ at **0.07$\sigma$** against the post-JUNO global fit — a parameter-free retrodiction; its exact, freedom-free form makes JUNO's design-lifetime precision ($\pm 0.0014$) a pre-registered forward test. (ii) the conditional Milky Way crossover, whose radius depends on the baryon budget. (iii) Koide $Q = 2/3$ to better than **0.001%** — the sharpest framework prediction across all 23, matching observation at four-significant-figure precision.
+**Distinctive empirical content.** Three predictions stand out as the framework's strongest empirical content. (i) JUNO $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2) = 0.3080$ at **0.07$\sigma$** against the post-JUNO global fit — a parameter-free retrodiction; its exact, freedom-free form makes JUNO's design-lifetime precision ($\pm 0.0014$) a pre-registered forward test. (ii) the conditional Milky Way crossover, whose radius depends on the baryon budget. (iii) Koide $Q = 2/3$ to better than **0.001%** — the sharpest framework prediction across all 23 in relative precision, matching observation at four-significant-figure precision.
 
 ### A.4.2 Gravitational-sector observables
 
@@ -212,7 +212,7 @@ The framework's cumulative empirical record can be summarized as follows.
 
 **Most distinctive content.** Two predictions distinguish the framework from standard accounts most sharply: the substratum-emergent operator distinction (with empirical signatures in B1, B2, B13, B14) and the partially-quantum regime $\mathcal{F}(r) = 2r - r^2$ (with empirical exposure in F1). Neither has analog in standard quantum mechanics or effective field theory.
 
-**Sharpest single match.** Koide $Q = 2/3$ to better than 0.001% (entry 10) — the framework's sharpest individual empirical match.
+**Sharpest single match.** Koide $Q = 2/3$ to better than 0.001% (entry 10) — the framework's sharpest individual empirical match in relative precision.
 
 **Precision and empirical standing.** The comparisons have different evidential roles: Koide and Cabibbo supply numerical retrodictions, the fitted coupling entries are retrodictions by construction, $A\cdot B$ is an inconclusive finite-size extrapolation, and the neutrino mass sum is constrained by upper bounds. The quoted precision belongs to each comparison separately.
 

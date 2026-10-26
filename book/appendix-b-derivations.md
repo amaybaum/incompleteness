@@ -13,7 +13,7 @@ The appendix's content is organized by mathematical structure rather than by cha
 
 *B.3 The trace-out as a Jordan-Chevalley projection.* The framework's content on the Standard Model gauge structure relies on a structural property of the trace-out operation: it extracts the semisimple part of the evolution matrix's Jordan-Chevalley decomposition and discards the nilpotent monodromy. This appendix gives the full algebraic derivation: period formula, Jordan-Chevalley decomposition, $q$-independence of the Weil-Deligne conductor, additive decomposition over gauge irreps, and the precise sense in which the trace-out is a projection.
 
-*B.4 The gap equation for $\hbar$.* The framework derives Planck's constant $\hbar$ from a thermal self-consistency argument between the classical horizon temperature (substratum-level) and the KMS temperature (emergent QFT-level). This appendix gives the full four-step derivation: spatial locality and boundary dependence, deep-sector gauge equivalence, dimensional determination, and thermal self-consistency producing $\hbar = c^3 \epsilon^2 / (4G\sigma)$.
+*B.4 The gap equation for $\hbar$.* The framework relates Planck's constant $\hbar$ to the discreteness scale through a thermal self-consistency argument between the classical horizon temperature (substratum-level) and the KMS temperature (emergent QFT-level). This appendix gives the full four-step derivation: spatial locality and boundary dependence, deep-sector gauge equivalence, dimensional determination, and thermal self-consistency producing $\hbar = c^3 \epsilon^2 / (4G\sigma)$.
 
 *B.5 Anomaly cancellation and unique hypercharges.* The framework's content on the Standard Model matter content derives the unique hypercharge assignment from the six anomaly conditions of $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$. This appendix gives the explicit calculation: the six anomaly conditions, the algebraic constraint structure, and the unique solution producing $(Y_Q, Y_u, Y_d, Y_L, Y_e) = (1/6, 2/3, -1/3, -1/2, -1)$ with no free parameters.
 
@@ -170,7 +170,7 @@ extracting the semisimple part, encoding it via magnitudes rather than orders, a
 
 *Main-text reference: Chapter 7 §7.3.*
 
-The framework derives Planck's constant $\hbar$ as the unique self-consistent value matching the classical horizon temperature to the KMS temperature of the emergent quantum field theory. The derivation has four steps; each step is presented with its full content.
+The framework derives the relation $\hbar = c^3\epsilon^2/(4G\sigma)$ between Planck's constant and the discreteness scale by matching the classical horizon temperature to the KMS temperature of the emergent quantum field theory, conditional on H-slope with the horizon and frame conditions of Chapter 7 §7.3; with $\epsilon$ not independently known, it fixes only $\epsilon/\sqrt{\sigma} = 2\,l_p$ (Chapter 7 §7.4), not the value of $\hbar$. The derivation has four steps; each step is presented with its full content.
 
 **Step 1: Spatial locality.** The classical Hamiltonian of the substratum is spatially local. The interaction decomposes as
 $$H_{\text{tot}} = H_V + H_B + H_D + H_{VB} + H_{BD}$$
@@ -208,7 +208,7 @@ containing no $\hbar$. This is computable entirely from classical-horizon thermo
 
 On the exact de Sitter calibration, the emergent QFT of the framework's Part I content lives on a classical background that has a bifurcate Killing horizon with surface gravity $\kappa$ (the bifurcate structure presupposes emergent local boost invariance at the horizon, a dependency carried in [GR §8.5]). Regularity of the Wick-rotated metric at the horizon requires Euclidean period $\beta = 2\pi c / \kappa$; any QFT on this background — including a lattice-regularized one — is periodic in imaginary time with that period only under the H-Hawking conditions, giving a KMS state at temperature
 $$T_Q = \frac{\hbar \kappa}{2\pi c k_B}$$
-with $\hbar$ unknown. This is a theorem *within* the derived QFT, not an external import.
+with $\hbar$ unknown. The periodicity holds under the H-Hawking conditions and the KMS identification requires the emergent state to belong to that class (H-spectrum), so the matching below is a conditional infrared calibration, not a theorem within the derived QFT ([GR §3.2]).
 
 The two temperatures are computed independently — $T_{\text{cl}}$ from the classical substratum alone (no QM), $T_Q$ from the emergent QFT alone (no classical substratum details) — but they refer to the *same physical degrees of freedom*: the boundary modes $V \times B$ across which $H_{\text{int}}$ couples the visible and hidden sectors. Step 1's boundary-only dependence shows that the visible transition data from which the emergent QFT is reconstructed are fixed (at leading order in $\tau_S/\tau_B$) by these same $V \times B$ dynamics. Temperature is a state property; two complete descriptions of the same modes cannot assign different temperatures without logical contradiction. The matching $T_{\text{cl}} = T_Q$ is therefore not an additional assumption but a consequence of the boundary modes being the same physical objects in both descriptions, with corrections at $\mathcal{O}(\tau_S/\tau_B) \sim 10^{-32}$:
 $$\frac{c^2 \epsilon^2 \kappa}{8\pi G \sigma} = \frac{\hbar \kappa}{2\pi c}$$
@@ -468,7 +468,7 @@ The biconditional is the framework's main characterization result. $\square$
 
 - B.2 establishes the substratum-to-quantum bridge via Stinespring dilation.
 - B.3 establishes the algebraic structure of the trace-out as Jordan-Chevalley projection, organizing the framework's content on gauge structure.
-- B.4 establishes the gap equation determining $\hbar$ from horizon thermodynamics, producing the framework's content on gravitational physics.
+- B.4 establishes the gap equation relating $\hbar$ to the discreteness scale through horizon thermodynamics, producing the framework's content on gravitational physics.
 - B.5 establishes the unique anomaly-free hypercharge assignment, fixing the framework's content on Standard Model matter.
 - B.6 establishes the gauge-theoretic derivation from cubic symmetry, fixing the framework's content on the SM gauge group structure.
 - B.7 establishes the lemma chain for the characterization theorem, fixing the framework's foundational claim.
