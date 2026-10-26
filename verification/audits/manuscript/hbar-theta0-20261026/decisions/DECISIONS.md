@@ -162,11 +162,7 @@ OLD: | Level G4 (universality class) | $S = A/(4 l_p^2)$, CC dissolution, $\hbar
 NEW: | Level G4 (universality class) | RVM reading (form shared by every smooth model) | non-discriminating; the consistency relations $S = A/(4l_p^2)$ and $\hbar = c^3\epsilon^2/(4G\sigma)$ and the descriptive CC distinction are stated in Chapter 7 §7.10 |
 ```
 
-**O3-76** `book/ch09-universality.md:76` [FULL:2556]
-```text
-OLD: with the strongest confirmations at the universality-class level and the open research program
-NEW: with the universality-class level consistent with observation rather than sharply tested and the open research program
-```
+**O3-76**: the same edit as under O3-a above (`book/ch09-universality.md:76`, FULL:2556).
 
 
 **(c) What changes.** No count: the table has no totals. Only the status surface changes.
