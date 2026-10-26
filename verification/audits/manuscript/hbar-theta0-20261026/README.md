@@ -12,3 +12,5 @@ from the PDG 2024 masses in high-precision arithmetic, with controls; their outp
 `sentence.py` and `mirror.py` are the search helpers, run over a `git archive` of `c967d6a9`.
 
 No manuscript text is changed yet. The audit is reviewed independently before the owner decides and any edit is made.
+
+`review/REVIEW.md` is the independent review of the audit (ACCEPT WITH CHANGES): the ħ account and the θ₀ figures are confirmed, six missed sites are added, one audit claim (the 105.74 MeV figure) is corrected, and each owner decision O1–O7 carries a recommendation. `review/mine/` holds the reviewer's own θ₀ computation.
