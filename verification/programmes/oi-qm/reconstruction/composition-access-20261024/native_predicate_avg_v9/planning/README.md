@@ -48,3 +48,6 @@ the question. The branch is based on #912's head `2af1d5d5`, which contains v8 a
   `RUN-MANIFEST` and the retained stdout/stderr of every step. Everything ran on toy, planted and small-window
   instances; nothing ran on v8's configuration class, and the v8 enumeration is not authorized. Under independent
   review; not frozen.
+- `review/STAGE0-RECHECK-r3.md`: the independent review of Stage 0 r3 (ACCEPT WITH CHANGES; RC1–RC10, all bounded
+  text edits, so not a clean accept and no freeze), with the reviewer's mutants and probes in `review/toy-r3/`. Every
+  cheap control replayed byte for byte, and the quick mutant campaign matched its recorded hash.

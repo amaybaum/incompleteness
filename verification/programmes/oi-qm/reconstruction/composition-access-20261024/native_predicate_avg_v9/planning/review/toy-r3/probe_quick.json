@@ -1,0 +1,302 @@
+{
+ "frozen": {
+  "exit": 0,
+  "failed": [],
+  "C11_i_mismatches": 0,
+  "C11_i_first": [],
+  "C11_ii_pa_dir": 0,
+  "C11_ii_pa_agg": 0,
+  "C11_ii_planted_retained": 3,
+  "counts_identical_to_frozen": true,
+  "counts_differing": []
+ },
+ "rv_dir_ignore_fixed": {
+  "exit": 2,
+  "failed": [
+   "C11_dir_tables"
+  ],
+  "C11_i_mismatches": 81,
+  "C11_i_first": [
+   [
+    "elim",
+    "A",
+    [
+     [
+      [
+       0,
+       1,
+       0
+      ],
+      4
+     ]
+    ],
+    [
+     [
+      0,
+      1,
+      0
+     ],
+     1
+    ]
+   ]
+  ],
+  "C11_ii_pa_dir": 0,
+  "C11_ii_pa_agg": 0,
+  "C11_ii_planted_retained": 3,
+  "counts_identical_to_frozen": true,
+  "counts_differing": []
+ },
+ "rv_dir_swap": {
+  "exit": 2,
+  "failed": [
+   "C11_dir_tables"
+  ],
+  "C11_i_mismatches": 477,
+  "C11_i_first": [
+   [
+    "elim",
+    "A",
+    [
+     [
+      [
+       0,
+       -1,
+       0
+      ],
+      1
+     ]
+    ],
+    [
+     [
+      0,
+      -1,
+      0
+     ],
+     1
+    ]
+   ]
+  ],
+  "C11_ii_pa_dir": 0,
+  "C11_ii_pa_agg": 0,
+  "C11_ii_planted_retained": 3,
+  "counts_identical_to_frozen": true,
+  "counts_differing": []
+ },
+ "rv_dir_wrong_far_y": {
+  "exit": 2,
+  "failed": [
+   "C11_dir_tables",
+   "C18_audit",
+   "C2_tips",
+   "C3_planted",
+   "C7_reference"
+  ],
+  "C11_i_mismatches": 1464,
+  "C11_i_first": [
+   [
+    "elim",
+    "A",
+    [
+     [
+      [
+       0,
+       -1,
+       0
+      ],
+      6
+     ]
+    ],
+    [
+     [
+      0,
+      -1,
+      0
+     ],
+     1
+    ]
+   ]
+  ],
+  "C11_ii_pa_dir": 0,
+  "C11_ii_pa_agg": 0,
+  "C11_ii_planted_retained": 0,
+  "counts_identical_to_frozen": false,
+  "counts_differing": [
+   "G:L3_vs_L3prime_disagree",
+   "G:observer_classes"
+  ]
+ },
+ "rv_dir_cone_y": {
+  "exit": 1,
+  "stderr": "Traceback (most recent call last):\n  File \"S/npavg/review-r3/probe/code2/s0controls.py\", line 708, in <module>\n    main()\n    ~~~~^^\n  File \"S/npavg/review-r3/probe/code2/s0controls.py\", line 697, in main\n    res['C15_exact'] = c15_exact(rule, quick, rng)\n                       ~~~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"S/npavg/review-r3/probe/code2/s0controls.py\", line 546, in c15_exact\n    ret, _ = G.closure(set(), S, pair, dim, rule)\n             ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"S/npavg/review-r3/probe/code2/s0geom.py\", line 149, in closure\n    covers = {q: {u for u in all_tips if in_cone(u, q, pair, rule)} for q in allq}\n                                         ~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"S/npavg/review-r3/probe/code2/s0geom.py\", line 98, in in_cone\n    if rule.rv == 'cone_y' and r == rr and rr > 0 and uc[1] < c[1]:\n                                                      ~~^^^\nIndexError: tuple index out of range\n"
+ },
+ "rv_blind_B_y": {
+  "exit": 2,
+  "failed": [
+   "C11_dir_tables"
+  ],
+  "C11_i_mismatches": 1402,
+  "C11_i_first": [
+   [
+    "elim",
+    "A",
+    [
+     [
+      [
+       -1,
+       0,
+       0
+      ],
+      -1
+     ]
+    ],
+    [
+     [
+      -1,
+      0,
+      0
+     ],
+     -1
+    ]
+   ]
+  ],
+  "C11_ii_pa_dir": 0,
+  "C11_ii_pa_agg": 0,
+  "C11_ii_planted_retained": 3,
+  "counts_identical_to_frozen": true,
+  "counts_differing": []
+ },
+ "rv_blind_G_y": {
+  "exit": 2,
+  "failed": [
+   "C11_dir_tables"
+  ],
+  "C11_i_mismatches": 105,
+  "C11_i_first": [
+   [
+    "elim",
+    "G",
+    [
+     [
+      [
+       0,
+       -1,
+       0
+      ],
+      6
+     ]
+    ],
+    [
+     [
+      0,
+      -1,
+      0
+     ],
+     5
+    ]
+   ]
+  ],
+  "C11_ii_pa_dir": 0,
+  "C11_ii_pa_agg": 0,
+  "C11_ii_planted_retained": 3,
+  "counts_identical_to_frozen": true,
+  "counts_differing": []
+ },
+ "rv_blind_plus_z": {
+  "exit": 2,
+  "failed": [
+   "C11_dir_tables",
+   "C11_props"
+  ],
+  "C11_i_mismatches": 1360,
+  "C11_i_first": [
+   [
+    "elim",
+    "A",
+    [
+     [
+      [
+       -1,
+       0,
+       0
+      ],
+      -1
+     ]
+    ],
+    [
+     [
+      -1,
+      0,
+      0
+     ],
+     -1
+    ]
+   ]
+  ],
+  "C11_ii_pa_dir": 3,
+  "C11_ii_pa_agg": 0,
+  "C11_ii_planted_retained": 6,
+  "counts_identical_to_frozen": true,
+  "counts_differing": []
+ },
+ "rv_decide_blind_y": {
+  "exit": 2,
+  "failed": [
+   "C11_props"
+  ],
+  "C11_i_mismatches": 0,
+  "C11_i_first": [],
+  "C11_ii_pa_dir": 3,
+  "C11_ii_pa_agg": 0,
+  "C11_ii_planted_retained": 6,
+  "counts_identical_to_frozen": true,
+  "counts_differing": []
+ },
+ "rv_decide_ignore_fixed_y": {
+  "exit": 0,
+  "failed": [],
+  "C11_i_mismatches": 0,
+  "C11_i_first": [],
+  "C11_ii_pa_dir": 0,
+  "C11_ii_pa_agg": 0,
+  "C11_ii_planted_retained": 3,
+  "counts_identical_to_frozen": true,
+  "counts_differing": []
+ },
+ "blind_dir_minus_y": {
+  "exit": 2,
+  "failed": [
+   "C11_dir_tables",
+   "C11_props"
+  ],
+  "C11_i_mismatches": 1672,
+  "C11_i_first": [
+   [
+    "elim",
+    "A",
+    [
+     [
+      [
+       -1,
+       0,
+       0
+      ],
+      -1
+     ]
+    ],
+    [
+     [
+      -1,
+      0,
+      0
+     ],
+     -1
+    ]
+   ]
+  ],
+  "C11_ii_pa_dir": 3,
+  "C11_ii_pa_agg": 0,
+  "C11_ii_planted_retained": 6,
+  "counts_identical_to_frozen": true,
+  "counts_differing": []
+ }
+}
