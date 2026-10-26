@@ -42,7 +42,7 @@ import os, re, sys
 # are introduced: the guard knows an enumerated list, not meaning.
 CONDITION_TOKENS = re.compile(
     r'\bH-(?:slope|frame|Hawking|balance|spectrum|scramble|shell|local-lift|'
-    r'cone|top|det|Bell|link|spin|energy|state|theorem|cust|blind)\b'
+    r'cone|top|det|Bell|link|spin|energy|state|theorem|cust|blind|decouple)\b'
     r'|\bconditional on\b|\bCONDITIONAL on\b')
 
 # Status labels that assert derivation strength for what is cited. These GATE:
