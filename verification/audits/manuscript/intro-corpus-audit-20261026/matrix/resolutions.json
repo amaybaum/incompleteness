@@ -1,0 +1,7 @@
+{
+ "_note": "Verdicts the audit synthesis (FINDINGS.md) resolved differently from the mapper, after re-checking the sources. merge_matrix.py applies them and keeps the mapper's verdict as mapper_verdict.",
+ "I-008": {"verdict": "IMPRECISE", "finding": "R-24", "reason": "'deterministic completion' is undefined and L136 uses it in the Bell sense; content correct (Theorem 2(c) and the Corollary)"},
+ "I-013": {"verdict": "UNDERCLAIM", "finding": "R-06", "reason": "the abstract repeats 'which of (iii)-(v) a physical substratum supplies is open'; GR:260-266, ROADMAP:1521-1538 and the kernel settle part of it (as I-146, I-258, I-281)"},
+ "I-123": {"verdict": "UNSUPPORTED", "finding": "R-04", "reason": "'a minimal model' with six hidden states: a three-hidden-state model reproduces every B.1 number and a two-hidden-state game realizes Theorem 3"},
+ "I-124": {"verdict": "IMPRECISE", "finding": "R-04", "reason": "'the smallest realization': true by size but proved nowhere in the corpus, and not unique"}
+}

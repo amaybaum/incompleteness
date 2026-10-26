@@ -2,7 +2,8 @@
 
 Each claim (and each direction sub-claim) must appear exactly once. Where two parts carry the same id (B5 mapped
 I-123 and I-124, which lie in B2's range), the row from the part whose range owns the id is kept, and the other is
-recorded under `duplicates`.
+recorded under `duplicates`. Verdicts the synthesis resolved differently (matrix/resolutions.json) are
+applied, with the mapper's verdict kept as `mapper_verdict`.
 """
 import json, sys, collections
 
@@ -33,6 +34,15 @@ for part, (lo, hi) in RANGES.items():
                 rows[r["id"]] = r
         else:
             rows[r["id"]] = r
+
+res = json.load(open("matrix/resolutions.json", encoding="utf-8"))
+for i, v in res.items():
+    if i.startswith("_"):
+        continue
+    r = rows[i]
+    r["mapper_verdict"] = r["verdict"]
+    r["verdict"] = v["verdict"]
+    r["resolution"] = {"finding": v["finding"], "reason": v["reason"]}
 
 missing = [i for i in want if i not in rows]
 extra = [i for i in rows if i not in set(want)]

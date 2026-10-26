@@ -448,7 +448,7 @@
    ],
    "proof_status": "proved-paper",
    "strongest_verified_source": "lean:OIBridge/HiddenMemory.lean:185:unavoidable_hidden_predictive_memory",
-   "verdict": "FAITHFUL",
+   "verdict": "IMPRECISE",
    "contradictions": [
     {
      "site": "papers/Main.md:16@eae01647",
@@ -458,7 +458,12 @@
    ],
    "proposed_fix": null,
    "notes": "Attention resolved: 'deterministic completion' is Main's 'faithful deterministic completion' = faithful realization (Main:582 'ANY faithful deterministic realization'). Read as Theorem 2(c), M_t <= I(X_<t;H_t|X_t), the claim holds for every faithful completion with no condition on M_t (it is vacuous at M_t=0); the readout-relevant form is the Corollary, which is the M_t>0 case. Kernel proves (a)-(c) for a joint law; the time-t identification is the unchecked step. The kernel's Realization is a bijection, but only determinism is used.",
-   "_part": "B1"
+   "_part": "B1",
+   "mapper_verdict": "FAITHFUL",
+   "resolution": {
+    "finding": "R-24",
+    "reason": "'deterministic completion' is undefined and L136 uses it in the Bell sense; content correct (Theorem 2(c) and the Corollary)"
+   }
   },
   {
    "id": "I-009",
@@ -735,11 +740,16 @@
    "required_assumptions": [],
    "proof_status": "open",
    "strongest_verified_source": "papers/GR.md:228@eae01647",
-   "verdict": "FAITHFUL",
+   "verdict": "UNDERCLAIM",
    "contradictions": [],
    "proposed_fix": null,
    "notes": "",
-   "_part": "B1"
+   "_part": "B1",
+   "mapper_verdict": "FAITHFUL",
+   "resolution": {
+    "finding": "R-06",
+    "reason": "the abstract repeats 'which of (iii)-(v) a physical substratum supplies is open'; GR:260-266, ROADMAP:1521-1538 and the kernel settle part of it (as I-146, I-258, I-281)"
+   }
   },
   {
    "id": "I-014",
@@ -5262,11 +5272,16 @@
    "required_assumptions": [],
    "proof_status": "proved-paper",
    "strongest_verified_source": "papers/Main.md:178@eae01647",
-   "verdict": "IMPRECISE",
+   "verdict": "UNSUPPORTED",
    "contradictions": [],
    "proposed_fix": "Appendix B works examples: a six-hidden-state model of Theorem 3 [Main §2.4], memory without short-window indivisibility, and a two-card game, the smallest realization of Theorem 3.",
    "notes": "Attention resolved: 'minimal' is Main §2.4's title, meaning a simple explicit model, not a smallest one; the card game (two hidden values) is smaller. Calling both 'minimal' and 'smallest' in one sentence invites a contradiction. The model does instantiate Theorem 3 (overlap at s=1, return at n=2 under the uniform prior).",
-   "_part": "B2"
+   "_part": "B2",
+   "mapper_verdict": "IMPRECISE",
+   "resolution": {
+    "finding": "R-04",
+    "reason": "'a minimal model' with six hidden states: a three-hidden-state model reproduces every B.1 number and a two-hidden-state game realizes Theorem 3"
+   }
   },
   {
    "id": "I-124",
@@ -5296,11 +5311,16 @@
    "required_assumptions": [],
    "proof_status": "unsupported",
    "strongest_verified_source": "book/ch01-observation.md:273@eae01647",
-   "verdict": "UNSUPPORTED",
+   "verdict": "IMPRECISE",
    "contradictions": [],
    "proposed_fix": "... and a two-card game, which with two visible and two hidden values is the smallest realization of Theorem 3 (with one hidden value every $\\Gamma_s$ is a permutation).",
    "notes": "Attention resolved: no proof or measure of size anywhere in the corpus (searched Main, book ch01, appendix B, Lean). The claim is true in the natural measure (|C_V|, |C_H| and |C_V||C_H| are each minimal) by a two-line argument; severity low. Fix states the measure and the reason.",
-   "_part": "B2"
+   "_part": "B2",
+   "mapper_verdict": "UNSUPPORTED",
+   "resolution": {
+    "finding": "R-04",
+    "reason": "'the smallest realization': true by size but proved nowhere in the corpus, and not unique"
+   }
   },
   {
    "id": "I-125",
@@ -16147,10 +16167,10 @@
  "missing": [],
  "extra": [],
  "verdicts": {
-  "FAITHFUL": 364,
-  "IMPRECISE": 35,
+  "FAITHFUL": 362,
+  "IMPRECISE": 36,
+  "UNDERCLAIM": 6,
   "MISCITED": 3,
-  "UNDERCLAIM": 5,
   "UNSUPPORTED": 1,
   "OVERCLAIM": 1
  },
