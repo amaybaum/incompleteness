@@ -1,0 +1,340 @@
+{
+ "added_counts": [
+  "A:deg:masking_equivalent:survivor=True",
+  "A:deg:nontrivial_stabilizer:survivor=True",
+  "G:deg:masking_equivalent:survivor=True",
+  "G:deg:nontrivial_stabilizer:survivor=True"
+ ],
+ "checks": {
+  "A.quotes_at_stated_lines": {
+   "detail": {
+    "not_found": [],
+    "per_file": {
+     "freeze": 2,
+     "r5": 42,
+     "review": 15
+    },
+    "quotes": 59
+   },
+   "pass": true
+  },
+  "A.r5_sha256_equals_freeze_record": {
+   "detail": "1a30188e70804644a6ff65b3114ab82f8be40a2b056d0e2862ce595a8982847e",
+   "pass": true
+  },
+  "B.C8_list_has_54": {
+   "detail": 54,
+   "pass": true
+  },
+  "B.C8_list_leaves_exactly_four_open": {
+   "detail": [
+    [
+     "nontrivial_stabilizer",
+     "A"
+    ],
+    [
+     "nontrivial_stabilizer",
+     "G"
+    ],
+    [
+     "masking_equivalent",
+     "A"
+    ],
+    [
+     "masking_equivalent",
+     "G"
+    ]
+   ],
+   "pass": true
+  },
+  "B.E1_list_has_58_and_closes": {
+   "detail": {
+    "added": [
+     "A:deg:masking_equivalent:survivor=True",
+     "A:deg:nontrivial_stabilizer:survivor=True",
+     "G:deg:masking_equivalent:survivor=True",
+     "G:deg:nontrivial_stabilizer:survivor=True"
+    ],
+    "undetermined": []
+   },
+   "pass": true
+  },
+  "B.countercontrol_drop_one_added_count_reopens": {
+   "detail": [
+    "A:deg:masking_equivalent:survivor=True",
+    "A:deg:nontrivial_stabilizer:survivor=True",
+    "G:deg:masking_equivalent:survivor=True",
+    "G:deg:nontrivial_stabilizer:survivor=True"
+   ],
+   "pass": true
+  },
+  "B.layer2_crosstab_set_is_section3_minus_two": {
+   "detail": [
+    "item_at_phi_site",
+    "item_at_port_site",
+    "item_at_q9",
+    "item_on_z_axis",
+    "item_t_eq_minus1",
+    "item_t_le_0",
+    "last_sample_odd",
+    "pair_on_common_axis"
+   ],
+   "pass": true
+  },
+  "B.section3_lists_ten_degeneracies": {
+   "detail": null,
+   "pass": true
+  },
+  "C.added_counts_full_equal_orbit_reduced": {
+   "detail": {
+    "full": {
+     "A:deg:masking_equivalent:survivor=True": 0,
+     "A:deg:nontrivial_stabilizer:survivor=True": 0,
+     "G:deg:masking_equivalent:survivor=True": 0,
+     "G:deg:nontrivial_stabilizer:survivor=True": 0
+    },
+    "orbit_reduced": {
+     "A:deg:masking_equivalent:survivor=True": 0,
+     "A:deg:nontrivial_stabilizer:survivor=True": 0,
+     "G:deg:masking_equivalent:survivor=True": 0,
+     "G:deg:nontrivial_stabilizer:survivor=True": 0
+    },
+    "records": 1400,
+    "representatives": 488
+   },
+   "pass": true
+  },
+  "C.indicators_constant_on_orbits": {
+   "detail": 0,
+   "pass": true
+  },
+  "C.marginal_equals_sum_of_cells": {
+   "detail": {
+    "A:masking_equivalent": [
+     1398,
+     0,
+     1398
+    ],
+    "A:nontrivial_stabilizer": [
+     1176,
+     0,
+     1176
+    ],
+    "G:masking_equivalent": [
+     1398,
+     0,
+     1398
+    ],
+    "G:nontrivial_stabilizer": [
+     1176,
+     0,
+     1176
+    ]
+   },
+   "pass": true
+  },
+  "C.pipeline_reproduces_toy_run": {
+   "detail": {
+    "compared": 36,
+    "differences": {}
+   },
+   "pass": true
+  },
+  "D.planted_full_equal_orbit_reduced": {
+   "detail": {
+    "full": {
+     "A:deg:masking_equivalent:survivor=True": 8,
+     "A:deg:nontrivial_stabilizer:survivor=True": 12,
+     "G:deg:masking_equivalent:survivor=True": 8,
+     "G:deg:nontrivial_stabilizer:survivor=True": 12
+    },
+    "orbit_reduced": {
+     "A:deg:masking_equivalent:survivor=True": 8,
+     "A:deg:nontrivial_stabilizer:survivor=True": 12,
+     "G:deg:masking_equivalent:survivor=True": 8,
+     "G:deg:nontrivial_stabilizer:survivor=True": 12
+    }
+   },
+   "pass": true
+  },
+  "D.planted_marginal_equals_sum_of_cells": {
+   "detail": {
+    "A:masking_equivalent": [
+     8,
+     8,
+     0
+    ],
+    "A:nontrivial_stabilizer": [
+     12,
+     12,
+     0
+    ],
+    "G:masking_equivalent": [
+     8,
+     8,
+     0
+    ],
+    "G:nontrivial_stabilizer": [
+     12,
+     12,
+     0
+    ]
+   },
+   "pass": true
+  },
+  "D.planted_non_vacuity": {
+   "detail": {
+    "A:deg:masking_equivalent:survivor=True": 8,
+    "A:deg:nontrivial_stabilizer:survivor=True": 12,
+    "G:deg:masking_equivalent:survivor=True": 8,
+    "G:deg:nontrivial_stabilizer:survivor=True": 12
+   },
+   "pass": true
+  },
+  "E.countercontrol_noninvariant_predicate_breaks_reduction": {
+   "detail": {
+    "full": {
+     "A:deg:masking_equivalent:survivor=True": 392,
+     "A:deg:nontrivial_stabilizer:survivor=True": 280,
+     "G:deg:masking_equivalent:survivor=True": 392,
+     "G:deg:nontrivial_stabilizer:survivor=True": 280
+    },
+    "orbit_reduced": {
+     "A:deg:masking_equivalent:survivor=True": 128,
+     "A:deg:nontrivial_stabilizer:survivor=True": 128,
+     "G:deg:masking_equivalent:survivor=True": 128,
+     "G:deg:nontrivial_stabilizer:survivor=True": 128
+    }
+   },
+   "pass": true
+  },
+  "F.initial_shared_tip_count_matches_toy_run": {
+   "detail": {
+    "recomputed": 739,
+    "toy_run_representative_conventions": 739
+   },
+   "pass": true
+  },
+  "F.shared_near_tip_equals_section4_shared_tip": {
+   "detail": {
+    "first_disagreements": [],
+    "pair_direction_cases": 230268
+   },
+   "pass": true
+  },
+  "G.L3_values_equal_s1a_reported": {
+   "detail": {
+    "L_A": 15,
+    "L_G": 7
+   },
+   "pass": true
+  },
+  "G.T1_T5_L3prime_values_equal_s1a": {
+   "detail": {
+    "recomputed": {
+     "L3": {
+      "L_A": 15,
+      "L_G": 7,
+      "L_G_tip_reading": 0
+     },
+     "L3prime": {
+      "L_A": 15,
+      "L_G": 7,
+      "L_G_tip_reading": 0
+     }
+    },
+    "s1a": [
+     15,
+     7
+    ]
+   },
+   "pass": true
+  },
+  "G.T1_bounds_nested": {
+   "detail": null,
+   "pass": true
+  },
+  "G.T5_tip_reading_is_zero": {
+   "detail": null,
+   "pass": true
+  },
+  "G.source_cells_are_in_frame": {
+   "detail": null,
+   "pass": true
+  }
+ },
+ "failed": [],
+ "pass": true,
+ "planted": {
+  "note": "planted 7-item records in the toy geometry; not records of the k <= 2 space",
+  "per_base_record": {
+   "block": {
+    "masking_equivalent": true,
+    "nontrivial_stabilizer": true,
+    "orbit_size": 4,
+    "survivor_A": true,
+    "survivor_G": true
+   },
+   "block_minus_top": {
+    "masking_equivalent": false,
+    "nontrivial_stabilizer": true,
+    "orbit_size": 4,
+    "survivor_A": true,
+    "survivor_G": true
+   },
+   "block_top_odd": {
+    "masking_equivalent": true,
+    "nontrivial_stabilizer": true,
+    "orbit_size": 4,
+    "survivor_A": true,
+    "survivor_G": true
+   }
+  },
+  "records": 12,
+  "representatives": 3
+ },
+ "toy_C7_scope_predicates": {
+  "L3prime_closure_retains_shared_near_tip": {
+   "A": 0,
+   "G": 595
+  },
+  "L3prime_closure_retains_shared_near_tip_seed_only": {
+   "A": 0,
+   "G": 0
+  },
+  "initial_context_shared_near_tip": {
+   "A": 1071,
+   "G": 667
+  },
+  "note": "toy class only; says nothing about v8 frequencies",
+  "records": 1400
+ },
+ "toy_S1a": {
+  "L3": {
+   "L_A": 15,
+   "L_G": 7,
+   "L_G_tip_reading": 0
+  },
+  "L3prime": {
+   "L_A": 15,
+   "L_G": 7,
+   "L_G_tip_reading": 0
+  },
+  "note": "toy geometry; says nothing about v8"
+ },
+ "toy_class": {
+  "added_counts": {
+   "A:deg:masking_equivalent:survivor=True": 0,
+   "A:deg:nontrivial_stabilizer:survivor=True": 0,
+   "G:deg:masking_equivalent:survivor=True": 0,
+   "G:deg:nontrivial_stabilizer:survivor=True": 0
+  },
+  "note": "no survivors on the toy class: the added counts are 0 here",
+  "records": 1400,
+  "representatives": 488,
+  "survivors": {
+   "A": 0,
+   "G": 0
+  }
+ }
+}
