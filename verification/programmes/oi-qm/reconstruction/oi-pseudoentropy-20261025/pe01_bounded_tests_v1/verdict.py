@@ -13,10 +13,11 @@ flips each passing control flag in a copy (each must yield VOID naming it), and 
 check to fail on a text without the resource-model limitation sentence.
 
 Where amendment A2 fixes the reading of condition (d) (D-SIGN), sections 1-4 and the verdict class
-are computed under that reading alone, and the other reading is printed after them as a
-sensitivity analysis (section 5) that does not govern. The VG self-test then also requires that
-removing or changing every sensitivity row, and adding a synthetic sensitivity COUNTEREXAMPLE,
-leave the governing class and the governing text byte-identical.
+are computed under that reading, with every candidate classified under it whichever reading
+selected it, and the other reading is printed after them as a sensitivity analysis (section 5)
+that does not govern. The VG self-test then also requires that removing or changing every
+sensitivity row leave the governing class and the governing text byte-identical, and that every
+sensitivity COUNTEREXAMPLE be a governing one.
 """
 import copy
 import hashlib
@@ -162,12 +163,14 @@ def other_reading(rd):
     return [r for r in READINGS if r != rd][0]
 
 
-def witness_lines(meas, th, green, readings, tagged):
+def witness_lines(meas, th, green, readings, tagged, restrict):
     """Section 2 rows for the given readings of (d), and the witnesses meeting (a)-(f) under them.
 
-    Each reading reads only its own rows: its window rows, the candidates selected under it
-    (found_under), and the reading-keyed fields of those candidates. A candidate selected only
-    under another reading never enters this reading's rows or its COUNTEREXAMPLE list."""
+    Each reading reads its own window rows and reading-keyed fields. With restrict False (the
+    governing test) every candidate of the cell is classified under the reading, whichever reading
+    selected it: every signed window is an abs window, so a signed-selected candidate is a valid
+    abs candidate. With restrict True (the sensitivity section) only the candidates selected under
+    the reading are classified."""
     L, counter = [], []
     for sid, info in sorted(meas["shard_info"].items()):
         if sid not in meas["windows"]:
@@ -181,7 +184,7 @@ def witness_lines(meas, th, green, readings, tagged):
                 "admissible region cell (theta = n+1) empty: 'no admissible witness' here is a fact about the resource model"
             for rd in readings:
                 ws = [w for w in meas["witnesses"] if w["shard"] == sid and w["subclass"] == sub
-                      and rd in w.get("found_under", [])]
+                      and (not restrict or rd in w.get("found_under", []))]
                 rows = [r for r in byrd.get(rd, []) if r[1]]
                 tagr = (" [reading %s]" % rd) if tagged else ""
                 scope_s = "%s; K <= %s" % (SCOPE.get(sub, sub), info.get("K_max") or info.get("K_cap"))
@@ -197,19 +200,23 @@ def witness_lines(meas, th, green, readings, tagged):
                 for w in sorted(ws, key=lambda x: x["K"]):
                     byK.setdefault(w["K"], []).append(w)
                 for K in sorted(byK):
-                    # one line per K: a COUNTEREXAMPLE if one is among the candidates, else the first;
-                    # every candidate at K enters the COUNTEREXAMPLE test and the attribution
+                    # one line per K: a COUNTEREXAMPLE if one is among the candidates, else the first
+                    # selected under this reading, else the first; every candidate at K enters the
+                    # COUNTEREXAMPLE test and the attribution
                     graded = [(w,) + cx.classify(w, th, green, rd) for w in byK[K]]
                     for w, kind, fails in graded:
                         if "d" not in fails:
                             kinds.append(kind)
                         if kind == "COUNTEREXAMPLE":
                             counter.append((rd, w))
-                    w, kind, fails = next((g for g in graded if g[1] == "COUNTEREXAMPLE"), graded[0])
-                    L.append("    K=%d: %s (failed: %s); selected under reading %s; %s at K'=%s: %s; footprint %d "
+                    w, kind, fails = next((g for g in graded if g[1] == "COUNTEREXAMPLE"),
+                                          next((g for g in graded if rd in g[0].get("found_under", [])), graded[0]))
+                    sel = ("selected under reading %s" % rd) if rd in w.get("found_under", []) else \
+                        "selected under the other reading only"
+                    L.append("    K=%d: %s (failed: %s); %s; %s at K'=%s: %s; footprint %d "
                              "(theta %d); table size %d bits; K_cx=%d; K0 status: %s; windows in subclass at K: %s, "
                              "family-wide: %s; %s." % (
-                                 w["K"], kind, ",".join(fails) or "none", rd, VALUE_LABEL[rd],
+                                 w["K"], kind, ",".join(fails) or "none", sel, VALUE_LABEL[rd],
                                  w["window"], ", ".join(w[VALUE_FIELD[rd]]), w["footprint"], th[str(n)],
                                  w["table_size_bits"], w["K_cx"],
                                  "witness on every phi of the family" if w["K0_status"][rd] else "not family-wide",
@@ -224,15 +231,16 @@ def witness_lines(meas, th, green, readings, tagged):
 
 
 def sensitivity_lines(meas, th, green, rd):
-    """The sensitivity section: (d) under the non-governing reading. Its rows and its classification
-    are printed after the governing text and never enter the stage outcome or the verdict class."""
+    """The sensitivity section: (d) under the non-governing reading, over the candidates selected
+    under it. Its rows and its classification are printed after the governing text and never enter
+    the stage outcome or the verdict class. Returns (lines, its COUNTEREXAMPLE list)."""
     L = ["", SENS_HEAD % rd,
          "   Printed as A2 requires; the governing verdict above is computed without any row of this section."]
-    wl, counter = witness_lines(meas, th, green, [rd], tagged=False)
+    wl, counter = witness_lines(meas, th, green, [rd], tagged=False, restrict=True)
     L.extend(wl)
     L.append("   Sensitivity classification: %s under %s." % (
         "COUNTEREXAMPLE (%d witness(es) meeting (a)-(f))" % len(counter) if counter else "no COUNTEREXAMPLE", rd))
-    return L
+    return L, counter
 
 
 def governing_part(text):
@@ -243,15 +251,20 @@ def governing_part(text):
 
 def generate(meas):
     """Return (verdict_class, text)."""
+    return _generate(meas)[:2]
+
+
+def _generate(meas):
+    """Return (verdict_class, text, governing COUNTEREXAMPLEs, sensitivity COUNTEREXAMPLEs)."""
     check_exact_tree(meas)
     ctl = meas["controls"]
     scope = meas["control_scope"]
     failed = sorted(k for k in scope if ctl[k]["pass"] is False)
     if failed:
-        return "VOID", "VOID: failed checkpoint(s): %s\n" % ", ".join(failed)
+        return "VOID", "VOID: failed checkpoint(s): %s\n" % ", ".join(failed), [], []
     unev = sorted(set(meas.get("unevaluated", [])) | {"checkpoint %s" % k for k in scope if ctl[k]["pass"] is not True})
     if unev:
-        return "INCOMPLETE", "INCOMPLETE (no verdict): not evaluated: %s\n" % "; ".join(unev)
+        return "INCOMPLETE", "INCOMPLETE (no verdict): not evaluated: %s\n" % "; ".join(unev), [], []
     mode = meas["mode"]
     th = meas["theta_by_n"]
     res = (meas.get("a2") or {}).get("resolutions", {})
@@ -311,14 +324,14 @@ def generate(meas):
     green = meas["status"] == "green" and mode == "result"
     if sign_rule in READINGS:
         L.append("2. Prediction witnesses (§6 item 4), per (generator, n, observer subclass); never pooled. "
-                 "Condition (d) is read under the governing rule %s; only the candidates selected under it enter "
-                 "this section and the stage outcome." % sign_rule)
-        wl, counter = witness_lines(meas, th, green, [sign_rule], tagged=False)
+                 "Condition (d) is read under the governing rule %s. Every candidate is classified under it, "
+                 "whichever reading selected it." % sign_rule)
+        wl, counter = witness_lines(meas, th, green, [sign_rule], tagged=False, restrict=False)
     else:
         L.append("2. Prediction witnesses (§6 item 4), per (generator, n, observer subclass); never pooled.")
         L.append("   Condition (d) is printed under both readings (open item D-SIGN): 'signed' = the same chi "
                  "gives Pr - 1/2 >= 1/8 at every K'; 'abs' = |Pr - 1/2| >= 1/8 at every K'.")
-        wl, counter = witness_lines(meas, th, green, list(READINGS), tagged=True)
+        wl, counter = witness_lines(meas, th, green, list(READINGS), tagged=True, restrict=False)
     L.append("   Condition (a) is read as the fixed G_lin(p_n), G_filt(p_n), G_clk(p_n); other family members "
              "enter through the K0 status only, which is conservative toward the claim under audit.")
     L.extend(wl)
@@ -353,37 +366,35 @@ def generate(meas):
     L.append("   No finite result here establishes the universal form. No asymptotic, circuit-security, "
              "cryptographic-security or quantum-reproduction claim is made.")
     cls = mode.upper() if mode != "result" else ("COUNTEREXAMPLE" if counter else "NO-COUNTEREXAMPLE")
+    sens_counter = []
     if sign_rule in READINGS:
-        L.extend(sensitivity_lines(meas, th, green, other_reading(sign_rule)))
-    return cls, "\n".join(L) + "\n"
+        sl, sens_counter = sensitivity_lines(meas, th, green, other_reading(sign_rule))
+        L.extend(sl)
+    return cls, "\n".join(L) + "\n", counter, sens_counter
 
 
 def strip_sensitivity(meas, gov):
-    """A copy with every sensitivity row removed: the other reading's window rows, the candidates
-    selected only under it, and its keyed fields and value list on every remaining candidate."""
+    """A copy with every sensitivity row removed: the other reading's window rows, its tag in
+    found_under, its keyed fields and its value list on every candidate. The candidate records stay:
+    each one is a candidate of the governing test."""
     o = other_reading(gov)
     m = copy.deepcopy(meas)
     for cells in m["windows"].values():
         for byrd in cells.values():
             byrd.pop(o, None)
-    kept = []
     for w in m["witnesses"]:
-        if gov not in w.get("found_under", []):
-            continue
-        w["found_under"] = [gov]
+        w["found_under"] = [r for r in w.get("found_under", []) if r != o]
         for k in ("K0_status", "window_count_in_subclass", "family_window_count"):
             if isinstance(w.get(k), dict):
                 w[k].pop(o, None)
         w.pop(VALUE_FIELD[o], None)
-        kept.append(w)
-    m["witnesses"] = kept
     return m
 
 
 def flip_sensitivity(meas, gov, favorable):
-    """A copy with every sensitivity row changed: window counts toggled, keyed fields inverted, and
-    each candidate selected only under the other reading made to meet (favorable) or fail every
-    value condition."""
+    """A copy with every sensitivity row changed: the other reading's window counts toggled, its
+    keyed fields inverted, and its value list on every candidate made to meet (favorable) or fail
+    condition (d)."""
     o = other_reading(gov)
     m = copy.deepcopy(meas)
     for cells in m["windows"].values():
@@ -393,16 +404,12 @@ def flip_sensitivity(meas, gov, favorable):
                 r[2] = 0 if r[2] else 1
     vals = ["1/4"] * (cx.W + 1) if favorable else ["0"] * (cx.W + 1)
     for w in m["witnesses"]:
-        for k in ("K0_status",):
-            if isinstance(w.get(k), dict) and o in w[k]:
-                w[k][o] = not w[k][o]
+        if isinstance(w.get("K0_status"), dict) and o in w["K0_status"]:
+            w["K0_status"][o] = not w["K0_status"][o]
         for k in ("window_count_in_subclass", "family_window_count"):
             if isinstance(w.get(k), dict) and o in w[k]:
                 w[k][o] = w[k][o] + 1
         w[VALUE_FIELD[o]] = list(vals)
-        if gov not in w.get("found_under", []):
-            w[VALUE_FIELD[gov]] = list(vals)
-            w["footprint"] = 0 if favorable else 1 << 20
     return m
 
 
@@ -413,11 +420,11 @@ def forge_green(meas):
     return m
 
 
-def inject_sensitivity_witness(meas, gov):
+def inject_witness(meas, gov, gov_ok, other_ok, idx):
     """A copy carrying one synthetic candidate selected only under the other reading, meeting
-    (a)-(f) under both readings, with its window row. The cell is one the governing reading also
-    has window rows in where there is one, so that a governing section reading this candidate
-    would print it. None if no cell admits one."""
+    (a)-(c), (e) and (f), with (d) met or failed under each reading as given, and its window row
+    under the other reading. The cell is one in which the governing reading also has window rows
+    where there is one. None if no cell admits one."""
     o = other_reading(gov)
     m = copy.deepcopy(meas)
     cells = [(not any(r[1] for r in m["windows"][sid][sub].get(gov, [])), sid, sub)
@@ -428,32 +435,56 @@ def inject_sensitivity_witness(meas, gov):
         info = m["shard_info"][sid]
         K = info["K_cx"]
         w = cx.base_witness()
+        w["observer"] = dict(w["observer"], index=-1 - idx, chi_index=-1 - idx)
+        val = {gov: gov_ok, o: other_ok}
         w.update({"generator": {"lin": "G_lin", "filt": "G_filt", "clk": "G_clk"}[info["family"]], "n": info["n"],
                   "shard": sid, "subclass": sub, "m": int(sub.split("_m")[1][0]), "K": K,
-                  "window": list(range(K - cx.W, K + 1)), "K_cx": K, "footprint": 0,
-                  "adv_pred": ["1/4"] * (cx.W + 1), "pred_minus_half": ["1/4"] * (cx.W + 1), "found_under": [o],
-                  "K0_status": {o: True}, "window_count_in_subclass": {o: 1}, "family_window_count": {o: 1},
-                  "table_size_bits": 0, "realization": "synthetic record (VG only)"})
+                  "window": list(range(K - cx.W, K + 1)), "K_cx": K, "footprint": 0, "found_under": [o],
+                  "K0_status": {gov: False, o: True}, "window_count_in_subclass": {gov: 1, o: 1},
+                  "family_window_count": {gov: 1, o: 1}, "table_size_bits": 0,
+                  "realization": "synthetic record (VG only)"})
+        for rd in READINGS:
+            w[VALUE_FIELD[rd]] = ["1/4" if val[rd] else "0"] * (cx.W + 1)
         m["witnesses"] = list(m["witnesses"]) + [w]
         m["windows"][sid][sub].setdefault(o, []).append([K, 1, 1])
         return m
     return None
 
 
-def _governing(m):
-    """(class, governing text) of a copy; a generation error is recorded, never raised."""
+def _wkey(w):
+    o = w.get("observer") or {}
+    return (w.get("shard"), w.get("subclass"), w.get("K"), o.get("index"), o.get("chi_index"))
+
+
+def _run(m):
+    """(class, governing text, full text, governing keys, sensitivity keys) of a copy; a generation
+    error is recorded, never raised."""
     try:
-        c, t = generate(m)
-        return c, governing_part(t), t
+        c, t, gc, sc = _generate(m)
+        return c, governing_part(t), t, {_wkey(w) for _, w in gc}, {_wkey(w) for _, w in sc}
     except Exception as e:      # noqa: BLE001  (a self-test case fails; it does not crash the verdict)
-        return "ERROR %s: %s" % (type(e).__name__, e), None, ""
+        return "ERROR %s: %s" % (type(e).__name__, e), None, "", set(), set()
+
+
+def inclusion_violations(m):
+    """The sensitivity COUNTEREXAMPLEs that are not governing COUNTEREXAMPLEs. Under governing abs
+    there must be none: every signed window is an abs window."""
+    r = _run(m)
+    return sorted(map(str, r[4] - r[3])) if r[1] is not None else ["generation failed: %s" % r[0]]
 
 
 def sensitivity_selftest(meas, text):
-    """The governing class and text must not read any sensitivity row: removing or changing every
-    row, on the measurements and on a copy read as a green result, leaves both byte-identical; a
-    synthetic candidate meeting (a)-(f), selected only under the sensitivity reading, is printed as a
-    COUNTEREXAMPLE in the sensitivity section and changes neither."""
+    """The governing class and text must not read any sensitivity row, and every sensitivity
+    COUNTEREXAMPLE must be a governing one.
+    - Removing or changing every sensitivity row, on the measurements and on a copy read as a green
+      result, leaves the governing class and text byte-identical.
+    - Two synthetic candidates selected only under the sensitivity reading, differing only in its
+      value list (meeting (d) under it or not), give the same governing class and text; the first is
+      a sensitivity COUNTEREXAMPLE and the second is not.
+    - Inclusion (governing abs): no sensitivity COUNTEREXAMPLE outside the governing ones, on the
+      measurements and on the green copy. A synthetic candidate selected only under signed and
+      meeting (a)-(f) under both readings is a COUNTEREXAMPLE in both, and a candidate meeting (d)
+      under signed only (an inconsistent record) is reported as a violation, so the check can fail."""
     gov = (meas.get("a2") or {}).get("resolutions", {}).get("D-SIGN")
     if gov not in READINGS:
         return {"applicable": False, "pass": True}
@@ -464,22 +495,38 @@ def sensitivity_selftest(meas, text):
     out = {"applicable": True, "section_present": text.count(SENS_HEAD % other_reading(gov)) == 1
            and governing_part(text) != text, "unchanged": {}}
     fg = forge_green(meas)
-    base = {"measured": (cls0, governing_part(text)), "green-copy": _governing(fg)[:2]}
+    base = {"measured": (cls0, governing_part(text)), "green-copy": _run(fg)[:2]}
     for src_name, src in (("measured", meas), ("green-copy", fg)):
         for vname, var in (("removed", strip_sensitivity(src, gov)),
                            ("flipped-favorable", flip_sensitivity(src, gov, True)),
                            ("flipped-unfavorable", flip_sensitivity(src, gov, False))):
-            out["unchanged"]["%s/%s" % (src_name, vname)] = _governing(var)[:2] == base[src_name]
-    inj = inject_sensitivity_witness(fg, gov)
-    if inj is None:
-        out["injected"] = {"available": False}
-    else:
-        c, g, t = _governing(inj)
-        sens = t[len(g or ""):].split("\n")
-        out["injected"] = {"available": True, "governing_unchanged": (c, g) == base["green-copy"],
-                           "detected_in_sensitivity": g is not None and len(sens) > 1 and "COUNTEREXAMPLE (" in sens[-2]}
-    out["pass"] = (out["section_present"] and all(out["unchanged"].values()) and out["injected"].get("available") is True
-                   and out["injected"]["governing_unchanged"] and out["injected"]["detected_in_sensitivity"])
+            out["unchanged"]["%s/%s" % (src_name, vname)] = _run(var)[:2] == base[src_name]
+    pos = inject_witness(fg, gov, gov_ok=False, other_ok=True, idx=0)
+    neg = inject_witness(fg, gov, gov_ok=False, other_ok=False, idx=0)
+    both = inject_witness(fg, gov, gov_ok=True, other_ok=True, idx=1)
+    if pos is None or neg is None or both is None:
+        out["synthetic"] = {"available": False}
+        out["pass"] = False
+        return out
+    rp, rn, rb = _run(pos), _run(neg), _run(both)
+    kp, kb = _wkey(pos["witnesses"][-1]), _wkey(both["witnesses"][-1])
+    out["synthetic"] = {
+        "available": True,
+        "governing_unchanged_by_sensitivity_value": rp[1] is not None and rp[:2] == rn[:2],
+        "sensitivity_counterexample_printed": kp in rp[4] and kp not in rn[4]
+        and "COUNTEREXAMPLE (" in rp[2].rstrip("\n").split("\n")[-1]}
+    out["inclusion"] = {"applicable": gov == "abs"}
+    if gov == "abs":
+        out["inclusion"].update({
+            "measured": inclusion_violations(meas) == [],
+            "green-copy": inclusion_violations(fg) == [],
+            "both-readings candidate is a governing COUNTEREXAMPLE": kb in rb[3] and kb in rb[4]
+            and inclusion_violations(both) == [],
+            "inconsistent candidate reported": inclusion_violations(pos) == [str(kp)]})
+    inc_ok = all(v for k, v in out["inclusion"].items() if k != "applicable")
+    out["pass"] = (out["section_present"] and all(out["unchanged"].values())
+                   and out["synthetic"]["governing_unchanged_by_sensitivity_value"]
+                   and out["synthetic"]["sensitivity_counterexample_printed"] and inc_ok)
     return out
 
 
