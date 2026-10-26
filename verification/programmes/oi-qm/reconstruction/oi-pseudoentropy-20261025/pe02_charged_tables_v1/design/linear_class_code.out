@@ -1,0 +1,19 @@
+m=1 |GL(m,2)| enumerated=1 formula=1 match=True index bits=0
+m=2 |GL(m,2)| enumerated=6 formula=6 match=True index bits=3
+m=3 |GL(m,2)| enumerated=168 formula=168 match=True index bits=8
+m=4 |GL(m,2)| enumerated=20160 formula=20160 match=True index bits=15
+F_lin(m, K) for K = 4..8:
+  m=1 [(4, 17), (5, 17), (6, 17), (7, 19), (8, 20)]
+  m=2 [(4, 23), (5, 23), (6, 23), (7, 25), (8, 26)]
+  m=3 [(4, 33), (5, 33), (6, 33), (7, 35), (8, 36)]
+  m=4 [(4, 43), (5, 43), (6, 43), (7, 45), (8, 46)]
+theta = n+1: search range [4, Kmax] per n where non-empty (window floor K >= 4)
+  plin_m1: [(16, 6), (17, 6), (18, 7), (19, 14), (20, 14), (21, 15), (22, 30), (23, 30), (24, 31)]
+  plin_m2: [(22, 6), (23, 6), (24, 7)]
+  plin_m3: empty for n <= 24
+  plin_m4: empty for n <= 24
+theta = n+2: search range [4, Kmax] per n where non-empty (window floor K >= 4)
+  plin_m1: [(15, 6), (16, 6), (17, 7), (18, 14), (19, 14), (20, 15), (21, 30), (22, 30), (23, 31), (24, 62)]
+  plin_m2: [(21, 6), (22, 6), (23, 7), (24, 14)]
+  plin_m3: empty for n <= 24
+  plin_m4: empty for n <= 24

@@ -4,7 +4,7 @@
 
 - **From:** revision 1, `902c4c0d`.
 - **Review:** `review/REVIEW.md`, committed at `2bb45e0b`: ACCEPT WITH CHANGES, R1–R15.
-- **To:** revision 2, uncommitted, drafted on `2bb45e0b`.
+- **To:** revision 2, drafted on `2bb45e0b` and committed at `58441eb2`.
 - **Instruction:** apply R1–R5, R7–R15, R6's reporting change and the UX specification. R6's choices and O1–O10 are
   left as marked owner placeholders carrying the review's recommendation, and the stage name stays "PE-02" with a
   placeholder note.
@@ -28,7 +28,7 @@ Section references are to revision 2's `PLAN.md` unless marked NOTES.
 | R12 | A-SIM: one-step hypothesis; bijectivity step; T2 as an upper bound | §3.3: the hypothesis is restated as a one-step property. Proof step 1 derives $x' = x \oplus b(\eta)$ from injectivity. T2 is stated as $m' \le m + 1$, minimality open, with the review's tightness evidence cited. NOTES O9 corrected. |
 | R13 | No-extension clause; complete parameters block | §3.4: no-extension clause for N_max, every K range and every cap. §9: the block lists O1–O10 (each `OPEN` with the review's recommendation), θ per generator, `theta_by_n` for n = 3..24, `partB_K_min`, the $K^R_{\max}$ and $K^E_{\max}$ formulas with per-n values for n = 9..24 (taken from `design/charge_arith.out`), the M0, PL and ACT-SIM ranges, and the RP-01 environment. TH cross-checks formula against values as in PE-01 A1 and refuses any `OPEN`. |
 | R14 | E's bit order and labelling | §2.1: γ is MSB-first; the Lehmer rank and $K$ in $S_R$ are MSB-first; truth tables start at $v = 0$; memory states use PE-01's integer labelling (`R[o, x, v]`, `Aact[o, v]`, $v_0 = 0$). EN checks γ MSB-first. |
-| R15 | NOTES commit status | NOTES §1 and §4 now say revision 1 and `design/` are committed at `902c4c0d`, and that revision 2 is uncommitted. |
+| R15 | NOTES commit status | NOTES §1 and §4 now say revision 1 and `design/` are committed at `902c4c0d`, and that revision 2 was not yet committed when drafted (it was committed at `58441eb2`). |
 | UX | Full-subclass window counts against PE-01's `windows[subclass]` | §5 UX row: for `G_clk`, n = 3..8, $K \le K_{\rm cx}$, `abs` and `signed`, compared K by K for `emb_m1_all`, `emb_m2_all`, `emb_m1_passive` and `emb_m2_passive`. §3.4 Part A-pop computes every member, not only active ones. |
 
 ## Owner placeholders (not decided here)
@@ -61,4 +61,4 @@ Section references are to revision 2's `PLAN.md` unless marked NOTES.
 - PE-01's retained `windows` entries for `G_clk`, $K \le K_{\rm cx}$, were read (not recomputed) to confirm the §4.3
   statements.
 - PE-01's workflow pins were read: `PYTHON_VERSION: "3.12"` and `NUMPY_VERSION: "2.2.6"`.
-- No experiment was run, no PE-01 cell was recomputed, and nothing was committed.
+- No experiment was run, no PE-01 cell was recomputed, and the drafter committed nothing.

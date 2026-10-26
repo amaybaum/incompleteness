@@ -1,0 +1,114 @@
+theta=n+1 full R m=0 | least n with K>=4: 9
+   Kmax by n=3..24: [None, None, 1, 1, 3, 3, 7, 7, 15, 15, 31, 31, 63, 63, 127, 127, 255, 255, 511, 511, 1023, 1023]
+theta=n+1 full R m=1 | least n with K>=4: 17
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, 1, 1, 3, 3, 7, 7, 15, 15, 31, 31, 63, 63]
+theta=n+1 full R m=2 | least n with K>=4: None
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+theta=n+1 full R m=3 | least n with K>=4: None
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+theta=n+1 full R m=4 | least n with K>=4: None
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+theta=n+1 full E m=0 | least n with K>=4: 11
+   Kmax by n=3..24: [None, None, None, None, 1, 2, 2, 3, 6, 6, 7, 14, 14, 15, 30, 30, 31, 62, 62, 63, 126, 126]
+theta=n+1 full E m=1 | least n with K>=4: 18
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, None, 1, 2, 2, 3, 6, 6, 7, 14, 14, 15, 30]
+theta=n+1 full E m=2 | least n with K>=4: None
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+theta=n+1 full E m=3 | least n with K>=4: None
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+theta=n+1 full E m=4 | least n with K>=4: None
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+theta=n+1 TA R m=0 | least n with K>=4: 4
+   Kmax by n=3..24: [3, 7, 15, 31, 63, 127, 255, 511, 1023, 2047, 4095, 8191, 16383, 32767, 65535, 131071, 262143, 524287, 1048575, 2097151, 4194303, 8388607]
+theta=n+1 TA R m=1 | least n with K>=4: 10
+   Kmax by n=3..24: [None, None, None, None, None, 1, 3, 7, 15, 31, 63, 127, 255, 511, 1023, 2047, 4095, 8191, 16383, 32767, 65535, 131071]
+theta=n+1 TA R m=2 | least n with K>=4: None
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, 1, 3]
+theta=n+1 TA R m=3 | least n with K>=4: None
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+theta=n+1 TA R m=4 | least n with K>=4: None
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+theta=n+1 TA E m=0 | least n with K>=4: 4
+   Kmax by n=3..24: [3, 7, 15, 31, 63, 127, 255, 511, 1023, 2047, 4095, 8191, 16383, 32767, 65535, 131071, 262143, 524287, 1048575, 2097151, 4194303, 8388607]
+theta=n+1 TA E m=1 | least n with K>=4: 8
+   Kmax by n=3..24: [None, None, None, 1, 3, 7, 15, 31, 63, 127, 255, 511, 1023, 2047, 4095, 8191, 16383, 32767, 65535, 131071, 262143, 524287]
+theta=n+1 TA E m=2 | least n with K>=4: 19
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, None, None, None, None, 1, 3, 7, 15, 31, 63, 127, 255]
+theta=n+1 TA E m=3 | least n with K>=4: None
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+theta=n+1 TA E m=4 | least n with K>=4: None
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+theta=n+2 full R m=0 | least n with K>=4: 8
+   Kmax by n=3..24: [None, 1, 1, 3, 3, 7, 7, 15, 15, 31, 31, 63, 63, 127, 127, 255, 255, 511, 511, 1023, 1023, 2047]
+theta=n+2 full R m=1 | least n with K>=4: 16
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, 1, 1, 3, 3, 7, 7, 15, 15, 31, 31, 63, 63, 127]
+theta=n+2 full R m=2 | least n with K>=4: None
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+theta=n+2 full R m=3 | least n with K>=4: None
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+theta=n+2 full R m=4 | least n with K>=4: None
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+theta=n+2 full E m=0 | least n with K>=4: 10
+   Kmax by n=3..24: [None, None, None, 1, 2, 2, 3, 6, 6, 7, 14, 14, 15, 30, 30, 31, 62, 62, 63, 126, 126, 127]
+theta=n+2 full E m=1 | least n with K>=4: 17
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, 1, 2, 2, 3, 6, 6, 7, 14, 14, 15, 30, 30]
+theta=n+2 full E m=2 | least n with K>=4: None
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+theta=n+2 full E m=3 | least n with K>=4: None
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+theta=n+2 full E m=4 | least n with K>=4: None
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+theta=n+2 TA R m=0 | least n with K>=4: 3
+   Kmax by n=3..24: [7, 15, 31, 63, 127, 255, 511, 1023, 2047, 4095, 8191, 16383, 32767, 65535, 131071, 262143, 524287, 1048575, 2097151, 4194303, 8388607, 16777215]
+theta=n+2 TA R m=1 | least n with K>=4: 9
+   Kmax by n=3..24: [None, None, None, None, 1, 3, 7, 15, 31, 63, 127, 255, 511, 1023, 2047, 4095, 8191, 16383, 32767, 65535, 131071, 262143]
+theta=n+2 TA R m=2 | least n with K>=4: 24
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, 1, 3, 7]
+theta=n+2 TA R m=3 | least n with K>=4: None
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+theta=n+2 TA R m=4 | least n with K>=4: None
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+theta=n+2 TA E m=0 | least n with K>=4: 3
+   Kmax by n=3..24: [7, 15, 31, 63, 127, 255, 511, 1023, 2047, 4095, 8191, 16383, 32767, 65535, 131071, 262143, 524287, 1048575, 2097151, 4194303, 8388607, 16777215]
+theta=n+2 TA E m=1 | least n with K>=4: 7
+   Kmax by n=3..24: [None, None, 1, 3, 7, 15, 31, 63, 127, 255, 511, 1023, 2047, 4095, 8191, 16383, 32767, 65535, 131071, 262143, 524287, 1048575]
+theta=n+2 TA E m=2 | least n with K>=4: 18
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, None, None, None, 1, 3, 7, 15, 31, 63, 127, 255, 511]
+theta=n+2 TA E m=3 | least n with K>=4: None
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+theta=n+2 TA E m=4 | least n with K>=4: None
+   Kmax by n=3..24: [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+
+PARAMETER VALUES (largest K, m = 1, full charge, R and E; null if no K >= 1)
+{"by_n": {"10": null, "11": null, "12": null, "13": 1, "14": 1, "15": 3, "16": 3, "17": 7, "18": 7, "19": 15, "20": 15, "21": 31, "22": 31, "23": 63, "24": 63, "9": null}, "m": 1, "model": "R", "theta": "n+1"}
+{"by_n": {"10": null, "11": null, "12": null, "13": null, "14": 1, "15": 2, "16": 2, "17": 3, "18": 6, "19": 6, "20": 7, "21": 14, "22": 14, "23": 15, "24": 30, "9": null}, "m": 1, "model": "E", "theta": "n+1"}
+{"by_n": {"10": null, "11": null, "12": 1, "13": 1, "14": 3, "15": 3, "16": 7, "17": 7, "18": 15, "19": 15, "20": 31, "21": 31, "22": 63, "23": 63, "24": 127, "9": null}, "m": 1, "model": "R", "theta": "n+2"}
+{"by_n": {"10": null, "11": null, "12": null, "13": 1, "14": 2, "15": 2, "16": 3, "17": 6, "18": 6, "19": 7, "20": 14, "21": 14, "22": 15, "23": 30, "24": 30, "9": null}, "m": 1, "model": "E", "theta": "n+2"}
+
+CELLS AT n <= 8 WITH A NON-EMPTY SEARCH RANGE [4, Kmax] (any model, scope, m)
+theta=n+1 TA R m=0 n=4 K in [4, 7]
+theta=n+1 TA R m=0 n=5 K in [4, 15]
+theta=n+1 TA R m=0 n=6 K in [4, 31]
+theta=n+1 TA R m=0 n=7 K in [4, 63]
+theta=n+1 TA R m=0 n=8 K in [4, 127]
+theta=n+1 TA E m=0 n=4 K in [4, 7]
+theta=n+1 TA E m=0 n=5 K in [4, 15]
+theta=n+1 TA E m=0 n=6 K in [4, 31]
+theta=n+1 TA E m=0 n=7 K in [4, 63]
+theta=n+1 TA E m=0 n=8 K in [4, 127]
+theta=n+1 TA E m=1 n=8 K in [4, 7]
+theta=n+2 full R m=0 n=8 K in [4, 7]
+theta=n+2 TA R m=0 n=3 K in [4, 7]
+theta=n+2 TA R m=0 n=4 K in [4, 15]
+theta=n+2 TA R m=0 n=5 K in [4, 31]
+theta=n+2 TA R m=0 n=6 K in [4, 63]
+theta=n+2 TA R m=0 n=7 K in [4, 127]
+theta=n+2 TA R m=0 n=8 K in [4, 255]
+theta=n+2 TA E m=0 n=3 K in [4, 7]
+theta=n+2 TA E m=0 n=4 K in [4, 15]
+theta=n+2 TA E m=0 n=5 K in [4, 31]
+theta=n+2 TA E m=0 n=6 K in [4, 63]
+theta=n+2 TA E m=0 n=7 K in [4, 127]
+theta=n+2 TA E m=0 n=8 K in [4, 255]
+theta=n+2 TA E m=1 n=7 K in [4, 7]
+theta=n+2 TA E m=1 n=8 K in [4, 15]

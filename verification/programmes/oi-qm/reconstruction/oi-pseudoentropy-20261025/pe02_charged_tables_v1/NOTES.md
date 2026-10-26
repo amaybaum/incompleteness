@@ -1,4 +1,4 @@
-# PE-02 drafting notes (revision 2)
+# PE-02 drafting notes (revision 3)
 
 **Status: WIP / UNREVIEWED; planning only; no execution authorized.**
 
@@ -9,7 +9,8 @@ Companion to `PLAN.md`. It records:
 - the points in #934 that are ambiguous;
 - the open owner decisions, with the drafter's and the review's recommendations.
 
-Nothing here is a result. Revision 2's edits are mapped item by item in `CHANGES-r2.md`.
+Nothing here is a result. Revision 2's edits are mapped item by item in `CHANGES-r2.md`, and revision 3's in
+`CHANGES-r3.md`.
 
 ## 1. Provenance
 
@@ -18,8 +19,13 @@ Nothing here is a result. Revision 2's edits are mapped item by item in `CHANGES
 - **Its independent review** was committed at `2bb45e0b2d641046f5c50b7b511ce5ac3983c02a` as `review/` (`REVIEW.md`
   sha256 `00995749368f5d60de2086d4c6f0b88c070ac8a106724dada9c0043bafb70521`). The verdict is ACCEPT WITH CHANGES,
   R1–R15, with no freeze until re-reviewed.
-- **Revision 2** (`PLAN.md`, this file and `CHANGES-r2.md`) is drafted on `2bb45e0b`. It is not committed. Whether
-  and when it is committed is the caller's or the owner's choice, and committing it authorizes nothing (§A.43).
+- **Revision 2** (`PLAN.md`, this file and `CHANGES-r2.md`) was committed at `58441eb2`.
+- **Its diff-only re-review** was committed at `5b2ae247` as `review/RECHECK-r2.md`, with `r2_checks.py` and its
+  output. The verdict is REVISE, narrowly: every R item is confirmed except R15, N1–N3 are required, and N4–N7 are
+  nits.
+- **Revision 3** (`PLAN.md`, this file, `CHANGES-r3.md`, and the new `design/charge_ranges.*` and
+  `design/linear_class_code.*`) is drafted on `5b2ae247`. It is uncommitted at the time of writing. Committing it is the
+  caller's or the owner's choice, and authorizes nothing (§A.43).
 - **`main`:** `c967d6a931c294e456053be5e3bf5bb4f2d9ad1c`. The scoped ch18 sentence entered at `4d8ff648` (#933).
 - **Owner direction (2026-10-26):** "PE-02 — Continue planning independently. No experimental authorization."
   NP-AVG-1 (#929, #935) has planning priority (§5).
@@ -41,6 +47,7 @@ Nothing here is a result. Revision 2's edits are mapped item by item in `CHANGES
 | PE-01 witness shard | `results/shards/n5-clk.json` | `3f6121e83e75ed7ed5d43817bb8fc63dc73ad5fbf7acd763c3261e11d972a963` |
 | ch18 on `main` | `book/ch18-beyond.md:114`; mirror `FULL.md:4932` | `11e9948ba634ae9145b0a8894789b24a0260ee7ab4c372d98466212fdda55340` (whole file) |
 | PE-02 review (r1) | `review/REVIEW.md`, with `toy_checks.*` and `tightness.*` | as in §1 and `review/REVIEW.md` |
+| PE-02 re-review (r2) | `review/RECHECK-r2.md`, with `r2_checks.*` | committed at `5b2ae247` |
 
 Also read:
 - `results/README.md` and `SHA256SUMS`;
@@ -102,12 +109,16 @@ with the review's §9:
 
 ## 4. Design-only checks
 
-Both scripts fix definitions or evaluate the plan's own formulas. Neither simulates an observer or computes an
-advantage, a window or a witness. Both are committed under `design/` at `902c4c0d`, with their outputs. EX4 and AR-C
-re-derive their values at run time.
+Every script fixes a definition or evaluates the plan's own formulas. None simulates an observer or computes an
+advantage, a window or a witness.
+- `least_primitive` and `charge_arith` were committed under `design/` at `902c4c0d`, with their outputs.
+- `charge_ranges` and `linear_class_code` are new in revision 3. Their outputs are written beside them, so that they
+  replay once committed.
+- EX4, AR-C and TH re-derive the values at run time.
 
-**Replay for revision 2.** Both were rerun with `python3 -I` (local Python 3.13; the scripts use the standard library
-only). Each new output is byte-identical to the committed `.out` file (`cmp`).
+**Replay for revision 3.** All four were run with `python3 -I` (local Python 3.13; standard library only). The two
+committed outputs are byte-identical on rerun (`cmp`). The two new scripts were run twice, and each output is
+byte-identical to the first run.
 
 | File | sha256 |
 |---|---|
@@ -115,6 +126,10 @@ only). Each new output is byte-identical to the committed `.out` file (`cmp`).
 | `design/least_primitive.out` | `f4c880f48bc0d0c132f226546e7d8feaa301297f57ea1e87b243949339fac5ec` |
 | `design/charge_arith.py` | `45f37a47deb6b688e5dfd60ded3f83ca7f8a7a461bfbb6e45198a89979e3c256` |
 | `design/charge_arith.out` | `51aa19de3e0521a26fffe6890e53e41140ecd684630d54f4a0a03e6f86fe67ea` |
+| `design/charge_ranges.py` | `8c63311f96f5ef8d621bd99bff5cc71c2e91879bc5a156349d90f9cd48d5b2f2` |
+| `design/charge_ranges.out` | `e2359f73fb8ca987180a645590e4601bbc8b6ab12e5204d55b29a03e75f13ff6` |
+| `design/linear_class_code.py` | `08840902881da0e3daaca31144b39307a0e6b491368bad8d423edebf6bc516b1` |
+| `design/linear_class_code.out` | `895da4bc4a78f5e26fe3b1f5c28a4cda43073c4c8b316e55975a8da97769e795` |
 
 **D1. The polynomial rule.** `least_primitive.py 24` finds the least primitive polynomial of each degree by integer
 value. It tests $z^{2^n-1} = 1$ and $z^{(2^n-1)/q} \ne 1$ for every prime $q \mid 2^n - 1$.
@@ -137,9 +152,25 @@ value. It tests $z^{2^n-1} = 1$ and $z^{(2^n-1)/q} \ne 1$ for every prime $q \mi
 Values below 4 admit no window. $m = 2$ is empty under both models throughout. At $n \le 8$ every charged entry is
 empty or below 4. The $m = 1$ rows are the per-$n$ values of the `pe02-parameters` block.
 
-**Not added in revision 2.** The review's linear-filter class-code arithmetic (`review/REVIEW.md` §3, under O3) is
-not in `design/`. Adding it changes no design script that this revision was asked to replay, and it is attached to an
-owner decision. It is listed in `CHANGES-r2.md` as not applied.
+**D3. Ranges per n, both θ values, both charge scopes (N1, N3).** `charge_ranges.py` evaluates §2.1's footprints at
+θ = n+1 and n+2, for the full description and for the transition-and-action component sums, under R and E, for
+m = 0..4 and n = 3..24. It prints the largest admissible K per n, the least n with a K ≥ 4 range, the per-n m = 1
+values the parameters block carries, and every cell at n ≤ 8 with a non-empty range.
+- **Full description at θ = n+2** (`G_clkfix_u`): m = 1 R from n = 16 (K ≤ 7), E from n = 17 (K ≤ 6); K ≤ 127 (R) and
+  ≤ 30 (E) at n = 24. These agree with the re-review's `r2_checks.out`.
+- **At n ≤ 8 with the full description,** the only non-empty range is `G_clkfix_u` at θ = n+2, n = 8, m = 0, R,
+  K = 4..7 (N1).
+- **Transition and action only (O10's alternative)** at θ = n+1: m = 1 from n = 8 (E sum) and n = 10 (R); m = 2 from
+  n = 19 (E sum). At θ = n+2, m = 1 from n = 7 (E sum) and m = 2 from n = 18 (E sum) and n = 24 (R).
+
+**D4. The linear-filter class code (O3).** `linear_class_code.py` counts $|\mathrm{GL}(m,2)|$ by enumeration (1, 6,
+168, 20160, each matching the product formula) and evaluates the code of `PLAN.md` §2.2.
+- At θ = n+1, `plin_m2` is admissible at n = 22, 23 (K = 4..6) and n = 24 (K = 4..7). This agrees with the
+  re-review.
+- `plin_m1` is admissible from n = 16 (K = 4..6), up to K ≤ 31 at n = 24.
+- `plin_m3` and `plin_m4` are empty for n ≤ 24.
+- The drafter's addition to the re-review's statement: under a class-code model, `plin_m1` at n = 16 would also need
+  searching, one n below `emb_m1_all`'s R onset.
 
 ## 5. Coordination with NP-AVG-1
 
@@ -172,18 +203,24 @@ The review's recommendation is given for each item; the drafter agrees unless st
     another θ without a re-run (R6).
 - **O2, which charged models govern.** Recommended: R and E, each reported separately. In scope, E ⊆ R (INC-RE), so E
   can only make a verdict stricter, and no E-only witness can arise.
-- **O3, description-complexity proxy.** Recommended: information only. The review adds that this rests on E alone, and
-  recommends adding its linear-filter class-code arithmetic as a checked design fact. That is not yet done (§4).
+- **O3, description-complexity proxy.** Recommended: information only. The review adds that this rests on E alone. Its
+  linear-filter class-code arithmetic is now a checked design fact (D4). Under a class-code model, `plin_m2` would
+  need searching at n = 22..24, K = 4..7, and `plin_m1` at n = 16.
 - **O4, $N_{\max}$.** Recommended: 24, with the no-extension clause (`PLAN.md` §3.4).
   - At $N_{\max} = 8$ the main question is answered by arithmetic alone, which restates PE-01's REPORT.
   - $m = 1$ enters the charged region only from $n = 17$ (R) or $18$ (E).
-  - The review's optional cut, no $m = 0$ search beyond the M0 control, is made in revision 2, because M0 is a proof.
-    M0 still runs with $K \le 63$ at each Part B $n$.
+  - The $m = 0$ cut is a separate decision, O4b.
+- **O4b (new), $m = 0$ in Part B.** Recommended (review and drafter): option (a), the M0 control only, with
+  $1 \le K \le 63$ at each Part B $n$, and coverage beyond resting on the M0 proof, which the verdict states. Revision
+  2's body applied this as a default while labelling it "done in revision 2". Revision 3 makes it an `OPEN` placeholder
+  like the others; the body keeps option (a) as drafted, and the dependent value `M0_K_max_partB` is tagged
+  `O4b:a`.
 - **O5, clock-ablated prior and θ for `G_clkfix_u`.** Recommended: the matched prior as primary, with the uniform prior
   as a reported variant.
   - θ for `G_clkfix_u`: the review recommends $n + 2$ as governing, which is PE-01's $\log_2|\mathcal{C}|$ and
     $\log_2|\mathrm{supp}\,\mu|$, with $n + 1$ also reported. Revision 1 used $n + 1$, in the favourable direction.
-    Revision 2 reports both and leaves the governing value to the owner.
+    Revisions 2 and 3 report both and leave the governing value to the owner. From revision 3, `G_clkfix_u` is
+    searched over its region at n+2 whichever value governs (N1).
 - **O6, K0 status beyond $n = 8$.** Recommended: not computed.
 - **O7, the secondary population.** Recommended: all active (a′)–(e) members, with their known extent ($m = 2$,
   $n \in \{4, 5\}$) stated in advance (`PLAN.md` §4.3).
@@ -195,9 +232,12 @@ The review's recommendation is given for each item; the drafter agrees unless st
   - It gives PE-01's target T2 an upper bound, $m' \le m + 1$, on autonomous generators.
   - Minimality is open, and the review's toy cases show $m' = m$ does not suffice in general. Revision 1's NOTES said
     the lemma "turns T2 into a one-line statement", which overstated it.
-- **O10 (new), charge scope.** Recommended by the review: the full description ($\rho$, $a$, readout, $K$) governs, with
-  the reason stated: an interpreter needs the readout and the trigger. Every witness reports components and
-  $F_C^{\rm TA}$, so that #934's literal transition-and-action charge can be read.
+- **O10, charge scope.** Recommended by the review: the full description ($\rho$, $a$, readout, $K$) governs, with
+  the reason stated: an interpreter needs the readout and the trigger. Every witness reports components and the
+  component sum $F_C^{\rm TA}$, so that #934's literal transition-and-action charge can be read.
+  - Choosing transition and action only would change every charged range (D3), add `emb_m2_all` to Part B from
+    n = 19, make Part A's charged cells non-empty, and break INC-RE.
+  - Every dependent value would then have to be restated (`PLAN.md` §9, TH).
 
 ## 7. Ambiguities in #934
 
@@ -242,7 +282,15 @@ The review's recommendation is given for each item; the drafter agrees unless st
   - for `G_clkfix_u`, θ = n + 1 if the owner chooses it.
 - **M5. (c) does not bind in Part B.** At θ = n + 1, (f) implies (c) for every admissible cell (PE-01 code review R3).
   In Part B, $K^{C}_{\max} \ll K_{\rm cx}$ for `G_lin` and `G_filt`. AR-C still measures $K_{\rm cx}$.
-- **M6 (new). Z was load-bearing in revision 1.** Revision 1's Part B started at $Z + 4$ and computed Z by a method that
+- **M7 (new in revision 3). A reported parameter can silently narrow a search.**
+  - Revision 2 reported `G_clkfix_u` at θ = n+2 but computed its search range at n+1 (N1).
+  - Its dependent values were also computed under the recommended options with nothing tying them to those options
+    (N3).
+  - The marker: every reported θ needs its own searched range, and every computed value names the decisions it
+    assumes.
+  - In the same pass the drafter found one more instance and fixed it: `emb_m3_passive`'s Part A caps for
+    `G_clkfix_u`, raised to the θ = n+2 region (31 at n = 7, 63 at n = 8).
+- **M6. Z was load-bearing in revision 1.** Revision 1's Part B started at $Z + 4$ and computed Z by a method that
   is invalid for `G_clkfix`. Revision 2 starts at $K = 4$, from the $K' = 0$ zero alone, and uses Z only as a
   cross-check. The general marker: a search bound derived from a quantity is only as sound as that quantity's
   computation.
@@ -262,4 +310,4 @@ The owner asked (#934) what a PE-02 plan adds beyond the 2006 clock-control faul
 - No PE-02 code. No simulation. No computation of any advantage, window, $Z(\varphi)$ or $K_{\rm cx}$. No PE-01 cell
   recomputed.
 - No literature read for PE-02 beyond what PE-01's annex records.
-- Revision 2 has not been re-reviewed. The review requires a re-review before any freeze.
+- Revision 3 has not been rechecked. The re-review requires a diff-only recheck before any freeze.
