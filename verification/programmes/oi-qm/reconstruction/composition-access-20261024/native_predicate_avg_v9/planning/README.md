@@ -75,3 +75,16 @@ the question. The branch is based on #912's head `2af1d5d5`, which contains v8 a
     - the v8 refusal can be bypassed by a setup with changed sources or a larger region;
     - PO6 (G) and PO7 have wording defects;
     - one disclosure sentence is false.
+- `stage0/r5/`: the Stage 0 revision applying R4-1 to R4-7 and the nits of the r4 review. `stage0/code-r5/` is
+  design-evidence code; `stage0/design-r5/` holds the evidence, `RUN-MANIFEST` and retained outputs, including the
+  reviewer's two probes.
+  - Every control passes, and the quick mutant campaign kills all 17 mutants at their named case.
+  - The v8 refusal is keyed on the configuration's (dim, n, port) and refuses 36 of 36 attempts, including every r4
+    bypass.
+  - The G frame-adjacent family is planted without its own tip quantity.
+  - PO6 (G) and PO7 are corrected.
+  - Rule T states its geometric consequence only (PENDING OWNER), covers a failed S1a, and has a result row.
+  - The 54 reported counts are closed against §3.
+
+  Nothing ran on v8's class. Under O-a, the r4→r5 diff goes to independent review, and the freeze follows only a
+  clean acceptance.
