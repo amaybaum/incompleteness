@@ -117,8 +117,9 @@ The "compositions :466–468" that Appendix A names under Theorem 1 are the proo
   (an exact key hit), and lake printed `Replayed` for each of the 226 `OIBridge` modules: it did not
   re-elaborate them in this job. `--rehash` re-hashes the checked-out sources against the restored
   traces, so a replayed report belongs to the source at the commit. The reports are the messages
-  that an earlier elaboration of the same sources logged. Reproduction by the recipe below uses no
-  build cache, so it elaborates every module afresh.
+  that an earlier elaboration of the same sources logged. Reproduction by the recipe below starts
+  from an empty `.lake/build`, so it elaborates all 226 `OIBridge` modules afresh; `lake exe cache get`
+  still fetches Mathlib's prebuilt files.
 - **Not recorded.** Timestamps, durations, cache keys and job counts are not part of the expected
   result. They appear only under `observed`, as provenance, and are not compared.
 - **Secrets.** The log and this file were scanned with the archive's R5 patterns (tokens, keys,
@@ -127,8 +128,10 @@ The "compositions :466–468" that Appendix A names under Theorem 1 are the proo
 
 ## Reproducing it
 
-Run from the root of a full-history clone. `<dir>` is a new directory, `<tools>` a new directory
-outside it, and `<log>` a file outside both. These are the steps of the file's `reproduce.recipe`:
+Run from the root of a full-history clone. It needs elan (which installs the toolchain named in
+`verification/lean-mathlib/lean-toolchain`), python3, and network access for lake to fetch Mathlib and its
+prebuilt cache. `<dir>` is a new directory, `<tools>` a new directory outside it, and `<log>` a file
+outside both. These are the steps of the file's `reproduce.recipe`:
 
 ```
 git worktree add --detach <dir> 17b830bcd0ecc36e10eff5b9eeca03bdd7198d86
@@ -138,7 +141,7 @@ git show 48b18ac54e39920a4fc4bbb8ee1d1b6cebea2c29:verification/audits/evidence-r
 (cd <dir>/verification/lean-mathlib && lean --version && lake exe cache get && lake --rehash build) > <log> 2>&1
 (cd <dir> && python3 tools/release_gate.py) >> <log> 2>&1
 python3 -I <tools>/extract_result.py <log> > reproduced.json
-python3 -I <tools>/compare_result.py results-121598983127.json reproduced.json --tree <dir>
+python3 -I <tools>/compare_result.py papers/introduction_repro/results-121598983127.json reproduced.json --tree <dir>
 ```
 
 The comparison fails closed. It requires a successful build; the gate's verdict and each of the 22

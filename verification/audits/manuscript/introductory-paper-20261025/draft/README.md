@@ -184,3 +184,11 @@ r11 measures 17 pages, 11.82 of them main text, with no overfull boxes and no dr
   checked;
 - the final scientific review;
 - the direct check of the Lean identifiers at the landing commit.
+- `papers/introduction_repro/`, the paper's expected Lean result, reaches `main` no later than the paper (§A.42
+  item 2).
+
+`review/scientific/RECHECK-r11.md` is the independent re-check of r11 and of `papers/introduction_repro/`: ACCEPT WITH
+NITS for both. The package's two required fixes are applied: the recipe's comparison names the file by its path from
+the repository root, and the cache statement says that `lake exe cache get` still fetches Mathlib's prebuilt files.
+The recipe also states its prerequisites. The expected result no longer lists line positions in the CI log
+(§A.42 item 4), and its comparison still holds against the job's extracted text with the sources at `17b830bc`.

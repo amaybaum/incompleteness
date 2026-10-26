@@ -85,3 +85,14 @@ was changed. **None moved.**
   read and was checked by hand. No Appendix A name is missing from the README.
 - **§A.32/§A.33 scan of the 6 added lines:** 0 phrase hits. The only all-caps words are VERIFY and FINDINGS,
   inside the VERIFY comment.
+
+## Basis of the Code-section edits
+
+- **The rewrite of the Code-section sentence and the removal of the two §A.42 markers** carry out the owner's
+  instruction of 2026-10-26: "Lean axiom evidence: Retain the exact command, output, source SHA, and toolchain
+  version on main." The markers asked for that evidence, and it is in `papers/introduction_repro/`. Holding the Code
+  section unchanged in r10 was a coordinator instruction, pending that package; it was not an owner decision.
+- **The "decision 2" marker** asked the owner to choose between "machine-checked" and "checked in Lean 4/Mathlib at
+  commit X by recipe Y". r11 keeps "machine-checked", defined in the Conventions paragraph as checked in Lean
+  4/Mathlib at commit `17b830bc` by the stated recipe. It is put to the owner for confirmation.
+
