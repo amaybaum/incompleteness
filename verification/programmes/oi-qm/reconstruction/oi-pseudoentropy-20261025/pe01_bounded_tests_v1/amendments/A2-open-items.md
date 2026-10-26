@@ -21,7 +21,7 @@ computed or read.
    - The deterministic worst case is exact for $w \le 4$. For $5 \le w \le 16$ it is reported as an interval, exact
      only where its ends coincide.
    - An interval bears on no verdict.
-2. **LF-A (linear-filter observers).** Owner: "Passive, not part of the deciding criterion".
+2. **LF-A (linear-filter observers).** Owner's table entry: "Passive, not part of the deciding criterion"; superseded by the owner's clarification below.
    - Linear-filter observers are passive ($a \equiv 0$) and are named "passive linear filters" in every output.
    - **Clarification.** Under the frozen plan any explicit-table observer meeting (a)–(f) is a COUNTEREXAMPLE, so
      excluding linear filters from the deciding criterion would narrow it after smoke results. Asked, the owner first
