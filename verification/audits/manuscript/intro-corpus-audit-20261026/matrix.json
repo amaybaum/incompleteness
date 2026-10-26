@@ -462,7 +462,8 @@
    "mapper_verdict": "FAITHFUL",
    "resolution": {
     "finding": "R-24",
-    "reason": "'deterministic completion' is undefined and L136 uses it in the Bell sense; content correct (Theorem 2(c) and the Corollary)"
+    "reason": "'deterministic completion' is undefined and L136 uses it in the Bell sense; content correct (Theorem 2(c) and the Corollary)",
+    "by": "synthesis"
    }
   },
   {
@@ -748,7 +749,8 @@
    "mapper_verdict": "FAITHFUL",
    "resolution": {
     "finding": "R-06",
-    "reason": "the abstract repeats 'which of (iii)-(v) a physical substratum supplies is open'; GR:260-266, ROADMAP:1521-1538 and the kernel settle part of it (as I-146, I-258, I-281)"
+    "reason": "the abstract repeats 'which of (iii)-(v) a physical substratum supplies is open'; GR:260-266, ROADMAP:1521-1538 and the kernel settle part of it (as I-146, I-258, I-281)",
+    "by": "synthesis"
    }
   },
   {
@@ -960,13 +962,19 @@
    "required_assumptions": [
     "finite toy models of configurations, permutations and configuration reads"
    ],
-   "proof_status": "numerical",
+   "proof_status": "exhaustive-exact",
    "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md@eae01647",
    "verdict": "FAITHFUL",
    "contradictions": [],
    "proposed_fix": null,
    "notes": "'Finite computations' is accurate (exhaustive enumerations with written proofs of the sufficiency statements). The abstract omits 'toy models'; the body (line 154) states it.",
-   "_part": "B1"
+   "_part": "B1",
+   "resolution": {
+    "finding": null,
+    "reason": "exhaustive enumeration in exact arithmetic over a stated finite domain (BHa); distinguished from floating-point numerics",
+    "by": "independent review RC-12"
+   },
+   "mapper_proof_status": "numerical"
   },
   {
    "id": "I-020",
@@ -1701,7 +1709,7 @@
    "required_assumptions": [],
    "proof_status": "proved-kernel",
    "strongest_verified_source": "papers/Main.md:622@eae01647",
-   "verdict": "FAITHFUL",
+   "verdict": "UNDERCLAIM",
    "contradictions": [
     {
      "site": "book/ch01-observation.md:261@eae01647",
@@ -1716,7 +1724,13 @@
    ],
    "proposed_fix": null,
    "notes": "Faithful for exact operational QM. Completeness: the corpus proves on paper (ledger P, exact probes at d=2) that every bounded quantum experiment of dimension d, horizon K has a finite reversible deterministic epsilon-realization with gluing, and a uniform continuum epsilon-density (Main:544-578; Summary item 4, Main:580). The Intro omits these; they concern realizing quantum statistics inside OI (approximately), not deriving QM from OI, so 'stop short' stays true. Flagged as completeness item 2 in part-B1.md for the §3.4 mapper.",
-   "_part": "B1"
+   "_part": "B1",
+   "mapper_verdict": "FAITHFUL",
+   "resolution": {
+    "finding": "R-34",
+    "reason": "'stop short of operational quantum mechanics' omits the epsilon-realization of every finite quantum experiment and the exact result with one added control resource",
+    "by": "independent review RC-8"
+   }
   },
   {
    "id": "I-041",
@@ -5270,18 +5284,21 @@
     }
    ],
    "required_assumptions": [],
-   "proof_status": "proved-paper",
+   "proof_status": "unsupported",
    "strongest_verified_source": "papers/Main.md:178@eae01647",
    "verdict": "UNSUPPORTED",
    "contradictions": [],
-   "proposed_fix": "Appendix B works examples: a six-hidden-state model of Theorem 3 [Main §2.4], memory without short-window indivisibility, and a two-card game, the smallest realization of Theorem 3.",
+   "proposed_fix": "See R-04: 'a six-hidden-state model of Theorem 3 [Main §2.4]'; no minimality claim.",
    "notes": "Attention resolved: 'minimal' is Main §2.4's title, meaning a simple explicit model, not a smallest one; the card game (two hidden values) is smaller. Calling both 'minimal' and 'smallest' in one sentence invites a contradiction. The model does instantiate Theorem 3 (overlap at s=1, return at n=2 under the uniform prior).",
    "_part": "B2",
    "mapper_verdict": "IMPRECISE",
    "resolution": {
     "finding": "R-04",
-    "reason": "'a minimal model' with six hidden states: a three-hidden-state model reproduces every B.1 number and a two-hidden-state game realizes Theorem 3"
-   }
+    "reason": "'a minimal model' with six hidden states: a three-hidden-state model reproduces every B.1 number and a two-hidden-state game realizes Theorem 3",
+    "by": "synthesis; fields per independent review RC-11"
+   },
+   "mapper_proof_status": "proved-paper",
+   "mapper_proposed_fix": "Appendix B works examples: a six-hidden-state model of Theorem 3 [Main §2.4], memory without short-window indivisibility, and a two-card game, the smallest realization of Theorem 3."
   },
   {
    "id": "I-124",
@@ -5313,14 +5330,16 @@
    "strongest_verified_source": "book/ch01-observation.md:273@eae01647",
    "verdict": "IMPRECISE",
    "contradictions": [],
-   "proposed_fix": "... and a two-card game, which with two visible and two hidden values is the smallest realization of Theorem 3 (with one hidden value every $\\Gamma_s$ is a permutation).",
+   "proposed_fix": "See R-04: 'a two-card game, which realizes Theorem 3 with two visible and two hidden values'; no minimality or uniqueness claim.",
    "notes": "Attention resolved: no proof or measure of size anywhere in the corpus (searched Main, book ch01, appendix B, Lean). The claim is true in the natural measure (|C_V|, |C_H| and |C_V||C_H| are each minimal) by a two-line argument; severity low. Fix states the measure and the reason.",
    "_part": "B2",
    "mapper_verdict": "UNSUPPORTED",
    "resolution": {
     "finding": "R-04",
-    "reason": "'the smallest realization': true by size but proved nowhere in the corpus, and not unique"
-   }
+    "reason": "'the smallest realization': true by size but proved nowhere in the corpus, and not unique",
+    "by": "synthesis; fields per independent review RC-11"
+   },
+   "mapper_proposed_fix": "... and a two-card game, which with two visible and two hidden values is the smallest realization of Theorem 3 (with one hidden value every $\\Gamma_s$ is a permutation)."
   },
   {
    "id": "I-125",
@@ -8813,13 +8832,19 @@
    "required_assumptions": [
     "BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports"
    ],
-   "proof_status": "proved-paper",
+   "proof_status": "exhaustive-exact",
    "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647",
    "verdict": "FAITHFUL",
    "contradictions": [],
    "proposed_fix": null,
    "notes": "Exact counterexample; establishes 'not necessary'.",
-   "_part": "B3"
+   "_part": "B3",
+   "resolution": {
+    "finding": null,
+    "reason": "exhaustive enumeration in exact arithmetic over a stated finite domain (BHa); distinguished from floating-point numerics",
+    "by": "independent review RC-12"
+   },
+   "mapper_proof_status": "proved-paper"
   },
   {
    "id": "I-213",
@@ -8844,13 +8869,19 @@
    "required_assumptions": [
     "BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports"
    ],
-   "proof_status": "numerical",
+   "proof_status": "exhaustive-exact",
    "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647",
    "verdict": "FAITHFUL",
    "contradictions": [],
    "proposed_fix": null,
    "notes": "Counts re-read in result.json (bijections_zero_advantage_MP1_t2 = 1376, nested_t3 = 2688). Exact rational arithmetic; controls K1-K8 passed.",
-   "_part": "B3"
+   "_part": "B3",
+   "resolution": {
+    "finding": null,
+    "reason": "exhaustive enumeration in exact arithmetic over a stated finite domain (BHa); distinguished from floating-point numerics",
+    "by": "independent review RC-12"
+   },
+   "mapper_proof_status": "numerical"
   },
   {
    "id": "I-214",
@@ -8875,13 +8906,19 @@
    "required_assumptions": [
     "BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports"
    ],
-   "proof_status": "numerical",
+   "proof_status": "exhaustive-exact",
    "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:153@eae01647",
    "verdict": "FAITHFUL",
    "contradictions": [],
    "proposed_fix": null,
    "notes": "",
-   "_part": "B3"
+   "_part": "B3",
+   "resolution": {
+    "finding": null,
+    "reason": "exhaustive enumeration in exact arithmetic over a stated finite domain (BHa); distinguished from floating-point numerics",
+    "by": "independent review RC-12"
+   },
+   "mapper_proof_status": "numerical"
   },
   {
    "id": "I-215",
@@ -8909,13 +8946,19 @@
     "BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports",
     "moving-partition layout, binary message, one mode unread after two emissions"
    ],
-   "proof_status": "numerical",
+   "proof_status": "exhaustive-exact",
    "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647",
    "verdict": "FAITHFUL",
    "contradictions": [],
    "proposed_fix": null,
    "notes": "40320 = 8! checked by control K4.",
-   "_part": "B3"
+   "_part": "B3",
+   "resolution": {
+    "finding": null,
+    "reason": "exhaustive enumeration in exact arithmetic over a stated finite domain (BHa); distinguished from floating-point numerics",
+    "by": "independent review RC-12"
+   },
+   "mapper_proof_status": "numerical"
   },
   {
    "id": "I-216",
@@ -9081,13 +9124,19 @@
     "one register read, one unread",
     "one step"
    ],
-   "proof_status": "numerical",
+   "proof_status": "exhaustive-exact",
    "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:155@eae01647",
    "verdict": "IMPRECISE",
    "contradictions": [],
    "proposed_fix": "32 non-injective maps of $\\{0,1\\}^2$, with a two-bit message and one register unread, fall below the bound $P_{\\mathrm{succ}}\\ge1/2$ [BHa]",
    "notes": "Attention resolved: the population is the 256 self-maps of {0,1}^2 with a two-bit message, one register unread (|U| = 2) and bound P_succ ≥ 1/2. The Introduction gives neither |U| nor |M| here, so 'the bound' has no fixed value in the sentence. The countercontrol is trivial (constant read register), which is all it needs to be.",
-   "_part": "B3"
+   "_part": "B3",
+   "resolution": {
+    "finding": null,
+    "reason": "exhaustive enumeration in exact arithmetic over a stated finite domain (BHa); distinguished from floating-point numerics",
+    "by": "independent review RC-12"
+   },
+   "mapper_proof_status": "numerical"
   },
   {
    "id": "I-220",
@@ -9112,13 +9161,19 @@
    "required_assumptions": [
     "BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports"
    ],
-   "proof_status": "proved-paper",
+   "proof_status": "exhaustive-exact",
    "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:66-86@eae01647",
    "verdict": "IMPRECISE",
    "contradictions": [],
    "proposed_fix": "These endpoint conditions are sufficient for recovery, not necessary: exact recovery also occurs with registers unread [BHa].",
    "notes": "Attention resolved: 'sufficient' and 'not necessary' are for recovery (exact recovery under C1, the P_succ floor under C2). The Introduction does not say for what, and calls the guarantees, rather than their conditions, sufficient. Review F1 (REVIEW.md:11-30) is the origin of the wording.",
-   "_part": "B3"
+   "_part": "B3",
+   "resolution": {
+    "finding": null,
+    "reason": "exhaustive enumeration in exact arithmetic over a stated finite domain (BHa); distinguished from floating-point numerics",
+    "by": "independent review RC-12"
+   },
+   "mapper_proof_status": "proved-paper"
   },
   {
    "id": "I-221",
@@ -9237,11 +9292,17 @@
     "single energy shell = full product space"
    ],
    "strongest_verified_source": "papers/GR.md:715@eae01647",
-   "verdict": "FAITHFUL",
+   "verdict": "IMPRECISE",
    "contradictions": [],
    "proposed_fix": null,
    "notes": "",
-   "_part": "B3"
+   "_part": "B3",
+   "mapper_verdict": "FAITHFUL",
+   "resolution": {
+    "finding": "R-01",
+    "reason": "in the counted setting H-scramble is settled false, not merely unestablished",
+    "by": "independent review RC-1"
+   }
   },
   {
    "id": "I-224",
@@ -9332,14 +9393,14 @@
     "single energy shell = full product space C_B × C_R",
     "H-decouple (B∪R uncoupled from D and V∖R, jointly pure, over whole cycles), not established"
    ],
-   "proof_status": "conditional",
+   "proof_status": "unsupported",
    "conditional_on": [
     "H-scramble",
     "H-decouple (A.9)",
     "single energy shell = full product space"
    ],
    "strongest_verified_source": "papers/GR.md:817@eae01647",
-   "verdict": "IMPRECISE",
+   "verdict": "OVERCLAIM",
    "contradictions": [
     {
      "site": "papers/GR.md:835@eae01647",
@@ -9359,7 +9420,14 @@
    ],
    "proposed_fix": "Amend the next sentence (I-227) to: \"H-scramble fails for every bijection acting on a definite initial configuration with the bipartition aligned to the configuration coordinates, which is the setting in which Theorem A.8 counts its initial conditions; it requires an initial superposition of configurations or a bipartition not aligned with them, and is not established [GR App. A.7; BHb, C1, C6(a)–(b)].\"",
    "notes": "Most consequential finding in this range. The Introduction reports A.8-A.9 faithfully as a conditional and says next that H-scramble fails for a definite configuration with an aligned bipartition. It does not say that this is the setting in which A.8 counts its 'initial conditions'. GR's own text attributes the failing setting only to 'Theorem A.7's proof' (GR.md:835), while A.8's statement and proof count configurations of Σ_E (GR.md:837-841). BHb C6(a) and its independent review (REVIEW.md:69-76: 'H-scramble cannot hold for any φ, and A.8's conclusion fails for every initial configuration … Recommend citing A.8's counting over configurations as the textual anchor') make the point exactly. So the conditional has no instance where its fraction is counted. It needs an initial superposition or a non-aligned factorization that GR does not specify, and even then BHb C2 caps the entanglement at the initial basis entropy H(p_0), so the state must spread over about e^{S_Page} configurations. 'Exponentially negligible fraction of initial conditions' therefore reads stronger than the theorem's content. Severity: moderate. The status line (I-244) is right, but this sentence invites a non-vacuous reading.",
-   "_part": "B3"
+   "_part": "B3",
+   "mapper_verdict": "IMPRECISE",
+   "resolution": {
+    "finding": "R-01",
+    "reason": "vacuous conditional: GR Theorem A.8 counts aligned configurations, on which every orbit is a product state, H-scramble fails for every bijection and the conclusion fails; the weakest link is refuted",
+    "by": "independent review RC-1"
+   },
+   "mapper_proof_status": "conditional"
   },
   {
    "id": "I-226",
@@ -11957,11 +12025,17 @@
    ],
    "proof_status": "open",
    "strongest_verified_source": "papers/GR.md:835@eae01647",
-   "verdict": "FAITHFUL",
+   "verdict": "IMPRECISE",
    "contradictions": [],
    "proposed_fix": null,
    "notes": "Open, with a partial negative already stated in §5: H-scramble fails in the definite-configuration aligned setting; GR: 'it requires an initial superposition of configurations or a bipartition not aligned with them, and which of these the substratum supplies is open'.",
-   "_part": "B4"
+   "_part": "B4",
+   "mapper_verdict": "FAITHFUL",
+   "resolution": {
+    "finding": "R-01",
+    "reason": "the open question is whether the substratum supplies a superposition or a non-aligned cut on which H-scramble could hold",
+    "by": "independent review RC-1"
+   }
   },
   {
    "id": "I-287",
@@ -12178,7 +12252,7 @@
    ],
    "proof_status": "numerical",
    "strongest_verified_source": "papers/oi_lattice_code/foundations/memory_probes.py:94@eae01647",
-   "verdict": "FAITHFUL",
+   "verdict": "IMPRECISE",
    "contradictions": [
     {
      "site": "papers/Main.md:594@eae01647",
@@ -12188,7 +12262,13 @@
    ],
    "proposed_fix": null,
    "notes": "A counterexample with a ≥1/3-bit gap is robust to floating point. The probe searched uniform priors only; this mapping's countercontrol over arbitrary priors confirms falsity (14 of 16 processes fail). Status: numerical evidence, not an exact certificate; no kernel declaration.",
-   "_part": "B4"
+   "_part": "B4",
+   "mapper_verdict": "FAITHFUL",
+   "resolution": {
+    "finding": "R-33",
+    "reason": "'the fixed-dimension form is false' rests on floating-point probes (uniform prior in Main; Nelder-Mead over priors in the audit) and is stated without a label",
+    "by": "independent review RC-5"
+   }
   },
   {
    "id": "I-292",
@@ -13055,13 +13135,19 @@
     "finite toy classes",
     "bijective dynamics"
    ],
-   "proof_status": "numerical",
+   "proof_status": "exhaustive-exact",
    "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647",
    "verdict": "FAITHFUL",
    "contradictions": [],
    "proposed_fix": null,
    "notes": "Non-implication in both directions shown by exhaustive counterexamples in finite toy classes; the sufficient conditions C1/C2 are proved. \"separates\" is a non-implication claim, which counterexamples establish generally.",
-   "_part": "B4"
+   "_part": "B4",
+   "resolution": {
+    "finding": null,
+    "reason": "exhaustive enumeration in exact arithmetic over a stated finite domain (BHa); distinguished from floating-point numerics",
+    "by": "independent review RC-12"
+   },
+   "mapper_proof_status": "numerical"
   },
   {
    "id": "I-306",
@@ -16167,21 +16253,22 @@
  "missing": [],
  "extra": [],
  "verdicts": {
-  "FAITHFUL": 362,
-  "IMPRECISE": 36,
-  "UNDERCLAIM": 6,
+  "FAITHFUL": 358,
+  "IMPRECISE": 38,
+  "UNDERCLAIM": 7,
   "MISCITED": 3,
   "UNSUPPORTED": 1,
-  "OVERCLAIM": 1
+  "OVERCLAIM": 2
  },
  "proof_status": {
   "conjecture": 9,
   "proved-kernel": 130,
-  "proved-paper": 189,
+  "proved-paper": 186,
   "open": 47,
-  "numerical": 9,
-  "conditional": 18,
-  "unsupported": 3,
+  "exhaustive-exact": 8,
+  "numerical": 3,
+  "conditional": 17,
+  "unsupported": 5,
   "calibration": 4
  }
 }

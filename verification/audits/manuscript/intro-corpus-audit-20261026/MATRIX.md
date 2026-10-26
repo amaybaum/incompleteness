@@ -8,24 +8,25 @@
 
 | Verdict | Rows |
 |---|--:|
-| OVERCLAIM | 1 |
+| OVERCLAIM | 2 |
 | UNSUPPORTED | 1 |
-| UNDERCLAIM | 6 |
+| UNDERCLAIM | 7 |
 | MISCITED | 3 |
-| IMPRECISE | 36 |
-| FAITHFUL | 362 |
+| IMPRECISE | 38 |
+| FAITHFUL | 358 |
 | **Total** | **409** |
 
 | Proof status (weakest link) | Rows |
 |---|--:|
 | proved-kernel | 130 |
-| proved-paper | 189 |
+| proved-paper | 186 |
+| exhaustive-exact | 8 |
 | calibration | 4 |
-| numerical | 9 |
-| conditional | 18 |
+| numerical | 3 |
+| conditional | 17 |
 | conjecture | 9 |
 | open | 47 |
-| unsupported | 3 |
+| unsupported | 5 |
 
 Verdicts by section (*Rows* counts every row of the section; the other columns count its non-FAITHFUL verdicts):
 
@@ -33,7 +34,7 @@ Verdicts by section (*Rows* counts every row of the section; the other columns c
 |---|--:|--:|--:|--:|--:|--:|
 | Abstract | 26 |  |  | 1 |  | 3 |
 | §1.1 | 11 |  |  |  |  | 1 |
-| §1.2 | 10 |  |  |  |  | 1 |
+| §1.2 | 10 |  |  | 1 |  | 1 |
 | §1.2 Contributions | 10 |  |  |  | 1 |  |
 | §1.2 Conventions | 4 |  |  |  |  | 1 |
 | §2.1 | 6 |  |  |  |  |  |
@@ -47,10 +48,10 @@ Verdicts by section (*Rows* counts every row of the section; the other columns c
 | §3.4 | 8 |  |  |  |  | 2 |
 | §3.5 | 5 |  |  |  |  |  |
 | §4 | 34 |  |  |  |  | 1 |
-| §5 | 40 |  |  |  | 1 | 8 |
+| §5 | 40 | 1 |  |  | 1 | 8 |
 | §6.1 | 6 |  |  |  |  | 1 |
 | §6.2 | 29 |  |  | 1 |  | 3 |
-| §6.3 | 15 |  |  | 2 |  | 2 |
+| §6.3 | 15 |  |  | 2 |  | 4 |
 | §6.4 | 16 |  |  |  |  | 2 |
 | Code, data and formal verification | 5 |  |  |  |  |  |
 | Appendix A | 34 |  |  |  |  |  |
@@ -59,7 +60,7 @@ Verdicts by section (*Rows* counts every row of the section; the other columns c
 | Appendix B.3 | 24 |  |  |  |  | 1 |
 | References | 2 |  |  |  |  |  |
 
-**Columns.** *Claim* is the normalized statement of `inventory/claims.json` (the verbatim span is in `matrix.json`). *Strongest verified source* is the mapper's `strongest_verified_source`. *Assumptions* are the row's `required_assumptions`, with `conditional_on` prefixed when present. *Proof status* is the weakest link of the row's chain. *Contradictions* lists the corpus sites in the row's `contradictions` whose recorded nature is not 'consistent' (short form `file:line` at `eae01647`, `Module:line` for Lean). Non-FAITHFUL verdicts are in bold. Status levels: proved-kernel, proved-paper, conditional, calibration, numerical, conjecture, open, unsupported (PLAN.md, step 3).
+**Columns.** *Claim* is the normalized statement of `inventory/claims.json` (the verbatim span is in `matrix.json`). *Strongest verified source* is the mapper's `strongest_verified_source`. *Assumptions* are the row's `required_assumptions`, with `conditional_on` prefixed when present. *Proof status* is the weakest link of the row's chain. *Contradictions* lists the corpus sites in the row's `contradictions` whose recorded nature is not 'consistent' (short form `file:line` at `eae01647`, `Module:line` for Lean). Non-FAITHFUL verdicts are in bold. Status levels: proved-kernel, proved-paper, conditional, calibration, exhaustive-exact (an exhaustive enumeration in exact arithmetic over a stated finite domain), numerical (floating-point or otherwise inexact evidence), conjecture, open, unsupported (PLAN.md, step 3).
 
 Dependency blocks follow the table of the section that states each multi-step result. Each block states the proof status of every row it covers and names the weakest, which governs the result as the Introduction states it, and the hypotheses the rows are conditional on. It then lists every distinct link of those rows with its source, layer, status and hypotheses, ordered from the weakest support to the strongest. A chain can list alternative supports for one step (a paper proof beside a kernel proof, or a special case beside the general form), so the first line is the weakest support recorded, not necessarily a step the result needs; the governing status is the weakest row status.
 
@@ -90,7 +91,7 @@ Dependency blocks follow the table of the section that states each multi-step re
 | I-016 | 12 | OI places the zero-point sum and the effective cosmological constant at different levels of description. | papers/GR.md:356@eae01647 | substratum/emergent architecture | proved-paper | FAITHFUL |  |
 | I-017 | 12 | Whether the zero-point sum sources curvature depends on covariant field equations that are not derived. | papers/GR.md:356@eae01647 |  | open | FAITHFUL |  |
 | I-018 | 12 | The cosmological-constant treatment is a proposal, not a resolution. | papers/GR.md:356@eae01647 | G3 covariant field equations | conjecture | FAITHFUL | GR:326 |
-| I-019 | 12 | Finite computations separate information conservation under bijective dynamics from recovery by an observer with restricted access. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md@eae01647 | finite toy models of configurations, permutations and configuration reads | numerical | FAITHFUL |  |
+| I-019 | 12 | Finite computations separate information conservation under bijective dynamics from recovery by an observer with restricted access. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md@eae01647 | finite toy models of configurations, permutations and configuration reads | exhaustive-exact | FAITHFUL |  |
 | I-020 | 12 | The framework's Page curve is not established. | papers/GR.md:603@eae01647 |  | open | FAITHFUL |  |
 | I-021 | 12 | The black-hole information problem is not resolved. | papers/GR.md:603@eae01647 |  | open | FAITHFUL | ch07-gravity:116 |
 
@@ -121,7 +122,7 @@ Dependency blocks follow the table of the section that states each multi-step re
 | I-037 | 26 | The stochastic–quantum correspondence relates stochastic laws, memory and indivisibility to quantum theory. | Bar25; Bar23 |  | proved-paper | FAITHFUL |  |
 | I-038 | 26 | Theorem 1's correspondence is exact and universal at the level of finite-horizon observable laws. | lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  |
 | I-039 | 26 | Because the correspondence is universal, the content lies in where memory must sit and what finite recurrence does with it. | papers/Main.md:534@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-040 | 26 | OI's foundation and quantum-emergence results stop short of operational quantum mechanics. | papers/Main.md:622@eae01647 |  | proved-kernel | FAITHFUL | ch01-observation:261, Main:22 |
+| I-040 | 26 | OI's foundation and quantum-emergence results stop short of operational quantum mechanics. | papers/Main.md:622@eae01647 |  | proved-kernel | **UNDERCLAIM** | ch01-observation:261, Main:22 |
 | I-041 | 26 | Neither the cosmological-constant nor the black-hole application is a demonstrated resolution. | papers/GR.md:356@eae01647 |  | open | FAITHFUL | GR:326 |
 | I-042 | 26 | The proofs, status ledger and probe code are in [Main]. | papers/Main.md:710@eae01647 |  | proved-paper | **IMPRECISE** |  |
 
@@ -317,7 +318,7 @@ Weakest row status, which governs: **proved-paper** (I-103).
 | I-120 | 96 | On a fixed finite reversible substratum, history readback (C4) forces indivisibility somewhere in the recurrence cycle. | papers/Main.md:137@eae01647 | fixed finite reversible substratum (one bijection, one hidden prior); (C4) history readback | proved-paper | FAITHFUL |  |
 | I-121 | 96 | The readback-forces-indivisibility conclusion is machine-checked, via Theorem 3, from routed-readback (C4). | lean:PhysicalC4StorageReadback.lean:256:routedAtStorage_forces_indivisible_somewhere | routed-readback form of (C4) on a rooted realization | proved-kernel | **MISCITED** | verification/lean-mathlib/OIBridge/PhysicalC4Discharge.lean:28, verification/lean-manuscript-census.json families[35],[36] |
 | I-122 | 96 | From history-level (C4), readback-forces-indivisibility is proved on paper. | papers/Main.md:137@eae01647 | history-level (C4); fixed finite reversible representative | proved-paper | FAITHFUL |  |
-| I-123 | 98 | Appendix B.1 is a minimal model of Theorem 3 with six hidden states. | papers/Main.md:178@eae01647 |  | proved-paper | **UNSUPPORTED** |  |
+| I-123 | 98 | Appendix B.1 is a minimal model of Theorem 3 with six hidden states. | papers/Main.md:178@eae01647 |  | unsupported | **UNSUPPORTED** |  |
 | I-124 | 98 | The two-card game is the smallest realization of Theorem 3. | book/ch01-observation.md:273@eae01647 |  | unsupported | **IMPRECISE** |  |
 
 ### Dependency block: Theorem 3 (recurrence and overlap)
@@ -515,20 +516,20 @@ Conditional on: covariant field equations derived from the substratum, with cons
 | I-209 | 156 | The §5 results concern the framework's nested-partition construction, not a particular black hole. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:288-292@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | proved-paper | **IMPRECISE** |  |
 | I-210 | 158 | Under OI, information is conserved globally because the dynamics is a bijection (a premise). | papers/Main.md:708@eae01647 | conditional on: bijective dynamics (framework premise); bijective dynamics (framework premise) | conditional | FAITHFUL | Methodology:158; papers/Methodology:166 |
 | I-211 | 158 | Global conservation does not imply recovery from accessible records. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:17-18@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | proved-paper | FAITHFUL |  |
-| I-212 | 158 | Global conservation is not necessary for recovery from accessible records. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | proved-paper | FAITHFUL |  |
-| I-213 | 158 | Exhaustive finite computations exhibit bijections with zero accessible advantage over a blind guess. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | numerical | FAITHFUL |  |
-| I-214 | 158 | Exhaustive finite computations exhibit non-injective maps with exact recovery. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:153@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | numerical | FAITHFUL |  |
-| I-215 | 160 | Of the 40,320 bijections of {0,1}³, 1,376 give zero accessible advantage (binary message, one register unread, two emissions). | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports; moving-partition layout, binary message, one mode unread after two emissions | numerical | FAITHFUL |  |
+| I-212 | 158 | Global conservation is not necessary for recovery from accessible records. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | exhaustive-exact | FAITHFUL |  |
+| I-213 | 158 | Exhaustive finite computations exhibit bijections with zero accessible advantage over a blind guess. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | exhaustive-exact | FAITHFUL |  |
+| I-214 | 158 | Exhaustive finite computations exhibit non-injective maps with exact recovery. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:153@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | exhaustive-exact | FAITHFUL |  |
+| I-215 | 160 | Of the 40,320 bijections of {0,1}³, 1,376 give zero accessible advantage (binary message, one register unread, two emissions). | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports; moving-partition layout, binary message, one mode unread after two emissions | exhaustive-exact | FAITHFUL |  |
 | I-216 | 160 | For bijective dynamics, complete endpoint access gives exact recovery. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:98-102@eae01647 | bijective dynamics; every register read at the endpoint; BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | proved-paper | FAITHFUL |  |
 | I-217 | 160 | For bijective dynamics with the unread registers U inaccessible, P_succ ≥ 1/\|U\|. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:104-112@eae01647 | bijective dynamics; uniform message prior; hidden-uniform unread data on equal-size supports | proved-paper | **IMPRECISE** |  |
 | I-218 | 160 | Zero accessible advantage in a bijective instance requires \|U\| ≥ \|M\|. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:42-47@eae01647 | bijective dynamics; uniform message prior; hidden-uniform unread data on equal-size supports; BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | proved-paper | **IMPRECISE** |  |
-| I-219 | 160 | 32 non-injective maps of {0,1}² violate the P_succ ≥ 1/\|U\| bound. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:155@eae01647 | two-bit message; one register read, one unread; one step | numerical | **IMPRECISE** |  |
-| I-220 | 160 | The endpoint guarantees are sufficient conditions, not necessary ones. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:66-86@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | proved-paper | **IMPRECISE** |  |
+| I-219 | 160 | 32 non-injective maps of {0,1}² violate the P_succ ≥ 1/\|U\| bound. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:155@eae01647 | two-bit message; one register read, one unread; one step | exhaustive-exact | **IMPRECISE** |  |
+| I-220 | 160 | The endpoint guarantees are sufficient conditions, not necessary ones. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:66-86@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | exhaustive-exact | **IMPRECISE** |  |
 | I-221 | 160 | The P_succ bound is the remnant-capacity form of a known fact. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:109-112@eae01647 |  | proved-paper | FAITHFUL |  |
 | I-222 | 160 | The bound's linear case is the secret-sharing threshold. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:125-132@eae01647 | conditional on: first-hand check of Sha79; Sha79 content as recalled, not read | conditional | **IMPRECISE** |  |
-| I-223 | 162 | GR App. A's Page-curve calculation is a conditional result. | papers/GR.md:715@eae01647 | conditional on: H-scramble; H-decouple; single energy shell = full product space; H-scramble (orbit ensemble equidistributes over pure states on the shell), not established; fails for every bijection on a definite configuration with aligned bipartition; H-decouple (B∪R uncoupled from D and V∖R, jointly pure, over whole cycles), not established; single energy shell = full product space C_B × C_R | conditional | FAITHFUL |  |
+| I-223 | 162 | GR App. A's Page-curve calculation is a conditional result. | papers/GR.md:715@eae01647 | conditional on: H-scramble; H-decouple; single energy shell = full product space; H-scramble (orbit ensemble equidistributes over pure states on the shell), not established; fails for every bijection on a definite configuration with aligned bipartition; H-decouple (B∪R uncoupled from D and V∖R, jointly pure, over whole cycles), not established; single energy shell = full product space C_B × C_R | conditional | **IMPRECISE** |  |
 | I-224 | 162 | The Page-curve configuration space is C_V × C_B × C_D (exterior, interior, beyond the cosmological horizon); the radiation R ⊂ V is emitted from B. | papers/GR.md:719@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-225 | 162 | For all but an exponentially negligible fraction of initial conditions, the full-cycle time-averaged radiation entanglement entropy at fixed bipartition equals S_Page(d_B,d_R) up to Theorem A.8's correction. | papers/GR.md:817@eae01647 | conditional on: H-scramble; H-decouple (A.9); single energy shell = full product space; H-scramble (orbit ensemble equidistributes over pure states on the shell), not established; fails for every bijection on a definite configuration with aligned bipartition; single energy shell = full product space C_B × C_R; H-decouple (B∪R uncoupled from D and V∖R, jointly pure, over whole cycles), not established | conditional | **IMPRECISE** | GR:835, appendix-a-prediction-status:111, ch19-open-problems:72 |
+| I-225 | 162 | For all but an exponentially negligible fraction of initial conditions, the full-cycle time-averaged radiation entanglement entropy at fixed bipartition equals S_Page(d_B,d_R) up to Theorem A.8's correction. | papers/GR.md:817@eae01647 | conditional on: H-scramble; H-decouple (A.9); single energy shell = full product space; H-scramble (orbit ensemble equidistributes over pure states on the shell), not established; fails for every bijection on a definite configuration with aligned bipartition; single energy shell = full product space C_B × C_R; H-decouple (B∪R uncoupled from D and V∖R, jointly pure, over whole cycles), not established | unsupported | **OVERCLAIM** | GR:835, appendix-a-prediction-status:111, ch19-open-problems:72 |
 | I-226 | 162 | The Page-value result holds under H-scramble (orbit ensemble equidistributes over pure states on the shell). | papers/GR.md:835@eae01647 | conditional on: H-scramble | conditional | FAITHFUL |  |
 | I-227 | 162 | H-scramble fails for every bijection acting on a definite initial configuration with configuration-aligned bipartition. | papers/GR.md:833@eae01647 |  | proved-paper | FAITHFUL |  |
 | I-228 | 162 | H-scramble is not established. | papers/GR.md:835@eae01647 |  | open | FAITHFUL |  |
@@ -552,8 +553,8 @@ Conditional on: covariant field equations derived from the substratum, with cons
 
 ### Dependency block: §5 conditional chain (the Page curve of GR App. A)
 
-Rows: I-210 conditional; I-223 conditional; I-225 conditional (IMPRECISE); I-226 conditional; I-227 proved-paper; I-228 open; I-229 conditional; I-231 open; I-232 proved-paper; I-237 open; I-239 open; I-240 conditional; I-241 open; I-244 open.
-Weakest row status, which governs: **open** (I-228, I-231, I-237, I-239, I-241, I-244).
+Rows: I-210 conditional; I-223 conditional (IMPRECISE); I-225 unsupported (OVERCLAIM); I-226 conditional; I-227 proved-paper; I-228 open; I-229 conditional; I-231 open; I-232 proved-paper; I-237 open; I-239 open; I-240 conditional; I-241 open; I-244 open.
+Weakest row status, which governs: **unsupported** (I-225).
 Conditional on: bijective dynamics (framework premise); H-scramble; H-decouple; single energy shell = full product space; H-decouple (A.9); covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open.
 
 | # | link | source | layer | status | hypotheses | rows |
@@ -639,12 +640,12 @@ Conditional on: bijective dynamics (framework premise); H-scramble; H-decouple; 
 | I-283 | 183 | No experiment distinguishing OI from standard QM is established. | papers/Main.md:702@eae01647 |  | open | FAITHFUL |  |
 | I-284 | 183 | No memory-witness constraint is established. | papers/Main.md:702@eae01647 |  | open | FAITHFUL |  |
 | I-285 | 183 | The decisive open test for the cosmological constant is deriving covariant field equations with source coupling. | papers/GR.md:12@eae01647 | G3 | open | FAITHFUL | GR:326, ch07-gravity:163 |
-| I-286 | 183 | Whether H-scramble and H-decouple hold is open. | papers/GR.md:835@eae01647 | H-scramble; H-decouple | open | FAITHFUL |  |
+| I-286 | 183 | Whether H-scramble and H-decouple hold is open. | papers/GR.md:835@eae01647 | H-scramble; H-decouple | open | **IMPRECISE** |  |
 | I-287 | 183 | The Page value on a proper shell and along a single trajectory is open. | papers/GR.md:843@eae01647 |  | open | FAITHFUL |  |
 | I-288 | 183 | In GR's ladder the covariant field equations are an open test for BH information. | papers/GR.md:12@eae01647 | G3 | open | FAITHFUL |  |
 | I-289 | 185 | Machine checks of the unchecked steps of §2.2, §2.4, §2.5 are open. | papers/Main.md:99@eae01647 |  | open | **IMPRECISE** |  |
 | I-290 | 185 | Whether minimal hidden predictive memory equals M_t after quotienting non-influencing ledger bits is open. | papers/Main.md:594@eae01647 |  | open | FAITHFUL |  |
-| I-291 | 185 | The fixed-dimension form of the minimal-memory = M_t statement is false. | papers/oi_lattice_code/foundations/memory_probes.py:94@eae01647 | (n_V,\|C_H\|)=(2,3) | numerical | FAITHFUL | Main:594 |
+| I-291 | 185 | The fixed-dimension form of the minimal-memory = M_t statement is false. | papers/oi_lattice_code/foundations/memory_probes.py:94@eae01647 | (n_V,\|C_H\|)=(2,3) | numerical | **IMPRECISE** | Main:594 |
 | I-292 | 185 | Exact gluing for recurrent target families is open. | papers/Main.md:618@eae01647 | multi-time trajectory laws | open | **UNDERCLAIM** | verification/lean-manuscript-census.json |
 | I-293 | 185 | Approximation on windows short compared with the recurrence time is open. | papers/Main.md:618@eae01647 |  | open | FAITHFUL |  |
 | I-294 | 185 | (C2) necessity is open. | papers/Main.md:447@eae01647 | conditional on: hidden-sector mixing hypothesis; hidden-sector mixing hypothesis | conditional | **IMPRECISE** | GR:565 |
@@ -667,7 +668,7 @@ Conditional on: bijective dynamics (framework premise); H-scramble; H-decouple; 
 | I-302 | 189 | Representability does not select the evolution relating two times. | lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate |  | proved-kernel | FAITHFUL |  |
 | I-303 | 191 | OI proposes the emergent zero-point sum is not a gravitational source. | papers/GR.md:356@eae01647 | G3 | conjecture | FAITHFUL | GR:326, ch07-gravity:163, ch18-beyond:142, appendix-c-objections:317 |
 | I-304 | 191 | The vacuum-energy proposal is conditional on underived covariant field equations. | papers/GR.md:12@eae01647 | conditional on: covariant field equations (G3); G3 | conditional | FAITHFUL | GR:326 |
-| I-305 | 191 | OI separates information conservation from accessible recovery. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647 | finite toy classes; bijective dynamics | numerical | FAITHFUL |  |
+| I-305 | 191 | OI separates information conservation from accessible recovery. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647 | finite toy classes; bijective dynamics | exhaustive-exact | FAITHFUL |  |
 | I-306 | 191 | The framework's Page curve is not established. | papers/GR.md:609@eae01647 | H-scramble; H-decouple; G3 | open | FAITHFUL | ch18-beyond:146 |
 | I-307 | 191 | Neither application is a demonstrated resolution. | papers/GR.md:12@eae01647 | G3; H-scramble; H-decouple | open | FAITHFUL | GR:326, ch07-gravity:163, ch18-beyond:142, appendix-c-objections:317, ch18-beyond:146 |
 

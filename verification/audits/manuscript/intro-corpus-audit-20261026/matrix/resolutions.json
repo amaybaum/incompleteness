@@ -1,7 +1,99 @@
 {
- "_note": "Verdicts the audit synthesis (FINDINGS.md) resolved differently from the mapper, after re-checking the sources. merge_matrix.py applies them and keeps the mapper's verdict as mapper_verdict.",
- "I-008": {"verdict": "IMPRECISE", "finding": "R-24", "reason": "'deterministic completion' is undefined and L136 uses it in the Bell sense; content correct (Theorem 2(c) and the Corollary)"},
- "I-013": {"verdict": "UNDERCLAIM", "finding": "R-06", "reason": "the abstract repeats 'which of (iii)-(v) a physical substratum supplies is open'; GR:260-266, ROADMAP:1521-1538 and the kernel settle part of it (as I-146, I-258, I-281)"},
- "I-123": {"verdict": "UNSUPPORTED", "finding": "R-04", "reason": "'a minimal model' with six hidden states: a three-hidden-state model reproduces every B.1 number and a two-hidden-state game realizes Theorem 3"},
- "I-124": {"verdict": "IMPRECISE", "finding": "R-04", "reason": "'the smallest realization': true by size but proved nowhere in the corpus, and not unique"}
+ "_note": "Verdicts, statuses and fixes resolved after the mapping: by the synthesis (FINDINGS.md) and by the independent review (review/INDEPENDENT-REVIEW.md, RC-1, RC-5, RC-8, RC-11, RC-12). merge_matrix.py applies them and keeps each mapper value under mapper_*.",
+ "I-008": {
+  "verdict": "IMPRECISE",
+  "finding": "R-24",
+  "reason": "'deterministic completion' is undefined and L136 uses it in the Bell sense; content correct (Theorem 2(c) and the Corollary)"
+ },
+ "I-013": {
+  "verdict": "UNDERCLAIM",
+  "finding": "R-06",
+  "reason": "the abstract repeats 'which of (iii)-(v) a physical substratum supplies is open'; GR:260-266, ROADMAP:1521-1538 and the kernel settle part of it (as I-146, I-258, I-281)"
+ },
+ "I-123": {
+  "verdict": "UNSUPPORTED",
+  "finding": "R-04",
+  "reason": "'a minimal model' with six hidden states: a three-hidden-state model reproduces every B.1 number and a two-hidden-state game realizes Theorem 3",
+  "proof_status": "unsupported",
+  "proposed_fix": "See R-04: 'a six-hidden-state model of Theorem 3 [Main §2.4]'; no minimality claim.",
+  "by": "synthesis; fields per independent review RC-11"
+ },
+ "I-124": {
+  "verdict": "IMPRECISE",
+  "finding": "R-04",
+  "reason": "'the smallest realization': true by size but proved nowhere in the corpus, and not unique",
+  "proposed_fix": "See R-04: 'a two-card game, which realizes Theorem 3 with two visible and two hidden values'; no minimality or uniqueness claim.",
+  "by": "synthesis; fields per independent review RC-11"
+ },
+ "I-225": {
+  "verdict": "OVERCLAIM",
+  "proof_status": "unsupported",
+  "finding": "R-01",
+  "by": "independent review RC-1",
+  "reason": "vacuous conditional: GR Theorem A.8 counts aligned configurations, on which every orbit is a product state, H-scramble fails for every bijection and the conclusion fails; the weakest link is refuted"
+ },
+ "I-223": {
+  "verdict": "IMPRECISE",
+  "finding": "R-01",
+  "by": "independent review RC-1",
+  "reason": "in the counted setting H-scramble is settled false, not merely unestablished"
+ },
+ "I-286": {
+  "verdict": "IMPRECISE",
+  "finding": "R-01",
+  "by": "independent review RC-1",
+  "reason": "the open question is whether the substratum supplies a superposition or a non-aligned cut on which H-scramble could hold"
+ },
+ "I-291": {
+  "verdict": "IMPRECISE",
+  "finding": "R-33",
+  "by": "independent review RC-5",
+  "reason": "'the fixed-dimension form is false' rests on floating-point probes (uniform prior in Main; Nelder-Mead over priors in the audit) and is stated without a label"
+ },
+ "I-040": {
+  "verdict": "UNDERCLAIM",
+  "finding": "R-34",
+  "by": "independent review RC-8",
+  "reason": "'stop short of operational quantum mechanics' omits the epsilon-realization of every finite quantum experiment and the exact result with one added control resource"
+ },
+ "I-019": {
+  "proof_status": "exhaustive-exact",
+  "by": "independent review RC-12",
+  "reason": "exhaustive enumeration in exact arithmetic over a stated finite domain (BHa); distinguished from floating-point numerics"
+ },
+ "I-212": {
+  "proof_status": "exhaustive-exact",
+  "by": "independent review RC-12",
+  "reason": "exhaustive enumeration in exact arithmetic over a stated finite domain (BHa); distinguished from floating-point numerics"
+ },
+ "I-213": {
+  "proof_status": "exhaustive-exact",
+  "by": "independent review RC-12",
+  "reason": "exhaustive enumeration in exact arithmetic over a stated finite domain (BHa); distinguished from floating-point numerics"
+ },
+ "I-214": {
+  "proof_status": "exhaustive-exact",
+  "by": "independent review RC-12",
+  "reason": "exhaustive enumeration in exact arithmetic over a stated finite domain (BHa); distinguished from floating-point numerics"
+ },
+ "I-215": {
+  "proof_status": "exhaustive-exact",
+  "by": "independent review RC-12",
+  "reason": "exhaustive enumeration in exact arithmetic over a stated finite domain (BHa); distinguished from floating-point numerics"
+ },
+ "I-219": {
+  "proof_status": "exhaustive-exact",
+  "by": "independent review RC-12",
+  "reason": "exhaustive enumeration in exact arithmetic over a stated finite domain (BHa); distinguished from floating-point numerics"
+ },
+ "I-220": {
+  "proof_status": "exhaustive-exact",
+  "by": "independent review RC-12",
+  "reason": "exhaustive enumeration in exact arithmetic over a stated finite domain (BHa); distinguished from floating-point numerics"
+ },
+ "I-305": {
+  "proof_status": "exhaustive-exact",
+  "by": "independent review RC-12",
+  "reason": "exhaustive enumeration in exact arithmetic over a stated finite domain (BHa); distinguished from floating-point numerics"
+ }
 }

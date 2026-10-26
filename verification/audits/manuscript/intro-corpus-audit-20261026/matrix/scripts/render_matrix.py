@@ -59,7 +59,7 @@ BLOCKS = [
 ]
 
 STATUS_ORDER = ["unsupported", "open", "conjecture", "conditional", "numerical", "calibration",
-                "proved-paper", "proved-kernel"]
+                "exhaustive-exact", "proved-paper", "proved-kernel"]
 LINK_STATUS_ORDER = ["refuted", "unsupported", "open", "conditional", "proved"]
 LAYER_ORDER = ["none", "conjecture", "numerical", "literature", "paper-derivation", "exhaustive-computation",
                "exact-algebra", "kernel"]
@@ -175,7 +175,8 @@ def render(data, claims):
              "*Proof status* is the weakest link of the row's chain. *Contradictions* lists the corpus sites in the "
              "row's `contradictions` whose recorded nature is not 'consistent' (short form `file:line` at `eae01647`, "
              "`Module:line` for Lean). Non-FAITHFUL verdicts are in bold. Status levels: proved-kernel, proved-paper, "
-             "conditional, calibration, numerical, conjecture, open, unsupported (PLAN.md, step 3).")
+             "conditional, calibration, exhaustive-exact (an exhaustive enumeration in exact arithmetic over a stated finite domain), "
+             "numerical (floating-point or otherwise inexact evidence), conjecture, open, unsupported (PLAN.md, step 3).")
     L.append("")
     L.append("Dependency blocks follow the table of the section that states each multi-step result. Each block "
              "states the proof status of every row it covers and names the weakest, which governs the result as the "

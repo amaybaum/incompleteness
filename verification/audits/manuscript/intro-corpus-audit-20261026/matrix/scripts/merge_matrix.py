@@ -40,9 +40,14 @@ for i, v in res.items():
     if i.startswith("_"):
         continue
     r = rows[i]
-    r["mapper_verdict"] = r["verdict"]
-    r["verdict"] = v["verdict"]
-    r["resolution"] = {"finding": v["finding"], "reason": v["reason"]}
+    if "verdict" in v:
+        r["mapper_verdict"] = r["verdict"]
+        r["verdict"] = v["verdict"]
+    r["resolution"] = {"finding": v.get("finding"), "reason": v["reason"], "by": v.get("by", "synthesis")}
+    for k in ("proof_status", "proposed_fix"):
+        if k in v:
+            r["mapper_" + k] = r.get(k)
+            r[k] = v[k]
 
 missing = [i for i in want if i not in rows]
 extra = [i for i in rows if i not in set(want)]

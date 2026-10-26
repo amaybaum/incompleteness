@@ -1,6 +1,6 @@
 # Findings for the Introduction (audit synthesis)
 
-*Recorded by the coordinator from the audit-synthesis agent's report, verbatim, because the agent's tool refused report files. The two defects in the audit's own files that (f) lists, the resolved verdicts in `matrix.json` and CMP-10's consistency ids, were corrected in the commit that adds this file: `matrix/resolutions.json` applies the four resolved verdicts, and CMP-10 now cites CON-17 to CON-19.*
+*Recorded by the coordinator from the audit-synthesis agent's report, because the agent's tool refused report files, and revised by the coordinator to apply the independent review's required changes RC-1 to RC-12 (`review/INDEPENDENT-REVIEW.md`): R-01, R-02 and R-07 carry the reviewer's texts, R-06, R-10 and R-19 are amended, R-33 and R-34 are added, and OD-3 and the counts are updated.*
 
 **Objects.** `papers/Introduction.md` at `4a260ca9` (sha256 `beb0a520…b936feb8`); line numbers (`Lnn`) refer to that blob. The corpus is `main` at `eae01647`, as read by the mappers; the Introduction cites `b64919cd`, and the `OIBridge` sources are byte-identical at `17b830bc`, `b64919cd` and `eae01647`.
 
@@ -8,17 +8,17 @@
 
 **Summary.**
 
-- 364 of 409 rows are FAITHFUL. The 45 others, the seven completeness rows recommended *add* or *strengthen*, and the two rows whose mapper disagreement resolved against the Introduction (I-013, I-008) reduce to **32 required changes** (part a), deduplicated across the abstract, the body, §6.2 and §6.3.
+- 358 of 409 rows are FAITHFUL after the synthesis and the independent review re-rated some rows (`matrix/resolutions.json`). The 51 others, the seven completeness rows recommended *add* or *strengthen*, and the two rows whose mapper disagreement resolved against the Introduction (I-013, I-008) reduce to **34 required changes** (part a; R-33 and R-34 were added by the independent review), deduplicated across the abstract, the body, §6.2 and §6.3.
 - **25 optional changes** (part b) and **15 owner decisions** (part c).
 - The **corpus corrections** outside the Introduction fall into eight proposed pull requests (part d).
-- **Length.** The main text runs through p. 12 at 4,966 words, about 414 words a page. The required changes in their full form add about 470 words; the short variants and listed cuts bring the net to about +155 words (part c, OD-13). Page count is measured by building (`sh ./build.sh`), not estimated.
+- **Length.** The main text runs through p. 12 at 4,966 words, about 414 words a page. After the independent review the required changes add about 610 words in full form (R-01, R-02 and R-07 lengthened; R-33 and R-34 added; the short forms withdrawn); cuts C-1 to C-8 bring the net to about +400 words, roughly one page (part c, OD-13). Page count is measured by building (`sh ./build.sh`), not estimated.
 
 | Tier | Findings | Count |
 |---|---|--:|
 | 1. Overclaims and unsupported claims | R-01–R-05 | 5 |
-| 2. Underclaims and omissions (high or medium priority) | R-06–R-10 | 5 |
+| 2. Underclaims and omissions (high or medium priority) | R-06–R-10, R-34 | 6 |
 | 3. Miscitations and attributions | R-11–R-19 | 9 |
-| 4. Imprecisions | R-20–R-32 | 13 |
+| 4. Imprecisions | R-20–R-33 | 14 |
 
 Severity inside a tier runs from first to last. Where a matrix verdict is IMPRECISE but its direction is an overclaim (R-01, R-03, R-05), the finding is ranked in tier 1 and the reason is given.
 
@@ -30,22 +30,26 @@ Severity inside a tier runs from first to last. Where a matrix verdict is IMPREC
 
 #### R-01 — Page value "for all but an exponentially negligible fraction of initial conditions" (high)
 
-- **Covers:** I-225 (IMPRECISE, conditional); CON-01 (high); context I-223, I-226–I-228, I-244.
-- **Lines:** L162.
-- **Why tier 1.** The sentence reports Theorem A.8's conclusion with its quantifier. GR's proof counts *configurations* of the shell, with the B|R bipartition aligned to them (GR.md:827, :837–:841@eae01647), and for exactly that setting GR.md:833 shows every orbit is a product state, so H-scramble fails for every bijection. The conditional therefore has no instance where its fraction is counted. The Introduction states both facts but not their connection, so a reader takes the quantified conclusion as non-vacuous. The matrix verdict is IMPRECISE; CON-01 rates the defect high, and that rating is adopted.
+- **Covers:** I-225 (OVERCLAIM: a vacuous conditional, re-rated by the independent review); I-223 and I-286 (IMPRECISE, re-rated by the independent review); CON-01 (high); CMP-25 (BHb C2, required); context I-226–I-228, I-244.
+- **Lines:** L162, L183.
+- **Why tier 1.** Theorem A.8 of [GR] consists of an unconditional cycle-counting lemma and a step that is H-scramble (GR.md:817–841@eae01647). It counts initial *configurations* on Σ_E, with the B|R bipartition aligned to the configuration coordinates (GR.md:827, :837–:841). Every orbit of a configuration consists of basis states, which are product states across the aligned cut. So the radiation entropy is zero at every step, H-scramble fails for every bijection (GR.md:833; BHb C1), and A.8's conclusion is false for every counted initial condition. A.8 is true only vacuously and has no instance in the setting it counts; A.9 inherits this. The Introduction reports A.8's quantified conclusion as a result.
 - **Evidence.**
   - GR.md:817@eae01647 (statement of A.8), :827 and :837–:841 (the counting runs over configurations of Σ_E);
   - GR.md:833 (every orbit of a definite configuration is product across the aligned cut);
-  - GR.md:835: "H-scramble fails for every bijection in the setting of Theorem A.7's proof", attributing the failure to A.7 only, and "it requires an initial superposition of configurations or a bipartition not aligned with them";
-  - BHb C1, C6(a) (`bh02_scramble_v1/REPORT.md`) and its review (`review/REVIEW.md`:69–76), which recommends A.8's counting as the anchor.
-- **Proposed text.**
+  - GR.md:835 attributes the failure to "the setting of Theorem A.7's proof" only; the anchor is A.8's own counting (CON-01);
+  - BHb C1 (one-line proof: a permutation maps basis vectors to basis vectors), C2 (entanglement at an aligned bipartition under any permutation is at most the entropy of the initial configuration distribution), C6(a)–(c) (`bh02_scramble_v1/REPORT.md`), and its review (`review/REVIEW.md`:69–76).
+- **Proposed text** (independent review, RC-1).
 
   > **Current (L162).** For all but an exponentially negligible fraction of initial conditions, the full-cycle time average of the radiation's entanglement entropy, at the bipartition of each stage held fixed, equals the Page value $S_{\rm Page}(d_B,d_R)$ for factor dimensions $d_B,d_R$, up to the correction term of Theorem A.8 [Pag93; GR, Thms A.8–A.9]. This holds under the scrambling hypothesis H-scramble, that the orbit ensemble equidistributes over quantum pure states on the shell; H-scramble fails for every bijection acting on a definite initial configuration with the bipartition aligned to the configuration coordinates and is not established [GR App. A.7; BHb, C1, C6(a)–(b)].
   >
-  > **Proposed.** Under the scrambling hypothesis H-scramble, that the orbit ensemble equidistributes over quantum pure states on the shell, the full-cycle time average of the radiation's entanglement entropy, at the bipartition of each stage held fixed, equals the Page value $S_{\rm Page}(d_B,d_R)$ for factor dimensions $d_B,d_R$, up to the correction term of Theorem A.8, for all but an exponentially small fraction of the initial conditions the theorem counts [Pag93; GR, Thms A.8–A.9]. Those initial conditions are configurations, with the bipartition aligned to the configuration coordinates, and for every bijection acting on such a configuration H-scramble fails [GR App. A.7; BHb, C1, C6(a)–(b)]; it requires an initial superposition of configurations or a bipartition not aligned with them, and is not established.
+  > **Proposed.** Theorem A.8 of [GR] derives the Page value $S_{\rm Page}(d_B,d_R)$ for the full-cycle time average of the radiation's entanglement entropy, at the bipartition of each stage held fixed and up to its correction term, from the scrambling hypothesis H-scramble, that the orbit ensemble equidistributes over quantum pure states on the shell; the Page value enters only through that hypothesis [Pag93; GR, Thms A.8–A.9; BHb, C6(b)]. The theorem counts initial configurations, with the bipartition aligned to the configuration coordinates; every state on such an orbit is a product state, so the radiation entropy is zero at every step, H-scramble fails for every bijection, and the theorem has no instance in that setting [GR App. A.7; BHb, C1, C6(a)]. Under a bijection, the entanglement at an aligned bipartition never exceeds the entropy of the initial configuration distribution [BHb, C2], so a Page value requires an initial superposition over at least $e^{S_{\rm Page}}$ configurations or a bipartition not aligned with them; neither is specified, and H-scramble is not established.
 
-- **Length:** +21 words.
-- **Pressure test.** Dropping the quantifier altogether would read as "for every initial condition", an overclaim in the other direction, so the quantifier stays and its domain is named. "Those initial conditions are configurations" rests on GR.md:841 ("initial conditions on Σ_E"); "requires an initial superposition … or a bipartition not aligned" is GR.md:835 in substance. The text states a conditional theorem and a fact about its hypothesis, so it does not assert and then withdraw the result. If GR restates A.8 (OD-9), this sentence follows GR.
+  Consequential edits:
+  - I-223, L162: "…addresses recovery under its own conditions, which are not established".
+  - I-286, L183: "whether the substratum supplies an initial superposition or a non-aligned bipartition on which H-scramble holds, and whether H-decouple holds".
+  - The abstract's "the framework's Page curve is not established" stays accurate.
+- **Length:** about +45 words.
+- **Pressure test.** The text no longer leads with the quantified conclusion as a conditional result (§A.30: remove the assertion, keep the derivation). It states what A.8 derives, why it has no instance in its counted setting, and the unconditional bound BHb C2 that survives. It does not claim the Page value fails for superposed initial states or non-aligned cuts; that is open. R-01 does not wait on GR's restatement of A.8 (OD-9). [Pag93]'s citation is decided under OD-8.
 
 #### R-02 — "no unconditional implication holds among" the three notions (moderate)
 
@@ -61,13 +65,15 @@ Severity inside a tier runs from first to last. Where a matrix verdict is IMPREC
 
   > **Current (L106).** Three notions are distinct, and no unconditional implication holds among them [Main §3.2, Remark (three notions, kept apart)]: (1) accessible memory, $M_t>0$; (2) stochastic P-indivisibility of the visible population law; (3) quantum non-Markovianity under a chosen criterion.
   >
-  > **Proposed.** Three notions are distinct [Main §3.2, Remark (three notions, kept apart)]: (1) accessible memory, $M_t>0$; (2) stochastic P-indivisibility of the visible population law; (3) quantum non-Markovianity under a chosen criterion. A Markov law is P-divisible, so (2) implies (1) at some time [Main §3.4, Remark (two notions of memory)].
+  > **Proposed** (independent review, RC-2). Three notions are distinct [Main §3.2, Remark (three notions, kept apart)]: (1) accessible memory, $M_t>0$; (2) stochastic P-indivisibility of the visible population law; (3) quantum non-Markovianity under a chosen criterion. For the rooted family of a visible law in which every initial value has positive probability, a law with $M_t=0$ for every $0<t<n$ is P-divisible on $\{0,\dots,n\}$, so P-indivisibility there implies $M_t>0$ for some $0<t<n$ [Main §3.4, Remark (two notions of memory)]; the converse fails (Appendix B.2).
 
-- **Length:** +12 words.
-- **Pressure test.**
-  - The implication was re-derived with the Introduction's rooted definition (L90). For a Markov law, $\Gamma_t=\Gamma_s\Lambda$ with $\Lambda=P(x_t\mid x_s)$ on supported states, and arbitrary stochastic rows elsewhere. Rows are indexed by supported roots, so no zero-probability escape arises.
-  - The converse failure, (1)⇏(2), is already stated at L104. The text does not claim that no *other* implication holds: (3)⇏(2) and (1)⇏(3) are shown nowhere in the corpus.
-  - B2's longer alternative restates L104 and the Hadamard example, which L106 already carries, so it is not used.
+- **Length:** about +40 words.
+- **Assumptions** (independent review, §3; owner, 2026-10-26: "Markovianity ⇒ P-divisibility, and therefore … P-indivisibility ⇒ non-Markovianity … under the specific definitions, time domain, and assumptions establishing the first implication"):
+  - *Positive-probability roots.* The kernel's rooted map defines a row for every root whatever the law of $x_0$. With a zero-mass root the implication fails: the two-card game with $x_0$ fixed has a P-indivisible rooted family while the process from its one root is Markov.
+  - *A multi-time visible law.* Notion (2) also covers population families of quantum channels (the Hadamard family at L106), for which $M_t$ is undefined.
+  - *Time range.* The memory lies somewhere in $(0,n)$; for Theorem 3, $n$ is the return time, so it need not lie in Main's accessible window.
+  - *Definitions.* Under L72's $M_t$ and Main's Characterization theorem, "non-Markovian at some order" is $M_t>0$ for some $t$ (via the vanishing criterion [CT06], not machine-checked), so either wording is licensed.
+- **Pressure test.** The text states exactly the direction that holds, with its assumptions, and nothing about (3). The converse failure is Appendix B.2 (and L104).
 
 #### R-03 — "exact probes" for floating-point computations (medium)
 
@@ -161,7 +167,7 @@ Severity inside a tier runs from first to last. Where a matrix verdict is IMPREC
 
   > **Current (L120).** Which of (iii)–(v) a physical substratum supplies is open [GR §3.3].
   >
-  > **Proposed.** Conversely, every qubit theory satisfying (iv) realizes that process, so Theorem 4 classifies the completions compatible with embedded observation and does not derive quantum mechanics from it. The substratum as stated, finite bijective dynamics with the observer's read and write access, supplies no quarter phase; with a phase intervention assumed, its operations are monomial, with no continuously tunable state mixing, and on the qubit a theory of such operations fails (iv) and is not quantum; adding continuous control of the elementary transitions, with the closure properties kept, yields exact finite operational quantum mechanics on every nonempty finite carrier (all machine-checked) [GR §3.3]. Whether a physical substratum supplies the phases and that control is open.
+  > **Proposed.** Conversely, every qubit theory satisfying (iv) realizes that process, so Theorem 4 classifies the completions compatible with embedded observation and does not derive quantum mechanics from it. Because a bijective intervention acts on configurations as a permutation operator, the substratum as stated, finite bijective dynamics with the observer's read and write access, supplies no quarter phase; with a phase intervention assumed, its operations are monomial, with no continuously tunable state mixing, and on the qubit a theory of such operations fails (iv) and is not quantum; adding continuous control of the elementary transitions, with the closure properties kept, yields exact finite operational quantum mechanics on every nonempty finite carrier (machine-checked for the substratum class as formalized in [GR §3.3]). Whether a physical substratum supplies the phases and that control is open.
 
   > **Current (L173).** which of (iii)–(v) a physical substratum supplies is open
   >
@@ -173,6 +179,7 @@ Severity inside a tier runs from first to last. Where a matrix verdict is IMPREC
 
   Appendix A, L215: add `realizesSealedOICore_of_control` (OIRealization:252); `permClass_onesFixing`, `onesFixing_not_phasesAvailable` (PhaseSource:79, :52); `monomialSource_not_control` (SubstratumInterface:186); `substratum_residual`, `substratum_plus_control_qm` (StructuralClosure:383, :414).
 - **Length:** +158 words in full form (L12 +30, L120 +103, L173 +10, L183 +15); +118 with the short L120 of OD-2. Appendix A is outside the main-text budget.
+- **Modelling premise** (independent review, RC-4). The negative results follow from modelling reversible interventions as bijections of configurations, which act as permutation operators (monomial ones once the phase is stipulated); a continuously tunable mixing operator is not monomial (`offDiagonal_interp_not_monomial`). This is an exact account of what the stated architecture lacks, not a physical no-go for richer substrata. The identification of the Lean substratum class with the manuscripts' stated substratum is a paper-level modelling step, hence "as formalized".
 - **Pressure test.**
   - **Not used.** B4's `frozen_sourcing_verdict` and `readWriteSourced_not_qm` framing. FrozenSourcing's census family is kernel-only (no manuscript carries it, §A.35), so the text cites only current-family declarations.
   - **Not claimed.** That the substratum *supplies* (iii) and (v). GR states structural closure (spectator stability, adjoint, relabelling), not conditions (iii) and (v) of Theorem 4, so the text names only (iv).
@@ -183,19 +190,19 @@ Severity inside a tier runs from first to last. Where a matrix verdict is IMPREC
 
 #### R-07 — the ε-realization half of §3.4 (high)
 
-- **Covers:** CMP-01 (high, strengthen), CMP-08 (medium, add), I-159 (IMPRECISE: the heading is broader than the body and reuses "carrier").
-- **Lines:** L128, L130.
+- **Covers:** CMP-01 (high, strengthen), CMP-08 (medium, add), I-159 (IMPRECISE: the heading is broader than the body and reuses "carrier"); O-12 (now required).
+- **Lines:** L12 (abstract), L128, L130.
 - **Evidence.**
   - Main.md:544@eae01647, Theorem (finite operational realization and gluing — ε-form);
-  - Main.md:560 (one controlled dynamics serves every protocol);
+  - Main.md:560, Corollary (single controlled dynamics): one autonomous dynamics serving every adaptive protocol needs a program register exponential in $K$;
   - Main.md:562 (an operational realization theorem, not a uniqueness theorem; non-quantum families are realized too);
   - Main.md:576, Theorem (uniform continuum realization — mutual ε-density);
   - Main.md:578 (density, not identity, at fixed (d, m));
-  - Main.md:580 (Summary, item 4: "the maximal equivalence available to a fixed finite substratum");
+  - Main.md:580 (Summary, item 4);
   - Main.md:460, Theorem (intervention dilation: the finite classical action-labelled comb).
 
-  All are proved on paper, with no kernel statement.
-- **Proposed text** (full form; the short form is in OD-3):
+  All are proved on paper, with no kernel statement. `opglue_probes.py` computes laws exactly on named qubit instances but compares total-variation distances in floating point (tolerances 1e-15 and 1e-12): numerical evidence on instances, not certification.
+- **Proposed text** (independent review, RC-3; owner, 2026-10-26: "a positive realization theorem should not be treated as secondary merely because the Introduction currently emphasizes an obstruction").
 
   > **Current (L128).** ### 3.4 No fixed finite carrier reproduces a qubit
   >
@@ -203,14 +210,11 @@ Severity inside a tier runs from first to last. Where a matrix verdict is IMPREC
 
   > **Current (L130).** The obstruction does not touch Theorem 1, whose realization is chosen per law.
   >
-  > **Proposed.** The obstruction does not touch Theorem 1, whose realization is chosen per law. Approximately, the converse holds: for a $d$-dimensional system, a finite family of finite-Kraus instruments, a horizon $K$ and an accuracy $\varepsilon$, one finite reversible realization reproduces the outcome law of every adaptive protocol within $\varepsilon$ in total variation, and for instruments with at most $m$ outcomes the realized and quantum operational theories are mutually $\varepsilon$-dense at horizon $K$ (proved on paper) [Main §3.4, Theorems (finite operational realization and gluing — ε-form) and (uniform continuum realization — mutual ε-density)]. This is density, not identity: the construction also realizes non-quantum instrument families. Classical action-labelled interventions are realized exactly [Main §3.4, Theorem (intervention dilation: the finite classical action-labelled comb)].
+  > **Proposed.** The obstruction does not touch Theorem 1, whose realization is chosen per law. At finite accuracy the realization direction holds. Fix a $d$-dimensional system with an initial state, a finite family of instruments with finitely many Kraus operators (preparations entering as channels), a horizon $K$ and an accuracy $\varepsilon$: one finite reversible realization, which applies one fixed bijection per instrument to a digitized copy of the unnormalized quantum state held in its hidden sector, reproduces the outcome law of every adaptive protocol over the family within $\varepsilon$ in total variation, and for instruments with at most $m$ outcomes the realized and quantum operational theories are mutually $\varepsilon$-dense at horizon $K$ (proved on paper) [Main §3.4, Theorems (finite operational realization and gluing — ε-form) and (uniform continuum realization — mutual ε-density)]. A single autonomous dynamics serving every adaptive protocol needs a program register that grows exponentially with $K$ [Main §3.4, Corollary (single controlled dynamics)]. This is density, not identity: the construction also realizes non-quantum instrument families, and no fixed finite realization reproduces the exact theory. Classical action-labelled interventions are realized exactly by one fixed realization [Main §3.4, Theorem (intervention dilation: the finite classical action-labelled comb)].
 
-- **Length:** +104 words in full form; +46 in the short form of OD-3.
-- **Pressure test.**
-  - The "exact probes" tag is dropped: `opglue_probes.py` compares in floating point.
-  - The density statement keeps Main's own limits: fixed (d, m, K), and non-quantum families realized.
-  - "Approximately, the converse holds" refers to the preceding obstruction, so the paragraph does not read as a derivation of QM.
-  - The heading change also resolves I-159.
+  > **Abstract (L12), added clause.** Finite reversible realizations reproduce every finite quantum experiment to any stated accuracy (proved on paper); exact finite operational quantum mechanics is characterized by five completion conditions, none implied by OI alone.
+- **Length:** about +170 words in the main text, including the abstract clause. The short form is withdrawn (OD-3).
+- **Pressure test.** "Approximately, the converse holds" is withdrawn: the result is a finite-accuracy realization at a fixed instrument family, not the converse of the obstruction. The text states the fixed initial state, what the realization is (one fixed bijection per instrument acting on a digitized state), the program-register cost of a single autonomous dynamics, and that it is density and not identity. The "exact probes" tag is not used. The heading change also resolves I-159.
 
 #### R-08 — the independent-prior realization holds for every law (medium)
 
@@ -268,10 +272,26 @@ Severity inside a tier runs from first to last. Where a matrix verdict is IMPREC
   > **Proposed.** motivated by eigenstate thermalization [Main §3.4]; (5) a derivation of the complex matrix kinematics that Theorem 4 takes as given, and the extension of Theorem 4 to infinite-dimensional systems [GR §3.3].
 
   (If R-26 lands, apply this to R-26's replacement for item (4).)
+- **Two stages** (independent review, RC-7). Stage 1, now: append only "and the extension of Theorem 4 to infinite-dimensional systems [GR §3.3]". Stage 2, after the corpus correction PR-B states the kinematics assumption in GR §3.3 (CON-15): add "a derivation of the complex matrix kinematics that Theorem 4 takes as given". Until then [GR §3.3] does not carry the kinematics item, and the Introduction does not cite it for that.
 - **Length:** +25 words.
 - **Pressure test.**
   - "[GR §3.3]" carries the finite scope now, but carries the kinematics item only after CON-15's correction adds it. Until then the citation for (5) is ROADMAP P1, which the Introduction does not yet cite (OD-14).
   - The (Obs, μ) interface and the lattice cut of (C4) are also ROADMAP-only. They are optional (O-11), because the Introduction does not use the lattice construction.
+
+#### R-34 — the central narrative: "stop short of operational quantum mechanics" (high)
+
+- **Covers:** I-040 (UNDERCLAIM, independent review RC-8); the abstract and §6.4's second sentence; owner, 2026-10-26: "assess whether the Introduction's central scientific narrative needs adjustment".
+- **Lines:** L26, L12, L189.
+- **Evidence.** Once R-06 and R-07 land, the framework's quantum-reconstruction results read: exact at the fixed-basis level (Theorem 1, kernel); ε-exact for every finite operational experiment (Main §3.4, paper); exact operational quantum mechanics exactly when one control resource is added, which OI does not supply (GR §3.3, kernel, for the substratum class as formalized). "Stop short of operational quantum mechanics" omits the second and third.
+- **Proposed text.**
+
+  > **Current (L26).** results … which stop short of operational quantum mechanics
+  >
+  > **Proposed.** …its foundation and quantum-emergence results, which reach the fixed-basis statistics exactly and every finite quantum experiment to any stated accuracy, while exact operational quantum mechanics needs completion conditions OI does not imply.
+
+  Align the abstract (with R-07's clause) and §6.4's second sentence with that wording.
+- **Length:** about +20 words.
+- **Not changed.** The memory-centred thesis, the representation-not-derivation stance and the cosmological-constant conditionality are faithful (independent review §12).
 
 ### Tier 3: miscitations and attributions
 
@@ -408,12 +428,12 @@ Severity inside a tier runs from first to last. Where a matrix verdict is IMPREC
 
 - **Covers:** I-222 (IMPRECISE, conditional on a first-hand check).
 - **Lines:** L160; reference L335, which carries the VERIFY comment "content … cited from memory and not read".
-- **Evidence.** BHa C4 proves the rank law (`bh01_access_v1/REPORT.md`:125–132). The identification with "the secret-sharing threshold" has no source in BH-01 and rests on an unread paper.
+- **Evidence.** BHa C4 proves the rank law (`bh01_access_v1/REPORT.md`:125–132). Its proof names the linear secret-sharing threshold ("This is the linear secret-sharing threshold") without a source (independent review, RC-6), and [Sha79], the Introduction's source for it, is unread.
 - **Proposed text** (unless Sha79 is read first-hand before landing; OD-8):
 
   > **Current (L160).** and its linear case is the secret-sharing threshold [BHa; Sha79]
   >
-  > **Proposed.** and its linear case is a rank bound [BHa]
+  > **Proposed.** and its linear case is a rank law [BHa]
 
 - **Length:** −1 word. The [Sha79] entry is removed if unused.
 
@@ -618,6 +638,20 @@ Severity inside a tier runs from first to last. Where a matrix verdict is IMPREC
 
 - **Length:** 0 in the main text (+24 in Appendix B).
 
+#### R-33 — "the fixed-dimension form is false" stated without its evidence (low)
+
+- **Covers:** I-291 (IMPRECISE, independent review RC-5); CON-26.
+- **Lines:** L185.
+- **Evidence.** Main.md:594@eae01647 supports the falsity with `memory_probes.py`, which searches the uniform prior only and computes entropies in floating point. The audit's countercheck over arbitrary priors (`matrix/scripts/b4probe/fixeddim.py`) is a Nelder–Mead optimisation. The claim ranges over all realizations of fixed hidden dimension; neither probe covers that scope exactly, and the counts disagree (Main's "1 of 15" against the audit's "2 of 16", unresolved).
+- **Proposed text.**
+
+  > **Current (L185).** (the fixed-dimension form is false)
+  >
+  > **Proposed.** (the fixed-dimension form fails in numerical probes [Main §3.4])
+
+  Alternatively, keep the flat statement once Main carries an exact certificate.
+- **Length:** +3 words.
+
 ### Coverage check
 
 Every non-FAITHFUL matrix row maps to a finding:
@@ -635,7 +669,8 @@ Every non-FAITHFUL matrix row maps to a finding:
 | I-102 | R-22 | I-127 | R-02 | I-217 | R-20 | I-280 | R-31 |
 | I-103 | R-03 | | | I-218 | R-20 | I-281 | R-06 |
 | I-289 | R-27 | I-292 | R-09 | I-294 | R-26 | I-299 | R-24 |
-| I-300 | R-05 | I-383 | R-32 | | | | |
+| I-300 | R-05 | I-383 | R-32 | I-223 | R-01 | I-286 | R-01 |
+| I-291 | R-33 | I-040 | R-34 | | | | |
 
 The completeness rows recommended *add* or *strengthen* map as follows: CMP-01 to R-07, CMP-02 to R-06, CMP-03 to R-06, CMP-08 to R-07, CMP-17 to R-10, CMP-22 to R-08 and CMP-24 to R-26.
 
@@ -653,12 +688,12 @@ The *cite* recommendations of COMPLETENESS.md and the low-priority items. None i
 | O-4 | CMP-12 | Open problem (2): "over realizations reduced to the canonical predictive quotient [Main §3.4]" | L185 | ~10 | |
 | O-5 | CMP-14 | L38: "(machine-checked)" after "maximal-entropy default"; add `determinism_reversibility_selected_measure` (CanonicalMeasure:276) to Appendix A | L38 | 1 | Needs a new axiom report (OD-15). |
 | O-6 | CMP-23 | Open problem (3): "(for rooted families, periodicity is necessary and sufficient [Main §3.4])" | L185 | ~12 | Only after Main states it with a census anchor (OD-4). |
-| O-7 | CMP-25 | §5, after the H-scramble failure: "under a permutation, entanglement at an aligned bipartition never exceeds the basis entropy of the initial state [BHb, C2]" | L162 | ~25 | Sharpens R-01. |
+| O-7 (now required, in R-01) | CMP-25 | §5, after the H-scramble failure: "under a permutation, entanglement at an aligned bipartition never exceeds the basis entropy of the initial state [BHb, C2]" | L162 | ~25 | Sharpens R-01. |
 | O-8 | CMP-10 | §2.4: one sentence naming Main's Characterization theorem, labelled "proved on paper; not machine-checked", time-homogeneous | L86 | ~45 | OD-6. |
 | O-9 | CMP-04 | §3.2: (iii)–(v) restated as observational independence, reversible richness and observer recursion, each independent of the OI core [GR §3.3] | L120 | ~25 | Risks reading as a derivation; not recommended. |
 | O-10 | CMP-18 | One pointer sentence to [SM], "conditional on the carrier hypothesis H-link" | L26 | ~20 | Outside the deliberate scope. |
 | O-11 | CMP-17 (c)(d) | §6.3: the (Obs, μ) observer interface, and (C4) at the lattice cut beside the cosmological one | L183, L185 | ~25 | ROADMAP-only (OD-14). |
-| O-12 | CMP-01 | Abstract: one clause on the ε-realization | L12 | ~20 | OD-3. |
+| O-12 (now required, in R-07) | CMP-01 | Abstract: one clause on the ε-realization | L12 | ~20 | OD-3. |
 | O-13 | CMP-26 | §5: "accessible advantage cannot decrease as records accumulate, though advantage from the current records alone can [BHa, D1–D2]" | L160 | ~20 | |
 | O-14 | CMP-11 | §3.3: the kernel non-uniqueness of the continuous interpolation (`continuous_extension_not_unique`) | L124 | ~20 | A second non-selection result. |
 | O-15 | CMP-06 | Bohr-frequency completeness, kernel half only; the two-branch form rests on the open H-BG | — | — | Leave out. |
@@ -692,9 +727,8 @@ Each decision gives the options, a recommendation and the reason.
 - **Do not cite** `frozen_sourcing_verdict`: its census family is kernel-only.
 
 **OD-3. The ε-realization addition (R-07).**
-- **Recommendation.** Add it to §3.4 as proved on paper, without "exact probes", and not in the abstract unless the budget allows (O-12).
-- **Reason.** Without it §3.4 reads the obstruction as the whole story. Main calls the ε-realization "the maximal equivalence available to a fixed finite substratum" (Main.md:580).
-- **Short form** (+46 words instead of +104): "Approximately, the converse holds: at fixed dimension, outcome bound, horizon and accuracy $\varepsilon$, one finite reversible realization reproduces every adaptive protocol of a finite instrument family within $\varepsilon$, and the realized and quantum operational theories are mutually $\varepsilon$-dense (proved on paper) [Main §3.4]; this is density, not identity." The short form drops the classical comb clause (CMP-08), which then moves to the optional changes.
+- **Recommendation** (independent review, RC-3). Add the full R-07 text to §3.4 as proved on paper, without "exact probes", together with the abstract clause (O-12). The short form is withdrawn.
+- **Reason.** Without it §3.4 reads the obstruction as the whole story; both results must appear with their domains, assumptions and proof strengths (owner, 2026-10-26). Required content is not traded for page budget (OD-13).
 
 **OD-4. Kernel-only results that no manuscript states.**
 - **Affected results.** Three results the Introduction states or would state rest on census families marked `kernel-only`:
@@ -768,7 +802,8 @@ Each decision gives the options, a recommendation and the reason.
 | C-7 | L108 | −43 | The [Cal26] contrast and its reference |
 | C-8 | L177 | −31 | §6.2 item 6 reduced to "No claim that the card game produces quantum rather than classical statistics (Appendix B.3)." |
 
-- **Recommendation.** Use the short forms and C-1–C-8. The net is then about +155 words, about 0.4 page; then build and measure. If the main text must stay at 12 pages, the next candidates are R-10 (+25), which can wait for CON-15, and R-21's L156 sentence (+19).
+- **After the independent review.** The required additions are about +610 words in full form; the short forms of OD-2 and OD-3 are withdrawn for required content. With C-1–C-8 the net is about +400 words, roughly one page.
+- **Recommendation** (independent review). Required content (R-01, R-06 and R-07 in full) is not traded for budget. Take C-1–C-8 first, build and measure. If the main text then exceeds 12 pages, the owner decides between relaxing the 12-page constraint and further editorial cuts that remove no claim the audit needs; R-10 is deferred only for its citation (RC-7), not for length.
 - **AGENTS.md check.** After building, check the page count and the median characters per page.
 
 **OD-14. Citing ROADMAP-only open items.**
@@ -845,8 +880,7 @@ The record shows a careful paper whose defects are local.
 - **Unresolved count.** CON-26's count (Main's "1 of 15" against B4's "2 of 16 over arbitrary priors") was not reproduced by mapper C or here.
 - **The corpus commit.** The corpus was read at `eae01647`, not re-checked against any later `main`. PLAN.md requires a re-check if `main` has moved before the Introduction is revised.
 - **No build.** Page counts in part (c) are word-based estimates, not builds.
-- **Audit-internal defects, not corrected here** ("do not edit other files"):
-  - The merged `matrix.json` keeps B2's verdicts for I-123/I-124 (R-04 resolves them differently), and keeps B1's FAITHFUL for I-013 and I-008 (R-06 and R-24).
-  - COMPLETENESS.md's CMP-10 notes cite CON-04–06 where CON-17–19 are meant.
-- **Independent review.** The independent review of PLAN.md step 6 has not yet taken place.
+- **Audit-internal defects found during synthesis** are corrected: `matrix/resolutions.json` applies the resolved verdicts, statuses and fixes (I-008, I-013, I-123, I-124, and the independent review's I-223, I-225, I-286, I-291, I-040 and RC-12 status changes), and CMP-10 cites CON-17 to CON-19 in its generator and its outputs.
+- **Status labels.** `exhaustive-exact` marks exhaustive enumeration in exact arithmetic over a stated finite domain; `numerical` marks floating-point or otherwise inexact evidence (independent review, RC-12).
+- **Independent review.** `review/INDEPENDENT-REVIEW.md`: ACCEPT WITH CHANGES; its required changes RC-1 to RC-12 are applied in this file and the matrix. The evidence verification of PLAN.md step 7 and its independent review are separate.
 
