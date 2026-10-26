@@ -1,0 +1,4 @@
+control (exact Koide point recovers m_mu): PASS
+m_tau=1776.93: closure m_mu = 105.655832 MeV, dev -0.00241 %
+m_tau=1776.86: closure m_mu = 105.651271 MeV, dev -0.00672 %
+m_e/m_tau = 0.000287574  1/(36 pi^4) = 0.000285166  dev -0.837 %
