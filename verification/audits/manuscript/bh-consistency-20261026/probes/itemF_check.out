@@ -1,0 +1,4 @@
+30 Msun: t_evap/tau in [ 1.7853877E+57 , 1.7855154E+65 ]
+t_P/tau >=  1.1540746E+57
+1 Msun, Gamma=1: t_evap [yr] ~ 2.0954923E+67
+t_evap = tau_B^D at M in [1.059e+10, 4.917e+12] kg (float cube root)

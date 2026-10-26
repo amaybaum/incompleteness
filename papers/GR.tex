@@ -3806,7 +3806,7 @@ condition H-decouple, and leaves the generalized second law open. It is
 \emph{not} a claim that external observers' emergent quantum
 descriptions acquire BH-horizon-specific features; under
 partition-relativity (above), the cosmological horizon remains the
-primary partition. Appendix A resolves the formal nested-partition
+primary partition. Appendix A develops the formal nested-partition
 machinery in three layers.
 
 \emph{(i) Consistency of nested trace-outs (Appendix A, Theorems
@@ -3847,14 +3847,14 @@ turnover occurs at the Page time
 mass and of the emission coefficient when that coefficient is
 mass-independent); and the Page value is recovered, as a cycle average,
 for all but an exponentially negligible fraction (\(\sim e^{-10^{77}}\)
-for \(30 M_\odot\)) of initial conditions --- from Popescu-Short-Winter
-typicality {[}29{]} carried to the orbit by the scrambling condition
-H-scramble of Appendix A, which is not established there (uniformity
-over classical microstates is not uniformity over quantum pure states),
-the cycle decomposition on the finite energy shell supplying exact time
-averages, and conditional also on the decoupling condition H-decouple of
-Appendix A, which timescale ordering does not supply. The greybody
-factor is solution-specific.
+for \(30 M_\odot\)) of initial conditions --- from measure concentration
+{[}29, 61{]} carried to the orbit by the scrambling condition H-scramble
+of Appendix A, which is not established there (uniformity over classical
+microstates is not uniformity over quantum pure states), the cycle
+decomposition on the finite energy shell supplying exact time averages,
+and conditional also on the decoupling condition H-decouple of Appendix
+A, which timescale ordering does not supply. The greybody factor is
+solution-specific.
 
 Laboratory tests of the characterization theorem may be possible in
 analogue gravity systems where the hidden sector capacity is tunable.
@@ -4668,13 +4668,17 @@ The evaporation is far longer: the trajectory below gives
 \(\Gamma \sim 1\), so \(t_{\text{evap}}/\tau_B^D \sim 10^{62}\), and
 \(t_{\text{evap}} > \tau_B^D\) for every black hole heavier than about
 \(10^{11}\) kg. Theorem A.7 is stated for \(t \ll \tau_B^D\). Theorems
-A.8--A.9 work with a pure joint state of \(B\) and \(R\) at the Page
-time and over the evaporation, and so rely on the decoupling condition
-\textbf{H-decouple}: over the evaporation, \(B \cup R\) stays decoupled
-from the trans-cosmological sector \(D\) and unentangled with the rest
-of the visible sector, \(V \setminus R\), so that its joint state
-remains effectively pure. Timescale ordering does not supply H-decouple,
-and it is not established here.
+A.8--A.9 treat \(B \cup R\) as a closed system, on which \(\varphi\)
+acts as a bijection of an energy shell
+\(\Sigma_E \subset \mathcal{H}_B \otimes \mathcal{H}_R\), so that a pure
+joint state of \(B\) and \(R\) stays pure; applied to the black hole and
+its radiation, they therefore rely on the decoupling condition
+\textbf{H-decouple}: \(B \cup R\) evolves with no coupling to the
+trans-cosmological sector \(D\) or to the rest of the visible sector,
+\(V \setminus R\), and its joint state is pure. The full-cycle averages
+of Theorem A.9 use H-decouple over whole cycles of the dynamics, not
+only over the evaporation. Timescale ordering does not supply it, and
+H-decouple is not established here.
 
 \textbf{Theorem A.7} (Effective pure state). \emph{On timescales
 \(t \ll \tau_B^D\), the joint state of \(V\) and \(B\) is effectively
@@ -4695,10 +4699,10 @@ so \(\rho_{VB}\) is pure at leading order, with correction
 The restriction of \(|\psi_{VB}\rangle\) to \(B \cup R\), where
 \(R \subset V\) is the radiation, is pure only when the rest of the
 visible sector, \(V \setminus R\), is unentangled with \(B \cup R\);
-Theorem A.7 does not establish this. Theorems A.8--A.9 take the joint
-state of \(B\) and \(R\) to be pure, on
-\(\mathcal{H}_B(t) \otimes \mathcal{H}_R(t)\), throughout the
-evaporation; that is the condition H-decouple.
+Theorem A.7 does not establish this. Theorems A.8--A.9 take \(B \cup R\)
+to be a closed system in a pure joint state on
+\(\mathcal{H}_B(t) \otimes \mathcal{H}_R(t)\); that is the condition
+H-decouple.
 
 \textbf{Theorem A.8} (Cycle typicality, conditional on H-scramble).
 \emph{For the dynamics \(\varphi\) on the energy shell
@@ -4759,10 +4763,15 @@ What the argument needs is a separate condition, \textbf{H-scramble}:
 the orbit ensemble equidistributes over quantum pure states on the
 shell, in the sense of an approximate unitary design or comparable
 scrambling property. Under H-scramble the counting step below goes
-through with \(\eta|\Sigma_E|\) as written. H-scramble is not
-established here, and the lesson generalizes: uniformity over classical
-microstates is not uniformity over quantum pure states. The same
-distinction governs H-state in §2.
+through with \(\eta|\Sigma_E|\) as written. By the preceding paragraph,
+H-scramble fails for every bijection in the setting of Theorem A.7's
+proof, a definite initial configuration with the bipartition aligned to
+the configuration coordinates: it requires an initial superposition of
+configurations or a bipartition not aligned with them, and which of
+these the substratum supplies is open. H-scramble is not established
+here, and the lesson generalizes: uniformity over classical microstates
+is not uniformity over quantum pure states. The same distinction governs
+H-state in §2.
 
 Call a cycle \emph{bad} if its time-averaged entropy deviates from
 \(S_{\text{Page}}\) by more than \(2\epsilon\). Every state's deviation
@@ -4894,9 +4903,9 @@ are essential to obtaining the saturating Page curve at late times.
 
 The derivation here obtains a cycle-averaged Page curve of the same form
 through the cycle-typicality argument of Theorem A.8, which applies
-Popescu-Short-Winter {[}29{]} to the deterministic substratum dynamics
-on the energy shell under H-scramble, with no replica trick and no
-gravitational path integral; H-scramble is an equidistribution
+measure concentration {[}29, 61{]} to the deterministic substratum
+dynamics on the energy shell under H-scramble, with no replica trick and
+no gravitational path integral; H-scramble is an equidistribution
 hypothesis on the orbit over pure states, which ergodicity over
 configurations does not supply. In the QES computation the turnover
 occurs where the island saddle's generalized entropy, at leading order
@@ -5183,4 +5192,4 @@ entanglement,'' \emph{Commun. Math. Phys.} \textbf{265}, 95--117 (2006);
 arXiv:quant-ph/0407049.
 
 \end{document}
-% source-sha256: 6859866216c3a4cc2f587a33886af1ba2e83d062e8efda345615aeddd9a4942d
+% source-sha256: 6e33f5fdf7794f55d2b24ae572f725bca126df6bd28098dc61c123c8bfc2e416

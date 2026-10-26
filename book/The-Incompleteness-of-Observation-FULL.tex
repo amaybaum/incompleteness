@@ -10075,13 +10075,15 @@ entropy of the smaller subsystem lies close to Page's mean, about
 \(\ln d_{\min} - d_{\min}/(2d_{\max})\) --- within half a nat of the
 maximum \(\ln d_{\min}\) when the two dimensions are equal, and closer
 as the larger one grows --- with deviations from that mean exponentially
-unlikely in the dimension of the smaller subsystem. Applying it to the
+unlikely in the dimension of the smaller subsystem. Applying them to the
 substratum requires H-scramble: uniformity over classical microstates is
 not uniformity over quantum pure states, and every finite bijection
 acting on a definite configuration, with the bipartition aligned to the
 configuration coordinates, visits only product states, however uniformly
-it counts its energy-shell cycles ({[}GR Appendix A{]}); the condition
-is named, not established.
+it counts its energy-shell cycles ({[}GR Appendix A{]}). H-scramble
+therefore fails in that setting and requires an initial superposition of
+configurations or a bipartition not aligned with them; which of these
+the substratum supplies is open, and the condition is not established.
 
 Applied to the evaporating black hole, the relevant bipartite structure
 is the radiation field outside the black hole versus the boundary modes
@@ -10095,10 +10097,10 @@ fixed by the initial black hole entropy,
 Under H-scramble, which carries Popescu-Short-Winter measure
 concentration from the Haar ensemble to the orbit of the bijection, and
 under the decoupling condition H-decouple of {[}GR Appendix A{]}, which
-keeps the black hole and its radiation in an effectively pure joint
-state over the evaporation, the radiation's entanglement entropy,
-averaged over full cycles of the dynamics at the bipartition of time
-\(t\), is approximately
+treats the black hole and its radiation as a closed system in a pure
+joint state, the radiation's entanglement entropy, averaged over full
+cycles of the dynamics at the bipartition of time \(t\), is
+approximately
 \[\overline{S}_{\text{rad}}(t) = \min(n_R(t), n_B(t)) \cdot \ln q,\]
 where \(q\) is the substratum's alphabet size, so that the state space
 of one mode has dimension \(q\), with a correction of at most about half
@@ -10175,22 +10177,23 @@ disconnected from the radiation region. The replica wormhole geometries
 connecting the replicas in the gravitational path integral are essential
 to obtaining the saturating Page curve at late times.
 
-The framework arrives at a Page curve of the same form --- rise,
-turnover, fall --- through a substantially different mechanism. The
-cycle-typicality argument invokes the Popescu-Short-Winter theorem
-applied to the deterministic substratum dynamics on the energy shell,
-under the scrambling condition H-scramble of {[}GR Appendix A{]} ---
-uniformity over classical microstates is not uniformity over quantum
-pure states, and that condition is not established --- with no replica
-trick and no gravitational path integral. In the QES computation the
-turnover comes where the island saddle's generalized entropy, at leading
-order the black hole's remaining Bekenstein-Hawking entropy, falls below
-the semiclassical entropy of the radiation. The two Page times coincide
-when that semiclassical entropy grows one-for-one with the horizon
-entropy lost, the \(\beta = 1\) of the mode counting; in the
-semiclassical regime defined above \(\beta > 1\) holds (Page 2005; for
-the QES setting, Penington 2019, §2), so agreement between the two
-derivations on the Page time and the Page entropy is not established. A
+The framework arrives at a cycle-averaged Page curve of the same form
+--- rise, turnover, fall --- through a substantially different
+mechanism. The cycle-typicality argument applies Popescu-Short-Winter
+measure concentration to the deterministic substratum dynamics on the
+energy shell, under the scrambling condition H-scramble and the
+decoupling condition H-decouple of {[}GR Appendix A{]} --- uniformity
+over classical microstates is not uniformity over quantum pure states,
+and neither condition is established --- with no replica trick and no
+gravitational path integral. In the QES computation the turnover comes
+where the island saddle's generalized entropy, at leading order the
+black hole's remaining Bekenstein-Hawking entropy, falls below the
+semiclassical entropy of the radiation. The two Page times coincide when
+that semiclassical entropy grows one-for-one with the horizon entropy
+lost, the \(\beta = 1\) of the mode counting; in the semiclassical
+regime defined above \(\beta > 1\) holds (Page 2005; for the QES
+setting, Penington 2019, §2), so agreement between the two derivations
+on the Page time and the Page entropy is not established. A
 correspondence between the two constructions is conjectured: the
 \emph{island} in the QES formulation would correspond to the
 post-Page-time regime in which the black hole's boundary modes form the
@@ -30580,4 +30583,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: 17d8e99a399f60115a28cfb83275b4bb2fc1d9b7059d9e0d1d7980f81aece27d
+% source-sha256: 5f5e50a479d1cd0cbed98d1eecc1d76f69246e413eb3ecd4833accd53e496e9e
