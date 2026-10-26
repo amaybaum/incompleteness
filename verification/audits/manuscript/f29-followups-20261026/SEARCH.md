@@ -44,10 +44,11 @@ at `c967d6a9`.
 - **C**: correct as stated, with its hypotheses named.
 - **U**: unrelated to the quantifier or the history length.
 
-## O: outdated, corrected (7 lines; 4 sites, one of them mirrored)
+## O: outdated, corrected (8 lines; 5 sites, one of them mirrored)
 
 | Location | Claim | Correction |
 |---|---|---|
+| `papers/Explainer.md:353` | theorem statement "⟺ embedded observation under C1, C3, C4 (per finite accessible horizon)" | anchor at an order $k$, every $K \geq k+1$, readback at $k$ (review finding 2) |
 | `papers/Explainer.md:373` | non-Markovian ⟺ realization "on each finite accessible horizon" | anchor at an order $k$, every $K \geq k+1$, readback at $k$ |
 | `book/appendix-b-derivations.md:454` | equivalence "on each finite accessible horizon" | as above |
 | `book/appendix-b-derivations.md:455` | display "… C1, C3, C4, per finite accessible horizon" | display $\exists k\,\forall K \geq k+1$, readback at $k$ |
@@ -56,7 +57,7 @@ at `c967d6a9`.
 | `papers/Main.md:167` | readback lemma: "histories … of length $k$ with a common endpoint" | values of $X_{<k}$, length $k$, followed by common present $X_k = c$; $p_0$ bounds $\Pr[X_{<k}=p, X_k=c]$ |
 | `papers/Main.md:170` | proof: "common endpoint $c$", unnamed $w_a$ | "common present state $c$", $w_a = \Pr[X_{<k}=a \mid X_k=c]$ |
 
-## C: correct as stated (50)
+## C: correct as stated (49)
 
 ### Already witness-anchored by #932 (4)
 
@@ -93,7 +94,7 @@ These are true on every horizon, Markov laws included.
 | `papers/Main.md:510` | fixed-$\hat H$ form "at every horizon time", for a realized process |
 | `book/ch01-observation.md:73` and `FULL.md:417` | "the characterization theorem in its current per-horizon form", a section pointer; see the note under U |
 
-### Slogans: "⟺ C1/C3/C4 per (finite) accessible horizon" (12)
+### Slogans: "⟺ C1/C3/C4 per (finite) accessible horizon" (11)
 
 This re-checks the earlier review's claim that these sites are unaffected.
 
@@ -167,8 +168,8 @@ for the owner.
 
 | Class | Lines |
 |---|---|
-| O, outdated and corrected | 7 |
-| C, correct as stated | 50 |
+| O, outdated and corrected | 8 |
+| C, correct as stated | 49 |
 | U, unrelated | 27 |
 | **Total distinct locations** | **84** |
 
@@ -180,6 +181,3 @@ The count lists each mirror line separately.
 - "length-$k$ histories" occurs only at `:170`.
 - "common endpoint" occurs only at `:167` and `:170`.
 - No paper or book file paraphrases the lemma's hypothesis. GR:20 cites the lemma by name.
-
-**Reclassified after review:** `papers/Explainer.md:353` is a theorem statement whose parenthetical "(per finite
-accessible horizon)" admits the every-horizon reading; it is corrected in this change (CHANGE-NOTE, review fixes).
