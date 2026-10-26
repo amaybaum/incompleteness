@@ -23,13 +23,14 @@ computed or read.
    - An interval bears on no verdict.
 2. **LF-A (linear-filter observers).** Owner: "Passive, not part of the deciding criterion".
    - Linear-filter observers are passive ($a \equiv 0$) and are named "passive linear filters" in every output.
-   - **Clarification.** Under the frozen plan, any explicit-table observer meeting (a)–(f) is a COUNTEREXAMPLE, so
-     excluding linear filters from the deciding criterion would narrow it after smoke results. That is the kind of
-     change the owner's sign decision rejects. The owner was asked whether passive linear-filter witnesses should
-     count toward the COUNTEREXAMPLE criterion, as the frozen plan allows, or only be reported, and answered "No
-     preference".
-   - This amendment therefore keeps the frozen plan's rule. A passive linear-filter witness meeting (a)–(f) counts as
-     a COUNTEREXAMPLE, and the criterion is not narrowed.
+   - **Clarification.** Under the frozen plan any explicit-table observer meeting (a)–(f) is a COUNTEREXAMPLE, so
+     excluding linear filters from the deciding criterion would narrow it after smoke results. Asked, the owner first
+     answered "No preference", then clarified on 2026-10-26: "Linear-filter observers: Passive in the sense that they
+     do not adapt their strategy, but fully eligible to produce deciding counterexamples. Every eligible explicit-table
+     observer counts, including linear filters and the cells they uniquely reach." and "The governing principle is
+     that no observer class or counterexample is excluded merely because it makes the claim harder to sustain."
+   - A passive linear-filter witness meeting (a)–(f) is therefore a COUNTEREXAMPLE, and the criterion is not
+     narrowed.
 3. **WIT-A (condition (a)).** Owner: "Restrict to the three fixed generators".
    - Condition (a) is read as $\varphi \in \{$`G_lin`$(p_n)$, `G_filt`$(p_n)$, `G_clk`$(p_n)\}$.
    - The other family members enter through the K0 status only. This reading is conservative toward the claim under
@@ -43,6 +44,9 @@ computed or read.
 5. **D-SIGN (condition (d)).** Owner: "the plan's original literal reading". Owner: "Retain the signed version as a
    separately reported sensitivity analysis. Both should be computed on exactly the same frozen data, without changing
    the governing criterion afterward."
+   - Owner, 2026-10-26: the |adv| rule "is the primary deciding rule, exactly as written in the original plan. The
+     signed rule is computed and reported separately as a sensitivity analysis, without changing the primary
+     verdict."
    - **The governing rule is the literal §2 definition, `abs`:** $|\Pr[\chi = X_{K'}] - 1/2| \ge 1/8$ at every
      $K' \in [K-3, K]$, for the same $O$ and $\chi$. This is the COUNTEREXAMPLE rule and decides the verdict.
    - **The sensitivity analysis is `signed`:** $\Pr[\chi = X_{K'}] - 1/2 \ge 1/8$ at every $K'$, for one $\chi$.
