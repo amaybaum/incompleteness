@@ -882,3 +882,40 @@ and "DESI". The scan found no new hit.
 (ch06:332), with FULL mirrors; no other site quotes the count. Twenty-four table entries and five empirical channels
 are unchanged.
 
+
+## Independent review of `2cb44824`, and its required change
+
+`review/REVIEW-CORRECTIONS.md` is the independent diff review of `2cb44824`. Its verdict is REVISE, with one required
+finding, F1, and two nits. Five of its six checks pass:
+- the diff equals the DECISIONS texts, apart from the recorded qualification adjustments and the two residue fixes;
+- FULL mirrors every book edit;
+- the O4 and O6 adjustments meet the owner's wording;
+- R1 and R2 are correct; Koide Q at full precision is 0.6666645, which is 0.00033 % from 2/3;
+- the T-23 ledger entry is re-affirmed correctly;
+- no stale figure remains, and the Category A count is 8.
+
+**F1, applied verbatim (within O1-A).** Lemma 23.0 and Theorem 23's proofs still asserted a Stage-3 value of ħ without
+H-slope, contradicting Substratum:178.
+
+| Site | Old | New |
+|---|---|---|
+| Substratum:188 (Lemma 23.0) | "and the same Stage-3 value of $\hbar$.*" | "and, conditional on H-slope with the horizon and frame conditions of [GR §3.2], the same Stage-3 action-scale relation $\hbar = c^3\epsilon^2/(4G\sigma)$.*" |
+| Substratum:190 (proof of Lemma 23.0) | "Stage 3 fixes the same gap-equation value $\hbar=c^3\epsilon^2/(4G\sigma)$;" | "Under H-slope, Stage 3 fixes the same gap-equation relation $\hbar=c^3\epsilon^2/(4G\sigma)$;" |
+| Substratum:194 (proof of Theorem 23) | "Stage 3 uniquely fixes $\hbar$." | "Stage 3, conditional on H-slope, fixes the relation $\hbar=c^3\epsilon^2/(4G\sigma)$." |
+
+**Ledger.** `SUBSTRATUM:L-23.0` is re-affirmed, fingerprint `11c8a93fc88cf91b` → `fd8439a8bd3f7ee1`. The mapping (Lemma
+23.0, line 188), the level (`GAP`) and the delta ("not formalized") still hold, and "see the statement" now covers the
+H-slope condition. No other entry goes stale.
+
+**N1, applied.** At ch06:179 and FULL:1705, "…at 95% confidence, conditional on … rather than as a model-independent
+exclusion;" becomes "…at 95% confidence; the interval is conditional on … and is not a model-independent exclusion;".
+
+**N2, not applied.** It would display Q at full precision. O7-a fixed the displayed value as 0.666664 ± 0.000005, and
+"0.0003 %" is correct at full precision.
+
+**Unchanged.** book/README:98 states the relation, not a value, so it stays as it is.
+
+**Checks after F1 and N1:**
+- `coverage_check` passes, with 128 statements.
+- `voice`, `claims`, `duplicate`, `staleness` and `mirror_check` all pass.
+- Substratum rebuilt at 52 pp and the book at 556 pp, with no dropped glyphs.
