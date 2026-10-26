@@ -60,3 +60,18 @@ sentence. Landing remains gated by the R11/R12 markers (a separate, reviewed man
 §A.42 retention of the Lean axiom-check expected result, the five VERIFY markers, and a direct re-check of the Lean
 identifiers at landing, since the census tool does not cover this paper.
 
+
+## Draft r5: one idea, two consequences
+
+`Introduction-r5.md` is written from design r7 (`../design/OUTLINE-r7.md`; its confirmation re-check
+`../design/review/r6/RECHECK-r7.md`: ACCEPT WITH NITS). It follows the owner's narrowing of 2026-10-26:
+- quantum emergence is the central thesis;
+- the cosmological constant and black-hole information are the two applications, each stated as not a
+  demonstrated resolution;
+- derivations are cited, not re-derived.
+
+Main text is 12.0 pages in the default build (17 in total with the appendices and references), with no overfull
+boxes and no dropped glyphs. `voice_check`, `claims_check` and `duplicate_check` pass, and all 28 Lean identifiers
+resolve. `CHANGES-r5.md` maps every paragraph to its outline item and source, and lists the ten places (F1–F10) that
+go beyond reviewed text. `scripts/build_r5.py` assembles the draft and asserts that every carried r4 sentence is
+verbatim. Independent scientific and editorial reviews are in progress. r4 stays the accepted earlier draft.
