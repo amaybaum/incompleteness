@@ -241,7 +241,7 @@ A specific technical objection concerns the framework's gap equation in Chapter 
 
 **The framework's response.** The logical chain in Chapter 7 §7.4 has four steps that show the derivation is *not* circular.
 
-*Step 1.* The framework's partition-relativity result proves that $\hbar$ is determined by the partition geometry. This is a structural claim about the framework's setup, not a quantum assumption.
+*Step 1.* Under the canonical measure of Lemma 3 of Chapter 1, the framework's partition-relativity result proves that $\hbar$ is determined by the partition geometry. This is a structural claim about the framework's setup, not a quantum assumption.
 
 *Step 2.* Boundary-only dependence proves that $\hbar$ depends only on $c$, $G$, and the discreteness scale $\epsilon$. This follows from the framework's substratum being a finite-area boundary system, again a structural claim.
 

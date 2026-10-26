@@ -1,0 +1,11 @@
+--- a/checks.py
++++ b/M1_slot_parity.py
+@@ -135,7 +135,7 @@
+ # ---------- exact complete-record TV of independent agreement slots ----------
+ 
+ def slots(h):
+-    return h // 2, (h + 1) // 2     # (A-type reads, B-type reads); read 1 is B-type
++    return (h + 1) // 2, h // 2
+ 
+ 
+ def tv_direct(pa, pb, h):

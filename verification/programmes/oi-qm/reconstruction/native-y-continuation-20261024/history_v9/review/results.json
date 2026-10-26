@@ -1,0 +1,48 @@
+{
+  "additional_q9_geometry": {
+    "affine_cross_segments": 49,
+    "bank_bits": "6P+18d+189",
+    "bank_triples": "2P+6d+63",
+    "post_R_horizon": 9,
+    "ready_cone_family_pairs": 154,
+    "same_tick_edges": [
+      [
+        2,
+        5
+      ],
+      [
+        3,
+        5
+      ]
+    ],
+    "torus_lift_bound": "28R < side/2"
+  },
+  "controls_passed": true,
+  "geometry": {
+    "affine_cross_segments": 49,
+    "bank_bits": "6P+18d+168",
+    "bank_triples": "2P+6d+56",
+    "post_R_horizon": 8,
+    "ready_cone_family_pairs": 147,
+    "same_tick_edges": [
+      [
+        2,
+        5
+      ],
+      [
+        3,
+        5
+      ]
+    ],
+    "torus_lift_bound": "28R < side/2"
+  },
+  "native_controls": {
+    "backgrounds": 3,
+    "chronological_blocks": 3,
+    "distinct_full_words_per_background": 512,
+    "native_assignments": 1536,
+    "shared_or_pinned_words": 64
+  },
+  "schema": "history-v9-independent-review-v1",
+  "verdict": "PASS_CONDITIONAL_HISTORY_PROOF"
+}

@@ -1,0 +1,8 @@
+{
+  "core_source": "continuation/core.py (copied from native-Y v1 handoff)",
+  "core_sha256": "b16155925700321abdb6f59260bc510e8e6c1d039f30c9eadc0c4320de89c941",
+  "conditional_gadget": "five-tick pure A extraction",
+  "baseline_use": "only actual late-neighbour identity",
+  "independent_review": "pending parent review",
+  "repository_writes": false
+}

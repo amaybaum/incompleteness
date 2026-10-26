@@ -1,0 +1,11 @@
+--- a/checks.py
++++ b/M2_wrong_grid_order.py
+@@ -51,7 +51,7 @@
+         for face in range(3):
+             free = [j for j in range(3) if j != face]
+             for s in (-1, 1):
+-                for u, v in product(range(-M + 1, M, 2), repeat=2):
++                for v, u in product(range(-M + 1, M, 2), repeat=2):
+                     z = [0, 0, 0]
+                     z[face] = s * M
+                     z[free[0]], z[free[1]] = u, v

@@ -1,0 +1,11 @@
+--- a/checks.py
++++ b/N1_rs_memoryless.py
+@@ -543,7 +543,7 @@
+         lo, hi, rec = Q(0), Q(1), ()
+         for t in range(1, h + 1):
+             m = lo + QUANTUM * (hi - lo)
+-            g = 1 if Q(k >> (N - t * B), 1 << (t * B)) < m else 0
++            g = 1 if Q((k >> (N - t * B)) % (1 << B), 1 << B) < QUANTUM else 0
+             rec += (g,)
+             lo, hi = (lo, m) if g else (m, hi)
+         law[rec] = law.get(rec, 0) + 1

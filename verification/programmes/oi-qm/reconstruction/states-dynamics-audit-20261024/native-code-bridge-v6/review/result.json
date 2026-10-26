@@ -1,0 +1,23 @@
+{
+  "checks": {
+    "best_deterministic_error": "3/20",
+    "continuous_pair_tv_squared": "1/2",
+    "deterministic_responses": 4096,
+    "five_value_reversible_inputs": 120,
+    "full_pushforward_cells": 48,
+    "labelled_full_input_tv": "1",
+    "new_angular_matrix_reads": 4,
+    "old_menu_matrix_reads": 16,
+    "positive_part_identity_cases": 150,
+    "projected_preparations": 4,
+    "reachable_response_pairs": 211,
+    "same_cell_independent_witnesses": 2,
+    "source_pair_tv": "1/2",
+    "stochastic_sharp_pair_error": "1/10",
+    "target_pair_tv": "7/10"
+  },
+  "reviewed_author_revision": "0449d85910aed0f838b629ee683061ce9960cc2d",
+  "schema": "oi.native-code-bridge-v6.independent-review.v1",
+  "scope": "One autonomous common selected-code input and common independent apparatus; no bound asserted for the actual native full boundary/history/masked code or general OI/A2.",
+  "verdict": "ACCEPT_SCOPED_CALIBRATION_BRIDGE_AND_COMMON_CODE_PAIR_BOUND"
+}

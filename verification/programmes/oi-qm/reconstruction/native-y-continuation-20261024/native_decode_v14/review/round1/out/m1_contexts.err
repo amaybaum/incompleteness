@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/m1_contexts/checks.py", line 644, in <module>
+    main()
+    ~~~~^^
+  File "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/m1_contexts/checks.py", line 531, in main
+    need(sa_e.prefix3 == (ref['affine_E_maps_after_constraints'] if ref else 0),
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         'E prefix count %d%d' % (o0, o1))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/m1_contexts/checks.py", line 29, in need
+    raise RuntimeError('control failed: ' + label)
+RuntimeError: control failed: E prefix count 05
+rc=1

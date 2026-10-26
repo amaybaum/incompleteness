@@ -1,0 +1,62 @@
+{
+  "schema": "native-vread-v15-provenance-1",
+  "repository": "amaybaum/incompleteness",
+  "guiding_pr": 910,
+  "plan_base": "bef79f6f3daec0b734a7d9c6a9423ed634852818",
+  "plan_commit": "ead2c38842222786c68551484b708c19f29c83ab",
+  "plan_sha256": "e24c16322a06d35aab6465c40e1dfcf5c08b6a3d8e4ffed93c0d3afb73a7c985",
+  "inputs": {
+    "native_route_v13/result.json": "762b9799db7448c4eecf2c994c8c68ff94e1be83a7f6884b4a36385505df5a02",
+    "native_route_v13/review/result.json": "73780def8505d68d1967936116a88a49d471eb32aeb83d528ff3cd41025ae6e4",
+    "native_decode_v14/result.json": "3172e7d013c09cdcdf638a7ace68e0eff98bb3cd0411e8666b76a8226ad59034",
+    "branch_v10/local-controller/symmetric-result.json": "d8e7c1f5841192165beefb3fe35b069cc14cc93f2faa2bd68619aa7748b3db2f",
+    "parallel_v3/history_control/SOURCE-GEOMETRY.json": "2642e1a68825faa5d3bb1049e8722adec1ec33bd3f56b9e4416b2c902a85ec5d",
+    "native_route_v13/checks.py": "8c1bbc37f47b6ff7ad7ee67d719f058067e2e15e9a6a967adfb78ef57d1ed856"
+  },
+  "q10_table_sha256": "b2f32466113dede2fa9e43469f5c209fde5d610180ed748dcd025d4cd2a4b3cc",
+  "input_roles": "Retained q10 table at L+1 (native_route_v13 author 753fe4f69392ca940754489468e8c8235f6aa583) and its separate-engine digest; v14 fewest-seed q10.A law and law count; old q9 table at L; inherited source inventory. All read as data; no earlier engine imported. native_route_v13/checks.py is parsed with ast and its geometry() ready list, q10 extension, ports, deadlines and bank directions are evaluated as literals (no code executed) and compared with this checker's list.",
+  "cited_written_results": [
+    "native_v11/REPORT.md, Native proof in arbitrary background: unique axial first arrival is a permutation of the source triple",
+    "native_x_v12/REPORT.md section 4: permitted public past through L+2 and the proposed single whole-V read",
+    "history_v9/REPORT.md, Fixed dynamics, ports and bank: port records exposed at every tick; bank rays",
+    "shared_v12/INTERFACE-CONTRACT.md: old whole-q9 terminal X record at L",
+    "native_route_v13/checks.py geometry(): the ready-ball and source inventory used for classification"
+  ],
+  "post_plan_changes": [
+    "K2 and the reach predicate include the parity condition of the second-order rule (a current-slice cell influences (t,w) only when t-dist is even); the first implementation omitted it and K2 failed on the inactive axial cells at distance n, before any verdict was produced.",
+    "K3/K4 use two background families, SHA-256 and low-degree polynomial; the first implementation used the polynomial family only, under which the off-axis countercontrol cell changed only one neighbor for even n. The K3 countercontrol is implemented as observed in at least one SHA-256 world, with per-world counts reported for both families.",
+    "K5 adds anchors for a B_(L+1)(q10) interior cell and for the receiver threshold; K6 adds Native A's f8 public slack 77.",
+    "Mutant K6_q9_row_order swaps a and b; an x/u swap was an equivalent mutant because q9 at L depends on x XOR u."
+  ],
+  "scope": "One native tick from q10 at L+1 into Native A's declared whole-V read, in the native_route_v13 source geometry; not a native gate, acceptance predicate, carrier law, access rule, preparation change or equivalence claim.",
+  "first_execution_commit": "2c43d615a440c2b837dc19f410759d01a47e5362",
+  "post_review_changes": [
+    "Separate review of 2c43d615 (accept with nits) was addressed in the commit after it; the outcome is unchanged.",
+    "REPORT Result paragraph: privacy and independence statements made conditional on a uniform free key; under the contract alone only (i) holds.",
+    "Verdict generator: counts the unseen free keys correctly; lists inference from the permitted port record as a third route for a key that reaches a port; states the port-coupling caveat only for the case with no uniform unseen key; plural handling; drops the redundant 'nonconstant'; no longer lists q10 at L+1 among permitted records; adds the previous-slice keys to the necessary conditions.",
+    "K5: anchors for E, N, F10 and the q10 axial cell compare the full (status, reason) pair; the reviewer's mutant K5_E_moved is in the mutant set and is caught.",
+    "K5: native_route_v13/checks.py pinned by hash; its geometry() lists are read as data and must equal this checker's ready list, q10 extension, ports, deadlines and bank directions. Ready margins of every key are recorded; the -x, +y and -y keys sit at margin 2 from the q9 L-ball and B_(L+1)(q10).",
+    "K3 countercontrol strengthened to at least one SHA-256 world for every n. With the earlier relaxed rule (one world in all), the polynomial family alone would also have passed (6 of 12 worlds), so the SHA-256 family was not what made the relaxed rule pass.",
+    "K3: scalar and bit-parallel evaluators compared on all 8 key values (2304 comparisons, previously 432 on 3 values).",
+    "K2: key lemma also checked by dependency-set propagation through the rule for n=1..6 over both initial slices, compared cell by cell with the cone formula.",
+    "Previous-slice keys q9+(L+1)e classified with previous ready radius r-1 and checked in 144 small native worlds; -x, +y, -y free, +x and -z pinned, +z inside the previous q10 ball. They enter verdict (iii) only; the outcome rule keeps the preregistered current-slice keys.",
+    "Seven further mutants (28 in all).",
+    "Re-check of 74541cf1 (accept with nits) addressed in the commit after it; the outcome is unchanged.",
+    "R1: the generated verdict, Scope and not_established state that the classification and outcome are conditional on the declared ready-cone, source and bank inventory shared with native_route_v13 being complete (no undeclared readiness, preparation or correlation; no record in the lineage with a deadline beyond L+1, the largest declared ready radius used), and that part (ii) is conditional in addition on a uniform free key.",
+    "R2: local_sources() adds junction_v4's fourth selector (4T,P+S,0) and opposite reset pulse (0,S,-S-136), with strict anchors; no key or other anchor classification changes.",
+    "R3: the native_route_v13 geometry reader fails closed if a tracked list (target, deadline, ports, deadlines, ready, directions) is assigned, augmented, aliased, used as a loop or comprehension target, deleted, declared global or nonlocal, or receives a method call anywhere other than the top-level statements it reads. Eight mutated in-memory copies of the pinned file (nested +=, append, extend, insert, subscript assignment, extra +=, loop target, alias) are refused in the checker itself; the pinned-hash check is unchanged.",
+    "R4: REPORT cites junction_v4's inherited independent-uniform complement prior, which satisfies the hypothesis of (ii).",
+    "Four further mutants (32 in all).",
+    "Check of 96bfc56c (accept with nits) addressed in the commit after it, wording only; no checker logic changed and the outcome is unchanged.",
+    "N1: the R3 entry above overstates the reader. What is enforced: outside the top-level statements it reads, the reader refuses the listed write forms on a tracked name (assignment, augmented assignment, direct aliases, loop or comprehension targets, deletion, walrus, method calls on a tracked name, parameters and scope declarations). Indirect writes (list.extend(ready, ...), a container alias, a lambda argument) are not detected; the hash pin of native_route_v13/checks.py is what guarantees that the list read is the list used. REPORT and the checker docstring now say this.",
+    "N2: the generated verdict says the junction_v4 prior supplies the uniform key 'where that inherited prior is retained'; this changes verdict.statement and so result.json, and nothing else in it.",
+    "N3: the Scope paragraph is re-wrapped."
+  ],
+  "second_review_fix_commit_parent": "74541cf18bfd9e986039cf86d5cf4bf2152b3105",
+  "result_json_sha256_by_revision": {
+    "2c43d615a440c2b837dc19f410759d01a47e5362": "9bf28d326caeb0b38d4d2de31ddbda592696fba2fb90cd7f49aa8b101422d314",
+    "74541cf18bfd9e986039cf86d5cf4bf2152b3105": "110ea9c3539407a8bc217c474cf160709d1c955d549c3682cd295e541384c66d",
+    "96bfc56c8d4edc9d332d15b470976a28f528dfe7": "71c594e628cf61f463fec400273481ba51e517e745a3058a82f80aeed8cf9914",
+    "this revision": "56509ae6c7dcc40bbbcdd3a62c8b73bf03e0c5ed20052a226eb63bdda1606d04"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "author_files": {
+    "PLAN.md": "cc09f423c1807edb912cd22a02c5c4c30a7d426866043873369c9824a5df3aac",
+    "PROVENANCE.json": "ea76d8dbacc503fedba69083494c975187a4bf0c9fc9cd9d717454337bb63acf",
+    "REPORT.md": "eba6a93de9f784649da61f778eec6be4626df61f23c05fc71981c9ebace17deb",
+    "SHA256SUMS": "003cd7b35d3a8ee6e1fc109a9f5653942102ab3f2f02a346781174b2297179a6",
+    "checks.py": "262f70bf45a49d2e95e66082c65c5ca4f5335cbce71d126f713f4148e2c8ad1e",
+    "result.json": "de03b82b0c4b9c16f979c547c92a6946e401a05dc6b989bfb5436b3de879b5b9"
+  },
+  "author_revision": "7ec3f8234a148cadb58ebc6c8212b3b0233acabe",
+  "forward_change": "REPORT slack wording and SHA256SUMS only; checker, result and provenance unchanged",
+  "initial_review_revision": "a3e8b7a201aae9f7ac6babf93173188f87ed8bb8",
+  "source_files": {
+    "parallel_v3/history_control/SOURCE-GEOMETRY.json": "2642e1a68825faa5d3bb1049e8722adec1ec33bd3f56b9e4416b2c902a85ec5d"
+  },
+  "source_revision": "71d291297d0a662cbb9377ab48eef7aa4b839e77"
+}

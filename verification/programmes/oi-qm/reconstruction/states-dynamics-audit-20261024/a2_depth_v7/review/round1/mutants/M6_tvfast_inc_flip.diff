@@ -1,0 +1,11 @@
+--- a/checks.py
++++ b/M6_tvfast_inc_flip.py
+@@ -162,7 +162,7 @@
+     for j in range(nb + 1):
+         pre_s.append(pre_s[-1] + cb[j] * be[j])
+         pre_q.append(pre_q[-1] + cb[j] * qb[j])
+-    inc = bi * (D - qi) > qi * (D - bi)      # be/qb increasing in j
++    inc = bi * (D - qi) < qi * (D - bi)      # be/qb increasing in j
+     total = 0
+     for i in range(na + 1):
+         def pos(j):

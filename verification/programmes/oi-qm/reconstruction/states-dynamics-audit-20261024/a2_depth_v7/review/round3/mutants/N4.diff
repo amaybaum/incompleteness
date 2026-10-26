@@ -1,0 +1,11 @@
+--- a/checks.py
++++ b/N4.py
+@@ -458,7 +458,7 @@
+                 src *= mass[ax, s, o]
+                 pole = tuple(s * x for x in AXES[ax])
+                 qm *= (1 + o * sum((x * y for x, y in zip(pole, AXES[read])), Q(0))) / 2
+-                ax, s = read, o
++                ax, s = read, 1
+             check(qm == born[rec], 'per-record Born mass from independent matrix engine')
+             agree = Q(1)
+             prev = 1

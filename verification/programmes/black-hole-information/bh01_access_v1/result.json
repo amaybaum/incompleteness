@@ -1,0 +1,791 @@
+{
+ "base_commit": "809fac52cdf207d24eccc63c734996bcb9d073a0",
+ "claims": {
+  "A": {
+   "bijections_zero_advantage_MP1_t2": 1376,
+   "bijections_zero_advantage_nested_t3": 2688,
+   "erase_and_copy_tv": "1",
+   "nonbijective_maps_exact_recovery_complete_access": 60,
+   "post_review_MP1_t2_exact_recovery_with_mode_unread": 14496,
+   "programme_tag": "COUNTEREXAMPLE",
+   "swap_into_remnant_tv": "0",
+   "verdict": "HOLDS_WITHIN_SCOPE"
+  },
+  "B": {
+   "models_failing": [],
+   "models_tested": 49,
+   "parameter_settings": {
+    "GL42_scramble_class": 1,
+    "cnot_cascade": 10,
+    "swap_cascade": 30,
+    "swap_cascade_wide_alphabet": 8
+   },
+   "programme_tag": "DEMONSTRATED_EXAMPLES",
+   "verdict": "HOLDS_WITHIN_SCOPE"
+  },
+  "C1": {
+   "MP1_t2_one_mode_unread_zero_advantage": 1376,
+   "countercontrol_without_bijectivity_violations": 172,
+   "countercontrol_without_complete_access_not_exact": {
+    "MP1_t2_one_mode_unread_not_exact": 25824,
+    "nested_D_unread_not_exact": 3904
+   },
+   "countercontrol_without_complete_access_not_exact_total": 29728,
+   "programme_tag": "PROVED",
+   "verdict": "HOLDS_WITHIN_SCOPE",
+   "violations": 0
+  },
+  "C2": {
+   "MP2_blind_guess": "1/4",
+   "MP2_bound_t2": "1/2",
+   "MP2_instances_at_blind_guess": 0,
+   "MP2_instances_attaining_bound": 2368,
+   "MP2_min_psucc_t2": "1/2",
+   "MP2_tight": true,
+   "countercontrol_without_bijectivity_violations": 32,
+   "programme_tag": "PROVED",
+   "verdict": "HOLDS_WITHIN_SCOPE",
+   "violations": 0
+  },
+  "C3": {
+   "countercontrol_B_D_leak_tv": "0",
+   "countercontrol_nonproduct_not_recover": 3904,
+   "no_leak_reference_tv": "1",
+   "post_review_W_autonomous": {
+    "C3w_violations": 0,
+    "bears_on_C3_verdict": false,
+    "maps": 384,
+    "nonproduct": 336,
+    "not_recover": 0,
+    "note": "post-review check, not preregistered; the C3 verdict is the preregistered product-map check",
+    "post_review_verdict": "HOLDS_WITHIN_SCOPE"
+   },
+   "post_review_necessity_diagnostics": {
+    "D_dependent_W_update_recover_example": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     7,
+     6
+    ],
+    "nonproduct_recover": 36368,
+    "recover_with_D_dependent_W_update": 36032,
+    "recover_with_D_unread": 36416
+   },
+   "product_maps": 48,
+   "programme_tag": "PROVED (sufficiency only)",
+   "verdict": "HOLDS_WITHIN_SCOPE",
+   "violations": 0
+  },
+  "C4": {
+   "early_emergence": {
+    "1": 1344,
+    "2": 576
+   },
+   "late_emergence": {
+    "1": 10752,
+    "2": 9216
+   },
+   "programme_tag": "PROVED",
+   "verdict": "HOLDS_WITHIN_SCOPE",
+   "violations": 0
+  },
+  "D1": {
+   "programme_tag": "PROVED",
+   "verdict": "HOLDS_WITHIN_SCOPE",
+   "violations": 0
+  },
+  "D2": {
+   "bijections_with_decreasing_snapshot_tv": 21632,
+   "programme_tag": "COUNTEREXAMPLE",
+   "swap_in_swap_out_cumulative_tv": [
+    "0",
+    "1",
+    "1"
+   ],
+   "swap_in_swap_out_snapshot_tv": [
+    "0",
+    "1",
+    "0"
+   ],
+   "verdict": "HOLDS_WITHIN_SCOPE"
+  },
+  "D3": {
+   "conjunction_of": [
+    "C1",
+    "C2",
+    "D1"
+   ],
+   "programme_tag": "PROVED (conjunction of C1, C2, D1)",
+   "verdict": "HOLDS_WITHIN_SCOPE"
+  },
+  "E": {
+   "note": "a Fubini identity for every map; the enumeration exhibits it on all bijections",
+   "programme_tag": "PROVED (identity)",
+   "verdict": "HOLDS_WITHIN_SCOPE",
+   "violations": 0,
+   "zero_advantage_bijections_satisfying_A1": 2688
+  }
+ },
+ "classes": {
+  "GL42": {
+   "K5_fail": 0,
+   "by_k": {
+    "1": {
+     "C2_violations": 0,
+     "C4_violations": 0,
+     "D1_violations": 0,
+     "early_emergence_count": 1344,
+     "late_emergence_count": 10752,
+     "r_profile_hist": {
+      "0,0,0,0,1": 10752,
+      "0,0,0,1,1": 5376,
+      "0,0,1,1,1": 2688,
+      "0,1,1,1,1": 1344
+     }
+    },
+    "2": {
+     "C2_violations": 0,
+     "C4_violations": 0,
+     "D1_violations": 0,
+     "early_emergence_count": 576,
+     "late_emergence_count": 9216,
+     "r_profile_hist": {
+      "0,0,0,1,2": 9216,
+      "0,0,1,1,2": 4608,
+      "0,0,1,2,2": 2304,
+      "0,1,1,1,2": 2304,
+      "0,1,1,2,2": 1152,
+      "0,1,2,2,2": 576
+     }
+    }
+   },
+   "count": 20160,
+   "distinct_tables": 20160
+  },
+  "S8": {
+   "MP1": {
+    "C1_violations_t3": 0,
+    "C2_violations": 0,
+    "D1_violations": 0,
+    "not_exact_t2": 25824,
+    "tv_profile_hist": {
+     "0,0,0,1": 1376,
+     "0,0,1,1": 5920,
+     "0,0,1/2,1": 8320,
+     "0,0,3/4,1": 5120,
+     "0,1,1,1": 1152,
+     "0,1/2,1,1": 7424,
+     "0,1/2,1/2,1": 4352,
+     "0,1/2,3/4,1": 6656
+    },
+    "tv_t2_hist": {
+     "0": 1376,
+     "1": 14496,
+     "1/2": 12672,
+     "3/4": 11776
+    },
+    "zero_adv_t2_example": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     7,
+     6
+    ]
+   },
+   "MP1_static": {
+    "C1_violations_t3": 0,
+    "C2_violations": 0,
+    "D1_violations": 0,
+    "tv_profile_hist": {
+     "0,0,0,1": 9216,
+     "0,0,1,1": 2304,
+     "0,0,1/2,1": 9216,
+     "0,1,1,1": 1152,
+     "0,1/2,1/2,1": 18432
+    }
+   },
+   "MP2": {
+    "C1_violations_t3": 0,
+    "C2_violations": 0,
+    "D1_violations": 0,
+    "attains_bound_t2": 2368,
+    "blind_t2": 0,
+    "min_psucc_t2": "1/2",
+    "psucc_t2_hist": {
+     "1": 10176,
+     "1/2": 2368,
+     "3/4": 21120,
+     "5/8": 768,
+     "7/8": 5888
+    }
+   },
+   "count": 40320,
+   "nested": {
+    "E_violations": 0,
+    "E_zero_adv_instances": 2688,
+    "tv_t3_hist": {
+     "0": 2688,
+     "1": 26688,
+     "1/2": 10944
+    }
+   },
+   "nested_W_endpoint": {
+    "C3_violations": 0,
+    "nonproduct_not_recover_example": [
+     0,
+     1,
+     2,
+     3,
+     6,
+     5,
+     4,
+     7
+    ],
+    "not_recover": 3904,
+    "post_review": {
+     "C3w_violations": 0,
+     "D_dependent_W_update_recover_example": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      6
+     ],
+     "nonproduct_recover": 36368,
+     "recover_with_D_dependent_W_update": 36032,
+     "w_autonomous_maps": 384,
+     "w_autonomous_nonproduct": 336,
+     "w_autonomous_not_recover": 0
+    },
+    "product_maps": 48,
+    "product_maps_not_recover": 0,
+    "recover": 36416
+   },
+   "snapshot": {
+    "D2_decreasing": 21632,
+    "example": {
+     "perm": [
+      0,
+      1,
+      2,
+      4,
+      3,
+      5,
+      6,
+      7
+     ],
+     "tv": [
+      "0",
+      "1/2",
+      "0",
+      "1/2"
+     ]
+    }
+   }
+  },
+  "all_maps_2bit": {
+   "AM1_complete_access": {
+    "bij_norec": 0,
+    "bij_rec": 24,
+    "nonbij_norec": 172,
+    "nonbij_rec": 60,
+    "nonbij_rec_example": [
+     0,
+     1,
+     0,
+     1
+    ]
+   },
+   "AM2_remnant_bound": {
+    "bij_ok": 24,
+    "bij_violate": 0,
+    "nonbij_ok": 200,
+    "nonbij_violate": 32,
+    "nonbij_violate_example": [
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "AM3_refinement": {
+    "D1_violations": 0,
+    "snapshot_decreasing": 84
+   },
+   "count": 256
+  },
+  "named": {
+   "B_D_leak": {
+    "bijective": true,
+    "tv_t2_W_read": "0"
+   },
+   "erase_and_copy": {
+    "bijective": false,
+    "tv_t1": "1"
+   },
+   "no_leak_reference": {
+    "tv_t2_W_read": "1"
+   },
+   "swap_in_swap_out": {
+    "cumulative_tv": [
+     "0",
+     "1",
+     "1"
+    ],
+    "snapshot_tv": [
+     "0",
+     "1",
+     "0"
+    ]
+   },
+   "swap_into_remnant": {
+    "bijective": true,
+    "tv_t1": "0"
+   }
+  },
+  "structured": {
+   "B1_swap": {
+    "nB=1,k=1,message_first": [
+     "1/2",
+     "1"
+    ],
+    "nB=1,k=1,message_last": [
+     "1/2",
+     "1"
+    ],
+    "nB=2,k=1,message_first": [
+     "1/2",
+     "1",
+     "1"
+    ],
+    "nB=2,k=1,message_last": [
+     "1/2",
+     "1/2",
+     "1"
+    ],
+    "nB=2,k=2,message_first": [
+     "1/4",
+     "1/2",
+     "1"
+    ],
+    "nB=2,k=2,message_last": [
+     "1/4",
+     "1/2",
+     "1"
+    ],
+    "nB=3,k=1,message_first": [
+     "1/2",
+     "1",
+     "1",
+     "1"
+    ],
+    "nB=3,k=1,message_last": [
+     "1/2",
+     "1/2",
+     "1/2",
+     "1"
+    ],
+    "nB=3,k=2,message_first": [
+     "1/4",
+     "1/2",
+     "1",
+     "1"
+    ],
+    "nB=3,k=2,message_last": [
+     "1/4",
+     "1/4",
+     "1/2",
+     "1"
+    ],
+    "nB=3,k=3,message_first": [
+     "1/8",
+     "1/4",
+     "1/2",
+     "1"
+    ],
+    "nB=3,k=3,message_last": [
+     "1/8",
+     "1/4",
+     "1/2",
+     "1"
+    ],
+    "nB=4,k=1,message_first": [
+     "1/2",
+     "1",
+     "1",
+     "1",
+     "1"
+    ],
+    "nB=4,k=1,message_last": [
+     "1/2",
+     "1/2",
+     "1/2",
+     "1/2",
+     "1"
+    ],
+    "nB=4,k=2,message_first": [
+     "1/4",
+     "1/2",
+     "1",
+     "1",
+     "1"
+    ],
+    "nB=4,k=2,message_last": [
+     "1/4",
+     "1/4",
+     "1/4",
+     "1/2",
+     "1"
+    ],
+    "nB=4,k=3,message_first": [
+     "1/8",
+     "1/4",
+     "1/2",
+     "1",
+     "1"
+    ],
+    "nB=4,k=3,message_last": [
+     "1/8",
+     "1/8",
+     "1/4",
+     "1/2",
+     "1"
+    ],
+    "nB=5,k=1,message_first": [
+     "1/2",
+     "1",
+     "1",
+     "1",
+     "1",
+     "1"
+    ],
+    "nB=5,k=1,message_last": [
+     "1/2",
+     "1/2",
+     "1/2",
+     "1/2",
+     "1/2",
+     "1"
+    ],
+    "nB=5,k=2,message_first": [
+     "1/4",
+     "1/2",
+     "1",
+     "1",
+     "1",
+     "1"
+    ],
+    "nB=5,k=2,message_last": [
+     "1/4",
+     "1/4",
+     "1/4",
+     "1/4",
+     "1/2",
+     "1"
+    ],
+    "nB=5,k=3,message_first": [
+     "1/8",
+     "1/4",
+     "1/2",
+     "1",
+     "1",
+     "1"
+    ],
+    "nB=5,k=3,message_last": [
+     "1/8",
+     "1/8",
+     "1/8",
+     "1/4",
+     "1/2",
+     "1"
+    ],
+    "nB=6,k=1,message_first": [
+     "1/2",
+     "1",
+     "1",
+     "1",
+     "1",
+     "1",
+     "1"
+    ],
+    "nB=6,k=1,message_last": [
+     "1/2",
+     "1/2",
+     "1/2",
+     "1/2",
+     "1/2",
+     "1/2",
+     "1"
+    ],
+    "nB=6,k=2,message_first": [
+     "1/4",
+     "1/2",
+     "1",
+     "1",
+     "1",
+     "1",
+     "1"
+    ],
+    "nB=6,k=2,message_last": [
+     "1/4",
+     "1/4",
+     "1/4",
+     "1/4",
+     "1/4",
+     "1/2",
+     "1"
+    ],
+    "nB=6,k=3,message_first": [
+     "1/8",
+     "1/4",
+     "1/2",
+     "1",
+     "1",
+     "1",
+     "1"
+    ],
+    "nB=6,k=3,message_last": [
+     "1/8",
+     "1/8",
+     "1/8",
+     "1/8",
+     "1/4",
+     "1/2",
+     "1"
+    ]
+   },
+   "B1_swap_wide": {
+    "q=16,message_first": [
+     "1/16",
+     "1",
+     "1"
+    ],
+    "q=16,message_last": [
+     "1/16",
+     "1/16",
+     "1"
+    ],
+    "q=2,message_first": [
+     "1/2",
+     "1",
+     "1"
+    ],
+    "q=2,message_last": [
+     "1/2",
+     "1/2",
+     "1"
+    ],
+    "q=4,message_first": [
+     "1/4",
+     "1",
+     "1"
+    ],
+    "q=4,message_last": [
+     "1/4",
+     "1/4",
+     "1"
+    ],
+    "q=8,message_first": [
+     "1/8",
+     "1",
+     "1"
+    ],
+    "q=8,message_last": [
+     "1/8",
+     "1/8",
+     "1"
+    ]
+   },
+   "B2_cnot": {
+    "n=2,message_first": [
+     "0",
+     "0",
+     "1"
+    ],
+    "n=2,message_last": [
+     "0",
+     "0",
+     "1"
+    ],
+    "n=3,message_first": [
+     "0",
+     "0",
+     "0",
+     "1"
+    ],
+    "n=3,message_last": [
+     "0",
+     "0",
+     "0",
+     "1"
+    ],
+    "n=4,message_first": [
+     "0",
+     "0",
+     "0",
+     "0",
+     "1"
+    ],
+    "n=4,message_last": [
+     "0",
+     "0",
+     "0",
+     "0",
+     "1"
+    ],
+    "n=5,message_first": [
+     "0",
+     "0",
+     "0",
+     "0",
+     "0",
+     "1"
+    ],
+    "n=5,message_last": [
+     "0",
+     "0",
+     "0",
+     "0",
+     "0",
+     "1"
+    ],
+    "n=6,message_first": [
+     "0",
+     "0",
+     "0",
+     "0",
+     "0",
+     "0",
+     "1"
+    ],
+    "n=6,message_last": [
+     "0",
+     "0",
+     "0",
+     "0",
+     "0",
+     "0",
+     "1"
+    ]
+   }
+  }
+ },
+ "control_counts": {
+  "K1_maps_checked": 61018,
+  "K3_figures_checked": 1172090
+ },
+ "controls": {
+  "K1": {
+   "known_bijection_accepted": true,
+   "known_nonbijection_rejected": true,
+   "labelled_bijections_verified": true
+  },
+  "K2": {
+   "and_leak_R": true,
+   "identity_direct_read": true,
+   "identity_message_unread": true,
+   "one_time_pad_K_alone": true,
+   "one_time_pad_R_alone": true,
+   "one_time_pad_R_and_K": true
+  },
+  "K3": {
+   "all_instances_agree": true
+  },
+  "K4": {
+   "GL42_count": true,
+   "S8_count": true,
+   "maps4_count": true
+  },
+  "K5": {
+   "GL42_all": true,
+   "identity_cases": true
+  },
+  "K7": {
+   "cubic_mass_scaling": true,
+   "reference_1Msun_gamma1": true
+  },
+  "K8": {
+   "accepts_constant": true,
+   "accepts_increase": true,
+   "detects_decrease": true
+  },
+  "source": {
+   "no_assert": true,
+   "no_float_math_random": true
+  }
+ },
+ "item_F": {
+  "A7_decoupling_statement_at_30_Msun": "contradicted",
+  "crossover_mass_kg_interval": [
+   "1.059e10",
+   "4.918e12"
+  ],
+  "inputs": {
+   "GM_sun_m3_per_s2": "1.3271244e20",
+   "G_interval": [
+    "6.67415e-11",
+    "6.67445e-11"
+   ],
+   "Gamma_interval": [
+    "1/100",
+    "1000"
+   ],
+   "c_m_per_s": "299792458",
+   "hbar_J_s": "1.054571817e-34",
+   "mass": "30 M_sun",
+   "pi_interval": [
+    "333/106",
+    "355/113"
+   ],
+   "tau_B_D_interval_s": [
+    "1e16",
+    "1e19"
+   ]
+  },
+  "page_time_over_tau_lower_bound": "1.153e57",
+  "printed_bounds": "lower bounds truncated, upper bounds rounded up",
+  "ratio_lower_bound_floor_log10": 57,
+  "ratio_t_evap_over_tau_interval": [
+   "1.785e57",
+   "1.786e65"
+  ],
+  "reference_value_1Msun_gamma1_yr": [
+   "2.095e67",
+   "2.096e67"
+  ],
+  "t_evap_s_interval": [
+   "1.785e76",
+   "1.786e81"
+  ]
+ },
+ "overall": "HOLDS_WITHIN_SCOPE",
+ "overall_scope_note": "the token reports the preregistered hypotheses A-E of PLAN.md tested in finite toy classes; claim A is a non-implication; no verdict on the framework's resolution",
+ "schema": "bh01-access-v1/result",
+ "verdict_text": [
+  "Preregistered hypotheses: all confirmed in the tested finite classes. Each claim is a hypothesis of PLAN.md section 3 tested in finite toy classes; this is not a verdict on the framework's resolution of the paradox.",
+  "Headline: bijectivity does not imply recovery from the accessible records (counterexamples), and is not necessary for it; with bijectivity, complete endpoint access is sufficient for exact recovery, and an inaccessible endpoint set K bounds the loss by P_succ >= 1/|K|.",
+  "A [COUNTEREXAMPLE] (HOLDS_WITHIN_SCOPE): 1376 of 40320 bijections of {0,1}^3 give zero accessible advantage with one mode unread after two emissions (|K| = |M| = 2); 2688 give zero advantage in the nested V/B/D layout with V read; 60 non-injective maps of {0,1}^2 recover the message exactly under complete access.",
+  "B [DEMONSTRATED_EXAMPLES] (HOLDS_WITHIN_SCOPE): three parametric families (swap 30, wide-alphabet swap 8, CNOT 10 settings) and the GL(4,2) scramble class, 49 items; failing: none.",
+  "C1 [PROVED] (HOLDS_WITHIN_SCOPE): 0 violations of exact recovery under bijectivity plus complete endpoint access; dropping bijectivity gives 172 non-recovering maps; dropping complete access gives 25824 bijections without exact recovery with one mode unread and 3904 with D unread.",
+  "C2 [PROVED] (HOLDS_WITHIN_SCOPE): 0 violations of P_succ >= 1/|K|; two-bit message with a one-bit inaccessible remnant: minimum P_succ over S_8 = 1/2 (bound 1/2, blind guess 1/4, 2368 instances attain the bound, 0 at blind guess); without bijectivity 32 maps violate the bound.",
+  "C3 [PROVED (sufficiency only)] (HOLDS_WITHIN_SCOPE): preregistered check over 48 product maps W x D, 0 violations; with B-D coupling the leak model has advantage 0 with all of W read (reference without leak: 1).",
+  "C3w (post-review, not preregistered, does not bear on the C3 verdict) (HOLDS_WITHIN_SCOPE): 384 bijections with W-dynamics independent of D (336 of them not products), 0 record-distribution violations, 0 failing to recover.",
+  "Necessity diagnostics (post-review): with D never read, 36416 bijections recover exactly, 36368 of them not products and 36032 with a W-update that depends on D; 14496 bijections recover exactly with one mode unread. The endpoint conditions are sufficient, not necessary.",
+  "C4 [PROVED] (HOLDS_WITHIN_SCOPE): 0 violations of max(0, t-(n-k)) <= r_t <= min(k, t) over GL(4,2); late-emergence profiles k=1: 10752, k=2: 9216; early-emergence profiles k=1: 1344, k=2: 576.",
+  "D1 [PROVED] (HOLDS_WITHIN_SCOPE): 0 violations of nondecreasing accessible advantage under cumulative records.",
+  "D2 [COUNTEREXAMPLE] (HOLDS_WITHIN_SCOPE): 21632 bijections with decreasing snapshot advantage; swap-in/swap-out snapshot advantage 0,1,0, cumulative 0,1,1.",
+  "D3 [PROVED (conjunction of C1, C2, D1)] (HOLDS_WITHIN_SCOPE): conjunction of C1, C2, D1.",
+  "E [PROVED (identity)] (HOLDS_WITHIN_SCOPE): GR Theorem A.1 equality is a Fubini identity for every map; 0 violations over S_8; 2688 zero-advantage bijections satisfy it.",
+  "F [audit observation]: GR A.7 decoupling statement at 30 M_sun is contradicted; t_evap/tau_B^D lies in [1.785e57, 1.786e65]; t_evap = tau_B^D at a mass in [1.059e10, 4.918e12] kg; t_P/tau_B^D >= 1.153e57."
+ ]
+}

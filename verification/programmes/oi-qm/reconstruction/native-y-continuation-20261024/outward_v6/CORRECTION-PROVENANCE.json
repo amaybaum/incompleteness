@@ -1,0 +1,7 @@
+{
+  "initial_source_absolute": "(0,S,S+2d+14)",
+  "initial_payload": "(u,0,u)",
+  "status": "author checked; independent review pending",
+  "repository_actions": [],
+  "scope": "native clean original-qY readout; late q2.A input test still fails"
+}

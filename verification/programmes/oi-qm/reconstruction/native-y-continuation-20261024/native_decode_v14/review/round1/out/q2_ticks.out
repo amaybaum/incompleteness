@@ -1,0 +1,14 @@
+{
+ "R+8": {
+  "rows_depending_on_E_or_N": 0,
+  "fixed_readout_solutions_all_254": 0
+ },
+ "R+9 (=L)": {
+  "rows_depending_on_E_or_N": 0,
+  "fixed_readout_solutions_all_254": 0
+ },
+ "R+10 (=L+1)": {
+  "rows_depending_on_E_or_N": 3584,
+  "fixed_readout_solutions_all_254": 7464
+ }
+}

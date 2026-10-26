@@ -1,0 +1,11 @@
+--- a/checks.py
++++ b/N2_closed_form_parity.py
+@@ -317,7 +317,7 @@
+     rows = []
+     for B in range(1, 201):
+         k, d = nearest_dyadic(B)
+-        closed = Q(2 if B % 2 else 1, 5 * (1 << B))
++        closed = Q(1 if B % 2 else 2, 5 * (1 << B))
+         check(d == closed and d > 0, 'closed-form dyadic distance')
+         rows.append(B)
+     d24 = Q(1, 5 * (1 << 24))

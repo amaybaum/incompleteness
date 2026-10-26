@@ -1,0 +1,20 @@
+{
+  "authority": "Research only; no native implementation, map/access/premise adoption, general all-menu theorem or full OI equivalence.",
+  "comparison": "Complete public record and positive fixed decoded output versus quantum protocol from fixed decoded input. Exact finite menu and total horizon3.",
+  "contextual_source_sha256_relative_to_source_prefix": {
+    "CURRENT-HANDOFF.md": "e5e152a2101ada6e5b31882a39f472ade775d38d5c9c1621d0bef74a608e2a4a",
+    "finite-a2-v5/REPORT.md": "f78c8e7e1d3d1fb348352dd815d65835b238569de92f1d3ddfbdc793e7cd77d7",
+    "finite-a2-v5/checks.py": "bcb8fcb498345c5c01e4576de357dd348840e1c716e1d3d52ee5e09fdd181b4f",
+    "finite-a2-v5/review/REPORT.md": "04a4be3758c7bb4ee9622d9074c17fb60b25a143b71abf0d82170987442d10bb",
+    "history-architecture-v5/REPORT.md": "0898bcda042e0b64c841508f4c83aa7e695d53736a2f351ddd5f96a14857b550"
+  },
+  "engine": "Self-contained standard-library exact rational geometry, integer seed counts, finite envelope and rational-complex matrix controls; imports no prior checker. Geometric construction and helper algebra follow credited finite-a2-v5.",
+  "plan_sha256": "b0e3fa46a4aeb98a5d4cdd9323d21a8118bdb3e9b6aa1bdf017721c4c29fc212",
+  "prior_A2_author": "dbfaa3c68003bfd5335353829c18cf6f21d300c4",
+  "published_plan_commit": "cf1855ed1576adf446fbc505c027928bce4c4cb7",
+  "published_plan_path": "verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/a2_efficiency_v6/PLAN.md",
+  "schema": "oi.a2-finite-menu-envelope-v6.provenance.v1",
+  "source_head": "f2426f16d0054943ca4937648a9ff9613d08f960",
+  "source_pr": 911,
+  "source_prefix": "verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/"
+}

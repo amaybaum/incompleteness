@@ -1,0 +1,11 @@
+--- a/checks.py
++++ b/M5_class_depth_drop1.py
+@@ -324,7 +324,7 @@
+     c = d24 * d24 / 4
+     check(c <= hellinger_sq_lower(QUANTUM - d24, QUANTUM) and
+           c <= hellinger_sq_lower(QUANTUM + d24, QUANTUM), 'class constant within certified H^2')
+-    half_depth = 1 / c + 2                  # (h-1)*c > 1 implies T > 1/2; read 1 unconstrained
++    half_depth = 1 / c + 1                  # (h-1)*c > 1 implies T > 1/2; read 1 unconstrained
+     check(half_depth.denominator == 1, 'integer certified depth')
+     check((half_depth - 1) * c > 1 and (half_depth - 2) * c <= 1, 'class depth is minimal')
+     tenth_upper = (TENTH / d24).numerator // (TENTH / d24).denominator   # h*d24 <= 1/10

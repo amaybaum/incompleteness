@@ -1,0 +1,4 @@
+T3_label_remap_k_plus_1: targets record-length check (review T3); exit 2; VOID: scope: block-law record length equals member k; CAUGHT
+MT2_plan_and_pin_edited: targets PROVENANCE cross-check; exit 2; VOID: scope: plan pin equals PROVENANCE plan_sha256; CAUGHT
+MT3_plan_pin_and_provenance_edited: targets plan-commit blob cross-check; exit 2; VOID: scope: preregistered set has 48 members; NOT CAUGHT
+SOME TARGETED MUTANT NOT CAUGHT

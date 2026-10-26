@@ -1,0 +1,4 @@
+T3_label_remap_k_plus_1: targets record-length check (review T3); exit 2; VOID: scope: block-law record length equals member k; CAUGHT
+MT2_plan_and_pin_edited: targets PROVENANCE cross-check (default run); exit 2; VOID: scope: plan pin equals PROVENANCE plan_sha256; CAUGHT
+MT3_plan_pin_and_provenance_edited: targets plan-commit blob check (--verify-plan-commit); exit 2; VOID: plan commit: PLAN.md blob of 1dfec979 equals the pin; CAUGHT
+all targeted mutants caught

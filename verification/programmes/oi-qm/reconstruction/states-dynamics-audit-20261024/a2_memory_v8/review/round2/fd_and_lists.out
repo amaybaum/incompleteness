@@ -1,0 +1,20 @@
+FD(2,1) states=2 classes=[(1, 1, '1')] match=True
+FD(2,2) states=4 classes=[(1, 1, '1')] match=True
+FD(2,3) states=8 classes=[(1, 1, '1')] match=True
+FD(2,4) states=16 classes=[(1, 1, '1'), (15, 2, '4/5')] match=True
+FD(2,5) states=32 classes=[(1, 1, '1')] match=True
+FD(3,1) states=2 classes=[(2, 1, '7/8')] match=True
+FD(3,2) states=4 classes=[(4, 1, '6/7')] match=True
+FD(3,3) states=8 classes=[(8, 1, '13/16')] match=True
+FD(3,4) states=16 classes=[(16, 1, '617992445/773068502')] match=True
+FD(3,5) states=32 classes=[(32, 1, '1757289333036961519859/2158838745167086214168')] match=True
+FD(4,1) states=2 classes=[(2, 1, '13/16')] match=True
+FD(4,2) states=4 classes=[(4, 1, '13/16')] match=True
+FD(4,3) states=8 classes=[(8, 1, '313/388')] match=True
+FD(4,4) states=16 classes=[(16, 1, '12840176648449/15875600596732')] match=True
+FD(4,5) states=32 classes=[(32, 1, '5087549282810988743786315113/6307861110325584051798731420')] match=True
+FD total classes 16 all match True
+B=2 nearest agreement 3/4 crossing 127; fails-before [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]; outlast []
+B=3 nearest agreement 3/4 crossing 127; fails-before [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]; outlast []
+B=4 nearest agreement 13/16 crossing 1819; fails-before [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]; outlast []
+list mismatches 0

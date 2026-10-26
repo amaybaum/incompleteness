@@ -1,0 +1,35 @@
+{
+  "Born_selection_claimed": false,
+  "base_reviewed_checkpoint": "088af1453efc7780187bc81f8f765f5005b91870",
+  "decoder": "mass and (3/2)first moment",
+  "fixed_hidden_carrier": "unit sphere S^2",
+  "formal_proof_level": "written continuum integral/cone/composition proofs plus exact finite controls, noLean",
+  "full_A1_or_POVM_or_composite_reconstruction_claimed": false,
+  "governance_blob": "0fe9a4c5a6b7a40f83ec4cb772bc3acd639fddc7",
+  "independent_review": "pending author publication",
+  "initial_random_resources": "2h independent continuum uniforms for finite horizonh, preassigned initially",
+  "input_sha256": {
+    "prior_product_report": "3400f86a5a5150a1f216ddcb31561af0cabe2685c7d987cf0d2032eab69fcb6a",
+    "prior_quotient_report": "b4f3bf4d49641d96697619d1f6ae9b7e00928dfae41c2a3c6f9b85805ab88744",
+    "shared_interface": "1a0b34ebb0c7115dd5faae11d2ab20c25ecf8a6f091ea292eb184e4311be7633"
+  },
+  "native_availability_claimed": false,
+  "normal_optimized_replay": "byte-identical",
+  "operations": "supplied arbitrary SO(3) rotations and rank1projective signs followedby fresh hemisphere reset",
+  "plan_first_publication": "f1a875057bdd3c3d35c272e385991d824f5cacd2",
+  "preparation_cone": "finite positive mixtures of max(0,n dot lambda)/pi densities",
+  "primary_literature": {
+    "arxiv": "1812.08218v3",
+    "authors": "Ruebeck, Lillystone, Emerson",
+    "model_prior_work": "Kochen-Specker qubit model, original1967 credited in primary source",
+    "read_scope": "section4.1.1 Eq16; rank1update discussion in2.3 and3",
+    "title": "Psi-epistemic interpretations of quantum theory have a measurement problem",
+    "url": "https://arxiv.org/html/1812.08218v3"
+  },
+  "private_resources": "retained oldcarrier, usedseeds, blankreadyregisters andworkspace, no permittedreturncoupling",
+  "programme_read_only": "2d555f17c23bea31d32b3f5eb4c49d245b413a76",
+  "record_contract": "one raw sign pointer, setting/gate labels, fixed scheduled tick, certain success",
+  "runtime_imports": "standard Python library only; no prior checker imports",
+  "schema": "oi-continuous-qubit-architecture-provenance-v5.1",
+  "source_pr": 911
+}

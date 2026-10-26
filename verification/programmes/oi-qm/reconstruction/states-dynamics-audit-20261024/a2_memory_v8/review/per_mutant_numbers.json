@@ -1,0 +1,109 @@
+{
+ "description": "per-mutant numbers cited by the round3 and round4 review reports, extracted from the reviewers full per-mutant outputs (not retained); each is regenerable by running the retained script at the named commit",
+ "round3_W_depth_shifts": {
+  "commit": "aee64f2c0a3d55feded2084c34200e44948b5c2a",
+  "fields": [
+   "certified_T_above_half_for_h_at_least",
+   "post_plan.power_rule_T_above_half_for_h_at_least",
+   "post_plan.power_rule_T_at_most_half_for_h_at_most"
+  ],
+  "mutants": {
+   "W1a_bc_enclosure_scaled_1e-4": {
+    "members": {
+     "B2_k16": [
+      64,
+      48,
+      16
+     ],
+     "B2_k5": [
+      25,
+      15,
+      5
+     ],
+     "B3_k9": [
+      108,
+      72,
+      45
+     ],
+     "B4_k1": [
+      4444,
+      3080,
+      639
+     ],
+     "B4_k14": [
+      1064,
+      742,
+      462
+     ],
+     "B4_k2": [
+      6300,
+      4366,
+      904
+     ]
+    },
+    "source_output_sha256": "b16fc40abf9afe8de5f7a8808ee14b9db1ce643003777d749db79ed4090fc3ff"
+   },
+   "W4_depth_one_block_early": {
+    "members": {
+     "B2_k16": [
+      64,
+      32,
+      16
+     ],
+     "B2_k5": [
+      25,
+      10,
+      5
+     ],
+     "B3_k9": [
+      108,
+      63,
+      45
+     ],
+     "B4_k1": [
+      7997,
+      5542,
+      1150
+     ],
+     "B4_k14": [
+      1078,
+      728,
+      462
+     ],
+     "B4_k2": [
+      9196,
+      6372,
+      1322
+     ]
+    },
+    "source_output_sha256": "428ea14fc24063450594cc2b8eeb778762202a5b352e05102af51181fa5acdf9"
+   }
+  },
+  "script": "review/round3/rev_mutants3.py"
+ },
+ "round4_L_audit_counts": {
+  "commit": "19a33d6fff854deadb9cc4cdb4f20b144202d5e6",
+  "fields": [
+   "independent_certificate_audit_post_recheck2.members",
+   "independent_certificate_audit_post_recheck2.certificates_checked_against_exact_tv"
+  ],
+  "mutants": {
+   "L1_k_range_15_both": {
+    "certificates_checked_against_exact_tv": 207,
+    "members": 45,
+    "source_output_sha256": "9f84e12f0e1cbce225265cc8bd50820288f794ca3beafb13c82220682923bef1"
+   },
+   "L5_B_range_both": {
+    "certificates_checked_against_exact_tv": 108,
+    "members": 32,
+    "source_output_sha256": "603b6b65198a6dbde5c59742580bf84fb5554b09bb4b385f2333553897c11546"
+   },
+   "L6_audit_subset_only": {
+    "certificates_checked_against_exact_tv": 25,
+    "members": 4,
+    "source_output_sha256": "563858a6091610fe3674ca05934364c57ce1fd0aacfad701579097051edbf348"
+   }
+  },
+  "script": "review/round4/rev_mutants5.py"
+ }
+}

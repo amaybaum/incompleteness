@@ -1,0 +1,48 @@
+{
+  "classification": "POSITIVE scoped proof scrutiny with NEW native equal-time-cycle countercontrol",
+  "combined_handoff_sha256": "88f805670fe329c1dea9ca48604348a880d3758ea1c4fcf91d5f57eeaf304227",
+  "execution_dependencies": "Python standard library only; checker imports no author code and reads no external data",
+  "programme_index_revision": "2d555f17c23bea31d32b3f5eb4c49d245b413a76",
+  "published_plan_revision": "6d42a51f81581f1d72b4ff5270e841f2e33a0efd",
+  "review_level": "separate-author internal within native research effort; not external or formal certification",
+  "schema": "oi-native-transport-proof-audit-provenance-v1",
+  "source_files": [
+    {
+      "path": "combined_handoff/workspace/oi_native_transfer_v1/REPORT.md",
+      "sha256": "11f66eb63492b1b563b3f83c51929fa1d2104f91a88b6a6bbb0216bdde3bfcf0"
+    },
+    {
+      "path": "combined_handoff/workspace/oi_native_transfer_v1/transport_layout.py",
+      "sha256": "1eb4eb4ed04d30a3d6b223073e7a002c7233ddb1a8bdff3ac2ef5bcfdcdf837f"
+    },
+    {
+      "path": "combined_handoff/workspace/oi_followup_20261024/compiler_audit/REPORT.md",
+      "sha256": "03017a1a5134e36208380c001cae17fe1effa47223b1abf18b6ecb055f4fe523"
+    },
+    {
+      "path": "combined_handoff/workspace/oi_parallel_20261024/information/REPORT.md",
+      "sha256": "dee08c1198fc58ab3a4d4e3d6f507149e3ca701c7ab8e6a152e15287b271699d"
+    },
+    {
+      "path": "native-y-continuation-20261024/history_v9/REPORT.md",
+      "sha256": "2125314d49e14abdac8b62ddbaa1f89f1c0ec693dd14744fca4b79a0b38c6997"
+    },
+    {
+      "path": "native-y-continuation-20261024/six_source_v5/period/REPORT.md",
+      "sha256": "7743ee8fccb5e39df674bb7ada6fcd6ce45582b801d4d58d77af5162420cf360"
+    },
+    {
+      "path": "native-y-continuation-20261024/herald_v10/REPORT.md",
+      "sha256": "03180f4fd0eed30064a0e25873719c8c93ce57a876fecaba3c51374da50ae5b4"
+    }
+  ],
+  "source_pr": 910,
+  "source_revision": "71d291297d0a662cbb9377ab48eef7aa4b839e77",
+  "unresolved": [
+    "coordinator-independent/external proof review",
+    "actual post-Y reusable phase/read-reset closure",
+    "new public-port geometry beyond audited published window",
+    "native preparation/access/settings/clock and calibration selection",
+    "full A1 coverage, A2 protocol error guarantees and composites"
+  ]
+}

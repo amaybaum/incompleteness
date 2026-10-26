@@ -1,0 +1,13 @@
+{
+  "inherited_files": {
+    "inherited_model.py": "dfb056bfe91372b44787d962e63d83ae7109802b38034b661e1c3275a63e146b",
+    "inherited_correction_model.py": "81fb9162229409e42d4383274c91988b94c8727dc70d9398cc1ca1ac51a38ee4"
+  },
+  "source_paths": {
+    "inherited_model.py": "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/outward_v6/model.py",
+    "inherited_correction_model.py": "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/outward_v6/correction_model.py"
+  },
+  "scope": "Research-only exact q7 interface and one-step q8 initial extension; no remote writes.",
+  "source_commit": "5f6786d6f02605f8e8821a536b678495e19015da",
+  "geometry_path": "../parallel_v3/history_control/SOURCE-GEOMETRY.json"
+}

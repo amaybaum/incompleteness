@@ -1,0 +1,30 @@
+{
+  "author_checker_imported_or_executed": false,
+  "author_commit": "dbfaa3c68003bfd5335353829c18cf6f21d300c4",
+  "author_pr": 911,
+  "author_repo_prefix": "verification/programmes/oi-qm/reconstruction/states-dynamics-audit-20261024/finite-a2-v5/",
+  "author_sha256": {
+    "PLAN.md": "393c08ce8dece9b94a7d30308def3724a2f443345cba3d746151b94bbba9fa26",
+    "PROVENANCE.json": "d58765ccaf0d36af06c860cb8297f7331b0b6938816bcb716d6e2bb0438399cd",
+    "REPORT.md": "f78c8e7e1d3d1fb348352dd815d65835b238569de92f1d3ddfbdc793e7cd77d7",
+    "SHA256SUMS": "cd2538ea9c2b3933f36de1602a4adef584ce9bc35b85752715160ea893562b90",
+    "checks.py": "bcb8fcb498345c5c01e4576de357dd348840e1c716e1d3d52ee5e09fdd181b4f",
+    "result.json": "a2d74a5c393ced49af50df5bb500e92e82a71b055d80bf2c5eb45175ced67f4d"
+  },
+  "forward_delta_verified": [
+    "PROVENANCE.json",
+    "REPORT.md",
+    "SHA256SUMS"
+  ],
+  "preclarification_author_commit": "6097379b86f319eaa9b258e920f2eb44dc6401a6",
+  "preclarification_author_sha256": {
+    "PLAN.md": "393c08ce8dece9b94a7d30308def3724a2f443345cba3d746151b94bbba9fa26",
+    "PROVENANCE.json": "14bd57c45b287a6f55f406e7ddf02b948ba1f9c65fa35b946f5f2501b9b0b793",
+    "REPORT.md": "e78211345e8d7d0d890986806e8f7767b2b732549dde5c77e50eec2462b1feca",
+    "SHA256SUMS": "96701ddbc1302a1978da61bd4ca3cad09763f3ac8d98925a61d63df6b0888c61",
+    "checks.py": "bcb8fcb498345c5c01e4576de357dd348840e1c716e1d3d52ee5e09fdd181b4f",
+    "result.json": "a2d74a5c393ced49af50df5bb500e92e82a71b055d80bf2c5eb45175ced67f4d"
+  },
+  "remote_original_and_revised_manifests_verified": true,
+  "schema": "oi-finite-A2-review-inputs-v5.1"
+}

@@ -177,13 +177,11 @@
 \section{The Incompleteness of
 Observation}\label{the-incompleteness-of-observation}}
 
-\emph{{[}Status note, 2026-07-26: this companion overview is superseded
-by the book, \texttt{book/}, which now carries its content in maintained
-form, and is frozen at this revision --- it will not be updated in
-subsequent releases, and where it and the book disagree, the book is
-authoritative. Two elements are for now available only here: the D-gauge
-walkthrough (§5.3 below) and the mathematical summary tables of the
-appendix, pending their incorporation into the book.{]}}
+\emph{{[}Document status. This Explainer is retained as a supplementary
+historical exposition. The maintained book and technical papers
+supersede it as authoritative statements of the theory. Where
+formulations differ, consult those sources and their cited verification
+records.{]}}
 
 \hypertarget{why-physics-biggest-contradiction-might-not-be-a-contradiction-at-all}{%
 \subsubsection{Why Physics' Biggest Contradiction Might Not Be a
@@ -462,9 +460,11 @@ different times cannot be broken into independent steps.
 
 This is the first real proof in the paper, and it's beautifully simple.
 
-\textbf{What it proves:} The emergent description (what the observer
-sees) depends \emph{only} on the partition --- on which degrees of
-freedom are visible and which are hidden. Nothing else.
+\textbf{What it proves:} Under the canonical measure of Lemma 3, the
+emergent description (what the observer sees) depends \emph{only} on the
+partition --- on which degrees of freedom are visible and which are
+hidden. For a general hidden prior the measure is a third input ({[}Main
+§1.4{]}).
 
 \textbf{The formula:}
 
@@ -493,7 +493,8 @@ Unpacking each symbol:
   visible part ended up at x\_j, equals 0 otherwise.
 \item
   \textbf{dμ(h)}: Integration over all possible hidden states, weighted
-  by the Liouville measure.
+  by the hidden-sector measure μ --- canonically the Liouville measure,
+  the continuum form of Lemma 3's counting measure.
 \end{itemize}
 
 \textbf{In plain English:} For each possible hidden state h, check
@@ -504,34 +505,34 @@ probability of the transition x\_i → x\_j.
 
 \textbf{The proof:} The formula has exactly three inputs: (1) the
 dynamics φ\_t --- fixed by the definition, (2) the partition (Γ\_V,
-Γ\_H) and projection π\_V --- fixed by Lemma 2, and (3) the measure μ
---- fixed by Lemma 3 (Liouville measure is the unique choice). Since
-inputs 1 and 3 are determined by the definition, the only free input is
-the partition. Therefore: everything about the emergent description
-depends only on the partition. QED.
+Γ\_H) and projection π\_V --- fixed by Lemma 2, and (3) the measure μ.
+Lemma 3 supplies a canonical measure for input 3 by a selection
+principle: the counting measure, the maximal-entropy invariant measure,
+whose continuum form is the Liouville measure. With input 1 fixed by the
+definition and input 3 set to the canonical measure, the only free input
+is the partition. Therefore: under the canonical measure, everything
+about the emergent description depends only on the partition. QED.
 
-\textbf{Why the Liouville measure is unique:} The observer needs a
-``prior'' --- a way to weight the hidden states. Liouville measure is
-the unique measure on phase space that is absolutely continuous (no
-point masses) and invariant under Hamiltonian flow. \textbf{Not a
-distinctive prediction (removed from Tier 1).} The expansion below is
-correct but universal: for any smooth \(f(H)\), setting
-\(g(X)=f(\sqrt X)\) with \(X=H^2\) gives
-\(f=g(X_0)+g'(X_0)(H^2-H_0^2)+O((H^2-H_0^2)^2)\) around any \(H_0>0\).
-Every smooth dark-energy model has that local form, and the
-counterfamily \(\rho_\Lambda=\rho_0+A(H^2-H_0^2)+B(H^2-H_0^2)^2\) with
-arbitrary \(B\) satisfies the same boundary \(H\)-dependence with matter
-conserved and the Bianchi relation carried by running \(G\). Nothing in
-the architectural commitments forces \(B=0\), and the running-vacuum
-literature carries even powers of \(H\), \(H^4\) in other regimes, and
-\(\dot H\) terms. So: if ``Type II form'' means the first local Taylor
-term it is non-predictive; if it means a global \(c_0+\nu H^2\) law, it
-is not derived here. The defensible statement is that boundary
-architecture requires SOME state dependence on cosmological geometry,
-whose smooth late-time normal form contains an \(H^2-H_0^2\) term. With
-that said: any smooth initial distribution evolves toward it. Singular
-measures are excluded by Lemma 3's requirement of standard probability
-theory. The observer has no choice.
+\textbf{Where the Liouville measure comes from:} The observer needs a
+``prior'' --- a way to weight the hidden states. Invariance under the
+dynamics does not select one. On a single orbit the invariant measure is
+unique and uniform, but every invariant set of the bijection carries its
+own invariant measure, so a bijection with two or more cycles has a
+whole family of them; in the continuum, Liouville measure is invariant
+but is not, in general, the unique absolutely continuous invariant
+measure. The counting measure is selected among the invariant measures
+as the one of maximal entropy --- a selection principle, not uniqueness
+from invariance alone. An embedded observer with incomplete knowledge of
+the total energy averages over energies with a smooth prior, recovering
+the Liouville measure on a phase-space band --- the continuum form of
+that maximal-entropy selection. Singular invariant measures concentrated
+on atypical short orbits correspond to observer-lacking substrata and
+are outside scope by Lemma 3. The canonical measure is the default, not
+a constraint on representations: a realization may carry its own fixed
+hidden prior μ\_H, the emergent law is then a function of (φ, partition,
+μ\_H), and the same bijection and partition under different priors
+generally give different visible laws ({[}Main §1.2, Lemma 3 and its
+remarks{]}).
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -591,13 +592,15 @@ where Λ has non-negative entries and rows summing to 1.
 would need negative entries, which means it's not a valid probability
 matrix.
 
-Breuer, Laine, and Piilo proved that P-indivisibility is equivalent to
-``information backflow'' --- the system's distinguishability can
-\emph{increase} over time. In a classical Markov process, you can only
-lose information (mixing). In a P-indivisible process, information comes
-back. This is exactly what quantum systems do --- interference,
-revivals, and non-classical correlations all involve information
-returning from where it was stored.
+Breuer, Laine, and Piilo introduced ``information backflow'' --- the
+system's distinguishability \emph{increasing} over time --- as the
+signature of non-Markovian dynamics. In a classical Markov process, you
+can only lose information (mixing); the same holds in any P-divisible
+process, so backflow certifies P-indivisibility, though a P-indivisible
+process need not show it. Where it does, information comes back. This is
+exactly what quantum systems do --- interference, revivals, and
+non-classical correlations all involve information returning from where
+it was stored.
 
 \textbf{The setup.} We work on finite sets (Lemma 1). The visible sector
 has states C\_V = \{x\_1, x\_2, \ldots\} with \textbar C\_V\textbar{} ≥
@@ -1075,12 +1078,12 @@ logical chain:
   conditional physical-memory theorem)
 \item
   Combined: \textbf{accessible non-Markovianity ⟺ embedded observation
-  under C1, C3, C4 (per finite horizon) --- C2 is not needed for the
-  equivalence and carries its physical content separately, through the
-  conditional physical-memory theorem --- with a fixed-basis unitary
-  quantum representation internal and universal ({[}Main §3.4{]}), the
-  compressed form supplied across the correspondence's class under (T),
-  nontrivially where the dynamics is P-indivisible}
+  under C1, C3, C4 (per finite accessible horizon) --- C2 is not needed
+  for the equivalence and carries its physical content separately,
+  through the conditional physical-memory theorem --- with a fixed-basis
+  unitary quantum representation internal and universal ({[}Main
+  §3.4{]}), the compressed form supplied across the correspondence's
+  class under (T), nontrivially where the dynamics is P-indivisible}
 \end{itemize}
 
 \textbf{Necessity of C1 (coupling).} With no hidden influence at any
@@ -1126,11 +1129,11 @@ states.
 
 \textbf{The complete characterization.} For \textbar C\_V\textbar{} ≥ 2:
 the process is non-Markovian on accessible timescales ⟺ it arises, on
-each finite horizon, from marginalizing a deterministic bijection under
-C1, C3, C4 (C2 sits outside the equivalence: the existential realization
-satisfies it trivially with a static bath). Both directions are the
-foundational paper's own theorems; every finite-horizon law admits the
-fixed-basis unitary quantum representation
+each finite accessible horizon, from marginalizing a deterministic
+bijection under C1, C3, C4 (C2 sits outside the equivalence: the
+existential realization satisfies it trivially with a static bath). Both
+directions are the foundational paper's own theorems; every
+finite-horizon law admits the fixed-basis unitary quantum representation
 (\(S \iff D \iff Q_{\mathrm{fb}}\), internal --- the compressed form for
 the correspondence's class under (T)), and the fixed-Ĥ form is
 constructive for every realized process. The old three-way biconditional
@@ -1412,10 +1415,10 @@ which is what Section 5 derives.
 \subsection{Where Planck's Constant Comes From
 (§5)}\label{where-plancks-constant-comes-from-5}}
 
-Partition-relativity proved that the emergent quantum description is
-completely and uniquely determined by the partition. This means
-\(\hbar\) cannot be a free parameter --- it must be fixed by the
-geometry of the boundary.
+Partition-relativity proved that, under the canonical measure, the
+emergent quantum description is completely and uniquely determined by
+the partition. This means \(\hbar\) cannot be a free parameter --- it
+must be fixed by the geometry of the boundary.
 
 \hypertarget{the-classical-horizon-temperature-5.1}{%
 \subsubsection{The Classical Horizon Temperature
@@ -1572,16 +1575,19 @@ probability families have equal gap sets.
 three, under G1--G3 for both Hamiltonians and the global sign-aware
 integer classification H-BG of {[}GR §3.3{]}, matching probabilities
 imply H' = DHD† + E₀ or H' = −DH̄D† + E₀. H-BG allows the exceptional
-six-mark correspondence or its global reversal; its complete derivation
-from the published classification remains open. The unsigned formal
+six-mark correspondence or its global reversal; its complete comparison
+with the published classification remains open. The unsigned formal
 premise \texttt{BGIntegerClassification} is refuted by reflecting one of
 the homometric six-mark rulers. Each displayed ambiguity is exactly
-invisible, and dropping the gap condition fails on the C₄ ring of
-{[}SM{]} Proposition 20. Bohr-frequency completeness, the
-real-to-integer realization transfer, congruent reconstruction and the
-positive six-mode obstruction are established independently; they do not
-by themselves prove the complete classification. The double-difference
-condition
+invisible. The C₄ ring of {[}SM{]} Proposition 20 has degenerate gaps;
+its conjugate H̄ reproduces every transition probability and lies in the
+reflection branch, H̄ = −D\_s H̄ D\_s† with D\_s = diag(1, −1, 1, −1), so
+this exhibited partner does not show a failure, without the gap
+condition, of the two-branch form conditional on H-BG. Bohr-frequency
+completeness, the real-to-integer realization transfer, congruent
+reconstruction and the positive six-mode obstruction are established
+independently; they do not by themselves prove the complete
+classification. The double-difference condition
 
 \[\delta_{ik} - \delta_{il} - \delta_{jk} + \delta_{jl} = 0 \pmod{2\pi}\]
 
@@ -3740,8 +3746,8 @@ What it uses
 \endlastfoot
 Definition + Lemmas 1--3 & The physical setup (no QM assumed) & Nothing
 --- these are starting points \\
-Partition-relativity (§1.4) & Emergent description depends only on
-partition & Definition, Lemmas 2, 3 \\
+Partition-relativity (§1.4) & Under the canonical measure, emergent
+description depends only on partition & Definition, Lemmas 2, 3 \\
 Emergent stochasticity (§2.1) & Determinism looks random to embedded
 observer & Definition, Lemmas 2, 3 \\
 P-indivisibility proof (§2.3) & The stochastic process is non-Markovian
@@ -3802,10 +3808,10 @@ Markov → P-divisible \\
 §3.3: Necessity of C3 & Accessible memory requires capacity & I ≤ log₂ m
 bounds memory \\
 §3.4: Characterization theorem & non-Markovianity ⟺ C1, C3, C4 per
-horizon (C2 separate, conditional); representation equivalence
-\(S \iff D \iff Q_{\mathrm{fb}}\) --- internal, universal; universal
-hidden-memory theorem & Biconditional + internal permutation unitary
-(compressed form imported under (T)) \\
+accessible horizon (C2 separate, conditional); representation
+equivalence \(S \iff D \iff Q_{\mathrm{fb}}\) --- internal, universal;
+universal hidden-memory theorem & Biconditional + internal permutation
+unitary (compressed form imported under (T)) \\
 §4: Cosmological horizon & The universe satisfies the definition & C1 ✓,
 C2 ✓, C3 ✓, C4 ✓ \\
 §5.1: Classical temperature & T\_cl = c²ε²κ/(8πGk\_Bσ) & No ℏ \\
@@ -3865,39 +3871,50 @@ corrections of order (εκ/c²)². For the cosmological horizon at σ = 1:
 \textasciitilde{} 10⁻¹²². Negligible, but a lattice-native proof of the
 KMS condition would strengthen the argument.
 
-\textbf{3. The D-gauge reconstruction requires genericity, and is stated
-as a claim.}
+\textbf{3. The D-gauge reconstruction requires genericity and is a
+conditional theorem.}
 
 The phase-locking argument assumes non-degenerate spectrum,
 non-degenerate energy gaps, and non-vanishing overlaps (conditions
-G1--G3); the conditional two-branch reconstruction also requires H-BG
-and these conditions for both Hamiltonians; Bohr-frequency completeness
-itself needs only the spectrum and overlap conditions. These fail on a
-measure-zero set of Hamiltonians. For the cosmological realization, a
-stronger argument applies to G1 specifically: the genericity conditions
-concern the \emph{effective} visible-sector Hamiltonian
-\(\hat{H}_{\text{eff}}\) (after the trace-out), not the total
-Hamiltonian \(H_{\text{tot}}\). The relevant distinction is whether a
-symmetry of \(H_{\text{tot}}\) preserves the visible/hidden
-factorization. The spatial symmetries an observer-centered partition
-breaks --- translation, rotation about distant points, boost --- are
-\emph{factorization-breaking} (they map boundary visible sites to hidden
-sites across the cosmological horizon), so they have no action on the
-visible factor alone and the degeneracies they protect are lifted in
-\(\hat{H}_{\text{eff}}\). Factorization-preserving symmetries
-\(S_V\otimes S_H\), by contrast, descend to a visible symmetry \(S_V\)
-of \(\hat{H}_{\text{eff}}\) (the uniform-bath trace-out is invariant
-under any unitary on the hidden factor); the visible-internal ones among
-these are the gauge symmetries of the emergent QFT, which correspond to
-physically equivalent states and don't affect the phase-locking
-argument. G2 (non-degenerate gaps) is not symmetry-protected and rests
-on genericity directly; it holds for generic \(\hat{H}_{\text{eff}}\)
-and can fail only on a measure-zero set, with no known structural
-feature of the substratum forcing systematic failure (single-cycle
-hidden dynamics in particular does not, since the Hermitian
-\(\hat{H}_{\text{eff}}\) --- unlike the unitary cycle operator's
-equally-spaced phases --- has unequally-spaced real eigenvalues and
-retains non-degenerate gaps after the trace-out).
+G1--G3); the two-branch reconstruction is a conditional theorem of {[}GR
+§3.3{]}: for two Hamiltonians on the same finite configuration space of
+dimension at least three, each with distinct nonzero energy gaps and
+non-vanishing configuration-basis overlaps, equal transition
+probabilities imply H' = DHD† + E₀ or H' = −DH̄D† + E₀, for a
+time-independent diagonal unitary D and a real E₀, conditional on H-BG
+--- every non-congruent pair of strictly ordered integer rulers with
+distinct positive differences and equal difference sets has six marks
+and, after relabeling, realizes either μ or its global reversal, where μ
+sends each ascending mark pair of \{0,1,4,10,12,17\} to the ascending
+mark pair of \{0,1,8,11,13,17\} with the same difference, the
+orientation chosen once for the whole pair. The complete comparison of
+H-BG with the published integer classification of Bekir and Golomb is
+open; Bohr-frequency completeness itself needs only the spectrum and
+overlap conditions. These fail on a measure-zero set of Hamiltonians.
+For the cosmological realization, a stronger argument applies to G1
+specifically: the genericity conditions concern the \emph{effective}
+visible-sector Hamiltonian \(\hat{H}_{\text{eff}}\) (after the
+trace-out), not the total Hamiltonian \(H_{\text{tot}}\). The relevant
+distinction is whether a symmetry of \(H_{\text{tot}}\) preserves the
+visible/hidden factorization. The spatial symmetries an
+observer-centered partition breaks --- translation, rotation about
+distant points, boost --- are \emph{factorization-breaking} (they map
+boundary visible sites to hidden sites across the cosmological horizon),
+so they have no action on the visible factor alone and the degeneracies
+they protect are lifted in \(\hat{H}_{\text{eff}}\).
+Factorization-preserving symmetries \(S_V\otimes S_H\), by contrast,
+descend to a visible symmetry \(S_V\) of \(\hat{H}_{\text{eff}}\) (the
+uniform-bath trace-out is invariant under any unitary on the hidden
+factor); the visible-internal ones among these are the gauge symmetries
+of the emergent QFT, which correspond to physically equivalent states
+and don't affect the phase-locking argument. G2 (non-degenerate gaps) is
+not symmetry-protected and rests on genericity directly; it holds for
+generic \(\hat{H}_{\text{eff}}\) and can fail only on a measure-zero
+set, with no known structural feature of the substratum forcing
+systematic failure (single-cycle hidden dynamics in particular does not,
+since the Hermitian \(\hat{H}_{\text{eff}}\) --- unlike the unitary
+cycle operator's equally-spaced phases --- has unequally-spaced real
+eigenvalues and retains non-degenerate gaps after the trace-out).
 
 \textbf{4. Why doesn't the deep sector matter?}
 
@@ -3916,4 +3933,4 @@ The final text and all scientific claims were reviewed and verified by
 the author.
 
 \end{document}
-% source-sha256: ff8139221c2d582510d7cf4940523b0013a9e4ddc8b6b9cbf03915c39e23094e
+% source-sha256: e1167acd5277eb081e313a91f76340b8deb411a26e1e29034472beac53ce9d83

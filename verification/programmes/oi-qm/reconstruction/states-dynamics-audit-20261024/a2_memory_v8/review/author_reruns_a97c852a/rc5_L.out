@@ -1,0 +1,7 @@
+L1_k_range_15_both: exit 2; same_as_result=False; VOID: scope: reported members equal the preregistered B x k set
+L2_k_range_15_main_only: exit 2; same_as_result=False; VOID: scope: reported members equal the preregistered B x k set
+L3_members_swapped: exit 2; same_as_result=False; VOID: audit block TV equals reported
+L3b_member_deleted: exit 2; same_as_result=False; VOID: scope: reported members equal the preregistered B x k set
+L4_tenth_threshold: exit 2; same_as_result=False; VOID: scope: threshold constants equal the preregistered 1/2 and 1/10
+L5_B_range_both: exit 2; same_as_result=False; VOID: scope: reported members equal the preregistered B x k set
+L6_audit_subset_only: exit 2; same_as_result=False; VOID: scope: audited members equal the preregistered B x k set

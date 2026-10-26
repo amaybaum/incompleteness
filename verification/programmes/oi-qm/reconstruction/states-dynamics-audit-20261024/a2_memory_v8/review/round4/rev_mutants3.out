@@ -1,0 +1,6 @@
+W1a_bc_enclosure_scaled_1e-4: exit 2; same_as_result=False; VOID: audit independent BC enclosure overlaps the reported enclosure
+W1b_bc_enclosure_scaled_1e-6: exit 2; same_as_result=False; VOID: audit independent BC enclosure overlaps the reported enclosure
+W2_prereg_constant_and_bound: exit 2; same_as_result=False; VOID: K7 exact product TV inside power-rule bracket
+W3_bound_5pct_strong: exit 2; same_as_result=False; VOID: audit recomputed depth equals reported (power_rule_T_above_half_for_h_at_least)
+W4_depth_one_block_early: exit 2; same_as_result=False; VOID: audit recomputed depth equals reported (power_rule_T_above_half_for_h_at_least)
+W5_prereg_x1.5_and_bound_x1.5: exit 2; same_as_result=False; VOID: K7 exact product TV inside power-rule bracket

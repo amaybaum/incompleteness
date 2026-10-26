@@ -1,0 +1,200 @@
+{
+  "abstract_thresholds_00_01_10_11": [
+    5,
+    0,
+    4,
+    1
+  ],
+  "conditional_X_target_laws": [
+    {
+      "failure_probability": "11/16",
+      "s": 0,
+      "success_probability": "5/16",
+      "target_cells": [
+        {
+          "j": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "probability": "1/4"
+        },
+        {
+          "j": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "probability": "1/4"
+        },
+        {
+          "j": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "probability": "1/5"
+        },
+        {
+          "j": [
+            0,
+            1,
+            0,
+            1
+          ],
+          "probability": "1/5"
+        },
+        {
+          "j": [
+            0,
+            1,
+            1,
+            0
+          ],
+          "probability": "1/20"
+        },
+        {
+          "j": [
+            0,
+            1,
+            1,
+            1
+          ],
+          "probability": "1/20"
+        }
+      ]
+    },
+    {
+      "failure_probability": "11/16",
+      "s": 1,
+      "success_probability": "5/16",
+      "target_cells": [
+        {
+          "j": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "probability": "1/20"
+        },
+        {
+          "j": [
+            1,
+            0,
+            0,
+            1
+          ],
+          "probability": "1/20"
+        },
+        {
+          "j": [
+            1,
+            0,
+            1,
+            0
+          ],
+          "probability": "1/5"
+        },
+        {
+          "j": [
+            1,
+            0,
+            1,
+            1
+          ],
+          "probability": "1/5"
+        },
+        {
+          "j": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "probability": "1/4"
+        },
+        {
+          "j": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "probability": "1/4"
+        }
+      ]
+    }
+  ],
+  "countercontrols": {
+    "forbidden01_success_probability": "11/32",
+    "shared_z_joint_tv_with_fair_marginal": "1/2",
+    "stale_y_in_place_of_x_tv": "4/5",
+    "swapped_plane_weights_tv": "3/10",
+    "used_r_equal_x_tv": "1/10",
+    "used_r_opposite_x_tv": "9/10"
+  },
+  "joint_assembly": {
+    "examples": [
+      {
+        "accepted_worlds": 400,
+        "full_rejected_physical_measure_sha256": "8a1a4548a19e0a8a2630f751366d698cac8e490a2f4efc561d14b13f0310e0fd",
+        "new_failure_after_old_success_worlds": 880,
+        "old_terminal_failure_worlds": 2816,
+        "old_y": 0,
+        "u": 0,
+        "x": 0
+      },
+      {
+        "accepted_worlds": 400,
+        "full_rejected_physical_measure_sha256": "041b958d542407f18977af5e2f893465ed7f7a9801045bb528a0ccbac6aa299d",
+        "new_failure_after_old_success_worlds": 880,
+        "old_terminal_failure_worlds": 2816,
+        "old_y": 1,
+        "u": 1,
+        "x": 0
+      },
+      {
+        "accepted_worlds": 400,
+        "full_rejected_physical_measure_sha256": "88131e29596f8766fc65b02cc1f4e12471e12acbbdfda152369faab61e4fb9ef",
+        "new_failure_after_old_success_worlds": 880,
+        "old_terminal_failure_worlds": 2816,
+        "old_y": 1,
+        "u": 0,
+        "x": 1
+      },
+      {
+        "accepted_worlds": 400,
+        "full_rejected_physical_measure_sha256": "1e6654a1ad819292e78f4ee29661b21616e790c778f583a56263889e59b18a17",
+        "new_failure_after_old_success_worlds": 880,
+        "old_terminal_failure_worlds": 2816,
+        "old_y": 0,
+        "u": 1,
+        "x": 1
+      }
+    ],
+    "finite_worlds": 65536,
+    "joint_success_probability_per_block": "25/256",
+    "new_failure_after_old_success_probability_per_block": "55/256",
+    "new_rejected_physical_worlds_after_old_success": 14080,
+    "old_input_history_blocks": 16,
+    "old_terminal_failure_probability_per_block": "11/16",
+    "resurrection_mutant_false_offer_probability": "55/256",
+    "whole_old_raw_record_factorization": true
+  },
+  "native_source_revision": "7ec3f8234a148cadb58ebc6c8212b3b0233acabe",
+  "pool_bits": 6,
+  "retained_pool_rejection_phases_both_X_signs": 88,
+  "schema": "oi.native-pool-abstract-X-target.v11",
+  "verdict": {
+    "abstract_X_predicate": "full finite target law passes",
+    "delayed_full_public_history_joint_law": "open",
+    "native_X_predicate": "not_constructed",
+    "native_resource": "conditional six-bit fresh local pool",
+    "old_X_delivery_to_native_gate": "open",
+    "reusable_native_instrument": "not_constructed"
+  }
+}

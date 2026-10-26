@@ -1,0 +1,3 @@
+D1_power_rule_exponent_consistent: exit 0; same_as_result=False; {"class_hypothesis":"finite persistent state (carrier, private memory, any clock or record registers read); ti
+D4_nearest_dyadic_wrong_neighbour: exit 2; same_as_result=False; VOID: nearest dyadic minimal over 2^-B Z
+D5_lists_against_ceiling: exit 0; same_as_result=False; {"class_hypothesis":"finite persistent state (carrier, private memory, any clock or record registers read); ti

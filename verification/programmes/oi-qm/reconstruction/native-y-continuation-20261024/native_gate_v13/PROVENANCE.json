@@ -1,0 +1,47 @@
+{
+  "comparison_ensemble": {
+    "additional_zero_family_n": 1,
+    "dirty_background_seeds": [
+      0,
+      3
+    ],
+    "fresh_apparatus_bits": 9,
+    "n": [
+      1,
+      2,
+      3
+    ],
+    "old_input_bits": 3,
+    "pointer_radius": 2,
+    "post_pool_deadlines": [
+      1,
+      2,
+      3
+    ],
+    "worlds_per_family": 4096
+  },
+  "guiding_pr": 910,
+  "plan_commit": "9e92ff42cdb254e0de23202409888c3f5034bf39",
+  "plan_sha256": "11b4c339e056782e2f57040f9e4ea11ae084c9053e9215e62e1c877495617262",
+  "prior_native_author": "f24a57a7c23cc1818c04265cec7604f8bc2f410d",
+  "publication_authority": "Root only; no merge, dispatch, force push, branch deletion or #885 write.",
+  "referenced_files": [
+    {
+      "commit": "16b154cefe3acd40d5a60d507905709c3cfc19ca",
+      "path": "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/native_x_v12/REPORT.md",
+      "role": "scientific context; no imported engine or runtime data",
+      "sha256": "18678f906f6492b13d27152db3f3595361df0414cc4fa8de2f48229fac4e2808"
+    },
+    {
+      "commit": "16b154cefe3acd40d5a60d507905709c3cfc19ca",
+      "path": "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/shared_v12/INTERFACE-CONTRACT.md",
+      "role": "scientific context; no imported engine or runtime data",
+      "sha256": "1a0b34ebb0c7115dd5faae11d2ab20c25ecf8a6f091ea292eb184e4311be7633"
+    }
+  ],
+  "repository": "amaybaum/incompleteness",
+  "runtime_scientific_inputs": "None beyond independently encoded rule, fixed plan parameters and generated original-time worlds. No earlier engine imported.",
+  "schema": "native-gate-v13-provenance-1",
+  "scope": "Bounded original-time native control and exact native nonlinear polynomial, not actual enormous-L acceptance availability, adopted prior, public-access contract or full equivalence.",
+  "source_snapshot": "16b154cefe3acd40d5a60d507905709c3cfc19ca"
+}

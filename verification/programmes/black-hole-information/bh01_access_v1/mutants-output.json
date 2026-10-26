@@ -1,0 +1,106 @@
+{
+ "all_caught": true,
+ "caught": 12,
+ "count": 12,
+ "mutants": [
+  {
+   "baseline_control_passes": true,
+   "caught": true,
+   "kind": "in-process",
+   "mutant": "is_bijection accepts every map",
+   "mutant_control_passes": false,
+   "target": "K1 known_nonbijection_rejected"
+  },
+  {
+   "baseline_control_passes": true,
+   "caught": true,
+   "kind": "in-process",
+   "mutant": "hidden prior ignored (hidden registers fixed at 0)",
+   "mutant_control_passes": false,
+   "target": "K2 one_time_pad_R_alone"
+  },
+  {
+   "baseline_control_passes": true,
+   "caught": true,
+   "kind": "in-process",
+   "mutant": "total variation without the 1/2 factor",
+   "mutant_control_passes": false,
+   "target": "K2 identity_direct_read"
+  },
+  {
+   "baseline_control_passes": true,
+   "caught": true,
+   "kind": "in-process",
+   "mutant": "disjointness decoder uses union",
+   "mutant_control_passes": false,
+   "target": "K3 on identity_direct_read"
+  },
+  {
+   "baseline_control_passes": true,
+   "caught": true,
+   "kind": "in-process",
+   "mutant": "permutation enumeration truncated",
+   "mutant_control_passes": false,
+   "target": "K4 S8_count"
+  },
+  {
+   "baseline_control_passes": true,
+   "caught": true,
+   "kind": "in-process",
+   "mutant": "GF(2) rank skips the last row (off-by-one row loop)",
+   "mutant_control_passes": false,
+   "target": "K5 identity_cases"
+  },
+  {
+   "baseline_control_passes": true,
+   "caught": true,
+   "kind": "in-process",
+   "mutant": "records not accumulated",
+   "mutant_control_passes": false,
+   "target": "D1 on swap_in_swap_out"
+  },
+  {
+   "baseline_control_passes": true,
+   "caught": true,
+   "kind": "in-process",
+   "mutant": "item F evaporation time uses M^2 in place of M^3 (post-review)",
+   "mutant_control_passes": false,
+   "target": "K7 reference value and cubic scaling"
+  },
+  {
+   "baseline_control_passes": true,
+   "caught": true,
+   "kind": "in-process",
+   "mutant": "nondecreasing() made vacuous (post-review)",
+   "mutant_control_passes": false,
+   "target": "K8 detects_decrease"
+  },
+  {
+   "caught": true,
+   "exit_status": 2,
+   "kind": "source",
+   "mutant": "is_bijection accepts every map, end-to-end",
+   "printed_VOID": true,
+   "result_written": false,
+   "target": "K1 / VOID path"
+  },
+  {
+   "caught": true,
+   "exit_status": 2,
+   "kind": "source",
+   "mutant": "an assert statement added to main",
+   "printed_VOID": true,
+   "result_written": false,
+   "target": "source scan (no assert)"
+  },
+  {
+   "baseline_identical_B_vs_O": true,
+   "caught": true,
+   "kind": "source",
+   "mutant": "optimization flag written into result.json",
+   "mutant_identical_B_vs_O": false,
+   "target": "K6"
+  }
+ ],
+ "schema": "bh01-access-v1/mutants"
+}

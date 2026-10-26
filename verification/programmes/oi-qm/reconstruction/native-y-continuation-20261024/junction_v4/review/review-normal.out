@@ -1,0 +1,7 @@
+V1: independent ready/source/bank inventory; all15 exact slacks; pivot free even with q3 extension; no-wrap axial path: PASS
+V2: all64 translated H maps bijective; complete ray old/five-neighbor independence distances: PASS
+V3: 126 independent dense3D native ray cases,all8 pivots; background offsets matter: PASS
+V4: native marginal-vs-history and multiple-path cancellation countercontrols: PASS
+V5: active local parity excludes M1/old previous input but retains M2; global odd-torus qualification necessary; isolated M2 arrival cancels: PASS
+V6: new initial active-sector prescription preserves source exceptions and all named banks; exactly6 current sources and zero active previous sector: PASS
+VERDICT: ACCEPT unchanged-junction obstruction and compatible initial geometry only; extended output, joint-history law, and integrated reset remain OPEN.
