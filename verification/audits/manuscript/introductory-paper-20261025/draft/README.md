@@ -88,3 +88,14 @@ verbatim. Independent scientific and editorial reviews are in progress. r4 stays
 governs presentation; each overlap is recorded. `scripts/build_r6.py` generates it from r5 by exact-once replacements.
 Main text is 11.73 pages, with no overfull boxes and no dropped glyphs, and the checks pass. Confirmation re-checks of
 r6 are in progress.
+
+## Re-checks of r6, and r7
+
+Both confirmation re-checks of r6 (`review/scientific/RECHECK-r6.md`, `review/editorial/RECHECK-r6.md`) returned
+ACCEPT WITH NITS. `Introduction-r7.md` applies four of those nits as exact single replacements (`CHANGES-r7.md`):
+- an operational-QM qualifier in §1.2;
+- the gravitational operator in §4 named generally;
+- a comma;
+- a term used before its definition.
+
+A confirmation of the four-line diff is in progress.
