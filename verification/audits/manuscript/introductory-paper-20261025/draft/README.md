@@ -1,4 +1,4 @@
-# Introduction paper: working draft (WIP, unreviewed)
+# Introduction paper: working draft (WIP, under review)
 
 `Introduction.md` is the working draft of the Introduction paper, written from `../design/OUTLINE-r4.md` at `main`
 `687e885b`. It is not a manuscript: it lives here, not under `papers/`, until it passes independent scientific and
@@ -23,5 +23,20 @@ The repository's default build gives 20 pages; with one-inch margins, 14 (page f
 `Introduction-r2.md` (with `DRAFT-NOTES-r2.md` and `CHANGES-r2.md`) applies both reviews: 15 pages in the
 repository's default build, no dropped glyphs, `voice_check` and `claims_check` pass. Its owner markers list the
 decisions still open; the paper does not land while any R11 site is uncorrected or the §A.42 expected result is not
-retained. Re-checks of r2 are in progress.
+retained.
+
+## Re-checks of r2, and r3
+
+- `review/scientific/RECHECK-r2.md`: BLOCK (narrow). Four required replacements: §6.4(5) stated the framework's
+  adopted Bell branch as a necessity; §6.3 drew its conclusion before the imported unboundedness premise; §5.4 dropped
+  BH-01's scope limit on GR Thm A.7; two steps were labelled "proved on paper" that Main gives no written proof of.
+  Also seven nits and four erratum nits (E1–E4).
+- `review/editorial/RECHECK-r2.md`: ACCEPT WITH NITS, with an overfull-box analysis.
+
+`Introduction-r3.md` (with `CHANGES-r3.md`) applies R2-1 to R2-4 verbatim, the nits, and the owner decisions of
+2026-10-26: the title, a Contributions paragraph that claims no new theorem or physical result, two raw LaTeX lines
+that change layout only, and the conservative handling of D1–D3. 15 pages in the default build, no overfull boxes,
+no dropped glyphs. `CHANGES-r3.md` records where r3 departs from a reviewer's suggested text and why. The R11
+markers, the §A.42 retention marker and five VERIFY markers still gate landing. `../design/ERRATUM-r4.md` applies
+E1–E4. Re-checks of r3 are in progress.
 
