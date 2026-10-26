@@ -1,0 +1,77 @@
+{
+  "all_required_controls_pass": true,
+  "broken_decomposition_changed_rows": 16,
+  "clean_public_flag_bits": 1,
+  "clean_workspace_bits": 7,
+  "complete_boolean_truth_rows": 1024,
+  "conditional_kernel": {
+    "conditional_native_phase_worlds": 32768,
+    "full_kernel_cells_including_zeros": 65536,
+    "key_exposure_example": {
+      "M": 0,
+      "V": 1,
+      "complement": 0,
+      "determinant": "-1/18",
+      "old": 0
+    },
+    "key_exposure_min_determinant": "-1/18",
+    "key_exposure_negative_posteriors": 1024,
+    "omitted_uncompute_dirty_worlds": 31232,
+    "phase_kernel_sha256": "65e0e1dab316ef79e64ffa1369402c8d66f8de9585045dd4d5b1d5cbf9940c27",
+    "positive_accepted_whole_record_posteriors": 1024,
+    "rejected_physical_cells_retained": 16384,
+    "valid_old_flag_contexts": 96,
+    "whole_pointer_padding_worlds": 131072,
+    "workspace_a_exposure_min_determinant": "-1/4"
+  },
+  "copy_tick": 45,
+  "dirty_register_inverse_control_rows": 4129,
+  "explicit_four_padding_trace_rows": 128,
+  "fixed_elementary_gate_ticks": 89,
+  "gates": {
+    "CNOT": 23,
+    "NOT": 36,
+    "Toffoli": 30
+  },
+  "global_inverse": "reverse the listed elementary involutions on all register states",
+  "initial_fair_public_padding_bits": 2,
+  "logical_register_bits": 31,
+  "multi_control_dirty_inverse_rows": 520,
+  "multi_control_truth_rows": 72,
+  "native_H_gate_compilation_established": false,
+  "native_operand_preservation_through_delay_established": false,
+  "observer_access_rule_adopted": false,
+  "optional_complete_raw_recording_dilation": {
+    "CNOT": 293,
+    "NOT": 36,
+    "Toffoli": 30,
+    "additional_initially_clean_record_bits": 270,
+    "autonomous_native_clock_constructed": false,
+    "complete_pointer_prefix_samples_including_record_copy_ticks": 360,
+    "complete_recording_and_inverse_control_rows": 256,
+    "flag_copy_tick": 180,
+    "total_elementary_ticks": 359,
+    "total_register_bits_including_raw_record_bank": 301
+  },
+  "phase_input_bits": 21,
+  "record_and_workspace_mutants": {
+    "correct_rate_unrelated_flag_offered_kernel_tv": [
+      "1/8",
+      "1/8"
+    ],
+    "omitted_uncompute_public_pointer_alone_detects_error": false,
+    "padding_reuse_alone_claimed_to_leak_carrier": false,
+    "two_operation_padding_reuse_full_record_tv": "3/4"
+  },
+  "relevant_phase_bits_exhausted": 10,
+  "schema": "oi-reversible-acceptance-composition-v6.1",
+  "scope": "logical reversible circuit on the actual distributed phase representation",
+  "uncontrolled_native_delay_countercontrol": {
+    "actual_L_delay_simulated": false,
+    "scope": "one additional full native tick in the retained two-tick small-source control",
+    "small_source_worlds": 4096,
+    "unchanged_phase_decoder_changed_pool_worlds": 3584,
+    "unchanged_phase_decoder_wrong_sign_worlds": 2048
+  },
+  "whole_pointer_prefix_samples_including_initial": 90
+}

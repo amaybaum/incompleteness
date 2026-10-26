@@ -1,0 +1,19 @@
+--- checks.py
++++ checks.py
+@@ -72,7 +72,7 @@
+     axes = [1, 2, 1, 1, 1, 1, 0, 0]
+     signs = [-1, -1, 1, 1, 1, 1, -1, 1]
+     neighbors = {'q8': (0, S, 76), 'q10': (0, S, 78), 'm': (-1, S, 77),
+-                 'q9+x': (1, S, 77), 'q9-y': (0, S-1, 77), 'q9+y': (0, S+1, 77)}
++                 'q9+x': (1, S, 77), 'q9-y': (0, S-1, 77)}
+     carrier = [('q9', q9, L+2), ('q9', q9, L)]
+     carrier += [(name, site, L+1) for name, site in neighbors.items()]
+     # Post-plan control: the list must equal v6's read set, derived from q9
+@@ -451,6 +451,7 @@
+             if counts.get((rec, v, a, j), 0) != target_count(s_old, a, j):
+                 s3 = False
+             s3_cells += 1
++    print('CELLS', seed, s3, file=__import__('sys').stderr)
+     positive = 0
+     if kind == 'success':
+         for rec, v in product(range(512), range(8)):

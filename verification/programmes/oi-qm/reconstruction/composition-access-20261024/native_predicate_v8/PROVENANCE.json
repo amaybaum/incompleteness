@@ -1,0 +1,91 @@
+{
+  "actual_astronomical_time_simulated": false,
+  "construction_class": "C(4,16): any set of whole native triples within Manhattan distance 4 of q9, read through scaled slice n+17 (actual L+17), with the single whole-V record; no gates, pads or added sources",
+  "evidence_levels": [
+    "exact actual-L integer geometry (tail-free reads, G arrival, v7 carrier table)",
+    "written conditional corollary of v7's factorization for tail-free reads",
+    "scaled exhaustive native control: 16 dirty old-success families, 512 G values each, exact search over all read sets"
+  ],
+  "expected_output": "result.json",
+  "guiding_pr": 912,
+  "implementation_imports_author_engine": false,
+  "inherited_constants_written_into_checker": [
+    "v7 actual-L ports, deadlines, axes, signs, L, S, R, T, P",
+    "v7 first_tail_arrival_minus_L_at_carrier_sites table (x6)",
+    "v6 phase map, thresholds n=(5,0,4,1), selected cell (s,Y,R,Z) and K",
+    "Native A scaled source offsets (-(n+1),0,-1), (-(n+1),0,1), (-(n+2),0,0)",
+    "the xorshift background generator of v7's scaled control, with a ball-shaped dirty region"
+  ],
+  "mutant_command": "mkdir mut && python3 -I -B mutants/run_mutants.py checks.py mut (the work directory may be relative; exits 1 unless every mutant is caught)",
+  "native_storage_or_compilation_established": false,
+  "new_physical_premise_adopted": false,
+  "normal_command": "python3 -I -B checks.py",
+  "observer_access_adopted": false,
+  "optimized_command": "python3 -I -B -O checks.py",
+  "post_plan_additions": [
+    "nontrivial_two_block_cells_reported_only per family (position, slice, G arrival slice, V values split, V values with the target law), reported only",
+    "family_search reports an admissible R by its nontrivial cells; cells constant for every V value can be added to any R and are omitted (efficiency change, same decision)",
+    "the checker's run_family takes an optional injection argument, used only by the injection mutant m9",
+    "mutant m4a (direct proportionality test accepts all) added to target x4, after the first mutant run showed that m4b (law statistic accepts any two-block split) is caught by the family search cap before x4 is reached; both are retained"
+  ],
+  "post_review_changes": [
+    "review of 375a29e4 (accept with nits); changes in the following commit",
+    "F1: run_mutants.py makes the work directory absolute and exits 1 unless every mutant is caught; an unparsed mutant records no stderr text; the documented command was verified from an empty directory with a relative work directory",
+    "F2: required control x0_scope_parameters pins n=6, rho=4, tau_max=16, reads through L+17, 129 region sites and 3,225 site-times; the scope string is generated from the parameters (text unchanged); mutants m10 (radius 3) and m11 (reads to L+9), the reviewer's R1 and R8, now give VOID at x0",
+    "F3: mutant m4c, the reviewer's R7 (law statistic checks 20/44 block sizes only), added; caught at x4",
+    "F4, F5, F6, F8: REPORT wording only (the V cell in the given-V-trivial count; 'scaled' in the opening result and the choice paragraph; pads and mixtures over backgrounds as one open branch; the scaled-to-actual G-arrival check confirms transcription, not dynamics)",
+    "result.json leaf changes: required_controls.x0_scope_parameters=true and post_review_rows added; every other leaf unchanged"
+  ],
+  "published_plan_commit": "631bec0ca55eacbf6a7cf7e72d72c673dfe430da",
+  "published_plan_path": "verification/programmes/oi-qm/reconstruction/composition-access-20261024/native_predicate_v8/PLAN.md",
+  "repository": "amaybaum/incompleteness",
+  "schema": "oi-passive-native-readout-provenance-v8.0",
+  "source_files": [
+    {
+      "commit": "afc7bced6720ee6b3ce27207423d1f56f5851779",
+      "path": "verification/programmes/oi-qm/reconstruction/composition-access-20261024/composition_flag_v6/checks.py",
+      "sha256": "fa37bef360b5c2ecca4d132265628c7771b43c058fe3a13115d772ef16974f0b"
+    },
+    {
+      "commit": "afc7bced6720ee6b3ce27207423d1f56f5851779",
+      "path": "verification/programmes/oi-qm/reconstruction/composition-access-20261024/composition_flag_v6/REPORT.md",
+      "sha256": "425af236158aa9adf2949204fda4e5fc176f020f35264fb445847bbf3b1274ba"
+    },
+    {
+      "commit": "afc7bced6720ee6b3ce27207423d1f56f5851779",
+      "path": "verification/programmes/oi-qm/reconstruction/composition-access-20261024/delayed_history_v7/checks.py",
+      "sha256": "3754fcd40a37153bf2c26312afe77337ed991d474f6694367a73a25c5aefa5b3"
+    },
+    {
+      "commit": "afc7bced6720ee6b3ce27207423d1f56f5851779",
+      "path": "verification/programmes/oi-qm/reconstruction/composition-access-20261024/delayed_history_v7/result.json",
+      "sha256": "ccc3b9722282cb2381513fb20fa310b2b7257386e96912b4bc580c65595cf46e"
+    },
+    {
+      "commit": "afc7bced6720ee6b3ce27207423d1f56f5851779",
+      "path": "verification/programmes/oi-qm/reconstruction/composition-access-20261024/delayed_history_v7/REPORT.md",
+      "sha256": "d51685c2274313d88be7b857bc6df03f5bb74b5644449aa081469cb00053cac9"
+    },
+    {
+      "commit": "afc7bced6720ee6b3ce27207423d1f56f5851779",
+      "path": "verification/programmes/oi-qm/reconstruction/composition-access-20261024/CURRENT-HANDOFF.md",
+      "sha256": "89ce8f17492ec7beb5ff808b67b2ab8c50fc657d41b0c5721d8600a2856bf421"
+    },
+    {
+      "commit": "f24a57a7c23cc1818c04265cec7604f8bc2f410d",
+      "path": "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/native_x_v12/REPORT.md",
+      "sha256": "18678f906f6492b13d27152db3f3595361df0414cc4fa8de2f48229fac4e2808"
+    },
+    {
+      "commit": "f24a57a7c23cc1818c04265cec7604f8bc2f410d",
+      "path": "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/history_v11/REPORT.md",
+      "sha256": "413c9595a6def923ba62e1c0d34c12c0516997fe1c928e5438abaf6a990fdb81"
+    }
+  ],
+  "starting_head": "afc7bced6720ee6b3ce27207423d1f56f5851779",
+  "supplied_resources": [
+    "Native A source triples G uniform conditional on all other initial variables",
+    "history_v11 bank triples uniform conditional on all other initial variables including G (enters only through the inherited factorization)",
+    "v6's isolated logical storage of the outgoing carrier (not replaced by this test)"
+  ]
+}

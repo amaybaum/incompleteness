@@ -1,0 +1,10 @@
+--- checks.py
++++ checks.py
+@@ -420,6 +420,7 @@
+     w = [(a << 6) | (b << 3) | c for a, b, c in
+          zip(vals[PORT, TAIL[0]], vals[PORT, TAIL[1]], vals[PORT, TAIL[2]])]
+     pool = [(a << 6) | (b << 3) | c for a, b, c in zip(q8, q10, mm)]
++    w = [l >> 9 for l in lanes]
+     # (x2) seven-site inverse recovers old q9 in every world.
+     cx = others[0] ^ others[1] ^ others[2]
+     inv_ok = all(v_cur[l] ^ H[q8[l] ^ q10[l] ^ mm[l] ^ cx] == p for l in lanes)

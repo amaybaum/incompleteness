@@ -1,0 +1,80 @@
+{
+  "actual_astronomical_time_simulated": false,
+  "carrier_scope": "frozen logical v6 phase wires in supplied isolated storage; the circuit does not act on the lattice",
+  "evidence_levels": [
+    "written conditional corollary of Native A and history_v11",
+    "exact actual-L integer geometry",
+    "scaled exhaustive native control and countercontrols"
+  ],
+  "expected_output": "result.json",
+  "guiding_pr": 912,
+  "implementation_imports_author_engine": false,
+  "native_storage_or_compilation_established": false,
+  "new_physical_premise_adopted": false,
+  "normal_command": "python3 -I -B checks.py",
+  "observer_access_adopted": false,
+  "optimized_command": "python3 -I -B -O checks.py",
+  "post_plan_additions": [
+    "c3 row for native q8 at n+3, reported only",
+    "c1 accepted-record denominator (c1_accepted_records), reported only",
+    "x3 criterion changed to duplicated-tail record/carrier TV > 0 after review; the support count is kept and reported only",
+    "x4 self-test of the s2 and s3 statistics on an aliased enumeration whose answer is fixed by counting, added after review",
+    "carrier_list_equals_v6_read_set control added after review",
+    "all_required_controls_pass computed from required_controls after review; failed controls give verdict VOID and exit status 2",
+    "s1 recorded as a criterion rather than an exception after review",
+    "s3 cell and positive-record counts exclude the pad factor after review (131072 and 4096 per family)"
+  ],
+  "published_plan_commit": "d72ea524586b84e285c4723bf47a377df3ecb8a9",
+  "published_plan_path": "verification/programmes/oi-qm/reconstruction/composition-access-20261024/delayed_history_v7/PLAN.md",
+  "repository": "amaybaum/incompleteness",
+  "schema": "oi-delayed-port-history-provenance-v7.3",
+  "source_files": [
+    {
+      "commit": "f24a57a7c23cc1818c04265cec7604f8bc2f410d",
+      "path": "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/native_x_v12/REPORT.md",
+      "sha256": "18678f906f6492b13d27152db3f3595361df0414cc4fa8de2f48229fac4e2808"
+    },
+    {
+      "commit": "f24a57a7c23cc1818c04265cec7604f8bc2f410d",
+      "path": "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/native_x_v12/checks.py",
+      "sha256": "9c89a7a434346ee7ae4b2d8558a5fc7ea8dfd7b46d3445352644735b09f2bff3"
+    },
+    {
+      "commit": "f24a57a7c23cc1818c04265cec7604f8bc2f410d",
+      "path": "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/history_v11/REPORT.md",
+      "sha256": "413c9595a6def923ba62e1c0d34c12c0516997fe1c928e5438abaf6a990fdb81"
+    },
+    {
+      "commit": "f24a57a7c23cc1818c04265cec7604f8bc2f410d",
+      "path": "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/history_v11/checks.py",
+      "sha256": "44deef75316b4f9c4d2d8c66a1496f004e49a09a895bcbed8c90e6878c90b495"
+    },
+    {
+      "commit": "f24a57a7c23cc1818c04265cec7604f8bc2f410d",
+      "path": "verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/history_v11/review/REPORT.md",
+      "sha256": "dba6f7bde248b5c5b3a0472c7455afd828a61d265ee93577d4355fc8e246ea59"
+    },
+    {
+      "commit": "588edce16926ae1a40d1f1e75fc1b5cfb7ccc55e",
+      "path": "verification/programmes/oi-qm/reconstruction/composition-access-20261024/composition_flag_v6/REPORT.md",
+      "sha256": "425af236158aa9adf2949204fda4e5fc176f020f35264fb445847bbf3b1274ba"
+    },
+    {
+      "commit": "588edce16926ae1a40d1f1e75fc1b5cfb7ccc55e",
+      "path": "verification/programmes/oi-qm/reconstruction/composition-access-20261024/composition_flag_v6/checks.py",
+      "sha256": "fa37bef360b5c2ecca4d132265628c7771b43c058fe3a13115d772ef16974f0b"
+    },
+    {
+      "commit": "588edce16926ae1a40d1f1e75fc1b5cfb7ccc55e",
+      "path": "verification/programmes/oi-qm/reconstruction/composition-access-20261024/CURRENT-HANDOFF.md",
+      "sha256": "e5cb0bb98d2aec5be67948bfe776fd23275d457b5633e10a7d4049f871fe346c"
+    }
+  ],
+  "starting_head": "588edce16926ae1a40d1f1e75fc1b5cfb7ccc55e",
+  "supplied_resources": [
+    "Native A source triples G uniform conditional on all other initial variables",
+    "history_v11 bank triples uniform conditional on all other initial variables including G",
+    "v6 pointer pads fresh and independent",
+    "isolated logical storage, schedule and pointer channel of v6"
+  ]
+}

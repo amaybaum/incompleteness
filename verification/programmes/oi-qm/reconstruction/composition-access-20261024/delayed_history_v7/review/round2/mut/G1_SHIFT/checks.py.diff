@@ -1,0 +1,19 @@
+--- checks.py
++++ checks.py
+@@ -111,7 +111,7 @@
+     tail_rows = 0
+     first_tail_arrival = {}
+     for i in range(8):
+-        lo, hi = max(deadlines[i], L)+1, H2
++        lo, hi = max(deadlines[i], L)-76, H2
+         for name, site, time in carrier:
+             md = min_dist(i, site, lo, hi)
+             tail_slacks.append(md-time)
+@@ -451,6 +451,7 @@
+             if counts.get((rec, v, a, j), 0) != target_count(s_old, a, j):
+                 s3 = False
+             s3_cells += 1
++    print('CELLS', seed, s3, file=__import__('sys').stderr)
+     positive = 0
+     if kind == 'success':
+         for rec, v in product(range(512), range(8)):

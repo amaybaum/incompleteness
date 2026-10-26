@@ -1,0 +1,2 @@
+14 old_q9 0 sign 0 hist_match True heralded 0 law_good_cells 0 const 2225 cone_parity_dep 1002 twoblock [((-2, -1, -1), 6, [(32, 32)]), ((-2, 0, 0), 6, [(24, 40)]), ((0, -2, -1), 9, [(16, 48)]), ((0, 0, 4), 10, [(32, 32)]), ((2, 0, 0), 10, [(24, 40)]), ((2, 0, 2), 10, [(32, 32)])]
+3 old_q9 1 sign 0 hist_match True heralded 0 law_good_cells 0 const 2223 cone_parity_dep 1002 twoblock [((-2, -1, -1), 6, [(32, 32)]), ((-2, 0, 0), 6, [(24, 40)]), ((2, 0, 0), 10, [(24, 40)])]

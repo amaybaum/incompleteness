@@ -1,0 +1,23 @@
+{
+  "all_caught": false,
+  "mutants": [
+    {
+      "admissible_common_R": null,
+      "caught": false,
+      "exit_status": 2,
+      "failed_control": "x0_scope_parameters",
+      "mutant": "u1_scope_break_but_targets_x1",
+      "target": "x1_scalar_evaluator_agrees",
+      "verdict": "VOID"
+    },
+    {
+      "admissible_common_R": null,
+      "caught": false,
+      "exit_status": 1,
+      "failed_control": "unparsed output, exit status 1",
+      "mutant": "u2_syntax_error",
+      "target": "x1_scalar_evaluator_agrees",
+      "verdict": "UNPARSED"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+--- checks.py
++++ checks.py
+@@ -456,7 +456,7 @@
+                 if cnt.get((rec, v, a, j), 0) != target_count(s_old, a, j):
+                     ok = False
+                 n_cells += 1
+-        return ok, n_cells
++        return True, n_cells
+     s3, s3_cells = cells_match(counts)
+     positive = 0
+     if kind == 'success':

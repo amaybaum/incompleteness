@@ -1,0 +1,19 @@
+--- checks.py
++++ checks.py
+@@ -414,7 +414,7 @@
+           and all(len(set(vals[o, NS+1])) == 1 for o in OTHERS))
+     p = p_expected
+     s_old = comp(p, 1)
+-    q8, q10, mm = vals[Q8, NS+1], vals[Q10, NS+1], vals[MM, NS+1]
++    q8, q10, mm = vals[Q8, HS], vals[Q10, NS+1], vals[MM, NS+1]
+     v_cur = vals[Q9, NS+2]
+     others = [vals[o, NS+1][0] for o in OTHERS]
+     w = [(a << 6) | (b << 3) | c for a, b, c in
+@@ -451,6 +451,7 @@
+             if counts.get((rec, v, a, j), 0) != target_count(s_old, a, j):
+                 s3 = False
+             s3_cells += 1
++    print('CELLS', seed, s3, file=__import__('sys').stderr)
+     positive = 0
+     if kind == 'success':
+         for rec, v in product(range(512), range(8)):

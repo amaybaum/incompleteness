@@ -1,0 +1,49 @@
+{
+  "candidate.py": {
+    "fragments": [
+      {
+        "line_end": 21,
+        "line_start": 20,
+        "text": "def accept(u,v,k):\n    return k < {(0,0):5,(1,0):4,(1,1):1,(0,1):0}[u,v]"
+      },
+      {
+        "line_end": 44,
+        "line_start": 38,
+        "text": "def pulse(S,d,noise):\n    \"\"\"Raw upper source. R=1 mod12, alpha=1; two compatible input phases.\"\"\"\n    R=S+d\n    if R%12!=1 or S&d:raise ValueError('incompatible phase/parity')\n    if S%3==2:return noise,0,1\n    if S%3==0:return noise,1,0\n    raise ValueError('this X-copy collision excludes incoming A')"
+      },
+      {
+        "line_end": 48,
+        "line_start": 47,
+        "text": "def output(S,x,noise):\n    return (x,1,x^noise) if S%3==2 else (1,x,x^noise)"
+      }
+    ],
+    "original_path": "baseline/OI_combined_handoff_2026-10-24_v1/workspace/oi_native_x_instrument_v1/candidate.py",
+    "original_sha256": "8b54805bdc18fa2760566743a6ce1b503dedca1c4690829cd1ffb6f16a7bc301"
+  },
+  "checks.py": {
+    "fragments": [
+      {
+        "line_end": 232,
+        "line_start": 232,
+        "removed_line_prefix": "    ",
+        "text": "planes=((0,0,0),(1,1,1),(0,1,0),(0,1,1),(1,0,0),(1,0,1))"
+      },
+      {
+        "line_end": 234,
+        "line_start": 234,
+        "removed_line_prefix": "    ",
+        "text": "weights={'X':(5,5,4,1,1,4),'Y':(5,5,2,3,3,2),'R':(7,7,2,1,1,2)}"
+      },
+      {
+        "line_end": 235,
+        "line_start": 235,
+        "removed_line_prefix": "    ",
+        "text": "indices={'X':0,'Y':1,'R':2,'Z':3}"
+      }
+    ],
+    "original_path": "baseline/OI_combined_handoff_2026-10-24_v1/workspace/oi_native_x_instrument_v1/checks.py",
+    "original_sha256": "07aa1c4b073832e4814250c5394d83172031431efd1227f5ef42f15ee21de6e1"
+  },
+  "notice": "Source fragments retained for the scoped algebra audit. The three calibration assignments have four leading indentation spaces removed, recorded per fragment; candidate functions are verbatim. Full native geometry/compiler proof is inherited, not replayed.",
+  "schema": "oi-native-x-source-excerpts-v1"
+}

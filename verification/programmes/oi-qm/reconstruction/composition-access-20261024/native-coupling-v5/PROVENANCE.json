@@ -1,0 +1,48 @@
+{
+  "F9_plan_publication": "757e766b39be68d32adfe1900fadeff0b61da776",
+  "actual_L_source_geometry": "conditional on Native A source/readiness proof; not re-proved by this checker",
+  "claims_not_made": [
+    "actual enormous-L simulation",
+    "physical predicate",
+    "new observer access",
+    "native reusable interface",
+    "full A1 or A2 equivalence",
+    "general OI no-go",
+    "Lean certificate or CI attestation"
+  ],
+  "date": "2026-10-24",
+  "future_native_R_read_constructed": false,
+  "governance_blob": "0fe9a4c5a6b7a40f83ec4cb772bc3acd639fddc7",
+  "native_A_author_commit": "f24a57a7c23cc1818c04265cec7604f8bc2f410d",
+  "native_A_source_plan_publication": "1b7293558c8d57fe3b17f3dba0a1aa04228e8086",
+  "native_B_author_commit": "1c91d3158e13eaa69c7fd1710932c9995d0288d7",
+  "native_B_q10_table_sha256": "8bc1462854ce5fb80c18a48e8208037eb6bd613aa5babb28721e186aec3387f9",
+  "native_B_table_interpretation": "current-port response dependence; no complete public-history equivalence inferred",
+  "native_B_table_order": "x,u,mY,mR,a,b,Ncode lexicographic; code=4A+2B+D",
+  "native_B_table_retention": "512 exact hex entries embedded in checks.py, no author-engine imports",
+  "native_author_snapshots_sha256": {
+    "native_seed_v12": {
+      "PLAN.md": "774adfccdfca3ea178fa1c46ad141d1b027849a7ad8e3c81e508cb9df2a9eb70",
+      "PROVENANCE.json": "faa8276720fa2a7bdbf27017ad7924b622d36fa22c327788a8d5ac7849e52e06",
+      "REPORT.md": "7fb515126a6835a2c10031b3000077d62fd8ac3af4af860dc40721cb47b39c52",
+      "SHA256SUMS": "cb60b755ca2aed4bdd2763271bcbbbd1f903c33de64eb5a079d0945120ea1142",
+      "checks.py": "236438fc59188deb6575bf29d1236de10130bd78576db0c5308f4604426fc3b3",
+      "result.json": "4628cc9f241b0ab71f62d96fbdb2e99f5c5991cce66725f9f86c82ddcb46a28d"
+    },
+    "native_x_v12": {
+      "PLAN.md": "bc7be9bbcf74ddc6238dd8846a6f319090f0710ff835e2c83fa42b1c19d90cf2",
+      "PROVENANCE.json": "fbab96d418f4afae9a98e02d9361cbd36b10d121fe1458a855e3dac40b45b3f6",
+      "REPORT.md": "18678f906f6492b13d27152db3f3595361df0414cc4fa8de2f48229fac4e2808",
+      "SHA256SUMS": "375da9e5495aaba934037a3396c46342a0a43d3abfbc09ed3688190b47390edc",
+      "checks.py": "9c89a7a434346ee7ae4b2d8558a5fc7ea8dfd7b46d3445352644735b09f2bff3",
+      "result.json": "302d4f2e2fc37150738512a81b3bcbc2d387b92d7001108a354fd7417a5b537a"
+    }
+  },
+  "normal_optimized_replay": "byte-identical",
+  "physical_acceptance_flag_computed": false,
+  "scaled_native_world": "n=1 full sparse infinite lattice with four original-time triples and zero previous slice",
+  "schema": "oi-coupled-native-pool-composition-provenance-v5.1",
+  "shared_interface_commit": "1324d9a854da60d0274ba77fe80d08e7cf2b1ef1",
+  "shared_interface_sha256": "1a0b34ebb0c7115dd5faae11d2ab20c25ecf8a6f091ea292eb184e4311be7633",
+  "source_912_base": "0965d1a090140c5535f50ef17c3f582181e3b020"
+}

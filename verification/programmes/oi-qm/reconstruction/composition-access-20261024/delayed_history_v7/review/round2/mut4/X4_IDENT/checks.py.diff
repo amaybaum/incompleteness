@@ -1,0 +1,11 @@
+--- checks.py
++++ checks.py
+@@ -500,7 +500,7 @@
+     # to the first. By counting, the support is at most 2^15 and every cell
+     # count is a multiple of 8, so the s2 and s3 functions above must both
+     # reject this enumeration.
+-    alias = [(l & ~(7 << 12)) | (((l >> 9) & 7) << 12) for l in lanes]
++    alias = list(lanes)
+     alias_support = support(alias)
+     alias_cells_ok, _ = cells_match(Counter((w[l], v_cur[l], acc[l], sel[l]) for l in alias))
+     x4_ok = not bijective(alias) and not alias_cells_ok

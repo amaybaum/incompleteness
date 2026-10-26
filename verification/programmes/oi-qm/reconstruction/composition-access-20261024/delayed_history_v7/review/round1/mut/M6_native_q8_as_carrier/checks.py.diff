@@ -1,0 +1,11 @@
+--- checks.py
++++ checks.py
+@@ -407,7 +407,7 @@
+     s_old = comp(p, 1)
+     for o in OTHERS:
+         need(len(set(vals[o, NS+1])) == 1, 'complement neighbor depends on G or tail')
+-    q8, q10, mm = vals[Q8, NS+1], vals[Q10, NS+1], vals[MM, NS+1]
++    q8, q10, mm = vals[Q8, HS], vals[Q10, NS+1], vals[MM, NS+1]
+     v_cur = vals[Q9, NS+2]
+     others = [vals[o, NS+1][0] for o in OTHERS]
+     w = [(a << 6) | (b << 3) | c for a, b, c in

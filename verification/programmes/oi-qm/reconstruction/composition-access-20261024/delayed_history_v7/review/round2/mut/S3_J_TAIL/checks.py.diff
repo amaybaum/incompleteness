@@ -1,0 +1,19 @@
+--- checks.py
++++ checks.py
+@@ -436,7 +436,7 @@
+         a8, a10, am = q8[l], q10[l], mm[l]
+         s = comp(v_cur[l], 1) ^ comp(a8, 2) ^ comp(a10, 2) ^ comp(am, 2) ^ dbits
+         sign_mismatch += int(s != s_old)
+-        j = (s, comp(a8, 1), comp(a10, 2), comp(a10, 1))
++        j = (s, comp(a8, 1) ^ ((l >> 9) & 1), comp(a10, 2), comp(a10, 1))
+         k = comp(a8, 0)+2*comp(a8, 2)+4*comp(a10, 0)
+         sel.append(j)
+         acc.append(int(k < N[j[1] ^ s, j[2] ^ s]))
+@@ -451,6 +451,7 @@
+             if counts.get((rec, v, a, j), 0) != target_count(s_old, a, j):
+                 s3 = False
+             s3_cells += 1
++    print('CELLS', seed, s3, file=__import__('sys').stderr)
+     positive = 0
+     if kind == 'success':
+         for rec, v in product(range(512), range(8)):

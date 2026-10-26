@@ -1,0 +1,300 @@
+{
+  "actual_astronomical_time_simulated": false,
+  "actual_geometry": {
+    "carrier_list_equals_v6_read_set": true,
+    "carrier_site_times": 8,
+    "first_tail_arrival_minus_L_at_carrier_sites": {
+      "m": 77,
+      "q10": 79,
+      "q8": 77,
+      "q9": 78,
+      "q9+x": 77,
+      "q9+y": 77,
+      "q9-y": 79
+    },
+    "g1_min_tail_slack_over_carrier_site_times": 76,
+    "g1_tail_reaches_no_carrier_site_time": true,
+    "g2_G_reaches_no_port_through_L_plus_2": true,
+    "g2_min_G_port_offsets_over_L": {
+      "F10": 79,
+      "F8": 77,
+      "F9": 79
+    },
+    "g2_three_smallest_G_port_offsets_over_L": {
+      "F10": [
+        79,
+        79,
+        449
+      ],
+      "F8": [
+        77,
+        77,
+        447
+      ],
+      "F9": [
+        79,
+        79,
+        449
+      ]
+    },
+    "g3_horizons_within_2L": true,
+    "pre_tail_bank_reaching_carrier": [
+      {
+        "first_arrival": true,
+        "port": 0,
+        "site": "q8",
+        "site_time_minus_L": 1,
+        "t_minus_deadline": 2
+      },
+      {
+        "first_arrival": true,
+        "port": 0,
+        "site": "q9",
+        "site_time_minus_L": 2,
+        "t_minus_deadline": 2
+      },
+      {
+        "first_arrival": true,
+        "port": 0,
+        "site": "q9-y",
+        "site_time_minus_L": 1,
+        "t_minus_deadline": 2
+      },
+      {
+        "first_arrival": true,
+        "port": 2,
+        "site": "q8",
+        "site_time_minus_L": 1,
+        "t_minus_deadline": 2
+      },
+      {
+        "first_arrival": true,
+        "port": 2,
+        "site": "q9",
+        "site_time_minus_L": 2,
+        "t_minus_deadline": 2
+      },
+      {
+        "first_arrival": true,
+        "port": 2,
+        "site": "q9+x",
+        "site_time_minus_L": 1,
+        "t_minus_deadline": 2
+      },
+      {
+        "first_arrival": true,
+        "port": 2,
+        "site": "q9+y",
+        "site_time_minus_L": 1,
+        "t_minus_deadline": 2
+      },
+      {
+        "first_arrival": true,
+        "port": 3,
+        "site": "m",
+        "site_time_minus_L": 1,
+        "t_minus_deadline": 2
+      },
+      {
+        "first_arrival": true,
+        "port": 3,
+        "site": "q8",
+        "site_time_minus_L": 1,
+        "t_minus_deadline": 2
+      },
+      {
+        "first_arrival": true,
+        "port": 3,
+        "site": "q9",
+        "site_time_minus_L": 2,
+        "t_minus_deadline": 2
+      },
+      {
+        "first_arrival": true,
+        "port": 3,
+        "site": "q9+y",
+        "site_time_minus_L": 1,
+        "t_minus_deadline": 2
+      },
+      {
+        "first_arrival": true,
+        "port": 5,
+        "site": "q8",
+        "site_time_minus_L": 1,
+        "t_minus_deadline": 2
+      },
+      {
+        "first_arrival": true,
+        "port": 5,
+        "site": "q9",
+        "site_time_minus_L": 2,
+        "t_minus_deadline": 2
+      },
+      {
+        "first_arrival": true,
+        "port": 5,
+        "site": "q9+y",
+        "site_time_minus_L": 1,
+        "t_minus_deadline": 2
+      }
+    ],
+    "tail_bank": "f_i(t), max(a_i,L)<t<=H, eight ports, 24 bits per tick",
+    "tail_bits_for_horizon_offsets": {
+      "serial_core_end_offset": 2184,
+      "serial_recorded_dilation_end_offset": 8664
+    },
+    "tail_carrier_family_pairs": 64
+  },
+  "all_required_controls_pass": false,
+  "known_tail_countercontrol_shows_bank_load_bearing": false,
+  "native_continuation_shows_frozen_storage_load_bearing": true,
+  "native_storage_or_compilation_established": false,
+  "observer_access_rule_adopted": false,
+  "post_plan_rows": [
+    "x3 criterion: duplicated-tail record/carrier TV > 0 (support count kept, reported only)",
+    "carrier_list_equals_v6_read_set control",
+    "all_required_controls_pass computed from required_controls; VOID otherwise",
+    "s3 and positive-record counts exclude the pad factor",
+    "s1 recorded as a criterion rather than an exception",
+    "c1_accepted_records denominator, reported only",
+    "c3 native q8 row at n+3, reported only"
+  ],
+  "required_controls": {
+    "carrier_list_equals_v6_read_set": true,
+    "x1_scalar_evaluator_agrees": true,
+    "x2_seven_site_inverse": true,
+    "x3_duplicated_tail_detected": false
+  },
+  "scaled_families": [
+    {
+      "accepted_worlds_offered": 81920,
+      "c1_accepted_records": 4096,
+      "c1_known_tail_values": 512,
+      "c1_max_distinct_tail_records_over_G": 1,
+      "c1_max_record_carrier_tv": "0",
+      "c1_min_accepted_determinant": "0",
+      "c1_min_distinct_tail_records_over_G": 1,
+      "c1_min_record_carrier_tv": "0",
+      "c1_negative_accepted_records": 0,
+      "c1_tail_values_with_positive_tv": 0,
+      "c2_duplicated_tail_record_carrier_tv": "0",
+      "c3_native_q8_at_horizon_tail_record_tv": "1813/32768",
+      "c3_native_q8_two_ticks_before_tail_arrival_tv": "0",
+      "family": "success",
+      "old_q9": 2,
+      "old_sign": 1,
+      "positive_accepted_records_pads_by_product": 4096,
+      "s1_pre_tail_records_constant": true,
+      "s2_joint_bijective": true,
+      "s2_pool_tail_record_support": 262144,
+      "s3_cells_compared_including_zeros_pads_by_product": 131072,
+      "s3_complete_record_law_matches_v6": true,
+      "s3_fresh_tail_record_carrier_tv": "0",
+      "seed": 1,
+      "world_table_sha256": "73fc31d475bf8c1ddbdde5d5a9c00c117fc7614bdd0165670b4ac901b2a4aaab",
+      "worlds": 262144,
+      "x1_pass": true,
+      "x1_scalar_mismatched_outputs": 0,
+      "x1_scalar_sampled_worlds": 24,
+      "x2_pass": true,
+      "x2_seven_site_inverse_worlds": 262144,
+      "x3_duplicated_tail_support": 32768,
+      "x3_duplicated_tail_tv_positive": false
+    },
+    {
+      "accepted_worlds_offered": 0,
+      "c1_accepted_records": null,
+      "c1_known_tail_values": 512,
+      "c1_max_distinct_tail_records_over_G": 1,
+      "c1_max_record_carrier_tv": "0",
+      "c1_min_accepted_determinant": null,
+      "c1_min_distinct_tail_records_over_G": 1,
+      "c1_min_record_carrier_tv": "0",
+      "c1_negative_accepted_records": null,
+      "c1_tail_values_with_positive_tv": 0,
+      "c2_duplicated_tail_record_carrier_tv": "0",
+      "c3_native_q8_at_horizon_tail_record_tv": "1681/32768",
+      "c3_native_q8_two_ticks_before_tail_arrival_tv": "0",
+      "family": "failure",
+      "old_q9": 6,
+      "old_sign": 1,
+      "positive_accepted_records_pads_by_product": 0,
+      "s1_pre_tail_records_constant": true,
+      "s2_joint_bijective": true,
+      "s2_pool_tail_record_support": 262144,
+      "s3_cells_compared_including_zeros_pads_by_product": 131072,
+      "s3_complete_record_law_matches_v6": true,
+      "s3_fresh_tail_record_carrier_tv": "0",
+      "seed": 2,
+      "world_table_sha256": "d3db36f6f3d04bfb01c2ced4f8c3aa47da21a403897cf9c05e25fb8e589f11dd",
+      "worlds": 262144,
+      "x1_pass": true,
+      "x1_scalar_mismatched_outputs": 0,
+      "x1_scalar_sampled_worlds": 24,
+      "x2_pass": true,
+      "x2_seven_site_inverse_worlds": 262144,
+      "x3_duplicated_tail_support": 32768,
+      "x3_duplicated_tail_tv_positive": false
+    },
+    {
+      "accepted_worlds_offered": 81920,
+      "c1_accepted_records": 4096,
+      "c1_known_tail_values": 512,
+      "c1_max_distinct_tail_records_over_G": 1,
+      "c1_max_record_carrier_tv": "0",
+      "c1_min_accepted_determinant": "0",
+      "c1_min_distinct_tail_records_over_G": 1,
+      "c1_min_record_carrier_tv": "0",
+      "c1_negative_accepted_records": 0,
+      "c1_tail_values_with_positive_tv": 0,
+      "c2_duplicated_tail_record_carrier_tv": "0",
+      "c3_native_q8_at_horizon_tail_record_tv": "1189/32768",
+      "c3_native_q8_two_ticks_before_tail_arrival_tv": "0",
+      "family": "success",
+      "old_q9": 1,
+      "old_sign": 0,
+      "positive_accepted_records_pads_by_product": 4096,
+      "s1_pre_tail_records_constant": true,
+      "s2_joint_bijective": true,
+      "s2_pool_tail_record_support": 262144,
+      "s3_cells_compared_including_zeros_pads_by_product": 131072,
+      "s3_complete_record_law_matches_v6": true,
+      "s3_fresh_tail_record_carrier_tv": "0",
+      "seed": 4,
+      "world_table_sha256": "e746f519dc346854f2adaacf23837672d9568eae5763e90f003905237955df79",
+      "worlds": 262144,
+      "x1_pass": true,
+      "x1_scalar_mismatched_outputs": 0,
+      "x1_scalar_sampled_worlds": 24,
+      "x2_pass": true,
+      "x2_seven_site_inverse_worlds": 262144,
+      "x3_duplicated_tail_support": 32768,
+      "x3_duplicated_tail_tv_positive": false
+    }
+  ],
+  "scaled_geometry": {
+    "G_port_offsets_over_n": [
+      3,
+      5,
+      5
+    ],
+    "bank_deadline": 0,
+    "horizon": 8,
+    "k": 2,
+    "n": 3,
+    "port": [
+      0,
+      0,
+      -3
+    ],
+    "pre_tail_bank_reaching_carrier": 3,
+    "tail_bank_times": [
+      6,
+      7,
+      8
+    ]
+  },
+  "schema": "oi-delayed-port-history-frozen-carrier-v7.2",
+  "scope": "frozen logical v6 carrier; eight old ports with the supplied history_v11 bank through H<=2L; Native A source contract",
+  "verdict": "VOID"
+}

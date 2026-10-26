@@ -1,0 +1,11 @@
+--- checks.py
++++ checks.py
+@@ -460,7 +460,7 @@
+         for key in OUTPUTS:
+             need(sc[key] == vals[key][l], 'scalar/bit-sliced disagreement')
+     # (x3)/(c2) duplicated tail triple: second tail triple equals the first.
+-    dup = [l for l in lanes if (l >> 12) & 7 == (l >> 9) & 7]
++    dup = [l for l in lanes if (l >> 12) & 7 == 0]
+     dup_support = len({(pool[l], w[l]) for l in dup})
+     need(dup_support < WORLDS, 'duplicate-bank control vacuous')
+     def joint_tv(subset):
