@@ -1,0 +1,33 @@
+T1 G_lin n=3                          cases= 86530 mismatches=     0 lemma-identity-holds=True expected=True -> PASS
+T1 G_filt n=3                         cases= 86530 mismatches=     0 lemma-identity-holds=True expected=True -> PASS
+T1 G_clkfix matched n=3               cases= 86530 mismatches=     0 lemma-identity-holds=True expected=True -> PASS
+T1 G_clkfix uniform n=3               cases=   130 mismatches=     0 lemma-identity-holds=True expected=True -> PASS
+T1 G_lin n=4                          cases=   130 mismatches=     0 lemma-identity-holds=True expected=True -> PASS
+T1 G_filt n=4                         cases=   130 mismatches=     0 lemma-identity-holds=True expected=True -> PASS
+T1 G_clkfix matched n=4               cases=   130 mismatches=     0 lemma-identity-holds=True expected=True -> PASS
+T1 G_clkfix uniform n=4               cases=   130 mismatches=     0 lemma-identity-holds=True expected=True -> PASS
+T1 random autonomous H=8 #0           cases= 77877 mismatches=     0 lemma-identity-holds=True expected=True -> PASS
+T1 random autonomous H=8 #1           cases=   117 mismatches=     0 lemma-identity-holds=True expected=True -> PASS
+T1 random autonomous H=8 #2           cases=   117 mismatches=     0 lemma-identity-holds=True expected=True -> PASS
+T1 G_clk n=3 (countercontrol)         cases=   130 mismatches=    39 lemma-identity-holds=False expected=False -> PASS
+T1 mutant chi without A, G_lin n=3    cases=   130 mismatches=     4 lemma-identity-holds=False expected=False -> PASS
+T1 mutant rho without A, G_filt n=3   cases=   130 mismatches=    12 lemma-identity-holds=False expected=False -> PASS
+T2 m=0 max |adv| over K<40, a, chi: G_lin n=4              0
+T2 m=0 max |adv| over K<40, a, chi: G_filt n=4             0
+T2 m=0 max |adv| over K<40, a, chi: G_clk n=4              0
+T2 m=0 max |adv| over K<40, a, chi: G_clk n=5              0
+T2 m=0 max |adv| over K<40, a, chi: G_clkfix matched n=4   0
+T2 m=0 max |adv| over K<40, a, chi: G_clkfix uniform n=4   0
+T3 G_weak_mut n=5: adv(chi==0) at K=0..7: ['1/2', '0', '0', '0', '0', '0', '0', '0']
+T4 G_weak n=5: Pr[X_K=0]-1/2 == 1/2-K/2^n for 1<=K<=2^n-1: True
+T5 CA-EQ n=3 passive G_clkfix(matched) == G_clk pathwise: True
+T5 CA-EQ n=4 passive G_clkfix(matched) == G_clk pathwise: True
+T5 CA-EQ n=5 passive G_clkfix(matched) == G_clk pathwise: True
+T6 G_clkfix n=4: increments Y_t that are not F2-affine in h (x0=0), t<8: [1, 2, 3, 4, 5, 6, 7]
+T6 n=3 Z(G_clk) all control sequences = 2 ; Z(G_clkfix matched) exhaustive = 2
+T6 n=4 Z(G_clk) all control sequences = 3 ; Z(G_clkfix matched) exhaustive = 3
+T6 n=5 Z(G_clk) all control sequences = 3 ; Z(G_clkfix matched) exhaustive = 3
+T7 E prefix-free on 1032668 codewords (m<=2, sampled K): True
+T7 T_E >= T_R for m in {0,1}, 1<=K<2^20 (E-region subset of R-region): True
+T7 T_E - T_R at m=0,1 for K=4,7,15,63: [(0, 4, 2), (0, 7, 4), (0, 15, 5), (0, 63, 7), (1, 4, 1), (1, 7, 3), (1, 15, 4), (1, 63, 6)]
+ALL EXPECTATIONS MET: True

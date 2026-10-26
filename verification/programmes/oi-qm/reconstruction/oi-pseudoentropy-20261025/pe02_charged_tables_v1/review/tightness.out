@@ -1,0 +1,7 @@
+G_lin n=4                  active curves not attained by any passive m=1 curve: 0 of 1
+G_filt n=4                 active curves not attained by any passive m=1 curve: 6 of 7
+G_filt n=5                 active curves not attained by any passive m=1 curve: 6 of 7
+G_clkfix matched n=4       active curves not attained by any passive m=1 curve: 20 of 21
+random autonomous H=8 #0   active curves not attained by any passive m=1 curve: 24 of 28
+random autonomous H=8 #1   active curves not attained by any passive m=1 curve: 24 of 28
+random autonomous H=8 #2   active curves not attained by any passive m=1 curve: 24 of 28
