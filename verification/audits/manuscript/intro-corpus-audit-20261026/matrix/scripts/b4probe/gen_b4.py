@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Generates matrix/part-B4.json for claims I-246..I-312 (B4 mapping agent).
 import json, sys
-S = '/tmp/claude-0/-home-user-incompleteness/57e93868-2ccb-5ebd-afb7-d31826198729/scratchpad'
+import os; S = os.environ['AUDIT_SCRATCH']  # directory holding the icaudit worktree and the extracted corpus
 D = S + '/icaudit/verification/audits/manuscript/intro-corpus-audit-20261026'
 claims = json.load(open(D + '/inventory/claims.json'))
 byid = {}
