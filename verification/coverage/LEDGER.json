@@ -518,7 +518,7 @@
       "line": 167,
       "kind": "Lemma",
       "label": "(accessible backflow from readback)",
-      "fingerprint": "1bf64869e7938d80",
+      "fingerprint": "afbdefe369fdd5a0",
       "area": "memory-conditions",
       "assumptions": "a gap at order k inside the accessible window (the gap (C4) asserts); p_0 and delta as stated; (C1)-(C3) not used",
       "checks": [

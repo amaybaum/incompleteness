@@ -1027,16 +1027,19 @@ exclusion.
 
 \textbf{Lemma (accessible backflow from readback).} \emph{Suppose the
 visible process has a gap at order \(k\) in the accessible window, as
-(C4) asserts: two visible histories \(p \neq p'\) of length \(k\) with a
-common endpoint, each of probability at least \(p_0\), induce next-step
-laws at total-variation distance at least \(\delta\). Then}
+(C4) asserts: two visible histories \(p \neq p'\) of length \(k\),
+values of \(X_{<k} = (X_0, \ldots, X_{k-1})\) followed by a common
+present state \(X_k = c\), each with
+\(\Pr[X_{<k} = p,\, X_k = c] \geq p_0\), induce next-step laws at
+total-variation distance at least \(\delta\). Then}
 \[I(X_{<k};\,X_{k+1} \mid X_k)\ \geq\ \frac{p_0\,\delta^2}{\ln 2}\ >\ 0.\]
 
-\emph{Proof.} Condition on the common endpoint \(c\) and let \(w_a\) be
-the conditional weights of the length-\(k\) histories, \(P_a\) their
-next-step laws, and \(\bar P = \sum_a w_a P_a\). The conditional mutual
-information given \(X_k = c\) is the mixture divergence
-\(\sum_a w_a\, D(P_a \| \bar P)\), and Pinsker's inequality gives
+\emph{Proof.} Condition on the common present state \(c\) and let
+\(w_a = \Pr[X_{<k} = a \mid X_k = c]\) be the conditional weights of the
+length-\(k\) histories, \(P_a\) their next-step laws, and
+\(\bar P = \sum_a w_a P_a\). The conditional mutual information given
+\(X_k = c\) is the mixture divergence \(\sum_a w_a\, D(P_a \| \bar P)\),
+and Pinsker's inequality gives
 \(D(P_a \| \bar P) \geq \tfrac{2}{\ln 2}\,\mathrm{TV}(P_a, \bar P)^2\)
 in bits. By the triangle inequality
 \(\mathrm{TV}(P, \bar P) + \mathrm{TV}(P', \bar P) \geq \delta\), so
@@ -5334,4 +5337,4 @@ degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
 \end{document}
-% source-sha256: 026fc189592269c75bb272649cd9dca3261f66d66d53c8eb0fbd6dfaaf0d1a4c
+% source-sha256: 4fdfaf06b2365b8656a63bfdaf91a39006c83836e0c8ec2556649253cf193876
