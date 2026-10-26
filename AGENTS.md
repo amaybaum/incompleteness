@@ -44,9 +44,10 @@ confers no protection, and "the framework needs this to be true" is never an arg
 
 - `papers/Main.md` presents the framework's central results; it is not the
   complete proof corpus. Proofs, derivations, hypotheses and scope
-  qualifications also live in the companion papers, the book's appendices, the
-  Lean modules under `verification/lean/` and `verification/lean-mathlib/`, and
-  the verification records under `verification/`. A review of what OI has
+  qualifications also live in the companion papers and their appendices, the
+  book's appendices, the Lean modules under `verification/lean/` and
+  `verification/lean-mathlib/`, and the verification records under
+  `verification/`. A review of what OI has
   established audits that whole corpus, not Main alone.
 
 - Trace each claim to where it is actually proved or derived, with its
@@ -55,20 +56,26 @@ confers no protection, and "the framework needs this to be true" is never an arg
   framework does not establish X" is a negative claim and needs the corpus-wide
   search of §A.19.
 
-- Classify what the trace finds by the layer that supports it: kernel-checked
-  formal proof, mathematical derivation on paper, result conditional on a named
-  hypothesis, exhaustive finite computation, numerical evidence, or conjecture.
-  A claim earns the status its strongest supporting source establishes, with that
-  source's hypotheses carried along, and no more (see "Claim/evidence boundary").
+- Classify what the trace finds by the layer that supports it — kernel-checked
+  formal proof, exact algebra, exhaustive finite computation, mathematical
+  derivation on paper, numerical evidence, or conjecture — and, separately, by
+  whether it is conditional on named hypotheses. Each link of a claim's chain
+  takes the strongest support it has anywhere in the corpus; the claim takes its
+  weakest link (Steps 2–3 of the audit method) and every link's hypotheses, and
+  no more (see "Claim/evidence boundary"). A source supports only what its own
+  proof establishes for the statement as made: a document asserting a stronger
+  result than its proof reaches is a finding, not support, and an equivalence is
+  traced one direction at a time (§A.34).
 
 - Check cross-document consistency without assuming that Main supersedes a more
-  detailed proof elsewhere. Where documents differ, the maintained, most careful
-  derivation is the authoritative anchor (§A.25 step 2), and the difference is a
-  finding to propagate.
+  detailed proof elsewhere, or the reverse. Where documents differ, the
+  maintained, most careful statement is the authoritative anchor (§A.25 step 2),
+  and the difference is a finding to propagate.
 
 - This applies with particular force to the quantum equivalence, the
   gravitational results and the Standard Model reconstruction, whose supporting
-  arguments are distributed across several papers and verification programmes.
+  arguments are distributed across several papers, Lean modules and
+  verification records.
 
 ### Claim/evidence boundary
 
