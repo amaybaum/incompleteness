@@ -458,6 +458,9 @@ def sensitivity_selftest(meas, text):
     if gov not in READINGS:
         return {"applicable": False, "pass": True}
     cls0, _ = generate(meas)
+    if cls0 in ("VOID", "INCOMPLETE"):
+        # no governing section is printed, so there is nothing for a sensitivity row to reach
+        return {"applicable": False, "reason": "class %s prints no witness section" % cls0, "pass": True}
     out = {"applicable": True, "section_present": text.count(SENS_HEAD % other_reading(gov)) == 1
            and governing_part(text) != text, "unchanged": {}}
     fg = forge_green(meas)
