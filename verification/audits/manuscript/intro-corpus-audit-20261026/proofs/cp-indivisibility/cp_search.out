@@ -1,0 +1,26 @@
+(2, 2) {'perms': 24, 'priors': 72, 'pairs': 285, 'diag_fail': 0, 'cov_fail': 0, 'pop_fail': 0, 'p_indiv': 106, 'p_div': 179, 'lift_ok': 106, 'lift_fail': 0, 'p_div_lin_incompat': 38, 'p_div_lin_compat': 141, 'indiv_but_image_div': 0, 'p_indiv_lin_compat': 10} [0s]
+(2, 3) {'perms': 720, 'priors': 2160, 'pairs': 30957, 'diag_fail': 0, 'cov_fail': 0, 'pop_fail': 0, 'p_indiv': 13886, 'p_div': 17071, 'lift_ok': 13886, 'lift_fail': 0, 'p_div_lin_incompat': 3668, 'p_div_lin_compat': 13403, 'indiv_but_image_div': 0, 'p_indiv_lin_compat': 5644} [18s]
+(3, 2) {'perms': 720, 'priors': 2160, 'pairs': 30957, 'diag_fail': 0, 'cov_fail': 0, 'pop_fail': 0, 'p_indiv': 20452, 'p_div': 10505, 'lift_ok': 20452, 'lift_fail': 0, 'p_div_lin_incompat': 6798, 'p_div_lin_compat': 3707, 'indiv_but_image_div': 0, 'p_indiv_lin_compat': 2542} [102s]
+
+converse-failure examples (P-divisible populations, no linear Lambda at all => CP-indivisible, exact):
+   (2, 2, [0, 1, 3, 2], (Fraction(1, 2), Fraction(1, 2)), 1, 0) T(s)= [['1', '0'], ['0', '1']] T(t)= [['1', '0'], ['0', '1']]
+   (2, 2, [0, 1, 3, 2], (Fraction(1, 3), Fraction(2, 3)), 1, 0) T(s)= [['1', '0'], ['0', '1']] T(t)= [['1', '0'], ['0', '1']]
+   (2, 2, [0, 1, 3, 2], (Fraction(1, 1), Fraction(0, 1)), 1, 0) T(s)= [['1', '0'], ['0', '1']] T(t)= [['1', '0'], ['0', '1']]
+
+P-indivisible yet image-only classically divisible (exact): 0
+
+NUMERICAL controls (alternating projections, final Frobenius gap):
+  +control Hadamard pair  Ad_H -> id     gap = 4.81e-16  (expect ~0)
+  +control id -> dephasing               gap = 0.00e+00  (expect ~0)
+  -control dephasing -> id               gap = inf   (expect inf: no linear Lambda)
+  -control id -> transpose (P not CP)    gap = 1.00e+00  (expect > 0)
+
+NUMERICAL: distinct P-indivisible, linearly compatible pairs: 1454
+  min gap = 5.556e-02  at (2, 3, [0, 5, 3, 4, 2, 1], (Fraction(1, 2), Fraction(1, 3), Fraction(1, 6)), 3, 2)
+  #gap < 1e-4: 0
+NUMERICAL: distinct P-divisible, linearly compatible pairs: 1376
+  #gap < 1e-4 (numerically CP-divisible): 1010   #gap > 1e-3 (numerically CP-indivisible): 363   ambiguous: 3
+   largest-gap P-divisible pair: gap=inf (3, 2, [4, 3, 2, 1, 5, 0], (Fraction(1, 1), Fraction(0, 1)), 1, 4)
+   largest-gap P-divisible pair: gap=inf (3, 2, [5, 2, 3, 1, 4, 0], (Fraction(1, 1), Fraction(0, 1)), 1, 5)
+   largest-gap P-divisible pair: gap=inf (3, 2, [5, 3, 2, 4, 1, 0], (Fraction(1, 1), Fraction(0, 1)), 1, 5)
+done [464s]
