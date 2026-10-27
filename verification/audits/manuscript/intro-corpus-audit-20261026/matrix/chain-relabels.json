@@ -1,0 +1,82 @@
+{
+ "_note": "Chain-link layer corrections from the step-7 review (review/EVIDENCE-REVIEW.md, R6, O6, R1). merge_matrix.py applies them after the parts and keeps each mapper value as mapper_layer on the link. Each entry names the link by index and by its source, which the merge checks.",
+ "I-042": [
+  {
+   "index": 1,
+   "source": "papers/GR.md:218-228@eae01647",
+   "from": "kernel",
+   "to": "paper-derivation",
+   "reason": "a corpus paper line, not a declaration: the paper states the result and cites the kernel"
+  }
+ ],
+ "I-052": [
+  {
+   "index": 0,
+   "source": "papers/GR.md:218-228@eae01647",
+   "from": "kernel",
+   "to": "paper-derivation",
+   "reason": "a corpus paper line, not a declaration: the paper states the result and cites the kernel"
+  },
+  {
+   "index": 1,
+   "source": "papers/Main.md:624@eae01647",
+   "from": "kernel",
+   "to": "paper-derivation",
+   "reason": "a corpus paper line, not a declaration: the paper states the result and cites the kernel"
+  }
+ ],
+ "I-063": [
+  {
+   "index": 2,
+   "source": "verification/coverage/LEDGER.json@eae01647",
+   "from": "kernel",
+   "to": "none",
+   "reason": "a coverage-ledger entry records the kernel status; the kernel link is link 0, finite_horizon_equivalence"
+  }
+ ],
+ "I-258": [
+  {
+   "index": 5,
+   "source": "papers/GR.md:266@eae01647",
+   "from": "kernel",
+   "to": "paper-derivation",
+   "reason": "a corpus paper line, not a declaration: the paper states the result and cites the kernel"
+  }
+ ],
+ "I-281": [
+  {
+   "index": 5,
+   "source": "papers/GR.md:266@eae01647",
+   "from": "kernel",
+   "to": "paper-derivation",
+   "reason": "a corpus paper line, not a declaration: the paper states the result and cites the kernel"
+  }
+ ],
+ "I-282": [
+  {
+   "index": 1,
+   "source": "verification/ROADMAP.md:66@eae01647",
+   "from": "kernel",
+   "to": "none",
+   "reason": "a ROADMAP entry recording an open obligation, not a declaration"
+  }
+ ],
+ "I-309": [
+  {
+   "index": 0,
+   "source": "git@17b830bc..b64919cd",
+   "from": "exhaustive-computation",
+   "to": "none",
+   "reason": "a git identity check on sources (E2-19, ci-receipt), not a computation"
+  }
+ ],
+ "I-044": [
+  {
+   "index": 0,
+   "source": "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:3@eae01647",
+   "from": "paper-derivation",
+   "to": "none",
+   "reason": "a research record's own status line: the claim is about the records, with no derivation"
+  }
+ ]
+}

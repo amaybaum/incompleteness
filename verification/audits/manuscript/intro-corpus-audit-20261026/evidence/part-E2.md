@@ -8,15 +8,15 @@ and black-hole records are byte-identical at `b64919cd`, `eae01647` and `main` `
 
 | Evidence level | Items |
 |---|---|
-| reproduced | 18 |
-| failed | 1 |
+| reproduced | 17 |
+| failed | 2 |
 | traced-only | 1 |
 
 | Outcome | Items |
 |---|---|
-| pass | 14 |
-| partial | 5 |
-| fail | 1 |
+| pass | 15 |
+| partial | 3 |
+| fail | 2 |
 
 Local compute was about 2 minutes in total. The largest item was the 53 s byte-for-byte replay of
 BHa `checks.py`.
@@ -28,6 +28,10 @@ BHa `checks.py`.
   min P_succ = 1/2 attained by 2,368. Integer arithmetic, exhaustive (`E2_bh01_counts.py`). BHa
   `result.json` was also replayed byte-identical.
 - **BHa item F.** Rational intervals (`E2_itemF.py`).
+- **BHb C1.** The BHb `checks.py` replay (E3-18) reproduces `result.json` byte for byte, including the C1 sweeps at
+  (2,2), (2,3) and (3,2) by exact Schmidt rank and the countercontrols CC1 = CC2 = 2. An independent exact-rank sweep
+  at (2,2) and (2,3) (`E2_bh02.py`) agrees, and its countercontrols fire: an entangled start reaches rank 2 under the
+  same evolution, non-permutation gates give rank 2, and a mutant evolution is caught.
 - **BHb C6(c) shells.** Exact rationals and interval arithmetic (`E2_bh02.py`).
 - **Appendix B.** Every number, the three-hidden-state model and the Theorem 3 census over every
   prior support (`E2_appendixB.py`).
@@ -38,19 +42,19 @@ BHa `checks.py`.
 
 ## Failed
 
+Both failures are of an evidence tag, not of the result it describes.
+
 - **E2-10.** L84's "with exact probes" (and Main:170's "Certified exactly") is not met.
   `c4_backflow_probes.py` evaluates the conditional mutual information in floating point (:23) and
   decides with tolerances (:52, :63, :97), on five named instances, none exhaustive. The instance
   values do hold: E2-09 certifies them exactly. This confirms R-03 and CON-25.
+- **E2-11.** L56's "with exact probes" fails L30's definition as the Introduction states it.
+  `process_dilation_probes.py` and `review4_probes.py` P-G are exact, but they cover named instances and are not
+  exhaustive. They meet R-03's narrowed definition. P-G builds no bijection and uses rational kernels only, so
+  R-08's "for every law" rests on the paper Extension at Main:498.
 
 ## Partial
 
-- **E2-07, BHb C1 sweep.** Reproduced at (2,2) and (2,3). The (3,2) sweep and the CC1/CC2
-  countercontrols were not re-run. The claim itself rests on a one-line proof.
-- **E2-11, L56 probes.** `process_dilation_probes.py` and `review4_probes.py` P-G are exact, but
-  they cover named instances and are not exhaustive, so they fail L30's definition and meet R-03's
-  narrowed one. P-G builds no bijection and uses rational kernels only, so R-08's "for every law"
-  rests on the paper Extension at Main:498.
 - **E2-15, opglue (R-07).** The final comparisons are in floating point, with large margins.
   Checks 8–9 compute in floating point throughout. This was a replay only.
 - **E2-18, GR:366 convention range.** The range [1/(96π²), 8/3] holds only for a cutoff between
@@ -67,15 +71,14 @@ BHa `checks.py`.
   group holds both attaining laws. Arbitrary priors attain nothing beyond the uniform prior: 2 of
   16 either way. So Main:594's counterexample holds over all priors. B4's `fixeddim.py` is
   unseeded and non-reproducible; `E2_memory_exact.py` supersedes it.
-- **Defects in the audit's `b5_check.py`.** B.2's I(X0;X2|X1) is hard-coded as `1 - 0`, and the
-  three-hidden variant's a/(2−a), which R-04 claims, is not computed. `E2_appendixB.py` computes
-  both, and both hold.
+- **Defects in the audit's `b5_check.py`.** B.2's I(X0;X2|X1) was hard-coded as `1 - 0`, and the
+  three-hidden variant's a/(2−a), which R-04 claims, was not computed. `E2_appendixB.py` computes
+  both, and both hold. `b5_check.py` now computes both, with countercontrols.
 
 ## Needs owner authorization (CI)
 
-- **BHb (bh02) replay.** `checks.py` byte-compare of `result.json` (with `-O`) and `mutants.py`.
-  Pure Python with Monte Carlo; cost not measured, estimated 10–60 min. This would cover C1 at
-  (3,2), CC1/CC2, and the numerical C2(ii)/C3 items (not cited by the Introduction).
+- **BHb (bh02) `-O` replay and `mutants.py`.** The normal `checks.py` replay is done (E3-18, about
+  30 s). `mutants.py` takes about 30 minutes.
 - **BHa `mutants.py`.** 360–570 s on four cores (PROVENANCE.json); its retained output records
   12/12 mutants caught.
 - **Foundations probes in CI (optional).** Add the eight cited probes (c4_backflow,

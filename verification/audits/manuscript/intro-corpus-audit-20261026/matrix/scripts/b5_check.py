@@ -86,6 +86,9 @@ for x0, px0 in ((0, a), (1, 1 - a)):
 c3 = sp.simplify(sum(v for k, v in J3a.items() if k[1:] == (1, 0)) / sum(v for k, v in J3a.items() if k[1] == 1))
 out['H3_variant'] = dict(G1=g1, G2=g2, cond_x0=c1, cond=c2, cond_general_a=c3,
                          cond_general_a_is_a_over_2_minus_a=sp.simplify(c3 - a / (2 - a)) == 0)
+# Countercontrols: the a-test rejects a/(1+a) and the constant 1/3, and c3 takes 1/3, 1, 0 at a = 1/2, 1, 0.
+out['H3_variant_countercontrols'] = (sp.simplify(c3 - a / (1 + a)) != 0, sp.simplify(c3 - sp.Rational(1, 3)) != 0,
+                                     [c3.subs(a, v) for v in (sp.Rational(1, 2), 1, 0)] == [sp.Rational(1, 3), 1, 0])
 
 # ---------------- minimality search ----------------
 def theorem3_witness(phi, V, H, prior, nmax):
@@ -141,8 +144,19 @@ def H_cond(J, given, target):
         g = tuple(k[i] for i in given)
         pg[g] = pg.get(g, 0) + v
         pj[(g, k[target])] = pj.get((g, k[target]), 0) + v
-    return sp.nsimplify(-sum(sp.Rational(v) * sp.log(sp.Rational(v) / sp.Rational(pg[g]), 2) for (g, _), v in pj.items() if v))
-out['B2_I(X0;X2|X1)_bits'] = sp.simplify(H_cond(J, (1,), 2) - H_cond(J, (0, 1), 2))
+    return -sum(sp.Rational(v) * sp.log(sp.Rational(v) / sp.Rational(pg[g]), 2) for (g, _), v in pj.items() if v)
+def cmi(J):
+    return sp.simplify(H_cond(J, (1,), 2) - H_cond(J, (0, 1), 2))
+out['B2_I(X0;X2|X1)_bits'] = cmi(J)
+# Countercontrols for cmi: X2 independent of (X0, X1) gives 0; X2 = X1 gives 0; a noisy copy of X0 gives 1 - h(1/4).
+from itertools import product as _prod
+_noisy = {(x0, x1, x2): sp.Rational(1, 4) * (sp.Rational(3, 4) if x2 == x0 else sp.Rational(1, 4))
+          for x0, x1, x2 in _prod((0, 1), repeat=3)}
+_h = -(sp.Rational(1, 4) * sp.log(sp.Rational(1, 4), 2) + sp.Rational(3, 4) * sp.log(sp.Rational(3, 4), 2))
+out['B2_countercontrols (independent 0, copy-of-X1 0, noisy copy 1-h(1/4))'] = (
+    cmi({k: sp.Rational(1, 8) for k in _prod((0, 1), repeat=3)}) == 0,
+    cmi({(x0, x1, x1): sp.Rational(1, 4) for x0, x1 in _prod((0, 1), repeat=2)}) == 0,
+    sp.simplify(cmi(_noisy) - (1 - _h)) == 0)
 # RHP14 Eq.(15) support (x1,x2,x3): (1,0,0),(0,1,0),(0,0,1),(1,1,1) -> x3 = NOT(x1 xor x2)
 rhp = [(1, 0, 0), (0, 1, 0), (0, 0, 1), (1, 1, 1)]
 out['RHP15_is_xor_flipped'] = all(x3 == 1 - (x1 ^ x2) for x1, x2, x3 in rhp)

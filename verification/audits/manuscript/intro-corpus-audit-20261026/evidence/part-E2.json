@@ -124,7 +124,7 @@
  {
   "item": "E2-07",
   "type": "exhaustive-computation",
-  "what": "BHb C1: under any permutation, the orbit of a configuration basis state stays a configuration basis state, so S(R) = 0 at every aligned bipartition; exhaustive sweeps 24 / 40,320 / 362,880 permutations at (q,n) = (2,2), (2,3), (3,2).",
+  "what": "BHb C1: under any permutation, the orbit of a configuration basis state stays a configuration basis state, so S(R) = 0 at every aligned bipartition; BHb's checks.py sweeps 24 / 40,320 / 362,880 permutations at (q,n) = (2,2), (2,3), (3,2) by exact Schmidt rank, with countercontrols CC1 (Bell vector) and CC2 (rational rotation then CNOT) that must give rank 2.",
   "claims": [
    "I-225",
    "I-227",
@@ -134,13 +134,14 @@
   "sources": [
    "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:14@eae01647",
    "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:48@eae01647",
+   "verification/programmes/black-hole-information/bh02_scramble_v1/checks.py:490-582@eae01647",
    "verification/programmes/black-hole-information/bh02_scramble_v1/result.json@eae01647"
   ],
-  "check": "python3 -I evidence/scripts/E2_bh02.py: exhaustive at (2,2) and (2,3): 24 and 40,320 permutations, 0 orbit states with more than one nonzero amplitude at any aligned cut. (3,2) not re-run.",
-  "outcome": "partial",
+  "check": "Replay of BHb checks.py at eae01647 (E3-18): result.json reproduced byte for byte, including C1 at (2,2), (2,3) and (3,2) with 0 states of rank > 1 and the countercontrols CC1 = 2 and CC2 = 2, which checks.py requires before it prints the C1 verdict (controls['K-rank']). Independent sweep, python3 -I evidence/scripts/E2_bh02.py, at (2,2) and (2,3): dense integer amplitude vectors evolved by the permutation matrix, exact rank of the amplitude matrix at every aligned cut for every orbit state; 0 states of rank > 1 from every configuration state. Its countercontrols fire: from e_0 + e_last the same evolution reaches rank 2 (64 and 677,376 (permutation, state, cut) triples), and the Bell vector, H then CNOT and a rational rotation then CNOT give rank 2 while CNOT alone gives 1. A mutant evolution that leaks amplitude to a neighbouring configuration is caught (448 states of rank > 1 at (2,2)).",
+  "outcome": "pass",
   "evidence_level": "reproduced",
-  "limits": "The universal claim rests on the one-line proof (P_pi maps basis vectors to basis vectors); the sweep is near-tautological and my re-run carries no countercontrol (BHb's CC1, CC2 are recorded passing in result.json, not re-run). (3,2) sweep not reproduced; BHb checks.py not replayed (cost unmeasured; see CI proposal).",
-  "notes": "Partial only for the unreplayed (3,2) sweep and countercontrols; the proof makes the claim certain."
+  "limits": "The universal claim rests on the one-line proof (P_pi maps basis vectors to basis vectors); the sweeps check it at three sizes. The independent sweep does not reach (3,2); that size rests on the checks.py replay. mutants.py and the -O replay are not run (see the CI proposal).",
+  "notes": "An earlier form of the independent sweep kept the state as a single-entry map and could not register a rank above 1; it was replaced by the exact-rank sweep with countercontrols."
  },
  {
   "item": "E2-08",
@@ -199,7 +200,8 @@
   "outcome": "fail",
   "evidence_level": "failed",
   "limits": "Fails only as evidence for the stated tag; the instance values themselves hold (E2-09).",
-  "notes": "Confirms R-03 and CON-25: drop 'with exact probes' at L84 (or narrow L30); Main.md:170 'Certified exactly' is not what the probe does."
+  "notes": "Confirms R-03 and CON-25: drop 'with exact probes' at L84 (or narrow L30); Main.md:170 'Certified exactly' is not what the probe does.",
+  "failure_scope": "The evidence tag fails: L84's 'with exact probes' and Main.md:170's 'Certified exactly' describe a floating-point probe on named instances, which is not an exact probe in L30's sense. The bound itself (paper proof with Pinsker) and its instance values (E2-09, reproduced exactly) stand."
  },
  {
   "item": "E2-11",
@@ -217,11 +219,12 @@
    "papers/oi_lattice_code/foundations/review4_probes.py:170-222@eae01647",
    "papers/Main.md:496-500@eae01647"
   ],
-  "check": "Replayed both at eae01647 (exit 0; outputs: P1-P4 'reproduced EXACTLY', P2 T2 != T1^2, P3 revival, P4 control silent, P-G exact). Read the code: Fraction arithmetic throughout, bijectivity asserted (sorted image == domain).",
-  "outcome": "partial",
-  "evidence_level": "reproduced",
-  "limits": "Replay of corpus code, not an independent implementation. Named instances, not exhaustive: satisfies R-03's narrowed definition ('exact rational arithmetic on stated small instances') but not L30's 'exhaustive'. P-G checks only the response-table law identity on one rational instance; it builds no bijection (no ledger/clock completion) and no irrational kernel, so R-08's 'for every law' rests on the paper Extension (Main.md:498). P6 capacity line is float (info only). Not in CI.",
-  "notes": ""
+  "check": "Replayed both at eae01647 (exit 0; outputs: P1-P4 'reproduced EXACTLY', P2 T2 != T1^2, P3 revival, P4 control silent, P-G exact). Read the code: Fraction arithmetic throughout, bijectivity asserted (sorted image == domain). Judged against L30's definition as the Introduction states it ('an exhaustive computation in exact rational arithmetic at small size'), L56's tag 'with exact probes' fails: the probes are exact but cover named instances only.",
+  "outcome": "fail",
+  "evidence_level": "failed",
+  "limits": "Replay of corpus code, not an independent implementation. The probes meet R-03's proposed narrowed definition ('exact rational arithmetic on stated small instances'); under it the tag would hold. P-G checks only the response-table law identity on one rational instance; it builds no bijection (no ledger/clock completion) and no irrational kernel, so R-08's 'for every law' rests on the paper Extension (Main.md:498). P6 capacity line is float (info only). Not in CI.",
+  "notes": "Same ground as E2-10's exhaustiveness clause; both are fixed by R-03.",
+  "failure_scope": "The evidence tag fails: L56's 'with exact probes' is not met under L30's definition, since the probes are not exhaustive. The probe values hold exactly on their instances (P1-P5, P-G reproduced), and the realization theorem rests on its paper proof (Main.md:496-500)."
  },
  {
   "item": "E2-12",
@@ -249,10 +252,13 @@
    "I-365",
    "I-366",
    "I-367",
+   "I-368",
    "I-369",
+   "I-370",
    "I-372",
    "I-374",
    "I-377",
+   "I-379",
    "I-380",
    "I-381",
    "I-382"
@@ -261,7 +267,7 @@
    "papers/Introduction.md:219-253@4a260ca9",
    "papers/Main.md:178-198@eae01647"
   ],
-  "check": "Independent script python3 -I evidence/scripts/E2_appendixB.py (Fractions; a-dependence as exact linear polynomials; B.2 CMI evaluated exactly in bits on a dyadic law; sympy for the 2x2 operator identities). All checks true. Cross-checked against the audit's matrix/scripts/b5_check.py: same values.",
+  "check": "Independent script python3 -I evidence/scripts/E2_appendixB.py (Fractions; a-dependence as exact linear polynomials; B.2 CMI evaluated exactly in bits on a dyadic law; sympy for the 2x2 operator identities). All checks true. Cross-checked against the audit's matrix/scripts/b5_check.py: same values. Also covers I-368 (the overwrite peek gives 1/2 while the reveal-only and replace-hole peeks give 1), I-370 (on card inputs the swap with a uniform hidden card is a permutation, and Gamma_1, Gamma_2 are computed as the classical rooted process it induces) and I-379 (the uniform-burn one-step map tr(rho)I/2 decomposes as the Pauli instrument).",
   "outcome": "pass",
   "evidence_level": "reproduced",
   "limits": "The Bell statement (L255) and the BBS24 'admits no such decomposition' for the fixed card are not computational and not checked here.",
@@ -357,6 +363,7 @@
   "type": "numerical",
   "what": "Section 4 numbers: 'some 120 orders of magnitude' (L140); Weinberg Eq. (3.6) <rho> = 2^-10 pi^-4 G^-2 ~ 2e71 GeV^4 against 1e-47 GeV^4 (118 places); G^-2 gives ~123; the mismatch equals the de Sitter entropy up to a convention factor (L148).",
   "claims": [
+   "I-172",
    "I-173",
    "I-193",
    "I-194"
@@ -393,7 +400,7 @@
  },
  {
   "item": "E2-19",
-  "type": "exhaustive-computation",
+  "type": "ci-receipt",
   "what": "L195: the Lean sources are identical at 17b830bc and the corpus commit b64919cd; the probes and black-hole records are at the stated paths at the corpus commit (L197-L200).",
   "claims": [
    "I-309"
@@ -407,7 +414,7 @@
   "outcome": "pass",
   "evidence_level": "reproduced",
   "limits": "Byte identity of sources only; says nothing about the build.",
-  "notes": ""
+  "notes": "A git identity check on sources, typed ci-receipt: it computes nothing."
  },
  {
   "item": "E2-20",

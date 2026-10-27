@@ -2240,7 +2240,10 @@
   "outcome": "partial",
   "evidence_level": "certificate-checked",
   "limits": "I-129 (\"for them (2) implies CP-indivisibility\") is Main's written theorem; the kernel covers only its diagonal-preservation premise. The Introduction does not call I-129 machine-checked.",
-  "notes": "Census family status at eae01647 is recorded in part-E1.md."
+  "notes": "Census family status at eae01647 is recorded in part-E1.md.",
+  "not_covered": {
+   "I-129": "the kernel covers only the diagonal-preservation premise of the written theorem"
+  }
  },
  {
   "item": "E1-93",
@@ -2347,7 +2350,10 @@
   "outcome": "partial",
   "evidence_level": "certificate-checked",
   "limits": "I-088 (\"a finite bijection has finite order L ... one fixed realization has an L-periodic multi-time law\") is about the multi-time law; the kernel states periodicity of the rooted one-time maps, a consequence used by the readback theorems. The multi-time periodicity is elementary but not this declaration.",
-  "notes": "Census family status at eae01647 is recorded in part-E1.md."
+  "notes": "Census family status at eae01647 is recorded in part-E1.md.",
+  "not_covered": {
+   "I-088": "the kernel states periodicity of the rooted one-time maps, not of the multi-time law"
+  }
  },
  {
   "item": "E1-99",
@@ -2365,7 +2371,10 @@
   "outcome": "partial",
   "evidence_level": "certificate-checked",
   "limits": "Does not cover I-071 (finite-horizon multi-time laws with a prior independent of x_0); R-08 correctly adds no \"machine-checked\".",
-  "notes": "Census family status at eae01647 is recorded in part-E1.md."
+  "notes": "Census family status at eae01647 is recorded in part-E1.md.",
+  "not_covered": {
+   "I-071": "a rooted-family analogue; not the finite-horizon multi-time law with a prior independent of x_0"
+  }
  },
  {
   "item": "E1-100",

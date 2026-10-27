@@ -1,30 +1,44 @@
 #!/usr/bin/env python3
 """E4: aggregate the evidence verification of step 7 (parts E1-E3) into one evidence level per matrix row.
 
-Reads matrix.json (each row's chain) and evidence/part-E1.json, part-E2.json and part-E3.json. Writes evidence.json and
-renders EVIDENCE.md from it. merge_matrix.py then copies each row's level into matrix.json.
+Reads matrix.json (each row's chain, after matrix/chain-relabels.json) and evidence/part-E1.json, part-E2.json and
+part-E3.json. Writes evidence.json and renders EVIDENCE.md from it. merge_matrix.py then copies each row's level into
+matrix.json; the order is merge_matrix.py, this script, merge_matrix.py, render_matrix.py.
 
-The rule (EVIDENCE.md states it in prose):
+The level grades the evidence for the row's chain as the matrix records it, not the claim: for a row whose chain
+refutes the claim it grades the counter-evidence, which is recorded as the row's artifact level. The rule
+(EVIDENCE.md states it in prose):
+
 - Levels, strongest first: reproduced, certificate-checked, traced-only. "failed" is separate and overrides.
-- Evidence-bearing chain layers: kernel, exhaustive-computation, numerical, exact-algebra. Links of the other layers
-  (paper-derivation, literature, conjecture, none) have no artifact of a step-7 type; steps 2-3 verified their status.
-- A kernel link whose source is a file, not a declaration (a retained result, the coverage ledger), is matched to
-  the E1 or E3 items that name the same file; it takes the weakest such item's level, and no match counts as
-  traced-only.
-- A kernel link is matched by its declaration (the module and name of its `lean:Module:line:Name` source) to the E1
-  items of type lean-certificate and formal-coverage that name the same declaration. Its level is the weaker of the two
-  matches; a missing match counts as traced-only.
-- An exhaustive-computation, numerical or exact-algebra link is matched to the E2 items of type exhaustive-computation
-  or numerical that list the row's id. Its level is the weakest matched item's; no match counts as traced-only.
-- A row whose id an item with outcome "fail" lists is "failed".
-- A row with no evidence-bearing link but with ci-receipt items listing it (claims about the build, the toolchain or
-  CI) takes the weakest of those items' levels.
-- Otherwise a row's level is its weakest evidence-bearing link's. A row with no evidence-bearing link is traced-only,
-  with basis "no step-7 artifact".
-- Otherwise, items of type ci-receipt and open-obligation that list a row are recorded with it as context and do not
-  set its level. Matched items with outcome "partial" are listed with the row.
+- Each link gets a level.
+  - kernel, with a declaration source (`lean:Module:line:Name`): matched by (module, short name) to the E1 items of
+    type lean-certificate and formal-coverage naming it, leaving out a formal-coverage item whose not_covered names
+    the row. The link takes the weaker of the two; a missing item counts as traced-only.
+  - kernel, with a file source (a retained result): matched by path to the E1 or E3 items naming that file.
+  - exhaustive-computation, numerical, exact-algebra: matched to the items listing the row that are of type
+    exhaustive-computation or numerical, or are ci-receipt replays of a whole record (a directory source), except an
+    item that names research records or probe files of which the link names none (the link names others). The link
+    takes the weakest matched item.
+  - none, in a chain of none links only (claims about the build, the toolchain, CI or the records): the weakest of
+    the ci-receipt items listing the row.
+  - Every other link (paper-derivation, literature, conjecture, or none beside other layers) is traced-only: step 7
+    has no artifact type for it, and steps 2-3 verified its status.
+  - A matched item with outcome "fail" fails the link. A link whose status is not "proved" counts as traced-only for
+    the row, whatever its artifact.
+- The load-bearing links of a row: for proved-kernel, its kernel links (paper, literature and none links beside them
+  restate the result in the corpus), or all its links if it has none; for proved-paper, exhaustive-exact, numerical
+  and calibration, all its links. A row whose proof status is open, conditional, conjecture or unsupported is
+  traced-only: the chain does not establish the claim, so no artifact raises it.
+- A row is "failed" when an item listing it has outcome "fail" (the item's failure_scope says what failed) or a
+  load-bearing link failed. Otherwise it takes its weakest load-bearing link.
+- Every row also records its artifact level: the weakest level over its evidence-bearing links (kernel, computation
+  and all-none links), or none; for an UNSUPPORTED or OVERCLAIM row with no such link, the computation items listing
+  it, as counter-evidence. For a row graded traced-only by its status or by a paper step, this says what the
+  checked artifacts reach.
 
 Usage (from the audit directory): python3 -I -B evidence/scripts/E4_aggregate.py [--check]
+--check exits 1 if evidence.json or EVIDENCE.md differs from the rendering, or if any matrix.json row's
+evidence_level or evidence_basis differs from evidence.json's.
 """
 import json
 import re
@@ -34,11 +48,14 @@ from pathlib import Path
 
 AUDIT = Path(__file__).resolve().parents[2]
 RANK = {"traced-only": 1, "certificate-checked": 2, "reproduced": 3}
-BEARING = ("kernel", "exhaustive-computation", "numerical", "exact-algebra")
+COMPUTE_LAYERS = ("exhaustive-computation", "numerical", "exact-algebra")
 KERNEL_TYPES = ("lean-certificate", "formal-coverage")
 COMPUTE_TYPES = ("exhaustive-computation", "numerical")
 CONTEXT_TYPES = ("ci-receipt", "open-obligation")
+BY_ALL_LINKS = ("proved-paper", "exhaustive-exact", "numerical", "calibration")
+BY_STATUS = ("open", "conditional", "conjecture", "unsupported")
 DECL = re.compile(r"^lean:(?:OIBridge/)?([A-Za-z0-9_/]+?)(?:\.lean)?:(\d+):([^\s]+)(?:\s+\(.*\))?$")
+PATH = re.compile(r"(?:\.github|papers|verification|book|tools)/[^\s;,@]*")
 
 
 def decl_key(source):
@@ -55,8 +72,41 @@ def path_key(source):
     return re.sub(r":[\d\-]+$", "", s)
 
 
+def paths(source):
+    """Every repository path named in a link or item source."""
+    return {re.sub(r":[\d\-]+$", "", p) for p in PATH.findall(source)}
+
+
+def artifacts(ps):
+    """The research records (verification/programmes/<programme>/<record>) and probe files that paths name."""
+    out = set()
+    for p in ps:
+        parts = p.rstrip("/").split("/")
+        if p.startswith("verification/programmes/") and len(parts) >= 4:
+            out.add("/".join(parts[:4]))
+        elif p.startswith("papers/oi_lattice_code/"):
+            out.add(p)
+    return out
+
+
+def contradicted(link_paths, item):
+    """True when the link and the item both name records or probe files, and no record or file is common."""
+    a = artifacts(link_paths)
+    b = artifacts({q for s in item["sources"] for q in paths(s)})
+    return bool(a) and bool(b) and not (a & b)
+
+
 def weakest(levels):
     return min(levels, key=lambda lv: RANK[lv]) if levels else "traced-only"
+
+
+def item_level(it):
+    return "failed" if it["outcome"] == "fail" else it["evidence_level"]
+
+
+def combine(levels):
+    """failed if any is failed, else the weakest (traced-only if empty)."""
+    return "failed" if "failed" in levels else weakest(levels)
 
 
 def load():
@@ -68,10 +118,53 @@ def load():
     return rows, items
 
 
+def grade_link(r, k, ln, attached, by_item, by_decl, by_path, all_none):
+    layer, src = ln.get("layer"), ln.get("source", "")
+    e = {"index": k, "source": src, "layer": layer, "link_status": ln.get("link_status"), "items": [], "gap": []}
+    if layer == "kernel" and decl_key(src):
+        found = sorted(set(by_decl.get(decl_key(src), [])))
+        excl = [i for i in found if r["id"] in by_item[i].get("not_covered", {})]
+        use = [i for i in found if i not in excl]
+        cert = [item_level(by_item[i]) for i in use if by_item[i]["type"] == "lean-certificate"]
+        cov = [item_level(by_item[i]) for i in use if by_item[i]["type"] == "formal-coverage"]
+        e["items"] = use
+        e["gap"] = [g for g, xs in (("no lean-certificate item", cert), ("no formal-coverage item", cov)) if not xs]
+        e["gap"] += [f"{i} does not cover this row: {by_item[i]['not_covered'][r['id']]}" for i in excl]
+        e["level"] = combine([combine(cert), combine(cov)])
+        e["bearing"] = True
+    elif layer == "kernel":
+        found = sorted(set(by_path.get(path_key(src), [])))
+        e["items"] = found
+        e["gap"] = [] if found else ["kernel-layer link without a declaration source; no item names its file"]
+        e["level"] = combine([item_level(by_item[i]) for i in found])
+        e["bearing"] = True
+    elif layer in COMPUTE_LAYERS:
+        lp = paths(src)
+        cand = [it for it in attached if it["type"] in COMPUTE_TYPES
+                or (it["type"] == "ci-receipt" and any(s.split("@")[0].endswith("/") for s in it["sources"]))]
+        found = [it["item"] for it in cand if not contradicted(lp, it)]
+        e["items"] = found
+        e["not_matched"] = [it["item"] for it in cand if contradicted(lp, it)]
+        e["gap"] = [] if found else ["no computation item for this link" + (
+            " (listed items name other records or probes: %s)" % ", ".join(e["not_matched"]) if e["not_matched"] else "")]
+        e["level"] = combine([item_level(by_item[i]) for i in found])
+        e["bearing"] = True
+    elif layer == "none" and all_none:
+        found = [it["item"] for it in attached if it["type"] == "ci-receipt"]
+        e["items"] = found
+        e["gap"] = [] if found else ["no ci-receipt item lists the row"]
+        e["level"] = combine([item_level(by_item[i]) for i in found])
+        e["bearing"] = True
+    else:
+        e["level"] = "traced-only"
+        e["gap"] = ["no step-7 artifact type (%s)" % layer]
+        e["bearing"] = False
+    return e
+
+
 def aggregate(rows, items):
     ids = {r["id"] for r in rows}
-    by_claim = defaultdict(list)
-    by_finding = defaultdict(list)
+    by_claim, by_finding = defaultdict(list), defaultdict(list)
     for it in items:
         for c in it["claims"]:
             (by_claim if c in ids else by_finding)[c].append(it["item"])
@@ -87,47 +180,51 @@ def aggregate(rows, items):
     claims = {}
     for r in rows:
         attached = [by_item[i] for i in by_claim.get(r["id"], [])]
-        failed = [it["item"] for it in attached if it["outcome"] == "fail"]
-        links, partial = [], set()
-        for ln in r["chain"]:
-            layer = ln.get("layer")
-            if layer not in BEARING:
-                continue
-            entry = {"source": ln.get("source"), "layer": layer}
-            if layer == "kernel" and not decl_key(ln.get("source", "")):
-                found = sorted(set(by_path.get(path_key(ln.get("source", "")), [])))
-                lv = [by_item[i]["evidence_level"] for i in found if by_item[i]["evidence_level"] in RANK]
-                entry.update(items=found, level=weakest(lv),
-                             gap=[] if found else ["kernel-layer link without a declaration source; no item names its file"])
-            elif layer == "kernel":
-                k = decl_key(ln.get("source", ""))
-                found = sorted(set(by_decl.get(k, []))) if k else []
-                cert = [by_item[i]["evidence_level"] for i in found if by_item[i]["type"] == "lean-certificate"]
-                cov = [by_item[i]["evidence_level"] for i in found if by_item[i]["type"] == "formal-coverage"]
-                lv = [weakest([x for x in cert if x in RANK]), weakest([x for x in cov if x in RANK])]
-                entry.update(items=found, level=weakest(lv),
-                             gap=[g for g, xs in (("no lean-certificate item", cert), ("no formal-coverage item", cov))
-                                  if not xs])
-            else:
-                found = [it["item"] for it in attached if it["type"] in COMPUTE_TYPES]
-                lv = [by_item[i]["evidence_level"] for i in found if by_item[i]["evidence_level"] in RANK]
-                entry.update(items=found, level=weakest(lv), gap=[] if found else ["no computation item"])
-            partial.update(i for i in entry["items"] if by_item[i]["outcome"] == "partial")
-            links.append(entry)
-        if failed:
-            level, basis = "failed", "an item listing the row failed: " + ", ".join(failed)
-        elif links:
-            level = weakest([e["level"] for e in links])
-            basis = "weakest evidence-bearing link"
-        elif any(it["type"] == "ci-receipt" for it in attached):
-            ci = [it["evidence_level"] for it in attached if it["type"] == "ci-receipt" and it["evidence_level"] in RANK]
-            level, basis = weakest(ci), "CI-receipt items, for a row with no evidence-bearing link"
-            partial.update(it["item"] for it in attached if it["type"] == "ci-receipt" and it["outcome"] == "partial")
+        chain = r["chain"]
+        all_none = bool(chain) and all(ln.get("layer") == "none" for ln in chain)
+        links = [grade_link(r, k, ln, attached, by_item, by_decl, by_path, all_none)
+                 for k, ln in enumerate(chain)]
+        st = r["proof_status"]
+        kernel = [e for e in links if e["layer"] == "kernel"]
+        if st == "proved-kernel" and kernel:
+            load_bearing, scope = kernel, "its kernel links"
         else:
-            level, basis = "traced-only", "no step-7 artifact (paper, literature, conjecture or none)"
+            load_bearing, scope = links, "all its links"
+        tag_failed = [it["item"] for it in attached if it["outcome"] == "fail"]
+        link_failed = [e["index"] for e in load_bearing if e["level"] == "failed"]
+        bearing = [e for e in links if e["bearing"]]
+        artifact = combine([e["level"] for e in bearing]) if bearing else None
+        refuting = any(e["link_status"] == "refuted" and e["bearing"] for e in links)
+        listed = [it for it in attached if it["type"] in COMPUTE_TYPES]
+        if artifact is None and listed and r["verdict"] in ("UNSUPPORTED", "OVERCLAIM"):
+            # A computation that refutes a claim with no artifact link in its chain (E2-13 for I-123, I-124).
+            artifact, refuting = combine([item_level(it) for it in listed]), True
+        weak = [e for e in load_bearing if e["link_status"] != "proved" or e["level"] == "traced-only"]
+        if tag_failed or link_failed:
+            level = "failed"
+            parts = [f"{i} failed: {by_item[i].get('failure_scope') or by_item[i]['limits']}" for i in tag_failed]
+            parts += [f"load-bearing link {k} matched a failed item" for k in link_failed]
+            basis = "; ".join(parts)
+        elif st in BY_STATUS:
+            level = "traced-only"
+            basis = f"proof status {st}: the chain does not establish the claim"
+        elif st not in BY_ALL_LINKS and st != "proved-kernel":
+            raise SystemExit(f"{r['id']}: unknown proof status {st!r}")
+        else:
+            level = weakest([e["level"] if e["link_status"] == "proved" else "traced-only" for e in load_bearing])
+            if level == "traced-only":
+                why = sorted({e["layer"] if not e["bearing"] else
+                              ("link not proved" if e["link_status"] != "proved" else "unmatched " + e["layer"])
+                              for e in weak})
+                basis = f"weakest of {scope}: traced-only ({', '.join(why)})"
+            else:
+                basis = f"weakest of {scope}"
+        partial = sorted({i for e in load_bearing for i in e["items"] if by_item[i]["outcome"] == "partial"})
         claims[r["id"]] = {
-            "evidence_level": level, "basis": basis, "verdict": r["verdict"], "proof_status": r["proof_status"],
-            "links": links, "failed_items": failed, "partial_items": sorted(partial),
+            "evidence_level": level, "basis": basis, "artifact_level": artifact,
+            "artifact_role": ("counter-evidence" if refuting else "support") if artifact else None,
+            "verdict": r["verdict"], "proof_status": st, "load_bearing": scope,
+            "links": links, "failed_items": tag_failed, "partial_items": partial,
             "context_items": [it["item"] for it in attached if it["type"] in CONTEXT_TYPES],
         }
     return claims, dict(by_finding)
@@ -135,9 +232,12 @@ def aggregate(rows, items):
 
 def counts(claims):
     lv = Counter(c["evidence_level"] for c in claims.values())
-    bearing = Counter(c["evidence_level"] for c in claims.values() if c["links"])
-    return {"rows": len(claims), "by_level": dict(lv), "rows_with_evidence_bearing_links": sum(bearing.values()),
-            "by_level_among_evidence_bearing": dict(bearing)}
+    by_status = Counter((c["proof_status"], c["evidence_level"]) for c in claims.values())
+    art = Counter(c["artifact_level"] for c in claims.values()
+                  if c["evidence_level"] == "traced-only" and c["artifact_level"] not in (None, "traced-only"))
+    return {"rows": len(claims), "by_level": dict(lv),
+            "by_status_level": [list(k) + [v] for k, v in sorted(by_status.items())],
+            "traced_only_rows_with_checked_artifacts": dict(art)}
 
 
 def build():
@@ -154,108 +254,159 @@ def build():
     }
 
 
-def render(ev, items):
-    by_item = {it["item"]: it for it in items}
+def render(ev, items, relabels):
     c = ev["counts"]
     order = ["reproduced", "certificate-checked", "traced-only", "failed"]
+    claims = ev["claims"]
     L = ["# Evidence verification (step 7): the evidence layer of the matrix", "",
          "This file aggregates the three evidence parts into one evidence level per matrix row. It is rendered from "
          "`evidence.json` by `evidence/scripts/E4_aggregate.py`; the parts are `evidence/part-E1.md` (Lean "
          "certificates and formal coverage), `evidence/part-E2.md` (exhaustive computations and numerics) and "
          "`evidence/part-E3.md` (CI receipts and open obligations).", "",
          "## The rule", "",
+         "The level grades the evidence for the row's chain, not the claim. For a row whose chain refutes the claim, "
+         "the checked artifact is counter-evidence, and its level is recorded as the row's artifact level.", "",
          "- **Levels,** strongest first: *reproduced* (the audit regenerated the result and compared it), "
          "*certificate-checked* (checked against a retained certificate, expected result or kernel output) and "
-         "*traced-only* (traced to a report whose evidence the audit did not check). *Failed* is separate: a row that "
-         "an item with outcome *fail* lists is failed, whatever its other links.",
-         "- **Evidence-bearing links** are those of layer kernel, exhaustive-computation, numerical or exact-algebra. "
-         "Paper derivations, literature, conjectures and links with no support have no artifact of a step-7 type; "
-         "steps 2–3 verified their status, and step 7 adds nothing to them.",
-         "- **A kernel link** is matched by its declaration to the E1 items that name it: a *lean-certificate* item "
-         "(name, axioms, kernel acceptance) and a *formal-coverage* item (the manuscript claim against the Lean "
-         "statement). It takes the weaker of the two; a missing item counts as traced-only. A kernel-layer link whose "
-         "source is a file rather than a declaration (a retained result, the coverage ledger) is matched to the E1 or "
-         "E3 items naming that file, and takes the weakest of them.",
-         "- **An exhaustive-computation, numerical or exact-algebra link** is matched to the E2 computation items "
-         "that list the row. It takes the weakest; no match counts as traced-only.",
-         "- **A row** takes its weakest evidence-bearing link. A row with no evidence-bearing link takes the weakest "
-         "of the CI-receipt items that list it, if there are any (claims about the build, the toolchain or CI); "
-         "otherwise it is traced-only, on the basis *no step-7 artifact*.",
-         "- Otherwise, CI-receipt and open-obligation items that list a row are recorded with it as context. They "
-         "state limits; they do not set its level.", "",
+         "*traced-only* (traced to a report whose evidence the audit did not check, or a step with no artifact of a "
+         "step-7 type). *Failed* is separate and overrides.",
+         "- **Each link gets a level.**",
+         "  - *A kernel link* with a declaration source is matched by declaration to the E1 items naming it: a "
+         "*lean-certificate* item (name, axioms, kernel acceptance) and a *formal-coverage* item (the manuscript claim "
+         "against the Lean statement). It takes the weaker; a missing item counts as traced-only. A formal-coverage "
+         "item that records it does not cover the row is left out for that row. A kernel link whose source is a file "
+         "(a retained result) is matched to the E1 or E3 items naming that file.",
+         "  - *An exhaustive-computation, numerical or exact-algebra link* is matched to the items listing the row "
+         "that are computations, or replays of a whole research record (CI-receipt items whose source is the record's "
+         "directory). An item is not matched to a link that names other research records or probe files than the "
+         "item does: a BH-01 item does not reach a BH-02 link. It takes the weakest matched item.",
+         "  - *A link with no support (layer none)*, in a chain of such links only, is a claim about the build, the "
+         "toolchain, CI or the records. It takes the weakest of the CI-receipt items listing the row.",
+         "  - *Every other link* (paper derivation, literature, conjecture) is traced-only: step 7 has no artifact "
+         "type for it, and steps 2–3 verified its status.",
+         "  - A matched item with outcome *fail* fails the link. A link whose status is not *proved* counts as "
+         "traced-only for the row, whatever its artifact.",
+         "- **The load-bearing links.** For a proved-kernel row, its kernel links: the paper, literature and "
+         "unsupported links beside them restate the result in the corpus. For a proved-paper, exhaustive-exact, "
+         "numerical or calibration row, all its links, so a paper step in the chain holds the row at traced-only "
+         "whatever its computations reach. A row whose proof status is open, conditional, conjecture or unsupported "
+         "is traced-only, since its chain does not establish the claim.",
+         "- **A row** is *failed* when an item listing it fails, with the item's failure scope as the basis, or when "
+         "a load-bearing link fails. Otherwise it takes its weakest load-bearing link.",
+         "- **The artifact level** of a row is the weakest level over its kernel, computation and build links. For a "
+         "row held at traced-only by its status or by a paper step, it records what the checked artifacts reach. For an "
+         "UNSUPPORTED or OVERCLAIM row whose chain has no such link, it grades the computation items listing the row, "
+         "as counter-evidence.",
+         "- CI-receipt and open-obligation items that list a row are recorded with it as context; apart from the "
+         "two uses above, they do not set its level.", "",
          "## Counts", "",
-         "| Evidence level | All rows | Rows with evidence-bearing links |", "|---|--:|--:|"]
+         "| Evidence level | Rows |", "|---|--:|"]
     for lv in order:
-        L.append(f"| {lv} | {c['by_level'].get(lv, 0)} | {c['by_level_among_evidence_bearing'].get(lv, 0)} |")
-    L.append(f"| **Total** | **{c['rows']}** | **{c['rows_with_evidence_bearing_links']}** |")
-    L += ["", f"Items: {ev['items']['total']} (E1–E3). By part, level and outcome:", "",
+        L.append(f"| {lv} | {c['by_level'].get(lv, 0)} |")
+    L.append(f"| **Total** | **{c['rows']}** |")
+    st_order = ["proved-kernel", "exhaustive-exact", "numerical", "calibration", "proved-paper",
+                "conditional", "open", "conjecture", "unsupported"]
+    tab = defaultdict(dict)
+    for st, lv, n in c["by_status_level"]:
+        tab[st][lv] = n
+    L += ["", "By proof status:", "", "| Proof status | " + " | ".join(order) + " |", "|---|" + "--:|" * len(order)]
+    for st in st_order:
+        if st in tab:
+            L.append(f"| {st} | " + " | ".join(str(tab[st].get(lv, 0)) for lv in order) + " |")
+    art = c["traced_only_rows_with_checked_artifacts"]
+    L += ["", "Traced-only rows whose checked artifacts reach a higher level: "
+          + (", ".join(f"{n} {lv}" for lv, n in sorted(art.items(), key=lambda x: -RANK[x[0]])) or "none")
+          + " (listed below).", "",
+          f"Items: {ev['items']['total']} (E1–E3). By part, level and outcome:", "",
           "| Part | Level | Outcome | Items |", "|---|---|---|--:|"]
     for p, lv, oc, n in ev["items"]["by_part_level_outcome"]:
         L.append(f"| {p} | {lv} | {oc} | {n} |")
-    claims = ev["claims"]
     failed = sorted(k for k, v in claims.items() if v["evidence_level"] == "failed")
-    L += ["", "## Failed rows", ""]
+    L += ["", "## Failed rows", "",
+          "Each failure is of the evidence statement the row carries, as the basis states; it is not a failure of "
+          "the claim unless the basis says so.", ""]
     for k in failed:
         v = claims[k]
-        L.append(f"- **{k}** ({v['verdict']}, {v['proof_status']}): {v['basis']}. "
-                 + " ".join(f"{i}: {by_item[i]['outcome']}, \"{by_item[i]['what'][:160]}…\"" for i in v["failed_items"]))
+        L.append(f"- **{k}** ({v['verdict']}, {v['proof_status']}): {v['basis']}")
     if not failed:
         L.append("None.")
-    gaps = sorted(k for k, v in claims.items() if v["evidence_level"] == "traced-only" and v["links"])
-    L += ["", "## Evidence-bearing rows left at traced-only", "",
-          "Each row below has a kernel or computation link that no evidence item reached, or reached only at "
-          "traced-only.", "", "| Row | Verdict | Proof status | Link | Gap |", "|---|---|---|---|---|"]
-    for k in gaps:
+    L += ["", "## Rows held at traced-only by an unmatched or failed load-bearing artifact link", "",
+          "Each row below has a load-bearing kernel, computation or build link that no evidence item reached at "
+          "certificate-checked or better.", "", "| Row | Verdict | Proof status | Link | Gap |", "|---|---|---|---|---|"]
+    for k in sorted(claims):
         v = claims[k]
-        for e in v["links"]:
-            if e["level"] == "traced-only":
-                L.append(f"| {k} | {v['verdict']} | {v['proof_status']} | `{e['source']}` ({e['layer']}) | "
-                         f"{'; '.join(e['gap']) or 'matched only at traced-only: ' + ', '.join(e['items'])} |")
-    L += ["", "## Matrix labels that disagree with the chains", "",
-          "The evidence rule reads the chain's layers. These rows' labels disagree with their own chains; each is a "
-          "correction for the matrix, recorded here and not applied.", ""]
-    strong = ("proved-kernel", "exhaustive-exact", "numerical")
-    noart = sorted(k for k, v in claims.items() if v["proof_status"] in strong and not v["links"])
-    L.append("- **Proof status implies an artifact, but the chain has no evidence-bearing link:** "
-             + (", ".join(f"{k} ({claims[k]['proof_status']}; evidence {claims[k]['evidence_level']}, "
-                          f"{claims[k]['basis']})" for k in noart) or "none") + ".")
-    mislab = sorted({(k, e["source"]) for k, v in claims.items() for e in v["links"]
-                     if e["layer"] == "kernel" and not e["source"].startswith("lean:")
-                     and not e["items"]})
-    L.append("- **Kernel-layer links whose source is a paper, ledger or roadmap line, not a declaration or a "
-             "certified file:** " + ("; ".join(f"{k} `{s}`" for k, s in mislab) or "none") + ". Each holds its row at "
-             "traced-only under the weakest-link rule.")
+        if v["evidence_level"] != "traced-only" or v["proof_status"] in BY_STATUS:
+            continue
+        lb = v["links"] if v["load_bearing"] == "all its links" else [e for e in v["links"] if e["layer"] == "kernel"]
+        for e in lb:
+            if e["bearing"] and e["level"] == "traced-only":
+                gap = "; ".join(e["gap"]) or "matched only at traced-only: " + ", ".join(e["items"])
+                L.append(f"| {k} | {v['verdict']} | {v['proof_status']} | `{e['source'][:90]}` ({e['layer']}) | {gap} |")
+    L += ["", "## Traced-only rows whose checked artifacts reach a higher level", "",
+          "The row's level is traced-only because of its proof status or a paper step; the artifact level records what "
+          "its kernel, computation or build links reach. For a refuted claim the artifact is counter-evidence.", "",
+          "| Row | Verdict | Proof status | Held by | Artifact level | Role |", "|---|---|---|---|---|---|"]
+    for k in sorted(claims):
+        v = claims[k]
+        if v["evidence_level"] == "traced-only" and v["artifact_level"] not in (None, "traced-only"):
+            held = (v["basis"].split("traced-only (", 1)[-1].rstrip(")") if v["proof_status"] not in BY_STATUS
+                    else v["basis"].split(":")[0])
+            L.append(f"| {k} | {v['verdict']} | {v['proof_status']} | {held} | {v['artifact_level']} | "
+                     f"{v['artifact_role']} |")
+    L += ["", "## Chain-link corrections applied", "",
+          "`matrix/chain-relabels.json`, applied by `matrix/scripts/merge_matrix.py` with the mapper's layer kept as "
+          "`mapper_layer`:", ""]
+    for i, fixes in relabels.items():
+        if i.startswith("_"):
+            continue
+        for fx in fixes:
+            L.append(f"- **{i}** link {fx['index']} (`{fx['source'][:80]}`): {fx['from']} → {fx['to']}; {fx['reason']}.")
     part = sorted(k for k, v in claims.items() if v["partial_items"])
     L += ["", "## Rows resting on partial items", "",
-          "The level stands; the partial item's limits apply to the row (see the part files).", "",
+          "The item's limits apply to the row (see the part files). A formal-coverage item that does not cover a row "
+          "is left out of that row's grading and appears above as a gap.", "",
           "| Row | Level | Partial items |", "|---|---|---|"]
     for k in part:
         L.append(f"| {k} | {claims[k]['evidence_level']} | {', '.join(claims[k]['partial_items'])} |")
     L += ["", "## Limits that apply across rows", "",
           "- No Lean toolchain is available here, so no kernel item is *reproduced*: *certificate-checked* is the "
           "highest level a kernel link can reach (E1).",
-          "- The CI jobs examined replayed the OIBridge build from the Actions cache (E1-122, E3-11). Their axiom "
-          "reports are the retained certificate; a fresh elaboration is proposed for owner authorization.",
-          "- Kernel declarations outside the 14 retained modules have axiom reports only in CI logs that expire "
-          "(E3-14).", "",
-          "## Proposed for owner authorization (not dispatched)", "",
+          "- The CI jobs examined replayed the OIBridge build from the Actions cache (E1-122, E3-11), and for 9 of the "
+          "14 Appendix A modules no fresh elaboration was observed at these sources (E3-11). The axiom reports are "
+          "lake replays of an elaboration of byte-identical sources; a fresh elaboration is proposed for owner "
+          "authorization.",
+          "- For the 21 printed declarations outside the retained result, \"exactly the three axioms\" is read from "
+          "CI job-log text, which is diagnostic. The structured certificate there is the Release gate step's "
+          "conclusion, which under `tools/lean_axiom_check.py`'s contract establishes that every printed report lies "
+          "within the allow-list and that every declared `#print axioms` has a report. No row's level rests on the "
+          "log text alone. The logs expire (E3-14).",
+          "- The concept DOI and the release archive that the Introduction cites (L197–200) were not checked (E3-16).",
+          "", "## Proposed for owner authorization (not dispatched)", "",
           "- A fresh-build CI reproduction of `introduction_repro` at `17b830bc`.",
-          "- An extended expected result covering the additional modules (OD-15), made before their CI logs expire.",
-          "- BHa and BHb `mutants.py` replays in CI (E2).", ""]
+          "- An extended expected result covering the additional modules (OD-15). It can be re-derived from the "
+          "digest-checked log of job 121598983127 without a rebuild while that log is available; landing it in "
+          "`papers/introduction_repro/` is a change on #918.",
+          "- BHa and BHb `mutants.py` replays, and the BHb `-O` replay, in CI (E2). The BHb `checks.py` replay is "
+          "done (E3-18).", ""]
     return "\n".join(L)
 
 
 def main():
     ev = build()
-    _, items = load()
+    rows, items = load()
+    relabels = json.loads((AUDIT / "matrix" / "chain-relabels.json").read_text(encoding="utf-8"))
     text_json = json.dumps(ev, indent=1, ensure_ascii=False) + "\n"
-    text_md = render(ev, items)
+    text_md = render(ev, items, relabels)
     out_json, out_md = AUDIT / "evidence.json", AUDIT / "EVIDENCE.md"
     if "--check" in sys.argv[1:]:
         ok = out_json.exists() and out_json.read_text(encoding="utf-8") == text_json \
             and out_md.exists() and out_md.read_text(encoding="utf-8") == text_md
         print("evidence.json and EVIDENCE.md match" if ok else "evidence.json or EVIDENCE.md differs from the rendering")
-        sys.exit(0 if ok else 1)
+        drift = [r["id"] for r in rows if (r.get("evidence_level"), r.get("evidence_basis"))
+                 != (ev["claims"][r["id"]]["evidence_level"], ev["claims"][r["id"]]["basis"])]
+        if drift:
+            print("matrix.json evidence levels differ from evidence.json:", ", ".join(drift[:20]))
+        sys.exit(0 if ok and not drift else 1)
     out_json.write_text(text_json, encoding="utf-8")
     out_md.write_text(text_md, encoding="utf-8")
     print(json.dumps(ev["counts"]))

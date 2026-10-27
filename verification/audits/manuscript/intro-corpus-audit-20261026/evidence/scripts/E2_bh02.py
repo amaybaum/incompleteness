@@ -2,8 +2,13 @@
 """E2: independent checks of the BH-02 results the Introduction (L162) cites.
 (1) C1: under a permutation of configurations, the orbit of a configuration basis state is a
     configuration basis state, so every aligned bipartition has Schmidt rank 1 (S(R) = 0).
-    Exhaustive at (q,n) = (2,2), (2,3): for every permutation and configuration, every orbit
-    state's amplitude matrix at every aligned cut has exactly one nonzero entry.
+    Exhaustive at (q,n) = (2,2), (2,3): for every permutation and configuration, the state is
+    held as a dense integer amplitude vector, evolved by the permutation matrix, and every
+    orbit state's amplitude matrix at every aligned cut is given its exact rank.
+    Countercontrols, which must fire: CC-a, the same evolution from the entangled vector
+    e_0 + e_last, must reach rank 2 for some permutation; CC-b, the rank of a Bell vector and
+    of H-then-CNOT and of a rational rotation then CNOT applied to e_0 (not permutations) must be 2,
+    and of CNOT alone (a permutation) 1.
 (2) C6(c) diagonal shell span{|i>|i>}: exact Haar mean H_m - 1 against the exact Page value
     S_Page(m,m) = sum_{k=m+1}^{m^2} 1/k - (m-1)/(2m), m = 2, 3, 4, 8, 16 (rational comparison).
 (3) C6(c) Hamming-weight shells: the concavity bound E[S] <= S(E rho_R), with
@@ -25,33 +30,73 @@ iv.dps = 50
 out = {}
 
 # (1) C1 sweeps
-def c1_sweep(q, n):
+def exact_rank(M):
+    A = [[F(x) for x in row] for row in M]
+    rank, cols = 0, len(A[0]) if A else 0
+    for c in range(cols):
+        piv = next((r for r in range(rank, len(A)) if A[r][c] != 0), None)
+        if piv is None:
+            continue
+        A[rank], A[piv] = A[piv], A[rank]
+        for r in range(len(A)):
+            if r != rank and A[r][c] != 0:
+                f = A[r][c] / A[rank][c]
+                A[r] = [a - f * b for a, b in zip(A[r], A[rank])]
+        rank += 1
+    return rank
+
+def cut_rank(vec, confs, cut, q, n):
+    rest = [i for i in range(n) if i not in cut]
+    rows = list(itertools.product(range(q), repeat=len(cut)))
+    cols = list(itertools.product(range(q), repeat=len(rest)))
+    M = [[0] * len(cols) for _ in rows]
+    for x, amp in enumerate(vec):
+        M[rows.index(tuple(confs[x][i] for i in cut))][cols.index(tuple(confs[x][i] for i in rest))] += amp
+    return exact_rank(M)
+
+def c1_sweep(q, n, start):
+    """Number of (permutation, orbit state, cut) with rank > 1, evolving the dense vector start."""
     confs = list(itertools.product(range(q), repeat=n))
     cuts = [c for r in range(1, n) for c in itertools.combinations(range(n), r)]
-    bad = 0; perms = 0
+    bad = perms = 0
+    cache = {}
     for img in itertools.permutations(range(len(confs))):
         perms += 1
-        for s0 in range(len(confs)):
-            state = {s0: 1}                     # amplitude vector, sparse
-            seen = set()
-            while True:
-                (s, a), = state.items() if len(state) == 1 else (None,)
-                key = s
-                if key in seen:
-                    break
-                seen.add(key)
-                for cut in cuts:
-                    nz = {(tuple(confs[x][i] for i in cut), tuple(confs[x][i] for i in range(n) if i not in cut))
-                          for x, amp in state.items() if amp}
-                    if len(nz) != 1:
-                        bad += 1
-                state = {img[x]: amp for x, amp in state.items()}
-                if len(state) != 1:
-                    bad += 1; break
+        vec = tuple(start)
+        for _ in range(len(confs) + 1):         # an orbit returns within the permutation's order
+            if vec not in cache:
+                cache[vec] = sum(cut_rank(vec, confs, c, q, n) > 1 for c in cuts)
+            bad += cache[vec]
+            nxt = [0] * len(vec)
+            for x, amp in enumerate(vec):      # (P_pi v)[img[x]] = v[x]
+                nxt[img[x]] += amp
+            vec = tuple(nxt)
+            if vec == tuple(start):
+                break
     return perms, bad
+
 for q, n in ((2, 2), (2, 3)):
-    p, b = c1_sweep(q, n)
-    out["C1_q%d_n%d" % (q, n)] = {"permutations": p, "states_with_rank_gt_1": b}
+    N = q ** n
+    bad_total = 0
+    for s0 in range(N):
+        p, b = c1_sweep(q, n, [int(x == s0) for x in range(N)])
+        bad_total += b
+    _, cc_a = c1_sweep(q, n, [int(x in (0, N - 1)) for x in range(N)])
+    out["C1_q%d_n%d" % (q, n)] = {"permutations": p, "starting_configurations": N,
+                                  "rank_gt_1_from_configuration_states": bad_total,
+                                  "CC-a_rank_gt_1_from_e0_plus_elast": cc_a}
+confs22 = list(itertools.product(range(2), repeat=2))
+def apply(M, v):
+    return [sum(M[i][j] * v[j] for j in range(len(v))) for i in range(len(M))]
+def on_site0(g):                                 # g (x) I on {0,1}^2, configuration index 2*x0 + x1
+    return [[g[a // 2][b // 2] * (a % 2 == b % 2) for b in range(4)] for a in range(4)]
+CNOT = [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0]]
+e00 = [1, 0, 0, 0]
+out["C1_CC-b"] = {"bell_rank": cut_rank([1, 0, 0, 1], confs22, (0,), 2, 2),
+                  "h_then_cnot_rank": cut_rank(apply(CNOT, apply(on_site0([[1, 1], [1, -1]]), e00)), confs22, (0,), 2, 2),
+                  "rotation_then_cnot_rank": cut_rank(apply(CNOT, apply(on_site0([[3, -4], [4, 3]]), e00)),
+                                                      confs22, (0,), 2, 2),
+                  "cnot_alone_rank": cut_rank(apply(CNOT, e00), confs22, (0,), 2, 2)}
 
 # (2) diagonal shell
 def s_page(m, n):
@@ -82,7 +127,11 @@ for n, w, r in ((8, 2, 4), (10, 2, 5), (12, 3, 6), (6, 3, 3), (8, 4, 4), (10, 5,
     ham["(%d,%d,%d)" % (n, w, r)] = {"S(E rho_R)": [float(S.a), float(S.b)], "S_Page": float(sp),
                                      "certified_below": bool(S.b < spi.a), "upper_bound_above_S_Page": bool(S.a > spi.b)}
 out["C6c_hamming_shells"] = ham
-out["all_as_reported"] = (all(v["states_with_rank_gt_1"] == 0 for k, v in out.items() if k.startswith("C1"))
+c1 = [out["C1_q2_n2"], out["C1_q2_n3"]]
+out["C1_controls_fire"] = (all(v["CC-a_rank_gt_1_from_e0_plus_elast"] > 0 for v in c1)
+                           and all(out["C1_CC-b"][k] == 2 for k in ("bell_rank", "h_then_cnot_rank", "rotation_then_cnot_rank"))
+                           and out["C1_CC-b"]["cnot_alone_rank"] == 1)
+out["all_as_reported"] = (out["C1_controls_fire"] and all(v["rank_gt_1_from_configuration_states"] == 0 for v in c1)
                           and all(d["matches_report"] and d["above_S_Page_exact"] for d in diag.values())
                           and all(ham[k]["certified_below"] for k in ("(8,2,4)", "(10,2,5)", "(12,3,6)"))
                           and all(ham[k]["upper_bound_above_S_Page"] for k in ("(6,3,3)", "(8,4,4)", "(10,5,5)")))

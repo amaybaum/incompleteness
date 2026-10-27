@@ -258,7 +258,7 @@ def main():
     def add(**kw):
         kw['item'] = 'E1-%02d' % (len(items) + 1)
         items.append({k: kw[k] for k in ('item', 'type', 'what', 'claims', 'sources', 'check',
-                                         'outcome', 'evidence_level', 'limits', 'notes')})
+                                         'outcome', 'evidence_level', 'limits', 'notes', 'not_covered') if k in kw})
 
     appA = [d for d in decls if d['cited_in'] == 'AppA']
     all_claims_appA = sorted({c for d in appA for c in claims.get(key(d), set())} | {'I-053', 'I-311'})
@@ -352,6 +352,12 @@ def main():
         outcome='pass', evidence_level='certificate-checked',
         limits='Kernel acceptance only; no axiom reports.', notes='')
 
+    # Listed claims a partial coverage reading does not cover (E4 then grades the row's link to it traced-only).
+    NOT_COVERED = {
+        'isDiag_Phi': {'I-129': 'the kernel covers only the diagonal-preservation premise of the written theorem'},
+        'rootedMap_periodic': {'I-088': 'the kernel states periodicity of the rooted one-time maps, not of the multi-time law'},
+        'responseRealization': {'I-071': 'a rooted-family analogue; not the finite-horizon multi-time law with a prior independent of x_0'},
+    }
     # formal coverage items, one per declaration
     for d in decls:
         k = key(d)
@@ -368,7 +374,8 @@ def main():
             outcome=outcome,
             evidence_level='certificate-checked',
             limits=lim or 'None beyond the per-declaration certificate.',
-            notes='Census family status at eae01647 is recorded in part-E1.md.')
+            notes='Census family status at eae01647 is recorded in part-E1.md.',
+            **({'not_covered': NOT_COVERED[d['name']]} if d['name'] in NOT_COVERED else {}))
 
     add(type='open-obligation',
         what='All three runs examined replayed the OIBridge build from the Actions cache, so no fresh elaboration of the cited declarations was observed; no retained expected result covers the declarations outside Appendix A; and the repository\'s `reproduce evidence` workflow cannot reproduce either as it stands.',

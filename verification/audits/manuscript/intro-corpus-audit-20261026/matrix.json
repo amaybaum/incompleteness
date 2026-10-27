@@ -52,7 +52,7 @@
    "notes": "Definition of the hypothesis; presented as a hypothesis, which matches Main's status Remark (representation choice + posit). No proof obligation.",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status conjecture: the chain does not establish the claim"
   },
   {
    "id": "I-002",
@@ -111,7 +111,7 @@
    "notes": "Abstract compresses Q_K to 'fixed-basis Born records of finite unitary systems'; the body (line 44) gives the full definition, which matches QfbReal (measurement in a basis of the whole finite space, read : Bas -> V). Each inclusion traced separately in I-002.a-c.",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-002.a",
@@ -147,7 +147,7 @@
    "notes": "Direction S_K subset D_K. Kernel D-class allows a correlated initial law; the independent-prior form is separate (I-071).",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-002.b",
@@ -190,7 +190,7 @@
    "notes": "Direction D_K subset Q_K. The Qfb record measures the full visible x hidden configuration basis and reads the visible factor; this is what Q_K's 'record a fixed function of each outcome' means.",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-002.c",
@@ -226,7 +226,7 @@
    "notes": "Direction Q_K subset S_K. The kernel encodes the every-step projective record by its Born chain formula (QfbReal.chain); that encoding is the standard sequential-measurement formula [SGD19, Eq. (3)], read first-hand.",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-003",
@@ -263,7 +263,7 @@
    "notes": "Literature read first-hand from the scratch copies S/lit/egri2602, barandes2302, barandes2309, barandes2608. EGGH26's map is time-indexed and not required to be a bijection; the packaging as one iterated bijection is stated in §2.2 (I-074).",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-004",
@@ -305,7 +305,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-005",
@@ -347,7 +347,7 @@
    "notes": "Immediate from universality of Theorem 1.",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-006",
@@ -383,7 +383,7 @@
    "notes": "'Not selected' is a statement about the correspondence's construction; its truth is elementary (entries 0/1).",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links: traced-only (unmatched exact-algebra)"
   },
   {
    "id": "I-007",
@@ -419,7 +419,7 @@
    "notes": "Scope statement; matches Main's abstract and §3.4 Remark.",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-008",
@@ -485,8 +485,8 @@
     "reason": "'deterministic completion' is undefined and L136 uses it in the Bell sense; content correct (Theorem 2(c) and the Corollary)",
     "by": "synthesis"
    },
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-009",
@@ -547,8 +547,8 @@
    "proposed_fix": null,
    "notes": "Paper proof checked and sound. The kernel proves the conclusion from the routed-readback form, which implies history-level C4 but not conversely; the history-level step (C4 => some rooted map is non-permutation) is on paper. 'Somewhere in the recurrence cycle' matches the kernel's existential n.",
    "_part": "B1",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-010",
@@ -591,7 +591,7 @@
    "notes": "Attention resolved. 'One step' is accurate for Theorem 2(c) (time-t identification) and for readback (the history-level C4 step). If I-008 is read as the Corollary's readout-relevant form, two ingredients are unchecked (line 82 names both). The wording should not count steps.",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-011",
@@ -635,7 +635,7 @@
    "notes": "'Characterized' is relative to the operational-theory structure, which the body states (line 114). GR gives no paper proof; the kernel is the proof (inventory: kernel-only).",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-011.a",
@@ -669,7 +669,7 @@
    "notes": "Direction: exact finite OQM => (i)-(v).",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-011.b",
@@ -704,7 +704,7 @@
    "notes": "Direction: (i)-(v) => exact finite OQM. No external premise (GR:218).",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-012",
@@ -752,7 +752,7 @@
    "notes": "Non-implication needs one countermodel per condition; the qubit countermodels suffice. 'OI alone' is formalized as RealizesSealedOICore, a specific finite C1-C4 process with its visible readout.",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-013",
@@ -787,7 +787,7 @@
     "by": "synthesis"
    },
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-014",
@@ -816,7 +816,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-015",
@@ -865,7 +865,7 @@
    "notes": "The body states the narrower, sourced claim twice (line 22: no test at the level of memory witnesses; §6.3: no experiment distinguishing OI from standard QT). The abstract's 'any test of the hypothesis' is broader than either and sits beside application falsifiers the corpus does list. Low severity.",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-016",
@@ -898,7 +898,7 @@
    "notes": "GR calls the descriptive distinction established and the dissolution conditional; the Intro's sentence is the descriptive part and is followed by the conditional status (I-017, I-018).",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-017",
@@ -936,7 +936,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-018",
@@ -975,7 +975,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status conjecture: the chain does not establish the claim"
   },
   {
    "id": "I-019",
@@ -1022,7 +1022,7 @@
    },
    "mapper_proof_status": "numerical",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-020",
@@ -1060,8 +1060,8 @@
    "proposed_fix": null,
    "notes": "",
    "_part": "B1",
-   "evidence_level": "reproduced",
-   "evidence_basis": "CI-receipt items, for a row with no evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-021",
@@ -1096,7 +1096,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-022",
@@ -1125,7 +1125,7 @@
    "notes": "Main's Definition does not itself make S finite or phi bijective; the Intro adds both and immediately labels them posits/representation choices (I-023, I-024), as Main:62 does.",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-023",
@@ -1168,7 +1168,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status conjecture: the chain does not establish the claim"
   },
   {
    "id": "I-024",
@@ -1213,7 +1213,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status conjecture: the chain does not establish the claim"
   },
   {
    "id": "I-025",
@@ -1255,7 +1255,7 @@
    "notes": "Attention resolved: read universally the sentence is false (any realization whose f_x is constant on the posterior's support, e.g. the permutation control in process_dilation_probes.py P4, is visibly deterministic). The existential reading is true and is what the paper uses. Low severity.",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation, unmatched exact-algebra)"
   },
   {
    "id": "I-026",
@@ -1286,7 +1286,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status conjecture: the chain does not establish the claim"
   },
   {
    "id": "I-027",
@@ -1322,7 +1322,7 @@
    "notes": "Cited to [Main §4.5]; Main:704 supports it, and Main:62 states it most directly.",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status conjecture: the chain does not establish the claim"
   },
   {
    "id": "I-028",
@@ -1351,7 +1351,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-029",
@@ -1380,7 +1380,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-030",
@@ -1409,7 +1409,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-031",
@@ -1440,7 +1440,7 @@
    "notes": "Main conditions the sentence on (C4) because it identifies the incompleteness with readout-relevant hidden memory. The Intro defines the incompleteness as inaccessibility of the hidden sector, which is present for a single fixed readout without any condition. Both readings are true; no overclaim.",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-032",
@@ -1481,8 +1481,8 @@
    "proposed_fix": null,
    "notes": "The class is all laws (kernel), so no non-trivial constraint can hold on it; the inference from 'all laws' to 'no uncertainty relation constrains' is on paper and immediate.",
    "_part": "B1",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-033",
@@ -1531,7 +1531,7 @@
    "notes": "Every visible marginal of a finite bijection is a stochastic law: D_K subset S_K by composing D_imp_Qfb and Qfb_imp_S.",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-034",
@@ -1569,8 +1569,8 @@
    "proposed_fix": null,
    "notes": "Attention resolved: read as 'can produce'. Since S_K subset D_K, every law with conditional memory is a reversible marginal (kernel); the converse universal reading (every marginal has memory) is not asserted.",
    "_part": "B1",
-   "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "certificate-checked",
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-035",
@@ -1619,7 +1619,7 @@
    "notes": "Existential reading; witnesses are kernel-checked (rooted form) and every P-indivisible family is a reversible marginal by S_imp_D.",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-036",
@@ -1660,7 +1660,7 @@
    "notes": "Elementary: Gamma_s 1 = 1 gives Gamma_s^-1 1 = 1, so row sums are 1. 'Where the candidate exists' is read as invertible Gamma_s; for singular Gamma_s the solution set is affine and 'the candidate' is not unique, a case the parenthesis excludes.",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links: traced-only (literature, unmatched exact-algebra)"
   },
   {
    "id": "I-037",
@@ -1696,7 +1696,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-038",
@@ -1731,7 +1731,7 @@
    "notes": "'Exact and universal at the level of finite-horizon observable laws' is exactly the kernel statement (every law, each horizon).",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-039",
@@ -1767,7 +1767,7 @@
    "notes": "Completeness check (owner request): Main's Characterization theorem (Main:516, proof :608; no ledger row, signal S1) is not named in the abstract or §1.2. Its content is (ii) non-Markovian at an accessible order <=> (iii) a per-horizon realization with C1, C3, C4 at k and a fixed hidden prior; plus, under (T), (i) a unitarily evolving representation. Both directions are proved on paper only ((iii)=>(ii) by the Pinsker readback lemma, Main:167-170; (ii)=>(iii) by process dilation and its response-table Extension, Main:496-500), neither formalized (Main:608), and (i) is imported from Barandes under (T). Main itself says (ii)=>(iii) adds only existence of a realization because (C4) coincides with (ii) in every faithful realization (Main:608, :596-598). The Intro carries every ingredient (Theorem 1 for existence; line 84's Pinsker bound; line 86's '(C4) coincides with M_t>0 ... (C1) and (C3) follow') and its internal D_K subset Q_K supersedes (i). Not an understatement of the abstract or §1.2; see part-B1.md, completeness item 1, for an optional sentence.",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-040",
@@ -1820,7 +1820,7 @@
     "by": "independent review RC-8"
    },
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-041",
@@ -1862,7 +1862,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-042",
@@ -1884,9 +1884,11 @@
     {
      "link": "Theorem 4 and qubit independence are stated in GR §3.3 with kernel proofs and no paper proof",
      "source": "papers/GR.md:218-228@eae01647",
-     "layer": "kernel",
+     "layer": "paper-derivation",
      "hypotheses": [],
-     "link_status": "proved"
+     "link_status": "proved",
+     "mapper_layer": "kernel",
+     "relabel_reason": "a corpus paper line, not a declaration: the paper states the result and cites the kernel"
     },
     {
      "link": "§5's results are in BHa/BHb research records and GR App. A",
@@ -1912,7 +1914,7 @@
    "notes": "Attention resolved: 'Proofs ... are in [Main]' is broader than the paper's own citations (Theorem 4 to GR §3.3; §5 to BHa/BHb and GR App. A; kernel proofs in OIBridge). Content is not overclaimed; the location is.",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation, unmatched exhaustive-computation)"
   },
   {
    "id": "I-043",
@@ -1941,7 +1943,7 @@
    "notes": "Within my range every result traces to a corpus source. Whether Appendix B adds new content is for the B.x mapper.",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-044",
@@ -1956,9 +1958,11 @@
     {
      "link": "BH-01 and BH-02 are repository research records, not adopted ('exploratory research ... not adopted')",
      "source": "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:3@eae01647",
-     "layer": "paper-derivation",
+     "layer": "none",
      "hypotheses": [],
-     "link_status": "proved"
+     "link_status": "proved",
+     "mapper_layer": "paper-derivation",
+     "relabel_reason": "a research record's own status line: the claim is about the records, with no derivation"
     }
    ],
    "required_assumptions": [],
@@ -1970,7 +1974,7 @@
    "notes": "BH-01's header still says 'unreviewed for adoption' while its review/REVIEW.md records an independent review (BLOCK on wording only) and the report lists post-review changes; the reference list's 'internally reviewed' is consistent with the review file. Reference-list item, not this claim.",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "CI-receipt items, for a row with no evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-045",
@@ -2007,7 +2011,7 @@
    "notes": "Accurate for every BH result the Intro cites (BH-01 A, C1, C2, item F; BH-02 C1, C6(a)-(b)). BH-02 also contains double-precision items (C2(ii), C3) that are neither exact nor exhaustive; the Intro does not cite them.",
    "_part": "B1",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-046",
@@ -2036,7 +2040,7 @@
    "notes": "An epistemic disclaimer; no corpus source establishes novelty, and the remnant bound is described in §5 as 'the remnant-capacity form of a known fact'.",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-047",
@@ -2065,7 +2069,7 @@
    "notes": "SGD19 (arXiv:1905.03018v2) Eq. (3) read first-hand for this audit: p(r_n|A_0) = tr{P_rn U ... P_r1 U A_0 rho(t_0)}.",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-048",
@@ -2094,7 +2098,7 @@
    "notes": "Attention resolved: every inclusion has a literature attribution; Q_K subset S_K is attributed to SGD19 Eq. (3), which writes the every-step projectively measured record as a probability.",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-049",
@@ -2130,7 +2134,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-050",
@@ -2166,7 +2170,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature, paper-derivation)"
   },
   {
    "id": "I-051",
@@ -2195,7 +2199,7 @@
    "notes": "Doukas states the contraction criterion and the revival obstruction (coincide-then-separate) and applies it to Rabi oscillations; he does not use the finite order of a bijection. Read as 'the contraction criterion ... stated concurrently by Doukas' the clause is exact; read as Doukas stating the finite-recurrence argument, it is slightly loose. Line 92's 'overlap-and-return argument' (another mapper's I-11x) carries the same reading.",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-052",
@@ -2211,16 +2215,20 @@
     {
      "link": "Theorem 4, independence, oi_alone_not_qm: stated in GR §3.3 with kernel citations; no paper proof (proof inventory: kernel-only)",
      "source": "papers/GR.md:218-228@eae01647",
-     "layer": "kernel",
+     "layer": "paper-derivation",
      "hypotheses": [],
-     "link_status": "proved"
+     "link_status": "proved",
+     "mapper_layer": "kernel",
+     "relabel_reason": "a corpus paper line, not a declaration: the paper states the result and cites the kernel"
     },
     {
      "link": "§3.3 lift results: stated in Main's Remark with kernel citations (CoherentLiftGauge, TrackBQfbBridge); no written proofs",
      "source": "papers/Main.md:624@eae01647",
-     "layer": "kernel",
+     "layer": "paper-derivation",
      "hypotheses": [],
-     "link_status": "proved"
+     "link_status": "proved",
+     "mapper_layer": "kernel",
+     "relabel_reason": "a corpus paper line, not a declaration: the paper states the result and cites the kernel"
     },
     {
      "link": "bridge_traj, rooted_eq_iff_slice_eq, realData_traj_stochastic",
@@ -2238,8 +2246,8 @@
    "proposed_fix": "The results of §3.2–§3.3 are stated in [GR §3.3] and [Main §3.4] and proved in the Lean declarations of Appendix A.",
    "notes": "Attention resolved: GR and Main carry the statements, but the proofs are the OIBridge declarations; neither paper writes them out (GR:218 is kernel-only per the inventory; Main:624 is a Remark). The content is fine and kernel-proved; 'proved in [GR] and [Main]' names the wrong location.",
    "_part": "B1",
-   "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "certificate-checked",
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-053",
@@ -2275,7 +2283,7 @@
    "notes": "Restricted definition checked: 'machine-checked' names the Appendix A declarations at 17b830bc. What is machine-checked is each declaration's formal statement; where that is narrower than the prose (Theorem 2 for a joint law; Theorem 3 rooted form; readback from routed readback; Theorem 1 with Q_K encoded by its Born chain formula) the Intro says so. No lake-manifest.json is committed, so the Mathlib revision is a tag resolved at run time (README).",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-054",
@@ -2318,7 +2326,7 @@
    "notes": "Attention resolved. The definition promises an exhaustive exact-rational computation. Line 56's probes are exact but check named instances (each enumerated in full), not every law of a small class. Line 84's probe (c4_backflow_probes.py) computes the conditional mutual information and the bound in floating point, so it is not exact-rational; that bears on I-10x (§2.4 mapper). Either narrow the definition or say 'with exact and floating-point probes' at line 84.",
    "_part": "B1",
    "evidence_level": "failed",
-   "evidence_basis": "an item listing the row failed: E2-10"
+   "evidence_basis": "E2-10 failed: The evidence tag fails: L84's 'with exact probes' and Main.md:170's 'Certified exactly' describe a floating-point probe on named instances, which is not an exact probe in L30's sense. The bound itself (paper proof with Pinsker) and its instance values (E2-09, reproduced exactly) stand.; E2-11 failed: The evidence tag fails: L56's 'with exact probes' is not met under L30's definition, since the probes are not exhaustive. The probe values hold exactly on their instances (P1-P5, P-G reproduced), and the realization theorem rests on its paper proof (Main.md:496-500).; load-bearing link 0 matched a failed item; load-bearing link 1 matched a failed item; load-bearing link 2 matched a failed item"
   },
   {
    "id": "I-055",
@@ -2353,8 +2361,8 @@
    "proposed_fix": null,
    "notes": "",
    "_part": "B1",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-056",
@@ -2390,7 +2398,7 @@
    "notes": "Attention resolved: the generic usage matches Main and the book glossary. The cubic-lattice bijection with coupling matrix (AGENTS.md, SM, Substratum) is the specific construction of the matter sector, a special case. No conflict for this paper, which never uses the cubic lattice.",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-057",
@@ -2419,7 +2427,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-058",
@@ -2448,7 +2456,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-059",
@@ -2477,7 +2485,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-060",
@@ -2513,7 +2521,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-061",
@@ -2549,7 +2557,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-062",
@@ -2585,7 +2593,7 @@
    "notes": "The kernel class has no autonomous-generator clause (Equivalence.lean header); neither does the Intro's definition. Match.",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-063",
@@ -2625,9 +2633,11 @@
     {
      "link": "Ledger MAIN:T-finite-horizon-stochastic-reversible-unitary: K3 ('the exact manuscript statement is proved in Lean')",
      "source": "verification/coverage/LEDGER.json@eae01647",
-     "layer": "kernel",
+     "layer": "none",
      "hypotheses": [],
-     "link_status": "proved"
+     "link_status": "proved",
+     "mapper_layer": "kernel",
+     "relabel_reason": "a coverage-ledger entry records the kernel status; the kernel link is link 0, finite_horizon_equivalence"
     }
    ],
    "required_assumptions": [
@@ -2647,8 +2657,8 @@
    "proposed_fix": null,
    "notes": "Each direction traced separately (I-063.a-c). Hypotheses of the kernel: Fintype and DecidableEq on V, any K. No |V|>=2, no Nonempty.",
    "_part": "B1",
-   "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "certificate-checked",
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-063.a",
@@ -2684,7 +2694,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-063.b",
@@ -2720,7 +2730,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-063.c",
@@ -2756,7 +2766,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-064",
@@ -2791,7 +2801,7 @@
    "notes": "Declaration at Equivalence.lean:462 confirmed at eae01647 (sources identical to 17b830bc); #print axioms at :480.",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-065",
@@ -2826,7 +2836,7 @@
    "notes": "Declaration at :422 confirmed.",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-066",
@@ -2861,7 +2871,7 @@
    "notes": "Declaration at :294 confirmed.",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-067",
@@ -2896,7 +2906,7 @@
    "notes": "Declaration at :245 confirmed.",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-068",
@@ -2928,7 +2938,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-069",
@@ -2960,7 +2970,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-070",
@@ -3005,7 +3015,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-071",
@@ -3081,8 +3091,8 @@
    "proposed_fix": "A realization whose hidden prior is independent of $x_0$ also exists for every law [Main §3.4, Theorem (finite-horizon process dilation) and its Extension (response-table form)]; it is proved on paper, with exact probes.",
    "notes": "The rationality restriction belongs to the uniform-tape presentation only; Main's Extension (Main:498), its status ledger (Main:715) and the Characterization theorem (which 'quantifies over general finite-horizon laws') give the independent-prior reversible realization for every finite-horizon law. The argument is short and sound (x_0 drawn independently of the product prior; conditioning exposes u only at visited contexts). Not formalized for the full multi-time law (Main:500: 'the independence of mu_H from the visible initial state rests on the construction above and the cited probes and is not formalized'); the kernel has the independent-prior response-table construction only for rooted families (RootedClassification.responseRealization, no rationality assumption). Coordinator relay from B5 checked and confirmed. The Intro's own attribution sentence cites EGGH26 Prop. 16, which is likewise unrestricted. Also see I-054 on what the probes are.",
    "_part": "B1",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "failed",
+   "evidence_basis": "E2-11 failed: The evidence tag fails: L56's 'with exact probes' is not met under L30's definition, since the probes are not exhaustive. The probe values hold exactly on their instances (P1-P5, P-G reproduced), and the realization theorem rests on its paper proof (Main.md:496-500).; load-bearing link 2 matched a failed item"
   },
   {
    "id": "I-072",
@@ -3124,7 +3134,7 @@
    "notes": "Kernel uses permMatrix of step.symm, i.e. U|s> = |phi(s)> in its convention.",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-073",
@@ -3166,7 +3176,7 @@
    "notes": "Kernel content is that the Born chain weights are nonnegative and normalize by unitarity (sum_chain), 'not a definitional unfolding'.",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-074",
@@ -3204,8 +3214,8 @@
    "proposed_fix": null,
    "notes": "EGGH26's A is time-indexed and need not be a bijection; the clock-and-pad construction (exists_perm_extending) is the packaging into one iterated bijection, which the sentence acknowledges.",
    "_part": "B1",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-075",
@@ -3234,7 +3244,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-076",
@@ -3263,7 +3273,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-077",
@@ -3292,7 +3302,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-078",
@@ -3343,7 +3353,7 @@
    "notes": "Main's W coincides with Bar26's construction for Theta = entrywise sqrt(Gamma). Schmidt's theorem has the same N^2 form, but Barandes reports an apparent error in Schmidt's partial-isometry construction, so 'coincides with the constructions of ... Schmidt' asserts more than is checked. 'n' is undefined in the Intro. Main itself makes no coincidence claim. Low severity.",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature, paper-derivation)"
   },
   {
    "id": "I-079",
@@ -3372,7 +3382,7 @@
    "notes": "Read first-hand for this audit.",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-080",
@@ -3408,7 +3418,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-081",
@@ -3437,7 +3447,7 @@
    "notes": "Definitional.",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-082",
@@ -3472,7 +3482,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-083",
@@ -3514,7 +3524,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-084",
@@ -3550,7 +3560,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-085",
@@ -3592,7 +3602,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-086",
@@ -3625,7 +3635,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-087",
@@ -3661,7 +3671,7 @@
    "notes": "The exponent argument is Main's (0/1 entries). Bar26 Thm 3.1 shows Born form is available for every stochastic matrix, the related non-selection point; it does not discuss exponents. Acceptable as supporting citation.",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature, paper-derivation)"
   },
   {
    "id": "I-088",
@@ -3697,7 +3707,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links: traced-only (unmatched kernel)"
   },
   {
    "id": "I-089",
@@ -3728,7 +3738,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-090",
@@ -3767,7 +3777,7 @@
    "notes": "",
    "_part": "B1",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-091",
@@ -3803,7 +3813,7 @@
    "notes": "Every trajectory of one fixed finite bijection is L-periodic, so a law not supported on L-periodic trajectories for any L has no exact all-time realization. Elementary and sound.",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-092",
@@ -3841,7 +3851,7 @@
    "notes": "Definition matches Main §1.5 and the kernel. No #939 change touches this site (git diff b64919cd eae01647 changes only ħ wording in Main/GR/ch00/ch01).",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-093",
@@ -3896,8 +3906,8 @@
    "proposed_fix": null,
    "notes": "Theorem 2(a). The kernel proves the clause for any joint law on (X_<t,X_t,H_t) with X_{t+1} defined from the bijection; identifying that law with a realization's time-t law is a written step (Main:582 kernel note: 'not formalized'). Weakest link is therefore paper-level, matching the Introduction's line 80. The kernel's division by histProb makes (a) hold vacuously at zero-probability histories; Main §1.5 restricts to positive-probability histories. Cited [Main §3.4] is correct (Main:582). Ledger MAIN:T-unavoidable-hidden-predictive-memory K3. No #939 change touches this site (git diff b64919cd eae01647 changes only ħ wording in Main/GR/ch00/ch01).",
    "_part": "B2",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-094",
@@ -3952,8 +3962,8 @@
    "proposed_fix": null,
    "notes": "Theorem 2(b). The kernel proves the clause for any joint law on (X_<t,X_t,H_t) with X_{t+1} defined from the bijection; identifying that law with a realization's time-t law is a written step (Main:582 kernel note: 'not formalized'). Weakest link is therefore paper-level, matching the Introduction's line 80. The kernel's division by histProb makes (a) hold vacuously at zero-probability histories; Main §1.5 restricts to positive-probability histories. Cited [Main §3.4] is correct (Main:582). Ledger MAIN:T-unavoidable-hidden-predictive-memory K3. No #939 change touches this site (git diff b64919cd eae01647 changes only ħ wording in Main/GR/ch00/ch01).",
    "_part": "B2",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-095",
@@ -4010,8 +4020,8 @@
    "proposed_fix": null,
    "notes": "Theorem 2(c) first inequality. The kernel proves the clause for any joint law on (X_<t,X_t,H_t) with X_{t+1} defined from the bijection; identifying that law with a realization's time-t law is a written step (Main:582 kernel note: 'not formalized'). Weakest link is therefore paper-level, matching the Introduction's line 80. The kernel's division by histProb makes (a) hold vacuously at zero-probability histories; Main §1.5 restricts to positive-probability histories. Cited [Main §3.4] is correct (Main:582). Ledger MAIN:T-unavoidable-hidden-predictive-memory K3. No #939 change touches this site (git diff b64919cd eae01647 changes only ħ wording in Main/GR/ch00/ch01).",
    "_part": "B2",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-096",
@@ -4068,8 +4078,8 @@
    "proposed_fix": null,
    "notes": "Theorem 2(c) second inequality. The kernel proves the clause for any joint law on (X_<t,X_t,H_t) with X_{t+1} defined from the bijection; identifying that law with a realization's time-t law is a written step (Main:582 kernel note: 'not formalized'). Weakest link is therefore paper-level, matching the Introduction's line 80. The kernel's division by histProb makes (a) hold vacuously at zero-probability histories; Main §1.5 restricts to positive-probability histories. Cited [Main §3.4] is correct (Main:582). Ledger MAIN:T-unavoidable-hidden-predictive-memory K3. No #939 change touches this site (git diff b64919cd eae01647 changes only ħ wording in Main/GR/ch00/ch01).",
    "_part": "B2",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-097",
@@ -4132,7 +4142,7 @@
    "notes": "Declarations exist at HiddenMemory:83, :114, :170, :185 (Appendix A lines correct at eae01647, sources identical to 17b830bc). Statement types match (a)-(c) for a joint law; `#print axioms` lines present in the module.",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-098",
@@ -4165,7 +4175,7 @@
    "notes": "Main:582 and Main:580 (Summary (2)) both state that reading a realization's time-t law as the joint law is not formalized; no kernel declaration covers it (searched HiddenMemory, C3Necessity, Equivalence).",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-099",
@@ -4198,7 +4208,7 @@
    "notes": "Theorem at Main:582, proof at Main:590 (PROOFS-README: inline-proof). [CT06] is cited 'see also' for data processing; its content was not read in the audits (reference comment).",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-100",
@@ -4268,8 +4278,8 @@
    "proposed_fix": null,
    "notes": "Attention resolved: Main §1.5 (Main:97, 'The four layers') does carry the Corollary, so [Main §1.5] is the right locator; it is also restated in Main §3.4 (Summary (2), Main:580; Remark (what this strengthens), Main:592). Both directions traced separately (I-100.a, I-100.b). Each rests on kernel (a) plus two unformalized steps (vanishing criterion, time-t identification), exactly as the Introduction says. No #939 change touches this site (git diff b64919cd eae01647 changes only ħ wording in Main/GR/ch00/ch01).",
    "_part": "B2",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (literature, paper-derivation)"
   },
   {
    "id": "I-100.a",
@@ -4327,8 +4337,8 @@
    "proposed_fix": null,
    "notes": "Forward: M_t>0 gives two positive-probability histories with different next-step laws (vanishing criterion); in any faithful realization (a) turns them into posteriors with different f_x-pushforwards. Valid for every realization.",
    "_part": "B2",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (literature, paper-derivation)"
   },
   {
    "id": "I-100.b",
@@ -4397,8 +4407,8 @@
    "proposed_fix": null,
    "notes": "Converse: the hypothesis is universal over faithful realizations; S_imp_D supplies one, in which (a) turns differing pushforwards into differing next-step laws, hence M_t>0. The converse is not vacuous because a realization exists. Pressure-tested: S_imp_D's realization allows a correlated initial law, which the Introduction's definition of faithful realization (line 30) permits.",
    "_part": "B2",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (literature, paper-derivation)"
   },
   {
    "id": "I-101",
@@ -4436,7 +4446,7 @@
    "notes": "Main:97 and Main:580 both say the vanishing criterion is not formalized; no kernel CMI-vanishing lemma found in FiniteEntropy.lean (cmi_nonneg, cmi_le_of_deterministic, cmi_le_log_card only).",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature, paper-derivation)"
   },
   {
    "id": "I-102",
@@ -4509,8 +4519,8 @@
    "proposed_fix": "A realization of a law whose conditional past–future information $I^*=\\max_t I(X_{<t};X_{>t}\\mid X_t)$ is positive needs $|\\mathcal C_H|\\ge2^{I^*}$ (machine-checked for a joint law of history, present and hidden state, as for Theorem 2) [Main §3.4, Corollary (per-process capacity bound)].",
    "notes": "Attention resolved: the quantity is Main's I* = sup_t I(X_<t; X_>t | X_t) (Main:492), past-to-whole-future, not M_t; the kernel's `varFuture R L` is the L-step future and `Istar` a max over a finite family of slices sharing H. 'Machine-checked in the same form as Theorem 2' is accurate: the same HiddenMemory.Realization joint-law object, so the time-t identification is again a written step. The Introduction neither defines I* nor cites a manuscript location for this sentence (only Appendix A). Content correct; the defect is the undefined quantity and missing locator. Ledger MAIN:T-c3-necessity K3; MAIN:C-per-process-capacity-bound P.",
    "_part": "B2",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-103",
@@ -4565,7 +4575,7 @@
    "notes": "The bound and its proof are correct (re-derived: P(c)w_a >= p0 and TV(P,P̄)^2+TV(P',P̄)^2 >= δ^2/2). The status tag '(with exact probes)' does not meet the Introduction's own definition (line 30: exhaustive computation in exact rational arithmetic at small size): the probe evaluates logarithms in floating point on hand-picked families. Relevant to attention item I-054. Ledger MAIN:L-accessible-backflow-from-readback P. No #939 change touches this site (git diff b64919cd eae01647 changes only ħ wording in Main/GR/ch00/ch01).",
    "_part": "B2",
    "evidence_level": "failed",
-   "evidence_basis": "an item listing the row failed: E2-10"
+   "evidence_basis": "E2-10 failed: The evidence tag fails: L84's 'with exact probes' and Main.md:170's 'Certified exactly' describe a floating-point probe on named instances, which is not an exact probe in L30's sense. The bound itself (paper proof with Pinsker) and its instance values (E2-09, reproduced exactly) stand.; load-bearing link 2 matched a failed item"
   },
   {
    "id": "I-104",
@@ -4594,7 +4604,7 @@
    "notes": "Labels and content match Main:74-80. Main's (C4) also says 'mediated through the hidden state' and 'at some order'; neither Main nor the Introduction says 'positive-probability' in the definition (Main §1.5 does when defining the memory witness).",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-105",
@@ -4643,7 +4653,7 @@
    "notes": "Attention resolved: Main §1.3 defines (C4) 'at some order' with a mediation clause; the clause 'in a faithful realization' matters only for that mediation clause, which the Introduction's own (C4) (line 86) omits, so in the Introduction's wording it is idle. The coincidence is with M_t>0 at the matching time t, and the histories must have positive probability (otherwise next-step laws are undefined). Two small slips of index and support; content correct.",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature, paper-derivation)"
   },
   {
    "id": "I-105.a",
@@ -4688,7 +4698,7 @@
    "notes": "(C4) ⇒ M_t>0 needs the two histories to have positive probability; the Introduction's (C4) does not say so.",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature, paper-derivation)"
   },
   {
    "id": "I-105.b",
@@ -4731,7 +4741,7 @@
    "notes": "M_t>0 ⇒ some pair of positive-probability histories with the same x_t and different next-step laws, by the vanishing criterion.",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature, paper-derivation)"
   },
   {
    "id": "I-106",
@@ -4781,8 +4791,8 @@
    "proposed_fix": null,
    "notes": "Follows from I-105 and the Corollary (I-100.a).",
    "_part": "B2",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-107",
@@ -4832,8 +4842,8 @@
    "proposed_fix": null,
    "notes": "Main:72 states '(C1) and (C3) follow from (C4) in any faithful realization'. Written argument plus exhaustive small-size enumeration; no kernel declaration for the implication.",
    "_part": "B2",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-108",
@@ -4883,8 +4893,8 @@
    "proposed_fix": null,
    "notes": "Pressure-tested: (C3) in the form log2|C_H| >= I* holds in every faithful realization whether or not (C4) holds, so 'follows from it' is true a fortiori; the kernel covers it in the joint-law form.",
    "_part": "B2",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-109",
@@ -4943,7 +4953,7 @@
    "notes": "Attention resolved: line 86 ('physical-regime premise') and §6.3 item (4) ('necessity ... conditional on a mixing hypothesis') describe two different things — the premise's role in the equivalence, and the conditional necessity theorem — and agree with Main §1.3 and §3.4. Proof status 'conditional' refers to the necessity direction; the premise statement itself is a scope classification. ROADMAP:843 records that at the lattice cut C2 and C4 both remain hypotheses.",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status conditional: the chain does not establish the claim"
   },
   {
    "id": "I-110",
@@ -4979,7 +4989,7 @@
    "notes": "Main:72 says the same.",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-111",
@@ -5024,7 +5034,7 @@
    "notes": "Attention resolved: the Introduction's rooted definition is exactly the kernel's PDivisible. BD16's divisibility is itself rooted at t0 (dynamical mapping N_i from t0), with no invertibility assumption, so the BD16 attribution applies to the rooted form. RHP14's divisibility is rooted too (Eq. 14) but assumes the rooted maps invertible; the Introduction's 'some stochastic Λ' generalizes it to non-invertible families.",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-112",
@@ -5066,7 +5076,7 @@
    "notes": "δ_aΓ_t − δ_bΓ_t = (δ_aΓ_s − δ_bΓ_s)Λ; tv_mul_le is used by c4r_implies_pIndivisible (CausalReadback:134). Also Main:121 (proof, 'a stochastic divisor is a total-variation contraction').",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-113",
@@ -5104,7 +5114,7 @@
    "notes": "The sentence names 'the divisibility criterion' (an iff) but what precedes it is only the elementary 'only if' half (stochastic Λ contracts L1/TV). RHP14's 'if' half requires contraction of every vector (not just differences of probability rows) and invertible rooted maps; the next paragraph rightly says monotone distance is not sufficient. BD16 Prop. 1 is the semiclassical case; the fully classical statement is its Cor. 1. Both sources read first-hand (RHP14 fetched to the scratchpad; BD16 from the retained text).",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-114",
@@ -5172,7 +5182,7 @@
    "notes": "Attention resolved: 'fixed hidden prior' in the kernel is RootedRealization.prior, 'the fixed hidden prior, shared by every root' (CausalReadback:181) — independent of x_0 and not time-indexed. The statement matches the kernel exactly, with hypotheses and direction; the kernel does not even use reversibility (RecurrenceHorizon Section A). The citation is the problem: Main §2.3's Theorem (Main:115) is the special case s=1 with counting-measure prior, proved by the same contraction-plus-recurrence argument; the general overlap-at-s, return-at-n form, with an arbitrary shared prior, exists only in the kernel (census family 34, kernel-only). Ledger MAIN:T-unnamed-182a6975 (Main:115) level P.",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-115",
@@ -5206,7 +5216,7 @@
    "notes": "Declaration at RecurrenceHorizon:148 as Appendix A states; `#print axioms` line present.",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-116",
@@ -5235,7 +5245,7 @@
    "notes": "Doukas's Prop. 1 is the general revival criterion (monotone distance under a rooted stochastic divisor); Theorem 3 is an instance in which the revival is from an overlap (TV<1) to an identity return (TV=1). 'The same overlap-and-return argument' overstates the match: the overlap-and-return mechanism, and finite recurrence, are not in Doukas. Same attribution recurs at line 28 (I-04x, outside this range).",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-117",
@@ -5273,7 +5283,7 @@
    "notes": "",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-118",
@@ -5308,8 +5318,8 @@
    "proposed_fix": null,
    "notes": "Exact witness (n=2: T1=[[0,1],[1/2,1/2]], T2=[[4/5,1/5],[1,0]]). Consistent with RHP14 Thm 2.4, whose iff needs contraction of every vector, not only of zero-sum differences.",
    "_part": "B2",
-   "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-119",
@@ -5356,7 +5366,7 @@
    "notes": "Kernel hypothesis A*B=1 ∨ B*A=1 matches 'one-sided inverse' (for finite square matrices one-sided implies two-sided). Ledger MAIN:L-stochastic-inverse K3.",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-120",
@@ -5410,8 +5420,8 @@
    "proposed_fix": null,
    "notes": "Proof re-checked: sound. Scope remark (Main:141): global recurrence-cycle result, not every short window. Ledger MAIN:T-history-readback-finite-recurrence-implies P.",
    "_part": "B2",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-121",
@@ -5487,7 +5497,7 @@
    "notes": "Content is fine: both kernel readings force indivisibility at a return horizon (∃ n — the kernel gives n=(s+1)M; reduction to one recurrence cycle is immediate by periodicity but not stated in the kernel). The Introduction's gloss ('a visible-history record written into the hidden state is read back later') matches the storage-time reading of round C4-2, whereas Appendix A cites only round C4-1's seed-posterior reading, which its own module records as a discrepancy with that clause. Citation, not content. The Main §1.3 citation is acceptable: GR:52 attributes the read-write cycle to Main §1.3. ROADMAP:66 keeps physical C4 discharge OPEN.",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-122",
@@ -5530,8 +5540,8 @@
    "proposed_fix": null,
    "notes": "No kernel declaration derives indivisibility from history-level (C4); PhysicalC4Discharge records that the routed form implies the history-level condition, not the converse.",
    "_part": "B2",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-123",
@@ -5568,7 +5578,7 @@
    "mapper_proof_status": "proved-paper",
    "mapper_proposed_fix": "Appendix B works examples: a six-hidden-state model of Theorem 3 [Main §2.4], memory without short-window indivisibility, and a two-card game, the smallest realization of Theorem 3.",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status unsupported: the chain does not establish the claim"
   },
   {
    "id": "I-124",
@@ -5611,7 +5621,7 @@
    },
    "mapper_proposed_fix": "... and a two-card game, which with two visible and two hidden values is the smallest realization of Theorem 3 (with one hidden value every $\\Gamma_s$ is a permutation).",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status unsupported: the chain does not establish the claim"
   },
   {
    "id": "I-125",
@@ -5649,8 +5659,8 @@
    "proposed_fix": null,
    "notes": "",
    "_part": "B2",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-126",
@@ -5686,7 +5696,7 @@
    "notes": "A single exact counterexample suffices for the negative claim; B.2's arithmetic (every two-time matrix ½J, I(X0;X2|X1)=1 bit) is exact.",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation, unmatched exact-algebra)"
   },
   {
    "id": "I-127",
@@ -5731,7 +5741,7 @@
    "notes": "Main asserts no implication; it does not deny them. One direction holds unconditionally in the natural reading: Markov ⇒ rooted P-divisible (RHP14 Cor. 2.1: Markov transition matrices satisfy (11)-(13)), so P-indivisible ⇒ non-Markov ⇒ M_t>0 for some t. The only escape is rooted rows from roots of zero probability, which the Introduction does not invoke. (1)⇏(2) (XOR, B.2) and (2)⇏(3) (Hadamard) are supported; (3)⇏(2) is not shown anywhere but is not needed by the text. Minimal alternative fix: '... and no unconditional implication among them is asserted [Main §3.2 ...]'. Severity moderate: a false negative claim in the body.",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status unsupported: the chain does not establish the claim"
   },
   {
    "id": "I-128",
@@ -5776,7 +5786,7 @@
    "notes": "Ledger MAIN:L-diagonal-preservation K3.",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-129",
@@ -5822,8 +5832,8 @@
    "proposed_fix": null,
    "notes": "Proof re-checked; it uses only positivity and trace preservation of Λ, so it holds for every diagonal-preserving family. Ledger MAIN:T-cp-indivisibility-framework-scope P.",
    "_part": "B2",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation, unmatched kernel)"
   },
   {
    "id": "I-130",
@@ -5852,7 +5862,7 @@
    "notes": "Re-checked: Λ = Ad_H is a unitary CPTP divisor; (½J)Λ has equal rows for every stochastic Λ, so ½J → I is P-indivisible.",
    "_part": "B2",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-131",
@@ -5895,7 +5905,7 @@
    "notes": "BLP09 supplies the witness direction; that the converse fails is shown in BJA17 and Main:332, not in BLP09 itself. Acceptable as a compressed attribution.",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature, paper-derivation)"
   },
   {
    "id": "I-132",
@@ -5928,7 +5938,7 @@
    "notes": "Main:332 states the same with [9].",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-132.a",
@@ -5966,7 +5976,7 @@
    "notes": "",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-132.b",
@@ -6004,7 +6014,7 @@
    "notes": "",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-133",
@@ -6033,7 +6043,7 @@
    "notes": "",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-134",
@@ -6062,7 +6072,7 @@
    "notes": "'States a proof' correctly attributes without endorsing.",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-135",
@@ -6098,7 +6108,7 @@
    "notes": "",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-136",
@@ -6127,7 +6137,7 @@
    "notes": "",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-137",
@@ -6169,7 +6179,7 @@
    "notes": "Matches the kernel structure field by field.",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-138",
@@ -6205,7 +6215,7 @@
    "notes": "(i) in the kernel is positivity and trace preservation at every ancilla level n (system-level validity enters through (ii)); the Introduction's prose is an accurate summary.",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-139",
@@ -6275,7 +6285,7 @@
    "notes": "Attention resolved: ExactAll is 'system ∧ every level k+1' (positive ancilla levels), as Theorem 4 says; the standing structure specifies families at every level n including 0 (availExt n), as line 114 says. Both directions traced (I-139.a, I-139.b). Ledger GR:T-operational-completion-characterization K3. Strongest support is kernel; GR has no paper proof (kernel-only).",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-139.a",
@@ -6317,7 +6327,7 @@
    "notes": "",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-139.b",
@@ -6359,7 +6369,7 @@
    "notes": "No external premise: finiteIsometryExtensionSF_discharged (IsometryExtension:116) discharges the isometry-extension fact.",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-140",
@@ -6393,7 +6403,7 @@
    "notes": "Attention resolved: physical_of_exactAll sits in section Necessity of PhysicalCharacterization.lean with variable {A : Type} [Fintype A] [DecidableEq A] [Nonempty A] (line 224) — carrier-general, not qubit-only. GeneralCarrier:100 uses it for every nonempty finite A. The module difference is cosmetic.",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-141",
@@ -6427,7 +6437,7 @@
    "notes": "",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-142",
@@ -6468,7 +6478,7 @@
    "notes": "'Independent of ... a fixed finite observation process' is meant as non-implication: no condition follows from the other four together with the C1–C4 core. The other half of logical independence (consistency of all five with the core) holds because exact QM realizes the core (qm_implies_oiCore, CompletedOI:549). Note that (iv) alone implies the core (realizesSealedOICore_of_control, OIRealization:252), so 'independent of the observation process' does not hold in both directions for (iv) taken alone; the next sentence of the Introduction states the intended reading.",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-143",
@@ -6501,7 +6511,7 @@
    "notes": "",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-144",
@@ -6535,7 +6545,7 @@
    "notes": "Witness diagTheory is the diagonal-preserving theory, i.e. one that never creates coherence.",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-145",
@@ -6593,7 +6603,7 @@
    "notes": "Pressure-tested: the witness is a theory realizing a C1–C4 observation process that is not exactly quantum, which is exactly the non-implication claimed. Quantum-equivalence status across the corpus: proved — S_K=D_K=Q_K (kernel), Theorem 4 (kernel), OI ⇏ QM (kernel), OI⁺ ⟺ exact finite endomorphic operational QM (kernel carrier_general_oiPlus, CarrierGeneralOIPlus:213, a characterization of an extension), substratum + continuous off-diagonal controllability ⟺ QM (substratum_plus_control_qm, StructuralClosure:414); conditional — operational QM on (i)–(v)/OI⁺ principles; coherent-completion uniqueness up to unitary gauge and one antiunitary (GR:198, conditional on existence); open — physical source of the resource (ROADMAP F2), relating evolution (P0), H-Bell (P1), K pre-quantum kinematics (P1), H-∞ (P1); settled negatively — the presently stated architecture does not source phases or dense control (ROADMAP:1521 INDEPENDENT), which retires the equivalence endpoint F1 for that architecture.",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-146",
@@ -6674,8 +6684,8 @@
    "proposed_fix": "The finite reversible substratum, with a relative-phase intervention assumed, has the structural closure properties, but its bijective read-write dynamics generates no continuously tunable state mixing and so no theory with full reversible control (iv) (machine-checked on the qubit); exact operational quantum mechanics follows exactly when that one controllability resource is added [GR §3.3]. Whether a physical substratum supplies it is open.",
    "notes": "Attention resolved: the Introduction gives no statement about (i)-(ii) because GR treats them as well-formedness of any operational theory (GR:220, exactAll_iff_substantive). The substantive omission is the kernel-proved negative: under the stated architecture, (iv) is not supplied (readWriteSourced_not_control; substratum_residual; ROADMAP INDEPENDENT rows), and QM follows exactly when continuous off-diagonal controllability is added (substratum_plus_control_qm). 'Which of (iii)–(v) ... is open' reads as if nothing were known. What remains open is whether the physical world supplies the controllability resource and the phase intervention (ROADMAP F2). Whether the stated structural closures coincide exactly with (iii) and (v) of the theorem is not asserted in GR; the fix avoids that identification. Severity moderate: this is the central quantum-equivalence status sentence.",
    "_part": "B2",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-147",
@@ -6720,7 +6730,7 @@
    "notes": "The body (and Main:624) says representability with ordinary coherence does not select it, and that selection is open — 'this paper neither closes the third nor claims it cannot be closed'. The bare heading 'is not selected' can be read as a claim that nothing selects it. Scope slip in a heading; low severity.",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-148",
@@ -6758,7 +6768,7 @@
    "notes": "",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-149",
@@ -6799,7 +6809,7 @@
    "notes": "Existential, as 'can' says: one exhibited 2x2 instance. The kernel docstring warns that neither GL2 nor GL3 says every time-dependent gauge moves every candidate; 'and then have different relating evolutions' must be read with the same 'can'. Census family 54, status current.",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-150",
@@ -6832,7 +6842,7 @@
    "notes": "",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-151",
@@ -6868,7 +6878,7 @@
    "notes": "",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-152",
@@ -6904,7 +6914,7 @@
    "notes": "bridge_traj is more general (permClass interventions on either side); the Introduction states the identity-intervention case.",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-153",
@@ -6958,7 +6968,7 @@
    "notes": "Attention resolved (§A.34): the two directions use different middle terms, but harmlessly. Equality of root-conditioned trajectory laws at every horizon implies equality of rooted families (the rooted family is a marginal of the trajectory law), so the stated converse 'rooted families agree ⇒ one-step matrices equal' is stronger than the converse of I-152. Together: one-step equal ⇒ trajectory laws equal (bridge_traj) ⇒ rooted equal (marginalization, unformalized) ⇒ one-step equal (forward of rooted_eq_iff_slice_eq). The Introduction claims no iff, so no §A.34 defect. It cites only the forward direction of an iff declaration; the backward direction (visible_congr) is also proved, so nothing is overstated.",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-153.a",
@@ -7000,7 +7010,7 @@
    "notes": "",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-153.b",
@@ -7042,7 +7052,7 @@
    "notes": "Forward direction = slice_eq_of_rooted_eq (TrackBQfbBridge:171): the t=1 rooted map is the Born matrix.",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-154",
@@ -7076,7 +7086,7 @@
    "notes": "Attention resolved: the declaration's conclusion is QfbRealizable(rootTraj K a) ∧ Stochastic(rootTraj K a), so it establishes fixed-basis realizability as well as stochasticity.",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-155",
@@ -7110,7 +7120,7 @@
    "notes": "",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-156",
@@ -7163,7 +7173,7 @@
    "notes": "Verbatim from Main:624, which also records that the trivial ancilla is part of the statement (a non-tensor ancilla carried between steps can separate two lifts of one visible law, by exact computation). The Introduction's 'therefore' is confined to 'such data'.",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-157",
@@ -7201,7 +7211,7 @@
    "notes": "Follows from GL2: since representability and coherence leave two lifts with different relating evolutions, uniqueness needs more.",
    "_part": "B2",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-158",
@@ -7237,7 +7247,7 @@
    "notes": "",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-159",
@@ -7300,7 +7310,7 @@
    "notes": "Attention resolved: the heading is broader than the body ('the full prepare-and-measure theory of a qubit exactly') and reuses 'carrier' in a second sense. The body is faithful (I-164).",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature, paper-derivation)"
   },
   {
    "id": "I-160",
@@ -7334,7 +7344,7 @@
    "notes": "No kernel declaration (searched DimensionalObstruction, DimensionalCountermodel, Lean trees for nonnegative factorization). No ledger row (proof-inventory gap list).",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-161",
@@ -7364,7 +7374,7 @@
    "notes": "Imported, as the Introduction says two sentences later; HKLP24 Thm 4 read in the retained PDF text.",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-162",
@@ -7400,7 +7410,7 @@
    "notes": "GH03 gives an explicit task (though with sequential local interactions, not bare prepare-and-measure). In the retained text, Mon08 proves a dimension lower bound for Markovian ontological models and states no task; the explicit finite prepare-and-measure tasks the corpus actually relies on are HKLP24's (Main:538 cites [55] only). Low severity; attribution precision.",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-163",
@@ -7430,7 +7440,7 @@
    "notes": "Verified in Montina's text. [Har04] itself is unread (VERIFY comment), and the Introduction correctly cites it 'as reported'.",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-164",
@@ -7488,7 +7498,7 @@
    "notes": "One link is literature (HKLP24 Thm 4, proved there); the corpus link is a written factorization argument. Main's 'under the stated operational interface' is carried by the Introduction's first sentence ('behaviour matrices that factor nonnegatively').",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature, paper-derivation)"
   },
   {
    "id": "I-165",
@@ -7540,7 +7550,7 @@
    "notes": "",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature, paper-derivation)"
   },
   {
    "id": "I-166",
@@ -7569,7 +7579,7 @@
    "notes": "",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-167",
@@ -7616,7 +7626,7 @@
    "notes": "Verdict pressure-tested: no corpus document claims to derive the exponent.",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-168",
@@ -7661,7 +7671,7 @@
    "notes": "Matches Main:379's own summary sentence. Main's theorem also assumes a response-fixing microstate, automatic for a deterministic completion's full state. No ledger row (proof-inventory gap list).",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature, paper-derivation)"
   },
   {
    "id": "I-169",
@@ -7702,7 +7712,7 @@
    "notes": "",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-170",
@@ -7746,7 +7756,7 @@
    "notes": "A posited choice, as stated. Completeness note: Main's abstract and Corollary add that the specific nearest-neighbour cubic representative is not itself a Bell-violating completion under measurement independence; preparation-indexed adjacency is needed. The Introduction does not say this; optional.",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status conjecture: the chain does not establish the claim"
   },
   {
    "id": "I-171",
@@ -7800,7 +7810,7 @@
    "notes": "Completeness note: the corpus records that the stated route to H-Bell's continuum clause already fails for the reference graph (Main:394, ROADMAP:963). The Introduction's 'open' is accurate but does not convey that the existing route is refuted; optional.",
    "_part": "B2",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-172",
@@ -7853,7 +7863,7 @@
    "notes": "Citation placement checked against WEI89.md (#918 at 4a260ca9): its 'Citation applied (r14)' is Option A, '[Wei89, §I; §III, Eqs. (3.4)–(3.6)]' after 'observational value' and '[Wei89, §III]' after the cancellation clause, with the convention clause uncited; the Introduction at line 140 matches exactly. Qualification 1 of WEI89.md (Weinberg compares with an upper bound, not a measured value) is covered by 'observational value'. The label '(the mismatch)' sits after the citation; harmless. Independent of ħ's status: Weinberg's estimate uses the measured G and natural units.",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature, paper-derivation)"
   },
   {
    "id": "I-173",
@@ -7882,7 +7892,7 @@
    "notes": "Uncited by design (WEI89.md: 'The clause stays the paper's own and is not attributed to [Wei89]').",
    "_part": "B3",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-174",
@@ -7915,7 +7925,7 @@
    "notes": "Literature argument; conditional form ('if that density sources curvature') matches Weinberg's.",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-175",
@@ -7970,7 +7980,7 @@
    "notes": "Status: structural/definitional within the framework's ontological commitment that gravity acts at the classical level (GR.md:346). ħ check (#939): the distinction does not use ħ's value. Of the three requirements GR gives for the geometry-first ordering, (i) definiteness and (ii) non-circularity do not involve ħ; only (iii) does, and §4 of the Introduction does not use (iii). #939 reworded ch09's rows on 'the descriptive distinction behind the cosmological constant dissolution' (ch09:14, :48, :71, :118); the reworded rows remain consistent with the Introduction.",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-176",
@@ -8006,7 +8016,7 @@
    "notes": "One-line algebra (|e^{-iCt}|=1). No kernel declaration states this direction; the kernel's phase_families_shift (cited for GR Cor. A.3) is the converse-type uniqueness statement, not this invariance. Independent of ħ (any constant shift of Ω_eff).",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links: traced-only (unmatched exact-algebra)"
   },
   {
    "id": "I-177",
@@ -8035,7 +8045,7 @@
    "notes": "Holds also for the coherent extension: a global phase leaves UρU† unchanged.",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links: traced-only (unmatched exact-algebra)"
   },
   {
    "id": "I-178",
@@ -8065,7 +8075,7 @@
    "notes": "Uncited 'familiar statement'; acceptable as textbook knowledge. Optional: add a citation if the owner wants every attribution sourced.",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-179",
@@ -8104,7 +8114,7 @@
    "notes": "Stated as a proposal; I-185 makes the condition explicit.",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status conditional: the chain does not establish the claim"
   },
   {
    "id": "I-180",
@@ -8133,7 +8143,7 @@
    "notes": "Scope statement.",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-181",
@@ -8162,7 +8172,7 @@
    "notes": "",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-182",
@@ -8209,7 +8219,7 @@
    "notes": "Content faithful. The label is ambiguous inside [GR] itself: GR uses 'Level G1–G4' for its dependency ladder (GR.md:12, :356, :581, :705) and for [Structure §2]'s gauge axis (GR.md:30 'Level C × Level G4', GR.md:597 and :681 'Level D × Levels G1–G2'), where Level G3 is the substratum gauge group (papers/Structure.md:154). Signal S12 of the proof inventory. ch19 says 'rung G3'.",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-183",
@@ -8252,7 +8262,7 @@
    "notes": "",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-184",
@@ -8281,7 +8291,7 @@
    "notes": "By construction: the field equation is structure that the quantum data (invariant under the offset, I-176) do not fix. The Introduction's symbols match GR verbatim.",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-185",
@@ -8319,7 +8329,7 @@
    "notes": "",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status conditional: the chain does not establish the claim"
   },
   {
    "id": "I-186",
@@ -8359,7 +8369,7 @@
    "notes": "Accurately reported as a target, not a derived equation. F[g,T] occurs nowhere else in papers/ or book/ (grepped).",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-187",
@@ -8410,7 +8420,7 @@
    "notes": "Pressure test: the conclusion is carried by the hypothesis (the source is T^cl by stipulation), so the conditional is near-immediate; the Introduction states it as a conditional and adds that the remaining vacuum term is not computed. Not an overclaim.",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status conditional: the chain does not establish the claim"
   },
   {
    "id": "I-188",
@@ -8439,7 +8449,7 @@
    "notes": "Negative claim checked by grepping papers/ and book/ for F[g,T]: one occurrence (GR.md:12).",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-189",
@@ -8475,7 +8485,7 @@
    "notes": "ch19:54 keeps Λ_0 a free constant in the running-vacuum form; consistent.",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-190",
@@ -8504,7 +8514,7 @@
    "notes": "",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-191",
@@ -8533,7 +8543,7 @@
    "notes": "GR labels ρ~H²/G 'Total vacuum energy density' at GR.md:338; the Introduction's 'Friedmann normalization of the total density' is the more careful reading and matches GR.md:358 item (1).",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links: traced-only (unmatched exact-algebra)"
   },
   {
    "id": "I-192",
@@ -8562,7 +8572,7 @@
    "notes": "",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-193",
@@ -8602,7 +8612,7 @@
    "notes": "ħ check (#939): the identity uses measured ħ through l_p and does not depend on the framework's calibration ħ = c³ε²/(4Gσ). GR's reading of the ratio as the trace-out compression ratio does share that calibration (GR.md:162: the S_dS compression ratio is a consequence of the calibration, 'not an independent check'); the Introduction does not adopt that reading.",
    "_part": "B3",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-194",
@@ -8631,7 +8641,7 @@
    "notes": "",
    "_part": "B3",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-195",
@@ -8666,7 +8676,7 @@
    "notes": "",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-196",
@@ -8699,7 +8709,7 @@
    "notes": "",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-197",
@@ -8728,7 +8738,7 @@
    "notes": "Literature attribution read first-hand in the #918 reference review.",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-198",
@@ -8757,7 +8767,7 @@
    "notes": "",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-199",
@@ -8786,7 +8796,7 @@
    "notes": "",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-200",
@@ -8815,7 +8825,7 @@
    "notes": "",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-201",
@@ -8844,7 +8854,7 @@
    "notes": "",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-202",
@@ -8877,7 +8887,7 @@
    "notes": "Scope distinction from EvEMU11/KP14/Vol06; accurate as a description of the proposal.",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-203",
@@ -8910,7 +8920,7 @@
    "notes": "",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-204",
@@ -8939,7 +8949,7 @@
    "notes": "Pressure test: a derived equation with source coupling either excludes or includes the emergent offset, so 'theorem or refute' is correct.",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-205",
@@ -8995,7 +9005,7 @@
    "notes": "The Introduction matches the corpus bodies; several corpus headings are stronger than their bodies (contradictions).",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-206",
@@ -9038,7 +9048,7 @@
    "notes": "Pag93 ('Average entropy of a subsystem') is the right source for S_Page at I-225 but not for the statement of the information problem; Page's black-hole paper of the same year is 'Information in black hole radiation', Phys. Rev. Lett. 71, 3743 (1993), arXiv:hep-th/9306083 (abstract read). Checked at abstract level only; if the owner confirms Pag93's body discusses black-hole radiation, the citation can stay.",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-207",
@@ -9073,8 +9083,8 @@
    "proposed_fix": null,
    "notes": "",
    "_part": "B3",
-   "evidence_level": "reproduced",
-   "evidence_basis": "CI-receipt items, for a row with no evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-208",
@@ -9133,8 +9143,8 @@
    "proposed_fix": "The results below from [BHa; BHb] are written proofs and exhaustive finite computations in toy models of configurations, permutations and configuration reads.",
    "notes": "'Finite computations' mis-describes the section: BHa C1/C2 (I-216, I-217) and BHb C1 (I-227) are universal written proofs, checked exhaustively only at small size (BHa REPORT:302 'the universal statements rest on the written proofs'), and the Page-value result (I-225) is GR's analytic conditional theorem. §6.2 item 4 (Introduction line 175) says it correctly: 'each proved on paper or checked exhaustively at small size or by exact arithmetic'.",
    "_part": "B3",
-   "evidence_level": "reproduced",
-   "evidence_basis": "CI-receipt items, for a row with no evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-209",
@@ -9173,8 +9183,8 @@
    "proposed_fix": "They use the layout of the framework's nested-partition construction [GR App. A; Book §7.6], with arbitrary bijections in place of the substratum dynamics, and concern no particular black hole.",
    "notes": "Code Review Rules (surrogate check): the toy results use the construction's layout with arbitrary bijections in place of the substratum dynamics. 'Concern the framework's nested-partition construction' can be read as results about the construction's own dynamics.",
    "_part": "B3",
-   "evidence_level": "reproduced",
-   "evidence_basis": "CI-receipt items, for a row with no evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-210",
@@ -9225,7 +9235,7 @@
    "notes": "Conditional on the premise, as stated.",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "proof status conditional: the chain does not establish the claim"
   },
   {
    "id": "I-211",
@@ -9264,8 +9274,8 @@
    "proposed_fix": null,
    "notes": "A counterexample proves the non-implication outright; also hand-checkable.",
    "_part": "B3",
-   "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-212",
@@ -9304,7 +9314,7 @@
    },
    "mapper_proof_status": "proved-paper",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-213",
@@ -9343,7 +9353,7 @@
    },
    "mapper_proof_status": "numerical",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-214",
@@ -9382,7 +9392,7 @@
    },
    "mapper_proof_status": "numerical",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-215",
@@ -9424,7 +9434,7 @@
    },
    "mapper_proof_status": "numerical",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-216",
@@ -9468,8 +9478,8 @@
    "proposed_fix": null,
    "notes": "Holds for every prior (injectivity). Unpublished, internally reviewed record; the review (REVIEW.md:3) confirms the proof.",
    "_part": "B3",
-   "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-217",
@@ -9512,8 +9522,8 @@
    "proposed_fix": "For bijective dynamics with uniformly distributed messages and unread initial data, complete endpoint access gives exact recovery, and with $\\mathcal U$ inaccessible $P_{\\mathrm{succ}}\\ge1/|\\mathcal U|$, so zero advantage in a bijective instance requires $|\\mathcal U|\\ge|\\mathcal M|$",
    "notes": "BHa proves the bound in its model's prior (uniform message prior, uniform unread data, equal-size supports); the Introduction states no prior. Auditor's note, not a corpus result: the bound holds for every prior on initial configurations, since each fibre of the record contains at most |U| initial points and so at most |U| messages, and the MAP guess takes at least 1/|U| of each fibre's weight. The Introduction's statement is therefore true, but its corpus support covers only BHa's prior. Fix shared with I-218.",
    "_part": "B3",
-   "evidence_level": "reproduced",
-   "evidence_basis": "CI-receipt items, for a row with no evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-218",
@@ -9559,8 +9569,8 @@
    "proposed_fix": "see I-217 (one sentence carries the prior for I-216–I-218)",
    "notes": "Attention resolved: the 'so' inference uses the blind-guess value 1/|M|, which is the uniform-prior value; BHa states this scope (REPORT:297, PLAN.md:64). Auditor's note, not a corpus result: with equal-size supports the conclusion survives a non-uniform message prior by a different count (every record fibre must contain a point of the most likely message, so |M|·N ≤ N·|U|), but the inference as written needs the uniform prior. Fix: see I-217 (state the prior once).",
    "_part": "B3",
-   "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-219",
@@ -9610,7 +9620,7 @@
    },
    "mapper_proof_status": "numerical",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-220",
@@ -9649,7 +9659,7 @@
    },
    "mapper_proof_status": "proved-paper",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-221",
@@ -9678,7 +9688,7 @@
    "notes": "BHa supports it. The 'known fact' (the min-entropy chain rule) has no literature source in BHa or in the Introduction; the sentence-final [Sha79] does not contain it. Optional: cite a source for the known fact.",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-222",
@@ -9722,7 +9732,7 @@
    "notes": "The mathematics (C4) is proved in BHa; the literature identification is unverified. BH-01 names the threshold without a source. As recalled, Shamir's (k,n) scheme is a linear threshold scheme, and BHa's lower bound is the rank bound that such schemes attain; 'is the secret-sharing threshold' is a loose identification.",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status conditional: the chain does not establish the claim"
   },
   {
    "id": "I-223",
@@ -9784,7 +9794,7 @@
     "by": "independent review RC-1"
    },
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status conditional: the chain does not establish the claim"
   },
   {
    "id": "I-224",
@@ -9813,7 +9823,7 @@
    "notes": "BHa's assumption-watch (REPORT:277-281) notes that A.5's coupling chain V↔B↔D reads B as a boundary layer, while A.1 reads B as the interior; not an Introduction issue.",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-225",
@@ -9912,8 +9922,8 @@
     "by": "independent review RC-1"
    },
    "mapper_proof_status": "conditional",
-   "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "proof status unsupported: the chain does not establish the claim"
   },
   {
    "id": "I-226",
@@ -9947,7 +9957,7 @@
    "notes": "",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status conditional: the chain does not establish the claim"
   },
   {
    "id": "I-227",
@@ -9990,7 +10000,7 @@
    "notes": "Attention resolved: the universal 'for every bijection' claim does not rest only on the unpublished BHb. It has a one-line universal written proof (a permutation unitary maps basis vectors to basis vectors, which are product states across an aligned cut), stated in the published corpus at GR App. A.7 (GR.md:833) and ch07:126, and proved in BHb C1; the exhaustive sweeps (24/40320/362880 permutations) only exercise the code. The cited [GR App. A.7] already carries it. See I-225 for the missing link to Theorem A.8's own setting.",
    "_part": "B3",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-228",
@@ -10025,8 +10035,8 @@
    "proposed_fix": null,
    "notes": "C6(b) bears on 'not established' (the value is supplied by the hypothesis); C1 and C6(a) bear on 'fails'. Completeness note: BHb C2 (proved: a permutation cannot raise the aligned-cut entanglement above the initial basis entropy H(p_0)) sharpens what H-scramble would require and is not reported in the Introduction.",
    "_part": "B3",
-   "evidence_level": "reproduced",
-   "evidence_basis": "CI-receipt items, for a row with no evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-229",
@@ -10060,7 +10070,7 @@
    "notes": "",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status conditional: the chain does not establish the claim"
   },
   {
    "id": "I-230",
@@ -10101,8 +10111,8 @@
    "proposed_fix": null,
    "notes": "Item F shows the support is removed, not that A.7 fails within t ≪ τ_B^D (BHa REPORT:241-245), consistent with §6.2 item 4 (I-267: [GR, Thm A.7] is the Effective-pure-state theorem, GR.md:811). The published GR text now carries the same sentence, so [GR App. A.7] could be cited alongside [BHa, item F].",
    "_part": "B3",
-   "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-231",
@@ -10131,7 +10141,7 @@
    "notes": "",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-232",
@@ -10160,7 +10170,7 @@
    "notes": "",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-233",
@@ -10189,7 +10199,7 @@
    "notes": "",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-234",
@@ -10218,7 +10228,7 @@
    "notes": "",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-235",
@@ -10247,7 +10257,7 @@
    "notes": "A physical modelling statement argued on paper (the B and R energies vary while the total is conserved).",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-236",
@@ -10276,7 +10286,7 @@
    "notes": "BHb shows the direction is shell-dependent; 'in general differs' is exact.",
    "_part": "B3",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-237",
@@ -10304,8 +10314,8 @@
    "proposed_fix": null,
    "notes": "",
    "_part": "B3",
-   "evidence_level": "reproduced",
-   "evidence_basis": "CI-receipt items, for a row with no evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-238",
@@ -10334,7 +10344,7 @@
    "notes": "",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-239",
@@ -10369,8 +10379,8 @@
    "proposed_fix": null,
    "notes": "",
    "_part": "B3",
-   "evidence_level": "reproduced",
-   "evidence_basis": "CI-receipt items, for a row with no evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-240",
@@ -10408,7 +10418,7 @@
    "notes": "",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status conditional: the chain does not establish the claim"
   },
   {
    "id": "I-241",
@@ -10444,7 +10454,7 @@
    "notes": "Completeness note: Theorem A.6 is proved on paper and not mentioned; optional.",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-242",
@@ -10473,7 +10483,7 @@
    "notes": "Agreement in form is itself conditional on unestablished hypotheses, so the unqualified 'not established' is correct.",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-243",
@@ -10502,7 +10512,7 @@
    "notes": "",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status conjecture: the chain does not establish the claim"
   },
   {
    "id": "I-244",
@@ -10531,7 +10541,7 @@
    "notes": "",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-245",
@@ -10576,7 +10586,7 @@
    "notes": "The Introduction defines the problem as recovery (line 156), so 'not resolved' is right. Parts of the book claim resolution 'at the level of information preservation'. Under BHa that is a premise, not a resolution of the problem as posed.",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-246",
@@ -10658,8 +10668,8 @@
    "proposed_fix": "If the hypothesis holds, the fixed-basis statistics of quantum theory are, at every finite horizon, visible laws of an embedded observer",
    "notes": "Conditional on OI (stated). The identification holds per finite horizon (Theorem 1, Q_K ⊆ D_K, kernel). Under OI the observer is part of ONE fixed finite reversible system, whose rooted family is periodic (kernel rootedMap_periodic); the kernel proves fixed-basis families with non-permutation unitaries are not all-time realizable by any such system (qStar_not_subset_finiteRootedRealizable). The Introduction scopes Theorem 1 per horizon in §2.3 and §6.4, but this §6.1 sentence drops the horizon qualifier. Low severity.",
    "_part": "B4",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "proof status conditional: the chain does not establish the claim"
   },
   {
    "id": "I-247",
@@ -10724,8 +10734,8 @@
    "proposed_fix": null,
    "notes": "A law departs from Markov behaviour iff M_t>0 for some t; Theorem 2(c) and the Corollary place that memory in the hidden state of every faithful realization. Kernel parts plus two paper steps (time-t identification, CMI vanishing criterion); the sentence carries no status word, which §6.1 does not require. Conditional on OI as stated.",
    "_part": "B4",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "proof status conditional: the chain does not establish the claim"
   },
   {
    "id": "I-248",
@@ -10785,7 +10795,7 @@
    "notes": "Theorem 4 (kernel, both directions) plus five_way_minimality/oi_alone_not_qm (kernel). Completeness note shared with I-258: for the stated substratum the corpus settles (iv) negatively (GR §3.3 substratum-source form), which this sentence does not need to state.",
    "_part": "B4",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-249",
@@ -10836,7 +10846,7 @@
    "notes": "'Memory alone' is read as hidden memory within a local, measurement-independent deterministic completion; Main §3.3 shows that without locality the finite construction even realizes PR boxes, so the qualifier matters and the sentence is accurate in context (§3.5 states the hypotheses).",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature, paper-derivation)"
   },
   {
    "id": "I-250",
@@ -10880,7 +10890,7 @@
    "notes": "For deterministic models parameter independence plus measurement independence is Bell locality; violating CHSH with MI kept requires parameter dependence. The framework's adoption of the ontic option is a choice (Book ch01 §1.7, Main §3.3), stated as such in §3.5.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-251",
@@ -10928,7 +10938,7 @@
    "notes": "Open status agrees with Substratum, Main abstract and ROADMAP.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-252",
@@ -11004,7 +11014,7 @@
    "notes": "Faithful as a disclaimer: Theorem 1 is a representation result and OI alone does not imply QM (kernel). The [Main] title is recorded as an owner finding (see part-B4.md).",
    "_part": "B4",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-253",
@@ -11039,7 +11049,7 @@
    "notes": "S_K is by definition every law on C_V^{K+1}; Theorem 1 (kernel) makes D_K and Q_K equal to it.",
    "_part": "B4",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-254",
@@ -11074,8 +11084,8 @@
    "proposed_fix": null,
    "notes": "Immediate algebra. The origin of the exponent is open (§3.5; Main 'named as a frontier item').",
    "_part": "B4",
-   "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-255",
@@ -11118,7 +11128,7 @@
    "notes": "No unique operational theory is selected: each completion condition can fail while the OI core and the other four hold (kernel).",
    "_part": "B4",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-256",
@@ -11168,7 +11178,7 @@
    "notes": "five_way_minimality covers all five cells (validity, inert spectators, control, iterated closure, system-to-level-one = Intro's (i),(iii),(iv),(v),(ii)). A qubit counter-model suffices for non-implication.",
    "_part": "B4",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-257",
@@ -11203,7 +11213,7 @@
    "notes": "Statement checked: five existentials over FiniteOperationalTheory (Fin 2), each with RealizesSealedOICore and exactly one condition failing.",
    "_part": "B4",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-258",
@@ -11262,11 +11272,13 @@
     {
      "link": "GR §3.3 layer-flow form: stated substratum dynamics with observer access ⇏ one nontrivial layer flow executable; fractional-time access is an additional physical intervention assumption",
      "source": "papers/GR.md:266@eae01647",
-     "layer": "kernel",
+     "layer": "paper-derivation",
      "hypotheses": [
       "phase intervention stated"
      ],
-     "link_status": "proved"
+     "link_status": "proved",
+     "mapper_layer": "kernel",
+     "relabel_reason": "a corpus paper line, not a declaration: the paper states the result and cites the kernel"
     },
     {
      "link": "A structurally closed extension of the substratum class is a quantum architecture iff it drives the elementary transitions; with it, exact finite operational QM on every nonempty finite carrier (substratum_plus_control_qm)",
@@ -11325,8 +11337,8 @@
    "proposed_fix": "which of (iii)–(v) a physical substratum supplies is open, except that the stated substratum, with the observer's stated access, does not supply the continuous state-mixing control that (iv) requires [GR §3.3]",
    "notes": "The corpus has a kernel-checked negative result for the presently stated architecture: bijection-level (monomial) operations source no phases and no dense unitary control (frozen_sourcing_verdict, readWriteSourced_not_qm, substratum_residual), recorded INDEPENDENT in ROADMAP; with one continuous off-diagonal controllability resource (and the assumed phase intervention) the extension is exact finite operational QM (substratum_extension_quantum_iff_drives, substratum_plus_control_qm). What remains open is whether a physical substratum supplies that resource (ROADMAP F2). Calling the whole question 'open' understates a settled negative (§A.30/code-review rule: state negatives for the class ruled out). The same wording appears in the abstract and §3.2 (other ranges).",
    "_part": "B4",
-   "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "certificate-checked",
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-259",
@@ -11368,7 +11380,7 @@
    "notes": "An existential witness suffices for \"does not fix\". ROADMAP P0 records the selection question as open.",
    "_part": "B4",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-260",
@@ -11409,7 +11421,7 @@
    "notes": "Every law, Markov or not, has a realization (kernel).",
    "_part": "B4",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-261",
@@ -11444,8 +11456,8 @@
    "proposed_fix": null,
    "notes": "Explicit counterexample computed in the remark.",
    "_part": "B4",
-   "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-262",
@@ -11481,7 +11493,7 @@
    "notes": "Counterexample in the Introduction itself (exact).",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links: traced-only (literature, unmatched exact-algebra)"
   },
   {
    "id": "I-263",
@@ -11551,7 +11563,7 @@
    "notes": "GR §8.4(iii) and App. A state every leg of the Page result as conditional or open.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-264",
@@ -11639,7 +11651,7 @@
    "notes": "GR states Theorems A.8–A.9 as conditional on H-scramble (which fails in the framework's own configuration setting) and H-decouple (not established).",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-265",
@@ -11711,8 +11723,8 @@
    "proposed_fix": "the results of §5 reported from [BHa; BHb] are finite toy-model computations, each proved on paper or checked exhaustively at small size or by exact arithmetic, and analyses of the hypotheses of [GR App. A]",
    "notes": "The toy-model results cited in §5 (claim A counts, C1, C2, BHb C1/C6(a), the diagonal-shell value) are exhaustive or proved. But §5 also cites BHa item F (timescale arithmetic on GR's formulas, 'audit observation') and BHb C6(b)–(d) (textual analyses of GR's theorems), which are not toy models. BHb also carries NUMERICAL (double-precision) items (C3) that §5 does not use. Low severity.",
    "_part": "B4",
-   "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-266",
@@ -11741,7 +11753,7 @@
    "notes": "Scope disclaimer. Whether information reaches D is not established anywhere in the corpus (proof_status records that open state, not a defect).",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-267",
@@ -11788,8 +11800,8 @@
    "proposed_fix": null,
    "notes": "ATTENTION RESOLVED: GR Thm A.7 is the 'Effective pure state' theorem (decoupling of D on t ≪ τ_B^D), distinct from the Page results A.8–A.9. The disclaimer is correctly aimed: BHa item F shows timescale ordering fails at astrophysical evaporation times, which is outside A.7's stated scope, so no claim is made that A.7 fails within it. Optional clarity: name what A.7 states.",
    "_part": "B4",
-   "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-268",
@@ -11818,7 +11830,7 @@
    "notes": "Scope disclaimer.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-269",
@@ -11883,7 +11895,7 @@
    "notes": "Faithful as a statement of what the paper claims. OWNER DECISION: the corpus's Appendix A empirical comparisons test conjunctions of OI with a specific substratum and named hypotheses, not OI as stated in §1.1; whether the Introduction should say so (and the abstract's 'Open are ... any test of the hypothesis') is a scope choice.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-270",
@@ -11912,7 +11924,7 @@
    "notes": "Scope disclaimer backed by B.3 and Book §1.11.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-271",
@@ -11941,7 +11953,7 @@
    "notes": "Definitional for a classical card model.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links: traced-only (unmatched exhaustive-computation)"
   },
   {
    "id": "I-272",
@@ -11981,7 +11993,7 @@
    "notes": "Main Remark (failure of (C1)) computes the same swap channel.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links: traced-only (unmatched exact-algebra)"
   },
   {
    "id": "I-273",
@@ -12021,7 +12033,7 @@
    "notes": "Algebra re-checked in this mapping.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links: traced-only (literature, unmatched exact-algebra)"
   },
   {
    "id": "I-274",
@@ -12057,7 +12069,7 @@
    "notes": "Immediate: a local classical card model is LHV.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature, paper-derivation)"
   },
   {
    "id": "I-275",
@@ -12099,7 +12111,7 @@
    "notes": "No corpus document predicts Λ or Ω_Λ; GR treats the value as an input.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-276",
@@ -12167,7 +12179,7 @@
    "notes": "Faithful. The 'Dissolution' headings in GR §6 and Book §7.7 are qualified as conditional in their bodies; recorded as corpus tone findings.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-277",
@@ -12212,7 +12224,7 @@
    "notes": "GR: 'Descriptive distinction established; dynamical decoupling conditional on G3'. §4 itself says the descriptive distinction (shift invariance of visible transition probabilities) holds unconditionally; only the gravitational proposal is conditional. 'All of §4 is conditional' is a slight overstatement of the conditionality. Low severity.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status conditional: the chain does not establish the claim"
   },
   {
    "id": "I-278",
@@ -12241,7 +12253,7 @@
    "notes": "Scope disclaimer (literature-backed). The rendered-out reference comment records [tH14] as read first-hand (abstract, Ch. 2 §2.1) and SUPPORTED; not re-read here.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-279",
@@ -12270,7 +12282,7 @@
    "notes": "Attribution only; first-hand read recorded in verification/audits/manuscript/introductory-paper-20261025 (per the reference comment), not repeated here.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-280",
@@ -12299,7 +12311,7 @@
    "notes": "The paper also states a physical hypothesis (OI), a proposal (§4), finite computations (§5), open problems (§6.3) and its own examples (Appendix B, uncited). 'cited theorems' is narrower than the content. Low severity; the sentence is also self-description that §A.32 discourages in paper prose.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status unsupported: the chain does not establish the claim"
   },
   {
    "id": "I-281",
@@ -12358,11 +12370,13 @@
     {
      "link": "GR §3.3 layer-flow form: stated substratum dynamics with observer access ⇏ one nontrivial layer flow executable; fractional-time access is an additional physical intervention assumption",
      "source": "papers/GR.md:266@eae01647",
-     "layer": "kernel",
+     "layer": "paper-derivation",
      "hypotheses": [
       "phase intervention stated"
      ],
-     "link_status": "proved"
+     "link_status": "proved",
+     "mapper_layer": "kernel",
+     "relabel_reason": "a corpus paper line, not a declaration: the paper states the result and cites the kernel"
     },
     {
      "link": "A structurally closed extension of the substratum class is a quantum architecture iff it drives the elementary transitions; with it, exact finite operational QM on every nonempty finite carrier (substratum_plus_control_qm)",
@@ -12422,7 +12436,7 @@
    "notes": "The decisive test survives, but the corpus has narrowed it: for the presently stated architecture (iv) is settled negatively (kernel; ROADMAP INDEPENDENT), and sufficiency of the one added resource is kernel-proved (substratum_plus_control_qm; layer-flow form derivedOI_qm_iff_layerFlowExecutable'). The open question is ROADMAP F2. The open item stays open; the wording omits the established negative and positive halves. Medium severity.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-282",
@@ -12444,9 +12458,11 @@
     {
      "link": "ROADMAP P1 'Physical C4 discharge at the cosmological and lattice cuts' — OPEN, residual exact per cut (RoutedReadback; LatticeCutReadback)",
      "source": "verification/ROADMAP.md:66@eae01647",
-     "layer": "kernel",
+     "layer": "none",
      "hypotheses": [],
-     "link_status": "open"
+     "link_status": "open",
+     "mapper_layer": "kernel",
+     "relabel_reason": "a ROADMAP entry recording an open obligation, not a declaration"
     }
    ],
    "required_assumptions": [],
@@ -12464,7 +12480,7 @@
    "notes": "Agrees with GR §2.2 and ROADMAP.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-283",
@@ -12507,7 +12523,7 @@
    "notes": "No corpus item supplies an established discriminating experiment; F7 is explicitly a conditional prospect with no derived form.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-284",
@@ -12536,7 +12552,7 @@
    "notes": "Main §4.5: 'none is established here'.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-285",
@@ -12585,7 +12601,7 @@
    "notes": "Matches GR Level G3 and ROADMAP P2.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-286",
@@ -12642,8 +12658,8 @@
     "reason": "the open question is whether the substratum supplies a superposition or a non-aligned cut on which H-scramble could hold",
     "by": "independent review RC-1"
    },
-   "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-287",
@@ -12685,8 +12701,8 @@
    "proposed_fix": null,
    "notes": "Both legs open in GR App. A.",
    "_part": "B4",
-   "evidence_level": "reproduced",
-   "evidence_basis": "CI-receipt items, for a row with no evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-288",
@@ -12717,7 +12733,7 @@
    "notes": "GR ladder: 'G4, the cosmological implications (..., Page curve, ...), conditional on G3'.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-289",
@@ -12786,8 +12802,8 @@
    "proposed_fix": "(1) machine checks of the steps proved only on paper (in §2.2, §2.4, §2.5, §3.1 and §3.4)",
    "notes": "Every listed step is indeed unchecked (grep of OIBridge found no formalization). The list omits other paper-only steps the Introduction states: §3.1's Hadamard counterexample and §3.4's factorization half. Conversely §2.3's periodicity has a rooted kernel form (rootedMap_periodic, RootedClassification:135) the Introduction does not cite. Low severity.",
    "_part": "B4",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-290",
@@ -12822,8 +12838,8 @@
    "proposed_fix": null,
    "notes": "Open item matches Main. Completeness (low): the quotient itself is a proved result (Main:600) that the Introduction does not state.",
    "_part": "B4",
-   "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-291",
@@ -12885,8 +12901,8 @@
     "reason": "'the fixed-dimension form is false' rests on floating-point probes (uniform prior in Main; Nelder-Mead over priors in the audit) and is stated without a label",
     "by": "independent review RC-5"
    },
-   "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (link not proved)"
   },
   {
    "id": "I-292",
@@ -12939,8 +12955,8 @@
    "proposed_fix": "(3) exact gluing for recurrent families of multi-time laws (for rooted families, periodicity is necessary and sufficient for exact all-time realization, machine-checked as finiteRootedRealizable_iff_pper)",
    "notes": "At the level of rooted families (the Γ_t of §2.5) the exact all-time realization question is settled positively for every periodic family (kernel, constructive). Whether that settles Main's question (a) depends on whether Main means rooted families or full multi-time laws; the full-law version remains open. The Introduction (and Main, ROADMAP) list the item as open without the rooted-level result. OWNER DECISION on scope. Medium-low severity.",
    "_part": "B4",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-293",
@@ -12976,7 +12992,7 @@
    "notes": "Main (b) and ROADMAP agree.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-294",
@@ -13034,7 +13050,7 @@
    "notes": "Main proves (C2) necessity on paper under the mixing hypothesis (two theorems, probe-certified); its ledger says 'Conditional', not open. Listing '(C2) necessity' under open problems mislabels a proved conditional theorem as open; the open item is the hypothesis (a declared input in ROADMAP). Low severity.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status conditional: the chain does not establish the claim"
   },
   {
    "id": "I-295",
@@ -13088,7 +13104,7 @@
    "notes": "'conditional on a mixing hypothesis motivated by eigenstate thermalization' matches Main's ledger wording exactly.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status conditional: the chain does not establish the claim"
   },
   {
    "id": "I-296",
@@ -13154,7 +13170,7 @@
    "notes": "D_K = S_K (kernel). 'an embedded observer of a finite reversible system' must be read as 'of some finite reversible system' (D_K is a union over systems); a single fixed system records only its own (periodic) laws, which §2.3 states. Acceptable at the conclusion's level of detail.",
    "_part": "B4",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-296.a",
@@ -13200,7 +13216,7 @@
    "notes": "D_K ⊆ S_K: composition Qfb_imp_S ∘ D_imp_Qfb inside finite_horizon_equivalence (also immediate: a visible marginal is a probability law).",
    "_part": "B4",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-296.b",
@@ -13236,7 +13252,7 @@
    "notes": "S_K ⊆ D_K: S_imp_D.",
    "_part": "B4",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-297",
@@ -13302,7 +13318,7 @@
    "notes": "D_K = Q_K (kernel).",
    "_part": "B4",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-297.a",
@@ -13338,7 +13354,7 @@
    "notes": "D_imp_Qfb.",
    "_part": "B4",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-297.b",
@@ -13384,7 +13400,7 @@
    "notes": "Q_K ⊆ D_K: S_imp_D ∘ Qfb_imp_S (composition in finite_horizon_equivalence).",
    "_part": "B4",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-298",
@@ -13431,8 +13447,8 @@
    "proposed_fix": null,
    "notes": "Interpretive summary matching Main.",
    "_part": "B4",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-299",
@@ -13503,8 +13519,8 @@
    "proposed_fix": "which every faithful realization carries in its hidden state",
    "notes": "ATTENTION RESOLVED: 'deterministic completion' is undefined in the Introduction; Main uses 'faithful deterministic completion', which is the Introduction's 'faithful realization' (§1.2 Conventions; Main §1.5). The content is Theorem 2(c) (M_t <= I(X_<t;H_t|X_t), unconditional) and the Corollary (readout-relevant hidden memory exactly when M_t>0). Since the antecedent is 'memory' (a law with M_t>0), no M_t>0 qualifier is missing; the fix is terminological. The step not machine-checked is stated in the abstract and §2.4, not here. Low severity.",
    "_part": "B4",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-300",
@@ -13544,7 +13560,7 @@
    "notes": "The necessity direction is kernel-proved for nonempty finite carriers only; the abstract says 'Exact finite operational quantum mechanics'. Dropping 'finite' in the conclusion extends the claim beyond the proved scope (H-∞ open). Low severity.",
    "_part": "B4",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-301",
@@ -13600,7 +13616,7 @@
    "notes": "Kernel. Completeness: the stronger result that the stated substratum does not supply (iv) (see I-258) would sharpen this sentence.",
    "_part": "B4",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-302",
@@ -13640,7 +13656,7 @@
    "notes": "Kernel witness; the selection question is ROADMAP P0 (open). §6.3 does not list P0 among open problems although the abstract does (completeness, low).",
    "_part": "B4",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-303",
@@ -13703,7 +13719,7 @@
    "notes": "Stated as a proposal; matches GR and Book bodies.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status conjecture: the chain does not establish the claim"
   },
   {
    "id": "I-304",
@@ -13752,7 +13768,7 @@
    "notes": "G3 open in GR and ROADMAP.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status conditional: the chain does not establish the claim"
   },
   {
    "id": "I-305",
@@ -13800,8 +13816,8 @@
     "by": "independent review RC-12"
    },
    "mapper_proof_status": "numerical",
-   "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-306",
@@ -13878,7 +13894,7 @@
    "notes": "Same as I-264.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-307",
@@ -13956,7 +13972,7 @@
    "notes": "Faithful. Corpus tone findings: 'Dissolution' headings (GR §6, Book §7.7, ch18) and appendix C's 'the proofs are complete'.",
    "_part": "B4",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status open: the chain does not establish the claim"
   },
   {
    "id": "I-308",
@@ -13999,7 +14015,7 @@
    "notes": "ATTENTION RESOLVED: toolchain confirmed from the repository (lean-toolchain, lakefile) and from the retained job record. Reproducibility notes: (1) Mathlib is pinned by a tag, not a manifest, so transitive dependencies are resolved at build time (the README records what the job resolved); (2) the attested job restored .lake/build from cache and 'Replayed' all 226 OIBridge modules — the reports are those of an earlier elaboration of the same sources, hash-checked by --rehash (disclosed in the README); the recipe from an empty .lake re-elaborates. Neither makes the sentence false.",
    "_part": "B4",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "CI-receipt items, for a row with no evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-309",
@@ -14014,9 +14030,11 @@
     {
      "link": "git diff --stat 17b830bc b64919cd -- verification/lean verification/lean-mathlib is empty (also empty to eae01647)",
      "source": "git@17b830bc..b64919cd",
-     "layer": "exhaustive-computation",
+     "layer": "none",
      "hypotheses": [],
-     "link_status": "proved"
+     "link_status": "proved",
+     "mapper_layer": "exhaustive-computation",
+     "relabel_reason": "a git identity check on sources (E2-19, ci-receipt), not a computation"
     }
    ],
    "required_assumptions": [],
@@ -14027,8 +14045,8 @@
    "proposed_fix": null,
    "notes": "Checked in this mapping; identical also at eae01647.",
    "_part": "B4",
-   "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "certificate-checked",
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-310",
@@ -14057,7 +14075,7 @@
    "notes": "Unchanged to eae01647.",
    "_part": "B4",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "CI-receipt items, for a row with no evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-311",
@@ -14088,7 +14106,7 @@
    "notes": "ATTENTION RESOLVED: all 28 declarations report exactly the three axioms (none uses fewer). In the 14 modules one uncited lemma, PhysicalCharacterization.levelOne_eq, depends on propext alone; it is not in Appendix A. 'compositions :466–468' are the proof term of finite_horizon_equivalence, not declarations. NOTE: the file exists at #918's head 4a260ca9, not at main eae01647 or b64919cd (the brief's 'at eae01647' is inaccurate). This verifies the retained record, not an independent rebuild.",
    "_part": "B4",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-312",
@@ -14124,7 +14142,7 @@
    "notes": "Present on the Introduction's own commit. Reproducibility notes: the recipe needs network access and a clone whose working tree contains papers/introduction_repro (i.e. #918 or its landing), since the compare step reads it by relative path; this is implicit. No reproduction was run here (no Lean builds).",
    "_part": "B4",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "CI-receipt items, for a row with no evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-313",
@@ -14160,7 +14178,7 @@
    "notes": "Coverage of Theorem 1 (Intro §2.2): FULL. Lean classes match the Introduction's definitions: Stochastic = nonnegative, sums to 1 (all laws on C_V^{K+1}); RevReal = bijection of V×Hid, Hid finite, initial law on V×Hid not required to factor (may correlate); QfbReal = unitary U, initial law on a basis (diagonal state), Born weight |U b' b|^2 at every step with collapse, readout read : Bas → V (fixed function of each outcome). Paper-only parts of §2.2: the independent-prior realization (Main:496, proved on paper, rational laws; the response-table extension there covers arbitrary real kernels) and the U_φ = e^{-iĤ} remark (Equivalence.lean header: deliberately unformalized, not a clause of Q_K).",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-314",
@@ -14196,7 +14214,7 @@
    "notes": "Direction S_K ⊆ D_K as glossed. Coverage: full for this inclusion.",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-315",
@@ -14232,7 +14250,7 @@
    "notes": "Direction D_K ⊆ Q_K; the construction is the permutation unitary read in the configuration basis, matching Intro §2.2 \"Quantum representation\".",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-316",
@@ -14268,7 +14286,7 @@
    "notes": "Direction Q_K ⊆ S_K (\"the Born rule\").",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-317",
@@ -14304,7 +14322,7 @@
    "notes": "The compositions are not separate declarations; they are covered by finite_horizon_equivalence's axiom report (as papers/introduction_repro/README.md@4a260ca9 states).",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-318",
@@ -14347,7 +14365,7 @@
    "notes": "\"Supporting\" is accurate: it is a lemma consumed by D_imp_Qfb.",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-319",
@@ -14398,7 +14416,7 @@
    "notes": "Status \"proved on paper\" is exact: written constructive proof, exact probes, no kernel statement (ledger P). Cross-note for the §2.2 mapper: Main:498 (response-table extension) gives an independent product prior for arbitrary real kernels, so the Intro's restriction \"for a law with rational probabilities\" (§2.2) states only the uniform-tape case; that extension is argued in text with probe review4_probes.py P-G.",
    "_part": "B5",
    "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation, unmatched exhaustive-computation)"
   },
   {
    "id": "I-320",
@@ -14445,7 +14463,7 @@
    "notes": "Coverage of Theorem 2: PARTIAL. Kernel: (a)–(c) for an arbitrary finite joint law w on Hist × V × H together with a bijection step on V × H, X_{t+1} defined as the visible part of step(X_t,H_t) (HiddenMemory.Realization). Paper-only: that w is the time-t law of a faithful realization reproducing the visible process (the \"time-t identification\", Main:582 proof). Appendix A and §2.4 say exactly this. Attention item resolved: (a) = pushforward_identity, (b) = distinguishability_floor, (c) = capacity_floor, all three = unavoidable_hidden_predictive_memory. This row: Theorem 2(a).",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-321",
@@ -14492,7 +14510,7 @@
    "notes": "Coverage of Theorem 2: PARTIAL. Kernel: (a)–(c) for an arbitrary finite joint law w on Hist × V × H together with a bijection step on V × H, X_{t+1} defined as the visible part of step(X_t,H_t) (HiddenMemory.Realization). Paper-only: that w is the time-t law of a faithful realization reproducing the visible process (the \"time-t identification\", Main:582 proof). Appendix A and §2.4 say exactly this. Attention item resolved: (a) = pushforward_identity, (b) = distinguishability_floor, (c) = capacity_floor, all three = unavoidable_hidden_predictive_memory. This row: Theorem 2(b).",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-322",
@@ -14542,7 +14560,7 @@
    "notes": "Coverage of Theorem 2: PARTIAL. Kernel: (a)–(c) for an arbitrary finite joint law w on Hist × V × H together with a bijection step on V × H, X_{t+1} defined as the visible part of step(X_t,H_t) (HiddenMemory.Realization). Paper-only: that w is the time-t law of a faithful realization reproducing the visible process (the \"time-t identification\", Main:582 proof). Appendix A and §2.4 say exactly this. Attention item resolved: (a) = pushforward_identity, (b) = distinguishability_floor, (c) = capacity_floor, all three = unavoidable_hidden_predictive_memory. This row: Theorem 2(c). The [Nonempty H] hypothesis is implicit in any realization.",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-323",
@@ -14592,7 +14610,7 @@
    "notes": "Coverage of Theorem 2: PARTIAL. Kernel: (a)–(c) for an arbitrary finite joint law w on Hist × V × H together with a bijection step on V × H, X_{t+1} defined as the visible part of step(X_t,H_t) (HiddenMemory.Realization). Paper-only: that w is the time-t law of a faithful realization reproducing the visible process (the \"time-t identification\", Main:582 proof). Appendix A and §2.4 say exactly this. Attention item resolved: (a) = pushforward_identity, (b) = distinguishability_floor, (c) = capacity_floor, all three = unavoidable_hidden_predictive_memory. This row: the combined statement.",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-324",
@@ -14646,7 +14664,7 @@
    "notes": "Negative kernel-scope statement verified by search; it is not an underclaim (no kernel vanishing criterion exists).",
    "_part": "B5",
    "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links: traced-only (literature, paper-derivation, unmatched kernel)"
   },
   {
    "id": "I-325",
@@ -14696,7 +14714,7 @@
    "notes": "Coverage of the capacity bound (§2.4): PARTIAL in the same sense as Theorem 2, as the Introduction says (\"machine-checked in the same form as Theorem 2\"). Kernel: c3_necessity bounds I(X_<t; X_>t | X_t) at every horizon L for a joint law; card_hidden_ge_two_pow_Istar gives 2^{I*} ≤ |H| with I* the maximum over a finite nonempty family of slices sharing the hidden alphabet (each slice may carry its own law and step). Paper-only: identification of the slices with a realization's time-t laws (Main §3.4).",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-326",
@@ -14748,7 +14766,7 @@
    "notes": "Coverage of the capacity bound (§2.4): PARTIAL in the same sense as Theorem 2, as the Introduction says (\"machine-checked in the same form as Theorem 2\"). Kernel: c3_necessity bounds I(X_<t; X_>t | X_t) at every horizon L for a joint law; card_hidden_ge_two_pow_Istar gives 2^{I*} ≤ |H| with I* the maximum over a finite nonempty family of slices sharing the hidden alphabet (each slice may carry its own law and step). Paper-only: identification of the slices with a realization's time-t laws (Main §3.4). \"Reaches I*\" matches the finite-family maximum.",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-327",
@@ -14791,7 +14809,7 @@
    "notes": "Coverage: FULL (\"a finite square stochastic matrix with a stochastic one-sided inverse is a permutation matrix\").",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-328",
@@ -14827,7 +14845,7 @@
    "notes": "Coverage of Theorem 3: FULL. The Introduction states Theorem 3 in rooted form (Γ_t rooted, rows indexed by x_0; P-divisibility on {0..n} with Λ on the right), which is exactly the Lean PDivisible/PIndivisibleWithin; \"two rows\" = distinct a ≠ b. The kernel proof does not use reversibility (RecurrenceHorizon.lean header), so the Lean result is slightly stronger than stated.",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-329",
@@ -14870,7 +14888,7 @@
    "notes": "Coverage of \"readback forces indivisibility\": PARTIAL by design and as stated — kernel for the routed-readback form (the Introduction says \"a routed-readback form\", which the frozen spelling is), paper for history-level (C4) (I-330). The kernel conclusion ∃ n, PIndivisibleWithin n matches \"somewhere in the recurrence cycle\" (n is a multiple of the visible period beyond the storage time). Owner note: the kernel predicate's store clause is the frozen seed-posterior spelling, recorded in the module as differing from the discovery round's storage-time clause; since only the overlap is consumed, the conclusion holds for either reading, but only the frozen spelling is kernel-checked.",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-330",
@@ -14919,7 +14937,7 @@
    "notes": "The history-level step (C4 ⇒ some rooted map is not a permutation) is paper-only; the rest of the chain is kernel. The routed form implies the history-level condition (PhysicalC4Discharge.lean header), so the paper result is the more general one.",
    "_part": "B5",
    "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation, unmatched exhaustive-computation)"
   },
   {
    "id": "I-331",
@@ -14962,7 +14980,7 @@
    "notes": "Coverage of §3.3 \"both machine-checked\": FULL for what §3.3 asserts — GL2 is existential (\"can differ\"), one exhibited visible family on |V| = |A| = 2, one anchor, one time pair; GL3 is general. Lean CoherentLift is \"admissible for the visible family at every time on one fixed carrier and anchor\"; the docstring of GL2 notes the cocycle (exact composition) condition is vacuous for every family, so \"compose exactly across times\" (Intro §3.3, Main:624) adds no hypothesis. \"Different relating evolutions\" is witnessed by different anchored readbacks of |U_1 U_0†|², which implies different U_1 U_0†.",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-332",
@@ -15002,7 +15020,7 @@
    "notes": "Coverage of §3.3 \"both machine-checked\": FULL for what §3.3 asserts — GL2 is existential (\"can differ\"), one exhibited visible family on |V| = |A| = 2, one anchor, one time pair; GL3 is general. Lean CoherentLift is \"admissible for the visible family at every time on one fixed carrier and anchor\"; the docstring of GL2 notes the cocycle (exact composition) condition is vacuous for every family, so \"compose exactly across times\" (Intro §3.3, Main:624) adds no hypothesis. \"Different relating evolutions\" is witnessed by different anchored readbacks of |U_1 U_0†|², which implies different U_1 U_0†.",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-333",
@@ -15044,7 +15062,7 @@
    "notes": "Coverage of the §3.3 fixed-basis paragraph: FULL for the three sentences, under the scope the Introduction states (trivial ancilla, uniform initial law, identity readout = realData). bridge_traj is more general than glossed (arbitrary permClass interventions M, N on either side); the gloss is its M = N = 1 case (1 ∈ permClass by SubstratumInterfaceAudit.scaled_one_aux; also directly rootTraj_congr with visible_congr).",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-334",
@@ -15084,7 +15102,7 @@
    "notes": "Coverage of the §3.3 fixed-basis paragraph: FULL for the three sentences, under the scope the Introduction states (trivial ancilla, uniform initial law, identity readout = realData). bridge_traj is more general than glossed (arbitrary permClass interventions M, N on either side); the gloss is its M = N = 1 case (1 ∈ permClass by SubstratumInterfaceAudit.scaled_one_aux; also directly rootTraj_congr with visible_congr). \"(forward direction)\" correctly selects rooted ⇒ slice; the backward direction is also proved (visible_congr), so citing the forward one only is conservative.",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-335",
@@ -15126,7 +15144,7 @@
    "notes": "Coverage of the §3.3 fixed-basis paragraph: FULL for the three sentences, under the scope the Introduction states (trivial ancilla, uniform initial law, identity readout = realData). bridge_traj is more general than glossed (arbitrary permClass interventions M, N on either side); the gloss is its M = N = 1 case (1 ∈ permClass by SubstratumInterfaceAudit.scaled_one_aux; also directly rootTraj_congr with visible_congr).",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-336",
@@ -15173,7 +15191,7 @@
    "notes": "Coverage of Theorem 4: FULL, both directions, for every nonempty finite carrier. The Introduction's description of the operational theory matches the fields of FiniteOperationalTheory (OperationalAssembly.lean:594): avail_id, avail_coarse/availExt_coarse, availExt_bind (every ancilla level), prepAvail_uniform, prepAvail_post, readout with readout_local (spectator-independent), prepAvail_discard. Conditions: (i) CompositeOperationalValidity, (ii) SystemToLevelOne, (iii) InertSpectatorCompositionality, (iv) HasCompositeUnitaryControl, (v) IteratedAncillaClosure (PhysicalCompletionConditions, PhysicalCharacterization.lean:295). Endpoint ExactAllFiniteEndomorphicQuantumOps = system exactness ∧ exactness at every positive level k+1. Minor wording point (not a coverage gap): Lean (i) constrains families at ancilla levels only; for system families it follows via (ii) and transport, and in the ⇒ direction from system exactness, so the Introduction's \"available families\" reading is equivalent within the theorem. Attention item resolved: the iff is literally the pair of the two directional declarations (GeneralCarrier.lean:102).",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-336.a",
@@ -15210,7 +15228,7 @@
    "notes": "Sub-claim of I-336: exactAll ⇒ physical (conditions (i)–(v)). Direction ⇒ (exact QM ⇒ (i)–(v)), one-direction witness per §A.34.",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-336.b",
@@ -15247,7 +15265,7 @@
    "notes": "Sub-claim of I-336: physical ⇒ exactAll. Direction ⇐ ((i)–(v) ⇒ exact QM), separately witnessed per §A.34; no external premise (isometry extension discharged).",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-337",
@@ -15287,7 +15305,7 @@
    "notes": "Coverage of Theorem 4: FULL, both directions, for every nonempty finite carrier. The Introduction's description of the operational theory matches the fields of FiniteOperationalTheory (OperationalAssembly.lean:594): avail_id, avail_coarse/availExt_coarse, availExt_bind (every ancilla level), prepAvail_uniform, prepAvail_post, readout with readout_local (spectator-independent), prepAvail_discard. Conditions: (i) CompositeOperationalValidity, (ii) SystemToLevelOne, (iii) InertSpectatorCompositionality, (iv) HasCompositeUnitaryControl, (v) IteratedAncillaClosure (PhysicalCompletionConditions, PhysicalCharacterization.lean:295). Endpoint ExactAllFiniteEndomorphicQuantumOps = system exactness ∧ exactness at every positive level k+1. Minor wording point (not a coverage gap): Lean (i) constrains families at ancilla levels only; for system families it follows via (ii) and transport, and in the ⇒ direction from system exactness, so the Introduction's \"available families\" reading is equivalent within the theorem.",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-338",
@@ -15327,7 +15345,7 @@
    "notes": "Coverage of Theorem 4: FULL, both directions, for every nonempty finite carrier. The Introduction's description of the operational theory matches the fields of FiniteOperationalTheory (OperationalAssembly.lean:594): avail_id, avail_coarse/availExt_coarse, availExt_bind (every ancilla level), prepAvail_uniform, prepAvail_post, readout with readout_local (spectator-independent), prepAvail_discard. Conditions: (i) CompositeOperationalValidity, (ii) SystemToLevelOne, (iii) InertSpectatorCompositionality, (iv) HasCompositeUnitaryControl, (v) IteratedAncillaClosure (PhysicalCompletionConditions, PhysicalCharacterization.lean:295). Endpoint ExactAllFiniteEndomorphicQuantumOps = system exactness ∧ exactness at every positive level k+1. Minor wording point (not a coverage gap): Lean (i) constrains families at ancilla levels only; for system families it follows via (ii) and transport, and in the ⇒ direction from system exactness, so the Introduction's \"available families\" reading is equivalent within the theorem.",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-339",
@@ -15374,7 +15392,7 @@
    "notes": "A step of ⇐: (i) + (iii) ⇒ every available composite family is a Kraus family.",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-340",
@@ -15410,7 +15428,7 @@
    "notes": "A step of ⇐: (iii)–(v) ⇒ composite completeness. GR:218 names the conditional `compositeCompleteness` plus the discharge; the Introduction names the unconditional wrapper — same content.",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-341",
@@ -15446,7 +15464,7 @@
    "notes": "Discharges the premise of compositeCompleteness (IsometryExtension.lean:182–183).",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-342",
@@ -15482,7 +15500,7 @@
    "notes": "A step of ⇐: (ii) lifts composite exactness to system exactness.",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-343",
@@ -15518,7 +15536,7 @@
    "notes": "Coverage of the §3.2 independence paragraph: FULL on the qubit. five_way_minimality gives, for each of the five conditions, a FiniteOperationalTheory (Fin 2) satisfying the other four and RealizesSealedOICore and failing that one (witnesses everywhereAvailable, countermodel, diagTheory, gapTheory, systemLoose). RealizesSealedOICore (OIRealization.lean:234) includes CoreC1C4 for a fixed finite core with its actual visible readout, matching \"a fixed finite observation process satisfying (C1)–(C4)\". Not claimed in Lean or Intro: minimality on other carriers. Joint satisfiability is in GeneralCarrier.main_result (not cited, not needed for the sentence).",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-344",
@@ -15561,7 +15579,7 @@
    "notes": "Coverage of the §3.2 independence paragraph: FULL on the qubit. five_way_minimality gives, for each of the five conditions, a FiniteOperationalTheory (Fin 2) satisfying the other four and RealizesSealedOICore and failing that one (witnesses everywhereAvailable, countermodel, diagTheory, gapTheory, systemLoose). RealizesSealedOICore (OIRealization.lean:234) includes CoreC1C4 for a fixed finite core with its actual visible readout, matching \"a fixed finite observation process satisfying (C1)–(C4)\". Not claimed in Lean or Intro: minimality on other carriers. Joint satisfiability is in GeneralCarrier.main_result (not cited, not needed for the sentence).",
    "_part": "B5",
    "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of its kernel links"
   },
   {
    "id": "I-345",
@@ -15608,7 +15626,7 @@
    "notes": "Attention resolved: the model is Main §2.4 (lines 178–198, \"Explicit Construction: A Minimal Model\"), so [Main §2.4] is the correct citation; Theorem 3 is cited to §2.3, where the recurrence argument is. The heading \"B.1 A minimal model\" carries the unsupported minimality of I-123 (see that row).",
    "_part": "B5",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-346",
@@ -15644,7 +15662,7 @@
    "notes": "Exact.",
    "_part": "B5",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-347",
@@ -15688,7 +15706,7 @@
    "notes": "Exact.",
    "_part": "B5",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-348",
@@ -15726,7 +15744,7 @@
    "notes": "Exact; holds for every hidden prior since σ² = id.",
    "_part": "B5",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-349",
@@ -15762,7 +15780,7 @@
    "notes": "Exact. The Introduction's row convention (Γ_t = Γ_s Λ) is consistent with its §2.5 definition.",
    "_part": "B5",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-350",
@@ -15798,7 +15816,7 @@
    "notes": "\"Only candidate\" is justified by det Γ_1 = 1/3 ≠ 0.",
    "_part": "B5",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-351",
@@ -15834,7 +15852,7 @@
    "notes": "Exact.",
    "_part": "B5",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-352",
@@ -15879,7 +15897,7 @@
    "notes": "Exact; independent of the x_0 law as long as P(x_0=0) > 0.",
    "_part": "B5",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-353",
@@ -15921,7 +15939,7 @@
    "notes": "Exact. The Introduction supplies the x_0 law Main omits.",
    "_part": "B5",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-354",
@@ -15954,7 +15972,7 @@
    "notes": "Exact (sympy returns −a/(a−2)). Not stated in the corpus; it supplies the x_0 law Main:194 leaves unstated, so it is a computation in the Introduction itself, now re-verified.",
    "_part": "B5",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-355",
@@ -15994,7 +16012,7 @@
    "notes": "Exact. Uniform X_0 is needed for P(X_2|X_1) = ½J; the Introduction states it (Main:606 states only X_1 uniform and independent).",
    "_part": "B5",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-356",
@@ -16023,7 +16041,7 @@
    "notes": "Exact. Doukas (Dou26 App. A eq. 128) factors through ½J instead; both are valid divisors.",
    "_part": "B5",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-357",
@@ -16059,7 +16077,7 @@
    "notes": "Exact.",
    "_part": "B5",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-358",
@@ -16101,8 +16119,8 @@
    "proposed_fix": null,
    "notes": "Attribution confirmed first-hand.",
    "_part": "B5",
-   "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-359",
@@ -16131,7 +16149,7 @@
    "notes": "Attribution confirmed first-hand; same process, unflipped.",
    "_part": "B5",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-360",
@@ -16160,7 +16178,7 @@
    "notes": "Definition matches the book. The book (ch01:273, FULL:617) calls this game \"the coin-and-die model of §1.5 dealt onto a table\"; the die has six states, the burn card two — see I-124 contradictions.",
    "_part": "B5",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-361",
@@ -16203,7 +16221,7 @@
    "notes": "Exact enumeration; \"numerical\" in the inventory means a stated number, not floating point.",
    "_part": "B5",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-362",
@@ -16246,7 +16264,7 @@
    "notes": "Exact enumeration; \"numerical\" in the inventory means a stated number, not floating point.",
    "_part": "B5",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-363",
@@ -16289,7 +16307,7 @@
    "notes": "Exact enumeration; \"numerical\" in the inventory means a stated number, not floating point.",
    "_part": "B5",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-364",
@@ -16332,7 +16350,7 @@
    "notes": "Exact enumeration; \"numerical\" in the inventory means a stated number, not floating point.",
    "_part": "B5",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-365",
@@ -16365,7 +16383,7 @@
    "notes": "Exact.",
    "_part": "B5",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-366",
@@ -16394,7 +16412,7 @@
    "notes": "Self-contained exact argument, valid. (Also an instance of Theorem 3: overlap at s = 1, return at n = 2.)",
    "_part": "B5",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-367",
@@ -16423,7 +16441,7 @@
    "notes": "Exact; the corpus does not state these controls, the Introduction adds them.",
    "_part": "B5",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-368",
@@ -16451,8 +16469,8 @@
    "proposed_fix": null,
    "notes": "Follows from the two exact controls.",
    "_part": "B5",
-   "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "reproduced",
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-369",
@@ -16481,7 +16499,7 @@
    "notes": "Exact. The prior is then correlated with x_0, which Theorem 3's \"fixed hidden prior\" excludes; no claim is made that this case satisfies Theorem 3.",
    "_part": "B5",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-370",
@@ -16509,8 +16527,8 @@
    "proposed_fix": null,
    "notes": "Trivial.",
    "_part": "B5",
-   "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "reproduced",
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-371",
@@ -16539,7 +16557,7 @@
    "notes": "Classification matches Main's Remark (three notions, kept apart).",
    "_part": "B5",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-372",
@@ -16574,8 +16592,8 @@
    "proposed_fix": null,
    "notes": "Exact.",
    "_part": "B5",
-   "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-373",
@@ -16604,7 +16622,7 @@
    "notes": "Citation exact; the card swap is Main's example.",
    "_part": "B5",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-374",
@@ -16633,7 +16651,7 @@
    "notes": "Exact.",
    "_part": "B5",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-375",
@@ -16686,7 +16704,7 @@
    "notes": "Hypotheses of the cited theorem hold (permutation unitary, uniform diagonal burn card, P-indivisible populations).",
    "_part": "B5",
    "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation, unmatched exact-algebra, unmatched exhaustive-computation)"
   },
   {
    "id": "I-376",
@@ -16722,7 +16740,7 @@
    "notes": "Not re-opened here; consistent with Main §4.5 and the retained first-hand check cited in the Introduction source.",
    "_part": "B5",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (literature)"
   },
   {
    "id": "I-377",
@@ -16757,8 +16775,8 @@
    "proposed_fix": null,
    "notes": "Exact.",
    "_part": "B5",
-   "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-378",
@@ -16787,7 +16805,7 @@
    "notes": "Argument checked.",
    "_part": "B5",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-379",
@@ -16815,8 +16833,8 @@
    "proposed_fix": null,
    "notes": "Consistent with Main:702 (\"the classification depends on the realization rather than on the visible law\").",
    "_part": "B5",
-   "evidence_level": "traced-only",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_level": "reproduced",
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-380",
@@ -16845,7 +16863,7 @@
    "notes": "Exact (symbolic).",
    "_part": "B5",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-381",
@@ -16874,7 +16892,7 @@
    "notes": "Exact.",
    "_part": "B5",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-382",
@@ -16903,7 +16921,7 @@
    "notes": "Exact.",
    "_part": "B5",
    "evidence_level": "reproduced",
-   "evidence_basis": "weakest evidence-bearing link"
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-383",
@@ -16967,7 +16985,7 @@
    ],
    "_part": "B5",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "proof status conditional: the chain does not establish the claim"
   },
   {
    "id": "I-384",
@@ -17010,7 +17028,7 @@
    "notes": "\"Internally reviewed\" matches the record exactly. The package REPORT's status line reads \"exploratory research, unreviewed for adoption\" — consistent (reviewed, not adopted). The descriptive title \"recovery from accessible records in finite reversible models\" fits REPORT (\"BH-01 access audit\"); optional: add \"not adopted\" to mirror the record's own status. Status-type claim: proof_status here means the status is verified, not a mathematical proof.",
    "_part": "B5",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (unmatched none)"
   },
   {
    "id": "I-385",
@@ -17053,7 +17071,7 @@
    "notes": "Title quoted verbatim from the package REPORT. Minor: the last wording change to the landed C7 verdict text is covered by a landing audit recorded in PROVENANCE/commit messages, not by the retained REVIEW.md. Optional: add \"not adopted\".",
    "_part": "B5",
    "evidence_level": "traced-only",
-   "evidence_basis": "no step-7 artifact (paper, literature, conjecture or none)"
+   "evidence_basis": "weakest of all its links: traced-only (unmatched none)"
   }
  ],
  "duplicates": [
@@ -17090,9 +17108,9 @@
   "calibration": 4
  },
  "evidence_levels": {
-  "traced-only": 187,
-  "certificate-checked": 153,
-  "reproduced": 67,
-  "failed": 2
+  "traced-only": 233,
+  "certificate-checked": 130,
+  "reproduced": 43,
+  "failed": 3
  }
 }

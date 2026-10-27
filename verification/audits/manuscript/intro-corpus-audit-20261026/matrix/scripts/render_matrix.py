@@ -127,6 +127,12 @@ def render(data, claims):
     levels = Counter(r.get("evidence_level") for r in rows)
     if dict(levels) != data.get("evidence_levels"):
         raise SystemExit("control failed: matrix.json evidence-level counts disagree with its rows")
+    # Control: every row's level and basis must equal evidence.json's (E4_aggregate.py), row by row.
+    ev = json.loads((MATRIX_JSON.parent / "evidence.json").read_text())["claims"]
+    drift = [r["id"] for r in rows if (r.get("evidence_level"), r.get("evidence_basis"))
+             != (ev.get(r["id"], {}).get("evidence_level"), ev.get(r["id"], {}).get("basis"))]
+    if drift or set(ev) != set(byid):
+        raise SystemExit(f"control failed: matrix.json evidence levels disagree with evidence.json: {drift[:10]}")
     missing_claims = [r["id"] for r in rows if r["id"] not in claims]
     if missing_claims:
         raise SystemExit(f"control failed: rows without a claim text: {missing_claims}")

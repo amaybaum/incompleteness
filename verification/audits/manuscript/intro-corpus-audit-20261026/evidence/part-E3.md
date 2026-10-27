@@ -58,7 +58,9 @@ The open-obligation items are traced-only by nature: each status was traced to t
    - Matrix claims I-009, I-088, I-112, I-117, I-120, I-121, I-125, I-146, I-246, I-258, I-281 and I-292 cite declarations
      outside the 14 retained modules.
    - The same holds for the declarations FINDINGS adds in R-06, R-09, R-13 and O-5.
-   - Every one has a three-axiom report in the digest-checked log, but none is in a retained expected result.
+   - Every one has a report in the digest-checked log text that reads the three axioms, but none is in a retained
+     expected result. The structured certificate is the Release gate step's conclusion (every report within the
+     allow-list, a report for every declared `#print axioms`); "exactly the three axioms" is read from log text.
    - OD-15 records this for R-06, R-13 and O-5 only. It is not recorded for the matrix-only links or R-09.
    - The same log can yield an extended expected result without a rebuild, while the log is still available.
 4. **E3-20, H-scramble.** L183 "whether H-scramble … hold" treats as open a hypothesis that is settled negatively in the

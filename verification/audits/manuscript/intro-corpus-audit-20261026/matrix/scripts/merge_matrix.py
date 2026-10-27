@@ -3,7 +3,12 @@
 Each claim (and each direction sub-claim) must appear exactly once. Where two parts carry the same id (B5 mapped
 I-123 and I-124, which lie in B2's range), the row from the part whose range owns the id is kept, and the other is
 recorded under `duplicates`. Verdicts the synthesis resolved differently (matrix/resolutions.json) are
-applied, with the mapper's verdict kept as `mapper_verdict`.
+applied, with the mapper's verdict kept as `mapper_verdict`; chain-link layer corrections (matrix/chain-relabels.json)
+are applied with the mapper's layer kept as `mapper_layer`.
+
+Order with step 7: merge_matrix.py, then evidence/scripts/E4_aggregate.py (which reads matrix.json and writes
+evidence.json), then merge_matrix.py again (which copies each row's evidence level from evidence.json), then
+matrix/scripts/render_matrix.py. E4_aggregate.py --check fails if matrix.json's levels differ from evidence.json's.
 """
 import json, sys, collections
 
@@ -34,6 +39,19 @@ for part, (lo, hi) in RANGES.items():
                 rows[r["id"]] = r
         else:
             rows[r["id"]] = r
+
+# Chain-link layer corrections (matrix/chain-relabels.json); each names its link by index and source.
+relabels = json.load(open("matrix/chain-relabels.json", encoding="utf-8"))
+for i, fixes in relabels.items():
+    if i.startswith("_"):
+        continue
+    for fx in fixes:
+        ln = rows[i]["chain"][fx["index"]]
+        if ln["source"] != fx["source"] or ln["layer"] != fx["from"]:
+            sys.exit("chain-relabels.json: %s link %d does not match (%s, %s)" % (i, fx["index"], ln["layer"], ln["source"]))
+        ln["mapper_layer"] = ln["layer"]
+        ln["layer"] = fx["to"]
+        ln["relabel_reason"] = fx["reason"]
 
 res = json.load(open("matrix/resolutions.json", encoding="utf-8"))
 for i, v in res.items():
