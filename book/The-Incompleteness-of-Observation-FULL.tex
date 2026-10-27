@@ -272,10 +272,10 @@ deterministic realizations, and fixed-basis unitary/Born
 representations. The equivalence is bidirectional and exact on every
 finite horizon. History readback supplies the nontrivial content: it
 forces hidden predictive memory. Indivisibility across the recurrence
-cycle of a fixed finite representative is a separate fact: any rooted
-visible map that is not a permutation forces it, Markov laws included.
-The book develops the consequences of taking that equivalence as a
-structural fact rather than as an interpretive analogy.
+cycle of a fixed finite reversible representative is a separate fact:
+any rooted visible map that is not a permutation forces it, Markov laws
+included. The book develops the consequences of taking that equivalence
+as a structural fact rather than as an interpretive analogy.
 
 The qualification is equally important. Universal Hilbert-space
 representability is not by itself a uniqueness theorem for the whole
@@ -2160,9 +2160,10 @@ It supplies a compressed quantum representation and the associated
 interpretive dictionary for the source's finite-configuration class. The
 important logical point is that the existence of a Hilbert/unitary/Born
 representation does not require P-indivisibility --- every finite
-stochastic law has such a representation. Indivisibility instead
-identifies the memory-bearing sector in which the stochastic law cannot
-be reduced to a classical Markov evolution through stochastic divisors.
+stochastic law has such a representation. Accessible conditional memory
+instead identifies the memory-bearing sector; indivisibility across the
+recurrence cycle is a separate property, present wherever a rooted
+visible map is not a permutation.
 
 The Born rule in the fixed-basis representation is therefore part of the
 representation dictionary, not a selector derived uniquely from C1--C4.
@@ -4248,10 +4249,11 @@ Universality classes have internal sub-structure at three levels of
 refinement. The most universal level is the \emph{partial-trace features
 sub-class}, characterized by the structural features any partial-trace
 observation must produce regardless of substratum specifics: the Born
-rule, channel-level unitarity to leading order, recurrence-cycle
-P-indivisibility of the marginal stochastic process wherever a rooted
-visible map is not a permutation, and the commutant restriction pattern
-that selects which symmetries survive the trace-out. Below this is the
+rule, channel-level unitarity to leading order, memory/divisibility ---
+on any finite reversible substratum, recurrence-cycle P-indivisibility
+of the marginal stochastic process wherever a rooted visible map is not
+a permutation --- and the commutant restriction pattern that selects
+which symmetries survive the trace-out. Below this is the
 \emph{gauge-group sub-class}, characterized by which specific emergent
 gauge group the marginalization produces. Standard-Model-reproducing
 classes share
@@ -4600,15 +4602,16 @@ realism content differing at each level.
 
 At Level G4 × Level C --- the broadest intersection --- what is real is
 the algebra-channel structure of partial-trace observation: the Born
-rule, channel-level unitarity to leading order, the recurrence-cycle
-P-indivisibility of the marginal stochastic process wherever a rooted
-visible map is not a permutation, and the commutant gauge-invariance
-pattern. This level's realism is universal across observer-admitting
-substrata. Every embedded observer in any universality class produces
-these features; they are structural features of partial-trace
-observation that no embedded observer can avoid. The realism is about
-partial-trace observation itself, not about any specific substratum or
-any specific universality class.
+rule, channel-level unitarity to leading order, memory/divisibility ---
+on any finite reversible substratum, recurrence-cycle P-indivisibility
+of the marginal stochastic process wherever a rooted visible map is not
+a permutation --- and the commutant gauge-invariance pattern. This
+level's realism is universal across observer-admitting substrata. Every
+embedded observer in any universality class produces these features;
+they are structural features of partial-trace observation that no
+embedded observer can avoid. The realism is about partial-trace
+observation itself, not about any specific substratum or any specific
+universality class.
 
 At Level G3 × Level D --- the framework's distinctive intersection ---
 what is real is the \textbf{reconstructed local lattice/gauge residue
@@ -4651,10 +4654,11 @@ two axes, with the intersection determining both what the prediction's
 content is and how it can be tested or falsified.
 
 Level G4 × Level C predictions --- the Born rule, channel-level
-unitarity, recurrence-cycle P-indivisibility of the marginal process
-wherever a rooted visible map is not a permutation, the commutant
-restriction pattern --- are essentially structural. They are universal
-across observer-admitting systems, trivially predicted because they are
+unitarity, memory/divisibility (on any finite reversible substratum,
+recurrence-cycle P-indivisibility of the marginal process wherever a
+rooted visible map is not a permutation), the commutant restriction
+pattern --- are essentially structural. They are universal across
+observer-admitting systems, trivially predicted because they are
 features of partial-trace observation rather than of any specific
 substratum. They cannot be falsified without contradicting
 embedded-observer physics itself; falsifying them would refute the
@@ -5519,8 +5523,9 @@ quantitatively. The Level G2 × Level D structural commitments --- the
 Standard Model gauge group, the three-generation structure, the
 anomaly-free hypercharges --- are developed as derivations from the
 cubic-group commutant. The Level G4 × Level C universal features --- the
-Born rule, channel unitarity, recurrence-cycle P-indivisibility wherever
-a rooted visible map is not a permutation, the commutant restriction
+Born rule, channel unitarity, memory/divisibility (on any finite
+reversible substratum, recurrence-cycle P-indivisibility wherever a
+rooted visible map is not a permutation), the commutant restriction
 pattern --- are taken as given content of the framework's foundational
 theorems.
 
@@ -18604,14 +18609,15 @@ concrete numerical predictions.
 Section 15.5 develops coherence extension through engineered baths ---
 the framework's bath-as-resource design philosophy. By coupling a qubit
 to a designed slow hidden sector (a spin chain, a resonator array, or
-other engineered architecture), the framework predicts that, where the
+other engineered architecture), the framework proposes that, where the
 bath's return also revives distinguishability (information backflow),
 coherence partially revives on the bath's correlation timescale, which
 controls the revival pattern; it does not deliver the extension factor.
 Section 15.6 develops quantum sensing with nitrogen-vacancy (NV) centers
 in diamond: where the diamond lattice's slow phonon and nuclear-spin
-baths also revive distinguishability (information backflow), a heuristic
-estimate gives sensitivity improvements approaching \(10^3 \times\).
+baths also revive distinguishability (information backflow), the
+framework proposes a sensitivity gain in direction; no factor is
+claimed.
 
 Section 15.7 develops the partially-quantum regime in engineered systems
 --- the framework's distinctive prediction of intermediate-backflow
@@ -18992,11 +18998,12 @@ notion and does not follow from either.
 The platform is testable on existing technologies: superconducting
 qubits coupled to engineered spin chains, NV centers in diamond with
 controllable nuclear spin baths, or trapped ions with engineered phonon
-modes. The framework's prediction is that at the critical chain length,
-where the chain's return also revives distinguishability, the qubit's
-\(T_2\) coherence time shows a \emph{qualitative} change --- from
-monotonic exponential decay to oscillatory behavior with partial
-revivals at multiples of \(\tau_B\).
+modes. The framework's prediction is that beyond the critical chain
+length, where the chain reads back its record (C4), the qubit's dynamics
+acquires accessible conditional memory, visible in history-dependent
+multi-time statistics. Partial revivals at multiples of \(\tau_B\) are a
+further signature, present only where the chain's return also revives
+distinguishability; C1--C4 do not supply them.
 
 \textbf{Implications for hardware development.} The bath-as-resource
 philosophy has implications for hardware-development priorities. Current
@@ -19018,7 +19025,7 @@ temperature sensing, biological imaging, and related applications.
 Current NV sensitivity is limited by the spin coherence time \(T_2\) of
 the NV electron spin, with standard Markovian models predicting that
 improvements in sensitivity require improvements in \(T_2\). The
-framework predicts that sensitivity can be improved beyond the Markovian
+framework proposes that sensitivity can be improved beyond the Markovian
 \(T_2\) limit through exploitation of information backflow from the
 diamond lattice's slow phonon and nuclear-spin baths, where those baths'
 return revives distinguishability.
@@ -19037,35 +19044,26 @@ The relevant timescale separations are: NV electron-spin dynamics at
 \(10^{-6}\) --- within the framework's slow-bath regime where memory
 effects become predictable.
 
-\textbf{The framework's prediction.} Decoherence in NV centers is
-non-Markovian on the framework's account where the bath reads back its
-record (C4); where the bath's return also revives distinguishability
-(information backflow), coherence partially revives at times set by the
-bath's correlation timescale. Information that appears to be lost from
-the NV during the apparent decoherence phase is then stored as
-correlations in the bath, and these correlations return to the NV during
-the revival phase.
+\textbf{The framework's prediction.} Where the bath reads back its
+record (C4), NV decoherence carries accessible conditional memory,
+visible in history-dependent multi-time statistics. Partial revival of
+coherence at times set by the bath's correlation timescale is a further
+signature, present only where the bath's return also revives
+distinguishability (information backflow); C1--C4 do not supply it.
+There, information that appears to be lost from the NV during the
+apparent decoherence phase is stored as correlations in the bath and
+returns to the NV during the revival phase.
 
 Sensing protocols that exploit the revival --- measuring at the backflow
 time rather than during the initial decay --- could push sensitivity
-beyond the Markovian-assumed \(T_2\) limit. On a heuristic not derived
-here, the improvement factor per measurement is
-\(\mathcal{O}(\tau_S/\tau_B) \sim 10^{-6}\), but sensing protocols
-typically accumulate over \(\sim 10^6\) repetitions, making the
-integrated improvement potentially significant.
+beyond the Markovian-assumed \(T_2\) limit.
 
-\textbf{Quantitative prediction.} Standard NV magnetometry sensitivity
-is \(\delta B \sim 1/(\gamma \sqrt{T_2 \cdot T_{\text{meas}}})\), where
+\textbf{Sensitivity.} Standard NV magnetometry sensitivity is
+\(\delta B \sim 1/(\gamma \sqrt{T_2 \cdot T_{\text{meas}}})\), where
 \(\gamma\) is the gyromagnetic ratio and \(T_{\text{meas}}\) is the
 total measurement time. Where the bath's return at \(\tau_B\) revives
 distinguishability (information backflow), each measurement recovers
-information that Markovian protocols assume is lost. On the same
-heuristic, for \(\tau_S/\tau_B \sim 10^{-6}\) (NV center with
-paramagnetic bath), each measurement carries approximately \(10^{-6}\)
-extra information. Over \(10^6\) repetitions, this integrates to
-\(\mathcal{O}(1)\) --- a factor of \(\sqrt{\tau_B/\tau_S} \sim 10^3\)
-improvement in signal-to-noise if the protocol is optimized for the
-backflow timing.
+information that Markovian protocols assume is lost.
 
 A sensitivity gain follows in \emph{direction} but not in size: the
 framework fixes neither the achievable interrogation time nor the
@@ -19092,10 +19090,10 @@ geophysical sensing applications. The framework's prediction is
 therefore not isolated theoretical content but a specific commercial
 design target with empirical accessibility on existing hardware.
 Falsification would come from demonstration that backflow-aware
-protocols do not improve integrated sensitivity by factors exceeding
-\(\sim 10\) across multiple NV platforms --- suggesting that backflow in
-these baths, where present, is too small or too thermally averaged to be
-exploited.
+protocols do not improve integrated sensitivity over the Markovian
+protocol on the same hardware across multiple NV platforms ---
+suggesting that backflow in these baths, where present, is too small or
+too thermally averaged to be exploited.
 
 \hypertarget{the-partially-quantum-regime-in-engineered-systems}{%
 \subsection{15.7 The partially-quantum regime in engineered
@@ -19480,17 +19478,16 @@ quantum hardware platforms.
 \item
   \emph{Coherence extension through engineered baths.} For qubits
   coupled to designed slow hidden sectors
-  (\(\tau_S/\tau_B \sim 10^{-1}\)), coherence should persist beyond the
-  Markovian estimate (§15.5). No numerical \(T_2\) target is claimed;
-  the extension factor requires a device model the framework does not
+  (\(\tau_S/\tau_B \sim 10^{-1}\)), where the bath's return also revives
+  distinguishability, coherence should persist beyond the Markovian
+  estimate (§15.5). No numerical \(T_2\) target is claimed; the
+  extension factor requires a device model the framework does not
   supply.
 \item
   \emph{Backflow-aware NV sensing.} For NV centers in diamond
   (\(\tau_S/\tau_B \sim 10^{-6}\)), where the baths' return revives
   distinguishability, backflow-aware protocols could improve sensitivity
-  by approximately \(10^3 \times\) on the heuristic estimate of §15.6.
-  NV magnetometry from nT\(/\sqrt{\text{Hz}}\) to
-  pT\(/\sqrt{\text{Hz}}\) at room temperature.
+  beyond the Markovian \(T_2\) limit (§15.6); no factor is claimed.
 \item
   \emph{Partially-quantum regime.} Engineered systems at marginal C3
   capacity (\(N_H/N_V \sim 1\)) exhibit the framework's distinctive
@@ -20816,17 +20813,18 @@ methods can achieve in computational biology, and a substantial
 evolution data that match the framework's predictions across the tree of
 life.
 
-The structural ceiling is a \emph{no-go theorem} with empirical force:
-methods relying exclusively on transcriptome data cannot exceed certain
-information-theoretic bounds regardless of architectural sophistication
-or training data scale. This bounds the achievable performance of
-deep-learning foundation models on perturbation prediction, gene
-regulatory network inference, and trajectory inference --- explaining
-the well-documented persistent failure of these methods to outperform
-simple baselines despite massive scaling efforts. The structural ceiling
-is one of the framework's distinctive contributions to bioinformatics: a
-principled explanation for why scaling alone has failed where it has
-succeeded in other domains.
+The structural ceiling rests on a conditional theorem with empirical
+force: where a quantity differs between hidden-sector completions that
+share the transcriptome-level law, methods relying exclusively on
+transcriptome data cannot recover it, regardless of architectural
+sophistication or training data scale. This bounds the achievable
+performance of deep-learning foundation models on perturbation
+prediction, gene regulatory network inference, and trajectory inference
+--- explaining the well-documented persistent failure of these methods
+to outperform simple baselines despite massive scaling efforts. The
+structural ceiling is one of the framework's distinctive contributions
+to bioinformatics: a principled explanation for why scaling alone has
+failed where it has succeeded in other domains.
 
 The empirical record is at the evolutionary biology scale: molecular
 clock overdispersion (\(R(t) \approx 5\) in mammals, inversely
@@ -30768,4 +30766,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: b8476065b964b91751f562dc2b67ba7fec82dd41a61fec80daf7a5b4731b8dd7
+% source-sha256: 1582bb53e6e9dc6622c06b33c25473db369c529029e7852072fca0cf493be0f7

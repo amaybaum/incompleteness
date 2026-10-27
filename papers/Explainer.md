@@ -132,7 +132,7 @@ This is non-Markovian dynamics. It's the key ingredient that separates quantum m
 
 ## The P-Indivisibility Theorem (§2.3)
 
-**What it claims.** If a deterministic system on a finite state space is split into a visible and hidden sector, and with the hidden sector uniformly distributed the one-step visible transition matrix is not a permutation, then the visible process is P-indivisible across the recurrence cycle: recurrence returns the visible map to the identity, and no valid transition matrix carries the early map to it. This is a recurrence-scale statement. On accessible windows the proved statement is the accessible-timescale lemma below: a (C4) gap forces positive conditional memory, which does not by itself make the process P-indivisible there.
+**What it claims.** If a reversible (bijective) deterministic system on a finite state space is split into a visible and a hidden sector, and the one-step visible transition matrix, computed with the hidden sector uniformly distributed, is not a permutation, then the visible process is P-indivisible across the recurrence cycle: recurrence returns the visible map to the identity, and no valid transition matrix carries the early map to it. This is a recurrence-scale statement. On accessible windows the proved statement is the accessible-timescale lemma below: a (C4) gap forces positive conditional memory, which does not by itself make the process P-indivisible there.
 
 **What "P-indivisible" means.** A stochastic process is "P-divisible" if you can always find a valid transition matrix connecting any two time points. Mathematically: for any times t_1 < t_2 < t_3, there exists a stochastic matrix Λ such that:
 

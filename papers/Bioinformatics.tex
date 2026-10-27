@@ -703,17 +703,17 @@ past five years.
 \subsubsection{3.4 Information-theoretic
 ceiling}\label{information-theoretic-ceiling}}
 
-The framework leads to more than an expected relative improvement from
-multi-modal data. It leads to the expectation of an
-information-theoretic ceiling: where the causal structure of the GRN
-runs through degrees of freedom that scRNA-seq does not measure, methods
-using only scRNA-seq data are not expected to recover it, regardless of
-model complexity or training data scale. The source is the hidden-memory
-theorem {[}Main §3.4{]}: a visible law with accessible conditional
-memory carries that memory in a hidden sector, and the marginal law
-fixes only the predictive content every completion shares, not the
-hidden fibers above it. Whether the causal structure of a given GRN lies
-in those fibers is open.
+Beyond a relative improvement from multi-modal data, the framework gives
+an information-theoretic ceiling. A visible law with accessible
+conditional memory carries that memory in a hidden sector (the
+hidden-memory theorem), and every faithful completion of the law shares
+one canonical predictive quotient while the hidden fibers above it may
+differ (the canonical-predictive-quotient theorem, with certified fiber
+freedom) {[}Main §3.4{]}. Hence, where the causal GRN differs between
+completions that share the scRNA-seq law, no method using only that law
+can recover it, regardless of model complexity or training data scale.
+Whether the causal structure of a given GRN lies in those fibers is
+open.
 
 The recent attempts to apply deep-learning foundation models to GRN
 inference test this prediction directly. scGPT {[}25{]} and Geneformer
@@ -2275,4 +2275,4 @@ H3.3 localization at specific genomic regions,'' \emph{Cell} 140,
 678--691 (2010).
 
 \end{document}
-% source-sha256: c855cc08dc328809485332a82f4388de14b8116e8c5d181b689c5e2a1a47addd
+% source-sha256: e40e3dc3cc9810323c884e35cfb84e34fc0627064eefdc6cabfedbc3d72e7d19
