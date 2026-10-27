@@ -235,7 +235,7 @@ For the applications: a derivation of the covariant field equations with their s
 
 ## Code, data and formal verification
 
-\begingroup\sloppy
+\begingroup\raggedright
 
 The declarations in Appendix A were checked in Lean 4.33.0 with Mathlib v4.33.0 at commit `17b830bc` by building `verification/lean-mathlib` (`lake exe cache get`, `lake --rehash build`) and running `python3 tools/release_gate.py`, whose `lean-axioms` step requires every `#print axioms` report to lie within `propext`, `Classical.choice` and `Quot.sound`; each declaration reports exactly these three, and the expected result and comparison recipe are in `papers/introduction_repro/`. The full commit hash is `17b830bcd0ecc36e10eff5b9eeca03bdd7198d86`. The Lean pin is the commit at which that result was retained; the manuscripts are cited at corpus commit `55e3217b`, whose `verification/lean-mathlib` tree is identical.
 
@@ -364,7 +364,7 @@ Modules of the `OIBridge` Lean library; line numbers at commit `17b830bc`.
 
 [Sha79] A. Shamir, "How to share a secret," *Commun. ACM* **22**, 612 (1979).
 
-[Sti55] W. F. Stinespring, "Positive functions on C*-algebras," *Proc. Amer. Math. Soc.* **6**, 211 (1955).
+[Sti55] W. F. Stinespring, "Positive functions on C\*-algebras," *Proc. Amer. Math. Soc.* **6**, 211 (1955).
 
 [tH14] G. 't Hooft, "The cellular automaton interpretation of quantum mechanics," arXiv:1405.1548v3 (2014).
 

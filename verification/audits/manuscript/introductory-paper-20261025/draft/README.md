@@ -279,3 +279,9 @@ checkpoint.
 
 `CHANGES-r18.md` records r18, which applies the two focused re-reviews of r17 at `a79add6a` (both ACCEPT WITH
 CHANGES): six required corrections, the verified should-fixes, and 11 pt type with the approved one-inch margins.
+
+Independent reviews of the Introduction from `a32b769c` (r16) onward are in `review/scientific/` and
+`review/editorial/`:
+- `REVIEW-papers-a32b769c.md`: both ACCEPT WITH CHANGES.
+- `RECHECK-papers-a79add6a.md` (r17): both ACCEPT WITH CHANGES.
+- `CONFIRM-papers-0ce9cda9.md` (r18): scientific CONFIRM; editorial CONFIRM after the [Sti55] fix.

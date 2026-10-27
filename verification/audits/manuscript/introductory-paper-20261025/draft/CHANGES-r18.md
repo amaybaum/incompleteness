@@ -98,3 +98,10 @@ checked against its source at the corpus commit `55e3217b`. The cited items of M
 - `verification/lean/edge_rigidity_probe.py`: ALL CHECKS PASS.
 - Appendix A: all 29 declarations resolve at their stated lines at `17b830bc` and at the head; no name is unlisted or missing.
 - Added-lines scans (the §A.32/§A.33 phrase families, caps emphasis, markers, secrets): no hits.
+
+## Confirmation round on r18 (`0ce9cda9`)
+
+- **Scientific confirmation:** CONFIRM. All seven findings are fixed against their sources, and the three owner standards hold. One optional item is open: ε_min is not defined in the paper. It is not applied here, because the definition would push the paper to a 16th page (page 15 holds about six lines). The paper cites Main :463, which defines it.
+- **Editorial confirmation:** CONFIRM after one must-fix. 11 pt meets the owner's readability condition: a median of 99 characters per line, against 111 at 10 pt. Two changes follow:
+  - [Sti55]: the unescaped `*` in "C*-algebras" opened an italic span, so the entry rendered wrongly. It is now `C\*-algebras` and renders as "C*-algebras".
+  - The code note's `\begingroup\sloppy` is now `\begingroup\raggedright`, as in Appendix A's group. A direct xelatex compile of the regenerated `.tex` gives 0 overfull, 0 underfull and 0 missing characters, and the paper is still 15 pages.
