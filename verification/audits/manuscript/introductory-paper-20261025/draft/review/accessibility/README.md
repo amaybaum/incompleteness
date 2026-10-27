@@ -15,3 +15,10 @@
   - The shared-prior condition is never explained.
 
   Four explanation changes are required before a re-test with a fresh reader.
+
+## Run 2: `10c629ea` (r20)
+
+- **Paper read:** `papers/Introduction.pdf` at `10c629ea`, sha256 `905822ed15faa80bd91953f1b532fbcbd4b788a2f1d6d9306ee4b3079f312adf`, 20 pages.
+- **Reader:** a fresh AI reviewer, not the run 1 reader, with no prior context about OI. It was instructed to read only that PDF, with no repository, corpus or web access. Its tool log shows two Read calls on the PDF, pages 1–10 and 11–20, and nothing else.
+- **Answers:** `RUN2-ANSWERS-10c629ea.md` holds the reader's final message byte for byte, unedited, saved before any evaluation. sha256 `5e0a23c9f895b94bde5767e4c32ff31391952ce1d008d25fed3b97b602885744`.
+- **Scope of the evidence:** as for run 1, this is an AI comprehension test and not evidence of human comprehension.
