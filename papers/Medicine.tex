@@ -282,24 +282,35 @@ when they are needed or how many to include.
 
 The Observational Incompleteness (OI) framework {[}1{]} provides such a
 principle. It was originally developed for fundamental physics, where it
-proves two results about an embedded observer's finite observable law.
-First, on every finite horizon every finite stochastic law, Markov laws
-included, has a finite reversible deterministic realization and an exact
-representation by a unitary system read out by Born-rule measurement in
-one fixed basis {[}1, §3.4{]}; the representation alone therefore does
-not distinguish a memory-bearing law from a Markovian one. Second, a
-history-readback gap at an accessible order \(k\) --- two visible
-histories of length \(k\), each occurring together with the common
-present state \(X_k\) with probability at least \(p_0\), whose next-step
-laws are at total-variation distance at least \(\delta\) --- forces
-positive conditional memory,
-\(I(X_{<k}; X_{k+1} \mid X_k) \geq p_0\delta^2/\ln 2 > 0\), a failure of
-the Markov factorization at that order {[}1, §2.3{]}. Coupling,
-persistence and capacity without readback admit realizations with zero
-conditional memory on arbitrarily long accessible horizons {[}1,
-§2.3{]}. The framework's core theorem is abstract and scale-independent.
+proves three results about an embedded observer's finite observable law.
+First, on every finite horizon every finite stochastic law has a finite
+reversible deterministic realization and an exact representation by a
+unitary system read out by Born-rule measurement in one fixed basis
+{[}1, §3.4{]}. Markov laws are included, so the representation is
+universal, and what distinguishes the memory-bearing sector is history
+readback. Second, history readback (C4) holds exactly when the
+observable law has positive conditional memory
+\(M_t = I(X_{<t}; X_{t+1} \mid X_t)\) at some accessible time --- a
+failure of the Markov factorization at that order --- and every faithful
+deterministic realization of such a law then carries readout-relevant
+hidden predictive memory {[}1, §3.4{]}. Quantitatively, a readback gap
+at order \(k\) between two histories, each occurring together with the
+common present state with probability at least \(p_0\), whose next-step
+laws are at total-variation distance at least \(\delta\), gives
+\(M_k \geq p_0\delta^2/\ln 2\) {[}1, §2.3{]}; coupling, persistence and
+capacity without readback admit realizations with \(M_t = 0\) on
+arbitrarily long accessible horizons {[}1, §2.3{]}. Third, on one fixed
+finite reversible realization the visible process is P-indivisible
+somewhere in its recurrence cycle whenever some rooted visible map is
+not a permutation, and with a full-support visible prior this
+indivisibility is equivalent to \(M_k > 0\) at some order \(k\) below
+the recurrence time {[}1, §2.3{]}. Every non-deterministic visible step
+supplies such a map, so recurrence-scale indivisibility occurs in Markov
+laws as well; it registers as memory on accessible timescales only when
+that order is accessible, which recurrence does not guarantee and C4
+asserts. The framework's core theorem is abstract and scale-independent.
 It identifies four conditions under which a fast subsystem's observable
-law carries this conditional memory on accessible timescales:
+law carries conditional memory on accessible timescales:
 
 \textbf{C1 (Coupling).} The fast subsystem (visible sector) is
 dynamically coupled to a slow subsystem (hidden sector) through
@@ -1989,4 +2000,4 @@ replication control,'' \emph{PNAS} \textbf{105}, 20752 (2008).
 Biology,'' companion paper (2026).
 
 \end{document}
-% source-sha256: dc4356007c0bcae13c02806aca12ea1624c8737e80f5c6e3f0cef76696993057
+% source-sha256: e6ce40744ebd6012233b1860e786439e8c58a6bb4bc0c6c89291c3084f3bc772

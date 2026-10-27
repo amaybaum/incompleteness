@@ -292,7 +292,7 @@ For spatially separated systems, the coupling graph supplies an exact causal con
 
 ## 0.4 The intellectual context
 
-The framework's central claim — that the finite observable law of any observer embedded in a finite deterministic universe has an exact fixed-basis quantum representation, Markov laws included, and carries conditional memory at an accessible order wherever history readback occurs there — belongs to a family of impossibility-with-structure results in twentieth-century mathematics and computer science.
+The framework's central claim — that the finite observable law of any observer embedded in a finite deterministic universe has an exact fixed-basis quantum representation, Markov laws included, and carries conditional memory at an accessible order exactly when history readback holds there — belongs to a family of impossibility-with-structure results in twentieth-century mathematics and computer science.
 
 In 1931 Kurt Gödel proved that any formal system rich enough to encode arithmetic cannot prove all true statements about itself from within. The limitation arises from self-reference: the system can construct sentences that refer to its own provability, and consistency forces some such sentences to be true but unprovable. The proof yields not chaos but a precisely characterized structure for the unprovable truths.
 
