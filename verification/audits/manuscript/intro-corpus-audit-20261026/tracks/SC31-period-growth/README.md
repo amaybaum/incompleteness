@@ -61,7 +61,7 @@ These were checked against bibliographic records. No page-level citation is give
 ## Numerical check
 
 `period_growth_check.py` runs with `python3 -I`, a fixed seed and exact integers, in about 15 s. Its output is
-`period_growth_check.out`, and all 11 controls pass:
+`period_growth_check.out`, and all 10 controls pass:
 
 - ord divides lcm(1..n) for every cycle type up to n = 22.
 - ψ(n) computed from the exact lcm agrees with the von Mangoldt sum at n = 10^5. ψ(n)/n = 0.7832, 0.9405, 0.9967,
