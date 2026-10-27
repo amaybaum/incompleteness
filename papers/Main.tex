@@ -2558,7 +2558,8 @@ conditional mutual information on a parametric relaxation family,
 homogeneous Markov benchmark and is blind to conditional memory --- the
 XOR family has \(T^{(k)} = T^k\) exactly with one full bit of it
 (\texttt{review4\_probes.py}). The process form is the statement that
-feeds the characterization's C2 clause.
+carries the conditional necessity of (C2) for physical hidden sectors;
+(C2) is not part of the characterization's (iii).
 
 \emph{Remark (coherent extension).} The equivalence holds between the
 operational, dilated, and fixed-basis descriptions and is exact at that
@@ -2744,12 +2745,11 @@ the open residual recorded there. The C1 and C3 necessity theorems do
 not depend on ETH.}
 
 \textbf{Remark (Consequence for the characterization theorem).}
-\emph{Within the characterization below, only the (ii) \(\implies\)
-(iii) direction's C2 clause is conditional on the mixing hypothesis (the
-process-form theorem above; ETH its physical motivation). The
-equivalence's other content --- the readback direction, the dilation
-existence, and the P-indivisible-subclass representation clause --- does
-not depend on ETH.}
+\emph{Within the characterization below, (C2) is not part of (iii); the
+mixing hypothesis enters only the necessity of (C2) for physical hidden
+sectors (the process-form theorem above; ETH its physical motivation).
+The equivalence's other content --- the readback direction, the dilation
+existence, and the representation clause --- does not depend on ETH.}
 
 \textbf{Theorem (C3 necessity).} \emph{Let \(m = |\mathcal{C}_H|\). The
 non-Markovian mutual information satisfies:}
@@ -2796,65 +2796,96 @@ diagonal-preservation lemma are certified in
 
 \textbf{Theorem (finite-horizon process dilation).} \emph{Let
 \(\mathcal{S}\) be a stochastic process on \(\mathcal{C}_V\)
-(\(n = |\mathcal{C}_V| \geq 2\)) with rational multi-time law on a
-finite accessible horizon \(K\) (\(t \ll t_R\)). Then there exist a
-finite \(\mathcal{C}_H\), a bijection \(\varphi\) on
-\(\mathcal{C}_V \times \mathcal{C}_H\), and an initial hidden prior
-\(\mu_H\) independent of the visible initial state, such that the
-marginal process of \((\varphi, \mu_H)\) reproduces \(\mathcal{S}\)'s
-full multi-time joint law for all \(k \leq K\). If the target process is
-non-Markovian, the construction necessarily contains hidden-to-visible
-influence at some accessible step --- hence satisfies (C1); a
-non-permutation first-step matrix is a sufficient first-step witness
-only. The realization realizes (C2) in the static-bath form
+(\(n = |\mathcal{C}_V| \geq 2\)) whose conditional kernels
+\(P(x_{k+1} \mid x_0 \ldots x_k)\) (\(0 \leq k < K\)) at
+positive-probability histories are rational, on a finite accessible
+horizon \(K\). Then there exist a finite \(\mathcal{C}_H\), a bijection
+\(\varphi\) on \(\mathcal{C}_V \times \mathcal{C}_H\), and an initial
+hidden prior \(\mu_H\) independent of the visible initial state, such
+that the visible marginal process of \(\varphi\) from the initial law
+\(P_0 \otimes \mu_H\), \(P_0\) the target's initial law, reproduces
+\(\mathcal{S}\)'s full multi-time joint law for all \(k \leq K\). If the
+target process is non-Markovian, the construction necessarily contains
+hidden-to-visible influence at some accessible step --- hence satisfies
+(C1); a non-permutation first-step matrix is a sufficient first-step
+witness only. The realization realizes (C2) in the static-bath form
 (\(\tau_B = \infty\) between couplings, hence \(\tau_S \ll \tau_B\)),
 and satisfies (C3) with \(|\mathcal{C}_H| \geq 2^{I^*}\). Rationality
-tracks the prior, not the mechanism: with the uniform-sector prior used
-here the marginal law is rational, and conversely every rational
-finite-horizon law is realized; an irrational prior can produce an
-irrational law, so the equivalence is between rational laws and finite
-realizations with rational priors.}
+tracks the prior, not the mechanism: for a finite realization whose
+prior \(\mu_H\) is rational and independent of the visible initial
+state, each \(P(x_{\leq k} \mid x_0)\) with \(P_0(x_0) > 0\) is a finite
+sum of \(\mu_H\)-masses, so the conditional kernels at
+positive-probability histories are rational; conversely every law with
+rational conditional kernels is realized in this form. The rational
+class is that of the kernels; the visible initial law enters only
+through \(P_0\) and may be irrational.}
 
-\emph{Extension (arbitrary priors --- the response-table form).} The
+\emph{Extension (arbitrary kernels --- the response-table form).} The
 rationality restriction is a property of the uniform-tape presentation,
-not of realizability. Replace the tape by a response coordinate
+not of realizability. At every context \(c = x_{\leq k}\)
+(\(0 \leq k < K\)) fix a kernel \(\mathrm{kern}_c\) equal to
+\(P(\cdot \mid x_{\leq k})\) where that history has positive probability
+and arbitrary elsewhere. Replace the tape by a response coordinate
 \(u = (u_c)_c\) indexed by the horizon's finitely many history contexts,
 with product prior \(\mu(u) = \prod_c \mathrm{kern}_c(u_c)\) and
 deterministic step \(x_{k+1} := u_{c(x_{\leq k})}\); the ledger and
-clock complete the bijection exactly as above. Conditioning on the
-visible past exposes \(u\) only at visited contexts, so the current
-context's conditional law is \(\mathrm{kern}_c\) verbatim, and the full
-multi-time joint is reproduced for arbitrary real kernels
-(\texttt{review4\_probes.py}, P-G). The characterization below therefore
-quantifies over general finite-horizon laws.
+clock complete the bijection exactly as in the proof below, with
+\(|\mathcal{C}_H| = n^{N}(n{+}1)^K(K{+}1)\), \(N = \sum_{k=1}^{K} n^k\)
+the number of contexts
+(\(\prod_c |\mathrm{supp}\,\mathrm{kern}_c|\,(n{+}1)^K(K{+}1)\) if each
+\(u_c\) ranges over the support of \(\mathrm{kern}_c\)). Conditioning on
+the visible past exposes \(u\) only at visited contexts:
+\(\{X_{\leq k} = x_{\leq k}\} = \{X_0 = x_0\} \cap \bigcap_{j<k} \{u_{x_{\leq j}} = x_{j+1}\}\)
+is determined by \(X_0\) and the coordinates at the contexts
+\(x_{\leq 0}, \ldots, x_{\leq k-1}\), each distinct from \(x_{\leq k}\)
+because contexts of different lengths differ; the prior is a product and
+independent of \(X_0\), so \(u_{x_{\leq k}}\) is independent of that
+event and
+\(P(X_{k+1} = y \mid x_{\leq k}) = \mathrm{kern}_{x_{\leq k}}(y)\). The
+chain rule then reproduces the full multi-time joint for arbitrary real
+kernels (a rational instance certified in \texttt{review4\_probes.py},
+P-G). The characterization below therefore quantifies over general
+finite-horizon laws.
 
 \emph{Proof (constructive).} Let \(D\) be a common denominator of the
-conditional kernels \(P(x_{k+1} \mid x_0 \ldots x_k)\). Take
+conditional kernels \(P(x_{k+1} \mid x_0 \ldots x_k)\) at
+positive-probability histories and of a rational kernel, for instance a
+point mass, fixed at every context of probability zero. Take
 \(\mathcal{C}_H = (\mathcal{C}_V \cup \{\square\})^K \times \mathbb{Z}_D^K \times \mathbb{Z}_{K+1}\)
 --- a history ledger, a randomness tape, and a clock --- with \(\mu_H\)
 uniform on
 \(\{\text{ledger} = \square^K,\ \text{clock} = 0\} \times \mathbb{Z}_D^K\).
-On well-formed states the step is
+On well-formed states with clock \(c < K\) the step is
 \((x,\ (x_0 \ldots x_{c-1}),\ \mathbf{s},\ c) \mapsto (Q_{c+1}(x_0 \ldots x_{c-1}, x;\, s_{c+1}),\ (x_0 \ldots x_{c-1}, x),\ \mathbf{s},\ c+1)\),
 where \(Q\)'s tape fibers have sizes
 \(D \cdot P(\cdot \mid \text{past})\) (the conditional-quantile
 representation). The step is injective structurally --- the ledger's
 last entry recovers the pre-image regardless of the kernels --- and
-extends to a bijection of the finite product by completing the partial
-permutation on the complement. Marginalizing over the uniform tape
-reproduces each conditional exactly, hence the full joint by the chain
-rule. When \(\mathcal{S}\) is non-Markov on the horizon, the realization
-inherits (C4): distinct visible pasts with differing target kernels
-condition the ledger differently and are read back through \(Q\)
-exactly. (C1): if the target is non-Markovian, hidden-to-visible
-influence is present at some accessible step (the global argument, as in
-the characterization proof); a deterministic first kernel need not give
-a permutation marginal --- many-to-one visible steps are realizable, the
-ledger retaining global reversibility. (C2): the ledger and tape have no
-autonomous dynamics between couplings --- a static bath, the slow-bath
-limit. (C3): \(\log_2 |\mathcal{C}_H| \geq I^*\), consistent with the
-per-process bound above. Certified exactly on P-indivisible targets ---
-including the §3.2 revival family and a non-Markovian kernel set with
+extends to a bijection of the finite product, since an injective map
+\(f\) from a subset \(A\) of a finite set \(X\) into \(X\) extends to a
+permutation of \(X\) (\(|X \setminus A| = |X \setminus f(A)|\);
+\texttt{exists\_perm\_extending}, \texttt{OIBridge/Equivalence.lean}).
+Clock-\(K\) and ill-formed states are assigned by this completion, and
+every prior-supported state at times \(0, \ldots, K-1\) is well-formed
+with clock below \(K\), so the \(K\) steps up to time \(K\) are all
+given by the step formula; the realized process after time \(K\) is
+unconstrained. Marginalizing over the uniform tape reproduces each
+conditional exactly, hence the full joint by the chain rule. When
+\(\mathcal{S}\) is non-Markov on the horizon, the realization inherits
+(C4): distinct visible pasts with differing target kernels condition the
+ledger differently and are read back through \(Q\) exactly. (C1): if the
+target is non-Markovian, hidden-to-visible influence is present at some
+accessible step (the global argument, as in the characterization proof);
+a deterministic first kernel need not give a permutation marginal ---
+many-to-one visible steps are realizable, the ledger retaining global
+reversibility. (C2): the ledger and tape have no autonomous dynamics
+between couplings --- a static bath, the slow-bath limit. The map
+\(\varphi\) is fixed, with the target's time dependence carried by the
+hidden clock and the visible past recorded exactly by the ledger;
+\(\varphi\) depends on \(K\) and on the target. (C3):
+\(\log_2 |\mathcal{C}_H| \geq I^*\), consistent with the per-process
+bound above. Certified exactly on P-indivisible targets --- including
+the §3.2 revival family and a non-Markovian kernel set with
 \(T^{(2)} \neq (T^{(1)})^2\) --- by
 \texttt{process\_dilation\_probes.py} (full-joint equality in exact
 rational arithmetic; permutation control silent). \(\square\) (kernel:
@@ -4822,11 +4853,13 @@ time-homogeneity. The converse is retired: (i) alone does not imply (ii)
 (ii) \(\implies\) (iii): process \(\implies\) deterministic realization
 & Proved constructively, per accessible horizon --- finite-horizon
 process dilation reproducing the full multi-time law; the realization
-inherits (C4); C1/C3/C4 legs unconditional, C2 leg conditional on the
-mixing hypothesis; arbitrary-prior form via the response-table
-extension; Consolidation: universal exact all-time form impossible
-(finite-order periodicity); recurrent-family gluing and pre-recurrence
-window approximation open & §3.4 \\
+inherits (C4); C1/C3/C4 legs unconditional; (C2) is not part of (iii),
+its static-bath form holding in the construction, and its necessity for
+physical hidden sectors is the conditional C2-necessity row;
+arbitrary-kernel form via the response-table extension; Consolidation:
+universal exact all-time form impossible (finite-order periodicity);
+recurrent-family gluing and pre-recurrence window approximation open &
+§3.4 \\
 Fixed-\(\hat{H}\) form for realized processes & Proved, uncompressed ---
 the realization's permutation unitary, \(\hat{H} = i\log U\), exact at
 integer horizon times for uniform, slice, and weighted priors
@@ -5358,4 +5391,4 @@ degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
 \end{document}
-% source-sha256: a97aa17364d15da5353b11b7363940a99aca29d4a2283bf668c2065726edf379
+% source-sha256: 24fd3c5612d651eacce68ddf1449a4c5c80669ac53829d159861191d534b12b1

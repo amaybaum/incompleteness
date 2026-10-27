@@ -1120,9 +1120,9 @@
       "line": 496,
       "kind": "Theorem",
       "label": "(finite-horizon process dilation)",
-      "fingerprint": "12a3411af0e7e69a",
+      "fingerprint": "14ba7415d84378ee",
       "area": "equivalence-chain",
-      "assumptions": "rational multi-time law; finite accessible horizon K with t << t_R",
+      "assumptions": "rational conditional kernels at positive-probability histories; finite accessible horizon K",
       "checks": [
         {
           "kind": "probe",
