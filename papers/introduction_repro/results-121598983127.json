@@ -191,6 +191,300 @@
     ],
     "status": "complete"
    },
+   "OIBridge/CanonicalMeasure.lean": {
+    "print_lines": [
+     [
+      292,
+      300
+     ]
+    ],
+    "prints": 9,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 292,
+      "name": "OIBridge.CanonicalMeasure.injective_imp_bijective"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 293,
+      "name": "OIBridge.CanonicalMeasure.invariant_iff"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 294,
+      "name": "OIBridge.CanonicalMeasure.orbit_invariant_unique"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 295,
+      "name": "OIBridge.CanonicalMeasure.counting_invariant"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 296,
+      "name": "OIBridge.CanonicalMeasure.entropy_counting"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 297,
+      "name": "OIBridge.CanonicalMeasure.counting_maximal_entropy"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 298,
+      "name": "OIBridge.CanonicalMeasure.invariance_does_not_select"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 299,
+      "name": "OIBridge.CanonicalMeasure.two_cycle_witness"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 300,
+      "name": "OIBridge.CanonicalMeasure.determinism_reversibility_selected_measure"
+     }
+    ],
+    "status": "complete"
+   },
+   "OIBridge/CausalReadback.lean": {
+    "print_lines": [
+     [
+      324,
+      344
+     ]
+    ],
+    "prints": 21,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 324,
+      "name": "OIBridge.CausalReadback.tv_nonneg"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 325,
+      "name": "OIBridge.CausalReadback.tv_eq_zero_iff"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 326,
+      "name": "OIBridge.CausalReadback.tv_pos_of_ne"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 327,
+      "name": "OIBridge.CausalReadback.tv_mul_le"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 328,
+      "name": "OIBridge.CausalReadback.rows_eq_of_factor"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 329,
+      "name": "OIBridge.CausalReadback.c4e_implies_c4r"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 330,
+      "name": "OIBridge.CausalReadback.c4r_implies_pIndivisible"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 331,
+      "name": "OIBridge.CausalReadback.c4e_implies_pIndivisible"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 332,
+      "name": "OIBridge.CausalReadback.c4e_implies_pIndivisible_via_c4r"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 333,
+      "name": "OIBridge.CausalReadback.not_c4e_and_not_c4r_of_pDivisible"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 334,
+      "name": "OIBridge.CausalReadback.rootedMap_isRowStochastic"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 335,
+      "name": "OIBridge.CausalReadback.j2_isRowStochastic"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 336,
+      "name": "OIBridge.CausalReadback.one_isRowStochastic"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 337,
+      "name": "OIBridge.CausalReadback.j2_rows_eq"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 338,
+      "name": "OIBridge.CausalReadback.one_rows_ne"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 339,
+      "name": "OIBridge.CausalReadback.pdFamily_pDivisible"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 340,
+      "name": "OIBridge.CausalReadback.pdFamily_not_c4e_not_c4r"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 341,
+      "name": "OIBridge.CausalReadback.peFamily_c4e"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 342,
+      "name": "OIBridge.CausalReadback.peFamily_pIndivisible"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 343,
+      "name": "OIBridge.CausalReadback.control_separation"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 344,
+      "name": "OIBridge.CausalReadback.causal_readback_verdict"
+     }
+    ],
+    "status": "complete"
+   },
    "OIBridge/CoherentLiftGauge.lean": {
     "print_lines": [
      [
@@ -538,6 +832,282 @@
       ],
       "line": 397,
       "name": "OIBridge.EquivalenceChain.dilation_extends"
+     }
+    ],
+    "status": "complete"
+   },
+   "OIBridge/FiniteEntropy.lean": {
+    "print_lines": [
+     [
+      482,
+      486
+     ]
+    ],
+    "prints": 5,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 482,
+      "name": "OIBridge.FiniteEntropy.sum_mul_log_le"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 483,
+      "name": "OIBridge.FiniteEntropy.entropy_le_log_card"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 484,
+      "name": "OIBridge.FiniteEntropy.cmi3_nonneg"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 485,
+      "name": "OIBridge.FiniteEntropy.cmi_le_of_deterministic"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 486,
+      "name": "OIBridge.FiniteEntropy.cmi_le_log_card"
+     }
+    ],
+    "status": "complete"
+   },
+   "OIBridge/FrozenSourcing.lean": {
+    "print_lines": [
+     [
+      345,
+      367
+     ]
+    ],
+    "prints": 23,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 345,
+      "name": "OIBridge.FrozenSourcing.norm_entry_le_l2_opNorm"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 346,
+      "name": "OIBridge.FrozenSourcing.le_zero_of_forall_pos"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 347,
+      "name": "OIBridge.FrozenSourcing.nonneg_of_forall_pos"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 348,
+      "name": "OIBridge.FrozenSourcing.nonnegBounded_of_bijectionLevel"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 349,
+      "name": "OIBridge.FrozenSourcing.permTheory_nonnegBounded"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 350,
+      "name": "OIBridge.FrozenSourcing.obsTheory_nonnegBounded"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 351,
+      "name": "OIBridge.FrozenSourcing.nonnegBounded_not_phasesAvailable"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 352,
+      "name": "OIBridge.FrozenSourcing.permTheory_phase_ceiling"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 353,
+      "name": "OIBridge.FrozenSourcing.nonnegBounded_not_derivedOI"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 354,
+      "name": "OIBridge.FrozenSourcing.preservesNonneg_of_approx"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 355,
+      "name": "OIBridge.FrozenSourcing.nonnegBounded_not_denseUnitaryControl"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 356,
+      "name": "OIBridge.FrozenSourcing.permTheory_dense_ceiling"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 357,
+      "name": "OIBridge.FrozenSourcing.mixImage_not_preservesNonneg"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 358,
+      "name": "OIBridge.FrozenSourcing.nonnegBounded_not_denseUnitaryControl_rot"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 359,
+      "name": "OIBridge.FrozenSourcing.permMatrix_preservesNonneg"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 360,
+      "name": "OIBridge.FrozenSourcing.readWrite_preservesNonneg"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 361,
+      "name": "OIBridge.FrozenSourcing.obs_dynamics_preservesNonneg"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 362,
+      "name": "OIBridge.FrozenSourcing.phaseOperator_outside_ceiling"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 363,
+      "name": "OIBridge.FrozenSourcing.sourcing_rule_independent"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 364,
+      "name": "OIBridge.FrozenSourcing.phase_ceiling_rule_independent"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 365,
+      "name": "OIBridge.FrozenSourcing.frozen_sourcing_verdict"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 366,
+      "name": "OIBridge.FrozenSourcing.nonnegBounded_verdict"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 367,
+      "name": "OIBridge.FrozenSourcing.fixedGateTheory_outside_ceiling"
      }
     ],
     "status": "complete"
@@ -1229,6 +1799,480 @@
     ],
     "status": "complete"
    },
+   "OIBridge/OIRealization.lean": {
+    "print_lines": [
+     [
+      372,
+      393
+     ]
+    ],
+    "prints": 22,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 372,
+      "name": "OIBridge.OIRealization.coreIdx_apply"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 373,
+      "name": "OIBridge.OIRealization.vis_coreIdx_symm_iff"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 374,
+      "name": "OIBridge.OIRealization.readVisible_apply"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 375,
+      "name": "OIBridge.OIRealization.readVisible_eq_localLuders"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 376,
+      "name": "OIBridge.OIRealization.readVisible_family_eq"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 377,
+      "name": "OIBridge.OIRealization.readout_relabel_available"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 378,
+      "name": "OIBridge.OIRealization.readVisible_diagonal"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 379,
+      "name": "OIBridge.OIRealization.vstepMap_diagonal"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 380,
+      "name": "OIBridge.OIRealization.realizedFold_diagonal"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 381,
+      "name": "OIBridge.OIRealization.relabel_available"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 382,
+      "name": "OIBridge.OIRealization.realizesSealedOICore_of_control"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 383,
+      "name": "OIBridge.OIRealization.countermodel_realizesSealedOICore"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 384,
+      "name": "OIBridge.OIRealization.admissible_realizesSealedOICore"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 385,
+      "name": "OIBridge.OIRealization.fullQuantum_realizesSealedOICore"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 386,
+      "name": "OIBridge.OIRealization.partIdx_fst"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 387,
+      "name": "OIBridge.OIRealization.sealedCore_is_finiteOI"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 388,
+      "name": "OIBridge.OIRealization.sameCore_closure_not_inert"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 389,
+      "name": "OIBridge.OIRealization.sameCore_inert_not_closure"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 390,
+      "name": "OIBridge.OIRealization.sameCore_both"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 391,
+      "name": "OIBridge.OIRealization.sameCore_both_sides"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 392,
+      "name": "OIBridge.OIRealization.finiteOI_not_implies_inert"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 393,
+      "name": "OIBridge.OIRealization.finiteOI_not_implies_closure"
+     }
+    ],
+    "status": "complete"
+   },
+   "OIBridge/OperationalAssembly.lean": {
+    "print_lines": [
+     [
+      803,
+      830
+     ]
+    ],
+    "prints": 28,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 803,
+      "name": "OIBridge.OperationalAssembly.spectatorIndependent_iff_mapLevel"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 804,
+      "name": "OIBridge.OperationalAssembly.tensorOf_single"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 805,
+      "name": "OIBridge.OperationalAssembly.localLuders_tensor"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 806,
+      "name": "OIBridge.OperationalAssembly.localLuders_mapSpectatorIndependent"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 807,
+      "name": "OIBridge.OperationalAssembly.eq_of_agree_on_single"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 808,
+      "name": "OIBridge.OperationalAssembly.mapSpectatorIndependent_iff_localLuders"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 809,
+      "name": "OIBridge.OperationalAssembly.blockDephase_apply"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 810,
+      "name": "OIBridge.OperationalAssembly.choiMatrix_sum"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 811,
+      "name": "OIBridge.OperationalAssembly.blockDephase_cp"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 812,
+      "name": "OIBridge.OperationalAssembly.localLuders_classical"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 813,
+      "name": "OIBridge.OperationalAssembly.blockDephase_classical"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 814,
+      "name": "OIBridge.OperationalAssembly.blockDephase_classical_eq"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 815,
+      "name": "OIBridge.OperationalAssembly.blockDephase_ne_localLuders"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 816,
+      "name": "OIBridge.OperationalAssembly.blockDephase_not_mapSpectatorIndependent"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 817,
+      "name": "OIBridge.OperationalAssembly.tensorOf_productPreparation"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 818,
+      "name": "OIBridge.OperationalAssembly.hasFullInstruments_hasUniversalControl"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 819,
+      "name": "OIBridge.OperationalAssembly.tensorOf_add_left"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 820,
+      "name": "OIBridge.OperationalAssembly.ptraceAnc_localLuders"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 821,
+      "name": "OIBridge.OperationalAssembly.readout_is_localLuders"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 822,
+      "name": "OIBridge.OperationalAssembly.conj_ancSwap_single"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 823,
+      "name": "OIBridge.OperationalAssembly.localLuders_uniform"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 824,
+      "name": "OIBridge.OperationalAssembly.pureSeedPrep_available_of_swap"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 825,
+      "name": "OIBridge.OperationalAssembly.compositeControl_hasSwapControl"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 826,
+      "name": "OIBridge.OperationalAssembly.pureSeedPrep_available"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 827,
+      "name": "OIBridge.OperationalAssembly.pureSeedPrep_available_of_swapControl"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 828,
+      "name": "OIBridge.OperationalAssembly.circuit_available"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 829,
+      "name": "OIBridge.OperationalAssembly.circuit_available_pureSeed"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 830,
+      "name": "OIBridge.OperationalAssembly.circuit_branch"
+     }
+    ],
+    "status": "complete"
+   },
    "OIBridge/OperationalValidity.lean": {
     "print_lines": [
      [
@@ -1345,6 +2389,108 @@
       ],
       "line": 252,
       "name": "OIBridge.OperationalValidity.physical_closure_not_deletable"
+     }
+    ],
+    "status": "complete"
+   },
+   "OIBridge/PhaseSource.lean": {
+    "print_lines": [
+     [
+      203,
+      212
+     ]
+    ],
+    "prints": 10,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 203,
+      "name": "OIBridge.PhaseSource.onesFixing_not_phasesAvailable"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 204,
+      "name": "OIBridge.PhaseSource.permClass_onesFixing"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 205,
+      "name": "OIBridge.PhaseSource.permTheory_not_phasesAvailable_onesFixing"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 206,
+      "name": "OIBridge.PhaseSource.bijectiveOperator_mulVec_ones"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 207,
+      "name": "OIBridge.PhaseSource.readWriteOperator_mulVec_ones"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 208,
+      "name": "OIBridge.PhaseSource.phaseGate_not_scalar"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 209,
+      "name": "OIBridge.PhaseSource.conjChannel_phaseGate_ne_id"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 210,
+      "name": "OIBridge.PhaseSource.diagonal_conj_phaseGate"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 211,
+      "name": "OIBridge.PhaseSource.phaseGate_moves_ones"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 212,
+      "name": "OIBridge.PhaseSource.substratumClass_not_onesFixing"
      }
     ],
     "status": "complete"
@@ -1672,6 +2818,243 @@
       ],
       "line": 699,
       "name": "OIBridge.PhysicalC4Discharge.latticeCut_rootedMap_stochastic_periodic"
+     }
+    ],
+    "status": "complete"
+   },
+   "OIBridge/PhysicalC4StorageReadback.lean": {
+    "print_lines": [
+     [
+      702,
+      726
+     ]
+    ],
+    "prints": 25,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 702,
+      "name": "OIBridge.PhysicalC4StorageReadback.routedReadbackAtStorage_mono"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 703,
+      "name": "OIBridge.PhysicalC4StorageReadback.routedReadbackAtStorage_overlap"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 704,
+      "name": "OIBridge.PhysicalC4StorageReadback.storageWeight_sum"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 705,
+      "name": "OIBridge.PhysicalC4StorageReadback.storageWeight_eq_zero_of_root_ne"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 706,
+      "name": "OIBridge.PhysicalC4StorageReadback.rootedStatePosterior_ne"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 707,
+      "name": "OIBridge.PhysicalC4StorageReadback.rootedStatePosterior_marg_eq"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 708,
+      "name": "OIBridge.PhysicalC4StorageReadback.routedAtStorage_forces_return_indivisibility"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 709,
+      "name": "OIBridge.PhysicalC4StorageReadback.routedAtStorage_forces_indivisible_somewhere"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 710,
+      "name": "OIBridge.PhysicalC4StorageReadback.core_statePosterior_odd"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 711,
+      "name": "OIBridge.PhysicalC4StorageReadback.core_storage_contrast"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 712,
+      "name": "OIBridge.PhysicalC4StorageReadback.core_routedReadbackAtStorage_two"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 713,
+      "name": "OIBridge.PhysicalC4StorageReadback.product_not_routedReadbackAtStorage"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 714,
+      "name": "OIBridge.PhysicalC4StorageReadback.tapeLedger_not_routedReadbackAtStorage_three"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 715,
+      "name": "OIBridge.PhysicalC4StorageReadback.tapeLedger_statePosterior_one"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 716,
+      "name": "OIBridge.PhysicalC4StorageReadback.tapeLedger_routedReadbackAtStorage_four"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 717,
+      "name": "OIBridge.PhysicalC4StorageReadback.core_storageReadback_and_not_routedReadback"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 718,
+      "name": "OIBridge.PhysicalC4StorageReadback.storageReadback_not_implies_routedReadback"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 719,
+      "name": "OIBridge.PhysicalC4StorageReadback.sep_realization_exists"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 720,
+      "name": "OIBridge.PhysicalC4StorageReadback.sep_rootedMap"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 721,
+      "name": "OIBridge.PhysicalC4StorageReadback.sep_statePosterior"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 722,
+      "name": "OIBridge.PhysicalC4StorageReadback.sep_seedPosterior"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 723,
+      "name": "OIBridge.PhysicalC4StorageReadback.sep_read_collapse"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 724,
+      "name": "OIBridge.PhysicalC4StorageReadback.sep_routedReadback_two"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 725,
+      "name": "OIBridge.PhysicalC4StorageReadback.sep_not_routedReadbackAtStorage_two"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 726,
+      "name": "OIBridge.PhysicalC4StorageReadback.routedReadback_not_implies_storageReadback"
      }
     ],
     "status": "complete"
@@ -2033,6 +3416,171 @@
       ],
       "line": 621,
       "name": "OIBridge.PhysicalCharacterization.admissible_not_systemToLevelOne"
+     }
+    ],
+    "status": "complete"
+   },
+   "OIBridge/QuantumRepresentationT2.lean": {
+    "print_lines": [
+     [
+      177,
+      193
+     ]
+    ],
+    "prints": 17,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 177,
+      "name": "OIBridge.QuantumRepresentation.hadAmp_sq"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 178,
+      "name": "OIBridge.QuantumRepresentation.hadAmp_normSq"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 179,
+      "name": "OIBridge.QuantumRepresentation.hadAmp_neg_normSq"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 180,
+      "name": "OIBridge.QuantumRepresentation.hadU_mem_unitaryGroup"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 181,
+      "name": "OIBridge.QuantumRepresentation.hadData_born"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 182,
+      "name": "OIBridge.QuantumRepresentation.hadData_isLaw"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 183,
+      "name": "OIBridge.QuantumRepresentation.hadU_normSq"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 184,
+      "name": "OIBridge.QuantumRepresentation.hadData_bornPow_succ"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 185,
+      "name": "OIBridge.QuantumRepresentation.hadData_bornPow_succ'"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 186,
+      "name": "OIBridge.QuantumRepresentation.hadData_bornPow_zero'"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 187,
+      "name": "OIBridge.QuantumRepresentation.hadData_rootMass"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 188,
+      "name": "OIBridge.QuantumRepresentation.hadData_positiveRootMass"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 189,
+      "name": "OIBridge.QuantumRepresentation.hadData_rooted"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 190,
+      "name": "OIBridge.QuantumRepresentation.hadData_rooted_eq_pdFamily"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 191,
+      "name": "OIBridge.QuantumRepresentation.qStar_pdFamily"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 192,
+      "name": "OIBridge.QuantumRepresentation.qStar_not_subset_finiteRootedRealizable"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 193,
+      "name": "OIBridge.QuantumRepresentation.qStar_not_subset_pper"
      }
     ],
     "status": "complete"
@@ -2517,6 +4065,99 @@
     ],
     "status": "complete"
    },
+   "OIBridge/ReadWriteControl.lean": {
+    "print_lines": [
+     [
+      222,
+      230
+     ]
+    ],
+    "prints": 9,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 222,
+      "name": "OIBridge.ReadWriteControl.readWriteOperator_eq_perm"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 223,
+      "name": "OIBridge.ReadWriteControl.readWriteOperator_monomial"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 224,
+      "name": "OIBridge.ReadWriteControl.offDiagonal_interp_not_monomial"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 225,
+      "name": "OIBridge.ReadWriteControl.readWriteSourced_monomialSource"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 226,
+      "name": "OIBridge.ReadWriteControl.readWriteSourced_not_control"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 227,
+      "name": "OIBridge.ReadWriteControl.readWriteSourced_not_qm"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 228,
+      "name": "OIBridge.ReadWriteControl.memorySwap_nontrivial"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 229,
+      "name": "OIBridge.ReadWriteControl.memorySwap_operator_monomial"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 230,
+      "name": "OIBridge.ReadWriteControl.readWriteControl_independent"
+     }
+    ],
+    "status": "complete"
+   },
    "OIBridge/RecurrenceHorizon.lean": {
     "print_lines": [
      [
@@ -2606,6 +4247,765 @@
       ],
       "line": 191,
       "name": "OIBridge.RecurrenceHorizon.horizon_verdict"
+     }
+    ],
+    "status": "complete"
+   },
+   "OIBridge/RootedClassification.lean": {
+    "print_lines": [
+     [
+      349,
+      364
+     ]
+    ],
+    "prints": 16,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 349,
+      "name": "OIBridge.RootedClassification.responseWeight_nonneg"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 350,
+      "name": "OIBridge.RootedClassification.responseWeight_sum"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 351,
+      "name": "OIBridge.RootedClassification.responseWeight_marginal"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 352,
+      "name": "OIBridge.RootedClassification.rootedMap_zero"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 353,
+      "name": "OIBridge.RootedClassification.rootedMap_periodic"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 354,
+      "name": "OIBridge.RootedClassification.rootedMap_mem_PPer"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 355,
+      "name": "OIBridge.RootedClassification.cycleState_val_zero"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 356,
+      "name": "OIBridge.RootedClassification.cycleState_nonzero"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 357,
+      "name": "OIBridge.RootedClassification.cycleState_injective"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 358,
+      "name": "OIBridge.RootedClassification.cyclePerm_apply"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 359,
+      "name": "OIBridge.RootedClassification.responseStep_cycle"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 360,
+      "name": "OIBridge.RootedClassification.tableWeight_nonneg"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 361,
+      "name": "OIBridge.RootedClassification.tableWeight_sum"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 362,
+      "name": "OIBridge.RootedClassification.responsePrior_nonneg"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 363,
+      "name": "OIBridge.RootedClassification.responsePrior_sum"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 364,
+      "name": "OIBridge.RootedClassification.pper_of_finiteRootedRealizable"
+     }
+    ],
+    "status": "complete"
+   },
+   "OIBridge/RootedClassificationAllTime.lean": {
+    "print_lines": [
+     [
+      252,
+      267
+     ]
+    ],
+    "prints": 16,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 252,
+      "name": "OIBridge.RootedClassification.finRotate_iterate_phaseZero_period"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 253,
+      "name": "OIBridge.RootedClassification.cyclePerm_iterate_phaseZero_period"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 254,
+      "name": "OIBridge.RootedClassification.responseStep_iterate_phaseZero_period"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 255,
+      "name": "OIBridge.RootedClassification.responseLocalWeight_sum"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 256,
+      "name": "OIBridge.RootedClassification.responseRealization_pad_sum"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 257,
+      "name": "OIBridge.RootedClassification.rootedMap_responseRealization_of_pos_lt"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 258,
+      "name": "OIBridge.RootedClassification.rootedMap_responseRealization_first_period"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 259,
+      "name": "OIBridge.RootedClassification.rootedMap_responseRealization_add_period"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 260,
+      "name": "OIBridge.RootedClassification.responseRealization_agrees_all"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 261,
+      "name": "OIBridge.RootedClassification.pper_has_responseRealization"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 262,
+      "name": "OIBridge.RootedClassification.finiteRootedRealizable_iff_pper"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 263,
+      "name": "OIBridge.RootedClassification.finiteRootedRealizable_of_realization"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 264,
+      "name": "OIBridge.RootedClassification.pdFamily_not_periodicFamily"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 265,
+      "name": "OIBridge.RootedClassification.peFamily_not_periodicFamily"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 266,
+      "name": "OIBridge.RootedClassification.pdFamily_not_finiteRootedRealizable"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 267,
+      "name": "OIBridge.RootedClassification.peFamily_not_finiteRootedRealizable"
+     }
+    ],
+    "status": "complete"
+   },
+   "OIBridge/StructuralClosure.lean": {
+    "print_lines": [
+     [
+      433,
+      467
+     ]
+    ],
+    "prints": 35,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 433,
+      "name": "OIBridge.StructuralClosure.of_ite_ne_zero"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 434,
+      "name": "OIBridge.StructuralClosure.mul_entry_ne_zero"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 435,
+      "name": "OIBridge.StructuralClosure.monomial_submonomial"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 436,
+      "name": "OIBridge.StructuralClosure.submonomial_monomial"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 437,
+      "name": "OIBridge.StructuralClosure.monomial_iff_submonomial"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 438,
+      "name": "OIBridge.StructuralClosure.submonomial_one"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 439,
+      "name": "OIBridge.StructuralClosure.submonomial_mul"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 440,
+      "name": "OIBridge.StructuralClosure.submonomial_smul"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 441,
+      "name": "OIBridge.StructuralClosure.submonomial_diagonal"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 442,
+      "name": "OIBridge.StructuralClosure.submonomial_block"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 443,
+      "name": "OIBridge.StructuralClosure.substratumClass_arch"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 444,
+      "name": "OIBridge.StructuralClosure.tensor_one_entry_ne_zero"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 445,
+      "name": "OIBridge.StructuralClosure.submonomial_tensor_one"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 446,
+      "name": "OIBridge.StructuralClosure.substratumClass_contextStable"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 447,
+      "name": "OIBridge.StructuralClosure.submonomial_reindex"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 448,
+      "name": "OIBridge.StructuralClosure.substratumClass_labelInvariant"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 449,
+      "name": "OIBridge.StructuralClosure.submonomial_conjTranspose"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 450,
+      "name": "OIBridge.StructuralClosure.substratumClass_daggerStable"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 451,
+      "name": "OIBridge.StructuralClosure.substratumClass_unitaryRaySaturated"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 452,
+      "name": "OIBridge.StructuralClosure.bijectiveOperator_conjTranspose"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 453,
+      "name": "OIBridge.StructuralClosure.phaseOperator_conjTranspose"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 454,
+      "name": "OIBridge.StructuralClosure.substratumClass_structurallyClosed"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 455,
+      "name": "OIBridge.StructuralClosure.bijectiveOperator_supplied"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 456,
+      "name": "OIBridge.StructuralClosure.phaseOperator_supplied"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 457,
+      "name": "OIBridge.StructuralClosure.readWriteOperator_supplied"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 458,
+      "name": "OIBridge.StructuralClosure.substratumGen_not_control"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 459,
+      "name": "OIBridge.StructuralClosure.substratumGen_not_qm"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 460,
+      "name": "OIBridge.StructuralClosure.quantumArchitecture_iff_drives_of_closed"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 461,
+      "name": "OIBridge.StructuralClosure.substratumClass_not_drivesElementary"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 462,
+      "name": "OIBridge.StructuralClosure.substratumClass_not_quantumArchitecture"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 463,
+      "name": "OIBridge.StructuralClosure.substratum_residual"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 464,
+      "name": "OIBridge.StructuralClosure.substratum_extension_quantum_iff_drives"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 465,
+      "name": "OIBridge.StructuralClosure.substratum_plus_control_qm"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 466,
+      "name": "OIBridge.StructuralClosure.fullClass_extendsSubstratum"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 467,
+      "name": "OIBridge.StructuralClosure.qm_generated_by_substratum_extension"
+     }
+    ],
+    "status": "complete"
+   },
+   "OIBridge/SubstratumInterface.lean": {
+    "print_lines": [
+     [
+      208,
+      219
+     ]
+    ],
+    "prints": 12,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 208,
+      "name": "OIBridge.SubstratumInterface.monomial_permMatrix"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 209,
+      "name": "OIBridge.SubstratumInterface.monomial_diagonal"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 210,
+      "name": "OIBridge.SubstratumInterface.bijectiveOperator_monomial"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 211,
+      "name": "OIBridge.SubstratumInterface.phaseOperator_monomial"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 212,
+      "name": "OIBridge.SubstratumInterface.exchange_monomial"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 213,
+      "name": "OIBridge.SubstratumInterface.phase_monomial"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 214,
+      "name": "OIBridge.SubstratumInterface.monomial_entry"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 215,
+      "name": "OIBridge.SubstratumInterface.preservesDiag_conj_of_monomial"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 216,
+      "name": "OIBridge.SubstratumInterface.rot_not_monomial"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 217,
+      "name": "OIBridge.SubstratumInterface.monomialSource_not_control"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 218,
+      "name": "OIBridge.SubstratumInterface.monomialSource_not_qm"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 219,
+      "name": "OIBridge.SubstratumInterface.elementary_split"
      }
     ],
     "status": "complete"

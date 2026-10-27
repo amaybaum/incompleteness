@@ -55,9 +55,10 @@ produced no report.
   as the gate printed it.
 - **Failure markers** in the build and gate output: `sorryAx` 0, `Lean.ofReduceBool` 0,
   `declaration uses 'sorry'` 0, `error:` 0.
-- **Modules:** the 14 modules that contain an Appendix A declaration, each `complete`: every
-  `#print axioms` command in the module's source has exactly one report. There are 286 reports in
-  all. 285 depend on `propext, Classical.choice, Quot.sound`; one, `OIBridge.PhysicalCharacterization.levelOne_eq`,
+- **Modules:** 28 modules, each `complete`: every `#print axioms` command in the module's source has
+  exactly one report. They are the 14 modules that contain an Appendix A declaration and 14 that
+  contain further declarations the corpus audit cites (listed below). There are 534 reports in all. 533 depend on
+  `propext, Classical.choice, Quot.sound`; one, `OIBridge.PhysicalCharacterization.levelOne_eq`,
   which the paper does not cite, depends on `propext` alone.
 
 ### The 28 declarations of Appendix A
@@ -99,6 +100,40 @@ printed. "Decl." is the declaration's line, as Appendix A gives it. "Print" is t
 
 The "compositions :466–468" that Appendix A names under Theorem 1 are the proof term of
 `finite_horizon_equivalence`, not separate declarations; they are covered by its report.
+
+### Further declarations in the governed modules
+
+The other 14 modules contain the following declarations with a report, which the corpus audit of the Introduction
+(`verification/audits/manuscript/intro-corpus-audit-20261026/`) cites in its claim-to-proof matrix or in
+its proposed replacement texts. Each has exactly one report, printed as shown. Which of them Appendix A
+lists is a separate decision; a declaration in a governed module is covered by this result whether or
+not it is listed.
+
+| declaration (as reported) | decl. | print | axioms |
+| --- | --- | --- | --- |
+| `OIBridge.CanonicalMeasure.determinism_reversibility_selected_measure` | CanonicalMeasure:276 | 300 | `propext, Classical.choice, Quot.sound` |
+| `OIBridge.CausalReadback.tv_mul_le` | CausalReadback:96 | 327 | `propext, Classical.choice, Quot.sound` |
+| `OIBridge.FrozenSourcing.frozen_sourcing_verdict` | FrozenSourcing:318 | 365 | `propext, Classical.choice, Quot.sound` |
+| `OIBridge.OIRealization.realizesSealedOICore_of_control` | OIRealization:252 | 382 | `propext, Classical.choice, Quot.sound` |
+| `OIBridge.PhaseSource.onesFixing_not_phasesAvailable` | PhaseSource:52 | 203 | `propext, Classical.choice, Quot.sound` |
+| `OIBridge.PhaseSource.permClass_onesFixing` | PhaseSource:79 | 204 | `propext, Classical.choice, Quot.sound` |
+| `OIBridge.PhaseSource.substratumClass_not_onesFixing` | PhaseSource:196 | 212 | `propext, Classical.choice, Quot.sound` |
+| `OIBridge.PhysicalC4StorageReadback.routedAtStorage_forces_indivisible_somewhere` | PhysicalC4StorageReadback:256 | 709 | `propext, Classical.choice, Quot.sound` |
+| `OIBridge.QuantumRepresentation.qStar_not_subset_finiteRootedRealizable` | QuantumRepresentationT2:163 | 192 | `propext, Classical.choice, Quot.sound` |
+| `OIBridge.ReadWriteControl.readWriteSourced_not_control` | ReadWriteControl:169 | 226 | `propext, Classical.choice, Quot.sound` |
+| `OIBridge.ReadWriteControl.readWriteSourced_not_qm` | ReadWriteControl:174 | 227 | `propext, Classical.choice, Quot.sound` |
+| `OIBridge.RootedClassification.rootedMap_periodic` | RootedClassification:135 | 353 | `propext, Classical.choice, Quot.sound` |
+| `OIBridge.RootedClassification.finiteRootedRealizable_iff_pper` | RootedClassificationAllTime:192 | 262 | `propext, Classical.choice, Quot.sound` |
+| `OIBridge.StructuralClosure.substratumClass_not_drivesElementary` | StructuralClosure:370 | 461 | `propext, Classical.choice, Quot.sound` |
+| `OIBridge.StructuralClosure.substratum_residual` | StructuralClosure:383 | 463 | `propext, Classical.choice, Quot.sound` |
+| `OIBridge.StructuralClosure.substratum_extension_quantum_iff_drives` | StructuralClosure:408 | 464 | `propext, Classical.choice, Quot.sound` |
+| `OIBridge.StructuralClosure.substratum_plus_control_qm` | StructuralClosure:414 | 465 | `propext, Classical.choice, Quot.sound` |
+| `OIBridge.SubstratumInterface.monomialSource_not_control` | SubstratumInterface:186 | 217 | `propext, Classical.choice, Quot.sound` |
+
+`PDivisible` (CausalReadback), `cmi_nonneg` (FiniteEntropy), `FiniteOperationalTheory`
+(OperationalAssembly) and `responseRealization` (RootedClassification) are cited by the audit as well but
+have no `#print axioms` command of their own: they are definitions or structures, or, for `cmi_nonneg`, a
+theorem the source does not print. Their modules are governed for the reports they do print.
 
 ## Provenance
 
@@ -145,7 +180,7 @@ python3 -I <tools>/compare_result.py papers/introduction_repro/results-121598983
 ```
 
 The comparison fails closed. It requires a successful build; the gate's verdict and each of the 22
-steps with its status and summary; for each of the 14 modules, one report for every `#print axioms`
+steps with its status and summary; for each of the 28 modules, one report for every `#print axioms`
 line of its source at the commit and no other, each with exactly the recorded axioms; and no
 failure marker.
 
@@ -163,7 +198,18 @@ These were run on a scratch copy with the archive's tools from `48b18ac5`; no re
   Five countercontrols are each caught: `sorryAx` in a report of `GeneralCarrier`, the
   `finite_horizon_equivalence` report dropped, a failing gate verdict, a changed `lean-axioms` count,
   and an extra `#print axioms` in a source.
-- `extract_result.check` against the 14 sources: no failure, no gap.
+- `extract_result.check` against the 28 sources: no failure, no gap.
+- The module table is built from the served text (both digests above, re-verified on a read of the
+  log through the REST API on 2026-10-27) and the module sources at `17b830bc`: each entry is the
+  module's `#print axioms` lines and the extractor's reports for it. Built this way, the 14 Appendix A
+  entries equal those of the 14-module result at `4a260ca9`. On the 28-module file, R4 finds no
+  failure, `compare_result.py --self-test` passes and `compare_result.compare` against the
+  extractor's reading of the served text holds.
+- For the 14 further modules, five countercontrols are each caught by `compare_result.compare` or R4:
+  a report dropped (StructuralClosure), a changed axiom list (PhysicalC4StorageReadback), changed
+  `#print axioms` lines (PhaseSource), a module that is not in the source, and a reproduction missing a
+  report (CanonicalMeasure); and R4 catches a report outside the print lines, a wrong count and a
+  module recorded complete whose reports are partial.
 
 ## Location
 
