@@ -1,0 +1,4 @@
+           Q1: c=1 holds     c=2 holds     c=4 VIOLATION
+           Q2: c=1 holds     c=2 holds     c=4 VIOLATION
+           Q5: c=1 holds     c=2 holds     c=4 VIOLATION
+ tight d=1/10: c=1 holds     c=2 VIOLATION c=4 VIOLATION

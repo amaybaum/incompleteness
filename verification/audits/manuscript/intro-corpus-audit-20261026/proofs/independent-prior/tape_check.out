@@ -1,0 +1,63 @@
+coin K=1: n=2 K=1 D=2 |C_H|=12 |S|=24  bijection OK, all roots, all k<=K exact; min orbit length=4; tape-reuse countercontrol passes (expected)
+coin K=3: n=2 K=3 D=2 |C_H|=864 |S|=1728  bijection OK, all roots, all k<=K exact; min orbit length=57; tape-reuse countercontrol FAILS as required
+non-Markov w/ zeros K=3, P(x0)=(1,0): n=2 K=3 D=12 |C_H|=186624 |S|=373248  bijection OK, all roots, all k<=K exact; min orbit length=297; tape-reuse countercontrol FAILS as required
+XOR K=2: n=2 K=2 D=2 |C_H|=108 |S|=216  bijection OK, all roots, all k<=K exact; min orbit length=47; tape-reuse countercontrol passes (expected)
+delayed revival K=3: n=2 K=3 D=2 |C_H|=864 |S|=1728  bijection OK, all roots, all k<=K exact; min orbit length=59; tape-reuse countercontrol passes (expected)
+many-to-one deterministic K=2: n=2 K=2 D=1 |C_H|=27 |S|=54  bijection OK, all roots, all k<=K exact; min orbit length=15
+E(ii): non-common-denominator D rejected (control live)
+random n=2 K=1: n=2 K=1 D=1 |C_H|=6 |S|=12  bijection OK, all roots, all k<=K exact; min orbit length=4
+random n=2 K=1: n=2 K=1 D=7 |C_H|=42 |S|=84  bijection OK, all roots, all k<=K exact; min orbit length=4
+random n=2 K=1: n=2 K=1 D=2 |C_H|=12 |S|=24  bijection OK, all roots, all k<=K exact; min orbit length=4
+random n=2 K=1: n=2 K=1 D=2 |C_H|=12 |S|=24  bijection OK, all roots, all k<=K exact; min orbit length=4
+random n=2 K=1: n=2 K=1 D=4 |C_H|=24 |S|=48  bijection OK, all roots, all k<=K exact; min orbit length=8
+random n=2 K=1: n=2 K=1 D=2 |C_H|=12 |S|=24  bijection OK, all roots, all k<=K exact; min orbit length=4
+random n=2 K=1: n=2 K=1 D=3 |C_H|=18 |S|=36  bijection OK, all roots, all k<=K exact; min orbit length=28
+random n=2 K=1: n=2 K=1 D=1 |C_H|=6 |S|=12  bijection OK, all roots, all k<=K exact; min orbit length=10
+random n=2 K=1: n=2 K=1 D=3 |C_H|=18 |S|=36  bijection OK, all roots, all k<=K exact; min orbit length=5
+random n=2 K=1: n=2 K=1 D=2 |C_H|=12 |S|=24  bijection OK, all roots, all k<=K exact; min orbit length=4
+random n=2 K=1: n=2 K=1 D=10 |C_H|=60 |S|=120  bijection OK, all roots, all k<=K exact; min orbit length=6
+random n=2 K=1: n=2 K=1 D=5 |C_H|=30 |S|=60  bijection OK, all roots, all k<=K exact; min orbit length=4
+random n=2 K=1: n=2 K=1 D=5 |C_H|=30 |S|=60  bijection OK, all roots, all k<=K exact; min orbit length=12
+random n=2 K=1: n=2 K=1 D=8 |C_H|=48 |S|=96  bijection OK, all roots, all k<=K exact; min orbit length=4
+random n=2 K=1: n=2 K=1 D=4 |C_H|=24 |S|=48  bijection OK, all roots, all k<=K exact; min orbit length=8
+random n=2 K=1: n=2 K=1 D=7 |C_H|=42 |S|=84  bijection OK, all roots, all k<=K exact; min orbit length=84
+random n=2 K=1: n=2 K=1 D=2 |C_H|=12 |S|=24  bijection OK, all roots, all k<=K exact; min orbit length=4
+random n=2 K=1: n=2 K=1 D=6 |C_H|=36 |S|=72  bijection OK, all roots, all k<=K exact; min orbit length=5
+random n=2 K=1: n=2 K=1 D=10 |C_H|=60 |S|=120  bijection OK, all roots, all k<=K exact; min orbit length=14
+random n=2 K=1: n=2 K=1 D=5 |C_H|=30 |S|=60  bijection OK, all roots, all k<=K exact; min orbit length=6
+random n=2 K=2: n=2 K=2 D=28 |C_H|=21168 |S|=42336  bijection OK, all roots, all k<=K exact; min orbit length=36
+random n=2 K=2: n=2 K=2 D=12 |C_H|=3888 |S|=7776  bijection OK, all roots, all k<=K exact; min orbit length=121
+random n=2 K=2: n=2 K=2 D=10 |C_H|=2700 |S|=5400  bijection OK, all roots, all k<=K exact; min orbit length=18
+random n=2 K=2: n=2 K=2 D=4 |C_H|=432 |S|=864  bijection OK, all roots, all k<=K exact; min orbit length=5
+random n=2 K=2: n=2 K=2 D=4 |C_H|=432 |S|=864  bijection OK, all roots, all k<=K exact; min orbit length=23
+random n=2 K=2: n=2 K=2 D=42 |C_H|=47628 |S|=95256  bijection OK, all roots, all k<=K exact; min orbit length=33
+random n=2 K=2: n=2 K=2 D=42 |C_H|=47628 |S|=95256  bijection OK, all roots, all k<=K exact; min orbit length=34
+random n=2 K=2: n=2 K=2 D=4 |C_H|=432 |S|=864  bijection OK, all roots, all k<=K exact; min orbit length=14
+random n=2 K=2: n=2 K=2 D=72 |C_H|=139968 |S|=279936  bijection OK, all roots, all k<=K exact; min orbit length=40
+random n=2 K=2: n=2 K=2 D=30 |C_H|=24300 |S|=48600  bijection OK, all roots, all k<=K exact; min orbit length=20
+random n=2 K=2: n=2 K=2 D=6 |C_H|=972 |S|=1944  bijection OK, all roots, all k<=K exact; min orbit length=13
+random n=2 K=2: n=2 K=2 D=20 |C_H|=10800 |S|=21600  bijection OK, all roots, all k<=K exact; min orbit length=18
+random n=2 K=2: n=2 K=2 D=2 |C_H|=108 |S|=216  bijection OK, all roots, all k<=K exact; min orbit length=48
+random n=2 K=2: n=2 K=2 D=15 |C_H|=6075 |S|=12150  bijection OK, all roots, all k<=K exact; min orbit length=14
+random n=2 K=2: n=2 K=2 D=14 |C_H|=5292 |S|=10584  bijection OK, all roots, all k<=K exact; min orbit length=18
+random n=2 K=2: n=2 K=2 D=6 |C_H|=972 |S|=1944  bijection OK, all roots, all k<=K exact; min orbit length=179
+random n=2 K=2: n=2 K=2 D=4 |C_H|=432 |S|=864  bijection OK, all roots, all k<=K exact; min orbit length=16
+random n=2 K=2: n=2 K=2 D=30 |C_H|=24300 |S|=48600  bijection OK, all roots, all k<=K exact; min orbit length=47
+random n=2 K=3: n=2 K=3 D=6 |C_H|=23328 |S|=46656  bijection OK, all roots, all k<=K exact; min orbit length=53
+random n=3 K=1: n=3 K=1 D=84 |C_H|=672 |S|=2016  bijection OK, all roots, all k<=K exact; min orbit length=12
+random n=3 K=1: n=3 K=1 D=280 |C_H|=2240 |S|=6720  bijection OK, all roots, all k<=K exact; min orbit length=7
+random n=3 K=1: n=3 K=1 D=20 |C_H|=160 |S|=480  bijection OK, all roots, all k<=K exact; min orbit length=4
+random n=3 K=1: n=3 K=1 D=4 |C_H|=32 |S|=96  bijection OK, all roots, all k<=K exact; min orbit length=25
+random n=3 K=1: n=3 K=1 D=420 |C_H|=3360 |S|=10080  bijection OK, all roots, all k<=K exact; min orbit length=14
+random n=3 K=1: n=3 K=1 D=6 |C_H|=48 |S|=144  bijection OK, all roots, all k<=K exact; min orbit length=5
+random n=3 K=1: n=3 K=1 D=21 |C_H|=168 |S|=504  bijection OK, all roots, all k<=K exact; min orbit length=7
+random n=3 K=1: n=3 K=1 D=15 |C_H|=120 |S|=360  bijection OK, all roots, all k<=K exact; min orbit length=19
+random n=3 K=1: n=3 K=1 D=55 |C_H|=440 |S|=1320  bijection OK, all roots, all k<=K exact; min orbit length=5
+random n=3 K=1: n=3 K=1 D=21 |C_H|=168 |S|=504  bijection OK, all roots, all k<=K exact; min orbit length=38
+random n=3 K=1: n=3 K=1 D=24 |C_H|=192 |S|=576  bijection OK, all roots, all k<=K exact; min orbit length=8
+random n=3 K=1: n=3 K=1 D=22 |C_H|=176 |S|=528  bijection OK, all roots, all k<=K exact; min orbit length=14
+random n=3 K=1: n=3 K=1 D=6 |C_H|=48 |S|=144  bijection OK, all roots, all k<=K exact; min orbit length=5
+random n=3 K=1: n=3 K=1 D=105 |C_H|=840 |S|=2520  bijection OK, all roots, all k<=K exact; min orbit length=17
+random n=3 K=1: n=3 K=1 D=12 |C_H|=96 |S|=288  bijection OK, all roots, all k<=K exact; min orbit length=7
+random rational laws certified: 54; smallest orbit length seen on prior support = 4
+tape_check: COMPLETE

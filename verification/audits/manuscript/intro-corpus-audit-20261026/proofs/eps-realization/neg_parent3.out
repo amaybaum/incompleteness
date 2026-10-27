@@ -1,0 +1,4 @@
+b=16 |O|=1 r=4 (R=4 <= |O| d^2): Tr rho=4*2^-b, Q=1*2^-b, s/Q=4; E=4.58e-05 <= eta||rho||=4.69e-02: True; ||K~-I||_1=3.0002 vs 4 eta s + 8 nu=4.0000: EXCEEDED=False
+b=16 |O|=2 r=4 (R=8 <= |O| d^2): Tr rho=4*2^-b, Q=1*2^-b, s/Q=4; E=4.58e-05 <= eta||rho||=9.38e-02: True; ||K~-I||_1=2.1555 vs 4 eta s + 8 nu=4.0000: EXCEEDED=False
+b=16 |O|=3 r=4 (R=12 <= |O| d^2): Tr rho=5*2^-b, Q=1*2^-b, s/Q=5; E=6.10e-05 <= eta||rho||=1.41e-01: True; ||K~-I||_1=2.1830 vs 4 eta s + 8 nu=4.0000: EXCEEDED=False
+b=16 |O|=4 r=4 (R=16 <= |O| d^2): Tr rho=5*2^-b, Q=1*2^-b, s/Q=5; E=6.17e-05 <= eta||rho||=1.88e-01: True; ||K~-I||_1=2.1248 vs 4 eta s + 8 nu=4.0001: EXCEEDED=False

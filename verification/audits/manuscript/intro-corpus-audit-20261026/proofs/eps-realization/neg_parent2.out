@@ -1,0 +1,12 @@
+b=16 |O|=2 r=4 (R=8): Tr rho = 1*2^-b, Q = 13028*2^-b, s/Q = 1/13028
+   E = 2.021e-05 <= eta||rho||_1 = 9.375e-02: True
+   ||K~(rho) - I(rho)||_1 = 1.0000  vs claimed 4 eta s + 8 nu = 4.0000:  EXCEEDED = False
+   output negativity = 0.0000  (input negativity 0.5)
+b=16 |O|=3 r=4 (R=12): Tr rho = 1*2^-b, Q = 12581*2^-b, s/Q = 1/12581
+   E = 3.782e-05 <= eta||rho||_1 = 1.406e-01: True
+   ||K~(rho) - I(rho)||_1 = 1.0000  vs claimed 4 eta s + 8 nu = 4.0000:  EXCEEDED = False
+   output negativity = 0.0000  (input negativity 0.5)
+b=20 |O|=3 r=4 (R=12): Tr rho = 1*2^-b, Q = 164412*2^-b, s/Q = 1/164412
+   E = 1.731e-06 <= eta||rho||_1 = 8.789e-03: True
+   ||K~(rho) - I(rho)||_1 = 1.0000  vs claimed 4 eta s + 8 nu = 4.0000:  EXCEEDED = False
+   output negativity = 0.0000  (input negativity 0.5)

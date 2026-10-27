@@ -1,0 +1,14 @@
+cases (bijection x prior x t): 20496
+tally: {('M_t>0', False): 5304, ('M_t>0', True): 15192, 'M_t=0 but I(X<t;H_t|X_t)>0': 656}
+  ID1                          failures: 0
+  ID2                          failures: 0
+  A                            failures: 0
+  B                            failures: 0
+  C                            failures: 0
+  DIS                          failures: 0
+  I(X<t;H|X)=H(X<t|X)          failures: 0
+  C1                           failures: 0
+  COR witness<->readout        failures: 0
+  COR witness<->M_t>0          failures: 0
+  CMI-formula-vs-KL            failures: 0
+ALL CHECKS PASS

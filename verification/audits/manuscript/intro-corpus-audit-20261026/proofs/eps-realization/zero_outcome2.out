@@ -1,0 +1,3 @@
+negativity-dominated unclipped zero-probability blocks found: 0
+unclipped blocks: 502; negativity-dominated (exact test ||C_-|| > Tr C): 0
+largest ratio ||C_-||_1 / Tr C = 0.618 at b, Tr*2^b, det*4^b, eps = (16, 1.0, -1.0, 1.33514404296875e-05)
