@@ -1832,7 +1832,10 @@
   "outcome": "partial",
   "evidence_level": "certificate-checked",
   "limits": "CoherentLift (CoherentLiftGauge:124) is pointwise admissibility at every time (AdmissibleDilationAt, DilationChoice:134); it does not encode \"compose exactly across times\", and the GL2 docstring (:528-529) records that the cocycle condition is not used because it is vacuous, holding for every family. One explicit witness (|V| = 2, a period-two family, one time pair).",
-  "notes": "Census family status at eae01647 is recorded in part-E1.md."
+  "notes": "Census family status at eae01647 is recorded in part-E1.md.",
+  "not_covered": {
+   "I-149": "CoherentLift is pointwise admissibility at every time; it does not encode 'compose exactly across times' (the cocycle condition is vacuous)"
+  }
  },
  {
   "item": "E1-72",
@@ -2349,10 +2352,10 @@
   "check": "Read the statement and its premise structures from the source at eae01647 (E1_decls.py output, then the definitions it uses) and compared it, clause by clause, with the Introduction claims listed (matrix.json rows and FINDINGS texts). Supports I-009/I-120 (finite recurrence: some multiple of the period is an identity return).",
   "outcome": "partial",
   "evidence_level": "certificate-checked",
-  "limits": "I-088 (\"a finite bijection has finite order L ... one fixed realization has an L-periodic multi-time law\") is about the multi-time law; the kernel states periodicity of the rooted one-time maps, a consequence used by the readback theorems. The multi-time periodicity is elementary but not this declaration.",
+  "limits": "I-088 (\"a finite bijection has finite order L\") and I-089 (\"so one fixed realization has an L-periodic multi-time law\") are about the bijection and the multi-time law; the kernel states periodicity of the rooted one-time maps, a consequence used by the readback theorems. The multi-time periodicity is elementary but not this declaration.",
   "notes": "Census family status at eae01647 is recorded in part-E1.md.",
   "not_covered": {
-   "I-088": "the kernel states periodicity of the rooted one-time maps, not of the multi-time law"
+   "I-088": "the kernel states periodicity of the rooted one-time maps, not the finite order of the bijection"
   }
  },
  {

@@ -8,7 +8,8 @@ are applied with the mapper's layer kept as `mapper_layer`.
 
 Order with step 7: merge_matrix.py, then evidence/scripts/E4_aggregate.py (which reads matrix.json and writes
 evidence.json), then merge_matrix.py again (which copies each row's evidence level from evidence.json), then
-matrix/scripts/render_matrix.py. E4_aggregate.py --check fails if matrix.json's levels differ from evidence.json's.
+matrix/scripts/render_matrix.py. With --check it writes nothing and exits 1 if matrix.json differs from the merge.
+E4_aggregate.py --check fails if matrix.json's levels differ from evidence.json's.
 """
 import json, sys, collections
 
@@ -85,8 +86,13 @@ summary = {"rows": merged, "duplicates": dups, "missing": missing, "extra": extr
            "verdicts": dict(verdicts), "proof_status": dict(status)}
 if all("evidence_level" in r for r in merged):
     summary["evidence_levels"] = dict(collections.Counter(r["evidence_level"] for r in merged))
-json.dump(summary,
-          open("matrix.json", "w", encoding="utf-8"), indent=1, ensure_ascii=False)
+text = json.dumps(summary, indent=1, ensure_ascii=False)
+if "--check" in sys.argv[1:]:
+    same = os.path.exists("matrix.json") and open("matrix.json", encoding="utf-8").read() == text
+    print("matrix.json matches the merge" if same else "matrix.json differs from the merge of the parts, "
+          "chain-relabels.json, resolutions.json and evidence.json")
+    sys.exit(0 if same and not missing else 1)
+open("matrix.json", "w", encoding="utf-8").write(text)
 print("rows", len(merged), "want", len(want), "missing", missing, "extra", extra)
 print("duplicates", dups)
 print("verdicts", dict(verdicts))

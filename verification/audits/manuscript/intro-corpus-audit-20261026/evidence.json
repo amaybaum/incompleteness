@@ -3,9 +3,9 @@
  "counts": {
   "rows": 409,
   "by_level": {
-   "traced-only": 233,
-   "certificate-checked": 130,
-   "reproduced": 43,
+   "traced-only": 235,
+   "certificate-checked": 127,
+   "reproduced": 44,
    "failed": 3
   },
   "by_status_level": [
@@ -57,12 +57,12 @@
    [
     "proved-kernel",
     "certificate-checked",
-    129
+    126
    ],
    [
     "proved-kernel",
     "traced-only",
-    1
+    4
    ],
    [
     "proved-paper",
@@ -77,12 +77,12 @@
    [
     "proved-paper",
     "reproduced",
-    34
+    35
    ],
    [
     "proved-paper",
     "traced-only",
-    149
+    148
    ],
    [
     "unsupported",
@@ -91,7 +91,7 @@
    ]
   ],
   "traced_only_rows_with_checked_artifacts": {
-   "certificate-checked": 27,
+   "certificate-checked": 26,
    "reproduced": 19
   }
  },
@@ -1912,7 +1912,7 @@
   },
   "I-042": {
    "evidence_level": "traced-only",
-   "basis": "weakest of all its links: traced-only (paper-derivation, unmatched exhaustive-computation)",
+   "basis": "weakest of all its links: traced-only (paper-derivation, unmatched exhaustive-computation, unmatched kernel)",
    "artifact_level": "traced-only",
    "artifact_role": "support",
    "verdict": "IMPRECISE",
@@ -1934,14 +1934,14 @@
     {
      "index": 1,
      "source": "papers/GR.md:218-228@eae01647",
-     "layer": "paper-derivation",
+     "layer": "kernel",
      "link_status": "proved",
      "items": [],
      "gap": [
-      "no step-7 artifact type (paper-derivation)"
+      "kernel-layer link without a declaration source; no item names its file"
      ],
      "level": "traced-only",
-     "bearing": false
+     "bearing": true
     },
     {
      "index": 2,
@@ -2268,9 +2268,9 @@
    "context_items": []
   },
   "I-052": {
-   "evidence_level": "certificate-checked",
-   "basis": "weakest of its kernel links",
-   "artifact_level": "certificate-checked",
+   "evidence_level": "traced-only",
+   "basis": "weakest of its kernel links: traced-only (unmatched kernel)",
+   "artifact_level": "traced-only",
    "artifact_role": "support",
    "verdict": "MISCITED",
    "proof_status": "proved-kernel",
@@ -2279,26 +2279,26 @@
     {
      "index": 0,
      "source": "papers/GR.md:218-228@eae01647",
-     "layer": "paper-derivation",
+     "layer": "kernel",
      "link_status": "proved",
      "items": [],
      "gap": [
-      "no step-7 artifact type (paper-derivation)"
+      "kernel-layer link without a declaration source; no item names its file"
      ],
      "level": "traced-only",
-     "bearing": false
+     "bearing": true
     },
     {
      "index": 1,
      "source": "papers/Main.md:624@eae01647",
-     "layer": "paper-derivation",
+     "layer": "kernel",
      "link_status": "proved",
      "items": [],
      "gap": [
-      "no step-7 artifact type (paper-derivation)"
+      "kernel-layer link without a declaration source; no item names its file"
      ],
      "level": "traced-only",
-     "bearing": false
+     "bearing": true
     },
     {
      "index": 2,
@@ -2372,7 +2372,7 @@
   },
   "I-054": {
    "evidence_level": "failed",
-   "basis": "E2-10 failed: The evidence tag fails: L84's 'with exact probes' and Main.md:170's 'Certified exactly' describe a floating-point probe on named instances, which is not an exact probe in L30's sense. The bound itself (paper proof with Pinsker) and its instance values (E2-09, reproduced exactly) stand.; E2-11 failed: The evidence tag fails: L56's 'with exact probes' is not met under L30's definition, since the probes are not exhaustive. The probe values hold exactly on their instances (P1-P5, P-G reproduced), and the realization theorem rests on its paper proof (Main.md:496-500).; load-bearing link 0 matched a failed item; load-bearing link 1 matched a failed item; load-bearing link 2 matched a failed item",
+   "basis": "E2-10 failed: The evidence tag fails: L84's 'with exact probes' and Main.md:170's 'Certified exactly' describe a floating-point probe on named instances, which is not an exact probe in L30's sense. The bound itself (paper proof with Pinsker) and its instance values (E2-09, reproduced exactly) stand.; E2-11 failed: The evidence tag fails on one reading of L30: 'exhaustive' as exhaustive over a class of laws, which the named instances are not. The probe values hold exactly on their instances (P1-P5, P-G reproduced), and the realization theorem rests on its paper proof (Main.md:496-500).; load-bearing link 0 matched a failed item; load-bearing link 1 matched a failed item; load-bearing link 2 matched a failed item",
    "artifact_level": "failed",
    "artifact_role": "support",
    "verdict": "IMPRECISE",
@@ -3072,7 +3072,7 @@
   },
   "I-071": {
    "evidence_level": "failed",
-   "basis": "E2-11 failed: The evidence tag fails: L56's 'with exact probes' is not met under L30's definition, since the probes are not exhaustive. The probe values hold exactly on their instances (P1-P5, P-G reproduced), and the realization theorem rests on its paper proof (Main.md:496-500).; load-bearing link 2 matched a failed item",
+   "basis": "E2-11 failed: The evidence tag fails on one reading of L30: 'exhaustive' as exhaustive over a class of laws, which the named instances are not. The probe values hold exactly on their instances (P1-P5, P-G reproduced), and the realization theorem rests on its paper proof (Main.md:496-500).; load-bearing link 2 matched a failed item",
    "artifact_level": "failed",
    "artifact_role": "support",
    "verdict": "UNDERCLAIM",
@@ -3763,7 +3763,7 @@
      ],
      "gap": [
       "no formal-coverage item",
-      "E1-98 does not cover this row: the kernel states periodicity of the rooted one-time maps, not of the multi-time law"
+      "E1-98 does not cover this row: the kernel states periodicity of the rooted one-time maps, not the finite order of the bijection"
      ],
      "level": "traced-only",
      "bearing": true
@@ -6708,9 +6708,9 @@
    ]
   },
   "I-149": {
-   "evidence_level": "certificate-checked",
-   "basis": "weakest of its kernel links",
-   "artifact_level": "certificate-checked",
+   "evidence_level": "traced-only",
+   "basis": "weakest of its kernel links: traced-only (unmatched kernel)",
+   "artifact_level": "traced-only",
    "artifact_role": "support",
    "verdict": "FAITHFUL",
    "proof_status": "proved-kernel",
@@ -6722,11 +6722,13 @@
      "layer": "kernel",
      "link_status": "proved",
      "items": [
-      "E1-20",
-      "E1-71"
+      "E1-20"
      ],
-     "gap": [],
-     "level": "certificate-checked",
+     "gap": [
+      "no formal-coverage item",
+      "E1-71 does not cover this row: CoherentLift is pointwise admissibility at every time; it does not encode 'compose exactly across times' (the cocycle condition is vacuous)"
+     ],
+     "level": "traced-only",
      "bearing": true
     },
     {
@@ -6743,9 +6745,7 @@
     }
    ],
    "failed_items": [],
-   "partial_items": [
-    "E1-71"
-   ],
+   "partial_items": [],
    "context_items": [
     "E1-01",
     "E3-28"
@@ -8389,11 +8389,12 @@
      "layer": "exact-algebra",
      "link_status": "proved",
      "items": [
-      "E2-17",
       "E2-18"
      ],
      "gap": [],
-     "not_matched": [],
+     "not_matched": [
+      "E2-17"
+     ],
      "level": "reproduced",
      "bearing": true
     }
@@ -9570,9 +9571,9 @@
    ]
   },
   "I-227": {
-   "evidence_level": "reproduced",
-   "basis": "weakest of all its links",
-   "artifact_level": "reproduced",
+   "evidence_level": "traced-only",
+   "basis": "weakest of all its links: traced-only (unmatched exact-algebra)",
+   "artifact_level": "traced-only",
    "artifact_role": "support",
    "verdict": "FAITHFUL",
    "proof_status": "proved-paper",
@@ -9583,13 +9584,15 @@
      "source": "papers/GR.md:833@eae01647",
      "layer": "exact-algebra",
      "link_status": "proved",
-     "items": [
+     "items": [],
+     "gap": [
+      "no computation item for this link (listed items name other records or probes: E2-07, E3-18)"
+     ],
+     "not_matched": [
       "E2-07",
       "E3-18"
      ],
-     "gap": [],
-     "not_matched": [],
-     "level": "reproduced",
+     "level": "traced-only",
      "bearing": true
     },
     {
@@ -9611,13 +9614,15 @@
      "source": "book/ch07-gravity.md:126@eae01647",
      "layer": "exact-algebra",
      "link_status": "proved",
-     "items": [
+     "items": [],
+     "gap": [
+      "no computation item for this link (listed items name other records or probes: E2-07, E3-18)"
+     ],
+     "not_matched": [
       "E2-07",
       "E3-18"
      ],
-     "gap": [],
-     "not_matched": [],
-     "level": "reproduced",
+     "level": "traced-only",
      "bearing": true
     }
    ],
@@ -10784,9 +10789,9 @@
    ]
   },
   "I-258": {
-   "evidence_level": "certificate-checked",
-   "basis": "weakest of its kernel links",
-   "artifact_level": "certificate-checked",
+   "evidence_level": "traced-only",
+   "basis": "weakest of its kernel links: traced-only (unmatched kernel)",
+   "artifact_level": "traced-only",
    "artifact_role": "support",
    "verdict": "UNDERCLAIM",
    "proof_status": "proved-kernel",
@@ -10858,14 +10863,14 @@
     {
      "index": 5,
      "source": "papers/GR.md:266@eae01647",
-     "layer": "paper-derivation",
+     "layer": "kernel",
      "link_status": "proved",
      "items": [],
      "gap": [
-      "no step-7 artifact type (paper-derivation)"
+      "kernel-layer link without a declaration source; no item names its file"
      ],
      "level": "traced-only",
-     "bearing": false
+     "bearing": true
     },
     {
      "index": 6,
@@ -11894,7 +11899,7 @@
   "I-281": {
    "evidence_level": "traced-only",
    "basis": "proof status open: the chain does not establish the claim",
-   "artifact_level": "certificate-checked",
+   "artifact_level": "traced-only",
    "artifact_role": "support",
    "verdict": "UNDERCLAIM",
    "proof_status": "open",
@@ -11966,14 +11971,14 @@
     {
      "index": 5,
      "source": "papers/GR.md:266@eae01647",
-     "layer": "paper-derivation",
+     "layer": "kernel",
      "link_status": "proved",
      "items": [],
      "gap": [
-      "no step-7 artifact type (paper-derivation)"
+      "kernel-layer link without a declaration source; no item names its file"
      ],
      "level": "traced-only",
-     "bearing": false
+     "bearing": true
     },
     {
      "index": 6,
@@ -17788,9 +17793,9 @@
    "context_items": []
   },
   "I-384": {
-   "evidence_level": "traced-only",
-   "basis": "weakest of all its links: traced-only (unmatched none)",
-   "artifact_level": "traced-only",
+   "evidence_level": "reproduced",
+   "basis": "weakest of all its links",
+   "artifact_level": "reproduced",
    "artifact_role": "support",
    "verdict": "FAITHFUL",
    "proof_status": "proved-paper",
@@ -17801,11 +17806,12 @@
      "source": "verification/programmes/black-hole-information/PROGRAMME.md@eae01647",
      "layer": "none",
      "link_status": "proved",
-     "items": [],
-     "gap": [
-      "no ci-receipt item lists the row"
+     "items": [
+      "E3-16",
+      "E3-17"
      ],
-     "level": "traced-only",
+     "gap": [],
+     "level": "reproduced",
      "bearing": true
     },
     {
@@ -17813,11 +17819,12 @@
      "source": "verification/programmes/black-hole-information/bh01_access_v1/review/README.md@eae01647",
      "layer": "none",
      "link_status": "proved",
-     "items": [],
-     "gap": [
-      "no ci-receipt item lists the row"
+     "items": [
+      "E3-16",
+      "E3-17"
      ],
-     "level": "traced-only",
+     "gap": [],
+     "level": "reproduced",
      "bearing": true
     },
     {
@@ -17825,22 +17832,26 @@
      "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md@eae01647",
      "layer": "none",
      "link_status": "proved",
-     "items": [],
-     "gap": [
-      "no ci-receipt item lists the row"
+     "items": [
+      "E3-16",
+      "E3-17"
      ],
-     "level": "traced-only",
+     "gap": [],
+     "level": "reproduced",
      "bearing": true
     }
    ],
    "failed_items": [],
    "partial_items": [],
-   "context_items": []
+   "context_items": [
+    "E3-16",
+    "E3-17"
+   ]
   },
   "I-385": {
-   "evidence_level": "traced-only",
-   "basis": "weakest of all its links: traced-only (unmatched none)",
-   "artifact_level": "traced-only",
+   "evidence_level": "reproduced",
+   "basis": "weakest of all its links",
+   "artifact_level": "reproduced",
    "artifact_role": "support",
    "verdict": "FAITHFUL",
    "proof_status": "proved-paper",
@@ -17851,11 +17862,12 @@
      "source": "verification/programmes/black-hole-information/bh02_scramble_v1/review/README.md@eae01647",
      "layer": "none",
      "link_status": "proved",
-     "items": [],
-     "gap": [
-      "no ci-receipt item lists the row"
+     "items": [
+      "E3-16",
+      "E3-18"
      ],
-     "level": "traced-only",
+     "gap": [],
+     "level": "reproduced",
      "bearing": true
     },
     {
@@ -17863,11 +17875,12 @@
      "source": "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md@eae01647",
      "layer": "none",
      "link_status": "proved",
-     "items": [],
-     "gap": [
-      "no ci-receipt item lists the row"
+     "items": [
+      "E3-16",
+      "E3-18"
      ],
-     "level": "traced-only",
+     "gap": [],
+     "level": "reproduced",
      "bearing": true
     },
     {
@@ -17875,17 +17888,21 @@
      "source": "verification/programmes/black-hole-information/bh02_scramble_v1/PROVENANCE.json@eae01647",
      "layer": "none",
      "link_status": "proved",
-     "items": [],
-     "gap": [
-      "no ci-receipt item lists the row"
+     "items": [
+      "E3-16",
+      "E3-18"
      ],
-     "level": "traced-only",
+     "gap": [],
+     "level": "reproduced",
      "bearing": true
     }
    ],
    "failed_items": [],
    "partial_items": [],
-   "context_items": []
+   "context_items": [
+    "E3-16",
+    "E3-18"
+   ]
   }
  },
  "finding_items": {

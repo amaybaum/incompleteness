@@ -1,4 +1,5 @@
 """B5 exact checks for Introduction Appendix B (rational arithmetic only)."""
+import sys
 from fractions import Fraction as F
 from itertools import permutations, product
 import sympy as sp
@@ -218,3 +219,7 @@ out['swap_fixed_one_step'] = sp.simplify(onef - X.trace() * P0) == sp.zeros(2)
 # Choi of the constant channel is separable (product) -> entanglement-breaking
 for k, v in out.items():
     print(k, '=', v)
+cc = (list(out['B2_countercontrols (independent 0, copy-of-X1 0, noisy copy 1-h(1/4))'])
+      + list(out['H3_variant_countercontrols']) + [out['H3_variant']['cond_general_a_is_a_over_2_minus_a']])
+if not all(cc):
+    sys.exit('b5_check: a countercontrol or the a/(2-a) check failed')

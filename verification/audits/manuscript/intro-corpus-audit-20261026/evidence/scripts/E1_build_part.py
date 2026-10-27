@@ -187,7 +187,7 @@ COV = {
     'memory': ('pass', 'memory R := cmiBits R.w varHist varNow (varNext R) = I(X_<t; X_{t+1} | X_t) in bits.', 'Matches M_t (L72).', ''),
     'rootedMap_periodic': ('partial', 'PeriodicFamily (fun t => rootedMap R t): exists M > 0 with Gamma (t + M) = Gamma t for every t.',
         'Supports I-009/I-120 (finite recurrence: some multiple of the period is an identity return).',
-        'I-088 ("a finite bijection has finite order L ... one fixed realization has an L-periodic multi-time law") is about the multi-time law; the kernel states periodicity of the rooted one-time maps, a consequence used by the readback theorems. The multi-time periodicity is elementary but not this declaration.'),
+        'I-088 ("a finite bijection has finite order L") and I-089 ("so one fixed realization has an L-periodic multi-time law") are about the bijection and the multi-time law; the kernel states periodicity of the rooted one-time maps, a consequence used by the readback theorems. The multi-time periodicity is elementary but not this declaration.'),
     'responseRealization': ('partial', 'Given row-stochastic Gamma : N -> Matrix V V R and M: a RootedRealization on ResponseHidden V M with step responseStep and prior responsePrior Gamma.',
         'A rooted-family analogue of the independent-prior realization.',
         'Does not cover I-071 (finite-horizon multi-time laws with a prior independent of x_0); R-08 correctly adds no "machine-checked".'),
@@ -355,7 +355,8 @@ def main():
     # Listed claims a partial coverage reading does not cover (E4 then grades the row's link to it traced-only).
     NOT_COVERED = {
         'isDiag_Phi': {'I-129': 'the kernel covers only the diagonal-preservation premise of the written theorem'},
-        'rootedMap_periodic': {'I-088': 'the kernel states periodicity of the rooted one-time maps, not of the multi-time law'},
+        'rootedMap_periodic': {'I-088': 'the kernel states periodicity of the rooted one-time maps, not the finite order of the bijection'},
+        'gl2_strong_gauge_moves_relative_candidate': {'I-149': "CoherentLift is pointwise admissibility at every time; it does not encode 'compose exactly across times' (the cocycle condition is vacuous)"},
         'responseRealization': {'I-071': 'a rooted-family analogue; not the finite-horizon multi-time law with a prior independent of x_0'},
     }
     # formal coverage items, one per declaration

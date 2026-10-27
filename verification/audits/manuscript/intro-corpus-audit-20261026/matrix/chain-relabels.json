@@ -1,30 +1,5 @@
 {
- "_note": "Chain-link layer corrections from the step-7 review (review/EVIDENCE-REVIEW.md, R6, O6, R1). merge_matrix.py applies them after the parts and keeps each mapper value as mapper_layer on the link. Each entry names the link by index and by its source, which the merge checks.",
- "I-042": [
-  {
-   "index": 1,
-   "source": "papers/GR.md:218-228@eae01647",
-   "from": "kernel",
-   "to": "paper-derivation",
-   "reason": "a corpus paper line, not a declaration: the paper states the result and cites the kernel"
-  }
- ],
- "I-052": [
-  {
-   "index": 0,
-   "source": "papers/GR.md:218-228@eae01647",
-   "from": "kernel",
-   "to": "paper-derivation",
-   "reason": "a corpus paper line, not a declaration: the paper states the result and cites the kernel"
-  },
-  {
-   "index": 1,
-   "source": "papers/Main.md:624@eae01647",
-   "from": "kernel",
-   "to": "paper-derivation",
-   "reason": "a corpus paper line, not a declaration: the paper states the result and cites the kernel"
-  }
- ],
+ "_note": "Chain-link layer corrections from the step-7 reviews (review/EVIDENCE-REVIEW.md R6, O6, R1). merge_matrix.py applies them after the parts and keeps each mapper value as mapper_layer on the link; each entry names its link by index and by its source, which the merge checks. Kernel-proved steps the mapper sourced to a paper line that cites the kernel (I-042, I-052, I-258, I-281) keep the kernel layer: step 7 grades them traced-only until they are sourced to declarations.",
  "I-063": [
   {
    "index": 2,
@@ -32,24 +7,6 @@
    "from": "kernel",
    "to": "none",
    "reason": "a coverage-ledger entry records the kernel status; the kernel link is link 0, finite_horizon_equivalence"
-  }
- ],
- "I-258": [
-  {
-   "index": 5,
-   "source": "papers/GR.md:266@eae01647",
-   "from": "kernel",
-   "to": "paper-derivation",
-   "reason": "a corpus paper line, not a declaration: the paper states the result and cites the kernel"
-  }
- ],
- "I-281": [
-  {
-   "index": 5,
-   "source": "papers/GR.md:266@eae01647",
-   "from": "kernel",
-   "to": "paper-derivation",
-   "reason": "a corpus paper line, not a declaration: the paper states the result and cites the kernel"
   }
  ],
  "I-282": [

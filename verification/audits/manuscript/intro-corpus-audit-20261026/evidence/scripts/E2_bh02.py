@@ -8,7 +8,8 @@
     Countercontrols, which must fire: CC-a, the same evolution from the entangled vector
     e_0 + e_last, must reach rank 2 for some permutation; CC-b, the rank of a Bell vector and
     of H-then-CNOT and of a rational rotation then CNOT applied to e_0 (not permutations) must be 2,
-    and of CNOT alone (a permutation) 1.
+    and of CNOT alone (a permutation) 1; CC-c, the orbits of length 1 over all permutations and
+    configurations must number N!, the total count of fixed points, so the permutation is applied.
 (2) C6(c) diagonal shell span{|i>|i>}: exact Haar mean H_m - 1 against the exact Page value
     S_Page(m,m) = sum_{k=m+1}^{m^2} 1/k - (m-1)/(2m), m = 2, 3, 4, 8, 16 (rational comparison).
 (3) C6(c) Hamming-weight shells: the concavity bound E[S] <= S(E rho_R), with
@@ -58,11 +59,12 @@ def c1_sweep(q, n, start):
     """Number of (permutation, orbit state, cut) with rank > 1, evolving the dense vector start."""
     confs = list(itertools.product(range(q), repeat=n))
     cuts = [c for r in range(1, n) for c in itertools.combinations(range(n), r)]
-    bad = perms = 0
+    bad = perms = fixed = 0
     cache = {}
     for img in itertools.permutations(range(len(confs))):
         perms += 1
         vec = tuple(start)
+        steps = 0
         for _ in range(len(confs) + 1):         # an orbit returns within the permutation's order
             if vec not in cache:
                 cache[vec] = sum(cut_rank(vec, confs, c, q, n) > 1 for c in cuts)
@@ -71,20 +73,25 @@ def c1_sweep(q, n, start):
             for x, amp in enumerate(vec):      # (P_pi v)[img[x]] = v[x]
                 nxt[img[x]] += amp
             vec = tuple(nxt)
+            steps += 1
             if vec == tuple(start):
                 break
-    return perms, bad
+        fixed += steps == 1
+    return perms, bad, fixed
 
 for q, n in ((2, 2), (2, 3)):
     N = q ** n
-    bad_total = 0
+    bad_total = fixed_total = 0
     for s0 in range(N):
-        p, b = c1_sweep(q, n, [int(x == s0) for x in range(N)])
-        bad_total += b
-    _, cc_a = c1_sweep(q, n, [int(x in (0, N - 1)) for x in range(N)])
+        p, b, f = c1_sweep(q, n, [int(x == s0) for x in range(N)])
+        bad_total += b; fixed_total += f
+    _, cc_a, _ = c1_sweep(q, n, [int(x in (0, N - 1)) for x in range(N)])
+    # Control that the evolution is applied: the (permutation, configuration) pairs whose orbit has length 1 are the
+    # fixed points, and the fixed points of all N! permutations number N! (each configuration is fixed by (N-1)!).
     out["C1_q%d_n%d" % (q, n)] = {"permutations": p, "starting_configurations": N,
                                   "rank_gt_1_from_configuration_states": bad_total,
-                                  "CC-a_rank_gt_1_from_e0_plus_elast": cc_a}
+                                  "CC-a_rank_gt_1_from_e0_plus_elast": cc_a,
+                                  "CC-c_orbit_length_1_pairs": fixed_total, "CC-c_equals_N!": fixed_total == p}
 confs22 = list(itertools.product(range(2), repeat=2))
 def apply(M, v):
     return [sum(M[i][j] * v[j] for j in range(len(v))) for i in range(len(M))]
@@ -128,7 +135,7 @@ for n, w, r in ((8, 2, 4), (10, 2, 5), (12, 3, 6), (6, 3, 3), (8, 4, 4), (10, 5,
                                      "certified_below": bool(S.b < spi.a), "upper_bound_above_S_Page": bool(S.a > spi.b)}
 out["C6c_hamming_shells"] = ham
 c1 = [out["C1_q2_n2"], out["C1_q2_n3"]]
-out["C1_controls_fire"] = (all(v["CC-a_rank_gt_1_from_e0_plus_elast"] > 0 for v in c1)
+out["C1_controls_fire"] = (all(v["CC-a_rank_gt_1_from_e0_plus_elast"] > 0 and v["CC-c_equals_N!"] for v in c1)
                            and all(out["C1_CC-b"][k] == 2 for k in ("bell_rank", "h_then_cnot_rank", "rotation_then_cnot_rank"))
                            and out["C1_CC-b"]["cnot_alone_rank"] == 1)
 out["all_as_reported"] = (out["C1_controls_fire"] and all(v["rank_gt_1_from_configuration_states"] == 0 for v in c1)

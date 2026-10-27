@@ -330,7 +330,9 @@
   "type": "ci-receipt",
   "what": "Code and data paths of L197–200 at the corpus commit b64919cd: papers/oi_lattice_code/foundations/ (41 files) and verification/programmes/black-hole-information/ (bh01 15 files, bh02 15 files) exist; LICENSE is MIT; .gitattributes marks verification/programmes export-ignore, so the black-hole computations are not in the release archive, as stated. The black-hole directory is identical at b64919cd and eae01647.",
   "claims": [
-   "I-044"
+   "I-044",
+   "I-384",
+   "I-385"
   ],
   "sources": [
    "papers/Introduction.md:197-200@4a260ca9",
@@ -366,7 +368,8 @@
    "I-220",
    "I-230",
    "I-265",
-   "I-305"
+   "I-305",
+   "I-384"
   ],
   "sources": [
    "verification/programmes/black-hole-information/bh01_access_v1/@eae01647",
@@ -396,7 +399,8 @@
    "I-239",
    "I-265",
    "I-286",
-   "I-287"
+   "I-287",
+   "I-385"
   ],
   "sources": [
    "verification/programmes/black-hole-information/bh02_scramble_v1/@eae01647",

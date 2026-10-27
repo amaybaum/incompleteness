@@ -137,7 +137,7 @@
    "verification/programmes/black-hole-information/bh02_scramble_v1/checks.py:490-582@eae01647",
    "verification/programmes/black-hole-information/bh02_scramble_v1/result.json@eae01647"
   ],
-  "check": "Replay of BHb checks.py at eae01647 (E3-18): result.json reproduced byte for byte, including C1 at (2,2), (2,3) and (3,2) with 0 states of rank > 1 and the countercontrols CC1 = 2 and CC2 = 2, which checks.py requires before it prints the C1 verdict (controls['K-rank']). Independent sweep, python3 -I evidence/scripts/E2_bh02.py, at (2,2) and (2,3): dense integer amplitude vectors evolved by the permutation matrix, exact rank of the amplitude matrix at every aligned cut for every orbit state; 0 states of rank > 1 from every configuration state. Its countercontrols fire: from e_0 + e_last the same evolution reaches rank 2 (64 and 677,376 (permutation, state, cut) triples), and the Bell vector, H then CNOT and a rational rotation then CNOT give rank 2 while CNOT alone gives 1. A mutant evolution that leaks amplitude to a neighbouring configuration is caught (448 states of rank > 1 at (2,2)).",
+  "check": "Replay of BHb checks.py at eae01647 (E3-18): result.json reproduced byte for byte, including C1 at (2,2), (2,3) and (3,2) with 0 states of rank > 1 and the countercontrols CC1 = 2 and CC2 = 2, which checks.py requires before it prints the C1 verdict (controls['K-rank']). Independent sweep, python3 -I evidence/scripts/E2_bh02.py, at (2,2) and (2,3): dense integer amplitude vectors evolved by the permutation matrix, exact rank of the amplitude matrix at every aligned cut for every orbit state; 0 states of rank > 1 from every configuration state. Its countercontrols fire: from e_0 + e_last the same evolution reaches rank 2 (64 and 677,376 (permutation, state, cut) triples), and the Bell vector, H then CNOT and a rational rotation then CNOT give rank 2 while CNOT alone gives 1. The orbits of length 1 over all permutations and configurations number N! (24 and 40,320), the total count of fixed points, so the permutation is applied; a mutant that never applies it is caught. A mutant evolution that leaks amplitude to a neighbouring configuration is caught (448 states of rank > 1 at (2,2)).",
   "outcome": "pass",
   "evidence_level": "reproduced",
   "limits": "The universal claim rests on the one-line proof (P_pi maps basis vectors to basis vectors); the sweeps check it at three sizes. The independent sweep does not reach (3,2); that size rests on the checks.py replay. mutants.py and the -O replay are not run (see the CI proposal).",
@@ -224,7 +224,7 @@
   "evidence_level": "failed",
   "limits": "Replay of corpus code, not an independent implementation. The probes meet R-03's proposed narrowed definition ('exact rational arithmetic on stated small instances'); under it the tag would hold. P-G checks only the response-table law identity on one rational instance; it builds no bijection (no ledger/clock completion) and no irrational kernel, so R-08's 'for every law' rests on the paper Extension (Main.md:498). P6 capacity line is float (info only). Not in CI.",
   "notes": "Same ground as E2-10's exhaustiveness clause; both are fixed by R-03.",
-  "failure_scope": "The evidence tag fails: L56's 'with exact probes' is not met under L30's definition, since the probes are not exhaustive. The probe values hold exactly on their instances (P1-P5, P-G reproduced), and the realization theorem rests on its paper proof (Main.md:496-500)."
+  "failure_scope": "The evidence tag fails on one reading of L30: 'exhaustive' as exhaustive over a class of laws, which the named instances are not. The probe values hold exactly on their instances (P1-P5, P-G reproduced), and the realization theorem rests on its paper proof (Main.md:496-500)."
  },
  {
   "item": "E2-12",
@@ -265,9 +265,10 @@
   ],
   "sources": [
    "papers/Introduction.md:219-253@4a260ca9",
-   "papers/Main.md:178-198@eae01647"
+   "papers/Main.md:178-198@eae01647",
+   "book/ch01-observation.md:277-280@eae01647"
   ],
-  "check": "Independent script python3 -I evidence/scripts/E2_appendixB.py (Fractions; a-dependence as exact linear polynomials; B.2 CMI evaluated exactly in bits on a dyadic law; sympy for the 2x2 operator identities). All checks true. Cross-checked against the audit's matrix/scripts/b5_check.py: same values. Also covers I-368 (the overwrite peek gives 1/2 while the reveal-only and replace-hole peeks give 1), I-370 (on card inputs the swap with a uniform hidden card is a permutation, and Gamma_1, Gamma_2 are computed as the classical rooted process it induces) and I-379 (the uniform-burn one-step map tr(rho)I/2 decomposes as the Pauli instrument).",
+  "check": "Independent script python3 -I evidence/scripts/E2_appendixB.py (Fractions; a-dependence as exact linear polynomials; B.2 CMI evaluated exactly in bits on a dyadic law; sympy for the 2x2 operator identities). All checks true. Cross-checked against the audit's matrix/scripts/b5_check.py: same values. Also covers I-368 (the overwrite peek gives 1/2 while the reveal-only and replace-hole peeks give 1), I-370 (on card inputs the swap with a uniform hidden card is a permutation, and Gamma_1, Gamma_2 are computed as the classical rooted process it induces) and I-379 (the uniform-burn one-step map tr(rho)I/2 decomposes as the Pauli instrument). The book's card table (ch01:277-280 at eae01647) states the same four values (1/2, 1, 1/2 chained through the middle, 1/2 with a peek), which the same computations give.",
   "outcome": "pass",
   "evidence_level": "reproduced",
   "limits": "The Bell statement (L255) and the BBS24 'admits no such decomposition' for the fixed card are not computational and not checked here.",

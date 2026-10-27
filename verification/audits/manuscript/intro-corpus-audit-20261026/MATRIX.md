@@ -30,9 +30,9 @@
 
 | Evidence level (step 7, `EVIDENCE.md`) | Rows |
 |---|--:|
-| reproduced | 43 |
-| certificate-checked | 130 |
-| traced-only | 233 |
+| reproduced | 44 |
+| certificate-checked | 127 |
+| traced-only | 235 |
 | failed | 3 |
 
 Verdicts by section (*Rows* counts every row of the section; the other columns count its non-FAITHFUL verdicts):
@@ -146,7 +146,7 @@ Dependency blocks follow the table of the section that states each multi-step re
 | I-049 | 28 | The §2.4 memory bounds are forms of the data-processing and Pinsker inequalities. | papers/Main.md:590@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
 | I-050 | 28 | The §2.5 recurrence argument combines finite order with the known contraction criterion for divisibility. | papers/Main.md:121@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
 | I-051 | 28 | Doukas states the recurrence argument concurrently. | Dou26 Prop. 1 |  | proved-paper | FAITHFUL |  | traced-only |
-| I-052 | 28 | The §3.2–§3.3 results are proved in [GR] and [Main]. | lean:OIBridge/GeneralCarrier.lean:100:exactAll_iff_physical_general |  | proved-kernel | **MISCITED** |  | certificate-checked |
+| I-052 | 28 | The §3.2–§3.3 results are proved in [GR] and [Main]. | lean:OIBridge/GeneralCarrier.lean:100:exactAll_iff_physical_general |  | proved-kernel | **MISCITED** |  | traced-only |
 
 ## §1.2 Conventions
 
@@ -412,7 +412,7 @@ Weakest row status, which governs: **proved-kernel** (I-139, I-139.a, I-139.b, I
 |---|--:|---|---|---|---|---|---|---|
 | I-147 | 122 | The evolution relating two times is not selected (heading). | lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate |  | proved-kernel | **IMPRECISE** |  | certificate-checked |
 | I-148 | 124 | Representability does not fix the unitary evolution relating two times. | lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate |  | proved-kernel | FAITHFUL |  | certificate-checked |
-| I-149 | 124 | Two coherent lifts of one visible family can differ by a time-dependent right action invisible to the visible law and have different relating evolutions. | lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate | coherent lifts on a fixed carrier and anchor | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-149 | 124 | Two coherent lifts of one visible family can differ by a time-dependent right action invisible to the visible law and have different relating evolutions. | lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate | coherent lifts on a fixed carrier and anchor | proved-kernel | FAITHFUL |  | traced-only |
 | I-150 | 124 | A constant deformation cancels from every relating evolution. | lean:CoherentLiftGauge.lean:451:gl3_constant_gauge_preserves_relative | constant unitary right action | proved-kernel | FAITHFUL |  | certificate-checked |
 | I-151 | 126 | Setting for the bridge results: fixed-basis datum from a lift with trivial ancilla at one time, uniform initial law, identity readout. | lean:TrackBQfbBridge.lean:43:realData |  | proved-kernel | FAITHFUL |  | certificate-checked |
 | I-152 | 126 | Same one-step visible matrix ⇒ same root-conditioned trajectory laws at every horizon. | lean:TrackBQfbBridge.lean:276:bridge_traj | trivial ancilla; same one-step visible matrix (slice) G | proved-kernel | FAITHFUL |  | certificate-checked |
@@ -538,7 +538,7 @@ Conditional on: covariant field equations derived from the substratum, with cons
 | I-224 | 162 | The Page-curve configuration space is C_V × C_B × C_D (exterior, interior, beyond the cosmological horizon); the radiation R ⊂ V is emitted from B. | papers/GR.md:719@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
 | I-225 | 162 | For all but an exponentially negligible fraction of initial conditions, the full-cycle time-averaged radiation entanglement entropy at fixed bipartition equals S_Page(d_B,d_R) up to Theorem A.8's correction. | papers/GR.md:817@eae01647 | conditional on: H-scramble; H-decouple (A.9); single energy shell = full product space; H-scramble (orbit ensemble equidistributes over pure states on the shell), not established; fails for every bijection on a definite configuration with aligned bipartition; single energy shell = full product space C_B × C_R; H-decouple (B∪R uncoupled from D and V∖R, jointly pure, over whole cycles), not established | unsupported | **OVERCLAIM** | GR:835, appendix-a-prediction-status:111, ch19-open-problems:72 | traced-only |
 | I-226 | 162 | The Page-value result holds under H-scramble (orbit ensemble equidistributes over pure states on the shell). | papers/GR.md:835@eae01647 | conditional on: H-scramble | conditional | FAITHFUL |  | traced-only |
-| I-227 | 162 | H-scramble fails for every bijection acting on a definite initial configuration with configuration-aligned bipartition. | papers/GR.md:833@eae01647 |  | proved-paper | FAITHFUL |  | reproduced |
+| I-227 | 162 | H-scramble fails for every bijection acting on a definite initial configuration with configuration-aligned bipartition. | papers/GR.md:833@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
 | I-228 | 162 | H-scramble is not established. | papers/GR.md:835@eae01647 |  | open | FAITHFUL |  | traced-only |
 | I-229 | 162 | The Page-value result also needs H-decouple: B ∪ R uncoupled from D and V∖R, jointly pure, over whole cycles. | papers/GR.md:809@eae01647 | conditional on: H-decouple | conditional | FAITHFUL |  | traced-only |
 | I-230 | 162 | Timescale ordering does not supply H-decouple. | papers/GR.md:809@eae01647 | τ_B^D ∈ [10^16, 10^19] s; Γ ∈ [1/100, 1000] | proved-paper | FAITHFUL |  | traced-only |
@@ -614,7 +614,7 @@ Conditional on: bijective dynamics (framework premise); H-scramble; H-decouple; 
 | I-255 | 173 | The operational theory is not uniquely selected. | lean:RankGapTheory.lean:702:five_way_minimality | nonempty finite carrier | proved-kernel | FAITHFUL |  | certificate-checked |
 | I-256 | 173 | Conditions (i)–(v) are not implied by OI alone. | lean:RankGapTheory.lean:702:five_way_minimality | qubit witnesses | proved-kernel | FAITHFUL |  | certificate-checked |
 | I-257 | 173 | Independence of (i)–(v) is shown on the qubit. | lean:RankGapTheory.lean:702:five_way_minimality | qubit carrier Fin 2; sealed OI core | proved-kernel | FAITHFUL |  | certificate-checked |
-| I-258 | 173 | Which of (iii)–(v) a physical substratum supplies is open. | lean:StructuralClosure.lean:383:substratum_residual | stated substratum = finite bijective dynamics with the stated observer access (phase intervention assumed where stated); finite carriers | proved-kernel | **UNDERCLAIM** | GR:260, verification/ROADMAP:1529, GR:228, Main:758 | certificate-checked |
+| I-258 | 173 | Which of (iii)–(v) a physical substratum supplies is open. | lean:StructuralClosure.lean:383:substratum_residual | stated substratum = finite bijective dynamics with the stated observer access (phase intervention assumed where stated); finite carriers | proved-kernel | **UNDERCLAIM** | GR:260, verification/ROADMAP:1529, GR:228, Main:758 | traced-only |
 | I-259 | 173 | The visible law does not fix the relating evolution. | lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate | coherent lifts on a fixed carrier and anchor | proved-kernel | FAITHFUL |  | certificate-checked |
 | I-260 | 174 | Memory is not characterized by existence of a realization. | lean:Equivalence.lean:422:S_imp_D | finite horizon | proved-kernel | FAITHFUL |  | certificate-checked |
 | I-261 | 174 | P-indivisibility is not identified with quantum non-Markovianity. | papers/Main.md:330@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
@@ -786,5 +786,5 @@ Conditional on: bijective dynamics (framework premise); H-scramble; H-decouple; 
 
 | id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
 |---|--:|---|---|---|---|---|---|---|
-| I-384 | 267 | [BHa] is an unpublished, internally reviewed research record. | verification/programmes/black-hole-information/bh01_access_v1/review/RECHECK-df2ea6f5.md@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
-| I-385 | 269 | [BHb] is an unpublished, internally reviewed research record. | verification/programmes/black-hole-information/bh02_scramble_v1/review/REVIEW.md@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-384 | 267 | [BHa] is an unpublished, internally reviewed research record. | verification/programmes/black-hole-information/bh01_access_v1/review/RECHECK-df2ea6f5.md@eae01647 |  | proved-paper | FAITHFUL |  | reproduced |
+| I-385 | 269 | [BHb] is an unpublished, internally reviewed research record. | verification/programmes/black-hole-information/bh02_scramble_v1/review/REVIEW.md@eae01647 |  | proved-paper | FAITHFUL |  | reproduced |

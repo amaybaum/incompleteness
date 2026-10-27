@@ -1884,11 +1884,9 @@
     {
      "link": "Theorem 4 and qubit independence are stated in GR §3.3 with kernel proofs and no paper proof",
      "source": "papers/GR.md:218-228@eae01647",
-     "layer": "paper-derivation",
+     "layer": "kernel",
      "hypotheses": [],
-     "link_status": "proved",
-     "mapper_layer": "kernel",
-     "relabel_reason": "a corpus paper line, not a declaration: the paper states the result and cites the kernel"
+     "link_status": "proved"
     },
     {
      "link": "§5's results are in BHa/BHb research records and GR App. A",
@@ -1914,7 +1912,7 @@
    "notes": "Attention resolved: 'Proofs ... are in [Main]' is broader than the paper's own citations (Theorem 4 to GR §3.3; §5 to BHa/BHb and GR App. A; kernel proofs in OIBridge). Content is not overclaimed; the location is.",
    "_part": "B1",
    "evidence_level": "traced-only",
-   "evidence_basis": "weakest of all its links: traced-only (paper-derivation, unmatched exhaustive-computation)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation, unmatched exhaustive-computation, unmatched kernel)"
   },
   {
    "id": "I-043",
@@ -2215,20 +2213,16 @@
     {
      "link": "Theorem 4, independence, oi_alone_not_qm: stated in GR §3.3 with kernel citations; no paper proof (proof inventory: kernel-only)",
      "source": "papers/GR.md:218-228@eae01647",
-     "layer": "paper-derivation",
+     "layer": "kernel",
      "hypotheses": [],
-     "link_status": "proved",
-     "mapper_layer": "kernel",
-     "relabel_reason": "a corpus paper line, not a declaration: the paper states the result and cites the kernel"
+     "link_status": "proved"
     },
     {
      "link": "§3.3 lift results: stated in Main's Remark with kernel citations (CoherentLiftGauge, TrackBQfbBridge); no written proofs",
      "source": "papers/Main.md:624@eae01647",
-     "layer": "paper-derivation",
+     "layer": "kernel",
      "hypotheses": [],
-     "link_status": "proved",
-     "mapper_layer": "kernel",
-     "relabel_reason": "a corpus paper line, not a declaration: the paper states the result and cites the kernel"
+     "link_status": "proved"
     },
     {
      "link": "bridge_traj, rooted_eq_iff_slice_eq, realData_traj_stochastic",
@@ -2246,8 +2240,8 @@
    "proposed_fix": "The results of §3.2–§3.3 are stated in [GR §3.3] and [Main §3.4] and proved in the Lean declarations of Appendix A.",
    "notes": "Attention resolved: GR and Main carry the statements, but the proofs are the OIBridge declarations; neither paper writes them out (GR:218 is kernel-only per the inventory; Main:624 is a Remark). The content is fine and kernel-proved; 'proved in [GR] and [Main]' names the wrong location.",
    "_part": "B1",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest of its kernel links"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of its kernel links: traced-only (unmatched kernel)"
   },
   {
    "id": "I-053",
@@ -2326,7 +2320,7 @@
    "notes": "Attention resolved. The definition promises an exhaustive exact-rational computation. Line 56's probes are exact but check named instances (each enumerated in full), not every law of a small class. Line 84's probe (c4_backflow_probes.py) computes the conditional mutual information and the bound in floating point, so it is not exact-rational; that bears on I-10x (§2.4 mapper). Either narrow the definition or say 'with exact and floating-point probes' at line 84.",
    "_part": "B1",
    "evidence_level": "failed",
-   "evidence_basis": "E2-10 failed: The evidence tag fails: L84's 'with exact probes' and Main.md:170's 'Certified exactly' describe a floating-point probe on named instances, which is not an exact probe in L30's sense. The bound itself (paper proof with Pinsker) and its instance values (E2-09, reproduced exactly) stand.; E2-11 failed: The evidence tag fails: L56's 'with exact probes' is not met under L30's definition, since the probes are not exhaustive. The probe values hold exactly on their instances (P1-P5, P-G reproduced), and the realization theorem rests on its paper proof (Main.md:496-500).; load-bearing link 0 matched a failed item; load-bearing link 1 matched a failed item; load-bearing link 2 matched a failed item"
+   "evidence_basis": "E2-10 failed: The evidence tag fails: L84's 'with exact probes' and Main.md:170's 'Certified exactly' describe a floating-point probe on named instances, which is not an exact probe in L30's sense. The bound itself (paper proof with Pinsker) and its instance values (E2-09, reproduced exactly) stand.; E2-11 failed: The evidence tag fails on one reading of L30: 'exhaustive' as exhaustive over a class of laws, which the named instances are not. The probe values hold exactly on their instances (P1-P5, P-G reproduced), and the realization theorem rests on its paper proof (Main.md:496-500).; load-bearing link 0 matched a failed item; load-bearing link 1 matched a failed item; load-bearing link 2 matched a failed item"
   },
   {
    "id": "I-055",
@@ -3092,7 +3086,7 @@
    "notes": "The rationality restriction belongs to the uniform-tape presentation only; Main's Extension (Main:498), its status ledger (Main:715) and the Characterization theorem (which 'quantifies over general finite-horizon laws') give the independent-prior reversible realization for every finite-horizon law. The argument is short and sound (x_0 drawn independently of the product prior; conditioning exposes u only at visited contexts). Not formalized for the full multi-time law (Main:500: 'the independence of mu_H from the visible initial state rests on the construction above and the cited probes and is not formalized'); the kernel has the independent-prior response-table construction only for rooted families (RootedClassification.responseRealization, no rationality assumption). Coordinator relay from B5 checked and confirmed. The Intro's own attribution sentence cites EGGH26 Prop. 16, which is likewise unrestricted. Also see I-054 on what the probes are.",
    "_part": "B1",
    "evidence_level": "failed",
-   "evidence_basis": "E2-11 failed: The evidence tag fails: L56's 'with exact probes' is not met under L30's definition, since the probes are not exhaustive. The probe values hold exactly on their instances (P1-P5, P-G reproduced), and the realization theorem rests on its paper proof (Main.md:496-500).; load-bearing link 2 matched a failed item"
+   "evidence_basis": "E2-11 failed: The evidence tag fails on one reading of L30: 'exhaustive' as exhaustive over a class of laws, which the named instances are not. The probe values hold exactly on their instances (P1-P5, P-G reproduced), and the realization theorem rests on its paper proof (Main.md:496-500).; load-bearing link 2 matched a failed item"
   },
   {
    "id": "I-072",
@@ -6808,8 +6802,8 @@
    "proposed_fix": null,
    "notes": "Existential, as 'can' says: one exhibited 2x2 instance. The kernel docstring warns that neither GL2 nor GL3 says every time-dependent gauge moves every candidate; 'and then have different relating evolutions' must be read with the same 'can'. Census family 54, status current.",
    "_part": "B2",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest of its kernel links"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of its kernel links: traced-only (unmatched kernel)"
   },
   {
    "id": "I-150",
@@ -9999,8 +9993,8 @@
    "proposed_fix": null,
    "notes": "Attention resolved: the universal 'for every bijection' claim does not rest only on the unpublished BHb. It has a one-line universal written proof (a permutation unitary maps basis vectors to basis vectors, which are product states across an aligned cut), stated in the published corpus at GR App. A.7 (GR.md:833) and ch07:126, and proved in BHb C1; the exhaustive sweeps (24/40320/362880 permutations) only exercise the code. The cited [GR App. A.7] already carries it. See I-225 for the missing link to Theorem A.8's own setting.",
    "_part": "B3",
-   "evidence_level": "reproduced",
-   "evidence_basis": "weakest of all its links"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of all its links: traced-only (unmatched exact-algebra)"
   },
   {
    "id": "I-228",
@@ -11272,13 +11266,11 @@
     {
      "link": "GR §3.3 layer-flow form: stated substratum dynamics with observer access ⇏ one nontrivial layer flow executable; fractional-time access is an additional physical intervention assumption",
      "source": "papers/GR.md:266@eae01647",
-     "layer": "paper-derivation",
+     "layer": "kernel",
      "hypotheses": [
       "phase intervention stated"
      ],
-     "link_status": "proved",
-     "mapper_layer": "kernel",
-     "relabel_reason": "a corpus paper line, not a declaration: the paper states the result and cites the kernel"
+     "link_status": "proved"
     },
     {
      "link": "A structurally closed extension of the substratum class is a quantum architecture iff it drives the elementary transitions; with it, exact finite operational QM on every nonempty finite carrier (substratum_plus_control_qm)",
@@ -11337,8 +11329,8 @@
    "proposed_fix": "which of (iii)–(v) a physical substratum supplies is open, except that the stated substratum, with the observer's stated access, does not supply the continuous state-mixing control that (iv) requires [GR §3.3]",
    "notes": "The corpus has a kernel-checked negative result for the presently stated architecture: bijection-level (monomial) operations source no phases and no dense unitary control (frozen_sourcing_verdict, readWriteSourced_not_qm, substratum_residual), recorded INDEPENDENT in ROADMAP; with one continuous off-diagonal controllability resource (and the assumed phase intervention) the extension is exact finite operational QM (substratum_extension_quantum_iff_drives, substratum_plus_control_qm). What remains open is whether a physical substratum supplies that resource (ROADMAP F2). Calling the whole question 'open' understates a settled negative (§A.30/code-review rule: state negatives for the class ruled out). The same wording appears in the abstract and §3.2 (other ranges).",
    "_part": "B4",
-   "evidence_level": "certificate-checked",
-   "evidence_basis": "weakest of its kernel links"
+   "evidence_level": "traced-only",
+   "evidence_basis": "weakest of its kernel links: traced-only (unmatched kernel)"
   },
   {
    "id": "I-259",
@@ -12370,13 +12362,11 @@
     {
      "link": "GR §3.3 layer-flow form: stated substratum dynamics with observer access ⇏ one nontrivial layer flow executable; fractional-time access is an additional physical intervention assumption",
      "source": "papers/GR.md:266@eae01647",
-     "layer": "paper-derivation",
+     "layer": "kernel",
      "hypotheses": [
       "phase intervention stated"
      ],
-     "link_status": "proved",
-     "mapper_layer": "kernel",
-     "relabel_reason": "a corpus paper line, not a declaration: the paper states the result and cites the kernel"
+     "link_status": "proved"
     },
     {
      "link": "A structurally closed extension of the substratum class is a quantum architecture iff it drives the elementary transitions; with it, exact finite operational QM on every nonempty finite carrier (substratum_plus_control_qm)",
@@ -17027,8 +17017,8 @@
    "proposed_fix": null,
    "notes": "\"Internally reviewed\" matches the record exactly. The package REPORT's status line reads \"exploratory research, unreviewed for adoption\" — consistent (reviewed, not adopted). The descriptive title \"recovery from accessible records in finite reversible models\" fits REPORT (\"BH-01 access audit\"); optional: add \"not adopted\" to mirror the record's own status. Status-type claim: proof_status here means the status is verified, not a mathematical proof.",
    "_part": "B5",
-   "evidence_level": "traced-only",
-   "evidence_basis": "weakest of all its links: traced-only (unmatched none)"
+   "evidence_level": "reproduced",
+   "evidence_basis": "weakest of all its links"
   },
   {
    "id": "I-385",
@@ -17070,8 +17060,8 @@
    "proposed_fix": null,
    "notes": "Title quoted verbatim from the package REPORT. Minor: the last wording change to the landed C7 verdict text is covered by a landing audit recorded in PROVENANCE/commit messages, not by the retained REVIEW.md. Optional: add \"not adopted\".",
    "_part": "B5",
-   "evidence_level": "traced-only",
-   "evidence_basis": "weakest of all its links: traced-only (unmatched none)"
+   "evidence_level": "reproduced",
+   "evidence_basis": "weakest of all its links"
   }
  ],
  "duplicates": [
@@ -17108,9 +17098,9 @@
   "calibration": 4
  },
  "evidence_levels": {
-  "traced-only": 233,
-  "certificate-checked": 130,
-  "reproduced": 43,
+  "traced-only": 235,
+  "certificate-checked": 127,
+  "reproduced": 44,
   "failed": 3
  }
 }

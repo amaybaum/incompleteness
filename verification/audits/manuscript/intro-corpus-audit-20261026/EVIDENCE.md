@@ -8,12 +8,12 @@ The level grades the evidence for the row's chain, not the claim. For a row whos
 
 - **Levels,** strongest first: *reproduced* (the audit regenerated the result and compared it), *certificate-checked* (checked against a retained certificate, expected result or kernel output) and *traced-only* (traced to a report whose evidence the audit did not check, or a step with no artifact of a step-7 type). *Failed* is separate and overrides.
 - **Each link gets a level.**
-  - *A kernel link* with a declaration source is matched by declaration to the E1 items naming it: a *lean-certificate* item (name, axioms, kernel acceptance) and a *formal-coverage* item (the manuscript claim against the Lean statement). It takes the weaker; a missing item counts as traced-only. A formal-coverage item that records it does not cover the row is left out for that row. A kernel link whose source is a file (a retained result) is matched to the E1 or E3 items naming that file.
-  - *An exhaustive-computation, numerical or exact-algebra link* is matched to the items listing the row that are computations, or replays of a whole research record (CI-receipt items whose source is the record's directory). An item is not matched to a link that names other research records or probe files than the item does: a BH-01 item does not reach a BH-02 link. It takes the weakest matched item.
+  - *A kernel link* with a declaration source is matched by declaration to the E1 items naming it: a *lean-certificate* item (name, axioms, kernel acceptance) and a *formal-coverage* item (the manuscript claim against the Lean statement). It takes the weaker; a missing item counts as traced-only. A formal-coverage item that records it does not cover the row is left out for that row. A kernel link whose source is a file (a retained result) is matched to the lean-certificate, formal-coverage or CI-receipt items naming that file.
+  - *An exhaustive-computation, numerical or exact-algebra link* is matched to the items listing the row that are computations, or replays of a whole research record (CI-receipt items whose source is the record's directory). An item is not matched to a link that names other research records or probe files than the item does (a BH-01 item does not reach a BH-02 link), nor to a link that names only manuscript lines the item does not name (a check of a record is not a check of a paper's derivation). It takes the weakest matched item.
   - *A link with no support (layer none)*, in a chain of such links only, is a claim about the build, the toolchain, CI or the records. It takes the weakest of the CI-receipt items listing the row.
   - *Every other link* (paper derivation, literature, conjecture) is traced-only: step 7 has no artifact type for it, and steps 2–3 verified its status.
   - A matched item with outcome *fail* fails the link. A link whose status is not *proved* counts as traced-only for the row, whatever its artifact.
-- **The load-bearing links.** For a proved-kernel row, its kernel links: the paper, literature and unsupported links beside them restate the result in the corpus. For a proved-paper, exhaustive-exact, numerical or calibration row, all its links, so a paper step in the chain holds the row at traced-only whatever its computations reach. A row whose proof status is open, conditional, conjecture or unsupported is traced-only, since its chain does not establish the claim.
+- **The load-bearing links.** For a proved-kernel row, its kernel links. Its other links restate the result in the corpus, check it in parallel or record related obligations; they are recorded and do not grade it. For a proved-paper, exhaustive-exact, numerical or calibration row, all its links, so a paper step in the chain holds the row at traced-only whatever its computations reach. A row whose proof status is open, conditional, conjecture or unsupported is traced-only, since its chain does not establish the claim.
 - **A row** is *failed* when an item listing it fails, with the item's failure scope as the basis, or when a load-bearing link fails. Otherwise it takes its weakest load-bearing link.
 - **The artifact level** of a row is the weakest level over its kernel, computation and build links. For a row held at traced-only by its status or by a paper step, it records what the checked artifacts reach. For an UNSUPPORTED or OVERCLAIM row whose chain has no such link, it grades the computation items listing the row, as counter-evidence.
 - CI-receipt and open-obligation items that list a row are recorded with it as context; apart from the two uses above, they do not set its level.
@@ -22,9 +22,9 @@ The level grades the evidence for the row's chain, not the claim. For a row whos
 
 | Evidence level | Rows |
 |---|--:|
-| reproduced | 43 |
-| certificate-checked | 130 |
-| traced-only | 233 |
+| reproduced | 44 |
+| certificate-checked | 127 |
+| traced-only | 235 |
 | failed | 3 |
 | **Total** | **409** |
 
@@ -32,17 +32,17 @@ By proof status:
 
 | Proof status | reproduced | certificate-checked | traced-only | failed |
 |---|--:|--:|--:|--:|
-| proved-kernel | 0 | 129 | 1 | 0 |
+| proved-kernel | 0 | 126 | 4 | 0 |
 | exhaustive-exact | 7 | 0 | 1 | 0 |
 | numerical | 0 | 0 | 2 | 1 |
 | calibration | 2 | 0 | 2 | 0 |
-| proved-paper | 34 | 1 | 149 | 2 |
+| proved-paper | 35 | 1 | 148 | 2 |
 | conditional | 0 | 0 | 17 | 0 |
 | open | 0 | 0 | 47 | 0 |
 | conjecture | 0 | 0 | 9 | 0 |
 | unsupported | 0 | 0 | 5 | 0 |
 
-Traced-only rows whose checked artifacts reach a higher level: 19 reproduced, 27 certificate-checked (listed below).
+Traced-only rows whose checked artifacts reach a higher level: 19 reproduced, 26 certificate-checked (listed below).
 
 Items: 178 (E1–E3). By part, level and outcome:
 
@@ -65,8 +65,8 @@ Items: 178 (E1–E3). By part, level and outcome:
 
 Each failure is of the evidence statement the row carries, as the basis states; it is not a failure of the claim unless the basis says so.
 
-- **I-054** (IMPRECISE, numerical): E2-10 failed: The evidence tag fails: L84's 'with exact probes' and Main.md:170's 'Certified exactly' describe a floating-point probe on named instances, which is not an exact probe in L30's sense. The bound itself (paper proof with Pinsker) and its instance values (E2-09, reproduced exactly) stand.; E2-11 failed: The evidence tag fails: L56's 'with exact probes' is not met under L30's definition, since the probes are not exhaustive. The probe values hold exactly on their instances (P1-P5, P-G reproduced), and the realization theorem rests on its paper proof (Main.md:496-500).; load-bearing link 0 matched a failed item; load-bearing link 1 matched a failed item; load-bearing link 2 matched a failed item
-- **I-071** (UNDERCLAIM, proved-paper): E2-11 failed: The evidence tag fails: L56's 'with exact probes' is not met under L30's definition, since the probes are not exhaustive. The probe values hold exactly on their instances (P1-P5, P-G reproduced), and the realization theorem rests on its paper proof (Main.md:496-500).; load-bearing link 2 matched a failed item
+- **I-054** (IMPRECISE, numerical): E2-10 failed: The evidence tag fails: L84's 'with exact probes' and Main.md:170's 'Certified exactly' describe a floating-point probe on named instances, which is not an exact probe in L30's sense. The bound itself (paper proof with Pinsker) and its instance values (E2-09, reproduced exactly) stand.; E2-11 failed: The evidence tag fails on one reading of L30: 'exhaustive' as exhaustive over a class of laws, which the named instances are not. The probe values hold exactly on their instances (P1-P5, P-G reproduced), and the realization theorem rests on its paper proof (Main.md:496-500).; load-bearing link 0 matched a failed item; load-bearing link 1 matched a failed item; load-bearing link 2 matched a failed item
+- **I-071** (UNDERCLAIM, proved-paper): E2-11 failed: The evidence tag fails on one reading of L30: 'exhaustive' as exhaustive over a class of laws, which the named instances are not. The probe values hold exactly on their instances (P1-P5, P-G reproduced), and the realization theorem rests on its paper proof (Main.md:496-500).; load-bearing link 2 matched a failed item
 - **I-103** (IMPRECISE, proved-paper): E2-10 failed: The evidence tag fails: L84's 'with exact probes' and Main.md:170's 'Certified exactly' describe a floating-point probe on named instances, which is not an exact probe in L30's sense. The bound itself (paper proof with Pinsker) and its instance values (E2-09, reproduced exactly) stand.; load-bearing link 2 matched a failed item
 
 ## Rows held at traced-only by an unmatched or failed load-bearing artifact link
@@ -78,14 +78,21 @@ Each row below has a load-bearing kernel, computation or build link that no evid
 | I-006 | FAITHFUL | proved-paper | `papers/Main.md:534@eae01647` (exact-algebra) | no computation item for this link |
 | I-025 | IMPRECISE | proved-paper | `papers/Main.md:119@eae01647` (exact-algebra) | no computation item for this link |
 | I-036 | FAITHFUL | proved-paper | `papers/Main.md:121@eae01647` (exact-algebra) | no computation item for this link |
+| I-042 | IMPRECISE | proved-paper | `papers/GR.md:218-228@eae01647` (kernel) | kernel-layer link without a declaration source; no item names its file |
 | I-042 | IMPRECISE | proved-paper | `verification/programmes/black-hole-information/@eae01647` (exhaustive-computation) | no computation item for this link |
-| I-088 | FAITHFUL | proved-kernel | `lean:OIBridge/RootedClassification.lean:135:rootedMap_periodic` (kernel) | no formal-coverage item; E1-98 does not cover this row: the kernel states periodicity of the rooted one-time maps, not of the multi-time law |
+| I-052 | MISCITED | proved-kernel | `papers/GR.md:218-228@eae01647` (kernel) | kernel-layer link without a declaration source; no item names its file |
+| I-052 | MISCITED | proved-kernel | `papers/Main.md:624@eae01647` (kernel) | kernel-layer link without a declaration source; no item names its file |
+| I-088 | FAITHFUL | proved-kernel | `lean:OIBridge/RootedClassification.lean:135:rootedMap_periodic` (kernel) | no formal-coverage item; E1-98 does not cover this row: the kernel states periodicity of the rooted one-time maps, not the finite order of the bijection |
 | I-126 | FAITHFUL | proved-paper | `papers/Main.md:453@eae01647` (exact-algebra) | no computation item for this link |
 | I-129 | FAITHFUL | proved-paper | `lean:EquivalenceChain.lean:253:isDiag_Phi` (kernel) | no formal-coverage item; E1-92 does not cover this row: the kernel covers only the diagonal-preservation premise of the written theorem |
+| I-149 | FAITHFUL | proved-kernel | `lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate` (kernel) | no formal-coverage item; E1-71 does not cover this row: CoherentLift is pointwise admissibility at every time; it does not encode 'compose exactly across times' (the cocycle condition is vacuous) |
 | I-176 | FAITHFUL | proved-paper | `papers/GR.md:140@eae01647` (exact-algebra) | no computation item for this link |
 | I-176 | FAITHFUL | proved-paper | `papers/GR.md:356@eae01647` (exact-algebra) | no computation item for this link |
 | I-177 | FAITHFUL | proved-paper | `papers/GR.md:581@eae01647; papers/GR.md:356@eae01647` (exact-algebra) | no computation item for this link |
 | I-191 | FAITHFUL | proved-paper | `papers/GR.md:338@eae01647` (exact-algebra) | no computation item for this link |
+| I-227 | FAITHFUL | proved-paper | `papers/GR.md:833@eae01647` (exact-algebra) | no computation item for this link (listed items name other records or probes: E2-07, E3-18) |
+| I-227 | FAITHFUL | proved-paper | `book/ch07-gravity.md:126@eae01647` (exact-algebra) | no computation item for this link (listed items name other records or probes: E2-07, E3-18) |
+| I-258 | UNDERCLAIM | proved-kernel | `papers/GR.md:266@eae01647` (kernel) | kernel-layer link without a declaration source; no item names its file |
 | I-262 | FAITHFUL | proved-paper | `papers/Introduction.md:232@4a260ca9` (exact-algebra) | no computation item for this link |
 | I-271 | FAITHFUL | proved-paper | `papers/Introduction.md:251@4a260ca9` (exhaustive-computation) | no computation item for this link |
 | I-272 | FAITHFUL | proved-paper | `papers/Main.md:286@eae01647` (exact-algebra) | no computation item for this link |
@@ -96,12 +103,6 @@ Each row below has a load-bearing kernel, computation or build link that no evid
 | I-330 | FAITHFUL | proved-paper | `verification/coverage/LEDGER.json@eae01647` (exhaustive-computation) | no computation item for this link |
 | I-375 | FAITHFUL | proved-paper | `S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)` (exact-algebra) | no computation item for this link |
 | I-375 | FAITHFUL | proved-paper | `verification/coverage/LEDGER.json@eae01647` (exhaustive-computation) | no computation item for this link |
-| I-384 | FAITHFUL | proved-paper | `verification/programmes/black-hole-information/PROGRAMME.md@eae01647` (none) | no ci-receipt item lists the row |
-| I-384 | FAITHFUL | proved-paper | `verification/programmes/black-hole-information/bh01_access_v1/review/README.md@eae01647` (none) | no ci-receipt item lists the row |
-| I-384 | FAITHFUL | proved-paper | `verification/programmes/black-hole-information/bh01_access_v1/REPORT.md@eae01647` (none) | no ci-receipt item lists the row |
-| I-385 | FAITHFUL | proved-paper | `verification/programmes/black-hole-information/bh02_scramble_v1/review/README.md@eae01647` (none) | no ci-receipt item lists the row |
-| I-385 | FAITHFUL | proved-paper | `verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md@eae01647` (none) | no ci-receipt item lists the row |
-| I-385 | FAITHFUL | proved-paper | `verification/programmes/black-hole-information/bh02_scramble_v1/PROVENANCE.json@eae01647` (none) | no ci-receipt item lists the row |
 
 ## Traced-only rows whose checked artifacts reach a higher level
 
@@ -143,7 +144,6 @@ The row's level is traced-only because of its proof status or a paper step; the 
 | I-261 | FAITHFUL | proved-paper | paper-derivation | reproduced | support |
 | I-265 | IMPRECISE | proved-paper | paper-derivation | reproduced | support |
 | I-267 | FAITHFUL | proved-paper | paper-derivation | reproduced | support |
-| I-281 | UNDERCLAIM | open | proof status open | certificate-checked | support |
 | I-286 | IMPRECISE | open | proof status open | reproduced | support |
 | I-289 | IMPRECISE | open | proof status open | certificate-checked | support |
 | I-290 | FAITHFUL | open | proof status open | reproduced | support |
@@ -160,12 +160,7 @@ The row's level is traced-only because of its proof status or a paper step; the 
 
 `matrix/chain-relabels.json`, applied by `matrix/scripts/merge_matrix.py` with the mapper's layer kept as `mapper_layer`:
 
-- **I-042** link 1 (`papers/GR.md:218-228@eae01647`): kernel → paper-derivation; a corpus paper line, not a declaration: the paper states the result and cites the kernel.
-- **I-052** link 0 (`papers/GR.md:218-228@eae01647`): kernel → paper-derivation; a corpus paper line, not a declaration: the paper states the result and cites the kernel.
-- **I-052** link 1 (`papers/Main.md:624@eae01647`): kernel → paper-derivation; a corpus paper line, not a declaration: the paper states the result and cites the kernel.
 - **I-063** link 2 (`verification/coverage/LEDGER.json@eae01647`): kernel → none; a coverage-ledger entry records the kernel status; the kernel link is link 0, finite_horizon_equivalence.
-- **I-258** link 5 (`papers/GR.md:266@eae01647`): kernel → paper-derivation; a corpus paper line, not a declaration: the paper states the result and cites the kernel.
-- **I-281** link 5 (`papers/GR.md:266@eae01647`): kernel → paper-derivation; a corpus paper line, not a declaration: the paper states the result and cites the kernel.
 - **I-282** link 1 (`verification/ROADMAP.md:66@eae01647`): kernel → none; a ROADMAP entry recording an open obligation, not a declaration.
 - **I-309** link 0 (`git@17b830bc..b64919cd`): exhaustive-computation → none; a git identity check on sources (E2-19, ci-receipt), not a computation.
 - **I-044** link 0 (`verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:3@eae0`): paper-derivation → none; a research record's own status line: the claim is about the records, with no derivation.
@@ -186,7 +181,6 @@ The item's limits apply to the row (see the part files). A formal-coverage item 
 | I-128 | certificate-checked | E1-92 |
 | I-147 | certificate-checked | E1-71 |
 | I-148 | certificate-checked | E1-71 |
-| I-149 | certificate-checked | E1-71 |
 | I-157 | certificate-checked | E1-71 |
 | I-193 | reproduced | E2-18 |
 | I-194 | reproduced | E2-18 |

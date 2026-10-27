@@ -14,19 +14,22 @@ refutes the claim it grades the counter-evidence, which is recorded as the row's
   - kernel, with a declaration source (`lean:Module:line:Name`): matched by (module, short name) to the E1 items of
     type lean-certificate and formal-coverage naming it, leaving out a formal-coverage item whose not_covered names
     the row. The link takes the weaker of the two; a missing item counts as traced-only.
-  - kernel, with a file source (a retained result): matched by path to the E1 or E3 items naming that file.
+  - kernel, with a file source (a retained result): matched by path to the items of type lean-certificate,
+    formal-coverage or ci-receipt naming that file.
   - exhaustive-computation, numerical, exact-algebra: matched to the items listing the row that are of type
     exhaustive-computation or numerical, or are ci-receipt replays of a whole record (a directory source), except an
-    item that names research records or probe files of which the link names none (the link names others). The link
-    takes the weakest matched item.
+    item that names research records or probe files of which the link names none (the link names others), and, for a
+    link that names manuscript lines and no record or probe file, an item that names none of those manuscript files.
+    The link takes the weakest matched item.
   - none, in a chain of none links only (claims about the build, the toolchain, CI or the records): the weakest of
     the ci-receipt items listing the row.
   - Every other link (paper-derivation, literature, conjecture, or none beside other layers) is traced-only: step 7
     has no artifact type for it, and steps 2-3 verified its status.
   - A matched item with outcome "fail" fails the link. A link whose status is not "proved" counts as traced-only for
     the row, whatever its artifact.
-- The load-bearing links of a row: for proved-kernel, its kernel links (paper, literature and none links beside them
-  restate the result in the corpus), or all its links if it has none; for proved-paper, exhaustive-exact, numerical
+- The load-bearing links of a row: for proved-kernel, its kernel links, or all its links if it has none; its paper,
+  literature, computation and none links restate the result in the corpus, check it in parallel or record related
+  obligations, and are recorded without grading the row; for proved-paper, exhaustive-exact, numerical
   and calibration, all its links. A row whose proof status is open, conditional, conjecture or unsupported is
   traced-only: the chain does not establish the claim, so no artifact raises it.
 - A row is "failed" when an item listing it has outcome "fail" (the item's failure_scope says what failed) or a
@@ -37,8 +40,9 @@ refutes the claim it grades the counter-evidence, which is recorded as the row's
   checked artifacts reach.
 
 Usage (from the audit directory): python3 -I -B evidence/scripts/E4_aggregate.py [--check]
---check exits 1 if evidence.json or EVIDENCE.md differs from the rendering, or if any matrix.json row's
-evidence_level or evidence_basis differs from evidence.json's.
+--check exits 1 if evidence.json or EVIDENCE.md differs from the rendering, if any matrix.json row's
+evidence_level or evidence_basis differs from evidence.json's, or if matrix.json's chains do not carry exactly the
+corrections of matrix/chain-relabels.json. merge_matrix.py --check checks matrix.json against the part files.
 """
 import json
 import re
@@ -89,11 +93,21 @@ def artifacts(ps):
     return out
 
 
+def manuscripts(ps):
+    """The manuscript files (papers/*.md, book/*.md) that paths name."""
+    return {p for p in ps if p.endswith(".md") and (p.startswith("papers/") or p.startswith("book/"))}
+
+
 def contradicted(link_paths, item):
-    """True when the link and the item both name records or probe files, and no record or file is common."""
-    a = artifacts(link_paths)
-    b = artifacts({q for s in item["sources"] for q in paths(s)})
-    return bool(a) and bool(b) and not (a & b)
+    """True when the item cannot be the check of this link: the link and the item both name records or probe files
+    and none is common, or the link names manuscript lines and no record or probe file, and the item names none of
+    those manuscript files (a check of a record or probe is not a check of a paper's derivation)."""
+    item_paths = {q for s in item["sources"] for q in paths(s)}
+    a, b = artifacts(link_paths), artifacts(item_paths)
+    if a:
+        return bool(b) and not (a & b)
+    m = manuscripts(link_paths)
+    return bool(m) and not (m & item_paths)
 
 
 def weakest(levels):
@@ -275,19 +289,21 @@ def render(ev, items, relabels):
          "*lean-certificate* item (name, axioms, kernel acceptance) and a *formal-coverage* item (the manuscript claim "
          "against the Lean statement). It takes the weaker; a missing item counts as traced-only. A formal-coverage "
          "item that records it does not cover the row is left out for that row. A kernel link whose source is a file "
-         "(a retained result) is matched to the E1 or E3 items naming that file.",
+         "(a retained result) is matched to the lean-certificate, formal-coverage or CI-receipt items naming that file.",
          "  - *An exhaustive-computation, numerical or exact-algebra link* is matched to the items listing the row "
          "that are computations, or replays of a whole research record (CI-receipt items whose source is the record's "
          "directory). An item is not matched to a link that names other research records or probe files than the "
-         "item does: a BH-01 item does not reach a BH-02 link. It takes the weakest matched item.",
+         "item does (a BH-01 item does not reach a BH-02 link), nor to a link that names only manuscript lines "
+         "the item does not name (a check of a record is not a check of a paper's derivation). It takes the weakest "
+         "matched item.",
          "  - *A link with no support (layer none)*, in a chain of such links only, is a claim about the build, the "
          "toolchain, CI or the records. It takes the weakest of the CI-receipt items listing the row.",
          "  - *Every other link* (paper derivation, literature, conjecture) is traced-only: step 7 has no artifact "
          "type for it, and steps 2–3 verified its status.",
          "  - A matched item with outcome *fail* fails the link. A link whose status is not *proved* counts as "
          "traced-only for the row, whatever its artifact.",
-         "- **The load-bearing links.** For a proved-kernel row, its kernel links: the paper, literature and "
-         "unsupported links beside them restate the result in the corpus. For a proved-paper, exhaustive-exact, "
+         "- **The load-bearing links.** For a proved-kernel row, its kernel links. Its other links restate the result "
+         "in the corpus, check it in parallel or record related obligations; they are recorded and do not grade it. For a proved-paper, exhaustive-exact, "
          "numerical or calibration row, all its links, so a paper step in the chain holds the row at traced-only "
          "whatever its computations reach. A row whose proof status is open, conditional, conjecture or unsupported "
          "is traced-only, since its chain does not establish the claim.",
@@ -404,6 +420,15 @@ def main():
         print("evidence.json and EVIDENCE.md match" if ok else "evidence.json or EVIDENCE.md differs from the rendering")
         drift = [r["id"] for r in rows if (r.get("evidence_level"), r.get("evidence_basis"))
                  != (ev["claims"][r["id"]]["evidence_level"], ev["claims"][r["id"]]["basis"])]
+        byid = {r["id"]: r for r in rows}
+        unapplied = [f"{i}:{fx['index']}" for i, fixes in relabels.items() if not i.startswith("_") for fx in fixes
+                     if (byid[i]["chain"][fx["index"]].get("layer"), byid[i]["chain"][fx["index"]].get("mapper_layer"),
+                         byid[i]["chain"][fx["index"]].get("source")) != (fx["to"], fx["from"], fx["source"])]
+        relabelled = sum(1 for r in rows for ln in r["chain"] if "mapper_layer" in ln)
+        if unapplied or relabelled != sum(len(v) for k, v in relabels.items() if not k.startswith("_")):
+            print("matrix.json chains disagree with matrix/chain-relabels.json:", ", ".join(unapplied) or
+                  f"{relabelled} relabelled links")
+            ok = False
         if drift:
             print("matrix.json evidence levels differ from evidence.json:", ", ".join(drift[:20]))
         sys.exit(0 if ok and not drift else 1)

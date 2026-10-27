@@ -31,7 +31,8 @@ BHa `checks.py`.
 - **BHb C1.** The BHb `checks.py` replay (E3-18) reproduces `result.json` byte for byte, including the C1 sweeps at
   (2,2), (2,3) and (3,2) by exact Schmidt rank and the countercontrols CC1 = CC2 = 2. An independent exact-rank sweep
   at (2,2) and (2,3) (`E2_bh02.py`) agrees, and its countercontrols fire: an entangled start reaches rank 2 under the
-  same evolution, non-permutation gates give rank 2, and a mutant evolution is caught.
+  same evolution, non-permutation gates give rank 2, the orbits of length 1 number N! (so the permutation is
+  applied), and mutant evolutions are caught.
 - **BHb C6(c) shells.** Exact rationals and interval arithmetic (`E2_bh02.py`).
 - **Appendix B.** Every number, the three-hidden-state model and the Theorem 3 census over every
   prior support (`E2_appendixB.py`).
