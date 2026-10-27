@@ -1976,12 +1976,15 @@ be non-increasing throughout. The process is P-indivisible. \(\square\)
 The proof uses only Lemma 1 (finiteness, hence Step 1's recurrence) and
 condition C1 (non-trivial coupling, under the uniform hidden prior that
 defines \(T\), hence Step 2's overlap). It does not use C2, C3, or any
-further structural input. The argument extends from discrete to
-continuous time through Hamiltonian flow on compact energy surfaces:
-Poincaré recurrence --- the same statement as the discrete recurrence in
-a measure-theoretic language --- plays the role of
-\(\varphi^N = \mathrm{id}\), and the strict contraction at intermediate
-times follows by continuity from the discrete case.
+further structural input. In continuous time, for a Hamiltonian flow on
+compact energy surfaces, the same argument needs the flow to return
+near-totally at a common time after the rooted maps have left the
+permutation class --- the counterpart of \(\varphi^N = \mathrm{id}\).
+Poincaré recurrence does not supply this for a general flow: it returns
+almost every state at its own time, and a mixing flow never again
+returns a whole visible cell at once at late times. The extension
+therefore holds for flows with such a common return and is open for
+general Hamiltonian flows ({[}Main §2.3{]}).
 
 \textbf{The accessible-timescale lemma.} A potential objection to the
 proof as stated is that the recurrence time \(N\) can be astronomically
@@ -10629,13 +10632,16 @@ pinned to the observer's reference data. Harlow, Usatyuk, and Zhao
 established that the closed-universe Hilbert-space dimension is
 determined by the observer's degrees of freedom.
 
-The framework provides a microscopic realization of these results: the
-partition trace-out is the \emph{defining} operation rather than an
-added ingredient, so the observer-essentiality structure that
-Maldacena's argument requires is structurally forced. The
-observer-essentiality literature converges with the framework on
-substantive content while differing in mechanism. Chapter 9 develops the
-framework's relationship to this literature in detail.
+The framework shares the starting point of these results: the partition
+trace-out is the \emph{defining} operation rather than an added
+ingredient, so the observer is present from the outset. It does not
+reproduce the results themselves. It computes neither the phase of the
+sphere partition function nor a type II algebra, its representations act
+on finite-dimensional Hilbert spaces, and whether its trace-out yields
+Maldacena's cancellation is open. The observer-essentiality literature
+converges with the framework on that starting point while differing in
+mechanism. Chapter 9 develops the framework's relationship to this
+literature in detail.
 
 \textbf{The classical vacuum energy scale.} The framework's proposed
 dissolution of the QFT cosmological constant problem does not explain
@@ -22624,10 +22630,12 @@ The framework's commitment to finite information is therefore neither a
 quantitative claim about the specific cardinality nor a metaphysical
 preference for finitism. It is a structural requirement for one
 particular route --- the recurrence-based P-indivisibility result, which
-passes through the Poincaré recurrence theorem and applies only to
-finite (or, more precisely, finite-measure) dynamical systems. The
-substratum's finiteness is what makes this particular route to
-P-indivisibility available.
+needs the whole state to return exactly at a common time. A bijection of
+a finite set supplies that return (\(\varphi^N = \mathrm{id}\)); the
+Poincaré recurrence theorem for a finite-measure system does not, since
+it returns almost every state at its own time. The substratum's
+finiteness is what makes this particular route to P-indivisibility
+available.
 
 \textbf{Poincaré recurrence.} A bijection \(\varphi\) acting on a finite
 set \(S\) is a permutation. Every permutation on a finite set has finite
@@ -22668,14 +22676,17 @@ approximately the framework's timescale.
 
 The conceptual content is significant. The framework predicts that the
 universe is \emph{cyclic at the substratum level} --- periodic with
-period \(N\), with the cycle including every configuration the
-substratum can be in. Within a single cycle, the observer's experience
-is unidirectional (the arrow of time discussed in the next section), but
-at the substratum level the dynamics has no preferred direction. The
-framework's commitment to substratum cyclicity is one of the structural
-commitments that distinguishes it from frameworks treating the universe
-as either fundamentally non-cyclic (most cosmological models) or
-fundamentally infinite (most quantum gravity programs).
+period \(N\), the least common multiple of the bijection's cycle
+lengths. That one cycle passes through every configuration the
+substratum can be in is not established; the cycle-ergodicity question
+that {[}SM §4.2{]} treats concerns sampling of an energy shell. Within a
+single cycle, the observer's experience is unidirectional (the arrow of
+time discussed in the next section), but at the substratum level the
+dynamics has no preferred direction. The framework's commitment to
+substratum cyclicity is one of the structural commitments that
+distinguishes it from frameworks treating the universe as either
+fundamentally non-cyclic (most cosmological models) or fundamentally
+infinite (most quantum gravity programs).
 
 \textbf{Implications for the framework's logical structure.} The
 recurrence theorem connects three structural features of the framework:
@@ -30782,4 +30793,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: da16313cd63b57dde7cd34212ebb478edcde411e0ecbadbdb95e88502df98118
+% source-sha256: cb267bd0455b8a03776037151a34107fb197d248651c8d3194de634fda5f7c88
