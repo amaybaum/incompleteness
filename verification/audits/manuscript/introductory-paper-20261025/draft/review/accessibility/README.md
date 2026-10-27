@@ -54,3 +54,11 @@
 shared hidden preparation; 5b, never-occurring starts), their pass/fail criteria, the gate rule, and the three failure
 diagnoses (ambiguous wording, missing explanatory premise, deeper conceptual obstacle). The paper under test is r31 at
 `bace5ef8`, unchanged.
+
+## Run 6: `bace5ef8` (r31)
+
+- **Paper read:** `papers/Introduction.pdf` at `bace5ef8`, sha256 `22cceed23f4743063d7ca4c77440fcd0ccef00051d3518462cb814f9922fdae2`, 22 pages.
+- **Reader:** a fresh AI reviewer, not any earlier run's reader, with no prior context and no access to earlier answers or evaluations. It was instructed to read only that PDF. Its tool log shows two Read calls on the PDF, pages 1–11 and 12–22, and nothing else.
+- **Questions:** `QUESTION-SHEET.md` 1–7 with the preregistered 5a and 5b (`RUN6-PREREGISTRATION.md`, committed at `d1368bf0` before the run).
+- **Answers:** `RUN6-ANSWERS-bace5ef8.md` holds the reader's final message byte for byte, unedited, saved before any evaluation. sha256 `273fe35622b37015e4124b1c35c3506ae56f598d7b48527ae9287381db1d482b`.
+- **Scope of the evidence:** as for the earlier runs, this is an AI comprehension test and not evidence of human comprehension.
