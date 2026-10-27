@@ -91,19 +91,64 @@ needed α = 1/d, and now says so.
 | SM §4.3 Remark | "C = 2(1−d) is not a mass term … the 4D staggered factorization has exact chiral symmetry" | Lemma 3a; G4 RM, U1 | Masslessness is C = 2(1 − dα), Corollary 1b's normalization. C = 2(1−d) at α = 1 is chiral and center-dependent, and C = 0 at α = 1 has, within Lemma 3a's family, m² = 2(d − 1), nonzero for d ≥ 2. The F construction shows the family hypothesis is load-bearing. The fixed α is load-bearing. "This lemma" is named: Lemma 3a or Theorem 3. H-link sentence kept. |
 | SM §4.3 "Revised chain" | "Center independence implies the chiral statement of Theorem 3 on the staggered branch"; "Any claim that one algebraic CI condition simultaneously forces memory and chirality is therefore unavailable" | Theorem 3; Main's readback lemma and recurrence-cycle theorem | "Scope in the chain": "… on the normalized branch α = 1/d". "Revised" dropped (§A.33). The last sentence becomes a status statement: memory and chirality rest on separate results, and CI alone does not yield both. SC-17's ch05 :95 cites this content and still finds it. |
 | `verification/lean/ROADMAP.md` §D | "center independence of the diagonal of D_st is equivalent to exact chirality" | `Chiral.center_anticommutator` is an identity | The identity is kernel-checked. The step to m = p₀ = 0 is not. Theorem 3 / Proposition 3b at α = 1/d, and the separation off it. |
+| `OI_Structural_Core.lean` :413, docstring | "zero iff the center terms vanish" | The declaration is an identity | "an identity, not coefficient uniqueness" (#966's text). Comment only. |
+| `structural_chain_probe.py` C3 docstring and print | "… iff exact chirality"; "center-free in D_st ⟺ exact chirality" | C3 checks identities in integer matrices | #966's text: "separate mass and scalar-offset anticommutator identities … not a universal converse". Documentation and print only. |
 | `verification/coverage/LEDGER.json` | `SM:T-3` K2, fingerprint `487eed57…` | Census at this head | `SM:T-3` re-affirmed at `1f332468…`, graded K1: the α-weighted square is not in the kernel. `SM:L-3a` and `SM:P-3b` added, both K1. No ID retired. |
+
+## Owner decisions (owner, 2026-10-27)
+
+Quoted from the owner's message, relayed by the coordinator:
+
+> "Use SC-32's theorem correction, not #966's proposed SM replacement … Preserve #965 as supporting mathematics,
+> incorporate #966's two compatible docstring fixes, and retain all necessary qualifications"
+
+> "Approve downgrading SM:T-3 from K2 to K1 … Record the precise proof coverage, retain existing valid
+> certificates, and do not upgrade the result again without a corresponding machine-checked theorem."
+
+**The route.**
+- SC-32's text is the SM correction.
+- #965's first-order on-site lemma is credited as the first step of Proposition 3b.
+- #966's two docstring fixes are adopted, as described above.
+- #966's SM replacement is not adopted.
+
+**The downgrade.** `SM:T-3` goes from K2 to K1, keeping its ID. The existing Lean checks stay named in the ledger.
+
+**What the Lean declarations prove:**
+- **`Staggered.factorization`** (`OI_Staggered_Relations.lean`): (Σ A_i)² = Σ A_i², with unit coefficients, for
+  abstract generators satisfying the staggered relations. It does not cover the α-weighted square of Lemma 3a.
+- **`Chiral.center_anticommutator`** (`OI_Structural_Core.lean`): the identity {D + m·ε + p₀, ε} = 2m + 2p₀·ε. It
+  takes {D, ε} = 0, ε² = 1 and the commutation of m, p₀ with ε as hypotheses. It does not conclude m = p₀ = 0.
+- **`Chiral.mass_square`**: (D + m·ε)² = D² + m², under the same kind of hypotheses.
+
+**What each statement rests on:**
+- **SM:T-3.** Its chirality step uses `center_anticommutator` with m = p₀ = 0, and its mass clause uses
+  `mass_square`. The α-weighted square and μ = C at α = 1/d are exact finite algebra only.
+- **SM:L-3a.** No kernel witness of the statement. Its proof rests on the paper argument and on G1–G3 and G5 of this
+  record.
+- **SM:P-3b.** No kernel witness of the statement. Its proof rests on the paper argument and on G4 T1 and T2 of this
+  record.
+
+The ledger grades L-3a and P-3b K1 through the related identities named in their rows, which cover specialized
+pieces and not the statements. Those rows are unchanged here.
+
+No upgrade of these entries is made without a corresponding machine-checked theorem.
 
 **Sites outside this unit.**
 
 - **Explainer :826, ch05 :95 and its FULL mirror :1424.** These are SC-17's lines (#963). At its head `e316cf92` they
   carry the normalization α = 1/d. They are not edited here.
-- **Two corrections pending the owner's route decision.** The independent review of this unit found both correct.
-  Both are on the owner's draft #966, and neither is applied here:
-  - `verification/lean/OI_Structural_Core.lean`, the docstring of `center_anticommutator`, which reads "zero iff the
-    center terms vanish". The Lean statement is an identity, and the iff fails for operator-valued m, p₀ (m = I,
-    p₀ = −ε).
-  - `verification/lean/structural_chain_probe.py`, the C3 docstring and print, which read "center-free in D_st ⟺
-    exact chirality". That is the first-order statement, checked only as an identity.
+- **Two documentation fixes adopted from #966.** These are #966's replacement texts, credited to that draft and
+  applied by hand. Its generator was not run. Both agree with Lemma 3a's family and Proposition 3b, and both are
+  comment or print text only:
+  - `verification/lean/OI_Structural_Core.lean` :413, the docstring of `center_anticommutator`. "zero iff the center
+    terms vanish" becomes "an identity, not coefficient uniqueness". The iff fails for operator-valued m, p₀
+    (m = I, p₀ = −ε). Stripped of comments and docstrings, the file is byte-identical, and it has 551 lines before
+    and after.
+  - `verification/lean/structural_chain_probe.py`, the C3 docstring (:14–15) and print (:136). "center
+    independence of the diagonal of D_st iff exact chirality" and "center-free in D_st ⟺ exact chirality" become
+    "separate mass and scalar-offset anticommutator identities … not a universal converse" and "… in the tested
+    integer matrices". The AST is identical once the module docstring and print calls are excluded. Run under
+    `python3 -I` from a copy, the output differs only in that print line.
 
 The frozen round records `round-cc-1/2` `controls.py` (R10) are history and are not edited.
 
@@ -114,6 +159,7 @@ The frozen round records `round-cc-1/2` `controls.py` (R10) are history and are 
   already rewritten on #963.
 - **"therefore unavailable" in SM §4.3.** 0 hits.
 - **"Revised chain".** 0 hits.
+- **"zero iff the center terms vanish" and "center-free in D_st ⟺".** 0 hits in `verification/lean/`.
 
 **Check.** `python3 theorem3_exact.py > theorem3_exact.out` reproduces the committed output byte for byte, and so
 does `-O`. Arithmetic is exact (Fraction). The countercontrols are an unstaggered η, an odd extent, and a d-blind mass

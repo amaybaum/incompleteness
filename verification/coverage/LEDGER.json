@@ -1694,7 +1694,7 @@
       ],
       "kernel": "K1",
       "delta": "the kernel proves the anticommutator identity and (D + m·eps)^2 = D^2 + m^2 abstractly; the alpha-weighted square of Lemma 3a and the step from mu = C at alpha = 1/d to the massless factorization are exact finite algebra, not kernel statements",
-      "note": "The direction center-free => chiral on the normalized branch alpha = 1/d. The converse is Proposition 3b at fixed alpha = 1/d; off that normalization the two conditions separate (SM §4.3 Remark)."
+      "note": "The direction center-free => chiral on the normalized branch alpha = 1/d. The converse is Proposition 3b at fixed alpha = 1/d; off that normalization the two conditions separate (SM §4.3 Remark). Proof coverage: Chiral.center_anticommutator is the identity {D + m·eps + p_0, eps} = 2m + 2p_0·eps with {D, eps} = 0 as a hypothesis; Chiral.mass_square is (D + m·eps)^2 = D^2 + m^2 under the same hypotheses; Staggered.factorization (unit coefficients, abstract generators) does not cover the alpha-weighted square. Downgraded K2 -> K1 by owner decision (owner, 2026-10-27); no upgrade without a corresponding machine-checked theorem."
     },
     {
       "id": "SM:P-3b",
