@@ -50,7 +50,25 @@ structure Realization (Hist V H : Type*) [Fintype Hist] [Fintype V] [Fintype H] 
 bijection together with an arbitrary joint law `w` of `(X_<t, X_t, H_t)`. No field ties `w` to
 `step`, to an initial law or to a horizon. The manuscript reads a faithful realization's time-`t`
 law as such a joint law, and that reading is not formalized. `Istar` (`C3Necessity.lean:103`) is a
-maximum over a finite nonempty family of `Realization`s that share one hidden alphabet.
+maximum over a finite nonempty family `R : ι → Realization Hist V H`: each slice has its own
+bijection, law and horizon, and all of them share one history type, one visible alphabet and one
+hidden alphabet.
+
+**The capacity bound.** `C3Necessity.lean:117`
+
+```lean
+theorem card_hidden_ge_two_pow_Istar [Nonempty H] {ι : Type*} {F : Finset ι} (hF : F.Nonempty)
+    (R : ι → Realization Hist V H) (L : ι → ℕ) :
+    (2 : ℝ) ^ (Istar hF R L) ≤ (Fintype.card H : ℝ)
+```
+
+This is the manuscript's `m ≥ 2^{I*}` for that family. `[Nonempty H]` adds nothing, because a
+`Realization`'s law sums to 1 over `Hist × V × H`. Its axioms are checked by the release gate's
+`lean-axioms` step: `tools/lean_axiom_check.py` permits only `propext`, `Classical.choice` and
+`Quot.sound` (`PERMITTED`, `:47`). It fails if any `#print axioms` in a source produces no report,
+and `C3Necessity.lean:143` carries `#print axioms card_hidden_ge_two_pow_Istar`.
+`OIBridge.lean:59` imports the module, so CI builds it. That step needs a Lean toolchain, so it
+runs in CI on this branch's pull request; that run is the axiom evidence for the K2 level below.
 
 ## Ledger (`verification/coverage/LEDGER.json`)
 
@@ -62,7 +80,7 @@ The ledger's level definitions are K3 "the exact manuscript statement is proved 
 |---|---|---|---|
 | `MAIN:T-unavoidable-hidden-predictive-memory` | K3 | K2 | time-`t` reading of a realization's law as the joint law |
 | `MAIN:T-c3-necessity` | K3 | K2 | the same step |
-| `MAIN:C-per-process-capacity-bound` | P (“no Lean statement”) | K2, Lean check `C3Necessity.lean` added | the same step; the revival witness and the independence-hypothesis clause are probe-certified |
+| `MAIN:C-per-process-capacity-bound` | P (“no Lean statement”) | K2. Lean check `card_hidden_ge_two_pow_Istar` (`C3Necessity.lean:117`) added; probe `c3_necessity_probe.py` (C5/C6) attached | the same step, plus reading `sup_t` as the finite maximum over the accessible times, with the histories of different times encoded in one history type. The revival witness and the independence-hypothesis clause are probe evidence |
 
 No fingerprint moves: the edited Main text lies outside the fingerprinted statement blocks
 (`proof_census.py` fingerprints the header line through the first blank line). No ID is added or
@@ -72,7 +90,7 @@ Kernel coverage 30/116 → 31/116. No coverage count is quoted elsewhere in the 
 
 ## Site table
 
-| site (at `55e3217b`) | was | anchor | now |
+| site (line at `0d917665`, the same at `55e3217b`) | was | anchor | now |
 |---|---|---|---|
 | Main :268 | exact norm-continuous path of local `*`-automorphisms | `driveQ_isContinuousPath` (`∀ x, Continuous fun t => driveQ R t x`; no locality clause) | exact strongly continuous path of `*`-automorphisms |
 | Main :584 | … norm-continuous path of local `*`-automorphisms of that algebra | same | … strongly continuous path of `*`-automorphisms of that algebra |
@@ -92,8 +110,9 @@ in `verification/lean-manuscript-census.json`, `verification/audits/manuscript/l
 `hidden_memory_probe.py` and `c3_necessity_probe.py`. Lean comments (comment-only; with comments
 stripped, the code is byte-identical to the base): `SecondOrderDrive.lean` :35, :195–198, :222–223,
 :826 now say strongly continuous; `HiddenMemory.lean` :26–30 and :48–53 no longer say the law is
-“induced” by the bijection; `C3Necessity.lean` :24–28 states the joint-law reading, :75 and :112
-change §3.3 to §3.4, and :127 changes “as the manuscript states it” to “in joint-law form”.
+“induced” by the bijection; `C3Necessity.lean` :24–28 and the `Istar` docstring :100–102 state the joint-law reading and the
+shared `Hist`, `V` and `H`; :75 and :112 change §3.3 to §3.4; :127 changes “as the manuscript
+states it” to “in joint-law form”, as does `HiddenMemory.lean` :10.
 
 Left unchanged: `verification/audits/physical-realization/continuous-time-audit.md` :200, :211,
 :264, :279 and `verification/audits/foundations/exec-source-audit.md` :44. These are dated audit
@@ -107,8 +126,29 @@ accurate. Main :733 (“C3 necessity | Proved …”) is accurate for the paper 
 - `path of local` in the same files: 0.
 - `strongly continuous path` (md): Main 2, GR 1, Explainer 1, ch01 1, ch19 1, FULL 2. In the
   `.tex` files, after whitespace normalisation: Main 2, GR 1, Explainer 1, FULL 2.
-- `norm[- ]continu` elsewhere under `verification/` and `tools/`: 6, all of them on the
-  left-unchanged list above.
+- `norm[- ]continu` elsewhere under `verification/` and `tools/`: 8. Six are on the
+  left-unchanged list above; the other two are the `R7-CTN` guard's own comment and its `_bad`
+  entry in `edge_rigidity_probe.py`.
+
+## R7-CTN mutation test
+
+The guard now pins `strongly continuous path` in all four whitespace-normalised `.tex` forms
+(GR, Main, Explainer, FULL). It also rejects `norm-continuous path` and `path of local` in every
+md and `.tex` form. Results, run on the working tree with each file restored afterwards (the
+restored tree is clean):
+
+| case | R7-CTN |
+|---|---|
+| current tree | PASS |
+| `papers/GR.tex` at `0d917665` | FAIL |
+| `papers/Main.tex` at `0d917665` | FAIL |
+| `papers/Explainer.tex` at `0d917665` | FAIL |
+| `book/…-FULL.tex` at `0d917665` | FAIL |
+| current `Main.tex` plus the phrase `the norm-continuous path` | FAIL |
+| current `GR.tex` plus the phrase `a path of local maps` | FAIL |
+| current `GR.tex` with only the `strongly continuous path` pin removed | FAIL |
+| previous guard (`8c5d2751`) on `papers/GR.tex` at `0d917665` | PASS (the gap this closes) |
+| restored tree | PASS |
 
 ## Checks
 

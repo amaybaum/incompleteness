@@ -7,7 +7,7 @@
   deterministic completion of a process that remembers its past must carry that memory in the
   hidden sector. The two are deliberately separate results and neither is a lemma of the other.
 
-  THE THEOREM, all three clauses, as the manuscript states them:
+  THE THEOREM, all three clauses, in joint-law form:
 
       Let S be a visible process and R ANY faithful deterministic realization of it — a bijection
       φ on C_V × C_H with a hidden prior reproducing S. Write f_x(h) = π_V(φ(x,h)), and for a

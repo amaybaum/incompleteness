@@ -1109,6 +1109,12 @@
         },
         {
           "kind": "probe",
+          "path": "verification/lean/c3_necessity_probe.py",
+          "basis": "named",
+          "evidence": "sustained conditional memory does NOT force"
+        },
+        {
+          "kind": "probe",
           "path": "papers/oi_lattice_code/foundations/c3_dilation_probes.py",
           "basis": "named",
           "evidence": "C3 corollary"
@@ -1121,7 +1127,7 @@
         }
       ],
       "kernel": "K2",
-      "delta": "m >= 2^(I*) is kernel-proved as card_hidden_ge_two_pow_Istar, with I* the maximum over a finite nonempty family of Realizations sharing one hidden alphabet, and Main 3.4 cites it. K2, not K3: reading those Realizations' joint laws as the time-t laws of one realization is not formalized (the ancillary step of the C3 entry); the statement's remaining clauses -- the m = 2 < n = 3 revival witness against m >= n, and the sustained m >~ 2^(K I_0) form holding only under an independence hypothesis -- are certified by the probes and are not kernel statements.",
+      "delta": "m >= 2^(I*) is kernel-proved as card_hidden_ge_two_pow_Istar (C3Necessity.lean:117): for every finite nonempty family of Realizations on one history type, one visible alphabet and one hidden alphabet H (Nonempty H, which a Realization's normalized law already forces), 2^(Istar) <= |H|, with Istar the maximum over the family of I(X_<t ; X_>t | X_t) at each slice's horizon. Its axioms are checked by the release gate's lean-axioms step (tools/lean_axiom_check.py, permitted set propext, Classical.choice, Quot.sound; the file carries #print axioms card_hidden_ge_two_pow_Istar) in CI on the pull request that set this level. K2, not K3, for two named ancillary steps that are not formalized: reading the family as the time-t laws of one realization (the step of the C3 entry), and reading the manuscript's sup_t as that finite maximum over the accessible times, with the histories of different times encoded in one history type. The statement's remaining clauses are probe evidence and not kernel statements: the m = 2 < n = 3 revival witness against m >= n (c3_dilation_probes.py; C5 of c3_necessity_probe.py), and the sustained m >~ 2^(K I_0) form holding only under an independence hypothesis (C6 of c3_necessity_probe.py exhibits its failure).",
       "note": "b444 sharpens the same budget from the entropy side; b445/b446 sharpen it again by realization dimension."
     },
     {

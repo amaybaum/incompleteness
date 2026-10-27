@@ -23,9 +23,9 @@
 
   WHAT `I*` IS. The manuscript's `I*` is a supremum over accessible times. Formally it is the
   maximum over a finite nonempty family of slices, each a `Realization` (a bijection with a joint
-  law of `(X_<t, X_t, H_t)`, as in `HiddenMemory`; reading those laws as a realization's time-t
-  laws is not formalized), each with its own history alphabet, law and horizon, all on ONE hidden
-  alphabet. That makes `m ≥ 2^{I*}` a bound on one hidden sector, and it is in the signature.
+  law of `(X_<t, X_t, H_t)`; reading those laws as a realization's time-t laws is not formalized),
+  each with its own bijection, law and horizon, all on one history type, one visible alphabet and
+  one hidden alphabet. The common hidden alphabet makes `m ≥ 2^{I*}` a bound on one hidden sector.
 
   WHAT IS NOT PROVED HERE, because the manuscript denies it. The corollary's sustained-backflow
   reading — `m ≳ 2^{K I_0}` for backflow at rate `I_0` over `K` events — holds only "under the
@@ -98,8 +98,8 @@ nonempty family of slices sharing a hidden alphabet. Sharing the alphabet is the
 corollary is a statement about the size of ONE hidden sector. -/
 
 /-- `I* = sup_t I(X_<t ; X_>t | X_t)`, over a finite nonempty family of accessible slices and their
-horizons. Each slice carries its own visible-history alphabet, law and horizon; all of them share
-the hidden alphabet `H`. -/
+horizons. Each slice carries its own bijection, law and horizon, all on one history type `Hist`,
+one visible alphabet `V` and one hidden alphabet `H`. -/
 noncomputable def Istar {ι : Type*} {F : Finset ι} (hF : F.Nonempty)
     (R : ι → Realization Hist V H) (L : ι → ℕ) : ℝ :=
   F.sup' hF fun i => cmiBits (R i).w (varHist) (varNow) (varFuture (R i) (L i))
