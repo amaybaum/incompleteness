@@ -979,7 +979,7 @@
       "line": 447,
       "kind": "Theorem",
       "label": "(physical memory: C2, process form)",
-      "fingerprint": "7084944e69f6a1bb",
+      "fingerprint": "4c4f0d290436802c",
       "area": "memory-conditions",
       "assumptions": "the coupling-step model of §3.4 (next visible state determined by the current visible and hidden states; any hidden map between couplings) with reference prior π_H; persistence form: ε the realized maximum distance of the hidden conditionals from π_H, no mixing hypothesis; timescale (slow-bath) form: the conditional-mixing hypothesis at coupling time",
       "checks": [

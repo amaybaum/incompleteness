@@ -2632,9 +2632,11 @@ the realized maximum of
 \(\mathrm{TV}(P(H_k = \cdot \mid x_{\leq k}), \pi_H)\) over
 positive-probability histories \(x_{\leq k}\), the hypothesis holds by
 definition, so the contrapositive needs no mixing hypothesis: this is
-the persistence form. The mixing hypothesis enters when \(\varepsilon\)
-is read as the residue of relaxation toward \(\pi_H\) over the
-inter-coupling time, which gives the timescale (slow-bath) form.}
+the persistence form (if that maximum exceeds \(1 - 1/n_V\) the
+conclusion holds outright, since \(\varepsilon_{\min} < 1 - 1/n_V\)).
+The mixing hypothesis enters when \(\varepsilon\) is read as the residue
+of relaxation toward \(\pi_H\) over the inter-coupling time, which gives
+the timescale (slow-bath) form.}
 
 \emph{Proof.} The hidden conditional given any visible past is within
 \(\varepsilon\) of \(\pi_H\) by hypothesis; pushing through the one-step
@@ -4103,26 +4105,27 @@ anywhere, every visible transition is a fixed function of the visible
 present and the process is Markov, contradicting (ii)); (C2) trivially
 in the construction --- the bath is static, \(\tau_B = \infty\),
 satisfying \(\tau_S \ll \tau_B\); for \emph{physical} hidden sectors the
-physical-memory theorem's contrapositive (§2.3, the C2 process form)
+physical-memory theorem's contrapositive (§3.4, the C2 process form)
 supplies the necessity direction --- observed conditional memory bounds
-the mixing residual below --- conditional on the
-conditional-mixing-curve hypothesis with finite
-\(\tau_B(\varepsilon_0)\) (Remark, §3.4; ETH {[}17, 18{]} the
-motivation; no smallness of \(\varepsilon\) at the coupling time is
-assumed); (C3) from the data-processing bound in per-process form
-(\(m \geq 2^{I^*}\)). Both directions are proved here in prose and
-neither is formalized in the kernel; since (C4) coincides with (ii) in
-every faithful realization (Remark, \emph{the conditions are
-diagnostics, not hypotheses}), what (ii) \(\implies\) (iii) adds to (ii)
-is the existence of a realization, and (iii) \(\implies\) (ii) is the
-readback lemma. Finally, a unitarily evolving representation is
-available for \(\mathcal{S}\) regardless --- internally by the
-permutation unitary of any realization (the equivalence above), and
-under (T) by the imported correspondence {[}11, 12{]}, which represents
-it by a unitarily evolving quantum system; under the time-homogeneity
-restriction the representation takes the fixed-\(\hat{H}\)
-ancilla-marginal form of (i) (scope Remark) --- the paper's single
-external import, sitting outside the equivalence. \(\square\)
+the mixing residual below with no mixing hypothesis (persistence form),
+and, conditional on the conditional-mixing-curve hypothesis with finite
+\(\tau_B(\varepsilon_0)\), bounds the bath's mixing time (timescale
+form) (Remark, §3.4; ETH {[}17, 18{]} the motivation; no smallness of
+\(\varepsilon\) at the coupling time is assumed); (C3) from the
+data-processing bound in per-process form (\(m \geq 2^{I^*}\)). Both
+directions are proved here in prose and neither is formalized in the
+kernel; since (C4) coincides with (ii) in every faithful realization
+(Remark, \emph{the conditions are diagnostics, not hypotheses}), what
+(ii) \(\implies\) (iii) adds to (ii) is the existence of a realization,
+and (iii) \(\implies\) (ii) is the readback lemma. Finally, a unitarily
+evolving representation is available for \(\mathcal{S}\) regardless ---
+internally by the permutation unitary of any realization (the
+equivalence above), and under (T) by the imported correspondence {[}11,
+12{]}, which represents it by a unitarily evolving quantum system; under
+the time-homogeneity restriction the representation takes the
+fixed-\(\hat{H}\) ancilla-marginal form of (i) (scope Remark) --- the
+paper's single external import, sitting outside the equivalence.
+\(\square\)
 
 \emph{Remark (the horizon restriction is forced).} The witness-anchored
 quantifier in (iii) is not a courtesy. Any order \(k\) satisfying (iii)
@@ -5528,4 +5531,4 @@ degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
 \end{document}
-% source-sha256: ab408d07d1ce15caf10a55b52bdd82275a76d921f6e972d589f347e2f4ba102b
+% source-sha256: fccadfdd5d5b0ed45c808553b90c9429b0fd7b50047dc81637ef1d3802e262ae
