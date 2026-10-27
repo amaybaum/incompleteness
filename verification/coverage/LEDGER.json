@@ -1236,7 +1236,7 @@
       "line": 576,
       "kind": "Theorem",
       "label": "(uniform continuum realization — mutual ε-density)",
-      "fingerprint": "d5bebe2b4b397137",
+      "fingerprint": "8c37fc59f7715b2f",
       "area": "equivalence-chain",
       "assumptions": "a delta-net in diamond norm on the compact set of <= m-outcome instruments",
       "checks": [
