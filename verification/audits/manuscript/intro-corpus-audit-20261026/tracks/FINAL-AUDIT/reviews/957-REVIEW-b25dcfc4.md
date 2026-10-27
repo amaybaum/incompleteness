@@ -126,10 +126,10 @@ No displayed equivalence remains in §3.5. The only "exactly" is "exactly the oc
 - **PDFs:** Their text contains the new wording and none of the removed equivalence or "same fact" text. Page counts are 96, 53 and 557.
 
 ### Files
-- `/home/user/incompleteness/papers/Main.md` (:660–670)
-- `/home/user/incompleteness/papers/Substratum.md` (:329)
-- `/home/user/incompleteness/book/ch19-open-problems.md` (:240, :242)
-- `/home/user/incompleteness/book/The-Incompleteness-of-Observation-FULL.md` (:5400, :5402)
-- `/home/user/incompleteness/papers/SM.md` (:136)
+- `papers/Main.md` (:660–670)
+- `papers/Substratum.md` (:329)
+- `book/ch19-open-problems.md` (:240, :242)
+- `book/The-Incompleteness-of-Observation-FULL.md` (:5400, :5402)
+- `papers/SM.md` (:136)
 
 All line numbers refer to head `b25dcfc4`.
