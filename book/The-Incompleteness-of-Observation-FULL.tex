@@ -1366,7 +1366,7 @@ physically realizable computation falling under the model), any
 super-BQP demonstration falsifying coverage first, the conjunction and
 its bridge only with further argument. Chapter 15 develops quantum
 engineering: superconducting qubit dynamics as the canonical engineered
-C1--C4 system with \(\tau_S/\tau_B \sim 10^{-3}\), P-indivisible noise
+C1--C4 system with \(\tau_S/\tau_B \sim 10^{-3}\), memory-bearing noise
 structure producing correlated errors over \(\sim 10^3\) gates,
 correlation-aware decoders correlated errors that a correlation-aware
 decoder can exploit, coherence revivals from engineered baths, and
@@ -1983,10 +1983,14 @@ can be as large as \(m!\), and for the cosmological partition with
 \(m \sim e^{10^{122}}\), the recurrence time is
 \(t_R \sim e^{10^{122}}\) years --- orders of magnitude longer than the
 age of the universe to any power. The distinguishability restoration at
-\(t = N\) is therefore not directly observable. The framework requires
-P-indivisibility on \emph{accessible} timescales --- times short
+\(t = N\) is therefore not directly observable. What an observer can
+measure is memory on \emph{accessible} timescales --- times short
 compared to \(\tau_B\), the hidden sector's intrinsic memory time ---
-not at recurrence. The accessible-timescale lemma supplies this.
+not at recurrence. The accessible-timescale lemma supplies that memory,
+as conditional mutual information, wherever the stored record is read
+back (C4). It does not supply P-indivisibility on those windows: a
+readback gap is compatible with a population law that is divisible on
+every window short of recurrence ({[}Main §2.3{]}).
 
 The mechanism is straightforward information storage and retrieval
 through the coupling. At each visible-sector interaction (timescale
@@ -2014,16 +2018,17 @@ unity: almost no information is lost per visible-sector cycle. After
 \(r^k \approx 1 - k\tau_S/\tau_B\), which remains close to unity for any
 observation window short compared to \(\tau_B/\tau_S\) cycles.
 
-Quantitatively, the non-Markovian mutual information between the visible
-sector's past and future, conditioned on its present, is bounded below
-by
+Quantitatively, when the stored record is read back (C4), the
+non-Markovian mutual information between the visible sector's past and
+future, conditioned on its present, is bounded below by
 \[I(X_{<t}; X_{>t} \mid X_t) \geq I_0 \left(1 - \frac{k\tau_S}{\tau_B}\right),\]
-which is order \(I_0\) for any \(k \tau_S \ll \tau_B\). The information
-backflow that the proof established at recurrence times is therefore
-present continuously throughout the accessible-timescale regime: the
-visible sector's distinguishability has rebounded by an amount of order
-\(I_0\) at every step until enough cycles have accumulated to deplete
-the stored memory.
+which is order \(I_0\) for any \(k \tau_S \ll \tau_B\). Conditional
+memory of order \(I_0\) is therefore present throughout the
+accessible-timescale regime, until enough cycles have accumulated to
+deplete the stored record. It is memory in the multi-time law, distinct
+from the distinguishability revival that the recurrence proof
+establishes for the one-time population law, and it does not imply that
+revival.
 
 For the cosmological partition the numbers are striking. The hidden
 sector's memory time is set by the Hubble scale,
@@ -2044,13 +2049,14 @@ write is correspondingly vast.
 
 C4's readback therefore produces accessible-timescale non-Markovianity,
 with C1 and C3 its consequences in any faithful realization and C2 the
-persistence regime that lets it operate with substantial information
-backflow at every step; P-indivisibility is the stronger property,
+persistence regime that lets it operate with substantial conditional
+memory at every step; P-indivisibility is the stronger property,
 delivered at the recurrence scale when the non-permutation one-step
-witness applies ({[}Main §2.3{]}). The recurrence-based proof of the
-theorem establishes the existence of P-indivisibility; the
-accessible-timescale lemma establishes that the same property holds in
-the parameter regime that matters for actual observers in our universe.
+witness applies ({[}Main §2.3{]}). The recurrence-based proof
+establishes P-indivisibility across the recurrence cycle; the
+accessible-timescale lemma establishes conditional memory in the
+parameter regime that matters for actual observers in our universe. The
+second does not imply the first on accessible windows.
 
 \textbf{A worked minimal model.} A concrete example makes the mechanism
 tangible. Take a two-state visible sector \(\mathcal{C}_V = \{0, 1\}\)
@@ -2121,10 +2127,10 @@ between the write at step 1 and the read at step 2 --- here trivially,
 because the die itself does not evolve between coin flips. C3 is what
 provided enough storage capacity --- six hidden states against two
 visible; C4 is what made the stored record readable again at step 2.
-C4's readback is what produces the information backflow --- C1 and C3
-are its preconditions in any faithful realization, and C2 is the
-persistence regime that lets the record survive to be read. The next
-section takes up how that backflow is represented.
+C4's readback is what produces the memory --- C1 and C3 are its
+preconditions in any faithful realization, and C2 is the persistence
+regime that lets the record survive to be read. The next section takes
+up how that memory is represented.
 
 \hypertarget{the-two-routes-to-quantum-mechanics}{%
 \subsection{1.6 The two routes to quantum
@@ -2445,12 +2451,12 @@ representation --- every finite law does, trivially here ({[}Main
 §3.4{]}) --- but there is nothing memory-bearing in it: no
 coupling-induced non-Markovianity for a nontrivial representation to
 encode, hence none of the interference phenomenology the framework
-attributes to backflow. The framework's route to Bell-inequality
-violations is closed here --- P-indivisibility cannot arise from a
-partition with no coupling --- whether other routes exist is not
-adjudicated ({[}Main §3.4{]}). The observer sees a classical Newtonian
-world with deterministic trajectories and well-defined values of every
-observable at every time.
+attributes to hidden-sector memory. The framework's route to
+Bell-inequality violations is closed here --- P-indivisibility cannot
+arise from a partition with no coupling --- whether other routes exist
+is not adjudicated ({[}Main §3.4{]}). The observer sees a classical
+Newtonian world with deterministic trajectories and well-defined values
+of every observable at every time.
 
 This is the regime closest to the historical picture of classical
 mechanics: a clockwork universe where every particle has a definite
@@ -2497,9 +2503,9 @@ which the hidden sector evolves ({[}Main §1.3{]}). In the limit of
 complete failure --- the record is erased instantly, \(\tau_B \to 0\)
 --- the hidden sector equilibrates between every visible-sector
 measurement. No correlation written into the hidden sector during one
-measurement persists to influence the next. The information backflow
-that produces P-indivisibility cannot occur because there is no memory
-in the bath for the visible sector to read back.
+measurement persists to influence the next. History readback cannot
+occur because there is no memory in the bath for the visible sector to
+read back.
 
 The dynamics in this regime is \emph{fully Markovian}. The reduced
 description on the visible sector is a classical stochastic process with
@@ -6525,7 +6531,7 @@ substratum equilibrium --- its slow-bath route gone --- and with it the
 readback condition C4, since a bath thermalizing between steps erases
 the record before it can be read ({[}Main §2.3{]}): at equilibrium, the
 hidden sector has thermalized completely, and there are no slow modes to
-provide the timescale separation that produces P-indivisibility. The
+provide the timescale separation that sustains accessible memory. The
 structural observer-selection theorem developed at Main §4.6 restricts
 observers to the non-equilibrium phase of the substratum's dynamics. The
 equilibrium phase is observer-free by structural argument, and the
@@ -7192,8 +7198,7 @@ fermions is equivalent to center independence of the substratum
 dynamics: any non-zero center coupling would produce a non-zero fermion
 mass term proportional to \(\Box_{\text{lat}}\phi\), breaking chiral
 symmetry. The framework's commitment to center independence --- the
-structural feature that produces the information backflow
-P-indivisibility diagnoses, the memory-bearing sector whose
+structural feature that produces the memory-bearing sector whose
 phenomenology Chapter 1 develops --- is the same commitment that
 produces exact chiral symmetry at the fermionic level. The Higgs
 mechanism developed in Chapter 6, which gives masses to fermions in the
@@ -18550,13 +18555,13 @@ engineered C1--C4 system. Transmons coupled to two-level systems (TLS)
 in the substrate produce a hidden sector with
 \(\tau_S/\tau_B \sim 10^{-3}\) --- twenty-nine orders of magnitude
 larger than the cosmological case. The mechanism proposal's prediction
-is that this hidden sector produces P-indivisible noise correlations
+is that this hidden sector produces memory-bearing noise correlations
 across thousands of gate operations. Section 15.4 develops
 correlation-aware error correction: standard Markovian surface codes see
-the framework's P-indivisible correlations as anomalously high
-uncorrectable error rates; correlation-aware decoders designed for the
-actual noise structure could reduce overhead by factors of three to ten,
-with concrete numerical predictions.
+the framework's predicted correlations as anomalously high uncorrectable
+error rates; correlation-aware decoders designed for the actual noise
+structure could reduce overhead by factors of three to ten, with
+concrete numerical predictions.
 
 Section 15.5 develops coherence extension through engineered baths ---
 the framework's bath-as-resource design philosophy. By coupling a qubit
@@ -18632,9 +18637,10 @@ limiting performance through residual coupling. A qubit deliberately
 coupled to an engineered slow, high-capacity hidden sector --- a built
 realization of C1--C4's persistence and capacity --- with
 \(\tau_S/\tau_B \sim 10^{-1}\) exhibits qualitatively different
-dynamics: information backflow, partial coherence revivals at the bath's
-correlation timescale, and a non-Markovian noise structure that
-correlation-aware error correction can exploit.
+dynamics: memory of earlier gates where the bath's record is read back
+(C4), partial coherence revivals at the bath's correlation timescale
+where that return also revives distinguishability, and a non-Markovian
+noise structure that correlation-aware error correction can exploit.
 
 \textbf{Where the framework's prediction reaches engineering relevance.}
 The framework's structural correction is \(\mathcal{O}(\tau_S/\tau_B)\)
@@ -18805,12 +18811,13 @@ the transmon-TLS system.
 \subsection{15.4 Correlation-aware error
 correction}\label{correlation-aware-error-correction}}
 
-The framework's prediction of P-indivisible noise in superconducting
-qubits has direct implications for quantum error correction. Standard
-surface-code decoders assume Markovian (independent) errors. The
-framework's predicted correlations imply that standard decoders are
-systematically suboptimal --- they treat correlated errors as random,
-missing the predictability the bath dynamics provides.
+The framework's prediction of memory-bearing (accessibly non-Markovian)
+noise in superconducting qubits has direct implications for quantum
+error correction. Standard surface-code decoders assume Markovian
+(independent) errors. The framework's predicted correlations imply that
+standard decoders are systematically suboptimal --- they treat
+correlated errors as random, missing the predictability the bath
+dynamics provides.
 
 \textbf{The framework's quantitative prediction.} For superconducting
 qubits with \(\tau_S/\tau_B \sim 10^{-3}\), the framework predicts
@@ -18921,20 +18928,23 @@ By tuning the chain length \(L\), the framework's prediction is:
   regime. Standard decoherence. The bath equilibrates between gate
   operations.
 \item
-  Long chain (\(L \gtrsim 20\), \(\tau_B \gg \tau_S\)): P-indivisible
-  regime. Information backflow. Correlations from gate \(k\) return at
-  gate \(k + \tau_B/\tau_S\), partially restoring coherence.
+  Long chain (\(L \gtrsim 20\), \(\tau_B \gg \tau_S\)): memory-bearing
+  regime when the chain reads back its record (C4). Correlations written
+  at gate \(k\) can return at later gates within the retention time of
+  \(\tau_B/\tau_S\) gates, partially restoring coherence.
+  P-indivisibility of the qubit's population law on such windows is a
+  further property, certified only by a divisibility witness.
 \end{itemize}
 
-The transition is sharp: once \(\tau_B/\tau_S\) exceeds the C2 threshold
-the record survives to readback, and the visible law carries accessible
-finite-horizon memory rather than acquiring it gradually. On a fixed
-finite reversible representative, where recurrence returns the visible
-map to the identity and a readback gap forces a non-permutation rooted
-map, that memory also shows up as stochastic indivisibility of the
-visible population law. Neither statement is a claim about generic
-open-system non-Markovianity of a quantum channel, which is a different
-notion and does not follow from either.
+Once \(\tau_B/\tau_S\) exceeds the C2 threshold the record survives to
+readback; where the chain also reads it back (C4), the visible law
+carries accessible finite-horizon memory. On a fixed finite reversible
+representative, where recurrence returns the visible map to the identity
+and a readback gap forces a non-permutation rooted map, that memory also
+shows up as stochastic indivisibility of the visible population law.
+Neither statement is a claim about generic open-system non-Markovianity
+of a quantum channel, which is a different notion and does not follow
+from either.
 
 The platform is testable on existing technologies: superconducting
 qubits coupled to engineered spin chains, NV centers in diamond with
@@ -18979,8 +18989,8 @@ The relevant timescale separations are: NV electron-spin dynamics at
 \(\tau_S \sim 10\)-100 ns; phonon-bath correlation times
 \(\tau_B \sim 1\)-10 ms; nuclear-spin bath correlation times
 \(\tau_B \sim 1\)-100 ms. The ratio: \(\tau_S/\tau_B \sim 10^{-5}\) to
-\(10^{-6}\) --- within the framework's slow-bath regime where
-information backflow effects become predictable.
+\(10^{-6}\) --- within the framework's slow-bath regime where memory
+effects become predictable.
 
 \textbf{The framework's prediction.} Decoherence in NV centers is
 non-Markovian on the framework's account: coherence partially revives at
@@ -19764,12 +19774,12 @@ second drug's effect depends on what was written.
 \textbf{Radiation adaptive response.} A small priming dose of radiation
 (\textasciitilde0.01-0.1 Gy) makes cells more resistant to a subsequent
 larger dose (\textasciitilde2 Gy), with the effect lasting hours to
-days. The framework identifies this as information backflow from the
+days. The framework identifies this as history readback from the
 chromatin hidden sector: dose 1 writes modification marks into histones,
 which persist and are read by the DNA damage response when dose 2
 arrives. The ``adaptation'' is the response network reading the memory
 of the previous damage event --- a direct biological manifestation of
-the framework's information backflow prediction.
+the framework's history-readback prediction.
 
 \textbf{Distinguishing predictions for cancer pharmacology.}
 
@@ -21370,8 +21380,6 @@ the negative-binomial forms in this section themselves indicate). They
 should therefore be read as \emph{consistency} confirmations of the
 framework's memory architecture, degenerate with those classical
 accounts --- not as distinguishing tests that isolate P-indivisibility.
-Where ``P-indivisible'' appears below, it denotes this grade-ii memory
-mechanism.
 
 \textbf{Molecular clock overdispersion.} The molecular clock ---
 Zuckerkandl and Pauling's proposal that protein and DNA substitutions
@@ -21381,7 +21389,7 @@ index of dispersion \(R(t) = \text{Var}/\text{Mean}\) for substitutions
 on a single lineage should equal 1 for a Poisson process; empirical
 measurements consistently exceed this value.
 
-The framework's prediction: if substitution dynamics is P-indivisible
+The framework's prediction: if substitution dynamics is memory-bearing
 (the framework's structural mechanism for non-Markovianity), then
 \(R(t)\) must exceed 1. The degree of overdispersion should increase
 with the strength of C1 coupling (how strongly the conformational
@@ -21405,14 +21413,14 @@ gamma-distributed rates --- the expected distribution for a process with
 persistent temporal rate variation (memory). The framework's structural
 prediction matches the empirically-derived distributional form.
 
-\textbf{Universal rate autocorrelation.} P-indivisibility implies that
-the substitution rate along a single lineage is temporally
-autocorrelated --- the rate at one time correlates with the rate at
-neighboring times, because both are modulated by the slowly evolving
-hidden sector (the conformational landscape, the epigenome). The
-correlation should decay on the timescale \(\tau_B\) of the hidden
-sector, and should be detectable across all taxa because C1--C4 are
-universally satisfied.
+\textbf{Universal rate autocorrelation.} History readback (C4) makes the
+substitution process along a single lineage memory-bearing: the slowly
+evolving hidden sector (the conformational landscape, the epigenome)
+carries information about the lineage's past into its future rates, so
+the rate at one time is expected to correlate with the rate at
+neighboring times. The correlation should decay on the timescale
+\(\tau_B\) of the hidden sector, and should be detectable in every taxon
+in which C1--C4 are realized.
 
 Tao et al.~(2019, \emph{Molecular Biology and Evolution}) applied
 CorrTest to large phylogenies across the tree of life and found
@@ -21438,8 +21446,8 @@ with \(\tau_B\) of the conformational landscape).
 
 \textbf{LTEE power-law fitness trajectories.} A Markovian adaptive
 process with diminishing-returns epistasis produces exponential approach
-to a fitness optimum. A P-indivisible process with memory stored in the
-conformational landscape produces a \emph{power-law} trajectory:
+to a fitness optimum. A process with memory stored in the conformational
+landscape produces a \emph{power-law} trajectory:
 \(\text{fitness}(t) \sim t^\beta\) with \(\beta < 1\), because the
 hidden sector's memory introduces long-range temporal correlations that
 slow the approach to equilibrium.
@@ -21469,7 +21477,7 @@ higher values for systems with larger hidden sectors. This prediction is
 testable using existing substitution rate data and provides a
 quantitative cross-validation of the framework's structural mechanism.
 
-\textbf{Punctuated equilibrium.} P-indivisible dynamics with a slow
+\textbf{Punctuated equilibrium.} Memory-bearing dynamics with a slow
 hidden sector predicts alternating periods of stasis and rapid change.
 During stasis, the hidden sector absorbs information from the visible
 sector without visible phenotypic effect --- the conformational
@@ -21481,7 +21489,7 @@ mutations, producing rapid phenotypic change.
 Punctuated equilibrium --- long periods of morphological stasis
 interrupted by rapid change --- has been documented across the fossil
 record since Eldredge and Gould (1972). The framework identifies this as
-information backflow: the rapid change is the readback of correlations
+history readback: the rapid change is the readback of correlations
 accumulated in the hidden sector during the stasis period. The
 contingent innovation in Lenski's LTEE (citrate utilization at
 generation 31,500, requiring prior ``potentiating'' mutations) is the
@@ -22055,14 +22063,14 @@ coupling) has memoryless classical stochastic dynamics --- the
 memory-bearing sector is empty, the quantum representation trivial. A
 system failing C2 (records scrambled before readback --- for instance a
 hidden sector that equilibrates faster than the visible-sector dynamics)
-has Markovian emergent dynamics --- the memory effects that produce
-P-indivisibility are washed out. A system failing C3 (insufficient
-hidden capacity) has emergent dynamics with truncated accessible memory
---- the capacity floor caps \(M_t\) --- the theorem-level content; the
-mechanism proposal hypothesizes that this marginal-capacity regime is
-the partially-quantum regime of Chapter 15 §15.7, with memoryless
-operational modeling failing while the transition-statistics layer
-remains representable ({[}Main §3.4{]}).
+has Markovian emergent dynamics --- the accessible memory effects are
+washed out. A system failing C3 (insufficient hidden capacity) has
+emergent dynamics with truncated accessible memory --- the capacity
+floor caps \(M_t\) --- the theorem-level content; the mechanism proposal
+hypothesizes that this marginal-capacity regime is the partially-quantum
+regime of Chapter 15 §15.7, with memoryless operational modeling failing
+while the transition-statistics layer remains representable ({[}Main
+§3.4{]}).
 
 \textbf{The partially-quantum regime.} The framework's content beyond
 the binary quantum/classical distinction is a new physical regime: the
@@ -23056,14 +23064,14 @@ framework's commitments make Penrose-Hameroff structurally incompatible.
 
 \emph{C1--C4 architecture is necessary for non-Markovian information
 processing.} Conscious systems must exhibit memory effects,
-history-dependent dynamics, and information backflow between subsystems
---- the structural signatures of non-Markovian dynamics that emerge from
-the framework's C1--C4 architecture. Theories of consciousness that
-treat conscious systems as fundamentally Markovian (instantaneous,
-memoryless processing) are incompatible with the framework's account of
-how cognitively non-trivial information processing must work. Strict
-feed-forward computational accounts of consciousness face this
-constraint.
+history-dependent dynamics, and readback of stored correlations between
+subsystems --- the structural signatures of non-Markovian dynamics that
+emerge from the framework's C1--C4 architecture. Theories of
+consciousness that treat conscious systems as fundamentally Markovian
+(instantaneous, memoryless processing) are incompatible with the
+framework's account of how cognitively non-trivial information
+processing must work. Strict feed-forward computational accounts of
+consciousness face this constraint.
 
 \emph{The substratum is finite.} The framework's finite substratum
 (§18.7) constrains theories of consciousness that posit infinite
@@ -23156,16 +23164,16 @@ features conscious systems should exhibit; they are consistency checks
 on the conjecture, not evidence for the framework.
 
 Conscious systems should exhibit non-Markovian information processing
---- memory effects, history-dependent dynamics, information backflow
-between subsystems. The C1--C4 architecture is empirically detectable in
-neural systems; the prediction is that systems we identify as conscious
-(humans, mammals, possibly other complex biological systems) should
-exhibit these signatures at their relevant timescales. Neuroscience
-evidence --- synaptic plasticity, neuromodulator gradients, glial
-dynamics, slow oscillations supporting cognitive integration --- is
-consistent with this prediction. The framework's content is structurally
-aligned with the broader neuroscience consensus on the architecture of
-conscious information processing.
+--- memory effects, history-dependent dynamics, readback of stored
+correlations between subsystems. The C1--C4 architecture is empirically
+detectable in neural systems; the prediction is that systems we identify
+as conscious (humans, mammals, possibly other complex biological
+systems) should exhibit these signatures at their relevant timescales.
+Neuroscience evidence --- synaptic plasticity, neuromodulator gradients,
+glial dynamics, slow oscillations supporting cognitive integration ---
+is consistent with this prediction. The framework's content is
+structurally aligned with the broader neuroscience consensus on the
+architecture of conscious information processing.
 
 Conscious systems should \emph{not} be possible in architectures that
 strictly fail C1--C4. The framework predicts that strictly feed-forward
@@ -25671,7 +25679,7 @@ B7 & Universal rate autocorrelation & Across the tree of life & S & 1 &
 Tao et al.~2019 confirmed & Ch 17 §17.9 \\
 B8 & LTEE power-law fitness & \(\beta \approx 0.08\)-\(0.12\) & S & 1 &
 Wiser et al.~2013 confirmed & Ch 17 §17.9 \\
-B9 & Punctuated equilibrium & C1--C4 information backflow & S & 1 &
+B9 & Punctuated equilibrium & C1--C4 history readback & S & 1 &
 Eldredge-Gould 1972 & Ch 17 §17.9 \\
 B10 & Hsp90 evolutionary capacitance & C1--C4 buffering & S & 1 &
 Rutherford-Lindquist 1998 & Ch 17 §17.9 \\
@@ -26085,7 +26093,7 @@ realization per accessible horizon, with the quantum representation
 internal and universal (\(S \iff D \iff Q_{\mathrm{fb}}\), {[}Main
 §3.4{]}) --- relies on a chain of intermediate lemmas:
 partition-relativity, emergent stochasticity, P-indivisibility from a
-non-permutation witness, accessible-timescale backflow, and
+non-permutation witness, accessible-timescale conditional memory, and
 phase-locking, together with the results on which phase-locking rests:
 Bohr-frequency completeness, the real-to-integer transfer and the
 two-branch classification conditional on H-BG. This appendix collects
@@ -26411,7 +26419,8 @@ channel is entanglement-breaking, as a two-state system with a two-state
 hidden register already shows.
 
 \textbf{Theorem B.2.5 (CP-indivisibility).} \emph{The P-indivisibility
-of the substratum dynamics (under C1--C4) implies CP-indivisibility of
+of the substratum dynamics across its recurrence cycle (from a
+non-permutation rooted map and finiteness) implies CP-indivisibility of
 \(\{\Phi_t\}\): there exist \(t_2 > t_1 > 0\) with no CPTP map
 \(\Lambda\) satisfying \(\Phi_{t_2} = \Lambda \circ \Phi_{t_1}\).}
 
@@ -26436,7 +26445,7 @@ Breuer-Laine-Piilo \emph{information backflow} signature --- is
 sufficient evidence of non-Markovianity, not a necessary consequence of
 CP-indivisibility. The framework's content is therefore that the
 C1--C4/readback sector is necessarily memory-bearing --- non-Markovian,
-with information backflow at observable timescales --- while fixed-basis
+with conditional memory at observable timescales --- while fixed-basis
 quantum representability itself is universal, not confined to that
 sector ({[}Main §3.4{]}).
 
@@ -27421,40 +27430,43 @@ non-increasing \(D\) for every pair of inputs; the recovery
 
 \emph{Role of C2, C3, and observability.} The recovery above is
 guaranteed only at the recurrence time \(\omega\), which is
-astronomically large for a high-capacity hidden sector, so C1 and
-finiteness establish P-indivisibility only \emph{in principle}.
-Conditions C2 (memory persistence) and C3 (sufficient capacity) are what
-make the information backflow occur on \emph{observable} timescales
-\(k\tau_S \ll \tau_B\) rather than only at recurrence --- with C4
-(history readback) the load-bearing condition for the memory witness
-itself (\texttt{review4\_probes.py}); this is the content of Lemma B.7.4
-and Chapter 1 §1.7. This division of labor follows {[}Main{]}: the
-recurrence argument uses C1 and finiteness alone, while C2/C3 promote
-P-indivisibility from a formal property to an observationally dominant
-one. \(\square\)
+astronomically large for a high-capacity hidden sector, so a
+non-permutation rooted map and finiteness establish P-indivisibility at
+the recurrence scale. On \emph{observable} timescales
+\(k\tau_S \ll \tau_B\) the relevant property is conditional memory: C4
+(history readback) is the load-bearing condition for it
+(\texttt{review4\_probes.py}), with C2 (memory persistence) keeping the
+record alive to readback and C3 (sufficient capacity) giving it room;
+this is the content of Lemma B.7.4 and Chapter 1 §1.5. This division of
+labor follows {[}Main{]}: the recurrence argument uses a non-permutation
+rooted map and finiteness, and readback delivers conditional memory on
+observable timescales, which does not by itself make the population law
+P-indivisible on those windows. \(\square\)
 
-\textbf{Lemma B.7.4 (Accessible-timescale backflow, qualitative form).}
-\emph{Under C1--C4, the visible-sector process carries non-Markovian
-memory that persists over observation windows short compared with the
-bath timescale: the conditional mutual information
-\(I(X_{<t}; X_{>t} \mid X_t)\) between past and future events given the
-present is of order the single-event transfer \(I_0 > 0\) for windows of
-\(k\) events with \(k\tau_S \ll \tau_B\), and decays for
-\(k\tau_S \gtrsim \tau_B\).}
+\textbf{Lemma B.7.4 (Accessible-timescale conditional memory,
+qualitative form).} \emph{Under C1--C4, the visible-sector process
+carries non-Markovian memory that persists over observation windows
+short compared with the bath timescale: the conditional mutual
+information \(I(X_{<t}; X_{>t} \mid X_t)\) between past and future
+events given the present is of order the single-event transfer
+\(I_0 > 0\) for windows of \(k\) events with \(k\tau_S \ll \tau_B\), and
+decays for \(k\tau_S \gtrsim \tau_B\).}
 
-\emph{Status.} The qualitative claim --- persistent, observable backflow
-for \(k\tau_S \ll \tau_B\) --- is borne out by explicit slow-bath models
-(e.g.~a slowly-mixing bath with a coarse-grained readout, the natural
-discrete realization of C1--C4): the conditional past--future mutual
-information remains nonzero over \(\mathcal{O}(\tau_B/\tau_S)\) visible
-steps before decaying, so C2 (memory persistence) and C3 (capacity,
-which bounds the storable history at \(\log_2 m\) bits) do make the
-recurrence-time backflow of Lemma B.7.3 observable. A closed-form bound
-of the type \(I \geq I_0(1 - k\tau_S/\tau_B)\) holds only as a
-leading-order estimate: in explicit models the conditional mutual
-information is generally \emph{non-monotonic} in the window size ---
-rising above \(I_0\) at intermediate windows before decaying --- so the
-precise functional form is model-dependent rather than a universal
+\emph{Status.} The qualitative claim --- persistent, observable
+conditional memory for \(k\tau_S \ll \tau_B\) --- is borne out by
+explicit slow-bath models (e.g.~a slowly-mixing bath with a
+coarse-grained readout, the natural discrete realization of C1--C4): the
+conditional past--future mutual information remains nonzero over
+\(\mathcal{O}(\tau_B/\tau_S)\) visible steps before decaying, so C2
+(memory persistence) and C3 (capacity, which bounds the storable history
+at \(\log_2 m\) bits) keep that memory observable for
+\(k\tau_S \ll \tau_B\); they do not make the recurrence-scale
+distinguishability recovery of Lemma B.7.3 observable on those windows.
+A closed-form bound of the type \(I \geq I_0(1 - k\tau_S/\tau_B)\) holds
+only as a leading-order estimate: in explicit models the conditional
+mutual information is generally \emph{non-monotonic} in the window size
+--- rising above \(I_0\) at intermediate windows before decaying --- so
+the precise functional form is model-dependent rather than a universal
 inequality. What is robust, and all that the characterization theorem
 requires, is that the memory is \(\mathcal{O}(I_0)\) and observable
 throughout the regime \(k\tau_S \ll \tau_B\). \(\square\)
@@ -28181,7 +28193,7 @@ within the mixing class: violating (C2-slow) produces Markovian dynamics
 \emph{Necessity of C3 (capacity).} The hidden sector must have
 sufficient capacity. Proof: if the mode count is too small, the mutual
 information between visible and hidden sectors saturates, limiting the
-information backflow that produces P-indivisibility. Contrapositive:
+accessible memory the hidden sector can return. Contrapositive:
 violating C3 produces saturated dynamics --- a hard cap on accessible
 memory, the capacity floor of the universal hidden-memory theorem in
 quantitative form ({[}Main §3.4{]}) --- removing the memory-bearing
@@ -29570,11 +29582,15 @@ Conventionally fitted empirical inputs. The framework derives these
 values as the unique anomaly-free solution. Developed in Chapter 6 §6.7
 and Appendix B §B.5.
 
-\textbf{Information backflow.} In the framework, the return of
-correlations from the hidden sector to the visible sector on the bath's
-correlation timescale \(\tau_B\). The structural signature of
-\emph{non-Markovian} dynamics and the framework's distinctive prediction
-across multiple empirical domains. Discussed in Chapter 1 §1.5.
+\textbf{Information backflow.} A revival of distinguishability: the
+trace distance between the evolved states of two preparations increases
+over some interval (the Breuer--Laine--Piilo signature). In a
+P-divisible process distinguishability never increases, so backflow
+certifies P-indivisibility; a P-indivisible process need not show it. It
+is distinct from accessible finite-horizon memory, the conditional
+past--future dependence that history readback (C4) supplies on
+accessible windows, which does not by itself produce backflow ({[}Main
+§2.3{]}). Discussed in Chapter 1 §1.5.
 
 \textbf{Jordan-Chevalley projection.} The algebraic decomposition of an
 operator into commuting semisimple and nilpotent parts:
@@ -29630,15 +29646,15 @@ reversible representative has), carries the discriminating content
 (quantum mechanics), biological (enzyme kinetics, gene expression),
 engineered (qubit noise). Defined in Chapter 1 §1.5. Three notions are
 kept apart throughout and none unconditionally implies another:
-\emph{accessible finite-horizon memory} (equivalently information
-backflow in the visible law) is the framework's own term and is what
-``non-Markovian on accessible horizons'' means here; \emph{stochastic
-P-indivisibility} is failure of divisibility of the visible population
-law and rests on recurrence together with a non-permutation rooted map,
-not on C1/C3/C4 alone; \emph{generic quantum non-Markovianity} is an
-open-system notion whose content depends on the quantum divisibility or
-backflow criterion adopted, and it is not what either of the first two
-asserts.
+\emph{accessible finite-horizon memory} (equivalently conditional
+past--future dependence in the visible law) is the framework's own term
+and is what ``non-Markovian on accessible horizons'' means here;
+\emph{stochastic P-indivisibility} is failure of divisibility of the
+visible population law and rests on recurrence together with a
+non-permutation rooted map, not on C1/C3/C4 alone; \emph{generic quantum
+non-Markovianity} is an open-system notion whose content depends on the
+quantum divisibility or backflow criterion adopted, and it is not what
+either of the first two asserts.
 
 \textbf{Operational gluing theorem.} The framework's finite-resolution
 operational result ({[}Main §3.4{]}): every finite adaptive quantum
@@ -30677,4 +30693,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: de4f60d6e6b1c18390c0fa5ace3b6e57b60320e24d458124deb9bee3bd1ccc2a
+% source-sha256: 25b15acc2acf546e3a274ac64531bc045837d4858ac674e61e19e50380bc33b8

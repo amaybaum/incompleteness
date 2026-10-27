@@ -228,9 +228,9 @@ position on the P vs NP question is the subject of the companion paper
 Framework} {[}38{]}.
 
 The same C1--C4 conditions that diagnose an accessible non-Markovian
-realization cosmologically --- finite-horizon memory/backflow in the
-visible law, not generic quantum non-Markovianity --- are satisfied in
-proteins (\(\tau_S / \tau_B \sim 10^{-9}\) to \(10^{-12}\)), predicting
+realization cosmologically --- finite-horizon memory in the visible law,
+not generic quantum non-Markovianity --- are satisfied in proteins
+(\(\tau_S / \tau_B \sim 10^{-9}\) to \(10^{-12}\)), predicting
 non-Markovian enzyme kinetics consistent with single-molecule
 experiments. The non-Markovian corrections grow as \(\tau_S / \tau_B\)
 increases, approaching engineering relevance in quantum computing
@@ -1283,19 +1283,19 @@ scaffold during one catalytic event persist through subsequent events.
 The active site's transition probabilities are history-dependent. This
 produces:
 
-\emph{Information backflow.} The scaffold returns correlations to the
-active site on conformational timescales (μs to ms), modulating
-catalytic rates in a way that depends on the enzyme's recent history.
-Standard rate theory predicts exponential kinetics; P-indivisibility
-predicts non-exponential kinetics with a specific signature: the rate
+\emph{History readback.} The scaffold returns correlations to the active
+site on conformational timescales (μs to ms), modulating catalytic rates
+in a way that depends on the enzyme's recent history. Standard rate
+theory predicts exponential kinetics; this memory predicts
+non-exponential kinetics with a specific signature: the rate
 ``constant'' oscillates or shows memory effects on the conformational
 timescale.
 
 \emph{Non-Markovian signatures.} The mutual information
 \(I(X_{<t}; X_{>t} | X_t)\) between past and future catalytic events,
 conditioned on the present state, is \(\mathcal{O}(1)\) --- not
-exponentially suppressed. This is the accessible-timescale backflow
-lemma {[}1, §2.3{]} applied to the protein system.
+exponentially suppressed. This is the readback lemma {[}1, §2.3{]}
+applied to the protein system.
 
 \hypertarget{existing-evidence}{%
 \subsubsection{7.4 Existing evidence}\label{existing-evidence}}
@@ -1441,14 +1441,14 @@ defects in the amorphous oxide layer. TLS dynamics is slow
 \(\tau_S / \tau_B \sim 10^{-3}\). This is 29 orders of magnitude larger
 than the cosmological case.
 
-\textbf{The prediction.} The noise is P-indivisible: error probabilities
-at gate \(k\) depend on the error history at gates \(k-1, k-2, \ldots\)
-through correlations stored in the TLS bath. Standard Markovian error
-correction sees these correlated errors as an anomalously high
-uncorrectable error rate. Non-Markovian error correction protocols ---
-designed for the actual P-indivisible noise structure --- could exploit
-the correlations rather than treating them as random, improving logical
-error rates.
+\textbf{The prediction.} The noise is memory-bearing: error
+probabilities at gate \(k\) depend on the error history at gates
+\(k-1, k-2, \ldots\) through correlations stored in the TLS bath.
+Standard Markovian error correction sees these correlated errors as an
+anomalously high uncorrectable error rate. Non-Markovian error
+correction protocols --- designed for the actual correlated noise
+structure --- could exploit the correlations rather than treating them
+as random, improving logical error rates.
 
 \textbf{The scale.} A 0.1\% correction per gate. Small --- but in a
 quantum algorithm with \(10^4\) gates, the cumulative effect is
@@ -1457,24 +1457,29 @@ matters. As gate counts increase toward practical quantum advantage
 (\(10^6\)+ gates), the correction becomes dominant.
 
 \textbf{A decoder-level test on existing data.} P-indivisibility has a
-syndrome-level signature. Three grades of temporal structure must be
+syndrome-level signature. Three grades of temporal structure are
 distinguished: (i) non-stationarity (parameter drift --- classical and
-divisible), (ii) classically correlated noise (leakage, cosmic-ray
-events --- non-Markovian but divisible), and (iii) P-indivisible memory,
-the framework's specific claim, whose fingerprint is information
-backflow --- non-monotonic conditional error-rate relaxation and
+divisible), (ii) correlated noise that is non-Markovian while its
+population law stays divisible (leakage, cosmic-ray events), and (iii)
+P-indivisible noise, whose fingerprint is information backflow in the
+population law --- non-monotonic conditional error-rate relaxation and
 negative canonical decay rates in the per-round channel reconstructed
-from syndrome history. The prediction is directional and falsifiable at
-device level: after conditioning on drift and known
-classically-correlated artifacts, a history-conditioned error predictor
-should retain an exploitable residual kernel, and decoders conditioned
-on syndrome history should outperform memoryless decoders by a margin
-set by that kernel. This is testable on already-public surface-code
-memory-experiment datasets (distance-3/5/7 with full detection-event
-records). The claim at device scale concerns the universality of C3
-memory in the engineered bath (two-level systems and slow modes); the
-cosmological residue \(\mathcal{D} \sim 10^{-64}\) lies some sixty
-orders below device noise and is not at issue in this test.
+from syndrome history. Readback (C4) at an accessible order places the
+noise in grade (ii) or (iii); it does not select grade (iii), since a
+readback gap is compatible with a population law that is P-divisible on
+every window short of recurrence {[}1, §2.3{]}. Grade (iii) is a further
+property, testable on the same records by a divisibility witness. The
+prediction is directional and falsifiable at device level: after
+conditioning on drift and known classically-correlated artifacts, a
+history-conditioned error predictor should retain an exploitable
+residual kernel, and decoders conditioned on syndrome history should
+outperform memoryless decoders by a margin set by that kernel. This is
+testable on already-public surface-code memory-experiment datasets
+(distance-3/5/7 with full detection-event records). The claim at device
+scale concerns the universality of C3 memory in the engineered bath
+(two-level systems and slow modes); the cosmological residue
+\(\mathcal{D} \sim 10^{-64}\) lies some sixty orders below device noise
+and is not at issue in this test.
 
 \textbf{Status of the syndrome-level test (carried out).} This test has
 been run against Google's Willow surface-code detection-event streams
@@ -1538,10 +1543,11 @@ decoherence --- coherence decays exponentially and is gone.
 modes (paramagnetic impurities, strain fields with relaxation times
 \textasciitilde ms--s). C2 is satisfied: \(\tau_S\) (electronic spin
 dynamics, \textasciitilde ns) \(\ll \tau_B\) (bath relaxation,
-\textasciitilde ms). The decoherence is non-Markovian --- coherence
-partially revives at times set by the bath's correlation time. This is
-information backflow: correlations written into the lattice during one
-measurement are returned during a later measurement.
+\textasciitilde ms). The decoherence is non-Markovian; where the bath
+returns its stored correlations, coherence partially revives at times
+set by the bath's correlation time. That revival is information
+backflow: correlations written into the lattice during one measurement
+are returned during a later measurement.
 
 \textbf{The application.} Sensing protocols that exploit the revival ---
 measuring at the backflow time rather than during the initial decay ---
@@ -1652,16 +1658,21 @@ Its capacity scales exponentially: \(\sim 2^L\) states. By tuning \(L\):
   regime. Standard decoherence. The bath equilibrates between gate
   operations.
 \item
-  Long chain (\(L \gtrsim 20\), \(\tau_B \gg \tau_S\)): P-indivisible
-  regime. Information backflow. Correlations from gate \(k\) return at
-  gate \(k + \tau_B / \tau_S\), partially restoring coherence.
+  Long chain (\(L \gtrsim 20\), \(\tau_B \gg \tau_S\)): memory-bearing
+  regime when the chain reads back its record (C4). Correlations written
+  at gate \(k\) can return at later gates within the retention time of
+  \(\tau_B / \tau_S\) gates, partially restoring coherence.
+  P-indivisibility of the qubit's population law on such windows is a
+  further property, certified only by a divisibility witness.
 \item
-  The transition is sharp: once \(\tau_B / \tau_S\) exceeds the C2
-  threshold the visible law carries accessible finite-horizon memory
-  rather than acquiring it gradually, and on a fixed finite reversible
-  representative that memory also appears as stochastic indivisibility
-  of the visible population law {[}1, §2.3{]}. Neither is a claim about
-  generic open-system non-Markovianity of a quantum channel.
+  Once \(\tau_B / \tau_S\) exceeds the C2 threshold the record survives
+  to readback; where the chain also reads it back (C4), the visible law
+  carries accessible finite-horizon memory. On a fixed finite reversible
+  representative, where recurrence returns the visible map to the
+  identity and a readback gap forces a non-permutation rooted map, that
+  memory also shows up as stochastic indivisibility of the visible
+  population law across the recurrence cycle {[}1, §2.3{]}. Neither is a
+  claim about generic open-system non-Markovianity of a quantum channel.
 \end{itemize}
 
 This is testable in existing platforms: superconducting qubits coupled
@@ -1699,18 +1710,18 @@ added as a computational layer.
 \textbf{The open question.} Whether P-indivisible gate sequences can
 perform computations that no Markovian circuit of equal depth can is a
 well-posed mathematical question. The framework provides the tools ---
-P-indivisible stochastic processes, the accessible-timescale backflow
-lemma {[}1, §2.3{]} --- but the computational complexity implications
-are unexplored. If the answer is yes, it would constitute a new model of
-quantum computation beyond the standard circuit model, with the bath
-playing the role of a shared temporal resource analogous to entanglement
-as a spatial resource.
+P-indivisible stochastic processes, the readback lemma {[}1, §2.3{]} ---
+but the computational complexity implications are unexplored. If the
+answer is yes, it would constitute a new model of quantum computation
+beyond the standard circuit model, with the bath playing the role of a
+shared temporal resource analogous to entanglement as a spatial
+resource.
 
 \hypertarget{quantum-materials-by-design}{%
 \subsubsection{8.8 Quantum materials by
 design}\label{quantum-materials-by-design}}
 
-\textbf{Heavy-fermion materials as natural P-indivisible systems.}
+\textbf{Heavy-fermion materials as candidate memory-bearing systems.}
 Heavy-fermion compounds (CeCoIn\(_5\), YbRh\(_2\)Si\(_2\), UPt\(_3\))
 contain localized f-electrons forming a slow bath (\(\tau_B \sim\) ps to
 ns) coupled to itinerant conduction electrons (\(\tau_S \sim\) fs). The
@@ -1719,11 +1730,14 @@ exhibit anomalous transport --- non-Fermi liquid resistivity
 (\(\rho \sim T^\alpha\) with non-integer \(\alpha\)), logarithmic
 specific heat, and memory effects in magnetoresistance. The standard
 explanation invokes Kondo physics and quantum criticality. The OI
-framework provides a structural reframing: the conduction electrons
-satisfy C1--C4 with the f-electron bath, so their dynamics is
-P-indivisible. The anomalous transport is a \emph{consequence} of
-non-Markovian electronic dynamics, not a deviation from normal behavior
-requiring a special mechanism.
+framework provides a structural reframing: if the conduction electrons
+satisfy C1--C4 with the f-electron bath, their dynamics is non-Markovian
+on accessible windows --- the readback gap forces positive conditional
+memory {[}1, §2.3{]} --- and the anomalous transport is then a
+consequence of non-Markovian electronic dynamics rather than a deviation
+from normal behavior requiring a special mechanism. P-indivisibility of
+the electronic population law is a further property, not implied by
+C1--C4 on those windows.
 
 \textbf{The design principle.} In natural materials, \(\tau_S / \tau_B\)
 is fixed by the chemistry. In engineered metamaterials, it can be tuned.
@@ -1838,8 +1852,9 @@ The framework's predictions about non-Markovian effects are not
 speculative --- they are corroborated by existing experimental data
 across multiple domains. The literature has been documenting these
 effects for over two decades without a unifying structural explanation.
-The OI framework provides one: wherever C1--C4 are satisfied,
-P-indivisibility is mandatory.
+The OI framework provides one: wherever C1--C4 are satisfied, accessible
+non-Markovianity is mandatory --- the readback gap forces positive
+conditional mutual information on the accessible window {[}1, §2.3{]}.
 
 \textbf{Superconducting qubits.} Agarwal et al.~{[}26{]} found that
 purely Markovian noise models cannot reproduce experimental data from
@@ -1877,20 +1892,20 @@ slow conformational interconversion produces memory effects in
 successive enzymatic turnover times: the waiting time for turnover
 \(k+1\) is correlated with the waiting time for turnover \(k\), with
 correlation strength decaying on the conformational timescale. This is
-precisely the information backflow predicted by the accessible-timescale
+precisely the conditional memory predicted by the accessible-timescale
 lemma {[}1, §2.3{]} applied to the protein system.
 
 \textbf{The unifying explanation.} These experimental results --- from
 quantum computing hardware and from single-enzyme biophysics --- are
 conventionally treated as unrelated phenomena requiring separate
 theoretical frameworks. The OI framework unifies them: both are
-instances of P-indivisible dynamics arising from a slow, high-capacity
+instances of memory-bearing dynamics arising from a slow, high-capacity
 hidden sector coupled to a fast observable subsystem. The TLS bath in a
 superconducting chip and the conformational bath in a protein scaffold
 play the same structural role --- they satisfy C2 (persistent --- slow
-in both realizations) and C3 (sufficient capacity), producing the same
-qualitative phenomenon (information backflow, memory effects,
-non-exponential dynamics) at different scales.
+in both realizations) and C3 (sufficient capacity), and where their
+records are read back (C4) they produce the same qualitative phenomenon
+(memory effects, non-exponential dynamics) at different scales.
 
 \hypertarget{cross-domain-observation-universal-memory-strength-in-single-entity-systems}{%
 \subsubsection{8.11 Cross-domain observation: universal memory strength
@@ -2171,4 +2186,4 @@ radical-pairs,'' \emph{PLoS ONE} \textbf{2}, e1106 (2007).
 error correction for non-Markovian noise,'' arXiv:2411.09637 (2024).
 
 \end{document}
-% source-sha256: caca07a23411a393bc030f1ac2a032afbd13228c2c5722b07743819a8a8a8d27
+% source-sha256: 9bab886630d5b652182f15f0087acbc9f021dd1dd4b27d4354d6a30d12394a50

@@ -691,8 +691,8 @@ cycle: the interaction reads the same boundary degrees it writes, a
 property to be independently demonstrated there; this is what C1's
 redefinition relocated here. Separation --- (C1)--(C3) alone do not
 imply (C4): a tape-and-ledger realization of the fair coin satisfies all
-three with identically zero backflow on arbitrarily long accessible
-horizons (\texttt{review3\_probes.py}; §2.3).)
+three with identically zero conditional memory on arbitrarily long
+accessible horizons (\texttt{review3\_probes.py}; §2.3).)
 
 \textbf{Theorem statement.} The claims divide into three exact layers
 and one explicitly conditional extension. \textbf{(1) Representation
@@ -1034,16 +1034,23 @@ process-tensor sense.
 
 \textbf{Continuous-time extension.} The Hamiltonian flow on
 finite-dimensional phase space preserves Liouville measure on compact
-energy surfaces. \(T_{ij}(t)\) is continuous with \(T(0) = I\). By (C1),
-\(T(t)\) departs from the permutation class for \(t > 0\). By Poincaré
+energy surfaces. \(T_{ij}(t)\) is continuous with \(T(0) = I\). With the
+full-support Liouville measure as hidden prior, (C1) makes \(T(t)\)
+depart from the permutation class for some \(t > 0\). By Poincaré
 recurrence, \(\exists t_R\): the set of hidden states with
 \(\pi_V(\varphi_{t_R}(x_i, h)) = x_i\) has measure \(> 1 - \delta\) for
 any \(\delta > 0\). For small \(\delta\), this gives non-monotonic trace
 distance, establishing P-indivisibility in continuous time.
 
-The recurrence argument establishes P-indivisibility in principle. The
-following lemma shows that under (C2), information backflow occurs on
-observable timescales --- not merely at Poincaré recurrence times.
+The recurrence argument establishes P-indivisibility across the
+recurrence cycle. The readback lemma below shows that a readback gap at
+an accessible order produces conditional memory on observable
+timescales; that is a property of the multi-time law and does not by
+itself make the rooted family P-indivisible on those windows (Scope,
+above). A sufficient further condition is a revival of
+distinguishability within the window: two roots whose rooted laws
+coincide, or are closer, at an earlier time and differ more at a later
+one.
 
 \textbf{Physical motivation (storage under C2).} The coupling
 \(H_{\text{int}}\) writes visible-sector information into the hidden
@@ -1052,7 +1059,7 @@ sector's effective relaxation at rate \(\sim 1/\tau_B\) (the
 coarse-grained channel's mixing; hypothesis (EM), §4.6) erodes it as
 \(e^{-\tau_S/\tau_B}\) per step, so on windows \(k\tau_S \ll \tau_B\)
 the stored history survives essentially intact. Storage, however, is not
-backflow: what is stored must also be \emph{read}. The lemma below makes
+readback: what is stored must also be \emph{read}. The lemma below makes
 the reading quantitative, and the separation remark shows why it is a
 genuinely additional requirement.
 
@@ -1070,8 +1077,8 @@ uniformly erasing bath therefore drives the readback gap to zero
 exponentially, and (C4) --- which requires a gap at some order in the
 accessible window --- fails.}
 
-\emph{Remark (what this lemma does not give).} The backflow lemma above
-is a LOWER bound on \(I(X_{<k}; X_{k+1} \mid X_k)\) given a gap; an
+\emph{Remark (what this lemma does not give).} The readback lemma below
+is a lower bound on \(I(X_{<k}; X_{k+1} \mid X_k)\) given a gap; an
 upper bound on \(\delta_k\) cannot be inserted into it to bound \(I\)
 from above. The corresponding upper bound on conditional mutual
 information is available, but by the continuity route --- uniform
@@ -1095,11 +1102,11 @@ before it can be read, (C4) fails, and it is (C4)'s failure that the
 characterization registers. (C2) is the mechanism; (C4) is the
 exclusion.
 
-\textbf{Lemma (accessible backflow from readback).} \emph{Suppose the
-visible process has a gap at order \(k\) in the accessible window, as
-(C4) asserts: two visible histories \(p \neq p'\) of length \(k\),
-values of \(X_{<k} = (X_0, \ldots, X_{k-1})\) followed by a common
-present state \(X_k = c\), each with
+\textbf{Lemma (accessible conditional memory from readback).}
+\emph{Suppose the visible process has a gap at order \(k\) in the
+accessible window, as (C4) asserts: two visible histories \(p \neq p'\)
+of length \(k\), values of \(X_{<k} = (X_0, \ldots, X_{k-1})\) followed
+by a common present state \(X_k = c\), each with
 \(\Pr[X_{<k} = p,\, X_k = c] \geq p_0\), induce next-step laws at
 total-variation distance at least \(\delta\). Then}
 \[I(X_{<k};\,X_{k+1} \mid X_k)\ \geq\ \frac{p_0\,\delta^2}{\ln 2}\ >\ 0.\]
@@ -1122,11 +1129,11 @@ a small-gap parametric family, with the coin silent, in
 \texttt{c4\_backflow\_probes.py}.)
 
 \emph{Remark (why (C4) is a separate condition).} (C1)--(C3) admit
-realizations with zero backflow throughout arbitrarily long accessible
-horizons: the fair coin realized by the §3.4 dilation construction ---
-the tape influences, the ledger records, and the two never meet --- has
-\(T^{(1)} = \tfrac12 J\) (so (C1) holds), a static bath
-(\(\tau_B = \infty\)), vast capacity, and
+realizations with zero conditional memory throughout arbitrarily long
+accessible horizons: the fair coin realized by the §3.4 dilation
+construction --- the tape influences, the ledger records, and the two
+never meet --- has \(T^{(1)} = \tfrac12 J\) (so (C1) holds), a static
+bath (\(\tau_B = \infty\)), vast capacity, and
 \(I(X_{<t}; X_{>t} \mid X_t) = 0\) exactly at every horizon time
 (\texttt{review3\_probes.py}). Influence plus storage plus capacity,
 without readback, is noise.
@@ -1134,8 +1141,9 @@ without readback, is noise.
 \textbf{Role of (C2)--(C4).} The Poincaré recurrence argument and the
 readback lemma are independent: the former establishes P-indivisibility
 from a non-permutation one-step witness and finiteness alone, at the
-recurrence time; the latter locates observable backflow inside
-accessible windows. (C2) keeps stored history alive between couplings;
+recurrence time; the latter locates observable conditional memory inside
+accessible windows, which does not by itself make the rooted family
+P-indivisible there. (C2) keeps stored history alive between couplings;
 (C3) provides the room to store it; (C4) is the reading of it --- and
 only the reading produces memory an observer can measure.
 
@@ -1191,10 +1199,9 @@ et al.~{[}9{]} in the invertible case) and the process-tensor criterion
 transpositions \((0,h) \leftrightarrow (1,h)\) for \(h \in \{1, 2\}\)
 flip \(x\) while preserving \(h\), so a state at \(x = 1\) with
 \(h \in \{1, 2\}\) after step 1 carries the record ``I was at
-\(x = 0\).'' Step 2 reads this record and flips \(x\) back ---
-information backflow impossible for a memoryless process.
-P-indivisibility is more extreme, not less, when memory is more
-persistent.
+\(x = 0\).'' Step 2 reads this record and flips \(x\) back --- a return
+of the earlier visible state, here a revival of distinguishability,
+which no memoryless process produces.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -2049,12 +2056,12 @@ therefore sufficient evidence of indivisibility, never necessary.
 
 \emph{Remark (three notions, kept apart).} Three distinct things travel
 under nearby names, and this paper uses them in fixed senses. (1)
-\textbf{Accessible finite-horizon memory}, equivalently information
-backflow in the visible law: this is the framework's own notion, what
-the characterization theorem is about, what \(M_t > 0\) measures, and
-what (C1), (C3) and (C4) diagnose on a finite horizon. Where this paper
-writes ``accessible non-Markovianity'' it means exactly this and says
-nothing about a quantum channel. (2) \textbf{Stochastic
+\textbf{Accessible finite-horizon memory}, equivalently conditional
+past--future dependence in the visible law: this is the framework's own
+notion, what the characterization theorem is about, what \(M_t > 0\)
+measures, and what (C1), (C3) and (C4) diagnose on a finite horizon.
+Where this paper writes ``accessible non-Markovianity'' it means exactly
+this and says nothing about a quantum channel. (2) \textbf{Stochastic
 P-indivisibility}: failure of stochastic divisibility of the visible
 population law, which on one fixed finite reversible representative is
 what the recurrence-scale theorem delivers --- resting on recurrence
@@ -2839,20 +2846,20 @@ deterministic-bijection realization of a process whose conditional
 past--future information reaches
 \(I^* = \sup_t I(X_{<t} ; X_{>t} \mid X_t)\) requires
 \(m \geq 2^{I^*}\): the hidden sector must be at least as large as the
-backflow it carries. The bound is process-quantitative and does not
-reduce to the visible count --- P-indivisibility alone does not force
-\(m \geq n\): a two-hidden-state, three-visible-state bijection already
-exhibits full distinguishability revival (\(m = 2 < n = 3\)), so the
-necessity content of (C3) is the capacity to hold the \emph{observed}
-backflow, not a bound set by \(n\). Sustained backflow at rate
-\(I_0 > 0\) per coupling event over \(K\) events requires
-\(m \gtrsim 2^{K I_0}\) \emph{under the additional hypothesis} that the
-per-event contributions accumulate without hidden-state reuse or
-compression; that independence hypothesis is not a consequence of
-P-indivisibility, and without it only the per-process bound above is
-forced. The framework's qualitative (C3) (``hidden sector large
-enough'') is the conservative restatement of the per-process bound.
-\(\square\)
+conditional memory it carries. The bound is process-quantitative and
+does not reduce to the visible count --- P-indivisibility alone does not
+force \(m \geq n\): a two-hidden-state, three-visible-state bijection
+already exhibits full distinguishability revival (\(m = 2 < n = 3\)), so
+the necessity content of (C3) is the capacity to hold the
+\emph{observed} conditional memory, not a bound set by \(n\). Sustained
+conditional memory at rate \(I_0 > 0\) per coupling event over \(K\)
+events requires \(m \gtrsim 2^{K I_0}\) \emph{under the additional
+hypothesis} that the per-event contributions accumulate without
+hidden-state reuse or compression; that independence hypothesis is not a
+consequence of P-indivisibility, and without it only the per-process
+bound above is forced. The framework's qualitative (C3) (``hidden sector
+large enough'') is the conservative restatement of the per-process
+bound. \(\square\)
 
 \emph{The revival counterexample and the doubly-stochastic obstruction
 of §3.2 are certified by the deterministic probes in
@@ -4761,12 +4768,12 @@ neither reaching the operational instrument algebra), and genericity
 conditions (non-degenerate spectrum, non-vanishing overlaps), which hold
 for all but a measure-zero set. The P-indivisibility proof uses
 finiteness via the recurrence argument (\(\varphi^N = \text{id}\)). The
-accessible-timescale backflow lemma (§2.3) provides the quantitative
-route to accessible non-Markovianity, with P-indivisibility retained at
-the recurrence scale, establishing observable information backflow on
-the timescales accessible to laboratory experiments --- physically
-indistinguishable from a timeless identity for all experiments well
-below the recurrence time.
+readback lemma (§2.3) provides the quantitative route to accessible
+non-Markovianity, with P-indivisibility retained at the recurrence
+scale, establishing observable conditional memory on the timescales
+accessible to laboratory experiments --- physically indistinguishable
+from a timeless identity for all experiments well below the recurrence
+time.
 
 \textbf{Falsifiability.} The framework's structural claim is that
 \emph{the hidden sector is a classical substratum} --- a finite set with
@@ -4966,7 +4973,8 @@ finite-configuration class & §3.4 \\
 (iii) \(\implies\) (ii): realization \(\implies\) accessible
 non-Markovianity & Proved --- the readback lemma: a (C4) gap forces
 \(I(X_{<k}; X_{k+1} \mid X_k) \geq p_0\delta^2/\ln 2\) on the window;
-bare-recurrence form from (C1) alone at \(t_R\) & §2.3 \\
+bare-recurrence form from a non-permutation rooted map at \(t_R\) &
+§2.3 \\
 CP-indivisibility of \(\{\Phi_t\}\) & Proved for the framework's
 diagonal-preserving (permutation-dilation) channels; fails for general
 CPTP families (Hadamard boundary) & §3.2 \\
@@ -4983,8 +4991,8 @@ C3 necessity & Proved --- data-processing bound in per-process form,
 \(m \geq 2^{I^*}\) & §3.4, §1.3 \\
 C4 necessity & Immediate given observed non-Markovianity (any
 realization of a non-Markov process reads differing past-conditionals);
-separation certified --- (C1)--(C3) alone admit zero-backflow
-realizations (the coin) & §1.3, §2.3 \\
+separation certified --- (C1)--(C3) alone admit zero-memory realizations
+(the coin) & §1.3, §2.3 \\
 \end{longtable}
 
 \hypertarget{structural-exclusion-of-equilibrium-phase-observers}{%
@@ -5487,4 +5495,4 @@ degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
 \end{document}
-% source-sha256: 809fcf397121cbf62be7fa207cbe9a882686fddb3b670ff2715aa0befe086f71
+% source-sha256: d519c1b072ec889fb93a60a0ed757ab27208333b3b42a01881ba5d536c158d87

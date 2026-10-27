@@ -513,12 +513,12 @@
       "note": "fastbath_probes carries the counterexample to the slow-evolution reading, which is the load-bearing half."
     },
     {
-      "id": "MAIN:L-accessible-backflow-from-readback",
+      "id": "MAIN:L-accessible-conditional-memory-from-readback",
       "paper": "papers/Main.md",
       "line": 167,
       "kind": "Lemma",
-      "label": "(accessible backflow from readback)",
-      "fingerprint": "afbdefe369fdd5a0",
+      "label": "(accessible conditional memory from readback)",
+      "fingerprint": "d8219030a30e750e",
       "area": "memory-conditions",
       "assumptions": "a gap at order k inside the accessible window (the gap (C4) asserts); p_0 and delta as stated; (C1)-(C3) not used",
       "checks": [
@@ -1093,7 +1093,7 @@
       "line": 492,
       "kind": "Corollary",
       "label": "(per-process capacity bound)",
-      "fingerprint": "cc7fd03ee5f8e9ee",
+      "fingerprint": "cd4ddb4be1e0ed60",
       "area": "memory-conditions",
       "assumptions": "a deterministic-bijection realization attaining I*",
       "checks": [
@@ -2535,7 +2535,7 @@
       "line": 262,
       "kind": "Corollary",
       "label": "(effective finiteness and gauge-class transfer)",
-      "fingerprint": "ceeac794c423aec5",
+      "fingerprint": "a04408a4ec4766a8",
       "area": "reconstruction",
       "assumptions": "see the statement",
       "checks": [],
