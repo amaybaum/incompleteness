@@ -1944,17 +1944,17 @@ therefore established up to (i) the standard sphere-Gaussian projection
 at large \(L\) (classical), and (ii) cycle ergodicity for the specific
 bijection determining which energy shell is sampled.
 
-The cycle ergodicity assumption deserves explicit acknowledgment. Pure
-linear dynamics on a cubic lattice is \emph{integrable}, not chaotic:
-the lattice frequencies \(\omega(\vec{k}) = 2\sin(|\vec{k}|/2)\) are not
-linearly independent over \(\mathbb{Q}\), so orbits fill a sub-torus of
-the energy shell rather than the full shell. The Gaussianization
-argument therefore has two natural interpretations: (way out i) the
-cubic-lattice + finite-set discretization introduces small but non-zero
-non-linearity (from rounding rules in the bijection update), providing
-the chaos needed for full-shell sampling; or (way out ii) the ``Gaussian
-on energy shell'' claim is shorthand for ``Gaussian on the sub-torus
-actually sampled,'' which is a smaller phase space and would modify the
+Pure linear dynamics on a cubic lattice is \emph{integrable}, not
+chaotic: the lattice frequencies
+\(\omega(\vec{k}) = 2\sin(|\vec{k}|/2)\) are not linearly independent
+over \(\mathbb{Q}\), so orbits fill a sub-torus of the energy shell
+rather than the full shell. The Gaussianization argument therefore has
+two natural interpretations: (way out i) the cubic-lattice + finite-set
+discretization introduces small but non-zero non-linearity (from
+rounding rules in the bijection update), providing the chaos needed for
+full-shell sampling; or (way out ii) the ``Gaussian on energy shell''
+claim is shorthand for ``Gaussian on the sub-torus actually sampled,''
+which is a smaller phase space and would modify the
 substratum-pseudofermion covariance match. Way out (i) is the standard
 interpretation for lattice-substrate frameworks. Numerical verification
 of way out (i) for OI's specific bijection has been carried out via
@@ -1967,30 +1967,33 @@ limit, \(N_{\rm levels}\)-independent for \(N_{\rm levels} \geq 16\),
 with exponential amplitude growth in the cone confirmed against
 power-law alternatives at high statistical significance
 (exponential-vs-power-law residual ratio \(\sim 2.2\) across
-\(\log(\bar{\|\Delta\phi\|}/\delta) \in [0, 1.0]\)). Way out (i) is
-therefore \emph{empirically demonstrated} rather than merely adopted:
-the rounded bijection is genuinely chaotic, the integrable linear
+\(\log(\bar{\|\Delta\phi\|}/\delta) \in [0, 1.0]\)). The chaos that way
+out (i) requires is therefore demonstrated numerically rather than
+adopted: the rounded bijection is chaotic, the integrable linear
 dynamics having been broken by the rounding rule's threshold-crossing
-nonlinearity. The cycle-ergodicity question for OI's specific bijection
-is closed at chat-track numerical scale; analytical derivation of the
-\(\lambda_{\max}\) coefficient and the structural source of
-\(N_{\rm levels}\)-independence remains open and would elevate this
-result to Level 2(a) in the bridge-gap classification of §7.5. Four
-further diagnostics on the rounded bijection fall on the chaotic side:
-spectral continuity of local observables (broadband, versus the linear
-control's discrete peaks), thermalization (autocorrelation decay to the
-noise floor, versus persistent coherent oscillation in the linear
-control), comparative cycle-structure consolidation in an exactly
-enumerable one-dimensional analog (the rounded map's dominant cycle is
-\(\sim 400\times\) larger than the linear control's), and orbit
-non-fragmentation in direct three-dimensional sampling (no recurrences
-or trajectory merges). The quantitative rate is preparation-ensemble-
-and protocol-dependent: at an infinite-temperature ensemble the
-separation shows an incubation-then-avalanche profile with an effective
-rate several times the value quoted above, so the quoted
-\(\lambda_{\max}\) is specific to its preparation ensemble and fit
-protocol. The qualitative chaos, which is what the ergodicity
-interpretation requires, is robust across protocols.
+nonlinearity. Chaos is necessary for full-shell sampling, not
+sufficient: no theorem shows that the bijection acts as a single cycle
+on an energy shell (cycle ergodicity), and the measurements bear on that
+question only at the lattice sizes, preparation ensembles and fit
+protocols sampled. Analytical derivation of the \(\lambda_{\max}\)
+coefficient and the structural source of \(N_{\rm levels}\)-independence
+remains open and would elevate the chaos result to Level 2(a) in the
+bridge-gap classification of §7.5. Four further diagnostics on the
+rounded bijection fall on the chaotic side: spectral continuity of local
+observables (broadband, versus the linear control's discrete peaks),
+thermalization (autocorrelation decay to the noise floor, versus
+persistent coherent oscillation in the linear control), comparative
+cycle-structure consolidation in an exactly enumerable one-dimensional
+analog (the rounded map's dominant cycle is \(\sim 400\times\) larger
+than the linear control's), and orbit non-fragmentation in direct
+three-dimensional sampling (no recurrences or trajectory merges). The
+quantitative rate is preparation-ensemble- and protocol-dependent: at an
+infinite-temperature ensemble the separation shows an
+incubation-then-avalanche profile with an effective rate several times
+the value quoted above, so the quoted \(\lambda_{\max}\) is specific to
+its preparation ensemble and fit protocol. The qualitative chaos, which
+is what the ergodicity interpretation requires, is robust across
+protocols.
 
 \emph{The two roles of the dynamics, stated explicitly.} The substratum
 update carries two structurally distinct pieces, and the framework's
@@ -6584,25 +6587,33 @@ addressed below; their current status:
   open work.
 \item
   \emph{3D operational MC vs 4D SχPT dimensional bridge.}
-  \textbf{Decomposes into Part A (time-direction factorization, Level 1
-  given the cycle ergodicity of gap (i)) and Part B (measure
-  identification, Level 2 closed via inheritance from gap (i)).} Part A:
-  For \(\rho\) stationary under \(\varphi\) and \(T\) the framework's
-  involution with \(T\varphi T = \varphi^{-1}\) (§5),
+  \textbf{Conditional on the cycle ergodicity of gap (i); decomposes
+  into Part A (time-direction factorization: Level 1 algebra,
+  conditional on cycle ergodicity on the energy shell carrying \(\rho\))
+  and Part B (measure identification, Level 2 via inheritance from gap
+  (i)).} Part A: For \(\rho\) stationary under \(\varphi\) and \(T\) the
+  framework's involution with \(T\varphi T = \varphi^{-1}\) (§5),
   \((\rho \circ T) \circ \varphi = \rho \circ (T\varphi) = \rho \circ (\varphi^{-1}T) = \rho \circ T\),
-  so \(\rho \circ T\) is \(\varphi\)-invariant. The
-  \(\varphi\)-invariant distributions of a bijection of a finite set are
-  exactly those constant on each of its cycles, so the invariant
-  distribution on a \(\varphi\)-invariant set is unique exactly when
-  \(\varphi\) acts on that set as a single cycle; P-indivisibility of
-  the visible marginal does not bear on this. Under cycle ergodicity on
-  a \(\varphi\)-invariant set carrying both \(\rho\) and
-  \(\rho \circ T\) (the gap (i) assumption, §4.2), both are its uniform
-  distribution, hence \(\rho \circ T = \rho\). Static observables then
-  factorize through the time direction independent of which time slice.
-  Part B is the same investigation as gap (i) viewed operationally:
-  closing gap (i) automatically closes gap (ii) Part B. With gap (i)
-  Level 2 closed, gap (ii) is Level 2 closed framework-essentially.
+  so \(\rho \circ T\) is \(\varphi\)-invariant; this step holds
+  unconditionally. The \(\varphi\)-invariant distributions of a
+  bijection of a finite set are exactly those constant on each of its
+  cycles, so the invariant distribution on a \(\varphi\)-invariant set
+  is unique exactly when \(\varphi\) acts on that set as a single cycle.
+  For the rule of §4.2, \(x(t+1) = N x(t) - x(t-1)\) over
+  \(\mathbb{Z}/q\mathbb{Z}\) with \(N\) the symmetric nearest-neighbour
+  sum, the form \(E(a,b) = a \cdot a + b \cdot b - a \cdot N b\) on
+  \((a, b) = (x(t), x(t-1))\) is conserved, by the symmetry of \(N\),
+  and is even under the time reversal \(T : (a, b) \mapsto (b, a)\) of
+  Theorem 17, so each of its level sets is both \(\varphi\)- and
+  \(T\)-invariant. Under cycle ergodicity on the level set carrying
+  \(\rho\) (the gap (i) assumption, §4.2), \(\rho \circ T\) is carried
+  by the same set and both are its uniform distribution, hence
+  \(\rho \circ T = \rho\). Static observables then factorize through the
+  time direction independent of which time slice. Part B is the same
+  investigation as gap (i) viewed operationally: closing gap (i)
+  automatically closes gap (ii) Part B. With gap (i) at Level 2, gap
+  (ii) is at Level 2 framework-essentially, both parts carrying gap
+  (i)'s cycle-ergodicity residual.
 \item
   and (iv) \emph{Bridge theorem:} \textbf{Closed at Level 1
   framework-essentially via the explicit theorem below.}
@@ -8901,4 +8912,4 @@ the FCC-ee,'' arXiv:2504.05974 (2025).
 Compact Family Cycle,'' arXiv:2605.10245 (2026).
 
 \end{document}
-% source-sha256: 6d6ac6923d33502c9fe62ffe2d88e5ac7337947df15335cfbc2faed75b0add38
+% source-sha256: b5a37b76b01cfe5013275d05994bb0fc3c730feeb9025c6430991018a15c6d4b

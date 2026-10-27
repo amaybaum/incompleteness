@@ -1,6 +1,7 @@
 # SC-31: recurrence period growth (#942 / #946)
 
-Base: SC-28 head `42bc4050` (`corpus/sc28-assumption-scope`), which rewrote two sentences in the same region of book
+Base: SC-28 head `42bc4050` (`corpus/sc28-assumption-scope`), with SC-28's amendment `df061d64` merged in later. SC-28
+rewrote sentences in the same region of book
 ch18 §18.7. SC-31 builds on that wording. The finding came from SC-28: ch18 §18.7 called lcm(1..|S|) "Landau's
 function", gave N ~ e^{|S|} "for a generic permutation", and so presented e^{e^{10^{122}}} as the period when it is
 only an upper bound.
@@ -95,29 +96,45 @@ These were checked against bibliographic records. No page-level citation is give
 
 ## Re-grep over `papers/*.md` and `book/*.md`
 
+This re-grep was run after merging `df061d64`.
+
 The following patterns have zero hits: "Landau's function)", "generic permutation", "grows as approximately
 $e^{|S|}$", "N \sim e^{|S|}", "as large as $m!$", "e^{10^{122}}$ years", "e^(10^122) years", "infinite observation
-time", "typical period" and "recurrence at $e^{e".
+time", "typical period", "recurrence at $e^{e" and "at timescale $\sim e^{e".
 
 These survive:
 
-- **`e^{e^{10^{122}}}` (11 hits).** All are now upper bounds: ch18 :20, :28 and :187, App A F8, App C :132, book/README
-  :90, and their five FULL mirrors.
+- **`e^{e^{10^{122}}}` (2 hits).** These are ch18 :187 and its FULL mirror. Both are the displayed lcm upper bound for an
+  arbitrary bijection. Every summary site now quotes the linear-rule bound, \|S\| ~ e^{10^{122}}.
 - **"Landau" (12 hits).** Two are Aharonov–Jones–Landau 2006 (Computation :246, ch14 :228, and FULL), which is another
-  claim. The others are the corrected sites and the bibliography.
-- **"lcm" (16 hits).** The lcm sites in SM :1592 and appendix-b :119 (with FULL) are the order of a specific linear map,
-  another claim. ch01 :111 and appendix-b :418 ("least common multiple of the cycle lengths") are correct.
-- **"recurrence time" with a number.** Only Explainer :227 survives: σ² = id, "2 steps", which is exact.
+  claim. The others are the corrected sites (ch18 :184, ch01 :121, Explainer :175, and FULL) and the bibliography.
+- **"lcm" / "least common multiple".** SM :1592 and appendix-b :119 (with FULL) are the order of the ring map, another
+  claim. ch01 :111, appendix-b :418 and ch18 :198 ("least common multiple of the cycle lengths") are correct. The rest are
+  the corrected sites.
+- **"recurrence time" with a number.** Only Explainer :227 survives: σ² = id, "2 steps", which is exact. No paper other
+  than the Explainer quotes a cosmological period.
 
 Left unchanged:
 
 - Main :441, which says finite-dimensional Hamiltonian flow has recurrence "exponentially large in the system size".
   It concerns a different object, approximate quasi-periodic return, and states no number.
-- The term "Poincaré recurrence" for exact finite return, at ch18 :174 and :193 ("Finiteness of S guarantees recurrence
-  (Poincaré)"), ch02 :32, ch09 :106 and Explainer :44. This naming is SC-28's territory, and SC-28 kept ch02 :32.
+- "Poincaré recurrence" in the ch18 §18.7 title and run-in heading, ch01 :119, Explainer :44, and Main :151, :441 and
+  :532. After `df061d64`, the substantive ch18, ch02 and ch09 sentences say "exact recurrence". SC-31 changed ch18 :20
+  to "exact recurrence" to match.
 - "Logically falsifiable only" in Appendix A F8 and App C.
+
+## Owner decisions
+
+1. **The 3D rule's period.** For q prime with gcd(L, q) = 1, the torus wave rule has ord F \| 2q(q^{2m} − 1), where
+   m ≤ L − 1. This is checked for L ≤ 7. At the cosmological size, with L³ ~ 10^{122}, it gives ln N ≲ 10^{41}, far
+   below the |S| − 1 bound. It is a new derivation, not a corpus result, so the manuscript states only |S| − 1 and the
+   ring theorem B.3.1. Adding it would need a written proof (Appendix B) and a choice of boundary conditions.
+2. **Linear rule versus chaos.** SM §4.2 reads full-shell sampling off the "threshold nonlinearity". The exact rule is
+   linear over Z/q, and small cases give short periods (6 to 1092 for L ≤ 7). The cycle-ergodicity residual should be
+   checked against this.
 
 The Introduction (`draft/oi-introductory-paper-20261025` at `72014a79`, read-only) states no recurrence-time number.
 Its :49 and :146 define L as the order of φ, without size.
 
-Regenerated: Explainer and the book (`.tex` and `.pdf`). Explainer has 70 pages, and the book went from 558 to 559.
+Regenerated: Explainer and the book (`.tex` and `.pdf`). The book `.tex` and `.pdf` were rebuilt after the merge, not
+hand-merged. Explainer has 70 pages, and the book went from 558 to 559.
