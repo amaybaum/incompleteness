@@ -333,3 +333,8 @@ before the overlap step, and "Stated precisely:" for the return from the example
 `CHANGES-r28.md` records r28, which applies the run-4 comprehension evaluation: plain reasons for the shared
 hidden preparation and for keeping never-occurring starts, what the cycle-wide failure means for a rule rather than a
 record, and the GR names of the five completion conditions.
+
+`CHANGES-r29.md` records r29, which applies two of the r28 editorial findings: the repeated "rule, not the sample"
+clause removed, and the physical-meaning sentence scoped to "any accessible record" and trimmed to its new content.
+The third finding is declined, because it would return the shared-preparation reason to the contrast form that the
+run-4 evaluation found insufficient.
