@@ -259,3 +259,9 @@ consolidated scientific audit of #942/#946 runs on this branch, with fresh indep
 - `review/editorial/REVIEW-papers-edac91c9.md`: the editorial and presentation review of `papers/Introduction.md` at
   `edac91c9` (structure against the brief, clarity, voice, notation, typesetting, citation form). Its **[REVISER]**
   items are scope or status questions passed to the scientific revision; they are not proposed changes.
+- `review/references/CITATIONS-edac91c9.md`: the citations and novelty review of the same text, against `main`
+  `55e3217b` (bibliographic metadata from arXiv and Crossref; no full text read). Three must-fix items (the corpus pin,
+  an open problem Main now answers, and the attribution of Theorem 4's standard ingredients) and a ranked list of
+  missing citations.
+- `review/references/SOURCE-COMMENTS-edac91c9.md`: the reference list's HTML source comments, moved here verbatim so
+  that the paper carries no audit vocabulary.
