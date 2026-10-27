@@ -242,9 +242,11 @@ obstruction at an accessible order, and recurrence does not guarantee
 one, since every non-deterministic visible step gives the
 indivisibility, including in laws that are Markov on every accessible
 window. Conditions (C1) and (C3) are then necessary diagnostics of the
-hidden mediation and its capacity; (C2-structural) is the persistence
-needed for the stored record to survive until readback, with the
-slow-bath inequality one sufficient physical mechanism.
+hidden mediation and its capacity; (C2-structural), the persistence of
+the stored record until readback, holds by reversibility in every
+bijective realization and constrains coarse-grained descriptions of the
+hidden sector, with the slow-bath inequality one sufficient physical
+mechanism.
 
 For spatial OI systems, the coupling graph defined by one-step dynamical
 dependence supplies exact causal cones: influence propagates at most one
@@ -616,46 +618,54 @@ corpus needs both and they are not equivalent. \textbf{(C2-structural):}
 a hidden record of visible history, once written, persists to the
 readback that uses it --- the retention that clause (b) of the universal
 hidden-memory theorem shows every memory-bearing completion must contain
-(§3.4). \textbf{(C2-slow):} the timescale mechanism --- the hidden
-sector's \emph{coarse-grained mixing time} \(\tau_B\), the timescale on
-which the effective channel degrades a stored record of visible history,
-is long compared to the accessible window: \(\tau_S \ll \tau_B\), the
-\emph{inverse} of the Markovian regime. (C2-slow) implies
-(C2-structural) under the uniform-erosion estimate of §2.3 --- a record
-eroding at rate \(1/\tau_B\) survives windows \(k\tau_S \ll \tau_B\)
-essentially intact --- but not conversely: what is required is that
-records persist, not that the hidden sector evolve slowly. Slow
-evolution is one \emph{sufficient mechanism} for persistence (a record
-that stays put survives), but fast autonomous hidden dynamics with
-conserved structure serve equally --- a shift-register bath rotating
-five cells per visible step produces a maximal order-2 readback gap,
-because its circulation forgets nothing and routes the record back
-within the window, satisfying (C2-structural) while violating (C2-slow)
-(\texttt{fastbath\_probes.py}). Unqualified ``(C2)'' in this paper means
-the persistence requirement, with the form named wherever the
-distinction bites. The same probe certifies the complementary boundary:
-persistence alone does not supply (C4) --- with the return time pushed
-outside the accessible window the identical non-forgetting register
-yields an exactly i.i.d. visible process. (C4)'s operative demand on the
-hidden sector is thus persistence \emph{together with in-window
-routing}; (C2) names the persistence half. (Status: \textbf{a
-physical-regime premise, not a structural condition} --- and the
-distinction is load-bearing. C1, C3 and C4 are the structural
+(§3.4). In a bijective realization reversibility supplies this retention
+for every law, Markov laws included (§3.4, remark after that theorem),
+so as a condition (C2-structural) bears on a coarse-grained description
+of the hidden sector, whose effective channel between couplings can
+degrade the record before readback. \textbf{(C2-slow):} the timescale
+mechanism --- the hidden sector's \emph{coarse-grained mixing time}
+\(\tau_B\), the timescale on which the effective channel degrades a
+stored record of visible history, is long compared to the accessible
+window: \(\tau_S \ll \tau_B\), the \emph{inverse} of the Markovian
+regime. (C2-slow) implies (C2-structural) under the uniform-erosion
+estimate of §2.3 --- a record eroding at rate \(1/\tau_B\) survives
+windows \(k\tau_S \ll \tau_B\) essentially intact --- but not
+conversely: what is required is that records persist, not that the
+hidden sector evolve slowly. Slow evolution is one \emph{sufficient
+mechanism} for persistence (a record that stays put survives), but fast
+autonomous hidden dynamics with conserved structure serve equally --- a
+shift-register bath rotating five cells per visible step produces a
+maximal order-2 readback gap, because its circulation forgets nothing
+and routes the record back within the window, so that (C4) holds while
+(C2-slow) fails (\texttt{fastbath\_probes.py}). Unqualified ``(C2)'' in
+this paper means the persistence requirement, with the form named
+wherever the distinction bites. The same probe certifies the
+complementary boundary: persistence alone does not supply (C4) --- with
+the return time pushed outside the accessible window the identical
+non-forgetting register yields an exactly i.i.d. visible process. (C4)'s
+operative demand on the hidden sector is thus persistence \emph{together
+with in-window routing}; (C2) names the persistence half. (Status:
+\textbf{a physical-regime premise, not a structural condition} --- and
+the distinction is load-bearing. C1, C3 and C4 are the structural
 conditions: the characterization's equivalence runs over those three
 (§3.4), and the existential realization satisfies C2 trivially with a
 static bath. What C2 supplies is physical: it is the mechanism by which
 a stored record survives to be read in realistic models, so that C4
 holds rather than failing by erasure (§2.3); and in the other direction
-it is \emph{derived} --- observed conditional memory forces a lower
-bound on bath persistence, conditional on the hidden-sector mixing
-hypothesis, which is the physical-memory theorem of §3.4 rather than an
-assumption. Note also that C2 does not imply C4: a slow bath can store
-without reading, certified by a C1--C3 realization with identically zero
-backflow on arbitrarily long horizons (\texttt{review3\_probes.py}),
-which is why C4 is a separate condition and not a consequence. ETH, C2's
-physical motivation --- a well-supported conjecture rather than a
-theorem --- is discussed at the remark in §3.4. Realization ---
-\(\tau_S/\tau_B \sim 10^{-32}\) at the horizon.)
+observed conditional memory \(I^* > 0\) forces some realized hidden
+conditional at the coupling time to lie at total-variation distance at
+least \(\varepsilon_{\min}(I^*, n_V)\) from the reference prior --- the
+contrapositive of the physical-memory theorem of §3.4, in which
+\(\varepsilon\) is the realized distance and no mixing hypothesis enters
+--- while the timescale form, a lower bound on bath persistence, follows
+from it under the hidden-sector mixing hypothesis. Note also that C2
+does not imply C4: a slow bath can store without reading, certified by a
+C1--C3 realization with identically zero backflow on arbitrarily long
+horizons (\texttt{review3\_probes.py}), which is why C4 is a separate
+condition and not a consequence. ETH, C2's physical motivation --- a
+well-supported conjecture rather than a theorem --- is discussed at the
+remark in §3.4. Realization --- \(\tau_S/\tau_B \sim 10^{-32}\) at the
+horizon.)
 
 \textbf{(C3) Sufficient memory capacity.} The hidden sector has enough
 distinguishable states to encode the observed conditional past--future
@@ -711,7 +721,9 @@ not require C4; with a full-support visible prior it is equivalent to
 memory at some order below the recurrence time, which an observer
 reaches only when that order is accessible, as C4 asserts (§2.3). C1 and
 C3 follow as necessary diagnostics of the mediation and its capacity;
-C2-structural supplies persistence to readback, with C2-slow one
+C2-structural, the persistence of the record to readback, holds by
+reversibility in every bijective realization and constrains
+coarse-grained descriptions of the hidden sector, with C2-slow one
 physical mechanism. \textbf{(3) Reverse finite realization:} every
 finite stochastic law, including every finite quantum record, has a
 finite reversible OI realization; bounded quantum instrument families
@@ -4970,11 +4982,15 @@ C1 necessity & Proved --- any realization of a non-Markovian process has
 hidden influence at some accessible step (none anywhere ⟹ Markov); a
 non-permutation one-step \(T\) is the sufficient first-step witness, not
 an equivalence & §3.4, §1.3 \\
-C2 necessity & Conditional on the hidden-sector mixing hypothesis; the
-quantitative bound \(\varepsilon \geq \delta/(k-1)\) is proved, its
-constant saturated in the certification suite
-(\texttt{c2\_mixing\_probes.py}); ETH is physical motivation, not a
-premise & §3.4, §1.3 \\
+C2 necessity & Persistence form proved: observed conditional memory
+\(I^*\) places some realized hidden conditional at the coupling time at
+least \(\varepsilon_{\min}(I^*, n_V)\) from the reference prior
+(physical-memory theorem, contrapositive); in a bijective realization
+the retention of (C2-structural) holds for every law. Slow-bath form
+conditional on the hidden-sector mixing hypothesis; the quantitative
+bound \(\varepsilon \geq \delta/(k-1)\) is proved, its constant
+saturated in the certification suite (\texttt{c2\_mixing\_probes.py});
+ETH is physical motivation, not a premise & §3.4, §1.3 \\
 C3 necessity & Proved --- data-processing bound in per-process form,
 \(m \geq 2^{I^*}\) & §3.4, §1.3 \\
 C4 necessity & Immediate given observed non-Markovianity (any
@@ -5150,8 +5166,10 @@ not the selector. The content of observation incompleteness lies in
 history readback. C4 forces conditional memory and readout-relevant
 hidden predictive structure in every faithful completion. C1 and C3 are
 necessary diagnostics of that mediation and its capacity, while
-C2-structural is the persistence condition and C2-slow one sufficient
-physical mechanism.
+C2-structural, the persistence of the record to readback, holds by
+reversibility in every bijective realization and constrains
+coarse-grained descriptions of the hidden sector, with C2-slow one
+sufficient physical mechanism.
 
 The spatial theory adds an exact causal-cone result. Because the
 coupling graph is defined by one-step dynamical dependence, \(k\)
@@ -5483,4 +5501,4 @@ degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
 \end{document}
-% source-sha256: 92bac58217b325dbec92f52c0c39763e239412c1f465b3a884bd96352ea3fcca
+% source-sha256: 4ba78d63c7f2268370de969335ccd474645cd329411a837c4091c772e38a7bfa

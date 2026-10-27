@@ -2532,14 +2532,16 @@ cosmological horizon evolves on a timescale
 are \(\tau_S \sim 10^{-15}\) to \(10^{-1}\) seconds. The ratio
 \(\tau_S / \tau_B \sim 10^{-32}\) is extreme --- the cosmological
 horizon is essentially frozen on any laboratory timescale, and this
-frozen-bath condition is what secures (C2-structural) --- record
-persistence to readback --- by the most robust mechanism available. An
-observer in genuine thermal equilibrium with a fast-mixing bath would
-lose the accessible memory sector, the readback gap erased before it can
-be read; an observer with a frozen bath (our situation) retains it
-through the information backflow C2's persistence supplies. What the
-condition governs is the memory-bearing sector, not the representation,
-which is universal.
+frozen-bath condition is what secures (C2-structural) for the
+coarse-grained description of the horizon --- record persistence to
+readback --- by the most robust mechanism available; in an exact
+reversible description the record is retained for every law. An observer
+in genuine thermal equilibrium with a fast-mixing bath would lose the
+accessible memory sector, the readback gap erased before it can be read;
+an observer with a frozen bath (our situation) retains it through the
+information backflow C2's persistence supplies. What the condition
+governs is the memory-bearing sector, not the representation, which is
+universal.
 
 The C2 limit therefore illuminates a different structural point:
 classical stochastic mechanics is what \emph{thermalized} systems do.
@@ -28163,11 +28165,15 @@ finite-horizon equivalence supplies universally ({[}Main §3.4{]}).
 \emph{Necessity of C2 (memory persistence).} The hidden sector must
 retain the record across the window --- (C2-structural), which the
 universal hidden-memory theorem shows every faithful realization of a
-memory-bearing process contains ({[}Main §3.4{]}). The slow form's
+memory-bearing process contains ({[}Main §3.4{]}). In a reversible
+realization this retention holds for every process, Markov ones
+included, because the present state determines the visible past; as a
+condition it bears on coarse-grained descriptions of the hidden sector,
+in which a record can be degraded before readback. The slow form's
 necessity is conditional: if the hidden sector \emph{mixes} between
 readbacks, correlations are erased, the process is driven Markovian, and
 P-indivisibility is lost --- the conditional physical-memory theorem
-({[}Main §2.3{]}) --- while fast \emph{non-mixing} hidden dynamics
+({[}Main §3.4{]}) --- while fast \emph{non-mixing} hidden dynamics
 retain records with no timescale separation at all
 (\texttt{fastbath\_probes.py}, {[}Main §1.3{]}). Again contrapositive,
 within the mixing class: violating (C2-slow) produces Markovian dynamics
@@ -29263,11 +29269,17 @@ records \emph{persist} --- not that the hidden sector evolve slowly:
 slow evolution is one sufficient mechanism, and fast conserved dynamics
 serve equally ({[}Main §1.3{]}, \texttt{fastbath\_probes.py}). C2 is the
 persistence half of what C4 operationally needs (the other half is
-in-window routing), and it is itself derived from observed memory by the
-physical-memory theorem. For our universe at the cosmological horizon,
-\(\tau_S / \tau_B \sim 10^{-32}\). C2 fails when the hidden sector
-thermalizes between measurements, producing classical Markovian
-dynamics. Discussed in Chapter 1 §1.3.
+in-window routing), and observed conditional memory forces some realized
+hidden conditional at the coupling time to stay away from the reference
+prior (the physical-memory theorem, {[}Main §3.4{]}); under the
+hidden-sector mixing hypothesis this becomes a lower bound on bath
+persistence. In a reversible realization the record of visible history
+is retained for every law, so the persistence condition bears on
+coarse-grained descriptions of the hidden sector. For our universe at
+the cosmological horizon, \(\tau_S / \tau_B \sim 10^{-32}\). Under the
+mixing hypothesis, C2 fails when the hidden sector thermalizes between
+measurements, producing classical Markovian dynamics. Discussed in
+Chapter 1 §1.3.
 
 \textbf{C3 (Hidden-sector capacity).} The second of the framework's
 three structural conditions (C1, C3, C4). Requires hidden capacity
@@ -30672,4 +30684,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: f2ae3de439bbaa237882acd8d1b7a11211958f699f4f0e92c1db84d626458bad
+% source-sha256: 516950a888d25928bb1fc46dd5bb0476dec48861bba9b7195be69ab203b7164d
