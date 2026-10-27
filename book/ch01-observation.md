@@ -190,7 +190,7 @@ A second boundary sits alongside it, and it concerns which unitary evolution rel
 
 The theorem says something stronger than “quantum mechanics can be simulated by a classical hidden model” and something more precise than “C1–C4 uniquely force all of quantum mechanics.”
 
-It says that, for finite observable laws, the stochastic, reversible-deterministic, and fixed-basis quantum descriptions are mathematically intertranslatable. A finite embedded observer therefore does not need quantum mechanics added as a separate microscopic postulate in order for a Hilbert-space/unitary/Born description to exist. History readback then supplies the physical distinction between a trivial Markov member of that representation class and the memory-bearing indivisible sector characteristic of OI.
+It says that, for finite observable laws, the stochastic, reversible-deterministic, and fixed-basis quantum descriptions are mathematically intertranslatable. A finite embedded observer therefore does not need quantum mechanics added as a separate microscopic postulate in order for a Hilbert-space/unitary/Born description to exist. History readback then supplies the physical distinction between a trivial Markov member of that representation class and the memory-bearing sector characteristic of OI.
 
 The converse is equally important: every finite quantum record has a finite reversible OI realization, and one sufficiently large finite construction can cover an entire bounded finite quantum experiment menu to any specified accuracy. The exact continuum operational theory is a mathematical idealization rather than a requirement that the physical carrier itself be infinite.
 
