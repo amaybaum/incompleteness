@@ -355,14 +355,18 @@ The Barandes route is more general (any finite-configuration member of the sourc
 
 The framework is a deterministic hidden-state theory, so its Bell content must be stated at the correct level. Bare finite OI representability is too broad to select the quantum Bell set: if the two wings are allowed to share globally coupled setting-dependent hidden dynamics, the same reversible response-table construction that realizes arbitrary finite stochastic laws also realizes PR-box behavior. That fact is not in tension with the exact unitary/Born representation of §3.4; a global stochastic law can be represented unitarily while failing the *local subsystem* conditions of standard quantum mechanics. The selector in a Bell experiment is therefore causal locality, not representability.
 
-**Coupling-graph causal cone.** Write the spatial substratum as $S=\prod_{i\in V}S_i$ and define the coupling graph $G_\varphi$ by one-step dependency: $i\sim j$ whenever the $i$th output component of $\varphi$ depends on the $j$th input component for some state (symmetrized for the spatial graph). Then, by induction, $(\varphi^k(s))_i$ depends only on initial components in the graph ball $B_{G_\varphi}(i,k)$. Thus a setting intervention supported in region $A$ cannot alter a readout in region $B$ before the corresponding causal cones meet. This result uses the full spatial OI constitution — site factorization plus the graph read from the actual dynamics — but does not require the stronger simple-cubic nearest-neighbor restriction used elsewhere to obtain a particular dispersion relation.
+**Coupling-graph causal cone.** Write the spatial substratum as $S=\prod_{i\in V}S_i$, with $V$ and each $S_i$ finite, and define the coupling graph $G_\varphi$ by one-step dependency: $i\sim j$ whenever the $i$th output component of $\varphi$ depends on the $j$th input component for some state (symmetrized for the spatial graph). Then, by induction, $(\varphi^k(s))_i$ depends only on initial components in the graph ball $B_{G_\varphi}(i,k)$. Thus an intervention that reads and writes only region $A$ cannot alter, $k$ updates later, any component outside $B_{G_\varphi}(A,k)$; in particular it cannot alter a readout region $R$ with $d(A,R) > k$. Finiteness of $V$ is used in the first step, where insensitivity to each single component outside the dependency set makes the $i$th output a function of the components in it. This result uses the full spatial OI constitution — site factorization plus the graph read from the actual dynamics — but does not require the stronger simple-cubic nearest-neighbor restriction used elsewhere to obtain a particular dispersion relation.
 
 The causal-cone statement is pointwise in the pre-setting microstate. It must be distinguished from **operational setting screening**. In a closed deterministic universe the setting generators may be statistically correlated with preparation-relevant hidden variables; conditioning on a setting can then reweight the hidden ensemble and create apparent remote statistical dependence even though no influence crossed the graph cone. **Theorem (Bell ceiling for a screened local completion).** *Let $\Omega$ be a
-pre-setting microstate that fixes each wing's response to every setting.
-Suppose (i) the dynamics is deterministic; (ii) the setting operations are
-interventions supported in the respective regions; (iii) readout occurs before
-the post-setting cones meet; and (iv) the interventions act on one common
-pre-setting ensemble, so $p(\Omega\mid a,b)=p(\Omega)$. Then there are
+pre-setting variable that fixes each wing's response to every setting.
+Suppose (i) the dynamics is deterministic; (ii) the setting operation is
+$u^A_a \times u^B_b \times \mathrm{id}$ on $S_A \times S_B \times S_{V \setminus (A \cup B)}$,
+each intervention reading and writing only its own region; (iii) wing $A$'s
+outcome is a $\pm1$-valued function of the state on a readout region $R_A$
+$k_A$ updates after the setting, with $d(B, R_A) > k_A$, and symmetrically
+$d(A, R_B) > k_B$; and (iv) the interventions act on one common pre-setting
+ensemble, so $p(\Omega\mid a,b)=p(\Omega)$ — the condition under which the
+completion is called screened. With outcomes recorded in every run, there are
 deterministic local response functions $q_a(\Omega)$, $r_b(\Omega)$ with*
 $$
 P(q,r\mid a,b)=\sum_\Omega p(\Omega)\,
@@ -370,11 +374,13 @@ P(q,r\mid a,b)=\sum_\Omega p(\Omega)\,
 $$
 *so the model is Bell-local and $|S_{\rm CHSH}|\le 2$.*
 
-*Proof.* The cone statement makes the $A$-readout independent of the
-$B$-intervention at fixed $\Omega$, and conversely; determinism makes the
+*Proof.* By (ii) the post-setting state outside $B$ does not depend on $b$,
+and by the cone lemma and (iii) the $A$-readout depends only on components
+within distance $k_A$ of $R_A$, none of them in $B$; so the $A$-readout is
+independent of the $B$-intervention at fixed $\Omega$, and conversely; determinism makes the
 conditionals point masses; the common ensemble supplies measurement
 independence. Pointwise $q_0(r_0+r_1)+q_1(r_0-r_1)\in\{-2,+2\}$; average.
-$\square$ Certified in `equivalence_recovery_probes.py` (check 11).
+$\square$ The pointwise bound over the sixteen deterministic response tables is checked exhaustively in `equivalence_recovery_probes.py` (check 11).
 
 This is Bell's theorem applied to the framework's own hypotheses. **A deterministic
 completion that keeps the pointwise graph cone and a setting-independent
@@ -386,12 +392,18 @@ the quantum interval. A deterministic response-complete completion supplies
 more than they assume, and the surplus costs precisely the interval between
 $2$ and $2\sqrt2$.
 
-Determinism is constitutional here, so exactly two hypotheses remain available
-and the framework must choose between them.
+Determinism is constitutional here and outcomes are recorded in every run, so a
+completion reproducing quantum Bell correlations gives up at least one of two
+remaining hypotheses: ontic parameter independence, (ii) and (iii) together, or
+measurement independence, (iv). The framework gives up the first. Measurement
+independence is retained as a posit about the initial condition, not derived:
+were $\Omega$ the full pre-setting microstate, the settings would be functions
+of it and (iv) would fail, so $\Omega$ is the response-relevant variable and
+(iv) states that it is uncorrelated with the setting generators' outputs.
 
 **(a) Ontic parameter dependence — the option taken.** The Bell-relevant response structure is not finite-range at the separation of the wings: at the microstate level, one wing's response depends on the remote setting. This is not an operational signal, and the no-signaling statement below is untouched. In the general finite response construction the dependence is explicit: the composite realizing PR correlations carries the joint history in each wing. For the specific SM/GR representative the compatible implementation is more constrained. [SM §3.1] already uses a state-dependent coupling graph $G(x)$; the natural branch-(a) target is therefore **preparation-indexed adjacency**, in which the reference vacuum/uniform graph remains geometric and bounded-range while a Bell preparation supplies bounded-degree long edges or an equivalent nonlocal response map. The open cost is not the graph-boundary area law by itself, but the continuum-curvature limit of those prepared graphs.
 
-**Corollary (Bell–lattice obstruction and state-dependent escape).** *If the Bell-relevant degrees of freedom are governed entirely by the nearest-neighbor cubic wave-equation update used in [SM], with maximum lattice propagation speed identified with $c$, and the setting interventions and readouts are local to spacelike-separated wing regions, then the theorem above applies to every measurement-independent response-complete deterministic completion and $|S_{\rm CHSH}|\le2$.* Hence the **reference nearest-neighbor graph alone** cannot supply option (a). This is not a no-go for the state-dependent-graph framework: [SM §3.1] permits $G(x)$ to depend on the state, and its mod-$q$ area-law proof is explicitly for uniform initial conditions. A measurement-independent Bell completion may therefore use preparation-indexed nonlocal edges while leaving the reference uniform/vacuum graph local. What remains to be proved is H-Bell: the prepared graph family must preserve operational no-signaling and satisfy a curvature/metric convergence condition strong enough for the Ollivier--Ricci continuum step used by the Einstein reconstruction. That condition is now downstream of a harder one. The cited convergence theorem is arbitrary-dimensional only for the manifold-distance-weighted graph metric, and for the degree-$6$ cubic reference graph the intrinsic hop metric is exactly $\ell_1$ — a $\sqrt2$ diagonal stretch that does not decay at any scale — so the hop-metric curvature route FAILS for the reference family, before any Bell edge is added, and no $D=3$ extension of that theorem would rescue it. The emergent geometry itself is not in question: the substratum's dispersion relation is isotropic at leading order. What must be re-founded is the curvature functional, on the propagation/Laplacian geometry rather than on shortest-path counts [SM §3.2]. The sparse-neighborhood diagnostic in [SM §3.1] gives a tractable locality target but is not itself a global convergence theorem.
+**Corollary (Bell–lattice obstruction and state-dependent escape).** *If the Bell-relevant degrees of freedom are governed entirely by the nearest-neighbor cubic wave-equation update used in [SM], and the setting interventions and readouts are local to wing regions whose graph separation exceeds the number of updates from setting to readout, then the theorem above applies to every measurement-independent response-complete deterministic completion and $|S_{\rm CHSH}|\le2$.* Hence the **reference nearest-neighbor graph alone** cannot supply option (a) for such wings. The graph cone advances one edge per update, while the isotropic lift of [SM] has long-wavelength wave speed $1/\sqrt3$ edges per update; which of the two, if either, is the physical $c$ is fixed by the emergent clock and length calibration and is not derived here, and wings separated by less than the graph cone over the experiment's duration fall outside the Corollary. This is not a no-go for the state-dependent-graph framework: [SM §3.1] permits $G(x)$ to depend on the state, and its mod-$q$ area-law proof is explicitly for uniform initial conditions. A measurement-independent Bell completion may therefore use preparation-indexed nonlocal edges while leaving the reference uniform/vacuum graph local. What remains to be proved is H-Bell: the prepared graph family must preserve operational no-signaling and satisfy a curvature/metric convergence condition strong enough for the Ollivier--Ricci continuum step used by the Einstein reconstruction. That condition is now downstream of a harder one. The cited convergence theorem is arbitrary-dimensional only for the manifold-distance-weighted graph metric, and for the degree-$6$ cubic reference graph the intrinsic hop metric is exactly $\ell_1$ — a $\sqrt2$ diagonal stretch that does not decay at any scale — so the hop-metric curvature route fails for the reference family, before any Bell edge is added, and no $D=3$ extension of that theorem would rescue it. The emergent geometry itself is not in question: the substratum's dispersion relation is isotropic at leading order. What must be re-founded is the curvature functional, on the propagation/Laplacian geometry rather than on shortest-path counts [SM §3.2]. The sparse-neighborhood diagnostic in [SM §3.1] gives a tractable locality target but is not itself a global convergence theorem.
 
 **(b) Ontic measurement dependence — recorded, not adopted.** If instead the pre-setting ensemble is allowed to depend on the settings, then with $Z=(A,B)$ uniform and $I_{\rm ont}=I(\Omega;Z)$ in bits, data processing, Pinsker's inequality and Jensen's inequality give
 $$
