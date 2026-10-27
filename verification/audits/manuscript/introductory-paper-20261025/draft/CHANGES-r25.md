@@ -50,3 +50,22 @@ None.
 - **Release gate:** every step passes except `lean-axioms`, which needs `lake` and cannot run locally; it passes in CI.
 - **Other checks:** `duplicate`, `voice`, `claims`, `coverage` (134), `staleness` and `mirror` all pass. `edge_rigidity_probe`: ALL CHECKS PASS.
 - **Added-lines scans:** no hits for the §A.32/§A.33 phrase families ("should be kept" included), caps emphasis, markers, secrets, scratch paths or model identifiers.
+
+## 6. Follow-up: the owner's clarifications for D and E (second r25 commit)
+
+The owner approved the r25 plan and asked for two changes. The first is to keep three things distinct in D: what the
+observer actually sees, the hypothetical comparison, and the recurrence. The second is to keep E's two cases explicit
+without conflating conditional memory, hidden predictive memory and P-indivisibility. Additions are kept tight. These
+texts replace the D and E wording in §1.
+
+- **D, final (L130), the part after "…letting the hidden odds change with the start would compare different rules.":** "A start that never occurs stays in the comparison for the same reason, as a different deck and shuffle shows. Suppose its rule makes a red start always show red after the first shuffle while a black start, with the same face-down odds, may show either colour, and the dealer always starts with red. What the observer actually sees is red at every step, with no uncertainty; what happens from a black start under that preparation is never observed. The rooted family still asks what the same dynamics and the same hidden preparation would produce from black: that forecast is part of the mathematical comparison, not something this observer measures, and it overlaps the red one, so the overlap comes only from the start that is never dealt [Main §2.3]. Both forecasts return to certainty at step 2, a return horizon, while the whole world completes its cycle only at its recurrence time, step 3, so the forecasts fail to chain over the first two steps although no dealt game ever looks uncertain."
+  - *Actual observation:* red at every step; the black start is never observed.
+  - *Hypothetical comparison:* the black-start forecast is "part of the mathematical comparison, not something this observer measures". Nothing implies the observer can reach a start their preparation never produces.
+  - *Recurrence:* the step-2 return is named a return horizon and kept distinct from the full recurrence at L = 3.
+- **E, final (L146):** "Two cases differ. If the conditional memory first affects a step that some accessible window still reaches, an observer whose observations reach that step may detect it, as in the example below. If it first affects what is seen only beyond every accessible window, the memory and the failure of chaining it implies across the cycle remain established under the theorem's hypotheses, but neither is an accessible observational witness; what an observer can test is memory at an accessible order, which (C4) asserts."
+  - The beyond-window case uses the owner's wording: it remains established under the theorem's hypotheses, but neither it nor the failure of chaining is an accessible observational witness.
+- **The example's last sentences (L146):** "Here the window ends at time 2: an observer whose observations reach time 3 may detect the memory, while one whose windows end at time 2 cannot detect it through this record. The example shows memory beyond the window; it shows no failure of chaining inside it."
+
+The census is identical to the first r25 commit. The build gives 22 pages; a direct compile shows 0 overfull, 0
+underfull and 0 missing characters. The release gate passes every step except `lean-axioms`, which cannot run locally.
+The edge probe reports ALL CHECKS PASS, and the added-lines scans are clean.

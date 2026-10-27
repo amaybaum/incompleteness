@@ -663,15 +663,20 @@ started in two ways. So the comparison is about one fixed rule, the same
 hidden preparation tried from every visible start the world could have,
 not about the starts a sample happens to contain; letting the hidden
 odds change with the start would compare different rules. A start that
-never occurs stays in the comparison for the same reason. A different
-deck and shuffle could, for instance, make a red start always show red
-after the first shuffle while a black start may show either colour, with
-the face-down odds still the same for both starts: a dealer who always
-deals red then never sees uncertainty, yet under that rule the forecasts
-from the two starts overlap, and they overlap only because of the start
-that is never dealt {[}Main §2.3{]}. In that rule the forecasts from the
-start return to certainty at step 2, before the whole world returns at
-step 3, so the chain breaks there although no dealt game ever looks
+never occurs stays in the comparison for the same reason, as a different
+deck and shuffle shows. Suppose its rule makes a red start always show
+red after the first shuffle while a black start, with the same face-down
+odds, may show either colour, and the dealer always starts with red.
+What the observer actually sees is red at every step, with no
+uncertainty; what happens from a black start under that preparation is
+never observed. The rooted family still asks what the same dynamics and
+the same hidden preparation would produce from black: that forecast is
+part of the mathematical comparison, not something this observer
+measures, and it overlaps the red one, so the overlap comes only from
+the start that is never dealt {[}Main §2.3{]}. Both forecasts return to
+certainty at step 2, a return horizon, while the whole world completes
+its cycle only at its recurrence time, step 3, so the forecasts fail to
+chain over the first two steps although no dealt game ever looks
 uncertain. In a finite reversible world whose hidden part starts with
 the same odds whatever is visible at the start, any visible step that is
 not fully predictable from the current observation makes its failure,
@@ -771,14 +776,14 @@ conditional memory that no accessible window detects: a trace held in
 the hidden part can first affect what is seen at an order beyond every
 accessible window, though still before the return. An observer confined
 to accessible windows therefore sees neither the late dependence nor the
-failure of chaining. Two cases differ. If the memory first affects a
-later step that some accessible window still reaches, an observer who
-watches that long detects it, as in the example below. If it first
-affects what is seen only beyond every accessible window, no observer
-detects it; the failure of chaining across the cycle is then a
-structural consequence of finite reversibility and partial access, not
-something any accessible window records, and what an observer can test
-is memory at an accessible order, which (C4) asserts. For example, let
+failure of chaining. Two cases differ. If the conditional memory first
+affects a step that some accessible window still reaches, an observer
+whose observations reach that step may detect it, as in the example
+below. If it first affects what is seen only beyond every accessible
+window, the memory and the failure of chaining it implies across the
+cycle remain established under the theorem's hypotheses, but neither is
+an accessible observational witness; what an observer can test is memory
+at an accessible order, which (C4) asserts. For example, let
 \(X_0,X_1,X_2\) be independent fair bits and \(X_3=X_0\). Up to time 2
 each next observation is independent of the past, so
 \(M_1=I(X_0;X_2\mid X_1)=0\): the record has no accessible memory on
@@ -787,9 +792,10 @@ Yet every deterministic world that reproduces the law, reversible or
 not, must keep \(X_0\) in its hidden part at time 2, and the past
 predicts the observation at time 3 exactly, \(M_2=1\) bit {[}Main §3.4,
 Remark (a variational question){]}. Here the window ends at time 2: an
-observer whose window reaches time 3 detects the memory, while one whose
-windows all end at time 2 never does. The example shows memory beyond
-the window; it shows no failure of chaining inside it.
+observer whose observations reach time 3 may detect the memory, while
+one whose windows end at time 2 cannot detect it through this record.
+The example shows memory beyond the window; it shows no failure of
+chaining inside it.
 
 Precisely: for the rooted family, with a hidden prior shared by every
 root and drawn independently of it and with a full-support visible
@@ -1818,4 +1824,4 @@ arXiv:gr-qc/0604062v4.
 \endgroup
 
 \end{document}
-% source-sha256: a76f01669f330849d758a2b06ab32a175f864cc8ca8d43c673427fbea4245c3b
+% source-sha256: 8044e1dd296823836b23ab2cff22f4138acc9d44a615e14b748052d5f34c2087
