@@ -240,6 +240,15 @@ Each merge below was approved by the owner at the exact head SHA listed. Each wa
 | SC-18 reverse-direction lemma scope | #952 | `7d55572b5…` | `1a60e06b` | ACCEPT WITH CHANGES at `48dfb8f7` (F1 blocking, N1–N5); ACCEPT at `7d55572b` | none: #918 cites only the §3.4 process-level result |
 | SC-20 C2 necessity in two forms | #953 | `64281543…` | `d66bb70e` | ACCEPT WITH CHANGES at `f6e4ba55` (B1 §3.4 anchor, B2 propagation); ACCEPT WITH CHANGES at `c9969d89` (Main :624); ACCEPT at `64281543` | #918 :185 to name the slow-bath form |
 | SC-21 (EM) results scoped to the coarse-grained description | #954 | `0474dad3…` | `9d975c11` | ACCEPT WITH CHANGES at `c4ca72c4`; ACCEPT at `9e01e9fb`, `36ef284d`, `b7b67508` (owner safeguards checked at `6c2bfb8e`); re-validated ACCEPT at `0474dad3` after merging main `d66bb70e` | none: #918 makes no (EM)-based claim |
+| SC-16 accessible-window P-indivisibility (with SC-5 terminology, scheme A) | #955 | `1b6a4dbc…` | `55e3217b` | ACCEPT WITH CHANGES at `2d3067aa` (B1, B2, N1–N17); ACCEPT at `1165b068`; re-validated ACCEPT at `1b6a4dbc` after merging main `9d975c11` | none needed for scheme A |
+
+### Identifier transitions
+
+| Retired identifier | Successor | Statement | Merge | Reason | Authorization |
+|---|---|---|---|---|---|
+| `MAIN:L-accessible-backflow-from-readback` | `MAIN:L-accessible-conditional-memory-from-readback` | Main §2.3, the readback lemma (Main :167): a readback gap at an accessible order bounds the conditional mutual information I(X_<k; X_{k+1} \| X_k) from below | #955, `55e3217b` | The lemma was retitled "accessible conditional memory from readback". It proves conditional memory, not a revival of distinguishability, which is what "backflow" means under terminology scheme A. `tools/proof_census.py` derives identifiers from statement labels, so the retitle forces the new identifier. | Owner, 2026-10-27: an explicitly authorized exception to claim-ID immutability (AGENTS.md §A.30), recorded as a historical transition |
+
+The retired identifier is not reused. It remains in the historical records that cite it, which are left as committed: `verification/audits/manuscript/f29-followups-20261026/CHANGE-NOTE.md`, its `review/CONFIRM.md`, and `verification/audits/manuscript/hbar-theta0-20261026/CHANGE-NOTE.md`. The successor carries the same statement, retitled, with fingerprint `d8219030a30e750e` at `55e3217b`.
 
 In every main merge into a PR branch, `Main.tex`, `Main.pdf` and the other generated files were regenerated with `build.sh` rather than edited by hand. Each landing added exactly the PR's own changed source lines. The one exception was a sentence in `book/ch02-substratum.md` and its FULL mirror that SC-3 and SC-4 both edited. It was resolved by taking each unit's edit, and the reconciliation review checked that resolution.
 
@@ -257,7 +266,6 @@ The Lean kernel build and the Mathlib-bridge release gate run in CI on each merg
 
 Corrections still open on the source side, tracked on the source-correction gate:
 - C3 stated as conditional on mixing (Substratum :136); `c3_necessity` proves C3 for every realization with no mixing hypothesis;
-- SC-16, accessible-window P-indivisibility attributed to C1–C4, with the owner-approved terminology scheme A: "backflow" is reserved for distinguishability revival;
 - SC-17, compressed Bell-ceiling summaries;
 - SC-23: the fast-bath lemma's exponential bound read as exact vanishing (Main :161, :165, :754 and mirrors), and one-step thermalization read as window-wide Markovianity (Main :439–447, Explainer :357–361); ch01 :223's two coarse-grained descriptions to be kept distinct (`tracks/SC23-fastbath-closure/`).
 
