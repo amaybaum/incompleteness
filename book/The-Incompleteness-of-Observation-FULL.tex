@@ -18896,12 +18896,12 @@ all errors as independent; (iii) compare the resulting logical error
 rates against standard Markovian decoders on the same hardware.
 
 The framework's prediction is testable now, with current physical error
-rates and current decoder implementations. A factor-of-three improvement
-at the current state of the art would have substantial commercial impact
---- reducing the hardware cost of any planned fault-tolerant system by
-the same factor. The framework's prediction is therefore not just
-theoretical content but a specific commercial design target with
-empirical accessibility on existing hardware.
+rates and current decoder implementations. A sizeable improvement at the
+current state of the art would have substantial commercial impact
+through the hardware cost of fault-tolerant systems. The framework's
+prediction is therefore not just theoretical content but a specific
+commercial design target with empirical accessibility on existing
+hardware.
 
 \textbf{Falsification conditions.} The framework's prediction would be
 falsified by either (i) demonstration that no correlation-aware decoder
@@ -19070,9 +19070,7 @@ framework fixes neither the achievable interrogation time nor the
 readout efficiency, and both enter \(\delta B\) directly, so no
 numerical improvement factor is claimed here. Quoting one would require
 an NV-specific model of the spin bath, readout chain and control
-sequence. If the gain were large enough, NV sensors would compete with
-superconducting quantum interference devices (SQUIDs) at room
-temperature rather than requiring cryogenic cooling.
+sequence.
 
 \textbf{Empirical accessibility and falsification.} The framework's
 prediction is testable on current NV-magnetometry platforms through
@@ -20805,11 +20803,11 @@ concrete and clinically engaged.
 This chapter develops the framework's content in bioinformatics --- the
 methodological discipline of extracting biological understanding from
 high-throughput molecular data. The framework's content here has two
-related parts: a \emph{structural ceiling} on what transcriptome-only
-methods can achieve in computational biology, and a substantial
-\emph{empirical record} of non-Markovianity signatures in molecular
-evolution data that match the framework's predictions across the tree of
-life.
+related parts: a conditional \emph{structural ceiling} on what
+transcriptome-only methods can achieve in computational biology, and a
+substantial \emph{empirical record} of non-Markovianity signatures in
+molecular evolution data that match the framework's predictions across
+the tree of life.
 
 The structural ceiling rests on a conditional theorem with empirical
 force: where a quantity differs between hidden-sector completions that
@@ -20850,13 +20848,13 @@ information, regardless of method. Whether the strict gap holds for a
 given task is open.
 
 Sections 17.3-17.6 develop the empirical pattern across four active
-bioinformatics methodological domains where the framework's ceiling
-predicts and explains observed failures: trajectory inference, gene
-regulatory network inference, perturbation prediction, and multi-omics
-integration. Section 17.7 develops cancer methylome classification as
-the framework's \emph{positive} prediction --- where multi-modal data
-including substratum-level operators (DNA methylation patterns) succeeds
-where transcriptome-only methods fail.
+bioinformatics methodological domains where the conditional ceiling
+would explain observed failures: trajectory inference, gene regulatory
+network inference, perturbation prediction, and multi-omics integration.
+Section 17.7 develops cancer methylome classification as the framework's
+\emph{positive} prediction --- where multi-modal data including
+substratum-level operators (DNA methylation patterns) succeeds where
+transcriptome-only methods fail.
 
 Section 17.8 develops the variant pathogenicity prediction
 stratification: variants in reader/writer/eraser genes should show
@@ -21073,20 +21071,18 @@ transcriptome-only methods on causal inference benchmarks.
 The empirical pattern supports this prediction. Methods like SCENIC+
 (Bravo González-Blas et al.~2023) incorporate transcription factor motif
 analysis combined with chromatin accessibility, producing causal
-predictions that exceed transcriptome-only ceilings. Multi-omic GRN
+predictions that outperform transcriptome-only methods. Multi-omic GRN
 inference is the predicted improvement direction; the methodological
 field has empirically converged on this direction over the past five
 years.
 
-\textbf{Information-theoretic ceiling.} The framework's structural
-prediction can be made quantitatively explicit. The transcriptome's
-information about regulatory structure is bounded by what correlation
-methods recover. Multi-modal methods adding \(k\) substratum data types
-raise this ceiling by a structurally calculable amount depending on the
-conditional information each substratum modality adds. The empirical
-pattern of methodological improvement should follow this
-information-theoretic structure rather than being driven by
-architectural sophistication.
+\textbf{Information-theoretic ceiling.} Where the strict gap holds, the
+transcriptome's information about regulatory structure bounds what any
+method recovers; multi-modal methods raise the ceiling by the
+conditional information each substratum modality adds, an amount not
+computed here. The empirical pattern of methodological improvement
+should follow this information-theoretic structure rather than being
+driven by architectural sophistication.
 
 \hypertarget{perturbation-prediction-and-the-failure-of-scaling}{%
 \subsection{17.5 Perturbation prediction and the failure of
@@ -21607,15 +21603,16 @@ roadmap forward} for computational biology.
 
 \textbf{Three components of the roadmap.}
 
-\emph{Multi-modal data.} The framework's information-theoretic ceiling
-on transcriptome-only methods predicts that progress in bioinformatics
-requires including substratum-level data alongside transcriptome data.
-The methodological field has begun this convergence --- multi-omic
-velocity, SCENIC+ for GRN inference, knowledge-graph methods for
-perturbation prediction, methylation classifiers for cancer diagnosis
---- but the convergence is incomplete. The framework's content predicts
-that \emph{complete} methodological transition to multi-modal data is
-required to exceed the current performance plateau.
+\emph{Multi-modal data.} Where the strict gap holds, the framework's
+information-theoretic ceiling on transcriptome-only methods predicts
+that progress in bioinformatics requires including substratum-level data
+alongside transcriptome data. The methodological field has begun this
+convergence --- multi-omic velocity, SCENIC+ for GRN inference,
+knowledge-graph methods for perturbation prediction, methylation
+classifiers for cancer diagnosis --- but the convergence is incomplete.
+The framework's content predicts that \emph{complete} methodological
+transition to multi-modal data is required to exceed the current
+performance plateau.
 
 \emph{Knowledge graphs and prior structure.} Methods that incorporate
 prior knowledge about biological networks (knowledge graphs, regulatory
@@ -30773,4 +30770,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: 6c19ce83d1744d4ca63df7e44601e0c488c13c51ca78fcb8e487ec2967c00ab6
+% source-sha256: c04fec041339066a778e05fa33fffcfac839a16d55e40ededa15d689ee61cab3
