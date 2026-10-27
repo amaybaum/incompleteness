@@ -105,7 +105,7 @@ The theorem's uniqueness claim holds under E1–E7 **and** A1–A6 jointly; remo
 
 **Critical dependencies.** Theorem 23's proof relies on the following prior theorems, whose individual correctness is assumed:
 
-- [Main §2.3] history readback / accessible temporal P-indivisibility for the **memory-bearing temporal** sector used in Stage 1 (a modeling premise about the temporal data, not an inference from Bell violation)
+- [Main §2.3] history readback for the **memory-bearing temporal** sector used in Stage 1 (a modeling premise about the temporal data, not an inference from Bell violation)
 - [Main §3.3] Bell ceiling and the adopted measurement-independent, ontically parameter-dependent Bell branch (a separate spatial-composite premise; Bell violation is not used as a witness of temporal P-indivisibility)
 - [Main §3.2] Forward Stinespring dilation (bijection → CPTP channel) and reverse-direction lemma (stochastic process → bijection)
 - [Main §3.4] Characterization theorem (accessible non-Markovianity — the framework's finite-horizon visible-law memory/backflow notion, not generic quantum non-Markovianity — ⟺ C1/C3/C4 per finite accessible horizon; C2's necessity conditional on the hidden-sector mixing hypothesis, ETH its physical motivation)
@@ -119,7 +119,7 @@ Theorem 23's confidence is bounded above by the minimum confidence in these depe
 
 ### 3.2 Stage 1: Observed QM → deterministic embedding with C1–C4
 
-**Inputs:** E1 (unitary QM), E2 (Bell violations), E3 (finite boundary entropy), A1 (finiteness), A2 (determinism), and M1, now explicitly two-clause: **M1-T**, the observed temporal quantum data used in Stage 1 lie in the accessible history-readback/P-indivisible sector of [Main §2.3–§3.4]; and **M1-B**, Bell-violating composites take [Main §3.3]'s measurement-independent, ontically parameter-dependent branch with operational no-signaling. M1-T and M1-B are logically distinct; Bell violation is not taken to imply temporal P-indivisibility.
+**Inputs:** E1 (unitary QM), E2 (Bell violations), E3 (finite boundary entropy), A1 (finiteness), A2 (determinism), and M1, now explicitly two-clause: **M1-T**, the observed temporal quantum data used in Stage 1 lie in the accessible history-readback sector of [Main §2.3–§3.4]; and **M1-B**, Bell-violating composites take [Main §3.3]'s measurement-independent, ontically parameter-dependent branch with operational no-signaling. M1-T and M1-B are logically distinct; Bell violation is not taken to imply temporal P-indivisibility.
 
 **Output:** There exists a triple $(S, \varphi, V)$ with $S$ finite, $\varphi$ a bijection on $S$, and $V \subset S$ a distinguished subset such that:
 - The observed quantum dynamics is the reduced description obtained by tracing out $S \setminus V$ from the deterministic evolution under $\varphi$.
