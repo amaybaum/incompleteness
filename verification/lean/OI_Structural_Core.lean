@@ -441,8 +441,8 @@ theorem center_anticommutator (D e m p : R)
     _ = (m + p * e) + (m + p * e) := by rw [← hpe]
     _ = (m + m) + (p * e + p * e) := add_add_add_comm _ _ _ _
 
-/-- **M3.2.** Given {D, ε} = 0, ε² = 1, m central for D and ε:
-(D + m·ε)² = D² + m·m — the manuscript's "squares to −¼(□ − 4m²)". -/
+/-- **M3.2.** Given ε² = 1, Dε = −εD, mε = εm and mD = Dm:
+(D + m·ε)² = D² + m·m. -/
 theorem mass_square (D e m : R)
     (he : e * e = Rng.one) (hDe : D * e = -(e * D))
     (hme : m * e = e * m) (hmD : m * D = D * m) :

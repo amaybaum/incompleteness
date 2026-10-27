@@ -114,15 +114,19 @@ Quoted from the owner's message, relayed by the coordinator:
 **The downgrade.** `SM:T-3` goes from K2 to K1, keeping its ID. The existing Lean checks stay named in the ledger.
 
 **What the Lean declarations prove:**
-- **`Staggered.factorization`** (`OI_Staggered_Relations.lean`): (Σ A_i)² = Σ A_i², with unit coefficients, for
-  abstract generators satisfying the staggered relations. It does not cover the α-weighted square of Lemma 3a.
+- **`Staggered.factorization`** (`OI_Staggered_Relations.lean`): (Σ_{i<n} A_i)² = Σ_{i<n} S_i², with S_i = t_i − s_i,
+  for every n, with unit coefficients and abstract generators. There is no t·s = 1, so S_i² is not
+  T² + T⁻² − 2, and there is no site parity ε. A_i² = S_i² is the separate theorem `A_sq`. The theorem does not cover
+  the α-weighted square of Lemma 3a.
 - **`Chiral.center_anticommutator`** (`OI_Structural_Core.lean`): the identity {D + m·ε + p₀, ε} = 2m + 2p₀·ε. It
   takes {D, ε} = 0, ε² = 1 and the commutation of m, p₀ with ε as hypotheses. It does not conclude m = p₀ = 0.
-- **`Chiral.mass_square`**: (D + m·ε)² = D² + m², under the same kind of hypotheses.
+- **`Chiral.mass_square`**: (D + m·ε)² = D² + m·m. Its hypotheses are exactly ε² = 1, Dε = −εD, mε = εm and
+  mD = Dm. It has no p.
 
 **What each statement rests on:**
-- **SM:T-3.** Its chirality step uses `center_anticommutator` with m = p₀ = 0, and its mass clause uses
-  `mass_square`. The α-weighted square and μ = C at α = 1/d are exact finite algebra only.
+- **SM:T-3.** {B, ε} = 0 is not kernel-checked; only additivity is (`Chiral.anti_add`). The generator–parity
+  anticommutation is exact finite algebra (G1). The (B + mε)² form of the mass clause is `mass_square` applied under
+  that unchecked hypothesis. The α-weighted square and μ = C at α = 1/d are exact finite algebra only.
 - **SM:L-3a.** No kernel witness of the statement. Its proof rests on the paper argument and on G1–G3 and G5 of this
   record.
 - **SM:P-3b.** No kernel witness of the statement. Its proof rests on the paper argument and on G4 T1 and T2 of this

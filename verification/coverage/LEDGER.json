@@ -1653,7 +1653,7 @@
       ],
       "kernel": "K1",
       "delta": "the kernel proves the unit-coefficient square (Staggered.factorization) and (D + m·eps)^2 = D^2 + m^2 abstractly; the alpha-weighted square, the staggered mass mu = C - 2(1 - d*alpha) and the coefficient identification are exact finite algebra (d = 1, 2, 3 at extents 4 and 6), not kernel statements",
-      "note": "The identity that separates center independence (C = 0) from masslessness (C = 2(1 - d*alpha)); they coincide only at alpha = 1/d."
+      "note": "The identity that separates center independence (C = 0) from masslessness (C = 2(1 - d*alpha)); they coincide only at alpha = 1/d. Caveat: Staggered.factorization, instantiated on the concrete lattice, would give B^2 = sum S_mu^2 at b = 1 (the case alpha = -1 of Lemma 3a, which quantifies over every alpha), but nothing in Lean instantiates it on the concrete lattice; its only instance is the smoke instance on Unit."
     },
     {
       "id": "SM:T-3",
@@ -1694,7 +1694,7 @@
       ],
       "kernel": "K1",
       "delta": "the kernel proves the anticommutator identity and (D + m·eps)^2 = D^2 + m^2 abstractly; the alpha-weighted square of Lemma 3a and the step from mu = C at alpha = 1/d to the massless factorization are exact finite algebra, not kernel statements",
-      "note": "The direction center-free => chiral on the normalized branch alpha = 1/d. The converse is Proposition 3b at fixed alpha = 1/d; off that normalization the two conditions separate (SM §4.3 Remark). Proof coverage: Chiral.center_anticommutator is the identity {D + m·eps + p_0, eps} = 2m + 2p_0·eps with {D, eps} = 0 as a hypothesis; Chiral.mass_square is (D + m·eps)^2 = D^2 + m^2 under the same hypotheses; Staggered.factorization (unit coefficients, abstract generators) does not cover the alpha-weighted square. Downgraded K2 -> K1 by owner decision (owner, 2026-10-27); no upgrade without a corresponding machine-checked theorem."
+      "note": "The direction center-free => chiral on the normalized branch alpha = 1/d. The converse is Proposition 3b at fixed alpha = 1/d; off that normalization the two conditions separate (SM §4.3 Remark). Proof coverage: Chiral.center_anticommutator is the identity {D + m·eps + p_0, eps} = 2m + 2p_0·eps with {D, eps} = 0 as a hypothesis; Chiral.mass_square is (D + m·eps)^2 = D^2 + m·m with hypotheses exactly eps^2 = 1, D·eps = -eps·D, m·eps = eps·m and m·D = D·m (no p); {B, eps} = 0 is not kernel-checked (only additivity, Chiral.anti_add), the generator-parity anticommutation being exact finite algebra; Staggered.factorization ((sum_{i<n} A_i)^2 = sum_{i<n} S_i^2, S_i = t_i - s_i, unit coefficients, abstract generators, no t·s = 1, no eps) does not cover the alpha-weighted square. Downgraded K2 -> K1 by owner decision (owner, 2026-10-27); no upgrade without a corresponding machine-checked theorem."
     },
     {
       "id": "SM:P-3b",

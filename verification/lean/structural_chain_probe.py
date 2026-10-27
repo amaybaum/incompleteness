@@ -134,7 +134,7 @@ anti_c=Dc@eps+eps@Dc
 assert np.array_equal(anti_c,2*p02*eps)
 assert np.array_equal(Dm@Dm,box_neg+m2*m2*np.eye(L**d,dtype=np.int64))
 print("C3 PASS: separate mass/offset anticommutator identities and (D+mε)² = D²+m² in the tested integer matrices")
-print("     (the 'squares to −¼(□−4m²)' claim pinned); the Remark's C=2(1−d) exclusion respected in the statement")
+print("     first-order identities on B = 2D_st, d = 3, L = 4: {B+mε, ε} = 2m·I, {B+p₀, ε} = 2p₀·ε, (B+mε)² = B²+m²")
 # ---------- C4 ----------
 nlev=9; om=rng.uniform(0,3,nlev); tau=0.7
 edges=[(i,i+1) for i in range(nlev-1)]+[(0,4),(2,7)]
