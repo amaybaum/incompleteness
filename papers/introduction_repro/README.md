@@ -103,11 +103,12 @@ The "compositions :466–468" that Appendix A names under Theorem 1 are the proo
 
 ### Further declarations in the governed modules
 
-The other 14 modules contain the following declarations with a report, which the corpus audit of the Introduction
-(`verification/audits/manuscript/intro-corpus-audit-20261026/`) cites in its claim-to-proof matrix or in
-its proposed replacement texts. Each has exactly one report, printed as shown. Which of them Appendix A
-lists is a separate decision; a declaration in a governed module is covered by this result whether or
-not it is listed.
+The other 14 modules contain the following declarations with a report, which the corpus audit of the
+Introduction cites in its claim-to-proof matrix or in its findings (provenance: branch
+`audit/intro-corpus-20261026` at `cb2029ce`). Each has exactly one report, printed as shown. Which of
+them Appendix A lists is a separate decision. Every declaration in a governed module that has a
+`#print axioms` command has its report in this result, whether or not Appendix A lists it; a
+declaration without such a command has none.
 
 | declaration (as reported) | decl. | print | axioms |
 | --- | --- | --- | --- |
@@ -130,10 +131,11 @@ not it is listed.
 | `OIBridge.StructuralClosure.substratum_plus_control_qm` | StructuralClosure:414 | 465 | `propext, Classical.choice, Quot.sound` |
 | `OIBridge.SubstratumInterface.monomialSource_not_control` | SubstratumInterface:186 | 217 | `propext, Classical.choice, Quot.sound` |
 
-`PDivisible` (CausalReadback), `cmi_nonneg` (FiniteEntropy), `FiniteOperationalTheory`
-(OperationalAssembly) and `responseRealization` (RootedClassification) are cited by the audit as well but
-have no `#print axioms` command of their own: they are definitions or structures, or, for `cmi_nonneg`, a
-theorem the source does not print. Their modules are governed for the reports they do print.
+`PDivisible` and `RootedRealization.prior` (CausalReadback), `cmi_nonneg` (FiniteEntropy),
+`FiniteOperationalTheory` and `HasCompositeUnitaryControl` (OperationalAssembly) and `responseRealization`
+(RootedClassification) are cited by the audit as well but have no `#print axioms` command of their own:
+they are definitions, structures or fields, or, for `cmi_nonneg`, a theorem the source does not print.
+This result records no report for them. Their modules are governed for the reports they do print.
 
 ## Provenance
 
@@ -146,6 +148,7 @@ theorem the source does not print. Their modules are governed for the reports th
   They are not part of the recipe, and their deliberate mutation errors and second partial build
   would otherwise enter the marker counts and the reports. The job-log tool's served tail agrees with
   the API text: the same last lines, and `original_length` 43064.
+- **Re-read.** The log was read again through the REST API on 2026-10-27; both digests above held.
 - **Extractor.** `verification/audits/evidence-retention/extract_result.py` at `48b18ac5`
   (blob `e6f69713bfffd1f1f9aca3c27bf26a689c994167`).
 - **The build in this job was a replay.** The job restored `.lake/build` from the Actions cache
@@ -186,7 +189,8 @@ failure marker.
 
 ## Checks run on this file
 
-These were run on a scratch copy with the archive's tools from `48b18ac5`; no repository file was changed.
+These were run on a scratch copy with the archive's tools from `48b18ac5`, on this file with its 28
+modules; no repository file was changed.
 
 - `check_retention.py`'s R4 (`check_results`): no failure. Six mutations are each caught under their
   own message: no build, a report removed, a wrong count, a marker missing, a short head id and no recipe.
@@ -199,12 +203,10 @@ These were run on a scratch copy with the archive's tools from `48b18ac5`; no re
   `finite_horizon_equivalence` report dropped, a failing gate verdict, a changed `lean-axioms` count,
   and an extra `#print axioms` in a source.
 - `extract_result.check` against the 28 sources: no failure, no gap.
-- The module table is built from the served text (both digests above, re-verified on a read of the
-  log through the REST API on 2026-10-27) and the module sources at `17b830bc`: each entry is the
-  module's `#print axioms` lines and the extractor's reports for it. Built this way, the 14 Appendix A
-  entries equal those of the 14-module result at `4a260ca9`. On the 28-module file, R4 finds no
-  failure, `compare_result.py --self-test` passes and `compare_result.compare` against the
-  extractor's reading of the served text holds.
+- Each module entry is the module's `#print axioms` lines in its source at `17b830bc` and the
+  extractor's reports for it from the served text. The frozen tools match reports by declaration
+  name and check the set of reported lines, not which line each report sits on; the "print" column
+  above is read from the sources.
 - For the 14 further modules, five countercontrols are each caught by `compare_result.compare` or R4:
   a report dropped (StructuralClosure), a changed axiom list (PhysicalC4StorageReadback), changed
   `#print axioms` lines (PhaseSource), a module that is not in the source, and a reproduction missing a
