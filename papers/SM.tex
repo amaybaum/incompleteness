@@ -1920,13 +1920,15 @@ stronger statement: that the substratum's path-integral measure on real
 scalar bijections \(\varphi: S \to S\) reduces, under the Susskind
 change of variables, to the standard Berezin pseudofermion measure on
 staggered fermion fields in the relevant correlator sector. This
-measure-equivalence statement is established at Level 2 rigor as
-follows.
+measure-equivalence statement reduces, as follows, to a hypothesis on
+the stationary law of the realized bijection, and that hypothesis is
+open.
 
-The substratum is real-valued and, on linear dynamics with energy
-conservation, has a stationary distribution that is Gaussian on energy
-shell at large \(L\) (sphere-Gaussian projection theorem). The
-substratum two-point function is then
+Suppose the realized bijection, read through a real-valued lift with
+linear dynamics and a conserved quadratic energy, has a stationary
+distribution uniform on an energy shell. At large \(L\) that
+distribution is Gaussian (sphere-Gaussian projection theorem), and the
+substratum two-point function is
 \(\langle \varphi(x)\varphi(y) \rangle = [\Box_{\text{lat}}^{-1}]_{xy}\).
 The standard MC code (cf.~§7.5) does not use Grassmann variables
 directly; it uses the \emph{pseudofermion} representation, in which
@@ -1938,97 +1940,185 @@ staggered Dirac operator),
 \(D_{\text{st}}^\dagger D_{\text{st}} = -D_{\text{st}}^2 = +\tfrac14\Box_{\text{lat}}\)
 by Theorem 2, so the pseudofermion covariance is
 \(4\,\Box_{\text{lat}}^{-1}\). Both substratum and pseudofermion
-measures are bosonic Gaussian; their covariances differ by a factor of 4
-absorbable into field normalization. The measure equivalence is
-therefore established up to (i) the standard sphere-Gaussian projection
-at large \(L\) (classical), and (ii) cycle ergodicity for the specific
-bijection determining which energy shell is sampled.
+measures are then bosonic Gaussian; their covariances differ by a factor
+of 4 absorbable into field normalization. The measure equivalence
+therefore holds given (i) the standard sphere-Gaussian projection at
+large \(L\) (classical), and (ii) the stationary-law hypothesis: the
+realized bijection's stationary distribution is the uniform measure on
+an energy shell of a real-valued conserved energy, which requires cycle
+ergodicity on that shell. Neither candidate map supplies such an energy
+exactly. The exact linear rule over \(\mathbb{Z}/q\mathbb{Z}\) conserves
+its energy only modulo \(q\) (in the exhaustive one-dimensional
+instances the integer energy of the representatives \(0,\dots,q-1\)
+changes in one step at \(46\)--\(56\%\) of states), and its energy
+shells larger than its order are not single cycles (\emph{Remark (cycle
+structure of the exact linear rule)} below); the rounded bijection
+conserves no quadratic energy exactly (below).
 
 Pure linear dynamics on a cubic lattice is \emph{integrable}, not
 chaotic: the lattice frequencies
 \(\omega(\vec{k}) = 2\sin(|\vec{k}|/2)\) are not linearly independent
 over \(\mathbb{Q}\), so orbits fill a sub-torus of the energy shell
-rather than the full shell. The Gaussianization argument therefore has
-two natural interpretations: (way out i) the cubic-lattice + finite-set
+rather than the full shell. The exact linear rule over
+\(\mathbb{Z}/q\mathbb{Z}\) is not ergodic on its energy shells either:
+it conserves further quadratic invariants, and for prime \(q=p\) with
+\(p\nmid L\) its order is smaller than its largest energy shell, which
+is therefore not a single cycle and for \(d\ge2\) splits into
+exponentially many cycles (\emph{Remark (cycle structure of the exact
+linear rule)} below). The Gaussianization argument therefore has two
+natural interpretations: (way out i) the cubic-lattice + finite-set
 discretization introduces small but non-zero non-linearity (from
 rounding rules in the bijection update), breaking the linear rule's
 integrability, which full-shell sampling needs; or (way out ii) the
 ``Gaussian on energy shell'' claim is shorthand for ``Gaussian on the
 sub-torus actually sampled,'' which is a smaller phase space and would
 modify the substratum-pseudofermion covariance match. Way out (i) is the
-standard interpretation for lattice-substrate frameworks. Numerical
-verification of way out (i) for OI's specific bijection has been carried
-out via two-trajectory separation with per-site RMS amplitude
-measurement inside the spreading cone (the correct Lyapunov-relevant
-diagnostic, distinguishing chaotic amplitude amplification from
-Lieb-Robinson ballistic spreading). The measurement gives a chaotic
-Lyapunov exponent \(\lambda_{\max} = 0.0092 \pm 0.0001\) per timestep in
-the thermodynamic limit, \(N_{\rm levels}\)-independent for
-\(N_{\rm levels} \geq 16\), with exponential amplitude growth in the
-cone confirmed against power-law alternatives at high statistical
-significance (exponential-vs-power-law residual ratio \(\sim 2.2\)
-across \(\log(\bar{\|\Delta\phi\|}/\delta) \in [0, 1.0]\)). The
-non-integrability that way out (i) requires is therefore demonstrated
-numerically, as chaos, rather than adopted: the rounded bijection is
-chaotic, the integrable linear dynamics having been broken by the
-rounding rule's threshold-crossing nonlinearity. Breaking the
-integrability of the linear rule is necessary for full-shell sampling;
-chaos does not establish full-shell sampling: no theorem shows that the
-bijection acts as a single cycle on an energy shell (cycle ergodicity),
-and the measurements bear on that question only at the lattice sizes,
-preparation ensembles and fit protocols sampled. Analytical derivation
-of the \(\lambda_{\max}\) coefficient and the structural source of
-\(N_{\rm levels}\)-independence remains open and would elevate the chaos
-result to Level 2(a) in the bridge-gap classification of §7.5. Four
-further diagnostics on the rounded bijection fall on the chaotic side:
-spectral continuity of local observables (broadband, versus the linear
-control's discrete peaks), thermalization (autocorrelation decay to the
-noise floor, versus persistent coherent oscillation in the linear
-control), comparative cycle-structure consolidation in an exactly
-enumerable one-dimensional analog (the rounded map's dominant cycle is
-\(\sim 400\times\) larger than the linear control's), and orbit
-non-fragmentation in direct three-dimensional sampling (no recurrences
-or trajectory merges). The quantitative rate is preparation-ensemble-
-and protocol-dependent: at an infinite-temperature ensemble the
-separation shows an incubation-then-avalanche profile with an effective
-rate several times the value quoted above, so the quoted
-\(\lambda_{\max}\) is specific to its preparation ensemble and fit
-protocol. The qualitative chaos, which shows that the rounding breaks
-the linear rule's integrability as the ergodicity interpretation
-requires, is robust across protocols.
+standard interpretation for lattice-substrate frameworks. Way out (i)
+has been tested numerically on the rounded bijection
+\(x(t+1)=\lfloor(\sum_{\rm nn}x(t)+1)/3\rfloor-x(t-1) \bmod q\),
+evaluated on the representatives \(0,\dots,q-1\), via two-trajectory
+separation with per-site RMS amplitude measurement inside the spreading
+cone (the correct Lyapunov-relevant diagnostic, distinguishing chaotic
+amplitude amplification from Lieb-Robinson ballistic spreading). The
+measurement gives a chaotic Lyapunov exponent
+\(\lambda_{\max} = 0.0092 \pm 0.0001\) per timestep in the thermodynamic
+limit, \(N_{\rm levels}\)-independent for \(N_{\rm levels} \geq 16\),
+with exponential amplitude growth in the cone confirmed against
+power-law alternatives at high statistical significance
+(exponential-vs-power-law residual ratio \(\sim 2.2\) across
+\(\log(\bar{\|\Delta\phi\|}/\delta) \in [0, 1.0]\)). The
+non-integrability that way out (i) requires is therefore shown
+numerically, as chaos: the rounded bijection is chaotic at the sizes
+measured, the integrable linear dynamics being broken by the rounding
+rule's threshold-crossing nonlinearity. Breaking the integrability of
+the linear rule is necessary for full-shell sampling; chaos does not
+establish full-shell sampling: no theorem shows that the bijection acts
+as a single cycle on an energy shell (cycle ergodicity), and the
+measurements bear on that question only at the lattice sizes,
+preparation ensembles and fit protocols sampled. Nor is exact energy
+conservation shown. The rounded bijection at \(d=3\), \(L=2\) and its
+one-dimensional analog
+\(x(t+1)=\lfloor(\sum_{\rm nn}x(t)+1)/2\rfloor-x(t-1)\) at \(L=5\), both
+at \(q=3\), have no nonzero polynomial invariant of degree at most \(2\)
+over \(\mathbb{F}_3\), where the corresponding computation for the exact
+linear rule finds invariant spaces of dimension \(25\) and \(10\); and
+from a smooth mode at \(L=20\), \(q=2^{16}\) its real energy drifts by
+up to \(3.6\times10^{-3}\) relative over 400 steps, against
+\(3.7\times10^{-14}\) for the exact real linear map. Its energy shells
+are therefore not invariant sets, and which approximately conserved
+energy its orbits sample, if any, is open. In exact cycle censuses of
+the rounded bijection at \(d=3\), \(L=2\), \(q=2,3\) and of its
+one-dimensional analog at \(L=5\), \(q=3,4\), the largest cycle holds at
+most \(1.9\%\) of phase space and visits every value of the modular
+energy. Analytical derivation of the \(\lambda_{\max}\) coefficient and
+the structural source of \(N_{\rm levels}\)-independence remains open
+and would elevate the chaos result to Level 2(a) in the bridge-gap
+classification of §7.5. Four further diagnostics on the rounded
+bijection fall on the chaotic side: spectral continuity of local
+observables (broadband, versus the linear control's discrete peaks),
+thermalization (autocorrelation decay to the noise floor, versus
+persistent coherent oscillation in the linear control), comparative
+cycle-structure consolidation in an exactly enumerable one-dimensional
+analog (the rounded map's dominant cycle is \(\sim 400\times\) larger
+than the linear control's), and orbit non-fragmentation in direct
+three-dimensional sampling (no recurrences or trajectory merges). The
+quantitative rate is preparation-ensemble- and protocol-dependent: at an
+infinite-temperature ensemble the separation shows an
+incubation-then-avalanche profile with an effective rate several times
+the value quoted above, so the quoted \(\lambda_{\max}\) is specific to
+its preparation ensemble and fit protocol. The qualitative chaos, which
+shows that the rounding breaks the linear rule's integrability as the
+ergodicity interpretation requires, is robust across protocols.
+
+\emph{Remark (cycle structure of the exact linear rule).} Write the
+exact rule as \(F(u,v)=(v,\,Av-u)\) on pairs \((u,v)=(x(t-1),x(t))\)
+over \(\mathbb{Z}/q\mathbb{Z}\), with \(A=\alpha\sum_j(T_j+T_j^{-1})\)
+the weighted neighbour sum on the torus \(G=(\mathbb{Z}/L)^d\) of
+\(N=L^d\) sites and \(T_j\) the unit translations. For symmetric \(A\)
+the map \(F\) conserves
+\(E(u,v)=u\cdot u+v\cdot v-u\cdot Av=|v-u|^2+u\cdot(2-A)v\), which at
+\(\alpha=1/d\) is the kinetic-plus-potential energy of the lattice wave
+equation reduced mod \(q\). For symmetric translation-invariant \(A\),
+which commutes with every translation-invariant coupling, \(F\) also
+conserves \(Q_B(u,v)=u\cdot Bu+v\cdot Bv-u\cdot BAv\) for every
+symmetric translation-invariant \(B\) and
+\(P_C(u,v)=u\cdot Cv-v\cdot Cu\) for every antisymmetric
+translation-invariant \(C\); for local \(B\) and \(C\) these are sums of
+local densities. Let \(q=p\) be prime with \(p\nmid L\), let \(A\) be
+any translation-invariant coupling over \(\mathbb{F}_p\), and let
+\(m=\operatorname{ord}_L(p)\le L-1\). Then \(F^{\,p(p^{2m}-1)}=I\).
+\emph{Proof.} \(F\) is linear over the commutative ring
+\(R=\mathbb{F}_p[G]\) acting on \(R^2\) and satisfies \(F^2-AF+1=0\), so
+it is the image of the unit \(X\) of \(R[X]/(X^2-AX+1)\), whose inverse
+is \(A-X\). Since \(p\nmid|G|\), \(R\) is a product of fields
+\(\mathbb{F}_{p^r}\) with \(r\mid m\), and \(R[X]/(X^2-AX+1)\) is a
+product of rings \(\mathbb{F}_{p^{2r}}\),
+\(\mathbb{F}_{p^r}\times\mathbb{F}_{p^r}\) or
+\(\mathbb{F}_{p^r}[\varepsilon]/(\varepsilon^2)\), whose unit groups
+have exponents dividing \(p^{2r}-1\), \(p^r-1\) and \(p(p^r-1)\)
+respectively, each a divisor of \(p(p^{2m}-1)\). \(\square\) Every cycle
+of \(F\) therefore has length dividing \(p(p^{2m}-1)\), and no energy
+shell with more than \(p(p^{2m}-1)\) states is a single cycle. Since
+\(E\) takes \(p\) values, the largest energy shell has at least
+\(p^{2N-1}\) states, more than \(p(p^{2m}-1)\): it is not a single
+cycle, and it carries more than \(p^{2N-2m-2}\) cycles, a number
+exponential in \(N\) for \(d\ge2\). Exhaustive censuses agree. At
+\(d=1\), \(L=5\), \(q=3\), \(\alpha=1\) the shell \(E=1\) has
+\(19{,}440\) states in \(2{,}160\) cycles, which \(Q_B\) and \(P_C\)
+with \(B=T_1+T_1^{-1}\) and \(C=T_1-T_1^{-1}\) separate further; at
+\(d=3\), \(L=2\), \(q=3\), \(\alpha=1\) the shell \(E=1\) has
+\(14{,}407{,}956\) states in \(1{,}218{,}942\) cycles, none longer than
+\(12\). On the \(d=3\), \(L=3\) torus at \(\alpha=1/3\) the exact order
+of \(F\) is \(60\) for \(p=5\) and \(84\) for \(p=7\), while every
+energy shell has more than \(10^{37}\) and \(10^{44}\) states
+respectively. The order bound holds in all 113 cases computed
+(\(d=1\)--\(3\); \(p=2,3,5,7\); \(\alpha=1\), \(\alpha=1/d\) and random
+translation-invariant \(A\)). The statement covers prime \(q\) with
+\(p\nmid L\) and translation-invariant couplings; composite \(q\),
+\(p\mid L\) and couplings that are not translation-invariant are outside
+it. Within that class the energy shells of the exact linear rule larger
+than its order, the largest among them, are not single cycles, so that
+rule does not supply the full-shell sampling the measure reduction above
+requires.
 
 \emph{The two roles of the dynamics, stated explicitly.} The substratum
 update carries two structurally distinct pieces, and the framework's
-results divide cleanly between them. The \emph{exact} dynamics is the
-linear rule \(f = \sum_{\text{nn}} x - x(t-1)\) over
-\(\mathbb{Z}/q\mathbb{Z}\); the finite-state arithmetic (the mod-\(q\)
-wraparound / threshold-crossing at the alphabet boundary) is a bounded
-nonlinearity that is present in any faithful finite realization but
-vanishes in the continuum/large-\(q\) limit. The \emph{structural} chain
---- the wave-equation uniqueness (§4.1), the Susskind factorization
-(Theorem 2, massless at the observer-level normalization \(\alpha=1/d\);
-at the substratum rule's unit coefficient, within the staggered family
-of Lemma 3a, it carries the mass \(m^2=2(d-1)\) in the form
-\((B-m)(B+m)\), nonzero for \(d\ge2\)), the \((3,2,1)\) decomposition
-and the gauge group (§4.6), and the amplitude-scale-gauge argument for
-linearity (§4.1) --- reads only the linear part: it is exact
-modular-linear algebra and does not invoke the threshold nonlinearity.
-The \emph{ergodic/measure} properties --- full-shell sampling for the
+results divide between them. The \emph{exact} dynamics is the linear
+rule \(f = \sum_{\text{nn}} x - x(t-1)\) over
+\(\mathbb{Z}/q\mathbb{Z}\); its reduction mod \(q\) is
+\(\mathbb{Z}/q\mathbb{Z}\)-linear and adds no nonlinearity, and the rule
+is itself a finite bijection. The rounded bijection above carries a
+bounded nonlinearity, the floor in
+\(\lfloor(\sum_{\rm nn}x+1)/3\rfloor\) evaluated on the representatives
+\(0,\dots,q-1\), which vanishes relative to the field amplitude in the
+continuum/large-\(q\) limit. The \emph{structural} chain --- the
+wave-equation uniqueness (§4.1), the Susskind factorization (Theorem 2,
+massless at the observer-level normalization \(\alpha=1/d\); at the
+substratum rule's unit coefficient, within the staggered family of Lemma
+3a, it carries the mass \(m^2=2(d-1)\) in the form \((B-m)(B+m)\),
+nonzero for \(d\ge2\)), the \((3,2,1)\) decomposition and the gauge
+group (§4.6), and the amplitude-scale-gauge argument for linearity
+(§4.1) --- reads only the linear part: it is exact modular-linear
+algebra and does not invoke the rounding nonlinearity. The
+\emph{ergodic/measure} properties --- full-shell sampling for the
 Gaussianization of §4.2, the chaotic mixing underlying operational
 measurement independence ({[}Main{]} §3.3), and the mixing hypothesis
 (ETH-motivated) conditioning the slow-bath form of the C2 necessity
-direction ({[}Main{]} §3.4) --- read the threshold nonlinearity, which
-is what breaks the integrability of the strictly-linear map (way out (i)
-above). The two are not in tension within the local lattice sector: they
-are different features of one update, consumed by different parts of the
-framework, and the ergodic properties ride on a bounded correction that
-leaves the structural (continuum-limit) content untouched. The one
-commitment this makes explicit is that the amplitude-scale gauge of §4.1
-is exact at the level of the structural chain (where the threshold
-nonlinearity is absent) and holds up to the bounded finite-state
-correction at the level of the realized bijection; a full account of how
-large that correction is on each ergodic observable is the open residual
-the \(\lambda_{\max}\) measurement begins to quantify.
+direction ({[}Main{]} §3.4) --- cannot be read from the exact linear
+rule, whose large energy shells split into many cycles (\emph{Remark
+(cycle structure of the exact linear rule)} above). They are assigned to
+the rounding nonlinearity, which breaks the integrability of the
+strictly-linear map (way out (i) above) and is chaotic numerically;
+full-shell sampling by the rounded bijection is open. The structural
+chain is thus a statement about the exact linear rule, and the measure
+properties are hypotheses about the rounded bijection; whether a single
+map carries both is open. The one commitment this makes explicit is that
+the amplitude-scale gauge of §4.1 is exact at the level of the
+structural chain (where the rounding nonlinearity is absent) and holds
+up to the bounded rounding correction at the level of the rounded
+bijection; a full account of how large that correction is on each
+ergodic observable is the open residual the \(\lambda_{\max}\)
+measurement begins to quantify.
 
 \hypertarget{center-independence-and-chiral-symmetry}{%
 \subsubsection{4.3 Center independence and chiral
@@ -4414,9 +4504,10 @@ configurations near the identity at large \(q\). The rate depends on
 which reading of ``uniform'' is taken. Counting non-trivial link values,
 whose fraction scales as \(1/q\), gives
 \(\beta_{\text{eff}} \sim \ln q\); but that counting presumes the
-site-independent field, whereas the on-shell measure is the smooth
-\(\Box^{-1}\) field of §4.2, for which the exponential map's \(2\pi/q\)
-amplitude gives \(1 - \langle P\rangle \sim q^{-4}\) and hence
+site-independent field, whereas the on-shell measure, under the
+stationary-law hypothesis of §4.2, is the smooth \(\Box^{-1}\) field of
+§4.2, for which the exponential map's \(2\pi/q\) amplitude gives
+\(1 - \langle P\rangle \sim q^{-4}\) and hence
 \(\beta_{\text{eff}} \sim q^4\) (verified numerically for
 \(\mathrm{SU}(3)\) over \(q = 20\)--\(200\), and consistent with the
 plaquette-matching of §6.6).
@@ -4456,9 +4547,9 @@ argument turns on --- that the substratum's uniform measure pushes
 forward to a near-identity (rather than Haar) gauge measure --- is a
 load-bearing commitment whose status should be stated at the rigor level
 of §A.3. The free-sector correspondence (the matter/pseudofermion
-measure equivalence, §4.2 Remark) is established at Level 2; the
-interacting statement used here, that the pushforward under the explicit
-map
+measure equivalence, §4.2 Remark) holds at Level 2 given the
+stationary-law hypothesis stated there, which is open; the interacting
+statement used here, that the pushforward under the explicit map
 \(\boldsymbol{\phi} \mapsto M(\mathbf{n}, \hat e_j) \in \mathrm{SU}(N)\)
 concentrates near the identity, is not at that level, because the
 explicit map is under-determined at several enumerable joints (the
@@ -4483,17 +4574,21 @@ sector's derived-versus-fitted status ultimately rests.
 \emph{A candidate resolution.} The under-determination isolated above
 lives at two enumerable joints --- the amplitude of the matter measure
 and the map prescription --- and both admit a natural resolution, set
-down here for scrutiny as a candidate rather than asserted as closed.
-First, the measure feeding the pushforward is the uniform measure
-\emph{on the energy shell}, not the independent-uniform measure on
+down here as a candidate. First, the measure feeding the pushforward is
+taken to be the uniform measure \emph{on the energy shell} of a
+real-valued conserved energy, not the independent-uniform measure on
 \((\mathbb{Z}/q\mathbb{Z})^{K \times N}\): by the sphere-Gaussian
-projection of §4.2 the on-shell measure is the smooth Gaussian with
+projection of §4.2 that on-shell measure is the smooth Gaussian with
 covariance \([\Box_{\text{lat}}^{-1}]_{xy}\) --- the same
-\(O(1)\)-amplitude field the pseudofermion equivalence already requires
---- so the two readings of ``uniform'' give opposite physics, and only
-the on-shell/smooth one is consistent with §4.2. Second, the canonical
-map from the \(\mathbb{Z}/q\mathbb{Z}\)-valued matter data to the group
-is the exponential
+\(O(1)\)-amplitude field the pseudofermion equivalence requires --- so
+the two readings of ``uniform'' give opposite physics, and only the
+on-shell/smooth one is consistent with §4.2. That the realized bijection
+samples the on-shell measure is the stationary-law hypothesis of §4.2,
+which is open: the exact linear rule conserves its energy only modulo
+\(q\) and its large energy shells split into many cycles, and the
+rounded bijection conserves no quadratic energy exactly. Second, the
+canonical map from the \(\mathbb{Z}/q\mathbb{Z}\)-valued matter data to
+the group is the exponential
 \(M(\mathbf{n}, \hat e_j) = \exp\!\big(\tfrac{2\pi i}{q}\,\mathrm{Lie}\,[\phi(\mathbf{n}+\hat e_j) - \phi(\mathbf{n})]\big)\)
 --- the composite of the canonical roots-of-unity homomorphism
 \(\mathbb{Z}/q\mathbb{Z} \to \mathrm{U}(1)\) with the Lie exponential
@@ -4510,23 +4605,24 @@ has been checked numerically for \(\mathrm{SU}(2)\) and
 \(\mathrm{SU}(3)\): \(\langle P \rangle \to 1\) as \(q \to \infty\),
 with the deviation from unity vanishing as the field strength while
 remaining strictly positive. The identification's \emph{kinematic} half
---- which measure, and which map --- is thereby raised to theorem level,
-conditional on the additive-automorphism (amplitude-scale) gauge
-principle it invokes, which {[}Substratum §4, Theorem 24,
-\emph{Status}{]} classifies as an adjoined operational input rather than
-a theorem (§2.7); the map-uniqueness therefore inherits that principle's
-open status. The measure is fixed by the sphere-Gaussian projection of
-§4.2. The map is fixed by a uniqueness statement grounded in the
-framework's own gauge principle. The physical gauge is the alphabet's
-additive-automorphism group --- not arbitrary relabellings of
-\(\mathbb{Z}/q\mathbb{Z}\), since a nonlinear relabelling changes the
-fluctuation dispersion and so is not a symmetry of the observables ---
-so the induced connection must be a homomorphism of the matter field's
-additive \((\mathbb{Z}/q\mathbb{Z})\) structure, the structure the wave
-equation evolves. Under that requirement the exponential is the
-\emph{unique} map up to the choice of generator (the homomorphisms
-\(\mathbb{Z}/q\mathbb{Z} \to \mathrm{U}(1)\) being exactly the \(q\)-th
-roots of unity), and the polar candidate, a function of the
+--- which measure, and which map --- thereby rests on two conditions:
+the measure on the stationary-law hypothesis of §4.2, and the map on the
+additive-automorphism (amplitude-scale) gauge principle it invokes,
+which {[}Substratum §4, Theorem 24, \emph{Status}{]} classifies as an
+adjoined operational input rather than a theorem (§2.7); the measure
+inherits the hypothesis's open status, and the map-uniqueness that
+principle's. Given the hypothesis, the measure is fixed by the
+sphere-Gaussian projection of §4.2. The map is fixed by a uniqueness
+statement grounded in the framework's own gauge principle. The physical
+gauge is the alphabet's additive-automorphism group --- not arbitrary
+relabellings of \(\mathbb{Z}/q\mathbb{Z}\), since a nonlinear
+relabelling changes the fluctuation dispersion and so is not a symmetry
+of the observables --- so the induced connection must be a homomorphism
+of the matter field's additive \((\mathbb{Z}/q\mathbb{Z})\) structure,
+the structure the wave equation evolves. Under that requirement the
+exponential is the \emph{unique} map up to the choice of generator (the
+homomorphisms \(\mathbb{Z}/q\mathbb{Z} \to \mathrm{U}(1)\) being exactly
+the \(q\)-th roots of unity), and the polar candidate, a function of the
 multiplicative bilinear \(\phi^\dagger\phi\) rather than the additive
 difference, is excluded because it is not such a homomorphism. The same
 map is selected independently by the continuum limit: \(q\) is a
@@ -4534,23 +4630,22 @@ resolution parameter, so a sensible \(q \to \infty\) limit is required,
 and the exponential's rescaled connection \((q/2\pi)\log M\) tends to
 the continuum gauge field \(q\)-independently, whereas the polar/Haar
 map is confining at every \(q\) with no such limit. The substantive
-residual is now the \emph{dynamical} statement, that the interacting
-measure --- the smooth pushforward reweighted by
-\(\det(D^\dagger D)^{N_f}\) --- retains this near-identity
-concentration. Because that reweighting is extensive, it does not follow
-from the classical pushforward result and must be argued directly. It
-does follow from a free-energy comparison. The links are unitary, so the
-staggered spectrum is bounded and \(|\ln\det(D^\dagger D)|\) is bounded
-by \(cN\) with \(c = O(1)\) \emph{independent of \(q\)}: the
-determinant's total influence on the measure is extensive but
-\(q\)-blind. The prior, by contrast, is not: disordering the links
-requires field differences of order \(q\), which the on-shell Gaussian
-penalizes by \(\sim Nq^2/\pi^2\). The determinant therefore cannot pull
-the field out of the near-identity region once \(q\) exceeds an \(O(1)\)
-threshold --- numerically \(q \gtrsim 9\) at \(N = 4^4\), \(m = 0.1\),
-\(N_f = 6\) --- and at the physical alphabet size the prior wins by a
-factor \(\sim q^2\). The determinant moreover does not oppose the
-identity in the first place: at the same parameters
+residual is the \emph{dynamical} statement, that the interacting measure
+--- the smooth pushforward reweighted by \(\det(D^\dagger D)^{N_f}\) ---
+retains this near-identity concentration. Because that reweighting is
+extensive, it does not follow from the classical pushforward result and
+must be argued directly. It does follow from a free-energy comparison.
+The links are unitary, so the staggered spectrum is bounded and
+\(|\ln\det(D^\dagger D)|\) is bounded by \(cN\) with \(c = O(1)\)
+\emph{independent of \(q\)}: the determinant's total influence on the
+measure is extensive but \(q\)-blind. The prior, by contrast, is not:
+disordering the links requires field differences of order \(q\), which
+the on-shell Gaussian penalizes by \(\sim Nq^2/\pi^2\). The determinant
+therefore cannot pull the field out of the near-identity region once
+\(q\) exceeds an \(O(1)\) threshold --- numerically \(q \gtrsim 9\) at
+\(N = 4^4\), \(m = 0.1\), \(N_f = 6\) --- and at the physical alphabet
+size the prior wins by a factor \(\sim q^2\). The determinant moreover
+does not oppose the identity in the first place: at the same parameters
 \(\ln\det(D^\dagger D)\) is \(+260\) at \(U = I\) against \(-85\) on
 Haar-random links, so it \emph{reinforces} the near-identity
 concentration rather than competing with it, which is why the
@@ -4646,8 +4741,9 @@ near-identity measure additionally carries the chiral condensate the
 \(A^2\) amplitude requires (§7.5), which is not settled here. For audit
 purposes the bridge's status under the {[}appendix-A §A.3{]} scheme is
 recorded explicitly: the kinematic half (measure and map) is
-derived-conditional (solid modulo the amplitude-scale operational input
-of {[}Substratum §4, Theorem 24, \emph{Status}{]}); the classical
+derived-conditional (the measure conditional on the open stationary-law
+hypothesis of §4.2, the map solid modulo the amplitude-scale operational
+input of {[}Substratum §4, Theorem 24, \emph{Status}{]}); the classical
 near-identity pushforward and the determinant free-energy comparison are
 numerically supported at one volume and mass (sketch-grade); the
 condensate transport is a documented gap. The induced measure is
@@ -6642,33 +6738,41 @@ addressed below; their current status:
 \begin{enumerate}
 \def\labelenumi{(\roman{enumi})}
 \item
-  \emph{Substratum measure reduction.} \textbf{Level 2 closed via
-  pseudofermion correspondence} (cf.~§4.2 \emph{Remark}). The standard
-  MC code uses the bosonic pseudofermion representation, not Grassmann
-  variables directly. The substratum (Gaussian on real scalar bijections
-  at large \(L\)) and pseudofermion (bosonic Gaussian auxiliary fields)
-  measures are in the same class; their covariances differ by a factor
-  of 4 absorbable into normalization, with Theorem 2
+  \emph{Substratum measure reduction.} \textbf{Conditional on the
+  stationary-law hypothesis of §4.2, which is open} (cf.~§4.2
+  \emph{Remark}). The standard MC code uses the bosonic pseudofermion
+  representation, not Grassmann variables directly. Given a stationary
+  law Gaussian on real scalar fields at large \(L\), the substratum and
+  pseudofermion (bosonic Gaussian auxiliary fields) measures are in the
+  same class; their covariances differ by a factor of 4 absorbable into
+  normalization, with Theorem 2
   (\(D_{st}^2 = -\frac{1}{4}\Box_{\text{lat}}\)) providing the explicit
-  match. The Level 3 residual is cycle ergodicity for OI's specific
-  bijection orbit structure: pure linear lattice dynamics is integrable
-  rather than chaotic (the frequencies
-  \(\omega(\vec k) = 2\sin(|\vec k|/2)\) are not linearly independent
-  over \(\mathbb{Q}\)), so full-shell sampling requires either effective
-  non-linearity from the discretization rule (the standard
-  interpretation for lattice-substrate frameworks) or revision of the
-  Gaussianization argument to sub-torus sampling. We adopt the former
-  implicitly; rigorous treatment of OI's specific orbit structure is
-  open work.
+  match, at Level 2. The residual is the hypothesis itself: that the
+  realized bijection's stationary law is the uniform measure on an
+  energy shell of a real-valued conserved energy, which requires cycle
+  ergodicity on that shell. For the exact linear rule it is false: at
+  prime \(q=p\) with \(p\nmid L\) the rule's order divides
+  \(p(p^{2m}-1)\), \(m=\operatorname{ord}_L(p)\), so its energy shells
+  larger than that order, the largest among them, are not single cycles,
+  and it conserves its energy only modulo \(q\) (§4.2, \emph{Remark
+  (cycle structure of the exact linear rule)}); its real linear lift is
+  integrable (the frequencies \(\omega(\vec k) = 2\sin(|\vec k|/2)\) are
+  not linearly independent over \(\mathbb{Q}\)), so its orbits fill
+  sub-tori. For the rounded bijection it is unsupported: chaos is shown
+  numerically, while neither exact conservation of a quadratic energy
+  nor single-cycle sampling of a shell is shown, and in exact censuses
+  at small sizes its largest cycle holds at most \(1.9\%\) of phase
+  space (§4.2). Revising the Gaussianization argument to sub-torus or
+  single-cycle sampling would modify the covariance match.
 \item
   \emph{3D operational MC vs 4D SχPT dimensional bridge.}
-  \textbf{Conditional on the cycle ergodicity of gap (i); decomposes
-  into Part A (time-direction factorization: Level 1 algebra,
-  conditional on cycle ergodicity of the realized bijection on a
-  \(T\)-invariant set carrying \(\rho\)) and Part B (measure
-  identification, Level 2 via inheritance from gap (i)).} Part A: For
-  \(\rho\) stationary under \(\varphi\) and \(T\) the framework's
-  involution with \(T\varphi T = \varphi^{-1}\) (§5) --- on
+  \textbf{Conditional on the stationary-law hypothesis of gap (i);
+  decomposes into Part A (time-direction factorization: Level 1 algebra,
+  exact for the uniform measure on a \(T\)-invariant energy shell, with
+  the identification of the realized stationary law with that measure as
+  its residual) and Part B (measure identification, inherited from gap
+  (i)).} Part A: For \(\rho\) stationary under \(\varphi\) and \(T\) the
+  framework's involution with \(T\varphi T = \varphi^{-1}\) (§5) --- on
   \((a, b) = (x(t), x(t-1))\), with \(T(a, b) = (b, a)\), the identity
   uses only the second-order form \((a, b) \mapsto (R(a) - b,\ a)\) of
   the update, so it holds for every such \(R\), the linear rule of
@@ -6681,17 +6785,24 @@ addressed below; their current status:
   exactly when \(\varphi\) acts on that set as a single cycle; and \(T\)
   maps cycles of \(\varphi\) to cycles. For \(\rho\) uniform on a single
   cycle \(C\), \(\rho \circ T = \rho\) holds exactly when \(T(C) = C\).
-  Under cycle ergodicity of the realized bijection on a \(T\)-invariant
-  set carrying \(\rho\) (the cycle-ergodicity assumption of gap (i),
-  §4.2, with the \(T\)-invariance of that set), \(\rho\) is uniform on
-  that set and \(\rho \circ T = \rho\). Static observables then
-  factorize through the time direction independent of which time slice.
-  Part B is the same investigation as gap (i) viewed operationally:
-  closing gap (i) automatically closes gap (ii) Part B. With gap (i) at
-  Level 2, gap (ii) is at Level 2 framework-essentially, both parts
-  carrying gap (i)'s cycle-ergodicity residual, Part A in the form
-  stated above: cycle ergodicity of the realized bijection on a
-  \(T\)-invariant set carrying \(\rho\).
+  For the exact linear rule with symmetric coupling, \(E\circ T=E\), so
+  each energy shell is \(T\)-invariant and its uniform measure satisfies
+  \(\rho\circ T=\rho\) exactly, with no ergodicity used; for any such
+  \(\rho\), static observables factorize through the time direction
+  independent of which time slice. What requires ergodicity is the
+  identification of the realized stationary law, uniform on the cycle
+  the state occupies, with that shell measure. For the exact linear rule
+  the identification is false: its energy shells larger than its order
+  are not single cycles (§4.2), and most of its cycles are not
+  \(T\)-invariant (at \(d=1\), \(L=5\), \(q=3\), \(90\) of the
+  \(2{,}160\) cycles on the shell \(E=1\) satisfy \(T(C)=C\)), so for
+  most cycles the realized law is not \(T\)-invariant either. For the
+  rounded bijection, which conserves no quadratic energy exactly, it is
+  open. Part B is the same investigation as gap (i) viewed
+  operationally: closing gap (i) closes gap (ii) Part B. Both parts
+  therefore carry gap (i)'s residual, Part A in the form stated above:
+  the identification of the realized stationary law with the uniform
+  measure on a \(T\)-invariant energy shell.
 \item
   and (iv) \emph{Bridge theorem:} \textbf{Closed at Level 1
   framework-essentially via the explicit theorem below.}
@@ -7643,23 +7754,29 @@ Wilson-coefficient ambiguity, and the empirical match becomes a tighter
 test of the bijection's structure.
 
 \textbf{Layer 2 values are discretization-determined, not free Wilson
-coefficients.} The bijection \(\varphi\) is constrained by linear
-dynamics, T-invariance, P-indivisibility, and cycle ergodicity (cf.~§4.2
-\emph{Remark}, §7.5). Within this constrained class, the bijection space
-is parametrized by \emph{discretization-scheme choices} (field
-quantization, lattice size, timestep, boundary conditions, rounding
-rule), not by abstract permutation freedom. Once the discretization
-scheme is fixed, the bijection is essentially unique. As a consequence,
-Layer 2 coefficients (Cond 2 ratio at 2(b) status, D11 mechanism, D10
-K-value, \(\delta_0\) threshold --- all at Layer 2(a)-tractable or 2(b)
-status) are \emph{all} functions of the same underlying discretization
-choices --- they are not independent. This sharpens what Layer 2 means:
-the framework's empirical matches at sub-percent / sub-σ precision (Cond
-2 at 0.6σ on the sum rule, \(m_u/m_d\) at 0.6\%) are tighter tests of
-discretization scheme than they appear as tests of ``generic bijection
-alignment.'' Cross-prediction consistency is therefore a meaningful test
-within structural clusters; the cubic-group \(T_1\)-Casimir cluster of
-§7.7 is one such successful test.
+coefficients.} The bijection \(\varphi\) is constrained by linearity up
+to the rounding rule, T-invariance and P-indivisibility. Cycle
+ergodicity on energy shells, which the measure reduction of §4.2 uses,
+is not among the established constraints: it fails for the exact linear
+rule at prime \(q\) not dividing \(L\) (§4.2, \emph{Remark (cycle
+structure of the exact linear rule)}), so that rule does not satisfy
+linear dynamics and cycle ergodicity jointly, and for the rounded
+bijection it is an open hypothesis (§4.2, §7.5). Conditional on that
+hypothesis, the bijection space within this class is parametrized by
+\emph{discretization-scheme choices} (field quantization, lattice size,
+timestep, boundary conditions, rounding rule), not by abstract
+permutation freedom, and once the discretization scheme is fixed the
+bijection is essentially unique. As a consequence, Layer 2 coefficients
+(Cond 2 ratio at 2(b) status, D11 mechanism, D10 K-value, \(\delta_0\)
+threshold --- all at Layer 2(a)-tractable or 2(b) status) are \emph{all}
+functions of the same underlying discretization choices --- they are not
+independent. This sharpens what Layer 2 means: the framework's empirical
+matches at sub-percent / sub-σ precision (Cond 2 at 0.6σ on the sum
+rule, \(m_u/m_d\) at 0.6\%) are tighter tests of discretization scheme
+than they appear as tests of ``generic bijection alignment.''
+Cross-prediction consistency is therefore a meaningful test within
+structural clusters; the cubic-group \(T_1\)-Casimir cluster of §7.7 is
+one such successful test.
 
 \textbf{Selection problem.} The framework characterizes a constrained
 class of substratum bijections (above) and derives empirical predictions
@@ -8990,4 +9107,4 @@ the FCC-ee,'' arXiv:2504.05974 (2025).
 Compact Family Cycle,'' arXiv:2605.10245 (2026).
 
 \end{document}
-% source-sha256: 3d9f2a582d603a7938111b009c045c8dd29cb3385f6eb3428436015964efc44f
+% source-sha256: c33451f91830b0c0e476429743d3214ff5d44dbc59f5b70e5b62ac01ecaaed23

@@ -1,0 +1,164 @@
+T1  F^{p(p^{2m}-1)} == I  for translation-invariant A, p prime, p !| L
+   d=1 L=3 p=2 alpha=1                  m=2 bound=30 ord=6 holds=True
+   d=1 L=3 p=2 alpha=1/1                m=2 bound=30 ord=6 holds=True
+   d=1 L=3 p=2 random group-algebra A   m=2 bound=30 ord=6 holds=True
+   d=1 L=3 p=5 alpha=1                  m=2 bound=3120 ord=15 holds=True
+   d=1 L=3 p=5 alpha=1/1                m=2 bound=3120 ord=15 holds=True
+   d=1 L=3 p=5 random group-algebra A   m=2 bound=3120 ord=78 holds=True
+   d=1 L=3 p=7 alpha=1                  m=1 bound=336 ord=21 holds=True
+   d=1 L=3 p=7 alpha=1/1                m=1 bound=336 ord=21 holds=True
+   d=1 L=3 p=7 random group-algebra A   m=1 bound=336 ord=84 holds=True
+   d=1 L=4 p=3 alpha=1                  m=2 bound=240 ord=12 holds=True
+   d=1 L=4 p=3 alpha=1/1                m=2 bound=240 ord=12 holds=True
+   d=1 L=4 p=3 random group-algebra A   m=2 bound=240 ord=30 holds=True
+   d=1 L=4 p=5 alpha=1                  m=1 bound=120 ord=20 holds=True
+   d=1 L=4 p=5 alpha=1/1                m=1 bound=120 ord=20 holds=True
+   d=1 L=4 p=5 random group-algebra A   m=1 bound=120 ord=12 holds=True
+   d=1 L=4 p=7 alpha=1                  m=2 bound=16800 ord=28 holds=True
+   d=1 L=4 p=7 alpha=1/1                m=2 bound=16800 ord=28 holds=True
+   d=1 L=4 p=7 random group-algebra A   m=2 bound=16800 ord=168 holds=True
+   d=1 L=5 p=2 alpha=1                  m=4 bound=510 ord=10 holds=True
+   d=1 L=5 p=2 alpha=1/1                m=4 bound=510 ord=10 holds=True
+   d=1 L=5 p=2 random group-algebra A   m=4 bound=510 ord=34 holds=True
+   d=1 L=5 p=3 alpha=1                  m=4 bound=19680 ord=15 holds=True
+   d=1 L=5 p=3 alpha=1/1                m=4 bound=19680 ord=15 holds=True
+   d=1 L=5 p=3 random group-algebra A   m=4 bound=19680 ord=40 holds=True
+   d=1 L=5 p=7 alpha=1                  m=4 bound=40353600 ord=35 holds=True
+   d=1 L=5 p=7 alpha=1/1                m=4 bound=40353600 ord=35 holds=True
+   d=1 L=5 p=7 random group-algebra A   m=4 bound=40353600 ord=7206 holds=True
+   d=1 L=6 p=5 alpha=1                  m=2 bound=3120 ord=30 holds=True
+   d=1 L=6 p=5 alpha=1/1                m=2 bound=3120 ord=30 holds=True
+   d=1 L=6 p=5 random group-algebra A   m=2 bound=3120 ord=6 holds=True
+   d=1 L=6 p=7 alpha=1                  m=1 bound=336 ord=42 holds=True
+   d=1 L=6 p=7 alpha=1/1                m=1 bound=336 ord=42 holds=True
+   d=1 L=6 p=7 random group-algebra A   m=1 bound=336 ord=168 holds=True
+   d=1 L=7 p=2 alpha=1                  m=3 bound=126 ord=14 holds=True
+   d=1 L=7 p=2 alpha=1/1                m=3 bound=126 ord=14 holds=True
+   d=1 L=7 p=2 random group-algebra A   m=3 bound=126 ord=42 holds=True
+   d=1 L=7 p=3 alpha=1                  m=6 bound=1594320 ord=21 holds=True
+   d=1 L=7 p=3 alpha=1/1                m=6 bound=1594320 ord=21 holds=True
+   d=1 L=7 p=3 random group-algebra A   m=6 bound=1594320 ord=2190 holds=True
+   d=1 L=7 p=5 alpha=1                  m=6 bound=1220703120 ord=35 holds=True
+   d=1 L=7 p=5 alpha=1/1                m=6 bound=1220703120 ord=35 holds=True
+   d=1 L=7 p=5 random group-algebra A   m=6 bound=1220703120 ord=46878 holds=True
+   d=1 L=8 p=3 alpha=1                  m=2 bound=240 ord=24 holds=True
+   d=1 L=8 p=3 alpha=1/1                m=2 bound=240 ord=24 holds=True
+   d=1 L=8 p=3 random group-algebra A   m=2 bound=240 ord=120 holds=True
+   d=1 L=8 p=5 alpha=1                  m=2 bound=3120 ord=40 holds=True
+   d=1 L=8 p=5 alpha=1/1                m=2 bound=3120 ord=40 holds=True
+   d=1 L=8 p=5 random group-algebra A   m=2 bound=3120 ord=120 holds=True
+   d=1 L=8 p=7 alpha=1                  m=2 bound=16800 ord=56 holds=True
+   d=1 L=8 p=7 alpha=1/1                m=2 bound=16800 ord=56 holds=True
+   d=1 L=8 p=7 random group-algebra A   m=2 bound=16800 ord=48 holds=True
+   d=1 L=9 p=2 alpha=1                  m=6 bound=8190 ord=18 holds=True
+   d=1 L=9 p=2 alpha=1/1                m=6 bound=8190 ord=18 holds=True
+   d=1 L=9 p=2 random group-algebra A   m=6 bound=8190 ord=130 holds=True
+   d=1 L=9 p=5 alpha=1                  m=6 bound=1220703120 ord=45 holds=True
+   d=1 L=9 p=5 alpha=1/1                m=6 bound=1220703120 ord=45 holds=True
+   d=1 L=9 p=5 random group-algebra A   m=6 bound=1220703120 ord=33852 holds=True
+   d=1 L=9 p=7 alpha=1                  m=3 bound=823536 ord=63 holds=True
+   d=1 L=9 p=7 alpha=1/1                m=3 bound=823536 ord=63 holds=True
+   d=1 L=9 p=7 random group-algebra A   m=3 bound=823536 ord=1032 holds=True
+   d=2 L=3 p=2 alpha=1                  m=2 bound=30 ord=6 holds=True
+   d=2 L=3 p=2 random group-algebra A   m=2 bound=30 ord=10 holds=True
+   d=2 L=3 p=5 alpha=1                  m=2 bound=3120 ord=30 holds=True
+   d=2 L=3 p=5 alpha=1/2                m=2 bound=3120 ord=30 holds=True
+   d=2 L=3 p=5 random group-algebra A   m=2 bound=3120 ord=60 holds=True
+   d=2 L=3 p=7 alpha=1                  m=1 bound=336 ord=168 holds=True
+   d=2 L=3 p=7 alpha=1/2                m=1 bound=336 ord=168 holds=True
+   d=2 L=3 p=7 random group-algebra A   m=1 bound=336 ord=168 holds=True
+   d=2 L=4 p=3 alpha=1                  m=2 bound=240 ord=12 holds=True
+   d=2 L=4 p=3 alpha=1/2                m=2 bound=240 ord=12 holds=True
+   d=2 L=4 p=3 random group-algebra A   m=2 bound=240 ord=60 holds=True
+   d=2 L=4 p=5 alpha=1                  m=1 bound=120 ord=60 holds=True
+   d=2 L=4 p=5 alpha=1/2                m=1 bound=120 ord=60 holds=True
+   d=2 L=4 p=5 random group-algebra A   m=1 bound=120 ord=60 holds=True
+   d=2 L=4 p=7 alpha=1                  m=2 bound=16800 ord=56 holds=True
+   d=2 L=4 p=7 alpha=1/2                m=2 bound=16800 ord=84 holds=True
+   d=2 L=4 p=7 random group-algebra A   m=2 bound=16800 ord=8400 holds=True
+   d=2 L=5 p=2 alpha=1                  m=4 bound=510 ord=30 holds=True
+   d=2 L=5 p=2 random group-algebra A   m=4 bound=510 ord=510 holds=True
+   d=2 L=5 p=3 alpha=1                  m=4 bound=19680 ord=120 holds=True
+   d=2 L=5 p=3 alpha=1/2                m=4 bound=19680 ord=120 holds=True
+   d=2 L=5 p=3 random group-algebra A   m=4 bound=19680 ord=3280 holds=True
+   d=2 L=5 p=7 alpha=1                  m=4 bound=40353600 ord=600 holds=True
+   d=2 L=5 p=7 alpha=1/2                m=4 bound=40353600 ord=1400 holds=True
+   d=2 L=5 p=7 random group-algebra A   m=4 bound=40353600 ord=720600 holds=True
+   d=2 L=6 p=5 alpha=1                  m=2 bound=3120 ord=60 holds=True
+   d=2 L=6 p=5 alpha=1/2                m=2 bound=3120 ord=60 holds=True
+   d=2 L=6 p=5 random group-algebra A   m=2 bound=3120 ord=1560 holds=True
+   d=2 L=6 p=7 alpha=1                  m=1 bound=336 ord=168 holds=True
+   d=2 L=6 p=7 alpha=1/2                m=1 bound=336 ord=168 holds=True
+   d=2 L=6 p=7 random group-algebra A   m=1 bound=336 ord=168 holds=True
+   d=3 L=3 p=2 alpha=1                  m=2 bound=30 ord=6 holds=True
+   d=3 L=3 p=2 alpha=1/3                m=2 bound=30 ord=6 holds=True
+   d=3 L=3 p=2 random group-algebra A   m=2 bound=30 ord=30 holds=True
+   d=3 L=3 p=5 alpha=1                  m=2 bound=3120 ord=60 holds=True
+   d=3 L=3 p=5 alpha=1/3                m=2 bound=3120 ord=60 holds=True
+   d=3 L=3 p=5 random group-algebra A   m=2 bound=3120 ord=1560 holds=True
+   d=3 L=3 p=7 alpha=1                  m=1 bound=336 ord=24 holds=True
+   d=3 L=3 p=7 alpha=1/3                m=1 bound=336 ord=84 holds=True
+   d=3 L=3 p=7 random group-algebra A   m=1 bound=336 ord=168 holds=True
+   d=3 L=4 p=3 alpha=1                  m=2 bound=240 ord=12 holds=True
+   d=3 L=4 p=3 random group-algebra A   m=2 bound=240 ord=120 holds=True
+   d=3 L=4 p=5 alpha=1                  m=1 bound=120 ord=60 holds=True
+   d=3 L=4 p=5 alpha=1/3                m=1 bound=120 ord=60 holds=True
+   d=3 L=4 p=7 alpha=1                  m=2 bound=16800 ord=168 holds=True
+   d=3 L=4 p=7 alpha=1/3                m=2 bound=16800 ord=168 holds=True
+   d=3 L=5 p=2 alpha=1                  m=4 bound=510 ord=30 holds=True
+   d=3 L=5 p=2 alpha=1/3                m=4 bound=510 ord=30 holds=True
+   d=3 L=5 p=2 random group-algebra A   m=4 bound=510 ord=510 holds=True
+   d=3 L=5 p=3 alpha=1                  m=4 bound=19680 ord=120 holds=True
+   d=3 L=5 p=3 random group-algebra A   m=4 bound=19680 ord=3280 holds=True
+   d=3 L=5 p=7 alpha=1                  m=4 bound=40353600 ord=300 holds=True
+   d=3 L=5 p=7 alpha=1/3                m=4 bound=40353600 ord=8400 holds=True
+   tested cases: 113
+    countercontrol case d=1 L=7 p=5: random G satisfies G^bound=I; exact ord(G) = 48360 divides bound 1220703120
+    countercontrol case d=1 L=7 p=5: random G satisfies G^bound=I; exact ord(G) = 677040 divides bound 1220703120
+T1c random GL_n(F_p) countercontrol: bound fails for 18/20 random invertible matrices
+    p | L (hypothesis absent), alpha=1, exact order: d=1 L=3 p=3: 9, d=1 L=4 p=2: 4, d=1 L=6 p=2: 6, d=1 L=6 p=3: 18, d=2 L=4 p=2: 4, d=3 L=2 p=2: 2
+
+T2  d=1 L=5 q=3 alpha=1: conserved on all 59049 states: E=True, Q_B=True, P_C=True, S=True
+    shell E=1 (size 19440) split by Q_B: Q_B=0: 6480 states, Q_B=1: 6480 states, Q_B=2: 6480 states
+    shell E=1 (size 19440) split by P_C: P_C=0: 8100 states, P_C=1: 5670 states, P_C=2: 5670 states
+    shell E=1 (size 19440) split by S: S=0: 6480 states, S=1: 6480 states, S=2: 6480 states
+
+T2  d=3 L=2 q=3 alpha=1: conserved on all 43046721 states: E=True, Q_B=True, P_C=True, S=False
+    shell E=1 (size 14407956) split by Q_B: Q_B=0: 5904900 states, Q_B=1: 4251528 states, Q_B=2: 4251528 states
+    shell E=1 (size 14407956) split by P_C: P_C=0: 14407956 states
+T3c shell-size bound control d=1 L=5 p=3: rank 9, bound 18954, measured min 19440
+T3c shell-size bound control d=1 L=4 p=5: rank 6, bound 75000, measured min 77500
+T3c shell-size bound control d=3 L=2 p=3: rank 10, bound 14171760, measured min 14230809
+
+T3  3D cubic torus L=3, p=5, alpha=2 (=1/3 mod p): |S| = 5^54;  bound 3120, F^bound=I: True;  exact ord(F) = 60
+    exact number of cycles of F on the whole space (Burnside): 1665334536937734838664531936645507817  (~10^36.2);  |S|/ord = 10^36.0
+    rank of E's form 53; every shell has >= 11102230246251565366983413696289062500 states (~10^37.0) > ord(F) = 60: True;  hence every shell carries >= 185037170770859422783056894938151042 cycles
+    E and P_C conserved on 2000 random states: True;  witness pair on shell E=4: P_C = 3 vs 1
+
+T3  3D cubic torus L=3, p=7, alpha=5 (=1/3 mod p): |S| = 7^54;  bound 336, F^bound=I: True;  exact ord(F) = 84
+    exact number of cycles of F on the whole space (Burnside): 95468519347200128116925281919235683823944013  (~10^44.0);  |S|/ord = 10^43.7
+    rank of E's form 53; every shell has >= 616873509628062366290296170278844986832201606 states (~10^44.8) > ord(F) = 84: True;  hence every shell carries >= 7343732257476932932027335360462440319430972 cycles
+    E and P_C conserved on 2000 random states: True;  witness pair on shell E=3: P_C = 5 vs 2
+
+T3  3D cubic torus L=3, p=2, alpha=1 (=1/3 mod p): |S| = 2^54;  bound 30, F^bound=I: True;  exact ord(F) = 6
+    exact number of cycles of F on the whole space (Burnside): 3002766277828608  (~10^15.5);  |S|/ord = 10^15.5
+    E and Q_B conserved on 2000 random states: True;  witness pair on shell E=1: P_C = 1 vs 0
+
+[PASS] T1 bound holds in every tested case
+[PASS] T1c countercontrol non-vacuous (bound fails for majority of random GL elements)
+[PASS] T2 E, Q_B, P_C, S conserved exhaustively (1D L=5 q=3)
+[PASS] T2 E, Q_B conserved exhaustively (3D L=2 q=3)
+[PASS] T3c shell lower bound holds on exhaustive instances
+[PASS] T3 bound holds 3D L=3 p=5
+[PASS] T3 every shell larger than ord(F), p=5
+[PASS] T3 witness found p=5
+[PASS] T3 bound holds 3D L=3 p=7
+[PASS] T3 every shell larger than ord(F), p=7
+[PASS] T3 witness found p=7
+[PASS] T3 bound holds 3D L=3 p=2
+[PASS] T3 witness found p=2
+ALL CONTROLS GREEN
+
+real	1m15.729s
+user	0m52.894s
+sys	0m22.086s

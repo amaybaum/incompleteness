@@ -1,0 +1,10 @@
+map (a) d=1 L=5 q=3: G1 TFT=F^-1 True; G2 E o T = E True (=> uniform shell measure T-invariant)
+  shell E=0: cycles 2211, T-self-conjugate cycles 63, cycles with T(C) != C 2148
+  shell E=1: cycles 2160, T-self-conjugate cycles 90, cycles with T(C) != C 2070
+  shell E=2: cycles 2194, T-self-conjugate cycles 90, cycles with T(C) != C 2104
+map (a) d=1 L=4 q=5: G1 TFT=F^-1 True; G2 E o T = E True (=> uniform shell measure T-invariant)
+  shell E=0: cycles 4775, T-self-conjugate cycles 175, cycles with T(C) != C 4600
+  shell E=1: cycles 4481, T-self-conjugate cycles 125, cycles with T(C) != C 4356
+  shell E=2: cycles 4480, T-self-conjugate cycles 100, cycles with T(C) != C 4380
+  shell E=3: cycles 4480, T-self-conjugate cycles 100, cycles with T(C) != C 4380
+  shell E=4: cycles 4481, T-self-conjugate cycles 125, cycles with T(C) != C 4356
