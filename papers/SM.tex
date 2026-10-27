@@ -1925,10 +1925,10 @@ the stationary law of the realized bijection, and that hypothesis is
 open.
 
 Suppose the realized bijection, read through a real-valued lift with
-linear dynamics and a conserved quadratic energy, has a stationary
-distribution uniform on an energy shell. At large \(L\) that
-distribution is Gaussian (sphere-Gaussian projection theorem), and the
-substratum two-point function is
+linear dynamics and a conserved positive-definite quadratic energy, has
+a stationary distribution uniform on an energy shell. At large \(L\) its
+few-site marginals are then Gaussian (sphere-Gaussian projection
+theorem), and the substratum two-point function is
 \(\langle \varphi(x)\varphi(y) \rangle = [\Box_{\text{lat}}^{-1}]_{xy}\).
 The standard MC code (cf.~§7.5) does not use Grassmann variables
 directly; it uses the \emph{pseudofermion} representation, in which
@@ -1950,10 +1950,15 @@ ergodicity on that shell. Neither candidate map supplies such an energy
 exactly. The exact linear rule over \(\mathbb{Z}/q\mathbb{Z}\) conserves
 its energy only modulo \(q\) (in the exhaustive one-dimensional
 instances the integer energy of the representatives \(0,\dots,q-1\)
-changes in one step at \(46\)--\(56\%\) of states), and its energy
+changes in one step at \(45.5\)--\(56.1\%\) of states), and its energy
 shells larger than its order are not single cycles (\emph{Remark (cycle
 structure of the exact linear rule)} below); the rounded bijection
-conserves no quadratic energy exactly (below).
+conserves no quadratic energy exactly in the instances computed (below).
+For the real lift of the linear rule, \(E\) below is positive definite
+for \(\alpha<1/d\), positive semidefinite at \(\alpha=1/d\), with the
+constant mode and, for even \(L\), the staggered mode as null
+directions, and indefinite at \(\alpha=1\) for \(d\ge2\), where its
+shells are non-compact.
 
 Pure linear dynamics on a cubic lattice is \emph{integrable}, not
 chaotic: the lattice frequencies
@@ -1979,42 +1984,38 @@ has been tested numerically on the rounded bijection
 evaluated on the representatives \(0,\dots,q-1\), via two-trajectory
 separation with per-site RMS amplitude measurement inside the spreading
 cone (the correct Lyapunov-relevant diagnostic, distinguishing chaotic
-amplitude amplification from Lieb-Robinson ballistic spreading). The
-measurement gives a chaotic Lyapunov exponent
-\(\lambda_{\max} = 0.0092 \pm 0.0001\) per timestep in the thermodynamic
-limit, \(N_{\rm levels}\)-independent for \(N_{\rm levels} \geq 16\),
-with exponential amplitude growth in the cone confirmed against
-power-law alternatives at high statistical significance
-(exponential-vs-power-law residual ratio \(\sim 2.2\) across
-\(\log(\bar{\|\Delta\phi\|}/\delta) \in [0, 1.0]\)). The
-non-integrability that way out (i) requires is therefore shown
-numerically, as chaos: the rounded bijection is chaotic at the sizes
-measured, the integrable linear dynamics being broken by the rounding
-rule's threshold-crossing nonlinearity. Breaking the integrability of
-the linear rule is necessary for full-shell sampling; chaos does not
-establish full-shell sampling: no theorem shows that the bijection acts
-as a single cycle on an energy shell (cycle ergodicity), and the
-measurements bear on that question only at the lattice sizes,
+amplitude amplification from Lieb-Robinson ballistic spreading). From
+uniformly random states at \(L=20\), \(q=2^{16}\), a unit perturbation
+of the central site grows exponentially inside the cone until saturation
+on each of three seeds, with fitted rates \(0.25\), \(0.50\) and
+\(0.64\) per step (\(\lambda_{\max}=0.47\pm0.16\)):
+\(\lambda_{\max}>0\). The non-integrability that way out (i) requires is
+therefore shown numerically, as chaos: the rounded bijection is chaotic
+at the sizes measured, the integrable linear dynamics being broken by
+the rounding rule's threshold-crossing nonlinearity. Breaking the
+integrability of the linear rule is necessary for full-shell sampling;
+chaos does not establish full-shell sampling: no theorem shows that the
+bijection acts as a single cycle on an energy shell (cycle ergodicity),
+and the measurements bear on that question only at the lattice sizes,
 preparation ensembles and fit protocols sampled. Nor is exact energy
 conservation shown. The rounded bijection at \(d=3\), \(L=2\) and its
 one-dimensional analog
 \(x(t+1)=\lfloor(\sum_{\rm nn}x(t)+1)/2\rfloor-x(t-1)\) at \(L=5\), both
-at \(q=3\), have no nonzero polynomial invariant of degree at most \(2\)
-over \(\mathbb{F}_3\), where the corresponding computation for the exact
-linear rule finds invariant spaces of dimension \(25\) and \(10\); and
-from a smooth mode at \(L=20\), \(q=2^{16}\) its real energy drifts by
-up to \(3.6\times10^{-3}\) relative over 400 steps, against
-\(3.7\times10^{-14}\) for the exact real linear map. Its energy shells
-are therefore not invariant sets, and which approximately conserved
-energy its orbits sample, if any, is open. In exact cycle censuses of
-the rounded bijection at \(d=3\), \(L=2\), \(q=2,3\) and of its
-one-dimensional analog at \(L=5\), \(q=3,4\), the largest cycle holds at
-most \(1.9\%\) of phase space and visits every value of the modular
-energy. Analytical derivation of the \(\lambda_{\max}\) coefficient and
-the structural source of \(N_{\rm levels}\)-independence remains open
-and would elevate the chaos result to Level 2(a) in the bridge-gap
-classification of §7.5. Four further diagnostics on the rounded
-bijection fall on the chaotic side: spectral continuity of local
+at \(q=3\), have no nonconstant polynomial invariant of degree at most
+\(2\) over \(\mathbb{F}_3\), where the corresponding computation for the
+exact linear rule finds invariant spaces of dimension \(25\) and \(10\);
+and from a smooth mode at \(L=20\), \(q=2^{16}\) its real energy drifts
+by up to \(3.6\times10^{-3}\) relative over 400 steps, against
+\(3.7\times10^{-14}\) for the exact real linear map. In these instances
+its energy shells are therefore not invariant sets, and which
+approximately conserved energy its orbits sample, if any, is open. In
+exact cycle censuses of the rounded bijection at \(d=3\), \(L=2\),
+\(q=2,3\) and of its one-dimensional analog at \(L=5\), \(q=3,4\), the
+largest cycle holds at most \(1.9\%\) of phase space and visits every
+value of the modular energy. Analytical derivation of \(\lambda_{\max}\)
+remains open and would elevate the chaos result to Level 2(a) in the
+bridge-gap classification of §7.5. Four further diagnostics on the
+rounded bijection fall on the chaotic side: spectral continuity of local
 observables (broadband, versus the linear control's discrete peaks),
 thermalization (autocorrelation decay to the noise floor, versus
 persistent coherent oscillation in the linear control), comparative
@@ -2022,13 +2023,11 @@ cycle-structure consolidation in an exactly enumerable one-dimensional
 analog (the rounded map's dominant cycle is \(\sim 400\times\) larger
 than the linear control's), and orbit non-fragmentation in direct
 three-dimensional sampling (no recurrences or trajectory merges). The
-quantitative rate is preparation-ensemble- and protocol-dependent: at an
-infinite-temperature ensemble the separation shows an
-incubation-then-avalanche profile with an effective rate several times
-the value quoted above, so the quoted \(\lambda_{\max}\) is specific to
-its preparation ensemble and fit protocol. The qualitative chaos, which
-shows that the rounding breaks the linear rule's integrability as the
-ergodicity interpretation requires, is robust across protocols.
+quantitative rate depends on the preparation ensemble, the seed and the
+fit window, and no thermodynamic-limit value is established. The
+qualitative chaos, which shows that the rounding breaks the linear
+rule's integrability as the ergodicity interpretation requires, is
+robust across protocols.
 
 \emph{Remark (cycle structure of the exact linear rule).} Write the
 exact rule as \(F(u,v)=(v,\,Av-u)\) on pairs \((u,v)=(x(t-1),x(t))\)
@@ -2071,7 +2070,7 @@ with \(B=T_1+T_1^{-1}\) and \(C=T_1-T_1^{-1}\) separate further; at
 \(12\). On the \(d=3\), \(L=3\) torus at \(\alpha=1/3\) the exact order
 of \(F\) is \(60\) for \(p=5\) and \(84\) for \(p=7\), while every
 energy shell has more than \(10^{37}\) and \(10^{44}\) states
-respectively. The order bound holds in all 113 cases computed
+respectively. The order bound holds in all 91 distinct cases computed
 (\(d=1\)--\(3\); \(p=2,3,5,7\); \(\alpha=1\), \(\alpha=1/d\) and random
 translation-invariant \(A\)). The statement covers prime \(q\) with
 \(p\nmid L\) and translation-invariant couplings; composite \(q\),
@@ -2088,36 +2087,40 @@ rule \(f = \sum_{\text{nn}} x - x(t-1)\) over
 \(\mathbb{Z}/q\mathbb{Z}\); its reduction mod \(q\) is
 \(\mathbb{Z}/q\mathbb{Z}\)-linear and adds no nonlinearity, and the rule
 is itself a finite bijection. The rounded bijection above carries a
-bounded nonlinearity, the floor in
-\(\lfloor(\sum_{\rm nn}x+1)/3\rfloor\) evaluated on the representatives
-\(0,\dots,q-1\), which vanishes relative to the field amplitude in the
-continuum/large-\(q\) limit. The \emph{structural} chain --- the
-wave-equation uniqueness (§4.1), the Susskind factorization (Theorem 2,
-massless at the observer-level normalization \(\alpha=1/d\); at the
-substratum rule's unit coefficient, within the staggered family of Lemma
-3a, it carries the mass \(m^2=2(d-1)\) in the form \((B-m)(B+m)\),
-nonzero for \(d\ge2\)), the \((3,2,1)\) decomposition and the gauge
-group (§4.6), and the amplitude-scale-gauge argument for linearity
-(§4.1) --- reads only the linear part: it is exact modular-linear
-algebra and does not invoke the rounding nonlinearity. The
-\emph{ergodic/measure} properties --- full-shell sampling for the
-Gaussianization of §4.2, the chaotic mixing underlying operational
-measurement independence ({[}Main{]} §3.3), and the mixing hypothesis
-(ETH-motivated) conditioning the slow-bath form of the C2 necessity
-direction ({[}Main{]} §3.4) --- cannot be read from the exact linear
-rule, whose large energy shells split into many cycles (\emph{Remark
-(cycle structure of the exact linear rule)} above). They are assigned to
-the rounding nonlinearity, which breaks the integrability of the
-strictly-linear map (way out (i) above) and is chaotic numerically;
-full-shell sampling by the rounded bijection is open. The structural
-chain is thus a statement about the exact linear rule, and the measure
-properties are hypotheses about the rounded bijection; whether a single
-map carries both is open. The one commitment this makes explicit is that
-the amplitude-scale gauge of §4.1 is exact at the level of the
-structural chain (where the rounding nonlinearity is absent) and holds
-up to the bounded rounding correction at the level of the rounded
-bijection; a full account of how large that correction is on each
-ergodic observable is the open residual the \(\lambda_{\max}\)
+nonlinearity, the floor in \(\lfloor(\sum_{\rm nn}x+1)/3\rfloor\)
+evaluated on the representatives \(0,\dots,q-1\). Where no neighbour sum
+crosses the alphabet boundary, it differs from the real linear update by
+at most \(1/3\) per site and step, which vanishes relative to the field
+amplitude in the continuum/large-\(q\) limit; where one crosses it, the
+choice of representatives changes the update by order \(q/3\). The
+\emph{structural} chain --- the wave-equation uniqueness (§4.1), the
+Susskind factorization (Theorem 2, massless at the observer-level
+normalization \(\alpha=1/d\); at the substratum rule's unit coefficient,
+within the staggered family of Lemma 3a, it carries the mass
+\(m^2=2(d-1)\) in the form \((B-m)(B+m)\), nonzero for \(d\ge2\)), the
+\((3,2,1)\) decomposition and the gauge group (§4.6), and the
+amplitude-scale-gauge argument for linearity (§4.1) --- reads only the
+linear part: it is exact modular-linear algebra and does not invoke the
+rounding nonlinearity. The \emph{ergodic/measure} properties ---
+full-shell sampling for the Gaussianization of §4.2, the chaotic mixing
+underlying operational measurement independence ({[}Main{]} §3.3), and
+the mixing hypothesis (ETH-motivated) conditioning the slow-bath form of
+the C2 necessity direction ({[}Main{]} §3.4) --- are not supplied by the
+exact linear rule: its large energy shells split into many cycles
+(\emph{Remark (cycle structure of the exact linear rule)} above), so it
+does not sample a shell, and it conserves an extensive family of local
+quadratic invariants, so the ETH motivation does not apply to it. They
+are assigned to the rounding nonlinearity, which breaks the
+integrability of the strictly-linear map (way out (i) above) and is
+chaotic numerically; full-shell sampling by the rounded bijection is
+open. The structural chain is thus a statement about the exact linear
+rule, and the measure properties are hypotheses about the rounded
+bijection; whether a single map carries both is open. The one commitment
+this makes explicit is that the amplitude-scale gauge of §4.1 is exact
+at the level of the structural chain (where the rounding nonlinearity is
+absent) and holds up to the rounding correction at the level of the
+rounded bijection; a full account of how large that correction is on
+each ergodic observable is the open residual the \(\lambda_{\max}\)
 measurement begins to quantify.
 
 \hypertarget{center-independence-and-chiral-symmetry}{%
@@ -4586,9 +4589,10 @@ on-shell/smooth one is consistent with §4.2. That the realized bijection
 samples the on-shell measure is the stationary-law hypothesis of §4.2,
 which is open: the exact linear rule conserves its energy only modulo
 \(q\) and its large energy shells split into many cycles, and the
-rounded bijection conserves no quadratic energy exactly. Second, the
-canonical map from the \(\mathbb{Z}/q\mathbb{Z}\)-valued matter data to
-the group is the exponential
+rounded bijection conserves no quadratic energy exactly in the instances
+computed. Second, the canonical map from the
+\(\mathbb{Z}/q\mathbb{Z}\)-valued matter data to the group is the
+exponential
 \(M(\mathbf{n}, \hat e_j) = \exp\!\big(\tfrac{2\pi i}{q}\,\mathrm{Lie}\,[\phi(\mathbf{n}+\hat e_j) - \phi(\mathbf{n})]\big)\)
 --- the composite of the canonical roots-of-unity homomorphism
 \(\mathbb{Z}/q\mathbb{Z} \to \mathrm{U}(1)\) with the Lie exponential
@@ -6793,16 +6797,16 @@ addressed below; their current status:
   identification of the realized stationary law, uniform on the cycle
   the state occupies, with that shell measure. For the exact linear rule
   the identification is false: its energy shells larger than its order
-  are not single cycles (§4.2), and most of its cycles are not
-  \(T\)-invariant (at \(d=1\), \(L=5\), \(q=3\), \(90\) of the
-  \(2{,}160\) cycles on the shell \(E=1\) satisfy \(T(C)=C\)), so for
-  most cycles the realized law is not \(T\)-invariant either. For the
-  rounded bijection, which conserves no quadratic energy exactly, it is
-  open. Part B is the same investigation as gap (i) viewed
-  operationally: closing gap (i) closes gap (ii) Part B. Both parts
-  therefore carry gap (i)'s residual, Part A in the form stated above:
-  the identification of the realized stationary law with the uniform
-  measure on a \(T\)-invariant energy shell.
+  are not single cycles (§4.2), and in the exhaustive instances most of
+  its cycles are not \(T\)-invariant (at \(d=1\), \(L=5\), \(q=3\),
+  \(90\) of the \(2{,}160\) cycles on the shell \(E=1\) satisfy
+  \(T(C)=C\)), so for most cycles the realized law is not
+  \(T\)-invariant either. For the rounded bijection, which conserves no
+  quadratic energy exactly, it is open. Part B is the same investigation
+  as gap (i) viewed operationally: closing gap (i) closes gap (ii) Part
+  B. Both parts therefore carry gap (i)'s residual, Part A in the form
+  stated above: the identification of the realized stationary law with
+  the uniform measure on a \(T\)-invariant energy shell.
 \item
   and (iv) \emph{Bridge theorem:} \textbf{Closed at Level 1
   framework-essentially via the explicit theorem below.}
@@ -7753,42 +7757,34 @@ selection constrains the bijection more tightly than generic
 Wilson-coefficient ambiguity, and the empirical match becomes a tighter
 test of the bijection's structure.
 
-\textbf{Layer 2 values are discretization-determined, not free Wilson
-coefficients.} The bijection \(\varphi\) is constrained by linearity up
-to the rounding rule, T-invariance and P-indivisibility. Cycle
-ergodicity on energy shells, which the measure reduction of §4.2 uses,
-is not among the established constraints: it fails for the exact linear
-rule at prime \(q\) not dividing \(L\) (§4.2, \emph{Remark (cycle
-structure of the exact linear rule)}), so that rule does not satisfy
-linear dynamics and cycle ergodicity jointly, and for the rounded
-bijection it is an open hypothesis (§4.2, §7.5). Conditional on that
-hypothesis, the bijection space within this class is parametrized by
-\emph{discretization-scheme choices} (field quantization, lattice size,
-timestep, boundary conditions, rounding rule), not by abstract
-permutation freedom, and once the discretization scheme is fixed the
-bijection is essentially unique. As a consequence, Layer 2 coefficients
-(Cond 2 ratio at 2(b) status, D11 mechanism, D10 K-value, \(\delta_0\)
-threshold --- all at Layer 2(a)-tractable or 2(b) status) are \emph{all}
-functions of the same underlying discretization choices --- they are not
-independent. This sharpens what Layer 2 means: the framework's empirical
-matches at sub-percent / sub-σ precision (Cond 2 at 0.6σ on the sum
-rule, \(m_u/m_d\) at 0.6\%) are tighter tests of discretization scheme
-than they appear as tests of ``generic bijection alignment.''
-Cross-prediction consistency is therefore a meaningful test within
-structural clusters; the cubic-group \(T_1\)-Casimir cluster of §7.7 is
-one such successful test.
+\textbf{Layer 2 values and the discretization scheme.} The bijection
+\(\varphi\) is constrained by linearity up to the rounding rule,
+T-invariance and P-indivisibility. Cycle ergodicity on energy shells,
+which the measure reduction of §4.2 uses, is not among the established
+constraints: it fails for the exact linear rule at prime \(q\) not
+dividing \(L\) (§4.2, \emph{Remark (cycle structure of the exact linear
+rule)}), so that rule does not satisfy linear dynamics and cycle
+ergodicity jointly, and for the rounded bijection it is an open
+hypothesis (§4.2, §7.5). If Layer 2 coefficients (Cond 2 ratio at 2(b)
+status, D11 mechanism, D10 K-value, \(\delta_0\) threshold --- all at
+Layer 2(a)-tractable or 2(b) status) are fixed by the discretization
+scheme, they are \emph{all} functions of the same underlying
+discretization choices --- they are not independent --- and the
+framework's empirical matches at sub-percent / sub-σ precision (Cond 2
+at 0.6σ on the sum rule, \(m_u/m_d\) at 0.6\%) are tighter tests of
+discretization scheme than they appear as tests of ``generic bijection
+alignment.'' Cross-prediction consistency is then a meaningful test
+within structural clusters; the cubic-group \(T_1\)-Casimir cluster of
+§7.7 is one such successful test.
 
 \textbf{Selection problem.} The framework characterizes a constrained
 class of substratum bijections (above) and derives empirical predictions
 from any element of this class. \emph{Selection within the class} ---
 which specific discretization scheme realizes our universe --- is not
 addressed. This is the framework's analog of ``why these laws of
-physics?'' in standard physics, but the question is more pointed because
-the framework explicitly characterizes a meta-space
-(discretization-scheme space) within which the selection occurs. We
-treat this as an open question: the framework is a theory of what
-follows from a given discretization scheme, not a theory of which scheme
-is realized.
+physics?'' in standard physics. We treat this as an open question: the
+framework is a theory of what follows from a given discretization
+scheme, not a theory of which scheme is realized.
 
 \textbf{Derivation status: the three tiers.} A recurring question about
 any framework that ``derives the Standard Model from one object'' is
@@ -9107,4 +9103,4 @@ the FCC-ee,'' arXiv:2504.05974 (2025).
 Compact Family Cycle,'' arXiv:2605.10245 (2026).
 
 \end{document}
-% source-sha256: c33451f91830b0c0e476429743d3214ff5d44dbc59f5b70e5b62ac01ecaaed23
+% source-sha256: 41a05434bc8bca1106445efe1bb9d3c954acb738d8d46785ada0f4ed1e467fc1

@@ -1,7 +1,0 @@
-control: DP Landau g(n) == brute force over partitions for n<=12: True
-n=   10: ln g(n) =      3.40   sqrt(n ln n) =      4.80   ln lcm(1..n) =      7.83   n = 10
-n=   50: ln g(n) =     12.10   sqrt(n ln n) =     13.99   ln lcm(1..n) =     49.49   n = 50
-n=  100: ln g(n) =     19.27   sqrt(n ln n) =     21.46   ln lcm(1..n) =     94.05   n = 100
-n=  500: ln g(n) =     54.93   sqrt(n ln n) =     55.74   ln lcm(1..n) =    501.65   n = 500
-n= 1000: ln g(n) =     83.31   sqrt(n ln n) =     83.11   ln lcm(1..n) =    996.68   n = 1000
-n= 3000: ln g(n) =    158.67   sqrt(n ln n) =    154.98   ln lcm(1..n) =   3001.09   n = 3000
