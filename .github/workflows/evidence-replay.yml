@@ -11,7 +11,7 @@ name: evidence replay
 #   lean-fresh-build  papers/introduction_repro/'s recipe at 17b830bc, from an empty .lake/build (no Actions
 #                     cache), so every OIBridge module is elaborated in the job. The frozen extractor and
 #                     comparator (48b18ac5) compare the output with the retained expected result (14 modules,
-#                     at #918's head 4a260ca9) and with the staged extension (28 modules, 24e70304). A step
+#                     at #918's head 4a260ca9) and with the staged extension (28 modules, e73f7be3). A step
 #                     fails if lake replayed any OIBridge module instead of building it.
 #   bh-mutants        the BH-01 and BH-02 mutant campaigns (mutants.py) at eae01647, the corpus commit at which
 #                     the audit read both records. Each mutants.py exits nonzero unless every mutant is caught.
@@ -44,7 +44,7 @@ env:
   BH_COMMIT: eae01647f50d9e2aa90957fbd6c59d8cf44e7681
   ARCHIVE_COMMIT: 48b18ac54e39920a4fc4bbb8ee1d1b6cebea2c29
   EXPECTED_14: 4a260ca9d6414e4d504a629ba5a0eb3c70bd4704
-  EXPECTED_28: 24e70304a6b94e0e3150e6b0eb5167fa312b52ae
+  EXPECTED_28: e73f7be3c343ce12c5f64b9dc1485a5a7ba5498c
 
 jobs:
   lean-fresh-build:
