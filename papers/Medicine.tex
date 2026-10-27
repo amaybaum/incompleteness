@@ -281,13 +281,25 @@ the Markov model --- often many states, without a unifying principle for
 when they are needed or how many to include.
 
 The Observational Incompleteness (OI) framework {[}1{]} provides such a
-principle. Originally developed for fundamental physics --- where it
-proves that the description of any embedded observer with partial access
-to a deterministic system is necessarily non-Markovian --- quantum for
-processes in the correspondence's class, under the translation
-hypothesis (T) --- the framework's core theorem is abstract and
-scale-independent. It identifies four conditions under which any fast
-subsystem necessarily exhibits non-Markovian dynamics:
+principle. It was originally developed for fundamental physics, where it
+proves two results about an embedded observer's finite observable law.
+First, on every finite horizon every finite stochastic law, Markov laws
+included, has a finite reversible deterministic realization and an exact
+representation by a unitary system read out by Born-rule measurement in
+one fixed basis {[}1, §3.4{]}; the representation alone therefore does
+not distinguish a memory-bearing law from a Markovian one. Second, a
+history-readback gap at an accessible order \(k\) --- two visible
+histories of length \(k\), each occurring together with the common
+present state \(X_k\) with probability at least \(p_0\), whose next-step
+laws are at total-variation distance at least \(\delta\) --- forces
+positive conditional memory,
+\(I(X_{<k}; X_{k+1} \mid X_k) \geq p_0\delta^2/\ln 2 > 0\), a failure of
+the Markov factorization at that order {[}1, §2.3{]}. Coupling,
+persistence and capacity without readback admit realizations with zero
+conditional memory on arbitrarily long accessible horizons {[}1,
+§2.3{]}. The framework's core theorem is abstract and scale-independent.
+It identifies four conditions under which a fast subsystem's observable
+law carries this conditional memory on accessible timescales:
 
 \textbf{C1 (Coupling).} The fast subsystem (visible sector) is
 dynamically coupled to a slow subsystem (hidden sector) through
@@ -303,6 +315,10 @@ many fast events.
 \textbf{C3 (Capacity).} The hidden sector has many more accessible
 states than the fast subsystem, providing sufficient room to store the
 full interaction history without saturation.
+
+\textbf{C4 (History readback).} At some accessible order, two visible
+histories ending in the same present state induce different next-step
+laws, the difference mediated through the hidden sector's state.
 
 When C1--C4 are satisfied, the characterization theorem {[}1, §3.4{]}
 proves that the fast subsystem's dynamics is memory-bearing ---
@@ -1973,4 +1989,4 @@ replication control,'' \emph{PNAS} \textbf{105}, 20752 (2008).
 Biology,'' companion paper (2026).
 
 \end{document}
-% source-sha256: 278594a3bd3cc5e7a552661e43de0f30f3e5f95dab9bbc9c305a4bc7d7895608
+% source-sha256: dc4356007c0bcae13c02806aca12ea1624c8737e80f5c6e3f0cef76696993057

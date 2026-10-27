@@ -903,10 +903,12 @@ together they ensure that \emph{layer} rests on no single recent result.
   It came out of the mind of Schrödinger.'' The derivation above is the
   answer that wasn't available in 1963. The equation is not ``from
   nowhere'' --- it is the differential form of unitary evolution, and
-  unitary evolution is available, under (T), for embedded observers'
-  processes --- nontrivially so where the dynamics is P-indivisible,
-  which on a fixed finite reversible representative holds across its
-  recurrence cycle whenever a rooted visible map is not a permutation.
+  unitary evolution is available for embedded observers' processes,
+  internally through the permutation unitary of any finite reversible
+  realization and in compressed form under (T) ({[}Main §3.4{]}) ---
+  nontrivially so where the dynamics is P-indivisible, which on a fixed
+  finite reversible representative holds across its recurrence cycle
+  whenever a rooted visible map is not a permutation.
 \item
   \textbf{The Born-form dictionary} is the ancilla-marginal rule
   \(T_{ij}=\sum_\alpha |\widetilde U_{(i,0)(j,\alpha)}|^2\) in general,
@@ -2575,10 +2577,14 @@ There is a way to state what the framework means that is sharper than
 anything in the formal paper.
 
 An observer inside the universe receives incomplete data --- the visible
-sector only. The characterization theorem proves that the accessible
-statistics are necessarily memory-bearing, and that processes in the
-correspondence's class admits --- under the translation hypothesis (T)
---- exactly the quantum algorithm for prediction.
+sector only. On every finite horizon those statistics, Markov laws
+included, have an exact fixed-basis quantum representation --- a unitary
+system read out by Born-rule measurement --- so the quantum algorithm
+for prediction is available whatever the law ({[}Main §3.4{]}); under
+the translation hypothesis (T), processes in the correspondence's class
+admit its compressed form. The statistics carry positive conditional
+memory \(I(X_{<k}; X_{k+1} \mid X_k)\) at an accessible order \(k\)
+where a history-readback gap occurs at that order ({[}Main §2.3{]}).
 
 Everything in QM is a feature of the algorithm, not a feature of the
 underlying reality. The wave function is the algorithm's internal state
@@ -3542,11 +3548,13 @@ so determines the \emph{form} of what it produces instead. The
 limitation and the law are the same object viewed from two sides. The
 Turing connection is direct: the observer is the head of a reversible
 computation; the halting problem (the head cannot determine the tape's
-global state) and the QM emergence theorem (the head's read-write
-statistics are necessarily non-Markovian, and quantum-mechanical for
-processes in the correspondence's class under (T)) are two consequences
-of the same structural constraint --- finite self-referential access to
-a lossless computation.
+global state) and the QM emergence theorem (the head's finite read-write
+statistics, Markov laws included, have an exact fixed-basis unitary/Born
+representation on every finite horizon, and carry positive conditional
+memory \(I(X_{<k}; X_{k+1} \mid X_k)\) at an accessible order \(k\)
+wherever a history-readback gap occurs at that order) are two
+consequences of the same structural constraint --- finite
+self-referential access to a lossless computation.
 
 Gödel and Turing are usually read as negative results --- limits on
 knowledge. The framework recasts the physical instance as
@@ -3966,4 +3974,4 @@ The final text and all scientific claims were reviewed and verified by
 the author.
 
 \end{document}
-% source-sha256: 17d026a90e466a51eb45884efd0ebb373409cb7eb167003c6be54a7f1fa8f408
+% source-sha256: d295e6172cee8cd56d247091e3adc18219b11d4669545ea9be41610bd2c300c4
