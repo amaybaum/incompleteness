@@ -225,17 +225,26 @@ alone does not distinguish the memory-bearing sector from an ordinary
 Markov process. The Born dictionary \(p=|U|^2\) is part of the
 definition of \(Q_{\mathrm{fb}}\): the equivalence exhibits the Born
 form and does not select the quadratic exponent, which is named as a
-frontier item (§3.1). The discriminating content is history readback.
-When (C4) holds, every faithful deterministic completion contains
-readout-relevant hidden predictive memory, and for one fixed finite
-reversible representative the full rooted visible process is indivisible
-somewhere in its recurrence cycle: finite recurrence returns the visible
-map to the identity, while a C4 readback gap forces a non-permutation
-rooted map, which cannot possess a stochastic inverse. Conditions (C1)
-and (C3) are then necessary diagnostics of the hidden mediation and its
-capacity; (C2-structural) is the persistence needed for the stored
-record to survive until readback, with the slow-bath inequality one
-sufficient physical mechanism.
+frontier item (§3.1). The discriminating content is history readback:
+(C4) holds exactly when the visible law has positive conditional memory
+\(M_t=I(X_{<t};X_{t+1}\mid X_t)\) at some accessible time, and then
+every faithful deterministic completion contains readout-relevant hidden
+predictive memory. On one fixed finite reversible representative the
+full rooted visible process is indivisible somewhere in its recurrence
+cycle whenever some rooted map is not a permutation, since finite
+recurrence returns the visible map to the identity and a non-permutation
+stochastic matrix has no stochastic inverse. With a full-support visible
+prior this indivisibility is equivalent to a memory obstruction,
+\(M_k > 0\) at some order \(k\) below the recurrence time, and that
+order may lie as late as one step before the recurrence time.
+Observational access is a separate requirement: (C4) asks for the
+obstruction at an accessible order, and recurrence does not guarantee
+one, since every non-deterministic visible step gives the
+indivisibility, including in laws that are Markov on every accessible
+window. Conditions (C1) and (C3) are then necessary diagnostics of the
+hidden mediation and its capacity; (C2-structural) is the persistence
+needed for the stored record to survive until readback, with the
+slow-bath inequality one sufficient physical mechanism.
 
 For spatial OI systems, the coupling graph defined by one-step dynamical
 dependence supplies exact causal cones: influence propagates at most one
@@ -305,12 +314,11 @@ finite observable-law correspondence directly: every finite stochastic
 law has both a finite reversible realization and an exact fixed-basis
 unitary/Born representation, and every finite reversible visible law
 lies in the same class (§3.4). History readback then identifies the
-nontrivial sector by forcing hidden predictive memory and, on a fixed
-finite recurrent representative, global indivisibility. The remaining
-distinction between this exact stochastic--quantum equivalence and
-\emph{full operational quantum mechanics} is confined to the
-simultaneous coherent-instrument and composite structure stated
-explicitly in §3.4.
+nontrivial sector by forcing hidden predictive memory in every faithful
+completion. The remaining distinction between this exact
+stochastic--quantum equivalence and \emph{full operational quantum
+mechanics} is confined to the simultaneous coherent-instrument and
+composite structure stated explicitly in §3.4.
 
 \hypertarget{the-starting-point}{%
 \subsubsection{1.2 The Starting Point}\label{the-starting-point}}
@@ -694,19 +702,24 @@ fixed-basis unitary/Born representations \(Q_{\mathrm{fb}}\) are the
 same class, \(S\iff D\iff Q_{\mathrm{fb}}\) (§3.4). \textbf{(2) Readback
 content:} C4 is not needed for the existence of a quantum
 representation; it is what makes the OI sector nontrivial. C4 forces
-conditional memory in the visible law, readout-relevant hidden
-predictive memory in every faithful completion, and --- for a fixed
-finite reversible representative --- global indivisibility somewhere in
-the recurrence cycle (§2.3). C1 and C3 follow as necessary diagnostics
-of the mediation and its capacity; C2-structural supplies persistence to
-readback, with C2-slow one physical mechanism. \textbf{(3) Reverse
-finite realization:} every finite stochastic law, including every finite
-quantum record, has a finite reversible OI realization; bounded quantum
-instrument families are uniformly realizable to arbitrary finite
-accuracy (§3.4). \textbf{(4) Full operational extension:} identifying
-one common \emph{standard local quantum instrument/composite theory} for
-all coherent interventions requires the additional operational-lifting
-and composition hypotheses stated in §3.4. Bell is a separate constraint
+conditional memory in the visible law and readout-relevant hidden
+predictive memory in every faithful completion (§3.4); indivisibility
+somewhere in the recurrence cycle of a fixed finite reversible
+representative follows from any non-deterministic visible step,
+including in laws that are Markov on every accessible window, and does
+not require C4; with a full-support visible prior it is equivalent to
+memory at some order below the recurrence time, which an observer
+reaches only when that order is accessible, as C4 asserts (§2.3). C1 and
+C3 follow as necessary diagnostics of the mediation and its capacity;
+C2-structural supplies persistence to readback, with C2-slow one
+physical mechanism. \textbf{(3) Reverse finite realization:} every
+finite stochastic law, including every finite quantum record, has a
+finite reversible OI realization; bounded quantum instrument families
+are uniformly realizable to arbitrary finite accuracy (§3.4).
+\textbf{(4) Full operational extension:} identifying one common
+\emph{standard local quantum instrument/composite theory} for all
+coherent interventions requires the additional operational-lifting and
+composition hypotheses stated in §3.4. Bell is a separate constraint
 rather than one of those lifting hypotheses: for a response-complete
 deterministic completion, measurement independence plus ontic parameter
 independence would force \(|S_{\rm CHSH}|\le2\), so the Bell-violating
@@ -780,18 +793,29 @@ criterion for conditional mutual information, which is not formalized
 hidden memory at \(t\), a pair of such posteriors with different
 pushforwards: the forward direction is the pushforward identity applied
 in each realization, the converse the same identity applied in one
-realization, which exists (kernel: \texttt{S\_imp\_D}). The equivalence
-\(S \iff D\) and this universal statement are the paper's core.
-\textbf{Layer 2 --- memory and capacity} (§2.3): (C4) forces positive
-conditional memory; the (C3) information bound; the physical-memory
-theorem ((C2), conditional on mixing). \textbf{Layer 3 --- quantum
-representation} (§3.1, §3.4): the imported correspondence (Q1) and the
-in-house uncompressed form (Q2), scopes separated. \textbf{Layer 4 ---
-physical and operational realization} (§3.2, §4, companions):
-interventions (classical comb closed, §3.4; quantum instruments open),
-coherent preparation, Bell and free-choice structure, H-spin' and H-χ',
-the cosmological realization --- where the named hypotheses live. A
-Layer-1 result does not by itself establish any Layer-4 claim.
+realization, which exists (kernel: \texttt{S\_imp\_D}). In a bijective
+realization run from time 0 the visible past is a function of
+\((X_t, H_t)\), so \(I(X_{<t}; H_t \mid X_t) = H(X_{<t} \mid X_t)\) for
+every law, Markov laws included; the readout-relevant part of that
+memory is what distinguishes non-Markovian laws, and it is the visible
+witness carried through the pushforward identity. Over deterministic
+completions without the bijectivity requirement, the least hidden
+predictive information \(I(X_{<t}; H_t \mid X_t)\) is
+\(I(X_{<t}; X_{>t} \mid X_t)\), attained by the canonical predictive
+quotient, a staged non-injective predictor (§3.4, variational remark);
+over bijective realizations it is \(H(X_{<t} \mid X_t)\), as above. The
+equivalence \(S \iff D\) and the universal hidden-memory statement are
+the paper's core. \textbf{Layer 2 --- memory and capacity} (§2.3): (C4)
+forces positive conditional memory; the (C3) information bound; the
+physical-memory theorem ((C2), conditional on mixing). \textbf{Layer 3
+--- quantum representation} (§3.1, §3.4): the imported correspondence
+(Q1) and the in-house uncompressed form (Q2), scopes separated.
+\textbf{Layer 4 --- physical and operational realization} (§3.2, §4,
+companions): interventions (classical comb closed, §3.4; quantum
+instruments open), coherent preparation, Bell and free-choice structure,
+H-spin' and H-χ', the cosmological realization --- where the named
+hypotheses live. A Layer-1 result does not by itself establish any
+Layer-4 claim.
 
 \hypertarget{emergent-stochasticity-and-p-indivisibility}{%
 \subsection{2. EMERGENT STOCHASTICITY AND
@@ -890,27 +914,73 @@ occupied columns distinct. The right-inverse case is symmetric.
 \(\square\)
 
 \textbf{Theorem (history readback + finite recurrence implies
-indivisibility).} \emph{For a fixed finite reversible OI representative,
-genuine C4 history readback implies that the rooted visible stochastic
-process is indivisible somewhere in its full recurrence cycle.}
+indivisibility).} \emph{Let \(\varphi\) be a bijection of
+\(\mathcal{C}_V \times \mathcal{C}_H\) of order \(L\) and \(\mu_H\) a
+hidden prior shared by every root, and define the rooted visible maps
+\(\Gamma_t(a, j) = \mu_H\{h : \pi_V \varphi^t(a, h) = j\}\) for every
+\(a \in \mathcal{C}_V\), roots of visible probability zero included. The
+family is P-divisible on \(\{0, \ldots, n\}\) if
+\(\Gamma_t = \Gamma_s \Lambda_{s,t}\) with \(\Lambda_{s,t}\) stochastic
+for all \(s < t \leq n\). Let the root be drawn from a visible prior and
+the hidden state from \(\mu_H\), independently. If two
+positive-probability visible trajectories
+\((x_0, \ldots, x_k) \neq (x'_0, \ldots, x'_k)\) have \(x_k = x'_k\) ---
+in particular if a (C4) gap (§1.3) holds at order \(k\) --- then some
+\(\Gamma_s\) with \(1 \leq s \leq \min(k, L-1)\) is not a permutation,
+and for every \(n > s\) with \(\Gamma_n = I\), \(n = L\) among them, no
+stochastic \(\Lambda\) satisfies \(\Gamma_n = \Gamma_s \Lambda\): the
+rooted family is not P-divisible on \(\{0, \ldots, n\}\).}
 
 \emph{Proof.} Because \(\varphi\) is a permutation of a finite set, it
-has finite order \(L\), so the rooted visible map at \(L\) is
-\(\Gamma_L=I\). If every earlier rooted visible map \(\Gamma_k\) were a
-permutation, the current visible configuration would be a bijective
-deterministic function of the initial visible configuration at every
-time. Two positive-probability histories with the same current endpoint
-would then identify the same initial visible state and could not have
-different next-step laws, contradicting C4. Hence some \(\Gamma_k\) is
-non-permutation. Divisibility from that time to the recurrence would
-require a stochastic divisor producing \(I\) from \(\Gamma_k\), i.e.~a
-stochastic left or right inverse, forbidden by the lemma. \(\square\)
+has finite order \(L\), so \(\Gamma_L = I\) and
+\(\Gamma_{t+L} = \Gamma_t\). If
+\(\Gamma_1, \ldots, \Gamma_{\min(k, L-1)}\) were all permutations, then
+by periodicity every \(\Gamma_t\) with \(t \leq k\) would be one,
+\(\Gamma_t(a, \cdot) = \delta_{\sigma_t(a)}\) with \(\sigma_t\) a
+bijection, and the visible configuration at each time \(t \leq k\) would
+be \(\sigma_t\) of the root, \(\mu_H\)-almost surely. Two
+positive-probability histories with the same endpoint \(x_k\) would then
+share the root \(\sigma_k^{-1}(x_k)\) and coincide. Hence some
+\(\Gamma_s\), \(1 \leq s \leq \min(k, L-1)\), is not a permutation,
+possibly only through a row of a root of visible probability zero; the
+lemma applies to the square matrix, which is why every row is kept. A
+stochastic \(\Lambda\) with \(\Gamma_n = \Gamma_s \Lambda = I\) would be
+a stochastic right inverse of \(\Gamma_s\), which the lemma forbids.
+\(\square\) (kernel: the lemma is
+\texttt{isPermMatrix\_of\_stochastic\_inverse} in
+\texttt{OIBridge/EquivalenceChain.lean}; its composition with
+P-divisibility and the step from two positive-probability histories with
+a common endpoint to a non-permutation rooted map are proved on paper)
 
 \emph{Scope.} This is a global recurrence-cycle result. It does
 \textbf{not} say that C4 forces P-indivisibility on every accessible
 short-time window; the XOR control remains a counterexample to that
-stronger statement. What C4 buys exactly is hidden predictive readback
-and global indivisibility of the fixed finite recurrent law.
+stronger statement. With a full-support visible prior the hypothesis and
+the conclusion coincide on the representative: a readback gap at some
+order below \(L\) --- two positive-probability histories with a common
+endpoint and different next-step laws, equivalently \(M_k > 0\) for some
+\(k < L\) --- a non-permutation \(\Gamma_s\) for some \(0 < s < L\), and
+failure of P-divisibility on \(\{0, \ldots, L\}\) are equivalent.
+Without a gap below \(L\) the law on \(\{0, \ldots, L\}\) is Markov with
+kernels \(Q_k\), \(\Gamma_t = Q_0 \cdots Q_{t-1}\), and
+\(I = \Gamma_L = \Gamma_s (Q_s \cdots Q_{L-1})\) makes each \(\Gamma_s\)
+a permutation by the lemma; if every \(\Gamma_s\) is a permutation,
+\(\Gamma_s^{-1}\Gamma_t\) is a stochastic divisor. Full support enters
+only in the first of these steps: otherwise a non-permutation row may
+belong to a root of visible probability zero while the realized law has
+no gap. For every visible prior, a non-deterministic visible step ---
+\(P(X_{t+1} \mid X_t = x)\) not a point mass for some
+positive-probability \(x\) --- makes some \(\Gamma_s\) a
+non-permutation, so the recurrence-cycle indivisibility holds for every
+representative with such a step, laws that are Markov on every
+accessible window included. Under a full-support prior, the gap it is
+equivalent to may lie at orders up to the recurrence time; (C4) and
+condition (ii) of §3.4 require an accessible order, \(k\tau_S \ll t_R\).
+The equivalence is a property of the representative's rooted law over
+its whole recurrence cycle; an observer's statistics are its restriction
+to accessible windows, and on them the memory is witnessed only by a gap
+at an accessible order. What (C4) adds within accessible windows is the
+positive conditional memory of the readback lemma below.
 
 \textbf{Genericity.} The theorem's precondition --- that \(T\) is not a
 permutation matrix --- is a sufficient first-step \emph{witness} of (C1)
@@ -2370,14 +2440,12 @@ selection separate. The finite-horizon theorem below proves internally
 that \(S\), \(D\), and \(Q_{\mathrm{fb}}\) are the same observable-law
 class; the existence of a unitary/Born representation therefore requires
 neither C4 nor indivisibility. C4 supplies the nontrivial content:
-universal hidden predictive memory and, by the recurrence theorem of
-§2.3, global indivisibility of a fixed finite physical representative.
-The converse process-dilation theorem constructs a finite OI realization
-for every finite stochastic target. The remaining question is not
-whether a quantum representation exists, but whether an entire
-controlled family of preparations, coherent instruments, and composites
-is represented simultaneously by the standard local operational quantum
-theory.
+universal readout-relevant hidden predictive memory. The converse
+process-dilation theorem constructs a finite OI realization for every
+finite stochastic target. The remaining question is not whether a
+quantum representation exists, but whether an entire controlled family
+of preparations, coherent instruments, and composites is represented
+simultaneously by the standard local operational quantum theory.
 
 \textbf{Dilation existence.} Any single one-step doubly stochastic
 matrix on a finite configuration space can be realized as
@@ -3095,8 +3163,7 @@ fixed-basis observable statistics. A Born-form unitary representation is
 therefore exact and internal, but universal: Markov and memory-bearing
 laws alike lie in \(Q_{\mathrm{fb}}\), so representability alone is not
 the framework's discriminating content. That content is the readback
-sector isolated below. C4 forces nonzero predictive memory and, for a
-fixed finite recurrent representative, global indivisibility. The
+sector isolated below. C4 forces nonzero predictive memory. The
 subscript on \(Q_{\mathrm{fb}}\) marks the remaining boundary precisely.
 The theorem does not by itself prove that all coherent preparations,
 noncommuting interventions, and composites are represented
@@ -3761,19 +3828,22 @@ This is the maximal equivalence available to a fixed finite substratum
 under the stated operational interface.
 
 \textbf{Theorem (unavoidable hidden predictive memory).} \emph{Let
-\(\mathcal{S}\) be a visible process and let \(\mathcal{R}\) be ANY
-faithful deterministic realization of it --- a bijection \(\varphi\) on
-\(\mathcal{C}_V \times \mathcal{C}_H\) with a hidden prior reproducing
-\(\mathcal{S}\). Write \(f_x(h) = \pi_V(\varphi(x,h))\) for the next
-visible state, and for a visible history \(p\) ending in \(x\) write
+\(\mathcal{S}\) be a visible process and let \(\mathcal{R}\) be any
+faithful deterministic realization of it on a horizon \(K\) --- a
+bijection \(\varphi\) on \(\mathcal{C}_V \times \mathcal{C}_H\) with an
+initial law on \(\mathcal{C}_V \times \mathcal{C}_H\), which may
+correlate the coordinates, under which the visible trajectory has the
+law of \(\mathcal{S}\). Fix \(1 \leq t \leq K-1\). Write
+\(f_x(h) = \pi_V(\varphi(x,h))\) for the next visible state, and for a
+positive-probability visible history \(p\) ending in \(x\) write
 \(\mu_p\) for the induced hidden posterior
 \(P(H_t = \cdot \mid X_{<t} = p, X_t = x)\). Then:}
 
 \emph{(a) \textbf{Pushforward identity.}
 \(P(X_{t+1} \mid p, x) = (f_x)_\# \mu_p\) exactly.}
 
-\emph{(b) \textbf{Distinguishability floor.} For histories \(p, p'\)
-sharing the endpoint \(x\), the observed gap obeys
+\emph{(b) \textbf{Distinguishability floor.} For positive-probability
+histories \(p, p'\) sharing the endpoint \(x\), the observed gap obeys
 \(\delta = \|P(X_{t+1} \mid p,x) - P(X_{t+1} \mid p',x)\|_{\mathrm{TV}} \leq \|\mu_p - \mu_{p'}\|_{\mathrm{TV}}\).}
 
 \emph{(c) \textbf{Capacity floor.}
@@ -3786,19 +3856,19 @@ law is a step not formalized)
 
 \emph{Proof.} (a) Determinism makes \(X_{t+1}\) a function of
 \((X_t, H_t)\), so conditioning on \(p\) and pushing \(\mu_p\) through
-\(f_x\) IS the conditional law. (b) A deterministic map is a channel and
+\(f_x\) is the conditional law. (b) A deterministic map is a channel and
 total variation is monotone under channels. (c)
 \(X_{<t} \to H_t \to X_{t+1}\) is a Markov chain given \(X_t\), by the
 same functional dependence; data processing gives the first inequality
 and \(I \leq H(H_t) \leq \log_2|\mathcal{C}_H|\) the second. \(\square\)
-(All three certified over every realization at
-\((n_V, |\mathcal{C}_H|) = (2,2), (2,3), (3,2)\) --- 1\{,\}464 cases ---
-in \texttt{memory\_probes.py}.)
+(All three certified over every bijection at
+\((n_V, |\mathcal{C}_H|) = (2,2), (2,3), (3,2)\) under the uniform prior
+--- 1\{,\}464 cases --- in \texttt{memory\_probes.py}.)
 
 \emph{Remark (what this strengthens).} The equivalence of §3.4 is
 existential: some finite reversible realization exists. That statement
 is satisfied by Markov processes too, so it cannot by itself distinguish
-the framework's regime. The theorem above is UNIVERSAL --- it constrains
+the framework's regime. The theorem above is universal --- it constrains
 every deterministic completion --- and it is the sense in which
 observation incompleteness forces hidden structure rather than merely
 permitting it: \textbf{if the visible process remembers its past, then
@@ -3809,51 +3879,74 @@ some faithful realization two positive-probability histories sharing an
 endpoint induce differing pushforwards
 \((f_x)_\# \mu_p \neq (f_x)_\# \mu_{p'}\), then by (a) those
 pushforwards \emph{are} differing next-step conditional laws, so
-\(M_t > 0\) --- hence \(M_t > 0\) holds exactly when every faithful
+\(M_t > 0\) by the vanishing criterion for conditional mutual
+information --- hence, since a faithful realization exists
+(\texttt{S\_imp\_D}), \(M_t > 0\) holds exactly when every faithful
 deterministic realization --- of any horizon \(K \geq t+1\), the least
 on which \(M_t\) is defined --- contains readout-relevant hidden
 predictive memory at \(t\). The conditions follow rather than being
-assumed: (C1) because a hidden distinction invisible to \(f_x\) produces
-identical pushforwards; (C2-structural) as the retention required by (b)
---- the slow-bath form (C2-slow) one mechanism among several (§1.3);
-(C3) as (c) itself.
+assumed: (C1) because if \(f_x\) were constant on the union of the
+supports of \(\mu_p\) and \(\mu_{p'}\) the two pushforwards would
+coincide, so readout-relevant memory makes \(f_x\) non-constant on
+positive-probability hidden states; (C2-structural) as the retention
+required by (b) --- the slow-bath form (C2-slow) one mechanism among
+several (§1.3); (C3) by the data-processing argument of (c) applied to
+the whole visible future (kernel: \texttt{c3\_necessity} in
+\texttt{OIBridge/C3Necessity.lean}), a bound that holds in every
+faithful realization, Markov ones included. In the bijective class
+reversibility fixes two of the theorem's terms: the posteriors of
+distinct positive-probability histories ending at \(x\) have disjoint
+supports, so the right side of (b) is \(1\), and
+\(I(X_{<t}; H_t \mid X_t) = H(X_{<t} \mid X_t)\) for every law. The
+retention in (b) is therefore supplied by reversibility for Markov and
+non-Markovian laws alike; what is specific to non-Markovian laws is (a)
+with the visible witness.
 
-\emph{Remark (a variational identity, open --- and false in its naive
-form).} It is natural to conjecture
-\(M_{\mathrm{det}} := \inf_{\mathcal{R}} I(X_{<t}; H_t \mid X_t) = M_t\):
-that conditional mutual information is exactly the minimum hidden
-predictive memory a reversible deterministic completion requires. The
-lower bound is (c). The reading in which the infimum ranges over
-realizations of FIXED hidden dimension is FALSE: at
-\((n_V, |\mathcal{C}_H|) = (2,3)\) the minimum equals \(M_t\) for only
-one of fifteen distinct processes with \(M_t > 0\), with residuals up to
-\(0.667\) bits (\texttt{memory\_probes.py}). Any proof must therefore
-let the hidden dimension vary --- the response-table construction, which
-preloads exactly the next-response variable, is the candidate attainer
---- and must quotient inert ledger bits that cannot influence the
-future; that quotient is now constructed and shown canonical (the
-predictive-completion theorem below), leaving open only the variational
-VALUE question: whether the post-quotient minimum of
-\(I(X_{<t}; H_t \mid X_t)\) attains \(M_t\). Stated here so the naive
-form is not re-derived.
+\emph{Remark (a variational question).} Over reversible deterministic
+completions
+\(M_{\mathrm{det}} := \inf_{\mathcal{R}} I(X_{<t}; H_t \mid X_t)\) does
+not equal \(M_t\) in general at any hidden dimension: every bijective
+completion has \(I(X_{<t}; H_t \mid X_t) = H(X_{<t} \mid X_t)\) (Remark
+above), which exceeds \(M_t\) by \(H(X_{<t} \mid X_t, X_{t+1})\) --- for
+an i.i.d. fair coin at \(t = 1\), \(M_1 = 0\) while every reversible
+completion carries \(1\) bit. At \((n_V, |\mathcal{C}_H|) = (2,3)\) the
+two agree for one of fifteen distinct processes with \(M_t > 0\), with
+residuals up to \(0.667\) bits (\texttt{memory\_probes.py}); the
+agreeing process is the one with \(H(X_{<t} \mid X_t, X_{t+1}) = 0\),
+and each residual equals that entropy by the identity above. Without the
+bijectivity requirement the infimum is attained: in every deterministic
+completion the whole visible future is a function of \((X_t, H_t)\), so
+\(I(X_{<t}; H_t \mid X_t) \geq I(X_{<t}; X_{>t} \mid X_t)\) (kernel:
+\texttt{c3\_necessity\_via\_hidden} in
+\texttt{OIBridge/C3Necessity.lean}, stated there for bijective
+realizations; the same data-processing step for non-injective and staged
+completions is proved on paper), with equality for the canonical
+predictive quotient (the predictive-completion theorem below), whose
+hidden state at \(t\) is the visible future tail. The infimum over
+deterministic completions is therefore \(I(X_{<t}; X_{>t} \mid X_t)\),
+equal to \(M_t\) exactly when
+\(I(X_{<t}; X_{>t+1} \mid X_t, X_{t+1}) = 0\); for \(X_0, X_1, X_2\)
+i.i.d. fair bits and \(X_3 = X_0\), \(M_1 = 0\) while every
+deterministic completion carries \(1\) bit at \(t = 1\).
 
 \emph{Remark (the conditions are diagnostics, not hypotheses).} The
 reduction extends one step further. (C4) is not an independent condition
 on the realization either: it asserts a readback gap \emph{mediated
 through the hidden state}, and in a faithful realization every
 correlation is so mediated, so the mediation clause is automatic and
-(C4) coincides with clause (ii) itself. Exhaustive enumeration confirms
-it --- the (C4) gap and \(I(X_{<k}; X_{k+1} \mid X_k) > 0\) agree on all
-24, 720 and 720 realizations at
+(C4) coincides with condition (ii) of the characterization theorem.
+Exhaustive enumeration confirms it --- the (C4) gap and
+\(I(X_{<k}; X_{k+1} \mid X_k) > 0\) agree on all 24, 720 and 720
+bijections under the uniform prior at
 \((n_V, |\mathcal{C}_H|) = (2,2), (2,3), (3,2)\), with no disagreement
 (\texttt{primitive\_probes.py}). Taken together with the dependencies
-above, this does NOT license dropping readback from the right-hand side.
+above, this does not license dropping readback from the right-hand side.
 The bare form
 \[\text{accessible non-Markovianity} \iff \text{a per-horizon finite reversible deterministic realization exists}\]
 is \textbf{false}: the process-dilation construction of §3.4 realizes
 Markov laws as well, so the right-hand side is satisfied by processes
 with no memory at all. What the reduction does license is the
-\emph{universal} statement --- the theorem below --- in which readback
+\emph{universal} statement --- the theorem above --- in which readback
 appears not as a hypothesis but as an unavoidable feature of every
 faithful realization. What C1--C4 supply is not hypotheses but a
 \emph{diagnostic checklist} describing what such a realization looks
@@ -5054,12 +5147,11 @@ S\iff D\iff Q_{\mathrm{fb}}.
 quantum representation, and every finite quantum record has a finite
 reversible realization. The representation statement is universal; it is
 not the selector. The content of observation incompleteness lies in
-history readback. C4 forces conditional memory, readout-relevant hidden
-predictive structure in every faithful completion, and --- on a fixed
-finite reversible physical representative --- global indivisibility
-somewhere in the recurrence cycle. C1 and C3 are necessary diagnostics
-of that mediation and its capacity, while C2-structural is the
-persistence condition and C2-slow one sufficient physical mechanism.
+history readback. C4 forces conditional memory and readout-relevant
+hidden predictive structure in every faithful completion. C1 and C3 are
+necessary diagnostics of that mediation and its capacity, while
+C2-structural is the persistence condition and C2-slow one sufficient
+physical mechanism.
 
 The spatial theory adds an exact causal-cone result. Because the
 coupling graph is defined by one-step dynamical dependence, \(k\)
@@ -5092,7 +5184,7 @@ description.
 Accordingly, the phrase \emph{equivalence of quantum mechanics and
 embedded observation} has a precise theorem-level meaning: \textbf{exact
 bidirectional equivalence of finite observable stochastic laws and their
-quantum representations, with history readback selecting the indivisible
+quantum representations, with history readback selecting the
 memory-bearing sector.} One boundary remains explicit rather than hidden
 in the slogan. Full equality with the standard local operational quantum
 theory requires a common compatible representation of the complete
@@ -5391,4 +5483,4 @@ degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
 \end{document}
-% source-sha256: 24fd3c5612d651eacce68ddf1449a4c5c80669ac53829d159861191d534b12b1
+% source-sha256: b90bb4515d534d2c193bc587b0f188b5b48d9cfd6cb5d900069e8b50aaf7529e
