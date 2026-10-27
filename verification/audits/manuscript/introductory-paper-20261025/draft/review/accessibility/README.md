@@ -9,3 +9,9 @@
 - **Answers:** `RUN1-ANSWERS-2afb5b6a.md` records them verbatim, unedited, saved before any evaluation. sha256 `332583a591a9ad65c628b0871ab391b4f86f03f3ce66a895dcf8b72095c61b57`.
 - **Scope of the evidence:** this is an AI comprehension test. It is not evidence of human comprehension. Human reader testing is optional before public release.
 - **Evaluation:** the scientific reviewer judges these answers against the paper and its sources, using the evaluator notes. That evaluation is recorded separately.
+- **Evaluation of run 1:** `RUN1-EVALUATION.md` records the scientific reviewer's verdict: **gate 2 not met.** Q1–Q4 and Q6 pass. Q5 (memory) is only partly correct, for three reasons:
+  - The paper gives the memory equivalence in one direction only.
+  - The paper's own forecast gloss drops the shared hidden prior.
+  - The shared-prior condition is never explained.
+
+  Four explanation changes are required before a re-test with a fresh reader.
