@@ -30,3 +30,16 @@ Retain the remark on non-masslike center terms and add:
 - Record independent review and CI on an exact head; no scientific status upgrade.
 
 This note opens the investigation only. It does not establish a universal countertheorem, change theorem text, or authorize a merge.
+
+
+## Follow-up source verification (2026-10-27)
+
+Inspected `verification/lean/OI_Structural_Core.lean`, `verification/lean/ROADMAP.md`, and `verification/lean/structural_chain_probe.py` on main.
+
+**Important refinement of initial diagnosis.** The restricted operator-level equivalence need not be rejected: `Chiral.center_anticommutator` proves the identity `{D+mε+p₀, ε} = 2m I + 2p₀ ε` under `ε²=I`, `{D,ε}=0`, and commutation assumptions on `m,p₀`. The ROADMAP and exact-integer probe explicitly interpret the **diagonal of the staggered Dirac operator** as center-free iff exactly chiral. That narrower interpretation differs from the displayed SM theorem's unrestricted phrase "center independence of the lattice dynamics".
+
+**What the Lean theorem itself does not assert:** no biconditional appears in `center_anticommutator`; to deduce `{D+mε+p₀,ε}=0 ⇒ m=p₀=0`, one needs a suitable coefficient domain, characteristic not 2, and independence of `I` and `ε` (or another justification ruling out cancellation). In an unrestricted ring, the RHS being zero does not force both coefficients zero. The exact probe validates concrete instances, not all microscopic lattice dynamics.
+
+**Refined recommended manuscript response:** keep a precise equivalence only *within the specified staggered Dirac diagonal family* and with the separation hypotheses explicitly proved/cited; state separately that microscopic center independence ⇒ emergent chirality across an arbitrary observer projection is NOT demonstrated. The standard 4D Laplacian's diagonal self-term is not a Dirac mass term and therefore does not contradict the restricted identity.
+
+**Reviewer task:** check whether the restricted converse already has a Lean declaration (beyond the identity) or must be separately proved; validate the concrete operator class, dimensional assumptions, and equality of the two definitions of center-free. No declaration or CI success is asserted here beyond direct source inspection. The initial proposed one-way replacement is suspended pending that determination.
