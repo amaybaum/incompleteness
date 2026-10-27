@@ -12,8 +12,10 @@ name: evidence replay
 #                     cache), so the OIBridge modules are elaborated in the job. The frozen extractor and
 #                     comparator (48b18ac5) compare the output with the retained expected result (14 modules,
 #                     blob 61cfd6ea at #918's head 4a260ca9) and with the staged extension (28 modules, blob
-#                     97a2377d at e73f7be3). A step fails unless lake built 226 OIBridge modules, the number
-#                     job 121598983127 replayed, including the 28 governed ones, and replayed none.
+#                     97a2377d at e73f7be3). A step fails unless lake built every OIBridge module in the source
+#                     at the commit (228, all reachable from the root module), replayed none, and the 28
+#                     governed modules are among them. Job 121598983127 printed 226 Replayed lines: lake prints
+#                     a replayed module only when it has messages, and a built one always.
 #   bh-mutants        the BH-01 and BH-02 mutant campaigns (mutants.py) at eae01647, the corpus commit at which
 #                     the audit read both records. Each mutants.py exits nonzero unless every mutant is caught.
 #                     BH-01's output (written with --out outside the tree) is compared byte for byte with its
@@ -89,7 +91,7 @@ jobs:
           python3 - <<'PY'
           import json, os
           json.dump({"workflow_sha": os.environ["GITHUB_SHA"], "run_id": os.environ["GITHUB_RUN_ID"],
-                     "run_attempt": os.environ["GITHUB_RUN_ATTEMPT"], "activity": "lean-fresh-build",
+                     "run_attempt": os.environ["GITHUB_RUN_ATTEMPT"], "activity": "lean-fresh-build", "confirm_commit": os.environ["CONFIRM"],
                      "commit": os.environ["LEAN_COMMIT"], "archive_commit": os.environ["ARCHIVE_COMMIT"],
                      "expected": {"14": [os.environ["EXPECTED_14"], os.environ["EXPECTED_14_BLOB"]],
                                   "28": [os.environ["EXPECTED_28"], os.environ["EXPECTED_28_BLOB"]]},
@@ -110,6 +112,7 @@ jobs:
         run: |
           log="$RUNNER_TEMP/out/build-and-gate.log"
           b=0; g=0
+          python3 -VV > "$RUNNER_TEMP/out/gate-python-version.txt" 2>&1
           (cd "$RUNNER_TEMP/dir/verification/lean-mathlib" && lean --version && lake exe cache get && lake --rehash build) > "$log" 2>&1 || b=$?
           cp "$RUNNER_TEMP/dir/verification/lean-mathlib/lake-manifest.json" "$RUNNER_TEMP/out/lake-manifest.json" || true
           (cd "$RUNNER_TEMP/dir" && python3 tools/release_gate.py) >> "$log" 2>&1 || g=$?
@@ -128,7 +131,7 @@ jobs:
           sys.exit(0 if rev == "db584cd6d46c92f209a44c0f1c829460d327499d" else 1)
           PY
 
-      - name: 226 OIBridge modules built in this job, including the 28 governed ones, and none replayed
+      - name: Every OIBridge source module built in this job, none replayed
         if: ${{ !cancelled() && steps.guard.outcome == 'success' }}
         run: |
           set -o pipefail
@@ -143,11 +146,12 @@ jobs:
           source = {n[len("verification/lean-mathlib/"):-len(".lean")].replace("/", ".") for n in names
                     if re.fullmatch(r"verification/lean-mathlib/OIBridge(/.+)?\.lean", n)}
           governed = {m[:-len(".lean")].replace("/", ".") for m in json.load(open(os.path.join(out, "expected-28.json")))["expected"]["modules"]}
-          checks = {"replayed": len(replayed) == 0, "built_count_226": len(built) == 226,
-                    "built_in_source": built <= source, "governed_built": governed <= built}
+          checks = {"replayed": len(replayed) == 0, "built_equals_source": built == source,
+                    "governed_built": governed <= built}
           print(json.dumps({"built": len(built), "replayed": len(replayed), "source_modules": len(source),
                             "governed": len(governed), "governed_not_built": sorted(governed - built),
-                            "built_not_in_source": sorted(built - source), "checks": checks}, indent=1))
+                            "built_not_in_source": sorted(built - source), "source_not_built": sorted(source - built),
+                            "checks": checks}, indent=1))
           sys.exit(0 if all(checks.values()) else 1)
           PY
 
@@ -167,6 +171,7 @@ jobs:
       - name: No tracked file changed
         if: ${{ !cancelled() && steps.guard.outcome == 'success' }}
         run: |
+          set -euo pipefail
           git -C "$RUNNER_TEMP/dir" status --porcelain --untracked-files=no | tee "$RUNNER_TEMP/out/git-status.txt"
           test ! -s "$RUNNER_TEMP/out/git-status.txt"
 
@@ -207,6 +212,7 @@ jobs:
           python-version: '3.13.16'
 
       - name: Interpreter and run record
+        id: interp
         run: |
           set -euo pipefail
           mkdir -p "$RUNNER_TEMP/out/bh01"
@@ -216,7 +222,7 @@ jobs:
           python3 - <<'PY'
           import json, os
           json.dump({"workflow_sha": os.environ["GITHUB_SHA"], "run_id": os.environ["GITHUB_RUN_ID"],
-                     "run_attempt": os.environ["GITHUB_RUN_ATTEMPT"], "activity": "bh-mutants",
+                     "run_attempt": os.environ["GITHUB_RUN_ATTEMPT"], "activity": "bh-mutants", "confirm_commit": os.environ["CONFIRM"],
                      "commit": os.environ["BH_COMMIT"],
                      "commands": ["cd verification/programmes/black-hole-information/bh01_access_v1 && python3 -I -B mutants.py --out <out>/bh01",
                                   "cd verification/programmes/black-hole-information/bh02_scramble_v1 && python3 -I -B mutants.py > <out>/bh02-mutants-output.txt"]},
@@ -234,7 +240,7 @@ jobs:
           test "$rc" -eq 0 && test "$d" -eq 0
 
       - name: BH-02 mutants.py
-        if: ${{ !cancelled() && steps.guard.outcome == 'success' }}
+        if: ${{ !cancelled() && steps.guard.outcome == 'success' && steps.interp.outcome == 'success' }}
         working-directory: verification/programmes/black-hole-information/bh02_scramble_v1
         run: |
           rc=0
@@ -248,6 +254,7 @@ jobs:
       - name: No tracked file changed
         if: ${{ !cancelled() && steps.guard.outcome == 'success' }}
         run: |
+          set -euo pipefail
           git status --porcelain --untracked-files=no | tee "$RUNNER_TEMP/out/git-status.txt"
           test ! -s "$RUNNER_TEMP/out/git-status.txt"
 
@@ -298,7 +305,7 @@ jobs:
           python3 - <<'PY'
           import json, os
           json.dump({"workflow_sha": os.environ["GITHUB_SHA"], "run_id": os.environ["GITHUB_RUN_ID"],
-                     "run_attempt": os.environ["GITHUB_RUN_ATTEMPT"], "activity": "bhb-optimized",
+                     "run_attempt": os.environ["GITHUB_RUN_ATTEMPT"], "activity": "bhb-optimized", "confirm_commit": os.environ["CONFIRM"],
                      "commit": os.environ["BH_COMMIT"],
                      "commands": ["cd verification/programmes/black-hole-information/bh02_scramble_v1 && python3 -I -B -O checks.py > <out>/result-O.json",
                                   "cmp <out>/result-O.json result.json"]},
