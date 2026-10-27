@@ -302,3 +302,8 @@ with digests showing their text unchanged.
 the card, four-bit and XOR examples for the shared starting distribution and for memory against chaining on a window,
 and the narrative fixes. It carries the Theorem 4 consistency table and the checks of each example against §2.6 and
 Main.
+
+`CHANGES-r22.md` records r22, which applies the two r21 reviews and the owner's notes: the never-occurring-rows
+reason in Main's sense, the §2.5 duplication removed, the abstract organized around what OI is, what is established,
+why it matters and what is open, the return horizon and recurrence cycle defined, and the three memory terms kept
+apart. It carries the abstract's sentence-by-sentence old and new text and the terminology sweep.
