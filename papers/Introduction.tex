@@ -660,7 +660,11 @@ the world could have, not about the starts a sample happens to contain,
 and it means something only because the face-down card is dealt the same
 way whichever card is face up: if the dealer put the opposite colour
 face down, the forecast from red and the forecast from black would
-describe two different deals, not one rule started in two ways.
+describe two different deals, not one rule started in two ways. A
+forecast from a start is a forecast of what the rule does only if the
+hidden part is set up by the same procedure every time; if the procedure
+changed with the start, a difference between two forecasts could come
+from the setup rather than from the dynamics.
 
 Why keep a start that never occurs? A different deck and shuffle shows.
 Suppose its rule makes a red start always show red while a black start,
@@ -717,13 +721,17 @@ has a row, computed from the same preparation.
 The step from two observed histories with a common endpoint to an
 \emph{overlap}, two rows that are both positive in a common column
 (Theorem 3), uses that every row comes from the same preparation {[}Main
-§2.3{]}. Rows for starts that never happen are kept because the argument
-compares the whole square table with its return to certainty at the
-recurrence, and it can happen that the only rows keeping the table from
-being a permutation belong to starts that never happen {[}Main §2.3{]}.
-The price is that the failure of chaining can then lie only in forecasts
-that no observer will see; when every start has positive probability,
-every row is one that occurs (see the Corollary).
+§2.3{]}. Rows for starts that never happen are kept because a result
+about a rule has to cover every start the rule can be given, not only
+the starts a particular sample contains. The argument compares the whole
+square table with its return to certainty at the recurrence, and it can
+happen that the only rows keeping the table from being a permutation
+belong to starts that never happen {[}Main §2.3{]}, as in the
+different-deck example; dropping those rows would then describe the
+sample rather than the rule. The price is that the failure of chaining
+can then lie only in forecasts that no observer will see; when every
+start has positive probability, every row is one that occurs (see the
+Corollary).
 
 \textbf{Theorem 3} (recurrence and overlap {[}Main §2.3{]}). \emph{Let
 \(\varphi\) be a bijection of \(\mathcal C_V\times\mathcal C_H\) with
@@ -785,7 +793,15 @@ beyond every accessible window, an observer confined to accessible
 windows sees neither the late conditional memory nor the failure of
 chaining it implies across the cycle: both remain established in the
 dynamics under the theorem's hypotheses, but neither appears in any
-accessible record.
+accessible record. Such a failure is a property of the world's rule, its
+dynamics with its hidden preparation, rather than of any record: in a
+finite reversible world whose hidden part starts with the same odds
+whatever is visible at the start, and with a visible step that is not
+fully predictable from the current observation, no single step-by-step
+chain of forecasts from every start describes the visible sector over
+the whole cycle, although one may hold on every accessible window, as in
+the example below. It is a constraint on how such a world can be
+described, not a prediction for accessible data {[}Main §2.3, Scope{]}.
 
 For example, let \(X_0,X_1,X_2\) be independent fair bits and
 \(X_3=X_0\). Up to time 2 each next observation is independent of the
@@ -1045,18 +1061,22 @@ completion conditions are:
 \def\labelenumi{(\roman{enumi})}
 \tightlist
 \item
-  available families send positive states to positive states, and their
-  outcome traces sum to the input trace;
+  \emph{valid probabilities}: available families send positive states to
+  positive states, and their outcome traces sum to the input trace;
 \item
-  operations remain available with a one-state ancilla adjoined;
+  \emph{trivial-ancilla consistency}: operations remain available with a
+  one-state ancilla adjoined;
 \item
-  an untouched independent system can be adjoined without changing an
-  intervention;
+  \emph{inert spectators}: an untouched independent system can be
+  adjoined without changing an intervention;
 \item
-  every finite unitary on every composite is available;
+  \emph{full reversible control}: every finite unitary on every
+  composite is available;
 \item
-  attaching a fresh uniformly prepared ancilla to a composite, acting,
-  and discarding it gives an available operation.
+  \emph{iterated composition}: attaching a fresh uniformly prepared
+  ancilla to a composite, acting, and discarding it gives an available
+  operation, so that a composite can itself serve as the working system
+  of a larger experiment.
 \end{enumerate}
 
 \textbf{Theorem 4} (operational-completion characterization {[}GR
@@ -1827,4 +1847,4 @@ arXiv:gr-qc/0604062v4.
 \endgroup
 
 \end{document}
-% source-sha256: 3e11deff73b2e8735768645931099fa66ab96b03f119efedd1e86194f7a8e0e0
+% source-sha256: e58f5404212474faf21880124a2acdca898eaa735babfc3bbf7011099804748d

@@ -329,3 +329,7 @@ with the causal chain of the card example stated, terms defined at first use, th
 `CHANGES-r27.md` records r27, which applies the r26 editorial confirmation's should-fix and two optional findings
 before the fourth comprehension test: the duplicate fixed-rule sentence removed, the shared-prior paragraph split
 before the overlap step, and "Stated precisely:" for the return from the example to the general statement.
+
+`CHANGES-r28.md` records r28, which applies the run-4 comprehension evaluation: plain reasons for the shared
+hidden preparation and for keeping never-occurring starts, what the cycle-wide failure means for a rule rather than a
+record, and the GR names of the five completion conditions.
