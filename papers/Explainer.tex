@@ -447,10 +447,13 @@ eventually fill up and stop recording. What the observer needs is an
 environment that couples to it, retains the record long enough to be
 read, has the capacity to hold it, and feeds it back --- and it is the
 feedback (C4) that does the work, the other three following from it or
-supporting it. Such an environment sustains the persistent,
-non-decomposable correlations the paper calls \emph{P-indivisibility}
---- a technical term meaning the system's transition probabilities at
-different times cannot be broken into independent steps.
+supporting it. Such an environment sustains persistent conditional
+memory --- transition probabilities that depend on the history, not just
+the present. A distinct property, which the paper calls
+\emph{P-indivisibility} --- the system's transition probabilities at
+different times cannot be broken into independent steps --- holds across
+the recurrence cycle, and on accessible windows only where a
+divisibility witness shows it.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -814,19 +817,22 @@ representation in compressed form under (T).
 \subsubsection{Why conditions C2 and C3 matter
 physically}\label{why-conditions-c2-and-c3-matter-physically}}
 
-The P-indivisibility theorem needs only coupling (C1) and finiteness. So
-why does the paper insist on slow memory (C2) and vast capacity (C3)?
+The P-indivisibility theorem needs only a non-permutation rooted map and
+finiteness (with the uniform hidden prior, any non-trivial coupling (C1)
+supplies one). So why does the paper insist on slow memory (C2) and vast
+capacity (C3)?
 
-Because P-indivisibility without C2 and C3 might only show up at absurd
-timescales or might self-destruct. C2 ensures the memory persists on
-timescales accessible to actual experiments, not just at cosmic
-recurrence times. C3 ensures the hidden sector never runs out of room to
-store information --- if it saturates, later imprints overwrite earlier
-ones, and the process becomes effectively memoryless. Together with C4's
-readback --- the load-bearing condition (\texttt{review4\_probes.py}:
-storage and capacity without readback do not suffice) --- C2 and C3 make
-the accessible memory strong, persistent, and observationally relevant;
-the conditional memory \(M_t\) is the diagnostic that readback makes
+Because recurrence-scale P-indivisibility shows up only at absurd
+timescales. On accessible timescales the relevant property is
+conditional memory: C2 ensures the memory persists on timescales
+accessible to actual experiments, not just at cosmic recurrence times.
+C3 ensures the hidden sector never runs out of room to store information
+--- if it saturates, later imprints overwrite earlier ones, and the
+process becomes effectively memoryless. Together with C4's readback ---
+the load-bearing condition (\texttt{review4\_probes.py}: storage and
+capacity without readback do not suffice) --- C2 and C3 make the
+accessible memory strong, persistent, and observationally relevant; the
+conditional memory \(M_t\) is the diagnostic that readback makes
 measurable.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -1076,9 +1082,9 @@ logical chain:
   law and needs the recurrence and non-permutation hypotheses, not
   C1/C3/C4 alone
 \item
-  Section 3.3 proves: accessible-window P-indivisibility ⟹ C1, C3, C4
-  (necessity, unconditional); C2's slow form within the mixing class
-  (the conditional physical-memory theorem)
+  Section 3.3 proves: accessible-window P-indivisibility under a
+  full-support visible prior ⟹ C1, C3, C4 (necessity); C2's slow form
+  within the mixing class (the physical-memory theorem, slow-bath form)
 \item
   Combined: \textbf{accessible non-Markovianity ⟺ embedded observation
   under C1, C3, C4 (for some accessible order \(k\), on each finite
@@ -3282,16 +3288,17 @@ S is the set of all distinguishable states. Its physical meaning is
 \emph{finite capacity}: there are \textbar S\textbar{} configurations
 that can be told apart, carrying log₂\textbar S\textbar{} bits of
 information. The finiteness is not a regularization --- it's
-load-bearing. Finite sets recur (φ\^{}N = id), recurrence produces
-P-indivisibility, and the imported correspondence supplies the quantum
-representation --- for its whole class, with P-indivisibility fixing
-whether the represented dynamics is nontrivially indivisible. Strictly,
-only the visible sector and boundary layer need to be finite --- the
-deep hidden sector may be infinite, because the readback lemma (Main,
-§2.3) establishes conditional memory without recurrence
-(P-indivisibility, which the recurrence theorem supplies, uses the
-finiteness of the whole state space), and the boundary-only dependence
-lemma (GR, §3.2) ensures the deep sector's contribution is suppressed by
+load-bearing. Finite sets recur (φ\^{}N = id), recurrence, together with
+a non-permutation rooted map, produces P-indivisibility, and the
+imported correspondence supplies the quantum representation --- for its
+whole class, with P-indivisibility fixing whether the represented
+dynamics is nontrivially indivisible. Strictly, only the visible sector
+and boundary layer need to be finite --- the deep hidden sector may be
+infinite, because the readback lemma (Main, §2.3) establishes
+conditional memory without recurrence (P-indivisibility, which the
+recurrence theorem supplies, uses the finiteness of the whole state
+space), and the boundary-only dependence lemma (GR, §3.2) ensures the
+deep sector's contribution is suppressed by
 \(\tau_S/\tau_B \sim 10^{-32}\).
 
 φ is a bijection: every state has exactly one predecessor and exactly
@@ -3819,8 +3826,8 @@ separate Tsirelson bound; bare/global OI has PR negative control \\
 §3.3: Necessity of C1 & Accessible memory requires coupling & No
 coupling → permutation → P-divisible \\
 §3.3: Necessity of C2 & Physical memory requires record persistence ---
-slow bath one mechanism, conditional on mixing & Fast-mixing bath →
-Markov → P-divisible \\
+slow-bath form conditional on mixing & Fast-mixing bath → Markov →
+P-divisible \\
 §3.3: Necessity of C3 & Accessible memory requires capacity & I ≤ log₂ m
 bounds memory \\
 §3.4: Characterization theorem & non-Markovianity ⟺ C1, C3, C4 per
@@ -3948,4 +3955,4 @@ The final text and all scientific claims were reviewed and verified by
 the author.
 
 \end{document}
-% source-sha256: 021d506f6d11d14d7e5e44c9c2dc62464b05343623b1bbe5d63c4f767127cae2
+% source-sha256: 7cce53b73abfa876103b53d825dc32465b672b2462895a919e5e43ded1539c37

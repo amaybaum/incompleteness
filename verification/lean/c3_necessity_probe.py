@@ -14,9 +14,9 @@ independent executable layer, and its controls are aimed at the two ways C3 gets
   THE TWO MISREADINGS are both denied in the manuscript, and both get a control.
       C5: C3 is NOT m >= n. A two-hidden-state, three-visible-state bijection with full
           distinguishability revival has m = 2 < n = 3 and satisfies the bound comfortably.
-      C6: sustained backflow does NOT force m >~ 2^(K I_0). That reading needs per-event
+      C6: sustained conditional memory does NOT force m >~ 2^(K I_0). That reading needs per-event
           contributions to accumulate without hidden-state reuse, which P-indivisibility does not
-          supply; C6 exhibits a realization where K events each carry backflow I_0 > 0 and the
+          supply; C6 exhibits a realization where K events each carry conditional memory I_0 > 0 and the
           accumulated K*I_0 exceeds log2 m, while the true per-process bound holds throughout.
 
   C1  the theorem, at horizons L = 1..4, over an exhaustive family of small realizations.
@@ -25,7 +25,7 @@ independent executable layer, and its controls are aimed at the two ways C3 gets
       hidden information, and log2 m — each below the next, with the future term monotone in L.
   C4  I* over a finite family of slices sharing a hidden alphabet, and the corollary m >= 2^(I*).
   C5  COUNTERCONTROL: m = 2 < n = 3 with full distinguishability revival. C3 is not a visible count.
-  C6  COUNTERCONTROL: K events of backflow I_0 with K*I_0 > log2 m, under hidden-state reuse.
+  C6  COUNTERCONTROL: K events of conditional memory I_0 with K*I_0 > log2 m, under hidden-state reuse.
   C7  the bound is TIGHT and therefore not vacuous: a realization attaining I = log2 m exactly.
   C8  lint: the Lean file is imported by the gated bridge root, carries no sorry, derives C3 from
       `capacity_floor_of_fun` rather than reproving data processing, and records what it does not
@@ -265,7 +265,7 @@ check("C5", ok5,
 
 # ----------------------------------------------------------------- C6  countercontrol: no accumulation
 # a one-bit hidden sector REUSED at every event: phi(x, h) = (h, x), so the next visible value is
-# the hidden bit and the same bit carries backflow at every slice
+# the hidden bit and the same bit carries conditional memory at every slice
 PHI6 = {(0, 0): (0, 0), (0, 1): (1, 0), (1, 0): (0, 1), (1, 1): (1, 1)}
 assert len(set(PHI6.values())) == 4
 assert all(PHI6[(x, h)] == (h, x) for x in range(2) for h in range(2))
@@ -280,7 +280,7 @@ for _ in range(4000):
 ok6 = slice6 is not None
 if ok6:
     w6, i0 = slice6
-    # K slices of ONE process: the same bijection, the same one hidden bit, backflow at each
+    # K slices of ONE process: the same bijection, the same one hidden bit, conditional memory at each
     # I* is the maximum over the K slices and their horizons; the slices share one bijection and
     # one hidden bit, which is the reuse the accumulated reading ignores
     istar6 = max(cmi_bits(sample_space(w6, PHI6, L), (0,), (1,), (3,))
@@ -290,9 +290,9 @@ if ok6:
     ok6 &= istar6 <= math.log2(2) + TOL           # the per-process bound does not
     ok6 &= 2.0 ** istar6 <= 2 + 1e-9
 check("C6", ok6,
-      f"COUNTERCONTROL: SUSTAINED BACKFLOW DOES NOT ACCUMULATE. On phi(x, h) = (h, x) — a hidden "
+      f"COUNTERCONTROL: SUSTAINED CONDITIONAL MEMORY DOES NOT ACCUMULATE. On phi(x, h) = (h, x) — a hidden "
       f"sector of a single bit, REUSED at every event — each of {K6} coupling events carries "
-      f"backflow I_0 = {i0:.4f} bits, so the accumulated reading K*I_0 = {K6 * i0:.4f} would demand "
+      f"conditional memory I_0 = {i0:.4f} bits, so the accumulated reading K*I_0 = {K6 * i0:.4f} would demand "
       f"a hidden alphabet of 2^{K6 * i0:.2f} = {2.0 ** (K6 * i0):.2f} states. The true per-process "
       f"quantity is I* = {istar6:.4f} and m = 2 satisfies m >= 2^(I*) = {2.0 ** istar6:.4f}. The "
       f"manuscript says the accumulated form needs per-event contributions to add WITHOUT "

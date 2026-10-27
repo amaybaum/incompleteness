@@ -1085,7 +1085,7 @@
       ],
       "kernel": "K3",
       "delta": "",
-      "note": "Kernel-proved as a COROLLARY of the hidden-memory layer rather than a second data-processing argument: HiddenMemory.capacity_floor_of_fun bounds the conditional information of ANY quantity read off (X_t, H_t) by log2|C_H|, and c3_necessity instantiates it at the whole visible future while capacity_floor instantiates it at the next visible value, so Lean checks the dependency between the two manuscript theorems. X_>t is DEFINED by iterating the bijection, which is where determinism enters. The corollary's I* is the maximum over a finite nonempty family of accessible slices sharing ONE hidden alphabet -- that sharing is what makes m >= 2^(I*) a statement about a single hidden sector, and it is written into the signature. NOT proved, because the manuscript denies both: C3 is not m >= n, and sustained backflow does not force m >~ 2^(K I_0) -- the accumulated form needs an independence hypothesis P-indivisibility does not supply. Both have countercontrols in the probe."
+      "note": "Kernel-proved as a COROLLARY of the hidden-memory layer rather than a second data-processing argument: HiddenMemory.capacity_floor_of_fun bounds the conditional information of ANY quantity read off (X_t, H_t) by log2|C_H|, and c3_necessity instantiates it at the whole visible future while capacity_floor instantiates it at the next visible value, so Lean checks the dependency between the two manuscript theorems. X_>t is DEFINED by iterating the bijection, which is where determinism enters. The corollary's I* is the maximum over a finite nonempty family of accessible slices sharing ONE hidden alphabet -- that sharing is what makes m >= 2^(I*) a statement about a single hidden sector, and it is written into the signature. NOT proved, because the manuscript denies both: C3 is not m >= n, and sustained conditional memory does not force m >~ 2^(K I_0) -- the accumulated form needs an independence hypothesis P-indivisibility does not supply. Both have countercontrols in the probe."
     },
     {
       "id": "MAIN:C-per-process-capacity-bound",
@@ -2535,7 +2535,7 @@
       "line": 262,
       "kind": "Corollary",
       "label": "(effective finiteness and gauge-class transfer)",
-      "fingerprint": "a04408a4ec4766a8",
+      "fingerprint": "2a8021590988a99b",
       "area": "reconstruction",
       "assumptions": "see the statement",
       "checks": [],
