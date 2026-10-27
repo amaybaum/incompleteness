@@ -3,8 +3,9 @@
 """Numerical companion checks for OIBridge/C3Necessity.lean.
 
 [Main]'s C3-necessity theorem — I(X_<t ; X_>t | X_t) <= log2 m — and its per-process capacity
-corollary m >= 2^(I*) are kernel-proved there, as instances of the hidden-memory layer's
-`capacity_floor_of_fun` rather than as a second data-processing argument. This file is the
+corollary m >= 2^(I*) are kernel-proved there for joint laws of (X_<t, X_t, H_t), as instances of
+the hidden-memory layer's `capacity_floor_of_fun` rather than as a second data-processing
+argument; reading a realization's time-t laws as those joint laws is not formalized. This file is the
 independent executable layer, and its controls are aimed at the two ways C3 gets misread.
 
   THE HYPOTHESIS is that X_>t is a FUNCTION of (X_t, H_t) — determinism, which is what makes
@@ -354,6 +355,7 @@ print('     per-process capacity corollary m >= 2^(I*) are kernel-proved, as INS
 print('     hidden-memory layer\'s capacity_floor_of_fun rather than as a second data-processing')
 print('     argument — the one-step memory clause is the same lemma at the one-step readout. I* is')
 print('     the maximum over a finite family of accessible slices sharing one hidden alphabet.')
+print('     Reading a realization\'s time-t laws as those joint laws is not formalized.')
 print('     NOT settled here, because the manuscript denies both: C3 is not m >= n (C5 exhibits')
 print('     m = 2 < n = 3 with full distinguishability revival), and sustained conditional memory does not')
 print('     force m >~ 2^(K I_0) (C6 exhibits K*I_0 above log2 m under hidden-state reuse). The')
