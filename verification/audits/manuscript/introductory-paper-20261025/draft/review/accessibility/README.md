@@ -31,3 +31,10 @@
 - **Answers:** `RUN3-ANSWERS-e64b2a4c.md` holds the reader's final message byte for byte, unedited, saved before any evaluation. sha256 `df1013d712ad0c903e17bafb9b834ddf7a145093a34ecff8d87736e4ac744ab9`.
 - **Scope of the evidence:** as for runs 1 and 2, this is an AI comprehension test and not evidence of human comprehension.
 - **Evaluation of run 3:** `RUN3-EVALUATION.md` records the scientific reviewer's report verbatim: **gate 2 not met.** Q1–Q4 and Q6 pass. Q5 is only partly correct on the owner's three criteria: the shared hidden preparation is restated, the role of never-occurring starts is absent, and memory at a later step an observer still sees is run together with memory beyond every accessible window. Two explanation changes (D at L130, E at L146) are required before run 4 with a fresh reader.
+
+## Run 4: `59622f0e` (r27)
+
+- **Paper read:** `papers/Introduction.pdf` at `59622f0e`, sha256 `480d1516c72631d892826a744fd5ad4e2c6bb2a9ff647f6a809d4f2be6dc9960`, 22 pages.
+- **Reader:** a fresh AI reviewer, not any earlier run's reader, with no prior context about OI. It was instructed to read only that PDF, with no repository, corpus or web access. Its tool log shows two Read calls on the PDF, pages 1–11 and 12–22, and nothing else.
+- **Answers:** `RUN4-ANSWERS-59622f0e.md` holds the reader's final message byte for byte, unedited, saved before any evaluation. sha256 `cdff86c99e5891ec601d6ea373eec221a0815a3e8cddef5e9d0a19182073eaae`.
+- **Scope of the evidence:** as for the earlier runs, this is an AI comprehension test and not evidence of human comprehension.
