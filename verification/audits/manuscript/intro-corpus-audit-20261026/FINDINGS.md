@@ -715,6 +715,18 @@ The *cite* recommendations of COMPLETENESS.md and the low-priority items. None i
 
 Each decision gives the options, a recommendation and the reason.
 
+**Owner disposition** (amaybaum, 2026-10-27, in the coordinating session): the independent review's recommendation
+(`review/INDEPENDENT-REVIEW.md` §11) for all fifteen decisions, with emphasis on six of them:
+- **OD-2 and OD-3:** retain the full scientific explanations, including the ε-realization result and the limits of the
+  stated substratum;
+- **OD-4 and OD-15:** the Lean declaration census and the retained evidence cover the claims actually cited;
+- **OD-7:** correct the definition of an exact probe rather than overstate numerical verification;
+- **OD-9:** correct the Page-curve theorem's scope in GR, not only in the Introduction;
+- **OD-11:** state that OI has no established independent discriminating experiment;
+- **OD-13:** keep essential scientific qualifications even where they lengthen the paper.
+
+In the owner's words, "these are my recommended dispositions, not instructions to merge any PR."
+
 **OD-1. Main's title.**
 - **The issue.** [Main] is cited at L261 as "The Incompleteness of Observation: The Equivalence of Quantum Mechanics and Embedded Observation".
 - **The evidence.** Main's own scope statements (Main.md:20 and :758: "exact bidirectional equivalence of finite observable stochastic laws and their quantum representations") and GR §3.3's kernel result that bare finite OI does not imply QM are narrower than the title. The Introduction denies a derivation (I-145, I-252) and must cite the title as it is (CON-16).
