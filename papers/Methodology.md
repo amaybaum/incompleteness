@@ -107,7 +107,7 @@ The framework formalizes "observation occurs" through a definition: an observati
 7. **The states are finite in number.** The visible configuration space is finite.
 8. **The hidden-sector conditions hold.** Non-zero coupling, record persistence (the slow bath one realization), sufficient capacity, history readback (C1–C4).
 
-The framework's theorem — that an embedded observer's description is, in the memory-bearing sector the conditions characterize, non-Markovian, and quantum-representable for processes in the correspondence's class under (T) — takes all eight rungs as its basis. The evidence supplies only rung 1. The question of Sections 4 and 5 is which of rungs 2–8 are *consequences* of rung 1 and which are *additional commitments*.
+The framework's theorem — that an embedded observer's finite observable law has an exact fixed-basis unitary/Born representation, Markov laws included, and carries positive conditional memory at an accessible order exactly when history readback holds there, the compressed representation holding for processes in the correspondence's class under (T) — takes all eight rungs as its basis. The evidence supplies only rung 1. The question of Sections 4 and 5 is which of rungs 2–8 are *consequences* of rung 1 and which are *additional commitments*.
 
 ### 3.2 The standard of derivation
 
