@@ -271,10 +271,11 @@ three descriptions coincide: stochastic laws, finite reversible
 deterministic realizations, and fixed-basis unitary/Born
 representations. The equivalence is bidirectional and exact on every
 finite horizon. History readback supplies the nontrivial content: it
-forces hidden predictive memory and, on a fixed finite recurrent
-representative, indivisibility. The book develops the consequences of
-taking that equivalence as a structural fact rather than as an
-interpretive analogy.
+forces hidden predictive memory. Indivisibility across the recurrence
+cycle of a fixed finite reversible representative is a separate fact:
+any rooted visible map that is not a permutation forces it, Markov laws
+included. The book develops the consequences of taking that equivalence
+as a structural fact rather than as an interpretive analogy.
 
 The qualification is equally important. Universal Hilbert-space
 representability is not by itself a uniqueness theorem for the whole
@@ -1074,11 +1075,12 @@ stochastic--quantum equivalence already established.
 \subsection{0.4 The intellectual
 context}\label{the-intellectual-context}}
 
-The framework's central claim --- that any observer embedded in a
-deterministic universe must use a memory-bearing formalism, quantum for
-processes in the correspondence's class under (T) --- belongs to a
-family of impossibility-with-structure results in twentieth-century
-mathematics and computer science.
+The framework's central claim --- that the finite observable law of any
+observer embedded in a finite deterministic universe has an exact
+fixed-basis quantum representation, Markov laws included, and carries
+conditional memory at an accessible order exactly when history readback
+holds there --- belongs to a family of impossibility-with-structure
+results in twentieth-century mathematics and computer science.
 
 In 1931 Kurt Gödel proved that any formal system rich enough to encode
 arithmetic cannot prove all true statements about itself from within.
@@ -1869,8 +1871,12 @@ multi-time content of (C4).
 \subsection{1.5 P-indivisibility}\label{p-indivisibility}}
 
 The central technical result of the chapter is that the marginalized
-process is P-indivisible whenever the underlying bijection has
-non-trivial coupling.
+process is P-indivisible across the recurrence cycle whenever, under the
+uniform hidden prior, its one-step visible matrix is not a permutation,
+as non-trivial coupling acting at the first step makes it. On accessible
+windows the proved statement is conditional memory: a (C4) readback gap
+forces \(I(X_{<k}; X_{k+1} \mid X_k) > 0\), which does not by itself
+make the process P-indivisible there ({[}Main §2.3{]}).
 
 \textbf{Theorem (P-indivisibility).} \emph{Let \(\mathcal{C}_V\) and
 \(\mathcal{C}_H\) be finite sets with \(|\mathcal{C}_V| \geq 2\), and
@@ -2155,9 +2161,10 @@ It supplies a compressed quantum representation and the associated
 interpretive dictionary for the source's finite-configuration class. The
 important logical point is that the existence of a Hilbert/unitary/Born
 representation does not require P-indivisibility --- every finite
-stochastic law has such a representation. Indivisibility instead
-identifies the memory-bearing sector in which the stochastic law cannot
-be reduced to a classical Markov evolution through stochastic divisors.
+stochastic law has such a representation. Accessible conditional memory
+instead identifies the memory-bearing sector; indivisibility across the
+recurrence cycle is a separate property, present wherever a rooted
+visible map is not a permutation.
 
 The Born rule in the fixed-basis representation is therefore part of the
 representation dictionary, not a selector derived uniquely from C1--C4.
@@ -2457,12 +2464,12 @@ representation --- every finite law does, trivially here ({[}Main
 §3.4{]}) --- but there is nothing memory-bearing in it: no
 coupling-induced non-Markovianity for a nontrivial representation to
 encode, hence none of the interference phenomenology the framework
-attributes to hidden-sector memory. The framework's route to
-Bell-inequality violations is closed here --- P-indivisibility cannot
-arise from a partition with no coupling --- whether other routes exist
-is not adjudicated ({[}Main §3.4{]}). The observer sees a classical
-Newtonian world with deterministic trajectories and well-defined values
-of every observable at every time.
+attributes to hidden-sector memory. No P-indivisibility arises from a
+partition with no coupling, since the visible sector then evolves
+autonomously by a permutation; Bell violation is a separate question,
+governed by ontic parameter dependence (§1.7), not by P-indivisibility.
+The observer sees a classical Newtonian world with deterministic
+trajectories and well-defined values of every observable at every time.
 
 This is the regime closest to the historical picture of classical
 mechanics: a clockwork universe where every particle has a definite
@@ -3935,12 +3942,12 @@ surface gravity, the entropy, the dynamical evolution of the partition
 under coupling to the bulk. The quantum representation describes the
 statistical projection: the visible-sector dynamics under
 marginalization over the hidden sector --- universal over finite laws,
-with P-indivisible transition probabilities marking the memory-bearing
-sector and the unitary evolution capturing its non-Markovian structure.
-The two are related by a definite procedure (the trace-out, with
-C1/C3/C4 diagnosing where the memory sector is nontrivial), with the
-substratum gauge group controlling the equivalences. The question ``how
-do we unify them?'' is dissolved rather than answered.
+with nonzero conditional memory marking the memory-bearing sector and
+the unitary evolution capturing its non-Markovian structure. The two are
+related by a definite procedure (the trace-out, with C1/C3/C4 diagnosing
+where the memory sector is nontrivial), with the substratum gauge group
+controlling the equivalences. The question ``how do we unify them?'' is
+dissolved rather than answered.
 
 This is not the same as saying that quantum mechanics is more
 fundamental than general relativity, or vice versa. Both are emergent.
@@ -4243,12 +4250,15 @@ Universality classes have internal sub-structure at three levels of
 refinement. The most universal level is the \emph{partial-trace features
 sub-class}, characterized by the structural features any partial-trace
 observation must produce regardless of substratum specifics: the Born
-rule, channel-level unitarity to leading order, P-indivisibility of the
-marginal stochastic process, and the commutant restriction pattern that
-selects which symmetries survive the trace-out. Below this is the
-\emph{gauge-group sub-class}, characterized by which specific emergent
-gauge group the marginalization produces. Standard-Model-reproducing
-classes share
+rule, channel-level unitarity to leading order, memory/divisibility ---
+accessible memory where the hidden sector reads back its record (C4),
+and, on any finite reversible substratum, recurrence-cycle
+P-indivisibility of the marginal stochastic process wherever a rooted
+visible map is not a permutation --- and the commutant restriction
+pattern that selects which symmetries survive the trace-out. Below this
+is the \emph{gauge-group sub-class}, characterized by which specific
+emergent gauge group the marginalization produces.
+Standard-Model-reproducing classes share
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\); other
 classes produce different gauge groups. Below this is the
 \emph{algebra-channel sub-class}, characterized by the specific algebra
@@ -4594,8 +4604,11 @@ realism content differing at each level.
 
 At Level G4 × Level C --- the broadest intersection --- what is real is
 the algebra-channel structure of partial-trace observation: the Born
-rule, channel-level unitarity to leading order, the P-indivisibility of
-the marginal stochastic process, and the commutant gauge-invariance
+rule, channel-level unitarity to leading order, memory/divisibility ---
+accessible memory where the hidden sector reads back its record (C4),
+and, on any finite reversible substratum, recurrence-cycle
+P-indivisibility of the marginal stochastic process wherever a rooted
+visible map is not a permutation --- and the commutant gauge-invariance
 pattern. This level's realism is universal across observer-admitting
 substrata. Every embedded observer in any universality class produces
 these features; they are structural features of partial-trace
@@ -4644,11 +4657,14 @@ two axes, with the intersection determining both what the prediction's
 content is and how it can be tested or falsified.
 
 Level G4 × Level C predictions --- the Born rule, channel-level
-unitarity, the non-Markovian marginal pattern of P-indivisibility, the
-commutant restriction pattern --- are essentially structural. They are
-universal across observer-admitting systems, trivially predicted because
-they are features of partial-trace observation rather than of any
-specific substratum. They cannot be falsified without contradicting
+unitarity, memory/divisibility (accessible memory where the hidden
+sector reads back its record (C4), and, on any finite reversible
+substratum, recurrence-cycle P-indivisibility of the marginal process
+wherever a rooted visible map is not a permutation), the commutant
+restriction pattern --- are essentially structural. They are universal
+across observer-admitting systems, trivially predicted because they are
+features of partial-trace observation rather than of any specific
+substratum. They cannot be falsified without contradicting
 embedded-observer physics itself; falsifying them would refute the
 entire program of treating observation as a partial-trace operation. The
 framework predicts them; so does any framework that takes embedded
@@ -5494,12 +5510,13 @@ relationship to alternative unification programs --- string theory, loop
 quantum gravity, causal sets, asymptotic safety --- at the Level C ×
 Level G4 intersection. The OI-string relationship in particular receives
 extended treatment there, with the four-feature audit (Born rule,
-channel-level unitarity, P-indivisibility, commutant gauge-invariance)
-characterizing the cross-framework universality-class membership and
-identifying what transports between the two programs and what does not.
-The negative technical result on substratum-level equivalence (that
-string-theoretic matrix models fail OI's A2 and A5) and the positive
-result on universality-class equivalence are both developed there.
+channel-level unitarity, memory/divisibility, commutant
+gauge-invariance) characterizing the cross-framework universality-class
+membership and identifying what transports between the two programs and
+what does not. The negative technical result on substratum-level
+equivalence (that string-theoretic matrix models fail OI's A2 and A5)
+and the positive result on universality-class equivalence are both
+developed there.
 
 Parts II--IV develop the framework's empirical content at the various
 levels identified in this chapter. The Level G3 × Level D predictions
@@ -5510,9 +5527,12 @@ quantitatively. The Level G2 × Level D structural commitments --- the
 Standard Model gauge group, the three-generation structure, the
 anomaly-free hypercharges --- are developed as derivations from the
 cubic-group commutant. The Level G4 × Level C universal features --- the
-Born rule, channel unitarity, P-indivisibility, the commutant
-restriction pattern --- are taken as given content of the framework's
-foundational theorems.
+Born rule, channel unitarity, memory/divisibility (accessible memory
+where the hidden sector reads back its record (C4), and, on any finite
+reversible substratum, recurrence-cycle P-indivisibility wherever a
+rooted visible map is not a permutation), the commutant restriction
+pattern --- are taken as given content of the framework's foundational
+theorems.
 
 The framework's hierarchical structure is what makes the framework
 different from a single bold claim about reality. It is a coordinated
@@ -6813,7 +6833,8 @@ develops}\label{what-this-chapter-develops-2}}
 
 Part I established that any observer embedded in a finite deterministic
 universe under conditions C1--C4 must use a memory-bearing formalism ---
-one admitting the quantum representation, for processes in the
+one admitting a fixed-basis quantum representation, as every finite
+observable law does, with the compressed form for processes in the
 correspondence's class under (T); that observed physics together with
 structural assumptions, under the reconstruction theorem's stated
 conditions, uniquely fixes the \textbf{local propagating lattice/gauge
@@ -9652,8 +9673,8 @@ gravitational sector rest on the horizon and frame conditions stated
 with them in §7.3 --- H-slope above all --- and consume no readback
 claim. The eigenstate thermalization hypothesis, which motivates the
 mixing hypothesis behind the slow-bath form of the C2 necessity
-direction, holds for the horizon complement (a generic chaotic many-body
-system).
+direction, is the standard assumption for the horizon complement (a
+generic chaotic many-body system).
 
 \hypertarget{the-emergent-action-scale-hbar}{%
 \subsection{\texorpdfstring{7.3 The emergent action scale
@@ -16295,9 +16316,9 @@ Observe beyond the cosmological horizon & Provably impossible (causal
 partition) \\
 Build faster computers & Structurally possible (derived physics permits
 it) \\
-Replace a genuinely P-indivisible visible process by a faithful
-memoryless (divisible) model at the same horizon & Provably impossible
-when the measured memory witness is nonzero ({[}Main §3.4{]}) \\
+Replace a visible process with nonzero conditional memory by a faithful
+memoryless (Markov) model at the same horizon & Provably impossible
+({[}Main §3.4{]}) \\
 Solve problems outside BQP & Impossible under global coverage of Ch 14's
 computational model (a conditional theorem) \\
 Achieve consciousness in the phenomenal sense & Not addressed (Ch 18
@@ -16688,15 +16709,16 @@ to \(10^{-4}\). The hidden sector's capacity is large --- thousands of
 vibrational modes and the protein's full conformational complexity.
 
 \textbf{The framework's prediction.} Photosynthetic exciton transfer
-should exhibit non-Markovian dynamics --- specifically, information
-backflow from the protein-vibrational environment that produces the
-long-lived coherences observed in 2D spectroscopy. The dynamics is
-\emph{not} purely quantum-coherent (which would predict longer-lived
-coherence than observed); nor is it \emph{purely classical} (Förster
-theory predicts no coherence at all). The framework's reading is that
-the dynamics is \emph{partially quantum} --- at intermediate values of
-the P-indivisibility measure, with characteristic signatures matching
-the empirical record.
+should exhibit non-Markovian dynamics where the protein-vibrational
+environment reads back its record; information backflow from that
+environment, a further property, would bear on the long-lived coherences
+observed in 2D spectroscopy. The dynamics is \emph{not} purely
+quantum-coherent (which would predict longer-lived coherence than
+observed); nor is it \emph{purely classical} (Förster theory predicts no
+coherence at all). The framework's reading is that the dynamics is
+\emph{partially quantum} --- at intermediate values of the
+P-indivisibility measure, with characteristic signatures matching the
+empirical record.
 
 The framework's reading aligns with the current consensus in the
 photosynthesis literature. The early interpretation of long-lived
@@ -17666,13 +17688,13 @@ points: - The framework's finite substratum guarantees
 finite-dimensional emergent Hilbert spaces. - The framework's
 deterministic bijection \(\varphi\) guarantees unitarity at the
 substratum level. - The framework's structural conditions C1--C4
-guarantee accessible non-Markovianity, and the emergent
-quantum-mechanical description for processes in the correspondence's
-class under (T). - The computational model assumes operational quantum
-closure: informational completeness of the density matrix for all
-admissible operations is a model hypothesis, not a partition-structure
-guarantee --- deriving it is the operational-selection frontier ({[}Main
-§3.4{]}).
+guarantee accessible conditional memory, through the readback gap of C4;
+the fixed-basis quantum representation is internal and universal, with
+the compressed form for processes in the correspondence's class under
+(T). - The computational model assumes operational quantum closure:
+informational completeness of the density matrix for all admissible
+operations is a model hypothesis, not a partition-structure guarantee
+--- deriving it is the operational-selection frontier ({[}Main §3.4{]}).
 
 The first three are structural features of the framework's universality
 class; the fourth is §14.4's added model hypothesis --- and together
@@ -18587,19 +18609,21 @@ across thousands of gate operations. Section 15.4 develops
 correlation-aware error correction: standard Markovian surface codes see
 the framework's predicted correlations as anomalously high uncorrectable
 error rates; correlation-aware decoders designed for the actual noise
-structure could reduce overhead by factors of three to ten, with
-concrete numerical predictions.
+structure could reduce the effective error rate; the size of the gain is
+not derived (§15.4, §15.9).
 
 Section 15.5 develops coherence extension through engineered baths ---
 the framework's bath-as-resource design philosophy. By coupling a qubit
 to a designed slow hidden sector (a spin chain, a resonator array, or
-other engineered architecture), the framework predicts coherence times
-can be extended by factors approaching ten, with the bath's correlation
-timescale controlling the coherence revival pattern. Section 15.6
-develops quantum sensing with nitrogen-vacancy (NV) centers in diamond:
-the framework predicts sensitivity improvements approaching
-\(10^3 \times\) through exploitation of information backflow from the
-diamond lattice's slow phonon and nuclear-spin baths.
+other engineered architecture), the framework proposes that, where the
+bath's return also revives distinguishability (information backflow),
+coherence partially revives on the bath's correlation timescale, which
+controls the revival pattern; it does not deliver the extension factor.
+Section 15.6 develops quantum sensing with nitrogen-vacancy (NV) centers
+in diamond: where the diamond lattice's slow phonon and nuclear-spin
+baths also revive distinguishability (information backflow), the
+framework proposes a sensitivity gain in direction; no factor is
+claimed.
 
 Section 15.7 develops the partially-quantum regime in engineered systems
 --- the framework's distinctive prediction of intermediate-backflow
@@ -18727,8 +18751,8 @@ the question in each case is whether the correction has reached the
 precision frontier where it matters for the application.
 
 The remaining sections develop the framework's specific engineering
-content at each of these scales, with concrete numerical predictions for
-current and near-future quantum hardware platforms.
+content at each of these scales, with testable predictions for current
+and near-future quantum hardware platforms.
 
 \hypertarget{superconducting-qubits-and-tls-noise}{%
 \subsection{15.3 Superconducting qubits and TLS
@@ -18814,9 +18838,10 @@ error events at gates \(k\) and \(k+m\) should be non-zero for
 \emph{Higher-order correlation functions.} Three-point and higher
 correlation functions should also be non-zero with characteristic
 structures determined by the TLS bath dynamics. These higher-order
-correlations are uniquely diagnostic of P-indivisible (genuinely
-non-Markovian) dynamics rather than just non-Markovian correlations from
-broad rate distributions.
+correlations bear on whether the noise is memory-bearing, carried by a
+bath that reads back its record, rather than produced by broad rate
+distributions; P-indivisibility of the qubit's population law is a
+separate property, certified only by a divisibility witness.
 
 \emph{Surface-code logical error patterns.} In a surface code operating
 under the framework's predicted noise, logical errors should cluster in
@@ -18851,19 +18876,16 @@ qubits with \(\tau_S/\tau_B \sim 10^{-3}\), the framework predicts
 correlated errors extending over \(\sim 10^3\) gates. A Markovian
 decoder sees these correlations as a higher effective error rate; it
 \emph{underperforms} relative to the actual physical error rate of the
-device. A correlation-aware decoder --- one designed for the framework's
-predicted P-indivisible noise structure --- exploits the predictability:
-correlated errors are easier to correct than random errors because their
-correlation structure provides additional information about which
-physical errors caused the observed syndrome pattern.
+device. A correlation-aware decoder --- one designed for the
+memory-bearing noise structure the mechanism proposal predicts ---
+exploits the predictability: correlated errors are easier to correct
+than random errors because their correlation structure provides
+additional information about which physical errors caused the observed
+syndrome pattern.
 
-The framework's estimate of the achievable improvement is a factor of
-three to ten reduction in the effective error rate at the same physical
-error rate. At current physical error rates of approximately \(10^{-3}\)
-per gate, this corresponds to a reduction in fault-tolerance overhead
-from approximately \(3{,}000\) physical qubits per logical qubit to
-approximately \(300\)-\(1{,}000\) --- a factor of three to ten reduction
-in the hardware cost of fault-tolerant quantum computing.
+The size of the reduction is not derived: converting the correlation
+length into an overhead requires a code, decoder and noise spectrum
+(§15.9).
 
 \textbf{The empirical accessibility.} Correlation-aware decoders are
 testable on current quantum hardware without requiring new platforms or
@@ -18876,12 +18898,12 @@ all errors as independent; (iii) compare the resulting logical error
 rates against standard Markovian decoders on the same hardware.
 
 The framework's prediction is testable now, with current physical error
-rates and current decoder implementations. A factor-of-three improvement
-at the current state of the art would have substantial commercial impact
---- reducing the hardware cost of any planned fault-tolerant system by
-the same factor. The framework's prediction is therefore not just
-theoretical content but a specific commercial design target with
-empirical accessibility on existing hardware.
+rates and current decoder implementations. A sizeable improvement at the
+current state of the art would have substantial commercial impact
+through the hardware cost of fault-tolerant systems. The framework's
+prediction is therefore not just theoretical content but a specific
+commercial design target with empirical accessibility on existing
+hardware.
 
 \textbf{Falsification conditions.} The framework's prediction would be
 falsified by either (i) demonstration that no correlation-aware decoder
@@ -18908,8 +18930,9 @@ baths}\label{coherence-extension-through-engineered-baths}}
 Standard quantum hardware aims to minimize environmental coupling to
 maximize coherence time. The framework's content suggests the opposite
 design: deliberate coupling to an engineered bath can \emph{extend}
-coherence through information backflow, with the bath's correlation
-timescale determining the coherence revival pattern.
+coherence where the bath's return also revives distinguishability
+(information backflow), with the bath's correlation timescale
+determining the coherence revival pattern.
 
 \textbf{The mechanism.} A qubit coupled to its engineered slow,
 high-capacity hidden sector evolves through the read-write cycle
@@ -18977,10 +19000,12 @@ notion and does not follow from either.
 The platform is testable on existing technologies: superconducting
 qubits coupled to engineered spin chains, NV centers in diamond with
 controllable nuclear spin baths, or trapped ions with engineered phonon
-modes. The framework's prediction is that at the critical chain length,
-the qubit's \(T_2\) coherence time shows a \emph{qualitative} change ---
-from monotonic exponential decay to oscillatory behavior with partial
-revivals at multiples of \(\tau_B\).
+modes. The framework's prediction is that beyond the critical chain
+length, where the chain reads back its record (C4), the qubit's dynamics
+acquires accessible conditional memory, visible in history-dependent
+multi-time statistics. Partial revivals at multiples of \(\tau_B\) are a
+further signature, present only where the chain's return also revives
+distinguishability; C1--C4 do not supply them.
 
 \textbf{Implications for hardware development.} The bath-as-resource
 philosophy has implications for hardware-development priorities. Current
@@ -19002,9 +19027,10 @@ temperature sensing, biological imaging, and related applications.
 Current NV sensitivity is limited by the spin coherence time \(T_2\) of
 the NV electron spin, with standard Markovian models predicting that
 improvements in sensitivity require improvements in \(T_2\). The
-framework predicts that sensitivity can be improved beyond the Markovian
+framework proposes that sensitivity can be improved beyond the Markovian
 \(T_2\) limit through exploitation of information backflow from the
-diamond lattice's slow phonon and nuclear-spin baths.
+diamond lattice's slow phonon and nuclear-spin baths, where those baths'
+return revives distinguishability.
 
 \textbf{The C1--C4 architecture of NV centers.} The NV center's electron
 spin couples to multiple baths in the diamond lattice: phonons (acoustic
@@ -19020,41 +19046,33 @@ The relevant timescale separations are: NV electron-spin dynamics at
 \(10^{-6}\) --- within the framework's slow-bath regime where memory
 effects become predictable.
 
-\textbf{The framework's prediction.} Decoherence in NV centers is
-non-Markovian on the framework's account: coherence partially revives at
-times set by the bath's correlation timescale. Information that appears
-to be lost from the NV during the apparent decoherence phase is in fact
-stored as correlations in the bath, and these correlations return to the
-NV during the revival phase.
+\textbf{The framework's prediction.} Where the bath reads back its
+record (C4), NV decoherence carries accessible conditional memory,
+visible in history-dependent multi-time statistics. Partial revival of
+coherence at times set by the bath's correlation timescale is a further
+signature, present only where the bath's return also revives
+distinguishability (information backflow); C1--C4 do not supply it.
+There, information that appears to be lost from the NV during the
+apparent decoherence phase is stored as correlations in the bath and
+returns to the NV during the revival phase.
 
 Sensing protocols that exploit the revival --- measuring at the backflow
 time rather than during the initial decay --- could push sensitivity
-beyond the Markovian-assumed \(T_2\) limit. The improvement factor per
-measurement is \(\mathcal{O}(\tau_S/\tau_B) \sim 10^{-6}\), but sensing
-protocols typically accumulate over \(\sim 10^6\) repetitions, making
-the integrated improvement potentially significant.
+beyond the Markovian-assumed \(T_2\) limit.
 
-\textbf{Quantitative prediction.} Standard NV magnetometry sensitivity
-is \(\delta B \sim 1/(\gamma \sqrt{T_2 \cdot T_{\text{meas}}})\), where
+\textbf{Sensitivity.} Standard NV magnetometry sensitivity is
+\(\delta B \sim 1/(\gamma \sqrt{T_2 \cdot T_{\text{meas}}})\), where
 \(\gamma\) is the gyromagnetic ratio and \(T_{\text{meas}}\) is the
-total measurement time. Non-Markovian backflow at \(\tau_B\) means each
-measurement recovers information that Markovian protocols assume is
-lost. For \(\tau_S/\tau_B \sim 10^{-6}\) (NV center with paramagnetic
-bath), each measurement carries approximately \(10^{-6}\) extra
-information. Over \(10^6\) repetitions, this integrates to
-\(\mathcal{O}(1)\) --- a factor of \(\sqrt{\tau_B/\tau_S} \sim 10^3\)
-improvement in signal-to-noise if the protocol is optimized for the
-backflow timing.
+total measurement time. Where the bath's return at \(\tau_B\) revives
+distinguishability (information backflow), each measurement recovers
+information that Markovian protocols assume is lost.
 
 A sensitivity gain follows in \emph{direction} but not in size: the
 framework fixes neither the achievable interrogation time nor the
 readout efficiency, and both enter \(\delta B\) directly, so no
 numerical improvement factor is claimed here. Quoting one would require
 an NV-specific model of the spin bath, readout chain and control
-sequence. This would make NV sensors competitive with superconducting
-quantum interference devices (SQUIDs) but operating at room temperature
-rather than requiring cryogenic cooling --- a substantial commercial
-advantage if achieved.
+sequence.
 
 \textbf{Empirical accessibility and falsification.} The framework's
 prediction is testable on current NV-magnetometry platforms through
@@ -19071,10 +19089,10 @@ geophysical sensing applications. The framework's prediction is
 therefore not isolated theoretical content but a specific commercial
 design target with empirical accessibility on existing hardware.
 Falsification would come from demonstration that backflow-aware
-protocols do not improve integrated sensitivity by factors exceeding
-\(\sim 10\) across multiple NV platforms --- suggesting the framework's
-predicted backflow effects are too small or too thermally averaged to be
-exploited.
+protocols do not improve integrated sensitivity over the Markovian
+protocol on the same hardware across multiple NV platforms ---
+suggesting that backflow in these baths, where present, is too small or
+too thermally averaged to be exploited.
 
 \hypertarget{the-partially-quantum-regime-in-engineered-systems}{%
 \subsection{15.7 The partially-quantum regime in engineered
@@ -19459,16 +19477,16 @@ quantum hardware platforms.
 \item
   \emph{Coherence extension through engineered baths.} For qubits
   coupled to designed slow hidden sectors
-  (\(\tau_S/\tau_B \sim 10^{-1}\)), coherence should persist beyond the
-  Markovian estimate (§15.5). No numerical \(T_2\) target is claimed;
-  the extension factor requires a device model the framework does not
+  (\(\tau_S/\tau_B \sim 10^{-1}\)), where the bath's return also revives
+  distinguishability, coherence should persist beyond the Markovian
+  estimate (§15.5). No numerical \(T_2\) target is claimed; the
+  extension factor requires a device model the framework does not
   supply.
 \item
   \emph{Backflow-aware NV sensing.} For NV centers in diamond
-  (\(\tau_S/\tau_B \sim 10^{-6}\)), backflow-aware protocols can improve
-  sensitivity by approximately \(10^3 \times\) (§15.6). NV magnetometry
-  from nT\(/\sqrt{\text{Hz}}\) to pT\(/\sqrt{\text{Hz}}\) at room
-  temperature.
+  (\(\tau_S/\tau_B \sim 10^{-6}\)), where the baths' return revives
+  distinguishability, backflow-aware protocols could improve sensitivity
+  beyond the Markovian \(T_2\) limit (§15.6); no factor is claimed.
 \item
   \emph{Partially-quantum regime.} Engineered systems at marginal C3
   capacity (\(N_H/N_V \sim 1\)) exhibit the framework's distinctive
@@ -19506,12 +19524,11 @@ other engineered platforms (spin chains, photonic systems) provide
 additional empirical access points.
 
 \textbf{The framework's epistemic position in quantum engineering.} The
-framework's content here is positive: specific quantitative predictions
-for current and near-future quantum hardware, with concrete empirical
-accessibility on existing platforms. The predictions are testable, the
-falsification conditions are clear, and the potential commercial impact
-(correlation-aware error correction, NV sensing at SQUID-competitive
-sensitivity at room temperature, engineered-bath coherence extension) is
+framework's content here is positive: testable predictions for current
+and near-future quantum hardware, with concrete empirical accessibility
+on existing platforms. The falsification conditions are clear, and the
+potential commercial impact (correlation-aware error correction,
+backflow-aware NV sensing, engineered-bath coherence extension) is
 substantial.
 
 The chapter's content connects the framework's foundational commitments
@@ -20788,21 +20805,23 @@ concrete and clinically engaged.
 This chapter develops the framework's content in bioinformatics --- the
 methodological discipline of extracting biological understanding from
 high-throughput molecular data. The framework's content here has two
-related parts: a \emph{structural ceiling} on what transcriptome-only
-methods can achieve in computational biology, and a substantial
-\emph{empirical record} of non-Markovianity signatures in molecular
-evolution data that match the framework's predictions across the tree of
-life.
+related parts: a conditional \emph{structural ceiling} on what
+transcriptome-only methods can achieve in computational biology, and a
+substantial \emph{empirical record} of non-Markovianity signatures in
+molecular evolution data that match the framework's predictions across
+the tree of life.
 
-The structural ceiling is a \emph{no-go theorem} with empirical force:
-methods relying exclusively on transcriptome data cannot exceed certain
-information-theoretic bounds regardless of architectural sophistication
-or training data scale. This bounds the achievable performance of
+The structural ceiling rests on a conditional theorem with empirical
+force: where a quantity differs between hidden-sector completions that
+share the transcriptome-level law, methods relying exclusively on
+transcriptome data cannot recover it, regardless of architectural
+sophistication or training data scale. Where the relevant quantities
+differ in this way, this bounds the achievable performance of
 deep-learning foundation models on perturbation prediction, gene
-regulatory network inference, and trajectory inference --- explaining
-the well-documented persistent failure of these methods to outperform
-simple baselines despite massive scaling efforts. The structural ceiling
-is one of the framework's distinctive contributions to bioinformatics: a
+regulatory network inference, and trajectory inference, and explains the
+well-documented persistent failure of these methods to outperform simple
+baselines despite massive scaling efforts. The structural ceiling is one
+of the framework's distinctive contributions to bioinformatics: a
 principled explanation for why scaling alone has failed where it has
 succeeded in other domains.
 
@@ -20823,18 +20842,21 @@ Section 17.2 develops the information-theoretic ceiling on
 transcriptome-only methods. Single-cell RNA sequencing (scRNA-seq)
 captures the visible-sector dynamics (gene expression) but does not
 measure the hidden-sector content (chromatin state, protein
-conformation, regulatory network state). The framework's structural
-commitment is that this hidden-sector content carries information that
-no amount of transcriptome data can recover, regardless of method.
+conformation, regulatory network state). The framework's hypothesis is
+that this hidden-sector content carries task-relevant information beyond
+the transcriptome, \(I(\text{phenotype}|T) < I(\text{phenotype}|T, S)\);
+where it does, no amount of transcriptome data can recover that
+information, regardless of method. Whether the strict gap holds for a
+given task is open.
 
 Sections 17.3-17.6 develop the empirical pattern across four active
-bioinformatics methodological domains where the framework's ceiling
-predicts and explains observed failures: trajectory inference, gene
-regulatory network inference, perturbation prediction, and multi-omics
-integration. Section 17.7 develops cancer methylome classification as
-the framework's \emph{positive} prediction --- where multi-modal data
-including substratum-level operators (DNA methylation patterns) succeeds
-where transcriptome-only methods fail.
+bioinformatics methodological domains where the conditional ceiling
+would explain observed failures: trajectory inference, gene regulatory
+network inference, perturbation prediction, and multi-omics integration.
+Section 17.7 develops cancer methylome classification as the framework's
+\emph{positive} prediction --- where multi-modal data including
+substratum-level operators (DNA methylation patterns) succeeds where
+transcriptome-only methods fail.
 
 Section 17.8 develops the variant pathogenicity prediction
 stratification: variants in reader/writer/eraser genes should show
@@ -20847,11 +20869,12 @@ closes the chapter with the structural roadmap forward: multi-modal
 data, knowledge graphs, explicit memory state.
 
 The framework's content in bioinformatics is therefore \emph{both} a
-structural ceiling (what cannot be achieved with current approaches) and
-a structural roadmap (what is required to make progress). The empirical
-record across the chapter's methodological domains provides convergent
-support for both: failures where the framework predicts limits,
-successes where the framework predicts success.
+conditional structural ceiling (what cannot be achieved with current
+approaches where the strict gap holds) and a structural roadmap (what is
+required to make progress). The empirical record across the chapter's
+methodological domains provides convergent support for both: failures
+where the framework predicts limits, successes where the framework
+predicts success.
 
 \hypertarget{the-information-theoretic-ceiling-on-transcriptome-only-methods}{%
 \subsection{17.2 The information-theoretic ceiling on transcriptome-only
@@ -20862,9 +20885,10 @@ operator distinction has a specific consequence in bioinformatics:
 methods that measure only the \emph{emergent} operator (the gene
 expression program, the transcriptome) cannot recover information stored
 in the \emph{substratum} operator (the chromatin state, the protein
-conformational landscape, the regulatory network's hidden state). The
-information-theoretic ceiling is a structural commitment of the
-framework with empirical force.
+conformational landscape, the regulatory network's hidden state) and not
+carried by the transcriptome. The information-theoretic ceiling rests on
+the framework's hypothesis that the substratum operator carries such
+task-relevant information; whether it does for a given task is open.
 
 \textbf{The structural argument.} Chapter 16 §16.10 established the
 substratum-emergent operator distinction at chromatin: the
@@ -20877,19 +20901,20 @@ while emergent-level operator is disrupted, and vice versa.
 In bioinformatics terms, this means: transcriptome data measures only
 the emergent operator. Information stored in the substratum operator ---
 chromatin state, methylation patterns, three-dimensional architecture,
-regulatory network history --- is invisible to transcriptome-only
-methods. No statistical algorithm, no deep-learning architecture, no
-scale of training data can recover information that is not present in
-the input data.
+regulatory network history --- and not carried by the transcriptome is
+invisible to transcriptome-only methods. No statistical algorithm, no
+deep-learning architecture, no scale of training data can recover
+information that is not present in the input data.
 
 \textbf{The information-theoretic bound.} Let \(T\) denote transcriptome
 data and \(S\) denote substratum data (chromatin state, methylation
-pattern, etc.). The framework's content is that the conditional
+pattern, etc.). The framework's hypothesis is that the conditional
 information \(I(\text{phenotype}|T)\) is strictly less than
 \(I(\text{phenotype}|T, S)\) --- knowing the substratum adds information
-beyond the transcriptome. The ceiling on transcriptome-only methods is
-set by \(I(\text{phenotype}|T)\); methods that include substratum data
-can exceed this ceiling up to the joint capacity
+beyond the transcriptome; whether the strict gap holds for a given task
+is open. The ceiling on transcriptome-only methods is set by
+\(I(\text{phenotype}|T)\); methods that include substratum data can
+exceed this ceiling up to the joint capacity
 \(I(\text{phenotype}|T, S)\).
 
 The framework's prediction is that the gap between
@@ -20907,18 +20932,19 @@ scaling: larger models, more training data, more compute. In these
 domains, the input data carries sufficient information to support the
 task; scaling exploits this information more effectively. The
 framework's prediction is that scaling cannot help where the input data
-\emph{does not carry the required information}. No matter how large the
-model or how extensive the training data, transcriptome-only methods
-cannot recover substratum information that is not present in
-transcriptome data.
+\emph{does not carry the required information}, which is the case
+exactly where the strict gap above holds. No matter how large the model
+or how extensive the training data, transcriptome-only methods cannot
+recover substratum information that is not present in transcriptome
+data.
 
 This prediction is structurally distinct from ``scaling laws need more
-time'' arguments. The framework's claim is that there is a
-\emph{principled information-theoretic bound}: methods bounded by
-\(I(\text{phenotype}|T)\) cannot exceed this bound by any amount of
-scaling, just as a thermometer cannot measure pressure no matter how
-precise it is. The bound is a property of what the data measures, not of
-how the data is processed.
+time'' arguments. The framework's claim is that, where the strict gap
+holds, there is a \emph{principled information-theoretic bound}: methods
+bounded by \(I(\text{phenotype}|T)\) cannot exceed this bound by any
+amount of scaling, just as a thermometer cannot measure pressure no
+matter how precise it is. The bound is a property of what the data
+measures, not of how the data is processed.
 
 \textbf{The empirical pattern.} The framework's prediction is consistent
 with a striking pattern in computational biology: deep-learning
@@ -21023,19 +21049,20 @@ measures their downstream effect on gene expression.
 
 Methods attempting to infer causal regulation from transcriptome alone
 are therefore attempting to recover causal structure from data that does
-not contain the causal mechanism. The framework predicts that such
-methods cannot succeed beyond the limits of statistical association:
-correlation methods capture all the information about regulatory
-relationships that is present in the data, while causal-inference
-methods cannot exceed this ceiling because the causal information is in
-the missing substratum data.
+not contain the causal mechanism. Where the strict gap holds for
+regulatory structure, the framework predicts that such methods cannot
+succeed beyond the limits of statistical association: correlation
+methods capture all the information about regulatory relationships that
+is present in the data, while causal-inference methods cannot exceed
+this ceiling because the causal information is in the missing substratum
+data.
 
-This explains the persistent puzzle: correlation outperforms causation
-because, in transcriptome-only analysis, there is no causal information
-beyond what correlation already captures. Sophisticated causal-inference
-methods are matching the same information-theoretic ceiling that simple
-correlation methods reach, with no additional information available to
-exploit.
+On that hypothesis this explains the persistent puzzle: correlation
+outperforms causation because, in transcriptome-only analysis, there is
+no causal information beyond what correlation already captures.
+Sophisticated causal-inference methods are matching the same
+information-theoretic ceiling that simple correlation methods reach,
+with no additional information available to exploit.
 
 \textbf{Multi-modal methods as the predicted improvement.} The
 framework's prediction is that GRN inference can exceed the
@@ -21047,20 +21074,18 @@ transcriptome-only methods on causal inference benchmarks.
 The empirical pattern supports this prediction. Methods like SCENIC+
 (Bravo González-Blas et al.~2023) incorporate transcription factor motif
 analysis combined with chromatin accessibility, producing causal
-predictions that exceed transcriptome-only ceilings. Multi-omic GRN
+predictions that outperform transcriptome-only methods. Multi-omic GRN
 inference is the predicted improvement direction; the methodological
 field has empirically converged on this direction over the past five
 years.
 
-\textbf{Information-theoretic ceiling.} The framework's structural
-prediction can be made quantitatively explicit. The transcriptome's
-information about regulatory structure is bounded by what correlation
-methods recover. Multi-modal methods adding \(k\) substratum data types
-raise this ceiling by a structurally calculable amount depending on the
-conditional information each substratum modality adds. The empirical
-pattern of methodological improvement should follow this
-information-theoretic structure rather than being driven by
-architectural sophistication.
+\textbf{Information-theoretic ceiling.} Where the strict gap holds, the
+transcriptome's information about regulatory structure bounds what any
+method recovers; multi-modal methods raise the ceiling by the
+conditional information each substratum modality adds, an amount not
+computed here. The empirical pattern of methodological improvement
+should follow this information-theoretic structure rather than being
+driven by architectural sophistication.
 
 \hypertarget{perturbation-prediction-and-the-failure-of-scaling}{%
 \subsection{17.5 Perturbation prediction and the failure of
@@ -21573,23 +21598,24 @@ framework-specific ways.
 forward}\label{chapter-close-the-structural-roadmap-forward}}
 
 The framework's content in bioinformatics has two cumulative dimensions:
-the structural ceiling on transcriptome-only methods that explains
-observed failures, and the empirical record of non-Markovianity
+the conditional structural ceiling on transcriptome-only methods that
+explains observed failures, and the empirical record of non-Markovianity
 signatures across the tree of life that the framework's structural
 mechanism unifies. Both dimensions point to a specific \emph{structural
 roadmap forward} for computational biology.
 
 \textbf{Three components of the roadmap.}
 
-\emph{Multi-modal data.} The framework's information-theoretic ceiling
-on transcriptome-only methods predicts that progress in bioinformatics
-requires including substratum-level data alongside transcriptome data.
-The methodological field has begun this convergence --- multi-omic
-velocity, SCENIC+ for GRN inference, knowledge-graph methods for
-perturbation prediction, methylation classifiers for cancer diagnosis
---- but the convergence is incomplete. The framework's content predicts
-that \emph{complete} methodological transition to multi-modal data is
-required to exceed the current performance plateau.
+\emph{Multi-modal data.} Where the strict gap holds, the framework's
+information-theoretic ceiling on transcriptome-only methods predicts
+that progress in bioinformatics requires including substratum-level data
+alongside transcriptome data. The methodological field has begun this
+convergence --- multi-omic velocity, SCENIC+ for GRN inference,
+knowledge-graph methods for perturbation prediction, methylation
+classifiers for cancer diagnosis --- but the convergence is incomplete.
+The framework's content predicts that \emph{complete} methodological
+transition to multi-modal data is required to exceed the current
+performance plateau.
 
 \emph{Knowledge graphs and prior structure.} Methods that incorporate
 prior knowledge about biological networks (knowledge graphs, regulatory
@@ -21608,7 +21634,8 @@ not as a static snapshot, to capture the relevant biology.
 
 \textbf{Five predictions for empirical work.}
 
-(P1) Transcriptome-only foundation models have a structural ceiling on
+(P1) Where the strict gap holds for perturbation response,
+transcriptome-only foundation models have a structural ceiling on
 perturbation prediction performance. No amount of additional scaling on
 transcriptome data will exceed this ceiling.
 
@@ -22656,18 +22683,20 @@ substratum finiteness (the framework's commitment to \(|S| < \infty\)),
 bijection dynamics (the framework's commitment to \(\varphi\) as a
 bijection), and P-indivisibility at the recurrence scale. The connection
 runs in three steps. Finiteness of \(S\) guarantees recurrence
-(Poincaré). Recurrence together with C1 --- non-trivial coupling, whose
-cheapest witness is a non-permutation one-step matrix --- gives returns
+(Poincaré). Recurrence together with C1 acting at the first step ---
+which makes the one-step matrix a non-permutation under the uniform
+hidden prior, the cheapest non-permutation rooted map --- gives returns
 of information from hidden to visible over the recurrence timescale
-(P-indivisibility); the coupling is load-bearing rather than decorative,
-since for an uncoupled partition
-\(\varphi = \varphi_V \times \varphi_H\) the visible sector evolves
-autonomously, its two-time family is divisible, and no
-distinguishability is ever restored --- recurrence notwithstanding. With
-a full-support visible prior this indivisibility is equivalent to memory
-at some order below the recurrence time; the memory-bearing sector is
-the one in which C4 places that memory at an accessible order, and every
-finite law, memory-bearing or not, admits the quantum representation.
+(P-indivisibility across the recurrence cycle, not on accessible
+windows); the coupling is load-bearing rather than decorative, since for
+an uncoupled partition \(\varphi = \varphi_V \times \varphi_H\) the
+visible sector evolves autonomously, its two-time family is divisible,
+and no distinguishability is ever restored --- recurrence
+notwithstanding. With a full-support visible prior this indivisibility
+is equivalent to memory at some order below the recurrence time; the
+memory-bearing sector is the one in which C4 places that memory at an
+accessible order, and every finite law, memory-bearing or not, admits
+the quantum representation.
 
 The framework's commitment to finite information is therefore
 load-bearing for the recurrence route specifically, not for
@@ -23492,11 +23521,12 @@ fundamental description: on that proposal no continuum limit of the
 lattice is taken and no renormalizability problem arises, while that its
 long-wavelength limit reproduces the covariant equations belongs to G3.
 The framework produces the quantum and gravitational sectors from the
-same axioms --- the quantum representation under the translation
-hypothesis (T) ({[}Main §3.4{]}) --- with the consistency relations
-collected in {[}GR §6.2{]}: several conditional on G3, one (the
-gauge-coupling values) reproduced through three matched parameters, and
-one (the MOND scale) with an imported factor.
+same axioms --- the fixed-basis quantum representation internal and
+universal, its compressed form under the translation hypothesis (T)
+({[}Main §3.4{]}) --- with the consistency relations collected in {[}GR
+§6.2{]}: several conditional on G3, one (the gauge-coupling values)
+reproduced through three matched parameters, and one (the MOND scale)
+with an imported factor.
 
 The framework's treatment has three components, developed as a
 cumulative case in Chapter 18 §18.5: the cosmological-constant
@@ -24630,20 +24660,25 @@ trace-out is realized at a causal horizon, and that horizon
 \emph{singles out a rest frame} (the frame in which the substratum
 update steps are simultaneous, identified in §7 with the cosmic rest
 frame). The observation map therefore makes contact with boost structure
---- it distinguishes a temporal direction, which is what boosts act on
---- and this is why the boost sector admits framework-level arguments.
-It does not single out any spatial direction; spatial isotropy is a
-property of the lattice constitution, untouched by the rest-frame
-selection. This is formalized as the rest-frame-selection lemma of
-{[}Main §3.5{]} (the observation map's invariance group is the little
-group \(O(3)\) of its selected timelike direction). On this reading the
+--- the horizon partition defining it distinguishes a temporal
+direction, which is what boosts act on --- and this is why the boost
+sector admits framework-level arguments. It does not single out any
+spatial direction; spatial isotropy is a property of the lattice
+constitution, untouched by the rest-frame selection. This is formalized
+as the rest-frame-selection lemma of {[}Main §3.5{]} (given that the
+observation map determines its foliation, its invariances exclude boosts
+and, among orthochronous transformations, lie within the little group
+\(O(3)\) of its selected timelike direction; which rotations are
+invariances depends on the substratum dynamics and the lattice geometry
+of the partition, not on the rest-frame selection). On this reading the
 relative tractability of the boost sector and the input status of the
 rotational sector are not separate facts but two faces of the
-rest-frame-selecting character of embedded observation: the map touches
-what distinguishes time from space (boosts), and is silent on what
-distinguishes one spatial direction from another (rotations). This is an
-interpretive observation about why the open-problem boundary falls where
-it does, not an additional technical result.
+rest-frame-selecting character of embedded observation: the rest-frame
+selection touches what distinguishes time from space (boosts), and is
+silent on what distinguishes one spatial direction from another
+(rotations). This is an interpretive observation about why the
+open-problem boundary falls where it does, not an additional technical
+result.
 
 \textbf{The rotational sector as a structural question about
 observational incompleteness.} The boost/rotation note above and the
@@ -24668,8 +24703,8 @@ moreover enormous --- the slow-bath capacity ratio
 quantum-emergence result --- but it is incompleteness \emph{about a
 temporally-evolving state}, concentrated in the state and (through the
 slow bath) temporal directions. It is silent in the spatial direction in
-the same way, and for the same reason, that the rest-frame lemma's map
-is silent on spatial axes.
+the same way, and for the same reason, that the rest-frame selection of
+the lemma is silent on spatial axes.
 
 This can be made quantitative. The smearing kernel is the traced-out
 hidden-sector propagator \(G_{oo}\) ({[}SM §4.8{]}); its position-space
@@ -24691,32 +24726,33 @@ its magnitude. Whether the absence of smearing leaves the sector
 \emph{unprotected}, however, depends on the dimension analysis below.
 
 Three of the framework's findings thus share one root. The
-rest-frame-selection lemma (the map selects a timelike direction, no
-spatial one), the fluctuation discriminant (the map averages the
-fluctuating state, not the fixed orientation), and the smearing-width
-result (the incompleteness has order-one spatial width independent of
-its magnitude) are three expressions of a single fact:
-\emph{observational incompleteness in this framework is incompleteness
-about a temporally-evolving hidden state, with purchase on time, boost,
-and state, and structurally silent on space and rotation.} The
-rotational sector is precisely the sector embedded observation cannot
-reach. The valence of this account is narrower than it first appears.
-The smearing-width result it establishes --- that observational
-incompleteness adds no ultraviolet spatial smearing, so
-\(R \approx \varepsilon\) --- bears on the \emph{coefficient} of the
-rotational operator, not its \emph{dimension}. The dimension is fixed
-independently, by the octahedral selection rule (the \(E_g\) anisotropy
-is a cubic non-singlet; the lowest invariant anisotropy is \(\ell=4\),
-dimension six) together with locality, and a direct tree-level
-computation confirms the emergent dispersion anisotropy is
-\(\sim(\varepsilon k)^2 \propto (E/M_{\text{Pl}})^2\). The account
-therefore explains why embedded observation does not \emph{smear} the
-rotational sector, but smearing is not what the sector needs: cubic
-symmetry and locality already place the violation at dimension six,
-Planck-suppressed. What remains genuinely open is the loop-level
-question --- whether the emergent theory preserves the octahedral
-symmetry \emph{exactly}, or whether the emergence introduces an
-octahedral-breaking effect not visible in the bare partition.
+rest-frame-selection lemma (the horizon partition defining the map
+selects a timelike direction, no spatial one, and the map excludes
+boosts when it determines the horizon foliation), the fluctuation
+discriminant (the map averages the fluctuating state, not the fixed
+orientation), and the smearing-width result (the incompleteness has
+order-one spatial width independent of its magnitude) are three
+expressions of a single fact: \emph{observational incompleteness in this
+framework is incompleteness about a temporally-evolving hidden state,
+with purchase on time, boost, and state, and structurally silent on
+space and rotation.} The rotational sector is precisely the sector
+embedded observation cannot reach. The valence of this account is
+narrower than it first appears. The smearing-width result it establishes
+--- that observational incompleteness adds no ultraviolet spatial
+smearing, so \(R \approx \varepsilon\) --- bears on the
+\emph{coefficient} of the rotational operator, not its \emph{dimension}.
+The dimension is fixed independently, by the octahedral selection rule
+(the \(E_g\) anisotropy is a cubic non-singlet; the lowest invariant
+anisotropy is \(\ell=4\), dimension six) together with locality, and a
+direct tree-level computation confirms the emergent dispersion
+anisotropy is \(\sim(\varepsilon k)^2 \propto (E/M_{\text{Pl}})^2\). The
+account therefore explains why embedded observation does not
+\emph{smear} the rotational sector, but smearing is not what the sector
+needs: cubic symmetry and locality already place the violation at
+dimension six, Planck-suppressed. What remains genuinely open is the
+loop-level question --- whether the emergent theory preserves the
+octahedral symmetry \emph{exactly}, or whether the emergence introduces
+an octahedral-breaking effect not visible in the bare partition.
 
 This premise has a second dependency alongside the partition. The
 effective theory is octahedrally invariant only if the condensate that
@@ -24743,13 +24779,14 @@ kernel width. This premise is grounded in the framework's own
 factorization criterion ({[}Main §3.4{]}): an observer-centered,
 horizon-isotropic partition is spherical and hence octahedrally
 symmetric about the observer's centre, so the lattice octahedral group
---- unlike translations, boosts, and rotations about distant points,
-which the partition breaks --- preserves the visible/hidden
-factorization and descends to an exact symmetry of the effective theory.
-The same criterion that selects the gauge symmetries protects the
-rotational sector and exposes the boost sector, so the dimension-six
-rotational protection and the dimension-four boost exposure are two
-faces of one structural fact rather than independent assumptions.
+--- unlike translations, boosts (when the map determines the horizon
+foliation), and rotations about distant points, which the partition
+breaks --- preserves the visible/hidden factorization and descends to an
+exact symmetry of the effective theory. The same criterion that selects
+the gauge symmetries protects the rotational sector and exposes the
+boost sector, so the dimension-six rotational protection and the
+dimension-four boost exposure are two faces of one structural fact
+rather than independent assumptions.
 
 \hypertarget{the-chirality-hypothesis-h-ux3c7}{%
 \subsubsection{19.3.8 The chirality hypothesis
@@ -26479,9 +26516,11 @@ quantum representability itself is universal, not confined to that
 sector ({[}Main §3.4{]}).
 
 \textbf{Approximate unitarity.} On observable timescales
-\(t \ll \tau_B\), the hidden-sector state is approximately frozen
-(conditions C2-C3). At \(t=0\) the channel generator is exactly
-Hamiltonian,
+\(t \ll \tau_B\), the hidden-sector state is approximately frozen (the
+slow-bath regime, (C2-slow); at the horizon the bath is also
+imperturbable on laboratory timescales, with the \(N_H \gg N_V\)
+hierarchy of (C3)'s realization clause). At \(t=0\) the channel
+generator is exactly Hamiltonian,
 \[\frac{d\Phi_t}{dt}\bigg|_{t=0}(\rho_V) = -i[\hat{H}_{\text{eff}}, \rho_V],\]
 with
 \(\hat{H}_{\text{eff}} = H_V + \mathrm{Tr}_H[V_{\text{int}}(\mathbb{1}\otimes\rho_H)]\);
@@ -27830,12 +27869,14 @@ Twelve clusters of objections occupy the appendix.
 
 Section C.2 engages objections about Bell's theorem and the broader
 hidden-variable program: the framework's relationship to local
-hidden-variable theories, the specific Bell-violating mechanism
-(P-indivisibility producing factorizability violation), and why the
-framework is not a superdeterministic or Bohmian theory. Section C.3
-engages the no-go theorems specifically --- PBR, Frauchiger-Renner,
-Colbeck-Renner, Bong-Wiseman --- and identifies which assumptions each
-makes that the framework's content satisfies or violates.
+hidden-variable theories, the Bell branch the framework adopts
+(measurement independence retained, ontic parameter independence given
+up, operational no-signaling preserved; hidden memory and indivisibility
+are not the mechanism), and why the framework is not a
+superdeterministic or Bohmian theory. Section C.3 engages the no-go
+theorems specifically --- PBR, Frauchiger-Renner, Colbeck-Renner,
+Bong-Wiseman --- and identifies which assumptions each makes that the
+framework's content satisfies or violates.
 
 Sections C.4-C.6 engage the foundational concerns: the role of the
 stochastic-quantum bridge (Barandes route), the necessity direction of
@@ -29310,28 +29351,27 @@ crosses the partition boundary in both directions. C1 fails when the
 visible sector is causally disconnected from the hidden sector.
 Discussed in Chapter 1 §1.3.
 
-\textbf{C2 (Slow-bath memory persistence).} A physical-regime premise
-rather than one of the three structural conditions (C1, C3, C4): the
-equivalence runs over those three. C2 requires that the hidden sector's
-coarse-grained mixing time exceed the accessible window --- that stored
-records \emph{persist} --- not that the hidden sector evolve slowly:
-slow evolution is one sufficient mechanism, and fast conserved dynamics
-serve equally ({[}Main §1.3{]}, \texttt{fastbath\_probes.py}). C2 is the
-persistence half of what C4 operationally needs (the other half is
-in-window routing), and, in the coupling-step model of {[}Main §3.4{]}
---- next visible state determined by the current visible and hidden
-states, any hidden map between couplings --- observed conditional memory
-forces some realized hidden conditional at the coupling time to stay at
-least \(\varepsilon_{\min}\) from its reference prior \(\pi_H\), with no
-mixing hypothesis (the physical-memory theorem, {[}Main §3.4{]}); under
-the hidden-sector mixing hypothesis this becomes a lower bound on bath
-persistence. In a reversible realization the record of visible history
-is retained for every law, so the persistence condition bears on
-coarse-grained descriptions of the hidden sector. For our universe at
-the cosmological horizon, \(\tau_S / \tau_B \sim 10^{-32}\). When the
-coarse-grained hidden sector thermalizes between measurements, C2 fails
-and, under the mixing hypothesis, the dynamics becomes Markovian.
-Discussed in Chapter 1 §1.3.
+\textbf{C2 (Memory persistence).} A physical-regime premise rather than
+one of the three structural conditions (C1, C3, C4): the equivalence
+runs over those three. Stated in two forms ({[}Main §1.3{]}):
+(C2-structural), that a hidden record of visible history persists to the
+readback that uses it --- supplied by reversibility in every bijective
+realization, so as a condition it bears on coarse-grained descriptions
+of the hidden sector; and (C2-slow), \(\tau_S \ll \tau_B\), one
+sufficient mechanism, fast conserved dynamics being another
+(\texttt{fastbath\_probes.py}). C2 is the persistence half of what C4
+operationally needs (the other half is in-window routing), and, in the
+coupling-step model of {[}Main §3.4{]} --- next visible state determined
+by the current visible and hidden states, any hidden map between
+couplings --- observed conditional memory forces some realized hidden
+conditional at the coupling time to stay at least \(\varepsilon_{\min}\)
+from its reference prior \(\pi_H\), with no mixing hypothesis (the
+physical-memory theorem, {[}Main §3.4{]}); under the hidden-sector
+mixing hypothesis this becomes a lower bound on bath persistence. For
+our universe at the cosmological horizon,
+\(\tau_S / \tau_B \sim 10^{-32}\). When the coarse-grained hidden sector
+thermalizes between measurements, C2 fails and, under the mixing
+hypothesis, the dynamics becomes Markovian. Discussed in Chapter 1 §1.3.
 
 \textbf{C3 (Hidden-sector capacity).} The second of the framework's
 three structural conditions (C1, C3, C4). Requires hidden capacity
@@ -30742,4 +30782,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: 8bdee6d617317b63e1fd166f7773e49925318c60d4d599a181be15d4e689edaf
+% source-sha256: da16313cd63b57dde7cd34212ebb478edcde411e0ecbadbdb95e88502df98118

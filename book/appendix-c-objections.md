@@ -11,7 +11,7 @@ This appendix systematically engages the most frequent objections to the framewo
 
 Twelve clusters of objections occupy the appendix.
 
-Section C.2 engages objections about Bell's theorem and the broader hidden-variable program: the framework's relationship to local hidden-variable theories, the specific Bell-violating mechanism (P-indivisibility producing factorizability violation), and why the framework is not a superdeterministic or Bohmian theory. Section C.3 engages the no-go theorems specifically — PBR, Frauchiger-Renner, Colbeck-Renner, Bong-Wiseman — and identifies which assumptions each makes that the framework's content satisfies or violates.
+Section C.2 engages objections about Bell's theorem and the broader hidden-variable program: the framework's relationship to local hidden-variable theories, the Bell branch the framework adopts (measurement independence retained, ontic parameter independence given up, operational no-signaling preserved; hidden memory and indivisibility are not the mechanism), and why the framework is not a superdeterministic or Bohmian theory. Section C.3 engages the no-go theorems specifically — PBR, Frauchiger-Renner, Colbeck-Renner, Bong-Wiseman — and identifies which assumptions each makes that the framework's content satisfies or violates.
 
 Sections C.4-C.6 engage the foundational concerns: the role of the stochastic-quantum bridge (Barandes route), the necessity direction of the characterization theorem (whether QM requires embedded observation), and finiteness (whether the framework's Axiom 2 is too strong).
 

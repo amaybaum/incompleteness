@@ -762,9 +762,14 @@ satisfies: constraint (i) with range 1 (\(R(i,x)\) depends only on
 \(x_i\)); constraint (iii) by translation invariance. Bijectivity is
 verified by explicit inverse:
 \(u_i = (v_{L(i)} + v_{R(i,v)} - w_i) \bmod q\), since \(v\) determines
-all neighbor assignments. Center independence, P-indivisibility, and
-graph regularity (undirected degree bounded in {[}3, 2{]} independently
-of the state) all hold for any L and q.
+all neighbor assignments. Center independence and graph regularity
+(undirected degree bounded in {[}3, 2{]} independently of the state)
+hold for any L and q. With the visible sector one site's two time slices
+\((x_0(t-1), x_0(t))\), the update adds the hidden value \(x_{L-1}(t)\),
+uniform under the uniform hidden prior, so the one-step visible map is
+not a permutation and the recurrence-cycle P-indivisibility of {[}Main
+§2.3{]} holds for any \(L \geq 4\) and \(q \geq 2\); it is not a
+statement about accessible windows.
 
 \textbf{Local gauge invariance from background independence ---
 conditional carrier reading.} On the H-link + H-cust single-copy branch,
@@ -1130,16 +1135,16 @@ operator's coefficient at order unity rather than further-suppressed,
 but does not lift it from dimension six, so it is not by itself an
 exposure. The interpretation --- that embedded observation does not
 actively \emph{smear} the rotational sector, for the same reason the
-trace-out selects a rest frame and yields the quantum-representable
-reduced description --- is developed in {[}Ch. 19 §19.3.7{]}; on the
-present reading it does not need to, because octahedral symmetry and
-locality already place the violation at dimension six. The open question
-that remains is correspondingly narrower, and is not a sidereal-bound
-fine-tuning: whether the emergence preserves octahedral symmetry
-\emph{exactly} at loop level, or introduces an octahedral-breaking
-effect --- for instance an effective momentum-shell structure in the
-trace-out --- not visible in the octahedral-invariant checkerboard
-partition.
+horizon partition defining the trace-out selects a rest frame and the
+trace-out yields the quantum-representable reduced description --- is
+developed in {[}Ch. 19 §19.3.7{]}; on the present reading it does not
+need to, because octahedral symmetry and locality already place the
+violation at dimension six. The open question that remains is
+correspondingly narrower, and is not a sidereal-bound fine-tuning:
+whether the emergence preserves octahedral symmetry \emph{exactly} at
+loop level, or introduces an octahedral-breaking effect --- for instance
+an effective momentum-shell structure in the trace-out --- not visible
+in the octahedral-invariant checkerboard partition.
 
 The octahedral-invariance premise has a second dependency, more direct
 than the trace-out. The effective operator is octahedral-invariant only
@@ -1187,7 +1192,9 @@ trace-out commutes with the lattice octahedral group --- is itself
 grounded in the factorization criterion that fixes the gauge content
 ({[}Main §3.1, §3.5{]}): an observer-centered partition breaks
 translations, boosts, and rotations about distant points (each maps
-visible boundary sites into the hidden sector), but the octahedral group
+visible boundary sites into the hidden sector; for boosts, when the
+coarse-graining map determines the horizon foliation, the hypothesis
+under which {[}Main §3.5{]} excludes them), but the octahedral group
 about the observer's own centre is not of this kind, and the
 horizon-isotropic visible region is spherical and hence octahedrally
 symmetric, so this \(O_h\) preserves the visible/hidden factorization
@@ -2000,10 +2007,10 @@ only the linear part: it is exact modular-linear algebra and does not
 invoke the threshold nonlinearity. The \emph{ergodic/measure} properties
 --- full-shell sampling for the Gaussianization of §4.2, the chaotic
 mixing underlying operational measurement independence ({[}Main{]}
-§3.3), and the ETH-conditioning of the slow-bath form of the C2
-necessity direction ({[}Main{]} §3.4) --- read the threshold
-nonlinearity, which is what breaks the integrability of the
-strictly-linear map (way out (i) above). The two are not in tension
+§3.3), and the mixing hypothesis (ETH-motivated) conditioning the
+slow-bath form of the C2 necessity direction ({[}Main{]} §3.4) --- read
+the threshold nonlinearity, which is what breaks the integrability of
+the strictly-linear map (way out (i) above). The two are not in tension
 within the local lattice sector: they are different features of one
 update, consumed by different parts of the framework, and the ergodic
 properties ride on a bounded correction that leaves the structural
@@ -7701,14 +7708,15 @@ on tractability grounds. The contentful objects are therefore (i) the
 constitution or consequence, with the intractable-consequence exceptions
 (\(\delta_0\), the absolute mass scales) flagged --- and (ii) the
 rest-frame-selection lemma of {[}Main §3.5{]}, which explains the one
-structurally interesting case, the boost/rotation asymmetry, via the
-fact that the observation map selects a timelike direction but no
-spatial one. The honest summary is that the framework derives the
-tractable consequences of a constitution it must otherwise take as
-given, and that the boundary between the two is organized --- not by a
-single formal property, but by this constitution/consequence distinction
-together with the rest-frame lemma that explains its one non-obvious
-instance.
+structurally interesting case, the boost/rotation asymmetry, via its
+result that the horizon partition defining the observation map selects a
+timelike direction but no spatial one, and that the map excludes boosts
+when it determines the horizon foliation. In summary, the framework
+derives the tractable consequences of a constitution it must otherwise
+take as given, and the boundary between the two is organized --- not by
+a single formal property, but by this constitution/consequence
+distinction together with the rest-frame lemma that explains its one
+non-obvious instance.
 
 \emph{Relation to the framework's hierarchy of structural realism.} The
 Layer 0--Layer 3 classification refines the within-paper structure of
@@ -8889,4 +8897,4 @@ the FCC-ee,'' arXiv:2504.05974 (2025).
 Compact Family Cycle,'' arXiv:2605.10245 (2026).
 
 \end{document}
-% source-sha256: ff20e3e0bda0649f034130fb8e769eaca1cc441fde50a563ba1553d8786a10f2
+% source-sha256: e3e3209f7485600deaec3752ffc2fbdb2f86c1fd9ca8ed6441ee17aa5665e2f3

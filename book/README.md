@@ -73,7 +73,7 @@ The full compiled manuscript:
 
 - [`ch11-origin-of-life.md`](ch11-origin-of-life.md) — **The Origin of Life.** The framework's structural prediction of the RNA world. RNA is identified as the unique molecular system simultaneously satisfying C1 (catalytic activity, ribozymes), C2 (template stability across replication cycles), C3 (sequence space of $\sim 4^N$ exceeding Kauffman and von Neumann thresholds by $\sim 10^{56}$ at biologically relevant $N$), and C4 (template-directed readback: the stored sequence controls subsequent catalysis and replication). Includes prebiotic chemistry pathways (Miller-Urey, hydrothermal vents, surface metabolism).
 
-- [`ch12-evolution-intelligence.md`](ch12-evolution-intelligence.md) — **Evolution, Intelligence, and Self-Reference.** The cascade through evolution to intelligence. Identifies evolution as a P-indivisible process at three scales — protein conformational landscape, epigenome, constructed ecological niche. Covers major evolutionary transitions (Maynard Smith-Szathmáry). Information processing follows from neural computation in C1–C4 architectures; semiconductor physics and universal computation follow downstream.
+- [`ch12-evolution-intelligence.md`](ch12-evolution-intelligence.md) — **Evolution, Intelligence, and Self-Reference.** The cascade through evolution to intelligence. Identifies evolution as a memory-bearing (non-Markovian) process at three scales — protein conformational landscape, epigenome, constructed ecological niche. Covers major evolutionary transitions (Maynard Smith-Szathmáry). Information processing follows from neural computation in C1–C4 architectures; semiconductor physics and universal computation follow downstream.
 
 ### Part IV — Applications
 
@@ -97,7 +97,7 @@ The full compiled manuscript:
 
 - [`appendix-b-derivations.md`](appendix-b-derivations.md) — **Mathematical Derivations.** Full Stinespring construction; bilinear lattice formalism (Jordan-Chevalley); gap equation deriving $\hbar = c^3 \epsilon^2/(4G\sigma)$; anomaly cancellation calculation; cubic-group decomposition $\mathbf{6} = \mathbf{3} \oplus \mathbf{2} \oplus \mathbf{1}$; lemma chain for the characterization theorem.
 
-- [`appendix-c-objections.md`](appendix-c-objections.md) — **Common Objections and Framework Responses.** Bell's theorem and outcome-dependence-without-parameter-dependence; no-go theorems (PBR, Frauchiger-Renner, Colbeck-Renner, Bong-Wiseman); the stochastic-quantum bridge via Barandes correspondence + Stinespring dilation; necessity direction of the characterization theorem; finiteness axiom defense; relationship to MWI, Bohmian, QBism; circularity concerns in the gap equation; substratum-emergent operator distinction; meta-objections.
+- [`appendix-c-objections.md`](appendix-c-objections.md) — **Common Objections and Framework Responses.** Bell's theorem and the adopted branch (ontic parameter dependence, with measurement independence and operational no-signaling); no-go theorems (PBR, Frauchiger-Renner, Colbeck-Renner, Bong-Wiseman); the stochastic-quantum bridge via Barandes correspondence + Stinespring dilation; necessity direction of the characterization theorem; finiteness axiom defense; relationship to MWI, Bohmian, QBism; circularity concerns in the gap equation; substratum-emergent operator distinction; meta-objections.
 
 - [`glossary.md`](glossary.md) — defined terms used across the framework.
 

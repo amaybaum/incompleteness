@@ -104,7 +104,7 @@ Combining the lower bound (BQP is available, §14.3) with the upper bound (BQP c
 The proof relies on the framework's structural commitments at multiple points:
 - The framework's finite substratum guarantees finite-dimensional emergent Hilbert spaces.
 - The framework's deterministic bijection $\varphi$ guarantees unitarity at the substratum level.
-- The framework's structural conditions C1–C4 guarantee accessible non-Markovianity, and the emergent quantum-mechanical description for processes in the correspondence's class under (T).
+- The framework's structural conditions C1–C4 guarantee accessible conditional memory, through the readback gap of C4; the fixed-basis quantum representation is internal and universal, with the compressed form for processes in the correspondence's class under (T).
 - The computational model assumes operational quantum closure: informational completeness of the density matrix for all admissible operations is a model hypothesis, not a partition-structure guarantee — deriving it is the operational-selection frontier ([Main §3.4]).
 
 The first three are structural features of the framework's universality class; the fourth is §14.4's added model hypothesis — and together with the computational-control and efficiency hypotheses they produce the conditional BQP characterization.
