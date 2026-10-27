@@ -960,11 +960,11 @@ no gap. For every visible prior, a non-deterministic visible step ---
 positive-probability \(x\) --- makes some \(\Gamma_s\) a
 non-permutation, so the recurrence-cycle indivisibility holds for every
 representative with such a step, laws that are Markov on every
-accessible window included. The gap it is equivalent to may lie at
-orders up to the recurrence time; (C4) and condition (ii) of §3.4
-require an accessible order, \(k\tau_S \ll t_R\). What (C4) adds within
-accessible windows is the positive conditional memory of the readback
-lemma below.
+accessible window included. Under a full-support prior, the gap it is
+equivalent to may lie at orders up to the recurrence time; (C4) and
+condition (ii) of §3.4 require an accessible order, \(k\tau_S \ll t_R\).
+What (C4) adds within accessible windows is the positive conditional
+memory of the readback lemma below.
 
 \textbf{Genericity.} The theorem's precondition --- that \(T\) is not a
 permutation matrix --- is a sufficient first-step \emph{witness} of (C1)
@@ -3837,9 +3837,9 @@ non-Markovian laws alike; what is specific to non-Markovian laws is (a)
 with the visible witness.
 
 \emph{Remark (a variational question).} Over reversible deterministic
-completions the identity
-\(M_{\mathrm{det}} := \inf_{\mathcal{R}} I(X_{<t}; H_t \mid X_t) = M_t\)
-does not hold as an identity at any hidden dimension: every bijective
+completions
+\(M_{\mathrm{det}} := \inf_{\mathcal{R}} I(X_{<t}; H_t \mid X_t)\) does
+not equal \(M_t\) in general at any hidden dimension: every bijective
 completion has \(I(X_{<t}; H_t \mid X_t) = H(X_{<t} \mid X_t)\) (Remark
 above), which exceeds \(M_t\) by \(H(X_{<t} \mid X_t, X_{t+1})\) --- for
 an i.i.d. fair coin at \(t = 1\), \(M_1 = 0\) while every reversible
@@ -3852,7 +3852,9 @@ bijectivity requirement the infimum is attained: in every deterministic
 completion the whole visible future is a function of \((X_t, H_t)\), so
 \(I(X_{<t}; H_t \mid X_t) \geq I(X_{<t}; X_{>t} \mid X_t)\) (kernel:
 \texttt{c3\_necessity\_via\_hidden} in
-\texttt{OIBridge/C3Necessity.lean}), with equality for the canonical
+\texttt{OIBridge/C3Necessity.lean}, stated there for bijective
+realizations; the same data-processing step for non-injective and staged
+completions is proved on paper), with equality for the canonical
 predictive quotient (the predictive-completion theorem below), whose
 hidden state at \(t\) is the visible future tail. The infimum over
 deterministic completions is therefore \(I(X_{<t}; X_{>t} \mid X_t)\),
@@ -5413,4 +5415,4 @@ degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
 \end{document}
-% source-sha256: bcb855afb92fa0417e114064d70b0d29a55e4e0c6666cbd543fafb05e209d68d
+% source-sha256: bd6ba1a023f022241f54a560d09b2b6339c77e35b703d69102dbab3137fa74ca
