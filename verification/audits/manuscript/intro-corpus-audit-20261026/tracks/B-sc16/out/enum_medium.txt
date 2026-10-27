@@ -1,0 +1,86 @@
+class (nV,nH)=(2,4) prior=uniform [Fraction(1, 4), Fraction(1, 4), Fraction(1, 4), Fraction(1, 4)]: bijections=40320
+  K5 (Scope equivalence gap<L <=> nonperm Gamma_s <=> R1 fails on {0..L}) violations: 0  [GREEN]
+  K5r (nonperm Gamma_s, s<r => R1 fails on {0..r}) violations: 0  [GREEN]
+  bijections with an accessible window (2<=n<r) satisfying C1 & C2s & C4: 36864  (windows: 176832)
+  of those, C1-hist also holds in every such window: 36864/36864
+  reading R1: bijections with >=1 accessible C1&C2s&C4 window that is R1-divisible: 21888;  windows: 48384/176832
+  reading R2: bijections with >=1 accessible C1&C2s&C4 window that is R2-divisible: 4608;  windows: 11520/176832
+  reading R3: bijections with >=1 accessible C1&C2s&C4 window that is R3-divisible: 21888;  windows: 48384/176832
+  reading R4: bijections with >=1 accessible C1&C2s&C4 window that is R4-divisible: 21888;  windows: 48384/176832
+  K7 C3 exact failures among R1-countermodels: 0  [GREEN]; static-bath R1-countermodels: 0
+  first R1 countermodel: phi=[0, 1, 6, 3, 4, 5, 7, 2] L=3 r=3 window n=2 gap order k=1 (R1,R2,R3,R4)=(True, False, True, True)
+  first R3 countermodel: phi=[0, 1, 6, 3, 4, 5, 7, 2] L=3 r=3 window n=2 gap order k=1 (R1,R2,R3,R4)=(True, False, True, True)
+  first R4 countermodel: phi=[0, 1, 6, 3, 4, 5, 7, 2] L=3 r=3 window n=2 gap order k=1 (R1,R2,R3,R4)=(True, False, True, True)
+  first R2 countermodel: phi=[0, 1, 6, 4, 5, 2, 7, 3] L=6 r=3 window n=2 gap order k=1 (R1,R2,R3,R4)=(True, True, True, True)
+  largest r among R1-countermodels: r=15, window n=2, gap order k=1, phi=[1, 4, 5, 6, 0, 3, 7, 2]
+  elapsed 37s
+class (nV,nH)=(2,4) prior=skew [Fraction(1, 2), Fraction(1, 4), Fraction(1, 8), Fraction(1, 8)]: bijections=40320
+  K5 (Scope equivalence gap<L <=> nonperm Gamma_s <=> R1 fails on {0..L}) violations: 0  [GREEN]  (full-support visible prior; equivalence asserted by Main for full support)
+  K5r (nonperm Gamma_s, s<r => R1 fails on {0..r}) violations: 0  [GREEN]
+  bijections with an accessible window (2<=n<r) satisfying C1 & C2s & C4: 37392  (windows: 185280)
+  of those, C1-hist also holds in every such window: 37392/37392
+  reading R1: bijections with >=1 accessible C1&C2s&C4 window that is R1-divisible: 18376;  windows: 26280/185280
+  reading R2: bijections with >=1 accessible C1&C2s&C4 window that is R2-divisible: 1504;  windows: 1776/185280
+  reading R3: bijections with >=1 accessible C1&C2s&C4 window that is R3-divisible: 21224;  windows: 31968/185280
+  reading R4: bijections with >=1 accessible C1&C2s&C4 window that is R4-divisible: 21224;  windows: 31968/185280
+  K7 C3 exact failures among R1-countermodels: 0  [GREEN]; static-bath R1-countermodels: 0
+  first R1 countermodel: phi=[0, 1, 6, 3, 4, 5, 7, 2] L=3 r=3 window n=2 gap order k=1 (R1,R2,R3,R4)=(True, False, True, True)
+  first R3 countermodel: phi=[0, 1, 6, 3, 4, 5, 7, 2] L=3 r=3 window n=2 gap order k=1 (R1,R2,R3,R4)=(True, False, True, True)
+  first R4 countermodel: phi=[0, 1, 6, 3, 4, 5, 7, 2] L=3 r=3 window n=2 gap order k=1 (R1,R2,R3,R4)=(True, False, True, True)
+  first R2 countermodel: phi=[0, 1, 4, 5, 6, 7, 2, 3] L=3 r=3 window n=2 gap order k=1 (R1,R2,R3,R4)=(True, True, True, True)
+  largest r among R1-countermodels: r=15, window n=4, gap order k=1, phi=[1, 2, 6, 4, 5, 3, 7, 0]
+  elapsed 38s
+class (nV,nH)=(2,4) prior=pure [Fraction(1, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1)]: bijections=40320
+  K5 (Scope equivalence gap<L <=> nonperm Gamma_s <=> R1 fails on {0..L}) violations: 0  [GREEN]  (full-support visible prior; equivalence asserted by Main for full support)
+  K5r (nonperm Gamma_s, s<r => R1 fails on {0..r}) violations: 0  [GREEN]
+  bijections with an accessible window (2<=n<r) satisfying C1 & C2s & C4: 10080  (windows: 20736)
+  of those, C1-hist also holds in every such window: 0/10080
+  reading R1: bijections with >=1 accessible C1&C2s&C4 window that is R1-divisible: 0;  windows: 0/20736
+  reading R2: bijections with >=1 accessible C1&C2s&C4 window that is R2-divisible: 0;  windows: 0/20736
+  reading R3: bijections with >=1 accessible C1&C2s&C4 window that is R3-divisible: 0;  windows: 0/20736
+  reading R4: bijections with >=1 accessible C1&C2s&C4 window that is R4-divisible: 0;  windows: 0/20736
+  K7 C3 exact failures among R1-countermodels: 0  [GREEN]; static-bath R1-countermodels: 0
+  elapsed 25s
+class (nV,nH)=(4,2) prior=uniform [Fraction(1, 2), Fraction(1, 2)]: bijections=40320
+  K5 (Scope equivalence gap<L <=> nonperm Gamma_s <=> R1 fails on {0..L}) violations: 0  [GREEN]
+  K5r (nonperm Gamma_s, s<r => R1 fails on {0..r}) violations: 0  [GREEN]
+  bijections with an accessible window (2<=n<r) satisfying C1 & C2s & C4: 39200  (windows: 212288)
+  of those, C1-hist also holds in every such window: 39200/39200
+  reading R1: bijections with >=1 accessible C1&C2s&C4 window that is R1-divisible: 4224;  windows: 5760/212288
+  reading R2: bijections with >=1 accessible C1&C2s&C4 window that is R2-divisible: 1152;  windows: 1536/212288
+  reading R3: bijections with >=1 accessible C1&C2s&C4 window that is R3-divisible: 4224;  windows: 5760/212288
+  reading R4: bijections with >=1 accessible C1&C2s&C4 window that is R4-divisible: 4224;  windows: 5760/212288
+  K7 C3 exact failures among R1-countermodels: 0  [GREEN]; static-bath R1-countermodels: 24
+  first R1 countermodel: phi=[0, 1, 2, 3, 4, 6, 7, 5] L=3 r=3 window n=2 gap order k=1 (R1,R2,R3,R4)=(True, True, True, True)
+  first R2 countermodel: phi=[0, 1, 2, 3, 4, 6, 7, 5] L=3 r=3 window n=2 gap order k=1 (R1,R2,R3,R4)=(True, True, True, True)
+  first R3 countermodel: phi=[0, 1, 2, 3, 4, 6, 7, 5] L=3 r=3 window n=2 gap order k=1 (R1,R2,R3,R4)=(True, True, True, True)
+  first R4 countermodel: phi=[0, 1, 2, 3, 4, 6, 7, 5] L=3 r=3 window n=2 gap order k=1 (R1,R2,R3,R4)=(True, True, True, True)
+  largest r among R1-countermodels: r=12, window n=2, gap order k=1, phi=[0, 2, 3, 4, 1, 6, 7, 5]
+  elapsed 541s
+class (nV,nH)=(4,2) prior=skew [Fraction(1, 3), Fraction(2, 3)]: bijections=40320
+  K5 (Scope equivalence gap<L <=> nonperm Gamma_s <=> R1 fails on {0..L}) violations: 0  [GREEN]  (full-support visible prior; equivalence asserted by Main for full support)
+  K5r (nonperm Gamma_s, s<r => R1 fails on {0..r}) violations: 0  [GREEN]
+  bijections with an accessible window (2<=n<r) satisfying C1 & C2s & C4: 39200  (windows: 212288)
+  of those, C1-hist also holds in every such window: 39200/39200
+  reading R1: bijections with >=1 accessible C1&C2s&C4 window that is R1-divisible: 480;  windows: 576/212288
+  reading R2: bijections with >=1 accessible C1&C2s&C4 window that is R2-divisible: 480;  windows: 576/212288
+  reading R3: bijections with >=1 accessible C1&C2s&C4 window that is R3-divisible: 480;  windows: 576/212288
+  reading R4: bijections with >=1 accessible C1&C2s&C4 window that is R4-divisible: 1056;  windows: 1152/212288
+  K7 C3 exact failures among R1-countermodels: 0  [GREEN]; static-bath R1-countermodels: 0
+  first R1 countermodel: phi=[0, 1, 2, 3, 4, 6, 7, 5] L=3 r=3 window n=2 gap order k=1 (R1,R2,R3,R4)=(True, True, True, True)
+  first R2 countermodel: phi=[0, 1, 2, 3, 4, 6, 7, 5] L=3 r=3 window n=2 gap order k=1 (R1,R2,R3,R4)=(True, True, True, True)
+  first R3 countermodel: phi=[0, 1, 2, 3, 4, 6, 7, 5] L=3 r=3 window n=2 gap order k=1 (R1,R2,R3,R4)=(True, True, True, True)
+  first R4 countermodel: phi=[0, 1, 2, 3, 4, 6, 7, 5] L=3 r=3 window n=2 gap order k=1 (R1,R2,R3,R4)=(True, True, True, True)
+  largest r among R1-countermodels: r=6, window n=4, gap order k=2, phi=[2, 3, 0, 4, 6, 7, 5, 1]
+  elapsed 505s
+class (nV,nH)=(4,2) prior=pure [Fraction(1, 1), Fraction(0, 1)]: bijections=40320
+  K5 (Scope equivalence gap<L <=> nonperm Gamma_s <=> R1 fails on {0..L}) violations: 0  [GREEN]  (full-support visible prior; equivalence asserted by Main for full support)
+  K5r (nonperm Gamma_s, s<r => R1 fails on {0..r}) violations: 0  [GREEN]
+  bijections with an accessible window (2<=n<r) satisfying C1 & C2s & C4: 35880  (windows: 163032)
+  of those, C1-hist also holds in every such window: 0/35880
+  reading R1: bijections with >=1 accessible C1&C2s&C4 window that is R1-divisible: 0;  windows: 0/163032
+  reading R2: bijections with >=1 accessible C1&C2s&C4 window that is R2-divisible: 0;  windows: 0/163032
+  reading R3: bijections with >=1 accessible C1&C2s&C4 window that is R3-divisible: 0;  windows: 0/163032
+  reading R4: bijections with >=1 accessible C1&C2s&C4 window that is R4-divisible: 0;  windows: 0/163032
+  K7 C3 exact failures among R1-countermodels: 0  [GREEN]; static-bath R1-countermodels: 0
+  elapsed 442s
