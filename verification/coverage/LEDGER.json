@@ -380,7 +380,7 @@
       "line": 82,
       "kind": "Theorem",
       "label": "statement",
-      "fingerprint": "f328795d299706f7",
+      "fingerprint": "005fcd5d8cf3af7f",
       "area": "oi-foundations",
       "assumptions": "see the constituent rows",
       "checks": [],
@@ -470,9 +470,9 @@
       "line": 137,
       "kind": "Theorem",
       "label": "(history readback + finite recurrence implies indivisibility)",
-      "fingerprint": "46da0f42c114d5ab",
+      "fingerprint": "88428cc80fcebe48",
       "area": "memory-conditions",
-      "assumptions": "a bijection of order L with a hidden prior shared by every root; rooted maps for every root; two distinct positive-probability trajectories with a common endpoint (a C4 gap is one)",
+      "assumptions": "a bijection of order L with a hidden prior shared by every root and independent of the visible prior; rooted maps for every root; two distinct positive-probability trajectories with a common endpoint (a C4 gap is one)",
       "checks": [
         {
           "kind": "probe",

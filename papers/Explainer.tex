@@ -824,8 +824,8 @@ ones, and the process becomes effectively memoryless. Together with C4's
 readback --- the load-bearing condition (\texttt{review4\_probes.py}:
 storage and capacity without readback do not suffice) --- C2 and C3 make
 the accessible memory strong, persistent, and observationally relevant;
-the P-indivisibility witness is the stronger diagnostic that readback
-makes measurable.
+the conditional memory \(M_t\) is the diagnostic that readback makes
+measurable.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1073,9 +1073,9 @@ logical chain:
   population law and needs the recurrence and non-permutation
   hypotheses, not C1/C3/C4 alone
 \item
-  Section 3.3 proves: P-indivisibility ⟹ C1, C3, C4 (necessity,
-  unconditional); C2's slow form within the mixing class (the
-  conditional physical-memory theorem)
+  Section 3.3 proves: accessible-window P-indivisibility ⟹ C1, C3, C4
+  (necessity, unconditional); C2's slow form within the mixing class
+  (the conditional physical-memory theorem)
 \item
   Combined: \textbf{accessible non-Markovianity ⟺ embedded observation
   under C1, C3, C4 (for some accessible order \(k\), on each finite
@@ -3388,8 +3388,7 @@ At the finite observable-law layer, the answer is an exact quantum
 \textbf{representation}. The head cannot access the tape's global state.
 It sees only local statistics --- transition probabilities obtained by
 marginalizing over unread tape cells. With readback those statistics are
-non-Markovian and, on a fixed finite recurrent representative, globally
-indivisible. The fixed-basis Hilbert/unitary/Born-form description is
+non-Markovian. The fixed-basis Hilbert/unitary/Born-form description is
 exact (\(S \iff D \iff Q_{\mathrm{fb}}\)). The stronger statement that
 superposition, entanglement, and arbitrary coherent instruments all
 belong to one standard local quantum operational theory is the separate
@@ -3531,11 +3530,11 @@ Gödel and Turing are usually read as negative results --- limits on
 knowledge. The framework recasts the physical instance as
 \emph{generative}. What is mathematically rigid here is the finite
 stochastic/reversible/fixed-basis quantum representation equivalence,
-together with the memory-bearing indivisible sector selected by
-readback. Calling the resulting description \textbf{full operational
-quantum mechanics} requires the additional coherent/composite lifting
-and locality conditions stated above; the stronger uniqueness claim is
-not being smuggled into the analogy.
+together with the memory-bearing sector selected by readback. Calling
+the resulting description \textbf{full operational quantum mechanics}
+requires the additional coherent/composite lifting and locality
+conditions stated above; the stronger uniqueness claim is not being
+smuggled into the analogy.
 
 \hypertarget{why-does-mathematics-describe-physics}{%
 \subsubsection{Why does mathematics describe
@@ -3945,4 +3944,4 @@ The final text and all scientific claims were reviewed and verified by
 the author.
 
 \end{document}
-% source-sha256: f6e065b6f2c47a420e94d056b73e481a7220d27b38c9155d6844f0ba4a25f089
+% source-sha256: 3e7ce1626fc88a6209bb6770d9c8ad6785a75a1971b473d8c413cd9ddd8eceb3
