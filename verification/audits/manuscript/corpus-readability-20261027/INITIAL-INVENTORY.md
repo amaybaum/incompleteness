@@ -5,7 +5,7 @@
 **Sampling:** repository paths and file sizes; first ~110 lines of Juno, Medicine, Computation, book ch01, ch03 and readers-guide. The latest open source-correction and Introduction branches were not treated as baseline truth.
 
 ## Inventory
-- `papers/`: twelve active standalone Markdown papers (Bioinformatics, Complexity, Computation, GR, Juno, Main, Medicine, Methodology, SM, Structure, Substratum; count here is **11**, with the Introduction still pending in #918), plus `Explainer.md` pending controlled retirement. Do not call Explainer an active final manuscript.
+- `papers/`: eleven active standalone Markdown papers (Bioinformatics, Complexity, Computation, GR, Juno, Main, Medicine, Methodology, SM, Structure, Substratum; the Introduction is still pending in #918), plus `Explainer.md` pending controlled retirement. Do not call Explainer an active final manuscript.
 - `book/`: Chapters 00–19 (20 chapters), preface, readers-guide, glossary, appendices A–C, acknowledgments and bibliography; generated `The-Incompleteness-of-Observation-FULL.md` plus TeX/PDF.
 - Generated `.tex` and `.pdf` are distinct build artifacts, not separately authored sources. Mirror parity is a release gate.
 
