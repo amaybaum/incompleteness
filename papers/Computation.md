@@ -80,7 +80,7 @@ The recursion — AI building AI building AI — produces ever more sophisticate
 | Determine the hidden-sector state $h$ | Provably impossible (characterization theorem) |
 | Observe beyond the cosmological horizon | Provably impossible (causal partition) |
 | Build faster computers | Structurally possible (derived physics permits it) |
-| Replace a genuinely P-indivisible visible process by a faithful memoryless (divisible) model at the same horizon | Provably impossible when the measured memory witness is nonzero ([Main §3.4]) |
+| Replace a visible process with nonzero conditional memory by a faithful memoryless (Markov) model at the same horizon | Provably impossible ([Main §3.4]) |
 | Recursive self-improvement | Possible within the structural limits |
 
 The framework's prediction is precise: there is no ceiling on the complexity of the observer, but there is a permanent floor on what any observer can access. The ceiling is contingent — it depends on the specific φ and the specific evolutionary and technological history. The floor is structural — it is the same for all embedded observers, biological or artificial, at any level of sophistication.

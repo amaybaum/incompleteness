@@ -229,7 +229,7 @@ One feature of Deutsch's broader program is read differently by the framework, a
 | Determine the hidden-sector state $h$ | Provably impossible (characterization theorem) |
 | Observe beyond the cosmological horizon | Provably impossible (causal partition) |
 | Build faster computers | Structurally possible (derived physics permits it) |
-| Replace a genuinely P-indivisible visible process by a faithful memoryless (divisible) model at the same horizon | Provably impossible when the measured memory witness is nonzero ([Main §3.4]) |
+| Replace a visible process with nonzero conditional memory by a faithful memoryless (Markov) model at the same horizon | Provably impossible ([Main §3.4]) |
 | Solve problems outside BQP | Impossible under global coverage of Ch 14's computational model (a conditional theorem) |
 | Achieve consciousness in the phenomenal sense | Not addressed (Ch 18 §18.10) |
 
