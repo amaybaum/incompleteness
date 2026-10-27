@@ -63,3 +63,9 @@ diagnoses (ambiguous wording, missing explanatory premise, deeper conceptual obs
 - **Answers:** `RUN6-ANSWERS-bace5ef8.md` holds the reader's final message byte for byte, unedited, saved before any evaluation. sha256 `273fe35622b37015e4124b1c35c3506ae56f598d7b48527ae9287381db1d482b`.
 - **Scope of the evidence:** as for the earlier runs, this is an AI comprehension test and not evidence of human comprehension.
 - **Evaluation of run 6:** `RUN6-EVALUATION.md` records the scientific reviewer's report verbatim, scored under the preregistered criteria: **gate 2 not met.** Q1–Q4, Q6 and the Q5 memory results pass, and the direct questions 5a and 5b both pass. Q5 part (c), memory beyond every accessible window, is PARTIAL: the reader reaches the paper's conclusion unprompted in Q7 but gives no reason. The preregistered diagnosis is a mild deeper conceptual obstacle compounded by an instrument gap, since (c) is not asked directly. Proposed changes are listed separately and none is applied.
+
+## Run 7: preregistered
+
+`RUN7-PREREGISTRATION.md` fixes run 7 before it is run, by owner authorization after run 6 did not meet gate 2; run 6's
+verdict stands. It adds one direct question, 5c, on memory beyond every accessible window, with its pass/fail criteria,
+and keeps 5a, 5b, the gate rule and the three failure diagnoses. The paper under test is r31 at `bace5ef8`, unchanged.
