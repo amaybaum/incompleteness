@@ -241,6 +241,7 @@ Each merge below was approved by the owner at the exact head SHA listed. Each wa
 | SC-20 C2 necessity in two forms | #953 | `64281543…` | `d66bb70e` | ACCEPT WITH CHANGES at `f6e4ba55` (B1 §3.4 anchor, B2 propagation); ACCEPT WITH CHANGES at `c9969d89` (Main :624); ACCEPT at `64281543` | #918 :185 to name the slow-bath form |
 | SC-21 (EM) results scoped to the coarse-grained description | #954 | `0474dad3…` | `9d975c11` | ACCEPT WITH CHANGES at `c4ca72c4`; ACCEPT at `9e01e9fb`, `36ef284d`, `b7b67508` (owner safeguards checked at `6c2bfb8e`); re-validated ACCEPT at `0474dad3` after merging main `d66bb70e` | none: #918 makes no (EM)-based claim |
 | SC-16 accessible-window P-indivisibility (with SC-5 terminology, scheme A) | #955 | `1b6a4dbc…` | `55e3217b` | ACCEPT WITH CHANGES at `2d3067aa` (B1, B2, N1–N17); ACCEPT at `1165b068`; re-validated ACCEPT at `1b6a4dbc` after merging main `9d975c11` | none needed for scheme A |
+| SC-27 C2 in its two forms and C3 unconditional at the stale sites | #958 | `75a7aa2c…` | `4449b0d9` | BLOCK at `7e9cf451` (three narrow findings); ACCEPT at `838918bd`; delta CONFIRM at `75a7aa2c`; 26/26 CI green at `75a7aa2c`; merge tree identical to the approved head | none: the Introduction's (C2)/(C3) statements are revised in r17 against main |
 
 ### Identifier transitions
 
