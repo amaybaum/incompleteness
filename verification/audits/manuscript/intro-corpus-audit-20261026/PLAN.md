@@ -160,8 +160,8 @@ audit.
 
     For each central result, keep three questions apart: whether it is mathematically consistent, whether its
     premises are independently justified as physics, and whether it has been confronted with data (AGENTS.md §A.23).
-    The priority is a precise account of how far OI explains quantum mechanics and gravity from observational
-    incompleteness, and which assumptions and results are still missing.
+    The priority is a precise account of what the results establish about quantum mechanics and gravity, under which
+    assumptions, and which assumptions and results are still missing.
 11. **Prior-work assessment.** For each central result, identify the nearest prior work and state what the result
     adds to it: a new theorem, a new proof of a known theorem, a new reading, or nothing. Sources are read first-hand.
     A claim of novelty with no source identified is a finding.
