@@ -1,0 +1,50 @@
+{
+  "commuting_block_cases": 243,
+  "countercontrols": {
+    "characteristic_two": true,
+    "drop_C_commutes": true,
+    "drop_baseline_chirality": true,
+    "drop_invertible_grading": true,
+    "odd_periodic_boundary_d1_L3": true,
+    "odd_periodic_boundary_d1_L5": true,
+    "odd_periodic_boundary_d2_L3": true,
+    "odd_periodic_boundary_d2_L5": true,
+    "operator_coefficient_cancellation": true,
+    "single_parity_coefficient_cancellation": true
+  },
+  "evidence_class": "bounded exact rational computation; not a Lean certificate",
+  "lattice_cases": [
+    {
+      "B_equals": "2D",
+      "axes": 1,
+      "diag_B_squared": -2,
+      "extent": 4,
+      "sites": 4
+    },
+    {
+      "B_equals": "2D",
+      "axes": 2,
+      "diag_B_squared": -4,
+      "extent": 4,
+      "sites": 16
+    },
+    {
+      "B_equals": "2D",
+      "axes": 3,
+      "diag_B_squared": -6,
+      "extent": 4,
+      "sites": 64
+    },
+    {
+      "B_equals": "2D",
+      "axes": 4,
+      "diag_B_squared": -8,
+      "extent": 4,
+      "sites": 256
+    }
+  ],
+  "passed": true,
+  "scalar_cases": 83,
+  "schema": "sm-theorem3-restricted-converse-smoke-v1",
+  "script_sha256": "0ddc0d9dd905d9aa59f8e5dabc5e837b6c04497325279bdef60a9bb275481d60"
+}
