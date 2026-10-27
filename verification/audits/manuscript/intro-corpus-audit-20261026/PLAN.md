@@ -256,7 +256,11 @@ Corrections still open on the source side, tracked on the source-correction gate
 - C3 stated as conditional on mixing (Substratum :136); `c3_necessity` proves C3 for every realization with no mixing hypothesis;
 - Structure :1274, which overstates the reverse-direction lemma;
 - SC-16, accessible-window P-indivisibility attributed to C1–C4;
-- SC-17, compressed Bell-ceiling summaries.
+- SC-17, compressed Bell-ceiling summaries;
+- (C2) necessity: the persistence form needs no mixing hypothesis, the slow-bath form does (Track D, D4);
+- the fast-mixing chain at Main :754 uses the iterated one-step coarse channel over the whole window, which is not established (Track D, D6). Owner decision: do not treat the iterated channel as governing the window unless that is independently established; make the hypothesis explicit or limit the argument to the one-step coarse description, preferring the latter if the hypothesis is not justified within OI.
+
+The parallel tracks' working records are under `tracks/` (WIP, unreviewed). Track D's exact countermodels indicate that C1–C4 with any (C2) form do not imply P-indivisibility within an accessible window, and that in-window rooted revival is a sufficient, not necessary, extra condition. This stays provisional until Track B's independent verification converges with it; no manuscript change follows from it before then.
 
 The Introduction-side changes are applied on #918 once their source units have merged.
 

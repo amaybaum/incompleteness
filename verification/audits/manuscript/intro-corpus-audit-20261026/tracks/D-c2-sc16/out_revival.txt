@@ -1,0 +1,5 @@
+(2,2): revival pairs=32, revival pairs with a stochastic divisor=0; bijections with a gap at some order < L: 16, of which P-divisible on all of {0..L-1}: 12
+(2,3): revival pairs=2412, revival pairs with a stochastic divisor=0; bijections with a gap at some order < L: 648, of which P-divisible on all of {0..L-1}: 558
+(3,2): revival pairs=2240, revival pairs with a stochastic divisor=0; bijections with a gap at some order < L: 672, of which P-divisible on all of {0..L-1}: 224
+(2,4): revival pairs=461536, revival pairs with a stochastic divisor=0; bijections with a gap at some order < L: 39168, of which P-divisible on all of {0..L-1}: 6208
+REVIVAL CHECK GREEN
