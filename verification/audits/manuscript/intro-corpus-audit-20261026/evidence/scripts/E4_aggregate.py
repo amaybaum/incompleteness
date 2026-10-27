@@ -400,7 +400,8 @@ def render(ev, items, relabels):
           "conclusion, which under `tools/lean_axiom_check.py`'s contract establishes that every printed report lies "
           "within the allow-list and that every declared `#print axioms` has a report. No row's level rests on the "
           "log text alone. The logs expire (E3-14).",
-          "- The concept DOI and the release archive that the Introduction cites (L197–200) were not checked (E3-16).",
+          "- The concept DOI resolves to release 3.1.4, whose archive carries the probes byte-identical to the corpus "
+          "commit and no black-hole records (E3-16). The concept DOI names the latest version, not a fixed archive.",
           "", "## Proposed for owner authorization (not dispatched)", "",
           "- A fresh-build CI reproduction of `introduction_repro` at `17b830bc`.",
           "- An extended expected result covering the additional modules (OD-15). It can be re-derived from the "

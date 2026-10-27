@@ -9,7 +9,7 @@
 **Summary.**
 
 - 358 of 409 rows are FAITHFUL after the synthesis and the independent review re-rated some rows (`matrix/resolutions.json`). The 51 others, the seven completeness rows recommended *add* or *strengthen*, and the two rows whose mapper disagreement resolved against the Introduction (I-013, I-008) reduce to **34 required changes** (part a; R-33 and R-34 were added by the independent review), deduplicated across the abstract, the body, §6.2 and §6.3.
-- **23 optional changes** (part b; O-7 and O-12 of the 25 listed there have moved into R-01 and R-07) and **15 owner decisions** (part c).
+- **24 optional changes** (part b; O-7 and O-12 of the 26 listed there have moved into R-01 and R-07) and **15 owner decisions** (part c).
 - The **corpus corrections** outside the Introduction fall into eight proposed pull requests (part d).
 - **Length.** The main text runs through p. 12 at 4,966 words, about 414 words a page. After the independent review the required changes add about 610 words in full form (R-01, R-02 and R-07 lengthened; R-33 and R-34 added; the short forms withdrawn); cuts C-1 to C-8 bring the net to about +400 words, roughly one page (part c, OD-13). Page count is measured by building (`sh ./build.sh`), not estimated.
 
@@ -707,6 +707,7 @@ The *cite* recommendations of COMPLETENESS.md and the low-priority items. None i
 | O-23 | B4 | The reproduction recipe reads `papers/introduction_repro/` by relative path, so it needs a clone that contains #918 or its landing; state this if the recipe is kept | L195 | ~10 | |
 | O-24 | B1 | Define n where the n²-dimensional dilation first appears (R-18 does this) | L60 | — | Folded into R-18. |
 | O-25 | Offsets | The cuts C-1–C-8 of OD-13 | various | −212 | Each is optional; together they absorb most of the required additions. |
+| O-26 | E3-16 | L198: cite the version DOI of release 3.1.4, 10.5281/zenodo.23608753, beside the concept DOI, which resolves to the latest version; the 3.1.4 archive carries the probes byte-identical to the corpus commit | L198 | ~8 | |
 
 ***
 

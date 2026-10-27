@@ -201,7 +201,7 @@ The item's limits apply to the row (see the part files). A formal-coverage item 
 - No Lean toolchain is available here, so no kernel item is *reproduced*: *certificate-checked* is the highest level a kernel link can reach (E1).
 - The CI jobs examined replayed the OIBridge build from the Actions cache (E1-122, E3-11), and for 9 of the 14 Appendix A modules no fresh elaboration was observed at these sources (E3-11). The axiom reports are lake replays of an elaboration of byte-identical sources; a fresh elaboration is proposed for owner authorization.
 - For the 21 printed declarations outside the retained result, "exactly the three axioms" is read from CI job-log text, which is diagnostic. The structured certificate there is the Release gate step's conclusion, which under `tools/lean_axiom_check.py`'s contract establishes that every printed report lies within the allow-list and that every declared `#print axioms` has a report. No row's level rests on the log text alone. The logs expire (E3-14).
-- The concept DOI and the release archive that the Introduction cites (L197–200) were not checked (E3-16).
+- The concept DOI resolves to release 3.1.4, whose archive carries the probes byte-identical to the corpus commit and no black-hole records (E3-16). The concept DOI names the latest version, not a fixed archive.
 
 ## Proposed for owner authorization (not dispatched)
 

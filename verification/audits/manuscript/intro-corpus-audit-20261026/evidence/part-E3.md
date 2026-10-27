@@ -90,7 +90,6 @@ The open-obligation items are traced-only by nature: each status was traced to t
 - `mutants.py` for either black-hole package.
 - `tools/v3_verifier.py --receipts` (needs full history; this worktree is shallow).
 - R8 of the retention check.
-- The concept DOI and the release archive.
 - Log-retention settings.
 
 ## Needs owner authorization

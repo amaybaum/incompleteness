@@ -339,10 +339,10 @@
    "LICENSE@b64919cd",
    ".gitattributes:3@b64919cd"
   ],
-  "check": "git ls-tree -r b64919cd <path> | wc -l; git show b64919cd:LICENSE; git show b64919cd:.gitattributes; git diff --stat b64919cd eae01647 -- <paths> (empty).",
+  "check": "git ls-tree -r b64919cd <path> | wc -l; git show b64919cd:LICENSE; git show b64919cd:.gitattributes; git diff --stat b64919cd eae01647 -- <paths> (empty). Concept DOI and release archive (2026-10-27): doi.org resolves 10.5281/zenodo.19060318 to Zenodo record 23608753, version 3.1.4 (version DOI 10.5281/zenodo.23608753, published 2026-10-24, isSupplementTo github.com/amaybaum/incompleteness/tree/3.1.4). Its one file, amaybaum/incompleteness-3.1.4.zip (12,877,795 bytes, md5 fa975507a15f4f194265ebc19e1c57b3 as the record states; sha256 a78e759358066c1f2340b282ac4855097d1739cdbb8c2a5681e5957f7d96815a), has root amaybaum-incompleteness-f141bd0/ (tag 3.1.4); its papers/oi_lattice_code/foundations/ holds 41 files, each byte-identical to b64919cd, and it has no entry under verification/programmes/black-hole-information/. The record's single licence field is cc-by-4.0; its description and README.md's Licensing section state that the code is MIT (LICENSE, which the archive carries) and the manuscripts CC-BY-4.0, so L197's MIT statement for the probes matches.",
   "outcome": "pass",
   "evidence_level": "reproduced",
-  "limits": "The concept DOI 10.5281/zenodo.19060318 and the release archive contents were not checked.",
+  "limits": "The release (3.1.4, at f141bd06) precedes the corpus commit b64919cd; the probes are byte-identical between them, the rest of the tree is not. The Introduction cites the concept DOI only, which resolves to the latest version, not to a fixed archive.",
   "notes": ""
  },
  {
