@@ -1645,13 +1645,14 @@ not. A symmetry that fails to preserve the factorization --- which
 includes the spatial symmetries an observer-centered partition breaks,
 since a partition centered on a specific observer maps boundary visible
 sites to hidden sites under translation, rotation about distant points,
-and, for a partition defined on the slices of a fixed simultaneity
-foliation (§3.5), boost --- has no well-defined action on the visible
-factor alone, and the degeneracies it protects in \(H_{\text{tot}}\) are
-lifted in \(\hat{H}_{\text{eff}}\). (By contrast, a symmetry that
-\emph{does} factorize as \(S_V\otimes S_H\) descends to the visible
-symmetry \(S_V\) of \(\hat{H}_{\text{eff}}\), because the uniform-bath
-partial trace is invariant under any unitary on the hidden factor; such
+and, when the coarse-graining map determines a simultaneity foliation
+(the hypothesis under which the §3.5 lemma excludes boosts), boost ---
+has no well-defined action on the visible factor alone, and the
+degeneracies it protects in \(H_{\text{tot}}\) are lifted in
+\(\hat{H}_{\text{eff}}\). (By contrast, a symmetry that \emph{does}
+factorize as \(S_V\otimes S_H\) descends to the visible symmetry \(S_V\)
+of \(\hat{H}_{\text{eff}}\), because the uniform-bath partial trace is
+invariant under any unitary on the hidden factor; such
 factorization-preserving symmetries are not lifted, and the
 visible-internal ones among them --- those acting entirely within the
 visible sector and commuting with the trace-out --- are precisely the
@@ -4468,15 +4469,16 @@ with spacetime increments \(n \pm e_i\) each of weight \(1/6\), selects
 group \(O_h\) of order 48, which fixes \(n\) and no nonzero spatial
 vector. \(\square\)
 
-\textbf{Corollary (boost/rotation inequivalence).} Because the horizon
-partition defining \(T\) selects the timelike direction \(n\) but no
-spatial direction, the emergent theory inherits from the partition a
-physical rest frame and no physical spatial axis; whatever spatial axes
-it carries come from the substratum dynamics and the lattice geometry of
-the partition. Lorentz-violating operators therefore have structurally
-inequivalent status by sector: boost-sector violation is tied to the
-map-selected object \(n\) (and is correspondingly exposed to map-level
-structure --- the local-boost-invariance prerequisite of the framework's
+\textbf{Corollary (boost/rotation inequivalence).} Under the lemma's
+hypothesis, because the horizon partition defining \(T\) selects the
+timelike direction \(n\) but no spatial direction, the emergent theory
+inherits from the partition a physical rest frame and no physical
+spatial axis; whatever spatial axes it carries come from the substratum
+dynamics and the lattice geometry of the partition. Lorentz-violating
+operators therefore have structurally inequivalent status by sector:
+boost-sector violation is tied to the map-selected object \(n\) (and is
+correspondingly exposed to map-level structure --- the
+local-boost-invariance prerequisite of the framework's
 horizon-thermodynamic construction, the custodial mechanism of its
 lattice Standard-Model construction), whereas rotational-sector
 violation is referred to no map-selected object and is inherited from
@@ -4484,11 +4486,14 @@ the substratum dynamics and the lattice geometry of the partition, where
 the cubic point group protects it: the effective action is
 \(O_h\)-invariant to all orders when the microscopic action, the measure
 and the partition are each exactly \(O_h\)-invariant about the
-observer's centre, and the effective operator is \(O_h\)-invariant when
-the condensate is \(O_h\)-equivariant ({[}SM §3.1{]}). This is the
-structural origin of the boost/rotation asymmetry recorded in the
-framework's Lorentz-violation accounting; it explains the asymmetry
-without resolving either sub-sector.
+observer's centre; and, since the \(O\)-invariance of the dynamics does
+not descend to the solution, the effective operator is
+octahedral-invariant only if the condensate is \(O\)-equivariant, an
+alignment that the identification of the blocks with the link-direction
+irreps secures and that leaves the \(E_g\) channel exactly null ({[}SM
+§3.1{]}). This is the structural origin of the boost/rotation asymmetry
+recorded in the framework's Lorentz-violation accounting; it explains
+the asymmetry without resolving either sub-sector.
 
 \textbf{Converse.} \emph{If the orthochronous invariance group
 \(G_T \cap O^{+}(3,1)\) is a maximal compact subgroup of \(O^{+}(3,1)\),
@@ -4514,12 +4519,12 @@ open; spatial isotropy enters as empirical input E4 (posit-ledger item
 \textbf{The two faces.} The characterization theorem and this lemma are
 two properties of the \emph{same} map \(T\): what it produces (its
 image: the quantum kinematics) and what it leaves invariant (its
-symmetry: contained in the transformations preserving the line
-\(\mathbb{R}n\), with no boosts). They are not opposite operations
-(generation versus limitation) but the \emph{same} operation, a
-projection of the observed statistics under information missing to the
-embedded observer; what differs is the \emph{type} of missing
-information. In the quantum case the missing information is the
+symmetry, under the lemma's hypothesis: contained in the transformations
+preserving the line \(\mathbb{R}n\), with no boosts). They are not
+opposite operations (generation versus limitation) but the \emph{same}
+operation, a projection of the observed statistics under information
+missing to the embedded observer; what differs is the \emph{type} of
+missing information. In the quantum case the missing information is the
 hidden-sector \emph{state}, which is dynamically resampled (the bath
 thermalizes) and therefore fluctuates; averaging over a fluctuating
 quantity is productive and yields the memory-bearing non-Markovian
@@ -5566,4 +5571,4 @@ degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
 \end{document}
-% source-sha256: 43fe4d2e53eb8456de5594e14a8136dd2efbd1c160ff2c29f9d23003ca54f84f
+% source-sha256: 6c92bff6a77c0dc5fbac10756ade2db997b54f7da6011ed75d2055cb788b4045
