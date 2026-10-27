@@ -655,33 +655,38 @@ always deals red face up, so that a black start never appears in the
 player's sample. The question is still what the same shuffle, with the
 face-down card dealt the same way, at even odds, does from a red start
 and from a black start, and the black start belongs to that comparison
-although it never occurs. The comparison means something only because
-the face-down card is dealt the same way whichever card is face up: if
-the dealer put the opposite colour face down, the forecast from red and
-the forecast from black would describe two different deals, not one rule
-started in two ways. So the comparison is about one fixed rule, the same
-hidden preparation tried from every visible start the world could have,
-not about the starts a sample happens to contain; letting the hidden
-odds change with the start would compare different rules. A start that
-never occurs stays in the comparison for the same reason, as a different
-deck and shuffle shows. Suppose its rule makes a red start always show
-red after the first shuffle while a black start, with the same face-down
-odds, may show either colour, and the dealer always starts with red.
-What the observer actually sees is red at every step, with no
-uncertainty; what happens from a black start under that preparation is
-never observed. The rooted family still asks what the same dynamics and
-the same hidden preparation would produce from black: that forecast is
-part of the mathematical comparison, not something this observer
-measures, and it overlaps the red one, so the overlap comes only from
-the start that is never dealt {[}Main §2.3{]}. Both forecasts return to
-certainty at step 2, a return horizon, while the whole world completes
-its cycle only at its recurrence time, step 3, so the forecasts fail to
-chain over the first two steps although no dealt game ever looks
-uncertain. In a finite reversible world whose hidden part starts with
-the same odds whatever is visible at the start, any visible step that is
-not fully predictable from the current observation makes its failure,
-for the forecasts from every starting point, unavoidable somewhere in
-the world's cycle.
+although it never occurs. The comparison is about one fixed rule, the
+same hidden preparation tried from every visible start the world could
+have, not about the starts a sample happens to contain, and it means
+something only because the face-down card is dealt the same way
+whichever card is face up: if the dealer put the opposite colour face
+down, the forecast from red and the forecast from black would describe
+two different deals, not one rule started in two ways.
+
+Why keep a start that never occurs? A different deck and shuffle shows.
+Suppose its rule makes a red start always show red while a black start,
+with the same face-down odds, may show either colour, and the dealer
+always starts with red. What the observer actually sees is red at every
+step, with no uncertainty; what happens from a black start under that
+preparation is never observed. The rooted family, the table of forecasts
+from every start, still asks what the same dynamics and the same hidden
+preparation would produce from black: that forecast is part of the
+mathematical comparison, not something this observer measures. After the
+first shuffle both forecasts give red a positive chance, an overlap that
+comes only from the start that is never dealt {[}Main §2.3{]}. Both
+forecasts return to certainty at step 2, earlier than the whole world,
+which returns to its starting configuration only at its recurrence time,
+step 3. The failure of chaining comes from the step-1 overlap together
+with this step-2 return, not from the step-3 recurrence: no step-by-step
+forecast can carry the overlapping forecasts of step 1 to the two
+certainties of step 2, so the forecasts fail to chain over the first two
+steps, although no dealt game ever looks uncertain.
+
+In a finite reversible world whose hidden part starts with the same odds
+whatever is visible at the start, any visible step that is not fully
+predictable from the current observation makes its failure, for the
+forecasts from every starting point, unavoidable somewhere in the
+world's cycle.
 
 Fix one hidden prior shared by every root and drawn independently of it,
 and write \(\Gamma_t\) for the \emph{rooted transition matrix} from time
@@ -708,19 +713,17 @@ shared by every root. It matters because the table \(\Gamma_t\) is then
 a property of one physical setup, the same hidden preparation run
 forward from each visible start: the row for a start that occurs is the
 forecast the process gives from it, and a start that never happens still
-has a row, computed from the same preparation; a preparation that
-depended on the start would give rows for different setups, as in the
-card comparison above. The step from two observed histories with a
-common endpoint to an \emph{overlap}, two rows that are both positive in
-a common column (Theorem 3), uses that every row comes from the same
-preparation {[}Main §2.3{]}. Rows for starts that never happen are kept
-because the argument compares the whole square table with its return to
-certainty at the recurrence, and it can happen that the only rows
-keeping the table from being a permutation belong to starts that never
-happen {[}Main §2.3{]}. The price is that the failure of chaining can
-then lie only in forecasts that no observer will see; when every start
-has positive probability, every row is one that occurs (see the
-Corollary).
+has a row, computed from the same preparation. The step from two
+observed histories with a common endpoint to an \emph{overlap}, two rows
+that are both positive in a common column (Theorem 3), uses that every
+row comes from the same preparation {[}Main §2.3{]}. Rows for starts
+that never happen are kept because the argument compares the whole
+square table with its return to certainty at the recurrence, and it can
+happen that the only rows keeping the table from being a permutation
+belong to starts that never happen {[}Main §2.3{]}. The price is that
+the failure of chaining can then lie only in forecasts that no observer
+will see; when every start has positive probability, every row is one
+that occurs (see the Corollary).
 
 \textbf{Theorem 3} (recurrence and overlap {[}Main §2.3{]}). \emph{Let
 \(\varphi\) be a bijection of \(\mathcal C_V\times\mathcal C_H\) with
@@ -774,28 +777,28 @@ definition, short compared with the world's recurrence time \(L\)
 {[}Main §2.3, Scope{]}, and the gap between them leaves room for
 conditional memory that no accessible window detects: a trace held in
 the hidden part can first affect what is seen at an order beyond every
-accessible window, though still before the return. An observer confined
-to accessible windows therefore sees neither the late dependence nor the
-failure of chaining. Two cases differ. If the conditional memory first
-affects a step that some accessible window still reaches, an observer
-whose observations reach that step may detect it, as in the example
-below. If it first affects what is seen only beyond every accessible
-window, the memory and the failure of chaining it implies across the
-cycle remain established under the theorem's hypotheses, but neither is
-an accessible observational witness; what an observer can test is memory
-at an accessible order, which (C4) asserts. For example, let
-\(X_0,X_1,X_2\) be independent fair bits and \(X_3=X_0\). Up to time 2
-each next observation is independent of the past, so
-\(M_1=I(X_0;X_2\mid X_1)=0\): the record has no accessible memory on
-that window, and its forecasts from the start chain step by step there.
-Yet every deterministic world that reproduces the law, reversible or
-not, must keep \(X_0\) in its hidden part at time 2, and the past
-predicts the observation at time 3 exactly, \(M_2=1\) bit {[}Main §3.4,
-Remark (a variational question){]}. Here the window ends at time 2: an
-observer whose observations reach time 3 may detect the memory, while
-one whose windows end at time 2 cannot detect it through this record.
-The example shows memory beyond the window; it shows no failure of
-chaining inside it.
+accessible window, though still before the return. Two cases differ. If
+the conditional memory first affects a step that some accessible window
+still reaches, an observer whose observations reach that step may detect
+it, as in the example below. If it first affects what is seen only
+beyond every accessible window, an observer confined to accessible
+windows sees neither the late conditional memory nor the failure of
+chaining it implies across the cycle: both remain established in the
+dynamics under the theorem's hypotheses, but neither appears in any
+accessible record.
+
+For example, let \(X_0,X_1,X_2\) be independent fair bits and
+\(X_3=X_0\). Up to time 2 each next observation is independent of the
+past, so \(M_1=I(X_0;X_2\mid X_1)=0\): the record has no accessible
+memory on that window, and its forecasts from the start chain step by
+step there. Yet every deterministic world that reproduces the law,
+reversible or not, must keep \(X_0\) in its hidden part at time 2, and
+the past predicts the observation at time 3 exactly, \(M_2=1\) bit
+{[}Main §3.4, Remark (a variational question){]}. Here the window ends
+at time 2: an observer whose observations reach time 3 may detect the
+memory, while one whose windows end at time 2 cannot detect it through
+this record. The example shows memory beyond the window; it shows no
+failure of chaining inside it.
 
 Precisely: for the rooted family, with a hidden prior shared by every
 root and drawn independently of it and with a full-support visible
@@ -1032,10 +1035,11 @@ spectator-independent readout of the ancilla, one that acts on every
 product input as the identity on the system, and ancilla discard: an
 available preparation followed by an available instrument, with the
 ancilla then discarded, is an available instrument on the system with
-the same outcomes {[}GR §3.3{]}. In plain terms, the experimenter can do
-nothing, combine operations and lump outcomes together, prepare an
-evenly mixed helper, read the helper without disturbing the system, and
-discard it. The five completion conditions are:
+the same outcomes {[}GR §3.3{]}. That is, the experimenter can always
+leave the system alone, combine operations, lump outcomes together,
+prepare an evenly mixed helper and act after preparing it, read the
+helper without disturbing the system, and discard it. The five
+completion conditions are:
 
 \begin{enumerate}
 \def\labelenumi{(\roman{enumi})}
@@ -1477,16 +1481,15 @@ choice, §1.1), the fixed-basis statistics of quantum theory are the
 visible laws of an embedded observer, and their departures from Markov
 behaviour are memory carried in an inaccessible sector, as the card
 table of §2.6 illustrates. Given determinism and an outcome in every
-run, Bell's theorem leaves two options, giving up ontic parameter
+run, quantum Bell correlations require giving up ontic parameter
 independence or measurement independence; with measurement independence
-retained, quantum Bell correlations then require ontic parameter
-dependence, whose realization on the substratum without usable
-signalling and with the gravitational continuum limit is the open
-hypothesis H-Bell (§3.5); the zero-point sum is not a gravitational
-source if the field equations take the targeted form (§4); and the
-framework's cycle-averaged Page curve holds under H-scramble, H-decouple
-and with all of \(\mathcal C_B\times\mathcal C_R\) one energy shell
-(§5).
+retained, they require ontic parameter dependence, whose realization on
+the substratum without usable signalling and with the gravitational
+continuum limit is the open hypothesis H-Bell (§3.5); the zero-point sum
+is not a gravitational source if the field equations take the targeted
+form (§4); and the framework's cycle-averaged Page curve holds under
+H-scramble, H-decouple and with all of
+\(\mathcal C_B\times\mathcal C_R\) one energy shell (§5).
 
 \textbf{Open problems.} For quantum emergence:
 
@@ -1824,4 +1827,4 @@ arXiv:gr-qc/0604062v4.
 \endgroup
 
 \end{document}
-% source-sha256: 8044e1dd296823836b23ab2cff22f4138acc9d44a615e14b748052d5f34c2087
+% source-sha256: 77d770dc85f2f934f8966c46c69285816f776fbc015e431860c58cc4af54a911

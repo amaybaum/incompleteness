@@ -321,3 +321,7 @@ predictive memory.
 `CHANGES-r25.md` records r25, which applies the run-3 comprehension evaluation: a second card rule that shows why a
 never-occurring start stays in the comparison (checked exactly), the two cases of late memory, the Bell either/or in
 §6, and a plain gloss of the §3.2 structure.
+
+`CHANGES-r26.md` records r26, which applies the r25 confirmations: the L130 explanation split into three paragraphs
+with the causal chain of the card example stated, terms defined at first use, the late-memory case 2 merged, and the
+§3.2 and Bell glosses trimmed.
