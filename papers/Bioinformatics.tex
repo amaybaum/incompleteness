@@ -240,13 +240,15 @@ pathogenicity stratification for reader/writer/eraser genes.
 The structural content of the framework's application to computational
 biology is informational rather than algorithmic. Standard methodology
 assumes that more data and more complex models will overcome any
-prediction task; the framework identifies an information-theoretic
-ceiling that no transcriptome-only model can exceed, no matter how
-scaled. The methodological roadmap forward is to include hidden-sector
-information explicitly --- through multi-modal data (chromatin
-accessibility, histone marks, methylation), knowledge graphs (encoding
-hidden regulatory structure), or explicit memory state representations
---- rather than to scale transcriptome-only architectures further.
+prediction task; the framework identifies a conditional
+information-theoretic ceiling: transcriptome-only models, however
+scaled, cannot recover quantities that differ between hidden-sector
+completions sharing the transcriptome-level law. The methodological
+roadmap forward is to include hidden-sector information explicitly ---
+through multi-modal data (chromatin accessibility, histone marks,
+methylation), knowledge graphs (encoding hidden regulatory structure),
+or explicit memory state representations --- rather than to scale
+transcriptome-only architectures further.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -358,10 +360,11 @@ perturbation response, or homeostasis --- depends on both visible-sector
 dynamics (transcription, signaling) and hidden-sector state (chromatin
 memory).
 
-The framework's bioinformatic prediction follows from the theorem:
-methods that infer cellular dynamics from visible-sector data alone
-(transcriptome) must systematically miss the contribution of
-hidden-sector memory. The errors are not random noise; they have a
+The framework's bioinformatic prediction rests on the theorem: where
+cellular dynamics depends on hidden-sector memory whose structure
+differs between completions sharing the transcriptome-level law, methods
+that infer it from visible-sector data alone (transcriptome) cannot
+recover that structure. The errors are not random noise; they have a
 specific structure: directional biases, reduced accuracy in transitions
 where chromatin state changes, and information-theoretic ceilings on
 what visible-sector data can recover. Methods that include hidden-sector
@@ -727,11 +730,12 @@ co-expression rather than unique regulatory signal'' {[}27{]} --- they
 recover the marginal correlation structure that simpler methods also
 recover, without accessing the underlying regulatory causal structure.
 
-This is the information-theoretic ceiling in action. Scaling
-transcriptome-only foundation models does not break through the ceiling;
-the ceiling is structural, not computational. The methodological roadmap
-forward requires architectural changes that incorporate hidden-sector
-information, not further scaling of visible-sector models.
+Where the GRN's causal structure lies in the hidden fibers, this is the
+ceiling at work: scaling transcriptome-only models cannot break through
+it, since the ceiling is structural, not computational. The
+methodological roadmap forward requires architectural changes that
+incorporate hidden-sector information, not further scaling of
+visible-sector models.
 
 \hypertarget{practical-consequences-1}{%
 \subsubsection{3.5 Practical
@@ -739,17 +743,19 @@ consequences}\label{practical-consequences-1}}
 
 Three framework-grounded predictions for GRN inference methodology:
 
-(P4) GRN inference from scRNA-seq alone is near its
-information-theoretic ceiling. Further methodological development that
-stays within RNA-only data will produce marginal improvements, not the
-order-of-magnitude gains the field has been seeking.
+(P4) Where the relevant structure lies in the hidden fibers, GRN
+inference from scRNA-seq alone is near its information-theoretic
+ceiling. Further methodological development that stays within RNA-only
+data will produce marginal improvements, not the order-of-magnitude
+gains the field has been seeking.
 
 (P5) Multi-modal methods (RNA + ATAC, RNA + methylation, RNA + Hi-C)
 will systematically outperform RNA-only methods. The relative gain
 depends on which hidden-sector modality is most informative for the
 specific regulatory structure being inferred.
 
-(P6) Foundation models applied to scRNA-seq alone will not exceed the
+(P6) Where the relevant structure lies in the hidden fibers, foundation
+models applied to scRNA-seq alone will not exceed the
 information-theoretic ceiling, regardless of scale. Foundation models
 trained on multi-modal data (paired RNA + ATAC, multi-omics atlases)
 should outperform single-modality foundation models on GRN inference
@@ -913,7 +919,8 @@ consequences}\label{practical-consequences-2}}
 Four framework-grounded predictions for perturbation prediction
 methodology:
 
-(P7) Transcriptome-only foundation models will not exceed the
+(P7) Where the relevant structure lies in the hidden fibers,
+transcriptome-only foundation models will not exceed the
 conditional-mean baseline for perturbation prediction, regardless of
 model scale or training data size. The ceiling is information-theoretic
 and not addressable through more pretraining.
@@ -1735,12 +1742,12 @@ cancer & Substratum-preservation as diagnostic basis & Methylation
 classification paradigm operationalizes \\
 \end{longtable}
 
-Each row instantiates the same underlying structural picture:
-visible-sector data is insufficient for the task because cellular
-dynamics depends on hidden-sector memory; methods that include
-hidden-sector information explicitly succeed; methods that try to
-extract hidden-sector information from visible-sector data alone are
-bounded by an information-theoretic ceiling.
+Each row instantiates the same proposed structural picture: where
+cellular dynamics depends on hidden-sector memory that the visible law
+does not fix, visible-sector data is insufficient for the task; methods
+that include hidden-sector information explicitly succeed; methods that
+try to extract hidden-sector information from visible-sector data alone
+are bounded by an information-theoretic ceiling.
 
 \hypertarget{the-information-theoretic-ceiling}{%
 \subsubsection{9.2 The information-theoretic
@@ -1748,25 +1755,25 @@ ceiling}\label{the-information-theoretic-ceiling}}
 
 The framework's most consequential bioinformatic prediction is the
 existence of an information-theoretic ceiling on transcriptome-only
-methods. This is a strong claim with specific empirical content: no
-method using only scRNA-seq data --- regardless of model architecture,
-training data size, or computational scale --- can recover certain
-quantities that depend on hidden-sector variables.
+methods. This is a strong claim with specific empirical content: where a
+quantity differs between hidden-sector completions that share the
+scRNA-seq law, no method using only scRNA-seq data --- regardless of
+model architecture, training data size, or computational scale --- can
+recover it.
 
-The quantities subject to the ceiling include: the cell's causal
-regulatory network structure (§3), the response to unseen perturbations
-(§4), the temporal lag relationships between chromatin and transcription
-(§5), and the substratum-level memory operator (§6). For each, the
-underlying biology integrates over hidden-sector variables before the
-data is collected; the integration is irreversible from the
-visible-sector data alone.
+The quantities proposed as subject to the ceiling include: the cell's
+causal regulatory network structure (§3), the response to unseen
+perturbations (§4), the temporal lag relationships between chromatin and
+transcription (§5), and the substratum-level memory operator (§6). For
+each, the underlying biology integrates over hidden-sector variables
+before the data is collected; whether the quantity lies in the hidden
+fibers is open.
 
-The ceiling is empirically demonstrated in the foundation-model
-literature {[}6, 7{]}. Multiple foundation models trained on tens of
-millions of cells with billions of parameters fail to outperform simple
-baselines on tasks subject to the ceiling. This is the empirical
-signature of a structural limit, not a methodological gap to be closed
-by better algorithms.
+The foundation-model literature {[}6, 7{]} is consistent with the
+ceiling: multiple foundation models trained on tens of millions of cells
+with billions of parameters fail to outperform simple baselines on tasks
+proposed as subject to the ceiling, which is the pattern a structural
+limit produces.
 
 The practical implication is direct: methodological development that
 stays within the transcriptome-only paradigm faces diminishing returns.
@@ -1774,11 +1781,11 @@ Continued scaling of foundation models will produce marginal
 improvements in tasks where the ceiling has not yet been reached (cell
 type annotation in well-characterized tissues, gene expression
 imputation), but cannot produce qualitative improvements in tasks
-subject to the ceiling (causal GRN inference, perturbation prediction
-for unseen drugs). The research investment justification for continuing
-to scale foundation models depends on the assumption that more data and
-compute will eventually overcome the apparent limits; the framework
-predicts this assumption is wrong for ceiling-bounded tasks.
+subject to the ceiling (proposed: causal GRN inference, perturbation
+prediction for unseen drugs). The research investment justification for
+continuing to scale foundation models depends on the assumption that
+more data and compute will eventually overcome the apparent limits; the
+framework predicts this assumption is wrong for ceiling-bounded tasks.
 
 \hypertarget{the-roadmap-forward}{%
 \subsubsection{9.3 The roadmap forward}\label{the-roadmap-forward}}
@@ -2275,4 +2282,4 @@ H3.3 localization at specific genomic regions,'' \emph{Cell} 140,
 678--691 (2010).
 
 \end{document}
-% source-sha256: e40e3dc3cc9810323c884e35cfb84e34fc0627064eefdc6cabfedbc3d72e7d19
+% source-sha256: 47783b884defd32224970889b7abbf6a21239d5dd8a39746c9b6920ff36136f7

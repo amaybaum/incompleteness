@@ -4250,13 +4250,14 @@ refinement. The most universal level is the \emph{partial-trace features
 sub-class}, characterized by the structural features any partial-trace
 observation must produce regardless of substratum specifics: the Born
 rule, channel-level unitarity to leading order, memory/divisibility ---
-on any finite reversible substratum, recurrence-cycle P-indivisibility
-of the marginal stochastic process wherever a rooted visible map is not
-a permutation --- and the commutant restriction pattern that selects
-which symmetries survive the trace-out. Below this is the
-\emph{gauge-group sub-class}, characterized by which specific emergent
-gauge group the marginalization produces. Standard-Model-reproducing
-classes share
+accessible memory where the hidden sector reads back its record (C4),
+and, on any finite reversible substratum, recurrence-cycle
+P-indivisibility of the marginal stochastic process wherever a rooted
+visible map is not a permutation --- and the commutant restriction
+pattern that selects which symmetries survive the trace-out. Below this
+is the \emph{gauge-group sub-class}, characterized by which specific
+emergent gauge group the marginalization produces.
+Standard-Model-reproducing classes share
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\); other
 classes produce different gauge groups. Below this is the
 \emph{algebra-channel sub-class}, characterized by the specific algebra
@@ -4603,15 +4604,16 @@ realism content differing at each level.
 At Level G4 × Level C --- the broadest intersection --- what is real is
 the algebra-channel structure of partial-trace observation: the Born
 rule, channel-level unitarity to leading order, memory/divisibility ---
-on any finite reversible substratum, recurrence-cycle P-indivisibility
-of the marginal stochastic process wherever a rooted visible map is not
-a permutation --- and the commutant gauge-invariance pattern. This
-level's realism is universal across observer-admitting substrata. Every
-embedded observer in any universality class produces these features;
-they are structural features of partial-trace observation that no
-embedded observer can avoid. The realism is about partial-trace
-observation itself, not about any specific substratum or any specific
-universality class.
+accessible memory where the hidden sector reads back its record (C4),
+and, on any finite reversible substratum, recurrence-cycle
+P-indivisibility of the marginal stochastic process wherever a rooted
+visible map is not a permutation --- and the commutant gauge-invariance
+pattern. This level's realism is universal across observer-admitting
+substrata. Every embedded observer in any universality class produces
+these features; they are structural features of partial-trace
+observation that no embedded observer can avoid. The realism is about
+partial-trace observation itself, not about any specific substratum or
+any specific universality class.
 
 At Level G3 × Level D --- the framework's distinctive intersection ---
 what is real is the \textbf{reconstructed local lattice/gauge residue
@@ -4654,11 +4656,12 @@ two axes, with the intersection determining both what the prediction's
 content is and how it can be tested or falsified.
 
 Level G4 × Level C predictions --- the Born rule, channel-level
-unitarity, memory/divisibility (on any finite reversible substratum,
-recurrence-cycle P-indivisibility of the marginal process wherever a
-rooted visible map is not a permutation), the commutant restriction
-pattern --- are essentially structural. They are universal across
-observer-admitting systems, trivially predicted because they are
+unitarity, memory/divisibility (accessible memory where the hidden
+sector reads back its record (C4), and, on any finite reversible
+substratum, recurrence-cycle P-indivisibility of the marginal process
+wherever a rooted visible map is not a permutation), the commutant
+restriction pattern --- are essentially structural. They are universal
+across observer-admitting systems, trivially predicted because they are
 features of partial-trace observation rather than of any specific
 substratum. They cannot be falsified without contradicting
 embedded-observer physics itself; falsifying them would refute the
@@ -5523,7 +5526,8 @@ quantitatively. The Level G2 × Level D structural commitments --- the
 Standard Model gauge group, the three-generation structure, the
 anomaly-free hypercharges --- are developed as derivations from the
 cubic-group commutant. The Level G4 × Level C universal features --- the
-Born rule, channel unitarity, memory/divisibility (on any finite
+Born rule, channel unitarity, memory/divisibility (accessible memory
+where the hidden sector reads back its record (C4), and, on any finite
 reversible substratum, recurrence-cycle P-indivisibility wherever a
 rooted visible map is not a permutation), the commutant restriction
 pattern --- are taken as given content of the framework's foundational
@@ -18603,8 +18607,8 @@ across thousands of gate operations. Section 15.4 develops
 correlation-aware error correction: standard Markovian surface codes see
 the framework's predicted correlations as anomalously high uncorrectable
 error rates; correlation-aware decoders designed for the actual noise
-structure could reduce overhead by factors of three to ten, with
-concrete numerical predictions.
+structure could reduce the effective error rate; the size of the gain is
+not derived (§15.4, §15.9).
 
 Section 15.5 develops coherence extension through engineered baths ---
 the framework's bath-as-resource design philosophy. By coupling a qubit
@@ -18745,8 +18749,8 @@ the question in each case is whether the correction has reached the
 precision frontier where it matters for the application.
 
 The remaining sections develop the framework's specific engineering
-content at each of these scales, with concrete numerical predictions for
-current and near-future quantum hardware platforms.
+content at each of these scales, with testable predictions for current
+and near-future quantum hardware platforms.
 
 \hypertarget{superconducting-qubits-and-tls-noise}{%
 \subsection{15.3 Superconducting qubits and TLS
@@ -18877,13 +18881,9 @@ than random errors because their correlation structure provides
 additional information about which physical errors caused the observed
 syndrome pattern.
 
-The framework's estimate of the achievable improvement is a factor of
-three to ten reduction in the effective error rate at the same physical
-error rate. At current physical error rates of approximately \(10^{-3}\)
-per gate, this corresponds to a reduction in fault-tolerance overhead
-from approximately \(3{,}000\) physical qubits per logical qubit to
-approximately \(300\)-\(1{,}000\) --- a factor of three to ten reduction
-in the hardware cost of fault-tolerant quantum computing.
+The size of the reduction is not derived: converting the correlation
+length into an overhead requires a code, decoder and noise spectrum
+(§15.9).
 
 \textbf{The empirical accessibility.} Correlation-aware decoders are
 testable on current quantum hardware without requiring new platforms or
@@ -19070,10 +19070,9 @@ framework fixes neither the achievable interrogation time nor the
 readout efficiency, and both enter \(\delta B\) directly, so no
 numerical improvement factor is claimed here. Quoting one would require
 an NV-specific model of the spin bath, readout chain and control
-sequence. This would make NV sensors competitive with superconducting
-quantum interference devices (SQUIDs) but operating at room temperature
-rather than requiring cryogenic cooling --- a substantial commercial
-advantage if achieved.
+sequence. If the gain were large enough, NV sensors would compete with
+superconducting quantum interference devices (SQUIDs) at room
+temperature rather than requiring cryogenic cooling.
 
 \textbf{Empirical accessibility and falsification.} The framework's
 prediction is testable on current NV-magnetometry platforms through
@@ -19525,12 +19524,11 @@ other engineered platforms (spin chains, photonic systems) provide
 additional empirical access points.
 
 \textbf{The framework's epistemic position in quantum engineering.} The
-framework's content here is positive: specific quantitative predictions
-for current and near-future quantum hardware, with concrete empirical
-accessibility on existing platforms. The predictions are testable, the
-falsification conditions are clear, and the potential commercial impact
-(correlation-aware error correction, NV sensing at SQUID-competitive
-sensitivity at room temperature, engineered-bath coherence extension) is
+framework's content here is positive: testable predictions for current
+and near-future quantum hardware, with concrete empirical accessibility
+on existing platforms. The falsification conditions are clear, and the
+potential commercial impact (correlation-aware error correction,
+backflow-aware NV sensing, engineered-bath coherence extension) is
 substantial.
 
 The chapter's content connects the framework's foundational commitments
@@ -20817,14 +20815,15 @@ The structural ceiling rests on a conditional theorem with empirical
 force: where a quantity differs between hidden-sector completions that
 share the transcriptome-level law, methods relying exclusively on
 transcriptome data cannot recover it, regardless of architectural
-sophistication or training data scale. This bounds the achievable
-performance of deep-learning foundation models on perturbation
-prediction, gene regulatory network inference, and trajectory inference
---- explaining the well-documented persistent failure of these methods
-to outperform simple baselines despite massive scaling efforts. The
-structural ceiling is one of the framework's distinctive contributions
-to bioinformatics: a principled explanation for why scaling alone has
-failed where it has succeeded in other domains.
+sophistication or training data scale. Where the relevant quantities
+differ in this way, this bounds the achievable performance of
+deep-learning foundation models on perturbation prediction, gene
+regulatory network inference, and trajectory inference, and explains the
+well-documented persistent failure of these methods to outperform simple
+baselines despite massive scaling efforts. The structural ceiling is one
+of the framework's distinctive contributions to bioinformatics: a
+principled explanation for why scaling alone has failed where it has
+succeeded in other domains.
 
 The empirical record is at the evolutionary biology scale: molecular
 clock overdispersion (\(R(t) \approx 5\) in mammals, inversely
@@ -20843,9 +20842,12 @@ Section 17.2 develops the information-theoretic ceiling on
 transcriptome-only methods. Single-cell RNA sequencing (scRNA-seq)
 captures the visible-sector dynamics (gene expression) but does not
 measure the hidden-sector content (chromatin state, protein
-conformation, regulatory network state). The framework's structural
-commitment is that this hidden-sector content carries information that
-no amount of transcriptome data can recover, regardless of method.
+conformation, regulatory network state). The framework's hypothesis is
+that this hidden-sector content carries task-relevant information beyond
+the transcriptome, \(I(\text{phenotype}|T) < I(\text{phenotype}|T, S)\);
+where it does, no amount of transcriptome data can recover that
+information, regardless of method. Whether the strict gap holds for a
+given task is open.
 
 Sections 17.3-17.6 develop the empirical pattern across four active
 bioinformatics methodological domains where the framework's ceiling
@@ -20882,9 +20884,10 @@ operator distinction has a specific consequence in bioinformatics:
 methods that measure only the \emph{emergent} operator (the gene
 expression program, the transcriptome) cannot recover information stored
 in the \emph{substratum} operator (the chromatin state, the protein
-conformational landscape, the regulatory network's hidden state). The
-information-theoretic ceiling is a structural commitment of the
-framework with empirical force.
+conformational landscape, the regulatory network's hidden state) and not
+carried by the transcriptome. The information-theoretic ceiling rests on
+the framework's hypothesis that the substratum operator carries such
+task-relevant information; whether it does for a given task is open.
 
 \textbf{The structural argument.} Chapter 16 §16.10 established the
 substratum-emergent operator distinction at chromatin: the
@@ -20897,19 +20900,20 @@ while emergent-level operator is disrupted, and vice versa.
 In bioinformatics terms, this means: transcriptome data measures only
 the emergent operator. Information stored in the substratum operator ---
 chromatin state, methylation patterns, three-dimensional architecture,
-regulatory network history --- is invisible to transcriptome-only
-methods. No statistical algorithm, no deep-learning architecture, no
-scale of training data can recover information that is not present in
-the input data.
+regulatory network history --- and not carried by the transcriptome is
+invisible to transcriptome-only methods. No statistical algorithm, no
+deep-learning architecture, no scale of training data can recover
+information that is not present in the input data.
 
 \textbf{The information-theoretic bound.} Let \(T\) denote transcriptome
 data and \(S\) denote substratum data (chromatin state, methylation
-pattern, etc.). The framework's content is that the conditional
+pattern, etc.). The framework's hypothesis is that the conditional
 information \(I(\text{phenotype}|T)\) is strictly less than
 \(I(\text{phenotype}|T, S)\) --- knowing the substratum adds information
-beyond the transcriptome. The ceiling on transcriptome-only methods is
-set by \(I(\text{phenotype}|T)\); methods that include substratum data
-can exceed this ceiling up to the joint capacity
+beyond the transcriptome; whether the strict gap holds for a given task
+is open. The ceiling on transcriptome-only methods is set by
+\(I(\text{phenotype}|T)\); methods that include substratum data can
+exceed this ceiling up to the joint capacity
 \(I(\text{phenotype}|T, S)\).
 
 The framework's prediction is that the gap between
@@ -20927,18 +20931,19 @@ scaling: larger models, more training data, more compute. In these
 domains, the input data carries sufficient information to support the
 task; scaling exploits this information more effectively. The
 framework's prediction is that scaling cannot help where the input data
-\emph{does not carry the required information}. No matter how large the
-model or how extensive the training data, transcriptome-only methods
-cannot recover substratum information that is not present in
-transcriptome data.
+\emph{does not carry the required information}, which is the case
+exactly where the strict gap above holds. No matter how large the model
+or how extensive the training data, transcriptome-only methods cannot
+recover substratum information that is not present in transcriptome
+data.
 
 This prediction is structurally distinct from ``scaling laws need more
-time'' arguments. The framework's claim is that there is a
-\emph{principled information-theoretic bound}: methods bounded by
-\(I(\text{phenotype}|T)\) cannot exceed this bound by any amount of
-scaling, just as a thermometer cannot measure pressure no matter how
-precise it is. The bound is a property of what the data measures, not of
-how the data is processed.
+time'' arguments. The framework's claim is that, where the strict gap
+holds, there is a \emph{principled information-theoretic bound}: methods
+bounded by \(I(\text{phenotype}|T)\) cannot exceed this bound by any
+amount of scaling, just as a thermometer cannot measure pressure no
+matter how precise it is. The bound is a property of what the data
+measures, not of how the data is processed.
 
 \textbf{The empirical pattern.} The framework's prediction is consistent
 with a striking pattern in computational biology: deep-learning
@@ -21043,19 +21048,20 @@ measures their downstream effect on gene expression.
 
 Methods attempting to infer causal regulation from transcriptome alone
 are therefore attempting to recover causal structure from data that does
-not contain the causal mechanism. The framework predicts that such
-methods cannot succeed beyond the limits of statistical association:
-correlation methods capture all the information about regulatory
-relationships that is present in the data, while causal-inference
-methods cannot exceed this ceiling because the causal information is in
-the missing substratum data.
+not contain the causal mechanism. Where the strict gap holds for
+regulatory structure, the framework predicts that such methods cannot
+succeed beyond the limits of statistical association: correlation
+methods capture all the information about regulatory relationships that
+is present in the data, while causal-inference methods cannot exceed
+this ceiling because the causal information is in the missing substratum
+data.
 
-This explains the persistent puzzle: correlation outperforms causation
-because, in transcriptome-only analysis, there is no causal information
-beyond what correlation already captures. Sophisticated causal-inference
-methods are matching the same information-theoretic ceiling that simple
-correlation methods reach, with no additional information available to
-exploit.
+On that hypothesis this explains the persistent puzzle: correlation
+outperforms causation because, in transcriptome-only analysis, there is
+no causal information beyond what correlation already captures.
+Sophisticated causal-inference methods are matching the same
+information-theoretic ceiling that simple correlation methods reach,
+with no additional information available to exploit.
 
 \textbf{Multi-modal methods as the predicted improvement.} The
 framework's prediction is that GRN inference can exceed the
@@ -21593,8 +21599,8 @@ framework-specific ways.
 forward}\label{chapter-close-the-structural-roadmap-forward}}
 
 The framework's content in bioinformatics has two cumulative dimensions:
-the structural ceiling on transcriptome-only methods that explains
-observed failures, and the empirical record of non-Markovianity
+the conditional structural ceiling on transcriptome-only methods that
+explains observed failures, and the empirical record of non-Markovianity
 signatures across the tree of life that the framework's structural
 mechanism unifies. Both dimensions point to a specific \emph{structural
 roadmap forward} for computational biology.
@@ -21628,7 +21634,8 @@ not as a static snapshot, to capture the relevant biology.
 
 \textbf{Five predictions for empirical work.}
 
-(P1) Transcriptome-only foundation models have a structural ceiling on
+(P1) Where the strict gap holds for perturbation response,
+transcriptome-only foundation models have a structural ceiling on
 perturbation prediction performance. No amount of additional scaling on
 transcriptome data will exceed this ceiling.
 
@@ -30766,4 +30773,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: 1582bb53e6e9dc6622c06b33c25473db369c529029e7852072fca0cf493be0f7
+% source-sha256: 6c19ce83d1744d4ca63df7e44601e0c488c13c51ca78fcb8e487ec2967c00ab6
