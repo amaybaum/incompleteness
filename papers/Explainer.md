@@ -172,7 +172,7 @@ The proof uses almost nothing — just that the dynamics is a bijection on a fin
 
 ## The Accessible-Timescale Lemma (§2.3 continued)
 
-The recurrence proof shows P-indivisibility exists as a mathematical property. But the recurrence time is absurdly long — for the cosmological case, it's e^(10^122) years. Nobody will ever observe it.
+The recurrence proof shows P-indivisibility exists as a mathematical property. But the recurrence time can be absurdly long. It is the order of the bijection. On $n$ configurations, a linear update rule has order below $n$. An arbitrary bijection has order at most Landau's function $g(n)$, the largest order of any permutation of $n$ points, with $\ln g(n) \approx \sqrt{n \ln n}$, and every such order divides $\mathrm{lcm}(1, \ldots, n) \approx e^n$. For the cosmological case, $n \sim e^{10^{122}}$, so the linear rule's period is below $e^{10^{122}}$ steps. The framework bounds the recurrence time but does not compute it, and a recurrence on that timescale will never be observed.
 
 The accessible-timescale lemma shows that conditional memory is present on *laboratory timescales*, independently of recurrence. A revival of distinguishability on those timescales — information backflow — is a further property that readback alone does not supply.
 

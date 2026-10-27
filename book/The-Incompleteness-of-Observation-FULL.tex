@@ -1988,19 +1988,24 @@ general Hamiltonian flows ({[}Main §2.3{]}).
 
 \textbf{The accessible-timescale lemma.} A potential objection to the
 proof as stated is that the recurrence time \(N\) can be astronomically
-large. For a hidden sector with \(m = |\mathcal{C}_H|\) states, \(N\)
-can be as large as \(m!\), and for the cosmological partition with
-\(m \sim e^{10^{122}}\), the recurrence time is
-\(t_R \sim e^{10^{122}}\) years --- orders of magnitude longer than the
-age of the universe to any power. The distinguishability restoration at
-\(t = N\) is therefore not directly observable. What an observer can
-measure is memory on \emph{accessible} timescales --- times short
-compared to \(\tau_B\), the hidden sector's intrinsic memory time ---
-not at recurrence. The accessible-timescale lemma supplies that memory,
-as conditional mutual information, wherever the stored record is read
-back (C4). It does not supply P-indivisibility on those windows: a
-readback gap is compatible with a population law that is divisible on
-every window short of recurrence ({[}Main §2.3{]}).
+large. \(N\) is the order of \(\varphi\) as a permutation of the
+\(n = |\mathcal{C}_V \times \mathcal{C}_H|\) total configurations. For
+any bijection it is at most Landau's function \(g(n)\), the largest
+order of a permutation of \(n\) points, with
+\(\ln g(n) \sim \sqrt{n \ln n}\), and it divides
+\(\mathrm{lcm}(1, \ldots, n) = e^{(1 + o(1))\,n}\); under the linear
+update rule (A5) it is below \(n\) (Chapter 18 §18.7). For the
+cosmological partition with \(n \sim e^{10^{122}}\), the linear rule's
+period is therefore below \(e^{10^{122}}\) steps; the framework bounds
+\(N\) but does not compute it. For \(N\) of astronomical size the
+distinguishability restoration at \(t = N\) is not directly observable.
+What an observer can measure is memory on \emph{accessible} timescales
+--- times short compared to \(\tau_B\), the hidden sector's intrinsic
+memory time --- not at recurrence. The accessible-timescale lemma
+supplies that memory, as conditional mutual information, wherever the
+stored record is read back (C4). It does not supply P-indivisibility on
+those windows: a readback gap is compatible with a population law that
+is divisible on every window short of recurrence ({[}Main §2.3{]}).
 
 The mechanism is straightforward information storage and retrieval
 through the coupling. At each visible-sector interaction (timescale
@@ -21800,12 +21805,15 @@ echo amplitude is derived.
 The middle of the chapter takes up the framework's foundational
 commitments and their consequences. Section 18.7 develops the
 finite-information character of the substratum and its consequence of
-Poincaré recurrence at timescale \(e^{e^{10^{122}}}\) --- a definite
-structural prediction with no practical consequences but real conceptual
-content. Section 18.8 develops the arrow of time as emergent from the
-partition's initial conditions rather than from a fundamental temporal
-asymmetry --- the substratum is T-symmetric, and the thermodynamic and
-cosmological arrows trace to the partition's low-entropy initial state.
+Poincaré recurrence, at a period that the framework's linear update rule
+bounds below \(|S| \sim e^{10^{122}}\) substratum steps but that the
+framework does not compute --- a definite structural prediction with
+real conceptual content, and without practical consequences at periods
+of astronomical size. Section 18.8 develops the arrow of time as
+emergent from the partition's initial conditions rather than from a
+fundamental temporal asymmetry --- the substratum is T-symmetric, and
+the thermodynamic and cosmological arrows trace to the partition's
+low-entropy initial state.
 
 The latter sections engage two structural questions the framework has
 been silent on in earlier chapters. Section 18.9 develops the
@@ -21848,13 +21856,13 @@ systems and the BQP computational ceiling (developed in Chapter 14) are
 \emph{testable}. The Born rule's dynamical equilibrium is a
 \emph{conditional prospect}: a proposed mechanism that would bear on the
 CMB's primordial statistics, without yet a specified observable response
-(§18.2). Predictions like cosmic recurrence at \(e^{e^{10^{122}}}\) and
-the asymmetric position on consciousness are \emph{structural
-commitments with limited empirical access}. The chapter is honest about
-which is which. The framework's value here is not the empirical record
-(which is what Chapters 5-17 developed) but the structural commitments
---- what the framework says about the world beyond what current physics
-tests.
+(§18.2). Predictions like cosmic recurrence, at a period below
+\(|S| \sim e^{10^{122}}\) steps under the linear rule, and the
+asymmetric position on consciousness are \emph{structural commitments
+with limited empirical access}. The chapter is honest about which is
+which. The framework's value here is not the empirical record (which is
+what Chapters 5-17 developed) but the structural commitments --- what
+the framework says about the world beyond what current physics tests.
 
 \hypertarget{the-born-rule-as-dynamical-equilibrium}{%
 \subsection{18.2 The Born rule as dynamical
@@ -22645,34 +22653,85 @@ the substratum returns to its exact initial state. The framework's
 substratum dynamics is therefore strictly periodic, with period \(N\)
 determined by the bijection's cycle structure.
 
-The recurrence period is astronomically large. For a generic permutation
-on \(|S|\) elements, the order is bounded by
-\(\mathrm{lcm}(1, 2, \ldots, |S|)\) (Landau's function), which grows as
-approximately \(e^{|S|}\) for large \(|S|\). Applied to the framework's
-substratum with \(|S| \sim e^{10^{122}}\) --- the rough estimate of the
-substratum's cardinality consistent with the cosmological-horizon
-entropy of \(10^{122}\) --- the recurrence period is
-\[N \sim e^{|S|} \sim e^{e^{10^{122}}}.\]
+The recurrence period can be astronomically large. For an arbitrary
+bijection of \(S\), three quantities with different growth rates bear on
+it. \emph{A bound valid for every permutation:} \(N\) is the least
+common multiple of the cycle lengths, each at most \(|S|\), so \(N\)
+divides \(\mathrm{lcm}(1, 2, \ldots, |S|)\). Its logarithm is
+Chebyshev's function, \(\ln \mathrm{lcm}(1, \ldots, n) = \psi(n)\), with
+\(\psi(n) \sim n\) by the prime number theorem and
+\(\psi(n) < 1.03883\,n\) for every \(n\) (Rosser and Schoenfeld 1962).
+\emph{The largest period any permutation attains:} this is Landau's
+function \(g(n)\), the maximum order of a permutation of \(n\) points,
+with \(\ln g(n) \sim \sqrt{n \ln n}\) (Landau 1903). Since
+\(\sqrt{n \ln n}\) is \(o(n)\), \(g(n)\) lies far below
+\(\mathrm{lcm}(1, \ldots, n)\), and no permutation has order near
+\(e^{n}\). \emph{The order of a typical permutation:} for a permutation
+drawn uniformly from the \(n!\) permutations of \(n\) points,
+\(\ln(\text{order}) = (1 + o(1))\,\tfrac{1}{2}(\ln n)^2\) with
+probability tending to one (Erdős and Turán 1965), and
+\(\bigl(\ln(\text{order}) - \tfrac{1}{2}(\ln n)^2\bigr) / \sqrt{\tfrac{1}{3}(\ln n)^3}\)
+converges in distribution to the standard normal law (Erdős and Turán
+1967). The third quantity gives the substratum's period only under a
+probability model for \(\varphi\). The framework adopts none, and
+Chapter 3 §3.2 holds that random permutations of finite sets typically
+lack the structure C1--C4 require.
 
-This is a definite quantitative prediction: the universe returns to its
-exact initial state after \(e^{e^{10^{122}}}\) substratum time steps.
-Translating to physical units using the substratum time step
-\(\tau_{\text{sub}} \sim t_{\text{Pl}} \sim 10^{-43}\) seconds gives a
-recurrence time vastly longer than the age of the universe, vastly
-longer than the lifetime of the proton, vastly longer than any timescale
-physics conventionally treats. The recurrence is therefore a structural
-prediction with no practical empirical consequences.
+Applied to a bijection of a set with \(|S| \sim e^{10^{122}}\) elements
+--- the rough estimate of the substratum's cardinality consistent with
+the cosmological-horizon entropy of \(10^{122}\) --- the first quantity
+gives the upper bound
+\[N \le \mathrm{lcm}(1, 2, \ldots, |S|) = e^{\psi(|S|)} \sim e^{e^{10^{122}}},\]
+in the sense \(\ln N \le \psi(|S|) = (1 + o(1))\,|S|\). The second is
+sharper: no bijection of that set has period above \(g(|S|)\), with
+\(\ln g(|S|) \sim \sqrt{|S| \ln |S|} \sim 10^{61}\, e^{5 \times 10^{121}}\).
+A uniformly drawn permutation of that set would have
+\(\ln N \approx 5 \times 10^{243}\), a value that holds only under that
+model.
+
+The framework's own update rule is far more constrained than an
+arbitrary bijection. Under linearity (A5, Chapter 2 §2.4) the update is
+an invertible linear map of \(S = (\mathbb{Z}/q\mathbb{Z})^D\), where
+\(D\) counts every stored component, including the previous-time copy
+that a second-order rule carries. Its powers
+\(\varphi^0, \ldots, \varphi^{N-1}\) are distinct and nonzero, and they
+lie in the ring generated by \(\varphi\), which by the Cayley--Hamilton
+theorem has at most \(q^D\) elements. Hence
+\[N \le q^D - 1 = |S| - 1 \sim e^{10^{122}}\] for every alphabet size
+\(q \ge 2\). For prime \(q\) some linear maps attain \(q^D - 1\), but
+the wave rule falls far short of it: on a ring of \(L\) sites, with
+\(q\) prime and \(\gcd(L, q) = 1\), its period is exactly \(qL\),
+against \(|S| = q^{2L}\) (Appendix B, Theorem B.3.1). The period of the
+three-dimensional rule at cosmological size is not computed in the
+corpus.
+
+The return itself is definite: the universe returns to its exact initial
+state after \(N\) substratum time steps, where \(N\) is fixed by the
+cycle structure of \(\varphi\). It is at most \(g(|S|)\) for any
+bijection and below \(|S|\) under the linear rule. The framework bounds
+\(N\) rather than computing it. Translating to physical units with the
+substratum time step
+\(\tau_{\text{sub}} \sim t_{\text{Pl}} \sim 10^{-43}\) seconds
+multiplies the recurrence time by \(\tau_{\text{sub}}\), which changes
+its logarithm by about \(10^2\), negligible at these magnitudes. A
+period anywhere near these bounds is vastly longer than the age of the
+universe, vastly longer than the lifetime of the proton, vastly longer
+than any timescale physics conventionally treats, and at such a period
+the recurrence has no practical empirical consequences.
 
 \textbf{Falsifiability.} The recurrence prediction is falsifiable only
-in the logical sense. If the universe demonstrably failed to recur ---
-which would require an infinite observation time to verify --- the
-framework would be falsified. No finite observation can rule out
-recurrence at the framework's predicted timescale. The recurrence is
-therefore a prediction at the structural level rather than at the
-empirical level: it follows necessarily from the framework's other
-commitments (finite substratum, bijection dynamics), and any framework
-consistent with those commitments must predict recurrence at
-approximately the framework's timescale.
+in the logical sense. If the universe demonstrably failed to recur
+within \(|S| - 1\) steps under the linear rule, or within \(g(|S|)\)
+steps for an arbitrary bijection --- observation times that are finite
+but, for \(|S| \sim e^{10^{122}}\), of order \(e^{10^{122}}\) and
+\(\exp(10^{61}\, e^{5 \times 10^{121}})\) steps --- the framework would
+be falsified. No accessible observation can rule out recurrence on that
+timescale. The recurrence is therefore a prediction at the structural
+level rather than at the empirical level: it follows necessarily from
+the framework's other commitments (finite substratum, bijection
+dynamics), and any framework consistent with those commitments must
+predict exact recurrence with a period at most \(g(|S|)\) that divides
+\(\mathrm{lcm}(1, \ldots, |S|)\), and below \(|S|\) under linearity.
 
 The conceptual content is significant. The framework predicts that the
 universe is \emph{cyclic at the substratum level} --- periodic with
@@ -23312,13 +23371,14 @@ reframes three problems but has no direct empirical signature beyond the
 predictions already developed in the cosmological constant, BH
 information paradox, and renormalization treatments. Finite information
 and Poincaré recurrence (§18.7) are falsifiable only in the logical
-sense --- verification would require infinite observation time. The
-arrow of time (§18.8) is observationally manifest but is not directly
-testable as a framework prediction because all physics-based accounts of
-the arrow generate the same empirical signature. The framework's content
-in this category is structurally consequential without producing
-additional empirical handles beyond those already developed in Chapters
-5-17.
+sense --- a test would require observation over up to
+\(|S| - 1 \sim e^{10^{122}}\) substratum steps under the linear rule, a
+finite but astronomically long time. The arrow of time (§18.8) is
+observationally manifest but is not directly testable as a framework
+prediction because all physics-based accounts of the arrow generate the
+same empirical signature. The framework's content in this category is
+structurally consequential without producing additional empirical
+handles beyond those already developed in Chapters 5-17.
 
 \emph{Framework's scope limits.} Cosmic spatial topology (§18.9) is not
 predicted by the framework; the framework is consistent with Levin's
@@ -25858,8 +25918,8 @@ F7 & Born rule transient violations (conditional prospect: source
 dynamics, initial-deviation family and observable map not fixed) &
 primordial power spectrum or non-Gaussianity; form not derived &
 LiteBIRD, future CMB-S4, once the response is derived & Ch 18 §18.2 \\
-F8 & Cosmic recurrence & \(\sim e^{e^{10^{122}}}\) timescale & Logically
-falsifiable only & Ch 18 §18.7 \\
+F8 & Cosmic recurrence & period below \(|S| \sim e^{10^{122}}\) steps
+(linear rule) & Logically falsifiable only & Ch 18 §18.7 \\
 \end{longtable}
 
 \textbf{Biology and medicine.}
@@ -28400,9 +28460,10 @@ of QFT is an artifact of the continuum limit rather than a property of
 the underlying physics.
 
 \textbf{The empirical signatures.} Finiteness has specific empirical
-signatures developed in Chapter 18 §18.7: cosmic recurrence at timescale
-\(\sim e^{e^{10^{122}}}\) (falsifiable only in the logical sense, with
-no practical empirical consequences) and constraints on cosmic
+signatures developed in Chapter 18 §18.7: exact cosmic recurrence, at a
+period below \(|S| \sim e^{10^{122}}\) steps under the linear rule
+(falsifiable only in the logical sense, and without practical empirical
+consequences at periods of astronomical size) and constraints on cosmic
 information content (compatible with the Bekenstein bound).
 
 The framework's finiteness commitment is therefore not just a
@@ -30754,9 +30815,27 @@ Birkhoff, G. (1946). Three observations on linear algebra.
 \emph{Universidad Nacional de Tucumán Revista Series A} 5: 147-151.
 {[}Birkhoff-von Neumann theorem.{]}
 
+Erdős, P., \& Turán, P. (1965). On some problems of a statistical
+group-theory. I. \emph{Zeitschrift für Wahrscheinlichkeitstheorie und
+verwandte Gebiete} 4: 175-186. {[}Typical order of a random
+permutation.{]}
+
+Erdős, P., \& Turán, P. (1967). On some problems of a statistical
+group-theory. III. \emph{Acta Mathematica Academiae Scientiarum
+Hungaricae} 18: 309-320. {[}Normal law for the logarithm of the
+order.{]}
+
 Gödel, K. (1931). Über formal unentscheidbare Sätze der \emph{Principia
 Mathematica} und verwandter Systeme I. \emph{Monatshefte für Mathematik
 und Physik} 38: 173-198.
+
+Landau, E. (1903). Über die Maximalordnung der Permutationen gegebenen
+Grades. \emph{Archiv der Mathematik und Physik} (3) 5: 92-103.
+{[}Maximum order of a permutation.{]}
+
+Rosser, J. B., \& Schoenfeld, L. (1962). Approximate formulas for some
+functions of prime numbers. \emph{Illinois Journal of Mathematics} 6:
+64-94.
 
 Turing, A. M. (1937). On computable numbers, with an application to the
 \emph{Entscheidungsproblem}. \emph{Proceedings of the London
@@ -30793,4 +30872,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: cb267bd0455b8a03776037151a34107fb197d248651c8d3194de634fda5f7c88
+% source-sha256: 6af12f4ebea9b2d7a94e5b02033184dfc9c8673ab055ff112091a84fcef7f3de

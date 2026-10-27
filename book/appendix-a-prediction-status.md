@@ -178,7 +178,7 @@ Beyond the predictions with current empirical match, the framework makes specifi
 |---|-----------|---------------------|-------------|---------|
 | F6 | Running vacuum DESI test | $w(z) \neq -1$ in specific form | DESI Year 5 (2-3 years) | Ch 7 §7.7 |
 | F7 | Born rule transient violations (conditional prospect: source dynamics, initial-deviation family and observable map not fixed) | primordial power spectrum or non-Gaussianity; form not derived | LiteBIRD, future CMB-S4, once the response is derived | Ch 18 §18.2 |
-| F8 | Cosmic recurrence | $\sim e^{e^{10^{122}}}$ timescale | Logically falsifiable only | Ch 18 §18.7 |
+| F8 | Cosmic recurrence | period below $|S| \sim e^{10^{122}}$ steps (linear rule) | Logically falsifiable only | Ch 18 §18.7 |
 
 **Biology and medicine.**
 
