@@ -236,6 +236,7 @@ Each merge below was approved by the owner at the exact head SHA listed. Each wa
 | SC-2 | #948 | `a66ee170e…` | `9020bfa0` | ACCEPT after three rounds; `a66ee170` is the accepted `801fc221` with main merged in | R-08 |
 | SC-4 | #950 | `7b8bccddf…` | `0585dd0d` | ACCEPT after three rounds; `7b8bccdd` is the accepted `e99df4a0` with main merged in twice, and its source changes are line-for-line those of `e99df4a0` | R-39 |
 | SC-3 | #949 | `fb3eeccea…` | `6bc2c4af` | ACCEPT after three rounds, plus a framing re-check (owner decision R-37) and a reconciliation review of `fb3eecce` | R-36, R-37 |
+| SC-3 propagation and A6 | #951 | `e042cfad1…` | `a5168789` | ACCEPT after three rounds: list A, then A6 (owner-approved), then the Substratum Stage-1 realization step (RC-A6-1) | R-36, R-37 |
 
 In every main merge into a PR branch, `Main.tex`, `Main.pdf` and the other generated files were regenerated with `build.sh` rather than edited by hand. Each landing added exactly the PR's own changed source lines. The one exception was a sentence in `book/ch02-substratum.md` and its FULL mirror that SC-3 and SC-4 both edited. It was resolved by taking each unit's edit, and the reconciliation review checked that resolution.
 
@@ -252,8 +253,8 @@ Checks run locally at `6bc2c4af`, all exit 0:
 The Lean kernel build and the Mathlib-bridge release gate run in CI on each merge commit.
 
 Corrections still open on the source side, tracked on the source-correction gate:
-- SC-3 propagation PR #951;
-- the M1-T premise wording (A6), which needs an owner decision;
+- C3 stated as conditional on mixing (Substratum :136); `c3_necessity` proves C3 for every realization with no mixing hypothesis;
+- Structure :1274, which overstates the reverse-direction lemma;
 - SC-16, accessible-window P-indivisibility attributed to C1–C4;
 - SC-17, compressed Bell-ceiling summaries.
 
