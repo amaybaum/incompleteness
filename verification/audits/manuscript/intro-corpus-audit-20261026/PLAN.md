@@ -226,6 +226,39 @@ A substantive finding is any finding in FINDINGS (a) whose corpus side is a corr
 
 An open problem may be reported as open. The Introduction does not cite as established a result the audit has found invalid, whether or not the source has been corrected yet.
 
+### Merged source corrections
+
+Each merge below was approved by the owner at the exact head SHA listed. Each was a normal merge commit, with no squash and no rebase, pinned to that head. In each case the merge commit's tree equals that head's tree, and main's CI was green on the merge commit (25 of 25 checks, 1 skipped).
+
+| Unit | PR | Approved head | Merge commit | Independent review | Introduction side |
+|---|---|---|---|---|---|
+| SC-1 | #947 | `4cef42003…` | `024a2126` | ACCEPT after two rounds | R-40 |
+| SC-2 | #948 | `a66ee170e…` | `9020bfa0` | ACCEPT after three rounds; `a66ee170` is the accepted `801fc221` with main merged in | R-08 |
+| SC-4 | #950 | `7b8bccddf…` | `0585dd0d` | ACCEPT after three rounds; `7b8bccdd` is the accepted `e99df4a0` with main merged in twice, and its source changes are line-for-line those of `e99df4a0` | R-39 |
+| SC-3 | #949 | `fb3eeccea…` | `6bc2c4af` | ACCEPT after three rounds, plus a framing re-check (owner decision R-37) and a reconciliation review of `fb3eecce` | R-36, R-37 |
+
+In every main merge into a PR branch, `Main.tex`, `Main.pdf` and the other generated files were regenerated with `build.sh` rather than edited by hand. Each landing added exactly the PR's own changed source lines. The one exception was a sentence in `book/ch02-substratum.md` and its FULL mirror that SC-3 and SC-4 both edited. It was resolved by taking each unit's edit, and the reconciliation review checked that resolution.
+
+Checks run locally at `6bc2c4af`, all exit 0:
+- toolchain, staleness, voice and voice-scope, CI-gate presence, claims, duplicate, mirror, citation, architecture, dependency-label `--strict`;
+- coverage: 128 statements;
+- Lean–manuscript census, artifact placement, manifest drift;
+- legacy records: 303 intact;
+- V3 self-test, corpus and receipts: 52 hold;
+- citation roles;
+- the `edge_rigidity_probe.py` manuscript guards;
+- probes: `opglue`, `process_dilation`, `review4`, `memory` and `equivalence_recovery`.
+
+The Lean kernel build and the Mathlib-bridge release gate run in CI on each merge commit.
+
+Corrections still open on the source side, tracked on the source-correction gate:
+- SC-3 propagation PR #951;
+- the M1-T premise wording (A6), which needs an owner decision;
+- SC-16, accessible-window P-indivisibility attributed to C1–C4;
+- SC-17, compressed Bell-ceiling summaries.
+
+The Introduction-side changes are applied on #918 once their source units have merged.
+
 ## Authority
 
 - #918 stays on hold whatever its CI or earlier reviews show. No merge authorization is in effect.
