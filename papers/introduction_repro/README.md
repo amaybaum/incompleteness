@@ -204,9 +204,10 @@ modules; no repository file was changed.
   and an extra `#print axioms` in a source.
 - `extract_result.check` against the 28 sources: no failure, no gap.
 - Each module entry is the module's `#print axioms` lines in its source at `17b830bc` and the
-  extractor's reports for it from the served text. The frozen tools match reports by declaration
-  name and check the set of reported lines, not which line each report sits on; the "print" column
-  above is read from the sources.
+  extractor's reports for it from the served text. `compare_result.compare` matches the recorded
+  reports by declaration name, and R4 checks only the set of recorded lines, so neither checks the
+  line of each recorded report (`extract_result.check` pairs each extracted report with the command at
+  its own line); the "print" column above is read from the sources.
 - For the 14 further modules, five countercontrols are each caught by `compare_result.compare` or R4:
   a report dropped (StructuralClosure), a changed axiom list (PhysicalC4StorageReadback), changed
   `#print axioms` lines (PhaseSource), a module that is not in the source, and a reproduction missing a
