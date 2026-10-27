@@ -4602,7 +4602,7 @@ Sections 17.3-17.6 develop the empirical pattern across four active bioinformati
 
 Section 17.8 develops the variant pathogenicity prediction stratification: variants in reader/writer/eraser genes should show different pathogenicity patterns than variants in substrate genes, with current state-of-the-art predictors (AlphaMissense) systematically under-calibrated for machinery genes. Section 17.9 develops the evolutionary biology empirical confirmations — the established non-Markovianity signatures across the tree of life. Section 17.10 closes the chapter with the structural roadmap forward: multi-modal data, knowledge graphs, explicit memory state.
 
-The framework's content in bioinformatics is therefore *both* a structural ceiling (what cannot be achieved with current approaches) and a structural roadmap (what is required to make progress). The empirical record across the chapter's methodological domains provides convergent support for both: failures where the framework predicts limits, successes where the framework predicts success.
+The framework's content in bioinformatics is therefore *both* a conditional structural ceiling (what cannot be achieved with current approaches where the strict gap holds) and a structural roadmap (what is required to make progress). The empirical record across the chapter's methodological domains provides convergent support for both: failures where the framework predicts limits, successes where the framework predicts success.
 
 ## 17.2 The information-theoretic ceiling on transcriptome-only methods
 
