@@ -360,8 +360,6 @@ Gödel, K. (1931). Über formal unentscheidbare Sätze der *Principia Mathematic
 
 Landau, E. (1903). Über die Maximalordnung der Permutationen gegebenen Grades. *Archiv der Mathematik und Physik* (3) 5: 92-103. [Maximum order of a permutation.]
 
-Rosser, J. B., & Schoenfeld, L. (1962). Approximate formulas for some functions of prime numbers. *Illinois Journal of Mathematics* 6: 64-94.
-
 Turing, A. M. (1937). On computable numbers, with an application to the *Entscheidungsproblem*. *Proceedings of the London Mathematical Society* s2-42: 230-265.
 
 von Neumann, J. (1953). A certain zero-sum two-person game equivalent to the optimal assignment problem. In: H. W. Kuhn & A. W. Tucker (eds.), *Contributions to the Theory of Games II*, pp. 5-12. Princeton University Press. [Birkhoff-von Neumann theorem.]

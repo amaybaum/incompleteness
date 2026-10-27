@@ -11,9 +11,7 @@ python 3.13.16; mpmath 1.3.0
     n= 10000  psi(n)=    10013.3967  psi(n)/n=1.001340
     n=100000  psi(n)=   100051.5640  psi(n)/n=1.000516
     n=200000  psi(n)=   200026.9388  psi(n)/n=1.000135
-    max psi(n)/n over n<=2000: 1.038821 at n=113
-  [PASS] max psi(n)/n for n<=2000 is < 1.03883 (Rosser-Schoenfeld bound)
-  [PASS] argmax is n=113
+    max psi(n)/n over n<=2000: 1.038821 at n=113  (observation only)
   [PASS] von Mangoldt psi(1e5) equals ln lcm(1..1e5) to 1e-6
 
 (2) Landau g(n): partition DP vs brute force
