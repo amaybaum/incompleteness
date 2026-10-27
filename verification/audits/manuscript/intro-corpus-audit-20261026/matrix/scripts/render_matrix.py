@@ -124,6 +124,9 @@ def render(data, claims):
     # Control: the counts recorded by the merge must equal the counts of the rows themselves.
     if dict(verdicts) != data["verdicts"] or dict(statuses) != data["proof_status"]:
         raise SystemExit("control failed: matrix.json summary counts disagree with its rows")
+    levels = Counter(r.get("evidence_level") for r in rows)
+    if dict(levels) != data.get("evidence_levels"):
+        raise SystemExit("control failed: matrix.json evidence-level counts disagree with its rows")
     missing_claims = [r["id"] for r in rows if r["id"] not in claims]
     if missing_claims:
         raise SystemExit(f"control failed: rows without a claim text: {missing_claims}")
@@ -159,6 +162,11 @@ def render(data, claims):
     for s in reversed(STATUS_ORDER):
         L.append(f"| {s} | {statuses.get(s, 0)} |")
     L.append("")
+    L.append("| Evidence level (step 7, `EVIDENCE.md`) | Rows |")
+    L.append("|---|--:|")
+    for lv in ("reproduced", "certificate-checked", "traced-only", "failed"):
+        L.append(f"| {lv} | {levels.get(lv, 0)} |")
+    L.append("")
     L.append("Verdicts by section (*Rows* counts every row of the section; the other columns count its "
              "non-FAITHFUL verdicts):")
     L.append("")
@@ -176,7 +184,9 @@ def render(data, claims):
              "row's `contradictions` whose recorded nature is not 'consistent' (short form `file:line` at `eae01647`, "
              "`Module:line` for Lean). Non-FAITHFUL verdicts are in bold. Status levels: proved-kernel, proved-paper, "
              "conditional, calibration, exhaustive-exact (an exhaustive enumeration in exact arithmetic over a stated finite domain), "
-             "numerical (floating-point or otherwise inexact evidence), conjecture, open, unsupported (PLAN.md, step 3).")
+             "numerical (floating-point or otherwise inexact evidence), conjecture, open, unsupported (PLAN.md, step 3). "
+             "*Evidence* is the row's step-7 evidence level: reproduced, certificate-checked, traced-only or failed, "
+             "by the rule in `EVIDENCE.md`.")
     L.append("")
     L.append("Dependency blocks follow the table of the section that states each multi-step result. Each block "
              "states the proof status of every row it covers and names the weakest, which governs the result as the "
@@ -195,8 +205,8 @@ def render(data, claims):
         L.append(f"## {sec}")
         L.append("")
         L.append("| id | line | claim | strongest verified source | assumptions | proof status | verdict | "
-                 "contradictions |")
-        L.append("|---|--:|---|---|---|---|---|---|")
+                 "contradictions | evidence |")
+        L.append("|---|--:|---|---|---|---|---|---|---|")
         for r in rs:
             assum = list(r.get("required_assumptions") or [])
             cond = r.get("conditional_on")
@@ -207,7 +217,8 @@ def render(data, claims):
             v = v if v == "FAITHFUL" else f"**{v}**"
             L.append("| " + " | ".join([
                 r["id"], line, cell(claims[r["id"]]), cell(r.get("strongest_verified_source")),
-                cell("; ".join(assum)), r["proof_status"], v, cell(", ".join(contradiction_sites(r)))]) + " |")
+                cell("; ".join(assum)), r["proof_status"], v, cell(", ".join(contradiction_sites(r))),
+                r["evidence_level"]]) + " |")
         L.append("")
         for _, title, ids, scope in blocks_by_sec.get(sec, []):
             L.extend(render_block(title, ids, scope, byid))

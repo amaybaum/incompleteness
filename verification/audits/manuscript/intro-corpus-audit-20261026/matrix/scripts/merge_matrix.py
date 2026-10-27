@@ -49,14 +49,25 @@ for i, v in res.items():
             r["mapper_" + k] = r.get(k)
             r[k] = v[k]
 
+# Step 7: each row's evidence level, as evidence/scripts/E4_aggregate.py computed it into evidence.json.
+import os
+if os.path.exists("evidence.json"):
+    ev = json.load(open("evidence.json", encoding="utf-8"))["claims"]
+    for i, r in rows.items():
+        r["evidence_level"] = ev[i]["evidence_level"]
+        r["evidence_basis"] = ev[i]["basis"]
+
 missing = [i for i in want if i not in rows]
 extra = [i for i in rows if i not in set(want)]
 order = {i: k for k, i in enumerate(want)}
 merged = sorted(rows.values(), key=lambda r: order.get(r["id"], 10**9))
 verdicts = collections.Counter(r["verdict"] for r in merged)
 status = collections.Counter(r["proof_status"] if isinstance(r["proof_status"], str) else r["proof_status"].get("status", str(r["proof_status"])) for r in merged)
-json.dump({"rows": merged, "duplicates": dups, "missing": missing, "extra": extra,
-           "verdicts": dict(verdicts), "proof_status": dict(status)},
+summary = {"rows": merged, "duplicates": dups, "missing": missing, "extra": extra,
+           "verdicts": dict(verdicts), "proof_status": dict(status)}
+if all("evidence_level" in r for r in merged):
+    summary["evidence_levels"] = dict(collections.Counter(r["evidence_level"] for r in merged))
+json.dump(summary,
           open("matrix.json", "w", encoding="utf-8"), indent=1, ensure_ascii=False)
 print("rows", len(merged), "want", len(want), "missing", missing, "extra", extra)
 print("duplicates", dups)

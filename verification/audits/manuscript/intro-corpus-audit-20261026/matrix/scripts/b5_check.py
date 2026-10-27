@@ -77,7 +77,15 @@ for x0 in V:
         J3[(x0, s1[0], s2[0])] = J3.get((x0, s1[0], s2[0]), 0) + F(1, 2) * F(1, 3)
 c1 = sum(v for k, v in J3.items() if k[:3] == (0, 1, 0)) / sum(v for k, v in J3.items() if k[:2] == (0, 1))
 c2 = sum(v for k, v in J3.items() if k[1:] == (1, 0)) / sum(v for k, v in J3.items() if k[1] == 1)
-out['H3_variant'] = dict(G1=g1, G2=g2, cond_x0=c1, cond=c2)
+J3a = {}
+for x0, px0 in ((0, a), (1, 1 - a)):
+    for h in H3:
+        s1 = phi3[(x0, h)]; s2 = phi3[s1]
+        key = (x0, s1[0], s2[0])
+        J3a[key] = J3a.get(key, 0) + px0 * sp.Rational(1, 3)
+c3 = sp.simplify(sum(v for k, v in J3a.items() if k[1:] == (1, 0)) / sum(v for k, v in J3a.items() if k[1] == 1))
+out['H3_variant'] = dict(G1=g1, G2=g2, cond_x0=c1, cond=c2, cond_general_a=c3,
+                         cond_general_a_is_a_over_2_minus_a=sp.simplify(c3 - a / (2 - a)) == 0)
 
 # ---------------- minimality search ----------------
 def theorem3_witness(phi, V, H, prior, nmax):
@@ -125,8 +133,16 @@ out['B2_P(x1|x0)'] = cond(0, 1); out['B2_P(x2|x1)'] = cond(1, 2); out['B2_P(x2|x
 import math
 def H_(ps):
     return -sum(p * math.log2(p) for p in ps if p > 0)
-# I(X0;X2|X1) = H(X2|X1) - H(X2|X0,X1), exact here: 1 - 0
-out['B2_I(X0;X2|X1)_bits'] = 1 - 0
+# I(X0;X2|X1) = H(X2|X1) - H(X2|X0,X1), computed exactly from J (sympy logarithms base 2)
+def H_cond(J, given, target):
+    """H(X_target | X_given) in bits, exactly."""
+    pg, pj = {}, {}
+    for k, v in J.items():
+        g = tuple(k[i] for i in given)
+        pg[g] = pg.get(g, 0) + v
+        pj[(g, k[target])] = pj.get((g, k[target]), 0) + v
+    return sp.nsimplify(-sum(sp.Rational(v) * sp.log(sp.Rational(v) / sp.Rational(pg[g]), 2) for (g, _), v in pj.items() if v))
+out['B2_I(X0;X2|X1)_bits'] = sp.simplify(H_cond(J, (1,), 2) - H_cond(J, (0, 1), 2))
 # RHP14 Eq.(15) support (x1,x2,x3): (1,0,0),(0,1,0),(0,0,1),(1,1,1) -> x3 = NOT(x1 xor x2)
 rhp = [(1, 0, 0), (0, 1, 0), (0, 0, 1), (1, 1, 1)]
 out['RHP15_is_xor_flipped'] = all(x3 == 1 - (x1 ^ x2) for x1, x2, x3 in rhp)

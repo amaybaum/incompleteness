@@ -28,6 +28,13 @@
 | open | 47 |
 | unsupported | 5 |
 
+| Evidence level (step 7, `EVIDENCE.md`) | Rows |
+|---|--:|
+| reproduced | 67 |
+| certificate-checked | 153 |
+| traced-only | 187 |
+| failed | 2 |
+
 Verdicts by section (*Rows* counts every row of the section; the other columns count its non-FAITHFUL verdicts):
 
 | Section | Rows | OVERCLAIM | UNSUPPORTED | UNDERCLAIM | MISCITED | IMPRECISE |
@@ -60,133 +67,133 @@ Verdicts by section (*Rows* counts every row of the section; the other columns c
 | Appendix B.3 | 24 |  |  |  |  | 1 |
 | References | 2 |  |  |  |  |  |
 
-**Columns.** *Claim* is the normalized statement of `inventory/claims.json` (the verbatim span is in `matrix.json`). *Strongest verified source* is the mapper's `strongest_verified_source`. *Assumptions* are the row's `required_assumptions`, with `conditional_on` prefixed when present. *Proof status* is the weakest link of the row's chain. *Contradictions* lists the corpus sites in the row's `contradictions` whose recorded nature is not 'consistent' (short form `file:line` at `eae01647`, `Module:line` for Lean). Non-FAITHFUL verdicts are in bold. Status levels: proved-kernel, proved-paper, conditional, calibration, exhaustive-exact (an exhaustive enumeration in exact arithmetic over a stated finite domain), numerical (floating-point or otherwise inexact evidence), conjecture, open, unsupported (PLAN.md, step 3).
+**Columns.** *Claim* is the normalized statement of `inventory/claims.json` (the verbatim span is in `matrix.json`). *Strongest verified source* is the mapper's `strongest_verified_source`. *Assumptions* are the row's `required_assumptions`, with `conditional_on` prefixed when present. *Proof status* is the weakest link of the row's chain. *Contradictions* lists the corpus sites in the row's `contradictions` whose recorded nature is not 'consistent' (short form `file:line` at `eae01647`, `Module:line` for Lean). Non-FAITHFUL verdicts are in bold. Status levels: proved-kernel, proved-paper, conditional, calibration, exhaustive-exact (an exhaustive enumeration in exact arithmetic over a stated finite domain), numerical (floating-point or otherwise inexact evidence), conjecture, open, unsupported (PLAN.md, step 3). *Evidence* is the row's step-7 evidence level: reproduced, certificate-checked, traced-only or failed, by the rule in `EVIDENCE.md`.
 
 Dependency blocks follow the table of the section that states each multi-step result. Each block states the proof status of every row it covers and names the weakest, which governs the result as the Introduction states it, and the hypotheses the rows are conditional on. It then lists every distinct link of those rows with its source, layer, status and hypotheses, ordered from the weakest support to the strongest. A chain can list alternative supports for one step (a paper proof beside a kernel proof, or a special case beside the general form), so the first line is the weakest support recorded, not necessarily a step the result needs; the governing status is the weakest row status.
 
 ## Abstract
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-001 | 12 | OI is defined as the hypothesis that every physical observer is a proper part of a finite reversible deterministic system and records only visible marginals. | papers/Main.md:62@eae01647 | total finiteness of S (posit); bijective representative (representation choice); observer registers only C_V | conjecture | FAITHFUL |  |
-| I-002 | 12 | Abstract form of Theorem 1: at every finite horizon, finite stochastic laws = visible marginals of finite reversible dynamics = fixed-basis Born records of finite unitary systems. | lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K; D_K initial law may correlate visible and hidden coordinates; Q_K: projective measurement of the whole system in one fixed basis at every step, diagonal initial state, record a fixed function of the outcome | proved-kernel | FAITHFUL | Main:2 |
-| I-002.a | 12 | [S_K ⊆ D_K] Every finite-horizon law has a faithful finite reversible realization. | lean:OIBridge/Equivalence.lean:422:S_imp_D | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  |
-| I-002.b | 12 | [D_K ⊆ Q_K] Every visible law of a finite bijection is a fixed-basis Born record of a finite unitary system. | lean:OIBridge/Equivalence.lean:294:D_imp_Qfb | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  |
-| I-002.c | 12 | [Q_K ⊆ S_K] Every fixed-basis Born record law is a probability law on visible trajectories. | lean:OIBridge/Equivalence.lean:245:Qfb_imp_S | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  |
-| I-003 | 12 | The components of the correspondence are known from Egri et al.'s trajectory-labelling realization and Barandes's treatment of permutation dynamics as unistochastic. | EGGH26 Prop. 13; Bar25 p. 12 |  | proved-paper | FAITHFUL |  |
-| I-004 | 12 | Each of the three classes contains the Markov laws. | lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  |
-| I-005 | 12 | Representability (realization / fixed-basis unitary representation) does not distinguish laws with memory from Markov laws. | papers/Main.md:534@eae01647 | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  |
-| I-006 | 12 | The correspondence does not select the Born exponent. | papers/Main.md:534@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-007 | 12 | The discriminating content of OI concerns memory. | papers/Main.md:592@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-008 | 12 | Every deterministic completion (faithful realization) carries the visible law's memory in its hidden state. | lean:OIBridge/HiddenMemory.lean:185:unavoidable_hidden_predictive_memory | faithful (deterministic) realization; identification of the time-t law with the kernel's joint law (not formalized) | proved-paper | **IMPRECISE** | Main:16 |
-| I-009 | 12 | On a fixed finite reversible system, finite recurrence plus history readback (C4) forces stochastic indivisibility somewhere in the recurrence cycle. | papers/Main.md:139@eae01647 | fixed finite reversible substratum; history-level (C4) (paper) / routed-readback form (kernel) | proved-paper | FAITHFUL |  |
-| I-010 | 12 | The two preceding abstract results are each machine-checked except for one step. | papers/Main.md:580@eae01647 |  | proved-paper | **IMPRECISE** |  |
-| I-011 | 12 | Exact finite operational QM is characterized (iff) by five completion conditions (Theorem 4). | lean:OIBridge/GeneralCarrier.lean:100:exactAll_iff_physical_general | nonempty finite system; operational theory with the standing structure: identity, coarse-graining, outcome-conditioned composition, uniformly mixed ancilla preparation, spectator-independent readout, ancilla discard | proved-kernel | FAITHFUL |  |
-| I-011.a | 12 | [⇒] If the available families are exactly the normalized finite Kraus instruments, conditions (i)–(v) hold. | lean:OIBridge/PhysicalCharacterization.lean:301:physical_of_exactAll | operational-theory standing structure | proved-kernel | FAITHFUL |  |
-| I-011.b | 12 | [⇐] If conditions (i)–(v) hold, the available families are exactly the normalized finite Kraus instruments. | lean:OIBridge/GeneralCarrier.lean:93:exactAll_of_physical_general | operational-theory standing structure; A nonempty | proved-kernel | FAITHFUL |  |
-| I-012 | 12 | None of the five completion conditions is implied by OI alone. | lean:OIBridge/RankGapTheory.lean:702:five_way_minimality | OI read as realizing the sealed finite C1-C4 core on the qubit | proved-kernel | FAITHFUL |  |
-| I-013 | 12 | Which of conditions (iii)–(v) a physical substratum supplies is open. | papers/GR.md:228@eae01647 |  | open | **UNDERCLAIM** |  |
-| I-014 | 12 | Selection of the evolution relating two times is open. | papers/Main.md:624@eae01647 |  | open | FAITHFUL |  |
-| I-015 | 12 | Any test of the OI hypothesis is open. | papers/Main.md:704@eae01647 |  | open | **IMPRECISE** | appendix-a-prediction-status:219, Main:706 |
-| I-016 | 12 | OI places the zero-point sum and the effective cosmological constant at different levels of description. | papers/GR.md:356@eae01647 | substratum/emergent architecture | proved-paper | FAITHFUL |  |
-| I-017 | 12 | Whether the zero-point sum sources curvature depends on covariant field equations that are not derived. | papers/GR.md:356@eae01647 |  | open | FAITHFUL |  |
-| I-018 | 12 | The cosmological-constant treatment is a proposal, not a resolution. | papers/GR.md:356@eae01647 | G3 covariant field equations | conjecture | FAITHFUL | GR:326 |
-| I-019 | 12 | Finite computations separate information conservation under bijective dynamics from recovery by an observer with restricted access. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md@eae01647 | finite toy models of configurations, permutations and configuration reads | exhaustive-exact | FAITHFUL |  |
-| I-020 | 12 | The framework's Page curve is not established. | papers/GR.md:603@eae01647 |  | open | FAITHFUL |  |
-| I-021 | 12 | The black-hole information problem is not resolved. | papers/GR.md:603@eae01647 |  | open | FAITHFUL | ch07-gravity:116 |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-001 | 12 | OI is defined as the hypothesis that every physical observer is a proper part of a finite reversible deterministic system and records only visible marginals. | papers/Main.md:62@eae01647 | total finiteness of S (posit); bijective representative (representation choice); observer registers only C_V | conjecture | FAITHFUL |  | traced-only |
+| I-002 | 12 | Abstract form of Theorem 1: at every finite horizon, finite stochastic laws = visible marginals of finite reversible dynamics = fixed-basis Born records of finite unitary systems. | lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K; D_K initial law may correlate visible and hidden coordinates; Q_K: projective measurement of the whole system in one fixed basis at every step, diagonal initial state, record a fixed function of the outcome | proved-kernel | FAITHFUL | Main:2 | certificate-checked |
+| I-002.a | 12 | [S_K ⊆ D_K] Every finite-horizon law has a faithful finite reversible realization. | lean:OIBridge/Equivalence.lean:422:S_imp_D | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-002.b | 12 | [D_K ⊆ Q_K] Every visible law of a finite bijection is a fixed-basis Born record of a finite unitary system. | lean:OIBridge/Equivalence.lean:294:D_imp_Qfb | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-002.c | 12 | [Q_K ⊆ S_K] Every fixed-basis Born record law is a probability law on visible trajectories. | lean:OIBridge/Equivalence.lean:245:Qfb_imp_S | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-003 | 12 | The components of the correspondence are known from Egri et al.'s trajectory-labelling realization and Barandes's treatment of permutation dynamics as unistochastic. | EGGH26 Prop. 13; Bar25 p. 12 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-004 | 12 | Each of the three classes contains the Markov laws. | lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-005 | 12 | Representability (realization / fixed-basis unitary representation) does not distinguish laws with memory from Markov laws. | papers/Main.md:534@eae01647 | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-006 | 12 | The correspondence does not select the Born exponent. | papers/Main.md:534@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-007 | 12 | The discriminating content of OI concerns memory. | papers/Main.md:592@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-008 | 12 | Every deterministic completion (faithful realization) carries the visible law's memory in its hidden state. | lean:OIBridge/HiddenMemory.lean:185:unavoidable_hidden_predictive_memory | faithful (deterministic) realization; identification of the time-t law with the kernel's joint law (not formalized) | proved-paper | **IMPRECISE** | Main:16 | certificate-checked |
+| I-009 | 12 | On a fixed finite reversible system, finite recurrence plus history readback (C4) forces stochastic indivisibility somewhere in the recurrence cycle. | papers/Main.md:139@eae01647 | fixed finite reversible substratum; history-level (C4) (paper) / routed-readback form (kernel) | proved-paper | FAITHFUL |  | certificate-checked |
+| I-010 | 12 | The two preceding abstract results are each machine-checked except for one step. | papers/Main.md:580@eae01647 |  | proved-paper | **IMPRECISE** |  | traced-only |
+| I-011 | 12 | Exact finite operational QM is characterized (iff) by five completion conditions (Theorem 4). | lean:OIBridge/GeneralCarrier.lean:100:exactAll_iff_physical_general | nonempty finite system; operational theory with the standing structure: identity, coarse-graining, outcome-conditioned composition, uniformly mixed ancilla preparation, spectator-independent readout, ancilla discard | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-011.a | 12 | [⇒] If the available families are exactly the normalized finite Kraus instruments, conditions (i)–(v) hold. | lean:OIBridge/PhysicalCharacterization.lean:301:physical_of_exactAll | operational-theory standing structure | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-011.b | 12 | [⇐] If conditions (i)–(v) hold, the available families are exactly the normalized finite Kraus instruments. | lean:OIBridge/GeneralCarrier.lean:93:exactAll_of_physical_general | operational-theory standing structure; A nonempty | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-012 | 12 | None of the five completion conditions is implied by OI alone. | lean:OIBridge/RankGapTheory.lean:702:five_way_minimality | OI read as realizing the sealed finite C1-C4 core on the qubit | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-013 | 12 | Which of conditions (iii)–(v) a physical substratum supplies is open. | papers/GR.md:228@eae01647 |  | open | **UNDERCLAIM** |  | traced-only |
+| I-014 | 12 | Selection of the evolution relating two times is open. | papers/Main.md:624@eae01647 |  | open | FAITHFUL |  | traced-only |
+| I-015 | 12 | Any test of the OI hypothesis is open. | papers/Main.md:704@eae01647 |  | open | **IMPRECISE** | appendix-a-prediction-status:219, Main:706 | traced-only |
+| I-016 | 12 | OI places the zero-point sum and the effective cosmological constant at different levels of description. | papers/GR.md:356@eae01647 | substratum/emergent architecture | proved-paper | FAITHFUL |  | traced-only |
+| I-017 | 12 | Whether the zero-point sum sources curvature depends on covariant field equations that are not derived. | papers/GR.md:356@eae01647 |  | open | FAITHFUL |  | traced-only |
+| I-018 | 12 | The cosmological-constant treatment is a proposal, not a resolution. | papers/GR.md:356@eae01647 | G3 covariant field equations | conjecture | FAITHFUL | GR:326 | traced-only |
+| I-019 | 12 | Finite computations separate information conservation under bijective dynamics from recovery by an observer with restricted access. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md@eae01647 | finite toy models of configurations, permutations and configuration reads | exhaustive-exact | FAITHFUL |  | reproduced |
+| I-020 | 12 | The framework's Page curve is not established. | papers/GR.md:603@eae01647 |  | open | FAITHFUL |  | reproduced |
+| I-021 | 12 | The black-hole information problem is not resolved. | papers/GR.md:603@eae01647 |  | open | FAITHFUL | ch07-gravity:116 | traced-only |
 
 ## §1.1
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-022 | 18 | Embedded observation is modelled by (S, φ, V): finite S = C_V × C_H, a bijection φ of S, and an observer registering x ∈ C_V and not h ∈ C_H. | papers/Main.md:44@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-023 | 20 | Taking φ bijective (reversible representative of the hidden dynamics) is a posit motivated by observed near-unitarity. | papers/Main.md:62@eae01647 | representation choice | conjecture | FAITHFUL | Methodology:235, Methodology:253 |
-| I-024 | 20 | Finiteness of all of S is a posit. | papers/Main.md:708@eae01647 | total-finiteness posit | conjecture | FAITHFUL | Main:46 |
-| I-025 | 20 | Hidden states compatible with the same x send it to different futures, so the visible sector evolves stochastically though the whole is deterministic. | papers/Main.md:105@eae01647 |  | proved-paper | **IMPRECISE** | Main:105 |
-| I-026 | 22 | OI is the physical hypothesis that every physical observer is in the (S, φ, V) situation. | papers/Main.md:62@eae01647 |  | conjecture | FAITHFUL |  |
-| I-027 | 22 | Identifying nature with such a system is an empirically motivated representation choice. | papers/Main.md:62@eae01647 |  | conjecture | FAITHFUL |  |
-| I-028 | 22 | The paper's theorems are mathematical (not tests of the physical identification). | papers/Main.md:704@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-029 | 22 | No test of the identification at the level of memory witnesses is established. | papers/Main.md:702@eae01647 |  | open | FAITHFUL |  |
-| I-030 | 22 | OI's incompleteness is inaccessibility of the hidden sector, not joint unsharpness of non-commuting observables. | papers/Main.md:572@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-031 | 22 | The incompleteness is present for a single fixed readout. | papers/Main.md:572@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-032 | 22 | No uncertainty relation constrains fixed-readout visible laws. | papers/Main.md:572@eae01647 | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-paper | FAITHFUL |  |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-022 | 18 | Embedded observation is modelled by (S, φ, V): finite S = C_V × C_H, a bijection φ of S, and an observer registering x ∈ C_V and not h ∈ C_H. | papers/Main.md:44@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-023 | 20 | Taking φ bijective (reversible representative of the hidden dynamics) is a posit motivated by observed near-unitarity. | papers/Main.md:62@eae01647 | representation choice | conjecture | FAITHFUL | Methodology:235, Methodology:253 | traced-only |
+| I-024 | 20 | Finiteness of all of S is a posit. | papers/Main.md:708@eae01647 | total-finiteness posit | conjecture | FAITHFUL | Main:46 | traced-only |
+| I-025 | 20 | Hidden states compatible with the same x send it to different futures, so the visible sector evolves stochastically though the whole is deterministic. | papers/Main.md:105@eae01647 |  | proved-paper | **IMPRECISE** | Main:105 | traced-only |
+| I-026 | 22 | OI is the physical hypothesis that every physical observer is in the (S, φ, V) situation. | papers/Main.md:62@eae01647 |  | conjecture | FAITHFUL |  | traced-only |
+| I-027 | 22 | Identifying nature with such a system is an empirically motivated representation choice. | papers/Main.md:62@eae01647 |  | conjecture | FAITHFUL |  | traced-only |
+| I-028 | 22 | The paper's theorems are mathematical (not tests of the physical identification). | papers/Main.md:704@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-029 | 22 | No test of the identification at the level of memory witnesses is established. | papers/Main.md:702@eae01647 |  | open | FAITHFUL |  | traced-only |
+| I-030 | 22 | OI's incompleteness is inaccessibility of the hidden sector, not joint unsharpness of non-commuting observables. | papers/Main.md:572@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-031 | 22 | The incompleteness is present for a single fixed readout. | papers/Main.md:572@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-032 | 22 | No uncertainty relation constrains fixed-readout visible laws. | papers/Main.md:572@eae01647 | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-paper | FAITHFUL |  | certificate-checked |
 
 ## §1.2
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-033 | 26 | Marginalizing reversible dynamics over an unobserved register yields stochastic visible laws. | lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence |  | proved-kernel | FAITHFUL |  |
-| I-034 | 26 | Marginalizing reversible dynamics can produce conditional memory. | lean:OIBridge/Equivalence.lean:422:S_imp_D |  | proved-kernel | FAITHFUL |  |
-| I-035 | 26 | Marginalizing reversible dynamics can produce failures of stochastic divisibility (no stochastic intermediate map exists). | lean:OIBridge/RecurrenceHorizon.lean:148:pIndivisible_of_rooted_identity_return_of_overlap |  | proved-kernel | FAITHFUL |  |
-| I-036 | 26 | In a divisibility failure, where the candidate intermediate matrix exists, it has negative entries. | papers/Main.md:121@eae01647 | candidate divisor exists (Gamma_s invertible) | proved-paper | FAITHFUL |  |
-| I-037 | 26 | The stochastic–quantum correspondence relates stochastic laws, memory and indivisibility to quantum theory. | Bar25; Bar23 |  | proved-paper | FAITHFUL |  |
-| I-038 | 26 | Theorem 1's correspondence is exact and universal at the level of finite-horizon observable laws. | lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  |
-| I-039 | 26 | Because the correspondence is universal, the content lies in where memory must sit and what finite recurrence does with it. | papers/Main.md:534@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-040 | 26 | OI's foundation and quantum-emergence results stop short of operational quantum mechanics. | papers/Main.md:622@eae01647 |  | proved-kernel | **UNDERCLAIM** | ch01-observation:261, Main:22 |
-| I-041 | 26 | Neither the cosmological-constant nor the black-hole application is a demonstrated resolution. | papers/GR.md:356@eae01647 |  | open | FAITHFUL | GR:326 |
-| I-042 | 26 | The proofs, status ledger and probe code are in [Main]. | papers/Main.md:710@eae01647 |  | proved-paper | **IMPRECISE** |  |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-033 | 26 | Marginalizing reversible dynamics over an unobserved register yields stochastic visible laws. | lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-034 | 26 | Marginalizing reversible dynamics can produce conditional memory. | lean:OIBridge/Equivalence.lean:422:S_imp_D |  | proved-kernel | FAITHFUL |  | traced-only |
+| I-035 | 26 | Marginalizing reversible dynamics can produce failures of stochastic divisibility (no stochastic intermediate map exists). | lean:OIBridge/RecurrenceHorizon.lean:148:pIndivisible_of_rooted_identity_return_of_overlap |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-036 | 26 | In a divisibility failure, where the candidate intermediate matrix exists, it has negative entries. | papers/Main.md:121@eae01647 | candidate divisor exists (Gamma_s invertible) | proved-paper | FAITHFUL |  | traced-only |
+| I-037 | 26 | The stochastic–quantum correspondence relates stochastic laws, memory and indivisibility to quantum theory. | Bar25; Bar23 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-038 | 26 | Theorem 1's correspondence is exact and universal at the level of finite-horizon observable laws. | lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-039 | 26 | Because the correspondence is universal, the content lies in where memory must sit and what finite recurrence does with it. | papers/Main.md:534@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-040 | 26 | OI's foundation and quantum-emergence results stop short of operational quantum mechanics. | papers/Main.md:622@eae01647 |  | proved-kernel | **UNDERCLAIM** | ch01-observation:261, Main:22 | certificate-checked |
+| I-041 | 26 | Neither the cosmological-constant nor the black-hole application is a demonstrated resolution. | papers/GR.md:356@eae01647 |  | open | FAITHFUL | GR:326 | traced-only |
+| I-042 | 26 | The proofs, status ledger and probe code are in [Main]. | papers/Main.md:710@eae01647 |  | proved-paper | **IMPRECISE** |  | traced-only |
 
 ## §1.2 Contributions
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-043 | 28 | The paper claims no new theorem or physical result; it is expository. | papers/Main.md:526@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-044 | 28 | The §5 black-hole results come from unpublished repository research records. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:3@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-045 | 28 | The §5 black-hole results have written proofs and exact or exhaustive checks. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-046 | 28 | The novelty of the §5 black-hole results has not been established. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:3@eae01647 |  | open | FAITHFUL |  |
-| I-047 | 28 | The components of Theorem 1 are known in the literature. | EGGH26 Prop. 13 |  | proved-paper | FAITHFUL |  |
-| I-048 | 28 | Each direction of Theorem 1 is attributed to prior literature. | SGD19 Eq. (3) |  | proved-paper | FAITHFUL |  |
-| I-049 | 28 | The §2.4 memory bounds are forms of the data-processing and Pinsker inequalities. | papers/Main.md:590@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-050 | 28 | The §2.5 recurrence argument combines finite order with the known contraction criterion for divisibility. | papers/Main.md:121@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-051 | 28 | Doukas states the recurrence argument concurrently. | Dou26 Prop. 1 |  | proved-paper | FAITHFUL |  |
-| I-052 | 28 | The §3.2–§3.3 results are proved in [GR] and [Main]. | lean:OIBridge/GeneralCarrier.lean:100:exactAll_iff_physical_general |  | proved-kernel | **MISCITED** |  |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-043 | 28 | The paper claims no new theorem or physical result; it is expository. | papers/Main.md:526@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-044 | 28 | The §5 black-hole results come from unpublished repository research records. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:3@eae01647 |  | proved-paper | FAITHFUL |  | certificate-checked |
+| I-045 | 28 | The §5 black-hole results have written proofs and exact or exhaustive checks. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md@eae01647 |  | proved-paper | FAITHFUL |  | reproduced |
+| I-046 | 28 | The novelty of the §5 black-hole results has not been established. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:3@eae01647 |  | open | FAITHFUL |  | traced-only |
+| I-047 | 28 | The components of Theorem 1 are known in the literature. | EGGH26 Prop. 13 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-048 | 28 | Each direction of Theorem 1 is attributed to prior literature. | SGD19 Eq. (3) |  | proved-paper | FAITHFUL |  | traced-only |
+| I-049 | 28 | The §2.4 memory bounds are forms of the data-processing and Pinsker inequalities. | papers/Main.md:590@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-050 | 28 | The §2.5 recurrence argument combines finite order with the known contraction criterion for divisibility. | papers/Main.md:121@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-051 | 28 | Doukas states the recurrence argument concurrently. | Dou26 Prop. 1 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-052 | 28 | The §3.2–§3.3 results are proved in [GR] and [Main]. | lean:OIBridge/GeneralCarrier.lean:100:exactAll_iff_physical_general |  | proved-kernel | **MISCITED** |  | traced-only |
 
 ## §1.2 Conventions
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-053 | 30 | 'Machine-checked' means checked in Lean 4/Mathlib at commit 17b830bc by the stated recipe, declarations in Appendix A. | papers/introduction_repro/results-121598983127.json@4a260ca9 |  | proved-kernel | FAITHFUL |  |
-| I-054 | 30 | An 'exact probe' is an exhaustive exact-rational computation at small size. | papers/oi_lattice_code/foundations/process_dilation_probes.py@eae01647 |  | numerical | **IMPRECISE** |  |
-| I-055 | 30 | A faithful realization of a law is a bijection φ of C_V × C_H with an initial law under which the visible trajectory has that law. | papers/Main.md:97@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-056 | 30 | The finite reversible system (S, φ) is called the substratum. | book/glossary.md:137@eae01647 |  | proved-paper | FAITHFUL |  |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-053 | 30 | 'Machine-checked' means checked in Lean 4/Mathlib at commit 17b830bc by the stated recipe, declarations in Appendix A. | papers/introduction_repro/results-121598983127.json@4a260ca9 |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-054 | 30 | An 'exact probe' is an exhaustive exact-rational computation at small size. | papers/oi_lattice_code/foundations/process_dilation_probes.py@eae01647 |  | numerical | **IMPRECISE** |  | failed |
+| I-055 | 30 | A faithful realization of a law is a bijection φ of C_V × C_H with an initial law under which the visible trajectory has that law. | papers/Main.md:97@eae01647 |  | proved-paper | FAITHFUL |  | certificate-checked |
+| I-056 | 30 | The finite reversible system (S, φ) is called the substratum. | book/glossary.md:137@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
 
 ## §2.1
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-057 | 38 | A realization's visible law depends on the dynamics, the partition and the initial law. | papers/Main.md:60@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-058 | 38 | The prior is part of the realization datum and is not selected by φ-invariance. | papers/Main.md:60@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-059 | 38 | The counting measure is a maximal-entropy default, not a derived prior. | papers/Main.md:60@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-060 | 42 | S_K is the set of all probability distributions on C_V^{K+1}. | lean:OIBridge/Equivalence.lean:147:Stochastic |  | proved-kernel | FAITHFUL |  |
-| I-061 | 43 | D_K is the set of visible trajectory laws of a bijection of C_V × C_H, some finite C_H, with an initial law that may correlate visible and hidden coordinates. | lean:OIBridge/Equivalence.lean:157:RevReal |  | proved-kernel | FAITHFUL |  |
-| I-062 | 44 | Q_K is the set of laws of finite-dimensional unitary systems with projective Born measurement in one fixed basis at every step, initial state diagonal in that basis, record a fixed function of each outcome. | lean:OIBridge/Equivalence.lean:190:QfbReal |  | proved-kernel | FAITHFUL |  |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-057 | 38 | A realization's visible law depends on the dynamics, the partition and the initial law. | papers/Main.md:60@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-058 | 38 | The prior is part of the realization datum and is not selected by φ-invariance. | papers/Main.md:60@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-059 | 38 | The counting measure is a maximal-entropy default, not a derived prior. | papers/Main.md:60@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-060 | 42 | S_K is the set of all probability distributions on C_V^{K+1}. | lean:OIBridge/Equivalence.lean:147:Stochastic |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-061 | 43 | D_K is the set of visible trajectory laws of a bijection of C_V × C_H, some finite C_H, with an initial law that may correlate visible and hidden coordinates. | lean:OIBridge/Equivalence.lean:157:RevReal |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-062 | 44 | Q_K is the set of laws of finite-dimensional unitary systems with projective Born measurement in one fixed basis at every step, initial state diagonal in that basis, record a fixed function of each outcome. | lean:OIBridge/Equivalence.lean:190:QfbReal |  | proved-kernel | FAITHFUL |  | certificate-checked |
 
 ## §2.2
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-063 | 48–52 | Theorem 1: for every finite visible alphabet and finite horizon K, S_K = D_K = Q_K (= all probability laws on C_V^{K+1}). | lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL | Introduction:36 |
-| I-063.a | 48 | [S_K ⊆ D_K] Every finite-horizon law has a faithful finite reversible realization. | lean:OIBridge/Equivalence.lean:422:S_imp_D | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  |
-| I-063.b | 48 | [D_K ⊆ Q_K] Every visible law of a finite bijection is a fixed-basis Born record of a finite unitary system. | lean:OIBridge/Equivalence.lean:294:D_imp_Qfb | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  |
-| I-063.c | 48 | [Q_K ⊆ S_K] Every fixed-basis Born record law is a probability law on visible trajectories. | lean:OIBridge/Equivalence.lean:245:Qfb_imp_S | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  |
-| I-064 | 54 | Theorem 1 is machine-checked as finite_horizon_equivalence. | lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  |
-| I-065 | 54 | S_K ⊆ D_K is machine-checked as S_imp_D. | lean:OIBridge/Equivalence.lean:422:S_imp_D | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  |
-| I-066 | 54 | D_K ⊆ Q_K is machine-checked as D_imp_Qfb. | lean:OIBridge/Equivalence.lean:294:D_imp_Qfb | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  |
-| I-067 | 54 | Q_K ⊆ S_K is machine-checked as Qfb_imp_S. | lean:OIBridge/Equivalence.lean:245:Qfb_imp_S | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  |
-| I-068 | 54 | The reverse inclusions are machine-checked as compositions of the three. | lean:OIBridge/Equivalence.lean:466:finite_horizon_equivalence | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  |
-| I-069 | 54 | No realization or representation construction enters Theorem 1 as a hypothesis. | lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  |
-| I-070 | 56 | The S_K ⊆ D_K realization stores a sampled trajectory, with a clock, in the hidden register. | lean:OIBridge/Equivalence.lean:422:S_imp_D | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL | Main:532 |
-| I-071 | 56 | For rational-probability laws, a realization with hidden prior independent of x_0 exists. | papers/Main.md:498@eae01647 | finite horizon K; finite visible alphabet | proved-paper | **UNDERCLAIM** |  |
-| I-072 | 58 | The D_K ⊆ Q_K representation is the permutation unitary U_φ read out in the configuration basis at every step. | lean:OIBridge/Equivalence.lean:294:D_imp_Qfb | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  |
-| I-073 | 58 | Q_K ⊆ S_K is the Born rule. | lean:OIBridge/Equivalence.lean:245:Qfb_imp_S | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  |
-| I-074 | 60 | The trajectory-labelling realization is Egri et al.'s Prop. 13, packaged as one iterated bijection. | EGGH26 Prop. 13 |  | proved-paper | FAITHFUL |  |
-| I-075 | 60 | The independent-prior form is EGGH26 Prop. 16, which lacks reversibility. | EGGH26 Prop. 16 |  | proved-paper | FAITHFUL |  |
-| I-076 | 60 | The Markov one-step case of the independent-prior form is the random-mapping representation. | LP17 Prop. 1.5 |  | proved-paper | FAITHFUL |  |
-| I-077 | 60 | A permutation dynamics is a special case of a unistochastic process. | Bar25 p. 12 |  | proved-paper | FAITHFUL |  |
-| I-078 | 60 | Main §3.1's one-step n²-dimensional ancilla dilation coincides with Barandes's and Schmidt's constructions. | papers/Main.md:206@eae01647 |  | proved-paper | **IMPRECISE** |  |
-| I-079 | 60 | The every-step projectively measured record as a probability law appears in SGD19 Eq. (3). | SGD19 Eq. (3) |  | proved-paper | FAITHFUL |  |
-| I-080 | 60 | SGD19 and Milz20 study whether such records are consistent with omitting measurements. | SGD19 Eq. (2) |  | proved-paper | FAITHFUL |  |
-| I-081 | 60 | Q_K, measuring at every step, does not meet the measurement-omission (classicality) question. | lean:OIBridge/Equivalence.lean:209:QfbReal.chain |  | proved-kernel | FAITHFUL |  |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-063 | 48–52 | Theorem 1: for every finite visible alphabet and finite horizon K, S_K = D_K = Q_K (= all probability laws on C_V^{K+1}). | lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL | Introduction:36 | traced-only |
+| I-063.a | 48 | [S_K ⊆ D_K] Every finite-horizon law has a faithful finite reversible realization. | lean:OIBridge/Equivalence.lean:422:S_imp_D | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-063.b | 48 | [D_K ⊆ Q_K] Every visible law of a finite bijection is a fixed-basis Born record of a finite unitary system. | lean:OIBridge/Equivalence.lean:294:D_imp_Qfb | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-063.c | 48 | [Q_K ⊆ S_K] Every fixed-basis Born record law is a probability law on visible trajectories. | lean:OIBridge/Equivalence.lean:245:Qfb_imp_S | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-064 | 54 | Theorem 1 is machine-checked as finite_horizon_equivalence. | lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-065 | 54 | S_K ⊆ D_K is machine-checked as S_imp_D. | lean:OIBridge/Equivalence.lean:422:S_imp_D | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-066 | 54 | D_K ⊆ Q_K is machine-checked as D_imp_Qfb. | lean:OIBridge/Equivalence.lean:294:D_imp_Qfb | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-067 | 54 | Q_K ⊆ S_K is machine-checked as Qfb_imp_S. | lean:OIBridge/Equivalence.lean:245:Qfb_imp_S | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-068 | 54 | The reverse inclusions are machine-checked as compositions of the three. | lean:OIBridge/Equivalence.lean:466:finite_horizon_equivalence | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-069 | 54 | No realization or representation construction enters Theorem 1 as a hypothesis. | lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-070 | 56 | The S_K ⊆ D_K realization stores a sampled trajectory, with a clock, in the hidden register. | lean:OIBridge/Equivalence.lean:422:S_imp_D | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL | Main:532 | certificate-checked |
+| I-071 | 56 | For rational-probability laws, a realization with hidden prior independent of x_0 exists. | papers/Main.md:498@eae01647 | finite horizon K; finite visible alphabet | proved-paper | **UNDERCLAIM** |  | certificate-checked |
+| I-072 | 58 | The D_K ⊆ Q_K representation is the permutation unitary U_φ read out in the configuration basis at every step. | lean:OIBridge/Equivalence.lean:294:D_imp_Qfb | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-073 | 58 | Q_K ⊆ S_K is the Born rule. | lean:OIBridge/Equivalence.lean:245:Qfb_imp_S | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-074 | 60 | The trajectory-labelling realization is Egri et al.'s Prop. 13, packaged as one iterated bijection. | EGGH26 Prop. 13 |  | proved-paper | FAITHFUL |  | certificate-checked |
+| I-075 | 60 | The independent-prior form is EGGH26 Prop. 16, which lacks reversibility. | EGGH26 Prop. 16 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-076 | 60 | The Markov one-step case of the independent-prior form is the random-mapping representation. | LP17 Prop. 1.5 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-077 | 60 | A permutation dynamics is a special case of a unistochastic process. | Bar25 p. 12 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-078 | 60 | Main §3.1's one-step n²-dimensional ancilla dilation coincides with Barandes's and Schmidt's constructions. | papers/Main.md:206@eae01647 |  | proved-paper | **IMPRECISE** |  | traced-only |
+| I-079 | 60 | The every-step projectively measured record as a probability law appears in SGD19 Eq. (3). | SGD19 Eq. (3) |  | proved-paper | FAITHFUL |  | traced-only |
+| I-080 | 60 | SGD19 and Milz20 study whether such records are consistent with omitting measurements. | SGD19 Eq. (2) |  | proved-paper | FAITHFUL |  | traced-only |
+| I-081 | 60 | Q_K, measuring at every step, does not meet the measurement-omission (classicality) question. | lean:OIBridge/Equivalence.lean:209:QfbReal.chain |  | proved-kernel | FAITHFUL |  | certificate-checked |
 
 ### Dependency block: Theorem 1 (finite-horizon equivalence)
 
@@ -206,46 +213,46 @@ Weakest row status, which governs: **proved-kernel** (I-063, I-063.a, I-063.b, I
 
 ## §2.3
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-082 | 64 | Markov laws lie in S_K, D_K and Q_K. | lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  |
-| I-083 | 64 | Neither a finite reversible realization nor a fixed-basis unitary representation distinguishes a law with memory from one without. | papers/Main.md:598@eae01647 | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  |
-| I-084 | 66 | p = \|U\|² is part of Q_K's definition, not an output. | lean:OIBridge/Equivalence.lean:205:QfbReal.born |  | proved-kernel | FAITHFUL |  |
-| I-085 | 66 | The unitaries supplied by the correspondence are permutations with entries 0 and 1. | lean:OIBridge/Equivalence.lean:294:D_imp_Qfb | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  |
-| I-086 | 66 | The recovered transition table is the same for \|U\|^p at every p > 0. | papers/Main.md:534@eae01647 | U a permutation | proved-paper | FAITHFUL |  |
-| I-087 | 66 | The correspondence does not select the quadratic (Born) exponent. | papers/Main.md:534@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-088 | 68 | A finite bijection has finite order L. | lean:OIBridge/RootedClassification.lean:135:rootedMap_periodic |  | proved-kernel | FAITHFUL |  |
-| I-089 | 68 | One fixed realization has an L-periodic multi-time law. | papers/Main.md:618@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-090 | 68 | The correspondence holds per horizon (not for all times at once). | papers/Main.md:618@eae01647 |  | proved-kernel | FAITHFUL |  |
-| I-091 | 68 | A nonperiodic law has no exact all-time realization by one fixed finite substratum. | papers/Main.md:618@eae01647 |  | proved-paper | FAITHFUL |  |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-082 | 64 | Markov laws lie in S_K, D_K and Q_K. | lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-083 | 64 | Neither a finite reversible realization nor a fixed-basis unitary representation distinguishes a law with memory from one without. | papers/Main.md:598@eae01647 | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-084 | 66 | p = \|U\|² is part of Q_K's definition, not an output. | lean:OIBridge/Equivalence.lean:205:QfbReal.born |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-085 | 66 | The unitaries supplied by the correspondence are permutations with entries 0 and 1. | lean:OIBridge/Equivalence.lean:294:D_imp_Qfb | finite visible alphabet V (Fintype, DecidableEq; no \|V\|>=2 needed); finite horizon K | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-086 | 66 | The recovered transition table is the same for \|U\|^p at every p > 0. | papers/Main.md:534@eae01647 | U a permutation | proved-paper | FAITHFUL |  | reproduced |
+| I-087 | 66 | The correspondence does not select the quadratic (Born) exponent. | papers/Main.md:534@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-088 | 68 | A finite bijection has finite order L. | lean:OIBridge/RootedClassification.lean:135:rootedMap_periodic |  | proved-kernel | FAITHFUL |  | traced-only |
+| I-089 | 68 | One fixed realization has an L-periodic multi-time law. | papers/Main.md:618@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-090 | 68 | The correspondence holds per horizon (not for all times at once). | papers/Main.md:618@eae01647 |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-091 | 68 | A nonperiodic law has no exact all-time realization by one fixed finite substratum. | papers/Main.md:618@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
 
 ## §2.4
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-092 | 72 | Conditional memory M_t := I(X_{<t}; X_{t+1} \| X_t). | lean:HiddenMemory.lean:138:memory |  | proved-kernel | FAITHFUL |  |
-| I-093 | 76 | Theorem 2(a): the next-step law after history p ending at x is the pushforward of the hidden posterior μ_p under f_x. | lean:HiddenMemory.lean:185:unavoidable_hidden_predictive_memory + papers/Main.md:582@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5); finite C_V, C_H; histories p, p' ending at x (posterior defined for positive-probability histories) | proved-paper | FAITHFUL |  |
-| I-094 | 77 | Theorem 2(b): TV distance between next-step laws of two histories ending at x is at most the TV distance between their hidden posteriors. | lean:HiddenMemory.lean:185:unavoidable_hidden_predictive_memory + papers/Main.md:582@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5); finite C_V, C_H; histories p, p' ending at x (posterior defined for positive-probability histories) | proved-paper | FAITHFUL |  |
-| I-095 | 78 | Theorem 2(c), first inequality: M_t ≤ I(X_{<t}; H_t \| X_t). | lean:HiddenMemory.lean:185:unavoidable_hidden_predictive_memory + papers/Main.md:582@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5); finite C_V, C_H; histories p, p' ending at x (posterior defined for positive-probability histories); Nonempty C_H | proved-paper | FAITHFUL |  |
-| I-096 | 78 | Theorem 2(c), second inequality: I(X_{<t}; H_t \| X_t) ≤ log₂\|C_H\|. | lean:HiddenMemory.lean:185:unavoidable_hidden_predictive_memory + papers/Main.md:582@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5); finite C_V, C_H; histories p, p' ending at x (posterior defined for positive-probability histories); Nonempty C_H | proved-paper | FAITHFUL |  |
-| I-097 | 80 | Theorem 2(a)–(c) are machine-checked for a joint law of history, present and hidden state. | lean:HiddenMemory.lean:185:unavoidable_hidden_predictive_memory | kernel object: bijection `step` plus an arbitrary joint law w on (X_<t, X_t, H_t) (HiddenMemory.Realization); Nonempty C_H for (c) | proved-kernel | FAITHFUL |  |
-| I-098 | 80 | The identification of that joint law with a realization's time-t law is not machine-checked. | papers/Main.md:582@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5) | proved-paper | FAITHFUL |  |
-| I-099 | 80 | Theorem 2 has a written proof in Main §3.4. | papers/Main.md:582@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5) | proved-paper | FAITHFUL |  |
-| I-100 | 82 | Corollary: M_t > 0 iff every faithful realization carries readout-relevant hidden memory at t (two posteriors with different pushforwards). | papers/Main.md:97@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5); positive-probability histories; finite horizon K >= t+1 | proved-paper | FAITHFUL |  |
-| I-100.a | 82 | [⇒ (forward)] If M_t > 0, every faithful realization has two hidden posteriors with different f_x-pushforwards at t. | papers/Main.md:97@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5); positive-probability histories | proved-paper | FAITHFUL |  |
-| I-100.b | 82 | [⇐ (converse)] If every faithful realization carries readout-relevant hidden memory at t, then M_t > 0. | papers/Main.md:97@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5); positive-probability histories | proved-paper | FAITHFUL |  |
-| I-101 | 82 | Both Corollary directions use the CMI vanishing criterion, which (like the time-t identification) is not machine-checked. | papers/Main.md:97@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-102 | 84 | A realization of a law whose conditional past–future information reaches I* needs \|C_H\| ≥ 2^{I*}. | lean:C3Necessity.lean:117:card_hidden_ge_two_pow_Istar + papers/Main.md:492@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5); finite hidden alphabet | proved-paper | **IMPRECISE** |  |
-| I-103 | 84 | If two histories with common present, each of joint probability ≥ p0, induce next-step laws at TV distance ≥ δ, then I(X_{<k}; X_{k+1} \| X_k) ≥ p0 δ²/ln 2 bits (Pinsker). | papers/Main.md:170@eae01647 | two positive-probability histories with a common present | proved-paper | **IMPRECISE** | Main:170 |
-| I-104 | 86 | Main §1.3 names four hidden-sector conditions: (C1) influence, (C2) persistence of records, (C3) capacity, (C4) history readback (two histories with the same present induce different next-step laws). | papers/Main.md:80@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-105 | 86 | In a faithful realization, (C4) holds iff M_t > 0. | papers/Main.md:596@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5); positive-probability histories; (C4) read at the same time t | proved-paper | **IMPRECISE** |  |
-| I-105.a | 86 | [(C4) ⇒ M_t>0] Two positive-probability histories with the same present and different next-step laws give M_t > 0. | papers/Main.md:97@eae01647 | positive-probability histories | proved-paper | **IMPRECISE** |  |
-| I-105.b | 86 | [M_t>0 ⇒ (C4)] M_t > 0 gives two histories with the same present and different next-step laws. | papers/Main.md:97@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-106 | 86 | Via the Corollary, (C4) is carried in the hidden state of every faithful realization. | papers/Main.md:97@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5) | proved-paper | FAITHFUL |  |
-| I-107 | 86 | (C1) influence follows from (C4). | papers/Main.md:74@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5) | proved-paper | FAITHFUL |  |
-| I-108 | 86 | (C3) capacity follows from (C4). | lean:C3Necessity.lean:117:card_hidden_ge_two_pow_Istar + papers/Main.md:78@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5) | proved-paper | FAITHFUL |  |
-| I-109 | 86 | (C2) persistence of records is a physical-regime premise, not derived. | papers/Main.md:76@eae01647 | conditional on: hidden-sector conditional-mixing hypothesis (for the necessity direction only) | conditional | FAITHFUL | Main:592 |
-| I-110 | 86 | (C1)–(C4) are diagnostics of a realization, not hypotheses of Theorem 1. | lean:Equivalence.lean:462:finite_horizon_equivalence |  | proved-kernel | FAITHFUL |  |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-092 | 72 | Conditional memory M_t := I(X_{<t}; X_{t+1} \| X_t). | lean:HiddenMemory.lean:138:memory |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-093 | 76 | Theorem 2(a): the next-step law after history p ending at x is the pushforward of the hidden posterior μ_p under f_x. | lean:HiddenMemory.lean:185:unavoidable_hidden_predictive_memory + papers/Main.md:582@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5); finite C_V, C_H; histories p, p' ending at x (posterior defined for positive-probability histories) | proved-paper | FAITHFUL |  | certificate-checked |
+| I-094 | 77 | Theorem 2(b): TV distance between next-step laws of two histories ending at x is at most the TV distance between their hidden posteriors. | lean:HiddenMemory.lean:185:unavoidable_hidden_predictive_memory + papers/Main.md:582@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5); finite C_V, C_H; histories p, p' ending at x (posterior defined for positive-probability histories) | proved-paper | FAITHFUL |  | certificate-checked |
+| I-095 | 78 | Theorem 2(c), first inequality: M_t ≤ I(X_{<t}; H_t \| X_t). | lean:HiddenMemory.lean:185:unavoidable_hidden_predictive_memory + papers/Main.md:582@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5); finite C_V, C_H; histories p, p' ending at x (posterior defined for positive-probability histories); Nonempty C_H | proved-paper | FAITHFUL |  | certificate-checked |
+| I-096 | 78 | Theorem 2(c), second inequality: I(X_{<t}; H_t \| X_t) ≤ log₂\|C_H\|. | lean:HiddenMemory.lean:185:unavoidable_hidden_predictive_memory + papers/Main.md:582@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5); finite C_V, C_H; histories p, p' ending at x (posterior defined for positive-probability histories); Nonempty C_H | proved-paper | FAITHFUL |  | certificate-checked |
+| I-097 | 80 | Theorem 2(a)–(c) are machine-checked for a joint law of history, present and hidden state. | lean:HiddenMemory.lean:185:unavoidable_hidden_predictive_memory | kernel object: bijection `step` plus an arbitrary joint law w on (X_<t, X_t, H_t) (HiddenMemory.Realization); Nonempty C_H for (c) | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-098 | 80 | The identification of that joint law with a realization's time-t law is not machine-checked. | papers/Main.md:582@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5) | proved-paper | FAITHFUL |  | traced-only |
+| I-099 | 80 | Theorem 2 has a written proof in Main §3.4. | papers/Main.md:582@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5) | proved-paper | FAITHFUL |  | traced-only |
+| I-100 | 82 | Corollary: M_t > 0 iff every faithful realization carries readout-relevant hidden memory at t (two posteriors with different pushforwards). | papers/Main.md:97@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5); positive-probability histories; finite horizon K >= t+1 | proved-paper | FAITHFUL |  | certificate-checked |
+| I-100.a | 82 | [⇒ (forward)] If M_t > 0, every faithful realization has two hidden posteriors with different f_x-pushforwards at t. | papers/Main.md:97@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5); positive-probability histories | proved-paper | FAITHFUL |  | certificate-checked |
+| I-100.b | 82 | [⇐ (converse)] If every faithful realization carries readout-relevant hidden memory at t, then M_t > 0. | papers/Main.md:97@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5); positive-probability histories | proved-paper | FAITHFUL |  | certificate-checked |
+| I-101 | 82 | Both Corollary directions use the CMI vanishing criterion, which (like the time-t identification) is not machine-checked. | papers/Main.md:97@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-102 | 84 | A realization of a law whose conditional past–future information reaches I* needs \|C_H\| ≥ 2^{I*}. | lean:C3Necessity.lean:117:card_hidden_ge_two_pow_Istar + papers/Main.md:492@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5); finite hidden alphabet | proved-paper | **IMPRECISE** |  | certificate-checked |
+| I-103 | 84 | If two histories with common present, each of joint probability ≥ p0, induce next-step laws at TV distance ≥ δ, then I(X_{<k}; X_{k+1} \| X_k) ≥ p0 δ²/ln 2 bits (Pinsker). | papers/Main.md:170@eae01647 | two positive-probability histories with a common present | proved-paper | **IMPRECISE** | Main:170 | failed |
+| I-104 | 86 | Main §1.3 names four hidden-sector conditions: (C1) influence, (C2) persistence of records, (C3) capacity, (C4) history readback (two histories with the same present induce different next-step laws). | papers/Main.md:80@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-105 | 86 | In a faithful realization, (C4) holds iff M_t > 0. | papers/Main.md:596@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5); positive-probability histories; (C4) read at the same time t | proved-paper | **IMPRECISE** |  | traced-only |
+| I-105.a | 86 | [(C4) ⇒ M_t>0] Two positive-probability histories with the same present and different next-step laws give M_t > 0. | papers/Main.md:97@eae01647 | positive-probability histories | proved-paper | **IMPRECISE** |  | traced-only |
+| I-105.b | 86 | [M_t>0 ⇒ (C4)] M_t > 0 gives two histories with the same present and different next-step laws. | papers/Main.md:97@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-106 | 86 | Via the Corollary, (C4) is carried in the hidden state of every faithful realization. | papers/Main.md:97@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5) | proved-paper | FAITHFUL |  | certificate-checked |
+| I-107 | 86 | (C1) influence follows from (C4). | papers/Main.md:74@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5) | proved-paper | FAITHFUL |  | certificate-checked |
+| I-108 | 86 | (C3) capacity follows from (C4). | lean:C3Necessity.lean:117:card_hidden_ge_two_pow_Istar + papers/Main.md:78@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5) | proved-paper | FAITHFUL |  | certificate-checked |
+| I-109 | 86 | (C2) persistence of records is a physical-regime premise, not derived. | papers/Main.md:76@eae01647 | conditional on: hidden-sector conditional-mixing hypothesis (for the necessity direction only) | conditional | FAITHFUL | Main:592 | traced-only |
+| I-110 | 86 | (C1)–(C4) are diagnostics of a realization, not hypotheses of Theorem 1. | lean:Equivalence.lean:462:finite_horizon_equivalence |  | proved-kernel | FAITHFUL |  | certificate-checked |
 
 ### Dependency block: Theorem 2 (unavoidable hidden predictive memory)
 
@@ -304,22 +311,22 @@ Weakest row status, which governs: **proved-paper** (I-103).
 
 ## §2.5
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-111 | 90 | Rooted P-divisibility on {0..n}: for all s < t ≤ n some stochastic Λ has Γ_t = Γ_s Λ (Γ_t rooted at time 0, rows x_0). | lean:CausalReadback.lean:52:PDivisible |  | proved-kernel | FAITHFUL |  |
-| I-112 | 90 | Under P-divisibility, TV distance between rows of Γ_t cannot increase in t. | lean:CausalReadback.lean:96:tv_mul_le | Λ row-stochastic | proved-kernel | FAITHFUL |  |
-| I-113 | 90 | The TV-contraction criterion is RHP14 Thm 2.4 and the data-processing direction of BD16 Prop. 1. | [RHP14, Thm 2.4] |  | proved-paper | **IMPRECISE** |  |
-| I-114 | 92 | Theorem 3: for a bijection with fixed hidden prior, if two rows of Γ_s overlap in a column and Γ_n = I for some n > s, the family is not P-divisible on {0..n}. | lean:RecurrenceHorizon.lean:148:pIndivisible_of_rooted_identity_return_of_overlap | bijection of C_V x C_H (not used by the kernel); one hidden prior shared by every root x_0; two distinct roots' rows of Γ_s overlap in a column; Γ_n = I for some n > s | proved-kernel | **IMPRECISE** | verification/lean-manuscript-census.json families[34] |
-| I-115 | 94 | Theorem 3 is machine-checked in rooted form. | lean:RecurrenceHorizon.lean:148:pIndivisible_of_rooted_identity_return_of_overlap |  | proved-kernel | FAITHFUL |  |
-| I-116 | 94 | Doukas states the same overlap-and-return argument concurrently. | [Dou26, Prop. 1] |  | proved-paper | **IMPRECISE** |  |
-| I-117 | 94 | Monotone TV distance is necessary for P-divisibility. | lean:CausalReadback.lean:96:tv_mul_le |  | proved-kernel | FAITHFUL |  |
-| I-118 | 94 | Monotone TV distance is not sufficient for P-divisibility. | papers/oi_lattice_code/foundations/translation_probes.py:45@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-119 | 96 | A finite square stochastic matrix with a stochastic one-sided inverse is a permutation matrix. | lean:EquivalenceChain.lean:110:isPermMatrix_of_stochastic_inverse | finite square matrices | proved-kernel | FAITHFUL |  |
-| I-120 | 96 | On a fixed finite reversible substratum, history readback (C4) forces indivisibility somewhere in the recurrence cycle. | papers/Main.md:137@eae01647 | fixed finite reversible substratum (one bijection, one hidden prior); (C4) history readback | proved-paper | FAITHFUL |  |
-| I-121 | 96 | The readback-forces-indivisibility conclusion is machine-checked, via Theorem 3, from routed-readback (C4). | lean:PhysicalC4StorageReadback.lean:256:routedAtStorage_forces_indivisible_somewhere | routed-readback form of (C4) on a rooted realization | proved-kernel | **MISCITED** | verification/lean-mathlib/OIBridge/PhysicalC4Discharge.lean:28, verification/lean-manuscript-census.json families[35],[36] |
-| I-122 | 96 | From history-level (C4), readback-forces-indivisibility is proved on paper. | papers/Main.md:137@eae01647 | history-level (C4); fixed finite reversible representative | proved-paper | FAITHFUL |  |
-| I-123 | 98 | Appendix B.1 is a minimal model of Theorem 3 with six hidden states. | papers/Main.md:178@eae01647 |  | unsupported | **UNSUPPORTED** |  |
-| I-124 | 98 | The two-card game is the smallest realization of Theorem 3. | book/ch01-observation.md:273@eae01647 |  | unsupported | **IMPRECISE** |  |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-111 | 90 | Rooted P-divisibility on {0..n}: for all s < t ≤ n some stochastic Λ has Γ_t = Γ_s Λ (Γ_t rooted at time 0, rows x_0). | lean:CausalReadback.lean:52:PDivisible |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-112 | 90 | Under P-divisibility, TV distance between rows of Γ_t cannot increase in t. | lean:CausalReadback.lean:96:tv_mul_le | Λ row-stochastic | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-113 | 90 | The TV-contraction criterion is RHP14 Thm 2.4 and the data-processing direction of BD16 Prop. 1. | [RHP14, Thm 2.4] |  | proved-paper | **IMPRECISE** |  | traced-only |
+| I-114 | 92 | Theorem 3: for a bijection with fixed hidden prior, if two rows of Γ_s overlap in a column and Γ_n = I for some n > s, the family is not P-divisible on {0..n}. | lean:RecurrenceHorizon.lean:148:pIndivisible_of_rooted_identity_return_of_overlap | bijection of C_V x C_H (not used by the kernel); one hidden prior shared by every root x_0; two distinct roots' rows of Γ_s overlap in a column; Γ_n = I for some n > s | proved-kernel | **IMPRECISE** | verification/lean-manuscript-census.json families[34] | certificate-checked |
+| I-115 | 94 | Theorem 3 is machine-checked in rooted form. | lean:RecurrenceHorizon.lean:148:pIndivisible_of_rooted_identity_return_of_overlap |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-116 | 94 | Doukas states the same overlap-and-return argument concurrently. | [Dou26, Prop. 1] |  | proved-paper | **IMPRECISE** |  | traced-only |
+| I-117 | 94 | Monotone TV distance is necessary for P-divisibility. | lean:CausalReadback.lean:96:tv_mul_le |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-118 | 94 | Monotone TV distance is not sufficient for P-divisibility. | papers/oi_lattice_code/foundations/translation_probes.py:45@eae01647 |  | proved-paper | FAITHFUL |  | reproduced |
+| I-119 | 96 | A finite square stochastic matrix with a stochastic one-sided inverse is a permutation matrix. | lean:EquivalenceChain.lean:110:isPermMatrix_of_stochastic_inverse | finite square matrices | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-120 | 96 | On a fixed finite reversible substratum, history readback (C4) forces indivisibility somewhere in the recurrence cycle. | papers/Main.md:137@eae01647 | fixed finite reversible substratum (one bijection, one hidden prior); (C4) history readback | proved-paper | FAITHFUL |  | certificate-checked |
+| I-121 | 96 | The readback-forces-indivisibility conclusion is machine-checked, via Theorem 3, from routed-readback (C4). | lean:PhysicalC4StorageReadback.lean:256:routedAtStorage_forces_indivisible_somewhere | routed-readback form of (C4) on a rooted realization | proved-kernel | **MISCITED** | verification/lean-mathlib/OIBridge/PhysicalC4Discharge.lean:28, verification/lean-manuscript-census.json families[35],[36] | certificate-checked |
+| I-122 | 96 | From history-level (C4), readback-forces-indivisibility is proved on paper. | papers/Main.md:137@eae01647 | history-level (C4); fixed finite reversible representative | proved-paper | FAITHFUL |  | certificate-checked |
+| I-123 | 98 | Appendix B.1 is a minimal model of Theorem 3 with six hidden states. | papers/Main.md:178@eae01647 |  | unsupported | **UNSUPPORTED** |  | traced-only |
+| I-124 | 98 | The two-card game is the smallest realization of Theorem 3. | book/ch01-observation.md:273@eae01647 |  | unsupported | **IMPRECISE** |  | traced-only |
 
 ### Dependency block: Theorem 3 (recurrence and overlap)
 
@@ -351,39 +358,39 @@ Weakest row status, which governs: **proved-paper** (I-120).
 
 ## §3.1
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-125 | 104 | The §2.5 indivisibility occurs somewhere in the recurrence cycle, not on every window. | papers/Main.md:141@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-126 | 104 | Conditional memory does not force short-window indivisibility. | papers/Main.md:141@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-127 | 106 | Accessible memory, P-indivisibility, and quantum non-Markovianity are distinct, with no unconditional implication among them. | papers/Main.md:334@eae01647 |  | unsupported | **OVERCLAIM** | Main:334 |
-| I-128 | 106 | Tracing out a permutation unitary from a diagonal hidden state gives diagonal-preserving channels. | lean:EquivalenceChain.lean:253:isDiag_Phi | permutation unitary; diagonal hidden state | proved-kernel | FAITHFUL |  |
-| I-129 | 106 | For diagonal-preserving channel families, P-indivisibility of populations implies CP-indivisibility. | papers/Main.md:326@eae01647 | channels from a permutation unitary with a diagonal hidden state | proved-paper | FAITHFUL | appendix-b-derivations:92 |
-| I-130 | 106 | Outside the diagonal-preserving class, P-indivisibility does not imply CP-indivisibility (Hadamard-then-identity family: CP-divisible, populations ½J → I P-indivisible). | papers/Main.md:330@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-131 | 106 | Distinguishability backflow implies divisibility failure but not conversely. | [BLP09] |  | proved-paper | FAITHFUL |  |
-| I-132 | 106 | For bijective dynamical maps on a d-dim system, CP-divisibility ⇔ monotone distinguishability with a (d+1)-dim ancilla. | [BJA17] | bijective (invertible) dynamical maps | proved-paper | FAITHFUL |  |
-| I-132.a | 106 | [⇒] CP-divisible bijective dynamical maps give monotone distinguishability with a (d+1)-dimensional ancilla. | [BJA17] | bijective dynamical maps | proved-paper | FAITHFUL |  |
-| I-132.b | 106 | [⇐] Monotone distinguishability with a (d+1)-dimensional ancilla implies CP-divisibility for bijective dynamical maps. | [BJA17] | bijective dynamical maps | proved-paper | FAITHFUL |  |
-| I-133 | 108 | Theorem 1 states which laws admit realizations/representations, not why a physical system exhibits memory. | papers/Main.md:616@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-134 | 108 | Calvo states a proof of textbook QM's six axioms from the single axiom of generally indivisible stochastic evolution. | [Cal26] |  | proved-paper | FAITHFUL |  |
-| I-135 | 108 | Theorem 1 derives no quantum axioms. | lean:Equivalence.lean:462:finite_horizon_equivalence |  | proved-kernel | FAITHFUL |  |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-125 | 104 | The §2.5 indivisibility occurs somewhere in the recurrence cycle, not on every window. | papers/Main.md:141@eae01647 |  | proved-paper | FAITHFUL |  | certificate-checked |
+| I-126 | 104 | Conditional memory does not force short-window indivisibility. | papers/Main.md:141@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-127 | 106 | Accessible memory, P-indivisibility, and quantum non-Markovianity are distinct, with no unconditional implication among them. | papers/Main.md:334@eae01647 |  | unsupported | **OVERCLAIM** | Main:334 | traced-only |
+| I-128 | 106 | Tracing out a permutation unitary from a diagonal hidden state gives diagonal-preserving channels. | lean:EquivalenceChain.lean:253:isDiag_Phi | permutation unitary; diagonal hidden state | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-129 | 106 | For diagonal-preserving channel families, P-indivisibility of populations implies CP-indivisibility. | papers/Main.md:326@eae01647 | channels from a permutation unitary with a diagonal hidden state | proved-paper | FAITHFUL | appendix-b-derivations:92 | certificate-checked |
+| I-130 | 106 | Outside the diagonal-preserving class, P-indivisibility does not imply CP-indivisibility (Hadamard-then-identity family: CP-divisible, populations ½J → I P-indivisible). | papers/Main.md:330@eae01647 |  | proved-paper | FAITHFUL |  | reproduced |
+| I-131 | 106 | Distinguishability backflow implies divisibility failure but not conversely. | [BLP09] |  | proved-paper | FAITHFUL |  | traced-only |
+| I-132 | 106 | For bijective dynamical maps on a d-dim system, CP-divisibility ⇔ monotone distinguishability with a (d+1)-dim ancilla. | [BJA17] | bijective (invertible) dynamical maps | proved-paper | FAITHFUL |  | traced-only |
+| I-132.a | 106 | [⇒] CP-divisible bijective dynamical maps give monotone distinguishability with a (d+1)-dimensional ancilla. | [BJA17] | bijective dynamical maps | proved-paper | FAITHFUL |  | traced-only |
+| I-132.b | 106 | [⇐] Monotone distinguishability with a (d+1)-dimensional ancilla implies CP-divisibility for bijective dynamical maps. | [BJA17] | bijective dynamical maps | proved-paper | FAITHFUL |  | traced-only |
+| I-133 | 108 | Theorem 1 states which laws admit realizations/representations, not why a physical system exhibits memory. | papers/Main.md:616@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-134 | 108 | Calvo states a proof of textbook QM's six axioms from the single axiom of generally indivisible stochastic evolution. | [Cal26] |  | proved-paper | FAITHFUL |  | traced-only |
+| I-135 | 108 | Theorem 1 derives no quantum axioms. | lean:Equivalence.lean:462:finite_horizon_equivalence |  | proved-kernel | FAITHFUL |  | certificate-checked |
 
 ## §3.2
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-136 | 112 | Operational QM requires coherent preparations, noncommuting interventions and composites in one instrument theory, beyond fixed-basis statistics. | papers/Main.md:534@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-137 | 114 | Standing structure for Theorem 4: identity, coarse-graining and outcome-conditioned composition closure, uniformly mixed ancilla preparation, spectator-independent local ancilla readout, and ancilla discard. | lean:OperationalAssembly.lean:594:FiniteOperationalTheory |  | proved-kernel | FAITHFUL | GR:216 |
-| I-138 | 114 | Conditions (i) positivity/trace, (ii) one-state ancilla, (iii) untouched independent system, (iv) all finite unitaries on composites, (v) fresh uniformly prepared ancilla attach-act-discard. | lean:PhysicalCharacterization.lean:295:PhysicalCompletionConditions |  | proved-kernel | FAITHFUL |  |
-| I-139 | 116 | Theorem 4: for every nonempty finite system, available families on the system and at every positive ancilla level are exactly the normalized finite Kraus instruments iff (i)–(v) hold. | lean:GeneralCarrier.lean:100:exactAll_iff_physical_general | nonempty finite system; standing operational structure (FiniteOperationalTheory) | proved-kernel | FAITHFUL |  |
-| I-139.a | 116 | [⇒] Exactly Kraus instruments at every level ⇒ conditions (i)–(v). | lean:PhysicalCharacterization.lean:301:physical_of_exactAll | Nonempty A | proved-kernel | FAITHFUL |  |
-| I-139.b | 116 | [⇐] Conditions (i)–(v) ⇒ exactly Kraus instruments at every level. | lean:GeneralCarrier.lean:93:exactAll_of_physical_general | Nonempty A | proved-kernel | FAITHFUL |  |
-| I-140 | 118 | Theorem 4 ⇒ is machine-checked as physical_of_exactAll. | lean:PhysicalCharacterization.lean:301:physical_of_exactAll | Nonempty A | proved-kernel | FAITHFUL |  |
-| I-141 | 118 | Theorem 4 ⇐ is machine-checked as exactAll_of_physical_general for every nonempty finite carrier. | lean:GeneralCarrier.lean:93:exactAll_of_physical_general | Nonempty A | proved-kernel | FAITHFUL |  |
-| I-142 | 120 | On the qubit, each of (i)–(v) is independent of the other four and of a fixed finite observation process satisfying (C1)–(C4). | lean:RankGapTheory.lean:702:five_way_minimality | qubit carrier | proved-kernel | FAITHFUL |  |
-| I-143 | 120 | For each condition, some qubit theory realizes the observation process and the other four conditions but fails it. | lean:RankGapTheory.lean:702:five_way_minimality | qubit carrier | proved-kernel | FAITHFUL |  |
-| I-144 | 120 | A qubit theory that never creates coherence realizes the observation process and is not quantum. | lean:GeneralCarrier.lean:160:oi_alone_not_qm | qubit carrier | proved-kernel | FAITHFUL |  |
-| I-145 | 120 | OI alone does not imply quantum mechanics. | lean:GeneralCarrier.lean:160:oi_alone_not_qm | 'OI' formalized as realizing the sealed C1-C4 core on a qubit | proved-kernel | FAITHFUL | Main:2, ch00-introduction:39, Main:624 |
-| I-146 | 120 | Which of (iii)–(v) a physical substratum supplies is open. | papers/GR.md:260@eae01647 |  | open | **UNDERCLAIM** | ch19-open-problems:126, Introduction:12 |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-136 | 112 | Operational QM requires coherent preparations, noncommuting interventions and composites in one instrument theory, beyond fixed-basis statistics. | papers/Main.md:534@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-137 | 114 | Standing structure for Theorem 4: identity, coarse-graining and outcome-conditioned composition closure, uniformly mixed ancilla preparation, spectator-independent local ancilla readout, and ancilla discard. | lean:OperationalAssembly.lean:594:FiniteOperationalTheory |  | proved-kernel | FAITHFUL | GR:216 | certificate-checked |
+| I-138 | 114 | Conditions (i) positivity/trace, (ii) one-state ancilla, (iii) untouched independent system, (iv) all finite unitaries on composites, (v) fresh uniformly prepared ancilla attach-act-discard. | lean:PhysicalCharacterization.lean:295:PhysicalCompletionConditions |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-139 | 116 | Theorem 4: for every nonempty finite system, available families on the system and at every positive ancilla level are exactly the normalized finite Kraus instruments iff (i)–(v) hold. | lean:GeneralCarrier.lean:100:exactAll_iff_physical_general | nonempty finite system; standing operational structure (FiniteOperationalTheory) | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-139.a | 116 | [⇒] Exactly Kraus instruments at every level ⇒ conditions (i)–(v). | lean:PhysicalCharacterization.lean:301:physical_of_exactAll | Nonempty A | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-139.b | 116 | [⇐] Conditions (i)–(v) ⇒ exactly Kraus instruments at every level. | lean:GeneralCarrier.lean:93:exactAll_of_physical_general | Nonempty A | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-140 | 118 | Theorem 4 ⇒ is machine-checked as physical_of_exactAll. | lean:PhysicalCharacterization.lean:301:physical_of_exactAll | Nonempty A | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-141 | 118 | Theorem 4 ⇐ is machine-checked as exactAll_of_physical_general for every nonempty finite carrier. | lean:GeneralCarrier.lean:93:exactAll_of_physical_general | Nonempty A | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-142 | 120 | On the qubit, each of (i)–(v) is independent of the other four and of a fixed finite observation process satisfying (C1)–(C4). | lean:RankGapTheory.lean:702:five_way_minimality | qubit carrier | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-143 | 120 | For each condition, some qubit theory realizes the observation process and the other four conditions but fails it. | lean:RankGapTheory.lean:702:five_way_minimality | qubit carrier | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-144 | 120 | A qubit theory that never creates coherence realizes the observation process and is not quantum. | lean:GeneralCarrier.lean:160:oi_alone_not_qm | qubit carrier | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-145 | 120 | OI alone does not imply quantum mechanics. | lean:GeneralCarrier.lean:160:oi_alone_not_qm | 'OI' formalized as realizing the sealed C1-C4 core on a qubit | proved-kernel | FAITHFUL | Main:2, ch00-introduction:39, Main:624 | certificate-checked |
+| I-146 | 120 | Which of (iii)–(v) a physical substratum supplies is open. | papers/GR.md:260@eae01647 |  | open | **UNDERCLAIM** | ch19-open-problems:126, Introduction:12 | certificate-checked |
 
 ### Dependency block: Theorem 4 (operational-completion characterization)
 
@@ -401,84 +408,84 @@ Weakest row status, which governs: **proved-kernel** (I-139, I-139.a, I-139.b, I
 
 ## §3.3
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-147 | 122 | The evolution relating two times is not selected (heading). | lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate |  | proved-kernel | **IMPRECISE** |  |
-| I-148 | 124 | Representability does not fix the unitary evolution relating two times. | lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate |  | proved-kernel | FAITHFUL |  |
-| I-149 | 124 | Two coherent lifts of one visible family can differ by a time-dependent right action invisible to the visible law and have different relating evolutions. | lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate | coherent lifts on a fixed carrier and anchor | proved-kernel | FAITHFUL |  |
-| I-150 | 124 | A constant deformation cancels from every relating evolution. | lean:CoherentLiftGauge.lean:451:gl3_constant_gauge_preserves_relative | constant unitary right action | proved-kernel | FAITHFUL |  |
-| I-151 | 126 | Setting for the bridge results: fixed-basis datum from a lift with trivial ancilla at one time, uniform initial law, identity readout. | lean:TrackBQfbBridge.lean:43:realData |  | proved-kernel | FAITHFUL |  |
-| I-152 | 126 | Same one-step visible matrix ⇒ same root-conditioned trajectory laws at every horizon. | lean:TrackBQfbBridge.lean:276:bridge_traj | trivial ancilla; same one-step visible matrix (slice) G | proved-kernel | FAITHFUL |  |
-| I-153 | 126 | Equal rooted families ⇒ equal one-step visible matrices. | lean:TrackBQfbBridge.lean:180:rooted_eq_iff_slice_eq | trivial ancilla; uniform initial law; identity readout | proved-kernel | FAITHFUL | Main:624 |
-| I-153.a | 126 | [one-step ⇒ trajectory laws] Same one-step visible matrix ⇒ same root-conditioned trajectory laws at every horizon. | lean:TrackBQfbBridge.lean:276:bridge_traj | trivial ancilla | proved-kernel | FAITHFUL |  |
-| I-153.b | 126 | [rooted family ⇒ one-step] Same rooted family ⇒ same one-step visible matrix. | lean:TrackBQfbBridge.lean:180:rooted_eq_iff_slice_eq | trivial ancilla | proved-kernel | FAITHFUL |  |
-| I-154 | 126 | Each such trajectory law is fixed-basis realizable. | lean:TrackBQfbBridge.lean:286:realData_traj_stochastic | U unitary | proved-kernel | FAITHFUL |  |
-| I-155 | 126 | Each such trajectory law is stochastic. | lean:TrackBQfbBridge.lean:286:realData_traj_stochastic | U unitary | proved-kernel | FAITHFUL |  |
-| I-156 | 126 | The fixed-basis correspondence acts on the quotient by visible equality. | papers/Main.md:624@eae01647 | trivial ancilla at one time | proved-kernel | FAITHFUL |  |
-| I-157 | 126 | Selecting the relating evolution would require a condition beyond representability and ordinary coherence. | lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate |  | proved-kernel | FAITHFUL |  |
-| I-158 | 126 | No such selection condition is supplied. | verification/ROADMAP.md:63@eae01647 |  | open | FAITHFUL |  |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-147 | 122 | The evolution relating two times is not selected (heading). | lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate |  | proved-kernel | **IMPRECISE** |  | certificate-checked |
+| I-148 | 124 | Representability does not fix the unitary evolution relating two times. | lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-149 | 124 | Two coherent lifts of one visible family can differ by a time-dependent right action invisible to the visible law and have different relating evolutions. | lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate | coherent lifts on a fixed carrier and anchor | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-150 | 124 | A constant deformation cancels from every relating evolution. | lean:CoherentLiftGauge.lean:451:gl3_constant_gauge_preserves_relative | constant unitary right action | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-151 | 126 | Setting for the bridge results: fixed-basis datum from a lift with trivial ancilla at one time, uniform initial law, identity readout. | lean:TrackBQfbBridge.lean:43:realData |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-152 | 126 | Same one-step visible matrix ⇒ same root-conditioned trajectory laws at every horizon. | lean:TrackBQfbBridge.lean:276:bridge_traj | trivial ancilla; same one-step visible matrix (slice) G | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-153 | 126 | Equal rooted families ⇒ equal one-step visible matrices. | lean:TrackBQfbBridge.lean:180:rooted_eq_iff_slice_eq | trivial ancilla; uniform initial law; identity readout | proved-kernel | FAITHFUL | Main:624 | certificate-checked |
+| I-153.a | 126 | [one-step ⇒ trajectory laws] Same one-step visible matrix ⇒ same root-conditioned trajectory laws at every horizon. | lean:TrackBQfbBridge.lean:276:bridge_traj | trivial ancilla | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-153.b | 126 | [rooted family ⇒ one-step] Same rooted family ⇒ same one-step visible matrix. | lean:TrackBQfbBridge.lean:180:rooted_eq_iff_slice_eq | trivial ancilla | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-154 | 126 | Each such trajectory law is fixed-basis realizable. | lean:TrackBQfbBridge.lean:286:realData_traj_stochastic | U unitary | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-155 | 126 | Each such trajectory law is stochastic. | lean:TrackBQfbBridge.lean:286:realData_traj_stochastic | U unitary | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-156 | 126 | The fixed-basis correspondence acts on the quotient by visible equality. | papers/Main.md:624@eae01647 | trivial ancilla at one time | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-157 | 126 | Selecting the relating evolution would require a condition beyond representability and ordinary coherence. | lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-158 | 126 | No such selection condition is supplied. | verification/ROADMAP.md:63@eae01647 |  | open | FAITHFUL |  | traced-only |
 
 ## §3.4
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-159 | 128 | No fixed finite carrier reproduces a qubit (heading). | papers/Main.md:538@eae01647 | fixed finite realization; prepare-measure factorization interface | proved-paper | **IMPRECISE** | Introduction:118 |
-| I-160 | 130 | A fixed finite realization with N ontic configurations yields only behaviour matrices with nonnegative factorization through N states. | papers/Main.md:538@eae01647 | preparation → finite ontic system → measurement interface | proved-paper | FAITHFUL |  |
-| I-161 | 130 | Simulating a qubit's prepare-and-measure statistics needs classical memory unbounded over finite experiments. | [HKLP24, Thm 4] |  | proved-paper | FAITHFUL |  |
-| I-162 | 130 | Galvão–Hardy and Montina give explicit tasks showing unbounded classical memory. | [GH03] |  | proved-paper | **IMPRECISE** |  |
-| I-163 | 130 | Montina reports Hardy's result that the number of ontic states cannot be finite. | [Mon08] |  | proved-paper | FAITHFUL |  |
-| I-164 | 130 | No fixed finite realization reproduces the full prepare-and-measure theory of a qubit exactly. | papers/Main.md:538@eae01647 | fixed finite realization; prepare-measure factorization interface; imported unboundedness of classical dimension [HKLP24] | proved-paper | FAITHFUL |  |
-| I-165 | 130 | The factorization step is proved; the unboundedness step is imported. | papers/Main.md:538@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-166 | 130 | The finite-carrier obstruction does not affect Theorem 1, whose realization is chosen per law. | papers/Main.md:538@eae01647 |  | proved-paper | FAITHFUL |  |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-159 | 128 | No fixed finite carrier reproduces a qubit (heading). | papers/Main.md:538@eae01647 | fixed finite realization; prepare-measure factorization interface | proved-paper | **IMPRECISE** | Introduction:118 | traced-only |
+| I-160 | 130 | A fixed finite realization with N ontic configurations yields only behaviour matrices with nonnegative factorization through N states. | papers/Main.md:538@eae01647 | preparation → finite ontic system → measurement interface | proved-paper | FAITHFUL |  | traced-only |
+| I-161 | 130 | Simulating a qubit's prepare-and-measure statistics needs classical memory unbounded over finite experiments. | [HKLP24, Thm 4] |  | proved-paper | FAITHFUL |  | traced-only |
+| I-162 | 130 | Galvão–Hardy and Montina give explicit tasks showing unbounded classical memory. | [GH03] |  | proved-paper | **IMPRECISE** |  | traced-only |
+| I-163 | 130 | Montina reports Hardy's result that the number of ontic states cannot be finite. | [Mon08] |  | proved-paper | FAITHFUL |  | traced-only |
+| I-164 | 130 | No fixed finite realization reproduces the full prepare-and-measure theory of a qubit exactly. | papers/Main.md:538@eae01647 | fixed finite realization; prepare-measure factorization interface; imported unboundedness of classical dimension [HKLP24] | proved-paper | FAITHFUL |  | traced-only |
+| I-165 | 130 | The factorization step is proved; the unboundedness step is imported. | papers/Main.md:538@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-166 | 130 | The finite-carrier obstruction does not affect Theorem 1, whose realization is chosen per law. | papers/Main.md:538@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
 
 ## §3.5
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-167 | 134 | The origin of the quadratic Born exponent is open. | papers/Main.md:534@eae01647 |  | open | FAITHFUL | ch18-beyond:34, ch18-beyond:30 |
-| I-168 | 136 | A deterministic completion with pointwise causal cones and a setting-independent ensemble satisfies \|S_CHSH\| ≤ 2. | papers/Main.md:360@eae01647 | determinism; pointwise causal cones (interventions local, readout before cones meet); setting-independent pre-setting ensemble | proved-paper | FAITHFUL |  |
-| I-169 | 136 | A deterministic completion reproducing quantum Bell correlations must give up pointwise causal cones or measurement independence. | papers/Main.md:360@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-170 | 136 | The framework keeps measurement independence and adopts ontic parameter dependence (remote-setting-dependent microstate response, no operational signalling). | papers/Main.md:392@eae01647 | conditional on: H-Bell; H-Bell (for compatibility) | conjecture | FAITHFUL |  |
-| I-171 | 136 | Compatibility of ontic parameter dependence with operational no-signalling and the gravitational continuum limit of the spatial coupling graph is the open hypothesis H-Bell. | verification/ROADMAP.md:955@eae01647 | conditional on: H-Bell | open | FAITHFUL | Substratum:132 |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-167 | 134 | The origin of the quadratic Born exponent is open. | papers/Main.md:534@eae01647 |  | open | FAITHFUL | ch18-beyond:34, ch18-beyond:30 | traced-only |
+| I-168 | 136 | A deterministic completion with pointwise causal cones and a setting-independent ensemble satisfies \|S_CHSH\| ≤ 2. | papers/Main.md:360@eae01647 | determinism; pointwise causal cones (interventions local, readout before cones meet); setting-independent pre-setting ensemble | proved-paper | FAITHFUL |  | traced-only |
+| I-169 | 136 | A deterministic completion reproducing quantum Bell correlations must give up pointwise causal cones or measurement independence. | papers/Main.md:360@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-170 | 136 | The framework keeps measurement independence and adopts ontic parameter dependence (remote-setting-dependent microstate response, no operational signalling). | papers/Main.md:392@eae01647 | conditional on: H-Bell; H-Bell (for compatibility) | conjecture | FAITHFUL |  | traced-only |
+| I-171 | 136 | Compatibility of ontic parameter dependence with operational no-signalling and the gravitational continuum limit of the spatial coupling graph is the open hypothesis H-Bell. | verification/ROADMAP.md:955@eae01647 | conditional on: H-Bell | open | FAITHFUL | Substratum:132 | traced-only |
 
 ## §4
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-172 | 140 | Summing zero-point energies to a Planck cutoff gives a vacuum energy density ~120 orders of magnitude above the observed value. | Wei89 §I and §III Eqs.(3.4)-(3.6), first-hand record verification/audits/manuscript/introductory-paper-20261025/draft/review/references/WEI89.md@4a260ca9 | Planck-scale wave-number cutoff; comparison against an observational bound of the order of the measured density | numerical | FAITHFUL | GR:340 |
-| I-173 | 140 | The exact power of the mismatch depends on the cutoff convention. | papers/GR.md:366@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-174 | 140 | If the zero-point density sources curvature, it must be cancelled to ~120 orders. | Wei89 §III, p.3 | the zero-point density sources curvature | proved-paper | FAITHFUL |  |
-| I-175 | 142 | In OI the zero-point sum (emergent description) and the effective cosmological constant are defined at different levels. | papers/GR.md:356@eae01647 | geometry-first ordering: the gravitational field equations act at the classical substratum level (GR §6.2 'Ontological commitment') | proved-paper | FAITHFUL | GR:352; book/ch07-gravity:185 |
-| I-176 | 142 | A uniform shift of the emergent Hamiltonian changes no visible transition probability. | papers/GR.md:140@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-177 | 142 | The zero-point offset has no content in the visible statistics. | papers/GR.md:581@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-178 | 142 | No non-gravitational measurement sees the absolute vacuum energy (standard). | papers/GR.md:573@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-179 | 142 | OI proposes that the vacuum-energy mismatch requires no cancellation. | papers/GR.md:356@eae01647 | conditional on: covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open; covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open | conditional | FAITHFUL |  |
-| I-180 | 142 | The proposal's content lies in how the two levels couple to geometry. | papers/GR.md:356@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-181 | 144 | Whether the offset fails to source curvature is a separate coupling question. | papers/GR.md:356@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-182 | 144 | Settling the coupling question requires covariant field equations derived from the substratum, with source coupling (GR Level G3). | papers/GR.md:12@eae01647 |  | proved-paper | **IMPRECISE** | GR:30; papers/GR:597, Structure:154 |
-| I-183 | 144 | The covariant field equations with source coupling (GR Level G3) are open. | papers/GR.md:12@eae01647 |  | open | FAITHFUL |  |
-| I-184 | 144 | The quantum description does not decide between gravitational completions differing by ρ_C g_μν. | papers/GR.md:356@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-185 | 144 | The no-cancellation proposal is conditional on the open field-equation step. | papers/GR.md:356@eae01647 | conditional on: covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open; covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open | conditional | FAITHFUL |  |
-| I-186 | 146 | GR targets field equations E_μν[g,OI] = 8πG(T_μν − F[g,T] g_μν) with the substratum's classical stress-energy as source. | papers/GR.md:12@eae01647 | geometry-first ordering: the gravitational field equations act at the classical substratum level (GR §6.2 'Ontological commitment') | proved-paper | FAITHFUL |  |
-| I-187 | 146 | If the field equations take GR's target form, the zero-point sum is not a source and needs no cancellation. | papers/GR.md:12@eae01647 | conditional on: field equations of GR's target form; classical substratum stress-energy as source; field equations of GR's target form; classical substratum stress-energy as source | conditional | FAITHFUL |  |
-| I-188 | 146 | The remaining vacuum term (substratum classical energy density and F) is not computed. | papers/GR.md:360@eae01647 |  | open | FAITHFUL |  |
-| I-189 | 146 | The proposal does not explain the observed value of Λ. | papers/GR.md:360@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-190 | 146 | The observed value of Λ enters as a cosmological input. | papers/GR.md:360@eae01647 |  | calibration | FAITHFUL |  |
-| I-191 | 146 | The scale ρ ~ H²/G is the Friedmann normalization of the total density. | papers/GR.md:338@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-192 | 146 | The fraction of the density carried by Λ is an input. | papers/GR.md:358@eae01647 |  | calibration | FAITHFUL |  |
-| I-193 | 148 | With a Planck cutoff, the mismatch equals the de Sitter entropy up to a cutoff-convention factor. | papers/GR.md:366@eae01647 | Planck-scale cutoff | calibration | FAITHFUL |  |
-| I-194 | 148 | The mismatch–de Sitter entropy relation is a dimensional identity, not an independent prediction. | papers/GR.md:366@eae01647 |  | calibration | FAITHFUL |  |
-| I-195 | 148 | The descriptive distinction does not fix how electroweak/QCD vacuum-transition energy couples to gravity. | papers/GR.md:583@eae01647 |  | proved-paper | FAITHFUL | GR:573 |
-| I-196 | 148 | The coupling of vacuum-transition energy requires the same open coupling step. | papers/GR.md:583@eae01647 | covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open | open | FAITHFUL |  |
-| I-197 | 150 | Trace-free Einstein equations aim to remove matter vacuum energy as a curvature source. | EvEMU11 (arXiv:1008.1196v2) abstract and §2; verification/audits/manuscript/introductory-paper-20261025/draft/review/references/FINDINGS.md:30@4a260ca9 |  | proved-paper | FAITHFUL |  |
-| I-198 | 150 | Trace-free Einstein equations leave the observed Λ unexplained. | verification/audits/manuscript/introductory-paper-20261025/draft/review/references/FINDINGS.md:30@4a260ca9 |  | proved-paper | FAITHFUL |  |
-| I-199 | 150 | Vacuum-energy sequestering aims to remove matter vacuum energy as a curvature source. | verification/audits/manuscript/introductory-paper-20261025/draft/review/references/FINDINGS.md:32@4a260ca9 |  | proved-paper | FAITHFUL |  |
-| I-200 | 150 | Sequestering renders phase-transition contributions small. | verification/audits/manuscript/introductory-paper-20261025/draft/review/references/FINDINGS.md:32@4a260ca9 |  | proved-paper | FAITHFUL |  |
-| I-201 | 150 | Volovik argues from quantum many-body ground-state thermodynamics that the UV zero-point sum does not set the vacuum energy. | verification/audits/manuscript/introductory-paper-20261025/draft/review/references/FINDINGS.md:35@4a260ca9 |  | proved-paper | FAITHFUL |  |
-| I-202 | 150 | The OI proposal differs from these by locating the gravitational source in the substratum microstate. | papers/GR.md:344@eae01647 | geometry-first ordering: the gravitational field equations act at the classical substratum level (GR §6.2 'Ontological commitment') | proved-paper | FAITHFUL |  |
-| I-203 | 150 | The OI proposal's coupling step is open. | papers/GR.md:356@eae01647 | covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open | open | FAITHFUL |  |
-| I-204 | 152 | Deriving covariant field equations (conservation, source coupling) from the substratum would decide the proposal. | papers/GR.md:12@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-205 | 152 | The proposal reinterprets the cosmological constant problem and does not resolve it. | papers/GR.md:356@eae01647 | covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open | open | FAITHFUL | GR:326, ch07-gravity:163, ch19-open-problems:20; book/The-Incompleteness-of-Observation-FULL:5180 |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-172 | 140 | Summing zero-point energies to a Planck cutoff gives a vacuum energy density ~120 orders of magnitude above the observed value. | Wei89 §I and §III Eqs.(3.4)-(3.6), first-hand record verification/audits/manuscript/introductory-paper-20261025/draft/review/references/WEI89.md@4a260ca9 | Planck-scale wave-number cutoff; comparison against an observational bound of the order of the measured density | numerical | FAITHFUL | GR:340 | traced-only |
+| I-173 | 140 | The exact power of the mismatch depends on the cutoff convention. | papers/GR.md:366@eae01647 |  | proved-paper | FAITHFUL |  | reproduced |
+| I-174 | 140 | If the zero-point density sources curvature, it must be cancelled to ~120 orders. | Wei89 §III, p.3 | the zero-point density sources curvature | proved-paper | FAITHFUL |  | traced-only |
+| I-175 | 142 | In OI the zero-point sum (emergent description) and the effective cosmological constant are defined at different levels. | papers/GR.md:356@eae01647 | geometry-first ordering: the gravitational field equations act at the classical substratum level (GR §6.2 'Ontological commitment') | proved-paper | FAITHFUL | GR:352; book/ch07-gravity:185 | traced-only |
+| I-176 | 142 | A uniform shift of the emergent Hamiltonian changes no visible transition probability. | papers/GR.md:140@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-177 | 142 | The zero-point offset has no content in the visible statistics. | papers/GR.md:581@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-178 | 142 | No non-gravitational measurement sees the absolute vacuum energy (standard). | papers/GR.md:573@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-179 | 142 | OI proposes that the vacuum-energy mismatch requires no cancellation. | papers/GR.md:356@eae01647 | conditional on: covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open; covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open | conditional | FAITHFUL |  | traced-only |
+| I-180 | 142 | The proposal's content lies in how the two levels couple to geometry. | papers/GR.md:356@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-181 | 144 | Whether the offset fails to source curvature is a separate coupling question. | papers/GR.md:356@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-182 | 144 | Settling the coupling question requires covariant field equations derived from the substratum, with source coupling (GR Level G3). | papers/GR.md:12@eae01647 |  | proved-paper | **IMPRECISE** | GR:30; papers/GR:597, Structure:154 | traced-only |
+| I-183 | 144 | The covariant field equations with source coupling (GR Level G3) are open. | papers/GR.md:12@eae01647 |  | open | FAITHFUL |  | traced-only |
+| I-184 | 144 | The quantum description does not decide between gravitational completions differing by ρ_C g_μν. | papers/GR.md:356@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-185 | 144 | The no-cancellation proposal is conditional on the open field-equation step. | papers/GR.md:356@eae01647 | conditional on: covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open; covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open | conditional | FAITHFUL |  | traced-only |
+| I-186 | 146 | GR targets field equations E_μν[g,OI] = 8πG(T_μν − F[g,T] g_μν) with the substratum's classical stress-energy as source. | papers/GR.md:12@eae01647 | geometry-first ordering: the gravitational field equations act at the classical substratum level (GR §6.2 'Ontological commitment') | proved-paper | FAITHFUL |  | traced-only |
+| I-187 | 146 | If the field equations take GR's target form, the zero-point sum is not a source and needs no cancellation. | papers/GR.md:12@eae01647 | conditional on: field equations of GR's target form; classical substratum stress-energy as source; field equations of GR's target form; classical substratum stress-energy as source | conditional | FAITHFUL |  | traced-only |
+| I-188 | 146 | The remaining vacuum term (substratum classical energy density and F) is not computed. | papers/GR.md:360@eae01647 |  | open | FAITHFUL |  | traced-only |
+| I-189 | 146 | The proposal does not explain the observed value of Λ. | papers/GR.md:360@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-190 | 146 | The observed value of Λ enters as a cosmological input. | papers/GR.md:360@eae01647 |  | calibration | FAITHFUL |  | traced-only |
+| I-191 | 146 | The scale ρ ~ H²/G is the Friedmann normalization of the total density. | papers/GR.md:338@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-192 | 146 | The fraction of the density carried by Λ is an input. | papers/GR.md:358@eae01647 |  | calibration | FAITHFUL |  | traced-only |
+| I-193 | 148 | With a Planck cutoff, the mismatch equals the de Sitter entropy up to a cutoff-convention factor. | papers/GR.md:366@eae01647 | Planck-scale cutoff | calibration | FAITHFUL |  | reproduced |
+| I-194 | 148 | The mismatch–de Sitter entropy relation is a dimensional identity, not an independent prediction. | papers/GR.md:366@eae01647 |  | calibration | FAITHFUL |  | reproduced |
+| I-195 | 148 | The descriptive distinction does not fix how electroweak/QCD vacuum-transition energy couples to gravity. | papers/GR.md:583@eae01647 |  | proved-paper | FAITHFUL | GR:573 | traced-only |
+| I-196 | 148 | The coupling of vacuum-transition energy requires the same open coupling step. | papers/GR.md:583@eae01647 | covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open | open | FAITHFUL |  | traced-only |
+| I-197 | 150 | Trace-free Einstein equations aim to remove matter vacuum energy as a curvature source. | EvEMU11 (arXiv:1008.1196v2) abstract and §2; verification/audits/manuscript/introductory-paper-20261025/draft/review/references/FINDINGS.md:30@4a260ca9 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-198 | 150 | Trace-free Einstein equations leave the observed Λ unexplained. | verification/audits/manuscript/introductory-paper-20261025/draft/review/references/FINDINGS.md:30@4a260ca9 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-199 | 150 | Vacuum-energy sequestering aims to remove matter vacuum energy as a curvature source. | verification/audits/manuscript/introductory-paper-20261025/draft/review/references/FINDINGS.md:32@4a260ca9 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-200 | 150 | Sequestering renders phase-transition contributions small. | verification/audits/manuscript/introductory-paper-20261025/draft/review/references/FINDINGS.md:32@4a260ca9 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-201 | 150 | Volovik argues from quantum many-body ground-state thermodynamics that the UV zero-point sum does not set the vacuum energy. | verification/audits/manuscript/introductory-paper-20261025/draft/review/references/FINDINGS.md:35@4a260ca9 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-202 | 150 | The OI proposal differs from these by locating the gravitational source in the substratum microstate. | papers/GR.md:344@eae01647 | geometry-first ordering: the gravitational field equations act at the classical substratum level (GR §6.2 'Ontological commitment') | proved-paper | FAITHFUL |  | traced-only |
+| I-203 | 150 | The OI proposal's coupling step is open. | papers/GR.md:356@eae01647 | covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open | open | FAITHFUL |  | traced-only |
+| I-204 | 152 | Deriving covariant field equations (conservation, source coupling) from the substratum would decide the proposal. | papers/GR.md:12@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-205 | 152 | The proposal reinterprets the cosmological constant problem and does not resolve it. | papers/GR.md:356@eae01647 | covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open | open | FAITHFUL | GR:326, ch07-gravity:163, ch19-open-problems:20; book/The-Incompleteness-of-Observation-FULL:5180 | traced-only |
 
 ### Dependency block: §4 conditional chain (the cosmological-constant proposal)
 
@@ -508,48 +515,48 @@ Conditional on: covariant field equations derived from the substratum, with cons
 
 ## §5
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-206 | 156 | The BH information problem asks whether evaporating-BH radiation carries the information of what formed it. | Haw76; Pag13 |  | proved-paper | **MISCITED** |  |
-| I-207 | 156 | Since OI dynamics is a bijection observed through a partition, global conservation and accessible recovery are separate questions. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:35-40@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-208 | 156 | The §5 results are finite computations in toy models of configurations, permutations and configuration reads. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:88-142@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports; H-scramble (orbit ensemble equidistributes over pure states on the shell), not established; fails for every bijection on a definite configuration with aligned bipartition; H-decouple (B∪R uncoupled from D and V∖R, jointly pure, over whole cycles), not established; single energy shell = full product space C_B × C_R | proved-paper | **IMPRECISE** | Introduction:175 |
-| I-209 | 156 | The §5 results concern the framework's nested-partition construction, not a particular black hole. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:288-292@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | proved-paper | **IMPRECISE** |  |
-| I-210 | 158 | Under OI, information is conserved globally because the dynamics is a bijection (a premise). | papers/Main.md:708@eae01647 | conditional on: bijective dynamics (framework premise); bijective dynamics (framework premise) | conditional | FAITHFUL | Methodology:158; papers/Methodology:166 |
-| I-211 | 158 | Global conservation does not imply recovery from accessible records. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:17-18@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | proved-paper | FAITHFUL |  |
-| I-212 | 158 | Global conservation is not necessary for recovery from accessible records. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | exhaustive-exact | FAITHFUL |  |
-| I-213 | 158 | Exhaustive finite computations exhibit bijections with zero accessible advantage over a blind guess. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | exhaustive-exact | FAITHFUL |  |
-| I-214 | 158 | Exhaustive finite computations exhibit non-injective maps with exact recovery. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:153@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | exhaustive-exact | FAITHFUL |  |
-| I-215 | 160 | Of the 40,320 bijections of {0,1}³, 1,376 give zero accessible advantage (binary message, one register unread, two emissions). | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports; moving-partition layout, binary message, one mode unread after two emissions | exhaustive-exact | FAITHFUL |  |
-| I-216 | 160 | For bijective dynamics, complete endpoint access gives exact recovery. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:98-102@eae01647 | bijective dynamics; every register read at the endpoint; BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | proved-paper | FAITHFUL |  |
-| I-217 | 160 | For bijective dynamics with the unread registers U inaccessible, P_succ ≥ 1/\|U\|. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:104-112@eae01647 | bijective dynamics; uniform message prior; hidden-uniform unread data on equal-size supports | proved-paper | **IMPRECISE** |  |
-| I-218 | 160 | Zero accessible advantage in a bijective instance requires \|U\| ≥ \|M\|. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:42-47@eae01647 | bijective dynamics; uniform message prior; hidden-uniform unread data on equal-size supports; BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | proved-paper | **IMPRECISE** |  |
-| I-219 | 160 | 32 non-injective maps of {0,1}² violate the P_succ ≥ 1/\|U\| bound. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:155@eae01647 | two-bit message; one register read, one unread; one step | exhaustive-exact | **IMPRECISE** |  |
-| I-220 | 160 | The endpoint guarantees are sufficient conditions, not necessary ones. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:66-86@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | exhaustive-exact | **IMPRECISE** |  |
-| I-221 | 160 | The P_succ bound is the remnant-capacity form of a known fact. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:109-112@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-222 | 160 | The bound's linear case is the secret-sharing threshold. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:125-132@eae01647 | conditional on: first-hand check of Sha79; Sha79 content as recalled, not read | conditional | **IMPRECISE** |  |
-| I-223 | 162 | GR App. A's Page-curve calculation is a conditional result. | papers/GR.md:715@eae01647 | conditional on: H-scramble; H-decouple; single energy shell = full product space; H-scramble (orbit ensemble equidistributes over pure states on the shell), not established; fails for every bijection on a definite configuration with aligned bipartition; H-decouple (B∪R uncoupled from D and V∖R, jointly pure, over whole cycles), not established; single energy shell = full product space C_B × C_R | conditional | **IMPRECISE** |  |
-| I-224 | 162 | The Page-curve configuration space is C_V × C_B × C_D (exterior, interior, beyond the cosmological horizon); the radiation R ⊂ V is emitted from B. | papers/GR.md:719@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-225 | 162 | For all but an exponentially negligible fraction of initial conditions, the full-cycle time-averaged radiation entanglement entropy at fixed bipartition equals S_Page(d_B,d_R) up to Theorem A.8's correction. | papers/GR.md:817@eae01647 | conditional on: H-scramble; H-decouple (A.9); single energy shell = full product space; H-scramble (orbit ensemble equidistributes over pure states on the shell), not established; fails for every bijection on a definite configuration with aligned bipartition; single energy shell = full product space C_B × C_R; H-decouple (B∪R uncoupled from D and V∖R, jointly pure, over whole cycles), not established | unsupported | **OVERCLAIM** | GR:835, appendix-a-prediction-status:111, ch19-open-problems:72 |
-| I-226 | 162 | The Page-value result holds under H-scramble (orbit ensemble equidistributes over pure states on the shell). | papers/GR.md:835@eae01647 | conditional on: H-scramble | conditional | FAITHFUL |  |
-| I-227 | 162 | H-scramble fails for every bijection acting on a definite initial configuration with configuration-aligned bipartition. | papers/GR.md:833@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-228 | 162 | H-scramble is not established. | papers/GR.md:835@eae01647 |  | open | FAITHFUL |  |
-| I-229 | 162 | The Page-value result also needs H-decouple: B ∪ R uncoupled from D and V∖R, jointly pure, over whole cycles. | papers/GR.md:809@eae01647 | conditional on: H-decouple | conditional | FAITHFUL |  |
-| I-230 | 162 | Timescale ordering does not supply H-decouple. | papers/GR.md:809@eae01647 | τ_B^D ∈ [10^16, 10^19] s; Γ ∈ [1/100, 1000] | proved-paper | FAITHFUL |  |
-| I-231 | 162 | H-decouple is not established. | papers/GR.md:809@eae01647 |  | open | FAITHFUL |  |
-| I-232 | 162 | GR Theorem A.8 takes all of C_B × C_R as a single energy shell. | papers/GR.md:817@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-233 | 162 | A single shell requires constant energy on C_B × C_R, so conservation does not constrain the orbit. | papers/GR.md:843@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-234 | 162 | The single-shell assumption does not follow from conservation of a Hamiltonian taking more than one value there. | papers/GR.md:843@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-235 | 162 | An evaporating BH whose radiation carries away its energy is in the proper-shell case. | papers/GR.md:843@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-236 | 162 | On a proper shell the mean entropy depends on the shell and in general differs from the Page value. | papers/GR.md:843@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-237 | 162 | The proper-shell case is open. | papers/GR.md:843@eae01647 |  | open | FAITHFUL |  |
-| I-238 | 162 | The Page-value result is a time average at a fixed bipartition. | papers/GR.md:853@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-239 | 162 | Whether single-trajectory entropy follows the Page curve is open. | papers/GR.md:853@eae01647 |  | open | FAITHFUL |  |
-| I-240 | 162 | In GR's dependency ladder the Page curve is conditional on the covariant field equations. | papers/GR.md:12@eae01647 | conditional on: covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open; covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open | conditional | FAITHFUL |  |
-| I-241 | 162 | The generalized second law is not derived. | papers/GR.md:803@eae01647 |  | open | FAITHFUL |  |
-| I-242 | 162 | Agreement with quantum-extremal-surface computations is not established. | papers/GR.md:875@eae01647 |  | open | FAITHFUL |  |
-| I-243 | 162 | The islands ↔ substratum-cycles correspondence is conjectural. | book/ch07-gravity.md:149@eae01647 |  | conjecture | FAITHFUL |  |
-| I-244 | 162 | The Page curve of GR App. A is not established. | papers/GR.md:809-853@eae01647 |  | open | FAITHFUL |  |
-| I-245 | 162 | The BH information problem is not resolved. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:259-265@eae01647 |  | open | FAITHFUL | ch07-gravity:110; book/The-Incompleteness-of-Observation-FULL:1989, ch19-open-problems:72; book/The-Incompleteness-of-Observation-FULL:5232, ch18-beyond:130 |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-206 | 156 | The BH information problem asks whether evaporating-BH radiation carries the information of what formed it. | Haw76; Pag13 |  | proved-paper | **MISCITED** |  | traced-only |
+| I-207 | 156 | Since OI dynamics is a bijection observed through a partition, global conservation and accessible recovery are separate questions. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:35-40@eae01647 |  | proved-paper | FAITHFUL |  | reproduced |
+| I-208 | 156 | The §5 results are finite computations in toy models of configurations, permutations and configuration reads. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:88-142@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports; H-scramble (orbit ensemble equidistributes over pure states on the shell), not established; fails for every bijection on a definite configuration with aligned bipartition; H-decouple (B∪R uncoupled from D and V∖R, jointly pure, over whole cycles), not established; single energy shell = full product space C_B × C_R | proved-paper | **IMPRECISE** | Introduction:175 | reproduced |
+| I-209 | 156 | The §5 results concern the framework's nested-partition construction, not a particular black hole. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:288-292@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | proved-paper | **IMPRECISE** |  | reproduced |
+| I-210 | 158 | Under OI, information is conserved globally because the dynamics is a bijection (a premise). | papers/Main.md:708@eae01647 | conditional on: bijective dynamics (framework premise); bijective dynamics (framework premise) | conditional | FAITHFUL | Methodology:158; papers/Methodology:166 | traced-only |
+| I-211 | 158 | Global conservation does not imply recovery from accessible records. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:17-18@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | proved-paper | FAITHFUL |  | reproduced |
+| I-212 | 158 | Global conservation is not necessary for recovery from accessible records. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | exhaustive-exact | FAITHFUL |  | reproduced |
+| I-213 | 158 | Exhaustive finite computations exhibit bijections with zero accessible advantage over a blind guess. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | exhaustive-exact | FAITHFUL |  | reproduced |
+| I-214 | 158 | Exhaustive finite computations exhibit non-injective maps with exact recovery. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:153@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | exhaustive-exact | FAITHFUL |  | reproduced |
+| I-215 | 160 | Of the 40,320 bijections of {0,1}³, 1,376 give zero accessible advantage (binary message, one register unread, two emissions). | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports; moving-partition layout, binary message, one mode unread after two emissions | exhaustive-exact | FAITHFUL |  | reproduced |
+| I-216 | 160 | For bijective dynamics, complete endpoint access gives exact recovery. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:98-102@eae01647 | bijective dynamics; every register read at the endpoint; BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | proved-paper | FAITHFUL |  | reproduced |
+| I-217 | 160 | For bijective dynamics with the unread registers U inaccessible, P_succ ≥ 1/\|U\|. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:104-112@eae01647 | bijective dynamics; uniform message prior; hidden-uniform unread data on equal-size supports | proved-paper | **IMPRECISE** |  | reproduced |
+| I-218 | 160 | Zero accessible advantage in a bijective instance requires \|U\| ≥ \|M\|. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:42-47@eae01647 | bijective dynamics; uniform message prior; hidden-uniform unread data on equal-size supports; BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | proved-paper | **IMPRECISE** |  | reproduced |
+| I-219 | 160 | 32 non-injective maps of {0,1}² violate the P_succ ≥ 1/\|U\| bound. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:155@eae01647 | two-bit message; one register read, one unread; one step | exhaustive-exact | **IMPRECISE** |  | reproduced |
+| I-220 | 160 | The endpoint guarantees are sufficient conditions, not necessary ones. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:66-86@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | exhaustive-exact | **IMPRECISE** |  | reproduced |
+| I-221 | 160 | The P_succ bound is the remnant-capacity form of a known fact. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:109-112@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-222 | 160 | The bound's linear case is the secret-sharing threshold. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:125-132@eae01647 | conditional on: first-hand check of Sha79; Sha79 content as recalled, not read | conditional | **IMPRECISE** |  | traced-only |
+| I-223 | 162 | GR App. A's Page-curve calculation is a conditional result. | papers/GR.md:715@eae01647 | conditional on: H-scramble; H-decouple; single energy shell = full product space; H-scramble (orbit ensemble equidistributes over pure states on the shell), not established; fails for every bijection on a definite configuration with aligned bipartition; H-decouple (B∪R uncoupled from D and V∖R, jointly pure, over whole cycles), not established; single energy shell = full product space C_B × C_R | conditional | **IMPRECISE** |  | traced-only |
+| I-224 | 162 | The Page-curve configuration space is C_V × C_B × C_D (exterior, interior, beyond the cosmological horizon); the radiation R ⊂ V is emitted from B. | papers/GR.md:719@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-225 | 162 | For all but an exponentially negligible fraction of initial conditions, the full-cycle time-averaged radiation entanglement entropy at fixed bipartition equals S_Page(d_B,d_R) up to Theorem A.8's correction. | papers/GR.md:817@eae01647 | conditional on: H-scramble; H-decouple (A.9); single energy shell = full product space; H-scramble (orbit ensemble equidistributes over pure states on the shell), not established; fails for every bijection on a definite configuration with aligned bipartition; single energy shell = full product space C_B × C_R; H-decouple (B∪R uncoupled from D and V∖R, jointly pure, over whole cycles), not established | unsupported | **OVERCLAIM** | GR:835, appendix-a-prediction-status:111, ch19-open-problems:72 | reproduced |
+| I-226 | 162 | The Page-value result holds under H-scramble (orbit ensemble equidistributes over pure states on the shell). | papers/GR.md:835@eae01647 | conditional on: H-scramble | conditional | FAITHFUL |  | traced-only |
+| I-227 | 162 | H-scramble fails for every bijection acting on a definite initial configuration with configuration-aligned bipartition. | papers/GR.md:833@eae01647 |  | proved-paper | FAITHFUL |  | reproduced |
+| I-228 | 162 | H-scramble is not established. | papers/GR.md:835@eae01647 |  | open | FAITHFUL |  | reproduced |
+| I-229 | 162 | The Page-value result also needs H-decouple: B ∪ R uncoupled from D and V∖R, jointly pure, over whole cycles. | papers/GR.md:809@eae01647 | conditional on: H-decouple | conditional | FAITHFUL |  | traced-only |
+| I-230 | 162 | Timescale ordering does not supply H-decouple. | papers/GR.md:809@eae01647 | τ_B^D ∈ [10^16, 10^19] s; Γ ∈ [1/100, 1000] | proved-paper | FAITHFUL |  | reproduced |
+| I-231 | 162 | H-decouple is not established. | papers/GR.md:809@eae01647 |  | open | FAITHFUL |  | traced-only |
+| I-232 | 162 | GR Theorem A.8 takes all of C_B × C_R as a single energy shell. | papers/GR.md:817@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-233 | 162 | A single shell requires constant energy on C_B × C_R, so conservation does not constrain the orbit. | papers/GR.md:843@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-234 | 162 | The single-shell assumption does not follow from conservation of a Hamiltonian taking more than one value there. | papers/GR.md:843@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-235 | 162 | An evaporating BH whose radiation carries away its energy is in the proper-shell case. | papers/GR.md:843@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-236 | 162 | On a proper shell the mean entropy depends on the shell and in general differs from the Page value. | papers/GR.md:843@eae01647 |  | proved-paper | FAITHFUL |  | reproduced |
+| I-237 | 162 | The proper-shell case is open. | papers/GR.md:843@eae01647 |  | open | FAITHFUL |  | reproduced |
+| I-238 | 162 | The Page-value result is a time average at a fixed bipartition. | papers/GR.md:853@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-239 | 162 | Whether single-trajectory entropy follows the Page curve is open. | papers/GR.md:853@eae01647 |  | open | FAITHFUL |  | reproduced |
+| I-240 | 162 | In GR's dependency ladder the Page curve is conditional on the covariant field equations. | papers/GR.md:12@eae01647 | conditional on: covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open; covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open | conditional | FAITHFUL |  | traced-only |
+| I-241 | 162 | The generalized second law is not derived. | papers/GR.md:803@eae01647 |  | open | FAITHFUL |  | traced-only |
+| I-242 | 162 | Agreement with quantum-extremal-surface computations is not established. | papers/GR.md:875@eae01647 |  | open | FAITHFUL |  | traced-only |
+| I-243 | 162 | The islands ↔ substratum-cycles correspondence is conjectural. | book/ch07-gravity.md:149@eae01647 |  | conjecture | FAITHFUL |  | traced-only |
+| I-244 | 162 | The Page curve of GR App. A is not established. | papers/GR.md:809-853@eae01647 |  | open | FAITHFUL |  | traced-only |
+| I-245 | 162 | The BH information problem is not resolved. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:259-265@eae01647 |  | open | FAITHFUL | ch07-gravity:110; book/The-Incompleteness-of-Observation-FULL:1989, ch19-open-problems:72; book/The-Incompleteness-of-Observation-FULL:5232, ch18-beyond:130 | traced-only |
 
 ### Dependency block: §5 conditional chain (the Page curve of GR App. A)
 
@@ -588,196 +595,196 @@ Conditional on: bijective dynamics (framework premise); H-scramble; H-decouple; 
 
 ## §6.1
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-246 | 168 | If OI holds, quantum fixed-basis statistics are the visible laws of an embedded observer. | lean:Equivalence.lean:462:finite_horizon_equivalence | conditional on: OI physical hypothesis; OI physical hypothesis; finite horizon; finite-dimensional unitary system, fixed basis, diagonal initial state | conditional | **IMPRECISE** | verification/lean-manuscript-census.json |
-| I-247 | 168 | If OI holds, departures from Markov behaviour are memory carried in an inaccessible sector. | lean:HiddenMemory.lean:185:unavoidable_hidden_predictive_memory | conditional on: OI physical hypothesis; OI physical hypothesis; faithful realization; CMI vanishing criterion (not formalized); time-t identification (not formalized) | conditional | FAITHFUL |  |
-| I-248 | 168 | The rest of operational QM depends on completion conditions OI does not imply. | lean:GeneralCarrier.lean:100:exactAll_iff_physical_general | nonempty finite carrier; qubit witnesses for non-implication | proved-kernel | FAITHFUL |  |
-| I-249 | 168 | Memory alone does not account for quantum Bell correlations. | papers/Main.md:360@eae01647 | determinism; locality (pointwise causal cone); measurement independence | proved-paper | FAITHFUL |  |
-| I-250 | 168 | With measurement independence kept, quantum Bell correlations need ontic parameter dependence. | papers/Main.md:360@eae01647 | deterministic completion; measurement independence | proved-paper | FAITHFUL |  |
-| I-251 | 168 | Compatibility of ontic parameter dependence with no-signalling and the continuum limit is the open hypothesis H-Bell. | verification/ROADMAP.md:67@eae01647 | H-Bell | open | FAITHFUL | verification/ROADMAP:963 |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-246 | 168 | If OI holds, quantum fixed-basis statistics are the visible laws of an embedded observer. | lean:Equivalence.lean:462:finite_horizon_equivalence | conditional on: OI physical hypothesis; OI physical hypothesis; finite horizon; finite-dimensional unitary system, fixed basis, diagonal initial state | conditional | **IMPRECISE** | verification/lean-manuscript-census.json | certificate-checked |
+| I-247 | 168 | If OI holds, departures from Markov behaviour are memory carried in an inaccessible sector. | lean:HiddenMemory.lean:185:unavoidable_hidden_predictive_memory | conditional on: OI physical hypothesis; OI physical hypothesis; faithful realization; CMI vanishing criterion (not formalized); time-t identification (not formalized) | conditional | FAITHFUL |  | certificate-checked |
+| I-248 | 168 | The rest of operational QM depends on completion conditions OI does not imply. | lean:GeneralCarrier.lean:100:exactAll_iff_physical_general | nonempty finite carrier; qubit witnesses for non-implication | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-249 | 168 | Memory alone does not account for quantum Bell correlations. | papers/Main.md:360@eae01647 | determinism; locality (pointwise causal cone); measurement independence | proved-paper | FAITHFUL |  | traced-only |
+| I-250 | 168 | With measurement independence kept, quantum Bell correlations need ontic parameter dependence. | papers/Main.md:360@eae01647 | deterministic completion; measurement independence | proved-paper | FAITHFUL |  | traced-only |
+| I-251 | 168 | Compatibility of ontic parameter dependence with no-signalling and the continuum limit is the open hypothesis H-Bell. | verification/ROADMAP.md:67@eae01647 | H-Bell | open | FAITHFUL | verification/ROADMAP:963 | traced-only |
 
 ## §6.2
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-252 | 172 | The paper does not derive quantum mechanics. | lean:GeneralCarrier.lean:160:oi_alone_not_qm | finite carriers | proved-kernel | FAITHFUL | Main:2, Methodology:585; papers/Structure:1416, appendix-c-objections:315 |
-| I-253 | 172 | Theorem 1's classes contain every finite law. | lean:Equivalence.lean:462:finite_horizon_equivalence | finite visible alphabet; finite horizon | proved-kernel | FAITHFUL |  |
-| I-254 | 172 | The Born exponent is not selected. | papers/Main.md:20@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-255 | 173 | The operational theory is not uniquely selected. | lean:RankGapTheory.lean:702:five_way_minimality | nonempty finite carrier | proved-kernel | FAITHFUL |  |
-| I-256 | 173 | Conditions (i)–(v) are not implied by OI alone. | lean:RankGapTheory.lean:702:five_way_minimality | qubit witnesses | proved-kernel | FAITHFUL |  |
-| I-257 | 173 | Independence of (i)–(v) is shown on the qubit. | lean:RankGapTheory.lean:702:five_way_minimality | qubit carrier Fin 2; sealed OI core | proved-kernel | FAITHFUL |  |
-| I-258 | 173 | Which of (iii)–(v) a physical substratum supplies is open. | lean:StructuralClosure.lean:383:substratum_residual | stated substratum = finite bijective dynamics with the stated observer access (phase intervention assumed where stated); finite carriers | proved-kernel | **UNDERCLAIM** | GR:260, verification/ROADMAP:1529, GR:228, Main:758 |
-| I-259 | 173 | The visible law does not fix the relating evolution. | lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate | coherent lifts on a fixed carrier and anchor | proved-kernel | FAITHFUL |  |
-| I-260 | 174 | Memory is not characterized by existence of a realization. | lean:Equivalence.lean:422:S_imp_D | finite horizon | proved-kernel | FAITHFUL |  |
-| I-261 | 174 | P-indivisibility is not identified with quantum non-Markovianity. | papers/Main.md:330@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-262 | 174 | No claim that memory forces short-window indivisibility. | papers/Introduction.md:232@4a260ca9 |  | proved-paper | FAITHFUL |  |
-| I-263 | 175 | No resolution of the BH information problem. | papers/GR.md:609@eae01647 | H-scramble; H-decouple; G3 | open | FAITHFUL | ch18-beyond:146 |
-| I-264 | 175 | The GR App. A Page curve is not established. | papers/GR.md:845@eae01647 | H-scramble; H-decouple; full-product-space shell; G3 | open | FAITHFUL |  |
-| I-265 | 175 | The §5 results from BHa/BHb concern finite toy models, each proved on paper or checked exhaustively or by exact arithmetic. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647 | finite toy classes | proved-paper | **IMPRECISE** | BH/bh01_access_v1/REPORT:3 |
-| I-266 | 175 | No claim that information reaches D. | papers/Introduction.md:175@4a260ca9 |  | open | FAITHFUL |  |
-| I-267 | 175 | No claim that GR Thm A.7 fails within its stated scope. | papers/GR.md:811@eae01647 | t ≪ τ_B^D | proved-paper | FAITHFUL |  |
-| I-268 | 175 | No claim that no other decoupling argument exists. | papers/Introduction.md:175@4a260ca9 |  | open | FAITHFUL |  |
-| I-269 | 176 | The OI hypothesis is neither established nor tested. | papers/Main.md:704@eae01647 | OI physical hypothesis | open | FAITHFUL | appendix-a-prediction-status:28, appendix-c-objections:317 |
-| I-270 | 177 | No claim that the card game produces quantum statistics. | book/ch01-observation.md:286@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-271 | 177 | On card inputs the card game's statistics are classical stochastic. | papers/Introduction.md:251@4a260ca9 |  | proved-paper | FAITHFUL |  |
-| I-272 | 177 | Under the unitary embedding, the card game's one-step channel is entanglement-breaking. | papers/Main.md:286@eae01647 | uniform diagonal burn card | proved-paper | FAITHFUL |  |
-| I-273 | 177 | The card game's two-step family admits a classical-memory decomposition. | papers/Introduction.md:253@4a260ca9 | uniform burn card | proved-paper | FAITHFUL |  |
-| I-274 | 177 | The card game violates no Bell inequality. | book/ch01-observation.md:286@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-275 | 178 | No prediction of Λ or Ω_Λ. | papers/GR.md:551@eae01647 |  | proved-paper | FAITHFUL | GR:545 |
-| I-276 | 178 | No resolution of the cosmological constant problem. | papers/GR.md:356@eae01647 | G3 open | open | FAITHFUL | GR:326, ch07-gravity:163, ch18-beyond:142, appendix-c-objections:317 |
-| I-277 | 178 | §4 is conditional on the covariant field equations. | papers/GR.md:356@eae01647 | conditional on: covariant field equations (G3); G3 covariant field equations | conditional | **IMPRECISE** |  |
-| I-278 | 179 | No claim that the viewpoint is new. | [tH14] |  | proved-paper | FAITHFUL |  |
-| I-279 | 179 | Deterministic systems analysed with quantum methods have been studied before (e.g. 't Hooft). | [tH14] |  | proved-paper | FAITHFUL |  |
-| I-280 | 179 | Everything the paper states is a cited theorem with its scope. | papers/Introduction.md:28@4a260ca9 |  | unsupported | **IMPRECISE** |  |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-252 | 172 | The paper does not derive quantum mechanics. | lean:GeneralCarrier.lean:160:oi_alone_not_qm | finite carriers | proved-kernel | FAITHFUL | Main:2, Methodology:585; papers/Structure:1416, appendix-c-objections:315 | certificate-checked |
+| I-253 | 172 | Theorem 1's classes contain every finite law. | lean:Equivalence.lean:462:finite_horizon_equivalence | finite visible alphabet; finite horizon | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-254 | 172 | The Born exponent is not selected. | papers/Main.md:20@eae01647 |  | proved-paper | FAITHFUL |  | reproduced |
+| I-255 | 173 | The operational theory is not uniquely selected. | lean:RankGapTheory.lean:702:five_way_minimality | nonempty finite carrier | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-256 | 173 | Conditions (i)–(v) are not implied by OI alone. | lean:RankGapTheory.lean:702:five_way_minimality | qubit witnesses | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-257 | 173 | Independence of (i)–(v) is shown on the qubit. | lean:RankGapTheory.lean:702:five_way_minimality | qubit carrier Fin 2; sealed OI core | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-258 | 173 | Which of (iii)–(v) a physical substratum supplies is open. | lean:StructuralClosure.lean:383:substratum_residual | stated substratum = finite bijective dynamics with the stated observer access (phase intervention assumed where stated); finite carriers | proved-kernel | **UNDERCLAIM** | GR:260, verification/ROADMAP:1529, GR:228, Main:758 | traced-only |
+| I-259 | 173 | The visible law does not fix the relating evolution. | lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate | coherent lifts on a fixed carrier and anchor | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-260 | 174 | Memory is not characterized by existence of a realization. | lean:Equivalence.lean:422:S_imp_D | finite horizon | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-261 | 174 | P-indivisibility is not identified with quantum non-Markovianity. | papers/Main.md:330@eae01647 |  | proved-paper | FAITHFUL |  | reproduced |
+| I-262 | 174 | No claim that memory forces short-window indivisibility. | papers/Introduction.md:232@4a260ca9 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-263 | 175 | No resolution of the BH information problem. | papers/GR.md:609@eae01647 | H-scramble; H-decouple; G3 | open | FAITHFUL | ch18-beyond:146 | traced-only |
+| I-264 | 175 | The GR App. A Page curve is not established. | papers/GR.md:845@eae01647 | H-scramble; H-decouple; full-product-space shell; G3 | open | FAITHFUL |  | traced-only |
+| I-265 | 175 | The §5 results from BHa/BHb concern finite toy models, each proved on paper or checked exhaustively or by exact arithmetic. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647 | finite toy classes | proved-paper | **IMPRECISE** | BH/bh01_access_v1/REPORT:3 | reproduced |
+| I-266 | 175 | No claim that information reaches D. | papers/Introduction.md:175@4a260ca9 |  | open | FAITHFUL |  | traced-only |
+| I-267 | 175 | No claim that GR Thm A.7 fails within its stated scope. | papers/GR.md:811@eae01647 | t ≪ τ_B^D | proved-paper | FAITHFUL |  | reproduced |
+| I-268 | 175 | No claim that no other decoupling argument exists. | papers/Introduction.md:175@4a260ca9 |  | open | FAITHFUL |  | traced-only |
+| I-269 | 176 | The OI hypothesis is neither established nor tested. | papers/Main.md:704@eae01647 | OI physical hypothesis | open | FAITHFUL | appendix-a-prediction-status:28, appendix-c-objections:317 | traced-only |
+| I-270 | 177 | No claim that the card game produces quantum statistics. | book/ch01-observation.md:286@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-271 | 177 | On card inputs the card game's statistics are classical stochastic. | papers/Introduction.md:251@4a260ca9 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-272 | 177 | Under the unitary embedding, the card game's one-step channel is entanglement-breaking. | papers/Main.md:286@eae01647 | uniform diagonal burn card | proved-paper | FAITHFUL |  | traced-only |
+| I-273 | 177 | The card game's two-step family admits a classical-memory decomposition. | papers/Introduction.md:253@4a260ca9 | uniform burn card | proved-paper | FAITHFUL |  | traced-only |
+| I-274 | 177 | The card game violates no Bell inequality. | book/ch01-observation.md:286@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-275 | 178 | No prediction of Λ or Ω_Λ. | papers/GR.md:551@eae01647 |  | proved-paper | FAITHFUL | GR:545 | traced-only |
+| I-276 | 178 | No resolution of the cosmological constant problem. | papers/GR.md:356@eae01647 | G3 open | open | FAITHFUL | GR:326, ch07-gravity:163, ch18-beyond:142, appendix-c-objections:317 | traced-only |
+| I-277 | 178 | §4 is conditional on the covariant field equations. | papers/GR.md:356@eae01647 | conditional on: covariant field equations (G3); G3 covariant field equations | conditional | **IMPRECISE** |  | traced-only |
+| I-278 | 179 | No claim that the viewpoint is new. | [tH14] |  | proved-paper | FAITHFUL |  | traced-only |
+| I-279 | 179 | Deterministic systems analysed with quantum methods have been studied before (e.g. 't Hooft). | [tH14] |  | proved-paper | FAITHFUL |  | traced-only |
+| I-280 | 179 | Everything the paper states is a cited theorem with its scope. | papers/Introduction.md:28@4a260ca9 |  | unsupported | **IMPRECISE** |  | traced-only |
 
 ## §6.3
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-281 | 183 | Whether a physical substratum supplies (iii)–(v) is an open decisive test. | lean:StructuralClosure.lean:383:substratum_residual | stated substratum with stated observer access; finite carriers | open | **UNDERCLAIM** | GR:260, verification/ROADMAP:1529, GR:228, Main:758 |
-| I-282 | 183 | Whether (C4) holds at the cosmological partition is open. | verification/ROADMAP.md:66@eae01647 |  | open | FAITHFUL | verification/ROADMAP:66 |
-| I-283 | 183 | No experiment distinguishing OI from standard QM is established. | papers/Main.md:702@eae01647 |  | open | FAITHFUL |  |
-| I-284 | 183 | No memory-witness constraint is established. | papers/Main.md:702@eae01647 |  | open | FAITHFUL |  |
-| I-285 | 183 | The decisive open test for the cosmological constant is deriving covariant field equations with source coupling. | papers/GR.md:12@eae01647 | G3 | open | FAITHFUL | GR:326, ch07-gravity:163 |
-| I-286 | 183 | Whether H-scramble and H-decouple hold is open. | papers/GR.md:835@eae01647 | H-scramble; H-decouple | open | **IMPRECISE** |  |
-| I-287 | 183 | The Page value on a proper shell and along a single trajectory is open. | papers/GR.md:843@eae01647 |  | open | FAITHFUL |  |
-| I-288 | 183 | In GR's ladder the covariant field equations are an open test for BH information. | papers/GR.md:12@eae01647 | G3 | open | FAITHFUL |  |
-| I-289 | 185 | Machine checks of the unchecked steps of §2.2, §2.4, §2.5 are open. | papers/Main.md:99@eae01647 |  | open | **IMPRECISE** |  |
-| I-290 | 185 | Whether minimal hidden predictive memory equals M_t after quotienting non-influencing ledger bits is open. | papers/Main.md:594@eae01647 |  | open | FAITHFUL |  |
-| I-291 | 185 | The fixed-dimension form of the minimal-memory = M_t statement is false. | papers/oi_lattice_code/foundations/memory_probes.py:94@eae01647 | (n_V,\|C_H\|)=(2,3) | numerical | **IMPRECISE** | Main:594 |
-| I-292 | 185 | Exact gluing for recurrent target families is open. | papers/Main.md:618@eae01647 | multi-time trajectory laws | open | **UNDERCLAIM** | verification/lean-manuscript-census.json |
-| I-293 | 185 | Approximation on windows short compared with the recurrence time is open. | papers/Main.md:618@eae01647 |  | open | FAITHFUL |  |
-| I-294 | 185 | (C2) necessity is open. | papers/Main.md:447@eae01647 | conditional on: hidden-sector mixing hypothesis; hidden-sector mixing hypothesis | conditional | **IMPRECISE** | GR:565 |
-| I-295 | 185 | (C2) necessity is conditional on a hidden-sector mixing hypothesis motivated by ETH. | papers/Main.md:720@eae01647 | conditional on: hidden-sector mixing hypothesis; hidden-sector mixing hypothesis | conditional | FAITHFUL |  |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-281 | 183 | Whether a physical substratum supplies (iii)–(v) is an open decisive test. | lean:StructuralClosure.lean:383:substratum_residual | stated substratum with stated observer access; finite carriers | open | **UNDERCLAIM** | GR:260, verification/ROADMAP:1529, GR:228, Main:758 | traced-only |
+| I-282 | 183 | Whether (C4) holds at the cosmological partition is open. | verification/ROADMAP.md:66@eae01647 |  | open | FAITHFUL | verification/ROADMAP:66 | traced-only |
+| I-283 | 183 | No experiment distinguishing OI from standard QM is established. | papers/Main.md:702@eae01647 |  | open | FAITHFUL |  | traced-only |
+| I-284 | 183 | No memory-witness constraint is established. | papers/Main.md:702@eae01647 |  | open | FAITHFUL |  | traced-only |
+| I-285 | 183 | The decisive open test for the cosmological constant is deriving covariant field equations with source coupling. | papers/GR.md:12@eae01647 | G3 | open | FAITHFUL | GR:326, ch07-gravity:163 | traced-only |
+| I-286 | 183 | Whether H-scramble and H-decouple hold is open. | papers/GR.md:835@eae01647 | H-scramble; H-decouple | open | **IMPRECISE** |  | reproduced |
+| I-287 | 183 | The Page value on a proper shell and along a single trajectory is open. | papers/GR.md:843@eae01647 |  | open | FAITHFUL |  | reproduced |
+| I-288 | 183 | In GR's ladder the covariant field equations are an open test for BH information. | papers/GR.md:12@eae01647 | G3 | open | FAITHFUL |  | traced-only |
+| I-289 | 185 | Machine checks of the unchecked steps of §2.2, §2.4, §2.5 are open. | papers/Main.md:99@eae01647 |  | open | **IMPRECISE** |  | certificate-checked |
+| I-290 | 185 | Whether minimal hidden predictive memory equals M_t after quotienting non-influencing ledger bits is open. | papers/Main.md:594@eae01647 |  | open | FAITHFUL |  | reproduced |
+| I-291 | 185 | The fixed-dimension form of the minimal-memory = M_t statement is false. | papers/oi_lattice_code/foundations/memory_probes.py:94@eae01647 | (n_V,\|C_H\|)=(2,3) | numerical | **IMPRECISE** | Main:594 | reproduced |
+| I-292 | 185 | Exact gluing for recurrent target families is open. | papers/Main.md:618@eae01647 | multi-time trajectory laws | open | **UNDERCLAIM** | verification/lean-manuscript-census.json | certificate-checked |
+| I-293 | 185 | Approximation on windows short compared with the recurrence time is open. | papers/Main.md:618@eae01647 |  | open | FAITHFUL |  | traced-only |
+| I-294 | 185 | (C2) necessity is open. | papers/Main.md:447@eae01647 | conditional on: hidden-sector mixing hypothesis; hidden-sector mixing hypothesis | conditional | **IMPRECISE** | GR:565 | traced-only |
+| I-295 | 185 | (C2) necessity is conditional on a hidden-sector mixing hypothesis motivated by ETH. | papers/Main.md:720@eae01647 | conditional on: hidden-sector mixing hypothesis; hidden-sector mixing hypothesis | conditional | FAITHFUL |  | traced-only |
 
 ## §6.4
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-296 | 189 | At every finite horizon, the laws an embedded observer of a finite reversible system can record are exactly the finite stochastic laws (D_K = S_K). | lean:Equivalence.lean:462:finite_horizon_equivalence | finite visible alphabet; finite horizon; some finite hidden sector and initial law (D_K quantifies over them) | proved-kernel | FAITHFUL |  |
-| I-296.a | 189 | [D_K ⊆ S_K] Every recordable law is a finite stochastic law. | lean:Equivalence.lean:462:finite_horizon_equivalence | finite V; finite K | proved-kernel | FAITHFUL |  |
-| I-296.b | 189 | [S_K ⊆ D_K] Every finite stochastic law is recordable by an embedded observer of some finite reversible system. | lean:Equivalence.lean:422:S_imp_D | finite V; finite K | proved-kernel | FAITHFUL |  |
-| I-297 | 189 | The recordable laws are exactly the fixed-basis unitary Born laws (D_K = Q_K). | lean:Equivalence.lean:462:finite_horizon_equivalence | finite visible alphabet; finite horizon; fixed basis, diagonal initial state | proved-kernel | FAITHFUL |  |
-| I-297.a | 189 | [D_K ⊆ Q_K] Every recordable law is a fixed-basis unitary Born law. | lean:Equivalence.lean:294:D_imp_Qfb | finite V; finite K | proved-kernel | FAITHFUL |  |
-| I-297.b | 189 | [Q_K ⊆ D_K] Every fixed-basis unitary Born law is recordable. | lean:Equivalence.lean:462:finite_horizon_equivalence | finite V; finite K | proved-kernel | FAITHFUL |  |
-| I-298 | 189 | Because the representation is universal, the discriminating content lies in memory. | papers/Main.md:534@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-299 | 189 | Every deterministic completion carries the memory in its hidden state. | lean:HiddenMemory.lean:185:unavoidable_hidden_predictive_memory | faithful realization; M_t>0 for the memory to be readout-relevant; CMI vanishing criterion (not formalized); time-t identification (not formalized) | proved-paper | **IMPRECISE** | Introduction:12, Main:752 |
-| I-300 | 189 | Exact operational QM is reached only under the completion conditions (Theorem 4, ⇒ direction). | lean:PhysicalCharacterization.lean:301:physical_of_exactAll | nonempty finite carrier | proved-kernel | **IMPRECISE** |  |
-| I-301 | 189 | OI alone does not imply the completion conditions. | lean:GeneralCarrier.lean:160:oi_alone_not_qm | qubit witnesses | proved-kernel | FAITHFUL | GR:260 |
-| I-302 | 189 | Representability does not select the evolution relating two times. | lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate |  | proved-kernel | FAITHFUL |  |
-| I-303 | 191 | OI proposes the emergent zero-point sum is not a gravitational source. | papers/GR.md:356@eae01647 | G3 | conjecture | FAITHFUL | GR:326, ch07-gravity:163, ch18-beyond:142, appendix-c-objections:317 |
-| I-304 | 191 | The vacuum-energy proposal is conditional on underived covariant field equations. | papers/GR.md:12@eae01647 | conditional on: covariant field equations (G3); G3 | conditional | FAITHFUL | GR:326 |
-| I-305 | 191 | OI separates information conservation from accessible recovery. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647 | finite toy classes; bijective dynamics | exhaustive-exact | FAITHFUL |  |
-| I-306 | 191 | The framework's Page curve is not established. | papers/GR.md:609@eae01647 | H-scramble; H-decouple; G3 | open | FAITHFUL | ch18-beyond:146 |
-| I-307 | 191 | Neither application is a demonstrated resolution. | papers/GR.md:12@eae01647 | G3; H-scramble; H-decouple | open | FAITHFUL | GR:326, ch07-gravity:163, ch18-beyond:142, appendix-c-objections:317, ch18-beyond:146 |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-296 | 189 | At every finite horizon, the laws an embedded observer of a finite reversible system can record are exactly the finite stochastic laws (D_K = S_K). | lean:Equivalence.lean:462:finite_horizon_equivalence | finite visible alphabet; finite horizon; some finite hidden sector and initial law (D_K quantifies over them) | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-296.a | 189 | [D_K ⊆ S_K] Every recordable law is a finite stochastic law. | lean:Equivalence.lean:462:finite_horizon_equivalence | finite V; finite K | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-296.b | 189 | [S_K ⊆ D_K] Every finite stochastic law is recordable by an embedded observer of some finite reversible system. | lean:Equivalence.lean:422:S_imp_D | finite V; finite K | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-297 | 189 | The recordable laws are exactly the fixed-basis unitary Born laws (D_K = Q_K). | lean:Equivalence.lean:462:finite_horizon_equivalence | finite visible alphabet; finite horizon; fixed basis, diagonal initial state | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-297.a | 189 | [D_K ⊆ Q_K] Every recordable law is a fixed-basis unitary Born law. | lean:Equivalence.lean:294:D_imp_Qfb | finite V; finite K | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-297.b | 189 | [Q_K ⊆ D_K] Every fixed-basis unitary Born law is recordable. | lean:Equivalence.lean:462:finite_horizon_equivalence | finite V; finite K | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-298 | 189 | Because the representation is universal, the discriminating content lies in memory. | papers/Main.md:534@eae01647 |  | proved-paper | FAITHFUL |  | certificate-checked |
+| I-299 | 189 | Every deterministic completion carries the memory in its hidden state. | lean:HiddenMemory.lean:185:unavoidable_hidden_predictive_memory | faithful realization; M_t>0 for the memory to be readout-relevant; CMI vanishing criterion (not formalized); time-t identification (not formalized) | proved-paper | **IMPRECISE** | Introduction:12, Main:752 | certificate-checked |
+| I-300 | 189 | Exact operational QM is reached only under the completion conditions (Theorem 4, ⇒ direction). | lean:PhysicalCharacterization.lean:301:physical_of_exactAll | nonempty finite carrier | proved-kernel | **IMPRECISE** |  | certificate-checked |
+| I-301 | 189 | OI alone does not imply the completion conditions. | lean:GeneralCarrier.lean:160:oi_alone_not_qm | qubit witnesses | proved-kernel | FAITHFUL | GR:260 | certificate-checked |
+| I-302 | 189 | Representability does not select the evolution relating two times. | lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-303 | 191 | OI proposes the emergent zero-point sum is not a gravitational source. | papers/GR.md:356@eae01647 | G3 | conjecture | FAITHFUL | GR:326, ch07-gravity:163, ch18-beyond:142, appendix-c-objections:317 | traced-only |
+| I-304 | 191 | The vacuum-energy proposal is conditional on underived covariant field equations. | papers/GR.md:12@eae01647 | conditional on: covariant field equations (G3); G3 | conditional | FAITHFUL | GR:326 | traced-only |
+| I-305 | 191 | OI separates information conservation from accessible recovery. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647 | finite toy classes; bijective dynamics | exhaustive-exact | FAITHFUL |  | reproduced |
+| I-306 | 191 | The framework's Page curve is not established. | papers/GR.md:609@eae01647 | H-scramble; H-decouple; G3 | open | FAITHFUL | ch18-beyond:146 | traced-only |
+| I-307 | 191 | Neither application is a demonstrated resolution. | papers/GR.md:12@eae01647 | G3; H-scramble; H-decouple | open | FAITHFUL | GR:326, ch07-gravity:163, ch18-beyond:142, appendix-c-objections:317, ch18-beyond:146 | traced-only |
 
 ## Code, data and formal verification
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-308 | 195 | Appendix A declarations were checked with Lean 4.33.0 / Mathlib v4.33.0 at commit 17b830bc. | papers/introduction_repro/README.md@4a260ca9 |  | proved-kernel | FAITHFUL |  |
-| I-309 | 195 | The Lean sources at 17b830bc are identical to those at corpus commit b64919cd. | git diff 17b830bc b64919cd |  | proved-kernel | FAITHFUL |  |
-| I-310 | 195 | The release gate's lean-axioms step requires every #print axioms report to lie within propext, Classical.choice, Quot.sound. | tools/lean_axiom_check.py:47@17b830bc |  | proved-kernel | FAITHFUL |  |
-| I-311 | 195 | Every Appendix A declaration's axiom report is exactly {propext, Classical.choice, Quot.sound}. | papers/introduction_repro/results-121598983127.json@4a260ca9 |  | proved-kernel | FAITHFUL |  |
-| I-312 | 195 | The expected result and comparison recipe are retained in papers/introduction_repro/. | papers/introduction_repro/README.md@4a260ca9 |  | proved-kernel | FAITHFUL |  |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-308 | 195 | Appendix A declarations were checked with Lean 4.33.0 / Mathlib v4.33.0 at commit 17b830bc. | papers/introduction_repro/README.md@4a260ca9 |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-309 | 195 | The Lean sources at 17b830bc are identical to those at corpus commit b64919cd. | git diff 17b830bc b64919cd |  | proved-kernel | FAITHFUL |  | reproduced |
+| I-310 | 195 | The release gate's lean-axioms step requires every #print axioms report to lie within propext, Classical.choice, Quot.sound. | tools/lean_axiom_check.py:47@17b830bc |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-311 | 195 | Every Appendix A declaration's axiom report is exactly {propext, Classical.choice, Quot.sound}. | papers/introduction_repro/results-121598983127.json@4a260ca9 |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-312 | 195 | The expected result and comparison recipe are retained in papers/introduction_repro/. | papers/introduction_repro/README.md@4a260ca9 |  | proved-kernel | FAITHFUL |  | certificate-checked |
 
 ## Appendix A
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-313 | 208 | `finite_horizon_equivalence` (Equivalence:462) is a machine-checked declaration for Theorem 1. | lean:Equivalence.lean:462:finite_horizon_equivalence |  | proved-kernel | FAITHFUL |  |
-| I-314 | 208 | `S_imp_D` (Equivalence:422) is a machine-checked declaration for S_K ⊆ D_K. | lean:Equivalence.lean:422:S_imp_D |  | proved-kernel | FAITHFUL |  |
-| I-315 | 208 | `D_imp_Qfb` (Equivalence:294) is a machine-checked declaration for D_K ⊆ Q_K. | lean:Equivalence.lean:294:D_imp_Qfb |  | proved-kernel | FAITHFUL |  |
-| I-316 | 208 | `Qfb_imp_S` (Equivalence:245) is a machine-checked declaration for Q_K ⊆ S_K. | lean:Equivalence.lean:245:Qfb_imp_S |  | proved-kernel | FAITHFUL |  |
-| I-317 | 208 | The reverse inclusions are machine-checked as compositions at Equivalence:466–468. | lean:Equivalence.lean:462:finite_horizon_equivalence |  | proved-kernel | FAITHFUL |  |
-| I-318 | 208 | `permMatrix_mem_unitaryGroup` (EquivalenceChain:179) is a machine-checked declaration for the permutation matrix being unitary (supporting Theorem 1). | lean:EquivalenceChain.lean:179:permMatrix_mem_unitaryGroup |  | proved-kernel | FAITHFUL |  |
-| I-319 | 208 | The independent-prior realization is proved on paper (not machine-checked). | papers/Main.md:496@eae01647 | finite horizon K; rational multi-time law; \|C_V\| ≥ 2 | proved-paper | FAITHFUL |  |
-| I-320 | 209 | `pushforward_identity` (HiddenMemory:83) is a machine-checked declaration for Theorem 2 (joint-law form; presumably (a)). | lean:HiddenMemory.lean:83:pushforward_identity | faithful deterministic realization | proved-kernel | FAITHFUL |  |
-| I-321 | 209 | `distinguishability_floor` (HiddenMemory:114) is a machine-checked declaration for Theorem 2 (joint-law form; presumably (b)). | lean:HiddenMemory.lean:114:distinguishability_floor | faithful deterministic realization | proved-kernel | FAITHFUL |  |
-| I-322 | 209 | `capacity_floor` (HiddenMemory:170) is a machine-checked declaration for Theorem 2 (joint-law form; presumably (c)). | lean:HiddenMemory.lean:170:capacity_floor | H nonempty; faithful deterministic realization | proved-kernel | FAITHFUL |  |
-| I-323 | 209 | `unavoidable_hidden_predictive_memory` (HiddenMemory:185) is a machine-checked declaration for Theorem 2 (joint-law form; combined). | lean:HiddenMemory.lean:185:unavoidable_hidden_predictive_memory | H nonempty; faithful deterministic realization | proved-kernel | FAITHFUL |  |
-| I-324 | 209 | The time-t identification and the CMI vanishing criterion are not machine-checked. | papers/Main.md:582@eae01647 | faithful deterministic realization | proved-paper | FAITHFUL |  |
-| I-325 | 210 | `c3_necessity` (C3Necessity:80) is a machine-checked declaration for the capacity bound \|C_H\| ≥ 2^{I*}. | lean:C3Necessity.lean:80:c3_necessity | H nonempty; faithful deterministic realization | proved-kernel | FAITHFUL |  |
-| I-326 | 210 | `card_hidden_ge_two_pow_Istar` (C3Necessity:117) is a machine-checked declaration for the capacity bound \|C_H\| ≥ 2^{I*}. | lean:C3Necessity.lean:117:card_hidden_ge_two_pow_Istar | H nonempty; I* taken over a finite nonempty family of slices sharing one hidden alphabet; faithful deterministic realization | proved-kernel | FAITHFUL |  |
-| I-327 | 211 | `isPermMatrix_of_stochastic_inverse` (EquivalenceChain:110) is a machine-checked declaration for the stochastic-inverse lemma. | lean:EquivalenceChain.lean:110:isPermMatrix_of_stochastic_inverse |  | proved-kernel | FAITHFUL |  |
-| I-328 | 211 | `pIndivisible_of_rooted_identity_return_of_overlap` (RecurrenceHorizon:148) is a machine-checked declaration for Theorem 3 (rooted form). | lean:RecurrenceHorizon.lean:148:pIndivisible_of_rooted_identity_return_of_overlap |  | proved-kernel | FAITHFUL |  |
-| I-329 | 212 | `routed_forces_indivisible_somewhere` (PhysicalC4Discharge:122) is a machine-checked declaration for readback forces indivisibility (routed readback). | lean:PhysicalC4Discharge.lean:122:routed_forces_indivisible_somewhere |  | proved-kernel | FAITHFUL |  |
-| I-330 | 212 | Readback forces indivisibility is proved on paper for history-level (C4). | papers/Main.md:137@eae01647 | fixed finite reversible OI representative; history-level (C4) | proved-paper | FAITHFUL |  |
-| I-331 | 213 | `gl2_strong_gauge_moves_relative_candidate` (CoherentLiftGauge:537) is a machine-checked declaration for time-dependent right action changing the relating evolution. | lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate |  | proved-kernel | FAITHFUL |  |
-| I-332 | 213 | `gl3_constant_gauge_preserves_relative` (CoherentLiftGauge:451) is a machine-checked declaration for constant deformation cancelling from the relating evolution. | lean:CoherentLiftGauge.lean:451:gl3_constant_gauge_preserves_relative | K unitary | proved-kernel | FAITHFUL |  |
-| I-333 | 213 | `bridge_traj` (TrackBQfbBridge:276) is a machine-checked declaration for same one-step matrix ⇒ same root-conditioned trajectory laws. | lean:TrackBQfbBridge.lean:276:bridge_traj | same one-step visible matrix G; trivial ancilla | proved-kernel | FAITHFUL |  |
-| I-334 | 213 | `rooted_eq_iff_slice_eq` (TrackBQfbBridge:180) is a machine-checked declaration for equal rooted families ⇒ equal one-step matrices (forward direction only cited). | lean:TrackBQfbBridge.lean:180:rooted_eq_iff_slice_eq | trivial ancilla | proved-kernel | FAITHFUL |  |
-| I-335 | 213 | `realData_traj_stochastic` (TrackBQfbBridge:286) is a machine-checked declaration for fixed-basis realizability and stochasticity of the trajectory laws. | lean:TrackBQfbBridge.lean:286:realData_traj_stochastic | U unitary; V nonempty | proved-kernel | FAITHFUL |  |
-| I-336 | 214 | `exactAll_iff_physical_general` (GeneralCarrier:100) is a machine-checked declaration for Theorem 4 (both directions). | lean:GeneralCarrier.lean:100:exactAll_iff_physical_general | A nonempty finite | proved-kernel | FAITHFUL |  |
-| I-336.a | 214 | [⇒] exactAll ⇒ physical (conditions (i)–(v)). | lean:PhysicalCharacterization.lean:301:physical_of_exactAll | A nonempty finite | proved-kernel | FAITHFUL |  |
-| I-336.b | 214 | [⇐] physical ⇒ exactAll. | lean:GeneralCarrier.lean:93:exactAll_of_physical_general | A nonempty finite | proved-kernel | FAITHFUL |  |
-| I-337 | 214 | `physical_of_exactAll` (PhysicalCharacterization:301) is a machine-checked declaration for Theorem 4 ⇒. | lean:PhysicalCharacterization.lean:301:physical_of_exactAll | A nonempty finite | proved-kernel | FAITHFUL |  |
-| I-338 | 214 | `exactAll_of_physical_general` (GeneralCarrier:93) is a machine-checked declaration for Theorem 4 ⇐. | lean:GeneralCarrier.lean:93:exactAll_of_physical_general | A nonempty finite | proved-kernel | FAITHFUL |  |
-| I-339 | 214 | `krausSoundExt_of_validity_inert` (OperationalValidity:124) is a machine-checked declaration for a step of Theorem 4 ⇐. | lean:OperationalValidity.lean:124:krausSoundExt_of_validity_inert | A nonempty finite | proved-kernel | FAITHFUL |  |
-| I-340 | 214 | `compositeCompleteness_unconditional` (IsometryExtension:179) is a machine-checked declaration for a step of Theorem 4 ⇐ (composite completeness). | lean:IsometryExtension.lean:179:compositeCompleteness_unconditional |  | proved-kernel | FAITHFUL |  |
-| I-341 | 214 | `finiteIsometryExtensionSF_discharged` (IsometryExtension:116) is a machine-checked declaration for discharging the premise of compositeCompleteness_unconditional. | lean:IsometryExtension.lean:116:finiteIsometryExtensionSF_discharged |  | proved-kernel | FAITHFUL |  |
-| I-342 | 214 | `exactAll_of_levelOne` (LevelOneSeam:196) is a machine-checked declaration for a step of Theorem 4 ⇐ (level one to all levels). | lean:LevelOneSeam.lean:196:exactAll_of_levelOne |  | proved-kernel | FAITHFUL |  |
-| I-343 | 215 | `five_way_minimality` (RankGapTheory:702) is a machine-checked declaration for independence of (i)–(v) on the qubit. | lean:RankGapTheory.lean:702:five_way_minimality |  | proved-kernel | FAITHFUL |  |
-| I-344 | 215 | `oi_alone_not_qm` (GeneralCarrier:160) is a machine-checked declaration for OI alone does not imply QM (qubit). | lean:GeneralCarrier.lean:160:oi_alone_not_qm |  | proved-kernel | FAITHFUL |  |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-313 | 208 | `finite_horizon_equivalence` (Equivalence:462) is a machine-checked declaration for Theorem 1. | lean:Equivalence.lean:462:finite_horizon_equivalence |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-314 | 208 | `S_imp_D` (Equivalence:422) is a machine-checked declaration for S_K ⊆ D_K. | lean:Equivalence.lean:422:S_imp_D |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-315 | 208 | `D_imp_Qfb` (Equivalence:294) is a machine-checked declaration for D_K ⊆ Q_K. | lean:Equivalence.lean:294:D_imp_Qfb |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-316 | 208 | `Qfb_imp_S` (Equivalence:245) is a machine-checked declaration for Q_K ⊆ S_K. | lean:Equivalence.lean:245:Qfb_imp_S |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-317 | 208 | The reverse inclusions are machine-checked as compositions at Equivalence:466–468. | lean:Equivalence.lean:462:finite_horizon_equivalence |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-318 | 208 | `permMatrix_mem_unitaryGroup` (EquivalenceChain:179) is a machine-checked declaration for the permutation matrix being unitary (supporting Theorem 1). | lean:EquivalenceChain.lean:179:permMatrix_mem_unitaryGroup |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-319 | 208 | The independent-prior realization is proved on paper (not machine-checked). | papers/Main.md:496@eae01647 | finite horizon K; rational multi-time law; \|C_V\| ≥ 2 | proved-paper | FAITHFUL |  | traced-only |
+| I-320 | 209 | `pushforward_identity` (HiddenMemory:83) is a machine-checked declaration for Theorem 2 (joint-law form; presumably (a)). | lean:HiddenMemory.lean:83:pushforward_identity | faithful deterministic realization | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-321 | 209 | `distinguishability_floor` (HiddenMemory:114) is a machine-checked declaration for Theorem 2 (joint-law form; presumably (b)). | lean:HiddenMemory.lean:114:distinguishability_floor | faithful deterministic realization | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-322 | 209 | `capacity_floor` (HiddenMemory:170) is a machine-checked declaration for Theorem 2 (joint-law form; presumably (c)). | lean:HiddenMemory.lean:170:capacity_floor | H nonempty; faithful deterministic realization | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-323 | 209 | `unavoidable_hidden_predictive_memory` (HiddenMemory:185) is a machine-checked declaration for Theorem 2 (joint-law form; combined). | lean:HiddenMemory.lean:185:unavoidable_hidden_predictive_memory | H nonempty; faithful deterministic realization | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-324 | 209 | The time-t identification and the CMI vanishing criterion are not machine-checked. | papers/Main.md:582@eae01647 | faithful deterministic realization | proved-paper | FAITHFUL |  | traced-only |
+| I-325 | 210 | `c3_necessity` (C3Necessity:80) is a machine-checked declaration for the capacity bound \|C_H\| ≥ 2^{I*}. | lean:C3Necessity.lean:80:c3_necessity | H nonempty; faithful deterministic realization | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-326 | 210 | `card_hidden_ge_two_pow_Istar` (C3Necessity:117) is a machine-checked declaration for the capacity bound \|C_H\| ≥ 2^{I*}. | lean:C3Necessity.lean:117:card_hidden_ge_two_pow_Istar | H nonempty; I* taken over a finite nonempty family of slices sharing one hidden alphabet; faithful deterministic realization | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-327 | 211 | `isPermMatrix_of_stochastic_inverse` (EquivalenceChain:110) is a machine-checked declaration for the stochastic-inverse lemma. | lean:EquivalenceChain.lean:110:isPermMatrix_of_stochastic_inverse |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-328 | 211 | `pIndivisible_of_rooted_identity_return_of_overlap` (RecurrenceHorizon:148) is a machine-checked declaration for Theorem 3 (rooted form). | lean:RecurrenceHorizon.lean:148:pIndivisible_of_rooted_identity_return_of_overlap |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-329 | 212 | `routed_forces_indivisible_somewhere` (PhysicalC4Discharge:122) is a machine-checked declaration for readback forces indivisibility (routed readback). | lean:PhysicalC4Discharge.lean:122:routed_forces_indivisible_somewhere |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-330 | 212 | Readback forces indivisibility is proved on paper for history-level (C4). | papers/Main.md:137@eae01647 | fixed finite reversible OI representative; history-level (C4) | proved-paper | FAITHFUL |  | traced-only |
+| I-331 | 213 | `gl2_strong_gauge_moves_relative_candidate` (CoherentLiftGauge:537) is a machine-checked declaration for time-dependent right action changing the relating evolution. | lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-332 | 213 | `gl3_constant_gauge_preserves_relative` (CoherentLiftGauge:451) is a machine-checked declaration for constant deformation cancelling from the relating evolution. | lean:CoherentLiftGauge.lean:451:gl3_constant_gauge_preserves_relative | K unitary | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-333 | 213 | `bridge_traj` (TrackBQfbBridge:276) is a machine-checked declaration for same one-step matrix ⇒ same root-conditioned trajectory laws. | lean:TrackBQfbBridge.lean:276:bridge_traj | same one-step visible matrix G; trivial ancilla | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-334 | 213 | `rooted_eq_iff_slice_eq` (TrackBQfbBridge:180) is a machine-checked declaration for equal rooted families ⇒ equal one-step matrices (forward direction only cited). | lean:TrackBQfbBridge.lean:180:rooted_eq_iff_slice_eq | trivial ancilla | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-335 | 213 | `realData_traj_stochastic` (TrackBQfbBridge:286) is a machine-checked declaration for fixed-basis realizability and stochasticity of the trajectory laws. | lean:TrackBQfbBridge.lean:286:realData_traj_stochastic | U unitary; V nonempty | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-336 | 214 | `exactAll_iff_physical_general` (GeneralCarrier:100) is a machine-checked declaration for Theorem 4 (both directions). | lean:GeneralCarrier.lean:100:exactAll_iff_physical_general | A nonempty finite | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-336.a | 214 | [⇒] exactAll ⇒ physical (conditions (i)–(v)). | lean:PhysicalCharacterization.lean:301:physical_of_exactAll | A nonempty finite | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-336.b | 214 | [⇐] physical ⇒ exactAll. | lean:GeneralCarrier.lean:93:exactAll_of_physical_general | A nonempty finite | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-337 | 214 | `physical_of_exactAll` (PhysicalCharacterization:301) is a machine-checked declaration for Theorem 4 ⇒. | lean:PhysicalCharacterization.lean:301:physical_of_exactAll | A nonempty finite | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-338 | 214 | `exactAll_of_physical_general` (GeneralCarrier:93) is a machine-checked declaration for Theorem 4 ⇐. | lean:GeneralCarrier.lean:93:exactAll_of_physical_general | A nonempty finite | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-339 | 214 | `krausSoundExt_of_validity_inert` (OperationalValidity:124) is a machine-checked declaration for a step of Theorem 4 ⇐. | lean:OperationalValidity.lean:124:krausSoundExt_of_validity_inert | A nonempty finite | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-340 | 214 | `compositeCompleteness_unconditional` (IsometryExtension:179) is a machine-checked declaration for a step of Theorem 4 ⇐ (composite completeness). | lean:IsometryExtension.lean:179:compositeCompleteness_unconditional |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-341 | 214 | `finiteIsometryExtensionSF_discharged` (IsometryExtension:116) is a machine-checked declaration for discharging the premise of compositeCompleteness_unconditional. | lean:IsometryExtension.lean:116:finiteIsometryExtensionSF_discharged |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-342 | 214 | `exactAll_of_levelOne` (LevelOneSeam:196) is a machine-checked declaration for a step of Theorem 4 ⇐ (level one to all levels). | lean:LevelOneSeam.lean:196:exactAll_of_levelOne |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-343 | 215 | `five_way_minimality` (RankGapTheory:702) is a machine-checked declaration for independence of (i)–(v) on the qubit. | lean:RankGapTheory.lean:702:five_way_minimality |  | proved-kernel | FAITHFUL |  | certificate-checked |
+| I-344 | 215 | `oi_alone_not_qm` (GeneralCarrier:160) is a machine-checked declaration for OI alone does not imply QM (qubit). | lean:GeneralCarrier.lean:160:oi_alone_not_qm |  | proved-kernel | FAITHFUL |  | certificate-checked |
 
 ## Appendix B.1
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-345 | 221 | B.1 model: C_V={0,1}, C_H={1..6}; for h∈{1,2} φ flips x and keeps h (recording the flip); for fixed x, φ swaps h 3↔4 and 5↔6. | papers/Main.md:178@eae01647 |  | proved-paper | FAITHFUL | Main:178, ch01-observation:135 |
-| I-346 | 221 | Applying φ twice returns the visible bit (Γ_2 = I). | papers/Main.md:184@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-347 | 223 | B.1: with h uniform, Γ_1 = [[2/3,1/3],[1/3,2/3]]. | papers/Main.md:186@eae01647 | h uniform, independent of x_0 | proved-paper | FAITHFUL |  |
-| I-348 | 223 | B.1: Γ_2 = I. | papers/Main.md:188@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-349 | 224 | B.1: Γ_1^{-1}Γ_2 = [[2,-1],[-1,2]]. | papers/Main.md:190@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-350 | 226 | B.1's only candidate divisor has negative entries, so the family is P-indivisible. | papers/Main.md:192@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-351 | 226 | A Markov chain with B.1's one-step matrix gives Γ_1² with diagonal 5/9, off-diagonal 4/9. | papers/Main.md:188@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-352 | 228 | B.1 with x_0 uniform and independent of h: P(x_2=0 \| x_1=1, x_0=0) = 1. | papers/Main.md:194@eae01647 | x_0 independent of h; x_0 uniform, independent of h | proved-paper | FAITHFUL |  |
-| I-353 | 228 | B.1: P(x_2=0 \| x_1=1) = 1/3. | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) | x_0 uniform, independent of h | proved-paper | FAITHFUL |  |
-| I-354 | 228 | B.1: for P(x_0=0)=a, P(x_2=0 \| x_1=1) = a/(2−a). | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) | x_0 independent of h | proved-paper | FAITHFUL |  |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-345 | 221 | B.1 model: C_V={0,1}, C_H={1..6}; for h∈{1,2} φ flips x and keeps h (recording the flip); for fixed x, φ swaps h 3↔4 and 5↔6. | papers/Main.md:178@eae01647 |  | proved-paper | FAITHFUL | Main:178, ch01-observation:135 | reproduced |
+| I-346 | 221 | Applying φ twice returns the visible bit (Γ_2 = I). | papers/Main.md:184@eae01647 |  | proved-paper | FAITHFUL |  | reproduced |
+| I-347 | 223 | B.1: with h uniform, Γ_1 = [[2/3,1/3],[1/3,2/3]]. | papers/Main.md:186@eae01647 | h uniform, independent of x_0 | proved-paper | FAITHFUL |  | reproduced |
+| I-348 | 223 | B.1: Γ_2 = I. | papers/Main.md:188@eae01647 |  | proved-paper | FAITHFUL |  | reproduced |
+| I-349 | 224 | B.1: Γ_1^{-1}Γ_2 = [[2,-1],[-1,2]]. | papers/Main.md:190@eae01647 |  | proved-paper | FAITHFUL |  | reproduced |
+| I-350 | 226 | B.1's only candidate divisor has negative entries, so the family is P-indivisible. | papers/Main.md:192@eae01647 |  | proved-paper | FAITHFUL |  | reproduced |
+| I-351 | 226 | A Markov chain with B.1's one-step matrix gives Γ_1² with diagonal 5/9, off-diagonal 4/9. | papers/Main.md:188@eae01647 |  | proved-paper | FAITHFUL |  | reproduced |
+| I-352 | 228 | B.1 with x_0 uniform and independent of h: P(x_2=0 \| x_1=1, x_0=0) = 1. | papers/Main.md:194@eae01647 | x_0 independent of h; x_0 uniform, independent of h | proved-paper | FAITHFUL |  | reproduced |
+| I-353 | 228 | B.1: P(x_2=0 \| x_1=1) = 1/3. | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) | x_0 uniform, independent of h | proved-paper | FAITHFUL |  | reproduced |
+| I-354 | 228 | B.1: for P(x_0=0)=a, P(x_2=0 \| x_1=1) = a/(2−a). | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) | x_0 independent of h | proved-paper | FAITHFUL |  | reproduced |
 
 ## Appendix B.2
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-355 | 232 | B.2 (X_2 = X_0 ⊕ X_1): every two-time transition matrix is ½J. | papers/Main.md:606@eae01647 | X_0, X_1 independent uniform bits | proved-paper | FAITHFUL |  |
-| I-356 | 232 | B.2's family factors through Λ = I and is P-divisible. | papers/Main.md:606@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-357 | 232 | B.2: I(X_0; X_2 \| X_1) = 1 bit. | papers/Main.md:606@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-358 | 232 | B.2 is, up to a final bit flip, RHP14 Eq. (15). | RHP14 |  | proved-paper | FAITHFUL |  |
-| I-359 | 232 | B.2's process appears concurrently in Doukas App. A. | Dou26 |  | proved-paper | FAITHFUL |  |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-355 | 232 | B.2 (X_2 = X_0 ⊕ X_1): every two-time transition matrix is ½J. | papers/Main.md:606@eae01647 | X_0, X_1 independent uniform bits | proved-paper | FAITHFUL |  | reproduced |
+| I-356 | 232 | B.2's family factors through Λ = I and is P-divisible. | papers/Main.md:606@eae01647 |  | proved-paper | FAITHFUL |  | reproduced |
+| I-357 | 232 | B.2: I(X_0; X_2 \| X_1) = 1 bit. | papers/Main.md:606@eae01647 |  | proved-paper | FAITHFUL |  | reproduced |
+| I-358 | 232 | B.2 is, up to a final bit flip, RHP14 Eq. (15). | RHP14 |  | proved-paper | FAITHFUL |  | reproduced |
+| I-359 | 232 | B.2's process appears concurrently in Doukas App. A. | Dou26 |  | proved-paper | FAITHFUL |  | traced-only |
 
 ## Appendix B.3
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-360 | 236 | Card game: visible hole card h, face-down burn card b uniform and independent; a street swaps them; a peek reveals h and overwrites b with a fresh uniform card. | book/ch01-observation.md:265@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-361 | 242 | Card game: P(showdown hole card = dealt) after one shuffle = 1/2. | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) | b uniform, independent of h; fresh card uniform | proved-paper | FAITHFUL |  |
-| I-362 | 243 | Card game: after two shuffles = 1. | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) | b uniform, independent of h; fresh card uniform | proved-paper | FAITHFUL |  |
-| I-363 | 244 | Card game: two shuffles with a peek between = 1/2. | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) | b uniform, independent of h; fresh card uniform | proved-paper | FAITHFUL |  |
-| I-364 | 245 | Card game: Markov prediction Γ_1² for two shuffles = 1/2. | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) | b uniform, independent of h; fresh card uniform | proved-paper | FAITHFUL |  |
-| I-365 | 247 | Card game: Γ_1 = ½J, Γ_2 = I. | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) | b uniform, independent of h | proved-paper | FAITHFUL |  |
-| I-366 | 247 | Card game: equal rows of Γ_1 make Γ_1Λ ≠ I for every Λ, so the family is P-indivisible. | papers/Introduction.md:247@4a260ca9 |  | proved-paper | FAITHFUL |  |
-| I-367 | 249 | If the peek only reveals or replaces the hole card, the two-shuffle probability is 1. | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) |  | proved-paper | FAITHFUL |  |
-| I-368 | 249 | The 1/2 with a peek is due to overwriting the record, not to observation. | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) |  | proved-paper | FAITHFUL |  |
-| I-369 | 249 | With anticorrelated cards, Γ_1 is a permutation and the game is divisible. | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) |  | proved-paper | FAITHFUL |  |
-| I-370 | 251 | On card inputs the game is a classical stochastic process. | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) |  | proved-paper | FAITHFUL |  |
-| I-371 | 251 | The game's P-indivisibility is notion (2) (stochastic P-indivisibility). | papers/Main.md:334@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-372 | 251 | Under the permutation-unitary embedding with uniform diagonal burn card, the one-step channel is ρ ↦ tr(ρ) I/2. | papers/Main.md:286@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-373 | 251 | The constant one-step channel is entanglement-breaking. | papers/Main.md:286@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-374 | 251 | The card game's two-step map is the identity channel. | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) |  | proved-paper | FAITHFUL |  |
-| I-375 | 251 | The embedded card-game family is CP-indivisible. | papers/Main.md:326@eae01647 | permutation-dilation family with diagonal hidden state | proved-paper | FAITHFUL | appendix-b-derivations:92 |
-| I-376 | 253 | BBS24: a two-step process has classical memory when the second map is an instrument realizing the first map followed by outcome-conditioned channels. | BBS24 |  | proved-paper | FAITHFUL |  |
-| I-377 | 253 | With a fixed hidden card, the swap's one- and two-step maps are ρ ↦ \|0⟩⟨0\| and ρ ↦ ρ. | papers/Main.md:702@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-378 | 253 | The fixed-card swap admits no classical-memory decomposition. | papers/Main.md:702@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-379 | 253 | With the uniform burn card, the swap admits a classical-memory decomposition. | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) |  | proved-paper | FAITHFUL |  |
-| I-380 | 253 | The Pauli instrument ρ ↦ ¼σ_oρσ_o sums to the one-step map. | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) |  | proved-paper | FAITHFUL |  |
-| I-381 | 253 | Σ_o σ_o X σ_o = 2 tr(X) I (Pauli twirl identity). | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) |  | proved-paper | FAITHFUL |  |
-| I-382 | 253 | Conditioning on o and applying σ_o returns ρ (two-step map = identity). | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) |  | proved-paper | FAITHFUL |  |
-| I-383 | 255 | No card arrangement violates a Bell inequality. | papers/Main.md:360@eae01647 | conditional on: local card moves (setting interventions supported in each wing); measurement independence; card mechanism local; readout before post-setting cones meet; setting operations local to each wing; settings independent of the pre-setting ensemble (measurement independence) | conditional | **IMPRECISE** | Main:356 |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-360 | 236 | Card game: visible hole card h, face-down burn card b uniform and independent; a street swaps them; a peek reveals h and overwrites b with a fresh uniform card. | book/ch01-observation.md:265@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-361 | 242 | Card game: P(showdown hole card = dealt) after one shuffle = 1/2. | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) | b uniform, independent of h; fresh card uniform | proved-paper | FAITHFUL |  | reproduced |
+| I-362 | 243 | Card game: after two shuffles = 1. | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) | b uniform, independent of h; fresh card uniform | proved-paper | FAITHFUL |  | reproduced |
+| I-363 | 244 | Card game: two shuffles with a peek between = 1/2. | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) | b uniform, independent of h; fresh card uniform | proved-paper | FAITHFUL |  | reproduced |
+| I-364 | 245 | Card game: Markov prediction Γ_1² for two shuffles = 1/2. | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) | b uniform, independent of h; fresh card uniform | proved-paper | FAITHFUL |  | reproduced |
+| I-365 | 247 | Card game: Γ_1 = ½J, Γ_2 = I. | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) | b uniform, independent of h | proved-paper | FAITHFUL |  | reproduced |
+| I-366 | 247 | Card game: equal rows of Γ_1 make Γ_1Λ ≠ I for every Λ, so the family is P-indivisible. | papers/Introduction.md:247@4a260ca9 |  | proved-paper | FAITHFUL |  | reproduced |
+| I-367 | 249 | If the peek only reveals or replaces the hole card, the two-shuffle probability is 1. | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) |  | proved-paper | FAITHFUL |  | reproduced |
+| I-368 | 249 | The 1/2 with a peek is due to overwriting the record, not to observation. | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) |  | proved-paper | FAITHFUL |  | traced-only |
+| I-369 | 249 | With anticorrelated cards, Γ_1 is a permutation and the game is divisible. | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) |  | proved-paper | FAITHFUL |  | reproduced |
+| I-370 | 251 | On card inputs the game is a classical stochastic process. | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) |  | proved-paper | FAITHFUL |  | traced-only |
+| I-371 | 251 | The game's P-indivisibility is notion (2) (stochastic P-indivisibility). | papers/Main.md:334@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-372 | 251 | Under the permutation-unitary embedding with uniform diagonal burn card, the one-step channel is ρ ↦ tr(ρ) I/2. | papers/Main.md:286@eae01647 |  | proved-paper | FAITHFUL |  | reproduced |
+| I-373 | 251 | The constant one-step channel is entanglement-breaking. | papers/Main.md:286@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-374 | 251 | The card game's two-step map is the identity channel. | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) |  | proved-paper | FAITHFUL |  | reproduced |
+| I-375 | 251 | The embedded card-game family is CP-indivisible. | papers/Main.md:326@eae01647 | permutation-dilation family with diagonal hidden state | proved-paper | FAITHFUL | appendix-b-derivations:92 | traced-only |
+| I-376 | 253 | BBS24: a two-step process has classical memory when the second map is an instrument realizing the first map followed by outcome-conditioned channels. | BBS24 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-377 | 253 | With a fixed hidden card, the swap's one- and two-step maps are ρ ↦ \|0⟩⟨0\| and ρ ↦ ρ. | papers/Main.md:702@eae01647 |  | proved-paper | FAITHFUL |  | reproduced |
+| I-378 | 253 | The fixed-card swap admits no classical-memory decomposition. | papers/Main.md:702@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-379 | 253 | With the uniform burn card, the swap admits a classical-memory decomposition. | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) |  | proved-paper | FAITHFUL |  | traced-only |
+| I-380 | 253 | The Pauli instrument ρ ↦ ¼σ_oρσ_o sums to the one-step map. | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) |  | proved-paper | FAITHFUL |  | reproduced |
+| I-381 | 253 | Σ_o σ_o X σ_o = 2 tr(X) I (Pauli twirl identity). | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) |  | proved-paper | FAITHFUL |  | reproduced |
+| I-382 | 253 | Conditioning on o and applying σ_o returns ρ (two-step map = identity). | S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact) |  | proved-paper | FAITHFUL |  | reproduced |
+| I-383 | 255 | No card arrangement violates a Bell inequality. | papers/Main.md:360@eae01647 | conditional on: local card moves (setting interventions supported in each wing); measurement independence; card mechanism local; readout before post-setting cones meet; setting operations local to each wing; settings independent of the pre-setting ensemble (measurement independence) | conditional | **IMPRECISE** | Main:356 | traced-only |
 
 ## References
 
-| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions |
-|---|--:|---|---|---|---|---|---|
-| I-384 | 267 | [BHa] is an unpublished, internally reviewed research record. | verification/programmes/black-hole-information/bh01_access_v1/review/RECHECK-df2ea6f5.md@eae01647 |  | proved-paper | FAITHFUL |  |
-| I-385 | 269 | [BHb] is an unpublished, internally reviewed research record. | verification/programmes/black-hole-information/bh02_scramble_v1/review/REVIEW.md@eae01647 |  | proved-paper | FAITHFUL |  |
+| id | line | claim | strongest verified source | assumptions | proof status | verdict | contradictions | evidence |
+|---|--:|---|---|---|---|---|---|---|
+| I-384 | 267 | [BHa] is an unpublished, internally reviewed research record. | verification/programmes/black-hole-information/bh01_access_v1/review/RECHECK-df2ea6f5.md@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
+| I-385 | 269 | [BHb] is an unpublished, internally reviewed research record. | verification/programmes/black-hole-information/bh02_scramble_v1/review/REVIEW.md@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
