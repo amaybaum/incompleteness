@@ -237,6 +237,7 @@ Each merge below was approved by the owner at the exact head SHA listed. Each wa
 | SC-4 | #950 | `7b8bccddf…` | `0585dd0d` | ACCEPT after three rounds; `7b8bccdd` is the accepted `e99df4a0` with main merged in twice, and its source changes are line-for-line those of `e99df4a0` | R-39 |
 | SC-3 | #949 | `fb3eeccea…` | `6bc2c4af` | ACCEPT after three rounds, plus a framing re-check (owner decision R-37) and a reconciliation review of `fb3eecce` | R-36, R-37 |
 | SC-3 propagation and A6 | #951 | `e042cfad1…` | `a5168789` | ACCEPT after three rounds: list A, then A6 (owner-approved), then the Substratum Stage-1 realization step (RC-A6-1) | R-36, R-37 |
+| SC-18 reverse-direction lemma scope | #952 | `7d55572b5…` | `1a60e06b` | ACCEPT WITH CHANGES at `48dfb8f7` (F1 blocking, N1–N5); ACCEPT at `7d55572b` | none: #918 cites only the §3.4 process-level result |
 
 In every main merge into a PR branch, `Main.tex`, `Main.pdf` and the other generated files were regenerated with `build.sh` rather than edited by hand. Each landing added exactly the PR's own changed source lines. The one exception was a sentence in `book/ch02-substratum.md` and its FULL mirror that SC-3 and SC-4 both edited. It was resolved by taking each unit's edit, and the reconciliation review checked that resolution.
 
@@ -254,11 +255,10 @@ The Lean kernel build and the Mathlib-bridge release gate run in CI on each merg
 
 Corrections still open on the source side, tracked on the source-correction gate:
 - C3 stated as conditional on mixing (Substratum :136); `c3_necessity` proves C3 for every realization with no mixing hypothesis;
-- Structure :1274, which overstates the reverse-direction lemma;
-- SC-16, accessible-window P-indivisibility attributed to C1–C4;
+- SC-16, accessible-window P-indivisibility attributed to C1–C4, with the owner-approved terminology scheme A: "backflow" is reserved for distinguishability revival;
 - SC-17, compressed Bell-ceiling summaries;
-- (C2) necessity: the persistence form needs no mixing hypothesis, the slow-bath form does (Track D, D4);
-- the fast-mixing chain at Main :754 uses the iterated one-step coarse channel over the whole window, which is not established (Track D, D6). Owner decision: do not treat the iterated channel as governing the window unless that is independently established; make the hypothesis explicit or limit the argument to the one-step coarse description, preferring the latter if the hypothesis is not justified within OI.
+- (C2) necessity: the persistence form needs no mixing hypothesis, the slow-bath form does (Track D, D4). This is SC-20, #953;
+- the fast-mixing chain at Main :754 uses the iterated one-step coarse channel over the whole window, which is not established (Track D, D6). Owner decision: do not treat the iterated channel as governing the window unless that is independently established; make the hypothesis explicit or limit the argument to the one-step coarse description, preferring the latter if the hypothesis is not justified within OI. This is SC-21, #954.
 
 The parallel tracks' working records are under `tracks/` (WIP, unreviewed). Track D's exact countermodels indicate that C1–C4 with any (C2) form do not imply P-indivisibility within an accessible window, and that in-window rooted revival is a sufficient, not necessary, extra condition. This stays provisional until Track B's independent verification converges with it; no manuscript change follows from it before then.
 
