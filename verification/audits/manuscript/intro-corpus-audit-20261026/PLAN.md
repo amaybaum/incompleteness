@@ -201,14 +201,32 @@ The audit is complete when:
 - each of the five proofs required in step 9 has an independent verdict, and every other written-only proof
   in step 9's scope has a disposition;
 - `REPORT.md` answers the questions of step 12;
-- an independent review accepts `proofs/` and `REPORT.md`.
+- an independent review accepts `proofs/` and `REPORT.md`;
+- every substantive finding has a source-fix PR or a recorded no-change reason on the source-correction gate (section *Source corrections*).
+
+The Introduction lands only after each source correction it depends on has merged, or after the finding is stated in the Introduction as an open problem.
 
 The audit does not require every written proof in the corpus to be reviewed.
 
 The Introduction is then revised on #918 from `FINDINGS.md`. Each revision is reviewed, and the landing gate is run
 again.
 
+## Source corrections
+
+The owner set this requirement on 2026-10-27: "The Introduction must not become more accurate than the underlying framework it cites while leaving known errors uncorrected." Each substantive finding goes through six steps:
+
+1. **Identify:** the exact flawed claim, its source location, and the counterexample or proof.
+2. **Correct the source:** amend the original manuscript, theorem, proof or computational artifact. Historical evidence is kept, and corrections are made forward.
+3. **Check dependencies:** find the downstream results and other papers that rely on the flawed statement, and correct them as well (AGENTS.md §A.25).
+4. **Correct the Introduction:** align #918 with the corrected source.
+5. **Verify independently:** re-review the correction and its downstream implications.
+6. **Close:** a finding closes only when its corrections are merged and their evidence is recorded.
+
+A substantive finding is any finding in FINDINGS (a) whose corpus side is a correction, every row of FINDINGS (d), and every S9 finding in `proofs/README.md` other than a documentation issue that touches only the audit's own record. Each has either a source-fix PR, or a recorded reason why no source change is needed, on the source-correction gate (the gate Issue linked from #941 and #944).
+
+An open problem may be reported as open. The Introduction does not cite as established a result the audit has found invalid, whether or not the source has been corrected yet.
+
 ## Authority
 
 - #918 stays on hold whatever its CI or earlier reviews show. No merge authorization is in effect.
-- This audit changes no manuscript text. Corpus corrections it identifies go to the owner as separate proposals.
+- This audit changes no manuscript text itself. Corpus corrections go through separate source-fix PRs (section *Source corrections*), each with its own review and owner approval.

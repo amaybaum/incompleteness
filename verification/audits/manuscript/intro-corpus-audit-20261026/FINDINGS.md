@@ -8,7 +8,7 @@
 
 **Summary.**
 
-- 358 of 409 rows are FAITHFUL after the synthesis and the independent review re-rated some rows (`matrix/resolutions.json`). The 51 others, the seven completeness rows recommended *add* or *strengthen*, and the two rows whose mapper disagreement resolved against the Introduction (I-013, I-008) reduce to **34 required changes** (part a; R-33 and R-34 were added by the independent review), deduplicated across the abstract, the body, §6.2 and §6.3.
+- 353 of 409 rows are FAITHFUL after the synthesis, the independent review and the step 9 proof reviews re-rated some rows (`matrix/resolutions.json`). The 56 others, the seven completeness rows recommended *add* or *strengthen*, and the two rows whose mapper disagreement resolved against the Introduction (I-013, I-008) reduce to **40 required changes** (part a; R-33 and R-34 were added by the independent review, R-35 to R-40 by the step 9 proof reviews), deduplicated across the abstract, the body, §6.2 and §6.3.
 - **24 optional changes** (part b; O-7 and O-12 of the 26 listed there have moved into R-01 and R-07) and **15 owner decisions** (part c).
 - The **corpus corrections** outside the Introduction fall into eight proposed pull requests (part d).
 - **Length.** The main text runs through p. 12 at 4,966 words, about 414 words a page. After the independent review the required changes add about 610 words in full form (R-01, R-02 and R-07 lengthened; R-33 and R-34 added; the short forms withdrawn); cuts C-1 to C-8 bring the net to about +400 words, roughly one page (part c, OD-13). Page count is measured by building (`sh ./build.sh`), not estimated.
@@ -19,6 +19,7 @@
 | 2. Underclaims and omissions (high or medium priority) | R-06–R-10, R-34 | 6 |
 | 3. Miscitations and attributions | R-11–R-19 | 9 |
 | 4. Imprecisions | R-20–R-33 | 14 |
+| 5. Step 9 proof reviews | R-35–R-40 | 6 |
 
 Severity inside a tier runs from first to last. Where a matrix verdict is IMPRECISE but its direction is an overclaim (R-01, R-03, R-05), the finding is ranked in tier 1 and the reason is given.
 
@@ -652,6 +653,101 @@ Severity inside a tier runs from first to last. Where a matrix verdict is IMPREC
   Alternatively, keep the flat statement once Main carries an exact certificate.
 - **Length:** +3 words.
 
+### Tier 5: findings of the step 9 proof reviews
+
+These come from the independent proof reviews of PLAN.md step 9 (`proofs/`; the consolidated classification is `proofs/README.md`, IDs S9-…). Each finding names the review it rests on. Corpus-side corrections are in part (d), PR-I.
+
+#### R-35 — §5's BHa counts and bound need their conditions (medium)
+
+- **Covers:** I-215 (IMPRECISE, re-rated by S9-D5), I-218 (IMPRECISE; S9-A2), I-219, I-220.
+- **Lines:** L160.
+- **Evidence** (`proofs/bha-c1-c3/`): the 1,376 count holds for the same map at every step with cumulative records (with endpoint-snapshot records it is 10,944); P_succ ≥ 1/|U| holds for every prior, but "zero advantage requires |U| ≥ |M|" needs a uniform message prior or equal-size supports (exact counterexample with a 3-valued message on supports 2/1/1); the 32 counter-maps are those of a two-bit message with one register read; the endpoint guarantees are sufficient for recovery.
+- **Proposed text.**
+
+  > **Current (L160).** Of the 40,320 bijections of $\{0,1\}^3$, 1,376 give zero accessible advantage for a binary message with one register unread after two emissions. For bijective dynamics, complete endpoint access gives exact recovery, and with $\mathcal U$ inaccessible $P_{\mathrm{succ}}\ge1/|\mathcal U|$, so zero advantage in a bijective instance requires $|\mathcal U|\ge|\mathcal M|$; 32 non-injective maps of $\{0,1\}^2$ violate the bound on $P_{\mathrm{succ}}$ [BHa]. These endpoint guarantees are sufficient, not necessary.
+  >
+  > **Proposed.** Of the 40,320 bijections of $\{0,1\}^3$, applied at every step with records accumulated, 1,376 give zero accessible advantage for a binary message with one register unread after two emissions. For bijective dynamics, complete endpoint access gives exact recovery, and with $\mathcal U$ inaccessible $P_{\mathrm{succ}}\ge1/|\mathcal U|$ for every prior, so for a uniformly distributed message zero advantage in a bijective instance requires $|\mathcal U|\ge|\mathcal M|$; for a two-bit message with one register read, 32 non-injective maps of $\{0,1\}^2$ violate the bound [BHa]. These endpoint guarantees are sufficient for recovery, not necessary.
+- **Length:** about +25 words.
+
+#### R-36 — Theorem 2's Corollary and the conditions: positive-probability histories and the source of (C3) (medium)
+
+- **Covers:** I-100 (IMPRECISE, re-rated by S9-A4), I-108 (IMPRECISE, re-rated by S9-A5), I-010 (IMPRECISE; S9-D7).
+- **Lines:** L82, L86, L12.
+- **Evidence** (`proofs/hidden-memory-theorem2/`): the Corollary holds for posteriors of positive-probability histories (dropping the qualifier makes the Markov law $X_1=X_0$ appear to carry readout-relevant memory); (C3) does not follow from Theorem 2(c) — with $X_3=X_0$ and the rest i.i.d., $M_1=0$ while (C3) needs one bit — but from the whole-future bound `c3_necessity` (the machine-checked bound of L84); the Corollary rests on two steps that are not machine-checked (the time-$t$ identification and the vanishing criterion), which the abstract's "one step" undercounts. The time-$t$ identification itself is proved in the review (§2).
+- **Proposed text.**
+
+  > **Current (L82).** a pair of posteriors with different pushforwards
+  >
+  > **Proposed.** a pair of posteriors, of positive-probability histories ending at the same $x_t$, with different pushforwards
+
+  > **Current (L86).** (C1) and (C3) follow from it
+  >
+  > **Proposed.** (C1) follows from it, and (C3) from the capacity bound below
+
+  > **Current (L12).** (each with one step not machine-checked)
+  >
+  > **Proposed.** (each with steps not machine-checked)
+- **Length:** about +15 words.
+
+#### R-37 — Theorem 3 and the recurrence result: the rooted maps, the machine-checked route, and what is specific to readback (high)
+
+- **Covers:** I-009 (IMPRECISE, re-rated by S9-I1), I-120 (IMPRECISE, re-rated by S9-D6 and S9-I1), I-122, I-330.
+- **Lines:** L12, L92–L96.
+- **Evidence** (`proofs/readback-recurrence/`):
+  - The theorem holds with the rooted maps $\Gamma_t$ defined for every root under the shared hidden prior; with rows only for realised roots it is false (152,808 cases at $(2,4)$).
+  - The machine-checked route (Theorem 3) is overlap plus total-variation contraction and does not use the stochastic-inverse lemma, so "With this lemma" misattributes it.
+  - On the full-support representative, (C4) at some order below the recurrence time, some non-permutation $\Gamma_s$, and the failure of P-divisibility on $\{0,\dots,L\}$ are equivalent (exhaustive at $(2,2)$, $(2,3)$, $(3,2)$, with a proof). Indivisibility at recurrence is therefore generic: a Markov law with a non-deterministic step, realised reversibly, has it. The result does not single out memory-bearing laws, and its witness sits at the recurrence time.
+- **Proposed text.**
+
+  > **Current (L96).** With this lemma, on a fixed finite reversible substratum, history readback forces indivisibility somewhere in the recurrence cycle
+  >
+  > **Proposed.** On a fixed finite reversible substratum, with rooted maps defined for every root under the shared hidden prior, history readback forces indivisibility somewhere in the recurrence cycle; the lemma gives the paper proof
+
+  > **Added after L96.** On such a representative, indivisibility somewhere in the cycle holds exactly when some rooted map is not a permutation, which every law with a non-deterministic step meets; it is a property of finite reversible realization at the recurrence time, not a signature of memory [Main §2.3].
+
+  > **Current (L12).** and on a fixed finite reversible system finite recurrence turns history readback into stochastic indivisibility somewhere in the recurrence cycle
+  >
+  > **Proposed.** and on a fixed finite reversible system finite recurrence forces stochastic indivisibility somewhere in the recurrence cycle whenever some rooted map is not a permutation, as history readback ensures
+- **Length:** about +55 words.
+- **Owner decision.** This changes the abstract's account of the "discriminating content" (S9-I1, with S9-I2 for the memory theorem). It is listed for the owner with R-34.
+
+#### R-38 — the Pinsker bound's convention and hypotheses (low)
+
+- **Covers:** I-103 (IMPRECISE; S9-A3), I-102.
+- **Lines:** L77, L84.
+- **Evidence** (`proofs/pinsker-bound/`): the bound is correct with the optimal constant when $\|\cdot\|_{\mathrm{TV}}=\tfrac12\|\cdot\|_1$ (read with $\|\cdot\|_1$ it is false by a factor of 4) and $p_0,\delta>0$; the Introduction never defines the total-variation convention. "with exact probes" is already removed by R-03.
+- **Proposed text.** At the first use (L77): define $\|\mu-\nu\|_{\mathrm{TV}}=\tfrac12\|\mu-\nu\|_1$. At L84: "each of joint probability at least $p_0>0$ … at total-variation distance at least $\delta>0$".
+- **Length:** about +12 words.
+
+#### R-39 — the Bell sentence's hypotheses (low)
+
+- **Covers:** I-168, I-169 (both FAITHFUL; S9-A8, S9-I3).
+- **Lines:** L134–L136.
+- **Evidence** (`proofs/bell-ceiling/`): the Introduction's two-hypothesis form is faithful under the strict reading (interventions and readouts local, outcomes $\pm1$ in every run, no post-selection), and its "give up one of the two" is accurate. Measurement independence is posited, not derived, and option (a) is fine-tuning in the Wood–Spekkens sense. The corpus Corollary that identifies the cone speed with $c$ is not used by the Introduction; it is a corpus correction (PR-I), and the Introduction must not adopt it.
+- **Proposed text.** At L136, after "setting-independent pre-setting ensemble": "(outcomes $\pm1$ in every run, settings and readouts local)". At L134: state option (a) as adopting ontic parameter dependence, with its compatibility with no-signalling the open H-Bell question, rather than defining (a) with no-signalling built in.
+- **Length:** about +15 words.
+
+#### R-40 — R-07's ε-realization text rests on the exact regime only (high)
+
+- **Covers:** R-07 (its proposed L130 text and abstract clause); S9-M1, S9-M2, S9-I5.
+- **Lines:** L12, L130 (as R-07 proposes them).
+- **Evidence** (`proofs/eps-realization/`): the exact-arithmetic results hold (0 violations in 1,980 exact runs); the finite-precision form fails at its negativity-ledger step (exact counterexamples at $d=3$ and $d=4$; #945). In the exact regime the quantum state is held exactly and only the sampling is on a finite grid, so "a digitized copy of the … quantum state" ties the text to the unproved regime. A fixed finite family is also realized exactly, by the comb theorem or the response-table Extension with a real-valued product prior [Main §3.4, :460, :498], so the sentence on exact classical interventions must not suggest that ε is forced for a fixed experiment; ε enters through the rational uniform seed and through uniformity over the instrument continuum (S9-I5).
+- **Proposed text** (amending R-07's L130 text).
+
+  > **R-07 (L130).** which applies one fixed bijection per instrument to a digitized copy of the unnormalized quantum state held in its hidden sector,
+  >
+  > **Proposed.** which holds the unnormalized quantum state exactly in its hidden sector and applies one fixed bijection per instrument, sampling outcomes on a finite grid,
+
+  > **R-07 (L130).** Classical action-labelled interventions are realized exactly by one fixed realization [Main §3.4, Theorem (intervention dilation: the finite classical action-labelled comb)].
+  >
+  > **Proposed.** A fixed finite family is also realized exactly, by one fixed realization with a real-valued product prior [Main §3.4, Theorem (intervention dilation: the finite classical action-labelled comb); Extension (response-table form)]; the accuracy $\varepsilon$ enters with a rational uniform seed and with uniformity over the instrument continuum.
+
+  > **R-07 (L12, abstract clause).** Finite reversible realizations reproduce every finite quantum experiment to any stated accuracy (proved on paper);
+  >
+  > **Proposed.** Finite reversible realizations reproduce every quantum experiment of finite dimension, finitely many outcomes and finite horizon to any stated accuracy (proved on paper, in exact arithmetic);
+- **Length:** about +30 words over R-07.
+- **Not claimed.** Any finite-precision ($b$-bit) constant (#945). The abstract clause states a realization, not a derivation of quantum mechanics.
+
 ### Coverage check
 
 Every non-FAITHFUL matrix row maps to a finding:
@@ -844,7 +940,9 @@ These are proposals for separate PRs; this audit edits no corpus file. Rows mark
 | PR-F | Probe and evidence statements | — | CON-25† (Main:170 "Certified exactly"), CON-26† (Main:594 states the prior class; its count differs from B4's recheck and is unresolved), CON-24† (Main:178 heading, ch01:273 "minimal") | medium |
 | PR-G | Kernel-only results into the manuscripts, with census anchors | — | CON-41† (general Theorem 3 in Main §2.3), CON-28† (rooted classification in Main:618), CON-43† (routed readback); and the Introduction added to the census manuscripts (OD-4) | low, but a precondition for R-09, R-12 and R-13 |
 | PR-H | Foundations wording | — | CON-21† (Methodology:235/:253 "bijectivity … lemma"), CON-22† (Main:46 finiteness from Lemma 1), CON-37† (label collisions); and Main:105's universal wording (R-30) | medium |
+| PR-I | Step 9 source corrections (`proofs/README.md`) | S9-M1/M2 (Main:556–:580 finite-precision ε-realization; #945), S9-M3 (Main:496 last sentence), S9-M4 (Main:594 diagnosis), S9-M5 (BHa MANUSCRIPT-AUDIT ch07 L12), S9-M6 (BHa REPORT:61–62), S9-A1, S9-A3–S9-A9 (hypotheses and definitions at Main:137–139, :167, :322–:326, :356–:360, :498–:500, :560, :576, :582–:598), S9-I3 (Main:389–:394, Substratum L130, the abstracts' cone speed as c), S9-I4 (the two senses of backflow; Main:153), S9-I5 (Main:550, :560, :580), S9-I6 (Main:330, :334, :718; book appendix B:92/:96; FULL:5859), S9-I7 (Main:496, :715), S9-D1–S9-D4, S9-D7, S9-D8 (evidence labels and cross-references) | S9-I1† (Main L20, glossary, FULL L6719: recurrence framing), S9-I2† (Main §1.5, :592–:598: memory forced by reversibility) | high |
 
+- **Step 9.** PR-I's sites are the step 9 findings, each with its review in `proofs/` and its status on the source-correction gate (#941, #944).
 - **Count.** All 25 rows that do not touch the Introduction are in PR-A to PR-D: CON-05, -07, -08, -09, -11, -13, -14, -17, -18, -19, -23, -27, -29, -30, -31, -32, -33, -34, -35, -36, -38, -39, -40, -46 and -48.
 - **Mapper notes.** These corpus findings in the mapper notes are covered by these rows: B1's Main:46 (CON-22), GR:326 (CON-04), ch01:261 (CON-10), Main:706 (CON-27); B2's ch00:39 (CON-46), Main:624 (CON-47); B4's appendix C:317 (CON-07), Main:758 (CON-14); B5's ch01:273 (CON-24) and appendix B:92 (CON-30).
 
@@ -854,7 +952,7 @@ These are proposals for separate PRs; this audit edits no corpus file. Rows mark
 
 The record shows a careful paper whose defects are local.
 
-- **Overall.** 358 of 409 rows are FAITHFUL. There are two OVERCLAIM verdicts (R-01 and R-02), and no central claim is too weak to stand (COMPLETENESS.md: the deliberate limits are all borne out). Those limits are: no derivation of QM, the Born exponent not selected, Λ a proposal, and the Page curve not established.
+- **Overall.** 353 of 409 rows are FAITHFUL. There are two OVERCLAIM verdicts (R-01 and R-02), and no central claim is too weak to stand (COMPLETENESS.md: the deliberate limits are all borne out). Those limits are: no derivation of QM, the Born exponent not selected, Λ a proposal, and the Page curve not established.
 - **Theorem 1.** Exactly as stated: each inclusion is kernel-proved by its own declaration (`S_imp_D`, `D_imp_Qfb`, `Qfb_imp_S`), and the Lean classes match §2.1's definitions, including the correlated initial law of D_K and the every-step fixed-basis readout of Q_K (B1, B5).
 - **Theorem 4.** Kernel-proved in both directions, with separate witnesses for each (§A.34; `exactAll_iff_physical_general` is literally the pair), for every nonempty finite carrier. Its standing structure matches the kernel's fields more completely than GR's own prose (CON-48).
 - **Status splits.** The Introduction states the kernel/paper division precisely where it matters: Theorem 2 for a joint law, with the time-t identification on paper; the Corollary's two unchecked ingredients; and readback in routed form.

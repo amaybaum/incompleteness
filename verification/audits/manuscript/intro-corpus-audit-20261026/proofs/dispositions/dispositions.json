@@ -1,0 +1,1010 @@
+[
+ {
+  "source": "papers/Main.md:16@eae01647",
+  "resolved_source": "papers/Main.md:16",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Abstract statement ('The discriminating content is history readback'); no argument.",
+  "rows": [
+   "I-007"
+  ],
+  "notes": "mislocated: the quoted sentence is at papers/Main.md:20, not :16 (line 16 is the S<=>D<=>Q_fb paragraph)."
+ },
+ {
+  "source": "papers/Main.md:592@eae01647",
+  "resolved_source": "papers/Main.md:592",
+  "category": "proof-central",
+  "priority": "medium",
+  "reason": "Remark carries the written converse of the Corollary (M_t>0 iff readout-relevant memory in every faithful realization) and the one-line derivation of (C1) from (a); the Corollary is labelled 'proved on paper' in Intro §2.4 and feeds the abstract's memory claim.",
+  "rows": [
+   "I-007",
+   "I-107"
+  ],
+  "notes": "Short argument; read: correct given Theorem 2(a), existence of one faithful realization at horizon >= t+1 (S_imp_D) and the CMI vanishing criterion. Same content as :99 (entries Main.md:97/:99); review together."
+ },
+ {
+  "source": "papers/Main.md:97@eae01647",
+  "resolved_source": "papers/Main.md:97",
+  "category": "proof-central",
+  "priority": "medium",
+  "reason": "Written derivation of the Corollary (forward: pushforward identity in each realization; converse: in one realization supplied by S_imp_D) plus the unformalized time-t identification; supports abstract claim 'every deterministic completion carries the visible memory' (each with one step not machine-checked).",
+  "rows": [
+   "I-008",
+   "I-010",
+   "I-039",
+   "I-055",
+   "I-100",
+   "I-105",
+   "I-105.a",
+   "I-105.b",
+   "I-106"
+  ],
+  "notes": "mislocated: the cited text (faithful realization definition, memory witness, Corollary, 'S<=>D and this universal statement are the paper's core') is on papers/Main.md:99; line :97 is only the 'Layer 1 — reversible dilation' lead-in and :98 a display. Duplicate of entry papers/Main.md:99; review once."
+ },
+ {
+  "source": "papers/Main.md:137-139@eae01647",
+  "resolved_source": "papers/Main.md:137-139",
+  "category": "proof-central",
+  "priority": "high",
+  "reason": "Theorem (history readback + finite recurrence implies indivisibility) and its written proof; the history-level (C4) form is the one on-paper step of the abstract's recurrence claim and Intro §2.5.",
+  "rows": [
+   "I-009"
+  ],
+  "notes": "Read: argument is finite order L => Gamma_L=I; all Gamma_k permutation for k<=t => histories determined by x_0 => no C4 gap; so some Gamma_k is non-permutation; divisor k->L would be a stochastic right inverse, excluded by Lemma (stochastic inverse) at :133-135. Points a reviewer should check: rows of Gamma_k for initial visible states of zero probability (rooted matrix convention), and that the C4 gap time precedes the first non-permutation Gamma_k as needed. Same proof as entries Main.md:139 and :137."
+ },
+ {
+  "source": "papers/Main.md:580@eae01647",
+  "resolved_source": "papers/Main.md:580",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Summary (the equivalence at maximum proved strength): a status summary restating clauses (2) and (3); the arguments are at papers/Main.md:582-592 and :538.",
+  "rows": [
+   "I-010",
+   "I-159",
+   "I-164",
+   "I-165"
+  ],
+  "notes": "Line :580 is in R1's line set, but R1 covers only clause (4) (epsilon-realization); these rows cite clauses (2) and (3), which R1 does not review. Their supports are entries Main.md:582/:590/:592 (clause 2) and Main.md:538 (clause 3)."
+ },
+ {
+  "source": "papers/Main.md:139@eae01647",
+  "resolved_source": "papers/Main.md:139",
+  "category": "proof-central",
+  "priority": "high",
+  "reason": "Proof of the history-readback theorem: the step 'history-level C4 => some non-permutation rooted map' is the on-paper step named in the abstract.",
+  "rows": [
+   "I-010"
+  ],
+  "notes": "Same proof as entries Main.md:137-139 and :137; review once."
+ },
+ {
+  "source": "papers/GR.md:336-340; 356@eae01647",
+  "resolved_source": "papers/GR.md:336-340; papers/GR.md:356",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Statement of the two descriptive levels (Friedmann value at the classical level, zero-point sum in emergent QFT) and the status sentence 'descriptive-level distinction is established'; classification, not a derivation.",
+  "rows": [
+   "I-016"
+  ],
+  "notes": "Line :336 is the emergent-QFT scope paragraph; :338/:340 the two levels; :356 the status paragraph."
+ },
+ {
+  "source": "papers/Main.md:44; 50; 56; 62@eae01647",
+  "resolved_source": "papers/Main.md:44; papers/Main.md:50; papers/Main.md:56; papers/Main.md:62",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Definition of observation (S, phi, V) (:44), Lemma 2 causal partition (definitional, :50), Lemma 3 determinism/measure (:56), Remark on early commitments (:62).",
+  "rows": [
+   "I-022"
+  ],
+  "notes": "Row I-022 is a modelling definition."
+ },
+ {
+  "source": "papers/Main.md:105@eae01647",
+  "resolved_source": "papers/Main.md:105",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Explanatory statement of emergent stochasticity (different hidden states compatible with x send it to different futures).",
+  "rows": [
+   "I-025"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/Main.md:704@eae01647",
+  "resolved_source": "papers/Main.md:704",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Scope/falsifiability statement ('the characterization theorem is mathematical').",
+  "rows": [
+   "I-028"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/Main.md:572@eae01647",
+  "resolved_source": "papers/Main.md:572",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Interpretive statement on uncertainty relations and the hidden sector.",
+  "rows": [
+   "I-030",
+   "I-031",
+   "I-032"
+  ],
+  "notes": "I-032's 'no uncertainty relation constrains fixed-readout visible laws' is an elementary consequence of Theorem 1 (every law in S_K is realized in Q_fb, so the class carries no nontrivial constraint); I-031 restates the Corollary."
+ },
+ {
+  "source": "papers/Main.md:534@eae01647",
+  "resolved_source": "papers/Main.md:534",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Remark (what this equivalence does and does not say): scope remark.",
+  "rows": [
+   "I-039",
+   "I-087",
+   "I-136",
+   "I-298"
+  ],
+  "notes": "Embedded elementary step for I-087 checked: the supplied unitaries are permutations with entries 0/1, and 0^p=0, 1^p=1 for p>0, so |U|^p gives the same table for every p>0 (exponent not selected). Verified."
+ },
+ {
+  "source": "papers/Main.md:710; 494@eae01647",
+  "resolved_source": "papers/Main.md:710; papers/Main.md:494",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Status ledger header (:710) and probe-code pointer (:494); no argument.",
+  "rows": [
+   "I-042"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "book/ch01-observation.md:265@eae01647",
+  "resolved_source": "book/ch01-observation.md:265",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Book section heading (§1.11 The card table and the chessboard); location pointer for the card game.",
+  "rows": [
+   "I-043"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/Main.md:590@eae01647",
+  "resolved_source": "papers/Main.md:590",
+  "category": "proof-central",
+  "priority": "medium",
+  "reason": "Written proof of Theorem (unavoidable hidden predictive memory) (a)-(c): determinism, TV monotonicity under channels, data processing. Theorem 2 is a numbered §2.4 result; its time-t identification is the abstract's 'one step not machine-checked'.",
+  "rows": [
+   "I-049",
+   "I-093",
+   "I-094",
+   "I-095",
+   "I-096",
+   "I-099"
+  ],
+  "notes": "Read: each step is one line and correct (X_{t+1}=pi_V(phi(X_t,H_t)); Markov chain X_<t -> H_t -> X_{t+1} given X_t; I <= H(H_t|X_t) <= log2|C_H|). The non-kernel content is only identifying the realization's path law of (X_<t, X_t, H_t) with the kernel's joint law; a reviewer could likely close it quickly. For I-049 the data-processing characterisation is confirmed by reading. Same proof as entry Main.md:582."
+ },
+ {
+  "source": "papers/Main.md:170@eae01647",
+  "resolved_source": "papers/Main.md:170",
+  "category": "review-R4",
+  "priority": null,
+  "reason": "Proof of Lemma (accessible backflow from readback) via Pinsker's inequality; part of R4 (Main.md:160-172).",
+  "rows": [
+   "I-049"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/Main.md:121-129@eae01647",
+  "resolved_source": "papers/Main.md:121-129",
+  "category": "elementary",
+  "priority": null,
+  "reason": "I-050 is an attribution claim about the structure of the recurrence argument. Check: Step 1 uses phi^N=id (finite order); Steps 2-3 use only the contraction direction of [4,5] (stochastic divisor contracts TV). Verified by reading.",
+  "rows": [
+   "I-050"
+  ],
+  "notes": "The proof is a written version of Theorem 3, which the Intro states is machine-checked in rooted form."
+ },
+ {
+  "source": "book/glossary.md:137@eae01647",
+  "resolved_source": "book/glossary.md:137",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Book glossary definition of 'Substratum'.",
+  "rows": [
+   "I-056"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/Main.md:62@eae01647",
+  "resolved_source": "papers/Main.md:62",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Remark (status of the early commitments): 'the bijective substratum is a representation choice' — a status/definition statement.",
+  "rows": [
+   "I-056"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/Main.md:60@eae01647",
+  "resolved_source": "papers/Main.md:60",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Remark (the measure as a realization datum): definitional statement that the emergent law is a function of (phi, partition, mu_H).",
+  "rows": [
+   "I-057"
+  ],
+  "notes": "Illustration (two-state swap under uniform vs point-mass priors gives different visible laws) is elementary and correct."
+ },
+ {
+  "source": "papers/Main.md:56; 60@eae01647",
+  "resolved_source": "papers/Main.md:56; papers/Main.md:60",
+  "category": "elementary",
+  "priority": null,
+  "reason": "Lemma 3 / Remark: (i) on one cycle of a permutation the invariant measure is uniform; (ii) the counting measure is invariant and has maximal entropy among all measures, hence among invariant ones; (iii) the prior is a realization datum (definitional). Verified by reading.",
+  "rows": [
+   "I-058",
+   "I-059"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/Main.md:496@eae01647",
+  "resolved_source": "papers/Main.md:496",
+  "category": "review-R2",
+  "priority": null,
+  "reason": "Theorem (finite-horizon process dilation): R2 (Main.md:496).",
+  "rows": [
+   "I-071",
+   "I-319"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/Main.md:498@eae01647",
+  "resolved_source": "papers/Main.md:498",
+  "category": "review-R2",
+  "priority": null,
+  "reason": "Extension (arbitrary priors — the response-table form): R2 (Main.md:498).",
+  "rows": [
+   "I-071"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/Main.md:715@eae01647",
+  "resolved_source": "papers/Main.md:715",
+  "category": "review-R2",
+  "priority": null,
+  "reason": "Status-ledger row (ii)=>(iii) citing the response-table extension: in R2's line set (Main.md:715).",
+  "rows": [
+   "I-071"
+  ],
+  "notes": "The line itself is a status ledger row, not a proof."
+ },
+ {
+  "source": "papers/Main.md:206-208@eae01647",
+  "resolved_source": "papers/Main.md:206-208",
+  "category": "elementary",
+  "priority": null,
+  "reason": "Lemma (one-step ancilla dilation). Check: <Wi|Wi'> = delta_ii' sum_j T_ij = delta_ii'; |<j,alpha|W|i>|^2 = T_ij delta_alpha,i so the ancilla marginal is T_ij; an isometry extends to a unitary. Verified.",
+  "rows": [
+   "I-078"
+  ],
+  "notes": "Row I-078 is an attribution claim (coincides with [Bar26, Thm 3.3] and [Sch21, Thm 2]); the literature comparison itself was not checked here."
+ },
+ {
+  "source": "papers/Main.md:618@eae01647",
+  "resolved_source": "papers/Main.md:618",
+  "category": "elementary",
+  "priority": null,
+  "reason": "Remark (consolidation). Check: a bijection of a finite set has finite order L, so X_{k+L}=X_k pathwise under any fixed prior and the multi-time law is L-periodic; a nonperiodic target therefore has no exact all-time realization by one fixed finite substratum. Verified.",
+  "rows": [
+   "I-089",
+   "I-091"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/Main.md:472@eae01647",
+  "resolved_source": "papers/Main.md:472",
+  "category": "proof-peripheral",
+  "priority": null,
+  "reason": "Proposition (no horizon-independent intervened representation): a dimension count (reachable intervened statistics are a polynomial image of a parameter space linear in K, against a comb family of dimension ~(n_V|A|)^K). It supports only the intervened-case side remark of I-091, a §2.3 scope statement.",
+  "rows": [
+   "I-091"
+  ],
+  "notes": "Link fit is loose: the Intro claim I-091 concerns passive nonperiodic laws, whose support is the finite-order argument at papers/Main.md:618; this Proposition is about action-labelled combs on a fixed representation. The parameter count n_out d^4 - d^2 and the measure-zero step were not checked."
+ },
+ {
+  "source": "papers/Main.md:582@eae01647",
+  "resolved_source": "papers/Main.md:582",
+  "category": "proof-central",
+  "priority": "medium",
+  "reason": "Theorem (unavoidable hidden predictive memory) = Intro Theorem 2; its written proof (:590) and the unformalized identification of a realization's time-t law with the kernel's joint law support the abstract and §2.4 rows.",
+  "rows": [
+   "I-093",
+   "I-094",
+   "I-095",
+   "I-096",
+   "I-098",
+   "I-100",
+   "I-100.a",
+   "I-100.b",
+   "I-101",
+   "I-102",
+   "I-108",
+   "I-324"
+  ],
+  "notes": "Same proof as entry Main.md:590; review once. Read: correct; identification is a definitional step (the realization's path measure induces the joint law of (X_<t, X_t, H_t))."
+ },
+ {
+  "source": "papers/Main.md:492@eae01647",
+  "resolved_source": "papers/Main.md:492",
+  "category": "elementary",
+  "priority": null,
+  "reason": "Corollary (per-process capacity bound): take the sup over t in the C3 necessity bound, giving I* <= log2 m, i.e. m >= 2^{I*}. Verified.",
+  "rows": [
+   "I-102"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/Main.md:484@eae01647",
+  "resolved_source": "papers/Main.md:484",
+  "category": "elementary",
+  "priority": null,
+  "reason": "Theorem (C3 necessity). Check: X_{>t} is a function of (X_t, H_t) by determinism, so X_<t -> H_t -> X_>t given X_t; DPI then I(X_<t;H_t|X_t) <= H(H_t|X_t) <= log2 m. Verified.",
+  "rows": [
+   "I-102"
+  ],
+  "notes": "Intro states this bound is machine-checked (C3Necessity.lean) in the same form as Theorem 2."
+ },
+ {
+  "source": "papers/Main.md:167@eae01647",
+  "resolved_source": "papers/Main.md:167",
+  "category": "review-R4",
+  "priority": null,
+  "reason": "Lemma (accessible backflow from readback) statement: R4 (Main.md:160-172).",
+  "rows": [
+   "I-103"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/Main.md:74@eae01647",
+  "resolved_source": "papers/Main.md:74",
+  "category": "elementary",
+  "priority": null,
+  "reason": "I-104: definition of (C1)-(C4). I-107: the (C1) dependency. Check: if no visible transition depends on the hidden state, each X_{t+1} is a fixed function of X_t, so the process is Markov and no two histories with a common present have different next-step laws; hence C4 implies C1. Verified.",
+  "rows": [
+   "I-104",
+   "I-107"
+  ],
+  "notes": "The enumeration at (2,2),(2,3),(3,2) is a probe; not re-run."
+ },
+ {
+  "source": "papers/Main.md:596@eae01647",
+  "resolved_source": "papers/Main.md:596",
+  "category": "elementary",
+  "priority": null,
+  "reason": "Remark (the conditions are diagnostics): (C4) coincides with M_t>0 in a faithful realization. Check: by the CMI vanishing criterion, M_t=0 iff P(X_{t+1}|p,x) is the same for all positive-probability p ending at x, i.e. iff there is no C4 gap; mediation is automatic because every visible correlation passes through (X_t,H_t). Verified.",
+  "rows": [
+   "I-105",
+   "I-106"
+  ],
+  "notes": "The vanishing criterion is standard [CT06]; not machine-checked (as the Intro says)."
+ },
+ {
+  "source": "papers/Main.md:78@eae01647",
+  "resolved_source": "papers/Main.md:78",
+  "category": "elementary",
+  "priority": null,
+  "reason": "(C3) dependency: data processing gives log2|C_H| >= I* in every faithful realization (same check as C3 necessity at papers/Main.md:484-490). Verified.",
+  "rows": [
+   "I-108"
+  ],
+  "notes": "The bound holds in every realization, with or without C4; 'follows from C4' is satisfied a fortiori."
+ },
+ {
+  "source": "papers/Main.md:121@eae01647",
+  "resolved_source": "papers/Main.md:121",
+  "category": "elementary",
+  "priority": null,
+  "reason": "Monotone TV is necessary but not sufficient for P-divisibility. Check by an own 2-state example: T1=[[.9,.1],[.1,.9]], T2=[[1,0],[.5,.5]]; d contracts by |det| = 0.8 then 0.5 (non-increasing, strictly contracting), but T1^{-1}T2 has first row (1.0625,-0.0625), a negative entry, so no stochastic divisor. Verified.",
+  "rows": [
+   "I-118"
+  ],
+  "notes": "The paper's own pairs are in translation_probes.py; not re-run."
+ },
+ {
+  "source": "papers/Main.md:137@eae01647",
+  "resolved_source": "papers/Main.md:137",
+  "category": "proof-central",
+  "priority": "high",
+  "reason": "Theorem (history readback + finite recurrence implies indivisibility): statement and proof (:137-139). Supports I-120/I-122 (§2.5) and I-330 ('on paper for (C4)').",
+  "rows": [
+   "I-120",
+   "I-122",
+   "I-330"
+  ],
+  "notes": "Same proof as entries Main.md:137-139 and :139; review once."
+ },
+ {
+  "source": "papers/Main.md:141@eae01647",
+  "resolved_source": "papers/Main.md:141",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Scope remark: the result is global over the recurrence cycle; refers to the XOR control as the counterexample to the short-window form.",
+  "rows": [
+   "I-125",
+   "I-126"
+  ],
+  "notes": "The XOR control itself is in Appendix/probe material, not at this line."
+ },
+ {
+  "source": "papers/Main.md:326@eae01647",
+  "resolved_source": "papers/Main.md:326",
+  "category": "review-R3",
+  "priority": null,
+  "reason": "Theorem (CP-indivisibility, framework scope): R3 (Main.md:326).",
+  "rows": [
+   "I-129",
+   "I-375"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/Main.md:332@eae01647",
+  "resolved_source": "papers/Main.md:332",
+  "category": "standard-cited",
+  "priority": null,
+  "reason": "Breuer–Laine–Piilo criterion [63] (trace-distance backflow witnesses non-Markovianity), Rivas–Huelga–Plenio [4] (ancilla-assisted entanglement witness) and Bylicka–Johansson–Acín [9] (CP-divisibility of invertible maps iff monotone trace distance with a (d+1)-dimensional ancilla).",
+  "rows": [
+   "I-131"
+  ],
+  "notes": "The 'sufficient, never necessary' direction rests on contraction under divisors (standard) plus the classical P-indivisible-but-monotone example (see entry Main.md:121, verified)."
+ },
+ {
+  "source": "papers/Main.md:616@eae01647",
+  "resolved_source": "papers/Main.md:616",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Remark (representation, not explanation): interpretive scope remark.",
+  "rows": [
+   "I-133"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/Main.md:538@eae01647",
+  "resolved_source": "papers/Main.md:538",
+  "category": "standard-cited",
+  "priority": null,
+  "reason": "Heinosaari–Kerppo–Leppäjärvi–Plávala [55]: qubit prepare-and-measure behaviours have unbounded nonnegative rank (classical dimension) over finite prepare-measure sets; alternative route Garner–Müller [56].",
+  "rows": [
+   "I-159",
+   "I-160",
+   "I-164",
+   "I-165",
+   "I-166"
+  ],
+  "notes": "The in-house half is elementary and verified: a fixed N-state realization has B = Xi M with M column-stochastic and Xi in [0,1], so nonnegative rank <= N. I-166 is a scope sentence of the Proposition."
+ },
+ {
+  "source": "papers/Main.md:360@eae01647",
+  "resolved_source": "papers/Main.md:360",
+  "category": "proof-central",
+  "priority": "low",
+  "reason": "Theorem (Bell ceiling for a screened local completion) and its 4-line proof; Intro §3.5 result (I-168) and §6 claims (I-249, I-250).",
+  "rows": [
+   "I-168",
+   "I-169",
+   "I-249",
+   "I-250"
+  ],
+  "notes": "Standard Bell/CHSH local bound once (i)-(iv) are granted; the framework-specific step is the coupling-graph cone lemma at papers/Main.md:358 (induction on graph distance, elementary). Certified by a probe (check 11)."
+ },
+ {
+  "source": "papers/Main.md:379@eae01647",
+  "resolved_source": "papers/Main.md:379",
+  "category": "elementary",
+  "priority": null,
+  "reason": "Contrapositive of the Bell ceiling with determinism held fixed: to exceed |S_CHSH|=2 a deterministic completion must drop pointwise cone locality (ontic parameter dependence) or the common pre-setting ensemble (measurement independence). Verified by reading.",
+  "rows": [
+   "I-169"
+  ],
+  "notes": "mislocated: the quoted sentence 'Determinism is constitutional here, so exactly two hypotheses remain available' is at papers/Main.md:389; :379-381 carries the bold contrapositive. Hypotheses (ii)-(iii) are folded into the cone-locality option."
+ },
+ {
+  "source": "papers/GR.md:338-340@eae01647",
+  "resolved_source": "papers/GR.md:338-340",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Statement of the two descriptive levels (classical Friedmann density; emergent zero-point sum).",
+  "rows": [
+   "I-175"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/GR.md:356@eae01647",
+  "resolved_source": "papers/GR.md:356",
+  "category": "elementary",
+  "priority": null,
+  "reason": "Status paragraph plus the two-completions argument. Check (I-184): adding C*I to the emergent generator multiplies the evolution by a global phase e^{-iCt}, leaving every transition probability unchanged; the two gravitational equations differ only on the gravitational side, so they share substratum, partition, reduced law, representation and calibration. Verified.",
+  "rows": [
+   "I-175",
+   "I-180",
+   "I-181",
+   "I-182",
+   "I-184"
+  ],
+  "notes": "I-175/I-180/I-181/I-182 are status statements (descriptive distinction established; coupling theorem open at G3)."
+ },
+ {
+  "source": "book/ch07-gravity.md:167@eae01647",
+  "resolved_source": "book/ch07-gravity.md:167",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Book mirror of GR §6.2's status sentence ('The descriptive distinction is established').",
+  "rows": [
+   "I-175"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/GR.md:12@eae01647",
+  "resolved_source": "papers/GR.md:12",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "GR abstract / dependency ladder: status ledger (G3 open) and the target equation form.",
+  "rows": [
+   "I-182",
+   "I-186",
+   "I-204",
+   "I-275"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/GR.md:344@eae01647",
+  "resolved_source": "papers/GR.md:344",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Premise statement: gravity is sourced by the classical stress-energy of the total microstate.",
+  "rows": [
+   "I-186",
+   "I-202"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/GR.md:360@eae01647",
+  "resolved_source": "papers/GR.md:360",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Scope statement: the framework does not explain why rho ~ H^2/G.",
+  "rows": [
+   "I-189"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "book/ch07-gravity.md:201@eae01647",
+  "resolved_source": "book/ch07-gravity.md:201",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Book mirror of GR's scope statement on the vacuum-energy scale.",
+  "rows": [
+   "I-189"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/GR.md:583@eae01647",
+  "resolved_source": "papers/GR.md:583",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Scope statement: coupling of EW/QCD transition energy needs the same open step.",
+  "rows": [
+   "I-195"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:35-40@eae01647",
+  "resolved_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:35-40",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "BHa answer to claim A: explanatory statement (bijectivity is global, records are a projection); its support is the exhaustive counterexamples, not a proof.",
+  "rows": [
+   "I-207"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "book/ch07-gravity.md:110@eae01647",
+  "resolved_source": "book/ch07-gravity.md:110",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Book statement that recovery is a separate question bijectivity does not settle.",
+  "rows": [
+   "I-207"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:88-142@eae01647",
+  "resolved_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:88-142",
+  "category": "review-R5",
+  "priority": null,
+  "reason": "BHa proofs section: Lemma 0, C1, C2, C3, C4 (Lemma L), D1 are R5.",
+  "rows": [
+   "I-208"
+  ],
+  "notes": "Lines 139-142 (item E, the GR Theorem A.1 Fubini identity) are outside R5's list; elementary (the same terms summed in two orders) and carry no Intro claim. Row I-208 only needs the characterisation 'written proofs checked exhaustively at small size', which the section heading at :88 states."
+ },
+ {
+  "source": "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:14-21@eae01647",
+  "resolved_source": "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:14-21",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "BHb verdict summary lines (C1, C2 universal proofs; C6 textual analyses of GR A.8-A.9); a status summary for I-208.",
+  "rows": [
+   "I-208"
+  ],
+  "notes": "BHb C1 (permutation maps basis vectors to basis vectors, so orbit states are product, S(R)=0) is elementary and verified; BHb C2 (entropy budget, S(R) <= H(p0)) is a short written proof not under R1-R5 and carries no Intro claim in this input. BHb is not covered by R5 (BH-01 only)."
+ },
+ {
+  "source": "papers/GR.md:817-851@eae01647",
+  "resolved_source": "papers/GR.md:817-851",
+  "category": "proof-peripheral",
+  "priority": null,
+  "reason": "GR Theorems A.8-A.9 with proofs (Lévy/HLW measure concentration plus cycle counting; A.9 by substitution), conditional on H-scramble and H-decouple. The Intro reports them as conditional and not established, and row I-208 needs only their nature (measure-concentration argument, not a finite computation), which is checkable by reading.",
+  "rows": [
+   "I-208"
+  ],
+  "notes": "Cycle-counting step read: a bad cycle needs f_j >= eps/ln d_min, giving the stated fraction bound. If the Intro §5 sentence restating A.8's conditional conclusion is audited elsewhere, a low-priority review of this proof would cover it."
+ },
+ {
+  "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:288-292@eae01647",
+  "resolved_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:288-292",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "BHa scope list: maps not derived from OI's substratum; prior and layout taken from GR App. A.",
+  "rows": [
+   "I-209"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:196@eae01647",
+  "resolved_source": "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:196",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "BHb scope line: no specific substratum map tested.",
+  "rows": [
+   "I-209"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "verification/programmes/black-hole-information/PROGRAMME.md:13@eae01647",
+  "resolved_source": "verification/programmes/black-hole-information/PROGRAMME.md:13",
+  "category": "elementary",
+  "priority": null,
+  "reason": "Written counterexample F(b,r)=(b,r). Check: the identity is a bijection; the radiation register r is unchanged and independent of b, so the radiation reveals nothing about b while all information is conserved. Verified.",
+  "rows": [
+   "I-211"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:98-102@eae01647; verification/programmes/black-hole-information/bh01_access_v1/review/REVIEW.md:3@eae01647",
+  "resolved_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:98-102; verification/programmes/black-hole-information/bh01_access_v1/review/REVIEW.md:3",
+  "category": "review-R5",
+  "priority": null,
+  "reason": "BHa C1 written proof (REPORT.md:98-102) and the independent review's verdict line (REVIEW.md:3): R5.",
+  "rows": [
+   "I-216"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:104-112@eae01647",
+  "resolved_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:104-112",
+  "category": "review-R5",
+  "priority": null,
+  "reason": "BHa C2 written proof (P_succ >= 1/|K|): R5.",
+  "rows": [
+   "I-217"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:297@eae01647",
+  "resolved_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:297",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "BHa scope line: uniform message prior with equal-size supports.",
+  "rows": [
+   "I-217"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:42-47@eae01647; verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:318@eae01647",
+  "resolved_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:42-47; verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:318",
+  "category": "elementary",
+  "priority": null,
+  "reason": "Corollary of C2. Check: zero advantage means P_succ = 1/|M|; C2 gives P_succ >= 1/|K|; hence |K| >= |M|. Verified (given C2, which is R5).",
+  "rows": [
+   "I-218"
+  ],
+  "notes": "Line 318 is a post-review change record ('Claim A qualified by C2'), not an argument."
+ },
+ {
+  "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:109-112@eae01647",
+  "resolved_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:109-112",
+  "category": "standard-cited",
+  "priority": null,
+  "reason": "The known fact: guessing probability rises by at most a factor |K| with |K|-valued side information (the min-entropy chain rule, H_min(X|YK) >= H_min(X|Y) - log|K|).",
+  "rows": [
+   "I-221"
+  ],
+  "notes": "The corpus names the fact without a citation. Lines 109-112 lie inside C2's text (R5); the row's attribution claim is what is classified here."
+ },
+ {
+  "source": "papers/GR.md:719@eae01647; papers/GR.md:807@eae01647",
+  "resolved_source": "papers/GR.md:719; papers/GR.md:807",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "GR App. A.1 definition of C_V x C_B x C_D (:719) and the A.7 evaporation setup with B -> R mode transfer (:807).",
+  "rows": [
+   "I-224"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/GR.md:833@eae01647",
+  "resolved_source": "papers/GR.md:833",
+  "category": "elementary",
+  "priority": null,
+  "reason": "H-scramble fails for every bijection on a definite configuration. Check: a bijection maps configurations to configurations, so the orbit consists of product basis states across an aligned bipartition and S(rho_R)=0 along it, while S_Page>0. Also checked the stated gap ln4 - 4/8 = 0.886 nats at d_B=d_R=4. Verified.",
+  "rows": [
+   "I-227"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "book/ch07-gravity.md:126@eae01647",
+  "resolved_source": "book/ch07-gravity.md:126",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Book mirror of GR App. A's H-scramble remark.",
+  "rows": [
+   "I-227"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/GR.md:809@eae01647",
+  "resolved_source": "papers/GR.md:809",
+  "category": "elementary",
+  "priority": null,
+  "reason": "Timescale ordering. Check: t_evap ≈ 8.4e-17 s (M/kg)^3 equals 1/H ~ 1e17 s at M ≈ 1e11 kg, and is ~1e79 s at 30 M_sun, so t_evap >> tau_B^D; Theorem A.7 is stated for t << tau_B^D, hence it cannot supply H-decouple over the evaporation. Verified (consistent with BHa item F's interval [1.06e10, 4.92e12] kg).",
+  "rows": [
+   "I-230",
+   "I-267"
+  ],
+  "notes": "I-267 is a not-claimed statement (no claim that A.7 fails within its stated scope); this line confirms A.7's stated scope."
+ },
+ {
+  "source": "papers/GR.md:817@eae01647",
+  "resolved_source": "papers/GR.md:817",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Theorem A.8 statement: whole configuration space as a single energy shell. Textual check: verified at :817.",
+  "rows": [
+   "I-232"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/GR.md:843@eae01647",
+  "resolved_source": "papers/GR.md:843",
+  "category": "elementary",
+  "priority": null,
+  "reason": "Proper energy shells. Check: if the Hamiltonian takes more than one value on C_B x C_R, its shells are proper subspaces, so the full product space is a single shell only when the energy is constant there. Verified. (Side value checked: diagonal-shell mean H_2 - 1 = 1/2 against Page's exact 1/3 at d_B=d_R=2.)",
+  "rows": [
+   "I-233",
+   "I-234"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/GR.md:843@eae01647; book/ch07-gravity.md:126@eae01647",
+  "resolved_source": "papers/GR.md:843; book/ch07-gravity.md:126",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Statement that an evaporating black hole whose radiation carries away its energy is in the proper-shell case (GR :843) and its book mirror (ch07:126).",
+  "rows": [
+   "I-235"
+  ],
+  "notes": "Implicit reasoning: energy moves between B and R, so the Hamiltonian on C_B x C_R is not constant. Asserted, not derived."
+ },
+ {
+  "source": "papers/GR.md:853@eae01647",
+  "resolved_source": "papers/GR.md:853",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Scope remark: Theorem A.9 is a full-cycle average at a fixed bipartition.",
+  "rows": [
+   "I-238"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/Main.md:356@eae01647",
+  "resolved_source": "papers/Main.md:356",
+  "category": "elementary",
+  "priority": null,
+  "reason": "PR-box from the response-table construction when the wings share globally coupled setting-dependent hidden dynamics. Check: the PR box is a finite conditional law P(q,r|a,b); a global register that reads both settings and outputs from a stored response table realizes any such table, so representability does not bound CHSH. Verified at the level stated; the construction text itself (§3.4) was not re-read.",
+  "rows": [
+   "I-249"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/Main.md:22@eae01647",
+  "resolved_source": "papers/Main.md:22",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Abstract statement (Bell accounting; parameter dependence or setting-dependent ensembles); contrapositive of the Bell ceiling.",
+  "rows": [
+   "I-250"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/Main.md:334@eae01647",
+  "resolved_source": "papers/Main.md:334",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Remark (three notions, kept apart): definitions of notions (1)-(3) and a scope disclaimer.",
+  "rows": [
+   "I-261",
+   "I-371"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:20@eae01647",
+  "resolved_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:20",
+  "category": "review-R5",
+  "priority": null,
+  "reason": "BHa generated verdict line for C1 (status summary of an R5 proof).",
+  "rows": [
+   "I-265"
+  ],
+  "notes": "The link also cites C2, whose verdict line is :21, not :20."
+ },
+ {
+  "source": "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:20@eae01647",
+  "resolved_source": "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:20",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "BHb C6(c) verdict line: textual analysis of GR A.8's shell factorization, with certified numerical bounds; status summary.",
+  "rows": [
+   "I-265"
+  ],
+  "notes": "The link cites C6(b)-(d), which span lines :19-:21; line :20 is C6(c) only."
+ },
+ {
+  "source": "papers/GR.md:811@eae01647",
+  "resolved_source": "papers/GR.md:811",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Theorem A.7 statement (effective pure state on t << tau_B^D).",
+  "rows": [
+   "I-267"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "book/ch01-observation.md:286@eae01647",
+  "resolved_source": "book/ch01-observation.md:286",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Book statement: a card mechanism is a local classical toy; no card arrangement violates a Bell inequality.",
+  "rows": [
+   "I-270",
+   "I-274"
+  ],
+  "notes": "Follows from the Bell ceiling (deterministic local cards with a setting-independent deal)."
+ },
+ {
+  "source": "papers/GR.md:551@eae01647",
+  "resolved_source": "papers/GR.md:551",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Statement that the vacuum-energy normalization rho_Lambda ~ H^2/G is the Friedmann scale and its value an input.",
+  "rows": [
+   "I-275"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/Main.md:99@eae01647",
+  "resolved_source": "papers/Main.md:99",
+  "category": "proof-central",
+  "priority": "medium",
+  "reason": "Written derivation of the Corollary (M_t>0 iff readout-relevant hidden memory in every faithful realization) and the unformalized time-t identification; supports I-299 (§6.4 conclusion).",
+  "rows": [
+   "I-299"
+  ],
+  "notes": "Same content as entries Main.md:97 (whose cited text is this line) and Main.md:592; review once."
+ },
+ {
+  "source": "papers/Main.md:20@eae01647",
+  "resolved_source": "papers/Main.md:20",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Abstract statement ('every faithful deterministic completion contains readout-relevant hidden predictive memory').",
+  "rows": [
+   "I-299"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "book/ch01-observation.md:265@eae01647 (FULL:609)",
+  "resolved_source": "book/ch01-observation.md:265 (FULL:609)",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Book description of the two-card game (definition of the example).",
+  "rows": [
+   "I-360"
+  ],
+  "notes": "mislocated (minor): book/ch01-observation.md:265 (and FULL:609) is the §1.11 heading; the game's rules (burn card, shuffle, peek with forced re-burn) are at book/ch01-observation.md:271-282."
+ },
+ {
+  "source": "papers/Main.md:278@eae01647",
+  "resolved_source": "papers/Main.md:278",
+  "category": "not-a-proof",
+  "priority": null,
+  "reason": "Definition of the visible-sector channel Phi(rho_V) = Tr_H[U_phi(rho_V ⊗ rho_H)U_phi†] with rho_H = I_m/m (set at :276).",
+  "rows": [
+   "I-372"
+  ],
+  "notes": "The display at :278 shows rho_H; the substitution rho_H = I_m/m is in the preceding sentence. The constant-channel claim for the card game rests on entry Main.md:286."
+ },
+ {
+  "source": "papers/Main.md:286@eae01647",
+  "resolved_source": "papers/Main.md:286",
+  "category": "elementary",
+  "priority": null,
+  "reason": "Remark (failure of (C1)). Check: for the swap, Tr_H[SWAP(rho ⊗ I/2)SWAP†] = tr(rho) I/2, a constant channel, hence measure-and-prepare and entanglement-breaking. Verified.",
+  "rows": [
+   "I-373"
+  ],
+  "notes": ""
+ },
+ {
+  "source": "papers/Main.md:702@eae01647",
+  "resolved_source": "papers/Main.md:702",
+  "category": "elementary",
+  "priority": null,
+  "reason": "Swap with an initialized hidden slot. Check: step 1 gives rho -> |0><0|, step 2 returns rho. Any instrument summing to rho -> tr(rho)|0><0| has elements rho -> c_o(rho)|0><0|, so every outcome-conditioned processing is measure-and-prepare (entanglement-breaking) and so is their sum, while the identity is not; no classical-memory decomposition exists. Verified.",
+  "rows": [
+   "I-377",
+   "I-378"
+  ],
+  "notes": ""
+ }
+]

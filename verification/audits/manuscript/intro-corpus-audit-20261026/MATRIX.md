@@ -12,8 +12,8 @@
 | UNSUPPORTED | 1 |
 | UNDERCLAIM | 7 |
 | MISCITED | 3 |
-| IMPRECISE | 38 |
-| FAITHFUL | 358 |
+| IMPRECISE | 43 |
+| FAITHFUL | 353 |
 | **Total** | **409** |
 
 | Proof status (weakest link) | Rows |
@@ -39,7 +39,7 @@ Verdicts by section (*Rows* counts every row of the section; the other columns c
 
 | Section | Rows | OVERCLAIM | UNSUPPORTED | UNDERCLAIM | MISCITED | IMPRECISE |
 |---|--:|--:|--:|--:|--:|--:|
-| Abstract | 26 |  |  | 1 |  | 3 |
+| Abstract | 26 |  |  | 1 |  | 4 |
 | §1.1 | 11 |  |  |  |  | 1 |
 | §1.2 | 10 |  |  | 1 |  | 1 |
 | §1.2 Contributions | 10 |  |  |  | 1 |  |
@@ -47,15 +47,15 @@ Verdicts by section (*Rows* counts every row of the section; the other columns c
 | §2.1 | 6 |  |  |  |  |  |
 | §2.2 | 22 |  |  | 1 |  | 1 |
 | §2.3 | 10 |  |  |  |  |  |
-| §2.4 | 23 |  |  |  |  | 4 |
-| §2.5 | 14 |  | 1 |  | 1 | 4 |
+| §2.4 | 23 |  |  |  |  | 6 |
+| §2.5 | 14 |  | 1 |  | 1 | 5 |
 | §3.1 | 13 | 1 |  |  |  |  |
 | §3.2 | 13 |  |  | 1 |  |  |
 | §3.3 | 14 |  |  |  |  | 1 |
 | §3.4 | 8 |  |  |  |  | 2 |
 | §3.5 | 5 |  |  |  |  |  |
 | §4 | 34 |  |  |  |  | 1 |
-| §5 | 40 | 1 |  |  | 1 | 8 |
+| §5 | 40 | 1 |  |  | 1 | 9 |
 | §6.1 | 6 |  |  |  |  | 1 |
 | §6.2 | 29 |  |  | 1 |  | 3 |
 | §6.3 | 15 |  |  | 2 |  | 4 |
@@ -86,7 +86,7 @@ Dependency blocks follow the table of the section that states each multi-step re
 | I-006 | 12 | The correspondence does not select the Born exponent. | papers/Main.md:534@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
 | I-007 | 12 | The discriminating content of OI concerns memory. | papers/Main.md:592@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
 | I-008 | 12 | Every deterministic completion (faithful realization) carries the visible law's memory in its hidden state. | lean:OIBridge/HiddenMemory.lean:185:unavoidable_hidden_predictive_memory | faithful (deterministic) realization; identification of the time-t law with the kernel's joint law (not formalized) | proved-paper | **IMPRECISE** | Main:16 | traced-only |
-| I-009 | 12 | On a fixed finite reversible system, finite recurrence plus history readback (C4) forces stochastic indivisibility somewhere in the recurrence cycle. | papers/Main.md:139@eae01647 | fixed finite reversible substratum; history-level (C4) (paper) / routed-readback form (kernel) | proved-paper | FAITHFUL |  | traced-only |
+| I-009 | 12 | On a fixed finite reversible system, finite recurrence plus history readback (C4) forces stochastic indivisibility somewhere in the recurrence cycle. | papers/Main.md:139@eae01647 | fixed finite reversible substratum; history-level (C4) (paper) / routed-readback form (kernel) | proved-paper | **IMPRECISE** |  | traced-only |
 | I-010 | 12 | The two preceding abstract results are each machine-checked except for one step. | papers/Main.md:580@eae01647 |  | proved-paper | **IMPRECISE** |  | traced-only |
 | I-011 | 12 | Exact finite operational QM is characterized (iff) by five completion conditions (Theorem 4). | lean:OIBridge/GeneralCarrier.lean:100:exactAll_iff_physical_general | nonempty finite system; operational theory with the standing structure: identity, coarse-graining, outcome-conditioned composition, uniformly mixed ancilla preparation, spectator-independent readout, ancilla discard | proved-kernel | FAITHFUL |  | certificate-checked |
 | I-011.a | 12 | [⇒] If the available families are exactly the normalized finite Kraus instruments, conditions (i)–(v) hold. | lean:OIBridge/PhysicalCharacterization.lean:301:physical_of_exactAll | operational-theory standing structure | proved-kernel | FAITHFUL |  | certificate-checked |
@@ -238,7 +238,7 @@ Weakest row status, which governs: **proved-kernel** (I-063, I-063.a, I-063.b, I
 | I-097 | 80 | Theorem 2(a)–(c) are machine-checked for a joint law of history, present and hidden state. | lean:HiddenMemory.lean:185:unavoidable_hidden_predictive_memory | kernel object: bijection `step` plus an arbitrary joint law w on (X_<t, X_t, H_t) (HiddenMemory.Realization); Nonempty C_H for (c) | proved-kernel | FAITHFUL |  | certificate-checked |
 | I-098 | 80 | The identification of that joint law with a realization's time-t law is not machine-checked. | papers/Main.md:582@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5) | proved-paper | FAITHFUL |  | traced-only |
 | I-099 | 80 | Theorem 2 has a written proof in Main §3.4. | papers/Main.md:582@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5) | proved-paper | FAITHFUL |  | traced-only |
-| I-100 | 82 | Corollary: M_t > 0 iff every faithful realization carries readout-relevant hidden memory at t (two posteriors with different pushforwards). | papers/Main.md:97@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5); positive-probability histories; finite horizon K >= t+1 | proved-paper | FAITHFUL |  | traced-only |
+| I-100 | 82 | Corollary: M_t > 0 iff every faithful realization carries readout-relevant hidden memory at t (two posteriors with different pushforwards). | papers/Main.md:97@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5); positive-probability histories; finite horizon K >= t+1 | proved-paper | **IMPRECISE** |  | traced-only |
 | I-100.a | 82 | [⇒ (forward)] If M_t > 0, every faithful realization has two hidden posteriors with different f_x-pushforwards at t. | papers/Main.md:97@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5); positive-probability histories | proved-paper | FAITHFUL |  | traced-only |
 | I-100.b | 82 | [⇐ (converse)] If every faithful realization carries readout-relevant hidden memory at t, then M_t > 0. | papers/Main.md:97@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5); positive-probability histories | proved-paper | FAITHFUL |  | traced-only |
 | I-101 | 82 | Both Corollary directions use the CMI vanishing criterion, which (like the time-t identification) is not machine-checked. | papers/Main.md:97@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
@@ -250,7 +250,7 @@ Weakest row status, which governs: **proved-kernel** (I-063, I-063.a, I-063.b, I
 | I-105.b | 86 | [M_t>0 ⇒ (C4)] M_t > 0 gives two histories with the same present and different next-step laws. | papers/Main.md:97@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
 | I-106 | 86 | Via the Corollary, (C4) is carried in the hidden state of every faithful realization. | papers/Main.md:97@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5) | proved-paper | FAITHFUL |  | traced-only |
 | I-107 | 86 | (C1) influence follows from (C4). | papers/Main.md:74@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5) | proved-paper | FAITHFUL |  | traced-only |
-| I-108 | 86 | (C3) capacity follows from (C4). | lean:C3Necessity.lean:117:card_hidden_ge_two_pow_Istar + papers/Main.md:78@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5) | proved-paper | FAITHFUL |  | traced-only |
+| I-108 | 86 | (C3) capacity follows from (C4). | lean:C3Necessity.lean:117:card_hidden_ge_two_pow_Istar + papers/Main.md:78@eae01647 | faithful realization: bijection of C_V x C_H with an initial law (possibly correlating x and h) reproducing the law (Main:97 §1.5) | proved-paper | **IMPRECISE** |  | traced-only |
 | I-109 | 86 | (C2) persistence of records is a physical-regime premise, not derived. | papers/Main.md:76@eae01647 | conditional on: hidden-sector conditional-mixing hypothesis (for the necessity direction only) | conditional | FAITHFUL | Main:592 | traced-only |
 | I-110 | 86 | (C1)–(C4) are diagnostics of a realization, not hypotheses of Theorem 1. | lean:Equivalence.lean:462:finite_horizon_equivalence |  | proved-kernel | FAITHFUL |  | certificate-checked |
 
@@ -274,7 +274,7 @@ Weakest row status, which governs: **proved-paper** (I-093, I-094, I-095, I-096,
 
 Biconditional traced one direction at a time (§A.34).
 
-Rows: I-100 proved-paper; I-100.a proved-paper; I-100.b proved-paper; I-101 proved-paper.
+Rows: I-100 proved-paper (IMPRECISE); I-100.a proved-paper; I-100.b proved-paper; I-101 proved-paper.
 Weakest row status, which governs: **proved-paper** (I-100, I-100.a, I-100.b, I-101).
 
 | # | link | source | layer | status | hypotheses | rows |
@@ -322,7 +322,7 @@ Weakest row status, which governs: **proved-paper** (I-103).
 | I-117 | 94 | Monotone TV distance is necessary for P-divisibility. | lean:CausalReadback.lean:96:tv_mul_le |  | proved-kernel | FAITHFUL |  | certificate-checked |
 | I-118 | 94 | Monotone TV distance is not sufficient for P-divisibility. | papers/oi_lattice_code/foundations/translation_probes.py:45@eae01647 |  | proved-paper | FAITHFUL |  | traced-only |
 | I-119 | 96 | A finite square stochastic matrix with a stochastic one-sided inverse is a permutation matrix. | lean:EquivalenceChain.lean:110:isPermMatrix_of_stochastic_inverse | finite square matrices | proved-kernel | FAITHFUL |  | certificate-checked |
-| I-120 | 96 | On a fixed finite reversible substratum, history readback (C4) forces indivisibility somewhere in the recurrence cycle. | papers/Main.md:137@eae01647 | fixed finite reversible substratum (one bijection, one hidden prior); (C4) history readback | proved-paper | FAITHFUL |  | traced-only |
+| I-120 | 96 | On a fixed finite reversible substratum, history readback (C4) forces indivisibility somewhere in the recurrence cycle. | papers/Main.md:137@eae01647 | fixed finite reversible substratum (one bijection, one hidden prior); (C4) history readback | proved-paper | **IMPRECISE** |  | traced-only |
 | I-121 | 96 | The readback-forces-indivisibility conclusion is machine-checked, via Theorem 3, from routed-readback (C4). | lean:PhysicalC4StorageReadback.lean:256:routedAtStorage_forces_indivisible_somewhere | routed-readback form of (C4) on a rooted realization | proved-kernel | **MISCITED** | verification/lean-mathlib/OIBridge/PhysicalC4Discharge.lean:28, verification/lean-manuscript-census.json families[35],[36] | certificate-checked |
 | I-122 | 96 | From history-level (C4), readback-forces-indivisibility is proved on paper. | papers/Main.md:137@eae01647 | history-level (C4); fixed finite reversible representative | proved-paper | FAITHFUL |  | traced-only |
 | I-123 | 98 | Appendix B.1 is a minimal model of Theorem 3 with six hidden states. | papers/Main.md:178@eae01647 |  | unsupported | **UNSUPPORTED** |  | traced-only |
@@ -341,7 +341,7 @@ Weakest row status, which governs: **proved-kernel** (I-114, I-115).
 
 ### Dependency block: Readback forces indivisibility
 
-Rows: I-119 proved-kernel; I-120 proved-paper; I-121 proved-kernel (MISCITED).
+Rows: I-119 proved-kernel; I-120 proved-paper (IMPRECISE); I-121 proved-kernel (MISCITED).
 Weakest row status, which governs: **proved-paper** (I-120).
 
 | # | link | source | layer | status | hypotheses | rows |
@@ -526,7 +526,7 @@ Conditional on: covariant field equations derived from the substratum, with cons
 | I-212 | 158 | Global conservation is not necessary for recovery from accessible records. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | exhaustive-exact | FAITHFUL |  | reproduced |
 | I-213 | 158 | Exhaustive finite computations exhibit bijections with zero accessible advantage over a blind guess. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | exhaustive-exact | FAITHFUL |  | reproduced |
 | I-214 | 158 | Exhaustive finite computations exhibit non-injective maps with exact recovery. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:153@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | exhaustive-exact | FAITHFUL |  | reproduced |
-| I-215 | 160 | Of the 40,320 bijections of {0,1}³, 1,376 give zero accessible advantage (binary message, one register unread, two emissions). | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports; moving-partition layout, binary message, one mode unread after two emissions | exhaustive-exact | FAITHFUL |  | reproduced |
+| I-215 | 160 | Of the 40,320 bijections of {0,1}³, 1,376 give zero accessible advantage (binary message, one register unread, two emissions). | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647 | BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports; moving-partition layout, binary message, one mode unread after two emissions | exhaustive-exact | **IMPRECISE** |  | reproduced |
 | I-216 | 160 | For bijective dynamics, complete endpoint access gives exact recovery. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:98-102@eae01647 | bijective dynamics; every register read at the endpoint; BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | proved-paper | FAITHFUL |  | traced-only |
 | I-217 | 160 | For bijective dynamics with the unread registers U inaccessible, P_succ ≥ 1/\|U\|. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:104-112@eae01647 | bijective dynamics; uniform message prior; hidden-uniform unread data on equal-size supports | proved-paper | **IMPRECISE** |  | traced-only |
 | I-218 | 160 | Zero accessible advantage in a bijective instance requires \|U\| ≥ \|M\|. | verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:42-47@eae01647 | bijective dynamics; uniform message prior; hidden-uniform unread data on equal-size supports; BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports | proved-paper | **IMPRECISE** |  | traced-only |

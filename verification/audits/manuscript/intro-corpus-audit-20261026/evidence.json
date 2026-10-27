@@ -623,7 +623,7 @@
    "basis": "weakest of all its links: traced-only (paper-derivation)",
    "artifact_level": "certificate-checked",
    "artifact_role": "support",
-   "verdict": "FAITHFUL",
+   "verdict": "IMPRECISE",
    "proof_status": "proved-paper",
    "load_bearing": "all its links",
    "links": [
@@ -4256,7 +4256,7 @@
    "basis": "weakest of all its links: traced-only (literature, paper-derivation)",
    "artifact_level": "certificate-checked",
    "artifact_role": "support",
-   "verdict": "FAITHFUL",
+   "verdict": "IMPRECISE",
    "proof_status": "proved-paper",
    "load_bearing": "all its links",
    "links": [
@@ -4886,7 +4886,7 @@
    "basis": "weakest of all its links: traced-only (paper-derivation)",
    "artifact_level": "certificate-checked",
    "artifact_role": "support",
-   "verdict": "FAITHFUL",
+   "verdict": "IMPRECISE",
    "proof_status": "proved-paper",
    "load_bearing": "all its links",
    "links": [
@@ -5410,7 +5410,7 @@
    "basis": "weakest of all its links: traced-only (paper-derivation)",
    "artifact_level": "certificate-checked",
    "artifact_role": "support",
-   "verdict": "FAITHFUL",
+   "verdict": "IMPRECISE",
    "proof_status": "proved-paper",
    "load_bearing": "all its links",
    "links": [
@@ -9100,7 +9100,7 @@
    "basis": "weakest of all its links",
    "artifact_level": "reproduced",
    "artifact_role": "support",
-   "verdict": "FAITHFUL",
+   "verdict": "IMPRECISE",
    "proof_status": "exhaustive-exact",
    "load_bearing": "all its links",
    "links": [

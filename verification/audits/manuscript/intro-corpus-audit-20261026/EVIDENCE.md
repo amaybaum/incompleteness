@@ -109,7 +109,7 @@ The row's level is traced-only because of its proof status or a paper step; the 
 | Row | Verdict | Proof status | Held by | Artifact level | Role |
 |---|---|---|---|---|---|
 | I-008 | IMPRECISE | proved-paper | paper-derivation | certificate-checked | support |
-| I-009 | FAITHFUL | proved-paper | paper-derivation | certificate-checked | support |
+| I-009 | IMPRECISE | proved-paper | paper-derivation | certificate-checked | support |
 | I-032 | FAITHFUL | proved-paper | paper-derivation | certificate-checked | support |
 | I-055 | FAITHFUL | proved-paper | paper-derivation | certificate-checked | support |
 | I-074 | FAITHFUL | proved-paper | literature | certificate-checked | support |
@@ -117,15 +117,15 @@ The row's level is traced-only because of its proof status or a paper step; the 
 | I-094 | FAITHFUL | proved-paper | paper-derivation | certificate-checked | support |
 | I-095 | FAITHFUL | proved-paper | paper-derivation | certificate-checked | support |
 | I-096 | FAITHFUL | proved-paper | paper-derivation | certificate-checked | support |
-| I-100 | FAITHFUL | proved-paper | literature, paper-derivation | certificate-checked | support |
+| I-100 | IMPRECISE | proved-paper | literature, paper-derivation | certificate-checked | support |
 | I-100.a | FAITHFUL | proved-paper | literature, paper-derivation | certificate-checked | support |
 | I-100.b | FAITHFUL | proved-paper | literature, paper-derivation | certificate-checked | support |
 | I-102 | IMPRECISE | proved-paper | paper-derivation | certificate-checked | support |
 | I-106 | FAITHFUL | proved-paper | paper-derivation | certificate-checked | support |
 | I-107 | FAITHFUL | proved-paper | paper-derivation | certificate-checked | support |
-| I-108 | FAITHFUL | proved-paper | paper-derivation | certificate-checked | support |
+| I-108 | IMPRECISE | proved-paper | paper-derivation | certificate-checked | support |
 | I-118 | FAITHFUL | proved-paper | paper-derivation | reproduced | support |
-| I-120 | FAITHFUL | proved-paper | paper-derivation | certificate-checked | support |
+| I-120 | IMPRECISE | proved-paper | paper-derivation | certificate-checked | support |
 | I-122 | FAITHFUL | proved-paper | paper-derivation | certificate-checked | support |
 | I-123 | UNSUPPORTED | unsupported | proof status unsupported | reproduced | counter-evidence |
 | I-125 | FAITHFUL | proved-paper | paper-derivation | certificate-checked | support |

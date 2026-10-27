@@ -542,11 +542,17 @@
    ],
    "proof_status": "proved-paper",
    "strongest_verified_source": "papers/Main.md:139@eae01647",
-   "verdict": "FAITHFUL",
+   "verdict": "IMPRECISE",
    "contradictions": [],
    "proposed_fix": null,
    "notes": "Paper proof checked and sound. The kernel proves the conclusion from the routed-readback form, which implies history-level C4 but not conversely; the history-level step (C4 => some rooted map is non-permutation) is on paper. 'Somewhere in the recurrence cycle' matches the kernel's existential n.",
    "_part": "B1",
+   "mapper_verdict": "FAITHFUL",
+   "resolution": {
+    "finding": "S9-I1 (proofs/readback-recurrence, G5)",
+    "reason": "On the full-support representative, indivisibility at recurrence is equivalent to some non-permutation rooted map, which every law with a non-deterministic step meets; 'turns history readback into stochastic indivisibility' presents a generic property of reversible realization as readback-specific (R-37).",
+    "by": "step 9 proof reviews"
+   },
    "evidence_level": "traced-only",
    "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
@@ -4267,11 +4273,17 @@
    ],
    "proof_status": "proved-paper",
    "strongest_verified_source": "papers/Main.md:97@eae01647",
-   "verdict": "FAITHFUL",
+   "verdict": "IMPRECISE",
    "contradictions": [],
    "proposed_fix": null,
    "notes": "Attention resolved: Main §1.5 (Main:97, 'The four layers') does carry the Corollary, so [Main §1.5] is the right locator; it is also restated in Main §3.4 (Summary (2), Main:580; Remark (what this strengthens), Main:592). Both directions traced separately (I-100.a, I-100.b). Each rests on kernel (a) plus two unformalized steps (vanishing criterion, time-t identification), exactly as the Introduction says. No #939 change touches this site (git diff b64919cd eae01647 changes only ħ wording in Main/GR/ch00/ch01).",
    "_part": "B2",
+   "mapper_verdict": "FAITHFUL",
+   "resolution": {
+    "finding": "S9-A4 (proofs/hidden-memory-theorem2)",
+    "reason": "The Corollary holds for posteriors of positive-probability histories; without the qualifier a Markov law appears to carry readout-relevant memory (R-36).",
+    "by": "step 9 proof reviews"
+   },
    "evidence_level": "traced-only",
    "evidence_basis": "weakest of all its links: traced-only (literature, paper-derivation)"
   },
@@ -4882,11 +4894,17 @@
    ],
    "proof_status": "proved-paper",
    "strongest_verified_source": "lean:C3Necessity.lean:117:card_hidden_ge_two_pow_Istar + papers/Main.md:78@eae01647",
-   "verdict": "FAITHFUL",
+   "verdict": "IMPRECISE",
    "contradictions": [],
    "proposed_fix": null,
    "notes": "Pressure-tested: (C3) in the form log2|C_H| >= I* holds in every faithful realization whether or not (C4) holds, so 'follows from it' is true a fortiori; the kernel covers it in the joint-law form.",
    "_part": "B2",
+   "mapper_verdict": "FAITHFUL",
+   "resolution": {
+    "finding": "S9-A5 (proofs/hidden-memory-theorem2)",
+    "reason": "(C3) does not follow from Theorem 2(c) (X_3 = X_0 with the rest i.i.d. gives M_1 = 0 while (C3) needs one bit); it follows from the whole-future capacity bound (R-36).",
+    "by": "step 9 proof reviews"
+   },
    "evidence_level": "traced-only",
    "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
@@ -5409,11 +5427,17 @@
    ],
    "proof_status": "proved-paper",
    "strongest_verified_source": "papers/Main.md:137@eae01647",
-   "verdict": "FAITHFUL",
+   "verdict": "IMPRECISE",
    "contradictions": [],
    "proposed_fix": null,
    "notes": "Proof re-checked: sound. Scope remark (Main:141): global recurrence-cycle result, not every short window. Ledger MAIN:T-history-readback-finite-recurrence-implies P.",
    "_part": "B2",
+   "mapper_verdict": "FAITHFUL",
+   "resolution": {
+    "finding": "S9-D6, S9-I1 (proofs/readback-recurrence, G4, G5)",
+    "reason": "'With this lemma' misattributes the machine-checked route (overlap plus TV contraction, without the lemma); the rooted maps must be defined for every root under the shared prior, without which the theorem is false (R-37).",
+    "by": "step 9 proof reviews"
+   },
    "evidence_level": "traced-only",
    "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
@@ -9416,15 +9440,16 @@
    ],
    "proof_status": "exhaustive-exact",
    "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647",
-   "verdict": "FAITHFUL",
+   "verdict": "IMPRECISE",
    "contradictions": [],
    "proposed_fix": null,
    "notes": "40320 = 8! checked by control K4.",
    "_part": "B3",
+   "mapper_verdict": "FAITHFUL",
    "resolution": {
-    "finding": null,
-    "reason": "exhaustive enumeration in exact arithmetic over a stated finite domain (BHa); distinguished from floating-point numerics",
-    "by": "independent review RC-12"
+    "finding": "S9-D5 (proofs/bha-c1-c3)",
+    "reason": "exhaustive enumeration in exact arithmetic over a stated finite domain (BHa); distinguished from floating-point numerics; and (step 9 proof reviews) 1,376 holds for the same map at every step with cumulative records, while with endpoint-snapshot records the count is 10,944 (R-35)",
+    "by": "independent review RC-12; step 9 proof reviews"
    },
    "mapper_proof_status": "numerical",
    "evidence_level": "reproduced",
@@ -17083,8 +17108,8 @@
  "missing": [],
  "extra": [],
  "verdicts": {
-  "FAITHFUL": 358,
-  "IMPRECISE": 38,
+  "FAITHFUL": 353,
+  "IMPRECISE": 43,
   "UNDERCLAIM": 7,
   "MISCITED": 3,
   "UNSUPPORTED": 1,

@@ -1,5 +1,5 @@
 {
- "_note": "Verdicts, statuses and fixes resolved after the mapping: by the synthesis (FINDINGS.md) and by the independent review (review/INDEPENDENT-REVIEW.md, RC-1, RC-5, RC-8, RC-11, RC-12). merge_matrix.py applies them and keeps each mapper value under mapper_*.",
+ "_note": "Verdicts, statuses and fixes resolved after the mapping: by the synthesis (FINDINGS.md) and by the independent review (review/INDEPENDENT-REVIEW.md, RC-1, RC-5, RC-8, RC-11, RC-12). merge_matrix.py applies them and keeps each mapper value under mapper_*, and by the step 9 proof reviews (proofs/README.md).",
  "I-008": {
   "verdict": "IMPRECISE",
   "finding": "R-24",
@@ -78,8 +78,10 @@
  },
  "I-215": {
   "proof_status": "exhaustive-exact",
-  "by": "independent review RC-12",
-  "reason": "exhaustive enumeration in exact arithmetic over a stated finite domain (BHa); distinguished from floating-point numerics"
+  "by": "independent review RC-12; step 9 proof reviews",
+  "reason": "exhaustive enumeration in exact arithmetic over a stated finite domain (BHa); distinguished from floating-point numerics; and (step 9 proof reviews) 1,376 holds for the same map at every step with cumulative records, while with endpoint-snapshot records the count is 10,944 (R-35)",
+  "verdict": "IMPRECISE",
+  "finding": "S9-D5 (proofs/bha-c1-c3)"
  },
  "I-219": {
   "proof_status": "exhaustive-exact",
@@ -95,5 +97,29 @@
   "proof_status": "exhaustive-exact",
   "by": "independent review RC-12",
   "reason": "exhaustive enumeration in exact arithmetic over a stated finite domain (BHa); distinguished from floating-point numerics"
+ },
+ "I-009": {
+  "verdict": "IMPRECISE",
+  "finding": "S9-I1 (proofs/readback-recurrence, G5)",
+  "reason": "On the full-support representative, indivisibility at recurrence is equivalent to some non-permutation rooted map, which every law with a non-deterministic step meets; 'turns history readback into stochastic indivisibility' presents a generic property of reversible realization as readback-specific (R-37).",
+  "by": "step 9 proof reviews"
+ },
+ "I-120": {
+  "verdict": "IMPRECISE",
+  "finding": "S9-D6, S9-I1 (proofs/readback-recurrence, G4, G5)",
+  "reason": "'With this lemma' misattributes the machine-checked route (overlap plus TV contraction, without the lemma); the rooted maps must be defined for every root under the shared prior, without which the theorem is false (R-37).",
+  "by": "step 9 proof reviews"
+ },
+ "I-100": {
+  "verdict": "IMPRECISE",
+  "finding": "S9-A4 (proofs/hidden-memory-theorem2)",
+  "reason": "The Corollary holds for posteriors of positive-probability histories; without the qualifier a Markov law appears to carry readout-relevant memory (R-36).",
+  "by": "step 9 proof reviews"
+ },
+ "I-108": {
+  "verdict": "IMPRECISE",
+  "finding": "S9-A5 (proofs/hidden-memory-theorem2)",
+  "reason": "(C3) does not follow from Theorem 2(c) (X_3 = X_0 with the rest i.i.d. gives M_1 = 0 while (C3) needs one bit); it follows from the whole-future capacity bound (R-36).",
+  "by": "step 9 proof reviews"
  }
 }
