@@ -42,7 +42,7 @@ By proof status:
 | conjecture | 0 | 0 | 9 | 0 |
 | unsupported | 0 | 0 | 5 | 0 |
 
-Traced-only rows whose checked artifacts reach a higher level: 19 reproduced, 26 certificate-checked (listed below).
+Traced-only rows whose checked artifacts reach a higher level: 20 reproduced, 26 certificate-checked (listed below).
 
 Items: 178 (E1–E3). By part, level and outcome:
 
@@ -90,8 +90,6 @@ Each row below has a load-bearing kernel, computation or build link that no evid
 | I-176 | FAITHFUL | proved-paper | `papers/GR.md:356@eae01647` (exact-algebra) | no computation item for this link |
 | I-177 | FAITHFUL | proved-paper | `papers/GR.md:581@eae01647; papers/GR.md:356@eae01647` (exact-algebra) | no computation item for this link |
 | I-191 | FAITHFUL | proved-paper | `papers/GR.md:338@eae01647` (exact-algebra) | no computation item for this link |
-| I-227 | FAITHFUL | proved-paper | `papers/GR.md:833@eae01647` (exact-algebra) | no computation item for this link (listed items do not name this manuscript file: E2-07, E3-18) |
-| I-227 | FAITHFUL | proved-paper | `book/ch07-gravity.md:126@eae01647` (exact-algebra) | no computation item for this link (listed items do not name this manuscript file: E2-07, E3-18) |
 | I-258 | UNDERCLAIM | proved-kernel | `papers/GR.md:266@eae01647` (kernel) | kernel-layer link without a declaration source; no item names its file |
 | I-262 | FAITHFUL | proved-paper | `papers/Introduction.md:232@4a260ca9` (exact-algebra) | no computation item for this link |
 | I-271 | FAITHFUL | proved-paper | `papers/Introduction.md:251@4a260ca9` (exhaustive-computation) | no computation item for this link |
@@ -137,6 +135,7 @@ The row's level is traced-only because of its proof status or a paper step; the 
 | I-216 | FAITHFUL | proved-paper | paper-derivation | reproduced | support |
 | I-218 | IMPRECISE | proved-paper | paper-derivation | reproduced | support |
 | I-225 | OVERCLAIM | unsupported | proof status unsupported | reproduced | counter-evidence |
+| I-227 | FAITHFUL | proved-paper | paper-derivation | reproduced | support |
 | I-230 | FAITHFUL | proved-paper | paper-derivation | reproduced | support |
 | I-246 | IMPRECISE | conditional | proof status conditional | certificate-checked | support |
 | I-247 | FAITHFUL | conditional | proof status conditional | certificate-checked | support |
@@ -164,6 +163,8 @@ The row's level is traced-only because of its proof status or a paper step; the 
 - **I-282** link 1 (`verification/ROADMAP.md:66@eae01647`): kernel → none; a ROADMAP entry recording an open obligation, not a declaration.
 - **I-309** link 0 (`git@17b830bc..b64919cd`): exhaustive-computation → none; a git identity check on sources (E2-19, ci-receipt), not a computation.
 - **I-044** link 0 (`verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:3@eae0`): paper-derivation → none; a research record's own status line: the claim is about the records, with no derivation.
+- **I-227** link 0 (`papers/GR.md:833@eae01647`): exact-algebra → paper-derivation; a manuscript statement of the one-line proof (P_pi maps configuration basis states to basis states); the finite sweeps are link 1.
+- **I-227** link 2 (`book/ch07-gravity.md:126@eae01647`): exact-algebra → paper-derivation; a manuscript statement of the one-line proof (P_pi maps configuration basis states to basis states); the finite sweeps are link 1.
 
 ## Rows resting on partial items
 

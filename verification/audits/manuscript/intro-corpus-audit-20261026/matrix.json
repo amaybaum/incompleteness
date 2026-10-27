@@ -9966,9 +9966,11 @@
     {
      "link": "'The same holds for every bijection: acting on a definite configuration, φ visits only configurations, each a product state across a bipartition aligned with the configuration coordinates, so S(ρ_R) = 0 along every such orbit'",
      "source": "papers/GR.md:833@eae01647",
-     "layer": "exact-algebra",
+     "layer": "paper-derivation",
      "hypotheses": [],
-     "link_status": "proved"
+     "link_status": "proved",
+     "mapper_layer": "exact-algebra",
+     "relabel_reason": "a manuscript statement of the one-line proof (P_pi maps configuration basis states to basis states); the finite sweeps are link 1"
     },
     {
      "link": "BHb C1 PROVED: 'P_π maps configuration basis vectors to configuration basis vectors … S(R)=0 exactly, at every aligned bipartition'; the sweeps exercise code, 'the universal claim rests on the one-line proof'",
@@ -9980,9 +9982,11 @@
     {
      "link": "Book mirror: 'every finite bijection acting on a definite configuration, with the bipartition aligned …, visits only product states'",
      "source": "book/ch07-gravity.md:126@eae01647",
-     "layer": "exact-algebra",
+     "layer": "paper-derivation",
      "hypotheses": [],
-     "link_status": "proved"
+     "link_status": "proved",
+     "mapper_layer": "exact-algebra",
+     "relabel_reason": "a manuscript statement of the one-line proof (P_pi maps configuration basis states to basis states); the finite sweeps are link 1"
     }
    ],
    "required_assumptions": [],
@@ -9994,7 +9998,7 @@
    "notes": "Attention resolved: the universal 'for every bijection' claim does not rest only on the unpublished BHb. It has a one-line universal written proof (a permutation unitary maps basis vectors to basis vectors, which are product states across an aligned cut), stated in the published corpus at GR App. A.7 (GR.md:833) and ch07:126, and proved in BHb C1; the exhaustive sweeps (24/40320/362880 permutations) only exercise the code. The cited [GR App. A.7] already carries it. See I-225 for the missing link to Theorem A.8's own setting.",
    "_part": "B3",
    "evidence_level": "traced-only",
-   "evidence_basis": "weakest of all its links: traced-only (unmatched exact-algebra)"
+   "evidence_basis": "weakest of all its links: traced-only (paper-derivation)"
   },
   {
    "id": "I-228",

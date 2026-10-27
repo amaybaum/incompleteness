@@ -92,7 +92,7 @@
   ],
   "traced_only_rows_with_checked_artifacts": {
    "certificate-checked": 26,
-   "reproduced": 19
+   "reproduced": 20
   }
  },
  "items": {
@@ -9572,8 +9572,8 @@
   },
   "I-227": {
    "evidence_level": "traced-only",
-   "basis": "weakest of all its links: traced-only (unmatched exact-algebra)",
-   "artifact_level": "traced-only",
+   "basis": "weakest of all its links: traced-only (paper-derivation)",
+   "artifact_level": "reproduced",
    "artifact_role": "support",
    "verdict": "FAITHFUL",
    "proof_status": "proved-paper",
@@ -9582,18 +9582,14 @@
     {
      "index": 0,
      "source": "papers/GR.md:833@eae01647",
-     "layer": "exact-algebra",
+     "layer": "paper-derivation",
      "link_status": "proved",
      "items": [],
      "gap": [
-      "no computation item for this link (listed items do not name this manuscript file: E2-07, E3-18)"
-     ],
-     "not_matched": [
-      "E2-07",
-      "E3-18"
+      "no step-7 artifact type (paper-derivation)"
      ],
      "level": "traced-only",
-     "bearing": true
+     "bearing": false
     },
     {
      "index": 1,
@@ -9612,18 +9608,14 @@
     {
      "index": 2,
      "source": "book/ch07-gravity.md:126@eae01647",
-     "layer": "exact-algebra",
+     "layer": "paper-derivation",
      "link_status": "proved",
      "items": [],
      "gap": [
-      "no computation item for this link (listed items do not name this manuscript file: E2-07, E3-18)"
-     ],
-     "not_matched": [
-      "E2-07",
-      "E3-18"
+      "no step-7 artifact type (paper-derivation)"
      ],
      "level": "traced-only",
-     "bearing": true
+     "bearing": false
     }
    ],
    "failed_items": [],

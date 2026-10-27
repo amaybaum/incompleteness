@@ -1,5 +1,5 @@
 {
- "_note": "Chain-link layer corrections from the step-7 reviews (review/EVIDENCE-REVIEW.md R6, O6, R1). merge_matrix.py applies them after the parts and keeps each mapper value as mapper_layer on the link; each entry names its link by index and by its source, which the merge checks. Kernel-proved steps the mapper sourced to a paper line that cites the kernel (I-042, I-052, I-258, I-281) keep the kernel layer: step 7 grades them traced-only until they are sourced to declarations.",
+ "_note": "Chain-link layer corrections from the step-7 reviews (review/EVIDENCE-REVIEW.md R6, O6, R1; review/EVIDENCE-RECHECK-8f6ea594.md, I-227). merge_matrix.py applies them after the parts and keeps each mapper value as mapper_layer on the link; each entry names its link by index and by its source, which the merge checks. Kernel-proved steps the mapper sourced to a paper line that cites the kernel (I-042, I-052, I-258, I-281) keep the kernel layer: step 7 grades them traced-only until they are sourced to declarations.",
  "I-063": [
   {
    "index": 2,
@@ -34,6 +34,22 @@
    "from": "paper-derivation",
    "to": "none",
    "reason": "a research record's own status line: the claim is about the records, with no derivation"
+  }
+ ],
+ "I-227": [
+  {
+   "index": 0,
+   "source": "papers/GR.md:833@eae01647",
+   "from": "exact-algebra",
+   "to": "paper-derivation",
+   "reason": "a manuscript statement of the one-line proof (P_pi maps configuration basis states to basis states); the finite sweeps are link 1"
+  },
+  {
+   "index": 2,
+   "source": "book/ch07-gravity.md:126@eae01647",
+   "from": "exact-algebra",
+   "to": "paper-derivation",
+   "reason": "a manuscript statement of the one-line proof (P_pi maps configuration basis states to basis states); the finite sweeps are link 1"
   }
  ]
 }
