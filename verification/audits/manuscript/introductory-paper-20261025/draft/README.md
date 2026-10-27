@@ -338,3 +338,7 @@ record, and the GR names of the five completion conditions.
 clause removed, and the physical-meaning sentence scoped to "any accessible record" and trimmed to its new content.
 The third finding is declined, because it would return the shared-preparation reason to the contrast form that the
 run-4 evaluation found insufficient.
+
+`CHANGES-r30.md` records r30, which applies the run-5 evaluation's two required changes (a never-occurring start is
+not an impossible one; where the order k lies relative to accessible windows) and its recommended Page-curve
+sentence, with one optional editorial trim.

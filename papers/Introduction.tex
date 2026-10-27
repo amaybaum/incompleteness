@@ -666,21 +666,23 @@ hidden part is set up by the same procedure every time; if the procedure
 changed with the start, a difference between two forecasts could come
 from the setup rather than from the dynamics.
 
-Why keep a start that never occurs? A different deck and shuffle shows.
-Suppose its rule makes a red start always show red while a black start,
-with the same face-down odds, may show either colour, and the dealer
-always starts with red. What the observer actually sees is red at every
-step, with no uncertainty; what happens from a black start under that
-preparation is never observed. The rooted family, the table of forecasts
-from every start, still asks what the same dynamics and the same hidden
-preparation would produce from black: that forecast is part of the
-mathematical comparison, not something this observer measures. After the
-first shuffle both forecasts give red a positive chance, an overlap that
-comes only from the start that is never dealt {[}Main §2.3{]}. Both
-forecasts return to certainty at step 2, earlier than the whole world,
-which returns to its starting configuration only at its recurrence time,
-step 3. The failure of chaining comes from the step-1 overlap together
-with this step-2 return, not from the step-3 recurrence: no step-by-step
+Why keep a start that never occurs? Such a start is not impossible: the
+world can be started there, and this dealer's preparation simply never
+does so. A different deck and shuffle shows. Suppose its rule makes a
+red start always show red while a black start, with the same face-down
+odds, may show either colour, and the dealer always starts with red.
+What the observer actually sees is red at every step, with no
+uncertainty; what happens from a black start under that preparation is
+never observed. The rooted family, the table of forecasts from every
+start, still asks what the same dynamics and the same hidden preparation
+would produce from black: that forecast is part of the mathematical
+comparison, not something this observer measures. After the first
+shuffle both forecasts give red a positive chance, an overlap that comes
+only from the start that is never dealt {[}Main §2.3{]}. Both forecasts
+return to certainty at step 2, earlier than the whole world, which
+returns to its starting configuration only at its recurrence time, step
+3. The failure of chaining comes from the step-1 overlap together with
+this step-2 return, not from the step-3 recurrence: no step-by-step
 forecast can carry the overlapping forecasts of step 1 to the two
 certainties of step 2, so the forecasts fail to chain over the first two
 steps, although no dealt game ever looks uncertain.
@@ -792,9 +794,9 @@ windows sees neither the late conditional memory nor the failure of
 chaining it implies across the cycle: both remain established in the
 dynamics under the theorem's hypotheses, but neither appears in any
 accessible record. The failure of chaining is a property of the world's
-rule, its dynamics with its hidden preparation, rather than of any
-accessible record: it constrains how such a world can be described, not
-what accessible data will show {[}Main §2.3, Scope{]}.
+rule, its dynamics with its hidden preparation: it constrains how such a
+world can be described, not what accessible data will show {[}Main §2.3,
+Scope{]}.
 
 For example, let \(X_0,X_1,X_2\) be independent fair bits and
 \(X_3=X_0\). Up to time 2 each next observation is independent of the
@@ -814,7 +816,11 @@ every root and drawn independently of it and with a full-support visible
 prior, failure of P-divisibility on \(\{0,\dots,L\}\) is equivalent to
 \(M_k>0\) at some order \(k<L\) (the Corollary); a law that is Markov on
 every accessible window has \(M_k=0\) at every accessible order, so that
-\(k\) lies beyond the accessible windows.
+\(k\) lies beyond the accessible windows. Picture the orders
+\(1,2,\dots,L-1\) as a long line: accessible windows cover only its
+short beginning, while the order \(k\) of the Corollary can lie anywhere
+on it, so a memory that first appears late on the line is real in the
+dynamics but outside every window.
 
 Recurrence-cycle indivisibility thus needs only finite reversibility and
 one non-deterministic visible step, and holds also for laws that are
@@ -1434,7 +1440,12 @@ that acts on a definite configuration when the split into black hole and
 radiation follows the configuration coordinates, the isolation condition
 is not established, and for an evaporating black hole whose radiation
 carries away its energy, not every configuration of black hole and
-radiation has the same energy.
+radiation has the same energy. What survives is the conditional
+statement: the cycle-averaged Page value follows once H-scramble holds,
+which requires an initial superposition of configurations or a split not
+aligned with them, and which of these the substratum supplies is open
+{[}GR App. A.7{]}; the separation of conservation from recovery above
+does not depend on it.
 
 \hypertarget{established-results-conditional-interpretations-and-open-problems}{%
 \subsection{6. Established results, conditional interpretations and open
@@ -1840,4 +1851,4 @@ arXiv:gr-qc/0604062v4.
 \endgroup
 
 \end{document}
-% source-sha256: 25574824809c8c35da2dfe268598af33cc01eea7a32b149d1dff826a8e4ac333
+% source-sha256: 1e168e248343c396784997679a5cb7557a33a69e3dcc096352b93d884238fa27
