@@ -1,0 +1,221 @@
+name: evidence replay
+
+# Manually dispatched reproductions of retained evidence that the Introduction (papers/Introduction.md)
+# cites and the Introduction corpus audit (verification/audits/manuscript/intro-corpus-audit-20261026/,
+# PR #942) could not reproduce locally. The workflow has no other trigger, so it runs only when dispatched.
+# Each activity checks out a pinned commit, runs that commit's own recorded recipe, and decides its verdict
+# from exit statuses. It writes nothing to the repository: logs, outputs and their sha256 sums are
+# uploaded as one artifact per run.
+#
+# Activities (input `activity`; `confirm_commit` must equal the activity's pinned commit in full):
+#   lean-fresh-build  papers/introduction_repro/'s recipe at 17b830bc, from an empty .lake/build (no Actions
+#                     cache), so every OIBridge module is elaborated in the job. The frozen extractor and
+#                     comparator (48b18ac5) compare the output with the retained expected result (14 modules,
+#                     at #918's head 4a260ca9) and with the staged extension (28 modules, 24e70304). A step
+#                     fails if lake replayed any OIBridge module instead of building it.
+#   bh-mutants        the BH-01 and BH-02 mutant campaigns (mutants.py) at eae01647, the corpus commit at which
+#                     the audit read both records. Each mutants.py exits nonzero unless every mutant is caught.
+#                     BH-01's output (written with --out outside the tree) is compared byte for byte with its
+#                     retained mutants-output.json; BH-02's
+#                     with mutants-output.txt, which its PROVENANCE.json records as the campaign at 91e2230a,
+#                     so a difference there is reported and does not decide the verdict.
+#   bhb-optimized     BH-02's replay under -O at eae01647: python3 -I -B -O checks.py | cmp - result.json.
+#
+# The black-hole records are byte-identical at b64919cd, eae01647 and 02e73e56.
+
+on:
+  workflow_dispatch:
+    inputs:
+      activity:
+        description: "lean-fresh-build, bh-mutants or bhb-optimized"
+        required: true
+        type: choice
+        options: [lean-fresh-build, bh-mutants, bhb-optimized]
+      confirm_commit:
+        description: "the activity's pinned commit, in full"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+env:
+  LEAN_COMMIT: 17b830bcd0ecc36e10eff5b9eeca03bdd7198d86
+  BH_COMMIT: eae01647f50d9e2aa90957fbd6c59d8cf44e7681
+  ARCHIVE_COMMIT: 48b18ac54e39920a4fc4bbb8ee1d1b6cebea2c29
+  EXPECTED_14: 4a260ca9d6414e4d504a629ba5a0eb3c70bd4704
+  EXPECTED_28: 24e70304a6b94e0e3150e6b0eb5167fa312b52ae
+
+jobs:
+  lean-fresh-build:
+    if: ${{ inputs.activity == 'lean-fresh-build' }}
+    name: Lean fresh build at 17b830bc
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: The dispatch names the pinned commit
+        run: test "${{ inputs.confirm_commit }}" = "$LEAN_COMMIT"
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Worktree at the pinned commit, tools and expected results from history
+        run: |
+          set -euo pipefail
+          git worktree add --detach "$RUNNER_TEMP/dir" "$LEAN_COMMIT"
+          test "$(git -C "$RUNNER_TEMP/dir" rev-parse HEAD)" = "$LEAN_COMMIT"
+          test ! -e "$RUNNER_TEMP/dir/verification/lean-mathlib/.lake"
+          mkdir -p "$RUNNER_TEMP/tools" "$RUNNER_TEMP/out"
+          for f in extract_result.py compare_result.py; do
+            git show "$ARCHIVE_COMMIT:verification/audits/evidence-retention/$f" > "$RUNNER_TEMP/tools/$f"
+          done
+          git show "$EXPECTED_14:papers/introduction_repro/results-121598983127.json" > "$RUNNER_TEMP/out/expected-14.json"
+          git show "$EXPECTED_28:papers/introduction_repro/results-121598983127.json" > "$RUNNER_TEMP/out/expected-28.json"
+
+      - name: Install elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o elan-init.sh
+          sh elan-init.sh -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Build from an empty .lake/build, then the release gate (the recipe)
+        run: |
+          log="$RUNNER_TEMP/out/build-and-gate.log"
+          b=0; g=0
+          (cd "$RUNNER_TEMP/dir/verification/lean-mathlib" && lean --version && lake exe cache get && lake --rehash build) > "$log" 2>&1 || b=$?
+          (cd "$RUNNER_TEMP/dir" && python3 tools/release_gate.py) >> "$log" 2>&1 || g=$?
+          echo "build exit $b, gate exit $g"
+          echo "$b" > "$RUNNER_TEMP/out/build.exit"; echo "$g" > "$RUNNER_TEMP/out/gate.exit"
+          test "$b" -eq 0 && test "$g" -eq 0
+
+      - name: Every OIBridge module was built in this job, none replayed
+        if: ${{ !cancelled() }}
+        run: |
+          set -euo pipefail
+          log="$RUNNER_TEMP/out/build-and-gate.log"
+          built=$(grep -c 'Built OIBridge' "$log" || true)
+          replayed=$(grep -c 'Replayed OIBridge' "$log" || true)
+          echo "Built OIBridge lines: $built; Replayed OIBridge lines: $replayed" | tee "$RUNNER_TEMP/out/elaboration.txt"
+          test "$replayed" -eq 0 && test "$built" -gt 0
+
+      - name: Extract and compare with both expected results
+        if: ${{ !cancelled() }}
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/out"
+          python3 -I "$RUNNER_TEMP/tools/extract_result.py" build-and-gate.log > reproduced.json
+          rc=0
+          for e in 14 28; do
+            python3 -I "$RUNNER_TEMP/tools/compare_result.py" "expected-$e.json" reproduced.json --tree "$RUNNER_TEMP/dir" \
+              > "compare-$e.txt" 2>&1 || rc=1
+            tail -n 1 "compare-$e.txt"
+          done
+          exit $rc
+
+      - name: Checksums
+        if: ${{ always() }}
+        run: |
+          cd "$RUNNER_TEMP/out" && sha256sum * | tee SHA256SUMS
+          { echo '```'; cat SHA256SUMS; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          name: lean-fresh-build-${{ github.run_id }}
+          path: ${{ runner.temp }}/out/
+
+  bh-mutants:
+    if: ${{ inputs.activity == 'bh-mutants' }}
+    name: BH-01 and BH-02 mutant campaigns at eae01647
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: The dispatch names the pinned commit
+        run: test "${{ inputs.confirm_commit }}" = "$BH_COMMIT"
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.BH_COMMIT }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: BH-01 mutants.py
+        working-directory: verification/programmes/black-hole-information/bh01_access_v1
+        run: |
+          mkdir -p "$RUNNER_TEMP/out/bh01"
+          test "$(git rev-parse HEAD)" = "$BH_COMMIT"
+          rc=0; d=0
+          python3 -I -B mutants.py --out "$RUNNER_TEMP/out/bh01" > "$RUNNER_TEMP/out/bh01-mutants.stdout" 2> "$RUNNER_TEMP/out/bh01-mutants.stderr" || rc=$?
+          echo "$rc" > "$RUNNER_TEMP/out/bh01-mutants.exit"
+          cmp "$RUNNER_TEMP/out/bh01/mutants-output.json" mutants-output.json || d=$?
+          echo "mutants.py exit $rc; mutants-output.json byte-identical to the retained file: $([ $d -eq 0 ] && echo yes || echo no)"
+          test "$rc" -eq 0 && test "$d" -eq 0
+
+      - name: BH-02 mutants.py
+        if: ${{ !cancelled() }}
+        working-directory: verification/programmes/black-hole-information/bh02_scramble_v1
+        run: |
+          rc=0
+          python3 -I -B mutants.py > "$RUNNER_TEMP/out/bh02-mutants-output.txt" 2> "$RUNNER_TEMP/out/bh02-mutants.stderr" || rc=$?
+          echo "$rc" > "$RUNNER_TEMP/out/bh02-mutants.exit"
+          if cmp -s "$RUNNER_TEMP/out/bh02-mutants-output.txt" mutants-output.txt; then same=yes; else same=no; fi
+          diff mutants-output.txt "$RUNNER_TEMP/out/bh02-mutants-output.txt" > "$RUNNER_TEMP/out/bh02-mutants-output.diff" || true
+          echo "mutants.py exit $rc; output identical to the retained mutants-output.txt (the campaign at 91e2230a): $same"
+          test "$rc" -eq 0
+
+      - name: Checksums
+        if: ${{ always() }}
+        run: |
+          cd "$RUNNER_TEMP/out" && sha256sum * | tee SHA256SUMS
+          { echo '```'; cat SHA256SUMS; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          name: bh-mutants-${{ github.run_id }}
+          path: ${{ runner.temp }}/out/
+
+  bhb-optimized:
+    if: ${{ inputs.activity == 'bhb-optimized' }}
+    name: BH-02 replay under -O at eae01647
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: The dispatch names the pinned commit
+        run: test "${{ inputs.confirm_commit }}" = "$BH_COMMIT"
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.BH_COMMIT }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: python3 -I -B -O checks.py | cmp - result.json
+        working-directory: verification/programmes/black-hole-information/bh02_scramble_v1
+        run: |
+          mkdir -p "$RUNNER_TEMP/out"
+          test "$(git rev-parse HEAD)" = "$BH_COMMIT"
+          python3 -V > "$RUNNER_TEMP/out/python-version.txt" 2>&1
+          rc=0; c=0
+          python3 -I -B -O checks.py > "$RUNNER_TEMP/out/result-O.json" || rc=$?
+          echo "$rc" > "$RUNNER_TEMP/out/checks-O.exit"
+          cmp "$RUNNER_TEMP/out/result-O.json" result.json || c=$?
+          echo "checks.py -O exit $rc; byte-identical to result.json: $([ $c -eq 0 ] && echo yes || echo no)"
+          test "$rc" -eq 0 && test "$c" -eq 0
+
+      - name: Checksums
+        if: ${{ always() }}
+        run: |
+          cd "$RUNNER_TEMP/out" && sha256sum * | tee SHA256SUMS
+          { echo '```'; cat SHA256SUMS; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          name: bhb-optimized-${{ github.run_id }}
+          path: ${{ runner.temp }}/out/
