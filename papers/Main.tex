@@ -233,14 +233,17 @@ predictive memory. On one fixed finite reversible representative the
 full rooted visible process is indivisible somewhere in its recurrence
 cycle whenever some rooted map is not a permutation, since finite
 recurrence returns the visible map to the identity and a non-permutation
-stochastic matrix has no stochastic inverse; a (C4) gap supplies such a
-map, and so does every non-deterministic visible step, including in laws
-that are Markov on every accessible window, so the indivisibility also
-holds for laws without accessible memory. Conditions (C1) and (C3) are
-then necessary diagnostics of the hidden mediation and its capacity;
-(C2-structural) is the persistence needed for the stored record to
-survive until readback, with the slow-bath inequality one sufficient
-physical mechanism.
+stochastic matrix has no stochastic inverse. With a full-support visible
+prior this indivisibility is equivalent to a memory obstruction,
+\(M_k > 0\) at some order \(k\) below the recurrence time, and that
+order may lie as late as the recurrence time. Observational access is a
+separate requirement: (C4) asks for the obstruction at an accessible
+order, and recurrence does not supply one, since every non-deterministic
+visible step gives the indivisibility, including in laws that are Markov
+on every accessible window. Conditions (C1) and (C3) are then necessary
+diagnostics of the hidden mediation and its capacity; (C2-structural) is
+the persistence needed for the stored record to survive until readback,
+with the slow-bath inequality one sufficient physical mechanism.
 
 For spatial OI systems, the coupling graph defined by one-step dynamical
 dependence supplies exact causal cones: influence propagates at most one
@@ -703,16 +706,19 @@ predictive memory in every faithful completion (§3.4); indivisibility
 somewhere in the recurrence cycle of a fixed finite reversible
 representative follows from any non-deterministic visible step,
 including in laws that are Markov on every accessible window, and does
-not require C4 (§2.3). C1 and C3 follow as necessary diagnostics of the
-mediation and its capacity; C2-structural supplies persistence to
-readback, with C2-slow one physical mechanism. \textbf{(3) Reverse
-finite realization:} every finite stochastic law, including every finite
-quantum record, has a finite reversible OI realization; bounded quantum
-instrument families are uniformly realizable to arbitrary finite
-accuracy (§3.4). \textbf{(4) Full operational extension:} identifying
-one common \emph{standard local quantum instrument/composite theory} for
-all coherent interventions requires the additional operational-lifting
-and composition hypotheses stated in §3.4. Bell is a separate constraint
+not require C4; with a full-support visible prior it is equivalent to
+memory at some order up to the recurrence time, which an observer
+reaches only when that order is accessible, as C4 asserts (§2.3). C1 and
+C3 follow as necessary diagnostics of the mediation and its capacity;
+C2-structural supplies persistence to readback, with C2-slow one
+physical mechanism. \textbf{(3) Reverse finite realization:} every
+finite stochastic law, including every finite quantum record, has a
+finite reversible OI realization; bounded quantum instrument families
+are uniformly realizable to arbitrary finite accuracy (§3.4).
+\textbf{(4) Full operational extension:} identifying one common
+\emph{standard local quantum instrument/composite theory} for all
+coherent interventions requires the additional operational-lifting and
+composition hypotheses stated in §3.4. Bell is a separate constraint
 rather than one of those lifting hypotheses: for a response-complete
 deterministic completion, measurement independence plus ontic parameter
 independence would force \(|S_{\rm CHSH}|\le2\), so the Bell-violating
@@ -791,18 +797,21 @@ realization run from time 0 the visible past is a function of
 \((X_t, H_t)\), so \(I(X_{<t}; H_t \mid X_t) = H(X_{<t} \mid X_t)\) for
 every law, Markov laws included; the readout-relevant part of that
 memory is what distinguishes non-Markovian laws, and it is the visible
-witness carried through the pushforward identity. The equivalence
-\(S \iff D\) and this universal statement are the paper's core.
-\textbf{Layer 2 --- memory and capacity} (§2.3): (C4) forces positive
-conditional memory; the (C3) information bound; the physical-memory
-theorem ((C2), conditional on mixing). \textbf{Layer 3 --- quantum
-representation} (§3.1, §3.4): the imported correspondence (Q1) and the
-in-house uncompressed form (Q2), scopes separated. \textbf{Layer 4 ---
-physical and operational realization} (§3.2, §4, companions):
-interventions (classical comb closed, §3.4; quantum instruments open),
-coherent preparation, Bell and free-choice structure, H-spin' and H-χ',
-the cosmological realization --- where the named hypotheses live. A
-Layer-1 result does not by itself establish any Layer-4 claim.
+witness carried through the pushforward identity. The least hidden
+predictive information a deterministic completion carries at \(t\) is
+\(I(X_{<t}; X_{>t} \mid X_t)\), attained by the canonical predictive
+quotient (§3.4, variational remark). The equivalence \(S \iff D\) and
+this universal statement are the paper's core. \textbf{Layer 2 ---
+memory and capacity} (§2.3): (C4) forces positive conditional memory;
+the (C3) information bound; the physical-memory theorem ((C2),
+conditional on mixing). \textbf{Layer 3 --- quantum representation}
+(§3.1, §3.4): the imported correspondence (Q1) and the in-house
+uncompressed form (Q2), scopes separated. \textbf{Layer 4 --- physical
+and operational realization} (§3.2, §4, companions): interventions
+(classical comb closed, §3.4; quantum instruments open), coherent
+preparation, Bell and free-choice structure, H-spin' and H-χ', the
+cosmological realization --- where the named hypotheses live. A Layer-1
+result does not by itself establish any Layer-4 claim.
 
 \hypertarget{emergent-stochasticity-and-p-indivisibility}{%
 \subsection{2. EMERGENT STOCHASTICITY AND
@@ -963,8 +972,11 @@ representative with such a step, laws that are Markov on every
 accessible window included. Under a full-support prior, the gap it is
 equivalent to may lie at orders up to the recurrence time; (C4) and
 condition (ii) of §3.4 require an accessible order, \(k\tau_S \ll t_R\).
-What (C4) adds within accessible windows is the positive conditional
-memory of the readback lemma below.
+The equivalence is a property of the representative's rooted law over
+its whole recurrence cycle; an observer's statistics are its restriction
+to accessible windows, and on them only an accessible-order gap is a
+witness. What (C4) adds within accessible windows is the positive
+conditional memory of the readback lemma below.
 
 \textbf{Genericity.} The theorem's precondition --- that \(T\) is not a
 permutation matrix --- is a sufficient first-step \emph{witness} of (C1)
@@ -5415,4 +5427,4 @@ degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
 \end{document}
-% source-sha256: bd6ba1a023f022241f54a560d09b2b6339c77e35b703d69102dbab3137fa74ca
+% source-sha256: 3cbb9fb1ef0b7f39595c3e57755b497383aa0c800df8c46f4ce89ee5cc69aad5

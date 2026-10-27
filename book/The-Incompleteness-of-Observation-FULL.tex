@@ -2308,7 +2308,10 @@ prior, return to the identity, and a non-permutation stochastic matrix
 has no stochastic inverse, so any non-permutation rooted map makes the
 rooted law indivisible somewhere in the recurrence cycle. A C4 gap
 supplies such a map, and so does every non-deterministic visible step,
-including in laws that are Markov on every accessible window.
+including in laws that are Markov on every accessible window. With a
+full-support visible prior, that indivisibility is equivalent to memory
+at some order below the recurrence time; an observer sees the memory
+only when it appears at an accessible order, which is what C4 asserts.
 
 \textbf{Spatial extension.} The dependency graph supplies finite causal
 cones exactly for finite-range substrata. Bell adds a separate
@@ -29704,16 +29707,18 @@ recurrence returns the rooted visible map to the identity, and a
 non-permutation stochastic matrix has no stochastic inverse. A C4
 readback gap supplies such a map, and so does every non-deterministic
 visible step, including in laws that are Markov on every accessible
-window. This global result does not imply accessible short-time
-P-indivisibility in every window; the two notions are kept distinct.
-P-indivisibility is a statement about the visible population law and is
-not generic quantum non-Markovianity: inside the framework's
-diagonal-preserving realizations it does rule out a stochastic
-intermediate map and hence CP-divisibility, but outside that class the
-two come apart --- a CP-divisible family with a unitary intermediate map
-can induce P-indivisible computational-basis populations, the
-intermediate map consuming coherences the population law never sees
-({[}Main §2.3{]}).
+window. With a full-support visible prior the indivisibility is
+equivalent to memory at some order below the recurrence time, observable
+only when that order is accessible. This global result does not imply
+accessible short-time P-indivisibility in every window; the two notions
+are kept distinct. P-indivisibility is a statement about the visible
+population law and is not generic quantum non-Markovianity: inside the
+framework's diagonal-preserving realizations it does rule out a
+stochastic intermediate map and hence CP-divisibility, but outside that
+class the two come apart --- a CP-divisible family with a unitary
+intermediate map can induce P-indivisible computational-basis
+populations, the intermediate map consuming coherences the population
+law never sees ({[}Main §2.3{]}).
 
 \textbf{PMNS (Pontecorvo-Maki-Nakagawa-Sakata) matrix.} The unitary
 mixing matrix between Standard Model neutrino mass and flavor
@@ -30667,4 +30672,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: c3fb55d6e9acd498113f2d00922102688d8197a9075be4f519f69ca730c2cf4c
+% source-sha256: fcbe4ccdea2d19e27bd10e3f32b760efcd510928d661028baa66ed9736e898c6
