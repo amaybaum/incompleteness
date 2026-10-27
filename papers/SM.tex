@@ -2026,30 +2026,86 @@ measurement begins to quantify.
 \subsubsection{4.3 Center independence and chiral
 symmetry}\label{center-independence-and-chiral-symmetry}}
 
-\textbf{Theorem 3.} \emph{Center independence of the lattice dynamics is
-equivalent to exact chiral symmetry of the emergent staggered fermions.}
+\textbf{Lemma 3a.} \emph{On a periodic lattice of even extents, with
+axis \(0\) the time axis and \(d\) spatial axes, let
+\(A_\mu=\eta_\mu(T_\mu-T_\mu^{-1})\) be the staggered generators, so
+that \(D_{\text{st}}=\tfrac12\sum_\mu A_\mu\), and let
+\(\varepsilon(x)=(-1)^{\sum_\mu x_\mu}\) be the site parity. Read the
+reversible isotropic nearest-neighbor rule
+\(\phi(\mathbf n,t+1)=C\,\phi(\mathbf n,t)+\alpha\sum_j[\phi(\mathbf n+\hat e_j,t)+\phi(\mathbf n-\hat e_j,t)]-\phi(\mathbf n,t-1)\)
+with the two-step shifts of the staggered square,
+\(K_{C,\alpha}=T_0^2+T_0^{-2}-\alpha\sum_j(T_j^2+T_j^{-2})-C\); each
+coset of \((2\mathbb Z)^{d+1}\) carries the rule itself. For
+\(B=A_0+b\sum_jA_j\) with \(b^2=-\alpha\),}
+\[K_{C,\alpha}=B^2-\mu,\qquad \mu=C-2(1-d\alpha),\qquad \{B,\varepsilon\}=0.\]
+\emph{If \(\lambda K_{C,\alpha}\) is written through the staggered
+family \(B'=a_0A_0+a\sum_jA_j\) with a scalar on-site mass \(m\), as
+\((B'-m)(B'+m)\) or as \((B'+m\varepsilon)^2\), then \(a_0^2=\lambda\),
+\(a^2=-\lambda\alpha\) and \(m^2=\pm\lambda\mu\).}
 
-\emph{Proof.} The staggered mass term squares to
-\(\Box_{\text{lat}}\phi = -4m_{\text{lat}}^2\phi\): center dependence.
-Conversely, center independence gives \(D_{\text{st}}\chi = 0\),
-invariant under \(\chi \to \varepsilon\chi\) (chiral symmetry).
-\(\square\)
+\emph{Proof.} On even extents the generators satisfy
+\(\{A_\mu,A_\nu\}=0\) for \(\mu\neq\nu\),
+\(A_\mu^2=T_\mu^2+T_\mu^{-2}-2\) and \(\{A_\mu,\varepsilon\}=0\). Hence
+\(B^2=A_0^2+b^2\sum_jA_j^2=K_{C,\alpha}+C-2(1-d\alpha)\), and \(B\)
+anticommutes with \(\varepsilon\) because each generator does. In the
+family, \(B'^2=a_0^2A_0^2+a^2\sum_jA_j^2\), and \(B'\) commutes with the
+scalar \(m\) and anticommutes with \(\varepsilon\), so the two products
+are \(B'^2\mp m^2\). The operators \(I\), \(T_0^{\pm2}\) and
+\(T_j^{\pm2}\) have disjoint supports, and comparing coefficients gives
+the three identities. The identities hold in exact rational arithmetic
+for \(d=1,2,3\) at extents \(4\) and \(6\). \(\square\)
 
-\textbf{Remark (scope of the center-dependence--mass identification).}
-The specific self-term \(C = 2(1-d)\) is not a mass term: it is the
-diagonal of the massless 4D lattice Laplacian, whose standard 4D
-staggered factorization has exact chiral symmetry. The hypercubic
-alternative is not excluded by this lemma. The later matter/gauge
-reading uses the spatial cubic group and the exact six-link \((3,2,1)\)
-representation, but identifying that link representation with the
-physical carrier is H-link (§4.5--4.6).
+\textbf{Theorem 3.} \emph{On the hopping normalization \(\alpha=1/d\) of
+Theorem 1, a center-free rule (\(C=0\)) is the square \(B^2\) of the
+massless staggered operator of Lemma 3a, which anticommutes with
+\(\varepsilon\): the emergent staggered fermions carry the exact chiral
+symmetry \(\chi\to\varepsilon\chi\). At the same normalization a
+staggered mass \(m\neq0\) gives the rule a center coupling,
+\(C=\pm m^2\).}
 
-\textbf{Revised chain.} Center independence implies the chiral statement
-of Theorem 3 on the staggered branch; it is not derived here from
-P-indivisibility. Main's readback lemma supplies the memory content, and
-its recurrence-cycle theorem the P-indivisibility content, independently
-of center independence. Any claim that one algebraic CI condition
-simultaneously forces memory and chirality is therefore unavailable.
+\emph{Proof.} At \(\alpha=1/d\), Lemma 3a gives \(\mu=C\). For \(C=0\),
+\(K_{C,\alpha}=B^2\), and the solutions of \(B\chi=0\) are invariant
+under \(\chi\to\varepsilon\chi\) because
+\(B\varepsilon=-\varepsilon B\). A mass \(m\neq0\) gives
+\(C=\mu=\pm m^2\neq0\). \(\square\)
+
+\textbf{Proposition 3b.} \emph{At fixed hopping \(\alpha=1/d\), if the
+emergent staggered operator of Lemma 3a's family, \(B'+m\) or
+\(B'+m\varepsilon\), anticommutes with \(\varepsilon\), then \(C=0\).}
+
+\emph{Proof.} Since \(\{B',\varepsilon\}=0\),
+\(\{B'+m,\varepsilon\}=2m\varepsilon\) and
+\(\{B'+m\varepsilon,\varepsilon\}=2m\) (kernel identity
+\texttt{Chiral.center\_anticommutator} in
+\texttt{OI\_Structural\_Core.lean}). Because \(\varepsilon\) is
+invertible, either anticommutator vanishes only for \(m=0\); then
+\(\mu=0\) by Lemma 3a, and \(\mu=C\) at \(\alpha=1/d\). \(\square\)
+
+\textbf{Remark (center coupling and chirality off the normalized
+branch).} By Lemma 3a the staggered mass vanishes for
+\(C=2(1-d\alpha)\), which is the constant-preserving normalization
+\(p_0+2dp=1\) of Corollary 1b written with \(C=2p_0\) and \(\alpha=2p\),
+while center independence is \(C=0\); the two conditions hold together
+only at \(\alpha=1/d\), so the fixed normalization in Theorem 3 and
+Proposition 3b is load-bearing. At \(\alpha=1\) the self-term
+\(C=2(1-d)\) is the diagonal of the massless \((d+1)\)-dimensional
+lattice d'Alembertian, \(4\)D at \(d=3\), and is not a mass term: its
+staggered factorization is massless and anticommutes with
+\(\varepsilon\), so a center coupling coexists with exact chiral
+symmetry. The center-free rule at \(\alpha=1\) factorizes as
+\((B-m)(B+m)\) with \(m^2=2(d-1)\), so \(m=2\) at \(d=3\) and chiral
+symmetry is broken. The hypercubic alternative is not excluded by this
+lemma. The later matter/gauge reading uses the spatial cubic group and
+the exact six-link \((3,2,1)\) representation, but identifying that link
+representation with the physical carrier is H-link (§4.5--4.6).
+
+\textbf{Scope in the chain.} Center independence implies the chiral
+statement of Theorem 3 on the normalized branch \(\alpha=1/d\); it is
+not derived here from P-indivisibility. Main's readback lemma supplies
+the memory content, and its recurrence-cycle theorem the
+P-indivisibility content, independently of center independence. Any
+claim that one algebraic CI condition simultaneously forces memory and
+chirality is therefore unavailable.
 
 \hypertarget{multi-component-dynamics-and-gauge-structure}{%
 \subsubsection{4.4 Multi-component dynamics and gauge
@@ -8897,4 +8953,4 @@ the FCC-ee,'' arXiv:2504.05974 (2025).
 Compact Family Cycle,'' arXiv:2605.10245 (2026).
 
 \end{document}
-% source-sha256: e3e3209f7485600deaec3752ffc2fbdb2f86c1fd9ca8ed6441ee17aa5665e2f3
+% source-sha256: e56b051f1f5f761c805764cd57d90123b3d31a871c08b98dfa22820d01ce0c66

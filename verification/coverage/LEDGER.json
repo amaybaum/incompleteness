@@ -1615,15 +1615,62 @@
       "note": "Section C of the ROADMAP is closed: the factorization holds for every n by induction over a list of pairwise-anticommuting summands, not just at three and four axes."
     },
     {
+      "id": "SM:L-3a",
+      "paper": "papers/SM.md",
+      "line": 300,
+      "kind": "Lemma",
+      "label": "3a",
+      "fingerprint": "be4833c3a4d2c33c",
+      "area": "sm",
+      "assumptions": "periodic lattice with even extents; the staggered generator relations; the reversible isotropic nearest-neighbor rule read with two-step shifts; scalar on-site mass in the isotropic staggered family",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "verification/audits/manuscript/intro-corpus-audit-20261026/tracks/SC32-sm-theorem3/theorem3_exact.py",
+          "basis": "named",
+          "evidence": "K(C,alpha) = B^2 - mu*I with mu = C - 2(1 - d*alpha)"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/staggered_relations_probe.py",
+          "basis": "section",
+          "evidence": ""
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean/OI_Staggered_Relations.lean",
+          "names": [
+            "Staggered.factorization"
+          ]
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean/OI_Structural_Core.lean",
+          "names": [
+            "mass_square"
+          ]
+        }
+      ],
+      "kernel": "K1",
+      "delta": "the kernel proves the unit-coefficient square (Staggered.factorization) and (D + m·eps)^2 = D^2 + m^2 abstractly; the alpha-weighted square, the staggered mass mu = C - 2(1 - d*alpha) and the coefficient identification are exact finite algebra (d = 1, 2, 3 at extents 4 and 6), not kernel statements",
+      "note": "The identity that separates center independence (C = 0) from masslessness (C = 2(1 - d*alpha)); they coincide only at alpha = 1/d."
+    },
+    {
       "id": "SM:T-3",
       "paper": "papers/SM.md",
-      "line": 296,
+      "line": 306,
       "kind": "Theorem",
       "label": "3",
-      "fingerprint": "487eed577016c6d0",
+      "fingerprint": "3a614162fc083124",
       "area": "sm",
-      "assumptions": "the staggered generator relations; the diagonal of D_st",
+      "assumptions": "the hopping normalization alpha = 1/d of Theorem 1; Lemma 3a (even extents, staggered generator relations)",
       "checks": [
+        {
+          "kind": "probe",
+          "path": "verification/audits/manuscript/intro-corpus-audit-20261026/tracks/SC32-sm-theorem3/theorem3_exact.py",
+          "basis": "named",
+          "evidence": "CI => chiral at alpha = 1/d"
+        },
         {
           "kind": "probe",
           "path": "verification/lean/structural_core_probe.py",
@@ -1645,9 +1692,37 @@
           ]
         }
       ],
-      "kernel": "K2",
-      "delta": "formalized at operator level as {D + m·eps + p_0·1, eps} = 2m + 2p_0·eps; the equivalence to \"exact chiral symmetry of the emergent staggered fermions\" is the physical reading and is not itself kernel-checked",
-      "note": "The scope note in SM §4 that C = 2(1-d) is the Laplacian diagonal and not a mass term is encoded in the formal statement."
+      "kernel": "K1",
+      "delta": "the kernel proves the anticommutator identity and (D + m·eps)^2 = D^2 + m^2 abstractly; the alpha-weighted square of Lemma 3a and the step from mu = C at alpha = 1/d to the massless factorization are exact finite algebra, not kernel statements",
+      "note": "The direction center-free => chiral on the normalized branch alpha = 1/d. The converse is Proposition 3b at fixed alpha = 1/d; off that normalization the two conditions separate (SM §4.3 Remark)."
+    },
+    {
+      "id": "SM:P-3b",
+      "paper": "papers/SM.md",
+      "line": 310,
+      "kind": "Proposition",
+      "label": "3b",
+      "fingerprint": "d644b0f9538fb8d3",
+      "area": "sm",
+      "assumptions": "fixed hopping alpha = 1/d; the staggered family of Lemma 3a with a scalar on-site mass; eps invertible; characteristic zero",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "verification/audits/manuscript/intro-corpus-audit-20261026/tracks/SC32-sm-theorem3/theorem3_exact.py",
+          "basis": "named",
+          "evidence": "chiral => CI at fixed alpha = 1/d"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean/OI_Structural_Core.lean",
+          "names": [
+            "center_anticommutator"
+          ]
+        }
+      ],
+      "kernel": "K1",
+      "delta": "the kernel proves the anticommutator identity {D + m·eps + p_0, eps} = 2m + 2p_0·eps; the cancellation 2m·eps = 0 => m = 0 and the step m = 0 => C = 0 through Lemma 3a are not kernel-checked",
+      "note": "The restricted converse of Theorem 3, displayed separately per AGENTS §A.34. The fixed normalization is load-bearing: at alpha = 1 the self-term C = 2(1 - d) is chiral and center-dependent (SM §4.3 Remark)."
     },
     {
       "id": "SM:T-4-conditional-observer-level-mass-spectrum",

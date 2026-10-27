@@ -1,0 +1,47 @@
+G1  staggered generator relations (exact, even periodic extents)
+    d=1 L=4 sites=16: {A_mu,A_nu}=0 True; A_mu^2=T^2+T^-2-2 True; {A_mu,eps}=0, eps^2=I True
+    d=1 L=6 sites=36: {A_mu,A_nu}=0 True; A_mu^2=T^2+T^-2-2 True; {A_mu,eps}=0, eps^2=I True
+    d=2 L=4 sites=64: {A_mu,A_nu}=0 True; A_mu^2=T^2+T^-2-2 True; {A_mu,eps}=0, eps^2=I True
+    d=2 L=6 sites=216: {A_mu,A_nu}=0 True; A_mu^2=T^2+T^-2-2 True; {A_mu,eps}=0, eps^2=I True
+    d=3 L=4 sites=256: {A_mu,A_nu}=0 True; A_mu^2=T^2+T^-2-2 True; {A_mu,eps}=0, eps^2=I True
+    d=3 L=6 sites=1296: {A_mu,A_nu}=0 True; A_mu^2=T^2+T^-2-2 True; {A_mu,eps}=0, eps^2=I True
+    countercontrol, eta := 1 (no staggering), d=2 L=4: {A_0,A_1} != 0 True
+    countercontrol, odd extent d=1 L=3: {A_0,A_1} != 0 True
+
+G2  K(C,alpha) = B^2 - mu*I with mu = C - 2(1 - d*alpha), B = A_0 + i sqrt(alpha) S
+    (B^2 = A_0^2 - alpha S^2 after {A_0,S} = 0 is checked; K built from shifts only)
+    d=1 L=4: {A_0,S}=0 True; identity on alpha in {1, 1/d, 1/2} x C grid True
+    d=1 L=6: {A_0,S}=0 True; identity on alpha in {1, 1/d, 1/2} x C grid True
+    d=2 L=4: {A_0,S}=0 True; identity on alpha in {1, 1/d, 1/2} x C grid True
+    d=2 L=6: {A_0,S}=0 True; identity on alpha in {1, 1/d, 1/2} x C grid True
+    d=3 L=4: {A_0,S}=0 True; identity on alpha in {1, 1/d, 1/2} x C grid True
+    d=3 L=6: {A_0,S}=0 True; identity on alpha in {1, 1/d, 1/2} x C grid True
+    countercontrol, d=2 L=4 alpha=1/2 C=0: d-blind mu' = C - 2(1 - alpha) rejected True
+
+G3  doubled-lattice reading: K(C,alpha) on (2Z_L)^(d+1) equals R(C,alpha) on Z_(L/2)^(d+1)
+    d=1 L=6: cosets decouple and the even coset carries R(C,alpha), three (C,alpha) True
+    d=2 L=6: cosets decouple and the even coset carries R(C,alpha), three (C,alpha) True
+    d=3 L=6: cosets decouple and the even coset carries R(C,alpha), three (C,alpha) True
+
+G4  decisive cases (d=3, L=6 unless stated; mu = C - 2(1 - d alpha))
+    {B, eps} = 0 for every b (both real parts vanish): True
+    {B + m, eps} = 2m eps and {B + m eps, eps} = 2m I at m=2: True
+    T1  Theorem 1 branch, CI: C=0 alpha=1/3 -> mu=0, mass 0; K factorizes True; CI True; {F, eps} = 0 True; K annihilates constants True
+    RM  SM Remark, C = 2(1-d), alpha = 1: C=-4 alpha=1 -> mu=0, mass 0; K factorizes True; CI False; {F, eps} = 0 True; K annihilates constants True
+    U1  CI at unit coefficient alpha = 1: C=0 alpha=1 -> mu=4, mass 2; K factorizes True; CI True; {F, eps} = 0 False; K annihilates constants False
+    T2  alpha = 1/d with C = 2(1-d): C=-4 alpha=1/3 -> mu=-4, mass 2 (m eps); K factorizes True; CI False; {F, eps} = 0 False; K annihilates constants False
+    H   alpha = 1/2, C = 2(1 - d/2): C=-1 alpha=1/2 -> mu=0, mass 0; K factorizes True; CI False; {F, eps} = 0 True; K annihilates constants True
+
+G5  coefficient identification: supports of I, T_0^{+-2}, T_j^{+-2} are disjoint
+    d=1 L=6: disjoint True
+    d=2 L=6: disjoint True
+    d=3 L=6: disjoint True
+    hence lambda K(C,alpha) = B(a0,a)^2 -+ m^2 forces a0^2 = lambda, a^2 = -lambda alpha and
+    m^2 = +-lambda (C - 2(1 - d alpha)): m = 0 iff C = 2(1 - d alpha) within the family
+
+VERDICT  all controls green
+  CI => chiral at alpha = 1/d (T1): holds
+  CI => chiral at alpha = 1 (U1): fails, staggered mass 2
+  chiral => CI at alpha = 1 (RM, C = -4): fails
+  chiral => CI at fixed alpha = 1/d (T2, center-dependent): T2 not chiral, consistent
+  chirality coincides with C + 2 d alpha = 2 in every row: True
