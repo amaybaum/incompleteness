@@ -8,7 +8,7 @@ is a draft that is not applied to any manuscript.
   P-indivisibility within an accessible window. Preregistration `PREREG.md` (frozen before
   computation), exact-arithmetic scripts and their outputs; `REPORT.md` lists the commands and
   expected outputs. Run each script from that directory with `python3 -I -B`.
-- `C-consistency/` — Track C: global consistency audit report, and the classification note for
+- `C-consistency/` — Track C: global consistency audit report, its independent review (`REVIEW.md`, ACCEPT WITH CHANGES), and the classification note for
   `papers/Structure.md:1274`.
 
 Base for both: `main` at `a5168789` (Track D ran at `6bc2c4af`, whose manuscripts it cites).

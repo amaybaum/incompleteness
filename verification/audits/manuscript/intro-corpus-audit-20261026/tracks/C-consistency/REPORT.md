@@ -124,8 +124,16 @@ The #946 items already recorded are excluded. The SC-16 and SC-17 entries below 
 
 SC-3 fixed :1141 and :1147 but missed these three, and #951 does not touch Structure.
 
+Text on main (the quotes in the first version of this report were the proposed replacements; corrected per REVIEW.md):
+
+- **:1180:** "OI supplies those extra ingredients through C4 and finite recurrence for a fixed representative"
+- **:1190:** "OI proves the latter at recurrence scale from C4 plus a fixed finite reversible representative"
+- **:1256:** "…is proved in OI here only at recurrence scale from C4 plus a fixed finite reversible representative."
+
+Proposed replacements:
+
 - **:1190:** "OI proves the latter at recurrence scale for a fixed finite reversible representative with a non-permutation rooted map, which C4 supplies and every non-deterministic visible step also supplies;"
-- **:1256:** "…is proved in OI here only at recurrence scale, for a fixed finite reversible representative with a non-permutation rooted map (which C4 supplies)."
+- **:1256:** "…is proved in OI here only at recurrence scale, for a fixed finite reversible representative with a non-permutation rooted map, which C4 supplies and every non-deterministic visible step also supplies."
 - **:1180:** "OI supplies those extra ingredients for a fixed representative: C4 for the retained correlations, and, for indivisibility, finite recurrence with a non-permutation rooted map, which C4 supplies and every non-deterministic visible step also supplies;"
 
 ## UNDERSTATEMENT

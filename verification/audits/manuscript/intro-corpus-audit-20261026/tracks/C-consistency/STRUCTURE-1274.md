@@ -55,3 +55,11 @@ SC-3 propagation class (recurrence-scale P-indivisibility credited to C4 alone: 
 fixed finite reversible representative"). True as a sufficiency statement, but C4 is not needed:
 any non-deterministic visible step gives the non-permutation rooted map (Main §2.3, merged SC-3).
 Not SC-16: these sites claim recurrence-scale, not accessible-window, indivisibility.
+
+## After independent review (REVIEW.md: CONFIRMED, same class, not a new scientific issue)
+- Replacement for :1274 to say "a finite deterministic bijection (depending on the horizon K)", since "on
+  each finite horizon" leaves open whether one bijection serves all horizons.
+- Root cause missed above: the remarks after the scoped lemma call it "the correspondence at the
+  stochastic-process level … both directions" — Main:274 and appendix-b:46 = FULL:5813. With a uniform
+  prior the converse holds only for doubly stochastic matrices, and only for one step. These remarks are
+  corrected in the same unit as :1274 and Substratum :110.
