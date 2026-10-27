@@ -495,7 +495,7 @@ INVARIANTS = [
      "a two-sided hidden-capacity law"),
     # ---- b130 family: the route-(i) residue list must stay retired ----
     (r"with three residuals",
-     "route (i) is discharged at the exact-ring finite-test level; the one named item is the Rounding Lemma (Main §3.4, b130)",
+     "route (i) is discharged at the exact-ring finite-test level; the open item is the finite-b bound on the realized law (Main §3.4 clause (1), b130)",
      [],
      "the finite form is now the gluing theorem below — with three residuals: tightening"),
     # ---- b131 families: pre-equivalence "C1-C4 derive QM" language must stay retired ----

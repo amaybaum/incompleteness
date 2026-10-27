@@ -3170,11 +3170,12 @@ the same maps.}
 
 \emph{(3) \textbf{Context-independent implementation.} Each labelled
 instrument is one fixed map, applied whenever chosen, in every context;
-context enters only through the state. The outcome values remain
-contextual; for \(d \geq 3\) and a family containing a Kochen--Specker
-set, an account reproducing the exact statistics must assign them
-contextually, and the realization reproduces the statistics within the
-stated accuracy. This is implementation-fixedness of labelled
+context enters only through the state. In the constructed realization an
+outcome's value can depend on the instrument through the threshold
+order; for \(d \geq 3\) and a family containing a Kochen--Specker set,
+every deterministic account reproducing the exact statistics must assign
+values contextually, and the realization reproduces the statistics
+within the stated accuracy. This is implementation-fixedness of labelled
 instruments, not Spekkens noncontextuality, which concerns operationally
 equivalent procedures and is not claimed.}
 
@@ -3206,21 +3207,21 @@ unchanged, and reversibility needs no exponent, the predecessor stack
 holding the predecessor itself --- at a fractional precision of \(b\)
 bits, plus the counted \(O(\log d)\) integer bits per entry and no
 exponent anywhere, the registers give
-\(\log_2|\mathcal{C}_H| = O\!\left(K\, d^2\, b + K \log_2 G\right)\),
-which is
+\(\log_2|\mathcal{C}_H| = O\!\left(K\, d^2\, b + K \log_2 G\right)\) for
+\(b \geq \log_2(2K\, C_{d,R})\), the window condition of the Rounding
+Lemma below, which is
 \(O\!\left(K\, d^2 \log(K d\, |\mathcal{O}|/\varepsilon) + K \log_2 G\right)\)
 if \(b = O(\log(K d\, |\mathcal{O}|/\varepsilon))\) bits suffice for
 accuracy \(\varepsilon\), which depends on the open finite-\(b\) bound
-of clause (1) --- linear in \(K\) up to logarithms, the former
-exponent-range \(K^2\) term removed (rescaling invariance certified:
-check 10, \texttt{opglue\_probes.py}). The lower bound is of a different
-scope: \(\log_2|\mathcal{C}_H| \geq I^*\) holds universally, for every
-faithful realization (memory theorem above), and is \(\Omega(K)\) on
-explicit memory-chain families --- a constructive upper bound for this
-realization and a universal floor, deliberately not a matched pair. For
-the constructed realization on those families,
+of clause (1) --- linear in \(K\) up to logarithms (rescaling invariance
+certified: check 10, \texttt{opglue\_probes.py}). The lower bound is of
+a different scope: \(\log_2|\mathcal{C}_H| \geq I^*\) holds universally,
+for every faithful realization (memory theorem above), and is
+\(\Omega(K)\) on explicit memory-chain families --- a constructive upper
+bound for this realization and a universal floor, deliberately not a
+matched pair. For the constructed realization on those families,
 \(c_1 K \leq \log_2|\mathcal{C}_H| \leq c_2 K \left(d^2 b + \log_2 G\right)\)
-at fractional precision \(b\).}
+at fractional precision \(b \geq \log_2(2K\, C_{d,R})\).}
 
 \emph{Rounding Lemma (instrument-level, fixed-point dyadic model).}
 \emph{Floating-point entries carry uncounted per-entry exponents, so the
@@ -3232,11 +3233,10 @@ with absolute error \(\leq 2^{-b}\). The lemma is stated for the whole
 instrument as the classical--quantum map
 \(\mathfrak{I}(\tilde\rho) = \bigoplus_o \mathcal{I}_o(\tilde\rho)\),
 with \(R = \sum_o r_o \leq |\mathcal{O}_{\max}|\, d^2\) the instrument's
-total Kraus count (the theorem takes \(R\) as the family-wide maximum
+total Kraus count (for the family, \(R\) denotes the family-wide maximum
 \(\max_a \sum_o r_{a,o}\)):}
 \[\sum_o \big\|\widehat{\mathcal{I}}_o(\tilde\rho) - \mathcal{I}_o(\tilde\rho)\big\|_1 \;\leq\; C_{d,R}\, 2^{-b}\, \|\tilde\rho\|_1, \qquad C_{d,R} = 48\, R\, d^4.\]
-\emph{Proof. Kraus quantization, by operator norms --- the earlier
-componentwise step is abandoned as unjustified:
+\emph{Proof. Kraus quantization, by operator norms:
 \(\|\Delta_\alpha\|_{\mathrm{op}} \leq \|\Delta_\alpha\|_F \leq d\, 2^{-b}\)
 and \(\|M_\alpha\|_{\mathrm{op}} \leq 1\) give, per Kraus term,
 \(\|(M{+}\Delta)\tilde\rho(M{+}\Delta)^\dagger - M\tilde\rho M^\dagger\|_1 \leq (2d\,2^{-b} + d^2 4^{-b})\|\tilde\rho\|_1 \leq 3d\,2^{-b}\|\tilde\rho\|_1\),
@@ -3285,22 +3285,21 @@ the same error term, so the arbitrary assignment costs nothing further.}
 \(\square\) The Corollary is stated for positive inputs; digitized
 branches are Hermitian but not positive. Normalization multiplies a
 parent's blocks by \(s/Q\), which can exceed \(1\), so clipping and
-normalization can increase negative mass, and the per-parent estimate
-\(4\eta s + 8\nu\) does not extend to Hermitian inputs: at \(d = 3\),
-\(R = 9\), \(b = 16\) the normalized kernel's error is \(5.0007\)
-against \(4.0002\), and at \(d = 4\), \(R = 16\) it is \(8.0022\)
-against \(4.0016\), both computed exactly, while the instrument-level
-inequality holds in both. A bound on the classical-marginal rounding
-term at finite \(b\) is therefore open.* \(\square\) Status: the
-instrument-level inequality is proved; the per-outcome and cq-aggregate
-inequalities are checked in exact rational simulation of the
-\(b\)-fractional-bit rounding, Hermiticity enforced by construction, at
-\(b \in \{8, 16, 24\}\), with the telescoping instanced over a \(K{=}3\)
-branch ensemble including rare outcomes (checks 14--15,
-\texttt{opglue\_probes.py}); check 16 evaluates the
-clipped-and-normalized simulator kernel against the exact law with
-negativity measured on the raw blocks, before normalization, and so does
-not test the Hermitian extension.
+normalization can increase negative mass, and the Corollary's estimate
+is not established for the simulator's Hermitian branches. A bound on
+the classical-marginal rounding term at finite \(b\) is open.*
+\(\square\) Status: the instrument-level inequality is proved; the
+per-outcome and cq-aggregate inequalities are checked in exact rational
+simulation of the \(b\)-fractional-bit rounding, Hermiticity enforced by
+construction, at \(b \in \{8, 16, 24\}\), with the telescoping instanced
+over a \(K{=}3\) branch ensemble including rare outcomes (checks 14--15,
+\texttt{opglue\_probes.py}, positive inputs, check 15 at \(b = 16\));
+check 16 evaluates the clipped-and-normalized simulator kernel against
+the exact law on one instance (\(d = 2\), \(K = 3\),
+\(b \in \{20, 24\}\), no window rescaling), with negativity measured on
+the raw blocks, before normalization, and so does not measure the
+negative mass of the normalized branches on which the Hermitian case
+turns.
 
 \emph{Proof (construction and bound).} The step map \(\varphi_a\) reads
 the counter \(t\); an outcome-free instrument applies its CP map to the
@@ -3363,12 +3362,13 @@ finite resolution (check 13, \texttt{opglue\_probes.py}: one map, two
 protocols including an adaptive one, all steps injective, laws exact).
 Quantum mechanics enters as the instrument data and as the state held in
 the hidden register, so this shows that finite-accuracy quantum
-statistics are compatible with one fixed reversible law, not that the
-substratum ontology holds.} \emph{Resource accounting: the capacity
-clause counts branch register, stack, and seeds --- the controlled
-model, intervention labels arriving as visible inputs. Here the
-read-only program register is additional state: an arbitrary adaptive
-policy over \(\mathcal{F}\) through \(K\) costs up to
+statistics are compatible with one fixed reversible law; the
+construction uses no property of the substratum beyond finiteness and
+reversibility.} \emph{Resource accounting: the capacity clause counts
+branch register, stack, and seeds --- the controlled model, intervention
+labels arriving as visible inputs. Here the read-only program register
+is additional state: an arbitrary adaptive policy over \(\mathcal{F}\)
+through \(K\) costs up to
 \(\Theta(|\mathcal{O}_{\max}|^{K} \log_2|\mathcal{F}|)\) bits of table
 --- exponential in \(K\), charged separately and deliberately outside
 the linear-in-\(K\) estimate. One dynamics; the program is paid for as
@@ -3631,10 +3631,10 @@ per-instrument state (the autonomous program register is charged
 separately: single-dynamics Corollary above). In exact arithmetic the
 reachable branch vectors, and with them clause (5)'s exact-ring capacity
 bound, grow with the net; a hidden-state capacity independent of \(|N|\)
-needs fixed-point registers, whose finite-\(b\) accuracy bound is open
-(clause (1)). The description complexity of the controlled transition
-law scales with the instrument net and is outside this capacity measure;
-the net enlarges the visible intervention record by
+is obtained with fixed-point registers, whose finite-\(b\) accuracy
+bound is open (clause (1)). The description complexity of the controlled
+transition law scales with the instrument net and is outside this
+capacity measure; the net enlarges the visible intervention record by
 \(\lceil \log_2 |N| \rceil = O(m\, d^4 \log(2K/\varepsilon))\) bits per
 step.} \(\square\) \emph{(Telescoping and off-net density certified on
 the qubit instance --- the 3-4-5 against the 5-12-13 rotation, and a
@@ -3686,11 +3686,12 @@ protocols; at finite \(b\) the instrument-level Rounding Lemma bounds
 each step, and the bound on the realized law is open. Per (3), the
 equivalence cannot be strengthened to exact class identity at any fixed
 carrier; a fixed finite instrument family is realized exactly by the
-intervention dilation above, and the accuracy \(\varepsilon\) enters
-with a rational uniform seed and with uniformity over the instrument
-continuum. What remains is selection --- route (ii). This is the maximal
-equivalence available to a fixed finite substratum under the stated
-operational interface.
+intervention dilation above, with a product prior carrying the quantum
+conditionals (Extension, response-table form), and the accuracy
+\(\varepsilon\) enters with a rational uniform seed and with uniformity
+over the instrument continuum. What remains is selection --- route (ii).
+This is the maximal equivalence available to a fixed finite substratum
+under the stated operational interface.
 
 \textbf{Theorem (unavoidable hidden predictive memory).} \emph{Let
 \(\mathcal{S}\) be a visible process and let \(\mathcal{R}\) be ANY
@@ -5321,4 +5322,4 @@ degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
 \end{document}
-% source-sha256: d2b9694b85bdf1dc7181f361cc7e3d2a187f8a3df18088646de8d8edbcda0b73
+% source-sha256: bcb2f4fa7293308f5809f0a8f7ec53b13207ead9b6506af1e146794e2caf1e40

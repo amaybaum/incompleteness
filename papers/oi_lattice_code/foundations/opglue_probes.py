@@ -676,7 +676,7 @@ for b16 in (20, 24):
             ok16 = False; print(f"  DIAG b={b16} step={step}: nu {float(nu):.2e} > {float(2*step*eta):.2e}")
         ex, fxk = ne, nf
     tv = sum(abs(ex[h][1] - fxk[h][1]) for h in ex) / 2
-    bound = 12 * 9 * CdR * F(1, 2**b16)          # 12 K^2 C_{d,R} 2^-b, K=3
+    bound = 12 * 9 * CdR * F(1, 2**b16)          # 12 K^2 C_{d,R} 2^-b, K=3: instance threshold (general finite-b bound open)
     if fallback_mass > 2 * 3 * eta:
         ok16 = False; print(f"  DIAG b={b16}: fallback mass {float(fallback_mass):.2e}")
     tot_mass = sum(fxk[h][1] for h in fxk)
@@ -685,8 +685,8 @@ for b16 in (20, 24):
     if tv > bound:
         ok16 = False; print(f"  DIAG b={b16}: tv {float(tv):.2e} > bound {float(bound):.2e}")
 check("simulator_kernel_clipped_normalized", ok16,
-      "actual pre-grid kernel (clip + normalize + deterministic fallback) over the K=3 tree at b in {20,24}: "
-      "classical TV within 12 K^2 C_dR 2^-b; ledger nu_t <= 2 t eta; mass conserved exactly (bijection)")
+      "instance check of the pre-grid kernel (clip + normalize + deterministic fallback) over the K=3 tree at b in {20,24}: "
+      "classical TV within 12 K^2 C_dR 2^-b and raw-block negativity nu_t <= 2 t eta on this instance; mass conserved exactly (bijection)")
 
 
 print(f"summary: hidden states {len(hid)} (log2 {log2CH:.2f}); "
