@@ -295,7 +295,7 @@
     {
       "id": "INTRODUCTION:T-1",
       "paper": "papers/Introduction.md",
-      "line": 48,
+      "line": 52,
       "kind": "Theorem",
       "label": "1",
       "fingerprint": "97ce3099c02498fb",
@@ -309,7 +309,7 @@
     {
       "id": "INTRODUCTION:T-2",
       "paper": "papers/Introduction.md",
-      "line": 74,
+      "line": 78,
       "kind": "Theorem",
       "label": "2",
       "fingerprint": "a1abae061358524e",
@@ -323,7 +323,7 @@
     {
       "id": "INTRODUCTION:C-unnamed-b596be8a",
       "paper": "papers/Introduction.md",
-      "line": 82,
+      "line": 93,
       "kind": "Corollary",
       "label": "",
       "fingerprint": "b596be8af06bd797",
@@ -337,7 +337,7 @@
     {
       "id": "INTRODUCTION:T-3",
       "paper": "papers/Introduction.md",
-      "line": 99,
+      "line": 103,
       "kind": "Theorem",
       "label": "3",
       "fingerprint": "c4966493d9cb60a2",
@@ -351,7 +351,7 @@
     {
       "id": "INTRODUCTION:C-recurrence-cycle-indivisibility",
       "paper": "papers/Introduction.md",
-      "line": 105,
+      "line": 109,
       "kind": "Corollary",
       "label": "(recurrence-cycle indivisibility)",
       "fingerprint": "d33c081326f983a5",
@@ -365,7 +365,7 @@
     {
       "id": "INTRODUCTION:T-4",
       "paper": "papers/Introduction.md",
-      "line": 116,
+      "line": 161,
       "kind": "Theorem",
       "label": "4",
       "fingerprint": "106e5e6806523955",

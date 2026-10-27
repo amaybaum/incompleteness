@@ -140,3 +140,57 @@ No established result is removed.
   - `C-recurrence-cycle-indivisibility` is added;
   - no ID is retired.
 - **Added-lines scans:** the §A.32/§A.33 phrase families, caps emphasis, markers and secrets give no hits, and neither do "generic" and "constitutional".
+
+## 6. Addendum: one-inch margins (owner decision, 2026-10-27)
+
+**Owner decisions.**
+
+- One-inch margins are approved, "provided the resulting manuscript remains readable and the mathematical expressions,
+  figures and references render correctly".
+- Retiring the L89 coverage ID is not approved: "scientific content and verification integrity take precedence over
+  page-count targets".
+
+**Change.** A YAML metadata block, `geometry: margin=1in`, follows the `%` title block of `papers/Introduction.md`; the
+generated `.tex` carries `\usepackage[margin=1in]{geometry}`. Neither `build.sh` nor any other paper is changed. The
+title text is unchanged.
+
+**Line shift.** The block shifts every line of the paper by 4. The anchors in sections 1–3 refer to the paper before
+the block; after it, the abstract is L16, the Γ_t definition L101, the recurrence Corollary L109, its proof paragraph
+L111, §6's established results L217, and the §2.4 Corollary L93 (still byte-identical).
+
+**Cuts restored now that the length allows.** Each was made only for length and removed useful content; nothing new is
+added.
+
+- **§2.6, minimal model** (cut in r16): the off-diagonal entries 4/9 of Γ₁², and the value a/(2−a) for P(x₀=0)=a.
+- **§2.5** (cut in r17): "Monotone distance is necessary for P-divisibility but not sufficient [Main §2.3]".
+- **§2.2, Realization** (cut in r17): the rational-kernel form of the process dilation, with the visible initial law arbitrary.
+- **§3.3** (cut in r16): "each such trajectory law is a fixed-basis Born record and stochastic" (`realData_traj_stochastic`, already listed in Appendix A).
+- **§3.4** (cut in r17): the explicit attribution "explicit tasks are given by Galvão and Hardy [GH03] and Montina [Mon08], and Montina reports Hardy's result … [Mon08; Har04]".
+- **§4** (cut in r16): the de Sitter entropy dimensional identity.
+- **Appendix A** (cut in r17): the scope notes "Prior independence is proved on paper"; the Theorem 2 item's "the time-t identification and the standard vanishing criterion … are proved on paper"; and the capacity item's "for bijective realizations in the same joint-law form". The block is back in `\small` (the references keep `\footnotesize` with 1pt paragraph skip).
+
+The closing line of §6 is not restored. It was removed as a repeated limitation (E8), not for length.
+
+**Coverage.** All fingerprints are unchanged. The `line` fields of the six Introduction rows are updated to the new lines
+(T-1 52, T-2 78, C-unnamed-b596be8a 93, T-3 103, C-recurrence-cycle-indivisibility 109, T-4 161).
+
+**Measurements.**
+
+- 12 pages (letter, one-inch margins). The main text (§§1–6) is about 9.4 pages and ends on p. 10; the code note,
+  Appendix A and the references take pp. 10–12.
+- Median 3,550 characters per page (range 2,500–4,500); no table collapse.
+- LaTeX log: 0 overfull boxes, 0 missing characters, and 1 underfull line (the code note's 40-character hash;
+  benign).
+- **Spot-check renders** (PNG at 80 dpi):
+  - p. 1, title and abstract: title on two lines, abstract and §1 on p. 1;
+  - p. 5, the display-heavy page: the Γ matrices display in full within the margins, and the card-table rule and caption-free table align;
+  - p. 8: both field-equation displays are within the margins;
+  - p. 11: Appendix A's `\small` group, then the references' `\footnotesize` group, with clean wrapping and no overflow from long titles or arXiv identifiers.
+
+**Checks.**
+
+- The release gate passes every step except `lean-axioms`. That step needs `lake`, which is not installed here; it passes in CI.
+- `voice`, `claims`, `duplicate`, `staleness`, `coverage` (134 canonical statements) and `mirror` all pass.
+- `edge_rigidity_probe`: ALL CHECKS PASS.
+- Appendix A: all 29 declarations resolve at their stated lines at `17b830bc` and at the head.
+- Added-lines scans (voice phrases, caps, markers, secrets): no hits.

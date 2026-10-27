@@ -2,6 +2,10 @@
 % Alex Maybaum
 % October 2026
 
+---
+geometry: margin=1in
+...
+
 **Status:** DRAFT PRE-PRINT  
 **Classification:** Theoretical Physics / Foundations
 
@@ -53,7 +57,7 @@ $$
 
 Theorem 1 is machine-checked: the three inclusions $\mathsf S_K\subseteq\mathsf D_K\subseteq\mathsf Q_K\subseteq\mathsf S_K$ and their compositions, with no construction entering as a hypothesis (Appendix A).
 
-**Realization.** For $\mathsf S_K\subseteq\mathsf D_K$ the realization stores a sampled trajectory, with a clock, in the hidden register [Main §3.4, Theorem (finite-horizon stochastic–reversible–unitary equivalence); EGGH26, Prop. 13]. Every law also has a realization whose hidden prior is independent of $x_0$, by the finite-horizon process dilation and its response-table extension for arbitrary kernels (proved on paper, with exact probes) [Main §3.4, Theorem (finite-horizon process dilation) and its Extension].
+**Realization.** For $\mathsf S_K\subseteq\mathsf D_K$ the realization stores a sampled trajectory, with a clock, in the hidden register [Main §3.4, Theorem (finite-horizon stochastic–reversible–unitary equivalence); EGGH26, Prop. 13]. Every law also has a realization whose hidden prior is independent of $x_0$, by the finite-horizon process dilation for rational conditional kernels at positive-probability histories, the visible initial law being arbitrary, and by its response-table extension for arbitrary kernels (proved on paper, with exact probes) [Main §3.4, Theorem (finite-horizon process dilation) and its Extension].
 
 **Quantum representation.** For $\mathsf D_K\subseteq\mathsf Q_K$ the representation is the permutation unitary $U_\varphi|x,h\rangle=|\varphi(x,h)\rangle$, read out in the configuration basis at every step [Main §3.4]; $\mathsf Q_K\subseteq\mathsf S_K$ is the Born rule.
 
@@ -98,7 +102,7 @@ Fix one hidden prior shared by every root, and write $\Gamma_t$ for the *rooted 
 
 **Theorem 3** (recurrence and overlap [Main §2.3]). *Let $\varphi$ be a bijection of $\mathcal C_V\times\mathcal C_H$ with one hidden prior shared by every root. If two rows of $\Gamma_s$ have a positive entry in a common column and $\Gamma_n=I$ for some $n>s$, the family is not P-divisible on $\{0,\dots,n\}$.*
 
-Two such rows are at total-variation distance below 1 at time $s$ and exactly 1 at time $n$, which the contraction criterion forbids; Theorem 3 is machine-checked in its rooted form, and Doukas states the same argument concurrently [Dou26, Prop. 1]. Two rows of a square stochastic matrix share a positive column exactly when it is not a permutation matrix, and [Main §2.3] also proves the theorem from the lemma that a finite square stochastic matrix with a stochastic one-sided inverse is a permutation matrix [BB12, Problem 23] (machine-checked).
+Two such rows are at total-variation distance below 1 at time $s$ and exactly 1 at time $n$, which the contraction criterion forbids; Theorem 3 is machine-checked in its rooted form, and Doukas states the same argument concurrently [Dou26, Prop. 1]. Two rows of a square stochastic matrix share a positive column exactly when it is not a permutation matrix, and [Main §2.3] also proves the theorem from the lemma that a finite square stochastic matrix with a stochastic one-sided inverse is a permutation matrix [BB12, Problem 23] (machine-checked). Monotone distance is necessary for P-divisibility but not sufficient [Main §2.3].
 
 Finite recurrence supplies the return, $\Gamma_L=I$ for the order $L$ of $\varphi$:
 
@@ -115,7 +119,7 @@ $$
 \Gamma_1=\begin{pmatrix}2/3&1/3\\1/3&2/3\end{pmatrix},\qquad \Gamma_2=I,\qquad
 \Gamma_1^{-1}\Gamma_2=\begin{pmatrix}2&-1\\-1&2\end{pmatrix}.
 $$
-The only candidate divisor has negative entries, so the family is P-indivisible, whereas a Markov chain with the same one-step matrix would give $\Gamma_1^2$, with diagonal entries 5/9. With $x_0$ uniform and independent of $h$, $P(x_2{=}0\mid x_1{=}1,x_0{=}0)=1$ while $P(x_2{=}0\mid x_1{=}1)=1/3$.
+The only candidate divisor has negative entries, so the family is P-indivisible, whereas a Markov chain with the same one-step matrix would give $\Gamma_1^2$, with diagonal entries 5/9 and off-diagonal entries 4/9. With $x_0$ uniform and independent of $h$, $P(x_2{=}0\mid x_1{=}1,x_0{=}0)=1$ while $P(x_2{=}0\mid x_1{=}1)=1/3$; for $P(x_0{=}0)=a$, the second value is $a/(2-a)$.
 
 **Memory without short-window indivisibility.** Let $X_0$ and $X_1$ be independent uniform bits and $X_2=X_0\oplus X_1$. Every two-time transition matrix is $\tfrac12J$, with $J$ the all-ones matrix, so the family factors through $\Delta=I$ and is P-divisible on $\{0,1,2\}$. Yet $I(X_0;X_2\mid X_1)=1$ bit. Up to flipping the final bit, this is the process of [RHP14, Eq. (15)]; it appears concurrently in [Dou26, App. A].
 
@@ -164,11 +168,11 @@ Each condition is independent of the other four and of the observation process i
 
 Representability does not fix the unitary evolution relating two times [Main §3.4, Remark (scope: representability, not selection of the relating evolution)]. Two coherent lifts of one visible family, unitary dilations that reproduce the visible law at every time and compose exactly across times, can differ by a time-dependent right action invisible to the visible law and then have different relating evolutions (machine-checked on an exhibited pair of lifts), while a constant deformation cancels from every relating evolution (machine-checked in general).
 
-For lifts with trivial ancilla, read in a fixed basis, two lifts have equal rooted families exactly when their one-step visible matrices are equal, and equal one-step matrices give equal trajectory laws at every horizon (machine-checked, both directions). The fixed-basis correspondence therefore acts on the quotient by visible equality, and selecting the relating evolution needs a condition beyond representability and ordinary coherence.
+For lifts with trivial ancilla, read in a fixed basis, two lifts have equal rooted families exactly when their one-step visible matrices are equal, and equal one-step matrices give equal trajectory laws at every horizon; each such trajectory law is a fixed-basis Born record and stochastic (all machine-checked; the first is an equivalence). The fixed-basis correspondence therefore acts on the quotient by visible equality, and selecting the relating evolution needs a condition beyond representability and ordinary coherence.
 
 ### 3.4 No fixed finite realization reproduces a qubit
 
-A fixed finite realization with $N$ ontic configurations generates only behaviour matrices that factor nonnegatively through $N$ states. Simulating a qubit's prepare-and-measure statistics needs classical memory unbounded over finite experiments [GH03; Mon08], and Montina reports Hardy's result that the number of ontic states cannot be finite [Har04]. So no fixed finite realization reproduces the full prepare-and-measure theory of a qubit exactly; the factorization is proved, and the unboundedness is imported [Main §3.4, Proposition (finite-substratum operational obstruction — classical-dimension form); HKLP24]. The obstruction does not touch Theorem 1, whose realization is chosen per law.
+A fixed finite realization with $N$ ontic configurations generates only behaviour matrices that factor nonnegatively through $N$ states. Simulating a qubit's prepare-and-measure statistics needs classical memory unbounded over finite experiments: explicit tasks are given by Galvão and Hardy [GH03] and Montina [Mon08], and Montina reports Hardy's result that the number of ontic states cannot be finite [Mon08; Har04]. So no fixed finite realization reproduces the full prepare-and-measure theory of a qubit exactly; the factorization is proved, and the unboundedness is imported [Main §3.4, Proposition (finite-substratum operational obstruction — classical-dimension form); HKLP24]. The obstruction does not touch Theorem 1, whose realization is chosen per law.
 
 ### 3.5 Bell structure
 
@@ -186,7 +190,7 @@ Summing zero-point energies of the quantum fields up to a Planck-scale cutoff gi
 $$
 \mathcal G_{\mu\nu}=8\pi G\,\big(T^{\rm cl}_{\mu\nu}-\mathcal F[g,T^{\rm cl}]\,g_{\mu\nu}\big),
 $$
-with $\mathcal G_{\mu\nu}$ the gravitational side, still to be derived (the Einstein tensor in general relativity), and $\mathcal F$ a scalar functional of the metric and the stress-energy, then the zero-point sum of the emergent description is not a source of curvature and the mismatch requires no cancellation. The vacuum term that remains, from the substratum's classical energy density and from $\mathcal F$, is not computed, and the observed value of $\Lambda$ enters as a cosmological input.
+with $\mathcal G_{\mu\nu}$ the gravitational side, still to be derived (the Einstein tensor in general relativity), and $\mathcal F$ a scalar functional of the metric and the stress-energy, then the zero-point sum of the emergent description is not a source of curvature and the mismatch requires no cancellation. The vacuum term that remains, from the substratum's classical energy density and from $\mathcal F$, is not computed, and the observed value of $\Lambda$ enters as a cosmological input. With a Planck-scale cutoff the mismatch equals the de Sitter entropy up to a numerical factor fixed by the cutoff convention, a dimensional identity.
 
 **The missing link.** The quantum description alone cannot decide whether the offset sources curvature. The completions
 $$
@@ -234,11 +238,11 @@ The probes and the black-hole computations [BHa; BHb] are released under the MIT
 
 Modules of the `OIBridge` Lean library; line numbers at commit `17b830bc`.
 
-\begingroup\footnotesize\raggedright\setlength{\parskip}{1pt}
+\begingroup\small\raggedright
 
-- **Theorem 1** (§2.2): `finite_horizon_equivalence` (Equivalence:462); directions `S_imp_D` (:422), `D_imp_Qfb` (:294), `Qfb_imp_S` (:245), compositions :466–468; supporting `permMatrix_mem_unitaryGroup` (EquivalenceChain:179).
-- **Theorem 2** (§2.4): `pushforward_identity`, `distinguishability_floor`, `capacity_floor`, `unavoidable_hidden_predictive_memory` (HiddenMemory:83, :114, :170, :185), for a joint law of history, present and hidden state.
-- **Capacity bound and least hidden memory** (§2.4): `c3_necessity`, `c3_necessity_via_hidden`, `card_hidden_ge_two_pow_Istar` (C3Necessity:80, :88, :117), joint-law form.
+- **Theorem 1** (§2.2): `finite_horizon_equivalence` (Equivalence:462); directions `S_imp_D` (:422), `D_imp_Qfb` (:294), `Qfb_imp_S` (:245), compositions :466–468; supporting `permMatrix_mem_unitaryGroup` (EquivalenceChain:179). Prior independence is proved on paper.
+- **Theorem 2** (§2.4): `pushforward_identity`, `distinguishability_floor`, `capacity_floor`, `unavoidable_hidden_predictive_memory` (HiddenMemory:83, :114, :170, :185), for a joint law of history, present and hidden state; the time-$t$ identification and the standard vanishing criterion for conditional mutual information [CT06] are proved on paper.
+- **Capacity bound and least hidden memory** (§2.4): `c3_necessity`, `c3_necessity_via_hidden`, `card_hidden_ge_two_pow_Istar` (C3Necessity:80, :88, :117), for bijective realizations in the same joint-law form.
 - **Stochastic-inverse lemma; Theorem 3** (§2.5): `isPermMatrix_of_stochastic_inverse` (EquivalenceChain:110); `pIndivisible_of_rooted_identity_return_of_overlap` (RecurrenceHorizon:148).
 - **Recurrence-cycle indivisibility** (§2.5): `routed_forces_indivisible_somewhere` (PhysicalC4Discharge:122), indivisibility at some return horizon from routed readback; on paper for history-level (C4).
 - **Relating evolution** (§3.3): `gl2_strong_gauge_moves_relative_candidate` (CoherentLiftGauge:537, an exhibited pair of lifts), `gl3_constant_gauge_preserves_relative` (:451, general); `bridge_traj`, `rooted_eq_iff_slice_eq` (both directions: rooted families equal exactly when one-step matrices are), `realData_traj_stochastic` (TrackBQfbBridge:276, :180, :286).
