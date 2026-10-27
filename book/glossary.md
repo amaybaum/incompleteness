@@ -96,7 +96,7 @@ This glossary defines the framework's distinctive terminology and the technical 
 
 **Koide relation.** An empirical relation among the three charged-lepton masses: $Q = (m_e + m_\mu + m_\tau)/(\sqrt{m_e} + \sqrt{m_\mu} + \sqrt{m_\tau})^2$. Observed value $Q = 0.666664 \pm 0.000005$. The framework predicts $Q = 2/3$ from cubic-group quadratic Casimir; the match is better than $0.001\%$ ($0.4\sigma$). Developed in Chapter 6 §6.6.
 
-**Markovian.** A stochastic process whose future depends only on the present state, with no memory of past states. Standard chemical kinetics is Markovian; the framework's embedded-observer dynamics is *memory-bearing* — non-Markovian on accessible horizons, P-indivisible at the recurrence scale — while the quantum representation itself is universal, Markov chains included ([Main §3.4]). Contrasted throughout Chapter 1.
+**Markovian.** A stochastic process whose future depends only on the present state, with no memory of past states. Standard chemical kinetics is Markovian; the framework's embedded-observer dynamics is *memory-bearing* — non-Markovian on accessible horizons — while the quantum representation itself is universal, Markov chains included ([Main §3.4]). Contrasted throughout Chapter 1.
 
 **Memory asymmetry.** The framework's unifying therapeutic principle in medicine: when a disease process depends on non-Markovian signaling dynamics that the corresponding normal tissue does not depend on, therapies can target the memory structure rather than the catalytic function, with the framework predicting wider therapeutic windows. Developed in Chapter 16 §16.13.
 
