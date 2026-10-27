@@ -312,3 +312,8 @@ apart. It carries the abstract's sentence-by-sentence old and new text and the t
 defined correctly as everything the hidden state holds about the past beyond the present (at least the conditional
 memory), the window sentence reworded, L named the recurrence time and distinguished from earlier return horizons,
 and the raw spacing hint removed.
+
+`CHANGES-r24.md` records r24, which applies the four optional wording findings of the two r23 confirmations before
+the third comprehension test: L defined once as the order and recurrence time, the return horizon described without
+"only", the antecedent of "sees neither" restored, and the readout-relevant part named as part of the hidden
+predictive memory.

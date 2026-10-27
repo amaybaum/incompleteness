@@ -352,20 +352,19 @@ of observations over \(K+1\) steps, and a \emph{realization} of a law is
 a hidden deterministic world that reproduces it. A law is \emph{Markov},
 or memoryless, when the next observation depends only on the present
 one. A bijection of a finite set eventually repeats: its \emph{order}
-\(L\) is the least number of steps after which every configuration has
-returned to itself, one such return is a \emph{recurrence}, and \(L\) is
-the world's \emph{recurrence time}, the least time after which the whole
-world returns to its starting configuration. A \emph{stochastic matrix}
-is a table of transition probabilities with one row per starting state,
-each row nonnegative and summing to one; a \emph{permutation matrix} is
-the stochastic matrix in which every row is a single certainty and no
-two rows agree. The \emph{total-variation distance} between two
-probability lists is the largest difference in probability they assign
-to any one event: 0 for identical lists, 1 for lists that give no
-outcome positive probability in common. The \emph{conditional mutual
-information} \(I(A;B\mid C)\) measures, in bits, how much \(A\) still
-tells about \(B\) once \(C\) is known; it is zero exactly when, given
-\(C\), \(A\) carries no further information about \(B\).
+\(L\), the world's \emph{recurrence time}, is the least number of steps
+after which every configuration has returned to itself, and one such
+return is a \emph{recurrence}. A \emph{stochastic matrix} is a table of
+transition probabilities with one row per starting state, each row
+nonnegative and summing to one; a \emph{permutation matrix} is the
+stochastic matrix in which every row is a single certainty and no two
+rows agree. The \emph{total-variation distance} between two probability
+lists is the largest difference in probability they assign to any one
+event: 0 for identical lists, 1 for lists that give no outcome positive
+probability in common. The \emph{conditional mutual information}
+\(I(A;B\mid C)\) measures, in bits, how much \(A\) still tells about
+\(B\) once \(C\) is known; it is zero exactly when, given \(C\), \(A\)
+carries no further information about \(B\).
 
 The visible law of a realization depends on the dynamics, the partition
 and the initial law (the prior), which is part of the realization datum,
@@ -560,12 +559,13 @@ time-\(t\) identification, is not machine-checked.
 So the record has memory exactly when every hidden deterministic world
 that reproduces it keeps, in its hidden part, a trace of the past that
 changes what is seen next: readout-relevant hidden memory, the part of
-the hidden memory that supports the observed process's dependence on
-history. Conversely, if any one hidden deterministic world reproducing
-the record keeps such a trace, the record has memory. Keeping the past
-is not the same as memory: every reversible world run from the start
-stores its whole visible past, even for a memoryless record, and memory
-is the part of that store that changes what is seen next.
+the hidden predictive memory that supports the observed process's
+dependence on history. Conversely, if any one hidden deterministic world
+reproducing the record keeps such a trace, the record has memory.
+Keeping the past is not the same as memory: every reversible world run
+from the start stores its whole visible past, even for a memoryless
+record, and memory is the part of that store that changes what is seen
+next.
 
 The hidden sector also has a minimum size and a minimum memory. With
 \(I^*=\max_t I(X_{<t};X_{>t}\mid X_t)\), a realization of the law needs
@@ -717,10 +717,10 @@ distinct certainties of \(\Gamma_n=I\).
 
 Finite recurrence supplies the return, \(\Gamma_L=I\) for the order
 \(L\) of \(\varphi\), the recurrence time. A \emph{return horizon} is a
-time \(n\) with \(\Gamma_n=I\), at which only the forecasts from the
-start return to certainty; \(L\) is one, and there may be earlier ones.
-The horizon \(\{0,\dots,L\}\) up to the world's return is its
-\emph{recurrence cycle}:
+time \(n\) with \(\Gamma_n=I\), at which the forecasts from the start
+return to certainty, whether or not the whole world has returned; \(L\)
+is one, and there may be earlier ones. The horizon \(\{0,\dots,L\}\) up
+to the world's return is its \emph{recurrence cycle}:
 
 \textbf{Corollary (recurrence-cycle indivisibility).} \emph{Let
 \(\varphi\) have order \(L\), with one hidden prior shared by every root
@@ -757,16 +757,16 @@ definition, short compared with the world's recurrence time \(L\)
 conditional memory that no accessible window detects: a trace held in
 the hidden part can first affect what is seen at an order beyond every
 accessible window, though still before the return. An observer confined
-to accessible windows sees neither. For example, let \(X_0,X_1,X_2\) be
-independent fair bits and \(X_3=X_0\). Up to time 2 each next
-observation is independent of the past, so \(M_1=I(X_0;X_2\mid X_1)=0\):
-the record has no accessible memory on that window, and its forecasts
-from the start chain step by step there. Yet every deterministic world
-that reproduces the law, reversible or not, must keep \(X_0\) in its
-hidden part at time 2, and the past predicts the observation at time 3
-exactly, \(M_2=1\) bit {[}Main §3.4, Remark (a variational question){]}.
-The example shows memory beyond the window; it shows no failure of
-chaining inside it.
+to accessible windows therefore sees neither the late dependence nor the
+failure of chaining. For example, let \(X_0,X_1,X_2\) be independent
+fair bits and \(X_3=X_0\). Up to time 2 each next observation is
+independent of the past, so \(M_1=I(X_0;X_2\mid X_1)=0\): the record has
+no accessible memory on that window, and its forecasts from the start
+chain step by step there. Yet every deterministic world that reproduces
+the law, reversible or not, must keep \(X_0\) in its hidden part at time
+2, and the past predicts the observation at time 3 exactly, \(M_2=1\)
+bit {[}Main §3.4, Remark (a variational question){]}. The example shows
+memory beyond the window; it shows no failure of chaining inside it.
 
 Precisely: for the rooted family, with a hidden prior shared by every
 root and drawn independently of it and with a full-support visible
@@ -1788,4 +1788,4 @@ arXiv:gr-qc/0604062v4.
 \endgroup
 
 \end{document}
-% source-sha256: 661ba50d1f399fcd712cdf8b445f08721d281465f7c652639ef49b3ce5b641af
+% source-sha256: 69d971a23fdd6c3f534b10318ba48e58bb730aac528b46d8f3a3bbceb896ea3f
