@@ -337,10 +337,10 @@
     {
       "id": "INTRODUCTION:T-3",
       "paper": "papers/Introduction.md",
-      "line": 92,
+      "line": 99,
       "kind": "Theorem",
       "label": "3",
-      "fingerprint": "3322c5b34de8cf79",
+      "fingerprint": "c4966493d9cb60a2",
       "area": "mirror",
       "assumptions": "mirrors the cited statement",
       "checks": [],

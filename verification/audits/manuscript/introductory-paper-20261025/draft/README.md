@@ -265,3 +265,8 @@ consolidated scientific audit of #942/#946 runs on this branch, with fresh indep
   missing citations.
 - `review/references/SOURCE-COMMENTS-edac91c9.md`: the reference list's HTML source comments, moved here verbatim so
   that the paper carries no audit vocabulary.
+
+`CHANGES-r16.md` records r16, the revision of `papers/Introduction.md` that applies those reviews, slice 2's
+alignment items D1–D6 and Track C's Introduction items under the owner's directions of 2026-10-27. It maps each change
+to its finding, lists what was not applied and why, and carries the strength check and the build and gate
+measurements. r16 is a WIP checkpoint: its independent scientific, editorial and citation reviews are to follow.
