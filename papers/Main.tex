@@ -242,9 +242,11 @@ obstruction at an accessible order, and recurrence does not guarantee
 one, since every non-deterministic visible step gives the
 indivisibility, including in laws that are Markov on every accessible
 window. Conditions (C1) and (C3) are then necessary diagnostics of the
-hidden mediation and its capacity; (C2-structural) is the persistence
-needed for the stored record to survive until readback, with the
-slow-bath inequality one sufficient physical mechanism.
+hidden mediation and its capacity; (C2-structural), the persistence of
+the stored record until readback, holds by reversibility in every
+bijective realization and constrains coarse-grained descriptions of the
+hidden sector, with the slow-bath inequality one sufficient physical
+mechanism.
 
 For spatial OI systems, the coupling graph defined by one-step dynamical
 dependence supplies exact causal cones: influence propagates at most one
@@ -616,41 +618,52 @@ corpus needs both and they are not equivalent. \textbf{(C2-structural):}
 a hidden record of visible history, once written, persists to the
 readback that uses it --- the retention that clause (b) of the universal
 hidden-memory theorem shows every memory-bearing completion must contain
-(§3.4). \textbf{(C2-slow):} the timescale mechanism --- the hidden
-sector's \emph{coarse-grained mixing time} \(\tau_B\), the timescale on
-which the effective channel degrades a stored record of visible history,
-is long compared to the accessible window: \(\tau_S \ll \tau_B\), the
-\emph{inverse} of the Markovian regime. (C2-slow) implies
-(C2-structural) under the uniform-erosion estimate of §2.3 --- a record
-eroding at rate \(1/\tau_B\) survives windows \(k\tau_S \ll \tau_B\)
-essentially intact --- but not conversely: what is required is that
-records persist, not that the hidden sector evolve slowly. Slow
-evolution is one \emph{sufficient mechanism} for persistence (a record
-that stays put survives), but fast autonomous hidden dynamics with
-conserved structure serve equally --- a shift-register bath rotating
-five cells per visible step produces a maximal order-2 readback gap,
-because its circulation forgets nothing and routes the record back
-within the window, satisfying (C2-structural) while violating (C2-slow)
-(\texttt{fastbath\_probes.py}). Unqualified ``(C2)'' in this paper means
-the persistence requirement, with the form named wherever the
-distinction bites. The same probe certifies the complementary boundary:
-persistence alone does not supply (C4) --- with the return time pushed
-outside the accessible window the identical non-forgetting register
-yields an exactly i.i.d. visible process. (C4)'s operative demand on the
-hidden sector is thus persistence \emph{together with in-window
-routing}; (C2) names the persistence half. (Status: \textbf{a
-physical-regime premise, not a structural condition} --- and the
-distinction is load-bearing. C1, C3 and C4 are the structural
+(§3.4). In a bijective realization reversibility supplies this retention
+for every law, Markov laws included (§3.4, remark after that theorem),
+so as a condition (C2-structural) bears on a coarse-grained description
+of the hidden sector, whose effective channel between couplings can
+degrade the record before readback (fast-bath lemma, §2.3;
+physical-memory theorem, §3.4). \textbf{(C2-slow):} the timescale
+mechanism --- the hidden sector's \emph{coarse-grained mixing time}
+\(\tau_B\), the timescale on which the effective channel degrades a
+stored record of visible history, is long compared to the accessible
+window: \(\tau_S \ll \tau_B\), the \emph{inverse} of the Markovian
+regime. (C2-slow) implies (C2-structural) under the uniform-erosion
+estimate of §2.3 --- a record eroding at rate \(1/\tau_B\) survives
+windows \(k\tau_S \ll \tau_B\) essentially intact --- but not
+conversely: what is required is that records persist, not that the
+hidden sector evolve slowly. Slow evolution is one \emph{sufficient
+mechanism} for persistence (a record that stays put survives), but fast
+autonomous hidden dynamics with conserved structure serve equally --- a
+shift-register bath rotating five cells per visible step produces a
+maximal order-2 readback gap, because its circulation forgets nothing
+and routes the record back within the window, so that (C4) holds while
+(C2-slow) fails (\texttt{fastbath\_probes.py}). Unqualified ``(C2)'' in
+this paper means the persistence requirement, with the form named
+wherever the distinction bites. The same probe certifies the
+complementary boundary: persistence alone does not supply (C4) --- with
+the return time pushed outside the accessible window the identical
+non-forgetting register yields an exactly i.i.d. visible process. (C4)'s
+operative demand on the hidden sector is thus persistence \emph{together
+with in-window routing}; (C2) names the persistence half. (Status:
+\textbf{a physical-regime premise, not a structural condition} --- and
+the distinction is load-bearing. C1, C3 and C4 are the structural
 conditions: the characterization's equivalence runs over those three
 (§3.4), and the existential realization satisfies C2 trivially with a
 static bath. What C2 supplies is physical: it is the mechanism by which
 a stored record survives to be read in realistic models, so that C4
-holds rather than failing by erasure (§2.3); and in the other direction
-it is \emph{derived} --- observed conditional memory forces a lower
-bound on bath persistence, conditional on the hidden-sector mixing
-hypothesis, which is the physical-memory theorem of §3.4 rather than an
-assumption. Note also that C2 does not imply C4: a slow bath can store
-without reading, certified by a C1--C3 realization with identically zero
+holds rather than failing by erasure (§2.3); and in the other direction,
+in the coupling-step model of §3.4 --- next visible state determined by
+the current visible and hidden states, any hidden map between couplings
+--- observed conditional memory \(I^* > 0\) forces some realized hidden
+conditional at the coupling time to lie at total-variation distance at
+least \(\varepsilon_{\min}(I^*, n_V)\) (§3.4) from the model's reference
+prior \(\pi_H\) --- the contrapositive of the physical-memory theorem of
+§3.4, in which \(\varepsilon\) is the realized distance and no mixing
+hypothesis enters --- while the timescale form, a lower bound on bath
+persistence, follows from it under the hidden-sector mixing hypothesis.
+Note also that C2 does not imply C4: a slow bath can store without
+reading, certified by a C1--C3 realization with identically zero
 backflow on arbitrarily long horizons (\texttt{review3\_probes.py}),
 which is why C4 is a separate condition and not a consequence. ETH, C2's
 physical motivation --- a well-supported conjecture rather than a
@@ -711,7 +724,9 @@ not require C4; with a full-support visible prior it is equivalent to
 memory at some order below the recurrence time, which an observer
 reaches only when that order is accessible, as C4 asserts (§2.3). C1 and
 C3 follow as necessary diagnostics of the mediation and its capacity;
-C2-structural supplies persistence to readback, with C2-slow one
+C2-structural, the persistence of the record to readback, holds by
+reversibility in every bijective realization and constrains
+coarse-grained descriptions of the hidden sector, with C2-slow one
 physical mechanism. \textbf{(3) Reverse finite realization:} every
 finite stochastic law, including every finite quantum record, has a
 finite reversible OI realization; bounded quantum instrument families
@@ -2612,7 +2627,16 @@ uniformly in the history, and for \(\varepsilon \leq 1 - 1/n_V\),}
 \(I^* > 0\) at an accessible order forces
 \(\varepsilon \geq \varepsilon_{\min}(I^*, n_V) > 0\) --- the hidden
 sector has not mixed by the coupling time. This is (C2)'s necessity in
-the currency of condition (ii).}
+the currency of condition (ii), in two forms. Taking \(\varepsilon\) as
+the realized maximum of
+\(\mathrm{TV}(P(H_k = \cdot \mid x_{\leq k}), \pi_H)\) over
+positive-probability histories \(x_{\leq k}\), the hypothesis holds by
+definition, so the contrapositive needs no mixing hypothesis: this is
+the persistence form (if that maximum exceeds \(1 - 1/n_V\) the
+conclusion holds outright, since \(\varepsilon_{\min} < 1 - 1/n_V\)).
+The mixing hypothesis enters when \(\varepsilon\) is read as the residue
+of relaxation toward \(\pi_H\) over the inter-coupling time, which gives
+the timescale (slow-bath) form.}
 
 \emph{Proof.} The hidden conditional given any visible past is within
 \(\varepsilon\) of \(\pi_H\) by hypothesis; pushing through the one-step
@@ -2630,8 +2654,10 @@ conditional mutual information on a parametric relaxation family,
 homogeneous Markov benchmark and is blind to conditional memory --- the
 XOR family has \(T^{(k)} = T^k\) exactly with one full bit of it
 (\texttt{review4\_probes.py}). The process form is the statement that
-carries the conditional necessity of (C2) for physical hidden sectors;
-(C2) is not part of the characterization's (iii).
+carries the necessity of (C2) for physical hidden sectors --- without a
+mixing hypothesis in its persistence form, conditional on it in its
+timescale (slow-bath) form; (C2) is not part of the characterization's
+(iii).
 
 \emph{Remark (coherent extension).} The equivalence holds between the
 operational, dilated, and fixed-basis descriptions and is exact at that
@@ -2643,12 +2669,15 @@ role: two theorems).} The characterization's realization clause needs
 (C2) only in its limit form --- the canonical dilation's bath is static,
 \(\tau_B = \infty\) --- so the structural equivalence is carried by
 (C1), (C3), (C4), with (C2) automatic in that limit. The physical
-content of (C2) is the memory theorem above: under the
-conditional-mixing hypothesis, observed conditional memory \(I^*\)
-lower-bounds the bath's mixing time. The structural equivalence and the
-physical-memory bound are distinct results with distinct hypotheses;
-(C1)--(C4) are not four necessities of equal standing --- (C2)'s
-necessity is the conditional bound above.
+content of (C2) is the memory theorem above: observed conditional memory
+\(I^*\) keeps some realized hidden conditional at least
+\(\varepsilon_{\min}(I^*, n_V)\) from \(\pi_H\), and under the
+conditional-mixing hypothesis it lower-bounds the bath's mixing time.
+The structural equivalence and the physical-memory bound are distinct
+results with distinct hypotheses; (C1)--(C4) are not four necessities of
+equal standing --- (C2)'s timescale necessity is the conditional bound
+above; its persistence form is the bound's realized-\(\varepsilon\)
+contrapositive.
 
 \emph{Remark (passive scope).} The theorem concerns the closed
 multi-time law \(P(X_0, \ldots, X_K)\). Conditioning on interventions
@@ -2767,27 +2796,27 @@ dimension growing with the horizon, and characterize the growth; or (c)
 allow \((\hat{H}, \mathcal{H})\) to depend on the intervention context,
 at the cost of the single-Hamiltonian reading of the passive dynamics.
 Each is a definite mathematical programme; none is supplied here. The
-quantitative-mixing theorem's contrapositive (§2.3) reads as a timescale
+quantitative-mixing theorem's contrapositive (§3.4) reads as a timescale
 statement in the homogeneous-Markov benchmark: memory of magnitude
 \(\delta\) at step order \(k\) requires the coupling to return before
 the bath's conditional mixing to \(\varepsilon < \delta/(k-1)\)
 completes --- the benchmark form. For condition (ii)'s currency the
 operative statement is the physical-memory theorem's
-\(\varepsilon \geq \varepsilon_{\min}(I^*, n_V)\) (§2.3); the benchmark
+\(\varepsilon \geq \varepsilon_{\min}(I^*, n_V)\) (§3.4); the benchmark
 inequality is not the general process-memory bound.
 
-\emph{Remark (role of ETH, restated).} \emph{The necessity direction
-rests on the mixing hypothesis above --- an operational,
-in-principle-measurable condition --- not on ETH itself. ETH is the
-physical case for the hypothesis: dephasing to the diagonal ensemble is
-the mechanism by which a generic chaotic hidden sector drives
-\(\varepsilon\) small between coupling events (previous theorem). A
-hidden sector failing ETH but satisfying the mixing bound still delivers
-the necessity direction; a hidden sector satisfying ETH for few-body
-observables while retaining conditional-distribution memory (conserved
-quantities, slow modes) is exactly the case the quantitative form guards
-against. The bound, its optimality, and the fact that the revival
-counterexample violates the hypothesis maximally are certified
+\emph{Remark (role of ETH, restated).} \emph{The timescale (slow-bath)
+form of the necessity direction rests on the mixing hypothesis above ---
+an operational, in-principle-measurable condition --- not on ETH itself.
+ETH is the physical case for the hypothesis: dephasing to the diagonal
+ensemble is the mechanism by which a generic chaotic hidden sector
+drives \(\varepsilon\) small between coupling events (previous theorem).
+A hidden sector failing ETH but satisfying the mixing bound still
+delivers the necessity direction; a hidden sector satisfying ETH for
+few-body observables while retaining conditional-distribution memory
+(conserved quantities, slow modes) is exactly the case the quantitative
+form guards against. The bound, its optimality, and the fact that the
+revival counterexample violates the hypothesis maximally are certified
 deterministically by
 \texttt{papers/oi\_lattice\_code/foundations/c2\_mixing\_probes.py}
 (preregistered ensemble: 21\{,\}000 exact rational evaluations, zero
@@ -2800,28 +2829,29 @@ matrix ensembles, certain integrable-chaotic transitions) and supported
 by extensive numerical evidence across many systems {[}17, 18{]}. For
 the OI framework's hidden sector --- the cosmological-horizon
 complement, a generic chaotic many-body system --- ETH is the standard
-assumption. The C2 necessity direction is conditional on the
-quantitative mixing hypothesis (the theorem above); ETH is the physical
-case for that hypothesis rather than the load-bearing assumption, so
-relaxations or failures of ETH bear on how the hypothesis is argued for
-the framework's hidden sector, not on the theorem that uses it. For the
-framework's specific substratum, moreover, the chaoticity underlying ETH
-is not merely the standard assumption: the realized bijection's
-discretization nonlinearity is numerically demonstrated to be chaotic
---- two-trajectory Lyapunov measurement, \(\lambda_{\max} > 0\);
-spectral-continuity, thermalization, cycle-consolidation, and orbit
-diagnostics concur, the quantitative rate being ensemble-dependent ---
-so the hidden sector is a measured-chaotic system rather than an
-idealized one, with the analytic characterization of its cycle structure
-the open residual recorded there. The C1 and C3 necessity theorems do
-not depend on ETH.}
+assumption. The timescale (slow-bath) form of the C2 necessity direction
+is conditional on the quantitative mixing hypothesis (the theorem
+above); ETH is the physical case for that hypothesis rather than the
+load-bearing assumption, so relaxations or failures of ETH bear on how
+the hypothesis is argued for the framework's hidden sector, not on the
+theorem that uses it. For the framework's specific substratum, moreover,
+the chaoticity underlying ETH is not merely the standard assumption: the
+realized bijection's discretization nonlinearity is numerically
+demonstrated to be chaotic --- two-trajectory Lyapunov measurement,
+\(\lambda_{\max} > 0\); spectral-continuity, thermalization,
+cycle-consolidation, and orbit diagnostics concur, the quantitative rate
+being ensemble-dependent --- so the hidden sector is a measured-chaotic
+system rather than an idealized one, with the analytic characterization
+of its cycle structure the open residual recorded there. The C1 and C3
+necessity theorems do not depend on ETH.}
 
 \textbf{Remark (Consequence for the characterization theorem).}
 \emph{Within the characterization below, (C2) is not part of (iii); the
-mixing hypothesis enters only the necessity of (C2) for physical hidden
-sectors (the process-form theorem above; ETH its physical motivation).
-The equivalence's other content --- the readback direction, the dilation
-existence, and the representation clause --- does not depend on ETH.}
+mixing hypothesis enters only the timescale (slow-bath) form of (C2)'s
+necessity for physical hidden sectors (the process-form theorem above;
+ETH its physical motivation). The equivalence's other content --- the
+readback direction, the dilation existence, and the representation
+clause --- does not depend on ETH.}
 
 \textbf{Theorem (C3 necessity).} \emph{Let \(m = |\mathcal{C}_H|\). The
 non-Markovian mutual information satisfies:}
@@ -3103,8 +3133,9 @@ whether its dynamics is nontrivially indivisible (Remark below).
 Condition (C2) is deliberately absent from (iii): the existential
 realization satisfies it trivially with a static bath
 (\(\tau_B = \infty\)), so it is not needed for the equivalence, and its
-physical content is carried separately by the conditional
-physical-memory theorem of §2.3:
+physical content is carried separately by the physical-memory theorem of
+§3.4 (persistence form without a mixing hypothesis, slow-bath form
+conditional on it):
 
 \emph{(i) \(\mathcal{S}\) is mathematically equivalent to unitarily
 evolving QM (in the sense of the preceding definition).}
@@ -4074,26 +4105,27 @@ anywhere, every visible transition is a fixed function of the visible
 present and the process is Markov, contradicting (ii)); (C2) trivially
 in the construction --- the bath is static, \(\tau_B = \infty\),
 satisfying \(\tau_S \ll \tau_B\); for \emph{physical} hidden sectors the
-physical-memory theorem's contrapositive (§2.3, the C2 process form)
+physical-memory theorem's contrapositive (§3.4, the C2 process form)
 supplies the necessity direction --- observed conditional memory bounds
-the mixing residual below --- conditional on the
-conditional-mixing-curve hypothesis with finite
-\(\tau_B(\varepsilon_0)\) (Remark, §3.4; ETH {[}17, 18{]} the
-motivation; no smallness of \(\varepsilon\) at the coupling time is
-assumed); (C3) from the data-processing bound in per-process form
-(\(m \geq 2^{I^*}\)). Both directions are proved here in prose and
-neither is formalized in the kernel; since (C4) coincides with (ii) in
-every faithful realization (Remark, \emph{the conditions are
-diagnostics, not hypotheses}), what (ii) \(\implies\) (iii) adds to (ii)
-is the existence of a realization, and (iii) \(\implies\) (ii) is the
-readback lemma. Finally, a unitarily evolving representation is
-available for \(\mathcal{S}\) regardless --- internally by the
-permutation unitary of any realization (the equivalence above), and
-under (T) by the imported correspondence {[}11, 12{]}, which represents
-it by a unitarily evolving quantum system; under the time-homogeneity
-restriction the representation takes the fixed-\(\hat{H}\)
-ancilla-marginal form of (i) (scope Remark) --- the paper's single
-external import, sitting outside the equivalence. \(\square\)
+the mixing residual below with no mixing hypothesis (persistence form),
+and, conditional on the conditional-mixing-curve hypothesis with finite
+\(\tau_B(\varepsilon_0)\), bounds the bath's mixing time (timescale
+form) (Remark, §3.4; ETH {[}17, 18{]} the motivation; no smallness of
+\(\varepsilon\) at the coupling time is assumed); (C3) from the
+data-processing bound in per-process form (\(m \geq 2^{I^*}\)). Both
+directions are proved here in prose and neither is formalized in the
+kernel; since (C4) coincides with (ii) in every faithful realization
+(Remark, \emph{the conditions are diagnostics, not hypotheses}), what
+(ii) \(\implies\) (iii) adds to (ii) is the existence of a realization,
+and (iii) \(\implies\) (ii) is the readback lemma. Finally, a unitarily
+evolving representation is available for \(\mathcal{S}\) regardless ---
+internally by the permutation unitary of any realization (the
+equivalence above), and under (T) by the imported correspondence {[}11,
+12{]}, which represents it by a unitarily evolving quantum system; under
+the time-homogeneity restriction the representation takes the
+fixed-\(\hat{H}\) ancilla-marginal form of (i) (scope Remark) --- the
+paper's single external import, sitting outside the equivalence.
+\(\square\)
 
 \emph{Remark (the horizon restriction is forced).} The witness-anchored
 quantifier in (iii) is not a courtesy. Any order \(k\) satisfying (iii)
@@ -4132,8 +4164,9 @@ realization exists. The necessity analysis is universal and
 per-condition: any deterministic realization of a non-Markovian process
 has hidden influence at some step (C1), memory capacity
 \(m \geq 2^{I^*}\) (C3), and read-back differing past-conditionals (C4);
-C2's necessity holds within the conditional-mixing class. The two
-readings are logically independent.
+C2's necessity holds in its persistence form for every such realization
+and in its timescale (slow-bath) form within the conditional-mixing
+class. The two readings are logically independent.
 
 \emph{Remark (representation, not explanation).} The equivalence is a
 representation theorem: every accessible non-Markovian law \emph{admits}
@@ -4865,15 +4898,15 @@ at no cost to the downstream results --- see the remark following Lemma
 maximal-entropy invariant measure compatible with the observer's
 records'') --- a standard but substantive epistemic postulate, not
 derived; (v) the hidden-sector mixing hypothesis (ETH-motivated)
-conditioning the C2-necessity direction, for a system class (emergent
-descriptions of linear-mod-\(q\) automata) on which the standard ETH
-evidence base is silent --- this is the same open dynamical question as
-the chaotic-mixing suppression invoked to motivate laboratory
-setting/preparation decorrelation (§3.3) and the typicality selection in
-(iv), one conditional wearing three hats; (vi) spatial isotropy,
-entering as empirical input E4 of the reconstruction; (vii) linearity of
-the substratum update (A5), equivalent to amplitude-scale gauge
-invariance and owned at that more primitive location; and, for the
+conditioning the slow-bath form of the C2-necessity direction, for a
+system class (emergent descriptions of linear-mod-\(q\) automata) on
+which the standard ETH evidence base is silent --- this is the same open
+dynamical question as the chaotic-mixing suppression invoked to motivate
+laboratory setting/preparation decorrelation (§3.3) and the typicality
+selection in (iv), one conditional wearing three hats; (vi) spatial
+isotropy, entering as empirical input E4 of the reconstruction; (vii)
+linearity of the substratum update (A5), equivalent to amplitude-scale
+gauge invariance and owned at that more primitive location; and, for the
 spatial results --- the causal cone and Bell ceiling of §3.3, the
 observer selection of §4.6 and the companion reconstruction --- the
 spatial constitution, which the characterization theorem of §3.4 does
@@ -4952,7 +4985,8 @@ time-homogeneity. The converse is retired: (i) alone does not imply (ii)
 process dilation reproducing the full multi-time law; the realization
 inherits (C4); C1/C3/C4 legs unconditional; (C2) is not part of (iii),
 its static-bath form holding in the construction, and its necessity for
-physical hidden sectors is the conditional C2-necessity row;
+physical hidden sectors is the C2-necessity row (persistence form
+without a mixing hypothesis, timescale form conditional on it);
 arbitrary-kernel form via the response-table extension; Consolidation:
 universal exact all-time form impossible (finite-order periodicity);
 recurrent-family gluing and pre-recurrence window approximation open &
@@ -4974,8 +5008,16 @@ C1 necessity & Proved --- any realization of a non-Markovian process has
 hidden influence at some accessible step (none anywhere ⟹ Markov); a
 non-permutation one-step \(T\) is the sufficient first-step witness, not
 an equivalence & §3.4, §1.3 \\
-C2 necessity & Conditional on the hidden-sector mixing hypothesis; the
-quantitative bound \(\varepsilon \geq \delta/(k-1)\) is proved, its
+C2 necessity & Non-mixing (persistence) form proved: in the
+coupling-step model of §3.4 --- next visible state determined by the
+current visible and hidden states, any hidden map between couplings ---
+observed conditional memory \(I^*\) places some realized hidden
+conditional at the coupling time at least
+\(\varepsilon_{\min}(I^*, n_V)\) from its reference prior \(\pi_H\)
+(physical-memory theorem, realized-\(\varepsilon\) contrapositive); in a
+bijective realization the retention of (C2-structural) holds for every
+law. Slow-bath form conditional on the hidden-sector mixing hypothesis;
+the quantitative bound \(\varepsilon \geq \delta/(k-1)\) is proved, its
 constant saturated in the certification suite
 (\texttt{c2\_mixing\_probes.py}); ETH is physical motivation, not a
 premise & §3.4, §1.3 \\
@@ -5174,8 +5216,10 @@ not the selector. The content of observation incompleteness lies in
 history readback. C4 forces conditional memory and readout-relevant
 hidden predictive structure in every faithful completion. C1 and C3 are
 necessary diagnostics of that mediation and its capacity, while
-C2-structural is the persistence condition and C2-slow one sufficient
-physical mechanism.
+C2-structural, the persistence of the record to readback, holds by
+reversibility in every bijective realization and constrains
+coarse-grained descriptions of the hidden sector, with C2-slow one
+sufficient physical mechanism.
 
 The spatial theory adds an exact causal-cone result. Because the
 coupling graph is defined by one-step dynamical dependence, \(k\)
@@ -5507,4 +5551,4 @@ degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
 \end{document}
-% source-sha256: 86f62c6a1afd57b50a8595878732885f83dddf67936713c6301862b2c192ae12
+% source-sha256: 680731e9e0ee15478d3f471733190cc9e7f4e3f5585a8fbecd534ff295f7d9a0
