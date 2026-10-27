@@ -380,7 +380,7 @@
       "line": 82,
       "kind": "Theorem",
       "label": "statement",
-      "fingerprint": "96178c80977a3c46",
+      "fingerprint": "f328795d299706f7",
       "area": "oi-foundations",
       "assumptions": "see the constituent rows",
       "checks": [],
@@ -470,9 +470,9 @@
       "line": 137,
       "kind": "Theorem",
       "label": "(history readback + finite recurrence implies indivisibility)",
-      "fingerprint": "92c1f59c0f6f9e3e",
+      "fingerprint": "46da0f42c114d5ab",
       "area": "memory-conditions",
-      "assumptions": "a fixed finite reversible OI representative; genuine C4 readback",
+      "assumptions": "a bijection of order L with a hidden prior shared by every root; rooted maps for every root; two distinct positive-probability trajectories with a common endpoint (a C4 gap is one)",
       "checks": [
         {
           "kind": "probe",
@@ -1257,9 +1257,9 @@
       "line": 582,
       "kind": "Theorem",
       "label": "(unavoidable hidden predictive memory)",
-      "fingerprint": "d813f5acc348e2d1",
+      "fingerprint": "699b41247cfb4d89",
       "area": "memory-conditions",
-      "assumptions": "ANY faithful deterministic realization — the quantifier is the content",
+      "assumptions": "any faithful deterministic realization, initial law on C_V x C_H; 1 <= t <= K-1; positive-probability histories",
       "checks": [
         {
           "kind": "probe",
