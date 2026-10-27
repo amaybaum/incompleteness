@@ -333,9 +333,10 @@ many fast events.
 
 \textbf{C3 (Capacity).} The hidden sector has enough distinguishable
 states to encode the observed conditional past--future information,
-\(\log_2|\mathcal{C}_H| \geq I^*\). In the biological realizations below
-it has many more accessible states than the fast subsystem, room to
-store the interaction history without saturation.
+\(\log_2|\mathcal{C}_H| \geq I^*\) with
+\(I^* = \sup_t I(X_{<t}; X_{>t} \mid X_t)\). In the biological
+realizations below it has many more accessible states than the fast
+subsystem, room to store the interaction history without saturation.
 
 \textbf{C4 (History readback).} At some accessible order, two visible
 histories ending in the same present state induce different next-step
@@ -343,7 +344,8 @@ laws, the difference mediated through the hidden sector's state.
 
 When C1--C4 are satisfied, the characterization theorem {[}1, §3.4{]}
 proves that the fast subsystem's dynamics is memory-bearing ---
-non-Markovian, with P-indivisibility the stronger diagnostic --- so that
+non-Markovian, with P-indivisibility, on a common window with a
+full-support visible prior, the stronger diagnostic --- so that
 transition probabilities at time \(t\) depend on the system's history,
 stored in the hidden sector's state and returned through the coupling.
 The strength of the history-dependence is controlled by
@@ -2010,4 +2012,4 @@ replication control,'' \emph{PNAS} \textbf{105}, 20752 (2008).
 Biology,'' companion paper (2026).
 
 \end{document}
-% source-sha256: 3bbb430ef23e3206a056992380240ecc55ea2b0ce19e1fce654a6b3fd09fe3d9
+% source-sha256: 4e556457714fce122a538ed7b5062060360c4ea54c5410b067384e6f948e5956
