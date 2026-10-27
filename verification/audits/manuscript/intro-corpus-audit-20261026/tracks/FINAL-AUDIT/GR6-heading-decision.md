@@ -8,7 +8,7 @@ mathematical results from the proposed cosmological resolution. Record a documen
 already makes that distinction."
 
 **Check, against `papers/GR.md` at `55e3217b`.** The body makes the distinction.
-- §6.2 has a paragraph headed "Descriptive distinction established; dynamical decoupling conditional on G3" (:358). It
+- §6.2 has a paragraph headed "Descriptive distinction established; dynamical decoupling conditional on G3" (:356). It
   sets out what is shown and what is not:
   - Transition data are invariant under Ω_eff → Ω_eff + CI.
   - Two gravitational completions can share every observer-level datum while differing by ρ_C g_μν.
