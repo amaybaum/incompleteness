@@ -19,7 +19,8 @@ refutes the claim it grades the counter-evidence, which is recorded as the row's
   - exhaustive-computation, numerical, exact-algebra: matched to the items listing the row that are of type
     exhaustive-computation or numerical, or are ci-receipt replays of a whole record (a directory source), except an
     item that names research records or probe files of which the link names none (the link names others), and, for a
-    link that names manuscript lines and no record or probe file, an item that names none of those manuscript files.
+    link that names manuscript lines and no record or probe file, an item that names none of those manuscript files
+    (matched by file, not by line range).
     The link takes the weakest matched item.
   - none, in a chain of none links only (claims about the build, the toolchain, CI or the records): the weakest of
     the ci-receipt items listing the row.
@@ -159,8 +160,10 @@ def grade_link(r, k, ln, attached, by_item, by_decl, by_path, all_none):
         found = [it["item"] for it in cand if not contradicted(lp, it)]
         e["items"] = found
         e["not_matched"] = [it["item"] for it in cand if contradicted(lp, it)]
+        why = ("listed items name other records or probes" if artifacts(lp)
+               else "listed items do not name this manuscript file")
         e["gap"] = [] if found else ["no computation item for this link" + (
-            " (listed items name other records or probes: %s)" % ", ".join(e["not_matched"]) if e["not_matched"] else "")]
+            " (%s: %s)" % (why, ", ".join(e["not_matched"])) if e["not_matched"] else "")]
         e["level"] = combine([item_level(by_item[i]) for i in found])
         e["bearing"] = True
     elif layer == "none" and all_none:
@@ -294,7 +297,8 @@ def render(ev, items, relabels):
          "that are computations, or replays of a whole research record (CI-receipt items whose source is the record's "
          "directory). An item is not matched to a link that names other research records or probe files than the "
          "item does (a BH-01 item does not reach a BH-02 link), nor to a link that names only manuscript lines "
-         "the item does not name (a check of a record is not a check of a paper's derivation). It takes the weakest "
+         "in files the item does not name (a check of a record is not a check of a paper's derivation; the match is by "
+         "file, not by line range). It takes the weakest "
          "matched item.",
          "  - *A link with no support (layer none)*, in a chain of such links only, is a claim about the build, the "
          "toolchain, CI or the records. It takes the weakest of the CI-receipt items listing the row.",
