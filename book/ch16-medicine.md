@@ -65,7 +65,7 @@ The framework predicts that Chk1's checkpoint signaling is non-Markovian: its re
 
 *Why schedule matters.* The clinical finding that the *order and timing* of gemcitabine + Chk1 inhibitor administration is critical for efficacy is a direct signature of non-Markovian dynamics. In a Markovian system, only concentrations matter. In a non-Markovian system, the first drug writes information into the enzyme's memory, and the second drug's effect depends on what was written.
 
-**Radiation adaptive response.** A small priming dose of radiation (~0.01-0.1 Gy) makes cells more resistant to a subsequent larger dose (~2 Gy), with the effect lasting hours to days. The framework identifies this as information backflow from the chromatin hidden sector: dose 1 writes modification marks into histones, which persist and are read by the DNA damage response when dose 2 arrives. The "adaptation" is the response network reading the memory of the previous damage event — a direct biological manifestation of the framework's information backflow prediction.
+**Radiation adaptive response.** A small priming dose of radiation (~0.01-0.1 Gy) makes cells more resistant to a subsequent larger dose (~2 Gy), with the effect lasting hours to days. The framework identifies this as history readback from the chromatin hidden sector: dose 1 writes modification marks into histones, which persist and are read by the DNA damage response when dose 2 arrives. The "adaptation" is the response network reading the memory of the previous damage event — a direct biological manifestation of the framework's history-readback prediction.
 
 **Distinguishing predictions for cancer pharmacology.**
 

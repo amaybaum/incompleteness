@@ -250,9 +250,10 @@ companion paper {[}Main{]}; the representation is internal (the
 realization's own permutation unitary), the imported Barandes
 correspondence retained for compression and interpretation, not as the
 gate to existence. The nearest-neighbor \textbf{reference} lattice is
-Bell-local under measurement independence for spacelike-separated local
-settings and readouts; the state-dependent graph \(G(x)\) supplies a
-native preparation-indexed route to ontic parameter dependence, while
+Bell-local under measurement independence for settings and readouts
+confined to wings whose graph separation exceeds the setting-to-readout
+interval; the state-dependent graph \(G(x)\) supplies a native
+preparation-indexed route to ontic parameter dependence, while
 {[}Substratum §3.3{]} carries H-Bell as the open requirement that such
 prepared long-edge graphs preserve the metric/Ollivier--Ricci continuum
 limit used by the gravitational reconstruction. The gauge coupling
@@ -277,7 +278,7 @@ SU(2) and SU(3) couplings from retrodictions to strict predictions.
 Quantitative predictions for SM observables include the Cabibbo angle
 \(\lambda = 1/(\pi\sqrt{2})\) to \(0.04\%\), the Wolfenstein
 \(A = \sqrt{2/3}\) to \(0.23\sigma\), the Koide angle \(\theta_0 = 2/9\)
-to \(0.02\%\), all three PMNS angles within \(1.1\sigma\) --- with
+to \(0.001\%\), all three PMNS angles within \(1.1\sigma\) --- with
 \(\sin^2\theta_{12}\) confirmed by the post-JUNO global fit at
 \(0.07\sigma\) --- six fermion masses from a single empirical input to
 better than \(1\%\), and the top mass matching the weak-scale relation
@@ -426,17 +427,17 @@ require}\label{what-the-theorems-require}}
 
 \textbf{Deterministic bijectivity.} The P-indivisibility result used
 below (see Prerequisites) requires a bijection on a finite set:
-bijectivity guarantees recurrence (φ\^{}N = id), and recurrence produces
-the non-monotonic distinguishability that defines P-indivisibility. The
-entire framework rests on the memory-bearing description --- with its
-admitted quantum representation --- emerging from marginalizing
-deterministic dynamics --- if the dynamics were already stochastic,
-there would be nothing to derive. Determinism is the core of the
-framework and cannot be weakened. However, determinism does not require
-a lattice. A continuous Hamiltonian system on a compact phase space is
-also deterministic and bijective (by Liouville's theorem). The lattice
-is one way to implement determinism on a finite set; it is not the only
-way.
+bijectivity guarantees recurrence (φ\^{}N = id), and recurrence,
+together with a non-permutation rooted map, produces the non-monotonic
+distinguishability that witnesses P-indivisibility. The entire framework
+rests on the memory-bearing description --- with its admitted quantum
+representation --- emerging from marginalizing deterministic dynamics
+--- if the dynamics were already stochastic, there would be nothing to
+derive. Determinism is the core of the framework and cannot be weakened.
+However, determinism does not require a lattice. A continuous
+Hamiltonian system on a compact phase space is also deterministic and
+bijective (by Liouville's theorem). The lattice is one way to implement
+determinism on a finite set; it is not the only way.
 
 \textbf{Finite boundary entropy.} The gap equation {[}GR, §3{]} requires
 a finite number of degrees of freedom across the partition boundary: S =
@@ -1664,12 +1665,12 @@ propagation speed nor free to be set to \(1\). First, microscopic causal
 speed is not set by the coefficient: by {[}Main{]}'s cone theorem,
 \((\varphi^k(s))_i\) depends only on initial variables within graph
 distance \(k\), so one update propagates dependence at most one edge
-whatever \(\alpha\) multiplies the neighbour sum. Conversion of that
-cone into a physical \(c\) belongs to the emergent clock/length
-calibration, not to \(\alpha\). Second, the real harmonic lift used
-throughout §4 is UNSTABLE at \(\alpha=1\):
-\(x(t+1)=\alpha\!\sum_{\rm nbrs}x(t)-x(t-1)\) gives
-\(\cos\omega=\alpha\sum_j\cos(k_ja)\), so at \(k=0\) and \(d=3\),
+whatever \(\alpha\) multiplies the neighbour sum. Whether that cone or
+the lift's long-wavelength speed \(1/\sqrt d\) derived below is the
+physical \(c\) is not fixed by \(\alpha\) and is not derived here
+{[}Main §3.3{]}. Second, the real harmonic lift used throughout §4 is
+unstable at \(\alpha=1\): \(x(t+1)=\alpha\!\sum_{\rm nbrs}x(t)-x(t-1)\)
+gives \(\cos\omega=\alpha\sum_j\cos(k_ja)\), so at \(k=0\) and \(d=3\),
 \(\cos\omega=3\) and \(\omega\) is complex. The lift is stable exactly
 at \(\alpha\le1/d\), and \(\alpha=1/d\) is also what makes the leading
 symbol isotropic: \(\cos\omega=1-(a^2/2d)|\mathbf k|_2^2+O(a^4k^4)\),
@@ -1712,11 +1713,12 @@ smallest counterexample: the visible update \(x'=h\) contains no \(x\),
 yet on a correlated ensemble with \(h=x\) one has \(x'=x\) with
 certainty. Thus the earlier inference ``CI \(\Rightarrow X_V(t+1)\)
 carries no information about \(X_V(t)\)'' is not established. Main's
-C4/readback and finite-recurrence theorems establish the
-memory/P-indivisibility content without that inference. CI remains a
-legitimate structural condition on the center-free/chiral branch (§4.3);
-whether it descends to a zero observer-level self-weight is an
-additional coarse-graining condition, isolated below.
+readback lemma establishes the memory content, and its finite-recurrence
+theorem the recurrence-cycle P-indivisibility content, without that
+inference. CI remains a legitimate structural condition on the
+center-free/chiral branch (§4.3); whether it descends to a zero
+observer-level self-weight is an additional coarse-graining condition,
+isolated below.
 
 \emph{Spatial isotropy is required for Lorentz invariance:} without
 rotational symmetry, the dynamics has a preferred spatial direction,
@@ -1998,19 +2000,20 @@ only the linear part: it is exact modular-linear algebra and does not
 invoke the threshold nonlinearity. The \emph{ergodic/measure} properties
 --- full-shell sampling for the Gaussianization of §4.2, the chaotic
 mixing underlying operational measurement independence ({[}Main{]}
-§3.3), and the ETH-conditioning of the C2 necessity direction
-({[}Main{]} §3.4) --- read the threshold nonlinearity, which is what
-breaks the integrability of the strictly-linear map (way out (i) above).
-The two are not in tension within the local lattice sector: they are
-different features of one update, consumed by different parts of the
-framework, and the ergodic properties ride on a bounded correction that
-leaves the structural (continuum-limit) content untouched. The one
-commitment this makes explicit is that the amplitude-scale gauge of §4.1
-is exact at the level of the structural chain (where the threshold
-nonlinearity is absent) and holds up to the bounded finite-state
-correction at the level of the realized bijection; a full account of how
-large that correction is on each ergodic observable is the open residual
-the \(\lambda_{\max}\) measurement begins to quantify.
+§3.3), and the ETH-conditioning of the slow-bath form of the C2
+necessity direction ({[}Main{]} §3.4) --- read the threshold
+nonlinearity, which is what breaks the integrability of the
+strictly-linear map (way out (i) above). The two are not in tension
+within the local lattice sector: they are different features of one
+update, consumed by different parts of the framework, and the ergodic
+properties ride on a bounded correction that leaves the structural
+(continuum-limit) content untouched. The one commitment this makes
+explicit is that the amplitude-scale gauge of §4.1 is exact at the level
+of the structural chain (where the threshold nonlinearity is absent) and
+holds up to the bounded finite-state correction at the level of the
+realized bijection; a full account of how large that correction is on
+each ergodic observable is the open residual the \(\lambda_{\max}\)
+measurement begins to quantify.
 
 \hypertarget{center-independence-and-chiral-symmetry}{%
 \subsubsection{4.3 Center independence and chiral
@@ -2036,10 +2039,10 @@ physical carrier is H-link (§4.5--4.6).
 
 \textbf{Revised chain.} Center independence implies the chiral statement
 of Theorem 3 on the staggered branch; it is not derived here from
-P-indivisibility. Main's C4/readback theorem supplies the
-memory/P-indivisibility content independently. Any claim that one
-algebraic CI condition simultaneously forces backflow and chirality is
-therefore unavailable.
+P-indivisibility. Main's readback lemma supplies the memory content, and
+its recurrence-cycle theorem the P-indivisibility content, independently
+of center independence. Any claim that one algebraic CI condition
+simultaneously forces memory and chirality is therefore unavailable.
 
 \hypertarget{multi-component-dynamics-and-gauge-structure}{%
 \subsubsection{4.4 Multi-component dynamics and gauge
@@ -5209,9 +5212,9 @@ normalizations, not a continuous fit parameter. The framework commits to
 \(1/d\) on the structural ground that the amplitude is the Casimir
 scaled by the single-axis bandwidth \(d\) (not \(2d\)), and this
 commitment is falsifiable: the \(1/(2d)\) alternative predicts
-\(\theta_0 = 1/18 = 0.0556\), which misses the observed \(0.2227\) by a
+\(\theta_0 = 1/18 = 0.0556\), which misses the observed \(0.2222\) by a
 factor of four and is excluded by data. The empirical match at
-\(0.02\%\) does not \emph{select} the normalization from a fit; it
+\(0.001\%\) does not \emph{select} the normalization from a fit; it
 \emph{confirms} a structural commitment that was constrained, before any
 fit, to a discrete choice the framework resolves on geometric grounds.
 The geometric ground for \(1/d\) over \(1/(2d)\) is argued rather than
@@ -5332,7 +5335,7 @@ because the time direction still claims its quarter of the sum rule
 regardless of the vertex. Only a loop with no time direction at all
 gives \(w = 1/d = 1/3\) and \(\mathcal{N} = 1/d^2 = 1/9\). The two
 outcomes are far apart in observable terms: \(1/9\) gives
-\(\theta_0 = C_2/d^2 = 2/9 = 0.2222\) (observed \(0.2227\)), whereas
+\(\theta_0 = C_2/d^2 = 2/9 = 0.2222\) (observed \(0.222225\)), whereas
 \(1/16\) gives \(\theta_0 = 1/8 = 0.125\), off by nearly a factor of
 two. The genuine open question is therefore not ``\(1/d\) versus
 \(1/(2d)\)'' but whether the splitting is computed \emph{with or without
@@ -5405,18 +5408,26 @@ as a scalar. On the mass pattern the \(\sqrt{\cdot}\) nonlinearity
 breaks that invariance, with
 \(d\theta_0/\theta_0 = \kappa\,(1 - \lambda_E/\lambda_{A_1})\,(\delta m/m)\)
 and \(\kappa \approx -35\) at the physical Koide point, the magnitude
-reflecting the near-degeneracy \(\sqrt{m_e} \ll \sqrt{m_\mu}\). The
-\(0.2\%\) agreement of \(\theta_0 = 2/9\) bounds the taste-structured
-part of an emergent mass-level dressing by
-\(\delta m/m \lesssim 8 \times 10^{-5}\); a second-order lepton-Yukawa
-loop supplies \(\sim 10^{-6}\). The open element is a loop-level
-cubic-\emph{breaking} operator. The status is thus
-``\(\mathcal{N} = 1/9\) protected by representation theory against all
-taste-blind emergent dressing and fixed by the substrate eigenvalue
-structure, with the sole residual a possible loop-level cubic-breaking
-contribution that is shared with the emergent-Lorentz
-radiative-stability problem rather than specific to the flavor sector''
---- closer to ``derived'' than ``argued geometrically.''
+reflecting the near-degeneracy \(\sqrt{m_e} \ll \sqrt{m_\mu}\). In this
+linear-response model, with \(\kappa \approx -35\) and
+\(\lambda_E/\lambda_{A_1} = 0.22\)--\(0.24\), the agreement of
+\(\theta_0 = 2/9\) with the observed
+\(\theta_0 = 0.222225 \pm 0.000006\) (\(0.001\%\), \(0.4\sigma\)) bounds
+the taste-structured part of an emergent mass-level dressing to
+\(-2.5 \times 10^{-6} \lesssim \delta m/m \lesssim 1.7 \times 10^{-6}\)
+at 95\% confidence (two-sided); the interval is conditional on that
+response model, its sensitivity coefficient and the range of
+\(\lambda_E/\lambda_{A_1}\), and is not a model-independent exclusion. A
+second-order lepton-Yukawa loop, of order \(10^{-6}\), is compatible
+with the interval for either sign, by a factor of about two; the
+comparison is not decisive, and the loop estimate is not a confirmed
+prediction. The open element is a loop-level cubic-\emph{breaking}
+operator. The status is thus ``\(\mathcal{N} = 1/9\) protected by
+representation theory against all taste-blind emergent dressing and
+fixed by the substrate eigenvalue structure, with the sole residual a
+possible loop-level cubic-breaking contribution that is shared with the
+emergent-Lorentz radiative-stability problem rather than specific to the
+flavor sector'' --- closer to ``derived'' than ``argued geometrically.''
 
 \textbf{Mass predictions.}
 
@@ -6794,13 +6805,14 @@ Input
 \(J\) (Jarlskog) & \(\eta/(12\pi^6)\) & \(3.02 \times 10^{-5}\) &
 \((3.08 \pm 0.13) \times 10^{-5}\)ʰ & \(0.5\sigma\) & \textbf{E}
 (empirical \(\eta\)) \\
-Koide \(Q\) & \(2/3\) & 0.66667 & 0.66666 & \(< 0.01\%\) & \textbf{C} \\
+Koide \(Q\) & \(2/3\) & 0.66667 & 0.666664 & \(0.0003\%\) &
+\textbf{C} \\
 Koide angle \(\theta_0\) & \(C_2/d^2 = 2/9\) & 0.22222 & 0.222225 &
 0.001\% & \textbf{C} \\
-\(m_e\) (from \(m_\tau\)) & \(\theta_0 = 2/9\) & 0.51096 MeV & 0.51100
-MeV & 0.007\% & \textbf{M} (\(m_\tau\)) \\
-\(m_\mu\) (from \(m_\tau\)) & \(\theta_0 = 2/9\) & 105.652 MeV & 105.658
-MeV & 0.006\% & \textbf{M} (\(m_\tau\)) \\
+\(m_e\) (from \(m_\tau\)) & \(\theta_0 = 2/9\) & 0.51098 MeV & 0.51100
+MeV & 0.003\% & \textbf{M} (\(m_\tau\)) \\
+\(m_\mu\) (from \(m_\tau\)) & \(\theta_0 = 2/9\) & 105.656 MeV & 105.658
+MeV & 0.002\% & \textbf{M} (\(m_\tau\)) \\
 \(Q_{\text{down}}\) & \((2/3)(1+\alpha_s/\pi)\) & 0.7303 & 0.7314 &
 0.15\% (scheme-dep) & \textbf{P} \\
 \(m_b\) (from \(m_s\)) & Koide(\(Q_{\text{down}}\)) & 4144 MeV & 4180 ±
@@ -7091,7 +7103,7 @@ Wolfenstein \(A^2\) & \(C_2/d = (d-1)/d = 2/3\) & 0.6667 & 0.683 &
 1.2\% \\
 \(\sin^2\theta_{13}\) & \(\propto A^4 = (C_2/d)^2 = 4/9\) & 0.0225 &
 0.0224 & 0.4\% \\
-Koide \(\theta_0\) & \(C_2/d^2 = 2/9\) & 0.2222 & 0.2222 & 0.02\% \\
+Koide \(\theta_0\) & \(C_2/d^2 = 2/9\) & 0.22222 & 0.222225 & 0.001\% \\
 \(m_u/m_d\) & \(\sqrt{C_2}/d = \sqrt{2}/3\) & 0.471 & 0.474 & 0.6\% \\
 \(|V_{cb}|\) & \(A\lambda^2\) & 0.04136 & 0.0408 & 0.4σ \\
 PMNS sum rule & \(7/6 = 1 + 2A^2/3\) via Cond 2 & 1.167 & 1.178 &
@@ -7136,12 +7148,12 @@ closed-form null is available without an explicit model of the
 expression-search space, which is not attempted here.
 
 \textbf{What the retrodictive package supports.} Three statements carry
-the section's content. First, the matches are \emph{concentrated}: the
-two tightest (\(\lambda\) at \(0.04\%\), \(\theta_0\) at \(0.02\%\)) sit
-an order of magnitude or more inside the spacing of their own candidate
-families as enumerated in §7.2, so formula-multiplicity alone does not
-comfortably absorb them --- though this is a qualitative observation,
-not a probability. Second, the six-observable \(C_2/d\)
+the section's content. First, the matches are \emph{concentrated}: two
+of the tightest (\(\lambda\) at \(0.04\%\), \(\theta_0\) at \(0.001\%\))
+sit an order of magnitude or more inside the spacing of their own
+candidate families as enumerated in §7.2, so formula-multiplicity alone
+does not comfortably absorb them --- though this is a qualitative
+observation, not a probability. Second, the six-observable \(C_2/d\)
 simultaneous-consistency table above is a genuine single structural test
 with no per-observable freedom, and it passes; its evidential weight is
 that of one test, as already stated. Third, and decisively, the
@@ -7246,13 +7258,14 @@ advance and carry fixed values.
 \hypertarget{discussion}{%
 \subsection{8. Discussion}\label{discussion}}
 
-The cosmological application --- including the derivation of \(\hbar\),
-the Bekenstein-Hawking area law, the dissolution of the cosmological
-constant problem, and the dynamical dark energy prediction --- is
-developed in {[}GR{]}. The substratum-level reconstruction theorem and
-the synthesis claim that quantum mechanics, general relativity, and the
-arrow of time descend as three projections of the same \((S, \varphi)\)
-are developed in {[}Substratum{]}.
+The cosmological application --- including the horizon calibration
+\(\hbar = c^3\epsilon^2/(4G\sigma)\), the Bekenstein-Hawking area law,
+the conditional dissolution of the cosmological constant problem ({[}GR
+§6.2{]}), and the dynamical dark energy prediction --- is developed in
+{[}GR{]}. The substratum-level reconstruction theorem and the synthesis
+claim that quantum mechanics, general relativity, and the arrow of time
+descend as three projections of the same \((S, \varphi)\) are developed
+in {[}Substratum{]}.
 
 \hypertarget{structural-realism}{%
 \subsubsection{8.1 Structural realism}\label{structural-realism}}
@@ -7375,9 +7388,13 @@ bijection satisfying the six structural properties. These include: SU(3)
 × SU(2) × U(1) with multiplicities (3, 2, 1), three generations
 (chirality conditional on H-χ', §4.8) with identical gauge quantum
 numbers, one Higgs doublet (1, 2, +1/2), unique hypercharges from
-anomaly cancellation, ℏ = c³ε²/(4G), the Bekenstein-Hawking formula, and
-the universal induced coupling \(1/\alpha_0 = 23.25\) (§6.1). These are
-theorems. They do not depend on which specific φ describes our universe.
+anomaly cancellation, and the universal induced coupling
+\(1/\alpha_0 = 23.25\) (§6.1). These are theorems on the branch stated
+in §1 (Tier 2), with the conditions marked at each entry. The horizon
+calibration \(\hbar = c^3\epsilon^2/(4G\sigma)\) and the
+Bekenstein-Hawking coefficient it matches hold for the same class as
+consistency relations conditional on H-slope ({[}GR §3.2, §4--§5{]}).
+They do not depend on which specific φ describes our universe.
 
 \textbf{Solution-specific properties} are determined by the particular
 bijection φ within the equivalence class. These include: gauge couplings
@@ -8432,7 +8449,7 @@ proved step-by-step at the structural level, with the flagged inputs
 (H-χ'; H-spin'; light-spectrum selection) entering where marked. Where
 it makes contact with measured numbers, the agreement is striking: the
 Cabibbo angle from a single Brillouin-zone distance to \(0.04\%\), the
-Koide angle from the cubic-group quadratic Casimir to \(0.02\%\), the
+Koide angle from the cubic-group quadratic Casimir to \(0.001\%\), the
 down-to-strange mass ratio \(m_d/m_s = 1/(2\pi^2)\) at \(0.56\sigma\),
 all three PMNS angles within \(1.1\sigma\) --- with
 \(\sin^2\theta_{12}\) matching the November-2025 JUNO measurement at
@@ -8461,24 +8478,24 @@ supersymmetric partners at the LHC and its successors corroborates
 structural predictions of the framework, which forbids all such states.
 
 The cosmological application of the same framework --- including the
-derivation of \(\hbar\) from the cosmological horizon and the
-Bekenstein-Hawking area law including the \(1/4\) coefficient (both
-conditional on the horizon conditions recorded there), the dissolution
-of the cosmological constant problem at the descriptive level, and dark
-energy in running-vacuum form (the functional form the local expansion
-shared by every smooth model; the content the Type II channel, with
-magnitude not derived at theorem level but consistent with the Bertini
-et al.~2025 direct DESI-DR2-era fit at \(2\sigma\)) --- is developed in
-{[}GR{]}. The substratum-level reconstruction theorem, the substratum
-gauge group, and the synthesis claim that quantum mechanics, general
-relativity, and the arrow of time descend as three projections of the
-same \((S, \varphi)\) are developed in {[}Substratum{]}. Together, this
-four-paper synthesis ({[}Main{]}, {[}SM{]}, {[}GR{]}, {[}Substratum{]})
-makes a single claim: the Standard Model, general relativity, and the
-arrow of time are three projections of one finite deterministic
-construction --- the visible-sector projection developed here, the
-boundary-level thermodynamic limit developed in {[}GR{]}, and the
-horizon-clock-plus-observer-selection projection developed in
+horizon calibration \(\hbar = c^3\epsilon^2/(4G\sigma)\) and the
+Bekenstein-Hawking area law with its \(1/4\) coefficient (consistency
+relations, both conditional on the horizon conditions recorded there),
+the dissolution of the cosmological constant problem at the descriptive
+level, and dark energy in running-vacuum form (the functional form the
+local expansion shared by every smooth model; the content the Type II
+channel, with magnitude not derived at theorem level but consistent with
+the Bertini et al.~2025 direct DESI-DR2-era fit at \(2\sigma\)) --- is
+developed in {[}GR{]}. The substratum-level reconstruction theorem, the
+substratum gauge group, and the synthesis claim that quantum mechanics,
+general relativity, and the arrow of time descend as three projections
+of the same \((S, \varphi)\) are developed in {[}Substratum{]}.
+Together, this four-paper synthesis ({[}Main{]}, {[}SM{]}, {[}GR{]},
+{[}Substratum{]}) makes a single claim: the Standard Model, general
+relativity, and the arrow of time are three projections of one finite
+deterministic construction --- the visible-sector projection developed
+here, the boundary-level thermodynamic limit developed in {[}GR{]}, and
+the horizon-clock-plus-observer-selection projection developed in
 {[}Substratum §5.4{]}. The fifth core paper {[}Structure{]} articulates
 the framework's two-dimensional hierarchical structural realism and
 develops its relationship to other unification programs through
@@ -8872,4 +8889,4 @@ the FCC-ee,'' arXiv:2504.05974 (2025).
 Compact Family Cycle,'' arXiv:2605.10245 (2026).
 
 \end{document}
-% source-sha256: c007dbc21fa1c9abaeea1bbc6fdfacb6cc832c2a5389b03e03c94e1fbb468547
+% source-sha256: ff20e3e0bda0649f034130fb8e769eaca1cc441fde50a563ba1553d8786a10f2

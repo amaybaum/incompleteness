@@ -56,6 +56,10 @@
 % Included via: pandoc ... --include-in-header=unicode-fix.tex
 \usepackage{newunicodechar}
 \usepackage{pifont}
+\usepackage{graphicx} % unicode-math's smallsetminus uses rotatebox
+% Use the Computer Modern-compatible set-difference construction; the large
+% Unicode glyph selected by TeX Live 2022 is absent from Latin Modern Math.
+\AtBeginDocument{\let\setminus\smallsetminus}
 % --- Greek letters -> math (Latin Modern Math; consistent with CM body text) ---
 \newunicodechar{α}{\ensuremath{\alpha}}
 \newunicodechar{β}{\ensuremath{\beta}}
@@ -203,18 +207,20 @@ This paper applies the Observational Incompleteness (OI) framework
 non-trivial coupling (C1), memory persistence (C2), high-capacity hidden
 sector (C3), and history readback (C4) --- produce, in the
 memory-bearing sector they characterize, non-Markovian dynamics
-(P-indivisibility the stronger diagnostic, established at recurrence by
-C1 and finiteness alone) whenever a fast visible sector's hidden
-coupling realizes them. The companion Medicine paper {[}2{]} establishes
-that chromatin layers satisfy C1--C4 in biological systems, with DNA
-methylation, histone modifications, and chromatin state functioning as
-the slow hidden sector with timescales spanning seconds (chromatin
-binding) to generations (DNA methylation maintenance). This paper shows
-that the same structural conditions explain the bioinformatics field's
-documented failure modes: each puzzle has the same underlying cause ---
-methods assume Markovian dynamics on systems with substantial
-hidden-sector memory, and this assumption violation produces
-characteristic systematic errors.
+(P-indivisibility, which holds at the recurrence scale from a
+non-permutation rooted map and finiteness, is a distinct property --- on
+a common window, with a full-support visible prior, the stronger one; as
+an accessible diagnostic it requires a measured witness) whenever a fast
+visible sector's hidden coupling realizes them. The companion Medicine
+paper {[}2{]} establishes that chromatin layers satisfy C1--C4 in
+biological systems, with DNA methylation, histone modifications, and
+chromatin state functioning as the slow hidden sector with timescales
+spanning seconds (chromatin binding) to generations (DNA methylation
+maintenance). This paper shows that the same structural conditions
+explain the bioinformatics field's documented failure modes: each puzzle
+has the same underlying cause --- methods assume Markovian dynamics on
+systems with substantial hidden-sector memory, and this assumption
+violation produces characteristic systematic errors.
 
 We develop the analysis across five domains where the framework's
 predictions match documented empirical failure modes: trajectory
@@ -328,16 +334,16 @@ any embedded observer whose dynamics satisfies four conditions --- C1
 persistence; the slow bath \(\tau_B \gg \tau_S\) one realization), C3
 (sufficient hidden memory capacity), and C4 (history readback) ---
 exhibits, when those conditions are realized in the memory-bearing form,
-accessible non-Markovian dynamics --- finite-horizon memory/backflow in
-the visible law, not generic quantum non-Markovianity ---
-(P-indivisibility being the strictly stronger
-temporal-indivisibility/backflow diagnostic, not an automatic
-consequence --- \texttt{review4\_probes.py}): history-dependent
-transition probabilities arising from information stored in the hidden
-sector and returned on subsequent interactions. The theorem is
-scale-independent: it applies to any system with the appropriate
-architecture, from the memory-bearing dynamics quantum mechanics
-represents at the cosmological horizon to biological signaling cascades.
+accessible non-Markovian dynamics --- finite-horizon memory in the
+visible law, not generic quantum non-Markovianity --- (P-indivisibility
+being the strictly stronger temporal-indivisibility diagnostic, not an
+automatic consequence --- \texttt{review4\_probes.py}):
+history-dependent transition probabilities arising from information
+stored in the hidden sector and returned on subsequent interactions. The
+theorem is scale-independent: it applies to any system with the
+appropriate architecture, from the memory-bearing dynamics quantum
+mechanics represents at the cosmological horizon to biological signaling
+cascades.
 
 The companion Medicine paper {[}2{]} establishes that biological memory
 systems satisfy C1--C4 at multiple molecular layers. The chromatin layer
@@ -2264,4 +2270,4 @@ H3.3 localization at specific genomic regions,'' \emph{Cell} 140,
 678--691 (2010).
 
 \end{document}
-% source-sha256: f66e2d0f3975d933cebf7563f6c30c6ddb7a88d8851b0f5208659c706df3c5ba
+% source-sha256: 7f5efa79094558543ca49d9164e033d8f554114d2c10bf1ee82037a0387dba6e

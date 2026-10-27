@@ -329,8 +329,7 @@ That's it. The precise claim is layered. At the finite observable-law
 level, the resulting stochastic law has an exact fixed-basis
 Hilbert/unitary/Born-form representation
 (\(S \iff D \iff Q_{\mathrm{fb}}\)); when C4 readback holds, the OI
-sector additionally carries genuine predictive memory and, for a fixed
-finite recurrent representative, global indivisibility. The
+sector additionally carries genuine predictive memory. The
 Schrödinger/unitary interpolation and the \(p=|U|^2\) dictionary belong
 to that exact representation layer. What does \textbf{not} follow from
 the definition alone is that every coherent preparation, noncommuting
@@ -448,10 +447,13 @@ eventually fill up and stop recording. What the observer needs is an
 environment that couples to it, retains the record long enough to be
 read, has the capacity to hold it, and feeds it back --- and it is the
 feedback (C4) that does the work, the other three following from it or
-supporting it. Such an environment sustains the persistent,
-non-decomposable correlations the paper calls \emph{P-indivisibility}
---- a technical term meaning the system's transition probabilities at
-different times cannot be broken into independent steps.
+supporting it. Such an environment sustains persistent conditional
+memory --- transition probabilities that depend on the history, not just
+the present. A distinct property, which the paper calls
+\emph{P-indivisibility} --- the system's transition probabilities at
+different times cannot be broken into independent steps --- holds across
+the recurrence cycle, and on accessible windows only where a
+divisibility witness shows it.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -662,8 +664,10 @@ property. But the recurrence time is absurdly long --- for the
 cosmological case, it's e\textsuperscript{(10}122) years. Nobody will
 ever observe it.
 
-The accessible-timescale lemma shows that information backflow happens
-on \emph{laboratory timescales}, independently of recurrence.
+The accessible-timescale lemma shows that conditional memory is present
+on \emph{laboratory timescales}, independently of recurrence. A revival
+of distinguishability on those timescales --- information backflow ---
+is a further property that readback alone does not supply.
 
 \textbf{The mechanism:} At each interaction (timescale τ\_S), the
 coupling H\_int transfers some information from the visible sector to
@@ -801,7 +805,7 @@ persistence) ensures it isn't erased between reads. C3 (sufficient
 capacity) ensures there's enough room. C4 (history readback): at step 2
 the unchanged die register controls the reverse flip --- the dynamics
 reads back the record written at step 1. In this toy, C1 through C4
-explain the memory mechanism --- the information backflow; the explicit
+explain the memory mechanism --- the history readback; the explicit
 negative-propagator calculation above independently establishes the
 stronger P-indivisibility witness, and the process is thereby, via the
 stochastic-quantum correspondence, the carrier of a nontrivial quantum
@@ -813,20 +817,23 @@ representation in compressed form under (T).
 \subsubsection{Why conditions C2 and C3 matter
 physically}\label{why-conditions-c2-and-c3-matter-physically}}
 
-The P-indivisibility theorem needs only coupling (C1) and finiteness. So
-why does the paper insist on slow memory (C2) and vast capacity (C3)?
+The P-indivisibility theorem needs only a non-permutation rooted map and
+finiteness (with the uniform hidden prior, any non-trivial coupling (C1)
+supplies one). So why does the paper insist on slow memory (C2) and vast
+capacity (C3)?
 
-Because P-indivisibility without C2 and C3 might only show up at absurd
-timescales or might self-destruct. C2 ensures the memory persists on
-timescales accessible to actual experiments, not just at cosmic
-recurrence times. C3 ensures the hidden sector never runs out of room to
-store information --- if it saturates, later imprints overwrite earlier
-ones, and the process becomes effectively memoryless. Together with C4's
-readback --- the load-bearing condition (\texttt{review4\_probes.py}:
-storage and capacity without readback do not suffice) --- C2 and C3 make
-the accessible memory strong, persistent, and observationally relevant;
-the P-indivisibility witness is the stronger diagnostic that readback
-makes measurable.
+Because recurrence-scale P-indivisibility shows up only at absurd
+timescales. On accessible timescales the relevant property is
+conditional memory: C2 ensures the memory persists on timescales
+accessible to actual experiments, not just at cosmic recurrence times.
+C3 ensures the hidden sector never runs out of room to store information
+--- if it saturates, later imprints overwrite earlier ones, and the
+process becomes effectively memoryless. Together with C4's readback ---
+the load-bearing condition (\texttt{review4\_probes.py}: storage and
+capacity without readback do not suffice) --- C2 and C3 make the
+accessible memory strong, persistent, and observationally relevant; the
+conditional memory \(M_t\) is the diagnostic that readback makes
+measurable.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -835,9 +842,9 @@ makes measurable.
 A)}\label{the-stochastic-quantum-correspondence-3.1-and-appendix-a}}
 
 This is the key link. Section 2 proved that the embedded observer's
-dynamics are P-indivisible. Section 3 shows how the correspondence
-supplies the quantum representation for exactly this sector --- admitted
-by every finite law, nontrivial here.
+dynamics are P-indivisible across the recurrence cycle. Section 3 shows
+how the correspondence supplies the quantum representation for exactly
+this sector --- admitted by every finite law, nontrivial here.
 
 \textbf{The core statement.} Any P-indivisible stochastic process on a
 finite configuration space of size n can be embedded into a unitarily
@@ -894,11 +901,12 @@ together they ensure that \emph{layer} rests on no single recent result.
   equation in Volume III, Lecture 16: ``Where did we get that equation
   from? Nowhere. It is not possible to derive it from anything you know.
   It came out of the mind of Schrödinger.'' The derivation above is the
-  answer that wasn't available in 1963. The equation is no longer ``from
+  answer that wasn't available in 1963. The equation is not ``from
   nowhere'' --- it is the differential form of unitary evolution, and
   unitary evolution is available, under (T), for embedded observers'
-  processes --- nontrivially so where the dynamics is P-indivisible by
-  C1--C4.
+  processes --- nontrivially so where the dynamics is P-indivisible,
+  which on a fixed finite reversible representative holds across its
+  recurrence cycle whenever a rooted visible map is not a permutation.
 \item
   \textbf{The Born-form dictionary} is the ancilla-marginal rule
   \(T_{ij}=\sum_\alpha |\widetilde U_{(i,0)(j,\alpha)}|^2\) in general,
@@ -1054,8 +1062,8 @@ weaker reduced-law description.
 It's not enough to show that embedded observation \emph{produces} QM
 (sufficiency). The paper shows the observed non-Markovian dynamics
 \emph{require} embedded observation under C1--C4 (necessity, per
-condition; the C2 leg conditional on the mixing hypothesis). The full
-logical chain:
+condition; the C2 leg conditional on the mixing hypothesis in its
+slow-bath form). The full logical chain:
 
 \begin{itemize}
 \tightlist
@@ -1069,22 +1077,23 @@ logical chain:
   the recurrence scale, and C4's readback ⟹ accessible non-Markovianity,
   quantitatively (sufficiency). The two conclusions are different
   notions and neither is generic quantum non-Markovianity: accessible
-  non-Markovianity is finite-horizon memory/backflow in the visible law,
-  while P-indivisibility is failure of divisibility of the visible
-  population law and needs the recurrence and non-permutation
-  hypotheses, not C1/C3/C4 alone
+  non-Markovianity is finite-horizon memory in the visible law, while
+  P-indivisibility is failure of divisibility of the visible population
+  law and needs the recurrence and non-permutation hypotheses, not
+  C1/C3/C4 alone
 \item
-  Section 3.3 proves: P-indivisibility ⟹ C1, C3, C4 (necessity,
-  unconditional); C2's slow form within the mixing class (the
-  conditional physical-memory theorem)
+  Section 3.3 proves: accessible-window P-indivisibility under a
+  full-support visible prior ⟹ C1, C3, C4 (necessity); C2's slow form
+  within the mixing class (the physical-memory theorem, slow-bath form)
 \item
   Combined: \textbf{accessible non-Markovianity ⟺ embedded observation
   under C1, C3, C4 (for some accessible order \(k\), on each finite
   accessible horizon \(K \geq k+1\), with the readback at \(k\)) --- C2
   is not needed for the equivalence and carries its physical content
-  separately, through the conditional physical-memory theorem --- with a
-  fixed-basis unitary quantum representation internal and universal
-  ({[}Main §3.4{]}), the compressed form supplied across the
+  separately, through the physical-memory theorem (persistence form
+  without a mixing hypothesis, slow-bath form conditional on it) ---
+  with a fixed-basis unitary quantum representation internal and
+  universal ({[}Main §3.4{]}), the compressed form supplied across the
   correspondence's class under (T), nontrivially where the dynamics is
   P-indivisible}
 \end{itemize}
@@ -1160,8 +1169,7 @@ operational conditions. Conditioning on a registered classical outcome
 is represented by ordinary conditioning on the substratum ensemble;
 identifying every coherent quantum update with that construction is
 likewise part of the operational lift. The memory-bearing sector
-(\(M_t>0\)), and on a fixed finite representative the associated global
-indivisibility, carries the specifically OI content.
+(\(M_t>0\)) carries the specifically OI content.
 
 \textbf{And it does not fix which unitary relates two times.} The
 equivalence says which visible laws have a fixed-basis unitary
@@ -1226,9 +1234,8 @@ fixed-basis unitary/Born representation
 (\(S \iff D \iff Q_{\mathrm{fb}}\), {[}Main §3.4{]}). That statement is
 universal --- ordinary Markov chains are included --- so
 representability itself is not the discriminator. C4 supplies the
-nontrivial content: accessible history readback, unavoidable hidden
-predictive memory, and, on one fixed finite recurrent representative,
-global indivisibility. The Barandes stochastic--quantum correspondence
+nontrivial content: accessible history readback and unavoidable hidden
+predictive memory. The Barandes stochastic--quantum correspondence
 remains useful for a compressed representation and its interpretive
 apparatus; it is not needed to prove that some Hilbert/Born
 representation exists. The remaining foundational qualification is
@@ -1315,9 +1322,9 @@ violation, while the stochastic causal-local Tsirelson result remains a
 weaker-description statement. Thus the accurate headline is strong but
 layered: the finite observable stochastic/reversible/quantum
 descriptions are exactly equivalent; readback identifies the
-memory-bearing indivisible OI sector; the common coherent local
-operational lift is stated separately rather than silently folded into
-the equivalence theorem.
+memory-bearing OI sector; the common coherent local operational lift is
+stated separately rather than silently folded into the equivalence
+theorem.
 
 \emph{Passive observation, kept apart.} Four finite-dimensional
 statements about passive observation stand beside that classification
@@ -1410,8 +1417,8 @@ With the cosmological horizon satisfying the definition and all
 conditions, the characterization theorem applies. The observer's reduced
 description is non-Markovian --- P-indivisible in the recurrence regimes
 --- and admits a unitarily evolving quantum representation ({[}Main
-§3.4{]}). The value of ℏ is determined by the partition geometry ---
-which is what Section 5 derives.
+§3.4{]}). The action scale ℏ is fixed by the partition geometry in terms
+of the discreteness scale --- which is what Section 5 derives.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1547,14 +1554,15 @@ parameter, conditional on H-balance in its class), the matching wouldn't
 work. That neither pathology obtains makes the gap equation a genuine
 determination.
 
-\textbf{What the gap equation fixes.} The gap equation relates one free
-geometric parameter (ε), at given σ, to one output (ℏ). The specific
-relationship ℏ = c³ε²/(4Gσ) enters three later results --- the
-Bekenstein-Hawking factor 1/4 (§6), the compression ratio of the
-conditional CC dissolution (§7.3), and the Type II RVM dark-energy
-reading (§8.1). The three share the calibration; they are consequences
-of it, not independent checks of it. See Appendix item 1 for the
-detailed discussion.
+\textbf{What the gap equation fixes.} The gap equation, conditional on
+the infrared detailed-balance condition H-slope with the horizon and
+frame conditions {[}GR §3.2{]}, relates one free geometric parameter
+(ε), at given σ, to one output (ℏ). The specific relationship ℏ =
+c³ε²/(4Gσ) enters three later results --- the Bekenstein-Hawking factor
+1/4 (§6), the compression ratio of the conditional CC dissolution
+(§7.3), and the Type II RVM dark-energy reading (§8.1). The three share
+the calibration; they are consequences of it, not independent checks of
+it. See Appendix item 1 for the detailed discussion.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1931,15 +1939,15 @@ The paper proves that this entropy has no operator in the emergent QFT.
 The baryonic sector --- what QFT can account for --- is
 \textasciitilde5\% of \(\rho_{\text{crit}}\). The remaining
 \textasciitilde95\% is the boundary entropy: gravitationally active,
-invisible to the emergent description, and persistent through
-P-indivisibility (condition C2). This matches the observed composition
-of the universe, in which \textasciitilde95\% of the gravitational
-content has no source in particle physics. The uniform component
-corresponds to dark energy (handled by Part II's CC dissolution). The
-structured component --- dark matter --- arises from matter-induced
-entropy displacement: baryonic matter displaces boundary entropy via the
-Clausius relation, the Jacobson mechanism converts the entropy gradient
-into curvature, yielding the MOND acceleration scale
+invisible to the emergent description, and persistent (condition C2).
+This matches the observed composition of the universe, in which
+\textasciitilde95\% of the gravitational content has no source in
+particle physics. The uniform component corresponds to dark energy
+(handled by Part II's CC dissolution). The structured component --- dark
+matter --- arises from matter-induced entropy displacement: baryonic
+matter displaces boundary entropy via the Clausius relation, the
+Jacobson mechanism converts the entropy gradient into curvature,
+yielding the MOND acceleration scale
 \(a_0 = cH/6 \approx 1.1 \times 10^{-10}\) m/s² and the baryonic
 Tully-Fisher relation \(v^4 = GM_B \cdot cH/6\) --- both parameter-free
 once the dimensional factor \(1/6\) is imported from Verlinde's analysis
@@ -2160,24 +2168,24 @@ yields no probability calculus, no Hilbert space, and no entropy budget.
 The framework's incompleteness is a \emph{physical} one that runs
 parallel to it rather than instantiating it: the causal partition
 enforces the trace-out, the trace-out produces the reduced law ---
-P-indivisible in the memory-bearing sector the conditions characterize
---- and the representation is universal, the imported correspondence
-supplying the compressed form across its class, P-indivisibility fixing
-whether it is nontrivial under the translation hypothesis (T). The two
-come apart cleanly --- an observer in a universe without dark energy
-would be fully subject to Wolpert's theorem yet would face no
-cosmological horizon --- and the \(10^{122}\) compression ratio (the
-Bekenstein-Hawking entropy of the horizon) measures the \emph{physical}
-incompleteness, which is contingent on the observed causal structure and
-has no counterpart in the purely logical results. A closer rigorous
-relative of the physical statement is T. Breuer's theorem (1995,
-\emph{Philosophy of Science} 62: 197--214; not to be confused with H.-P.
-Breuer of the Breuer--Laine--Piilo indivisibility criterion cited
-elsewhere in this framework) that no measurement performed from inside a
-system can perfectly resolve the state of a whole that contains the
-measuring apparatus; Wolpert and Breuer secure, each in its own domain,
-the rigor of the \emph{pattern} that the framework's construction then
-realizes physically.
+memory-bearing in the sector the conditions characterize --- and the
+representation is universal, the imported correspondence supplying the
+compressed form across its class, P-indivisibility fixing whether it is
+nontrivial under the translation hypothesis (T). The two come apart
+cleanly --- an observer in a universe without dark energy would be fully
+subject to Wolpert's theorem yet would face no cosmological horizon ---
+and the \(10^{122}\) compression ratio (the Bekenstein-Hawking entropy
+of the horizon) measures the \emph{physical} incompleteness, which is
+contingent on the observed causal structure and has no counterpart in
+the purely logical results. A closer rigorous relative of the physical
+statement is T. Breuer's theorem (1995, \emph{Philosophy of Science} 62:
+197--214; not to be confused with H.-P. Breuer of the
+Breuer--Laine--Piilo indivisibility criterion cited elsewhere in this
+framework) that no measurement performed from inside a system can
+perfectly resolve the state of a whole that contains the measuring
+apparatus; Wolpert and Breuer secure, each in its own domain, the rigor
+of the \emph{pattern} that the framework's construction then realizes
+physically.
 
 The key difference from Gödel is in the \emph{form} of self-reference.
 Gödel's is syntactic: the system encodes a sentence that says ``I am not
@@ -2357,9 +2365,10 @@ mechanics?''} No.~Interpretations (Copenhagen, Many-Worlds, Bohmian
 mechanics) accept the quantum formalism and disagree about what it
 \emph{means}. This framework \emph{derives} the quantum formalism from
 non-quantum premises and proves the derivation is the only possible one.
-It makes quantitative predictions --- the value of ℏ and dark energy
-evolution --- that interpretations do not, and it accounts for the
-dark-sector concordance as an automatic consequence.
+It relates ℏ to the discreteness scale and carries a running-vacuum
+reading of dark energy whose falsifiable content is the Type II channel
+({[}GR §7.1{]}) --- content that interpretations do not have --- and it
+accounts for the dark-sector concordance as an automatic consequence.
 
 \textbf{``Doesn't Bell's theorem rule out hidden variable theories?''}
 Bell's theorem applies directly to the deterministic completion. If its
@@ -3004,9 +3013,9 @@ for ``generation symmetry.''
 
 \textbf{The Higgs mechanism from one condition.} The same center
 independence condition (\(\alpha = 0\)) that produces the quantum
-phenomenology's backflow structure also enforces exact chiral symmetry
-in the staggered fermions. This means fermion mass terms are forbidden
-in the fundamental Lagrangian. The \emph{only} way to give fermions mass
+phenomenology's memory structure also enforces exact chiral symmetry in
+the staggered fermions. This means fermion mass terms are forbidden in
+the fundamental Lagrangian. The \emph{only} way to give fermions mass
 while preserving unitarity and renormalizability is the Higgs mechanism.
 One algebraic condition --- center independence --- simultaneously
 produces the quantum phenomenology, chiral fermions, and the necessity
@@ -3280,15 +3289,17 @@ S is the set of all distinguishable states. Its physical meaning is
 \emph{finite capacity}: there are \textbar S\textbar{} configurations
 that can be told apart, carrying log₂\textbar S\textbar{} bits of
 information. The finiteness is not a regularization --- it's
-load-bearing. Finite sets recur (φ\^{}N = id), recurrence produces
-P-indivisibility, and the imported correspondence supplies the quantum
-representation --- for its whole class, with P-indivisibility fixing
-whether the represented dynamics is nontrivially indivisible. Strictly,
-only the visible sector and boundary layer need to be finite --- the
-deep hidden sector may be infinite, because the accessible-timescale
-backflow lemma (Main, §2.3) establishes P-indivisibility without
-recurrence, and the boundary-only dependence lemma (GR, §3.2) ensures
-the deep sector's contribution is suppressed by
+load-bearing. Finite sets recur (φ\^{}N = id), recurrence, together with
+a non-permutation rooted map, produces P-indivisibility, and the
+imported correspondence supplies the quantum representation --- for its
+whole class, with P-indivisibility fixing whether the represented
+dynamics is nontrivially indivisible. Strictly, only the visible sector
+and boundary layer need to be finite --- the deep hidden sector may be
+infinite, because the readback lemma (Main, §2.3) establishes
+conditional memory without recurrence (P-indivisibility, which the
+recurrence theorem supplies, uses the finiteness of the whole state
+space), and the boundary-only dependence lemma (GR, §3.2) ensures the
+deep sector's contribution is suppressed by
 \(\tau_S/\tau_B \sim 10^{-32}\).
 
 φ is a bijection: every state has exactly one predecessor and exactly
@@ -3306,9 +3317,9 @@ the hidden sector (each visible-sector operation imprints correlations
 on H through coupling). The hidden sector stores those writes (C2:
 memory persistence --- the record survives the window, whether by slow
 evolution or by conserved fast dynamics) and returns them on subsequent
-reads --- producing the information backflow that P-indivisibility
-diagnoses --- the memory-bearing sector where the distinctly quantum
-phenomenology lives; representability itself is universal.
+reads (history readback) --- the memory-bearing sector where the
+distinctly quantum phenomenology lives; representability itself is
+universal.
 
 The framework's results all have a clean interpretation in this
 language. The conditions C1--C4 are access conditions on the memory: C1
@@ -3389,8 +3400,7 @@ At the finite observable-law layer, the answer is an exact quantum
 \textbf{representation}. The head cannot access the tape's global state.
 It sees only local statistics --- transition probabilities obtained by
 marginalizing over unread tape cells. With readback those statistics are
-non-Markovian and, on a fixed finite recurrent representative, globally
-indivisible. The fixed-basis Hilbert/unitary/Born-form description is
+non-Markovian. The fixed-basis Hilbert/unitary/Born-form description is
 exact (\(S \iff D \iff Q_{\mathrm{fb}}\)). The stronger statement that
 superposition, entanglement, and arbitrary coherent instruments all
 belong to one standard local quantum operational theory is the separate
@@ -3415,17 +3425,20 @@ The total fine-grained entropy is exactly conserved. So the arrow, if
 there is one, has to come from somewhere else --- specifically, from the
 observer.
 
-A structural theorem (Main §4.6) establishes exactly that. Observers
-satisfying C1--C4 --- the conditions that make their description
-non-Markovian, quantum for the source's finite-configuration class ---
-cannot exist in the equilibrium phase of (S, φ). The reason is direct.
-C2 requires the written record to persist to readback --- and in a
-thermal bath the record lives in correlations, so persistence needs the
-hidden sector's correlation time \(\tau_B\) to exceed the observer's
+A structural theorem (Main §4.6) establishes exactly that, under a
+stated mixing hypothesis for equilibrium regions and for the
+coarse-grained description generated by iterating the one-step effective
+channel. Observers satisfying C1--C4 --- the conditions that make their
+description non-Markovian, quantum for the source's finite-configuration
+class --- cannot exist in the equilibrium phase of (S, φ). The reason is
+direct. C2 requires the written record to persist to readback --- and in
+a thermal bath the record lives in correlations, so persistence needs
+the hidden sector's correlation time \(\tau_B\) to exceed the observer's
 measurement timescale \(\tau_S\) (the conserve-and-route alternative
 being unavailable in an equilibrated bath). In equilibrium, local
 correlations decay on thermal timescales (a picosecond or so at ordinary
-temperatures), while any physical observer's internal processing time is
+temperatures), for a generic thermal bath (protected slow modes
+excepted), while any physical observer's internal processing time is
 many orders of magnitude longer. So in equilibrium, C2 fails --- and
 with it C4: a bath that thermalizes between steps erases the stored
 record before it can be read (the erasure lemma, {[}Main §2.3{]}). Since
@@ -3438,24 +3451,31 @@ construction a local fluctuation out of a thermally equilibrated
 environment --- that's what ``fluctuation from equilibrium'' means. Its
 hidden sector is therefore the thermally equilibrated bath around it,
 with τ\_B bounded by thermal decorrelation --- too short for C2 to hold,
-by six or more orders of magnitude for any brain-like observer.
-Boltzmann brains carry no memory-bearing quantum phenomenology --- no
-persistent record, no backflow --- though their statistics, like any
-finite law's, admit the representation; they aren't observers in the
-framework's sense. The exclusion is structural, not anthropic --- it
-doesn't depend on any argument about ``typical observers'' or the
-trustworthiness of memory.
+by six or more orders of magnitude for any brain-like observer when the
+bath's correlation time is set by the thermal scale (at most about 10⁻¹²
+s at temperatures that support structured matter, against an internal
+processing time of at least about 10⁻⁶ s), a generic thermal estimate
+that fails for protected slow modes. In the coarse-grained description
+generated by iterating the one-step effective channel, Boltzmann brains
+carry no memory-bearing quantum phenomenology --- no persistent record,
+no readback --- though their statistics, like any finite law's, admit
+the representation; they aren't observers in the framework's sense. The
+exclusion is structural, not anthropic --- it doesn't depend on any
+argument about ``typical observers'' or the trustworthiness of memory.
 
-Second, the ``past hypothesis'' of cosmology gets replaced by a theorem.
-Every standard cosmology has a mystery at t=0: why was the early
-universe so low-entropy? Boltzmann, Penrose, Albert, and Carroll all
-treat this as a postulate that has to be assumed separately. The
-framework replaces the postulate with a derivation. You don't need to
-posit low initial entropy to explain why we see it; you need only the
-definition of observation, which by itself selects for the
-non-equilibrium phase. Observers exist where C1--C4 hold. C1--C4 don't
-hold in equilibrium. Therefore observers exist in non-equilibrium. No
-additional axiom required.
+Second, the ``past hypothesis'' of cosmology gets replaced by a
+conditional theorem. Every standard cosmology has a mystery at t=0: why
+was the early universe so low-entropy? Boltzmann, Penrose, Albert, and
+Carroll all treat this as a postulate that has to be assumed separately.
+The framework replaces the postulate with a derivation. You don't need
+to posit low initial entropy to explain why we see it; you need the
+definition of observation together with the mixing hypothesis for
+equilibrium regions, which select for the non-equilibrium phase.
+Observers exist where C1--C4 hold. Under that hypothesis, and in the
+coarse-grained description generated by iterating the one-step effective
+channel, C1--C4 don't hold in equilibrium. Therefore observers exist in
+non-equilibrium. The mixing hypothesis is the premise that takes the
+place of the postulate.
 
 In our universe, the non-equilibrium phase is provided by the expanding
 cosmological horizon. The horizon's expansion sets
@@ -3532,11 +3552,11 @@ Gödel and Turing are usually read as negative results --- limits on
 knowledge. The framework recasts the physical instance as
 \emph{generative}. What is mathematically rigid here is the finite
 stochastic/reversible/fixed-basis quantum representation equivalence,
-together with the memory-bearing indivisible sector selected by
-readback. Calling the resulting description \textbf{full operational
-quantum mechanics} requires the additional coherent/composite lifting
-and locality conditions stated above; the stronger uniqueness claim is
-not being smuggled into the analogy.
+together with the memory-bearing sector selected by readback. Calling
+the resulting description \textbf{full operational quantum mechanics}
+requires the additional coherent/composite lifting and locality
+conditions stated above; the stronger uniqueness claim is not being
+smuggled into the analogy.
 
 \hypertarget{why-does-mathematics-describe-physics}{%
 \subsubsection{Why does mathematics describe
@@ -3720,17 +3740,17 @@ derivations; ``The Standard Model from a Cubic Lattice'' (Maybaum,
 {[}SM{]}), which derives the Standard Model's gauge group, matter
 content, and chiral structure from lattice dynamics; ``The Gravitational
 Sector from the Cosmological Horizon'' (Maybaum, {[}GR{]}), which
-derives ℏ, the Bekenstein-Hawking area law, and dark-sector
-phenomenology; ``The Substratum: Reconstruction Theorem and Gauge
-Group'' (Maybaum, {[}Substratum{]}), which addresses the ontological
-status of the lattice and proves the framework's reconstruction theorem;
-and ``Hierarchical Structural Realism and Universality Classes of
-Embedded Observers'' (Maybaum, {[}Structure{]}), which articulates the
-framework's two-dimensional hierarchical structure and develops its
-relationship to other unification programs. The philosophical lineage
-section draws on a systematic analysis mapping the framework's claims
-against the major traditions in Western, Eastern, and contemporary
-philosophy of science.}
+relates ℏ to the discreteness scale, recovers the Bekenstein-Hawking
+area law, and develops dark-sector phenomenology; ``The Substratum:
+Reconstruction Theorem and Gauge Group'' (Maybaum, {[}Substratum{]}),
+which addresses the ontological status of the lattice and proves the
+framework's reconstruction theorem; and ``Hierarchical Structural
+Realism and Universality Classes of Embedded Observers'' (Maybaum,
+{[}Structure{]}), which articulates the framework's two-dimensional
+hierarchical structure and develops its relationship to other
+unification programs. The philosophical lineage section draws on a
+systematic analysis mapping the framework's claims against the major
+traditions in Western, Eastern, and contemporary philosophy of science.}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -3817,8 +3837,8 @@ separate Tsirelson bound; bare/global OI has PR negative control \\
 §3.3: Necessity of C1 & Accessible memory requires coupling & No
 coupling → permutation → P-divisible \\
 §3.3: Necessity of C2 & Physical memory requires record persistence ---
-slow bath one mechanism, conditional on mixing & Fast-mixing bath →
-Markov → P-divisible \\
+slow-bath form conditional on mixing & Fast-mixing bath → Markov →
+P-divisible \\
 §3.3: Necessity of C3 & Accessible memory requires capacity & I ≤ log₂ m
 bounds memory \\
 §3.4: Characterization theorem & non-Markovianity ⟺ C1, C3, C4 per
@@ -3946,4 +3966,4 @@ The final text and all scientific claims were reviewed and verified by
 the author.
 
 \end{document}
-% source-sha256: 759f3291aa021dfd4d09f8676ef8402727e198efafdffa4c40270eeaceee4426
+% source-sha256: 17d026a90e466a51eb45884efd0ebb373409cb7eb167003c6be54a7f1fa8f408
