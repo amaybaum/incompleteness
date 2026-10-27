@@ -342,3 +342,6 @@ run-4 evaluation found insufficient.
 `CHANGES-r30.md` records r30, which applies the run-5 evaluation's two required changes (a never-occurring start is
 not an impossible one; where the order k lies relative to accessible windows) and its recommended Page-curve
 sentence, with one optional editorial trim.
+
+`CHANGES-r31.md` records r31, which applies the r30 checks: the Page-curve sentence restored to all three of its
+conditions, the visible start no longer called a "preparation", and "conditional memory" in the line picture.
