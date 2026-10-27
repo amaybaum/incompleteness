@@ -93,6 +93,8 @@ needed α = 1/d, and now says so.
 | `verification/lean/ROADMAP.md` §D | "center independence of the diagonal of D_st is equivalent to exact chirality" | `Chiral.center_anticommutator` is an identity | The identity is kernel-checked. The step to m = p₀ = 0 is not. Theorem 3 / Proposition 3b at α = 1/d, and the separation off it. |
 | `OI_Structural_Core.lean` :413, docstring | "zero iff the center terms vanish" | The declaration is an identity | "an identity, not coefficient uniqueness" (#966's text). Comment only. |
 | `structural_chain_probe.py` C3 docstring and print | "… iff exact chirality"; "center-free in D_st ⟺ exact chirality" | C3 checks identities in integer matrices | #966's text: "separate mass and scalar-offset anticommutator identities … not a universal converse". Documentation and print only. |
+| `OI_Structural_Core.lean` :444–445, `mass_square` docstring | quoted the manuscript's "squares to −¼(□ − 4m²)" | The declaration's statement and hypotheses | "Given ε² = 1, Dε = −εD, mε = εm and mD = Dm: (D + m·ε)² = D² + m·m." Comment only. |
+| `structural_chain_probe.py` :137, print | "(the 'squares to −¼(□−4m²)' claim pinned); the Remark's C=2(1−d) exclusion respected in the statement" | C3 computes on B = 2D_st at d = 3, L = 4 | "first-order identities on B = 2D_st, d = 3, L = 4: {B+mε, ε} = 2m·I, {B+p₀, ε} = 2p₀·ε, (B+mε)² = B²+m²". Print only. |
 | `verification/coverage/LEDGER.json` | `SM:T-3` K2, fingerprint `487eed57…` | Census at this head | `SM:T-3` re-affirmed at `1f332468…`, graded K1: the α-weighted square is not in the kernel. `SM:L-3a` added at K1 and `SM:P-3b` added at P (owner decision). No ID retired. |
 
 ## Owner decisions (owner, 2026-10-27)
@@ -134,7 +136,9 @@ Quoted from the owner's message, relayed by the coordinator:
 **What each statement rests on:**
 - **SM:T-3.** {B, ε} = 0 is not kernel-checked; only additivity is (`Chiral.anti_add`). The generator–parity
   anticommutation is exact finite algebra (G1). The (B + mε)² form of the mass clause is `mass_square` applied under
-  that unchecked hypothesis. The α-weighted square and μ = C at α = 1/d are exact finite algebra only.
+  that unchecked hypothesis. The α-weighted square and μ = C at α = 1/d are exact finite algebra only. The K1 grade
+  rests on `mass_square`: the algebraic core of the mass clause, (D + mε)² = D² + m² for an abstract chiral D, is
+  kernel-checked as a specialized consequence; no kernel fact covers the center-free ⇒ chiral direction itself.
 - **SM:L-3a.** No kernel witness of the statement. Its proof rests on the paper argument and on G1–G3 and G5 of this
   record.
 - **SM:P-3b.** No kernel witness of the statement or of any consequence of it. The proof's first line is the identity
@@ -161,8 +165,12 @@ No upgrade of these entries is made without a corresponding machine-checked theo
   - `verification/lean/structural_chain_probe.py`, the C3 docstring (:14–15) and print (:136). "center
     independence of the diagonal of D_st iff exact chirality" and "center-free in D_st ⟺ exact chirality" become
     "separate mass and scalar-offset anticommutator identities … not a universal converse" and "… in the tested
-    integer matrices". The AST is identical once the module docstring and print calls are excluded. Run under
-    `python3 -I` from a copy, the output differs only in that print line.
+    integer matrices". The AST is identical once the module docstring and print calls are excluded.
+  - Two further edits of the same kind, after the confirmation review of `86140acf`: the `mass_square` docstring at
+    `OI_Structural_Core.lean` :444–445 now states its hypotheses and conclusion without quoting manuscript wording SM
+    no longer has, and the probe print at :137 describes the first-order identities C3 tests. Run under `python3 -I`
+    from a copy, the output differs from the earlier version only in the C3 print lines (:136 and :137); stripped of
+    comments, the Lean file's code is unchanged.
 
 The frozen round records `round-cc-1/2` `controls.py` (R10) are history and are not edited.
 

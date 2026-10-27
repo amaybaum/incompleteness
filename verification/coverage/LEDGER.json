@@ -1652,7 +1652,7 @@
         }
       ],
       "kernel": "K1",
-      "delta": "the kernel proves the unit-coefficient square (Staggered.factorization) and (D + m·eps)^2 = D^2 + m^2 abstractly; the alpha-weighted square, the staggered mass mu = C - 2(1 - d*alpha) and the coefficient identification are exact finite algebra (d = 1, 2, 3 at extents 4 and 6), not kernel statements",
+      "delta": "the kernel proves the unit-coefficient square (Staggered.factorization) and (D + m·eps)^2 = D^2 + m^2 abstractly; the alpha-weighted square, {B, eps} = 0 for the site parity, the staggered mass mu = C - 2(1 - d*alpha) and the coefficient identification are exact finite algebra (d = 1, 2, 3 at extents 4 and 6), not kernel statements",
       "note": "The identity that separates center independence (C = 0) from masslessness (C = 2(1 - d*alpha)); they coincide only at alpha = 1/d. Caveat: Staggered.factorization, instantiated on the concrete lattice, would give B^2 = sum S_mu^2 at b = 1 (the case alpha = -1 of Lemma 3a, which quantifies over every alpha), but nothing in Lean instantiates it on the concrete lattice; its only instance is the smoke instance on Unit."
     },
     {
@@ -1694,7 +1694,7 @@
       ],
       "kernel": "K1",
       "delta": "the kernel proves the anticommutator identity and (D + m·eps)^2 = D^2 + m^2 abstractly; the alpha-weighted square of Lemma 3a and the step from mu = C at alpha = 1/d to the massless factorization are exact finite algebra, not kernel statements",
-      "note": "The direction center-free => chiral on the normalized branch alpha = 1/d. The converse is Proposition 3b at fixed alpha = 1/d; off that normalization the two conditions separate (SM §4.3 Remark). Proof coverage: Chiral.center_anticommutator is the identity {D + m·eps + p_0, eps} = 2m + 2p_0·eps with {D, eps} = 0 as a hypothesis; Chiral.mass_square is (D + m·eps)^2 = D^2 + m·m with hypotheses exactly eps^2 = 1, D·eps = -eps·D, m·eps = eps·m and m·D = D·m (no p); {B, eps} = 0 is not kernel-checked (only additivity, Chiral.anti_add), the generator-parity anticommutation being exact finite algebra; Staggered.factorization ((sum_{i<n} A_i)^2 = sum_{i<n} S_i^2, S_i = t_i - s_i, unit coefficients, abstract generators, no t·s = 1, no eps) does not cover the alpha-weighted square. Downgraded K2 -> K1 by owner decision (owner, 2026-10-27); no upgrade without a corresponding machine-checked theorem."
+      "note": "The direction center-free => chiral on the normalized branch alpha = 1/d. The converse is Proposition 3b at fixed alpha = 1/d; off that normalization the two conditions separate (SM §4.3 Remark). Proof coverage: Chiral.center_anticommutator is the identity {D + m·eps + p_0, eps} = 2m + 2p_0·eps under eps^2 = 1, {D, eps} = 0 and m, p_0 commuting with eps; Chiral.mass_square is (D + m·eps)^2 = D^2 + m·m with hypotheses exactly eps^2 = 1, D·eps = -eps·D, m·eps = eps·m and m·D = D·m (no p); {B, eps} = 0 is not kernel-checked (only additivity, Chiral.anti_add), the generator-parity anticommutation being exact finite algebra; Staggered.factorization ((sum_{i<n} A_i)^2 = sum_{i<n} S_i^2, S_i = t_i - s_i, unit coefficients, abstract generators, no t·s = 1, no eps) does not cover the alpha-weighted square. K1 rests on Chiral.mass_square, the kernel-checked algebraic core of the mass clause; no kernel fact covers the center-free => chiral direction."
     },
     {
       "id": "SM:P-3b",
@@ -1714,8 +1714,8 @@
         }
       ],
       "kernel": "P",
-      "delta": "probe evidence only (SC32 checks G4 T1, T2 and G5). Not kernel-checked: {B', eps} = 0, the cancellation 2m·eps = 0 => m = 0, and the step m = 0 => mu = 0 => C = 0 through Lemma 3a. The proof's first line uses the identity Chiral.center_anticommutator (OI_Structural_Core.lean), {D + m·eps + p_0, eps} = 2m + 2p_0·eps under {D, eps} = 0, which is not a check of the statement",
-      "note": "The restricted converse of Theorem 3, displayed separately per AGENTS §A.34. The family hypothesis is load-bearing: F = K T0^-1 Pi_- + T0 Pi_+ is local, chiral and squares to K for every (C, alpha) (SM §4.3 Remark; SC32 check G6). The fixed normalization is load-bearing: at alpha = 1 the self-term C = 2(1 - d) is chiral and center-dependent. Graded P by owner decision (2026-10-27): no Lean theorem proves the statement or a consequence of it."
+      "delta": "probe evidence only (SC32 checks G4 T1, T2 and G5). Not kernel-checked: {B', eps} = 0, the cancellation 2m·eps = 0 => m = 0, and the step m = 0 => mu = 0 => C = 0 through Lemma 3a. The proof's first line uses the identity Chiral.center_anticommutator (OI_Structural_Core.lean), the identity {D + m·eps + p_0, eps} = 2m + 2p_0·eps under eps^2 = 1, {D, eps} = 0 and m, p_0 commuting with eps, which is not a check of the statement",
+      "note": "The restricted converse of Theorem 3, displayed separately per AGENTS §A.34. The family hypothesis is load-bearing: F = K T0^-1 Pi_- + T0 Pi_+ is local, chiral and squares to K for every (C, alpha) (SM §4.3 Remark; SC32 check G6). The fixed normalization is load-bearing: at alpha = 1 the self-term C = 2(1 - d) is chiral and center-dependent. No Lean theorem proves the statement or a consequence of it."
     },
     {
       "id": "SM:T-4-conditional-observer-level-mass-spectrum",
