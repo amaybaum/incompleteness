@@ -291,3 +291,9 @@ verified statement, which itself is unchanged. It maps the owner's eight items, 
 and the six comprehension points to their lines.
 - `review/accessibility/QUESTION-SHEET.md`: the owner-approved reader-comprehension sheet used by the paper-only AI
   comprehension review (and by optional human reader testing).
+
+`CHANGES-r20.md` records r20, which applies the three gate reviews of r19 (accuracy, narrative and the comprehension
+evaluation of run 1) and the owner's three emphases: each topic in question, picture, statement, reading, implications
+order with a closing proofs-and-sources paragraph; both directions of the memory result; the shared starting
+distribution and memory on a limited window explained; Theorem 4 at its proved scope. It lists the moved paragraphs
+with digests showing their text unchanged.
