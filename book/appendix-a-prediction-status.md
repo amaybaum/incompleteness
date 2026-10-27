@@ -167,7 +167,7 @@ Beyond the predictions with current empirical match, the framework makes specifi
 
 | # | Prediction | Quantitative content | Testability | Chapter |
 |---|-----------|---------------------|-------------|---------|
-| F1 | BEC analogue-gravity $\mathcal{F}(r) = 2r - r^2$ (proposed model form; derivation unpackaged) | Capacity-controlled non-Markovianity | Steinhauer group, 2-3 years | Ch 15 §15.8 |
+| F1 | BEC analogue-gravity $\mathcal{F}(r) = 2r - r^2$ (proposed model form; derivation unpackaged) | Capacity-controlled revival | Steinhauer group, 2-3 years | Ch 15 §15.8 |
 | F2 | Correlation-aware error correction | correlated errors over $\sim\tau_B/\tau_S$ gates; gain not quantified | Current quantum hardware | Ch 15 §15.4 |
 | F3 | Backflow-aware NV magnetometry | sensitivity gain in direction only; factor not quantified | Current NV platforms | Ch 15 §15.6 |
 | F4 | Engineered-bath coherence extension | coherence beyond the Markovian estimate; factor not quantified | Spin chain / NV / trapped ion platforms | Ch 15 §15.5 |
@@ -210,7 +210,7 @@ The framework's cumulative empirical record can be summarized as follows.
 
 **Strongest current evidence.** The framework currently has no pre-registered forward confirmation. Its strongest empirical content is retrodictive: JUNO $\sin^2\theta_{12}$ at 0.07$\sigma$ (entry 12 / N1; the derivation postdates the November-2025 first results), Koide $Q$ to better than 0.001%, and Cabibbo at 0.04%. The genuinely pre-registered content is forward-looking — DESI Y5 ($\nu$), BTFR at $z > 1$, the A2 lattice thresholds, and JUNO design-lifetime precision on the exact $\sin^2\theta_{12}$ value — documented in dated artifacts preceding their future data. The Bekenstein-Hawking coefficient is a consistency relation with no direct empirical test (A.4.2) — GW250114 constrains the classical area theorem, not the coefficient. The Rett wider-window result (entry B1) is a retrodiction, not counted among the forward confirmations.
 
-**Most distinctive content.** Two predictions distinguish the framework from standard accounts most sharply: the substratum-emergent operator distinction (with empirical signatures in B1, B2, B13, B14) and the partially-quantum regime $\mathcal{F}(r) = 2r - r^2$ (with empirical exposure in F1). Neither has analog in standard quantum mechanics or effective field theory.
+**Most distinctive content.** Two predictions distinguish the framework from standard accounts most sharply: the substratum-emergent operator distinction (with empirical signatures in B1, B2, B13, B14) and the proposed capacity-controlled origin of partial revival, $\mathcal{F}(r) = 2r - r^2$ (proposed model form; empirical exposure in F1). Partial revival itself is standard open-systems phenomenology; the capacity-controlled origin and the scaling form are the proposal's own.
 
 **Sharpest single match.** Koide $Q = 2/3$ to better than 0.001% (entry 10) — the framework's sharpest individual empirical match in relative precision.
 
