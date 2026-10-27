@@ -1,0 +1,23 @@
+PREREG2 sc23-F1b — frozen before computing on the model below (written after f1.py run, whose
+frozen F1 verdicts are VOID: CF1-b failed on Model E because E never writes x_0; E' results seen).
+This round uses a NEW model family whose numbers have not been computed or seen.
+Model G(d,r): as E' (x_0 written into c_1 at t=0, other cells iid uniform; read c_d; shift; write
+  c_1 := new x), but erosion is JOINT: in each inter-coupling interval, with prob r the whole
+  register is kept, else ALL d cells are replaced by fresh iid uniform bits (one coin per interval).
+  This is still uniform erosion by factor r per step of every stored record (each record's
+  conditional TV to uniform contracts by exactly r per interval, marginally), but erasure events are
+  shared across records, so visible history is informative about past erasures.
+Parameters: d in {2,3}; r in {0, 1/10^12, 1/1000, 1/2, 1}; horizon K=7 (k=1..6).
+Definitions: delta_k, M_k, eps_coarse as D1, D4, D5 of PREREG.txt.
+Decision rules:
+ W1 (lemma inequality, reading R1, refuted): print iff controls green and exists d, r in (0,1), k with
+    delta_k > r^(k-1).
+ W2 (exact vanishing unsupported): print iff controls green and for some r in (0,1) with
+    1/ln(1/r) < 0.2, delta_k > 0 exactly at every k in {d-1,...,6} with positive witnessing p0.
+Controls (all green or W1/W2 void):
+ G-a r=0: delta_k = 0 and all next-step conditionals equal, every k.
+ G-b r=1: delta_k = 1 for every k >= d-1.
+ G-c independent brute-force enumeration (explicit coins and fresh bits) equals the HMM-forward law
+     exactly for d=2, r=1/2 at horizon 5 and d=3, r=1/2 at horizon 4.
+ G-d M_k >= p0*delta_k^2/ln2 (backflow lemma) and M_k <= 2h(eps_coarse) when eps_coarse <= 1/2
+     (physical-memory theorem), all cells with r in (0,1).

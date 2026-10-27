@@ -16,6 +16,8 @@ is a draft that is not applied to any manuscript.
 - `xcheck/` — coordinator's independent re-checks: `six.py`, `sixgap.py` (the six-state countermodel), `c1perm.py`
   (a (C1) model whose rooted maps are all permutations). Run with `python3 -I`.
 - `SC5-BACKFLOW-SENSES.md` — every "backflow" use classified by sense, with line counts for two renaming schemes.
+- `SC22-N-regime/` — read-only audit of the book's 𝒩-regime vocabulary: inventory, missing definition, refuted links, proposed definition set and 56 rewrites (`proposals.py`). Run from that directory; `enum_window.py` and `blp_unbounded.py` take `.` as their argument.
+- `SC23-fastbath-closure/` — fast-bath bound vs exact zero (F1) and one-step thermalization vs window-wide Markovianity (F2); preregistered, `f1.py` void, `f1b.py` and `f2.py` all controls green.
 - `RECONCILIATION.md` — B/C/D agreement table, a premise inherited by Track B's E13/E14, the SC-16 site union, and the
   dependency order of the correction PRs.
 

@@ -1,0 +1,109 @@
+Its parameter is the revival measure $\mathcal{N}$: on an accessible window, the largest increase in the distinguishability of two initial preparations under the visible dynamics (trace distance, or total variation for the visible population law), so that $0 \le \mathcal{N} \le 1$ — the bounded, peak form of the Breuer–Laine–Piilo information-backflow measure. $\mathcal{N} > 0$ on a window certifies P-indivisibility there; the converse fails, and a memory-bearing law can have $\mathcal{N} = 0$ on every accessible window ([Main §2.3]), so $\mathcal{N}$ measures revival, not memory. The mechanism proposal calls systems with $0 < \mathcal{N} < 1$ partially quantum — a label for revival strength, not a quantum-membership scale:
+@@
+On the proposal's reading, the partially-quantum regime lies strictly between no revival ($\mathcal{N} = 0$) and complete revival ($\mathcal{N} = 1$).
+@@
+What varies across the regime is the size of the largest distinguishability revival on the window; a positive revival certifies indivisibility, while indivisibility without revival is possible ([Main §2.3]).
+@@
+and $\mathcal{N}$ records the largest revival, not a distance from the divisible families.
+@@
+Partial distinguishability revival itself is standard open-systems phenomenology — the Breuer–Laine–Piilo measure quantifies trace-distance revival, and the Rivas–Huelga–Plenio measures quantify departures from complete-positivity divisibility, a different property;
+@@
+but the framework separates memoryless from memory-bearing visible laws ([Main §3.4]), and the mechanism proposal adds a revival scale inside the memory-bearing case — the partially-quantum label for partial revival — all of it quantum-representable ([Main §3.4]).
+@@
+conjectures where partial revival (the partially-quantum label) occurs: in systems whose hidden sector has capacity comparable to the visible sector's.
+@@
+The framework's content is the distinction between memoryless and memory-bearing visible laws, all quantum-representable ([Main §3.4]), together with the mechanism proposal's conjecture that partial revival occurs at marginal hidden capacity.
+@@
+features the mechanism proposal attributes to partial revival. Two tests are distinct. Whether the multi-time statistics admit a memoryless (Markov) description at the accessible horizon decides memory; whether the distinguishability of two preparations revives on that horizon decides $\mathcal{N} > 0$, which certifies indivisibility. A memory-bearing system can show no revival ([Main §2.3]); the mechanism proposal predicts memory together with partial revival — a proposal-level claim ([Main §3.4]).
+@@
+with the mechanism proposal's partially-quantum label for partial distinguishability revival and its proposed capacity-controlled origin and scaling law; partial revival itself is standard open-systems phenomenology, the origin claim the proposal's own.
+@@
+A hidden sector of limited capacity caps accessible memory — the capacity floor $M_t \le \log_2|\mathcal{C}_H|$ ([Main §3.4]); the mechanism proposal hypothesizes that marginal capacity produces partial distinguishability revival, the partially-quantum label of Chapter 15 §15.7,
+@@
+The partially-quantum regime is the mechanism proposal's testable conjecture,
+@@
+The partially-quantum regime (§18.3) is testable through distinguishability-revival measurements in single-molecule kinetics, accessible to current laboratory techniques.
+@@
+the mechanism proposal predicts that biological C1–C4 systems show partial distinguishability revival on accessible windows, $0 < \mathcal{N} < 1$ for the revival measure of Chapter 18 §18.3 — the partially-quantum label. C1–C4 give memory without fixing $\mathcal{N}$. Empirical access is through multi-time correlation measurements, which test memory, and distinguishability-revival measurements, which test $\mathcal{N}$.
+@@
+the proposal's partially-quantum regime is testable in single-molecule experiments,
+@@
+test whether the multi-time statistics admit a memoryless (Markov) description, and whether distinguishability revives — the diagnostics for memory and for the proposal's partially-quantum regime respectively.
+@@
+matches the proposed model form $\mathcal{F}(r) = 2r - r^2$ for capacity-controlled revival (derivation not supplied; Chapter 15 §15.7).
+@@
+The mechanism proposal's reading is that the dynamics shows partial distinguishability revival — the *partially-quantum* label, $0 < \mathcal{N} < 1$ (Chapter 18 §18.3) — a reading not computed from a realization.
+@@
+that the multi-time statistics should *not* admit a memoryless (Markov) description and should show distinguishability revival on accessible windows; the memory test alone does not separate the framework's reading from classical memory effects, which also fail it.
+@@
+the mechanism proposal predicts that biological C1–C4 systems lie in the *partially-quantum regime* of Chapter 18 §18.3: partial distinguishability revival on accessible windows, $0 < \mathcal{N} < 1$ — a revival scale, not a degree of quantum membership ([Main §3.4]), and not implied by C1–C4, which give memory without fixing $\mathcal{N}$ ([Main §2.3]). Partial revival itself is standard open-systems phenomenology, quantified by the Breuer–Laine–Piilo measure; what is distinctive is the proposed capacity-controlled origin and scaling law, the mechanism proposal's prediction for systems with marginal hidden capacity.
+@@
+A memoryless (Markov) system has multi-time statistics generated by a divisible family. A memory-bearing system does not, and may or may not show distinguishability revival; $\mathcal{N}$ measures revival, not memory ([Main §2.3, §3.4]).
+@@
+— are slow-bath ratios. Hidden-sector capacities range from $\sim 10^{30}$ (radical pair) to $\sim 10^{200}$ (protein conformational landscape) states — large but finite, the finiteness capping accessible memory ([Main §3.4]). These capacities give $N_H/N_V \gg 10$, outside the marginal range of Chapter 15 §15.7, so the placement of biological systems in the partially-quantum regime is a conjecture not fixed by that capacity ratio.
+@@
+The proposal's conjecture is that *biological systems show partial distinguishability revival (the partially-quantum label)*
+@@
+The partially-quantum regime is the mechanism proposal's specific commitment.
+@@
+If no (the memoryless description fails), the enzyme is memory-bearing at the accessible horizon, as the C1–C4 reading requires; partial revival is a further claim of the proposal, tested by a distinguishability-revival measurement and stated as its own falsifiable claim rather than a consequence of the frozen equivalence theorems.
+@@
+the mechanism proposal's prediction of partial distinguishability revival at marginal hidden capacity — all of it quantum-representable ([Main §3.4]).
+@@
+Beyond the revival effects at large $\tau_B/\tau_S$ developed in §§15.3-15.6, the mechanism proposal predicts a *partially-quantum regime* at marginal hidden capacity: partial distinguishability revival, $0 < \mathcal{N} < 1$ (Chapter 18 §18.3). In this regime — on the mechanism proposal's hypothesis — engineered systems
+@@
+and the regime is distinguished from complete revival and from no revival by distinguishability-revival measurements, not by the memory test alone.
+@@
+Capacity bounds memory without fixing revival: the capacity floor caps $M_t$ at $\log_2|\mathcal{C}_H|$, a one-state hidden sector forces $M_t = 0$ ([Main §3.4]), and memory-bearing laws at any capacity margin can show no revival on accessible windows ([Main §2.3]). The mechanism proposal hypothesizes that comparable capacities, $N_H/N_V \sim 1$ to $10$, produce partial revival — the partially-quantum label, explicitly not a quantum-membership scale,
+@@
+the mechanism proposal hypothesizes that this choice positions the system on the revival scale $\mathcal{N}$.
+@@
+— the Markovian description fails, the signature of memory that every system satisfying C4 shows ([Main §3.4]); the regime's distinguishing signature is partial distinguishability revival on the accessible window.
+@@
+*Memory saturation.* Accessible memory is capped by hidden capacity, $M_t \le \log_2|\mathcal{C}_H|$ ([Main §3.4]). The mechanism proposal predicts that distinguishability revival saturates below complete revival as $r = N_H/N_V$ approaches unity from above; the saturation pattern is not specified.
+@@
+*Capacity dependence.* The mechanism proposal's model gives the normalized revival measure as $\mathcal{F}(r)$, with $\mathcal{F} \to 1$ for $r \gg 1$ (complete revival), $\mathcal{F} \to 0$ for $r \ll 1$ (no revival), and $\mathcal{F}(r) = 2r - r^2$ for $r < 1$, increasing on that range.
+@@
+The key observable is the revival measure $\mathcal{N}$ of Chapter 18 §18.3: the largest increase, over the accessible window, of the trace distance between two initially distinguishable states evolved through the system. Its dependence on $r$ — on the proposal, the $2r - r^2$ form — is the proposed empirical signature.
+@@
+Long supersonic region: large hidden-sector capacity, complete revival, $\mathcal{F}(r) = 1$.
+@@
+(where $\mathcal{F}(r) = 1$ and $\tau_S/\tau_B$ is small)
+@@
+The proposal's prediction: $\mathcal{N}$ decreases as $\tau_B$ decreases, as its $(1 - \tau_S/\tau_B)$ factor requires.
+@@
+Engineered systems at marginal hidden capacity ($N_H/N_V \sim 1$) are predicted, on the mechanism proposal, to show the proposed $\mathcal{F}(r) = 2r - r^2$ form (§15.7).
+@@
+On the proposal, the partially-quantum regime occurs at $N_H/N_V \sim 1$ — comparable hidden-sector and visible-sector capacities.
+@@
+**Partially-quantum regime.** The mechanism proposal's label for partial distinguishability revival on accessible windows, $0 < \mathcal{N} < 1$, with $\mathcal{N}$ the revival measure of Chapter 18 §18.3 — not a quantum-membership scale ([Main §3.4]): every finite law admits the quantum representation and a deterministic hidden realization. $\mathcal{N} > 0$ certifies P-indivisibility on the window; memory alone does not give $\mathcal{N} > 0$ ([Main §2.3]). Hypothesized at marginal hidden capacity, with the proposed model form $\mathcal{F}(r) = 2r - r^2$, $r = N_H/N_V$ (derivation not supplied). Diagnosed by distinguishability-revival measurements; a multi-time memory test alone does not separate it from complete revival.
+@@
+the marginal-capacity regime is the *partially-quantum* regime of partial distinguishability revival,
+@@
+The mechanism proposal predicts that capacity-controlled systems exhibit modified decoherence: when $N_H/N_V$ is finite, it predicts partial distinguishability revival, $0 < \mathcal{N} < 1$ — the partially-quantum regime of Chapter 18 §18.3.
+@@
+as the revival signature as the capacity parameter $r$ is varied
+@@
+Chapter 18 §18.3 develops the partially-quantum regime as a forward prediction of the mechanism proposal.
+@@
+and the proposed capacity-controlled origin of partial revival, $\mathcal{F}(r) = 2r - r^2$ (proposed model form; empirical exposure in F1). Partial revival itself is standard open-systems phenomenology; the capacity-controlled origin and the scaling form are the proposal's own.
+@@
+the capacity-controlled revival per Chapter 15 §15.7
+@@
+produce either continuous exponential decay of the revival measure (with no structural transition)
+@@
+to test the mechanism proposal's capacity-controlled revival prediction $\mathcal{F}(r) = 2r - r^2$
+@@
+The mechanism proposal predicts that the distinguishability revival $\mathcal{N}$ of the subsonic-region phonon dynamics depends
+@@
+the proposal predicts $\mathcal{N}$ depends only on $N_H^{\text{eff}}/N_V$ and $\tau_S/\tau_B$, not on temperature directly.
+@@
+predicts thermal occupation but not the proposal's capacity-controlled revival.
+@@
+(capacity-controlled revival in the partially-quantum regime)
+@@
+would be the first laboratory demonstration of capacity-controlled revival — evidence for the mechanism proposal beyond the cosmological-scale predictions.
+@@
+provides the mechanism proposal's prediction of a revival scale within the non-Markovian case.
+@@
+The partially-quantum regime is the mechanism proposal's contribution to quantum biology
