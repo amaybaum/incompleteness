@@ -297,3 +297,8 @@ evaluation of run 1) and the owner's three emphases: each topic in question, pic
 order with a closing proofs-and-sources paragraph; both directions of the memory result; the shared starting
 distribution and memory on a limited window explained; Theorem 4 at its proved scope. It lists the moved paragraphs
 with digests showing their text unchanged.
+
+`CHANGES-r21.md` records r21, which applies the three r20 reviews: Theorem 4 stated with its hypotheses at every site,
+the card, four-bit and XOR examples for the shared starting distribution and for memory against chaining on a window,
+and the narrative fixes. It carries the Theorem 4 consistency table and the checks of each example against §2.6 and
+Main.

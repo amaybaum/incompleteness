@@ -211,13 +211,20 @@ probability zero, is P-indivisible somewhere in its recurrence cycle
 whenever some rooted transition matrix is not a permutation, which every
 non-deterministic visible step supplies; with a full-support visible
 prior this indivisibility is equivalent to conditional memory \(M_k>0\)
-at some order \(k\) below the recurrence time. Exact finite operational
-quantum mechanics is characterized by five completion conditions that OI
-alone does not imply. OI places the zero-point sum and the effective
-cosmological constant at different levels of description, and separates
-conservation of black-hole information from its accessible recovery;
-open are the completion conditions a physical substratum supplies, the
-Born exponent and the gravitational field equations.
+at some order \(k\) below the recurrence time. In plain words: when the
+hidden part starts with the same odds whatever is visible, any visible
+step that is not fully predictable means that the forecasts from the
+start, including those from starts that never occur, cannot all be
+chained step by step somewhere in the world's cycle. For an operational
+theory with a stated minimal structure on a nonempty finite system, the
+available operations, on the system and with every finite ancilla
+attached, are exactly the normalized finite Kraus instruments if and
+only if five completion conditions hold, and OI alone does not imply
+them. OI places the zero-point sum and the effective cosmological
+constant at different levels of description, and separates conservation
+of black-hole information from its accessible recovery; open are the
+completion conditions a physical substratum supplies, the Born exponent
+and the gravitational field equations.
 
 \hypertarget{introduction}{%
 \subsection{1. Introduction}\label{introduction}}
@@ -247,7 +254,7 @@ happens; the uncertainty is the player's, and it comes from what the
 player cannot see. The exact table is in §2.6, and the game's statistics
 are those of ordinary classical probability.
 
-Put this way, a question about interpretation becomes three mathematical
+So framed, a question about interpretation becomes three mathematical
 questions. Which patterns of observations can a partly hidden
 deterministic world produce? Where must the hidden information sit? What
 does it force the observations to look like? Sections 2 and 3 answer
@@ -319,9 +326,12 @@ analysed with quantum methods before, for example in {[}tH14{]}.
 ``Code, data and formal verification'' (declarations in Appendix A);
 ``proved on paper'' means a written proof without a machine check; an
 ``exact probe'' is an exhaustive computation in exact rational
-arithmetic at small size. A \emph{faithful realization} of a law is a
-bijection \(\varphi\) of \(\mathcal C_V\times\mathcal C_H\) with an
-initial law under which the visible trajectory has that law.
+arithmetic at small size. Where a subsection's evidence classes and
+attributions are long, they close it in a paragraph labelled
+\emph{Proofs and sources}; elsewhere they are given inline. A
+\emph{faithful realization} of a law is a bijection \(\varphi\) of
+\(\mathcal C_V\times\mathcal C_H\) with an initial law under which the
+visible trajectory has that law.
 
 \hypertarget{theoretical-foundation-the-established-results-and-their-assumptions}{%
 \subsection{2. Theoretical foundation: the established results and their
@@ -348,7 +358,7 @@ of observations over \(K+1\) steps, and a \emph{realization} of a law is
 a hidden deterministic world that reproduces it. A law is \emph{Markov},
 or memoryless, when the next observation depends only on the present
 one. A bijection of a finite set eventually repeats: its \emph{order}
-\(L\) is the number of steps after which every configuration has
+\(L\) is the least number of steps after which every configuration has
 returned to itself, and one such return is a \emph{recurrence}. A
 \emph{stochastic matrix} is a table of transition probabilities with one
 row per starting state, each row nonnegative and summing to one; a
@@ -619,11 +629,12 @@ sight: it must be stored in the hidden part, it sets a minimum size for
 that part, and it is what separates laws with memory from memoryless
 ones, which the correspondence of §2.2 cannot.
 
-\textbf{Proofs and sources.} Part (b) and the first inequality of (c)
-are data-processing inequalities. (a)--(c) are machine-checked for a
-joint law of history, present and hidden state; their identification
-with a realization's time-\(t\) law is proved on paper {[}Main §3.4,
-Theorem (unavoidable hidden predictive memory); CT06{]}.
+\textbf{Proofs and sources.} \emph{Theorem 2.} Part (b) and the first
+inequality of (c) are data-processing inequalities. (a)--(c) are
+machine-checked for a joint law of history, present and hidden state;
+their identification with a realization's time-\(t\) law is proved on
+paper {[}Main §3.4, Theorem (unavoidable hidden predictive memory);
+CT06{]}.
 
 \hypertarget{recurrence-and-indivisibility}{%
 \subsubsection{2.5 Recurrence and
@@ -636,12 +647,22 @@ in this way? In the card game the forecast from the deal to the first
 shuffle is a coin toss whichever card was dealt, yet the forecast to the
 second shuffle is certainty; no forecast from the first shuffle to the
 second can turn two identical coin-toss rows into two different
-certainties, so the chain breaks. The property that fails is called
-P-divisibility. In a finite reversible world whose hidden part starts
-with the same odds whatever is visible at the start, any visible step
-that is not fully predictable from the current observation makes its
-failure, for the forecasts from every starting point, unavoidable
-somewhere in the world's cycle.
+certainties, so the chain breaks. The comparison is between starting
+conditions under one fixed rule. Suppose the dealer always deals red
+face up, so that a black start never appears in the player's sample. The
+question is still what the same shuffle, with the face-down card dealt
+the same way, at even odds, does from a red start and from a black
+start, and the black start belongs to that comparison although it never
+occurs. The comparison means something only because the face-down card
+is dealt the same way whichever card is face up: if the dealer put the
+opposite colour face down, as in the anticorrelated deal of §2.6, the
+forecast from red and the forecast from black would describe two
+different deals, not one rule started in two ways. The property that
+fails is called P-divisibility. In a finite reversible world whose
+hidden part starts with the same odds whatever is visible at the start,
+any visible step that is not fully predictable from the current
+observation makes its failure, for the forecasts from every starting
+point, unavoidable somewhere in the world's cycle.
 
 Fix one hidden prior shared by every root and drawn independently of it,
 and write \(\Gamma_t\) for the \emph{rooted transition matrix} from time
@@ -657,23 +678,31 @@ direction of {[}BD16, Prop. 1{]}.
 
 In words, the family is P-divisible when every later table of
 probabilities from the start can be obtained from every earlier one by
-one further table of transition probabilities; when it fails, no
-stochastic map carries an earlier rooted transition matrix to a later
-one, and when the earlier matrix is invertible the unique candidate has
-a negative entry (§2.6). Each row of \(\Gamma_t\) is the forecast from
-one possible starting state, its \emph{root}. The hidden part is
-prepared the same way whatever is visible at the start, and
-independently of it: this is the hidden prior shared by every root. It
-matters because then each row of \(\Gamma_t\) is exactly the forecast
-the process gives from that starting point, and one preparation defines
-all the rows; a hidden start correlated with the visible one would make
-the rows forecasts of different preparations, and the step from two
-histories with a common endpoint to an overlap rests on this
-independence {[}Main §2.3{]}. Rows for starting points that never occur
-are kept because the overlap that breaks the chain can sit in such a row
-alone, and the argument needs the full square table of forecasts; when
-every starting point has positive probability, every row is one that
-occurs.
+one further table of transition probabilities; when it fails, for some
+earlier and later time no stochastic map carries the earlier rooted
+transition matrix to the later one, and when the earlier matrix is
+invertible the unique candidate has a negative entry (§2.6). Each row of
+\(\Gamma_t\) is the forecast from one possible starting state, its
+\emph{root}. The hidden part is prepared the same way whatever is
+visible at the start, and independently of it: this is the hidden prior
+shared by every root. It matters because the table \(\Gamma_t\) is then
+a property of one physical setup, the same hidden preparation run
+forward from each visible start: the row for a start that occurs is the
+forecast the process gives from it, and a start that never happens still
+has a row, computed from the same preparation. If the hidden preparation
+depended on the visible start, the rows would describe different setups,
+and a start that never happens would have no preparation to define its
+row; the step from two observed histories with a common endpoint to an
+\emph{overlap}, two rows sharing a positive entry (Theorem 3), uses that
+every row comes from the same preparation {[}Main §2.3{]}. Rows for
+starts that never happen are kept because the argument compares the
+whole square table with its return to certainty at the recurrence, and
+the table may fail to be a permutation only through such a row {[}Main
+§2.3{]}. The price is that the failure of chaining can then lie only in
+forecasts that no observer will see; when every start has positive
+probability, every row is one that occurs, and the failure is equivalent
+to predictive memory in the record at some step before the return (the
+Corollary).
 
 \textbf{Theorem 3} (recurrence and overlap {[}Main §2.3{]}). \emph{Let
 \(\varphi\) be a bijection of \(\mathcal C_V\times\mathcal C_H\) with
@@ -681,6 +710,10 @@ one hidden prior shared by every root and drawn independently of it. If
 two rows of \(\Gamma_s\) have a positive entry in a common column and
 \(\Gamma_n=I\) for some \(n>s\), the family is not P-divisible on
 \(\{0,\dots,n\}\).}
+
+A step-by-step forecast can only bring forecasts closer, so two
+forecasts that overlap at time \(s\) can never become the two distinct
+certainties of \(\Gamma_n=I\).
 
 Finite recurrence supplies the return, \(\Gamma_L=I\) for the order
 \(L\) of \(\varphi\):
@@ -704,28 +737,32 @@ return to certainty with it. If at some earlier time the forecasts from
 two different starting points overlap, as happens at some time whenever
 a visible step is not fully predictable from the current observation, no
 chain of step-by-step forecasts can lead back to certainty, so the
-forecasts cannot be chained somewhere in the cycle. The forecasts in
-question are those from every possible starting point, including
-starting points that never occur; when every starting point has positive
-probability, this happens exactly when the record has memory at some
-step before the return.
+forecasts cannot be chained somewhere in the cycle.
 
 The two halves of the Corollary fit together. A record is
 \emph{memoryless on a window} when, at every step inside that window,
 the next observation depends only on the present one, so that \(M_t=0\)
-there. Hidden memory can exist all the same, because the hidden part can
-hold a trace of the past that changes what is seen only later: the
-record then shows conditional dependence on the past at some order
-beyond the window but before the world returns to its start, and across
-the whole recurrence cycle that late dependence appears as the failure
-of chaining. An observer confined to accessible windows sees neither.
-Precisely: for the rooted family, with a hidden prior shared by every
-root and drawn independently of it and with a full-support visible
-prior, failure of P-divisibility on \(\{0,\dots,L\}\) is equivalent to
-\(M_k>0\) at some order \(k<L\) (the Corollary); a law that is Markov on
-every accessible window has \(M_k=0\) at every accessible order, so that
-\(k\) lies beyond the accessible windows.
-
+there. Predictive memory can exist all the same, at a later order,
+because the hidden part can hold a trace of the past that changes what
+is seen only later: the record then shows conditional dependence on the
+past at some order beyond the window but before the world returns to its
+start, and across the whole recurrence cycle that late dependence
+appears as the failure of chaining. An observer confined to accessible
+windows sees neither. For example, let \(X_0,X_1,X_2\) be independent
+fair bits and \(X_3=X_0\). Up to time 2 each next observation is
+independent of the past, so \(M_1=I(X_0;X_2\mid X_1)=0\): the record has
+no accessible memory on that window, and its forecasts from the start
+chain step by step there. Yet every deterministic world that reproduces
+the law, reversible or not, must keep \(X_0\) in its hidden part at time
+2, and at time 3 the past predicts the next observation exactly,
+\(M_2=1\) bit {[}Main §3.4, Remark (a variational question){]}. The
+example shows memory beyond the window; it shows no failure of chaining
+inside it. Precisely: for the rooted family, with a hidden prior shared
+by every root and drawn independently of it and with a full-support
+visible prior, failure of P-divisibility on \(\{0,\dots,L\}\) is
+equivalent to \(M_k>0\) at some order \(k<L\) (the Corollary); a law
+that is Markov on every accessible window has \(M_k=0\) at every
+accessible order, so that \(k\) lies beyond the accessible windows.
 Recurrence-cycle indivisibility thus needs only finite reversibility and
 one non-deterministic visible step, and holds also for laws that are
 Markov on every accessible window, so it does not separate them from
@@ -790,7 +827,14 @@ bits and \(X_2=X_0\oplus X_1\). Every two-time transition matrix is
 through \(\Delta=I\) and is P-divisible on \(\{0,1,2\}\). Yet
 \(I(X_0;X_2\mid X_1)=1\) bit. Up to flipping the final bit, this is the
 process of {[}RHP14, Eq. (15){]}; it appears concurrently in {[}Dou26,
-App. A{]}.
+App. A{]}. So on this window the forecasts from the start chain step by
+step, yet the record has predictive memory, and every reversible world
+that reproduces it carries that memory in its hidden part: predictive
+memory and P-divisibility are different properties. A reversible world
+that reproduces this law, with the hidden odds independent of the
+visible start, still fails to chain somewhere in its full cycle (§2.5),
+because its visible steps are not fully predictable; that failure lies
+on the recurrence horizon, not necessarily on an accessible window.
 
 \textbf{The card table.} The card analogy of §1.1 is also an exact
 finite model of the kind §§2.4--2.5 describe; as a picture of quantum
@@ -873,21 +917,24 @@ distinguishability within a window, two roots whose rooted laws are
 closer at an earlier time than at a later one, does make the family
 P-indivisible on that window {[}Main §2.3{]}.
 
-Three notions are distinct, and no unconditional implication holds among
-them {[}Main §3.2, Remark (three notions, kept apart){]}: (1) accessible
-memory, \(M_t>0\); (2) stochastic P-indivisibility of the visible
-population law; (3) quantum non-Markovianity under a chosen criterion. A
-family of quantum channels \(\Phi_t\) is completely-positive (CP)
-divisible if \(\Phi_t=\Psi_{t,s}\circ\Phi_s\) with each \(\Psi_{t,s}\)
-completely positive and trace-preserving. For the family obtained by
-tracing out a permutation unitary from a diagonal hidden state, (2)
-implies CP-indivisibility {[}Main §3.2, Theorem (CP-indivisibility,
-framework scope){]}. Outside the diagonal-preserving class the
-implication fails: with \(\Phi_{t_1}\) conjugation by the Hadamard gate
-and \(\Phi_{t_2}=\mathrm{id}\) the family is CP-divisible, while its
-computational-basis populations, \(\tfrac12J\to I\), are P-indivisible
-{[}Main §3.2, Remark (scope: P-indivisibility is not quantum
-non-Markovianity){]}.
+Three notions are distinct, and no unconditional implication among them
+is asserted {[}Main §3.2, Remark (three notions, kept apart){]}: (1)
+accessible memory, \(M_t>0\); (2) stochastic P-indivisibility of the
+visible population law; (3) quantum non-Markovianity under a chosen
+criterion. What is proved is that accessible memory does not force
+P-indivisibility on a window (§2.6), and that outside the
+diagonal-preserving class P-indivisibility does not force
+CP-indivisibility (below). A family of quantum channels \(\Phi_t\) is
+completely-positive (CP) divisible if \(\Phi_t=\Psi_{t,s}\circ\Phi_s\)
+with each \(\Psi_{t,s}\) completely positive and trace-preserving. For
+the family obtained by tracing out a permutation unitary from a diagonal
+hidden state, (2) implies CP-indivisibility {[}Main §3.2, Theorem
+(CP-indivisibility, framework scope){]}. Outside the diagonal-preserving
+class the implication fails: with \(\Phi_{t_1}\) conjugation by the
+Hadamard gate and \(\Phi_{t_2}=\mathrm{id}\) the family is CP-divisible,
+while its computational-basis populations, \(\tfrac12J\to I\), are
+P-indivisible {[}Main §3.2, Remark (scope: P-indivisibility is not
+quantum non-Markovianity){]}.
 
 So memory in the record, failure of step-by-step chaining and the
 quantum notion of memory are three different properties; the Hadamard
@@ -929,12 +976,9 @@ kind of measurement included? For a theory with the structure described
 below, Theorem 4 answers with five requirements on what the experimenter
 can do. An \emph{ancilla} below is an auxiliary system brought in for an
 operation, a \emph{Kraus instrument} is the general quantum operation
-with outcomes, and \emph{coherence} is the capacity of a quantum state
-to be a superposition rather than a mixture of definite states.
-
-Operational quantum mechanics requires, beyond the fixed-basis records
-of Theorem 1, coherent preparations, noncommuting interventions and
-composites represented by one instrument theory.
+with outcomes, \emph{coherence} is the capacity of a quantum state to be
+a superposition rather than a mixture of definite states, and a
+\emph{qubit} is the simplest quantum system, with two basic states.
 
 Fix a nonempty finite system and an operational theory specifying which
 finite outcome families of linear maps are available on the system and
@@ -973,15 +1017,14 @@ families on the system and at every positive ancilla level are exactly
 the normalized finite Kraus instruments if and only if conditions
 (i)--(v) hold.}
 
-That is: five concrete requirements, that probabilities make sense, that
-adding a trivial helper or an untouched bystander changes nothing, that
-every reversible quantum operation on any combined system is available,
-and that a fresh, evenly mixed helper can be added to any combined
-system, used and discarded, hold together exactly when the operations
-available, on any nonempty finite system and with any finite helper
-attached, are exactly the quantum ones, the normalized finite Kraus
-instruments, for a theory with the structure above; no more and no less
-is obtained.
+That is, for a theory with the structure above, the operations available
+on a nonempty finite system, with any finite helper attached, are
+exactly the quantum ones (the normalized finite Kraus instruments) if
+and only if all five requirements hold: probabilities make sense; adding
+a trivial helper or an untouched bystander changes nothing; every
+reversible quantum operation on any combined system is available; and a
+fresh, evenly mixed helper can be added to any combined system, used and
+discarded.
 
 Each condition is independent of the other four and of the observation
 process itself: for one fixed finite embedded-observation process
@@ -991,14 +1034,11 @@ condition. In particular, a qubit theory that never creates coherence
 realizes the observation process and is not quantum, so OI alone does
 not imply quantum mechanics (both machine-checked) {[}GR §3.3{]}. Which
 of (iii)--(v) a physical substratum supplies is the open step toward
-full operational equivalence.
-
-None of the five follows from the others or from the observation setup
-itself. A \emph{qubit} is the simplest quantum system, with two basic
-states. Hidden information and partial access therefore do not by
-themselves imply quantum mechanics, and whether a physical substratum
-supplies the missing conditions is the central open question on the
-route from OI to quantum mechanics.
+full operational equivalence. Conditions (i) and (ii) are
+well-formedness requirements of any operational theory, and (iii)--(v)
+are the substantive selection principles {[}GR §3.3{]}. Hidden
+information and partial access therefore do not by themselves imply
+quantum mechanics.
 
 \textbf{Proofs and sources.} Both directions are machine-checked
 (Appendix A). The sufficiency direction rests on the Stinespring
@@ -1038,9 +1078,10 @@ fixed-basis correspondence therefore acts on the quotient by visible
 equality, and selecting the relating evolution needs a condition beyond
 representability and ordinary coherence.
 
-So the fixed-basis records identify every two quantum descriptions that
-agree on everything visible, and choosing the evolution between two
-times needs a principle that the records do not supply.
+So the fixed-basis records cannot distinguish two quantum descriptions
+with trivial ancilla that agree on everything visible, and choosing the
+evolution between two times needs a principle that the records do not
+supply.
 
 \hypertarget{no-fixed-finite-realization-reproduces-a-qubit}{%
 \subsubsection{3.4 No fixed finite realization reproduces a
@@ -1137,14 +1178,18 @@ bounded-degree long-range edges to the coupling graph, can supply it
 while preserving operational no-signalling and the gravitational
 continuum limit is the open hypothesis H-Bell {[}Main §3.3{]}.
 
-So a deterministic hidden world can produce quantum Bell correlations
-only if one laboratory's hidden response depends on the other
-laboratory's choice, or if the choices are correlated in advance with
-the hidden state. The framework keeps the choices independent and
-accepts the first, with no usable signal allowed between the
-laboratories; whether a coupling graph on the lattice substratum can
-supply that dependence without any usable signal and while keeping the
-gravitational continuum limit is open (H-Bell).
+So, given determinism and an outcome in every run, a deterministic
+hidden world can produce quantum Bell correlations only if one
+laboratory's hidden response depends on the other laboratory's choice,
+or if the choices are correlated in advance with the hidden state. The
+framework keeps the choices independent and accepts the first, with no
+usable signal allowed between the laboratories; whether a coupling graph
+on the lattice substratum can supply that dependence without any usable
+signal and while keeping the gravitational continuum limit is open
+(H-Bell). Here the coupling graph records which parts of the substratum
+directly affect which, and H-Bell is the named hypothesis that suitable
+extra links can be added for a Bell preparation with those two
+properties.
 
 \hypertarget{the-cosmological-constant-how-oi-changes-the-interpretation-of-vacuum-energy}{%
 \subsection{4. The cosmological constant: how OI changes the
@@ -1157,14 +1202,14 @@ gives an enormous number. Gravity responds to energy: in general
 relativity the \emph{stress-energy}, the energy and momentum content of
 matter and fields, sources the curvature of spacetime, so if the vacuum
 energy counted in full, space would curve far more strongly than is
-observed. The question matters because this is the largest known
-mismatch between a theoretical estimate and an observation, and OI
-changes how the two quantities are related. In OI the quantum
-description is \emph{emergent}: it is the description of the observer's
-visible statistics, not of the underlying world. A \emph{Hubble-scale
-density} is the energy density set by the present expansion rate of the
-universe, and the \emph{de Sitter entropy} is the entropy assigned to
-the horizon of a universe expanding at that rate.
+observed. The question matters because the mismatch is some 120 orders
+of magnitude {[}Wei89{]}, and OI changes how the two quantities are
+related. In OI the quantum description is \emph{emergent}: it is the
+description of the observer's visible statistics, not of the underlying
+world. A \emph{Hubble-scale density} is the energy density set by the
+present expansion rate of the universe, and the \emph{de Sitter entropy}
+is the entropy assigned to the horizon of a universe expanding at that
+rate.
 
 Summing zero-point energies of the quantum fields up to a Planck-scale
 cutoff, the smallest length at which present physics is expected to
@@ -1294,7 +1339,8 @@ the black hole finishes evaporating, if the information comes out. An
 the \emph{orbit ensemble} is the set of states the dynamics passes
 through; the \emph{bipartition} is the split of the system into black
 hole and radiation; and \emph{measure concentration} is the fact that in
-very large state spaces almost every state is close to typical.
+very large state spaces almost every state gives nearly the same value
+of a smooth quantity such as the entanglement entropy.
 
 \textbf{The Page curve.} The Page-curve calculation of {[}GR App. A{]}
 addresses recovery in the quantum description, on
@@ -1327,8 +1373,9 @@ throughout, the radiation's entanglement follows Page's rise and fall on
 average over a cycle. The scrambling condition fails for every bijection
 that acts on a definite configuration when the split into black hole and
 radiation follows the configuration coordinates, the isolation condition
-is not established, and an evaporating black hole whose radiation
-carries away its energy does not have the same energy throughout.
+is not established, and for an evaporating black hole whose radiation
+carries away its energy, not every configuration of black hole and
+radiation has the same energy.
 
 \hypertarget{established-results-conditional-interpretations-and-open-problems}{%
 \subsection{6. Established results, conditional interpretations and open
@@ -1340,23 +1387,23 @@ answers part of that question exactly. Over any finite number of steps,
 every pattern of fixed-measurement quantum records is what some partly
 hidden deterministic world shows. When the record has memory, the memory
 is held in the hidden part, which must be large enough to hold it;
-conversely, memory held in the hidden part of any one such world that
-changes what is seen next means the record has memory. In a finite
-reversible world whose hidden part starts with the same odds whatever is
-visible at the start, any visible step that is not fully predictable
-forces, somewhere in the world's cycle, forecasts from the starting
-points that cannot be chained step by step. For an operational theory
-with the structure of §3.2 on a nonempty finite system, the available
-operations, on the system and with every finite helper attached, are
-exactly the quantum ones, incompatible measurements included, if and
-only if five stated conditions hold, and a physical substratum is not
-shown to meet them; nor is the squared form of quantum probabilities
-selected. Each of these is a statement about what partial access to a
-deterministic world does and does not produce. In the applications OI
-separates two levels of description for vacuum energy and separates
-keeping information from showing it for black holes; the gravitational
-field equations and the conditions of the Page-curve calculation are
-open.
+conversely, if the hidden part of any one such world holds a trace of
+the past that changes what is seen next, the record has memory. In a
+finite reversible world whose hidden part starts with the same odds
+whatever is visible at the start, any visible step that is not fully
+predictable forces, somewhere in the world's cycle, forecasts from the
+starting points that cannot be chained step by step. For an operational
+theory with the structure of §3.2 on a nonempty finite system, the
+available operations, on the system and with every finite ancilla
+attached, are exactly the normalized finite Kraus instruments,
+incompatible measurements included, if and only if five stated
+conditions hold, and a physical substratum is not shown to meet them;
+nor is the squared form of quantum probabilities selected. Each of these
+is a statement about what partial access to a deterministic world does
+and does not produce. In the applications OI separates two levels of
+description for vacuum energy and separates keeping information from
+showing it for black holes; the gravitational field equations and the
+conditions of the Page-curve calculation are open.
 
 \textbf{Established mathematical results.} Machine-checked: Theorem 1;
 the cores of Theorem 2 and of the capacity bound; Theorem 3 in its
@@ -1731,4 +1778,4 @@ arXiv:gr-qc/0604062v4.
 \endgroup
 
 \end{document}
-% source-sha256: 751aa8fff8cc18506099366a7d75ddc1d8d6ac1cc9ea2f39655c02bd65fb8114
+% source-sha256: 15d4a97253ca122dbc56be5170decb14a23649ccd2252a45c4829a18399229cf
