@@ -917,7 +917,7 @@
       "line": 394,
       "kind": "Corollary",
       "label": "(Bell–lattice obstruction and state-dependent escape)",
-      "fingerprint": "395ddc3863d2d7ab",
+      "fingerprint": "63dcfdf7800b1f34",
       "area": "locality-combs",
       "assumptions": "Bell-relevant degrees of freedom governed by the nearest-neighbour cubic update; interventions reading and writing only their own wing; ±1 readouts in every run at graph distance from the remote setting region exceeding the setting-to-readout interval",
       "checks": [],
