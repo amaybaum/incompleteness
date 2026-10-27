@@ -197,7 +197,10 @@ the three- and four-axis theorems kept as explicit corollaries. Section C is clo
   normalization α = 1/d (Theorem 3) and the converse at that fixed α (Proposition 3b), both
   through the update's staggered mass μ = C − 2(1 − dα) (Lemma 3a, exact finite algebra, no
   kernel statement). Off α = 1/d the two conditions separate: C = 2(1−d) at α = 1 is chiral
-  and center-dependent, and C = 0 at α = 1 has staggered mass m² = 2(d − 1).
+  and center-dependent, and within Lemma 3a's family C = 0 at α = 1 has staggered mass
+  m² = 2(d − 1), nonzero for d ≥ 2. Chirality constrains C only relative to that family:
+  F = K T₀⁻¹ Π₋ + T₀ Π₊, Π± = ½(1 ± ε), is local, anticommutes with ε and squares to K
+  for every (C, α).
 
 ## E. Further targets
 

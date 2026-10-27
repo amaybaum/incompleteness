@@ -1620,9 +1620,9 @@
       "line": 300,
       "kind": "Lemma",
       "label": "3a",
-      "fingerprint": "be4833c3a4d2c33c",
+      "fingerprint": "8697231ae6b6cb6c",
       "area": "sm",
-      "assumptions": "periodic lattice with even extents; the staggered generator relations; the reversible isotropic nearest-neighbor rule read with two-step shifts; scalar on-site mass in the isotropic staggered family",
+      "assumptions": "periodic lattice with even extents (at least 4 for the coefficient identification); the staggered generator relations; the reversible isotropic nearest-neighbor rule read with two-step shifts; scalar on-site mass in the isotropic staggered family",
       "checks": [
         {
           "kind": "probe",
@@ -1661,9 +1661,9 @@
       "line": 306,
       "kind": "Theorem",
       "label": "3",
-      "fingerprint": "3a614162fc083124",
+      "fingerprint": "1f3324684b13b1e2",
       "area": "sm",
-      "assumptions": "the hopping normalization alpha = 1/d of Theorem 1; Lemma 3a (even extents, staggered generator relations)",
+      "assumptions": "the hopping normalization alpha = 1/d of Theorem 1; Lemma 3a (even extents, staggered generator relations); a_0 = 1 for the mass clause",
       "checks": [
         {
           "kind": "probe",
@@ -1702,9 +1702,9 @@
       "line": 310,
       "kind": "Proposition",
       "label": "3b",
-      "fingerprint": "d644b0f9538fb8d3",
+      "fingerprint": "5f185f7db6501ffa",
       "area": "sm",
-      "assumptions": "fixed hopping alpha = 1/d; the staggered family of Lemma 3a with a scalar on-site mass; eps invertible; characteristic zero",
+      "assumptions": "fixed hopping alpha = 1/d; lambda != 0; the staggered family of Lemma 3a with a scalar on-site mass; even extents at least 4; eps invertible; characteristic zero",
       "checks": [
         {
           "kind": "probe",
@@ -1722,7 +1722,7 @@
       ],
       "kernel": "K1",
       "delta": "the kernel proves the anticommutator identity {D + m·eps + p_0, eps} = 2m + 2p_0·eps; the cancellation 2m·eps = 0 => m = 0 and the step m = 0 => C = 0 through Lemma 3a are not kernel-checked",
-      "note": "The restricted converse of Theorem 3, displayed separately per AGENTS §A.34. The fixed normalization is load-bearing: at alpha = 1 the self-term C = 2(1 - d) is chiral and center-dependent (SM §4.3 Remark)."
+      "note": "The restricted converse of Theorem 3, displayed separately per AGENTS §A.34. The family hypothesis is load-bearing: F = K T0^-1 Pi_- + T0 Pi_+ is local, chiral and squares to K for every (C, alpha) (SM §4.3 Remark; SC32 check G6). The fixed normalization is load-bearing: at alpha = 1 the self-term C = 2(1 - d) is chiral and center-dependent."
     },
     {
       "id": "SM:T-4-conditional-observer-level-mass-spectrum",

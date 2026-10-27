@@ -302,6 +302,30 @@ for dd, LL in [(1, 6), (2, 6), (3, 6)]:
 say("    hence lambda K(C,alpha) = B(a0,a)^2 -+ m^2 forces a0^2 = lambda, a^2 = -lambda alpha and")
 say("    m^2 = +-lambda (C - 2(1 - d alpha)): m = 0 iff C = 2(1 - d alpha) within the family")
 
+# ---------------------------------------------------------------- G6 family countercontrol
+# Outside Lemma 3a's family "chiral" constrains nothing: F = K T0^-1 Pi_- + T0 Pi_+, with
+# Pi_+- = (1 +- eps)/2, is local, anticommutes with eps and squares to K for every (C, alpha).
+say("")
+say("G6  countercontrol: F = K T0^-1 Pi_- + T0 Pi_+ is chiral with F^2 = K for every (C, alpha)")
+FAMILY_LOAD_BEARING = True
+for dd, LL in [(2, 4), (3, 6)]:
+    lat, A, eps, I = cache[(dd, LL)]
+    Pp, Pm = (I + eps).scale(Fr(1, 2)), (I - eps).scale(Fr(1, 2))
+    T0, T0i = lat.shift(0, 1), lat.shift(0, -1)
+    for C, alpha in ((Fr(0), Fr(1)), (Fr(2 * (1 - dd)), Fr(1, dd)), (Fr(3, 2), Fr(1, 2))):
+        K = lat.K(C, alpha)
+        F = K @ T0i @ Pm + T0 @ Pp
+        chi = anti(F, eps).iszero()
+        sq = (F @ F) == K
+        rng = max(min((b - a) % LL, (a - b) % LL)
+                  for i, row in F.r.items() for j in row
+                  for a, b in zip(lat.sites[i], lat.sites[j]))
+        ok = chi and sq and rng <= 3
+        FAMILY_LOAD_BEARING &= ok
+        check(ok, f"G6 d={dd} C={C} alpha={alpha}")
+        say(f"    d={dd} L={LL} C={fmt(C)} alpha={fmt(alpha)}: {{F,eps}}=0 {chi}; F^2=K {sq}; "
+            f"range {rng}")
+
 # ---------------------------------------------------------------- verdict text from measurements
 say("")
 if FAILS:
@@ -310,11 +334,12 @@ else:
     say("VERDICT  all controls green")
     T1, RM, U1, T2 = RES["T1"], RES["RM"], RES["U1"], RES["T2"]
     say("  CI => chiral at alpha = 1/d (T1): " + ("holds" if T1["ci"] and T1["chiral"] else "fails"))
-    say("  CI => chiral at alpha = 1 (U1): "
+    say("  CI => chiral at alpha = 1, d = 3, within Lemma 3a's family (U1): "
         + ("holds" if U1["chiral"] else "fails, staggered mass " + fmt(U1["m"])))
+    say("  outside that family chirality constrains nothing (G6): " + str(FAMILY_LOAD_BEARING))
     say("  chiral => CI at alpha = 1 (RM, C = " + fmt(RM["C"]) + "): "
         + ("fails" if RM["chiral"] and not RM["ci"] else "not refuted"))
-    say("  chiral => CI at fixed alpha = 1/d (T2, center-dependent): "
+    say("  chiral => CI at fixed alpha = 1/d within the family (T2, center-dependent): "
         + ("T2 not chiral, consistent" if not T2["chiral"] else "refuted"))
     agree = all(r["chiral"] == (r["C"] + 2 * d * r["alpha"] == 2) for r in RES.values())
     say("  chirality coincides with C + 2 d alpha = 2 in every row: " + str(agree))

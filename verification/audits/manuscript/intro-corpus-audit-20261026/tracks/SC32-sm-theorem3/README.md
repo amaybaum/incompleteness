@@ -20,8 +20,11 @@ The original proof's two lines both use Theorem 2's factorization on Theorem 1's
 prove carries the hypothesis α = 1/d. There μ = C. So C = 0 gives K = B², a massless operator that anticommutes
 with ε, and a mass m ≠ 0 gives C = ±m² ≠ 0. This is SM Theorem 3, stated at that scope.
 
-The hypothesis is not a weakening of what was proved. Without it the direction fails: CI at α = 1 has μ = 2(d − 1).
-At d = 3 that is K(0,1) = (B − 2)(B + 2), with {B + 2, ε} = 4ε ≠ 0 (row U1). α = 1 is the unit coefficient of the
+The hypothesis is not a weakening of what was proved. Without it the direction fails within Lemma 3a's family for
+d ≥ 2: CI at α = 1 has μ = 2(d − 1). At d = 3 that is K(0,1) = (B − 2)(B + 2), with {B + 2, ε} = 4ε ≠ 0 (row U1). The
+family qualifier is load-bearing. For every (C, α), F = K T₀⁻¹ Π₋ + T₀ Π₊, with Π± = ½(1 ± ε), is local,
+anticommutes with ε and squares to K (check G6, at d = 2 and 3). Chirality therefore constrains C only relative to
+the isotropic staggered family with a scalar on-site mass. α = 1 is the unit coefficient of the
 substratum-level rule (SM §4.2, "the two roles of the dynamics"), read here as a real lift. The descent of α = 1/d to the observer level is
 the open bridge of SM §4.1.
 
@@ -31,12 +34,12 @@ the open bridge of SM §4.1.
 B, with {B, ε} = 0, while C = −4 ≠ 0 at d = 3 (row RM). The counterexample is valid against the display, whose
 "lattice dynamics" fixes no α. At α = 1/2, d = 3, C = −1 is a second chiral, center-dependent rule (row H).
 
-**True at fixed α = 1/d (SM Proposition 3b).** Suppose B′ + m or B′ + mε anticommutes with ε. The anticommutators are
-2mε and 2m (the kernel identity `Chiral.center_anticommutator`). Since ε is invertible, m = 0. Then μ = 0, and μ = C
-at α = 1/d. Row T2 is the countercheck: α = 1/d with C = 2(1 − d) is center-dependent and massive (μ = −4,
+**True at fixed α = 1/d within Lemma 3a's family (SM Proposition 3b).** The hypotheses are λ ≠ 0, characteristic 0
+and even extents ≥ 4. Suppose B′ + m or B′ + mε anticommutes with ε. The anticommutators are 2mε and 2m (the kernel
+identity `Chiral.center_anticommutator`). Since ε is invertible, m = 0. Then λμ = 0, so μ = 0, and μ = C at α = 1/d. Row T2 is the countercheck: α = 1/d with C = 2(1 − d) is center-dependent and massive (μ = −4,
 K = (B + 2ε)²).
 
-**The structure.** Chirality is C + 2dα = 2. This is the constant-preserving normalization p₀ + 2dp = 1 of SM
+**The structure.** Within the family, chirality is C + 2dα = 2. This is the constant-preserving normalization p₀ + 2dp = 1 of SM
 Corollary 1b, with C = 2p₀ and α = 2p: in every row, chirality coincides exactly with K annihilating constants.
 CI is C = 0. The two are independent conditions on (C, α) and meet only at Theorem 1's point (0, 1/d). This is the
 POSITIVE gem-mode finding (§A.31): the display had merged two conditions, and Corollary 1b's two clauses are exactly
@@ -45,14 +48,14 @@ POSITIVE gem-mode finding (§A.31): the display had merged two conditions, and C
 ## (3) Hypotheses that make the converse true
 
 - **H1 (proved).** The hopping is fixed at α = 1/d, with the emergent fermion in Lemma 3a's family (isotropic
-  staggered operator, scalar on-site mass) on even periodic extents over a field of characteristic zero. Under H1
-  chiral ⇒ CI holds: this is Proposition 3b.
+  staggered operator, scalar on-site mass), λ ≠ 0, over a field of characteristic zero, on even periodic extents of
+  at least 4 for the coefficient identification. Under H1 chiral ⇒ CI holds: this is Proposition 3b. Its first step
+  is the first-order on-site lemma, that {B′ + C_on, ε} = 2C_on ε vanishes only for C_on = 0. That lemma is
+  derived independently on the owner's draft #965, which is credited here for priority.
 - **H1′ (proved; it is Corollary 1b).** Constant preservation is imposed. Then the rule is chiral for every α, and CI
   holds exactly at α = 1/d. This is not a converse of Theorem 3: chirality is automatic there.
 - **Open.** Two cases are not addressed: anisotropic or next-nearest-neighbour rules, and on-site masses that are
-  operator-valued rather than scalar. For the first-order operator alone, an on-site term C_on commuting with ε
-  preserves {D, ε} = 0 only for C_on = 0. That independent derivation is the owner's draft #965, credited for
-  priority and not adopted here. It concerns a different object from the second-order C.
+  operator-valued rather than scalar. Without some family restriction no converse holds (G6).
 
 None of these converses is kernel-certified. §A.34 asks for kernel witnesses per direction for a displayed
 equivalence, so SM displays the two directions as separate statements, each with its own witness and scope.
@@ -69,6 +72,10 @@ uses chiral ⇒ CI.
 - **SM :543 at the base, :553 here (Theorem 13 proof).** Cites Theorem 3 for {D_st, ε} = 0, the massless operator. Unchanged.
 - **SM :563 at the base, :573 here (Nielsen–Ninomiya).** "the exact chiral symmetry of Theorem 3, χ → εχ". Unchanged.
 - **SM :236.** "center-free/chiral branch (§4.3)". Unchanged.
+- **SM :296 ("the two roles of the dynamics").** It listed the Susskind factorization in the structural chain read
+  by the exact unit-coefficient rule. The site now states α = 1/d for the massless factorization, and the mass
+  m² = 2(d − 1) at the unit coefficient within Lemma 3a's family. No structural result of that paragraph uses
+  chirality at α = 1.
 - **Main, appendix-a, appendix-b, glossary, ch06, ch19, the companions.** No use of Theorem 3 or of CI ⟺ chiral.
 - **Lean census.** Theorem 3 is not registered.
 
@@ -77,28 +84,26 @@ needed α = 1/d, and now says so.
 
 | Site | Was | Anchor | Now |
 |---|---|---|---|
-| SM §4.3 Theorem 3 | "Center independence of the lattice dynamics is equivalent to exact chiral symmetry" | Its two proof lines (Theorem 2 on Theorem 1's branch); this record's G2, G4 T1 | One direction: at α = 1/d, C = 0 is the square of the massless staggered operator (chiral), and a mass m ≠ 0 gives C = ±m². ID `SM:T-3` kept. |
-| SM §4.3 (new) | none | Generator relations; G1–G3, G5 | Lemma 3a: K(C,α) = B² − μ, μ = C − 2(1 − dα), {B, ε} = 0, with coefficient identification. New ID `SM:L-3a`. |
-| SM §4.3 (new) | none | `Chiral.center_anticommutator`; G4 T1, T2 | Proposition 3b: at fixed α = 1/d, chiral ⇒ C = 0. New ID `SM:P-3b`. |
-| SM §4.3 Remark | "C = 2(1−d) is not a mass term … the 4D staggered factorization has exact chiral symmetry" | Lemma 3a; G4 RM, U1 | Masslessness is C = 2(1 − dα), Corollary 1b's normalization. C = 2(1−d) at α = 1 is chiral and center-dependent, and C = 0 at α = 1 has m² = 2(d − 1). The fixed α is load-bearing. H-link sentence kept. |
-| SM §4.3 "Revised chain" | "Center independence implies the chiral statement of Theorem 3 on the staggered branch" | Theorem 3 | "Scope in the chain": "… on the normalized branch α = 1/d". "Revised" dropped (§A.33). |
+| SM §4.3 Theorem 3 | "Center independence of the lattice dynamics is equivalent to exact chiral symmetry" | Its two proof lines (Theorem 2 on Theorem 1's branch); this record's G2, G4 T1 | One direction: at α = 1/d, C = 0 is the square of the massless staggered operator (chiral), and a mass m ≠ 0 gives C = ±m² with a₀ = 1. ID `SM:T-3` kept. |
+| SM §4.3 (new) | none | Generator relations; G1–G3, G5 | Lemma 3a: K(C,α) = B² − μ, μ = C − 2(1 − dα), {B, ε} = 0, with coefficient identification at extents ≥ 4. New ID `SM:L-3a`. |
+| SM §4.3 (new) | none | `Chiral.center_anticommutator`; #965's on-site lemma; G4 T1, T2 | Proposition 3b: at fixed α = 1/d, within Lemma 3a's family, with λ ≠ 0, characteristic 0 and even extents ≥ 4, chiral ⇒ C = 0. New ID `SM:P-3b`. |
+| SM §4.2 :296, "the two roles of the dynamics" | The Susskind factorization (Theorem 2) is listed in the structural chain read by the exact unit-coefficient rule | Theorem 2 (Theorem 1's branch); Lemma 3a; G4 U1 | The factorization is massless at α = 1/d. At the substratum rule's unit coefficient, within Lemma 3a's family, it carries m² = 2(d − 1), nonzero for d ≥ 2. |
+| SM §4.3 Remark | "C = 2(1−d) is not a mass term … the 4D staggered factorization has exact chiral symmetry" | Lemma 3a; G4 RM, U1 | Masslessness is C = 2(1 − dα), Corollary 1b's normalization. C = 2(1−d) at α = 1 is chiral and center-dependent, and C = 0 at α = 1 has, within Lemma 3a's family, m² = 2(d − 1), nonzero for d ≥ 2. The F construction shows the family hypothesis is load-bearing. The fixed α is load-bearing. "This lemma" is named: Lemma 3a or Theorem 3. H-link sentence kept. |
+| SM §4.3 "Revised chain" | "Center independence implies the chiral statement of Theorem 3 on the staggered branch"; "Any claim that one algebraic CI condition simultaneously forces memory and chirality is therefore unavailable" | Theorem 3; Main's readback lemma and recurrence-cycle theorem | "Scope in the chain": "… on the normalized branch α = 1/d". "Revised" dropped (§A.33). The last sentence becomes a status statement: memory and chirality rest on separate results, and CI alone does not yield both. SC-17's ch05 :95 cites this content and still finds it. |
 | `verification/lean/ROADMAP.md` §D | "center independence of the diagonal of D_st is equivalent to exact chirality" | `Chiral.center_anticommutator` is an identity | The identity is kernel-checked. The step to m = p₀ = 0 is not. Theorem 3 / Proposition 3b at α = 1/d, and the separation off it. |
-| `verification/coverage/LEDGER.json` | `SM:T-3` K2, fingerprint `487eed57…` | Census at this head | `SM:T-3` re-affirmed at `3a614162…`, graded K1: the α-weighted square is not in the kernel. `SM:L-3a` and `SM:P-3b` added, both K1. No ID retired. |
+| `verification/coverage/LEDGER.json` | `SM:T-3` K2, fingerprint `487eed57…` | Census at this head | `SM:T-3` re-affirmed at `1f332468…`, graded K1: the α-weighted square is not in the kernel. `SM:L-3a` and `SM:P-3b` added, both K1. No ID retired. |
 
-**Sites outside this unit.** Three overlap with open units and are left to them:
+**Sites outside this unit.**
 
-- **Explainer :826.** SC-17, #963.
-- **ch05 :95 and its FULL mirror :1424.** SC-17, #963. SC-17's new wording, "On the staggered branch it gives exact
-  chiral symmetry … a center-free rule carries none", is true only on the normalized branch. A follow-up there should
-  name α = 1/d.
-- **`OI_Structural_Core.lean`, docstring of `center_anticommutator`.** It reads "zero iff the center terms vanish".
-  The Lean statement is an identity, and the iff fails for operator-valued m, p₀ (m = I, p₀ = −ε).
-
-The owner's draft #966 covers two more, which are left unedited here:
-
-- **`structural_chain_probe.py`, C3 docstring and print.** They read "center-free in D_st ⟺ exact chirality", which is
-  the first-order statement, checked only as an identity.
-- **The Lean docstring above.**
+- **Explainer :826, ch05 :95 and its FULL mirror :1424.** These are SC-17's lines (#963). At its head `e316cf92` they
+  carry the normalization α = 1/d. They are not edited here.
+- **Two corrections pending the owner's route decision.** The independent review of this unit found both correct.
+  Both are on the owner's draft #966, and neither is applied here:
+  - `verification/lean/OI_Structural_Core.lean`, the docstring of `center_anticommutator`, which reads "zero iff the
+    center terms vanish". The Lean statement is an identity, and the iff fails for operator-valued m, p₀ (m = I,
+    p₀ = −ε).
+  - `verification/lean/structural_chain_probe.py`, the C3 docstring and print, which read "center-free in D_st ⟺
+    exact chirality". That is the first-order statement, checked only as an identity.
 
 The frozen round records `round-cc-1/2` `controls.py` (R10) are history and are not edited.
 
@@ -107,10 +112,11 @@ The frozen round records `round-cc-1/2` `controls.py` (R10) are history and are 
 - **"is equivalent to exact chiral symmetry".** 0 hits.
 - **"equivalent to center independence".** Two surviving hits, ch05 :95 and FULL :1424. Both are SC-17's lines,
   already rewritten on #963.
+- **"therefore unavailable" in SM §4.3.** 0 hits.
 - **"Revised chain".** 0 hits.
 
 **Check.** `python3 theorem3_exact.py > theorem3_exact.out` reproduces the committed output byte for byte, and so
 does `-O`. Arithmetic is exact (Fraction). The countercontrols are an unstaggered η, an odd extent, and a d-blind mass
-formula; each is rejected. The verdict lines are generated from the measured rows.
+formula; each is rejected. G6 is the family countercontrol: the chiral F with F² = K exists for every (C, α). The verdict lines are generated from the measured rows.
 
 Regenerated: SM (`.tex`, `.pdf`).
