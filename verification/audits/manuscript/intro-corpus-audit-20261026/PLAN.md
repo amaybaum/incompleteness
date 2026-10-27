@@ -131,6 +131,48 @@ The method follows the owner's requirements.
 8. **Final landing gate.** The revised Introduction is re-checked at its exact commit: its Lean references, its corpus
    pointers, and CI on that head. Only then is fresh merge authorization requested.
 
+Steps 9–12 extend the audit from faithfulness to scientific soundness (owner, 2026-10-27). They stay within the
+claims the Introduction makes and the results those claims rest on. The whole framework's soundness is a separate
+audit.
+
+9. **Proof review.** A reviewer who did not write the proof checks the written-only proofs that the Introduction's
+   central results rest on, line by line. The following are required:
+   - the ε-realization: Main's finite operational realization and gluing theorem in ε-form, and its uniform
+     continuum realization (`papers/Main.md:544` and `:576` at `eae01647`; R-07);
+   - the finite-horizon realization with a hidden prior independent of the visible initial state, and its
+     arbitrary-prior extension (Main.md:496 and :498; I-071);
+   - the CP-indivisibility theorem in its framework scope (Main.md:326; I-129);
+   - the Pinsker lower bound on the conditional past–future information (Main.md:167; I-103, L84);
+   - BH-01's C1–C3, the written proofs in `verification/programmes/black-hole-information/bh01_access_v1/`.
+
+   Every other claim the Introduction states as proved, whose weakest link is a paper derivation, gets a disposition:
+   reviewed, or not reviewed with the reason. Each proof gets one of three verdicts:
+   - **valid;**
+   - **valid with named gaps:** each gap becomes a finding, with the hypothesis or step it needs;
+   - **invalid:** the claim's status drops, and the drop is propagated through the matrix and FINDINGS.
+
+   A computation that confirms a proof's instances is not a review of the proof.
+10. **Results assessment.** For the results the Introduction states, separate four kinds:
+    - unconditional results;
+    - conditional derivations, with their named hypotheses;
+    - computational findings, exhaustive-exact or numerical;
+    - unresolved claims.
+
+    For each central result, keep three questions apart: whether it is mathematically consistent, whether its
+    premises are independently justified as physics, and whether it has been confronted with data (AGENTS.md §A.23).
+    The priority is a precise account of how far OI explains quantum mechanics and gravity from observational
+    incompleteness, and which assumptions and results are still missing.
+11. **Prior-work assessment.** For each central result, identify the nearest prior work and state what the result
+    adds to it: a new theorem, a new proof of a known theorem, a new reading, or nothing. Sources are read first-hand.
+    A claim of novelty with no source identified is a finding.
+12. **Report.** `REPORT.md` answers three questions from steps 1–11:
+    - Is the Introduction correct?
+    - What does OI establish?
+    - What would establish or falsify the larger theory?
+
+    For the third it names the remaining obstacles to quantum equivalence, the independent empirical predictions
+    or their absence, and the research directions whose outcome would decide.
+
 ## Outputs
 
 All outputs go in this directory:
@@ -144,7 +186,9 @@ All outputs go in this directory:
 | `COMPLETENESS.md` | Established results the Introduction omits or understates, each with its source, status and a recommendation |
 | `FINDINGS.md` | The audit's findings for the Introduction, ranked: overclaims, understatements and omissions. Each says what the Introduction should change, or that it is faithful as written |
 | `EVIDENCE.md` and `evidence.json` | The evidence verification of step 7: each cited result, its evidence type, the check made, the outcome and the evidence level |
-| `review/` | The independent review of the audit |
+| `proofs/` | The proof reviews of step 9: one file per proof, with the verdict and any gaps, and the dispositions of the other written-only proofs |
+| `REPORT.md` | The report of step 12, with the results assessment of step 10 and the prior-work assessment of step 11 |
+| `review/` | The independent reviews of the audit |
 
 ## What counts as done
 
@@ -153,7 +197,13 @@ The audit is complete when:
 - every finding has a disposition;
 - every claim has an evidence level and every cited result has passed the evidence verification of step 7, or is
   recorded as not passing it;
-- the independent review accepts the audit, including the evidence verification.
+- the independent review accepts the audit, including the evidence verification;
+- each of the five proofs required in step 9 has an independent verdict, and every other written-only proof
+  in step 9's scope has a disposition;
+- `REPORT.md` answers the questions of step 12;
+- an independent review accepts `proofs/` and `REPORT.md`.
+
+The audit does not require every written proof in the corpus to be reviewed.
 
 The Introduction is then revised on #918 from `FINDINGS.md`. Each revision is reviewed, and the landing gate is run
 again.
