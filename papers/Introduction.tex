@@ -199,26 +199,26 @@ records of finite unitary systems measured in one fixed basis; the known
 components (Egri et al.; Barandes) are stated as one machine-checked
 theorem. Because Markov laws lie in every class, the discriminating
 content is memory: every faithful realization carries the law's
-conditional memory in its hidden state. In a finite reversible world
-whose hidden odds are shared by every visible start and drawn
+conditional memory in its hidden state. Stochastic, quantum-like records
+can therefore arise exactly from deterministic dynamics, and any memory
+they show must be stored in the hidden part. In a finite reversible
+world whose hidden odds are shared by every visible start and drawn
 independently of it, the forecasts from every start, starts of
 probability zero included, are P-indivisible somewhere in the recurrence
-cycle whenever some rooted transition matrix is not a permutation, in
-particular whenever a visible step is not fully predictable from the
-current observation; with every start of positive probability, this is
-equivalent to conditional memory at some order below the recurrence
-time. For an operational theory with a stated minimal structure on a
-nonempty finite system, the available operations, on the system and with
-every finite ancilla attached, are exactly the normalized finite Kraus
-instruments if and only if five completion conditions hold, and OI alone
-does not imply them. So stochastic, quantum-like records can arise
-exactly from deterministic dynamics, and any memory they show must be
-stored in the hidden part. Applied to physics, OI places the zero-point
-sum and the effective cosmological constant at different levels of
-description, and separates conservation of black-hole information from
-its accessible recovery. Open are the completion conditions a physical
-substratum supplies, the Born exponent and the gravitational field
-equations.
+cycle whenever some table of forecasts from the start is not a
+permutation, in particular whenever a visible step is not fully
+predictable from the current observation; with every start of positive
+probability, this is equivalent to conditional memory at some order
+below the recurrence time. For an operational theory with a stated
+minimal structure on a nonempty finite system, the available operations,
+on the system and with every finite ancilla attached, are exactly the
+normalized finite Kraus instruments if and only if five completion
+conditions hold, and OI alone does not imply them. Applied to physics,
+OI places the zero-point sum and the effective cosmological constant at
+different levels of description, and separates conservation of
+black-hole information from its accessible recovery. Open are the
+completion conditions a physical substratum supplies, the Born exponent
+and the gravitational field equations.
 
 \hypertarget{introduction}{%
 \subsection{1. Introduction}\label{introduction}}
@@ -353,18 +353,19 @@ a hidden deterministic world that reproduces it. A law is \emph{Markov},
 or memoryless, when the next observation depends only on the present
 one. A bijection of a finite set eventually repeats: its \emph{order}
 \(L\) is the least number of steps after which every configuration has
-returned to itself, and one such return is a \emph{recurrence}. A
-\emph{stochastic matrix} is a table of transition probabilities with one
-row per starting state, each row nonnegative and summing to one; a
-\emph{permutation matrix} is the stochastic matrix in which every row is
-a single certainty and no two rows agree. The \emph{total-variation
-distance} between two probability lists is the largest difference in
-probability they assign to any one event: 0 for identical lists, 1 for
-lists that give no outcome positive probability in common. The
-\emph{conditional mutual information} \(I(A;B\mid C)\) measures, in
-bits, how much \(A\) still tells about \(B\) once \(C\) is known; it is
-zero exactly when, given \(C\), \(A\) carries no further information
-about \(B\).
+returned to itself, one such return is a \emph{recurrence}, and \(L\) is
+the world's \emph{recurrence time}, the least time after which the whole
+world returns to its starting configuration. A \emph{stochastic matrix}
+is a table of transition probabilities with one row per starting state,
+each row nonnegative and summing to one; a \emph{permutation matrix} is
+the stochastic matrix in which every row is a single certainty and no
+two rows agree. The \emph{total-variation distance} between two
+probability lists is the largest difference in probability they assign
+to any one event: 0 for identical lists, 1 for lists that give no
+outcome positive probability in common. The \emph{conditional mutual
+information} \(I(A;B\mid C)\) measures, in bits, how much \(A\) still
+tells about \(B\) once \(C\) is known; it is zero exactly when, given
+\(C\), \(A\) carries no further information about \(B\).
 
 The visible law of a realization depends on the dynamics, the partition
 and the initial law (the prior), which is part of the realization datum,
@@ -516,15 +517,14 @@ time \(t\): the information about the next observation that the observed
 past carries beyond what the observed present already tells. A law is
 \emph{Markov}, that is memoryless, exactly when \(M_t=0\) at every
 \(t\). The \emph{hidden predictive memory} \(I(X_{<t};H_t\mid X_t)\) is
-the information retained in the hidden state that supports the observed
-process's dependence on history. In a realization, write
-\(f_x(h)=\pi_V(\varphi(x,h))\), with \(\pi_V\) the projection onto
-\(\mathcal C_V\), and \(\mu_\omega\) for the hidden posterior, the
-probabilities of the hidden states given what has been seen, after a
-positive-probability visible history \(\omega=(x_0,\dots,x_t)\) ending
-at \(x_t=x\).
-
-\par\vspace{0pt plus 14\baselineskip}\penalty-100\vspace{0pt plus -14\baselineskip}
+the information the hidden state holds about the observed past beyond
+what the observed present tells; it is at least the conditional memory
+(Theorem 2(c)), and only part of it need affect what is seen next. In a
+realization, write \(f_x(h)=\pi_V(\varphi(x,h))\), with \(\pi_V\) the
+projection onto \(\mathcal C_V\), and \(\mu_\omega\) for the hidden
+posterior, the probabilities of the hidden states given what has been
+seen, after a positive-probability visible history
+\(\omega=(x_0,\dots,x_t)\) ending at \(x_t=x\).
 
 \textbf{Theorem 2} (unavoidable hidden predictive memory {[}Main
 §3.4{]}). \emph{In every faithful realization:}
@@ -559,12 +559,13 @@ time-\(t\) identification, is not machine-checked.
 
 So the record has memory exactly when every hidden deterministic world
 that reproduces it keeps, in its hidden part, a trace of the past that
-changes what is seen next. Conversely, if any one hidden deterministic
-world reproducing the record keeps such a trace, the record has memory.
-Keeping the past is not the same as memory: every reversible world run
-from the start stores its whole visible past, even for a memoryless
-record, and memory is the part of that store that changes what is seen
-next.
+changes what is seen next: readout-relevant hidden memory, the part of
+the hidden memory that supports the observed process's dependence on
+history. Conversely, if any one hidden deterministic world reproducing
+the record keeps such a trace, the record has memory. Keeping the past
+is not the same as memory: every reversible world run from the start
+stores its whole visible past, even for a memoryless record, and memory
+is the part of that store that changes what is seen next.
 
 The hidden sector also has a minimum size and a minimum memory. With
 \(I^*=\max_t I(X_{<t};X_{>t}\mid X_t)\), a realization of the law needs
@@ -715,10 +716,11 @@ two forecasts that overlap at time \(s\) can never become the two
 distinct certainties of \(\Gamma_n=I\).
 
 Finite recurrence supplies the return, \(\Gamma_L=I\) for the order
-\(L\) of \(\varphi\), the least return time. A time \(n\) with
-\(\Gamma_n=I\) is a \emph{return horizon}, and the horizon
-\(\{0,\dots,L\}\) up to the world's return is its \emph{recurrence
-cycle}:
+\(L\) of \(\varphi\), the recurrence time. A \emph{return horizon} is a
+time \(n\) with \(\Gamma_n=I\), at which only the forecasts from the
+start return to certainty; \(L\) is one, and there may be earlier ones.
+The horizon \(\{0,\dots,L\}\) up to the world's return is its
+\emph{recurrence cycle}:
 
 \textbf{Corollary (recurrence-cycle indivisibility).} \emph{Let
 \(\varphi\) have order \(L\), with one hidden prior shared by every root
@@ -749,21 +751,22 @@ because the hidden part can hold a trace of the past that changes what
 is seen only later: the record then shows conditional dependence on the
 past at some order beyond the window but before the world returns to its
 start, and across the whole recurrence cycle that late dependence
-appears as the failure of chaining. An observer confined to accessible
-windows sees neither. Accessible windows are, by definition, short
-compared with the world's least return time \(L\) {[}Main §2.3,
-Scope{]}, and the gap between the two is why memory can become
-detectable only later: a trace held in the hidden part can first affect
-what is seen at an order beyond every accessible window, though still
-before the return. For example, let \(X_0,X_1,X_2\) be independent fair
-bits and \(X_3=X_0\). Up to time 2 each next observation is independent
-of the past, so \(M_1=I(X_0;X_2\mid X_1)=0\): the record has no
-accessible memory on that window, and its forecasts from the start chain
-step by step there. Yet every deterministic world that reproduces the
-law, reversible or not, must keep \(X_0\) in its hidden part at time 2,
-and the past predicts the observation at time 3 exactly, \(M_2=1\) bit
-{[}Main §3.4, Remark (a variational question){]}. The example shows
-memory beyond the window; it shows no failure of chaining inside it.
+appears as the failure of chaining. Accessible windows are, by
+definition, short compared with the world's recurrence time \(L\)
+{[}Main §2.3, Scope{]}, and the gap between them leaves room for
+conditional memory that no accessible window detects: a trace held in
+the hidden part can first affect what is seen at an order beyond every
+accessible window, though still before the return. An observer confined
+to accessible windows sees neither. For example, let \(X_0,X_1,X_2\) be
+independent fair bits and \(X_3=X_0\). Up to time 2 each next
+observation is independent of the past, so \(M_1=I(X_0;X_2\mid X_1)=0\):
+the record has no accessible memory on that window, and its forecasts
+from the start chain step by step there. Yet every deterministic world
+that reproduces the law, reversible or not, must keep \(X_0\) in its
+hidden part at time 2, and the past predicts the observation at time 3
+exactly, \(M_2=1\) bit {[}Main §3.4, Remark (a variational question){]}.
+The example shows memory beyond the window; it shows no failure of
+chaining inside it.
 
 Precisely: for the rooted family, with a hidden prior shared by every
 root and drawn independently of it and with a full-support visible
@@ -842,8 +845,8 @@ that reproduces it carries that memory in its hidden part: memory in the
 record and P-divisibility are different properties. A reversible world
 that reproduces this law, with the hidden odds independent of the
 visible start, still fails to chain somewhere in its full cycle (§2.5),
-because its visible steps are not fully predictable; that failure lies
-somewhere in its full cycle, not necessarily on an accessible window.
+because its visible steps are not fully predictable; that failure need
+not lie on an accessible window.
 
 \textbf{The card table.} The card analogy of §1.1 is also an exact
 finite model of the kind §§2.4--2.5 describe; as a picture of quantum
@@ -1042,11 +1045,10 @@ that realizes that process and the other four conditions, and fails that
 condition. In particular, a qubit theory that never creates coherence
 realizes the observation process and is not quantum, so OI alone does
 not imply quantum mechanics (both machine-checked) {[}GR §3.3{]}.
-Conditions (i) and (ii) only make the theory well formed, the
-well-formedness requirements of any operational theory, while (iii)--(v)
-are the substantive selection principles {[}GR §3.3{]}. Which of
-(iii)--(v) a physical substratum supplies is the open step toward full
-operational equivalence.
+Conditions (i) and (ii) only make the theory well formed; (iii)--(v) are
+the substantive requirements, which {[}GR §3.3{]} calls selection
+principles. Which of (iii)--(v) a physical substratum supplies is the
+open step toward full operational equivalence.
 
 \textbf{Proofs and sources.} Both directions are machine-checked
 (Appendix A). The sufficiency direction rests on the Stinespring
@@ -1786,4 +1788,4 @@ arXiv:gr-qc/0604062v4.
 \endgroup
 
 \end{document}
-% source-sha256: 15e6ebc2b5a3d6f8be93833bd2e2639b012159dc47e5aeb9d04508c59a21c7a7
+% source-sha256: 661ba50d1f399fcd712cdf8b445f08721d281465f7c652639ef49b3ce5b641af

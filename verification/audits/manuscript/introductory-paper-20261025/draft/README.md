@@ -307,3 +307,8 @@ Main.
 reason in Main's sense, the §2.5 duplication removed, the abstract organized around what OI is, what is established,
 why it matters and what is open, the return horizon and recurrence cycle defined, and the three memory terms kept
 apart. It carries the abstract's sentence-by-sentence old and new text and the terminology sweep.
+
+`CHANGES-r23.md` records r23, a small corrective revision from the two r22 confirmations: hidden predictive memory
+defined correctly as everything the hidden state holds about the past beyond the present (at least the conditional
+memory), the window sentence reworded, L named the recurrence time and distinguished from earlier return horizons,
+and the raw spacing hint removed.
