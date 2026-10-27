@@ -3,6 +3,7 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
+  11pt,
 ]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -199,17 +200,19 @@ laws lie in every class, the discriminating content is memory: every
 faithful realization carries the law's conditional memory in its hidden
 state. On one finite reversible system with a hidden prior shared by
 every root and drawn independently of it, the rooted visible family,
-with a row for every root including roots of visible probability zero,
-is P-indivisible somewhere in its recurrence cycle whenever some rooted
-transition matrix is not a permutation, which every non-deterministic
-visible step supplies; with a full-support visible prior this
-indivisibility is equivalent to conditional memory \(M_k>0\) at some
-order \(k\) below the recurrence time. Exact finite operational quantum
-mechanics is characterized by five completion conditions that OI alone
-does not imply. OI separates the zero-point sum from the gravitational
-source, and conservation of black-hole information from its accessible
-recovery; open are the completion conditions a physical substratum
-supplies, the Born exponent and the gravitational field equations.
+with a row for every initial visible state (root) including roots of
+visible probability zero, is P-indivisible somewhere in its recurrence
+cycle whenever some rooted transition matrix is not a permutation, which
+every non-deterministic visible step supplies; with a full-support
+visible prior this indivisibility is equivalent to conditional memory
+\(M_k>0\) at some order \(k\) below the recurrence time. Exact finite
+operational quantum mechanics is characterized by five completion
+conditions that OI alone does not imply. OI places the zero-point sum
+and the effective cosmological constant at different levels of
+description, and separates conservation of black-hole information from
+its accessible recovery; open are the completion conditions a physical
+substratum supplies, the Born exponent and the gravitational field
+equations.
 
 \hypertarget{introduction}{%
 \subsection{1. Introduction}\label{introduction}}
@@ -369,9 +372,9 @@ with transition probabilities \(|U_{ij}|^2\) for a unitary \(U\)
 {[}Bar25, p.~12 of arXiv v3; Bar23 §4.3; Bar26 §4{]}; the one-step
 \(|\mathcal C_V|^2\)-dimensional ancilla dilation of {[}Main §3.1{]} is
 that of {[}Bar26, Thm 3.3; Sch21, Thm 2{]}; and the every-step record
-law is {[}SGD19, Eq. (3){]}, whose consistency under omitted
-measurements {[}SGD19; Milz20{]} \(\mathsf Q_K\), measuring at every
-step, does not meet.
+law is {[}SGD19, Eq. (3){]}; whether such records remain consistent when
+measurements are omitted {[}SGD19; Milz20{]} does not arise for
+\(\mathsf Q_K\), which measures at every step.
 
 \hypertarget{scope-of-the-correspondence}{%
 \subsubsection{2.3 Scope of the
@@ -466,36 +469,39 @@ Four conditions on a hidden sector are named in {[}Main §1.3{]}, as
 diagnostics of a realization rather than hypotheses of Theorem 1: (C1)
 influence; (C2) persistence of records; (C3) capacity,
 \(\log_2|\mathcal C_H|\ge I^*\); and (C4) history readback, a memory
-witness at some accessible order. In a faithful realization (C4)
-coincides with \(M_t>0\), and the Corollary places it in the hidden
-state; (C1) follows from (C4), and (C3) holds by the capacity bound.
-(C2) has two forms. (C2-structural), the persistence of a stored record
-until its readback, holds by reversibility in every bijective
-realization and constrains coarse-grained descriptions of the hidden
-sector; (C2-slow), a hidden coarse-grained mixing time long compared
-with the accessible window, is one mechanism for it, and fast hidden
-dynamics that conserves the record is another {[}Main §1.3{]}. The
-necessity of (C2) is a theorem in the coupling-step model, in which the
-next visible state is a function of the current visible and hidden
-states: observed conditional memory \(I^*>0\) at an accessible order
-forces some realized hidden conditional at a coupling time to lie at
+witness at some accessible order, an order short compared with the
+recurrence time, as accessible windows are {[}Main §2.3, Scope{]}. In a
+faithful realization (C4) coincides with \(M_t>0\), and the Corollary
+places it in the hidden state; (C1) follows from (C4), and (C3) holds by
+the capacity bound. (C2) has two forms. (C2-structural), the persistence
+of a stored record until its readback, holds by reversibility in every
+bijective realization and constrains coarse-grained descriptions of the
+hidden sector; (C2-slow), a hidden coarse-grained mixing time long
+compared with the accessible window, is one mechanism for it, and fast
+hidden dynamics that conserves the record is another {[}Main §1.3{]}.
+The necessity of (C2) is a theorem in the coupling-step model, in which
+the next visible state is a function of the current visible and hidden
+states and \(\pi_H\) is the model's reference hidden law, toward which a
+mixing hypothesis would have the hidden state relax between couplings
+{[}Main §3.4, Theorem (physical memory: C2, process form){]}. There,
+observed conditional memory \(M_k>0\) at an accessible order \(k\)
+forces some realized hidden conditional at that coupling time to lie at
 total-variation distance at least
-\(\varepsilon_{\min}(I^*,|\mathcal C_V|)>0\) from the model's reference
-prior, with no mixing hypothesis, and under a mixing hypothesis this
-becomes the slow-bath form, a lower bound on the mixing time {[}Main
-§3.4, Theorem (physical memory: C2, process form){]}.
+\(\varepsilon_{\min}(M_k,|\mathcal C_V|)>0\) from \(\pi_H\), with no
+mixing hypothesis; under the mixing hypothesis this becomes the
+slow-bath form, a lower bound on the mixing time.
 
 \hypertarget{recurrence-and-indivisibility}{%
 \subsubsection{2.5 Recurrence and
 indivisibility}\label{recurrence-and-indivisibility}}
 
-Fix one hidden prior shared by every root, and write \(\Gamma_t\) for
-the \emph{rooted transition matrix} from time 0 to time \(t\), with a
-row for every \(x_0\in\mathcal C_V\), roots of visible probability zero
-included. The family is \emph{P-divisible on \(\{0,\dots,n\}\)} if for
-all \(s<t\le n\) some stochastic \(\Delta_{s,t}\) satisfies
-\(\Gamma_t=\Gamma_s\Delta_{s,t}\). A stochastic divisor contracts total
-variation, so under P-divisibility
+Fix one hidden prior shared by every root and drawn independently of it,
+and write \(\Gamma_t\) for the \emph{rooted transition matrix} from time
+0 to time \(t\), with a row for every \(x_0\in\mathcal C_V\), roots of
+visible probability zero included. The family is \emph{P-divisible on
+\(\{0,\dots,n\}\)} if for all \(s<t\le n\) some stochastic
+\(\Delta_{s,t}\) satisfies \(\Gamma_t=\Gamma_s\Delta_{s,t}\). A
+stochastic divisor contracts total variation, so under P-divisibility
 \(\|\delta_a\Gamma_t-\delta_b\Gamma_t\|_{\mathrm{TV}}\), with
 \(\delta_a\) the point mass at \(a\), cannot increase. This is the
 divisibility criterion of {[}RHP14, Thm 2.4{]} and the data-processing
@@ -503,9 +509,10 @@ direction of {[}BD16, Prop. 1{]}.
 
 \textbf{Theorem 3} (recurrence and overlap {[}Main §2.3{]}). \emph{Let
 \(\varphi\) be a bijection of \(\mathcal C_V\times\mathcal C_H\) with
-one hidden prior shared by every root. If two rows of \(\Gamma_s\) have
-a positive entry in a common column and \(\Gamma_n=I\) for some \(n>s\),
-the family is not P-divisible on \(\{0,\dots,n\}\).}
+one hidden prior shared by every root and drawn independently of it. If
+two rows of \(\Gamma_s\) have a positive entry in a common column and
+\(\Gamma_n=I\) for some \(n>s\), the family is not P-divisible on
+\(\{0,\dots,n\}\).}
 
 Two such rows are at total-variation distance below 1 at time \(s\) and
 exactly 1 at time \(n\), which the contraction criterion forbids;
@@ -527,11 +534,11 @@ and drawn independently of it, and let \(\Gamma_t\) keep a row for every
 root, roots of visible probability zero included. If some \(\Gamma_s\)
 with \(0<s<L\) is not a permutation, the rooted family is not
 P-divisible on \(\{0,\dots,L\}\). Two distinct positive-probability
-visible histories with a common endpoint, in particular a memory
-witness, supply such a \(\Gamma_s\), and so does every non-deterministic
-visible step, also when the law is Markov on every accessible window.
-With a full-support visible prior, this failure is equivalent to
-\(M_k>0\) at some order \(k<L\).}
+visible histories of equal length with a common endpoint, in particular
+a memory witness, supply such a \(\Gamma_s\), and so does every
+non-deterministic visible step, also when the law is Markov on every
+accessible window. With a full-support visible prior, this failure is
+equivalent to \(M_k>0\) at some order \(k<L\).}
 
 This is {[}Main §2.3, Theorem (history readback + finite recurrence
 implies indivisibility) and Scope{]}: the first sentence is Theorem 3
@@ -548,10 +555,12 @@ form of (C4), the realization clause in which a record of the visible
 history written into the hidden state is routed back into later visible
 conditionals within the window {[}Main §1.3{]}.
 
-Recurrence-cycle indivisibility thus follows from finite reversibility
-and partial access alone, Markov laws included, and does not distinguish
-one law from another; what an observer can discriminate is memory at an
-accessible order, which (C4) asserts {[}Main §2.3, Scope{]}.
+Recurrence-cycle indivisibility thus needs only finite reversibility and
+one non-deterministic visible step, and holds also for laws that are
+Markov on every accessible window, so it does not separate them from
+memory-bearing laws at accessible orders; what an observer can
+discriminate is memory at an accessible order, which (C4) asserts
+{[}Main §2.3, Scope{]}.
 
 \hypertarget{three-examples}{%
 \subsubsection{2.6 Three examples}\label{three-examples}}
@@ -649,25 +658,28 @@ implication fails: with \(\Phi_{t_1}\) conjugation by the Hadamard gate
 and \(\Phi_{t_2}=\mathrm{id}\) the family is CP-divisible, while its
 computational-basis populations, \(\tfrac12J\to I\), are P-indivisible
 {[}Main §3.2, Remark (scope: P-indivisibility is not quantum
-non-Markovianity){]}. In the card table of §2.6, embedded as a
-permutation unitary with the burn card in the uniform diagonal state,
-the one-step channel \(\rho\mapsto\operatorname{tr}(\rho)\,I/2\) is
-entanglement-breaking (measure-and-prepare) and the two-step map is the
-identity, so the family is CP-indivisible {[}Main §3.2{]}; its memory is
-still classical in the sense of {[}BBS24{]}, since the two-step identity
-is obtained by realizing the one-step channel as the Pauli twirl
+non-Markovianity){]}.
+
+In the card table of §2.6, embedded as a permutation unitary with the
+burn card in the uniform diagonal state, the one-step channel
+\(\rho\mapsto\operatorname{tr}(\rho)\,I/2\) is entanglement-breaking
+(measure-and-prepare) and the two-step map is the identity, so the
+family is CP-indivisible {[}Main §3.2{]}; its memory is still classical
+in the sense of {[}BBS24{]}, since the two-step identity is obtained by
+realizing the one-step channel as the Pauli twirl
 \(\rho\mapsto\tfrac14\sigma_o\rho\sigma_o\), \(o\in\{0,x,y,z\}\), and
 applying \(\sigma_o\) conditioned on \(o\), a decomposition a fixed
-initial hidden card does not admit {[}Main §4.5{]}. Distinguishability
-backflow witnesses divisibility failure in one direction only
-{[}BLP09{]}; for bijective dynamical maps on a \(d\)-dimensional system,
-CP-divisibility is equivalent to monotone distinguishability with a
-\((d+1)\)-dimensional ancilla {[}BJA17{]}. Theorem 1 states which laws
-admit realizations and quantum representations, not why a physical
-system exhibits a law with memory {[}Main §3.4, Remark (representation,
-not explanation){]}; Calvo states a derivation of the textbook axioms
-from indivisible stochastic evolution {[}Cal26{]}, whereas Theorem 1
-derives no axioms.
+initial hidden card does not admit {[}Main §4.5{]}.
+
+Distinguishability backflow witnesses divisibility failure in one
+direction only {[}BLP09{]}; for bijective dynamical maps on a
+\(d\)-dimensional system, CP-divisibility is equivalent to monotone
+distinguishability with a \((d+1)\)-dimensional ancilla {[}BJA17{]}.
+Theorem 1 states which laws admit realizations and quantum
+representations, not why a physical system exhibits a law with memory
+{[}Main §3.4, Remark (representation, not explanation){]}; Calvo states
+a derivation of the textbook axioms from indivisible stochastic
+evolution {[}Cal26{]}, whereas Theorem 1 derives no axioms.
 
 \hypertarget{from-the-correspondence-to-operational-quantum-mechanics}{%
 \subsubsection{3.2 From the correspondence to operational quantum
@@ -804,13 +816,15 @@ and (iii), which with the causal-cone property secure ontic parameter
 independence, or (iv), measurement independence {[}Main §3.3{]}. The
 framework retains measurement independence, as a posit about the initial
 condition, and adopts ontic parameter dependence: one wing's microstate
-response may depend on the remote setting, which the nearest-neighbour
-cubic update of {[}SM{]} alone cannot supply for wings beyond its graph
-cone {[}Main §3.3, Corollary (Bell--lattice obstruction and
-state-dependent escape){]}, while operational no-signalling is required.
-That a preparation-indexed coupling graph can supply it while preserving
-operational no-signalling and the gravitational continuum limit is the
-open hypothesis H-Bell {[}Main §3.3{]}.
+response may depend on the remote setting, with operational
+no-signalling required. The nearest-neighbour cubic update of the
+lattice substratum {[}SM{]} alone cannot supply that dependence for
+wings outside each other's causal cone {[}Main §3.3, Corollary
+(Bell--lattice obstruction and state-dependent escape){]}. That a
+preparation-indexed coupling graph, in which a Bell preparation adds
+bounded-degree long-range edges to the coupling graph, can supply it
+while preserving operational no-signalling and the gravitational
+continuum limit is the open hypothesis H-Bell {[}Main §3.3{]}.
 
 \hypertarget{the-cosmological-constant-how-oi-changes-the-interpretation-of-vacuum-energy}{%
 \subsection{4. The cosmological constant: how OI changes the
@@ -822,7 +836,10 @@ cutoff gives a vacuum energy density some 120 orders of magnitude above
 the observational value, the exact power depending on the cutoff
 convention {[}Wei89, §I; §III, Eqs. (3.4)--(3.6){]}. If that density
 sources curvature, it must be cancelled to that accuracy {[}Wei89,
-§III{]}; this discrepancy is here called the mismatch.
+§III{]}; this discrepancy is here called the mismatch. With a
+Planck-scale cutoff and a Hubble-scale density the mismatch equals the
+de Sitter entropy up to a numerical factor fixed by the cutoff
+convention, a dimensional identity {[}GR §6.3{]}.
 
 \textbf{What OI establishes.} In OI the zero-point sum belongs to the
 emergent quantum description (§§2--3), while the effective cosmological
@@ -847,9 +864,7 @@ zero-point sum of the emergent description is not a source of curvature
 and the mismatch requires no cancellation. The vacuum term that remains,
 from the substratum's classical energy density and from \(\mathcal F\),
 is not computed, and the observed value of \(\Lambda\) enters as a
-cosmological input. With a Planck-scale cutoff the mismatch equals the
-de Sitter entropy up to a numerical factor fixed by the cutoff
-convention, a dimensional identity.
+cosmological input.
 
 \textbf{The missing link.} The quantum description alone cannot decide
 whether the offset sources curvature. The completions \[
@@ -889,13 +904,14 @@ set \(\mathcal M\), is written into designated interior registers; every
 other register is uniformly random and independent of \(m\), or blank.
 One map is applied at every step, and at each \emph{emission} one
 register passes from the interior to the radiation. The observer reads
-registers on a schedule fixed in advance, in the counts below the
-emitted radiation registers, and keeps every read; the measured quantity
-is \(P_{\mathrm{succ}}\), the probability that the best guess of \(m\)
-from these records is correct, and the \emph{accessible advantage} is
-its excess over the blind value \(1/|\mathcal M|\). \(\mathcal U\) is
-the set of joint values of the registers left unread at the end. The
-layout is that of the Page-curve setup {[}GR App. A.7{]} at small size.
+registers on a schedule fixed in advance and keeps every read; for the
+first count below, it reads the radiation registers as they are emitted.
+The measured quantity is \(P_{\mathrm{succ}}\), the probability that the
+best guess of \(m\) from these records is correct, and the
+\emph{accessible advantage} is its excess over the blind value
+\(1/|\mathcal M|\). \(\mathcal U\) is the set of joint values of the
+registers left unread at the end. The layout is that of the Page-curve
+setup {[}GR App. A.7{]} at small size.
 
 \textbf{Results} {[}BHa{]}. Conservation does not imply recovery: of the
 40,320 bijections of \(\{0,1\}^3\) with one message bit and two random
@@ -905,7 +921,8 @@ after two emissions. Nor is it necessary: 60 non-injective maps of
 What bijectivity guarantees is a floor: reading every register at the
 end gives exact recovery, and with \(\mathcal U\) unread
 \(P_{\mathrm{succ}}\ge1/|\mathcal U|\), so zero advantage requires
-\(|\mathcal U|\ge|\mathcal M|\); 32 non-injective maps of \(\{0,1\}^2\)
+\(|\mathcal U|\ge|\mathcal M|\); 32 non-injective maps of \(\{0,1\}^2\),
+with a two-bit message occupying both registers and one register read,
 violate this floor. It is the remnant-capacity form of the fact that
 \(|\mathcal U|\)-valued side information multiplies a guessing
 probability by at most \(|\mathcal U|\), so hiding the message
@@ -925,16 +942,19 @@ ensemble equidistributes over quantum pure states on the energy shell,
 which fails for every bijection acting on a definite configuration with
 the bipartition aligned to the configuration coordinates {[}BHb{]};
 \emph{H-decouple}, that \(B\cup R\) evolves uncoupled from \(D\) and
-from \(V\setminus R\) in a pure joint state over whole cycles, which the
-effective-pure-state theorem {[}GR, Thm A.7{]} supplies only for times
-short compared with the \(D\)-sector timescale \(\tau_B^D\sim1/H\) {[}GR
-App. A.5{]}, far shorter than the evaporation {[}BHa{]}; and constant
-energy on all of \(\mathcal C_B\times\mathcal C_R\). Under them, for all
-but an exponentially small fraction of initial conditions, the
-full-cycle average of the radiation's entanglement entropy at each
-stage's bipartition equals the Page value \(S_{\rm Page}(d_B,d_R)\) up
-to the correction term of Theorem A.8, by measure concentration
-{[}Pag93; PSW06; HLW06; GR, Thms A.8--A.9{]}.
+from \(V\setminus R\) in a pure joint state over whole cycles, which is
+not established: the effective-pure-state theorem {[}GR, Thm A.7{]}
+gives a pure joint state of \(V\) and \(B\) only for times short
+compared with the \(D\)-sector timescale \(\tau_B^D\sim1/H\), the Hubble
+time {[}GR App. A.5{]}, far shorter than the evaporation {[}BHa{]}, and
+does not establish that \(V\setminus R\) is unentangled with \(B\cup R\)
+{[}GR App. A.7{]}; and constant energy on all of
+\(\mathcal C_B\times\mathcal C_R\). Under them, for all but an
+exponentially small fraction of initial conditions, the full-cycle
+average of the radiation's entanglement entropy at each stage's
+bipartition equals the Page value \(S_{\rm Page}(d_B,d_R)\) up to the
+correction term of Theorem A.8, by measure concentration {[}Pag93;
+PSW06; HLW06; GR, Thms A.8--A.9{]}.
 
 \hypertarget{established-results-conditional-interpretations-and-open-problems}{%
 \subsection{6. Established results, conditional interpretations and open
@@ -942,28 +962,27 @@ problems}\label{established-results-conditional-interpretations-and-open-problem
 
 \textbf{Established mathematical results.} Machine-checked: Theorem 1;
 the cores of Theorem 2 and of the capacity bound; Theorem 3 in its
-rooted form, which with the elementary fact that a non-permutation
-stochastic matrix has two rows sharing a positive column gives
-recurrence-cycle P-indivisibility of the rooted visible family, with a
-row for every root including roots of visible probability zero and a
-hidden prior shared by every root and drawn independently of it,
-whenever some rooted transition matrix is not a permutation; Theorem 4
-and the independence of its conditions; the non-selection of the
-relating evolution. Proved on paper: the time-\(t\) form of Theorem 2,
-its Corollary and the least hidden predictive memory; that every
-non-deterministic visible step and every memory witness supply a
-non-permutation rooted transition matrix, and that with a full-support
-visible prior the indivisibility is equivalent to \(M_k>0\) at some
-order \(k\) below the recurrence time (§2.5); the Bell ceiling. The
-qubit obstruction combines a proved factorization with an imported
-unboundedness, and the separation of conservation from recovery rests on
-exhaustive enumeration with the \(1/|\mathcal U|\) floor proved.
-Together these results establish that stochastic, quantum-like
-observations can arise exactly from deterministic reversible dynamics,
-and they locate what is not universal: the memory a law carries, its
-size and position in the hidden sector, and its consequence for
-divisibility. The correspondence represents these observations; it does
-not derive their physical mechanism.
+rooted form; Theorem 4 and the independence of its conditions; the
+non-selection of the relating evolution. Proved on paper, with Theorem 3
+as machine-checked core and the shared-column fact and \(\Gamma_L=I\) as
+elementary steps: recurrence-cycle P-indivisibility of the rooted
+visible family, with a row for every root including roots of visible
+probability zero and a hidden prior shared by every root and drawn
+independently of it, whenever some rooted transition matrix is not a
+permutation; that every non-deterministic visible step and every memory
+witness supply such a matrix, and that with a full-support visible prior
+the indivisibility is equivalent to \(M_k>0\) at some order \(k\) below
+the recurrence time (§2.5). Proved on paper also: the time-\(t\) form of
+Theorem 2, its Corollary and the least hidden predictive memory; the
+Bell ceiling. The qubit obstruction combines a proved factorization with
+an imported unboundedness, and the separation of conservation from
+recovery rests on exhaustive enumeration with the \(1/|\mathcal U|\)
+floor proved. Together these results establish that stochastic,
+quantum-like observations can arise exactly from deterministic
+reversible dynamics, and they locate what is not universal: the memory a
+law carries, its size and position in the hidden sector, and its
+consequence for divisibility. The correspondence represents these
+observations; it does not derive their physical mechanism.
 
 \textbf{Conditional physical interpretations.} If OI holds as physics
 (with the bijective substratum an empirically motivated representation
@@ -1018,9 +1037,10 @@ island computations {[}Pen20; AEMM19; AMMZ20; Book §7.6{]} (§5).
 \subsection{Code, data and formal
 verification}\label{code-data-and-formal-verification}}
 
+\begingroup\sloppy
+
 The declarations in Appendix A were checked in Lean 4.33.0 with Mathlib
-v4.33.0 at commit \texttt{17b830bc}
-(17b830bcd0ecc36e10eff5b9eeca03bdd7198d86) by building
+v4.33.0 at commit \texttt{17b830bc} by building
 \texttt{verification/lean-mathlib} (\texttt{lake\ exe\ cache\ get},
 \texttt{lake\ -\/-rehash\ build}) and running
 \texttt{python3\ tools/release\_gate.py}, whose \texttt{lean-axioms}
@@ -1028,7 +1048,8 @@ step requires every \texttt{\#print\ axioms} report to lie within
 \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound};
 each declaration reports exactly these three, and the expected result
 and comparison recipe are in \texttt{papers/introduction\_repro/}. The
-Lean pin is the commit at which that result was retained; the
+full commit hash is \texttt{17b830bcd0ecc36e10eff5b9eeca03bdd7198d86}.
+The Lean pin is the commit at which that result was retained; the
 manuscripts are cited at corpus commit \texttt{55e3217b}, whose
 \texttt{verification/lean-mathlib} tree is identical.
 
@@ -1038,6 +1059,8 @@ under the MIT License, at \texttt{papers/oi\_lattice\_code/foundations/}
 10.5281/zenodo.19060318) and
 \texttt{verification/programmes/black-hole-information/} (not part of
 the release archive) at the corpus commit.
+
+\endgroup
 
 \hypertarget{appendix-a.-machine-checked-declarations}{%
 \subsection{Appendix A. Machine-checked
@@ -1107,7 +1130,7 @@ Modules of the \texttt{OIBridge} Lean library; line numbers at commit
 \hypertarget{references}{%
 \subsection{References}\label{references}}
 
-\begingroup\footnotesize\raggedright\setlength{\parskip}{1pt}
+\begingroup\footnotesize\raggedright\setlength{\parskip}{1pt}\setlength{\leftskip}{1.5em}\setlength{\parindent}{-1.5em}
 
 \textbf{Corpus} (repository commit \texttt{55e3217b}, concept DOI
 10.5281/zenodo.19060318)
@@ -1119,6 +1142,9 @@ Equivalence of Quantum Mechanics and Embedded Observation,''
 {[}GR{]} A. Maybaum, ``ℏ, the Bekenstein-Hawking Entropy, and the
 Running-Vacuum Form of Dark Energy from the Cosmological Horizon,''
 \texttt{papers/GR.md}.
+
+{[}SM{]} A. Maybaum, ``The Standard Model from a Cubic Lattice,''
+\texttt{papers/SM.md}.
 
 {[}Book{]} A. Maybaum, \emph{The Incompleteness of Observation},
 \texttt{book/}.
@@ -1307,4 +1333,4 @@ arXiv:gr-qc/0604062v4.
 \endgroup
 
 \end{document}
-% source-sha256: cea3865ae9c4d1c11d64d0047d2e8601c066f6c64b08a0e525c1e34fc3159145
+% source-sha256: beb42c4aa16ef2d61227ef56310a463602563d706faf284e95f865c96f022a98

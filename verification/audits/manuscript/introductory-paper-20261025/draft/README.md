@@ -276,3 +276,6 @@ CHANGES) under the owner's decisions of 2026-10-27. It is organized for the focu
 scope across the abstract, §2.5 and §6; each strengthened claim with its proof and verification status; and the
 corrections that neither weaken nor expand a claim. It also lists what was not applied and why. r17 is a WIP
 checkpoint.
+
+`CHANGES-r18.md` records r18, which applies the two focused re-reviews of r17 at `a79add6a` (both ACCEPT WITH
+CHANGES): six required corrections, the verified should-fixes, and 11 pt type with the approved one-inch margins.
