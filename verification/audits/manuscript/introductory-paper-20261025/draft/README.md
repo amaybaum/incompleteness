@@ -285,3 +285,9 @@ Independent reviews of the Introduction from `a32b769c` (r16) onward are in `rev
 - `REVIEW-papers-a32b769c.md`: both ACCEPT WITH CHANGES.
 - `RECHECK-papers-a79add6a.md` (r17): both ACCEPT WITH CHANGES.
 - `CONFIRM-papers-0ce9cda9.md` (r18): scientific CONFIRM; editorial CONFIRM after the [Sti55] fix.
+
+`CHANGES-r19.md` records r19, the accessibility revision: explanatory text in the paper's own voice beside every
+verified statement, which itself is unchanged. It maps the owner's eight items, the four-step structure of each topic
+and the six comprehension points to their lines.
+- `review/accessibility/QUESTION-SHEET.md`: the owner-approved reader-comprehension sheet used by the paper-only AI
+  comprehension review (and by optional human reader testing).
