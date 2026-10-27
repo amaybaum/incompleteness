@@ -823,15 +823,15 @@ over bijective realizations it is \(H(X_{<t} \mid X_t)\), as above. The
 equivalence \(S \iff D\) and the universal hidden-memory statement are
 the paper's core. \textbf{Layer 2 --- memory and capacity} (§2.3): (C4)
 forces positive conditional memory; the (C3) information bound; the
-physical-memory theorem ((C2), conditional on mixing). \textbf{Layer 3
---- quantum representation} (§3.1, §3.4): the imported correspondence
-(Q1) and the in-house uncompressed form (Q2), scopes separated.
-\textbf{Layer 4 --- physical and operational realization} (§3.2, §4,
-companions): interventions (classical comb closed, §3.4; quantum
-instruments open), coherent preparation, Bell and free-choice structure,
-H-spin' and H-χ', the cosmological realization --- where the named
-hypotheses live. A Layer-1 result does not by itself establish any
-Layer-4 claim.
+physical-memory theorem ((C2): persistence form without a mixing
+hypothesis, slow-bath form conditional on it). \textbf{Layer 3 ---
+quantum representation} (§3.1, §3.4): the imported correspondence (Q1)
+and the in-house uncompressed form (Q2), scopes separated. \textbf{Layer
+4 --- physical and operational realization} (§3.2, §4, companions):
+interventions (classical comb closed, §3.4; quantum instruments open),
+coherent preparation, Bell and free-choice structure, H-spin' and H-χ',
+the cosmological realization --- where the named hypotheses live. A
+Layer-1 result does not by itself establish any Layer-4 claim.
 
 \hypertarget{emergent-stochasticity-and-p-indivisibility}{%
 \subsection{2. EMERGENT STOCHASTICITY AND
@@ -852,13 +852,15 @@ variable theory; consistency with Bell's theorem is addressed in §3.3.
 \subsubsection{2.2 The Slow-Bath Regime}\label{the-slow-bath-regime}}
 
 The Markovian limit requires \(\tau_B \ll \tau_S\) {[}3{]}. Condition
-(C2) inverts this: \(\tau_S \ll \tau_B\). A slow bath must be
-distinguished from a static field. By (C1), coupling is continuously
-active: each visible-sector transition imprints on the hidden sector.
-Because the hidden sector is slow (not static), imprints persist without
-thermal overwriting. On subsequent transitions, coupling reads back
-stored correlations, producing history-dependent transition
-probabilities --- the non-Markovian regime {[}3{]}.
+(C2-slow) inverts this: \(\tau_S \ll \tau_B\). A slow bath must be
+distinguished from a static field. (C1) states that the hidden state
+affects visible transitions; in the slow-bath mechanism the coupling
+also acts in the other direction, continuously: each visible-sector
+transition imprints on the hidden sector. Because the hidden sector is
+slow (not static), imprints persist without thermal overwriting. On
+subsequent transitions, coupling reads back stored correlations,
+producing history-dependent transition probabilities --- the
+non-Markovian regime {[}3{]}.
 
 \hypertarget{p-indivisibility}{%
 \subsubsection{2.3 P-Indivisibility}\label{p-indivisibility}}
@@ -2091,9 +2093,11 @@ which (2) constrains a quantum intermediate map, and the Hadamard family
 shows that outside the diagonal-preserving class (2) and (3) come apart.
 
 \textbf{Approximate unitarity.} On observable timescales
-\(t \ll \tau_B\), the hidden-sector state is approximately frozen
-(conditions (C2)--(C3)). At \(t=0\) the channel generator is exactly
-Hamiltonian,
+\(t \ll \tau_B\), the hidden-sector state is approximately frozen (the
+slow-bath regime, (C2-slow); at the horizon the bath is also
+imperturbable on laboratory timescales, with the \(N_H \gg N_V\)
+hierarchy of (C3)'s realization clause). At \(t=0\) the channel
+generator is exactly Hamiltonian,
 \(d\Phi_t/dt|_{t=0}(\rho_V) = -i[\hat{H}_{\text{eff}}, \rho_V]\) with
 \(\hat{H}_{\text{eff}} = H_V + \mathrm{Tr}_H[V_{\text{int}}(\mathbb{1}\otimes\rho_H)]\)
 the bath-averaged coupling; the dissipative part of the generator
@@ -4401,21 +4405,22 @@ external result: the Barandes stochastic-quantum correspondence {[}11,
 class --- a broad class in which Markov chains are special cases --- can
 be regarded as a subsystem of a composite unistochastic process on
 dimension \(\leq n^3\), so that the stochastic and unitary descriptions
-are inter-translatable in compressed form. What the import is
-load-bearing for has narrowed as the internal results grew: existence of
-a fixed-basis unitary Born representation is internal (the equivalence
-theorem --- the permutation unitary of any realization), as are the
-dilation construction, the C1/C3/C4 necessity theorems, and the
-ETH-conditional C2 bound; the import retains the compressed
-(\(\leq n^3\)) representation and the interpretive apparatus that
-travels with it, under (T). This gives the dependency a clean
-falsification profile: if the correspondence were shown to be incomplete
-or to require additional hypotheses, the framework would lose the
-compressed form and its interpretation --- and nothing else, since
-existence, equivalence, and necessity are internal. A referee skeptical
-of the import should direct that skepticism at the compression and
-interpretation claims specifically; the framework's own results no
-longer route through it.
+are inter-translatable in compressed form. The import is load-bearing
+only where the internal results stop: existence of a fixed-basis unitary
+Born representation is internal (the equivalence theorem --- the
+permutation unitary of any realization), as are the dilation
+construction, the C1/C3/C4 necessity theorems, and the C2
+physical-memory bound (persistence form without a mixing hypothesis;
+slow-bath form conditional on the mixing hypothesis, which ETH
+motivates); the import retains the compressed (\(\leq n^3\))
+representation and the interpretive apparatus that travels with it,
+under (T). This gives the dependency a clean falsification profile: if
+the correspondence were shown to be incomplete or to require additional
+hypotheses, the framework would lose the compressed form and its
+interpretation --- and nothing else, since existence, equivalence, and
+necessity are internal. Skepticism about the import therefore bears on
+the compression and interpretation claims only; the framework's own
+results do not route through it.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -5561,4 +5566,4 @@ degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
 \end{document}
-% source-sha256: 54586bff2e291efdbbda12a94c953ffac5535b1f938edb33d8d4fb6337300454
+% source-sha256: a58ec77c6fbb648900d119c37dd51c3f4a4888682c9fbaba6c61611f2bcb93ce
