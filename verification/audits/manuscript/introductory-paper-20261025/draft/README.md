@@ -325,3 +325,7 @@ never-occurring start stays in the comparison (checked exactly), the two cases o
 `CHANGES-r26.md` records r26, which applies the r25 confirmations: the L130 explanation split into three paragraphs
 with the causal chain of the card example stated, terms defined at first use, the late-memory case 2 merged, and the
 §3.2 and Bell glosses trimmed.
+
+`CHANGES-r27.md` records r27, which applies the r26 editorial confirmation's should-fix and two optional findings
+before the fourth comprehension test: the duplicate fixed-rule sentence removed, the shared-prior paragraph split
+before the overlap step, and "Stated precisely:" for the return from the example to the general statement.
