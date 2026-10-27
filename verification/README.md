@@ -525,7 +525,7 @@ them. The order is settled by theorem rather than convention: `permOp` is covari
 `heis` sandwiches its argument between a covariant and a contravariant factor, so a configuration
 map that shears first and swaps second has a Heisenberg action that applies the **swap** flow first
 and the shear second (`heis_of_comp`, `heisQ_of_comp`). The composite is claimed to be exactly a
-norm-continuous path of `*`-automorphisms through the identity — start at the identity, every point
+strongly continuous path of `*`-automorphisms through the identity — start at the identity, every point
 an isometric automorphism, continuous in the parameter — and **not** a one-parameter group: the two
 layers do not commute, so no group law for the composite follows, and none is asserted. The
 update itself is packaged as a `ReversibleDynamics` (`ruleDynamics`), with the coupling data
@@ -1966,8 +1966,8 @@ statement lines and the coverage ledger untouched (`theorem_7`, `finrank_intertw
 `S_imp_D`, `permMatrix_mem_unitaryGroup`, `isDiag_Phi`, `c3_necessity`,
 `unavoidable_hidden_predictive_memory`, `entanglementBreaking_twirl`), both families current, pointers only and no restatement; guard
 `R7-PTR`. CT2 is narrated in GR §3.3's continuous-time paragraph, Main §2.3 and the
-quasilocal summaries: the depth-two factorization, the two layer groups, and the norm-continuous
-path of local `*`-automorphisms from the identity to the update's Heisenberg action
+quasilocal summaries: the depth-two factorization, the two layer groups, and the strongly continuous
+path of `*`-automorphisms from the identity to the update's Heisenberg action
 (`driveQ_isContinuousPath`, `driveQ_one_eq_heisQ`), stated as a path, with no one-parameter-group
 law for the composite established, no generator exhibited and CT3 open; guard `R7-CTN`. The minimal repertoire is propagated
 under §A.35: GR §3.3

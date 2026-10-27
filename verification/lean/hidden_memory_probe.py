@@ -3,7 +3,8 @@
 """Numerical companion checks for OIBridge/HiddenMemory.lean and OIBridge/FiniteEntropy.lean.
 
 [Main] §3.4's unavoidable-hidden-predictive-memory theorem is kernel-proved there, all three
-clauses. This file is the independent executable layer, and its job is not to repeat the proof but
+clauses, for a joint law of (X_<t, X_t, H_t); reading a realization's time-t law as that joint law
+is not formalized. This file is the independent executable layer, and its job is not to repeat the proof but
 to TEST THE HYPOTHESES SEPARATELY: each clause gets a countercontrol that removes exactly the
 assumption its proof consumes and exhibits the failure.
 
@@ -270,6 +271,8 @@ print('     kernel-proved in ALL THREE CLAUSES — the pushforward identity, the
 print('     floor, and the capacity floor M_t <= I(X_<t; H_t | X_t) <= log2|C_H|. The third')
 print('     required building finite Shannon entropy, conditional mutual information and the')
 print('     data-processing inequality, none of which Mathlib carries.')
+print('     The clauses are proved for a joint law of (X_<t, X_t, H_t); reading a realization\'s')
+print('     time-t law as that joint law is not formalized.')
 print('     Each clause has a countercontrol removing exactly the hypothesis its proof consumes:')
 print('     a stochastic channel breaks (a), a non-TV distance breaks (b), and reading the')
 print('     history directly rather than through the hidden state breaks (c).')

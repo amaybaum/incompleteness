@@ -1715,11 +1715,11 @@ finite discrete configuration space the dynamics is the discrete group
 \(\{U_\varphi^k\}\), and any continuous one-parameter interpolation is
 \emph{additional structure}, chosen rather than derived. The depth-two
 structure of the substratum update supplies something weaker and
-derived: an exact norm-continuous path of local \(*\)-automorphisms of
-the quasilocal algebra from the identity to the update's Heisenberg
-action, for which no one-parameter-group law is established and no
-generator is exhibited ({[}GR §3.3{]}; kernel:
-\texttt{driveQ\_isContinuousPath}, \texttt{driveQ\_one\_eq\_heisQ} in
+derived: an exact strongly continuous path of \(*\)-automorphisms of the
+quasilocal algebra from the identity to the update's Heisenberg action,
+for which no one-parameter-group law is established and no generator is
+exhibited ({[}GR §3.3{]}; kernel: \texttt{driveQ\_isContinuousPath},
+\texttt{driveQ\_one\_eq\_heisQ} in
 \texttt{OIBridge/SecondOrderDrive.lean}). When such an interpolation is
 introduced --- a strongly continuous one-parameter unitary group \(U_t\)
 with \(U_1 = U_\varphi\), which always exists but is not unique (any
@@ -2911,7 +2911,10 @@ diagonal-preservation lemma are certified in
 \texttt{c1\_cp\_scope\_probes.py} in the same directory.} (kernel:
 \texttt{c3\_necessity}, \texttt{card\_hidden\_ge\_two\_pow\_Istar},
 \texttt{c3\_necessity\_and\_capacity} in
-\texttt{OIBridge/C3Necessity.lean})
+\texttt{OIBridge/C3Necessity.lean}, for joint laws of history, present
+and hidden state, with \(I^*\) the maximum over a finite family of such
+laws on one hidden alphabet; reading a realization's time-\(t\) laws as
+those joint laws is a step not formalized)
 
 \textbf{Theorem (finite-horizon process dilation).} \emph{Let
 \(\mathcal{S}\) be a stochastic process on \(\mathcal{C}_V\)
@@ -3665,8 +3668,8 @@ the level of the laws, the restriction to the substratum-induced
 dynamics is a theorem rather than a convention --- a phase automorphism
 at one site preserves locality without arising from any reversible
 finite-range bijection --- and, while the update is joined to the
-identity by an exact norm-continuous path of local \(*\)-automorphisms
-of that algebra, with no one-parameter-group law established and no
+identity by an exact strongly continuous path of \(*\)-automorphisms of
+that algebra, with no one-parameter-group law established and no
 generator exhibited, a continuous-time Hamiltonian law remains
 additional structure ({[}GR §3.3{]}; kernel:
 \texttt{closure\_iUnion\_stage}, \texttt{quasiState\_unique} in
@@ -3944,11 +3947,11 @@ positive-probability hidden states; (C2-structural) as the retention
 required by (b) --- the slow-bath form (C2-slow) one mechanism among
 several (§1.3); (C3) by the data-processing argument of (c) applied to
 the whole visible future (kernel: \texttt{c3\_necessity} in
-\texttt{OIBridge/C3Necessity.lean}), a bound that holds in every
-faithful realization, Markov ones included. In the bijective class
-reversibility fixes two of the theorem's terms: the posteriors of
-distinct positive-probability histories ending at \(x\) have disjoint
-supports, so the right side of (b) is \(1\), and
+\texttt{OIBridge/C3Necessity.lean}, in the joint-law form of (c)), a
+bound that holds in every faithful realization, Markov ones included. In
+the bijective class reversibility fixes two of the theorem's terms: the
+posteriors of distinct positive-probability histories ending at \(x\)
+have disjoint supports, so the right side of (b) is \(1\), and
 \(I(X_{<t}; H_t \mid X_t) = H(X_{<t} \mid X_t)\) for every law. The
 retention in (b) is therefore supplied by reversibility for Markov and
 non-Markovian laws alike; what is specific to non-Markovian laws is (a)
@@ -3971,12 +3974,12 @@ completion the whole visible future is a function of \((X_t, H_t)\), so
 \(I(X_{<t}; H_t \mid X_t) \geq I(X_{<t}; X_{>t} \mid X_t)\) (kernel:
 \texttt{c3\_necessity\_via\_hidden} in
 \texttt{OIBridge/C3Necessity.lean}, stated there for bijective
-realizations; the same data-processing step for non-injective and staged
-completions is proved on paper), with equality for the canonical
-predictive quotient (the predictive-completion theorem below), whose
-hidden state at \(t\) is the visible future tail. The infimum over
-deterministic completions is therefore \(I(X_{<t}; X_{>t} \mid X_t)\),
-equal to \(M_t\) exactly when
+realizations in joint-law form; the same data-processing step for
+non-injective and staged completions is proved on paper), with equality
+for the canonical predictive quotient (the predictive-completion theorem
+below), whose hidden state at \(t\) is the visible future tail. The
+infimum over deterministic completions is therefore
+\(I(X_{<t}; X_{>t} \mid X_t)\), equal to \(M_t\) exactly when
 \(I(X_{<t}; X_{>t+1} \mid X_t, X_{t+1}) = 0\); for \(X_0, X_1, X_2\)
 i.i.d. fair bits and \(X_3 = X_0\), \(M_1 = 0\) while every
 deterministic completion carries \(1\) bit at \(t = 1\).
@@ -5580,4 +5583,4 @@ degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
 \end{document}
-% source-sha256: 8e326e67b65986a55502aae8e085c9b0b5570289c6cf596416d27e4bd5a6a1f7
+% source-sha256: 088d593aaa256cd6d18cadaddfc8d393cc5886b8aa71984484764c331855c016

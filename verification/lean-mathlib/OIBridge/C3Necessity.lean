@@ -22,10 +22,10 @@
   the same for all of them, which is what lets `I*` range over horizons as well as times.
 
   WHAT `I*` IS. The manuscript's `I*` is a supremum over accessible times. Formally it is the
-  maximum over a finite nonempty family of accessible slices — each a realization of the SAME
-  hidden alphabet, each with its own visible history alphabet, law and horizon. The common hidden
-  alphabet is what makes `m ≥ 2^{I*}` a statement about one physical hidden sector rather than a
-  family of unrelated ones; it is an assumption of the corollary and is written into its signature.
+  maximum over a finite nonempty family of slices, each a `Realization` (a bijection with a joint
+  law of `(X_<t, X_t, H_t)`; reading those laws as a realization's time-t laws is not formalized),
+  each with its own bijection, law and horizon, all on one history type, one visible alphabet and
+  one hidden alphabet. The common hidden alphabet makes `m ≥ 2^{I*}` a bound on one hidden sector.
 
   WHAT IS NOT PROVED HERE, because the manuscript denies it. The corollary's sustained-backflow
   reading — `m ≳ 2^{K I_0}` for backflow at rate `I_0` over `K` events — holds only "under the
@@ -72,7 +72,7 @@ theorem varFuture_zero (R : Realization Hist V H) {L : ℕ} (hL : 0 < L) (s : Hi
 
 /-! ### The theorem -/
 
-/-- **Theorem (C3 necessity), [Main] §3.3.** `I(X_<t ; X_>t | X_t) ≤ log₂ m`, at every horizon.
+/-- **Theorem (C3 necessity), [Main] §3.4.** `I(X_<t ; X_>t | X_t) ≤ log₂ m`, at every horizon.
 
 The whole visible future is a function of `(X_t, H_t)`, so conditioning on `X_t` makes
 `X_<t → H_t → X_>t` a Markov chain; data processing and `I ≤ log₂|C_H|` finish it. Both steps are
@@ -98,8 +98,8 @@ nonempty family of slices sharing a hidden alphabet. Sharing the alphabet is the
 corollary is a statement about the size of ONE hidden sector. -/
 
 /-- `I* = sup_t I(X_<t ; X_>t | X_t)`, over a finite nonempty family of accessible slices and their
-horizons. Each slice carries its own visible-history alphabet, law and horizon; all of them share
-the hidden alphabet `H`. -/
+horizons. Each slice carries its own bijection, law and horizon, all on one history type `Hist`,
+one visible alphabet `V` and one hidden alphabet `H`. -/
 noncomputable def Istar {ι : Type*} {F : Finset ι} (hF : F.Nonempty)
     (R : ι → Realization Hist V H) (L : ι → ℕ) : ℝ :=
   F.sup' hF fun i => cmiBits (R i).w (varHist) (varNow) (varFuture (R i) (L i))
@@ -109,7 +109,7 @@ theorem Istar_le_log_card [Nonempty H] {ι : Type*} {F : Finset ι} (hF : F.None
     Istar hF R L ≤ Real.logb 2 (Fintype.card H) :=
   Finset.sup'_le hF _ fun i _ => c3_necessity (R i) (L i)
 
-/-- **Corollary (per-process capacity bound), [Main] §3.3.** `m ≥ 2^{I*}`.
+/-- **Corollary (per-process capacity bound), [Main] §3.4.** `m ≥ 2^{I*}`.
 
 The hidden sector must be at least as large as the backflow it carries. Note what this is NOT: it
 is not `m ≥ n`, and it is not a bound growing with the number of coupling events — the manuscript
@@ -124,7 +124,7 @@ theorem card_hidden_ge_two_pow_Istar [Nonempty H] {ι : Type*} {F : Finset ι} (
     (Real.rpow_le_rpow_left_iff hb).2 (Istar_le_log_card hF R L)
   rwa [Real.rpow_logb (by norm_num) (by norm_num) hcard] at hstep
 
-/-- **The C3 clause as the manuscript states it**, theorem and corollary together: the observable
+/-- **The C3 clause in joint-law form**, theorem and corollary together: the observable
 past–future information at every accessible slice is bounded by `log₂ m`, and therefore the hidden
 alphabet is at least `2^{I*}`. -/
 theorem c3_necessity_and_capacity [Nonempty H] {ι : Type*} {F : Finset ι} (hF : F.Nonempty)

@@ -7,7 +7,7 @@
   deterministic completion of a process that remembers its past must carry that memory in the
   hidden sector. The two are deliberately separate results and neither is a lemma of the other.
 
-  THE THEOREM, all three clauses, as the manuscript states them:
+  THE THEOREM, all three clauses, in joint-law form:
 
       Let S be a visible process and R ANY faithful deterministic realization of it — a bijection
       φ on C_V × C_H with a hidden prior reproducing S. Write f_x(h) = π_V(φ(x,h)), and for a
@@ -24,10 +24,10 @@
   wearing this one's name.
 
   WHAT IS AN ASSUMPTION AND WHAT IS PROVED. The realization is the assumption: a bijection, and a
-  law for (X_<t, X_t, H_t) that it induces. Everything after that is deduction. In particular the
-  next visible value is not posited to be a function of (X_t, H_t) — it is DEFINED as the visible
-  component of φ, which is what makes the Markov chain X_<t → H_t → X_{t+1} given X_t hold rather
-  than be assumed, and that chain is the whole content of clause (c)'s first inequality.
+  joint law for (X_<t, X_t, H_t) that the structure does not tie to it; reading that law as the one
+  a realization induces at time t is not formalized here. Everything after that is deduction: the
+  next visible value is DEFINED as the visible component of φ, which is what makes the Markov chain
+  X_<t → H_t → X_{t+1} given X_t hold rather than be assumed, the content of (c)'s first inequality.
 
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/
@@ -46,11 +46,11 @@ variable {Hist V H : Type*} [Fintype Hist] [Fintype V] [Fintype H]
 variable [DecidableEq Hist] [DecidableEq V] [DecidableEq H]
 
 /-- A faithful deterministic realization at time `t`: the bijection `φ` on `C_V × C_H`, together
-with the law it induces on `(X_<t, X_t, H_t)`.
+with a joint law on `(X_<t, X_t, H_t)`.
 
-The bijection is the manuscript's `φ` and the law is what "faithful … reproducing `S`" supplies.
-Nothing else is assumed — in particular the next visible value is DEFINED below from `φ` rather
-than posited to be a function of the pair. -/
+The bijection is the manuscript's `φ`; the law stands for what "faithful … reproducing `S`"
+supplies, and no field ties it to `φ`. Nothing else is assumed — in particular the next visible
+value is DEFINED below from `φ` rather than posited to be a function of the pair. -/
 structure Realization (Hist V H : Type*) [Fintype Hist] [Fintype V] [Fintype H] where
   step : V × H ≃ V × H
   w : Hist × V × H → ℝ

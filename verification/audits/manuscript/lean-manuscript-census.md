@@ -56,7 +56,7 @@ dagger-stable package) is stated as what it is next to the current statement.
 | typed completion | 2 | current | GR §3.3 typed form, cited from the current package |
 | quasilocal completion | 4 | current | GR §3.3 infinite-region completion with its scope |
 | instrument audit | 2 | scope-consistent | the infinite-instrument scope qualification |
-| continuous time (CT2) | 4 | current | GR §3.3 continuous-time paragraph, Main §2.3 and the quasilocal summaries: the depth-two factorization and the norm-continuous path of local automorphisms from the identity to the update, stated as a path, with no one-parameter-group law for the composite established, no generator exhibited and CT3 open |
+| continuous time (CT2) | 4 | current | GR §3.3 continuous-time paragraph, Main §2.3 and the quasilocal summaries: the depth-two factorization and the strongly continuous path of automorphisms from the identity to the update, stated as a path, with no one-parameter-group law for the composite established, no generator exhibited and CT3 open |
 | minimal repertoire | 1 | current | GR §3.3 states phase-free richness as the second primitive-source principle, `OIPlusMin` boxed, the elementary repertoire as its stronger form; Main §3.4, the Explainer, book chapters 1 and 19 carry the summary; `carrier_general_oiPlusPos`, `oiPlusPos_iff_qm`, `hControl_star` and `typed_determined_of_oiPlusPos` are superseded and cited beside their successors |
 | OI-N passive observation | 4 | current | Main §3.4 and the Explainer, one paragraph each, outside the assumptions and arrows of the characterization: noncommutativity forbids complete passive observation, passive incompleteness is theory-insensitive and does not diagnose the core, a passive internal observer only reads an existing record, a new record changes the joint system |
 | route B: consequence closure | 1 | kernel-only | no manuscript occurrence: `routeB_target` proves the Route B target with the substratum theory as the witness, so on the two-state carrier the closure with the core does not entail phase-free richness; the manuscripts' statement that the controllability resource is not entailed by A1–A6 is consistent with it without citing it, and narration is an owner decision |
@@ -129,7 +129,7 @@ and the paragraphs cite only what its modules prove.
 GR §3.3's continuous-time paragraph states what the substratum determines: the second-order update
 factors exactly as a depth-two local circuit, each layer is the time-one map of a strongly
 continuous one-parameter group of isometric `*`-automorphisms of the quasilocal algebra, and the
-two flows in the order the Heisenberg picture forces give a norm-continuous path of isometric
+two flows in the order the Heisenberg picture forces give a strongly continuous path of isometric
 `*`-automorphisms from the identity to the update's own Heisenberg action
 (`driveQ_isContinuousPath`, `driveQ_one_eq_heisQ`). The paragraph says that for the composite path
 no one-parameter-group law is established and no generator is exhibited, that whether the path is a
