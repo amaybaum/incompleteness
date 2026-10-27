@@ -879,19 +879,24 @@ temporal sector are derived from E1--E3, A1--A2 together with
 stipulated accessible temporal memory; conditional on M1-T, they hold
 without further hypothesis. \textbf{M1-B} is separate: it maps E2 to the
 ontically parameter-dependent Bell composite and supplies an independent
-cross-wing-coupling requirement, not C4. C2 is conditional on the
-quantitative mixing hypothesis of {[}Main §3.4{]} --- uniform
-total-variation closeness of the hidden sector's post-relaxation
-conditionals to a single bath distribution, under which the divisibility
-deficit obeys an explicit bound \((k-1)\varepsilon\); without it, the
-necessity direction (P-indivisibility on accessible timescales forces
-\(\tau_S \ll \tau_B\)) cannot be established. ETH is the physical case
-for the hypothesis, as discussed in {[}Main §3.4{]}'s ``Remark (Status
-of ETH).'' ETH is a well-supported conjecture for generic chaotic
-many-body Hamiltonians and is the standard assumption for the
-cosmological-horizon complement; relaxations or failures of ETH would
-require a separate argument. The framework's gauge-group derivation
-through Stage 2 inherits this conditional.
+cross-wing-coupling requirement, not C4. C2 takes the two forms of
+{[}Main §1.3{]}. Its persistence form holds without further hypothesis:
+observed conditional memory places some realized hidden conditional at
+the coupling time at least \(\varepsilon_{\min}\) from its reference
+prior (the physical-memory theorem of {[}Main §3.4{]}). Its slow-bath
+form is conditional on the quantitative mixing hypothesis of {[}Main
+§3.4{]} --- uniform total-variation closeness of the hidden sector's
+post-relaxation conditionals to a single bath distribution, under which
+the departure from the homogeneous Markov benchmark obeys the explicit
+bound \(\|T^{(k)} - T^k\| \leq (k-1)\varepsilon\), so that a departure
+\(\delta\) forces \(\varepsilon \geq \delta/(k-1)\); without it,
+accessible conditional memory does not bound the bath's mixing time. ETH
+is the physical case for the hypothesis, as discussed in {[}Main
+§3.4{]}'s ``Remark (Status of ETH).'' ETH is a well-supported conjecture
+for generic chaotic many-body Hamiltonians and is the standard
+assumption for the cosmological-horizon complement; relaxations or
+failures of ETH would require a separate argument. The framework's
+gauge-group derivation through Stage 2 inherits this conditional.
 
 \textbf{Bell--gravity compatibility hypothesis (H-Bell).} The Stage-2
 reference nearest-neighbor wave-equation graph has a pointwise causal
@@ -990,15 +995,16 @@ the triple \((S, \varphi, V)\) with
 \(S = \mathcal{C}_V \times \mathcal{C}_H\) and \(V = \mathcal{C}_V\).
 Non-permutation \(T(t)\) in the M1-T temporal sector gives the
 corresponding C1 witness; independently, M1-B's ontic parameter
-dependence requires Bell-relevant cross-wing coupling. The
-characterization theorem {[}Main §3.4{]} establishes that the resulting
-dynamics, conditional on the hidden-sector mixing hypothesis ({[}Main
-§3.4{]}; ETH is its physical motivation), necessarily satisfies C2
-(record persistence is required for the non-Markovian returns that
-produce quantum interference; in its persistence form C2 holds without
-the mixing hypothesis) and C3 (sufficient hidden-sector capacity is
+dependence requires Bell-relevant cross-wing coupling. The necessity
+analysis of {[}Main §3.4{]} establishes that every realization of the
+resulting dynamics satisfies C3 (sufficient hidden-sector capacity is
 required for the data-processing bound to accommodate observed
-conditional memory).
+conditional memory; the bound holds in every faithful realization, with
+no mixing hypothesis) and C2 (record persistence is required for the
+non-Markovian returns that produce quantum interference), C2 in its
+persistence form without further hypothesis and in its slow-bath form
+conditional on the hidden-sector mixing hypothesis ({[}Main §3.4{]}; ETH
+is its physical motivation).
 
 \textbf{Stage-1 gauge statement.} For the \textbf{finite
 channel/dilation datum actually used by the temporal reconstruction},
@@ -3218,4 +3224,4 @@ Running-Vacuum Form of Dark Energy from the Cosmological Horizon,''
 (2026).
 
 \end{document}
-% source-sha256: c7816c3a375125577c0ce874759460ef0e115bac55596ef468482d9cbdbdd1f8
+% source-sha256: a4617151832a1f0b43bb7099d5ad899d0ee2b0e992e7603927addc298990ed20
