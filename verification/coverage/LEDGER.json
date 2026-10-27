@@ -1711,18 +1711,11 @@
           "path": "verification/audits/manuscript/intro-corpus-audit-20261026/tracks/SC32-sm-theorem3/theorem3_exact.py",
           "basis": "named",
           "evidence": "chiral => CI at fixed alpha = 1/d"
-        },
-        {
-          "kind": "lean",
-          "path": "verification/lean/OI_Structural_Core.lean",
-          "names": [
-            "center_anticommutator"
-          ]
         }
       ],
-      "kernel": "K1",
-      "delta": "the kernel proves the anticommutator identity {D + m·eps + p_0, eps} = 2m + 2p_0·eps; the cancellation 2m·eps = 0 => m = 0 and the step m = 0 => C = 0 through Lemma 3a are not kernel-checked",
-      "note": "The restricted converse of Theorem 3, displayed separately per AGENTS §A.34. The family hypothesis is load-bearing: F = K T0^-1 Pi_- + T0 Pi_+ is local, chiral and squares to K for every (C, alpha) (SM §4.3 Remark; SC32 check G6). The fixed normalization is load-bearing: at alpha = 1 the self-term C = 2(1 - d) is chiral and center-dependent."
+      "kernel": "P",
+      "delta": "probe evidence only (SC32 checks G4 T1, T2 and G5). Not kernel-checked: {B', eps} = 0, the cancellation 2m·eps = 0 => m = 0, and the step m = 0 => mu = 0 => C = 0 through Lemma 3a. The proof's first line uses the identity Chiral.center_anticommutator (OI_Structural_Core.lean), {D + m·eps + p_0, eps} = 2m + 2p_0·eps under {D, eps} = 0, which is not a check of the statement",
+      "note": "The restricted converse of Theorem 3, displayed separately per AGENTS §A.34. The family hypothesis is load-bearing: F = K T0^-1 Pi_- + T0 Pi_+ is local, chiral and squares to K for every (C, alpha) (SM §4.3 Remark; SC32 check G6). The fixed normalization is load-bearing: at alpha = 1 the self-term C = 2(1 - d) is chiral and center-dependent. Graded P by owner decision (2026-10-27): no Lean theorem proves the statement or a consequence of it."
     },
     {
       "id": "SM:T-4-conditional-observer-level-mass-spectrum",

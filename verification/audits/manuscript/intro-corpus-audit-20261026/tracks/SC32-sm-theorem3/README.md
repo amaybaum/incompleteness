@@ -93,7 +93,7 @@ needed α = 1/d, and now says so.
 | `verification/lean/ROADMAP.md` §D | "center independence of the diagonal of D_st is equivalent to exact chirality" | `Chiral.center_anticommutator` is an identity | The identity is kernel-checked. The step to m = p₀ = 0 is not. Theorem 3 / Proposition 3b at α = 1/d, and the separation off it. |
 | `OI_Structural_Core.lean` :413, docstring | "zero iff the center terms vanish" | The declaration is an identity | "an identity, not coefficient uniqueness" (#966's text). Comment only. |
 | `structural_chain_probe.py` C3 docstring and print | "… iff exact chirality"; "center-free in D_st ⟺ exact chirality" | C3 checks identities in integer matrices | #966's text: "separate mass and scalar-offset anticommutator identities … not a universal converse". Documentation and print only. |
-| `verification/coverage/LEDGER.json` | `SM:T-3` K2, fingerprint `487eed57…` | Census at this head | `SM:T-3` re-affirmed at `1f332468…`, graded K1: the α-weighted square is not in the kernel. `SM:L-3a` and `SM:P-3b` added, both K1. No ID retired. |
+| `verification/coverage/LEDGER.json` | `SM:T-3` K2, fingerprint `487eed57…` | Census at this head | `SM:T-3` re-affirmed at `1f332468…`, graded K1: the α-weighted square is not in the kernel. `SM:L-3a` added at K1 and `SM:P-3b` added at P (owner decision). No ID retired. |
 
 ## Owner decisions (owner, 2026-10-27)
 
@@ -105,13 +105,21 @@ Quoted from the owner's message, relayed by the coordinator:
 > "Approve downgrading SM:T-3 from K2 to K1 … Record the precise proof coverage, retain existing valid
 > certificates, and do not upgrade the result again without a corresponding machine-checked theorem."
 
+> "I approve downgrading SM:P-3b from K1 to P. … SM:P-3b: K1 → P — now approved, based on the exact probe evidence
+> rather than a Lean-certified theorem. Retain the existing evidence and explicitly document which parts remain
+> unproved."
+
 **The route.**
 - SC-32's text is the SM correction.
 - #965's first-order on-site lemma is credited as the first step of Proposition 3b.
 - #966's two docstring fixes are adopted, as described above.
 - #966's SM replacement is not adopted.
 
-**The downgrade.** `SM:T-3` goes from K2 to K1, keeping its ID. The existing Lean checks stay named in the ledger.
+**The downgrades.**
+- `SM:T-3` goes from K2 to K1, keeping its ID. The existing Lean checks stay named in the ledger.
+- `SM:P-3b` is graded P, keeping its ID: probe evidence only (G4 T1, T2 and G5 of this record, and the reviewer's
+  independent exact check). The coverage tool admits no Lean theorem on a P row, so `Chiral.center_anticommutator` is
+  recorded in the row's delta as the identity used in the proof's first line, not as a check of the statement.
 
 **What the Lean declarations prove:**
 - **`Staggered.factorization`** (`OI_Staggered_Relations.lean`): (Σ_{i<n} A_i)² = Σ_{i<n} S_i², with S_i = t_i − s_i,
@@ -129,11 +137,13 @@ Quoted from the owner's message, relayed by the coordinator:
   that unchecked hypothesis. The α-weighted square and μ = C at α = 1/d are exact finite algebra only.
 - **SM:L-3a.** No kernel witness of the statement. Its proof rests on the paper argument and on G1–G3 and G5 of this
   record.
-- **SM:P-3b.** No kernel witness of the statement. Its proof rests on the paper argument and on G4 T1 and T2 of this
-  record.
+- **SM:P-3b.** No kernel witness of the statement or of any consequence of it. The proof's first line is the identity
+  `Chiral.center_anticommutator`, which takes {B′, ε} = 0 as a hypothesis. Unproved in Lean: {B′, ε} = 0 itself, the
+  cancellation 2mε = 0 ⇒ m = 0, and the step m = 0 ⇒ μ = 0 ⇒ C = 0 through Lemma 3a. Evidence: the paper argument and
+  the exact checks G4 T1, T2 and G5.
 
-The ledger grades L-3a and P-3b K1 through the related identities named in their rows, which cover specialized
-pieces and not the statements. Those rows are unchanged here.
+The ledger grades L-3a K1 through `Staggered.factorization`, a specialized identity named in its row, with the
+instantiation caveat recorded there. P-3b is graded P.
 
 No upgrade of these entries is made without a corresponding machine-checked theorem.
 
