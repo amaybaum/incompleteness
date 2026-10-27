@@ -1951,25 +1951,25 @@ over \(\mathbb{Q}\), so orbits fill a sub-torus of the energy shell
 rather than the full shell. The Gaussianization argument therefore has
 two natural interpretations: (way out i) the cubic-lattice + finite-set
 discretization introduces small but non-zero non-linearity (from
-rounding rules in the bijection update), providing the chaos needed for
-full-shell sampling; or (way out ii) the ``Gaussian on energy shell''
-claim is shorthand for ``Gaussian on the sub-torus actually sampled,''
-which is a smaller phase space and would modify the
-substratum-pseudofermion covariance match. Way out (i) is the standard
-interpretation for lattice-substrate frameworks. Numerical verification
-of way out (i) for OI's specific bijection has been carried out via
-two-trajectory separation with per-site RMS amplitude measurement inside
-the spreading cone (the correct Lyapunov-relevant diagnostic,
-distinguishing chaotic amplitude amplification from Lieb-Robinson
-ballistic spreading). The measurement gives a chaotic Lyapunov exponent
-\(\lambda_{\max} = 0.0092 \pm 0.0001\) per timestep in the thermodynamic
-limit, \(N_{\rm levels}\)-independent for \(N_{\rm levels} \geq 16\),
-with exponential amplitude growth in the cone confirmed against
-power-law alternatives at high statistical significance
-(exponential-vs-power-law residual ratio \(\sim 2.2\) across
-\(\log(\bar{\|\Delta\phi\|}/\delta) \in [0, 1.0]\)). The chaos that way
-out (i) requires is therefore demonstrated numerically rather than
-adopted: the rounded bijection is chaotic, the integrable linear
+rounding rules in the bijection update), breaking the linear rule's
+integrability, which full-shell sampling needs; or (way out ii) the
+``Gaussian on energy shell'' claim is shorthand for ``Gaussian on the
+sub-torus actually sampled,'' which is a smaller phase space and would
+modify the substratum-pseudofermion covariance match. Way out (i) is the
+standard interpretation for lattice-substrate frameworks. Numerical
+verification of way out (i) for OI's specific bijection has been carried
+out via two-trajectory separation with per-site RMS amplitude
+measurement inside the spreading cone (the correct Lyapunov-relevant
+diagnostic, distinguishing chaotic amplitude amplification from
+Lieb-Robinson ballistic spreading). The measurement gives a chaotic
+Lyapunov exponent \(\lambda_{\max} = 0.0092 \pm 0.0001\) per timestep in
+the thermodynamic limit, \(N_{\rm levels}\)-independent for
+\(N_{\rm levels} \geq 16\), with exponential amplitude growth in the
+cone confirmed against power-law alternatives at high statistical
+significance (exponential-vs-power-law residual ratio \(\sim 2.2\)
+across \(\log(\bar{\|\Delta\phi\|}/\delta) \in [0, 1.0]\)). The chaos
+that way out (i) requires is therefore demonstrated numerically rather
+than adopted: the rounded bijection is chaotic, the integrable linear
 dynamics having been broken by the rounding rule's threshold-crossing
 nonlinearity. Breaking the integrability of the linear rule is necessary
 for full-shell sampling; chaos does not establish full-shell sampling:
@@ -1993,8 +1993,8 @@ infinite-temperature ensemble the separation shows an
 incubation-then-avalanche profile with an effective rate several times
 the value quoted above, so the quoted \(\lambda_{\max}\) is specific to
 its preparation ensemble and fit protocol. The qualitative chaos, which
-is what the ergodicity interpretation requires, is robust across
-protocols.
+shows that the rounding breaks the linear rule's integrability as the
+ergodicity interpretation requires, is robust across protocols.
 
 \emph{The two roles of the dynamics, stated explicitly.} The substratum
 update carries two structurally distinct pieces, and the framework's
@@ -8916,4 +8916,4 @@ the FCC-ee,'' arXiv:2504.05974 (2025).
 Compact Family Cycle,'' arXiv:2605.10245 (2026).
 
 \end{document}
-% source-sha256: 614a0cba570734e49571373cf8e884ba46b664b0f08c4c24a413db6c5d7d287c
+% source-sha256: 7a3613550f737aca76b4e5543bbc63b3cf16025b88515b9654ffe9c882c2e1bd
