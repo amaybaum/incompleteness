@@ -270,3 +270,9 @@ consolidated scientific audit of #942/#946 runs on this branch, with fresh indep
 alignment items D1–D6 and Track C's Introduction items under the owner's directions of 2026-10-27. It maps each change
 to its finding, lists what was not applied and why, and carries the strength check and the build and gate
 measurements. r16 is a WIP checkpoint: its independent scientific, editorial and citation reviews are to follow.
+
+`CHANGES-r17.md` records r17, which integrates the two independent reviews of r16 at `a32b769c` (both ACCEPT WITH
+CHANGES) under the owner's decisions of 2026-10-27. It is organized for the focused re-review: the recurrence theorem's
+scope across the abstract, §2.5 and §6; each strengthened claim with its proof and verification status; and the
+corrections that neither weaken nor expand a claim. It also lists what was not applied and why. r17 is a WIP
+checkpoint.

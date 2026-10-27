@@ -349,6 +349,20 @@
       "note": "Introduction.md restates the rooted form of the recurrence-and-overlap result that the kernel checks (the paper's Appendix A), not Main §2.3's printed statement. It is a mirror under AGENTS.md §A.25 and carries no separate obligation."
     },
     {
+      "id": "INTRODUCTION:C-recurrence-cycle-indivisibility",
+      "paper": "papers/Introduction.md",
+      "line": 105,
+      "kind": "Corollary",
+      "label": "(recurrence-cycle indivisibility)",
+      "fingerprint": "d33c081326f983a5",
+      "area": "mirror",
+      "assumptions": "mirrors the cited statement",
+      "checks": [],
+      "kernel": "MIRROR",
+      "delta": "",
+      "note": "Introduction.md restates Main §2.3's theorem (history readback + finite recurrence implies indivisibility) together with its Scope paragraph's full-support equivalence and non-deterministic-step clause; the paragraph after it says which steps are proved on paper and which are Theorem 3. It is a mirror under AGENTS.md §A.25 and carries no separate obligation."
+    },
+    {
       "id": "INTRODUCTION:T-4",
       "paper": "papers/Introduction.md",
       "line": 116,
