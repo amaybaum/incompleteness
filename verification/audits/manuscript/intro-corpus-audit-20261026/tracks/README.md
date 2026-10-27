@@ -15,6 +15,7 @@ is a draft that is not applied to any manuscript.
   proposed edit list). Scripts import their siblings: run from that directory with `python3 -B <script>`.
 - `xcheck/` — coordinator's independent re-checks: `six.py`, `sixgap.py` (the six-state countermodel), `c1perm.py`
   (a (C1) model whose rooted maps are all permutations). Run with `python3 -I`.
+- `SC5-BACKFLOW-SENSES.md` — every "backflow" use classified by sense, with line counts for two renaming schemes.
 - `RECONCILIATION.md` — B/C/D agreement table, a premise inherited by Track B's E13/E14, the SC-16 site union, and the
   dependency order of the correction PRs.
 
