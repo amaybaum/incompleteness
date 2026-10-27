@@ -1744,13 +1744,17 @@ multi-step processes, the construction extends by history dilation ---
 made precise, with a structured prior, by the process-dilation theorem
 of §3.4. \(\square\)
 
-\emph{Remark.} This is the correspondence at the stochastic-process
-level: bijection ↔ stochastic matrix via marginalization, both
-directions. It is \emph{not} a full CPTP-channel correspondence ---
-channels that create coherences from diagonal inputs have no
-permutation-unitary realisation with uniform ancilla. For the
-characterization theorem (§3.4), which is stated in terms of transition
-probabilities, this is the appropriate scope.
+\emph{Remark.} This is the correspondence for a single step with a
+uniform hidden prior: every such marginal of a bijection is doubly
+stochastic, and a doubly stochastic matrix is such a marginal exactly
+when its entries are rational, and is approximated by such marginals to
+arbitrary precision otherwise. The process-level correspondence, with a
+structured prior, is the finite-horizon process-dilation theorem of
+§3.4. It is \emph{not} a full CPTP-channel correspondence --- channels
+that create coherences from diagonal inputs have no permutation-unitary
+realisation with uniform ancilla. For the characterization theorem
+(§3.4), which is stated in terms of transition probabilities, this is
+the appropriate scope.
 
 \textbf{The quantum channel.} The observer's ignorance of the hidden
 sector (Lemma 3) corresponds to \(\rho_H = I_m/m\). The visible-sector
@@ -5524,4 +5528,4 @@ degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
 \end{document}
-% source-sha256: 17d9a966db380e9c4b76b3d3bede9d7284bd0ab7ddab8827c0ea636bc6b0bd0d
+% source-sha256: ab408d07d1ce15caf10a55b52bdd82275a76d921f6e972d589f347e2f4ba102b
