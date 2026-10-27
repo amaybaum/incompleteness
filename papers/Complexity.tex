@@ -1303,9 +1303,12 @@ timescale.
 
 \emph{Non-Markovian signatures.} The mutual information
 \(I(X_{<t}; X_{>t} | X_t)\) between past and future catalytic events,
-conditioned on the present state, is \(\mathcal{O}(1)\) --- not
-exponentially suppressed. This is the readback lemma {[}1, §2.3{]}
-applied to the protein system.
+conditioned on the present state, is positive wherever the scaffold's
+record is read back: by the readback lemma {[}1, §2.3{]}, a readback gap
+\(\delta\) at a history of probability \(p_0\) gives
+\(I(X_{<k}; X_{k+1} \mid X_k) \geq p_0\delta^2/\ln 2\), and the
+past--future quantity is at least as large. Its lower bound is set by
+\(\delta\) and \(p_0\), which are open for the protein system.
 
 \hypertarget{existing-evidence}{%
 \subsubsection{7.4 Existing evidence}\label{existing-evidence}}
@@ -1321,7 +1324,7 @@ resolved, each playing a different role in the catalytic cycle.
 
 \textbf{Dispersed kinetics.} Many enzymes show stretched-exponential
 waiting-time distributions rather than the single-exponential predicted
-by Markovian theory --- generic in P-indivisible systems. The trace-out
+by Markovian theory --- generic in memory-bearing systems. The trace-out
 structure has been formalized within the single-molecule biophysics
 literature {[}35{]}: low-dimensional projections of high-dimensional
 molecular dynamics generically exhibit memory effects and produce
@@ -1388,27 +1391,29 @@ more robust performance.
 \hypertarget{epistemic-status}{%
 \subsubsection{7.6 Epistemic status}\label{epistemic-status}}
 
-The application of C1--C4 to protein systems is a \emph{structural
-prediction} of the framework --- it follows from the same
-characterization theorem that governs the memory-bearing quantum
-phenomenology at the cosmological scale. The specific signatures
-(non-exponential kinetics, fluctuating rates, conformational gating of
-tunneling) are consistent with existing experimental data but have not
-been quantitatively tested against the framework's specific predictions
-(\(I(X_{<t}; X_{>t} | X_t) = \mathcal{O}(1)\), P-indivisibility of the
-catalytic cycle statistics). The medical implications (allosteric
-temporal correlations, resistance as memory-structure alteration) are
-consequences of the prediction but have not been independently tested.
+The application of C1--C4 to protein systems rests on the
+model-independent consequence of §7.2: write-and-readback coupling to a
+persistent high-capacity sector yields history-dependent dynamics. The
+enzyme-over-scaffold trace-out is open and dissipative, so the
+characterization theorem itself does not apply to it (§7.2, scope note).
+The specific signatures (non-exponential kinetics, fluctuating rates,
+conformational gating of tunneling) are consistent with existing
+experimental data but have not been quantitatively tested against the
+framework's specific predictions (positive \(I(X_{<t}; X_{>t} | X_t)\)
+at accessible orders, history-dependent catalytic rates). The medical
+implications (allosteric temporal correlations, resistance as
+memory-structure alteration) are consequences of the prediction but have
+not been independently tested.
 
-The summary: the framework predicts that enzyme kinetics is
-non-Markovian for the same structural reason that cosmological
-observation is quantum-mechanical. The prediction is consistent with
-existing evidence and makes specific testable claims. Whether the
-non-Markovian corrections are large enough to matter for practical drug
-design is an empirical question --- the corrections are
-\(\mathcal{O}(\tau_S / \tau_B) \sim 10^{-9}\) to \(10^{-12}\) for
-individual catalytic events, but may accumulate over many cycles or in
-systems with exceptionally slow conformational dynamics.
+The summary: the framework expects enzyme kinetics to be non-Markovian
+wherever the scaffold writes and reads back catalytic history. The
+prediction is consistent with existing evidence and makes specific
+testable claims. Whether the non-Markovian corrections are large enough
+to matter for practical drug design is an empirical question --- the
+corrections are \(\mathcal{O}(\tau_S / \tau_B) \sim 10^{-9}\) to
+\(10^{-12}\) for individual catalytic events, but may accumulate over
+many cycles or in systems with exceptionally slow conformational
+dynamics.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1708,14 +1713,15 @@ sector with \(\tau_B\) longer than the circuit depth
 \(k\)'s effect depends on what gates \(k-1, k-2, \ldots\) did, through
 correlations stored in the bath.
 
-\textbf{Built-in error correction.} P-indivisible dynamics can
-\emph{increase} the distinguishability of quantum states over time ---
-information backflow reverses some decoherence without requiring
-additional overhead. In Markovian evolution, distinguishability only
-decreases (data processing inequality). Where the evolution shows
-backflow, the bath returns information that was temporarily
-inaccessible. This is a form of dynamical error correction built into
-the physics rather than added as a computational layer.
+\textbf{Built-in error correction.} Dynamics with information backflow
+\emph{increase} the distinguishability of quantum states over some
+intervals, which certifies P-indivisibility, and so reverse some
+decoherence without requiring additional overhead. In Markovian
+evolution, distinguishability only decreases (data processing
+inequality). Where the evolution shows backflow, the bath returns
+information that was temporarily inaccessible. This is a form of
+dynamical error correction built into the physics rather than added as a
+computational layer.
 
 \textbf{The open question.} Whether P-indivisible gate sequences can
 perform computations that no Markovian circuit of equal depth can is a
@@ -1765,9 +1771,12 @@ with partial revivals.
 \subsubsection{8.9 Quantitative performance
 estimates}\label{quantitative-performance-estimates}}
 
-The engineering gains from P-indivisible design are not incremental
-corrections. They scale with \(\tau_B / \tau_S\) --- the ratio the
-framework identifies as the fundamental design parameter.
+The error-correction and materials cases rest on hidden-sector memory,
+which C4 supplies on accessible windows; the coherence and sensing cases
+rest additionally on a revival of distinguishability, which certifies
+P-indivisibility on the window and which C1--C4 do not supply ({[}1,
+§2.3{]}; §8.8). Each is organized by the ratio \(\tau_B / \tau_S\),
+which the framework treats as the design parameter.
 
 \textbf{Quantum error correction: a structural correlation, not a
 quantified gain.} Standard surface codes assume independent (Markovian)
@@ -1793,34 +1802,28 @@ systems (\(\tau_S / \tau_B \sim 10^{-3}\)), revival is \(\sim 0.1\%\)
 --- negligible. For an engineered system
 (\(\tau_S / \tau_B \sim 10^{-1}\), achievable with a qubit coupled to a
 short spin chain), revival is \(\sim 10\%\) per cycle. Over multiple
-revival cycles before the bath relaxes, the effective coherence time
-extends by a factor of \(\sim \tau_B / \tau_S\). Current superconducting
-qubit \(T_2 \sim 100\) μs could be pushed to \(\sim 1\) ms without
-improving the qubit itself --- the gain comes from the bath.
+revival cycles before the bath relaxes, coherence persists longer than a
+Markovian estimate gives; the extension factor is not quantified.
 
 \textbf{Quantum sensing: a structural information recovery, not a
 quantified gain.} Standard NV magnetometry sensitivity:
-\(\delta B \sim 1 / (\gamma \sqrt{T_2 \cdot T_{\text{meas}}})\).
-Non-Markovian backflow at \(\tau_B\) means each measurement recovers
-information that Markovian protocols assume is lost. For
-\(\tau_S / \tau_B \sim 10^{-6}\) (NV center with paramagnetic bath),
-each measurement carries \(\sim 10^{-6}\) extra information. Over
-\(10^6\) repetitions, this integrates to \(\mathcal{O}(1)\) --- a factor
-of \(\sqrt{\tau_B / \tau_S} \sim 10^3\) improvement in signal-to-noise
-if the protocol is optimized for the backflow timing. This would push NV
-magnetometry from nT\(/\sqrt{\text{Hz}}\) to pT\(/\sqrt{\text{Hz}}\) ---
-competitive with SQUIDs but at room temperature.
+\(\delta B \sim 1 / (\gamma \sqrt{T_2 \cdot T_{\text{meas}}})\). Where
+the bath's return at \(\tau_B\) also revives distinguishability
+(information backflow, a property C1--C4 do not by themselves supply),
+each measurement can recover information that Markovian protocols assume
+is lost. The size of the sensitivity gain is not quantified: it requires
+an NV-specific model of the bath, readout and control.
 
 \textbf{Quantum materials: qualitative regime change.} For engineered
 materials with \(\tau_S / \tau_B \sim 10^{-1}\), non-Markovian
 corrections are not perturbative --- they dominate. Standard band theory
 gives qualitatively wrong predictions. The material's electronic
-properties are determined by P-indivisible dynamics, not by Markovian
-approximations. This is not a percentage improvement --- it is a new
-regime of matter. The heavy-fermion precedent (non-Fermi liquid
-transport, unconventional superconductivity, hidden order) suggests that
-qualitatively new phenomena emerge when the P-indivisible corrections
-become \(\mathcal{O}(1)\).
+properties are determined by memory-bearing (non-Markovian) dynamics,
+not by Markovian approximations. This is not a percentage improvement
+--- it is a new regime of matter. The heavy-fermion precedent (non-Fermi
+liquid transport, unconventional superconductivity, hidden order)
+suggests that qualitatively new phenomena emerge when the non-Markovian
+corrections become \(\mathcal{O}(1)\).
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1600}}
@@ -2196,4 +2199,4 @@ radical-pairs,'' \emph{PLoS ONE} \textbf{2}, e1106 (2007).
 error correction for non-Markovian noise,'' arXiv:2411.09637 (2024).
 
 \end{document}
-% source-sha256: c521a8add099b72596f82210b5357b26f8432bba916ae61955182239c4b8ca02
+% source-sha256: b91cdafa4af89b1f998ba8c5932b458cb08482a6a8edacd66e0a2247a8285e95

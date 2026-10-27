@@ -576,11 +576,16 @@ quantum mechanics from classical stochastic processes.
 \subsection{The P-Indivisibility Theorem
 (§2.3)}\label{the-p-indivisibility-theorem-2.3}}
 
-\textbf{What it claims.} If a deterministic system is split into a
-visible and hidden sector, and these sectors are genuinely coupled, then
-the visible sector's behavior \emph{cannot} be a simple memoryless
-random process. It must exhibit P-indivisibility --- a specific kind of
-built-in memory.
+\textbf{What it claims.} If a reversible (bijective) deterministic
+system on a finite state space is split into a visible and a hidden
+sector, and the one-step visible transition matrix, computed with the
+hidden sector uniformly distributed, is not a permutation, then the
+visible process is P-indivisible across the recurrence cycle: recurrence
+returns the visible map to the identity, and no valid transition matrix
+carries the early map to it. This is a recurrence-scale statement. On
+accessible windows the proved statement is the accessible-timescale
+lemma below: a (C4) gap forces positive conditional memory, which does
+not by itself make the process P-indivisible there.
 
 \textbf{What ``P-indivisible'' means.} A stochastic process is
 ``P-divisible'' if you can always find a valid transition matrix
@@ -2466,22 +2471,24 @@ procedures.
 
 But the relationship at the observable level is more interesting. A
 four-feature audit of partial-trace observation --- Born rule,
-channel-level unitarity, P-indivisibility (non-Markovian marginal),
-commutant gauge-invariance --- finds that three of four transport
-directly between the frameworks. Holographic effective field theory in
-AdS/CFT explicitly classifies modes by Markovianity index, providing a
-direct analog of the framework's P-indivisibility. AdS/CFT bulk
-reconstruction provides a direct analog of the framework's Stinespring
-dilation, with bulk operators encoded in boundary subregions through
-quantum-error-correcting-code structure. The shared content is the
-structural features of partial-trace observation --- what observation
-extracts from any quantum state under partial trace, independent of the
-substratum-level machinery producing the state. The fourth feature
-(commutant gauge-invariance) transports as a pattern but not as a
-specific output: both frameworks produce gauge invariance via commutant
-restriction, but the SM gauge group is forced uniquely from cubic-group
-representation theory in the framework's account, while it depends on
-compactification choice in string-theoretic constructions.
+channel-level unitarity, memory/divisibility (non-Markovian marginal),
+commutant gauge-invariance --- finds that the first two transport
+directly between the frameworks and the third at the memory level.
+Holographic effective field theory in AdS/CFT explicitly classifies
+modes by Markovianity index, providing a direct analog of the
+framework's hidden-memory mechanism; P-indivisibility is not established
+cross-framework. AdS/CFT bulk reconstruction provides a direct analog of
+the framework's Stinespring dilation, with bulk operators encoded in
+boundary subregions through quantum-error-correcting-code structure. The
+shared content is the structural features of partial-trace observation
+--- what observation extracts from any quantum state under partial
+trace, independent of the substratum-level machinery producing the
+state. The fourth feature (commutant gauge-invariance) transports as a
+pattern but not as a specific output: both frameworks produce gauge
+invariance via commutant restriction, but the SM gauge group is forced
+uniquely from cubic-group representation theory in the framework's
+account, while it depends on compactification choice in string-theoretic
+constructions.
 
 \href{Structure.md}{\texttt{Structure}} takes this finding as the basis
 for a refined structural-realism claim. There exist universality classes
@@ -3799,8 +3806,9 @@ Partition-relativity (§1.4) & Under the canonical measure, emergent
 description depends only on partition & Definition, Lemmas 2, 3 \\
 Emergent stochasticity (§2.1) & Determinism looks random to embedded
 observer & Definition, Lemmas 2, 3 \\
-P-indivisibility proof (§2.3) & The stochastic process is non-Markovian
-& Definition, Lemma 1 + C1 \\
+P-indivisibility proof (§2.3) & The stochastic process is P-indivisible
+across the recurrence cycle (not, by itself, on accessible windows) &
+Definition, Lemma 1, a non-permutation \(T\) \\
 Accessible-timescale lemma (§2.3) & Non-Markovianity is observable, not
 just formal & C1--C3, plus C4 holding quantitatively: two histories with
 the same present whose next-step laws differ by δ \textgreater{} 0 (then
@@ -3879,10 +3887,10 @@ Dimensional obstruction \\
 
 The chain from definition to ℏ:
 
-Definition → universal \(Q_{\mathrm{fb}}\) representation
-(P-indivisibility marking the memory sector) → Hamiltonian with unknown
-ℏ → thermal matching at the horizon → ℏ = c³ε²/(4Gσ) → ε = 2√σ l\_p →
-S\_BH = A/(4 l\_p²)
+Definition → universal \(Q_{\mathrm{fb}}\) representation (conditional
+memory marking the memory sector) → Hamiltonian with unknown ℏ → thermal
+matching at the horizon → ℏ = c³ε²/(4Gσ) → ε = 2√σ l\_p → S\_BH = A/(4
+l\_p²)
 
 Every link is either a proof or a calculation. No link requires quantum
 mechanics as input --- QM appears as output at step 3 and its parameters
@@ -3981,4 +3989,4 @@ The final text and all scientific claims were reviewed and verified by
 the author.
 
 \end{document}
-% source-sha256: 34dbca85d937aa7630074d0d99be61866220d409f5b9ff1b1f9aba0cb1af9796
+% source-sha256: 52bccd58571fa287ff7d22462c25690e2c89252bcc0e76141c8e77e8beb788bc
