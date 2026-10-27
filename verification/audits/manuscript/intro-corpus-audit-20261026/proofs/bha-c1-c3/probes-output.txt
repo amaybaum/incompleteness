@@ -1,0 +1,12 @@
+Probe 1 (C2, general priors/alphabets/schedules): trials 3965 violations 0 min P_succ*|K| 1
+Probe 2 (coarse message, identity bijection): |M|=3 |K|=2 P_succ = 1/2  blind (max prior) = 1/2  zero advantage: True
+Probe 2b (equal supports, prior 1/2,1/4,1/4, |K|=2): bijections of S_6 with zero advantage: 0
+Probe 3: swap B<->D (package's leak)  TV with all of W read = 0
+Probe 3: D ^= B (CNOT B->D)           TV with all of W read = 1
+Probe 3: B ^= D (CNOT D->B)           TV with all of W read = 0
+Probe 3: identity (no coupling)       TV with all of W read = 1
+Probe 3b: over all 24 bijections of (B,D) as the coupling step, TV histogram: {'0': 16, '1': 8}
+Probe 4 (|K|=2, |M|=3, N=1, blank register): min P_succ over S_6 = 2/3 (bound 1/|K| = 1/2)
+Probe 4b (same, hidden bit, N=2): min P_succ over S_6 = 1/2
+Probe 5 (|M|=2, |K|=3, read Z2 register): TV histogram over S_6: {'1/3': 648, '1': 72}
+Probe 6 (uniform message prior, unequal supports, |K| < |M|): tested 3000 zero-advantage hits 0
