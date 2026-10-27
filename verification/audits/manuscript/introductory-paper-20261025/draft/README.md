@@ -250,3 +250,12 @@ readback clause, the corpus repinned to `b64919cd`, and full repository paths in
 commit copies r15 to `papers/Introduction.md` byte for byte, builds its `.tex` and `.pdf`, and adds the five MIRROR
 rows to the coverage ledger, a README entry and the `build.sh` count. The landing head is checked by an exact-commit
 confirmation and by CI before merge approval is requested.
+
+## Revision against the consolidated audit (main `55e3217b`)
+
+The branch merges main `55e3217b` (#947–#955) at `edac91c9`. The revision of `papers/Introduction.md` against the
+consolidated scientific audit of #942/#946 runs on this branch, with fresh independent reviews:
+
+- `review/editorial/REVIEW-papers-edac91c9.md`: the editorial and presentation review of `papers/Introduction.md` at
+  `edac91c9` (structure against the brief, clarity, voice, notation, typesetting, citation form). Its **[REVISER]**
+  items are scope or status questions passed to the scientific revision; they are not proposed changes.
