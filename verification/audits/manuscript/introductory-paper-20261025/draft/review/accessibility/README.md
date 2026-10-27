@@ -69,3 +69,11 @@ diagnoses (ambiguous wording, missing explanatory premise, deeper conceptual obs
 `RUN7-PREREGISTRATION.md` fixes run 7 before it is run, by owner authorization after run 6 did not meet gate 2; run 6's
 verdict stands. It adds one direct question, 5c, on memory beyond every accessible window, with its pass/fail criteria,
 and keeps 5a, 5b, the gate rule and the three failure diagnoses. The paper under test is r31 at `bace5ef8`, unchanged.
+
+## Run 7: `bace5ef8` (r31)
+
+- **Paper read:** `papers/Introduction.pdf` at `bace5ef8`, sha256 `22cceed23f4743063d7ca4c77440fcd0ccef00051d3518462cb814f9922fdae2`, 22 pages.
+- **Reader:** a fresh AI reviewer, not any earlier run's reader, with no prior context and no access to earlier answers or evaluations. It was instructed to read only that PDF. Its tool log shows two Read calls on the PDF, pages 1–11 and 12–22, and nothing else.
+- **Questions:** `QUESTION-SHEET.md` 1–7 with the preregistered 5a, 5b and 5c (`RUN7-PREREGISTRATION.md`, committed at `be833937` before the run).
+- **Answers:** `RUN7-ANSWERS-bace5ef8.md` holds the reader's final message byte for byte, unedited, saved before any evaluation. sha256 `4d1af3d6165d4639c23e6186fcbb3d7608733bd1909f3562d68d2f391835c663`.
+- **Scope of the evidence:** as for the earlier runs, this is an AI comprehension test and not evidence of human comprehension.
