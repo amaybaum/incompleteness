@@ -4,23 +4,25 @@ name: evidence replay
 # cites and the Introduction corpus audit (verification/audits/manuscript/intro-corpus-audit-20261026/,
 # PR #942) could not reproduce locally. The workflow has no other trigger, so it runs only when dispatched.
 # Each activity checks out a pinned commit, runs that commit's own recorded recipe, and decides its verdict
-# from exit statuses. It writes nothing to the repository: logs, outputs and their sha256 sums are
-# uploaded as one artifact per run.
+# from exit statuses. It writes nothing to the repository: logs, outputs, a run.json with the commits,
+# inputs and commands, and their sha256 sums are uploaded as one artifact per run.
 #
 # Activities (input `activity`; `confirm_commit` must equal the activity's pinned commit in full):
 #   lean-fresh-build  papers/introduction_repro/'s recipe at 17b830bc, from an empty .lake/build (no Actions
-#                     cache), so every OIBridge module is elaborated in the job. The frozen extractor and
+#                     cache), so the OIBridge modules are elaborated in the job. The frozen extractor and
 #                     comparator (48b18ac5) compare the output with the retained expected result (14 modules,
-#                     at #918's head 4a260ca9) and with the staged extension (28 modules, e73f7be3). A step
-#                     fails if lake replayed any OIBridge module instead of building it.
+#                     blob 61cfd6ea at #918's head 4a260ca9) and with the staged extension (28 modules, blob
+#                     97a2377d at e73f7be3). A step fails unless lake built 226 OIBridge modules, the number
+#                     job 121598983127 replayed, including the 28 governed ones, and replayed none.
 #   bh-mutants        the BH-01 and BH-02 mutant campaigns (mutants.py) at eae01647, the corpus commit at which
 #                     the audit read both records. Each mutants.py exits nonzero unless every mutant is caught.
 #                     BH-01's output (written with --out outside the tree) is compared byte for byte with its
-#                     retained mutants-output.json; BH-02's
-#                     with mutants-output.txt, which its PROVENANCE.json records as the campaign at 91e2230a,
-#                     so a difference there is reported and does not decide the verdict.
+#                     retained mutants-output.json. BH-02's is compared with mutants-output.txt, which its
+#                     PROVENANCE.json records as the campaign at 91e2230a, so a difference there is reported
+#                     and does not decide the verdict.
 #   bhb-optimized     BH-02's replay under -O at eae01647: python3 -I -B -O checks.py | cmp - result.json.
 #
+# Both black-hole jobs run on CPython 3.13.16, the interpreter both PROVENANCE.json files record.
 # The black-hole records are byte-identical at b64919cd, eae01647 and 02e73e56.
 
 on:
@@ -44,25 +46,35 @@ env:
   BH_COMMIT: eae01647f50d9e2aa90957fbd6c59d8cf44e7681
   ARCHIVE_COMMIT: 48b18ac54e39920a4fc4bbb8ee1d1b6cebea2c29
   EXPECTED_14: 4a260ca9d6414e4d504a629ba5a0eb3c70bd4704
+  EXPECTED_14_BLOB: 61cfd6ea2df4590cc2ff86f90fc8f50ab71201f7
   EXPECTED_28: e73f7be3c343ce12c5f64b9dc1485a5a7ba5498c
+  EXPECTED_28_BLOB: 97a2377dbfc30987887dffea2b72e423feed079d
+  CONFIRM: ${{ inputs.confirm_commit }}
 
 jobs:
   lean-fresh-build:
     if: ${{ inputs.activity == 'lean-fresh-build' }}
     name: Lean fresh build at 17b830bc
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 120
     steps:
       - name: The dispatch names the pinned commit
-        run: test "${{ inputs.confirm_commit }}" = "$LEAN_COMMIT"
+        id: guard
+        run: test "$CONFIRM" = "$LEAN_COMMIT"
 
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Worktree at the pinned commit, tools and expected results from history
         run: |
           set -euo pipefail
+          for c in "$LEAN_COMMIT" "$ARCHIVE_COMMIT" "$EXPECTED_14" "$EXPECTED_28"; do
+            git cat-file -e "$c^{commit}" || git fetch --no-tags origin "$c"
+          done
+          # The gate's citation-roles step reads origin/main; the original push job saw it at the commit itself.
+          git update-ref refs/remotes/origin/main "$LEAN_COMMIT"
           git worktree add --detach "$RUNNER_TEMP/dir" "$LEAN_COMMIT"
           test "$(git -C "$RUNNER_TEMP/dir" rev-parse HEAD)" = "$LEAN_COMMIT"
           test ! -e "$RUNNER_TEMP/dir/verification/lean-mathlib/.lake"
@@ -70,8 +82,23 @@ jobs:
           for f in extract_result.py compare_result.py; do
             git show "$ARCHIVE_COMMIT:verification/audits/evidence-retention/$f" > "$RUNNER_TEMP/tools/$f"
           done
-          git show "$EXPECTED_14:papers/introduction_repro/results-121598983127.json" > "$RUNNER_TEMP/out/expected-14.json"
-          git show "$EXPECTED_28:papers/introduction_repro/results-121598983127.json" > "$RUNNER_TEMP/out/expected-28.json"
+          test "$(git rev-parse "$EXPECTED_14:papers/introduction_repro/results-121598983127.json")" = "$EXPECTED_14_BLOB"
+          test "$(git rev-parse "$EXPECTED_28:papers/introduction_repro/results-121598983127.json")" = "$EXPECTED_28_BLOB"
+          git show "$EXPECTED_14_BLOB" > "$RUNNER_TEMP/out/expected-14.json"
+          git show "$EXPECTED_28_BLOB" > "$RUNNER_TEMP/out/expected-28.json"
+          python3 - <<'PY'
+          import json, os
+          json.dump({"workflow_sha": os.environ["GITHUB_SHA"], "run_id": os.environ["GITHUB_RUN_ID"],
+                     "run_attempt": os.environ["GITHUB_RUN_ATTEMPT"], "activity": "lean-fresh-build",
+                     "commit": os.environ["LEAN_COMMIT"], "archive_commit": os.environ["ARCHIVE_COMMIT"],
+                     "expected": {"14": [os.environ["EXPECTED_14"], os.environ["EXPECTED_14_BLOB"]],
+                                  "28": [os.environ["EXPECTED_28"], os.environ["EXPECTED_28_BLOB"]]},
+                     "commands": ["cd verification/lean-mathlib && lean --version && lake exe cache get && lake --rehash build",
+                                  "python3 tools/release_gate.py",
+                                  "python3 -I extract_result.py build-and-gate.log > reproduced.json",
+                                  "python3 -I compare_result.py expected-{14,28}.json reproduced.json --tree <dir>"]},
+                    open(os.path.join(os.environ["RUNNER_TEMP"], "out", "run.json"), "w"), indent=1)
+          PY
 
       - name: Install elan
         run: |
@@ -84,25 +111,49 @@ jobs:
           log="$RUNNER_TEMP/out/build-and-gate.log"
           b=0; g=0
           (cd "$RUNNER_TEMP/dir/verification/lean-mathlib" && lean --version && lake exe cache get && lake --rehash build) > "$log" 2>&1 || b=$?
+          cp "$RUNNER_TEMP/dir/verification/lean-mathlib/lake-manifest.json" "$RUNNER_TEMP/out/lake-manifest.json" || true
           (cd "$RUNNER_TEMP/dir" && python3 tools/release_gate.py) >> "$log" 2>&1 || g=$?
           echo "build exit $b, gate exit $g"
           echo "$b" > "$RUNNER_TEMP/out/build.exit"; echo "$g" > "$RUNNER_TEMP/out/gate.exit"
           test "$b" -eq 0 && test "$g" -eq 0
 
-      - name: Every OIBridge module was built in this job, none replayed
-        if: ${{ !cancelled() }}
+      - name: Mathlib resolved to the recorded revision
+        if: ${{ !cancelled() && steps.guard.outcome == 'success' }}
         run: |
-          set -euo pipefail
-          log="$RUNNER_TEMP/out/build-and-gate.log"
-          built=$(grep -c 'Built OIBridge' "$log" || true)
-          replayed=$(grep -c 'Replayed OIBridge' "$log" || true)
-          echo "Built OIBridge lines: $built; Replayed OIBridge lines: $replayed" | tee "$RUNNER_TEMP/out/elaboration.txt"
-          test "$replayed" -eq 0 && test "$built" -gt 0
+          python3 - <<'PY'
+          import json, os, sys
+          m = json.load(open(os.path.join(os.environ["RUNNER_TEMP"], "out", "lake-manifest.json")))
+          rev = {p["name"]: p.get("rev") for p in m["packages"]}.get("mathlib")
+          print("mathlib", rev)
+          sys.exit(0 if rev == "db584cd6d46c92f209a44c0f1c829460d327499d" else 1)
+          PY
+
+      - name: 226 OIBridge modules built in this job, including the 28 governed ones, and none replayed
+        if: ${{ !cancelled() && steps.guard.outcome == 'success' }}
+        run: |
+          set -o pipefail
+          python3 - <<'PY' | tee "$RUNNER_TEMP/out/elaboration.txt"
+          import json, os, re, subprocess, sys
+          out = os.path.join(os.environ["RUNNER_TEMP"], "out")
+          text = open(os.path.join(out, "build-and-gate.log"), encoding="utf-8", errors="replace").read()
+          built = set(re.findall(r"\bBuilt (OIBridge(?:\.[A-Za-z0-9_]+)*)", text))
+          replayed = set(re.findall(r"\bReplayed (OIBridge(?:\.[A-Za-z0-9_]+)*)", text))
+          names = subprocess.run(["git", "ls-tree", "-r", "--name-only", os.environ["LEAN_COMMIT"], "verification/lean-mathlib"],
+                                 capture_output=True, text=True, check=True).stdout.split()
+          source = {n[len("verification/lean-mathlib/"):-len(".lean")].replace("/", ".") for n in names
+                    if re.fullmatch(r"verification/lean-mathlib/OIBridge(/.+)?\.lean", n)}
+          governed = {m[:-len(".lean")].replace("/", ".") for m in json.load(open(os.path.join(out, "expected-28.json")))["expected"]["modules"]}
+          checks = {"replayed": len(replayed) == 0, "built_count_226": len(built) == 226,
+                    "built_in_source": built <= source, "governed_built": governed <= built}
+          print(json.dumps({"built": len(built), "replayed": len(replayed), "source_modules": len(source),
+                            "governed": len(governed), "governed_not_built": sorted(governed - built),
+                            "built_not_in_source": sorted(built - source), "checks": checks}, indent=1))
+          sys.exit(0 if all(checks.values()) else 1)
+          PY
 
       - name: Extract and compare with both expected results
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.guard.outcome == 'success' }}
         run: |
-          set -euo pipefail
           cd "$RUNNER_TEMP/out"
           python3 -I "$RUNNER_TEMP/tools/extract_result.py" build-and-gate.log > reproduced.json
           rc=0
@@ -113,40 +164,68 @@ jobs:
           done
           exit $rc
 
+      - name: No tracked file changed
+        if: ${{ !cancelled() && steps.guard.outcome == 'success' }}
+        run: |
+          git -C "$RUNNER_TEMP/dir" status --porcelain --untracked-files=no | tee "$RUNNER_TEMP/out/git-status.txt"
+          test ! -s "$RUNNER_TEMP/out/git-status.txt"
+
       - name: Checksums
         if: ${{ always() }}
         run: |
-          cd "$RUNNER_TEMP/out" && sha256sum * | tee SHA256SUMS
+          set -euo pipefail
+          test -d "$RUNNER_TEMP/out" || exit 0
+          cd "$RUNNER_TEMP/out"
+          find . -type f ! -name SHA256SUMS -printf '%P\0' | LC_ALL=C sort -z | xargs -0 -r sha256sum > "$RUNNER_TEMP/SHA256SUMS"
+          mv "$RUNNER_TEMP/SHA256SUMS" SHA256SUMS
+          sha256sum -c --quiet SHA256SUMS
           { echo '```'; cat SHA256SUMS; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
 
       - uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
-          name: lean-fresh-build-${{ github.run_id }}
+          name: lean-fresh-build-${{ github.run_id }}-${{ github.run_attempt }}
           path: ${{ runner.temp }}/out/
 
   bh-mutants:
     if: ${{ inputs.activity == 'bh-mutants' }}
     name: BH-01 and BH-02 mutant campaigns at eae01647
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 120
     steps:
       - name: The dispatch names the pinned commit
-        run: test "${{ inputs.confirm_commit }}" = "$BH_COMMIT"
+        id: guard
+        run: test "$CONFIRM" = "$BH_COMMIT"
 
       - uses: actions/checkout@v4
         with:
           ref: ${{ env.BH_COMMIT }}
+          persist-credentials: false
 
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.13'
+          python-version: '3.13.16'
+
+      - name: Interpreter and run record
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/out/bh01"
+          test "$(git rev-parse HEAD)" = "$BH_COMMIT"
+          python3 -VV | tee "$RUNNER_TEMP/out/python-version.txt"
+          python3 -c 'import sys; sys.exit(0 if sys.version_info[:3] == (3, 13, 16) else 1)'
+          python3 - <<'PY'
+          import json, os
+          json.dump({"workflow_sha": os.environ["GITHUB_SHA"], "run_id": os.environ["GITHUB_RUN_ID"],
+                     "run_attempt": os.environ["GITHUB_RUN_ATTEMPT"], "activity": "bh-mutants",
+                     "commit": os.environ["BH_COMMIT"],
+                     "commands": ["cd verification/programmes/black-hole-information/bh01_access_v1 && python3 -I -B mutants.py --out <out>/bh01",
+                                  "cd verification/programmes/black-hole-information/bh02_scramble_v1 && python3 -I -B mutants.py > <out>/bh02-mutants-output.txt"]},
+                    open(os.path.join(os.environ["RUNNER_TEMP"], "out", "run.json"), "w"), indent=1)
+          PY
 
       - name: BH-01 mutants.py
         working-directory: verification/programmes/black-hole-information/bh01_access_v1
         run: |
-          mkdir -p "$RUNNER_TEMP/out/bh01"
-          test "$(git rev-parse HEAD)" = "$BH_COMMIT"
           rc=0; d=0
           python3 -I -B mutants.py --out "$RUNNER_TEMP/out/bh01" > "$RUNNER_TEMP/out/bh01-mutants.stdout" 2> "$RUNNER_TEMP/out/bh01-mutants.stderr" || rc=$?
           echo "$rc" > "$RUNNER_TEMP/out/bh01-mutants.exit"
@@ -155,7 +234,7 @@ jobs:
           test "$rc" -eq 0 && test "$d" -eq 0
 
       - name: BH-02 mutants.py
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.guard.outcome == 'success' }}
         working-directory: verification/programmes/black-hole-information/bh02_scramble_v1
         run: |
           rc=0
@@ -166,56 +245,86 @@ jobs:
           echo "mutants.py exit $rc; output identical to the retained mutants-output.txt (the campaign at 91e2230a): $same"
           test "$rc" -eq 0
 
+      - name: No tracked file changed
+        if: ${{ !cancelled() && steps.guard.outcome == 'success' }}
+        run: |
+          git status --porcelain --untracked-files=no | tee "$RUNNER_TEMP/out/git-status.txt"
+          test ! -s "$RUNNER_TEMP/out/git-status.txt"
+
       - name: Checksums
         if: ${{ always() }}
         run: |
-          cd "$RUNNER_TEMP/out" && sha256sum * | tee SHA256SUMS
+          set -euo pipefail
+          test -d "$RUNNER_TEMP/out" || exit 0
+          cd "$RUNNER_TEMP/out"
+          find . -type f ! -name SHA256SUMS -printf '%P\0' | LC_ALL=C sort -z | xargs -0 -r sha256sum > "$RUNNER_TEMP/SHA256SUMS"
+          mv "$RUNNER_TEMP/SHA256SUMS" SHA256SUMS
+          sha256sum -c --quiet SHA256SUMS
           { echo '```'; cat SHA256SUMS; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
 
       - uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
-          name: bh-mutants-${{ github.run_id }}
+          name: bh-mutants-${{ github.run_id }}-${{ github.run_attempt }}
           path: ${{ runner.temp }}/out/
 
   bhb-optimized:
     if: ${{ inputs.activity == 'bhb-optimized' }}
     name: BH-02 replay under -O at eae01647
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
       - name: The dispatch names the pinned commit
-        run: test "${{ inputs.confirm_commit }}" = "$BH_COMMIT"
+        id: guard
+        run: test "$CONFIRM" = "$BH_COMMIT"
 
       - uses: actions/checkout@v4
         with:
           ref: ${{ env.BH_COMMIT }}
+          persist-credentials: false
 
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.13'
+          python-version: '3.13.16'
 
       - name: python3 -I -B -O checks.py | cmp - result.json
         working-directory: verification/programmes/black-hole-information/bh02_scramble_v1
         run: |
+          set -euo pipefail
           mkdir -p "$RUNNER_TEMP/out"
           test "$(git rev-parse HEAD)" = "$BH_COMMIT"
-          python3 -V > "$RUNNER_TEMP/out/python-version.txt" 2>&1
+          python3 -VV | tee "$RUNNER_TEMP/out/python-version.txt"
+          python3 -c 'import sys; sys.exit(0 if sys.version_info[:3] == (3, 13, 16) else 1)'
+          python3 - <<'PY'
+          import json, os
+          json.dump({"workflow_sha": os.environ["GITHUB_SHA"], "run_id": os.environ["GITHUB_RUN_ID"],
+                     "run_attempt": os.environ["GITHUB_RUN_ATTEMPT"], "activity": "bhb-optimized",
+                     "commit": os.environ["BH_COMMIT"],
+                     "commands": ["cd verification/programmes/black-hole-information/bh02_scramble_v1 && python3 -I -B -O checks.py > <out>/result-O.json",
+                                  "cmp <out>/result-O.json result.json"]},
+                    open(os.path.join(os.environ["RUNNER_TEMP"], "out", "run.json"), "w"), indent=1)
+          PY
           rc=0; c=0
-          python3 -I -B -O checks.py > "$RUNNER_TEMP/out/result-O.json" || rc=$?
+          python3 -I -B -O checks.py > "$RUNNER_TEMP/out/result-O.json" 2> "$RUNNER_TEMP/out/checks-O.stderr" || rc=$?
           echo "$rc" > "$RUNNER_TEMP/out/checks-O.exit"
           cmp "$RUNNER_TEMP/out/result-O.json" result.json || c=$?
           echo "checks.py -O exit $rc; byte-identical to result.json: $([ $c -eq 0 ] && echo yes || echo no)"
-          test "$rc" -eq 0 && test "$c" -eq 0
+          git status --porcelain --untracked-files=no | tee "$RUNNER_TEMP/out/git-status.txt"
+          test "$rc" -eq 0 && test "$c" -eq 0 && test ! -s "$RUNNER_TEMP/out/git-status.txt"
 
       - name: Checksums
         if: ${{ always() }}
         run: |
-          cd "$RUNNER_TEMP/out" && sha256sum * | tee SHA256SUMS
+          set -euo pipefail
+          test -d "$RUNNER_TEMP/out" || exit 0
+          cd "$RUNNER_TEMP/out"
+          find . -type f ! -name SHA256SUMS -printf '%P\0' | LC_ALL=C sort -z | xargs -0 -r sha256sum > "$RUNNER_TEMP/SHA256SUMS"
+          mv "$RUNNER_TEMP/SHA256SUMS" SHA256SUMS
+          sha256sum -c --quiet SHA256SUMS
           { echo '```'; cat SHA256SUMS; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
 
       - uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
-          name: bhb-optimized-${{ github.run_id }}
+          name: bhb-optimized-${{ github.run_id }}-${{ github.run_attempt }}
           path: ${{ runner.temp }}/out/
