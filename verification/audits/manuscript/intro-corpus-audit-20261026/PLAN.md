@@ -239,6 +239,7 @@ Each merge below was approved by the owner at the exact head SHA listed. Each wa
 | SC-3 propagation and A6 | #951 | `e042cfad1…` | `a5168789` | ACCEPT after three rounds: list A, then A6 (owner-approved), then the Substratum Stage-1 realization step (RC-A6-1) | R-36, R-37 |
 | SC-18 reverse-direction lemma scope | #952 | `7d55572b5…` | `1a60e06b` | ACCEPT WITH CHANGES at `48dfb8f7` (F1 blocking, N1–N5); ACCEPT at `7d55572b` | none: #918 cites only the §3.4 process-level result |
 | SC-20 C2 necessity in two forms | #953 | `64281543…` | `d66bb70e` | ACCEPT WITH CHANGES at `f6e4ba55` (B1 §3.4 anchor, B2 propagation); ACCEPT WITH CHANGES at `c9969d89` (Main :624); ACCEPT at `64281543` | #918 :185 to name the slow-bath form |
+| SC-21 (EM) results scoped to the coarse-grained description | #954 | `0474dad3…` | `9d975c11` | ACCEPT WITH CHANGES at `c4ca72c4`; ACCEPT at `9e01e9fb`, `36ef284d`, `b7b67508` (owner safeguards checked at `6c2bfb8e`); re-validated ACCEPT at `0474dad3` after merging main `d66bb70e` | none: #918 makes no (EM)-based claim |
 
 In every main merge into a PR branch, `Main.tex`, `Main.pdf` and the other generated files were regenerated with `build.sh` rather than edited by hand. Each landing added exactly the PR's own changed source lines. The one exception was a sentence in `book/ch02-substratum.md` and its FULL mirror that SC-3 and SC-4 both edited. It was resolved by taking each unit's edit, and the reconciliation review checked that resolution.
 
@@ -258,7 +259,7 @@ Corrections still open on the source side, tracked on the source-correction gate
 - C3 stated as conditional on mixing (Substratum :136); `c3_necessity` proves C3 for every realization with no mixing hypothesis;
 - SC-16, accessible-window P-indivisibility attributed to C1–C4, with the owner-approved terminology scheme A: "backflow" is reserved for distinguishability revival;
 - SC-17, compressed Bell-ceiling summaries;
-- the fast-mixing chain at Main :754 uses the iterated one-step coarse channel over the whole window, which is not established (Track D, D6). Owner decision: do not treat the iterated channel as governing the window unless that is independently established; make the hypothesis explicit or limit the argument to the one-step coarse description, preferring the latter if the hypothesis is not justified within OI. This is SC-21, #954.
+- SC-23: the fast-bath lemma's exponential bound read as exact vanishing (Main :161, :165, :754 and mirrors), and one-step thermalization read as window-wide Markovianity (Main :439–447, Explainer :357–361); ch01 :223's two coarse-grained descriptions to be kept distinct (`tracks/SC23-fastbath-closure/`).
 
 The parallel tracks' working records are under `tracks/` (WIP, unreviewed). Track D's exact countermodels indicate that C1–C4 with any (C2) form do not imply P-indivisibility within an accessible window, and that in-window rooted revival is a sufficient, not necessary, extra condition. This stays provisional until Track B's independent verification converges with it; no manuscript change follows from it before then.
 
