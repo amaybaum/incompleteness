@@ -2185,16 +2185,20 @@ selector in a Bell experiment is therefore causal locality, not
 representability.
 
 \textbf{Coupling-graph causal cone.} Write the spatial substratum as
-\(S=\prod_{i\in V}S_i\) and define the coupling graph \(G_\varphi\) by
-one-step dependency: \(i\sim j\) whenever the \(i\)th output component
-of \(\varphi\) depends on the \(j\)th input component for some state
-(symmetrized for the spatial graph). Then, by induction,
-\((\varphi^k(s))_i\) depends only on initial components in the graph
-ball \(B_{G_\varphi}(i,k)\). Thus a setting intervention supported in
-region \(A\) cannot alter a readout in region \(B\) before the
-corresponding causal cones meet. This result uses the full spatial OI
-constitution --- site factorization plus the graph read from the actual
-dynamics --- but does not require the stronger simple-cubic
+\(S=\prod_{i\in V}S_i\), with \(V\) and each \(S_i\) finite, and define
+the coupling graph \(G_\varphi\) by one-step dependency: \(i\sim j\)
+whenever the \(i\)th output component of \(\varphi\) depends on the
+\(j\)th input component for some state (symmetrized for the spatial
+graph). Then, by induction, \((\varphi^k(s))_i\) depends only on initial
+components in the graph ball \(B_{G_\varphi}(i,k)\). Thus an
+intervention that reads and writes only region \(A\) cannot alter, \(k\)
+updates later, any component outside \(B_{G_\varphi}(A,k)\); in
+particular it cannot alter a readout region \(R\) with \(d(A,R) > k\).
+Finiteness of \(V\) is used in the first step, where insensitivity to
+each single component outside the dependency set makes the \(i\)th
+output a function of the components in it. This result uses the full
+spatial OI constitution --- site factorization plus the graph read from
+the actual dynamics --- but does not require the stronger simple-cubic
 nearest-neighbor restriction used elsewhere to obtain a particular
 dispersion relation.
 
@@ -2205,38 +2209,58 @@ statistically correlated with preparation-relevant hidden variables;
 conditioning on a setting can then reweight the hidden ensemble and
 create apparent remote statistical dependence even though no influence
 crossed the graph cone. \textbf{Theorem (Bell ceiling for a screened
-local completion).} \emph{Let \(\Omega\) be a pre-setting microstate
-that fixes each wing's response to every setting. Suppose (i) the
-dynamics is deterministic; (ii) the setting operations are interventions
-supported in the respective regions; (iii) readout occurs before the
-post-setting cones meet; and (iv) the interventions act on one common
-pre-setting ensemble, so \(p(\Omega\mid a,b)=p(\Omega)\). Then there are
-deterministic local response functions \(q_a(\Omega)\), \(r_b(\Omega)\)
-with} \[
+local completion).} \emph{Let \(\Omega\) be a pre-setting variable that
+fixes each wing's response to every setting. Suppose (i) the dynamics is
+deterministic; (ii) the setting operation is
+\(u^A_a \times u^B_b \times \mathrm{id}\) on
+\(S_A \times S_B \times S_{V \setminus (A \cup B)}\), on disjoint
+regions \(A\) and \(B\) at one step, each intervention reading and
+writing only its own region; (iii) wing \(A\)'s outcome is a
+\(\pm1\)-valued function of the state on a readout region \(R_A\)
+\(k_A\) updates after the setting, with \(d(B, R_A) > k_A\), and
+symmetrically \(d(A, R_B) > k_B\); and (iv) the interventions act on one
+common pre-setting ensemble, so \(p(\Omega\mid a,b)=p(\Omega)\) --- the
+condition under which the completion is called screened. If the protocol
+records a \(\pm1\) outcome in every run, there are deterministic local
+response functions \(q_a(\Omega)\), \(r_b(\Omega)\) with} \[
 P(q,r\mid a,b)=\sum_\Omega p(\Omega)\,
 \mathbf 1[q=q_a(\Omega)]\,\mathbf 1[r=r_b(\Omega)],
 \] \emph{so the model is Bell-local and \(|S_{\rm CHSH}|\le 2\).}
 
-\emph{Proof.} The cone statement makes the \(A\)-readout independent of
-the \(B\)-intervention at fixed \(\Omega\), and conversely; determinism
+\emph{Proof.} By (ii) the post-setting state outside \(B\) does not
+depend on \(b\), and by the cone lemma and (iii) the \(A\)-readout
+depends only on components within distance \(k_A\) of \(R_A\), none of
+them in \(B\); so the \(A\)-readout is independent of the
+\(B\)-intervention at fixed \(\Omega\), and conversely; determinism
 makes the conditionals point masses; the common ensemble supplies
 measurement independence. Pointwise
-\(q_0(r_0+r_1)+q_1(r_0-r_1)\in\{-2,+2\}\); average. \(\square\)
-Certified in \texttt{equivalence\_recovery\_probes.py} (check 11).
+\(q_0(r_0+r_1)+q_1(r_0-r_1)\in\{-2,+2\}\); average. \(\square\) The
+pointwise bound over the sixteen deterministic response tables is
+checked exhaustively in \texttt{equivalence\_recovery\_probes.py} (check
+11).
 
 This is Bell's theorem applied to the framework's own hypotheses.
-\textbf{A deterministic completion that keeps the pointwise graph cone
-and a setting-independent pre-setting ensemble cannot reproduce quantum
-Bell correlations at all.} The Barandes--Hasan--Kagan bound is not
-contradicted: their causal-independence condition constrains the
-stochastic law and is strictly weaker than factorization, which is what
-lets a causally local indivisible process occupy the quantum interval. A
-deterministic response-complete completion supplies more than they
-assume, and the surplus costs precisely the interval between \(2\) and
-\(2\sqrt2\).
+\textbf{A deterministic completion whose wings satisfy (ii) and (iii)
+and whose response-relevant pre-setting variable satisfies (iv) cannot
+reproduce quantum Bell correlations at all.} The Barandes--Hasan--Kagan
+bound is not contradicted: their causal-independence condition
+constrains the stochastic law and is strictly weaker than factorization,
+which is what lets a causally local indivisible process occupy the
+quantum interval. A deterministic response-complete completion supplies
+more than they assume, and the surplus costs precisely the interval
+between \(2\) and \(2\sqrt2\).
 
-Determinism is constitutional here, so exactly two hypotheses remain
-available and the framework must choose between them.
+Determinism is constitutional here and the protocol records a \(\pm1\)
+outcome in every run, so a completion reproducing quantum Bell
+correlations gives up at least one of two remaining hypotheses: (ii) and
+(iii), which with the cone lemma secure ontic parameter independence, or
+measurement independence, (iv). The framework gives up the first.
+Measurement independence is retained as a posit about the initial
+condition, not derived: when the setting generators are part of the
+system, the settings are functions of the full pre-setting microstate,
+and (iv) fails for that microstate whenever more than one setting pair
+occurs; \(\Omega\) is therefore the response-relevant variable, and (iv)
+states that it is uncorrelated with the setting generators' outputs.
 
 \textbf{(a) Ontic parameter dependence --- the option taken.} The
 Bell-relevant response structure is not finite-range at the separation
@@ -2257,34 +2281,46 @@ itself, but the continuum-curvature limit of those prepared graphs.
 \textbf{Corollary (Bell--lattice obstruction and state-dependent
 escape).} \emph{If the Bell-relevant degrees of freedom are governed
 entirely by the nearest-neighbor cubic wave-equation update used in
-{[}SM{]}, with maximum lattice propagation speed identified with \(c\),
-and the setting interventions and readouts are local to
-spacelike-separated wing regions, then the theorem above applies to
-every measurement-independent response-complete deterministic completion
-and \(|S_{\rm CHSH}|\le2\).} Hence the \textbf{reference
-nearest-neighbor graph alone} cannot supply option (a). This is not a
-no-go for the state-dependent-graph framework: {[}SM §3.1{]} permits
-\(G(x)\) to depend on the state, and its mod-\(q\) area-law proof is
-explicitly for uniform initial conditions. A measurement-independent
-Bell completion may therefore use preparation-indexed nonlocal edges
-while leaving the reference uniform/vacuum graph local. What remains to
-be proved is H-Bell: the prepared graph family must preserve operational
-no-signaling and satisfy a curvature/metric convergence condition strong
-enough for the Ollivier--Ricci continuum step used by the Einstein
-reconstruction. That condition is now downstream of a harder one. The
-cited convergence theorem is arbitrary-dimensional only for the
-manifold-distance-weighted graph metric, and for the degree-\(6\) cubic
-reference graph the intrinsic hop metric is exactly \(\ell_1\) --- a
-\(\sqrt2\) diagonal stretch that does not decay at any scale --- so the
-hop-metric curvature route FAILS for the reference family, before any
-Bell edge is added, and no \(D=3\) extension of that theorem would
-rescue it. The emergent geometry itself is not in question: the
-substratum's dispersion relation is isotropic at leading order. What
-must be re-founded is the curvature functional, on the
-propagation/Laplacian geometry rather than on shortest-path counts {[}SM
-§3.2{]}. The sparse-neighborhood diagnostic in {[}SM §3.1{]} gives a
-tractable locality target but is not itself a global convergence
-theorem.
+{[}SM{]}, the setting interventions are applied at one step to disjoint
+wing regions, each reading and writing only its own, and each wing's
+\(\pm1\) outcome, recorded in every run, is read from a region whose
+graph distance from the other wing's setting region exceeds the number
+of updates from setting to readout, then (ii) and (iii) hold, the
+theorem above applies to every measurement-independent response-complete
+deterministic completion and \(|S_{\rm CHSH}|\le2\).} Hence the
+\textbf{reference nearest-neighbor graph alone} cannot supply option (a)
+for such wings. The graph cone advances one edge per update, a Euclidean
+reach of \(1/\lVert\hat n\rVert_1\) lattice spacings per update in
+direction \(\hat n\) (from \(1\) along the axes to \(1/\sqrt3\) along
+the body diagonals), while the isotropic lift of {[}SM §4.1{]} has
+long-wavelength wave speed \(1/\sqrt3\) lattice spacings per update in
+every direction. A clock and length calibration rescales both speeds by
+the same factor, so it does not make them equal off the body diagonals;
+which of the two, if either, is the physical \(c\) depends on which
+propagation sets the emergent light cone and is not derived here. Wings
+separated by less than the graph cone over the experiment's duration
+fall outside the Corollary. This is not a no-go for the
+state-dependent-graph framework: {[}SM §3.1{]} permits \(G(x)\) to
+depend on the state, and its mod-\(q\) area-law proof is explicitly for
+uniform initial conditions. A measurement-independent Bell completion
+may therefore use preparation-indexed nonlocal edges while leaving the
+reference uniform/vacuum graph local. What remains to be proved is
+H-Bell: the prepared graph family must preserve operational no-signaling
+and satisfy a curvature/metric convergence condition strong enough for
+the Ollivier--Ricci continuum step used by the Einstein reconstruction.
+That condition is now downstream of a harder one. The cited convergence
+theorem is arbitrary-dimensional only for the manifold-distance-weighted
+graph metric, and for the degree-\(6\) cubic reference graph the
+intrinsic hop metric is exactly \(\ell_1\) --- a \(\sqrt2\) diagonal
+stretch that does not decay at any scale --- so the hop-metric curvature
+route fails for the reference family, before any Bell edge is added, and
+no \(D=3\) extension of that theorem would rescue it. The emergent
+geometry itself is not in question: the substratum's dispersion relation
+is isotropic at leading order. What must be re-founded is the curvature
+functional, on the propagation/Laplacian geometry rather than on
+shortest-path counts {[}SM §3.2{]}. The sparse-neighborhood diagnostic
+in {[}SM §3.1{]} gives a tractable locality target but is not itself a
+global convergence theorem.
 
 \textbf{(b) Ontic measurement dependence --- recorded, not adopted.} If
 instead the pre-setting ensemble is allowed to depend on the settings,
@@ -5355,4 +5391,4 @@ degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
 \end{document}
-% source-sha256: 47b8b3faf32fca7ee970d9a42c918d5d0c6de7ac9700c1263550855c4cc15f4b
+% source-sha256: 24fd3c5612d651eacce68ddf1449a4c5c80669ac53829d159861191d534b12b1
