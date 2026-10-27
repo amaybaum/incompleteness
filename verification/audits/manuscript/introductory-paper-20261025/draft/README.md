@@ -317,3 +317,7 @@ and the raw spacing hint removed.
 the third comprehension test: L defined once as the order and recurrence time, the return horizon described without
 "only", the antecedent of "sees neither" restored, and the readout-relevant part named as part of the hidden
 predictive memory.
+
+`CHANGES-r25.md` records r25, which applies the run-3 comprehension evaluation: a second card rule that shows why a
+never-occurring start stays in the comparison (checked exactly), the two cases of late memory, the Bell either/or in
+§6, and a plain gloss of the §3.2 structure.
