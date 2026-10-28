@@ -1305,7 +1305,7 @@
       "line": 600,
       "kind": "Theorem",
       "label": "(canonical predictive quotient — a purification ingredient, substratum form)",
-      "fingerprint": "8b180e8ae437af19",
+      "fingerprint": "9f4f8626d7c3bc87",
       "area": "memory-conditions",
       "assumptions": "a finite-horizon law on visible trajectories",
       "checks": [

@@ -722,7 +722,7 @@ The parallel to the coin-and-die model is direct. The intermediate propagator:
 
 $$\Lambda(2,1) = \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix}$$
 
-has entries of $-1$ — "anti-probabilities" that don't exist in the substratum (where every transition probability is between 0 and 1). These negative entries are the minimal-model ancestors of antimatter. They arise for the same reason: the algorithm can't reconstruct the observed dynamics without them. In the toy model, the $-1$ entries encode the fact that the die remembers and reverses the coin flip — information backflow that no positive-entry matrix can describe. In the relativistic case, the negative-energy solutions encode the fact that the relativistic trace-out requires a doubled Hilbert space to remain self-consistent.
+has entries of $-1$ — "anti-probabilities" that don't exist in the substratum (where every transition probability is between 0 and 1). These negative entries are the toy-model ancestors of antimatter. They arise for the same reason: the algorithm can't reconstruct the observed dynamics without them. In the toy model, the $-1$ entries encode the fact that the die remembers and reverses the coin flip — information backflow that no positive-entry matrix can describe. In the relativistic case, the negative-energy solutions encode the fact that the relativistic trace-out requires a doubled Hilbert space to remain self-consistent.
 
 In both cases: the substratum has no doubling. The algorithm demands one.
 
