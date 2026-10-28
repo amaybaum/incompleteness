@@ -97,6 +97,7 @@ import OIBridge.CycleFibreHull
 import OIBridge.DynamicsGlue
 import OIBridge.DomainGlue
 import OIBridge.ObservabilityQuotient
+import OIBridge.RecordFibreIdentification
 import OIBridge.PassiveQuotient
 import OIBridge.ControlledQuotient
 import OIBridge.CoherentExtension

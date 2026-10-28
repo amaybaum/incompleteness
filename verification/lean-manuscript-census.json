@@ -1556,6 +1556,15 @@
       "note": "Complete grading algebra under no additive 2-torsion: arbitrary even perturbations, arbitrary onsite coefficients, and uniform coefficient uniqueness when both parity sectors occur. The supersession replaces center_anticommutator as an insufficient publication-facing biconditional witness; that old identity remains valid and retained. No identification with the second-order update, physical spin or weak chirality is asserted."
     },
     {
+      "name": "known-model nonempty record-fibre state identification (P24.5 partial formalization)",
+      "modules": [
+        "RecordFibreIdentification"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Research proof candidate for the set-theoretic core of P24.5(i): nonempty preparation-supported record fibres, quantity constancy, initial/current state singleton criterion, and current hidden criterion for product visible projection and permutation dynamics with at least one retained reading. Swap and empty-word controls are included. Not the Bayesian support calculation, N−1 refinement bound, physical record availability, or the whole proposition; no manuscript/ledger promotion is made before exact-head CI and independent review."
+    },
+    {
       "name": "conditional k-token cone theorem: products, cone closure, the k-fold maxCone bound and CNOT plus rotation/cyclic invariance give the PSD cone of the k-fold Pauli dictionary (round KTOKEN-MAXCONE-1, reconstruction)",
       "modules": [
         "KTokenMaxCone"
