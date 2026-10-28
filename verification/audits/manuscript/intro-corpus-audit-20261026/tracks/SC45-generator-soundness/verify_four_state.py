@@ -147,6 +147,26 @@ def run():
                 == populations(coherent_channel(witness[1], 2, 2, t), 2)
                 for t in range(5)), "fibre-dependent population invariance")
 
+    # Independent broad population-positive control for fibre-dependent sigma_v.
+    # Exact enumeration of 2x2, plus preregistered prefix sets on 2x3 / 3x2.
+    fibre_cases = 0
+    for v, h, cap in ((2, 2, None), (2, 3, 30), (3, 2, 30)):
+        states = carrier(v, h)
+        for idx, order in enumerate(permutations(states)):
+            if cap is not None and idx >= cap:
+                break
+            p = perm_from_order(states, order)
+            expected = [populations(coherent_channel(p, v, h, t), v)
+                        for t in range(5)]
+            for sigmas in product(tuple(permutations(range(h))), repeat=v):
+                cp = conj(p, fibre_hidden(v, h, sigmas), states)
+                require(all(populations(coherent_channel(cp, v, h, t), v)
+                            == expected[t] for t in range(5)),
+                        f"fibre-dependent population error: {(v, h)}")
+                fibre_cases += 1
+    require(fibre_cases == 96 + 30 * 36 + 30 * 8,
+            "fibre-dependent population coverage")
+
     rho = ((F(1, 2), F(1, 4)), (F(1, 4), F(1, 2)))
     require(sum(rho[i][i] for i in range(2)) == 1, "ancilla not normalized")
     dswap = {0: 1, 1: 0}
@@ -174,15 +194,24 @@ def run():
                 coherent_channel(witness[1], 2, 2, 1),
                 "a fibre-dependent map is not coherent-invariant")
     def mutate_nondecoupled():
-        # Explicitly evolve |a,h,d> -> |a XOR d,h,d>, uniform ancillary d.
-        # This is a bijection, but the ancilla *couples* to the visible bit.
+        # Actual tripartite dynamics |a,h,d> -> |a XOR d,h,d>.
+        # Compare the exact reduced *coherent* channels, not hand-made values.
+        triplets = tuple(product(range(2), repeat=3))
+        coupled = {(a, h, d): (a ^ d, h, d) for a, h, d in triplets}
+        require(set(coupled.values()) == set(triplets),
+                "mutant should remain globally bijective")
+        x = {}
+        for a, b, c, d in product(range(2), repeat=4):
+            val = F(0)
+            for h, left_d, right_d in product(range(2), repeat=3):
+                left = coupled[(a, h, left_d)]
+                right = coupled[(b, h, right_d)]
+                if left[0] == c and right[0] == d and left[1:] == right[1:]:
+                    val += rho[left_d][right_d] / 2
+            x[(a, b, c, d)] = val
         original = {s: s for s in m}
-        baseline = populations(coherent_channel(original, 2, 2, 1), 2)
-        coupled = tuple(tuple(
-            F(sum(int((a ^ d) == c) for d in range(2)), 2)
-            for c in range(2))
-            for a in range(2))
-        require(coupled == baseline, "coupled ancilla cannot be ignored")
+        baseline = coherent_channel(original, 2, 2, 1)
+        require(x == baseline, "coupled ancilla cannot be ignored")
     mutants = [
         expect_failure(mutate_invalid, "invalid-bijection"),
         expect_failure(mutate_counterexample, "collapsed-counterexample"),
@@ -196,6 +225,7 @@ def run():
         "verdict": "PASS",
         "carrier_global_hidden_cases": exhaustive,
         "decoupled_coherent_cases": enlargements,
+        "fibre_dependent_population_cases": fibre_cases,
         "one_step_full_state_relabelling": {"preserving": preserving, "violating": violating},
         "fibre_dependent": "population invariant; coherent counterexample found",
         "killed_mutants": mutants,
