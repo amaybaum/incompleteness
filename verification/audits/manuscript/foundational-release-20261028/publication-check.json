@@ -22,22 +22,24 @@
     "out_of_page_word_boxes": []
   },
   "Substratum": {
-    "pages": 53,
-    "median_characters_per_page": 3086,
+    "pages": 54,
+    "median_characters_per_page": 3086.5,
     "extractor": "PyMuPDF page.get_text().strip()",
-    "source_sha256": "13bcd0976356ce561b0ce6dc424aac7511045bb77f2a4933d003a06a0882267f",
-    "tex_sha256": "ca2ff6c6451dc5f4a0d40564b325348d27683de8acbf93c41b24481291ba5cf7",
-    "pdf_sha256": "7f793c935d6f612613d456cf45ab0591167d88bb9dfb73f9bb77fe5ffd04dfdc",
+    "source_sha256": "a8daee0844982283d99eef518111a2944b19046ba8b5c1a0f475381981e2f651",
+    "tex_sha256": "f847dcccd78843d8ec13b6f0936ca5476c047bac53b25b3e18b039adf131c66d",
+    "pdf_sha256": "ba0e814e2456c036fb27854b181d4dc6ab7ee9d166b5ec0bd0d150804c4c7a82",
     "tex_source_stamp_matches": true,
     "query_pages": {
-      "A written operator certificate": 26,
-      "Passive record fibres and state identification": 32,
-      "Visible-sector projection": 34
+      "Specht's trace criterion": 28,
+      "originates in": 29,
+      "Necessary and sufficient conditions for unitary similarity": 53,
+      "Matrices de Hankel": 54
     },
     "rendered_pages": [
-      26,
-      32,
-      34
+      28,
+      29,
+      53,
+      54
     ],
     "out_of_page_word_boxes": []
   },

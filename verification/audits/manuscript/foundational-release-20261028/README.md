@@ -95,3 +95,19 @@ no manuscript, publication, theorem, grade, Lean source, control or existing
 review report changes. The input manifest refreshes only this README digest;
 its scientific and publication inputs remain exactly those accepted at d10a01a.
 The actual landing head still requires CI and explicit owner approval.
+
+## Classical attribution follow-up to 20f818f
+
+The attribution-only follow-up adds Specht–Wiegmann attribution at Proposition
+24.2, and the original Schützenberger/Carlyle–Paz/Fliess lineage at Proposition
+24.3 alongside its existing Berstel–Reutenauer and Thon–Jaeger references.
+The proposition statements and complete proof blocks are byte-identical to
+20f818f. The spanning premise and all Lean witnesses remain as stated; no
+no-spanning theorem is newly claimed as kernel-certified.
+
+Substratum alone is regenerated through the canonical build (54 pages, zero
+missing glyphs). `attribution-check.json` records unchanged theorem/proof hashes
+and the current publication checks. The input manifest refreshes the changed
+Substratum artifacts and audit records. Earlier acceptance reports remain
+scoped to their pinned snapshots; this citation edit does not broaden their
+scientific scope. Fresh candidate CI and exact-SHA owner approval are required.

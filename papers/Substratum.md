@@ -299,6 +299,8 @@ and let $W_1$ interchange the two visible labels. Exact multiplication gives $(W
 
 **Classification scope of the transformations.** Theorem 24 establishes hidden-only coherent-channel invariance and finite or trace-class decoupled enlargement, and identifies a broader population-only hidden-fibre relabelling. Pair C refutes exhaustiveness of the *restricted coherent-channel* moves; the all-partitions classification remains open. Equality of all time-resolved visible channels does not determine the bijection up to hidden unitary, even with trivial hidden commutants.
 
+Specht's trace criterion and Wiegmann's simultaneous-unitary extension characterize unitary similarity through traces of words in matrices and their adjoints [7–9]. Proposition 24.2 is a fixed-carrier specialization with the additional spanning premise used by its cited Lean witnesses. The classical finite-dimensional criterion itself does not require that premise.
+
 **Proposition 24.2** (Fixed-carrier block-word rigidity). *Let $V,H$ be finite index sets and $U,U'$ be matrices on $\mathbb C^V\otimes\mathbb C^H$. Write $B_{vw}(U)$ for their visible blocks on $\mathbb C^H$, and let $\mathcal W(U)$ be the linear span of all words in the blocks and their adjoints, including the identity. Suppose $\mathcal W(U)=M_{|H|}(\mathbb C)$ and the unnormalized trace of every corresponding block-word agrees for $U$ and $U'$. Then a hidden unitary $W$ satisfies $U'=(\mathbb 1_V\otimes W)U(\mathbb 1_V\otimes W)^\dagger$. Conversely, hidden-unitary conjugation preserves every block-word trace, and the hypotheses imply $\mathcal W(U')=M_{|H|}(\mathbb C)$.* No unitarity assumption on $U,U'$ is needed, but the two systems must have the same hidden index set.
 
 *Proof.* Equality of all word traces yields a trace-preserving unital $*$-isomorphism of the generated word spans. When the first span is the full matrix algebra, the matrix-unit construction implements it by a unitary. Necessity follows by trace invariance. The Lean witnesses for the two directions are WT2gen_oneSided and trace_wordEval_hiddenConjugate, combined in WT3_spanning_iff; blockSpanning_of_wordTracesEqual establishes spanning for the target (OIBridge/WordTraceSufficiency.lean and OIBridge/SemigroupTransfer.lean). $\square$
@@ -309,7 +311,7 @@ and let $W_1$ interchange the two visible labels. Exact multiplication gives $(W
 
 ### 4.1 Conditional reconstruction from complete word data
 
-Multi-time records can recover more than separate one-time channels, but their observational carrier must be specified. The following standard linear-realization result [5, 6] and its native deterministic specialization recover predictive structure. They complement Proposition 24.2, whose input is coherent block-word traces, rather than imply its hypotheses.
+Multi-time records can recover more than separate one-time channels, but their observational carrier must be specified. The following classical minimal-realization result for weighted automata and rational series originates in Schützenberger, Carlyle–Paz and Fliess [10–12]; minimal-realization uniqueness up to similarity is stated in [5, Chapter 2, Theorem 2.4], with the common sequential-system and Hankel framework developed in [6]. This result and its native deterministic specialization recover predictive structure. They complement Proposition 24.2, whose input is coherent block-word traces, rather than imply its hypotheses.
 
 **Proposition 24.3** (Minimal linear word realizations). *Let a finite alphabet $\mathcal A$ have two finite-dimensional realizations $(E,a,b,(M_c))$ and $(E',a',b',(M'_c))$ over a field, with chronological convention $M_{c_1\cdots c_k}=M_{c_k}\cdots M_{c_1}$ and $M_\epsilon=I$. Assume each is reachable, $\operatorname{span}\{M_wa\}=E$, and observable, $\bigcap_u\ker(bM_u)=\{0\}$, and similarly for the primed model. Equality $bM_wa=b'M'_wa'$ for every word implies a unique linear isomorphism $S$ with $Sa=a'$, $SM_c=M'_cS$, and $b'S=b$. For arbitrary competing dimensions $n,m\ge1$, equality through word length $n+m-1$ already implies equality for all words. A nonzero series of known minimal dimension $d$ has a scalar Hankel reconstruction using prefix and suffix lengths at most $d-1$ and word statistics through $2d-1$.*
 
@@ -589,6 +591,18 @@ These open problems are framed within the construction rather than against it. E
 [5] J. Berstel and C. Reutenauer, *Noncommutative Rational Series with Applications*, Cambridge University Press, Chapter 2, "Minimization," Theorem 2.4; doi:10.1017/CBO9780511760860.003.
 
 [6] M. Thon and H. Jaeger, "Links between multiplicity automata, observable operator models and predictive state representations: a unified learning framework," *Journal of Machine Learning Research* **16**, 103–147 (2015).
+
+[7] W. Specht, "Zur Theorie der Matrizen II," *Jahresbericht der Deutschen Mathematiker-Vereinigung* **50**, 19–23 (1940).
+
+[8] N. A. Wiegmann, "Necessary and sufficient conditions for unitary similarity," *J. Austral. Math. Soc.* **2**, 122–126 (1961), Thm. 4; doi:10.1017/S1446788700026422.
+
+[9] V. Futorny, R. A. Horn and V. V. Sergeichuk, "Specht's criterion for systems of linear mappings," *Linear Algebra and its Applications* **519**, 278–295 (2017), §1 and Corollary 2; doi:10.1016/j.laa.2017.01.006; arXiv:1701.08826.
+
+[10] M. P. Schützenberger, "On the definition of a family of automata," *Information and Control* **4**, 245–270 (1961); doi:10.1016/S0019-9958(61)80020-X.
+
+[11] J. W. Carlyle and A. Paz, "Realizations by stochastic finite automata," *Journal of Computer and System Sciences* **5**, 26–40 (1971); doi:10.1016/S0022-0000(71)80005-3.
+
+[12] M. Fliess, "Matrices de Hankel," *Journal de Mathématiques Pures et Appliquées* **53**, 197–222 (1974); erratum **54**, 481 (1975).
 
 ***
 
