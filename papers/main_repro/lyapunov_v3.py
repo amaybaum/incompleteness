@@ -7,7 +7,7 @@ assumed slow growth and finds zero points when divergence is fast).
 Reproduces the two-trajectory separation of SM §4.2: the auto-window rates are
 set by where the window meets a boundary-triggered jump (SC-34 diagnostic s8)
 and are not Lyapunov exponents (RESULTS.md §B1: the historical value 0.0092 was
-not replicated). PASS = growth to saturation on every seed.
+not replicated). PASS = a positive fitted rate and growth to saturation on every seed.
 """
 import numpy as np
 L,q,T = 20, 1<<16, 400
@@ -38,4 +38,4 @@ for seed in (1,2,3):
     lams.append(lam); ok &= (lam>0) and reached
     print(f"seed {seed}: lambda={lam:.4f}/step (window {w.sum()} pts); saturation reached: {reached}")
 print(f"\nfitted rate = {np.mean(lams):.4f} +/- {np.std(lams):.4f} per step "
-      f"-> {'PASS: growth to saturation on every seed (fitted rates are window-dependent; SM §4.2)' if ok else 'FAIL'}")
+      f"-> {'PASS: positive fitted rate and growth to saturation on every seed (fitted rates are window-dependent; SM §4.2)' if ok else 'FAIL'}")

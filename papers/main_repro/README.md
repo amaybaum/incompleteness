@@ -15,9 +15,8 @@ Provenance: `mixing_battery.py` = `battery2.py` (corrected version) and `lyapuno
 `b1_v3.py` from the research journal's archived kit (§B.2.575), with an auto-selected exponential
 fit window replacing the hand-tuned one (the hand window assumed slow divergence and returns zero
 points when divergence is fast; the measurement construction — map, perturbation δ=1 at q=2¹⁶,
-cone-restricted circular RMS, seeds — is unchanged). The archived kit's honest caveat is preserved:
-the paper's chaos conclusion rests on `mixing_battery.py`'s diagnostics, not on this rate; the
-specific historical rate value is not claimed.
+cone-restricted circular RMS, seeds — is unchanged). The paper's chaos conclusion rests on
+`mixing_battery.py`'s diagnostics, not on this rate; the specific historical rate value is not claimed.
 
 The visible-sector trace-out and cycle-structure C programs cited alongside these diagnostics live
 in `../oi_lattice_code/trace_out_fractional/`.
