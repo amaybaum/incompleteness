@@ -1,0 +1,47 @@
+== A  CON-24: hidden-state count of a model reproducing Main §2.4 ==
+PASS A1 six-hidden model (Main §2.4): T(1,0), T(2,0)=I, Lambda(2,1), conditionals 1 and 1/3
+PASS A2 three-hidden model (h=1 flips x; h=2,3 swap) reproduces every number of Main §2.4
+PASS A3 two-hidden model (h=1 flips, h=2 fixes): T(1,0) = J/2 and T(2,0) = I
+PASS A3' (J/2) Lambda has identical rows for a symbolic 2x2 Lambda, so T(2,0) = I has no divisor
+PASS A4 card game of book §1.11 (one burn card, swap): two hidden values, T1 = J/2, T2 = I
+PASS A5 one hidden value: every T(k,0) is a permutation matrix (no indivisibility witness)
+PASS A6 CONTROL (must differ): a four-hidden model flipping on h=1,2 has T(1,0) = J/2, not Main's
+
+== B  CON-25: c4_backflow_probes.py families, readback lemma decided exactly ==
+PASS B1 Q1 gap family: I = 1 bit exactly, p0 delta^2 = 1/4, lemma holds
+PASS B2 Q2 revival family: I = 2/3 bit exactly, p0 delta^2 = 1/6, lemma holds
+PASS B3 Q5 small-gap family: p0 delta^2 = 1/64, I irrational (not in Q), lemma holds strictly : I = 0.045565997075 bits, bound = 0.022542110014 (diagnostic floats)
+PASS B4 Q3 fair coin (product law, horizon 4): I = 0 and no gap at every order, exactly
+PASS B5 CONTROL (must fire): Q1 with readback removed (X2 independent of X0) has I = 0 and no gap
+PASS B6 CONTROL (must fire): the decision refutes I >= p0 delta^2/ln2 for I = 1 bit and p0 delta^2 = 1
+
+== C  CON-26: Main §3.4 variational remark at (n_V,|C_H|) = (2,3), t = 2, uniform prior ==
+  grouped by the law of (X0..X3): 16 groups with M_2 > 0; min_R I(X_<2;H_2|X_2) = M_2 in 2; max residual = 2/3 bits
+  grouped by memory_probes.py's conditional signature: 15 groups with M_2 > 0; min_R I(X_<2;H_2|X_2) = M_2 in 1; max residual = 2/3 bits
+PASS C1 identity I(X_<2;H_2|X_2) - M_2 = H(X_<2|X_2,X_3) holds for all 720 realizations, exactly
+PASS C2 by law: 16 processes with M_2 > 0, of which 2 attain M_2 at |C_H| = 3
+PASS C3 by memory_probes.py's signature: 15 groups, 1 attaining (reproduces the probe's '1 of 15')
+PASS C4 the signature merges distinct laws (so it does not count processes) : 1 signature group(s) hold [2] laws
+PASS C5 the maximal residual is 2/3 bit exactly
+PASS C6 the attaining laws are exactly those with H(X_<2 | X_2, X_3) = 0
+PASS C7 CONTROL (must fire): the i.i.d.-coin-like zero-memory laws are excluded (M_2 = 0 groups exist)
+
+== D  exact re-check of floating-point clauses cited as certified ==
+PASS D1 primitive_probes (B) (2,2): I* <= log2|C_H| on all 16 gap realizations, exactly : 16 saturate exactly
+PASS D2 primitive_probes (C) (2,2): gap > 0 iff I* > 0 on all 24 bijections, exactly
+PASS D3 saturation I* = log2|C_H| attained (2,2), exactly
+PASS D1 primitive_probes (B) (2,3): I* <= log2|C_H| on all 648 gap realizations, exactly : 0 saturate exactly
+PASS D2 primitive_probes (C) (2,3): gap > 0 iff I* > 0 on all 720 bijections, exactly
+PASS D1 primitive_probes (B) (3,2): I* <= log2|C_H| on all 672 gap realizations, exactly : 384 saturate exactly
+PASS D2 primitive_probes (C) (3,2): gap > 0 iff I* > 0 on all 720 bijections, exactly
+PASS D3 saturation I* = log2|C_H| attained (3,2), exactly
+PASS D1 primitive_probes (B) (2,4): I* <= log2|C_H| on all 39168 gap realizations, exactly : 0 saturate exactly
+PASS D4 memory_probes (c) (2,2): M_2 <= I(X_<2;H_2|X_2) <= log2|C_H| on 24/24, exactly
+PASS D4 memory_probes (c) (2,3): M_2 <= I(X_<2;H_2|X_2) <= log2|C_H| on 720/720, exactly
+PASS D4 memory_probes (c) (3,2): M_2 <= I(X_<2;H_2|X_2) <= log2|C_H| on 720/720, exactly
+PASS D5 purification_probes (6) (2,2): log2 #tails_t >= I(X_<t;X_>t|X_t) on 14/14 laws, exactly
+PASS D5 purification_probes (6) (2,3): log2 #tails_t >= I(X_<t;X_>t|X_t) on 97/97 laws, exactly
+PASS D5 purification_probes (6) (3,2): log2 #tails_t >= I(X_<t;X_>t|X_t) on 149/149 laws, exactly
+PASS D6 CONTROL (must fire): the exact sign test separates log2 3 from 1.585 = 317/200
+
+sc38_exact: ALL CHECKS PASS

@@ -1145,9 +1145,11 @@ in bits. By the triangle inequality
 Multiplying by \(\Pr[X_k = c]\) converts conditional weights to path
 probabilities, each at least \(p_0\); hence
 \(I(X_{<k}; X_{k+1} \mid X_k) \geq \tfrac{2}{\ln 2} \cdot p_0 \cdot \tfrac{\delta^2}{2} = p_0\delta^2/\ln 2\).
-\(\square\) (Certified exactly on gap families, the revival family, and
-a small-gap parametric family, with the coin silent, in
-\texttt{c4\_backflow\_probes.py}.)
+\(\square\) (Checked on a gap family, the revival family and a small-gap
+parametric family, with the coin silent, in
+\texttt{c4\_backflow\_probes.py}: the laws and gaps in exact rational
+arithmetic, the information quantities and the inequality in floating
+point.)
 
 \emph{Remark (why (C4) is a separate condition).} (C1)--(C3) admit
 realizations with zero conditional memory throughout arbitrarily long
@@ -1177,9 +1179,9 @@ Davies-Merkli Markovian convergence theorem likewise applies in the
 Born-Markov (fast-bath) limit. The §3.4 necessity proof for (C2)
 establishes this formally.
 
-\hypertarget{explicit-construction-a-minimal-model}{%
-\subsubsection{2.4 Explicit Construction: A Minimal
-Model}\label{explicit-construction-a-minimal-model}}
+\hypertarget{explicit-construction-a-six-hidden-state-model}{%
+\subsubsection{2.4 Explicit Construction: A Six-Hidden-State
+Model}\label{explicit-construction-a-six-hidden-state-model}}
 
 Visible sector: \(x \in \{0, 1\}\). Hidden sector:
 \(h \in \{1, \ldots, 6\}\). Dynamics: the permutation
@@ -3913,9 +3915,10 @@ total variation is monotone under channels. (c)
 \(X_{<t} \to H_t \to X_{t+1}\) is a Markov chain given \(X_t\), by the
 same functional dependence; data processing gives the first inequality
 and \(I \leq H(H_t) \leq \log_2|\mathcal{C}_H|\) the second. \(\square\)
-(All three certified over every bijection at
+(All three checked over every bijection at
 \((n_V, |\mathcal{C}_H|) = (2,2), (2,3), (3,2)\) under the uniform prior
---- 1\{,\}464 cases --- in \texttt{memory\_probes.py}.)
+--- 1\{,\}464 cases --- in \texttt{memory\_probes.py}, (a) and (b) in
+exact rational arithmetic and (c) in floating point.)
 
 \emph{Remark (what this strengthens).} The equivalence of §3.4 is
 existential: some finite reversible realization exists. That statement
@@ -3961,13 +3964,16 @@ not equal \(M_t\) in general at any hidden dimension: every bijective
 completion has \(I(X_{<t}; H_t \mid X_t) = H(X_{<t} \mid X_t)\) (Remark
 above), which exceeds \(M_t\) by \(H(X_{<t} \mid X_t, X_{t+1})\) --- for
 an i.i.d. fair coin at \(t = 1\), \(M_1 = 0\) while every reversible
-completion carries \(1\) bit. At \((n_V, |\mathcal{C}_H|) = (2,3)\) the
-two agree for one of fifteen distinct processes with \(M_t > 0\), with
-residuals up to \(0.667\) bits (\texttt{memory\_probes.py}); the
-agreeing process is the one with \(H(X_{<t} \mid X_t, X_{t+1}) = 0\),
-and each residual equals that entropy by the identity above. Without the
-bijectivity requirement the infimum is attained: in every deterministic
-completion the whole visible future is a function of \((X_t, H_t)\), so
+completion carries \(1\) bit. At \((n_V, |\mathcal{C}_H|) = (2,3)\) and
+\(t = 2\), the uniform prior on \(\mathcal{C}_V \times \mathcal{C}_H\)
+gives sixteen distinct processes with \(M_t > 0\), and the two agree for
+two of them, with residuals up to \(2/3\) bit
+(\texttt{memory\_probes.py}). The agreeing processes are those with
+\(H(X_{<t} \mid X_t, X_{t+1}) = 0\), and each residual equals that
+entropy by the identity above, so it is the same under every hidden
+prior that realizes the process. Without the bijectivity requirement the
+infimum is attained: in every deterministic completion the whole visible
+future is a function of \((X_t, H_t)\), so
 \(I(X_{<t}; H_t \mid X_t) \geq I(X_{<t}; X_{>t} \mid X_t)\) (kernel:
 \texttt{c3\_necessity\_via\_hidden} in
 \texttt{OIBridge/C3Necessity.lean}, stated there for bijective
@@ -4055,7 +4061,9 @@ and the predictive floor
 \(\log_2 |\mathrm{tails}_t| \geq I(X_{<t}; X_{>t} \mid X_t)\) --- over
 all 1\{,\}464 \(\varphi\)-realizations at
 \((n_V, |\mathcal{C}_H|) = (2,2), (2,3), (3,2)\) under two priors,
-2\{,\}928 instances, exact: \texttt{purification\_probes.py}.)
+2\{,\}928 instances, in exact rational arithmetic except the predictive
+floor, which is checked in floating point:
+\texttt{purification\_probes.py}.)
 
 \emph{Remark (relation to the purification axiom).} In the
 Chiribella--D'Ariano--Perinotti reconstruction {[}53{]}, purification
@@ -4079,10 +4087,11 @@ conditions, only (C4) is logically independent. (C1) follows from it ---
 a readback gap requires hidden mediation, and zero-coupling realizations
 exhibit no gap at any order --- and (C3) follows by data processing,
 with the bound \(\log_2|\mathcal{C}_H| \geq I^*\) saturated by
-realizations that attain it; both are certified by exhaustive
-enumeration in \texttt{primitive\_probes.py}. The equivalence could
-therefore be stated with (C4) alone. It is not, deliberately: (C1) and
-(C3) are independently \emph{checkable} --- on the adopted
+realizations that attain it; both are checked by exhaustive enumeration
+in \texttt{primitive\_probes.py}, the first in exact rational arithmetic
+and the second in floating point. The equivalence could therefore be
+stated with (C4) alone. It is not, deliberately: (C1) and (C3) are
+independently \emph{checkable} --- on the adopted
 ontic-parameter-dependent branch of §3.3 Bell violation requires
 cross-wing coupling and so checks (C1) directly, and capacity arguments
 use (C3) directly --- and a characterization that lists checkable
@@ -5580,4 +5589,4 @@ degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
 \end{document}
-% source-sha256: 8e326e67b65986a55502aae8e085c9b0b5570289c6cf596416d27e4bd5a6a1f7
+% source-sha256: 3daec4b8e5b1e59e37558dab1aeaae64307118adbee319e3e47a457df0239c17
