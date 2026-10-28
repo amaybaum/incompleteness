@@ -6663,6 +6663,8 @@ for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Su
     for _bad in ('RECURRENCE-TIGHTNESS', 'N_CR', 'horizon_verdict',
                  'c4r_of_identity_return_of_overlap', 'PIndivisibleWithin'):
         ok_rch &= _bad not in _t
+    # the module is cited from Main only
+    ok_rch &= _rel == 'papers/Main.md' or 'RecurrenceHorizon' not in _t
 _rh_main = [p for p in open(os.path.join(_msroot, 'papers', 'Main.md'), encoding='utf-8').read().split('\n\n')
             if p.startswith('**Theorem (overlap and return).**')]
 ok_rch &= len(_rh_main) == 1
@@ -6674,6 +6676,12 @@ for _t in ('$\\varphi$ a bijection of', 'not required to have full support', 'wh
 _rh_fam = [f for f in _ptr_reg['families']
            if f['name'] == 'recurrence horizon: an identity return with an earlier overlap forbids divisibility']
 ok_rch &= len(_rh_fam) == 1 and _rh_fam[0]['status'] == 'current' and _rh_fam[0]['modules'] == ['RecurrenceHorizon']
+# the routed-readback paragraph carries the return-horizon scope and the open physical status
+_rr_main = [p for p in open(os.path.join(_msroot, 'papers', 'Main.md'), encoding='utf-8').read().split('\n\n')
+            if p.startswith('*Routed readback.*')]
+ok_rch &= len(_rr_main) == 1
+for _t in ('not an accessible window', 'is not established'):
+    ok_rch &= bool(_rr_main) and _t in _rr_main[0]
 ok_rch &= ({a['anchor'] for a in _rh_fam[0]['manuscript'] if a['file'] == 'papers/Main.md'}
            >= {'**Theorem (overlap and return).**', '`pIndivisible_of_rooted_identity_return_of_overlap`'})
 for _t in ('only the store clause', 'reused rather than reproved', 'no stochastic-inverse rigidity lemma is introduced',
@@ -6711,8 +6719,9 @@ check('R7-RCH', ok_rch,
       'section is layer-independent; the preregistration and its controlling amendment are named '
       'in the module, and nothing is claimed for any horizon below the one proved, the tightness '
       'question being neither answered nor prejudged and no accessibility claim made; Main 2.3 '
-      'states the rooted theorem with every hypothesis and no manuscript carries the audit '
-      'vocabulary; the registry and the census carry the family as current with Main anchors; '
+      'states the rooted theorem with every hypothesis, its routed-readback paragraph keeps the '
+      'return-horizon scope and the unestablished physical status, no manuscript carries the audit '
+      'vocabulary, and only Main names the module; the registry and the census carry the family as current with Main anchors; '
       'the README carries the paragraph and the counts.')
 
 
@@ -6913,6 +6922,8 @@ for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Su
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     for _bad in ('FiniteRootedRealizable', 'PPer', 'OI-ROOTED-CLASSIFICATION'):
         ok_rcl &= _bad not in _t
+    # the modules are cited from Main only
+    ok_rcl &= _rel == 'papers/Main.md' or 'RootedClassification' not in _t
 _rc_main = [p for p in open(os.path.join(_msroot, 'papers', 'Main.md'), encoding='utf-8').read().split('\n\n')
             if p.startswith('*Remark (consolidation).*')]
 ok_rcl &= len(_rc_main) == 1
@@ -6971,7 +6982,7 @@ check('R7-RCL', ok_rcl,
       'the finite-visible restriction is pinned as stated text, not left to the typeclass; control '
       '13 is pinned as three separated statements with the horizon distinction carried in the '
       'kernel; Main 3.4 states the classification with the witness of each direction and narrows '
-      'open item (a) to multi-time laws; the registry and census carry the family as current over '
+      'open item (a) to multi-time laws, and only Main names the modules; the registry and census carry the family as current over '
       'all three modules with Main anchors and claim neither decidability nor accessibility nor a '
       'wider universe; and the README carries the paragraph, the guard name and the counts.')
 

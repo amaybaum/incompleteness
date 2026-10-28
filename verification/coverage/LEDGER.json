@@ -485,25 +485,11 @@
           "path": "papers/oi_lattice_code/foundations/review4_probes.py",
           "basis": "section",
           "evidence": ""
-        },
-        {
-          "kind": "lean",
-          "path": "verification/lean-mathlib/OIBridge/RecurrenceHorizon.lean",
-          "names": [
-            "pIndivisible_of_rooted_identity_return_of_overlap"
-          ]
-        },
-        {
-          "kind": "lean",
-          "path": "verification/lean-mathlib/OIBridge/EquivalenceChain.lean",
-          "names": [
-            "isPermMatrix_of_stochastic_inverse"
-          ]
         }
       ],
-      "kernel": "K2",
-      "delta": "The final clause, that the rooted family is not P-divisible on {0,...,n} for every n > s with Gamma_n = I, is kernel-proved from an overlap of two distinct rows of Gamma_s and the identity return (pIndivisible_of_rooted_identity_return_of_overlap), and the stochastic-inverse lemma is kernel-proved (isPermMatrix_of_stochastic_inverse). External, on paper: the step from two positive-probability histories with a common endpoint to a non-permutation Gamma_s with 1 <= s <= min(k, L-1); the step from a non-permutation square stochastic matrix to two distinct rows sharing positive mass; and Gamma_L = I at the order L.",
-      "note": "Graded from P to K2 by SC-35: the indivisibility conclusion was already kernel-proved by RecurrenceHorizon, which the manuscript now cites; the history-to-non-permutation step stays on paper and is named in delta."
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": "The final clause, that the rooted family is not P-divisible on {0,...,n} once two distinct rows of Gamma_s share positive mass and Gamma_n = I, is kernel-proved through MAIN:T-overlap-return, its own K3 entry. The step from two positive-probability histories with a common endpoint to a non-permutation Gamma_s, the step from a non-permutation square stochastic matrix to two overlapping rows, and Gamma_L = I stay on paper, so the grade stays P."
     },
     {
       "id": "MAIN:T-overlap-return",

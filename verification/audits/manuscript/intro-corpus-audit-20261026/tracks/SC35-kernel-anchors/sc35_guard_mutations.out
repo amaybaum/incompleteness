@@ -1,0 +1,8 @@
+unmutated: {'R7-RCH': 'PASS', 'R7-RCL': 'PASS'}
+  PASS  module named outside Main (RecurrenceHorizon): R7-RCH FAIL ({'R7-RCH': 'FAIL', 'R7-RCL': 'PASS'})
+  PASS  module named outside Main (RootedClassification): R7-RCL FAIL ({'R7-RCH': 'PASS', 'R7-RCL': 'FAIL'})
+  PASS  routed readback: return-horizon scope dropped: R7-RCH FAIL ({'R7-RCH': 'FAIL', 'R7-RCL': 'PASS'})
+  PASS  routed readback: physical status dropped: R7-RCH FAIL ({'R7-RCH': 'FAIL', 'R7-RCL': 'PASS'})
+  PASS  overlap theorem: support hypothesis dropped: R7-RCH FAIL ({'R7-RCH': 'FAIL', 'R7-RCL': 'PASS'})
+  PASS  classification: support hypothesis dropped: R7-RCL FAIL ({'R7-RCH': 'PASS', 'R7-RCL': 'FAIL'})
+sc35_guard_mutations: OK

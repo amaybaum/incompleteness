@@ -55,7 +55,7 @@ does not go beyond it. `sc35_check.py` checks the transcription mechanically; it
   - The Introduction's Theorem 3 (R-12) can keep "[Main §2.3]", since Main now states the general rooted form with a census anchor.
   - Coverage:
     - new entry `MAIN:T-overlap-return`, K3;
-    - `MAIN:T-history-readback-finite-recurrence-implies` regraded from P to K2. The `delta` names the three paper steps. The evidence requires the regrade: the indivisibility conclusion is kernel-checked and is now cited. **Owner review requested on K2 versus K1.**
+    - `MAIN:T-history-readback-finite-recurrence-implies` stays at P, its base grade. The step that distinguishes this theorem, two histories with a common endpoint giving a non-permutation `Γ_s`, has no Lean statement, and the final clause is credited at K3 to the separate `MAIN:T-overlap-return` entry. The entry's note records this: the final clause is kernel-proved through `MAIN:T-overlap-return`; the history-to-non-permutation step, the non-permutation-to-overlap step and `Γ_L = I` stay on paper. Its checks list no Lean theorem, since the coverage tool forbids one in a P row. The review of `7b25ac69` reversed an interim K2 grade (F1).
 
 ### 2. Routed readback (CON-43)
 
@@ -95,7 +95,7 @@ does not go beyond it. `sc35_check.py` checks the transcription mechanically; it
   - `Main.md:727` (status ledger): "recurrent-family gluing and pre-recurrence window approximation open".
   - `verification/ROADMAP.md:1571`: "Recurrent-family gluing and pre-recurrence-window approximation remain open in `Main.md`".
 - **Defect.**
-  - For rooted visible maps the all-time question is settled in the kernel: `finiteRootedRealizable_iff_pper` (`RootedClassificationAllTime.lean:192`).
+  - For rooted visible maps the all-time question has an exact kernel answer: `finiteRootedRealizable_iff_pper` (`RootedClassificationAllTime.lean:192`).
   - Item (a) listed the rooted case as open.
 - **Correction.** The consolidation remark (`Main.md:640`) states the classification with its hypotheses.
   - The hypotheses:
@@ -131,8 +131,13 @@ does not go beyond it. `sc35_check.py` checks the transcription mechanically; it
     - the census row reads `current`;
     - Main's statement carries every hypothesis.
   - Each audit's vocabulary (`RECURRENCE-TIGHTNESS`, `N_CR`, `horizon_verdict`, `PIndivisibleWithin`, `FiniteRootedRealizable`, `PPer`, `OI-ROOTED-CLASSIFICATION`) is still forbidden in every manuscript.
-  - The module names are allowed, because Main cites module paths.
-  - Mutation test: a copy of Main with "not required to have full support" altered makes both guards FAIL. Main was restored afterwards.
+  - The module names `RecurrenceHorizon` and `RootedClassification` are allowed in `papers/Main.md` only, because Main cites module paths. They stay forbidden in every other manuscript the guards scan.
+  - R7-RCH also pins that the paragraph starting `*Routed readback.*` contains "not an accessible window" and "is not established".
+  - Mutation test: `sc35_guard_mutations.py`, with its output in `sc35_guard_mutations.out`. Each of six mutations is applied one at a time and the file restored byte for byte. Each makes its guard FAIL:
+    - a module name added to GR, once for each module;
+    - each of the two routed-readback phrases altered;
+    - the support hypothesis dropped from the theorem;
+    - the support hypothesis dropped from the classification.
 - `R7-C4R` is untouched and passes. Main cites no `CausalReadback` identifier, so that family stays `kernel-only`.
 - **Introduction in the `manuscripts` list: not added.**
   - No tool reads the list. `tools/lean_manuscript_census.py` globs every `papers/*.md` and `book/*.md`, and no other tool or guard reads the key.
@@ -151,8 +156,8 @@ does not go beyond it. `sc35_check.py` checks the transcription mechanically; it
 | ROADMAP.md:1571 | Recurrent-family gluing … remain open | rooted case classified; multi-time-law gluing … remain open | as above |
 | lean-manuscript-census.json | 4 families `kernel-only` | `current`, 18 Main anchors | §A.35 |
 | lean-manuscript-census.md | 2 rows `kernel-only`, 2 rows absent | 4 rows `current` | registry |
-| edge_rigidity_probe.py R7-RCH, R7-RCL | pin `kernel-only`, no manuscript mention | pin `current`, the Main statement's hypotheses, and no audit vocabulary | registry |
-| coverage/LEDGER.json | history theorem P; no entry for the new theorem | history theorem K2 with delta; `MAIN:T-overlap-return` K3 | Lean names above |
+| edge_rigidity_probe.py R7-RCH, R7-RCL | pin `kernel-only`, no manuscript mention | pin `current`, the Main statement's hypotheses, the routed-readback scope, no audit vocabulary, module names in Main only | registry |
+| coverage/LEDGER.json | history theorem P; no entry for the new theorem | history theorem still P, its note naming the kernel route and the paper steps; `MAIN:T-overlap-return` K3 | Lean names above |
 | Main.tex / Main.pdf | — | rebuilt; 96 → 98 pages, median 3274 → 3318 characters per page | `sh ./build.sh Main` |
 
 ## Evidence level of each corrected claim
@@ -160,7 +165,7 @@ does not go beyond it. `sc35_check.py` checks the transcription mechanically; it
 | Claim | Level |
 |---|---|
 | Overlap and return implies not P-divisible on {0,…,n} | kernel (exact statement; K3) |
-| History readback + recurrence: final clause from a non-permutation `Γ_s` | kernel (the theorem above) together with two paper steps |
+| History readback + recurrence: final clause from an overlap and `Γ_n = I` | kernel, through the overlap-and-return theorem; the history theorem itself is graded P |
 | History readback + recurrence: histories → non-permutation `Γ_s`; non-permutation → overlap; `Γ_L = I` | paper |
 | Routed readback, either reading, implies indivisibility at every return after `s`, and somewhere | kernel |
 | The two readings are incomparable | kernel (exhibited carriers at `K = 2`) |
@@ -222,8 +227,8 @@ These are shared statements this unit changes:
 
 ## Open, for #970
 
-- Whether the K2 grade of the history-readback theorem should instead be K1.
-- A kernel statement of the history step: two positive-probability histories with a common endpoint, under a visible prior independent of `μ_H`, give an overlap at some `s ≤ min(k, L−1)`. Proving it would make the theorem K3 through the overlap route.
+- The grading question. The history-readback theorem stays at P because its distinguishing step has no Lean statement, though its final clause is kernel-proved through `MAIN:T-overlap-return`. Whether such a partial kernel route should ever raise a grade is for the owner to decide.
+- A kernel statement of the history step: two positive-probability histories with a common endpoint, under a visible prior independent of `μ_H`, give an overlap at some `s ≤ min(k, L−1)`. Proving it, with the non-permutation-to-overlap step and `Γ_L = I`, would give a Lean statement for the whole theorem through the overlap route.
 - Exact all-time gluing for recurrent multi-time laws, and quantitative pre-recurrence approximation.
 - Whether either routed-readback reading holds at a physical cut. ROADMAP P1 stays OPEN.
 
@@ -232,6 +237,7 @@ These are shared statements this unit changes:
 | Check | Result |
 |---|---|
 | `sc35_check.py` (run under `python3 -I`) | OK |
+| `sc35_guard_mutations.py` (run under `python3 -I`) | OK, 6 of 6 mutations caught |
 | `tools/lean_manuscript_census.py` | OK, 24 current families |
 | `tools/release_gate.py` | all steps pass except `lean-axioms`, which needs the local toolchain |
 | `tools/coverage_check.py` | OK, 129 canonical statements |

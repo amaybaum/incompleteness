@@ -78,6 +78,10 @@
   PASS     anchor present: '`pper_has_responseRealization`'
   PASS     anchor present: 'exact all-time gluing for recurrent families of multi-time laws'
   PASS  manuscripts list unchanged (no tool reads it)
+3b. coverage grades
+  PASS  history-readback theorem stays P, probe checks only
+  PASS  its note names the kernel route through MAIN:T-overlap-return
+  PASS  MAIN:T-overlap-return is K3 with empty delta
 4. re-grep
   PASS  gone: 'its composition with P-divisibility and the step from two positive-probability histories' (0 hits)
   PASS  gone: 'exact gluing for recurrent target families' (0 hits)

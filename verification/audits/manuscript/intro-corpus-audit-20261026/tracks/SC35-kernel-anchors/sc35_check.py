@@ -122,6 +122,14 @@ for prefix in ('recurrence horizon:', 'physical C4 discharge:', 'physical C4 rou
         check(a['file'] == 'papers/Main.md' and a['anchor'] in main, f'   anchor present: {a["anchor"][:70]!r}')
 check('papers/Introduction.md' not in reg['manuscripts'], 'manuscripts list unchanged (no tool reads it)')
 
+print('3b. coverage grades')
+led = {x['id']: x for x in json.load(open('verification/coverage/LEDGER.json', encoding='utf-8'))['entries']}
+h = led['MAIN:T-history-readback-finite-recurrence-implies']
+check(h['kernel'] == 'P' and all(c['kind'] == 'probe' for c in h['checks']), 'history-readback theorem stays P, probe checks only')
+check('MAIN:T-overlap-return' in h['note'], 'its note names the kernel route through MAIN:T-overlap-return')
+o = led['MAIN:T-overlap-return']
+check(o['kernel'] == 'K3' and o['delta'] == '', 'MAIN:T-overlap-return is K3 with empty delta')
+
 print('4. re-grep')
 corpus = ['papers/' + f for f in sorted(os.listdir('papers')) if f.endswith('.md')] + \
          ['book/' + f for f in sorted(os.listdir('book')) if f.endswith('.md')] + ['verification/ROADMAP.md']
