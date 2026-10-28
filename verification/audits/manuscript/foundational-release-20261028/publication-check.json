@@ -43,19 +43,19 @@
   },
   "Explainer": {
     "pages": 68,
-    "median_characters_per_page": 2837.0,
+    "median_characters_per_page": 2840.5,
     "extractor": "PyMuPDF page.get_text().strip()",
-    "source_sha256": "0b76502fa0142a0e4a99eead2613b1c9d0c5cfcfe6bd3f3e785f249bb4fbf9a9",
-    "tex_sha256": "c3b4a207c70889db10f1e2e19c678a668eb1cf65f3970fd8120ed018bd557c79",
-    "pdf_sha256": "e7df0d4d688d231a189507ec40ddd022d057de8833fde4c844071e52fd556927",
+    "source_sha256": "137b6eb39496fec5e14b2be9a9cac02cbf59ab13d8368aed87efc67cd0095062",
+    "tex_sha256": "41057be3767e32eaeb00228d6d49939b4cd6a28b282d70a66d5a95aa33d109fa",
+    "pdf_sha256": "262a983c49d3e7743ec3728185f653d4586ceb7b513043914940f197b69c3311",
     "tex_source_stamp_matches": true,
     "query_pages": {
-      "At the symmetric nearest-neighbor point": 51,
-      "Conditional charge and chirality results": 53
+      "Where the matter representations come from.": 53,
+      "What the framework does not determine.": 53
     },
     "rendered_pages": [
-      51,
-      53
+      53,
+      54
     ],
     "out_of_page_word_boxes": []
   },
@@ -63,17 +63,16 @@
     "pages": 47,
     "median_characters_per_page": 2989,
     "extractor": "PyMuPDF page.get_text().strip()",
-    "source_sha256": "217a54f6c3d0397d2d59b57ecb662654551b888f91d219fa2c8a30db68ba75de",
-    "tex_sha256": "c82d14871aab7a35220c220bdc178d813788c014fa1bfd7a721b109630378ce8",
-    "pdf_sha256": "4702a9336a642c3ba7e680c0009b1d45445a3f15d5e628202214a805ae9d17fb",
+    "source_sha256": "54981766838f0968135e133900f53ae2d465bcf12eb9e90f5efa401cc75869c3",
+    "tex_sha256": "f7da5f028c8f4133d3990f640d85065a535d23680b7c0fe644c83dcdff26761b",
+    "pdf_sha256": "ef86e64de77d142a7529e11ed530169052b2ca0147f0a6e665122bf9ab6612f5",
     "tex_source_stamp_matches": true,
     "query_pages": {
-      "partially instantiates": 35,
-      "A proper instantaneous readout": 35,
-      "The resulting taxonomy separates": 42
+      "The operational condition of": 41,
+      "The physics-sector and cross-domain audits": 42
     },
     "rendered_pages": [
-      35,
+      41,
       42
     ],
     "out_of_page_word_boxes": []
@@ -96,27 +95,17 @@
   },
   "book": {
     "pages": 548,
-    "median_characters_per_page": 2972.0,
+    "median_characters_per_page": 2971.5,
     "extractor": "PyMuPDF page.get_text().strip()",
-    "source_sha256": "7155b480cf281c01710cee28fbd1ad894900cbe6b8f421dc244bd3180c855ca6",
-    "tex_sha256": "489ea1800968f0a45331b0d7c7f4294b1a5ff84d8638492f9c48c8a242925a72",
-    "pdf_sha256": "d1c7fb81241eb9563fb12a523a2d3d2e56b3941fa60276cff46c9af5ae2f387f",
+    "source_sha256": "7e7ef7d2f2ad68be3d3a8c101240994d327d525bfe3ccc06f63172c88322de27",
+    "tex_sha256": "56ae706a6c2b65fe63c3631dd9aabf1df474a85c51d297f16e8b28f98736b1e8",
+    "pdf_sha256": "50fbd342ca537d8e11a5f37c6cadce1790f32dda93b922b4d01b053a1fb01fde",
     "tex_source_stamp_matches": true,
     "query_pages": {
-      "The framework’s position in this comparison": 100,
-      "The selected gauge-carrier chain": 113,
-      "conditional Higgs accommodation": 77,
-      "Normalized fixed-family hypercharges": 480,
-      "Gauge group.": 86,
-      "Hypercharge.": 528
+      "The selected H-link single-copy branch has six": 467
     },
     "rendered_pages": [
-      77,
-      86,
-      100,
-      113,
-      480,
-      528
+      467
     ],
     "out_of_page_word_boxes": []
   }

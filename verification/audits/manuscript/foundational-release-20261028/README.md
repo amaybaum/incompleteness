@@ -64,3 +64,16 @@ come from the actual candidate's CI, not these bounded checks or earlier receipt
 The intended landing is #982 against main, with #980/#981 preserved as separate
 provenance records. Final independent review and exact-head CI remain separate
 gates. No merge, special workflow dispatch or native F/E designation is authorized.
+
+## Focused follow-up after c0844bd
+
+The second scientific review accepted the main repairs and requested five residual
+summary corrections in Explainer, Methodology and the Appendix B overview.
+`scientific-review-c0844bd.md` preserves that REVISE verdict;
+`provenance-review-c0844bd.md` preserves the separate scoped provenance ACCEPT.
+The follow-up aligns those passages with representation availability, selected
+family/action inputs, scalar coupling versus condensate, and data-restricted
+identification. No canonical theorem, grade, Lean source or recovered proof changes.
+Explainer, Methodology and the book were regenerated with zero missing glyphs;
+the current publication identities are recorded above. Final acceptance and CI
+still apply to the resulting head.

@@ -1,0 +1,44 @@
+{
+  "remote_commit": "c0844bd287a3bcc04b75f79db140af1c75e70d90",
+  "local_equivalent_commit": "4db4af644428edab4d32985e4e2176842f963f40",
+  "tree": "e903fec01889defd8111706b499d8c34f9970850",
+  "sole_remote_parent": "20ca05fe9e7e460de29e08f7a21029042fa45b12",
+  "pr": 982,
+  "pr_base": "main",
+  "pr_base_sha": "0d917665d32287e5d0ce649012175f2c7bf75b09",
+  "synthetic_merge": "81b902fe2357b05b5298d70b00e2efc28636ddc3",
+  "synthetic_merge_tree_matches": true,
+  "verdict": "ACCEPT_SCOPED_PROVENANCE_PUBLICATION",
+  "scientific_release_acceptance": false,
+  "scientific_residual_findings_remain": true,
+  "merge_authorized": false,
+  "manifest_inputs": 83,
+  "manifest_matches": 83,
+  "canonical_entries": 134,
+  "changed_grades": [],
+  "changed_fingerprints": [
+    "SM:T-10"
+  ],
+  "protected_recovered_fingerprints_matching": 10,
+  "protected_source_paths_unchanged": true,
+  "historic_49_manifest_differences": 14,
+  "publication_hashes_matching": 18,
+  "publication_stamps_matching": 6,
+  "all_paper_stamps_matching": 12,
+  "ordered_content_mirrors": 28,
+  "missing_mirror_lines": 0,
+  "publication_selected_pages": 18,
+  "publication_page_queries_matching": 19,
+  "out_of_page_word_boxes": 0,
+  "new_control_modes": [
+    "normal",
+    "optimized"
+  ],
+  "new_control_outputs_byte_identical": true,
+  "new_controls_match_retained_json": true,
+  "ci_at_inspection": {
+    "40754356592": "in_progress",
+    "40754357095": "queued"
+  },
+  "full_history_release_ci_still_required": true
+}
