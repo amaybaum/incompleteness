@@ -33,7 +33,7 @@ The framework operates simultaneously at multiple levels of abstraction. Chapter
 
 The first axis is *observation level*. Level O1 is the emergent quantum field theory accessible to embedded observers — the level where the Standard Model, GR, and standard quantum mechanics operate. Level O2 is the substratum, where the framework's bijection $\varphi$ and partition structure are defined. The framework's content cuts across both levels: O1 is where predictions are tested, O2 is where the structural commitments live.
 
-The second axis is *gauge level*. Level G1 is the framework's general structural axioms (finite substratum, deterministic bijection, classical probability, causal partition). Level G2 is the structural properties of the substratum (the six properties developed in Chapter 5: isotropy, sublattice structure, link content, anomaly cancellation, taste content, generation count). Level G3 is the specific bijection within the equivalence class $[(S, \varphi)] / \mathcal{G}_{\text{sub}}$ determined by the reconstruction theorem. Level G4 is the universality class to which any specific bijection belongs — multiple bijections within $\mathcal{G}_{\text{sub}}$ produce identical observables.
+The second axis is *gauge level*. Level G1 is the framework's general structural axioms (finite substratum, deterministic bijection, classical probability, causal partition). Level G2 is the structural properties of the substratum (the six properties developed in Chapter 5: isotropy, sublattice structure, link content, anomaly cancellation, taste content, generation count). At G3 the relevant equivalences depend on the observable carrier: Theorem 24 proves some coherent-channel and population invariances, but not a complete physical quotient. G4 compares specified algebra/channel structures across constructions. Theorem 23 gives outputs on a selected local branch and does not identify a unique G3 realization from observed data.
 
 The framework's predictions stratify across these levels. Different chapters live at different (O × G) intersections.
 
@@ -137,16 +137,16 @@ The next section develops the corresponding Tier 2 and Tier 3 content and traces
 
 The framework's empirical content beyond Tier 1 stratifies into two further tiers, with the empirical exposure shifting from universality-class commitments to substratum-properties content (Tier 2) and to specific-bijection content (Tier 3). The chapter's hierarchical structural realism makes the stratification explicit; this section traces the framework's empirical record at the corresponding levels.
 
-**Tier 2: substratum-properties content.** Tier 2 results follow from the framework's structural commitments to the substratum's properties — the six structural properties developed in Chapter 5 (isotropy, sublattice structure, link content, anomaly cancellation, taste content, generation count) — combined with the universality-class conditions C1–C4. Tier 2 results are *not* universal across all members of the framework's universality class; they require the substratum to have the specific properties Chapter 5 develops, but they do *not* require the specific bijection.
+**Tier 2: shared structural and conditional physical content.** Tier 2 groups results attached to specified substratum properties rather than to a particular numerical choice of dynamics. The six-link cubic representation is exact for its stated geometry. Its physical gauge-carrier interpretation additionally requires H-link single-copy, H-cust and the separate gauge premises of Chapter 5; physical generation and chirality readings retain H-spin' and H-χ' where invoked. The gravitational formulas retain their respective horizon and coupling conditions from Chapter 7. Cubic geometry and C1–C4 alone do not imply all these physical conclusions.
 
-The framework's Tier 2 content includes the Standard Model gauge group emerging from cubic decomposition, the three-generation structure from $T_1$ multiplicity, the absence of grand unification, the MOND acceleration scale $a_0 = cH/6$, the baryonic Tully-Fisher relation, and the high-redshift evolution of the dark-matter crossover radius $r_M(z) \propto 1/\sqrt{H(z)}$. Each of these holds for any substratum with the cubic-lattice properties and the structural conditions C1–C4, regardless of how the specific bijection breaks the cubic symmetry.
+Under those respective hypotheses, Tier 2 includes the proposed Standard Model gauge-carrier construction, the three-generation interpretation of the $T_1$ sectors, the selected branch's no-GUT account, and the conditional gravitational formulas $a_0=cH/6$, the baryonic Tully-Fisher relation and $r_M(z)\propto1/\sqrt{H(z)}$. The applicable hypotheses must be checked for each construction; a different cubic/C1–C4 substratum need not share all of these outputs.
 
 The empirical record at Tier 2 summarizes as follows.
 
 | Tier 2 prediction | Empirical match | Source chapter |
 |-------------------|-----------------|----------------|
-| $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ gauge group | confirmed | Ch 5 |
-| Three generations of matter | confirmed | Ch 5, Ch 6 |
+| Standard Model gauge-carrier construction | Observed target; conditional on H-link, H-cust and gauge premises | Ch 5 |
+| Three physical generations | Observed target; conditional on H-spin', with chirality under H-χ' | Ch 5, Ch 6 |
 | No grand unified theory | $\tau_p > 10^{34}$ yr consistent | Ch 6 §6.4 |
 | $a_0 = cH/6$ | $0.91$ of the observed scale at the Planck $H_0$, inside the systematic; factor $1/6$ imported | Ch 7 §7.9 |
 | Baryonic Tully-Fisher $v^4 = G M_B \cdot cH/6$ | confirmed empirical relation | Ch 7 §7.9 |
@@ -155,7 +155,7 @@ The empirical record at Tier 2 summarizes as follows.
 
 The seven Tier 2 entries combine observed structural features, conditional gravitational formulas and consistency with bounds. The acceleration formula carries the imported factor and the quoted systematic uncertainty; the redshift and mass-ordering comparisons retain their model dependence. Their evidential roles are assessed individually, rather than as seven independent confirmations.
 
-**Tier 3: bijection-specific content.** Tier 3 results require the *specific bijection* within the equivalence class $[(S, \varphi)] / \mathcal{G}_{\text{sub}}$ — not just the substratum's structural properties but the particular way the bijection breaks the cubic symmetry. Tier 3 results are *substratum-specific* in the strongest sense: alternative bijections within the framework's universality class with different taste-breaking patterns would produce different Tier 3 predictions.
+**Tier 3: bijection-specific content.** These results require more than the shared structural premises: they depend on the particular dynamics, including its taste-breaking pattern. Different dynamics in the selected model family can produce different Tier 3 predictions. A difference in an observable included in the carrier separates observational classes; it is not a change of representative within the same class.
 
 The framework's Tier 3 content includes the Cabibbo angle $\lambda = 1/(\pi\sqrt{2})$, the Koide relation $Q = 2/3$, the PMNS angle predictions with $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$, the sum rule $2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$, the gauge couplings at $M_Z$, and the MOND interpolation function's specific transition steepness. Each of these requires the specific cubic-lattice bijection's properties beyond the general cubic-symmetry commitments.
 

@@ -31,7 +31,8 @@
     "carrier_general_oiPlusPos": "carrier_general_oiPlusMin",
     "oiPlusPos_iff_qm": "oiPlusMin_iff_qm",
     "hControl_star": "hControl_perm",
-    "typed_determined_of_oiPlusPos": "typed_determined_of_oiPlusMin"
+    "typed_determined_of_oiPlusPos": "typed_determined_of_oiPlusMin",
+    "center_anticommutator": "onsite_chiral_iff"
   },
   "families": [
     {
@@ -136,9 +137,13 @@
         {
           "file": "papers/SM.md",
           "anchor": "`theorem_19`"
+        },
+        {
+          "file": "papers/Structure.md",
+          "anchor": "`StinespringUniqueness.proposition_9_7b`"
         }
       ],
-      "note": "Main 3.4 with kernel pointers at the proof or list paragraphs that follow the statements, the statement lines untouched: the finite-horizon stochastic-reversible-unitary equivalence (finite_horizon_equivalence, S_imp_D; permMatrix_mem_unitaryGroup, isDiag_Phi of EquivalenceChain), the process dilation (S_imp_D, for the realization from an initial law that may correlate the hidden and visible coordinates; the independence of the hidden prior from the visible initial state is not formalized), C3 necessity and the per-process capacity bound (c3_necessity, card_hidden_ge_two_pow_Istar, c3_necessity_and_capacity), unavoidable hidden predictive memory (unavoidable_hidden_predictive_memory, distinguishability_floor, capacity_floor), the separability threshold in Main 3.2 (entanglementBreaking_twirl, not_entanglementBreaking_twirl, exists_lagrangian_tuple, isotropic_iff_commute, separable_imp_ppt); SM Theorem 19 (theorem_19). Main 1.5's Layer-1 summary carries its pointers inline, in the summary paragraph itself (S_imp_D, D_imp_Qfb, Qfb_imp_S, finite_horizon_equivalence; pushforward_identity, distinguishability_floor). Lemma 1 and Lemma 3 of Main 1.2 (Finiteness, CanonicalMeasure), FactorUniqueness, IdempotentTrace, Irreducibility, KrausUniqueness, StinespringUniqueness and BoundaryRank are supporting results of the same family, stated in the papers' own derivations without pointers."
+      "note": "Main 3.4 with kernel pointers at the proof or list paragraphs that follow the statements, the statement lines untouched: the finite-horizon stochastic-reversible-unitary equivalence (finite_horizon_equivalence, S_imp_D; permMatrix_mem_unitaryGroup, isDiag_Phi of EquivalenceChain), the process dilation (S_imp_D, for the realization from an initial law that may correlate the hidden and visible coordinates; the independence of the hidden prior from the visible initial state is not formalized), C3 necessity and the per-process capacity bound (c3_necessity, card_hidden_ge_two_pow_Istar, c3_necessity_and_capacity), unavoidable hidden predictive memory (unavoidable_hidden_predictive_memory, distinguishability_floor, capacity_floor), the separability threshold in Main 3.2 (entanglementBreaking_twirl, not_entanglementBreaking_twirl, exists_lagrangian_tuple, isotropic_iff_commute, separable_imp_ppt); SM Theorem 19 (theorem_19). Main 1.5's Layer-1 summary carries its pointers inline, in the summary paragraph itself (S_imp_D, D_imp_Qfb, Qfb_imp_S, finite_horizon_equivalence; pushforward_identity, distinguishability_floor). Lemma 1 and Lemma 3 of Main 1.2 (Finiteness, CanonicalMeasure), FactorUniqueness, IdempotentTrace, Irreducibility, KrausUniqueness, StinespringUniqueness and BoundaryRank are supporting results of the same family, stated in the papers' own derivations without pointers. Structure Proposition 9.7b now explicitly states the nonzero finite-dimensional scope of StinespringUniqueness.proposition_9_7b; the general separable dense-span proof is preserved separately as Proposition 9.7c and is not claimed kernel-proved. The fixed-channel scope does not classify full unitary extensions or OI multi-time dynamics."
     },
     {
       "name": "Hamiltonian reconstruction",
@@ -1540,6 +1545,24 @@
       "status": "kernel-only",
       "manuscript": [],
       "note": "Conditional k-token infrastructure on WK k = (Fin k → Fin 4) → ℝ. subset_QK_of_maxCone_drive uses the k-fold maxCone bound, CNOT into later tokens and the rotation/cyclic actions off the first token for the upper inclusion; QK_subset_of_products_cone_drive uses products of eball 3 states, addition, nonnegative scaling and the same actions for the lower. kCone_eq_QK_of_drive_maxCone assembles equality; kCone_eq_QK_iff_drive_maxCone has the witnesses driveInvariantK_of_eq_QK and kCone_eq_QK_of_drive_maxCone. pairCone_eq_Q3_of_kToken proves the statement of EqvK2MaxCone.pairCone_eq_Q3_of_drive_maxCone from the k-token theorem; EqvK2MaxCone is not imported. This family is carried by no manuscript. The k-token carrier, products, test validity and the invariance remain explicit premises; arbitrary unitary invariance and Kn are not asserted. Record: verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/."
+    },
+    {
+      "name": "restricted first-order center and chirality recovery",
+      "modules": [
+        "ChiralCenterRecovery"
+      ],
+      "status": "current",
+      "manuscript": [
+        {
+          "file": "papers/SM.md",
+          "anchor": "first-order operator with arbitrary onsite coefficients"
+        },
+        {
+          "file": "book/ch05-gauge-structure.md",
+          "anchor": "arbitrary site-dependent onsite coefficients"
+        }
+      ],
+      "note": "Complete grading algebra under no additive 2-torsion: arbitrary even perturbations, arbitrary onsite coefficients, and uniform coefficient uniqueness when both parity sectors occur. The supersession replaces center_anticommutator as an insufficient publication-facing biconditional witness; that old identity remains valid and retained. No identification with the second-order update, physical spin or weak chirality is asserted."
     }
   ]
 }

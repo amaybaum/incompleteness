@@ -1,0 +1,12 @@
+{
+  "command": [
+    "python",
+    "papers/oi_lattice_code/mirror_check.py"
+  ],
+  "exit_code": 0,
+  "source_review_manifest_sha256": "58f78e8d57645b4c9c24edb40632959adc4f3150e1d48916c068cc9de0116613",
+  "output_sha256": "65058c3272efa7aab8e861bad199069f063174bfc81a38992667ba5ba5b5c9dc",
+  "last_lines": [
+    "mirror_check: 0 chapter line(s) absent from FULL.md"
+  ]
+}

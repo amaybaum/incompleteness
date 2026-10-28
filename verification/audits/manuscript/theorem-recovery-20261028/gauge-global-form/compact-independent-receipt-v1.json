@@ -1,0 +1,55 @@
+{
+  "all_frozen_sources_unchanged": true,
+  "limits": [
+    "No Lean proof or finite-to-universal inference.",
+    "No physical family, K, bundle or line selection.",
+    "A local u(1) Lie algebra alone does not imply compact commensurate charges."
+  ],
+  "proof_review": {
+    "Fermat_coordinates_and_inverses": true,
+    "classical_FLT3_import_preserved": true,
+    "common_gamma_integer_lattice_makes_ratios_rational": true,
+    "primary_equations_6_through_8_opened": true,
+    "primary_url": "https://arxiv.org/html/1907.00514v3",
+    "signed_and_zero_FLT3_cases": true,
+    "unquantized_countercontrol_exact_and_incommensurate": true,
+    "zero_a_case": true,
+    "zero_x_exclusion_over_reals": true
+  },
+  "replays": [
+    {
+      "exit_code": 0,
+      "matches_author_result_bytes": true,
+      "mode": "normal",
+      "result_sha256": "677f6829af5fbe925c470eceb0ba510a474da81bcaf4e762922d4207a8b12f9d"
+    },
+    {
+      "exit_code": 0,
+      "matches_author_result_bytes": true,
+      "mode": "optimized",
+      "result_sha256": "677f6829af5fbe925c470eceb0ba510a474da81bcaf4e762922d4207a8b12f9d"
+    }
+  ],
+  "reviewer": "recover_gauge_global_form agent, separate from supplement author review_recovery",
+  "schema": "oi-compact-charge-independent-review-v1",
+  "sources": [
+    {
+      "path": "/workspace/scratch/cb6cdacd02d4/recovery-review/compact-charge-supplement-v1.md",
+      "sha256": "9707b0db639d250dba0e8fa73ef45f21e7216cb9215af17e7359b6097492e24c"
+    },
+    {
+      "path": "/workspace/scratch/cb6cdacd02d4/recovery-review/compact-charge-controls-v1.py",
+      "sha256": "2d5f034461db0281745cdc2cc918bb7343fb9c7c9b36d55c22e374063055c623"
+    },
+    {
+      "path": "/workspace/scratch/cb6cdacd02d4/recovery-review/compact-charge-controls-v1.json",
+      "sha256": "677f6829af5fbe925c470eceb0ba510a474da81bcaf4e762922d4207a8b12f9d"
+    },
+    {
+      "path": "/workspace/scratch/cb6cdacd02d4/recovery-review/compact-charge-receipt-v1.json",
+      "sha256": "d0ec62f268f11f297f87e46cc23433e0eff6d605f5ea2d03e98072a412ab420f"
+    }
+  ],
+  "verdict": "PASS_scoped_mathematics",
+  "written_review_sha256": "97552adb72e4cdb3ba800e29d567ac701586b677a87deeb68f1994653aba1fa6"
+}

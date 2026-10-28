@@ -1,0 +1,232 @@
+CONDITIONAL RECOVERY OF THE STANDARD-MODEL GLOBAL GAUGE FORM
+Local research candidate v1; 2026-10-28. No manuscript adoption or physical
+selector is claimed. Group proofs below are ordinary exact mathematics, not
+Lean-kernel declarations. The companion executable is a finite control, not
+a replacement for the general proofs.
+
+1. Premises and the source problem
+
+On the selected single-copy H-link/H-cust branch, the canonical SM Theorem 5
+gives the exact condensate stabilizer
+
+  G0 = U(3) x U(2) x U(1).
+
+It does not identify which central phases are observationally redundant.
+The book ch05 paragraphs beginning "Reduction to the Standard Model gauge
+group" and "The reduction proceeds as follows", and canonical SM Theorem 14,
+use U(n) = SU(n) x U(1). That is a local Lie-algebra splitting, not an
+isomorphism of these compact groups for n>1. The book additionally removes
+every block's phase while retaining the singlet phase. Those two operations
+cannot both describe a quotient by all independent block centers.
+
+The recovery here has two positive statements. First, a specifically
+identified correlated central two-torus in G0 has quotient S(U(3)xU(2)),
+while retaining a nontrivial singlet-axis circle and removing the common
+overall phase. Second, the stated charged SM family has faithful image
+(SU(3)xSU(2)xU(1))/Z6, which is exactly S(U(3)xU(2)). The first statement
+requires a physical identification of that two-torus as redundant; the
+second requires the selected charged matter action. Neither follows from
+amplitude-scale invariance alone.
+
+2. Exact U(n) statements
+
+For n>=1, define p_n: SU(n)xU(1) -> U(n) by p_n(A,z)=z A. It is a
+homomorphism. For any C in U(n), choose z with z^n=det C and set A=z^-1 C;
+then det A=1, so p_n is surjective. Its kernel is
+
+  {(z^-1 I_n,z): z^n=1} = Z_n.
+
+Consequently U(n) is isomorphic to (SU(n)xU(1))/Z_n. For n>1 the product
+formula without this kernel is false. Quotienting U(n) by its scalar
+U(1) gives PU(n). The restricted map SU(n)->PU(n) is surjective by the
+same root construction and has kernel {zI_n:z^n=1}; hence
+
+  PU(n) is isomorphic to SU(n)/Z_n.
+
+Both surjectivity and kernel have been proved explicitly; this is not a
+claim that the fundamental n-dimensional representation descends through
+PU(n). Its center acts nontrivially on that representation.
+
+For G0, removing the two independent scalar circles of U(3) and U(2)
+therefore gives PU(3)xPU(2)xU(1), not SU(3)xSU(2)xU(1). Removing all three
+independent scalar circles gives PU(3)xPU(2), with no abelian Lie algebra.
+Removing only the common diagonal scalar circle leaves two abelian Lie
+algebra directions. Thus a common amplitude normalization supplies at most
+one of the two central directions needed by a Lie algebra su(3)+su(2)+u(1).
+If the principle concerns real positive scales or finite-alphabet units,
+its extension to any continuous observer-level phase circle is itself a
+premise, not a consequence of this group calculation.
+
+3. A correlated quotient that recovers the desired global form
+
+Let H = S(U(3)xU(2)) = {(C',D'):det C' det D'=1}. Define
+
+ F: G0 -> H,
+ F(C,D,t) = (t^-2 (det C)(det D)^-1 C,
+             t^3 (det C)^-2(det D) D).
+
+All prefactors are scalar characters, so F is a continuous homomorphism.
+Writing a=det C and b=det D, the determinants of its two outputs are
+
+  t^-6 a^4 b^-3,    t^6 a^-4 b^3.
+
+Their product is one. To prove surjectivity without roots, take (E,J) in H
+and a=det E. The preimage (C,D,t)=(E,a J,1) satisfies det C=det D=a, so
+F(E,aJ,1)=(E,J). This is also a continuous homomorphic section H->G0.
+An alternative right section is (E,J,det E): its two scalar prefactors
+are both one because det J=(det E)^-1.
+
+If F(C,D,t) is the identity, each of C,D is a scalar matrix because it
+equals a scalar multiple of the identity. Put C=c I3 and D=d I2 and
+h=t c^-2 d. The output scalars are h^-2 and h^3. The conditions h^2=1
+and h^3=1 force h=1. Conversely h=1 makes both outputs the identity.
+Therefore the entire kernel, including its noncentral exclusion, is
+
+  K = {(c I3,d I2,c^2/d): c,d in U(1)} = U(1)^2.
+
+It is closed, connected, and central. The first isomorphism theorem gives
+G0/K isomorphic to H. Equivalently write d=c u:
+
+  K = {(c I3,c u I2,c/u): c,u in U(1)}.
+
+The c-circle is the common overall phase on the 3+2+1 carrier. The other
+circle is (I3,u I2,u^-1). This explicitly identifies the extra operational
+redundancy that would be needed beyond a common phase normalization.
+No physical argument here establishes that this second circle is redundant.
+
+The singlet axis is retained: F(I3,I2,t)=(t^-2 I3,t^3 I2), whose kernel
+is trivial since t^2=t^3=1 implies t=1. Neither independent color nor weak
+center is killed: F(omega I3,I2,1)=(omega I3,I2) and
+F(I3,-I2,1)=(I3,-I2), where omega=exp(2 pi i/3).
+
+At Lie-algebra level, set C=e^(i alpha)A, D=e^(i beta)B,
+t=e^(i tau), with A in SU(3), B in SU(2). Then
+
+  F(C,D,t)=(e^(-2i theta) A,e^(3i theta) B),
+  theta=tau-2 alpha+beta.
+
+Thus the retained phase is a relative combination, not the elimination of
+all block phases. This formula is local in alpha,beta because choosing A,B
+has finite root ambiguities; F itself is globally well-defined by determinants.
+H-link/H-cust remain the premises supplying G0. The physical interpretation
+of K and the global topology of the emergent bundle remain extra questions.
+
+4. A chosen product group and its exact central extension
+
+Let P=SU(3)xSU(2)xU(1). It is a compact product group, not the universal
+cover (the latter has R in place of U(1)). Define
+
+  psi: P -> H,       psi(A,B,z)=(z^-2 A,z^3 B).
+
+The determinant product is z^-6 z^6=1. Given (E,J) in H, choose z with
+z^6=(det E)^-1=det J; then A=z^2 E and B=z^-3 J are special unitary and
+psi(A,B,z)=(E,J). The kernel conditions are A=z^2 I3, B=z^-3 I2 and
+z^6=1. On those sixth roots z^-3=z^3. Therefore
+
+  ker psi = <g>,  g=(omega I3,-I2,exp(i pi/3)),  |g|=6.
+
+Consequently P/Z6 is isomorphic to H. The restriction of F to the subgroup
+(A,B,z) of G0 is psi; hence the correlated torus quotient and the finite
+central extension are compatible global constructions, not competing
+assertions based only on dimension counting.
+
+5. Charged family action: exact full kernel
+
+Choose the primitive integer convention q=6Y and the following complex
+representations of P. Every listed color 3 is fundamental; the uR,dR,eR
+entries are right-handed particle representations, not left-handed charge
+conjugates. Chirality does not alter this group-action calculation.
+
+ field   SU(3)   SU(2)   q       action
+ Q       3       2       1       z (A tensor B)
+ uR      3       1       4       z^4 A
+ dR      3       1      -2       z^-2 A
+ L       1       2      -3       z^-3 B
+ eR      1       1      -6       z^-6
+ H       1       2       3       z^3 B
+
+Let rho be their direct sum. Suppose rho(A,B,z) is the identity. Its dR
+block gives A=z^2 I3. Its L block gives B=z^3 I2. Its eR block gives
+z^6=1. This proves, without assuming centrality of an arbitrary kernel
+element, that ker rho is contained in <g>. Conversely for z^6=1 and
+A=z^2I3, B=z^3I2 the six action scalars are respectively
+z^6, z^6, 1, 1, z^-6, z^6, all one. Thus
+
+  ker rho = <g> = Z6,   rho(P) is isomorphic to P/Z6 = H.
+
+The fermion multiplets alone already give this kernel. Additional copies
+of a generation, neutral singlet neutrinos, and adjoint gauge bosons do
+not change it. Additional charged matter may change it.
+
+For completeness the descent is constructive, not merely an appeal to the
+kernel theorem. On (E,J) in H, use
+
+  dR: E;           uR: (det E)^-1 E;    Q: E tensor J;
+  L: (det J)^-1 J; eR: det E;          H: J.
+
+Pulling these back by psi gives precisely the actions in the table. In
+particular det E=z^-6 and det J=z^6. These determinant characters/dual
+choices are genuine global data; availability of a nonabelian tensor
+factor such as (3,2) does not by itself construct its q=1 charged action.
+The theorem consumes the selected charged SM family. It does not prove
+that this family emerges from the raw V_K tensor V_K* carrier, nor close
+H-spin', H-chi', light-spectrum selection, or H-Y-vertex.
+
+6. A general exact descent criterion
+
+For a P irreducible, let r3 in Z/3 be its SU(3) triality, r2 in Z/2 its
+SU(2) center parity, and q its integer U(1) charge. The generator g acts
+by exp(2 pi i (2 r3+3 r2+q)/6). Therefore it descends to P/Z6 if and
+only if
+
+  2 r3+3 r2+q = 0 (mod 6).
+
+Forward witness: a representation of the quotient is trivial on g, so
+its scalar above is one. Backward witness: the congruence makes g and
+all its powers trivial, so the representation factors through the quotient.
+The six rows give residues 6,6,0,0,-6,6. The criterion also distinguishes
+the other possible quotients: descent to the order-d subgroup quotient
+(d=1,2,3,6) requires 2 r3+3 r2+q = 0 (mod d), since that subgroup is
+generated by g^(6/d).
+
+7. What is and is not physically selected
+
+Every subgroup Gamma of ker rho acts trivially on the stated local fields.
+Within quotients of this fixed P, the four choices Gamma=1,Z2,Z3,Z6 all
+admit those fields. Their faithful image on precisely this field module
+is the same H. Requiring a faithful action on exactly this module selects
+the maximal Z6 quotient as a mathematical image. Local matter data do not
+establish that the full physical gauge group must be this image: allowed
+Wilson/'t Hooft lines, principal bundles, extra heavy matter, and other
+global data can distinguish group presentations with the same local
+charged fields and Lie algebra. A hypothetical additional vectorlike
+SU(3)xSU(2) singlet pair of q=+1,-1 makes the common kernel trivial and
+forbids quotienting by any nontrivial subgroup of this Z6 without adding
+new chiral anomalies. Thus the global choice is not fixed
+merely by the observed list or by amplitude normalization.
+
+The standard global-form ambiguity is discussed in the primary paper
+David Tong, Line Operators in the Standard Model, JHEP 07 (2017) 104,
+arXiv:1705.01853v2, https://arxiv.org/html/1705.01853v2, Introduction and
+section 3. The proofs in sections 2-6 above are self-contained; that paper
+is context for the physical distinctions, not a substitute for them.
+
+8. Status and next physical obligation
+
+Recovered: the exact stabilizer survives unchanged at its stated
+H-link/H-cust premises; an explicit central two-torus quotient of that
+stabilizer gives H while retaining an abelian factor and the nonabelian
+centers; the selected charged SM family gives the exact Z6 kernel and
+faithful image H; the global quotient/descent conditions are explicit.
+
+Unproved physical step: identify the operational action/observer map whose
+entire redundant central subgroup is K (or another demonstrably equivalent
+choice), and derive or justify the selected charged matter action. Common
+amplitude-scale invariance alone supplies neither that two-torus nor a
+determinant-one lift. The physical gauge bundle/line spectrum must also
+be specified before asserting a unique full global gauge group.
+
+The finite center and monomial-group checks accompany this proof as
+controls. They certify their explicitly enumerated finite cases exactly;
+they do not upgrade the missing physical obligations or claim formal
+proof in Lean. See global_form_controls_v1.py and its JSON output.

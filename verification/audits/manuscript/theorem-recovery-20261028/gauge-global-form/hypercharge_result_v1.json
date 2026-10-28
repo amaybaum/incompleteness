@@ -1,0 +1,263 @@
+{
+  "arithmetic": "exact integer polynomial coefficients and integer enumeration",
+  "finite_control": {
+    "all_five_charges_bound": 6,
+    "assignments_checked": 371293,
+    "solutions": [
+      [
+        -1,
+        -4,
+        2,
+        3,
+        6
+      ],
+      [
+        -1,
+        2,
+        -4,
+        3,
+        6
+      ],
+      [
+        0,
+        -6,
+        6,
+        0,
+        0
+      ],
+      [
+        0,
+        -5,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        -4,
+        4,
+        0,
+        0
+      ],
+      [
+        0,
+        -3,
+        3,
+        0,
+        0
+      ],
+      [
+        0,
+        -2,
+        2,
+        0,
+        0
+      ],
+      [
+        0,
+        -1,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        -1,
+        0,
+        0
+      ],
+      [
+        0,
+        2,
+        -2,
+        0,
+        0
+      ],
+      [
+        0,
+        3,
+        -3,
+        0,
+        0
+      ],
+      [
+        0,
+        4,
+        -4,
+        0,
+        0
+      ],
+      [
+        0,
+        5,
+        -5,
+        0,
+        0
+      ],
+      [
+        0,
+        6,
+        -6,
+        0,
+        0
+      ],
+      [
+        1,
+        -2,
+        4,
+        -3,
+        -6
+      ],
+      [
+        1,
+        4,
+        -2,
+        -3,
+        -6
+      ]
+    ],
+    "solutions_found": 17
+  },
+  "negative_controls": {
+    "charged_neutrino_counterexample": {
+      "family": [
+        1,
+        2,
+        0,
+        -3,
+        -4
+      ],
+      "h": 1,
+      "n": -2
+    },
+    "exceptional_neutral_Q_branch": [
+      0,
+      1,
+      -1,
+      0,
+      0
+    ],
+    "nonuniversal_three_family_counterexample": [
+      [
+        1,
+        4,
+        -2,
+        -2,
+        -5
+      ],
+      [
+        1,
+        4,
+        -2,
+        -4,
+        -7
+      ],
+      [
+        1,
+        4,
+        -2,
+        -3,
+        -6
+      ]
+    ],
+    "nonuniversal_total_anomalies": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "polynomial_controls": {
+    "Yukawa_cubic_coefficients": [
+      {
+        "coefficient": 1,
+        "powers": {
+          "a": 0,
+          "h": 3
+        }
+      },
+      {
+        "coefficient": -9,
+        "powers": {
+          "a": 1,
+          "h": 2
+        }
+      },
+      {
+        "coefficient": 27,
+        "powers": {
+          "a": 2,
+          "h": 1
+        }
+      },
+      {
+        "coefficient": -27,
+        "powers": {
+          "a": 3,
+          "h": 0
+        }
+      }
+    ],
+    "Yukawa_factorization": "(h-3a)^3",
+    "Yukawa_gravitational_coefficients": [
+      {
+        "coefficient": 1,
+        "powers": {
+          "a": 0,
+          "h": 1
+        }
+      },
+      {
+        "coefficient": -3,
+        "powers": {
+          "a": 1,
+          "h": 0
+        }
+      }
+    ],
+    "charged_neutrino_polynomial_cancellation": true,
+    "classification_cubic_coefficients": [
+      {
+        "coefficient": -18,
+        "powers": {
+          "a": 1,
+          "u": 2
+        }
+      },
+      {
+        "coefficient": 36,
+        "powers": {
+          "a": 2,
+          "u": 1
+        }
+      },
+      {
+        "coefficient": 144,
+        "powers": {
+          "a": 3,
+          "u": 0
+        }
+      }
+    ],
+    "classification_factorizations": [
+      "18a(8a^2+ud)",
+      "-18a(u-4a)(u+2a)"
+    ],
+    "linear_certificates": [
+      "d-2a+u=-C",
+      "l+3a=W",
+      "e+6a=3C+2W-G"
+    ]
+  },
+  "schema": "oi-hypercharge-recovery-controls-v1",
+  "scope": "The general all-real classification uses the written zero-product proof; no OI physical selector or Lean proof is claimed.",
+  "status": "exact_coefficient_identities_and_finite_controls_hold"
+}

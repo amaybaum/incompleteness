@@ -1,0 +1,63 @@
+{
+  "G0_elements_checked": 559872,
+  "K_elements_fixing_full_End": 6,
+  "K_elements_on_grid": 36,
+  "arithmetic": "exact integers modulo six",
+  "color_monomial_group_order": 1296,
+  "extra_K_circle": [
+    {
+      "cross_Hom_phases": [
+        0,
+        0,
+        0
+      ],
+      "u_phase": 0
+    },
+    {
+      "cross_Hom_phases": [
+        5,
+        1,
+        2
+      ],
+      "u_phase": 1
+    },
+    {
+      "cross_Hom_phases": [
+        4,
+        2,
+        4
+      ],
+      "u_phase": 2
+    },
+    {
+      "cross_Hom_phases": [
+        3,
+        3,
+        0
+      ],
+      "u_phase": 3
+    },
+    {
+      "cross_Hom_phases": [
+        2,
+        4,
+        2
+      ],
+      "u_phase": 4
+    },
+    {
+      "cross_Hom_phases": [
+        1,
+        5,
+        4
+      ],
+      "u_phase": 5
+    }
+  ],
+  "full_End_kernel_is_common_phase": true,
+  "full_End_kernel_order": 6,
+  "schema": "oi-native-End-kernel-control-v1",
+  "scope": "Exact finite controls; general matrix-unit proof and physical limits are separate.",
+  "status": "finite_controls_hold",
+  "weak_monomial_group_order": 72
+}

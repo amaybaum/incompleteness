@@ -1,0 +1,55 @@
+{
+  "verdict": "ACCEPT FOR SCOPED LOCAL REVIEW",
+  "review_kind": "Independent agent author-correction and mathematical-scope review; not owner, external scientific or publication acceptance",
+  "snapshot": "/workspace/scratch/cb6cdacd02d4/review-corpus/snapshot-v4",
+  "manifest_sha256": "58f78e8d57645b4c9c24edb40632959adc4f3150e1d48916c068cc9de0116613",
+  "v3_to_v4_diff_sha256": "bad3411f471091bed513c86c3aa90fe66c1dc170edea365c002063fca4bb8a72",
+  "files": 80,
+  "remaining_blockers": [],
+  "closure": [
+    {
+      "finding": "V3-R1",
+      "status": "resolved",
+      "locations": [
+        "papers/SM.md:396",
+        "papers/Juno.md:118"
+      ],
+      "reason": "SC now supplies the selected full six-link/generic-condensate block pattern, not the physical SM group directly from T5. Juno explicitly retains the restricted nearest-neighbor Bravais carrier, flavor prescription and physical generation premises."
+    },
+    {
+      "finding": "V3-R2",
+      "status": "resolved",
+      "locations": [
+        "book/ch05-gauge-structure.md:143",
+        "book/The-Incompleteness-of-Observation-FULL.md:1440"
+      ],
+      "reason": "The fixed invertible-link condition is now exactly G(n)M=M G(n+e), equivalently conjugation by M. Scalar or commuting-link hypotheses correctly recover literal endpoint equality. The valid transformed-link covariance and plaquette-trace result are preserved."
+    }
+  ],
+  "exact_checks": {
+    "manifest": "All 80 file hashes match; the manifest and delta hashes equal the supplied values.",
+    "delta_paths": [
+      "papers/SM.md",
+      "papers/Juno.md",
+      "book/ch05-gauge-structure.md",
+      "book/The-Incompleteness-of-Observation-FULL.md"
+    ],
+    "delta_scope": "Only the three intended prose corrections and exact FULL mirror changed. Theorem statements, coverage, registry, Lean and all proof/control data are byte-unchanged from v3.",
+    "mirror": "27 assembled sources checked; zero stripped nonblank source lines missing from FULL.",
+    "prior_checks_preserved": "V2 direct SM3 Lean compilation/axiom checks and exact control replays remain applicable to the unchanged proof bytes. V3 coverage ordering/line references, protected fingerprints, unchanged tiers, registered anchors and compact-charge receipt consistency remain applicable."
+  },
+  "accepted_scope": [
+    "The exact reviewed source/coverage candidate consistently distinguishes conditional selected-branch results from inverse physical selection and observational completeness.",
+    "The restricted first-order SM3 theorem is supported by the reviewed/replayed Lean proof with its arithmetic and parity hypotheses; it does not recover the unproved second-order/physical chirality bridge.",
+    "The finite K3 Stinespring statement and separately written separable theorem retain valid stronger isometry mathematics without a full-unitary or whole-process gauge claim.",
+    "The correlated central quotient, faithful Z6 charged-family image, complete fixed-family real anomaly classification and credited compact-charge strengthening are valid under their stated group, family and arithmetic premises. They do not select a physical observer action or light chiral spectrum.",
+    "The minimal predictive-realization, finite Hankel/access, passive predictive-quotient and native companion-support results retain their proved scopes and explicit access limits.",
+    "The original T23/L23.0/T24/P24.2 scopes, counterexamples and evidence tiers remain preserved. No all-partitions completeness, full physical branch selector or recovered Bell/gravity/quantum measurement bridge is assumed."
+  ],
+  "limits": [
+    "This acceptance applies only to the exact pinned v4 source snapshot and the scoped mathematical/consistency review, with the preceding v1-v3 reports as its audit history.",
+    "It does not independently certify all older numerical predictions, physical factorization/spin, readout, Bell, gravity/cosmology or biological claims outside this correction/recovery scope.",
+    "Canonical TeX/PDF rebuild and visual QA, exact-head CI, final integrated-head review, owner authorization and publication/merge acceptance remain separate obligations. Publication outputs are not part of this source snapshot.",
+    "No manuscript, code, proof tier, historical record, remote state, governed launch or publication artifact was edited by this reviewer. Only findings notes were written."
+  ]
+}

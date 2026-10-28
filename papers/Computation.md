@@ -6,17 +6,17 @@
 **Status:** DRAFT PRE-PRINT
 **Classification:** Theoretical Physics / Foundations / Computational Complexity
 
----
+***
 
 ## Abstract
 
-The Observational Incompleteness (OI) framework reproduces the Standard Model's gauge structure as a forced consequence of a cubic-lattice commitment — its dimension argued by self-consistency filters, its cubic structure empirically anchored by the observed SU(3) — starting from a single definition of embedded observation [1, 2] and traces the structural chain from $(S, \varphi)$ through chemistry to biological evolution [3]. This paper continues the chain from evolution through computation. The transition from evolved biological observers to artificial computational ones admits a uniform treatment in the framework's terms: an embedded observer with general intelligence can construct semiconductor-based universal computers via a structural chain (band theory, Group IV semiconductors, p-n junctions, NAND completeness), and the resulting artificial observers are subject to the same partition-level limits as their biological precursors. The Gödel-Turing-OI incompleteness family applies at every level of recursive self-improvement.
+The Observational Incompleteness (OI) framework develops a conditional Standard Model gauge-carrier construction on a selected cubic-lattice branch, using H-link single-copy, H-cust and the separate gauge and matter premises [1, 2]; the generic finite-law and hidden-memory results do not supply those physical choices. The structural consequences of that selected branch through chemistry and biological evolution are developed in [3]. This paper continues the chain from evolution through computation. The transition from evolved biological observers to artificial computational ones admits a uniform treatment in the framework's terms: an embedded observer with general intelligence can construct semiconductor-based universal computers via a structural chain (band theory, Group IV semiconductors, p-n junctions, NAND completeness), and the resulting artificial observers are subject to the same partition-level limits as their biological precursors. The Gödel-Turing-OI incompleteness family applies at every level of recursive self-improvement.
 
 The framework's computational content is organized by a *conditional BQP model theorem*, stated as the statement of record in §4 of this paper and developed at chapter length in [1, Ch. 14]: under an explicit computational model — a uniform efficient encoding of substratum configurations into qubits; efficient state preparation and control; a clock model; efficient measurement; explicit precision accounting; noise assumptions under which fault tolerance applies with polynomial overhead; and operational closure — all admissible operations available to the observer within the model are standard quantum instruments (CPTP maps for unconditioned evolution, CP trace-nonincreasing branches for conditioned outcomes), with no additional nonlinear, post-quantum, oracle, or hidden-sector-access operation, and with conditioned branches and postselected preparations charged their physical success-probability/repetition cost (no free postselection: $\mathrm{PostBQP} = \mathrm{PP}$) — the class accessible to an embedded observer satisfying C1–C4 is bounded-error quantum polynomial time, with a lower bound (BQP available in the model) and an upper bound (BQP not exceeded — given operational closure). CPTP representability of the visible dynamics supplies none of those model hypotheses by itself, so no unconditional characterization is claimed. Under a global-coverage premise — every physically realizable computation implemented by a system whose admissible operations satisfy the same operational-closure and efficiency hypotheses — the Extended Church-Turing Thesis holds in its quantum-modified form as a conditional result rather than an empirical conjecture. The conjectured BPP–BQP separation is reframed as the cost of marginal-statistics observation rather than as evidence of fundamental quantum-ness.
 
 On the P vs NP question the framework is *structurally silent*. We develop this position in detail: the framework's empirical content (the BQP ceiling) is consistent with either answer; the silence is not a chosen agnosticism but a structural feature of the framework's axiom type; physical-substrate axioms about finite structures do not entail asymptotic statements about algorithmic complexity classes without a bridging premise that the candidate axioms cannot principled-ly supply. This silence fits a broader pattern across the Gödel-Turing-OI incompleteness family: each member establishes a structural boundary on access (provability, computability, embedded observability, explanation) and is silent on the internal organization of what falls within that boundary. P vs NP lies in the internal structure of the computable and is therefore outside the locus of contribution of any structural-incompleteness framework. The OI framework's position is stronger than Aaronson's NP-completeness physical-principle approach [4] at the BQP boundary (where the framework specifies the ceiling exactly) and weaker at the P vs NP boundary (where the framework declines to stipulate). We propose three condition-based research directions where the framework's specific substratum structure does provide content for complexity-theoretic refinements *within* the BQP ceiling: geometric structure on the substratum lattice, task-specific quantum advantage and problem globality (with a refined conjecture that BQP advantage is maximized for problems whose hidden structure matches the framework's gauge group), and gauge equivalence as a possible physical account of polynomial-time reducibility. These are framework-relative conjectures inviting investigation, not framework predictions.
 
----
+***
 
 > **Status — conjectural extension.** This paper applies the core framework to quantum computation and complexity, and is offered as a *conjecture*, not an established result: the central claim — that the framework's emergent dynamics realizes the complexity class BQP — is a theoretical conjecture rather than a proven correspondence; it would be supported by a rigorous derivation from the finite substratum to BQP and undercut if that dynamics proves efficiently classically simulable or fails to reproduce known quantum-complexity separations. It carries no evidential weight for the core framework — which stands or falls independently on its physics — and should be read as a structural possibility to be tested, not as support for the framework.
 
@@ -30,7 +30,7 @@ The framework's content on embedded computation is then organized by the conditi
 
 The paper's structure: §2 carries the structural chain from evolution to general intelligence, identifying the one contingent step (general intelligence emergence) and the structural inevitability of universal computation given that step. §3 develops the self-referential loop of AI as embedded-observer construction, with the partition-level limits applying to the constructed observer. §4 states the BQP characterization theorem and its consequences for the Extended Church-Turing Thesis and the conjectured BPP–BQP separation. §5 develops the framework's position on the P vs NP question — neutrality, structural silence, the unifying boundary-characterization pattern across the Gödel-Turing-OI incompleteness family, and the relationship to Aaronson's physical-principle approach. §6 examines why no obvious bridging axiom is available. §7 proposes three condition-based research directions for complexity-theoretic refinements within the BQP ceiling. §8 summarizes what the framework establishes and what it does not.
 
----
+***
 
 ## 2. From Evolution to Intelligence
 
@@ -40,7 +40,7 @@ The paper's structure: §2 carries the structural chain from evolution to genera
 
 **General intelligence is structurally unconstrained but not guaranteed.** The derived structure *permits* arbitrarily complex neural circuits (the orbital algebra provides materials, the scale hierarchy provides energetic separation), but whether evolution *reaches* general-purpose reasoning — abstraction, planning, language — depends on the specific fitness landscape. On Earth, general intelligence arose once in ~4 billion years. Whether this is evidence of rarity or inevitability the framework cannot determine. This is the one step in the chain where the structural argument is weakest: information processing is generically favored, but general intelligence is a much more specific capability.
 
----
+***
 
 ## 3. From Intelligence to AI and the Self-Referential Limit
 
@@ -65,7 +65,7 @@ The paper's structure: §2 carries the structural chain from evolution to genera
 | Logic gates | Transistors in series / parallel | Structural |
 | Universal computation | NAND is functionally complete | Mathematical theorem |
 
-The chain from (S, φ) to a universal computer is structural — given someone to build it. That is the same contingent step (general intelligence) identified in §2. The reconstruction theorem [5, §3] implies that a sufficiently sophisticated observer can reconstruct the local lattice/gauge invariants fixed by Theorem 23; it does not identify a unique Bell-inclusive microphysical completion. An observer can nevertheless exploit the reconstructed local physics to build computational devices.
+The chain from a selected physical model to computational devices also requires an observer capable of developing and engineering those devices. Theorem 23 [5, §3] gives conditional lattice/gauge outputs of a stipulated branch; it does not provide an algorithm for recovering that branch or the microscopic bijection from observations. An observer may test and exploit the branch's physical consequences without a unique inverse reconstruction.
 
 **The self-referential loop.** AI is an embedded observer building another embedded observer within the same (S, φ). The characterization theorem [1, §3.4] applies to the new observer. It sees the same QM, the same ℏ, the same SM, the same dark sector. Not because it is limited by human design, but because the physics is structural — determined by the partition, not by the observer's complexity. A superintelligent AI has the same observational access as any other embedded observer: it reads the visible sector and writes to the hidden sector through the same coupling. It cannot determine $h$. It cannot see past the cosmological horizon. It can build better instruments, but it cannot overcome the partition.
 
@@ -75,7 +75,7 @@ The recursion — AI building AI building AI — produces ever more sophisticate
 
 | Capability | Status |
 |-----------|--------|
-| Reconstruct the local lattice/gauge invariants from observations | Structurally possible under Theorem 23's conditions |
+| Derive local lattice/gauge outputs within a selected physical branch | Conditional on Theorem 23's additional branch and physical premises |
 | Build better models of the visible sector | No structural limit |
 | Determine the hidden-sector state $h$ | Provably impossible (characterization theorem) |
 | Observe beyond the cosmological horizon | Provably impossible (causal partition) |
@@ -85,7 +85,7 @@ The recursion — AI building AI building AI — produces ever more sophisticate
 
 The framework's prediction is precise: there is no ceiling on the complexity of the observer, but there is a permanent floor on what any observer can access. The ceiling is contingent — it depends on the specific φ and the specific evolutionary and technological history. The floor is structural — it is the same for all embedded observers, biological or artificial, at any level of sophistication.
 
----
+***
 
 ## 4. A Conditional BQP Model Theorem
 
@@ -111,13 +111,13 @@ The Extended Church-Turing Thesis (ECT) — that any physically realizable compu
 
 This modification has empirical consequences. The conjectured BPP–BQP separation — task-specific quantum advantage for problems like factoring, discrete log, and certain simulation problems — is reframed as the cost of partial observation rather than as evidence that the universe is fundamentally quantum. Under the standard separation conjecture, a BPP-limited classical implementation cannot reproduce all BQP computations efficiently; on the framework's reading, the hidden-sector correlations that enable the conjectured advantage are accessible only through measurement protocols that exploit the substratum's actual structure — quantum hardware exploits these correlations, while classical sampling does not. The observed task-specific quantum advantage — with the strict BPP–BQP separation conjectured, not proved — is read by the framework as evidence about the substratum's structure, not evidence against the framework.
 
----
+***
 
 ### 4.5 The finite-substratum refinement: a ceiling above BQP's floor
 
 The characterization of §4.3 is exact in the idealized limit $S \to \infty$. The framework, however, asserts that $S$ is finite — the holographic bound caps the substratum resources available to any physical computation. This subsection states the finite-size consequence as a complexity-assumption-dependent proposal: its status inherits the standard conjectures made explicit below, and it is not entailed by Main.
 
-**The forced position.** Any interpretation with a finite classical substratum faces a standard trilemma [7]: either (I) quantum computation encounters a scale ceiling; or (II) the tasks exhibiting quantum advantage possess hidden classical algorithms; or (III) the substratum commands resources exponential in the number of emergent qubits. The framework closes (III) by construction: the holographic bound is a structural commitment. It addresses (II) in one theorem-level respect: the substratum measure is the unique $\varphi$-invariant maximal-entropy measure ([Main], Lemma 3 and posit (iv) of the posit ledger), which excludes a planted-measure escape — though absence of planted answers is not itself a classical lower bound: the hardness of the relevant sampling rests on standard complexity-theoretic evidence (random-circuit results are assumption-dependent, e.g.\ non-collapse of the polynomial hierarchy), so (II) closes conditionally on those assumptions, while escape by conspiracy would additionally require a planted measure contradicting the uniqueness clause; independently, Theorem 24 of [Substratum §4] classifies the specific microstate as gauge, provably without empirical content, whereas extractable task answers would be empirical content. What remains, granted the complexity assumptions below, is (I): the ceiling is a conditional consequence with its assumptions stated, not an unconditional entailment.
+**The forced position.** Any interpretation with a finite classical substratum faces a standard trilemma [7]: either (I) quantum computation encounters a scale ceiling; or (II) the tasks exhibiting quantum advantage possess hidden classical algorithms; or (III) the substratum commands resources exponential in the number of emergent qubits. The framework closes (III) by construction: the holographic bound is a structural commitment. It addresses (II) in one theorem-level respect: the substratum measure is the unique $\varphi$-invariant maximal-entropy measure ([Main], Lemma 3 and posit (iv) of the posit ledger), which excludes a planted-measure escape — though absence of planted answers is not itself a classical lower bound: the hardness of the relevant sampling rests on standard complexity-theoretic evidence (random-circuit results are assumption-dependent, e.g.\ non-collapse of the polynomial hierarchy), so (II) closes conditionally on those assumptions, while escape by conspiracy would additionally require a planted measure contradicting the uniqueness clause; Theorem 24 of [Substratum §4] does not classify the specific microstate as gauge: it preserves a specified channel or population carrier under particular transformations, whereas changing an actual initial microstate can alter outcomes. Its invariances supply no independent classical-complexity lower bound. What remains, granted the complexity assumptions below, is (I): the ceiling is a conditional consequence with its assumptions stated, not an unconditional entailment.
 
 **The scale.** The substratum budget for a computation of wall-time $T$ is bounded by the holographic patch: $\mathrm{bits}(T) = \pi (cT)^2/l_p^2$ degrees of freedom updating at most once per $t_p$ [10]. This gives $\sim 10^{145}$ operations for a day-scale computation, $\sim 10^{157}$ for thirty years, and $\sim 2 \times 10^{183}$ at the absolute horizon scale. A computation whose output statistics require classical sampling resources exceeding the budget cannot have those statistics realized by the substratum. The ceiling therefore sits, under an explicit quantitative assumption — $C_{\mathrm{cl}}(n, \varepsilon) \geq 2^{\alpha n}$ for the chosen circuit ensemble and fidelity criterion, an assumption the cited hardness evidence supports but does not prove — at $n^* \approx \log_2(\mathrm{budget})/\alpha$: with $\alpha = 1$, approximately 480 (day), 520 (decades), 610 (absolute) *full-fidelity, sampling-hard* logical qubits — the operative quantity being fidelity-weighted classical simulation cost, not qubit count.
 
@@ -131,7 +131,7 @@ The characterization of §4.3 is exact in the idealized limit $S \to \infty$. Th
 
 **Conditions.** The statement is conditional on: standard complexity conjectures (no polynomial classical algorithms for the sampling tasks; non-collapse of the polynomial hierarchy); the declared posits (iv)–(v) of the ledger ([Main]), which are what certify the absence of planted structure; the budget arithmetic at order-of-magnitude precision (the exponent is robust; prefactors are not); and the full-fidelity qualification, since the constraint binds fidelity-weighted cost, so low-fidelity demonstrations do not approach it.
 
----
+***
 
 ### 4.6 The depth axis: residual dissipation, the correction fork, and the box
 
@@ -143,7 +143,7 @@ The characterization of §4.3 is exact in the idealized limit $S \to \infty$. Th
 
 **Near-term texture.** The same partition machinery predicts memory-bearing device noise at the engineered-bath level ([Complexity §8.2]); its syndrome-level signature — an exploitable temporal kernel in detection-event time series, retained after conditioning on drift — is testable on already-public fault-tolerance datasets, with P-indivisibility of the reconstructed per-round channel a further property that a divisibility test certifies. The sharpened prediction is stated there.
 
----
+***
 
 ## 5. The Internal Structure of BQP and the P vs NP Question
 
@@ -209,7 +209,7 @@ Aaronson [4] has argued that the physical universe respects the principle that N
 
 The two positions are complementary rather than competing. Aaronson's physical-principle approach captures an intuition about physical realizability that is consistent with the framework's BQP ceiling but goes further by stipulating the answer to P vs NP. The framework declines to stipulate, on grounds that the stipulation is not derivable from physical-substrate axioms.
 
----
+***
 
 ## 6. Bridging Axioms: Why None Are Obviously Available
 
@@ -223,7 +223,7 @@ It is natural to ask what additional axiom would close the gap between physical-
 
 The structural feature common to these candidates is that the bridge from "finite physical structure at each moment" to "asymptotic algorithmic complexity over all input sizes" requires content that the standard repertoire of physical axioms does not contain. Whether a principled bridging axiom exists — one that is independently motivated rather than question-begging, and that does not collapse to a known open conjecture — is itself an open methodological question. The framework's stance is that the BQP characterization is the legitimate physics-principled result within reach of physical-substrate axioms, and that internal complexity-class structure (including P vs NP) is the domain of mathematical complexity theory rather than of physical foundations.
 
----
+***
 
 ## 7. Beyond Axioms: Conditions and Framework-Relative Refinements
 
@@ -263,7 +263,7 @@ The pattern across the three directions in §7.1–§7.3 is that the framework's
 
 These conditional refinements are not predictions of the framework in the sense of the SM observable predictions [2, §7]; they are research directions opened by the framework's substratum structure. Some may be productive, others may not. The framework's contribution is to identify them as natural questions given its structure, not to resolve them.
 
----
+***
 
 ## 8. What the Framework Establishes and What It Does Not
 
@@ -289,7 +289,7 @@ Summarizing the paper's content:
 
 The division of labor is the appropriate one between the framework and complexity theory. The framework's content is a structural theorem about the computational ceiling for embedded observers and a set of research directions opened by the substratum's specific structure; standard complexity theory's content is about the internal structure of classes inside that ceiling. The two are complementary rather than competing.
 
----
+***
 
 ## Acknowledgements
 

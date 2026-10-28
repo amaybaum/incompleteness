@@ -1,0 +1,36 @@
+{
+  "commands": [
+    "python hypercharge_control_v1.py > hypercharge_result_v1.json",
+    "python -O hypercharge_control_v1.py > hypercharge_result_optimized_v1.json"
+  ],
+  "files": [
+    {
+      "bytes": 8976,
+      "path": "hypercharge_recovery_v1.txt",
+      "sha256": "5a85a85c24858956f4de0c2f0472fc4fa3478c7d4ec06555cbc336d84984074e"
+    },
+    {
+      "bytes": 6869,
+      "path": "hypercharge_control_v1.py",
+      "sha256": "4cec764aa5870210c513dc397f7968e476364c357a781123940d5f11e48057a0"
+    },
+    {
+      "bytes": 3783,
+      "path": "hypercharge_result_v1.json",
+      "sha256": "c0cd9ffe605ea8b6cb88bbc334f2419379df2544bc463610012e9293cd32064a"
+    },
+    {
+      "bytes": 3783,
+      "path": "hypercharge_result_optimized_v1.json",
+      "sha256": "c0cd9ffe605ea8b6cb88bbc334f2419379df2544bc463610012e9293cd32064a"
+    },
+    {
+      "bytes": 12383,
+      "path": "hypercharge_source_trace_v1.json",
+      "sha256": "2058a1e3824f7208376897c54c8355e584e3fc89663cd641d45731f6eac7a4c7"
+    }
+  ],
+  "normal_optimized_byte_identical": true,
+  "schema": "oi-hypercharge-recovery-manifest-v1",
+  "status": "frozen_for_independent_review"
+}

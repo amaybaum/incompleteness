@@ -1,0 +1,63 @@
+{
+  "verdict": "REVISE \u2014 two small source wording/precision blockers remain; recovery proofs accepted on their stated scopes",
+  "review_kind": "Focused independent agent author-correction review, not publication acceptance",
+  "snapshot": "/workspace/scratch/cb6cdacd02d4/review-corpus/snapshot-v3",
+  "manifest_sha256": "6c8ab4ad2111bc47cf9a29126031ea6ebce7edda7ff1be707a05f5271421ae1e",
+  "v2_to_v3_diff_sha256": "b05ef507ce85d836c12e663ffea51925eb699158b5939a171c5d68c78e21ba40",
+  "files": 80,
+  "hash_mismatches": [],
+  "remaining_findings": [
+    {
+      "id": "V3-R1",
+      "severity": "remaining stabilizer/selection scope assertion",
+      "locations": [
+        "papers/SM.md:396",
+        "papers/Juno.md:118"
+      ],
+      "problem": "SM still introduces the corrected table by saying only SC produces the SM group under the commutant construction of Theorem 5. Theorem 5 produces G0=U3xU2xU1; the physical image requires a separately selected charged action/central quotient. Juno ends the same comparison by saying the cubic group is derived rather than chosen, which should explicitly retain the restricted carrier and flavor-prescription comparison.",
+      "replacement": "For SM: Among the three cubic candidates, only SC has the full six-link (3,2,1) generic-condensate block pattern used in the selected construction. For Juno: the specified target pattern and BZ-distance prescription select SC/O only within the stated single-basis nearest-neighbor Bravais comparison; selection of that carrier/class and the physical charged action remains additional."
+    },
+    {
+      "id": "V3-R2",
+      "severity": "new fixed-link covariance precision",
+      "locations": [
+        "book/ch05-gauge-structure.md:143",
+        "book/The-Incompleteness-of-Observation-FULL.md"
+      ],
+      "problem": "The new local-covariance discussion says keeping an invertible link fixed generally forces endpoint transformations to agree. The general condition is instead G(n)M=M G(n+e), or G(n)=M G(n+e)M^{-1}. Literal equality is a scalar/commuting-link specialization.",
+      "replacement": "State the fixed-link intertwining identity. Add that the endpoint transformations agree for a scalar link, or when the endpoint action commutes with M. Preserve the correct transformed-link covariance and plaquette-trace calculation."
+    }
+  ],
+  "v2_finding_disposition": {
+    "V2-R1": "Finite visible and both hidden dimensions now explicit; K3 proof scope matches, with separable P9.7c preserved.",
+    "V2-R2": "All substantive new quotient/stabilizer/eigenvalue/O3 repairs are valid; one introductory sentence remains as V3-R1. Corrected SC/BCC/FCC generic-Sigma tables preserve representation mathematics and separate physical action selection.",
+    "V2-R3": "B.6 now correctly gives K=2dm under H-link and K=6 only with d=3 and separate m=1.",
+    "V2-R4": "Full charged-matter closure is no longer asserted. The determination proposition is correctly restricted to exact representation outputs, with remaining physical/flavor premises explicit.",
+    "V2-R5": "Explainer now separates the proved first-order grading theorem, second-order identification and physical spin/chirality/Higgs bridges.",
+    "V2-R6": "B.5 now gives clean conditional charge algebra, includes the neutral-Q branch boundary and credits the standard fixed-family consequence. Failed arithmetic and false distinctiveness assertion removed.",
+    "V2-R7": "Tier 2 now uses the full restricted nearest-neighbor block-pattern criterion, not SU3 existence alone."
+  },
+  "checks": {
+    "manifest": "80/80 file hashes match the exact supplied manifest; delta hash matches.",
+    "book_mirror": "27 assembled sources; zero missing stripped nonblank lines in FULL.",
+    "ledger": "133 rows with unchanged IDs and tiers from v2; only non-line semantic change is P9.7b fingerprint b55e91ad4d01ac3d for its explicit finite-visible wording. Other changes are ordering/line refresh.",
+    "protected_fingerprints": {
+      "SUBSTRATUM:T-23": "61ee2d12da0643ae",
+      "SUBSTRATUM:L-23.0": "8213fa0e0653f8ca",
+      "SUBSTRATUM:T-24": "51a5eb397730425e",
+      "SUBSTRATUM:P-24.2": "fdb3b83d326656af"
+    },
+    "protected_tiers": "T23/L23.0/T24 GAP; P24.2 K3, unchanged.",
+    "census": "Every registered manuscript anchor is present in the frozen source; no missing anchors.",
+    "compact_receipts": "Integrated proof, control, result, original receipt, independent receipt and written-review hashes exactly match their attestation. Source 2d5f0344\u20265623 and result 677f6829\u202612f9d are the separately reviewed exact compact candidate; full proof dependency on credited FLT3 and physical limitations remain explicit.",
+    "GR_link": "The delta changes only the long kernel-token presentation into a same-source link with its full theorem identifier in the title. No mathematical GR assertion changes.",
+    "prior_exact_replays": "The Lean SM3 source and recovery proof/control sources are unchanged from reviewed v2. Prior direct kernel/axiom and exact controls remain applicable; no redundant rerun was needed.",
+    "no_writes": "Only review notes were written under findings. No manuscript, code, remote state, governed launch or publication artifact was changed."
+  },
+  "accepted_mathematics": "The exact and conditional recovery mathematics accepted in v2 remains accepted: restricted first-order SM3 K3; finite/separable Stinespring separation; constructive correlated quotient and faithful Z6 image; full fixed-family anomaly classification and credited compact strengthening; minimal predictive realization, finite access/Hankel reconstruction, passive native quotient, and native companion triple-support identification. No full T23 physical selector or T24 all-partitions completeness is inferred.",
+  "limits": [
+    "Exact frozen v3 only; pending small v4 changes require their own delta check.",
+    "Scoped local source review only, not certification of all older physical or numerical claims.",
+    "Canonical publication builds/rendering, exact-head CI and owner/external publication acceptance remain separate."
+  ]
+}

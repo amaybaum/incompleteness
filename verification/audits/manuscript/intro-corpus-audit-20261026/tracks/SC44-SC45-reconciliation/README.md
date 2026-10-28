@@ -1,6 +1,10 @@
 # SC-44 / SC-45 focused reconciliation — author draft, not a merge
 
-**Review state:** unreviewed *preview* combining independently drafted SC-44 #980 and SC-45 #981. The individual PR branches remain unchanged. This document preserves evidence provenance but confers no publication or merge approval.
+> Current local theorem-recovery/corpus checkpoint (2026-10-28): see [the integrated recovery audit](../../../theorem-recovery-20261028/README.md). The corrected exact source snapshot passed scoped independent agent review; ten canonical publication builds and focused local checks pass. Exact-head CI, owner approval and external publication acceptance remain outstanding.
+
+> Historical checkpoint `7c464fc`: seven publication builds passed, while WR-1–WR-4 below remained open. `publication-build-20261028.json` and the preview narrative below preserve that earlier evidence; they do not describe the current source-correction status.
+
+**Original preview state (historical):** unreviewed *preview* combining independently drafted SC-44 #980 and SC-45 #981. The individual PR branches remain unchanged. This document preserves evidence provenance but confers no publication or merge approval.
 
 ## Why this reconciliation is needed
 
@@ -143,3 +147,35 @@ The external referee confirmed Theorem 24's scoped scientific statements and the
 **Additional downstream sites fixed in this draft:** `book/ch04-methodology.md:172` (no established all-gauge completeness), `book/ch08-juno.md:146` (not arbitrary full-state relabelling), `book/ch09-universality.md:261` (not a derived complete G_sub), and `book/ch05-gauge-structure.md:43` (alphabet-size hypothesis versus unconditional q-insensitive structure). The two chapter 2 narration repairs, these four chapter sites and their old exact FULL passages were each matched uniquely and replaced; the 27-file Markdown mirror was re-compared with **zero missing chapter lines**, 0 fetch failures. Final checked FULL blob `975c454b378102afa54f2762fca07613b4463cfe`. `book/README.md` also had its chapter 2/3 descriptions corrected; it is intentionally excluded from the FULL mirror.
 
 **Evidence boundary:** The source corrections, the SHA-256 fingerprint algorithm and a read-only exact GitHub-byte mirror comparison were checked by the writer. The *actual* release-gate processes and regenerated PDFs were not run on this exact head; no statement of CI success or independent new-head ACCEPT is licensed. The ordinary SC-45 workflow step remains in `.github/workflows/verify.yml`, explicitly part of this scientific correction PR and subject to owner approval. #982 remains draft; #980 and #981 remain source-review records; **no merge approved**.
+
+
+## Canonical publication rebuild and fresh writer review — 2026-10-28
+
+Starting from `63f20c056a6abdaf751e73ba896c141cf9ee90a2`, a small pinned checkout was available in this session with the standard installed `pandoc` and `xelatex`. The earlier repository-fetch blocker does not apply to this environment. The canonical `sh ./build.sh Complexity Computation Explainer Methodology Structure Substratum` and `sh ./build.sh --book` completed successfully with **zero dropped glyphs**. No package shim or glyph override was used.
+
+The original architecture checker still reported three hits at the starting head: the negated specific-substratum uniqueness claim and the negated completeness claim in Chapter 4/FULL. Those two passages were restated directly with the selected-branch and observable-carrier distinctions; the checker and its exceptions were not edited. Substratum and the book were rebuilt again after these source changes.
+
+| Publication | PDF pages | Median characters per page |
+| --- | ---: | ---: |
+| Complexity | 36 | 2514.5 |
+| Computation | 22 | 2844.5 |
+| Explainer | 70 | 2833.0 |
+| Methodology | 51 | 3025 |
+| Structure | 98 | 2864.0 |
+| Substratum | 52 | 3135.5 |
+| book | 553 | 2968 |
+
+The final TeX source stamps match all 13 paper/book Markdown sources. The actual architecture check reports 259 invariants, zero violations and zero self-test failures; coverage reports 128 canonical statements; the original mirror script reports zero missing chapter lines; and the focused reconciliation lexical guard passes. The source files and final TeX/PDF digests, commands, toolchain versions and rendered page selections are in `publication-build-20261028.json`. Visual QA was sampled, including the scoped theorem, rigidity and revised methodology passages; it was not a page-by-page scientific review.
+
+### Further source findings — publication remains blocked
+
+A fresh search exposed surviving claims stronger than the narrowed anchor statements. These are review findings, not repaired or independently accepted passages:
+
+- **WR-1, inverse reconstruction/classification:** Substratum §3.6 (`papers/Substratum.md:201`) and Methodology at lines 343, 433 and 453 still claim a unique local structural residue or a completed gauge classification. Theorem 23/23.0 establish outputs on a selected branch, not the claimed inverse; Theorem 24 leaves all-partitions classification open and refutes restricted coherent-channel exhaustiveness.
+- **WR-2, complete ontology:** `papers/SM.md:1354` still attributes a proved complete description of reality up to gauge equivalence to the reconstruction theorem. That exceeds Theorem 23's explicit scope.
+- **WR-3, book dependencies:** `book/ch05-gauge-structure.md:11,19`, `book/ch12-evolution-intelligence.md:191,227` and `book/ch19-open-problems.md:208`, together with their FULL passages, retain inverse-uniqueness or microscopic self-discovery claims. Bell-only qualifications do not repair the missing local-branch selector and gauge classification.
+- **WR-4, gauge image:** `papers/Substratum.md:373` and `book/ch19-open-problems.md:234` (also FULL) assert the Standard Model gauge group as the image of the full substratum gauge group, without the required carrier/comparison map. The scoped §4 and book §2.5 do not establish that map.
+
+These specific references are a lower bound on the remaining propagation work, not an exhaustive corpus clearance. Repair and check their dependent passages before focused independent acceptance of a final integrated head. The regenerated publications faithfully build the current drafts; they do not certify those surviving scientific assertions.
+
+**Disposition: REVISE.** Full host CI/release-gate results, scientific propagation and independent acceptance remain outstanding. Theorem 24 and Theorem 23 retain their existing GAP status; Proposition 24.2 remains K3, and frozen research families remain `kernel-only`. The PR still requires reconciliation with its eventual landing base and explicit exact-SHA owner approval before merge. No special workflow dispatch, native-round designation or merge was performed.

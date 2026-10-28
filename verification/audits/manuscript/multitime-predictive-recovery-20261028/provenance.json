@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "date": "2026-10-28",
+  "purpose": "Manuscript integration of reviewed conditional predictive recovery; no governed round or publication acceptance.",
+  "pinned_corpus_checkpoint": "7c464fcffcdd785c96a646e109433d3377bcfaad",
+  "frozen_files_sha256": {
+    "multitime-recovery-proof-v2.md": "3b6b7a4c64a1d4ffa8b756995123ebdc9f6309748b79f89ed89805426a896043",
+    "exact-controls-v2.py": "f0549188f68e3afcd14a7e59430b1919758568c9b68467a934644de911fb3274",
+    "exact-controls-v2-results.json": "2bb425b1ff2f26dcd79f9c47c938bbbc4ce3e9224a46f52c10ec5ffa459bde28",
+    "source-manifest.json": "28c61d44bcc36140a9740bb96372f53438add45a83ccad56546423a7753cb804"
+  },
+  "author_control_status": "PASS",
+  "independent_replay": "exit 0; byte-identical result SHA-256 2bb425b1ff2f26dcd79f9c47c938bbbc4ce3e9224a46f52c10ec5ffa459bde28",
+  "independent_mathematical_review": "No mathematical blocker found within stated predictive-quotient scope; reviewer /root/review_recovery.",
+  "kernel_status": "GAP: no Lean declarations for Propositions 24.3 or 24.4.",
+  "scope_limits": [
+    "finite exact controls supplement the written universal proofs",
+    "not a frozen 24.1B/24.1C execution",
+    "not a microscopic, hidden-factor, coherent-channel, or all-partitions gauge-completeness result"
+  ],
+  "historical_note": "The frozen proof names source copies under sources/ in its original scratch workspace; the adjacent source-manifest records exact Git commit, path, blob ID and SHA-256 so those bytes can be recovered without duplicating the manuscripts here."
+}

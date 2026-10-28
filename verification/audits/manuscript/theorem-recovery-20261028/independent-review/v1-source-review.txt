@@ -1,0 +1,64 @@
+REVISE — exact v1 source snapshot only.
+
+Manifest SHA-256: dcdc99a79fb7ceaa4ab49a660b06c424ee4489581eb62084e855424fa5dd57fe
+Diff SHA-256: dfe20c57ecb73c5c4e4e91c162a775f3a29b75fcfc0e9a01a952642b942846cb
+
+The 45 snapshot hashes match; 27 assembled book sources have zero missing mirror lines. Coverage edits are limited to P9.5/C9.6 metadata with GAP retained. The two inspected T24/P24.2 Lean source files are byte-identical to the checkpoint.
+
+R1 — blocking mathematical definition
+Locations: papers/Structure.md:595, papers/Structure.md:623, papers/Structure.md:634, papers/Structure.md:645
+Problem: The general separable-H schema calls a map on B(H) Schrödinger CPTP, and Definition 9.3 composes theta, defined only on A, with Phi|A without assuming Phi(A) subset A. The latter can be undefined even in finite dimension, so the new Proposition 9.5 does not yet establish a well-typed equivalence as written.
+Concrete repair: Use a Schrödinger CPTP map Phi:T1(H)->T1(H), its normal unital CP adjoint Phi*:B(H)->B(H), explicit invariance Phi*(A) subset A, and theta o Phi1*|A1 = Phi2*|A2 o theta. Require the invariance premise in P9.5; A=B(H) is always available. If a channel family is meant, impose/intertwine each t. Propagate typing to Sections 8.3, 10 and 13. Full ambient channel equality in P9.5 then proves the restricted equivalence.
+
+R2 — blocking scientific scope
+Locations: papers/Structure.md:680, papers/Structure.md:682, papers/Structure.md:694, papers/Structure.md:696, papers/Structure.md:812, papers/Structure.md:814, papers/Substratum.md:488
+Problem: Surviving consumers restore a complete G_sub classification after the new P9.5/C9.6 explicitly decline it. Section 9.4 says G_sub classifies every same-observer OI realization, Section 10.4 infers an algebra isomorphism for any g in G_sub from P9.5, and Substratum says T24 classifies the specific dynamics as empirically empty gauge.
+Concrete repair: Limit the implication to the two P9.5 transformations under their carrier/preparation hypotheses. Describe G_sub as proposed observational gauge structure with its full classification open. A state and a dynamics map phi must not be conflated. Single-channel Stinespring hidden-unitary and extension freedom is not automatically an OI finite-bijection or whole-channel-family gauge move.
+
+R3 — blocking scientific scope and propagation
+Locations: papers/SM.md:775, papers/SM.md:1378, papers/SM.md:1380, papers/SM.md:1384, papers/SM.md:1386, papers/SM.md:1390, papers/SM.md:1420, papers/Juno.md:255, papers/Juno.md:256, papers/Juno.md:257, book/ch04-methodology.md:66, book/ch04-methodology.md:160, book/ch06-matter-content.md:48, book/ch07-gravity.md:16, book/ch08-juno.md:148, book/ch09-universality.md:158, papers/Explainer.md:686
+Problem: The selected physical branch is still called a complete gauge equivalence class and its outputs are said to hold for every bijection. Other paragraphs put differing observed masses, couplings and angles inside one observational gauge/universality class. A representative change preserving a carrier containing those quantities cannot change them. Later branch qualifications do not cure an initial universal assertion.
+Concrete repair: Use selected structural/model family for branch variation and state the premises at the initial assertion. Reserve one observational equivalence class for models with the required data-preserving map. If a coarse carrier deliberately omits a predicted quantity, say so before allowing it to vary. Preserve legitimate all-bijection memory inequalities and the GR definite-configuration counterargument, which are unrelated statements.
+
+R4 — blocking elementary group inference
+Locations: book/ch05-gauge-structure.md:45, book/ch05-gauge-structure.md:125, book/ch05-gauge-structure.md:127, book/ch05-gauge-structure.md:129, papers/SM.md:338, papers/SM.md:372, papers/Substratum.md:308
+Problem: Calling amplitude-scale gauge a premise does not validate U(n)->SU(n) by removing a central phase. Globally U(n) is (SU(n) x U(1))/Z_n, and U(n)/central U(1) is PU(n), not SU(n). The text also makes each of three block phases redundant while retaining the A1 phase as physical. It supplies neither an independent two-dimensional central selection nor the lift supporting fundamental matter representations.
+Concrete repair: Preserve the exact generic stabilizer U(3)xU(2)xU(1). Distinguish the Lie-algebra decomposition u(n)=su(n) direct-sum u(1) from global groups. A proposed SM Lie algebra requires explicitly selecting which two central directions are removed; the global group, finite-center quotient and matter-representation lift require separate premises or proof. Merely prefixing the current quotient argument with conditional does not fix it.
+Control: For n=2, (S,z)->zS has kernel {(I,1),(-I,-1)} and U(2)/U(1) is PU(2)=SO(3), not SU(2).
+
+R5 — blocking quantifier and criterion
+Locations: book/appendix-b-derivations.md:345, papers/SM.md:414
+Problem: Only O among finite subgroups of O(3) having genuine 2- and 3-dimensional irreps is false: O_h=O x C2, mentioned in the same proof, is a counterexample. Canonical SM additionally says simple cubic alone supports any SU(3) factor, contradicted by its own BCC/FCC table. The valid comparison is the full chosen NN 3+2+1 pattern.
+Concrete repair: Restrict the finite-rotation classification to proper subgroups of SO(3), distinguish O from O_h parity, and propagate the change to SM. Replace the SU(3)-alone uniqueness criterion by the full specified block pattern in the restricted Bravais single-basis NN class.
+
+R6 — blocking proof scope; valid theorem recoverable
+Locations: papers/Structure.md:668, papers/Structure.md:672, papers/Structure.md:676
+Problem: The general separable-space P9.7b is valid, but its written proof invokes finite-dimensional P9.7a and identifies infinite-dimensional Stinespring minimality with mere algebraic Kraus independence. The adjacent remark also treats the unique W as freely normalizable to map reference vectors, which need not be possible.
+Concrete repair: Preserve the general theorem and prove it by the dense-span isometry (A tensor I)V1 psi -> (A tensor I)V2 psi. Equality of the complete adjoint channels yields equal inner products; minimality gives a unitary intertwining A tensor I, hence I tensor W. The condition W|0_1>=|0_2> must be an extra hypothesis, not a selectable normalization. Clarify that equality of restricted observable dynamics on proper A is weaker than equality of the complete channel needed here.
+Control: U1=CNOT and U2=(I tensor X)CNOT, both with reference |0>, give minimal realizations of the same dephasing channel. The unique Stinespring intertwiner is X, which does not preserve |0>.
+
+R7 — blocking inverse-selector wording
+Locations: book/ch04-methodology.md:26
+Problem: New text says T23 additionally selects the nearest-neighbor branch, although T23 assumes it.
+Concrete repair: Replace selects with assumes a specified, retaining every premise and its conditional outputs.
+
+R8 — blocking algebra/channel bridge
+Locations: papers/Structure.md:702, papers/Structure.md:812, papers/Structure.md:814, papers/Structure.md:816, papers/Structure.md:820, papers/Structure.md:844, papers/Structure.md:995, papers/Structure.md:1009
+Problem: The surrounding sections treat the full EFT observable algebra/channel as explicitly derived and complete even though the construction imports AQFT/type-III structure and enumerates selected SM data. Scalar outputs or Yukawa texture agreement do not construct a *-isomorphism/intertwiner. A finite model is not itself a type-III local net without an independent limiting construction. Restricted observable-algebra equivalence also does not automatically fix ambient-channel unitarity or arbitrary multi-time marginal structure.
+Concrete repair: Call the EFT pair a conditional candidate after specifying its carrier and physical/limit premises; Step 1 remains to be completed at that level. Positive texture/scalar agreement is only a consistency test. Require an actual algebra map and adjoint-channel intertwining for class membership; state exactly which observational features are encoded in the chosen invariant algebra.
+
+Valid mathematics to preserve:
+- T23 remains a conditional selected-branch aggregation, not an inverse selector. Existing exact branch deductions should be retained.
+- T24 hidden-only coherent-channel invariance, broader fibre-dependent rooted-population invariance, and normalized independently decoupled ancillary invariance are valid on their stated carriers.
+- P24.2 matches WT2gen_oneSided, trace_wordEval_hiddenConjugate and blockSpanning_of_wordTracesEqual: full corresponding block-word traces, fixed finite carrier, one-sided full hidden-matrix spanning, no unitarity premise on U/Uprime. Preserve this stronger result without importing its data premises from single-time channel families.
+- Pair C matches the ST3/ST4 source quantifiers and does not refute all-partitions completeness. The manuscript correctly keeps those relations distinct.
+- B.6b preserves the valid NN link decompositions and a restricted Bravais comparison once its O(3)/SO(3) and full-pattern criterion are corrected.
+- B.6c is valid as a conditional count/assignment inside a stipulated signed A1 direct-sum T1 carrier. It is not a recovered physical spin, generation or global model-uniqueness theorem. The signed action and physical matter hypotheses remain premises.
+- No unjustified weakening of P24.2 or exact S iff D iff Q_fb was found in the changed paragraphs.
+
+Limits:
+- This is an author-correction review of the exact frozen Markdown/coverage snapshot, not publication acceptance.
+- Canonical TeX/PDF rebuilding, exact-head CI and independent final integrated-head acceptance are not established by this review.
+- The review does not independently certify all numerical predictions, empirical accuracy, EFT dynamics, quantum physical readout or gravity/matter couplings in the whole corpus.
+- Historical research freezes, programme records, Lean sources and proof tiers were not edited. No theorem recovery from parallel work was assumed.
+- No repository/remote files, comments, launches, pushes or merges were changed by the reviewer.

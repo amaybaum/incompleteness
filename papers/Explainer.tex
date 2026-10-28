@@ -2490,27 +2490,18 @@ uniquely from cubic-group representation theory in the framework's
 account, while it depends on compactification choice in string-theoretic
 constructions.
 
-\href{Structure.md}{\texttt{Structure}} takes this finding as the basis
-for a refined structural-realism claim. There exist universality classes
-of embedded observers, characterized by the structural features of
-observation rather than by substratum specifics. The framework's
-predictions live at multiple levels of universality: partial-trace
-features (most universal --- shared across all embedded-observer
-systems); gauge-group structure (intermediate --- shared across
-SM-reproducing classes); the framework's specific predictions like the
-Cabibbo angle \(1/(\pi\sqrt{2})\) (most class-specific --- features of
-the framework's specific representative within its universality class).
-The methodological reframing: fundamental physics as identifying the
-universality class of our universe through observational features, with
-substratum descriptions being framework-specific representations rather
-than competing claims about ultimate reality. In this picture, the
-framework and string theory are not in competition --- they are
-different representations within (potentially) the same broader
-universality class, with the framework providing computationally
-tractable substratum-level structure that produces the framework's
-quantitative predictions, and string theory providing the rich machinery
-for quantum gravity and holography that the framework's GR cluster
-recovers thermodynamically through different routes.
+\href{Structure.md}{\texttt{Structure}} develops a program for comparing
+embedded observers through a specified invariant observable algebra and
+its adjoint channel dynamics. Matching partial-trace features or the SM
+gauge target is weaker than constructing the required algebra
+isomorphism and intertwiner. Different model families can share those
+coarse features while predicting different Cabibbo angles or masses; a
+carrier containing the measured values places such models in different
+observational classes. Whether a chosen OI realization and a chosen
+string construction occupy the same class remains an open comparison
+problem. The proposed structural-realist interpretation depends on
+completing that comparison, rather than on declaring their microscopic
+descriptions interchangeable.
 
 \textbf{``Why does gravity `see' the classical vacuum energy and not the
 quantum one?''} Because the spacetime metric exists at the classical
@@ -2678,10 +2669,12 @@ Antimatter does not explain a second kind of fundamental stuff. It
 reflects the algorithm's need for two-signed amplitudes in a
 relativistic context.
 
-Every quantum phenomenon is an output of the decompression algorithm.
-The only fundamental phenomenon is the compression itself: the observer
-cannot see past the horizon, and the characterization theorem dictates
-the unique form of the resulting reconstruction.
+The finite-law theorem gives an exact fixed-basis quantum representation
+of the accessible stochastic law. It does not select a unique
+microscopic realization, and equality with the full coherent
+instrument/composite theory retains the separate operational-lifting
+conditions. The decompression analogy describes this representation, not
+a theorem that one complete physical ontology is forced.
 
 This doesn't make quantum phenomena less real. Temperature is also an
 emergent phenomenon --- a single molecule has no temperature. But
@@ -2725,13 +2718,12 @@ interference, entanglement, and antimatter are the artifacts. They are
 real --- as real as JPEG ringing is visible --- but they are properties
 of the reconstruction, not of the original.
 
-The difference from ordinary compression: with JPEG, you can access the
-original file. With the universe, you cannot. The reconstruction is all
-we will ever have. Its artifacts are our physics. And the
-characterization theorem proves that no other reconstruction is possible
---- this is the unique algorithm, and its artifacts are the unique
-artifacts. Quantum mechanics is not one possible decompression of
-incomplete cosmological data. It is the only one.
+The compression analogy has a limit. Observable data can admit multiple
+reversible realizations and quantum representations. The exact
+finite-horizon correspondence establishes existence in both directions,
+not one unique reconstruction algorithm. Recovering a physical local
+branch and a full operational theory requires the additional selection
+and compatibility conditions discussed in the technical papers.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -3029,15 +3021,16 @@ triplet members each have \(|\mu| = 1/3\). The triplet members are
 exactly degenerate by cubic symmetry, providing a lattice-level origin
 for ``generation symmetry.''
 
-\textbf{The Higgs mechanism from one condition.} The same center
-independence condition (\(\alpha = 0\)) that produces the quantum
-phenomenology's memory structure also enforces exact chiral symmetry in
-the staggered fermions. This means fermion mass terms are forbidden in
-the fundamental Lagrangian. The \emph{only} way to give fermions mass
-while preserving unitarity and renormalizability is the Higgs mechanism.
-One algebraic condition --- center independence --- simultaneously
-produces the quantum phenomenology, chiral fermions, and the necessity
-of a Higgs boson.
+\textbf{Grading and the separate Higgs construction.} The recovered
+{[}SM Theorem 3{]} is an exact first-order statement: over a coefficient
+ring with no additive 2-torsion, a site-diagonal term added to fixed odd
+hopping preserves the grading precisely when that onsite term vanishes.
+It does not identify a second-order wave-equation center with a physical
+chiral mass, or derive spin-chiral fermions and a Higgs from center
+independence alone. Main's hidden-memory results have their own
+hypotheses; physical spin and weak chirality retain H-spin'/H-χ'; and
+the Higgs interpretation and charged matter action require their
+separate construction.
 
 \textbf{Gauge structure from a matrix.} The wave equation naturally
 generalizes to multiple components. Each lattice site carries a
@@ -3053,10 +3046,13 @@ in U(K)). Its eigenvalues give the mass spectrum. The gauge group and
 the mass spectrum are dual descriptions of the same matrix. This is a
 theorem, not an approximation.
 
-\textbf{Why K = 6.} In three dimensions, each lattice site has 6 nearest
-neighbors (±x, ±y, ±z). If the internal components correspond to these
-link directions --- the hypothesis H-link, which coupling-degree
-minimization does not establish --- then \(K = 2d = 6\).
+\textbf{Why K = 6 on the selected branch.} A three-dimensional
+simple-cubic site has six signed nearest-neighbor directions. H-link
+identifies the physical carrier with the link representation tensored
+with a multiplicity space, giving \(K=2dm\). The additional single-copy
+clause \(m=1\) gives \(K=6\). Neither the link count nor coupling-degree
+minimization establishes that clause or uniquely selects the physical
+model.
 
 These 6 link directions form a representation of the cubic rotation
 group \(O\). Standard character theory decomposes this representation
@@ -3369,19 +3365,15 @@ unreadable storage. The Bekenstein-Hawking entropy is the storage
 capacity of the partition boundary. ℏ is the conversion factor between
 storage geometry and read-write statistics.
 
-An immediate objection: ``Memory made of \emph{what}?'' In everyday
-life, memory requires a physical substrate --- silicon, magnetic
-domains, neurons. The answer: (S, φ) is a \emph{complete description} of
-reality --- it determines every observable, with nothing left over that
-any measurement could detect. S is the totality of distinguishable
-configurations; φ is the structure of dynamical dependence. Space, time,
-and matter are all derived from (S, φ), so they can't appear in its
-definition without circularity. Whether (S, φ) \emph{is} reality or
-\emph{describes} reality is a question the framework proves to be gauge
---- undecidable by any experiment. The ``memory'' is a complete
-mathematical description from which everything observable is derived.
-Asking what it's made of presupposes a deeper level that no measurement
-can access --- like asking what the number 7 is made of.
+An immediate objection is ``Memory made of what?'' Here \((S,\varphi)\)
+specifies a candidate mathematical model, whose accessible data also
+depend on the observer partition and preparation/readout rule. Theorem
+23 gives conditional local outputs after a cubic branch and additional
+physical hypotheses are chosen. It does not prove that this model
+exhausts reality or that every possible deeper distinction is
+inaccessible. Two interpretations stipulated to give identical data
+cannot be distinguished using only those data; a universal microscopic
+gauge classification is a separate, open question.
 
 \hypertarget{computation-from-within}{%
 \subsubsection{Computation from within}\label{computation-from-within}}
@@ -3626,132 +3618,100 @@ structure. It's \emph{there} in the dynamics. But the observer, looking
 through the keyhole of the partition, sees only the diagonalizable
 shadow.
 
-So Wigner's puzzle dissolves, for physics. Mathematics isn't
-``unreasonably effective'' at describing physics. Mathematics --- at
-least the part of it that physics tracks --- is the most complete
-description an embedded observer would have access to, with the
-reconstruction theorem fixing the local lattice/gauge structural residue
-modulo gauge; the Bell-inclusive completion is not uniquely
-reconstructed. Physics is the observable part of that description ---
-drawn by someone who can't see the whole thing. The observable part is
-effective because it's a faithful projection --- the semisimple part
-genuinely captures the eigenvalue structure. But it's not the whole
-description. The full mathematical description has structure (the
-nilpotent monodromy) that no physical measurement an embedded observer
-can perform can reveal. Whether mathematics extends beyond the
-structural content that physics tracks, into domains an embedded
-physical observer cannot reach (and that may have substantive content in
-mathematical foundations or meta-mathematics), is a question the
-framework does not address.
+This gives a structural interpretation of the use of mathematics in
+physics: a model and observer interface generate accessible laws, which
+admit the representation described above. Theorem 23 adds conditional
+local outputs of a selected cubic model, not a proof that observations
+recover one complete mathematical ontology. Which additional microscopic
+differences are inaccessible depends on the specified observations. A
+complete classification cannot be inferred from the interpretation
+alone.
 
-There is also a converse result, but it is scoped. Starting from the
-observed physics and the theorem's structural inputs, the reconstruction
-fixes the \textbf{local lattice/gauge residue} up to substratum gauge. A
-Bell-inclusive full completion additionally requires H-Bell and is not
-proved unique.
+The converse is an open problem. Starting from observations, E1--E7 and
+A1--A6 do not by themselves select the local cubic branch used in
+Theorem 23. Its wave rule, carrier and physical hypotheses are
+additional inputs. A common Bell-compatible completion and its
+uniqueness impose further obligations.
 
-The forward direction: start from (S, φ) and derive physics. That's the
-program's main result. The converse: start from the observed physics and
-reconstruct (S, φ). And the pieces are already in hand.
+The forward construction starts with a model, a preparation rule and an
+observer interface, then derives accessible data. An inverse
+reconstruction would start with those data and identify which physical
+models realize them. Conditional outputs within a chosen model do not
+complete that second task.
 
-If you observe quantum mechanics with Bell violations on a finite
-system, the characterization theorem forces you into some (S, φ, V) ---
-there must be a deterministic system with a partition. If your physics
-includes Einstein gravity via the thermodynamic route, the dynamics
-selection theorem pins the wave equation --- it's the unique dynamics
-consistent with QM emergence, isotropy, and linearity. If you see SU(3)
-× SU(2) × U(1) with three generations, the gauge structure pins K = 6
-with multiplicities (3, 2, 1) --- the cubic group decomposition is
-unique. If the visible transition counts are reciprocal, the substratum
-dynamics is T-invariant. If ℏ has the specific value c³ε²/(4Gσ), the gap
-equation pins ε = 2√σ l\_p.~And d = 3 is the unique self-consistent
-dimension.
+Finite reversible observer models can represent finite operational laws,
+but that universal realization does not uniquely select the physical
+substratum. On a \emph{selected} cubic nearest-neighbor wave-rule branch
+with H-link, the single-copy condition and the other physical hypotheses
+of {[}SM{]}, the local representation calculations give \(K=6\) and
+multiplicities \((3,2,1)\). The corresponding Standard Model matter
+conclusions retain H-cust, H-spin', H-χ' and their separate premises.
+The H-Bell compatibility of one such model with Bell-violating
+composites remains conditional; the GR gap equation fixes a relation
+among \(\hbar\), \(\epsilon\) and \(\sigma\) only under its separate
+horizon/infrared conditions. The observed inputs and A1--A6 do not yet
+uniquely select this branch.
 
-Chain the local reconstruction steps together and the observed inputs
-determine a unique \textbf{local-sector equivalence class} --- the
-lattice/gauge data pinned up to the substratum gauge group
-\(\mathcal{G}_{\text{sub}}\) {[}Substratum §4{]}. The Bell preparation
-rule is extra composite data: H-Bell conditions its
-compatibility/existence, and its uniqueness is open. This gauge group
-has four generators: state relabeling (permuting the elements of S while
-conjugating φ), alphabet change (replacing ℤ/qℤ with any ℤ/q'ℤ; a
-generator under the alphabet-size hypothesis {[}SM §2.7{]}), deep-sector
-enlargement (the cardinality of a deep hidden sector that no dynamics
-couples to the boundary layer is unobservable --- it may even be
-infinite), and graph isomorphism up to statistical isotropy (any
-bounded-degree graph with d = 3 polynomial growth and statistical
-isotropy is gauge-equivalent to ℤ³ \emph{for the emergent-QM,
-dimensional, and gravitational content}; for the Standard Model gauge
-group this generator is restricted to isomorphisms preserving the cubic
-octahedral structure, since the (3,2,1) decomposition requires it ---
-see {[}Substratum §4, Theorem 24(iv){]}). The reconstruction theorem
-establishes this list for the state-channel content via Stinespring
-uniqueness; the graph generator carries the cubic-structure
-qualification just noted.
+Substratum §4 distinguishes three observational notions. For a
+\emph{fixed coherent-channel interface}, a single hidden permutation
+independent of the visible state and an independent decoupled normalized
+hidden extension preserve the complete channel family, but the six-state
+Pair C witness shows these restricted moves are \textbf{not exhaustive}.
+For \emph{population-only observations}, a hidden relabelling depending
+on the visible input fibre preserves all rooted transition counts, a
+broader invariance. Equivalence \emph{across all observer partitions} is
+a separate unresolved classification requiring correspondence of
+preparations and readouts. Alphabet-size comparisons retain the
+unconditional \(q\)-insensitive results of {[}SM §2.7{]}, with
+transition-law equivalence across \(q\) requiring an additional
+hypothesis; graph universality carries the specific Theorems 1--6
+structural content but not blanket equality of channels. The valid
+spanning-class block-word theorem (Substratum Proposition 24.2) does not
+turn equality of single-time channels into hidden-conjugation
+uniqueness.
 
-This is exactly how physics always works. In general relativity,
-measurements determine an equivalence class of spacetime metrics modulo
-diffeomorphisms --- not a unique coordinate system. In gauge theory,
-experiments determine an equivalence class of connections modulo gauge
-transformations --- not a unique field configuration. Here, the local
-reconstruction determines its lattice/gauge residue modulo the OI gauge
-freedoms --- not a unique representative and not a unique Bell-inclusive
-completion.
+The analogy with coordinate and gauge redundancy is a useful
+interpretive goal, but in OI the physically correct observational
+carrier and the permitted equivalence must first be determined. Theorem
+23 currently gives conditional local structural outputs on a selected
+branch; it does not prove uniqueness among all substrata, and H-Bell
+adds an independent completion question. The existence of genuinely
+observationally redundant hidden coordinates does not mean every
+microscopic distinction is gauge.
 
-So the question ``is mathematics reality, or does it just describe
-reality?'' is not unanswered --- it's provably unanswerable by any
-measurement. The observed physics and the \textbf{locally reconstructed
-structural residue} determine each other up to gauge under the
-reconstruction theorem's stated conditions; the Bell-inclusive
-completion is underdetermined. Any experiment that could distinguish
-``the universe is (S, φ)'' from ``the universe is described by (S, φ)''
-would need to detect something outside the equivalence class. But the
-equivalence class already accounts for everything observable.
+Whether a mathematical structure is called reality or a description does
+not change measurements if both readings stipulate the same accessible
+data. This is a conditional statement about those readings, not a proof
+that every proposed ontology has identical observations. Theorem 23 does
+not identify a unique physical branch, and Theorem 24 leaves the full
+observational classification open.
 
-This is the same structure as gauge invariance in electromagnetism. The
-potential A is underdetermined --- only the field strength F is
-measurable. We don't agonize over whether A is ``real.'' We identify the
-exact boundary between the physical (F) and the gauge (A). The OI
-framework identifies an analogous boundary for the \textbf{local
-lattice/gauge residue}: representative choices inside that reconstructed
-sector are gauge. The theorem does not collapse every Bell-inclusive
-completion into one gauge class.
+The comparison with electromagnetic gauge freedom is useful when the
+redundancy is specified. In OI a hidden-only relabelling preserves
+coherent channels under the stated hypotheses, while a more general
+hidden relabelling can preserve populations and alter coherences. Such
+examples do not identify an exact boundary between every physical and
+unphysical microscopic distinction.
 
-This suggests a precise way to understand what physics is, \emph{from
-the embedded observer's perspective}. The mathematical structure (S, φ)
-has two parts: the part fixed by the local reconstruction (the local
-gauge-invariant residue and semisimple spectral data), and the part that
-isn't (the specific representative, the nilpotent monodromy, the choice
-of q). The first part is what we call physics. A suggestive name for it
-might be \emph{observable mathematics} --- the portion of mathematical
-structure that an embedded subsystem with partial read-write access can
-detect.
+From an embedded observer's perspective, observable mathematics means
+the model structures represented in a specified preparation/readout
+interface. The selected branch gives conditional candidates for physical
+structure, but no theorem here divides every microscopic feature into a
+uniquely recovered physical residue and a complete gauge remainder. The
+choice of carrier matters, and comparisons of alphabet size or graph
+structure retain their own scopes.
 
-Under this definition, Wigner's puzzle dissolves \emph{for physics} to
-the point of tautology. ``Why is mathematics effective at describing
-physics?'' becomes ``Why is the structural content tracked by physics
-effective at describing what an embedded observer detects?'' --- which
-isn't a mystery. It's a structural identification. Within physics, the
-unreasonable effectiveness was never unreasonable; it was a category
-error, treating the structural content of physics and the structural
-content of the mathematics that captures it as separate domains when,
-modulo gauge, they coincide. Whether mathematics in its full scope
-(including content beyond what any embedded physical observer can
-detect) is itself a coherent extension of this identification is a
-question for mathematical foundations, not for physics. The framework
-establishes the physics-side identification; whether the identification
-extends absolutely is a different question the framework does not claim
-to settle.
+Wigner's puzzle can thus be approached through a model of accessible
+mathematical structure. This is an interpretive proposal supported by
+particular constructions, not a theorem identifying all physical reality
+with one reconstructed quotient. The physical selector and the full
+observational classification remain research questions.
 
-And the incompleteness family extends one step further: Gödel showed
-that proof can't capture all truth. Turing showed that computation can't
-predict all behavior. The OI framework shows that observation can't
-capture all dynamics. In each case, what \emph{can't} be captured has
-rigid mathematical structure, and what \emph{is} captured is determined
-by the incompleteness itself. Physics --- all of it, from quantum
-mechanics to the Standard Model --- is the rigid structure of what
-embedded observation captures. Mathematics is larger. Physics is the
-view from inside.
+The comparison with Gödel and Turing concerns limits of access, proof
+and computation. It does not establish that embedded observation
+uniquely forces every microscopic feature of physics. The finite-law
+representation, the selected cubic calculation and the horizon
+construction retain their separate premises and evidential status.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -3989,4 +3949,4 @@ The final text and all scientific claims were reviewed and verified by
 the author.
 
 \end{document}
-% source-sha256: 52bccd58571fa287ff7d22462c25690e2c89252bcc0e76141c8e77e8beb788bc
+% source-sha256: dbc3fc42e408c43053439ad675ec9f49e7ea8c669b220521dcd0c188eba2cd77

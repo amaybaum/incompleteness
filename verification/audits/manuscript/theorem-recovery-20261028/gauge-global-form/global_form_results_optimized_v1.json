@@ -1,0 +1,184 @@
+{
+  "SM_center_controls": [
+    {
+      "common_kernel": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          3
+        ],
+        [
+          1,
+          0,
+          4
+        ],
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          2,
+          0,
+          2
+        ],
+        [
+          2,
+          1,
+          5
+        ]
+      ],
+      "elements_checked": 36,
+      "extra_vectorlike_q1_pair_kernel_order": 1,
+      "independent_center_negative_controls": true,
+      "phase_modulus": 6
+    },
+    {
+      "common_kernel": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          30
+        ],
+        [
+          1,
+          0,
+          40
+        ],
+        [
+          1,
+          1,
+          10
+        ],
+        [
+          2,
+          0,
+          20
+        ],
+        [
+          2,
+          1,
+          50
+        ]
+      ],
+      "elements_checked": 360,
+      "extra_vectorlike_q1_pair_kernel_order": 1,
+      "independent_center_negative_controls": true,
+      "phase_modulus": 60
+    },
+    {
+      "common_kernel": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          180
+        ],
+        [
+          1,
+          0,
+          240
+        ],
+        [
+          1,
+          1,
+          60
+        ],
+        [
+          2,
+          0,
+          120
+        ],
+        [
+          2,
+          1,
+          300
+        ]
+      ],
+      "elements_checked": 2160,
+      "extra_vectorlike_q1_pair_kernel_order": 1,
+      "independent_center_negative_controls": true,
+      "phase_modulus": 360
+    }
+  ],
+  "SM_noncentral_monomial_control": {
+    "color_group_order": 216,
+    "elements_checked": 15552,
+    "kernel_order": 6,
+    "noncentral_kernel_exclusion": true,
+    "phase_modulus": 6,
+    "six_powers_are_distinct_and_close": true,
+    "weak_group_order": 12
+  },
+  "arithmetic": "exact integers modulo stated root-of-unity orders",
+  "coupled_center_controls": [
+    {
+      "common_phase_redundant": true,
+      "elements_checked": 216,
+      "expected_order": 36,
+      "kernel_order": 36,
+      "phase_modulus": 6,
+      "singlet_axis_kernel_order": 1
+    },
+    {
+      "common_phase_redundant": true,
+      "elements_checked": 1728,
+      "expected_order": 144,
+      "kernel_order": 144,
+      "phase_modulus": 12,
+      "singlet_axis_kernel_order": 1
+    },
+    {
+      "common_phase_redundant": true,
+      "elements_checked": 27000,
+      "expected_order": 900,
+      "kernel_order": 900,
+      "phase_modulus": 30,
+      "singlet_axis_kernel_order": 1
+    }
+  ],
+  "coupled_noncentral_monomial_control": {
+    "elements_checked": 4608,
+    "homomorphism_generator_pairs": 41472,
+    "image_order": 1152,
+    "kernel_order": 4,
+    "noncentral_kernel_exclusion": true,
+    "phase_modulus": 12,
+    "right_section_checked": true
+  },
+  "descent_control": {
+    "SM_residues": {
+      "H": 6,
+      "L": 0,
+      "Q": 6,
+      "dR": 0,
+      "eR": -6,
+      "uR": 6
+    },
+    "subgroup_checks": 600,
+    "subgroup_orders": [
+      1,
+      2,
+      3,
+      6
+    ],
+    "triples_checked": 150
+  },
+  "schema": "oi-gauge-global-finite-controls-v1",
+  "scope": "Finite controls only; the continuous group proof and unproved physical selection are separate.",
+  "status": "finite_controls_hold"
+}
