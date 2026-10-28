@@ -386,34 +386,34 @@ structurally inaccessible. Not because our telescopes aren't good
 enough, but because the geometry of spacetime forbids it. No technology
 that obeys the speed of light can reach past it.
 
-This means every observer in the universe is in the same epistemic
-situation: there are degrees of freedom --- a vast number of them ---
-that influence what you measure but that you can never track. When you
-write down the laws of physics for the things you \emph{can} see, you're
-forced to average over everything you can't. You have to ``trace out''
-the hidden sector.
+At an observation event, direct signals come from its causal past. A
+physical event horizon can impose a lasting direct-access restriction
+under the spacetime model's hypotheses. This is distinct from inference:
+correlations in retained records may determine some variables that are
+never read directly. The abstract fact that an observer sees a proper
+part of a system does not prove that its full history leaves every
+hidden state ambiguous.
 
-Here's what that looks like concretely. The total system --- visible
-plus hidden --- is deterministic. If you knew the complete state, you
-could predict the future exactly. But you don't know the hidden part.
-You know the visible state is \(x\), but there are many possible hidden
-states compatible with \(x\), and each one sends \(x\) to a different
-visible future. Hidden state \(h_1\) might send the particle left;
-hidden state \(h_2\) might send it right. Since you can't tell which
-hidden state you're in, the best you can do is assign probabilities:
-average over all the possible hidden states, weighted by how likely each
-one is. The result is a set of \emph{transition probabilities} --- the
-chance that visible state \(x\) at time \(t_1\) becomes visible state
-\(y\) at time \(t_2\). You've gone from a deterministic system you can't
-fully see to a probabilistic one you can. That's a stochastic process,
-and it's the only description available to any observer who can't access
-the hidden sector.
+For a known deterministic model, the reduced prediction averages over
+the hidden posterior conditioned on the observer's available records.
+That posterior can narrow as records accumulate and can become a point
+mass. If several compatible hidden states still predict different
+outcomes, the reduced prediction is probabilistic; if the records
+identify the state, the next outcome is fixed within that model. The
+swap \((v,h)\mapsto(h,v)\) is the simplest example: \((X_0,X_1)\)
+identifies both initial bits, although \(X_2=X_0\) makes prediction
+depend on history. The precise criterion uses record fibres
+{[}Substratum Proposition 24.5{]}, with record retention and allowed
+interventions stated separately.
 
-The standard expectation is that this should produce something boring
---- classical, memoryless noise. And it would, if the hidden sector were
-fast and forgettable, like air molecules bouncing off a grain of pollen.
-Each kick is independent of the last. Physicists call this
-\emph{Markovian} behavior.
+Concretely, several hidden states may be compatible with the present
+visible state \(x\). Their next visible outputs can differ, and their
+conditional weights define a transition law. Those weights must use the
+retained history, rather than assuming the initial hidden prior remains
+unchanged after observation. Averaging over a preparation ensemble does
+not prove that an individual state is unknowable after conditioning.
+This is a stochastic reduced description, including deterministic
+conditional predictions as a special case.
 
 But the hidden sector beyond the cosmological horizon is not like that.
 It differs in three specific ways, and the paper proves that their
@@ -2116,29 +2116,29 @@ The framework rests on seven implicit philosophical commitments:
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  \textbf{Embedded observers face irreducible limits.} No observer
-  inside a system can access the complete state.
+  \textbf{Access is specified.} A proper instantaneous readout can omit
+  state distinctions; retained records may recover them.
 \item
   \textbf{QM and GR are both correct} within their domains.
 \item
-  \textbf{The hidden sector is permanently inaccessible} --- not due to
-  technological limitations, but structural ones.
+  \textbf{Residual inaccessibility is interface-relative.} A hidden
+  quantity remains unidentified when it varies within a compatible
+  record fibre for the permitted preparations, readouts and actions.
 \item
   \textbf{The underlying reality is local and definite.} Indeterminacy
   belongs to the observer's description, not to the world.
 \item
-  \textbf{Incompleteness is structural, not deficient.} The limitation
-  arises because the observer is made of the same elements as the
-  universe it is trying to describe --- a physical form of
-  self-reference. This is analogous to Gödel's incompleteness theorem,
-  not to ignorance that better instruments could cure.
+  \textbf{Incompleteness has a precise carrier.} Non-identifiability
+  follows from identical permitted records, while computational cost and
+  physical record capacity are separate restrictions. It is not a
+  universal consequence of self-reference.
 \item
   \textbf{The description is observer-relative.} Different partitions
   yield different emergent physics.
 \item
-  \textbf{The two descriptions are irreconcilable} --- not because one
-  is wrong, but because they are complementary projections of a single
-  reality that no embedded observer can access directly.
+  \textbf{Descriptions can be projections of a shared model.} Which
+  distinctions those projections omit depends on their full observation
+  interfaces.
 \end{enumerate}
 
 Claims 1, 5, 6, and 7 enjoy broad philosophical support across nearly
@@ -2148,111 +2148,57 @@ definite --- is the paper's most philosophically isolated thesis.
 \hypertarget{the-guxf6del-connection}{%
 \subsubsection{The Gödel connection}\label{the-guxf6del-connection}}
 
-The analogy between this framework and Gödel's incompleteness theorem is
-not merely metaphorical. Gödel proved that a formal system rich enough
-to encode arithmetic cannot prove all true statements about itself from
-within --- the limitation arises because the system is self-referential,
-capable of constructing sentences that refer to its own provability. The
-observer in this framework faces a structurally parallel situation: the
-reason a cosmological horizon exists at all is that the observer is a
-physical subsystem made of the same fields, obeying the same
-speed-of-light constraint, as the universe it is trying to describe. An
-observer not made of the universe's own elements would not face a
-horizon and would not be forced into a quantum description. The
-incompleteness is a consequence of self-inclusion.
+Gödel's incompleteness theorems concern the provability limits of formal
+theories under their stated hypotheses. They do not establish that an
+embedded observer can never infer a finite hidden state. The distinction
+is concrete: in the known reversible swap model, two retained visible
+readings identify the complete initial state. Proposition 24.5 of
+{[}Substratum{]} gives the exact criterion: a quantity is determined by
+a record when it is constant on the states compatible with that record.
+Permanent passive ambiguity requires non-singleton future-trace classes
+on the specified preparation support.
 
-The connection can be tightened through Wolpert's limits of inference
-{[}19{]}, which the paper cites --- with one distinction kept explicit,
-because collapsing it is precisely the misuse this section exists to
-avoid. Wolpert proved, using diagonal self-referential arguments
-directly descended from Gödel's, that any inference device embedded in
-the universe it is trying to predict faces fundamental limits --- not
-because of noise or finite resources, but because complete
-self-prediction is logically impossible. That is a \emph{logical}
-incompleteness: worst-case, unconditional, and unquantified --- the
-diagonal exhibits one question the device must fail, and by itself
-yields no probability calculus, no Hilbert space, and no entropy budget.
-The framework's incompleteness is a \emph{physical} one that runs
-parallel to it rather than instantiating it: the causal partition
-enforces the trace-out, the trace-out produces the reduced law ---
-memory-bearing in the sector the conditions characterize --- and the
-representation is universal, the imported correspondence supplying the
-compressed form across its class, P-indivisibility fixing whether it is
-nontrivial under the translation hypothesis (T). The two come apart
-cleanly --- an observer in a universe without dark energy would be fully
-subject to Wolpert's theorem yet would face no cosmological horizon ---
-and the \(10^{122}\) compression ratio (the Bekenstein-Hawking entropy
-of the horizon) measures the \emph{physical} incompleteness, which is
-contingent on the observed causal structure and has no counterpart in
-the purely logical results. A closer rigorous relative of the physical
-statement is T. Breuer's theorem (1995, \emph{Philosophy of Science} 62:
-197--214; not to be confused with H.-P. Breuer of the
-Breuer--Laine--Piilo indivisibility criterion cited elsewhere in this
-framework) that no measurement performed from inside a system can
-perfectly resolve the state of a whole that contains the measuring
-apparatus; Wolpert and Breuer secure, each in its own domain, the rigor
-of the \emph{pattern} that the framework's construction then realizes
-physically.
+The cited work on physical inference and self-measurement, including
+Wolpert {[}19{]} and T. Breuer (1995, \emph{Philosophy of Science} 62:
+197--214), provides comparisons whose own device, measurement and
+counterfactual hypotheses must be checked. Such results cannot replace a
+proof about the record interface used here. In particular, a bound on a
+measuring apparatus's possible internal records can prevent it from
+distinguishing every admissible total state without making every
+possible record ambiguous. For a record store with \(R\) values and more
+than \(R\) admissible initial states, some record fibre is
+non-singleton; other fibres may identify the state exactly.
 
-The key difference from Gödel is in the \emph{form} of self-reference.
-Gödel's is syntactic: the system encodes a sentence that says ``I am not
-provable.'' The framework's is physical: the observer is made of the
-described, so complete description would require the observer to fully
-encode its own state plus everything causally connected to it, which the
-causal structure forbids. Wolpert sits between the two, using Gödelian
-logic applied to physical systems. Together they form a family of
-results sharing one architecture --- not a derivation in which each
-implies the next: Gödel (formal systems cannot completely describe
-themselves), Wolpert (physical inference devices cannot completely
-predict the systems they inhabit), this framework (an embedded
-observer's description is forced through a trace-out whose cost is the
-quantum form of the reduced law). Each stands on its own proof in its
-own domain; none is a corollary of the others, and the framework's
-physics would survive unchanged had the logical results never been
-proven --- they corroborate the pattern, they do not supply the
-mechanism. One assumption in Wolpert's theorems also deserves naming
-rather than burying: they quantify over all possible setups of the
-inference device, a counterfactual-availability assumption whose status
-in a deterministic substratum is exactly that of the free-choice
-assumption in Bell's theorem. The framework therefore keeps
-counterfactual assumptions level-explicit rather than using determinism
-as a blanket escape. In the Bell case specifically it does \textbf{not}
-invoke failure of measurement independence: that branch is declined, and
-the adopted Bell violation instead comes from ontic parameter dependence
-while operational no-signaling is retained.
+The framework's proved limitations are correspondingly specific. A
+finite-range dependence graph bounds direct causal influence. The
+hidden-capacity inequality bounds predictive memory. C4 forces hidden
+predictive structure relative to the present visible value, while the
+full retained history may determine that hidden structure. A physical
+causal horizon restricts direct signals under its spacetime assumptions;
+it does not alone prohibit inference from accessible correlations. These
+statements concern specified dynamics, preparations and resources,
+rather than self-inclusion by itself.
 
-There is also a difference worth stating plainly, because it sets the
-standard the framework should be held to. Gödel's and Turing's results
-are complete proofs from minimal definitions --- they assume only the
-formal system itself and smuggle in nothing about the world. The
-incompleteness here is of the same \emph{architecture} (a limitation
-that follows from observing a system you are part of) but not yet of the
-same \emph{self-containment}: the framework's quantitative results lean
-on commitments that are read from the observed world (that space is
-three-dimensional, that the lattice is cubic) rather than forced by the
-logic of self-inclusion alone. The honest reading is that the framework
-meets the Gödel--Turing standard for the part that is genuinely forced
---- the limitation theorem and its representation-theoretic consequences
---- while the empirically-anchored inputs have no counterpart in those
-purely formal results. Naming that boundary is what keeps the analogy a
-structural argument rather than borrowed grandeur.
+The finite observable-law correspondence \(S\iff D\iff Q_{\mathrm{fb}}\)
+is exact and universal within its stated horizon and fixed-basis
+readout. It supplies a representation of a law, not a proof that
+posterior opacity selects quantum mechanics or a unique physical
+substratum. The simultaneous coherent-instrument completion and physical
+branch selection remain separate research obligations. Logical
+incompleteness, finite information loss and physical causal access can
+therefore be compared without treating one as a derivation of the
+others. Bell assumptions are separate again: the adopted
+measurement-independent branch requires ontic parameter dependence with
+operational no-signaling, as stated in {[}Main §3.3{]}.
 
-Hofstadter's \emph{Gödel, Escher, Bach} argues that self-referential
-systems produce genuinely emergent higher levels --- ``strange loops''
-where a system's hierarchical levels fold back on themselves, generating
-properties invisible at the lower level. This framework agrees: quantum
-mechanics is the real, irreducible description available to any embedded
-observer, just as Hofstadter's ``I'' is real even though it emerges from
-neurons. The strange loop is intact --- the observer, made of the
-universe's own elements, generates through self-inclusion an emergent
-description that governs everything the observer can access. The
-disagreement with Hofstadter is narrow but consequential: he argues that
-once the emergent level is established, the substrate beneath it is
-explanatorily inert. The cosmological constant problem suggests
-otherwise. The \(10^{122}\) discrepancy exists precisely because the
-emergent quantum description and the classical substrate assign
-different vacuum energies, and only the substrate's value matches
-observation. The loop has a floor, and the floor matters.
+Hofstadter's \emph{Gödel, Escher, Bach} offers a philosophical
+comparison between microscopic descriptions and emergent levels. Here
+the exact mathematical result concerns a finite observable law and its
+equivalent representations. Whether a particular representation supplies
+the full physical quantum theory, a preferred substratum, or a correct
+account of vacuum energy remains a separate scientific question. The
+comparison with a self-referential observer supplies none of those
+missing proofs and does not make hidden states universally uninferable.
 
 \hypertarget{closest-ancestor-nicholas-of-cusa}{%
 \subsubsection{Closest ancestor: Nicholas of
@@ -2266,9 +2212,10 @@ achievement, not a failure. His \emph{coincidentia oppositorum}
 (coincidence of opposites) maps onto Claim 7 with remarkable precision:
 contradictions irreconcilable in the finite realm dissolve in infinity
 --- the infinitely large circle's circumference becomes a straight line,
-the infinite polygon becomes a circle. QM and GR, irreconcilable within
-any finite observational framework, would be coincident in the infinite
-ground that generates both.
+the infinite polygon becomes a circle. The framework proposes a common
+underlying construction for QM and GR; whether the necessary physical
+bridges hold is a scientific question, not a consequence of this
+philosophical analogy.
 
 Most strikingly, Cusa's ``wall of Paradise'' from \emph{De Visione Dei}
 maps onto Claim 3: an insurmountable boundary beyond which finite
@@ -2293,10 +2240,10 @@ aligning with Claim 4. His parallelism doctrine --- the order of ideas
 is the same as the order of things --- means the two descriptions track
 the same structure through incommensurable vocabularies.
 
-The divergence is epistemological: Spinoza believes reason achieves
-adequate knowledge of reality through \emph{scientia intuitiva}
-(intuitive knowledge). The paper's permanent limits directly contradict
-this ambition.
+A universal epistemological conflict with Spinoza's \emph{scientia
+intuitiva} does not follow from the finite results here. Some specified
+observation interfaces leave genuine unresolved distinctions, while
+others allow complete state inference from retained records.
 
 \hypertarget{the-recurring-fault-line-claim-4}{%
 \subsubsection{The recurring fault line: Claim
@@ -2327,11 +2274,12 @@ calling reality ``definite'' is itself an act of conceptual carving.
 creative, involving genuine indeterminacy --- removing that
 indeterminacy robs the cosmos of its creative character.
 
-\textbf{Advaita Vedanta} comes closest to full support --- Brahman is
-indeed a definite underlying reality --- but insists it is
-\emph{accessible}: the observer IS the underlying reality, and
-liberation (\emph{mokṣa}) consists in recognizing this identity. Every
-Hindu and Buddhist soteriology rejects permanent inaccessibility.
+Comparisons with Advaita Vedanta or other philosophical traditions
+concern interpretations of access and underlying reality. The
+mathematical framework does not prove a metaphysical thesis of permanent
+inaccessibility: its precise limits are non-identifiability relative to
+specified records and operations. Such comparisons cannot replace that
+criterion or its physical hypotheses.
 
 Only Spinoza (whose fully determinate substance is naturally definite)
 and Worrall's epistemic structural realism (which posits real but
@@ -2348,18 +2296,13 @@ Cusa's coincidence of opposites and Daoist yin-yang. Its projection
 metaphysics reaches through Plato's cave and Plotinus's emanation to
 Advaita Vedanta's maya-Brahman distinction.
 
-What is genuinely new is the \emph{combination}: accepting Bohr's
-complementarity while insisting on Einstein's realism, grounding Kantian
-limits in physical structure while claiming knowledge of noumenal
-character, embracing Cusanian learned ignorance while grounding it in a
-concrete physical mechanism --- the Gödel → Wolpert → causal partition
-chain described above. The traditions reveal that this combination
-creates a productive philosophical tension --- the paper claims to know
-the character of what it proves unknowable. Whether this tension is a
-contradiction (as Hegel would insist), a residual Platonism (as
-Nietzsche would charge), or a legitimate achievement of learned
-ignorance (as Cusa would celebrate) may be the framework's deepest
-philosophical question.
+The philosophical proposal combines a deterministic model with
+descriptions relative to specified observer interfaces. Its mathematical
+content lies in the finite-law representation theorem, the
+predictive-memory results and explicitly conditional reconstructions.
+Whether unobserved variables remain unidentified is settled by the
+permitted record fibres, not by a claim to know the nature of something
+proved universally unknowable.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -2368,14 +2311,15 @@ philosophical question.
 Questions}\label{frequently-asked-questions}}
 
 \textbf{``Isn't this just another interpretation of quantum
-mechanics?''} No.~Interpretations (Copenhagen, Many-Worlds, Bohmian
-mechanics) accept the quantum formalism and disagree about what it
-\emph{means}. This framework \emph{derives} the quantum formalism from
-non-quantum premises and proves the derivation is the only possible one.
-It relates ℏ to the discreteness scale and carries a running-vacuum
-reading of dark energy whose falsifiable content is the Type II channel
-({[}GR §7.1{]}) --- content that interpretations do not have --- and it
-accounts for the dark-sector concordance as an automatic consequence.
+mechanics?''} The finite-horizon theorem derives an exact
+stochastic/reversible/fixed-basis quantum representation correspondence.
+It does not establish a unique physical substratum or the full coherent
+measurement theory from partial observation alone. The model also
+develops physical relations under the separately named matter, horizon
+and completion hypotheses. Those mathematical constructions and open
+physical bridges are more specific than a philosophical interpretation,
+while their empirical warrant must be assessed under their stated
+assumptions.
 
 \textbf{``Doesn't Bell's theorem rule out hidden variable theories?''}
 Bell's theorem applies directly to the deterministic completion. If its
@@ -2389,12 +2333,13 @@ theorem belongs to the weaker stochastic causal-local construction, not
 to a Bell-local deterministic completion.
 
 \textbf{``If everything is deterministic underneath, where does
-randomness come from?''} From ignorance. The total system is
-deterministic, but the observer can't access the hidden sector.
-Different hidden states compatible with the same visible state lead to
-different outcomes. The observer must assign probabilities --- not
-because the universe is random, but because their information is
-incomplete.
+randomness come from?''} Within a deterministic completion, unresolved
+initial or hidden variables can give probabilistic reduced predictions.
+The relevant distribution is conditional on the available record and
+preparation. Some records identify the state and make its next visible
+value predictable; others leave a nontrivial distribution. Partial
+observation alone does not prove irreducible randomness for every
+embedded observer or every history {[}Substratum Proposition 24.5{]}.
 
 \textbf{``What about dark matter?''} Dark matter is not a substance ---
 it is the local shape of the observer's blind spot, the same entropy
@@ -2512,17 +2457,17 @@ but doesn't appear in the stress-energy tensor that governs curvature.
 The \(10^{122}\) discrepancy is the information compression ratio ---
 the entropy of the observer's blind spot.
 
-\textbf{``How can the paper claim reality is `definite' if it's
-permanently inaccessible?''} This is the paper's most philosophically
-contested thesis (see \emph{Philosophical Lineage} above). The paper's
-defense is that the claim follows from the derivation's own logic: the
-definition posits deterministic dynamics on a phase space, and the
-theorem shows that quantum indeterminacy arises from tracing out part of
-that phase space --- not from any indeterminacy in the underlying
-evolution. The ``definiteness'' is a consequence of the starting
-premises, not a speculative addition. Whether those premises are the
-right ones to start from is, of course, an open question --- but within
-the framework, Claim 4 is a theorem, not an assumption.
+\textbf{``Does a deterministic substratum imply permanently inaccessible
+reality?''} No.~A definite microscopic state and deterministic dynamics
+are premises of the chosen model class. The finite-law construction
+shows that such a completion can represent the specified observable
+laws; it does not prove that nature has selected that completion. Within
+a known model, retained records may determine the hidden state, or a
+non-singleton record fibre may leave it unresolved. Claims about
+physical inaccessible regions, storage resources and observational
+equivalence require their own stated hypotheses. Neither permanent
+opacity nor the actual physical substratum follows from determinism
+alone.
 
 \textbf{``Doesn't holographic physics show that spacetime comes from
 entanglement?''} This is probably the strongest objection to the
@@ -3337,33 +3282,27 @@ reads (history readback) --- the memory-bearing sector where the
 distinctly quantum phenomenology lives; representability itself is
 universal.
 
-The framework's results all have a clean interpretation in this
-language. The conditions C1--C4 are access conditions on the memory: C1
-means the readable and unreadable parts are dynamically linked
-(read-write coupling is active), and C4 means the visible past is
-re-expressed through the hidden sector --- in the physical realization,
-what is written is read back. C2 means the unreadable part retains its
-contents between reads. C3 means the unreadable part is large enough to
-store the full interaction history without overflow.
+The memory interpretation concerns predictive information relative to a
+specified readout. C1 couples visible coordinates to coordinates not
+directly read; those coordinates may nevertheless be inferred from
+retained records. C4 gives histories with different next-step
+conditional laws despite the same visible present. C2 concerns
+persistence to the relevant readback. C3 bounds task-relevant
+conditional predictive information by the hidden capacity; it does not
+require storing an uncompressed complete interaction history or imply
+residual uncertainty after that history is retained.
 
-Quantum mechanics is the representation of this \emph{read-write cycle}
-at the finite observable-law layer --- not passive observation of a
-static memory, but the description of a finite subsystem that both reads
-from and writes to a register it cannot fully access. The fixed-basis
-Schrödinger/unitary interpolation and the quadratic Born readout are
-already part of the exact equivalent representation
-(\(S \iff D \iff Q_{\mathrm{fb}}\), {[}Main §3.4{]}); they are not a
-separate exponent-selection problem. The unresolved question is whether
-the whole coherent intervention/composite family lifts into one standard
-local quantum operational theory. Interference in the mechanism picture
-is write-then-read: information deposited in hidden storage during one
-transition is retrieved on a later transition, partially cancelling or
-reinforcing the transition probabilities. The 10¹²² cosmological
-constant discrepancy is the compression ratio between total storage and
-readable storage. The dark sector is the gravitational weight of the
-unreadable storage. The Bekenstein-Hawking entropy is the storage
-capacity of the partition boundary. ℏ is the conversion factor between
-storage geometry and read-write statistics.
+At the finite observable-law layer, the fixed-basis unitary
+representation and quadratic Born dictionary are exact
+(\(S \iff D \iff Q_{\mathrm{fb}}\), {[}Main §3.4{]}). The Born
+dictionary is part of that representation's definition; it does not
+independently select the exponent. The coherent intervention/composite
+family and a physical measurement mechanism remain separate completion
+questions. The proposed cosmological storage interpretation, including
+horizon entropy, vacuum energy and the action scale, depends on the
+additional physical assumptions of the horizon construction. Those
+physical claims do not follow from the finite record-fibre or
+predictive-capacity theorem alone.
 
 An immediate objection is ``Memory made of what?'' Here \((S,\varphi)\)
 specifies a candidate mathematical model, whose accessible data also
@@ -3520,47 +3459,39 @@ about its own behavior. The undecidable problems aren't random --- they
 have a precise structure (the halting problem, Turing degrees, the
 oracle hierarchy).
 
-\textbf{OI:} An observer embedded in (S, φ) cannot access the complete
-state. The emergent description isn't random --- it has a precise
-structure (unitary quantum mechanics with the Schrödinger equation, Born
-rule, and Bell violations).
+\textbf{OI:} A specified observation interface determines which state
+distinctions are present in its retained records. Finite observable laws
+admit the exact stochastic/reversible/fixed-basis quantum
+correspondence. Neither that correspondence nor C4 says that every
+hidden state remains unidentified; full operational quantum mechanics
+and its Bell-compatible physical realization have their separate
+hypotheses.
 
-The precise OI analog of the halting problem is: \emph{can the observer
-determine the hidden-sector state h?} The hidden state has a definite
-value at every moment --- the total system is deterministic. Different
-hidden states send the same visible state to different futures (the
-particle goes left or right, the spin is measured up or down). But the
-observer provably cannot determine h: multiple hidden states are
-compatible with any visible-sector history, and transition probabilities
-are averages over h. The structural consequence is quantum mechanics ---
-just as the structural consequence of the halting problem is the
-architecture of computability theory.
+For a known finite model, ask which initial states are compatible with
+the retained record. A quantity is inferred exactly when it is constant
+on that record fibre. The swap map \((v,h)\mapsto(h,v)\) has four
+distinct two-reading records, so it identifies the full initial state
+and the current hidden state. Its uniform visible process still has
+\(X_2=X_0\) and one bit of conditional readback memory. This separates
+predictive hidden memory from hidden information left unresolved by the
+whole history.
 
-The framework also identifies a distinct class of inaccessible
-quantities: the deep-sector cardinality \textbar C\_D\textbar{} and,
-under the alphabet-size hypothesis {[}SM §2.7{]}, the alphabet size q.
-These are not undecidable --- they are \emph{gauge}. Different values of
-\textbar C\_D\textbar{} produce the same transition data at leading
-order on accessible timescales, and under the hypothesis different
-values of q produce identical observables, so within those data there is
-no fact of the matter to be inaccessible. The hidden state h is
-undecidable: it has a real answer the observer cannot reach. The
-cardinality \textbar C\_D\textbar{} is gauge: in the
-accessible-timescale data there is nothing there to reach.
+Model redundancy is a separate issue. An independently prepared, exactly
+decoupled ancillary sector leaves the chosen visible channel unchanged
+under the hypotheses of {[}Substratum Theorem 24(iii){]}. Alphabet-size
+comparisons retain their stated additional hypotheses. These are
+comparisons of accessible laws across realizations, rather than a
+theorem that every state of one fixed realization is unknown.
+Non-identifiability in a known finite model is not the halting problem:
+the compatible sets are computably finite.
 
-The common thread: a system with finite resources tries to completely
-model something it's part of, and the structural impossibility of doing
-so determines the \emph{form} of what it produces instead. The
-limitation and the law are the same object viewed from two sides. The
-Turing connection is direct: the observer is the head of a reversible
-computation; the halting problem (the head cannot determine the tape's
-global state) and the QM emergence theorem (the head's finite read-write
-statistics, Markov laws included, have an exact fixed-basis unitary/Born
-representation on every finite horizon, and carry positive conditional
-memory \(I(X_{<k}; X_{k+1} \mid X_k)\) at an accessible order \(k\)
-exactly when history readback holds at that order) are two consequences
-of the same structural constraint --- finite self-referential access to
-a lossless computation.
+The connection with computation is a partial read/write interface to a
+reversible update. It is an analogy about access, not an identification
+of finite state inference with Turing undecidability. The proved
+correspondence concerns finite observable laws; its memory clause
+concerns histories with different next-step conditionals. Physical
+limits on storing records, choosing interventions and computing from
+them must be supplied where used.
 
 Gödel and Turing are usually read as negative results --- limits on
 knowledge. The framework recasts the physical instance as
@@ -3949,4 +3880,4 @@ The final text and all scientific claims were reviewed and verified by
 the author.
 
 \end{document}
-% source-sha256: dbc3fc42e408c43053439ad675ec9f49e7ea8c669b220521dcd0c188eba2cd77
+% source-sha256: 8650bf5d3124213e764abc7d1f7b4708d3466859a23647794162fb4863eec005

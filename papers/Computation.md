@@ -67,9 +67,9 @@ The paper's structure: §2 carries the structural chain from evolution to genera
 
 The chain from a selected physical model to computational devices also requires an observer capable of developing and engineering those devices. Theorem 23 [5, §3] gives conditional lattice/gauge outputs of a stipulated branch; it does not provide an algorithm for recovering that branch or the microscopic bijection from observations. An observer may test and exploit the branch's physical consequences without a unique inverse reconstruction.
 
-**The self-referential loop.** AI is an embedded observer building another embedded observer within the same (S, φ). The characterization theorem [1, §3.4] applies to the new observer. It sees the same QM, the same ℏ, the same SM, the same dark sector. Not because it is limited by human design, but because the physics is structural — determined by the partition, not by the observer's complexity. A superintelligent AI has the same observational access as any other embedded observer: it reads the visible sector and writes to the hidden sector through the same coupling. It cannot determine $h$. It cannot see past the cosmological horizon. It can build better instruments, but it cannot overcome the partition.
+**The self-referential loop.** An AI built within a chosen realization is another embedded observer, with its own specified preparation, readout, controls and record storage. The finite-law representation theorem applies to that observable law. More computation cannot distinguish states giving identical permitted records, but retained observations can identify hidden quantities constant on their compatible fibre [Substratum Proposition 24.5]. A physical causal horizon restricts direct signals only under its independent spacetime assumptions; subsystem status alone does not prove permanent hidden-state ignorance.
 
-The recursion — AI building AI building AI — produces ever more sophisticated embedded observers, each subject to the same structural limits. The Gödel-Turing-OI incompleteness family applies at every level: a formal system cannot prove its own consistency (Gödel), a computer cannot decide its own halting (Turing), an embedded observer cannot determine the hidden state (OI). No level of recursive self-improvement overcomes the partition. The limits are not technological — they are mathematical.
+Recursive improvement does not change the records supplied by a fixed interface, but better inference and retained histories can reveal distinctions absent from one reading. Gödel's and Turing's impossibility results have separate hypotheses. In a known finite deterministic model, state-identifiability is a finite computation; non-singleton record fibres are an information restriction, not an undecidability theorem.
 
 **What AI can and cannot do.**
 
@@ -77,13 +77,13 @@ The recursion — AI building AI building AI — produces ever more sophisticate
 |-----------|--------|
 | Derive local lattice/gauge outputs within a selected physical branch | Conditional on Theorem 23's additional branch and physical premises |
 | Build better models of the visible sector | No structural limit |
-| Determine the hidden-sector state $h$ | Provably impossible (characterization theorem) |
+| Infer the hidden-sector state $h$ | Depends on the permitted record fibres; the characterization theorem does not forbid it |
 | Observe beyond the cosmological horizon | Provably impossible (causal partition) |
 | Build faster computers | Structurally possible (derived physics permits it) |
 | Replace a visible process with nonzero conditional memory by a faithful memoryless (Markov) model at the same horizon | Provably impossible ([Main §3.4]) |
 | Recursive self-improvement | Possible within the structural limits |
 
-The framework's prediction is precise: there is no ceiling on the complexity of the observer, but there is a permanent floor on what any observer can access. The ceiling is contingent — it depends on the specific φ and the specific evolutionary and technological history. The floor is structural — it is the same for all embedded observers, biological or artificial, at any level of sophistication.
+Embedding alone supplies no common permanent access floor for all observers. A fixed interface and preparation may leave some distinctions unidentifiable from every permitted record, while another interface or longer retained history can resolve them. Limits on physical storage, intervention and computation must be specified separately; the finite-law and predictive-memory theorems do not impose universal posterior opacity on biological or artificial observers.
 
 ***
 
@@ -181,7 +181,7 @@ A positive complement to this silence is worth noting briefly. The framework's f
 
 ### 5.5 The boundary-characterization pattern across the Gödel-Turing-OI family
 
-The framework's silence on P vs NP fits a broader pattern across the incompleteness family identified in [1, Ch. 12 §12.8]: Gödel's incompleteness, Turing's halting result, OI's hidden-sector inaccessibility, and Deutsch's universality-of-explanation are all *boundary-characterization* results that share a common structural feature — each establishes a structural limit on access from inside a system, and each is silent on the internal organization of what falls within the accessible domain.
+The framework's silence on P versus NP is consistent with keeping information and computational limits separate. Identical permitted records cannot distinguish different states, whereas a finite known-model fibre can be computed even when it contains several candidates. This is not a proof that OI non-identifiability coincides with Gödel incompleteness or Turing undecidability; the conditional BQP model retains its own efficiency and operational-closure hypotheses.
 
 Concretely:
 

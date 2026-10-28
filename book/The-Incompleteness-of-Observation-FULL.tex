@@ -1461,10 +1461,12 @@ Theorem}\label{embedded-observation-and-the-characterization-theorem}}
 \subsection{1.1 The problem and the
 theorem}\label{the-problem-and-the-theorem}}
 
-An observer inside a physical system cannot condition on the complete
-state of that system. The central question is therefore not whether
-incomplete observation produces probabilities --- it obviously can ---
-but what class of laws the observer's reduced description belongs to.
+An observer's conditioning information is fixed by the preparation,
+readout and retained records available to it. Those records may leave
+several total states unresolved, or may identify the complete state in a
+known finite model; embedding alone decides neither case. The central
+question is what class of finite laws the resulting reduced description
+belongs to.
 
 The answer has two parts. First, at every finite observable horizon
 there is an exact representation equivalence: \[
@@ -2480,17 +2482,14 @@ measurement apparatus would see classical mechanics. No such observer
 exists in our universe, and the framework's content is that no such
 observer can exist --- gravitational coupling is universal.
 
-This has a striking corollary: the project of ``explaining quantum
-mechanics'' by finding the right deterministic substructure is
-well-defined within the framework, but the dynamics that observer's
-would see in that substructure is not quantum mechanics. It is classical
-mechanics. Quantum mechanics is the dynamics that \emph{embedded}
-observers see when they are coupled to the substructure; the
-substructure itself, viewed from a hypothetical uncoupled vantage point,
-would be classical. The framework's reframing is that the persistent
-intuition ``there must be a deterministic story underneath'' is correct,
-and the deterministic story is classical, but it is structurally
-inaccessible to any actual observer.
+A deterministic completion can give a classical microscopic account of
+the specified finite observable law. The exact fixed-basis quantum
+representation describes that same law and does not by itself prove that
+the microscopic state is unidentifiable. Known-model inference is
+governed by the retained-record criterion of {[}Substratum Proposition
+24.5{]}; whether actual observers can obtain and store the required
+records is a separate physical question. Neither universal opacity nor a
+unique full quantum theory follows from coupling alone.
 
 \textbf{The C2 limit: the thermalized observer.}
 
@@ -2578,78 +2577,58 @@ universe --- and the small parameter of the continuum Schrödinger-form
 derivation, the \(\tau_S/\tau_B\) expansion --- not what
 representability or the memory theorem require ({[}Main §3.4{]}).
 
-\textbf{The C3 limit: the universe-sized observer.}
+\textbf{The vanishing-hidden-store limit: a full-state readout.}
 
-C3 requires sufficient hidden memory capacity ---
-\(\log_2|\mathcal{C}_H| \geq I^*\), with \(N_H \gg N_V\) the comfortable
-realization regime. In the limit of complete failure --- \(N_H \to 0\),
-the hidden sector vanishes entirely --- the visible sector \(V\)
-approaches the total system \(S\). There is no trace-out because there
-is nothing to trace over. The observer is \emph{coextensive} with the
-universe.
+The C3 bound is \(\log_2|\mathcal C_H|\ge I^*\), not a requirement that
+the hidden sector be much larger than the visible one. If the hidden
+factor has one state and the readout is the entire configuration, the
+visible law follows the known permutation directly. It has \(I^*=0\) and
+no C4 readback memory; the capacity inequality is then vacuous, rather
+than violated.
 
-The dynamics in this limit is fully deterministic and fully classical.
-The bijection \(\varphi\) on the full system \(S\) is just a permutation
-of classical states; the observer who is all of \(S\) sees its complete
-deterministic evolution. No memory-bearing sector --- the fixed-basis
-representation survives, trivially, as always ({[}Main §3.4{]}) --- and
-no interference phenomenology, but for a different reason than in the C1
-case. In the C1 limit, the visible sector is closed but the framework
-still applies to it as a system; in the C3 limit, the framework's
-content has no purchase because there is no embedded observation taking
-place. The ``observer'' is not observing anything; they are the system
-being observed, with no separation between knower and known.
+For this full-state readout the next configuration is determined by the
+current one. The finite-law fixed-basis representation remains valid,
+but the nontrivial hidden-memory mechanism is absent. This is a limiting
+choice of readout, distinct from inferring a state through several
+readings of a proper subsystem.
 
-This is the regime that superficially resembles a \emph{God's-eye view}.
-The traditional theological framing imagines an observer who stands
-outside the universe and sees everything at once with no uncertainty.
-The framework's C3 limit is similar in eliminating quantum
-indeterminism, but it differs structurally: there is no ``outside'' in a
-finite deterministic universe. Such an observer would be coextensive
-with the universe, not transcendent of it. They would not be viewing the
-universe; they would be the universe describing itself.
+A God's-eye view can name direct access to every configuration
+coordinate at once. That definition should not be substituted for
+complete inference from retained records. A proper readout may have an
+injective finite record map even though no single reading is injective.
 
 Three structural features of this regime are worth noting.
 
-\emph{Observation breaks down entirely.} In the framework's account,
-observation is a \emph{partition-relative} concept. The observer reads
-the visible sector through measurements that depend on the partition's
-coupling. Without a partition --- without anything in the hidden sector
-to be coupled to --- measurement has no meaning. The observer cannot
-perform observation in the framework's sense. The God's-eye view is
-therefore not a limit case of observation but a category outside it.
+\emph{The observational carrier changes.} With the full configuration as
+readout there is no nontrivial hidden factor to support readback. A
+full-state readout is still a well-defined mathematical map, while the
+framework's memory-bearing observer criterion requires the separate C4
+condition.
 
-\emph{Laplace's demon is structurally impossible.} The classical version
-of the God's-eye view is Laplace's demon: a hypothetical intelligence
-that knows the position and momentum of every particle and can therefore
-predict everything. Conventional readings reject Laplace's demon because
-of quantum indeterminism; the framework's reading rejects it for a
-deeper reason. The demon would require being the universe, not merely
-knowing about it. The impossibility is structural rather than epistemic
---- not ``the demon cannot get the information'' but ``the demon's
-having the information would mean they are the universe itself.''
+\emph{Laplace-style prediction needs a specified information model.} In
+a known finite deterministic model, records that identify the state also
+determine its future orbit. The swap map in {[}Substratum Proposition
+24.5{]} demonstrates this through a proper instantaneous readout.
+Physical limits on retaining those records or computing the prediction
+require their own assumptions; knowledge of the state does not logically
+require being the whole system.
 
-\emph{Self-reference paradoxes persist.} Even in the limit case where C3
-fails completely, the Gödel-Turing-OI incompleteness family from Chapter
-12 §12.8 applies. A system that is the entire universe and tries to
-describe itself fully runs into the same self-reference paradoxes that
-finite systems do. The universe-sized ``observer'' cannot include a
-complete description of themselves within their description --- adding
-such a description would change the universe and require a new
-description. The framework's content is that complete self-knowledge is
-structurally impossible at any scale, including the limit case.
+\emph{Self-reference is not a substitute proof.} Gödel's and Turing's
+theorems apply under their formal/computational hypotheses. They do not
+establish permanent non-identifiability in every finite model. The
+finite record-fibre criterion is computably decidable; additional memory
+or algorithmic resource limits are separate questions.
 
-The C3 limit therefore illuminates a third structural point: observation
-is partition-relative, and the God's-eye view is not a limit of
-observation but a category outside it. The framework's anti-Laplacian
-content is stronger than the conventional one: not ``we cannot know
-everything because of quantum randomness'' but ``complete knowledge
-requires being the universe rather than being in it, and any embedded
-observer is structurally limited.''
+The distinction is between direct instantaneous access, inference from
+permitted retained records and physical resources for that inference.
+None alone establishes a universal prohibition on complete state
+knowledge. Genuine non-identifiability is the presence of compatible
+states that the full permitted interface does not distinguish.
 
 \textbf{The three limits together.}
 
-The three failure modes are structurally distinct.
+The limiting examples separate dynamical memory from the choice of
+observational carrier.
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1774}}
@@ -2658,62 +2637,44 @@ The three failure modes are structurally distinct.
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3387}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
-Condition
+Limit
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-What fails
+What changes
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Resulting dynamics
+Fixed-readout consequence
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Resulting situation
+Situation
 \end{minipage} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-C1 & Coupling & Closed classical & Isolated subsystem \\
-C2 & Timescale separation & Markovian stochastic & Thermalized
-observer \\
-C3 & Capacity hierarchy & No observation & Coextensive with system \\
+C1 failure & No hidden coupling & Closed deterministic visible law &
+Isolated subsystem \\
+Record erasure & Persistence lost on the stated window & Memoryless law
+under the erasure hypotheses & Effective bath limit \\
+Trivial hidden factor & Full-state readout & No C4 memory; C3 inequality
+vacuous & Different observational carrier \\
 \end{longtable}
 
-Each tells us something different about why our situation produces the
-memory-bearing dynamics that embedded observation forces. C1 failure
-reveals that closed classical mechanics is what uncoupled systems do ---
-our dynamics carries hidden-sector memory because we are coupled. C2
-failure reveals that memoryless stochastic dynamics is what thermalized
-observers see --- the stored record erased before readback; ours
-survives because our bath persists rather than equilibrating. C3 failure
-reveals that observation itself is structurally limited --- the memory
-sector exists because we are embedded, not coextensive.
+C4 readback forces a nontrivial predictive memory in a faithful
+deterministic realization. Its information must persist until readback,
+and the hidden capacity obeys the stated data-processing bound. None of
+these statements requires positive hidden-state uncertainty after
+conditioning on every retained reading; a cyclic register can attain the
+capacity bound and still become identifiable.
 
-Together, the limits characterize the kind of observer we are by
-contrast with the kinds of observer we are not. We are not isolated (C1
-holds), not thermalized (C2 holds), not coextensive with the universe
-(C3 holds), and not blind to our own past records (C4 holds). The
-framework's four conditions are the diagnostic checklist for ``embedded
-laboratory observer coupled to a record-persistent, vast environment''
---- C4 primitive, C1 and C3 its checkable consequences, C2 the physical
-regime that keeps records alive ({[}Main §3.4{]}). Each is empirically
-robust at its own end --- the gravitational coupling enforcing C1, the
-cosmological timescale enforcing C2, the cosmological horizon enforcing
-C3 --- and the memory-bearing dynamics this observer must see is the
-framework's discriminating content --- the nontrivial sector of a
-representation class that is itself universal.
+The physical laboratory model supplies its particular coupling,
+persistence, capacity and accessible readback premises. A cosmic horizon
+can motivate some of them under additional physical assumptions. It does
+not replace the mathematical test for which hidden distinctions survive
+all permitted records.
 
-This is the framework's structural content at its sharpest: quantum
-mechanics is not a separate physical theory we discovered alongside
-classical mechanics. It is the dynamics that our specific kind of
-observation produces --- with the representation universal
-(\(S \iff D \iff Q_{\mathrm{fb}}\): every finite-horizon law has one)
-and the discriminating content in the memory-bearing sector
-(\(M_t > 0\)) that embedded observation forces --- and the alternative
-dynamics (closed classical, memoryless stochastic, deterministic
-self-coextensive) correspond to alternative kinds of observation that
-are not realized in our universe. The framework's four conditions are
-the structural fingerprint of being a coupled, record-persistent,
-partition-relative observer --- the only kind of observer that physical
-laboratories produce, and the only kind whose visible dynamics carries
-that memory sector.
+The exact result remains \(S\iff D\iff Q_{\rm fb}\) on finite observable
+horizons, with C4 distinguishing the memory-bearing sector. Selecting
+the full coherent operational theory and its physical realization
+remains separate. This preserves the proved representation and memory
+results without requiring permanent state opacity.
 
 This reframing has consequences for the framework's empirical content
 beyond what is already developed in Chapters 5 through 19. Each of the
@@ -3052,36 +3013,28 @@ appearance of dynamics, probability, particles, and forces is entirely
 the observer's perspective --- what the permutation looks like through
 the partial window \(V\).
 
-The third difference is the load-bearing one. The framework extends
-Turing's question. Where Turing asked what computation a machine can
-perform for an external observer, the framework asks what computation
-looks like to a \emph{component of the machine} --- a subsystem with
-bounded access to the machine's own state. The answer, established in
-Chapter 1, is quantum mechanics.
+The third difference motivates a question about a component observing a
+larger reversible computation. Chapter 1 establishes the finite
+observable-law correspondence and its predictive-memory criterion. It
+does not establish permanent state opacity or a unique full physical
+quantum completion from subsystem status alone.
 
-This extension places the framework in a specific intellectual lineage.
-Three foundational results form what can be called the incompleteness
-family. Gödel: a formal system rich enough to encode arithmetic cannot
-prove all true statements about itself; the unprovable truths have rigid
-structure. Turing: a computer cannot decide all questions about its own
-behavior; the undecidable problems have rigid structure. Observational
-Incompleteness: an observer embedded in a deterministic system cannot
-access the complete state; the emergent description has rigid structure
---- quantum mechanics. The common pattern is self-reference under finite
-resources, with the impossibility result yielding not chaos but a
-precisely characterized formal structure.
+The computational analogy concerns access to a reversible state update.
+It does not identify finite hidden-state inference with Gödel
+incompleteness or Turing's halting problem. A proper instantaneous
+readout can omit coordinates that a retained sequence later identifies.
+The exact finite-law representation and predictive-memory results do not
+assume that every hidden distinction remains unknown.
 
-The OI analog of Turing's halting problem is the question: can the
-observer determine the hidden-sector state \(h\)? The question is
-well-posed. The hidden state has a definite value at every moment,
-because \((S, \varphi)\) is deterministic. Different \(h\) values
-produce different physical outcomes through the bijection. But the
-observer provably cannot determine \(h\): multiple hidden states are
-compatible with any visible-sector history, and the transition
-probabilities \(T_{ij}(t)\) are averages over them. The structural
-consequence of this inaccessibility is quantum mechanics, just as the
-structural consequence of the halting problem's undecidability is
-computability theory.
+For known dynamics, preparation support and retained records, the
+compatible record fibre determines what can be inferred {[}Substratum
+Proposition 24.5{]}. Under \((v,h)\mapsto(h,v)\) the two readings
+\((X_0,X_1)=(v_0,h_0)\) identify the initial state and the current
+hidden bit \(H_1=X_0\). With a uniform initial law, \(X_2=X_0\) still
+gives one bit of conditional readback memory. Thus C4 can hold while
+each full-history hidden posterior is a point mass. Persistent passive
+ambiguity requires non-singleton future-trace classes on the admissible
+support; new preparations or interventions can change those classes.
 
 Two further kinds of hidden data must be distinguished by the actual
 observer interface. An independently prepared, exactly decoupled deep
@@ -5021,36 +4974,21 @@ agrees with Hofstadter that the strange loop is real and that
 self-reference produces structural emergence; it disagrees that the
 substrate is therefore irrelevant.
 
-\textbf{The embedded-observer limits tradition.} The Introduction placed
-the framework's central claim in the impossibility-with-structure family
---- Gödel for formal systems, Turing for computational systems, Wolpert
-for physical inference devices --- and stated the relationship in a
-sentence this section need not repeat: the logical results corroborate
-the framework's derivation but do not supply it. (Wolpert's theorems are
-engaged separately, as an objection, in Appendix C.7.) That family has
-further members, closer to the framework's specific concern, that belong
-in the lineage record. Dalla Chiara (1977) analyzed the quantum
-measurement problem as a self-reference problem in the logician's sense,
-decades before that framing was common. Rössler's endophysics (1998)
-distinguished systematically between the view from inside a world and
-the view from a hypothetical outside, arguing that physics as practiced
-is unavoidably interface physics. Breuer (1995) proved the sharpest
-single result: no observer can perform an accurate measurement of the
-complete state of any system in which that observer is contained --- an
-impossibility theorem, not an interpretation. And Szangolies (2018)
-derived quantum-like epistemic restrictions from self-reference
-structure via Lawvere's fixed-point theorem, the nearest approach in
-this tradition to extracting quantum form rather than mere limitation.
-The framework cites all of these as load-bearing lineage, and its
-relationship to them is the one the Introduction stated for the family
-as a whole and §3.7.1 states for EPR: the tradition establishes that the
-limit exists; the framework derives what the limit forces --- hidden
-incompleteness with, under the stated memory architecture, an accessibly
-memory-bearing marginal (P-indivisibility the stronger diagnostic in the
-appropriate regimes), the representation universal and carrying the
-compressed quantum form for that subclass under (T), through the
-ancilla-dilated representation (the construction's own marginals are
-doubly stochastic but not in general unistochastic; {[}Main §3.1{]}).
+\textbf{The embedded-observer limits tradition.} The cited lineage
+includes Gödel's formal incompleteness, Turing's algorithmic
+undecidability, Wolpert's physical inference devices, Dalla Chiara's
+self-reference analysis, Rössler's endophysics, Breuer's
+self-measurement work and Szangolies's epistemic restrictions. These
+concern different model classes and hypotheses; they do not collectively
+prove that every embedded observer remains ignorant of every hidden
+state after all permitted records. In particular, a restriction on
+direct self-measurement cannot simply be transferred to known-model
+inference through time. Proposition 24.5 of {[}Substratum{]} supplies
+the applicable finite record criterion, including systems whose complete
+state is identifiable. The framework's finite-law representation and
+predictive-memory results stand on their own premises, while coherent
+physical completion remains separate. Appendix C.7 discusses Wolpert's
+assumptions in more detail.
 
 \textbf{Contemporary observer-dependence programs.} The framework
 converges with the recent technical work on observer-incorporated
@@ -5090,32 +5028,20 @@ physical readout and all-partitions equivalence must be fixed before one
 can conclude that the question of a deeper substrate has no empirical
 content.
 
-The dissolution must be scoped, though, and the scoping is this
-chapter's own two-species distinction (§3.6). Not every turtle below us
-is gauge. The first one down --- the hidden sector itself, the horizon
-bath --- is real on the framework's account, and \emph{computational}
-incompleteness, not gauge incompleteness, is what hides it: there are
-definite facts about it, unreachable from our position because the
-observer is not a system large enough to hold them. We cannot see all
-the turtles because we are turtles ourselves --- components of the same
-stack, performing the trace-out on our own tower. Unobservable there
-does not mean nonexistent; it means unverifiable by direct experiment
-from inside. And deduction still reaches where observation cannot: the
-framework characterizes that first turtle in detail --- its capacity of
-order \(10^{122}\) modes, its Hubble-scale timescale, the four-condition
-structure of its coupling --- and, in the flagship case, its energetic
-content. The boundary entropy has no operator in the emergent quantum
-field theory, so roughly ninety-five percent of the critical density is
-invisible to every embedded observer \emph{by theorem}; its uniform
-component is dark energy, and its scale-dependent face is the
-dark-matter regularity \(a_0 = cH/6\) (Chapter 7 §§7.8--7.9). Those are
-deduced properties of what cannot be directly seen, and they face
-indirect test through the phenomenology they force --- which is exactly
-how a real but unobservable turtle differs from a gauge one. Only past
-that first real turtle, in the deep sector where enlargement is pure
-gauge, does \emph{below} stop referring. The regress does not end at us,
-and it does not end at the horizon; it ends where the framework can
-prove there is nothing left for it to be about.
+The distinction is between unresolved facts within a specified model and
+redundancies between models. A physical memory restriction can prevent
+an observer from distinguishing every admissible state, but this must be
+established from its actual resources. If its stored record has \(R\)
+values and its preparation admits more than \(R\) initial states, at
+least one record fibre is non-singleton; that does not make every hidden
+fact unreachable. A small permitted record can identify a known finite
+system completely, as the swap model demonstrates. Estimates of horizon
+capacity, correlation time and energetic content belong to the stated
+cosmological construction and its physical assumptions, and face
+indirect tests through its predictions. They do not prove universal
+hidden-state opacity or make every deeper implementation gauge. The
+exact decoupled-ancilla invariance has its specified channel-level
+scope; a complete physical observational equivalence remains open.
 
 The foundational proposal begins from differentiated observations and
 attempts to reconstruct physical structure, rather than treating a
@@ -15712,15 +15638,14 @@ chapter-specific derivation chains (Chapters 5--8), not from C1--C4
 alone. The framework's structural commitments are not limited by the
 observer's complexity; they are determined by the partition.
 
-\textbf{Self-referential limits.} A superintelligent AI has the same
-observational access as any other embedded observer: it reads the
-visible sector and writes to the hidden sector through the same
-coupling. It cannot determine \(h\) (the specific hidden-sector
-configuration). It cannot see past the cosmological horizon. It can
-build better instruments --- higher-resolution telescopes, more precise
-atomic clocks, more sensitive particle detectors --- but it cannot
-overcome the partition itself. The framework's structural limits are not
-technological but mathematical.
+\textbf{Limits of inference.} Intelligence cannot distinguish states
+that give identical records under a fixed permitted interface. It can
+infer a hidden quantity if that quantity is constant on the compatible
+record fibre. Retaining more observations or adding justified
+instruments can refine those fibres; physical causal horizons, record
+capacity and computational resources are separate constraints. A proper
+instantaneous partition alone does not establish permanent hidden-state
+ignorance.
 
 The recursion --- AI building AI building AI --- produces ever more
 sophisticated embedded observers, each subject to the same structural
@@ -15743,28 +15668,23 @@ there is no algorithm that, given an arbitrary program, determines
 whether the program will eventually halt. The limit is on what a
 computational system can determine about itself.
 
-\emph{OI (framework).} An embedded observer cannot determine the
-hidden-sector state. The limit is on what a physical observer can
-establish about its own substratum from within.
+\emph{OI (framework).} State identification is relative to the
+preparation, model and permitted records. Some interfaces leave several
+compatible states; others identify the state through time. This is the
+record-fibre criterion, not a universal prohibition on hidden-state
+inference.
 
-The three results share a structural pattern: a system that is
-sufficiently rich to refer to itself contains questions it cannot answer
-about itself. The framework's content unifies the three under a single
-structural reading: each is a consequence of the same self-referential
-structure, with different specific instantiations (formal systems,
-computational systems, embedded observers in finite deterministic
-substrata) producing different specific limits.
+These topics motivate comparison between information and computational
+limits, but they have different mathematical hypotheses. Identical
+records create non-identifiability; finite enumeration can decide
+whether that occurs in a known finite model. Formal incompleteness and
+general halting undecidability are different statements.
 
-The unification is not just analogy. The framework's substratum is a
-finite deterministic system; embedded observers within the substratum
-are themselves substructures of the substratum; their observations are
-operations on the substratum; their reasoning about their observations
-is computation on the substratum. The Gödel, Turing, and OI limits
-therefore \emph{coincide} in the framework: the limit on what an
-embedded observer can determine about its hidden sector is the same as
-the limit on what a formal system can prove about itself, the same as
-the limit on what a computational system can determine about its own
-execution.
+No theorem here identifies those three limits. The finite deterministic
+carrier provides a concrete model in which record fibres can be
+computed. To make a stronger self-reference or resource-bound claim, the
+observer's available memory, algorithms and physical measurement
+interface must be specified independently.
 
 \textbf{A fourth family member: Deutsch's \emph{Beginning of Infinity}.}
 David Deutsch's 2011 argument {[}Deutsch{]} extends the incompleteness
@@ -15779,19 +15699,14 @@ operationally and hold it accountable to its predictions, while
 remaining open to its eventual successor. This is fallibilism without
 relativism: knowledge is real and objective and grows, but never closes.
 
-The structural parallel to Gödel, Turing, and OI is exact. Each of the
-four results identifies incompleteness as a \emph{feature of the
-system}, not a \emph{deficit awaiting repair}. Gödel: arithmetic
-incompleteness is intrinsic to formal systems of sufficient richness,
-and the unprovable truths have rigid structure. Turing: undecidable
-problems are intrinsic to computational systems, and the undecidable
-problems have rigid structure. Observational Incompleteness: observation
-cannot resolve the substrate, and the emergent description has rigid
-structure --- quantum mechanics. Deutsch: knowledge cannot reach a final
-theory, and the trajectory of better explanations succeeding worse ones
-has rigid structure --- what Deutsch calls ``the growth of knowledge.''
-Four levels, one pattern: incompleteness yielding determinate structure
-rather than chaos.
+The comparison concerns different kinds of limitation, rather than four
+equivalent theorems. Gödel and Turing concern formal and algorithmic
+questions under their own hypotheses; Deutsch offers an epistemological
+argument. The finite OI results concern specified observable laws and
+record interfaces. Some such interfaces leave non-singleton record
+fibres, while others permit complete known-model state inference. The
+exact finite-law representation does not turn a generic inability to
+resolve a substrate into a unique physical quantum theory.
 
 OI's relation to Deutsch's argument is conditional on the specified
 access structure. An observer using a given carrier cannot distinguish
@@ -15856,8 +15771,8 @@ Derive and test local outputs of a selected physical branch &
 Conditional model development; no unique inverse supplied by Theorem
 23 \\
 Build better models of the visible sector & No structural limit \\
-Determine the hidden-sector state \(h\) & Provably impossible
-(characterization theorem) \\
+Infer the hidden-sector state \(h\) & Depends on the permitted record
+fibres; the characterization theorem does not forbid it \\
 Observe beyond the cosmological horizon & Provably impossible (causal
 partition) \\
 Build faster computers & Structurally possible (derived physics permits
@@ -15880,14 +15795,13 @@ outside that model falsifying coverage first. The framework's substratum
 picture provides a unified mathematical basis for understanding what AI
 can and cannot achieve.
 
-\textbf{The framework's self-reference.} The framework's content
-includes its own status: the framework is a description developed by
-embedded observers (the framework's authors, the readers, the AIs that
-may eventually engage with the framework) about the structure that
-produced them. The framework's commitments include the structural limits
-that apply to the framework's own development: the framework cannot
-determine the hidden-sector state, cannot see beyond the cosmological
-horizon, cannot derive its own initial conditions (Chapter 19 §19.3.5).
+\textbf{The framework's self-reference.} Authors, readers and AIs assess
+the framework using permitted observations and explicit models. Its own
+methodology does not add a universal theorem that hidden states or
+initial conditions are unknowable. State inference depends on record
+fibres; direct causal exclusions depend on the spacetime model;
+quantities not derived by the construction remain inputs or open
+problems, rather than automatically inaccessible ones.
 
 The framework's self-reference is therefore not paradoxical but
 consistent. The framework's commitments are \emph{closed under
@@ -17066,17 +16980,14 @@ predictions. Completeness for arbitrary conceivable operations is not
 asserted; it is exactly what the closure hypothesis supplies, not what
 the framework proves.
 
-Hidden-state inaccessibility (Chapter 1 §1.4) is real but does not by
-itself yield closure: extra computational power need not come from extra
-information --- modified or nonlinear evolution acting on the same state
-description already changes the complexity class, which is what the
-closure hypothesis excludes. The observer can detect the
-\emph{statistical} effect of the hidden sector through the density
-matrix's mixedness but cannot detect the specific hidden-sector
-configuration. Hidden-sector access would be one possible route beyond
-the model, but not the only one; nonlinear or other post-quantum
-operations on the same state space are excluded separately --- by the
-operational-closure hypothesis, not by inaccessibility.
+Record-fibre non-identifiability does not establish operational closure.
+Inferring a hidden quantity from allowed records is ordinary inference
+within the model, not an additional hidden-state oracle. Conversely, an
+extra oracle, nonlinear evolution or other post-quantum operation is
+excluded only by the explicit closure hypothesis. The passive
+finite-state criterion of {[}Substratum Proposition 24.5{]} supplies no
+such operation and does not settle the physical coherent-instrument
+problem.
 
 \textbf{Operational closure (a model hypothesis).} The computational
 model assumes --- it does not derive from C1--C4 --- that any admissible
@@ -21809,23 +21720,21 @@ configuration space \(S\). Each state \((x, h)\) --- visible coordinates
 successor \(\varphi(x, h) = (x', h')\). There is no randomness in the
 dynamics; the substratum is strictly deterministic.
 
-The apparent randomness arises because the observer sees only \(x\), not
-\(h\). Different hidden states \(h_1, h_2, \ldots\) compatible with the
-same visible state \(x\) lead to different successor visible states
-\(x_1', x_2', \ldots\) under the bijection. The observer cannot
-distinguish among the hidden states; they appear as a probability
-distribution over the possible successors. The probabilities are
-\emph{not} features of the dynamics --- the dynamics is deterministic
---- but features of the observer's reduced description of the dynamics,
-given the observer's incomplete information about the hidden-sector
-configuration.
+Conditional probabilities arise by averaging over states compatible with
+the observer's preparation and retained record. If that fibre contains
+hidden distinctions relevant to the next output, the reduced prediction
+can be non-deterministic. If the record identifies the state, the next
+output is fixed within the known deterministic model. Averages over an
+initial ensemble do not establish permanent ignorance after
+conditioning.
 
-This is what ``deterministic but inaccessible'' means in the framework:
-the outcomes are fully determined by the substratum dynamics, but the
-observer cannot in principle access the hidden-sector information that
-determines them. The randomness is unavoidable for any embedded
-observer, but it is not fundamental --- it is the cost of partial
-observation.
+The epistemic reading is therefore conditional on the chosen
+deterministic completion and information available to the observer. It
+does not make randomness unavoidable for every embedded observer or
+every history. The physical coherent measurement and Bell-compatible
+completion remain separate obligations; the record-fibre criterion
+settles only the stated classical inference question {[}Substratum
+Proposition 24.5{]}.
 
 \textbf{Bell's theorem and the chosen nonlocality.} Bell does not rule
 out determinism by itself; it rules out reproducing the observed
@@ -22292,8 +22201,9 @@ the time-reversibility of the underlying dynamics fully preserved at the
 substratum level. But the observer, who sees only the visible sector,
 sees an irreversible flow: information about the past is encoded in the
 visible sector's current state (entropy increasing), while information
-about the future is encoded in the hidden sector (inaccessible to the
-observer).
+relevant to future predictions can remain unresolved by the specified
+records. Whether it is inferable depends on the observation interface
+and dynamics, not on the word hidden alone.
 
 The arrow of time is therefore \emph{the observer's incompleteness}
 expressed temporally. The same partition that produces quantum
@@ -28205,17 +28115,17 @@ they take the formalism as given and say nothing about why it holds. A
 single observable can be perfectly sharp: the principle constrains
 pairs.
 
-\emph{What observational incompleteness says.} The framework's
-incompleteness concerns an observer embedded in a larger finite
-deterministic system: the observer's description is a marginal over a
-hidden sector it cannot access. Its discriminating content is history
-readback (C4): every faithful deterministic completion of the observer's
-visible process carries readout-relevant hidden predictive memory that
-the observer cannot read. This holds for a single fixed readout --- one
-register, recorded over time, with no choice between measurements ---
-where the uncertainty principle has nothing to bound. The visible laws
-of fixed-readout records are exactly the finite stochastic laws (Main
-§3.4), and no uncertainty relation constrains that class.
+\emph{What observational incompleteness says.} The finite-law theorem
+represents the visible process through a hidden realization. C4 states
+positive conditional readback memory: different histories at the same
+present state give different next-step laws, so a faithful deterministic
+completion carries readout-relevant hidden predictive memory. That
+memory may be fully inferable from the retained history. The swap model
+has \(H_1=X_0\) and \(I(X_0;X_2\mid X_1)=1\) under the uniform law, yet
+its two readings identify the complete state {[}Substratum Proposition
+24.5{]}. These fixed-readout laws are exactly the finite stochastic
+laws; neither residual state opacity nor a quantum uncertainty relation
+is a premise of the representation theorem.
 
 \emph{Where the uncertainty principle sits in the framework.} The
 framework proves a qualitative counterpart of the principle as a theorem
@@ -29101,12 +29011,13 @@ taste structure on the cubic lattice; reading the triplet as three
 whose free-kernel and 4D-staggered routes are both settled negative.
 Discussed in Chapter 6 §6.2.
 
-\textbf{God's-eye view.} A hypothetical observer coextensive with the
-universe, with complete knowledge of all degrees of freedom. The
-framework identifies the God's-eye view as the \emph{C3} failure limit
-and shows that it is not a limit case of observation but a category
-outside it --- observation is partition-relative, and without a
-partition, observation does not occur. Discussed in Chapter 1 §1.10.
+\textbf{God's-eye view.} A direct full-state readout, rather than a
+proof that only a universe-sized observer could infer a state. With a
+trivial hidden factor the known permutation gives a deterministic
+fixed-readout law and no C4 readback memory; the C3 capacity inequality
+is vacuous. A proper readout can nevertheless identify a state through
+retained records. See Chapter 1 §1.10 and {[}Substratum Proposition
+24.5{]}.
 
 \textbf{GW250114.} A high-signal-to-noise binary black-hole merger
 observed by LIGO on January 14, 2025 (hence ``GW250114''), with the
@@ -30257,4 +30168,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: da2d9b6223df1038b4e74357a6ccdac3c5a1940d436a7dcd1483787788cfc833
+% source-sha256: a39ace980afe21a51e65be3d1b07206092fd60e36d09be47c8acd24d3e04e043

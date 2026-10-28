@@ -1,0 +1,56 @@
+{
+  "base_commit": "f39b8d360bdba4bc460992fc770b9bd13c286ced",
+  "scientific_review_manifest_sha256": "801b58fee69cf387e6495a6a44f5c509c3d61ac8342008c837ef818abfcb9a9d",
+  "scientific_review_files_matching": 49,
+  "existing_statement_fingerprints_preserved": 133,
+  "new_statement": "SUBSTRATUM:P-24.5",
+  "new_statement_fingerprint": "0bab27ebe3d6d475",
+  "new_statement_kernel": "GAP",
+  "architecture": {
+    "invariants": 264,
+    "violations": 0,
+    "self_test_failures": 0,
+    "record_fibre_predicates": 39546,
+    "support_cases": 6122
+  },
+  "stinespring_scope_probe": "ALL CHECKS PASS",
+  "python_static_compilation_files": 5,
+  "v3_self_test": "PASS",
+  "legacy_records_self_test": "PASS",
+  "v3_conformance": {
+    "vectors": 140,
+    "as_expected": 137,
+    "not_as_expected": [
+      "VECTOR  s8-landed-2c6a4373-56b25397  NOT-AS-EXPECTED  UNDECIDABLE undecidable:shallow-repository",
+      "VECTOR  s8-landed-d3212b0e-50938dff  NOT-AS-EXPECTED  UNDECIDABLE undecidable:shallow-repository",
+      "VECTOR  s8-landed-f9a99fdf-14b9d991  NOT-AS-EXPECTED  UNDECIDABLE undecidable:shallow-repository"
+    ],
+    "limitation": "Three historical s8 vectors are UNDECIDABLE in this shallow checkout. No local full-history attestation is claimed."
+  },
+  "registry_order": {
+    "frozen_e2e_cases": 26,
+    "problems": 0,
+    "all_112_family_objects_preserved": true
+  },
+  "publications": {
+    "canonical_builds": 6,
+    "missing_glyphs": 0,
+    "selected_pages_visually_inspected": 29,
+    "out_of_page_word_boxes": 0,
+    "pdf_hashes_and_source_stamps": "publication-statistics.json"
+  },
+  "full_local_Lean_or_release_suite": "NOT RUN; reserved for CI under AGENTS A.40",
+  "prior_normal_pr_ci": {
+    "head": "f39b8d360bdba4bc460992fc770b9bd13c286ced",
+    "run_id": 40689922980,
+    "status": "completed",
+    "conclusion": "failure",
+    "Lean_kernel_job": "success",
+    "Mathlib_bridge_job": "success",
+    "failures": [
+      "core B: obsolete Stinespring manuscript lint",
+      "KTOKEN native controls: registry-last-entry synthetic fixture"
+    ],
+    "these_are_normal_pr_checks_not_F_E_attestations": true
+  }
+}

@@ -2657,6 +2657,20 @@
       "note": "Standard predictive-realization theory/native future-trace quotient recovery, scoped to the stated observational interface. Exact control provenance: verification/audits/manuscript/multitime-predictive-recovery-20261028/exact-controls-v2.py SHA-256 f0549188f68e3afcd14a7e59430b1919758568c9b68467a934644de911fb3274; results SHA-256 2bb425b1ff2f26dcd79f9c47c938bbbc4ce3e9224a46f52c10ec5ffa459bde28; independently reviewed frozen proof SHA-256 3b6b7a4c64a1d4ffa8b756995123ebdc9f6309748b79f89ed89805426a896043. Independently replayed with exit 0 and byte-identical results. These are bounded controls, not a machine proof of the universal proposition; checks remains empty to preserve the GAP contract. No microscopic/hidden-factor/coherent-channel/all-partitions gauge-completeness claim."
     },
     {
+      "id": "SUBSTRATUM:P-24.5",
+      "paper": "papers/Substratum.md",
+      "line": 352,
+      "kind": "Proposition",
+      "label": "24.5",
+      "fingerprint": "0bab27ebe3d6d475",
+      "area": "reconstruction",
+      "assumptions": "known finite permutation P and deterministic passive readout; known initial law with positive support A; exact retained word with positive probability; whole-carrier size N for finite partition bound; product visible/hidden coordinates for the current-hidden singleton equivalence",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "Complete written finite record-fibre/partition-refinement proof; not formalized in Lean. Bounded exact controls are not a universal kernel certificate.",
+      "note": "A quantity is identified iff constant on its compatible record fibre. Full future classes are resolved by max(1,N-1) readings of the whole carrier, then restricted to A; A need not be invariant. C4 predictive memory does not force residual posterior opacity. Known-model state identification is distinct from unknown-model P24.4 quotient reconstruction and from physical record retention/actions. Exact control source: verification/audits/manuscript/hidden-state-identifiability-20261028/independent_controls.py SHA256 c674bca3a1b3dbba0cddee1bb3fcd5fab79b4e3098ed623194840766990b41a4; original result SHA256 fa5019a86231e515c86aa75ccc41c62eda827c983791a1fee7e90ea2ca4e8190. GAP/checks=[] retained."
+    },
+    {
       "id": "GR:T-bohr-frequency-completeness",
       "paper": "papers/GR.md",
       "line": 172,
