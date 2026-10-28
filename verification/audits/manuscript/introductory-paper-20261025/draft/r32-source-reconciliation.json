@@ -1,0 +1,61 @@
+{
+  "parent_intro_head": "9dc2b06919423afeb2f11b9e859e40ec0c09fdfe",
+  "parent_source_sha256": "ed7ae5c58826df553674feab5ba4664b587c96aba9cffb3f05d9bc3f97598d4f",
+  "draft_sha256": "1d51935ffecdb9a21a1dc452a078b410f3d1fa5b764a9918413b9193e8c43e71",
+  "replacements": [
+    {
+      "anchor": "Observational incompleteness (OI) is the physical hypothesis",
+      "old_sha256": "ba89dd046e6f610c64ea404e95cef2f9cad07543aa87ff1af0c692602165e0bf",
+      "new_sha256": "303b4bb95f9db718938f11ba67144f55806befcb4828fb6a739b862a5478d249"
+    },
+    {
+      "anchor": "**The Page curve.**",
+      "old_sha256": "ff377e1f0a1bd0a262bc8cd82ebfd91f7a15ee12a0403255a4949d9b98db1d8b",
+      "new_sha256": "430103445afa5d70b40c481ae5fa0bf6907c9a9fa09c56d58367cb7beb65b1f3"
+    },
+    {
+      "anchor": "So if the hidden dynamics scrambles thoroughly",
+      "old_sha256": "a590f6a529f6cad801b25d5d7e6332b682c3691c260072dba468fcf5d0aaa112",
+      "new_sha256": "09a8dad5ef94181042ace03a13eb746f3a4a5f321797fbf029cb964da918bf55"
+    }
+  ],
+  "canonical_paper_unchanged": true,
+  "accepted_scientific_source": "20ca05fe9e7e460de29e08f7a21029042fa45b12",
+  "SC36_source": "021850d9fd3b483c5cd76f32655dbae71695b710",
+  "new_recovery_status_promotions": [],
+  "landing_requires_source_reconciliation_and_independent_review": true,
+  "formal_statement_blocks_preserved": 5,
+  "run7_retained_gate": "MET at unchanged r31 bace5ef8; independent confirmation pending; no Q5(c) rewrite or rubric amendment in r32",
+  "claim_map": [
+    {
+      "draft_claim": "known-model record-fibre identification; memory does not imply posterior opacity",
+      "source": "papers/Substratum.md Proposition 24.5",
+      "source_ref": "20ca05fe9e7e460de29e08f7a21029042fa45b12",
+      "evidence": "accepted written proof and exact controls, not Lean; source integration pending"
+    },
+    {
+      "draft_claim": "decoupled extension preserves specified law; no complete deeper-substrate gauge classification",
+      "source": "papers/Substratum.md §4 Theorem 24(iii), book/ch03-structural-realism.md §3.8",
+      "source_ref": "20ca05fe9e7e460de29e08f7a21029042fa45b12",
+      "evidence": "restricted invariance only; semigroup-transfer route refuted; source integration pending"
+    },
+    {
+      "draft_claim": "configuration-state Page theorem A.8–A.9 has no instance",
+      "source": "SC36 GR App A.7–A.9 correction",
+      "source_ref": "021850d9fd3b483c5cd76f32655dbae71695b710",
+      "evidence": "independent ACCEPT recorded for source correction; source merge/reconciliation pending"
+    },
+    {
+      "draft_claim": "effective pure-state A.7 assumes D initially definite configuration",
+      "source": "SC36 GR App A.7 correction",
+      "source_ref": "021850d9fd3b483c5cd76f32655dbae71695b710",
+      "evidence": "restricted result; no coherent-D promotion"
+    },
+    {
+      "draft_claim": "memory/C3 and recurrence machine status",
+      "source": "existing Introduction r31 and historical Lean references",
+      "source_ref": "9dc2b06919423afeb2f11b9e859e40ec0c09fdfe",
+      "evidence": "unchanged; newly authorized recoveries not yet promoted"
+    }
+  ]
+}
