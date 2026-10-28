@@ -12,7 +12,7 @@ Estimated reading time for the complete path: approximately 50-80 hours for tech
 
 Readers primarily interested in the framework's foundational claim should focus on the exact equivalence proved for finite observable laws: stochastic description, finite reversible realization, and fixed-basis unitary/Born representation are intertranslatable; C4 identifies the memory-bearing sector, while the full coherent local instrument/composite lift is stated separately rather than folded into the equivalence theorem. The following chapters and sections develop that claim.
 
-**Essential.** Chapter 0 (the framing). Chapter 1 (the central theorem and characterization theorem). Chapter 2 (the substratum construction). Chapter 7 (the gravitational sector, particularly §§7.3, 7.5, 7.7 on $\hbar$, the Bekenstein-Hawking entropy, and the cosmological constant dissolution). Chapter 8 (JUNO as concrete empirical anchor). Appendix B (mathematical derivations) for technical detail.
+**Essential.** Chapter 0 (the framing). Chapter 1 (the central theorem and characterization theorem). Chapter 2 (the substratum construction). Chapter 7 (the gravitational sector, particularly §§7.3, 7.5, 7.7 on $\hbar$, the Bekenstein-Hawking entropy, and the conditional cosmological constant dissolution). Chapter 8 (JUNO as concrete empirical anchor). Appendix B (mathematical derivations) for technical detail.
 
 **Recommended.** Chapter 3 (structural realism). Appendix C (engagement with no-go theorems and standard-interpretation objections). Chapter 18 §18.5 (the cumulative case on quantum gravity).
 
