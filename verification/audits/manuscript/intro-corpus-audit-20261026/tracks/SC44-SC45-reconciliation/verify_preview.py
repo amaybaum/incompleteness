@@ -17,7 +17,7 @@ def need(yes, description):
     if not yes:
         failures.append(description)
 
-need(paper.count("**Theorem 24** (Exact fixed-interface invariances") == 1, "SC-45 narrowed theorem lost")
+need(paper.count("**Theorem 24** (Exact interface invariances and their different scopes)") == 1, "SC-45 narrowed theorem lost")
 need(paper.count("**Proposition 24.2** (Fixed-carrier block-word rigidity)") == 1, "SC-44 proposition lost")
 need("**Lemma 24.1**" not in paper, "Refuted lemma revived")
 need("**Theorem 23** (Conditional local-branch reconstruction)" in paper, "Full-uniqueness Theorem 23 revived")
@@ -25,14 +25,17 @@ need("**Lemma 23.0** (Shared outputs on the selected local branch)" in paper, "L
 need("Each step (a)–(f) is an *if-and-only-if*" not in paper, "Unproved Stage-2 bidirectional chain revived")
 need("unique up to $\\mathcal{G}_{\\text{sub}}$" not in paper, "Unscoped gauge-uniqueness statement revived")
 need("hidden-factor relabelling" in paper, "Hidden-only invariance missing")
-need("Adjoining an independent finite hidden factor" in paper, "Exact-decoupled invariant missing")
+need("Adjoining an exactly decoupled ancillary dynamics" in paper, "Exact-decoupled invariant missing")
 need("blockSpanning_of_wordTracesEqual" in paper and "WT3_spanning_iff" in paper, "Lean proof citations missing")
 need("ST3_pairC" in paper and "ST4_pairC" in paper, "Pair-C negative scope missing")
 need("same visible channel" in paper or "same visible CPTP channel" in paper or "identical channels" in paper, "Visible-law negative explanation missing")
 need("a full group inclusion and projection" in paper.lower() or "full group inclusion and projection" in paper.lower(), "Unproved hierarchy scope missing")
 need("This is an $|S|!$-element subgroup" not in paper, "False arbitrary-relabelling claim revived")
+need("**Completeness depends on the observable carrier.**" in paper, "Carrier classification status missing")
+need("**not** generate every fixed-interface coherent-channel equivalence" in paper, "Pair C fixed-interface non-exhaustiveness missing")
+need("population equivalence" in paper and "all admissible observer partitions" in paper, "Population/all-partitions distinction lost")
 need("observed inputs determine each other" not in paper.lower(), "Unproven bidirectional reconstruction revived")
-need("for every member, finite or infinite" not in paper, "Unlimited deep-sector transfer revived")
+need("finite-state recurrence and other statements not fixed by that law do not transfer" in paper, "Infinite ancillary recurrence scope lost")
 need("**OPEN**" not in paper and "the former Lemma" not in paper, "Manuscript process voice revived")
 
 a=entries.get("SUBSTRATUM:T-24")
