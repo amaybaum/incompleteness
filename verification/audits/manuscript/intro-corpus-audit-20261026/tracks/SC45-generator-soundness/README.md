@@ -34,4 +34,14 @@ A relabelling of *both* the dynamics and observer interface leaves the observati
 
 SC-45 initial PR head `681eefcaf59b700f1ec18d6102a3a4c4fef807ad` obtained all expected GitHub verification jobs green (run `40641002475`, including Lean and release gate). This does **not** certify the SC-45 custom script, because the existing workflow does not invoke it. The local exact arithmetic was checked separately, but an independent reader must run the checked-in script, inspect its argument and positive controls, and check the full theorem scope.
 
-No corrections to Theorem 24 have been made in this unit yet. No merge is authorized. Its overlap with SC-44 #980 is a content dependency requiring reconciliation, not an instruction to combine the drafts prematurely.
+**Writer's manuscript draft (unreviewed):** Theorem 24 and its §4 proof have been replaced on this branch at commit `8bfba5b087dc1d1bfa4d3705753189d0117c67b4`. The statement now separates:
+- exact fixed-interface coherent channel invariance under one global hidden permutation independent of visible state, and under finite exact decoupled enlargement;
+- passive transport of both the dynamics and observer readout;
+- conditional alphabet / coarse graph structural comparisons, which do not establish equality of full channel families;
+- the open completeness and all-partitions scope.
+
+Coverage entry `SUBSTRATUM:T-24` is refreshed at `e3dcd333d0b27867f930f6127dc9151e75921556` with the same conservative `GAP` proof level: this is a written mathematical derivation and exact-code counterexample, **not a Lean proof of the full revised theorem**.
+
+**Additional review obligations:** check that the tensor-product partial trace proves the claimed **coherent** channel invariances with the stated preparation; check that the all-partitions definition cannot be silently inferred from fixed-interface results; re-evaluate what survives as a 'substratum gauge group' rather than an equivalence relation or groupoid; check generator (iv)'s exact retained content; reconcile shared Substratum text with SC-44 #980 line by line; regenerate Substratum.tex / .pdf after the scientific wording stabilizes, and run all gates. Old source claims elsewhere remain uncorrected and must be explicitly tracked.
+
+No merge is authorized. Its overlap with SC-44 #980 is a content dependency requiring reconciliation, not an instruction to combine the drafts prematurely.
