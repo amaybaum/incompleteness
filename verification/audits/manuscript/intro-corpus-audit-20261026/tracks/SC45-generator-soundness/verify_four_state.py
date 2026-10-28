@@ -115,7 +115,7 @@ def run():
     preserving = violating = 0
     for order in permutations(m):
         q = perm_from_order(m, order)
-        same = populations(coherent_channel(conj(phi, q, m), 2, 1), 2) == populations(first, 2)
+        same = populations(coherent_channel(conj(phi, q, m), 2, 2, 1), 2) == populations(first, 2)
         preserving += int(same)
         violating += int(not same)
     require((preserving, violating) == (16, 8), "16/8 census mismatch")
