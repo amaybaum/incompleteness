@@ -1565,6 +1565,15 @@
       "note": "Research candidate: constructs time-t joint law by pushing an arbitrary initial law through actual permutation iterates; transports memory and C3 bounds and bounds a genuine supremum over all natural time/horizon pairs. No publication-facing promotion or K3 change is made before successful CI and independent proof review. No posterior opacity, physical record mechanism or accumulation-without-reuse claim."
     },
     {
+      "name": "entire visible future as an exact finite-image trajectory random variable",
+      "modules": [
+        "FullFutureMemory"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Research companion: uses the finite image of the actual entire future sequence, proves pointwise orbit decoding and exact equality criterion, and applies discrete Shannon CMI on that finite image. Proves whole-trace capacity and a genuine supremum over all natural times. No infinite-product measure/limit equivalence, physical preparation or publication promotion is claimed before independent review and CI."
+    },
+    {
       "name": "conditional k-token cone theorem: products, cone closure, the k-fold maxCone bound and CNOT plus rotation/cyclic invariance give the PSD cone of the k-fold Pauli dictionary (round KTOKEN-MAXCONE-1, reconstruction)",
       "modules": [
         "KTokenMaxCone"

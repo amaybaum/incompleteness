@@ -1,0 +1,27 @@
+{
+  "status": "pass",
+  "checks": 13824,
+  "permutations": 24,
+  "initial_laws": 3,
+  "saturation": [
+    {
+      "hidden_bits": 1,
+      "whole_future_cmi_bits": 1.0
+    },
+    {
+      "hidden_bits": 2,
+      "whole_future_cmi_bits": 2.0
+    },
+    {
+      "hidden_bits": 3,
+      "whole_future_cmi_bits": 3.0
+    },
+    {
+      "hidden_bits": 4,
+      "whole_future_cmi_bits": 4.0
+    }
+  ],
+  "kind": "bounded controls, not universal proof",
+  "optimized_output_identical": true,
+  "control_sha256": "c8506c4d0e1b20b0de49bbe9a42f066af5be1669061b2875b3b3a6fdbd9e7dec"
+}
