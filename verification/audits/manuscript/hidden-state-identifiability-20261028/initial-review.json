@@ -1,0 +1,128 @@
+{
+  "baseline_commit": "efa84ad90e3663fa2f5fdb036437f52a6b95fc54",
+  "scope": "read-only independent mathematical/dependency/propagation audit; root sources not edited",
+  "verdict": "REVISE source opacity claims; swap objection is correct; existing recovered theorem scopes survive",
+  "findings": [
+    {
+      "id": "H1",
+      "severity": "blocker",
+      "issue": "Universal all-history hidden-state non-identifiability is false.",
+      "sites": {
+        "papers/Substratum.md": [
+          60
+        ],
+        "papers/Explainer.md": [
+          74,
+          76,
+          607,
+          668,
+          942,
+          944,
+          946,
+          948
+        ],
+        "book/ch02-substratum.md": [
+          42
+        ],
+        "book/ch18-beyond.md": [
+          106,
+          108
+        ]
+      },
+      "repair": "Specify known model/support and permitted retained histories. Define record fibres; infer quantities constant on the fibre. Permanent opacity requires non-singleton full observational classes, not a proper instantaneous readout alone."
+    },
+    {
+      "id": "H2",
+      "severity": "blocker",
+      "issue": "C4 hidden predictive memory is promoted to hidden information unreadable from all retained past.",
+      "sites": {
+        "book/appendix-c-objections.md": [
+          224
+        ]
+      },
+      "anchor": "papers/Main.md:598-608",
+      "repair": "Preserve pushforward, distinguishability and capacity theorem. It compares different history-conditioned posteriors and does not force residual H(H_t|X_<=t)>0. Distinct history posteriors may each be point masses."
+    },
+    {
+      "id": "H3",
+      "severity": "blocker",
+      "issue": "AI capability tables and incompleteness summaries call hidden-state inference provably impossible.",
+      "sites": {
+        "papers/Computation.md": [
+          70,
+          72,
+          80,
+          184
+        ],
+        "book/ch12-evolution-intelligence.md": [
+          199,
+          209,
+          229,
+          238
+        ]
+      },
+      "repair": "State that inference is limited by record fibres for specified access. Computation cannot distinguish identical allowed records, but can infer any hidden quantity determined by them. Distinguish this from algorithmic undecidability."
+    },
+    {
+      "id": "H4",
+      "severity": "blocker",
+      "issue": "Proper instantaneous access is conflated with impossibility of complete state inference.",
+      "sites": {
+        "papers/Main.md": [
+          28
+        ],
+        "papers/Structure.md": [
+          1105
+        ],
+        "book/ch01-observation.md": [
+          239,
+          245
+        ],
+        "book/glossary.md": [
+          79
+        ]
+      },
+      "repair": "Keep proper instantaneous readout/partition relativity. Do not infer all-history opacity. Keep physical causal exclusions conditional on the relevant horizon and permitted protocols."
+    },
+    {
+      "id": "H5",
+      "severity": "blocker",
+      "issue": "Operational closure is conflated with inability to identify a hidden configuration through allowed records.",
+      "sites": {
+        "book/ch14-quantum-computing.md": [
+          74
+        ]
+      },
+      "repair": "No extra hidden-state oracle is part of the standard quantum operational model. Inference from its allowed histories is not an extra oracle and does not violate closure/BQP hypotheses."
+    },
+    {
+      "id": "H6",
+      "severity": "adjacent physical-bridge issue",
+      "issue": "A universal memory-readout-disturbance statement is stronger than a passive-readout model.",
+      "sites": {
+        "papers/Medicine.md": [
+          88
+        ]
+      },
+      "repair": "Review separately: physical biological readout/reconsolidation may back-act, but deterministic coupled memory alone does not prove every passive observation must alter the state. Do not automatically enlarge this correction without checking the physical context."
+    }
+  ],
+  "preserve": [
+    "Main unavoidable hidden predictive memory theorem and its pushforward/TV/MI/capacity witnesses",
+    "finite observable-law S/D/Q_fb representability",
+    "Substratum P24.3/P24.4 hypotheses and predictive-only conclusions",
+    "T24 scoped channel invariances and P24.2 block-word rigidity",
+    "conditional information ceilings for quantities differing between models with identical permitted data",
+    "physical causal inaccessibility where independently specified, not inferred from abstract subsystem status"
+  ],
+  "controls": {
+    "script_sha256": "c674bca3a1b3dbba0cddee1bb3fcd5fab79b4e3098ed623194840766990b41a4",
+    "normal_and_optimized_result_sha256": "fa5019a86231e515c86aa75ccc41c62eda827c983791a1fee7e90ea2ca4e8190",
+    "independent_no_author_imports": true,
+    "binary_readout_models": 442,
+    "support_cases": 6122,
+    "checks": 39546
+  },
+  "proof_note_sha256": "22061fc9d51ececc25915cfae16411aed01861697c359568475dcc6fcc82a49b",
+  "ready_for_frozen_corrected_snapshot_review": true
+}

@@ -1,0 +1,40 @@
+{
+  "head_read": "f39b8d360bdba4bc460992fc770b9bd13c286ced",
+  "changed_path": "verification/lean-manuscript-census.json",
+  "before_sha256": "4733ead2d25420f292bd0425b10874255c4b7c408f80e0d9f58c2bdfd0fc8a67",
+  "after_sha256": "a426c371b3c6612070f980e25cc94b48d5f0b4ed1c05588bb6e3f3f9cc390d2d",
+  "family_count_before": 112,
+  "family_count_after": 112,
+  "raw_family_object_multiset_sha256_counts_unchanged": true,
+  "unique_raw_family_object_hashes": 112,
+  "all_nonfamily_fields_unchanged": true,
+  "prior_family_order_except_new_SM3_object_unchanged": true,
+  "SM3_index_before": 111,
+  "SM3_index_after": 110,
+  "KTOKEN_index_before": 110,
+  "KTOKEN_index_after": 111,
+  "SM3_raw_object_sha256": "f01958d03911508cca593fb3def026cde9b086662350c348843e383607ff742c",
+  "KTOKEN_raw_object_sha256": "4add883bed8523426b5773021b829ab320aa11970893250e3e54b0e00726d701",
+  "protected_before": {
+    "verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/controls.py": "ae2d57b3e1132c47c3caf34483a6ab59b8def30214c5da805e0f3932407e9ffd",
+    ".github/workflows/verify.yml": "edf6708451cedc968257220e0df6fc57631c5c2b54b951f044bda0333f4bffc1",
+    "verification/lean-mathlib/OIBridge.lean": "7e1fe7fd4c10e174d8fda987c072055c630c97326b8430facdc4a57dcffc3e49"
+  },
+  "protected_after": {
+    "verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/controls.py": "ae2d57b3e1132c47c3caf34483a6ab59b8def30214c5da805e0f3932407e9ffd",
+    ".github/workflows/verify.yml": "edf6708451cedc968257220e0df6fc57631c5c2b54b951f044bda0333f4bffc1",
+    "verification/lean-mathlib/OIBridge.lean": "7e1fe7fd4c10e174d8fda987c072055c630c97326b8430facdc4a57dcffc3e49"
+  },
+  "unchanged_frozen_e2e_branch_calls": 1,
+  "synthetic_cases": 26,
+  "problems": [],
+  "missing_sparse_inputs_read_from_exact_HEAD": {
+    "/workspace/scratch/cb6cdacd02d4/oi982/verification/lean/ktoken_maxcone1_probe.py": "42b548972ccd8c131658f56e231540512f848e2d90510918b8c464f2552f5859",
+    "/workspace/scratch/cb6cdacd02d4/oi982/verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/checks/KTokenPairCheck.lean": "cc2c29a3c77ea80db9eeaf220cb22c065f7c8f3474eb9325544d92473b2d5466",
+    "/workspace/scratch/cb6cdacd02d4/oi982/verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/checks/run_checks.py": "4df6aa079e6791db8489afceb781e37df2ceda9843140ad3a6c7b96649aa2974"
+  },
+  "all_present_inputs_including_registry_read_live": true,
+  "full_suites_Lean_or_workflow_run": false,
+  "commit_or_push_performed": false,
+  "patch_sha256": "6e019d5f09fc119a21918dc3dfd57b8d7ba4b0d911fdd713d76591864d668cd2"
+}

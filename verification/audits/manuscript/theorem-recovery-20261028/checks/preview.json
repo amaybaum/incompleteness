@@ -1,0 +1,12 @@
+{
+  "command": [
+    "python",
+    "verification/audits/manuscript/intro-corpus-audit-20261026/tracks/SC44-SC45-reconciliation/verify_preview.py"
+  ],
+  "exit_code": 0,
+  "source_review_manifest_sha256": "58f78e8d57645b4c9c24edb40632959adc4f3150e1d48916c068cc9de0116613",
+  "output_sha256": "2bf6b02ed92c43c2f8ca88318edeb756bf8477d88b9e4bf92ace3ecf3d664cdf",
+  "last_lines": [
+    "SC44-SC45 reconciliation lexical guard: PASS 0 issues"
+  ]
+}

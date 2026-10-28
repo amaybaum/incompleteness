@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "date": "2026-10-28",
+  "status": "PASS_scoped_mathematics_after_separate_review",
+  "author": "review_recovery agent",
+  "reviewer": "recover_gauge_global_form agent",
+  "frozen_inputs_rechecked": [
+    {
+      "path": "/workspace/scratch/cb6cdacd02d4/recovery-review/compact-charge-supplement-v1.md",
+      "expected_sha256": "9707b0db639d250dba0e8fa73ef45f21e7216cb9215af17e7359b6097492e24c",
+      "actual_sha256": "9707b0db639d250dba0e8fa73ef45f21e7216cb9215af17e7359b6097492e24c",
+      "matches": true
+    },
+    {
+      "path": "/workspace/scratch/cb6cdacd02d4/recovery-review/compact-charge-controls-v1.py",
+      "expected_sha256": "2d5f034461db0281745cdc2cc918bb7343fb9c7c9b36d55c22e374063055c623",
+      "actual_sha256": "2d5f034461db0281745cdc2cc918bb7343fb9c7c9b36d55c22e374063055c623",
+      "matches": true
+    },
+    {
+      "path": "/workspace/scratch/cb6cdacd02d4/recovery-review/compact-charge-controls-v1.json",
+      "expected_sha256": "677f6829af5fbe925c470eceb0ba510a474da81bcaf4e762922d4207a8b12f9d",
+      "actual_sha256": "677f6829af5fbe925c470eceb0ba510a474da81bcaf4e762922d4207a8b12f9d",
+      "matches": true
+    },
+    {
+      "path": "/workspace/scratch/cb6cdacd02d4/recovery-review/compact-charge-receipt-v1.json",
+      "expected_sha256": "d0ec62f268f11f297f87e46cc23433e0eff6d605f5ea2d03e98072a412ab420f",
+      "actual_sha256": "d0ec62f268f11f297f87e46cc23433e0eff6d605f5ea2d03e98072a412ab420f",
+      "matches": true
+    }
+  ],
+  "all_frozen_inputs_unchanged": true,
+  "independent_review_receipt": {
+    "path": "/workspace/scratch/cb6cdacd02d4/recovery-review/compact-independent-receipt-v1.json",
+    "sha256": "377ead0997d26aa136d339e8430138ee1702b5683f99bda0b4b413a48f76680d"
+  },
+  "independent_written_review": {
+    "path": "/workspace/scratch/cb6cdacd02d4/recovery-review/compact-independent-review-v1.txt",
+    "sha256": "97552adb72e4cdb3ba800e29d567ac701586b677a87deeb68f1994653aba1fa6"
+  },
+  "replay_modes": [
+    {
+      "mode": "normal",
+      "exit_code": 0,
+      "matches_frozen_result": true,
+      "sha256": "677f6829af5fbe925c470eceb0ba510a474da81bcaf4e762922d4207a8b12f9d"
+    },
+    {
+      "mode": "optimized",
+      "exit_code": 0,
+      "matches_frozen_result": true,
+      "sha256": "677f6829af5fbe925c470eceb0ba510a474da81bcaf4e762922d4207a8b12f9d"
+    }
+  ],
+  "supersedes_pending_status_only": "/workspace/scratch/cb6cdacd02d4/recovery-review/compact-charge-receipt-v1.json",
+  "original_pending_receipt_preserved_unchanged": true,
+  "mathematical_scope": "Fixed chiral family and commensurate weights: C=W=A=0 implies the complete two-branch classification and G=0, importing classical FLT3. Nonzero quark-doublet charge gives the SM ray up to normalization and u/d interchange.",
+  "limits": [
+    "No physical matter selection, K selection or line/bundle/global-form selection.",
+    "A local u(1) Lie algebra alone does not imply compact commensurability.",
+    "No Lean proof or finite-to-universal inference.",
+    "Internal agent review is not owner/external/publication acceptance."
+  ]
+}

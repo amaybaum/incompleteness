@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "modulus6_control": {
+    "characteristic": 6,
+    "has_additive_2_torsion": true,
+    "C": [
+      [
+        3,
+        0
+      ],
+      [
+        0,
+        3
+      ]
+    ],
+    "epsilon": [
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        -1
+      ]
+    ],
+    "anticommutator_mod6": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "uniform_m": 3,
+    "uniform_p": 3,
+    "center_mod6": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "characteristic_not_2_alone_insufficient": true
+  },
+  "modulus9_positive": {
+    "no_two_torsion_cases": 9,
+    "uniform_coefficient_cases": 81,
+    "primality_unnecessary": true
+  },
+  "scope": "exact finite controls, not universal proof"
+}

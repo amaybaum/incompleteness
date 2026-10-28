@@ -1,0 +1,66 @@
+{
+  "base": "20ca05fe9e7e460de29e08f7a21029042fa45b12",
+  "combined_992_source": "a2be1e4573662d1331f2560ea06c2d8ed10bcd73",
+  "canonical_statement_count": 134,
+  "changed_fingerprints": {
+    "SM:T-10": {
+      "before": "c1774f68700254d6",
+      "after": "6f0103db17cb9dc1",
+      "grade": "GAP"
+    }
+  },
+  "changed_grades": [],
+  "protected_paths_unchanged": [
+    "verification/lean",
+    "verification/lean-mathlib",
+    "verification/lean-manuscript-census.json",
+    "verification/infrastructure",
+    "verification/receipts",
+    "verification/audits/manuscript/intro-corpus-audit-20261026/tracks/SC44-lemma-24-1",
+    "verification/audits/manuscript/intro-corpus-audit-20261026/tracks/SC45-generator-soundness"
+  ],
+  "recovered_statement_checks": {
+    "SM:T-3": {
+      "fingerprint_unchanged": true,
+      "grade": "K3"
+    },
+    "SM:P-14a": {
+      "fingerprint_unchanged": true,
+      "grade": "GAP"
+    },
+    "SM:T-15": {
+      "fingerprint_unchanged": true,
+      "grade": "GAP"
+    },
+    "SM:P-15a": {
+      "fingerprint_unchanged": true,
+      "grade": "GAP"
+    },
+    "SUBSTRATUM:T-23": {
+      "fingerprint_unchanged": true,
+      "grade": "GAP"
+    },
+    "SUBSTRATUM:T-24": {
+      "fingerprint_unchanged": true,
+      "grade": "GAP"
+    },
+    "SUBSTRATUM:P-24.2": {
+      "fingerprint_unchanged": true,
+      "grade": "K3"
+    },
+    "SUBSTRATUM:P-24.3": {
+      "fingerprint_unchanged": true,
+      "grade": "GAP"
+    },
+    "SUBSTRATUM:P-24.4": {
+      "fingerprint_unchanged": true,
+      "grade": "GAP"
+    },
+    "SUBSTRATUM:P-24.5": {
+      "fingerprint_unchanged": true,
+      "grade": "GAP"
+    }
+  },
+  "local_full_history_limit": "V3 corpus:137 expected,3 undecidable due shallow repository; legacy commit check undecidable; full-history gates remain CI",
+  "merge_authorized": false
+}

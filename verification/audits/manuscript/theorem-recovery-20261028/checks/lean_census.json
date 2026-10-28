@@ -1,0 +1,14 @@
+{
+  "command": [
+    "python",
+    "tools/lean_manuscript_census.py"
+  ],
+  "exit_code": 0,
+  "source_review_manifest_sha256": "58f78e8d57645b4c9c24edb40632959adc4f3150e1d48916c068cc9de0116613",
+  "output_sha256": "bc97afbcff6967b6b9080aa495c551db79bf3876c4c79eb64d424e9374d0de0c",
+  "last_lines": [
+    "  kernel-only         conditional k-token cone theorem: products, cone closure, the k-fold maxCone bound and CNOT plus rotation/cyclic invariance give the PSD cone of the k-fold Pauli dictionary (round KTOKEN-MAXCONE-1, reconstruction) 1 module(s), 0 anchor(s)",
+    "  current             restricted first-order center and chirality recovery 1 module(s), 2 anchor(s)",
+    "lean_manuscript_census: OK (every cited identifier and path resolves, no superseded citation without its successor, every module classified, every carried family anchored and every anchor present; 21 current families; complete relative to the maintained registry)"
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "Main": {
+    "pages": 96,
+    "median_characters_per_page": 3272.5,
+    "min_characters_per_page": 600,
+    "source_sha256": "9694337e9562258f8adb83176862f72e12004bf0cabac67b9dccd2508f04f34f",
+    "pdf_sha256": "c8fad5ce42b52beb2c1c06b7be41a0f9818a6674e4520afc6787daf9c44225aa",
+    "tex_sha256": "ef859c978a343c2dd817a0376420fe53951ffb941a5ae43780fa346f1da4ecb3",
+    "tex_source_stamp_matches": true,
+    "query_pages": {
+      "A proper instantaneous readout": 1,
+      "An embedded observer is described": 3
+    },
+    "rendered_pages": [
+      1,
+      3,
+      96
+    ],
+    "out_of_page_word_boxes": []
+  },
+  "Computation": {
+    "pages": 22,
+    "median_characters_per_page": 2981.0,
+    "min_characters_per_page": 1821,
+    "source_sha256": "ff80c6ca97c4fa786bf69028c20936f3a0fe0219e0c5da4d8b0a73d8d0c66d8d",
+    "pdf_sha256": "88380fbcffae2dc3346fd26de676ecd0834cf47527e0f333519b1747b11a7e0e",
+    "tex_sha256": "b9780dcf2608d8cce148cbb280c62c3c96266dc6a57bc937af6243725a49703e",
+    "tex_source_stamp_matches": true,
+    "query_pages": {
+      "Embedding alone supplies no common permanent access floor": 6
+    },
+    "rendered_pages": [
+      1,
+      6,
+      22
+    ],
+    "out_of_page_word_boxes": []
+  },
+  "Explainer": {
+    "pages": 68,
+    "median_characters_per_page": 2891.0,
+    "min_characters_per_page": 401,
+    "source_sha256": "8650bf5d3124213e764abc7d1f7b4708d3466859a23647794162fb4863eec005",
+    "pdf_sha256": "f294c7f6a65832fbd115781dd3175738cf5fa909f94dc0b737b84ce20f70800b",
+    "tex_sha256": "a3b3ea2ebfbee29c66ff8e4576cf40f48ac1dbbbee7cae21523997f4e20d8cf2",
+    "tex_source_stamp_matches": true,
+    "query_pages": {
+      "The Observer\u2019s Blind Spot": 4,
+      "G\u00f6del\u2019s incompleteness theorems": 36,
+      "The memory interpretation concerns predictive information": 56,
+      "Does a deterministic substratum imply permanently inaccessible reality": 42
+    },
+    "rendered_pages": [
+      1,
+      4,
+      36,
+      42,
+      56,
+      68
+    ],
+    "out_of_page_word_boxes": []
+  },
+  "Structure": {
+    "pages": 93,
+    "median_characters_per_page": 2931,
+    "min_characters_per_page": 802,
+    "source_sha256": "e28d33af0a4a40c7c0ae8f1c647841c1fbe756301aa9af13dee90234c37c0298",
+    "pdf_sha256": "117ddc076b6b452d5f6f17eb482bf30b74af23a90166f16d2494bcf57d530243",
+    "tex_sha256": "5193254c056c492708081fb7fadfb19eb121754233d9a3ae3134d74aed725e4f",
+    "tex_source_stamp_matches": true,
+    "query_pages": {
+      "proper instantaneous": 69
+    },
+    "rendered_pages": [
+      1,
+      69,
+      93
+    ],
+    "out_of_page_word_boxes": []
+  },
+  "Substratum": {
+    "pages": 53,
+    "median_characters_per_page": 3212,
+    "min_characters_per_page": 616,
+    "source_sha256": "928fa71fa892594818f0544c45f2fdb89ab33e18ea09a08f0408ba4658cb0487",
+    "pdf_sha256": "938847806a98369c38879a361af3412fb6735093a2da898a32ff7a2fc461c090",
+    "tex_sha256": "4ce42daba7b40fafdfbca493e2ef621a04a7d73d2ca06bf77982699d412678d4",
+    "tex_source_stamp_matches": true,
+    "query_pages": {
+      "Passive record fibres and state identification": 31,
+      "Memory and opacity are different": 32,
+      "Access and resource scope": 32
+    },
+    "rendered_pages": [
+      1,
+      31,
+      32,
+      53
+    ],
+    "out_of_page_word_boxes": []
+  },
+  "book": {
+    "pages": 547,
+    "median_characters_per_page": 3053,
+    "min_characters_per_page": 26,
+    "source_sha256": "a39ace980afe21a51e65be3d1b07206092fd60e36d09be47c8acd24d3e04e043",
+    "pdf_sha256": "368ccd955b0229596dc5811ad76c25ba08b0fab899102509534444d8cf9744f2",
+    "tex_sha256": "d66b64aa0c5b520bc8e335f34a729997b5a6eebf7e4309ffc95d8db861ee5c29",
+    "tex_source_stamp_matches": true,
+    "query_pages": {
+      "An observer\u2019s conditioning information": 34,
+      "A deterministic completion can give": 53,
+      "The distinction is between unresolved facts": 99,
+      "The comparison concerns different kinds of limitation": 289,
+      "Operational closure": 32,
+      "Conditional probabilities arise": 396,
+      "The vanishing-hidden-store limit": 55,
+      "hidden predictive memory": 25
+    },
+    "rendered_pages": [
+      1,
+      25,
+      32,
+      34,
+      53,
+      55,
+      99,
+      289,
+      396,
+      547
+    ],
+    "out_of_page_word_boxes": []
+  }
+}

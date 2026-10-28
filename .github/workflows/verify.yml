@@ -262,6 +262,16 @@ jobs:
             python3 "${p}_probe.py"
           done
 
+
+      - name: SC-45 exact coherent-channel controls (normal / optimized)
+        run: |
+          set -euo pipefail
+          script="verification/audits/manuscript/intro-corpus-audit-20261026/tracks/SC45-generator-soundness/verify_four_state.py"
+          python3 -I -B "$script" > "$RUNNER_TEMP/sc45-normal.json"
+          python3 -I -O -B "$script" > "$RUNNER_TEMP/sc45-optimized.json"
+          cmp "$RUNNER_TEMP/sc45-normal.json" "$RUNNER_TEMP/sc45-optimized.json"
+          cat "$RUNNER_TEMP/sc45-normal.json"
+
   probes_a36:
     name: Numerical probes / A36 hierarchy
     runs-on: ubuntu-latest

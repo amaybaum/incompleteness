@@ -1,0 +1,174 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "arithmetic": "exact integer coefficients and algebraic reduction; no floats",
+  "Fermat_transform_sum_cube_coefficients": [
+    54,
+    0,
+    18,
+    0
+  ],
+  "compact_gauge_only_grid": {
+    "bound": 6,
+    "assignments": 371293,
+    "solutions": [
+      [
+        -1,
+        -4,
+        2,
+        3,
+        6
+      ],
+      [
+        -1,
+        2,
+        -4,
+        3,
+        6
+      ],
+      [
+        0,
+        -6,
+        6,
+        0,
+        0
+      ],
+      [
+        0,
+        -5,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        -4,
+        4,
+        0,
+        0
+      ],
+      [
+        0,
+        -3,
+        3,
+        0,
+        0
+      ],
+      [
+        0,
+        -2,
+        2,
+        0,
+        0
+      ],
+      [
+        0,
+        -1,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        -1,
+        0,
+        0
+      ],
+      [
+        0,
+        2,
+        -2,
+        0,
+        0
+      ],
+      [
+        0,
+        3,
+        -3,
+        0,
+        0
+      ],
+      [
+        0,
+        4,
+        -4,
+        0,
+        0
+      ],
+      [
+        0,
+        5,
+        -5,
+        0,
+        0
+      ],
+      [
+        0,
+        6,
+        -6,
+        0,
+        0
+      ],
+      [
+        1,
+        -2,
+        4,
+        -3,
+        -6
+      ],
+      [
+        1,
+        4,
+        -2,
+        -3,
+        -6
+      ]
+    ],
+    "solution_count": 17,
+    "all_have_G_zero": true,
+    "G_was_not_assumed": true
+  },
+  "unquantized_real_countercontrol": {
+    "r_relation": "r^3=2, r positive real",
+    "charges": [
+      "1",
+      "1",
+      "1",
+      "-3",
+      "-3r"
+    ],
+    "CWA_coefficients": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "G_coefficients": [
+      -6,
+      3,
+      0
+    ],
+    "G_nonzero_argument": "G=0 would force r=2, contradicting r^3=2"
+  },
+  "universal_proof_dependency": "Classical exponent-3 Fermat theorem, credited in the frozen supplement; not proved by the finite grid or claimed Lean-proved",
+  "source_sha256": "2d5f034461db0281745cdc2cc918bb7343fb9c7c9b36d55c22e374063055c623"
+}

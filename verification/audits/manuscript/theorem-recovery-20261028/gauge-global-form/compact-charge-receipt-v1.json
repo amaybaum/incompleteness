@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "date": "2026-10-28",
+  "status": "frozen_for_separate_independent_review",
+  "author": "review_recovery agent, at root request",
+  "proof": {
+    "path": "/workspace/scratch/cb6cdacd02d4/recovery-review/compact-charge-supplement-v1.md",
+    "sha256": "9707b0db639d250dba0e8fa73ef45f21e7216cb9215af17e7359b6097492e24c"
+  },
+  "control": {
+    "path": "/workspace/scratch/cb6cdacd02d4/recovery-review/compact-charge-controls-v1.py",
+    "sha256": "2d5f034461db0281745cdc2cc918bb7343fb9c7c9b36d55c22e374063055c623"
+  },
+  "result": {
+    "path": "/workspace/scratch/cb6cdacd02d4/recovery-review/compact-charge-controls-v1.json",
+    "sha256": "677f6829af5fbe925c470eceb0ba510a474da81bcaf4e762922d4207a8b12f9d",
+    "status": "PASS",
+    "integer_gauge_only_assignments": 371293,
+    "integer_gauge_only_solutions": 17
+  },
+  "primary_credit": {
+    "authors": [
+      "Nakarin Lohitsiri",
+      "David Tong"
+    ],
+    "title": "Hypercharge Quantisation and Fermat's Last Theorem",
+    "journal": "SciPost Phys. 8, 009 (2020)",
+    "url": "https://arxiv.org/html/1907.00514v3",
+    "version_date": "2020-01-15",
+    "proof_equations": [
+      6,
+      7,
+      8
+    ],
+    "checked_with_web_tool": true
+  },
+  "universal_proof_import": "Classical exponent-3 Fermat theorem; not established by finite controls and not claimed Lean-proved",
+  "boundary": "Real charges (1,1,1,-3,-3*cuberoot(2)) satisfy C=W=A=0 and G=3*cuberoot(2)-6 !=0; they are not commensurate",
+  "separate_review_requested_from": "recover_gauge_global_form agent; pending exact-source verdict",
+  "prior_all_real_classification": "preserved unchanged; C=W=G=A=0 gives full real classification without arithmetic import",
+  "physical_scope": "Fixed chiral family/no additional charged chiral cancelers; no physical matter/center/global bundle selection"
+}

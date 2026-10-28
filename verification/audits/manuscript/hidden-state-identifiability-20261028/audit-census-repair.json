@@ -1,0 +1,49 @@
+{
+  "base_head": "344d066bd792e9d3378b2611e4e97dbb6dda9ae3",
+  "changed_manifest": "verification/audit-census.json",
+  "manifest_before_sha256": "7fe17c41d4b64b22b9d075ec4751025600abdaee6272d2d14a289b47aad13ff9",
+  "manifest_after_sha256": "246aa2854caa414e8a7299d75c21970ce1ef8bcb214ff951db41d1a70354771a",
+  "all_original_patterns_preserved": true,
+  "original_vocabularies": 34,
+  "current_vocabularies": 35,
+  "scoped_manuscript_files": 42,
+  "shadow_baseline_exit_code": 0,
+  "mutations": [
+    {
+      "case": "extra-minimal-realization",
+      "path": "papers/Structure.md",
+      "rejected": true,
+      "failed_audit": "AUDIT-A",
+      "exit_code": 1
+    },
+    {
+      "case": "remove-SM-observer-qualification",
+      "path": "papers/SM.md",
+      "rejected": true,
+      "failed_audit": "AUDIT-B",
+      "exit_code": 1
+    },
+    {
+      "case": "remove-SM-physical-premises",
+      "path": "papers/SM.md",
+      "rejected": true,
+      "failed_audit": "AUDIT-B",
+      "exit_code": 1
+    },
+    {
+      "case": "remove-book-qualification",
+      "path": "book/ch04-methodology.md",
+      "rejected": true,
+      "failed_audit": "AUDIT-B",
+      "exit_code": 1
+    }
+  ],
+  "unchanged_probe_sha256": "929a96ad5d92ba47e1b3da0e0e8ace27b84a485c65546c2520dd930ec9ba690e",
+  "source_files_changed": [],
+  "scientific_disposition": {
+    "A-minimal-realization": "two separately qualified non-minimal-freedom passages in Structure §9",
+    "B2-required": "book literal remains required; exact replacement SM qualification separately required"
+  },
+  "full_ci": "NOT RUN LOCALLY; next normal PR CI required",
+  "previous_scientific_review_files_still_matching": 49
+}

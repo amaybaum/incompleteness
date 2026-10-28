@@ -1,0 +1,14 @@
+{
+  "command": [
+    "python",
+    "tools/coverage_check.py"
+  ],
+  "exit_code": 0,
+  "source_review_manifest_sha256": "58f78e8d57645b4c9c24edb40632959adc4f3150e1d48916c068cc9de0116613",
+  "output_sha256": "95bd2e9d8b41759bed2ba940e189493c3ca44641fd79cc636b9be947cb45bb26",
+  "last_lines": [
+    "    ungated: papers/oi_lattice_code/foundations/translation_probes.py",
+    "",
+    "coverage_check: OK (133 canonical statements, 19 unattached checkers)"
+  ]
+}

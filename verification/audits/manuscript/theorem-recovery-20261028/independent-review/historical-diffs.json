@@ -1,0 +1,20 @@
+[
+  {
+    "file": "candidate-v2.diff.gz",
+    "uncompressed_file": "candidate-v2.diff",
+    "uncompressed_sha256": "a18a36baaaa3f210c6ee0edf671942d5d06909adf37ad9a7fe5e5c725d975ac1",
+    "gzip_sha256": "a4c13d79804c37547aa6da866d4f2b1ec9f145bbd03de5700793fd067c377df3"
+  },
+  {
+    "file": "v2-to-v3.diff.gz",
+    "uncompressed_file": "v2-to-v3.diff",
+    "uncompressed_sha256": "b05ef507ce85d836c12e663ffea51925eb699158b5939a171c5d68c78e21ba40",
+    "gzip_sha256": "95fe63c752dd18090ba2f6b1c32be884be693803956d546e5f2e105a24fb7671"
+  },
+  {
+    "file": "v3-to-v4.diff.gz",
+    "uncompressed_file": "v3-to-v4.diff",
+    "uncompressed_sha256": "bad3411f471091bed513c86c3aa90fe66c1dc170edea365c002063fca4bb8a72",
+    "gzip_sha256": "dc77f24c901dde9dac728a65fd829d4cc79c5588c408dd57ab0f236cbf3910fb"
+  }
+]

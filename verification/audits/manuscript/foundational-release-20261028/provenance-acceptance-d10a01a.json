@@ -1,0 +1,42 @@
+{
+  "remote_commit": "d10a01a59e55684cf7fb09e519c3bc65798526d0",
+  "local_equivalent_commit": "d6f8961a6489ef3872c1033d0cd73f2911234ec5",
+  "tree": "d8ab8b94a1eec79dee14b1a4951af7331a99b742",
+  "sole_remote_parent": "c0844bd287a3bcc04b75f79db140af1c75e70d90",
+  "verdict": "ACCEPT_INCREMENTAL_PROVENANCE_PUBLICATION",
+  "blockers": [],
+  "merge_authorized": false,
+  "pr": 982,
+  "pr_base": "main",
+  "pr_draft": true,
+  "pr_merged": false,
+  "synthetic_merge": "c8c0b6eb88c0e7147ae1ba5fc5f55e768a702724",
+  "synthetic_merge_tree_matches": true,
+  "manifest_inputs_matching": 87,
+  "manifest_inputs_total": 87,
+  "ledger_byte_identical_to_c0844bd": true,
+  "canonical_entries_preserved": 134,
+  "canonical_fingerprints_preserved": 134,
+  "all_grades_preserved": true,
+  "protected_lean_registry_records_workflows_unchanged": true,
+  "initial_reports_preserved": true,
+  "c084_provenance_report_copies_byte_identical": true,
+  "exact_controls_unchanged": true,
+  "all_six_publication_records_match": true,
+  "changed_publications": {
+    "Explainer": 68,
+    "Methodology": 47,
+    "book": 548
+  },
+  "changed_publication_query_pages_matching": 5,
+  "changed_publication_out_of_page_word_boxes": 0,
+  "ordered_content_mirrors": 28,
+  "missing_mirror_lines": 0,
+  "current_ci_at_inspection": {
+    "run_id": 40756343045,
+    "status": "queued",
+    "conclusion": null
+  },
+  "scientific_review_separate": true,
+  "full_history_release_ci_still_required": true
+}

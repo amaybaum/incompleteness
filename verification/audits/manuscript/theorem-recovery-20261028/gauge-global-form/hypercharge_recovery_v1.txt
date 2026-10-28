@@ -1,0 +1,179 @@
+PRECISE CONDITIONAL RECOVERY OF THE EXISTING SM THEOREM 15
+Supplement v1; 2026-10-28. This supplies the standard anomaly algebra
+under explicit premises; it is not a new OI mechanism or a Lean proof.
+
+1. Source trace and purpose
+
+Canonical papers/SM.md section 4.9 (Theorems 14/15) already asserts the SM
+hypercharge conclusion, citing its existing references 16 and 18. Section
+4.7 discusses Higgs/Yukawa availability and the selected family. Section
+4.6 gives the link decomposition/stabilizer route, not the charge algebra.
+The matching SM.tex section repeats the charge assertion. A targeted
+search of those sources and OIBridge found no displayed Yukawa/anomaly
+derivation with the charge equations below. This supplement makes the
+premises and exceptional branch explicit in a repair of Theorem 15;
+it does not propose crediting a new charge-quantization theorem to OI.
+The exact source hashes/queries are in hypercharge_source_trace_v1.json.
+
+The standard full one-family classification below is also stated in
+Lohitsiri and Tong, Hypercharge Quantisation and Fermat's Last Theorem,
+SciPost Phys. 8, 009 (2020), arXiv:1907.00514v3, equations (1)-(5):
+https://arxiv.org/html/1907.00514v3 . The derivation here is self-contained.
+Foot, Lew and Volkas, Electric Charge Quantization, J. Phys. G 19 (1993)
+361-372, arXiv:hep-ph/9209259v1, discusses Yukawa invariance, normalization,
+and the family-lepton counterfreedoms: https://arxiv.org/html/hep-ph/9209259v1 .
+
+2. Fixed-family premises and anomaly conventions
+
+Fix exactly one chiral fermion family, or several identical copies with
+family-universal charges, in the nonabelian representations
+
+  Q_L=(3,2), u_R=(3,1), d_R=(3,1), L_L=(1,2), e_R=(1,1).
+
+Write their real U(1) charges as (a,u,d,l,e). These are right-handed
+particle charges for u_R,d_R,e_R; converting them to left-handed
+conjugates reverses their U(1) charge and conjugates color. No additional
+charged chiral fermions, in particular no charged right-handed neutrino,
+are allowed to cancel the following anomaly coefficients. Neutral
+spectators and vectorlike pairs do not change these coefficients.
+
+Up to common nonzero normalization factors, the relevant coefficients are
+
+  C = 2a-u-d                  [SU(3)]^2 U(1),
+  W = 3a+l                    [SU(2)]^2 U(1),
+  G = 6a-3u-3d+2l-e           gravitational^2 U(1),
+  A = 6a^3-3u^3-3d^3+2l^3-e^3   [U(1)]^3.
+
+The chosen nonabelian family cancels the pure SU(3)^3 anomaly (two
+fundamentals minus the two right-handed conjugate fundamentals), and
+there are four SU(2) doublets counting color, an even number. SU(2) has
+no perturbative cubic anomaly in its doublet. These facts concern the
+fixed family, not a selection of it from all available modes.
+
+3. Full anomaly classification, including the omitted branch
+
+Assume C=W=G=A=0. The three linear equations give
+
+  d=2a-u,  l=-3a,  e=-6a.
+
+Directional linear witnesses are explicit: d-2a+u=-C, l+3a=W,
+and e+6a=3C+2W-G. Thus these three relations are forced. Conversely
+substituting them makes C,W,G vanish.
+
+On this linear solution plane, direct expansion gives
+
+  A = 18a(8a^2+u d)
+    = -18a(u-4a)(u+2a),     d=2a-u.
+
+This is an exact polynomial identity. Over the reals, a product is zero
+only when one factor is zero. Hence the complete solutions are:
+
+  (i) a!=0: (a,u,d,l,e)=(a,4a,-2a,-3a,-6a),
+             or          (a,-2a,4a,-3a,-6a).
+
+  (ii) a=0: (a,u,d,l,e)=(0,b,-b,0,0), for arbitrary real b.
+
+Conversely every point in either branch gives all four coefficients zero,
+as direct substitution shows. The two standard rays differ by the
+u_R/d_R naming interchange; their distinction can be fixed by the
+Higgs/Yukawa/electric-charge identification. Branch (ii) is a genuine
+anomaly-free counterbranch, not an overall rescaling of a nonzero point
+in branch (i). The all-zero assignment is included at b=0.
+
+Therefore the strongest straightforward repair of Theorem 15 is:
+
+  Given exactly the stated chiral family, no additional charged chiral
+  anomaly-canceling fermions, cancellation of C,W,G,A, and a nonzero
+  charge a of the quark doublet, the charges are proportional to the SM
+  assignment, uniquely up to overall normalization and u_R/d_R interchange.
+
+The nonzero-a premise is explicit and necessary. It is often already
+implicit when a normalization sets a=1/6, but cannot be inferred merely
+from the words "fundamental or singlet representations".
+
+4. Complementary Yukawa-compatible recovery
+
+Introduce one Higgs doublet of charge h and assume invariance of the
+three interactions
+
+  bar Q_L tilde H u_R,   bar Q_L H d_R,   bar L_L H e_R,
+
+where tilde H is the SU(2)-conjugate Higgs and has charge -h. Invariance
+gives u=a+h, d=a-h, e=l-h. These are allowed Yukawa interactions of the
+selected chiral family; their physical realization is a premise here.
+The weak anomaly W=0 gives l=-3a. Substitution then gives
+
+  C=0,  G=h-3a,  A=(h-3a)^3.
+
+Thus either G=0 or A=0 forces h=3a; after that, every anomaly coefficient
+vanishes and the charges are (a,4a,-2a,-3a,-6a;3a). This is a second,
+explicit proof route. It does not need a gravitational-anomaly assumption
+if cubic gauge anomaly cancellation is used instead. If h!=0, then
+a!=0 and the exceptional branch is excluded. "h!=0" means nonzero Higgs
+U(1) charge, not merely a nonzero Higgs field or vacuum expectation.
+If h=0, all charges can be zero; a nontrivial normalization is then absent.
+
+This route supplies a precise conditional charge solution when the
+selected Higgs/Yukawa sector is already assumed. It does not derive that
+sector or the charged observer action from the finite substratum.
+
+5. Normalization and the recovered global-form theorem
+
+Fixing h=1/2 in the convention Q_em=T3+Y makes a=1/6 and yields the
+usual numerical Y values. This is a hypercharge/electric-charge convention
+and identification. The simultaneous rescaling Y->sY, g_Y->g_Y/s leaves
+the U(1) covariant derivative unchanged; amplitude-scale invariance alone
+does not select the numerical charge normalization.
+
+For a compact product presentation P=SU(3)xSU(2)xU(1), charges are integer
+weights in a chosen circle coordinate. If the selected family and Higgs
+generate the primitive charge lattice, the nondegenerate solution can be
+written (q_Q,q_u,q_d,q_L,q_e;q_H)=(1,4,-2,-3,-6;3), up to sign/orientation
+and the stated u/d identification. It then has exactly the common Z6
+kernel proved in global_form_proof_v1.txt. This connects the recovered
+charge theorem to that faithful-image theorem without assuming every
+numerical hypercharge as a separate input.
+
+It still does not identify the second redundant circle in G0, or the
+entire physical gauge bundle/line spectrum. The charged family/light
+spectrum and its chiral observer realization retain the OI matter,
+H-spin', H-chi', and selection premises. A full raw End(V) conjugation
+carrier has the different kernel established in native_carrier_barrier_v1.txt.
+
+6. Essential negative controls
+
+Anomaly cancellation alone has branch (ii): (0,1,-1,0,0) cancels every
+listed anomaly but has neutral Q,L,e. It cannot admit all three Yukawas
+with a common nonzero h, because u=a+h forces h=1 while e=l-h would be -1.
+
+If a charged nu_R with its Dirac Yukawa is admitted, put
+n=l+h=h-3a. Its additional contributions are -n to G and -n^3 to A.
+Then G=A=0 for every (a,h), so there is a two-parameter family. For
+example (a,u,d,l,e,n;h)=(1,2,0,-3,-4,-2;1) cancels these anomalies and
+admits all four Yukawas, but is not the SM ray. Thus "no charged nu_R or
+other additional charged chiral cancelers" is consequential.
+
+With several families and only TOTAL anomaly cancellation, charges need
+not be family universal. For example take three quark sectors with
+(a,u,d)=(1,4,-2), h=3, and lepton pairs
+(l,e)=(-2,-5),(-4,-7),(-3,-6). Their total anomalies vanish and each
+diagonal charged-lepton Yukawa is allowed. The first two families shift
+by opposite family-lepton numbers. The one-family theorem therefore
+extends immediately to identical copies, not to arbitrary family charges.
+
+These examples are reproduced exactly in the companion control. The
+polynomial coefficients and finite controls are exact arithmetic; the
+written factor/zero-product argument supplies the all-real classification.
+
+7. Minimal adoption proposal
+
+Retain the existing Theorem 15 label and its source citations. State the
+fixed five-representation family, no additional charged chiral cancelers,
+the four explicit anomaly equations, and the complete two-branch solution.
+State the nonzero-quark-charge corollary as the SM uniqueness assertion.
+If the selected Higgs/Yukawa assumptions are used, include h=3a as the
+short alternative proof above. Replace constraint-counting claims in
+Theorem 14 by the actual algebra. Replace amplitude-scale normalization
+claims in book ch05 by the stated charge/electromagnetic convention.
+Propagate only through the writer's authorized source workflow; this
+supplement changes no manuscript, frozen record or repository object.

@@ -1,0 +1,9 @@
+'OIBridge.ChiralCenterRecovery.even_perturbation_iff' does not depend on any axioms
+'OIBridge.ChiralCenterRecovery.chiral_entries_iff_odd_support' depends on axioms: [propext]
+'OIBridge.ChiralCenterRecovery.onsite_chiral_iff' depends on axioms: [propext]
+'OIBridge.ChiralCenterRecovery.scalar_center_zero_iff' depends on axioms: [propext]
+'OIBridge.ChiralCenterRecovery.scalar_center_chiral_iff' depends on axioms: [propext]
+'OIBridge.ChiralCenterRecovery.onsite_zero_of_chiral' depends on axioms: [propext]
+'OIBridge.ChiralCenterRecovery.onsite_chiral_of_zero' depends on axioms: [propext]
+'OIBridge.ChiralCenterRecovery.scalar_center_coefficients_zero_of_chiral' depends on axioms: [propext]
+'OIBridge.ChiralCenterRecovery.scalar_center_chiral_of_coefficients_zero' depends on axioms: [propext]

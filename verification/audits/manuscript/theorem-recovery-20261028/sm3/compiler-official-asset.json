@@ -1,0 +1,9 @@
+{
+  "metadata_url": "https://api.github.com/repos/leanprover/lean4/releases/tags/v4.33.0",
+  "asset": {
+    "name": "lean-4.33.0-linux.tar.zst",
+    "size": 574882764,
+    "digest": "sha256:4b3fb03c29a1e0a253fb1d11f9bae3725f19a0dc6fc09b3ea16d2c9df3349e2c",
+    "browser_download_url": "https://github.com/leanprover/lean4/releases/download/v4.33.0/lean-4.33.0-linux.tar.zst"
+  }
+}

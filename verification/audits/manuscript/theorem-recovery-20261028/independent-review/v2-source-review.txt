@@ -1,0 +1,72 @@
+REVISE — concrete remaining source/coverage-scope blockers
+
+Exact manifest SHA-256: b5d6680f45efc41553e38e5f844b2d38127f29dcb1c439706875c3ea0cd4332b
+Exact diff SHA-256: a18a36baaaa3f210c6ee0edf671942d5d06909adf37ad9a7fe5e5c725d975ac1
+
+The new recovery mathematics is valid on the stated scopes. Residual source consumers still assert claims it does not prove.
+
+V2-R1 — formal scope mismatch
+Locations: papers/Structure.md:670, verification/coverage/LEDGER.json:2774
+Problem: P9.7b states H_V is nonzero and both hidden spaces are finite-dimensional, but does not explicitly state finite dimensionality of H_V. Its 9.7a proof reduction and retained K3 theorem require finite visible dimension too. P9.7c validly preserves the general separable result, so there is no reason to blur these scopes.
+Concrete repair: Let the visible and both hidden Hilbert spaces be finite-dimensional, with H_V nonzero. Retain the rest of P9.7b and the independent separable P9.7c unchanged.
+
+V2-R2 — mathematical contradiction and incomplete propagation
+Locations: papers/SM.md:380, papers/SM.md:390, papers/SM.md:396, papers/SM.md:398, papers/SM.md:404, papers/SM.md:430, papers/SM.md:838, papers/Juno.md:104, papers/Juno.md:106, papers/Juno.md:110, book/ch05-gauge-structure.md:17, book/ch05-gauge-structure.md:141, book/ch05-gauge-structure.md:147, book/ch05-gauge-structure.md:153, book/appendix-b-derivations.md:317, book/appendix-b-derivations.md:325, book/ch02-substratum.md:102, book/ch02-substratum.md:161, book/ch03-structural-realism.md:72, book/ch06-matter-content.md:98
+Problem: The new T5/T14/P14a/P15a correctly distinguish exact G0=U3xU2xU1 from a selected charged quotient/image, but old consumers still call SU3xSU2xU1 the literal or maximal commutant/stabilizer of M or Sigma and say amplitude-scale invariance alone performs U(n)->SU(n). Tables in SM/Juno use the same invalid label. The old claim that cubic decomposition fixes M eigenspace multiplicities fails at M=mu I. The proposed continuous O(3) 3+3 action is not supplied by six discrete link directions.
+Concrete repair: Preserve the exact O link decomposition, the block-scalar pointwise commutant, and generic equivariant-Sigma stabilizer G0. Label the lattice table as generic condensate stabilizers: SC U3xU2xU1, BCC U3^2xU1^2, FCC U3^3xU2xU1 after a generic Hermitian splitting on its two-copy T2 multiplicity space. State that covariance applies to a separately specified charged action, and cite P14a/P15a for its compatible quotient/faithful image; no physical selection follows from amplitude-scale alone. Distinguish generic Sigma block splitting from scalar M. Remove only the unsupported continuous-rotation extension; continuous rotations do not preserve the discrete six-link orbit.
+
+V2-R3 — scientific premise contradiction
+Locations: book/appendix-b-derivations.md:321
+Problem: Combined structural result item (i) still says coupling-degree minimization fixes K=6, contradicting B.6.1 and the valid H-link scope immediately above.
+Concrete repair: Under H-link, K=2dm; the separately assumed single-copy clause m=1 gives K=6 for the selected d=3 branch. Preserve the exact geometric link count independently of the physical identification.
+
+V2-R4 — unproved physical closure and determination
+Locations: papers/SM.md:535, papers/SM.md:1447
+Problem: The final Matter on Links paragraph says gauge and matter both close and that closure is forced by prior theorems, despite the new preceding paragraphs correctly leaving the charged observer action/light chiral family open. The later determination Proposition says constitution C and trace-out T alone determine physical gauge group, matter count, anomaly-free hypercharges and Cabibbo while omitting the newly explicit physical, central, spectrum and flavor premises.
+Concrete repair: Retain the nonabelian tensor-carrier availability result. State that the charged abelian action, physical observer/readout, H-link single-copy, H-cust/condensate, H-spin, H-chi, light family and flavor/matching hypotheses remain separate. The determination proposition should either be limited to exact geometric outputs or explicitly fix all these further data, including the nonzero-Y_Q branch and normalization/labeling when claiming the standard hypercharges. Do not claim a new completed physical-matter construction.
+
+V2-R5 — restricted SM3 theorem promoted to physical conclusion
+Locations: papers/Explainer.md:826
+Problem: The paragraph headed Higgs mechanism from one condition still says second-order center independence simultaneously produces quantum phenomenology, chiral fermions and the necessity of a Higgs boson. This overstates the newly recovered first-order grading theorem and contradicts the separately open second-order/physical bridges.
+Concrete repair: Separate Main's memory results from the no-two-torsion first-order grading/onsite theorem. The identification with second-order center dependence, physical spin/weak chirality and the selected Higgs mechanism require their own named hypotheses.
+
+V2-R6 — incorrect attribution/scope of a standard consequence
+Locations: book/appendix-b-derivations.md:280, book/appendix-b-derivations.md:282
+Problem: The proton/electron corollary calls equality a distinctive framework prediction that is a free parameter in the Standard Model, whereas the corrected canonical T15/C15b correctly identify the standard fixed-family anomaly consequence. The paragraph also retains an explicit failed arithmetic attempt. B.5 already assumes neutral-neutrino normalization and therefore excludes a=0; that assumption must remain visible.
+Concrete repair: Use the clean conditional identity q_p=2u+d=6a, q_e=e=-6a on the specified standard branch and electromagnetic identification. Credit the standard fixed-family anomaly result; do not claim anomaly cancellation selects the physical family or makes the identity unique to OI.
+
+V2-R7 — stale Bravais selection criterion
+Locations: papers/SM.md:1439
+Problem: Tier 2 still says T7b selects simple cubic because any SU(3) factor is observed. The corrected T7b is a restricted full-target nearest-neighbor block-pattern comparison, and its own BCC/FCC examples contain three-dimensional blocks.
+Concrete repair: Refer to the full selected 3+2+1 block pattern within the stipulated single-basis isotropic nearest-neighbor Bravais comparison, together with the separate charged physical interpretation. Do not infer simple cubic from existence of any SU3 factor alone.
+
+Mathematics preserved/accepted for this scoped review:
+- The trace-class/normal-adjoint formulation with explicit invariant observable algebra makes Definition 9.3 and P9.5 well-typed. P9.5/C9.6 correctly give only the specified fixed-interface inclusion.
+- P9.7c gives a complete dense-span proof of the standard separable minimal Stinespring-isometry theorem. It preserves the valid stronger mathematics while separating finite K3 scope. The reference-vector normalization and one-time versus repeated-channel counterexamples are correctly scoped.
+- T14, P14a, T15, P15a and C15b are mathematically valid on the printed group/family/charge premises. The global correlated quotient, explicit surjection and kernel, faithful Z6 image, full all-real anomaly branches and credited compact-charge FLT3 strengthening have correct constructions. They do not select the physical charged observer action.
+- The restricted SM3 entrywise/onsite/even-operator/uniform-coefficient results are proved by the exact new Lean module. The no-additive-two-torsion and both-parity-sector conditions are explicit and necessary. Physical/second-order identification is properly left open in canonical SM.
+- P24.3 correctly proves minimal freely composable finite-dimensional word-realization uniqueness, n+m-1 comparison access and 2d-1 Hankel reconstruction. Similarity is not automatically physical gauge.
+- P24.4 correctly identifies the future-trace quotient under full support in each compared quotient and a known common size bound. Its length-B reconstruction, common-length cone saturation and Hankel rank proof are valid without stationary priors. It does not reconstruct invisible microscopic fibres or coherent block-word data.
+- The native companion-family note correctly recovers F from labelled triple support with full phase support and distinguishes this from flat one-time populations under uniform counting. Its coarse-readout and nonuniform stationary-prior controls have the stated algebra.
+- T23/L23.0/T24/P24.2 remain scoped as before. P24.2 and Pair C Lean source files are unchanged, and no all-partitions classification or physical selector is inferred from the new predictive results.
+- The expanded Structure source correctly makes the physical EFT algebra/channel a conditional target, leaves its full construction open and requires an actual normal algebra map plus restricted adjoint intertwining. Scalar/texture agreement is no longer an isomorphism certificate.
+- The bounded selector-agent propagation changes in ch06/ch09/ch19/AppendixC/Complexity/Computation/Methodology preserve generic memory results and impose the relevant physical or exact-decoupling premises.
+
+Verification:
+- hashes: All 75 files match the pinned manifest. Manifest/diff hashes equal the supplied values.
+- full_mirror: 27 assembled chapter/appendix sources, zero missing stripped nonblank source lines in FULL.
+- SM3_direct_kernel_replay: {"source_sha256": "716bcfd0475bef83e54d8a772f0da37a16bbab55ca5684fae7258ea4043e0426", "compiler": "/workspace/scratch/cb6cdacd02d4/recovery-sm3/lean-4.33.0-linux/bin/lean", "direct_source_exit": 0, "axiom_diagnostic_exit": 0, "axioms": "even_perturbation_iff: none; the other eight supplied diagnostics: propext only; no sorryAx", "runtime_adapter": "LD_PRELOAD proc_self_exe.so; inspected 625-byte C source rewrites only readlink of this process numeric /proc/<pid>/exe to /proc/self/exe. No proof/kernel source substitution.", "evidence": "/workspace/scratch/cb6cdacd02d4/review-corpus/findings/v2-sm3-lean-axioms.txt"}
+- SM3_controls: PASS: 2,475 positive cases and seven negative controls. Only the script output destination was redirected to findings through its __file__ variable; mathematical source bytes were unchanged.
+- multitime_controls: Independent exit 0; exact script hash f0549188f68e3afcd14a7e59430b1919758568c9b68467a934644de911fb3274 and byte-identical result hash 2bb425b1ff2f26dcd79f9c47c938bbbc4ce3e9224a46f52c10ec5ffa459bde28, including 768 native grid cases, two singleton cases and all 770 common-length cone/Hankel checks.
+- group_controls: global_form_controls_v1.py, hypercharge_control_v1.py and native_carrier_control_v1.py independently replayed exit 0. General group/anomaly conclusions also checked directly from their printed proofs. The compact FLT3 argument was checked algebraically; its bounded script was not rerun because it writes beside its frozen source.
+- unchanged_kernel_sources: ["WordTraceSufficiency.lean", "SemigroupTransfer.lean", "KrausUniqueness.lean", "StinespringUniqueness.lean"]
+- plain_core: Only the explanatory M3.1 comment changes; old center_anticommutator and mass_square proof statements remain unchanged.
+- coverage: Only SM:T-3 changes tier, K2 to K3, supported by the new exact restricted kernel proof. Six new rows remain GAP; the prior unnamed proton/electron corollary is replaced by SM:C-15b. T23/L23.0/T24 stay GAP and P24.2 stays K3. Other semantic ledger updates match changed scopes. Line refresh/reordering is queued separately for v3.
+- census: Adds ChiralCenterRecovery as current with precise anchors and records center_anticommutator supersession as a publication witness, while retaining the valid old identity; frozen word-trace research status is unchanged.
+
+Limits:
+- This verdict is for exact frozen v2, not a future v3 or the mutable worktree.
+- The mathematical recoveries above are useful and should be preserved while the residual propagation is corrected. No deadline or abandonment of stronger recovery research is implied.
+- This review does not independently certify older physical spin/factorization, numerical flavor/coupling, Bell readout, gravity/cosmology or biological claims outside the scoped source corrections.
+- Canonical PDF builds, rendering, exact-head CI and owner/external publication acceptance are outside this reviewer's verified result.
+- No source, historical frozen record, remote state, programme launch or publication artifact was edited by this reviewer.

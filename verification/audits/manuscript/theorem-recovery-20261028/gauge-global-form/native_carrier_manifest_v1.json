@@ -1,0 +1,31 @@
+{
+  "commands": [
+    "python native_carrier_control_v1.py > native_carrier_result_v1.json",
+    "python -O native_carrier_control_v1.py > native_carrier_result_optimized_v1.json"
+  ],
+  "files": [
+    {
+      "bytes": 3621,
+      "path": "native_carrier_barrier_v1.txt",
+      "sha256": "9159ab6c8077c6ddc791576f681ad2cc1c84f5761926d943033afa364d17d8fe"
+    },
+    {
+      "bytes": 3052,
+      "path": "native_carrier_control_v1.py",
+      "sha256": "400c350970373e5a810fb159cd2e4991e01c3849e56c925cf6062e38b5f70d1f"
+    },
+    {
+      "bytes": 1102,
+      "path": "native_carrier_result_v1.json",
+      "sha256": "c51df5c643cfa3c3353d77c7f369c8589e29f7a3e0987c54b465b40b4aea8a4f"
+    },
+    {
+      "bytes": 1102,
+      "path": "native_carrier_result_optimized_v1.json",
+      "sha256": "c51df5c643cfa3c3353d77c7f369c8589e29f7a3e0987c54b465b40b4aea8a4f"
+    }
+  ],
+  "normal_optimized_byte_identical": true,
+  "schema": "oi-native-carrier-barrier-manifest-v1",
+  "status": "frozen_for_independent_review"
+}

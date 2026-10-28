@@ -1,0 +1,240 @@
+{
+  "arithmetic": "fractions.Fraction only",
+  "control_groups": {
+    "dimension_two_length_bound": {
+      "difference": "11/1920",
+      "distinguishing_word": [
+        0,
+        0,
+        0
+      ],
+      "matching_lengths": [
+        0,
+        1,
+        2
+      ],
+      "minimal_dimension_each": 2,
+      "probabilities": [
+        "7/32",
+        "409/1920"
+      ]
+    },
+    "missing_minimality": {
+      "without_observability_ranks": [
+        2,
+        1
+      ],
+      "without_observability_traces": [
+        "3/4",
+        "2/3"
+      ],
+      "without_reachability_ranks": [
+        1,
+        2
+      ],
+      "without_reachability_traces": [
+        "2/5",
+        "3/5"
+      ]
+    },
+    "native_full_support_grid": {
+      "B": 4,
+      "N_equals_1_instances": 2,
+      "binary_readouts": 16,
+      "common_length_cone_and_Hankel_checks": 770,
+      "constant_readout_instances": 96,
+      "full_support_priors": 2,
+      "independent_prediction_checked_through": 7,
+      "instances": 768,
+      "nonstationary_prior_instances": 368,
+      "permutations": 24,
+      "quotient_size_histogram": {
+        "1": 96,
+        "2": 192,
+        "3": 96,
+        "4": 384
+      },
+      "word_lengths_for_reconstruction": [
+        3,
+        4
+      ]
+    },
+    "native_hidden_fiber_freedom": {
+      "common_visible_quotient_size": 2,
+      "full_dynamics_cycle_types": [
+        [
+          2,
+          2,
+          2
+        ],
+        [
+          6
+        ]
+      ],
+      "scope": "fiber freedom only; decoupled ancilla moves may already identify these models"
+    },
+    "native_missing_full_support": {
+      "missing_hypothesis": "global full support",
+      "same_supported_process": true,
+      "state_counts": [
+        3,
+        2
+      ]
+    },
+    "native_missing_known_bound": {
+      "examples": [
+        {
+          "first_distinguishing_length": 3,
+          "matching_max_length": 2,
+          "state_counts": [
+            4,
+            8
+          ]
+        },
+        {
+          "first_distinguishing_length": 4,
+          "matching_max_length": 3,
+          "state_counts": [
+            8,
+            16
+          ]
+        },
+        {
+          "first_distinguishing_length": 5,
+          "matching_max_length": 4,
+          "state_counts": [
+            16,
+            32
+          ]
+        }
+      ],
+      "full_support_and_stationary": true,
+      "future_observable": true
+    },
+    "positive_nonphysical_similarity": {
+      "S": [
+        [
+          "1",
+          "1/10"
+        ],
+        [
+          "0",
+          "9/10"
+        ]
+      ],
+      "hankel": {
+        "hankel": [
+          [
+            "1",
+            "1/3"
+          ],
+          [
+            "1/3",
+            "11/100"
+          ]
+        ],
+        "maximum_word_length_used": 3,
+        "prefixes": [
+          [],
+          [
+            0
+          ]
+        ],
+        "suffixes": [
+          [],
+          [
+            0
+          ]
+        ]
+      },
+      "initial_A": [
+        [
+          "2/3"
+        ],
+        [
+          "1/3"
+        ]
+      ],
+      "initial_B": [
+        [
+          "7/10"
+        ],
+        [
+          "3/10"
+        ]
+      ],
+      "inverse": [
+        [
+          "1",
+          "-1/9"
+        ],
+        [
+          "0",
+          "10/9"
+        ]
+      ],
+      "operators_A": [
+        [
+          [
+            "1/4",
+            "1/10"
+          ],
+          [
+            "1/10",
+            "1/5"
+          ]
+        ],
+        [
+          [
+            "7/20",
+            "3/10"
+          ],
+          [
+            "3/10",
+            "2/5"
+          ]
+        ]
+      ],
+      "operators_B": [
+        [
+          [
+            "13/50",
+            "47/450"
+          ],
+          [
+            "9/100",
+            "19/100"
+          ]
+        ],
+        [
+          [
+            "19/50",
+            "151/450"
+          ],
+          [
+            "27/100",
+            "37/100"
+          ]
+        ]
+      ],
+      "ranks": [
+        2,
+        2
+      ],
+      "reconstructed_similarity": [
+        [
+          "1",
+          "1/10"
+        ],
+        [
+          "0",
+          "9/10"
+        ]
+      ],
+      "words_and_paths_checked_through": 6
+    }
+  },
+  "scope": "bounded exact controls; universal claims rest on companion proofs",
+  "script_sha256": "f0549188f68e3afcd14a7e59430b1919758568c9b68467a934644de911fb3274",
+  "status": "PASS"
+}

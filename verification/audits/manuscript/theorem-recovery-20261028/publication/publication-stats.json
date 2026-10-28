@@ -1,0 +1,195 @@
+{
+  "Complexity": {
+    "pages": 36,
+    "median_characters_per_page": 2746.0,
+    "min_characters_per_page": 346,
+    "source_sha256": "f78e40e6f600813b4294360eef5c116855c849b68c59adb4abc43953f9d4c27e",
+    "pdf_sha256": "b2b556fd75b0b242c6d094881e4d43b1165accdee7b408d0269c8873032e9c8b",
+    "tex_sha256": "29259698655be29b7f617356f777496c5d204e6e89f139fa190e02d621e3a640",
+    "tex_source_stamp_matches": true,
+    "query_pages": {},
+    "rendered_pages": [
+      1,
+      18,
+      36
+    ],
+    "out_of_page_word_boxes": []
+  },
+  "Computation": {
+    "pages": 22,
+    "median_characters_per_page": 2983.5,
+    "min_characters_per_page": 1821,
+    "source_sha256": "d650974696a79d84b4bcac1018e1a353f3c54fdec55104ea46cc3fb067c50921",
+    "pdf_sha256": "0843543356d9b4debd0b908489d0ca59c978e2f16d9347dfe6ec661b8b84f083",
+    "tex_sha256": "25a1c8381212d01abc3f256369cac8e10263d56f66fb8916884ea3250530521f",
+    "tex_source_stamp_matches": true,
+    "query_pages": {},
+    "rendered_pages": [
+      1,
+      11,
+      22
+    ],
+    "out_of_page_word_boxes": []
+  },
+  "Explainer": {
+    "pages": 69,
+    "median_characters_per_page": 2934,
+    "min_characters_per_page": 631,
+    "source_sha256": "dbc3fc42e408c43053439ad675ec9f49e7ea8c669b220521dcd0c188eba2cd77",
+    "pdf_sha256": "f24ed1cf23578fa7789d7e03f7acc52a44240e121bf1094f8fb79f3d460e06ff",
+    "tex_sha256": "4c102c4bfefee13670306f293a5939b8d86b1aeb885811b81eb7ad3eea2d3e47",
+    "tex_source_stamp_matches": true,
+    "query_pages": {},
+    "rendered_pages": [
+      1,
+      34,
+      69
+    ],
+    "out_of_page_word_boxes": []
+  },
+  "GR": {
+    "pages": 88,
+    "median_characters_per_page": 3184.5,
+    "min_characters_per_page": 288,
+    "source_sha256": "04d45d9b5da466b0bfeb2319a25bf111efceea82b3f8f3c316a6df16e17fa2f3",
+    "pdf_sha256": "ae2d10a62024d8d0dd5cea239e30d6035d5184bb905de2ffaa3c552b1d92da29",
+    "tex_sha256": "211f83393cc8a153a671f07d8f49b87ff02dd1e12c09c9b7abc264b18ba5cb98",
+    "tex_source_stamp_matches": true,
+    "query_pages": {
+      "shell-orientation theorem": 22
+    },
+    "rendered_pages": [
+      1,
+      22,
+      88
+    ],
+    "out_of_page_word_boxes": []
+  },
+  "Juno": {
+    "pages": 22,
+    "median_characters_per_page": 2732.0,
+    "min_characters_per_page": 215,
+    "source_sha256": "dec43f86003784b13b2766187a23c8659feb514157ce3e3b169da16be7fd946c",
+    "pdf_sha256": "b3b0ccc5a1c276fc4123a580b1906c56e6997323bd2a93bfe26aee625d5f346d",
+    "tex_sha256": "5cff4b1a043fdd711b2fbf2b68f2aec64683067b9c755b44e9d7e88b6bc566cd",
+    "tex_source_stamp_matches": true,
+    "query_pages": {},
+    "rendered_pages": [
+      1,
+      11,
+      22
+    ],
+    "out_of_page_word_boxes": []
+  },
+  "Methodology": {
+    "pages": 48,
+    "median_characters_per_page": 3063.5,
+    "min_characters_per_page": 430,
+    "source_sha256": "6d5c6ddb8f70682dce47f6cb27cd074591a2dd1ab8d2bb8a422a495ef441a5d6",
+    "pdf_sha256": "6a42d4caf38fcef2ff9483cf6e4b228d4e22e7376d01af5a7f68bc5072b638ba",
+    "tex_sha256": "34897d2f5f413e07db18cfb9a9af551bf5ab62d3507e9cd385689d498bfcb8a3",
+    "tex_source_stamp_matches": true,
+    "query_pages": {},
+    "rendered_pages": [
+      1,
+      24,
+      48
+    ],
+    "out_of_page_word_boxes": []
+  },
+  "SM": {
+    "pages": 147,
+    "median_characters_per_page": 3152,
+    "min_characters_per_page": 1885,
+    "source_sha256": "eb70665260ebb110dac8d413468800aed912998086a3912f9e5b9427abcca58f",
+    "pdf_sha256": "04ebaf6bdcd67fd36f944a89d800ae50103c6aa66d385c1bf43f022fcbf139c8",
+    "tex_sha256": "2041eea21cb2de8b9fcff35df73a653c1420c18ada44ff47c3c2b946ea24de3a",
+    "tex_source_stamp_matches": true,
+    "query_pages": {
+      "Theorem 3": 33,
+      "Generic unitary stabilizer": 39,
+      "Correlated central quotient": 36,
+      "Fixed-family anomaly-free": 55,
+      "Compact-charge strengthening": 55,
+      "Faithful charged-family image": 56
+    },
+    "rendered_pages": [
+      1,
+      33,
+      36,
+      39,
+      55,
+      56,
+      147
+    ],
+    "out_of_page_word_boxes": []
+  },
+  "Structure": {
+    "pages": 93,
+    "median_characters_per_page": 2938,
+    "min_characters_per_page": 2143,
+    "source_sha256": "fff1efc157db94519cfe2af551497e86decd40dba2c2a5e8affb89b77849826c",
+    "pdf_sha256": "59c08141c983f233044ebcfef79f99892a5014e6ad653d3f0400376ef6fde2bb",
+    "tex_sha256": "33435cd7df1524cabee67b63ef0f10c04702cfd654a8d7f44cd9b447d505fb64",
+    "tex_source_stamp_matches": true,
+    "query_pages": {
+      "Definition 9.1": 38,
+      "Proposition 9.7b": 40,
+      "Proposition 9.7c": 6
+    },
+    "rendered_pages": [
+      1,
+      6,
+      38,
+      40,
+      93
+    ],
+    "out_of_page_word_boxes": []
+  },
+  "Substratum": {
+    "pages": 52,
+    "median_characters_per_page": 3217.0,
+    "min_characters_per_page": 246,
+    "source_sha256": "ff32e7600e60e100759ad9baac24e1e0c773e9a73ecbf1f0a750825b450b034a",
+    "pdf_sha256": "c9c5fee8d1eb799db50281eef18822f8ce5fc59e7d3a5b5b2fd2502bf56952c5",
+    "tex_sha256": "f46edc39e624cfa469296882285ec1cc50d8c5881afbaa0eb3575fa3ea1d3e16",
+    "tex_source_stamp_matches": true,
+    "query_pages": {
+      "Minimal linear word realizations": 29,
+      "Passive finite-permutation predictive quotient": 30
+    },
+    "rendered_pages": [
+      1,
+      29,
+      30,
+      52
+    ],
+    "out_of_page_word_boxes": []
+  },
+  "book": {
+    "pages": 549,
+    "median_characters_per_page": 3051,
+    "min_characters_per_page": 26,
+    "source_sha256": "da2d9b6223df1038b4e74357a6ccdac3c5a1940d436a7dcd1483787788cfc833",
+    "pdf_sha256": "943a3f252db7261a2c8c3305e2a39d65c8e7677b962f33e22fa56c8d9aafb82d",
+    "tex_sha256": "3fa3650bdc32c55ea2374a07f71040a09ec198c85529bf271ed6cb17bb7294c5",
+    "tex_source_stamp_matches": true,
+    "query_pages": {
+      "Recovery from complete multi-time records": 72,
+      "A constructive Standard Model quotient": 135,
+      "Restricted chirality": 140,
+      "On this selected charge branch": 483,
+      "The cumulative chain retains": 485
+    },
+    "rendered_pages": [
+      1,
+      72,
+      135,
+      140,
+      483,
+      485,
+      549
+    ],
+    "out_of_page_word_boxes": []
+  }
+}
