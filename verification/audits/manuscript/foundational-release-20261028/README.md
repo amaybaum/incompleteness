@@ -77,3 +77,21 @@ identification. No canonical theorem, grade, Lean source or recovered proof chan
 Explainer, Methodology and the book were regenerated with zero missing glyphs;
 the current publication identities are recorded above. Final acceptance and CI
 still apply to the resulting head.
+
+## Independent acceptance of the reconciled scientific source
+
+Both independent follow-up reviews accept source head
+`d10a01a59e55684cf7fb09e519c3bc65798526d0`, tree
+`d8ab8b94a1eec79dee14b1a4951af7331a99b742`, within their stated scopes.
+The scientific review closes R1–R4 and preserves the strongest results; the
+provenance/publication review verifies all 87 input identities, the 134 canonical
+entries, protected source and publication/mirror consistency. Their reports are
+retained as `scientific-acceptance-d10a01a.*` and
+`provenance-acceptance-d10a01a.*`. These are source/provenance verdicts, not
+physical-correctness, compiler, full-history or merge attestations.
+
+The following record-only increment adds those verdicts and this explanation;
+no manuscript, publication, theorem, grade, Lean source, control or existing
+review report changes. The input manifest refreshes only this README digest;
+its scientific and publication inputs remain exactly those accepted at d10a01a.
+The actual landing head still requires CI and explicit owner approval.
