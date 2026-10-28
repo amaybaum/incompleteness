@@ -8,8 +8,9 @@ the owner's decision on the dark-sector tier with the reviewer's optional item o
 (ACCEPT), §9 below; and the review of `59e5962c` (ACCEPT WITH CHANGES, which confirmed the "No dark
 matter particle" move): B7, the GR:30 condition and the scan scope, §9 below, together with two
 further owner decisions (level placement; the particle-dark-matter claim, §10) and the ch18
-component headings coordinated with SC-36 (§11); and the review of `e5684370` (ACCEPT WITH CHANGES:
-B8–B10 and optional items, §12).
+component headings coordinated with SC-36 (§11); the review of `e5684370` (ACCEPT WITH CHANGES:
+B8–B10 and optional items, §12); and the review of `8960bdb0` (ACCEPT WITH CHANGES: B11, S1 and
+optional items, §13).
 
 ## Finding
 
@@ -533,6 +534,35 @@ consistency with the proposal, not confirmation that dark-matter particles do no
   step": GR's own ladder, no level label nearby.
 - **Downstream.** No coverage fingerprint moved.
 
+### 13. Review of `8960bdb0` (round 7)
+
+- **B11, A/4 under the Level G4 × C bullet.** Original (round 6), Structure:177 "The
+  Bekenstein-Hawking $A/4$ coefficient sits at this level as a conditional result: it is a
+  universality-class result conditional on H-slope and the horizon and frame conditions ([GR §8.5])."
+  and Structure:184 "falsifying a Level G4 × Level C prediction is impossible without contradicting QM
+  itself;". Defect: placed under that bullet, $A/4$ inherited "Not falsifiable within the framework"
+  and "impossible without contradicting QM itself", against GR:683 and ch07:309, where the coefficient
+  is testable. Correction: :177 "The Bekenstein-Hawking $A/4$ coefficient is placed at this level as a
+  conditional universality-class result (H-slope and the horizon and frame conditions, [GR §8.5]).
+  Unlike the entries above, it is not a structural feature of partial-trace observation alone, and a
+  direct test of the coefficient, if one becomes available, would test that universality-class
+  claim."; :184 "falsifying a Level G4 × Level C prediction is impossible without contradicting QM
+  itself, except for the conditional $A/4$ coefficient, whose failure would refute its stated
+  conditions or the universality-class claim;", and its own clause "with no direct empirical test" →
+  "for which no direct empirical test is currently available", consistent with "if one becomes
+  available".
+- **S1, Structure:142.** Original "(Cabibbo …, Koide $2/3$ — twenty-two classified retrodictions in
+  [SM §7] — and the Bekenstein-Hawking $A/4$ as a consistency relation of [GR §5])" under Level D.
+  Correction: "(Cabibbo …, Koide $2/3$ — twenty-two classified retrodictions in [SM §7]; the
+  Bekenstein-Hawking $A/4$ is a universality-class consistency relation, Level C × G4, §2.4)". Re-grep
+  of Structure for other Level-D placements of $A/4$: none (the remaining mentions, :341, :439, :451,
+  :453, :463, :497, :905, :928, :1022, :1056, discuss horizon holography or universality without a
+  Level-D placement).
+- **Optional.** Structure:184 "framework. the JUNO match" → "framework. The JUNO match"; Substratum:457
+  "the coupling statement $Q = M_B c^2$ that the open G3 map would supply" → "that the open covariant
+  coupling map of [GR §6.2] would supply".
+- **Downstream.** No coverage fingerprint moved.
+
 ## Site table
 
 | Site (base) | Was | Now | Source |
@@ -558,6 +588,7 @@ consistency with the proposal, not confirmation that dark-matter particles do no
 | GR:450 (ii-a), Explainer:581 | "a theorem of Part I"; "The paper proves" | "By the construction of the trace-out" | GR:450 itself ("by construction") |
 | Explainer:537, 541, 543, 545, 549–551, 579, 581, 593, 625, 689, 900 | as in §§1–4, 6, 7 | conditional / normalization / "depends only on" / on the proposal | GR §6 |
 | Substratum:46 | "The dark sector is the gravitational effect …" | on the geometry-first proposal | GR:356 |
+| Structure:142, 177, 184 (round 7); Substratum:457 | $A/4$ at Level D, or inheriting "not falsifiable"; "open G3 map" | Level C × G4 consistency relation; conditional and testable; "open covariant coupling map of [GR §6.2]" | review B11, S1 |
 | Structure:177, 180, 182, 184 (current numbering) | $A/4$ and interpolation details "forced", "distinguishing", at G3 × D or G2/G3 × D | $A/4$ at G4 × C, conditional; G3 × D "content" with SM status and open kernel | review B8; GR §8.5, SM §7.6 |
 | GR:30, 597, 681 | "Level C × Level G4", "Levels G1–G2" beside GR's own G1–G4 ladder | gauge-axis levels of [Structure §2], distinct from the dependency ladder | review B9 |
 | Explainer:671; Substratum:325; GR:12, 526; ch02:120, ch07:177, ch09:259 (FULL) | unconditional non-particle statements; bare "G3" in level chapters | conditional on the open coupling step; "the open covariant coupling step of [GR §6.2]" | review B10, optional |
@@ -592,9 +623,9 @@ The Lean census registry is untouched.
 `python3 -I check.py <repo-root> 0d917665`, output in `check.out` (the added-lines scan excludes
 `check.out`, so the count is stable):
 
-- 94 superseded wordings: **0** occurrences each, corpus-wide (papers, chapters, FULL; the
+- 100 superseded wordings: **0** occurrences each, corpus-wide (papers, chapters, FULL; the
   Introduction excluded per the unit brief).
-- 60 corrected book sentences: present once in the chapter and once in FULL each; 37 corrected paper
+- 60 corrected book sentences: present once in the chapter and once in FULL each; 41 corrected paper
   sentences pinned at exactly one occurrence each.
 - Chapter 9 tier counts (section 2c): every stated Tier 1, Tier 2 and Tier 3 count, every count word
   before "entries" or "independent confirmations" in the paragraph after each table, and the
@@ -646,8 +677,18 @@ as fact (§7). Removed: "the proofs are complete" (appendix-c:317); "predicts th
   `papers/Explainer.tex` / `.pdf` and `papers/Structure.tex` / `.pdf`, which this unit regenerates
   too: those derived files conflict and are rebuilt from the merged sources (`sh ./build.sh
   Explainer Structure`), as are any other `.tex` / `.pdf` both branches rebuild (the book with
-  SC-36 and SC-43).
+  SC-36 and SC-43). SC-43 is at `b93c7d12`; its `papers/Structure.tex` / `.pdf` conflict with this
+  unit's in the same way and are regenerated after the merge.
 - **SC-36, ch18:146 / FULL:4964:** this unit carries SC-36's line verbatim; identical on both sides.
+- **SC-44 and SC-45** (`corpus/sc44-lemma241-core` at `87d0b03f`, `corpus/sc45-generator-soundness`
+  at `6aff07d4`) edit `papers/Substratum.md` (lines 16–317 and 498 at the base; 249–261). This unit
+  edits Substratum:46, :325, :457 and :484, none within one line of theirs. Trial merges of this
+  unit's round-7 tree with each branch, in a disposable worktree: both merge automatically with no
+  conflict (`papers/Substratum.md` and `verification/coverage/LEDGER.json` auto-merged), and the
+  merged Substratum carries this unit's :457 text. Neither branch regenerates `Substratum.tex` /
+  `.pdf`, so after either merge those derived files follow this unit's build and must be rebuilt
+  from the merged source (`sh ./build.sh Substratum`; the release gate's staleness step checks the
+  source hash).
 
 - **SC-36** (`corpus/sc36-page-curve-scope`) retitles ch19 §19.2 to the identical "Problems addressed"
   (ch19:20 / FULL:5180): identical change, merges cleanly. SC-36 deletes the ch09 Tier 1 row at
@@ -671,6 +712,9 @@ as fact (§7). Removed: "the proofs are complete" (appendix-c:317); "predicts th
   (§3.2, Step 2) instead of the calibration.
 
 ## Open, for #970 (recorded, not edited)
+
+- Owner item: ch02:120 "a reading on which the problem dissolves conditional on …" belongs to the
+  pending question on dissolution language, with the GR §6 and ch07 §7.7 titles below.
 
 - Owner item: whether "Conditional Dissolution" in the GR §6 and ch07 §7.7 titles ("The Cosmological
   Constant: Descriptive Distinction and Conditional Dissolution") should change under the owner's

@@ -89,6 +89,12 @@
    0  Tier 2 / Level D × Levels G1–G2
    0  conditional on the open coupling step (G3)
    0  are Einstein's, the open G3 step
+   0  coefficient sits at this level as a conditional result: it is a universality-class result
+   0  impossible without contradicting QM itself;
+   0  frame conditions, with no direct empirical test (GW250114
+   0  framework. the JUNO match
+   0  and the Bekenstein-Hawking $A/4$ as a consistency relation of [GR §5]
+   0  temperature of [GR §3.2] and the coupling statement $Q = M_B c^2$ that the open G3 map
    0  \Omega_{\text{dark}} \approx 95\%$ | $\Omega_{\text{CDM}}
    0  The framework predicts that dark energy is the uniform component
    0  The dark-sector corollary predicts that ~95%
@@ -186,9 +192,13 @@
    ok  1  papers/Structure.md: the classification does not derive the mechanism, whose gravitational 
    ok  1  papers/Structure.md: and the bijection-dependent details of the dark-sector interpolation f
    ok  1  papers/Structure.md: - *Level G3 × Level D content* — Cabibbo angle $1/(\pi\sqrt{2})$ and K
-   ok  1  papers/Structure.md: The Bekenstein-Hawking $A/4$ coefficient sits at this level as a condi
+   ok  1  papers/Structure.md: The Bekenstein-Hawking $A/4$ coefficient is placed at this level as a 
+   ok  1  papers/Structure.md: impossible without contradicting QM itself, except for the conditional
+   ok  1  papers/Structure.md: the Bekenstein-Hawking $A/4$ is a universality-class consistency relat
+   ok  1  papers/Structure.md: framework. The JUNO match
    ok  1  papers/Structure.md: The framework's most distinguishing content is the bijection-dependent
    ok  1  papers/Structure.md: the $A/4$ coefficient is a Level G4 × Level C result, conditional on H
+   ok  1  papers/Substratum.md: the coupling statement $Q = M_B c^2$ that the open covariant coupling 
    ok  1  papers/Substratum.md: a ~$95\%$ dark-sector corollary, conditional on the open coupling step
    ok  1  papers/Substratum.md: accounting for the full structured dark-matter budget. Such a detectio
    ok  1  papers/Substratum.md: A subdominant particle component would instead require re-examining th
@@ -259,5 +269,5 @@
    papers/SM.md:851  The hypothesis $c_\lambda = 1$ is therefore equivalent to the statement that the intermediate states of the mixing perturbation theory are the emergen
    papers/Substratum.md:157  Three independent forward filters from the empirical inputs converge on $d = 3$: propagating gravity (E5) requires $d \geq 3$ (the Weyl tensor vanishe
    papers/Substratum.md:500  The result is not a theory of everything but a structural account of why the apparent incompatibility between quantum mechanics and general relativity
-4. added lines: 1255; register/caps hits: 0; secret/path hits: 0
+4. added lines: 1311; register/caps hits: 0; secret/path hits: 0
 RESULT PASS
