@@ -10,5 +10,11 @@ PASS E0 the checker admits exactly 3 of the 24 whole-deck permutations (identity
 PASS E1 reduction: after all 65536 distinct admitted sequence maps each player's final cards depend only on its own hand and setting
 PASS E1' closure: the length-<=2 sequences already reach all 256 x 256 product maps f_A x f_B, a set closed under composition that contains every admitted operation, so longer sequences add no strategy
 PASS E2 every admitted strategy pair (16 x 16 induced tables) and every deal: |CHSH| <= 2 : max |CHSH term| = 2
+PASS L1 CONTROL (must exceed 2): a shuffle writing only B's cards but reading A's setting card gives CHSH = 4
+PASS L1a the read-and-write checker rejects L1 (it writes only B's cards, but reads A's)
+PASS L2 CONTROL (must exceed 2): a b-dependent choice between two admitted operations on A's cards gives CHSH = 4
+PASS E3 the product test rejects the L2 schedule M_{a,b} and accepts a schedule chosen from A's own card
+PASS P1 private coins independent of the settings over all local table pairs: max |CHSH| = 2
+PASS P2 CONTROL (must exceed 2): a coin shared by both players and correlated with the settings gives CHSH = 4
 
 card_bell_check: ALL CHECKS PASS

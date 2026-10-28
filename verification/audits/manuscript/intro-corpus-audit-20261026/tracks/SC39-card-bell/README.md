@@ -25,47 +25,41 @@ every arrangement of cards.
 
 - **Original.** "It reproduces single-system interference, indivisibility, and division events — the mechanism
   of this chapter — but no arrangement of cards on a table violates a Bell inequality, and the Bell-type
-  correlations of §1.7 belong to the full construction, …"
-- **Defect.** Unrestricted. A card table can break each hypothesis of the ceiling:
+  correlations of §1.7 belong to the full construction, …" The sentence opens "a card mechanism is a local
+  classical toy", also unconditionally.
+- **Defect.** Unrestricted. A card table can break each hypothesis of the ceiling, and each break below
+  reaches CHSH = 4 (exact):
   - a move after the settings that acts on both hands (X1);
-  - the game-rule shuffle between streets, a deterministic whole-deck permutation applied after the settings,
-    carrying one player's setting card into the other's hand while every player move stays on the player's
-    own cards (X1′);
+  - a rule-prescribed whole-deck shuffle after the settings that carries A's setting card into B's hand, while
+    every player move stays on the player's own cards (X1′);
+  - a rule-prescribed shuffle that writes only B's cards but reads A's setting card (L1, the reading
+    loophole);
+  - a rule that chooses, depending on b, between two operations on A's cards each of which is own-card (L2,
+    the schedule loophole);
+  - a coin shared by both players and correlated with the settings (P2);
   - a deal arranged with knowledge of the settings (X2);
   - runs without an outcome discarded (X3).
-
-  Each of these reaches CHSH = 4. The same sentence's opening, "a card mechanism is a local classical toy",
-  was also unconditional.
-- **Correction.** "One boundary must be stated as plainly as the successes: a card mechanism played under the
-  restrictions below is a local classical toy. It reproduces single-system interference, indivisibility, and
-  division events — the mechanism of this chapter — but it violates no Bell inequality when its shuffles and
-  moves are deterministic, once the deal is down every operation, including each shuffle the rules prescribe,
-  each move and each setting choice, acts on one player's own cards only, each outcome is read from that
-  player's own cards as a $\pm1$ result in every run, no run is set aside, and the settings are chosen
-  independently of the deal: such a game is a local hidden-variable model (Main §3.3). The Bell-type
-  correlations of §1.7 belong to the full construction, …"
-
-  An earlier commit on this branch (0c2356f3) restricted only the players' moves and setting choices. The
-  independent review found that this left §1.11's game-rule shuffle unrestricted (X1′). The text above
-  restricts every operation after the deal, names the rule-driven shuffles explicitly, and states the
-  every-run and no-exclusion conditions separately, as the owner required.
+- **Correction (exact text now at ch01:286 = FULL:630).** "One boundary must be stated as plainly as the successes: a card mechanism played under the restrictions below is a local classical toy. It reproduces single-system interference, indivisibility, and division events — the mechanism of this chapter — but it violates no Bell inequality when any chance a shuffle or move uses is private to one player and drawn independently of the settings, once the deal is down every operation, including each shuffle the rules prescribe, each move and each setting choice, reads and writes one player's own cards only, and which operation the rules apply to a player's cards depends on those cards alone, each outcome is read from that player's own cards as a $\pm1$ result in every run, no run is set aside, and the settings are chosen independently of the deal: such a game is a local hidden-variable model (Main §3.3). The Bell-type correlations of §1.7 belong to the full construction, …"
+- **History on this branch.** 0c2356f3 restricted only the players' moves (X1′ open). ced30f6c restricted every
+  operation but read "acts on" as write-only (L1 open) and fixed no schedule (L2 open), and it required
+  determinism, which is narrower than needed. This commit closes L1 and L2 and replaces determinism with the
+  private-chance clause (R1 below).
 - **Condition map.**
 
   | Book condition | Main §3.3 hypothesis |
   |---|---|
-  | shuffles and moves deterministic | (i) |
-  | once the deal is down, every operation (rule-driven shuffle, move, setting choice) acts on one player's own cards only | (ii) for the setting choices; for every later update, no step couples the two hands, so the coupling graph after the deal has no edge between the hands and each readout stays outside the other wing's cone, as (iii) requires |
+  | any chance an operation uses is private to one player and drawn independently of the settings | (i), after the reduction below: private chance is dealt in advance as extra hidden cards in that player's region, which enlarges the deal Ω and leaves the dynamics deterministic |
+  | once the deal is down, every operation reads and writes one player's own cards only | (ii) for the setting choices; for every later update, no step reads or writes across the hands, so the coupling graph after the deal has no edge between the hands and each readout stays outside the other wing's cone, as (iii) requires |
+  | which operation is applied to a player's cards depends on those cards alone | the schedule is part of the dynamics: with this clause the composed post-deal map is fixed by each player's own cards (including the setting card), so (ii)–(iii) hold for the whole sequence and not only per operation |
   | outcome read from own cards, $\pm1$, every run, no run set aside | (iii) and the every-run clause |
   | settings independent of the deal | (iv) |
 
-  The deal is the pre-setting variable Ω. Shuffles before the deal is down may correlate the hands, which is
-  how K2 attains CHSH = 2.
-- **Consistency with SC-33 (#968).** #968's book ceilings (ch01:16, :169 and ch03:180 on its branch) state the
-  ceiling with these clauses: one-step setting interventions on the player's own wing; "the Bell-relevant
-  graph does not connect the wings before readout"; a $\pm1$ outcome in every run; a setting-independent
-  pre-setting ensemble. The card text matches each clause. "Every operation … acts on one player's own cards
-  only" once the deal is down is the card-table form of "the graph does not connect the
-  wings before readout"; the deal is the pre-setting ensemble. The notation $\pm1$ follows #968's.
+- **Consistency with SC-33 (#968).** #968's ch03:180 states the ceiling as: setting interventions that "each
+  read and write only their own wing"; "the Bell-relevant graph does not connect the wings before readout"; a
+  $\pm1$ outcome in every run; a pre-setting ensemble independent of the settings. The card text now uses the
+  same "reads and writes" wording. Its every-operation and schedule clauses are the card-table form of the graph
+  not connecting the wings before readout. The deal, enlarged by any private chance, is the pre-setting
+  ensemble. $\pm1$ follows #968's notation.
 - **Downstream.**
   - ch01:294 ("The boundary drawn above remains load-bearing … it is Bell's two boxes … where the cards must be
     surrendered to the full construction") refers back to this boundary. It is unchanged and is now read with
@@ -83,77 +77,91 @@ every arrangement of cards.
   - The first sentence is the same unrestricted claim.
   - The second gives locality but not setting independence (VERIFY item 5).
   - "no table can" is unrestricted for the same reason.
-- **Correction.**
-  - "… states its boundary as plainly as its successes: a card game in which, once the deal is down, every
-    operation, including each shuffle the rules prescribe, each move and each setting choice, acts on one
-    player's own cards only, with each outcome read from that player's own cards as a $\pm1$ result in every
-    run, no run set aside, and the settings chosen independently of the deal, violates no Bell inequality."
+- **Correction (exact text now at ch03:188 = FULL:1064).**
+  - "… states its boundary as plainly as its successes: a card game in which, once the deal is down, every operation, including each shuffle the rules prescribe, each move and each setting choice, reads and writes one player's own cards only, and which operation is applied to a player's cards depends on those cards alone, with any chance an operation uses private to one player and drawn independently of the settings, each outcome read from that player's own cards as a $\pm1$ result in every run, no run set aside, and the settings chosen independently of the deal, violates no Bell inequality."
   - "Such a card game is local through and through — each player's hidden cards are their own, and the deal
     does not know the settings — and …"
   - "What the world adds, and no such table can, is …"
 
-  Determinism is carried by "a deterministic shuffle" in the same sentence's description of the game.
+  The private-chance clause is stated here as well. The condition does not rest on the phrase "a deterministic
+  shuffle" in the chapter's description of the game.
 - **Downstream.** The wager that follows (ontic parameter dependence through the shared boundary structure) is
   unchanged. The restriction leaves the framework's adopted branch as Main §3.3 states it: measurement
   independence retained, ontic parameter independence given up. The restricted table is exactly the class the
   ceiling covers.
 
-## Evidence
+## Evidence, by class
 
-`card_bell_check.py` (run as `python3 -I card_bell_check.py`; output in `card_bell_check.out`) checks the
-following in exact Fractions:
+### (1) Paper argument: the general claim, for any deck and any finite sequence
 
-- **K1.** Every pair of local deterministic response tables (4 × 4 = 16 pairs) has |CHSH| ≤ 2, so every deal
-  distribution does too. The local models form the convex hull of these vertices.
-- **K2.** A shared-deal local game attains 2.
-- **Countercontrols.** Each of the following gives CHSH = 4:
-  - X1, a post-setting move on both hands;
-  - X1′, every player move on the player's own cards, with a game-rule whole-deck shuffle after the settings
-    carrying A's setting card into B's region;
-  - X2, a setting-dependent deal;
-  - X3, runs without an outcome discarded.
+Let A's region R_A and B's region R_B partition the cards after the deal. Any shared or undealt cards are
+untouched after the deal, as the condition requires.
 
-  Each of the locality, setting-independence and every-run conditions is therefore needed (X1, X1′, X2, X3).
-  Determinism matches Main's hypothesis (i).
-- **The reviewer's counterexample is excluded (X1′, ADM1).** X1′ encodes it on a five-card deck: a deal
-  copying c into both hands, own-card setting writes, then a fixed whole-deck position permutation carrying
-  A's setting card into B's hand. It gives CHSH = 4. An admissibility checker encodes the condition "every
-  operation acts on one player's own cards only": a whole-deck map is admitted iff, for one player's region R,
-  it leaves every card outside R unchanged and sets R as a function of R alone. The checker rejects the X1′
-  shuffle (ADM1) and admits a shuffle within one hand (ADM2, control).
-- **Every admitted strategy satisfies |CHSH| ≤ 2 (E0–E2), on a four-card deck.** Each player holds a hand
-  card and a setting card, with values 0/1. The enumeration covers:
-  - every deal (16);
-  - the setting writes;
-  - every sequence of length ≤ 2 of admitted operations, interleaved in any order between the players, from
-    all 256 + 256 own-region maps and all 24 whole-deck permutations (the checker admits exactly 3, E0);
-  - every ±1 readout of each player's own cards.
-- **Reduction argument, stated and checked.** Every admitted operation is a product map f_A × f_B with one
-  factor the identity, so every admitted sequence composes to a product map. The set of all 256 × 256 product
-  maps is closed under composition, and the length-≤2 sequences already reach all of it (E1′). Longer sequences
-  therefore add no strategy. Under a product map A's final cards are a function of A's dealt hand and a alone,
-  and B's of B's dealt hand and b alone (E1, checked on every sequence map, every deal and every setting pair).
-  A's outcome is thus a response table q_a(own hand) and B's r_b(own hand), the K1 class. CHSH is linear in the
-  deal law, so it is bounded by the per-deal maximum, which is 2 over every induced pair and deal (E2).
+1. **Each admitted operation is a product.** It is f_A × id or id × g_B: it reads and writes one region only,
+   with the identity on the rest.
+2. **Every sequence is a product.** (f×g)∘(f′×g′) = (f∘f′)×(g∘g′), so by induction every finite sequence of
+   admitted operations composes to a product F_A × G_B.
+3. **The product is fixed by own cards.** Under the schedule clause, which operation is applied to a player's
+   cards depends on those cards alone. So F_A is fixed by A's own cards, its dealt cards and setting card, and
+   G_B by B's own cards, step by step.
+4. **Private chance reduces to the deterministic case.** Chance an operation uses that is private to one player
+   and independent of the settings can be dealt in advance as extra hidden cards in that player's region. This
+   enlarges Ω, leaves the dynamics deterministic, and keeps p(Ω | a, b) = p(Ω). This is Main §3.3 (i).
+5. **Responses are local.** A's outcome, read from R_A as ±1 in every run with no run set aside, is
+   q_a(Ω_A), and B's is r_b(Ω_B).
+6. **The ceiling applies.** The hypotheses (i)–(iv) of Main §3.3 hold, so |CHSH| ≤ 2. Equivalently, CHSH is
+   linear in p(Ω), and every vertex q_a(Ω_A) r_b(Ω_B) has |CHSH| ≤ 2 (K1).
 
-All 13 checks pass; the output is retained in `card_bell_check.out`.
+### (2) Exact finite checks (`card_bell_check.py`, output in `card_bell_check.out`, 18 checks pass)
 
-The ceiling itself is Main's paper theorem, and its pointwise bound is exhaustively checked in
-`equivalence_recovery_probes.py` (check 11). This check adds the card-table instances and the
-countercontrols. Evidence level: a paper theorem, plus exact finite checks.
+These are instances and controls, not the proof.
+
+- **K1, K2.** Every pair of local deterministic response tables (4 × 4 = 16 pairs) has |CHSH| ≤ 2, and a
+  shared-deal local game attains 2.
+- **E0–E3: an exhaustive finite instance of steps 1–5 on a four-card deck.** Each player holds a hand card and
+  a setting card. The enumeration covers:
+  - every deal and the setting writes;
+  - every sequence of length ≤ 2 of admitted operations, interleaved between the players, from all 256 + 256
+    own-region maps and the 24 whole-deck permutations (the checker admits exactly 3, E0);
+  - every ±1 readout.
+
+  The checks:
+  - E1: each player's final cards depend only on its own hand and setting;
+  - E2: |CHSH| ≤ 2 for every induced pair and deal;
+  - E3: the product test is applied to setting-indexed schedules M_{a,b}. It rejects the L2 schedule and
+    accepts a schedule chosen from A's own setting card.
+
+  E1′ records that the length-≤2 sequences reach all 65,536 product maps. That reach count is a bounded run;
+  the argument in (1) does not need it.
+- **ADM, the admissibility checker for the per-operation condition.** A whole-deck map is admitted iff, for one
+  player's region R, it writes only R (every card outside R unchanged) and reads only R (the new cards in R are
+  a function of R alone). It checks reading as well as writing, so it matches the text's "reads and writes".
+  - ADM1 rejects the X1′ shuffle; ADM2 admits a shuffle within one hand (control).
+  - L1a rejects L1, which writes only B's cards but reads A's.
+  - The schedule clause is not a per-operation property, and ADM alone does not check it. E3 does.
+- **P1, private chance.** Independent private coins (biases 1/2 and 1/3) over all local table pairs give
+  max |CHSH| = 2.
+- **Must-fire countercontrols, each CHSH = 4:** X1, X1′, L1, L2, P2, X2, X3. Each of the locality (X1, X1′,
+  L1), schedule (L2), private-chance (P2), setting-independence (X2) and every-run (X3) conditions is
+  therefore needed. Determinism of the dealt-in-advance dynamics is Main's (i).
+
+### (3) Related machine check in the repository
+
+Main's ceiling pointwise bound over the sixteen deterministic response tables is checked exhaustively in
+`equivalence_recovery_probes.py` (check 11).
 
 ## Site table
 
 | Site | Was | Now | Source |
 |---|---|---|---|
 | ch01:286 = FULL:630 | a card mechanism is a local classical toy | a card mechanism played under the restrictions below is a local classical toy | review O4 |
-| ch01:286 = FULL:630 | no arrangement of cards on a table violates a Bell inequality | violates no Bell inequality when shuffles and moves are deterministic, once the deal is down every operation, including rule-driven shuffles, moves and setting choices, acts on one player's own cards only, own-card $\pm1$ outcome every run, no run set aside, settings independent of the deal; a local hidden-variable model (Main §3.3) | R-32; Main:356, :360; review B1 |
-| ch03:188 = FULL:1064 | no arrangement of cards on a table violates a Bell inequality | a card game in which, once the deal is down, every operation, including each rule-driven shuffle, move and setting choice, acts on one player's own cards only, … $\pm1$ result in every run, no run set aside, and settings chosen independently of the deal, violates no Bell inequality | R-32; review B1 |
+| ch01:286 = FULL:630 | no arrangement of cards on a table violates a Bell inequality | violates no Bell inequality when any chance a shuffle or move uses is private to one player and independent of the settings, once the deal is down every operation (rule-prescribed shuffles included) reads and writes one player's own cards only, and which operation the rules apply to a player's cards depends on those cards alone, own-card $\pm1$ outcome every run, no run set aside, settings independent of the deal; a local hidden-variable model (Main §3.3) | R-32; Main:356, :360; reviews B1 (rounds 2, 3), R1 |
+| ch03:188 = FULL:1064 | no arrangement of cards on a table violates a Bell inequality | a card game in which, once the deal is down, every operation … reads and writes one player's own cards only, and which operation is applied to a player's cards depends on those cards alone, with any chance an operation uses private to one player and independent of the settings, … $\pm1$ result in every run, no run set aside, and settings chosen independently of the deal, violates no Bell inequality | R-32; reviews B1 (rounds 2, 3), R1 |
 | ch03:188 = FULL:1064 | A card game is local … hidden cards are their own | Such a card game … hidden cards are their own, and the deal does not know the settings | VERIFY item 5 |
 | ch03:188 = FULL:1064 | and no table can | and no such table can | R-32 |
 
 The book is regenerated: `book/The-Incompleteness-of-Observation-FULL.{tex,pdf}`, 558 pages (base 558), with
-a median of 2968 characters per page.
+a median of 2977 characters per page.
 
 ## Re-grep
 
@@ -193,7 +201,14 @@ No Lean change is involved, and nothing here requires a formal change.
 - **Shared sentences relied on elsewhere.**
   - The book §1.11 card boundary is cited by the Introduction's L188/L255 (R-32, r32).
   - ch03:188's "local through and through" sentence.
-  - The proposed Introduction text (FINDINGS R-32) uses the same conditions.
+  - **For r32.** The Introduction's current L188 ("no card arrangement violates a Bell inequality") and FINDINGS
+    R-32's proposed text ("whose moves act only on each player's own cards, with settings chosen independently
+    of the deal") both have the gaps closed here. r32 must carry five clauses:
+    - read and write;
+    - every operation, rule-prescribed shuffles included;
+    - schedule;
+    - private chance;
+    - every run, with no run set aside.
 
 ## Open, for #970
 
