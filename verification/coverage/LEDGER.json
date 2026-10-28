@@ -2521,13 +2521,13 @@
       "line": 250,
       "kind": "Theorem",
       "label": "24",
-      "fingerprint": "2c713df281279b16",
+      "fingerprint": "1a3c54521b17abfa",
       "area": "reconstruction",
-      "assumptions": "see the statement; family (ii) under the alphabet-size hypothesis of SM §2.7",
+      "assumptions": "fixed visible/hidden partition and uniform hidden prior for exact channel invariance; hidden-factor permutation independent of visible state; independent finite decoupled factor; conditional alphabet and coarse graph comparisons",
       "checks": [],
       "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
+      "delta": "fixed-interface invariances proved on paper; no single matching Lean declaration for Theorem 24's joint statement",
+      "note": "SC-45 addresses the false arbitrary-full-state relabelling claim by an exact four-state counterexample: 8 of 24 permutations change the one-step visible transition matrix at the fixed interface. Hidden-factor relabelling and decoupled enlargement preserve the full visible channel by partial-trace identities. Graph and alphabet comparisons refer only to separately specified structural observables. The all-partitions equivalence and four-generator completeness remain open. Distinct from SC-44's verified block-word rigidity result."
     },
     {
       "id": "SUBSTRATUM:C-effective-finiteness-gauge-class-transfer",
