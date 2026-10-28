@@ -106,7 +106,13 @@ STALE = ['delivers QM on a finite-dimensional', 'quantum instruments open)', 'Le
          'The step from that exact representation class',
          'full coherent observable/instrument structure holds',
          'instrument and composite structure of standard quantum mechanics holds',
-         'tensor/composite instrument structure is part of the coherent operational lift']
+         'tensor/composite instrument structure is part of the coherent operational lift',
+         # round 4
+         'by five operational conditions which instruments are available',
+         'the instrument algebra is reached exactly when',
+         'reached exactly under the operational completion conditions',
+         'On every nonempty finite carrier these three principles',
+         '*conditionally*: it holds exactly when the explicit completion principles']
 print('[3] re-grep')
 for s in STALE:
     n = sum(read(p).count(s) for p in CORPUS)
@@ -115,14 +121,14 @@ counts = {p: read(p).count('complex matrix kinematics') + read(p).count('complex
           for p in CORPUS}
 for p, n in counts.items():
     print(f'        kinematics mentions {p}: {n}')
-EXPECT = {'papers/GR.md': 3, 'papers/Main.md': 14, 'papers/Methodology.md': 1, 'papers/Explainer.md': 8,
+EXPECT = {'papers/GR.md': 3, 'papers/Main.md': 17, 'papers/Methodology.md': 1, 'papers/Explainer.md': 8,
           'papers/Structure.md': 1, 'papers/Substratum.md': 2, 'papers/SM.md': 0,
           'book/preface.md': 1, 'book/ch00-introduction.md': 1, 'book/ch01-observation.md': 3,
           'book/ch02-substratum.md': 2, 'book/ch03-structural-realism.md': 2, 'book/ch04-methodology.md': 1,
           'book/ch09-universality.md': 1, 'book/ch14-quantum-computing.md': 1, 'book/ch18-beyond.md': 0,
-          'book/ch19-open-problems.md': 2, 'book/glossary.md': 2, 'book/appendix-b-derivations.md': 0,
+          'book/ch19-open-problems.md': 3, 'book/glossary.md': 2, 'book/appendix-b-derivations.md': 0,
           'book/appendix-c-objections.md': 0, 'book/readers-guide.md': 0,
-          'book/The-Incompleteness-of-Observation-FULL.md': 16}
+          'book/The-Incompleteness-of-Observation-FULL.md': 17}
 base_n = sum(read(p, BASE).count('complex matrix kinematics') + read(p, BASE).count('complex matrices indexed')
              for p in CORPUS)
 check(base_n == 0, f'kinematics mentions at base: {base_n}')
@@ -131,11 +137,17 @@ check(counts == EXPECT, f'kinematics mention counts match the site table ({sum(E
 # 3b. Pinned texts (round 3), with the kernel witnesses of the characterization's two directions.
 print('[3b] pinned texts and witnesses')
 PINS = {
- 'papers/Main.md': ["The operational-completion characterization ([GR §3.3]) takes the complex matrix kinematics as given, the tensor-product composite and with it local tomography included, and deriving that kinematics is open; within it, whether the available interventions on a finite carrier and its composites are exactly the quantum instruments is characterized by the five completion conditions of §3.4."],
+ 'papers/Main.md': ["the instrument algebra is reached, on a finite carrier within complex matrix kinematics taken as given, exactly when the five operational completion conditions hold ([GR §3.3]; Remark below), none of them supplied by the fixed-basis layer, and",
+                    "reached, on a finite carrier within complex matrix kinematics taken as given, exactly under the operational completion conditions (§3.4; [GR §3.3])",
+                    "On every nonempty finite carrier, within the same complex matrix kinematics, these three principles",
+                    "The operational-completion characterization ([GR §3.3]) takes the complex matrix kinematics as given, the tensor-product composite and with it local tomography included, and deriving that kinematics is open; within it, whether the available interventions on a finite carrier and its composites are exactly the quantum instruments is characterized by the five completion conditions of §3.4."],
  'book/glossary.md': ["What remains is operational: on a finite carrier, within complex matrix kinematics taken as given, an operational theory's available instruments on the carrier and its composites are the standard noncommuting quantum instruments exactly when the five completion conditions of the operational-completion characterization ([GR §3.3]) hold; which of them the substratum supplies, and a derivation of that kinematics, are open."],
- 'papers/GR.md': ["whether an operational theory's available instruments on a finite carrier and its composites are the quantum instruments is a separate question, which §3.3 characterizes, within complex matrix kinematics taken as given, by its completion conditions."],
+ 'papers/GR.md': ["The OI⁺, primitive-source, substratum-source, layer-flow and typed forms below are stated over the same kinematics, the typed form over the complex matrices of every finite carrier.",
+                  "whether an operational theory's available instruments on a finite carrier and its composites are the quantum instruments is a separate question, which §3.3 characterizes, within complex matrix kinematics taken as given, by its completion conditions."],
  'papers/Explainer.md': ["The full operational theory is a separate question from that exact representation class:",
-                         "takes the tensor-product composite as part of the complex matrix kinematics it assumes"],
+                         "takes the tensor-product composite as part of the complex matrix kinematics it assumes",
+                         "and within that kinematics characterizes by five operational conditions when the available instruments are exactly the quantum instruments."],
+ 'book/ch19-open-problems.md': ["*conditionally*: within complex matrix kinematics taken as given, it holds exactly when the explicit completion principles hold"],
  'papers/Structure.md': ["whether an operational theory's available instruments on a finite carrier and its composites are exactly the quantum instruments, simultaneously across all interventions, is a separate question"],
  'book/preface.md': ["within complex matrix kinematics taken as given, the tensor-product composite included, an operational theory's available instruments"],
 }

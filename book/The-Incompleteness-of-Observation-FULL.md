@@ -5421,7 +5421,7 @@ read as one thing.
 finite-horizon visible law has a finite reversible realization and a fixed-basis unitary/Born
 representation, and the three descriptions are equivalent ($S \iff D \iff Q_{\mathrm{fb}}$,
 [Main §3.4]). Separately, exact finite operational quantum mechanics is characterized
-*conditionally*: it holds exactly when the explicit completion principles hold, none of which bare
+*conditionally*: within complex matrix kinematics taken as given, it holds exactly when the explicit completion principles hold, none of which bare
 embedded observation supplies ([GR §3.3], §19.2.12).
 
 **What is open.** Between those two lies a question neither answers. A visible OI family does not

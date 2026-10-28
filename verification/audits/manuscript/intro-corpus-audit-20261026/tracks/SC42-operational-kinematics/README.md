@@ -1,8 +1,8 @@
 # SC-42 — kinematics and structure of Theorem 4's operational theory (PR-B, part)
 
-Base: `main` at `0d917665`. Branch: `corpus/sc42-operational-kinematics`, three commits: the
-correction, the revision answering the independent review of the first, and the round-3 revision
-answering the delta review (section "Round 3" below; it supersedes the texts quoted for GR:330,
+Base: `main` at `0d917665`. Branch: `corpus/sc42-operational-kinematics`, four commits: the
+correction, the revision answering the independent review of the first, the round-3 revision
+answering the delta review, and the round-4 revision (section "Round 4") (section "Round 3" below; it supersedes the texts quoted for GR:330,
 Main:212, glossary:21, preface:5, Structure:1119 and Explainer:962 in claims 2 and 6).
 
 ## Findings corrected
@@ -123,7 +123,6 @@ property of complex matrix algebras (product operators span `M_A ⊗ M_n`), not 
     - **preface:5 / FULL:76** (round 2). *Was:* "the simultaneous coherent/noncommuting instrument and composite structure of standard quantum mechanics holds, … exactly under five completion conditions". *Defect:* the composite structure is in the kinematics. *Now:* "; within complex matrix kinematics taken as given, the tensor-product composite included, an operational theory's available instruments on a finite carrier and its composites are the coherent/noncommuting instruments of standard quantum mechanics exactly when five completion conditions hold ([GR §3.3]), and which of them the substratum supplies is open."
     - **Explainer:375** (pre-existing). *Was:* "a common local tensor/composite instrument structure is part of the coherent operational lift, characterized in Main §3.4 and GR §3.3 by five operational conditions." *Now:* "but they do not supply a common local tensor/composite instrument structure: the characterization of Main §3.4 and GR §3.3 takes the tensor-product composite as part of the complex matrix kinematics it assumes, and within that kinematics characterizes by five operational conditions which instruments are available."
   - Recorded as correct, because the subject is the instruments, interventions or completion of an operational theory and not a representation or the composite kinematics:
-    - Main:638, "the instrument algebra is reached exactly when the five operational completion conditions hold";
     - Main:210, "the operational completion … holds exactly under five completion conditions";
     - Main:82, :550; Substratum:14, :323 (equality or compatibility of instrument theories, not the composite's tensor structure);
     - ch00:55, "one common standard quantum instrument/composite representation for every coherent intervention": a representation of interventions by instruments, confirmed in the delta review;
@@ -137,6 +136,34 @@ property of complex matrix algebras (product operators span `M_A ⊗ M_n`), not 
 
   At reconciliation, SC-42's wording wins in those clauses, `check_sc42.py` is re-run on the merged tree, and `MAIN:T-statement`'s fingerprint is recomputed.
 - **Check.** `check_sc42.py` pins the new texts and lists the round-2 texts above as stale. Run on the round-2 manuscripts, it fails on every pin and every old text (`check_sc42.round3-countercontrol.out`). Run on the head, it passes.
+
+## Round 4 (review of round 3, ACCEPT WITH CHANGES)
+
+- **Explainer:375.**
+  - *Was (round 3):* "…and within that kinematics characterizes by five operational conditions which instruments are available."
+  - *Defect:* the theorem characterizes when the available families are exactly the Kraus instruments (`ExactFiniteEndomorphicQuantumOps`, `ExactCompositeQuantumOps`), not which families a theory makes available in general.
+  - *Now:* "…and within that kinematics characterizes by five operational conditions when the available instruments are exactly the quantum instruments."
+- **Main:638.** Unchanged from base until this round; round 3 recorded it as correct, which was an error.
+  - *Was:* "…the instrument algebra is reached exactly when the five operational completion conditions hold ([GR §3.3]; Remark below), none of them supplied by the fixed-basis layer, and…"
+  - *Defect:* Theorem 4 restated as "exactly when" without the kinematics (CON-15).
+  - *Now:* "…the instrument algebra is reached, on a finite carrier within complex matrix kinematics taken as given, exactly when the five operational completion conditions hold ([GR §3.3]; Remark below), none of them supplied by the fixed-basis layer, and…"
+  - §A.34 witnesses: conditions ⇒ exact is `exactAll_of_physical_general` (`OIBridge/GeneralCarrier.lean:93`); exact ⇒ conditions is `physical_of_exactAll` (`OIBridge/PhysicalCharacterization.lean:301`).
+  - Main:638 is not a canonical ledger statement; no fingerprint moved.
+- **Final grep.** I searched for "exactly when", "exactly under", "if and only if", `\iff`, "precisely those", "exactly the normalized/finite Kraus" and "equivalent to", next to the five conditions or operational QM.
+  - Corrected:
+    - **Main:648.** *Was:* "reached exactly under the operational completion conditions (§3.4; [GR §3.3])". *Now:* "reached, on a finite carrier within complex matrix kinematics taken as given, exactly under the operational completion conditions (§3.4; [GR §3.3])".
+    - **Main:580** (the OI⁺ restatement). *Was:* "On every nonempty finite carrier these three principles are respectively equivalent…". *Now:* "On every nonempty finite carrier, within the same complex matrix kinematics, these three principles are respectively equivalent…".
+    - **ch19:264 / FULL:5424.** *Was:* "*conditionally*: it holds exactly when the explicit completion principles hold". *Now:* "*conditionally*: within complex matrix kinematics taken as given, it holds exactly when the explicit completion principles hold".
+    - **GR:216 (setting).** Added: "The OI⁺, primitive-source, substratum-source, layer-flow and typed forms below are stated over the same kinematics, the typed form over the complex matrices of every finite carrier." This covers the restatements at GR:240, :246, :256, :260, :262, :266, :268, :276 and :278. Those forms are stated in the kernel over `FiniteOperationalTheory` (`CarrierGeneralOIPlus`, `MinimalRepertoire`, `StructuralClosure`, `DerivedQ3`) and over `Matrix S S ℂ →ₗ Matrix S' S' ℂ` (`TypedOperationalTheory`).
+  - Recorded with reason:
+    - **GR:218** (the theorem line) and **GR:226** (the boxed equivalence) restate Theorem 4 directly under the setting paragraph GR:216, which states the kinematics. The theorem line is kept byte-identical (checked [2]).
+    - **Main:352, :558; Explainer:58, :379, :381; ch01:165, ch19:126 / FULL** carry the clause earlier in the same sentence or at the head of the paragraph that restates the forms.
+    - **Main:582, :584; Explainer:381; ch01:165, ch19:126** (the OI⁺, primitive-source, substratum-source, typed and layer-flow restatements) sit in the paragraph whose opening carries the kinematics clause; Main:580 now carries it for the OI⁺ box.
+    - Main:20, :586, :596, :610; Explainer:383; GR:282; Substratum:265; SM:14 and the "$S \iff D \iff Q_{\mathrm{fb}}$" and status cells concern other theorems, not Theorem 4.
+- **Check.**
+  - `check_sc42.py` pins the five new round-4 texts, the GR setting sentence, and the Main:648, :580 and ch19:264 texts.
+  - It lists the old texts as stale.
+  - Run on the round-3 manuscripts it fails 12 checks (`check_sc42.round4-countercontrol.out`); run on the head it passes.
 
 ## Site table
 
@@ -191,7 +218,7 @@ property of complex matrix algebras (product operators span `M_A ⊗ M_n`), not 
 From `check_sc42.out`:
 - Stale phrasings: 0 each across the 22 maintained files. These are the eight from the first commit, plus "lifting problem", "operational lifting", "operational-lifting", "lifting debt", "lifting result", "lifting frontier", "active-lifting", "open coherent operational lift", the three "stated as open" forms, "with no external premise", and the $w<\kappa$-less lattice clause.
 - Round-3 stale texts (the six round-2 wordings and the pre-existing Explainer:375 one in "Round 3" above): 0 each.
-- Kinematics mentions: 0 at base, 61 at head. By file: GR 3, Main 14, Methodology 1, Explainer 8, Structure 1, Substratum 2, preface 1, ch00 1, ch01 3, ch02 2, ch03 2, ch04 1, ch09 1, ch14 1, ch19 2, glossary 2, FULL 16.
+- Kinematics mentions: 0 at base, 66 at head. By file: GR 3, Main 17, Methodology 1, Explainer 8, Structure 1, Substratum 2, preface 1, ch00 1, ch01 3, ch02 2, ch03 2, ch04 1, ch09 1, ch14 1, ch19 3, glossary 2, FULL 17.
 - Surviving "lifting" in papers/ and book/ outside the Introduction: 4, all legitimate. They are Main:558 "rather than as one lifting hypothesis" and Main:578 "not a lifting theorem", both negations, and Structure:599 and :1135, which say "lifting" in the mathematical sense of a unitary dilation.
 
 ## Claims made conditional or removed
