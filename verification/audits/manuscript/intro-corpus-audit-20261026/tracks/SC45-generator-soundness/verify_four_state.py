@@ -132,6 +132,7 @@ def run():
                             for t in range(5)),
                         f"global hidden permutation coherence: {(v, h)}")
                 exhaustive += 1
+    require(exhaustive == 5808, "coherent hidden-only coverage count")
     # Fibre-specific permutation: population-positive but NOT coherent-positive.
     witness = None
     for order in permutations(m):
@@ -173,15 +174,15 @@ def run():
                 coherent_channel(witness[1], 2, 2, 1),
                 "a fibre-dependent map is not coherent-invariant")
     def mutate_nondecoupled():
-        # An extra ancilla bit that controls a visible flip is NOT decoupled;
-        # its mixed initial state changes the identity visible channel.
+        # Explicitly evolve |a,h,d> -> |a XOR d,h,d>, uniform ancillary d.
+        # This is a bijection, but the ancilla *couples* to the visible bit.
         original = {s: s for s in m}
-        mixed_visible = ((F(1, 2), F(1, 2)), (F(1, 2), F(1, 2)))
-        baseline = coherent_channel(original, 2, 2, 1)
-        conditional = dict(baseline)
-        # Diagonal visible output is flipped for half the independent ancilla.
-        conditional[(0, 0, 0, 0)] = F(1, 2)
-        require(conditional == baseline, "coupled ancilla cannot be ignored")
+        baseline = populations(coherent_channel(original, 2, 2, 1), 2)
+        coupled = tuple(tuple(
+            F(sum(int((a ^ d) == c) for d in range(2)), 2)
+            for c in range(2))
+            for a in range(2))
+        require(coupled == baseline, "coupled ancilla cannot be ignored")
     mutants = [
         expect_failure(mutate_invalid, "invalid-bijection"),
         expect_failure(mutate_counterexample, "collapsed-counterexample"),
