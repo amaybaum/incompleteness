@@ -112,7 +112,9 @@ STALE = ['delivers QM on a finite-dimensional', 'quantum instruments open)', 'Le
          'the instrument algebra is reached exactly when',
          'reached exactly under the operational completion conditions',
          'On every nonempty finite carrier these three principles',
-         '*conditionally*: it holds exactly when the explicit completion principles']
+         '*conditionally*: it holds exactly when the explicit completion principles',
+         # round 5
+         'on the relevant class', 'these three principles are respectively equivalent']
 print('[3] re-grep')
 for s in STALE:
     n = sum(read(p).count(s) for p in CORPUS)
@@ -139,7 +141,7 @@ print('[3b] pinned texts and witnesses')
 PINS = {
  'papers/Main.md': ["the instrument algebra is reached, on a finite carrier within complex matrix kinematics taken as given, exactly when the five operational completion conditions hold ([GR §3.3]; Remark below), none of them supplied by the fixed-basis layer, and",
                     "reached, on a finite carrier within complex matrix kinematics taken as given, exactly under the operational completion conditions (§3.4; [GR §3.3])",
-                    "On every nonempty finite carrier, within the same complex matrix kinematics, these three principles",
+                    "Within the same complex matrix kinematics, observational independence is equivalent to inert spectators on every finite carrier; reversible richness implies sufficient reversible control, and conversely for well-formed theories on a nonempty carrier; observer recursion implies iterated composition, and conversely when the identity and the relative ancilla readout are available at every level, which sufficient reversible control and inert spectators supply. Hence, on every nonempty finite carrier,",
                     "The operational-completion characterization ([GR §3.3]) takes the complex matrix kinematics as given, the tensor-product composite and with it local tomography included, and deriving that kinematics is open; within it, whether the available interventions on a finite carrier and its composites are exactly the quantum instruments is characterized by the five completion conditions of §3.4."],
  'book/glossary.md': ["What remains is operational: on a finite carrier, within complex matrix kinematics taken as given, an operational theory's available instruments on the carrier and its composites are the standard noncommuting quantum instruments exactly when the five completion conditions of the operational-completion characterization ([GR §3.3]) hold; which of them the substratum supplies, and a derivation of that kinematics, are open."],
  'papers/GR.md': ["The OI⁺, primitive-source, substratum-source, layer-flow and typed forms below are stated over the same kinematics, the typed form over the complex matrices of every finite carrier.",
@@ -163,6 +165,24 @@ check(gc[92].startswith('theorem exactAll_of_physical_general'),
       'witness conditions => exact: exactAll_of_physical_general (GeneralCarrier.lean:93)')
 check(pc[300].startswith('theorem physical_of_exactAll'),
       'witness exact => conditions: physical_of_exactAll (PhysicalCharacterization.lean:301)')
+# Round 5: the hypotheses Main:580 states for each OI+ principle are those of the kernel converses.
+cg = read('verification/lean-mathlib/OIBridge/CarrierGeneralOIPlus.lean')
+co = read('verification/lean-mathlib/OIBridge/CompletedOI.lean')
+check('theorem observationalIndependence_iff_inert :\n    ObservationalIndependence T ↔ InertSpectatorCompositionality T' in cg,
+      'observationalIndependence_iff_inert: unconditional iff')
+check('theorem control_of_reversibleRichness (h : ReversibleRichness T) :' in cg,
+      'control_of_reversibleRichness: no side condition')
+check('theorem reversibleRichness_of_control [Nonempty A] (hwf : WellFormed T)\n    (hctrl : HasCompositeUnitaryControl T)' in cg,
+      'reversibleRichness_of_control: Nonempty A and WellFormed')
+check('theorem closure_of_observerRecursion {T : FiniteOperationalTheory A} (h : ObserverRecursion T) :' in co,
+      'closure_of_observerRecursion: no side condition')
+m5 = re.search(r'theorem observerRecursion_of_closure .*?: ObserverRecursion T :=', co, re.S).group(0)
+check('hid : ∀ n, T.availExt n Unit (fun _ => LinearMap.id)' in m5 and 'hread' in m5 and 'hclos' in m5,
+      'observerRecursion_of_closure: identity and relative readout at every level')
+ac = read('verification/lean-mathlib/OIBridge/AncillaClosure.lean')
+check('theorem availExt_id_of_control (T : FiniteOperationalTheory A)\n    (hctrl : HasCompositeUnitaryControl T)' in ac
+      and 'theorem availExt_relativeReadout (T : FiniteOperationalTheory A)\n    (hin : InertSpectatorCompositionality T)' in ac,
+      'identity from control, relative readout from inert spectators')
 ka = read('verification/lean-mathlib/OIBridge/KrausSoundness.lean')
 check('T.avail (Fin m) F ↔ IsFiniteEndomorphicKrausInstrument F' in ka,
       'exactness is about the available families (T.avail), not a representation of a law')

@@ -58,6 +58,8 @@
   ok    stale 'reached exactly under the operational completion conditions': 0
   ok    stale 'On every nonempty finite carrier these three principles': 0
   ok    stale '*conditionally*: it holds exactly when the explicit completion principles': 0
+  ok    stale 'on the relevant class': 0
+  ok    stale 'these three principles are respectively equivalent': 0
         kinematics mentions papers/GR.md: 3
         kinematics mentions papers/Main.md: 17
         kinematics mentions papers/Methodology.md: 1
@@ -85,7 +87,7 @@
 [3b] pinned texts and witnesses
   ok    pinned in papers/Main.md: the instrument algebra is reached, on a finite carrier withi...
   ok    pinned in papers/Main.md: reached, on a finite carrier within complex matrix kinematic...
-  ok    pinned in papers/Main.md: On every nonempty finite carrier, within the same complex ma...
+  ok    pinned in papers/Main.md: Within the same complex matrix kinematics, observational ind...
   ok    pinned in papers/Main.md: The operational-completion characterization ([GR §3.3]) take...
   ok    pinned in book/glossary.md: What remains is operational: on a finite carrier, within com...
   ok    pinned in papers/GR.md: The OI⁺, primitive-source, substratum-source, layer-flow and...
@@ -99,6 +101,12 @@
   ok    glossary and preface pins mirrored in FULL
   ok    witness conditions => exact: exactAll_of_physical_general (GeneralCarrier.lean:93)
   ok    witness exact => conditions: physical_of_exactAll (PhysicalCharacterization.lean:301)
+  ok    observationalIndependence_iff_inert: unconditional iff
+  ok    control_of_reversibleRichness: no side condition
+  ok    reversibleRichness_of_control: Nonempty A and WellFormed
+  ok    closure_of_observerRecursion: no side condition
+  ok    observerRecursion_of_closure: identity and relative readout at every level
+  ok    identity from control, relative readout from inert spectators
   ok    exactness is about the available families (T.avail), not a representation of a law
 [4] book/FULL mirror parity
   ok    chapter line mirrored in FULL: For spatially separated systems, the coupling graph supplies...
@@ -121,6 +129,6 @@
   ok    chapter line mirrored in FULL: **Operational gluing theorem.** The framework's finite-resol...
   ok    chapter line mirrored in FULL: The qualification is equally important. Universal Hilbert-sp...
 [5] added-text scan
-        scanned 442 added text chunk(s)
+        scanned 461 added text chunk(s)
   ok    added-text scan: 0 hit(s)
 check_sc42: OK (0 failure(s))
