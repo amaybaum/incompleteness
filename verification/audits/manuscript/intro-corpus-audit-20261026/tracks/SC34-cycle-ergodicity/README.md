@@ -15,9 +15,13 @@ Three maps occur in the corpus.
     translation-invariant C.
   - **Cycle ergodicity on energy shells is false for (a).** There are exhaustive counterexamples, and the class
     theorem below covers prime q.
-  - On the real lift, E is positive definite for α < 1/d. At α = 1/d it is positive semidefinite, with null
-    directions the constant mode and, for even L, the staggered mode. At α = 1 and d ≥ 2 it is indefinite, so its
-    shells are non-compact. This was checked numerically on small tori and is elementary from the spectrum of A.
+  - On the real lift, E is positive definite exactly when |α| < 1/d.
+    - Per Fourier mode, E = u² + v² − a·uv with a = 2α Σ_j cos k_j. This is positive definite iff |a| < 2, and the
+      k = 0 mode gives |a| = 2d|α|.
+    - At α = 1/d, E is positive semidefinite. Its null directions are the constant mode and, for even L, the
+      staggered mode, and along them its shells are non-compact.
+    - At α = 1 and d ≥ 2 it is indefinite, so its shells are non-compact there as well.
+    - Checked numerically on small tori at α·d = ±0.99, ±1, −1.01 and 1.01, for odd and even L.
 - **(b) The rounded bijection.** It is x(t+1) = ⌊(Σ_nn x(t) + 1)/3⌋ − x(t−1) mod q on the representatives
   0,…,q−1 (`papers/main_repro/lyapunov_v3.py`); its one-dimensional analog uses ⌊(·+1)/2⌋
   (`papers/main_repro/mixing_battery.py`).
@@ -92,10 +96,10 @@ The "Now" column gives the current branch text in summary. Line numbers are as o
 | Site | Map | Was | Now | Source |
 |---|---|---|---|---|
 | SM :290 | (a)/(b) | "This measure-equivalence statement is established at Level 2 rigor" | Reduces to a hypothesis on the stationary law of the realized bijection, which is open | s1–s3 |
-| SM :292 | (a) lift; (b) | The substratum "has a stationary distribution that is Gaussian on energy shell"; equivalence "established up to … (ii) cycle ergodicity for the specific bijection" | Conditional, with a positive-definite conserved energy required. At large L the few-site marginals are Gaussian (the stationary-law hypothesis). Neither (a) nor (b) supplies the energy exactly: (a) conserves E only mod q, and its integer lift changes at 45.5–56.1% of states; (b) conserves none in the instances computed. The definiteness of E on the real lift is stated by α | s5, s3, s6 |
-| SM :294 | (a); (b) | "Numerical verification of way out (i) for OI's specific bijection"; "λ_max = 0.0092 ± 0.0001 … N_levels-independent … residual ratio ∼2.2"; "an effective rate several times the value quoted" | (a) over ℤ/q is not shell-ergodic (Remark). (b) is named, with its formula. The reproducer's result: λ_max > 0, 0.47 ± 0.16 from rates 0.25, 0.50 and 0.64 on three seeds, with the rate dependent on ensemble, seed and fit window and no thermodynamic-limit value established. There is no nonconstant degree ≤ 2 invariant over F_3. "In these instances" its shells are not invariant sets. Its largest cycle is ≤ 1.9% of phase space | s1, s3, s6, reproducer |
+| SM :292 | (a) lift; (b) | The substratum "has a stationary distribution that is Gaussian on energy shell"; equivalence "established up to … (ii) cycle ergodicity for the specific bijection" | Conditional, with a positive-definite conserved energy required. At large L the few-site marginals are Gaussian. Hypothesis (ii) is stated for "a compact energy shell of a real-valued, positive-definite conserved energy", as is gap (i) at :1221. Neither (a) nor (b) supplies the energy exactly: (a) conserves E only mod q, and its integer lift changes at 45.5–56.1% of states; (b) conserves none in the instances computed. E on the real lift is positive definite for \|α\| < 1/d; at α = 1/d it is semidefinite, with non-compact shells along the null directions; at α = 1, d ≥ 2 it is indefinite | s5, s3, s6 |
+| SM :294 | (a); (b) | "Numerical verification of way out (i) for OI's specific bijection"; "(the correct Lyapunov-relevant diagnostic, …)"; "λ_max = 0.0092 ± 0.0001 … N_levels-independent …"; "therefore shown numerically, as chaos"; "robust across protocols" | (a) over ℤ/q is not shell-ergodic (Remark). (b) is named, with its formula. The separation sentence describes what the run shows: order-one separation for tens of steps; a jump to q/3 at the boundary straddle; spreading at about one site per step; fitted rates set by where the window meets the jump; exponential growth not separated from that spreading. The chaos conclusion rests on the four diagnostics, now with their values (0.931/0.126, 0.019/0.543, 8,110/20). "Analytical derivation of λ_max" → "An analytical account of the separation dynamics". There is no nonconstant degree ≤ 2 invariant over F_3. "In these instances" its shells are not invariant sets. Its largest cycle is ≤ 1.9% of phase space | s1, s3, s6, s8, mixing_battery |
 | SM :296 (new paragraph) | (a) | No statement | *Remark (cycle structure of the exact linear rule)*: the conserved E, Q_B and P_C; the class theorem with its proof; the exhaustive and exact instances; 91 distinct checked cases; the scope | s1, s2 |
-| SM :298 | (a) vs (b) | "the mod-q wraparound / threshold-crossing … present in any faithful finite realization"; ergodic properties "read the threshold nonlinearity"; "The two are not in tension …" | Mod-q reduction is ℤ/q-linear, and (a) is itself a finite bijection. The nonlinearity of (b) is the floor: at most 1/3 off the linear update away from the alphabet boundary, and of order q/3 where a neighbour sum crosses it. The measure properties are not supplied by (a), which does not sample a shell and to which ETH does not apply (extensive local invariants), and are hypotheses about (b). Whether one map carries both is open. "bounded rounding correction" → "rounding correction". SC-32's Susskind-factorization parenthetical is kept verbatim | s1, s3 |
+| SM :298 | (a) vs (b) | "the mod-q wraparound / threshold-crossing … present in any faithful finite realization"; ergodic properties "read the threshold nonlinearity"; "The two are not in tension …" | Mod-q reduction is ℤ/q-linear, and (a) is itself a finite bijection. The nonlinearity of (b) is the floor: at most 1/3 off the linear update away from the alphabet boundary, and of order q/3 where a neighbour sum crosses it. The measure properties are not supplied by (a), which does not sample a shell and to which ETH does not apply (extensive local invariants), and are hypotheses about (b). Whether one map carries both is open. "bounded rounding correction" → "rounding correction"; "the open residual the λ_max measurement begins to quantify" → "the open residual". SC-32's Susskind-factorization parenthetical is kept verbatim | s1, s3 |
 | SM :799 | (a)/(b) | "the on-shell measure is the smooth □⁻¹ field of §4.2" | Under the stationary-law hypothesis of §4.2 | as :292 |
 | SM :805 | (a)/(b) | Free-sector correspondence "established at Level 2" | Holds at Level 2 given the stationary-law hypothesis, which is open | as :292 |
 | SM :807 | (a)/(b) | The measure "is" the uniform measure on the energy shell; kinematic half "raised to theorem level" | The shell measure is taken as the candidate, and that the realized bijection samples it is the open hypothesis. (b) "conserves no quadratic energy exactly in the instances computed". The kinematic half rests on two conditions. Register only: "is now" → "is"; "for scrutiny … asserted as closed" → "as a candidate" | as :292 |
@@ -103,12 +107,13 @@ The "Now" column gives the current branch text in summary. Line numbers are as o
 | SM :1223, gap (ii) | (a); (b) | Part A conditional on cycle ergodicity; "Level 2 framework-essentially" | Part A is exact for the uniform shell measure, since E∘T = E. The residual is identifying the realized law with that measure: false for (a), where in the exhaustive instances most cycles are not T-invariant (90 of 2,160 are), and open for (b) | s7 |
 | SM :1233, Bridge Theorem (c) | — | SC-28: "a stationary distribution of the bijection" | Unchanged | — |
 | SM :1412 | (a); (b) | Heading "Layer 2 values are discretization-determined, not free Wilson coefficients"; constraint list with cycle ergodicity; scheme parametrization; "essentially unique" | Heading "Layer 2 values and the discretization scheme". Cycle ergodicity is not among the established constraints. The parametrization and "essentially unique" assertions are removed, since the corpus contains no derivation of them; the consequence is stated as an "If … fixed by the discretization scheme" conditional | corpus search |
-| SM :1414 | — | "the framework explicitly characterizes a meta-space (discretization-scheme space)" | Clause removed, as no derivation exists | corpus search |
+| SM :1414 | — | "the framework explicitly characterizes a meta-space (discretization-scheme space)"; "which specific discretization scheme realizes our universe" | Clause removed, as no derivation exists; "which element of the class realizes our universe" | corpus search |
 | Juno :397 | (a); (b) | Same constraint list and scheme-freedom clause | Cycle ergodicity is open for (b) and fails for (a). The scheme-freedom clause is removed. Register only: "has since been closed by" → "the staggered calculation answers" | corpus search |
 | Juno :399 | — | Same constraint list | Constraint list without cycle ergodicity | — |
 | Main :720, posit (v) | (a); (b) | Mixing hypothesis for "linear-mod-q automata" | (a) conserves a quadratic invariant for each symmetric translation-invariant coupling, and for d ≥ 2 its largest shell splits into exponentially many cycles. The hypothesis's ETH motivation concerns the rounding nonlinearity. Register only: "should be read as" → "are" | s1, s2 |
 | Main :752 | — | "in its typical orbit phase — equivalently, in its equilibrium macrostate" | "in its equilibrium macrostate". The equivalence needs shell sampling and is removed | s1 |
-| Main :754, scope (ii) | (a); (b) | "pathological non-ergodic φ (many short orbits) is excluded by the structural assumptions already in force, but that exclusion is a necessary … condition for (EM)" | Cycle structure does not settle (EM). A single cycle does not make the compressions relax. Orbits of length ≤ 2 do not prevent a gap: on four states with cells {0,1}, {2,3}, the transposition (0 2) gives 𝒦_Σ = [[½,½],[½,½]], with eigenvalues 1 and 0 (checked). (a) is not excluded by its cycle structure, and whether (a) or (b) satisfies (EM) is open | example checked |
+| Main :754, scope (ii) | (a); (b) | "pathological non-ergodic φ (many short orbits) is excluded by the structural assumptions already in force, but that exclusion is a necessary … condition for (EM)" | Cycle structure does not settle (EM). A single cycle does not make the compressions relax. Orbits of length ≤ 2 do not prevent a gap: on four states with cells {0,1}, {2,3}, the transposition (0 2) gives 𝒦_Σ = [[½,½],[½,½]], with eigenvalues 1 and 0 (checked). (a) is not excluded by its cycle structure, and whether (a) or (b) satisfies (EM) is open. The repeated "(EM) concerns the one-step compression." is deleted | example checked |
+| Main :496 | (b) | "two-trajectory Lyapunov measurement, λ_max > 0; … concur, the quantitative rate being ensemble-dependent" | "two-trajectory separation to saturation, triggered at the alphabet boundary; … concur". No λ_max > 0 claim remains in the sentence | s8 |
 | Substratum :135 | (a); (b) | Integrability "requires an extensive set of local conserved quantities, which a … graph without fine-tuned commuting structure does not possess"; "so ETH is the expected case" | (a) has such a set (Q_B, local for local B). The argument and "ETH is the expected case" are scoped to the rounded rule's nonlinear dynamics | s1, s2 |
 | ch18 :191 / FULL :5009 | all | SC-28 text | Unchanged | — |
 | ch18 :184–:187 | — | Recurrence period | Not edited: SC-31's site (#967) | — |
@@ -121,7 +126,6 @@ The "Now" column gives the current branch text in summary. Line numbers are as o
   space as the shell.
 - GR :58. It uses uniform counting on a shell as the measure, not as a dynamical claim.
 - Explainer :56 and :115, and Lemma 3's single-orbit uniqueness.
-- Main :496. It states numerical chaos for (b), with the rate ensemble-dependent.
 - The horizon-complement "generic chaotic" sites in GR, Main and ch07.
 - Substratum :455 and SM :1219.
 
@@ -153,7 +157,8 @@ and are unchanged. The SM text is a Remark, not a census statement.
 | (b) has no nonconstant degree ≤ 2 invariant over F_3 at the two sizes | Exact solver, with (a) as positive control (s3 K2). Says nothing about real-valued energies |
 | (b) and its 1D analog: largest cycle ≤ 1.86% of phase space; every modular-energy value visited | Exhaustive census, cross-checked by traversal where small (s3 K3, K4) |
 | Real-energy drift of (b), 3.6×10⁻³ against 3.7×10⁻¹⁴ | Floating point, one smooth mode, L = 20, q = 2^16 (s6); numerical evidence only |
-| λ_max > 0 for (b); 0.47 ± 0.16 per step | Numerical. `python3 -I papers/main_repro/lyapunov_v3.py` at the reproducer's commit `625f5df9`, on `main`. Result: seeds 1–3 give 0.2481, 0.5029 and 0.6440 per step, each reaching saturation; mean 0.4650, population std 0.1638; PASS |
+| Separation dynamics of (b) at L = 20, q = 2^16 (seeds 1–3) | Exact integer dynamics, deterministic (s8, with controls K0–K2). K0 reproduces `lyapunov_v3.py`'s rates 0.2481, 0.5029 and 0.6440 (re-run at `625f5df9`, on `main`). The rates are window artefacts, not Lyapunov exponents. Exponential and power-law fit residuals on the reproducer's windows: 0.071/0.090, 60.5/69.5, 34.8/32.2 |
+| Four chaos diagnostics of (b) | Numerical. `python3 -I papers/main_repro/mixing_battery.py` at `625f5df9`, re-run in this unit. Spectral entropy: rounded 0.931, linear 0.126. Mean absolute autocorrelation at lags 200–400: rounded 0.019, linear 0.543. 1D census (L = 5, q = 4): rounded 2,792 cycles with largest 8,110; linear 104,864 cycles with largest 20. Its own Lyapunov fit (q = 64, T = 2600) finds no exponential window on any of four seeds |
 | Integer lift of (a)'s energy changes at 45.5–56.1% of states | Exhaustive, d = 1 (s5) |
 | Uniform one-site marginals on (a)'s mod-q shells | Floating point TV printed as 0.0000, exhaustive at d = 1 (s5). Not stated in the manuscript |
 | E∘T = E and the T-self-conjugate cycle counts for (a) | Exhaustive (s7) |
@@ -167,16 +172,17 @@ from this directory:
 ```sh
 python3 -I s1_map_a_linear.py > s1_output.txt   # about 10 minutes
 python3 -I s2_map_a_theorem.py > s2_output.txt
-...                                              # likewise s3, s5–s7
+...                                              # likewise s3, s5–s8
 ```
 
 They were replayed from this directory under `python3 -I`, with Python 3.13.16, numpy 2.5.3 and sympy 1.14.0.
 
 - s5–s7: the output is byte-identical to the committed files.
+- s8 was written in this unit, after the review of `270f4187`, and re-derives that review's findings independently; its output is deterministic and was replayed byte-identically.
 - s1–s3: the output is identical except for the last four lines of the committed files. These are a blank line and
   the `real/user/sys` durations of the shell's `time`, which the original captures appended. The durations are not
   expected results.
-- Replay times: s1 10.0 min, s2 75 s, s3 100 s, s5 5 s; s6 and s7 under 2 s.
+- Replay times: s1 10.0 min, s2 75 s, s3 100 s, s5 5 s; s6, s7 and s8 under 2 s.
 - The confirmation's Landau-function side check (s4) supports no SC-34 claim and is not retained here. It bears on
   SC-31's site.
 
@@ -195,6 +201,7 @@ Two cosmetic defects are recorded here and not repaired:
 | `s5_shell_marginals.py` | (a): one- and two-site marginals on the mod-q shells, conservation of the integer lift, thin-real-shell control |
 | `s6_map_b_large.py` | (b) at L = 20, q = 2^16: modular-energy change and real-energy drift, with the exact real linear map as control |
 | `s7_gapii_T.py` | (a): TFT = F⁻¹, E∘T = E, T-self-conjugate cycles per shell |
+| `s8_separation_diagnostic.py` | (b): `lyapunov_v3.py`'s separation run resolved in time. Gives onset, jump, boundary straddle, spreading radius and site counts, parity sublattice, the reproducer's window, and exponential versus power-law residuals. Controls: rate reproduction, unperturbed twin, planted straddle |
 
 ## Re-grep
 
@@ -222,6 +229,11 @@ Over `papers/*.md` and `book/*.md`:
   - "necessary, not a sufficient"
   - "bounded rounding correction"
   - "113 cases"
+  - "Lyapunov"
+  - "\lambda_{\max}"
+  - "chaotic amplitude"
+  - "Lieb-Robinson"
+  - "begins to quantify"
 - **Surviving uses:**
   - "cycle ergodicity", case-insensitive: 6 (SM :292, :294, :1221, :1412 twice; Juno :397), all stated as open or false by map.
   - "typical orbit": 1 (Main :754, "typical orbits of φ", the Koopman remark).
@@ -244,8 +256,12 @@ Over `papers/*.md` and `book/*.md`:
 5. The class theorem outside its hypotheses: composite and prime-power q, p | L, and couplings that are not
    translation-invariant, including the state-dependent graphs of SM §3.1.
 6. Does the exact linear rule or the rounded bijection satisfy (EM)? Main §4.6 scope (ii) leaves both open.
-7. **Follow-up finding, the Lyapunov rate.** SM §4.2 formerly quoted λ_max = 0.0092 ± 0.0001, N_levels-independent,
-   which the reproducer does not replicate (0.47 ± 0.16 on its ensemble and protocol). Identify the original
-   ensemble, protocol and code, or establish a thermodynamic-limit rate with an independent control.
+7. **Follow-up finding, the separation dynamics.**
+   - SM §4.2 formerly quoted λ_max = 0.0092 ± 0.0001, N_levels-independent.
+   - The reproducer does not replicate that value. s8 shows that its rates are set by the window's position on a
+     boundary-triggered jump.
+   - Whether the rounded bijection has a positive Lyapunov exponent in any defined sense is open: on which ensemble,
+     with which observable, and separated from ballistic spreading and alphabet-boundary events.
+   - The original measurement's ensemble, protocol and code are not identified.
 8. **Discretization scheme.** Derive, or show false, that the scheme parametrizes the bijections satisfying the
    established constraints and fixes Layer 2 coefficients. SM §8.3 states the consequence conditionally.
