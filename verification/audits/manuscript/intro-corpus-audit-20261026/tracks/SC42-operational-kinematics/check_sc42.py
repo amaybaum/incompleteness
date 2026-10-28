@@ -61,6 +61,18 @@ for phrase in ['The setting takes complex matrix kinematics as given',
     check(phrase in setting, f'kinematics clause: {phrase!r}')
 check('`readout_is_localLuders`' in setting and '`FiniteOperationalTheory`' in setting,
       'kernel anchors cited in the setting')
+# Condition (i) is quantified over the ancilla levels, as CompositeOperationalValidity is; a
+# system-level (i) would be failed by the (ii)-witness systemLoose, whose system carries X -> 2X.
+val = read('verification/lean-mathlib/OIBridge/OperationalValidity.lean')
+vdef = re.search(r'def CompositeOperationalValidity.*?\n\n', val, re.S).group(0)
+check('T.availExt n O F' in vdef and 'T.avail O' not in vdef,
+      'kernel (i) quantifies over availExt (ancilla levels) only')
+seam = read('verification/lean-mathlib/OIBridge/LevelOneSeam.lean')
+check('theorem systemLoose_amplifier_available' in seam and 'avail := fun _ _ _ _ => True' in seam,
+      'systemLoose makes every system family available (amplifier X -> 2X included)')
+check('(i) *Valid probabilities*: at every ancilla level, every available family' in setting,
+      'GR (i) stated at every ancilla level')
+check('no premise beyond its stated setting' in setting, 'GR: no premise beyond its stated setting')
 if SETTING_REV:
     print('setting-only mode:', 'FAIL' if failures else 'OK')
     sys.exit(1 if failures else 0)
@@ -72,11 +84,20 @@ check(thm in gr and thm in read('papers/GR.md', BASE), 'GR theorem line identica
 
 # 3. Re-grep: stale phrasings gone, kinematics clause present at each restatement.
 CORPUS = ['papers/GR.md', 'papers/Main.md', 'papers/Methodology.md', 'papers/Explainer.md',
-          'book/ch01-observation.md', 'book/ch09-universality.md', 'book/ch19-open-problems.md',
-          'book/glossary.md', 'book/The-Incompleteness-of-Observation-FULL.md']
+          'papers/Structure.md', 'papers/Substratum.md', 'papers/SM.md',
+          'book/preface.md', 'book/ch00-introduction.md', 'book/ch01-observation.md',
+          'book/ch02-substratum.md', 'book/ch03-structural-realism.md', 'book/ch04-methodology.md',
+          'book/ch09-universality.md', 'book/ch14-quantum-computing.md', 'book/ch18-beyond.md',
+          'book/ch19-open-problems.md', 'book/glossary.md', 'book/appendix-b-derivations.md',
+          'book/appendix-c-objections.md', 'book/readers-guide.md',
+          'book/The-Incompleteness-of-Observation-FULL.md']
 STALE = ['delivers QM on a finite-dimensional', 'quantum instruments open)', 'Level three (open)',
          'operational-lifting problem', 'remains open (§19.2.12)', 'instrument algebra still open',
-         'residual common coherent/composite lift', 'on every ancilla level are exactly']
+         'residual common coherent/composite lift', 'on every ancilla level are exactly',
+         'lifting problem', 'operational lifting', 'operational-lifting', 'lifting debt',
+         'lifting result', 'lifting frontier', 'active-lifting', 'open coherent operational lift',
+         'stated as open (§3.2', 'states as open (§3.2', 'stated as open ([Main §3.2',
+         'with no external premise', 'one-step coherence for the linear lattice realization, and']
 print('[3] re-grep')
 for s in STALE:
     n = sum(read(p).count(s) for p in CORPUS)
@@ -85,9 +106,14 @@ counts = {p: read(p).count('complex matrix kinematics') + read(p).count('complex
           for p in CORPUS}
 for p, n in counts.items():
     print(f'        kinematics mentions {p}: {n}')
-EXPECT = {'papers/GR.md': 1, 'papers/Main.md': 12, 'papers/Methodology.md': 1, 'papers/Explainer.md': 3,
-          'book/ch01-observation.md': 1, 'book/ch09-universality.md': 1, 'book/ch19-open-problems.md': 2,
-          'book/glossary.md': 1, 'book/The-Incompleteness-of-Observation-FULL.md': 5}
+EXPECT = {'papers/GR.md': 1, 'papers/Main.md': 14, 'papers/Methodology.md': 1, 'papers/Explainer.md': 6,
+          'papers/Structure.md': 1, 'papers/Substratum.md': 2, 'papers/SM.md': 0,
+          'book/preface.md': 1, 'book/ch00-introduction.md': 1, 'book/ch01-observation.md': 3,
+          'book/ch02-substratum.md': 0, 'book/ch03-structural-realism.md': 1, 'book/ch04-methodology.md': 0,
+          'book/ch09-universality.md': 1, 'book/ch14-quantum-computing.md': 0, 'book/ch18-beyond.md': 0,
+          'book/ch19-open-problems.md': 2, 'book/glossary.md': 2, 'book/appendix-b-derivations.md': 0,
+          'book/appendix-c-objections.md': 0, 'book/readers-guide.md': 0,
+          'book/The-Incompleteness-of-Observation-FULL.md': 11}
 base_n = sum(read(p, BASE).count('complex matrix kinematics') + read(p, BASE).count('complex matrices indexed')
              for p in CORPUS)
 check(base_n == 0, f'kinematics mentions at base: {base_n}')
@@ -96,8 +122,8 @@ check(counts == EXPECT, f'kinematics mention counts match the site table ({sum(E
 # 4. Mirror parity: each changed chapter paragraph is present verbatim in FULL.
 print('[4] book/FULL mirror parity')
 full = read('book/The-Incompleteness-of-Observation-FULL.md')
-diff = subprocess.run(['git', 'diff', '-U0', BASE, '--', 'book/ch01-observation.md',
-                       'book/ch09-universality.md', 'book/ch19-open-problems.md', 'book/glossary.md'],
+CHAPTERS = [p for p in CORPUS if p.startswith('book/') and not p.endswith('FULL.md')]
+diff = subprocess.run(['git', 'diff', '-U0', BASE, '--'] + CHAPTERS,
                       capture_output=True, text=True, check=True).stdout
 added = [l[1:] for l in diff.splitlines() if l.startswith('+') and not l.startswith('+++')]
 for l in added:

@@ -18,4 +18,8 @@
   FAIL  kinematics clause: 'A derivation of this kinematics'
   FAIL  kinematics clause: 'is open'
   FAIL  kernel anchors cited in the setting
+  ok    kernel (i) quantifies over availExt (ancilla levels) only
+  ok    systemLoose makes every system family available (amplifier X -> 2X included)
+  FAIL  GR (i) stated at every ancilla level
+  FAIL  GR: no premise beyond its stated setting
 setting-only mode: FAIL
