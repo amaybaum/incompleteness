@@ -2482,10 +2482,10 @@ factor. With \(\rho_{\text{QFT}} = M_{\text{Pl}}^4\) and
 \(\rho_{\text{classical}} = H^2/G\) (\(\hbar = c = 1\),
 \(M_{\text{Pl}}^2 = 1/G\)) the ratio is exactly \(S_{\text{dS}}/\pi\);
 the mode sum \(k^4/(16\pi^2)\) cut off at
-\(1/\epsilon = M_{\text{Pl}}/2\) (\(\sigma = 1\), §4) against
+\(1/\epsilon = M_{\text{Pl}}/(2\sqrt{\sigma})\) (§4) against
 \(\rho_{\text{crit}} = 3H^2/(8\pi G)\) gives
-\(S_{\text{dS}}/(96\pi^2)\); and the same mode sum cut off at the
-reduced Planck mass \((8\pi G)^{-1/2}\) {[}7{]} against the observed
+\(S_{\text{dS}}/(96\pi^2\sigma^2)\); and the same mode sum cut off at
+the reduced Planck mass \((8\pi G)^{-1/2}\) {[}7{]} against the observed
 dark-energy density \(\Omega_\Lambda \rho_{\text{crit}}\) gives
 \(S_{\text{dS}}/(384\pi^4\Omega_\Lambda) \approx 3.9 \times 10^{-5}\,S_{\text{dS}}\).
 The framework reads this ratio as the Bekenstein-Hawking entropy in its
@@ -3891,18 +3891,15 @@ turnover occurs at the Page time
 \(t_P \approx 0.646 \, t_{\text{evap}}\) (in general
 \(t_P/t_{\text{evap}} = 1 - [\beta/(1+\beta)]^{3/2}\); independent of
 mass and of the emission coefficient when that coefficient is
-mass-independent). The Page value enters only through H-scramble, which
-carries measure concentration {[}29, 61{]} to the orbit, the cycle
-decomposition of the finite configuration space supplying exact time
-averages; Theorem A.8 then gives it as a cycle average for all but an
-exponentially negligible fraction (\(\sim e^{-10^{77}}\) for
-\(30 M_\odot\)) of the initial conditions it counts. Those initial
-conditions are configurations, with the bipartition aligned to the
-configuration coordinates, and there H-scramble fails for every
-bijection: every state on the orbit is a product state and the
-radiation's entropy is zero, so Theorems A.8--A.9 have no instance in
-that setting. Under a bijection the radiation's entropy at an aligned
-bipartition never exceeds the entropy of the initial state's
+mass-independent). Theorem A.8 derives the Page value as a cycle average
+from H-scramble, which carries measure concentration {[}29, 61{]} to the
+orbit, the cycle decomposition of the finite configuration space
+supplying exact time averages. It counts initial configurations, with
+the bipartition aligned to the configuration coordinates, and there
+H-scramble fails for every bijection: every state on the orbit is a
+product state and the radiation's entropy is zero, so Theorems A.8--A.9
+as stated have no instance. Under a bijection the radiation's entropy at
+an aligned bipartition never exceeds the entropy of the initial state's
 distribution over configurations (§A.7), so a Page value requires an
 initial superposition whose distribution over configurations has entropy
 close to the Page value or above it, or a bipartition not aligned with
@@ -4646,16 +4643,20 @@ The inequality uses the fact that \(\mathcal{D}_V^{(B)}\) is a
 continuous function of the \(B\)-state distribution and the shift is
 first-order in \(t / \tau_B^D\). \(\square\)
 
-\textbf{Bound for the cosmological + stellar black hole case.} For a
-\(30 M_\odot\) black hole inside the cosmological horizon, under the
-coupling chain of Theorem A.5: \(\tau_S \sim 10^{-15}\) s,
+\textbf{Orders of magnitude.} For a \(30 M_\odot\) black hole inside the
+cosmological horizon, \(\tau_S \sim 10^{-15}\) s,
 \(\tau_B^B \sim \tau_{\text{scr}} \sim \beta \log S_{\text{BH}} \sim 10^{-3}\)
-s, \(\tau_B^D \sim 1/H \sim 10^{17}\) s. The three terms:
+s and \(\tau_B^D \sim 1/H \sim 10^{17}\) s. Inserted into the orders of
+Theorem A.5, these timescales give:
 
 \[\|\mathcal{D}_V^{(B)}\| \sim 10^{-12}, \qquad \|\mathcal{D}_V^{(D)}\| \sim 10^{-32}, \qquad \|\mathcal{R}\| \sim 10^{-44}\]
 
-The cross term is negligible by 12 orders of magnitude relative to the
-smaller of the two primary corrections.
+The cross term is then 12 orders of magnitude below the smaller primary
+correction. These are the orders the theorem gives under its chain
+\(V \leftrightarrow B \leftrightarrow D\). They are not derived for this
+black hole, which has the chain
+\(B \leftrightarrow V \leftrightarrow D\) (below), for which the
+decomposition and the order of the cross term are not derived.
 
 \textbf{Scope of the coupling chain.} The chain
 \(V \leftrightarrow B \leftrightarrow D\) is a hypothesis of Theorem
@@ -4761,31 +4762,44 @@ evaporation. Timescale ordering does not supply it, and H-decouple is
 not established here.
 
 \textbf{Theorem A.7} (Effective pure state). \emph{Let the initial state
-be a product \(|\psi_{VB}(0)\rangle \otimes |\chi_D\rangle\) across
-\(VB|D\), as a definite initial configuration is. On timescales
+be \(|\psi_{VB}(0)\rangle \otimes |d_0\rangle\), with
+\(d_0 \in \mathcal{C}_D\) a configuration. On timescales
 \(t \ll \tau_B^D\), the joint state of \(V\) and \(B\) is effectively
 pure:
 \(\rho_{VB} = |\psi_{VB}(t)\rangle\langle\psi_{VB}(t)| + \mathcal{O}(t / \tau_B^D)\),
 where \(|\psi_{VB}(t)\rangle \in \mathcal{H}_V \otimes \mathcal{H}_B\).}
 
 \emph{Proof.} The total system evolves unitarily under \(U_\varphi\)
-(§A.3), so the total state
-\(|\Psi(t)\rangle \in \mathcal{H}_V \otimes \mathcal{H}_B \otimes \mathcal{H}_D\)
-stays pure. By the boundary-only dependence lemma (Theorem A.5, step
-(i)), the \(D\)-sector is frozen on these timescales:
-\(\rho_D(t) = |\chi_D\rangle\langle\chi_D| + \mathcal{O}(t / \tau_B^D)\),
-so the largest eigenvalue of \(\rho_D(t)\) is
-\(1 - \mathcal{O}(t / \tau_B^D)\). For a pure total state, \(\rho_{VB}\)
-and \(\rho_D\) have the same nonzero eigenvalues (Schmidt decomposition
-across \(VB|D\)), so
-\(\rho_{VB}(t) = |\psi_{VB}(t)\rangle\langle\psi_{VB}(t)| + \mathcal{O}(t / \tau_B^D)\),
-with \(|\psi_{VB}(t)\rangle\) its eigenvector of largest eigenvalue. The
-step uses the purity of \(\rho_D(0)\): an approximately constant
-\(\rho_D\) that is mixed is compatible with a \(\rho_{VB}\) that stays
-mixed, as when \(D\) is entangled with \(V \cup B\) at \(t = 0\) and
-does not evolve. From a definite initial configuration every state on
-the orbit is a configuration, and \(\rho_{VB}\) is exactly pure.
+(§A.3). Write \(|\psi_{VB}(0)\rangle = \sum_x \psi(x)\,|x\rangle\) over
+\(x \in \mathcal{C}_V \times \mathcal{C}_B\), so that
+\(|\Psi(t)\rangle = \sum_x \psi(x)\,|\varphi_t(x, d_0)\rangle\). By the
+boundary-only dependence lemma (§3.2, step (ii)), applied to the
+partition \((W, D)\) as in Theorem A.5, step (i), the deep sector is
+frozen on these timescales: the \(D\)-configuration of
+\(\varphi_t(x, d_0)\) equals \(d_0\) except for \(x\) in a set \(E_t\)
+of weight
+\(w_t = \sum_{x \in E_t} |\psi(x)|^2 = \mathcal{O}(t / \tau_B^D)\).
+Since \(\varphi_t\) is injective, the terms with \(x \notin E_t\) sum to
+\(|a(t)\rangle \otimes |d_0\rangle\) with
+\(\||a(t)\rangle\|^2 = 1 - w_t\), and the remaining terms are orthogonal
+to every state whose \(D\)-configuration is \(d_0\). Hence
+\(\langle d_0|\rho_D(t)|d_0\rangle = 1 - w_t\), and the largest
+eigenvalue of \(\rho_D(t)\) is at least \(1 - w_t\). For a pure total
+state, \(\rho_{VB}\) and \(\rho_D\) have the same nonzero eigenvalues
+(Schmidt decomposition across \(VB|D\)), so \(\rho_{VB}(t)\) lies within
+trace distance \(2 w_t\) of
+\(|\psi_{VB}(t)\rangle\langle\psi_{VB}(t)|\), with
+\(|\psi_{VB}(t)\rangle\) its eigenvector of largest eigenvalue.
 \(\square\)
+
+\textbf{Remark (initial state of \(D\)).} The theorem uses that \(D\)
+starts in a configuration; a pure but superposed initial state of \(D\)
+does not suffice. When the dynamics of \(V \cup B\) depends on \(D\)'s
+configuration, \(D\)'s coherences are lost while its configuration stays
+frozen: with \(V\), \(B\) and \(D\) qubits and
+\(\varphi(v, b, d) = (v, b \oplus d, d)\), every \(D\)-configuration is
+fixed, and from \(|0\rangle_V |0\rangle_B |+\rangle_D\) one step gives a
+\(\rho_{VB}\) of purity \(1/2\).
 
 The restriction of \(|\psi_{VB}\rangle\) to \(B \cup R\), where
 \(R \subset V\) is the radiation, is pure only when the rest of the
@@ -4816,10 +4830,13 @@ where \(d_B = |\mathcal{C}_B(t)|\), \(d_R = |\mathcal{C}_R(t)|\),
 \emph{the large-dimension form of Page's mean entropy for Haar-random
 pure states of \(\mathcal{H}_B \otimes \mathcal{H}_R\). The initial
 conditions counted are the configurations of \(\Sigma_E\), and the
-bipartition \(B|R\) is aligned with the configuration coordinates; in
-that setting H-scramble fails for every bijection and the time-averaged
-entropy is zero for every initial condition, so the theorem has no
-instance there (scope below).}
+bipartition \(B|R\) is aligned with the configuration coordinates. In
+that setting, for \(d_B, d_R > 1\) and \(\epsilon < S_{\text{Page}}\),
+H-scramble in the form the proof uses (at most a fraction
+\(e^{-c\,d_{\min}\epsilon^2}\) of the states on the orbit atypical)
+fails for every bijection, and the time-averaged entropy is zero for
+every initial condition, so the theorem as stated has no instance (scope
+below).}
 
 \emph{Proof.} By hypothesis the energy is constant on
 \(\mathcal{C}_B \times \mathcal{C}_R\), so energy conservation places no
@@ -4869,15 +4886,20 @@ the orbit ensemble equidistributes over quantum pure states on the shell
 \(\mathcal{H}_B \otimes \mathcal{H}_R\) --- in the sense of an
 approximate unitary design or comparable scrambling property. Under
 H-scramble the counting step below goes through with \(\eta|\Sigma_E|\)
-as written. By the preceding paragraph, H-scramble fails for every
-bijection in the setting of Theorem A.7's proof and of this theorem's
-own counting, a definite initial configuration with the bipartition
-aligned to the configuration coordinates (scope below): it requires an
-initial superposition of configurations or a bipartition not aligned
-with them, and which of these the substratum supplies is open.
-H-scramble is not established here, and the lesson generalizes:
-uniformity over classical microstates is not uniformity over quantum
-pure states. The same distinction governs H-state in §2.
+as written, and it uses H-scramble only through that bound: at most
+\(\eta|\Sigma_E|\) of the states on the orbit are atypical. A full cycle
+of configurations is an exact state 1-design, so a design property of
+low order does not supply the bound, and the failure stated next is a
+failure of the bound. By the preceding paragraph, H-scramble fails for
+every bijection in the setting of this theorem's own counting, a
+definite initial configuration with the bipartition aligned to the
+configuration coordinates (scope below), where every configuration is
+atypical once \(\epsilon < S_{\text{Page}}\): it requires an initial
+superposition of configurations or a bipartition not aligned with them,
+and which of these the substratum supplies is open. H-scramble is not
+established here, and the lesson generalizes: uniformity over classical
+microstates is not uniformity over quantum pure states. The same
+distinction governs H-state in §2.
 
 Call a cycle \emph{bad} if its time-averaged entropy deviates from
 \(S_{\text{Page}}\) by more than \(2\epsilon\). Every state's deviation
@@ -5375,4 +5397,4 @@ entanglement,'' \emph{Commun. Math. Phys.} \textbf{265}, 95--117 (2006);
 arXiv:quant-ph/0407049.
 
 \end{document}
-% source-sha256: 2a9df2f135bd1f7958f0dd0bd806b4748dc16be4e836d908c4fc6ceb97c5f07b
+% source-sha256: 5ebfa03d3a50ad164bad7030b6c24f719f3c8aeae847b3348d4bb8a80972a2f3

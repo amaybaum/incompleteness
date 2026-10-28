@@ -337,6 +337,11 @@ Second post-review round (after the re-check of `95458016`):
 - The turnover-window mass fraction is stated as a computed upper bound.
 - `MANUSCRIPT-AUDIT.md`: ch19 L334 reclassified, and the L12 proposal points to item F.
 
+After landing (status line only):
+
+- The status line reads "internally reviewed (review/README.md), not adopted", matching the
+  reviews retained in `review/`. No claim, count, verdict or generated text changed.
+
 ## Replay from an empty directory
 
 With a clone of the repository at `REPO` and `COMMIT` a commit that contains this directory,

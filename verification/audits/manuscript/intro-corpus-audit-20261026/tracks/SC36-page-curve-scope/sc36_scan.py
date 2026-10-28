@@ -5,7 +5,8 @@ import re, subprocess, sys
 
 base = sys.argv[1]
 diff = subprocess.run(['git', 'diff', '-U0', base, '--', '.', ':(exclude)*.pdf', ':(exclude)*.tex',
-                       ':(exclude)*/sc36_scan.py'],  # this file holds the patterns themselves
+                       ':(exclude)*/sc36_scan.py',  # this file holds the patterns themselves
+                       ':(exclude)*/sc36_*.out'],   # generated outputs, including this scan's own
                       capture_output=True, text=True).stdout
 cur = None
 added = []
@@ -19,7 +20,7 @@ PHRASES = [r'discipline', r'\bhonest', r'should not be read', r'the reader', r'n
            r'temptation', r'in that register', r'now settled', r'in its current form', r'corrected form',
            r'as redefined', r'no longer', r'formerly', r'is not listed', r'withdrawn', r'earlier revision',
            r'previously', r'was stated', r'has been corrected', r'we now']
-WHITELIST = {'GW250114', 'QFT', 'LIGO', 'KAGRA', 'DESI', 'CPTP', 'MOND', 'KMS', 'JUNO', 'XENON', 'CODATA'}
+WHITELIST = {'GW250114', 'QFT', 'LIGO', 'KAGRA', 'DESI', 'CPTP', 'MOND', 'KMS', 'JUNO', 'XENON', 'CODATA', 'BTFR'}
 hits = 0
 for f, l in added:
     if not (f.startswith('papers/') or f.startswith('book/')) or not f.endswith('.md'):
