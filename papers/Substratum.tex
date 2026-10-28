@@ -1074,12 +1074,16 @@ doublet \((\mathbf{1}, \mathbf{2}, +1/2)\) - Anomaly-free hypercharges
   covariance of site-dependent transformations with transformed link
   data, not the global quotient.
 \item
-  \emph{Matter content.} Staggered reduction gives three degenerate
-  spin-1/2 sectors (Theorems 8--10). Fermion embedding is completed via
-  the link-carrier construction ({[}SM §4.7.1.2{]}). Partition-spinor
-  identification (Theorem 12) and trace-out (Theorem 13) give chirality.
-  Anomaly cancellation (Theorems 14--15) uniquely fixes the
-  hypercharges.
+  \emph{Matter content.} The selected staggered construction gives a
+  singlet and three degenerate triplet sectors; their physical
+  spin/generation interpretation retains H-spin', H-χ' and
+  light-spectrum selection {[}SM Theorems 8--13{]}. The link carrier
+  admits cross-charged matter representations without selecting the
+  physical family. For the family fixed in {[}SM Theorem 15{]}, anomaly
+  cancellation gives the complete charge classification, including the
+  neutral-\(Q\) exception. Nonzero \(Y_Q\) recovers the SM ratios up to
+  normalization and quark-singlet interchange; physical charge
+  normalization remains separate.
 \item
   \emph{Discrete symmetries.} T-invariance of the bijection \(\varphi\)
   gives \(\theta\in\{0,\pi\}\) and reciprocal visible transition counts
@@ -1594,9 +1598,9 @@ proposed restricted hidden-only transformations and decoupled
 enlargements do \textbf{not} generate all equivalences: the six-state
 Pair C dynamics have equal \(\Phi_t\) for every \(t\) but are separated
 by the balanced block-word trace invariant tested by \texttt{ST3\_pairC}
-and \texttt{ST4\_pairC}. The invariant survives hidden-only conjugation
-and, after the appropriate normalization, independent decoupled
-enlargement; its behavior under an allowed visible-coordinate
+and \texttt{ST4\_pairC}. For finite ancillary carriers the normalized
+trace invariant survives hidden-only conjugation and independent
+decoupled enlargement; its behavior under an allowed visible-coordinate
 relabelling is also included in the tested Pair C obstruction. Thus
 merely chaining these moves cannot connect the pair. This is a
 \textbf{restricted non-exhaustiveness result}, not a statement about
@@ -1608,6 +1612,23 @@ equivalence, the relevant observational information and permitted
 correspondences have not been settled, so completeness remains
 \textbf{open}. None of these three verdicts can be substituted for
 another.
+
+A written operator certificate extends the restricted Pair C obstruction
+to arbitrary nonempty ancillary Hilbert spaces, without requiring an
+infinite-dimensional normalized matrix trace. For the visible blocks
+define
+\[W_0=B_{00}B_{10}B_{01}B_{00}^{\dagger}B_{01}^{\dagger}B_{10}^{\dagger},\]
+and let \(W_1\) interchange the two visible labels. Exact multiplication
+gives \((W_0,W_1)=(\operatorname{diag}(1,0,0),0)\) for Pair C and
+\((0,0)\) for the primed Pair C. Hidden-unitary conjugation conjugates
+each word; adjoining independent unitary dynamics replaces each balanced
+word by \(W_i\otimes I_D\). Zero versus nonzero is therefore unchanged
+for any nonempty finite or infinite \(D\), and a visible-label swap only
+exchanges the two statuses. The unordered status pair separates the
+examples through every finite chain of these moves and their inverses.
+This operator argument is written mathematics; the cited Lean ancillary
+certificate retains its finite-carrier scope. It supplies no
+all-partitions classification or invariance under additional moves.
 
 \textbf{Corollary (effective finiteness and gauge-class transfer).}
 Three statements make A1's two-part status precise. \emph{(i) The
@@ -2113,14 +2134,17 @@ violation only by ontic parameter dependence, with operational
 no-signaling {[}Main §3.3{]}. Applied to a cubic lattice with the wave
 equation as substratum dynamics --- itself uniquely selected among
 second-order reversible nearest-neighbor dynamics by center
-independence, isotropy, and linearity ({[}SM, §4.1{]}) --- this
-projection produces the Standard Model gauge group
-\(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) (as the
-commutant of the coupling matrix, {[}SM, §§4.4--4.6{]}), three
-generations (physical reading conditional on H-spin', {[}SM §4.7{]};
-chirality on H-χ', {[}SM §4.8{]}) and the Higgs as a composite scalar in
-the singlet staggered taste ({[}SM, §4.7{]}, Theorems 8--11), and
-anomaly-free hypercharges ({[}SM, §4.9{]}, Theorems 14--15). Twenty-two
+independence, isotropy, and linearity ({[}SM, §4.1{]}) --- the selected
+carrier and H-cust give the generic condensate stabilizer
+\(U(3)\times U(2)\times U(1)\); the constructive central quotient and
+faithful selected charged-family image give the SM Lie algebra with the
+global distinctions and additional physical action premises of {[}SM,
+Propositions 14a and 15a{]}, three generations (physical reading
+conditional on H-spin', {[}SM §4.7{]}; chirality on H-χ', {[}SM §4.8{]})
+and the Higgs as a composite scalar in the singlet staggered taste
+({[}SM, §4.7{]}, Theorems 8--11), and the selected-family anomaly
+classification, including its neutral-\(Q\) branch and separate
+charge-normalization premise ({[}SM, §4.9{]}, Theorem 15). Twenty-two
 quantitative predictions follow ({[}SM, §7{]}), including the Cabibbo
 angle from a single Brillouin-zone distance, the Koide angle from a
 cubic-group quadratic Casimir, all three PMNS angles within
@@ -2274,15 +2298,16 @@ complete gauge-group image under trace-out. At the substratum level the
 chosen object is a bijection together with an observer partition, and
 the proposed projection connects it to two separately described
 structures: the emergent quantum field theory at the visible-sector
-level, with the Standard Model gauge group as the commutant of the
-coupling matrix ({[}SM, §4.4{]}, Theorem 5) and the Standard Model
-representations as the cubic decomposition of the link directions
-({[}SM, §4.6{]}, Theorem 7); and the classical horizon thermodynamics at
-the boundary level, with the metric, the surface gravity, the entropy,
-and the temperature determined by the partition geometry and the
-area-law theorem ({[}GR, §3{]}). Both derived structures inherit the
-framework's structural inputs from the substratum, and both are exact
-rather than approximate at the lattice level.
+level, with the conditional generic condensate stabilizer ({[}SM,
+Theorem 5{]}), the exact six-link cubic decomposition (Theorem 7), and
+the constructive quotient and selected faithful charged-family image
+(Propositions 14a and 15a), whose physical selection remains additional
+input; and the classical horizon thermodynamics at the boundary level,
+with the metric, the surface gravity, the entropy, and the temperature
+determined by the partition geometry and the area-law theorem ({[}GR,
+§3{]}). The exact mathematical identities in these constructions retain
+their own hypotheses; a common substratum does not supply the missing
+physical carrier, charged-action or gravitational coupling bridges.
 
 The three-level structure is a proposed relationship between distinct
 equivalence notions, with only the explicitly stated parts established.
@@ -3199,4 +3224,4 @@ Running-Vacuum Form of Dark Energy from the Cosmological Horizon,''
 (2026).
 
 \end{document}
-% source-sha256: 928fa71fa892594818f0544c45f2fdb89ab33e18ea09a08f0408ba4658cb0487
+% source-sha256: 13bcd0976356ce561b0ce6dc424aac7511045bb77f2a4933d003a06a0882267f

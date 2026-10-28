@@ -2430,10 +2430,11 @@ shared content is the structural features of partial-trace observation
 trace, independent of the substratum-level machinery producing the
 state. The fourth feature (commutant gauge-invariance) transports as a
 pattern but not as a specific output: both frameworks produce gauge
-invariance via commutant restriction, but the SM gauge group is forced
-uniquely from cubic-group representation theory in the framework's
-account, while it depends on compactification choice in string-theoretic
-constructions.
+invariance via commutant restriction, while the selected OI construction
+gives an exact cubic decomposition and a conditional condensate
+stabilizer followed by a specified quotient and charged action {[}SM
+Propositions 14a and 15a{]}. Its physical carrier and action selection,
+like the compared compactification choices, are additional premises.
 
 \href{Structure.md}{\texttt{Structure}} develops a program for comparing
 embedded observers through a specified invariant observable algebra and
@@ -2984,12 +2985,14 @@ criteria (center independence, isotropy, reversibility, linearity)
 uniquely produce the \emph{matrix wave equation}, where a coupling
 matrix \(M\) is the sole new parameter.
 
-This matrix \(M\) determines everything about the gauge structure. Its
-eigenvalue multiplicities give the gauge group --- the group of
-transformations that leave \(M\) invariant (technically, its commutant
-in U(K)). Its eigenvalues give the mass spectrum. The gauge group and
-the mass spectrum are dual descriptions of the same matrix. This is a
-theorem, not an approximation.
+At the symmetric nearest-neighbor point the coupling matrix is scalar,
+so its unitary commutant is the full \(U(6)\). Under H-link single-copy
+and H-cust, a specified equivariant condensate \(\Sigma\) instead
+carries the three eigenspaces used in the block calculation. Its
+distinct eigenvalue multiplicities determine its exact unitary
+stabilizer. Physical masses, the charged observer action and the
+selected gauge quotient require the further premises stated in {[}SM
+§§4.4--4.9{]}.
 
 \textbf{Why K = 6 on the selected branch.} A three-dimensional
 simple-cubic site has six signed nearest-neighbor directions. H-link
@@ -3005,19 +3008,22 @@ into irreducibles:
 
 \[6 = T_1(3) \oplus E(2) \oplus A_1(1)\]
 
-The dimensions are 3, 2, and 1. By Schur's lemma, the coupling matrix
-\(M\) acts as an independent scalar on each irreducible subspace:
-\(M = \text{diag}(\mu_c I_3, \mu_w I_2, \mu_y)\). The gauge group ---
-the commutant of \(M\) --- is therefore:
+The six-link representation has dimensions 3, 2 and 1. A generic
+equivariant Hermitian condensate has
+\(\Sigma=\operatorname{diag}(s_cI_3,s_wI_2,s_y)\) with distinct
+eigenvalues. Its unitary stabilizer is
 
-\[U(3) \times U(2) \times U(1) \supset SU(3) \times SU(2) \times U(1)\]
+\[G_0=U(3)\times U(2)\times U(1).\]
 
-This is the Standard Model gauge group. It comes from the representation
-theory of the cubic lattice in three spatial dimensions. The three
-factors correspond to the three irreducible representations of \(O\):
-the vector (\(T_1\), dimension 3) gives color SU(3), the quadrupole
-(\(E\), dimension 2) gives weak SU(2), and the scalar (\(A_1\),
-dimension 1) gives hypercharge U(1).
+This stabilizer has three central phase directions. The constructive
+correlated quotient of {[}SM Proposition 14a{]} is
+\(S(U(3)\times U(2))\); the specified SM charged family has faithful
+image \((SU(3)\times SU(2)\times U(1))/\mathbb Z_6\) {[}SM Proposition
+15a{]}. Its Lie algebra is the familiar SM algebra. Choosing the
+additional redundant central direction and that charged action as
+physical is not a consequence of the six-link decomposition alone. The
+cubic blocks supply the nonabelian dimensions; physical carrier,
+chirality and light-spectrum selection retain their separate hypotheses.
 
 \textbf{Chiral coupling.} The Standard Model has a peculiar feature: the
 weak force treats left-handed and right-handed particles differently.
@@ -3074,19 +3080,17 @@ selecting \(\theta = 0\) over \(\pi\), and a mechanism fixing
 real, which would also remove the observed CKM CP violation. The
 framework makes no prediction for the neutron electric dipole moment.
 
-\textbf{No empirical inputs.} The hypercharge U(1)\(_Y\) ---
-traditionally an empirical input --- is automatic: any U(\(n\)) gauge
-group contains a U(1) factor, and anomaly cancellation uniquely
-determines the hypercharge assignments. The parity violation --- also
-traditionally empirical --- follows from the partition's chirality
-structure. The filter chain from (S, φ) to the Standard Model takes the
-spatial dimension d = 3 and the simple-cubic Bravais structure as
-empirically-selected inputs (the latter forced by the observed SU(3)
-factor); given those, the gauge group, the hypercharges, and the parity
-violation follow with no further empirical input. The hypercharge and
-parity results are genuine consequences; the cubic lattice on which the
-gauge derivation runs is an input, not a consequence of statistical
-isotropy alone.
+\textbf{Conditional charge and chirality results.} The selected cubic
+carrier, generic condensate stabilizer, correlated quotient and
+charged-family image give exact mathematical results under the premises
+of {[}SM §§4.4--4.9{]}. They do not independently select the physical
+observer action or light chiral family. On the five-representation
+family of Theorem 15, with no additional charged anomaly cancelers, the
+nonzero quark-doublet charge branch has the SM ratios up to
+normalization and quark-singlet interchange; a separate neutral-\(Q\)
+branch also exists. The stated electromagnetic or Higgs/Yukawa input
+fixes the numerical normalization. Physical chirality retains H-χ', and
+the complete geometric and dynamical selection problem remains open.
 
 \textbf{Where the matter representations come from.} A subtle point: the
 K = 6 internal space decomposes as a \emph{direct sum} 3 + 2 + 1, but
@@ -3880,4 +3884,4 @@ The final text and all scientific claims were reviewed and verified by
 the author.
 
 \end{document}
-% source-sha256: 8650bf5d3124213e764abc7d1f7b4708d3466859a23647794162fb4863eec005
+% source-sha256: 0b76502fa0142a0e4a99eead2613b1c9d0c5cfcfe6bd3f3e785f249bb4fbf9a9

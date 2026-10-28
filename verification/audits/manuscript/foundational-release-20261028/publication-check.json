@@ -1,0 +1,123 @@
+{
+  "SM": {
+    "pages": 147,
+    "median_characters_per_page": 2974,
+    "extractor": "PyMuPDF page.get_text().strip()",
+    "source_sha256": "5049cccd53351793c578df0c47634dc10abb54f886cac3d5b1b7bc00692fd2a2",
+    "tex_sha256": "2bc2162ad432e56e1680ee5cd66259d5935ed3e27518787b6b11cd82f247a79a",
+    "pdf_sha256": "fa6b1608249c96be98426ec9f8601637703dc674ca91db94118bcb3984899d3c",
+    "tex_source_stamp_matches": true,
+    "query_pages": {
+      "The selected six-link carrier has": 44,
+      "The conditional block-adjoint sector": 45,
+      "Fixed-family anomaly-free hypercharges": 55,
+      "Correlated central quotient": 36
+    },
+    "rendered_pages": [
+      36,
+      44,
+      45,
+      55
+    ],
+    "out_of_page_word_boxes": []
+  },
+  "Substratum": {
+    "pages": 53,
+    "median_characters_per_page": 3086,
+    "extractor": "PyMuPDF page.get_text().strip()",
+    "source_sha256": "13bcd0976356ce561b0ce6dc424aac7511045bb77f2a4933d003a06a0882267f",
+    "tex_sha256": "ca2ff6c6451dc5f4a0d40564b325348d27683de8acbf93c41b24481291ba5cf7",
+    "pdf_sha256": "7f793c935d6f612613d456cf45ab0591167d88bb9dfb73f9bb77fe5ffd04dfdc",
+    "tex_source_stamp_matches": true,
+    "query_pages": {
+      "A written operator certificate": 26,
+      "Passive record fibres and state identification": 32,
+      "Visible-sector projection": 34
+    },
+    "rendered_pages": [
+      26,
+      32,
+      34
+    ],
+    "out_of_page_word_boxes": []
+  },
+  "Explainer": {
+    "pages": 68,
+    "median_characters_per_page": 2837.0,
+    "extractor": "PyMuPDF page.get_text().strip()",
+    "source_sha256": "0b76502fa0142a0e4a99eead2613b1c9d0c5cfcfe6bd3f3e785f249bb4fbf9a9",
+    "tex_sha256": "c3b4a207c70889db10f1e2e19c678a668eb1cf65f3970fd8120ed018bd557c79",
+    "pdf_sha256": "e7df0d4d688d231a189507ec40ddd022d057de8833fde4c844071e52fd556927",
+    "tex_source_stamp_matches": true,
+    "query_pages": {
+      "At the symmetric nearest-neighbor point": 51,
+      "Conditional charge and chirality results": 53
+    },
+    "rendered_pages": [
+      51,
+      53
+    ],
+    "out_of_page_word_boxes": []
+  },
+  "Methodology": {
+    "pages": 47,
+    "median_characters_per_page": 2989,
+    "extractor": "PyMuPDF page.get_text().strip()",
+    "source_sha256": "217a54f6c3d0397d2d59b57ecb662654551b888f91d219fa2c8a30db68ba75de",
+    "tex_sha256": "c82d14871aab7a35220c220bdc178d813788c014fa1bfd7a721b109630378ce8",
+    "pdf_sha256": "4702a9336a642c3ba7e680c0009b1d45445a3f15d5e628202214a805ae9d17fb",
+    "tex_source_stamp_matches": true,
+    "query_pages": {
+      "partially instantiates": 35,
+      "A proper instantaneous readout": 35,
+      "The resulting taxonomy separates": 42
+    },
+    "rendered_pages": [
+      35,
+      42
+    ],
+    "out_of_page_word_boxes": []
+  },
+  "Juno": {
+    "pages": 22,
+    "median_characters_per_page": 2443.5,
+    "extractor": "PyMuPDF page.get_text().strip()",
+    "source_sha256": "4098156c7286ee65ed68294e268e53bbe2042ccfa94360caef87be33e041a671",
+    "tex_sha256": "84fc9707b863314756a24ad5183fb4cb9460281d20e05dc4f0b673eebaa36cc3",
+    "pdf_sha256": "042e10c022e5ba463768c1640bfa52ce105c8ca46bfac833fadaa2f001498680",
+    "tex_source_stamp_matches": true,
+    "query_pages": {
+      "six-element set is the geometric link set": 4
+    },
+    "rendered_pages": [
+      4
+    ],
+    "out_of_page_word_boxes": []
+  },
+  "book": {
+    "pages": 548,
+    "median_characters_per_page": 2972.0,
+    "extractor": "PyMuPDF page.get_text().strip()",
+    "source_sha256": "7155b480cf281c01710cee28fbd1ad894900cbe6b8f421dc244bd3180c855ca6",
+    "tex_sha256": "489ea1800968f0a45331b0d7c7f4294b1a5ff84d8638492f9c48c8a242925a72",
+    "pdf_sha256": "d1c7fb81241eb9563fb12a523a2d3d2e56b3941fa60276cff46c9af5ae2f387f",
+    "tex_source_stamp_matches": true,
+    "query_pages": {
+      "The framework’s position in this comparison": 100,
+      "The selected gauge-carrier chain": 113,
+      "conditional Higgs accommodation": 77,
+      "Normalized fixed-family hypercharges": 480,
+      "Gauge group.": 86,
+      "Hypercharge.": 528
+    },
+    "rendered_pages": [
+      77,
+      86,
+      100,
+      113,
+      480,
+      528
+    ],
+    "out_of_page_word_boxes": []
+  }
+}

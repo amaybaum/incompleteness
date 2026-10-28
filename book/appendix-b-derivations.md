@@ -15,7 +15,7 @@ The appendix's content is organized by mathematical structure rather than by cha
 
 *B.4 The gap equation for $\hbar$.* The framework relates Planck's constant $\hbar$ to the discreteness scale through a thermal self-consistency argument between the classical horizon temperature (substratum-level) and the KMS temperature (emergent QFT-level). This appendix gives the full four-step derivation: spatial locality and boundary dependence, deep-sector gauge equivalence, dimensional determination, and thermal self-consistency producing $\hbar = c^3 \epsilon^2 / (4G\sigma)$.
 
-*B.5 Anomaly cancellation and unique hypercharges.* The framework's content on the Standard Model matter content derives the unique hypercharge assignment from the six anomaly conditions of $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$. This appendix gives the explicit calculation: the six anomaly conditions, the algebraic constraint structure, and the unique solution producing $(Y_Q, Y_u, Y_d, Y_L, Y_e) = (1/6, 2/3, -1/3, -1/2, -1)$ with no free parameters.
+*B.5 Fixed-family hypercharges.* The calculation fixes the five-representation chiral family, excludes additional charged chiral anomaly cancelers, and uses neutral-neutrino/electromagnetic normalization. Under those hypotheses it gives $(Y_Q,Y_u,Y_d,Y_L,Y_e)=(1/6,2/3,-1/3,-1/2,-1)$, with quark-singlet labeling fixed by electric charge. The complete unnormalized classification, including the neutral-$Q$ branch and compact-charge strengthening, is given in [SM Theorem 15].
 
 *B.6 Gauge-theoretic derivations.* Two key gauge-theoretic results from Chapter 5: the conditional H-link link count for $K = 2dm = 6$ internal components per site, and the cubic-rotation-group decomposition of the coupling matrix's eigenvalue multiplicities into $(3, 2, 1)$ — the multiplicities that determine $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$.
 
@@ -224,9 +224,9 @@ The KMS periodicity is a *geometric* condition (Euclidean smoothness at the hori
 
 *Main-text reference: Chapter 6 §6.7.*
 
-The framework's content on the Standard Model matter content derives the unique hypercharge assignment from the six anomaly conditions of $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$. The derivation establishes that the observed hypercharges are not phenomenological inputs but the unique anomaly-free completion of the framework's gauge structure.
+The calculation below concerns the specified SM chiral family, not selection among all fundamental/singlet spectra. The neutral-neutrino and electromagnetic identification fixes a nonzero quark-doublet charge and the numerical normalization. Without that premise the full anomaly classification also includes the exceptional neutral-$Q$ branch [SM Theorem 15].
 
-**Theorem B.5.1 (Unique hypercharges).** *Given $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ with fermions in fundamental or singlet representations, the six anomaly conditions determine the hypercharges uniquely up to the overall normalization and the interchange $Y_u \leftrightarrow Y_d$, the latter fixed by the electric-charge identification $Q_{\text{em}} = T_3 + Y$:*
+**Theorem B.5.1 (Normalized fixed-family hypercharges).** *Fix one family $Q_L=(\mathbf3,\mathbf2)$, $u_R,d_R=(\mathbf3,\mathbf1)$, $L_L=(\mathbf1,\mathbf2)$ and $e_R=(\mathbf1,\mathbf1)$, or identical copies with family-universal charges, and no additional charged chiral anomaly cancelers. Assume the anomaly conditions below and $Q_{\mathrm{em}}=T_3+Y$, with the upper component of $L_L$ electrically neutral. Then the charges are uniquely fixed as follows, up to quark-singlet interchange; the up-type electric-charge identification fixes that labeling:*
 $$Y_Q = \frac{1}{6}, \quad Y_u = \frac{2}{3}, \quad Y_d = -\frac{1}{3}, \quad Y_L = -\frac{1}{2}, \quad Y_e = -1$$
 
 *Proof setup.* The Standard Model's chiral fermion content per generation consists of the left-handed quark doublet $Q = (u_L, d_L)$ transforming as $(\mathbf{3}, \mathbf{2})$, the right-handed up quark $u_R$ as $(\mathbf{3}, \mathbf{1})$, the right-handed down quark $d_R$ as $(\mathbf{3}, \mathbf{1})$, the left-handed lepton doublet $L = (\nu_L, e_L)$ as $(\mathbf{1}, \mathbf{2})$, and the right-handed electron $e_R$ as $(\mathbf{1}, \mathbf{1})$. Each carries a hypercharge $Y$ to be determined.
@@ -469,7 +469,7 @@ The biconditional is the framework's main characterization result. $\square$
 - B.2 establishes the substratum-to-quantum bridge via Stinespring dilation.
 - B.3 establishes the algebraic structure of the trace-out as Jordan-Chevalley projection, organizing the framework's content on gauge structure.
 - B.4 establishes the gap equation relating $\hbar$ to the discreteness scale through horizon thermodynamics, producing the framework's content on gravitational physics.
-- B.5 establishes the unique anomaly-free hypercharge assignment, fixing the framework's content on Standard Model matter.
+- B.5 derives the normalized anomaly-free charges for the specified family and neutral-neutrino/electromagnetic premises; the complete unnormalized classification and exceptional branch are in [SM Theorem 15].
 - B.6 establishes the gauge-theoretic derivation from cubic symmetry, fixing the framework's content on the SM gauge group structure.
 - B.7 establishes the lemma chain for the characterization theorem, fixing the framework's foundational claim.
 

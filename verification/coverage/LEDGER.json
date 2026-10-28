@@ -1971,13 +1971,13 @@
       "line": 458,
       "kind": "Theorem",
       "label": "10",
-      "fingerprint": "c1774f68700254d6",
+      "fingerprint": "6f0103db17cb9dc1",
       "area": "sm",
-      "assumptions": "see the statement",
+      "assumptions": "selected staggered/cubic carrier; physical spin/generation reading under H-spin', H-χ' and light-spectrum selection; hypercharge corollary uses exactly the fixed family of Theorem 15, no additional charged chiral anomaly cancelers and nonzero Y_Q; numerical normalization and quark-singlet labeling separate",
       "checks": [],
       "kernel": "GAP",
       "delta": "not formalized",
-      "note": ""
+      "note": "The three degenerate sectors and cross-charged representation availability are retained. The charge consequence is aligned with the complete fixed-family classification in Theorem 15, including its neutral-Q exceptional branch. This repairs an unsupported uniqueness summary, adds no Lean evidence, and retains GAP/checks=[]."
     },
     {
       "id": "SM:T-11",
