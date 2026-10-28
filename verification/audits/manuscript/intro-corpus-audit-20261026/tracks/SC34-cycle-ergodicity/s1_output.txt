@@ -1,0 +1,101 @@
+
+=== map (a): d=1 L=5 N=5 q=3 alpha=1  |S| = q^10 = 59049
+  cycles in whole space: 6565;  max cycle length 15;  distinct lengths [1, 3, 5, 15]
+  shell E=0: size 19683, cycles 2211, largest cycle 15, distinct joint-invariant values 657
+      cycle-length histogram (length x count): 1x3, 5x1344, 15x864
+  shell E=1: size 19440, cycles 2160, largest cycle 15, distinct joint-invariant values 648
+      cycle-length histogram (length x count): 5x1296, 15x864
+  shell E=2: size 19926, cycles 2194, largest cycle 15, distinct joint-invariant values 666
+      cycle-length histogram (length x count): 3x2, 5x1296, 15x896
+  degree<=2 polynomial invariants over F_3 (no constant): dimension 10
+  [PASS] C2 energy identity/conservation over Z
+  [PASS] C0 bijection
+  [PASS] C1 E conserved at every state
+  [PASS] C3 every degree<=2 invariant basis element conserved on all states
+  [PASS] C3b corpus energy E lies in the invariant span
+  [PASS] C4a every cycle lies in one shell
+  [PASS] C4b cycle sizes sum to |S|
+  [PASS] C4c shell E=0: cycle sizes sum to shell size
+  [PASS] C4c shell E=1: cycle sizes sum to shell size
+  [PASS] C4c shell E=2: cycle sizes sum to shell size
+  [PASS] C5 census == plain traversal
+  [PASS] C6a planted one-cycle-per-shell detected as 1 cycle per shell
+  [PASS] C6b planted cycle type recovered exactly
+  VERDICT (controls green): 3 of 3 energy shells split into more than one cycle; no shell is a single cycle: True
+
+=== map (a): d=1 L=4 N=4 q=5 alpha=1  |S| = q^8 = 390625
+  cycles in whole space: 22697;  max cycle length 20;  distinct lengths [1, 2, 4, 5, 10, 20]
+  shell E=0: size 80625, cycles 4775, largest cycle 20, distinct joint-invariant values 425
+      cycle-length histogram (length x count): 1x5, 2x10, 4x900, 10x20, 20x3840
+  shell E=1: size 77500, cycles 4481, largest cycle 20, distinct joint-invariant values 435
+      cycle-length histogram (length x count): 4x750, 5x2, 10x9, 20x3720
+  shell E=2: size 77500, cycles 4480, largest cycle 20, distinct joint-invariant values 440
+      cycle-length histogram (length x count): 4x750, 10x10, 20x3720
+  shell E=3: size 77500, cycles 4480, largest cycle 20, distinct joint-invariant values 440
+      cycle-length histogram (length x count): 4x750, 10x10, 20x3720
+  shell E=4: size 77500, cycles 4481, largest cycle 20, distinct joint-invariant values 435
+      cycle-length histogram (length x count): 4x750, 5x2, 10x9, 20x3720
+  degree<=2 polynomial invariants over F_5 (no constant): dimension 7
+  [PASS] C2 energy identity/conservation over Z
+  [PASS] C0 bijection
+  [PASS] C1 E conserved at every state
+  [PASS] C3 every degree<=2 invariant basis element conserved on all states
+  [PASS] C3b corpus energy E lies in the invariant span
+  [PASS] C4a every cycle lies in one shell
+  [PASS] C4b cycle sizes sum to |S|
+  [PASS] C4c shell E=0: cycle sizes sum to shell size
+  [PASS] C4c shell E=1: cycle sizes sum to shell size
+  [PASS] C4c shell E=2: cycle sizes sum to shell size
+  [PASS] C4c shell E=3: cycle sizes sum to shell size
+  [PASS] C4c shell E=4: cycle sizes sum to shell size
+  [PASS] C5 census == plain traversal
+  [PASS] C6a planted one-cycle-per-shell detected as 1 cycle per shell
+  [PASS] C6b planted cycle type recovered exactly
+  VERDICT (controls green): 5 of 5 energy shells split into more than one cycle; no shell is a single cycle: True
+
+=== map (a): d=2 L=3 N=9 q=2 alpha=1  |S| = q^18 = 262144
+  cycles in whole space: 45408;  max cycle length 6;  distinct lengths [1, 2, 3, 6]
+  shell E=0: size 131072, cycles 22752, largest cycle 6
+      cycle-length histogram (length x count): 1x32, 2x240, 3x1440, 6x21040
+  shell E=1: size 131072, cycles 22656, largest cycle 6
+      cycle-length histogram (length x count): 2x256, 3x1280, 6x21120
+  [PASS] C2 energy identity/conservation over Z
+  [PASS] C0 bijection
+  [PASS] C1 E conserved at every state
+  [PASS] C4a every cycle lies in one shell
+  [PASS] C4b cycle sizes sum to |S|
+  [PASS] C4c shell E=0: cycle sizes sum to shell size
+  [PASS] C4c shell E=1: cycle sizes sum to shell size
+  [PASS] C5 census == plain traversal
+  [PASS] C6a planted one-cycle-per-shell detected as 1 cycle per shell
+  [PASS] C6b planted cycle type recovered exactly
+  VERDICT (controls green): 2 of 2 energy shells split into more than one cycle; no shell is a single cycle: True
+
+=== map (a): d=3 L=2 N=8 q=3 alpha=1  |S| = q^16 = 43046721
+  cycles in whole space: 3641607;  max cycle length 12;  distinct lengths [1, 2, 3, 4, 6, 12]
+  shell E=0: size 14230809, cycles 1203750, largest cycle 12, distinct joint-invariant values 191979
+      cycle-length histogram (length x count): 1x27, 2x351, 3x72, 4x5832, 6x27180, 12x1170288
+  shell E=1: size 14407956, cycles 1218942, largest cycle 12, distinct joint-invariant values 194568
+      cycle-length histogram (length x count): 3x108, 4x4374, 6x30564, 12x1183896
+  shell E=2: size 14407956, cycles 1218915, largest cycle 12, distinct joint-invariant values 195783
+      cycle-length histogram (length x count): 3x54, 4x4374, 6x30591, 12x1183896
+  degree<=2 polynomial invariants over F_3 (no constant): dimension 25
+  [PASS] C2 energy identity/conservation over Z
+  [PASS] C0 bijection
+  [PASS] C1 E conserved at every state
+  [PASS] C3 every degree<=2 invariant basis element conserved on all states
+  [PASS] C3b corpus energy E lies in the invariant span
+  [PASS] C4a every cycle lies in one shell
+  [PASS] C4b cycle sizes sum to |S|
+  [PASS] C4c shell E=0: cycle sizes sum to shell size
+  [PASS] C4c shell E=1: cycle sizes sum to shell size
+  [PASS] C4c shell E=2: cycle sizes sum to shell size
+  [PASS] C6a planted one-cycle-per-shell detected as 1 cycle per shell
+  [PASS] C6b planted cycle type recovered exactly
+  VERDICT (controls green): 3 of 3 energy shells split into more than one cycle; no shell is a single cycle: True
+
+ALL CONTROLS GREEN
+
+real	9m36.354s
+user	8m1.395s
+sys	1m26.483s

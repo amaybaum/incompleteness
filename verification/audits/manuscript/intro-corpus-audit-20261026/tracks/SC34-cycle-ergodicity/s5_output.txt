@@ -1,0 +1,23 @@
+
+map (a) d=1 L=5 q=3: E mod q conserved True; integer E_Z conserved at 54.5% of states
+  shell E=0: size 19683; TV(one-site marginal, uniform) = 0.0000; TV(two-site marginal, uniform) = 0.0000
+  shell E=1: size 19440; TV(one-site marginal, uniform) = 0.0000; TV(two-site marginal, uniform) = 0.0083
+  shell E=2: size 19926; TV(one-site marginal, uniform) = 0.0000; TV(two-site marginal, uniform) = 0.0081
+
+map (a) d=1 L=4 q=5: E mod q conserved True; integer E_Z conserved at 52.2% of states
+  shell E=0: size 80625; TV(one-site marginal, uniform) = 0.0000; TV(two-site marginal, uniform) = 0.0000
+  shell E=1: size 77500; TV(one-site marginal, uniform) = 0.0000; TV(two-site marginal, uniform) = 0.0000
+  shell E=2: size 77500; TV(one-site marginal, uniform) = 0.0000; TV(two-site marginal, uniform) = 0.0000
+  shell E=3: size 77500; TV(one-site marginal, uniform) = 0.0000; TV(two-site marginal, uniform) = 0.0000
+  shell E=4: size 77500; TV(one-site marginal, uniform) = 0.0000; TV(two-site marginal, uniform) = 0.0000
+
+map (a) d=1 L=4 q=7: E mod q conserved True; integer E_Z conserved at 43.9% of states
+  shell E=0: size 809137; TV(one-site marginal, uniform) = 0.0000; TV(two-site marginal, uniform) = 0.0000
+  shell E=1: size 825944; TV(one-site marginal, uniform) = 0.0000; TV(two-site marginal, uniform) = 0.0000
+  shell E=2: size 825944; TV(one-site marginal, uniform) = 0.0000; TV(two-site marginal, uniform) = 0.0000
+  shell E=3: size 825944; TV(one-site marginal, uniform) = 0.0000; TV(two-site marginal, uniform) = 0.0000
+  shell E=4: size 825944; TV(one-site marginal, uniform) = 0.0000; TV(two-site marginal, uniform) = 0.0000
+  shell E=5: size 825944; TV(one-site marginal, uniform) = 0.0000; TV(two-site marginal, uniform) = 0.0000
+  shell E=6: size 825944; TV(one-site marginal, uniform) = 0.0000; TV(two-site marginal, uniform) = 0.0000
+
+control: thin real shell |x|^2 in [280,300], q=41, N=6: TV(one-site marginal, uniform) = 0.351  (large => statistic detects non-uniform shell shape)

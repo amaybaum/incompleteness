@@ -1112,7 +1112,7 @@ This section develops the constructive content of recovery (v) — shared observ
 
 We proceed feature by feature. For each, we characterize the structural feature in OI's framework, identify the analogous mechanism in string-theoretic emergence, and assess whether the feature transports across frameworks. Four feature classes are examined: Born-form quantum probability structure, channel-level unitary dilation, memory/non-Markovian marginal dynamics with divisibility tracked separately, and commutant gauge-invariance.
 
-The discussion is technical but exploratory. The aim is not to prove cross-framework equivalence at the observational level — that would require substantial work beyond chat-track scope — but to establish whether the proposed shared invariants are structurally well-defined in both frameworks. If they are, recovery (v) admits constructive sharpening; if some don't transport, the framework's universality claims must be refined.
+The discussion is technical but exploratory. The aim is not to prove cross-framework equivalence at the observational level — that would require substantial work beyond the scope of this section — but to establish whether the proposed shared invariants are structurally well-defined in both frameworks. If they are, recovery (v) admits constructive sharpening; if some don't transport, the framework's universality claims must be refined.
 
 ### 14.1 The Born rule
 

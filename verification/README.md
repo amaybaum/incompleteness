@@ -458,8 +458,8 @@ stationary distributions, the KMS state itself, horizon mode counts, gravity as 
 behaviour of the coupling structure — invoke *states* and *counts*, which the countermodel keeps in
 full, rather than operations. No live claim requires an infinite-support intervention, and no item
 is left unclassified: SM's cycle ergodicity and large-`L` stationary distribution concern the
-substratum's own dynamics, where what stays open is the analytical derivation of the Lyapunov
-coefficient rather than any operational availability. Q2 and Q4 therefore stand as
+substratum's own dynamics, where what stays open is the stationary law of the realized bijection and an
+analytical account of its separation dynamics, rather than any operational availability. Q2 and Q4 therefore stand as
 optional mathematical extensions outside the core programme, in the position continuous time
 occupies relative to Level III. That finding is a survey of the corpus at this commit, not a
 theorem, and is to be re-run if a claim performing an unbounded operation is added.
