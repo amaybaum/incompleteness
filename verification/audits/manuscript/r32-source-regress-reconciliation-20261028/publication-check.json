@@ -1,0 +1,16 @@
+{
+  "base": "20ca05fe9e7e460de29e08f7a21029042fa45b12",
+  "pages": 547,
+  "rendered_pages": [
+    99,
+    100
+  ],
+  "source_sha256": "1278511c1f280ba0948756694efa6dc0410db670469964227df36897250c06b0",
+  "tex_sha256": "28cce66818fc3d515710a5c2d5339fabe622c81df8938cc43c8c90365318ed33",
+  "pdf_sha256": "af2f09af395691346aead1d05eac208a6caf18561b868604eb75023d7e9e6ab0",
+  "tex_source_stamp_matches": true,
+  "chapter_files_mirrored": 28,
+  "missing_mirror_lines": 0,
+  "median_characters_per_page": 2976,
+  "old_false_regress_phrase_absent": true
+}
