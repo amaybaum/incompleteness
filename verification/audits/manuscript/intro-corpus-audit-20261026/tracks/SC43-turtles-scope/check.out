@@ -4,6 +4,7 @@ A3 countercontrol: two-way coupled extension changes T_t at some t: True
 A4 probe: skew products 64; preserve T_t at every t: 64; cycle type of no equal-size product phi x phi_new: 48; change some Phi_t entry: 48
 A4 base cycle type (1, 2, 3); product cycle types [(1, 1, 2, 2, 3, 3), (2, 2, 2, 6)]; first outside witness (bits, cycle type, Phi differs) ((0, 0, 0, 0, 0, 1), (1, 1, 3, 3, 4), True)
 A5 probe: skew products 64; fibre-conjugate to phi x id or phi x swap at equal size: 16; fibre-conjugate to (phi x id_2) x C_N after enlarging both by an N-cycle (pi verified, T re-checked): 64; of these, Phi-changing: 48; N used [6, 12]
+A6 negative control: fibre-mixing relabelling [0,1,3,2,4,5] changes T_t: True; relabellings of all 720 that change T_t: 288
 A6 probe: fibre-wise relabellings of phi on the fixed carrier 36; preserve T_t: 36; change some Phi_t entry: 24
 B re-grep, corrected phrases (expect 0 each):
   0  can prove that the question loses reference

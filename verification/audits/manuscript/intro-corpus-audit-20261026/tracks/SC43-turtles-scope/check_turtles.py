@@ -28,7 +28,9 @@ Both are periodic in t with the period of phi, so comparing t = 0 .. period-1 co
                   relabelling is built cycle by cycle (cycles grouped by the set of rotations of
                   their visible word) and verified pointwise; T_t equality is re-checked.
   A6 probe        visible-fibre-preserving relabellings of phi on the fixed carrier (3! x 3! = 36):
-                  all preserve T_t; count those that change some Phi_t entry. So a fibre-wise
+                  all preserve T_t; count those that change some Phi_t entry. Negative control:
+                  the fibre-mixing relabelling [0,1,3,2,4,5] must change T_t, and the count of
+                  all 720 relabellings that change T_t is reported. So a fibre-wise
                   relabelling of the kind A5 uses preserves the classical law but not, in general,
                   the channel family.
 
@@ -323,7 +325,20 @@ def part_a2():
             n_rel += 1
             n_T += same_law(base, q, with_phi=False)
             n_phi += not same_law(base, q, with_phi=True)
-    a6 = n_T == n_rel
+    # A6 negative control (must fail to preserve T): a fibre-mixing relabelling.
+    def relabel(pi):
+        inv = [0] * 6
+        for x in range(6):
+            inv[pi[x]] = x
+        return Sub(2, 3, [pi[base.perm[inv[y]]] for y in range(6)])
+    neg = not same_law(base, relabel([0, 1, 3, 2, 4, 5]), with_phi=False)
+    n_all_rel = n_T_change = 0
+    for pi in itertools.permutations(range(6)):
+        n_all_rel += 1
+        n_T_change += not same_law(base, relabel(list(pi)), with_phi=False)
+    a6 = n_T == n_rel and neg and n_T_change > 0
+    lines.append(f"A6 negative control: fibre-mixing relabelling [0,1,3,2,4,5] changes T_t: {neg}; "
+                 f"relabellings of all {n_all_rel} that change T_t: {n_T_change}")
     lines.append(f"A6 probe: fibre-wise relabellings of phi on the fixed carrier {n_rel}; preserve T_t: "
                  f"{n_T}; change some Phi_t entry: {n_phi}")
     return a5 and a6, lines

@@ -1,7 +1,9 @@
 # SC-43: the scope of the "turtles all the way down" argument
 
-Base `main` at `0d917665`; branch `corpus/sc43-turtles-scope`. There are two commits: the unit's
-corrections (`896c7ee5`), then the independent review's revisions (B1–B6, O1–O9; verdict REVISE).
+Base `main` at `0d917665`; branch `corpus/sc43-turtles-scope`. There are three commits:
+1. the unit's corrections (`896c7ee5`);
+2. the independent review's revisions (`04639b2f`; B1–B6, O1–O9; verdict REVISE);
+3. the second review's items 1–5 (verdict ACCEPT WITH CHANGES).
 
 Line numbers are at the base. The book chapters and the `FULL.md` mirror were edited identically:
 ch03:N is FULL:N+876 in §3.6–§3.8, ch02:44 is FULL:687, and ch19:200 is FULL:5360.
@@ -89,8 +91,10 @@ Edits are identical in ch03 and FULL, and the "Now" text is what stands at the h
      invariant … and gauge when some observables-preserving transformation moves it. The criterion
      can be applied exactly only as far as $\mathcal G_{\rm sub}$ is known explicitly, and the four
      generator families are not known to exhaust it: their completeness is conditional, and the
-     argument offered for it (Substratum §4) is not established; a transformation that preserves
-     every observable and lies outside the four families has not been excluded."
+     argument offered for it (Substratum §4, through its semigroup-transfer step) is not
+     established; a transformation that preserves every observable and lies outside the four
+     families has not been excluded." The parenthesis gives the owner's clause, which names "the
+     semigroup-transfer completeness step", an antecedent inside the section.
 4. **ch03:220, "Below that line the sortal *turtle* stops being well-formed, and asking … becomes —
    precisely, not loosely — the analogue …".**
    - **Defect.** The sentence stated the conclusion without its premise.
@@ -129,8 +133,10 @@ Edits are identical in ch03 and FULL, and the "Now" text is what stands at the h
    are class invariants — every representative carries them, which is why they can be deduced"
    (review O2).**
    - **Correction.** "…which is why the first three can be deduced, and the fourth conditionally on
-     the open coupling step". "G3" is not written here, because Structure uses "G3" for a gauge
-     level. See cross-unit item C1.
+     the open matter-to-boundary coupling step ([GR §6.2])". This is SC-37's own descriptor and
+     citation at its ch03:212 (head `e5684370`), so the phrase has an antecedent within SC-43's own
+     text and the two units read consistently once merged. "G3" is not written here, because
+     Structure uses "G3" for a gauge level. See cross-unit item C1.
 7. **ch03:222 / FULL:1098, the closing two sentences only: "in the deep sector where enlargement is
    pure gauge … it ends where the framework can prove there is nothing left for it to be about".**
    - **Defect.** The sentences claimed a proof of the dissolution.
@@ -235,10 +241,24 @@ Edits are identical in ch03 and FULL, and the "Now" text is what stands at the h
       moves the id (to `GR:C-deep-sector-cardinality-unobservable-at`). The unit brief requires the
       id to be kept, so I reverted the rename. The fingerprint is unchanged and `coverage_check`
       passes.
-    - **Why it is left for the owner.** The statement's body is already scoped to $\mathcal O(\tau_S/\tau_B)$,
-      and GR:142 states exact invariance only for the decoupled sector. The title still says "is
-      gauge" for the leading-order case, so a rename together with a ledger id change is an owner
-      decision.
+    - **What was done instead.** GR:142 carries the fix (item 23). The GR:136 title and statement are
+      untouched, and the id and fingerprint are preserved. A rename together with a ledger id change
+      remains an owner decision.
+23. **GR:142, the leading-order overclaim (second review, item 3).**
+    - **Was.** "The cardinality of the deep hidden sector is gauge in the scope of this corollary:
+      two systems with the same … Exact invariance of every $T_{ij}(t)$, the gauge enlargement of
+      [Substratum §4], Theorem 24(iii), holds for a deep sector that no dynamics couples to the
+      boundary layer."
+    - **Now.** "In the sense of $\mathcal{G}_{\rm sub}$, which requires exact invariance, the
+      cardinality of the deep hidden sector is gauge when no dynamics couples the deep sector to the
+      boundary layer ([Substratum §4], Theorem 24(iii)); the corollary's sense is leading-order: two
+      systems with the same …". The later sentence, now redundant, is deleted.
+    - **Coverage.** `coverage_check` passes with `GR:C-deep-sector-cardinality-gauge` at fingerprint
+      `b0887eff73117a38` unchanged. GR:142 is commentary after the proof, not part of the
+      fingerprinted statement.
+    - **Mirrors.** None: no book site restates GR:142.
+    - **Overlap.** SC-37's GR hunks at its head `e5684370` are at GR:26–:30, :326–:374, :404–:468,
+      :490, :526, :545, :573–:575, :597, :625, :637 and :707. None touches GR:142.
 
 ## Site table
 
@@ -248,7 +268,7 @@ Edits are identical in ch03 and FULL, and the "Now" text is what stands at the h
 | ch03:152, FULL:1028 | "This identification is recent …" | "presents … as the least-settled …, a proposal" | §A.30 |
 | ch03:204, FULL:1080 | "mathematical theorems" | "stated mathematically, each with its status" | status labels |
 | ch03:208, FULL:1084 | "completeness theorem" | "completeness argument" | Substratum:271 |
-| ch03:220, FULL:1096 | "can prove …", dichotomy, exact line, iff, "precisely", simulation, "enters … at", energetic content deduced | three cases; criterion; completeness "not known … not established"; identification named; driven hardware and coherences; bound; fourth invariant conditional on coupling step; "Below that interface" | Substratum:257, :261, :271, :293; GR:112; ch03:152; A4–A6; ROADMAP:64 |
+| ch03:220, FULL:1096 | "can prove …", dichotomy, exact line, iff, "precisely", simulation, "enters … at", energetic content deduced | three cases; criterion; completeness "not known … not established"; identification named; driven hardware and coherences; bound; fourth invariant conditional on the matter-to-boundary coupling step; "through its semigroup-transfer step"; "Below that interface" | Substratum:257, :261, :271, :293; GR:112; ch03:152; A4–A6; ROADMAP:64 |
 | ch03:222, FULL:1098 (last two sentences) | "pure gauge"; "can prove there is nothing left" | observables unchanged, on the identification; boundary conditional | as above |
 | ch03:226, FULL:1102 | "proving where deduction runs out" | "locating …" | as above |
 | ch03:228, FULL:1104 | "theorems for everything in between …" | derivations with status; invariance proof, read through identification | as above |
@@ -259,6 +279,7 @@ Edits are identical in ch03 and FULL, and the "Now" text is what stands at the h
 | Explainer:946 | \|C_D\| gauge at leading order | decoupled, exact; coupled separate | Substratum:257 |
 | Explainer:976 | "has four generators … establishes this list" | "contains four families …; exhaustion conditional, argument not established" | Substratum:271, :283; ROADMAP:64 |
 | Structure:53 | "The hidden sector beyond the boundary layer admits arbitrary cardinality" | "A deep sector that no dynamics couples to the boundary layer admits arbitrary cardinality" | Substratum:257 |
+| GR:142 | "is gauge in the scope of this corollary"; separate exact-invariance sentence | gauge in the $\mathcal G_{\rm sub}$ sense only when decoupled; the corollary's sense is leading-order; redundant sentence deleted | Substratum:257; GR:136 (id and fingerprint unchanged) |
 
 ## Evidence level of each corrected claim
 
@@ -328,6 +349,9 @@ Edits are identical in ch03 and FULL, and the "Now" text is what stands at the h
     - 48 of these are $\Phi$-changing.
   - A6: 36 visible-fibre-preserving relabellings of the A4 base on the fixed carrier. All 36
     preserve $T_t$; 24 change some $\Phi_t$ entry. This agrees with the review's `a4reach.py`.
+  - A6 negative control (must fail). The fibre-mixing relabelling `[0,1,3,2,4,5]` changes $T_t$, and
+    288 of all 720 relabellings of the base change $T_t$. A6's invariance count therefore cannot
+    pass vacuously.
   - The review's `pairc.py` and `tvspath3.py` were also rerun, and their outputs are as reported in
     Step 1.
 - **Re-grep.**
@@ -346,7 +370,7 @@ Edits are identical in ch03 and FULL, and the "Now" text is what stands at the h
 - Complexity:206, "No finer distinction … is empirically accessible": definitional.
 - Complexity:336: a regress about mathematical existence.
 - Computation:166–:170 and ch14:182.
-- Substratum:60 and GR:142: already scoped to the decoupled case for exact gauge.
+- Substratum:60: already scoped to the decoupled case for exact gauge. (GR:142 was corrected in item 23.)
 
 ## Open research questions (for #970)
 
@@ -382,7 +406,9 @@ Edits are identical in ch03 and FULL, and the "Now" text is what stands at the h
   - **Resolution: keep both.** Take SC-37's line, then replace its unchanged final two sentences
     with SC-43's text.
   - **O2 on ch03:220.** This edit makes "energetic content" deducible "conditionally on the open
-    coupling step", which aligns with SC-37's condition on ch03:222.
+    matter-to-boundary coupling step ([GR §6.2])", which is SC-37's descriptor at its ch03:212 and
+    aligns with SC-37's condition on ch03:222.
+  - **GR.** SC-37's GR hunks at `e5684370` do not touch GR:142 (item 23).
   - **Wording.** No conflict was found between SC-37's wording and the $\mathcal G_{\rm sub}$
     finding. The "invisible … *by theorem*" grade is a GR emergent-QFT claim, and SC-43 did not
     verify it.
@@ -392,44 +418,46 @@ Edits are identical in ch03 and FULL, and the "Now" text is what stands at the h
   - Theorem 24(iii) and its scope (Substratum:257);
   - the boundary-only dependence lemma (GR:112);
   - the §3.6 / Methodology §19 identification.
-- **C3. The Lemma 24.1 sites go to the owner and are not edited here, except Explainer:976 (review
-  B5).** The three-way classification is the review's; the site assignment is mine.
-  - **(iii) False as stated.** These assert Lemma 24.1's refuted conjugation conclusion, or its
-    single-channel form, or promise closure upon verifying it:
-    - Substratum:273 (the lemma statement);
-    - Substratum:279 (step (2): "two minimal dilations … are related by a unitary isomorphism …
-      intertwining the dilating unitaries");
-    - Substratum:283 ("This is expected to hold …; the specialist's task is to confirm the
-      specialisation");
-    - Substratum:287 (Step 2(b), "by Lemma 24.1 is a hidden-sector partial isometry");
-    - Substratum:298 and ch02:158 / FULL:801 ("any two same-channel dilations of equal
-      hidden-sector dimension differ by a hidden-sector unitary"; `ST3_pairC` is a counterexample);
-    - ch02:152 / FULL:795 ("any two dilations of the same channel … differ by a partial isometry on
-      the hidden sector. At the substratum level, this partial isometry is either a relabeling …");
-    - Structure:678 (Remark "why [Substratum] Lemma 24.1 can say more");
-    - Methodology:355 ("would be closed outright once that lemma is verified"), :357 ("becomes
-      closed once the semigroup-transfer completeness step is verified") and :359 ("exactly one
-      named item: that completeness lemma, identified for specialist verification").
-  - **(ii) Stale but harmless.** These state completeness or uniqueness as conditional on "Lemma
-    24.1's (semigroup-transfer) completeness step". They assert nothing false, but they condition on
-    a step whose stated form is contradicted:
-    - Substratum:16, :24, :189, :193, :271, :293, :317, :498;
-    - Structure:47, :138, :154;
-    - Methodology:13, :33, :333, :339, :365, :425, :437, :569;
+- **C3. The proposed SC-44 scope.** The Lemma 24.1 sites go to the owner and are not edited here,
+  except Explainer:976 (review B5). This is the reviewer's reconciled list, adopted as is.
+  - **(iii) False as stated** (they assert Lemma 24.1's contradicted conjugation conclusion, its
+    single-channel form, or closure upon verifying it):
+    - Substratum:273, :279, :281, :283, :287, :291, :298;
+    - ch02:152 / FULL:795; ch02:158 / FULL:801;
+    - Structure:678;
+    - Methodology:353, :355, :357, :359.
+  - **(ii) Stale but harmless** (conditional on "Lemma 24.1's (semigroup-transfer) completeness
+    step"):
+    - Substratum:16, :24 (twice), :189, :193, :271, :293, :317, :498;
+    - Structure:47 (first mention), :138, :154, :205;
+    - Methodology:13, :33, :333, :339, :351, :365, :425, :437, :569;
     - Complexity:206;
     - ch00:95; ch02:88, :118, :126, :132, :150;
-    - ch03:80, :208 (SC-43's "completeness argument conditional on the semigroup-transfer step"),
-      :220 (the owner's clause, kept verbatim) and :224;
+    - ch03:80, :208, :220 (the owner's clause) and :224;
     - their FULL mirrors.
   - **(i) Accurate.**
-    - Substratum:32 and :195: neither Theorem 23 nor Lemma 24.1 covers the Bell-inclusive
-      completion.
-    - Structure:659, :668 and Corollary 9.8: single-channel isometry uniqueness, K3, which states
-      that no equality of the full unitaries follows.
-    - ch03:228 / FULL:1104 and ch03:220's B1 sentence: completeness is conditional and not
-      established.
-    - Explainer:976 (B5).
+    - Substratum:32, and :195. :195 is borderline: it presupposes the lemma for the dilation datum.
+    - Structure:47 (second mention), :659, :668, :770.
+    - Methodology:359's "provably without empirical content", which is definitional.
+    - Explainer:976 after B5.
+    - ch03:228.
     - `verification/ROADMAP.md`:64.
+  - **Theorem hypotheses.** Substratum:189 (Lemma 23.0), Substratum:193 (Theorem 23) and ch02:118
+    (the Reconstruction Theorem) carry "Lemma 24.1's semigroup-transfer/completeness step" as a
+    hypothesis. A hypothesis that names the lemma itself is vacuous, because the lemma's stated
+    conclusion is contradicted in the kernel. When propagated, these should read "the completeness
+    of the four families".
+- **C5. SC-44 (`corpus/sc44-lemma241-core`, drafted at `1576a261`).** SC-44 replaces Substratum
+  §4's Lemma 24.1 with the restricted block-word trace theorem (`WT3_spanning_iff`) and states that
+  generator completeness is open. Once it lands, Substratum §4 contains no "semigroup-transfer step".
+  - **Affected text.** ch03:220 / FULL:1096 must then be reconciled with SC-44. Two phrases refer to
+    the step SC-44 removes: the owner's clause ("conditional on the semigroup-transfer completeness
+    step") and SC-43's bridging phrase ("Substratum §4, through its semigroup-transfer step").
+  - **How it is resolved.** The joint wording comes from the SC-44 review. The owner's clause
+    changes only by the owner's decision.
+  - **Other references.** The same applies to SC-43's ch03:208 ("conditional on the
+    semigroup-transfer step (Substratum Lemma 24.1)") and to the Explainer:976 citation
+    "[Substratum §4]". SC-43 does not edit Substratum.
 - **C4.** SC-42 edits Explainer:950, adjacent to SC-43's Explainer:946 and :976. No other branch
   touches a round-2 target line (checked by hunk intersection).
 
