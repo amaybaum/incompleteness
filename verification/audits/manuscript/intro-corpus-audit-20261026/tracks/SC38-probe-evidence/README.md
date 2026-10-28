@@ -53,7 +53,9 @@ The conclusions all hold exactly: D1–D5 re-derive them, over the same exhausti
 - **The memory theorem's clause (c)** holds on 24, 720 and 720 bijections.
 - **The predictive floor** holds on all 14, 97 and 149 laws.
 - **Must-fail controls (D1c, D4c, D5c).** Each bound, tightened (to 1/2 bit for D1, or by 1/2 bit for D4 and
-  D5), is violated at every size. The exact decision therefore detects violations and is not vacuous.
+  D5), is violated at every size. The exact decision therefore detects violations and is not vacuous. D1 uses a
+  flat 1/2-bit bound because $\log_2|\mathcal C_H| - 1/2$ cannot fire at (2,3) or (2,4): there
+  $\max_k M_k \le \log_2 n_V = 1 < \log_2 3 - 1/2$.
 
 The edits correct the evidence label only, and each claim stands. Main:620's own wording is SC-40's (see
 Cross-unit dependencies).
@@ -63,7 +65,7 @@ Output strings of the probes, where they claimed certification over a floating-p
 - `c4_backflow_probes.py`:131 "readback lemma certified" became "checked";
 - `memory_probes.py`'s header "Certifies" became "Checks".
 
-`primitive_probes.py` is left to SC-40 (`corpus/sc40-c2-c3-statements` at a9480336), whose branch rewrites its
+`primitive_probes.py` is left to SC-40 (PR #974, `corpus/sc40-c2-c3-statements` at e27f7866, which contains a9480336), whose branch rewrites its
 header and its line 100 output string to the per-order form. SC-40 edits neither of the other two files.
 
 Checked and left unchanged, because the label is accurate:
