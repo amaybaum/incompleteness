@@ -20,5 +20,8 @@ PASS C1 CONTROL (must exceed 2): two one-player coins, each uniform for every (a
 PASS C2 CONTROL (must exceed 2): A's coin uniform for every (a,b) but jointly with the deal encodes ab: CHSH = 4
 PASS C3 CONTROL (must exceed 2): own-card readouts with the readout function selected by b: CHSH = 4
 PASS C4 admit: a shared coin jointly independent of the settings, all coin-indexed local tables: max |CHSH| = 2
+PASS O3a every readout rule selected by the player's own setting, every deal: max |CHSH| = 2
+PASS O3b E3 still separates: own-setting schedule accepted, other-setting (b) schedule rejected
+PASS PIN the ch01/FULL and ch03/FULL card sentences and the ch03 gloss are present exactly
 
 card_bell_check: ALL CHECKS PASS

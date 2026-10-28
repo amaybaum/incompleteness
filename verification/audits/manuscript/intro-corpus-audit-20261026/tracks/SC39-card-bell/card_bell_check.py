@@ -6,9 +6,10 @@ A two-player card table: a deal Omega (a tuple of hidden cards, red = +1 / black
 
   K1  Under the book's conditions -- once the deal is down every operation (rule-prescribed shuffle, move,
       setting choice) reads and writes one player's own cards only; which operation is applied to a
-      player's cards, and how that player's +-1 outcome is read from them, depends only on those cards and
-      on chance drawn, together with the deal, independently of the settings (Omega' = (deal, all chance),
-      p(Omega' | a, b) = p(Omega')); an outcome in every run, no run set aside -- every outcome is
+      player's cards, and how that player's +-1 outcome is read from them, depends only on those cards,
+      that player's own setting and on chance that, taken together with the deal, is independent of the
+      settings (Omega' = (deal, all chance), p(Omega' | a, b) = p(Omega')); an outcome in every run, no run
+      set aside -- every outcome is
       q_a(own cards), r_b(own cards). Over every pair of deterministic local response tables (4 x 4 = 16
       pairs) and hence every deal distribution, |CHSH| <= 2 (exact, vertex enumeration; the set of such
       models is the convex hull of these).
@@ -43,6 +44,12 @@ A two-player card table: a deal Omega (a tuple of hidden cards, red = +1 / black
       CHSH = 4. C1 and C2 show the chance must be independent of the settings JOINTLY with the deal.
   C3  (countercontrol) each readout reads only the player's own cards, but which readout function A uses
       is selected by b: CHSH = 4. The readout rule must obey the same dependence clause as the operations.
+  O3  (own setting admitted, other setting not) operation choice and readout may depend on the player's own
+      setting: E3 accepts an operation schedule chosen from A's own setting and rejects one chosen by b; O3a
+      enumerates every readout rule selected by the player's own setting (all 16 x 16 per player) over every
+      deal, max |CHSH| = 2; C3 (readout selected by b) still fires.
+  PIN the exact book sentences this check supports are present in book/ch01-observation.md,
+      book/ch03-structural-realism.md and twice in the FULL mirror.
   C4  (admit) a coin shared by both players, jointly independent of the settings and the deal, over all
       coin-indexed local table pairs: max |CHSH| = 2. Chance need not be private; it is part of Omega'.
   E   Exhaustive check on a four-card deck (A: hand, setting card; B: hand, setting card; cards 0/1):
@@ -360,6 +367,33 @@ for pc in (F(1, 2), F(1, 3)):
             worst = max(worst, abs(chsh(E)))
 check("C4 admit: a shared coin jointly independent of the settings, all coin-indexed local tables: max |CHSH| = 2",
       worst == 2)
+
+# ---- O3: dependence on the player's own setting is admitted; on the other's is not
+fns = list(product((1, -1), repeat=2))                      # readout of the hand card h in {+1,-1}: (g(+1), g(-1))
+worst = 0
+for gA in product(fns, repeat=2):                           # A's readout function selected by a
+    for gB in product(fns, repeat=2):                       # B's readout function selected by b
+        for hA in (1, -1):
+            for hB in (1, -1):
+                q = {x: gA[x][0 if hA == 1 else 1] for x in S}
+                r = {y: gB[y][0 if hB == 1 else 1] for y in S}
+                worst = max(worst, abs(q[0] * r[0] + q[0] * r[1] + q[1] * r[0] - q[1] * r[1]))
+check("O3a every readout rule selected by the player's own setting, every deal: max |CHSH| = 2", worst == 2)
+check("O3b E3 still separates: own-setting schedule accepted, other-setting (b) schedule rejected",
+      product_test(own_sched) and not product_test(L2_sched))
+
+# ---- PIN: the exact book sentences
+import pathlib
+ROOT = pathlib.Path(__file__).resolve().parents[6]
+PIN_CH01 = "but it violates no Bell inequality when, once the deal is down, every operation — each shuffle the rules prescribe, each move and each setting choice — reads and writes one player's own cards only; which operation is applied to a player's cards, and how that player's $\\pm1$ outcome is read from them, depends only on those cards, that player's own setting and on chance that, taken together with the deal, is independent of the settings; an outcome is recorded in every run and no run is set aside; and the settings are chosen independently of the deal: such a game is a local hidden-variable model (Main §3.3)."
+PIN_CH03 = "a card game in which, once the deal is down, every operation, including each shuffle the rules prescribe, each move and each setting choice, reads and writes one player's own cards only, and which operation is applied to a player's cards, and how that player's outcome is read from them, depends only on those cards, that player's own setting and on chance that, taken together with the deal, is independent of the settings, with each outcome a $\\pm1$ result in every run, no run set aside, and the settings chosen independently of the deal, violates no Bell inequality."
+PIN_GLOSS = 'the deal, taken together with any chance the game uses, does not know the settings'
+t01 = (ROOT / "book" / "ch01-observation.md").read_text(encoding="utf-8")
+t03 = (ROOT / "book" / "ch03-structural-realism.md").read_text(encoding="utf-8")
+tfull = (ROOT / "book" / "The-Incompleteness-of-Observation-FULL.md").read_text(encoding="utf-8")
+check("PIN the ch01/FULL and ch03/FULL card sentences and the ch03 gloss are present exactly",
+      PIN_CH01 in t01 and PIN_CH03 in t03 and PIN_GLOSS in t03
+      and tfull.count(PIN_CH01) == 1 and tfull.count(PIN_CH03) == 1 and tfull.count(PIN_GLOSS) == 1)
 
 print("\ncard_bell_check:", "ALL CHECKS PASS" if not FAIL else f"{len(FAIL)} FAILURE(S): {FAIL}")
 sys.exit(1 if FAIL else 0)
