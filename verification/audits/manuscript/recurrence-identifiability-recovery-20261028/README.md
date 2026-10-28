@@ -34,3 +34,18 @@ recurrence-cycle verdict and an accessible short-time witness.
 Local work uses bounded source/static checks only under AGENTS A.40. Full
 Mathlib compilation and release/probe suites run in normal draft PR CI. No native
 round, F/E designation, special dispatch or merge is authorized by this branch.
+
+## Actual rooted-return bridge candidate
+
+`RootedRecurrenceBridge.lean` proves from the actual iterate-return hypothesis
+that the existing rooted map is the identity, using the realization's common
+normalized hidden prior. It composes this with the existing overlap/identity-return
+kernel theorem. Uniformity and full support are not needed for this implication.
+This is a separate partial bridge, not the full history-readback theorem: the
+history/common-endpoint implication and finite-order existence still have their
+own obligations. No short-window P-indivisibility statement is introduced.
+
+The first P24.5-core checkpoint, `4f962b61aca490cec326542be0cbaee201c82796`,
+compiled successfully in ordinary PR CI run 40724655067: the Mathlib Build and
+Release gate steps succeeded. Independent mathematical/declaration acceptance
+remains separate. A later bridge candidate needs its own compilation verdict.

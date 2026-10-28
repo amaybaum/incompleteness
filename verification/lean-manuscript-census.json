@@ -1565,6 +1565,15 @@
       "note": "Research proof candidate for the set-theoretic core of P24.5(i): nonempty preparation-supported record fibres, quantity constancy, initial/current state singleton criterion, and current hidden criterion for product visible projection and permutation dynamics with at least one retained reading. Swap and empty-word controls are included. Not the Bayesian support calculation, N−1 refinement bound, physical record availability, or the whole proposition; no manuscript/ledger promotion is made before exact-head CI and independent review."
     },
     {
+      "name": "exact microscopic iterate return to actual rooted identity and horizon indivisibility",
+      "modules": [
+        "RootedRecurrenceBridge"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Research candidate: exact return of RootedRealization.step iterate yields rootedMap n = I for its actual common normalized hidden prior; composition with the existing overlap/return theorem yields PIndivisibleWithin n. No uniformity or full-support hypothesis is added. Finite-order existence, positive-history/common-endpoint to non-permutation and short accessible-window consequences are not asserted. No manuscript/ledger promotion before CI and independent review."
+    },
+    {
       "name": "conditional k-token cone theorem: products, cone closure, the k-fold maxCone bound and CNOT plus rotation/cyclic invariance give the PSD cone of the k-fold Pauli dictionary (round KTOKEN-MAXCONE-1, reconstruction)",
       "modules": [
         "KTokenMaxCone"

@@ -234,6 +234,7 @@ import OIBridge.ProductOffLocusUniqueness
 import OIBridge.SemigroupTransfer
 import OIBridge.WordTraceSufficiency
 import OIBridge.RecurrenceHorizon
+import OIBridge.RootedRecurrenceBridge
 import OIBridge.ScalingFamily
 import OIBridge.RootedClassification
 import OIBridge.RootedClassificationT2
