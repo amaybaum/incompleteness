@@ -4,8 +4,11 @@ Unit of PR-A (part). Base `main` at `0d917665`; branch `corpus/sc37-g3-condition
 below are at the base. Four commits: the unit's corrections; the independent review's findings
 B1–B6 with its also-apply list (review of `2ab22504`, ACCEPT WITH CHANGES); the delta review of
 `15899d90` (ACCEPT WITH CHANGES: the "by theorem" invisibility, §8 below, and two recommended edits);
-and the owner's decision on the dark-sector tier with the reviewer's optional item on `23f0fc97`
-(ACCEPT), §9 below.
+the owner's decision on the dark-sector tier with the reviewer's optional item on `23f0fc97`
+(ACCEPT), §9 below; and the review of `59e5962c` (ACCEPT WITH CHANGES, which confirmed the "No dark
+matter particle" move): B7, the GR:30 condition and the scan scope, §9 below, together with two
+further owner decisions (level placement; the particle-dark-matter claim, §10) and the ch18
+component headings coordinated with SC-36 (§11).
 
 ## Finding
 
@@ -313,11 +316,173 @@ formal change: none.**
   every stated count ("Tier N has …", "The N Tier 2 entries", "N universality-class entries tested",
   the three-tier total); a stated count that disagrees with its table fails. A negative test (Tier 1
   stated as "four" against three rows) fails as intended. No coverage fingerprint moved.
-- **After SC-36 and SC-37 both land the counts must be recounted.** SC-36 removes the
-  black-hole-information row and states "four"; this unit removes the two dark-sector rows and states
-  "three". Merged, Tier 1 holds two rows (the area law and no GUT-mediated proton decay), so the
-  stated Tier 1 counts must read "two" and the three-tier total "nineteen"; SC-36 also changes the
-  ch09:130 sentence this unit rewrites. Run `check.py` section 2c on the merge.
+- **Review of `59e5962c` (B7 and also-apply).** ch09:156 / FULL:2636 ended "…rather than as seven
+  independent confirmations" while the table now has nine rows; it reads "…rather than as
+  independent confirmations." GR:30, the tier-to-level map, "*Tier 2* — the dark-sector phenomenology
+  — sits at Level D × Levels G1–G2, deriving from the thermodynamic Clausius relation applied to the
+  specific boundary reservoir of OI's universality-class representative" gains ", its gravitational
+  reading conditional on the open G3 coupling step (§6.2)", as GR:28. `check.py` §2c now also reads
+  every count word before "entries", "universality-class entries" or "independent confirmations" in
+  the paragraph after each tier table and compares it with that table's rows (a restored "seven
+  independent confirmations" fails). Re-grep of ch09, ch07, ch19, Structure §2.4 and GR for other
+  count phrases: the remaining ones ("twenty-two classified Standard Model observable entries",
+  "eight gravitational-sector entries", "seven neutrino-sector entries" at ch09:8, :323 and ch19:362;
+  "the ten entries in this chapter's table" at ch07:321; "three tiers", "three independent
+  requirements", "four independent routes", "three independent $d=3$ selectors", "two independent
+  ways", ch19:144 "the seven entries the framework does not fully resolve") count objects other than
+  the Chapter 9 tier tables and are unchanged by the tier move.
+- **Reconciliation with SC-36 (by merits, §A.39).** SC-36 removes the black-hole-information row and
+  states "four"; this unit removes the two dark-sector rows and states "three".
+  - A by-side "ours" resolution of the ch09 conflict passes §2c (three rows, "three") while silently
+    restoring the black-hole row that SC-36 deletes. The count check cannot detect that: the
+    reconciliation must be resolved and checked by merits, row by row, against both branches' diffs.
+  - The paragraph after the Tier 1 table needs a merits merge too: SC-36's sentence that information
+    conservation follows from the bijectivity premise and is not an empirical entry, plus this unit's
+    sentence that the dark-sector budget and the absence of a dark-matter particle are Tier 2 entries.
+  - Expected merged counts: Tier 1 holds two rows (the area law, no GUT-mediated proton decay):
+    "Two universality-class entries tested …", "Tier 1 has two entries", and the three-tier total
+    "nineteen" (2 + 9 + 8). Run `check.py` §2c on the merge.
+
+### 10. Owner decisions: level placement and particle dark matter (round 5)
+
+**Decision 1, level placement (owner, quoted).** "Retain Tier 2, Level D × G1–G2 for the general
+dark-sector phenomenology. Correct Structure:179 to agree with GR:30 and GR:597. … the dark-sector
+mechanism is constructed from horizon thermodynamics, entropy displacement, and the proposed
+matter-to-boundary coupling. It is not derived from a particular microscopic bijection or from the
+complete substratum gauge classification." The owner's table: the descriptive vacuum-energy
+distinction and boundary counting, Tier 1 with stated assumptions; the physical dark-sector
+interpretation, the ~95% budget and the MOND acceleration scale, Tier 2, conditional on the coupling
+and other stated inputs; the specific microscopic realization and interpolation-function details,
+Tier 3 where genuinely bijection-dependent.
+
+- **Original.** Structure:179 "- *Level G3 × Level D predictions* — Cabibbo angle …, Koide ratio
+  $2/3$, Bekenstein-Hawking $A/4$, dark-sector phenomenology (…). Distinguishes OI from other
+  universality-class members; forced by OI's specific $\mathcal{G}_{\rm sub}$-equivalence class."
+- **Defect.** The level disagrees with GR:30 and GR:597 (Level D × Levels G1–G2), and "forced by OI's
+  specific equivalence class" overstates a mechanism built from horizon thermodynamics and the
+  proposed coupling.
+- **Correction.** A new bullet before the G3 × D one: "*Level D × Levels G1–G2 classification* — the
+  general dark-sector phenomenology: the physical interpretation of the ~95% budget and the MOND
+  acceleration scale. It is classified at these levels because its mechanism is constructed from
+  horizon thermodynamics, entropy displacement and the proposed matter-to-boundary coupling, not from
+  a particular microscopic bijection or from the complete gauge classification; the classification
+  does not derive the mechanism, whose gravitational reading is conditional on the open
+  matter-to-boundary coupling step ([GR §6.2])." The G3 × D bullet keeps "Cabibbo angle …,
+  Bekenstein-Hawking $A/4$, and the bijection-dependent details of the dark-sector interpolation
+  function ([GR §7.3])". GR:30 and GR:597 read as classifications ("sits at …", "a Tier 2 / Level D ×
+  Levels G1–G2 prediction, conditional on …") and are kept.
+- **Two different G3s.** GR's open coupling step (its dependency ladder) and the gauge-hierarchy Level
+  G3 of Structure and ch09 are different classifications. Every sentence this unit wrote that sits
+  near a tier or level label now names the coupling step in words: GR:28 and GR:637 "the open
+  matter-to-boundary coupling step (§6.2)"; GR:30 "its gravitational reading conditional on the open
+  coupling step (§6.2)"; ch07:14 "the open matter-to-boundary coupling step ([GR §6.2])"; ch09:118,
+  :128, :140 and the Tier 2 table cell "the open matter-to-boundary coupling step"; ch03:222
+  "conditional on the open matter-to-boundary coupling step ([GR §6.2])". "G3" remains where the
+  sentence is about GR's own ladder (GR:344, :374, ch07:177, ch18:140, ch02:120, Explainer:541,
+  :689), with no level label beside it.
+- **Whole table against the corpus.** MOND $a_0$: Tier 2 at GR:28, :510, ch07:14, :284, ch09:48 and
+  the ch09 Tier 2 table. Interpolation details: Tier 3 at GR:510, :528, ch09:48 and the ch09 Tier 3
+  table. Descriptive distinction and boundary counting: Tier 1 at ch07:14 and ch09:48. No
+  disagreement found. ch09:48 places $a_0$ "at Level G2", within G1–G2; unchanged.
+
+**Decision 2, particle dark matter (owner, quoted).** "Reject the unconditional statement that no
+particle dark matter exists." Defensible form: "Under OI's proposed dark-sector mechanism,
+conditional on the open matter-to-boundary coupling, the structured gravitational dark sector is
+accounted for without requiring a new dark-matter particle species. Detection of particles accounting
+for the full structured dark-matter budget would contradict that account." A subdominant particle
+component "would require examining the budget and possible double counting. It would not
+automatically refute the framework in its entirety." "Null direct-detection results establish
+consistency with the proposal, not confirmation that dark-matter particles do not exist."
+
+- **Originals and corrections.**
+  - GR:458 "The corollary's prediction is that no particle dark matter exists — the dark sector is the
+    trace-out, not a missing particle species." → "Under the corollary's proposed dark-sector
+    mechanism, conditional on the open matter-to-boundary coupling step, the structured
+    gravitational dark sector is accounted for without requiring a new dark-matter particle species:
+    the dark sector is read as an effect of the trace-out, not as a missing particle species."; its
+    close "is consistent with the corollary's prediction. Definitive falsification of the corollary
+    requires positive detection of a particle species accounting for the structured dark sector,
+    which has not occurred." → "is consistent with that account; null results establish consistency
+    with the proposal, not that dark-matter particles do not exist. Detection of particles accounting
+    for the full structured dark-matter budget would contradict the account, and has not occurred; a
+    subdominant particle component would require re-examining the budget for double counting and
+    would not by itself refute the framework."
+  - GR:464 adds "A subdominant particle component would instead require re-examining the budget for
+    double counting."; GR:526 (a) "detection of dark matter particles accounting for the full
+    structured budget, $\sim 27\%$ of $\rho_{\text{crit}}$"; GR:707 "the absence of direct
+    dark-matter detection … is interpreted within the framework as a structural consequence rather
+    than a null result to be explained away" → "the null direct-detection results at the LZ and
+    XENONnT experiments are consistent with that account, without establishing that dark-matter
+    particles do not exist"; GR:490 / ch07:272 "Flat rotation curves emerge with no dark matter
+    particles" → "Within the conditional entropy-displacement account, flat rotation curves emerge
+    without dark matter particles".
+  - ch07:247 "The framework predicts that no such particle exists" → "Under the framework's proposed
+    dark-sector mechanism, conditional on the open matter-to-boundary coupling step ([GR §6.2]), the
+    structured gravitational dark sector is accounted for without requiring such a particle"; ch07:256
+    "The dark sector is not a separate substance requiring a new particle species" → "On that account,
+    conditional on the open matter-to-boundary coupling step, the dark sector requires no separate
+    substance or new particle species"; ch07:302 row "| No dark-matter particle | … | XENON, LUX, etc.
+    null | consistent | 2 (cond.) |" → "| Non-particle explanation of the structured dark sector
+    (conditional) | conditional dark-sector interpretation | XENON, LUX, LZ null | consistent, not a
+    confirmation | 2 (cond.) |"; ch07:309 "A high-confidence direct detection of a dark-matter particle
+    at non-gravitational interaction strength would refute this dark-sector interpretation." → "… of
+    dark-matter particles at non-gravitational interaction strength, accounting for the full
+    structured dark-matter budget, would contradict this dark-sector account; a subdominant particle
+    component would require re-examining the budget for double counting and would not by itself
+    refute the framework."
+  - ch04:148 and Substratum:484 "incompatible with the direct detection of a WIMP … no
+    entropy-displacement signature. A confirmed WIMP with such properties falsifies the framework's
+    dark-sector account while leaving the rest of the structure intact" → "… of WIMPs … no
+    entropy-displacement signature, accounting for the full structured dark-matter budget. Such a
+    detection falsifies the framework's dark-sector account while leaving the rest of the structure
+    intact …", each closing "A subdominant particle component would instead require re-examining the
+    budget for double counting." ch04:148 also cited "Chapter 6" for the dark sector, which is
+    Chapter 7; corrected.
+  - ch09:72 (Level G2 row) "no DM particle" → "non-particle structured dark sector (conditional)";
+    ch09:128, :140 "the absence of a dark-matter particle" → "the non-particle explanation of the
+    structured dark sector"; the ch09 Tier 2 row → "| Non-particle explanation of the structured dark
+    sector (conditional) | XENON, LUX, LZ null: consistent with the proposal, not a confirmation | Ch 7
+    §7.9 |"; ch09:255 "no particle dark matter" (agreement with conformal gravity) → "no required
+    dark-matter particle".
+  - ch19:44 "the framework's content is that no such particle exists." → "the framework's proposal,
+    conditional on the open matter-to-boundary coupling step, accounts for the structured dark sector
+    without requiring one."; ch19:46 "Dark matter is not a particle — it is entropy displacement from
+    the cosmological horizon." → "On that proposal dark matter is read as entropy displacement from the
+    cosmological horizon rather than as a particle species."
+  - ch00:83 and Explainer:583 "consistent with the framework's (structural) prediction that no
+    particle dark matter exists" → "consistent with the framework's proposal, conditional on the open
+    matter-to-boundary coupling step, that the structured dark sector requires no new particle species;
+    null results establish consistency, not that such particles do not exist."
+- **Kept.** Factual null-result statements (ch00:15, ch07:247's "Decades of direct-detection
+  experiments … have produced no detection", ch19:44's standard status, ch19:331 "no particle
+  found"), the comparative "Particle dark matter predicts …" (GR:520, :530), GR:12 and Substratum:325
+  ("a structural feature … rather than a new particle species", the corollary as stated in the
+  abstracts, whose G4 status is conditional on G3 by GR:12), and the bibliography and
+  acknowledgments.
+- **Ledger.** GR:458 is not a canonical statement; `coverage_check` OK, no fingerprint moved.
+
+### 11. ch18 component headings (coordinated with SC-36)
+
+- **Original.** ch18:142 / FULL:4960 "**The first conditional dissolution: the cosmological
+  constant.**" (this unit's earlier form; base "**The first dissolution: …**"); ch18:146 / FULL:4964
+  "**The second dissolution: the black hole information paradox.**"; ch18:152 / FULL:4970 "**The
+  third dissolution: non-renormalizability.**"; ch18:160 / FULL:4978 "The cumulative case is not
+  three independent dissolutions but one framework-level reading applied three times."
+- **Defect.** A trial merge with SC-36 read "first conditional dissolution / second component / third
+  dissolution / three independent dissolutions" against ch18:130's statement that the information
+  paradox is not resolved; the three labels did not form a series.
+- **Correction.** "**The first component: the cosmological constant.** Chapter 7 §7.7 developed the
+  conditional cosmological constant dissolution in detail."; ch18:146 takes SC-36's line verbatim
+  ("**The second component: the black hole information paradox.** …", the whole line, so that the
+  merge with SC-36 is identical on both sides); "**The third component: non-renormalizability.**";
+  "The cumulative case is not three independent treatments but one framework-level reading applied
+  three times." Consistent uses: ch18:140 "each dissolving, conditional on the covariant rung G3" →
+  "each receiving a framework-level reading, conditional on the covariant rung G3"; ch18:144 "The
+  structural feature of this dissolution" → "of this component"; ch18:150 "the cosmological constant
+  dissolution" → "the conditional cosmological constant dissolution"; ch19:32 "The three components
+  of the dissolution are developed in" → "The three components are developed in". ch18:130 belongs to
+  SC-36 and is not touched; the cosmological-constant dissolution, which is conditional, keeps its
+  name.
 
 ## Site table
 
@@ -337,11 +502,17 @@ formal change: none.**
 | GR:374 | "the gauge status of the uniform vacuum offset" | gauge for every quantum statistic; coupling the open G3 step | GR:356, §8.3 |
 | GR:422 (Corollary), 452, 456 | coupling used without hypothesis; "ordering established in §6.2: … stress-energy … is the classical" | hypothesis "geometry-first proposal of §6.2 (conditional on the open coupling step)" added; proposal stated as such | GR:356, GR:12 |
 | ch09:118, 125–126, 130, 144, Tier 2 table, 156, 177 (FULL:2598, 2605–2606, 2610, 2622, Tier 2 table, 2636, 2657) | dark-sector budget and no-DM particle in Tier 1; "five" / "seven" | partly definitional count kept; physical interpretation Tier 2, conditional; "three" / "nine" | owner decision; ch07:297, :302 |
+| ch09:156 (FULL:2636) | "rather than as seven independent confirmations" | "rather than as independent confirmations" | Tier 2 table rows |
+| GR:30 | Tier 2 at Level D × G1–G2 without the condition | ", its gravitational reading conditional on the open G3 coupling step (§6.2)" | GR:28 |
 | GR:28, 597, 637; ch07:14 (FULL:1893); Structure:179 | Tier 2 / dark-sector phenomenology without the coupling condition | gravitational reading conditional on the open coupling step | owner decision; GR:12 |
 | GR:26, 468, 545, 707 | corollary "predicts" / "explains"; budget "established"; "consistent"; Predicted "≈ 95%" | conditional; partly definitional; "(conditional on the coupling step)" | GR:358, GR:12, ch07:297 |
 | GR:450 (ii-a), Explainer:581 | "a theorem of Part I"; "The paper proves" | "By the construction of the trace-out" | GR:450 itself ("by construction") |
 | Explainer:537, 541, 543, 545, 549–551, 579, 581, 593, 625, 689, 900 | as in §§1–4, 6, 7 | conditional / normalization / "depends only on" / on the proposal | GR §6 |
 | Substratum:46 | "The dark sector is the gravitational effect …" | on the geometry-first proposal | GR:356 |
+| Structure:179 | dark-sector phenomenology at Level G3 × Level D | own bullet: Level D × Levels G1–G2 classification; interpolation details at G3 × D | owner decision 1; GR:30, :597 |
+| GR:28, 30, 637; ch07:14; ch09:118, 128, 140, Tier 2 cell; ch03:222 | "open G3 coupling" near tier/level labels | "the open matter-to-boundary coupling step" | owner decision 1 |
+| GR:458, 464, 490, 526, 707; ch07:247, 256, 272, 302, 309; ch04:148; Substratum:484; ch09:72, 128, 140, 154, 255; ch19:44, 46; ch00:83; Explainer:583 (FULL mirrors) | "no particle dark matter exists"; "No dark matter particle"; any WIMP falsifies; nulls as support | non-particle explanation of the structured dark sector, conditional; full-budget falsifier; subdominant component re-examines the budget; nulls = consistency | owner decision 2 |
+| ch18:140, 142, 144, 146, 150, 152, 160; ch19:32 (FULL:4958–4978, 5192) | "dissolution" labels for the three problems | "component" labels; "treatments"; conditional CC dissolution named as such | coordination with SC-36 |
 | ch02:22, ch03:212, :222 (FULL:665, 1088, 1098) | dark sector / dark energy stated as the gravitational effect; ch03:222 "invisible to every embedded observer *by theorem*" | on the geometry-first proposal; "by the construction of the trace-out ([GR §7.2], step (ii-a)), it is invisible to the emergent quantum description" | GR:356, GR:450 |
 | ch07:175, 258 (FULL:2054, 2137) | "not commensurable as gravitational sources"; "(does gravitate)" | conditional on the coupling step; on the same proposal | GR:356 |
 | ch19:54 (FULL:5214) | "The framework predicts that dark energy is …" | on the geometry-first proposal | GR:356 |
@@ -369,18 +540,19 @@ The Lean census registry is untouched.
 `python3 -I check.py <repo-root> 0d917665`, output in `check.out` (the added-lines scan excludes
 `check.out`, so the count is stable):
 
-- 58 superseded wordings: **0** occurrences each, corpus-wide (papers, chapters, FULL; the
+- 84 superseded wordings: **0** occurrences each, corpus-wide (papers, chapters, FULL; the
   Introduction excluded per the unit brief).
-- 41 corrected book sentences: present once in the chapter and once in FULL each; 12 corrected paper
+- 60 corrected book sentences: present once in the chapter and once in FULL each; 24 corrected paper
   sentences pinned at exactly one occurrence each.
-- Chapter 9 tier counts (section 2c): every stated Tier 1, Tier 2 and Tier 3 count and the three-tier
-  total equal the rows of their tables, in the chapter and in FULL (3, 9, 8; 20).
+- Chapter 9 tier counts (section 2c): every stated Tier 1, Tier 2 and Tier 3 count, every count word
+  before "entries" or "independent confirmations" in the paragraph after each table, and the
+  three-tier total equal the rows of their tables, in the chapter and in FULL (3, 9, 8; 20).
 - Inventory of chapter and paper sentences pairing a cosmological-constant or dark-sector term with a
   dissolution, gravitation, "commensurable" or "is dark energy / matter" form (the review asked for
-  the dark-sector and "commensurable" sentences to be caught): **105** carry a conditional marker in
-  the sentence; **47** do not, each reviewed:
+  the dark-sector and "commensurable" sentences to be caught): **108** carry a conditional marker in
+  the sentence; **45** do not, each reviewed:
   - conditional by the enclosing sentence, paragraph or statement: ch07:177, :258 (the clause
-    corrected, the rest descriptive), ch18:130, :150, ch19:32, GR:362 ×2, GR:452 ("Under this
+    corrected, the rest descriptive), ch18:130, GR:362 ×2, GR:452 ("Under this
     ordering", after the corrected sentence), GR:462 ×2 (inside the Corollary's proof, whose statement
     now carries the hypothesis), GR:659;
   - descriptive or identity statements making no coupling claim: Explainer:579 ×2, GR:356 (a)/(b),
@@ -395,7 +567,10 @@ The Lean census registry is untouched.
     :849, :851, GR:555, appendix-c:122, Explainer:783, Substratum:157, :500; ch08:246, :264 and
     Explainer:587 concern the neutrino-mass tension, recorded for #970.
 - Added lines: 0 register, caps or revision-voice hits (§A.32/§A.33 family, counted against the
-  removed text of the same file); 0 secret or local-path hits.
+  removed text of the same file); 0 secret or local-path hits. The secret/path scan covers this
+  unit's own added lines (manuscripts and this track directory) and exempts other units' track
+  directories, whose pattern lists would otherwise match once they land. Planted tests: a local path
+  appended to a manuscript line is flagged; a path pattern in another track directory is not.
 
 ## Conditional or removed
 
@@ -411,6 +586,12 @@ as fact (§7). Removed: "the proofs are complete" (appendix-c:317); "predicts th
 (ch19 ×3); "established by §7.2" (GR:468).
 
 ## Cross-unit dependencies
+
+- **SC-43** (`corpus/sc43-turtles-scope`) rewrites the later sentences of ch03:222 / FULL:1098, the
+  same line whose dark-sector sentences this unit corrects: a textual conflict is expected. Resolve
+  by merits: SC-43's sentences from "Only past that first real turtle" onward, this unit's sentences
+  from "and, in the flagship case" through "(Chapter 7 §§7.8–7.9)".
+- **SC-36, ch18:146 / FULL:4964:** this unit carries SC-36's line verbatim; identical on both sides.
 
 - **SC-36** (`corpus/sc36-page-curve-scope`) retitles ch19 §19.2 to the identical "Problems addressed"
   (ch19:20 / FULL:5180): identical change, merges cleanly. SC-36 deletes the ch09 Tier 1 row at
@@ -434,6 +615,9 @@ as fact (§7). Removed: "the proofs are complete" (appendix-c:317); "predicts th
   (§3.2, Step 2) instead of the calibration.
 
 ## Open, for #970 (recorded, not edited)
+
+- The two owner items recorded in round 5 (level placement; the strength of the
+  no-dark-matter-particle claim) were decided by the owner and are applied in §10.
 
 - ch08:246, :264 and Explainer:587 say the framework's RVM dark energy "resolves" the DESI $3\sigma$
   neutrino-mass tension; GR:414 says it "would relax" it.

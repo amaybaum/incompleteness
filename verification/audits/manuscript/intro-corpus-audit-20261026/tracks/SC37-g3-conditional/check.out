@@ -53,6 +53,32 @@
    0  Tier 1 has five entries
    0  Tier 2 has seven entries
    0  The seven Tier 2 entries
+   0  rather than as seven independent confirmations
+   0  open G3 coupling step
+   0  open G3 matter-to-boundary coupling
+   0  open G3 coupling |
+   0  conditional on the open coupling step (G3), it carries
+   0  no particle dark matter exists
+   0  No dark matter particle |
+   0  No dark-matter particle |
+   0  no DM particle |
+   0  the absence of a dark-matter particle
+   0  The framework predicts that no such particle exists
+   0  the framework's content is that no such particle exists
+   0  Dark matter is not a particle
+   0  The dark sector is not a separate substance requiring a new particle species
+   0  A confirmed WIMP with such properties
+   0  would refute this dark-sector interpretation
+   0  as a structural consequence rather than a null result to be explained away
+   0  Flat rotation curves emerge with no dark
+   0  **The first conditional dissolution:
+   0  **The second dissolution:
+   0  **The third dissolution:
+   0  three independent dissolutions
+   0  each dissolving, conditional on the covariant rung G3
+   0  The three components of the dissolution
+   0  The structural feature of this dissolution
+   0  Bekenstein-Hawking $A/4$, dark-sector phenomenology
    0  \Omega_{\text{dark}} \approx 95\%$ | $\Omega_{\text{CDM}}
    0  The framework predicts that dark energy is the uniform component
    0  The dark-sector corollary predicts that ~95%
@@ -64,7 +90,11 @@
    ok  1/1  book/ch07-gravity.md: The framework's geometry-first proposal converges
    ok  1/1  book/ch07-gravity.md: convergence with the framework's geometry-first proposal
    ok  1/1  book/ch07-gravity.md: while on Section 7.7's proposal, conditional on the coupling step,
-   ok  1/1  book/ch07-gravity.md: Their gravitational reading is conditional on the open G3 coupling ste
+   ok  1/1  book/ch07-gravity.md: Their gravitational reading is conditional on the open matter-to-bound
+   ok  1/1  book/ch07-gravity.md: Under the framework's proposed dark-sector mechanism, conditional on t
+   ok  1/1  book/ch07-gravity.md: | Non-particle explanation of the structured dark sector (conditional)
+   ok  1/1  book/ch07-gravity.md: accounting for the full structured dark-matter budget, would contradic
+   ok  1/1  book/ch07-gravity.md: Within the conditional entropy-displacement account, flat rotation cur
    ok  1/1  book/ch07-gravity.md: (on the same proposal, does gravitate)
    ok  1/1  book/ch07-gravity.md: Conditional on the coupling step, the two are not commensurable as gra
    ok  1/1  book/ch03-structural-realism.md: on the geometry-first proposal, the dark sector is the gravitational e
@@ -73,6 +103,7 @@
    ok  1/1  book/ch03-structural-realism.md: in the flagship case and conditional on the open coupling step, its en
    ok  1/1  book/ch00-introduction.md: the descriptive distinction behind a dissolution of the cosmological c
    ok  1/1  book/ch00-introduction.md: combining the conditional CC dissolution
+   ok  1/1  book/ch00-introduction.md: consistent with the framework's proposal, conditional on the open matt
    ok  1/1  book/ch02-substratum.md: On the geometry-first proposal, the dark sector of cosmological observ
    ok  1/1  book/ch02-substratum.md: a reading on which the problem dissolves conditional on the open coupl
    ok  1/1  book/ch09-universality.md: (conditional cosmological constant dissolution,
@@ -81,10 +112,19 @@
    ok  1/1  book/ch09-universality.md: another ([Main §3.4]; [GR §8.3]), which is why
    ok  1/1  book/ch09-universality.md: gauge outright for every quantum statistic and, conditional on the cou
    ok  1/1  book/ch09-universality.md: the dark-sector budget only as a partly definitional count ($1-\Omega_
-   ok  1/1  book/ch09-universality.md: is Tier 2 and conditional on the open G3 matter-to-boundary coupling (
-   ok  1/1  book/ch09-universality.md: gravitational explanation conditional on the open G3 coupling | Ch 7 §
-   ok  1/1  book/ch09-universality.md: | No dark matter particle | XENON, LUX, etc. null; conditional dark-se
-   ok  1/1  book/ch18-beyond.md: **The first conditional dissolution: the cosmological constant.**
+   ok  1/1  book/ch09-universality.md: is Tier 2 and conditional on the open matter-to-boundary coupling step
+   ok  1/1  book/ch09-universality.md: no GUT, $a_0 = cH/6$, non-particle structured dark sector (conditional
+   ok  1/1  book/ch09-universality.md: The dark-sector budget and the non-particle explanation of the structu
+   ok  1/1  book/ch09-universality.md: no required dark-matter particle, no fine-tuned cosmological constant
+   ok  1/1  book/ch09-universality.md: gravitational explanation conditional on the open matter-to-boundary c
+   ok  1/1  book/ch09-universality.md: | Non-particle explanation of the structured dark sector (conditional)
+   ok  1/1  book/ch09-universality.md: rather than as independent confirmations.
+   ok  1/1  book/ch18-beyond.md: **The first component: the cosmological constant.**
+   ok  1/1  book/ch18-beyond.md: **The second component: the black hole information paradox.**
+   ok  1/1  book/ch18-beyond.md: **The third component: non-renormalizability.**
+   ok  1/1  book/ch18-beyond.md: The cumulative case is not three independent treatments but one framew
+   ok  1/1  book/ch18-beyond.md: each receiving a framework-level reading, conditional on the covariant
+   ok  1/1  book/ch18-beyond.md: The structural feature of this component is that
    ok  1/1  book/ch18-beyond.md: On that reading, and conditional on the coupling step, the ratio is no
    ok  1/1  book/ch18-beyond.md: is that, conditional on the coupling step, the two energy scales
    ok  1/1  book/ch19-open-problems.md: ## 19.2 Problems addressed
@@ -96,6 +136,11 @@
    ok  1/1  book/ch19-open-problems.md: On the geometry-first proposal, the uniform component is dark energy
    ok  1/1  book/ch19-open-problems.md: The framework predicts, on the geometry-first proposal, that dark ener
    ok  1/1  book/ch19-open-problems.md: The conditional cosmological constant dissolution, the measurement pro
+   ok  1/1  book/ch19-open-problems.md: the framework's proposal, conditional on the open matter-to-boundary c
+   ok  1/1  book/ch19-open-problems.md: On that proposal dark matter is read as entropy displacement from the 
+   ok  1/1  book/ch19-open-problems.md: The three components are developed in
+   ok  1/1  book/ch04-methodology.md: accounting for the full structured dark-matter budget. Such a detectio
+   ok  1/1  book/ch04-methodology.md: A subdominant particle component would instead require re-examining th
    ok  1/1  book/appendix-c-objections.md: the status of each — proved, conditional or open — is recorded with it
    ok  1/1  book/appendix-c-objections.md: (the cosmological constant, conditional on the open coupling step;
    ok  1/1  book/readers-guide.md: the conditional cosmological constant dissolution)
@@ -105,13 +150,25 @@
    ok  1  papers/GR.md: *Under Lemmas 1–3, conditions (C1)–(C4) and the geometry-first proposa
    ok  1  papers/GR.md: the metric belongs to the substratum, prior to the trace-out, and its 
    ok  1  papers/GR.md: On the geometry-first proposal (§6.2), conditional on the open couplin
-   ok  1  papers/GR.md: Their gravitational reading is conditional on the open G3 coupling ste
+   ok  1  papers/GR.md: Their gravitational reading is conditional on the open matter-to-bound
+   ok  1  papers/GR.md: Under the corollary's proposed dark-sector mechanism, conditional on t
+   ok  1  papers/GR.md: null results establish consistency with the proposal, not that dark-ma
+   ok  1  papers/GR.md: A subdominant particle component would instead require re-examining th
+   ok  1  papers/GR.md: (a) detection of dark matter particles accounting for the full structu
+   ok  1  papers/GR.md: the null direct-detection results at the LZ and XENONnT experiments ar
+   ok  1  papers/GR.md: Within the conditional entropy-displacement account, flat rotation cur
    ok  1  papers/GR.md: conditional on §3.2 and on the open coupling step of §6.2
    ok  1  papers/GR.md: The dark-sector phenomenology is Tier 2 and conditional:
+   ok  1  papers/GR.md: representative, its gravitational reading conditional on the open coup
    ok  1  papers/Explainer.md: By the construction of the trace-out, this entropy has no operator in 
    ok  1  papers/Explainer.md: reads the discrepancy as a derived quantity. (Note the division of lab
    ok  1  papers/Explainer.md: the other, if the coupling step holds, carries the observed value as a
-   ok  1  papers/Structure.md: dark-sector phenomenology (its gravitational reading conditional on th
+   ok  1  papers/Explainer.md: that the structured dark sector requires no new particle species; null
+   ok  1  papers/Structure.md: - *Level D × Levels G1–G2 classification* — the general dark-sector ph
+   ok  1  papers/Structure.md: the classification does not derive the mechanism, whose gravitational 
+   ok  1  papers/Structure.md: and the bijection-dependent details of the dark-sector interpolation f
+   ok  1  papers/Substratum.md: accounting for the full structured dark-matter budget. Such a detectio
+   ok  1  papers/Substratum.md: A subdominant particle component would instead require re-examining th
 2c. Chapter 9 tier counts (stated vs table rows)
    ok  book/ch09-universality.md: Tier 1 stated 3, table 3  (Tier 1 has three entries)
    ok  book/ch09-universality.md: Tier 1 stated 3, table 3  (Three universality-class entries tested)
@@ -119,6 +176,9 @@
    ok  book/ch09-universality.md: Tier 2 stated 9, table 9  (The nine Tier 2 entries)
    ok  book/ch09-universality.md: Tier 3 stated 8, table 8  (Tier 3 has eight entries)
    ok  book/ch09-universality.md: Tier 3 stated 8, table 8  (The eight Tier 3 entries)
+   ok  book/ch09-universality.md: Tier 1 paragraph "Three universality-class entries" vs table 3
+   ok  book/ch09-universality.md: Tier 2 paragraph "nine Tier 2 entries" vs table 9
+   ok  book/ch09-universality.md: Tier 3 paragraph "eight Tier 3 entries" vs table 8
    ok  book/ch09-universality.md: total stated 20, tables 20
    ok  book/The-Incompleteness-of-Observation-FULL.md: Tier 1 stated 3, table 3  (Tier 1 has three entries)
    ok  book/The-Incompleteness-of-Observation-FULL.md: Tier 1 stated 3, table 3  (Three universality-class entries tested)
@@ -126,8 +186,11 @@
    ok  book/The-Incompleteness-of-Observation-FULL.md: Tier 2 stated 9, table 9  (The nine Tier 2 entries)
    ok  book/The-Incompleteness-of-Observation-FULL.md: Tier 3 stated 8, table 8  (Tier 3 has eight entries)
    ok  book/The-Incompleteness-of-Observation-FULL.md: Tier 3 stated 8, table 8  (The eight Tier 3 entries)
+   ok  book/The-Incompleteness-of-Observation-FULL.md: Tier 1 paragraph "Three universality-class entries" vs table 3
+   ok  book/The-Incompleteness-of-Observation-FULL.md: Tier 2 paragraph "nine Tier 2 entries" vs table 9
+   ok  book/The-Incompleteness-of-Observation-FULL.md: Tier 3 paragraph "eight Tier 3 entries" vs table 8
    ok  book/The-Incompleteness-of-Observation-FULL.md: total stated 20, tables 20
-3. inventory (chapters and papers; FULL mirrors the chapters): 105 sentences with a conditional marker, 47 without
+3. inventory (chapters and papers; FULL mirrors the chapters): 108 sentences with a conditional marker, 45 without
    book/README.md:68  Includes external convergence with the Danielson-Satishchandran-Wald horizon decoherence program, and a four-axis structured comparison with conformal
    book/appendix-c-objections.md:122  *In Chapter 7's gravitational content.* Finiteness is *derived* from the cosmological horizon's finite area: the Bekenstein entropy bound limits the n
    book/appendix-c-objections.md:315  **Ambition.** "The framework identifies QM with embedded observation, dissolves the cosmological constant problem, explains the dark sector, and provi
@@ -137,7 +200,7 @@
    book/ch07-gravity.md:44  D 97, 084036) shows that for matter field equations whose causal structure is that of standard-model fields on a single Lorentzian light cone — exactl
    book/ch07-gravity.md:177  The semi-classical equation $G_{\mu\nu} = 8\pi G \langle \hat T_{\mu\nu} \rangle$ is then itself an emergent approximation, and at the classical level
    book/ch07-gravity.md:258  The usefulness of the uniform-medium description is computational: when matter is present, it locally deforms the horizon geometry and redistributes t
-   book/ch07-gravity.md:309  A high-confidence direct detection of a dark-matter particle at non-gravitational interaction strength would refute this dark-sector interpretation.
+   book/ch07-gravity.md:309  A high-confidence direct detection of dark-matter particles at non-gravitational interaction strength, accounting for the full structured dark-matter 
    book/ch08-juno.md:246  **The $3\sigma$ tension that the framework resolves.** The DESI DR2 + CMB analysis under $\Lambda$CDM produces a $3\sigma$ tension with the *lower* os
    book/ch08-juno.md:264  - The $3\sigma$ tension with the oscillation minimum under $\Lambda$CDM is resolved by the framework's RVM dark energy.
    book/ch09-universality.md:253  The comparison class of §9.6b — programs claiming structural Standard Model content — has a gravitational-sector counterpart: programs covering the fr
@@ -146,9 +209,7 @@
    book/ch12-evolution-intelligence.md:197  The framework's characterization theorem (Chapter 1) applies to the new observer just as it applies to the original: any embedded observer satisfying 
    book/ch18-beyond.md:10  The Standard Model gauge group, the gravitational sector, the JUNO neutrino prediction, the dark sector phenomenology — all are sectors where the fram
    book/ch18-beyond.md:130  Three problems conventionally treated as obstacles to a theory of quantum gravity — the cosmological constant problem, the black hole information para
-   book/ch18-beyond.md:150  The shared structural feature with the cosmological constant dissolution is that the framework's two-level description is doing the work.
    book/ch18-beyond.md:168  **The conceptual content.** The more informative gravitational comparison is the Milky Way outer rotation curve (Chapter 7 §7.9), whose reported Keple
-   book/ch19-open-problems.md:32  The three components of the dissolution are developed in Chapter 7 §7.7 (cosmological constant), Chapter 7 §7.6 (black hole information), and Chapter 
    book/ch19-open-problems.md:46  The simple MOND interpolation function $\nu(y) = (1 + \sqrt{1 + 4/y})/2$ matches deep-MOND clusters such as Coma to better than $1\%$, though rich-clu
    book/ch19-open-problems.md:46  The Bullet Cluster's anomalous gravitational lensing is explained by frozen boundary entropy with relaxation timescale $\tau_{\text{relax}} \sim H^{-1
    papers/Complexity.md:338  Everything else — the laws, the constants, the dark sector, the periodic table, life, intelligence, the fine-tuning problem, the anthropic principle —
@@ -175,5 +236,5 @@
    papers/SM.md:851  The hypothesis $c_\lambda = 1$ is therefore equivalent to the statement that the intermediate states of the mixing perturbation theory are the emergen
    papers/Substratum.md:157  Three independent forward filters from the empirical inputs converge on $d = 3$: propagating gravity (E5) requires $d \geq 3$ (the Weyl tensor vanishe
    papers/Substratum.md:500  The result is not a theory of everything but a structural account of why the apparent incompatibility between quantum mechanics and general relativity
-4. added lines: 855; register/caps hits: 0; secret/path hits: 0
+4. added lines: 1163; register/caps hits: 0; secret/path hits: 0
 RESULT PASS

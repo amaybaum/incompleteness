@@ -78,6 +78,32 @@ STALE = [
     "Tier 1 has five entries",
     "Tier 2 has seven entries",
     "The seven Tier 2 entries",
+    "rather than as seven independent confirmations",
+    "open G3 coupling step",
+    "open G3 matter-to-boundary coupling",
+    "open G3 coupling |",
+    "conditional on the open coupling step (G3), it carries",
+    "no particle dark matter exists",
+    "No dark matter particle |",
+    "No dark-matter particle |",
+    "no DM particle |",
+    "the absence of a dark-matter particle",
+    "The framework predicts that no such particle exists",
+    "the framework's content is that no such particle exists",
+    "Dark matter is not a particle",
+    "The dark sector is not a separate substance requiring a new particle species",
+    "A confirmed WIMP with such properties",
+    "would refute this dark-sector interpretation",
+    "as a structural consequence rather than a null result to be explained away",
+    "Flat rotation curves emerge with no dark",
+    "**The first conditional dissolution:",
+    "**The second dissolution:",
+    "**The third dissolution:",
+    "three independent dissolutions",
+    "each dissolving, conditional on the covariant rung G3",
+    "The three components of the dissolution",
+    "The structural feature of this dissolution",
+    "Bekenstein-Hawking $A/4$, dark-sector phenomenology",
     "\\Omega_{\\text{dark}} \\approx 95\\%$ | $\\Omega_{\\text{CDM}}",
     "The framework predicts that dark energy is the uniform component",
     "The dark-sector corollary predicts that ~95%",
@@ -97,19 +123,24 @@ MIRROR = {
         "The framework's geometry-first proposal converges",
         "convergence with the framework's geometry-first proposal",
         "while on Section 7.7's proposal, conditional on the coupling step,",
-        "Their gravitational reading is conditional on the open G3 coupling step ([GR §6.2])",
+        "Their gravitational reading is conditional on the open matter-to-boundary coupling step ([GR §6.2])",
+        "Under the framework's proposed dark-sector mechanism, conditional on the open matter-to-boundary coupling step ([GR §6.2]), the structured gravitational dark sector is accounted for without requiring such a particle",
+        "| Non-particle explanation of the structured dark sector (conditional) | conditional dark-sector interpretation | XENON, LUX, LZ null | consistent, not a confirmation | 2 (cond.) |",
+        "accounting for the full structured dark-matter budget, would contradict this dark-sector account; a subdominant particle component",
+        "Within the conditional entropy-displacement account, flat rotation curves emerge without dark-matter particles",
         "(on the same proposal, does gravitate)",
         "Conditional on the coupling step, the two are not commensurable as gravitational sources",
     ],
     "book/ch03-structural-realism.md": [
         "on the geometry-first proposal, the dark sector is the gravitational effect",
-        "so, by the construction of the trace-out ([GR §7.2], step (ii-a)), it is invisible to the emergent quantum description; on the geometry-first proposal, conditional on the open coupling step (G3)",
+        "so, by the construction of the trace-out ([GR §7.2], step (ii-a)), it is invisible to the emergent quantum description; on the geometry-first proposal, conditional on the open matter-to-boundary coupling step ([GR §6.2]), it carries",
         "a dimensional factor $1/6$ imported from Verlinde (Chapter 7 §§7.8–7.9)",
         "in the flagship case and conditional on the open coupling step, its energetic content",
     ],
     "book/ch00-introduction.md": [
         "the descriptive distinction behind a dissolution of the cosmological constant problem conditional on the open coupling step",
         "combining the conditional CC dissolution",
+        "consistent with the framework's proposal, conditional on the open matter-to-boundary coupling step, that the structured dark sector requires no new particle species; null results establish consistency",
     ],
     "book/ch02-substratum.md": [
         "On the geometry-first proposal, the dark sector of cosmological observation","a reading on which the problem dissolves conditional on the open coupling step (G3)"],
@@ -120,12 +151,21 @@ MIRROR = {
         "another ([Main §3.4]; [GR §8.3]), which is why",
         "gauge outright for every quantum statistic and, conditional on the coupling step,",
         "the dark-sector budget only as a partly definitional count ($1-\\Omega_B$ by construction)",
-        "is Tier 2 and conditional on the open G3 matter-to-boundary coupling (Chapter 7 §7.9)",
-        "gravitational explanation conditional on the open G3 coupling | Ch 7 §7.9 |",
-        "| No dark matter particle | XENON, LUX, etc. null; conditional dark-sector interpretation | Ch 7 §7.9 |",
+        "is Tier 2 and conditional on the open matter-to-boundary coupling step ([GR §6.2]; Chapter 7 §7.9)",
+        "no GUT, $a_0 = cH/6$, non-particle structured dark sector (conditional) |",
+        "The dark-sector budget and the non-particle explanation of the structured dark sector are Tier 2 entries",
+        "no required dark-matter particle, no fine-tuned cosmological constant",
+        "gravitational explanation conditional on the open matter-to-boundary coupling step | Ch 7 §7.9 |",
+        "| Non-particle explanation of the structured dark sector (conditional) | XENON, LUX, LZ null: consistent with the proposal, not a confirmation | Ch 7 §7.9 |",
+        "rather than as independent confirmations.",
     ],
     "book/ch18-beyond.md": [
-        "**The first conditional dissolution: the cosmological constant.**",
+        "**The first component: the cosmological constant.**",
+        "**The second component: the black hole information paradox.**",
+        "**The third component: non-renormalizability.**",
+        "The cumulative case is not three independent treatments but one framework-level reading applied three times.",
+        "each receiving a framework-level reading, conditional on the covariant rung G3,",
+        "The structural feature of this component is that",
         "On that reading, and conditional on the coupling step, the ratio is not a fine-tuning failure.",
         "is that, conditional on the coupling step, the two energy scales",
     ],
@@ -139,6 +179,13 @@ MIRROR = {
         "On the geometry-first proposal, the uniform component is dark energy",
         "The framework predicts, on the geometry-first proposal, that dark energy",
         "The conditional cosmological constant dissolution, the measurement problem",
+        "the framework's proposal, conditional on the open matter-to-boundary coupling step, accounts for the structured dark sector without requiring one.",
+        "On that proposal dark matter is read as entropy displacement from the cosmological horizon rather than as a particle species.",
+        "The three components are developed in",
+    ],
+    "book/ch04-methodology.md": [
+        "accounting for the full structured dark-matter budget. Such a detection falsifies",
+        "A subdominant particle component would instead require re-examining the budget for double counting.",
     ],
     "book/appendix-c-objections.md": [
         "the status of each — proved, conditional or open — is recorded with it",
@@ -169,11 +216,27 @@ PINS = {
     ],
 }
 PINS["papers/GR.md"] += [
-    "Their gravitational reading is conditional on the open G3 coupling step (§6.2)",
+    "Their gravitational reading is conditional on the open matter-to-boundary coupling step (§6.2)",
+    "Under the corollary's proposed dark-sector mechanism, conditional on the open matter-to-boundary coupling step, the structured gravitational dark sector is accounted for without requiring a new dark-matter particle species",
+    "null results establish consistency with the proposal, not that dark-matter particles do not exist.",
+    "A subdominant particle component would instead require re-examining the budget for double counting.",
+    "(a) detection of dark matter particles accounting for the full structured budget,",
+    "the null direct-detection results at the LZ and XENONnT experiments are consistent with that account, without establishing that dark-matter particles do not exist.",
+    "Within the conditional entropy-displacement account, flat rotation curves emerge without dark matter particles",
     "conditional on §3.2 and on the open coupling step of §6.2",
     "The dark-sector phenomenology is Tier 2 and conditional:",
+    "representative, its gravitational reading conditional on the open coupling step (§6.2).",
 ]
-PINS["papers/Structure.md"] = ["dark-sector phenomenology (its gravitational reading conditional on the open coupling step of [GR §6.2])"]
+PINS["papers/Structure.md"] = [
+    "- *Level D × Levels G1–G2 classification* — the general dark-sector phenomenology",
+    "the classification does not derive the mechanism, whose gravitational reading is conditional on the open matter-to-boundary coupling step ([GR §6.2]).",
+    "and the bijection-dependent details of the dark-sector interpolation function ([GR §7.3])",
+]
+PINS["papers/Substratum.md"] = [
+    "accounting for the full structured dark-matter budget. Such a detection falsifies",
+    "A subdominant particle component would instead require re-examining the budget for double counting.",
+]
+PINS["papers/Explainer.md"].append("that the structured dark sector requires no new particle species; null results establish consistency, not that such particles do not exist.")
 print("2b. paper pins (expect exactly 1 each)")
 for pth, phrases in PINS.items():
     for ph in phrases:
@@ -212,6 +275,19 @@ for pth in ("book/ch09-universality.md", FULL):
         ok = v == n[k]
         print(f"   {'ok ' if ok else 'BAD'} {pth}: Tier {k} stated {v}, table {n[k]}  ({m.group(0) if m else 'missing'})")
         fail += not ok
+    # Every other count word in the paragraph that follows a tier table, written before "entries",
+    # "universality-class entries" or "independent confirmations", must equal that table's rows; a
+    # sub-breakdown ("six numerical flavor comparisons, one fitted coupling entry") uses other nouns.
+    for k in (1, 2, 3):
+        i = t.index(f"| Tier {k} prediction |")
+        after = t[i:].split("\n\n", 2)
+        para = after[1] if len(after) > 1 else ""
+        for m in re.finditer(r"\b(\w+)\s+(?:Tier \d\s+|universality-class\s+)?(?:entries|independent confirmations)\b", para):
+            w = m.group(1).lower()
+            if w in WORDS:
+                ok = WORDS[w] == n[k]
+                print(f"   {'ok ' if ok else 'BAD'} {pth}: Tier {k} paragraph \"{m.group(0)}\" vs table {n[k]}")
+                fail += not ok
     m = re.search(r"The three tiers contain (\w+) entries", t)
     v = num(m.group(1)) if m else None
     ok = v == sum(n.values())
@@ -256,7 +332,7 @@ REG = [r"discipline", r"honest", r"temptation", r"stated in that register", r"\b
        r"\bis now\b", r"now settled", r"in its current form", r"the corrected form", r"as redefined",
        r"no longer", r"formerly", r"previously", r"earlier revision", r"withdrawn", r"is not listed",
        r"\bwe note\b", r"remarkabl", r"elegant", r"striking", r"impressive"]
-WL = {"OI", "QM", "QFT", "CMB", "DESI", "JUNO", "PDF", "DOI", "GR", "SM", "FULL", "CON", "README"}
+WL = {"OI", "QM", "QFT", "CMB", "DESI", "JUNO", "PDF", "DOI", "GR", "SM", "FULL", "CON", "README", "MOND", "WIMP", "XENON", "LUX"}
 SEC = [r"gh[pousr]_[A-Za-z0-9]{20,}", r"github_pat_", r"AKIA[0-9A-Z]{16}", r"-----BEGIN", r"xox[baprs]-",
        r"sk-[A-Za-z0-9]{20,}", r"[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+\.[A-Za-z]{2,}", r"\b(?:\d{1,3}\.){3}\d{1,3}\b",
        r"https?://[^\s)]*[?&](sig|token|X-Amz)", r"(?i)(api[_-]?key|secret|password)\s*[:=]",
@@ -282,10 +358,16 @@ for f in files:
     for w in sorted(set(ca)):
         if ca.count(w) > cr.count(w):
             print("   CAPS", f, w); reg += 1
+# Secret and local-path scan: this unit's own added lines only, i.e. manuscripts, built artifacts'
+# sources and this track directory. Other units' track directories (which may hold their own
+# pattern lists) are exempt, as is this file's pattern list.
+OWN = "verification/audits/manuscript/intro-corpus-audit-20261026/tracks/SC37-g3-conditional/"
 for f, l in added:
+    if "/tracks/" in f and not f.startswith(OWN):
+        continue
+    if f == OWN + "check.py":
+        continue
     for r in SEC:
-        if f.endswith("SC37-g3-conditional/check.py"):
-            continue  # this file holds the pattern list itself
         if re.search(r, l):
             print("   SECRET/PATH?", f, r); sec += 1
 print(f"4. added lines: {len(added)}; register/caps hits: {reg}; secret/path hits: {sec}")
