@@ -49,3 +49,20 @@ The first P24.5-core checkpoint, `4f962b61aca490cec326542be0cbaee201c82796`,
 compiled successfully in ordinary PR CI run 40724655067: the Mathlib Build and
 Release gate steps succeeded. Independent mathematical/declaration acceptance
 remains separate. A later bridge candidate needs its own compilation verdict.
+
+## Finite-order and stochastic-inverse composition candidate
+
+The next increment instantiates the finite permutation order machinery on the
+actual update, proves rooted identity return and periodicity, and packages a
+positive period. The direct stochastic-inverse composition then excludes any
+stochastic divisor from a non-permutation rooted map to that identity return,
+hence gives recurrence-cycle P-indivisibility. The existing overlap route stays
+separate. The full positive-history/common-endpoint reduction remains unformalized;
+this is not a whole-theorem K3 promotion or an accessible-window statement.
+
+The prior two-declaration iterate-return checkpoint `db658fd30512dcab66d7de86e1f4d1bbd9cd8bb0`
+compiled and passed the Release gate in run 40725912431, and independent review
+accepted those exact declarations. Its report SHA256 is
+`2231302a6b9f5d897f84af8eb6f416ead8c07c6c263417858d983a0e6acba981`.
+The new finite-order/composition declarations await their own compiler and
+independent-review verdicts.

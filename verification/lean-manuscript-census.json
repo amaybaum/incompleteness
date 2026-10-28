@@ -1571,7 +1571,7 @@
       ],
       "status": "kernel-only",
       "manuscript": [],
-      "note": "Research candidate: exact return of RootedRealization.step iterate yields rootedMap n = I for its actual common normalized hidden prior; composition with the existing overlap/return theorem yields PIndivisibleWithin n. No uniformity or full-support hypothesis is added. Finite-order existence, positive-history/common-endpoint to non-permutation and short accessible-window consequences are not asserted. No manuscript/ledger promotion before CI and independent review."
+      "note": "Research candidate on the actual RootedRealization: microscopic iterate return gives rootedMap n = I; finite permutation order supplies a positive shared rooted period. Non-permutation plus a later return excludes a stochastic right divisor via the existing stochastic-inverse theorem and implies whole-horizon P-indivisibility. The existing overlap route is retained. Positive-history/common-endpoint to non-permutation and accessible-window upgrades are not asserted. No whole-Main theorem or manuscript/ledger promotion before exact CI and independent review."
     },
     {
       "name": "conditional k-token cone theorem: products, cone closure, the k-fold maxCone bound and CNOT plus rotation/cyclic invariance give the PSD cone of the k-fold Pauli dictionary (round KTOKEN-MAXCONE-1, reconstruction)",
