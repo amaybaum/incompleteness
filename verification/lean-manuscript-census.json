@@ -1578,10 +1578,10 @@
       "manuscript": [
         {
           "file": "papers/Introduction.md",
-          "anchor": "**Actual microscopic return**"
+          "anchor": "**Actual microscopic return and periodicity**"
         }
       ],
-      "note": "Given an exact return of the actual RootedRealization step iterate, its common normalized prior gives rootedMap n = I and the overlap theorem gives horizon indivisibility. Finite-order existence, history/common-endpoint implication and short accessible-window witnesses are not promoted; Main history-theorem grade is unchanged."
+      "note": "Finite permutation order supplies a positive actual rooted period and identity return. The overlap route and non-permutation/stochastic-inverse route imply whole-horizon P-indivisibility. The Introduction cites this scoped recurrence core; common-endpoint/history-to-non-permutation implications, full-support memory equivalence and accessible-window witnesses remain separate written arguments. No whole-Main history-theorem grade is promoted."
     },
     {
       "name": "conditional k-token cone theorem: products, cone closure, the k-fold maxCone bound and CNOT plus rotation/cyclic invariance give the PSD cone of the k-fold Pauli dictionary (round KTOKEN-MAXCONE-1, reconstruction)",
@@ -1605,6 +1605,20 @@
         }
       ],
       "note": "Constructs time-t laws from arbitrary initial laws and actual iterates of one finite permutation; proves one-step and finite-future-block CMI bounds and genuine supremum over all natural time/horizon pairs. The Introduction cites precisely that finite-block result. Literal infinite-tail identification and physical memory-retention mechanisms are not certified; no whole-Main theorem grade is promoted."
+    },
+    {
+      "name": "entire visible future as an exact finite-image trajectory random variable",
+      "modules": [
+        "FullFutureMemory"
+      ],
+      "status": "scope-consistent",
+      "manuscript": [
+        {
+          "file": "papers/Introduction.md",
+          "anchor": "**Entire finite-image future**"
+        }
+      ],
+      "note": "The Introduction uses the exact finite image of actual entire future sequences, with coordinate decoding and ordinary discrete Shannon CMI in bits, to state whole-future capacity and its genuine supremum over natural times. Equality with finite-block supremum and separate infinite-product/limit entropy interpretations are not certified. No physical preparation/retention or whole-Main grade promotion."
     }
   ]
 }

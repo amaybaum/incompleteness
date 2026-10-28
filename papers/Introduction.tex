@@ -336,13 +336,13 @@ or exhaustive checks {[}BHa; BHb{]}; the novelty of the §§3.2--3.3 and
 analysed with quantum methods before, for example in {[}tH14{]}.
 
 \emph{Conventions.} ``Machine-checked'' means checked in Lean 4/Mathlib
-{[}dMU21; Mathlib20{]} at commit \texttt{17b830bc} by the recipe under
-``Code, data and formal verification'' (declarations in Appendix A);
-``proved on paper'' means a written proof without a machine check; an
-``exact probe'' is an exhaustive computation in exact rational
-arithmetic at small size. Where a subsection's evidence classes and
-attributions are long, they close it in a paragraph labelled
-\emph{Proofs and sources}; elsewhere they are given inline. A
+{[}dMU21; Mathlib20{]} at the baseline or additional source checkpoints
+specified under ``Code, data and formal verification'' and in Appendix
+A, using the stated recipe; ``proved on paper'' means a written proof
+without a machine check; an ``exact probe'' is an exhaustive computation
+in exact rational arithmetic at small size. Where a subsection's
+evidence classes and attributions are long, they close it in a paragraph
+labelled \emph{Proofs and sources}; elsewhere they are given inline. A
 \emph{faithful realization} of a law is a bijection \(\varphi\) of
 \(\mathcal C_V\times\mathcal C_H\) with an initial law under which the
 visible trajectory has that law.
@@ -634,12 +634,33 @@ machine-checked uniformly in time and in every finite future block. With
 \(I^*_{\rm fin}=\sup_{t,L\in\mathbb N}I(X_{<t};(X_{t+1},\ldots,X_{t+L})\mid X_t)\),
 the checked conclusion is \(I^*_{\rm fin}\le\log_2|\mathcal C_H|\),
 hence \(2^{I^*_{\rm fin}}\le|\mathcal C_H|\). This is a genuine supremum
-over all finite blocks, for one fixed permutation and initial law.
-Identifying it with conditional information about a literal infinite
-future requires a further argument; the formal result makes no such
-identification. The time-\(t\) identification mentioned in the Corollary
-refers to its conditional-pushforward use of Theorem 2(a), which is
-separate from this checked information bound.
+over all finite blocks, for one fixed permutation and initial law. The
+finite-block supremum theorem alone does not identify an entire future
+sequence; the separate construction below addresses that object under an
+explicit entropy convention. The time-\(t\) identification mentioned in
+the Corollary refers to its conditional-pushforward use of Theorem 2(a),
+which is separate from this checked information bound.
+
+\textbf{The entire future as a finite-image variable.} Fix one
+permutation of the finite product \(\mathcal C_V\times\mathcal C_H\),
+with nonempty \(\mathcal C_H\) and arbitrary initial probability law.
+Although the visible future after \(t\) is an infinite sequence, only
+finitely many such sequences arise from the finite state space. Let
+\(Y_t\) encode that exact image: two codes are equal precisely when
+every future visible coordinate agrees, and decoding coordinate \(j\)
+gives \(X_{t+j+1}\). This retains the entire sequence, rather than
+replacing it by a chosen finite prefix. Using ordinary discrete Shannon
+entropy on that finite image, in bits, a separate machine-checked
+construction gives \[
+I(X_{<t};Y_t\mid X_t)\le I(X_{<t};H_t\mid X_t)\le\log_2|\mathcal C_H|.
+\] It also proves
+\(J^*:=\sup_{t\in\mathbb N}I(X_{<t};Y_t\mid X_t)\le\log_2|\mathcal C_H|\),
+hence \(2^{J^*}\le|\mathcal C_H|\). Every finite future block is a
+truncation of \(Y_t\). Equality of \(J^*\) with the finite-block
+supremum, or identification with a separate infinite-product measure or
+limit formulation of conditional entropy, is not certified here. This
+information bound does not construct a physical preparation or retained
+record.
 
 Four conditions on a hidden sector are named in {[}Main §1.3{]}, as
 diagnostics of a realization rather than hypotheses of Theorem 1: (C1)
@@ -800,16 +821,18 @@ two forecasts that overlap at time \(s\) can never become the two
 distinct certainties of \(\Gamma_n=I\).
 
 Finite recurrence supplies the return, \(\Gamma_L=I\) for the order
-\(L\) of \(\varphi\), the recurrence time. The step from an exact
-microscopic iterate return to the actual rooted identity map, using the
-common normalized hidden prior, and its composition with the overlap
-theorem are machine-checked; existence of a finite return and the
-history-to-overlap implications in the following Corollary retain their
-separate written proofs. A \emph{return horizon} is a time \(n\) with
-\(\Gamma_n=I\), at which the forecasts from the start return to
-certainty, whether or not the whole world has returned; \(L\) is one,
-and there may be earlier ones. The horizon \(\{0,\dots,L\}\) up to the
-world's return is its \emph{recurrence cycle}:
+\(L\) of \(\varphi\), the recurrence time. The finite permutation order
+supplies a positive return and a common period for the actual rooted
+family; these facts, the rooted identity return under the common
+normalized hidden prior, and recurrence-cycle indivisibility from a
+non-permutation rooted matrix are machine-checked. The
+history-to-non-permutation implications and full-support equivalence in
+the following Corollary retain their separate written proofs. A
+\emph{return horizon} is a time \(n\) with \(\Gamma_n=I\), at which the
+forecasts from the start return to certainty, whether or not the whole
+world has returned; \(L\) is one, and there may be earlier ones. The
+horizon \(\{0,\dots,L\}\) up to the world's return is its
+\emph{recurrence cycle}:
 
 \textbf{Corollary (recurrence-cycle indivisibility).} \emph{Let
 \(\varphi\) have order \(L\), with one hidden prior shared by every root
@@ -902,12 +925,14 @@ distance is necessary for P-divisibility but not sufficient {[}Main
 §2.3{]}.
 
 \emph{The Corollary.} This is {[}Main §2.3, Theorem (history readback +
-finite recurrence implies indivisibility) and Scope{]}: the first
-sentence is Theorem 3 with \(n=L\), since two rows of a non-permutation
-\(\Gamma_s\) share a positive column, and Theorem 3 is machine-checked
-in its rooted form; the supply of a non-permutation \(\Gamma_s\) is
-proved on paper. For the equivalence, a memory witness below \(L\) gives
-a non-permutation \(\Gamma_s\); conversely, with none the law on
+finite recurrence implies indivisibility) and Scope{]}. Its first
+sentence is machine-checked on the actual finite realization:
+permutation order supplies the rooted identity return, and a
+non-permutation rooted matrix cannot have a stochastic right divisor
+leading to that return. The supply of such a matrix from histories,
+memory witnesses or a non-deterministic visible step is proved on paper.
+For the equivalence, a memory witness below \(L\) gives a
+non-permutation \(\Gamma_s\); conversely, with none the law on
 \(\{0,\dots,L\}\) is Markov, \(\Gamma_L=I\) makes every \(\Gamma_s\) a
 permutation by the stochastic-inverse lemma, and
 \(\Gamma_s^{-1}\Gamma_t\) is a stochastic divisor, full support being
@@ -1557,33 +1582,34 @@ identification is relative to specified records and operations
 
 \textbf{Established mathematical results.} Machine-checked: Theorem 1;
 the cores of Theorem 2 and of the capacity bound, their actual
-finite-trajectory information bounds and the supremum over all finite
-future blocks; Theorem 3 in its rooted form, the actual-iterate-return
-bridge and the nonempty record-fibre identification core; Theorem 4 and
-the independence of its conditions; the non-selection of the relating
-evolution. Proved on paper, with Theorem 3 as machine-checked core and
-the shared-column fact and existence of finite recurrence as elementary
-steps: recurrence-cycle P-indivisibility of the rooted visible family,
-with a row for every root including roots of visible probability zero
-and a hidden prior shared by every root and drawn independently of it,
-whenever some rooted transition matrix is not a permutation; that every
-non-deterministic visible step and every memory witness supply such a
-matrix, and that with a full-support visible prior the indivisibility is
-equivalent to \(M_k>0\) at some order \(k\) below the recurrence time
-(§2.5). Proved on paper also: the remaining conditional-pushforward and
-total-variation time-\(t\) arguments of Theorem 2, its Corollary and the
-least hidden predictive memory; the Bell ceiling; the Bayesian support
-and passive stabilization parts of {[}Substratum, Prop. 24.5{]}; and the
-finite coherent-subspace entropy and sequential-release constructions
-{[}CE; CR{]}. The qubit obstruction combines a proved factorization with
-an imported unboundedness, and the separation of conservation from
-recovery rests on exhaustive enumeration with the \(1/|\mathcal U|\)
-floor proved. Together these results establish that stochastic,
-quantum-like observations can arise exactly from deterministic
-reversible dynamics, and they locate what is not universal: the memory a
-law carries, its size and position in the hidden sector, and its
-consequence for divisibility. The correspondence represents these
-observations; it does not derive their physical mechanism.
+finite-trajectory information bounds, the supremum over all finite
+future blocks, and the entire-future bound and time supremum under the
+stated finite-image Shannon convention; Theorem 3 in its rooted form,
+the actual finite-order return and rooted periodicity, recurrence-cycle
+indivisibility from a non-permutation rooted matrix, and the nonempty
+record-fibre identification core; Theorem 4 and the independence of its
+conditions; the non-selection of the relating evolution. Proved on
+paper, beyond that checked recurrence core: every non-deterministic
+visible step and every memory witness supplies a non-permutation rooted
+matrix, and with a full-support visible prior recurrence-cycle
+indivisibility is equivalent to \(M_k>0\) at some order \(k\) below the
+recurrence time (§2.5). These statements use a row for every root,
+including roots of visible probability zero, and a hidden prior shared
+by every root and drawn independently of it. Proved on paper also: the
+remaining conditional-pushforward and total-variation time-\(t\)
+arguments of Theorem 2, its Corollary and the least hidden predictive
+memory; the Bell ceiling; the Bayesian support and passive stabilization
+parts of {[}Substratum, Prop. 24.5{]}; and the finite coherent-subspace
+entropy and sequential-release constructions {[}CE; CR{]}. The qubit
+obstruction combines a proved factorization with an imported
+unboundedness, and the separation of conservation from recovery rests on
+exhaustive enumeration with the \(1/|\mathcal U|\) floor proved.
+Together these results establish that stochastic, quantum-like
+observations can arise exactly from deterministic reversible dynamics,
+and they locate what is not universal: the memory a law carries, its
+size and position in the hidden sector, and its consequence for
+divisibility. The correspondence represents these observations; it does
+not derive their physical mechanism.
 
 \textbf{Conditional physical interpretations.} If OI holds as physics
 (with the bijective substratum an empirically motivated representation
@@ -1656,13 +1682,14 @@ each declaration reports exactly these three, and the expected result
 and comparison recipe are in \texttt{papers/introduction\_repro/}. The
 full commit hash is \texttt{17b830bcd0ecc36e10eff5b9eeca03bdd7198d86}.
 This pin applies to the baseline declarations, not the additional
-record-fibre, actual-return and trajectory-memory modules. Those modules
-are \texttt{OIBridge.RecordFibreIdentification},
-\texttt{OIBridge.RootedRecurrenceBridge} and
-\texttt{OIBridge.TrajectoryMemory}, from source checkpoints
-\texttt{4f962b6}, \texttt{db658fd3} and \texttt{a958bc54}, respectively;
-their exact assumptions are summarized below. The corpus sources are
-distinguished in the References.
+record-fibre, actual-return, trajectory-memory and whole-future modules.
+Those modules are \texttt{OIBridge.RecordFibreIdentification},
+\texttt{OIBridge.RootedRecurrenceBridge},
+\texttt{OIBridge.TrajectoryMemory} and
+\texttt{OIBridge.FullFutureMemory}, from source checkpoints
+\texttt{4f962b6}, \texttt{3d54ae74}, \texttt{a958bc54} and
+\texttt{96a3020b}, respectively; their exact assumptions are summarized
+below. The corpus sources are distinguished in the References.
 
 The probes and the black-hole computations {[}BHa; BHb{]} are released
 under the MIT License, at \texttt{papers/oi\_lattice\_code/foundations/}
@@ -1724,8 +1751,20 @@ the checkpoints given above.
   \texttt{trajectory\_c3}, \texttt{trajectoryIstar\_le},
   \texttt{trajectory\_capacity} (TrajectoryMemory). These push the
   initial law through actual permutation iterates and bound the supremum
-  over all natural time/finite-horizon pairs; no literal infinite-tail
-  identification is certified.
+  over all natural time/finite-horizon pairs; this theorem alone does
+  not identify an entire future sequence; the separate finite-image
+  construction is listed below.
+\item
+  \textbf{Entire finite-image future} (§2.4):
+  \texttt{encodeFuture\_surjective}, \texttt{encodeFuture\_eq\_iff},
+  \texttt{futureRV\_apply}, \texttt{finite\_block\_is\_truncation},
+  \texttt{full\_future\_via\_hidden}, \texttt{full\_future\_c3},
+  \texttt{fullFutureIstar\_le}, \texttt{full\_future\_capacity}
+  (FullFutureMemory). These use ordinary discrete Shannon entropy in
+  bits on the exact finite image of actual whole sequences, and bound
+  its genuine supremum over all natural times. Equality with the
+  finite-block supremum or a separate infinite-product/limit entropy
+  formulation is not certified.
 \item
   \textbf{Nonempty record-fibre identification} (§§1.1, 2.4):
   \texttt{determined\_iff\_constant},
@@ -1738,12 +1777,20 @@ the checkpoints given above.
   These do not prove the Bayesian support calculation or the \(N-1\)
   stabilization bound.
 \item
-  \textbf{Actual microscopic return} (§2.5):
+  \textbf{Actual microscopic return and periodicity} (§2.5):
   \texttt{rootedMap\_eq\_one\_of\_iterate\_return},
-  \texttt{pIndivisible\_of\_iterate\_return\_of\_overlap}
-  (RootedRecurrenceBridge), conditional on an exact iterate return.
-  These do not formalize finite-order existence, the common-endpoint
-  history implication or an accessible-window witness.
+  \texttt{pIndivisible\_of\_iterate\_return\_of\_overlap},
+  \texttt{iterate\_return\_at\_order}, \texttt{rootedMap\_at\_order},
+  \texttt{rootedMap\_add\_order},
+  \texttt{exists\_positive\_rooted\_period},
+  \texttt{no\_stochastic\_divisor\_of\_return\_nonperm},
+  \texttt{pIndivisible\_of\_return\_nonperm},
+  \texttt{pIndivisible\_at\_order\_of\_nonperm}
+  (RootedRecurrenceBridge). Finite permutation order supplies the
+  positive actual rooted period and identity return; a non-permutation
+  rooted matrix gives whole-cycle indivisibility. These do not formalize
+  the common-endpoint/history implication, full-support memory
+  equivalence or an accessible-window witness.
 \item
   \textbf{Relating evolution} (§3.3):
   \texttt{gl2\_strong\_gauge\_moves\_relative\_candidate}
@@ -1994,4 +2041,4 @@ arXiv:gr-qc/0604062v4.
 \endgroup
 
 \end{document}
-% source-sha256: a84ccb4257d58d90d8daa88547c7d47d2bd820d54bea76b083a0c481bd344176
+% source-sha256: 31fd29102a0b271e75896385255bfe6795b8098dc42b435dfb6ac2964314bc5e

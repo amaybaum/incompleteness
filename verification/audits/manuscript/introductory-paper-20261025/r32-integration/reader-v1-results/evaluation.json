@@ -1,0 +1,25 @@
+{
+  "gate": "NOT MET",
+  "paper_commit": "cc04e3f694932f58f9839e83827e561a9567ce55",
+  "protocol": "r32-v1",
+  "items": {
+    "Q1": "PASS",
+    "Q2": "PASS",
+    "Q3": "PASS",
+    "Q4": "PASS",
+    "Q5": "PASS",
+    "Q6": "PASS",
+    "Q5a": "PASS",
+    "Q5b": "PASS",
+    "Q5c": "PASS",
+    "Q8": "PASS",
+    "Q10": "PASS",
+    "Q9": "PARTIAL"
+  },
+  "Q7": "diagnostic only",
+  "reason": "Q9 omits stipulated uniform map/subspace ensemble measure; protocol explicitly assigns omitted scope premise without overclaim PARTIAL.",
+  "source_defect_separate": true,
+  "answers_sha256": "973ee6cf1bc18e0bd5a09f683df8b4ab1e1b84c0b278ba69e039778f8af941e6",
+  "evaluation_sha256": "c88ff1da192b596f0c9ed526100b3a7302d5c2013a8853e9a0ac9e76e1bd70f5",
+  "no_retrospective_rubric_changes": true
+}

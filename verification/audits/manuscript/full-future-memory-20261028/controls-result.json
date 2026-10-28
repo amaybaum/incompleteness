@@ -1,0 +1,33 @@
+{
+  "status": "pass",
+  "checks": 13824,
+  "check_kinds": {
+    "exact_coordinate": 13344,
+    "exact_countercontrol": 2,
+    "numerical_entropy": 478
+  },
+  "permutations": 24,
+  "initial_laws": 3,
+  "saturation": [
+    {
+      "hidden_bits": 1,
+      "whole_future_cmi_bits": 1.0
+    },
+    {
+      "hidden_bits": 2,
+      "whole_future_cmi_bits": 2.0
+    },
+    {
+      "hidden_bits": 3,
+      "whole_future_cmi_bits": 3.0
+    },
+    {
+      "hidden_bits": 4,
+      "whole_future_cmi_bits": 4.0
+    }
+  ],
+  "kind": "bounded controls, not universal proof",
+  "optimized_output_identical": true,
+  "forced_failure_rejected_in_both_modes": true,
+  "control_sha256": "4fbc6cb726141ac129109f2d9632f3d4efdbeb65ffb7adae2707e09d8132ab66"
+}

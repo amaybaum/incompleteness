@@ -1,0 +1,26 @@
+{
+  "paper_commit": "cc04e3f694932f58f9839e83827e561a9567ce55",
+  "paper_tree": "1e4e520e9fd4c2b705c4a612a89be7479059d603",
+  "PDF_sha256": "ad559f3134473f045ef9ded503f27d2d10066afbe115e9aae37d13def4f74edc",
+  "files": {
+    "READER-PROTOCOL-r32-v1.md": {
+      "git_blob": "854a99a4a44b09064aea50d1c7473e4870e979c5",
+      "sha256": "b7961b12621d81a493316ae67cf09975d0ce6255a9c1890fcc55318bcb8218a9",
+      "bytes": 3596
+    },
+    "READER-QUESTIONS-r32-v1.md": {
+      "git_blob": "f589c5050204875af32ae1a251e106f0d87dbe07",
+      "sha256": "46505a5a6798312d60392935ce42d2468ad57c89a355659feba966ff9723bd13",
+      "bytes": 4024
+    },
+    "answers.md": {
+      "sha256": "973ee6cf1bc18e0bd5a09f683df8b4ab1e1b84c0b278ba69e039778f8af941e6",
+      "bytes": 13692
+    },
+    "reader-input-manifest.json": {
+      "sha256": "02f668947a26efcb14afa5fe1ca961748b506732e9c248ed536d9e8dec8a1992",
+      "bytes": 481
+    }
+  },
+  "review_role": "Evaluator of recorded answers, not fresh reader; access authorized by coordinator after answers captured."
+}
