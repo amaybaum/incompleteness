@@ -2518,16 +2518,16 @@
     {
       "id": "SUBSTRATUM:T-24",
       "paper": "papers/Substratum.md",
-      "line": 250,
+      "line": 255,
       "kind": "Theorem",
       "label": "24",
-      "fingerprint": "1a3c54521b17abfa",
+      "fingerprint": "51a5eb397730425e",
       "area": "reconstruction",
-      "assumptions": "fixed visible/hidden partition and uniform hidden prior for exact channel invariance; hidden-factor permutation independent of visible state; independent finite decoupled factor; conditional alphabet and coarse graph comparisons",
+      "assumptions": "fixed V/H interface and uniform hidden prior for (i); same-fibre hidden sigma for coherent channels; fibre-dependent sigma_v for rooted populations; independent normalized ancilla for (iii) with well-defined partial trace; conditional and structural scope (ii)/(iv)",
       "checks": [],
       "kernel": "GAP",
-      "delta": "fixed-interface invariances proved on paper; no single matching Lean declaration for Theorem 24's joint statement",
-      "note": "SC-45 addresses the false arbitrary-full-state relabelling claim by an exact four-state counterexample: 8 of 24 permutations change the one-step visible transition matrix at the fixed interface. Hidden-factor relabelling and decoupled enlargement preserve the full visible channel by partial-trace identities. Graph and alphabet comparisons refer only to separately specified structural observables. The all-partitions equivalence and four-generator completeness remain open. Distinct from SC-44's verified block-word rigidity result."
+      "delta": "full Theorem 24 is not Lean-certified; exact channel/population invariance has a written proof and finite rational controls; fixed-interface restricted-generator non-exhaustiveness relies on Pair C balanced-word invariant; all-partitions completeness remains open",
+      "note": "This revised theorem separates coherent channels from population counts and transported readouts. The same-fibre hidden permutation is coherent-channel invariant; fibre-dependent relabellings preserve populations only. Decoupled enlargement with any normalized independent ancilla transfers coherent channels, including trace-class infinite-dimensional cases where defined. Pair C refutes completeness of the restricted fixed-channel generators, not the population/all-partitions relations. Structural q-insensitive and graph results retain their source scopes; no full observational gauge group classified."
     },
     {
       "id": "SUBSTRATUM:C-effective-finiteness-gauge-class-transfer",
