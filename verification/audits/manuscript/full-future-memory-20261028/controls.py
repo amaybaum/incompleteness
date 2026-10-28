@@ -5,6 +5,7 @@ from fractions import Fraction
 from itertools import permutations
 from math import lcm, log2
 import json
+import sys
 
 
 def advance(p, q, n):
@@ -49,7 +50,19 @@ def variables(p, visible, t):
     return past, now, whole, current
 
 
-checks = 0
+counts = {'exact_coordinate': 0, 'exact_countercontrol': 0, 'numerical_entropy': 0}
+
+
+def require(condition, kind, message):
+    """Execute checks under normal and optimized Python alike."""
+    counts[kind] += 1
+    if not condition:
+        raise RuntimeError(message)
+
+
+if '--failure-control' in sys.argv:
+    require(False, 'exact_countercontrol', 'deliberately failed guard')
+
 for p in permutations(range(4)):
     for weights in ([Fraction(1, 4)] * 4,
                     [Fraction(x, 10) for x in (1, 2, 3, 4)],
@@ -58,18 +71,18 @@ for p in permutations(range(4)):
             past, now, whole, current = variables(p, lambda s: s // 2, t)
             hidden = [s % 2 for s in current]
             iwhole, ihidden = cmi(weights, past, now, whole), cmi(weights, past, now, hidden)
-            assert -1e-12 <= iwhole <= ihidden + 1e-12 <= 1 + 2e-12
-            checks += 1
+            require(-1e-12 <= iwhole <= ihidden + 1e-12 <= 1 + 2e-12,
+                    'numerical_entropy', 'whole-future information bound')
             for q in range(4):
                 for j in range(2 * order(p) + 1):
-                    assert whole[q][j % order(p)] == advance(p, q, t + j + 1) // 2
-                    checks += 1
+                    require(whole[q][j % order(p)] == advance(p, q, t + j + 1) // 2,
+                            'exact_coordinate', 'actual future coordinate')
 
 # Identity retains hidden degeneracy in the whole trace: not an injective state code.
 p = tuple(range(4))
 _, _, whole, _ = variables(p, lambda s: s // 2, 0)
-assert whole[0] == whole[1] and whole[2] == whole[3] and whole[0] != whole[2]
-checks += 1
+require(whole[0] == whole[1] and whole[2] == whole[3] and whole[0] != whole[2],
+        'exact_countercontrol', 'identity keeps hidden degeneracy')
 
 saturation = []
 for bits in range(2, 6):
@@ -77,14 +90,15 @@ for bits in range(2, 6):
     p = tuple(((s << 1) % count) + (s >> (bits - 1)) for s in range(count))
     past, now, whole, _ = variables(p, lambda s: s >> (bits - 1), bits - 1)
     info = cmi([Fraction(1, count)] * count, past, now, whole)
-    assert abs(info - (bits - 1)) < 1e-12
+    require(abs(info - (bits - 1)) < 1e-12,
+            'numerical_entropy', 'cyclic-register capacity saturation')
     saturation.append({'hidden_bits': bits - 1, 'whole_future_cmi_bits': info})
-    checks += 1
     if bits == 3:
         # A one-step prefix need not encode the entire future.
-        assert any(a[0] == b[0] and a != b for a in whole for b in whole)
-        checks += 1
+        require(any(a[0] == b[0] and a != b for a in whole for b in whole),
+                'exact_countercontrol', 'one-step prefix can lose whole-future distinctions')
 
-print(json.dumps({'status': 'pass', 'checks': checks,
+print(json.dumps({'status': 'pass', 'checks': sum(counts.values()),
+                  'check_kinds': counts,
                   'permutations': 24, 'initial_laws': 3,
                   'saturation': saturation}, indent=2))

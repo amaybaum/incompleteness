@@ -1,6 +1,11 @@
 {
   "status": "pass",
   "checks": 13824,
+  "check_kinds": {
+    "exact_coordinate": 13344,
+    "exact_countercontrol": 2,
+    "numerical_entropy": 478
+  },
   "permutations": 24,
   "initial_laws": 3,
   "saturation": [
@@ -23,5 +28,6 @@
   ],
   "kind": "bounded controls, not universal proof",
   "optimized_output_identical": true,
-  "control_sha256": "c8506c4d0e1b20b0de49bbe9a42f066af5be1669061b2875b3b3a6fdbd9e7dec"
+  "forced_failure_rejected_in_both_modes": true,
+  "control_sha256": "4fbc6cb726141ac129109f2d9632f3d4efdbeb65ffb7adae2707e09d8132ab66"
 }

@@ -56,4 +56,12 @@ axiom reports are printed. No local Lean/Mathlib build or full suite is run unde
 AGENTS A.40. The bounded independent controls use complete permutation-period
 words to encode entire traces in finite examples, with nonuniform/correlated
 initial laws, a short-prefix countercontrol, and sharp cyclic-register examples.
-These examples are controls, not universal proof certificates.
+Coordinate and degeneracy checks are exact; the Shannon entropy bounds and
+saturation checks are numerical with tolerance 10^-12. Explicit failure guards
+execute under normal and optimized Python; a deliberate failing guard must exit
+nonzero under both. These examples are controls, not universal proof certificates.
+
+The initial control checkpoint `10c2a5a4` used Python assert statements, which
+optimized Python removes. Its matching optimized output was not evidence of
+executed optimized checks. That rejected control revision is preserved in branch
+history; this correction does not alter the Lean module or written mathematics.
