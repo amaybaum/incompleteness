@@ -8,7 +8,8 @@ the owner's decision on the dark-sector tier with the reviewer's optional item o
 (ACCEPT), §9 below; and the review of `59e5962c` (ACCEPT WITH CHANGES, which confirmed the "No dark
 matter particle" move): B7, the GR:30 condition and the scan scope, §9 below, together with two
 further owner decisions (level placement; the particle-dark-matter claim, §10) and the ch18
-component headings coordinated with SC-36 (§11).
+component headings coordinated with SC-36 (§11); and the review of `e5684370` (ACCEPT WITH CHANGES:
+B8–B10 and optional items, §12).
 
 ## Finding
 
@@ -338,7 +339,10 @@ formal change: none.**
     reconciliation must be resolved and checked by merits, row by row, against both branches' diffs.
   - The paragraph after the Tier 1 table needs a merits merge too: SC-36's sentence that information
     conservation follows from the bijectivity premise and is not an empirical entry, plus this unit's
-    sentence that the dark-sector budget and the absence of a dark-matter particle are Tier 2 entries.
+    sentence that the dark-sector budget and the non-particle explanation of the structured dark
+    sector are Tier 2 entries. The count check cannot see this paragraph's enumeration: a merge that
+    keeps "information preservation" in the concordance list after SC-36 removes that row passes §2c
+    and is still wrong, so the paragraph is merged and checked by merits.
   - Expected merged counts: Tier 1 holds two rows (the area law, no GUT-mediated proton decay):
     "Two universality-class entries tested …", "Tier 1 has two entries", and the three-tier total
     "nineteen" (2 + 9 + 8). Run `check.py` §2c on the merge.
@@ -484,6 +488,51 @@ consistency with the proposal, not confirmation that dark-matter particles do no
   SC-36 and is not touched; the cosmological-constant dissolution, which is conditional, keeps its
   name.
 
+### 12. Review of `e5684370` (round 6)
+
+- **B8, Structure §2.4.** Original (round 5): "- *Level G3 × Level D predictions* — Cabibbo angle …,
+  Koide ratio $2/3$, Bekenstein-Hawking $A/4$, and the bijection-dependent details of the dark-sector
+  interpolation function ([GR §7.3]). Distinguishes OI from other universality-class members; forced
+  by OI's specific $\mathcal{G}_{\rm sub}$-equivalence class." Defects: $A/4$ is a universality-class
+  result conditional on H-slope and the horizon and frame conditions (GR §8.5(b), GR:30, ch09:48,
+  Structure:497), neither forced by OI's class nor distinguishing it; the interpolation kernel is open
+  (ch09 Tier 3 row; ch07:284), so "forced" overstates it. Correction: "- *Level G3 × Level D content*
+  — Cabibbo angle $1/(\pi\sqrt{2})$ and Koide ratio $2/3$ (conditional structural retrodictions in
+  [SM §7.6]), and the bijection-dependent details of the dark-sector interpolation function, whose
+  transition kernel is open ([GR §7.3]). Where bijection-dependent, this content distinguishes OI from
+  other universality-class members." Both are class **C** in SM §7.6's table (SM:1262, :1267). The
+  Level G4 × Level C bullet gains "The Bekenstein-Hawking $A/4$ coefficient sits at this level as a
+  conditional result: it is a universality-class result conditional on H-slope and the horizon and
+  frame conditions ([GR §8.5])." Structure:182 "The framework's most distinguishing predictions live
+  at Level G3 × Level D — they are class-specific to OI." → "The framework's most distinguishing
+  content is the bijection-dependent part of Level G3 × Level D, which is specific to OI's class. … ,
+  and the conditional $A/4$ coefficient holds across the universality class under its stated
+  conditions." Structure:184 "the $A/4$ coefficient is a Level G2/G3 × Level D derivation with no
+  direct empirical test" → "a Level G4 × Level C result, conditional on H-slope and the horizon and
+  frame conditions, with no direct empirical test".
+- **B9, two G1–G4 scales in GR.** GR:12 and GR:705 use GR's own dependency ladder (G1–G4); GR:30,
+  :597 and :681 used Structure's gauge-axis levels under the same names. GR:30 now introduces
+  [Structure §2] "with its observation-axis Levels A–D and gauge-axis Levels G1–G4; the gauge-axis
+  levels are distinct from this paper's G1–G4 dependency ladder (abstract, §9)", and writes "Level C ×
+  gauge-axis Level G4" and "Level D × gauge-axis Levels G1–G2"; GR:597 and GR:681 write "Level D ×
+  gauge-axis Levels G1–G2 … ([Structure §2]; §1)". The other GR uses (GR:12 "Level G1", :374
+  "Level-G3 target", :581 "Level G3", :705 "Level G1") are the dependency ladder and unchanged.
+- **B10.** Explainer:671 "Dark matter is not a substance — it is the local shape of the observer's
+  blind spot, …" → "On the framework's proposal, conditional on the open matter-to-boundary coupling
+  step, dark matter is read not as a substance but as the local shape of the observer's blind spot,
+  the same entropy that appears as dark energy when uniform." Substratum:325 "a ~$95\%$ dark sector
+  corollary as a structural feature rather than a new particle species" → "a ~$95\%$ dark-sector
+  corollary, conditional on the open coupling step ([GR §6.2]), as a structural feature rather than a
+  new particle species".
+- **Optional, applied.** GR:12 "a ~$95\%$ dark sector corollary, conditional on the coupling step, in
+  which …"; ch07:177 "are the open G3 step" → "are the open covariant coupling step of [GR §6.2]";
+  ch02:120 "conditional on the open coupling step (G3)" → "conditional on the open covariant coupling
+  step of [GR §6.2]"; ch09:259 (pre-existing) "the open G3 step" → "the open covariant coupling step
+  of [GR §6.2]"; GR:526 (a) adds "(a subdominant particle component would instead require
+  re-examining the budget for double counting)". ch18:140 and ch19:46 kept. GR:344 keeps "the open G3
+  step": GR's own ladder, no level label nearby.
+- **Downstream.** No coverage fingerprint moved.
+
 ## Site table
 
 | Site (base) | Was | Now | Source |
@@ -509,6 +558,9 @@ consistency with the proposal, not confirmation that dark-matter particles do no
 | GR:450 (ii-a), Explainer:581 | "a theorem of Part I"; "The paper proves" | "By the construction of the trace-out" | GR:450 itself ("by construction") |
 | Explainer:537, 541, 543, 545, 549–551, 579, 581, 593, 625, 689, 900 | as in §§1–4, 6, 7 | conditional / normalization / "depends only on" / on the proposal | GR §6 |
 | Substratum:46 | "The dark sector is the gravitational effect …" | on the geometry-first proposal | GR:356 |
+| Structure:177, 180, 182, 184 (current numbering) | $A/4$ and interpolation details "forced", "distinguishing", at G3 × D or G2/G3 × D | $A/4$ at G4 × C, conditional; G3 × D "content" with SM status and open kernel | review B8; GR §8.5, SM §7.6 |
+| GR:30, 597, 681 | "Level C × Level G4", "Levels G1–G2" beside GR's own G1–G4 ladder | gauge-axis levels of [Structure §2], distinct from the dependency ladder | review B9 |
+| Explainer:671; Substratum:325; GR:12, 526; ch02:120, ch07:177, ch09:259 (FULL) | unconditional non-particle statements; bare "G3" in level chapters | conditional on the open coupling step; "the open covariant coupling step of [GR §6.2]" | review B10, optional |
 | Structure:179 | dark-sector phenomenology at Level G3 × Level D | own bullet: Level D × Levels G1–G2 classification; interpolation details at G3 × D | owner decision 1; GR:30, :597 |
 | GR:28, 30, 637; ch07:14; ch09:118, 128, 140, Tier 2 cell; ch03:222 | "open G3 coupling" near tier/level labels | "the open matter-to-boundary coupling step" | owner decision 1 |
 | GR:458, 464, 490, 526, 707; ch07:247, 256, 272, 302, 309; ch04:148; Substratum:484; ch09:72, 128, 140, 154, 255; ch19:44, 46; ch00:83; Explainer:583 (FULL mirrors) | "no particle dark matter exists"; "No dark matter particle"; any WIMP falsifies; nulls as support | non-particle explanation of the structured dark sector, conditional; full-budget falsifier; subdominant component re-examines the budget; nulls = consistency | owner decision 2 |
@@ -540,9 +592,9 @@ The Lean census registry is untouched.
 `python3 -I check.py <repo-root> 0d917665`, output in `check.out` (the added-lines scan excludes
 `check.out`, so the count is stable):
 
-- 84 superseded wordings: **0** occurrences each, corpus-wide (papers, chapters, FULL; the
+- 94 superseded wordings: **0** occurrences each, corpus-wide (papers, chapters, FULL; the
   Introduction excluded per the unit brief).
-- 60 corrected book sentences: present once in the chapter and once in FULL each; 24 corrected paper
+- 60 corrected book sentences: present once in the chapter and once in FULL each; 37 corrected paper
   sentences pinned at exactly one occurrence each.
 - Chapter 9 tier counts (section 2c): every stated Tier 1, Tier 2 and Tier 3 count, every count word
   before "entries" or "independent confirmations" in the paragraph after each table, and the
@@ -590,7 +642,11 @@ as fact (§7). Removed: "the proofs are complete" (appendix-c:317); "predicts th
 - **SC-43** (`corpus/sc43-turtles-scope`) rewrites the later sentences of ch03:222 / FULL:1098, the
   same line whose dark-sector sentences this unit corrects: a textual conflict is expected. Resolve
   by merits: SC-43's sentences from "Only past that first real turtle" onward, this unit's sentences
-  from "and, in the flagship case" through "(Chapter 7 §§7.8–7.9)".
+  from "and, in the flagship case" through "(Chapter 7 §§7.8–7.9)". SC-43 also regenerates
+  `papers/Explainer.tex` / `.pdf` and `papers/Structure.tex` / `.pdf`, which this unit regenerates
+  too: those derived files conflict and are rebuilt from the merged sources (`sh ./build.sh
+  Explainer Structure`), as are any other `.tex` / `.pdf` both branches rebuild (the book with
+  SC-36 and SC-43).
 - **SC-36, ch18:146 / FULL:4964:** this unit carries SC-36's line verbatim; identical on both sides.
 
 - **SC-36** (`corpus/sc36-page-curve-scope`) retitles ch19 §19.2 to the identical "Problems addressed"
@@ -615,6 +671,10 @@ as fact (§7). Removed: "the proofs are complete" (appendix-c:317); "predicts th
   (§3.2, Step 2) instead of the calibration.
 
 ## Open, for #970 (recorded, not edited)
+
+- Owner item: whether "Conditional Dissolution" in the GR §6 and ch07 §7.7 titles ("The Cosmological
+  Constant: Descriptive Distinction and Conditional Dissolution") should change under the owner's
+  direction that nothing be called dissolved or resolved.
 
 - The two owner items recorded in round 5 (level placement; the strength of the
   no-dark-matter-particle claim) were decided by the owner and are applied in §10.

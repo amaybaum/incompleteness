@@ -104,6 +104,16 @@ STALE = [
     "The three components of the dissolution",
     "The structural feature of this dissolution",
     "Bekenstein-Hawking $A/4$, dark-sector phenomenology",
+    "Koide ratio $2/3$, Bekenstein-Hawking $A/4$, and the bijection-dependent",
+    "forced by OI's specific $\\mathcal{G}_{\\rm sub}$-equivalence class",
+    "The framework's most distinguishing predictions live at Level G3 × Level D",
+    "Level G2/G3 × Level D derivation",
+    "Dark matter is not a substance",
+    "dark sector corollary as a structural feature rather than a new particle species",
+    "sits at Level D × Levels G1–G2",
+    "Tier 2 / Level D × Levels G1–G2",
+    "conditional on the open coupling step (G3)",
+    "are Einstein's, the open G3 step",
     "\\Omega_{\\text{dark}} \\approx 95\\%$ | $\\Omega_{\\text{CDM}}",
     "The framework predicts that dark energy is the uniform component",
     "The dark-sector corollary predicts that ~95%",
@@ -118,7 +128,7 @@ for s in STALE:
 MIRROR = {
     "book/ch07-gravity.md": [
         "## 7.7 The cosmological constant: descriptive distinction and conditional dissolution",
-        "its covariant field equations and their source coupling are the open G3 step",
+        "its covariant field equations and their source coupling are the open covariant coupling step of [GR §6.2]",
         "The emergent action scale depends only on the boundary geometry",
         "The framework's geometry-first proposal converges",
         "convergence with the framework's geometry-first proposal",
@@ -143,7 +153,7 @@ MIRROR = {
         "consistent with the framework's proposal, conditional on the open matter-to-boundary coupling step, that the structured dark sector requires no new particle species; null results establish consistency",
     ],
     "book/ch02-substratum.md": [
-        "On the geometry-first proposal, the dark sector of cosmological observation","a reading on which the problem dissolves conditional on the open coupling step (G3)"],
+        "On the geometry-first proposal, the dark sector of cosmological observation","a reading on which the problem dissolves conditional on the open covariant coupling step of [GR §6.2]"],
     "book/ch09-universality.md": [
         "(conditional cosmological constant dissolution,",
         "levels (Chapter 7 §7.7), so that,",
@@ -216,6 +226,13 @@ PINS = {
     ],
 }
 PINS["papers/GR.md"] += [
+    "with its observation-axis Levels A–D and gauge-axis Levels G1–G4; the gauge-axis levels are distinct from this paper's G1–G4 dependency ladder (abstract, §9).",
+    "operates at Level C × gauge-axis Level G4:",
+    "sits at Level D × gauge-axis Levels G1–G2, deriving from",
+    "a Tier 2 / Level D × gauge-axis Levels G1–G2 prediction ([Structure §2]; §1),",
+    "and are Level D × gauge-axis Levels G1–G2 predictions ([Structure §2]; §1);",
+    "a ~$95\\%$ dark sector corollary, conditional on the coupling step, in which",
+    "(a subdominant particle component would instead require re-examining the budget for double counting);",
     "Their gravitational reading is conditional on the open matter-to-boundary coupling step (§6.2)",
     "Under the corollary's proposed dark-sector mechanism, conditional on the open matter-to-boundary coupling step, the structured gravitational dark sector is accounted for without requiring a new dark-matter particle species",
     "null results establish consistency with the proposal, not that dark-matter particles do not exist.",
@@ -230,12 +247,18 @@ PINS["papers/GR.md"] += [
 PINS["papers/Structure.md"] = [
     "- *Level D × Levels G1–G2 classification* — the general dark-sector phenomenology",
     "the classification does not derive the mechanism, whose gravitational reading is conditional on the open matter-to-boundary coupling step ([GR §6.2]).",
-    "and the bijection-dependent details of the dark-sector interpolation function ([GR §7.3])",
+    "and the bijection-dependent details of the dark-sector interpolation function, whose transition kernel is open ([GR §7.3]). Where bijection-dependent, this content distinguishes OI from other universality-class members.",
+    "- *Level G3 × Level D content* — Cabibbo angle $1/(\\pi\\sqrt{2})$ and Koide ratio $2/3$ (conditional structural retrodictions in [SM §7.6])",
+    "The Bekenstein-Hawking $A/4$ coefficient sits at this level as a conditional result: it is a universality-class result conditional on H-slope and the horizon and frame conditions ([GR §8.5]).",
+    "The framework's most distinguishing content is the bijection-dependent part of Level G3 × Level D, which is specific to OI's class.",
+    "the $A/4$ coefficient is a Level G4 × Level C result, conditional on H-slope and the horizon and frame conditions, with no direct empirical test",
 ]
 PINS["papers/Substratum.md"] = [
+    "a ~$95\\%$ dark-sector corollary, conditional on the open coupling step ([GR §6.2]), as a structural feature rather than a new particle species",
     "accounting for the full structured dark-matter budget. Such a detection falsifies",
     "A subdominant particle component would instead require re-examining the budget for double counting.",
 ]
+PINS["papers/Explainer.md"].append("On the framework's proposal, conditional on the open matter-to-boundary coupling step, dark matter is read not as a substance but as the local shape of the observer's blind spot")
 PINS["papers/Explainer.md"].append("that the structured dark sector requires no new particle species; null results establish consistency, not that such particles do not exist.")
 print("2b. paper pins (expect exactly 1 each)")
 for pth, phrases in PINS.items():

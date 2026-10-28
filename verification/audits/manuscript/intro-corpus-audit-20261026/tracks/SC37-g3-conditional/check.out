@@ -79,13 +79,23 @@
    0  The three components of the dissolution
    0  The structural feature of this dissolution
    0  Bekenstein-Hawking $A/4$, dark-sector phenomenology
+   0  Koide ratio $2/3$, Bekenstein-Hawking $A/4$, and the bijection-dependent
+   0  forced by OI's specific $\mathcal{G}_{\rm sub}$-equivalence class
+   0  The framework's most distinguishing predictions live at Level G3 × Level D
+   0  Level G2/G3 × Level D derivation
+   0  Dark matter is not a substance
+   0  dark sector corollary as a structural feature rather than a new particle species
+   0  sits at Level D × Levels G1–G2
+   0  Tier 2 / Level D × Levels G1–G2
+   0  conditional on the open coupling step (G3)
+   0  are Einstein's, the open G3 step
    0  \Omega_{\text{dark}} \approx 95\%$ | $\Omega_{\text{CDM}}
    0  The framework predicts that dark energy is the uniform component
    0  The dark-sector corollary predicts that ~95%
    0  The dark-sector corollary explains ~95%
 2. chapter/FULL mirror (counts must match and be >= 1)
    ok  1/1  book/ch07-gravity.md: ## 7.7 The cosmological constant: descriptive distinction and conditio
-   ok  1/1  book/ch07-gravity.md: its covariant field equations and their source coupling are the open G
+   ok  1/1  book/ch07-gravity.md: its covariant field equations and their source coupling are the open c
    ok  1/1  book/ch07-gravity.md: The emergent action scale depends only on the boundary geometry
    ok  1/1  book/ch07-gravity.md: The framework's geometry-first proposal converges
    ok  1/1  book/ch07-gravity.md: convergence with the framework's geometry-first proposal
@@ -105,7 +115,7 @@
    ok  1/1  book/ch00-introduction.md: combining the conditional CC dissolution
    ok  1/1  book/ch00-introduction.md: consistent with the framework's proposal, conditional on the open matt
    ok  1/1  book/ch02-substratum.md: On the geometry-first proposal, the dark sector of cosmological observ
-   ok  1/1  book/ch02-substratum.md: a reading on which the problem dissolves conditional on the open coupl
+   ok  1/1  book/ch02-substratum.md: a reading on which the problem dissolves conditional on the open covar
    ok  1/1  book/ch09-universality.md: (conditional cosmological constant dissolution,
    ok  1/1  book/ch09-universality.md: levels (Chapter 7 §7.7), so that,
    ok  2/2  book/ch09-universality.md: ([Main §3.4]; [GR §8.3]),
@@ -150,6 +160,13 @@
    ok  1  papers/GR.md: *Under Lemmas 1–3, conditions (C1)–(C4) and the geometry-first proposa
    ok  1  papers/GR.md: the metric belongs to the substratum, prior to the trace-out, and its 
    ok  1  papers/GR.md: On the geometry-first proposal (§6.2), conditional on the open couplin
+   ok  1  papers/GR.md: with its observation-axis Levels A–D and gauge-axis Levels G1–G4; the 
+   ok  1  papers/GR.md: operates at Level C × gauge-axis Level G4:
+   ok  1  papers/GR.md: sits at Level D × gauge-axis Levels G1–G2, deriving from
+   ok  1  papers/GR.md: a Tier 2 / Level D × gauge-axis Levels G1–G2 prediction ([Structure §2
+   ok  1  papers/GR.md: and are Level D × gauge-axis Levels G1–G2 predictions ([Structure §2];
+   ok  1  papers/GR.md: a ~$95\%$ dark sector corollary, conditional on the coupling step, in 
+   ok  1  papers/GR.md: (a subdominant particle component would instead require re-examining t
    ok  1  papers/GR.md: Their gravitational reading is conditional on the open matter-to-bound
    ok  1  papers/GR.md: Under the corollary's proposed dark-sector mechanism, conditional on t
    ok  1  papers/GR.md: null results establish consistency with the proposal, not that dark-ma
@@ -163,10 +180,16 @@
    ok  1  papers/Explainer.md: By the construction of the trace-out, this entropy has no operator in 
    ok  1  papers/Explainer.md: reads the discrepancy as a derived quantity. (Note the division of lab
    ok  1  papers/Explainer.md: the other, if the coupling step holds, carries the observed value as a
+   ok  1  papers/Explainer.md: On the framework's proposal, conditional on the open matter-to-boundar
    ok  1  papers/Explainer.md: that the structured dark sector requires no new particle species; null
    ok  1  papers/Structure.md: - *Level D × Levels G1–G2 classification* — the general dark-sector ph
    ok  1  papers/Structure.md: the classification does not derive the mechanism, whose gravitational 
    ok  1  papers/Structure.md: and the bijection-dependent details of the dark-sector interpolation f
+   ok  1  papers/Structure.md: - *Level G3 × Level D content* — Cabibbo angle $1/(\pi\sqrt{2})$ and K
+   ok  1  papers/Structure.md: The Bekenstein-Hawking $A/4$ coefficient sits at this level as a condi
+   ok  1  papers/Structure.md: The framework's most distinguishing content is the bijection-dependent
+   ok  1  papers/Structure.md: the $A/4$ coefficient is a Level G4 × Level C result, conditional on H
+   ok  1  papers/Substratum.md: a ~$95\%$ dark-sector corollary, conditional on the open coupling step
    ok  1  papers/Substratum.md: accounting for the full structured dark-matter budget. Such a detectio
    ok  1  papers/Substratum.md: A subdominant particle component would instead require re-examining th
 2c. Chapter 9 tier counts (stated vs table rows)
@@ -236,5 +259,5 @@
    papers/SM.md:851  The hypothesis $c_\lambda = 1$ is therefore equivalent to the statement that the intermediate states of the mixing perturbation theory are the emergen
    papers/Substratum.md:157  Three independent forward filters from the empirical inputs converge on $d = 3$: propagating gravity (E5) requires $d \geq 3$ (the Weyl tensor vanishe
    papers/Substratum.md:500  The result is not a theory of everything but a structural account of why the apparent incompatibility between quantum mechanics and general relativity
-4. added lines: 1163; register/caps hits: 0; secret/path hits: 0
+4. added lines: 1255; register/caps hits: 0; secret/path hits: 0
 RESULT PASS
