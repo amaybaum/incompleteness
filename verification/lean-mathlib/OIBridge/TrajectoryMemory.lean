@@ -1,4 +1,4 @@
-/-!
+/-
 # Actual trajectory laws for hidden predictive memory
 
 Research candidate: initial laws are pushed through the actual iterates of one
