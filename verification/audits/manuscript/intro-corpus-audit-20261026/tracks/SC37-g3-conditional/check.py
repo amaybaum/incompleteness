@@ -68,6 +68,11 @@ STALE = [
     "*by theorem*; its uniform component is dark energy",
     "so roughly ninety-five percent of the critical density is invisible to every embedded observer",
     "in the flagship case, its energetic content",
+    "invisible to every embedded observer *by theorem*",
+    "This is a theorem of Part I",
+    "The paper proves that this entropy has no operator",
+    "That doesn't prove the ordering is correct",
+    "\\Omega_{\\text{dark}} \\approx 95\\%$ | $\\Omega_{\\text{CDM}}",
     "The framework predicts that dark energy is the uniform component",
     "The dark-sector corollary predicts that ~95%",
     "The dark-sector corollary explains ~95%",
@@ -91,7 +96,7 @@ MIRROR = {
     ],
     "book/ch03-structural-realism.md": [
         "on the geometry-first proposal, the dark sector is the gravitational effect",
-        "so it is invisible to every embedded observer *by theorem*; on the geometry-first proposal, conditional on the open coupling step (G3)",
+        "so, by the construction of the trace-out ([GR §7.2], step (ii-a)), it is invisible to the emergent quantum description; on the geometry-first proposal, conditional on the open coupling step (G3)",
         "a dimensional factor $1/6$ imported from Verlinde (Chapter 7 §§7.8–7.9)",
         "in the flagship case and conditional on the open coupling step, its energetic content",
     ],
@@ -140,6 +145,27 @@ for ch, phrases in MIRROR.items():
         print(f"   {'ok ' if ok else 'BAD'} {a}/{b}  {ch}: {s[:70]}")
         fail += not ok
 
+PINS = {
+    "papers/GR.md": [
+        "By the construction of the trace-out, no hidden-sector degree of freedom maps to an operator on $\\mathcal{H}_V$, which is spanned by the visible configurations.",
+        "$\\Omega_{\\text{dark}} \\approx 95\\%$ (conditional on the coupling step) |",
+        "*Under Lemmas 1–3, conditions (C1)–(C4) and the geometry-first proposal of §6.2 (conditional on the open coupling step),",
+        "the metric belongs to the substratum, prior to the trace-out, and its covariant field equations and their source coupling are the open G3 step.",
+        "On the geometry-first proposal (§6.2), conditional on the open coupling step, the *absolute* zero-point sum does not gravitate",
+    ],
+    "papers/Explainer.md": [
+        "By the construction of the trace-out, this entropy has no operator in the emergent QFT.",
+        "The contrast is conditional on that open step.",
+        "the other, if the coupling step holds, carries the observed value as a normalization",
+    ],
+}
+print("2b. paper pins (expect exactly 1 each)")
+for pth, phrases in PINS.items():
+    for ph in phrases:
+        k = text[pth].count(ph)
+        print(f"   {'ok ' if k == 1 else 'BAD'} {k}  {pth}: {ph[:70]}")
+        fail += k != 1
+
 CC = re.compile(r"cosmological[- ]constant|vacuum[- ]energy|zero[- ]point|10\^\{?122|\\Lambda|Λ|\bCC\b"
                 r"|dark[- ]sector|boundary entropy|\\rho_s\b|energy scales|the two are", re.I)
 DIS = re.compile(r"dissol|resolv|\bsolv|commensurable|is dark (?:energy|matter)|gravitational effect"
@@ -164,7 +190,7 @@ for u in unmarked:
     print("   " + u)
 
 diff = subprocess.run(["git", "-C", str(root), "diff", "-U0", base, "--", ".", ":(exclude)*.pdf",
-                       ":(exclude)*.tex"], capture_output=True, text=True, check=True).stdout
+                       ":(exclude)*.tex", ":(exclude)*/SC37-g3-conditional/check.out"], capture_output=True, text=True, check=True).stdout
 added, removed, cur = [], {}, None
 for l in diff.split("\n"):
     if l.startswith("+++ "):

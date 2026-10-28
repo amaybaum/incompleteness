@@ -447,7 +447,7 @@ This boundary-entropy filter is one of three independent $d=3$ selectors in the 
 
 *(ii) Invisibility.* The argument has two logically distinct components.
 
-*(ii-a) Construction-level invisibility (from Part I alone).* The boundary modes comprising $S_{\text{dS}}$ are hidden-sector degrees of freedom — the variables traced out to produce the quantum description. By the trace-out structure, no hidden-sector degree of freedom maps to an operator on $\mathcal{H}_V$. This is a theorem of Part I, independent of any gravitational content: the hidden sector is invisible to the emergent description by construction.
+*(ii-a) Construction-level invisibility (from Part I alone).* The boundary modes comprising $S_{\text{dS}}$ are hidden-sector degrees of freedom — the variables traced out to produce the quantum description. By the construction of the trace-out, no hidden-sector degree of freedom maps to an operator on $\mathcal{H}_V$, which is spanned by the visible configurations. The step uses no gravitational content: the hidden sector is invisible to the emergent description by construction.
 
 *(ii-b) Gravitational consequence (from the ontological ordering of §6.2).* The physical import — that the boundary entropy's gravitational influence appears as additional gravity with no source in $\langle \hat{T}_{\mu\nu} \rangle$ — requires the geometry-first ordering of §6.2, under which the metric exists at the pre-trace-out level, together with the proposal of §6.2, conditional on the open coupling step, that the stress-energy sourcing gravity is the classical stress-energy, not the emergent quantum expectation value. Under this ordering, the gravitational interaction between bulk matter and boundary entropy is mediated by the metric at the classical level, modifying the geometry but contributing no term to the emergent $\langle \hat{T}_{\mu\nu} \rangle$. To the embedded observer, this appears as additional gravity with no particle-sector source.
 
@@ -542,7 +542,7 @@ The GR-side quantitative predictions of the framework are collected in the table
 | Prediction | Formula / value | Observed / status | Match |
 |---|---|---|---|
 | Dark energy form | Type II channel; functional form the local expansion shared by every smooth model (§7.1); magnitude $\approx |\nu_{\rm QFT}| \sim 10^{-32}$, indistinguishable from zero | Bertini 2025 $\nu = -(2.5\pm 1.3) \times 10^{-4}$ | consistent at $2\sigma$ (Bertini consistent with zero) |
-| Dark sector fraction | $\Omega_{\text{dark}} \approx 95\%$ | $\Omega_{\text{CDM}} + \Omega_\Lambda \approx 95\%$ | partly definitional ($1-\Omega_B$ by construction) |
+| Dark sector fraction | $\Omega_{\text{dark}} \approx 95\%$ (conditional on the coupling step) | $\Omega_{\text{CDM}} + \Omega_\Lambda \approx 95\%$ | partly definitional ($1-\Omega_B$ by construction) |
 | MOND acceleration scale | $a_0 = cH/6 = 1.09$–$1.18 \times 10^{-10}$ m/s² ($H_0 = 67.4$–$73$) | $g_\dagger = (1.20 \pm 0.02 \pm 0.24) \times 10^{-10}$ m/s² | within systematic; factor imported |
 | Baryonic Tully-Fisher | $v^4 = G M_B \cdot cH/6$ | SPARC data | within $0.13$ dex RAR scatter |
 | Rotation curve crossover | $r_M = \sqrt{6 G M_B/(cH)}$; nearly flat beyond | Milky Way: $9$–$16$ kpc depending on the baryon budget ($6\times10^{10}$–$2\times10^{11}\,M_\odot$); Jiao et al. 2023 Keplerian decline at $19$–$26.5$ kpc | in tension |

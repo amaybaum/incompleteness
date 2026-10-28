@@ -43,6 +43,11 @@
    0  *by theorem*; its uniform component is dark energy
    0  so roughly ninety-five percent of the critical density is invisible to every embedded observer
    0  in the flagship case, its energetic content
+   0  invisible to every embedded observer *by theorem*
+   0  This is a theorem of Part I
+   0  The paper proves that this entropy has no operator
+   0  That doesn't prove the ordering is correct
+   0  \Omega_{\text{dark}} \approx 95\%$ | $\Omega_{\text{CDM}}
    0  The framework predicts that dark energy is the uniform component
    0  The dark-sector corollary predicts that ~95%
    0  The dark-sector corollary explains ~95%
@@ -56,7 +61,7 @@
    ok  1/1  book/ch07-gravity.md: (on the same proposal, does gravitate)
    ok  1/1  book/ch07-gravity.md: Conditional on the coupling step, the two are not commensurable as gra
    ok  1/1  book/ch03-structural-realism.md: on the geometry-first proposal, the dark sector is the gravitational e
-   ok  1/1  book/ch03-structural-realism.md: so it is invisible to every embedded observer *by theorem*; on the geo
+   ok  1/1  book/ch03-structural-realism.md: so, by the construction of the trace-out ([GR §7.2], step (ii-a)), it 
    ok  1/1  book/ch03-structural-realism.md: a dimensional factor $1/6$ imported from Verlinde (Chapter 7 §§7.8–7.9
    ok  1/1  book/ch03-structural-realism.md: in the flagship case and conditional on the open coupling step, its en
    ok  1/1  book/ch00-introduction.md: the descriptive distinction behind a dissolution of the cosmological c
@@ -85,6 +90,15 @@
    ok  1/1  book/appendix-c-objections.md: the status of each — proved, conditional or open — is recorded with it
    ok  1/1  book/appendix-c-objections.md: (the cosmological constant, conditional on the open coupling step;
    ok  1/1  book/readers-guide.md: the conditional cosmological constant dissolution)
+2b. paper pins (expect exactly 1 each)
+   ok  1  papers/GR.md: By the construction of the trace-out, no hidden-sector degree of freed
+   ok  1  papers/GR.md: $\Omega_{\text{dark}} \approx 95\%$ (conditional on the coupling step)
+   ok  1  papers/GR.md: *Under Lemmas 1–3, conditions (C1)–(C4) and the geometry-first proposa
+   ok  1  papers/GR.md: the metric belongs to the substratum, prior to the trace-out, and its 
+   ok  1  papers/GR.md: On the geometry-first proposal (§6.2), conditional on the open couplin
+   ok  1  papers/Explainer.md: By the construction of the trace-out, this entropy has no operator in 
+   ok  1  papers/Explainer.md: The contrast is conditional on that open step.
+   ok  1  papers/Explainer.md: the other, if the coupling step holds, carries the observed value as a
 3. inventory (chapters and papers; FULL mirrors the chapters): 98 sentences with a conditional marker, 47 without
    book/README.md:68  Includes external convergence with the Danielson-Satishchandran-Wald horizon decoherence program, and a four-axis structured comparison with conformal
    book/appendix-c-objections.md:122  *In Chapter 7's gravitational content.* Finiteness is *derived* from the cosmological horizon's finite area: the Bekenstein entropy bound limits the n
@@ -133,5 +147,5 @@
    papers/SM.md:851  The hypothesis $c_\lambda = 1$ is therefore equivalent to the statement that the intermediate states of the mixing perturbation theory are the emergen
    papers/Substratum.md:157  Three independent forward filters from the empirical inputs converge on $d = 3$: propagating gravity (E5) requires $d \geq 3$ (the Weyl tensor vanishe
    papers/Substratum.md:500  The result is not a theory of everything but a structural account of why the apparent incompatibility between quantum mechanics and general relativity
-4. added lines: 740; register/caps hits: 0; secret/path hits: 0
+4. added lines: 707; register/caps hits: 0; secret/path hits: 0
 RESULT PASS

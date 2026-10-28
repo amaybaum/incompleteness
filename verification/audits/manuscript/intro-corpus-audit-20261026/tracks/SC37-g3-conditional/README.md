@@ -1,8 +1,9 @@
 # SC-37: the cosmological constant and the open coupling step G3
 
 Unit of PR-A (part). Base `main` at `0d917665`; branch `corpus/sc37-g3-conditional`. Line numbers
-below are at the base. Two commits: the unit's corrections, and the independent review's findings
-B1–B6 with its also-apply list (review of `2ab22504`, ACCEPT WITH CHANGES).
+below are at the base. Three commits: the unit's corrections; the independent review's findings
+B1–B6 with its also-apply list (review of `2ab22504`, ACCEPT WITH CHANGES); and the delta review of
+`15899d90` (ACCEPT WITH CHANGES: the "by theorem" invisibility, §8 below, and two recommended edits).
 
 ## Finding
 
@@ -98,10 +99,12 @@ formal change: none.**
   :551 now reads: "This contrast bears on the ordering through the open coupling step. … one ordering
   produces the worst prediction in physics and has no solution; the other, if the coupling step
   holds, carries the observed value as a normalization and reads the discrepancy as a derived
-  quantity. That doesn't prove the ordering is correct, and the evidence rests on that open step.
+  quantity. The contrast is conditional on that open step.
   (… One, conditional on that step, is consistent with the observed vacuum energy as a normalization,
   and one misses it by $10^{122}$; …)". It replaces "This track record is itself evidence for the
-  ordering" and "it's existing evidence, not a future hope". Explainer:625 "only the substrate's value
+  ordering" and "That doesn't prove the ordering is correct, but it's existing evidence, not a future
+  hope" (the delta review replaced an intermediate "and the evidence rests on that open step" as
+  self-assessment under §A.32). Explainer:625 "only the substrate's value
   matches observation" → "is of the observed scale".
 - **Downstream.** None outside the Explainer: no other corpus site says the framework predicts the
   vacuum-energy value (re-grep below).
@@ -194,8 +197,9 @@ formal change: none.**
   field theory, so roughly ninety-five percent of the critical density is invisible to every embedded
   observer *by theorem*; its uniform component is dark energy, and its scale-dependent face is the
   dark-matter regularity $a_0 = cH/6$", with its lead-in "in the flagship case, its energetic
-  content", keeps the unconditional part (no operator, hence invisible to the emergent description)
-  and places the rest on the proposal: "on the geometry-first proposal, conditional on the open
+  content", keeps the unconditional part (no operator, hence invisible to the emergent description,
+  stated by construction: §8) and places the rest on the proposal: "on the geometry-first proposal,
+  conditional on the open
   coupling step (G3), it carries roughly ninety-five percent of the critical density (a fraction equal
   to $1-\Omega_B$ by construction), its uniform component is dark energy, and its scale-dependent face
   is the dark-matter regularity $a_0 = cH/6$, which further requires the horizon conditions of
@@ -207,8 +211,39 @@ formal change: none.**
   corollary predicts" → "predicts, conditional on the open coupling step,"; GR:707 "The dark-sector
   corollary explains ~95%" → "accounts, conditional on the coupling step and partly by definition
   (§6.2), for ~95%".
+- **Predicted column (delta review).** GR:545's Predicted cell "$\Omega_{\rm dark}\approx 95\%$"
+  gains "(conditional on the coupling step)", as in ch07:297's Predicted column.
 - **Downstream.** ch09 lists the budget as a Tier 1 universality-class entry while ch07:297 gives
   "2 (cond.)"; recorded as an open item below, not changed.
+
+### 8. Hidden-sector invisibility called a theorem (delta review of `15899d90`)
+
+- **Original.** GR:450 (ii-a) "By the trace-out structure, no hidden-sector degree of freedom maps to
+  an operator on $\mathcal{H}_V$. This is a theorem of Part I, independent of any gravitational
+  content"; Explainer:581 "The paper proves that this entropy has no operator in the emergent QFT";
+  ch03:222 / FULL:1098 (as edited in the second commit) "so it is invisible to every embedded
+  observer *by theorem*" (base: "roughly ninety-five percent of the critical density is invisible to
+  every embedded observer *by theorem*").
+- **Defect.** No named theorem in Part I states it (searched `papers/Main.md`); it is a fact of the
+  construction: $\mathcal{H}_V$ is spanned by the visible configurations, so a traced-out degree of
+  freedom has no operator on it. "To every embedded observer" overscopes it (it is invisibility to the
+  emergent quantum description) and contradicts the next clause, in which the same entropy is
+  observed gravitationally as the dark sector.
+- **Correction.** GR:450 "By the construction of the trace-out, no hidden-sector degree of freedom
+  maps to an operator on $\mathcal{H}_V$, which is spanned by the visible configurations. The step uses
+  no gravitational content: the hidden sector is invisible to the emergent description by
+  construction."; Explainer:581 "By the construction of the trace-out, this entropy has no operator in
+  the emergent QFT."; ch03:222 / FULL:1098 "so, by the construction of the trace-out ([GR §7.2], step
+  (ii-a)), it is invisible to the emergent quantum description;".
+- **Downstream.** Re-grep of papers and book (FULL included) for "by theorem", "proves" or "theorem
+  of Part I" together with "no operator", "invisible", "hidden" or "boundary entropy": no further
+  claim that invisibility is a theorem. The other hits are about different results and are correct as
+  stated: the necessity bound $\log_2|\mathcal C_H|\ge I^*$ (ch01:57 / FULL:401), readback forcing
+  hidden predictive memory (ch02:20 / FULL:663; Main:596, :610), the C1 necessity row (Main:731), the
+  no-go theorems' own content (ch04:82 / FULL:1201; appendix-c:58 / FULL:6304), and the
+  Gödel–Turing–OI analogy (Computation:72, ch12:213 / FULL:3465). Medicine:13 "The OI framework
+  proves that any fast subsystem …" concerns C1–C4 memory, not invisibility, and is outside this
+  unit. No coverage fingerprint moved (the edits are in the Corollary's proof, not its statement).
 
 ## Site table
 
@@ -227,10 +262,11 @@ formal change: none.**
 | GR:625 (U3) | "compression ratio, not a failure of cancellation" (unconditional list) | identity unconditional; dissolution conditional per (c) | GR:366, :637 |
 | GR:374 | "the gauge status of the uniform vacuum offset" | gauge for every quantum statistic; coupling the open G3 step | GR:356, §8.3 |
 | GR:422 (Corollary), 452, 456 | coupling used without hypothesis; "ordering established in §6.2: … stress-energy … is the classical" | hypothesis "geometry-first proposal of §6.2 (conditional on the open coupling step)" added; proposal stated as such | GR:356, GR:12 |
-| GR:26, 468, 545, 707 | corollary "predicts" / "explains"; budget "established"; "consistent" | conditional; partly definitional | GR:358, GR:12 |
+| GR:26, 468, 545, 707 | corollary "predicts" / "explains"; budget "established"; "consistent"; Predicted "≈ 95%" | conditional; partly definitional; "(conditional on the coupling step)" | GR:358, GR:12, ch07:297 |
+| GR:450 (ii-a), Explainer:581 | "a theorem of Part I"; "The paper proves" | "By the construction of the trace-out" | GR:450 itself ("by construction") |
 | Explainer:537, 541, 543, 545, 549–551, 579, 581, 593, 625, 689, 900 | as in §§1–4, 6, 7 | conditional / normalization / "depends only on" / on the proposal | GR §6 |
 | Substratum:46 | "The dark sector is the gravitational effect …" | on the geometry-first proposal | GR:356 |
-| ch02:22, ch03:212, :222 (FULL:665, 1088, 1098) | dark sector / dark energy stated as the gravitational effect | on the geometry-first proposal | GR:356 |
+| ch02:22, ch03:212, :222 (FULL:665, 1088, 1098) | dark sector / dark energy stated as the gravitational effect; ch03:222 "invisible to every embedded observer *by theorem*" | on the geometry-first proposal; "by the construction of the trace-out ([GR §7.2], step (ii-a)), it is invisible to the emergent quantum description" | GR:356, GR:450 |
 | ch07:175, 258 (FULL:2054, 2137) | "not commensurable as gravitational sources"; "(does gravitate)" | conditional on the coupling step; on the same proposal | GR:356 |
 | ch19:54 (FULL:5214) | "The framework predicts that dark energy is …" | on the geometry-first proposal | GR:356 |
 | SM:1576 | "dissolution … at the descriptive level" | descriptive distinction behind a conditional dissolution | GR:356 |
@@ -254,12 +290,13 @@ The Lean census registry is untouched.
 
 ## Re-grep
 
-`python3 -I check.py <repo-root> 0d917665`, output in `check.out` (the run that produced `check.out`
-counts `check.out` itself among the added lines):
+`python3 -I check.py <repo-root> 0d917665`, output in `check.out` (the added-lines scan excludes
+`check.out`, so the count is stable):
 
-- 47 superseded wordings: **0** occurrences each, corpus-wide (papers, chapters, FULL; the
+- 52 superseded wordings: **0** occurrences each, corpus-wide (papers, chapters, FULL; the
   Introduction excluded per the unit brief).
-- 38 corrected book sentences: present once in the chapter and once in FULL each.
+- 38 corrected book sentences: present once in the chapter and once in FULL each; 8 corrected paper
+  sentences pinned at exactly one occurrence each.
 - Inventory of chapter and paper sentences pairing a cosmological-constant or dark-sector term with a
   dissolution, gravitation, "commensurable" or "is dark energy / matter" form (the review asked for
   the dark-sector and "commensurable" sentences to be caught): **98** carry a conditional marker in
