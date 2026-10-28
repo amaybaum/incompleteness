@@ -70,7 +70,7 @@ SC-27 (#958) already corrected Main :610 ("(C3) by the data-processing argument 
 - At Main:78 the enumeration is described as what it is: uniform prior, orders 1 and 2, floating point. Attainment is given exactly by a stated witness: the swap $\varphi(v,h)=(h,v)$ at $(2,2)$ has $X_{k+1}=X_{k-1}$, $M_k=1$ bit, and $I^*=1$ bit by the squeeze $M_k\le I^*\le\log_2|\mathcal C_H|$.
 - At Main:620 the enumeration's two checks are stated with their arithmetic: (A) exact, (B) per-order, on gap realizations, in floating point. "Checkable consequences" becomes "checkable necessary conditions".
 - At Main:82, C1 follows as a necessary diagnostic of the mediation, and C3 holds in every faithful realization by the capacity bound.
-- In `primitive_probes.py`, only strings and comments change. The script also checks that the AST is identical with prints and docstrings excluded, and the two outputs differ only in the two print lines (B)'s header and conclusion. The probe passes before and after.
+- In `primitive_probes.py`, only strings and comments change. The AST is identical with print arguments and docstrings excluded, and the two outputs differ only in (B)'s header and conclusion lines; both were compared at review (`python3 -I primitive_probes.py` at `72aa9a5b` and at `a9480336`), not by a script in this track. The probe passes before and after.
 - In the coverage ledger, the unattached-checker text for `primitive_probes.py` is restated clause by clause against what the probe does.
 - The caps word "SATURATED" (§A.33) becomes "attained".
 - The glossary's derivation is the whole-future bound.
