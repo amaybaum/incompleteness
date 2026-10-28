@@ -18,9 +18,19 @@ Both are periodic in t with the period of phi, so comparing t = 0 .. period-1 co
                   relabelling relates the two (independent replay of a kernel-checked fact);
   A3 countercontrol  a two-way coupled extension changes T_t at some t (the check must fire);
   A4 probe        one-way-driven extensions (skew products (s,f) -> (phi(s), g_s(f))) of a
-                  fixed phi: count those that leave T_t unchanged at every t, those whose cycle
-                  type no product phi x phi_new has (so no relabelling after a product
-                  enlargement reaches them), and those that change some Phi_t coherence entry.
+                  fixed phi by one adjoined bit: count those that leave T_t unchanged at every t,
+                  those whose cycle type no product phi x phi_new of the SAME size has, and those
+                  that change some Phi_t coherence entry. "Unreachable" here holds at equal size
+                  only; A5 shows it disappears after a further enlargement.
+  A5 probe        after a further decoupled enlargement of both sides by a cycle whose length N
+                  is a common multiple of every cycle length, every skew product of A4 is
+                  conjugate to (phi x id_2) x C_N by a visible-fibre-preserving relabelling. The
+                  relabelling is built cycle by cycle (cycles grouped by the set of rotations of
+                  their visible word) and verified pointwise; T_t equality is re-checked.
+  A6 probe        visible-fibre-preserving relabellings of phi on the fixed carrier (3! x 3! = 36):
+                  all preserve T_t; count those that change some Phi_t entry. So a fibre-wise
+                  relabelling of the kind A5 uses preserves the classical law but not, in general,
+                  the channel family.
 
 Part B re-greps the corpus for the phrases this unit corrected.
 
@@ -223,10 +233,100 @@ def part_a():
     a4 = n_T == n_all  # every skew product preserves the classical law
     ok = ok and a4
     lines.append(f"A4 probe: skew products {n_all}; preserve T_t at every t: {n_T}; cycle type "
-                 f"reachable by no product phi x phi_new: {n_out}; change some Phi_t entry: {n_phi}")
+                 f"of no equal-size product phi x phi_new: {n_out}; change some Phi_t entry: {n_phi}")
     lines.append(f"A4 base cycle type {cycle_type(base.perm)}; product cycle types {sorted(prod_cts)}; "
                  f"first outside witness (bits, cycle type, Phi differs) {witness}")
     return ok, lines
+
+
+def cycles_of(perm):
+    seen, out = set(), []
+    for s in range(len(perm)):
+        if s in seen:
+            continue
+        c, x = [], s
+        while x not in seen:
+            seen.add(x)
+            c.append(x)
+            x = perm[x]
+        out.append(c)
+    return out
+
+
+def fibre_conjugacy(s1, s2):
+    """A bijection pi with pi(s1(x)) = s2(pi(x)) and vis(pi(x)) = vis(x), or None."""
+    if len(s1.perm) != len(s2.perm) or s1.nh != s2.nh:
+        return None
+    pool = {}
+    for c in cycles_of(s2.perm):
+        w = tuple(s2.vis(x) for x in c)
+        key = (len(c), frozenset(w[i:] + w[:i] for i in range(len(w))))
+        pool.setdefault(key, []).append(c)
+    pi = [None] * len(s1.perm)
+    for c in cycles_of(s1.perm):
+        w = tuple(s1.vis(x) for x in c)
+        key = (len(c), frozenset(w[i:] + w[:i] for i in range(len(w))))
+        if not pool.get(key):
+            return None
+        d = pool[key].pop()
+        wd = tuple(s2.vis(x) for x in d)
+        r = next(i for i in range(len(w)) if wd[i:] + wd[:i] == w)  # align d's word to c's
+        d = d[r:] + d[:r]
+        for a, b in zip(c, d):
+            pi[a] = b
+    n = len(pi)
+    if sorted(pi) != list(range(n)):
+        return None
+    if any(pi[s1.perm[x]] != s2.perm[pi[x]] for x in range(n)):
+        return None
+    if any(s1.vis(x) != s2.vis(pi[x]) for x in range(n)):
+        return None
+    return pi
+
+
+def part_a2():
+    lines = []
+    base = Sub(2, 3, [1, 3, 5, 0, 4, 2])
+    prod = product_ext(base, [0, 1])
+    ids, sw = [0, 1], [1, 0]
+    n_all = n_eq = n_after = n_phi_after = 0
+    Ns = set()
+    for bits in itertools.product((0, 1), repeat=6):
+        s = skew_ext(base, [sw if b else ids for b in bits])
+        n_all += 1
+        if fibre_conjugacy(s, prod) is not None or fibre_conjugacy(s, product_ext(base, [1, 0])) is not None:
+            n_eq += 1
+        N = 1
+        for L in cycle_type(s.perm) + cycle_type(prod.perm):
+            N = lcm(N, L)
+        Ns.add(N)
+        cN = [(i + 1) % N for i in range(N)]
+        se, pe = product_ext(s, cN), product_ext(prod, cN)
+        pi = fibre_conjugacy(se, pe)
+        if pi is not None and same_law(se, pe, with_phi=False):
+            n_after += 1
+            if not same_law(base, s, with_phi=True):
+                n_phi_after += 1
+    a5 = n_after == n_all
+    lines.append(f"A5 probe: skew products {n_all}; fibre-conjugate to phi x id or phi x swap at equal "
+                 f"size: {n_eq}; fibre-conjugate to (phi x id_2) x C_N after enlarging both by an "
+                 f"N-cycle (pi verified, T re-checked): {n_after}; of these, Phi-changing: "
+                 f"{n_phi_after}; N used {sorted(Ns)}")
+    n_rel = n_T = n_phi = 0
+    for r0 in itertools.permutations(range(3)):
+        for r1 in itertools.permutations(range(3)):
+            pi = list(r0) + [3 + x for x in r1]
+            inv = [0] * 6
+            for x in range(6):
+                inv[pi[x]] = x
+            q = Sub(2, 3, [pi[base.perm[inv[y]]] for y in range(6)])
+            n_rel += 1
+            n_T += same_law(base, q, with_phi=False)
+            n_phi += not same_law(base, q, with_phi=True)
+    a6 = n_T == n_rel
+    lines.append(f"A6 probe: fibre-wise relabellings of phi on the fixed carrier {n_rel}; preserve T_t: "
+                 f"{n_T}; change some Phi_t entry: {n_phi}")
+    return a5 and a6, lines
 
 
 PATTERNS = [
@@ -245,6 +345,14 @@ PATTERNS = [
     "The exact extent of the hidden sector",
     "the name records the identification, which is a result and not a stipulation",
     "Different values of |C_D| produce the same transition data at leading order",
+    "known to exhaust it only conditionally",
+    "is not one of the four generator families, and that every such implementation",
+    "Different deep-sector cardinalities — including infinite ones — produce the same visible transition data at leading order",
+    "This gauge group has four generators",
+    "The reconstruction theorem establishes this list",
+    "the most recent addition to the paper and the least settled",
+    "The deep hidden sector's cardinality is gauge",
+    "The hidden sector beyond the boundary layer admits arbitrary cardinality",
 ]
 
 
@@ -266,6 +374,9 @@ def part_b(root):
 def main():
     root = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(".")
     ok, lines = part_a()
+    ok2, lines2 = part_a2()
+    ok = ok and ok2
+    lines += lines2
     for l in lines:
         print(l)
     counts, keep = part_b(root)

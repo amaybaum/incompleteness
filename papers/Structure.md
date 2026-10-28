@@ -50,7 +50,7 @@ In a separate program [Main, SM, GR, Substratum], the Incompleteness of Observat
 
 (i) *State relabeling.* Permutations of hidden-sector configurations.
 (ii) *Alphabet change.* The local state-space size $q$ in $\mathbb{Z}/q\mathbb{Z}$ is gauge under the alphabet-size hypothesis ([SM §2.7]).
-(iii) *Deep-sector enlargement/reduction.* The hidden sector beyond the boundary layer admits arbitrary cardinality.
+(iii) *Deep-sector enlargement/reduction.* A deep sector that no dynamics couples to the boundary layer admits arbitrary cardinality.
 (iv) *Graph isomorphism (up to statistical isotropy).* Coupling graphs sharing dimension, spectral dimension, and statistical isotropy are gauge-equivalent.
 
 The framework's structural-realism stance is that the equivalence class $[(S, \varphi)]/\mathcal{G}_{\rm sub}$ — not any particular substratum representative — is what physics determines. Twenty-two classified SM observables, including the Cabibbo angle $1/(\pi\sqrt{2})$ matching observation at $0.12\sigma$ and the Koide ratio $2/3$ matching to better than 0.001% (both conditional structural, [SM §7.6]), and the Bekenstein-Hawking $1/4$ coefficient as a consistency relation (conditional on the horizon conditions of [GR §2, §8.5]; GW250114 confirms the classical area theorem, the coefficient untested directly), follow as consequences of the equivalence class under the conditions named at each step.
