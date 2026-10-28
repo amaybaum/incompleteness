@@ -2493,13 +2493,13 @@
       "line": 188,
       "kind": "Lemma",
       "label": "23.0",
-      "fingerprint": "3879e07173b7caf4",
+      "fingerprint": "8213fa0e0653f8ca",
       "area": "reconstruction",
-      "assumptions": "see the statement",
+      "assumptions": "selected d=3 nearest-neighbor cubic wave-rule branch; H-link m=1; octahedral representation; amplitude-scale gauge; each relevant [SM] matter hypothesis; H-slope for action-scale relation; H-Bell for Bell-composite existence",
       "checks": [],
       "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
+      "delta": "not formalized as a complete reconstruction; no uniqueness among all admissible substrata or full gauge-classification result",
+      "note": "SC-44/45 reconciliation narrows the manuscript claim to branch-relative structural outputs. The corpus does not prove that E1–E7 and A1–A6 alone select this branch, nor that Stage-2 results are biconditionals across all substrata. The original full-gauge uniqueness proof depended on the false Lemma 24.1. This row is GAP and must not be treated as a proved uniqueness theorem; compares outputs only within a fixed selected local branch"
     },
     {
       "id": "SUBSTRATUM:T-23",
@@ -2507,13 +2507,13 @@
       "line": 192,
       "kind": "Theorem",
       "label": "23",
-      "fingerprint": "30d589368f7af663",
+      "fingerprint": "61ee2d12da0643ae",
       "area": "reconstruction",
-      "assumptions": "see the statement",
+      "assumptions": "selected d=3 nearest-neighbor cubic wave-rule branch; H-link m=1; octahedral representation; amplitude-scale gauge; each relevant [SM] matter hypothesis; H-slope for action-scale relation; H-Bell for Bell-composite existence",
       "checks": [],
       "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
+      "delta": "not formalized as a complete reconstruction; no uniqueness among all admissible substrata or full gauge-classification result",
+      "note": "SC-44/45 reconciliation narrows the manuscript claim to branch-relative structural outputs. The corpus does not prove that E1–E7 and A1–A6 alone select this branch, nor that Stage-2 results are biconditionals across all substrata. The original full-gauge uniqueness proof depended on the false Lemma 24.1. This row is GAP and must not be treated as a proved uniqueness theorem; states conditional cubic-branch outputs without unique physical selection"
     },
     {
       "id": "SUBSTRATUM:T-24",
