@@ -1,0 +1,45 @@
+{
+  "checks": 6076,
+  "current_hidden_cases": 3392,
+  "registers": [
+    {
+      "full_future_conditional_information_bits": 1,
+      "hidden_bits": 1,
+      "one_step_conditional_information_bits": 1,
+      "residual_hidden_entropy_bits": 0
+    },
+    {
+      "full_future_conditional_information_bits": 2,
+      "hidden_bits": 2,
+      "one_step_conditional_information_bits": 1,
+      "residual_hidden_entropy_bits": 0
+    },
+    {
+      "full_future_conditional_information_bits": 3,
+      "hidden_bits": 3,
+      "one_step_conditional_information_bits": 1,
+      "residual_hidden_entropy_bits": 0
+    },
+    {
+      "full_future_conditional_information_bits": 4,
+      "hidden_bits": 4,
+      "one_step_conditional_information_bits": 1,
+      "residual_hidden_entropy_bits": 0
+    },
+    {
+      "full_future_conditional_information_bits": 5,
+      "hidden_bits": 5,
+      "one_step_conditional_information_bits": 1,
+      "residual_hidden_entropy_bits": 0
+    },
+    {
+      "full_future_conditional_information_bits": 6,
+      "hidden_bits": 6,
+      "one_step_conditional_information_bits": 1,
+      "residual_hidden_entropy_bits": 0
+    }
+  ],
+  "scope": "Exact bounded controls only; not CI, kernel proof or a physical record-retention mechanism.",
+  "source_sha256": "15cd847df60e1f569f8b3faabff39c332d02a0775c9c9b8dc04bc3d7f38b19d3",
+  "status": "PASS"
+}

@@ -1,0 +1,12 @@
+ACCEPT — scoped hidden-state repair, frozen candidate-v2 only
+
+Manifest SHA256: 801b58fee69cf387e6495a6a44f5c509c3d61ac8342008c837ef818abfcb9a9d
+Base HEAD: f39b8d360bdba4bc460992fc770b9bd13c286ced
+
+P24.5 is correct for its stated nonempty retained records, known finite permutation/readout/prior support and product-readout current-hidden clause. The bound uses the whole carrier N; the universal ambiguity iff uses nonempty restricted future classes. The cyclic register has full future conditional information m bits, next-step information 1 bit, and zero residual hidden entropy after identification. Pigeonhole guarantees some large fibre only.
+
+All H1-H5 propagation blockers and follow-up residuals identified in v1 are corrected. All 133 prior canonical formal statement texts and ledger fingerprints are unchanged; P24.5 is the sole new entry and remains kernel GAP/checks=[]. Twenty-eight content files have no missing or reordered nonblank lines in FULL.
+
+Retained independent controls: 39,546 predicates. Additional independent boundary controls: 6,076 predicates. Normal/-O output hashes match. These finite checks are not a universal kernel certificate.
+
+No remaining blocker in this scoped repair. Medicine88 remains the earlier adjacent physical-back-action issue outside this acceptance. No CI, kernel proof, canonical publication build, PDF/TeX inspection, physical model, full gauge relation, repository-wide or merge acceptance is claimed.

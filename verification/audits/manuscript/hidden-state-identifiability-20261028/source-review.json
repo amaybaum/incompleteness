@@ -1,0 +1,133 @@
+{
+  "reviewer": "hidden_state_review independent read-only agent",
+  "verdict": "ACCEPT: scoped hidden-state identifiability repair in the frozen candidate-v2 only. Not publication, merge or repository-wide acceptance.",
+  "snapshot_manifest": "manifest.json",
+  "snapshot_manifest_sha256": "801b58fee69cf387e6495a6a44f5c509c3d61ac8342008c837ef818abfcb9a9d",
+  "base_head": "f39b8d360bdba4bc460992fc770b9bd13c286ced",
+  "source_files": 49,
+  "source_changed_during_capture": [],
+  "mathematical_findings": [
+    "P24.5 now explicitly restricts to nonempty retained words k>=1; conditioning gives exactly the positive prior-support fibre, and q is identifiable iff constant on that fibre.",
+    "Known bijective dynamics carries initial and current compatible-state sets bijectively; product readout fixes the current visible coordinate, so current hidden identification iff the same fibre is singleton. Neither point survives arbitrary missing current readout or noninjective dynamics.",
+    "The partition refinement proof uses whole carrier size N, with max(1,N-1) observations. It does not substitute noninvariant support size. Consecutive partition equality gives forward stability; otherwise class count strictly increases until discrete.",
+    "Universal ambiguity is correctly equivalent to all NONEMPTY intersections of full future-trace classes with the admissible support having at least two members. Proper instantaneous readout is insufficient.",
+    "C4 predictive-memory and capacity claims do not lower-bound residual hidden entropy conditioned on the whole retained history. The swap has one bit of readback and zero residual hidden entropy.",
+    "For the cyclic (m+1)-bit register, full conditional past/future information at t=m is m bits, whereas the next-step conditional information is one bit. Both coexist with zero residual current-hidden entropy after m+1 readings.",
+    "R stored values for |A|>R force some fibre of size at least ceil(|A|/R), not every fibre to be non-singleton. Physical record retention, model/prior knowledge, interventions, physical branch selection, coherent instrument theory and the full gauge relation remain additional hypotheses or open problems.",
+    "Known-model record-fibre state inference remains distinct from P24.4 unknown-model predictive-quotient reconstruction, which retains its own full-support and state-bound assumptions."
+  ],
+  "propagation": {
+    "initial_H1": "CORRECTED, including follow-up lineage and FAQ residuals",
+    "initial_H2": "CORRECTED in appendix C and memory interpretation",
+    "initial_H3": "CORRECTED in Computation and book chapter 12, including residual common-floor/exact-parallel paragraphs",
+    "initial_H4": "CORRECTED in Main, Structure, chapter 1, chapter 3 and glossary",
+    "initial_H5": "CORRECTED: operational closure distinguished from inference from allowed records",
+    "v1_findings": [
+      {
+        "id": "V1-1",
+        "paths": [
+          "papers/Substratum.md:352",
+          "papers/Substratum.md:355"
+        ],
+        "issue": "Record length k>=1 and nonempty restricted future-trace classes need to be explicit. Empty word does not fix the visible coordinate.",
+        "v2_status": "CORRECTED"
+      },
+      {
+        "id": "V1-2",
+        "paths": [
+          "papers/Explainer.md:617-625",
+          "papers/Explainer.md:691-692"
+        ],
+        "issue": "Philosophical lineage/FAQ reintroduces universal opacity and treats deterministic ontology as physically proved.",
+        "v2_status": "CORRECTED"
+      },
+      {
+        "id": "V1-3",
+        "paths": [
+          "book/ch01-observation.md:8",
+          "book/ch01-observation.md:213"
+        ],
+        "issue": "Opening conditioning prohibition and deterministic-story inaccessibility still universal.",
+        "v2_status": "CORRECTED"
+      },
+      {
+        "id": "V1-4",
+        "paths": [
+          "book/ch12-evolution-intelligence.md:217"
+        ],
+        "issue": "Exact incompleteness parallel says observation cannot resolve substrate.",
+        "v2_status": "CORRECTED"
+      },
+      {
+        "id": "V1-5",
+        "paths": [
+          "papers/Computation.md:86"
+        ],
+        "issue": "Permanent common floor claimed for all observers despite specified record-dependent criterion.",
+        "v2_status": "CORRECTED"
+      },
+      {
+        "id": "V1-6",
+        "paths": [
+          "book/ch03-structural-realism.md:206",
+          "book/ch03-structural-realism.md:214"
+        ],
+        "issue": "Direct self-measurement restrictions promoted to a generic inference barrier; physical storage asserted to make hidden facts unreachable.",
+        "v2_status": "CORRECTED"
+      },
+      {
+        "id": "V1-7",
+        "paths": [
+          "papers/Explainer.md:898"
+        ],
+        "issue": "Unreadable memory and full uncompressed interaction-history storage promoted beyond predictive capacity theorem.",
+        "v2_status": "CORRECTED"
+      }
+    ],
+    "book_FULL": {
+      "content_files_checked": 28,
+      "missing_or_out_of_order_nonblank_lines": 0,
+      "note": "26 entire stripped source files are contiguous; ch02/ch05 have only existing blank/separator formatting differences, with exact ordered nonblank contents."
+    }
+  },
+  "protected_statements": {
+    "baseline_statements": 133,
+    "candidate_statements": 134,
+    "all_prior_exact_statement_texts_preserved": true,
+    "removed_or_changed": [],
+    "added": [
+      {
+        "path": "papers/Substratum.md",
+        "line": 352,
+        "sha256": "0bab27ebe3d6d475afefa240d827cfefbf844dc949825776beee3ebeebb05e77"
+      }
+    ]
+  },
+  "ledger_status": {
+    "all_133_prior_entry_fingerprints_preserved": true,
+    "new_P24_5_fingerprint": "0bab27ebe3d6d475",
+    "new_P24_5_kernel": "GAP",
+    "new_P24_5_checks": []
+  },
+  "controls": {
+    "retained_original_predicates": 39546,
+    "supplemental_independent_predicates": 6076,
+    "normal_and_optimized_outputs_identical": true,
+    "reused_v1_replay_receipts_because_v2_control_sources_and_model_scope_unchanged": true,
+    "retained_control_source_sha256": "c674bca3a1b3dbba0cddee1bb3fcd5fab79b4e3098ed623194840766990b41a4",
+    "supplemental_source_sha256": "15cd847df60e1f569f8b3faabff39c332d02a0775c9c9b8dc04bc3d7f38b19d3",
+    "supplemental_result_sha256": "f453fb77a62795bf2babc86f6b9ce6c24e2a078d312a4e8db038956ab074cacf"
+  },
+  "remaining_findings": [],
+  "adjacent_issue_outside_this_acceptance": [
+    {
+      "path": "papers/Medicine.md:88",
+      "issue": "The prior initial review separately flagged generic coupling promoted to unavoidable physical read/write back-action. It is unchanged and outside the present H1-H5/P24.5 acceptance; no broader physical measurement result is certified."
+    }
+  ],
+  "limitations": [
+    "No Lean/kernel proof of P24.5: ledger correctly retains GAP and checks=[]. Written proof plus bounded controls only.",
+    "No exact-head CI, release build or PDF/TeX inspection performed by this reviewer.",
+    "No root or remote edits made; separate Stinespring lint/registry fixture changes and broader physical correctness were not part of the copied scientific snapshot."
+  ]
+}

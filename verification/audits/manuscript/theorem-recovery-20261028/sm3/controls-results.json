@@ -1,0 +1,235 @@
+{
+  "status": "PASS",
+  "scope": "exact finite controls, not universal proof",
+  "positive_total": 2475,
+  "positive_checks": [
+    {
+      "name": "matrix chirality iff opposite-parity support",
+      "cases": 625,
+      "arithmetic": "integer",
+      "pass": true
+    },
+    {
+      "name": "fixed odd hopping plus arbitrary even perturbation",
+      "cases": 625,
+      "arithmetic": "integer",
+      "pass": true
+    },
+    {
+      "name": "both-sector uniform coefficient equivalence",
+      "cases": 1225,
+      "arithmetic": "integer",
+      "pass": true
+    }
+  ],
+  "negative_controls": [
+    {
+      "name": "drop perturbation-evenness",
+      "perturbation": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "total_chiral": true,
+      "perturbation_nonzero": true,
+      "overbroad_claim_refuted": true
+    },
+    {
+      "name": "drop fixed odd hopping",
+      "D": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "C": [
+        [
+          -1,
+          0
+        ],
+        [
+          0,
+          -1
+        ]
+      ],
+      "total_chiral": true,
+      "C_nonzero": true,
+      "overbroad_claim_refuted": true
+    },
+    {
+      "name": "drop no-two-torsion",
+      "modulus": 2,
+      "C": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "epsilon": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "anticommutator_mod2": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "overbroad_claim_refuted": true
+    },
+    {
+      "name": "drop negative parity sector",
+      "m": 1,
+      "p": -1,
+      "epsilon": [
+        [
+          1
+        ]
+      ],
+      "center": [
+        [
+          0
+        ]
+      ],
+      "overbroad_claim_refuted": true
+    },
+    {
+      "name": "replace uniform scalar coefficients by commuting operators",
+      "operator_m": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "operator_p": [
+        [
+          -1,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "center": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "overbroad_claim_refuted": true
+    },
+    {
+      "name": "replace opposite-parity support by zero diagonal",
+      "epsilon": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "A": [
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "anticommutator": [
+        [
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "overbroad_claim_refuted": true
+    },
+    {
+      "name": "identify second-order diagonal with first-order mass",
+      "D": [
+        [
+          0,
+          1
+        ],
+        [
+          -1,
+          0
+        ]
+      ],
+      "D_squared": [
+        [
+          -1,
+          0
+        ],
+        [
+          0,
+          -1
+        ]
+      ],
+      "D_chiral": true,
+      "D_squared_diagonal_nonzero": true,
+      "overbroad_claim_refuted": true
+    }
+  ]
+}

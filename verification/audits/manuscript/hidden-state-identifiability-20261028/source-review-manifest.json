@@ -1,0 +1,253 @@
+{
+  "captured_utc": "2026-10-28T13:23:05.722034+00:00",
+  "base_head": "f39b8d360bdba4bc460992fc770b9bd13c286ced",
+  "scope": "All top-level papers/book Markdown plus architecture guard, coverage ledger and hidden-state audit directory; private copied snapshot. No TeX/PDF review. Separate Stinespring/registry gate edits not part of scientific snapshot.",
+  "source_changed_during_capture": [],
+  "files": [
+    {
+      "path": "book/README.md",
+      "size": 19666,
+      "sha256": "8f882333793f50d52aad525d94da83c287c30903f7cfc10a5d3a7e79ea6636a7"
+    },
+    {
+      "path": "book/The-Incompleteness-of-Observation-FULL.md",
+      "size": 1613205,
+      "sha256": "a39ace980afe21a51e65be3d1b07206092fd60e36d09be47c8acd24d3e04e043"
+    },
+    {
+      "path": "book/acknowledgments.md",
+      "size": 6622,
+      "sha256": "d01409d0c202374b4e11bc347e99c47d9357b11d2b7bb8ca3a3e719d29c0e582"
+    },
+    {
+      "path": "book/appendix-a-prediction-status.md",
+      "size": 38077,
+      "sha256": "6613313cf17df2c36e898030a69ce5ff2c52872801d236e216026d3949c81e8b"
+    },
+    {
+      "path": "book/appendix-b-derivations.md",
+      "size": 89253,
+      "sha256": "c716e151edd1b4ae50590e0746a3d677bb3784ca81e19942f6636cf67bb9bd5a"
+    },
+    {
+      "path": "book/appendix-c-objections.md",
+      "size": 74352,
+      "sha256": "a64b82127e039859fecb1759f87bc141d0fe02c60e762aa1da8cd67b036212bc"
+    },
+    {
+      "path": "book/bibliography.md",
+      "size": 33158,
+      "sha256": "f2e2be3bbe1b7150438da64d6fc9c9caa378799e4de130c1f5ebea91d3f0d632"
+    },
+    {
+      "path": "book/ch00-introduction.md",
+      "size": 37717,
+      "sha256": "d47a848cc1f5d2481cfc9b55c1c7185531df24f5d6b07603069516e87f19544d"
+    },
+    {
+      "path": "book/ch01-observation.md",
+      "size": 80715,
+      "sha256": "df3d5c08adbde62925bee81ecf1a0b4c44db97927f741c3b6b003cbd380fd627"
+    },
+    {
+      "path": "book/ch02-substratum.md",
+      "size": 56004,
+      "sha256": "ea7cdbc7c0f04e6857340fc3bbe0d0e65ba3536a4b27f8e4d82f82eff8154531"
+    },
+    {
+      "path": "book/ch03-structural-realism.md",
+      "size": 75599,
+      "sha256": "0376f02ceba78e9796f749615505bcc7d2b172c16e619c54c23309951ea2d2d7"
+    },
+    {
+      "path": "book/ch04-methodology.md",
+      "size": 74162,
+      "sha256": "5f8857ba468f1e9eac8c44e0d98c66736448a8793cb715e4238e4c0479f45419"
+    },
+    {
+      "path": "book/ch05-gauge-structure.md",
+      "size": 46889,
+      "sha256": "1ffebea294ff10cab83f2aec3e7b95c51a3d5ed4294949d2839172c61e92add0"
+    },
+    {
+      "path": "book/ch06-matter-content.md",
+      "size": 87734,
+      "sha256": "172ba06862c6543ff46369580253b24ac1b3d517cbfbe991b078b98ed39f0531"
+    },
+    {
+      "path": "book/ch07-gravity.md",
+      "size": 102734,
+      "sha256": "f6595a05ad0596c764e7f69b4ef7912fd653dd269253c35ddedce364be54fd36"
+    },
+    {
+      "path": "book/ch08-juno.md",
+      "size": 56202,
+      "sha256": "bf3288ff8fce778e8d1c580c6ab13349c3729b6054f8d8b53481e0dbdc05ae82"
+    },
+    {
+      "path": "book/ch09-universality.md",
+      "size": 79051,
+      "sha256": "38cbb9421ca475279d99268cc3f95631cff582cf6b19dedfacfd4a54532a693b"
+    },
+    {
+      "path": "book/ch10-chemistry.md",
+      "size": 44674,
+      "sha256": "dd7417f01bb8ecb7a6b6472805b45dbc293a9f835766de6abe43899f8ca961d8"
+    },
+    {
+      "path": "book/ch11-origin-of-life.md",
+      "size": 43272,
+      "sha256": "f6297027ae77fc1ecbc0be1774446c4cdbb6c7be71940f806743c5ed29e2c138"
+    },
+    {
+      "path": "book/ch12-evolution-intelligence.md",
+      "size": 47101,
+      "sha256": "19ff8f2d85e8dcc2706ceb4b3811929424804e9f3f4c4e0890ed64bec7e16d83"
+    },
+    {
+      "path": "book/ch13-quantum-biology.md",
+      "size": 42030,
+      "sha256": "afdf2a100482d7d4840e4a6324855c720f7fd3ff30c9da7848dc8b4c37bcf4ad"
+    },
+    {
+      "path": "book/ch14-quantum-computing.md",
+      "size": 78636,
+      "sha256": "33bcfe844dbe67bd396d067fdb8cdaa04faf7b276cd07ffb0cee88b5c6ebdc6e"
+    },
+    {
+      "path": "book/ch15-quantum-engineering.md",
+      "size": 51038,
+      "sha256": "8f9797bf8e08565494821b0037d9c3d725ae4ee08743480da8d5625c54d37150"
+    },
+    {
+      "path": "book/ch16-medicine.md",
+      "size": 60348,
+      "sha256": "02df48415004b5313d69f3cde77684d10e494e2d043a04f0aa5ae691a261b477"
+    },
+    {
+      "path": "book/ch17-bioinformatics.md",
+      "size": 50509,
+      "sha256": "0e3a508065df84088f7b2b246f596e66f9b1b3e0ca52ecd8abfdad8f068d1493"
+    },
+    {
+      "path": "book/ch18-beyond.md",
+      "size": 93901,
+      "sha256": "6d44f4d3b459eafe947d707fd526bdb9abdea3038461824a27155387af2b29e1"
+    },
+    {
+      "path": "book/ch19-open-problems.md",
+      "size": 97378,
+      "sha256": "1edd46885c55849c0c5caa6bde6534d80a9d77f8d9d8b64a7424a9b893f6a0c4"
+    },
+    {
+      "path": "book/glossary.md",
+      "size": 43655,
+      "sha256": "0a74d82be14603faf9e239ba61a98e16a14a563ec97d18394102affb34a0e7fb"
+    },
+    {
+      "path": "book/preface.md",
+      "size": 8902,
+      "sha256": "24e2135605707bfc4680513fac39c488f1a52e0aa34d0dcd8521da3867b0054f"
+    },
+    {
+      "path": "book/readers-guide.md",
+      "size": 11916,
+      "sha256": "bb6ef21eb1460e03c94ffc136db056807f4f47405f38d6697a9b29e06c0695f6"
+    },
+    {
+      "path": "papers/Bioinformatics.md",
+      "size": 97316,
+      "sha256": "46d8d88800673aaa23774eb88a407dcab2569247d1fc3da6dbf907441211178b"
+    },
+    {
+      "path": "papers/Complexity.md",
+      "size": 95550,
+      "sha256": "f78e40e6f600813b4294360eef5c116855c849b68c59adb4abc43953f9d4c27e"
+    },
+    {
+      "path": "papers/Computation.md",
+      "size": 62867,
+      "sha256": "ff80c6ca97c4fa786bf69028c20936f3a0fe0219e0c5da4d8b0a73d8d0c66d8d"
+    },
+    {
+      "path": "papers/Explainer.md",
+      "size": 188134,
+      "sha256": "8650bf5d3124213e764abc7d1f7b4708d3466859a23647794162fb4863eec005"
+    },
+    {
+      "path": "papers/GR.md",
+      "size": 279985,
+      "sha256": "04d45d9b5da466b0bfeb2319a25bf111efceea82b3f8f3c316a6df16e17fa2f3"
+    },
+    {
+      "path": "papers/Juno.md",
+      "size": 55607,
+      "sha256": "dec43f86003784b13b2766187a23c8659feb514157ce3e3b169da16be7fd946c"
+    },
+    {
+      "path": "papers/Main.md",
+      "size": 311616,
+      "sha256": "9694337e9562258f8adb83176862f72e12004bf0cabac67b9dccd2508f04f34f"
+    },
+    {
+      "path": "papers/Medicine.md",
+      "size": 77016,
+      "sha256": "4e556457714fce122a538ed7b5062060360c4ea54c5410b067384e6f948e5956"
+    },
+    {
+      "path": "papers/Methodology.md",
+      "size": 139796,
+      "sha256": "6d5c6ddb8f70682dce47f6cb27cd074591a2dd1ab8d2bb8a422a495ef441a5d6"
+    },
+    {
+      "path": "papers/SM.md",
+      "size": 469226,
+      "sha256": "eb70665260ebb110dac8d413468800aed912998086a3912f9e5b9427abcca58f"
+    },
+    {
+      "path": "papers/Structure.md",
+      "size": 262056,
+      "sha256": "e28d33af0a4a40c7c0ae8f1c647841c1fbe756301aa9af13dee90234c37c0298"
+    },
+    {
+      "path": "papers/Substratum.md",
+      "size": 167760,
+      "sha256": "928fa71fa892594818f0544c45f2fdb89ab33e18ea09a08f0408ba4658cb0487"
+    },
+    {
+      "path": "papers/oi_lattice_code/architecture_check.py",
+      "size": 85348,
+      "sha256": "ae7dd42d897c606711828f93379a1b473d757785331cffd51b59215bd7823f36"
+    },
+    {
+      "path": "verification/audits/manuscript/hidden-state-identifiability-20261028/independent-results.json",
+      "size": 2394,
+      "sha256": "fa5019a86231e515c86aa75ccc41c62eda827c983791a1fee7e90ea2ca4e8190"
+    },
+    {
+      "path": "verification/audits/manuscript/hidden-state-identifiability-20261028/independent_controls.py",
+      "size": 6857,
+      "sha256": "c674bca3a1b3dbba0cddee1bb3fcd5fab79b4e3098ed623194840766990b41a4"
+    },
+    {
+      "path": "verification/audits/manuscript/hidden-state-identifiability-20261028/initial-review.json",
+      "size": 4999,
+      "sha256": "29c9f6e49efccb12f701911de6fe13948bb9404218a23e6076cb200f55a38a12"
+    },
+    {
+      "path": "verification/audits/manuscript/hidden-state-identifiability-20261028/initial-review.txt",
+      "size": 2959,
+      "sha256": "09c2e9e7fe50753cd88cc3afb62b5bbe2e717c499bd167fcb82385b5a617c803"
+    },
+    {
+      "path": "verification/audits/manuscript/hidden-state-identifiability-20261028/record-fibre-criterion.md",
+      "size": 7150,
+      "sha256": "22061fc9d51ececc25915cfae16411aed01861697c359568475dcc6fcc82a49b"
+    },
+    {
+      "path": "verification/coverage/LEDGER.json",
+      "size": 517572,
+      "sha256": "490f60eddbb7d337987373a2c7a48fe2f38fcd4f1863c1d437e4083fa857ef24"
+    }
+  ]
+}

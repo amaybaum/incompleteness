@@ -276,12 +276,30 @@ finite reversible system \((S,\varphi)\) is the \emph{substratum}.
 
 Observational incompleteness (OI) is the physical hypothesis that every
 physical observer is in this situation: a part of a finite, reversible,
-deterministic world that sees only part of it. Here incompleteness means
-that the hidden sector is inaccessible to the observer, not merely
-unknown to it so far. It is not joint unsharpness of non-commuting
-observables: it is present for a single fixed readout, and no
-uncertainty relation constrains fixed-readout visible laws {[}Main
-§3.4{]}.
+deterministic world with a specified readout and preparation. The hidden
+coordinates are not directly read at that instant. Whether they can be
+inferred depends on the retained history and permitted operations, not
+on embedding alone. In the known swap game, the first two visible
+readings already identify both cards, even though the visible process
+has memory. More generally, a quantity is identified exactly when it is
+constant on the initial states compatible with the retained record
+{[}Substratum, Prop. 24.5{]}. It is not joint unsharpness of
+non-commuting observables: the restriction can arise for a single fixed
+readout, and no uncertainty relation constrains fixed-readout visible
+laws {[}Main §3.4{]}.
+
+\textbf{What does the substratum run on?} Hawking's story of a world
+resting on a turtle, and then on turtles all the way down, asks a
+different question from the cards: what supports the hidden construction
+itself? An exactly decoupled deeper register can be added without
+changing the specified visible law, under the preparation assumptions of
+{[}Substratum, Theorem 24(iii){]}. For that observational interface it
+supplies another description of the same data. A deeper sector that can
+couple back may instead change later records and cannot be dismissed on
+that ground. The restricted invariances do not classify every possible
+deeper implementation or prove that the regress ends. A finite bijection
+is the model being investigated, not a demonstrated ultimate ontology
+{[}Substratum §§3--4; Book §3.8{]}.
 
 \hypertarget{the-idea-and-its-consequences}{%
 \subsubsection{1.2 The idea and its
@@ -302,9 +320,11 @@ kept (§2.4) and in what the world's eventual return to its starting
 configuration does with it (§2.5). Section 3 states how far the
 correspondence reaches toward operational quantum mechanics, §§4--5
 apply OI to vacuum energy and to black-hole information, and §6 sorts
-the results by status. Proofs, the status ledger and the probe code are
-in {[}Main{]}, which this paper introduces; gravitational applications
-are in {[}GR{]} and {[}Book{]}.
+the results by status. The core finite-law and memory arguments are in
+{[}Main{]}; proofs and qualifications also occur in the companion
+papers, book appendices and verification records, with the relevant
+source identified where used. Gravitational applications are in {[}GR{]}
+and {[}Book{]}.
 
 \textbf{Contributions.} The paper is expository and claims no new
 theorem; each known component is attributed where it is stated (§§2.2,
@@ -316,13 +336,13 @@ or exhaustive checks {[}BHa; BHb{]}; the novelty of the §§3.2--3.3 and
 analysed with quantum methods before, for example in {[}tH14{]}.
 
 \emph{Conventions.} ``Machine-checked'' means checked in Lean 4/Mathlib
-{[}dMU21; Mathlib20{]} at commit \texttt{17b830bc} by the recipe under
-``Code, data and formal verification'' (declarations in Appendix A);
-``proved on paper'' means a written proof without a machine check; an
-``exact probe'' is an exhaustive computation in exact rational
-arithmetic at small size. Where a subsection's evidence classes and
-attributions are long, they close it in a paragraph labelled
-\emph{Proofs and sources}; elsewhere they are given inline. A
+{[}dMU21; Mathlib20{]} at the baseline or additional source checkpoints
+specified under ``Code, data and formal verification'' and in Appendix
+A, using the stated recipe; ``proved on paper'' means a written proof
+without a machine check; an ``exact probe'' is an exhaustive computation
+in exact rational arithmetic at small size. Where a subsection's
+evidence classes and attributions are long, they close it in a paragraph
+labelled \emph{Proofs and sources}; elsewhere they are given inline. A
 \emph{faithful realization} of a law is a bijection \(\varphi\) of
 \(\mathcal C_V\times\mathcal C_H\) with an initial law under which the
 visible trajectory has that law.
@@ -542,6 +562,26 @@ predictions only if they leave at least as different odds on the hidden
 state (b); and the memory visible in the record never exceeds the hidden
 memory, which never exceeds the hidden sector's capacity in bits (c).
 
+\textbf{Predictive memory and state inference.} Theorem 2 bounds
+information useful for predicting the next output; it does not say that
+the hidden state stays uncertain after the full history is retained. In
+the swap game the past reading tells the player the current face-down
+card exactly. For a known finite permutation and a specified preparation
+support, Proposition 24.5 of {[}Substratum{]} gives the general
+record-fibre criterion: collect the initial states producing the
+retained record; a quantity is known exactly when it has the same value
+on that set. One candidate identifies the full state; for the
+visible/hidden product readout, the current hidden state has exactly the
+same singleton criterion. Passive future-trace classes stabilize after
+at most \(\max(1,N-1)\) readings on an \(N\)-state carrier, but those
+classes need not be singletons. The constant-on-fibre criterion, the
+initial/current-state and current-hidden singleton criteria, and the
+two-reading swap identification are machine-checked for nonempty
+compatible-state sets. The Bayesian support step and the \(N-1\)
+stabilization bound remain proved on paper, with exact finite controls.
+None of these results supplies a physical storage, preparation or
+intervention mechanism.
+
 A \emph{memory witness} at \(t\) is a pair of positive-probability
 histories ending at the same \(x_t\) with different next-step laws; by
 the vanishing criterion for conditional mutual information {[}CT06{]}, a
@@ -584,10 +624,43 @@ probability at least \(p_0\), induce next-step laws at total-variation
 distance at least \(\delta\), then \(M_t\ge p_0\delta^2/\ln2\), by
 Pinsker's inequality (proved on paper, with exact probes) {[}Main §2.3,
 Lemma (accessible conditional memory from readback); CT06{]}. Observed
-memory thus bounds an inaccessible quantity: measurable conditional
+memory thus bounds a hidden-sector quantity: measurable conditional
 information fixes a lower bound on the hidden sector's size and the
 exact minimum of the hidden predictive memory a deterministic completion
 must carry.
+
+For actual finite-permutation trajectories, the capacity bound is also
+machine-checked uniformly in time and in every finite future block. With
+\(I^*_{\rm fin}=\sup_{t,L\in\mathbb N}I(X_{<t};(X_{t+1},\ldots,X_{t+L})\mid X_t)\),
+the checked conclusion is \(I^*_{\rm fin}\le\log_2|\mathcal C_H|\),
+hence \(2^{I^*_{\rm fin}}\le|\mathcal C_H|\). This is a genuine supremum
+over all finite blocks, for one fixed permutation and initial law. The
+finite-block supremum theorem alone does not identify an entire future
+sequence; the separate construction below addresses that object under an
+explicit entropy convention. The time-\(t\) identification mentioned in
+the Corollary refers to its conditional-pushforward use of Theorem 2(a),
+which is separate from this checked information bound.
+
+\textbf{The entire future as a finite-image variable.} Fix one
+permutation of the finite product \(\mathcal C_V\times\mathcal C_H\),
+with nonempty \(\mathcal C_H\) and arbitrary initial probability law.
+Although the visible future after \(t\) is an infinite sequence, only
+finitely many such sequences arise from the finite state space. Let
+\(Y_t\) encode that exact image: two codes are equal precisely when
+every future visible coordinate agrees, and decoding coordinate \(j\)
+gives \(X_{t+j+1}\). This retains the entire sequence, rather than
+replacing it by a chosen finite prefix. Using ordinary discrete Shannon
+entropy on that finite image, in bits, a separate machine-checked
+construction gives \[
+I(X_{<t};Y_t\mid X_t)\le I(X_{<t};H_t\mid X_t)\le\log_2|\mathcal C_H|.
+\] It also proves
+\(J^*:=\sup_{t\in\mathbb N}I(X_{<t};Y_t\mid X_t)\le\log_2|\mathcal C_H|\),
+hence \(2^{J^*}\le|\mathcal C_H|\). Every finite future block is a
+truncation of \(Y_t\). Equality of \(J^*\) with the finite-block
+supremum, or identification with a separate infinite-product measure or
+limit formulation of conditional entropy, is not certified here. This
+information bound does not construct a physical preparation or retained
+record.
 
 Four conditions on a hidden sector are named in {[}Main §1.3{]}, as
 diagnostics of a realization rather than hypotheses of Theorem 1: (C1)
@@ -631,10 +704,13 @@ ones, which the correspondence of §2.2 cannot.
 
 \textbf{Proofs and sources.} \emph{Theorem 2.} Part (b) and the first
 inequality of (c) are data-processing inequalities. (a)--(c) are
-machine-checked for a joint law of history, present and hidden state;
-their identification with a realization's time-\(t\) law is proved on
-paper {[}Main §3.4, Theorem (unavoidable hidden predictive memory);
-CT06{]}.
+machine-checked for a joint law of history, present and hidden state. In
+addition, (c) is machine-checked for the actual trajectory obtained by
+pushing an arbitrary initial law through one finite permutation. The
+conditional-pushforward and total-variation forms (a)--(b), and the
+vanishing criterion used in the Corollary, retain their written
+time-\(t\) arguments {[}Main §3.4, Theorem (unavoidable hidden
+predictive memory); CT06{]}.
 
 \hypertarget{recurrence-and-indivisibility}{%
 \subsubsection{2.5 Recurrence and
@@ -745,11 +821,18 @@ two forecasts that overlap at time \(s\) can never become the two
 distinct certainties of \(\Gamma_n=I\).
 
 Finite recurrence supplies the return, \(\Gamma_L=I\) for the order
-\(L\) of \(\varphi\), the recurrence time. A \emph{return horizon} is a
-time \(n\) with \(\Gamma_n=I\), at which the forecasts from the start
-return to certainty, whether or not the whole world has returned; \(L\)
-is one, and there may be earlier ones. The horizon \(\{0,\dots,L\}\) up
-to the world's return is its \emph{recurrence cycle}:
+\(L\) of \(\varphi\), the recurrence time. The finite permutation order
+supplies a positive return and a common period for the actual rooted
+family; these facts, the rooted identity return under the common
+normalized hidden prior, and recurrence-cycle indivisibility from a
+non-permutation rooted matrix are machine-checked. The
+history-to-non-permutation implications and full-support equivalence in
+the following Corollary retain their separate written proofs. A
+\emph{return horizon} is a time \(n\) with \(\Gamma_n=I\), at which the
+forecasts from the start return to certainty, whether or not the whole
+world has returned; \(L\) is one, and there may be earlier ones. The
+horizon \(\{0,\dots,L\}\) up to the world's return is its
+\emph{recurrence cycle}:
 
 \textbf{Corollary (recurrence-cycle indivisibility).} \emph{Let
 \(\varphi\) have order \(L\), with one hidden prior shared by every root
@@ -842,12 +925,14 @@ distance is necessary for P-divisibility but not sufficient {[}Main
 §2.3{]}.
 
 \emph{The Corollary.} This is {[}Main §2.3, Theorem (history readback +
-finite recurrence implies indivisibility) and Scope{]}: the first
-sentence is Theorem 3 with \(n=L\), since two rows of a non-permutation
-\(\Gamma_s\) share a positive column, and Theorem 3 is machine-checked
-in its rooted form; the supply of a non-permutation \(\Gamma_s\) is
-proved on paper. For the equivalence, a memory witness below \(L\) gives
-a non-permutation \(\Gamma_s\); conversely, with none the law on
+finite recurrence implies indivisibility) and Scope{]}. Its first
+sentence is machine-checked on the actual finite realization:
+permutation order supplies the rooted identity return, and a
+non-permutation rooted matrix cannot have a stochastic right divisor
+leading to that return. The supply of such a matrix from histories,
+memory witnesses or a non-deterministic visible step is proved on paper.
+For the equivalence, a memory witness below \(L\) gives a
+non-permutation \(\Gamma_s\); conversely, with none the law on
 \(\{0,\dots,L\}\) is Markov, \(\Gamma_L=I\) makes every \(\Gamma_s\) a
 permutation by the stochastic-inverse lemma, and
 \(\Gamma_s^{-1}\Gamma_t\) is a stochastic divisor, full support being
@@ -1407,45 +1492,62 @@ hole and radiation; and \emph{measure concentration} is the fact that in
 very large state spaces almost every state gives nearly the same value
 of a smooth quantity such as the entanglement entropy.
 
-\textbf{The Page curve.} The Page-curve calculation of {[}GR App. A{]}
-addresses recovery in the quantum description, on
-\(\mathcal C_V\times\mathcal C_B\times\mathcal C_D\), with \(V\) the
-exterior, \(B\) the black-hole interior, \(D\) the sector beyond the
-cosmological horizon, and the radiation \(R\subset V\), with
-configurations \(\mathcal C_R\), emitted from \(B\) {[}GR App. A.1,
-A.7{]}. It rests on three conditions: \emph{H-scramble}, that the orbit
-ensemble equidistributes over quantum pure states on the energy shell,
-which fails for every bijection acting on a definite configuration with
-the bipartition aligned to the configuration coordinates {[}BHb{]};
-\emph{H-decouple}, that \(B\cup R\) evolves uncoupled from \(D\) and
-from \(V\setminus R\) in a pure joint state over whole cycles, which is
-not established: the effective-pure-state theorem {[}GR, Thm A.7{]}
-gives a pure joint state of \(V\) and \(B\) only for times short
-compared with the \(D\)-sector timescale \(\tau_B^D\sim1/H\), the Hubble
-time {[}GR App. A.5{]}, far shorter than the evaporation {[}BHa{]}, and
-does not establish that \(V\setminus R\) is unentangled with \(B\cup R\)
-{[}GR App. A.7{]}; and constant energy on all of
-\(\mathcal C_B\times\mathcal C_R\). Under them, for all but an
-exponentially small fraction of initial conditions, the full-cycle
-average of the radiation's entanglement entropy at each stage's
-bipartition equals the Page value \(S_{\rm Page}(d_B,d_R)\) up to the
-correction term of Theorem A.8, by measure concentration {[}Pag93;
-PSW06; HLW06; GR, Thms A.8--A.9{]}.
+\textbf{The Page-curve obstruction.} The calculation of {[}GR App. A{]}
+uses \(\mathcal C_V\times\mathcal C_B\times\mathcal C_D\), with \(V\)
+the exterior, \(B\) the black-hole interior, \(D\) the sector beyond the
+cosmological horizon, and radiation \(R\subset V\) emitted from \(B\).
+Its three conditions are H-scramble (the orbit ensemble explores the
+required quantum pure states), H-decouple (a pure \(B\cup R\) evolves
+uncoupled from \(D\) and \(V\setminus R\) over whole cycles), and
+constant energy on all of \(\mathcal C_B\times\mathcal C_R\), not merely
+energy conserved along an orbit. In the theorem's stated
+configuration-state ensemble and coordinate-aligned bipartition, each
+permutation maps a product basis state to another product basis state.
+H-scramble therefore has no instance, and Theorems A.8--A.9 as stated do
+not establish a nonvacuous Page curve {[}GR App. A.7--A.9; BHb{]}.
 
-So if the hidden dynamics scrambles thoroughly, the black hole and its
-radiation are effectively isolated, and the energy is the same
-throughout, the radiation's entanglement follows Page's rise and fall on
-average over a cycle. The scrambling condition fails for every bijection
-that acts on a definite configuration when the split into black hole and
-radiation follows the configuration coordinates, the isolation condition
-is not established, and for an evaporating black hole whose radiation
-carries away its energy, not every configuration of black hole and
-radiation has the same energy. What survives is that conditional
-statement, with all three conditions. H-scramble requires an initial
-superposition of configurations or a split not aligned with them, and
-which of these the substratum supplies is open {[}GR App. A.7{]}; the
-separation of conservation from recovery above does not depend on any of
-the three.
+There are independent limits on the proposed black-hole application. The
+effective-pure-state result {[}GR, Thm A.7{]} assumes that \(D\)
+initially has a definite configuration and controls \(V\cup B\) only for
+times short compared with the \(D\)-sector timescale
+\(\tau_B^D\sim1/H\); it does not establish that \(V\setminus R\) is
+unentangled with \(B\cup R\) over an evaporation cycle. An evaporating
+black hole also occupies a proper energy shell rather than the whole
+configuration product at one energy. A meaningful recovery needs an
+explicitly specified coherent preparation or a different partition, a
+nonvacuous scrambling condition and an entropy/ensemble statement
+appropriate to that model. That is an open research problem, distinct
+from the finite conservation-versus-recovery results above.
+
+\textbf{A nonvacuous finite entropy curve.} Coherent preparations admit
+a restricted mathematical construction {[}CE{]}. Prepare \(k\) binary
+registers in \(|+\rangle\) and \(n-k\) in \(|0\rangle\), choose one
+uniformly random invertible binary linear map, and apply its reversible
+configuration permutation. The resulting pure state is the uniform
+coherent superposition on a uniformly chosen \(k\)-dimensional subspace
+\(W\subseteq\mathbb F_2^n\). At the nested coordinate cut
+\(R_r=\{1,\ldots,r\}\), with complement \(B_r\), its entanglement
+entropy in bits is exactly \(S_r=k-\dim(W\cap R_r)-\dim(W\cap B_r)\).
+For \(n=2m\) and \(k=m\), the same sampled state at every cut has zero
+entropy at both endpoints and mean entropy between
+\(\max(0,\min(r,n-r)-2)\) and \(\min(r,n-r)\). The finite
+subspace-counting proof and independent exact controls establish this
+ensemble statement; it is not Page's Haar mean.
+
+A companion construction {[}CR{]} turns this cut profile into an actual
+reversible toy trajectory: a clock in a definite configuration controls
+successive swaps from an interior register to initially blank radiation
+registers. During the first release window the radiation's entropy is
+exactly the corresponding \(S_r\), for the same prepared \(W\)
+throughout. Mirror Bell-pair preparation gives the exact tent
+\(\min(r,n-r)\); a configuration input or an unmixed coherent product
+gives zero throughout. The reversible clock later transfers the state
+back. These are written finite proofs, not Lean certificates or a
+black-hole evaporation model: the coherent preparation and ensemble are
+stipulated, and energy-shell dynamics, gravitational coupling, physical
+scrambling and permanent radiation decoupling remain open. They supply a
+nonempty finite recovery example while leaving the configuration-state
+obstruction intact.
 
 \hypertarget{established-results-conditional-interpretations-and-open-problems}{%
 \subsection{6. Established results, conditional interpretations and open
@@ -1472,48 +1574,58 @@ nor is the squared form of quantum probabilities selected. Each of these
 is a statement about what partial access to a deterministic world does
 and does not produce. In the applications OI separates two levels of
 description for vacuum energy and separates keeping information from
-showing it for black holes; the gravitational field equations and the
-conditions of the Page-curve calculation are open.
+showing it for black holes; the gravitational field equations remain
+open, and the configuration-state Page theorem has no instances. Hidden
+predictive memory does not imply permanent hidden-state uncertainty:
+identification is relative to specified records and operations
+{[}Substratum, Prop. 24.5{]}.
 
 \textbf{Established mathematical results.} Machine-checked: Theorem 1;
-the cores of Theorem 2 and of the capacity bound; Theorem 3 in its
-rooted form; Theorem 4 and the independence of its conditions; the
-non-selection of the relating evolution. Proved on paper, with Theorem 3
-as machine-checked core and the shared-column fact and \(\Gamma_L=I\) as
-elementary steps: recurrence-cycle P-indivisibility of the rooted
-visible family, with a row for every root including roots of visible
-probability zero and a hidden prior shared by every root and drawn
-independently of it, whenever some rooted transition matrix is not a
-permutation; that every non-deterministic visible step and every memory
-witness supply such a matrix, and that with a full-support visible prior
-the indivisibility is equivalent to \(M_k>0\) at some order \(k\) below
-the recurrence time (§2.5). Proved on paper also: the time-\(t\) form of
-Theorem 2, its Corollary and the least hidden predictive memory; the
-Bell ceiling. The qubit obstruction combines a proved factorization with
-an imported unboundedness, and the separation of conservation from
-recovery rests on exhaustive enumeration with the \(1/|\mathcal U|\)
-floor proved. Together these results establish that stochastic,
-quantum-like observations can arise exactly from deterministic
-reversible dynamics, and they locate what is not universal: the memory a
-law carries, its size and position in the hidden sector, and its
-consequence for divisibility. The correspondence represents these
-observations; it does not derive their physical mechanism.
+the cores of Theorem 2 and of the capacity bound, their actual
+finite-trajectory information bounds, the supremum over all finite
+future blocks, and the entire-future bound and time supremum under the
+stated finite-image Shannon convention; Theorem 3 in its rooted form,
+the actual finite-order return and rooted periodicity, recurrence-cycle
+indivisibility from a non-permutation rooted matrix, and the nonempty
+record-fibre identification core; Theorem 4 and the independence of its
+conditions; the non-selection of the relating evolution. Proved on
+paper, beyond that checked recurrence core: every non-deterministic
+visible step and every memory witness supplies a non-permutation rooted
+matrix, and with a full-support visible prior recurrence-cycle
+indivisibility is equivalent to \(M_k>0\) at some order \(k\) below the
+recurrence time (§2.5). These statements use a row for every root,
+including roots of visible probability zero, and a hidden prior shared
+by every root and drawn independently of it. Proved on paper also: the
+remaining conditional-pushforward and total-variation time-\(t\)
+arguments of Theorem 2, its Corollary and the least hidden predictive
+memory; the Bell ceiling; the Bayesian support and passive stabilization
+parts of {[}Substratum, Prop. 24.5{]}; and the finite coherent-subspace
+entropy and sequential-release constructions {[}CE; CR{]}. The qubit
+obstruction combines a proved factorization with an imported
+unboundedness, and the separation of conservation from recovery rests on
+exhaustive enumeration with the \(1/|\mathcal U|\) floor proved.
+Together these results establish that stochastic, quantum-like
+observations can arise exactly from deterministic reversible dynamics,
+and they locate what is not universal: the memory a law carries, its
+size and position in the hidden sector, and its consequence for
+divisibility. The correspondence represents these observations; it does
+not derive their physical mechanism.
 
 \textbf{Conditional physical interpretations.} If OI holds as physics
 (with the bijective substratum an empirically motivated representation
 choice, §1.1), the fixed-basis statistics of quantum theory are the
 visible laws of an embedded observer, and their departures from Markov
-behaviour are memory carried in an inaccessible sector, as the card
-table of §2.6 illustrates. Given determinism and an outcome in every
-run, quantum Bell correlations require giving up ontic parameter
-independence or measurement independence; with measurement independence
-retained, they require ontic parameter dependence, whose realization on
-the substratum without usable signalling and with the gravitational
-continuum limit is the open hypothesis H-Bell (§3.5); the zero-point sum
-is not a gravitational source if the field equations take the targeted
-form (§4); and the framework's cycle-averaged Page curve holds under
-H-scramble, H-decouple and with all of
-\(\mathcal C_B\times\mathcal C_R\) one energy shell (§5).
+behaviour require hidden predictive memory, which may nevertheless be
+identified by retained records, as the card table of §2.6 illustrates.
+Given determinism and an outcome in every run, quantum Bell correlations
+require giving up ontic parameter independence or measurement
+independence; with measurement independence retained, they require ontic
+parameter dependence, whose realization on the substratum without usable
+signalling and with the gravitational continuum limit is the open
+hypothesis H-Bell (§3.5); the zero-point sum is not a gravitational
+source if the field equations take the targeted form (§4); and the
+finite coherent entropy-curve examples do not establish a physical Page
+curve beyond the configuration-state obstruction (§5).
 
 \textbf{Open problems.} For quantum emergence:
 
@@ -1545,11 +1657,13 @@ H-scramble, H-decouple and with all of
 
 For the applications: a derivation of the covariant field equations with
 their source coupling, on which both §4 and, in {[}GR{]}, the Page curve
-depend; H-scramble and H-decouple; the proper-shell case, which an
-evaporating black hole whose radiation carries away its energy occupies;
-the entropy along a single trajectory {[}BHb{]}; the generalized second
-law {[}GR App. A.6{]}; and the relation to quantum-extremal-surface and
-island computations {[}Pen20; AEMM19; AMMZ20; Book §7.6{]} (§5).
+depend; a physical coherent preparation and scrambling/entropy theorem
+beyond the finite examples, and H-decouple; the proper-shell case, which
+an evaporating black hole whose radiation carries away its energy
+occupies; the entropy along a single trajectory {[}BHb{]}; the
+generalized second law {[}GR App. A.6{]}; and the relation to
+quantum-extremal-surface and island computations {[}Pen20; AEMM19;
+AMMZ20; Book §7.6{]} (§5).
 
 \hypertarget{code-data-and-formal-verification}{%
 \subsection{Code, data and formal
@@ -1557,8 +1671,8 @@ verification}\label{code-data-and-formal-verification}}
 
 \begingroup\raggedright
 
-The declarations in Appendix A were checked in Lean 4.33.0 with Mathlib
-v4.33.0 at commit \texttt{17b830bc} by building
+The baseline declarations in Appendix A were checked in Lean 4.33.0 with
+Mathlib v4.33.0 at commit \texttt{17b830bc} by building
 \texttt{verification/lean-mathlib} (\texttt{lake\ exe\ cache\ get},
 \texttt{lake\ -\/-rehash\ build}) and running
 \texttt{python3\ tools/release\_gate.py}, whose \texttt{lean-axioms}
@@ -1567,16 +1681,24 @@ step requires every \texttt{\#print\ axioms} report to lie within
 each declaration reports exactly these three, and the expected result
 and comparison recipe are in \texttt{papers/introduction\_repro/}. The
 full commit hash is \texttt{17b830bcd0ecc36e10eff5b9eeca03bdd7198d86}.
-The Lean pin is the commit at which that result was retained; the
-manuscripts are cited at corpus commit \texttt{55e3217b}, whose
-\texttt{verification/lean-mathlib} tree is identical.
+This pin applies to the baseline declarations, not the additional
+record-fibre, actual-return, trajectory-memory and whole-future modules.
+Those modules are \texttt{OIBridge.RecordFibreIdentification},
+\texttt{OIBridge.RootedRecurrenceBridge},
+\texttt{OIBridge.TrajectoryMemory} and
+\texttt{OIBridge.FullFutureMemory}, from source checkpoints
+\texttt{4f962b6}, \texttt{3d54ae74}, \texttt{a958bc54} and
+\texttt{96a3020b}, respectively; their exact assumptions are summarized
+below. The corpus sources are distinguished in the References.
 
 The probes and the black-hole computations {[}BHa; BHb{]} are released
 under the MIT License, at \texttt{papers/oi\_lattice\_code/foundations/}
 (probes; also in the release archive, concept DOI
 10.5281/zenodo.19060318) and
 \texttt{verification/programmes/black-hole-information/} (not part of
-the release archive) at the corpus commit.
+the release archive) at source snapshot \texttt{55e3217b}; the finite
+coherent-entropy and sequential-release controls {[}CE; CR{]} accompany
+their written proofs in the repository.
 
 \endgroup
 
@@ -1584,8 +1706,9 @@ the release archive) at the corpus commit.
 \subsection{Appendix A. Machine-checked
 declarations}\label{appendix-a.-machine-checked-declarations}}
 
-Modules of the \texttt{OIBridge} Lean library; line numbers at commit
-\texttt{17b830bc}.
+Modules of the \texttt{OIBridge} Lean library; baseline line numbers at
+commit \texttt{17b830bc}. The explicitly named additional modules are at
+the checkpoints given above.
 
 \begingroup\footnotesize\raggedright\setlength{\parskip}{1pt}
 
@@ -1602,9 +1725,10 @@ Modules of the \texttt{OIBridge} Lean library; line numbers at commit
   \texttt{distinguishability\_floor}, \texttt{capacity\_floor},
   \texttt{unavoidable\_hidden\_predictive\_memory} (HiddenMemory:83,
   :114, :170, :185), for a joint law of history, present and hidden
-  state; the time-\(t\) identification and the standard vanishing
-  criterion for conditional mutual information {[}CT06{]} are proved on
-  paper.
+  state; the conditional-pushforward/total-variation time-\(t\)
+  arguments and the standard vanishing criterion for conditional mutual
+  information {[}CT06{]} are proved on paper; the actual trajectory
+  information bound is listed separately below.
 \item
   \textbf{Capacity bound and least hidden memory} (§2.4):
   \texttt{c3\_necessity}, \texttt{c3\_necessity\_via\_hidden},
@@ -1620,6 +1744,53 @@ Modules of the \texttt{OIBridge} Lean library; line numbers at commit
   \texttt{routed\_forces\_indivisible\_somewhere}
   (PhysicalC4Discharge:122), indivisibility at some return horizon from
   routed readback; on paper for history-level (C4).
+\item
+  \textbf{Actual trajectory memory and capacity} (§2.4):
+  \texttt{next\_joint\_law}, \texttt{future\_joint\_law},
+  \texttt{future\_at}, \texttt{trajectory\_memory},
+  \texttt{trajectory\_c3}, \texttt{trajectoryIstar\_le},
+  \texttt{trajectory\_capacity} (TrajectoryMemory). These push the
+  initial law through actual permutation iterates and bound the supremum
+  over all natural time/finite-horizon pairs; this theorem alone does
+  not identify an entire future sequence; the separate finite-image
+  construction is listed below.
+\item
+  \textbf{Entire finite-image future} (§2.4):
+  \texttt{encodeFuture\_surjective}, \texttt{encodeFuture\_eq\_iff},
+  \texttt{futureRV\_apply}, \texttt{finite\_block\_is\_truncation},
+  \texttt{full\_future\_via\_hidden}, \texttt{full\_future\_c3},
+  \texttt{fullFutureIstar\_le}, \texttt{full\_future\_capacity}
+  (FullFutureMemory). These use ordinary discrete Shannon entropy in
+  bits on the exact finite image of actual whole sequences, and bound
+  its genuine supremum over all natural times. Equality with the
+  finite-block supremum or a separate infinite-product/limit entropy
+  formulation is not certified.
+\item
+  \textbf{Nonempty record-fibre identification} (§§1.1, 2.4):
+  \texttt{determined\_iff\_constant},
+  \texttt{initial\_determined\_iff\_subsingleton},
+  \texttt{determined\_injective\_iff},
+  \texttt{current\_determined\_iff}, \texttt{current\_visible\_eq},
+  \texttt{current\_hidden\_determined\_iff},
+  \texttt{swap\_two\_records\_injective}, and
+  \texttt{empty\_record\_counterexample} (RecordFibreIdentification).
+  These do not prove the Bayesian support calculation or the \(N-1\)
+  stabilization bound.
+\item
+  \textbf{Actual microscopic return and periodicity} (§2.5):
+  \texttt{rootedMap\_eq\_one\_of\_iterate\_return},
+  \texttt{pIndivisible\_of\_iterate\_return\_of\_overlap},
+  \texttt{iterate\_return\_at\_order}, \texttt{rootedMap\_at\_order},
+  \texttt{rootedMap\_add\_order},
+  \texttt{exists\_positive\_rooted\_period},
+  \texttt{no\_stochastic\_divisor\_of\_return\_nonperm},
+  \texttt{pIndivisible\_of\_return\_nonperm},
+  \texttt{pIndivisible\_at\_order\_of\_nonperm}
+  (RootedRecurrenceBridge). Finite permutation order supplies the
+  positive actual rooted period and identity return; a non-permutation
+  rooted matrix gives whole-cycle indivisibility. These do not formalize
+  the common-endpoint/history implication, full-support memory
+  equivalence or an accessible-window witness.
 \item
   \textbf{Relating evolution} (§3.3):
   \texttt{gl2\_strong\_gauge\_moves\_relative\_candidate}
@@ -1650,8 +1821,11 @@ Modules of the \texttt{OIBridge} Lean library; line numbers at commit
 
 \begingroup\footnotesize\raggedright\setlength{\parskip}{1pt}\setlength{\leftskip}{1.5em}\setlength{\parindent}{-1.5em}
 
-\textbf{Corpus} (repository commit \texttt{55e3217b}, concept DOI
-10.5281/zenodo.19060318)
+\textbf{Corpus} (concept DOI 10.5281/zenodo.19060318; Main, SM and the
+underlying black-hole computations at source snapshot \texttt{20ca05fe};
+GR and the Book include the scoped SC-36 reconciliation from
+\texttt{021850d9} and the Book regress correction from
+\texttt{a2be1e45})
 
 {[}Main{]} A. Maybaum, ``The Incompleteness of Observation: The
 Equivalence of Quantum Mechanics and Embedded Observation,''
@@ -1664,6 +1838,12 @@ Running-Vacuum Form of Dark Energy from the Cosmological Horizon,''
 {[}SM{]} A. Maybaum, ``The Standard Model from a Cubic Lattice,''
 \texttt{papers/SM.md}.
 
+{[}Substratum{]} A. Maybaum, ``The Substratum Construction:
+Reconstruction, the Substratum Gauge Group, and the QM-GR Synthesis,''
+\texttt{papers/Substratum.md}; the record-fibre and
+restricted-invariance statements used here are at source snapshot
+\texttt{20ca05fe9e7e460de29e08f7a21029042fa45b12}.
+
 {[}Book{]} A. Maybaum, \emph{The Incompleteness of Observation},
 \texttt{book/}.
 
@@ -1674,6 +1854,16 @@ reversible models,'' unpublished research record; proofs and code at
 {[}BHb{]} A. Maybaum, ``Permutation dynamics versus quantum scrambling;
 Page-time fraction,'' unpublished research record; proofs and code at
 \texttt{bh02\_scramble\_v1/} in the black-hole computations' directory.
+
+{[}CE{]} A. Maybaum, ``Finite coherent-subspace entropy profiles,''
+written finite proof and exact controls,
+\texttt{verification/audits/manuscript/page-coherent-recovery-20261028/entropy-profile-proof.md},
+source checkpoint \texttt{bdcbd32}.
+
+{[}CR{]} A. Maybaum, ``Autonomous reversible sequential release,''
+written finite proof and exact controls, the companion
+\texttt{sequential-release.md} in the same directory, source checkpoint
+\texttt{2624d49}.
 
 \textbf{External}
 
@@ -1851,4 +2041,4 @@ arXiv:gr-qc/0604062v4.
 \endgroup
 
 \end{document}
-% source-sha256: ed7ae5c58826df553674feab5ba4664b587c96aba9cffb3f05d9bc3f97598d4f
+% source-sha256: 31fd29102a0b271e75896385255bfe6795b8098dc42b435dfb6ac2964314bc5e

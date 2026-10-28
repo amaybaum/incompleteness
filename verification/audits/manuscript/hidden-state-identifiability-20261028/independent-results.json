@@ -1,0 +1,124 @@
+{
+  "binary_readout_permutation_models": 442,
+  "checks": 39546,
+  "cyclic_register_controls": [
+    {
+      "conditional_memory_bits_at_t_m": 1,
+      "hidden_bits": 1,
+      "hidden_states": 2,
+      "identifying_record_length": 2,
+      "states": 4
+    },
+    {
+      "conditional_memory_bits_at_t_m": 1,
+      "hidden_bits": 2,
+      "hidden_states": 4,
+      "identifying_record_length": 3,
+      "states": 8
+    },
+    {
+      "conditional_memory_bits_at_t_m": 1,
+      "hidden_bits": 3,
+      "hidden_states": 8,
+      "identifying_record_length": 4,
+      "states": 16
+    },
+    {
+      "conditional_memory_bits_at_t_m": 1,
+      "hidden_bits": 4,
+      "hidden_states": 16,
+      "identifying_record_length": 5,
+      "states": 32
+    },
+    {
+      "conditional_memory_bits_at_t_m": 1,
+      "hidden_bits": 5,
+      "hidden_states": 32,
+      "identifying_record_length": 6,
+      "states": 64
+    },
+    {
+      "conditional_memory_bits_at_t_m": 1,
+      "hidden_bits": 6,
+      "hidden_states": 64,
+      "identifying_record_length": 7,
+      "states": 128
+    }
+  ],
+  "model_and_interface_boundaries": [
+    "known model versus unknown microscopic family",
+    "support restriction",
+    "passive versus intervention records",
+    "whole-carrier bound versus support size",
+    "invertibility for current-state reconstruction",
+    "retained records versus instantaneous readout"
+  ],
+  "nonempty_support_cases": 6122,
+  "passive_spectator_class_size": 2,
+  "passive_spectator_quotient_states": 4,
+  "source_sha256": "c674bca3a1b3dbba0cddee1bb3fcd5fab79b4e3098ed623194840766990b41a4",
+  "status": "PASS",
+  "swap": [
+    {
+      "current_after_one": [
+        0,
+        0
+      ],
+      "initial": [
+        0,
+        0
+      ],
+      "records": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "current_after_one": [
+        1,
+        0
+      ],
+      "initial": [
+        0,
+        1
+      ],
+      "records": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "current_after_one": [
+        0,
+        1
+      ],
+      "initial": [
+        1,
+        0
+      ],
+      "records": [
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "current_after_one": [
+        1,
+        1
+      ],
+      "initial": [
+        1,
+        1
+      ],
+      "records": [
+        1,
+        1,
+        1
+      ]
+    }
+  ],
+  "swap_conditional_memory_bits": 1
+}

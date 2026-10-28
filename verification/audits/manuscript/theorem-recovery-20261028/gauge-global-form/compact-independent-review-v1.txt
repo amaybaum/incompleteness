@@ -1,0 +1,9 @@
+PASS — scoped mathematical review of the exact frozen compact-charge candidate.
+
+Independently checked a=0, the impossibility of x=0 when a is nonzero, rationality from a single common charge lattice, the forward/inverse Fermat coordinates, and signed/zero cases of the imported classical exponent-3 Fermat theorem. They give precisely the two standard rays and the neutral-Q branch; mixed gravitational cancellation follows. The cited primary paper explicitly supports this route in equations (6)-(8).
+
+The exact real-charge boundary (1,1,1,-3,-3*cuberoot(2)) has C=W=A=0 but G=3*cuberoot(2)-6 nonzero. Its irrational charge ratio prevents a common compact-circle lattice. A local u(1) Lie algebra alone does not provide commensurability.
+
+Both ordinary and optimized control replays exited zero and reproduced the frozen JSON byte for byte: 371293 gauge-only integer assignments, 17 solutions, every solution with G=0, and the exact algebraic countercontrol. Replay used a copied script in this review directory; all frozen source hashes remain unchanged.
+
+Scope: a fixed chiral family, no additional charged chiral cancelers, and identical universal copies only. FLT3 is imported ordinary mathematics, not proved by the finite controls or Lean. This does not establish physical matter selection, the correlated central quotient K, or global line/bundle data.

@@ -1,0 +1,381 @@
+{
+  "baseline": "7c464fcffcdd785c96a646e109433d3377bcfaad",
+  "scope": "exact mutable manuscript/book, relevant Lean/coverage/registry, and new recovery proof/control source snapshot; excludes publication outputs and replay receipts",
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 69332,
+      "sha256": "4a41a4ab10e55772c5f0827b2e8c189cd896a783bfebd65a30d9d216aa41d500"
+    },
+    {
+      "path": "book/README.md",
+      "bytes": 19666,
+      "sha256": "8f882333793f50d52aad525d94da83c287c30903f7cfc10a5d3a7e79ea6636a7"
+    },
+    {
+      "path": "book/The-Incompleteness-of-Observation-FULL.md",
+      "bytes": 1621890,
+      "sha256": "1a781781177bdef4f1b9d4154548725b52f01d2e4554e6f976a24fea02893e37"
+    },
+    {
+      "path": "book/acknowledgments.md",
+      "bytes": 6622,
+      "sha256": "d01409d0c202374b4e11bc347e99c47d9357b11d2b7bb8ca3a3e719d29c0e582"
+    },
+    {
+      "path": "book/appendix-a-prediction-status.md",
+      "bytes": 38077,
+      "sha256": "6613313cf17df2c36e898030a69ce5ff2c52872801d236e216026d3949c81e8b"
+    },
+    {
+      "path": "book/appendix-b-derivations.md",
+      "bytes": 88708,
+      "sha256": "d9b4b4b60b001f56c8eb3455ffa722dc651b408b6e713857d63d8a2aa040a922"
+    },
+    {
+      "path": "book/appendix-c-objections.md",
+      "bytes": 74363,
+      "sha256": "52792323802e88533ea2404197618921cca8721831a7b9266bd9a2f9fac6ad81"
+    },
+    {
+      "path": "book/bibliography.md",
+      "bytes": 33158,
+      "sha256": "f2e2be3bbe1b7150438da64d6fc9c9caa378799e4de130c1f5ebea91d3f0d632"
+    },
+    {
+      "path": "book/ch00-introduction.md",
+      "bytes": 37717,
+      "sha256": "d47a848cc1f5d2481cfc9b55c1c7185531df24f5d6b07603069516e87f19544d"
+    },
+    {
+      "path": "book/ch01-observation.md",
+      "bytes": 83471,
+      "sha256": "a82a4df94df63c22cbcf13f4e3b3abf651729b1c6df17ae8a15cf8d9fbf21b17"
+    },
+    {
+      "path": "book/ch02-substratum.md",
+      "bytes": 57203,
+      "sha256": "62b9971b69e82845631a3c5c0b200984703148063707646663e4c4d751ba37bc"
+    },
+    {
+      "path": "book/ch03-structural-realism.md",
+      "bytes": 77600,
+      "sha256": "80450c84712f57fc1343aeb5f658e78f735713235ac883a0f612f476f4e6d42f"
+    },
+    {
+      "path": "book/ch04-methodology.md",
+      "bytes": 74162,
+      "sha256": "5f8857ba468f1e9eac8c44e0d98c66736448a8793cb715e4238e4c0479f45419"
+    },
+    {
+      "path": "book/ch05-gauge-structure.md",
+      "bytes": 48896,
+      "sha256": "9e788121654e6b7e5332de4b6e9e7efe9b35a91ae6952ff97ff6dd3f8f8a3aa2"
+    },
+    {
+      "path": "book/ch06-matter-content.md",
+      "bytes": 87990,
+      "sha256": "15b166e997e11138183b5ef9d664712b3c62db1b13f067f04c4a31dd24fb7218"
+    },
+    {
+      "path": "book/ch07-gravity.md",
+      "bytes": 102734,
+      "sha256": "f6595a05ad0596c764e7f69b4ef7912fd653dd269253c35ddedce364be54fd36"
+    },
+    {
+      "path": "book/ch08-juno.md",
+      "bytes": 56202,
+      "sha256": "bf3288ff8fce778e8d1c580c6ab13349c3729b6054f8d8b53481e0dbdc05ae82"
+    },
+    {
+      "path": "book/ch09-universality.md",
+      "bytes": 79051,
+      "sha256": "38cbb9421ca475279d99268cc3f95631cff582cf6b19dedfacfd4a54532a693b"
+    },
+    {
+      "path": "book/ch10-chemistry.md",
+      "bytes": 44674,
+      "sha256": "dd7417f01bb8ecb7a6b6472805b45dbc293a9f835766de6abe43899f8ca961d8"
+    },
+    {
+      "path": "book/ch11-origin-of-life.md",
+      "bytes": 43272,
+      "sha256": "f6297027ae77fc1ecbc0be1774446c4cdbb6c7be71940f806743c5ed29e2c138"
+    },
+    {
+      "path": "book/ch12-evolution-intelligence.md",
+      "bytes": 47864,
+      "sha256": "f7a12f68da297829fbacdd19099d327ab34f8ae1f3fb43655c736cd459e1e83d"
+    },
+    {
+      "path": "book/ch13-quantum-biology.md",
+      "bytes": 42030,
+      "sha256": "afdf2a100482d7d4840e4a6324855c720f7fd3ff30c9da7848dc8b4c37bcf4ad"
+    },
+    {
+      "path": "book/ch14-quantum-computing.md",
+      "bytes": 78874,
+      "sha256": "c768f8f71257365e8acf3f1d2b3364254aae11895b429ffd041558dd0893eb5f"
+    },
+    {
+      "path": "book/ch15-quantum-engineering.md",
+      "bytes": 51038,
+      "sha256": "8f9797bf8e08565494821b0037d9c3d725ae4ee08743480da8d5625c54d37150"
+    },
+    {
+      "path": "book/ch16-medicine.md",
+      "bytes": 60348,
+      "sha256": "02df48415004b5313d69f3cde77684d10e494e2d043a04f0aa5ae691a261b477"
+    },
+    {
+      "path": "book/ch17-bioinformatics.md",
+      "bytes": 50509,
+      "sha256": "0e3a508065df84088f7b2b246f596e66f9b1b3e0ca52ecd8abfdad8f068d1493"
+    },
+    {
+      "path": "book/ch18-beyond.md",
+      "bytes": 93918,
+      "sha256": "e55f869591bdfd635f042f62e3b92a6e390c038ff11d3fa7207690c9f6e083b6"
+    },
+    {
+      "path": "book/ch19-open-problems.md",
+      "bytes": 97378,
+      "sha256": "1edd46885c55849c0c5caa6bde6534d80a9d77f8d9d8b64a7424a9b893f6a0c4"
+    },
+    {
+      "path": "book/glossary.md",
+      "bytes": 43637,
+      "sha256": "cd525fae33a7fbe491d00b097702b2ba84e14b8d5725e6d7538dac9c41f711a3"
+    },
+    {
+      "path": "book/preface.md",
+      "bytes": 8902,
+      "sha256": "24e2135605707bfc4680513fac39c488f1a52e0aa34d0dcd8521da3867b0054f"
+    },
+    {
+      "path": "book/readers-guide.md",
+      "bytes": 11916,
+      "sha256": "bb6ef21eb1460e03c94ffc136db056807f4f47405f38d6697a9b29e06c0695f6"
+    },
+    {
+      "path": "papers/Bioinformatics.md",
+      "bytes": 97316,
+      "sha256": "46d8d88800673aaa23774eb88a407dcab2569247d1fc3da6dbf907441211178b"
+    },
+    {
+      "path": "papers/Complexity.md",
+      "bytes": 95550,
+      "sha256": "f78e40e6f600813b4294360eef5c116855c849b68c59adb4abc43953f9d4c27e"
+    },
+    {
+      "path": "papers/Computation.md",
+      "bytes": 62985,
+      "sha256": "d650974696a79d84b4bcac1018e1a353f3c54fdec55104ea46cc3fb067c50921"
+    },
+    {
+      "path": "papers/Explainer.md",
+      "bytes": 192794,
+      "sha256": "33decd89f32a99ab11f10e72d0baabd72b40ab4a35ca1f526465d2107b2409e6"
+    },
+    {
+      "path": "papers/GR.md",
+      "bytes": 279890,
+      "sha256": "2c14202198bd853c01c3d2fd0a68c2c77c610d1f270f6aa28a914a7616e21bdc"
+    },
+    {
+      "path": "papers/Juno.md",
+      "bytes": 56154,
+      "sha256": "7ed9ae3b21bccb1ad87d68046f9bd1f1d56fac7a4652551f9444770e53721922"
+    },
+    {
+      "path": "papers/Main.md",
+      "bytes": 311777,
+      "sha256": "8e326e67b65986a55502aae8e085c9b0b5570289c6cf596416d27e4bd5a6a1f7"
+    },
+    {
+      "path": "papers/Medicine.md",
+      "bytes": 77016,
+      "sha256": "4e556457714fce122a538ed7b5062060360c4ea54c5410b067384e6f948e5956"
+    },
+    {
+      "path": "papers/Methodology.md",
+      "bytes": 139796,
+      "sha256": "6d5c6ddb8f70682dce47f6cb27cd074591a2dd1ab8d2bb8a422a495ef441a5d6"
+    },
+    {
+      "path": "papers/SM.md",
+      "bytes": 472203,
+      "sha256": "f35857d4724083c43d2518c7b08a8d621a65acf0450bf25b6bd47205c2bc13bc"
+    },
+    {
+      "path": "papers/Structure.md",
+      "bytes": 263494,
+      "sha256": "d7879228936437a6996a3e778e0faa0c8d4af65473cc6dc49c50ea0e74cbb160"
+    },
+    {
+      "path": "papers/Substratum.md",
+      "bytes": 164313,
+      "sha256": "ff32e7600e60e100759ad9baac24e1e0c773e9a73ecbf1f0a750825b450b034a"
+    },
+    {
+      "path": "verification/audits/manuscript/multitime-predictive-recovery-20261028/README.md",
+      "bytes": 1542,
+      "sha256": "5009219bcf878e1e260a48f7211d84a42603605f1bcea46e943fe7116f7a3f38"
+    },
+    {
+      "path": "verification/audits/manuscript/multitime-predictive-recovery-20261028/exact-controls-v2.py",
+      "bytes": 21584,
+      "sha256": "f0549188f68e3afcd14a7e59430b1919758568c9b68467a934644de911fb3274"
+    },
+    {
+      "path": "verification/audits/manuscript/multitime-predictive-recovery-20261028/multitime-recovery-proof-v2.md",
+      "bytes": 33992,
+      "sha256": "3b6b7a4c64a1d4ffa8b756995123ebdc9f6309748b79f89ed89805426a896043"
+    },
+    {
+      "path": "verification/audits/manuscript/theorem-recovery-20261028/gauge-global-form/compact-charge-controls-v1.py",
+      "bytes": 3852,
+      "sha256": "2d5f034461db0281745cdc2cc918bb7343fb9c7c9b36d55c22e374063055c623"
+    },
+    {
+      "path": "verification/audits/manuscript/theorem-recovery-20261028/gauge-global-form/compact-charge-supplement-v1.md",
+      "bytes": 4663,
+      "sha256": "9707b0db639d250dba0e8fa73ef45f21e7216cb9215af17e7359b6097492e24c"
+    },
+    {
+      "path": "verification/audits/manuscript/theorem-recovery-20261028/gauge-global-form/global_form_controls_v1.py",
+      "bytes": 11067,
+      "sha256": "2030aa0dc9f4e4fe0ed1cc6aa33bb8727e74f05dbc2037eb6a07b32541420617"
+    },
+    {
+      "path": "verification/audits/manuscript/theorem-recovery-20261028/gauge-global-form/global_form_proof_v1.txt",
+      "bytes": 11271,
+      "sha256": "00bf5a695918380989ee3f0d83aa91ed500538241373d18e85fe7af14e2e1a51"
+    },
+    {
+      "path": "verification/audits/manuscript/theorem-recovery-20261028/gauge-global-form/hypercharge_control_v1.py",
+      "bytes": 6869,
+      "sha256": "4cec764aa5870210c513dc397f7968e476364c357a781123940d5f11e48057a0"
+    },
+    {
+      "path": "verification/audits/manuscript/theorem-recovery-20261028/gauge-global-form/hypercharge_recovery_v1.txt",
+      "bytes": 8976,
+      "sha256": "5a85a85c24858956f4de0c2f0472fc4fa3478c7d4ec06555cbc336d84984074e"
+    },
+    {
+      "path": "verification/audits/manuscript/theorem-recovery-20261028/gauge-global-form/minimal_source_proposals_v1.txt",
+      "bytes": 6691,
+      "sha256": "da40f0729722299c6938275eae271ec84184bab9d0c53b0038daa347123b493c"
+    },
+    {
+      "path": "verification/audits/manuscript/theorem-recovery-20261028/gauge-global-form/native_carrier_barrier_v1.txt",
+      "bytes": 3621,
+      "sha256": "9159ab6c8077c6ddc791576f681ad2cc1c84f5761926d943033afa364d17d8fe"
+    },
+    {
+      "path": "verification/audits/manuscript/theorem-recovery-20261028/gauge-global-form/native_carrier_control_v1.py",
+      "bytes": 3052,
+      "sha256": "400c350970373e5a810fb159cd2e4991e01c3849e56c925cf6062e38b5f70d1f"
+    },
+    {
+      "path": "verification/audits/manuscript/theorem-recovery-20261028/independent-review/gauge-focused-review.md",
+      "bytes": 9439,
+      "sha256": "90243eaa2b75338cd04446139510bb055955bec84d91af216e41b67b13ca24b2"
+    },
+    {
+      "path": "verification/audits/manuscript/theorem-recovery-20261028/independent-review/independent-review.md",
+      "bytes": 15621,
+      "sha256": "aef766402232199ff7f3c5d1f194826e22c799981959af14ddf90c35d3d72eeb"
+    },
+    {
+      "path": "verification/audits/manuscript/theorem-recovery-20261028/independent-review/integration-focused-review.md",
+      "bytes": 4641,
+      "sha256": "967a6594cfcb28e42ed9e7056d3db04fe9893608bc6815835bfb68e5078cd322"
+    },
+    {
+      "path": "verification/audits/manuscript/theorem-recovery-20261028/native-companion-identification.md",
+      "bytes": 5180,
+      "sha256": "ececf3c61dbe3271163b489652eb9cf424c14ec10d78e9457d8e9f3137a99755"
+    },
+    {
+      "path": "verification/audits/manuscript/theorem-recovery-20261028/sm3/CheckChiralCenterRecovery.lean",
+      "bytes": 672,
+      "sha256": "feb941439ecd059ef2d1e0e492a58dab7b28c698a98c4d1811917377a4c7075e"
+    },
+    {
+      "path": "verification/audits/manuscript/theorem-recovery-20261028/sm3/ChiralCenterRecovery.lean",
+      "bytes": 12981,
+      "sha256": "716bcfd0475bef83e54d8a772f0da37a16bbab55ca5684fae7258ea4043e0426"
+    },
+    {
+      "path": "verification/audits/manuscript/theorem-recovery-20261028/sm3/SM3-recovery-report.txt",
+      "bytes": 8811,
+      "sha256": "b6f2404e7a2ce90a70bf52ab35f6f3ae8302b3387e4fd6a0f27ab8d23c492058"
+    },
+    {
+      "path": "verification/audits/manuscript/theorem-recovery-20261028/sm3/SM3-replacement.txt",
+      "bytes": 4219,
+      "sha256": "7f88444b0ea855300ec806fd267b1325663b2329dd88bdf89e3cd0100f672567"
+    },
+    {
+      "path": "verification/audits/manuscript/theorem-recovery-20261028/sm3/proc_self_exe.c",
+      "bytes": 625,
+      "sha256": "bdb94aa1efbe8a794ea59770ae32cc3d87770e1ebd3e2af31d01bdfcc7dfd551"
+    },
+    {
+      "path": "verification/audits/manuscript/theorem-recovery-20261028/sm3/verify_modular_scope.py",
+      "bytes": 1933,
+      "sha256": "a1d8c6e73fc2b8abf3402fed757985295f42c7a42be304462ce02f7d9a9ff658"
+    },
+    {
+      "path": "verification/audits/manuscript/theorem-recovery-20261028/sm3/verify_sm3.py",
+      "bytes": 6634,
+      "sha256": "b3e1d4142eb061b26f4d888abf54819e79313d5ac5412922a89d14845da3f24c"
+    },
+    {
+      "path": "verification/coverage/LEDGER.json",
+      "bytes": 516111,
+      "sha256": "153a17b286d628631c2804110dda0f3fecd3c35c909e93782df2f89f73731792"
+    },
+    {
+      "path": "verification/lean/OI_Structural_Core.lean",
+      "bytes": 25125,
+      "sha256": "690ec38ddfbe2d600d5bbab390351587266a87cc55a774bdc69fa99e6352b243"
+    },
+    {
+      "path": "verification/lean-manuscript-census.json",
+      "bytes": 405771,
+      "sha256": "4733ead2d25420f292bd0425b10874255c4b7c408f80e0d9f58c2bdfd0fc8a67"
+    },
+    {
+      "path": "verification/lean-mathlib/OIBridge/ChiralCenterRecovery.lean",
+      "bytes": 12981,
+      "sha256": "716bcfd0475bef83e54d8a772f0da37a16bbab55ca5684fae7258ea4043e0426"
+    },
+    {
+      "path": "verification/lean-mathlib/OIBridge/KrausUniqueness.lean",
+      "bytes": 14304,
+      "sha256": "ec4a4566b92a41cd14bca0fd05d3f4fddcc1ed305c9843e70f25598c3459fd3f"
+    },
+    {
+      "path": "verification/lean-mathlib/OIBridge/SemigroupTransfer.lean",
+      "bytes": 68642,
+      "sha256": "be04626efad898a0058910886928aeb099a68249530ea3ee49fb7c6bb603b298"
+    },
+    {
+      "path": "verification/lean-mathlib/OIBridge/StinespringUniqueness.lean",
+      "bytes": 25249,
+      "sha256": "06fb418a4848fffd59c776e15e2ee3363dcff03c6ac3e85a9c1dbe5b0a2005cf"
+    },
+    {
+      "path": "verification/lean-mathlib/OIBridge/WordTraceSufficiency.lean",
+      "bytes": 41296,
+      "sha256": "90f955e22cefc8bba5276ef9d22d42545d099709d1712dbc41c6af266bfcf3f6"
+    },
+    {
+      "path": "verification/lean-mathlib/OIBridge.lean",
+      "bytes": 43008,
+      "sha256": "7e1fe7fd4c10e174d8fda987c072055c630c97326b8430facdc4a57dcffc3e49"
+    }
+  ]
+}

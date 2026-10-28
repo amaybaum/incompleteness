@@ -1,0 +1,479 @@
+{
+  "schema": 1,
+  "date": "2026-10-28",
+  "reviewer": "separate review_recovery agent",
+  "review_scope": "internal independent mathematical review; not owner/external/publication acceptance",
+  "candidates": [
+    {
+      "track": "SM3",
+      "source": "sm3-v2/ChiralCenterRecovery.lean",
+      "expected": "716bcfd0475bef83e54d8a772f0da37a16bbab55ca5684fae7258ea4043e0426",
+      "verdict": "PASS, restricted ring/entry/onsite/uniform-coefficient theorem; actual Lean 4.33 kernel replay",
+      "replay": "sm3-v2/independent-lean-replay.json",
+      "sha256": "716bcfd0475bef83e54d8a772f0da37a16bbab55ca5684fae7258ea4043e0426",
+      "source_hash_matches": true,
+      "replay_sha256": "7fb99b3f0d9bd26005f17e5a81518b8b072bf352436c4a42dc5eaac4d5b584ea"
+    },
+    {
+      "track": "multitime",
+      "source": "multitime-v2/multitime-recovery-proof-v2.md",
+      "expected": "3b6b7a4c64a1d4ffa8b756995123ebdc9f6309748b79f89ed89805426a896043",
+      "verdict": "PASS, conditional linear realization and native future-observable quotient reconstruction/minimality",
+      "replay": "multitime-v2/independent-author-replay.json",
+      "sha256": "3b6b7a4c64a1d4ffa8b756995123ebdc9f6309748b79f89ed89805426a896043",
+      "source_hash_matches": true,
+      "replay_sha256": "2bb425b1ff2f26dcd79f9c47c938bbbc4ce3e9224a46f52c10ec5ffa459bde28"
+    },
+    {
+      "track": "selector",
+      "source": "selector-v1/proof.txt",
+      "expected": "cbe24e4aa39de2cd6dbbbb772235ce757bd7ff75aa4359df90a7ba05e635aa96",
+      "verdict": "PASS, fixed-family labelled native triple inversion; no physical selector",
+      "replay": "selector-v1/independent-author-replay.json",
+      "sha256": "cbe24e4aa39de2cd6dbbbb772235ce757bd7ff75aa4359df90a7ba05e635aa96",
+      "source_hash_matches": true,
+      "replay_sha256": "64790da2be0e129ef9208472c05ecb272693b25bdcdfc9afbc96fe53122477d8"
+    }
+  ],
+  "all_candidate_hashes_match": true,
+  "module_has_no_sorry_or_axiom_declarations": true,
+  "independent_controls": {
+    "schema": "oi-independent-recovery-review-controls-v1",
+    "checks": [
+      {
+        "name": "restricted_chirality_integer_control",
+        "passed": true,
+        "details": {
+          "cases": 625
+        }
+      },
+      {
+        "name": "evenness_hypothesis_is_essential",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "involution_hypothesis_is_essential",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "characteristic_two_countercontrol",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "characteristic_not_two_is_insufficient_for_general_rings",
+        "passed": true,
+        "details": {
+          "ring": "Z/6",
+          "epsilon": [
+            1,
+            -1
+          ],
+          "C": "3I",
+          "m": 3,
+          "p": 3
+        }
+      },
+      {
+        "name": "odd_composite_modulus_has_required_no_two_torsion",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "both_parity_sectors_needed_for_coefficient_uniqueness",
+        "passed": true,
+        "details": {
+          "epsilon": "identity",
+          "m": 1,
+          "p": -1,
+          "C": "m I + p epsilon = 0"
+        }
+      },
+      {
+        "name": "zero_onsite_does_not_imply_chirality_for_arbitrary_hopping",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "similarity_inverse_control",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "both_models_strictly_positive",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "both_models_normalized",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "unprimed_reachable_and_observable",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "primed_reachable_and_observable",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "exact_same_word_statistics",
+        "passed": true,
+        "details": {
+          "cases": 255
+        }
+      },
+      {
+        "name": "similarity_is_not_hidden_state_permutation",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "inverse_is_not_positive",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "similarity_is_not_unitary",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "n_plus_m_minus_one_cannot_be_shortened_in_general",
+        "passed": true,
+        "details": {
+          "n": 2,
+          "m": 2,
+          "first_difference_length": 3,
+          "f": [
+            "2",
+            "3",
+            "3",
+            "3"
+          ],
+          "g": [
+            "2",
+            "3",
+            "3",
+            "-3"
+          ]
+        }
+      },
+      {
+        "name": "tight_word_bound_examples_are_both_minimal",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "minimality_without_observability_is_insufficient",
+        "passed": true,
+        "details": {
+          "dimensions": [
+            1,
+            2
+          ],
+          "a": [
+            1,
+            1
+          ],
+          "b": [
+            1,
+            0
+          ],
+          "A": "diag(1,2)"
+        }
+      },
+      {
+        "name": "minimality_without_reachability_is_insufficient",
+        "passed": true,
+        "details": {
+          "dimensions": [
+            1,
+            2
+          ],
+          "a": [
+            1,
+            0
+          ],
+          "b": [
+            1,
+            1
+          ],
+          "A": "diag(1,2)"
+        }
+      },
+      {
+        "name": "restricted_word_language_is_insufficient",
+        "passed": true,
+        "details": {
+          "allowed": "powers of a only",
+          "same_Ma": 1,
+          "different_unavailable_Mb": [
+            0,
+            2
+          ],
+          "dimensions": [
+            1,
+            1
+          ]
+        }
+      },
+      {
+        "name": "native_permutation_c1",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "native_full_one_step_uniform_c1",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "native_labelled_triple_recovers_F_c1",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "coarse_four_readouts_observe_phase_state_c1",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "coarse_recurrence_c1",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "native_permutation_c2",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "native_full_one_step_uniform_c2",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "native_labelled_triple_recovers_F_c2",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "coarse_four_readouts_observe_phase_state_c2",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "coarse_recurrence_c2",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "different_F_same_complete_one_step",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "different_F_different_complete_triples",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "coarse_words_equal_through_four",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "coarse_words_differ_at_five",
+        "passed": true,
+        "details": null
+      },
+      {
+        "name": "known_state_bound_cannot_be_omitted",
+        "passed": true,
+        "details": {
+          "native_states": [
+            4,
+            8
+          ],
+          "same_laws_through_length": 2,
+          "different_at_length": 3,
+          "cycles": [
+            [
+              0,
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              1,
+              0,
+              1,
+              1,
+              1
+            ]
+          ]
+        }
+      },
+      {
+        "name": "N_minus_one_separator_bound_has_tight_examples",
+        "passed": true,
+        "details": {
+          "N": 4,
+          "first_separating_block_length": 3
+        }
+      },
+      {
+        "name": "full_support_prior_cannot_be_omitted",
+        "passed": true,
+        "details": {
+          "one_state_model": "fixed state labelled 0, mass 1",
+          "two_state_model": "two fixed states labelled 0 and 1, masses (1,0)",
+          "all_output_laws": "constant 0",
+          "future_observable_states": [
+            1,
+            2
+          ]
+        }
+      },
+      {
+        "name": "stationarity_and_full_support_do_not_imply_uniform_one_step_law",
+        "passed": true,
+        "details": {
+          "ring": "F5",
+          "map": "(x,y)->(x-y,x)",
+          "orbit_weight": 2,
+          "other_weight": 1,
+          "normalization": 31
+        }
+      },
+      {
+        "name": "simplex_order_bridge_rational_grid",
+        "passed": true,
+        "details": {
+          "invertible_normalized_nonnegative_matrices": 30,
+          "with_nonnegative_inverse": 2
+        }
+      }
+    ],
+    "all_required_controls_pass": true,
+    "claim_boundary": "Finite exact controls and written algebra only; no physical-selector, coherent-gauge or all-model uniqueness verdict.",
+    "positive_stochastic_similarity": {
+      "operators": [
+        [
+          [
+            "3/10",
+            "1/5"
+          ],
+          [
+            "1/10",
+            "1/4"
+          ]
+        ],
+        [
+          [
+            "1/5",
+            "3/10"
+          ],
+          [
+            "2/5",
+            "1/4"
+          ]
+        ]
+      ],
+      "operators_prime": [
+        [
+          [
+            "463/1600",
+            "313/1600"
+          ],
+          [
+            "167/1600",
+            "417/1600"
+          ]
+        ],
+        [
+          [
+            "337/1600",
+            "487/1600"
+          ],
+          [
+            "633/1600",
+            "383/1600"
+          ]
+        ]
+      ],
+      "initial": [
+        [
+          "3/5"
+        ],
+        [
+          "2/5"
+        ]
+      ],
+      "initial_prime": [
+        [
+          "29/50"
+        ],
+        [
+          "21/50"
+        ]
+      ],
+      "S": [
+        [
+          "9/10",
+          "1/10"
+        ],
+        [
+          "1/10",
+          "9/10"
+        ]
+      ],
+      "S_inverse": [
+        [
+          "9/8",
+          "-1/8"
+        ],
+        [
+          "-1/8",
+          "9/8"
+        ]
+      ]
+    },
+    "native_word_support_counts": {
+      "1": {
+        "1": 5,
+        "2": 25,
+        "3": 125,
+        "4": 625,
+        "5": 625
+      },
+      "2": {
+        "1": 5,
+        "2": 25,
+        "3": 125,
+        "4": 625,
+        "5": 625
+      }
+    },
+    "source_sha256": "98489e543aeedae964441606c119e603e410f0009ca520c8d637041b602c9621"
+  },
+  "independent_controls_source_sha256": "98489e543aeedae964441606c119e603e410f0009ca520c8d637041b602c9621",
+  "independent_controls_result_sha256": "e97161f32f86d23b0fb41c6ecb8fb10492356b7e37efb0025682f03f419f6cfe",
+  "review_report_sha256": "aef766402232199ff7f3c5d1f194826e22c799981959af14ddf90c35d3d72eeb",
+  "restores_unrestricted_Theorem23": false,
+  "restores_unrestricted_Theorem24": false,
+  "changes_repository_or_remote": false,
+  "unresolved_math_blockers_on_scoped_candidates": [],
+  "resolved_replay_packaging_issue": "copied modular helper dependency needed explicit PYTHONPATH; successful receipt matches frozen author hash",
+  "independent_controls_all_pass": true,
+  "independent_control_count": 41
+}

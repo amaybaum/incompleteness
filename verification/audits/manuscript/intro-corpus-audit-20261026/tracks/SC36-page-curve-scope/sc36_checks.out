@@ -1,0 +1,62 @@
+  config |000>: max S over 40320 permutations x 3 cuts = 0.000000000000, H(p0) = -0.000000000000
+  two-term |000>+|111>: max S over 40320 permutations x 3 cuts = 0.693147180560, H(p0) = 0.693147180560
+  uniform signs |-++>: max S over 40320 permutations x 3 cuts = 0.693147180560, H(p0) = 2.079441541680
+  skewed real: max S over 40320 permutations x 3 cuts = 0.653559460292, H(p0) = 1.190076307208
+  complex phases: max S over 40320 permutations x 3 cuts = 0.691020028809, H(p0) = 1.916045457674
+K1: pass violations=0
+K1c: pass max S from a configuration = 0.0
+CC1: pass S = 0.693147180560 > H(p0 of |000>) = 0
+K2: pass S = 0.693147180560, H(p0) = 0.693147180560
+K3: pass rho_D = I/2 at every t (trivial dynamics), purity(rho_VB) = 1/2
+K3b: pass D-configuration fixed by phi: True; purity(rho_VB) at t=0: 1, after one step: 1/2 (must fire)
+K3c: pass 576 D-configuration-preserving bijections x 2 d0 x 3 psi_VB x 3 steps: impure cases 0
+K4a: pass M_Pl^4/(H^2/G) / S_dS = 3.183099e-01 vs 1/pi = 3.183099e-01
+K4b: pass modesum(M_Pl/2)/rho_crit / S_dS = 1.055429e-03 vs 1/(96 pi^2) = 1.055429e-03
+K4c: pass modesum(reduced M_Pl)/(Omega_L rho_crit) / S_dS = 3.9045e-05 vs 1/(384 pi^4 Omega_L) = 3.9045e-05
+K4e: pass sigma = ln 2: 2.196737e-03 vs 1/(96 pi^2 sigma^2) = 2.196737e-03
+K4f: pass M_Pl^4/rho_crit / S_dS = 2.666667 vs 8/3
+K4d: pass 3.905e-05 < 1/(96 pi^2) = 1.055e-03, outside [1/(96 pi^2), 8/3]
+  S_dS = 2.265e+122
+K5 retired "resolves the paradox": pass count=0 []
+K5 retired "Resolved at the level of information preservation": pass count=0 []
+K5 retired "at the level of information preservation": pass count=0 []
+K5 retired "Problems resolved": pass count=0 []
+K5 retired "range 1/(96pi^2)..8/3": pass count=0 []
+K5 retired "reproducible from a finite deterministic substratum": pass count=0 []
+K5 retired "it can be combinatorial": pass count=0 []
+K5 retired "BH information preserved (row)": pass count=0 []
+K5 retired "Preserved; Page curve conditional": pass count=0 []
+K5 retired "Five universality-class entries": pass count=0 []
+K5 retired "Tier 1 has five entries": pass count=0 []
+K5 retired "second dissolution: the black hole": pass count=0 []
+K5 retired "*same* structural resolution": pass count=0 []
+K5 retired "preserves information with the Page curve": pass count=0 []
+K5 retired "information-preservation half": pass count=0 []
+K5 retired "of Theorem A.7's proof and": pass count=0 []
+K5 retired "A.7 product hypothesis chi_D": pass count=0 []
+K5 retired "Bound for the cosmological + stellar": pass count=0 []
+K5 e^{-10^77} only in A.8 proof: pass occurrences=2 ['papers/GR.md:2'], lines=1 (the A.8 proof line)
+  surviving "H-scramble fails for every bijection": 16 ['book/README.md:1', 'book/The-Incompleteness-of-Observation-FULL.md:5', 'book/appendix-a-prediction-status.md:1', 'book/ch07-gravity.md:3', 'book/glossary.md:1', 'papers/GR.md:5']
+  "no instance": 5 ['book/The-Incompleteness-of-Observation-FULL.md:1', 'book/ch07-gravity.md:1', 'papers/GR.md:3']
+  lines pairing "information paradox" with "resolv": 11
+    book/The-Incompleteness-of-Observation-FULL.md:1891:This chapter develops seven structural results. Section 7.2 verifies coupling C1, slow bath C2 and large capacity C3 at the cosmological horizon, wi
+    book/The-Incompleteness-of-Observation-FULL.md:1989:The framework's content in the Bekenstein-Hawking sector extends beyond the area-law coefficient to the *dynamics* of black hole evaporation. The bl
+    book/The-Incompleteness-of-Observation-FULL.md:4947:The framework's content on the quantum gravity problem extends beyond the individual dissolutions developed in Chapter 7 to a structural pattern. Th
+    book/The-Incompleteness-of-Observation-FULL.md:5181:This section develops the framework's claimed resolutions, dissolutions, and conditional constructions, with quantum gravity as a partially addresse
+    book/The-Incompleteness-of-Observation-FULL.md:5493:| BH information paradox | Hawking vs unitarity | Not resolved — information conserved by premise; Page curve conditional | Ch 7 §7.6 |
+    book/ch07-gravity.md:12:This chapter develops seven structural results. Section 7.2 verifies coupling C1, slow bath C2 and large capacity C3 at the cosmological horizon, with ratio $\tau_S / \tau_B \s
+    book/ch07-gravity.md:110:The framework's content in the Bekenstein-Hawking sector extends beyond the area-law coefficient to the *dynamics* of black hole evaporation. The black hole information parado
+    book/ch18-beyond.md:130:The framework's content on the quantum gravity problem extends beyond the individual dissolutions developed in Chapter 7 to a structural pattern. Three problems conventionally 
+    book/ch19-open-problems.md:22:This section develops the framework's claimed resolutions, dissolutions, and conditional constructions, with quantum gravity as a partially addressed entry, the black hol
+    book/ch19-open-problems.md:334:| BH information paradox | Hawking vs unitarity | Not resolved — information conserved by premise; Page curve conditional | Ch 7 §7.6 |
+    papers/Main.md:66:**Remark (reversibility as the conservative assumption).** The bijectivity of $\varphi$ — equivalently, that the substratum conserves information — is not an exotic commitment peculi
+K7 appendix A 1-table: pass tally {'S': 3, 'C': 7, 'E': 2, 'R': 2, 'L': 8, 'M': 1} total 23; stated {'S': 3, 'C': 7, 'L': 8, 'M': 1, 'R': 2, 'E': 2} total 23; uncounted rows []
+K7 appendix A G-table: pass tally {'C': 5, 'L': 2} total 7; stated {'C': 5, 'L': 2} total 7; uncounted rows ['G11']
+K7 appendix A N-table: pass tally {'L': 5, 'C': 1, 'S': 1} total 7; stated {'S': 1, 'C': 1, 'L': 5} total 7; uncounted rows []
+K7 appendix A B-table: pass tally {'S': 12, 'C': 2} total 14; stated {'S': 12, 'C': 2} total -; uncounted rows []
+K7 gravitational-entry counts: pass counted G rows 7; stale []
+K7 tier counts ch09-universality.md: pass book/ch09-universality.md: tables T1=4 T2=7 T3=8 total=19; 7 stated counts; wrong []
+K7 tier counts The-Incompleteness-of-Observation-FULL.md: pass book/The-Incompleteness-of-Observation-FULL.md: tables T1=4 T2=7 T3=8 total=19; 7 stated counts; wrong []
+K6: pass changed chapter lines missing from FULL: 0
+
+VERDICT: all controls pass

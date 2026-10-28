@@ -1,0 +1,134 @@
+{
+  "date_utc": "2026-10-28T10:43:17.399186+00:00",
+  "base_commit": "7c464fcffcdd785c96a646e109433d3377bcfaad",
+  "status": "RESTRICTED_ALGEBRA_KERNEL_CHECKED; INTEGRATION_PROPOSED",
+  "compiler": {
+    "version": "4.33.0",
+    "commit": "d8b18978322de05a8f3dba51ef03cf5461676c17",
+    "archive_sha256": "4b3fb03c29a1e0a253fb1d11f9bae3725f19a0dc6fc09b3ea16d2c9df3349e2c",
+    "official_digest_match": true,
+    "runtime_adapter": "proc_self_exe.c rewrites only /proc/<pid>/exe lookup to /proc/self/exe",
+    "stable_4_35_run": false
+  },
+  "kernel_axioms": {
+    "even_perturbation_iff": [],
+    "chiral_entries_iff_odd_support": [
+      "propext"
+    ],
+    "onsite_chiral_iff": [
+      "propext"
+    ],
+    "scalar_center_chiral_iff": [
+      "propext"
+    ]
+  },
+  "new_axioms": false,
+  "proof_holes": false,
+  "integer_positive_cases": 2475,
+  "integer_negative_controls": 7,
+  "modular_positive_cases": 90,
+  "additional_modular_negative_controls": 1,
+  "census_exit": 0,
+  "coverage_exit": 0,
+  "canonical_CI": false,
+  "canonical_publication_builds": false,
+  "unrestricted_physical_claim_recovered": false,
+  "independent_review": {
+    "agent": "/root/review_recovery",
+    "status": "ACCEPTED restricted mathematics; independent kernel replay passed",
+    "module_sha256": "716bcfd0475bef83e54d8a772f0da37a16bbab55ca5684fae7258ea4043e0426",
+    "adapter": "independently rebuilt and inspected",
+    "receipt_directory": "/workspace/scratch/cb6cdacd02d4/recovery-review",
+    "final_receipt_path": "pending reviewer final artifact"
+  },
+  "artifacts": {
+    "OI_Structural_Core.lean": {
+      "sha256": "3dcc6b44bb34c6f5d6c6b632c00840a0c4af089e6a21d1446a43fd2d14a9c1eb",
+      "bytes": 24907
+    },
+    "SM3Recovery.lean": {
+      "sha256": "890d2578508ea42d1f99b0953c0a64b7f3504e8fb944ea301f879f04b5d7c6ca",
+      "bytes": 8907
+    },
+    "SM3Recovery_v2.lean": {
+      "sha256": "6d951d2c97e2bc182838c5c9f239ffa17fe9746be7424a4950466d0aa93f7e6c",
+      "bytes": 10696
+    },
+    "ChiralCenterRecovery.lean": {
+      "sha256": "716bcfd0475bef83e54d8a772f0da37a16bbab55ca5684fae7258ea4043e0426",
+      "bytes": 12981
+    },
+    "CheckChiralCenterRecovery.lean": {
+      "sha256": "feb941439ecd059ef2d1e0e492a58dab7b28c698a98c4d1811917377a4c7075e",
+      "bytes": 672
+    },
+    "verify_sm3.py": {
+      "sha256": "b3e1d4142eb061b26f4d888abf54819e79313d5ac5412922a89d14845da3f24c",
+      "bytes": 6634
+    },
+    "controls-results.json": {
+      "sha256": "e328c5b9494a22edfc0dbe89714ac2b8b9dd989c3404a36091e30c01669e2882",
+      "bytes": 3618
+    },
+    "verify_modular_scope.py": {
+      "sha256": "a1d8c6e73fc2b8abf3402fed757985295f42c7a42be304462ce02f7d9a9ff658",
+      "bytes": 1933
+    },
+    "modular-scope-results.json": {
+      "sha256": "8eaa76ce894a279a84e378f82a8639aa5bc5a044c1707eabc75322b9eb2dafa0",
+      "bytes": 801
+    },
+    "proc_self_exe.c": {
+      "sha256": "bdb94aa1efbe8a794ea59770ae32cc3d87770e1ebd3e2af31d01bdfcc7dfd551",
+      "bytes": 625
+    },
+    "proc_self_exe.so": {
+      "sha256": "8d9a26412f01c1fb0940045b5a77d4e25e24fddba6d39bf5c2071f5b3ce1b8d8",
+      "bytes": 15800
+    },
+    "sm3-publication-recovery.patch": {
+      "sha256": "e050c11c476ee638206fd073339c201ccc7f298546de3d29f09904ae9549a1da",
+      "bytes": 29516
+    },
+    "sm3-core-comment.patch": {
+      "sha256": "4b2bb727df885bdc795125b918cf1b4c1fdebcdd8bffe00ab9d68bee41bc3dd6",
+      "bytes": 829
+    },
+    "SM3-replacement.txt": {
+      "sha256": "7f88444b0ea855300ec806fd267b1325663b2329dd88bdf89e3cd0100f672567",
+      "bytes": 4219
+    },
+    "SM3-recovery-report.txt": {
+      "sha256": "b6f2404e7a2ce90a70bf52ab35f6f3ae8302b3387e4fd6a0f27ab8d23c492058",
+      "bytes": 8811
+    },
+    "candidate-typecheck.log": {
+      "sha256": "65276bf1c00b901b1d15c8b1b047bd78c683186c3698accc42e3ccab9f021e06",
+      "bytes": 414
+    },
+    "candidate-v2-typecheck.log": {
+      "sha256": "01ec7bdbed12d1bada31cae584f94c6c288d78abe160b4486af971335ece2072",
+      "bytes": 590
+    },
+    "new-module-typecheck.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "new-module-axioms.log": {
+      "sha256": "9fd942c6bbb608987d1a376e5f87091616aa913e4a60c77cacc86cc9b3b39364",
+      "bytes": 797
+    },
+    "integration-census-fullproof.log": {
+      "sha256": "eb04a4010b026f71bc5e1ec76e4e1293c4c0d17777ca9ecebd7e29615da62dbe",
+      "bytes": 20837
+    },
+    "integration-coverage-pinned.log": {
+      "sha256": "969e1127d2a1d72bf96f795f60c018293a30ec6190812e43e4276d45c22e2984",
+      "bytes": 3132
+    },
+    "compiler-official-asset.json": {
+      "sha256": "1157578c539bac97b6b92a1aed26926d9b1e512b58d1521b03626925817e51ab",
+      "bytes": 381
+    }
+  }
+}

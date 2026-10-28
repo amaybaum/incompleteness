@@ -1,0 +1,129 @@
+{
+  "primary_context": [
+    {
+      "arxiv": "1705.01853v2",
+      "author": "David Tong",
+      "relevance": "Global choices Gamma<=Z6 admit the same local SM fields but differ in line/bundle data.",
+      "title": "Line Operators in the Standard Model",
+      "url": "https://arxiv.org/html/1705.01853v2",
+      "year": 2017
+    }
+  ],
+  "repository_head": "7c464fcffcdd785c96a646e109433d3377bcfaad",
+  "schema": "oi-gauge-global-source-trace-v1",
+  "scope": "Read-only local dirty-source snapshot; not an adopted or remotely published checkpoint.",
+  "sources": [
+    {
+      "line_count": 196,
+      "path": "book/ch05-gauge-structure.md",
+      "selected_lines": [
+        {
+          "line": 45,
+          "text": "A second gauge freedom — *amplitude-scale invariance* — has consequences that recur in the gauge-derivation chain. Stated operationally, it is the principle that an embedded observer has no access to the absolute scale of the field value $\\boldsymbol{\\phi}$, only to the emergent transition probabilities and coupling structure — the discrete analogue of the field-normalization redundancy of ordinary field theory, where rescaling a field is unphysical because only correlators are observable. It treats the field rescaling $\\boldsymbol{\\phi}\\mapsto\\lambda\\boldsymbol{\\phi}$ as redundant by an explicit adjoined operational principle [Substratum §4, amplitude-scale Remark]. This principle is distinct from alphabet-size comparisons and is not derived from Theorem 24's hidden-only channel relabelling. Results invoking it remain conditional on it; it does not establish a complete substratum gauge group. The reduction of the natural commutant $\\mathrm{U}(3) \\times \\mathrm{U}(2) \\times \\mathrm{U}(1)$ to the Standard Model's $\\mathrm{SU}(3) \\times \\mathrm{SU}(2) \\times \\mathrm{U}(1)$ uses it: the overall $\\mathrm{U}(1)$ phase of each block can be absorbed into a global rescaling of the field value, which is gauge by amplitude-scale invariance. The Standard Model gauge group is, in this sense, what remains of the natural commutant after the gauge degrees of freedom have been stripped out."
+        },
+        {
+          "line": 123,
+          "text": "This stabilizer theorem is exact at those stated premises. It does not prove H-link, select $m=1$, or by itself perform the later $\\mathrm U\\to\\mathrm{SU}$ reduction."
+        },
+        {
+          "line": 125,
+          "text": "**Reduction to the Standard Model gauge group.** The natural commutant $\\mathrm{U}(3) \\times \\mathrm{U}(2) \\times \\mathrm{U}(1)$ is not quite the Standard Model gauge group $\\mathrm{SU}(3) \\times \\mathrm{SU}(2) \\times \\mathrm{U}(1)$. The reduction is performed by the amplitude-scale-invariance argument developed in §5.2: each of the three factors has an overall $\\mathrm{U}(1)$ phase that can be absorbed into a global rescaling of the field value at the relevant component, with that redundancy taken as the separately adjoined amplitude-scale principle. This conditional argument does not identify the Standard Model group as a complete image of an already classified substratum gauge group. The overall $\\mathrm{U}(1)$ of each $\\mathrm{U}(n)$ factor is therefore not physical, and the commutant reduces to its $\\mathrm{SU}(n)$ subgroup for $n \\geq 2$."
+        },
+        {
+          "line": 127,
+          "text": "The reduction proceeds as follows. Writing $\\mathrm{U}(3) = \\mathrm{SU}(3) \\times \\mathrm{U}(1)_{\\text{color}}$, the $\\mathrm{U}(1)_{\\text{color}}$ phase is the overall phase of the three-component $T_1$ block and is gauge by amplitude-scale invariance on those components. Similarly $\\mathrm{U}(2) = \\mathrm{SU}(2) \\times \\mathrm{U}(1)_{\\text{weak}}$ with the overall phase gauge. The remaining $\\mathrm{U}(1)$ block — the single $A_1$ component — has no $\\mathrm{SU}$ subgroup since $\\mathrm{SU}(1)$ is trivial, but its $\\mathrm{U}(1)$ phase is physical (it controls the relative phase between the $A_1$ component and the higher-dimensional blocks), and identifies as the hypercharge $\\mathrm{U}(1)_Y$."
+        },
+        {
+          "line": 129,
+          "text": "After the amplitude-scale reduction, the gauge group is"
+        },
+        {
+          "line": 131,
+          "text": "On the H-link/H-cust branch, this is the proposed Standard Model gauge group after the separate amplitude-scale/background-independence premises are applied. The exact unconditional result from the cubic lattice at this point is the $3\\oplus2\\oplus1$ link representation. The three factors have physical identifications matching the Standard Model: $T_1$ (the three-dimensional spatial-vector representation) is the color $\\mathrm{SU}(3)$ of quantum chromodynamics; $E$ (the two-dimensional quadrupole representation) is the weak isospin $\\mathrm{SU}(2)$ of the electroweak theory; $A_1$ (the one-dimensional scalar representation) is the hypercharge $\\mathrm{U}(1)_Y$."
+        },
+        {
+          "line": 145,
+          "text": "The framework's derivation of local $\\mathrm{SU}(3) \\times \\mathrm{SU}(2) \\times \\mathrm{U}(1)$ gauge invariance, on the H-link/H-cust branch, is therefore complete at the level of the symmetry. The gauge group is fixed by the cubic decomposition of the six link directions; the amplitude-scale-invariance argument reduces $\\mathrm{U}(n)$ to $\\mathrm{SU}(n)$ for $n \\geq 2$; background independence promotes the global commutant to a local gauge symmetry; the gauge-invariant plaquette functional from which the Wilson action is built follows, with the link variables $M(\\mathbf{n}, \\hat{e}_j)$ as the gauge connections. What is derived is the gauge symmetry; that the link dynamics is the Wilson action is not derived."
+        },
+        {
+          "line": 183,
+          "text": "The six anomaly conditions are four independent constraints on these five hypercharge unknowns. The remaining one-parameter freedom is the overall hypercharge normalization, which the framework fixes by amplitude-scale invariance — the same field-value-rescaling gauge of $\\mathcal{G}_{\\text{sub}}$ that reduced $\\mathrm{U}(n)$ to $\\mathrm{SU}(n)$ in §5.5. With the normalization fixed, the anomaly conditions determine the hypercharges to the observed Standard Model values, uniquely up to the interchange $Y_u \\leftrightarrow Y_d$ — a relabeling of which quark is called up-type, fixed by the electric-charge identification $Q_{\\text{em}} = T_3 + Y$:"
+        },
+        {
+          "line": 192,
+          "text": "The chapter has established an exact observer/geometric core and a conditional Standard-Model branch. On the chosen observer-level wave branch, the Susskind factorization applies; the six **geometric** cubic links decompose exactly as $(3,2,1)$; under H-link single-copy + H-cust the same blocks are used as the physical carrier; the amplitude-scale-invariance argument reduces the natural commutant $\\mathrm{U}(3) \\times \\mathrm{U}(2) \\times \\mathrm{U}(1)$ to $\\mathrm{SU}(3) \\times \\mathrm{SU}(2) \\times \\mathrm{U}(1)$; background independence promotes the global commutant to local gauge invariance; the trace-out yields the ε-graded visible sector on which spin- and taste-chirality coincide, so the taste-blind $\\mathrm{SU}(3)$ remains vector-like while the chirality of $\\mathrm{SU}(2)$ rests on the taste-selectivity hypothesis H-χ' (open); and, given that chiral structure, the six anomaly conditions force the hypercharges to the observed values. The representation-theoretic and anomaly calculations remain theorem-level at their stated inputs, but the physical gauge-carrier chain now explicitly includes H-link single-copy and H-cust; weak chirality remains additionally conditional on H-χ'."
+        },
+        {
+          "line": 194,
+          "text": "The chapter's exact six-link representation sits at the structural level, while the **physical gauge-group identification is conditional** on H-link/H-cust and therefore must not be classified as unconditional S-class structure. The cubic multiplicities are exact geometry. The physical gauge-group reading is conditional on H-link/H-cust and then on amplitude-scale/background-independence premises; anomaly-fixed hypercharges are exact conditional on the resulting chiral matter assignment. The hypercharges are not chosen from a continuum of possibilities; they are determined by anomaly cancellation. Falsification of either would refute the framework directly: any stable beyond-Standard-Model gauge structure, any departure of the hypercharges from the values derived here, would violate the framework's Class A structural commitments developed in Chapter 4 §4.5."
+        }
+      ],
+      "sha256": "72bb5e033a24e3d7f5a9c55099f7b163ad3d43c2a91f01af1f482d9d5f1b4daf"
+    },
+    {
+      "line_count": 1746,
+      "path": "papers/SM.md",
+      "selected_lines": [
+        {
+          "line": 338,
+          "text": "The observer class of the proposition is the branch's own: Theorem 4 takes the observer-level variable to be the six-component field on the observer's sites. The cubic $(3,2,1)$ structure is therefore not a property of the symmetric-point dynamics; it enters through the H-link identification of components with links and through the condensate state of Theorem 5. What can split the block cones is an explicit reduction of the signed-permutation symmetry to the cubic group, either in the rule — a hidden sector coupled through one combination of links, or a direction-attached hidden coupling — or in the observation, through a readout that selects components or ties the component index to a spatial direction; the branch posits neither, and for other observer classes H-blind is the named condition. The condensate does not enter the linear transfer function; its derivative dressing of the blocks arises through the emergent interactions and belongs to the matching/running accounting of §3.1, where it enters at one loop, because the substratum's own nonlinearity is component-local and a component-local operator contracted with an $O_h$-equivariant condensate is sector-common."
+        },
+        {
+          "line": 342,
+          "text": "*Proof.* Under H-cust the pre-condensate observer-level kinetic term is invariant under the custodial unitary action on the physical link carrier. The unbroken subgroup of a state with condensate $\\Sigma$ is its unitary stabilizer. The exact cubic decomposition of Theorem 7 and Schur's lemma give the three blocks; distinct block values give the product stabilizer. $\\square$"
+        },
+        {
+          "line": 372,
+          "text": "### 4.6 Cubic decomposition: multiplicities (3, 2, 1)"
+        },
+        {
+          "line": 454,
+          "text": "**Corollary** (Spin-statistics from the lattice, under H-spin'). Singlet → spin-0 → boson (Higgs). Triplet → spin-1/2 → fermion (quarks and leptons)."
+        },
+        {
+          "line": 458,
+          "text": "*Remark (availability, not selection).* The link carrier establishes representation availability — the cross-charged representations exist and are the admissible matter carriers — and anomaly cancellation fixes charges given the sector pattern; the selection of the observed family pattern from the available link-carrier representations is not supplied by either and is carried by the chain's open links (H-spin'; light-spectrum selection)."
+        },
+        {
+          "line": 462,
+          "text": "*Scope.* The link-representation construction contains the required tensor-product representation spaces once H-link is assumed, and anomaly cancellation then fixes hypercharges conditional on the matter assignment. The exact cubic fact is the $1\\oplus3$ taste decomposition on the single-copy six-link branch. The statement that this is the complete physical matter carrier now inherits **H-link with $m=1$**, and the reading of its three candidate sectors as physical generations additionally inherits H-spin'. No stabilizer theorem currently derives $m=1$; the former claim that Theorems 5–7 fixed the copy number is not established."
+        },
+        {
+          "line": 466,
+          "text": "*Proof.* The singlet taste is spin-0 (Theorem 9a, under H-spin') and decomposes under the gauge group as $T_1(\\mathbf{3}) \\oplus E(\\mathbf{2}) \\oplus A_1(\\mathbf{1})$ (Theorem 7). Of these three projections, only $E(\\mathbf{2})$ admits a gauge-invariant Yukawa coupling of the form $\\bar Q_L \\cdot \\Phi \\cdot u_R$: the $T_1$ projection is excluded on color grounds and the $A_1$ projection on weak grounds. The $E$ projection is therefore the natural host for the SM Higgs doublet. $\\square$"
+        },
+        {
+          "line": 525,
+          "text": "On a link, the relevant carrier for matter is $V_K \\otimes V_K^*$, which contains the cross-charged tensor products $V_3 \\otimes V_2$, $V_3 \\otimes V_1$, $V_2 \\otimes V_1$, and so on. The left-handed quark doublet $Q_L \\in (\\mathbf{3}, \\mathbf{2})$ has a natural home in $V_3 \\otimes V_2 \\subset V_K \\otimes V_K^*$, with no algebraic obstruction. The direct-sum-vs-tensor-product problem dissolves: it was an artifact of misidentifying the site-internal $V_K$ with the matter carrier, when the framework's own gauge-connection construction places the carrier on links."
+        },
+        {
+          "line": 527,
+          "text": "*Step 2: Anomaly cancellation completes the assignment.* Once the matter carrier is $V_K \\otimes V_K^*$ on links, the question reduces to which subspaces of $V_K \\otimes V_K^*$ host propagating chiral fermions. Theorem 13 identifies the chirality structure conditionally: taste-blind couplings are vector-like — and the delivered minimal link-current couplings are certified taste-blind for all three blocks (§4.8, `hchi_selectivity_probes.py`) — so a spin-chiral SU(2) requires the non-minimal selective mechanism that is H-χ''s sharpened content (§4.8), which is open. Theorem 15 then fixes the matter content uniquely: given chiral $\\mathrm{SU}(3) \\times \\mathrm{SU}(2) \\times \\mathrm{U}(1)$ with fermions in fundamental or singlet representations, the six anomaly conditions force exactly the SM hypercharge assignment $(Y_Q, Y_u, Y_d, Y_L, Y_e) = (1/6, 2/3, -1/3, -1/2, -1)$, with no free parameters beyond the overall normalization and the $Y_u \\leftrightarrow Y_d$ relabeling (Theorem 15). Theorem 10 then distributes this content across the three $T_1$ staggered tastes as three identical generations, and Theorem 11 places the Higgs in the $E$ projection of the singlet taste."
+        },
+        {
+          "line": 573,
+          "text": "### 4.9 Anomaly cancellation and hypercharges"
+        },
+        {
+          "line": 575,
+          "text": "**Theorem 14** (U(1)_Y automaticity). *The existence of a U(1) gauge factor is automatic in the multi-component framework.*"
+        },
+        {
+          "line": 579,
+          "text": "**Remark (the two non-gauge U(1) combinations).** The two combinations of $(B, L, S)$ orthogonal to hypercharge cannot be gauged: gauging them would introduce non-cancelling chiral anomalies. They survive as accidental global symmetries of the emergent theory — the same status that baryon number $B$ and lepton number $L$ have in the standard SM construction, broken only by the Weinberg operator and non-perturbative effects. No new gauge bosons are introduced, and the framework's prediction of $B$ and $L$ as accidental global symmetries matches observation (proton stability; lepton number conservation up to the small Majorana mass)."
+        },
+        {
+          "line": 581,
+          "text": "**Theorem 15** (Unique hypercharges). *Given $\\mathrm{SU}(3) \\times \\mathrm{SU}(2) \\times \\mathrm{U}(1)$ with fermions in fundamental or singlet representations, the six anomaly conditions [18] determine the hypercharges uniquely up to the overall normalization and the interchange $Y_u \\leftrightarrow Y_d$ — the latter a relabeling of which quark species is called up-type, since the anomaly conditions are symmetric in $(Y_u, Y_d)$; the labeling is fixed by the electric-charge identification $Q_{\\mathrm{em}} = T_3 + Y$* [16]:"
+        }
+      ],
+      "sha256": "f0944ba6a06194b7f71cd4c411c36ebfe46b395ccf42f3bd2e37930599de227c"
+    },
+    {
+      "line_count": 1081,
+      "path": "AGENTS.md",
+      "selected_lines": [],
+      "sha256": "4a41a4ab10e55772c5f0827b2e8c189cd896a783bfebd65a30d9d216aa41d500"
+    }
+  ]
+}

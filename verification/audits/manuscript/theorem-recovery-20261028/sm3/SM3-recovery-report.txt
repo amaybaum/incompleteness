@@ -1,0 +1,166 @@
+Restricted SM Theorem 3 recovery — 2026-10-28
+
+Result: the first-order grading/onsite/coefficient theorem is recovered by
+actual Lean kernel proofs. The original unrestricted equivalence between
+second-order substratum center independence and physical chirality is not
+recovered. No shared repository files or external services were changed.
+
+Source examined
+
+The pinned checkpoint is 7c464fcffcdd785c96a646e109433d3377bcfaad.
+The exact plain-core source is OI_Structural_Core.lean, SHA256
+3dcc6b44bb34c6f5d6c6b632c00840a0c4af089e6a21d1446a43fd2d14a9c1eb.
+Its Chiral namespace contains center_anticommutator and mass_square, but
+neither the missing biconditional nor coefficient uniqueness. The original
+SM Theorem 3 says center independence of lattice dynamics is equivalent
+to exact chiral symmetry of emergent staggered fermions.
+
+The failed steps
+
+The old anticommutator identity does not force each arbitrary commuting
+operator coefficient to vanish: m=I and p=-epsilon give m*epsilon+p=0
+with both coefficients nonzero. Having zero onsite diagonal also does not
+exclude same-parity offsite hopping. Finally, squaring a chiral first-order
+operator can produce a nonzero diagonal: D=[[0,1],[-1,0]] is chiral for
+epsilon=diag(1,-1), while D^2=-I. Thus the diagonal of the original
+second-order wave operator cannot by itself be identified with a
+first-order mass term. These are substantive missing identifications,
+not missing simp calls.
+
+Recovered statements and hypotheses
+
+1. In an associative unital ring with no additive 2-torsion, fix an
+   involution epsilon, an epsilon-odd D, and any epsilon-even perturbation
+   C. Then {D+C,epsilon}=0 iff C=0. C may include same-parity offsite
+   terms; this is stronger than an onsite-only statement.
+
+2. For any parity-graded site set and an arbitrary ring-valued kernel A,
+   entrywise epsilon-chirality holds iff every equal-parity entry of A
+   vanishes. No finiteness is needed, because multiplication by the
+   diagonal grading is defined entrywise without an infinite sum.
+
+3. Fix any opposite-parity hopping kernel D. Adding arbitrary onsite
+   coefficients c_i preserves exact epsilon-chirality iff all c_i vanish.
+   This needs no uniformity, no nonempty-site assumption, and no presence
+   of both parity sectors.
+
+4. For c_i=m*epsilon_i+p with uniform ring coefficients, the further
+   conclusion m=p=0 follows when BOTH parity sectors occur. Coefficient
+   independence is proved from these sectors, not assumed. The converse
+   is also proved, and separately named directional witnesses are
+   supplied for the manuscript biconditionals.
+
+The arithmetic hypothesis is absence of additive 2-torsion, not merely
+characteristic different from 2. Z/6 is a counterexample to the weaker
+description; odd composite Z/9 is allowed. The finite ring Z/qZ satisfies
+the stated hypothesis exactly when q is odd. No field, integral-domain,
+nearest-neighbor, translational-invariance, or finite-site hypothesis is
+needed for the recovered entry/onsite theorem.
+
+Why this is not tautological encoding
+
+OddSupported is the independent geometric condition that equal-parity
+kernel entries vanish. ChiralEntries is the algebraic anticommutator
+equation. Their equivalence is derived by parity case analysis and
+doubling cancellation. The onsite coefficients are arbitrary input data;
+their vanishing is derived from diagonal chiral equations. The uniform
+coefficients are identified using two distinct parity sectors. Neither
+chirality nor coefficient uniqueness is included among the conclusions'
+premises. The result remains relative to a fixed hopping family; selecting
+that family from the physical substratum is a separate problem.
+
+Preferred integration
+
+ChiralCenterRecovery.lean is the preferred source, namespace
+OIBridge.ChiralCenterRecovery. It is import-free, 316 lines, with its own
+minimal scoped ring support copied from the pinned plain core. The old
+plain-core theorem statements/proofs remain unchanged. This fresh module
+is less invasive than extending the census to standalone plain-core files:
+the existing OIBridge module/registry guards already cover it.
+
+sm3-publication-recovery.patch adds this module, its OIBridge.lean import,
+the registry family/supersession/anchors required by AGENTS A.35, the
+precise SM Theorem 3 and book/FULL wording, and the SM:T-3 coverage row.
+The supersession replaces the insufficient identity as a publication
+biconditional witness; it does not declare the old identity false.
+sm3-core-comment.patch separately corrects the old M3.1 overbroad comment.
+Both patches pass git apply --check against the current shared tree.
+Use the diffs; full files under integration/ are pin-based review context
+and should not replace the parent's existing corrections wholesale.
+
+The proposed K3 row applies ONLY after integrating/rechecking the exact
+restricted first-order statement. The original physical/lattice claim,
+H-spin', H-chi', and the second-order/first-order identification receive
+no tier upgrade from this proof. SM:T-2, SM:T-12, and SM:T-13 have not been
+reclassified. The new module also proves the broader even-operator result.
+
+Validation actually performed
+
+The official prebuilt Lean 4.33.0 compiler matches the repository's pinned
+toolchain. Its release archive SHA256 is
+4b3fb03c29a1e0a253fb1d11f9bae3725f19a0dc6fc09b3ea16d2c9df3349e2c,
+matching the official GitHub release-asset digest exactly. Only Init and
+needed runtime files were extracted. No compiler, Mathlib, or full Lake
+build was performed.
+
+This executor's /proc/<getpid()>/exe lookup fails while /proc/self/exe
+works. The tiny proc_self_exe.c LD_PRELOAD adapter changes just that
+readlink lookup. The downloaded Lean binary and proof kernel are
+unmodified. This runtime workaround is disclosed; these runs are local
+kernel checks, not canonical exact-head CI.
+
+Exit 0: pinned original core compiled to OI_Structural_Core.olean.
+Exit 0: SM3Recovery.lean (frozen v1).
+Exit 0: SM3Recovery_v2.lean (arbitrary onsite strengthening).
+Exit 0: OI_Structural_Core_recovered_v2.lean (core-insertion alternative).
+Exit 0: ChiralCenterRecovery.lean (preferred new module).
+Exit 0: CheckChiralCenterRecovery.lean (axiom inspection).
+
+The even-perturbation iff depends on no axioms. The entry, arbitrary
+onsite and uniform-coefficient results depend only on Lean's propext.
+There is no sorryAx, sorry, admit, native_decide, or new axiom declaration.
+
+Exact finite supplements: verify_sm3.py passes 2,475 integer cases and
+seven deliberately excluded-class countercontrols. verify_modular_scope.py
+passes 90 Z/9 checks and a Z/6 countercontrol. These are controls, not the
+universal proof; the Lean kernel proofs supply that proof.
+
+Exit 0: existing tools/lean_manuscript_census.py on the isolated integration
+overlay, with 228 modules, 112 families and 17 supersessions. Missing
+pinned proof modules were materialized from git objects only in the owned
+overlay; the shared tree's sparse settings were untouched. No census code
+or guard was weakened.
+Exit 0: existing tools/coverage_check.py on that overlay, with 128 canonical
+statements. One unrelated current Structure manuscript was replaced by its
+exact pinned copy only in the owned overlay to keep its old pinned coverage
+rows consistent. No shared manuscript was changed.
+
+Reproduction
+
+DIR=/workspace/scratch/cb6cdacd02d4/recovery-sm3
+env LD_PRELOAD=$DIR/proc_self_exe.so LEAN_PATH=$DIR \
+  $DIR/lean-4.33.0-linux/bin/lean \
+  -o $DIR/ChiralCenterRecovery.olean $DIR/ChiralCenterRecovery.lean
+env LD_PRELOAD=$DIR/proc_self_exe.so LEAN_PATH=$DIR \
+  $DIR/lean-4.33.0-linux/bin/lean $DIR/CheckChiralCenterRecovery.lean
+python $DIR/verify_sm3.py
+python $DIR/verify_modular_scope.py
+
+After integration, the minimal pinned-toolchain check is:
+  cd verification/lean-mathlib
+  lake env lean OIBridge/ChiralCenterRecovery.lean
+The existing full Lake gate builds it through the new root import.
+Lean stable 4.35 was not downloaded; that separate stable run remains
+pending. Canonical TeX/PDF regeneration must use build.sh SM and
+build.sh --book after integrating all current corrections. No replacement
+publication artifacts were fabricated here. Full exact-head CI and
+independent scientific acceptance remain separate requirements.
+
+The reviewed source candidates and controls have been frozen. The independent
+reviewer /root/review_recovery accepted the restricted mathematics and replayed
+the preferred module using the same official compiler and an independently
+rebuilt/inspected runtime adapter. Axiom output matches. The reviewer found no
+mathematical blocker and retained all no-2-torsion/both-sector/physical-scope
+limits. Its final review receipt is recorded separately in recovery-review.
+No merges, commits, pushes, GitHub comments or workflow dispatches were
+performed by this task.

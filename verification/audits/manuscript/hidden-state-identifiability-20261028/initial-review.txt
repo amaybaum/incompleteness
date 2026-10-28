@@ -1,0 +1,39 @@
+REVISE - universal hidden-state opacity does not follow from finite reversible embedded observation.
+
+The swap objection is correct. No newly recovered restricted theorem is refuted.
+
+H1 - blocker: Universal all-history hidden-state non-identifiability is false.
+  papers/Substratum.md:60
+  papers/Explainer.md:74,76,607,668,942,944,946,948
+  book/ch02-substratum.md:42
+  book/ch18-beyond.md:106,108
+  Repair: Specify known model/support and permitted retained histories. Define record fibres; infer quantities constant on the fibre. Permanent opacity requires non-singleton full observational classes, not a proper instantaneous readout alone.
+
+H2 - blocker: C4 hidden predictive memory is promoted to hidden information unreadable from all retained past.
+  book/appendix-c-objections.md:224
+  Repair: Preserve pushforward, distinguishability and capacity theorem. It compares different history-conditioned posteriors and does not force residual H(H_t|X_<=t)>0. Distinct history posteriors may each be point masses.
+
+H3 - blocker: AI capability tables and incompleteness summaries call hidden-state inference provably impossible.
+  papers/Computation.md:70,72,80,184
+  book/ch12-evolution-intelligence.md:199,209,229,238
+  Repair: State that inference is limited by record fibres for specified access. Computation cannot distinguish identical allowed records, but can infer any hidden quantity determined by them. Distinguish this from algorithmic undecidability.
+
+H4 - blocker: Proper instantaneous access is conflated with impossibility of complete state inference.
+  papers/Main.md:28
+  papers/Structure.md:1105
+  book/ch01-observation.md:239,245
+  book/glossary.md:79
+  Repair: Keep proper instantaneous readout/partition relativity. Do not infer all-history opacity. Keep physical causal exclusions conditional on the relevant horizon and permitted protocols.
+
+H5 - blocker: Operational closure is conflated with inability to identify a hidden configuration through allowed records.
+  book/ch14-quantum-computing.md:74
+  Repair: No extra hidden-state oracle is part of the standard quantum operational model. Inference from its allowed histories is not an extra oracle and does not violate closure/BQP hypotheses.
+
+H6 - adjacent physical-bridge issue: A universal memory-readout-disturbance statement is stronger than a passive-readout model.
+  papers/Medicine.md:88
+  Repair: Review separately: physical biological readout/reconsolidation may back-act, but deterministic coupled memory alone does not prove every passive observation must alter the state. Do not automatically enlarge this correction without checking the physical context.
+
+Independent written criterion: record-fibre-criterion.md
+Independent controls: independent_controls.py; independent-results.json
+All 39,546 explicit predicates passed; normal/-O structured outputs match exactly.
+This is an initial source/dependency audit, not acceptance of a corrected candidate or publication.

@@ -1,0 +1,49 @@
+{
+  "commands": [
+    "python global_form_controls_v1.py > global_form_results_v1.json",
+    "python -O global_form_controls_v1.py > global_form_results_optimized_v1.json"
+  ],
+  "controls_result": "finite_controls_hold",
+  "files": [
+    {
+      "bytes": 11271,
+      "path": "global_form_proof_v1.txt",
+      "sha256": "00bf5a695918380989ee3f0d83aa91ed500538241373d18e85fe7af14e2e1a51"
+    },
+    {
+      "bytes": 11067,
+      "path": "global_form_controls_v1.py",
+      "sha256": "2030aa0dc9f4e4fe0ed1cc6aa33bb8727e74f05dbc2037eb6a07b32541420617"
+    },
+    {
+      "bytes": 3429,
+      "path": "global_form_results_v1.json",
+      "sha256": "55bb7c534340322312afa61c743c295939535a9f3c24e3956c41a3cd65dea6bd"
+    },
+    {
+      "bytes": 3429,
+      "path": "global_form_results_optimized_v1.json",
+      "sha256": "55bb7c534340322312afa61c743c295939535a9f3c24e3956c41a3cd65dea6bd"
+    },
+    {
+      "bytes": 6691,
+      "path": "minimal_source_proposals_v1.txt",
+      "sha256": "da40f0729722299c6938275eae271ec84184bab9d0c53b0038daa347123b493c"
+    },
+    {
+      "bytes": 16519,
+      "path": "source_trace_v1.json",
+      "sha256": "60eb301e198725ddad9c94afcb08f13b5149a912b5bca797b878363b3ce1032b"
+    }
+  ],
+  "limits": [
+    "No Lean kernel proof is claimed.",
+    "Finite controls certify their enumerated domains only.",
+    "Identifying the full correlated torus K as operationally redundant remains unproved.",
+    "The charged SM matter action and global bundle/line spectrum are not derived.",
+    "No manuscript, frozen record, Git ref, remote object, or publication artifact was changed."
+  ],
+  "normal_optimized_byte_identical": true,
+  "schema": "oi-gauge-global-manifest-v1",
+  "status": "frozen_for_independent_mathematical_review"
+}

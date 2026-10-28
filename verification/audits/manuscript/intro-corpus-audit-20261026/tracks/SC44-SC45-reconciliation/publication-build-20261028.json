@@ -1,0 +1,267 @@
+{
+  "schema": "oi-sc44-sc45-author-publication-rebuild-v1",
+  "date": "2026-10-28",
+  "base_head": "63f20c056a6abdaf751e73ba896c141cf9ee90a2",
+  "disposition": "REVISE",
+  "source_changes": [
+    "papers/Substratum.md",
+    "book/ch04-methodology.md",
+    "book/The-Incompleteness-of-Observation-FULL.md"
+  ],
+  "commands": [
+    [
+      "sh",
+      "./build.sh",
+      "Complexity",
+      "Computation",
+      "Explainer",
+      "Methodology",
+      "Structure",
+      "Substratum"
+    ],
+    [
+      "sh",
+      "./build.sh",
+      "Substratum"
+    ],
+    [
+      "sh",
+      "./build.sh",
+      "--book"
+    ]
+  ],
+  "canonical_build_exit_codes": [
+    0,
+    0,
+    0
+  ],
+  "dropped_glyphs": 0,
+  "toolchain": {
+    "pandoc": "pandoc 3.1.3",
+    "xelatex": "XeTeX 3.141592653-2.6-0.999995 (TeX Live 2023/Debian)"
+  },
+  "outputs": {
+    "Complexity": {
+      "pages": 36,
+      "median_characters_per_page": 2514.5,
+      "source_sha256": "1075221835acdc6f76e015c51d1932d1a05e91f34f38e5fbc628e03293f95f0a",
+      "pdf_sha256": "fc7fd1984972feeec82bff37a7cdb3940507354525af71a49866511f3fba322d",
+      "tex_sha256": "35f03afe15ce6d22332071cc0cc7ea74c42b8aef8deb98612598230707b5f9a4",
+      "inspected_pages": [
+        1,
+        11,
+        36
+      ],
+      "query_pages": {
+        "anthropic question is narrowed": 11
+      }
+    },
+    "Computation": {
+      "pages": 22,
+      "median_characters_per_page": 2844.5,
+      "source_sha256": "3d16262499a33afc7b2a83b0000b78e4b02ab7f8111446ce55b1c346a6660fd9",
+      "pdf_sha256": "b7c0c0bbe33bcb3b886bf8a24684821ecc80db5118a1e53356f99bd3263a1e01",
+      "tex_sha256": "b352e11079020a98a9caab79fc817f4c44564294812f68cfcafcfafed532139d",
+      "inspected_pages": [
+        1,
+        20,
+        22
+      ],
+      "query_pages": {
+        "proposed substratum observational": 20
+      }
+    },
+    "Explainer": {
+      "pages": 70,
+      "median_characters_per_page": 2833.0,
+      "source_sha256": "b6d3b42d3a1540155a1038303615aa3c12a67203aee9e218ccce23169faf4a7f",
+      "pdf_sha256": "294c72ba496eed687b12c2dd398144b6c72ef2a0abdd9963ece585c193f5862e",
+      "tex_sha256": "c7be428e6ec21802eceee07887e74ddef58c23af1b7d1dd01dc8c26d10fe9ccf",
+      "inspected_pages": [
+        1,
+        64,
+        70
+      ],
+      "query_pages": {
+        "physically correct observational carrier": 64
+      }
+    },
+    "Methodology": {
+      "pages": 51,
+      "median_characters_per_page": 3025,
+      "source_sha256": "b9990fc5f98793761631764888b17f10a831712968b700ea81932e1f71814497",
+      "pdf_sha256": "0f8b6fe236d3ba39c7159f0ac04fd56110be60d4c39759a33251064854575c6c",
+      "tex_sha256": "db22d8a1c28be2ef2e07685435fdb41455691565ac72426c34c213c3d27de4e6",
+      "inspected_pages": [
+        1,
+        24,
+        51
+      ],
+      "query_pages": {
+        "constructive-structural-realist claim": 24
+      }
+    },
+    "Structure": {
+      "pages": 98,
+      "median_characters_per_page": 2864.0,
+      "source_sha256": "01ae628173b20539b374e933ce2f6770439eb5509c9379828a6189a5957d0c02",
+      "pdf_sha256": "5f1b087a9520ab5b096ffc1bfbf240829835b1011b2578d39cf39df9fa75d6e2",
+      "tex_sha256": "31475efffbdd27ec29900532d85331e1ba720f2b02dce5c475fa06cfcef4f170",
+      "inspected_pages": [
+        1,
+        49,
+        98
+      ],
+      "query_pages": {}
+    },
+    "Substratum": {
+      "pages": 52,
+      "median_characters_per_page": 3135.5,
+      "source_sha256": "78450650fa4476a85f34f9789fa67bbc4092ec5f3a532dde870199d008e1be75",
+      "pdf_sha256": "9331fe90ebe0c5fd89a1d89cd4cd9a5aa9ed2729e7b4f5bff50e6bc591dd2264",
+      "tex_sha256": "01e381e638f261987ab8c67b8293d7175ab99c71a5af55a374a5f6ddaf07ff84",
+      "inspected_pages": [
+        1,
+        20,
+        26,
+        30,
+        40,
+        52
+      ],
+      "query_pages": {
+        "Conditional local-branch reconstruction": 20,
+        "Exact interface invariances": 26,
+        "Fixed-carrier block-word rigidity": 30,
+        "Specific-substratum realism": 40
+      }
+    },
+    "book": {
+      "pages": 553,
+      "median_characters_per_page": 2968,
+      "source_sha256": "0106dbef49268218e5ef2331c9af7f3712559162e9277d9541438eee95095062",
+      "pdf_sha256": "3b10f9d14b32b68c2688bdd61fb49c19a7d3d786c1d44d5172851db246f33e74",
+      "tex_sha256": "8a628f863dcc2eee41cd73cb0500a34c88b15b736eef6af47195a6ea2af9f785",
+      "inspected_pages": [
+        1,
+        67,
+        70,
+        121,
+        553
+      ],
+      "query_pages": {
+        "Conditional local-branch reconstruction (Theorem 23)": 70,
+        "A measurement distinguishing two models rules out": 121,
+        "Pair C": 67
+      }
+    }
+  },
+  "checks": [
+    {
+      "command": [
+        "python",
+        "-B",
+        "papers/oi_lattice_code/architecture_check.py"
+      ],
+      "exit_code": 0,
+      "invariants": 259,
+      "violations": 0,
+      "self_test_failures": 0
+    },
+    {
+      "command": [
+        "python",
+        "-B",
+        "tools/coverage_check.py"
+      ],
+      "exit_code": 0,
+      "canonical_statements": 128,
+      "unattached_checkers": 19
+    },
+    {
+      "command": [
+        "python",
+        "-B",
+        "papers/oi_lattice_code/mirror_check.py"
+      ],
+      "exit_code": 0,
+      "missing_chapter_lines": 0
+    },
+    {
+      "command": [
+        "python",
+        "-B",
+        "tools/staleness_check.py"
+      ],
+      "exit_code": 0,
+      "matched": 13,
+      "unstamped": 0
+    },
+    {
+      "command": [
+        "python",
+        "-B",
+        "verification/audits/manuscript/intro-corpus-audit-20261026/tracks/SC44-SC45-reconciliation/verify_preview.py"
+      ],
+      "exit_code": 0,
+      "issues": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "visual_check": "Rendered and inspected the listed PDF pages; no clipping, overlap, missing glyphs or one-word-column layout found on those pages. This is sampled visual QA, not an inspection of every page.",
+  "remaining_source_findings": [
+    {
+      "id": "WR-1",
+      "scope": "Inverse reconstruction and gauge classification",
+      "sites": [
+        "papers/Substratum.md:201",
+        "papers/Methodology.md:343",
+        "papers/Methodology.md:433",
+        "papers/Methodology.md:453"
+      ],
+      "finding": "These passages still describe a unique local residue or a completed classification. Substratum Theorem 23 and Lemma 23.0 provide selected-branch outputs only; Theorem 24 does not classify every observational equivalence.",
+      "status": "OPEN"
+    },
+    {
+      "id": "WR-2",
+      "scope": "Complete-ontology claim",
+      "sites": [
+        "papers/SM.md:1354"
+      ],
+      "finding": "The paragraph attributes a proved complete description of reality up to gauge equivalence to the reconstruction theorem, exceeding the narrowed Theorem 23.",
+      "status": "OPEN"
+    },
+    {
+      "id": "WR-3",
+      "scope": "Book propagation of inverse uniqueness",
+      "sites": [
+        "book/ch05-gauge-structure.md:11",
+        "book/ch05-gauge-structure.md:19",
+        "book/ch12-evolution-intelligence.md:191",
+        "book/ch12-evolution-intelligence.md:227",
+        "book/ch19-open-problems.md:208",
+        "book/The-Incompleteness-of-Observation-FULL.md"
+      ],
+      "finding": "These chapter passages and their assembled mirrors still attribute inverse uniqueness or microscopic self-reconstruction to Theorem 23.",
+      "status": "OPEN"
+    },
+    {
+      "id": "WR-4",
+      "scope": "Standard Model gauge group as a complete image",
+      "sites": [
+        "papers/Substratum.md:373",
+        "book/ch19-open-problems.md:234",
+        "book/The-Incompleteness-of-Observation-FULL.md"
+      ],
+      "finding": "A complete Standard Model image of the full substratum gauge group is asserted without the carrier and comparison map whose status remains open in Substratum section 4 and book section 2.5.",
+      "status": "OPEN"
+    }
+  ],
+  "evidence_boundary": "Author build and bounded local prose/ledger checks only. No Lean rebuild, complete release-gate pass, host check-run attestation, independent scientific acceptance or merge approval is claimed."
+}

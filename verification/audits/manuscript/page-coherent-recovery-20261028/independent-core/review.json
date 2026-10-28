@@ -1,0 +1,122 @@
+{
+  "verdict": "ACCEPT_SCOPED_WRITTEN_MATHEMATICS",
+  "candidate_commit": "bdcbd32bb55a5464d72b61682721f0b4bfaf446c",
+  "candidate_tree": "700fa72b23aaa37245d136804d0ad62bb5337a21",
+  "observed_local_head": "b0affb210e9f0a856ef9a55dd3e9a2e6e8eea2c7",
+  "local_head_tree_identical": true,
+  "mandatory_defects": [],
+  "scope": "Finite coherent binary-subspace ensemble and same-state nested coordinate-cut entropy profiles. No physical Page/evaporation, OI-native scrambling/preparation, time-orbit result, Lean, publication or merge acceptance.",
+  "independent_controls": {
+    "status": "PASS",
+    "predicates": 14924,
+    "independent_enumerator": "binary RREF bases",
+    "state_cut_cases": 2658,
+    "larger_exact_moments": 104,
+    "n4_k2_r2_counts": {
+      "0": 11,
+      "1": 18,
+      "2": 6
+    },
+    "n4_k2_r2_purity": "43/70",
+    "ensembles": [
+      {
+        "n": 2,
+        "k": 0,
+        "spaces": 1
+      },
+      {
+        "n": 2,
+        "k": 1,
+        "spaces": 3
+      },
+      {
+        "n": 2,
+        "k": 2,
+        "spaces": 1
+      },
+      {
+        "n": 3,
+        "k": 0,
+        "spaces": 1
+      },
+      {
+        "n": 3,
+        "k": 1,
+        "spaces": 7
+      },
+      {
+        "n": 3,
+        "k": 2,
+        "spaces": 7
+      },
+      {
+        "n": 3,
+        "k": 3,
+        "spaces": 1
+      },
+      {
+        "n": 4,
+        "k": 0,
+        "spaces": 1
+      },
+      {
+        "n": 4,
+        "k": 1,
+        "spaces": 15
+      },
+      {
+        "n": 4,
+        "k": 2,
+        "spaces": 35
+      },
+      {
+        "n": 4,
+        "k": 3,
+        "spaces": 15
+      },
+      {
+        "n": 4,
+        "k": 4,
+        "spaces": 1
+      },
+      {
+        "n": 5,
+        "k": 0,
+        "spaces": 1
+      },
+      {
+        "n": 5,
+        "k": 1,
+        "spaces": 31
+      },
+      {
+        "n": 5,
+        "k": 2,
+        "spaces": 155
+      },
+      {
+        "n": 5,
+        "k": 3,
+        "spaces": 155
+      },
+      {
+        "n": 5,
+        "k": 4,
+        "spaces": 31
+      },
+      {
+        "n": 5,
+        "k": 5,
+        "spaces": 1
+      }
+    ],
+    "scope": "Exact finite controls only; universal statements evaluated separately by written proof."
+  },
+  "candidate_replay": {
+    "exact_json_match": true,
+    "explicit_predicates": 18837,
+    "state_cut_cases": 2658,
+    "larger_exact_moment_cases": 35
+  },
+  "report_sha256": "b9a8be21925cb2280fc02ccd6e70195ff21241b62ae9099745aae8dd5da71ab1"
+}

@@ -1,0 +1,71 @@
+NATIVE END-CARRIER BARRIER TO THE CONDITIONAL CENTRAL QUOTIENT
+Supplement v1; 2026-10-28. The frozen global-form candidate is unchanged.
+
+Let V=V3 direct-sum V2 direct-sum V1 and G0=U(3)xU(2)xU(1) act in its
+native block-diagonal representation g=diag(C,D,t). Consider its action on
+the full End(V) by X -> g X g^-1. Its entire kernel is
+
+  Delta={(c I3,c I2,c):c in U(1)}.
+
+Proof, forward direction. If g X g^-1=X for every X, then g commutes with
+each diagonal matrix unit E_ii. The equality g E_ii=E_ii g makes all
+off-diagonal entries of g zero. Write g=diag(c1,...,c6). Commutation with
+E_ij gives ci=cj for every i,j, hence g=c I6. This lies in G0 exactly as
+the displayed Delta element. Backward direction: a scalar commutes with
+every X. Thus both directions are explicit; no assumption that the
+initial kernel element is scalar or central was needed.
+
+Consequently the faithful image of G0 on the FULL native End(V) is G0/Delta.
+Its Lie algebra is su(3)+su(2)+u(1)^2, not the Standard Model algebra.
+If only the block-diagonal End(V3)+End(V2)+End(V1) modes are retained, the
+kernel instead contains all three independent central circles; their
+quotient gives PU(3)xPU(2). Which modes and gauge connections survive is
+therefore essential, not determined by the block sizes alone.
+
+The conditional quotient in global_form_proof_v1.txt uses
+
+  K={(cI3,dI2,c^2/d)}={(cI3,c u I2,c/u)}.
+
+Its additional circle h(u)=(I3,u I2,u^-1) does NOT act trivially on the
+full native carrier. On the cross-Hom spaces its actions include
+
+  Hom(V2,V3): u^-1,    Hom(V1,V3): u,    Hom(V1,V2): u^2.
+
+For any u!=1 the first action is nontrivial. Thus K cannot be the kernel
+of this unchanged conjugation action. Amplitude normalization of the
+common phase gives Delta; reaching K requires another operational action,
+mode selection/dressing, or a justified further redundancy. This is an
+exact representation obstruction, not a proof that no observer action
+can realize the recovered group.
+
+The full charged-family representation supplies one explicit alternative
+action rho composed with F, whose kernel is K because rho is faithful on
+H=S(U3xU2). For example, its G0 transformation laws are
+
+  Q:   t (det C)^-1 (C tensor D),
+  dR:  t^-2(det C)(det D)^-1 C,
+  uR:  t^4(det C)^-3(det D)^2 C,
+  L:   t^-3(det C)^2(det D)^-2 D,
+  eR:  t^-6(det C)^4(det D)^-3,
+  H:   t^3(det C)^-2(det D) D.
+
+These follow by substituting F into the intrinsic H representations; all
+determinants are ordinary one-dimensional characters. They are genuine
+representations made from determinant lines, native fundamental factors
+and singlet characters. They need not occur in the raw End(V): in
+particular its SU(3)xSU(2)-singlet subspace consists of the three block
+identities, each neutral under all central phases, and contains no
+charged eR with the last-but-one character. Enlarging to tensor/exterior
+powers can supply determinant characters algebraically; identifying such
+a representation with a light physical chiral fermion remains a separate
+observer/matter construction. No such dynamics is established here.
+
+This supplement prevents the positive F theorem from being interpreted
+as a quotient already realized by the full native link/conjugation
+carrier. It preserves the conditional theorem and identifies the next
+precise physical recovery obligation.
+
+The companion control uses exact matrix-unit conjugation on all 559,872
+elements of a finite noncentral monomial subgroup of G0 (sixth roots),
+checks the entire kernel, and checks all K elements on the same grid.
+It is finite verification, not a formal proof of the continuous theorem.

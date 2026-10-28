@@ -1,0 +1,35 @@
+{
+  "commit": "7c464fcffcdd785c96a646e109433d3377bcfaad",
+  "files": [
+    {
+      "path": "papers/oi_lattice_code/foundations/purification_probes.py",
+      "sha256": "89a6ecffc62ea87df111269de9469334eae2d24fcd624c28c8739d03981f55c4",
+      "git_blob": "8131986aef5836743eadd41d62d14222dea7b2d5"
+    },
+    {
+      "path": "papers/Main.md",
+      "sha256": "8e326e67b65986a55502aae8e085c9b0b5570289c6cf596416d27e4bd5a6a1f7",
+      "git_blob": "a0b61be379877bdbe5924c0dfe47d359a1f6b42c"
+    },
+    {
+      "path": "papers/Substratum.md",
+      "sha256": "78450650fa4476a85f34f9789fa67bbc4092ec5f3a532dde870199d008e1be75",
+      "git_blob": "8851a57e8faa41c8203efa121cdbf333db02d45d"
+    },
+    {
+      "path": "verification/lean-mathlib/OIBridge/WordTraceSufficiency.lean",
+      "sha256": "90f955e22cefc8bba5276ef9d22d42545d099709d1712dbc41c6af266bfcf3f6",
+      "git_blob": "ea8e96921f8c4bce9b26f7c99a1719d5f9e05520"
+    },
+    {
+      "path": "verification/programmes/substratum/lemma-24-1b-framework-data/preregistration.md",
+      "sha256": "5207c8f2cecc272c43973e89400a5d73e674f2f02f58a5fb9038762504afed85",
+      "git_blob": "f614b666ad9098f866969c4c524e47f504e5d71c"
+    },
+    {
+      "path": "verification/programmes/substratum/lemma-24-1c-spanning-class-decision/preregistration.md",
+      "sha256": "b87d3feb37c4b269650677bced0f85ac3a38a3638c86f5821e447da33a52d391",
+      "git_blob": "b6f383741e84a1c53a599de349922f4d525e1349"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "command": [
+    "python",
+    "papers/oi_lattice_code/architecture_check.py"
+  ],
+  "exit_code": 0,
+  "source_review_manifest_sha256": "58f78e8d57645b4c9c24edb40632959adc4f3150e1d48916c068cc9de0116613",
+  "output_sha256": "3237175a5df53a3a1dbf052a6b4a2d3f258cd00653c3cf0a74ead9eaa2dd2574",
+  "last_lines": [
+    "architecture_check: 259 invariant(s), 0 violation(s), 0 self-test failure(s)"
+  ]
+}

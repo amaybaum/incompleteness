@@ -410,7 +410,10 @@ theorem anti_add {x y e : R} (hx : x * e = -(e * x)) (hy : y * e = -(e * y)) :
   rw [right_distrib, hx, hy, ← neg_add, ← left_distrib]
 
 /-- **M3.1.** With D ε-anticommuting, ε² = 1, and m, p₀ commuting with ε:
-{D + m·ε + p₀, ε} = (m + m) + (p₀·ε + p₀·ε) — zero iff the center terms vanish. -/
+{D + m·ε + p₀, ε} = (m + m) + (p₀·ε + p₀·ε).
+This identity alone does not identify separate arbitrary commuting operator coefficients.
+The restricted onsite and uniform-coefficient biconditionals, with their no-2-torsion
+and both-parity-sector assumptions, are in OIBridge/ChiralCenterRecovery.lean. -/
 theorem center_anticommutator (D e m p : R)
     (he : e * e = Rng.one) (hDe : D * e = -(e * D))
     (hme : m * e = e * m) (hpe : p * e = e * p) :
