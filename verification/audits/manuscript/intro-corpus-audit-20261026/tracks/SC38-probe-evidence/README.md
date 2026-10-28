@@ -61,12 +61,10 @@ Cross-unit dependencies).
 Output strings of the probes, where they claimed certification over a floating-point step:
 
 - `c4_backflow_probes.py`:131 "readback lemma certified" became "checked";
-- `primitive_probes.py`:100 "=> certified: … log2|C_H| >= I*" became "=> checked (floating point): … log2|C_H|
-  >= max_k M_k";
 - `memory_probes.py`'s header "Certifies" became "Checks".
 
-SC-40 edits none of these files. The exact clauses' "certified" strings (`primitive_probes.py`:87, :118) are
-left.
+`primitive_probes.py` is left to SC-40 (`corpus/sc40-c2-c3-statements` at a9480336), whose branch rewrites its
+header and its line 100 output string to the per-order form. SC-40 edits neither of the other two files.
 
 Checked and left unchanged, because the label is accurate:
 
@@ -179,7 +177,7 @@ full-joint equality, which is exact, and the probe's floating-point capacity che
 | Explainer:725 | minimal-model ancestors | toy-model ancestors | CON-24 (propagation) |
 | main_repro/README:8 | §2.4 minimal model; (exact enumeration) | §2.4 six-hidden-state model; (enumeration of all twelve states, floating point) | CON-24, grep |
 | memory_probes.py | grouping by t = 2 conditionals; "1 of 15"; header "Certifies" | grouping by law of (X₀..X₃); "2 of 16 laws of (X0..X3)"; header "Checks" | CON-26 (source); review O7 |
-| c4_backflow_probes.py:131, primitive_probes.py:100 | "certified" in output strings over floating-point steps | "checked"; primitive also names max_k M_k | review O7 |
+| c4_backflow_probes.py:131 | "readback lemma certified" | "readback lemma checked" | review O7 |
 | verification/lean/hidden_memory_probe.py:279–280 | "M_det = M_t remains OPEN and is FALSE in its fixed-hidden-dimension reading" | "is false in general at every hidden dimension: every bijective completion has I(X_<t; H_t \| X_t) = H(X_<t \| X_t)" (strings only) | review O4 |
 | LEDGER.json | `MAIN:T-canonical-predictive-quotient-purification-ingredient` fingerprint 8b180e8ae437af19 | 9f4f8626d7c3bc87; same ID, level P and delta unchanged (only the evidence parenthetical changed) | coverage |
 
@@ -225,7 +223,7 @@ untouched.
 - **`verification/lean/hidden_memory_probe.py`.** #961 (SC-29) edits other lines of this file (base lines
   3–9 and 270–275). This unit changes the print strings at 279–280 only.
 - **Shared source.** `memory_probes.py`'s grouping and the probe output strings above. No other unit edits
-  them.
+  them. `primitive_probes.py` is unchanged here; SC-40 edits it.
 - **ch01 and FULL.** SC-39 edits ch01:286 and FULL:630 in the same §1.11 paragraph block (separate lines).
 - **#968 (SC-33).** It touches neither ch01:135 nor ch01:273.
 
