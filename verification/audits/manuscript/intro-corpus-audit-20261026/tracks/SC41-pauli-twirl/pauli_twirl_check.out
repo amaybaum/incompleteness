@@ -1,0 +1,20 @@
+PASS  U is the permutation unitary of phi(x,h) = (h,x)
+PASS  (A) uniform hidden slot: L_1(rho) = tr(rho) I/2 exactly
+PASS  (A) uniform hidden slot: L_2(rho) = rho exactly
+PASS  (B) I_0 completely positive (Choi eigenvalues [0, 1/2])
+PASS  (B) Phi_0 = Ad sigma_0 is unitary, hence CPTP
+PASS  (B) I_x completely positive (Choi eigenvalues [0, 1/2])
+PASS  (B) Phi_x = Ad sigma_x is unitary, hence CPTP
+PASS  (B) I_y completely positive (Choi eigenvalues [0, 1/2])
+PASS  (B) Phi_y = Ad sigma_y is unitary, hence CPTP
+PASS  (B) I_z completely positive (Choi eigenvalues [0, 1/2])
+PASS  (B) Phi_z = Ad sigma_z is unitary, hence CPTP
+PASS  (B) sum_o I_o = L_1 (the Pauli twirl realizes the first step)
+PASS  (B) sum_o Ad sigma_o o (sigma_o . sigma_o / 4) = L_2 = id
+PASS  C1 without the conditioned correction the composite is L_1, not L_2
+PASS  C2 fixed card: J(L_1) = I (x) |0><0| (output support one-dimensional)
+PASS  C2 fixed card: L_2 = id
+PASS  C2 J(id) has partial-transpose eigenvalues [-1, 1]: entangled, so id is not a sum of measure-and-prepare maps
+PASS  C3 the Pauli instrument does not realize the fixed-card L_1
+
+SC-41 checks: ALL PASS
