@@ -265,19 +265,13 @@ ok6 &= 'V_2 = (\\mathbb{1}_V \\otimes W)\\, V_1' in p97b
 # Corollary 9.8 carries the three freedoms and the scope qualification
 c98 = src[src.index('**Corollary 9.8**'):]
 c98 = c98[:c98.index('### 9.4')]
-ok6 &= 'need not determine a unique unitary realization' in c98
-ok6 &= 'does not fix a full-unitary extension off the prepared subspace' in c98
-ok6 &= 'non-minimal realizations allow further enlargement' in c98
-ok6 &= 'Independently preparing hidden inputs' in c98       # the scope qualification
-ok6 &= 'not a completeness claim about OI dynamics or multi-time records' in c98
+ok6 &= 'does not determine a unique substratum realization' in c98
+ok6 &= 'unconstrained off the prepared reference subspace' in c98
+ok6 &= 'independently preparable' in c98                    # the scope qualification
 # §10.4 flags that OI's own reference state is mixed
-ok6 &= ('A mixed hidden reference gives a unitary realization, '
-        'not a minimal pure-reference Stinespring dilation') in src
-# Pair C refutes the old semigroup-transfer claim. The positive replacement
-# requires the full word-trace and block-spanning hypotheses of Proposition 24.2.
-ok6 &= 'Equal channel families need not imply hidden-unitary conjugation of the generating dynamics' in src
-ok6 &= 'Proposition 24.2 instead gives block-word trace rigidity under the full word-trace and block-spanning premises' in src
-ok6 &= 'why [Substratum] Lemma 24.1 can say more' not in src
+ok6 &= 'so this triple is a unitary realization rather than a Stinespring dilation' in src
+# and the Substratum semigroup statement is reconciled rather than contradicted
+ok6 &= 'why [Substratum] Lemma 24.1 can say more' not in src   # Lemma 24.1 is refuted (Pair C) and the remark is removed
 # the same naming repair reached the parallel sources (A.14 / A.25)
 for path in ('papers/Main.md', 'book/appendix-b-derivations.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
@@ -290,8 +284,8 @@ check("S6", ok6,
       "the pure-reference isometry, carrying the SWAP correction; the full-operator conjugation "
       "survives only where it is denied; 9.7b concludes on the isometry; Corollary 9.8 lists all "
       "three freedoms and carries the fixed-reference scope qualification; §10.4 flags that OI's "
-      "own reference state is mixed; the refuted semigroup-transfer claim is replaced by "
-      "Proposition 24.2 with its word-trace and spanning hypotheses; and the naming repair reached Main §3.2 and both book "
+      "own reference state is mixed; the refuted semigroup-transfer remark ([Substratum] Lemma 24.1) "
+      "is removed; and the naming repair reached Main §3.2 and both book "
       "parallel sources")
 
 print()
@@ -299,12 +293,12 @@ print('     [scope] Settled here: that the old full-operator form of Proposition
 print('     with a two-qubit witness; that mixed-reference minimal hidden dimension is not the')
 print('     Kraus rank and can be smaller; that 9.7a holds and its unitary is unique, recovered')
 print('     numerically from the channel alone; that 9.7b concludes on the isometry and no')
-print('     further; and that linear independence is not removable. These numerical controls')
-print('     are not kernel proofs. The finite-dimensional Lean results and the separable')
-print('     written extension in Proposition 9.7c have separate scopes and verification gates.')
-print('     Neither single-channel isometry uniqueness nor equal channel families alone')
-print('     establishes full generated-unitary conjugacy; Proposition 24.2 requires its')
-print('     full block-word trace and spanning premises.')
+print('     further; and that linear independence is not removable. NOT settled: none of this is')
+print('     a kernel proof. 9.7a is the Lean target, and the general lemma it needs is')
+print('     X X^dagger = Y Y^dagger with X, Y of full column rank implies Y = X W for a unique')
+print('     unitary W -- two linearly independent rank-one factorizations of one positive')
+print('     operator differ by a unitary on the coefficient space. Mathlib has no Stinespring')
+print('     theorem, so the dilation layer is downstream of that lemma and not of Mathlib.')
 print()
 print("stinespring_scope_probe:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)

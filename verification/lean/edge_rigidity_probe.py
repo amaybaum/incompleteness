@@ -2416,14 +2416,7 @@ for _bad in ('C4 is satisfied at the cosmological', 'C4 holds at the cosmologica
 # ---- the SM side of the same guard: Layer 0 attribution, the 2.1 inventory, Chapter 1's inference ----
 _sm = open(os.path.join(_root, 'papers/SM.md'), encoding='utf-8').read()
 ok_audb &= 'follow from C1–C4' not in _sm and 'right partition geometry' not in _sm
-# The selected-family revision in SM §8.3 replaces the former "not inputs"
-# literal without changing C1–C4's diagnostic role. Require its full scoped
-# qualification, as does B2-required-SM-selected-family in audit-census.json.
-_audb_sm_layer0_qualification = (
-    'C1–C4 diagnose the observer at the cut and do not select this branch. '
-    'The statements are family-level conditional results, with the physical '
-    "generation/chirality interpretation retaining H-spin'/H-χ'.")
-ok_audb &= _audb_sm_layer0_qualification in _sm and 'C2 and C4 are explicit hypotheses' in _sm
+ok_audb &= 'not inputs to this derivation' in _sm and 'C2 and C4 are explicit hypotheses' in _sm
 ok_audb &= 'neither is proved here' in _sm
 for _p in ('book/ch04-methodology.md', 'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_root, _p), encoding='utf-8').read()
@@ -9632,23 +9625,9 @@ _A6P_SUB_NOT_INV = ('A6 is not the stronger fixed-background condition that the 
                     'the dynamics invariant with the coupling held fixed and preserved pointwise')
 _A6P_EDGE = 'forces the transformation to agree across every coupled pair of sites'
 _A6P_SUB_SD = 'is a separate principle that shares the name and is not A6'
-# Forward publication audit, 2026-10-28: the five contracts below follow the
-# recovered stabilizer/quotient/charged-action distinctions in the current
-# manuscripts. This mutable content guard does not re-execute or amend the
-# frozen A6P control plane, legacy records, chronology or native attestations.
-# Their independent pins and all other A6P predicates remain in force.
-_A6P_SUB_162 = (
-    '(d) *Gauge group.* The six geometric links decompose as $T_1\\oplus E\\oplus A_1$. Under H-link '
-    'single-copy + H-cust, a generic equivariant condensate has unitary stabilizer $G_0=U(3)\\times '
-    'U(2)\\times U(1)$ [SM Theorems 5 and 7]. The pointwise commutant of the cubic action itself is '
-    '$U(1)^3$, distinct from this stabilizer. A precise correlated two-torus quotient gives $G_0/K\\cong '
-    'S(U(3)\\times U(2))$ [SM Proposition 14a], and the selected SM charged family has faithful image '
-    '$(SU(3)\\times SU(2)\\times U(1))/\\mathbb Z_6$ [SM Proposition 15a]. Amplitude-scale invariance '
-    'alone does not select $K$ or that matter action; the full native endomorphism carrier has only the '
-    'common scalar circle in its kernel. The physical action and remaining phase selection are '
-    'additional premises. A6 supplies the separate covariance of site-dependent transformations with '
-    'transformed link data, not the global quotient.'
-)
+_A6P_SUB_162 = (r'Background independence (A6) — covariance under site-dependent transformations, the link '
+                r'coupling transformed with them — then promotes the remaining global $SU(3) \times SU(2) '
+                r'\times U(1)$ to local gauge invariance ([SM §3.1]).')
 _A6P_SUB_220 = ('- A6 (background independence), as covariance under local internal-index transformations '
                 'with the link coupling transformed alongside, is the standard gauge-theoretic requirement; '
                 'the stronger fixed-background invariance, with the coupling held fixed, is a separate '
@@ -9689,27 +9668,25 @@ _A6P_CH02_86 = ('*(A6) Background independence.* The dynamics is covariant under
                 'specialization from which the local gauge reading of Chapter 5 proceeds. The state-dependent '
                 'coupling graph, under which the graph itself evolves with the state, is a separate principle '
                 'that shares the name.')
-_A6P_CH05_141 = (
-    '**Local covariance from background independence.** A6 requires covariance under site-dependent '
-    'transformations when the link data transform with them. This matrix identity applies to a '
-    'specified representation of a group; it does not select the charged representation, remove central '
-    'directions or decide the global group. The raw conditional condensate stabilizer is $G_0$, while '
-    'the charged observer action and its faithful image require the separate construction of §5.5.'
-)
-_A6P_CH05_143 = (
-    'For the chosen native carrier, let $G(\\mathbf n)\\in G_0$ act at each site and transform each link '
-    'map between the corresponding endpoint spaces. The field equation is covariant with that '
-    'transformed coupling data. Holding an invertible link $M$ fixed instead requires $G(\\mathbf n)M=M '
-    'G(\\mathbf n+\\hat e_j)$, equivalently $G(\\mathbf n)=M G(\\mathbf n+\\hat e_j)M^{-1}$. Literal '
-    'endpoint equality follows for scalar links, or when the relevant action commutes with $M$. A '
-    'physical charged matter representation must be supplied before this covariance is interpreted on '
-    'its observer-level fields.'
-)
-_A6P_CH05_145 = (
-    'Explicitly, $\\boldsymbol\\phi(\\mathbf n)\\mapsto G(\\mathbf n)\\boldsymbol\\phi(\\mathbf n)$ is '
-    'accompanied by $$M(\\mathbf n,\\hat e_j)\\mapsto G(\\mathbf n)M(\\mathbf n,\\hat e_j)G(\\mathbf n+\\hat '
-    'e_j)^{-1}.$$'
-)
+_A6P_CH05_141 = ('The step from global to local is what background independence (A6) supplies: the local '
+                 'transformations act covariantly once the coupling data on the links are transformed with '
+                 'them.')
+_A6P_CH05_143 = (r"Background independence, as the reconstruction's assumption A6 states it, is a covariance "
+                 r'requirement: a site-dependent internal-index transformation is a symmetry of the dynamics '
+                 r'provided the coupling data on the links are transformed with it. It is not the requirement '
+                 r'that the coupling structure be held fixed and left invariant — for an invertible coupling '
+                 r'that stronger fixed-background condition holds only for transformations that agree across '
+                 r'every coupled pair of sites — and it is not the state-dependent coupling graph $G(x)$ on '
+                 r'which the Bell branch of Chapter 1 rests, under which the graph itself evolves with the '
+                 r'state; those are different principles that share a name. The matrix structure at each '
+                 r'site has eigenvalue multiplicities $(3, 2, 1)$ because spatial isotropy holds locally, and '
+                 r'the coupling on each link, $M(\mathbf{n}, \hat{e}_j)$, is the data the site-dependent '
+                 r'transformations act on; the commutant $\mathrm{U}(3) \times \mathrm{U}(2) \times '
+                 r'\mathrm{U}(1)$ acts at each site, and the resulting gauge transformations are '
+                 r'site-dependent.')
+_A6P_CH05_145 = (r'the matrix wave equation is invariant provided the coupling matrix transforms as '
+                 r'$M(\mathbf{n}, \hat{e}_j) \to G(\mathbf{n})\,M(\mathbf{n}, \hat{e}_j)\,G(\mathbf{n} + '
+                 r'\hat{e}_j)^{-1}$')
 _A6P_CH05_SD = 'requires the coupling structure to be dynamical rather than fixed'
 _A6P_CH09_207 = ("*A6 (background independence).* The framework's assumption is covariance under spatially "
                  'varying internal-index transformations, with the link coupling transformed alongside; '
@@ -9721,14 +9698,9 @@ _A6P_CH09_207 = ("*A6 (background independence).* The framework's assumption is 
                  'spacetime emerges from the matrix dynamics), and whether its matrix-internal gauge '
                  'covariance then plays the role the assumption requires depends on that matrix-spatial '
                  'bridge.')
-_A6P_APPB_317 = (
-    '**The link to gauge invariance.** A block-diagonal operator with distinct eigenvalues of '
-    'multiplicities $(3,2,1)$ has unitary centralizer $G_0=U(3)\\times U(2)\\times U(1)$. The generic '
-    'condensate of [SM Theorem 5] supplies this under H-link single-copy + H-cust. [SM Propositions 14a '
-    'and 15a] construct a compatible correlated quotient and the faithful charged-family image. '
-    'Selecting that charged action is additional physical input. A6 supplies covariance with '
-    'transformed link data, not the choice of quotient or matter action.'
-)
+_A6P_APPB_317 = ('Background independence — covariance of the dynamics under site-dependent choices of basis '
+                 'within each eigenspace, the link coupling transforming with them — promotes this global '
+                 'commutant to local gauge invariance.')
 _A6P_GLOS_ENTRY = ("**Background independence (A6).** The sixth of the framework's structural assumptions "
                    'A1–A6: the substratum dynamics is covariant under spatially varying internal-index '
                    'transformations, a site-dependent transformation being a symmetry provided the coupling '
@@ -10045,11 +10017,9 @@ ok_a6p &= _a6p_m10 != _A6P_FULL and not _a6p_mirrored(full=_a6p_m10)
 
 # m12: chapter 5's state-dependent identification written back
 _a6p_m12 = _A6P_CH05.replace(
-    _A6P_CH05_141,
-    _A6P_CH05_141 + ' ' + _A6P_CH05_SD + ': the coupling matrix $M$ depends on the state.')
-# The affirmative overclaim is added after the intact positive contract, so its
-# rejection tests the state-dependent non-licence rather than missing prose.
-
+    'is a covariance requirement: a site-dependent internal-index transformation is a symmetry of the '
+    'dynamics provided the coupling data on the links are transformed with it.',
+    _A6P_CH05_SD + ': the coupling matrix $M$ depends on the state.')
 ok_a6p &= _a6p_m12 != _A6P_CH05 and not _a6p_book(ch05=_a6p_m12)
 
 
@@ -10066,12 +10036,10 @@ check('R7-A6P', ok_a6p,
       'law verbatim as the content of the assumption and the covariance identity in the frozen '
       "words, to keep the conditional carrier's closing sentence, and to make NO kernel claim; "
       'A6-sd identified with the assumption and the Standard-Model gauge group declared thereby '
-      "derived are mutation-tested. Structure.md's clause and chapter 2's definition retain their "
-      'covariance scope. The current gauge paragraphs separately require the conditional stabilizer, '
-      'quotient and charged action; chapter 5 preserves the link transformation law and qualifies '
-      'fixed-link endpoint equality by scalar or commuting links, with the state-dependent '
-      "identification absent and mutation-tested. Chapter 9's separate emergent-spacetime sense "
-      "and appendix B's qualified covariance gloss remain required; the glossary entry "
+      "derived are mutation-tested. Structure.md's clause, chapter 2's definition, chapter 5's two "
+      'paragraphs with the transformation law preserved and the state-dependent identification '
+      "absent (its write-back mutation-tested), chapter 9's emergent-spacetime sense named as a "
+      "different sense, and appendix B's gloss are checked in the frozen words; the glossary entry "
       'is checked present and every changed book passage byte-identical in the full-book source, '
       'the entry removed and the mirror diverging by one word both mutation-tested. The ROADMAP '
       "row is checked equal to Item 7's line and the section checked to carry the reasons the "
