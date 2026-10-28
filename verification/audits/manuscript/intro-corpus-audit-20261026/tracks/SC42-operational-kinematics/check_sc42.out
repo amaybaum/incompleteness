@@ -1,0 +1,52 @@
+[1] FiniteOperationalTheory fields vs GR §3.3 setting
+  ok    kernel fields ['avail', 'availExt', 'avail_id', 'avail_coarse', 'availExt_coarse', 'availExt_bind', 'prepAvail', 'prepAvail_uniform', 'prepAvail_post', 'readout', 'readout_avail', 'readout_local', 'prepAvail_discard'] == mapped fields (none added, none omitted)
+  ok    field avail stated in the setting
+  ok    field availExt stated in the setting
+  ok    field avail_id stated in the setting
+  ok    field avail_coarse stated in the setting
+  ok    field availExt_coarse stated in the setting
+  ok    field availExt_bind stated in the setting
+  ok    field prepAvail stated in the setting
+  ok    field prepAvail_uniform stated in the setting
+  ok    field prepAvail_post stated in the setting
+  ok    field readout stated in the setting
+  ok    field readout_avail stated in the setting
+  ok    field readout_local stated in the setting
+  ok    field prepAvail_discard stated in the setting
+  ok    kinematics clause: 'The setting takes complex matrix kinematics as given'
+  ok    kinematics clause: 'M_A(\\mathbb{C})'
+  ok    kinematics clause: 'A derivation of this kinematics'
+  ok    kinematics clause: 'is open'
+  ok    kernel anchors cited in the setting
+[2] theorem statement
+  ok    GR theorem line identical at base and head
+[3] re-grep
+  ok    stale 'delivers QM on a finite-dimensional': 0
+  ok    stale 'quantum instruments open)': 0
+  ok    stale 'Level three (open)': 0
+  ok    stale 'operational-lifting problem': 0
+  ok    stale 'remains open (§19.2.12)': 0
+  ok    stale 'instrument algebra still open': 0
+  ok    stale 'residual common coherent/composite lift': 0
+  ok    stale 'on every ancilla level are exactly': 0
+        kinematics mentions papers/GR.md: 1
+        kinematics mentions papers/Main.md: 12
+        kinematics mentions papers/Methodology.md: 1
+        kinematics mentions papers/Explainer.md: 3
+        kinematics mentions book/ch01-observation.md: 1
+        kinematics mentions book/ch09-universality.md: 1
+        kinematics mentions book/ch19-open-problems.md: 2
+        kinematics mentions book/glossary.md: 1
+        kinematics mentions book/The-Incompleteness-of-Observation-FULL.md: 5
+  ok    kinematics mentions at base: 0
+  ok    kinematics mention counts match the site table (27)
+[4] book/FULL mirror parity
+  ok    chapter line mirrored in FULL: The Born rule in the fixed-basis representation is therefore...
+  ok    chapter line mirrored in FULL: *Chapter 1 (Quantum Mechanics from Embedded Observation).* T...
+  ok    chapter line mirrored in FULL: The inventory has two parts. Section 19.2 develops the probl...
+  ok    chapter line mirrored in FULL: **Framework status.** Split — fixed-basis representation set...
+  ok    chapter line mirrored in FULL: **Operational gluing theorem.** The framework's finite-resol...
+[5] added-text scan
+        scanned 63 added text chunk(s)
+  ok    added-text scan: 0 hit(s)
+check_sc42: OK (0 failure(s))
