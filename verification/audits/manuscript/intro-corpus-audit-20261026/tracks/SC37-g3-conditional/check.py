@@ -72,6 +72,12 @@ STALE = [
     "This is a theorem of Part I",
     "The paper proves that this entropy has no operator",
     "That doesn't prove the ordering is correct",
+    "The contrast is conditional on that open step.",
+    "the dark sector budget as a partly definitional concordance",
+    "(information preservation, dark sector budget, no DM particle, no proton decay)",
+    "Tier 1 has five entries",
+    "Tier 2 has seven entries",
+    "The seven Tier 2 entries",
     "\\Omega_{\\text{dark}} \\approx 95\\%$ | $\\Omega_{\\text{CDM}}",
     "The framework predicts that dark energy is the uniform component",
     "The dark-sector corollary predicts that ~95%",
@@ -91,6 +97,7 @@ MIRROR = {
         "The framework's geometry-first proposal converges",
         "convergence with the framework's geometry-first proposal",
         "while on Section 7.7's proposal, conditional on the coupling step,",
+        "Their gravitational reading is conditional on the open G3 coupling step ([GR §6.2])",
         "(on the same proposal, does gravitate)",
         "Conditional on the coupling step, the two are not commensurable as gravitational sources",
     ],
@@ -107,13 +114,15 @@ MIRROR = {
     "book/ch02-substratum.md": [
         "On the geometry-first proposal, the dark sector of cosmological observation","a reading on which the problem dissolves conditional on the open coupling step (G3)"],
     "book/ch09-universality.md": [
-        "the dark sector budget as a partly definitional concordance",
-        "partly definitional ($1-\\Omega_B$ by construction) | Ch 7 §7.9 |",
         "(conditional cosmological constant dissolution,",
         "levels (Chapter 7 §7.7), so that,",
         "([Main §3.4]; [GR §8.3]),",
         "another ([Main §3.4]; [GR §8.3]), which is why",
         "gauge outright for every quantum statistic and, conditional on the coupling step,",
+        "the dark-sector budget only as a partly definitional count ($1-\\Omega_B$ by construction)",
+        "is Tier 2 and conditional on the open G3 matter-to-boundary coupling (Chapter 7 §7.9)",
+        "gravitational explanation conditional on the open G3 coupling | Ch 7 §7.9 |",
+        "| No dark matter particle | XENON, LUX, etc. null; conditional dark-sector interpretation | Ch 7 §7.9 |",
     ],
     "book/ch18-beyond.md": [
         "**The first conditional dissolution: the cosmological constant.**",
@@ -155,16 +164,59 @@ PINS = {
     ],
     "papers/Explainer.md": [
         "By the construction of the trace-out, this entropy has no operator in the emergent QFT.",
-        "The contrast is conditional on that open step.",
+        "reads the discrepancy as a derived quantity. (Note the division of labor",
         "the other, if the coupling step holds, carries the observed value as a normalization",
     ],
 }
+PINS["papers/GR.md"] += [
+    "Their gravitational reading is conditional on the open G3 coupling step (§6.2)",
+    "conditional on §3.2 and on the open coupling step of §6.2",
+    "The dark-sector phenomenology is Tier 2 and conditional:",
+]
+PINS["papers/Structure.md"] = ["dark-sector phenomenology (its gravitational reading conditional on the open coupling step of [GR §6.2])"]
 print("2b. paper pins (expect exactly 1 each)")
 for pth, phrases in PINS.items():
     for ph in phrases:
         k = text[pth].count(ph)
         print(f"   {'ok ' if k == 1 else 'BAD'} {k}  {pth}: {ph[:70]}")
         fail += k != 1
+
+# 2c. Tier counts in Chapter 9 are computed from the tables, not hard-coded: each stated count
+# must equal the number of rows of its table, in the chapter and in FULL.
+WORDS = {w: i for i, w in enumerate("zero one two three four five six seven eight nine ten eleven twelve"
+                                    " thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty".split())}
+def rows(t, header):
+    i = t.index(header)
+    n = 0
+    for line in t[i:].splitlines()[2:]:
+        if not line.startswith("|"):
+            break
+        n += 1
+    return n
+def num(w):
+    return WORDS[w.lower()]
+print("2c. Chapter 9 tier counts (stated vs table rows)")
+for pth in ("book/ch09-universality.md", FULL):
+    t = text[pth]
+    n = {k: rows(t, f"| Tier {k} prediction |") for k in (1, 2, 3)}
+    stated = [
+        (1, re.search(r"Tier 1 has (\w+) entries", t)),
+        (1, re.search(r"(\w+) universality-class entries tested", t)),
+        (2, re.search(r"Tier 2 has (\w+) entries", t)),
+        (2, re.search(r"The (\w+) Tier 2 entries", t)),
+        (3, re.search(r"Tier 3 has (\w+) entries", t)),
+        (3, re.search(r"The (\w+) Tier 3 entries", t)),
+    ]
+    for k, m in stated:
+        v = num(m.group(1)) if m else None
+        ok = v == n[k]
+        print(f"   {'ok ' if ok else 'BAD'} {pth}: Tier {k} stated {v}, table {n[k]}  ({m.group(0) if m else 'missing'})")
+        fail += not ok
+    m = re.search(r"The three tiers contain (\w+) entries", t)
+    v = num(m.group(1)) if m else None
+    ok = v == sum(n.values())
+    print(f"   {'ok ' if ok else 'BAD'} {pth}: total stated {v}, tables {sum(n.values())}")
+    fail += not ok
 
 CC = re.compile(r"cosmological[- ]constant|vacuum[- ]energy|zero[- ]point|10\^\{?122|\\Lambda|Λ|\bCC\b"
                 r"|dark[- ]sector|boundary entropy|\\rho_s\b|energy scales|the two are", re.I)

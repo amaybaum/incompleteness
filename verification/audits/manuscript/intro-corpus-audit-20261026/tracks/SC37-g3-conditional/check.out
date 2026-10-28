@@ -47,6 +47,12 @@
    0  This is a theorem of Part I
    0  The paper proves that this entropy has no operator
    0  That doesn't prove the ordering is correct
+   0  The contrast is conditional on that open step.
+   0  the dark sector budget as a partly definitional concordance
+   0  (information preservation, dark sector budget, no DM particle, no proton decay)
+   0  Tier 1 has five entries
+   0  Tier 2 has seven entries
+   0  The seven Tier 2 entries
    0  \Omega_{\text{dark}} \approx 95\%$ | $\Omega_{\text{CDM}}
    0  The framework predicts that dark energy is the uniform component
    0  The dark-sector corollary predicts that ~95%
@@ -58,6 +64,7 @@
    ok  1/1  book/ch07-gravity.md: The framework's geometry-first proposal converges
    ok  1/1  book/ch07-gravity.md: convergence with the framework's geometry-first proposal
    ok  1/1  book/ch07-gravity.md: while on Section 7.7's proposal, conditional on the coupling step,
+   ok  1/1  book/ch07-gravity.md: Their gravitational reading is conditional on the open G3 coupling ste
    ok  1/1  book/ch07-gravity.md: (on the same proposal, does gravitate)
    ok  1/1  book/ch07-gravity.md: Conditional on the coupling step, the two are not commensurable as gra
    ok  1/1  book/ch03-structural-realism.md: on the geometry-first proposal, the dark sector is the gravitational e
@@ -68,13 +75,15 @@
    ok  1/1  book/ch00-introduction.md: combining the conditional CC dissolution
    ok  1/1  book/ch02-substratum.md: On the geometry-first proposal, the dark sector of cosmological observ
    ok  1/1  book/ch02-substratum.md: a reading on which the problem dissolves conditional on the open coupl
-   ok  1/1  book/ch09-universality.md: the dark sector budget as a partly definitional concordance
-   ok  1/1  book/ch09-universality.md: partly definitional ($1-\Omega_B$ by construction) | Ch 7 §7.9 |
    ok  1/1  book/ch09-universality.md: (conditional cosmological constant dissolution,
    ok  1/1  book/ch09-universality.md: levels (Chapter 7 §7.7), so that,
    ok  2/2  book/ch09-universality.md: ([Main §3.4]; [GR §8.3]),
    ok  1/1  book/ch09-universality.md: another ([Main §3.4]; [GR §8.3]), which is why
    ok  1/1  book/ch09-universality.md: gauge outright for every quantum statistic and, conditional on the cou
+   ok  1/1  book/ch09-universality.md: the dark-sector budget only as a partly definitional count ($1-\Omega_
+   ok  1/1  book/ch09-universality.md: is Tier 2 and conditional on the open G3 matter-to-boundary coupling (
+   ok  1/1  book/ch09-universality.md: gravitational explanation conditional on the open G3 coupling | Ch 7 §
+   ok  1/1  book/ch09-universality.md: | No dark matter particle | XENON, LUX, etc. null; conditional dark-se
    ok  1/1  book/ch18-beyond.md: **The first conditional dissolution: the cosmological constant.**
    ok  1/1  book/ch18-beyond.md: On that reading, and conditional on the coupling step, the ratio is no
    ok  1/1  book/ch18-beyond.md: is that, conditional on the coupling step, the two energy scales
@@ -96,10 +105,29 @@
    ok  1  papers/GR.md: *Under Lemmas 1–3, conditions (C1)–(C4) and the geometry-first proposa
    ok  1  papers/GR.md: the metric belongs to the substratum, prior to the trace-out, and its 
    ok  1  papers/GR.md: On the geometry-first proposal (§6.2), conditional on the open couplin
+   ok  1  papers/GR.md: Their gravitational reading is conditional on the open G3 coupling ste
+   ok  1  papers/GR.md: conditional on §3.2 and on the open coupling step of §6.2
+   ok  1  papers/GR.md: The dark-sector phenomenology is Tier 2 and conditional:
    ok  1  papers/Explainer.md: By the construction of the trace-out, this entropy has no operator in 
-   ok  1  papers/Explainer.md: The contrast is conditional on that open step.
+   ok  1  papers/Explainer.md: reads the discrepancy as a derived quantity. (Note the division of lab
    ok  1  papers/Explainer.md: the other, if the coupling step holds, carries the observed value as a
-3. inventory (chapters and papers; FULL mirrors the chapters): 98 sentences with a conditional marker, 47 without
+   ok  1  papers/Structure.md: dark-sector phenomenology (its gravitational reading conditional on th
+2c. Chapter 9 tier counts (stated vs table rows)
+   ok  book/ch09-universality.md: Tier 1 stated 3, table 3  (Tier 1 has three entries)
+   ok  book/ch09-universality.md: Tier 1 stated 3, table 3  (Three universality-class entries tested)
+   ok  book/ch09-universality.md: Tier 2 stated 9, table 9  (Tier 2 has nine entries)
+   ok  book/ch09-universality.md: Tier 2 stated 9, table 9  (The nine Tier 2 entries)
+   ok  book/ch09-universality.md: Tier 3 stated 8, table 8  (Tier 3 has eight entries)
+   ok  book/ch09-universality.md: Tier 3 stated 8, table 8  (The eight Tier 3 entries)
+   ok  book/ch09-universality.md: total stated 20, tables 20
+   ok  book/The-Incompleteness-of-Observation-FULL.md: Tier 1 stated 3, table 3  (Tier 1 has three entries)
+   ok  book/The-Incompleteness-of-Observation-FULL.md: Tier 1 stated 3, table 3  (Three universality-class entries tested)
+   ok  book/The-Incompleteness-of-Observation-FULL.md: Tier 2 stated 9, table 9  (Tier 2 has nine entries)
+   ok  book/The-Incompleteness-of-Observation-FULL.md: Tier 2 stated 9, table 9  (The nine Tier 2 entries)
+   ok  book/The-Incompleteness-of-Observation-FULL.md: Tier 3 stated 8, table 8  (Tier 3 has eight entries)
+   ok  book/The-Incompleteness-of-Observation-FULL.md: Tier 3 stated 8, table 8  (The eight Tier 3 entries)
+   ok  book/The-Incompleteness-of-Observation-FULL.md: total stated 20, tables 20
+3. inventory (chapters and papers; FULL mirrors the chapters): 105 sentences with a conditional marker, 47 without
    book/README.md:68  Includes external convergence with the Danielson-Satishchandran-Wald horizon decoherence program, and a four-axis structured comparison with conformal
    book/appendix-c-objections.md:122  *In Chapter 7's gravitational content.* Finiteness is *derived* from the cosmological horizon's finite area: the Bekenstein entropy bound limits the n
    book/appendix-c-objections.md:315  **Ambition.** "The framework identifies QM with embedded observation, dissolves the cosmological constant problem, explains the dark sector, and provi
@@ -147,5 +175,5 @@
    papers/SM.md:851  The hypothesis $c_\lambda = 1$ is therefore equivalent to the statement that the intermediate states of the mixing perturbation theory are the emergen
    papers/Substratum.md:157  Three independent forward filters from the empirical inputs converge on $d = 3$: propagating gravity (E5) requires $d \geq 3$ (the Weyl tensor vanishe
    papers/Substratum.md:500  The result is not a theory of everything but a structural account of why the apparent incompatibility between quantum mechanics and general relativity
-4. added lines: 707; register/caps hits: 0; secret/path hits: 0
+4. added lines: 855; register/caps hits: 0; secret/path hits: 0
 RESULT PASS

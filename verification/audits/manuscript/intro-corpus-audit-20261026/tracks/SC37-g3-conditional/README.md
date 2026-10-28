@@ -1,9 +1,11 @@
 # SC-37: the cosmological constant and the open coupling step G3
 
 Unit of PR-A (part). Base `main` at `0d917665`; branch `corpus/sc37-g3-conditional`. Line numbers
-below are at the base. Three commits: the unit's corrections; the independent review's findings
-B1–B6 with its also-apply list (review of `2ab22504`, ACCEPT WITH CHANGES); and the delta review of
-`15899d90` (ACCEPT WITH CHANGES: the "by theorem" invisibility, §8 below, and two recommended edits).
+below are at the base. Four commits: the unit's corrections; the independent review's findings
+B1–B6 with its also-apply list (review of `2ab22504`, ACCEPT WITH CHANGES); the delta review of
+`15899d90` (ACCEPT WITH CHANGES: the "by theorem" invisibility, §8 below, and two recommended edits);
+and the owner's decision on the dark-sector tier with the reviewer's optional item on `23f0fc97`
+(ACCEPT), §9 below.
 
 ## Finding
 
@@ -99,12 +101,12 @@ formal change: none.**
   :551 now reads: "This contrast bears on the ordering through the open coupling step. … one ordering
   produces the worst prediction in physics and has no solution; the other, if the coupling step
   holds, carries the observed value as a normalization and reads the discrepancy as a derived
-  quantity. The contrast is conditional on that open step.
-  (… One, conditional on that step, is consistent with the observed vacuum energy as a normalization,
+  quantity. (… One, conditional on that step, is consistent with the observed vacuum energy as a normalization,
   and one misses it by $10^{122}$; …)". It replaces "This track record is itself evidence for the
   ordering" and "That doesn't prove the ordering is correct, but it's existing evidence, not a future
-  hope" (the delta review replaced an intermediate "and the evidence rests on that open step" as
-  self-assessment under §A.32). Explainer:625 "only the substrate's value
+  hope". Two intermediate forms were replaced in review: "and the evidence rests on that open step"
+  (self-assessment under §A.32) and then "The contrast is conditional on that open step.", which
+  repeated the paragraph's opening sentence and was removed. Explainer:625 "only the substrate's value
   matches observation" → "is of the observed scale".
 - **Downstream.** None outside the Explainer: no other corpus site says the framework predicts the
   vacuum-energy value (re-grep below).
@@ -213,8 +215,8 @@ formal change: none.**
   (§6.2), for ~95%".
 - **Predicted column (delta review).** GR:545's Predicted cell "$\Omega_{\rm dark}\approx 95\%$"
   gains "(conditional on the coupling step)", as in ch07:297's Predicted column.
-- **Downstream.** ch09 lists the budget as a Tier 1 universality-class entry while ch07:297 gives
-  "2 (cond.)"; recorded as an open item below, not changed.
+- **Downstream.** The tier, which ch09 gave as Tier 1 against ch07:297's "2 (cond.)", is settled by
+  the owner's decision in §9.
 
 ### 8. Hidden-sector invisibility called a theorem (delta review of `15899d90`)
 
@@ -245,6 +247,78 @@ formal change: none.**
   proves that any fast subsystem …" concerns C1–C4 memory, not invisibility, and is outside this
   unit. No coverage fingerprint moved (the edits are in the Corollary's proof, not its statement).
 
+### 9. Dark-sector tier (owner decision, round 4)
+
+- **Decision (owner, quoted).** "Dark-sector budget: Tier 2 — conditional. The physical dark-sector
+  interpretation requires the open G3 matter-to-boundary coupling. It is not an unconditional Tier 1
+  result. Tier 3 is reserved for bijection-specific quantities. … retain the descriptive distinction
+  and the partly definitional budget, but distinguish those from a derived gravitational
+  explanation."
+- **What each column means.** ch09's tables are tiered by level (Tier 1 universality-class, Tier 2
+  substratum-properties, Tier 3 bijection-specific; ch09 §§9.3–9.4); ch07:297's last column is the same
+  tier; GR §1 and ch07:14 define Tier 2 as the dark-sector phenomenology. Appendix A's G-rows carry
+  no tier: "Class" is the S/C/L/R/P/M/E classification and "Layer" the Layer-0–3 axis of
+  `AGENTS.md`. G9 "C | 1" (conditional structural; Layer 1) is consistent with the decision and is
+  unchanged; appendix A.4.2's lead (appendix-a:102) already states that the physical dark-sector
+  interpretation requires the open matter-to-boundary coupling map. Structure §2.4 stratifies by
+  hierarchy levels, not tiers; its "dark-sector phenomenology" entry gains the coupling condition.
+  The Explainer, ch19 and the book README assign the dark sector no tier (grep), so they need no tier
+  edit.
+- **Original.** ch09:118 / FULL:2598 "the dark sector budget as a partly definitional concordance —
+  follow from these six commitments" (in the list of universality-class results); ch09:125–126 /
+  FULL:2605–2606 Tier 1 rows "Dark sector budget $\sim 95\%$ | … partly definitional …" and "No
+  dark matter particle | XENON, LUX, etc. null"; ch09:130 / FULL:2610 "Five universality-class
+  entries … (information preservation, dark sector budget, no DM particle, no proton decay)";
+  ch09:156 / FULL:2636 "The seven Tier 2 entries"; ch09:177 / FULL:2657 "Tier 1 has five entries …
+  Tier 2 has seven entries". GR:28, :597, :637 and ch07:14 / FULL:1893 give Tier 2 without the
+  coupling condition.
+- **Defect.** The physical dark-sector interpretation, of which the gravitational $\sim 95\%$ budget
+  and the absence of a dark-matter particle are the two tabulated faces, needs the open G3 coupling;
+  ch09 listed both as unconditional Tier 1 results, against ch07:297 and ch07:302 ("2 (cond.)").
+- **Correction.**
+  - ch09:118: "the dark-sector budget only as a partly definitional count ($1-\Omega_B$ by
+    construction) — follow from these six commitments without requiring the specific cubic-lattice
+    realization. A derived gravitational explanation of that budget, the physical dark-sector
+    interpretation, is Tier 2 and conditional on the open G3 matter-to-boundary coupling (Chapter 7
+    §7.9)."
+  - Tier 1 table: the two dark-sector rows removed. ch09:130: "Three universality-class entries
+    tested against current empirical evidence: one confirmed at high precision (the area law) and
+    the remainder consistent with the empirical record at concordance level (information
+    preservation, no proton decay). The dark-sector budget and the absence of a dark-matter particle
+    are Tier 2 entries (§9.4): the budget is partly definitional, and its gravitational explanation
+    is conditional on the open G3 coupling."
+  - Tier 2 list (ch09:144): adds "the physical dark-sector interpretation (the gravitational
+    explanation of the partly definitional $\sim 95\%$ budget, and the absence of a dark-matter
+    particle), conditional on the open G3 matter-to-boundary coupling". Tier 2 table gains "| Dark
+    sector budget $\sim 95\%$ | $\Omega_{\text{dark}} \approx 0.95$; partly definitional
+    ($1-\Omega_B$ by construction); gravitational explanation conditional on the open G3 coupling |
+    Ch 7 §7.9 |" and "| No dark matter particle | XENON, LUX, etc. null; conditional dark-sector
+    interpretation | Ch 7 §7.9 |".
+  - Counts: "The nine Tier 2 entries combine observed structural features, conditional
+    gravitational formulas, consistency with bounds and the conditional dark-sector
+    interpretation."; "Tier 1 has three entries … Tier 2 has nine entries"; the total "twenty"
+    (3 + 9 + 8) is unchanged.
+  - GR:28 and ch07:14 add "Their gravitational reading is conditional on the open G3 coupling step
+    (§6.2) [ch07: ([GR §6.2])], and the ~95% fraction itself is partly definitional ($1-\Omega_B$ by
+    construction)."; GR:597 "conditional on §3.2 and on the open coupling step of §6.2"; GR:637 "The
+    dark-sector phenomenology is Tier 2 and conditional: its gravitational reading requires the open
+    G3 coupling step (§6.2), and it inherits the conditions of §3.2 and the dimensional factor
+    imported in §7.3."; Structure:179 "dark-sector phenomenology (its gravitational reading
+    conditional on the open coupling step of [GR §6.2])".
+- **Why "No dark matter particle" moves too.** It is the second face of the same physical
+  interpretation, and ch07:302 already gives it "2 (cond.)". Leaving it in Tier 1 would keep exactly
+  the unconditional dark-sector entry the decision rules out.
+- **Downstream.** The class column is unchanged everywhere (G9 stays C). `check.py` section 2c
+  computes each Tier count from its table rows, in the chapter and in FULL, and compares it with
+  every stated count ("Tier N has …", "The N Tier 2 entries", "N universality-class entries tested",
+  the three-tier total); a stated count that disagrees with its table fails. A negative test (Tier 1
+  stated as "four" against three rows) fails as intended. No coverage fingerprint moved.
+- **After SC-36 and SC-37 both land the counts must be recounted.** SC-36 removes the
+  black-hole-information row and states "four"; this unit removes the two dark-sector rows and states
+  "three". Merged, Tier 1 holds two rows (the area law and no GUT-mediated proton decay), so the
+  stated Tier 1 counts must read "two" and the three-tier total "nineteen"; SC-36 also changes the
+  ch09:130 sentence this unit rewrites. Run `check.py` section 2c on the merge.
+
 ## Site table
 
 | Site (base) | Was | Now | Source |
@@ -262,6 +336,8 @@ formal change: none.**
 | GR:625 (U3) | "compression ratio, not a failure of cancellation" (unconditional list) | identity unconditional; dissolution conditional per (c) | GR:366, :637 |
 | GR:374 | "the gauge status of the uniform vacuum offset" | gauge for every quantum statistic; coupling the open G3 step | GR:356, §8.3 |
 | GR:422 (Corollary), 452, 456 | coupling used without hypothesis; "ordering established in §6.2: … stress-energy … is the classical" | hypothesis "geometry-first proposal of §6.2 (conditional on the open coupling step)" added; proposal stated as such | GR:356, GR:12 |
+| ch09:118, 125–126, 130, 144, Tier 2 table, 156, 177 (FULL:2598, 2605–2606, 2610, 2622, Tier 2 table, 2636, 2657) | dark-sector budget and no-DM particle in Tier 1; "five" / "seven" | partly definitional count kept; physical interpretation Tier 2, conditional; "three" / "nine" | owner decision; ch07:297, :302 |
+| GR:28, 597, 637; ch07:14 (FULL:1893); Structure:179 | Tier 2 / dark-sector phenomenology without the coupling condition | gravitational reading conditional on the open coupling step | owner decision; GR:12 |
 | GR:26, 468, 545, 707 | corollary "predicts" / "explains"; budget "established"; "consistent"; Predicted "≈ 95%" | conditional; partly definitional; "(conditional on the coupling step)" | GR:358, GR:12, ch07:297 |
 | GR:450 (ii-a), Explainer:581 | "a theorem of Part I"; "The paper proves" | "By the construction of the trace-out" | GR:450 itself ("by construction") |
 | Explainer:537, 541, 543, 545, 549–551, 579, 581, 593, 625, 689, 900 | as in §§1–4, 6, 7 | conditional / normalization / "depends only on" / on the proposal | GR §6 |
@@ -293,13 +369,15 @@ The Lean census registry is untouched.
 `python3 -I check.py <repo-root> 0d917665`, output in `check.out` (the added-lines scan excludes
 `check.out`, so the count is stable):
 
-- 52 superseded wordings: **0** occurrences each, corpus-wide (papers, chapters, FULL; the
+- 58 superseded wordings: **0** occurrences each, corpus-wide (papers, chapters, FULL; the
   Introduction excluded per the unit brief).
-- 38 corrected book sentences: present once in the chapter and once in FULL each; 8 corrected paper
+- 41 corrected book sentences: present once in the chapter and once in FULL each; 12 corrected paper
   sentences pinned at exactly one occurrence each.
+- Chapter 9 tier counts (section 2c): every stated Tier 1, Tier 2 and Tier 3 count and the three-tier
+  total equal the rows of their tables, in the chapter and in FULL (3, 9, 8; 20).
 - Inventory of chapter and paper sentences pairing a cosmological-constant or dark-sector term with a
   dissolution, gravitation, "commensurable" or "is dark energy / matter" form (the review asked for
-  the dark-sector and "commensurable" sentences to be caught): **98** carry a conditional marker in
+  the dark-sector and "commensurable" sentences to be caught): **105** carry a conditional marker in
   the sentence; **47** do not, each reviewed:
   - conditional by the enclosing sentence, paragraph or statement: ch07:177, :258 (the clause
     corrected, the rest descriptive), ch18:130, :150, ch19:32, GR:362 ×2, GR:452 ("Under this
@@ -336,8 +414,12 @@ as fact (§7). Removed: "the proofs are complete" (appendix-c:317); "predicts th
 
 - **SC-36** (`corpus/sc36-page-curve-scope`) retitles ch19 §19.2 to the identical "Problems addressed"
   (ch19:20 / FULL:5180): identical change, merges cleanly. SC-36 deletes the ch09 Tier 1 row at
-  ch09:125 / FULL:2605, adjacent to this unit's ch09:126 / FULL:2606 cell: a textual conflict is
-  expected; resolve by taking both (row deleted, the dark-sector cell as corrected here).
+  ch09:125 / FULL:2605 and rewrites ch09:130 / FULL:2610 and the count at ch09:177 / FULL:2657, all
+  of which this unit also changes (it moves the two dark-sector rows to Tier 2): textual conflicts are
+  expected. Resolve by keeping all three row removals, writing the ch09:130 sentence from both
+  (area law measured; no proton decay at concordance level; information conservation from the
+  bijectivity premise, not an empirical entry; the dark-sector entries in Tier 2), and recounting:
+  Tier 1 "two", total "nineteen". `check.py` 2c fails on the merge until the counts agree.
 - **Open PRs** #961, #962, #963, #964, #967, #968, #969, #971: no changed line in common (checked on
   base line numbers, ±1). sc28/sc31/sc34 edit GR:368 and ch07:199, two lines from this unit's GR:366
   neighbourhood and ch07:197; no overlap.
@@ -353,8 +435,6 @@ as fact (§7). Removed: "the proofs are complete" (appendix-c:317); "predicts th
 
 ## Open, for #970 (recorded, not edited)
 
-- ch09 lists the dark-sector budget as a Tier 1 universality-class result (ch09:118, :126), ch07:297
-  gives it "2 (cond.)", and appendix A G9 "C | 1": the tier assignment needs one owner decision.
 - ch08:246, :264 and Explainer:587 say the framework's RVM dark energy "resolves" the DESI $3\sigma$
   neutrino-mass tension; GR:414 says it "would relax" it.
 - GR:166 and ch07:44 say an external closure theorem "forces the same conclusion" and that four
