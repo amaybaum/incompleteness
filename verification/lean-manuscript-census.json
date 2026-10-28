@@ -1556,6 +1556,15 @@
       "note": "Complete grading algebra under no additive 2-torsion: arbitrary even perturbations, arbitrary onsite coefficients, and uniform coefficient uniqueness when both parity sectors occur. The supersession replaces center_anticommutator as an insufficient publication-facing biconditional witness; that old identity remains valid and retained. No identification with the second-order update, physical spin or weak chirality is asserted."
     },
     {
+      "name": "actual finite-permutation trajectory bridge for hidden memory and C3 capacity",
+      "modules": [
+        "TrajectoryMemory"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Research candidate: constructs time-t joint law by pushing an arbitrary initial law through actual permutation iterates; transports memory and C3 bounds and bounds a genuine supremum over all natural time/horizon pairs. No publication-facing promotion or K3 change is made before successful CI and independent proof review. No posterior opacity, physical record mechanism or accumulation-without-reuse claim."
+    },
+    {
       "name": "conditional k-token cone theorem: products, cone closure, the k-fold maxCone bound and CNOT plus rotation/cyclic invariance give the PSD cone of the k-fold Pauli dictionary (round KTOKEN-MAXCONE-1, reconstruction)",
       "modules": [
         "KTokenMaxCone"
