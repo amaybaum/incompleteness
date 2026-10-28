@@ -55,7 +55,8 @@ K7 appendix A G-table: pass tally {'C': 5, 'L': 2} total 7; stated {'C': 5, 'L':
 K7 appendix A N-table: pass tally {'L': 5, 'C': 1, 'S': 1} total 7; stated {'S': 1, 'C': 1, 'L': 5} total 7; uncounted rows []
 K7 appendix A B-table: pass tally {'S': 12, 'C': 2} total 14; stated {'S': 12, 'C': 2} total -; uncounted rows []
 K7 gravitational-entry counts: pass counted G rows 7; stale []
-K7 ch09 Tier 1 counts: pass table rows 4; stated [4, 4]
+K7 tier counts ch09-universality.md: pass book/ch09-universality.md: tables T1=4 T2=7 T3=8 total=19; 7 stated counts; wrong []
+K7 tier counts The-Incompleteness-of-Observation-FULL.md: pass book/The-Incompleteness-of-Observation-FULL.md: tables T1=4 T2=7 T3=8 total=19; 7 stated counts; wrong []
 K6: pass changed chapter lines missing from FULL: 0
 
 VERDICT: all controls pass

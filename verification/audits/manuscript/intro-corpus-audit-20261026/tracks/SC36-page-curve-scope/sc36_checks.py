@@ -17,8 +17,9 @@ K5  re-grep of retired phrases and of the corrected statement across papers/*.md
 K6  every changed chapter line has an identical line in the FULL mirror.
 K7  computed counts: every appendix A summary count equals the class tally of its own table (rows whose
     class cell is a single letter S/C/L/R/P/M/E are counted; G11, an open research target, is not); every
-    "<n> gravitational(-sector) entries" in papers/ and book/ equals the counted G rows; ch09's Tier 1
-    sentences ("<n> universality-class entries", "Tier 1 has <n> entries") equal the Tier 1 table's rows.
+    "<n> gravitational(-sector) entries" in papers/ and book/ equals the counted G rows; in ch09 and in
+    FULL, every "Tier N has <n> entries", "The <n> Tier N entries", "<n> universality-class entries tested"
+    and "three tiers contain <n> entries" equals the rows of the Tier 1/2/3 tables (their sum for the total).
     Counts are read from the tables, not hard-coded, so a merge that leaves a stale count fails here.
 The verdict prints only if every control passes.
 """
@@ -285,14 +286,34 @@ for f in files:
         if num(m.group(1)) is not None and num(m.group(1)) != gcounted:
             bad.append(f'{f}: {m.group(0)}')
 check('K7 gravitational-entry counts', gcounted is not None and not bad, f'counted G rows {gcounted}; stale {bad}')
-c9 = open('book/ch09-universality.md', encoding='utf-8').read().splitlines()
-h = next(i for i, l in enumerate(c9) if l.startswith('| Tier 1 prediction'))
-n1 = 0; j = h + 2
-while j < len(c9) and c9[j].startswith('|'):
-    n1 += 1; j += 1
-txt = '\n'.join(c9)
-said = [num(x) for x in re.findall(r'\b(\w+) universality-class entries tested', txt) + re.findall(r'Tier 1 has (\w+) entries', txt)]
-check('K7 ch09 Tier 1 counts', len(said) == 2 and all(x == n1 for x in said), f'table rows {n1}; stated {said}')
+def tier_check(path):
+    lines = open(path, encoding='utf-8').read().splitlines()
+    n = {}
+    for t in (1, 2, 3):
+        hs = [i for i, l in enumerate(lines) if l.startswith(f'| Tier {t} prediction')]
+        if len(hs) != 1:
+            return False, f'{path}: Tier {t} table headers found {len(hs)}'
+        j = hs[0] + 2; k = 0
+        while j < len(lines) and lines[j].startswith('|'):
+            k += 1; j += 1
+        n[t] = k
+    txt = '\n'.join(lines)
+    stated = []
+    for pat, want in [(r'\b(\w+) universality-class entries tested', n[1]),
+                      (r'Tier 1 has (\w+) entries', n[1]), (r'Tier 2 has (\w+) entries', n[2]),
+                      (r'Tier 3 has (\w+) entries', n[3]),
+                      (r'The (\w+) Tier 1 entries', n[1]), (r'The (\w+) Tier 2 entries', n[2]),
+                      (r'The (\w+) Tier 3 entries', n[3]),
+                      (r'three tiers contain (\w+) entries', n[1] + n[2] + n[3])]:
+        for m in re.finditer(pat, txt):
+            stated.append((m.group(0), num(m.group(1)), want))
+    wrong = [x for x in stated if x[1] != x[2]]
+    has_total = any('three tiers contain' in x[0] for x in stated)
+    return (not wrong and has_total and len(stated) >= 6,
+            f'{path}: tables T1={n[1]} T2={n[2]} T3={n[3]} total={sum(n.values())}; {len(stated)} stated counts; wrong {wrong}')
+for path in ('book/ch09-universality.md', 'book/The-Incompleteness-of-Observation-FULL.md'):
+    ok, msg = tier_check(path)
+    check(f'K7 tier counts {path.split("/")[-1]}', ok, msg)
 
 # K6: chapter lines mirrored in FULL
 full = set(open('book/The-Incompleteness-of-Observation-FULL.md', encoding='utf-8').read().splitlines())

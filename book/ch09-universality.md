@@ -175,7 +175,7 @@ The eight Tier 3 entries comprise six numerical flavor comparisons, one fitted c
 
 **Why the tier stratification matters.** The stratification separates the objects tested at each level. Tier 1 has four entries: the area theorem is measured, and the remaining entries have the conditions and empirical standing listed above. Tier 2 has seven entries concerning the substratum's properties, including conditional gravitational formulas and observational consistency checks. Tier 3 has eight entries concerning the specific-bijection account, with the numerical, fitted and conditional comparisons distinguished above.
 
-The three tiers contain twenty entries of unequal evidential weight. Numerical retrodictions, fitted quantities, conditional formulas and untested results remain distinct; a count of entries is not a count of independent confirmations. The tier assignment identifies the level at which each statement is made, while its conditions and empirical standing determine what its comparison tests.
+The three tiers contain nineteen entries of unequal evidential weight. Numerical retrodictions, fitted quantities, conditional formulas and untested results remain distinct; a count of entries is not a count of independent confirmations. The tier assignment identifies the level at which each statement is made, while its conditions and empirical standing determine what its comparison tests.
 
 ## 9.5 The framework's relationship to string theory
 
