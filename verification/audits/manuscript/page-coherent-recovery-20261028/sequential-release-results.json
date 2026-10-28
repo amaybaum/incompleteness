@@ -1,0 +1,8 @@
+{
+  "basis_configurations": 1592,
+  "coherent_clock_counterexample_purity": "3/4",
+  "coherent_state_window_cases": 418,
+  "explicit_predicates": 4350,
+  "scope": "Autonomous finite release toy; no physical evaporation, energy law or derived scrambling.",
+  "status": "PASS"
+}

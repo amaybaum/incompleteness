@@ -1,0 +1,47 @@
+name: coherent entropy research
+
+on:
+  pull_request:
+    paths:
+      - 'verification/audits/manuscript/page-coherent-recovery-20261028/**'
+      - '.github/workflows/page-coherent-entropy.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  exact-controls:
+    name: Coherent entropy exact controls
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Replay author, independent and release-window exact controls
+        run: |
+          python3 -I -B - <<'PY'
+          from pathlib import Path
+          from tempfile import TemporaryDirectory
+          import json, shutil, subprocess, sys
+
+          root = Path('verification/audits/manuscript/page-coherent-recovery-20261028')
+          cases = [
+              ('core-author', 'exact_controls.py', 'exact-results.json'),
+              ('core-independent', 'independent-core/independent_controls.py', 'independent-core/independent-results.json'),
+              ('release-window', 'sequential_release_controls.py', 'sequential-release-results.json'),
+          ]
+          with TemporaryDirectory() as temporary:
+              for label, script, expected in cases:
+                  target = Path(temporary) / (label + '.py')
+                  shutil.copyfile(root / script, target)
+                  result = subprocess.run([sys.executable, '-I', '-B', str(target)], capture_output=True, text=True, timeout=180)
+                  if result.returncode:
+                      raise SystemExit(label + ' failed: ' + result.stderr)
+                  actual = json.loads(result.stdout)
+                  wanted = json.loads((root / expected).read_text())
+                  if actual.get('status') != 'PASS' or actual != wanted:
+                      raise SystemExit(label + ': exact-result mismatch')
+                  print(label + ': exact structured results match')
+          PY
