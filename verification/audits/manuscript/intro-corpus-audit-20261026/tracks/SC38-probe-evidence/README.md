@@ -9,7 +9,7 @@ decides each one in exact arithmetic: Fractions for probabilities, and, for info
 vector of rational coefficients on log2 of primes, which is zero iff every coefficient is zero (the logarithms
 of distinct primes are linearly independent over Q). A strict sign is decided by mpmath interval arithmetic
 on that exact vector, and an undecided interval fails the check. Each section carries a countercontrol. The
-retained output is `sc38_exact.out`: 37 PASS lines, `ALL CHECKS PASS`, about 16 s.
+retained output is `sc38_exact.out`: 50 PASS lines, `ALL CHECKS PASS`, about 20 s.
 
 ## Per claim
 
@@ -28,7 +28,8 @@ retained output is `sc38_exact.out`: 37 PASS lines, `ALL CHECKS PASS`, about 16 
   therefore describes the probe it cites, and the exact instance check is retained here as evidence.
 - **Evidence level.** The lemma is a paper proof (Pinsker plus the triangle inequality). The instances hold
   exactly: Q1 I = 1 bit, p₀δ² = 1/4; Q2 I = 2/3 bit, p₀δ² = 1/6; Q5 p₀δ² = 1/64 with I irrational and the
-  inequality strict; the coin has I = 0 and no gap at every order (B1–B4, controls B5–B6).
+  inequality strict; the coin's target product law, checked directly rather than through the dilation, has
+  I = 0 and no gap at every order (B1–B4, controls B5–B6).
 - **Downstream.** Ledger entry `MAIN:L-accessible-conditional-memory-from-readback` fingerprints the statement
   at Main:167, which is unchanged; its level P is unchanged. No mirror carries the sentence.
 
@@ -41,11 +42,31 @@ retained output is `sc38_exact.out`: 37 PASS lines, `ALL CHECKS PASS`, about 16 
 | Main:620 | "…with the bound $\log_2\|\mathcal{C}_H\| \geq I^*$ saturated by realizations that attain it; both are certified by exhaustive enumeration in `primitive_probes.py`." | The (C3) half is floating point (`primitive_probes.py` lines 74, 99). | "…both are checked by exhaustive enumeration in `primitive_probes.py`, the first in exact rational arithmetic and the second in floating point." |
 | `papers/main_repro/README.md`:8 | "ALL PASS (exact enumeration)" | `minimal_model.py` uses numpy floats and `allclose`. | "ALL PASS (enumeration of all twelve states, floating point)" |
 
-The conclusions all hold exactly: D1–D5 re-derive them, over the same exhaustive sets. The (C3) bound holds
-on all 16, 648, 672 and 39,168 gap realizations at (2,2), (2,3), (3,2) and (2,4). Saturation is attained
-exactly, at (2,2) on all 16 and at (3,2) on 384 of 672. The gap and I* > 0 agree on every bijection at the
-three sizes Main:612 names. The memory theorem's clause (c) holds on 24, 720 and 720 bijections, and the
-predictive floor on all 14, 97 and 149 laws. The edits correct the evidence label only, and each claim stands.
+The conclusions all hold exactly: D1–D5 re-derive them, over the same exhaustive sets.
+
+- **The quantity `primitive_probes.py` computes.** It is the per-order maximum max_k M_k, with
+  M_k = I(X_<k; X_{k+1} | X_k), not Main's I* = sup_t I(X_<t; X_>t | X_t). At horizon 3 the two coincide exactly
+  on every gap realization at (2,2), (2,3) and (3,2): 16, 648 and 672 realizations (D1i).
+- **The (C3) bound.** max_k M_k ≤ log2|C_H| holds on all 16, 648, 672 and 39,168 gap realizations at (2,2),
+  (2,3), (3,2) and (2,4). Saturation is attained exactly, at (2,2) on all 16 and at (3,2) on 384 of 672.
+- **Gap and memory.** The gap and max_k M_k > 0 agree on every bijection at the three sizes Main:612 names.
+- **The memory theorem's clause (c)** holds on 24, 720 and 720 bijections.
+- **The predictive floor** holds on all 14, 97 and 149 laws.
+- **Must-fail controls (D1c, D4c, D5c).** Each bound, tightened (to 1/2 bit for D1, or by 1/2 bit for D4 and
+  D5), is violated at every size. The exact decision therefore detects violations and is not vacuous.
+
+The edits correct the evidence label only, and each claim stands. Main:620's own wording is SC-40's (see
+Cross-unit dependencies).
+
+Output strings of the probes, where they claimed certification over a floating-point step:
+
+- `c4_backflow_probes.py`:131 "readback lemma certified" became "checked";
+- `primitive_probes.py`:100 "=> certified: … log2|C_H| >= I*" became "=> checked (floating point): … log2|C_H|
+  >= max_k M_k";
+- `memory_probes.py`'s header "Certifies" became "Checks".
+
+SC-40 edits none of these files. The exact clauses' "certified" strings (`primitive_probes.py`:87, :118) are
+left.
 
 Checked and left unchanged, because the label is accurate:
 
@@ -107,27 +128,38 @@ full-joint equality, which is exact, and the probe's floating-point capacity che
     completion. The residual is therefore a function of the law.
 - **Correction.**
   - **Source.** `memory_probes.py`'s `signature` now returns the exact law of (X₀..X₃). The probe prints "2
-    of 16 processes" and still passes. Its float attainment test and its fail condition are unchanged.
+    of 16 laws of (X0..X3)" and still passes. Its float attainment test and its fail condition are unchanged.
   - **Main:610.** It now reads: "At $(n_V, |\mathcal{C}_H|) = (2,3)$ and $t = 2$, the uniform prior on
-    $\mathcal{C}_V \times \mathcal{C}_H$ gives sixteen distinct processes with $M_t > 0$, and the two agree for
-    two of them, with residuals up to $2/3$ bit (`memory_probes.py`). The agreeing processes are those with
-    $H(X_{<t} \mid X_t, X_{t+1}) = 0$, and each residual equals that entropy by the identity above, so it is the
-    same under every hidden prior that realizes the process."
+    $\mathcal{C}_V \times \mathcal{C}_H$ gives sixteen distinct laws of $(X_0,\ldots,X_3)$ with $M_t > 0$, and
+    $M_{\mathrm{det}} = M_t$ for two of them, with residuals up to $2/3$ bit (`memory_probes.py`). The agreeing
+    laws are those with $H(X_{<t} \mid X_t, X_{t+1}) = 0$, and each residual equals that entropy by the identity
+    above, so it is the same under every hidden prior that realizes the law."
+
+    "Process" became "law of $(X_0,\ldots,X_3)$" because the count depends on the horizon (SC-38 review B1).
+    It is 16 laws (2 attaining) for (X₀..X₃), and 18 (2 attaining) for every horizon K = 4, …, 12, which
+    covers the full process of these periodic permutations (C8).
 - **Evidence level.** All exact:
   - the identity on all 720 realizations (C1);
   - 16 processes by law, 2 attaining (C2);
   - the probe's old grouping reproduces 15 and 1 (C3);
   - the merge (C4);
   - the maximal residual is exactly 2/3 bit (C5);
-  - the attaining laws are exactly those with H(X_<2|X_2,X_3) = 0 (C6).
+  - the attaining laws are exactly those with H(X_<2|X_2,X_3) = 0 (C6);
+  - the horizon dependence, 16/2 at horizon 3 and 18/2 at K = 4..12 (C8);
+  - a must-fail control: the identity with H(X_<2|X_2) in place of H(X_<2|X_2,X_3) fails on 648 of 720
+    realizations (C7).
 
   This agrees with the audit's independent exact re-derivation (`evidence/scripts/E2_memory_exact.py` on the
   audit branch), which is credited for priority. The present script shares no code with it. CON-26 is resolved.
 - **Downstream.**
   - The Remark's conclusion, that the fixed-dimension identity fails at every hidden dimension, rests on the
     identity and the i.i.d.-coin example. It is unchanged.
-  - `verification/lean/hidden_memory_probe.py`:280 states only that the fixed-dimension reading is false, and
-    remains true.
+  - `verification/lean/hidden_memory_probe.py`:279–280 printed "The variational identity M_det = M_t remains
+    OPEN and is FALSE in its fixed-hidden-dimension reading (memory_probes.py)." This contradicted the Remark,
+    which shows the identity false in general at every hidden dimension. The two print strings now read "The
+    variational identity M_det = M_t is false in general at every hidden dimension: every bijective completion
+    has I(X_<t; H_t | X_t) = H(X_<t | X_t) (Main §3.4; memory_probes.py)." Only the strings changed. The
+    probe's output before and after differs only in those two lines, and it passes.
   - The Introduction's L185 ("the fixed-dimension form is false") is left to r32. The flat statement is
     supported: R-33's alternative, "keep the flat statement once Main carries an exact certificate", now holds
     through this check, and the cited probe's count is corrected.
@@ -139,14 +171,16 @@ full-joint equality, which is exact, and the probe's floating-point capacity che
 | Main:170 | Certified exactly … in `c4_backflow_probes.py` | Checked …; laws and gaps exact, information quantities in floating point | CON-25 |
 | Main:178 | 2.4 … A Minimal Model | 2.4 … A Six-Hidden-State Model | CON-24 |
 | Main:606 | All three certified … | All three checked …, (c) in floating point | grep (C-2) |
-| Main:610 | one of fifteen … up to 0.667 bits … the agreeing process is the one | (2,3), t = 2, uniform prior: two of sixteen … up to 2/3 bit … prior-independent | CON-26 |
+| Main:610 | one of fifteen … up to 0.667 bits … the agreeing process is the one | (2,3), t = 2, uniform prior: sixteen distinct laws of (X₀,…,X₃), $M_{\mathrm{det}} = M_t$ for two … up to 2/3 bit … the agreeing laws; prior-independent | CON-26; review B1 |
 | Main:616 | … exact: `purification_probes.py` | … exact except the predictive floor, in floating point | grep (C-2) |
 | Main:620 | both are certified by exhaustive enumeration | both are checked …, the second in floating point | grep (C-2) |
 | ch01:135, FULL:479 | A worked minimal model | A worked six-hidden-state model | CON-24 (propagation) |
 | ch01:273, FULL:617 | The minimal such game is the coin-and-die model … dealt onto a table | A small such game deals the write-then-read mechanism … with one burn card in place of the die | CON-24 |
 | Explainer:725 | minimal-model ancestors | toy-model ancestors | CON-24 (propagation) |
 | main_repro/README:8 | §2.4 minimal model; (exact enumeration) | §2.4 six-hidden-state model; (enumeration of all twelve states, floating point) | CON-24, grep |
-| memory_probes.py | grouping by t = 2 conditionals; "1 of 15" | grouping by law of (X₀..X₃); "2 of 16" | CON-26 (source) |
+| memory_probes.py | grouping by t = 2 conditionals; "1 of 15"; header "Certifies" | grouping by law of (X₀..X₃); "2 of 16 laws of (X0..X3)"; header "Checks" | CON-26 (source); review O7 |
+| c4_backflow_probes.py:131, primitive_probes.py:100 | "certified" in output strings over floating-point steps | "checked"; primitive also names max_k M_k | review O7 |
+| verification/lean/hidden_memory_probe.py:279–280 | "M_det = M_t remains OPEN and is FALSE in its fixed-hidden-dimension reading" | "is false in general at every hidden dimension: every bijective completion has I(X_<t; H_t \| X_t) = H(X_<t \| X_t)" (strings only) | review O4 |
 | LEDGER.json | `MAIN:T-canonical-predictive-quotient-purification-ingredient` fingerprint 8b180e8ae437af19 | 9f4f8626d7c3bc87; same ID, level P and delta unchanged (only the evidence parenthetical changed) | coverage |
 
 Regenerated: `papers/Main.{tex,pdf}` (96 pages), `papers/Explainer.{tex,pdf}` (70 pages) and
@@ -185,7 +219,13 @@ untouched.
     r32);
   - the book §1.11 sentence on the card game;
   - Main:610's count, which the Introduction's L185 / R-33 relies on.
-- **Shared source.** `memory_probes.py`'s grouping. No other unit edits it.
+- **Main:620 and SC-40 (`corpus/sc40-c2-c3-statements`).** SC-40 also edits Main:620. Its branch carries the
+  combined text: (C3) exact, and the per-order capacity form in floating point. At reconciliation SC-40's line
+  is taken. SC-38 makes no further change to Main:620.
+- **`verification/lean/hidden_memory_probe.py`.** #961 (SC-29) edits other lines of this file (base lines
+  3–9 and 270–275). This unit changes the print strings at 279–280 only.
+- **Shared source.** `memory_probes.py`'s grouping and the probe output strings above. No other unit edits
+  them.
 - **ch01 and FULL.** SC-39 edits ch01:286 and FULL:630 in the same §1.11 paragraph block (separate lines).
 - **#968 (SC-33).** It touches neither ch01:135 nor ch01:273.
 

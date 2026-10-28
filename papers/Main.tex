@@ -3966,12 +3966,12 @@ above), which exceeds \(M_t\) by \(H(X_{<t} \mid X_t, X_{t+1})\) --- for
 an i.i.d. fair coin at \(t = 1\), \(M_1 = 0\) while every reversible
 completion carries \(1\) bit. At \((n_V, |\mathcal{C}_H|) = (2,3)\) and
 \(t = 2\), the uniform prior on \(\mathcal{C}_V \times \mathcal{C}_H\)
-gives sixteen distinct processes with \(M_t > 0\), and the two agree for
-two of them, with residuals up to \(2/3\) bit
-(\texttt{memory\_probes.py}). The agreeing processes are those with
-\(H(X_{<t} \mid X_t, X_{t+1}) = 0\), and each residual equals that
+gives sixteen distinct laws of \((X_0,\ldots,X_3)\) with \(M_t > 0\),
+and \(M_{\mathrm{det}} = M_t\) for two of them, with residuals up to
+\(2/3\) bit (\texttt{memory\_probes.py}). The agreeing laws are those
+with \(H(X_{<t} \mid X_t, X_{t+1}) = 0\), and each residual equals that
 entropy by the identity above, so it is the same under every hidden
-prior that realizes the process. Without the bijectivity requirement the
+prior that realizes the law. Without the bijectivity requirement the
 infimum is attained: in every deterministic completion the whole visible
 future is a function of \((X_t, H_t)\), so
 \(I(X_{<t}; H_t \mid X_t) \geq I(X_{<t}; X_{>t} \mid X_t)\) (kernel:
@@ -5589,4 +5589,4 @@ degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
 \end{document}
-% source-sha256: 3daec4b8e5b1e59e37558dab1aeaae64307118adbee319e3e47a457df0239c17
+% source-sha256: 1bc9cdd055b7bf9b87cfed2c9c03cedbf6471e5dcff27862367d314dea47e7c3

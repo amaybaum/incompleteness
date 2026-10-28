@@ -11,7 +11,7 @@ PASS A6 CONTROL (must differ): a four-hidden model flipping on h=1,2 has T(1,0) 
 PASS B1 Q1 gap family: I = 1 bit exactly, p0 delta^2 = 1/4, lemma holds
 PASS B2 Q2 revival family: I = 2/3 bit exactly, p0 delta^2 = 1/6, lemma holds
 PASS B3 Q5 small-gap family: p0 delta^2 = 1/64, I irrational (not in Q), lemma holds strictly : I = 0.045565997075 bits, bound = 0.022542110014 (diagnostic floats)
-PASS B4 Q3 fair coin (product law, horizon 4): I = 0 and no gap at every order, exactly
+PASS B4 Q3 fair coin: the target product law of X0..X4 checked directly (not the dilation): I = 0 and no gap at every order, exactly
 PASS B5 CONTROL (must fire): Q1 with readback removed (X2 independent of X0) has I = 0 and no gap
 PASS B6 CONTROL (must fire): the decision refutes I >= p0 delta^2/ln2 for I = 1 bit and p0 delta^2 = 1
 
@@ -24,24 +24,39 @@ PASS C3 by memory_probes.py's signature: 15 groups, 1 attaining (reproduces the 
 PASS C4 the signature merges distinct laws (so it does not count processes) : 1 signature group(s) hold [2] laws
 PASS C5 the maximal residual is 2/3 bit exactly
 PASS C6 the attaining laws are exactly those with H(X_<2 | X_2, X_3) = 0
-PASS C7 CONTROL (must fire): the i.i.d.-coin-like zero-memory laws are excluded (M_2 = 0 groups exist)
+PASS C7 CONTROL (must fail): the identity with H(X_<2|X_2) in place of H(X_<2|X_2,X_3) fails : 648 of 720 realizations violate it
+  (laws with M_2 > 0, attaining) by horizon K: {3: (16, 2), 4: (18, 2), 5: (18, 2), 6: (18, 2), 7: (18, 2), 8: (18, 2), 9: (18, 2), 10: (18, 2), 11: (18, 2), 12: (18, 2)}
+PASS C8 the count depends on the horizon: 16 laws (2 attaining) of (X0..X3); 18 (2 attaining) for every K = 4..12
 
 == D  exact re-check of floating-point clauses cited as certified ==
-PASS D1 primitive_probes (B) (2,2): I* <= log2|C_H| on all 16 gap realizations, exactly : 16 saturate exactly
-PASS D2 primitive_probes (C) (2,2): gap > 0 iff I* > 0 on all 24 bijections, exactly
-PASS D3 saturation I* = log2|C_H| attained (2,2), exactly
-PASS D1 primitive_probes (B) (2,3): I* <= log2|C_H| on all 648 gap realizations, exactly : 0 saturate exactly
-PASS D2 primitive_probes (C) (2,3): gap > 0 iff I* > 0 on all 720 bijections, exactly
-PASS D1 primitive_probes (B) (3,2): I* <= log2|C_H| on all 672 gap realizations, exactly : 384 saturate exactly
-PASS D2 primitive_probes (C) (3,2): gap > 0 iff I* > 0 on all 720 bijections, exactly
-PASS D3 saturation I* = log2|C_H| attained (3,2), exactly
-PASS D1 primitive_probes (B) (2,4): I* <= log2|C_H| on all 39168 gap realizations, exactly : 0 saturate exactly
+PASS D1 primitive_probes (B) (2,2): max_k M_k <= log2|C_H| on all 16 gap realizations, exactly : 16 saturate exactly
+PASS D1c CONTROL (must fail) (2,2): with the bound replaced by 1/2 bit it is violated : 16 violations
+PASS D1i (2,2): max_k M_k equals I* = max_t I(X_<t;X_>t|X_t) (horizon 3) on all 16 gap realizations, exactly
+PASS D2 primitive_probes (C) (2,2): gap > 0 iff max_k M_k > 0 on all 24 bijections, exactly
+PASS D3 saturation max_k M_k = log2|C_H| attained (2,2), exactly
+PASS D1 primitive_probes (B) (2,3): max_k M_k <= log2|C_H| on all 648 gap realizations, exactly : 0 saturate exactly
+PASS D1c CONTROL (must fail) (2,3): with the bound replaced by 1/2 bit it is violated : 648 violations
+PASS D1i (2,3): max_k M_k equals I* = max_t I(X_<t;X_>t|X_t) (horizon 3) on all 648 gap realizations, exactly
+PASS D2 primitive_probes (C) (2,3): gap > 0 iff max_k M_k > 0 on all 720 bijections, exactly
+PASS D1 primitive_probes (B) (3,2): max_k M_k <= log2|C_H| on all 672 gap realizations, exactly : 384 saturate exactly
+PASS D1c CONTROL (must fail) (3,2): with the bound replaced by 1/2 bit it is violated : 672 violations
+PASS D1i (3,2): max_k M_k equals I* = max_t I(X_<t;X_>t|X_t) (horizon 3) on all 672 gap realizations, exactly
+PASS D2 primitive_probes (C) (3,2): gap > 0 iff max_k M_k > 0 on all 720 bijections, exactly
+PASS D3 saturation max_k M_k = log2|C_H| attained (3,2), exactly
+PASS D1 primitive_probes (B) (2,4): max_k M_k <= log2|C_H| on all 39168 gap realizations, exactly : 0 saturate exactly
+PASS D1c CONTROL (must fail) (2,4): with the bound replaced by 1/2 bit it is violated : 31104 violations
 PASS D4 memory_probes (c) (2,2): M_2 <= I(X_<2;H_2|X_2) <= log2|C_H| on 24/24, exactly
+PASS D4c CONTROL (must fail) (2,2): with capacity log2|C_H| - 1/2 some realization violates (c) : 16 violations
 PASS D4 memory_probes (c) (2,3): M_2 <= I(X_<2;H_2|X_2) <= log2|C_H| on 720/720, exactly
+PASS D4c CONTROL (must fail) (2,3): with capacity log2|C_H| - 1/2 some realization violates (c) : 576 violations
 PASS D4 memory_probes (c) (3,2): M_2 <= I(X_<2;H_2|X_2) <= log2|C_H| on 720/720, exactly
+PASS D4c CONTROL (must fail) (3,2): with capacity log2|C_H| - 1/2 some realization violates (c) : 672 violations
 PASS D5 purification_probes (6) (2,2): log2 #tails_t >= I(X_<t;X_>t|X_t) on 14/14 laws, exactly
+PASS D5c CONTROL (must fail) (2,2): with the floor log2 #tails_t - 1/2 some law violates it : 14 violations
 PASS D5 purification_probes (6) (2,3): log2 #tails_t >= I(X_<t;X_>t|X_t) on 97/97 laws, exactly
+PASS D5c CONTROL (must fail) (2,3): with the floor log2 #tails_t - 1/2 some law violates it : 61 violations
 PASS D5 purification_probes (6) (3,2): log2 #tails_t >= I(X_<t;X_>t|X_t) on 149/149 laws, exactly
+PASS D5c CONTROL (must fail) (3,2): with the floor log2 #tails_t - 1/2 some law violates it : 71 violations
 PASS D6 CONTROL (must fire): the exact sign test separates log2 3 from 1.585 = 317/200
 
 sc38_exact: ALL CHECKS PASS

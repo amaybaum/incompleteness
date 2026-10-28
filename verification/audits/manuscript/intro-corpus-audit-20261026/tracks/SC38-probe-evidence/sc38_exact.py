@@ -284,7 +284,7 @@ for k in range(1, 4):
     for tr, p in traj.items():
         tab[(tr[:k], tr[k], tr[k + 1:])] += p
     ok &= cmi(tab).is_zero() and gap_bound(tab) == 0
-check("B4 Q3 fair coin (product law, horizon 4): I = 0 and no gap at every order, exactly", ok)
+check("B4 Q3 fair coin: the target product law of X0..X4 checked directly (not the dilation): I = 0 and no gap at every order, exactly", ok)
 check("B5 CONTROL (must fire): Q1 with readback removed (X2 independent of X0) has I = 0 and no gap",
       cmi({((x0,), x1, (x2,)): F(1, 8) for x0 in (0, 1) for x1 in (0, 1) for x2 in (0, 1)}).is_zero()
       and gap_bound({((x0,), x1, (x2,)): F(1, 8) for x0 in (0, 1) for x1 in (0, 1) for x2 in (0, 1)}) == 0)
@@ -315,6 +315,7 @@ N = nV * nH
 uni = [F(1, N)] * N
 by_law = defaultdict(list)
 by_sig = defaultdict(list)
+recs_all = []
 for perm in permutations(range(N)):
     rs = runs(perm, nV, nH, uni, 3)
     law = defaultdict(F)
@@ -335,6 +336,7 @@ for perm in permutations(range(N)):
     for xs, hs, p in rs:
         sig[(xs[:3], xs[3])] += p / tot[xs[:3]]
     rec = (perm, M, IXH, law)
+    recs_all.append(rec)
     by_law[law].append(rec)
     by_sig[tuple(sorted(sig.items()))].append(rec)
 
@@ -389,8 +391,35 @@ check("C5 the maximal residual is 2/3 bit exactly", ml.rational() == F(2, 3) and
 # an attaining law has H(X_<2 | X_2, X_3) = 0, which no prior on its realizations changes (C1)
 att_laws = [law for law, recs in by_law.items() if not all(r[1].is_zero() for r in recs) and hcond(law).is_zero()]
 check("C6 the attaining laws are exactly those with H(X_<2 | X_2, X_3) = 0", len(att_laws) == 2)
-check("C7 CONTROL (must fire): the i.i.d.-coin-like zero-memory laws are excluded (M_2 = 0 groups exist)",
-      any(all(r[1].is_zero() for r in recs) for recs in by_law.values()))
+
+
+def hcond_x2(law):
+    """exact H(X0X1 | X2) of a law of (x0..x3): the wrong conditioning, for the must-fail control."""
+    j, m = defaultdict(F), defaultdict(F)
+    for xs, p in law:
+        j[xs[:3]] += p
+        m[xs[2]] += p
+    return entropy(j) - entropy(m)
+
+
+n_bad = sum(not ((IXH - M) - hcond_x2(law)).is_zero() for perm, M, IXH, law in recs_all)
+check("C7 CONTROL (must fail): the identity with H(X_<2|X_2) in place of H(X_<2|X_2,X_3) fails",
+      n_bad > 0, f"{n_bad} of 720 realizations violate it")
+# horizon dependence of the count: group by the law of (X0..XK)
+counts = {}
+for K in range(3, 13):
+    groups = defaultdict(list)
+    for perm, M, IXH, law3 in recs_all:
+        lawK = defaultdict(F)
+        for xs, hs, p in runs(perm, nV, nH, uni, K):
+            lawK[xs] += p
+        groups[tuple(sorted(lawK.items()))].append((M, law3))
+    pos = [g for g in groups.values() if not g[0][0].is_zero()]
+    assert all(len({x[1] for x in g}) == 1 for g in groups.values())
+    counts[K] = (len(pos), sum(hcond(g[0][1]).is_zero() for g in pos))
+print("  (laws with M_2 > 0, attaining) by horizon K:", counts)
+check("C8 the count depends on the horizon: 16 laws (2 attaining) of (X0..X3); 18 (2 attaining) for every K = 4..12",
+      counts[3] == (16, 2) and all(counts[K] == (18, 2) for K in range(4, 13)))
 
 # ---------------------------------------------------------------- D. other float-evidenced checks
 print("\n== D  exact re-check of floating-point clauses cited as certified ==")
@@ -432,12 +461,26 @@ def gap_and_istar(hn, nV):
     return best, istar
 
 
+def istar_h3(perm, nV, nH):
+    """I* at horizon 3: max over t in {1, 2} of I(X_<t; X_>t | X_t), uniform prior, exact."""
+    best = L()
+    rs = runs(perm, nV, nH, [F(1, nV * nH)] * (nV * nH), 3)
+    for t in (1, 2):
+        j = defaultdict(F)
+        for xs, hs, p in rs:
+            j[(xs[:t], xs[t], xs[t + 1:])] += p
+        v = cmi(j)
+        if (v - best).sign() > 0:
+            best = v
+    return best
+
+
 for nV, nH in [(2, 2), (2, 3), (3, 2), (2, 4)]:
     cap = L.log2(nH)
-    n = ngap = sat = viol = disagree = 0
+    n = ngap = sat = viol = disagree = viol_ctl = differ = 0
     for perm in permutations(range(nV * nH)):
         n += 1
-        g, I = gap_and_istar(hist_laws(perm, nV, nH, 3), nV)
+        g, I = gap_and_istar(hist_laws(perm, nV, nH, 3), nV)      # I = max_k M_k (per order)
         disagree += (g > 0) != (not I.is_zero())
         if g == 0:
             continue
@@ -445,16 +488,23 @@ for nV, nH in [(2, 2), (2, 3), (3, 2), (2, 4)]:
         s = (cap - I).sign()
         viol += s < 0
         sat += s == 0
+        viol_ctl += (L({2: F(1, 2)}) - I).sign() < 0
+        if (nV, nH) != (2, 4):
+            differ += not (istar_h3(perm, nV, nH) - I).is_zero()
     tag = f"({nV},{nH})"
-    check(f"D1 primitive_probes (B) {tag}: I* <= log2|C_H| on all {ngap} gap realizations, exactly", viol == 0,
+    check(f"D1 primitive_probes (B) {tag}: max_k M_k <= log2|C_H| on all {ngap} gap realizations, exactly", viol == 0,
           f"{sat} saturate exactly")
+    check(f"D1c CONTROL (must fail) {tag}: with the bound replaced by 1/2 bit it is violated", viol_ctl > 0,
+          f"{viol_ctl} violations")
     if (nV, nH) != (2, 4):
-        check(f"D2 primitive_probes (C) {tag}: gap > 0 iff I* > 0 on all {n} bijections, exactly", disagree == 0)
+        check(f"D1i {tag}: max_k M_k equals I* = max_t I(X_<t;X_>t|X_t) (horizon 3) on all {ngap} gap realizations, exactly",
+              differ == 0)
+        check(f"D2 primitive_probes (C) {tag}: gap > 0 iff max_k M_k > 0 on all {n} bijections, exactly", disagree == 0)
     if (nV, nH) in [(2, 2), (3, 2)]:
-        check(f"D3 saturation I* = log2|C_H| attained {tag}, exactly", sat > 0)
+        check(f"D3 saturation max_k M_k = log2|C_H| attained {tag}, exactly", sat > 0)
 
 for nV, nH in [(2, 2), (2, 3), (3, 2)]:
-    ok = 0
+    ok = ok_ctl = 0
     n = 0
     for perm in permutations(range(nV * nH)):
         n += 1
@@ -465,7 +515,10 @@ for nV, nH in [(2, 2), (2, 3), (3, 2)]:
             jh[(xs[:2], xs[2], hs[2])] += p
         M, IXH = cmi(jm), cmi(jh)
         ok += (IXH - M).sign() >= 0 and (L.log2(nH) - IXH).sign() >= 0
+        ok_ctl += (IXH - M).sign() >= 0 and (L.log2(nH) + L({2: F(-1, 2)}) - IXH).sign() >= 0
     check(f"D4 memory_probes (c) ({nV},{nH}): M_2 <= I(X_<2;H_2|X_2) <= log2|C_H| on {ok}/{n}, exactly", ok == n)
+    check(f"D4c CONTROL (must fail) ({nV},{nH}): with capacity log2|C_H| - 1/2 some realization violates (c)",
+          ok_ctl < n, f"{n - ok_ctl} violations")
 
 K = 3
 for nV, nH in [(2, 2), (2, 3), (3, 2)]:
@@ -483,9 +536,9 @@ for nV, nH in [(2, 2), (2, 3), (3, 2)]:
                     tr.append(cx)
                 law[tuple(tr)] += mu[h]
             laws.add(tuple(sorted(law.items())))
-    ok = 0
+    ok = ok_ctl = 0
     for law in laws:
-        good = True
+        good = good_ctl = True
         for t in range(1, K):
             joint = defaultdict(F)
             tails = set()
@@ -493,9 +546,13 @@ for nV, nH in [(2, 2), (2, 3), (3, 2)]:
                 joint[(tl[:t - 1], tl[t - 1], tl[t:])] += p
                 tails.add(tl[t:])
             good &= (L.log2(len(tails)) - cmi(joint)).sign() >= 0
+            good_ctl &= (L.log2(len(tails)) + L({2: F(-1, 2)}) - cmi(joint)).sign() >= 0
         ok += good
+        ok_ctl += good_ctl
     check(f"D5 purification_probes (6) ({nV},{nH}): log2 #tails_t >= I(X_<t;X_>t|X_t) on {ok}/{len(laws)} laws, exactly",
           ok == len(laws))
+    check(f"D5c CONTROL (must fail) ({nV},{nH}): with the floor log2 #tails_t - 1/2 some law violates it",
+          ok_ctl < len(laws), f"{len(laws) - ok_ctl} violations")
 check("D6 CONTROL (must fire): the exact sign test separates log2 3 from 1.585 = 317/200",
       L.log2(3).sign() > 0 and (L.log2(3) - L({2: F(317, 200)})).sign() < 0)
 

@@ -97,7 +97,7 @@ for nV, nH in [(2,2),(2,3),(2,4),(3,2)]:
         worst_I = max(worst_I, I); worst_ratio = max(worst_ratio, I/cap if cap else 0)
     print(f"  (n_V,n_H)=({nV},{nH}): {n_gap} realizations with a gap; max I* = {worst_I:.4f} bits, log2|C_H| = {cap:.4f}, ratio {worst_ratio:.3f}")
     assert worst_I <= cap + 1e-9, "data-processing bound violated"
-print("  => certified: every gap-exhibiting realization respects log2|C_H| >= I*. C4 forces C3.")
+print("  => checked (floating point): every gap-exhibiting realization respects log2|C_H| >= max_k M_k. C4 forces C3.")
 
 print("\n== (C) is C4 an independent condition, or clause (ii) read on the realization? ==")
 # C4 asserts a readback gap MEDIATED through the hidden state; clause (ii) asserts

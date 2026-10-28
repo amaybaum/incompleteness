@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # memory_probes.py — b116 (2026-08-13)
-# Certifies the universal hidden-memory theorem of Main §3.4 — a statement about
+# Checks the universal hidden-memory theorem of Main §3.4 — a statement about
 # EVERY faithful deterministic realization, not about the constructed one:
 #   (A) pushforward identity: with f_x(h) the next visible state, the observed law
 #       P(X_{t+1} | p, x) is exactly the pushforward (f_x)_# mu_p of the hidden
@@ -11,8 +11,8 @@
 #   (C) capacity floor: M_t = I(X_<t; X_{t+1} | X_t) <= I(X_<t; H_t | X_t) <= log2|H|.
 # Also records the COUNTEREXAMPLE to the naive variational reading: at FIXED hidden
 # dimension the infimum of I(X_<t; H_t | X_t) over realizations of a given visible
-# process does NOT generally equal M_t (2 of 16 processes at (n_V,n_H)=(2,3), t = 2,
-# a process being the law of (X_0..X_3) under the uniform prior on C_V x C_H).
+# process does NOT generally equal M_t (2 of 16 laws of (X_0..X_3) with M_t > 0 at
+# (n_V,n_H)=(2,3), t = 2, under the uniform prior on C_V x C_H).
 import sys
 from fractions import Fraction as F
 from itertools import permutations
@@ -94,7 +94,7 @@ for nV, nH in [(2, 2), (2, 3), (3, 2)]:
 print()
 print("== the naive variational reading is FALSE at fixed hidden dimension ==")
 def signature(perm, nV, nH):
-    """the process: the exact law of (X_0, ..., X_3). Grouping by the next-step conditionals
+    """the exact law of (X_0, ..., X_3). Grouping by the next-step conditionals
     alone would merge distinct laws (at (2,3) one such group holds two processes)."""
     ens = ensemble(perm, nV, nH); f = lambda x, h: perm[x * nH + h] // nH
     law = defaultdict(lambda: F(0))
@@ -111,7 +111,7 @@ for nV, nH in [(2, 3)]:
         if M <= 1e-12: continue
         tot += 1
         if abs(min(i for _, i in items) - M) < 1e-9: att += 1
-    print(f"  (n_V,n_H)=({nV},{nH}): min over same-dimension realizations equals M_t for {att} of {tot} processes")
+    print(f"  (n_V,n_H)=({nV},{nH}): min over same-dimension realizations equals M_t for {att} of {tot} laws of (X0..X3)")
     if att == tot: fail += 1; print("  FAIL: expected the naive reading to fail here")
 print()
 print("memory_probes:", "ALL CHECKS PASS" if fail == 0 else f"{fail} FAILURE(S)")
