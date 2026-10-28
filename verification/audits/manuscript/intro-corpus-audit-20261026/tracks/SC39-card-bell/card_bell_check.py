@@ -4,11 +4,11 @@
 A two-player card table: a deal Omega (a tuple of hidden cards, red = +1 / black = -1), settings a, b in
 {0, 1}, and each player's outcome in {+1, -1}. CHSH = E00 + E01 + E10 - E11, in exact Fractions.
 
-  K1  Under the book's conditions -- any chance an operation uses private to one player and independent
-      of the settings; once the deal is down every operation (rule-prescribed shuffle, move, setting
-      choice) reads and writes one player's own cards only, and which operation is applied to a player's
-      cards depends on those cards alone; each outcome read from that player's own cards, +-1 in every
-      run, no run set aside; settings independent of the deal -- every outcome is
+  K1  Under the book's conditions -- once the deal is down every operation (rule-prescribed shuffle, move,
+      setting choice) reads and writes one player's own cards only; which operation is applied to a
+      player's cards, and how that player's +-1 outcome is read from them, depends only on those cards and
+      on chance drawn, together with the deal, independently of the settings (Omega' = (deal, all chance),
+      p(Omega' | a, b) = p(Omega')); an outcome in every run, no run set aside -- every outcome is
       q_a(own cards), r_b(own cards). Over every pair of deterministic local response tables (4 x 4 = 16
       pairs) and hence every deal distribution, |CHSH| <= 2 (exact, vertex enumeration; the set of such
       models is the convex hull of these).
@@ -34,9 +34,17 @@ A two-player card table: a deal Omega (a tuple of hidden cards, red = +1 / black
       at a time (identity; flip A's hand iff A's own setting card is 1): CHSH = 4. The schedule clause
       ("which operation is applied to a player's cards depends on those cards alone") excludes it, and E3
       shows the resulting setting-indexed map fails the product test.
-  P1  (private chance) each player's table chosen by its own coin, independent of the other's and of the
-      settings, over all local table pairs and coin biases 1/2 and 1/3: max |CHSH| = 2.
+  P1  (admit) each player's table chosen by its own coin, independent of the other's and of the settings,
+      over all local table pairs and coin biases 1/2 and 1/3: max |CHSH| = 2.
   P2  (countercontrol) a coin shared by both players and correlated with the settings: CHSH = 4.
+  C1  (countercontrol) two coins, each uniform for every (a, b) and each used by one player only, with
+      x_B = x_A (-1)^(ab): each marginal is setting-independent, the pair is not. CHSH = 4.
+  C2  (countercontrol) A's coin uniform for every (a, b), but jointly with A's dealt card it encodes ab:
+      CHSH = 4. C1 and C2 show the chance must be independent of the settings JOINTLY with the deal.
+  C3  (countercontrol) each readout reads only the player's own cards, but which readout function A uses
+      is selected by b: CHSH = 4. The readout rule must obey the same dependence clause as the operations.
+  C4  (admit) a coin shared by both players, jointly independent of the settings and the deal, over all
+      coin-indexed local table pairs: max |CHSH| = 2. Chance need not be private; it is part of Omega'.
   E   Exhaustive check on a four-card deck (A: hand, setting card; B: hand, setting card; cards 0/1):
       every deal (16), the setting writes, then EVERY sequence of length <= 2 of admitted operations drawn
       from all 256 + 256 own-region maps and all 24 whole-deck position permutations (the checker admits 3),
@@ -323,6 +331,35 @@ def coin_law(a, b):                                  # shared coin correlated wi
 E = {(a, b): sum(p * 1 * (-1) ** x for x, p in coin_law(a, b).items()) for a in S for b in S}
 check("P2 CONTROL (must exceed 2): a coin shared by both players and correlated with the settings gives CHSH = 4",
       chsh(E) == 4)
+
+# ---- C1-C4: joint setting-independence of (deal, chance), and the readout rule
+def law_C1(a, b):                                    # (x_A, x_B), each uniform for every (a, b)
+    return {(x, x * (-1) ** (a * b)): F(1, 2) for x in (1, -1)}
+E = {(a, b): sum(p * xa * xb for (xa, xb), p in law_C1(a, b).items()) for a in S for b in S}
+marg_ok = all(sum(p for (xa, xb), p in law_C1(a, b).items() if (xa if k == 0 else xb) == v) == F(1, 2)
+              for a in S for b in S for k in (0, 1) for v in (1, -1))
+check("C1 CONTROL (must exceed 2): two one-player coins, each uniform for every (a,b), jointly setting-dependent: CHSH = 4",
+      chsh(E) == 4 and marg_ok)
+def law_C2(a, b):                                    # (shared dealt card c, A's coin x_A)
+    return {(c, c * (-1) ** (a * b)): F(1, 2) for c in (1, -1)}
+E = {(a, b): sum(p * (c * x) * 1 for (c, x), p in law_C2(a, b).items()) for a in S for b in S}   # q = c x, r = +1
+coin_uniform = all(sum(p for (c, x), p in law_C2(a, b).items() if x == v) == F(1, 2)
+                   for a in S for b in S for v in (1, -1))
+check("C2 CONTROL (must exceed 2): A's coin uniform for every (a,b) but jointly with the deal encodes ab: CHSH = 4",
+      chsh(E) == 4 and coin_uniform)
+def q_C3(c, a, b):                                   # A reads its own hand; b selects which readout function
+    return c if b == 0 else (c if a == 0 else -c)
+E = {(a, b): sum(F(1, 2) * q_C3(c, a, b) * c for c in (1, -1)) for a in S for b in S}
+check("C3 CONTROL (must exceed 2): own-card readouts with the readout function selected by b: CHSH = 4", chsh(E) == 4)
+worst = 0
+for pc in (F(1, 2), F(1, 3)):
+    wc = (pc, 1 - pc)
+    for qa in product(tabs, repeat=2):              # A's table for shared coin 0 / 1
+        for rb in product(tabs, repeat=2):
+            E = {(a, b): sum(wc[x] * qa[x][a] * rb[x][b] for x in S) for a in S for b in S}
+            worst = max(worst, abs(chsh(E)))
+check("C4 admit: a shared coin jointly independent of the settings, all coin-indexed local tables: max |CHSH| = 2",
+      worst == 2)
 
 print("\ncard_bell_check:", "ALL CHECKS PASS" if not FAIL else f"{len(FAIL)} FAILURE(S): {FAIL}")
 sys.exit(1 if FAIL else 0)

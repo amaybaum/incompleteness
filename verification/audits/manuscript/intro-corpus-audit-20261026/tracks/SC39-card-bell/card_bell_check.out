@@ -16,5 +16,9 @@ PASS L2 CONTROL (must exceed 2): a b-dependent choice between two admitted opera
 PASS E3 the product test rejects the L2 schedule M_{a,b} and accepts a schedule chosen from A's own card
 PASS P1 private coins independent of the settings over all local table pairs: max |CHSH| = 2
 PASS P2 CONTROL (must exceed 2): a coin shared by both players and correlated with the settings gives CHSH = 4
+PASS C1 CONTROL (must exceed 2): two one-player coins, each uniform for every (a,b), jointly setting-dependent: CHSH = 4
+PASS C2 CONTROL (must exceed 2): A's coin uniform for every (a,b) but jointly with the deal encodes ab: CHSH = 4
+PASS C3 CONTROL (must exceed 2): own-card readouts with the readout function selected by b: CHSH = 4
+PASS C4 admit: a shared coin jointly independent of the settings, all coin-indexed local tables: max |CHSH| = 2
 
 card_bell_check: ALL CHECKS PASS
