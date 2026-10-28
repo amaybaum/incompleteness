@@ -109,3 +109,23 @@ None. No open PR (#961, #962, #963, #964, #967, #968, #969, #971) changes Main :
 - `python3 verification/lean/edge_rigidity_probe.py`: ALL CHECKS PASS.
 - Scan of added lines: no §A.32/§A.33 phrase, caps, revision voice, local path or secret.
 - `sh ./build.sh Main`: OK, with no dropped glyphs.
+
+## Review findings applied
+
+- Main §4.5 now names the initialized-slot swap where it says the bridge alone does not supply a constraint. The
+  paragraph describes two swap realizations, and only the initialized-slot one admits no classical-memory
+  decomposition.
+- The prior-dependence sentence now notes that the two priors give different visible laws ($X_1=0$ against $X_1$
+  uniform).
+
+## Stronger result recorded, not added to Main
+
+The independent reviewer gave a stronger statement with a proof; it is recorded here for #970. With hidden prior
+$\mathrm{diag}(p,1-p)$, the swap admits a classical-memory decomposition if and only if $p=\tfrac12$. The proof:
+- the identity has Kraus rank 1, so each $\Phi_o\circ\mathcal I_o=q_o\,\mathrm{id}$;
+- a qubit channel with a CPTP left inverse is $\mathrm{Ad}\,V$;
+- so $\Lambda_1=\sum_o q_o\,\mathrm{Ad}\,V_o$ is unital, which forces the slot state to be $I/2$.
+
+This also gives a second proof of the fixed-card clause. It has not been checked against the primary text of [28].
+The source was not reachable from the review session, so the decomposition was checked against Main's paraphrase of
+the definition.
