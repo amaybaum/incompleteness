@@ -60,3 +60,38 @@ Several prior overclaims elsewhere in the corpus remain **outside this preview**
 - Cross-check SC-43 turtles claims against this narrower causal/observable scope.
 
 **CI classification (earlier preview head `053130e6`).** Mathlib bridge run `40643741304` failed while fetching Lean 4.33.0 with repeated TLS/SSL connection errors *before* the kernel tools ran. The resulting missing axiom reports are downstream infrastructure consequences, not counterexamples to the mathematics. The SC-44 `40642405124` toolchain failed downloading Lean 4.35.0. Neither failed run certifies the latest edited preview head. Exact-head tests, release gates and canonical Substratum TeX/PDF regeneration remain undone.
+
+## Independent-review integration checkpoint — REVISE, no acceptance
+
+All three independent-review summaries have been recorded, with reviewed SHA attribution, as:
+- SC-44 #980 at `87d0b03f4affe1d5da0b8d5c11ee76a4d0f6d0d7`, [review summary](https://github.com/amaybaum/incompleteness/pull/980#issuecomment-6463510692).
+- SC-45 #981 at `6aff07d452c0f298012d6bc2cd30772161c865fa`, [review summary](https://github.com/amaybaum/incompleteness/pull/981#issuecomment-6463511250).
+- Integrated preview #982 at `09239e06e764327ec774e73dd557a7c1b2b578bd`, [review summary](https://github.com/amaybaum/incompleteness/pull/982#issuecomment-6463511956).
+
+**Provenance limit.** The reviewer-authored exact replacement paragraphs and their complete test records have **not been made available to this writer**. The GitHub comments are owner-relayed accurate summaries of the supplied findings, **not copied verbatim reviewer replacements**. The following manuscript and code changes are new **writer proposals based on those findings**; reviewers must check their exact current bytes, especially the balanced-word chain argument and the infinite-ancilla scope.
+
+### Results preserved and sharpened
+
+| Distinct comparison | Supported current claim | Open limit |
+|---|---|---|
+| Coherent channels at one fixed readout | A common hidden permutation (same σ in each visible fibre) and independent decoupled enlargement preserve all Φ_t. Pair C refutes completeness of the **restricted** proposed moves, with the balanced-word chain obstruction requiring exact-head reviewer confirmation | No complete general characterization |
+| Populations at that fixed readout | The larger class π(v,h)=(v,σ_v(h)) preserves rooted transition counts at all powers with uniform hidden preparation | This does not imply equality of coherent channels; Pair C does not yield the same obstruction |
+| All admissible observer partitions | Must specify a correspondence of partitions, preparations and readouts before the equivalence is a mathematical proposition | Completeness remains open |
+| Fixed-carrier block-word traces | Proposition 24.2: Lean-supported rigidity on block-spanning pairs | Actual OI-accessible data not shown to determine these traces |
+
+Theorem 24's newly written exact coherent, population and decoupled proof statements have been scoped; the corrected `SUBSTRATUM:T-24` ledger row remains `GAP`. Proposition 24.2 remains K3. The WTS research-family census remains `kernel-only`; no V3 or old guard state is altered.
+
+### Code changes and evidence limits
+
+The `SC45-generator-soundness/verify_four_state.py` script has been rewritten to compare full exact rational coherent channels, assert the 16/8 count and check fibre-dependent population invariance separately from off-diagonal coherences. It tests the global hidden permutations on the three small carriers (2,2), (2,3), (3,2), and an explicit 160-case independent-ancilla coherent control, and defines six must-fail mutant checks using exceptions rather than `assert` so Python `-O` cannot simply disable them. These controls are **not yet wired to CI**, nor has the **new checked-in script itself** been executed in a repository checkout for this checkpoint. Independently reimplemented local exact calculations confirmed the 16/8 count, the coherent control in all three carriers and 160 independent-ancilla cases; the complete checked-in script and mutants still require direct normal/optimized replay and external review.
+
+### Corpus corrections applied on this integrated branch
+
+- Substratum §4 definition, Theorem 24 and proof, population/coherent/all-partitions non-exhaustiveness scope, exact ancillary enlargement and conditional graph/q distinctions.
+- Substratum A1 transfer wording, completeness paragraph, amplitude-scale status note, structural cases, gauge hierarchy and existing conditional Theorem 23 scope.
+- Papers Complexity (fine-tuning / anthropic / gauge-completeness claims), Computation (gauge/NP analogy), Explainer (reconstruction and four-generator summary).
+- Book chapter 14 quantum-computing gauge paragraph.
+
+**Still blocking:** book ch02/ch03 and other dependent chapter/FULL mirror sites; Methodology and Structure and further source sites; consistency across the remaining substrate, gravity and computational manuscripts; the canonical `./build.sh` regeneration of all changed paper TeX/PDF and book FULL/TeX/PDF; release gate's architecture, staleness, mirror, proof coverage and Lean/axiom checks; direct execution and mutation review of checked-in SC-45 script; separate confirmation of the stronger balanced-word chain inference; independent integrated head review. A green CI on an *older* reviewed branch is not verification of this integrated head.
+
+**Landing policy:** #982 remains a stacked **draft preview** against #980. The user approved it as the sole *intended* integrated source landing vehicle, not as merge-ready. #980/#981 are retained as review records; they may close without merging only after a separately approved integrated landing. No F/E, special workflow dispatch or merge-to-main approval has been given.
