@@ -14,7 +14,10 @@ Run with `python3 -I c2_c3_check.py`. Standard library only. Deterministic (fixe
     (float, tolerance 1e-12); and the same inequality is an equality-free bound, not an identity:
     some sampled law has strict inequality.
 (4) C3 attainment, exact: at (n_V, |C_H|) = (2,2) and (3,2), a bijection under the uniform prior
-    with M_1 = I* = log2|C_H| = 1 bit, every logarithm a log of a power of two.
+    with M_1 = 1 bit and I(X_<1; X_>1 | X_1) = 1 bit = log2|C_H|, every logarithm a log of a power
+    of two.
+(5) The witness stated at Main :78: the swap phi(v,h) = (h,v) at (2,2) under the uniform prior has
+    X_{k+1} = X_{k-1}, M_k = 1 bit and past-future information 1 bit at every t, exactly.
 """
 from fractions import Fraction as F
 from itertools import product, permutations
@@ -128,7 +131,16 @@ for nV, nH in [(2, 2), (3, 2)]:
                 found = (perm, m1, i1)
                 break
     check(found is not None,
-          f'(4) ({nV},{nH}): bijection {found[0] if found else None} has M_1 = I(X_<1; X_>1 | X_1) = 1 = log2|C_H| exactly')
+          f'(4) ({nV},{nH}): bijection {found[0] if found else None} has M_1 = 1 and I(X_<1; X_>1 | X_1) = 1 = log2|C_H|, exactly')
+
+# ---------- (5) the Main :78 witness: the swap at (2,2) ----------
+swap = tuple(2 * h + v for v in range(2) for h in range(2))  # index 2v+h -> 2h+v: phi(v,h) = (h,v)
+L = visible_law(swap, 2, 2, 4)
+check(all(t[k + 1] == t[k - 1] for t in L for k in range(1, 4)), '(5) swap (2,2), uniform prior: X_{k+1} = X_{k-1} on every trajectory')
+Mk = [cmi(L, list(range(k)), [k + 1], [k]) for k in range(1, 4)]
+check(Mk == [1, 1, 1], f'(5) swap: M_1, M_2, M_3 = {[str(m) for m in Mk]} bits = log2|C_H|, exactly')
+It = [cmi(L, list(range(t)), list(range(t + 1, 5)), [t]) for t in range(1, 4)]
+check(It == [1, 1, 1], f'(5) swap: I(X_<t; X_>t | X_t) = {[str(i) for i in It]} for t = 1..3, so I* = log2|C_H| = 1, exactly')
 
 print('\nSC-40 checks:', 'ALL PASS' if fails == 0 else f'{fails} FAILED')
 raise SystemExit(1 if fails else 0)

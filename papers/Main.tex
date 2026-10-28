@@ -654,9 +654,9 @@ conditions: the characterization's equivalence runs over those three
 static bath. What C2 supplies is physical: it is the mechanism by which
 a stored record survives to be read in realistic models, so that C4
 holds rather than failing by erasure (§2.3); and in the other direction,
-in the coupling-step model of §3.4 --- next visible state determined by
-the current visible and hidden states, any hidden map between couplings
---- observed conditional memory
+in the coupling-step model of the physical-memory theorem (§3.4) ---
+next visible state determined by the current visible and hidden states,
+any hidden map between couplings --- observed conditional memory
 \(M_k = I(X_{<k}; X_{k+1} \mid X_k) > 0\) at an accessible order \(k\)
 forces some realized hidden conditional at that coupling time to lie at
 total-variation distance at least \(\varepsilon_{\min}(M_k, n_V)\)
@@ -690,10 +690,13 @@ visible and hidden states, so data processing gives
 Exhaustive enumeration over the realizations with a readback gap at
 \((n_V, |\mathcal{C}_H|) = (2,2), (2,3), (2,4), (3,2)\) checks the
 per-order form \(\max_k M_k \leq \log_2|\mathcal{C}_H|\) and finds it
-attained at \((2,2)\) and \((3,2)\) (\texttt{primitive\_probes.py});
-since \(M_k \leq I^* \leq \log_2|\mathcal{C}_H|\), those realizations
-attain \(I^* = \log_2|\mathcal{C}_H|\), so C3 is tight rather than
-slack. It is retained as a separately checkable condition.)
+attained at \((2,2)\) and \((3,2)\) (\texttt{primitive\_probes.py},
+uniform prior, orders 1 and 2, floating point). Attainment is exact: at
+\((2,2)\) the swap \(\varphi(v,h)=(h,v)\) under the uniform prior has
+\(X_{k+1}=X_{k-1}\), so \(M_k=1\) bit \(=\log_2|\mathcal{C}_H|\), and
+since \(M_k\le I^*\le\log_2|\mathcal{C}_H|\) it attains
+\(I^*=\log_2|\mathcal{C}_H|\), so C3 is tight rather than slack. It is
+retained as a separately checkable condition.)
 
 \textbf{(C4) History readback.} History-sensitive hidden mediation: on
 accessible windows, hidden degrees of freedom carry information about
@@ -728,19 +731,19 @@ representative follows from any non-deterministic visible step,
 including in laws that are Markov on every accessible window, and does
 not require C4; with a full-support visible prior it is equivalent to
 memory at some order below the recurrence time, which an observer
-reaches only when that order is accessible, as C4 asserts (§2.3). C1 and
-C3 follow as necessary diagnostics of the mediation and its capacity;
-C2-structural, the persistence of the record to readback, holds by
-reversibility in every bijective realization and constrains
-coarse-grained descriptions of the hidden sector, with C2-slow one
-physical mechanism. \textbf{(3) Reverse finite realization:} every
-finite stochastic law, including every finite quantum record, has a
-finite reversible OI realization; bounded quantum instrument families
-are uniformly realizable to arbitrary finite accuracy (§3.4).
-\textbf{(4) Full operational extension:} identifying one common
-\emph{standard local quantum instrument/composite theory} for all
-coherent interventions requires the additional operational-lifting and
-composition hypotheses stated in §3.4. Bell is a separate constraint
+reaches only when that order is accessible, as C4 asserts (§2.3). C1
+follows as a necessary diagnostic of the mediation, and C3 holds in
+every faithful realization by the capacity bound; C2-structural, the
+persistence of the record to readback, holds by reversibility in every
+bijective realization and constrains coarse-grained descriptions of the
+hidden sector, with C2-slow one physical mechanism. \textbf{(3) Reverse
+finite realization:} every finite stochastic law, including every finite
+quantum record, has a finite reversible OI realization; bounded quantum
+instrument families are uniformly realizable to arbitrary finite
+accuracy (§3.4). \textbf{(4) Full operational extension:} identifying
+one common \emph{standard local quantum instrument/composite theory} for
+all coherent interventions requires the additional operational-lifting
+and composition hypotheses stated in §3.4. Bell is a separate constraint
 rather than one of those lifting hypotheses: for a response-complete
 deterministic completion, measurement independence plus ontic parameter
 independence would force \(|S_{\rm CHSH}|\le2\), so the Bell-violating
@@ -2634,10 +2637,13 @@ variation. (The theorem's bound \(\|T^{(k)} - T^k\|\) measures departure
 from the homogeneous Markov benchmark; it is not itself a measure of
 P-indivisibility --- two-notions Remark, §3.4.)
 
-\textbf{Theorem (physical memory: C2, process form).} \emph{Under the
-conditional-mixing hypothesis --- every realized hidden conditional lies
-within \(\varepsilon\) of \(\pi_H\) in total variation at the coupling
-time --- every history-conditional next-step law satisfies
+\textbf{Theorem (physical memory: C2, process form).} \emph{In the
+coupling-step model of the previous theorem --- given the whole visible
+past and \(H_k = h\), \(X_{k+1}\) has law \(K(x_k, h; \cdot)\), with
+\(\pi_H\) the reference prior --- and under the conditional-mixing
+hypothesis, that every realized hidden conditional lies within
+\(\varepsilon\) of \(\pi_H\) in total variation at the coupling time,
+every history-conditional next-step law satisfies
 \(\|P(X_{k+1} \mid X_{\leq k}) - \bar{K}_{x_k}\|_{\mathrm{TV}} \leq \varepsilon\)
 with \(\bar{K}_{x_k} := \sum_h \pi_H(h)\, K(x_k, h; \cdot)\); hence the
 departure
@@ -4091,16 +4097,20 @@ a readback gap requires hidden mediation, and zero-coupling realizations
 exhibit no gap at any order --- and (C3) holds in every faithful
 realization by data processing applied to the whole visible future, with
 the bound \(\log_2|\mathcal{C}_H| \geq I^*\) attained by some
-realizations; both are checked by exhaustive enumeration at small sizes
-in \texttt{primitive\_probes.py}. The equivalence could therefore be
-stated with (C4) alone. It is not, deliberately: (C1) and (C3) are
+realizations. Exhaustive enumeration in \texttt{primitive\_probes.py}
+checks the first at small sizes in exact rational arithmetic, and checks
+the second in its per-order form
+\(\max_k M_k \leq \log_2|\mathcal{C}_H|\) over realizations with a
+readback gap, in floating point (§1.3). The equivalence could therefore
+be stated with (C4) alone. It is not, deliberately: (C1) and (C3) are
 independently \emph{checkable} --- on the adopted
 ontic-parameter-dependent branch of §3.3 Bell violation requires
 cross-wing coupling and so checks (C1) directly, and capacity arguments
 use (C3) directly --- and a characterization that lists checkable
-consequences alongside its primitive is more useful than a minimal one,
-in the way that axiom lists for groups are conventionally redundant. The
-dependency is recorded at each condition's definition (§1.3).*
+necessary conditions alongside its primitive is more useful than a
+minimal one, in the way that axiom lists for groups are conventionally
+redundant. The dependency is recorded at each condition's definition
+(§1.3).*
 
 \emph{Remark (two notions of memory).} Non-Markovianity of the process
 --- condition (ii) --- and P-indivisibility of the transition-matrix
@@ -5050,18 +5060,18 @@ hidden influence at some accessible step (none anywhere ⟹ Markov); a
 non-permutation one-step \(T\) is the sufficient first-step witness, not
 an equivalence & §3.4, §1.3 \\
 C2 necessity & Non-mixing (persistence) form proved: in the
-coupling-step model of §3.4 --- next visible state determined by the
-current visible and hidden states, any hidden map between couplings ---
-observed conditional memory \(M_k > 0\) at an accessible order \(k\)
-places some realized hidden conditional at that coupling time at least
-\(\varepsilon_{\min}(M_k, n_V)\) from its reference prior \(\pi_H\)
-(physical-memory theorem, realized-\(\varepsilon\) contrapositive); in a
-bijective realization the retention of (C2-structural) holds for every
-law. Slow-bath form conditional on the hidden-sector mixing hypothesis;
-the quantitative bound \(\varepsilon \geq \delta/(k-1)\) is proved, its
-constant saturated in the certification suite
-(\texttt{c2\_mixing\_probes.py}); ETH is physical motivation, not a
-premise & §3.4, §1.3 \\
+coupling-step model of the physical-memory theorem (§3.4) --- next
+visible state determined by the current visible and hidden states, any
+hidden map between couplings --- observed conditional memory \(M_k > 0\)
+at an accessible order \(k\) places some realized hidden conditional at
+that coupling time at least \(\varepsilon_{\min}(M_k, n_V)\) from its
+reference prior \(\pi_H\) (physical-memory theorem,
+realized-\(\varepsilon\) contrapositive); in a bijective realization the
+retention of (C2-structural) holds for every law. Slow-bath form
+conditional on the hidden-sector mixing hypothesis; the quantitative
+bound \(\varepsilon \geq \delta/(k-1)\) is proved, its constant
+saturated in the certification suite (\texttt{c2\_mixing\_probes.py});
+ETH is physical motivation, not a premise & §3.4, §1.3 \\
 C3 necessity & Proved --- data-processing bound in per-process form,
 \(m \geq 2^{I^*}\) & §3.4, §1.3 \\
 C4 necessity & Immediate given observed non-Markovianity (any
@@ -5592,4 +5602,4 @@ degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
 \end{document}
-% source-sha256: ca94a83285c58306e7bf52265ed08642ad59f2ded215b527a1db8dddac83acb5
+% source-sha256: 50acf8feabeac17a3481d5c00a97e0ad52772c354dd56b621dad3bb87592cac1
