@@ -1560,18 +1560,28 @@
       "modules": [
         "RecordFibreIdentification"
       ],
-      "status": "kernel-only",
-      "manuscript": [],
-      "note": "Research proof candidate for the set-theoretic core of P24.5(i): nonempty preparation-supported record fibres, quantity constancy, initial/current state singleton criterion, and current hidden criterion for product visible projection and permutation dynamics with at least one retained reading. Swap and empty-word controls are included. Not the Bayesian support calculation, N−1 refinement bound, physical record availability, or the whole proposition; no manuscript/ledger promotion is made before exact-head CI and independent review."
+      "status": "scope-consistent",
+      "manuscript": [
+        {
+          "file": "papers/Introduction.md",
+          "anchor": "**Nonempty record-fibre identification**"
+        }
+      ],
+      "note": "Nonempty known-model record-fibre constant-value, initial/current/current-hidden singleton criteria, swap and empty-word controls. The Introduction cites only this partial formalization; Bayesian support, N-1 stabilization, physical record availability and full P24.5 remain separate."
     },
     {
       "name": "exact microscopic iterate return to actual rooted identity and horizon indivisibility",
       "modules": [
         "RootedRecurrenceBridge"
       ],
-      "status": "kernel-only",
-      "manuscript": [],
-      "note": "Research candidate: exact return of RootedRealization.step iterate yields rootedMap n = I for its actual common normalized hidden prior; composition with the existing overlap/return theorem yields PIndivisibleWithin n. No uniformity or full-support hypothesis is added. Finite-order existence, positive-history/common-endpoint to non-permutation and short accessible-window consequences are not asserted. No manuscript/ledger promotion before CI and independent review."
+      "status": "scope-consistent",
+      "manuscript": [
+        {
+          "file": "papers/Introduction.md",
+          "anchor": "**Actual microscopic return**"
+        }
+      ],
+      "note": "Given an exact return of the actual RootedRealization step iterate, its common normalized prior gives rootedMap n = I and the overlap theorem gives horizon indivisibility. Finite-order existence, history/common-endpoint implication and short accessible-window witnesses are not promoted; Main history-theorem grade is unchanged."
     },
     {
       "name": "conditional k-token cone theorem: products, cone closure, the k-fold maxCone bound and CNOT plus rotation/cyclic invariance give the PSD cone of the k-fold Pauli dictionary (round KTOKEN-MAXCONE-1, reconstruction)",
@@ -1581,6 +1591,20 @@
       "status": "kernel-only",
       "manuscript": [],
       "note": "Conditional k-token infrastructure on WK k = (Fin k → Fin 4) → ℝ. subset_QK_of_maxCone_drive uses the k-fold maxCone bound, CNOT into later tokens and the rotation/cyclic actions off the first token for the upper inclusion; QK_subset_of_products_cone_drive uses products of eball 3 states, addition, nonnegative scaling and the same actions for the lower. kCone_eq_QK_of_drive_maxCone assembles equality; kCone_eq_QK_iff_drive_maxCone has the witnesses driveInvariantK_of_eq_QK and kCone_eq_QK_of_drive_maxCone. pairCone_eq_Q3_of_kToken proves the statement of EqvK2MaxCone.pairCone_eq_Q3_of_drive_maxCone from the k-token theorem; EqvK2MaxCone is not imported. This family is carried by no manuscript. The k-token carrier, products, test validity and the invariance remain explicit premises; arbitrary unitary invariance and Kn are not asserted. Record: verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/."
+    },
+    {
+      "name": "actual finite-permutation trajectory bridge for hidden memory and C3 capacity",
+      "modules": [
+        "TrajectoryMemory"
+      ],
+      "status": "scope-consistent",
+      "manuscript": [
+        {
+          "file": "papers/Introduction.md",
+          "anchor": "**Actual trajectory memory and capacity**"
+        }
+      ],
+      "note": "Constructs time-t laws from arbitrary initial laws and actual iterates of one finite permutation; proves one-step and finite-future-block CMI bounds and genuine supremum over all natural time/horizon pairs. The Introduction cites precisely that finite-block result. Literal infinite-tail identification and physical memory-retention mechanisms are not certified; no whole-Main theorem grade is promoted."
     }
   ]
 }
