@@ -46,30 +46,49 @@
   ok    stale 'stated as open ([Main §3.2': 0
   ok    stale 'with no external premise': 0
   ok    stale 'one-step coherence for the linear lattice realization, and': 0
-        kinematics mentions papers/GR.md: 1
+  ok    stale 'the fixed-basis representation extends to the standard noncommuting': 0
+  ok    stale 'Whether they do is characterized': 0
+  ok    stale 'full operational theory of instruments on that space': 0
+  ok    stale 'The step from that exact representation class': 0
+  ok    stale 'full coherent observable/instrument structure holds': 0
+  ok    stale 'instrument and composite structure of standard quantum mechanics holds': 0
+  ok    stale 'tensor/composite instrument structure is part of the coherent operational lift': 0
+        kinematics mentions papers/GR.md: 3
         kinematics mentions papers/Main.md: 14
         kinematics mentions papers/Methodology.md: 1
-        kinematics mentions papers/Explainer.md: 6
+        kinematics mentions papers/Explainer.md: 8
         kinematics mentions papers/Structure.md: 1
         kinematics mentions papers/Substratum.md: 2
         kinematics mentions papers/SM.md: 0
         kinematics mentions book/preface.md: 1
         kinematics mentions book/ch00-introduction.md: 1
         kinematics mentions book/ch01-observation.md: 3
-        kinematics mentions book/ch02-substratum.md: 0
-        kinematics mentions book/ch03-structural-realism.md: 1
-        kinematics mentions book/ch04-methodology.md: 0
+        kinematics mentions book/ch02-substratum.md: 2
+        kinematics mentions book/ch03-structural-realism.md: 2
+        kinematics mentions book/ch04-methodology.md: 1
         kinematics mentions book/ch09-universality.md: 1
-        kinematics mentions book/ch14-quantum-computing.md: 0
+        kinematics mentions book/ch14-quantum-computing.md: 1
         kinematics mentions book/ch18-beyond.md: 0
         kinematics mentions book/ch19-open-problems.md: 2
         kinematics mentions book/glossary.md: 2
         kinematics mentions book/appendix-b-derivations.md: 0
         kinematics mentions book/appendix-c-objections.md: 0
         kinematics mentions book/readers-guide.md: 0
-        kinematics mentions book/The-Incompleteness-of-Observation-FULL.md: 11
+        kinematics mentions book/The-Incompleteness-of-Observation-FULL.md: 16
   ok    kinematics mentions at base: 0
-  ok    kinematics mention counts match the site table (47)
+  ok    kinematics mention counts match the site table (61)
+[3b] pinned texts and witnesses
+  ok    pinned in papers/Main.md: The operational-completion characterization ([GR §3.3]) take...
+  ok    pinned in book/glossary.md: What remains is operational: on a finite carrier, within com...
+  ok    pinned in papers/GR.md: whether an operational theory's available instruments on a f...
+  ok    pinned in papers/Explainer.md: The full operational theory is a separate question from that...
+  ok    pinned in papers/Explainer.md: takes the tensor-product composite as part of the complex ma...
+  ok    pinned in papers/Structure.md: whether an operational theory's available instruments on a f...
+  ok    pinned in book/preface.md: within complex matrix kinematics taken as given, the tensor-...
+  ok    glossary and preface pins mirrored in FULL
+  ok    witness conditions => exact: exactAll_of_physical_general (GeneralCarrier.lean:93)
+  ok    witness exact => conditions: physical_of_exactAll (PhysicalCharacterization.lean:301)
+  ok    exactness is about the available families (T.avail), not a representation of a law
 [4] book/FULL mirror parity
   ok    chapter line mirrored in FULL: For spatially separated systems, the coupling graph supplies...
   ok    chapter line mirrored in FULL: The Born rule in the fixed-basis representation is therefore...
@@ -90,6 +109,6 @@
   ok    chapter line mirrored in FULL: **Operational gluing theorem.** The framework's finite-resol...
   ok    chapter line mirrored in FULL: The qualification is equally important. Universal Hilbert-sp...
 [5] added-text scan
-        scanned 349 added text chunk(s)
+        scanned 412 added text chunk(s)
   ok    added-text scan: 0 hit(s)
 check_sc42: OK (0 failure(s))

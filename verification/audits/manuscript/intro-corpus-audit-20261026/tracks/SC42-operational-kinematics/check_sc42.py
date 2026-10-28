@@ -97,7 +97,16 @@ STALE = ['delivers QM on a finite-dimensional', 'quantum instruments open)', 'Le
          'lifting problem', 'operational lifting', 'operational-lifting', 'lifting debt',
          'lifting result', 'lifting frontier', 'active-lifting', 'open coherent operational lift',
          'stated as open (§3.2', 'states as open (§3.2', 'stated as open ([Main §3.2',
-         'with no external premise', 'one-step coherence for the linear lattice realization, and']
+         'with no external premise', 'one-step coherence for the linear lattice realization, and',
+         # round 3: the characterization concerns an operational theory's available instruments,
+         # not the fixed-basis representation; the tensor composite and local tomography are
+         # in the assumed kinematics, not characterized by the conditions
+         'the fixed-basis representation extends to the standard noncommuting',
+         'Whether they do is characterized', 'full operational theory of instruments on that space',
+         'The step from that exact representation class',
+         'full coherent observable/instrument structure holds',
+         'instrument and composite structure of standard quantum mechanics holds',
+         'tensor/composite instrument structure is part of the coherent operational lift']
 print('[3] re-grep')
 for s in STALE:
     n = sum(read(p).count(s) for p in CORPUS)
@@ -106,18 +115,45 @@ counts = {p: read(p).count('complex matrix kinematics') + read(p).count('complex
           for p in CORPUS}
 for p, n in counts.items():
     print(f'        kinematics mentions {p}: {n}')
-EXPECT = {'papers/GR.md': 1, 'papers/Main.md': 14, 'papers/Methodology.md': 1, 'papers/Explainer.md': 6,
+EXPECT = {'papers/GR.md': 3, 'papers/Main.md': 14, 'papers/Methodology.md': 1, 'papers/Explainer.md': 8,
           'papers/Structure.md': 1, 'papers/Substratum.md': 2, 'papers/SM.md': 0,
           'book/preface.md': 1, 'book/ch00-introduction.md': 1, 'book/ch01-observation.md': 3,
-          'book/ch02-substratum.md': 0, 'book/ch03-structural-realism.md': 1, 'book/ch04-methodology.md': 0,
-          'book/ch09-universality.md': 1, 'book/ch14-quantum-computing.md': 0, 'book/ch18-beyond.md': 0,
+          'book/ch02-substratum.md': 2, 'book/ch03-structural-realism.md': 2, 'book/ch04-methodology.md': 1,
+          'book/ch09-universality.md': 1, 'book/ch14-quantum-computing.md': 1, 'book/ch18-beyond.md': 0,
           'book/ch19-open-problems.md': 2, 'book/glossary.md': 2, 'book/appendix-b-derivations.md': 0,
           'book/appendix-c-objections.md': 0, 'book/readers-guide.md': 0,
-          'book/The-Incompleteness-of-Observation-FULL.md': 11}
+          'book/The-Incompleteness-of-Observation-FULL.md': 16}
 base_n = sum(read(p, BASE).count('complex matrix kinematics') + read(p, BASE).count('complex matrices indexed')
              for p in CORPUS)
 check(base_n == 0, f'kinematics mentions at base: {base_n}')
 check(counts == EXPECT, f'kinematics mention counts match the site table ({sum(EXPECT.values())})')
+
+# 3b. Pinned texts (round 3), with the kernel witnesses of the characterization's two directions.
+print('[3b] pinned texts and witnesses')
+PINS = {
+ 'papers/Main.md': ["The operational-completion characterization ([GR §3.3]) takes the complex matrix kinematics as given, the tensor-product composite and with it local tomography included, and deriving that kinematics is open; within it, whether the available interventions on a finite carrier and its composites are exactly the quantum instruments is characterized by the five completion conditions of §3.4."],
+ 'book/glossary.md': ["What remains is operational: on a finite carrier, within complex matrix kinematics taken as given, an operational theory's available instruments on the carrier and its composites are the standard noncommuting quantum instruments exactly when the five completion conditions of the operational-completion characterization ([GR §3.3]) hold; which of them the substratum supplies, and a derivation of that kinematics, are open."],
+ 'papers/GR.md': ["whether an operational theory's available instruments on a finite carrier and its composites are the quantum instruments is a separate question, which §3.3 characterizes, within complex matrix kinematics taken as given, by its completion conditions."],
+ 'papers/Explainer.md': ["The full operational theory is a separate question from that exact representation class:",
+                         "takes the tensor-product composite as part of the complex matrix kinematics it assumes"],
+ 'papers/Structure.md': ["whether an operational theory's available instruments on a finite carrier and its composites are exactly the quantum instruments, simultaneously across all interventions, is a separate question"],
+ 'book/preface.md': ["within complex matrix kinematics taken as given, the tensor-product composite included, an operational theory's available instruments"],
+}
+for pth, ss in PINS.items():
+    for s in ss:
+        check(read(pth).count(s) == 1, f'pinned in {pth}: {s[:60]}...')
+check(PINS['book/glossary.md'][0] in read('book/The-Incompleteness-of-Observation-FULL.md')
+      and PINS['book/preface.md'][0] in read('book/The-Incompleteness-of-Observation-FULL.md'),
+      'glossary and preface pins mirrored in FULL')
+gc = read('verification/lean-mathlib/OIBridge/GeneralCarrier.lean').splitlines()
+pc = read('verification/lean-mathlib/OIBridge/PhysicalCharacterization.lean').splitlines()
+check(gc[92].startswith('theorem exactAll_of_physical_general'),
+      'witness conditions => exact: exactAll_of_physical_general (GeneralCarrier.lean:93)')
+check(pc[300].startswith('theorem physical_of_exactAll'),
+      'witness exact => conditions: physical_of_exactAll (PhysicalCharacterization.lean:301)')
+ka = read('verification/lean-mathlib/OIBridge/KrausSoundness.lean')
+check('T.avail (Fin m) F ↔ IsFiniteEndomorphicKrausInstrument F' in ka,
+      'exactness is about the available families (T.avail), not a representation of a law')
 
 # 4. Mirror parity: each changed chapter paragraph is present verbatim in FULL.
 print('[4] book/FULL mirror parity')
