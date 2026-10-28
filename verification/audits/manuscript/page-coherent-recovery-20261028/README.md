@@ -17,7 +17,7 @@ qubits and n−k configuration |0> qubits, then choose a uniformly random
 invertible binary linear map L on n bits and apply its configuration permutation.
 The resulting coherent state is uniform on a k-dimensional binary subspace V.
 At cut R={1,...,r}, B its complement, define von Neumann entropy in bits.
-Proposed exact conclusions to verify:
+Written candidate conclusions, with retained exact controls (not yet independently accepted):
 
 - S_R = k − dim(V∩R) − dim(V∩B), with a flat nonzero Schmidt spectrum.
 - The mean purity is computable exactly from one- and two-vector incidence in
@@ -44,3 +44,19 @@ the context; this restricted positive-amplitude binary-subspace ensemble is not
 the whole stabilizer ensemble, and no novelty claim is made.
 
 No merge, native-round F/E designation, dispatch or physical premise adoption.
+
+## Constructive checkpoint
+
+`entropy-profile-proof.md` gives a self-contained Schmidt decomposition, exact
+subspace-intersection distribution, independently derived mean purity, and a
+mean tent bound with a shared-state union bound over all nested cuts. The mirror
+Bell-pair example is an exact tent without an evaporation or scrambling claim.
+`exact_controls.py` contracts state amplitudes independently of the intersection
+formula, checks the full reduced-spectrum polynomial identity, and compares the
+counting distribution with direct subspace enumeration. Larger exact moment
+checks exercise the two independently derived formulas beyond the enumerated
+range. Configuration, unmixed coherent, incoherent-mixture and repeated-CNOT
+countercontrols are retained. `exact-results.json` records the bounded run.
+
+This candidate and its controls await independent review and ordinary PR CI.
+No manuscript, coverage, Page/black-hole status or physical premise is upgraded.
