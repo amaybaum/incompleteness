@@ -1,0 +1,98 @@
+1. declarations and axiom reports
+  PASS  RecurrenceHorizon.pIndivisible_of_rooted_identity_return_of_overlap: declared, #print axioms present
+  PASS  RecurrenceHorizon.c4r_of_rooted_identity_return_of_overlap: declared, #print axioms present
+  PASS  RecurrenceHorizon.pIndivisible_of_identity_return_of_overlap: declared, #print axioms present
+  PASS  PhysicalC4Discharge.routed_forces_return_indivisibility: declared, #print axioms present
+  PASS  PhysicalC4Discharge.routed_forces_indivisible_somewhere: declared, #print axioms present
+  PASS  PhysicalC4StorageReadback.routedAtStorage_forces_return_indivisibility: declared, #print axioms present
+  PASS  PhysicalC4StorageReadback.routedAtStorage_forces_indivisible_somewhere: declared, #print axioms present
+  PASS  PhysicalC4StorageReadback.storageReadback_not_implies_routedReadback: declared, #print axioms present
+  PASS  PhysicalC4StorageReadback.routedReadback_not_implies_storageReadback: declared, #print axioms present
+  PASS  RootedClassification.pper_of_finiteRootedRealizable: declared, #print axioms present
+  PASS  RootedClassification.rootedMap_periodic: declared, #print axioms present
+  PASS  RootedClassification.rootedMap_zero: declared, #print axioms present
+  PASS  RootedClassificationAllTime.pper_has_responseRealization: declared, #print axioms present
+  PASS  RootedClassificationAllTime.finiteRootedRealizable_iff_pper: declared, #print axioms present
+  PASS  EquivalenceChain.isPermMatrix_of_stochastic_inverse: declared, #print axioms present
+2. statements carry what the prose says
+  PASS  pIndivisible_of_rooted_identity_return_of_overlap contains '(R : RootedRealization V H)'
+  PASS  pIndivisible_of_rooted_identity_return_of_overlap contains '(hsn : s < n)'
+  PASS  pIndivisible_of_rooted_identity_return_of_overlap contains '(hI : rootedMap R n = 1)'
+  PASS  pIndivisible_of_rooted_identity_return_of_overlap contains '(hab : a ≠ b)'
+  PASS  pIndivisible_of_rooted_identity_return_of_overlap contains '(hax : 0 < rootedMap R s a x)'
+  PASS  pIndivisible_of_rooted_identity_return_of_overlap contains '(hbx : 0 < rootedMap R s b x)'
+  PASS  pIndivisible_of_rooted_identity_return_of_overlap contains 'PIndivisibleWithin n (rootedMap R)'
+  PASS  pIndivisible_of_identity_return_of_overlap contains '(hstoch : IsRowStochastic (Γ s))'
+  PASS  pIndivisible_of_identity_return_of_overlap contains '(hI : Γ n = 1)'
+  PASS  pIndivisible_of_identity_return_of_overlap contains 'PIndivisibleWithin n Γ'
+  PASS  routed_forces_return_indivisibility contains '(h : RoutedReadback K R)'
+  PASS  routed_forces_return_indivisibility contains '∃ s, s < K ∧ ∀ n, s < n → rootedMap R n = 1 →'
+  PASS  routed_forces_return_indivisibility contains 'PIndivisibleWithin n (rootedMap R)'
+  PASS  routed_forces_indivisible_somewhere contains '(h : RoutedReadback K R)'
+  PASS  routed_forces_indivisible_somewhere contains '∃ n, PIndivisibleWithin n (rootedMap R)'
+  PASS  routedAtStorage_forces_return_indivisibility contains '(h : RoutedReadbackAtStorage K R)'
+  PASS  routedAtStorage_forces_return_indivisibility contains '∃ s, s < K ∧ ∀ n, s < n → rootedMap R n = 1 →'
+  PASS  routedAtStorage_forces_indivisible_somewhere contains '(h : RoutedReadbackAtStorage K R)'
+  PASS  routedAtStorage_forces_indivisible_somewhere contains '∃ n, PIndivisibleWithin n (rootedMap R)'
+  PASS  storageReadback_not_implies_routedReadback contains '¬ ∀ (K : ℕ) (R : RootedRealization (Bool × Bool) Bool), RoutedReadbackAtStorage K R → RoutedReadback K R'
+  PASS  routedReadback_not_implies_storageReadback contains '¬ ∀ (K : ℕ) (R : RootedRealization Bool (Bool × Bool)), RoutedReadback K R → RoutedReadbackAtStorage K R'
+  PASS  pper_of_finiteRootedRealizable contains '(h : FiniteRootedRealizable (V := V) Γ) : PPer Γ'
+  PASS  pper_has_responseRealization contains '(hΓ : PPer Γ)'
+  PASS  pper_has_responseRealization contains '∀ t, rootedMap R t = Γ t'
+  PASS  finiteRootedRealizable_iff_pper contains 'FiniteRootedRealizable (V := V) Γ ↔ PPer Γ'
+  PASS  CausalReadback carries 'step : V × H ≃ V × H'
+  PASS  CausalReadback carries 'prior_nonneg : ∀ h, 0 ≤ prior h'
+  PASS  CausalReadback carries 'prior_sum : ∑ h, prior h = 1'
+  PASS  CausalReadback carries 'def PDivisible (K : ℕ) (Γ : ℕ → Matrix V V ℝ) : Prop := ∀ s t : ℕ, s < t → t ≤ K → ∃ Λ : Matrix V V ℝ, IsRowStochastic Λ ∧ Γ t = Γ s * Λ'
+  PASS  RootedRealization imposes no support condition on the prior
+  PASS  PPer is root identity, row-stochastic at every time, periodic
+  PASS  PeriodicFamily is a positive period
+  PASS  RoutedReadback carries 'a ≠ b ∧ 0 < w ∧ w ≤ s ∧ s < t ∧ t ≤ K'
+  PASS  RoutedReadback carries '(∃ h : H, 0 < R.prior h ∧ ((⇑R.step)^[w] (a, h)).2 ≠ ((⇑R.step)^[w] (b, h)).2)'
+  PASS  RoutedReadback carries '0 < rootedMap R s a x ∧ 0 < rootedMap R s b x'
+  PASS  RoutedReadback carries 'rootedMap R t a ≠ rootedMap R t b'
+  PASS  RoutedReadback carries '((⇑R.step)^[t - s] (x, h)).1'
+  PASS  rootedPosterior is the law of the initial seed given X_s = x, X_0 = a
+  PASS  rootedStatePosterior is the law of H_s given X_s = x, X_0 = a
+  PASS  CS5-a: the core satisfies the storage reading at K = 2 and the seed reading at no K
+  PASS  CS5-b: the separating carrier satisfies the seed reading at K = 2 and not the storage reading at K = 2
+3. census registry
+  PASS  recurrence horizon: current, anchored
+  PASS     anchor present: '**Theorem (overlap and return).**'
+  PASS     anchor present: '`pIndivisible_of_rooted_identity_return_of_overlap`'
+  PASS     anchor present: '`c4r_of_rooted_identity_return_of_overlap`'
+  PASS     anchor present: '`pIndivisible_of_identity_return_of_overlap`'
+  PASS  physical C4 discharge: current, anchored
+  PASS     anchor present: '`routed_forces_indivisible_somewhere`'
+  PASS     anchor present: '`routed_forces_return_indivisibility`'
+  PASS     anchor present: 'in the seed-conditioned reading it is that of the initial hidden state'
+  PASS  physical C4 round 2: current, anchored
+  PASS     anchor present: '`routedAtStorage_forces_indivisible_somewhere`'
+  PASS     anchor present: '`routedAtStorage_forces_return_indivisibility`'
+  PASS     anchor present: '`storageReadback_not_implies_routedReadback`'
+  PASS     anchor present: '`routedReadback_not_implies_storageReadback`'
+  PASS     anchor present: 'In the storage-time reading the hidden law is that of the hidden state'
+  PASS  rooted classification: current, anchored
+  PASS     anchor present: '`finiteRootedRealizable_iff_pper`'
+  PASS     anchor present: '`pper_of_finiteRootedRealizable`'
+  PASS     anchor present: '`pper_has_responseRealization`'
+  PASS     anchor present: 'exact all-time gluing for recurrent families of multi-time laws'
+  PASS  manuscripts list unchanged (no tool reads it)
+4. re-grep
+  PASS  gone: 'its composition with P-divisibility and the step from two positive-probability histories' (0 hits)
+  PASS  gone: 'exact gluing for recurrent target families' (0 hits)
+  PASS  gone: 'Recurrent-family gluing and pre-recurrence-window' (0 hits)
+  PASS  gone: 'recurrent-family gluing and pre-recurrence window approximation open' (0 hits)
+  PASS  present once: '**Theorem (overlap and return).**' {'papers/Main.md': 1}
+  PASS  present once: '*Routed readback.*' {'papers/Main.md': 1}
+  PASS  present once: 'exact all-time gluing for recurrent families of multi-time laws' {'papers/Main.md': 1}
+  PASS  present once: 'recurrent multi-time-law gluing and pre-recurrence window approximation open' {'papers/Main.md': 1}
+  PASS  present once: 'Recurrent multi-time-law gluing and pre-recurrence-window approximation remain open' {'verification/ROADMAP.md': 1}
+  count pIndivisible_of_rooted_identity_return_of_overlap: {'papers/Main.md': 2}
+  count routedAtStorage_forces_indivisible_somewhere: {'papers/Main.md': 1}
+  count routed_forces_indivisible_somewhere: {'papers/Main.md': 1, 'verification/ROADMAP.md': 1}
+  count finiteRootedRealizable_iff_pper: {'papers/Main.md': 1, 'verification/ROADMAP.md': 1}
+5. Lean unchanged
+  PASS  no Lean file differs from 0d917665 ([])
+
+sc35_check: OK

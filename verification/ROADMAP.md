@@ -1568,9 +1568,12 @@ Five candidates that a reader might expect here, with the reason each is absent:
 
 - **Finite-horizon → exact all-time finite realization** — the finite-horizon realization theorem is
   established, while a universal exact all-time form on one finite deterministic carrier is ruled
-  out by periodicity. Recurrent-family gluing and pre-recurrence-window approximation remain open in
-  `Main.md`; no currently central prediction depends on closing them, so they are recorded rather
-  than promoted to the active queue.
+  out by periodicity. For rooted visible maps the all-time question is classified: a family is
+  realizable at every time by one finite reversible carrier with one shared prior exactly when it is
+  the identity at the root, row-stochastic and periodic (`finiteRootedRealizable_iff_pper`, stated
+  in `Main.md` §3.4). Recurrent multi-time-law gluing and pre-recurrence-window approximation remain
+  open in `Main.md`; no currently central prediction depends on closing them, so they are recorded
+  rather than promoted to the active queue.
 
 - **Named double-slit / Born-interference benchmark** — the repository already formalizes the
   probability, phase, realizability and quotient machinery that such a benchmark would consume, but

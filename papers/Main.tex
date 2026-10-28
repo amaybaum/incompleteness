@@ -969,9 +969,15 @@ stochastic \(\Lambda\) with \(\Gamma_n = \Gamma_s \Lambda = I\) would be
 a stochastic right inverse of \(\Gamma_s\), which the lemma forbids.
 \(\square\) (kernel: the lemma is
 \texttt{isPermMatrix\_of\_stochastic\_inverse} in
-\texttt{OIBridge/EquivalenceChain.lean}; its composition with
-P-divisibility and the step from two positive-probability histories with
-a common endpoint to a non-permutation rooted map are proved on paper)
+\texttt{OIBridge/EquivalenceChain.lean}; the final clause, that the
+rooted family is not P-divisible on \(\{0, \ldots, n\}\), follows from
+two distinct rows of \(\Gamma_s\) sharing positive mass and
+\(\Gamma_n = I\) by the overlap-and-return theorem below,
+\texttt{pIndivisible\_of\_rooted\_identity\_return\_of\_overlap}; the
+step from two positive-probability histories with a common endpoint to a
+non-permutation rooted map, the step from a non-permutation square
+stochastic matrix to two distinct rows sharing positive mass, and
+\(\Gamma_L = I\) are proved on paper)
 
 \emph{Scope.} This is a global recurrence-cycle result. It does
 \textbf{not} say that C4 forces P-indivisibility on every accessible
@@ -1002,6 +1008,69 @@ its whole recurrence cycle; an observer's statistics are its restriction
 to accessible windows, and on them the memory is witnessed only by a gap
 at an accessible order. What (C4) adds within accessible windows is the
 positive conditional memory of the readback lemma below.
+
+\textbf{Theorem (overlap and return).} \emph{Let \(\mathcal{C}_V\) and
+\(\mathcal{C}_H\) be finite sets, \(\varphi\) a bijection of
+\(\mathcal{C}_V \times \mathcal{C}_H\), and \(\mu_H\) a probability
+distribution on \(\mathcal{C}_H\), not required to have full support,
+from which the hidden state is drawn whatever the root, with rooted
+visible maps \(\Gamma_t(a, j) = \mu_H\{h : \pi_V \varphi^t(a, h) = j\}\)
+for every \(a \in \mathcal{C}_V\). If \(\Gamma_n = I\) for some \(n\),
+and for some \(s < n\) two distinct roots \(a \neq b\) and a visible
+value \(x\) have \(\Gamma_s(a, x) > 0\) and \(\Gamma_s(b, x) > 0\), then
+the rooted family is not P-divisible on \(\{0, \ldots, n\}\).}
+
+\emph{Proof.} Distinct rows of \(\Gamma_n = I\) are at total variation
+distance \(1\). Two rows sharing positive mass at \(x\) are at distance
+at most \(1 - \min(\Gamma_s(a, x), \Gamma_s(b, x)) < 1\). Right
+multiplication by a stochastic matrix does not increase the total
+variation distance between two rows, so no stochastic \(\Lambda\)
+satisfies \(\Gamma_n = \Gamma_s \Lambda\), and the pair \(s < n\)
+violates P-divisibility. \(\square\) (kernel:
+\texttt{pIndivisible\_of\_rooted\_identity\_return\_of\_overlap},
+through \texttt{c4r\_of\_rooted\_identity\_return\_of\_overlap}, in
+\texttt{OIBridge/RecurrenceHorizon.lean}; the matrix form
+\texttt{pIndivisible\_of\_identity\_return\_of\_overlap} assumes only
+that \(\Gamma_s\) is row-stochastic)
+
+\emph{Routed readback.} The realization clause of (C4) (§1.3), a
+visible-history record written into the hidden state and routed back
+into later visible conditionals, has two formalizations on the rooted
+maps above, which differ in the hidden variable that carries the record
+at the storage time. Both fix roots \(a \neq b\), times
+\(0 < w \leq s < t \leq K\) and a visible value \(x\), and require four
+clauses: a write, some seed \(h\) with \(\mu_H(h) > 0\) for which
+\(\varphi^w(a, h)\) and \(\varphi^w(b, h)\) have different hidden
+components; a store, \(\Gamma_s(a, x) > 0\), \(\Gamma_s(b, x) > 0\) and
+different root-conditioned hidden laws at \((s, x)\) for the two roots;
+a read, those two hidden laws placed beside \(x\) and evolved for
+\(t - s\) steps giving different visible laws at \(t\); and a
+reappearance, \(\Gamma_t(a, \cdot) \neq \Gamma_t(b, \cdot)\). In the
+storage-time reading the hidden law is that of the hidden state at the
+storage time, \(\mathrm{Law}(H_s \mid X_s = x, X_0 = a)\); in the
+seed-conditioned reading it is that of the initial hidden state,
+\(\mathrm{Law}(H_0 \mid X_s = x, X_0 = a)\). Under either reading, the
+rooted family is not P-divisible on \(\{0, \ldots, n\}\) for every
+\(n > s\) with \(\Gamma_n = I\), and so for some \(n\), because
+\((\Gamma_t)\) is periodic and \(\Gamma_0 = I\) (kernel:
+\texttt{routedAtStorage\_forces\_return\_indivisibility},
+\texttt{routedAtStorage\_forces\_indivisible\_somewhere} in
+\texttt{OIBridge/PhysicalC4StorageReadback.lean} for the storage-time
+reading; \texttt{routed\_forces\_return\_indivisibility},
+\texttt{routed\_forces\_indivisible\_somewhere} in
+\texttt{OIBridge/PhysicalC4Discharge.lean} for the seed-conditioned
+reading; the period and the root identity are
+\texttt{rootedMap\_periodic} and \texttt{rootedMap\_zero} in
+\texttt{OIBridge/RootedClassification.lean}). Both proofs use only the
+two positivity conditions of the store clause, so both conclusions are
+instances of the overlap-and-return theorem, and the horizon reached is
+a return of the rooted map, not an accessible window. Neither reading
+implies the other: each holds at \(K = 2\) on an exhibited finite
+reversible realization on which the other fails at \(K = 2\) (kernel:
+\texttt{storageReadback\_not\_implies\_routedReadback},
+\texttt{routedReadback\_not\_implies\_storageReadback}). Whether the
+clause holds at a physical cut, in either reading, is not established
+(§1.3; {[}GR §2.2{]}).
 
 \textbf{Genericity.} The theorem's precondition --- that \(T\) is not a
 permutation matrix --- is a sufficient first-step \emph{witness} of (C1)
@@ -4199,11 +4268,26 @@ universal all-time form is settled \emph{negative}: a bijection on a
 finite set has finite order \(L\), so any fixed realization with a fixed
 prior has an exactly \(L\)-periodic multi-time law
 (\(\varphi^{k+L} = \varphi^k\)) --- a nonperiodic target admits no exact
-all-time realization by one fixed finite substratum. The honest open
-questions are (a) exact gluing for recurrent target families --- which
-compatibility conditions on the per-horizon realizations suffice --- and
-(b) the physically operative form: quantitative approximation of the
-target on windows \(t \ll t_R\) by one fixed substratum before its
+all-time realization by one fixed finite substratum. For the rooted
+visible maps the all-time question is settled exactly: on a finite
+\(\mathcal{C}_V\), a family \((\Gamma_t)_{t \geq 0}\) of real square
+matrices equals, at every \(t \geq 0\), the rooted maps
+\(\Gamma_t(a, j) = \mu_H\{h : \pi_V \varphi^t(a, h) = j\}\) of some
+finite \(\mathcal{C}_H\), one bijection \(\varphi\) of
+\(\mathcal{C}_V \times \mathcal{C}_H\) and one probability distribution
+\(\mu_H\) on \(\mathcal{C}_H\) shared by every root, not required to
+have full support, if and only if \(\Gamma_0 = I\), every \(\Gamma_t\)
+is row-stochastic, and \(\Gamma_{t+M} = \Gamma_t\) for some \(M > 0\)
+and all \(t\) (kernel: \texttt{pper\_of\_finiteRootedRealizable} in
+\texttt{OIBridge/RootedClassification.lean} for the forward direction,
+from finiteness and bijectivity; \texttt{pper\_has\_responseRealization}
+in \texttt{OIBridge/RootedClassificationAllTime.lean} for the converse,
+by a response-table construction; the two directions assembled in
+\texttt{finiteRootedRealizable\_iff\_pper}). The open questions are (a)
+exact all-time gluing for recurrent families of multi-time laws ---
+which compatibility conditions on the per-horizon realizations suffice
+--- and (b) the physically operative form: quantitative approximation of
+the target on windows \(t \ll t_R\) by one fixed substratum before its
 recurrence. Form (b) coincides with the accessible-timescale scoping of
 §4.5.
 
@@ -5017,8 +5101,9 @@ physical hidden sectors is the C2-necessity row (persistence form
 without a mixing hypothesis, timescale form conditional on it);
 arbitrary-kernel form via the response-table extension; Consolidation:
 universal exact all-time form impossible (finite-order periodicity);
-recurrent-family gluing and pre-recurrence window approximation open &
-§3.4 \\
+all-time realizability of rooted visible maps classified by periodicity
+(kernel); recurrent multi-time-law gluing and pre-recurrence window
+approximation open & §3.4 \\
 Fixed-\(\hat{H}\) form for realized processes & Proved, uncompressed ---
 the realization's permutation unitary, \(\hat{H} = i\log U\), exact at
 integer horizon times for uniform, slice, and weighted priors
@@ -5580,4 +5665,4 @@ degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
 \end{document}
-% source-sha256: 8e326e67b65986a55502aae8e085c9b0b5570289c6cf596416d27e4bd5a6a1f7
+% source-sha256: bedda7366a62edf4030a1c9648957f4d50bb0272bc178b0378bb89d7fb64b5bd
