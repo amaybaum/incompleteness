@@ -1,0 +1,37 @@
+{
+  "schema": "sc45-exact-python-replay-v1",
+  "status": "AUTHOR-REPLAY-NOT-INDEPENDENT-ACCEPTANCE",
+  "source_path": "verification/audits/manuscript/intro-corpus-audit-20261026/tracks/SC45-generator-soundness/verify_four_state.py",
+  "source_blob_sha": "539b3759eacd09404489d754393a219813bd4bae",
+  "python_version": "3.13.5",
+  "commands": [
+    "python3 verify_four_state.py",
+    "python3 -O verify_four_state.py"
+  ],
+  "outputs_byte_identical": true,
+  "exit_codes": [
+    0,
+    0
+  ],
+  "result": {
+    "carrier_global_hidden_cases": 5808,
+    "decoupled_coherent_cases": 160,
+    "fibre_dependent_population_cases": 1416,
+    "fibre_dependent": "population invariant; coherent counterexample found",
+    "killed_mutants": [
+      "invalid-bijection",
+      "collapsed-counterexample",
+      "wrong-population",
+      "changed-16-8",
+      "fibre-coherence",
+      "coupled-ancilla"
+    ],
+    "one_step_full_state_relabelling": {
+      "preserving": 16,
+      "violating": 8
+    },
+    "scope": "finite exact controls; all-partitions equivalence not tested",
+    "verdict": "PASS"
+  },
+  "note": "A direct replay of the exact source Git blob was performed in an isolated Python runtime. The earlier blob 620c5ebe4c1486d3aceada09a75c3c27e1d34ca7 failed both modes with TypeError: omitted hidden argument; fixed in daa18522. Later extended to cover fibre populations and an explicit coupled-ancilla control. Not a CI check-run attestation; not a Lean theorem; not evidence that reviewer accepted integrated manuscript."
+}
