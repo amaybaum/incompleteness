@@ -17,7 +17,7 @@ qubits and n−k configuration |0> qubits, then choose a uniformly random
 invertible binary linear map L on n bits and apply its configuration permutation.
 The resulting coherent state is uniform on a k-dimensional binary subspace V.
 At cut R={1,...,r}, B its complement, define von Neumann entropy in bits.
-Written candidate conclusions, with retained exact controls (not yet independently accepted):
+Written core conclusions, independently accepted at `bdcbd32` (not Lean-certified):
 
 - S_R = k − dim(V∩R) − dim(V∩B), with a flat nonzero Schmidt spectrum.
 - The mean purity is computable exactly from one- and two-vector incidence in
@@ -58,7 +58,7 @@ checks exercise the two independently derived formulas beyond the enumerated
 range. Configuration, unmixed coherent, incoherent-mixture and repeated-CNOT
 countercontrols are retained. `exact-results.json` records the bounded run.
 
-This candidate and its controls await independent review and ordinary PR CI.
+The written core has passed independent mathematical review. Ordinary PR CI and the separate sequential-release companion have their own gates.
 No manuscript, coverage, Page/black-hole status or physical premise is upgraded.
 
 ## Separate sequential-release companion
@@ -75,3 +75,17 @@ of that core does not automatically accept this separate companion.
 coordinate release map, amplitude-contracted radiation purity, configuration and
 extreme-rank seeds, mirror Bell profiles and a coherent-clock counterexample.
 Its results are retained separately. No physical or manuscript status changes.
+
+## Independently accepted mathematical core
+
+The written core at immutable `bdcbd32` was accepted by an independent reviewer.
+Its exact report, input manifest and independent RREF/amplitude controls are in
+`independent-core/`. Report SHA256:
+`b9a8be21925cb2280fc02ccd6e70195ff21241b62ae9099745aae8dd5da71ab1`.
+The reviewer independently reproduced 2,658 state/cut cases and 104 larger exact
+moments (14,924 predicates); author-result replay matched. This is acceptance of
+the stated finite mathematics, not Lean, physics or the separate release companion.
+
+The path-scoped ordinary PR workflow replays all retained exact control scripts
+against their JSON from temporary script copies. It supplies computational replay
+for the research checkpoint, not a universal proof or a native-round attestation.
