@@ -7,7 +7,7 @@ coverage_check and full release gate are additional and independent requirements
 import json
 from pathlib import Path
 
-root = Path(__file__).resolve().parents[5]
+root = Path(__file__).resolve().parents[6]
 paper = (root / "papers/Substratum.md").read_text(encoding="utf-8")
 ledger = json.loads((root / "verification/coverage/LEDGER.json").read_text(encoding="utf-8"))
 entries = {row["id"]: row for row in ledger["entries"]}
