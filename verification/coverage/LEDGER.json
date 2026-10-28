@@ -2532,16 +2532,16 @@
     {
       "id": "SUBSTRATUM:C-effective-finiteness-gauge-class-transfer",
       "paper": "papers/Substratum.md",
-      "line": 262,
+      "line": 282,
       "kind": "Corollary",
       "label": "(effective finiteness and gauge-class transfer)",
-      "fingerprint": "2a8021590988a99b",
+      "fingerprint": "504ffc1d6770e7ae",
       "area": "reconstruction",
-      "assumptions": "see the statement",
+      "assumptions": "E3 interpreted as a Hilbert-space dimension cutoff for the visible/boundary space; GR boundary-only dependence with stated time-scale errors; exact transfer only for an independent, normalized, decoupled ancillary system with well-defined partial trace (finite or trace-class infinite case); no transfer of finite recurrence to infinite systems",
       "checks": [],
       "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
+      "delta": "The corollary's three clauses rely on distinct physical inputs. The exact coherent/population transfer under decoupled independent ancillae is a written tensor/trace identity, not a Lean-certified theorem here; finite-state recurrence and inaccessible-time boundary approximation do not extend to arbitrary coupled/infinite systems.",
+      "note": "SC-44/45 refreezes its changed statement text. Distinguish uniform-hidden coherent-channel invariance and fibre-dependent population invariance from non-equivalent coupling-graph/alphabet structural claims. Full substratum gauge-class completeness is not established; the title's 'gauge-class transfer' means only transfer of the specified visible laws under exact decoupling. Do not upgrade K grade based on this editorial repair."
     },
     {
       "id": "SUBSTRATUM:P-24.2",
