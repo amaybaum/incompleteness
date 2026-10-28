@@ -47,7 +47,7 @@ The 0.07σ match with the post-JUNO global fit therefore tests Condition 2 — a
 
 ### 1.3 The empirical context
 
-The cubic-group structure used here is not a postulated flavor symmetry. It is the rotation symmetry group of three-dimensional space, realized in a lattice-based framework [18] in which the simple cubic Bravais lattice in d=3 is shown to be the unique three-dimensional Bravais lattice consistent with the SU(3) × SU(2) × U(1) gauge structure and the observed Cabibbo angle (Theorem 7b). The same cubic structure that produces the 1/(4π²) correction here also produces a number of related quantitative predictions across the flavor sector, all empirically tested:
+The cubic-group structure used here is not a postulated flavor symmetry. It is the rotation symmetry group of three-dimensional space, realized in a lattice-based framework [18] in which the simple cubic Bravais lattice in d=3 is shown to be, under nearest-neighbor coupling, the unique three-dimensional Bravais lattice consistent with the SU(3) × SU(2) × U(1) gauge structure and the observed Cabibbo angle (Theorem 7b). The same cubic structure that produces the 1/(4π²) correction here also produces a number of related quantitative predictions across the flavor sector, all empirically tested:
 
 | Observable | Cubic-group prediction | Observed | Match |
 |---|---|---|---|

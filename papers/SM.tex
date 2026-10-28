@@ -2029,10 +2029,10 @@ measurement begins to quantify.
 symmetry}\label{center-independence-and-chiral-symmetry}}
 
 \textbf{Theorem 3.} \emph{For onsite center terms \(m\varepsilon+p_0\)
-with site-independent coefficients in a ring without additive 2-torsion,
-on a lattice carrying both parity sectors, center independence of the
-lattice dynamics is equivalent to exact chiral symmetry of the emergent
-staggered fermions.}
+added to opposite-parity hopping, with site-independent coefficients in
+a ring without additive 2-torsion, on a lattice carrying both parity
+sectors, center independence of the lattice dynamics is equivalent to
+exact chiral symmetry of the emergent staggered fermions.}
 
 \emph{Proof.} The staggered mass term squares to
 \(\Box_{\text{lat}}\phi = -4m_{\text{lat}}^2\phi\): center dependence.
@@ -2042,7 +2042,9 @@ chirality in turn forces center independence:
 \(\{D_{\text{st}}+m\varepsilon+p_0,\varepsilon\}=2m+2p_0\varepsilon\);
 on the parity sectors \(\varepsilon=\pm1\) its vanishing gives, without
 additive 2-torsion, \(m\pm p_0=0\), hence \(2m=0\) and \(m=p_0=0\).
-(kernel: \texttt{scalar\_center\_chiral\_iff} in
+(kernel: \texttt{scalar\_center\_coefficients\_zero\_of\_chiral} and
+\texttt{scalar\_center\_chiral\_of\_coefficients\_zero}, the two
+directions of \texttt{scalar\_center\_chiral\_iff} in
 \texttt{OIBridge/ChiralCenterRecovery.lean}) \(\square\)
 
 \textbf{Remark (scope of the center-dependence--mass identification).}
@@ -8927,4 +8929,4 @@ the FCC-ee,'' arXiv:2504.05974 (2025).
 Compact Family Cycle,'' arXiv:2605.10245 (2026).
 
 \end{document}
-% source-sha256: ec939a85c66dc523486bdec553aef76be200a801511b4a7bd0ff5e9ef668a8b9
+% source-sha256: f2ee60c94e254ad29ce27ee561eefc567638696653f36b745c68f757aeb77970

@@ -1620,7 +1620,7 @@
       "line": 300,
       "kind": "Theorem",
       "label": "3",
-      "fingerprint": "3235e724de981f66",
+      "fingerprint": "78abc2acbf80c5bf",
       "area": "sm",
       "assumptions": "fixed opposite-parity hopping; site-independent coefficients m·eps + p_0; no additive 2-torsion; both parity sectors present",
       "checks": [

@@ -77,7 +77,7 @@ The recursion — AI building AI building AI — produces ever more sophisticate
 |-----------|--------|
 | Reconstruct the local lattice/gauge invariants from observations | Structurally possible under Theorem 23's conditions |
 | Build better models of the visible sector | No structural limit |
-| Determine the hidden-sector state $h$ | Provably impossible (T. Breuer 1995) |
+| Determine the hidden-sector state $h$ | Provably impossible [13] |
 | Observe beyond the cosmological horizon | Provably impossible (causal partition) |
 | Build faster computers | Structurally possible (derived physics permits it) |
 | Replace a visible process with nonzero conditional memory by a faithful memoryless (Markov) model at the same horizon | Provably impossible ([Main §3.4]) |
@@ -320,3 +320,5 @@ The author thanks the broader community of foundational thinkers in quantum comp
 [11] V. V. Shende, S. S. Bullock, and I. L. Markov, "Synthesis of quantum-logic circuits," *IEEE Trans. Computer-Aided Design* **25**, 1000 (2006); arXiv:quant-ph/0406176.
 
 [12] G. Kuperberg, "A subexponential-time quantum algorithm for the dihedral hidden subgroup problem," *SIAM J. Comput.* **35**, 170 (2005); arXiv:quant-ph/0302112.
+
+[13] T. Breuer, "The impossibility of accurate state self-measurements," *Philosophy of Science* **62**, 197–214 (1995).

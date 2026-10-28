@@ -356,7 +356,7 @@ with multiplicities $(1, 2, 3, 6)$, producing additional factor structure (the d
 
 Among the three cubic Bravais lattices, only $cP$ produces the Standard Model gauge group multiplicities exactly.
 
-*Step 3 (the link count excludes BCC alternatives, given H-link).* A potential ambiguity: BCC's six *next-nearest neighbors* (along the axial directions $\pm a\hat{e}_i$) produce a character identical to SC's nearest-neighbor character, and would therefore decompose as $A_1 \oplus E \oplus T_1$ with the same SM multiplicities. The framework's nearest-neighbor restriction (an assumption beyond bounded coupling) rules out this alternative — BCC's axial directions are next-nearest rather than nearest, and the nearest-neighbor restriction excludes them.
+*Step 3 (the link count excludes BCC alternatives, given H-link).* A potential ambiguity: BCC's six *next-nearest neighbors* (along the axial directions $\pm a\hat{e}_i$) produce a character identical to SC's nearest-neighbor character, and would therefore decompose as $A_1 \oplus E \oplus T_1$ with the same SM multiplicities. The framework's nearest-neighbor restriction rules out this alternative — BCC's axial directions are next-nearest rather than nearest, and the nearest-neighbor restriction excludes them.
 
 *Step 4 (Bravais commitment excludes alternatives).* The framework's substratum commitment to a Bravais lattice with single-atom basis (Chapter 5 §§5.2-5.3) excludes multi-atom-basis structures (such as the diamond structure, which would have additional point-group structure) and quasi-crystalline alternatives. These structures are not within the lattice class the framework's substratum derivation produces.
 

@@ -44,6 +44,25 @@ The verified corrections the classification rests on:
   of the hypercharge, the Juno "Gauge group (commutant)" table row, the Structure "classifies" sites, the
   appendix-b B.6c per-generation anomaly step, and ch19:224.
 - `papers/Main.md` is identical to `0d917665` (G6).
+- After independent review, the following edits were made.
+  - Propagation completed:
+    - the subsumed-candidate sentence in Methodology;
+    - the nearest-neighbour premise at Juno and wherever SU(3) is said to select simple cubic (Explainer, Substratum, ch19);
+    - "from the commutant" at the remaining Substratum and Structure sites;
+    - the nonzero-$Y_Q$ branch in ch00 and ch05;
+    - the Stage-2 uniqueness qualifiers in ch02;
+    - the generator-(i) proof in ch02;
+    - Complexity §5.2, which rests on the definition of $\mathcal{G}_{\text{sub}}$ rather than on completeness;
+    - SM Theorem 3's opposite-parity hopping premise and its two directional kernel witnesses (§A.34);
+    - a numbered reference for Breuer 1995 in Computation.
+  - Two added clauses were corrected:
+    - Substratum §3, where $\mathcal{G}_{\text{sub}}$ relates equivalent realizations by definition;
+    - Structure, where the completeness converse is stated for generators (i)–(iv).
+  - Reverted to the old text:
+    - the GR §2 premise;
+    - the ch12 theorem name;
+    - an appendix-b parenthesis;
+    - the Methodology "classified" wording at five sites.
 
 ## Files
 
