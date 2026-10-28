@@ -2493,7 +2493,7 @@
       "line": 188,
       "kind": "Lemma",
       "label": "23.0",
-      "fingerprint": "fd8439a8bd3f7ee1",
+      "fingerprint": "3879e07173b7caf4",
       "area": "reconstruction",
       "assumptions": "see the statement",
       "checks": [],
@@ -2507,7 +2507,7 @@
       "line": 192,
       "kind": "Theorem",
       "label": "23",
-      "fingerprint": "edee2c24a12d8d8a",
+      "fingerprint": "30d589368f7af663",
       "area": "reconstruction",
       "assumptions": "see the statement",
       "checks": [],
@@ -2521,7 +2521,7 @@
       "line": 250,
       "kind": "Theorem",
       "label": "24",
-      "fingerprint": "0eed8d062caa6e2c",
+      "fingerprint": "2c713df281279b16",
       "area": "reconstruction",
       "assumptions": "see the statement; family (ii) under the alphabet-size hypothesis of SM §2.7",
       "checks": [],
@@ -2544,18 +2544,35 @@
       "note": ""
     },
     {
-      "id": "SUBSTRATUM:L-24.1",
+      "id": "SUBSTRATUM:P-24.2",
       "paper": "papers/Substratum.md",
-      "line": 272,
-      "kind": "Lemma",
-      "label": "24.1",
-      "fingerprint": "86db2ddcb8767cd0",
+      "line": 273,
+      "kind": "Proposition",
+      "label": "24.2",
+      "fingerprint": "fdb3b83d326656af",
       "area": "reconstruction",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
+      "assumptions": "equal finite visible and hidden index sets; block-word trace equality for all finite words; full hidden-matrix block spanning on source",
+      "checks": [
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/WordTraceSufficiency.lean",
+          "names": [
+            "WT2gen_oneSided",
+            "WT3_spanning_iff",
+            "blockSpanning_of_wordTracesEqual"
+          ]
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/SemigroupTransfer.lean",
+          "names": [
+            "trace_wordEval_hiddenConjugate"
+          ]
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "The displayed same-carrier block-word rigidity biconditional is kernel proved with both directions separately named. The result does not follow from equality of visible single-time channels; ST3_pairC provides a counterexample to that old transfer claim. It does not prove that the exhibited substratum gauge generators are complete, nor that a hidden unitary is an allowed finite-state relabelling. This row replaces the false and retired manuscript Lemma 24.1 entry, not its research-round history."
     },
     {
       "id": "GR:T-bohr-frequency-completeness",
