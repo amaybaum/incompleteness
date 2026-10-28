@@ -56,10 +56,21 @@ Planning issue #985, opened by `amaybaum` at 2026-10-28T07:14:11Z, records the o
 > - **WD1** examines four distinct statements, as its detailed specification says. The conflicting reference to "three" (legacy prereg :390, :421) is recorded as a discrepancy.
 > - **Independence:** this round and SUB-241C-SPAN must not use each other's results as premises.
 
-Three further owner decisions of 2026-10-28 accompany the approval: governed paths limited to the
-record directory, the receipt and the `ROADMAP`/`README` pointers, with no Lean, guard clause, seal record,
-certificate or `control-plane-preconditions` block (§A.39); a checkpoint for every stated invariant (§A.41); and a
-start-state note that the quoted objects have drifted at `main`. Where each is encoded:
+A comment on #985 (id 6463778359), posted by `amaybaum` at 2026-10-28T07:58:09Z, records word for word the owner's
+decisions 5 and 6, given that day in the coordinating session, for this round and SUB-241C-SPAN. Quoted in part:
+
+> 5. Writing permission — approved. […] Before `F`, only the respective round's control-plane files may change on its native PR branch. Keep research calculations and exploratory work on separately linked branches. Neither old freeze may be edited.
+>
+> 6. Branch-local reconciliation `Λ` — approved as a specific exception. The standing no merges rule continues to prohibit merging either PR into `main`. It does not prohibit the V3-required reconciliation merge on that round's own branch after a designated `E`. […] This approval does not authorize arbitrary branch merges, force-pushes, or merging `Q` to `main`.
+>
+> The approvals above authorize preparation and drafting, not `F` designation, `E` designation or any `workflow_dispatch`. […]
+>
+> Most importantly, 24.1B and 24.1C must not contaminate each other's evidence. They may proceed in parallel, but neither result may become an unstated premise of the other's frozen decision.
+
+Three requirements are carried with them: governed paths limited to the record directory, the receipt and the
+`ROADMAP`/`README` pointers, with no Lean, guard clause, seal record, certificate or `control-plane-preconditions`
+block (§A.39); a checkpoint for every stated invariant (§A.41); and a start-state note that the quoted objects have
+drifted at `main`. Where each is encoded:
 
 | decision | encoded in |
 | --- | --- |
@@ -70,6 +81,7 @@ start-state note that the quoted objects have drifted at `main`. Where each is e
 | 5. independence from SUB-241C-SPAN and any 24.1C result | *Independence*; checks `N4`, `N14` |
 | 6. governed paths | the `v3-governed-paths` block; checks `T5`, `T6`; the verifier at `Q` |
 | 7. every invariant measured | *Invariants and their checkpoints* |
+| no merge into `main`; `Λ` branch-local only (comment 6463778359, decision 6) | *The protocol*; the invariant row on the round's records |
 
 ## The frozen round, quoted
 
@@ -551,9 +563,16 @@ required, and what carries each requirement here:
 
 The freeze's definition budget (zero), its evidence level (type P, no axiom table) and its non-doings stand
 unchanged, and they agree with the governed-path block: no Lean module, guard, probe or manuscript path is
-governed. Issue #985 lists the owner's touchpoints: the exact-head dispatch and the designation at `F` and at
-`E`, and the branch-local reconciliation `Λ` after `E`. How the round's commits reach `main` is outside its
-validity (`S10`).
+governed. Issue #985 lists the owner's touchpoints: the exact-head dispatch and the designation at `F` and at `E`,
+and the branch-local reconciliation `Λ` after `E`; and it records that the pull request is not merged into `main`.
+How the round's commits reach `main` is outside its validity (`S10`): `tools/v3_verifier.py --verify-round Q`
+decides the round wherever `Q` lies. Until a commit reachable from `main` reaches `Q`, the round's record, receipt
+and pointers exist only on the round's branch: its finding is provenance and not an enduring claim (§A.42 items
+1–3), so no manuscript, round or record on `main` rests on it; the release gate on `main` does not verify its
+receipt, and `G13` does not protect its record there; and the branch `v3/sub-241b-obs` is not deleted (§A.42 item
+5). Making the record durable is a separate publication of `Q` to `main`, authorized by the owner and not part of
+this round: a merge whose tree keeps the record directory and the receipt exactly as at `Q`, or a further
+reconciliation and receipt commit (`G11`) followed by a fast-forward.
 
 ## Evidence base and start state
 
@@ -593,9 +612,10 @@ neither pull request's content is a premise here.
 
 No premise of this round comes from SUB-241C-SPAN or from any 24.1C result. The evidence base was fixed at
 `445701c7`, whose tree holds no 24.1C object, and no evidence quotation or search may cite anything outside it
-(`N4`). No section of the result note other than its start state names 24.1C or SUB-241C-SPAN (`N14`), and the
-start state carries the sentence that opens this section, verbatim (`N14`). The non-verdict section quotes no path
-of a 24.1C record (`N4`). This control plane was drafted without reading the sibling round's record.
+(`N4`). No section of the result note other than its start state names 24.1C or SUB-241C-SPAN, in its text or in
+any block (`N14`), and the start state carries the sentence that opens this section, verbatim (`N14`). The
+non-verdict section quotes no path of a 24.1C record (`N4`). This control plane was drafted without reading the
+sibling round's record.
 
 ## Discrepancies of the freeze, recorded and not repaired
 
@@ -648,8 +668,10 @@ of a 24.1C record (`N4`). This control plane was drafted without reading the sib
 - **R5 — act 14 at each mention.** The clause is carried "verbatim wherever act 14 is named" (:128–129). This is
   measured per section: a section of the result note that names act 14, or cites its blob, contains the clause
   verbatim (`N11`).
-- **R6 — strength per determination.** Each target section records at least one strength line, and each such line
-  carries one of the frozen four values (`N6`).
+- **R6 — strength per determination.** The freeze records strength per determination (:123), not per target. Each
+  determination in the result note carries its own strength line, so each target section carries at least one, each
+  with one of the frozen four values (`N6`). That every determination has its strength, and that a passage naming a
+  thing without displaying it is at most `medium` (:124), is checked by the reviewer at `E`.
 
 ## The non-verdict section
 
@@ -662,8 +684,8 @@ separately, without changing the frozen verdict. The result note's section **Bea
 2. It carries no outcome, evidence, strength, quantifier or field line, and no evidence quotation or search
    (`N4`, `N16`). It may carry analysis quotations from the evidence base and context quotations.
 3. A context quotation names a commit that descends from `D`, a path and lines, and is checked verbatim there
-   (`N3`); the commit is reachable from `main` when the note lands (§A.42 item 3; reviewer). It never quotes a path
-   of a 24.1C record (`N4`).
+   (`N3`); the commit is reachable from `main` when `E` is designated (§A.42 item 3; the reviewer at `E`). It never
+   quotes a path of a 24.1C record (`N4`).
 4. SC-44 (#980), SC-45 (#981) and any later manuscript change enter only as context: by number, or by a context
    quotation of a commit on `main`. None is a premise of any target.
 5. Nothing in it moves a target's outcome or strength, the post-round sentence, or the `P1` label.
@@ -675,7 +697,8 @@ section), a line beginning `## ` opens a section and a line beginning `### ` a s
 these, in this order:
 
 1. `## Start state` — the pin and freeze checks, the start-state note, and the independence sentence
-   (*Independence*).
+   (*Independence*). A start state that names act 14's pin by its path (`act-14-threading-observability`) or its
+   blob names act 14, and so carries the act 14 clause as well (`N11`).
 2. `## WD0`, `## WD1`, `## WD1-q`, `## WD2`, `## WD2-q`, `## WD3`, `## WD4` — the targets.
 3. `## Discrepancies` — the freeze's discrepancies (X1 among them) and any the execution finds.
 4. `## Post-round sentence` — the one frozen sentence, verbatim (blockquote markers and line breaks are
@@ -732,7 +755,7 @@ throughout: no Lean is written, no target is at evidence level 2, there is no ax
 `controls.py`, committed at stage 1 at
 `verification/programmes/substratum/round-sub-241b-observables-v3/controls.py`. Its text is the body of the one
 fenced block of this file whose opener is three backticks followed by `python` (*The frozen `controls.py`*),
-followed by one LF. The frozen blob of `controls.py` is `63e9e9c26488836ca4fbeb4c056aaebc46bac15b`.
+followed by one LF. The frozen blob of `controls.py` is `ddf80e63dcef87f15ceb9e47b70543940df5cd0b`.
 
 Extraction, from the repository root, with `F` the designated commit:
 
@@ -751,9 +774,9 @@ sentences are read from blob `f614b666` itself, at the lines named above, not fr
 | `T2` | the control-plane files at `E` are exactly those at `F`; the preregistration at `F` names the controls blob once; `controls.py` at `E` and the running file are that blob |
 | `T3` | the legacy file is blob `f614b666` at `445701c7`, at `F` and at `E` |
 | `T4` | `445701c7` is an ancestor of `D`, and each of the nine paths holds its pinned blob there |
-| `T5` | every path of `delta(F, E)` lies in the record directory or is one of the two execution paths; `result.md` and `controls.py` are present at `E` |
+| `T5` | every path of `delta(F, E)` lies in the record directory or is one of the two execution paths; the record directory at `E` holds no file other than the control-plane files at `F`, `result.md` and `controls.py`, and the last two are present |
 | `T6` | in `delta(F, E)` the two execution paths only gain lines, and the added text carries no post-round sentence |
-| `T7` | every `quote` block of the preregistration at `F` cites `f614b666` and is verbatim at its lines |
+| `T7` | the preregistration at `F` carries exactly three `quote` blocks, of `f614b666` lines 3–349, 351–365 and 367–438 in that order, and each block's body is exactly those lines |
 | `N1` | the title and the twelve sections, in order |
 | `N2` | every fence closed and every info string well formed |
 | `N3` | every quotation verbatim with tight coordinates; context commits descend from `D` |
@@ -767,24 +790,26 @@ sentences are read from blob `f614b666` itself, at the lines named above, not fr
 | `N11` | the act 14 clause in each section naming act 14 |
 | `N12` | the analysis label beside each analysis quotation |
 | `N13` | no forbidden sentence outside quotation and the frozen sentence |
-| `N14` | no 24.1C or SUB-241C-SPAN reference outside the start state; the independence sentence in the start state |
+| `N14` | no 24.1C or SUB-241C-SPAN reference outside the start state, in text or in any block's info string or body; the independence sentence in the start state |
 | `N15` | the type-P sentence |
-| `N16` | the non-verdict section's disclaimer and no structural line in it |
+| `N16` | the non-verdict section's disclaimer and no structural line in it, list and quote markers ignored |
 | `N17` | the discrepancy section quotes the freeze at :160, :390, :420, :421 and :433 |
 
-**The self-test** builds a valid note for each of the three outcomes from the real frozen blobs, and 34 mutations
-of the `WD3-no` note, each of which must fail at exactly its named checks: an altered, shifted or widened quotation,
-a quotation from outside the evidence base, act 14 as evidence or searched, a search count off by one, a missing
-strength, an extra outcome, a non-P evidence line, reordered statements, a quantifier outside the three, `WD3-no`
-over each missing requirement and over an unsettled all-partitions quantifier, `WD3-yes` without its requirement,
-the sentence twice, misplaced or for another outcome, act 14 named without the clause, a forbidden sentence, a
-24.1C premise, a missing independence, type-P, disclaimer or analysis label, a structural line in the non-verdict
-section, a target with no quotation, an unquoted discrepancy line, an extra section, an unclosed fence and a
-misplaced context quotation. In scratch repositories it builds `D`, `F` and `E` and 12 mutations of `E` or `F`: a
-manuscript changed, a pointer line removed, the preregistration changed or an amendment added after `F`, a merge in
-`F..E`, `E` not descending from `F`, the legacy file changed, `controls.py` not the frozen blob, the result note
-absent, the post-round sentence in the `ROADMAP`, a pin that does not match, and a non-verbatim quotation of the
-freeze. It prints `controls: self-test OK (53 cases)`.
+**The self-test** builds a valid note for each of the three outcomes from the real frozen blobs, and 37 mutations
+of the `WD3-no` note, each of which must fail at exactly its named checks: an altered, shifted or widened
+quotation, a quotation from outside the evidence base, act 14 as evidence or searched, a search count off by one, a
+missing strength, an extra outcome, a non-P evidence line, reordered statements, a quantifier outside the three, a
+`WD3` outcome outside the three tokens, `WD3-no` over each missing requirement and over an unsettled all-partitions
+quantifier, `WD3-yes` without its requirement, the sentence twice, misplaced or for another outcome, act 14 named
+without the clause, a forbidden sentence, a 24.1C premise in text or inside a block, a missing independence,
+type-P, disclaimer or analysis label, a structural line in the non-verdict section, plain or list-marked, a target
+with no quotation, an unquoted discrepancy line, an extra section, an unclosed fence and a misplaced context
+quotation. In scratch repositories it builds `D`, `F` and `E`, with `F` quoting the three frozen spans in full, and
+15 mutations of `E` or `F`: a manuscript changed, a pointer line removed, the preregistration changed or an
+amendment added after `F`, a merge in `F..E`, `E` not descending from `F`, the legacy file changed, `controls.py`
+not the frozen blob, the result note absent, an extra file in the record directory, the post-round sentence in the
+`ROADMAP`, a pin that does not match, and the quotation of the freeze not verbatim, truncated or missing a frozen
+span. It prints `controls: self-test OK (59 cases)`.
 
 ## Invariants and their checkpoints (§A.41)
 
@@ -810,9 +835,10 @@ freeze. It prints `controls: self-test OK (53 cases)`.
 | the non-verdict section changes no verdict | `N4`, `N16` at `E` |
 | the "three"/"four" discrepancy recorded | `N17` at `E` |
 | the pointers only add lines; no label moves | `T6` at `E` |
-| predictions are not amended | `T2` (this file unchanged after `F`); the result note records any promotion (:277–278) |
+| predictions are not amended | `T2` (this file unchanged after `F`) |
+| the freeze's reviewer-checked requirements: strength recorded per determination, at most `medium` for a passage that names a thing without displaying it (:123–124); no act 14 carrier written as a candidate for `O_set`, nor `O_set` as such a carrier (:141–142); the `WD4` candidates checked, not assumed (:253–256); `ST3`/`ST4` consumed as established and unrevised (:197–199); a partition-quantifier obstruction named in the frozen terms and no others (:315–320); any landing above a predicted strength recorded with its reason (:277–278); and the checks the final report owes for hazards 1, 2 and 7 (:142, :383–384, :399–400) | the reviewer at `E`, item by item against the frozen text, with a verdict per item on the pull request |
 | every stage requirement can be met from `F` (no checkpoint `F` cannot satisfy) | precondition 2 at candidate `F` |
-| the round's records hold | `v3_verifier.py --verify-round Q` prints `VERDICT  HOLDS`; `--receipts` in the release gate |
+| the round's records hold | `tools/v3_verifier.py --verify-round Q` prints `VERDICT  HOLDS`; `--receipts` in the release gate of the pull request's run at its head; on `main` only once `Q` is published there (*The protocol*) |
 | a reconciliation adds exactly the execution's own changes | the verifier at `Q` (`S9`); the reviewer compares the landing with `delta(F, E)` (§A.39 item 3) |
 | no push starts a governed launch | before each push, the push-triggered workflows and their filters are read against the branch and paths, with the result on the pull request (§A.43 item 4) |
 
@@ -834,8 +860,9 @@ freeze. It prints `controls: self-test OK (53 cases)`.
 - **`SUB-241B-OBS-READ`** when stage 3's acceptance holds. The round's finding is then the `WD3` outcome the note
   records — `WD3-yes`, `WD3-no` or `WD3-UNDECIDED` — with its frozen sentence, and each target's outcome at its
   recorded strength.
-- **`SUB-241B-OBS-HALTED`** otherwise (`S12`): a withdrawal commit restores both execution paths to their state at
-  `F`, and the result note names the failing check or job.
+- **`SUB-241B-OBS-HALTED`** otherwise (`S12`): when execution commits exist, a withdrawal commit restores both
+  execution paths to their state at `F`; when none exist, a single-parent child of `F` that changes only record
+  paths takes its place. Either carries the result note, which names the failing check or job.
 
 No outcome edits a manuscript, the legacy record or another round's record, or moves the `P1` label. The round is
 consistency-axis work: correctness bands are unchanged by either outcome.
@@ -845,7 +872,7 @@ consistency-axis work: correctness bands are unchanged by either outcome.
 `F` is not designated until all four hold:
 
 1. **The controls, as frozen.** At candidate `F`, `controls.py` extracted by the recipe has the frozen blob, and its
-   `--self-test` prints `controls: self-test OK (53 cases)`. `T7` holds at candidate `F`. Run locally; the commands
+   `--self-test` prints `controls: self-test OK (59 cases)`. `T7` holds at candidate `F`. Run locally; the commands
    and output are recorded on the pull request.
 2. **A mock execution.** A mock `C1` and a mock `E` are built from candidate `F` in a temporary object directory,
    with no ref: `E` adds the extracted `controls.py`, a result note built by the self-test's valid-note generator
@@ -942,6 +969,7 @@ SENTENCE_LINES = {'WD3-no': (289, 298), 'WD3-yes': (302, 306), 'WD3-UNDECIDED': 
 CLAUSE_LINES = (131, 134)
 FORBIDDEN_LINES = ((325, 328), (340, 340))
 DISCREPANCY_LINES = (160, 390, 420, 421, 433)
+ADOPTED_SPANS = ((3, 349), (351, 365), (367, 438))
 TYPE_P = ('This round is type P throughout: no Lean is written, no target is at evidence level 2, '
           'there is no axiom table and there is no `#print axioms` line.')
 INDEPENDENCE = 'No premise of this round comes from SUB-241C-SPAN or from any 24.1C result.'
@@ -1341,6 +1369,8 @@ def note_checks(git, text, fz):
     # N14 independence
     f = ['section %r' % s for s in [''] + n.order if s != 'Start state'
          and INDEP.search(n.text(s))]
+    f += ['block at line %d' % b['line'] for b in n.blocks if b['section'] != 'Start state'
+          and INDEP.search(b['info'] + '\n' + '\n'.join(b['body']))]
     if INDEPENDENCE not in norm(n.text('Start state')):
         f.append('the independence sentence is absent from the start state')
     put('N14', f)
@@ -1349,7 +1379,7 @@ def note_checks(git, text, fz):
     # N16 the contemporary section
     f = [] if DISCLAIMER in norm(n.text(CONTEMPORARY)) else ['the disclaimer is absent']
     f += ['structural line %r' % ln for ln in n.lines(CONTEMPORARY)
-          if ln.startswith(STRUCTURAL_PREFIXES)]
+          if ln.lstrip('-*> \t').startswith(STRUCTURAL_PREFIXES)]
     put('N16', f)
     # N17 discrepancies quote both counts
     cov = [args for b, k, args in good if k == 'quote' and b['section'] == 'Discrepancies'
@@ -1401,6 +1431,9 @@ def tree_checks(git, e, f, own, d=D, b0=B0, pins=PINS):
     # T5 scope
     fl = [p for p in git.changed(f, e) if not (p.startswith(RDIR) or p in EXEC_PATHS)]
     fl += [p for p in (NOTE, CONTROLS) if git.at(e, p) is None]
+    allowed = set(cp(f)) | {NOTE, CONTROLS}
+    fl += ['%s: not a file of the record directory' % p for p in git.files(e, RDIR)
+           if p not in allowed]
     res.append(('T5', fl))
     # T6 pointers: additions only, and never the post-round sentence
     fl = []
@@ -1417,15 +1450,19 @@ def tree_checks(git, e, f, own, d=D, b0=B0, pins=PINS):
         if any(s in added for s in fz['sentences'].values()):
             fl.append('%s: carries a post-round sentence' % p)
     res.append(('T6', fl))
-    # T7 the preregistration's quotations of the legacy freeze are verbatim
+    # T7 the preregistration quotes the legacy freeze completely: exactly the frozen spans, each
+    # block's body equal to those lines
     pre = Note(git.blob(git.at(f, PREREG) or '') or '')
     quotes = [b for b in pre.blocks if kind(b) == 'quote']
-    fl = [] if quotes else ['no quotation of the legacy freeze']
-    for b in quotes:
-        args = block_args(b)[1]
-        if args is None or args[0] != LEGACY or not verbatim(git.lines(LEGACY), args[1], args[2],
-                                                             b['body']):
-            fl.append('preregistration line %d' % b['line'])
+    spans = [block_args(b)[1] for b in quotes]
+    fl = []
+    if None in spans or [s[0] for s in spans] != [LEGACY] * len(spans) \
+            or [(s[1], s[2]) for s in spans] != list(ADOPTED_SPANS):
+        fl.append('quote spans %r' % ([s[1:] if s else None for s in spans],))
+    else:
+        legacy = git.lines(LEGACY) or []
+        fl += ['preregistration line %d: body is not lines %d-%d' % (b['line'], s[1], s[2])
+               for b, s in zip(quotes, spans) if b['body'] != legacy[s[1] - 1:s[2]]]
     res.append(('T7', fl))
     return res
 
@@ -1606,12 +1643,18 @@ def note_mutations(git):
          {'N11'}),
         ('forbidden sentence', lambda t: insert(t, 'WD3', 'Thus Theorem 24 is false.\n'), {'N13'}),
         ('a 24.1C premise', lambda t: insert(t, 'WD2', 'By the 24.1C result, so.\n'), {'N14'}),
+        ('a 24.1C reference inside a block', lambda t: insert(
+            t, 'WD2', '%stext\nper the 24.1C result\n%s\n' % (FENCE, FENCE)), {'N14'}),
+        ('WD3 outcome outside the three tokens',
+         lambda t: t.replace('Outcome: WD3-no', 'Outcome: WD3-maybe'), {'N8', 'N9', 'N10'}),
         ('independence sentence missing', lambda t: t.replace(INDEPENDENCE, ''), {'N14'}),
         ('post-round sentence outside its section',
          lambda t: insert(t.replace(sent_no + '\n', '', 1), 'WD3', sent_no + '\n\n'), {'N10'}),
         ('type-P sentence missing', lambda t: t.replace(TYPE_P, ''), {'N15'}),
         ('structural line in the contemporary section',
          lambda t: insert(t, CONTEMPORARY, 'Strength: high\n'), {'N16'}),
+        ('listed structural line in the contemporary section',
+         lambda t: insert(t, CONTEMPORARY, '- **Outcome:** read\n'), {'N16'}),
         ('discrepancy line 421 not quoted', lambda t: t.replace(q421, ''), {'N17'}),
         ('disclaimer missing', lambda t: t.replace(DISCLAIMER, ''), {'N16'}),
         ('a target carried by no quotation', unquoted_wd4, {'N6'}),
@@ -1667,10 +1710,14 @@ def tree_cases(real, own):
                 'verification/ROADMAP.md': b'a\nb\n', 'verification/README.md': b'r\n'}
         b0 = commit(base, [])
         d = commit(dict(base, **{'papers/P.md': b'drifted\n'}), [b0])
-        quote = qb(real, LEGACY, 160)
-        pre = ('# p\n\nThe frozen blob of `controls.py` is `%s`.\n\n%s'
-               % (blob_id(own), quote)).encode()
+        third = qb(real, LEGACY, *ADOPTED_SPANS[2])
+        quotes = ''.join(qb(real, LEGACY, a, b) for a, b in ADOPTED_SPANS[:2]) + third
+        head = '# p\n\nThe frozen blob of `controls.py` is `%s`.\n\n' % blob_id(own)
+        pre = (head + quotes).encode()
         bad = pre.replace(b'four', b'three', 1)
+        cut = third.split('\n')
+        truncated = (head + quotes.replace(third, '\n'.join(cut[:-3] + cut[-2:]))).encode()
+        missing = (head + quotes.replace(third, '')).encode()
         fc = dict(base, **{'papers/P.md': b'drifted\n', PREREG: pre})
         f = commit(fc, [d])
         ec = dict(fc, **{CONTROLS: own, NOTE: b'note\n', 'verification/ROADMAP.md': b'a\nb\nc\n'})
@@ -1684,7 +1731,7 @@ def tree_cases(real, own):
             ('preregistration changed after F', commit(dict(ec, **{PREREG: pre + b'x\n'}), [f]),
              {'T2'}),
             ('an amendment after F', commit(dict(ec, **{RDIR + 'amendments/a.md': b'a\n'}), [f]),
-             {'T2'}),
+             {'T2', 'T5'}),
             ('a merge in F..E', commit(ec, [f, d]), {'T1'}),
             ('E not a descendant of F', commit(ec, [d]), {'T1'}),
             ('the legacy freeze changed', commit(dict(ec, **{LEGACY_PATH: b'x\n'}), [f]),
@@ -1693,6 +1740,8 @@ def tree_cases(real, own):
              {'T2'}),
             ('the result note absent', commit({k: v for k, v in ec.items() if k != NOTE}, [f]),
              {'T5'}),
+            ('an extra file in the record directory',
+             commit(dict(ec, **{RDIR + 'scratch.txt': b'x\n'}), [f]), {'T5'}),
             ('the post-round sentence in the ROADMAP',
              commit(dict(ec, **{'verification/ROADMAP.md': b'a\nb\n' + sent + b'\n'}), [f]),
              {'T6'}),
@@ -1708,6 +1757,12 @@ def tree_cases(real, own):
         got = {c for c, fl in tree_checks(g, e2, f2, own, d, b0, pins) if fl}
         out.append(('tree: a quotation of the freeze not verbatim', bad != pre and got == {'T7'},
                     got))
+        for label, alt in (('truncated', truncated), ('missing a frozen span', missing)):
+            f3 = commit(dict(fc, **{PREREG: alt}), [d])
+            e3 = commit(dict(ec, **{PREREG: alt}), [f3])
+            got = {c for c, fl in tree_checks(g, e3, f3, own, d, b0, pins) if fl}
+            out.append(('tree: the quotation of the freeze ' + label,
+                        alt != pre and got == {'T7'}, got))
     return out
 
 
