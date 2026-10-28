@@ -4,11 +4,10 @@ Construction per journal §B.2.575 b1_v3 (large alphabet q=2^16 so delta=1 is
 infinitesimal-like; cone-restricted per-site circular RMS; 3 seeds), with an
 AUTO-SELECTED exponential window replacing the hand-tuned one (the hand window
 assumed slow growth and finds zero points when divergence is fast).
-CLAIM VERIFIED (Main, Bell section): lambda_max > 0 — chaotic mixing of the
-discretization nonlinearity. The QUANTITATIVE rate is ensemble/spec-dependent
-(RESULTS.md §B1: the specific SM-241 value 0.0092 was not replicated; Main's
-text states the rate as ensemble-dependent accordingly). PASS = lambda_max > 0
-with growth to saturation on every seed.
+Reproduces the two-trajectory separation of SM §4.2: the auto-window rates are
+set by where the window meets a boundary-triggered jump (SC-34 diagnostic s8)
+and are not Lyapunov exponents (RESULTS.md §B1: the historical value 0.0092 was
+not replicated). PASS = growth to saturation on every seed.
 """
 import numpy as np
 L,q,T = 20, 1<<16, 400
@@ -38,5 +37,5 @@ for seed in (1,2,3):
     reached=rms.max()>sat/2
     lams.append(lam); ok &= (lam>0) and reached
     print(f"seed {seed}: lambda={lam:.4f}/step (window {w.sum()} pts); saturation reached: {reached}")
-print(f"\nlambda_max = {np.mean(lams):.4f} +/- {np.std(lams):.4f} per step "
-      f"-> {'PASS: lambda_max > 0 (chaotic); rate ensemble-dependent per RESULTS.md' if ok else 'FAIL'}")
+print(f"\nfitted rate = {np.mean(lams):.4f} +/- {np.std(lams):.4f} per step "
+      f"-> {'PASS: growth to saturation on every seed (fitted rates are window-dependent; SM §4.2)' if ok else 'FAIL'}")
