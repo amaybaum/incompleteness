@@ -23,6 +23,29 @@
    0  This is what makes the CC dissolution work
    0  turn out to be category errors (cosmological constant,
    0  But gravity is sourced by the classical Hamiltonian
+   0  requires the geometry-first ordering established in §6.2
+   0  *Under Lemmas 1–3 and conditions (C1)–(C4), the cosmological trace-out
+   0  The total dark sector budget is established by §7.2
+   0  \Omega_\Lambda \approx 95\%$ | consistent |
+   0  predates the trace-out (does gravitate)
+   0  the boundary entropy: gravitationally active
+   0  This track record is itself evidence for the ordering
+   0  it's existing evidence, not a future hope
+   0  Because, on the framework's proposal, the spacetime metric
+   0  the gauge status of the uniform vacuum offset
+   0  (Chapter 7 §7.6, via the reconstruction theorem's energy-shift freedom)
+   0  The uniform component is dark energy; the structured component
+   0  concordance rather than puzzle — though the total fraction is partly definitional
+   0  The remaining ~95% is boundary entropy — gravitationally active
+   0  The dark sector of cosmological observation is the gravitational effect
+   0  The dark sector is the gravitational weight of the unreadable storage
+   0  The dark sector is the gravitational effect of the unreadable storage
+   0  *by theorem*; its uniform component is dark energy
+   0  so roughly ninety-five percent of the critical density is invisible to every embedded observer
+   0  in the flagship case, its energetic content
+   0  The framework predicts that dark energy is the uniform component
+   0  The dark-sector corollary predicts that ~95%
+   0  The dark-sector corollary explains ~95%
 2. chapter/FULL mirror (counts must match and be >= 1)
    ok  1/1  book/ch07-gravity.md: ## 7.7 The cosmological constant: descriptive distinction and conditio
    ok  1/1  book/ch07-gravity.md: its covariant field equations and their source coupling are the open G
@@ -30,14 +53,22 @@
    ok  1/1  book/ch07-gravity.md: The framework's geometry-first proposal converges
    ok  1/1  book/ch07-gravity.md: convergence with the framework's geometry-first proposal
    ok  1/1  book/ch07-gravity.md: while on Section 7.7's proposal, conditional on the coupling step,
+   ok  1/1  book/ch07-gravity.md: (on the same proposal, does gravitate)
+   ok  1/1  book/ch07-gravity.md: Conditional on the coupling step, the two are not commensurable as gra
+   ok  1/1  book/ch03-structural-realism.md: on the geometry-first proposal, the dark sector is the gravitational e
+   ok  1/1  book/ch03-structural-realism.md: so it is invisible to every embedded observer *by theorem*; on the geo
+   ok  1/1  book/ch03-structural-realism.md: a dimensional factor $1/6$ imported from Verlinde (Chapter 7 §§7.8–7.9
+   ok  1/1  book/ch03-structural-realism.md: in the flagship case and conditional on the open coupling step, its en
    ok  1/1  book/ch00-introduction.md: the descriptive distinction behind a dissolution of the cosmological c
    ok  1/1  book/ch00-introduction.md: combining the conditional CC dissolution
+   ok  1/1  book/ch02-substratum.md: On the geometry-first proposal, the dark sector of cosmological observ
    ok  1/1  book/ch02-substratum.md: a reading on which the problem dissolves conditional on the open coupl
    ok  1/1  book/ch09-universality.md: the dark sector budget as a partly definitional concordance
    ok  1/1  book/ch09-universality.md: partly definitional ($1-\Omega_B$ by construction) | Ch 7 §7.9 |
    ok  1/1  book/ch09-universality.md: (conditional cosmological constant dissolution,
    ok  1/1  book/ch09-universality.md: levels (Chapter 7 §7.7), so that,
-   ok  1/1  book/ch09-universality.md: ([Main §3.4]; [GR §8.3])
+   ok  2/2  book/ch09-universality.md: ([Main §3.4]; [GR §8.3]),
+   ok  1/1  book/ch09-universality.md: another ([Main §3.4]; [GR §8.3]), which is why
    ok  1/1  book/ch09-universality.md: gauge outright for every quantum statistic and, conditional on the cou
    ok  1/1  book/ch18-beyond.md: **The first conditional dissolution: the cosmological constant.**
    ok  1/1  book/ch18-beyond.md: On that reading, and conditional on the coupling step, the ratio is no
@@ -46,40 +77,61 @@
    ok  1/1  book/ch19-open-problems.md: Conditional on that step, the two energy scales
    ok  1/1  book/ch19-open-problems.md: **Framework status.** Partly definitional (the total fraction is $1-\O
    ok  1/1  book/ch19-open-problems.md: The framework supplies the total budget, partly by definition;
-   ok  1/1  book/ch19-open-problems.md: | Partly definitional ($1-\Omega_B$ by construction) | Ch 7 §7.9 |
+   ok  1/1  book/ch19-open-problems.md: | Partly definitional ($1-\Omega_B$ by construction); physical interpr
+   ok  1/1  book/ch19-open-problems.md: the physical interpretation is conditional on the coupling step.
+   ok  1/1  book/ch19-open-problems.md: On the geometry-first proposal, the uniform component is dark energy
+   ok  1/1  book/ch19-open-problems.md: The framework predicts, on the geometry-first proposal, that dark ener
    ok  1/1  book/ch19-open-problems.md: The conditional cosmological constant dissolution, the measurement pro
    ok  1/1  book/appendix-c-objections.md: the status of each — proved, conditional or open — is recorded with it
    ok  1/1  book/appendix-c-objections.md: (the cosmological constant, conditional on the open coupling step;
    ok  1/1  book/readers-guide.md: the conditional cosmological constant dissolution)
-3. inventory (chapters and papers; FULL mirrors the chapters): 79 sentences with a conditional marker, 29 without
+3. inventory (chapters and papers; FULL mirrors the chapters): 98 sentences with a conditional marker, 47 without
    book/README.md:68  Includes external convergence with the Danielson-Satishchandran-Wald horizon decoherence program, and a four-axis structured comparison with conformal
    book/appendix-c-objections.md:122  *In Chapter 7's gravitational content.* Finiteness is *derived* from the cosmological horizon's finite area: the Bekenstein entropy bound limits the n
    book/appendix-c-objections.md:315  **Ambition.** "The framework identifies QM with embedded observation, dissolves the cosmological constant problem, explains the dark sector, and provi
+   book/ch00-introduction.md:83  A second component of the framework's gravitational predictions concerns the dark sector.
    book/ch01-observation.md:149  Solving $T(2, 0) = \Lambda(2, 1) \cdot T(1, 0)$ for the candidate $\Lambda(2, 1)$ gives
-   book/ch03-structural-realism.md:212  The $10^{122}$ ratio between substratum capacity and visible-sector capacity is the cosmological constant discrepancy; the dark sector is the gravitat
    book/ch06-matter-content.md:157  A consistency check using the framework's $A^2 = 2/3$ and $\lambda^2 = 1/(2\pi^2)$ structural inputs runs the relation in reverse: solving $J = A^2 \l
    book/ch07-gravity.md:44  D 97, 084036) shows that for matter field equations whose causal structure is that of standard-model fields on a single Lorentzian light cone — exactl
    book/ch07-gravity.md:177  The semi-classical equation $G_{\mu\nu} = 8\pi G \langle \hat T_{\mu\nu} \rangle$ is then itself an emergent approximation, and at the classical level
+   book/ch07-gravity.md:258  The usefulness of the uniform-medium description is computational: when matter is present, it locally deforms the horizon geometry and redistributes t
+   book/ch07-gravity.md:309  A high-confidence direct detection of a dark-matter particle at non-gravitational interaction strength would refute this dark-sector interpretation.
    book/ch08-juno.md:246  **The $3\sigma$ tension that the framework resolves.** The DESI DR2 + CMB analysis under $\Lambda$CDM produces a $3\sigma$ tension with the *lower* os
    book/ch08-juno.md:264  - The $3\sigma$ tension with the oscillation minimum under $\Lambda$CDM is resolved by the framework's RVM dark energy.
    book/ch09-universality.md:253  The comparison class of §9.6b — programs claiming structural Standard Model content — has a gravitational-sector counterpart: programs covering the fr
    book/ch09-universality.md:257  One further contrast prices the two dissolutions rather than adjudicating them: conformal gravity retains the vacuum energy as a large physical quanti
+   book/ch10-chemistry.md:8  The chapters develop the framework's derivation of the Standard Model gauge group, the matter content, the gravitational sector, the JUNO neutrino pre
+   book/ch12-evolution-intelligence.md:197  The framework's characterization theorem (Chapter 1) applies to the new observer just as it applies to the original: any embedded observer satisfying 
+   book/ch18-beyond.md:10  The Standard Model gauge group, the gravitational sector, the JUNO neutrino prediction, the dark sector phenomenology — all are sectors where the fram
    book/ch18-beyond.md:130  Three problems conventionally treated as obstacles to a theory of quantum gravity — the cosmological constant problem, the black hole information para
    book/ch18-beyond.md:150  The shared structural feature with the cosmological constant dissolution is that the framework's two-level description is doing the work.
+   book/ch18-beyond.md:168  **The conceptual content.** The more informative gravitational comparison is the Milky Way outer rotation curve (Chapter 7 §7.9), whose reported Keple
    book/ch19-open-problems.md:32  The three components of the dissolution are developed in Chapter 7 §7.7 (cosmological constant), Chapter 7 §7.6 (black hole information), and Chapter 
-   book/ch19-open-problems.md:54  The framework predicts that dark energy is the uniform component of the boundary entropy's gravitational effect, with the effective cosmological const
+   book/ch19-open-problems.md:46  The simple MOND interpolation function $\nu(y) = (1 + \sqrt{1 + 4/y})/2$ matches deep-MOND clusters such as Coma to better than $1\%$, though rich-clu
+   book/ch19-open-problems.md:46  The Bullet Cluster's anomalous gravitational lensing is explained by frozen boundary entropy with relaxation timescale $\tau_{\text{relax}} \sim H^{-1
+   papers/Complexity.md:338  Everything else — the laws, the constants, the dark sector, the periodic table, life, intelligence, the fine-tuning problem, the anthropic principle —
+   papers/Explainer.md:579  **The dark sector as corroboration.** The trace-out that produces the memory-bearing dynamics quantum mechanics represents has a gravitational consequ
    papers/Explainer.md:579  This is what distinguishes the boundary entropy's gravitational contribution from the QFT zero-point energy ($\rho_{\text{QFT}} \sim 10^{113}$ J/m³), 
+   papers/Explainer.md:585  The Bullet Cluster — where gravitational lensing peaks at the galaxy positions rather than the dominant X-ray gas — is explained by the non-local char
    papers/Explainer.md:587  The same analysis finds a $3\sigma$ tension with the lower oscillation limit assuming $\Lambda$CDM, interpreted as "a hint of new physics not necessar
+   papers/Explainer.md:783  The result: on a state space identified with a product of local degrees of freedom — site factorization, itself an input that the dynamics has not bee
+   papers/Explainer.md:992  *This is a companion overview to the framework's five core papers: "The Incompleteness of Observation" (Maybaum, [Main]), which presents the foundatio
    papers/GR.md:166  D 97, 084036 (2018)] determines the gravitational action to be Einstein–Hilbert with cosmological constant, from canonical co-evolution and diffeomorp
    papers/GR.md:356  With that scope: any framework in which QM is logically prior to the metric must either (a) treat the zero-point sum as a gravitational source — produ
    papers/GR.md:362  **Quantum corrections to gravity.** The emergent quantum description does feed back into gravitational dynamics through state-level quantities: §7.1 d
    papers/GR.md:362  The structural/volumetric distinction of §3.2 captures this: $\hbar$ (structural, a property of the correspondence) does not gravitate; the vacuum ene
+   papers/GR.md:452  Under this ordering, the gravitational interaction between bulk matter and boundary entropy is mediated by the metric at the classical level, modifyin
+   papers/GR.md:462  The uniform component of the boundary entropy corresponds to dark energy (§6); the structured component — the matter-induced redistribution of boundar
    papers/GR.md:462  The ratio $\rho_{\text{QFT}} / \rho_s \sim S_{\text{dS}} \sim 10^{122}$ confirms the parallel with §6.3: the information compression ratio and the gra
+   papers/GR.md:464  **Falsifiability.** The corollary would be falsified by detection of dark matter particles accounting for the full ~27% structured dark sector, or by 
    papers/GR.md:532  **CMB acoustic peaks.** The CMB power spectrum provides the most precise test of the dark matter paradigm: the odd/even peak height asymmetry requires
    papers/GR.md:555  The direct boundary-lattice computation confirms this independently: the density of states of any bounded-range (range-1) 2D boundary theory is $dN/d\
+   papers/GR.md:595  The *dark-sector concordance* (§7.2) would be falsified by detection of dark matter particles accounting for the full structured dark sector, or by ev
    papers/GR.md:659  - The *CC dissolution* (§6) uses: the structural distinction between the emergent quantum vacuum energy (a property of the emergent QFT description) a
    papers/SM.md:252  (ii) The visible poles are the poles of the reduced resolvent $P(\lambda-U)^{-1}P=\mathcal D(\lambda)^{-1}$, with $\mathcal D(\lambda)=\lambda-A-B(\la
    papers/SM.md:849  The resolving computation is the taste-changing two-point function between $T_1$ corner states with explicit external-leg normalization, evaluated on 
    papers/SM.md:851  The hypothesis $c_\lambda = 1$ is therefore equivalent to the statement that the intermediate states of the mixing perturbation theory are the emergen
-4. added lines: 497; register/caps hits: 0; secret/path hits: 0
+   papers/Substratum.md:157  Three independent forward filters from the empirical inputs converge on $d = 3$: propagating gravity (E5) requires $d \geq 3$ (the Weyl tensor vanishe
+   papers/Substratum.md:500  The result is not a theory of everything but a structural account of why the apparent incompatibility between quantum mechanics and general relativity
+4. added lines: 740; register/caps hits: 0; secret/path hits: 0
 RESULT PASS

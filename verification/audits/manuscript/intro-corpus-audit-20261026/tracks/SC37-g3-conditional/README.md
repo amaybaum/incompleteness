@@ -1,7 +1,8 @@
 # SC-37: the cosmological constant and the open coupling step G3
 
 Unit of PR-A (part). Base `main` at `0d917665`; branch `corpus/sc37-g3-conditional`. Line numbers
-below are at the base.
+below are at the base. Two commits: the unit's corrections, and the independent review's findings
+B1–B6 with its also-apply list (review of `2ab22504`, ACCEPT WITH CHANGES).
 
 ## Finding
 
@@ -46,11 +47,18 @@ formal change: none.**
 - **Downstream.** Explainer:541 and :543 (Level 1 / Level 2: "The metric tensor evolves via Einstein's
   field equations"; "not a source term in Einstein's equations, because …") rewritten to the same
   conditional form; Explainer:689 (FAQ "Why does gravity see the classical vacuum energy") made
-  conditional on the proposal and the open step. GR:362 "But gravity is sourced by the classical
+  conditional: "Because the spacetime metric exists at the classical level, *before* the quantum
+  description emerges, and the framework's proposal is that gravity is sourced there", with "On that
+  proposal," before its compression-ratio sentence. GR:362 "But gravity is sourced by the classical
   Hamiltonian" → "On the proposal, gravity is sourced …" (the paragraph's lead sentence already
-  carried the condition). GR:166 (the four-route convergence, also named in CON-06) is **not a flaw**:
-  it already states "given the emergent cone, matter content, and spin-2 mode" and names each route's
-  hypotheses as open obligations; unchanged.
+  carried the condition). GR:452 (ii-b) "requires the geometry-first ordering established in §6.2:
+  the metric exists at the pre-trace-out level, and the stress-energy sourcing gravity is the
+  classical stress-energy" → "requires the geometry-first ordering of §6.2, under which the metric
+  exists at the pre-trace-out level, together with the proposal of §6.2, conditional on the open
+  coupling step, that the stress-energy sourcing gravity is the classical stress-energy" (review B1).
+  GR:166 / ch07:44 (the four-route convergence, also named in CON-06) are unchanged: they state the
+  routes' inputs and name each route's hypotheses as open obligations; whether "the same conclusion
+  is forced" asserts the thermodynamic route while G3 is open is recorded for #970.
 
 ### 2. "Denies that the zero-point sum gravitates" (CON-05)
 
@@ -69,6 +77,16 @@ formal change: none.**
   *and* on the open coupling step (they read "conditional on the same geometry-first ordering" only,
   while GR:12 puts the dark sector in G4, conditional on G3); GR:434's "gravitates at the classical
   level" for $\rho_s$ is placed on the same proposal. Explainer:579 likewise.
+- **The corollary's statement (review B2).** GR:422 "*Under Lemmas 1–3 and conditions (C1)–(C4), the
+  cosmological trace-out … renders ~95% of the universe's gravitational budget invisible to the
+  emergent QFT.*" used the coupling (the budget is gravitational) without the hypothesis. Now "*Under
+  Lemmas 1–3, conditions (C1)–(C4) and the geometry-first proposal of §6.2 (conditional on the open
+  coupling step), …*"; its proof's step (iii) at GR:456 reads "on that proposal gravitationally
+  active". The coverage entry `GR:C-invisible-gravitational-budget` is re-affirmed under the same ID:
+  fingerprint `ea5d16ff902c196d` → `4f1a95751a4057e8`, level unchanged (GAP, not formalized).
+- **Missed mirrors (review B3).** ch07:258 / FULL:2137 "(does gravitate)" → "(on the same proposal,
+  does gravitate)"; Explainer:581 "the boundary entropy: gravitationally active" → "on the same
+  proposal gravitationally active".
 
 ### 3. "Predicts the observed value" (C-B2, Explainer)
 
@@ -76,10 +94,15 @@ formal change: none.**
   a derived quantity … One predicts the observed vacuum energy and one misses it by $10^{122}$".
 - **Defect.** Contradicts Explainer:549 and GR:366: the value is set by initial conditions, "a
   normalization, not a prediction".
-- **Correction.** "the other is consistent with the observed value as a normalization and,
-  conditional on the open coupling step, reads the discrepancy as a derived quantity"; "One is
-  consistent with the observed vacuum energy, as a normalization, and one misses it by $10^{122}$".
-  Explainer:625 "only the substrate's value matches observation" → "is of the observed scale".
+- **Correction** (review B6, which found the first form conditioned only the second clause). Explainer
+  :551 now reads: "This contrast bears on the ordering through the open coupling step. … one ordering
+  produces the worst prediction in physics and has no solution; the other, if the coupling step
+  holds, carries the observed value as a normalization and reads the discrepancy as a derived
+  quantity. That doesn't prove the ordering is correct, and the evidence rests on that open step.
+  (… One, conditional on that step, is consistent with the observed vacuum energy as a normalization,
+  and one misses it by $10^{122}$; …)". It replaces "This track record is itself evidence for the
+  ordering" and "it's existing evidence, not a future hope". Explainer:625 "only the substrate's value
+  matches observation" → "is of the observed scale".
 - **Downstream.** None outside the Explainer: no other corpus site says the framework predicts the
   vacuum-energy value (re-grep below).
 
@@ -102,9 +125,12 @@ formal change: none.**
   conditional dissolution of §6.2 requires only"; GR:625 (U3, listed among the *unconditional*
   universality results) said "the $10^{122}$ ratio is a compression ratio, not a failure of
   cancellation", which is the conditional dissolution: now "their $10^{122}$ ratio is, up to a
-  convention-dependent factor, the de Sitter entropy (§§6.1, 6.3); that the ratio is a compression
-  ratio rather than a failure of cancellation is the dynamical dissolution of (c), conditional on the
-  coupling step" (the distinction and the identity stay unconditional). ch18:142 "On that reading the
+  convention-dependent factor, $A/(4\,l_p^2)$ (§§6.1, 6.3); that the ratio is a compression ratio
+  rather than a failure of cancellation is the dynamical dissolution of (c), conditional on the
+  coupling step" (the distinction and the identity stay unconditional). GR:374 "the gauge status of
+  the uniform vacuum offset (§6)" → "the status of the uniform vacuum offset, gauge for every quantum
+  statistic, with its gravitational coupling the open G3 step (§6)". ch07:175 / FULL:2054 "The two are
+  not commensurable as gravitational sources" gains "Conditional on the coupling step,". ch18:142 "On that reading the
   ratio is not a fine-tuning failure" and ch18:144, ch19:38 "the two energy scales are not
   commensurable as gravitational sources" gain the condition. ch07:197, :319 / FULL:2076, :2198
   "geometry-first dissolution" → "geometry-first proposal". ch09:243, ch19:366, ch00:101,
@@ -118,7 +144,8 @@ formal change: none.**
   for the cosmological constant (the hierarchy and gauge-structure entries are other units' claims and
   are not touched). ch09:257 cited "Chapter 7 §7.6" (the information-paradox section) twice for the
   cosmological-constant levels and the offset gauge: corrected to §7.7 and [GR §8.3], where those
-  statements are.
+  statements are; ch09:261 / FULL:2741 cited the same §7.6 for the offset's gauge status and now
+  cites "([Main §3.4]; [GR §8.3])" (review B5).
 
 ### 5. "The proofs are complete" (CON-07)
 
@@ -150,7 +177,36 @@ formal change: none.**
   coefficient of $S_{\rm dS}$ inherits the horizon conditions of Chapter 7)"; table cells "Partly
   definitional ($1-\Omega_B$ by construction)"; "The framework supplies the total budget, partly by
   definition"; ch09 "a partly definitional concordance". The ch19:118 statement that the 27/68 split is
-  not derived is kept.
+  not derived is kept. Matching ch07:297 ("under the conditional physical interpretation"), ch19:116
+  adds "the physical interpretation is conditional on the coupling step", and the ch19:339 cell
+  "physical interpretation conditional on the coupling step"; ch19:116's second statement of
+  "partly definitional … by construction" is removed.
+- **GR itself (review B4).** GR:468 "The total dark sector budget is established by §7.2." → "The
+  total dark-sector budget is the corollary of §7.2 (partly definitional, and conditional on the
+  coupling step)."; GR:545, §7.4 table, "Dark sector fraction … | consistent" → "| partly definitional
+  ($1-\Omega_B$ by construction) |".
+- **The dark-sector interpretation, same claim class.** Sentences stating that the dark sector *is*
+  the gravitational effect of the unreadable content, or that the boundary entropy's uniform
+  component *is* dark energy, now carry the proposal: ch03:212 / FULL:1088, ch03:222 / FULL:1098,
+  ch02:22 / FULL:665, ch19:54 / FULL:5214, ch19:116 / FULL:5276, Explainer:900, Substratum:46
+  ("On the geometry-first proposal ([GR §6.2]), the dark sector is …"). At ch03:222 / FULL:1098
+  (coordinator addition) the sentence "The boundary entropy has no operator in the emergent quantum
+  field theory, so roughly ninety-five percent of the critical density is invisible to every embedded
+  observer *by theorem*; its uniform component is dark energy, and its scale-dependent face is the
+  dark-matter regularity $a_0 = cH/6$", with its lead-in "in the flagship case, its energetic
+  content", keeps the unconditional part (no operator, hence invisible to the emergent description)
+  and places the rest on the proposal: "on the geometry-first proposal, conditional on the open
+  coupling step (G3), it carries roughly ninety-five percent of the critical density (a fraction equal
+  to $1-\Omega_B$ by construction), its uniform component is dark energy, and its scale-dependent face
+  is the dark-matter regularity $a_0 = cH/6$, which further requires the horizon conditions of
+  Chapter 7, the assumption that a static mass delivers its rest energy $M_Bc^2$ to the boundary, and
+  a dimensional factor $1/6$ imported from Verlinde". The $a_0$ conditions are those of GR §7.3
+  (GR:470, :510: H-slope, H-frame, H-Hawking; $Q = M_Bc^2$, itself part of the open coupling map;
+  the imported factor), ch07:262–266 and appendix A G6 ("factor imported", class C). The rest of the
+  section (ch03:218–228) is left to SC-43. GR:26 "The dark-sector
+  corollary predicts" → "predicts, conditional on the open coupling step,"; GR:707 "The dark-sector
+  corollary explains ~95%" → "accounts, conditional on the coupling step and partly by definition
+  (§6.2), for ~95%".
 - **Downstream.** ch09 lists the budget as a Tier 1 universality-class entry while ch07:297 gives
   "2 (cond.)"; recorded as an open item below, not changed.
 
@@ -169,52 +225,75 @@ formal change: none.**
 | GR:573 | "The framework denies that the absolute zero-point sum gravitates" | on the proposal, conditional on the open step | GR:581–583 |
 | GR:575 | "applied as a precise principle" | principle holds on the proposal, conditional on the step | GR:583 |
 | GR:625 (U3) | "compression ratio, not a failure of cancellation" (unconditional list) | identity unconditional; dissolution conditional per (c) | GR:366, :637 |
-| Explainer:537, 541, 543, 545, 551, 579, 581, 593, 625, 689 | as in §§1–4, 6 | conditional / normalization / "depends only on" | GR §6 |
+| GR:374 | "the gauge status of the uniform vacuum offset" | gauge for every quantum statistic; coupling the open G3 step | GR:356, §8.3 |
+| GR:422 (Corollary), 452, 456 | coupling used without hypothesis; "ordering established in §6.2: … stress-energy … is the classical" | hypothesis "geometry-first proposal of §6.2 (conditional on the open coupling step)" added; proposal stated as such | GR:356, GR:12 |
+| GR:26, 468, 545, 707 | corollary "predicts" / "explains"; budget "established"; "consistent" | conditional; partly definitional | GR:358, GR:12 |
+| Explainer:537, 541, 543, 545, 549–551, 579, 581, 593, 625, 689, 900 | as in §§1–4, 6, 7 | conditional / normalization / "depends only on" / on the proposal | GR §6 |
+| Substratum:46 | "The dark sector is the gravitational effect …" | on the geometry-first proposal | GR:356 |
+| ch02:22, ch03:212, :222 (FULL:665, 1088, 1098) | dark sector / dark energy stated as the gravitational effect | on the geometry-first proposal | GR:356 |
+| ch07:175, 258 (FULL:2054, 2137) | "not commensurable as gravitational sources"; "(does gravitate)" | conditional on the coupling step; on the same proposal | GR:356 |
+| ch19:54 (FULL:5214) | "The framework predicts that dark energy is …" | on the geometry-first proposal | GR:356 |
 | SM:1576 | "dissolution … at the descriptive level" | descriptive distinction behind a conditional dissolution | GR:356 |
 | Structure:975 | CC "dissolved" | "(conditional on that coupling step)" | GR:356 |
 | ch07:163, 177, 185, 197, 209, 319 (FULL:2042, 2056, 2064, 2076, 2088, 2198) | heading; Einstein's equations; "determined"; "geometry-first dissolution" ×2; "dissolution denies" | as GR | GR §6 |
 | ch00:97, 101 (FULL:333, 337) | "dissolution … at the descriptive level"; "the CC dissolution" | conditional | GR:356 |
 | ch02:120 (FULL:763) | "is the compression ratio" | "is read as …, dissolves conditional on … (G3)" | GR:366 |
-| ch09:118, 126, 243, 257, 261 (FULL:2598, 2606, 2723, 2737, 2741) | "concordance"; "CC dissolution"; §7.6 refs; "nothing to manage" | partly definitional; conditional; §7.7 / [GR §8.3]; conditional | GR:358, :356, §8.3 |
+| ch09:118, 126, 243, 257, 261 (FULL:2598, 2606, 2723, 2737, 2741) | "concordance"; "CC dissolution"; §7.6 refs ×3; "nothing to manage" | partly definitional; conditional; §7.7 / [Main §3.4]; [GR §8.3]; conditional | GR:358, :356, §8.3 |
 | ch18:142, 144 (FULL:4960, 4962) | "first dissolution"; unconditional reading and incommensurability | conditional | GR:366 |
-| ch19:20, 38, 116, 118, 339, 366 (FULL:5180, 5198, 5276, 5278, 5499, 5526) | "Problems resolved"; incommensurability; "Derived" ×3; "The CC dissolution" | "Problems addressed"; conditional; partly definitional | GR:356, :358 |
+| ch19:20, 38, 116, 118, 339, 366 (FULL:5180, 5198, 5276, 5278, 5499, 5526) | "Problems resolved"; incommensurability; "Derived" ×3; uniform component "is dark energy"; "The CC dissolution" | "Problems addressed"; conditional; partly definitional, physical interpretation conditional; on the proposal | GR:356, :358, ch07:297 |
 | appendix-c:317, 349 (FULL:6563, 6595) | "proofs are complete"; "turn out to be category errors" | status recorded with each; framework's reading, conditional | GR:12 |
 | readers-guide:15 (FULL:115) | "the cosmological constant dissolution" | "the conditional …" | GR:356 |
 
-Derived artifacts regenerated with `sh ./build.sh GR Explainer SM Structure` and
-`sh ./build.sh --book`: page counts and median characters per page unchanged against the base
-(GR 88 / 3214, Explainer 70 / 2889→2890, SM 147 / 3194, Structure 99 / 2932→2926, book 558 / 3054).
-No coverage fingerprint moved (no canonical statement in `verification/coverage/LEDGER.json` was
-edited; `coverage_check` OK, 128 statements); the Lean census registry is untouched.
+Derived artifacts regenerated with `sh ./build.sh GR Explainer SM Structure Substratum` and
+`sh ./build.sh --book`: page counts unchanged against the base and median characters per page within
+a few characters (GR 88 / 3214→3208, Explainer 70 / 2889→2890, SM 147 / 3194, Structure 99 /
+2932→2926, Substratum 53 / 3245, book 558 / 3054). One canonical statement in
+`verification/coverage/LEDGER.json` was edited, the GR dark-sector Corollary; its fingerprint is
+re-affirmed under the same ID with the same level (GAP), and `coverage_check` is OK (128 statements).
+The Lean census registry is untouched.
 
 ## Re-grep
 
-`python3 -I check.py <repo-root> 0d917665`, output in `check.out`:
+`python3 -I check.py <repo-root> 0d917665`, output in `check.out` (the run that produced `check.out`
+counts `check.out` itself among the added lines):
 
-- 24 superseded wordings: **0** occurrences each, corpus-wide (papers, chapters, FULL; the
+- 47 superseded wordings: **0** occurrences each, corpus-wide (papers, chapters, FULL; the
   Introduction excluded per the unit brief).
-- 27 corrected book sentences: present once in the chapter and once in FULL each.
-- Inventory of chapter and paper sentences pairing a cosmological-constant term with a dissolution or
-  gravitation verb: **79** carry a conditional marker in the sentence; **29** do not, each reviewed:
-  conditional by the enclosing sentence or paragraph (ch07:177, ch18:130, :150, ch19:32, GR:362 ×2,
-  GR:659), descriptive or identity statements that make no coupling claim (Explainer:579 first
-  sentence, GR:356 (a)/(b), GR:462, ch09:253, :257 "prices the two dissolutions", ch19:54, README:68),
-  a quoted objection (appendix-c:315), the external closure-theorem route already scoped by its
-  stated inputs (GR:166, ch07:44; §1 above), or not about the cosmological-constant coupling at all
-  (ch01:149, ch06:157, SM:252, :849, :851, GR:532, :555, appendix-c:122, ch03:212; ch08:246, :264 and
-  Explainer:587, which concern the neutrino-mass tension, listed below).
+- 38 corrected book sentences: present once in the chapter and once in FULL each.
+- Inventory of chapter and paper sentences pairing a cosmological-constant or dark-sector term with a
+  dissolution, gravitation, "commensurable" or "is dark energy / matter" form (the review asked for
+  the dark-sector and "commensurable" sentences to be caught): **98** carry a conditional marker in
+  the sentence; **47** do not, each reviewed:
+  - conditional by the enclosing sentence, paragraph or statement: ch07:177, :258 (the clause
+    corrected, the rest descriptive), ch18:130, :150, ch19:32, GR:362 ×2, GR:452 ("Under this
+    ordering", after the corrected sentence), GR:462 ×2 (inside the Corollary's proof, whose statement
+    now carries the hypothesis), GR:659;
+  - descriptive or identity statements making no coupling claim: Explainer:579 ×2, GR:356 (a)/(b),
+    ch09:253, :257 "prices the two dissolutions", README:68;
+  - falsifiers and observational comparisons: ch07:309, ch18:168, ch19:46 ×2, Explainer:585,
+    GR:464, :532, :595;
+  - pointers, chapter summaries and lists: ch00:83, ch10:8, ch12:197, ch18:10, Explainer:992,
+    Complexity:338 (a list of derived, dissolved or generic items, not specific to this claim);
+  - a quoted objection (appendix-c:315);
+  - the external closure-theorem route (GR:166, ch07:44), recorded for #970;
+  - not about the cosmological-constant coupling or the dark sector: ch01:149, ch06:157, SM:252,
+    :849, :851, GR:555, appendix-c:122, Explainer:783, Substratum:157, :500; ch08:246, :264 and
+    Explainer:587 concern the neutrino-mass tension, recorded for #970.
 - Added lines: 0 register, caps or revision-voice hits (§A.32/§A.33 family, counted against the
   removed text of the same file); 0 secret or local-path hits.
 
 ## Conditional or removed
 
 Made conditional on G3: the classical-level field equations and their source coupling (GR:344,
-ch07:177, Explainer:541/543/689); every "does not gravitate" for the zero-point sum, $\rho_{\rm QFT}$
-or the absolute emergent vacuum energy (GR:404, :434, :573, :575, ch07:209, Explainer:579); the
-dissolution in headings and summaries (CON-04 sites and the downstream list of §4); U3's "not a
-failure of cancellation"; the dark-sector corollary's predictions (GR:454). Removed: "the proofs are
-complete" (appendix-c:317); "predicts the observed value" (Explainer:551); "Derived" for the
-dark-sector budget (ch19 ×3).
+:452, ch07:177, Explainer:541/543/689); every "does not gravitate" for the zero-point sum,
+$\rho_{\rm QFT}$ or the absolute emergent vacuum energy (GR:404, :434, :573, :575, ch07:209,
+Explainer:579); the dissolution in headings and summaries (CON-04 sites and the downstream list of
+§4); the incommensurability "as gravitational sources" (ch07:175, ch18:144, ch19:38); U3's "not a
+failure of cancellation"; the dark-sector Corollary (GR:422, a hypothesis added), its predictions
+(GR:454) and summaries (GR:26, :468, :707), and the dark-sector interpretation wherever it was stated
+as fact (§7). Removed: "the proofs are complete" (appendix-c:317); "predicts the observed value" and
+"existing evidence, not a future hope" (Explainer:551); "Derived" for the dark-sector budget
+(ch19 ×3); "established by §7.2" (GR:468).
 
 ## Cross-unit dependencies
 
@@ -227,20 +306,26 @@ dark-sector budget (ch19 ×3).
   neighbourhood and ch07:197; no overlap.
 - Shared sentences other units may rely on: the GR §6 and ch07 §7.7 heading text (cited as "§6",
   "§7.7"; no anchor link uses the old title); GR §8.5 (U3) now places "not a failure of cancellation"
-  under (c); GR:454 now makes the dark-sector corollary conditional on the coupling step; the
+  under (c); the GR §7.2 Corollary (Invisible gravitational budget) carries a new hypothesis, the
+  geometry-first proposal conditional on the coupling step, and its coverage fingerprint moved (any
+  unit that edits or cites that statement, or the LEDGER.json entry, must merge against it);
+  GR:454 now makes the dark-sector corollary conditional on the coupling step; the
   dark-sector budget status "Partly definitional" (ch19, ch09) — any unit restating the dark-sector
   status should use it; GR requirement (iii) and its mirrors now cite boundary-only dependence
   (§3.2, Step 2) instead of the calibration.
 
-## Open, for #970
+## Open, for #970 (recorded, not edited)
 
 - ch09 lists the dark-sector budget as a Tier 1 universality-class result (ch09:118, :126), ch07:297
   gives it "2 (cond.)", and appendix A G9 "C | 1": the tier assignment needs one owner decision.
 - ch08:246, :264 and Explainer:587 say the framework's RVM dark energy "resolves" the DESI $3\sigma$
-  neutrino-mass tension; GR:414 says it "would relax" it. Outside this unit's claim class; not changed.
-- ch03:212 "the dark sector is the gravitational effect of the substrate's content" states the
-  physical dark-sector interpretation, which ch07:288 makes conditional on the matter-to-boundary
-  coupling map; not changed here.
+  neutrino-mass tension; GR:414 says it "would relax" it.
+- GR:166 and ch07:44 say an external closure theorem "forces the same conclusion" and that four
+  routes "converge on the same dynamics" while G3 (the covariant equations) is open; the inputs are
+  stated, but whether the framing asserts the thermodynamic route ahead of G3 is not settled here.
+- appendix-c:317 / FULL:6563 keeps "the predictions match empirical data at substantial precision
+  (JUNO 0.07$\sigma$, GW250114 99.999%)"; GW250114 tests the classical area theorem, which the
+  framework preserves, not a framework prediction (GR:12, ch07 table).
 - The research question itself is unchanged: a covariant coupling theorem (G3) that fixes whether the
   uniform offset sources curvature; GR §6.2 exhibits two completions that share the substratum and
   differ only in that offset, so no argument from the reduced quantum data can settle it.

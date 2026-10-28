@@ -48,6 +48,29 @@ STALE = [
     "This is what makes the CC dissolution work",
     "turn out to be category errors (cosmological constant,",
     "But gravity is sourced by the classical Hamiltonian",
+    "requires the geometry-first ordering established in §6.2",
+    "*Under Lemmas 1–3 and conditions (C1)–(C4), the cosmological trace-out",
+    "The total dark sector budget is established by §7.2",
+    "\\Omega_\\Lambda \\approx 95\\%$ | consistent |",
+    "predates the trace-out (does gravitate)",
+    "the boundary entropy: gravitationally active",
+    "This track record is itself evidence for the ordering",
+    "it's existing evidence, not a future hope",
+    "Because, on the framework's proposal, the spacetime metric",
+    "the gauge status of the uniform vacuum offset",
+    "(Chapter 7 §7.6, via the reconstruction theorem's energy-shift freedom)",
+    "The uniform component is dark energy; the structured component",
+    "concordance rather than puzzle — though the total fraction is partly definitional",
+    "The remaining ~95% is boundary entropy — gravitationally active",
+    "The dark sector of cosmological observation is the gravitational effect",
+    "The dark sector is the gravitational weight of the unreadable storage",
+    "The dark sector is the gravitational effect of the unreadable storage",
+    "*by theorem*; its uniform component is dark energy",
+    "so roughly ninety-five percent of the critical density is invisible to every embedded observer",
+    "in the flagship case, its energetic content",
+    "The framework predicts that dark energy is the uniform component",
+    "The dark-sector corollary predicts that ~95%",
+    "The dark-sector corollary explains ~95%",
 ]
 print("1. stale wordings (expect 0 each)")
 for s in STALE:
@@ -63,18 +86,28 @@ MIRROR = {
         "The framework's geometry-first proposal converges",
         "convergence with the framework's geometry-first proposal",
         "while on Section 7.7's proposal, conditional on the coupling step,",
+        "(on the same proposal, does gravitate)",
+        "Conditional on the coupling step, the two are not commensurable as gravitational sources",
+    ],
+    "book/ch03-structural-realism.md": [
+        "on the geometry-first proposal, the dark sector is the gravitational effect",
+        "so it is invisible to every embedded observer *by theorem*; on the geometry-first proposal, conditional on the open coupling step (G3)",
+        "a dimensional factor $1/6$ imported from Verlinde (Chapter 7 §§7.8–7.9)",
+        "in the flagship case and conditional on the open coupling step, its energetic content",
     ],
     "book/ch00-introduction.md": [
         "the descriptive distinction behind a dissolution of the cosmological constant problem conditional on the open coupling step",
         "combining the conditional CC dissolution",
     ],
-    "book/ch02-substratum.md": ["a reading on which the problem dissolves conditional on the open coupling step (G3)"],
+    "book/ch02-substratum.md": [
+        "On the geometry-first proposal, the dark sector of cosmological observation","a reading on which the problem dissolves conditional on the open coupling step (G3)"],
     "book/ch09-universality.md": [
         "the dark sector budget as a partly definitional concordance",
         "partly definitional ($1-\\Omega_B$ by construction) | Ch 7 §7.9 |",
         "(conditional cosmological constant dissolution,",
         "levels (Chapter 7 §7.7), so that,",
-        "([Main §3.4]; [GR §8.3])",
+        "([Main §3.4]; [GR §8.3]),",
+        "another ([Main §3.4]; [GR §8.3]), which is why",
         "gauge outright for every quantum statistic and, conditional on the coupling step,",
     ],
     "book/ch18-beyond.md": [
@@ -87,7 +120,10 @@ MIRROR = {
         "Conditional on that step, the two energy scales",
         "**Framework status.** Partly definitional (the total fraction is $1-\\Omega_B$ by construction;",
         "The framework supplies the total budget, partly by definition;",
-        "| Partly definitional ($1-\\Omega_B$ by construction) | Ch 7 §7.9 |",
+        "| Partly definitional ($1-\\Omega_B$ by construction); physical interpretation conditional on the coupling step | Ch 7 §7.9 |",
+        "the physical interpretation is conditional on the coupling step.",
+        "On the geometry-first proposal, the uniform component is dark energy",
+        "The framework predicts, on the geometry-first proposal, that dark energy",
         "The conditional cosmological constant dissolution, the measurement problem",
     ],
     "book/appendix-c-objections.md": [
@@ -104,8 +140,10 @@ for ch, phrases in MIRROR.items():
         print(f"   {'ok ' if ok else 'BAD'} {a}/{b}  {ch}: {s[:70]}")
         fail += not ok
 
-CC = re.compile(r"cosmological[- ]constant|vacuum[- ]energy|zero[- ]point|10\^\{?122|\\Lambda|Λ|\bCC\b", re.I)
-DIS = re.compile(r"dissol|resolv|\bsolv", re.I)
+CC = re.compile(r"cosmological[- ]constant|vacuum[- ]energy|zero[- ]point|10\^\{?122|\\Lambda|Λ|\bCC\b"
+                r"|dark[- ]sector|boundary entropy|\\rho_s\b|energy scales|the two are", re.I)
+DIS = re.compile(r"dissol|resolv|\bsolv|commensurable|is dark (?:energy|matter)|gravitational effect"
+                 r"|gravitationally active|budget is", re.I)
 GRAV = re.compile(r"gravitat|sourc\w* (?:of )?(?:gravity|curvature|geometry)|Einstein'?s (?:field )?equations|field equations never", re.I)
 COND = re.compile(r"conditional|condition|proposal|propos|G3|coupling (?:step|theorem|obligation)|on (?:that|its|the framework's) reading|if the", re.I)
 SPLIT = re.compile(r"(?<=[.;!?])\s+(?=[A-Z*(\[])")
