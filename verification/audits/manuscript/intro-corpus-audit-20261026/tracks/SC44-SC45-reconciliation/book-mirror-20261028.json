@@ -4,10 +4,14 @@
   "tested_ref": "corpus/sc44-sc45-reconciliation-preview",
   "head_at_test": "f82f8bcee61c470e4af2f87e320023659d751bc2",
   "full_path": "book/The-Incompleteness-of-Observation-FULL.md",
-  "full_blob": "770b7e5e3009cf5dfe618e0fb7f7a7bc8456e88a",
+  "full_blob": "975c454b378102afa54f2762fca07613b4463cfe",
   "changed_chapters": {
-    "book/ch02-substratum.md": "544a33fccf40e2e6be191158375f430f5646bfff",
+    "book/ch02-substratum.md": "7fc7e4dbc3e50db654bbb205f9cedf3f3ed6b6d2",
     "book/ch03-structural-realism.md": "feb42a6fa0d6196838c708e3faa610079c9f56b8",
+    "book/ch04-methodology.md": "b4ed4a13fd9c7c79b1ad90c59c3c72c65fa85c3b",
+    "book/ch05-gauge-structure.md": "6b55004ec5789ffa7461033804b7479e3ad6fc8d",
+    "book/ch08-juno.md": "000b40ddc74ddd849c499804c17261f8d80dc6a2",
+    "book/ch09-universality.md": "96e193b733de2d2422ffe1ae64dc1a8bd1689cfe",
     "book/ch14-quantum-computing.md": "c2a8b52ea178841f904d9f494a747e8bd47e1eb8"
   },
   "checked_files": [
@@ -45,5 +49,5 @@
   "fetch_failures": 0,
   "evidence_method": "GitHub connector exact source bytes; FULL Git blob read because its normal contents endpoint exceeds the API's text-content size limit; compared trimmed nonblank chapter lines against a set of trimmed nonblank FULL lines in read-only batches.",
   "limitations": "Does not run the original mirror_check.py process in a full checkout. Its exact source logic was reimplemented in the script host. Does not prove full text quality, book ordering, unique occurrences or consistency of scientific claims. FULL TeX/PDF remain generated-artifact blockers. This record is not independent review or V3 attestation.",
-  "additional_notes": "After initial mirror pass, chapter 2 and chapter 3 residual overclaims in ontology, conditional SM reconstruction, gauge completeness, arrows of time and proposed QM/GR unification were repaired on the same branch and mirrored by unique old-line replacements. A second exact read-only 27-file comparison against the new FULL Git blob returned zero missing nonblank chapter lines. The rendered FULL TeX/PDF are still stale, and independent scientific review remains outstanding."
+  "additional_notes": "After initial mirror pass, chapter 2 and chapter 3 residual overclaims in ontology, conditional SM reconstruction, gauge completeness, arrows of time and proposed QM/GR unification were repaired on the same branch and mirrored by unique old-line replacements. A second exact read-only 27-file comparison against the new FULL Git blob returned zero missing nonblank chapter lines. The rendered FULL TeX/PDF are still stale, and independent scientific review remains outstanding. | Latest referee fixes: six unique old-line replacements in chapters 2/4/5/8/9 copied into FULL, with corrected Juno formula delimiter. Two read-only batches checked all 27 chapter/appendix Markdown files against FULL blob 975c454b378102afa54f2762fca07613b4463cfe; 0 missing nonblank lines and 0 fetch failures. book/README.md is excluded by the mirror checker and was revised separately. Does not represent TeX/PDF regeneration."
 }
