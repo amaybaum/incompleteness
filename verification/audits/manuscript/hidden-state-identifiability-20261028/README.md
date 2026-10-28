@@ -109,3 +109,21 @@ python verification/lean/stinespring_scope_probe.py
 
 `publication_qa.py --root REPO --output SCRATCH_DIRECTORY` reproduces the
 publication statistics and selected-page renders against the current PDFs.
+
+## Follow-up: audit-census reconciliation after 344d066
+
+At the published hidden-state head `344d066`, normal PR CI confirmed the Lean
+kernel, Mathlib and KTOKEN jobs, and the Stinespring scope probe passed. Core B
+then stopped at two census drifts. Both scientific qualifications were retained:
+Structure §9 now has two qualified non-minimal-realization passages, and SM §8.3
+uses a selected-family qualification instead of the book's older literal wording.
+
+The census retains all 34 original pattern strings, records the second reviewed
+Structure hit, and adds an exact SM requirement covering both the observer/branch
+distinction and the conditional physical generation/chirality premises. The
+existing book qualification remains required. The probe passes over all 42 scoped
+manuscripts; four controlled mutations (an extra occurrence, either missing SM
+qualification, and a missing book qualification) are each rejected. See
+`audit-census-repair.json`. All 49 previously reviewed scientific-source hashes
+still match; no manuscript, theorem, TeX or PDF changes are part of this repair.
+The next normal PR CI result remains a separate gate.
