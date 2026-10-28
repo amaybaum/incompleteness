@@ -60,3 +60,18 @@ countercontrols are retained. `exact-results.json` records the bounded run.
 
 This candidate and its controls await independent review and ordinary PR CI.
 No manuscript, coverage, Page/black-hole status or physical premise is upgraded.
+
+## Separate sequential-release companion
+
+`sequential-release.md` supplies an explicit finite autonomous permutation with
+a definite classical clock and two n-bit registers. One fixed coherent sample is
+released by clocked SWAPs over n steps, so a fixed radiation register realizes
+the same nested-cut profile. The process reversibly recouples later and returns;
+it is a finite release-window toy, not physical evaporation. The companion keeps
+the core candidate `bdcbd32`'s proof/control files unchanged. Independent review
+of that core does not automatically accept this separate companion.
+
+`sequential_release_controls.py` checks the inverse, full reversible period,
+coordinate release map, amplitude-contracted radiation purity, configuration and
+extreme-rank seeds, mirror Bell profiles and a coherent-clock counterexample.
+Its results are retained separately. No physical or manuscript status changes.
