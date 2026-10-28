@@ -127,3 +127,27 @@ qualification, and a missing book qualification) are each rejected. See
 `audit-census-repair.json`. All 49 previously reviewed scientific-source hashes
 still match; no manuscript, theorem, TeX or PDF changes are part of this repair.
 The next normal PR CI result remains a separate gate.
+
+## Follow-up: current publication guards after f420020
+
+CI confirmed the census repair, then reached R7-AUDB and R7-A6P. Audit B still
+required SM's superseded literal. Its replacement now requires the complete
+selected-family and physical-premise qualification already guarded by the census;
+all its other GR, book, C2/C4 and calibration checks are retained.
+
+The A6 publication guard had five obsolete positive text contracts and a mutation
+whose search text was absent. Its current contracts now preserve the recovered
+stabilizer/quotient/charged-action distinctions, the link transformation law and
+the scalar/commuting condition for literal fixed-link endpoint equality. The live
+state-dependent overclaim mutation is rejected while its positive contracts remain
+intact. All other A6 predicates, original mutation protections, frozen control
+plane, legacy records, census prefix and historical pins are preserved.
+
+Both isolated guard sections pass. Six Audit B qualification-removal mutations
+are rejected; all 22 original A6 recorded conjunctions pass, and two extra
+qualification-deletion controls are rejected. All 49 prior scientific-source
+hashes still match. See `publication-guards-repair.json`. This maintains the
+mutable downstream content guard; it does not amend or re-execute the old native
+round, change its chronology, or claim historical execution acceptance. No
+manuscript, theorem, Lean, TeX or PDF changed, and full next-head CI remains
+required.

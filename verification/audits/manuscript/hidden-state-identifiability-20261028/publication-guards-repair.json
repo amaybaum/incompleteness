@@ -1,0 +1,95 @@
+{
+  "base_head": "f420020b1659354c687fffec822692d537e4075c",
+  "changed_probe": "verification/lean/edge_rigidity_probe.py",
+  "probe_before_sha256": "527ed1718c32338c483b5856e5cb0d8428accccca03b82f5dd31aa6295521565",
+  "probe_after_sha256": "b25f2a5a43acc9b92f6de11a5f31c3bef08133120f64974c3b771e85f092500a",
+  "source_changes": [],
+  "prior_scientific_review_hashes_matching": 49,
+  "ordinary_ci_failure": {
+    "run": 40700282488,
+    "job": 122857920462,
+    "census": "PASS",
+    "remaining_tags": [
+      "R7-A6P",
+      "R7-AUDB"
+    ]
+  },
+  "Audit_B": {
+    "base_head": "f420020b1659354c687fffec822692d537e4075c",
+    "guard": "R7-AUDB",
+    "isolated_guard_only": true,
+    "full_probe_or_Lean_run": false,
+    "baseline": "PASS",
+    "mutations": [
+      {
+        "case": "SM-observer-diagnostic",
+        "source": "papers/SM.md",
+        "rejected": true
+      },
+      {
+        "case": "SM-physical-premises",
+        "source": "papers/SM.md",
+        "rejected": true
+      },
+      {
+        "case": "SM-C2-C4-hypotheses",
+        "source": "papers/SM.md",
+        "rejected": true
+      },
+      {
+        "case": "GR-C4-status",
+        "source": "papers/GR.md",
+        "rejected": true
+      },
+      {
+        "case": "GR-calibration-scope",
+        "source": "papers/GR.md",
+        "rejected": true
+      },
+      {
+        "case": "book-C4-status",
+        "source": "book/ch07-gravity.md",
+        "rejected": true
+      }
+    ],
+    "concrete_cut_input_sha256": "40c17a64eb04255c566c242487d22a2c6c5be1e74c327439c730a136776df239",
+    "new_exact_SM_requirement": true,
+    "other_guard_conditions_preserved": true
+  },
+  "A6_publication_guard": {
+    "status": "PASS",
+    "isolated_guard_functions": {
+      "_a6p_definition": true,
+      "_a6p_sm": true,
+      "_a6p_book": true,
+      "_a6p_mirrored": true,
+      "_a6p_roadmap": true,
+      "_a6p_readme": true,
+      "_a6p_census": true,
+      "_a6p_non_licences": true
+    },
+    "recorded_original_conjuncts": 22,
+    "all_original_mutation_assertions_pass": true,
+    "m12_positive_contracts_remain_intact": true,
+    "m12_rejected_for_added_state_dependent_overclaim": true,
+    "extra_deletion_controls_rejected": {
+      "scalar_or_commuting_link_qualification": true,
+      "physical_action_selection": true
+    },
+    "full_probe_Lean_or_native_launch": false,
+    "probe_sha256": "b25f2a5a43acc9b92f6de11a5f31c3bef08133120f64974c3b771e85f092500a"
+  },
+  "independent_A6_triage": {
+    "findings_sha256": "cc69e3995ee211ee1b7c82dc401ca79ecd3bdafc32b8d2d4dfc38c6ace8253ea",
+    "input_manifest_sha256": "4aacaa754af2701dd03776ab758d46612b239c29a18a51fd871e7075de05caea",
+    "inputs": 19
+  },
+  "authority": {
+    "mutable_aggregate_content_guard": true,
+    "frozen_A6P_control_plane_blob": "e7cb7013747f783135c8e166d290ce6670df0ae9",
+    "frozen_CP_records_prefix_and_native_attestations_changed": false,
+    "historical_execution_acceptance_claimed": false,
+    "native_designation_dispatch_or_merge": false
+  },
+  "local_execution_scope": "Two isolated content-guard sections, their bounded mutation controls, and Python static compilation only. Full probe suite and Lean remain CI work."
+}
