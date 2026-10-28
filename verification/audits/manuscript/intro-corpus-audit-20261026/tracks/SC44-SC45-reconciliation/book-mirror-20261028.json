@@ -2,12 +2,12 @@
   "schema": "sc44-sc45-book-markdown-mirror-check-v1",
   "status": "AUTHOR-EXACT-MARKDOWN-COMPARISON-NOT-PDF-REBUILD",
   "tested_ref": "corpus/sc44-sc45-reconciliation-preview",
-  "head_at_test": "fa945cbbf7a1c480399b63485f74a4f134de8831",
+  "head_at_test": "f82f8bcee61c470e4af2f87e320023659d751bc2",
   "full_path": "book/The-Incompleteness-of-Observation-FULL.md",
-  "full_blob": "c2165b20b66fd2001f1f19b60a8cda11b3deaec2",
+  "full_blob": "770b7e5e3009cf5dfe618e0fb7f7a7bc8456e88a",
   "changed_chapters": {
-    "book/ch02-substratum.md": "eb8f8bfdd331579a090470dec4589ddbf45d4973",
-    "book/ch03-structural-realism.md": "84f153011e08e011a987eecbb8a80d2e326d3da3",
+    "book/ch02-substratum.md": "544a33fccf40e2e6be191158375f430f5646bfff",
+    "book/ch03-structural-realism.md": "feb42a6fa0d6196838c708e3faa610079c9f56b8",
     "book/ch14-quantum-computing.md": "c2a8b52ea178841f904d9f494a747e8bd47e1eb8"
   },
   "checked_files": [
@@ -44,5 +44,6 @@
   "missing_chapter_lines": 0,
   "fetch_failures": 0,
   "evidence_method": "GitHub connector exact source bytes; FULL Git blob read because its normal contents endpoint exceeds the API's text-content size limit; compared trimmed nonblank chapter lines against a set of trimmed nonblank FULL lines in read-only batches.",
-  "limitations": "Does not run the original mirror_check.py process in a full checkout. Its exact source logic was reimplemented in the script host. Does not prove full text quality, book ordering, unique occurrences or consistency of scientific claims. FULL TeX/PDF remain generated-artifact blockers. This record is not independent review or V3 attestation."
+  "limitations": "Does not run the original mirror_check.py process in a full checkout. Its exact source logic was reimplemented in the script host. Does not prove full text quality, book ordering, unique occurrences or consistency of scientific claims. FULL TeX/PDF remain generated-artifact blockers. This record is not independent review or V3 attestation.",
+  "additional_notes": "After initial mirror pass, chapter 2 and chapter 3 residual overclaims in ontology, conditional SM reconstruction, gauge completeness, arrows of time and proposed QM/GR unification were repaired on the same branch and mirrored by unique old-line replacements. A second exact read-only 27-file comparison against the new FULL Git blob returned zero missing nonblank chapter lines. The rendered FULL TeX/PDF are still stale, and independent scientific review remains outstanding."
 }
