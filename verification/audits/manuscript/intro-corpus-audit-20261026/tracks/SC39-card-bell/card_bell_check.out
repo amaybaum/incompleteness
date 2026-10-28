@@ -1,0 +1,7 @@
+PASS K1 every local deterministic response pair has |CHSH| <= 2 (16 x 16 tables, exact) : values [Fraction(-2, 1), Fraction(2, 1)]
+PASS K2 a shared-deal local game attains CHSH = 2
+PASS X1 CONTROL (must exceed 2): a post-setting move on both hands gives CHSH = 4
+PASS X2 CONTROL (must exceed 2): a deal that depends on the settings gives CHSH = 4
+PASS X3 CONTROL (must exceed 2): local play with runs lacking an outcome discarded gives CHSH = 4 on kept runs
+
+card_bell_check: ALL CHECKS PASS
