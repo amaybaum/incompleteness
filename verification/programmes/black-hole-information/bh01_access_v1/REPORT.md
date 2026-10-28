@@ -1,6 +1,6 @@
 # BH-01 access audit, v1: report
 
-Status: exploratory research, unreviewed for adoption. No manuscript change, no theorem
+Status: exploratory research, internally reviewed (review/README.md), not adopted. No manuscript change, no theorem
 designation, no new postulate. Preregistration: `PLAN.md` (committed alone, before any
 computation, and unchanged since). Definitions, claims, decision rule and controls are those
 of `PLAN.md`; this report states the outcome, the proofs, and the scope. Changes made after
