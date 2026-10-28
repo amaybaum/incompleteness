@@ -42,3 +42,21 @@ Several prior overclaims elsewhere in the corpus remain **outside this preview**
 **New CI observation:** In an earlier SC-44 run the Lean-kernel job stopped at toolchain reporting, with an SSL error downloading Lean 4.35.0, before kernel checks. That is infrastructure evidence only, not a theorem failure or successful run. Also, generated artifacts remain stale until regenerated, so the release gate is not yet green.
 
 **No merges authorized.**
+
+## Second scientific finding: Theorem 23 local uniqueness exceeds its derivation
+
+**F-23 — source-level correction in preview (not independently reviewed).** Theorem 23 and Lemma 23.0 formerly concluded uniqueness of the local propagating lattice/gauge residue **among all** E1–E7/A1–A6 models, modulo the four proposed gauge generators. Removing the false semigroup-transfer lemma leaves two logically independent gaps:
+
+1. **Model selection.** Stage 2(b) proves its wave-rule result within a *nearest-neighbor, second-order* class, stronger than A3's bounded coupling. Stage 2(c) uses H-link and the selected branch (m=1). The octahedral representation, amplitude-scale gauge, H-spin', H-χ' and other [SM] hypotheses are additional branch inputs. The assertion that *each* Stage-2 item (a)–(f) is an iff has no proof; retaining that sentence would turn these branch-specific consequences into a uniqueness claim over all substrata.
+2. **Equivalence-class completeness.** Even if two selected models share (d=3), (K=6), multiplicities ((3,2,1)), and the same conditional action-scale relation, equality of those **outputs** does not imply that the models are gauge-related. A complete observational gauge equivalence is not supplied by Theorem 24, and the stronger block-word theorem (Proposition 24.2) does not apply unless the word traces and spanning hypotheses are separately established.
+
+**Source fix.** Theorem 23 is restricted to a conditional local-branch reconstruction, and Lemma 23.0 to shared **values of the branch's invariants** without substratum conjugacy. Stage 2's universal-if-and-only-if/uniqueness clause was removed, and direct introduction, status, remarks, schematic arrow, synthesis and conclusion claims were narrowed. The `SUBSTRATUM:T-23` and `SUBSTRATUM:L-23.0` coverage rows remain GAP (no formal proof of full reconstruction). Theorem 24 remains GAP; Proposition 24.2 alone is K3.
+
+**Scientific-review challenges:** 
+- Verify that no selected-branch hypothesis has been smuggled into an E/A assumption, and that all formulae and physical identifications inherited from [SM] retain their own conditions.
+- Check whether any independent theorem proves a wider Stage-2 uniqueness class; if so, quote its exact hypotheses and revise this status accordingly—not by assertion.
+- Decide whether keeping the `Theorem 23` label on a branch-relative synthesis is mathematically appropriate under the identifier policy, and whether the local statement deserves a more modest named status.
+- Audit remaining book/Structure/Explainer mirrors, especially statements that the full gauge group projects onto the SM gauge group and claims that a unique physical substratum was reconstructed.
+- Cross-check SC-43 turtles claims against this narrower causal/observable scope.
+
+**CI classification (earlier preview head `053130e6`).** Mathlib bridge run `40643741304` failed while fetching Lean 4.33.0 with repeated TLS/SSL connection errors *before* the kernel tools ran. The resulting missing axiom reports are downstream infrastructure consequences, not counterexamples to the mathematics. The SC-44 `40642405124` toolchain failed downloading Lean 4.35.0. Neither failed run certifies the latest edited preview head. Exact-head tests, release gates and canonical Substratum TeX/PDF regeneration remain undone.
