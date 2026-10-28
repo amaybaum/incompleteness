@@ -20,7 +20,7 @@ def need(yes, description):
 need(paper.count("**Theorem 24** (Exact fixed-interface invariances") == 1, "SC-45 narrowed theorem lost")
 need(paper.count("**Proposition 24.2** (Fixed-carrier block-word rigidity)") == 1, "SC-44 proposition lost")
 need("**Lemma 24.1**" not in paper, "Refuted lemma revived")
-need("a hidden-factor relabelling" in paper, "Hidden-only invariance missing")
+need("hidden-factor relabelling" in paper, "Hidden-only invariance missing")
 need("Adjoining an independent finite hidden factor" in paper, "Exact-decoupled invariant missing")
 need("blockSpanning_of_wordTracesEqual" in paper and "WT3_spanning_iff" in paper, "Lean proof citations missing")
 need("ST3_pairC" in paper and "ST4_pairC" in paper, "Pair-C negative scope missing")
