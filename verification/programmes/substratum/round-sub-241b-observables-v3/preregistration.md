@@ -67,20 +67,21 @@ decisions 5 and 6, given that day in the coordinating session, for this round an
 >
 > Most importantly, 24.1B and 24.1C must not contaminate each other's evidence. They may proceed in parallel, but neither result may become an unstated premise of the other's frozen decision.
 
-Three requirements are carried with them: governed paths limited to the record directory, the receipt and the
-`ROADMAP`/`README` pointers, with no Lean, guard clause, seal record, certificate or `control-plane-preconditions`
-block (§A.39); a checkpoint for every stated invariant (§A.41); and a start-state note that the quoted objects have
-drifted at `main`. Where each is encoded:
+This control plane adds three requirements of its own: governed paths limited to the record directory, the receipt
+and the `ROADMAP`/`README` pointers, with no Lean, guard clause, seal record, certificate or
+`control-plane-preconditions` block (§A.39); a checkpoint for every stated invariant (§A.41); and a start-state
+note that the quoted objects have drifted at `main`. Where each is encoded (rows 1–5 are the decisions in the
+issue's body, rows 6–7 this control plane's requirements, the last row the comment's decision 6):
 
-| decision | encoded in |
+| decision or requirement | encoded in |
 | --- | --- |
 | 1. round id, record directory, receipt, non-sealing | the `v3-round` and `v3-governed-paths` blocks; the paragraph after them |
 | 2. provenance; the frozen targets adopted by citation and quotation, not reinterpreted | *Provenance*; *The frozen round, quoted*; *The protocol* |
-| 3. the nine pins as the evidence base; the separate non-verdict section; the drift note | *Evidence base and start state*; *The non-verdict section*; checks `T4`, `N4`, `N16` |
+| 3. the nine pins as the evidence base; the separate non-verdict section | *Evidence base and start state*; *The non-verdict section*; checks `T4`, `N4`, `N16` |
 | 4. four statements under `WD1`; "three" recorded as a discrepancy | *Discrepancies*, X1; checks `N7`, `N17` |
 | 5. independence from SUB-241C-SPAN and any 24.1C result | *Independence*; checks `N4`, `N14` |
 | 6. governed paths | the `v3-governed-paths` block; checks `T5`, `T6`; the verifier at `Q` |
-| 7. every invariant measured | *Invariants and their checkpoints* |
+| 7. every invariant measured; the start-state drift note | *Invariants and their checkpoints*; *Evidence base and start state* |
 | no merge into `main`; `Λ` branch-local only (comment 6463778359, decision 6) | *The protocol*; the invariant row on the round's records |
 
 ## The frozen round, quoted
@@ -836,7 +837,7 @@ span. It prints `controls: self-test OK (59 cases)`.
 | the "three"/"four" discrepancy recorded | `N17` at `E` |
 | the pointers only add lines; no label moves | `T6` at `E` |
 | predictions are not amended | `T2` (this file unchanged after `F`) |
-| the freeze's reviewer-checked requirements: strength recorded per determination, at most `medium` for a passage that names a thing without displaying it (:123–124); no act 14 carrier written as a candidate for `O_set`, nor `O_set` as such a carrier (:141–142); the `WD4` candidates checked, not assumed (:253–256); `ST3`/`ST4` consumed as established and unrevised (:197–199); a partition-quantifier obstruction named in the frozen terms and no others (:315–320); any landing above a predicted strength recorded with its reason (:277–278); and the checks the final report owes for hazards 1, 2 and 7 (:142, :383–384, :399–400) | the reviewer at `E`, item by item against the frozen text, with a verdict per item on the pull request |
+| the freeze's reviewer-checked requirements: strength recorded per determination, at most `medium` for a passage that names a thing without displaying it (:123–124); no act 14 carrier written as a candidate for `O_set`, nor `O_set` as such a carrier (:141–142); the `WD4` candidates checked, not assumed (:253–256); `ST3`/`ST4` consumed as established and unrevised (:197–199); a partition-quantifier obstruction named in the frozen terms and no others (:315–320); a landing of `WD2` or `WD3` above its predicted strength recorded with its reason (:276–278); and the checks the final report owes for hazards 1, 2 and 7 (:142, :383–384, :399–400) | the reviewer at `E`, item by item against the frozen text, with a verdict per item on the pull request |
 | every stage requirement can be met from `F` (no checkpoint `F` cannot satisfy) | precondition 2 at candidate `F` |
 | the round's records hold | `tools/v3_verifier.py --verify-round Q` prints `VERDICT  HOLDS`; `--receipts` in the release gate of the pull request's run at its head; on `main` only once `Q` is published there (*The protocol*) |
 | a reconciliation adds exactly the execution's own changes | the verifier at `Q` (`S9`); the reviewer compares the landing with `delta(F, E)` (§A.39 item 3) |
