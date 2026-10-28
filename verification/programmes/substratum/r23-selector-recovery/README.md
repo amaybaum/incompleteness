@@ -71,3 +71,28 @@ This list is a *priority classification*, not an assertion that every item has b
 5. Publish repaired source and propagated references only when proof standards are met, with separate exact-SHA merge approval. Until then the conservative theorem wording in #982 remains the publication-safe status.
 
 **No merges or PR authorizations implied.**
+
+## Conditional selector lemma (mathematical, not physical) — exploratory
+
+A *positive* result identifies exactly one possible extra premise that could recover a restricted wave-rule uniqueness theorem. **It does not show that OI supplies that premise.**
+
+Let (p:\mathbb Z^3\setminus\{0\}\to[0,1]) be finitely supported, normalized ((\sum_d p_d=1)) and invariant under signed permutations of coordinates (cubic symmetry). Define a real second-order spatial-wave dispersion by
+[
+\cos\omega(k)=\sum_d p_d\cos(k\cdot d).
+]
+At small (k), the symmetry cancels all off-diagonal second moments and makes
+[
+\omega(k)^2=\frac{\mathbb E_p|d|^2}{3}|k|^2+O(|k|^4).
+]
+Since each nonzero integer displacement has (|d|^2\ge1), the infrared speed coefficient obeys
+[
+c_{\rm lat}^2=\frac{\mathbb E_p|d|^2}{3}\ge\frac13.
+]
+If **equality** (c_{\rm lat}^2=1/3) is additionally required, the nonnegative sum of terms (p_d(|d|^2-1)) is zero, so every active displacement has (|d|^2=1), i.e. it is one of the six nearest axial neighbors. Cubic symmetry and normalization then force **exactly** (p_{\pm e_i}=1/6). Conversely, those six weights give equality. This proves the **unique positive nearest-neighbor effective spatial kernel** within the stated class.
+
+No Lean formalization or independent review has been performed. `exploratory/positive_kernel_selector.py` exhausts a denominator-6 grid of four cubic-orbit mixtures using rational arithmetic, and tests that dropping either **no self-loop** or **nonnegativity** permits a non-nearest kernel with the same second moment.
+
+**Critical physical limitations.** The physical OI substratum uses finite-field/mod-(q) reversible update rules; there is no intrinsic nonnegative order on the modular coefficients. A real nonnegative *observer-level spatial kernel* would need an independent construction from that substratum. Likewise, the dimensionless equality (c_{\rm lat}^2=1/3) is **not derived from A1–A6**, and choosing it to recover the desired cubic wave equation would be circular as a fundamental explanation. Physical lattice spacing, time-step normalization and a mechanism relating observed light cones to this dispersion must be derived or independently measured. Without those bridges the lemma is a useful conditional rigidity result, **not a restoration of Theorem 23's uniqueness**.
+
+**Next falsifiable target:** derive (or find a counterexample to) the proposition that OI's finite reversible observer dynamics induces a *nonnegative, normalized, center-free spatial transfer kernel* with a fixed dimensionless infrared speed on the actual accessible degrees of freedom. Test that premise against signed-coupling, self-loop, alternative-shell and observational-gauge controls, and do not assume the value (1/3) merely to obtain the desired conclusion.
+
