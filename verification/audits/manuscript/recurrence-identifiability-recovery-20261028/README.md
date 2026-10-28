@@ -62,7 +62,6 @@ this is not a whole-theorem K3 promotion or an accessible-window statement.
 
 The prior two-declaration iterate-return checkpoint `db658fd30512dcab66d7de86e1f4d1bbd9cd8bb0`
 compiled and passed the Release gate in run 40725912431, and independent review
-accepted those exact declarations. Its report SHA256 is
-`2231302a6b9f5d897f84af8eb6f416ead8c07c6c263417858d983a0e6acba981`.
+accepted those exact declarations at that immutable checkpoint.
 The new finite-order/composition declarations await their own compiler and
 independent-review verdicts.
