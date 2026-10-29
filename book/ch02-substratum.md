@@ -29,7 +29,7 @@ The substrate objection asks an obvious question: what is the memory made of? Wh
 
 A closer analog than physical substance is the abstract structure of a computation. A Turing machine has three components: a tape (the storage medium), a head (the read-write access window), and a transition function (the update rule). The mapping to the substratum is direct: $S$ corresponds to the tape, $V$ to the head's access window, $\varphi$ to the transition function. But three differences are physically significant.
 
-First, a Turing machine's tape is potentially infinite while $S$ is finite. Finiteness is essential for the Poincaré recurrence argument that drives the P-indivisibility theorem of Chapter 1, and for the holographic bound on storage capacity of any bounded region.
+First, a Turing machine's tape is potentially infinite while $S$ is finite. Finiteness is essential for the finite-recurrence argument that drives the P-indivisibility theorem of Chapter 1, and for the holographic bound on storage capacity of any bounded region.
 
 Second, a Turing machine is generally irreversible — it can erase, overwrite, and halt. The substratum bijection $\varphi$ is reversible by Lemma 3 of Chapter 1: nothing is erased, nothing is created, there is no halting state. Reversible Turing machines (Bennett, Fredkin–Toffoli) are a well-studied subclass; the substratum sits in this class.
 
