@@ -44,7 +44,7 @@ jobs:
             pdfinfo "$path" | grep -E '^Pages:|^Page size:|^File size:'
             pdftotext -layout "$path" - | python3 -c 'import sys,statistics; t=sys.stdin.read(); pages=t.split(chr(12)); counts=[len(p.strip()) for p in pages if p.strip()]; print("page-text-density:", len(counts), "pages, median", statistics.median(counts), "characters; min", min(counts)); assert len(counts)>15 and statistics.median(counts)>100, "suspicious sparse pages"'
           done
-          python3 tools/mirror_check.py
+          python3 papers/oi_lattice_code/mirror_check.py
       - name: Verify branch lease, commit only regenerated artifacts, and remove this temporary workflow
         shell: bash
         env:
