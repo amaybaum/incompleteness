@@ -734,16 +734,19 @@ break it.
 number of neighbors in \(\varphi\)'s action. (Required for locality and
 the emergence of a coupling graph with well-defined dimension. The
 physical content is boundedness itself; bounded-degree graphs with the
-same growth dimension, spectral mode count and statistical isotropy
-share the structural quantum-mechanical, dimensional, and gravitational
-content of Theorem 24(iv), but need not give the same \(T_{ij}(t)\).)
+same growth exponent, spectral mode count and statistical isotropy each
+admit a finite-law representation and share the growth exponent (Theorem
+24(iv)), but need not give the same \(T_{ij}(t)\), and the
+continuum-curvature step requires its own conditions {[}SM §3.1{]}.)
 
 (A4) \textbf{Center independence.} The dynamics \(\varphi\) does not
 depend on a choice of ``center'' site, in two senses used below:
-\(\varphi\) commutes with lattice translations up to gauge, and the
-update at a site contains no explicit copy of that site's present value
-({[}SM §4.1{]}). (The second sense is what the wave-equation derivation
-of Stage 2 uses. Its observational anchor is the homogeneity of physical
+\(\varphi\) commutes with lattice translations up to gauge (the coupling
+graph is a finite periodic lattice, the quotient of a rank-\(d\) lattice
+by a finite-index sublattice, \(d\) being its dimension), and the update
+at a site contains no explicit copy of that site's present value ({[}SM
+§4.1{]}). (The second sense is what the wave-equation derivation of
+Stage 2 uses. Its observational anchor is the homogeneity of physical
 law --- no experiment has found a preferred location in the laws --- the
 cosmological principle's complement to E4's isotropy; whether it is
 independently warranted by the observer architecture remains the
@@ -1071,17 +1074,19 @@ doublet \((\mathbf{1}, \mathbf{2}, +1/2)\) - Anomaly-free hypercharges
   gives \(\rho_s / \rho_{\text{crit}} = 2/(d-1) = 1\) at \(d = 3\)
   uniquely. The intersection of the first two filters already pins
   \(d = 3\); the third is a sharpening consistency check that the
-  framework passes exactly. The integer-polynomial growth assumption
-  (rather than fractal or exponential growth) is itself derived from
-  self-consistency: exponential growth fails Lorentz-invariant
-  dispersion (Jacobson's GR derivation requires it); fractal growth
-  fails the cubic-lattice symmetry needed for the cubic-group
-  decomposition in step (d) below. By Gromov's theorem and statistical
-  isotropy (E4), the surviving graph class is quasi-isometric to
-  \(\mathbb{Z}^d\) for integer \(d\); the three filters then select
-  \(d = 3\). ({[}SM §3.2{]} presents this argument in full; the inputs
-  E5, E6, E7 surfaced here make explicit the empirical content the
-  filters require.)
+  framework passes exactly. Self-consistency excludes exponential growth
+  (Lorentz-invariant dispersion fails, and Jacobson's GR derivation
+  requires it) and fractal growth (the cubic-lattice symmetry needed for
+  the cubic-group decomposition in step (d) below is absent), but not
+  intermediate or irregular growth. The integer degree is an input
+  through A4, whose lattice translations make the coupling graph a
+  finite periodic lattice of rank \(d\); Gromov's theorem, which
+  concerns finitely generated groups, and statistical isotropy (E4) do
+  not supply it for a general bounded-degree graph. Applied to the
+  continuum description, conditional on the continuum step of {[}SM
+  §3.1{]}, the three filters then select \(d = 3\). ({[}SM §3.2{]}
+  presents this argument in full; the inputs E5, E6, E7 surfaced here
+  make explicit the empirical content the filters require.)
 \item
   \emph{Wave equation.} Center independence (A4, in its functional
   sense: no self-term), isotropy (E4), and linearity (A5) uniquely
@@ -1625,25 +1630,28 @@ themselves.
 qualification on the gauge sector.} Two coupling graphs \(G_\varphi\)
 and \(G_{\varphi'}\) that are quasi-isometric with the same polynomial
 growth exponent \(d\), the same spectral mode count, and the same
-statistical isotropy at large scales produce the same emergent
-\emph{quantum-mechanical, dimensional, and gravitational} structural
-content (Theorems 1--6), but need not give the same transition
-probabilities \(T_{ij}(t)\) at a fixed observer interface; for this
-structural content the regular cubic lattice \(\mathbb{Z}^3\) and any
+statistical isotropy at large scales both admit the graph-independent
+finite-law representation {[}Main §3.4{]} and share the growth exponent
+\(d\) that enters the dimensional filters {[}SM §3.2{]}, but need not
+give the same transition probabilities \(T_{ij}(t)\) at a fixed observer
+interface, and the continuum-curvature step of the gravitational
+construction {[}SM §3.1{]} requires its own geometric conditions; in
+this sense the regular cubic lattice \(\mathbb{Z}^3\) and a
 bounded-degree random graph with \(d = 3\) polynomial growth and
-statistical isotropy are equivalent. The \emph{gauge-group} content of
-Stage 2(d) is where this crystallography becomes physical: the
-multiplicities \((3,2,1)\) are fixed by the octahedral point group
-acting on the six link directions (Theorem 7; {[}SM §4.5--4.6{]}), and
-the local point group is \emph{not} a quasi-isometry invariant --- only
-the spectral mode count \(2d_s = 6\) transfers to a generic isotropic
-graph, not the cubic decomposition. For the gauge-group content,
-therefore, the equivalence in (iv) is the narrower one of rigid
-orientation together with isomorphisms preserving the cubic (octahedral)
-local structure; the simple-cubic Bravais type itself is an
-empirically-selected input (§3, Refinement below; {[}SM §8.3{]}), not a
-gauge choice. A generic isotropic random graph reproduces the
-emergent-QM content but not the Standard Model gauge group. The gauge
+statistical isotropy are structurally comparable, not observationally
+equivalent. The \emph{gauge-group} content of Stage 2(d) is where this
+crystallography becomes physical: the multiplicities \((3,2,1)\) are
+fixed by the octahedral point group acting on the six link directions
+(Theorem 7; {[}SM §4.5--4.6{]}), and the local point group is \emph{not}
+a quasi-isometry invariant --- only the spectral mode count \(2d_s = 6\)
+transfers to a generic isotropic graph, not the cubic decomposition. For
+the gauge-group content, therefore, the equivalence in (iv) is the
+narrower one of rigid orientation together with isomorphisms preserving
+the cubic (octahedral) local structure; the simple-cubic Bravais type
+itself is an empirically-selected input (§3, Refinement below; {[}SM
+§8.3{]}), not a gauge choice. A generic isotropic random graph admits
+the finite-law representation but need not reproduce the same observable
+law, and does not reproduce the Standard Model gauge group. The gauge
 group itself is a universality-class invariant, shared with any
 Standard-Model-reproducing class through different machinery
 ({[}Structure §2.3, §14.4{]}); within OI's class it is realized through
@@ -1663,15 +1671,14 @@ coordinates a quantity that does not depend on them, so every
 \(T_{ij}(t)\) is unchanged exactly, whatever the size of the adjoined
 sector, and the emergent Hamiltonian and \(\hbar\), built from the same
 visible data and the same \(\mathcal{C}_V \times \mathcal{C}_B\)
-dynamics, are unchanged with them. (iv): the
-emergent-QM/dimension/gravity derivation chain (Theorems 1--6) uses only
-statistical properties of \(G_\varphi\) (dimension via Myrheim-Meyer,
-isotropy, bounded degree), not the specific graph, so its structural
-outputs agree, while \(T_{ij}(t)\) depends on the specific graph; the
-gauge-group derivation of Stage 2(d) additionally uses the octahedral
-point-group action on the six link directions, which the simple-cubic
-representative supplies and a generic isotropic graph does not, so for
-that content (iv) is restricted to the orientation- and
+dynamics, are unchanged with them. (iv): the finite-law representation
+{[}Main §3.4{]} holds for any finite bijection and the growth exponent
+is shared by hypothesis, while \(T_{ij}(t)\) depends on the specific
+graph and the continuum-curvature step {[}SM §3.1{]} has its own
+conditions; the gauge-group derivation of Stage 2(d) additionally uses
+the octahedral point-group action on the six link directions, which the
+simple-cubic representative supplies and a generic isotropic graph does
+not, so for that content (iv) is restricted to the orientation- and
 octahedral-structure-preserving isomorphisms (see the qualification in
 the statement). \(\square\)
 
@@ -3340,4 +3347,4 @@ Running-Vacuum Form of Dark Energy from the Cosmological Horizon,''
 (2026).
 
 \end{document}
-% source-sha256: 04db25c8f0178bdccd627cd57e4dfdda989a8c4be97a651f93857cceb22df79d
+% source-sha256: 60f11299567c18d7d9bb8f6042351d404868d9e724de6bb074e85b2cb506d75e
