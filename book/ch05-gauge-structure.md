@@ -74,7 +74,7 @@ The integer $d$ therefore enters through A4 as the rank of the translation latti
 
 The argument's structure is worth marking explicitly. The framework's definition of observation requires an embedded observer as a constitutive element — the partition $V \subset S$ is defined relative to an observer that the substratum's structure must support. The requirement that such an observer exist, combined with the framework-internal concordance calculation, constrains $d$. This is not a standard anthropic argument selecting from a pre-existing multiverse of dimensions. The observer is a structural prerequisite for the framework's definition to have content, not a contingent feature of one universe among many.
 
-The combination of the three filters with the integer dimension supplied by A4's lattice produces an unusual claim: given that lattice, the spatial dimension is selected by the filters rather than set as a free parameter. Where the conventional picture treats $d = 3$ as an observed fact requiring no explanation, the framework derives it as a forced consequence of the structural conditions that any embedded observer's universe must satisfy. The empirical fact that space appears three-dimensional is then evidence for the framework's structural commitments rather than independent of them.
+Within the assumed A4 periodic-lattice class and the selected continuum description, the E5–E7 filters select $d = 3$. Integer rank is supplied by A4, while the value $3$ is selected using the physical filters. The continuum-curvature identification remains open, as stated in SM §3.1. This selection concerns that branch rather than every finite bijection or embedded-observer architecture.
 
 ***
 
