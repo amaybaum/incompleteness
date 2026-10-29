@@ -263,6 +263,13 @@ jobs:
           done
 
 
+      - name: Rounded separation to saturation and no-perturbation control
+        timeout-minutes: 3
+        run: |
+          set -euo pipefail
+          python3 -I -B papers/main_repro/lyapunov_v3.py
+          python3 -I -B papers/main_repro/lyapunov_v3.py --no-perturbation-control
+
       - name: SC-45 exact coherent-channel controls (normal / optimized)
         run: |
           set -euo pipefail

@@ -1999,8 +1999,8 @@ window give \(0.25\), \(0.50\) and \(0.64\) per step, values set by
 where the window meets the jump, and exponential amplification is not
 separated from that spreading, power-law fits on the same windows
 leaving residuals within a factor \(1.3\) of the exponential ones. The
-non-integrability that way out (i) requires is shown numerically by the
-diagnostics below: the rounded bijection behaves chaotically at the
+non-integrability that way out (i) requires is indicated numerically by
+the diagnostics below: the rounded bijection behaves chaotically at the
 sizes measured, the integrable linear dynamics being broken by the
 rounding rule's threshold-crossing nonlinearity. Breaking the
 integrability of the linear rule is necessary for full-shell sampling;
@@ -2033,7 +2033,7 @@ absolute autocorrelation \(0.019\) at lags \(200\)--\(400\), against
 comparative cycle-structure consolidation in an exactly enumerable
 one-dimensional analog (the rounded map's dominant cycle, \(8{,}110\)
 states, is \(\sim 400\times\) the linear control's \(20\)). These
-diagnostics, which show that the rounding breaks the linear rule's
+diagnostics, which indicate that the rounding breaks the linear rule's
 integrability as the ergodicity interpretation requires, carry the chaos
 conclusion; the separation measurement above does not.
 
@@ -2044,22 +2044,23 @@ the weighted neighbour sum on the torus \(G=(\mathbb{Z}/L)^d\) of
 \(N=L^d\) sites and \(T_j\) the unit translations. For symmetric \(A\)
 the map \(F\) conserves
 \(E(u,v)=u\cdot u+v\cdot v-u\cdot Av=|v-u|^2+u\cdot(2-A)v\), which at
-\(\alpha=1/d\) is the kinetic-plus-potential energy of the lattice wave
-equation reduced mod \(q\). For symmetric translation-invariant \(A\),
-which commutes with every translation-invariant coupling, \(F\) also
-conserves \(Q_B(u,v)=u\cdot Bu+v\cdot Bv-u\cdot BAv\) for every
-symmetric translation-invariant \(B\) and
-\(P_C(u,v)=u\cdot Cv-v\cdot Cu\) for every antisymmetric
-translation-invariant \(C\); for local \(B\) and \(C\) these are sums of
-local densities. Let \(q=p\) be prime with \(p\nmid L\), let \(L\ge2\),
-let \(A\) be any translation-invariant coupling over \(\mathbb{F}_p\),
-and let \(m=\operatorname{ord}_L(p)\le L-1\). Then
-\(F^{\,p(p^{2m}-1)}=I\). \emph{Proof.} \(F\) is linear over the
-commutative ring \(R=\mathbb{F}_p[G]\) acting on \(R^2\) and satisfies
-\(F^2-AF+1=0\), so it is the image of the unit \(X\) of
-\(R[X]/(X^2-AX+1)\), whose inverse is \(A-X\). Since \(p\nmid|G|\),
-\(R\) is a product of fields \(\mathbb{F}_{p^r}\) with \(r\mid m\), and
-\(R[X]/(X^2-AX+1)\) is a product of rings \(\mathbb{F}_{p^{2r}}\),
+\(\alpha=1/d\) (when \(d\) is invertible modulo \(q\)) is the
+kinetic-plus-potential energy of the lattice wave equation reduced mod
+\(q\). For symmetric translation-invariant \(A\), which commutes with
+every translation-invariant coupling, \(F\) also conserves
+\(Q_B(u,v)=u\cdot Bu+v\cdot Bv-u\cdot BAv\) for every symmetric
+translation-invariant \(B\) and \(P_C(u,v)=u\cdot Cv-v\cdot Cu\) for
+every antisymmetric translation-invariant \(C\); for local \(B\) and
+\(C\) these are sums of local densities. Let \(q=p\) be prime with
+\(p\nmid L\), let \(L\ge2\), let \(A\) be any translation-invariant
+coupling over \(\mathbb{F}_p\), and let
+\(m=\operatorname{ord}_L(p)\le L-1\). Then \(F^{\,p(p^{2m}-1)}=I\).
+\emph{Proof.} \(F\) is linear over the commutative ring
+\(R=\mathbb{F}_p[G]\) acting on \(R^2\) and satisfies \(F^2-AF+1=0\), so
+it is the image of the unit \(X\) of \(R[X]/(X^2-AX+1)\), whose inverse
+is \(A-X\). Since \(p\nmid|G|\), \(R\) is a product of fields
+\(\mathbb{F}_{p^r}\) with \(r\mid m\), and \(R[X]/(X^2-AX+1)\) is a
+product of rings \(\mathbb{F}_{p^{2r}}\),
 \(\mathbb{F}_{p^r}\times\mathbb{F}_{p^r}\) or
 \(\mathbb{F}_{p^r}[\varepsilon]/(\varepsilon^2)\), whose unit groups
 have exponents dividing \(p^{2r}-1\), \(p^r-1\) and \(p(p^r-1)\)
@@ -2079,14 +2080,14 @@ with \(B=T_1+T_1^{-1}\) and \(C=T_1-T_1^{-1}\) separate further; at
 of \(F\) is \(60\) for \(p=5\) and \(84\) for \(p=7\), while every
 energy shell has more than \(10^{37}\) and \(10^{44}\) states
 respectively. The order bound holds in all 91 distinct cases computed
-(\(d=1\)--\(3\); \(p=2,3,5,7\); \(\alpha=1\), \(\alpha=1/d\) and random
-translation-invariant \(A\)). The statement covers prime \(q\) with
-\(p\nmid L\) and translation-invariant couplings; composite \(q\),
-\(p\mid L\) and couplings that are not translation-invariant are outside
-it. Within that class the energy shells of the exact linear rule larger
-than its order, the largest among them, are not single cycles, so that
-rule does not supply the full-shell sampling the measure reduction above
-requires.
+(\(d=1\)--\(3\); \(p=2,3,5,7\); \(\alpha=1\), \(\alpha=1/d\) (only when
+\(p\nmid d\)) and random translation-invariant \(A\)). The statement
+covers prime \(q\) with \(p\nmid L\) and translation-invariant
+couplings; composite \(q\), \(p\mid L\) and couplings that are not
+translation-invariant are outside it. Within that class the energy
+shells of the exact linear rule larger than its order, the largest among
+them, are not single cycles, so that rule does not supply the full-shell
+sampling the measure reduction above requires.
 
 \emph{The two roles of the dynamics, stated explicitly.} The exact
 finite update \(f=\sum_{\mathrm{nn}}x-x(t-1)\) over
@@ -6792,19 +6793,19 @@ addressed below; their current status:
   cycle \(C\), \(\rho \circ T = \rho\) holds exactly when \(T(C) = C\).
   For the exact linear rule with symmetric coupling, \(E\circ T=E\), so
   each energy shell is \(T\)-invariant and its uniform measure satisfies
-  \(\rho\circ T=\rho\) exactly, with no ergodicity used; for any such
-  \(\rho\), the uniform-shell law is invariant under exchange of the two
-  stored time slices and the corresponding equal-time expectations
-  agree. This symmetry alone does not establish temporal factorization
-  or the 3D/4D measure identification. What requires ergodicity is the
-  identification of the realized stationary law, uniform on the cycle
-  the state occupies, with that shell measure. For the exact linear rule
-  the identification is false on shells larger than its order, since
-  those shells are not single cycles (§4.2), and in the exhaustive
-  instances most of its cycles are not \(T\)-invariant (at \(d=1\),
-  \(L=5\), \(q=3\), \(90\) of the \(2{,}160\) cycles on the shell
-  \(E=1\) satisfy \(T(C)=C\)), so for most cycles the realized law is
-  not \(T\)-invariant either. For the rounded bijection, for which no
+  \(\rho\circ T=\rho\) exactly, with no ergodicity used; the
+  uniform-shell law is invariant under exchange of the two stored time
+  slices and the corresponding equal-time expectations agree. This
+  symmetry alone does not establish temporal factorization or the 3D/4D
+  measure identification. What requires ergodicity is the identification
+  of the realized stationary law, uniform on the cycle the state
+  occupies, with that shell measure. For the exact linear rule the
+  identification is false on shells larger than its order, since those
+  shells are not single cycles (§4.2), and in the exhaustive instances
+  most of its cycles are not \(T\)-invariant (at \(d=1\), \(L=5\),
+  \(q=3\), \(90\) of the \(2{,}160\) cycles on the shell \(E=1\) satisfy
+  \(T(C)=C\)), so for most cycles the realized law is not
+  \(T\)-invariant either. For the rounded bijection, for which no
   nonconstant quadratic invariant was found in the tested instances,
   that identification is open. Part B requires the measure and
   observable identification in gap (i), in addition to a stationary
@@ -7762,25 +7763,28 @@ selection constrains the bijection more tightly than generic
 Wilson-coefficient ambiguity, and the empirical match becomes a tighter
 test of the bijection's structure.
 
-\textbf{Layer 2 values and the discretization scheme.} The bijection
-\(\varphi\) is constrained by linearity up to the rounding rule,
-T-invariance and P-indivisibility. Cycle ergodicity on energy shells,
-which the measure reduction of §4.2 uses, is not among the established
+\textbf{Layer 2 values and the discretization scheme.} The candidate
+classes use linear dynamics (A5), or the separate rounded realization of
+§4.2, with T-invariance and P-indivisibility kept at their stated
+scopes. The rounded realization does not inherit A5 or exact
+amplitude-scale invariance. Cycle ergodicity on energy shells, which the
+measure reduction of §4.2 uses, is not among the established
 constraints: it fails for the exact linear rule at prime \(q\) not
 dividing \(L\) (§4.2, \emph{Remark (cycle structure of the exact linear
 rule)}), so that rule does not satisfy linear dynamics and cycle
-ergodicity jointly, and for the rounded bijection it is an open
-hypothesis (§4.2, §7.5). If Layer 2 coefficients (Cond 2 ratio at 2(b)
-status, D11 mechanism, D10 K-value, \(\delta_0\) threshold --- all at
-Layer 2(a)-tractable or 2(b) status) are fixed by the discretization
-scheme, they are \emph{all} functions of the same underlying
-discretization choices --- they are not independent --- and the
-framework's empirical matches at sub-percent / sub-σ precision (Cond 2
-at 0.6σ on the sum rule, \(m_u/m_d\) at 0.6\%) are tighter tests of
-discretization scheme than they appear as tests of ``generic bijection
-alignment.'' Cross-prediction consistency is then a meaningful test
-within structural clusters; the cubic-group \(T_1\)-Casimir cluster of
-§7.7 is one such successful test.
+ergodicity jointly, and whether the rounded bijection samples any energy
+shell remains open (§4.2, §7.5): its tested quadratic-energy level sets
+are not invariant. If Layer 2 coefficients (Cond 2 ratio at 2(b) status,
+D11 mechanism, D10 K-value, \(\delta_0\) threshold --- all at Layer
+2(a)-tractable or 2(b) status) are fixed by the discretization scheme,
+they are \emph{all} functions of the same underlying discretization
+choices --- they are not independent --- and the framework's empirical
+matches at sub-percent / sub-σ precision (Cond 2 at 0.6σ on the sum
+rule, \(m_u/m_d\) at 0.6\%) are tighter tests of discretization scheme
+than they appear as tests of ``generic bijection alignment.''
+Cross-prediction consistency is then a meaningful test within structural
+clusters; the cubic-group \(T_1\)-Casimir cluster of §7.7 is one such
+successful test.
 
 \textbf{Selection problem.} The framework characterizes a constrained
 class of substratum bijections (above) and derives empirical predictions
@@ -9112,4 +9116,4 @@ Compact Family Cycle,'' arXiv:2605.10245 (2026).
 \textbf{07}, 104 (2017); arXiv:1705.01853.
 
 \end{document}
-% source-sha256: 0a2ae5271afae4bb85cf6019019d8a7dbf1b2ea502ee1824174af1dbebfccf83
+% source-sha256: 6780d27802c80e89791c4dfc2f6ef97d809ca301be754ad81be889c36e32fdad

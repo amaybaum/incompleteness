@@ -24,7 +24,7 @@ Bounded smoke only, not full retained-output replay: SC-31's Landau dynamic prog
 
 ## Integration-review follow-up and supersession crosswalk
 
-Requirements: #999 comment 6497991912 on `ce03041cd13d46315e2b48f67aad5b33efab4848`. The SHOULD-FIX findings are publication blockers until the revised candidate passes review. Prior acceptance and green CI apply to ce03041c, not automatically to this follow-up. Canonical TeX/PDF are STALE at this source checkpoint and will be rebuilt. No grade promotion or closure follows from these corrections.
+Requirements: #999 comment 6497991912 on `ce03041cd13d46315e2b48f67aad5b33efab4848`. The SHOULD-FIX findings are publication blockers until the revised candidate passes review. Prior acceptance and green CI apply to ce03041c, not automatically to this follow-up. The source-only checkpoint ddf4aae5 flagged canonical TeX/PDF as STALE; rebuilt-candidate verification is recorded below. No grade promotion or closure follows from these corrections.
 
 The SC28/SC34 source tables retained from the old PRs are historical records of those candidates. Their rows below are explicitly superseded as statements of the current source. Those historical rows are preserved; this mutable crosswalk and the maintained manuscripts supply the current interpretation.
 
@@ -42,4 +42,46 @@ The SC28/SC34 source tables retained from the old PRs are historical records of 
 
 Per-finding disposition: (1) separation script and expected output corrected; (2) verification README names the stationary law and separation dynamics; (3) measured rounded diagnostics no longer establish realized-hidden-sector mixing; (4) exact A5 versus rounded candidate and shell noninvariance are explicit; (5) this crosswalk supersedes stale audit rows and the obsolete pending sentences are removed; (6) the exactly-linear period implication is one-way; (7) zero-fixed cycle scope is explicit; (8) finite-recurrence headings aligned; (9) redundant rho phrase removed; (10) numerical diagnostics indicate non-integrability rather than proving it; (11) nondeterministic timing tails removed forward; (12) normalized prime-field alpha=1/d requires p not dividing d. The restricted onsite K3 statement, Lean sources and every proof grade remain unchanged. #969 and #963 non-Bell residuals stay open.
 
-The review's three explicitly pre-existing out-of-scope items (cubic dispersion shorthand, uncited standard-interpretation sentence and Main's exponential-time wording) are not claimed fixed by this bounded follow-up. Final verification and independent exact-candidate review will be recorded after the rebuilt checkpoint is published.
+The review's three explicitly pre-existing out-of-scope items (cubic dispersion shorthand, uncited standard-interpretation sentence and Main's exponential-time wording) are not claimed fixed by this bounded follow-up. The rebuilt-candidate verification is recorded below; independent exact-candidate review is requested after publication.
+
+The default separation reproducer and its bounded identical-twin countercontrol are
+added to the existing ordinary `Numerical probes / core B` step sequence, with
+exit-status verdicts and no new workflow event. The default L=20/q=2^16/400-step
+replay remains for CI. The new `--no-perturbation-control` mode runs the actual map at
+L=4/q=256/80 steps and succeeds only when separation is zero and saturation fails on
+every seed. Fitted slopes remain diagnostic only. This is an explicit workflow/code
+follow-up; the prior artifact-only/no-workflow-change descriptions apply only to
+ce03041c and not this candidate.
+
+A same-claim recheck also found stale Lyapunov/SM-target labels in
+`mixing_battery.py`. Its B1 console labels now describe window-dependent fitted
+log-separation slopes; the withdrawn SM 241 target is removed and an empty window
+is reported without inferring slow growth. The actual numerical map, diagnostics,
+fit calculation and data are unchanged. The reproducer README scopes the battery
+to the rounded candidate. This completes finding (1)'s evidence-surface propagation.
+
+## Rebuilt integration-review candidate
+
+Canonical commands `sh ./build.sh Explainer Juno Main SM Substratum` and
+`sh ./build.sh --book` completed with exit status zero and no dropped glyphs.
+Page counts remain Explainer 70, Juno 22, Main 96, SM 150, Substratum 55 and book
+559. Their median nonspace characters per page are 2446, 2067, 2725, 2514, 2635
+and 2557 respectively. Rendered Main 47, Substratum 14, SM 34 and book 413 were
+inspected with no layout faults. All 13 source stamps match. Coverage retains
+133 statements; audit-census, voice and whitespace checks pass.
+
+The new saturation criterion passed a scaled actual-map perturbed run and rejected
+an identical unperturbed twin. After the explicit countercontrol mode was added,
+the scaled positive run and the bounded control command both returned their
+expected success status: the latter confirms zero separation and failure of the
+saturation predicate on every seed. Full default replay is delegated to the new
+ordinary CI step, not claimed from the scaled run. The battery's numerical AST is
+unchanged modulo console string constants. The onsite K3 block, full ledger and
+Lean sources are byte-identical to ce03041c; historical SC28/SC34 README files are
+also byte-identical. The three normalized output files preserve every nonblank
+scientific result line.
+
+This rebuilt candidate still needs independent exact-candidate acceptance and
+fresh ordinary CI. The new workflow step is the only workflow change; its event
+modes are unchanged. No merge, publication release, special dispatch, F/E
+designation or old-unit closure is authorized.
