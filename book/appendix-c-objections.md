@@ -129,7 +129,7 @@ The framework's content is therefore that the continuum QFT description is the *
 
 The framework's commitment to finiteness is therefore *compatible with* the standard QFT description as an effective continuum theory while making specific structural claims about the substratum level. The two levels of description coexist; the apparent infinite-dimensionality of QFT is an artifact of the continuum limit rather than a property of the underlying physics.
 
-**The empirical signatures.** Finiteness has specific empirical signatures developed in Chapter 18 §18.7: cosmic recurrence at timescale $\sim e^{e^{10^{122}}}$ (falsifiable only in the logical sense, with no practical empirical consequences) and constraints on cosmic information content (compatible with the Bekenstein bound).
+**The empirical signatures.** Finiteness has specific empirical signatures developed in Chapter 18 §18.7: exact cosmic recurrence, at a period at most Landau's $g(|S|)$, with $|S|$ not fixed by visible data (falsifiable only in the logical sense, and without practical empirical consequences at periods of astronomical size) and constraints on cosmic information content (compatible with the Bekenstein bound).
 
 The framework's finiteness commitment is therefore not just a mathematical convenience but a structurally consequential commitment with specific empirical content. The commitment is supported by the Bekenstein bound (established physics), compatible with continuum QFT (the framework's emergent description), and has specific empirical signatures (Chapter 18). A referee rejecting finiteness must engage these supports and signatures specifically rather than dismissing the commitment in general.
 

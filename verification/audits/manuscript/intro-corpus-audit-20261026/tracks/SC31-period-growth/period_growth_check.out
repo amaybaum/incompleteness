@@ -1,0 +1,77 @@
+SC-31 period-growth check
+python 3.13.16; mpmath 1.3.0
+
+(1) Every permutation order divides lcm(1..n)  [exhaustive, n <= 22]
+  [PASS] ord | lcm(1..n) for every cycle type, n = 1..22
+
+    psi(n) = ln lcm(1..n), exact integer lcm
+    n=    10  psi(n)=        7.8320  psi(n)/n=0.783201
+    n=   100  psi(n)=       94.0453  psi(n)/n=0.940453
+    n=  1000  psi(n)=      996.6809  psi(n)/n=0.996681
+    n= 10000  psi(n)=    10013.3967  psi(n)/n=1.001340
+    n=100000  psi(n)=   100051.5640  psi(n)/n=1.000516
+    n=200000  psi(n)=   200026.9388  psi(n)/n=1.000135
+    max psi(n)/n over n<=2000: 1.038821 at n=113  (observation only)
+  [PASS] von Mangoldt psi(1e5) equals ln lcm(1..1e5) to 1e-6
+
+(2) Landau g(n): partition DP vs brute force
+  [PASS] DP equals brute force max lcm over partitions, n = 1..40
+    g(1..20) = [1, 2, 3, 4, 6, 6, 12, 15, 20, 30, 30, 60, 60, 84, 105, 140, 210, 210, 420, 420]
+    n=  10  g(n)=30  ln g=   3.4012  ln g/sqrt(n ln n)=0.7088  ln lcm(1..n)=    7.8320
+    n=  20  g(n)=420  ln g=   6.0403  ln g/sqrt(n ln n)=0.7803  ln lcm(1..n)=   19.2657
+    n=  50  g(n)=180180  ln g=  12.1017  ln g/sqrt(n ln n)=0.8653  ln lcm(1..n)=   49.4854
+    n= 100  g(n)=232792560  ln g=  19.2657  ln g/sqrt(n ln n)=0.8978  ln lcm(1..n)=   94.0453
+    n= 500  g(n)=...  ln g=  54.9275  ln g/sqrt(n ln n)=0.9854  ln lcm(1..n)=  501.6521
+    n=1000  g(n)=...  ln g=  83.3094  ln g/sqrt(n ln n)=1.0024  ln lcm(1..n)=  996.6809
+    n=2000  g(n)=...  ln g= 126.0075  ln g/sqrt(n ln n)=1.0220  ln lcm(1..n)= 1994.4516
+    g(100) = 232792560
+  [PASS] g(n) divides lcm(1..n), n = 1..2000
+  [PASS] ln g(n) / ln lcm(1..n) < 0.25 at n = 2000 (g far below the universal bound)
+
+(3) Typical order of a uniform random permutation
+  [PASS] cycle-type probabilities sum to exactly 1 at n = 30
+    n=30 exact E[ln ord]=4.5353  cycle sampler=4.5362  shuffle sampler=4.5369  (se 0.0075)
+  [PASS] both samplers within 4 se of the exact mean at n = 30
+    n        mean ln ord   (ln n)^2/2   ratio   var ln ord   (ln n)^3/3   ratio
+    1e3        18.032       23.859  0.756       23.498      109.873  0.214
+    1e5        51.434       66.274  0.776      172.429      508.670  0.339
+    1e7       104.533      129.897  0.805      628.307     1395.790  0.450
+    1e9       177.653      214.727  0.827     1582.419     2966.561  0.533
+    (sanity check only: both ratios rise toward 1 slowly, lower-order terms dominate at these n)
+
+(4) Linear rule over Z/q: order <= q^D - 1; wave-rule periods
+    D=2, q= 2: max order over GL(2,Z/q) =   3  (q^2-1 = 3)
+    D=2, q= 3: max order over GL(2,Z/q) =   8  (q^2-1 = 8)
+    D=2, q= 4: max order over GL(2,Z/q) =   6  (q^2-1 = 15)
+    D=2, q= 5: max order over GL(2,Z/q) =  24  (q^2-1 = 24)
+    D=2, q= 6: max order over GL(2,Z/q) =  24  (q^2-1 = 35)
+    D=2, q= 8: max order over GL(2,Z/q) =  12  (q^2-1 = 63)
+    D=2, q= 9: max order over GL(2,Z/q) =  24  (q^2-1 = 80)
+    D=2, q=10: max order over GL(2,Z/q) =  60  (q^2-1 = 99)
+    D=2, q=12: max order over GL(2,Z/q) =  24  (q^2-1 = 143)
+  [PASS] every invertible 2x2 matrix over Z/q has order <= q^2-1, q = 2..12 sample
+  [PASS] ring wave rule: order = qL for q in {2,3,5,7}, L = 3..9, gcd(L,q)=1 (Theorem B.3.1)
+    ring, composite q=4 L=3: order 12  (q^D-1 = 4095)
+    ring, composite q=6 L=3: order 18  (q^D-1 = 46655)
+    ring, composite q=4 L=5: order 20  (q^D-1 = 1048575)
+    ring, composite q=6 L=5: order 30  (q^D-1 = 60466175)
+    ring, composite q=9 L=4: order 36  (q^D-1 = 43046720)
+    ring, composite q=8 L=3: order 24  (q^D-1 = 262143)
+    3D torus L=2 q=3 D=16: order 12; ln order / ln|S| = 0.1414
+    3D torus L=2 q=5 D=16: order 30; ln order / ln|S| = 0.1321
+    3D torus L=3 q=2 D=54: order 6; ln order / ln|S| = 0.0479
+    3D torus L=3 q=5 D=54: order 60; ln order / ln|S| = 0.0471
+    3D torus L=4 q=3 D=128: order 12; ln order / ln|S| = 0.0177
+    3D torus L=4 q=5 D=128: order 60; ln order / ln|S| = 0.0199
+    3D torus L=5 q=2 D=250: order 30; ln order / ln|S| = 0.0196
+    3D torus L=5 q=3 D=250: order 120; ln order / ln|S| = 0.0174
+  [PASS] 3D torus wave rule: order divides 2q(q^(2m)-1) on the tested (L, q)
+
+Leading-order expressions at n = e^(10^122)  [asymptotic]
+    (1) ln lcm(1..n) ~ n = e^(10^122);  log10(ln lcm) ~ 4.3429448e+121
+    (2) ln g(n) ~ sqrt(n ln n) = 10^61 e^(5e121);  log10(ln g) ~ 2.1714724e+121
+        ln g / ln lcm ~ sqrt(ln n / n) = 10^61 e^(-5e121)
+    (3) ln ord ~ (ln n)^2/2 = 5.0e+243;  sd ~ sqrt((ln n)^3/3) = 5.7735e+182
+    t_Pl ~ 5.39e-44 s shifts ln(time in s) by -99.6292
+
+RESULT: ALL CHECKS PASS

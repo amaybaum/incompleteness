@@ -352,7 +352,13 @@ Steinhauer, J. (2016). Observation of quantum Hawking radiation and its entangle
 
 Birkhoff, G. (1946). Three observations on linear algebra. *Universidad Nacional de Tucumán Revista Series A* 5: 147-151. [Birkhoff-von Neumann theorem.]
 
+Erdős, P., & Turán, P. (1965). On some problems of a statistical group-theory. I. *Zeitschrift für Wahrscheinlichkeitstheorie und verwandte Gebiete* 4: 175-186. [Typical order of a random permutation.]
+
+Erdős, P., & Turán, P. (1967). On some problems of a statistical group-theory. III. *Acta Mathematica Academiae Scientiarum Hungaricae* 18: 309-320. [Normal law for the logarithm of the order.]
+
 Gödel, K. (1931). Über formal unentscheidbare Sätze der *Principia Mathematica* und verwandter Systeme I. *Monatshefte für Mathematik und Physik* 38: 173-198.
+
+Landau, E. (1903). Über die Maximalordnung der Permutationen gegebenen Grades. *Archiv der Mathematik und Physik* (3) 5: 92-103. [Maximum order of a permutation.]
 
 Turing, A. M. (1937). On computable numbers, with an application to the *Entscheidungsproblem*. *Proceedings of the London Mathematical Society* s2-42: 230-265.
 

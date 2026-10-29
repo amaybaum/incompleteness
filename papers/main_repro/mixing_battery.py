@@ -20,7 +20,7 @@ def lyap(seed,T=2600):
         # after the cone fills the periodic box (t>~L), per-site RMS over ALL sites = matured measure
         out.append(np.sqrt(np.mean(circ(c,c2)**2)))
     return np.array(out)
-print("B1 v2 Lyapunov (global per-site RMS after cone fills box; fit on clean exp window):")
+print("B1 v2 fitted log-separation slope (rounded candidate; global per-site RMS; window-dependent diagnostic only):")
 lams=[]
 for seed in (1,2,3,4):
     rms=lyap(seed); t=np.arange(1,len(rms)+1)
@@ -28,10 +28,10 @@ for seed in (1,2,3,4):
     if w.sum()>100:
         lam=np.linalg.lstsq(np.vstack([np.ones(w.sum()),t[w]]).T,np.log(rms[w]),rcond=None)[0][1]
         lams.append(lam)
-        print(f"  seed {seed}: lambda={lam:.4f}/step over {w.sum()} steps (rms {rms[w][0]:.3f}->{rms[w][-1]:.2f})")
+        print(f"  seed {seed}: fitted log-separation slope={lam:.4f}/step over {w.sum()} steps (diagnostic only) (rms {rms[w][0]:.3f}->{rms[w][-1]:.2f})")
     else:
-        print(f"  seed {seed}: window empty (rms range {rms.min():.4f}..{rms.max():.2f}) — growth slower than window floor")
-if lams: print(f"  => lambda = {np.mean(lams):.4f} +/- {np.std(lams):.4f}  (SM 241 target 0.0092 +/- 0.0001)")
+        print(f"  seed {seed}: window empty (rms range {rms.min():.4f}..{rms.max():.2f}) — no fitted window for this trajectory; no rate inferred")
+if lams: print(f"  => mean fitted log-separation slope = {np.mean(lams):.4f} +/- {np.std(lams):.4f} (diagnostic only)")
 
 # ---------- B3 v2: single-mode initial data; linear = discrete peaks, rounded = ? ----------
 def spec_entropy(series):

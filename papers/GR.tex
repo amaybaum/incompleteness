@@ -628,9 +628,7 @@ consistency. The remaining qualification is an identification of
 observables --- that the classical shell transitions and the
 frequency-resolved detector transitions are the same operational
 transitions --- which, if it requires arbitrary detector couplings,
-touches the coherent operational completion, which §3.3 characterizes,
-within complex matrix kinematics taken as given, by completion
-conditions whose physical sourcing is open.
+touches the open coherent operational lift.
 
 \textbf{The infrared limit does not remove state dependence.} Dispersive
 corrections vanish as \(k\to0\), but de Sitter admits non-Bunch-Davies
@@ -1453,57 +1451,24 @@ some nominal carriers admit no coherent completion at all.
 above is a uniqueness statement conditional on existence. The existence
 side --- which operational theories generated on a finite carrier are
 exactly quantum mechanics at the level of instruments and composites ---
-is settled by a characterization with no premise beyond its stated
-setting. Fix a nonempty finite visible system with configuration set
-\(A\). The setting takes complex matrix kinematics as given: an
-operation on the system is a complex-linear map on the complex matrices
-\(M_A(\mathbb{C})\) indexed by \(A\), and an operation at ancilla level
-\(n\) is a complex-linear map on
-\(M_{A \times [n]}(\mathbb{C}) \cong M_A(\mathbb{C}) \otimes M_n(\mathbb{C})\),
-\([n] = \{1, \ldots, n\}\), the matrices indexed by a configuration
-paired with one of \(n\) ancilla states. A derivation of this kinematics
-from operational premises that presuppose neither a matrix
-representation nor the complex field is open. An operational theory on
-the system specifies which finite outcome families of such maps are
-available on the system and at every finite ancilla level, and which
-preparation maps \(M_A(\mathbb{C}) \to M_{A \times [n]}(\mathbb{C})\)
-are available at each level, subject to six rules (kernel:
-\texttt{FiniteOperationalTheory} in
-\texttt{OIBridge/OperationalAssembly.lean}): (a) the identity is
-available on the system; (b) coarse-graining the outcome labels of an
-available family gives an available family, on the system and at every
-level; (c) at every ancilla level, an available family followed by
-available families chosen by its outcome is available, with the pair of
-outcomes as the joint outcome --- a composition rule stated at the
-ancilla levels and not on the system; (d) attaching a uniformly mixed
-ancilla, \(\rho \mapsto \rho \otimes \mathbb{1}_n/n\), is an available
-preparation for every \(n \geq 1\), and an available preparation
-followed by an available single-outcome operation at its level is an
-available preparation; (e) at every level \(n\) an available
-\(n\)-outcome family reads the ancilla, its \(k\)-th branch sending
-every product \(X \otimes Y\) to \(X \otimes P_k Y P_k\), with \(P_k\)
-the projector on the \(k\)-th ancilla state, a spectator-independence
-requirement from which the branch's form on every matrix follows
-(kernel: \texttt{readout\_is\_localLuders}); (f) an available
-preparation, followed by an available family at its level and then by
-discarding the ancilla through the partial trace, induces an available
-family on the system. No rule extends a system operation to a composite,
-and no rule imposes positivity or trace preservation; those enter
-through the conditions. The OI⁺, primitive-source, substratum-source,
-layer-flow and typed forms below are stated over the same kinematics,
-the typed form over the complex matrices of every finite carrier. Five
-conditions are in play. (i) \emph{Valid probabilities}: at every ancilla
-level, every available family sends positive states to positive states
-and its outcomes' traces sum to the input trace. (ii)
-\emph{Trivial-ancilla consistency}: an operation available on the system
-is available on the system with a one-state ancilla adjoined. (iii)
-\emph{Inert spectators}: an untouched independent system can be adjoined
-without changing an intervention. (iv) \emph{Full reversible control}:
-every finite unitary on every composite is available. (v) \emph{Iterated
-composition}: a composite may itself serve as the working system of a
-larger experiment --- an operation obtained by attaching a fresh
-uniformly prepared ancilla to a composite, acting on the enlarged
-carrier, and discarding the ancilla is available on the composite.
+is settled by a characterization with no external premise. Fix a
+nonempty finite visible system and an operational theory on it: a
+specification, for the system and for every finite ancilla level, of
+which finite outcome families of linear maps are available, closed under
+coarse-graining and outcome-conditioned composition, with a
+spectator-independent local readout of the ancilla. Five conditions are
+in play. (i) \emph{Valid probabilities}: every available family sends
+positive states to positive states and its outcomes' traces sum to the
+input trace. (ii) \emph{Trivial-ancilla consistency}: an operation
+available on the system is available on the system with a one-state
+ancilla adjoined. (iii) \emph{Inert spectators}: an untouched
+independent system can be adjoined without changing an intervention.
+(iv) \emph{Full reversible control}: every finite unitary on every
+composite is available. (v) \emph{Iterated composition}: a composite may
+itself serve as the working system of a larger experiment --- an
+operation obtained by attaching a fresh uniformly prepared ancilla to a
+composite, acting on the enlarged carrier, and discarding the ancilla is
+available on the composite.
 
 \textbf{Theorem (operational-completion characterization).} \emph{For
 every nonempty finite visible system, the available outcome families on
@@ -2230,19 +2195,15 @@ Problem}\label{dissolution-of-the-cosmological-constant-problem}}
 \subsubsection{6.1 The two levels of
 description}\label{the-two-levels-of-description}}
 
-\textbf{From finite-dimensional QM to QFT.} Part I delivers an exact
-fixed-basis unitary/Born representation of the observer's finite-horizon
-law on a finite-dimensional Hilbert space; whether an operational
-theory's available instruments on a finite carrier and its composites
-are the quantum instruments is a separate question, which §3.3
-characterizes, within complex matrix kinematics taken as given, by its
-completion conditions. The \(N = A/\epsilon^2\) cells discretize the
-visible sector; spatial locality of the classical substratum restricts
-which cells interact on any given timescale. The emergent Hilbert space
-decomposes as \(\mathcal{H} = \bigotimes_k \mathcal{H}_k\) --- a
-lattice-regularized QFT with UV cutoff at
-\(\epsilon = 2\sqrt{\sigma}\,l_p\). The tensor product structure follows
-from the spatial product structure of the classical configuration space
+\textbf{From finite-dimensional QM to QFT.} Part I delivers QM on a
+finite-dimensional Hilbert space. The \(N = A/\epsilon^2\) cells
+discretize the visible sector; spatial locality of the classical
+substratum restricts which cells interact on any given timescale. The
+emergent Hilbert space decomposes as
+\(\mathcal{H} = \bigotimes_k \mathcal{H}_k\) --- a lattice-regularized
+QFT with UV cutoff at \(\epsilon = 2\sqrt{\sigma}\,l_p\). The tensor
+product structure follows from the spatial product structure of the
+classical configuration space
 \(\mathcal{C}_V = \mathcal{C}_1 \times \cdots \times \mathcal{C}_N\)
 (one factor per cell), which is not required by Lemma 1 but is a
 consequence of spatial locality in the classical substratum: each cell's
@@ -2546,25 +2507,36 @@ The observed vacuum energy is of the Friedmann scale \(H^2/G\), as is
 any \(O(1)\) component of a flat universe; its value is set by initial
 conditions (§6.2), so this is a normalization, not a prediction.
 
-\textbf{Convergence with Maldacena's de Sitter observer cancellation.}
+\textbf{Relation to Maldacena's de Sitter observer cancellation.}
 Maldacena {[}38{]} has recently shown that the unphysical phase of the
 de Sitter sphere partition function --- long understood to obstruct a
 clean dS thermodynamic interpretation --- cancels exactly when one
-incorporates an observer with a clock. The framework presented here
-arrives at the same cancellation by a different route: the
-substratum-count formulation makes the partition trace-out the
-\emph{defining} operation rather than an added ingredient, so the
-cancellation Maldacena requires an observer-with-clock to achieve is
-structurally forced. CLPW {[}39{]} establish that the von Neumann
-algebra of QFT observables in a gravitational subregion promotes from
-type III to type II once an observer is included, with the resulting
-entropy pinned to the substratum's \(\log|G_{\text{sub}}|\) in the
-present construction. HUZ {[}40{]} argue that the closed-universe
-Hilbert-space dimension is determined by the observer's degrees of
-freedom; the present framework provides a microscopic realization in
-which that dimension is computed directly from the partition geometry.
-The post-2022 mainstream observer-essentiality literature thus converges
-with the present construction on substantive content while differing in
+incorporates an observer with a clock. In the substratum-count
+formulation the partition trace-out is the \emph{defining} operation
+rather than an added ingredient, so the observer is present from the
+outset; the sphere partition function and its phase are not computed
+here, and whether the trace-out reproduces Maldacena's cancellation is
+open. CLPW {[}39{]} establish that the von Neumann algebra of QFT
+observables in a gravitational subregion promotes from type III to type
+II once an observer is included. The present construction derives no
+type II algebra. Its observable algebra on each finite region is the
+full matrix algebra on the region's configuration space, and its
+infinite-region completion (§3.3) is a quasilocal \(C^{*}\)-algebra with
+no state or representation selected. No von Neumann closure of that
+algebra, no relation to CLPW's observer-dressed algebra and no
+identification of CLPW's entropy with a substratum quantity is derived;
+whether the construction reproduces CLPW's algebra and its entropy is
+open. Its horizon entropy is the entropy \(\sigma\) of one boundary mode
+summed over the \(N_{\text{modes}}\) of §5, which recovers
+\(S_{\text{dS}}\) under the §3 calibration. HUZ {[}40{]} argue that the
+closed-universe Hilbert-space dimension is determined by the observer's
+degrees of freedom; in the present framework the representation
+dimensions are finite configuration counts fixed by the partition
+({[}Main, §3.2{]}), and the horizon mode count
+\(N_{\text{modes}} = S_{\text{dS}}/\sigma\) is fixed by the partition
+geometry under the §3 calibration (§5). The post-2022
+observer-essentiality literature thus shares the present construction's
+starting point, the observer as part of the physics, while differing in
 mechanism.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -5305,4 +5277,4 @@ entanglement,'' \emph{Commun. Math. Phys.} \textbf{265}, 95--117 (2006);
 arXiv:quant-ph/0407049.
 
 \end{document}
-% source-sha256: 27886baac54de323b237c26e922f15940dcd4ef7a4a3d7019228ef0bbf92cd85
+% source-sha256: ba7d39a903db7d95fa13e809a1f07d75d52c24dfb90f6e75db1484631e918555
