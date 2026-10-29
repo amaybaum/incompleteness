@@ -17,6 +17,10 @@ The direct regress argument and its immediate summaries distinguish fixed-interf
 - Items 5–6: alphabet wording and the gauge/incompleteness comparison at ch03:80/132/234 are narrowed; ch03:152 is stated without revision-history narration.
 - Items 8–9: Explainer:902 does not treat regress as an unproved theorem; the exact finite decoupled factor adds no distinction to the fixed channel.
 
+## Complete-argument review follow-up
+
+The independent source review of checkpoint `550d826f44ad73e0ed38e6555606d060e04b3a87` confirmed the finite coherent ancillary identity and requested three additional direct-chain repairs. The current source uses Proposition 24.5's nonempty record-fibre criterion in ch03:138/144/148, ch02:42 and Explainer:944/948, explicitly separating informational non-identifiability from computational resource bounds. Proper embedding alone is not a blanket prediction impossibility. Substratum:52/54, Explainer:892/906/908/910 and ch02:32 now distinguish finite OI results, the observed-sector bound, and separately specified infinite extensions. Both theorem proof openings refer to the specified data under stated hypotheses. The unchanged ancillary equation is split across aligned rows for publication margins.
+
 ## Explicit residual assignments under #981 / #946
 
 These are not closed or accepted by this correction. Locations below refer to the parent source unless noted. They require separate clause-by-clause mathematical/physical assessment and propagation; historical PR incorporation is insufficient.
