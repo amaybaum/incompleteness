@@ -386,34 +386,34 @@ structurally inaccessible. Not because our telescopes aren't good
 enough, but because the geometry of spacetime forbids it. No technology
 that obeys the speed of light can reach past it.
 
-At an observation event, direct signals come from its causal past. A
-physical event horizon can impose a lasting direct-access restriction
-under the spacetime model's hypotheses. This is distinct from inference:
-correlations in retained records may determine some variables that are
-never read directly. The abstract fact that an observer sees a proper
-part of a system does not prove that its full history leaves every
-hidden state ambiguous.
+This means every observer in the universe is in the same epistemic
+situation: there are degrees of freedom --- a vast number of them ---
+that influence what you measure but that you can never track. When you
+write down the laws of physics for the things you \emph{can} see, you're
+forced to average over everything you can't. You have to ``trace out''
+the hidden sector.
 
-For a known deterministic model, the reduced prediction averages over
-the hidden posterior conditioned on the observer's available records.
-That posterior can narrow as records accumulate and can become a point
-mass. If several compatible hidden states still predict different
-outcomes, the reduced prediction is probabilistic; if the records
-identify the state, the next outcome is fixed within that model. The
-swap \((v,h)\mapsto(h,v)\) is the simplest example: \((X_0,X_1)\)
-identifies both initial bits, although \(X_2=X_0\) makes prediction
-depend on history. The precise criterion uses record fibres
-{[}Substratum Proposition 24.5{]}, with record retention and allowed
-interventions stated separately.
+Here's what that looks like concretely. The total system --- visible
+plus hidden --- is deterministic. If you knew the complete state, you
+could predict the future exactly. But you don't know the hidden part.
+You know the visible state is \(x\), but there are many possible hidden
+states compatible with \(x\), and each one sends \(x\) to a different
+visible future. Hidden state \(h_1\) might send the particle left;
+hidden state \(h_2\) might send it right. Since you can't tell which
+hidden state you're in, the best you can do is assign probabilities:
+average over all the possible hidden states, weighted by how likely each
+one is. The result is a set of \emph{transition probabilities} --- the
+chance that visible state \(x\) at time \(t_1\) becomes visible state
+\(y\) at time \(t_2\). You've gone from a deterministic system you can't
+fully see to a probabilistic one you can. That's a stochastic process,
+and it's the only description available to any observer who can't access
+the hidden sector.
 
-Concretely, several hidden states may be compatible with the present
-visible state \(x\). Their next visible outputs can differ, and their
-conditional weights define a transition law. Those weights must use the
-retained history, rather than assuming the initial hidden prior remains
-unchanged after observation. Averaging over a preparation ensemble does
-not prove that an individual state is unknowable after conditioning.
-This is a stochastic reduced description, including deterministic
-conditional predictions as a special case.
+The standard expectation is that this should produce something boring
+--- classical, memoryless noise. And it would, if the hidden sector were
+fast and forgettable, like air molecules bouncing off a grain of pollen.
+Each kick is independent of the last. Physicists call this
+\emph{Markovian} behavior.
 
 But the hidden sector beyond the cosmological horizon is not like that.
 It differs in three specific ways, and the paper proves that their
@@ -2116,29 +2116,29 @@ The framework rests on seven implicit philosophical commitments:
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  \textbf{Access is specified.} A proper instantaneous readout can omit
-  state distinctions; retained records may recover them.
+  \textbf{Embedded observers face irreducible limits.} No observer
+  inside a system can access the complete state.
 \item
   \textbf{QM and GR are both correct} within their domains.
 \item
-  \textbf{Residual inaccessibility is interface-relative.} A hidden
-  quantity remains unidentified when it varies within a compatible
-  record fibre for the permitted preparations, readouts and actions.
+  \textbf{Degrees of freedom beyond causal reach are permanently hidden}
+  --- not due to technological limitations, but structural ones.
 \item
   \textbf{The underlying reality is local and definite.} Indeterminacy
   belongs to the observer's description, not to the world.
 \item
-  \textbf{Incompleteness has a precise carrier.} Non-identifiability
-  follows from identical permitted records, while computational cost and
-  physical record capacity are separate restrictions. It is not a
-  universal consequence of self-reference.
+  \textbf{Incompleteness is structural, not deficient.} The limitation
+  arises because the observer is made of the same elements as the
+  universe it is trying to describe --- a physical form of
+  self-reference. This is analogous to Gödel's incompleteness theorem,
+  not to ignorance that better instruments could cure.
 \item
   \textbf{The description is observer-relative.} Different partitions
   yield different emergent physics.
 \item
-  \textbf{Descriptions can be projections of a shared model.} Which
-  distinctions those projections omit depends on their full observation
-  interfaces.
+  \textbf{The two descriptions are irreconcilable} --- not because one
+  is wrong, but because they are complementary projections of a single
+  reality that no embedded observer can access directly.
 \end{enumerate}
 
 Claims 1, 5, 6, and 7 enjoy broad philosophical support across nearly
@@ -2148,57 +2148,111 @@ definite --- is the paper's most philosophically isolated thesis.
 \hypertarget{the-guxf6del-connection}{%
 \subsubsection{The Gödel connection}\label{the-guxf6del-connection}}
 
-Gödel's incompleteness theorems concern the provability limits of formal
-theories under their stated hypotheses. They do not establish that an
-embedded observer can never infer a finite hidden state. The distinction
-is concrete: in the known reversible swap model, two retained visible
-readings identify the complete initial state. Proposition 24.5 of
-{[}Substratum{]} gives the exact criterion: a quantity is determined by
-a record when it is constant on the states compatible with that record.
-Permanent passive ambiguity requires non-singleton future-trace classes
-on the specified preparation support.
+The analogy between this framework and Gödel's incompleteness theorem is
+not merely metaphorical. Gödel proved that a formal system rich enough
+to encode arithmetic cannot prove all true statements about itself from
+within --- the limitation arises because the system is self-referential,
+capable of constructing sentences that refer to its own provability. The
+observer in this framework faces a structurally parallel situation: the
+reason a cosmological horizon exists at all is that the observer is a
+physical subsystem made of the same fields, obeying the same
+speed-of-light constraint, as the universe it is trying to describe. An
+observer not made of the universe's own elements would not face a
+horizon and would not be forced into a quantum description. The
+incompleteness is a consequence of self-inclusion.
 
-The cited work on physical inference and self-measurement, including
-Wolpert {[}19{]} and T. Breuer (1995, \emph{Philosophy of Science} 62:
-197--214), provides comparisons whose own device, measurement and
-counterfactual hypotheses must be checked. Such results cannot replace a
-proof about the record interface used here. In particular, a bound on a
-measuring apparatus's possible internal records can prevent it from
-distinguishing every admissible total state without making every
-possible record ambiguous. For a record store with \(R\) values and more
-than \(R\) admissible initial states, some record fibre is
-non-singleton; other fibres may identify the state exactly.
+The connection can be tightened through Wolpert's limits of inference
+{[}19{]}, which the paper cites --- with one distinction kept explicit,
+because collapsing it is precisely the misuse this section exists to
+avoid. Wolpert proved, using diagonal self-referential arguments
+directly descended from Gödel's, that any inference device embedded in
+the universe it is trying to predict faces fundamental limits --- not
+because of noise or finite resources, but because complete
+self-prediction is logically impossible. That is a \emph{logical}
+incompleteness: worst-case, unconditional, and unquantified --- the
+diagonal exhibits one question the device must fail, and by itself
+yields no probability calculus, no Hilbert space, and no entropy budget.
+The framework's incompleteness is a \emph{physical} one that runs
+parallel to it rather than instantiating it: the causal partition
+enforces the trace-out, the trace-out produces the reduced law ---
+memory-bearing in the sector the conditions characterize --- and the
+representation is universal, the imported correspondence supplying the
+compressed form across its class, P-indivisibility fixing whether it is
+nontrivial under the translation hypothesis (T). The two come apart
+cleanly --- an observer in a universe without dark energy would be fully
+subject to Wolpert's theorem yet would face no cosmological horizon ---
+and the \(10^{122}\) compression ratio (the Bekenstein-Hawking entropy
+of the horizon) measures the \emph{physical} incompleteness, which is
+contingent on the observed causal structure and has no counterpart in
+the purely logical results. A closer rigorous relative of the physical
+statement is T. Breuer's theorem (1995, \emph{Philosophy of Science} 62:
+197--214; not to be confused with H.-P. Breuer of the
+Breuer--Laine--Piilo indivisibility criterion cited elsewhere in this
+framework) that no measurement performed from inside a system can
+perfectly resolve the state of a whole that contains the measuring
+apparatus; Wolpert and Breuer secure, each in its own domain, the rigor
+of the \emph{pattern} that the framework's construction then realizes
+physically.
 
-The framework's proved limitations are correspondingly specific. A
-finite-range dependence graph bounds direct causal influence. The
-hidden-capacity inequality bounds predictive memory. C4 forces hidden
-predictive structure relative to the present visible value, while the
-full retained history may determine that hidden structure. A physical
-causal horizon restricts direct signals under its spacetime assumptions;
-it does not alone prohibit inference from accessible correlations. These
-statements concern specified dynamics, preparations and resources,
-rather than self-inclusion by itself.
+The key difference from Gödel is in the \emph{form} of self-reference.
+Gödel's is syntactic: the system encodes a sentence that says ``I am not
+provable.'' The framework's is physical: the observer is made of the
+described, so complete description would require the observer to fully
+encode its own state plus everything causally connected to it, which the
+causal structure forbids. Wolpert sits between the two, using Gödelian
+logic applied to physical systems. Together they form a family of
+results sharing one architecture --- not a derivation in which each
+implies the next: Gödel (formal systems cannot completely describe
+themselves), Wolpert (physical inference devices cannot completely
+predict the systems they inhabit), this framework (an embedded
+observer's description is forced through a trace-out whose cost is the
+quantum form of the reduced law). Each stands on its own proof in its
+own domain; none is a corollary of the others, and the framework's
+physics would survive unchanged had the logical results never been
+proven --- they corroborate the pattern, they do not supply the
+mechanism. One assumption in Wolpert's theorems also deserves naming
+rather than burying: they quantify over all possible setups of the
+inference device, a counterfactual-availability assumption whose status
+in a deterministic substratum is exactly that of the free-choice
+assumption in Bell's theorem. The framework therefore keeps
+counterfactual assumptions level-explicit rather than using determinism
+as a blanket escape. In the Bell case specifically it does \textbf{not}
+invoke failure of measurement independence: that branch is declined, and
+the adopted Bell violation instead comes from ontic parameter dependence
+while operational no-signaling is retained.
 
-The finite observable-law correspondence \(S\iff D\iff Q_{\mathrm{fb}}\)
-is exact and universal within its stated horizon and fixed-basis
-readout. It supplies a representation of a law, not a proof that
-posterior opacity selects quantum mechanics or a unique physical
-substratum. The simultaneous coherent-instrument completion and physical
-branch selection remain separate research obligations. Logical
-incompleteness, finite information loss and physical causal access can
-therefore be compared without treating one as a derivation of the
-others. Bell assumptions are separate again: the adopted
-measurement-independent branch requires ontic parameter dependence with
-operational no-signaling, as stated in {[}Main §3.3{]}.
+There is also a difference worth stating plainly, because it sets the
+standard the framework should be held to. Gödel's and Turing's results
+are complete proofs from minimal definitions --- they assume only the
+formal system itself and smuggle in nothing about the world. The
+incompleteness here is of the same \emph{architecture} (a limitation
+that follows from observing a system you are part of) but not yet of the
+same \emph{self-containment}: the framework's quantitative results lean
+on commitments that are read from the observed world (that space is
+three-dimensional, that the lattice is cubic) rather than forced by the
+logic of self-inclusion alone. The honest reading is that the framework
+meets the Gödel--Turing standard for the part that is genuinely forced
+--- the limitation theorem and its representation-theoretic consequences
+--- while the empirically-anchored inputs have no counterpart in those
+purely formal results. Naming that boundary is what keeps the analogy a
+structural argument rather than borrowed grandeur.
 
-Hofstadter's \emph{Gödel, Escher, Bach} offers a philosophical
-comparison between microscopic descriptions and emergent levels. Here
-the exact mathematical result concerns a finite observable law and its
-equivalent representations. Whether a particular representation supplies
-the full physical quantum theory, a preferred substratum, or a correct
-account of vacuum energy remains a separate scientific question. The
-comparison with a self-referential observer supplies none of those
-missing proofs and does not make hidden states universally uninferable.
+Hofstadter's \emph{Gödel, Escher, Bach} argues that self-referential
+systems produce genuinely emergent higher levels --- ``strange loops''
+where a system's hierarchical levels fold back on themselves, generating
+properties invisible at the lower level. This framework agrees: quantum
+mechanics is the real, irreducible description available to any embedded
+observer, just as Hofstadter's ``I'' is real even though it emerges from
+neurons. The strange loop is intact --- the observer, made of the
+universe's own elements, generates through self-inclusion an emergent
+description that governs everything the observer can access. The
+disagreement with Hofstadter is narrow but consequential: he argues that
+once the emergent level is established, the substrate beneath it is
+explanatorily inert. The cosmological constant problem suggests
+otherwise. The \(10^{122}\) discrepancy exists precisely because the
+emergent quantum description and the classical substrate assign
+different vacuum energies, and only the substrate's value matches
+observation. The loop has a floor, and the floor matters.
 
 \hypertarget{closest-ancestor-nicholas-of-cusa}{%
 \subsubsection{Closest ancestor: Nicholas of
@@ -2212,10 +2266,9 @@ achievement, not a failure. His \emph{coincidentia oppositorum}
 (coincidence of opposites) maps onto Claim 7 with remarkable precision:
 contradictions irreconcilable in the finite realm dissolve in infinity
 --- the infinitely large circle's circumference becomes a straight line,
-the infinite polygon becomes a circle. The framework proposes a common
-underlying construction for QM and GR; whether the necessary physical
-bridges hold is a scientific question, not a consequence of this
-philosophical analogy.
+the infinite polygon becomes a circle. QM and GR, irreconcilable within
+any finite observational framework, would be coincident in the infinite
+ground that generates both.
 
 Most strikingly, Cusa's ``wall of Paradise'' from \emph{De Visione Dei}
 maps onto Claim 3: an insurmountable boundary beyond which finite
@@ -2240,10 +2293,10 @@ aligning with Claim 4. His parallelism doctrine --- the order of ideas
 is the same as the order of things --- means the two descriptions track
 the same structure through incommensurable vocabularies.
 
-A universal epistemological conflict with Spinoza's \emph{scientia
-intuitiva} does not follow from the finite results here. Some specified
-observation interfaces leave genuine unresolved distinctions, while
-others allow complete state inference from retained records.
+The divergence is epistemological: Spinoza believes reason achieves
+adequate knowledge of reality through \emph{scientia intuitiva}
+(intuitive knowledge). The paper's permanent limits directly contradict
+this ambition.
 
 \hypertarget{the-recurring-fault-line-claim-4}{%
 \subsubsection{The recurring fault line: Claim
@@ -2274,12 +2327,11 @@ calling reality ``definite'' is itself an act of conceptual carving.
 creative, involving genuine indeterminacy --- removing that
 indeterminacy robs the cosmos of its creative character.
 
-Comparisons with Advaita Vedanta or other philosophical traditions
-concern interpretations of access and underlying reality. The
-mathematical framework does not prove a metaphysical thesis of permanent
-inaccessibility: its precise limits are non-identifiability relative to
-specified records and operations. Such comparisons cannot replace that
-criterion or its physical hypotheses.
+\textbf{Advaita Vedanta} comes closest to full support --- Brahman is
+indeed a definite underlying reality --- but insists it is
+\emph{accessible}: the observer IS the underlying reality, and
+liberation (\emph{mokṣa}) consists in recognizing this identity. Every
+Hindu and Buddhist soteriology rejects permanent inaccessibility.
 
 Only Spinoza (whose fully determinate substance is naturally definite)
 and Worrall's epistemic structural realism (which posits real but
@@ -2296,13 +2348,18 @@ Cusa's coincidence of opposites and Daoist yin-yang. Its projection
 metaphysics reaches through Plato's cave and Plotinus's emanation to
 Advaita Vedanta's maya-Brahman distinction.
 
-The philosophical proposal combines a deterministic model with
-descriptions relative to specified observer interfaces. Its mathematical
-content lies in the finite-law representation theorem, the
-predictive-memory results and explicitly conditional reconstructions.
-Whether unobserved variables remain unidentified is settled by the
-permitted record fibres, not by a claim to know the nature of something
-proved universally unknowable.
+What is genuinely new is the \emph{combination}: accepting Bohr's
+complementarity while insisting on Einstein's realism, grounding Kantian
+limits in physical structure while claiming knowledge of noumenal
+character, embracing Cusanian learned ignorance while grounding it in a
+concrete physical mechanism --- the Gödel → Wolpert → causal partition
+chain described above. The traditions reveal that this combination
+creates a productive philosophical tension --- the paper claims to know
+the character of what it proves unknowable. Whether this tension is a
+contradiction (as Hegel would insist), a residual Platonism (as
+Nietzsche would charge), or a legitimate achievement of learned
+ignorance (as Cusa would celebrate) may be the framework's deepest
+philosophical question.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -2311,15 +2368,14 @@ proved universally unknowable.
 Questions}\label{frequently-asked-questions}}
 
 \textbf{``Isn't this just another interpretation of quantum
-mechanics?''} The finite-horizon theorem derives an exact
-stochastic/reversible/fixed-basis quantum representation correspondence.
-It does not establish a unique physical substratum or the full coherent
-measurement theory from partial observation alone. The model also
-develops physical relations under the separately named matter, horizon
-and completion hypotheses. Those mathematical constructions and open
-physical bridges are more specific than a philosophical interpretation,
-while their empirical warrant must be assessed under their stated
-assumptions.
+mechanics?''} No.~Interpretations (Copenhagen, Many-Worlds, Bohmian
+mechanics) accept the quantum formalism and disagree about what it
+\emph{means}. This framework \emph{derives} the quantum formalism from
+non-quantum premises. It relates ℏ to the discreteness scale and carries
+a running-vacuum reading of dark energy whose falsifiable content is the
+Type II channel ({[}GR §7.1{]}) --- content that interpretations do not
+have --- and it accounts for the dark-sector concordance as an automatic
+consequence.
 
 \textbf{``Doesn't Bell's theorem rule out hidden variable theories?''}
 Bell's theorem applies directly to the deterministic completion. If its
@@ -2333,13 +2389,12 @@ theorem belongs to the weaker stochastic causal-local construction, not
 to a Bell-local deterministic completion.
 
 \textbf{``If everything is deterministic underneath, where does
-randomness come from?''} Within a deterministic completion, unresolved
-initial or hidden variables can give probabilistic reduced predictions.
-The relevant distribution is conditional on the available record and
-preparation. Some records identify the state and make its next visible
-value predictable; others leave a nontrivial distribution. Partial
-observation alone does not prove irreducible randomness for every
-embedded observer or every history {[}Substratum Proposition 24.5{]}.
+randomness come from?''} From ignorance. The total system is
+deterministic, but the observer can't access the hidden sector.
+Different hidden states compatible with the same visible state lead to
+different outcomes. The observer must assign probabilities --- not
+because the universe is random, but because their information is
+incomplete.
 
 \textbf{``What about dark matter?''} Dark matter is not a substance ---
 it is the local shape of the observer's blind spot, the same entropy
@@ -2430,24 +2485,32 @@ shared content is the structural features of partial-trace observation
 trace, independent of the substratum-level machinery producing the
 state. The fourth feature (commutant gauge-invariance) transports as a
 pattern but not as a specific output: both frameworks produce gauge
-invariance via commutant restriction, while the selected OI construction
-gives an exact cubic decomposition and a conditional condensate
-stabilizer followed by a specified quotient and charged action {[}SM
-Propositions 14a and 15a{]}. Its physical carrier and action selection,
-like the compared compactification choices, are additional premises.
+invariance via commutant restriction, but the SM gauge group is forced
+uniquely from cubic-group representation theory in the framework's
+account, while it depends on compactification choice in string-theoretic
+constructions.
 
-\href{Structure.md}{\texttt{Structure}} develops a program for comparing
-embedded observers through a specified invariant observable algebra and
-its adjoint channel dynamics. Matching partial-trace features or the SM
-gauge target is weaker than constructing the required algebra
-isomorphism and intertwiner. Different model families can share those
-coarse features while predicting different Cabibbo angles or masses; a
-carrier containing the measured values places such models in different
-observational classes. Whether a chosen OI realization and a chosen
-string construction occupy the same class remains an open comparison
-problem. The proposed structural-realist interpretation depends on
-completing that comparison, rather than on declaring their microscopic
-descriptions interchangeable.
+\href{Structure.md}{\texttt{Structure}} takes this finding as the basis
+for a refined structural-realism claim. There exist universality classes
+of embedded observers, characterized by the structural features of
+observation rather than by substratum specifics. The framework's
+predictions live at multiple levels of universality: partial-trace
+features (most universal --- shared across all embedded-observer
+systems); gauge-group structure (intermediate --- shared across
+SM-reproducing classes); the framework's specific predictions like the
+Cabibbo angle \(1/(\pi\sqrt{2})\) (most class-specific --- features of
+the framework's specific representative within its universality class).
+The methodological reframing: fundamental physics as identifying the
+universality class of our universe through observational features, with
+substratum descriptions being framework-specific representations rather
+than competing claims about ultimate reality. In this picture, the
+framework and string theory are not in competition --- they are
+different representations within (potentially) the same broader
+universality class, with the framework providing computationally
+tractable substratum-level structure that produces the framework's
+quantitative predictions, and string theory providing the rich machinery
+for quantum gravity and holography that the framework's GR cluster
+recovers thermodynamically through different routes.
 
 \textbf{``Why does gravity `see' the classical vacuum energy and not the
 quantum one?''} Because the spacetime metric exists at the classical
@@ -2458,17 +2521,17 @@ but doesn't appear in the stress-energy tensor that governs curvature.
 The \(10^{122}\) discrepancy is the information compression ratio ---
 the entropy of the observer's blind spot.
 
-\textbf{``Does a deterministic substratum imply permanently inaccessible
-reality?''} No.~A definite microscopic state and deterministic dynamics
-are premises of the chosen model class. The finite-law construction
-shows that such a completion can represent the specified observable
-laws; it does not prove that nature has selected that completion. Within
-a known model, retained records may determine the hidden state, or a
-non-singleton record fibre may leave it unresolved. Claims about
-physical inaccessible regions, storage resources and observational
-equivalence require their own stated hypotheses. Neither permanent
-opacity nor the actual physical substratum follows from determinism
-alone.
+\textbf{``How can the paper claim reality is `definite' if it's
+permanently inaccessible?''} This is the paper's most philosophically
+contested thesis (see \emph{Philosophical Lineage} above). The paper's
+defense is that the claim follows from the derivation's own logic: the
+definition posits deterministic dynamics on a phase space, and the
+theorem shows that quantum indeterminacy arises from tracing out part of
+that phase space --- not from any indeterminacy in the underlying
+evolution. The ``definiteness'' is a consequence of the starting
+premises, not a speculative addition. Whether those premises are the
+right ones to start from is, of course, an open question --- but within
+the framework, Claim 4 is a theorem, not an assumption.
 
 \textbf{``Doesn't holographic physics show that spacetime comes from
 entanglement?''} This is probably the strongest objection to the
@@ -2615,12 +2678,10 @@ Antimatter does not explain a second kind of fundamental stuff. It
 reflects the algorithm's need for two-signed amplitudes in a
 relativistic context.
 
-The finite-law theorem gives an exact fixed-basis quantum representation
-of the accessible stochastic law. It does not select a unique
-microscopic realization, and equality with the full coherent
-instrument/composite theory retains the separate operational-lifting
-conditions. The decompression analogy describes this representation, not
-a theorem that one complete physical ontology is forced.
+Every quantum phenomenon is an output of the decompression algorithm.
+The only fundamental phenomenon is the compression itself: the observer
+cannot see past the horizon, and the characterization theorem dictates
+the form of the resulting reconstruction.
 
 This doesn't make quantum phenomena less real. Temperature is also an
 emergent phenomenon --- a single molecule has no temperature. But
@@ -2664,12 +2725,9 @@ interference, entanglement, and antimatter are the artifacts. They are
 real --- as real as JPEG ringing is visible --- but they are properties
 of the reconstruction, not of the original.
 
-The compression analogy has a limit. Observable data can admit multiple
-reversible realizations and quantum representations. The exact
-finite-horizon correspondence establishes existence in both directions,
-not one unique reconstruction algorithm. Recovering a physical local
-branch and a full operational theory requires the additional selection
-and compatibility conditions discussed in the technical papers.
+The difference from ordinary compression: with JPEG, you can access the
+original file. With the universe, you cannot. The reconstruction is all
+we will ever have. Its artifacts are our physics.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -2796,11 +2854,11 @@ linearity and the nearest-neighbour range. The \emph{Standard Model
 gauge group and the quantitative predictions} are the exception: they
 additionally require the simple-cubic Bravais structure (the
 multiplicities (3,2,1) come from the octahedral point group), which is
-an empirically-selected input forced by the observed SU(3) factor, not
-derivable from statistical isotropy alone. For the emergent-QM core the
-minimal object is not a lattice; for the Standard Model it is the cubic
-lattice specifically. It is a triple: a finite set S, a bijection φ, and
-a partition V.
+an empirically-selected input forced, under nearest-neighbor coupling,
+by the observed SU(3) × SU(2) × U(1), not derivable from statistical
+isotropy alone. For the emergent-QM core the minimal object is not a
+lattice; for the Standard Model it is the cubic lattice specifically. It
+is a triple: a finite set S, a bijection φ, and a partition V.
 
 \textbf{Space as coupling graph.} Given any bijection on a finite set,
 you can ask: which components of the state affect which others? The
@@ -2967,16 +3025,15 @@ triplet members each have \(|\mu| = 1/3\). The triplet members are
 exactly degenerate by cubic symmetry, providing a lattice-level origin
 for ``generation symmetry.''
 
-\textbf{Grading and the separate Higgs construction.} The recovered
-{[}SM Theorem 3{]} is an exact first-order statement: over a coefficient
-ring with no additive 2-torsion, a site-diagonal term added to fixed odd
-hopping preserves the grading precisely when that onsite term vanishes.
-It does not identify a second-order wave-equation center with a physical
-chiral mass, or derive spin-chiral fermions and a Higgs from center
-independence alone. Main's hidden-memory results have their own
-hypotheses; physical spin and weak chirality retain H-spin'/H-χ'; and
-the Higgs interpretation and charged matter action require their
-separate construction.
+\textbf{The Higgs mechanism from one condition.} The same center
+independence condition (\(\alpha = 0\)) that produces the quantum
+phenomenology's memory structure also enforces exact chiral symmetry in
+the staggered fermions. This means fermion mass terms are forbidden in
+the fundamental Lagrangian. The \emph{only} way to give fermions mass
+while preserving unitarity and renormalizability is the Higgs mechanism.
+One algebraic condition --- center independence --- simultaneously
+produces the quantum phenomenology, chiral fermions, and the necessity
+of a Higgs boson.
 
 \textbf{Gauge structure from a matrix.} The wave equation naturally
 generalizes to multiple components. Each lattice site carries a
@@ -2985,22 +3042,17 @@ criteria (center independence, isotropy, reversibility, linearity)
 uniquely produce the \emph{matrix wave equation}, where a coupling
 matrix \(M\) is the sole new parameter.
 
-At the symmetric nearest-neighbor point the coupling matrix is scalar,
-so its unitary commutant is the full \(U(6)\). Under H-link single-copy
-and H-cust, a specified equivariant condensate \(\Sigma\) instead
-carries the three eigenspaces used in the block calculation. Its
-distinct eigenvalue multiplicities determine its exact unitary
-stabilizer. Physical masses, the charged observer action and the
-selected gauge quotient require the further premises stated in {[}SM
-§§4.4--4.9{]}.
+This matrix \(M\) determines everything about the gauge structure. Its
+eigenvalue multiplicities give the gauge group --- the group of
+transformations that leave \(M\) invariant (technically, its commutant
+in U(K)). Its eigenvalues give the mass spectrum. The gauge group and
+the mass spectrum are dual descriptions of the same matrix. This is a
+theorem, not an approximation.
 
-\textbf{Why K = 6 on the selected branch.} A three-dimensional
-simple-cubic site has six signed nearest-neighbor directions. H-link
-identifies the physical carrier with the link representation tensored
-with a multiplicity space, giving \(K=2dm\). The additional single-copy
-clause \(m=1\) gives \(K=6\). Neither the link count nor coupling-degree
-minimization establishes that clause or uniquely selects the physical
-model.
+\textbf{Why K = 6.} In three dimensions, each lattice site has 6 nearest
+neighbors (±x, ±y, ±z). If the internal components correspond to these
+link directions --- the hypothesis H-link, which coupling-degree
+minimization does not establish --- then \(K = 2d = 6\).
 
 These 6 link directions form a representation of the cubic rotation
 group \(O\). Standard character theory decomposes this representation
@@ -3008,22 +3060,19 @@ into irreducibles:
 
 \[6 = T_1(3) \oplus E(2) \oplus A_1(1)\]
 
-The six-link representation has dimensions 3, 2 and 1. A generic
-equivariant Hermitian condensate has
-\(\Sigma=\operatorname{diag}(s_cI_3,s_wI_2,s_y)\) with distinct
-eigenvalues. Its unitary stabilizer is
+The dimensions are 3, 2, and 1. By Schur's lemma, the coupling matrix
+\(M\) acts as an independent scalar on each irreducible subspace:
+\(M = \text{diag}(\mu_c I_3, \mu_w I_2, \mu_y)\). The gauge group ---
+the commutant of \(M\) --- is therefore:
 
-\[G_0=U(3)\times U(2)\times U(1).\]
+\[U(3) \times U(2) \times U(1) \supset SU(3) \times SU(2) \times U(1)\]
 
-This stabilizer has three central phase directions. The constructive
-correlated quotient of {[}SM Proposition 14a{]} is
-\(S(U(3)\times U(2))\); the specified SM charged family has faithful
-image \((SU(3)\times SU(2)\times U(1))/\mathbb Z_6\) {[}SM Proposition
-15a{]}. Its Lie algebra is the familiar SM algebra. Choosing the
-additional redundant central direction and that charged action as
-physical is not a consequence of the six-link decomposition alone. The
-cubic blocks supply the nonabelian dimensions; physical carrier,
-chirality and light-spectrum selection retain their separate hypotheses.
+This is the Standard Model gauge group. It comes from the representation
+theory of the cubic lattice in three spatial dimensions. The three
+factors correspond to the three irreducible representations of \(O\):
+the vector (\(T_1\), dimension 3) gives color SU(3), the quadrupole
+(\(E\), dimension 2) gives weak SU(2), and the scalar (\(A_1\),
+dimension 1) gives hypercharge U(1).
 
 \textbf{Chiral coupling.} The Standard Model has a peculiar feature: the
 weak force treats left-handed and right-handed particles differently.
@@ -3080,48 +3129,66 @@ selecting \(\theta = 0\) over \(\pi\), and a mechanism fixing
 real, which would also remove the observed CKM CP violation. The
 framework makes no prediction for the neutron electric dipole moment.
 
-\textbf{Conditional charge and chirality results.} The selected cubic
-carrier, generic condensate stabilizer, correlated quotient and
-charged-family image give exact mathematical results under the premises
-of {[}SM §§4.4--4.9{]}. They do not independently select the physical
-observer action or light chiral family. On the five-representation
-family of Theorem 15, with no additional charged anomaly cancelers, the
-nonzero quark-doublet charge branch has the SM ratios up to
-normalization and quark-singlet interchange; a separate neutral-\(Q\)
-branch also exists. The stated electromagnetic or Higgs/Yukawa input
-fixes the numerical normalization. Physical chirality retains H-χ', and
-the complete geometric and dynamical selection problem remains open.
+\textbf{No empirical inputs.} The hypercharge U(1)\(_Y\) ---
+traditionally an empirical input --- is automatic: any U(\(n\)) gauge
+group contains a U(1) factor, and anomaly cancellation determines the
+hypercharge assignments uniquely up to normalization on the branch with
+nonzero quark-doublet hypercharge. The parity violation --- also
+traditionally empirical --- follows from the partition's chirality
+structure. The filter chain from (S, φ) to the Standard Model takes the
+spatial dimension d = 3 and the simple-cubic Bravais structure as
+empirically-selected inputs (the latter forced, under nearest-neighbor
+coupling, by the observed SU(3) × SU(2) × U(1)); given those, the gauge
+group, the hypercharges, and the parity violation follow with no further
+empirical input. The hypercharge and parity results are genuine
+consequences; the cubic lattice on which the gauge derivation runs is an
+input, not a consequence of statistical isotropy alone.
 
-\textbf{Where the matter representations come from.} The direct sum
-\(V_3\oplus V_2\oplus V_1\) and the link-carrier endomorphism space
-admit cross-charged tensor-product representations, including the space
-of a quark doublet. The determinant-character dressings and faithful
-action of {[}SM Proposition 15a{]} construct a compatible selected
-charged family. Neither representation availability, anomaly
-cancellation nor observer existence selects that family from every
-allowed spectrum. For the fixed family, Theorem 15 gives the full
-anomaly-free charge classification, including the neutral-\(Q\) branch;
-the SM ratios and numerical assignment require the stated nonzero-charge
-and normalization premises. The singlet/triplet taste decomposition
-remains exact, with the reading of three physical generations
-conditional on H-link single-copy, H-spin', H-χ' and light-spectrum
-selection.
+\textbf{Where the matter representations come from.} A subtle point: the
+K = 6 internal space decomposes as a \emph{direct sum} 3 + 2 + 1, but
+the SM quark doublet Q\(_L\) = (3, 2, +1/6) is a \emph{tensor product}
+representation --- it transforms simultaneously under both SU(3) and
+SU(2). This representation doesn't come from the lattice geometry. It
+comes from the \emph{observer's existence}: the observer genericity
+theorem ({[}SM §8.2{]} Theorem 22) guarantees coupled, capacity-floored
+partitions generically, and every such observer's finite observable law
+has the universal fixed-basis quantum representation ({[}Main §3.4{]}),
+internal, with its compressed form under (T). The argument takes the
+observer's description to be a self-consistent chiral QFT, and a
+self-consistent chiral QFT requires anomaly cancellation. For the matter
+content per generation Q\(_L\), u\(_R\), d\(_R\), L\(_L\), e\(_R\),
+anomaly cancellation with SU(3) × SU(2) × U(1) determines specific
+hypercharges, unique up to normalization on the branch with nonzero
+Q\(_L\) hypercharge. The lattice gives the gauge group and the
+generation count; the observer's self-consistency constrains the
+representations. Three degenerate tastes then give three copies ---
+three candidate matter sectors, which read as the three generations
+under H-spin' ({[}SM §4.7{]}).
 
-\textbf{What the framework does not determine.} The symmetric coupling
-matrix is scalar; distinct generic block eigenvalues belong to a
-specified equivariant condensate \(\Sigma\), whose physical selection
-and mass interpretation retain H-cust and the further dynamical premises
-of {[}SM §§4.4--4.9{]}. They are not three microscopic couplings that
-automatically determine the measured strong, weak and hypercharge
-interactions. The value \(1/\alpha_0=23.25\) is the stated ambient
-staggered-background coefficient for the selected matter/carrier count
-and representation normalization, not a derivation of those physical
-inputs from the lattice alone. Its native hypercharge interpretation
-carries H-observer-bundle and H-Y-vertex. The comparisons with measured
-couplings further use the threshold and empirical inputs of {[}SM §6{]};
-SU(2)/SU(3) threshold fits remain retrodictive. Yukawa and
-Higgs-potential parameters, physical carrier/action selection and the
-classified quantitative comparisons retain their separate assumptions.
+\textbf{What the framework does not determine.} The coupling matrix
+\(M\) has three independent eigenvalues (\(\mu_c\), \(\mu_w\),
+\(\mu_y\)); the argument that a maximum-speed condition fixes
+\(\mu_y = 1\) is not established (SM §4.6), so all three are
+solution-level, the first two setting the strong and weak coupling
+strengths at the lattice scale. These, along with the Yukawa couplings
+(which determine fermion masses and mixing angles) and the Higgs
+potential parameters, are properties of the specific bijection
+\(\varphi\) --- the specific ``universe'' the observer inhabits. The
+companion papers determine the \emph{form} of the laws but not the
+\emph{constants}. However, the universal induced coupling
+\(1/\alpha_0 = 23.25\) IS structural --- it depends on \(N_f = 6\) and
+\(T(R) = 1/2\), both determined by the lattice, not on the eigenvalues
+of \(M\). The value is the ambient staggered-background coefficient; for
+the hypercharge factor its reading as a native coupling carries
+H-observer-bundle and H-Y-vertex ({[}SM §6.5{]}), which the non-abelian
+factors do not inherit. Combined with non-perturbative gauge self-energy
+corrections and SM RG running, this reproduces all three observed gauge
+couplings at \(M_Z\) ({[}SM §6{]}). {[}SM §7{]} extends this further:
+the \(d = 3\) lattice geometry organizes twenty-two SM observables ---
+fermion mass ratios, CKM and PMNS mixing angles, the Higgs mass --- of
+which two are parameter-free structural and five conditional structural
+retrodictions and the remainder are layered, chained, or fitted, each
+classified explicitly in {[}SM §7.6{]}.
 
 \textbf{Predictions.} The companion papers make seven structural
 predictions: (1) no additional gauge groups below the Planck scale; (2)
@@ -3272,37 +3339,47 @@ reads (history readback) --- the memory-bearing sector where the
 distinctly quantum phenomenology lives; representability itself is
 universal.
 
-The memory interpretation concerns predictive information relative to a
-specified readout. C1 couples visible coordinates to coordinates not
-directly read; those coordinates may nevertheless be inferred from
-retained records. C4 gives histories with different next-step
-conditional laws despite the same visible present. C2 concerns
-persistence to the relevant readback. C3 bounds task-relevant
-conditional predictive information by the hidden capacity; it does not
-require storing an uncompressed complete interaction history or imply
-residual uncertainty after that history is retained.
+The framework's results all have a clean interpretation in this
+language. The conditions C1--C4 are access conditions on the memory: C1
+means the readable and unreadable parts are dynamically linked
+(read-write coupling is active), and C4 means the visible past is
+re-expressed through the hidden sector --- in the physical realization,
+what is written is read back. C2 means the unreadable part retains its
+contents between reads. C3 means the unreadable part is large enough to
+store the full interaction history without overflow.
 
-At the finite observable-law layer, the fixed-basis unitary
-representation and quadratic Born dictionary are exact
-(\(S \iff D \iff Q_{\mathrm{fb}}\), {[}Main §3.4{]}). The Born
-dictionary is part of that representation's definition; it does not
-independently select the exponent. The coherent intervention/composite
-family and a physical measurement mechanism remain separate completion
-questions. The proposed cosmological storage interpretation, including
-horizon entropy, vacuum energy and the action scale, depends on the
-additional physical assumptions of the horizon construction. Those
-physical claims do not follow from the finite record-fibre or
-predictive-capacity theorem alone.
+Quantum mechanics is the representation of this \emph{read-write cycle}
+at the finite observable-law layer --- not passive observation of a
+static memory, but the description of a finite subsystem that both reads
+from and writes to a register it cannot fully access. The fixed-basis
+Schrödinger/unitary interpolation and the quadratic Born readout are
+already part of the exact equivalent representation
+(\(S \iff D \iff Q_{\mathrm{fb}}\), {[}Main §3.4{]}); they are not a
+separate exponent-selection problem. The unresolved question is whether
+the whole coherent intervention/composite family lifts into one standard
+local quantum operational theory. Interference in the mechanism picture
+is write-then-read: information deposited in hidden storage during one
+transition is retrieved on a later transition, partially cancelling or
+reinforcing the transition probabilities. The 10¹²² cosmological
+constant discrepancy is the compression ratio between total storage and
+readable storage. The dark sector is the gravitational weight of the
+unreadable storage. The Bekenstein-Hawking entropy is the storage
+capacity of the partition boundary. ℏ is the conversion factor between
+storage geometry and read-write statistics.
 
-An immediate objection is ``Memory made of what?'' Here \((S,\varphi)\)
-specifies a candidate mathematical model, whose accessible data also
-depend on the observer partition and preparation/readout rule. Theorem
-23 gives conditional local outputs after a cubic branch and additional
-physical hypotheses are chosen. It does not prove that this model
-exhausts reality or that every possible deeper distinction is
-inaccessible. Two interpretations stipulated to give identical data
-cannot be distinguished using only those data; a universal microscopic
-gauge classification is a separate, open question.
+An immediate objection: ``Memory made of \emph{what}?'' In everyday
+life, memory requires a physical substrate --- silicon, magnetic
+domains, neurons. The answer: (S, φ) is a \emph{complete description} of
+reality --- it determines every observable, with nothing left over that
+any measurement could detect. S is the totality of distinguishable
+configurations; φ is the structure of dynamical dependence. Space, time,
+and matter are all derived from (S, φ), so they can't appear in its
+definition without circularity. Whether (S, φ) \emph{is} reality or
+\emph{describes} reality is a question the framework proves to be gauge
+--- undecidable by any experiment. The ``memory'' is a complete
+mathematical description from which everything observable is derived.
+Asking what it's made of presupposes a deeper level that no measurement
+can access --- like asking what the number 7 is made of.
 
 \hypertarget{computation-from-within}{%
 \subsubsection{Computation from within}\label{computation-from-within}}
@@ -3449,39 +3526,46 @@ about its own behavior. The undecidable problems aren't random --- they
 have a precise structure (the halting problem, Turing degrees, the
 oracle hierarchy).
 
-\textbf{OI:} A specified observation interface determines which state
-distinctions are present in its retained records. Finite observable laws
-admit the exact stochastic/reversible/fixed-basis quantum
-correspondence. Neither that correspondence nor C4 says that every
-hidden state remains unidentified; full operational quantum mechanics
-and its Bell-compatible physical realization have their separate
-hypotheses.
+\textbf{OI:} An observer embedded in (S, φ) cannot access the complete
+state. The emergent description isn't random --- it has a precise
+structure (unitary quantum mechanics with the Schrödinger equation, Born
+rule, and Bell violations).
 
-For a known finite model, ask which initial states are compatible with
-the retained record. A quantity is inferred exactly when it is constant
-on that record fibre. The swap map \((v,h)\mapsto(h,v)\) has four
-distinct two-reading records, so it identifies the full initial state
-and the current hidden state. Its uniform visible process still has
-\(X_2=X_0\) and one bit of conditional readback memory. This separates
-predictive hidden memory from hidden information left unresolved by the
-whole history.
+The precise OI analog of the halting problem is: \emph{can the observer
+determine the hidden-sector state h?} The hidden state has a definite
+value at every moment --- the total system is deterministic. Different
+hidden states send the same visible state to different futures (the
+particle goes left or right, the spin is measured up or down). But the
+observer cannot determine the hidden degrees of freedom beyond causal
+reach, and transition probabilities are averages over h. The structural
+consequence is quantum mechanics --- just as the structural consequence
+of the halting problem is the architecture of computability theory.
 
-Model redundancy is a separate issue. An independently prepared, exactly
-decoupled ancillary sector leaves the chosen visible channel unchanged
-under the hypotheses of {[}Substratum Theorem 24(iii){]}. Alphabet-size
-comparisons retain their stated additional hypotheses. These are
-comparisons of accessible laws across realizations, rather than a
-theorem that every state of one fixed realization is unknown.
-Non-identifiability in a known finite model is not the halting problem:
-the compatible sets are computably finite.
+The framework also identifies a distinct class of inaccessible
+quantities: the deep-sector cardinality \textbar C\_D\textbar{} and,
+under the alphabet-size hypothesis {[}SM §2.7{]}, the alphabet size q.
+These are not undecidable --- they are \emph{gauge}. Different values of
+\textbar C\_D\textbar{} produce the same transition data at leading
+order on accessible timescales, and under the hypothesis different
+values of q produce identical observables, so within those data there is
+no fact of the matter to be inaccessible. The hidden degrees of freedom
+beyond causal reach are inaccessible: they have definite values the
+observer cannot reach. The cardinality \textbar C\_D\textbar{} is gauge:
+in the accessible-timescale data there is nothing there to reach.
 
-The connection with computation is a partial read/write interface to a
-reversible update. It is an analogy about access, not an identification
-of finite state inference with Turing undecidability. The proved
-correspondence concerns finite observable laws; its memory clause
-concerns histories with different next-step conditionals. Physical
-limits on storing records, choosing interventions and computing from
-them must be supplied where used.
+The common thread: a system with finite resources tries to completely
+model something it's part of, and the structural impossibility of doing
+so determines the \emph{form} of what it produces instead. The
+limitation and the law are the same object viewed from two sides. The
+Turing connection is direct: the observer is the head of a reversible
+computation; the halting problem (the head cannot determine the tape's
+global state) and the QM emergence theorem (the head's finite read-write
+statistics, Markov laws included, have an exact fixed-basis unitary/Born
+representation on every finite horizon, and carry positive conditional
+memory \(I(X_{<k}; X_{k+1} \mid X_k)\) at an accessible order \(k\)
+exactly when history readback holds at that order) are two consequences
+of the same structural constraint --- finite self-referential access to
+a lossless computation.
 
 Gödel and Turing are usually read as negative results --- limits on
 knowledge. The framework recasts the physical instance as
@@ -3539,100 +3623,129 @@ structure. It's \emph{there} in the dynamics. But the observer, looking
 through the keyhole of the partition, sees only the diagonalizable
 shadow.
 
-This gives a structural interpretation of the use of mathematics in
-physics: a model and observer interface generate accessible laws, which
-admit the representation described above. Theorem 23 adds conditional
-local outputs of a selected cubic model, not a proof that observations
-recover one complete mathematical ontology. Which additional microscopic
-differences are inaccessible depends on the specified observations. A
-complete classification cannot be inferred from the interpretation
-alone.
+So Wigner's puzzle dissolves, for physics. Mathematics isn't
+``unreasonably effective'' at describing physics. Mathematics --- at
+least the part of it that physics tracks --- is the most complete
+description an embedded observer would have access to, with the
+reconstruction theorem fixing the local lattice/gauge structural
+residue; the Bell-inclusive completion is not uniquely reconstructed.
+Physics is the observable part of that description --- drawn by someone
+who can't see the whole thing. The observable part is effective because
+it's a faithful projection --- the semisimple part genuinely captures
+the eigenvalue structure. But it's not the whole description. The full
+mathematical description has structure (the nilpotent monodromy) that no
+physical measurement an embedded observer can perform can reveal.
+Whether mathematics extends beyond the structural content that physics
+tracks, into domains an embedded physical observer cannot reach (and
+that may have substantive content in mathematical foundations or
+meta-mathematics), is a question the framework does not address.
 
-The converse is an open problem. Starting from observations, E1--E7 and
-A1--A6 do not by themselves select the local cubic branch used in
-Theorem 23. Its wave rule, carrier and physical hypotheses are
-additional inputs. A common Bell-compatible completion and its
-uniqueness impose further obligations.
+There is also a converse result, but it is scoped. Starting from the
+observed physics and the theorem's structural inputs, within the
+nearest-neighbor class, the reconstruction fixes the \textbf{local
+lattice/gauge residue}. A Bell-inclusive full completion additionally
+requires H-Bell and is not proved unique.
 
-The forward construction starts with a model, a preparation rule and an
-observer interface, then derives accessible data. An inverse
-reconstruction would start with those data and identify which physical
-models realize them. Conditional outputs within a chosen model do not
-complete that second task.
+The forward direction: start from (S, φ) and derive physics. That's the
+program's main result. The converse: start from the observed physics and
+reconstruct (S, φ). And the pieces are already in hand.
 
-Finite reversible observer models can represent finite operational laws,
-but that universal realization does not uniquely select the physical
-substratum. On a \emph{selected} cubic nearest-neighbor wave-rule branch
-with H-link, the single-copy condition and the other physical hypotheses
-of {[}SM{]}, the local representation calculations give \(K=6\) and
-multiplicities \((3,2,1)\). The corresponding Standard Model matter
-conclusions retain H-cust, H-spin', H-χ' and their separate premises.
-The H-Bell compatibility of one such model with Bell-violating
-composites remains conditional; the GR gap equation fixes a relation
-among \(\hbar\), \(\epsilon\) and \(\sigma\) only under its separate
-horizon/infrared conditions. The observed inputs and A1--A6 do not yet
-uniquely select this branch.
+If you observe quantum mechanics with Bell violations on a finite
+system, the characterization theorem forces you into some (S, φ, V) ---
+there must be a deterministic system with a partition. If your physics
+includes Einstein gravity via the thermodynamic route, the dynamics
+selection theorem pins the wave equation --- it's the unique
+nearest-neighbor dynamics consistent with QM emergence, isotropy, and
+linearity. If you see SU(3) × SU(2) × U(1) with three generations, the
+gauge structure pins K = 6 with multiplicities (3, 2, 1) --- the cubic
+group decomposition is unique. If the visible transition counts are
+reciprocal, the substratum dynamics is T-invariant. If ℏ has the
+specific value c³ε²/(4Gσ), the gap equation pins ε = 2√σ l\_p.~And d = 3
+is the unique self-consistent dimension.
 
-Substratum §4 distinguishes three observational notions. For a
-\emph{fixed coherent-channel interface}, a single hidden permutation
-independent of the visible state and an independent decoupled normalized
-hidden extension preserve the complete channel family, but the six-state
-Pair C witness shows these restricted moves are \textbf{not exhaustive}.
-For \emph{population-only observations}, a hidden relabelling depending
-on the visible input fibre preserves all rooted transition counts, a
-broader invariance. Equivalence \emph{across all observer partitions} is
-a separate unresolved classification requiring correspondence of
-preparations and readouts. Alphabet-size comparisons retain the
-unconditional \(q\)-insensitive results of {[}SM §2.7{]}, with
-transition-law equivalence across \(q\) requiring an additional
-hypothesis; graph universality carries the specific Theorems 1--6
-structural content but not blanket equality of channels. The valid
-spanning-class block-word theorem (Substratum Proposition 24.2) does not
-turn equality of single-time channels into hidden-conjugation
-uniqueness.
+Chain the local reconstruction steps together and the observed inputs
+determine the \textbf{local-sector} lattice/gauge data. The Bell
+preparation rule is extra composite data: H-Bell conditions its
+compatibility/existence, and its uniqueness is open. The substratum
+gauge group \(\mathcal{G}_{\text{sub}}\) {[}Substratum §4{]} contains
+three generator families: state relabeling (permuting the hidden states
+uniformly in every visible fibre while conjugating φ), alphabet change
+(replacing ℤ/qℤ with any ℤ/q'ℤ; a generator under the alphabet-size
+hypothesis {[}SM §2.7{]}), deep-sector enlargement (the cardinality of a
+deep hidden sector that no dynamics couples to the boundary layer is
+unobservable --- it may even be infinite). Graph isomorphism up to
+statistical isotropy is a structural comparison, not a family of
+\(\mathcal{G}_{\text{sub}}\): any bounded-degree graph with d = 3
+polynomial growth and statistical isotropy is structurally equivalent to
+ℤ³ for the emergent-QM, dimensional, and gravitational structure; for
+the Standard Model gauge group the comparison is restricted to
+isomorphisms preserving the cubic octahedral structure, since the
+(3,2,1) decomposition requires it --- see {[}Substratum §4, Theorem
+24(iv){]}. Whether the three families generate
+\(\mathcal{G}_{\text{sub}}\) is open {[}Substratum §4{]}.
 
-The analogy with coordinate and gauge redundancy is a useful
-interpretive goal, but in OI the physically correct observational
-carrier and the permitted equivalence must first be determined. Theorem
-23 currently gives conditional local structural outputs on a selected
-branch; it does not prove uniqueness among all substrata, and H-Bell
-adds an independent completion question. The existence of genuinely
-observationally redundant hidden coordinates does not mean every
-microscopic distinction is gauge.
+This is exactly how physics always works. In general relativity,
+measurements determine an equivalence class of spacetime metrics modulo
+diffeomorphisms --- not a unique coordinate system. In gauge theory,
+experiments determine an equivalence class of connections modulo gauge
+transformations --- not a unique field configuration. Here, the local
+reconstruction determines its lattice/gauge residue --- not a unique
+representative and not a unique Bell-inclusive completion.
 
-Whether a mathematical structure is called reality or a description does
-not change measurements if both readings stipulate the same accessible
-data. This is a conditional statement about those readings, not a proof
-that every proposed ontology has identical observations. Theorem 23 does
-not identify a unique physical branch, and Theorem 24 leaves the full
-observational classification open.
+So the question ``is mathematics reality, or does it just describe
+reality?'' is not unanswered --- it's provably unanswerable by any
+measurement. The observed physics and the \textbf{locally reconstructed
+structural residue} determine each other under the reconstruction
+theorem's stated conditions; the Bell-inclusive completion is
+underdetermined. Any experiment that could distinguish ``the universe is
+(S, φ)'' from ``the universe is described by (S, φ)'' would need to
+detect something outside the equivalence class. But the equivalence
+class already accounts for everything observable.
 
-The comparison with electromagnetic gauge freedom is useful when the
-redundancy is specified. In OI a hidden-only relabelling preserves
-coherent channels under the stated hypotheses, while a more general
-hidden relabelling can preserve populations and alter coherences. Such
-examples do not identify an exact boundary between every physical and
-unphysical microscopic distinction.
+This is the same structure as gauge invariance in electromagnetism. The
+potential A is underdetermined --- only the field strength F is
+measurable. We don't agonize over whether A is ``real.'' We identify the
+exact boundary between the physical (F) and the gauge (A). The OI
+framework identifies an analogous boundary for the \textbf{local
+lattice/gauge residue}: representative choices inside that reconstructed
+sector are gauge. The theorem does not collapse every Bell-inclusive
+completion into one gauge class.
 
-From an embedded observer's perspective, observable mathematics means
-the model structures represented in a specified preparation/readout
-interface. The selected branch gives conditional candidates for physical
-structure, but no theorem here divides every microscopic feature into a
-uniquely recovered physical residue and a complete gauge remainder. The
-choice of carrier matters, and comparisons of alphabet size or graph
-structure retain their own scopes.
+This suggests a precise way to understand what physics is, \emph{from
+the embedded observer's perspective}. The mathematical structure (S, φ)
+has two parts: the part fixed by the local reconstruction (the local
+gauge-invariant residue and semisimple spectral data), and the part that
+isn't (the specific representative, the nilpotent monodromy, the choice
+of q). The first part is what we call physics. A suggestive name for it
+might be \emph{observable mathematics} --- the portion of mathematical
+structure that an embedded subsystem with partial read-write access can
+detect.
 
-Wigner's puzzle can thus be approached through a model of accessible
-mathematical structure. This is an interpretive proposal supported by
-particular constructions, not a theorem identifying all physical reality
-with one reconstructed quotient. The physical selector and the full
-observational classification remain research questions.
+Under this definition, Wigner's puzzle dissolves \emph{for physics} to
+the point of tautology. ``Why is mathematics effective at describing
+physics?'' becomes ``Why is the structural content tracked by physics
+effective at describing what an embedded observer detects?'' --- which
+isn't a mystery. It's a structural identification. Within physics, the
+unreasonable effectiveness was never unreasonable; it was a category
+error, treating the structural content of physics and the structural
+content of the mathematics that captures it as separate domains when,
+modulo gauge, they coincide. Whether mathematics in its full scope
+(including content beyond what any embedded physical observer can
+detect) is itself a coherent extension of this identification is a
+question for mathematical foundations, not for physics. The framework
+establishes the physics-side identification; whether the identification
+extends absolutely is a different question the framework does not claim
+to settle.
 
-The comparison with Gödel and Turing concerns limits of access, proof
-and computation. It does not establish that embedded observation
-uniquely forces every microscopic feature of physics. The finite-law
-representation, the selected cubic calculation and the horizon
-construction retain their separate premises and evidential status.
+And the incompleteness family extends one step further: Gödel showed
+that proof can't capture all truth. Turing showed that computation can't
+predict all behavior. The OI framework shows that observation can't
+capture all dynamics. In each case, what \emph{can't} be captured has
+rigid mathematical structure, and what \emph{is} captured is determined
+by the incompleteness itself. Physics --- all of it, from quantum
+mechanics to the Standard Model --- is the rigid structure of what
+embedded observation captures. Mathematics is larger. Physics is the
+view from inside.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -3870,4 +3983,4 @@ The final text and all scientific claims were reviewed and verified by
 the author.
 
 \end{document}
-% source-sha256: 137b6eb39496fec5e14b2be9a9cac02cbf59ab13d8368aed87efc67cd0095062
+% source-sha256: 37326c501e48c341a47b33e5d0d2ff88be49ca278d66e864384bb78e85a1d3b1
