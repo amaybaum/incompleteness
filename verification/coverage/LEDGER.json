@@ -2561,7 +2561,7 @@
       "line": 251,
       "kind": "Theorem",
       "label": "24",
-      "fingerprint": "3ccdd47c6a7819b1",
+      "fingerprint": "8014bdd307e0a367",
       "area": "reconstruction",
       "assumptions": "see the statement; family (ii) under the alphabet-size hypothesis of SM §2.7",
       "checks": [],
@@ -2980,7 +2980,7 @@
     {
       "id": "SUBSTRATUM:P-24.3",
       "paper": "papers/Substratum.md",
-      "line": 285,
+      "line": 301,
       "kind": "Proposition",
       "label": "24.3",
       "fingerprint": "8737d2fb12a8b31b",
@@ -2994,7 +2994,7 @@
     {
       "id": "SUBSTRATUM:P-24.4",
       "paper": "papers/Substratum.md",
-      "line": 310,
+      "line": 326,
       "kind": "Proposition",
       "label": "24.4",
       "fingerprint": "d6f59841d88a2d55",
@@ -3008,7 +3008,7 @@
     {
       "id": "SUBSTRATUM:P-24.5",
       "paper": "papers/Substratum.md",
-      "line": 327,
+      "line": 343,
       "kind": "Proposition",
       "label": "24.5",
       "fingerprint": "0bab27ebe3d6d475",

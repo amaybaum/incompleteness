@@ -181,7 +181,7 @@ A positive complement to this silence is worth noting briefly. The framework's f
 
 ### 5.5 The boundary-characterization pattern across the Gödel-Turing-OI family
 
-The framework's silence on P vs NP fits a broader pattern across the incompleteness family identified in [1, Ch. 12 §12.8]: Gödel's incompleteness, Turing's halting result, OI's inaccessibility of the complete state, and Deutsch's universality-of-explanation are all *boundary-characterization* results that share a common structural feature — each establishes a structural limit on access from inside a system, and each is silent on the internal organization of what falls within the accessible domain.
+The framework's silence on P vs NP fits a broader pattern across the incompleteness family identified in [1, Ch. 12 §12.8]: Gödel's incompleteness, Turing's halting result, OI's hidden-sector inaccessibility, and Deutsch's universality-of-explanation are all *boundary-characterization* results that share a common structural feature — each establishes a structural limit on access from inside a system, and each is silent on the internal organization of what falls within the accessible domain.
 
 Concretely:
 

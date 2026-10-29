@@ -590,12 +590,12 @@ determine the hidden-sector state \(h\)?} The question is well-posed ---
 deterministic. Different \(h\) values produce different physical
 outcomes. The observer cannot determine the hidden degrees of freedom
 beyond causal reach, which are permanently hidden {[}Main §1.1{]}, and
-transition probabilities \(T_{ij}(t)\) are averages over \(h\). Within
-reach, retained records identify a hidden quantity exactly when it is
-constant on the states compatible with them (Proposition 24.5): for
-\(\varphi(v,h)=(h,v)\) with readout \(v\), two readings determine
-\(h_0\). The structural consequence of this inaccessibility is quantum
-mechanics --- just as the structural consequence of the halting
+transition probabilities \(T_{ij}(t)\) are averages over \(h\). For a
+known finite model, retained records identify a hidden quantity exactly
+when it is constant on the states compatible with them (Proposition
+24.5): for \(\varphi(v,h)=(h,v)\) with readout \(v\), two readings
+determine \(h_0\). The structural consequence of this inaccessibility is
+quantum mechanics --- just as the structural consequence of the halting
 problem's undecidability is computability theory. The framework also
 identifies a second class of inaccessible quantities --- the alphabet
 size \(q\) ({[}SM, §2.7{]}) and the deep-sector cardinality
@@ -733,10 +733,10 @@ break it.
 (A3) \textbf{Bounded coupling degree.} Each site is coupled to a bounded
 number of neighbors in \(\varphi\)'s action. (Required for locality and
 the emergence of a coupling graph with well-defined dimension. The
-physical content is boundedness itself; the specific degree is gauge ---
-any bounded-degree graph in the quasi-isometry class produces the same
-emergent quantum-mechanical, dimensional, and gravitational content,
-Theorem 24(iv).)
+physical content is boundedness itself; bounded-degree graphs with the
+same growth dimension, spectral mode count and statistical isotropy
+share the structural quantum-mechanical, dimensional, and gravitational
+content of Theorem 24(iv), but need not give the same \(T_{ij}(t)\).)
 
 (A4) \textbf{Center independence.} The dynamics \(\varphi\) does not
 depend on a choice of ``center'' site, in two senses used below:
@@ -1218,7 +1218,7 @@ relation \(\hbar = c^3\epsilon^2/(4G\sigma)\).}
 
 \emph{Proof.} Stage 2 selects the same local cubic propagating sector
 and discrete representation-theoretic invariants from E4--E7, A3--A6 and
-the nearest-neighbor premise; graph relabeling and deep-sector
+the nearest-neighbor premise; hidden-sector relabeling and deep-sector
 enlargement lie in \(\mathcal{G}_{\rm sub}\), and alphabet freedom does
 under the alphabet-size hypothesis of {[}SM §2.7{]} (Theorem 24(ii)).
 Under H-slope, Stage 3 fixes the same gap-equation relation
@@ -1581,7 +1581,7 @@ gauge group} \(\mathcal{G}_{\text{sub}}\).
 \emph{\(\mathcal{G}_{\text{sub}}\) contains the independent families of
 transformations (i) and (iii) below, and, under the alphabet-size
 hypothesis of {[}SM, §2.7{]}, the family (ii); (iv) is a structural
-graph comparison outside \(\mathcal{G}_{\text{sub}}\):}
+graph comparison, not a family of \(\mathcal{G}_{\text{sub}}\):}
 
 \emph{(i) Hidden-sector relabeling.} For any bijection
 \(\sigma: \mathcal{C}_H \to \mathcal{C}_H\), applied identically in
@@ -1621,13 +1621,13 @@ extension preserves the leading-order transition law \(T^{(B)}\) on
 accessible timescales \(t \ll \tau_B\), not the transition probabilities
 themselves.
 
-\emph{(iv) Graph comparison (up to statistical isotropy), with a
+\emph{(iv) Graph isomorphism (up to statistical isotropy), with a
 qualification on the gauge sector.} Two coupling graphs \(G_\varphi\)
 and \(G_{\varphi'}\) that are quasi-isometric with the same polynomial
 growth exponent \(d\), the same spectral mode count, and the same
 statistical isotropy at large scales produce the same emergent
 \emph{quantum-mechanical, dimensional, and gravitational} structural
-content (Theorems 1--6), but not, in general, the same transition
+content (Theorems 1--6), but need not give the same transition
 probabilities \(T_{ij}(t)\) at a fixed observer interface; for this
 structural content the regular cubic lattice \(\mathbb{Z}^3\) and any
 bounded-degree random graph with \(d = 3\) polynomial growth and
@@ -2027,21 +2027,21 @@ scale, hence be a permutation. \(\square\)
 
 \textbf{Access and remaining gauge gap.} This is a predictive-quotient
 result for passive, nondisturbing records from one fixed finite
-reversible carrier. It refines {[}Main §3.4{]}'s canonical predictive
-quotient; it does not infer an all-time carrier from arbitrary
-finite-horizon laws. Full support on the microscopic carrier is
-sufficient, but one rooted visible preparation \(\delta_v\otimes\mu_H\)
-is generally not such a prior. A consistent positive mixture of every
-root would supply it only if that preparation family is actually
-accessible with the same dynamics and hidden prior. Algebraic saturation
-on \(Q\) does not assert externally selectable microscopic states or
-separate states in the same future-trace fibre. Without a known state
-bound, full-support uniform laws on binary de Bruijn cycles of orders
-\(k\) and \(k+1\) agree through length \(k\) and differ later. Invisible
-fibres can also have different microscopic cycle structures. Neither
-proposition therefore supplies hidden-factor conjugacy, coherent
-block-word traces, a common quantum instrument theory, or completeness
-over all admissible partitions.
+reversible carrier. It refines {[}Main §3.4{]}'s finite-horizon
+canonical tail quotient; it does not infer an all-time carrier from
+arbitrary finite-horizon laws. Full support on the microscopic carrier
+is sufficient, but one rooted visible preparation
+\(\delta_v\otimes\mu_H\) is generally not such a prior. A consistent
+positive mixture of every root would supply it only if that preparation
+family is actually accessible with the same dynamics and hidden prior.
+Algebraic saturation on \(Q\) does not assert externally selectable
+microscopic states or separate states in the same future-trace fibre.
+Without a known state bound, full-support uniform laws on binary de
+Bruijn cycles of orders \(k\) and \(k+1\) agree through length \(k\) and
+differ later. Invisible fibres can also have different microscopic cycle
+structures. Neither proposition therefore supplies hidden-factor
+conjugacy, coherent block-word traces, a common quantum instrument
+theory, or completeness over all admissible partitions.
 
 The self-contained derivation and bounded exact rational controls are
 retained in
@@ -2331,17 +2331,17 @@ the synthesis claim at the level of the two gauge-bearing projections
 (the arrow-of-time projection is developed in §5.4 and has no
 gauge-hierarchy analog). At the substratum level, the only object is the
 bijection and its gauge group \(\mathcal{G}_{\text{sub}}\). The
-trace-out projects this onto two derived structures simultaneously: the
-emergent quantum field theory at the visible-sector level, with the
-Standard Model gauge group from the commutant of the coupling matrix
-({[}SM, §4.4{]}, Theorem 5) and the Standard Model representations as
-the cubic decomposition of the link directions ({[}SM, §4.6{]}, Theorem
-7); and the classical horizon thermodynamics at the boundary level, with
-the metric, the surface gravity, the entropy, and the temperature
-determined by the partition geometry and the area-law theorem ({[}GR,
-§3{]}). Both derived structures inherit the framework's structural
-inputs from the substratum, and both are exact rather than approximate
-at the lattice level.
+trace-out projects \((S, \varphi)\) onto two derived structures
+simultaneously: the emergent quantum field theory at the visible-sector
+level, with the Standard Model gauge group from the commutant of the
+coupling matrix ({[}SM, §4.4{]}, Theorem 5) and the Standard Model
+representations as the cubic decomposition of the link directions
+({[}SM, §4.6{]}, Theorem 7); and the classical horizon thermodynamics at
+the boundary level, with the metric, the surface gravity, the entropy,
+and the temperature determined by the partition geometry and the
+area-law theorem ({[}GR, §3{]}). Both derived structures inherit the
+framework's structural inputs from the substratum, and both are exact
+rather than approximate at the lattice level.
 
 The three-level gauge hierarchy organizes this. At Level 3 (the
 substratum), \(\mathcal{G}_{\text{sub}}\) acts on \((S, \varphi)\)
@@ -2362,11 +2362,11 @@ structure at Level 2 --- but acting on the \emph{partition} rather than
 on the internal field content. Where the emergent QFT is the trace-out's
 effect on the bulk dynamics, the classical horizon thermodynamics is the
 trace-out's effect on the partition geometry itself. Both are at Level
-2. Both descend from Level 3. The framework's claim is that the SM gauge
-group and Einstein's equations are not two independent theoretical
-inputs but two co-derived structures, both consequences of the same
-underlying \((S, \varphi)\) and the same trace-out under the same
-conditions C1--C4; on the gravitational side the covariant field
+2. Both descend from \((S, \varphi)\). The framework's claim is that the
+SM gauge group and Einstein's equations are not two independent
+theoretical inputs but two co-derived structures, both consequences of
+the same underlying \((S, \varphi)\) and the same trace-out under the
+same conditions C1--C4; on the gravitational side the covariant field
 equations are the open Level-G3 step ({[}GR, §8.7{]}).
 
 \hypertarget{the-arrow-of-time-as-a-third-projection}{%
@@ -2817,14 +2817,15 @@ reconstruction if violated.
   \(\delta_{[110]} = 1/144\), \(\delta_{[111]} = 0\) --- the dispersion
   is exactly linear along the body diagonals, \(\omega = k/\sqrt{3}\) to
   all orders) is a \emph{physical, direction-dependent} prediction. Its
-  absolute orientation in space is gauge: generator (iv) of §4 gauges
-  the rigid orientation of the cubic representative. The anisotropy
-  \emph{pattern} --- its fourfold \(\ell=4\) cubic-harmonic structure
-  and the direction-differences \(\delta_{[100]}-\delta_{[111]}\) --- is
-  gauge-invariant, since generator (iv) preserves the octahedral
-  structure and does not identify \(\mathbb{Z}^3\) with a generic
-  isotropic graph (which lacks the octahedral structure the gauge group
-  requires, {[}SM §4.5--4.6{]}). The orientation-averaged coefficient
+  absolute orientation in space has no observable content: comparison
+  (iv) of §4 relates rigid orientations of the cubic representative. The
+  anisotropy \emph{pattern} --- its fourfold \(\ell=4\) cubic-harmonic
+  structure and the direction-differences
+  \(\delta_{[100]}-\delta_{[111]}\) --- is invariant under it, since
+  comparison (iv) preserves the octahedral structure and does not
+  identify \(\mathbb{Z}^3\) with a generic isotropic graph (which lacks
+  the octahedral structure the gauge group requires, {[}SM
+  §4.5--4.6{]}). The orientation-averaged coefficient
   \(\langle\delta\rangle = 1/90\) is a direction-summary of this
   anisotropy, and the framework predicts the emergent dispersion
   \[\omega^2 = k^2\left[1 - \frac{(k\epsilon)^2}{45} + O\left((k\epsilon)^4\right)\right] = k^2\left[1 - \frac{4\sigma}{45}\left(\frac{E}{M_{\text{Pl}}}\right)^2 + O\left(\left(\frac{E}{M_{\text{Pl}}}\right)^4\right)\right]\]
@@ -3339,4 +3340,4 @@ Running-Vacuum Form of Dark Energy from the Cosmological Horizon,''
 (2026).
 
 \end{document}
-% source-sha256: 2d4648e3da3805ba1e83b779b2878bb2783861484460fbf6e06097b98c5cba19
+% source-sha256: 9e971d1d5e0383a897fa5755183da5b62873b9757d663eb77ced2bfa38b6e1bb
