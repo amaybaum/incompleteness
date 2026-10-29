@@ -63,7 +63,7 @@ The framework's prediction is therefore: any chemistry-supporting universe with 
 
 *$sp$ carbons* are rarer in biology but appear in some natural products and as transition states in enzyme catalysis. Their linear geometry produces the rigid axes needed for some specialized binding interactions.
 
-The framework's structural content is that the *possibility* of these three hybridization modes — and hence the possibility of proteins with three-dimensional folds, nucleic acids with planar base-pairing, and lipid membranes with $sp^3$ hydrocarbon chains — is a theorem about embedded observation rather than a contingent feature of our universe. The biological consequences develop in Chapters 11 and 12.
+On the selected three-dimensional continuum branch, and subject to the stated spin, statistics and atomic assumptions, these hybridization modes supply the molecular geometries used in the biological discussion of Chapters 11 and 12.
 
 **Step 5: The structural chain.** The first arrow below inherits A4, E5–E7 and the continuum conditions of Chapter 5 §5.3. The remaining steps use the stated spin, statistics and atomic assumptions:
 $$(S, \varphi) \xrightarrow{\text{conditional}} d = 3 \xrightarrow{\mathrm{SO}(3)} \text{orbital algebra} \xrightarrow{\text{Pauli}} \text{periodic table} \xrightarrow{\text{element 6}} \text{tetrahedral carbon}.$$
@@ -193,7 +193,7 @@ The specific parametric features — the precise value of $\alpha$, the precise 
 
 **The dissolution of fine-tuning.** Under the framework's reading, the fine-tuning problem partly dissolves. The chemistry-supporting features that are *structural* are not fine-tuned because they follow from the framework's commitments rather than from narrow parameter ranges. The features that are *parametric* still require specific values, but the parametric content is concentrated in the flavor sector (Chapter 19 §19.3.1) and the dark energy magnitude (Chapter 7 §7.8), not in the structural features that make chemistry possible.
 
-The framework therefore changes what fine-tuning means. Instead of "the universe's parameter values are in a narrow range supporting chemistry" — which would require an anthropic, multiverse, or teleological explanation — the framework's reading is "the universe's structural commitments produce chemistry as a theorem, with parametric details adjusting which specific chemical species and reactions occur within the structural class." Chemistry's possibility is theorem; chemistry's specifics are parametric.
+The chemistry discussion inherits A4's lattice class, E5–E7, the continuum conditions and each downstream link's spin, statistics and atomic assumptions. Within that selected branch, structural relations constrain orbital and bonding possibilities, while parametric details affect specific species and reactions. The named hypotheses of the chirality chain also remain conditions on its conclusions.
 
 **The dissolution of the anthropic principle.** The conventional anthropic principle observes that we exist as observers in a chemistry-supporting universe, and concludes either that (a) we should expect to observe chemistry-supporting parameter values (the weak anthropic principle), or (b) the universe's parameters are *required* to support observers (the strong anthropic principle). The principle has been controversial: it explains parameter values without producing new predictions, and its strong form veers into teleology.
 

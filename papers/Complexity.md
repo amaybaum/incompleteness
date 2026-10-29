@@ -108,7 +108,7 @@ $$\text{(S, } \varphi\text{)} \xrightarrow{\text{derived}} \text{scale hierarchy
 
 $$\text{(S, } \varphi\text{)} \xrightarrow{\text{H-χ'}} \text{chiral SU(2)} \xrightarrow{\text{PVED}} \text{L-amino acid preference}$$
 
-Every arrow is a theorem from [1, 2], a standard textbook result applied to the derived structure, or — for the chiral-SU(2) arrow — the named open hypothesis H-χ' [2, §4.8]. No parameter values enter. The possibility of a universe with atoms, nuclei, a periodic table, organic chemistry, matter-antimatter asymmetry, and chirally selected molecules is, up to that flagged link, a theorem about embedded observation.
+These chains combine results of [1, 2] with textbook relations on the selected three-dimensional continuum branch, conditional on A4's lattice class, E5–E7, the continuum conditions, and the stated spin, statistics and atomic assumptions. Each downstream link retains its own hypotheses; the chiral-SU(2) arrow additionally assumes H-χ' [2, §4.8]. The conclusions about atoms, nuclei, the periodic table, organic chemistry, matter-antimatter asymmetry and chirally selected molecules inherit these conditions.
 
 ***
 
