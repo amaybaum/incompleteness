@@ -1,0 +1,86 @@
+{
+  "checker_sha256": "7b37f7d514c5f09d33ee7a9c6ee28a898f72088aaf3e849173730792641918fb",
+  "controls": [
+    {
+      "control": "unchanged_source",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "control": "single_outcome",
+      "exit_code": 1,
+      "expected_failed_predicate": "field prepAvail_post stated in the setting",
+      "failed_predicates": [
+        "field prepAvail_post stated in the setting"
+      ],
+      "passed": true
+    },
+    {
+      "control": "ancilla_validity",
+      "exit_code": 1,
+      "expected_failed_predicate": "GR (i) stated at every ancilla level",
+      "failed_predicates": [
+        "GR (i) stated at every ancilla level"
+      ],
+      "passed": true
+    },
+    {
+      "control": "unqualified_kinematics",
+      "exit_code": 1,
+      "expected_failed_predicate": "pinned in papers/Main.md: The operational-completion characterization",
+      "failed_predicates": [
+        "pinned in papers/Main.md: The operational-completion characterization ([GR §3.3]) take..."
+      ],
+      "passed": true
+    },
+    {
+      "control": "mirror",
+      "exit_code": 1,
+      "expected_failed_predicate": "glossary and preface pins mirrored in FULL",
+      "failed_predicates": [
+        "glossary and preface pins mirrored in FULL",
+        "chapter line mirrored in FULL: **Born rule.** The quantum-mechanical prescription that the ..."
+      ],
+      "passed": true
+    },
+    {
+      "control": "count",
+      "exit_code": 1,
+      "expected_failed_predicate": "kinematics mention counts match the site table",
+      "failed_predicates": [
+        "kinematics mention counts match the site table (68)"
+      ],
+      "passed": true
+    },
+    {
+      "control": "paper_caps",
+      "exit_code": 1,
+      "expected_failed_predicate": "added-text scan:",
+      "failed_predicates": [
+        "added-text scan: 1 hit(s)"
+      ],
+      "passed": true
+    },
+    {
+      "control": "achieved_no_signaling",
+      "exit_code": 1,
+      "expected_failed_predicate": "Bell summary requires rather than derives no-signaling",
+      "failed_predicates": [
+        "Bell summary requires rather than derives no-signaling"
+      ],
+      "passed": true
+    },
+    {
+      "control": "fr_partition_escape",
+      "exit_code": 1,
+      "expected_failed_predicate": "FR scope requires the actual protocol rather than partition multiplicity",
+      "failed_predicates": [
+        "FR scope requires the actual protocol rather than partition multiplicity"
+      ],
+      "passed": true
+    }
+  ],
+  "schema": "sc42-integration-controls-v1",
+  "site_table_sha256": "bb4c45465eb42efadf05ea7fbc2437417b2cec8d5d2bad5a71e19d6a638806f6",
+  "verdict": "PASS"
+}

@@ -1,0 +1,1675 @@
+{
+  "base": "ca3a5bb25ec6fdff3d3ccffcacd2d7bac3bb4caf",
+  "checker_sha256": "7b37f7d514c5f09d33ee7a9c6ee28a898f72088aaf3e849173730792641918fb",
+  "checks": [
+    {
+      "ok": true,
+      "predicate": "kernel fields ['avail', 'availExt', 'avail_id', 'avail_coarse', 'availExt_coarse', 'availExt_bind', 'prepAvail', 'prepAvail_uniform', 'prepAvail_post', 'readout', 'readout_avail', 'readout_local', 'prepAvail_discard'] == mapped fields (none added, none omitted)"
+    },
+    {
+      "ok": true,
+      "predicate": "field avail stated in the setting"
+    },
+    {
+      "ok": true,
+      "predicate": "field availExt stated in the setting"
+    },
+    {
+      "ok": true,
+      "predicate": "field avail_id stated in the setting"
+    },
+    {
+      "ok": true,
+      "predicate": "field avail_coarse stated in the setting"
+    },
+    {
+      "ok": true,
+      "predicate": "field availExt_coarse stated in the setting"
+    },
+    {
+      "ok": true,
+      "predicate": "field availExt_bind stated in the setting"
+    },
+    {
+      "ok": true,
+      "predicate": "field prepAvail stated in the setting"
+    },
+    {
+      "ok": true,
+      "predicate": "field prepAvail_uniform stated in the setting"
+    },
+    {
+      "ok": true,
+      "predicate": "field prepAvail_post stated in the setting"
+    },
+    {
+      "ok": true,
+      "predicate": "field readout stated in the setting"
+    },
+    {
+      "ok": true,
+      "predicate": "field readout_avail stated in the setting"
+    },
+    {
+      "ok": true,
+      "predicate": "field readout_local stated in the setting"
+    },
+    {
+      "ok": true,
+      "predicate": "field prepAvail_discard stated in the setting"
+    },
+    {
+      "ok": true,
+      "predicate": "kinematics clause: 'The setting takes complex matrix kinematics as given'"
+    },
+    {
+      "ok": true,
+      "predicate": "kinematics clause: 'M_A(\\\\mathbb{C})'"
+    },
+    {
+      "ok": true,
+      "predicate": "kinematics clause: 'A derivation of this kinematics'"
+    },
+    {
+      "ok": true,
+      "predicate": "kinematics clause: 'is open'"
+    },
+    {
+      "ok": true,
+      "predicate": "kernel anchors cited in the setting"
+    },
+    {
+      "ok": true,
+      "predicate": "kernel (i) quantifies over availExt (ancilla levels) only"
+    },
+    {
+      "ok": true,
+      "predicate": "systemLoose makes every system family available (amplifier X -> 2X included)"
+    },
+    {
+      "ok": true,
+      "predicate": "GR (i) stated at every ancilla level"
+    },
+    {
+      "ok": true,
+      "predicate": "GR: no premise beyond its stated setting"
+    },
+    {
+      "ok": true,
+      "predicate": "GR theorem line identical at base and head"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'delivers QM on a finite-dimensional': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'quantum instruments open)': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'Level three (open)': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'operational-lifting problem': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'remains open (§19.2.12)': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'instrument algebra still open': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'residual common coherent/composite lift': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'on every ancilla level are exactly': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'lifting problem': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'operational lifting': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'operational-lifting': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'lifting debt': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'lifting result': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'lifting frontier': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'active-lifting': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'open coherent operational lift': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'stated as open (§3.2': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'states as open (§3.2': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'stated as open ([Main §3.2': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'with no external premise': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'one-step coherence for the linear lattice realization, and': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'the fixed-basis representation extends to the standard noncommuting': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'Whether they do is characterized': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'full operational theory of instruments on that space': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'The step from that exact representation class': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'full coherent observable/instrument structure holds': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'instrument and composite structure of standard quantum mechanics holds': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'tensor/composite instrument structure is part of the coherent operational lift': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'by five operational conditions which instruments are available': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'the instrument algebra is reached exactly when': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'reached exactly under the operational completion conditions': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'On every nonempty finite carrier these three principles': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale '*conditionally*: it holds exactly when the explicit completion principles': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'on the relevant class': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "stale 'these three principles are respectively equivalent': 0"
+    },
+    {
+      "ok": true,
+      "predicate": "intended-site table schema"
+    },
+    {
+      "ok": true,
+      "predicate": "intended-site table covers the original scientific corpus exactly"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/GR.md: **Classical microreversibility already gives the"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/GR.md: **Classical microreversibility already gives the"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/GR.md: **Classical microreversibility already gives the"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/GR.md: **The operational-completion characterization.**"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/GR.md: **The operational-completion characterization.**"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/GR.md: **The operational-completion characterization.**"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/GR.md: **From finite-dimensional QM to QFT.** Part I de"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/GR.md: **From finite-dimensional QM to QFT.** Part I de"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/GR.md: **From finite-dimensional QM to QFT.** Part I de"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph sum: papers/GR.md"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Main.md: **Theorem statement.** The claims divide into th"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Main.md: **Theorem statement.** The claims divide into th"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Main.md: **Theorem statement.** The claims divide into th"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Main.md: that is $S \\iff D$, Markov laws included, so the"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Main.md: that is $S \\iff D$, Markov laws included, so the"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Main.md: that is $S \\iff D$, Markov laws included, so the"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Main.md: So the obstruction above is priced rather than f"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Main.md: So the obstruction above is priced rather than f"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Main.md: So the obstruction above is priced rather than f"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Main.md: **Scope of the correspondence (what it does and "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Main.md: **Scope of the correspondence (what it does and "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Main.md: **Scope of the correspondence (what it does and "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Main.md: The Barandes route is more general (any finite-c"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Main.md: The Barandes route is more general (any finite-c"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Main.md: The Barandes route is more general (any finite-c"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Main.md: **An independent necessity statement.** Both rou"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Main.md: **An independent necessity statement.** Both rou"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Main.md: **An independent necessity statement.** Both rou"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Main.md: *Remark (what this equivalence does and does not"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Main.md: *Remark (what this equivalence does and does not"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Main.md: *Remark (what this equivalence does and does not"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Main.md: *Remark (the operational-extension boundary).* T"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Main.md: *Remark (the operational-extension boundary).* T"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Main.md: *Remark (the operational-extension boundary).* T"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Main.md: *Remark (what the gluing theorem does and does n"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Main.md: *Remark (what the gluing theorem does and does n"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Main.md: *Remark (what the gluing theorem does and does n"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Main.md: The operational-completion theorem also admits a"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Main.md: The operational-completion theorem also admits a"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Main.md: The operational-completion theorem also admits a"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Main.md: *Corollary (finite-test density of deterministic"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Main.md: *Corollary (finite-test density of deterministic"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Main.md: *Corollary (finite-test density of deterministic"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Main.md: At the level of finite-horizon fixed-basis obser"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Main.md: At the level of finite-horizon fixed-basis obser"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Main.md: At the level of finite-horizon fixed-basis obser"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Main.md: *Remark (scope: representability, not selection "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Main.md: *Remark (scope: representability, not selection "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Main.md: *Remark (scope: representability, not selection "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Main.md: *(iii) State update, measurement, and multi-time"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Main.md: *(iii) State update, measurement, and multi-time"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Main.md: *(iii) State update, measurement, and multi-time"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Main.md: Accordingly, the phrase *equivalence of quantum "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Main.md: Accordingly, the phrase *equivalence of quantum "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Main.md: Accordingly, the phrase *equivalence of quantum "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph sum: papers/Main.md"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Methodology.md: One status distinction inside the organized phys"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Methodology.md: One status distinction inside the organized phys"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Methodology.md: One status distinction inside the organized phys"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Methodology.md: Two results show the distinction. The determinis"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Methodology.md: Two results show the distinction. The determinis"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Methodology.md: Two results show the distinction. The determinis"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Methodology.md: The Bell and Frauchiger–Renner discussions are d"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Methodology.md: The Bell and Frauchiger–Renner discussions are d"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Methodology.md: The Bell and Frauchiger–Renner discussions are d"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph sum: papers/Methodology.md"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: That's it. The precise claim is layered. At the "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Explainer.md: That's it. The precise claim is layered. At the "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Explainer.md: That's it. The precise claim is layered. At the "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: **What \"unitarily evolving QM\" means precisely.*"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Explainer.md: **What \"unitarily evolving QM\" means precisely.*"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Explainer.md: **What \"unitarily evolving QM\" means precisely.*"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: **The bridge therefore has three statuses, and t"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Explainer.md: **The bridge therefore has three statuses, and t"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Explainer.md: **The bridge therefore has three statuses, and t"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: *A note on what is proved versus imported, to ke"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Explainer.md: *A note on what is proved versus imported, to ke"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Explainer.md: *A note on what is proved versus imported, to ke"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: An observer inside the universe receives incompl"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Explainer.md: An observer inside the universe receives incompl"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Explainer.md: An observer inside the universe receives incompl"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: At the finite observable-law layer, the answer i"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Explainer.md: At the finite observable-law layer, the answer i"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Explainer.md: At the finite observable-law layer, the answer i"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: Gödel and Turing are usually read as negative re"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Explainer.md: Gödel and Turing are usually read as negative re"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Explainer.md: Gödel and Turing are usually read as negative re"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: The mathematical structure is (S, φ) — a finite "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Explainer.md: The mathematical structure is (S, φ) — a finite "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Explainer.md: The mathematical structure is (S, φ) — a finite "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph sum: papers/Explainer.md"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Structure.md: **OI's framing.** At the finite observable-law l"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Structure.md: **OI's framing.** At the finite observable-law l"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Structure.md: **OI's framing.** At the finite observable-law l"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph sum: papers/Structure.md"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Substratum.md: Quantum mechanics and general relativity are con"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Substratum.md: Quantum mechanics and general relativity are con"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Substratum.md: Quantum mechanics and general relativity are con"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Substratum.md: **Visible-sector projection.** At the level of t"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Substratum.md: **Visible-sector projection.** At the level of t"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Substratum.md: **Visible-sector projection.** At the level of t"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph sum: papers/Substratum.md"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph sum: papers/SM.md"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/preface.md: The qualification is equally important. Universa"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/preface.md: The qualification is equally important. Universa"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/preface.md: The qualification is equally important. Universa"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph sum: book/preface.md"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/ch00-introduction.md: For spatially separated systems, the coupling gr"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/ch00-introduction.md: For spatially separated systems, the coupling gr"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/ch00-introduction.md: For spatially separated systems, the coupling gr"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph sum: book/ch00-introduction.md"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/ch01-observation.md: The Born rule in the fixed-basis representation "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/ch01-observation.md: The Born rule in the fixed-basis representation "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/ch01-observation.md: The Born rule in the fixed-basis representation "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/ch01-observation.md: **Operational boundary.** These theorems do not "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/ch01-observation.md: **Operational boundary.** These theorems do not "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/ch01-observation.md: **Operational boundary.** These theorems do not "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/ch01-observation.md: The remaining qualification is localized. To ide"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/ch01-observation.md: The remaining qualification is localized. To ide"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/ch01-observation.md: The remaining qualification is localized. To ide"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph sum: book/ch01-observation.md"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/ch02-substratum.md: The quantum input to this reconstruction should "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/ch02-substratum.md: The quantum input to this reconstruction should "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/ch02-substratum.md: The quantum input to this reconstruction should "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/ch02-substratum.md: The observer-level statistics of this read-write"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/ch02-substratum.md: The observer-level statistics of this read-write"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/ch02-substratum.md: The observer-level statistics of this read-write"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph sum: book/ch02-substratum.md"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/ch03-structural-realism.md: The framework's PBR response must be stated cond"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/ch03-structural-realism.md: The framework's PBR response must be stated cond"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/ch03-structural-realism.md: The framework's PBR response must be stated cond"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/ch03-structural-realism.md: **The characteristic trait.** Schrödinger called"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/ch03-structural-realism.md: **The characteristic trait.** Schrödinger called"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/ch03-structural-realism.md: **The characteristic trait.** Schrödinger called"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph sum: book/ch03-structural-realism.md"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/ch04-methodology.md: Fourth, verify that the framework's predictions "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/ch04-methodology.md: Fourth, verify that the framework's predictions "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/ch04-methodology.md: Fourth, verify that the framework's predictions "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph sum: book/ch04-methodology.md"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/ch09-universality.md: *Chapter 1 (Quantum Mechanics from Embedded Obse"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/ch09-universality.md: *Chapter 1 (Quantum Mechanics from Embedded Obse"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/ch09-universality.md: *Chapter 1 (Quantum Mechanics from Embedded Obse"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph sum: book/ch09-universality.md"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/ch14-quantum-computing.md: **Operational closure (a model hypothesis).** Th"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/ch14-quantum-computing.md: **Operational closure (a model hypothesis).** Th"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/ch14-quantum-computing.md: **Operational closure (a model hypothesis).** Th"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph sum: book/ch14-quantum-computing.md"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph sum: book/ch18-beyond.md"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/ch19-open-problems.md: **Framework status.** Split — fixed-basis repres"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/ch19-open-problems.md: **Framework status.** Split — fixed-basis repres"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/ch19-open-problems.md: **Framework status.** Split — fixed-basis repres"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/ch19-open-problems.md: *conditionally*: within complex matrix kinematic"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/ch19-open-problems.md: *conditionally*: within complex matrix kinematic"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/ch19-open-problems.md: *conditionally*: within complex matrix kinematic"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph sum: book/ch19-open-problems.md"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/glossary.md: **Born rule.** The quantum-mechanical prescripti"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/glossary.md: **Born rule.** The quantum-mechanical prescripti"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/glossary.md: **Born rule.** The quantum-mechanical prescripti"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/glossary.md: **Operational gluing theorem.** The framework's "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/glossary.md: **Operational gluing theorem.** The framework's "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/glossary.md: **Operational gluing theorem.** The framework's "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph sum: book/glossary.md"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph sum: book/appendix-b-derivations.md"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph sum: book/appendix-c-objections.md"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph sum: book/readers-guide.md"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/The-Incompleteness-of-Observation-FULL.md: The qualification is equally important. Universa"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/The-Incompleteness-of-Observation-FULL.md: The qualification is equally important. Universa"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/The-Incompleteness-of-Observation-FULL.md: The qualification is equally important. Universa"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/The-Incompleteness-of-Observation-FULL.md: For spatially separated systems, the coupling gr"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/The-Incompleteness-of-Observation-FULL.md: For spatially separated systems, the coupling gr"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/The-Incompleteness-of-Observation-FULL.md: For spatially separated systems, the coupling gr"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/The-Incompleteness-of-Observation-FULL.md: The Born rule in the fixed-basis representation "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/The-Incompleteness-of-Observation-FULL.md: The Born rule in the fixed-basis representation "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/The-Incompleteness-of-Observation-FULL.md: The Born rule in the fixed-basis representation "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/The-Incompleteness-of-Observation-FULL.md: **Operational boundary.** These theorems do not "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/The-Incompleteness-of-Observation-FULL.md: **Operational boundary.** These theorems do not "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/The-Incompleteness-of-Observation-FULL.md: **Operational boundary.** These theorems do not "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/The-Incompleteness-of-Observation-FULL.md: The remaining qualification is localized. To ide"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/The-Incompleteness-of-Observation-FULL.md: The remaining qualification is localized. To ide"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/The-Incompleteness-of-Observation-FULL.md: The remaining qualification is localized. To ide"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/The-Incompleteness-of-Observation-FULL.md: The quantum input to this reconstruction should "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/The-Incompleteness-of-Observation-FULL.md: The quantum input to this reconstruction should "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/The-Incompleteness-of-Observation-FULL.md: The quantum input to this reconstruction should "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/The-Incompleteness-of-Observation-FULL.md: The observer-level statistics of this read-write"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/The-Incompleteness-of-Observation-FULL.md: The observer-level statistics of this read-write"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/The-Incompleteness-of-Observation-FULL.md: The observer-level statistics of this read-write"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/The-Incompleteness-of-Observation-FULL.md: The framework's PBR response must be stated cond"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/The-Incompleteness-of-Observation-FULL.md: The framework's PBR response must be stated cond"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/The-Incompleteness-of-Observation-FULL.md: The framework's PBR response must be stated cond"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/The-Incompleteness-of-Observation-FULL.md: **The characteristic trait.** Schrödinger called"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/The-Incompleteness-of-Observation-FULL.md: **The characteristic trait.** Schrödinger called"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/The-Incompleteness-of-Observation-FULL.md: **The characteristic trait.** Schrödinger called"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/The-Incompleteness-of-Observation-FULL.md: Fourth, verify that the framework's predictions "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/The-Incompleteness-of-Observation-FULL.md: Fourth, verify that the framework's predictions "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/The-Incompleteness-of-Observation-FULL.md: Fourth, verify that the framework's predictions "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/The-Incompleteness-of-Observation-FULL.md: *Chapter 1 (Quantum Mechanics from Embedded Obse"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/The-Incompleteness-of-Observation-FULL.md: *Chapter 1 (Quantum Mechanics from Embedded Obse"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/The-Incompleteness-of-Observation-FULL.md: *Chapter 1 (Quantum Mechanics from Embedded Obse"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/The-Incompleteness-of-Observation-FULL.md: **Operational closure (a model hypothesis).** Th"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/The-Incompleteness-of-Observation-FULL.md: **Operational closure (a model hypothesis).** Th"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/The-Incompleteness-of-Observation-FULL.md: **Operational closure (a model hypothesis).** Th"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/The-Incompleteness-of-Observation-FULL.md: **Framework status.** Split — fixed-basis repres"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/The-Incompleteness-of-Observation-FULL.md: **Framework status.** Split — fixed-basis repres"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/The-Incompleteness-of-Observation-FULL.md: **Framework status.** Split — fixed-basis repres"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/The-Incompleteness-of-Observation-FULL.md: *conditionally*: within complex matrix kinematic"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/The-Incompleteness-of-Observation-FULL.md: *conditionally*: within complex matrix kinematic"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/The-Incompleteness-of-Observation-FULL.md: *conditionally*: within complex matrix kinematic"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/The-Incompleteness-of-Observation-FULL.md: **Born rule.** The quantum-mechanical prescripti"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/The-Incompleteness-of-Observation-FULL.md: **Born rule.** The quantum-mechanical prescripti"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/The-Incompleteness-of-Observation-FULL.md: **Born rule.** The quantum-mechanical prescripti"
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: book/The-Incompleteness-of-Observation-FULL.md: **Operational gluing theorem.** The framework's "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: book/The-Incompleteness-of-Observation-FULL.md: **Operational gluing theorem.** The framework's "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: book/The-Incompleteness-of-Observation-FULL.md: **Operational gluing theorem.** The framework's "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph sum: book/The-Incompleteness-of-Observation-FULL.md"
+    },
+    {
+      "ok": true,
+      "predicate": "kinematics mentions at base: 0"
+    },
+    {
+      "ok": true,
+      "predicate": "kinematics mention counts match the site table (68)"
+    },
+    {
+      "ok": true,
+      "predicate": "pinned in papers/Main.md: the instrument algebra is reached, on a finite carrier withi..."
+    },
+    {
+      "ok": true,
+      "predicate": "pinned in papers/Main.md: reached, on a finite carrier within complex matrix kinematic..."
+    },
+    {
+      "ok": true,
+      "predicate": "pinned in papers/Main.md: Within the same complex matrix kinematics, observational ind..."
+    },
+    {
+      "ok": true,
+      "predicate": "pinned in papers/Main.md: The operational-completion characterization ([GR §3.3]) take..."
+    },
+    {
+      "ok": true,
+      "predicate": "pinned in book/glossary.md: What remains is operational: on a finite carrier, within com..."
+    },
+    {
+      "ok": true,
+      "predicate": "pinned in papers/GR.md: The OI⁺, primitive-source, substratum-source, layer-flow and..."
+    },
+    {
+      "ok": true,
+      "predicate": "pinned in papers/GR.md: whether an operational theory's available instruments on a f..."
+    },
+    {
+      "ok": true,
+      "predicate": "pinned in papers/Explainer.md: The full operational theory is a separate question from that..."
+    },
+    {
+      "ok": true,
+      "predicate": "pinned in papers/Explainer.md: takes the tensor-product composite as part of the complex ma..."
+    },
+    {
+      "ok": true,
+      "predicate": "pinned in papers/Explainer.md: and within that kinematics characterizes by five operational..."
+    },
+    {
+      "ok": true,
+      "predicate": "pinned in book/ch19-open-problems.md: *conditionally*: within complex matrix kinematics taken as g..."
+    },
+    {
+      "ok": true,
+      "predicate": "pinned in papers/Structure.md: whether an operational theory's available instruments on a f..."
+    },
+    {
+      "ok": true,
+      "predicate": "pinned in book/preface.md: within complex matrix kinematics taken as given, the tensor-..."
+    },
+    {
+      "ok": true,
+      "predicate": "glossary and preface pins mirrored in FULL"
+    },
+    {
+      "ok": true,
+      "predicate": "witness conditions => exact: exactAll_of_physical_general (GeneralCarrier.lean:93)"
+    },
+    {
+      "ok": true,
+      "predicate": "witness exact => conditions: physical_of_exactAll (PhysicalCharacterization.lean:301)"
+    },
+    {
+      "ok": true,
+      "predicate": "observationalIndependence_iff_inert: unconditional iff"
+    },
+    {
+      "ok": true,
+      "predicate": "control_of_reversibleRichness: no side condition"
+    },
+    {
+      "ok": true,
+      "predicate": "reversibleRichness_of_control: Nonempty A and WellFormed"
+    },
+    {
+      "ok": true,
+      "predicate": "closure_of_observerRecursion: no side condition"
+    },
+    {
+      "ok": true,
+      "predicate": "observerRecursion_of_closure: identity and relative readout at every level"
+    },
+    {
+      "ok": true,
+      "predicate": "identity from control, relative readout from inert spectators"
+    },
+    {
+      "ok": true,
+      "predicate": "exactness is about the available families (T.avail), not a representation of a law"
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The framework's response.** Bell applies directly to the r..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The cited causal-local **stochastic** indivisible constructi..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework is therefore not a Bell-local hidden-variable ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The Frauchiger-Renner theorem.** Frauchiger and Renner (20..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's ordinary Wigner's-friend account distinguish..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: A Frauchiger-Renner application requires the proposed comple..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: For an operational completion already reproducing standard q..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: A proposed departure from standard quantum predictions requi..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: A deterministic substratum has one configuration trajectory ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: An operational completion with the standard quantum instrume..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Separate no-go premises.** The substratum, observable laws..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Bare OI does not impose PBR preparation independence, but sh..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The thought experiment captures the framework's central move..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: For spatially separated systems, the coupling graph supplies..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: This chapter proves those statements, then adds their spatia..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The Born rule in the fixed-basis representation is therefore..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The Bell claim must separate the deterministic completion fr..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework therefore declines the measurement-dependent/s..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Spatial extension.** The dependency graph supplies finite ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Operational boundary.** These theorems do not prove that t..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The remaining qualification is localized. To identify the co..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The game extends upward. Replace the two-card swap with a li..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The quantum input to this reconstruction should be read in t..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The observer-level statistics of this read-write cycle have ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The visible-sector projection: quantum mechanics.** Chapte..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Chapter 3 develops the framework's philosophical positioning..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Chapter 4 articulates the framework's methodological discipl..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Level D: OI's specific local structural residue.** The fra..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Bell's theorem.** Bell's theorem binds directly on the det..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: In hierarchy language, the Bell question splits the determin..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's evasion is structural, and it is worth stati..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's PBR response must be stated conditionally. P..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Bell's theorem, conceded and then confronted.** Bell's mat..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The rejoinder, at full strength.** A response-complete det..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The characteristic trait.** Schrödinger called entanglemen..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The ledger.** Conceded: Bell's mathematics; EPR's logic an..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Third, the framework *examines each no-go theorem's substant..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The chapter has three pieces of work. §4.2 develops the sing..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Third, locate where the framework meets or violates the theo..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Fourth, verify that the framework's predictions match quantu..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Common descriptions, separate premises.** A finite bijecti..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Methodological benefit.** The benefit of the architecture-..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: An additional no-go theorem requires an analysis of its actu..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The common architecture organizes the questions, while each ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *The Tsirelson bound.* The value $2\\sqrt{2}$ belongs to the ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The methodological posture sketched in this chapter is devel..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Chapter 1 (Quantum Mechanics from Embedded Observation).* T..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: One feature of Deutsch's broader program is read differently..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Operational closure (a model hypothesis).** The computatio..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The standard dilation picture motivates the model choice — m..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Bell's theorem and the chosen nonlocality.** Bell does not..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The inventory has two parts. Section 19.2 develops the probl..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Framework status.** Observer-relative account. In the prop..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Framework status.** Split — fixed-basis representation set..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *conditionally*: within complex matrix kinematics taken as g..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Shared descriptions and separate obligations.** Several en..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: A common construction can impose constraints on several ques..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The inventory above therefore states the status of each prob..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Bell-inequality violations.** Empirical correlations excee..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Born rule.** The quantum-mechanical prescription that the ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **CHSH inequality.** The Clauser-Horne-Shimony-Holt formulat..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Frauchiger-Renner theorem.** A 2018 multi-agent no-go theo..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Operational gluing theorem.** The framework's finite-resol..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Partition-relativity.** The framework's structural feature..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Tsirelson bound.** The maximum CHSH inequality violation a..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The qualification is equally important. Universal Hilbert-sp..."
+    },
+    {
+      "ok": true,
+      "predicate": "added-text scan: 0 hit(s)"
+    },
+    {
+      "ok": true,
+      "predicate": "Bell summary requires rather than derives no-signaling"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic unified escape: not piecemeal evasion but a single structural feature"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic unified escape: six manifestations of the same architectural feature"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic unified escape: meets all of them with one structural feature"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic unified escape: Part III's unifying formulation"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic unified escape: by this single move"
+    },
+    {
+      "ok": true,
+      "predicate": "Methodology substantive comparison retains distinct Bell and completion premises"
+    },
+    {
+      "ok": true,
+      "predicate": "FR scope requires the actual protocol rather than partition multiplicity"
+    },
+    {
+      "ok": true,
+      "predicate": "Main keeps the joint law and scopes FR application separately"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: papers/Methodology.md: The framework therefore dissolves the Frauchiger"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: papers/Methodology.md: Resolves several no-go theorems including Frauch"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: papers/Methodology.md: the universal description the theorem needs as i"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: papers/Methodology.md: the substratum-emergent distinction dissolves se"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: papers/Main.md: The framework therefore dissolves the Frauchiger"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: papers/Main.md: Resolves several no-go theorems including Frauch"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: papers/Main.md: the universal description the theorem needs as i"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: papers/Main.md: the substratum-emergent distinction dissolves se"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: book/appendix-c-objections.md: The framework therefore dissolves the Frauchiger"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: book/appendix-c-objections.md: Resolves several no-go theorems including Frauch"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: book/appendix-c-objections.md: the universal description the theorem needs as i"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: book/appendix-c-objections.md: the substratum-emergent distinction dissolves se"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: book/glossary.md: The framework therefore dissolves the Frauchiger"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: book/glossary.md: Resolves several no-go theorems including Frauch"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: book/glossary.md: the universal description the theorem needs as i"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: book/glossary.md: the substratum-emergent distinction dissolves se"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: book/ch04-methodology.md: The framework therefore dissolves the Frauchiger"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: book/ch04-methodology.md: Resolves several no-go theorems including Frauch"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: book/ch04-methodology.md: the universal description the theorem needs as i"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: book/ch04-methodology.md: the substratum-emergent distinction dissolves se"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: book/ch12-evolution-intelligence.md: The framework therefore dissolves the Frauchiger"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: book/ch12-evolution-intelligence.md: Resolves several no-go theorems including Frauch"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: book/ch12-evolution-intelligence.md: the universal description the theorem needs as i"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: book/ch12-evolution-intelligence.md: the substratum-emergent distinction dissolves se"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: book/The-Incompleteness-of-Observation-FULL.md: The framework therefore dissolves the Frauchiger"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: book/The-Incompleteness-of-Observation-FULL.md: Resolves several no-go theorems including Frauch"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: book/The-Incompleteness-of-Observation-FULL.md: the universal description the theorem needs as i"
+    },
+    {
+      "ok": true,
+      "predicate": "no automatic FR/property-placement resolution: book/The-Incompleteness-of-Observation-FULL.md: the substratum-emergent distinction dissolves se"
+    }
+  ],
+  "failed_predicates": [],
+  "intended_counts": {
+    "book/The-Incompleteness-of-Observation-FULL.md": 17,
+    "book/appendix-b-derivations.md": 0,
+    "book/appendix-c-objections.md": 0,
+    "book/ch00-introduction.md": 1,
+    "book/ch01-observation.md": 3,
+    "book/ch02-substratum.md": 2,
+    "book/ch03-structural-realism.md": 2,
+    "book/ch04-methodology.md": 1,
+    "book/ch09-universality.md": 1,
+    "book/ch14-quantum-computing.md": 1,
+    "book/ch18-beyond.md": 0,
+    "book/ch19-open-problems.md": 3,
+    "book/glossary.md": 2,
+    "book/preface.md": 1,
+    "book/readers-guide.md": 0,
+    "papers/Explainer.md": 8,
+    "papers/GR.md": 3,
+    "papers/Main.md": 17,
+    "papers/Methodology.md": 3,
+    "papers/SM.md": 0,
+    "papers/Structure.md": 1,
+    "papers/Substratum.md": 2
+  },
+  "kinematics_counts": {
+    "book/The-Incompleteness-of-Observation-FULL.md": 17,
+    "book/appendix-b-derivations.md": 0,
+    "book/appendix-c-objections.md": 0,
+    "book/ch00-introduction.md": 1,
+    "book/ch01-observation.md": 3,
+    "book/ch02-substratum.md": 2,
+    "book/ch03-structural-realism.md": 2,
+    "book/ch04-methodology.md": 1,
+    "book/ch09-universality.md": 1,
+    "book/ch14-quantum-computing.md": 1,
+    "book/ch18-beyond.md": 0,
+    "book/ch19-open-problems.md": 3,
+    "book/glossary.md": 2,
+    "book/preface.md": 1,
+    "book/readers-guide.md": 0,
+    "papers/Explainer.md": 8,
+    "papers/GR.md": 3,
+    "papers/Main.md": 17,
+    "papers/Methodology.md": 3,
+    "papers/SM.md": 0,
+    "papers/Structure.md": 1,
+    "papers/Substratum.md": 2
+  },
+  "mode": "source",
+  "schema": "sc42-integration-result-v1",
+  "site_table_sha256": "bb4c45465eb42efadf05ea7fbc2437417b2cec8d5d2bad5a71e19d6a638806f6",
+  "verdict": "PASS"
+}

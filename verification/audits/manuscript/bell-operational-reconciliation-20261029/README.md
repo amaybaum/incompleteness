@@ -1,103 +1,103 @@
-# Integration-review correction checkpoint
+# Bell and operational-completion integration
 
-Current source work answers review #1000 comment 6497997935, forward from
-`4b49669a06cb010dc60b541632d9a1edf1aed09b`. It narrows the complete no-go
-summary chain in Methodology and the book, supplies a concrete §15 comparison
-using the Bell ceiling and operational-completion theorem, distinguishes required
-from achieved physical no-signaling, and restores the entanglement mechanism
-proposal hedge. No unsupported prior-design chronology is asserted.
+Base: `ca3a5bb25ec6fdff3d3ccffcacd2d7bac3bb4caf`. The guiding draft is #1000.
+The correction combines SC-33 #968, SC-39 #977, SC-42 #976 and SC-17 #963's
+Bell clauses; their original branches and evidence remain unchanged. Source
+checkpoint `efafee4fa677e424175faa10e6aeb5df61791f36` began the forward response
+to [integration review 6497997935](https://github.com/amaybaum/incompleteness/pull/1000#issuecomment-6497997935).
 
-**WIP / UNVERIFIED:** generated publications are stale at this source checkpoint.
-A successor SC-42 integration checker, annotated site table, must-fail controls
-and ordinary core-B CI replay are in progress. Historical SC39/SC42 scripts and
-results remain unchanged. This checkpoint does not inherit source acceptance
-from the earlier candidate; independent review and fresh final-head CI remain.
-The Main summary stays SUM; its new fingerprint is `d523a2d67d4e4451`.
-No change to #918, #998, another writer's branch or any proof grade is authorized.
+**Current checkpoint: WIP / UNVERIFIED publication artifacts.** The source and
+successor checks below are complete, but generated TeX/PDF artifacts are stale
+until the canonical rebuild. Independent exact-final-head review and ordinary CI
+remain separate. Earlier source acceptance and green CI at `4b49669a` apply only
+to that earlier tree, not to this amended source.
 
-The following record describes the earlier author candidate and remains
-provenance; its checker failures are not claimed resolved by the source edits.
+## Review dispositions
 
-***
+| Finding | Source disposition |
+|---|---|
+| 1 — complete Methodology argument | Abstract, overview, Part III, §15, later comparison and conclusions state distinct substantive premises; no shared automatic escape is asserted. All further same-claim summary hits were propagated. |
+| 2 — book summaries | Chapters 2, 4, 12 and 19, book index and FULL use separate premise checks. Chapter 19 distinguishes the observer-relative account from a resolution of every measurement protocol. |
+| 3 — live SC-42 verification | `check_sc42_integration.py`, the annotated static site table and deterministic results are forward successors. Historical scripts/results remain unchanged. |
+| 4 — substantive §15 rationale | The actual deterministic Bell ceiling and matrix-setting operational-completion theorem show why a common fixed-basis representation leaves distinct operational premises. No unsupported design chronology is claimed. |
+| 5 — no-signaling scope | Adopted physical-branch summaries require no-signaling. Main distinguishes an explicitly realized no-signaling target law (PR) from the open H-Bell physical realization. Conditional H-Bell statements retain both no-signaling and continuum-curvature requirements. |
+| 6 — entanglement hedge | Chapter 3 retains “in the framework's mechanism proposal”; the fixed Bell ceiling is kept separate. |
+| 7 — edited-paper register | Process commentary is replaced by mathematical content; the edited Explainer emphasis is lowercase. |
+| Direct FR/PBR summary follow-up | Main retains the same joint law and marginals. Methodology, Chapter 4, Appendix C and glossary require the actual operational protocol and certainty/consistency/single-outcome premises, rather than inferring an FR escape from multiple partitions or epistemic states. Appendix C's PBR, Colbeck-Renner and extended-Wigner-friend summaries retain their own premises. |
 
-# Bell and operational-completion source reconciliation
+The FR scope correction was checked against the primary article's Introduction,
+which distinguishes ordinary differences in observer knowledge from the protocol's
+(Q), (C), (S) contradiction: Frauchiger and Renner, Nature Communications 9, 3711
+(2018), [doi:10.1038/s41467-018-05739-8](https://doi.org/10.1038/s41467-018-05739-8).
+This is a scope correction, not a new derivation or resolution of that theorem.
 
-Base: main `ca3a5bb25ec6fdff3d3ccffcacd2d7bac3bb4caf`.
+## Scientific invariants
 
-This successor combines SC-33 (#968, `387dcfb905467475c1dd1037d70b36a360160704`),
-SC-39 (#977, `0e235c3c9d25c46f927c37f954ef269848406a83`), SC-42 (#976,
-`756073ac30a9e051b437ab8ffcbabdd1dc8b0568`) and the Bell clauses of SC-17
-(#963, `e316cf92600defc02bb4a5b186f95c191c973332`). Original branches and
-audit evidence are preserved. Retained original track records describe their
-historical inputs, counts and line positions; they do not certify this successor.
+The GR setting still matches every field of `FiniteOperationalTheory`, including
+the assumed complex matrices and tensor composite, ancilla-level validity,
+single-outcome preparation closure and branchwise spectator-independent Lüders
+readout. Both characterization directions and the per-principle converse
+hypotheses remain. The card boundary still covers every post-deal operation,
+scheduling and readout, chance jointly independent of settings with the deal,
+and an outcome every run with none discarded.
 
-Bell ceilings retain their own-wing interventions, readout separation, setting
-independence and an outcome in every run. The adopted branch is ontic parameter
-dependence with measurement independence. Preparation-indexed adjacency remains
-proposed under H-Bell, including no-signaling and the continuum-curvature limit.
-The card boundary covers all post-deal operations, rule-prescribed shuffles,
-scheduling, readout, chance jointly independent of settings with the deal, and
-no postselection. The general argument is a written reduction; the retained
-25 exact finite controls are a finite instance, not a Lean certificate.
+No Lean source or proof grade changes. `MAIN:T-statement` remains SUM with its
+existing mapping and empty delta; its required-no-signaling wording changes the
+fingerprint from `e70a32287a2f57e0` to `d523a2d67d4e4451`. The earlier
+`70572f0b3e1aa833` fingerprint belongs to the pre-integration source. Main's exact
+joint-law formula and the two observer marginals are unchanged. Regress/gauge
+classification prose, #998 and #918 are outside this branch's writing scope.
+SC-17's dynamics/chirality/Higgs clauses remain with the SM workstream.
 
-Operational completion characterizes available instruments within complex matrix
-kinematics and the tensor composite taken as given. The derivation of that
-kinematics is open. Validity is at every ancilla level; preparation post-composition
-is single-outcome; the branchwise readout is spectator-independent Lüders readout.
-Per-principle converses retain their kernel hypotheses. Main's shared summary
-combines both corrections; `MAIN:T-statement` stays SUM with empty delta, its
-fingerprint changing from `70572f0b3e1aa833` to `e70a32287a2f57e0`.
-No Lean source or proof grade changes. Current main's gauge/commutant recoveries
-are preserved. Chapter 3 regress/gauge prose belongs to #998; SC-17's dynamics,
-chirality and Higgs corrections belong to the SM reconciliation, not this PR.
+## Successor checker and controls
 
-Introduction #918 remains unchanged at `fde5cbbe2ec21a1b66ccce3465dafbd5e0194f59`.
-Its card sentence (line 200) needs the full SC-39 boundary. Its §3.2 setting,
-validity and independence gloss need SC-42's explicit complex-matrix/tensor
-premise, ancilla validity, single-outcome preparation closure, branchwise readout
-and remaining kinematics question. Its scoped Bell theorem and H-Bell discussion
-in §3.5 already carry their essential hypotheses.
+The successor retains the historical field checks, unchanged theorem comparison,
+stale-scope exclusions, directional witnesses, per-principle hypothesis checks,
+source pins and mirror predicates. It adds explicit current paragraph anchors,
+required-no-signaling and non-automatic FR guards, and checks all changed book
+sources against FULL. The baseline-zero kinematics guard remains at pinned main.
 
-## Reconciliation propagation and validation
+`sc42-intended-sites.json` is a static intended table with **68** mentions and an
+explicit role for every paragraph. Methodology has **3**: the original SC-42
+three-status overview, the earlier integration's scoped §15 conclusion and the
+new substantive Bell/completion comparison. The other per-file counts retain the
+original table. Counts are never inferred as the expected values at test time.
 
-The companion-paper sweep also scopes the same Bell ceiling in Methodology
-§§13–14 and Substratum §6.3. The H-Bell summaries in Explainer §3.2,
-Structure's reconstruction summary and Substratum's reconstruction discussion
-retain both no-signaling and continuum-curvature obligations. Methodology's Part III overview, introduction, argument and final summary
-organize separate premise checks rather than asserting a common automatic escape.
-The Chapter 3
-entanglement clause combines SC-17 with SC-42 in a complete sentence; its FULL
-mirror agrees. Introduced CHSH subscripts use equivalent `\mathrm{CHSH}` notation.
+The paper register/capitals/history scan follows AGENTS §§A.32–A.33 and applies
+to `papers/`; security-pattern checks still cover added text. Scientific acronyms
+such as CHSH are allowed. Retained historical code comments are not paper prose.
+The historical checker remains unchanged at blob `fe433673a6c007b9436a0796d496c7f34c893362`;
+its earlier failures remain in `validation.json` as a historical result, not a
+current passing result.
 
-The canonical `sh ./build.sh` builds succeeded for Main (97 pages), GR (88),
-Methodology (54), Structure (99), Substratum (55), Explainer (71) and FULL (559),
-with no dropped glyphs. Source stamps match all 13 publications. The small
-`validation.json` retains the commands, exit statuses and baseline/final layout
-counts. Coverage (133 canonical statements), voice, all-chapter mirrors,
-Lean/manuscript census, citations and architecture checks pass. Only the existing
-Main summary fingerprint changes; no proof grade or Lean source changes.
+The successor passes **404 predicates**. Its bounded control suite contains one
+unmodified positive source and **8 must-fail variants**: remove single-outcome
+preparation closure, move validity to the system alone, derive rather than assume
+kinematics, break the glossary/FULL mirror, add an unlisted kinematics occurrence,
+insert paper caps emphasis, assert achieved rather than required no-signaling,
+and restore a partition-only FR escape. Each negative control must exit 1 and
+fail its named scientific or register predicate. Normal and optimized runs agree
+byte for byte for both source and controls. Result files include the checker and
+site-table hashes and deterministic predicate records.
 
-The retained card checker passes all 25 exact controls and its PIN check, and
-replays the original expected output byte for byte. The unchanged historical
-SC-42 checker, run with the pinned main base, succeeds on its field/kernel,
-source-scope, pinned-text and mirror predicates, but its complete exit status
-is **FAIL**: its historical exact site-count fixture predates the additional
-scoped Methodology summary, and its generic added-text capitals scan flags
-uppercase tokens in the retained original card-checker comments. The computed
-failed predicates are retained directly in `validation.json`. Those historical source
-files remain byte-identical. This is recorded as a cosmetic checker limitation;
-it is not suppressed, repaired by changing evidence, or called a complete pass.
-Its original-setting negative control fails as required. A baseline already
-containing SC-42 is inappropriate for its zero-kinematics-at-base fixture.
-Ordinary manuscript voice/whitespace checks and direct mirror checks pass.
+From the repository root:
 
-Representative changed pages were rendered and inspected: Main 21 and 79,
-GR 22–23, Methodology 29 and 34, Structure 4, Substratum 45, Explainer 16, FULL 60
-and 100. The changed prose is readable and the page counts and median density
-remain comparable to baseline. Existing long Lean identifiers in GR overflow
-the margins; full-document layout repair is not claimed by this correction.
+```sh
+python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py
+python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py --self-test
+```
 
-This remains an author-validated draft, not independent scientific ACCEPT.
-Exact-final-head CI and independent scientific/editorial review remain required.
-No merge, release, special launch, designation or correction-unit closure is
-authorized. Introduction and the regress branch remain unchanged.
+Outputs replay `sc42-integration-result.json` and `sc42-integration-controls.json`.
+The existing ordinary core-B job fetches the single pinned baseline tree, compares
+normal/optimized source and control outputs and replays both retained results.
+Its event modes are unchanged; this adds no special launch or native attestation.
+
+## Landing limits
+
+Canonical rebuilds and selected rendered-page checks are required on the completed
+candidate, followed by independent scientific/editorial review and fresh ordinary
+CI on that exact head. No merge, release, correction-unit closure, branch rewrite,
+workflow dispatch or F/E designation is authorized. Introduction #918 stays
+read-only; its card sentence and operational setting still need final reconciliation
+with the accepted sources. Native instrument construction and physical H-Bell
+remain open.
