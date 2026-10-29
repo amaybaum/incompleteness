@@ -241,7 +241,7 @@
             "papers/Explainer.md": 1,
             "papers/SM.md": 1
           },
-          "why": "the inventory now carries Theorem 22's status: C1 structural, C3 floor, C2 and C4 hypotheses. Explainer §2's summary of the minimal structure states the same status, replacing a claim that any small subgraph satisfies the emergent-QM conditions."
+          "why": "the inventory now carries Theorem 22's status: C1 structural, C3 floor, C2 and C4 hypotheses. The Explainer's summary of the minimal structure states the same status, replacing a claim that any small subgraph satisfies the emergent-QM conditions."
         },
         {
           "id": "B4-forbidden-automatic",
