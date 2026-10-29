@@ -107,7 +107,3 @@ K-1 step_b reproduces lyapunov_v3.step and mixing_battery 1D step exactly: True
   [PASS] K3 census complete and cross-checked
 
 ALL CONTROLS GREEN
-
-real	1m43.540s
-user	0m58.004s
-sys	0m43.868s

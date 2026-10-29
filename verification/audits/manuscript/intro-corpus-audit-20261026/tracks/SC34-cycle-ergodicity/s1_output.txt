@@ -95,7 +95,3 @@
   VERDICT (controls green): 3 of 3 energy shells split into more than one cycle; no shell is a single cycle: True
 
 ALL CONTROLS GREEN
-
-real	9m36.354s
-user	8m1.395s
-sys	1m26.483s

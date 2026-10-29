@@ -158,7 +158,3 @@ T3  3D cubic torus L=3, p=2, alpha=1 (=1/3 mod p): |S| = 2^54;  bound 30, F^boun
 [PASS] T3 bound holds 3D L=3 p=2
 [PASS] T3 witness found p=2
 ALL CONTROLS GREEN
-
-real	1m15.729s
-user	0m52.894s
-sys	0m22.086s

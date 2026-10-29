@@ -172,7 +172,7 @@ The proof uses almost nothing — just that the dynamics is a bijection on a fin
 
 ## The Accessible-Timescale Lemma (§2.3 continued)
 
-The recurrence proof shows P-indivisibility exists as a mathematical property. But the recurrence time can be absurdly long. It is the order of the bijection. On $n$ configurations, a bijection has order at most Landau's function $g(n)$, the largest order of any permutation of $n$ points, with $\ln g(n) \approx \sqrt{n \ln n}$, and every such order divides $\mathrm{lcm}(1, \ldots, n) \approx e^n$; only an exactly linear update rule is held below $n$. The number of configurations is not fixed by visible data, so the framework bounds the recurrence time but does not compute it. A recurrence on a timescale of astronomical size will never be observed.
+The recurrence proof shows P-indivisibility exists as a mathematical property. But the recurrence time can be absurdly long. It is the order of the bijection. On $n$ configurations, a bijection has order at most Landau's function $g(n)$, the largest order of any permutation of $n$ points, with $\ln g(n) \approx \sqrt{n \ln n}$, and every such order divides $\mathrm{lcm}(1, \ldots, n) \approx e^n$; an exactly linear rule has order below $n$. The number of configurations is not fixed by visible data, so the framework bounds the recurrence time but does not compute it. A recurrence on a timescale of astronomical size will never be observed.
 
 The accessible-timescale lemma shows that conditional memory is present on *laboratory timescales*, independently of recurrence. A revival of distinguishability on those timescales — information backflow — is a further property that readback alone does not supply.
 
